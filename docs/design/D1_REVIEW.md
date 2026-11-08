@@ -1,60 +1,39 @@
 # D1 · Revisión de diseño base (landing + panel)
 
-> **Propósito:** presentar al fundador los prototipos del diseño base para elegir una dirección antes de implementar (pre-MVP y prompt 00).
-> **Estado:** ⏳ pendiente de aprobación · **Fecha:** 2026-11-08
-> **Prototipos:** `design/d1/` (HTML estático con los tokens oficiales; abrir con un servidor local desde la raíz del repo: `python -m http.server 4173` → `http://localhost:4173/design/d1/landing.html`)
+> **Propósito:** prototipos del diseño base para aprobación del fundador antes de implementar (pre-MVP y prompt 00).
+> **Estado:** iteración 2 · ⏳ pendiente de aprobación final · **Fecha:** 2026-11-08
+> **Prototipos:** `design/d1/landing.html` y `design/d1/panel.html`. Abrir con un servidor desde la raíz del repo: `python -m http.server 4173` → `http://localhost:4173/design/d1/landing.html`.
 
-## 1. Lectura del producto
+## 1. Decisiones del fundador (iteración 2)
 
-Laboratorio de investigación deportiva para fans analíticos en México. Lenguaje preciso y oscuro (marca GPT: Tinta, Pizarra, Pulso), con una densidad media-alta de datos. Toma como referencia la consistencia de las herramientas de análisis y no la estética de casa de apuestas.
-
-## 2. Qué incluye
-
-| Archivo | Qué muestra |
+| Pedido | Resolución |
 |---|---|
-| `landing.html` | Hero con un análisis real en contexto (datos de ejemplo etiquetados), ligas de la beta con estado, metodología («qué ves en cada análisis» y la fórmula del modelo de referencia), «lo que no vas a encontrar», cierre y footer con las 7 redes, avisos y atribución |
-| `panel-a.html` | **Propuesta A (recomendada):** sidebar deporte → liga, lista densa de partidos por día y el análisis fijo a la derecha |
-| `panel-b.html` | **Propuesta B:** partidos como tarjetas en cuadrícula y el análisis en un panel lateral que se abre encima |
+| Panel con tarjetas (propuesta B) | ✅ Adoptado. Se eliminó la propuesta A. |
+| Al hacer clic, animación de recopilar datos y calcular | ✅ Traza de cálculo **con los valores reales de cada paso** (fuente y hora, tasas de ataque y defensa, regresión, goles o puntos esperados, distribución y mercados), con barra de progreso y esqueleto de la tabla. Dura ~1.5 s la primera vez y ~0.5 s si ya se calculó en la sesión. Se puede saltar («Saltar») y se omite con `prefers-reduced-motion` o en partidos finalizados. |
+| Modal de ventana en lugar del panel lateral | ✅ `<dialog>` nativo centrado (máximo 960 px). Entra con fade y escala. Cierra con ×, clic fuera o Escape, y el foco vuelve a la tarjeta. En móvil ocupa la pantalla completa. |
+| Versión oscura y clara | ✅ Botón de tema en el header. Respeta la preferencia del sistema y la recuerda. El oscuro usa los tokens oficiales. El claro es una **propuesta derivada de la marca** (Iris + Tinta sobre Blanco y Hielo). Contraste verificado: texto 18.9 / 9.5 / 5.9:1, Iris 7.5:1, contornos 3.6:1. |
+| Mejores animaciones en toda la página | ✅ Entrada escalonada del hero, trayectoria «Campo de corte» que se dibuja, Radar flotando, tarjetas que aparecen al hacer scroll, barras que crecen y porcentajes que cuentan, hover con elevación y flechas que avanzan, pulso en los indicadores de frescura. Todo se apaga con movimiento reducido. |
+| Mejor landing y menos texto | ✅ Rehecha: hero con una línea de propuesta, «Escoge tu liga» con la mascota de cada liga, demo interactiva «Así se lee un partido», 4 «Reglas de la casa» de una línea cada una y un cierre corto. Se quitaron los párrafos explicativos. |
+| Mascota donde haga falta | ✅ Radar (`pitchlab-brand/mascot/web/`): con tableta en el hero, en la traza de cálculo y en los estados vacíos; con el uniforme de cada liga en las tarjetas de liga y en el encabezado del panel; con la edición de fútbol en el cierre. |
 
-Las dos propuestas del panel comparten:
+Además se integraron los **emblemas de NFL** que entregó GPT (`pitchlab-brand/american-football/nfl-2026/`). Ya no hace falta el fallback para NFL.
 
-- El análisis con proyección, la tabla de mercados (probabilidad, barra y cuota justa) y la comparación con la cuota del usuario (implícita y diferencia en puntos, «no se guarda»).
-- Los factores del modelo, la etiqueta «Modelo de referencia · en validación», la frescura con su fuente y los partidos finalizados con su análisis previo sin cambios.
-- Los emblemas propios (Liga MX y Premier League) y el fallback para NFL.
+## 2. Verificación hecha
 
-## 3. Propuestas del panel
+- **Landing:** 1440 px y 390 px, en tema oscuro y claro. Sin scroll horizontal ni errores de consola.
+- **Panel:** cambio de liga, filtro por día, clic → traza → análisis, filas de mercado y comparación con cuota (`+120` → implícita y diferencia), cierre con Escape y devolución del foco. Probado en 1440 px oscuro y claro y en 390 px.
+- **Ajustes hechos tras revisar:** espaciado de los pasos, foco al abrir el modal (va a la ventana, no al botón ×), la tabla ya no se estira en el modal, la barra 1X2 se ajusta en móvil y el CTA del header móvil tiene nombre accesible.
+- **No verificado:** axe y Lighthouse automatizados, lector de pantalla real y Safari iOS. Quedan para la implementación (`QUALITY_GATES.md`).
 
-| | A · Lista + análisis lado a lado | B · Tarjetas + panel lateral |
-|---|---|---|
-| Idea | Estación de trabajo: se recorren los partidos sin perder el análisis | Vitrina: los partidos son el protagonista y el análisis se consulta bajo demanda |
-| Beneficio | Comparar partidos es inmediato. Cabe más información (3 resultados, proyección). Escala a Game Center, cuotas y props sin cambiar de modelo mental. | Más visual y familiar en la primera visita. Encaja con una audiencia casual. |
-| Costo | Más denso en la primera impresión | Cada análisis cubre la lista. Comparar requiere abrir y cerrar. Escala peor a vistas de investigación. |
-| Móvil | Lista y hoja de análisis a pantalla completa (igual en ambas) | Igual |
-| Recomendación | ✅ Recomendada: coincide con la propuesta de valor (investigar, comparar) y con la arquitectura (Game Center) | Alternativa válida para un público más casual |
+## 3. Contrato de diseño propuesto (a promover a `DESIGN_SYSTEM.md` al aprobar)
 
-## 4. Verificación hecha
+- **Temas:** oscuro por defecto según la marca; claro opcional. Todos los colores salen de tokens (se agregan `--on-primary` y `--glow` como tokens derivados).
+- **Movimiento:** entradas de 520 ms con desplazamiento de 12 px y escalonado de 60–90 ms, modal de 240 ms, hover de 120 ms, todo con `--ease-out`. Barras de 700 ms y conteos de 650 ms. Traza de cálculo de 230 ms por paso (70 ms al repetir).
+- **Mascota:** Radar con tableta para estados de sistema (calculando, vacío); edición de la liga en contextos de liga; tamaño de 160–520 px; siempre decorativa (`alt=""`) y nunca tapando datos.
+- **Anti-defaults:** sin «LIVE» ni «tiempo real» sobre datos estáticos, sin «pick del día», montos ni porcentaje del bank, sin gradientes decorativos (el único brillo es el halo detrás de Radar, por legibilidad sobre fondo oscuro).
 
-- Navegación completa: liga → filtro por día → partido → análisis → comparación con cuota, con el estado en la URL (`#liga/partido`).
-- Breakpoints: 390, 1024, 1280 y 1440 px. Sin scroll horizontal (`scrollWidth = innerWidth`). En la propuesta A, el análisis queda al lado desde 1200 px y como hoja deslizable por debajo.
-- Teclado: filas de mercado operables con Enter o Espacio. El panel o la hoja se cierra con Escape y devuelve el foco al disparador. Foco visible con el anillo Pulso.
-- Sin errores de consola.
-- **No verificado:** axe y Lighthouse automatizados (se ejecutan en la implementación, `QUALITY_GATES.md`), ni lector de pantalla real.
+## 4. Pendiente tras la aprobación
 
-## 5. Decisiones de diseño (contrato propuesto)
-
-- **Colores:** solo los tokens de marca. Pulso solo en el CTA primario, el foco y la selección. Series: modelo en Índigo claro y visitante en Eco. El empate va en gris (Arista firme).
-- **Tipografía:** Inter, con la escala de la marca. Números tabulares en todas las cifras. Horas en formato de 24 h (es-MX).
-- **Densidad:** filas de 44 px. Barras de probabilidad de 8 px. Mini barra 1X2 de 6 px en la lista.
-- **Superficies:** Tinta de fondo, Órbita en la navegación, Pizarra en los paneles y Umbral más sombra solo en overlays.
-- **Movimiento:** solo el panel o la hoja (240 ms con la curva de marca). Nada decorativo. Se respeta el movimiento reducido.
-- **Anti-defaults** (evitados a propósito):
-  - Sin robots, mascotas ni «analizando en tiempo real».
-  - Sin «pick del día», parlays, montos ni porcentaje del bank.
-  - Sin gradientes decorativos, hero vacío ni tarjetas de features en 3 columnas.
-  - Sin marquee promocional.
-
-## 6. Pendiente tras la aprobación
-
-1. Promover el contrato elegido a `docs/design/DESIGN_SYSTEM.md`, `INTERACTION_PATTERNS.md` y `RESPONSIVE_RULES.md`.
-2. Implementar en el pre-MVP (`docs/product/PRE_MVP.md` §9, paso 6) con componentes y stories reales.
-3. Datos reales en lugar de los de ejemplo (`proto.js` está marcado como datos de ejemplo de principio a fin).
+1. Promover el contrato a `docs/design/DESIGN_SYSTEM.md`, `INTERACTION_PATTERNS.md` y `RESPONSIVE_RULES.md`.
+2. Validar con la marca la paleta del tema claro y los tokens nuevos (`--on-primary`, `--glow`).
+3. Implementar en el pre-MVP (`PRE_MVP.md` §9, paso 6) con datos reales.

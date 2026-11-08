@@ -12,7 +12,7 @@
 - **F3 (arquitectura y ADRs):** ✅ completa: 18 ADRs y 8 documentos de arquitectura, con revisión cruzada.
 - **F3b (preparación de ejecución):** ✅ completa: frontend, contratos, ownership, integración, plan multiagente, quality gates y plantilla de prompts.
 - **Pre-MVP para socios:** planificado en `docs/product/PRE_MVP.md`. Se ejecuta cuando lo indique el fundador, en paralelo al plan robusto.
-- **D1 diseño base:** prototipos en `design/d1/` (landing, panel A y panel B). ⏳ Esperando la elección del fundador (`docs/design/D1_REVIEW.md`).
+- **D1 diseño base (iteración 2):** `design/d1/landing.html` y `design/d1/panel.html`. El fundador eligió las tarjetas, con modal centrado y traza de cálculo, temas oscuro y claro, más animaciones y la mascota Radar. ⏳ Pendiente de aprobación final (`docs/design/D1_REVIEW.md`).
 - **Siguiente:** aprobar D1 → contrato de diseño → pre-MVP o F4.
 
 No hay código de producto. El repo todavía contiene el clon de TouchIQ (Vite + `src/domain` con 24 tests dorados), que se archivará en F4.

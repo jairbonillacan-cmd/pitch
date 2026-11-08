@@ -5,96 +5,113 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>PitchLab · Lee el juego con datos</title>
 <meta name="robots" content="noindex">
+<script>(function(){var t;try{t=localStorage.getItem("pl-theme")}catch(e){}document.documentElement.dataset.theme=t||(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark")})();</script>
 <link rel="icon" href="../../pitchlab-brand/app-icons/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..800&display=swap">
 <link rel="stylesheet" href="../../pitchlab-brand/tokens/brand-tokens.css">
-<link rel="stylesheet" href="assets/proto.css?v=3">
+<link rel="stylesheet" href="assets/proto.css?v=7">
 <style>
   .wrap { max-width: var(--layout-content); margin: 0 auto; padding: 0 var(--space-8); }
   @media (max-width: 1199px) { .wrap { padding: 0 var(--space-6); } }
   @media (max-width: 767px) { .wrap { padding: 0 var(--space-4); } }
+  section[id] { scroll-margin-top: var(--layout-header); }
 
   /* Header */
-  .top { position: sticky; top: 0; z-index: 10; background: var(--background-secondary); border-bottom: var(--border-width) solid var(--border-default); }
-  .top .wrap { height: var(--layout-header); display: flex; align-items: center; gap: var(--space-6); }
+  .top { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--background-secondary) 88%, transparent); backdrop-filter: saturate(140%) blur(10px); border-bottom: var(--border-width) solid var(--border-default); }
+  .top .wrap { height: var(--layout-header); display: flex; align-items: center; gap: var(--space-2); }
   .logo img { height: 29px; width: auto; }
-  .logo .compact { display: none; }
-  .nav { display: flex; gap: var(--space-1); margin-left: auto; }
-  .nav a { text-decoration: none; color: var(--text-secondary); font-size: var(--type-small); font-weight: 500; padding: 0 var(--space-3); min-height: var(--layout-touch); display: inline-flex; align-items: center; border-radius: var(--radius-control); }
+  .nav { display: flex; gap: var(--space-1); margin-left: auto; margin-right: var(--space-2); }
+  .nav a { text-decoration: none; color: var(--text-secondary); font-size: var(--type-small); font-weight: 500; padding: 0 var(--space-3); min-height: var(--layout-touch); display: inline-flex; align-items: center; border-radius: var(--radius-control); transition: color var(--time-fast), background-color var(--time-fast); }
   .nav a:hover { color: var(--text-primary); background: var(--surface-hover); }
-  @media (max-width: 767px) {
-    .logo .full { display: none; } .logo .compact { display: block; height: 26px; }
-    .nav { display: none; }
-    .top .btn { margin-left: auto; }
-  }
+  @media (max-width: 767px) { .nav { display: none; } .top .theme-btn { margin-left: auto; } .top .cta-label { display: none; } }
 
   /* Hero */
-  .hero { position: relative; overflow: hidden; border-bottom: var(--border-width) solid var(--border-default); }
-  .hero .fieldgrid { position: absolute; inset: 0 0 0 52%; mask-image: linear-gradient(to left, #000 30%, transparent); -webkit-mask-image: linear-gradient(to left, #000 30%, transparent); pointer-events: none; }
-  .hero .wrap { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 560px); gap: var(--space-12); align-items: center; padding-top: var(--space-20); padding-bottom: var(--space-20); }
-  .hero p.lead { color: var(--text-secondary); font-size: 1.125rem; line-height: 1.75rem; max-width: 34rem; margin: var(--space-6) 0 var(--space-8); }
-  .hero .ctas { display: flex; gap: var(--space-3); flex-wrap: wrap; }
-  .hero .meta { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-8); }
-  @media (max-width: 1023px) { .hero .wrap { grid-template-columns: 1fr; padding-top: var(--space-12); padding-bottom: var(--space-12); } .hero .fieldgrid { inset: 40% 0 0 0; } }
-
-  /* Tarjeta de análisis (producto real en contexto) */
-  .acard { padding: var(--space-6); box-shadow: var(--shadow-overlay); background: var(--surface-default); }
-  .acard .head { display: flex; justify-content: space-between; align-items: center; gap: var(--space-3); margin-bottom: var(--space-4); }
-  .match { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: var(--space-4); padding: var(--space-4) 0; border-top: var(--border-width) solid var(--border-default); border-bottom: var(--border-width) solid var(--border-default); }
-  .team { display: flex; align-items: center; gap: var(--space-3); min-width: 0; }
-  .team.away { flex-direction: row-reverse; text-align: right; }
-  .team .n { font-weight: 650; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .score { text-align: center; }
-  .score .numeric-hl { font-size: 1.75rem; line-height: 2rem; }
-  .acard .mtable { margin-top: var(--space-4); }
-  @media (max-width: 767px) { .acard { padding: var(--space-4); } .team, .team.away { flex-direction: column; text-align: center; gap: var(--space-2); } .team .n { white-space: normal; } }
-  .acard .foot { display: flex; justify-content: space-between; gap: var(--space-3); margin-top: var(--space-4); flex-wrap: wrap; }
+  .hero { position: relative; overflow: hidden; }
+  .hero .bg { position: absolute; inset: 0; pointer-events: none; mask-image: radial-gradient(70% 80% at 72% 45%, #000 35%, transparent 75%); -webkit-mask-image: radial-gradient(70% 80% at 72% 45%, #000 35%, transparent 75%); }
+  .hero .traj { position: absolute; right: 4%; top: 10%; width: 52%; height: 80%; color: var(--brand-primary); opacity: .55; }
+  .hero .traj path { stroke-dasharray: 1400; stroke-dashoffset: 1400; animation: draw 2.4s var(--ease-out) .3s forwards; }
+  .hero .wrap { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-8); align-items: center; min-height: calc(100vh - var(--layout-header)); max-height: 880px; padding-top: var(--space-12); padding-bottom: var(--space-12); }
+  .hero h1 { animation: rise 640ms var(--ease-out) both; }
+  .hero h1 .accent { color: var(--brand-primary); }
+  .hero .lead { color: var(--text-secondary); font-size: 1.125rem; line-height: 1.75rem; max-width: 30rem; margin: var(--space-5) 0 var(--space-8); animation: rise 640ms var(--ease-out) 90ms both; }
+  .hero .ctas { display: flex; gap: var(--space-3); flex-wrap: wrap; animation: rise 640ms var(--ease-out) 180ms both; }
+  .hero .week { display: flex; align-items: center; gap: var(--space-3); margin-top: var(--space-10); animation: rise 640ms var(--ease-out) 270ms both; }
+  .hero .week .stack { display: flex; }
+  .hero .week .stack .badge { margin-right: -6px; border-radius: 50%; background: var(--surface-default); padding: 3px; border: var(--border-width) solid var(--border-default); }
+  .stage { position: relative; height: min(620px, 72vh); }
+  .stage .mascot { position: absolute; right: 2%; bottom: 0; width: min(520px, 90%); animation: rise 800ms var(--ease-out) 120ms both; }
+  .stage .mascot img { animation: floaty 6s ease-in-out 1s infinite; filter: drop-shadow(0 24px 32px #0b102055); }
+  .float-card { position: absolute; left: 0; bottom: 8%; width: min(360px, 78%); padding: var(--space-4); box-shadow: var(--shadow-overlay); animation: rise 700ms var(--ease-out) 520ms both; }
+  .float-card .row { display: grid; grid-template-columns: 1fr 90px 64px; align-items: center; gap: var(--space-3); padding: 6px 0; font-size: var(--type-small); }
+  .float-card .row b { text-align: right; font-variant-numeric: tabular-nums; font-weight: 650; }
+  .float-chip { position: absolute; top: 10%; left: 12%; padding: var(--space-2) var(--space-3); display: flex; align-items: center; gap: var(--space-2); font-size: var(--type-small); box-shadow: var(--shadow-overlay); animation: rise 700ms var(--ease-out) 760ms both; }
+  .float-chip b { font-variant-numeric: tabular-nums; }
+  @media (max-width: 1023px) {
+    .hero .wrap { grid-template-columns: 1fr; min-height: 0; max-height: none; }
+    .stage { height: 440px; }
+    .hero .traj { width: 90%; right: 0; top: 40%; height: 55%; }
+  }
+  @media (max-width: 767px) { .stage { height: 380px; } .stage .mascot { width: 300px; right: -20px; } .float-card { width: 86%; } .float-chip { left: 0; top: 4%; } }
 
   /* Secciones */
-  section.block, .hero { scroll-margin-top: var(--layout-header); }
-  section.block { padding: var(--space-20) 0; border-bottom: var(--border-width) solid var(--border-default); }
-  @media (max-width: 767px) { section.block { padding: var(--space-12) 0; } }
-  .sec-head { display: grid; grid-template-columns: minmax(0, 420px) minmax(0, 1fr); gap: var(--space-12); align-items: end; margin-bottom: var(--space-10); }
-  .sec-head p { color: var(--text-secondary); margin: 0; max-width: 40rem; }
-  @media (max-width: 1023px) { .sec-head { grid-template-columns: 1fr; gap: var(--space-4); } }
+  .block { padding: var(--space-20) 0; }
+  @media (max-width: 767px) { .block { padding: var(--space-12) 0; } }
+  .head { display: flex; justify-content: space-between; align-items: end; gap: var(--space-6); margin-bottom: var(--space-8); flex-wrap: wrap; }
 
   /* Ligas */
-  .leagues { width: 100%; border-collapse: collapse; }
-  .leagues td { border-top: var(--border-width) solid var(--border-default); padding: var(--space-4) var(--space-3); vertical-align: middle; }
-  .leagues tr:last-child td { border-bottom: var(--border-width) solid var(--border-default); }
-  .leagues .lname { display: flex; align-items: center; gap: var(--space-3); font-weight: 650; }
-  .leagues .sport { color: var(--text-muted); font-size: var(--type-small); }
-  .leagues a.row-link { text-decoration: none; display: inline-flex; align-items: center; gap: 4px; color: var(--brand-primary); font-weight: 600; font-size: var(--type-small); min-height: var(--layout-touch); }
-  @media (max-width: 767px) { .leagues .hide-sm { display: none; } }
+  .leagues { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, .8fr); gap: var(--space-4); }
+  .ltile { position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; min-height: 300px; padding: var(--space-5); text-decoration: none; color: var(--text-primary); transition: border-color var(--time-base) var(--ease-out), transform var(--time-base) var(--ease-out); }
+  .ltile:hover { border-color: var(--border-strong); transform: translateY(-3px); }
+  .ltile .top-row { display: flex; align-items: center; gap: var(--space-3); position: relative; z-index: 1; }
+  .ltile .name { font-weight: 700; font-size: 1.25rem; letter-spacing: -0.015em; }
+  .ltile .meta { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); }
+  .ltile .meta .go { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: var(--surface-hover); transition: background-color var(--time-fast), color var(--time-fast); }
+  .ltile:hover .go { background: var(--brand-primary); color: var(--on-primary); }
+  .ltile .pic { position: absolute; right: -24px; bottom: -18px; width: 230px; transition: transform 420ms var(--ease-out); }
+  .ltile:hover .pic { transform: translateY(-10px) rotate(-2deg); }
+  .soon { display: grid; gap: var(--space-4); }
+  .soon .panel { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4); color: var(--text-secondary); }
+  .soon .panel .tag { margin-left: auto; }
+  @media (max-width: 1023px) { .leagues { grid-template-columns: 1fr 1fr; } .soon { grid-column: 1 / -1; grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 599px) { .leagues { grid-template-columns: 1fr; } .soon { grid-template-columns: 1fr; } .ltile { min-height: 220px; } .ltile .pic { width: 190px; } }
 
-  /* Anatomía de un análisis */
-  .anatomy { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-12); align-items: start; }
-  .anatomy dl { margin: 0; }
-  .anatomy dt { font-weight: 650; display: flex; align-items: center; gap: var(--space-2); }
-  .anatomy dd { margin: var(--space-1) 0 var(--space-6); color: var(--text-secondary); padding-left: 28px; }
-  .anatomy dt .icon { color: var(--chart-model); }
-  .formula { padding: var(--space-6); }
-  .formula ol { margin: var(--space-4) 0 0; padding: 0; list-style: none; counter-reset: s; }
-  .formula li { display: grid; grid-template-columns: 32px 1fr; gap: var(--space-3); padding: var(--space-3) 0; border-top: var(--border-width) solid var(--border-default); }
-  .formula li::before { counter-increment: s; content: counter(s); width: 24px; height: 24px; border-radius: 50%; border: var(--border-width) solid var(--border-strong); display: grid; place-items: center; font-size: var(--type-caption); color: var(--text-secondary); font-variant-numeric: tabular-nums; }
-  .formula li b { display: block; font-weight: 600; }
-  .formula li span { color: var(--text-muted); font-size: var(--type-small); }
-  @media (max-width: 1023px) { .anatomy { grid-template-columns: 1fr; } }
+  /* Demo */
+  .demo { display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: var(--space-8); align-items: start; }
+  .picks { display: grid; gap: var(--space-2); }
+  .pick { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3) var(--space-4); border-radius: var(--radius-panel); border: var(--border-width) solid var(--border-default); background: var(--surface-default); cursor: pointer; text-align: left; transition: border-color var(--time-fast), background-color var(--time-fast); }
+  .pick:hover { background: var(--surface-hover); }
+  .pick[aria-pressed="true"] { border-color: var(--brand-primary); background: var(--surface-active); }
+  .pick .vs { font-weight: 600; font-size: var(--type-small); }
+  .pick .lg { font-size: var(--type-caption); color: var(--text-muted); }
+  .dcard { padding: var(--space-6); min-height: 460px; position: relative; }
+  .dcard .notes { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-5); }
+  .calc-mini { display: grid; gap: var(--space-2); padding: var(--space-6) 0; }
+  .calc-mini li { list-style: none; display: flex; gap: var(--space-2); align-items: center; font-size: var(--type-small); color: var(--text-secondary); opacity: 0; animation: rise 300ms var(--ease-out) forwards; }
+  .calc-mini li .icon { color: var(--success); }
+  .dmatch { display: grid; grid-template-columns: 1fr auto 1fr; gap: var(--space-4); align-items: center; padding-bottom: var(--space-4); border-bottom: var(--border-width) solid var(--border-default); }
+  .dmatch .t { display: flex; align-items: center; gap: var(--space-3); font-weight: 650; min-width: 0; }
+  .dmatch .t.away { justify-content: flex-end; text-align: right; }
+  .dmatch .s { text-align: center; }
+  @media (max-width: 1023px) { .demo { grid-template-columns: 1fr; } .picks { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (max-width: 767px) { .picks { grid-template-columns: 1fr; } .dcard { padding: var(--space-4); } .dmatch .t { flex-direction: column; text-align: center; } .dmatch .t.away { flex-direction: column; justify-content: center; text-align: center; } }
 
-  /* Lo que no hacemos */
-  .nolist { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 var(--space-12); margin: 0; padding: 0; list-style: none; }
-  .nolist li { padding: var(--space-4) 0; border-top: var(--border-width) solid var(--border-default); display: grid; grid-template-columns: auto 1fr; gap: var(--space-3); }
-  .nolist li b { font-weight: 650; }
-  .nolist li p { margin: 2px 0 0; color: var(--text-secondary); font-size: var(--type-small); }
-  .nolist .x { color: var(--text-muted); margin-top: 2px; }
-  @media (max-width: 767px) { .nolist { grid-template-columns: 1fr; } }
+  /* Reglas */
+  .rules { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-6); list-style: none; padding: 0; margin: 0; }
+  .rules li { border-top: 2px solid var(--brand-primary); padding-top: var(--space-4); }
+  .rules b { display: block; font-size: 1.0625rem; margin-bottom: var(--space-1); }
+  .rules span { color: var(--text-secondary); font-size: var(--type-small); }
+  @media (max-width: 1023px) { .rules { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 599px) { .rules { grid-template-columns: 1fr; } }
 
   /* Cierre */
-  .closing { display: flex; justify-content: space-between; align-items: center; gap: var(--space-6); flex-wrap: wrap; }
+  .closing { position: relative; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1fr) 240px; align-items: center; gap: var(--space-6); padding: var(--space-10) var(--space-10) 0; }
+  .closing .copy { padding-bottom: var(--space-10); }
+  .closing .mascot { align-self: end; }
+  @media (max-width: 767px) { .closing { grid-template-columns: 1fr; padding: var(--space-6) var(--space-6) 0; } .closing .mascot { width: 200px; justify-self: end; } .closing .copy { padding-bottom: 0; } }
 
   /* Footer */
-  footer { padding: var(--space-12) 0 var(--space-16); background: var(--background-secondary); }
+  footer { padding: var(--space-12) 0 var(--space-16); border-top: var(--border-width) solid var(--border-default); margin-top: var(--space-20); }
   .fgrid { display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr)); gap: var(--space-8); }
   footer h3 { font-size: var(--type-caption); text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin: 0 0 var(--space-3); font-weight: 600; }
   footer ul { list-style: none; margin: 0; padding: 0; }
@@ -109,105 +126,77 @@
 
 <header class="top">
   <div class="wrap">
-    <a class="logo" href="landing.html" aria-label="PitchLab · Inicio">
-      <img class="full" src="../../pitchlab-brand/logos/pitchlab-horizontal-dark.svg" alt="" width="148" height="29">
-      <img class="compact" src="../../pitchlab-brand/logos/pitchlab-compact-dark.svg" alt="" width="124" height="29">
-    </a>
-    <nav class="nav" aria-label="Principal">
-      <a href="#ligas">Ligas</a>
-      <a href="#metodologia">Metodología</a>
-      <a href="#principios">Principios</a>
-    </nav>
-    <a class="btn btn-primary" href="panel-a.html">Abrir el panel</a>
+    <a class="logo" href="landing.html" aria-label="PitchLab · Inicio"><img data-logo="horizontal" src="../../pitchlab-brand/logos/pitchlab-horizontal-dark.svg" alt="" width="148" height="29"></a>
+    <nav class="nav" aria-label="Principal"><a href="#ligas">Ligas</a><a href="#como">Cómo funciona</a></nav>
+    <span data-theme-slot></span>
+    <a class="btn btn-primary" href="panel.html" aria-label="Ver partidos"><span class="cta-label" aria-hidden="true">Ver partidos</span><span data-icon="arrow"></span></a>
   </div>
 </header>
 
 <main id="main">
   <section class="hero">
-    <div class="fieldgrid" aria-hidden="true"></div>
+    <div class="bg fieldgrid" aria-hidden="true"></div>
+    <svg class="traj" viewBox="0 0 600 500" fill="none" aria-hidden="true"><path d="M20 470 C 160 420, 200 300, 300 260 S 470 210, 580 40" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="6 8"/></svg>
     <div class="wrap">
       <div>
-        <p class="eyebrow">Inteligencia deportiva · Hecho en México</p>
-        <h1 class="h-display">Lee el juego<br>con datos.</h1>
-        <p class="lead">Probabilidades por partido para NFL, Liga MX y Premier League. Cada cifra con su fuente, su fecha y el método que la produce.</p>
+        <h1 class="h-display">Lee el juego<br><span class="accent">con datos.</span></h1>
+        <p class="lead">Probabilidades para cada partido de NFL, Liga MX y Premier League. Con fuente, fecha y método.</p>
         <div class="ctas">
-          <a class="btn btn-primary" href="panel-a.html">Ver los partidos de la semana</a>
-          <a class="btn btn-secondary" href="#metodologia">Cómo calculamos</a>
+          <a class="btn btn-primary" href="panel.html">Ver los partidos <span data-icon="arrow"></span></a>
+          <a class="btn btn-ghost" href="#como">Cómo funciona</a>
         </div>
-        <div class="meta">
-          <span class="tag tag-ok"><span class="dot"></span>Beta abierta</span>
-          <span class="tag">Sin cuenta</span>
-          <span class="tag">Gratis durante la beta</span>
+        <div class="week">
+          <span class="stack" id="stack"></span>
+          <span class="small secondary"><b class="num" style="color:var(--text-primary)" id="nGames"></b> partidos analizados esta semana · <span class="muted">beta gratis</span></span>
         </div>
       </div>
-      <article class="panel acard" aria-labelledby="demo-title" id="demo-card"></article>
+      <div class="stage" aria-hidden="true">
+        <div class="mascot"><img src="../../pitchlab-brand/mascot/web/radar.webp" alt="" width="520" height="520"></div>
+        <div class="panel float-chip" id="chip"></div>
+        <div class="panel float-card" id="fcard"></div>
+      </div>
     </div>
   </section>
 
   <section class="block" id="ligas">
     <div class="wrap">
-      <div class="sec-head">
-        <h2 class="h1">Ligas en la beta</h2>
-        <p>Empezamos con lo que podemos actualizar todos los días con fuentes abiertas y verificables. Más deportes cuando los datos estén a la altura.</p>
-      </div>
-      <table class="leagues" id="league-table">
-        <caption class="sr-only">Ligas disponibles y su estado</caption>
-        <tbody></tbody>
-      </table>
+      <div class="head reveal"><h2 class="h1">Escoge tu liga</h2><span class="fresh"><span class="dot"></span>Actualizado 8 nov 2026, 07:40</span></div>
+      <div class="leagues" id="leagues"></div>
     </div>
   </section>
 
-  <section class="block" id="metodologia">
-    <div class="wrap anatomy">
-      <div>
-        <p class="eyebrow">Metodología</p>
-        <h2 class="h1" style="margin:var(--space-3) 0 var(--space-8)">Qué ves en cada análisis</h2>
-        <dl>
-          <dt><span class="icon-wrap" data-icon="probability"></span>Probabilidad por mercado</dt>
-          <dd>Resultado, doble oportunidad, goles o puntos totales y ambos anotan. Un número entre 0 y 100 %, no una corazonada.</dd>
-          <dt><span class="icon-wrap" data-icon="compare"></span>Cuota justa</dt>
-          <dd>El precio que corresponde a esa probabilidad (1 ÷ p). Escribe la cuota que ves en tu casa y te mostramos la diferencia como dato.</dd>
-          <dt><span class="icon-wrap" data-icon="sources"></span>Fuente y fecha</dt>
-          <dd>Cada bloque dice de dónde salen los datos y cuándo se actualizaron. Si un dato envejece, lo marcamos.</dd>
-          <dt><span class="icon-wrap" data-icon="model"></span>Estado del modelo</dt>
-          <dd>Hoy publicamos un <strong>modelo de referencia en validación</strong>. Guardamos cada análisis antes del partido para medir su calibración en público.</dd>
-        </dl>
-      </div>
-      <div class="panel formula">
-        <p class="eyebrow">Modelo de referencia · fútbol</p>
-        <ol>
-          <li><div><b>Ataque y defensa por equipo</b><span>Goles a favor y en contra por partido, con regresión al promedio de la liga.</span></div></li>
-          <li><div><b>Goles esperados</b><span>Ataque propio × defensa rival, ajustado por localía.</span></div></li>
-          <li><div><b>Distribución de marcadores</b><span>Poisson con corrección Dixon-Coles para marcadores bajos.</span></div></li>
-          <li><div><b>Mercados</b><span>Cada mercado suma los marcadores que lo cumplen.</span></div></li>
-        </ol>
-        <p class="small muted" style="margin:var(--space-4) 0 0">En NFL: puntos a favor y en contra, ventaja de local y curvas normales para margen y total.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="block" id="principios">
+  <section class="block" id="como">
     <div class="wrap">
-      <div class="sec-head">
-        <h2 class="h1">Lo que no vas a encontrar</h2>
-        <p>PitchLab es un laboratorio. No vende certezas ni opera apuestas.</p>
+      <div class="head reveal"><h2 class="h1">Así se lee un partido</h2><span class="tag tag-demo"><span class="dot"></span>Datos de ejemplo</span></div>
+      <div class="demo">
+        <div class="picks reveal" id="picks" role="group" aria-label="Partidos de ejemplo"></div>
+        <article class="panel dcard reveal" style="--d:120ms" id="dcard" aria-live="polite"></article>
       </div>
-      <ul class="nolist">
-        <li><span class="x" data-icon="close"></span><div><b>Picks «seguros»</b><p>Mostramos probabilidades e incertidumbre, nunca garantías.</p></div></li>
-        <li><span class="x" data-icon="close"></span><div><b>Montos sugeridos</b><p>No te decimos cuánto apostar ni administramos tu dinero.</p></div></li>
-        <li><span class="x" data-icon="close"></span><div><b>Datos sin fecha</b><p>Toda cifra lleva fuente y hora de actualización.</p></div></li>
-        <li><span class="x" data-icon="close"></span><div><b>Historial maquillado</b><p>Los análisis se guardan antes del partido y no se editan después.</p></div></li>
-      </ul>
     </div>
   </section>
 
   <section class="block">
-    <div class="wrap closing">
-      <div>
-        <h2 class="h2">Los partidos de esta semana ya están analizados.</h2>
-        <p class="secondary" style="margin:var(--space-2) 0 0">Elige un deporte, una liga y un partido.</p>
+    <div class="wrap">
+      <h2 class="h1 reveal" style="margin-bottom:var(--space-8)">Reglas de la casa</h2>
+      <ul class="rules">
+        <li class="reveal"><b>Sin picks «seguros»</b><span>Probabilidades, no promesas.</span></li>
+        <li class="reveal" style="--d:80ms"><b>Sin montos</b><span>No te decimos cuánto apostar.</span></li>
+        <li class="reveal" style="--d:160ms"><b>Todo con fecha</b><span>Cada cifra dice de dónde sale y cuándo.</span></li>
+        <li class="reveal" style="--d:240ms"><b>Sin borrar el pasado</b><span>Los análisis se guardan antes del partido.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="panel closing reveal">
+        <div class="copy">
+          <h2 class="h2">La jornada ya está calculada.</h2>
+          <p class="secondary" style="margin:var(--space-2) 0 var(--space-6)">Elige un partido y revisa los números.</p>
+          <a class="btn btn-primary" href="panel.html">Abrir el panel <span data-icon="arrow"></span></a>
+        </div>
+        <div class="mascot"><img src="../../pitchlab-brand/mascot/web/soccer.webp" alt="" width="240" height="240" loading="lazy"></div>
       </div>
-      <a class="btn btn-primary" href="panel-a.html">Abrir el panel</a>
     </div>
   </section>
 </main>
@@ -215,63 +204,67 @@
 <footer>
   <div class="wrap">
     <div class="fgrid">
-      <div>
-        <img src="../../pitchlab-brand/logos/pitchlab-horizontal-dark.svg" alt="PitchLab" width="148" height="29">
-        <p class="small secondary" style="margin:var(--space-4) 0 0;max-width:22rem">Lee el juego con datos.</p>
-      </div>
-      <div><h3>Producto</h3><ul><li><a href="panel-a.html">Panel</a></li><li><a href="#metodologia">Metodología</a></li><li><a href="#ligas">Ligas</a></li></ul></div>
+      <div><img data-logo="horizontal" src="../../pitchlab-brand/logos/pitchlab-horizontal-dark.svg" alt="PitchLab" width="148" height="29"><p class="small secondary" style="margin:var(--space-4) 0 0">Lee el juego con datos.</p></div>
+      <div><h3>Producto</h3><ul><li><a href="panel.html">Panel</a></li><li><a href="#como">Cómo funciona</a></li><li><a href="#ligas">Ligas</a></li></ul></div>
       <div><h3>Legal</h3><ul><li><a href="#">Aviso de privacidad</a></li><li><a href="#">Términos</a></li><li><a href="#">Juego responsable</a></li></ul></div>
       <div><h3>Redes</h3><ul id="socials"></ul></div>
     </div>
     <div class="legal">
-      <span>PitchLab no acepta apuestas ni administra fondos. Contenido para mayores de 18 años. Las probabilidades son estimaciones y no garantizan resultados.</span>
-      <span>Datos: NFL vía nflverse (CC-BY 4.0) · Premier League vía openfootball (dominio público) · Emblemas: ilustraciones editoriales de PitchLab.</span>
+      <span>PitchLab no acepta apuestas ni administra fondos. Solo mayores de 18 años. Las probabilidades son estimaciones y no garantizan resultados.</span>
+      <span>Datos: NFL vía nflverse (CC-BY 4.0) · Premier League vía openfootball (dominio público). Emblemas y mascota: ilustraciones de PitchLab.</span>
     </div>
   </div>
 </footer>
 
-<script src="assets/proto.js?v=3"></script>
+<script src="assets/proto.js?v=7"></script>
 <script>
-  const { icon, LEAGUES, SPORTS, G, T, analyze, pct, fair, dt, badge, leagueBadge, UPDATED } = PL;
-  document.querySelectorAll("[data-icon]").forEach((el) => el.innerHTML = icon(el.dataset.icon));
+  const { icon, LEAGUES, G, T, analyze, pct, fair, badge, leagueBadge, mascot, growBars, reveal, reduced } = PL;
+  const live = LEAGUES.filter((l) => l.status !== "soon");
+  document.getElementById("stack").innerHTML = live.map((L) => leagueBadge(L, 28)).join("");
+  document.getElementById("nGames").textContent = live.reduce((s, L) => s + G[L.id].length, 0);
 
-  // Tarjeta de análisis de ejemplo
-  const g = G["premier-league"][2], a = analyze("premier-league", g), H = T["premier-league"][g.h], A = T["premier-league"][g.a];
-  const rows = a.markets[0].rows.concat([a.markets[2].rows[1]]);
-  document.getElementById("demo-card").innerHTML = `
-    <div class="head">
-      <div style="display:flex;align-items:center;gap:8px">${leagueBadge(LEAGUES[1], 20)}<span class="eyebrow">Premier League · Jornada 11</span></div>
-      <span class="tag tag-demo"><span class="dot"></span>Datos de ejemplo</span>
-    </div>
-    <h2 class="sr-only" id="demo-title">Ejemplo de análisis: ${H[0]} contra ${A[0]}</h2>
-    <div class="match">
-      <div class="team">${badge("premier-league", g.h, 40)}<span class="n">${H[0]}</span></div>
-      <div class="score"><div class="caption muted">Proyección</div><div class="numeric-hl">${a.proj.h.toFixed(1)} – ${a.proj.a.toFixed(1)}</div></div>
-      <div class="team away">${badge("premier-league", g.a, 40)}<span class="n">${A[0]}</span></div>
-    </div>
-    <table class="mtable">
-      <thead><tr><th>Mercado</th><th><span class="sr-only">Barra</span></th><th class="r">Prob.</th><th class="r">Cuota justa</th></tr></thead>
-      <tbody>${rows.map(([n, p]) => `<tr><td>${n}</td><td class="bar"><div class="pbar"><span style="width:${(p * 100).toFixed(1)}%"></span></div></td><td class="r num">${pct(p)}</td><td class="r num secondary">${fair(p)}</td></tr>`).join("")}</tbody>
-    </table>
-    <div class="foot">
-      <span class="tag tag-model">Modelo de referencia · en validación</span>
-      <span class="fresh"><span class="dot"></span>Actualizado ${UPDATED} · openfootball</span>
-    </div>`;
+  // Tarjeta flotante del hero
+  (function () {
+    const g = G["premier-league"][2], a = analyze("premier-league", g), H = T["premier-league"][g.h], A = T["premier-league"][g.a];
+    document.getElementById("fcard").innerHTML = `
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">${badge("premier-league", g.h, 22)}<b class="small">${H[0]} vs ${A[0]}</b><span class="tag tag-demo" style="margin-left:auto">Ejemplo</span></div>
+      ${a.markets[0].rows.map(([n, p]) => `<div class="row"><span>${n}</span><div class="pbar grow" style="--w:${(p * 100).toFixed(1)}%"><span></span></div><b data-count="${p}">0 %</b></div>`).join("")}`;
+    document.getElementById("chip").innerHTML = `${icon("probability")}<span class="secondary">Más de 2.5</span><b>${pct(a.markets[2].rows[1][1])}</b>`;
+    setTimeout(() => growBars(document.getElementById("fcard")), reduced() ? 0 : 900);
+  })();
 
   // Ligas
-  const st = { ok: '<span class="tag tag-ok"><span class="dot"></span>Disponible</span>', beta: '<span class="tag tag-info"><span class="dot"></span>Beta</span>', soon: '<span class="tag">Próximamente</span>' };
-  document.querySelector("#league-table tbody").innerHTML = LEAGUES.map((L) => `
-    <tr>
-      <td><span class="lname">${leagueBadge(L, 32)}${L.name}</span></td>
-      <td class="sport hide-sm">${SPORTS[L.sport]} · ${L.country}</td>
-      <td class="sport hide-sm num">${L.season}</td>
-      <td>${st[L.status]}</td>
-      <td style="text-align:right">${L.status === "soon" ? "" : `<a class="row-link" href="panel-a.html#${L.id}">Ver partidos ${icon("chevron", "icon")}</a>`}</td>
-    </tr>`).join("");
+  document.getElementById("leagues").innerHTML = live.map((L, i) => `
+    <a class="panel ltile reveal" style="--d:${i * 90}ms" href="panel.html#${L.id}">
+      <div class="top-row">${leagueBadge(L, 36)}<div><div class="name">${L.name}</div><div class="caption muted">${L.season} · ${L.period}</div></div></div>
+      <img class="pic" src="${mascot(L.mascot)}" alt="" width="230" height="230" loading="lazy">
+      <div class="meta"><span class="small secondary"><b class="num" style="color:var(--text-primary)">${G[L.id].length}</b> partidos</span><span class="go">${icon("arrow")}</span></div>
+    </a>`).join("") + `<div class="soon reveal" style="--d:270ms">${LEAGUES.filter((l) => l.status === "soon").map((L) => `<div class="panel">${leagueBadge(L, 28)}<span>${L.name}</span><span class="tag">Pronto</span></div>`).join("")}</div>`;
+
+  // Demo interactiva
+  const samples = [["liga-mx", "mx1"], ["premier-league", "pl3"], ["nfl", "nf1"]];
+  const picks = document.getElementById("picks"), card = document.getElementById("dcard");
+  picks.innerHTML = samples.map(([lg, id], i) => { const g = G[lg].find((x) => x.id === id), tm = T[lg]; return `<button class="pick" data-i="${i}" aria-pressed="${i === 0}">${badge(lg, g.h, 28)}<span><span class="vs">${tm[g.h][1]} vs ${tm[g.a][1]}</span><br><span class="lg">${LEAGUES.find((l) => l.id === lg).name}</span></span></button>`; }).join("");
+  let timer;
+  function show(i) {
+    clearTimeout(timer);
+    const [lg, id] = samples[i], g = G[lg].find((x) => x.id === id), tm = T[lg], H = tm[g.h], A = tm[g.a], a = analyze(lg, g), nfl = lg === "nfl";
+    const head = `<div class="dmatch"><div class="t">${badge(lg, g.h, 40)}<span>${H[0]}</span></div><div class="s"><div class="caption muted">Proyección</div><div class="numeric-hl" style="font-size:1.75rem;line-height:2rem">${a.proj.h.toFixed(nfl ? 0 : 1)} – ${a.proj.a.toFixed(nfl ? 0 : 1)}</div></div><div class="t away"><span>${A[0]}</span>${badge(lg, g.a, 40)}</div></div>`;
+    card.innerHTML = head + `<ul class="calc-mini">${a.steps.slice(0, 4).map((s, k) => `<li style="animation-delay:${k * 140}ms">${icon("check")}${s}</li>`).join("")}</ul>`;
+    timer = setTimeout(() => {
+      const rows = a.markets[0].rows.concat(a.markets[nfl ? 2 : 2].rows.slice(0, 2));
+      card.innerHTML = head + `<table class="mtable" style="margin-top:var(--space-4)"><thead><tr><th>Mercado</th><th><span class="sr-only">Barra</span></th><th class="r">Prob.</th><th class="r">Cuota justa</th></tr></thead><tbody>${rows.map(([n, p]) => `<tr><td>${n}</td><td class="bar"><div class="pbar grow" style="--w:${(p * 100).toFixed(1)}%"><span></span></div></td><td class="r num" data-count="${p}">0 %</td><td class="r num secondary">${fair(p)}</td></tr>`).join("")}</tbody></table>
+        <div class="notes"><span class="tag">${icon("probability")}Probabilidad del modelo</span><span class="tag">${icon("compare")}Cuota justa = 1 ÷ p</span><span class="tag">${icon("sources")}${LEAGUES.find((l) => l.id === lg).source} · 07:40</span><span class="tag tag-model">En validación</span></div>`;
+      growBars(card);
+    }, reduced() ? 0 : 750);
+  }
+  picks.addEventListener("click", (e) => { const b = e.target.closest(".pick"); if (!b) return; picks.querySelectorAll(".pick").forEach((x) => x.setAttribute("aria-pressed", x === b)); show(+b.dataset.i); });
+  new IntersectionObserver((en, io) => { if (en[0].isIntersecting) { show(0); io.disconnect(); } }, { threshold: 0.3 }).observe(card);
 
   // Redes oficiales
   const social = [["X", "https://x.com/pitchlabmx"], ["Instagram", "https://instagram.com/pitchlab.mx"], ["TikTok", "https://tiktok.com/@pitchlabmx"], ["YouTube", "https://youtube.com/@pitchlabmx"], ["Threads", "https://threads.net/@pitchlab.mx"], ["Facebook", "https://facebook.com/pitchlabmx"], ["LinkedIn", "https://linkedin.com/company/pitchlabmx"]];
   document.getElementById("socials").innerHTML = social.map(([n, u]) => `<li><a href="${u}" rel="noopener">${n}</a></li>`).join("");
+  reveal();
 </script>
 </body>
 </html>

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PitchLab · Partidos y análisis</title>
+<meta name="robots" content="noindex">
+<script>(function(){var t;try{t=localStorage.getItem("pl-theme")}catch(e){}document.documentElement.dataset.theme=t||(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark")})();</script>
+<link rel="icon" href="../../pitchlab-brand/app-icons/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..800&display=swap">
+<link rel="stylesheet" href="../../pitchlab-brand/tokens/brand-tokens.css">
+<link rel="stylesheet" href="assets/proto.css?v=7">
+<link rel="stylesheet" href="assets/panel.css?v=7">
+</head>
+<body>
+<a class="skip" href="#games">Saltar a los partidos</a>
+<header class="app-header">
+  <div class="wrap">
+    <a class="logo" href="landing.html" aria-label="PitchLab · Inicio"><img data-logo="horizontal" src="../../pitchlab-brand/logos/pitchlab-horizontal-dark.svg" alt="" width="148" height="29"></a>
+    <div class="right">
+      <a class="btn btn-ghost method" href="landing.html#como">Cómo funciona</a>
+      <span data-theme-slot></span>
+    </div>
+  </div>
+</header>
+<nav class="lswitch" aria-label="Ligas"><div class="wrap" id="lswitch"></div></nav>
+<main>
+  <section class="lhead"><div class="wrap" id="lhead"></div></section>
+  <nav class="days" aria-label="Filtrar por día"><div class="wrap" id="days"></div></nav>
+  <div class="wrap" id="games" tabindex="-1"></div>
+</main>
+<dialog class="modal" id="dlg" aria-labelledby="dlg-title">
+  <div class="modal-frame"><div class="modal-win" id="dlg-win" tabindex="-1"></div></div>
+</dialog>
+<script src="assets/proto.js?v=7"></script>
+<script src="assets/panel.js?v=7"></script>
+</body>
+</html>
