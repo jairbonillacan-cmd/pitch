@@ -11,9 +11,12 @@
 | F0 Auditoría | ✅ | — |
 | F1 Spikes (datos, legal, costos) | ✅ escritorio / ⏳ contactos FD-14 | — |
 | F2 Product blueprint | ✅ | Revisión del fundador |
-| F3 Arquitectura y ADRs | Siguiente | Revisión cruzada sin contradicciones |
-| **⛔ Gate del fundador** | — | FD-01…FD-06 confirmadas |
-| F4 Walking skeleton | — | CI en verde, Storybook y los 24 tests de engines-reference |
+| F3 Arquitectura y ADRs | ✅ | Revisión cruzada sin contradicciones |
+| **Pre-MVP para socios** (paralelo, cuando lo indique el fundador) | — | Landing + panel de partidos y análisis en pitchlab.mx (`docs/product/PRE_MVP.md`). No bloquea ni lo bloquea el plan robusto. |
+| F3b Preparación de ejecución (frontend, contratos, multiagente, gates y plantilla de prompts) | En curso | Documentos completos y consistentes |
+| **⛔ Gate del fundador** | — | FD-01, FD-03…FD-06 y ADR-016 confirmadas, más las cuentas y el DNS |
+| D1 Diseño base | — | Design System base + landing + panel aprobados (desktop y móvil) |
+| F4 Walking skeleton completo | — | CI en verde, Storybook y los 24 tests de engines-reference |
 | F5 Prompts (por wave) | — | Linter de prompts en verde |
 
 ## Etapa de construcción (waves)

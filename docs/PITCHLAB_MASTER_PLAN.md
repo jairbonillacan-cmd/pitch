@@ -317,6 +317,8 @@ Los 35 IDs de la v1 se mantienen para la trazabilidad. Se añaden y consolidan:
 | **F5 Prompts** | Prompt 00 (Design System y Shell, completo), luego los prompts por wave, todos citando paquetes, tipos y stories reales. Linter de prompts en verde. `prompts/INDEX.md` con orden y dependencias | Linter en verde y revisión de no-contradicción. |
 | **F6 Ejecución multiagente** | `AGENT_EXECUTION_PLAN`, `AGENT_OWNERSHIP` (CODEOWNERS por glob), worktree y branch por prompt, PR con preview, integración por wave y `PROJECT_STATE.md` vivo | Cada wave se integra con los gates en verde. |
 
+**Pre-MVP para socios (decisión del fundador, 2026-11-08):** una vitrina mínima en pitchlab.mx (landing más panel deporte → liga → partidos → análisis con el Baseline 0 etiquetado «en validación»), construida sobre un subconjunto de esta misma arquitectura y en paralelo al plan robusto. Detalle en `docs/product/PRE_MVP.md`.
+
 **Waves para F6:**
 
 - W0: DS y Shell.

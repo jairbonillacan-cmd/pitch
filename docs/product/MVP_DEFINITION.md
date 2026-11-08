@@ -4,6 +4,8 @@
 > **Consumidores:** fundador, plan de waves y autores de prompts.
 > **Fecha:** 2026-11-08 · Supuestos vigentes: FD-01 (NFL + Liga MX + Premier League), **FD-02 = datos US$0** (`docs/architecture/FREE_DATA_STRATEGY.md`) y FD-04/05.
 
+> **Antes del MVP** puede publicarse un **pre-MVP para socios** (landing + panel de partidos y análisis): `PRE_MVP.md`.
+
 ## 1. Escenario elegido: **Lean+ con ecosistema**
 
 Es el escenario A de la directiva (un deporte núcleo con investigación útil), más el fútbol mexicano e inglés por su peso en México, más el ecosistema social y de referidos para crecer sin pagar adquisición. Se descartan los escenarios B y C por el costo de datos (`COST_MODEL.md`) y porque los modelos aún no han pasado su gate.
