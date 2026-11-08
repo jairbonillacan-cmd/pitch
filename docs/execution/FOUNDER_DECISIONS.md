@@ -6,12 +6,12 @@
 
 | ID | Decisión | Default propuesto | Por qué | Bloquea | Estado |
 |---|---|---|---|---|---|
-| FD-01 | Deporte y ligas de lanzamiento | NFL + Liga MX + Premier League | Motor NFL verificado, investigación de LineMate profunda y emblemas de ambas ligas | F2 MVP, F1 spike de datos | Supuesto |
+| FD-01 | Deporte y ligas de lanzamiento | NFL + Liga MX + Premier League | Motor NFL verificado, investigación de LineMate profunda y emblemas de ambas ligas | F2 MVP, F1 spike de datos | **Confirmada (default, 2026-11-08)** |
 | FD-02 | Presupuesto mensual máximo de datos | **US$0 por ahora** (decisión del fundador, 2026-11-08): nflverse, openfootball, The Odds API Free y API-Football Free. Ver `docs/architecture/FREE_DATA_STRATEGY.md`. Se paga datos solo con los disparadores de ese documento (§6). | Define la profundidad histórica y la cobertura de props | F3 | **Decidida** |
-| FD-03 | Planes y precios (Free, Pro, Elite) | Modelo de F1: con $149 MXN el equilibrio Lean llega a ~80 suscriptores y con $249 MXN a ~45. Recomendación: validar $199–249 MXN para Pro con el trial de 7 días | Sin costos reales, cualquier precio es inventado | F2 Pricing | Abierta |
-| FD-04 | ¿El trial de 7 días pide tarjeta? | Sin tarjeta para el trial por referido o invitación; con tarjeta para el trial directo desde Pricing (se mide en PostHog) | Equilibra adquisición y abuso | F3 AUTH_BILLING_GROWTH | Supuesto |
-| FD-05 | Recompensa por referido | 1 mes gratis al referente cuando el referido paga su primer mes, con tope de 6 al año | Solo se premia la conversión real | F3 | Supuesto |
-| FD-06 | Proveedor de pagos | Se decide en el spike legal (Stripe con aprobación escrita, o Mercado Pago, Conekta u Openpay) | Restricción de Stripe a «sports forecasting» | F3 | **Abierta** |
+| FD-03 | Planes y precios (Free, Pro, Elite) | Modelo de F1: con $149 MXN el equilibrio Lean llega a ~80 suscriptores y con $249 MXN a ~45. Recomendación: validar $199–249 MXN para Pro con el trial de 7 días | Sin costos reales, cualquier precio es inventado | F2 Pricing | **Confirmada (default, 2026-11-08)** |
+| FD-04 | ¿El trial de 7 días pide tarjeta? | Sin tarjeta para el trial por referido o invitación; con tarjeta para el trial directo desde Pricing (se mide en PostHog) | Equilibra adquisición y abuso | F3 AUTH_BILLING_GROWTH | **Confirmada (default, 2026-11-08)** |
+| FD-05 | Recompensa por referido | 1 mes gratis al referente cuando el referido paga su primer mes, con tope de 6 al año | Solo se premia la conversión real | F3 | **Confirmada (default, 2026-11-08)** |
+| FD-06 | Proveedor de pagos | Se decide en el spike legal (Stripe con aprobación escrita, o Mercado Pago, Conekta u Openpay) | Restricción de Stripe a «sports forecasting» | F3 | **Confirmada (default, 2026-11-08)** |
 | FD-07 | Leaderboards públicos de picks | Construidos detrás de un flag. Se abren al público solo con visto bueno legal. | Publicidad y regulación de apuestas en México | Lanzamiento público | Supuesto |
 | FD-08 | Uso público de emblemas de clubes | Activos por liga detrás de un flag, con el aviso «ilustraciones editoriales». Revisión legal antes del lanzamiento. | Riesgo marcario de los motivos de clubes | Lanzamiento público | Supuesto |
 | FD-09 | Registro de la marca PitchLab ante el IMPI | Iniciar la búsqueda y el registro (coincidencia con una app de béisbol) | `pitchlab-brand/VALIDATION.md` | Lanzamiento | **Abierta** |

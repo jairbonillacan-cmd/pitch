@@ -84,7 +84,7 @@ No hay código de producto. El repo todavía contiene el clon de TouchIQ (Vite +
 
 ## Pendiente (en orden)
 
-1. **⛔ Gate:** el fundador confirma FD-01 y FD-03…FD-06 y ADR-016, y realiza las acciones de `DEPLOYMENT.md` §6 (cuentas, DNS y secretos).
+1. **Gate del fundador:** ✅ FD-01 y FD-03…FD-06 confirmadas (2026-11-08). Pendiente: ADR-016 (iconografía) y las acciones de `DEPLOYMENT.md` §6 (cuentas, DNS y secretos), que solo bloquean F4 y el deploy, no el diseño.
 2. **D1 diseño base** y luego **F4:** walking skeleton. Incluye los documentos de diseño generados con el DS: `docs/design/DESIGN_SYSTEM.md`, `INTERACTION_PATTERNS.md`, `RESPONSIVE_RULES.md` y `SPORTS_ASSET_COVERAGE.md` (autogenerado).
 3. **F5:** prompts (`prompts/INDEX.md`). **F6:** ejecución multiagente (`AGENT_EXECUTION_PLAN.md`).
 
