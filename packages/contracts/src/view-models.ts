@@ -1,4 +1,4 @@
-import type { LeagueId } from "./ids.js";
+import { asMarketKey, type LeagueId } from "./ids.js";
 import type {
   AnalysisMarketGroup,
   LeagueSnapshot,
@@ -51,27 +51,27 @@ export interface MatchAnalysis {
     slug: string;
     name: string;
     shortName: string;
-    code: string;
+    code?: string;
     record: string;
   };
   away: {
     slug: string;
     name: string;
     shortName: string;
-    code: string;
+    code?: string;
     record: string;
   };
-  projection: {
+  projection?: {
     home: number;
     away: number;
     total: number;
     margin?: number;
   };
-  x12: [number, number, number];
-  marketGroups: AnalysisMarketGroup[];
+  x12?: [number, number, number];
+  marketGroups?: AnalysisMarketGroup[];
   mostLikelyScore?: MostLikelyScore;
-  steps: string[];
-  updatedAt: string;
+  steps?: string[];
+  updatedAt?: string;
   outcomes: OutcomeMarket[];
   factors: FactorItem[];
   trace: CalcStep[];
@@ -276,7 +276,7 @@ export function snapshotToMatchAnalyses(snapshot: LeagueSnapshot): {
       {
         group: isNfl ? "Ganador" : "Resultado",
         rows: outcomes.map((o) => ({
-          market: "h2h",
+          market: asMarketKey("h2h"),
           selection: o.key,
           label: o.label,
           p: o.probability,

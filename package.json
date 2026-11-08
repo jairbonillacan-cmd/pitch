@@ -7,11 +7,11 @@
     "node": ">=22.0.0"
   },
   "scripts": {
-    "build": "node scripts/check-no-demo-prod.mjs && turbo run build && node scripts/lint-codebase.mjs",
-    "dev": "turbo run dev",
-    "test": "turbo run test && node scripts/lint-codebase.mjs",
-    "lint": "turbo run lint && node scripts/lint-codebase.mjs",
-    "typecheck": "turbo run typecheck",
+    "build": "node scripts/check-no-demo-prod.mjs && pnpm -r build && node scripts/lint-codebase.mjs",
+    "dev": "pnpm --filter @pitchlab/web dev",
+    "test": "pnpm -r test && node scripts/lint-codebase.mjs",
+    "lint": "pnpm -r lint && node scripts/lint-codebase.mjs",
+    "typecheck": "pnpm -r typecheck",
     "snapshot": "pnpm --filter @pitchlab/ingest snapshot",
     "e2e": "pnpm --filter @pitchlab/web e2e",
     "storybook": "pnpm --filter @pitchlab/ui storybook",

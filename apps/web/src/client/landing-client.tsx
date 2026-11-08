@@ -76,13 +76,15 @@ export function LandingClient({
     away: nfDemo ? 21 : 1.2,
     total: nfDemo ? 45 : 2.8,
   };
+  const demoMarketGroups = currentDemo.marketGroups ?? [];
   const demoGroups =
-    currentDemo.marketGroups.length >= 3
-      ? [currentDemo.marketGroups[0]!, currentDemo.marketGroups[2]!]
-      : currentDemo.marketGroups;
+    demoMarketGroups.length >= 3
+      ? [demoMarketGroups[0]!, demoMarketGroups[2]!]
+      : demoMarketGroups;
 
+  const featuredMarketGroups = featuredMatch.marketGroups ?? [];
   const heroRows =
-    featuredMatch.marketGroups[0]?.rows ??
+    featuredMarketGroups[0]?.rows ??
     featuredMatch.outcomes.map((o) => ({
       market: "h2h" as const,
       selection: o.key,
@@ -92,7 +94,7 @@ export function LandingClient({
     }));
   const heroLeadIdx = leadIndex(heroRows.map((r) => r.p));
 
-  const totalsGroup = featuredMatch.marketGroups.find((g) =>
+  const totalsGroup = featuredMarketGroups.find((g) =>
     g.group.toLowerCase().includes("goles") || g.group.toLowerCase().includes("total"),
   );
   const over25Row =
@@ -352,9 +354,9 @@ export function LandingClient({
                     </div>
                   </div>
 
-                  {calculatingDemo && currentDemo.steps.length > 0 ? (
+                  {calculatingDemo && (currentDemo.steps?.length ?? 0) > 0 ? (
                     <ul className="calc-mini">
-                      {currentDemo.steps.slice(0, 5).map((step, k) => (
+                      {(currentDemo.steps ?? []).slice(0, 5).map((step, k) => (
                         <li
                           key={k}
                           style={{ animationDelay: `${k * 110}ms` }}
@@ -434,9 +436,10 @@ export function LandingClient({
                 <div className="panel mini">
                   {[m1, m2].map((g) => {
                     const isNf = g.league === "nfl";
+                    const gx12 = g.x12 ?? [0.45, 0.25, 0.3];
                     const ps = isNf
-                      ? [g.x12[0], g.x12[2]]
-                      : [g.x12[0], g.x12[1], g.x12[2]];
+                      ? [gx12[0], gx12[2]]
+                      : [gx12[0], gx12[1], gx12[2]];
                     const lbs = isNf
                       ? [g.home.name, g.away.name]
                       : [g.home.name, "Empate", g.away.name];

@@ -10,6 +10,7 @@ import type {
   OutcomeMarket,
 } from "@pitchlab/contracts";
 import {
+  asMarketKey,
   formatDecimal,
   formatFreshnessEs,
   formatPercent,
@@ -294,7 +295,7 @@ export function MarketTable({
           {
             group: "Resultado",
             rows: (outcomes ?? []).map((o) => ({
-              market: "h2h",
+              market: asMarketKey("h2h"),
               selection: o.key,
               label: o.label,
               p: o.probability,

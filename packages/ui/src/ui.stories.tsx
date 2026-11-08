@@ -1,5 +1,5 @@
 import React from "react";
-import { asLeagueId, type MatchAnalysis } from "@pitchlab/contracts";
+import { asLeagueId, asMarketKey, type MatchAnalysis } from "@pitchlab/contracts";
 import {
   Button,
   Tag,
@@ -49,14 +49,14 @@ const sampleMatch: MatchAnalysis = {
   venue: "Emirates Stadium",
   status: "NS",
   home: {
-    code: "ars",
+    code: "ARS",
     slug: "arsenal",
     name: "Arsenal",
     shortName: "ARS",
     record: "Ataque 1.54 · Defensa 0.90",
   },
   away: {
-    code: "che",
+    code: "CHE",
     slug: "chelsea",
     name: "Chelsea",
     shortName: "CHE",
@@ -91,33 +91,48 @@ const sampleMatch: MatchAnalysis = {
   x12: [0.453, 0.258, 0.289],
   marketGroups: [
     {
-      g: "Resultado",
+      group: "Resultado",
       rows: [
-        ["Arsenal", 0.453],
-        ["Empate", 0.258],
-        ["Chelsea", 0.289],
+        {
+          market: asMarketKey("h2h"),
+          selection: "home",
+          label: "Arsenal",
+          p: 0.453,
+          fairOdds: 2.21,
+        },
+        {
+          market: asMarketKey("h2h"),
+          selection: "draw",
+          label: "Empate",
+          p: 0.258,
+          fairOdds: 3.88,
+        },
+        {
+          market: asMarketKey("h2h"),
+          selection: "away",
+          label: "Chelsea",
+          p: 0.289,
+          fairOdds: 3.46,
+        },
       ],
     },
     {
-      g: "Doble oportunidad",
+      group: "Goles totales",
       rows: [
-        ["Arsenal o empate", 0.711],
-        ["Chelsea o empate", 0.547],
-        ["Arsenal o Chelsea", 0.742],
-      ],
-    },
-    {
-      g: "Goles totales",
-      rows: [
-        ["Más de 2.5 goles", 0.592],
-        ["Menos de 2.5 goles", 0.408],
-      ],
-    },
-    {
-      g: "Ambos anotan",
-      rows: [
-        ["Sí", 0.574],
-        ["No", 0.426],
+        {
+          market: asMarketKey("totals"),
+          selection: "over_2_5",
+          label: "Más de 2.5 goles",
+          p: 0.592,
+          fairOdds: 1.69,
+        },
+        {
+          market: asMarketKey("totals"),
+          selection: "under_2_5",
+          label: "Menos de 2.5 goles",
+          p: 0.408,
+          fairOdds: 2.45,
+        },
       ],
     },
   ],
@@ -133,32 +148,18 @@ const sampleMatch: MatchAnalysis = {
       impact: "1.54 × 1.12",
       detail: "Media de liga 1.42 goles",
     },
-    {
-      label: "Ataque visita vs defensa",
-      impact: "1.24 × 0.90",
-      detail: "Ajuste por localía +10 %",
-    },
-    {
-      label: "Marcador más probable",
-      impact: "1–1 (11.8 %)",
-      detail: "64 marcadores evaluados",
-    },
   ],
   trace: [
     { step: "Paso 1", value: "Arsenal (1.54 / 0.90) · Chelsea (1.24 / 1.12)" },
     { step: "Paso 2", value: "Goles esperados: 1.72 local · 1.38 visitante" },
-    { step: "Paso 3", value: "Matriz de 64 marcadores (0–7 goles) con ajuste de marcadores bajos" },
-    { step: "Paso 4", value: "Resultado: 45.3 % · Empate 25.8 % · 28.9 %" },
   ],
   steps: [
     "Arsenal (1.54 / 0.90) · Chelsea (1.24 / 1.12)",
     "Goles esperados: 1.72 local · 1.38 visitante",
     "Matriz de 64 marcadores (0–7 goles) con ajuste de marcadores bajos",
     "Resultado: 45.3 % · Empate 25.8 % · 28.9 %",
-    "Totales: Más de 2.5 goles 59.2 % · Ambos anotan 57.4 %",
-    "Cuota justa local: 2.21 (+121)",
   ],
-  updatedAt: "hace 2 h",
+  updatedAt: "8 nov 2026, 16:54",
 };
 
 export const Primitives = () => (
@@ -197,11 +198,11 @@ export const Primitives = () => (
 
 export const BarsAndSplits = () => (
   <div style={{ display: "grid", gap: "20px", padding: "24px", maxWidth: "560px" }}>
-    <PBar value={0.584} lead />
-    <PBar value={0.258} />
+    <PBar p={0.584} lead />
+    <PBar p={0.258} />
     <ProbBar outcomes={sampleMatch.outcomes} />
     <ProbSplit outcomes={sampleMatch.outcomes} />
-    <Freshness generatedAt="hace 2 h" />
+    <Freshness generatedAt="2026-11-08T16:54:00Z" />
   </div>
 );
 
@@ -215,10 +216,10 @@ export const MarketTableAndCompare = () => (
   <div style={{ display: "grid", gap: "24px", padding: "24px", maxWidth: "720px" }}>
     <MarketTable
       outcomes={sampleMatch.outcomes}
-      marketGroups={sampleMatch.marketGroups}
-      selectedKey="ResultadoArsenal"
+      groups={sampleMatch.marketGroups}
+      selectedKey="Resultado:Arsenal"
     />
-    <OddsCompare marketName="Arsenal" modelProbability={0.453} />
+    <OddsCompare marketLabel="Arsenal" modelProb={0.453} />
     <FactorsList factors={sampleMatch.factors} />
     <CalcTrace trace={sampleMatch.trace} />
   </div>
@@ -238,8 +239,8 @@ export const BadgesShowcase = () => (
     <LeagueBadge league="nfl" size={44} />
     <LeagueBadge league="nhl" size={44} />
     <LeagueBadge league="mlb" size={44} />
-    <TeamBadge league="premier-league" slug="arsenal" code="ars" name="Arsenal" size={40} />
-    <TeamBadge league="nfl" slug="kansas-city-chiefs" code="kc" name="Chiefs" size={40} />
+    <TeamBadge league="premier-league" slug="arsenal" name="Arsenal" size={40} />
+    <TeamBadge league="nfl" slug="kansas-city-chiefs" name="Chiefs" size={40} />
   </div>
 );
 
