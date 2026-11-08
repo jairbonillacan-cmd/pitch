@@ -29,7 +29,7 @@ apps/web/
     features/<seccion>/       # composición por sección: componentes de página, loaders y hooks (owner = agente de la sección)
     server/                   # helpers de servidor: session, requireEntitlement, dataState()
     lib/                      # utilidades de app (nunca de dominio)
-  messages/es-MX.json         # next-intl, con namespaces por sección
+  messages/es-MX/<seccion>.json  # next-intl: un archivo (namespace) por sección; shell y errores comunes en common.json
 ```
 
 **Regla de ownership:** cada sección vive en `app/<ruta>/` (archivos delgados) y en `src/features/<seccion>/` (la lógica de composición). Los archivos `page.tsx` solo cargan datos y componen.

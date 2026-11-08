@@ -10,7 +10,9 @@
 - **F2 (product blueprint):** ✅ completa, pendiente de revisión del fundador.
 - **Decisión 2026-11-08:** datos a US$0 por ahora → `docs/architecture/FREE_DATA_STRATEGY.md` (FD-02 decidida).
 - **F3 (arquitectura y ADRs):** ✅ completa: 18 ADRs y 8 documentos de arquitectura, con revisión cruzada.
-- **Siguiente:** ⛔ gate del fundador, después F4 (walking skeleton).
+- **F3b (preparación de ejecución):** ✅ completa: frontend, contratos, ownership, integración, plan multiagente, quality gates y plantilla de prompts.
+- **Pre-MVP para socios:** planificado en `docs/product/PRE_MVP.md`. Se ejecuta cuando lo indique el fundador, en paralelo al plan robusto.
+- **Siguiente:** ⛔ gate del fundador → diseño base (D1) → F4 → F5.
 
 No hay código de producto. El repo todavía contiene el clon de TouchIQ (Vite + `src/domain` con 24 tests dorados), que se archivará en F4.
 
@@ -47,6 +49,14 @@ No hay código de producto. El repo todavía contiene el clon de TouchIQ (Vite +
 | `docs/architecture/AI_ARCHITECTURE.md` | F3 | OpenRouter + modelo barato, herramientas, validador de grounding, selección por evaluación y costo |
 | `docs/architecture/SECURITY.md` | F3 | Amenazas, reglas de código, roles, flags legales y respaldos |
 | `docs/architecture/DEPLOYMENT.md` | F3 | Entornos, CI/CD, variables, DNS y correo, presupuestos y acciones del fundador |
+| `docs/product/PRE_MVP.md` | Pre-MVP | Landing + panel de partidos y análisis para socios, con su plan de 8 pasos |
+| `docs/architecture/FRONTEND_ARCHITECTURE.md` | F3b | Estructura de `apps/web`, server frente a client, componentes, estilo, responsive y pruebas |
+| `docs/architecture/SHARED_CONTRACTS.md` | F3b | IDs, `DataState`, deportes, odds, análisis, predicciones, social, billing, API y URLs |
+| `docs/execution/AGENT_OWNERSHIP.md` | F3b | Globs por owner de plataforma y por sección |
+| `docs/execution/INTEGRATION_STRATEGY.md` | F3b | Ramas, worktrees, PRs, merges por wave, contratos y releases |
+| `docs/execution/AGENT_EXECUTION_PLAN.md` | F3b | Ciclo de sesión, paralelismo por wave y handoff |
+| `docs/execution/QUALITY_GATES.md` | F3b | Gates de CI, checklist de PR, criterios de aceptación y linter de prompts |
+| `prompts/_TEMPLATE.md` | F3b | Plantilla A–R para los prompts de F5 |
 
 ## Hallazgos de F3
 
@@ -75,7 +85,7 @@ No hay código de producto. El repo todavía contiene el clon de TouchIQ (Vite +
 ## Pendiente (en orden)
 
 1. **⛔ Gate:** el fundador confirma FD-01 y FD-03…FD-06 y ADR-016, y realiza las acciones de `DEPLOYMENT.md` §6 (cuentas, DNS y secretos).
-2. **F4:** walking skeleton. Incluye los documentos de diseño generados con el DS: `docs/design/DESIGN_SYSTEM.md`, `INTERACTION_PATTERNS.md`, `RESPONSIVE_RULES.md` y `SPORTS_ASSET_COVERAGE.md` (autogenerado).
+2. **D1 diseño base** y luego **F4:** walking skeleton. Incluye los documentos de diseño generados con el DS: `docs/design/DESIGN_SYSTEM.md`, `INTERACTION_PATTERNS.md`, `RESPONSIVE_RULES.md` y `SPORTS_ASSET_COVERAGE.md` (autogenerado).
 3. **F5:** prompts (`prompts/INDEX.md`). **F6:** ejecución multiagente (`AGENT_EXECUTION_PLAN.md`).
 
 ## Bloqueos
@@ -88,3 +98,7 @@ No hay código de producto. El repo todavía contiene el clon de TouchIQ (Vite +
 - `pitchlab-brand/PITCHLAB_BRAND_HANDOFF.md` y `README.md`
 - `pitchlab-brand/football/` y `pitchlab-brand/social/instagram-lanzamiento/` (sin seguimiento)
 - `pitchlab-brand.zip` y los ZIP de emblemas
+
+## Handoffs
+
+_(Cada sesión de agente agrega aquí su entrada con el formato de `AGENT_EXECUTION_PLAN.md` §4.)_
