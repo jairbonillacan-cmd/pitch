@@ -1,0 +1,57 @@
+name: Pre-MVP Snapshot Pipeline
+
+on:
+  schedule:
+    # Diario a las 05:00 CDMX (11:00 UTC)
+    - cron: "0 11 * * *"
+    # Cada 3 horas en días de jornada (jueves a lunes)
+    - cron: "0 */3 * * 0,1,4,5,6"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  snapshot:
+    name: Generar snapshots y publicar
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "pnpm"
+
+      - name: Instalar dependencias
+        run: pnpm install --frozen-lockfile
+
+      - name: Generar snapshots reales
+        env:
+          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+        run: pnpm snapshot
+
+      - name: Guardar cambios en data/snapshots
+        run: |
+          git config user.name "pitchlab-bot"
+          git config user.email "bot@pitchlab.app"
+          git add data/snapshots
+          if git diff --staged --quiet; then
+            echo "Sin cambios en snapshots."
+          else
+            git commit -m "datos(snapshots): actualizar corte automático pre-MVP"
+            git push
+          fi
+
+      - name: Disparar deploy hook de Vercel (opcional)
+        if: ${{ secrets.VERCEL_DEPLOY_HOOK_URL != '' }}
+        env:
+          VERCEL_DEPLOY_HOOK_URL: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
+        run: curl -fsSL -X POST "$VERCEL_DEPLOY_HOOK_URL"
