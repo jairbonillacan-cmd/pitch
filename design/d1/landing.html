@@ -10,8 +10,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..800&display=swap">
 <link rel="stylesheet" href="../../pitchlab-brand/tokens/brand-tokens.css">
-<link rel="stylesheet" href="assets/proto.css?v=8">
-<link rel="stylesheet" href="assets/site.css?v=8">
+<link rel="stylesheet" href="assets/proto.css?v=13">
+<link rel="stylesheet" href="assets/site.css?v=13">
 <style>
   /* Hero */
   .hero { position: relative; overflow: hidden; padding-top: calc(var(--layout-header) + var(--space-12)); }
@@ -35,7 +35,18 @@
   .float-card .row b { text-align: right; font-weight: 650; }
   .float-chip { position: absolute; top: 8%; left: 12%; padding: var(--space-2) var(--space-3); display: flex; align-items: center; gap: var(--space-2); font-size: var(--type-small); box-shadow: var(--shadow-overlay); animation: rise 700ms var(--ease-out) 760ms both; }
   @media (max-width: 1023px) { .hero .wrap { grid-template-columns: 1fr; min-height: 0; max-height: none; } .stage { height: 440px; } .hero .traj { width: 90%; right: 0; top: 45%; height: 50%; } }
-  @media (max-width: 767px) { .stage { height: 380px; } .stage .mascot { width: 300px; right: -20px; } .float-card { width: 90%; } .float-chip { left: 0; top: 2%; } }
+  @media (max-width: 767px) {
+    .hero { padding-top: calc(var(--layout-header) + var(--space-8)); }
+    .hero .wrap { gap: var(--space-4); padding-bottom: var(--space-8); }
+    .hero .lead { font-size: 1rem; line-height: 1.5rem; margin: var(--space-4) 0 var(--space-6); }
+    .hero .ctas .btn { flex: 1 1 auto; }
+    .hero .week { margin-top: var(--space-6); }
+    .stage { height: auto; display: grid; justify-items: center; padding-top: var(--space-2); }
+    .stage .mascot { position: relative; right: auto; bottom: auto; width: 230px; }
+    .float-card { position: relative; left: auto; bottom: auto; width: 100%; margin-top: -64px; }
+    .float-chip { top: 10%; left: 0; }
+    .hero .traj { top: 52%; height: 40%; }
+  }
 
   /* Sin / Con */
   .vs { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: var(--space-6); align-items: stretch; }
@@ -61,7 +72,16 @@
   .calc-mini li { list-style: none; display: flex; gap: var(--space-2); align-items: center; font-size: var(--type-small); color: var(--text-secondary); opacity: 0; animation: rise 300ms var(--ease-out) forwards; }
   .calc-mini li .icon { color: var(--success); }
   @media (max-width: 1023px) { .vs { grid-template-columns: 1fr; } }
-  @media (max-width: 767px) { .dmatch .t, .dmatch .t.away { flex-direction: column; justify-content: center; text-align: center; } }
+  @media (max-width: 767px) {
+    .dmatch .t { flex-direction: column; justify-content: center; text-align: center; gap: var(--space-2); }
+    .dmatch .t.away { flex-direction: column-reverse; justify-content: center; text-align: center; gap: var(--space-2); }
+    .picks { flex-wrap: nowrap; overflow-x: auto; margin: 0 calc(-1 * var(--space-4)) var(--space-3); padding: 0 var(--space-4) 2px; scrollbar-width: none; }
+    .picks::-webkit-scrollbar { display: none; }
+    .pick { flex: none; }
+    .dcard { padding: var(--space-4); min-height: 0; }
+    .chat { padding: var(--space-4); }
+    .vs { gap: var(--space-8); }
+  }
 
   /* Un sábado cualquiera */
   .timeline { list-style: none; margin: 0 auto; padding: 0; max-width: 940px; display: grid; gap: var(--space-6); }
@@ -74,7 +94,7 @@
   .tl > div > b { display: block; font-size: 1.0625rem; }
   .tl p { margin: 2px 0 0; color: var(--text-secondary); font-size: var(--type-small); }
   .tl .mini { padding: var(--space-3); font-size: var(--type-small); display: grid; gap: var(--space-2); }
-  @media (max-width: 767px) { .tl { grid-template-columns: 52px 20px minmax(0, 1fr); } .tl .mini { grid-column: 3; } }
+  @media (max-width: 767px) { .timeline { gap: var(--space-5); } .tl { grid-template-columns: 48px 20px minmax(0, 1fr); gap: var(--space-3); } .tl .mini { grid-column: 3; } .tl .rail::before { bottom: calc(-1 * var(--space-5) - 4px); } }
 
   /* Ligas */
   .leagues { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, .8fr); gap: var(--space-4); }
@@ -98,7 +118,7 @@
   .model .panel { padding: var(--space-5); }
   .model .k { font-size: 2.25rem; line-height: 2.5rem; font-weight: 750; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; color: var(--brand-primary); }
   .model p { margin: var(--space-2) 0 0; color: var(--text-secondary); font-size: var(--type-small); }
-  @media (max-width: 767px) { .model { grid-template-columns: 1fr; } }
+  @media (max-width: 767px) { .model { grid-template-columns: 1fr; gap: var(--space-3); } .model .panel { display: flex; align-items: center; gap: var(--space-4); padding: var(--space-4); } .model .k { min-width: 96px; font-size: 1.75rem; line-height: 2rem; } .model p { margin: 0; } }
 
   /* Reglas */
   .rules { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-6); list-style: none; padding: 0; margin: 0; }
@@ -112,7 +132,7 @@
   .closing { position: relative; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1fr) 240px; align-items: center; gap: var(--space-6); padding: var(--space-10) var(--space-10) 0; }
   .closing .copy { padding-bottom: var(--space-10); }
   .closing .mascot { align-self: end; }
-  @media (max-width: 767px) { .closing { grid-template-columns: 1fr; padding: var(--space-6) var(--space-6) 0; } .closing .mascot { width: 200px; justify-self: end; } .closing .copy { padding-bottom: 0; } }
+  @media (max-width: 767px) { .closing { grid-template-columns: minmax(0, 1fr) 110px; gap: var(--space-2); padding: var(--space-6) var(--space-4) 0 var(--space-5); } .closing .copy { padding-bottom: var(--space-6); } .closing .mascot { width: 110px; } .closing .h2 { font-size: 1.375rem; line-height: 1.75rem; } }
 </style>
 </head>
 <body>
@@ -125,9 +145,9 @@
     <svg class="traj" viewBox="0 0 600 500" fill="none" aria-hidden="true"><path d="M20 470 C 160 420, 200 300, 300 260 S 470 210, 580 40" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="6 8"/></svg>
     <div class="wrap">
       <div>
-        <span class="status tag tag-ok"><span class="dot"></span>Beta abierta para socios</span>
+        <span class="status tag tag-ok"><span class="dot"></span>Beta cerrada · acceso con código</span>
         <h1 class="h-display">Lee el juego<br><span class="accent">con datos.</span></h1>
-        <p class="lead">Probabilidades para cada partido de Liga MX, Premier League y NFL. Sin humo: cada número con su fecha.</p>
+        <p class="lead">Probabilidades para cada partido de Liga MX, Premier League y NFL, calculadas por nuestro propio modelo y actualizadas cada jornada.</p>
         <div class="ctas">
           <a class="btn btn-primary" href="login.html#beta">Entrar a la beta <span data-icon="arrow"></span></a>
           <a class="btn btn-ghost" href="#como">Cómo funciona</a>
@@ -158,8 +178,8 @@
           </div>
         </div>
         <div class="reveal" style="--d:120ms">
-          <p class="eyebrow label">Con PitchLab <span class="tag tag-demo">Ejemplo</span></p>
-          <div class="picks" id="picks" role="group" aria-label="Partidos de ejemplo"></div>
+          <p class="eyebrow label">Con PitchLab <span class="tag tag-model"><span class="dot"></span>Beta cerrada</span></p>
+          <div class="picks" id="picks" role="group" aria-label="Partidos de la jornada"></div>
           <article class="panel dcard" id="dcard" aria-live="polite"></article>
         </div>
       </div>
@@ -193,12 +213,12 @@
 
   <section class="block" id="reglas">
     <div class="wrap">
-      <div class="shead reveal"><p class="eyebrow">Reglas de la casa</p><h2 class="h1">Lo que nunca vas a ver aquí.</h2></div>
+      <div class="shead reveal"><p class="eyebrow">Nuestro compromiso</p><h2 class="h1">Claros desde el inicio.</h2></div>
       <ul class="rules">
-        <li class="reveal"><b>Picks «seguros»</b><span>Probabilidades, no promesas.</span></li>
-        <li class="reveal" style="--d:80ms"><b>Montos sugeridos</b><span>No te decimos cuánto apostar.</span></li>
-        <li class="reveal" style="--d:160ms"><b>Números sin fecha</b><span>Cada análisis dice cuándo se calculó.</span></li>
-        <li class="reveal" style="--d:240ms"><b>Historial maquillado</b><span>Lo publicado antes del partido se queda igual.</span></li>
+        <li class="reveal"><b>Información para decidir</b><span>Te damos probabilidades y contexto. La decisión siempre es tuya.</span></li>
+        <li class="reveal" style="--d:80ms"><b>No somos casa de apuestas</b><span>No recibimos apuestas ni manejamos tu dinero.</span></li>
+        <li class="reveal" style="--d:160ms"><b>Historial íntegro</b><span>Cada análisis se publica antes del partido y queda tal cual.</span></li>
+        <li class="reveal" style="--d:240ms"><b>Solo mayores de 18</b><span>Si apuestas, hazlo con moderación y por diversión.</span></li>
       </ul>
     </div>
   </section>
@@ -218,8 +238,8 @@
 </main>
 <div data-footer></div>
 
-<script src="assets/proto.js?v=8"></script>
-<script src="assets/site.js?v=8"></script>
+<script src="assets/proto.js?v=13"></script>
+<script src="assets/site.js?v=13"></script>
 <script>
   const { icon, LEAGUES, G, T, analyze, pct, fair, badge, leagueBadge, mascot, growBars, reveal, reduced, probBar, split, leadIndex, UPDATED } = PL;
   const live = LEAGUES.filter((l) => l.status !== "soon");
@@ -230,7 +250,7 @@
   (function () {
     const g = G["premier-league"][2], a = analyze("premier-league", g), H = T["premier-league"][g.h], A = T["premier-league"][g.a], rows = a.markets[0].rows, li = leadIndex(rows.map((r) => r[1]));
     document.getElementById("fcard").innerHTML = `
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">${badge("premier-league", g.h, 22)}<b class="small">${H[0]} vs ${A[0]}</b><span class="tag tag-demo" style="margin-left:auto">Ejemplo</span></div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">${badge("premier-league", g.h, 22)}<b class="small">${H[0]} vs ${A[0]}</b><span class="tag tag-model" style="margin-left:auto">Beta cerrada</span></div>
       ${rows.map(([n, p], i) => `<div class="row"><span>${n}${i === li ? '<span class="fav">Favorito</span>' : ""}</span>${probBar(p, i === li)}<b class="pv ${i === li ? "lead-txt" : ""}" data-count="${p}">0 %</b></div>`).join("")}`;
     document.getElementById("chip").innerHTML = `${icon("probability")}<span class="secondary">Más de 2.5</span><b class="num">${pct(a.markets[2].rows[1][1])}</b>`;
     setTimeout(() => growBars(document.getElementById("fcard")), reduced() ? 0 : 900);

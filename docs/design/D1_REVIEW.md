@@ -1,10 +1,18 @@
 # D1 · Revisión de diseño base (landing + panel)
 
 > **Propósito:** prototipos del diseño base para aprobación del fundador antes de implementar (pre-MVP y prompt 00).
-> **Estado:** iteración 3 · ⏳ pendiente de aprobación final · **Fecha:** 2026-11-08
+> **Estado:** iteración 4 · ⏳ pendiente de aprobación final · **Fecha:** 2026-11-08
 > **Prototipos:** `design/d1/landing.html`, `login.html`, `signup.html` y `panel.html` (el panel pide el código de socio). Abrir con un servidor desde la raíz del repo: `python -m http.server 4173` → `http://localhost:4173/design/d1/landing.html`.
 
-## 0. Iteración 3 (decisiones del fundador)
+## 0. Iteración 4
+
+| Pedido | Resolución |
+|---|---|
+| Quitar «datos de ejemplo» y poner «Beta cerrada» | ✅ Las etiquetas de ejemplo ahora dicen «Beta cerrada» (hero, demo y encabezado del panel). Nota: en el prototipo los números siguen siendo ilustrativos; en el pre-MVP serán reales. |
+| Reglas que nos blinden sin hablar mal de nosotros | ✅ Ahora es «Nuestro compromiso · Claros desde el inicio»: *Información para decidir* (la decisión es tuya), *No somos casa de apuestas* (no recibimos apuestas ni manejamos dinero), *Historial íntegro* (se publica antes del partido y queda tal cual) y *Solo mayores de 18* (moderación). Se quitó «Todo con fecha». |
+| Que todo se vea muy bien en móvil | ✅ Revisión de las 4 páginas a 390 px: hero apilado con Radar visible, partidos de la demo en una fila deslizable, escudo visitante arriba del nombre, recorrido y tarjetas del modelo compactos, cierre con Radar a un lado, footer en 2 columnas, login y crear cuenta con un bloque visual compacto, se corrigió un desbordamiento horizontal en crear cuenta (campo de fecha) y se ocultó el texto del teclado físico en pantallas táctiles. Verificado sin scroll horizontal en landing, login, crear cuenta y panel. |
+
+## 0b. Iteración 3 (decisiones del fundador)
 
 | Pedido | Resolución |
 |---|---|

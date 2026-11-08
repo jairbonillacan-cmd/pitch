@@ -14,7 +14,7 @@
             <a href="${link("#como")}" data-sec="como">Cómo funciona</a>
             <a href="${link("#ligas")}" data-sec="ligas">Ligas</a>
             <a href="${link("#modelo")}" data-sec="modelo">El modelo</a>
-            <a href="${link("#reglas")}" data-sec="reglas">Reglas</a>
+            <a href="${link("#reglas")}" data-sec="reglas">Compromiso</a>
           </nav>
           <div class="right">
             <span data-theme-slot></span>

@@ -37,3 +37,4 @@ section[id] { scroll-margin-top: calc(var(--layout-header) + var(--space-6)); }
 .site-foot li a:hover { color: var(--text-primary); text-decoration: underline; }
 .site-foot .legal { margin-top: var(--space-10); padding-top: var(--space-6); border-top: var(--border-width) solid var(--border-default); color: var(--text-muted); font-size: var(--type-caption); line-height: var(--line-caption); }
 @media (max-width: 1023px) { .fgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 767px) { .site-foot { margin-top: var(--space-12); padding-bottom: var(--space-10); } .fgrid { gap: var(--space-6); } .fgrid > div:first-child { grid-column: 1 / -1; } .shead { margin-bottom: var(--space-8); } .shead p:not(.eyebrow) { font-size: var(--type-small); line-height: var(--line-small); } .fnav { top: var(--space-3); width: calc(100% - 24px); } .fnav .bar { height: 54px; } }

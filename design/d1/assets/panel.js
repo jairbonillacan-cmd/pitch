@@ -26,7 +26,7 @@
       ${leagueBadge(l, 56)}
       <div>
         <h1 class="h1">${l.name}</h1>
-        <div class="meta"><span class="secondary">${l.season} · ${l.period}</span><span class="fresh"><span class="dot"></span>Actualizado ${UPDATED}</span><span class="tag tag-demo"><span class="dot"></span>Datos de ejemplo</span>${l.status === "beta" ? '<span class="tag tag-info">Beta</span>' : ""}</div>
+        <div class="meta"><span class="secondary">${l.season} · ${l.period}</span><span class="fresh"><span class="dot"></span>Actualizado ${UPDATED}</span><span class="tag tag-model"><span class="dot"></span>Beta cerrada</span></div>
       </div>
       <div class="pic mascot" aria-hidden="true"><img src="${mascot(l.mascot)}" alt="" width="170" height="170"></div>`;
   }
