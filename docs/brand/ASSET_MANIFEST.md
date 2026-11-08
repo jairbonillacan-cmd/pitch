@@ -25,12 +25,12 @@
 
 | Liga | Fuente | Rev. | Entradas | Destino (F4) | `LeagueId` canónico |
 |---|---|---:|---:|---|---|
-| Liga MX · Apertura 2026 | `pitchlab-brand/football/liga-mx-apertura-2026/` | 1 | 1 competición + 18 clubes | `apps/web/public/brand/sports/liga-mx/r1/` | `soccer.liga-mx` |
-| Premier League 2026/27 | `pitchlab-brand/football/premier-league-2026-27/` | 2 | 1 competición + 20 clubes | `apps/web/public/brand/sports/premier-league/r2/` | `soccer.premier-league` |
+| Liga MX · Apertura 2026 | `pitchlab-brand/football/liga-mx-apertura-2026/` | 1 | 1 competición + 18 clubes | `apps/web/public/brand/sports/liga-mx/r1/` | `liga-mx` |
+| Premier League 2026/27 | `pitchlab-brand/football/premier-league-2026-27/` | 2 | 1 competición + 20 clubes | `apps/web/public/brand/sports/premier-league/r2/` | `premier-league` |
 
 **Cada entrada del manifiesto** trae `id` (slug estable), `code` (rótulo de UI de 3 letras, que **no** equivale al código del proveedor), `name`, `shortName`, `kind` (`competition` o `club`), `colors.tile/primary/accent`, `contrast`, `svg`, `png`, `symbolId` y `source`.
 
-**Regla de identidad:** `TeamId` canónico = `<liga>.<id del manifiesto>` (por ejemplo, `soccer.liga-mx.atlante` ≠ `soccer.liga-mx.atlas`). Los IDs de proveedor se resuelven en `provider_ref` y nunca contra el manifiesto.
+**Regla de identidad:** `TeamId` canónico = `<league>.<id del manifiesto>` (por ejemplo, `liga-mx.atlante` ≠ `liga-mx.atlas`). Los IDs de proveedor se resuelven en `provider_ref` y nunca contra el manifiesto.
 
 ### Cobertura actual
 

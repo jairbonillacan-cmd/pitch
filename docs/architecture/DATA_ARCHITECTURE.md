@@ -59,7 +59,7 @@ interface ProviderAdapter<TRaw, TOut> {
 | `sport` | `id` (`american-football`, `soccer`…), `name` | |
 | `league` | `id` (`nfl`, `liga-mx`, `premier-league`…), `sport_id`, `name`, `country`, `enabled`, `asset_edition` | El slug coincide con `[league]` de `ROUTE_MAP.md` |
 | `season` | `id` (`nfl-2026`, `liga-mx-2026-apertura`), `league_id`, `label`, `start_date`, `end_date`, `structure` (jsonb: semanas, jornadas, fases) | |
-| `team` | `id` (`<league>.<slug>`, por ejemplo `soccer.liga-mx.atlante`), `league_id`, `name`, `short_name`, `code`, `active` | El slug coincide con el `id` del manifiesto de emblemas cuando existe |
+| `team` | `id` (`<league>.<slug>`, por ejemplo `liga-mx.atlante`), `league_id`, `name`, `short_name`, `code`, `active` | El slug coincide con el `id` del manifiesto de emblemas cuando existe |
 | `player` | `id` (ULID), `sport_id`, `full_name`, `position`, `birth_date?`, `status` | |
 | `player_team` | `player_id`, `team_id`, `season_id`, `from`, `to?`, `jersey?` | Rosters en el tiempo |
 | `game` | `id` (ULID), `league_id`, `season_id`, `week`/`round`, `phase`, `start_time`, `status` (`scheduled`, `in_progress`, `final`, `postponed`, `canceled`), `home_team_id`, `away_team_id`, `venue?`, `neutral_site` | `start_time` define el lock de los picks |
