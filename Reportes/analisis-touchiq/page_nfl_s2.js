@@ -1,0 +1,1 @@
+(function(){document.getElementById('app').classList.remove('hide');try{draw()}catch(e){}document.addEventListener('keydown',function(e){if(e.key==='Escape'){var o=document.getElementById('ov');if(o&&o.classList.contains('hide'))parent.postMessage('home','*')}},true);})()

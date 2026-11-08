@@ -1,0 +1,1 @@
+const E=2.15,HFA=.525,K=15,SHR=.85,NG=22,ed={},SO=AVX.odds,SIM={k:"sim",h:"COL",a:"CAR"};

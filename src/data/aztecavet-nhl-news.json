@@ -1,0 +1,882 @@
+[
+ {
+  "id": "hag",
+  "t": "BOS",
+  "n": "James Hagens (C)",
+  "r": "gf",
+  "i": 0.06,
+  "st": 0.5,
+  "h": "Salió a inicios del 3er periodo el jue 5 en PIT tras un cross-check en la espalda baja y no volvió; sin parte (Boston.com, 5 nov)",
+  "d": "6 nov"
+ },
+ {
+  "id": "fle",
+  "t": "WPG",
+  "n": "Haydn Fleury (D)",
+  "r": "ga",
+  "i": 0.03,
+  "st": 0.5,
+  "h": "Bloqueó un tiro con la mano en el 3er periodo el jue 5 vs VAN y no regresó; \"a esperar\" (NHL.com, 5 nov)",
+  "d": "6 nov"
+ },
+ {
+  "id": "gib",
+  "t": "DET",
+  "n": "John Gibson (G)",
+  "r": "ga",
+  "i": 0.3,
+  "st": 1,
+  "h": "Abre el suplente Daniil Tarasov en lugar de John Gibson (tren inferior desde el 3 nov, day-to-day; Tarasov jugó el 5 vs VGK). DET recibe a COL el sáb 7 (NHL.com Status Report, 5 nov)",
+  "d": "6 nov"
+ },
+ {
+  "id": "mrc",
+  "t": "NSH",
+  "n": "Jonathan Marchessault (RW)",
+  "r": "gf",
+  "i": 0.06,
+  "st": 0.5,
+  "h": "Tren inferior; se perdió el 3 nov y no se esperaba que jugara el 5 en COL (NHL.com, sin confirmar). NSH juega el sáb 7 en STL",
+  "d": "6 nov"
+ },
+ {
+  "id": "hei",
+  "t": "DAL",
+  "n": "Miro Heiskanen (D)",
+  "r": "ga",
+  "i": 0.1,
+  "st": 0.5,
+  "h": "Tren superior; no jugó el jue 5 en CBJ. \"Day to day de verdad\", probable regreso el sáb 7 en SJ (NHL.com/RotoWire, 5 nov)",
+  "d": "6 nov"
+ },
+ {
+  "id": "kan",
+  "t": "CHI",
+  "n": "Patrick Kane (RW)",
+  "r": "gf",
+  "i": 0.1,
+  "st": 1,
+  "h": "Tren superior desde el 2 nov; no jugó el 5 en TB. Blashill: fuera \"al menos los próximos juegos\"; Dobber estima regreso ~12 nov vs BUF (sin confirmar)",
+  "d": "6 nov"
+ },
+ {
+  "id": "hub",
+  "t": "CGY",
+  "n": "Jonathan Huberdeau (LW)",
+  "r": "gf",
+  "i": 0.08,
+  "st": 1,
+  "h": "IR (cadera); no hay confirmación de que volviera el lun 2 en SJ (Flames ganaron 2-1)",
+  "d": "3 nov"
+ },
+ {
+  "id": "kas",
+  "t": "DET",
+  "n": "Marco Kasper (C)",
+  "r": "gf",
+  "i": 0.05,
+  "st": 1,
+  "h": "Fuera de la alineación; se pierde el juego de hoy en FLA (TheSpread, 2 nov)",
+  "d": "2 nov"
+ },
+ {
+  "id": "app",
+  "t": "DET",
+  "n": "Mason Appleton (RW)",
+  "r": "gf",
+  "i": 0.03,
+  "st": 1,
+  "h": "Fuera de la alineación; se pierde el juego de hoy en FLA (TheSpread, 2 nov)",
+  "d": "2 nov"
+ },
+ {
+  "id": "how",
+  "t": "EDM",
+  "n": "Isaac Howard (LW)",
+  "r": "gf",
+  "i": 0.04,
+  "st": 1,
+  "h": "Rodilla (rodillazo de Heineman el 31 oct); semana a semana (DailyFaceoff, 4 nov)",
+  "d": "5 nov"
+ },
+ {
+  "id": "pry",
+  "t": "STL",
+  "n": "Colton Parayko (D)",
+  "r": "ga",
+  "i": 0.06,
+  "st": 0.5,
+  "h": "Tren superior; day-to-day, no jugó el sáb 31 en DET (NHL.com)",
+  "d": "1 nov"
+ },
+ {
+  "id": "cer",
+  "t": "TB",
+  "n": "Erik Cernak (D)",
+  "r": "ga",
+  "i": 0.04,
+  "st": 0.5,
+  "h": "Day-to-day; no jugó el sáb 31 en NSH (NHL.com)",
+  "d": "1 nov"
+ },
+ {
+  "id": "chy",
+  "t": "VAN",
+  "n": "Filip Chytil (C)",
+  "r": "gf",
+  "i": 0.05,
+  "st": 1,
+  "h": "A la IR (NHL.com, 31 oct)",
+  "d": "1 nov"
+ },
+ {
+  "id": "pul",
+  "t": "NYI",
+  "n": "Ryan Pulock (D)",
+  "r": "ga",
+  "i": 0.05,
+  "st": 1,
+  "h": "Tren superior; fuera 2-4 semanas, igual que Maccelli (DailyFaceoff, 4 nov)",
+  "d": "5 nov"
+ },
+ {
+  "id": "lrk",
+  "t": "DET",
+  "n": "Dylan Larkin (C)",
+  "r": "gf",
+  "i": 0.15,
+  "st": 1,
+  "h": "Suspendido sin sueldo por DET desde el 29 oct tras negarse a jugar; sin traspaso: DET quiere sumar BOS, BUF, LA y MTL a su lista de 10 equipos y el agente se niega (TSN/LeBrun, 4 nov)",
+  "d": "5 nov"
+ },
+ {
+  "id": "bur",
+  "t": "OTT",
+  "n": "Andre Burakovsky (LW)",
+  "r": "gf",
+  "i": 0.04,
+  "st": 1,
+  "h": "Tren inferior desde el 29 en LA; a la IR, fuera 3-4 semanas (TSN, 31 oct)",
+  "d": "1 nov"
+ },
+ {
+  "id": "fog",
+  "t": "OTT",
+  "n": "Warren Foegele (LW)",
+  "r": "gf",
+  "i": 0.03,
+  "st": 1,
+  "h": "Fuera 3-4 semanas, igual que Burakovsky (TSN, 31 oct)",
+  "d": "1 nov"
+ },
+ {
+  "id": "hel2",
+  "t": "BUF",
+  "n": "Konsta Helenius (C)",
+  "r": "gf",
+  "i": 0.03,
+  "st": 1,
+  "h": "Tren superior; fuera sin plazo (DailyFaceoff, 29 oct)",
+  "d": "30 oct"
+ },
+ {
+  "id": "coo",
+  "t": "CGY",
+  "n": "Devin Cooley (G)",
+  "r": "ga",
+  "i": 0.05,
+  "st": 1,
+  "h": "Tren inferior; semana a semana. Dustin Wolf es el titular (DailyFaceoff, 31 oct)",
+  "d": "1 nov"
+ },
+ {
+  "id": "mar2",
+  "t": "TOR",
+  "n": "Kirill Marchenko (RW)",
+  "r": "gf",
+  "i": 0.08,
+  "st": 1,
+  "h": "Tren inferior; a la IR, semana a semana (DailyFaceoff, 29 oct)",
+  "d": "30 oct"
+ },
+ {
+  "id": "man",
+  "t": "COL",
+  "n": "Josh Manson (D)",
+  "r": "ga",
+  "i": 0.04,
+  "st": 1,
+  "h": "Tobillo; fuera unas 8 semanas (NHL.com, 30 oct)",
+  "d": "1 nov"
+ },
+ {
+  "id": "oth",
+  "t": "CGY",
+  "n": "Brennan Othmann (LW)",
+  "r": "gf",
+  "i": 0.03,
+  "st": 0.5,
+  "h": "Tren superior; salió del juego del mié 28 en EDM y no regresó (DailyFaceoff)",
+  "d": "29 oct"
+ },
+ {
+  "id": "ajo",
+  "t": "DET",
+  "n": "Albert Johansson (D)",
+  "r": "ga",
+  "i": 0.03,
+  "st": 1,
+  "h": "Lesión no revelada; sigue fuera hoy ante CHI (DailyFaceoff, 28 oct)",
+  "d": "29 oct"
+ },
+ {
+  "id": "ris",
+  "t": "PHI",
+  "n": "Rasmus Ristolainen (D)",
+  "r": "ga",
+  "i": 0.05,
+  "st": 1,
+  "h": "Tren superior; fuera al menos 2 semanas tras agravar la lesión el sáb 24 (NHL.com, 26 oct)",
+  "d": "27 oct"
+ },
+ {
+  "id": "and",
+  "t": "EDM",
+  "n": "Frederik Andersen (G)",
+  "r": "ga",
+  "i": 0.15,
+  "st": 1,
+  "h": "Lesionado junto con Devon Levi; Tristan Jarry es el titular y se proyecta hoy ante CGY (DailyFaceoff, sin confirmar)",
+  "d": "28 oct"
+ },
+ {
+  "id": "che",
+  "t": "SJ",
+  "n": "Igor Chernyshov (LW)",
+  "r": "gf",
+  "i": 0.04,
+  "st": 1,
+  "h": "Tren superior; semana a semana (DobberHockey, 25 oct)",
+  "d": "26 oct"
+ },
+ {
+  "id": "mrn",
+  "t": "UTA",
+  "n": "John Marino (D)",
+  "r": "ga",
+  "i": 0.05,
+  "st": 1,
+  "h": "Tren superior; pasó de day-to-day a semana a semana (NHL.com, 26 oct)",
+  "d": "27 oct"
+ },
+ {
+  "id": "mcn",
+  "t": "SEA",
+  "n": "Jared McCann (LW)",
+  "r": "gf",
+  "i": 0.12,
+  "st": 1,
+  "h": "A la IR el 25 oct; fuera ~10 semanas por lesión en el tren inferior. Kaapo Kakko sube a la primera línea (NHL.com/ProHockeyRumors/DobberHockey)",
+  "d": "26 oct"
+ },
+ {
+  "id": "des",
+  "t": "WSH",
+  "n": "Vincent Desharnais (D)",
+  "r": "ga",
+  "i": 0.03,
+  "st": 1,
+  "h": "Apendicectomía; fuera 4-6 semanas (NHL.com)",
+  "d": "24 oct"
+ },
+ {
+  "id": "lev",
+  "t": "EDM",
+  "n": "Devon Levi (G)",
+  "r": "ga",
+  "i": 0.1,
+  "st": 1,
+  "h": "A la IR el viernes (lesión no revelada); fuera unas semanas. Subieron a Matt Tomkins (DobberHockey, 25 oct)",
+  "d": "26 oct"
+ },
+ {
+  "id": "ull",
+  "t": "OTT",
+  "n": "Linus Ullmark (G)",
+  "r": "ga",
+  "i": 0.3,
+  "st": 1,
+  "h": "IR (tren inferior, desde el 21 oct); practica con el equipo. Regreso posible el sáb 7 vs UTA, sin confirmar (DailyFaceoff, 4-5 nov)",
+  "d": "6 nov"
+ },
+ {
+  "id": "gus",
+  "t": "MIN",
+  "n": "Filip Gustavsson (G)",
+  "r": "ga",
+  "i": 0.25,
+  "st": 1,
+  "h": "Cadera; abre Jesper Wallstedt (DailyFaceoff/NHL.com, 20 oct)",
+  "d": "22 oct"
+ },
+ {
+  "id": "rus",
+  "t": "PIT",
+  "n": "Bryan Rust (RW)",
+  "r": "gf",
+  "i": 0.08,
+  "st": 1,
+  "h": "Tren inferior (salió el 19 en UTA); será reevaluado en 6 semanas (NHL.com, 22 oct)",
+  "d": "23 oct"
+ },
+ {
+  "id": "bac",
+  "t": "CGY",
+  "n": "Mikael Backlund (C)",
+  "r": "gf",
+  "i": 0.05,
+  "st": 1,
+  "h": "Tren superior; se perdió su 2º juego seguido el 24 (NHL.com)",
+  "d": "25 oct"
+ },
+ {
+  "id": "rit",
+  "t": "NYI",
+  "n": "Brett Ritchie (RW)",
+  "r": "gf",
+  "i": 0.02,
+  "st": 1,
+  "h": "Tren inferior; fuera (NHL.com Islanders, 19 oct)",
+  "d": "22 oct"
+ },
+ {
+  "id": "shs",
+  "t": "NYR",
+  "n": "Igor Shesterkin (G)",
+  "r": "ga",
+  "i": 0.4,
+  "st": 1,
+  "h": "Fuera el resto de la temporada (rodilla); Dylan Garand es el titular",
+  "d": "12 oct"
+ },
+ {
+  "id": "kor",
+  "t": "NYR",
+  "n": "Joonas Korpisalo (G)",
+  "r": "ga",
+  "i": 0.08,
+  "st": 1,
+  "h": "Tren inferior/pie; enviado a AHL Hartford en asignación de acondicionamiento el 4 nov (DailyFaceoff)",
+  "d": "5 nov"
+ },
+ {
+  "id": "bar",
+  "t": "FLA",
+  "n": "Aleksander Barkov (C)",
+  "r": "gf",
+  "i": 0.22,
+  "st": 1,
+  "h": "IR (tren inferior); hasta ~27 nov",
+  "d": "12 oct"
+ },
+ {
+  "id": "mch",
+  "t": "FLA",
+  "n": "Brad Marchand (LW)",
+  "r": "gf",
+  "i": 0.12,
+  "st": 1,
+  "h": "Pierna; volvió a patinar, fuera unas 3 semanas más (~20 nov) (DailyFaceoff, 29 oct)",
+  "d": "30 oct"
+ },
+ {
+  "id": "dem",
+  "t": "MTL",
+  "n": "Ivan Demidov (RW)",
+  "r": "gf",
+  "i": 0.15,
+  "st": 1,
+  "h": "Fractura de tobillo; semana a semana (DailyFaceoff, 5 nov)",
+  "d": "5 nov"
+ },
+ {
+  "id": "mon",
+  "t": "MTL",
+  "n": "Sam Montembeault (G)",
+  "r": "ga",
+  "i": 0.3,
+  "st": 0.5,
+  "h": "IR (tren inferior), ahora day-to-day; Jacob Fowler y Jakub Dobes se reparten la portería (NHL.com, 31 oct)",
+  "d": "1 nov"
+ },
+ {
+  "id": "bar2",
+  "t": "NYI",
+  "n": "Mathew Barzal (C)",
+  "r": "gf",
+  "i": 0.2,
+  "st": 1,
+  "h": "Rodilla (IR); volvió a practicar el mié 4 con jersey de no contacto, sin plazo (DailyFaceoff, 4 nov)",
+  "d": "5 nov"
+ },
+ {
+  "id": "rom",
+  "t": "NYI",
+  "n": "Alexander Romanov (D)",
+  "r": "ga",
+  "i": 0.1,
+  "st": 1,
+  "h": "Ligamento cruzado roto; fuera hasta abril",
+  "d": "12 oct"
+ },
+ {
+  "id": "mor",
+  "t": "WPG",
+  "n": "Josh Morrissey (D)",
+  "r": "ga",
+  "i": 0.12,
+  "st": 1,
+  "h": "Muñeca; en IR desde el 19 oct, semana a semana. Patinó con jersey de no contacto el 5 nov (RotoWire/Yahoo, 5 nov)",
+  "d": "6 nov"
+ },
+ {
+  "id": "hel",
+  "t": "WPG",
+  "n": "Connor Hellebuyck (G)",
+  "r": "ga",
+  "i": 0.35,
+  "st": 1,
+  "h": "Traspasado a NJ el 23 oct por Mercer, Daws, Bjugstad, los derechos de Command y 2 picks (NHL.com). WPG sigue con Skinner/Stevenson; en NJ se espera que Jake Allen pierda minutos",
+  "d": "26 oct"
+ },
+ {
+  "id": "ekl",
+  "t": "OTT",
+  "n": "William Eklund (LW)",
+  "r": "gf",
+  "i": 0.06,
+  "st": 1,
+  "h": "Cirugía de tobillo; fuera 10-12 semanas",
+  "d": "16 oct"
+ },
+ {
+  "id": "sdn",
+  "t": "WSH",
+  "n": "Rasmus Sandin (D)",
+  "r": "ga",
+  "i": 0.06,
+  "st": 1,
+  "h": "Reconstrucción de ligamento cruzado; regreso estimado a finales de diciembre",
+  "d": "12 oct"
+ },
+ {
+  "id": "dub",
+  "t": "WSH",
+  "n": "Pierre-Luc Dubois (C)",
+  "r": "gf",
+  "i": 0.08,
+  "st": 1,
+  "h": "Enfermedad (IR); 5 juegos fuera, podría volver el sáb 24 ante BUF (NHL.com)",
+  "d": "22 oct"
+ },
+ {
+  "id": "dmk",
+  "t": "VAN",
+  "n": "Thatcher Demko (G)",
+  "r": "ga",
+  "i": 0.15,
+  "st": 1,
+  "h": "Cadera; IR hasta al menos el 21 dic (CBS)",
+  "d": "19 oct"
+ },
+ {
+  "id": "sta",
+  "t": "CAR",
+  "n": "Jordan Staal (C)",
+  "r": "gf",
+  "i": 0.05,
+  "st": 1,
+  "h": "Desgarro en la pantorrilla; fuera 1-2 meses",
+  "d": "14 oct"
+ },
+ {
+  "id": "fab",
+  "t": "MIN",
+  "n": "Brock Faber (D)",
+  "r": "ga",
+  "i": 0.1,
+  "st": 1,
+  "h": "Fractura de cráneo; ya superó el protocolo y volverá a patinar en las próximas semanas, sin fecha de regreso (DailyFaceoff, 29 oct)",
+  "d": "30 oct"
+ },
+ {
+  "id": "olo",
+  "t": "VGK",
+  "n": "Victor Olofsson (LW)",
+  "r": "gf",
+  "i": 0.05,
+  "st": 1,
+  "h": "Practica con jersey de no contacto; casi 3 semanas sin jugar (DailyFaceoff, 29 oct)",
+  "d": "30 oct"
+ },
+ {
+  "id": "dom",
+  "t": "TOR",
+  "n": "Max Domi (C)",
+  "r": "gf",
+  "i": 0.05,
+  "st": 1,
+  "h": "Hasta ~21 nov",
+  "d": "12 oct"
+ },
+ {
+  "id": "ter",
+  "t": "ANA",
+  "n": "Troy Terry (RW)",
+  "r": "gf",
+  "i": 0.1,
+  "st": 1,
+  "h": "Cadera; hasta ~21 nov",
+  "d": "12 oct"
+ },
+ {
+  "id": "fia",
+  "t": "LA",
+  "n": "Kevin Fiala (LW)",
+  "r": "gf",
+  "i": 0.1,
+  "st": 1,
+  "h": "Tren inferior; practica con jersey de no contacto, semana a semana (DailyFaceoff, 29 oct)",
+  "d": "30 oct"
+ },
+ {
+  "id": "duc",
+  "t": "DAL",
+  "n": "Matt Duchene (C)",
+  "r": "gf",
+  "i": 0.07,
+  "st": 1,
+  "h": "Abdomen; IR hasta al menos el 12 ene",
+  "d": "13 oct"
+ },
+ {
+  "id": "mat",
+  "t": "OTT",
+  "n": "Nikolas Matinpalo (D)",
+  "r": "ga",
+  "i": 0.03,
+  "st": 1,
+  "h": "Tren superior; hasta ~24 oct",
+  "d": "14 oct"
+ },
+ {
+  "id": "hal",
+  "t": "CAR",
+  "n": "Taylor Hall (LW)",
+  "r": "gf",
+  "i": 0.1,
+  "st": 1,
+  "h": "Tren superior; dejó temprano la práctica matutina del mar 27, semana a semana (NHL.com, 28 oct)",
+  "d": "29 oct"
+ },
+ {
+  "id": "poe",
+  "t": "ANA",
+  "n": "Ryan Poehling (C)",
+  "r": "gf",
+  "i": 0.04,
+  "st": 1,
+  "h": "Esguince del ligamento colateral medial; 6-8 semanas",
+  "d": "14 oct"
+ },
+ {
+  "id": "bck",
+  "t": "DAL",
+  "n": "Oskar Bäck (C)",
+  "r": "gf",
+  "i": 0.03,
+  "st": 1,
+  "h": "Dedo roto; fuera 4-6 semanas (IR)",
+  "d": "16 oct"
+ },
+ {
+  "id": "tav",
+  "t": "TOR",
+  "n": "John Tavares (C)",
+  "r": "gf",
+  "i": 0.12,
+  "st": 0.5,
+  "h": "Pasó de IR a day-to-day y practicó como extremo; podría volver el sáb 7 en MTL si pasa la práctica del viernes (NHL.com Status Report, 5 nov)",
+  "d": "6 nov"
+ },
+ {
+  "id": "nam",
+  "t": "WPG",
+  "n": "Vladislav Namestnikov (C)",
+  "r": "gf",
+  "i": 0.04,
+  "st": 1,
+  "h": "Lesión no revelada en la práctica del 15 oct; fuera semanas",
+  "d": "18 oct"
+ },
+ {
+  "id": "grn",
+  "t": "ANA",
+  "n": "Mikael Granlund (C)",
+  "r": "gf",
+  "i": 0.08,
+  "st": 0.5,
+  "h": "Tren superior; CBS (17 oct) lo pasó a day-to-day",
+  "d": "19 oct"
+ },
+ {
+  "id": "byr",
+  "t": "CHI",
+  "n": "Bowen Byram (D)",
+  "r": "ga",
+  "i": 0.05,
+  "st": 1,
+  "h": "Day-to-day (tren superior); tampoco jugó el 25 vs FLA. Practica con jersey de no contacto y no está en protocolo de conmoción (Blashill vía DobberHockey, 25 oct)",
+  "d": "26 oct"
+ },
+ {
+  "id": "jvr",
+  "t": "PIT",
+  "n": "Trevor van Riemsdyk (D)",
+  "r": "ga",
+  "i": 0.04,
+  "st": 1,
+  "h": "IR (tren inferior); ESPN estima el 22 oct, sin confirmar",
+  "d": "21 oct"
+ },
+ {
+  "id": "sou",
+  "t": "WSH",
+  "n": "Justin Sourdif (C)",
+  "r": "gf",
+  "i": 0.03,
+  "st": 0.5,
+  "h": "Enfermedad; no jugó el 17 ante NJ, day-to-day",
+  "d": "18 oct"
+ },
+ {
+  "id": "bju",
+  "t": "NJ",
+  "n": "Nick Bjugstad (C)",
+  "r": "gf",
+  "i": 0.03,
+  "st": 1,
+  "h": "Pectoral; fuera hasta enero. Traspasado a WPG el 23 oct",
+  "d": "23 oct"
+ },
+ {
+  "id": "gou",
+  "t": "TB",
+  "n": "Yanni Gourde (C)",
+  "r": "gf",
+  "i": 0.04,
+  "st": 1,
+  "h": "Cadera; fuera",
+  "d": "16 oct"
+ },
+ {
+  "id": "dic",
+  "t": "EDM",
+  "n": "Jason Dickinson (C)",
+  "r": "gf",
+  "i": 0.03,
+  "st": 0.5,
+  "h": "Tren inferior (IR desde el 22); podría volver hoy ante CGY tras perderse 6 juegos (NHL.com, 27-28 oct)",
+  "d": "28 oct"
+ },
+ {
+  "id": "xhe",
+  "t": "MTL",
+  "n": "Florian Xhekaj (LW)",
+  "r": "gf",
+  "i": 0.03,
+  "st": 1,
+  "h": "Fuera unas 2 semanas",
+  "d": "16 oct"
+ },
+ {
+  "id": "mth",
+  "t": "MTL",
+  "n": "Mike Matheson (D)",
+  "r": "ga",
+  "i": 0.05,
+  "st": 1,
+  "h": "Tren inferior; fuera unas 2 semanas (NHL.com, 31 oct)",
+  "d": "1 nov"
+ },
+ {
+  "id": "chk",
+  "t": "PIT",
+  "n": "Egor Chinakhov (RW)",
+  "r": "gf",
+  "i": 0.05,
+  "st": 0.5,
+  "h": "Tren inferior (práctica del 15 oct); day-to-day según CBS (17 oct)",
+  "d": "18 oct"
+ },
+ {
+  "id": "spu",
+  "t": "MIN",
+  "n": "Jared Spurgeon (D)",
+  "r": "ga",
+  "i": 0.06,
+  "st": 1,
+  "h": "Lesión no revelada; semana a semana (DailyFaceoff, 29 oct)",
+  "d": "30 oct"
+ },
+ {
+  "id": "nfo",
+  "t": "MIN",
+  "n": "Nick Foligno (RW)",
+  "r": "gf",
+  "i": 0.03,
+  "st": 1,
+  "h": "IR (tren superior); CBS (19 oct): fuera hasta al menos el 29 oct",
+  "d": "20 oct"
+ },
+ {
+  "id": "mcc",
+  "t": "NYI",
+  "n": "Matias Maccelli (LW)",
+  "r": "gf",
+  "i": 0.04,
+  "st": 1,
+  "h": "Tren inferior; fuera 2-4 semanas (DailyFaceoff, 4 nov)",
+  "d": "5 nov"
+ },
+ {
+  "id": "zac",
+  "t": "BOS",
+  "n": "Pavel Zacha (C)",
+  "r": "gf",
+  "i": 0.06,
+  "st": 0.5,
+  "h": "Tren superior; day-to-day (CBS, 18 oct)",
+  "d": "19 oct"
+ },
+ {
+  "id": "hin",
+  "t": "DAL",
+  "n": "Roope Hintz (C)",
+  "r": "gf",
+  "i": 0.1,
+  "st": 0.5,
+  "h": "Lesión no revelada; day-to-day (CBS, 17 oct)",
+  "d": "19 oct"
+ },
+ {
+  "id": "gir",
+  "t": "PIT",
+  "n": "Samuel Girard (D)",
+  "r": "ga",
+  "i": 0.05,
+  "st": 1,
+  "h": "Tren inferior; a la IR (NHL.com, 24 oct)",
+  "d": "25 oct"
+ },
+ {
+  "id": "car",
+  "t": "UTA",
+  "n": "Michael Carcone (LW)",
+  "r": "gf",
+  "i": 0.04,
+  "st": 1,
+  "h": "Tren superior; fuera hasta al menos el 1 nov (CBS, 18 oct)",
+  "d": "19 oct"
+ },
+ {
+  "id": "wot",
+  "t": "VGK",
+  "n": "Parker Wotherspoon (D)",
+  "r": "ga",
+  "i": 0.04,
+  "st": 1,
+  "h": "Tren superior; fuera hasta al menos el 8 nov (CBS, 18 oct)",
+  "d": "19 oct"
+ },
+ {
+  "id": "lhe",
+  "t": "COL",
+  "n": "Zachary L'Heureux (LW)",
+  "r": "gf",
+  "i": 0.03,
+  "st": 1,
+  "h": "Tren superior; semana a semana (NHL.com)",
+  "d": "22 oct"
+ },
+ {
+  "id": "fab2",
+  "t": "CBJ",
+  "n": "Dante Fabbro (D)",
+  "r": "ga",
+  "i": 0.04,
+  "st": 1,
+  "h": "Mano (IR); CBS: fuera hasta al menos el 3 nov",
+  "d": "20 oct"
+ },
+ {
+  "id": "byf",
+  "t": "LA",
+  "n": "Quinton Byfield (C)",
+  "r": "gf",
+  "i": 0.08,
+  "st": 0.5,
+  "h": "Volvió a patinar el 25 con jersey de no contacto y trabajó en el 1er powerplay; duda para hoy en NYR (LA Kings Insider)",
+  "d": "26 oct"
+ },
+ {
+  "id": "wen",
+  "t": "SJ",
+  "n": "Alexander Wennberg (C)",
+  "r": "gf",
+  "i": 0.04,
+  "st": 1,
+  "h": "Tren superior; semana a semana (NHL.com, 22 oct)",
+  "d": "23 oct"
+ },
+ {
+  "id": "kin",
+  "t": "PIT",
+  "n": "Ben Kindel (C)",
+  "r": "gf",
+  "i": 0.04,
+  "st": 0.5,
+  "h": "Volvió a practicar el mar 27 tras el síncope en el avión del 20; podría volver el jue 29 vs UTA (NHL.com, 27 oct)",
+  "d": "28 oct"
+ },
+ {
+  "id": "hym",
+  "t": "EDM",
+  "n": "Zach Hyman (LW)",
+  "r": "gf",
+  "i": 0.1,
+  "st": 1,
+  "h": "En IR (tren superior/cuello); fuera al menos 3 juegos más (NHL.com/DailyFaceoff, 28 oct)",
+  "d": "29 oct"
+ },
+ {
+  "id": "cap",
+  "t": "DAL",
+  "n": "Kyle Capobianco (D)",
+  "r": "ga",
+  "i": 0.04,
+  "st": 1,
+  "h": "Tren inferior; fuera unas 4 semanas (DailyFaceoff, 29 oct)",
+  "d": "30 oct"
+ },
+ {
+  "id": "sod",
+  "t": "PIT",
+  "n": "Elmer Soderblom (RW)",
+  "r": "gf",
+  "i": 0.03,
+  "st": 1,
+  "h": "Tren superior; a la IR, fuera al menos una semana (DailyFaceoff, 28 oct)",
+  "d": "29 oct"
+ }
+]

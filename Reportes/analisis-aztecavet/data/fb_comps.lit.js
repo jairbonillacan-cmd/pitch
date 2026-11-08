@@ -1,0 +1,6 @@
+{
+ MX:{n:"Liga MX",sub:"APERTURA 2026 · JORNADA 16",lg:"MX",em:"MX",g:"linear-gradient(160deg,#00d68f,#04503a 70%,#021a14)",gl:"rgba(0,214,143,.55)",ac:"#00d68f",ac2:"#04503a",sim:["AME","MTY"]},
+ LL:{n:"La Liga",sub:"ESPAÑA · 2026-27",lg:"LL",em:"ES",g:"linear-gradient(160deg,#ff8a1f,#8a2a00 70%,#2a0c00)",gl:"rgba(255,138,31,.55)",ac:"#ff8a1f",ac2:"#6e2300",sim:["BAR","RMA"]},
+ PL:{n:"Premier League",sub:"INGLATERRA · 2026-27",lg:"PL",em:"EN",g:"linear-gradient(160deg,#c15bff,#3a0b7a 70%,#12032e)",gl:"rgba(193,91,255,.55)",ac:"#c15bff",ac2:"#34096f",sim:["ARS","MCI"]},
+ UCL:{n:"Champions League",sub:"UEFA · FASE DE LIGA 26/27",lg:"OT",em:"UCL",g:"linear-gradient(160deg,#3d8bff,#0b2a7a 70%,#030c2e)",gl:"rgba(61,139,255,.6)",ac:"#3d8bff",ac2:"#0b2a7a",sim:["BMU","PSG"]},
+ UEL:{n:"Europa League",sub:"UEFA · FASE DE LIGA 26/27",lg:"OT",em:"UEL",g:"linear-gradient(160deg,#ffb020,#7a3d00 70%,#241200)",gl:"rgba(255,176,32,.55)",ac:"#ffb020",ac2:"#7a3d00",sim:["SLB","B04"]}}

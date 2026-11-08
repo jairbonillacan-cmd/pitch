@@ -1,0 +1,130 @@
+evidence_id: ev_82f3f313574aafcae21631067f6d15694748b35a0cd5634c6f9c70c3c4d5702b
+subject:
+  name: js-tree
+  digest:
+    sha256: d918f4015ad4a499b52b5798dbee48f03df935520f0d788e2185ed1e67f7eecf
+  local_path: /Users/jairbonilla/Desktop/Pitch Lab/touchiq-analysis/js-tree
+  format: directory
+  architecture: null
+provider:
+  id: rea-analysis-view
+  name: REA analysis view projection
+  version: "1"
+analysis_profile: null
+predicate_type: rea.analysis-view
+operation: inspect_analysis_view
+parameters:
+  parent_evidence_id: ev_2464afc9c1577363059ca3954a7f072cda757b6d6e3847e3d1ee37e6aa0c3e2c
+  view:
+    kind: summary
+raw_result: null
+normalized_result:
+  kind: summary
+  view:
+    kind: summary
+  parent_evidence_id: ev_2464afc9c1577363059ca3954a7f072cda757b6d6e3847e3d1ee37e6aa0c3e2c
+  parent_operation: analyze_javascript_application
+  parent_digest: 2464afc9c1577363059ca3954a7f072cda757b6d6e3847e3d1ee37e6aa0c3e2c
+  view_digest: a21d20cbe91547c307861e6afbbd9f4147cc2bcd3edfff8b91ecd44e7ec30687
+  artifact:
+    path: /Users/jairbonilla/Desktop/Pitch Lab/touchiq-analysis/js-tree
+    sha256: d918f4015ad4a499b52b5798dbee48f03df935520f0d788e2185ed1e67f7eecf
+  coverage:
+    status: complete-within-view
+    examined: 14
+    total: 14
+    next_offset: null
+    exhausted: true
+  limitations[18]: Boundary extraction covers unshadowed JSON/global coercions plus parse and validation method candidates.,"Child-process extraction covers asynchronous node:child_process creation, literal argv/env/stdio options, exit/error listeners, and kill signals.",CommonJS and ESM binding relationships were recovered from inert syntax and resolved only within the inventoried artifact container.,"Configuration extraction covers process.env, process.argv, node:fs reads, and direct logical defaults.","Event extraction covers EventEmitter-style literal registrations, removals, and dispatch candidates; dynamic names remain unknown.",Function fingerprints are static candidates; equal digests can remain ambiguous and do not prove behavioral equivalence.,Graph coverage is incomplete; unavailable facts remain explicit and must not be read as absence.,JavaScript and HTML were parsed as inert text; bundle bootstrap code was never executed.,Local data flow does not claim control-flow-sensitive reaching definitions or arbitrary dynamic property resolution.,Primitive string-byte budget exceeded (maximum 1048576 estimated JSON bytes).,"Promise ownership covers explicit unshadowed Promise construction, static factories, aggregation, chaining, and await syntax only.","Request extraction covers fetch, WebSocket, node:http/node:https construction, direct option fields, and exact local response consumers.",Resource extraction covers built-in filesystem/network acquisition and exact local close/destroy/end handles.,"Static imports, entrypoints, workers, endpoints, and storage relationships do not prove runtime execution.",Static paths and relationships may remain unresolved when expressions are dynamic or obfuscated.,The semantic graph contains static syntax observations and conservative relationship candidates; it does not claim runtime execution.,"Timer extraction covers global or node:timers scheduling and exact local-handle cancellation.",Webpack/Rspack factories were recovered from AST literals; REA did not invoke push handlers or bundle bootstrap code.
+  unknowns[21]: 2872 semantic graph unknowns remain in the parent Evidence.,Boundary extraction covers unshadowed JSON/global coercions plus parse and validation method candidates.,"Child-process extraction covers asynchronous node:child_process creation, literal argv/env/stdio options, exit/error listeners, and kill signals.",CommonJS and ESM binding relationships were recovered from inert syntax and resolved only within the inventoried artifact container.,"Configuration extraction covers process.env, process.argv, node:fs reads, and direct logical defaults.","Event extraction covers EventEmitter-style literal registrations, removals, and dispatch candidates; dynamic names remain unknown.",Function fingerprints are static candidates; equal digests can remain ambiguous and do not prove behavioral equivalence.,Graph coverage is incomplete; unavailable facts remain explicit and must not be read as absence.,JavaScript and HTML were parsed as inert text; bundle bootstrap code was never executed.,Local data flow does not claim control-flow-sensitive reaching definitions or arbitrary dynamic property resolution.,Primitive string-byte budget exceeded (maximum 1048576 estimated JSON bytes).,"Promise ownership covers explicit unshadowed Promise construction, static factories, aggregation, chaining, and await syntax only.","Request extraction covers fetch, WebSocket, node:http/node:https construction, direct option fields, and exact local response consumers.",Resource extraction covers built-in filesystem/network acquisition and exact local close/destroy/end handles.,"Static imports, entrypoints, workers, endpoints, and storage relationships do not prove runtime execution.",Static paths and relationships may remain unresolved when expressions are dynamic or obfuscated.,The semantic graph contains static syntax observations and conservative relationship candidates; it does not claim runtime execution.,"Timer extraction covers global or node:timers scheduling and exact local-handle cancellation.",Webpack/Rspack factories were recovered from AST literals; REA did not invoke push handlers or bundle bootstrap code.,graph.coverage.status is partial,semantic_graph.coverage.status is unknown
+  summary:
+    input_path: /Users/jairbonilla/Desktop/Pitch Lab/touchiq-analysis/js-tree
+    format: directory
+    root_artifact_sha256: d918f4015ad4a499b52b5798dbee48f03df935520f0d788e2185ed1e67f7eecf
+    statistics:
+      relevant_files: 3
+      nested_asar_containers: 0
+      text_bytes_read: 2083599
+      invalid_utf8_files: 0
+      parsed_javascript_files: 3
+      skipped_javascript_files: 0
+      visited_ast_nodes: 12796
+      findings: 12
+      modules: 0
+      parse_failures: 0
+    electron:
+      browser_windows: 0
+      explicit_web_preferences: 0
+      preload_entrypoints: 0
+      context_bridge_apis: 0
+      exposed_api_members: 0
+      ipc:
+        operations: 0
+        literal_channels: 0
+        dynamic_channel_operations: 0
+        renderer_transmissions: 0
+        renderer_listeners: 0
+        main_handlers: 0
+        paired_renderer_transmissions: 0
+        ambiguous_renderer_transmissions: 0
+        unpaired_literal_renderer_transmissions: 0
+      sender_validation_observations: 0
+      utility_processes: 0
+      resolved_utility_entrypoints: 0
+      native_addon_bindings: 0
+      resolved_native_addon_bindings: 0
+    coverage:
+      static_sources:
+        sources: 3
+        unmeasured_sources: 0
+        syntax:
+          complete: 3
+          recovered: 0
+          failed: 0
+          "not-examined": 0
+        semantics:
+          unknown_sources: 2
+          unexamined_sources: 0
+        examination:
+          complete: 3
+          limited: 0
+          "not-examined": 0
+        electron_applicability:
+          observed: 0
+          unknown: 3
+      application:
+        status: partial
+        truncated: false
+        omitted_count: null
+        limits[1]{name,value,unit}:
+          javascript_semantic_primitive_bytes,1048576,bytes
+      semantic:
+        status: unknown
+        truncated: false
+        omitted_nodes: 0
+        omitted_relations: 0
+        limits: []
+        families[12]{family,status,retained_relations,omitted_relations,unknown_count}:
+          boundary,partial,12,0,0
+          call-flow,partial,987,0,755
+          child-process,partial,0,0,0
+          closure,partial,741,0,0
+          configuration,partial,0,0,0
+          data-flow,partial,6128,0,817
+          event,partial,0,0,0
+          object-flow,partial,992,0,1286
+          promise-ownership,partial,18,0,13
+          request,partial,0,0,0
+          resource-lifecycle,partial,0,0,0
+          timer,partial,14,0,1
+      application_unknowns: 0
+      semantic_unknowns: 2872
+    limitation_count: 18
+confidence: derived
+authority: shipped-artifact
+environment: null
+limitations[18]: Boundary extraction covers unshadowed JSON/global coercions plus parse and validation method candidates.,"Child-process extraction covers asynchronous node:child_process creation, literal argv/env/stdio options, exit/error listeners, and kill signals.",CommonJS and ESM binding relationships were recovered from inert syntax and resolved only within the inventoried artifact container.,"Configuration extraction covers process.env, process.argv, node:fs reads, and direct logical defaults.","Event extraction covers EventEmitter-style literal registrations, removals, and dispatch candidates; dynamic names remain unknown.",Function fingerprints are static candidates; equal digests can remain ambiguous and do not prove behavioral equivalence.,Graph coverage is incomplete; unavailable facts remain explicit and must not be read as absence.,JavaScript and HTML were parsed as inert text; bundle bootstrap code was never executed.,Local data flow does not claim control-flow-sensitive reaching definitions or arbitrary dynamic property resolution.,Primitive string-byte budget exceeded (maximum 1048576 estimated JSON bytes).,"Promise ownership covers explicit unshadowed Promise construction, static factories, aggregation, chaining, and await syntax only.","Request extraction covers fetch, WebSocket, node:http/node:https construction, direct option fields, and exact local response consumers.",Resource extraction covers built-in filesystem/network acquisition and exact local close/destroy/end handles.,"Static imports, entrypoints, workers, endpoints, and storage relationships do not prove runtime execution.",Static paths and relationships may remain unresolved when expressions are dynamic or obfuscated.,The semantic graph contains static syntax observations and conservative relationship candidates; it does not claim runtime execution.,"Timer extraction covers global or node:timers scheduling and exact local-handle cancellation.",Webpack/Rspack factories were recovered from AST literals; REA did not invoke push handlers or bundle bootstrap code.
+relationship_coverage: null
+locations[1]{kind,path}:
+  artifact-path,/Users/jairbonilla/Desktop/Pitch Lab/touchiq-analysis/js-tree
+evidence_links[1]: ev_2464afc9c1577363059ca3954a7f072cda757b6d6e3847e3d1ee37e6aa0c3e2c

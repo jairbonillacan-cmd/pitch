@@ -1,0 +1,1 @@
+const LG=4.40,EX=1.83,HFA=.54,SHR=.85,SD=3*Math.SQRT2;
