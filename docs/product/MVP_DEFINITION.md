@@ -43,12 +43,12 @@ Es el escenario A de la directiva (un deporte núcleo con investigación útil),
 **Producto**
 
 - J1, J2, J4, J5 y J8 de `USER_JOURNEYS.md` pasan en E2E (Playwright) en 375 y 1440 px.
-- Las cifras visibles tienen fuente, hora y, cuando aplica, n.
+- Las cifras visibles tienen hora de actualización y, cuando aplica, n. Sin proveedores ni nombres de algoritmos en la UI (FD-16).
 - No hay datos demo en producción (gate de build).
 
 **Datos**
 
-- Fuentes conformes a `FREE_DATA_STRATEGY.md` §1 y §5: atribución a nflverse visible y Liga MX solo con la licencia confirmada o detrás del flag.
+- Fuentes conformes a `FREE_DATA_STRATEGY.md` §1 y §5: atribución de licencias en la página «Créditos y licencias» y Liga MX solo con la licencia confirmada o detrás del flag.
 - Frescura dentro del SLA de cada liga durante 14 días seguidos en staging.
 - Captura de snapshots de cuotas activa al menos 4 semanas antes del lanzamiento (para tener apertura, cierre y CLV desde el inicio).
 

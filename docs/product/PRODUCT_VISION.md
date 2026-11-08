@@ -66,4 +66,4 @@ P1 y P2 definen el MVP. P3 es el motor de crecimiento (referidos y redes). P4 am
 | Retención | Activos semanales / registrados (W4 y W8) |
 | Negocio | Conversión trial → pago, MRR neto y churn mensual |
 | Crecimiento | % de registros por referido o invitación y K-factor de share cards |
-| Confianza | % de cifras con fuente, n y hora (meta: 100 %), y calibración publicada de cada modelo activo |
+| Confianza | % de cifras con hora de actualización y n (meta: 100 %), y calibración publicada de cada modelo activo |

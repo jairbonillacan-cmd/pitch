@@ -94,6 +94,7 @@ dialog.modal.show .modal-win { opacity: 1; transform: none; }
 .mscore { text-align: center; }
 .mscore .numeric-hl { animation: rise 420ms var(--ease-out) 80ms both; }
 .split-big { margin: var(--space-3) auto 0; width: 220px; }
+.mrow.lead td:first-child { font-weight: 650; }
 .rbody { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: var(--space-8); padding: var(--space-6) var(--space-8); align-items: start; }
 .mrow { cursor: pointer; }
 .mrow td { transition: background-color var(--time-fast); }

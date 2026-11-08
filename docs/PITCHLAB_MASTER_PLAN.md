@@ -256,7 +256,7 @@ El diseño evita que se convierta en una vitrina de tipsters tramposos:
   - Model registry en Postgres. Predicciones inmutables.
 - **PitchLab AI:**
   - Orquestador con herramientas tipadas (`getGame`, `getPlayerLogs`, `getOdds`, `getPrediction`, `explainModel`).
-  - Cada cifra de la respuesta viene de una herramienta, con fuente y hora.
+  - Cada cifra de la respuesta viene de una herramienta, con su hora de actualización (sin nombrar proveedores ni algoritmos, FD-16).
   - Cuota por plan y log de uso.
   - No da recomendaciones de apuesta.
 

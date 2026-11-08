@@ -10,7 +10,7 @@
 2. **Cinco tiempos** en todo hecho relevante: `event_time` (cuándo ocurrió), `source_updated_at` (cuándo lo actualizó la fuente), `observed_at` (cuándo lo vimos válido), `ingested_at` (cuándo lo guardamos) y `available_at` (desde cuándo se considera conocible, ver §6).
 3. **Inmutabilidad de lo observado.** Los snapshots de cuotas, las predicciones y los picks bloqueados no se actualizan nunca. Las correcciones de la fuente se guardan como una fila nueva con `supersedes_id`.
 4. **Crudo primero.** Cada respuesta de proveedor se guarda tal cual en R2 antes de normalizarse, para poder reprocesar.
-5. **Procedencia visible.** Toda lectura expuesta a la UI lleva `source` y `observedAt` (contrato `DataState`).
+5. **Procedencia registrada.** Toda lectura lleva `source` y `observedAt` (contrato `DataState`) para auditoría y Admin. La UI pública muestra solo la hora (`observedAt`), nunca el proveedor (FD-16).
 
 ## 2. Pipeline de ingesta
 

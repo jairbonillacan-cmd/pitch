@@ -45,9 +45,9 @@
 
   // ---------- Ligas ----------
   const LEAGUES = [
-    { id: "liga-mx", sport: "soccer", name: "Liga MX", short: "Liga MX", period: "Jornada 16", season: "Apertura 2026", country: "México", assets: "football/liga-mx-apertura-2026", mascot: "liga-mx", status: "beta", source: "API-Football" },
-    { id: "premier-league", sport: "soccer", name: "Premier League", short: "Premier", period: "Jornada 11", season: "2026/27", country: "Inglaterra", assets: "football/premier-league-2026-27", mascot: "premier-league", status: "ok", source: "openfootball" },
-    { id: "nfl", sport: "football", name: "NFL", short: "NFL", period: "Semana 10", season: "2026", country: "EE. UU.", assets: "american-football/nfl-2026", mascot: "nfl", status: "ok", source: "nflverse" },
+    { id: "liga-mx", sport: "soccer", name: "Liga MX", short: "Liga MX", period: "Jornada 16", season: "Apertura 2026", country: "México", assets: "football/liga-mx-apertura-2026", mascot: "liga-mx", status: "beta" },
+    { id: "premier-league", sport: "soccer", name: "Premier League", short: "Premier", period: "Jornada 11", season: "2026/27", country: "Inglaterra", assets: "football/premier-league-2026-27", mascot: "premier-league", status: "ok" },
+    { id: "nfl", sport: "football", name: "NFL", short: "NFL", period: "Semana 10", season: "2026", country: "EE. UU.", assets: "american-football/nfl-2026", mascot: "nfl", status: "ok" },
     { id: "nhl", sport: "hockey", name: "NHL", short: "NHL", period: "", season: "2026-27", country: "EE. UU. y Canadá", assets: null, mascot: "nhl", status: "soon" },
     { id: "mlb", sport: "baseball", name: "MLB", short: "MLB", period: "", season: "2027", country: "EE. UU.", assets: null, mascot: "mlb", status: "soon" },
   ];
@@ -104,7 +104,7 @@
     ],
   };
 
-  // ---------- Matemática ilustrativa (misma familia que el Baseline 0) ----------
+  // ---------- Cálculo ilustrativo del prototipo (no es el modelo de producción) ----------
   const fact = (n) => (n < 2 ? 1 : n * fact(n - 1));
   const pois = (k, l) => Math.exp(-l) * Math.pow(l, k) / fact(k);
   function erf(x) { const s = Math.sign(x); x = Math.abs(x); const t = 1 / (1 + 0.3275911 * x); return s * (1 - (((((1.061405429 * t - 1.453152027) * t) + 1.421413741) * t - 0.284496736) * t + 0.254829592) * t * Math.exp(-x * x)); }
@@ -137,20 +137,20 @@
     return {
       proj: { h: lh, a: la, total: lh + la }, x12: [ph, pd, pa], markets, likely: best,
       steps: [
-        `Datos de ${L.name} · ${L.source} · ${UPDATED}`,
-        `${H[1]} anota ${H[2].toFixed(2)} y recibe ${H[3].toFixed(2)} por partido · ${A[1]} ${A[2].toFixed(2)} y ${A[3].toFixed(2)}`,
-        `Regresión al promedio de la liga (${avg.toFixed(2)} goles) con ${H[4]} partidos de muestra`,
-        `Goles esperados ${lh.toFixed(2)} – ${la.toFixed(2)} con localía ×${hfa.toFixed(2)}`,
-        `Poisson + Dixon-Coles (ρ ${rho}) sobre ${(N + 1) * (N + 1)} marcadores posibles`,
-        `${markets.reduce((s, m) => s + m.rows.length, 0)} mercados calculados · marcador más probable ${best[0]}–${best[1]} (${pct(best[2])})`,
+        `Sincronizando ${L.name} · corte ${UPDATED}`,
+        `Fuerza de ataque y defensa · ${H[1]} ${H[2].toFixed(2)} / ${H[3].toFixed(2)} · ${A[1]} ${A[2].toFixed(2)} / ${A[3].toFixed(2)}`,
+        `Ajuste por localía y tamaño de muestra (${H[4]} partidos)`,
+        `Proyección de goles ${lh.toFixed(2)} – ${la.toFixed(2)}`,
+        `Evaluando ${(N + 1) * (N + 1)} marcadores posibles`,
+        `${markets.reduce((s, m) => s + m.rows.length, 0)} mercados listos · marcador más probable ${best[0]}–${best[1]}`,
       ],
       factors: [
         ["Ataque local", `${H[2].toFixed(2)} goles/partido`, `${H[4]} partidos · ajustado a ${sh(H[2], H[4]).toFixed(2)}`],
         ["Defensa visitante", `${A[3].toFixed(2)} recibidos/partido`, `ajustado a ${sh(A[3], A[4]).toFixed(2)}`],
         ["Ataque visitante", `${A[2].toFixed(2)} goles/partido`, `ajustado a ${sh(A[2], A[4]).toFixed(2)}`],
         ["Defensa local", `${H[3].toFixed(2)} recibidos/partido`, `ajustado a ${sh(H[3], H[4]).toFixed(2)}`],
-        ["Ventaja de local", "×1.12 en goles esperados", "Parámetro heredado"],
-        ["Marcadores bajos", "Dixon-Coles ρ −0.08", "Parámetro heredado"],
+        ["Localía", "Incluida", "Ajuste del modelo PitchLab"],
+        ["Muestra", `${H[4]} y ${A[4]} partidos`, "Temporada actual"],
       ],
     };
   }
@@ -171,20 +171,20 @@
     return {
       proj: { h: ph_, a: pa_, total, margin }, x12: [pH, 0, 1 - pH], markets,
       steps: [
-        `Datos de NFL · ${L.source} · ${UPDATED}`,
-        `${H[1]} anota ${H[2].toFixed(1)} y permite ${H[3].toFixed(1)} · ${A[1]} ${A[2].toFixed(1)} y ${A[3].toFixed(1)}`,
-        `Ventaja de local +${hfa.toFixed(1)} pts · ${H[4]} partidos de muestra`,
-        `Puntos proyectados ${ph_.toFixed(1)} – ${pa_.toFixed(1)} · margen ${margin > 0 ? "+" : ""}${margin.toFixed(1)}`,
-        `Curvas normales · σ margen 13.4 · σ total 13.3`,
-        `${markets.reduce((s, m) => s + m.rows.length, 0)} mercados calculados`,
+        `Sincronizando NFL · corte ${UPDATED}`,
+        `Ofensiva y defensa · ${H[1]} ${H[2].toFixed(1)} / ${H[3].toFixed(1)} · ${A[1]} ${A[2].toFixed(1)} / ${A[3].toFixed(1)}`,
+        `Ajuste por localía y tamaño de muestra (${H[4]} partidos)`,
+        `Proyección ${ph_.toFixed(1)} – ${pa_.toFixed(1)} · margen ${margin > 0 ? "+" : ""}${margin.toFixed(1)}`,
+        `Simulando escenarios de margen y total`,
+        `${markets.reduce((s, m) => s + m.rows.length, 0)} mercados listos`,
       ],
       factors: [
         ["Ofensiva local", `${H[2].toFixed(1)} pts/partido`, `${H[4]} partidos`],
         ["Defensa visitante", `${A[3].toFixed(1)} pts permitidos`, `${A[4]} partidos`],
         ["Ofensiva visitante", `${A[2].toFixed(1)} pts/partido`, `${A[4]} partidos`],
         ["Defensa local", `${H[3].toFixed(1)} pts permitidos`, `${H[4]} partidos`],
-        ["Ventaja de local", "+1.8 pts", "Parámetro heredado"],
-        ["Dispersión", "σ 13.4 / 13.3", "Curvas normales del Baseline 0"],
+        ["Localía", "Incluida", "Ajuste del modelo PitchLab"],
+        ["Muestra", `${H[4]} y ${A[4]} partidos`, "Temporada actual"],
       ],
     };
   }
@@ -206,6 +206,14 @@
   function leagueBadge(L, size = 24) {
     if (L.assets) return `<span class="badge" style="width:${size}px;height:${size}px"><img src="${BRAND}/${L.assets}/svg/${L.id}.svg" width="${size}" height="${size}" alt="" decoding="async"></span>`;
     return `<span class="badge badge-fallback" style="width:${size}px;height:${size}px" aria-hidden="true">${icon(L.sport)}</span>`;
+  }
+
+  // ---------- Barras de probabilidad (estilo PitchLab: corte a 45° y favorito en Pulso) ----------
+  const leadIndex = (ps) => ps.reduce((bi, p, i) => (p > ps[bi] ? i : bi), 0);
+  const probBar = (p, lead, grow = true) => `<div class="pbar ${lead ? "lead" : ""} ${grow ? "grow" : ""}" style="--w:${(p * 100).toFixed(1)}%"><span></span></div>`;
+  function split(ps, labels) {
+    const li = leadIndex(ps);
+    return `<div class="psplit" role="img" aria-label="${ps.map((p, i) => `${labels[i]} ${pct(p)}`).join(", ")}">${ps.map((p, i) => `<span class="${i === li ? "lead" : ""}" style="flex:${p}"></span>`).join("")}</div>`;
   }
 
   // ---------- Cuota del usuario ----------
@@ -245,5 +253,5 @@
     reveal();
   });
 
-  window.PL = { BRAND, reduced, Theme, icon, themeButton, LEAGUES, SPORTS, mascot, T, G, analyze, pct, fair, dayKey, hour, badge, leagueBadge, parseOdds, reveal, countUp, growBars, UPDATED };
+  window.PL = { leadIndex, probBar, split, BRAND, reduced, Theme, icon, themeButton, LEAGUES, SPORTS, mascot, T, G, analyze, pct, fair, dayKey, hour, badge, leagueBadge, parseOdds, reveal, countUp, growBars, UPDATED };
 })();

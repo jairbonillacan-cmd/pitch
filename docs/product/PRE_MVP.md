@@ -15,7 +15,7 @@
 | Página de Metodología y Legal mínima (aviso de privacidad, términos y juego responsable) | IA, alertas, notificaciones, backtest, Replay |
 | Registro de cada análisis publicado (inicio del historial `live`) | Admin (la operación es por GitHub Actions) |
 
-**Acceso:** sin cuentas. `noindex` en todo el sitio (no aparece en buscadores mientras sea pre-MVP). Opcionalmente, un **código de acceso para socios** (variable `PREVIEW_ACCESS_CODE`: middleware que pide el código una vez y deja una cookie). Si la variable no existe, el sitio queda abierto. No se cobra, por lo que Vercel Hobby es válido (uso no comercial).
+**Acceso:** sin cuentas. `noindex` en todo el sitio (no aparece en buscadores mientras sea pre-MVP). La landing es abierta. El panel requiere el **código de socio** (FD-17): pantalla de login con «Entrar a la beta» y teclado de PIN; el código se valida en el servidor (variable `PREVIEW_ACCESS_CODE`, cookie HttpOnly firmada, máximo 5 intentos y bloqueo de 30 s). Login y crear cuenta aparecen bloqueados («las cuentas abren pronto»). No se cobra, por lo que Vercel Hobby es válido (uso no comercial).
 
 ## 2. Ligas en el pre-MVP
 
@@ -92,7 +92,7 @@ El plan exige que ningún modelo se publique sin pasar su gate (`PREDICTION_ARCH
 - Las 3 rutas del panel funcionan con datos reales de NFL y Premier League (y de Liga MX si hay clave) y **ninguna cifra es inventada**: todas salen de `engines-reference` sobre datos con fuente y fecha visibles.
 - El snapshot del día pasa la validación (Zod) y la prueba de que **los motores dan los mismos resultados en el panel que en los tests dorados**.
 - Lighthouse ≥ 90 en `/` y `/app/[league]`. Sin scroll horizontal a 375 px. axe sin violaciones.
-- La etiqueta «en validación», la atribución a nflverse y los avisos legales están visibles.
+- La etiqueta «Modelo PitchLab · en validación», la página «Créditos y licencias» (atribución CC-BY) y los avisos legales están publicados. La UI no muestra proveedores ni nombres de algoritmos (FD-16).
 - Cada análisis publicado queda archivado con su hora de publicación y no se puede modificar después.
 
 ## 9. Plan de ejecución del pre-MVP

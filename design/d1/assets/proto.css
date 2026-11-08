@@ -30,6 +30,14 @@
 }
 :root, :root[data-theme="dark"] { color-scheme: dark; --on-primary: var(--background-primary); --glow: #B49AFF26; }
 
+/* ---------- Scrollbars de marca ---------- */
+html { scrollbar-width: thin; scrollbar-color: color-mix(in srgb, var(--brand-primary) 70%, transparent) transparent; }
+::-webkit-scrollbar { width: 10px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: linear-gradient(180deg, var(--brand-primary), color-mix(in srgb, var(--brand-primary) 55%, var(--background-primary))); border-radius: 999px; border: 2px solid var(--background-primary); }
+::-webkit-scrollbar-thumb:hover { background: var(--brand-primary); }
+::-webkit-scrollbar-corner { background: transparent; }
+
 /* ---------- Base ---------- */
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
@@ -98,13 +106,21 @@ button, input { font: inherit; color: inherit; }
 .fresh { display: inline-flex; align-items: center; gap: var(--space-2); color: var(--text-muted); font-size: var(--type-caption); line-height: var(--line-caption); }
 .fresh .dot { color: var(--success); }
 
-/* ---------- Probabilidad ---------- */
-.pbar { position: relative; height: 8px; border-radius: var(--radius-pill); background: var(--surface-hover); overflow: hidden; }
-.pbar > span { position: absolute; inset: 0 auto 0 0; background: var(--chart-model); border-radius: inherit; width: var(--w, 0%); transition: width 700ms var(--ease-out); }
+/* ---------- Probabilidad (estilo PitchLab) ---------- */
+.pbar { position: relative; height: 10px; border-radius: 3px; overflow: hidden;
+  background: var(--surface-hover) repeating-linear-gradient(90deg, transparent 0 calc(25% - 1px), color-mix(in srgb, var(--border-strong) 30%, transparent) calc(25% - 1px) 25%); }
+.pbar > span { position: absolute; inset: 0 auto 0 0; width: var(--w, 0%); background: color-mix(in srgb, var(--text-muted) 50%, transparent);
+  clip-path: polygon(0 0, 100% 0, calc(100% - 6px) 100%, 0 100%); transition: width 700ms var(--ease-out); }
+.pbar.lead > span { background: linear-gradient(90deg, color-mix(in srgb, var(--brand-primary) 55%, transparent), var(--brand-primary)); }
 .pbar.grow > span { width: 0; }
-.split3 { display: flex; height: 6px; border-radius: var(--radius-pill); overflow: hidden; gap: 2px; }
-.split3 > span { display: block; transition: flex-grow 600ms var(--ease-out); }
-.split3 .h { background: var(--chart-model); } .split3 .d { background: var(--border-strong); } .split3 .a { background: var(--brand-accent); }
+.pv { font-variant-numeric: tabular-nums; }
+.lead-txt { font-weight: 700; color: var(--brand-primary); }
+.fav { display: inline-flex; align-items: center; height: 18px; padding: 0 6px; margin-left: 6px; border-radius: 4px; font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--brand-primary); background: color-mix(in srgb, var(--brand-primary) 14%, transparent); vertical-align: middle; }
+.psplit { display: flex; gap: 3px; height: 8px; }
+.psplit > span { display: block; min-width: 6px; background: color-mix(in srgb, var(--text-muted) 38%, transparent); clip-path: polygon(4px 0, 100% 0, calc(100% - 4px) 100%, 0 100%); transition: flex-grow 600ms var(--ease-out); }
+.psplit > span:first-child { clip-path: polygon(0 0, 100% 0, calc(100% - 4px) 100%, 0 100%); border-radius: 3px 0 0 3px; }
+.psplit > span:last-child { clip-path: polygon(4px 0, 100% 0, 100% 100%, 0 100%); border-radius: 0 3px 3px 0; }
+.psplit > span.lead { background: var(--brand-primary); }
 
 /* ---------- Tabla de mercados ---------- */
 .mtable { width: 100%; border-collapse: collapse; }

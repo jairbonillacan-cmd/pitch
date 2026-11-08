@@ -1,0 +1,69 @@
+/* PitchLab · D1 · login, crear cuenta y PIN de beta */
+.auth { min-height: 100vh; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 520px); gap: var(--space-10); align-items: center; max-width: 1200px; margin: 0 auto; padding: calc(var(--layout-header) + var(--space-12)) var(--space-8) var(--space-12); }
+.auth .visual { position: relative; align-self: stretch; min-height: 520px; border-radius: var(--radius-overlay); overflow: hidden; border: var(--border-width) solid var(--border-default); background: var(--background-secondary); display: grid; align-content: end; padding: var(--space-8); animation: rise 600ms var(--ease-out) both; }
+.auth .visual .fieldgrid { position: absolute; inset: 0; mask-image: radial-gradient(80% 70% at 60% 40%, #000 30%, transparent 80%); -webkit-mask-image: radial-gradient(80% 70% at 60% 40%, #000 30%, transparent 80%); }
+.auth .visual .mascot { position: absolute; right: 4%; top: 6%; width: min(380px, 70%); }
+.auth .visual .mascot img { animation: floaty 6s ease-in-out infinite; }
+.auth .visual blockquote { position: relative; margin: 0; max-width: 22rem; }
+.auth .visual blockquote p { font-size: 1.5rem; line-height: 2rem; font-weight: 700; letter-spacing: -0.02em; margin: 0; }
+.auth .visual blockquote span { display: block; margin-top: var(--space-2); color: var(--text-muted); font-size: var(--type-small); }
+.acard { padding: var(--space-8); animation: rise 600ms var(--ease-out) 100ms both; }
+.acard h1 { margin: 0 0 var(--space-2); }
+.notice { display: flex; gap: var(--space-3); align-items: flex-start; padding: var(--space-3) var(--space-4); border-radius: var(--radius-control); background: color-mix(in srgb, var(--info) 12%, transparent); color: var(--text-primary); font-size: var(--type-small); margin: var(--space-5) 0; }
+.notice .icon { color: var(--info); margin-top: 1px; }
+.field { display: grid; gap: 6px; margin-bottom: var(--space-4); }
+.field label { font-size: var(--type-small); font-weight: 600; }
+.field input { min-height: var(--layout-touch); padding: 0 var(--space-3); border-radius: var(--radius-control); border: var(--border-width) solid var(--border-strong); background: var(--background-primary); color: var(--text-primary); }
+fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+fieldset[disabled] { opacity: .55; }
+fieldset[disabled] input, fieldset[disabled] button { cursor: not-allowed; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
+.or { display: flex; align-items: center; gap: var(--space-3); color: var(--text-muted); font-size: var(--type-caption); margin: var(--space-5) 0; }
+.or::before, .or::after { content: ""; flex: 1; height: 1px; background: var(--border-default); }
+.btn-block { width: 100%; }
+.btn-beta { min-height: 52px; font-size: 1rem; }
+.switch-link { text-align: center; margin: var(--space-5) 0 0; font-size: var(--type-small); color: var(--text-secondary); }
+.switch-link a { color: var(--brand-primary); font-weight: 600; }
+@media (max-width: 899px) { .auth { grid-template-columns: 1fr; padding-left: var(--space-4); padding-right: var(--space-4); } .auth .visual { min-height: 260px; order: 2; } .auth .visual .mascot { width: 200px; } }
+@media (max-width: 767px) { .acard { padding: var(--space-5); } }
+
+/* ---------- PIN ---------- */
+dialog.pin { padding: 0; border: 0; background: transparent; color: var(--text-primary); width: 100%; height: 100%; max-width: none; max-height: none; }
+dialog.pin::backdrop { background: #0b1020c4; backdrop-filter: blur(6px); opacity: 0; transition: opacity var(--time-base) var(--ease-out); }
+dialog.pin.show::backdrop { opacity: 1; }
+.pin-frame { width: 100%; height: 100%; display: grid; place-items: center; padding: var(--space-4); }
+.pin-win { position: relative; width: min(380px, 100%); padding: var(--space-8) var(--space-6) var(--space-6); border-radius: 24px; background: var(--background-elevated); border: var(--border-width) solid var(--border-default); box-shadow: var(--shadow-overlay); text-align: center; overflow: hidden; opacity: 0; transform: translateY(16px) scale(.97); transition: opacity var(--time-enter) var(--ease-out), transform var(--time-enter) var(--ease-out); }
+dialog.pin.show .pin-win { opacity: 1; transform: none; }
+.pin-win::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 140px; background: radial-gradient(60% 100% at 50% 0%, var(--glow), transparent); pointer-events: none; }
+.pin-close { position: absolute; top: var(--space-3); right: var(--space-3); }
+.pin-avatar { position: relative; width: 84px; height: 84px; margin: 0 auto var(--space-3); border-radius: 50%; background: color-mix(in srgb, var(--brand-primary) 14%, var(--surface-default)); border: 2px solid color-mix(in srgb, var(--brand-primary) 40%, transparent); overflow: hidden; transition: border-color var(--time-base); }
+.pin-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 0%; transform: scale(1.9); transform-origin: 50% 12%; }
+.pin-win h2 { margin: var(--space-1) 0 0; font-size: 1.375rem; letter-spacing: -0.02em; }
+.pin-msg { min-height: 20px; margin: var(--space-2) 0 var(--space-5); font-size: var(--type-small); color: var(--text-secondary); }
+.slots { display: flex; justify-content: center; gap: var(--space-3); margin-bottom: var(--space-6); }
+.slot { width: 52px; height: 60px; border-radius: 12px; border: 2px solid var(--border-strong); background: var(--surface-default); display: grid; place-items: center; transition: border-color var(--time-fast), background-color var(--time-fast), transform var(--time-fast); }
+.slot.cur { border-color: var(--brand-primary); box-shadow: 0 0 0 4px var(--glow); }
+.slot i { width: 14px; height: 14px; border-radius: 3px; transform: rotate(45deg) scale(0); background: var(--brand-primary); transition: transform 180ms var(--ease-out); }
+.slot.on i { transform: rotate(45deg) scale(1); }
+.pin.err .slot { border-color: var(--danger); }
+.pin.err .slot i { background: var(--danger); }
+.pin.err .pin-msg { color: var(--danger); }
+.pin.ok .slot { border-color: var(--success); background: color-mix(in srgb, var(--success) 12%, var(--surface-default)); }
+.pin.ok .slot i { background: var(--success); }
+.pin.ok .pin-avatar { border-color: var(--success); }
+.pin.ok .pin-avatar img { animation: hop 520ms var(--ease-out); }
+.pin.ok .pin-msg { color: var(--success); font-weight: 600; }
+.pin.err .pin-win { animation: shake 420ms var(--ease-out); }
+.pad { display: grid; grid-template-columns: repeat(3, 72px); justify-content: center; gap: var(--space-3) var(--space-5); }
+.key { width: 72px; height: 72px; border-radius: 50%; border: var(--border-width) solid var(--border-default); background: var(--surface-default); font-size: 1.5rem; font-weight: 500; font-variant-numeric: tabular-nums; cursor: pointer; display: grid; place-items: center; transition: background-color var(--time-fast), transform 90ms var(--ease-out), border-color var(--time-fast); }
+.key:hover { background: var(--surface-hover); border-color: var(--border-strong); }
+.key:active, .key.press { transform: scale(.92); background: var(--surface-active); border-color: var(--brand-primary); }
+.key.ghost { border-color: transparent; background: transparent; }
+.key.ghost:hover { background: var(--surface-hover); }
+.key[disabled] { opacity: .4; cursor: not-allowed; }
+.pin-foot { margin-top: var(--space-5); font-size: var(--type-caption); color: var(--text-muted); letter-spacing: .06em; }
+.pin-progress { position: absolute; left: 0; bottom: 0; height: 3px; width: 0; background: var(--success); }
+.pin.ok .pin-progress { width: 100%; transition: width 900ms linear; }
+@keyframes shake { 0%, 100% { transform: none; } 20% { transform: translateX(-10px); } 40% { transform: translateX(8px); } 60% { transform: translateX(-6px); } 80% { transform: translateX(4px); } }
+@keyframes hop { 0% { transform: none; } 40% { transform: translateY(-10px); } 100% { transform: none; } }
+@media (max-width: 380px) { .pad { grid-template-columns: repeat(3, 64px); gap: var(--space-3); } .key { width: 64px; height: 64px; } .slot { width: 46px; height: 54px; } }

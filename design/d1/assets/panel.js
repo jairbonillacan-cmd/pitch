@@ -2,7 +2,7 @@
    La traza muestra los valores reales del cálculo (no es decorativa). Se puede saltar
    y se omite con prefers-reduced-motion. Estado en la URL: #liga/partido. */
 (function () {
-  const { icon, LEAGUES, T, G, analyze, pct, fair, dayKey, hour, badge, leagueBadge, mascot, parseOdds, reveal, growBars, reduced, UPDATED } = PL;
+  const { leadIndex, probBar, split, icon, LEAGUES, T, G, analyze, pct, fair, dayKey, hour, badge, leagueBadge, mascot, parseOdds, reveal, growBars, reduced, UPDATED } = PL;
   const $ = (s, r = document) => r.querySelector(s);
   const state = { league: "liga-mx", game: null, day: "all", market: null, odds: "" };
   const seen = new Set(); // partidos ya calculados en esta sesión → traza corta
@@ -26,7 +26,7 @@
       ${leagueBadge(l, 56)}
       <div>
         <h1 class="h1">${l.name}</h1>
-        <div class="meta"><span class="secondary">${l.season} · ${l.period}</span><span class="fresh"><span class="dot"></span>Actualizado ${UPDATED} · ${l.source}</span><span class="tag tag-demo"><span class="dot"></span>Datos de ejemplo</span>${l.status === "beta" ? '<span class="tag tag-info">Beta</span>' : ""}</div>
+        <div class="meta"><span class="secondary">${l.season} · ${l.period}</span><span class="fresh"><span class="dot"></span>Actualizado ${UPDATED}</span><span class="tag tag-demo"><span class="dot"></span>Datos de ejemplo</span>${l.status === "beta" ? '<span class="tag tag-info">Beta</span>' : ""}</div>
       </div>
       <div class="pic mascot" aria-hidden="true"><img src="${mascot(l.mascot)}" alt="" width="170" height="170"></div>`;
   }
@@ -43,13 +43,13 @@
     $("#games").innerHTML = Object.entries(groups).map(([d, list]) => `
       <section class="day" aria-labelledby="d-${d}"><h2 id="d-${d}">${dayKey(d + "T12:00")}</h2>
       <ul class="cards">${list.map((g) => {
-        const a = analyze(state.league, g), [ph, pd, pa] = a.x12, H = tm[g.h], A = tm[g.a], nf = state.league === "nfl";
+        const a = analyze(state.league, g), [ph, pd, pa] = a.x12, H = tm[g.h], A = tm[g.a], nf = state.league === "nfl", ps = draw ? [ph, pd, pa] : [ph, pa], li = leadIndex(ps), hL = li === 0, aL = li === ps.length - 1, dL = draw && li === 1;
         return `<li class="reveal" style="--d:${(n++) * 60}ms"><button class="panel gcard ${g.fin ? "final" : ""}" data-game="${g.id}" aria-haspopup="dialog" aria-label="Analizar ${H[0]} contra ${A[0]}, ${g.fin ? "finalizado" : hour(g.t)}">
           <span class="top"><span class="when">${g.fin ? "Final" : hour(g.t)}</span><span>${g.v}</span></span>
-          <span class="tm">${badge(state.league, g.h, 32)}<span>${H[0]}</span><span class="p">${g.fin ? g.fin[0] : pct(ph)}</span></span>
-          <span class="tm">${badge(state.league, g.a, 32)}<span>${A[0]}</span><span class="p">${g.fin ? g.fin[1] : pct(pa)}</span></span>
-          <span class="split3" aria-hidden="true"><span class="h" style="flex:${ph}"></span>${draw ? `<span class="d" style="flex:${pd}"></span>` : ""}<span class="a" style="flex:${pa}"></span></span>
-          <span class="foot"><span>${draw ? `Empate ${pct(pd)} · ` : ""}Proy. ${a.proj.h.toFixed(nf ? 0 : 1)}–${a.proj.a.toFixed(nf ? 0 : 1)}</span><span class="open">Analizar ${icon("arrow")}</span></span>
+          <span class="tm">${badge(state.league, g.h, 32)}<span>${H[0]}${hL && !g.fin ? '<span class="fav">Favorito</span>' : ""}</span><span class="p ${hL && !g.fin ? "lead-txt" : ""}">${g.fin ? g.fin[0] : pct(ph)}</span></span>
+          <span class="tm">${badge(state.league, g.a, 32)}<span>${A[0]}${aL && !g.fin ? '<span class="fav">Favorito</span>' : ""}</span><span class="p ${aL && !g.fin ? "lead-txt" : ""}">${g.fin ? g.fin[1] : pct(pa)}</span></span>
+          ${split(ps, draw ? [H[0], "Empate", A[0]] : [H[0], A[0]])}
+          <span class="foot"><span>${draw ? `<span class="${dL ? "lead-txt" : ""}">Empate ${pct(pd)}</span> · ` : ""}Proy. ${a.proj.h.toFixed(nf ? 0 : 1)}–${a.proj.a.toFixed(nf ? 0 : 1)}</span><span class="open">Analizar ${icon("arrow")}</span></span>
         </button></li>`; }).join("")}</ul></section>`).join("") ||
       `<div class="empty"><img src="${mascot("radar")}" alt="" width="160" height="160"><p>No hay partidos este día.</p><button class="btn btn-secondary" data-day="all">Ver toda la jornada</button></div>`;
     reveal($("#games"));
@@ -93,7 +93,7 @@
           <div class="progress" aria-hidden="true"><span id="prog"></span></div>
           <ol class="steps" id="steps"></ol>
           <div class="sk" aria-hidden="true"><div class="skeleton" style="width:92%"></div><div class="skeleton" style="width:78%"></div><div class="skeleton" style="width:85%"></div></div>
-          <div class="skip-row"><span class="caption muted">Modelo de referencia · en validación</span><button class="btn btn-ghost" data-skip>Saltar ${icon("arrow")}</button></div>
+          <div class="skip-row"><span class="caption muted">Modelo PitchLab · en validación</span><button class="btn btn-ghost" data-skip>Saltar ${icon("arrow")}</button></div>
         </div>
       </div>`;
     $("#dlg-win").focus();
@@ -127,7 +127,7 @@
           <div class="mscore">
             <div class="caption muted">${g.fin ? "Final" : "Proyección"}</div>
             <div class="numeric-hl">${g.fin ? `${g.fin[0]} – ${g.fin[1]}` : `${a.proj.h.toFixed(nf ? 0 : 1)} – ${a.proj.a.toFixed(nf ? 0 : 1)}`}</div>
-            <div class="split3 split-big" aria-hidden="true"><span class="h" style="flex:${ph}"></span>${draw ? `<span class="d" style="flex:${pd}"></span>` : ""}<span class="a" style="flex:${pa}"></span></div>
+            <div class="split-big">${split(draw ? [ph, pd, pa] : [ph, pa], draw ? [H[0], "Empate", A[0]] : [H[0], A[0]])}</div>
             ${g.fin ? `<div class="caption muted" style="margin-top:6px">Proyección previa ${a.proj.h.toFixed(1)}–${a.proj.a.toFixed(1)}</div>` : ""}
           </div>
           <div class="mteam away">${badge(state.league, g.a, 56)}<div><div class="n">${A[0]}</div><div class="c">VISITANTE</div></div></div>
@@ -137,7 +137,7 @@
           <table class="mtable">
             <caption class="sr-only">Probabilidades por mercado. Elige una fila para compararla con tu cuota.</caption>
             <thead><tr><th>Mercado</th><th><span class="sr-only">Barra</span></th><th class="r">Prob.</th><th class="r">Cuota justa</th></tr></thead>
-            ${a.markets.map((m) => `<tbody><tr class="group"><td colspan="4">${m.g}</td></tr>${m.rows.map(([n, p]) => `<tr class="mrow" tabindex="0" role="button" aria-pressed="${state.market === m.g + n}" data-market="${m.g + n}"><td>${n}</td><td class="bar"><div class="pbar grow" style="--w:${(p * 100).toFixed(1)}%"><span></span></div></td><td class="r num" data-count="${p}">0 %</td><td class="r num secondary">${fair(p)}</td></tr>`).join("")}</tbody>`).join("")}
+            ${a.markets.map((m, gi) => { const li = leadIndex(m.rows.map((r) => r[1])); return `<tbody><tr class="group"><td colspan="4">${m.g}</td></tr>${m.rows.map(([n, p], ri) => `<tr class="mrow ${ri === li ? "lead" : ""}" tabindex="0" role="button" aria-pressed="${state.market === m.g + n}" data-market="${m.g + n}"><td>${n}${ri === li && gi === 0 ? '<span class="fav">Favorito</span>' : ""}</td><td class="bar">${probBar(p, ri === li)}</td><td class="r num pv ${ri === li ? "lead-txt" : ""}" data-count="${p}">0 %</td><td class="r num secondary">${fair(p)}</td></tr>`).join("")}</tbody>`; }).join("")}
           </table>
           <div class="side-col">
             ${a.likely ? `<div class="panel likely"><span class="small secondary">Marcador más probable</span><span><b class="num" style="font-size:1.25rem">${a.likely[0]}–${a.likely[1]}</b> <span class="caption muted">${pct(a.likely[2])}</span></span></div>` : ""}
@@ -145,7 +145,7 @@
             <div class="factors"><p class="eyebrow">Factores del modelo</p><dl>${a.factors.map(([k, v, s]) => `<dt>${k}</dt><dd>${v}<small>${s}</small></dd>`).join("")}</dl></div>
           </div>
         </div>
-        <div class="mfoot"><span class="tag tag-model">Modelo de referencia · en validación</span><span>Datos: ${l.source} · ${UPDATED}</span><span>No garantiza resultados.</span><a href="landing.html#como">Cómo funciona</a></div>
+        <div class="mfoot"><span class="tag tag-model">Modelo PitchLab · en validación</span><span>Corte ${UPDATED}</span><span>No garantiza resultados.</span><a href="landing.html#como">Cómo funciona</a></div>
       </div>`;
     growBars($("#dlg-win"));
     renderCompare(flat);
@@ -186,5 +186,6 @@
 
   readHash();
   renderAll();
+  document.addEventListener("click", (e) => { if (e.target.closest("[data-logout]")) { try { localStorage.removeItem("pl-beta"); } catch (x) {} location.href = "login.html"; } });
   if (state.game) openModal();
 })();

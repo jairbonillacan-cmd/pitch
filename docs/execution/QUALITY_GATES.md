@@ -24,7 +24,7 @@
 
 ## 2. Checklist del PR (revisión humana)
 
-- [ ] Cada cifra visible tiene fuente y hora (y n cuando aplica). No hay números inventados.
+- [ ] Cada cifra visible tiene su hora de actualización (y n cuando aplica). No hay números inventados. La UI **no** muestra proveedores de datos ni nombres de algoritmos (FD-16).
 - [ ] Están los estados loading, empty, error, stale, locked y demo de cada bloque de datos.
 - [ ] Probado en móvil (375 px) sin scroll horizontal y con objetivos ≥ 44 px.
 - [ ] Teclado: todo es alcanzable con el foco visible. El orden de tabulación es lógico.

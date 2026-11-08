@@ -1,8 +1,19 @@
 # D1 · Revisión de diseño base (landing + panel)
 
 > **Propósito:** prototipos del diseño base para aprobación del fundador antes de implementar (pre-MVP y prompt 00).
-> **Estado:** iteración 2 · ⏳ pendiente de aprobación final · **Fecha:** 2026-11-08
-> **Prototipos:** `design/d1/landing.html` y `design/d1/panel.html`. Abrir con un servidor desde la raíz del repo: `python -m http.server 4173` → `http://localhost:4173/design/d1/landing.html`.
+> **Estado:** iteración 3 · ⏳ pendiente de aprobación final · **Fecha:** 2026-11-08
+> **Prototipos:** `design/d1/landing.html`, `login.html`, `signup.html` y `panel.html` (el panel pide el código de socio). Abrir con un servidor desde la raíz del repo: `python -m http.server 4173` → `http://localhost:4173/design/d1/landing.html`.
+
+## 0. Iteración 3 (decisiones del fundador)
+
+| Pedido | Resolución |
+|---|---|
+| Login y crear cuenta, bloqueados por ahora | ✅ `login.html` y `signup.html` con los formularios deshabilitados y el aviso «las cuentas abren pronto». |
+| «Entrar a la beta» con PIN | ✅ Teclado de 4 dígitos con Radar, casillas con rombo de marca, soporte de teclado físico y animaciones de pulsación, error (sacudida en rojo) y éxito (verde, barra y redirección al panel en la liga pedida). Máximo 5 intentos y bloqueo de 30 s. El panel redirige al login si no hay acceso y tiene «Salir». **Prototipo:** el código se compara por hash en el navegador solo para la vitrina; en producción se valida en el servidor (FD-17). |
+| Landing inspirada en la barra flotante de Hubly | ✅ Barra flotante tipo píldora (se compacta al hacer scroll y marca la sección activa) con «Entrar» y «Crear cuenta». Encabezados de sección centrados con eyebrow. Narrativa «Sin PitchLab / Con PitchLab» (chat de grupo frente a la demo interactiva), «Un sábado cualquiera» con horas y «El modelo». Textos más cortos y concretos. |
+| No mostrar fuentes ni el motor | ✅ Se quitaron de la UI los proveedores y los nombres de algoritmos. La traza de cálculo muestra pasos reales, pero genéricos («fuerza de ataque y defensa», «proyección de goles», «evaluando 121 marcadores»). Etiqueta «Modelo PitchLab · en validación». La atribución de licencias va en «Créditos y licencias» (FD-16). **No** se menciona ML ni IA hasta que el modelo los use. |
+| Scrollbars mejores | ✅ Delgadas, con degradado Pulso y extremos redondeados, en los dos temas. |
+| Barras de probabilidad con estilo PitchLab y favorito claro | ✅ Barra con marcas al 25/50/75 % y relleno con **corte a 45°** (motivo del isotipo). El favorito de cada grupo va en Pulso con la cifra en negritas y la etiqueta «Favorito»; el resto queda atenuado. La barra 1X2 ahora resalta solo el segmento líder, con separadores en diagonal. |
 
 ## 1. Decisiones del fundador (iteración 2)
 
