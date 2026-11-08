@@ -287,7 +287,7 @@ El diseño evita que se convierta en una vitrina de tipsters tramposos:
 
 Los 35 IDs de la v1 se mantienen para la trazabilidad. Se añaden y consolidan:
 
-- **07–11 → un solo SportHub paramétrico** (07) más `sport-config` por deporte. Los prompts 08–11 cubren solo las particularidades de cada deporte: QB/drives en NFL, conferencias en NCAA, porteros en NHL y pitchers en MLB.
+- **07–11 → un solo SportHub paramétrico** (07) más `sport-config` por deporte. Los prompts 08–11 cubren solo las particularidades de cada deporte: QB/drives en NFL, conferencias en NCAA, porteros en NHL y pitchers en MLB. Se añade **11b** (configuración de fútbol: Liga MX y Premier League).
 - **18 → pestaña de 17** (Market Explorer: actual / histórico / movimiento).
 - **27 → dentro de 25 My Lab** (bankroll simulado y rendimiento).
 - **19 → Archive** dentro de 06 Sports Explorer.
@@ -320,13 +320,13 @@ Los 35 IDs de la v1 se mantienen para la trazabilidad. Se añaden y consolidan:
 **Waves para F6:**
 
 - W0: DS y Shell.
-- W1: público, auth, trial y referidos.
+- W1: público, auth, trial, referidos y cuenta/billing básico.
 - W2: Dashboard, SportHub y Game Center.
 - W3: research de jugadores y equipos más Prop Lab.
-- W4: Odds, Pick Journal, perfiles y leaderboard.
+- W4: Odds, Pick Journal, My Lab, perfiles y leaderboard (fin del MVP).
 - W5: Intelligence (Prediction, Model Lab, Backtest, Replay e IA).
-- W6: Personal y Account.
-- W7: Admin.
+- W6: Watchlists, alertas y notificaciones.
+- W7: Admin completo (con versiones mínimas desde W1–W4). Detalle en `docs/execution/ROADMAP.md`.
 
 Se paraleliza dentro de cada wave sin tocar `packages/ui`, `contracts` ni `tokens`: esos paquetes solo los modifica su owner mediante una solicitud explícita.
 

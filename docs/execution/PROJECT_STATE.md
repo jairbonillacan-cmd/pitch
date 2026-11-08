@@ -7,7 +7,8 @@
 
 - **F0 (auditoría):** ✅ completa.
 - **F1 (spikes y decisiones):** ✅ completa como investigación de escritorio. Las cotizaciones y la confirmación de términos dependen de que el fundador haga los contactos (FD-14).
-- **Siguiente:** F2 (product blueprint).
+- **F2 (product blueprint):** ✅ completa, pendiente de revisión del fundador.
+- **Siguiente:** F3 (arquitectura y ADRs).
 
 No hay código de producto. El repo todavía contiene el clon de TouchIQ (Vite + `src/domain` con 24 tests dorados), que se archivará en F4.
 
@@ -27,6 +28,13 @@ No hay código de producto. El repo todavía contiene el clon de TouchIQ (Vite +
 | `docs/architecture/COMPLIANCE_REGISTER.md` | F1 | Completo (15 puntos) |
 | `docs/product/COST_MODEL.md` | F1 | Completo (supuestos explícitos) |
 | `docs/execution/FOUNDER_DECISIONS.md` | F1 | 14 decisiones |
+| `docs/product/PRODUCT_VISION.md` | F2 | Completo (tesis, 5 personas, diferenciadores, no-objetivos y métricas norte) |
+| `docs/product/USER_JOURNEYS.md` | F2 | Completo (J1–J10, base de los E2E) |
+| `docs/product/INFORMATION_ARCHITECTURE.md` | F2 | Completo (navegación, `SportContext` y entitlements provisionales) |
+| `docs/architecture/ROUTE_MAP.md` | F2 | Completo (fuente única de rutas) |
+| `docs/product/SECTION_INDEX.md` | F2 | Completo (38 IDs + 11b; 18, 19 y 27 fusionadas) |
+| `docs/product/MVP_DEFINITION.md` | F2 | Completo (Lean+ con ecosistema) |
+| `docs/execution/ROADMAP.md` | F2 | Completo (waves W0–W8 con dependencias) |
 
 ## Hallazgos de F1 que cambian supuestos
 
@@ -49,15 +57,7 @@ No hay código de producto. El repo todavía contiene el clon de TouchIQ (Vite +
 
 ## Pendiente (en orden)
 
-1. **F2:**
-   - `PRODUCT_VISION.md`
-   - Personas y journeys (referido→trial→pago y pick→share→seguidor)
-   - `INFORMATION_ARCHITECTURE.md`
-   - `ROUTE_MAP.md`
-   - `SECTION_INDEX.md` (38 fichas)
-   - `MVP_DEFINITION.md`
-   - `ROADMAP.md`
-2. **F3:**
+1. **F3:**
    - ADRs del stack
    - `SYSTEM_ARCHITECTURE`
    - `DATA_ARCHITECTURE` / `HISTORICAL_STORAGE`
@@ -67,8 +67,8 @@ No hay código de producto. El repo todavía contiene el clon de TouchIQ (Vite +
    - `AI_ARCHITECTURE`
    - `SECURITY`
    - `DEPLOYMENT`
-3. **⛔ Gate:** el fundador confirma FD-01…FD-06 (y avanza en FD-14) antes de F4.
-4. **F4:** walking skeleton. **F5:** prompts. **F6:** ejecución multiagente.
+2. **⛔ Gate:** el fundador confirma FD-01…FD-06 (y avanza en FD-14) antes de F4.
+3. **F4:** walking skeleton. **F5:** prompts. **F6:** ejecución multiagente.
 
 ## Bloqueos
 
