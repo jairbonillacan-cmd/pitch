@@ -1,0 +1,9486 @@
+{
+ "fb_teams": [
+  [
+   "ARS",
+   "Arsenal",
+   "PL",
+   71,
+   27,
+   38,
+   [
+    14,
+    5,
+    9
+   ],
+   "",
+   "PL,UCL"
+  ],
+  [
+   "MCI",
+   "Manchester City",
+   "PL",
+   77,
+   35,
+   38,
+   [
+    20,
+    10,
+    9
+   ],
+   "",
+   "PL,UCL"
+  ],
+  [
+   "LFC",
+   "Liverpool",
+   "PL",
+   63,
+   53,
+   38,
+   [
+    11,
+    9,
+    9
+   ],
+   "",
+   "PL,UCL"
+  ],
+  [
+   "BRI",
+   "Brighton",
+   "PL",
+   52,
+   46,
+   38,
+   [
+    24,
+    7,
+    9
+   ],
+   "",
+   "PL"
+  ],
+  [
+   "CFC",
+   "Chelsea",
+   "PL",
+   58,
+   52,
+   38,
+   [
+    19,
+    15,
+    9
+   ],
+   "",
+   "PL"
+  ],
+  [
+   "NEW",
+   "Newcastle",
+   "PL",
+   53,
+   55,
+   38,
+   [
+    12,
+    15,
+    9
+   ],
+   "",
+   "PL"
+  ],
+  [
+   "MUN",
+   "Manchester United",
+   "PL",
+   64.5,
+   45.5,
+   38,
+   0,
+   "e",
+   "PL,UCL"
+  ],
+  [
+   "AVL",
+   "Aston Villa",
+   "PL",
+   58.5,
+   51.5,
+   38,
+   0,
+   "e",
+   "PL,UCL"
+  ],
+  [
+   "BOU",
+   "Bournemouth",
+   "PL",
+   57,
+   53,
+   38,
+   0,
+   "e",
+   "PL,UEL"
+  ],
+  [
+   "SUN",
+   "Sunderland",
+   "PL",
+   52,
+   58,
+   38,
+   0,
+   "e",
+   "PL,UEL"
+  ],
+  [
+   "BRE",
+   "Brentford",
+   "PL",
+   56.5,
+   53.5,
+   38,
+   0,
+   "e",
+   "PL"
+  ],
+  [
+   "FUL",
+   "Fulham",
+   "PL",
+   57,
+   53,
+   38,
+   0,
+   "e",
+   "PL"
+  ],
+  [
+   "EVE",
+   "Everton",
+   "PL",
+   53.5,
+   56.5,
+   38,
+   0,
+   "e",
+   "PL"
+  ],
+  [
+   "LEE",
+   "Leeds United",
+   "PL",
+   51.5,
+   58.5,
+   38,
+   0,
+   "e",
+   "PL"
+  ],
+  [
+   "CRY",
+   "Crystal Palace",
+   "PL",
+   0,
+   0,
+   0,
+   0,
+   "n",
+   "PL,UEL"
+  ],
+  [
+   "NFO",
+   "Nottingham Forest",
+   "PL",
+   0,
+   0,
+   0,
+   0,
+   "n",
+   "PL"
+  ],
+  [
+   "TOT",
+   "Tottenham",
+   "PL",
+   0,
+   0,
+   0,
+   0,
+   "n",
+   "PL"
+  ],
+  [
+   "COV",
+   "Coventry City",
+   "PL",
+   0,
+   0,
+   0,
+   [
+    9,
+    16,
+    9
+   ],
+   "p",
+   "PL"
+  ],
+  [
+   "IPS",
+   "Ipswich Town",
+   "PL",
+   0,
+   0,
+   0,
+   0,
+   "p",
+   "PL"
+  ],
+  [
+   "HUL",
+   "Hull City",
+   "PL",
+   0,
+   0,
+   0,
+   0,
+   "p",
+   "PL"
+  ],
+  [
+   "BAR",
+   "Barcelona",
+   "LL",
+   95,
+   36,
+   38,
+   [
+    46,
+    12,
+    11
+   ],
+   "",
+   "LL,UCL"
+  ],
+  [
+   "RMA",
+   "Real Madrid",
+   "LL",
+   77,
+   35,
+   38,
+   [
+    28,
+    10,
+    11
+   ],
+   "",
+   "LL,UCL"
+  ],
+  [
+   "VIL",
+   "Villarreal",
+   "LL",
+   72,
+   46,
+   38,
+   [
+    15,
+    15,
+    11
+   ],
+   "",
+   "LL,UCL"
+  ],
+  [
+   "ATM",
+   "Atlético de Madrid",
+   "LL",
+   62,
+   44,
+   38,
+   0,
+   "",
+   "LL,UCL"
+  ],
+  [
+   "RBB",
+   "Real Betis",
+   "LL",
+   59,
+   48,
+   38,
+   [
+    18,
+    15,
+    11
+   ],
+   "",
+   "LL,UCL"
+  ],
+  [
+   "RCC",
+   "Celta de Vigo",
+   "LL",
+   53,
+   48,
+   38,
+   [
+    10,
+    10,
+    11
+   ],
+   "",
+   "LL,UEL"
+  ],
+  [
+   "GET",
+   "Getafe",
+   "LL",
+   32,
+   38,
+   38,
+   [
+    8,
+    16,
+    11
+   ],
+   "",
+   "LL"
+  ],
+  [
+   "RVC",
+   "Rayo Vallecano",
+   "LL",
+   41,
+   44,
+   38,
+   0,
+   "",
+   "LL"
+  ],
+  [
+   "VCF",
+   "Valencia",
+   "LL",
+   46,
+   55,
+   38,
+   0,
+   "",
+   "LL"
+  ],
+  [
+   "RSO",
+   "Real Sociedad",
+   "LL",
+   59,
+   61,
+   38,
+   0,
+   "",
+   "LL,UEL"
+  ],
+  [
+   "ESP",
+   "Espanyol",
+   "LL",
+   43,
+   55,
+   38,
+   0,
+   "",
+   "LL"
+  ],
+  [
+   "SEV",
+   "Sevilla",
+   "LL",
+   46,
+   60,
+   38,
+   [
+    17,
+    19,
+    11
+   ],
+   "",
+   "LL"
+  ],
+  [
+   "ATH",
+   "Athletic Club",
+   "LL",
+   0,
+   0,
+   0,
+   0,
+   "n",
+   "LL"
+  ],
+  [
+   "OSA",
+   "Osasuna",
+   "LL",
+   0,
+   0,
+   0,
+   0,
+   "n",
+   "LL"
+  ],
+  [
+   "ALA",
+   "Alavés",
+   "LL",
+   0,
+   0,
+   0,
+   0,
+   "n",
+   "LL"
+  ],
+  [
+   "ELC",
+   "Elche",
+   "LL",
+   0,
+   0,
+   0,
+   0,
+   "n",
+   "LL"
+  ],
+  [
+   "LEV",
+   "Levante",
+   "LL",
+   0,
+   0,
+   0,
+   [
+    16,
+    21,
+    11
+   ],
+   "n",
+   "LL"
+  ],
+  [
+   "RAC",
+   "Racing Santander",
+   "LL",
+   0,
+   0,
+   0,
+   0,
+   "p",
+   "LL"
+  ],
+  [
+   "DEP",
+   "Deportivo",
+   "LL",
+   0,
+   0,
+   0,
+   [
+    15,
+    14,
+    11
+   ],
+   "p",
+   "LL"
+  ],
+  [
+   "MCF",
+   "Málaga",
+   "LL",
+   0,
+   0,
+   0,
+   0,
+   "p",
+   "LL"
+  ],
+  [
+   "TOL",
+   "Toluca",
+   "MX",
+   31,
+   21,
+   15,
+   0,
+   "",
+   "MX"
+  ],
+  [
+   "AME",
+   "América",
+   "MX",
+   36,
+   21,
+   15,
+   0,
+   "",
+   "MX"
+  ],
+  [
+   "CHI",
+   "Chivas",
+   "MX",
+   25,
+   14,
+   15,
+   0,
+   "",
+   "MX"
+  ],
+  [
+   "QRO",
+   "Querétaro",
+   "MX",
+   18,
+   21,
+   14,
+   0,
+   "",
+   "MX"
+  ],
+  [
+   "LEO",
+   "León",
+   "MX",
+   22,
+   20,
+   15,
+   0,
+   "",
+   "MX"
+  ],
+  [
+   "ATS",
+   "Atlas",
+   "MX",
+   26,
+   26,
+   15,
+   0,
+   "",
+   "MX"
+  ],
+  [
+   "CAZ",
+   "Cruz Azul",
+   "MX",
+   34,
+   24,
+   15,
+   0,
+   "",
+   "MX"
+  ],
+  [
+   "TIJ",
+   "Tijuana",
+   "MX",
+   25,
+   21,
+   15,
+   0,
+   "",
+   "MX"
+  ],
+  [
+   "PUE",
+   "Puebla",
+   "MX",
+   17,
+   23,
+   15,
+   0,
+   "",
+   "MX"
+  ],
+  [
+   "MTY",
+   "Monterrey",
+   "MX",
+   26,
+   21,
+   14,
+   0,
+   "",
+   "MX"
+  ],
+  [
+   "PAC",
+   "Pachuca",
+   "MX",
+   25,
+   19,
+   15,
+   0,
+   "",
+   "MX"
+  ],
+  [
+   "PUM",
+   "Pumas",
+   "MX",
+   22,
+   24,
+   15,
+   0,
+   "",
+   "MX"
+  ],
+  [
+   "SLP",
+   "Atlético San Luis",
+   "MX",
+   19,
+   23,
+   15,
+   0,
+   "",
+   "MX"
+  ],
+  [
+   "ATL",
+   "Atlante",
+   "MX",
+   16,
+   24,
+   15,
+   0,
+   "",
+   "MX"
+  ],
+  [
+   "TIG",
+   "Tigres",
+   "MX",
+   15,
+   22,
+   15,
+   0,
+   "",
+   "MX"
+  ],
+  [
+   "SAN",
+   "Santos Laguna",
+   "MX",
+   21,
+   20,
+   15,
+   0,
+   "",
+   "MX"
+  ],
+  [
+   "NEC",
+   "Necaxa",
+   "MX",
+   16,
+   28,
+   15,
+   0,
+   "",
+   "MX"
+  ],
+  [
+   "JUA",
+   "FC Juárez",
+   "MX",
+   12,
+   34,
+   15,
+   0,
+   "",
+   "MX"
+  ],
+  [
+   "INT",
+   "Inter",
+   "SA",
+   89,
+   35,
+   38,
+   0,
+   "",
+   "UCL"
+  ],
+  [
+   "NAP",
+   "Napoli",
+   "SA",
+   58,
+   36,
+   38,
+   0,
+   "",
+   "UCL"
+  ],
+  [
+   "ROM",
+   "Roma",
+   "SA",
+   59,
+   31,
+   38,
+   0,
+   "",
+   "UCL"
+  ],
+  [
+   "COM",
+   "Como",
+   "SA",
+   65,
+   29,
+   38,
+   0,
+   "",
+   "UCL"
+  ],
+  [
+   "BMU",
+   "Bayern Múnich",
+   "BL",
+   122,
+   36,
+   34,
+   0,
+   "",
+   "UCL"
+  ],
+  [
+   "BVB",
+   "Dortmund",
+   "BL",
+   70,
+   34,
+   34,
+   0,
+   "",
+   "UCL"
+  ],
+  [
+   "RBL",
+   "RB Leipzig",
+   "BL",
+   66,
+   47,
+   34,
+   0,
+   "",
+   "UCL"
+  ],
+  [
+   "VFB",
+   "Stuttgart",
+   "BL",
+   71,
+   49,
+   34,
+   0,
+   "",
+   "UCL"
+  ],
+  [
+   "PSG",
+   "Paris Saint-Germain",
+   "L1",
+   74,
+   29,
+   34,
+   0,
+   "",
+   "UCL"
+  ],
+  [
+   "RCL",
+   "Lens",
+   "L1",
+   66,
+   35,
+   34,
+   0,
+   "",
+   "UCL"
+  ],
+  [
+   "LIL",
+   "Lille",
+   "L1",
+   52,
+   37,
+   34,
+   0,
+   "",
+   "UCL"
+  ],
+  [
+   "MIL",
+   "Milan",
+   "SA",
+   53,
+   35,
+   38,
+   [
+    4,
+    5,
+    3
+   ],
+   "",
+   "UEL"
+  ],
+  [
+   "JUV",
+   "Juventus",
+   "SA",
+   61,
+   34,
+   38,
+   [
+    9,
+    3,
+    3
+   ],
+   "",
+   "UEL"
+  ],
+  [
+   "B04",
+   "Bayer Leverkusen",
+   "BL",
+   68,
+   47,
+   34,
+   [
+    8,
+    0,
+    3
+   ],
+   "",
+   "UEL"
+  ],
+  [
+   "TSG",
+   "Hoffenheim",
+   "BL",
+   65,
+   52,
+   34,
+   [
+    5,
+    5,
+    3
+   ],
+   "",
+   "UEL"
+  ],
+  [
+   "LYO",
+   "Lyon",
+   "L1",
+   53,
+   40,
+   34,
+   [
+    5,
+    6,
+    3
+   ],
+   "",
+   "UEL"
+  ],
+  [
+   "MAR",
+   "Marseille",
+   "L1",
+   63,
+   45,
+   34,
+   [
+    1,
+    6,
+    3
+   ],
+   "",
+   "UEL"
+  ],
+  [
+   "REN",
+   "Rennes",
+   "L1",
+   59,
+   50,
+   34,
+   [
+    4,
+    3,
+    3
+   ],
+   "",
+   "UEL"
+  ],
+  [
+   "SLB",
+   "Benfica",
+   "OT",
+   0,
+   0,
+   0,
+   [
+    10,
+    2,
+    3
+   ],
+   "n",
+   "UEL"
+  ],
+  [
+   "TOR",
+   "Torreense",
+   "OT",
+   0,
+   0,
+   0,
+   [
+    4,
+    7,
+    3
+   ],
+   "n",
+   "UEL"
+  ],
+  [
+   "AZA",
+   "AZ Alkmaar",
+   "OT",
+   0,
+   0,
+   0,
+   [
+    6,
+    2,
+    3
+   ],
+   "n",
+   "UEL"
+  ],
+  [
+   "NIJ",
+   "NEC Nijmegen",
+   "OT",
+   0,
+   0,
+   0,
+   [
+    5,
+    8,
+    3
+   ],
+   "n",
+   "UEL"
+  ],
+  [
+   "AND",
+   "Anderlecht",
+   "OT",
+   0,
+   0,
+   0,
+   [
+    4,
+    3,
+    3
+   ],
+   "n",
+   "UEL"
+  ],
+  [
+   "USG",
+   "Union Saint-Gilloise",
+   "OT",
+   0,
+   0,
+   0,
+   [
+    8,
+    1,
+    3
+   ],
+   "n",
+   "UEL"
+  ],
+  [
+   "RBS",
+   "Red Bull Salzburg",
+   "OT",
+   0,
+   0,
+   0,
+   [
+    3,
+    6,
+    3
+   ],
+   "n",
+   "UEL"
+  ],
+  [
+   "STU",
+   "Sturm Graz",
+   "OT",
+   0,
+   0,
+   0,
+   [
+    1,
+    3,
+    3
+   ],
+   "n",
+   "UEL"
+  ],
+  [
+   "SPA",
+   "Sparta Praga",
+   "OT",
+   0,
+   0,
+   0,
+   [
+    5,
+    3,
+    3
+   ],
+   "n",
+   "UEL"
+  ],
+  [
+   "VPL",
+   "Viktoria Plzeň",
+   "OT",
+   0,
+   0,
+   0,
+   [
+    2,
+    7,
+    3
+   ],
+   "n",
+   "UEL"
+  ],
+  [
+   "LPO",
+   "Lech Poznań",
+   "OT",
+   0,
+   0,
+   0,
+   [
+    1,
+    9,
+    3
+   ],
+   "n",
+   "UEL"
+  ],
+  [
+   "JAG",
+   "Jagiellonia",
+   "OT",
+   0,
+   0,
+   0,
+   [
+    4,
+    6,
+    3
+   ],
+   "n",
+   "UEL"
+  ],
+  [
+   "OLY",
+   "Olympiacos",
+   "OT",
+   0,
+   0,
+   0,
+   [
+    4,
+    1,
+    3
+   ],
+   "n",
+   "UEL"
+  ],
+  [
+   "OFI",
+   "OFI Creta",
+   "OT",
+   0,
+   0,
+   0,
+   [
+    3,
+    4,
+    3
+   ],
+   "n",
+   "UEL"
+  ],
+  [
+   "CEL",
+   "Celtic",
+   "OT",
+   0,
+   0,
+   0,
+   [
+    3,
+    9,
+    3
+   ],
+   "n",
+   "UEL"
+  ],
+  [
+   "BJK",
+   "Beşiktaş",
+   "OT",
+   0,
+   0,
+   0,
+   [
+    9,
+    5,
+    3
+   ],
+   "n",
+   "UEL"
+  ],
+  [
+   "DZG",
+   "Dinamo Zagreb",
+   "OT",
+   0,
+   0,
+   0,
+   [
+    3,
+    4,
+    3
+   ],
+   "n",
+   "UEL"
+  ],
+  [
+   "FTC",
+   "Ferencváros",
+   "OT",
+   0,
+   0,
+   0,
+   [
+    9,
+    3,
+    3
+   ],
+   "n",
+   "UEL"
+  ],
+  [
+   "OMO",
+   "Omonia",
+   "OT",
+   0,
+   0,
+   0,
+   [
+    5,
+    4,
+    3
+   ],
+   "n",
+   "UEL"
+  ],
+  [
+   "HBS",
+   "Hapoel Be'er Sheva",
+   "OT",
+   0,
+   0,
+   0,
+   [
+    1,
+    6,
+    3
+   ],
+   "n",
+   "UEL"
+  ],
+  [
+   "LSO",
+   "Levski Sofia",
+   "OT",
+   0,
+   0,
+   0,
+   [
+    3,
+    3,
+    3
+   ],
+   "n",
+   "UEL"
+  ],
+  [
+   "LSK",
+   "Lillestrøm",
+   "OT",
+   0,
+   0,
+   0,
+   [
+    2,
+    9,
+    3
+   ],
+   "n",
+   "UEL"
+  ],
+  [
+   "CLJ",
+   "Celje",
+   "OT",
+   0,
+   0,
+   0,
+   [
+    2,
+    7,
+    3
+   ],
+   "n",
+   "UEL"
+  ],
+  [
+   "ARA",
+   "Ararat-Armenia",
+   "OT",
+   0,
+   0,
+   0,
+   [
+    2,
+    11,
+    3
+   ],
+   "n",
+   "UEL"
+  ],
+  [
+   "SPO",
+   "Sporting CP",
+   "OT",
+   0,
+   0,
+   0,
+   0,
+   "n",
+   "UCL"
+  ],
+  [
+   "GAL",
+   "Galatasaray",
+   "OT",
+   0,
+   0,
+   0,
+   0,
+   "n",
+   "UCL"
+  ],
+  [
+   "FEN",
+   "Fenerbahçe",
+   "OT",
+   0,
+   0,
+   0,
+   0,
+   "n",
+   "UCL"
+  ],
+  [
+   "PSV",
+   "PSV",
+   "OT",
+   0,
+   0,
+   0,
+   0,
+   "n",
+   "UCL"
+  ],
+  [
+   "BRU",
+   "Club Brugge",
+   "OT",
+   0,
+   0,
+   0,
+   0,
+   "n",
+   "UCL"
+  ],
+  [
+   "SLA",
+   "Slavia Praga",
+   "OT",
+   0,
+   0,
+   0,
+   0,
+   "n",
+   "UCL"
+  ],
+  [
+   "SHA",
+   "Shakhtar",
+   "OT",
+   0,
+   0,
+   0,
+   0,
+   "n",
+   "UCL"
+  ],
+  [
+   "FEY",
+   "Feyenoord",
+   "OT",
+   0,
+   0,
+   0,
+   0,
+   "n",
+   "UCL"
+  ],
+  [
+   "FCP",
+   "Porto",
+   "OT",
+   0,
+   0,
+   0,
+   0,
+   "n",
+   "UCL"
+  ],
+  [
+   "AEK",
+   "AEK Atenas",
+   "OT",
+   0,
+   0,
+   0,
+   0,
+   "n",
+   "UCL"
+  ],
+  [
+   "ASK",
+   "LASK",
+   "OT",
+   0,
+   0,
+   0,
+   0,
+   "n",
+   "UCL"
+  ],
+  [
+   "VIK",
+   "Viking",
+   "OT",
+   0,
+   0,
+   0,
+   0,
+   "n",
+   "UCL"
+  ],
+  [
+   "SBH",
+   "Sabah",
+   "OT",
+   0,
+   0,
+   0,
+   0,
+   "n",
+   "UCL"
+  ],
+  [
+   "SLO",
+   "Slovan Bratislava",
+   "OT",
+   0,
+   0,
+   0,
+   0,
+   "n",
+   "UCL"
+  ],
+  [
+   "BOG",
+   "Bodø/Glimt",
+   "OT",
+   0,
+   0,
+   0,
+   0,
+   "n",
+   "UCL"
+  ]
+ ],
+ "fb_fixtures": {
+  "MX": [
+   [
+    "Hoy · Vie 6 nov",
+    [
+     {
+      "h": "NEC",
+      "a": "TIJ",
+      "t": "7:00 PM",
+      "ref": 0,
+      "s": "Jornada 16 · Estadio Victoria"
+     },
+     {
+      "h": "SLP",
+      "a": "JUA",
+      "t": "7:00 PM",
+      "ref": 0,
+      "s": "Jornada 16 · Estadio Libertad Financiera"
+     },
+     {
+      "h": "ATL",
+      "a": "SAN",
+      "t": "9:00 PM",
+      "ref": 0,
+      "s": "Jornada 16 · Estadio Banorte"
+     }
+    ]
+   ],
+   [
+    "Sáb 7 nov",
+    [
+     {
+      "h": "TIG",
+      "a": "CAZ",
+      "t": "7:00 PM",
+      "ref": 0,
+      "s": "Jornada 16 · Estadio Universitario"
+     },
+     {
+      "h": "ATS",
+      "a": "PAC",
+      "t": "5:00 PM",
+      "ref": 0,
+      "s": "Jornada 16 · Estadio Jalisco"
+     },
+     {
+      "h": "TOL",
+      "a": "MTY",
+      "t": "7:00 PM",
+      "ref": 0,
+      "s": "Jornada 16 · Nemesio Diez"
+     },
+     {
+      "h": "PUM",
+      "a": "AME",
+      "t": "9:10 PM",
+      "ref": 0,
+      "s": "Jornada 16 · Olímpico Universitario · Clásico capitalino"
+     }
+    ]
+   ],
+   [
+    "Dom 8 nov",
+    [
+     {
+      "h": "QRO",
+      "a": "PUE",
+      "t": "6:00 PM",
+      "ref": 0,
+      "s": "Jornada 16 · La Corregidora"
+     },
+     {
+      "h": "LEO",
+      "a": "CHI",
+      "t": "8:10 PM",
+      "ref": 0,
+      "s": "Jornada 16 · Estadio León · cierra la jornada"
+     }
+    ]
+   ],
+   [
+    "Auditoría 30 oct-1 nov (jornada 15)",
+    [
+     {
+      "h": "SAN",
+      "a": "NEC",
+      "t": "Final",
+      "sc": [
+       1,
+       0
+      ]
+     },
+     {
+      "h": "CAZ",
+      "a": "LEO",
+      "t": "Final",
+      "sc": [
+       2,
+       1
+      ]
+     },
+     {
+      "h": "SLP",
+      "a": "ATS",
+      "t": "Final",
+      "sc": [
+       0,
+       1
+      ]
+     },
+     {
+      "h": "JUA",
+      "a": "QRO",
+      "t": "Final",
+      "sc": [
+       3,
+       1
+      ]
+     },
+     {
+      "h": "PUE",
+      "a": "PUM",
+      "t": "Final",
+      "sc": [
+       1,
+       2
+      ]
+     },
+     {
+      "h": "PAC",
+      "a": "TIG",
+      "t": "Final",
+      "sc": [
+       3,
+       0
+      ]
+     },
+     {
+      "h": "MTY",
+      "a": "TIJ",
+      "t": "Final",
+      "sc": [
+       3,
+       3
+      ]
+     },
+     {
+      "h": "CHI",
+      "a": "ATL",
+      "t": "Final",
+      "sc": [
+       4,
+       2
+      ]
+     },
+     {
+      "h": "AME",
+      "a": "TOL",
+      "t": "Final",
+      "sc": [
+       2,
+       2
+      ]
+     }
+    ]
+   ],
+   [
+    "Auditoría 23-25 oct (jornada 14)",
+    [
+     {
+      "h": "NEC",
+      "a": "JUA",
+      "t": "Final",
+      "sc": [
+       1,
+       1
+      ]
+     },
+     {
+      "h": "ATL",
+      "a": "SLP",
+      "t": "Final",
+      "sc": [
+       0,
+       1
+      ]
+     },
+     {
+      "h": "LEO",
+      "a": "TOL",
+      "t": "Final",
+      "sc": [
+       1,
+       1
+      ]
+     },
+     {
+      "h": "MTY",
+      "a": "CHI",
+      "t": "Final",
+      "sc": [
+       0,
+       1
+      ]
+     },
+     {
+      "h": "PUM",
+      "a": "TIG",
+      "t": "Final",
+      "sc": [
+       1,
+       1
+      ]
+     },
+     {
+      "h": "ATS",
+      "a": "PUE",
+      "t": "Final",
+      "sc": [
+       4,
+       3
+      ]
+     },
+     {
+      "h": "QRO",
+      "a": "CAZ",
+      "t": "Final",
+      "sc": [
+       1,
+       3
+      ]
+     },
+     {
+      "h": "AME",
+      "a": "PAC",
+      "t": "Final",
+      "sc": [
+       1,
+       2
+      ]
+     },
+     {
+      "h": "TIJ",
+      "a": "SAN",
+      "t": "Final",
+      "sc": [
+       4,
+       1
+      ]
+     }
+    ]
+   ],
+   [
+    "Auditoría 20-21 oct (jornada 13)",
+    [
+     {
+      "h": "CHI",
+      "a": "NEC",
+      "t": "Final",
+      "sc": [
+       1,
+       0
+      ]
+     },
+     {
+      "h": "JUA",
+      "a": "ATL",
+      "t": "Final",
+      "sc": [
+       0,
+       1
+      ]
+     },
+     {
+      "h": "SLP",
+      "a": "QRO",
+      "t": "Final",
+      "sc": [
+       2,
+       1
+      ]
+     },
+     {
+      "h": "TIG",
+      "a": "LEO",
+      "t": "Final",
+      "sc": [
+       0,
+       2
+      ]
+     },
+     {
+      "h": "PUE",
+      "a": "MTY",
+      "t": "Final",
+      "sc": [
+       1,
+       4
+      ]
+     },
+     {
+      "h": "ATS",
+      "a": "AME",
+      "t": "Final",
+      "sc": [
+       2,
+       5
+      ]
+     },
+     {
+      "h": "TOL",
+      "a": "TIJ",
+      "t": "Final",
+      "sc": [
+       2,
+       2
+      ]
+     },
+     {
+      "h": "PAC",
+      "a": "CAZ",
+      "t": "Final",
+      "sc": [
+       1,
+       2
+      ]
+     },
+     {
+      "h": "SAN",
+      "a": "PUM",
+      "t": "Final",
+      "sc": [
+       2,
+       0
+      ]
+     }
+    ]
+   ]
+  ],
+  "LL": [
+   [
+    "Hoy · Vie 6 nov",
+    [
+     {
+      "h": "SEV",
+      "a": "ALA",
+      "t": "2:00 PM",
+      "ref": 0,
+      "s": "Jornada 12 · abre la jornada"
+     }
+    ]
+   ],
+   [
+    "Sáb 7 nov",
+    [
+     {
+      "h": "MCF",
+      "a": "RAC",
+      "t": "7:00 AM",
+      "ref": 0,
+      "s": "Jornada 12"
+     },
+     {
+      "h": "ESP",
+      "a": "DEP",
+      "t": "9:15 AM",
+      "ref": 0,
+      "s": "Jornada 12"
+     },
+     {
+      "h": "OSA",
+      "a": "ATH",
+      "t": "11:30 AM",
+      "ref": 0,
+      "s": "Jornada 12"
+     },
+     {
+      "h": "VCF",
+      "a": "RMA",
+      "t": "2:00 PM",
+      "ref": 0,
+      "s": "Jornada 12 · Mestalla"
+     }
+    ]
+   ],
+   [
+    "Dom 8 nov",
+    [
+     {
+      "h": "ELC",
+      "a": "RBB",
+      "t": "7:00 AM",
+      "ref": 0,
+      "s": "Jornada 12"
+     },
+     {
+      "h": "RSO",
+      "a": "RVC",
+      "t": "9:15 AM",
+      "ref": 0,
+      "s": "Jornada 12"
+     },
+     {
+      "h": "RCC",
+      "a": "LEV",
+      "t": "11:30 AM",
+      "ref": 0,
+      "s": "Jornada 12"
+     },
+     {
+      "h": "VIL",
+      "a": "GET",
+      "t": "11:30 AM",
+      "ref": 0,
+      "s": "Jornada 12"
+     },
+     {
+      "h": "ATM",
+      "a": "BAR",
+      "t": "2:00 PM",
+      "ref": 0,
+      "s": "Jornada 12 · Metropolitano"
+     }
+    ]
+   ],
+   [
+    "Auditoría 30 oct-2 nov (jornada 11)",
+    [
+     {
+      "h": "DEP",
+      "a": "OSA",
+      "t": "Final",
+      "sc": [
+       2,
+       1
+      ]
+     },
+     {
+      "h": "GET",
+      "a": "SEV",
+      "t": "Final",
+      "sc": [
+       3,
+       1
+      ]
+     },
+     {
+      "h": "RAC",
+      "a": "RMA",
+      "t": "Final",
+      "sc": [
+       0,
+       3
+      ]
+     },
+     {
+      "h": "ELC",
+      "a": "VCF",
+      "t": "Final",
+      "sc": [
+       0,
+       1
+      ]
+     },
+     {
+      "h": "ATH",
+      "a": "RSO",
+      "t": "Final",
+      "sc": [
+       2,
+       1
+      ]
+     },
+     {
+      "h": "VIL",
+      "a": "ESP",
+      "t": "Final",
+      "sc": [
+       0,
+       1
+      ]
+     },
+     {
+      "h": "LEV",
+      "a": "ATM",
+      "t": "Final",
+      "sc": [
+       0,
+       2
+      ]
+     },
+     {
+      "h": "RVC",
+      "a": "RCC",
+      "t": "Final",
+      "sc": [
+       3,
+       0
+      ]
+     },
+     {
+      "h": "RBB",
+      "a": "MCF",
+      "t": "Final",
+      "sc": [
+       2,
+       1
+      ]
+     },
+     {
+      "h": "BAR",
+      "a": "ALA",
+      "t": "Final",
+      "sc": [
+       6,
+       1
+      ]
+     }
+    ]
+   ],
+   [
+    "Auditoría 23-26 oct (jornada 10)",
+    [
+     {
+      "h": "ALA",
+      "a": "MCF",
+      "t": "Final",
+      "sc": [
+       1,
+       1
+      ]
+     },
+     {
+      "h": "RVC",
+      "a": "ELC",
+      "t": "Final",
+      "sc": [
+       0,
+       3
+      ]
+     },
+     {
+      "h": "RAC",
+      "a": "ESP",
+      "t": "Final",
+      "sc": [
+       2,
+       1
+      ]
+     },
+     {
+      "h": "VCF",
+      "a": "VIL",
+      "t": "Final",
+      "sc": [
+       1,
+       2
+      ]
+     },
+     {
+      "h": "ATM",
+      "a": "DEP",
+      "t": "Final",
+      "sc": [
+       1,
+       0
+      ]
+     },
+     {
+      "h": "ATH",
+      "a": "GET",
+      "t": "Final",
+      "sc": [
+       4,
+       0
+      ]
+     },
+     {
+      "h": "RCC",
+      "a": "RBB",
+      "t": "Final",
+      "sc": [
+       0,
+       0
+      ]
+     },
+     {
+      "h": "RSO",
+      "a": "LEV",
+      "t": "Final",
+      "sc": [
+       2,
+       1
+      ]
+     },
+     {
+      "h": "BAR",
+      "a": "RMA",
+      "t": "Final",
+      "sc": [
+       1,
+       2
+      ]
+     },
+     {
+      "h": "SEV",
+      "a": "OSA",
+      "t": "Final",
+      "sc": [
+       2,
+       0
+      ]
+     }
+    ]
+   ],
+   [
+    "Auditoría 16-19 oct (jornada 9)",
+    [
+     {
+      "h": "DEP",
+      "a": "LEV",
+      "t": "Final",
+      "sc": [
+       1,
+       1
+      ]
+     },
+     {
+      "h": "ESP",
+      "a": "ATM",
+      "t": "Final",
+      "sc": [
+       0,
+       1
+      ]
+     },
+     {
+      "h": "VIL",
+      "a": "ELC",
+      "t": "Final",
+      "sc": [
+       0,
+       0
+      ]
+     },
+     {
+      "h": "RBB",
+      "a": "BAR",
+      "t": "Final",
+      "sc": [
+       2,
+       5
+      ]
+     },
+     {
+      "h": "VCF",
+      "a": "ATH",
+      "t": "Final",
+      "sc": [
+       0,
+       0
+      ]
+     },
+     {
+      "h": "OSA",
+      "a": "RAC",
+      "t": "Final",
+      "sc": [
+       2,
+       0
+      ]
+     },
+     {
+      "h": "RCC",
+      "a": "ALA",
+      "t": "Final",
+      "sc": [
+       2,
+       1
+      ]
+     },
+     {
+      "h": "MCF",
+      "a": "RSO",
+      "t": "Final",
+      "sc": [
+       2,
+       5
+      ]
+     },
+     {
+      "h": "RMA",
+      "a": "SEV",
+      "t": "Final",
+      "sc": [
+       4,
+       1
+      ]
+     },
+     {
+      "h": "GET",
+      "a": "RVC",
+      "t": "Final",
+      "sc": [
+       1,
+       1
+      ]
+     }
+    ]
+   ]
+  ],
+  "PL": [
+   [
+    "Hoy · Vie 6 nov",
+    [
+     {
+      "h": "EVE",
+      "a": "COV",
+      "t": "2:00 PM",
+      "ref": 0,
+      "s": "Jornada 10 · abre la jornada"
+     }
+    ]
+   ],
+   [
+    "Sáb 7 nov",
+    [
+     {
+      "h": "LEE",
+      "a": "TOT",
+      "t": "6:30 AM",
+      "ref": 0,
+      "s": "Jornada 10"
+     },
+     {
+      "h": "ARS",
+      "a": "HUL",
+      "t": "9:00 AM",
+      "ref": 0,
+      "s": "Jornada 10"
+     },
+     {
+      "h": "FUL",
+      "a": "NEW",
+      "t": "9:00 AM",
+      "ref": 0,
+      "s": "Jornada 10"
+     },
+     {
+      "h": "NFO",
+      "a": "MCI",
+      "t": "11:30 AM",
+      "ref": 0,
+      "s": "Jornada 10"
+     }
+    ]
+   ],
+   [
+    "Dom 8 nov",
+    [
+     {
+      "h": "BRI",
+      "a": "BRE",
+      "t": "8:00 AM",
+      "ref": 0,
+      "s": "Jornada 10"
+     },
+     {
+      "h": "CRY",
+      "a": "LFC",
+      "t": "8:00 AM",
+      "ref": 0,
+      "s": "Jornada 10"
+     },
+     {
+      "h": "IPS",
+      "a": "BOU",
+      "t": "8:00 AM",
+      "ref": 0,
+      "s": "Jornada 10"
+     },
+     {
+      "h": "SUN",
+      "a": "CFC",
+      "t": "8:00 AM",
+      "ref": 0,
+      "s": "Jornada 10"
+     },
+     {
+      "h": "MUN",
+      "a": "AVL",
+      "t": "10:30 AM",
+      "ref": 0,
+      "s": "Jornada 10"
+     }
+    ]
+   ],
+   [
+    "Auditoría 31 oct-2 nov (jornada 9)",
+    [
+     {
+      "h": "NEW",
+      "a": "EVE",
+      "t": "Final",
+      "sc": [
+       0,
+       1
+      ]
+     },
+     {
+      "h": "LFC",
+      "a": "ARS",
+      "t": "Final",
+      "sc": [
+       0,
+       1
+      ]
+     },
+     {
+      "h": "CFC",
+      "a": "MUN",
+      "t": "Final",
+      "sc": [
+       2,
+       0
+      ]
+     },
+     {
+      "h": "BOU",
+      "a": "LEE",
+      "t": "Final",
+      "sc": [
+       2,
+       0
+      ]
+     },
+     {
+      "h": "BRE",
+      "a": "NFO",
+      "t": "Final",
+      "sc": [
+       2,
+       0
+      ]
+     },
+     {
+      "h": "COV",
+      "a": "SUN",
+      "t": "Final",
+      "sc": [
+       3,
+       1
+      ]
+     },
+     {
+      "h": "HUL",
+      "a": "IPS",
+      "t": "Final",
+      "sc": [
+       2,
+       2
+      ]
+     },
+     {
+      "h": "MCI",
+      "a": "BRI",
+      "t": "Final",
+      "sc": [
+       0,
+       1
+      ]
+     },
+     {
+      "h": "TOT",
+      "a": "CRY",
+      "t": "Final",
+      "sc": [
+       2,
+       0
+      ]
+     },
+     {
+      "h": "AVL",
+      "a": "FUL",
+      "t": "Final",
+      "sc": [
+       1,
+       1
+      ]
+     }
+    ]
+   ],
+   [
+    "Auditoría 23-25 oct (jornada 8)",
+    [
+     {
+      "h": "IPS",
+      "a": "NFO",
+      "t": "Final",
+      "sc": [
+       1,
+       1
+      ]
+     },
+     {
+      "h": "AVL",
+      "a": "MCI",
+      "t": "Final",
+      "sc": [
+       2,
+       1
+      ]
+     },
+     {
+      "h": "ARS",
+      "a": "EVE",
+      "t": "Final",
+      "sc": [
+       2,
+       0
+      ]
+     },
+     {
+      "h": "COV",
+      "a": "FUL",
+      "t": "Final",
+      "sc": [
+       0,
+       1
+      ]
+     },
+     {
+      "h": "CFC",
+      "a": "TOT",
+      "t": "Final",
+      "sc": [
+       0,
+       2
+      ]
+     },
+     {
+      "h": "CRY",
+      "a": "NEW",
+      "t": "Final",
+      "sc": [
+       0,
+       2
+      ]
+     },
+     {
+      "h": "HUL",
+      "a": "BRE",
+      "t": "Final",
+      "sc": [
+       1,
+       1
+      ]
+     },
+     {
+      "h": "LFC",
+      "a": "BRI",
+      "t": "Final",
+      "sc": [
+       2,
+       0
+      ]
+     },
+     {
+      "h": "MUN",
+      "a": "BOU",
+      "t": "Final",
+      "sc": [
+       0,
+       3
+      ]
+     },
+     {
+      "h": "SUN",
+      "a": "LEE",
+      "t": "Final",
+      "sc": [
+       0,
+       0
+      ]
+     }
+    ]
+   ],
+   [
+    "Auditoría 17-19 oct (jornada 7)",
+    [
+     {
+      "h": "EVE",
+      "a": "CFC",
+      "t": "Final",
+      "sc": [
+       0,
+       2
+      ]
+     },
+     {
+      "h": "BRE",
+      "a": "LFC",
+      "t": "Final",
+      "sc": [
+       1,
+       2
+      ]
+     },
+     {
+      "h": "FUL",
+      "a": "HUL",
+      "t": "Final",
+      "sc": [
+       1,
+       0
+      ]
+     },
+     {
+      "h": "MCI",
+      "a": "IPS",
+      "t": "Final",
+      "sc": [
+       3,
+       2
+      ]
+     },
+     {
+      "h": "NEW",
+      "a": "AVL",
+      "t": "Final",
+      "sc": [
+       0,
+       1
+      ]
+     },
+     {
+      "h": "BOU",
+      "a": "SUN",
+      "t": "Final",
+      "sc": [
+       2,
+       0
+      ]
+     },
+     {
+      "h": "BRI",
+      "a": "CRY",
+      "t": "Final",
+      "sc": [
+       5,
+       0
+      ]
+     },
+     {
+      "h": "LEE",
+      "a": "MUN",
+      "t": "Final",
+      "sc": [
+       1,
+       1
+      ]
+     },
+     {
+      "h": "NFO",
+      "a": "ARS",
+      "t": "Final",
+      "sc": [
+       0,
+       1
+      ]
+     },
+     {
+      "h": "TOT",
+      "a": "COV",
+      "t": "Final",
+      "sc": [
+       3,
+       1
+      ]
+     }
+    ]
+   ]
+  ],
+  "UCL": [
+   [
+    "Hoy · Vie 6 nov",
+    []
+   ],
+   [
+    "Auditoría 3-4 nov (jornada 4)",
+    [
+     {
+      "h": "AEK",
+      "a": "RMA",
+      "t": "Final",
+      "sc": [
+       2,
+       3
+      ]
+     },
+     {
+      "h": "FEN",
+      "a": "LFC",
+      "t": "Final",
+      "sc": [
+       3,
+       2
+      ]
+     },
+     {
+      "h": "BVB",
+      "a": "RBB",
+      "t": "Final",
+      "sc": [
+       2,
+       1
+      ]
+     },
+     {
+      "h": "FCP",
+      "a": "NAP",
+      "t": "Final",
+      "sc": [
+       4,
+       1
+      ]
+     },
+     {
+      "h": "PSV",
+      "a": "BRU",
+      "t": "Final",
+      "sc": [
+       1,
+       2
+      ]
+     },
+     {
+      "h": "RBL",
+      "a": "MCI",
+      "t": "Final",
+      "sc": [
+       2,
+       3
+      ]
+     },
+     {
+      "h": "RCL",
+      "a": "COM",
+      "t": "Final",
+      "sc": [
+       1,
+       9
+      ]
+     },
+     {
+      "h": "SLA",
+      "a": "ARS",
+      "t": "Final",
+      "sc": [
+       1,
+       2
+      ]
+     },
+     {
+      "h": "VIK",
+      "a": "SBH",
+      "t": "Final",
+      "sc": [
+       4,
+       1
+      ]
+     },
+     {
+      "h": "SHA",
+      "a": "SPO",
+      "t": "Final",
+      "sc": [
+       0,
+       1
+      ]
+     },
+     {
+      "h": "GAL",
+      "a": "VFB",
+      "t": "Final",
+      "sc": [
+       2,
+       0
+      ]
+     },
+     {
+      "h": "ATM",
+      "a": "BMU",
+      "t": "Final",
+      "sc": [
+       0,
+       2
+      ]
+     },
+     {
+      "h": "BAR",
+      "a": "AVL",
+      "t": "Final",
+      "sc": [
+       3,
+       0
+      ]
+     },
+     {
+      "h": "FEY",
+      "a": "INT",
+      "t": "Final",
+      "sc": [
+       0,
+       3
+      ]
+     },
+     {
+      "h": "BOG",
+      "a": "LIL",
+      "t": "Final",
+      "sc": [
+       0,
+       0
+      ]
+     },
+     {
+      "h": "ASK",
+      "a": "SLO",
+      "t": "Final",
+      "sc": [
+       4,
+       0
+      ]
+     },
+     {
+      "h": "MUN",
+      "a": "ROM",
+      "t": "Final",
+      "sc": [
+       3,
+       2
+      ]
+     },
+     {
+      "h": "VIL",
+      "a": "PSG",
+      "t": "Final",
+      "sc": [
+       0,
+       6
+      ]
+     }
+    ]
+   ],
+   [
+    "Auditoría 20-21 oct (jornada 3)",
+    [
+     {
+      "h": "FEN",
+      "a": "SLA",
+      "t": "Final",
+      "sc": [
+       2,
+       2
+      ]
+     },
+     {
+      "h": "SBH",
+      "a": "BVB",
+      "t": "Final",
+      "sc": [
+       1,
+       2
+      ]
+     },
+     {
+      "h": "ROM",
+      "a": "SLO",
+      "t": "Final",
+      "sc": [
+       4,
+       0
+      ]
+     },
+     {
+      "h": "FCP",
+      "a": "PSV",
+      "t": "Final",
+      "sc": [
+       0,
+       1
+      ]
+     },
+     {
+      "h": "LFC",
+      "a": "VIL",
+      "t": "Final",
+      "sc": [
+       4,
+       3
+      ]
+     },
+     {
+      "h": "MCI",
+      "a": "AEK",
+      "t": "Final",
+      "sc": [
+       5,
+       1
+      ]
+     },
+     {
+      "h": "PSG",
+      "a": "BAR",
+      "t": "Final",
+      "sc": [
+       4,
+       2
+      ]
+     },
+     {
+      "h": "NAP",
+      "a": "BOG",
+      "t": "Final",
+      "sc": [
+       4,
+       3
+      ]
+     },
+     {
+      "h": "VFB",
+      "a": "ATM",
+      "t": "Final",
+      "sc": [
+       1,
+       1
+      ]
+     },
+     {
+      "h": "LIL",
+      "a": "GAL",
+      "t": "Final",
+      "sc": [
+       2,
+       4
+      ]
+     },
+     {
+      "h": "COM",
+      "a": "MUN",
+      "t": "Final",
+      "sc": [
+       4,
+       1
+      ]
+     },
+     {
+      "h": "BMU",
+      "a": "ARS",
+      "t": "Final",
+      "sc": [
+       2,
+       2
+      ]
+     },
+     {
+      "h": "BRU",
+      "a": "RCL",
+      "t": "Final",
+      "sc": [
+       3,
+       0
+      ]
+     },
+     {
+      "h": "AVL",
+      "a": "VIK",
+      "t": "Final",
+      "sc": [
+       3,
+       1
+      ]
+     },
+     {
+      "h": "RMA",
+      "a": "RBL",
+      "t": "Final",
+      "sc": [
+       4,
+       1
+      ]
+     },
+     {
+      "h": "RBB",
+      "a": "FEY",
+      "t": "Final",
+      "sc": [
+       1,
+       0
+      ]
+     },
+     {
+      "h": "SPO",
+      "a": "ASK",
+      "t": "Final",
+      "sc": [
+       2,
+       3
+      ]
+     },
+     {
+      "h": "INT",
+      "a": "SHA",
+      "t": "Final",
+      "sc": [
+       1,
+       0
+      ]
+     }
+    ]
+   ],
+   [
+    "Auditoría 13-14 oct (jornada 2)",
+    [
+     {
+      "h": "RCL",
+      "a": "SPO",
+      "t": "Final",
+      "sc": [
+       0,
+       2
+      ]
+     },
+     {
+      "h": "SBH",
+      "a": "SLA",
+      "t": "Final",
+      "sc": [
+       2,
+       0
+      ]
+     },
+     {
+      "h": "ARS",
+      "a": "LIL",
+      "t": "Final",
+      "sc": [
+       3,
+       0
+      ]
+     },
+     {
+      "h": "ATM",
+      "a": "MUN",
+      "t": "Final",
+      "sc": [
+       2,
+       0
+      ]
+     },
+     {
+      "h": "INT",
+      "a": "BRU",
+      "t": "Final",
+      "sc": [
+       3,
+       4
+      ]
+     },
+     {
+      "h": "GAL",
+      "a": "BAR",
+      "t": "Final",
+      "sc": [
+       1,
+       4
+      ]
+     },
+     {
+      "h": "RBL",
+      "a": "PSV",
+      "t": "Final",
+      "sc": [
+       1,
+       0
+      ]
+     },
+     {
+      "h": "VIK",
+      "a": "BMU",
+      "t": "Final",
+      "sc": [
+       3,
+       3
+      ]
+     },
+     {
+      "h": "VIL",
+      "a": "NAP",
+      "t": "Final",
+      "sc": [
+       3,
+       1
+      ]
+     },
+     {
+      "h": "FEY",
+      "a": "COM",
+      "t": "Final",
+      "sc": [
+       3,
+       2
+      ]
+     },
+     {
+      "h": "ASK",
+      "a": "LFC",
+      "t": "Final",
+      "sc": [
+       3,
+       6
+      ]
+     },
+     {
+      "h": "ROM",
+      "a": "RMA",
+      "t": "Final",
+      "sc": [
+       3,
+       4
+      ]
+     },
+     {
+      "h": "AVL",
+      "a": "FEN",
+      "t": "Final",
+      "sc": [
+       6,
+       0
+      ]
+     },
+     {
+      "h": "SHA",
+      "a": "AEK",
+      "t": "Final",
+      "sc": [
+       3,
+       1
+      ]
+     },
+     {
+      "h": "BOG",
+      "a": "BVB",
+      "t": "Final",
+      "sc": [
+       1,
+       0
+      ]
+     },
+     {
+      "h": "MCI",
+      "a": "PSG",
+      "t": "Final",
+      "sc": [
+       2,
+       4
+      ]
+     },
+     {
+      "h": "RBB",
+      "a": "FCP",
+      "t": "Final",
+      "sc": [
+       3,
+       2
+      ]
+     },
+     {
+      "h": "SLO",
+      "a": "VFB",
+      "t": "Final",
+      "sc": [
+       0,
+       3
+      ]
+     }
+    ]
+   ]
+  ],
+  "UEL": [
+   [
+    "Hoy · Vie 6 nov",
+    []
+   ],
+   [
+    "Auditoría 4-5 nov (jornada 4)",
+    [
+     {
+      "h": "REN",
+      "a": "OLY",
+      "t": "Final",
+      "sc": [
+       0,
+       0
+      ]
+     },
+     {
+      "h": "MIL",
+      "a": "FTC",
+      "t": "Final",
+      "sc": [
+       0,
+       2
+      ]
+     },
+     {
+      "h": "SPA",
+      "a": "BOU",
+      "t": "Final",
+      "sc": [
+       1,
+       3
+      ]
+     },
+     {
+      "h": "CRY",
+      "a": "TSG",
+      "t": "Final",
+      "sc": [
+       1,
+       1
+      ]
+     },
+     {
+      "h": "LSK",
+      "a": "VPL",
+      "t": "Final",
+      "sc": [
+       0,
+       1
+      ]
+     },
+     {
+      "h": "NIJ",
+      "a": "OMO",
+      "t": "Final",
+      "sc": [
+       3,
+       1
+      ]
+     },
+     {
+      "h": "LSO",
+      "a": "JAG",
+      "t": "Final",
+      "sc": [
+       1,
+       0
+      ]
+     },
+     {
+      "h": "RSO",
+      "a": "LYO",
+      "t": "Final",
+      "sc": [
+       1,
+       1
+      ]
+     },
+     {
+      "h": "AND",
+      "a": "RBS",
+      "t": "Final",
+      "sc": [
+       2,
+       0
+      ]
+     },
+     {
+      "h": "AZA",
+      "a": "JUV",
+      "t": "Final",
+      "sc": [
+       1,
+       2
+      ]
+     },
+     {
+      "h": "B04",
+      "a": "MAR",
+      "t": "Final",
+      "sc": [
+       0,
+       1
+      ]
+     },
+     {
+      "h": "CEL",
+      "a": "BJK",
+      "t": "Final",
+      "sc": [
+       3,
+       2
+      ]
+     },
+     {
+      "h": "HBS",
+      "a": "OFI",
+      "t": "Final",
+      "sc": [
+       0,
+       2
+      ]
+     },
+     {
+      "h": "RCC",
+      "a": "USG",
+      "t": "Final",
+      "sc": [
+       1,
+       2
+      ]
+     },
+     {
+      "h": "TOR",
+      "a": "ARA",
+      "t": "Final",
+      "sc": [
+       3,
+       2
+      ]
+     },
+     {
+      "h": "STU",
+      "a": "CLJ",
+      "t": "Final",
+      "sc": [
+       2,
+       3
+      ]
+     },
+     {
+      "h": "SLB",
+      "a": "LPO",
+      "t": "Final",
+      "sc": [
+       3,
+       1
+      ]
+     },
+     {
+      "h": "SUN",
+      "a": "DZG",
+      "t": "Final",
+      "sc": [
+       0,
+       2
+      ]
+     }
+    ]
+   ],
+   [
+    "Auditoría 22 oct (jornada 3)",
+    [
+     {
+      "h": "ARA",
+      "a": "AZA",
+      "t": "Final",
+      "sc": [
+       0,
+       4
+      ]
+     },
+     {
+      "h": "FTC",
+      "a": "TOR",
+      "t": "Final",
+      "sc": [
+       4,
+       1
+      ]
+     },
+     {
+      "h": "DZG",
+      "a": "NIJ",
+      "t": "Final",
+      "sc": [
+       2,
+       4
+      ]
+     },
+     {
+      "h": "JUV",
+      "a": "REN",
+      "t": "Final",
+      "sc": [
+       2,
+       2
+      ]
+     },
+     {
+      "h": "LPO",
+      "a": "SUN",
+      "t": "Final",
+      "sc": [
+       1,
+       1
+      ]
+     },
+     {
+      "h": "OFI",
+      "a": "B04",
+      "t": "Final",
+      "sc": [
+       0,
+       2
+      ]
+     },
+     {
+      "h": "USG",
+      "a": "HBS",
+      "t": "Final",
+      "sc": [
+       4,
+       0
+      ]
+     },
+     {
+      "h": "STU",
+      "a": "MAR",
+      "t": "Final",
+      "sc": [
+       1,
+       0
+      ]
+     },
+     {
+      "h": "BOU",
+      "a": "MIL",
+      "t": "Final",
+      "sc": [
+       3,
+       0
+      ]
+     },
+     {
+      "h": "BJK",
+      "a": "CRY",
+      "t": "Final",
+      "sc": [
+       2,
+       2
+      ]
+     },
+     {
+      "h": "CEL",
+      "a": "RCC",
+      "t": "Final",
+      "sc": [
+       1,
+       2
+      ]
+     },
+     {
+      "h": "VPL",
+      "a": "LSO",
+      "t": "Final",
+      "sc": [
+       1,
+       2
+      ]
+     },
+     {
+      "h": "JAG",
+      "a": "AND",
+      "t": "Final",
+      "sc": [
+       0,
+       3
+      ]
+     },
+     {
+      "h": "LSK",
+      "a": "RSO",
+      "t": "Final",
+      "sc": [
+       0,
+       6
+      ]
+     },
+     {
+      "h": "CLJ",
+      "a": "RBS",
+      "t": "Final",
+      "sc": [
+       2,
+       2
+      ]
+     },
+     {
+      "h": "OLY",
+      "a": "SPA",
+      "t": "Final",
+      "sc": [
+       1,
+       0
+      ]
+     },
+     {
+      "h": "OMO",
+      "a": "SLB",
+      "t": "Final",
+      "sc": [
+       1,
+       4
+      ]
+     },
+     {
+      "h": "TSG",
+      "a": "LYO",
+      "t": "Final",
+      "sc": [
+       3,
+       0
+      ]
+     }
+    ]
+   ],
+   [
+    "Auditoría 15 oct (jornada 2)",
+    [
+     {
+      "h": "SPA",
+      "a": "LSK",
+      "t": "Final",
+      "sc": [
+       1,
+       1
+      ]
+     },
+     {
+      "h": "AZA",
+      "a": "HBS",
+      "t": "Final",
+      "sc": [
+       2,
+       1
+      ]
+     },
+     {
+      "h": "RBS",
+      "a": "MIL",
+      "t": "Final",
+      "sc": [
+       0,
+       4
+      ]
+     },
+     {
+      "h": "LPO",
+      "a": "B04",
+      "t": "Final",
+      "sc": [
+       0,
+       4
+      ]
+     },
+     {
+      "h": "CLJ",
+      "a": "OMO",
+      "t": "Final",
+      "sc": [
+       0,
+       3
+      ]
+     },
+     {
+      "h": "LYO",
+      "a": "CRY",
+      "t": "Final",
+      "sc": [
+       3,
+       2
+      ]
+     },
+     {
+      "h": "USG",
+      "a": "RSO",
+      "t": "Final",
+      "sc": [
+       1,
+       1
+      ]
+     },
+     {
+      "h": "TOR",
+      "a": "SUN",
+      "t": "Final",
+      "sc": [
+       1,
+       2
+      ]
+     },
+     {
+      "h": "BOU",
+      "a": "STU",
+      "t": "Final",
+      "sc": [
+       3,
+       0
+      ]
+     },
+     {
+      "h": "FTC",
+      "a": "VPL",
+      "t": "Final",
+      "sc": [
+       2,
+       1
+      ]
+     },
+     {
+      "h": "DZG",
+      "a": "AND",
+      "t": "Final",
+      "sc": [
+       1,
+       0
+      ]
+     },
+     {
+      "h": "JAG",
+      "a": "ARA",
+      "t": "Final",
+      "sc": [
+       3,
+       1
+      ]
+     },
+     {
+      "h": "NIJ",
+      "a": "LSO",
+      "t": "Final",
+      "sc": [
+       1,
+       1
+      ]
+     },
+     {
+      "h": "MAR",
+      "a": "OLY",
+      "t": "Final",
+      "sc": [
+       0,
+       1
+      ]
+     },
+     {
+      "h": "RCC",
+      "a": "JUV",
+      "t": "Final",
+      "sc": [
+       1,
+       2
+      ]
+     },
+     {
+      "h": "SLB",
+      "a": "CEL",
+      "t": "Final",
+      "sc": [
+       4,
+       1
+      ]
+     },
+     {
+      "h": "REN",
+      "a": "OFI",
+      "t": "Final",
+      "sc": [
+       2,
+       1
+      ]
+     },
+     {
+      "h": "TSG",
+      "a": "BJK",
+      "t": "Final",
+      "sc": [
+       2,
+       3
+      ]
+     }
+    ]
+   ],
+   [
+    "Auditoría 16-17 sep (jornada 1)",
+    [
+     {
+      "h": "ARA",
+      "a": "SPA",
+      "t": "Final",
+      "sc": [
+       1,
+       4
+      ]
+     },
+     {
+      "h": "OMO",
+      "a": "RCC",
+      "t": "Final",
+      "sc": [
+       1,
+       0
+      ]
+     },
+     {
+      "h": "MIL",
+      "a": "SLB",
+      "t": "Final",
+      "sc": [
+       0,
+       2
+      ]
+     },
+     {
+      "h": "B04",
+      "a": "CLJ",
+      "t": "Final",
+      "sc": [
+       2,
+       0
+      ]
+     },
+     {
+      "h": "HBS",
+      "a": "DZG",
+      "t": "Final",
+      "sc": [
+       0,
+       0
+      ]
+     },
+     {
+      "h": "OLY",
+      "a": "JAG",
+      "t": "Final",
+      "sc": [
+       2,
+       1
+      ]
+     },
+     {
+      "h": "AND",
+      "a": "LYO",
+      "t": "Final",
+      "sc": [
+       1,
+       2
+      ]
+     },
+     {
+      "h": "STU",
+      "a": "REN",
+      "t": "Final",
+      "sc": [
+       0,
+       0
+      ]
+     },
+     {
+      "h": "SUN",
+      "a": "AZA",
+      "t": "Final",
+      "sc": [
+       1,
+       0
+      ]
+     },
+     {
+      "h": "OFI",
+      "a": "TSG",
+      "t": "Final",
+      "sc": [
+       2,
+       0
+      ]
+     },
+     {
+      "h": "LSO",
+      "a": "RBS",
+      "t": "Final",
+      "sc": [
+       0,
+       1
+      ]
+     },
+     {
+      "h": "BJK",
+      "a": "MAR",
+      "t": "Final",
+      "sc": [
+       4,
+       1
+      ]
+     },
+     {
+      "h": "CEL",
+      "a": "FTC",
+      "t": "Final",
+      "sc": [
+       1,
+       3
+      ]
+     },
+     {
+      "h": "CRY",
+      "a": "LPO",
+      "t": "Final",
+      "sc": [
+       4,
+       0
+      ]
+     },
+     {
+      "h": "VPL",
+      "a": "USG",
+      "t": "Final",
+      "sc": [
+       0,
+       3
+      ]
+     },
+     {
+      "h": "JUV",
+      "a": "NIJ",
+      "t": "Final",
+      "sc": [
+       5,
+       0
+      ]
+     },
+     {
+      "h": "LSK",
+      "a": "TOR",
+      "t": "Final",
+      "sc": [
+       1,
+       2
+      ]
+     },
+     {
+      "h": "RSO",
+      "a": "BOU",
+      "t": "Final",
+      "sc": [
+       1,
+       2
+      ]
+     }
+    ]
+   ]
+  ]
+ },
+ "fb_injuries": [
+  [
+   "grv",
+   "LFC",
+   "Ryan Gravenberch (MC)",
+   "gf",
+   0.05,
+   0.5,
+   "Talón/pie; duda ante Crystal Palace el dom 8 (Sports Mole, 6 nov)",
+   "6 nov"
+  ],
+  [
+   "msr",
+   "RSO",
+   "Mamadou Sarr (DFC)",
+   "ga",
+   0.03,
+   0.5,
+   "Sóleo; cambiado al descanso ante Lyon por precaución (5 nov), duda ante el Rayo (FútbolFantasy, 6 nov)",
+   "6 nov"
+  ],
+  [
+   "sol",
+   "RSO",
+   "Carlos Soler (MC)",
+   "gf",
+   0.04,
+   0.5,
+   "Enfermedad; baja de última hora ante Lyon (5 nov), duda ante el Rayo (FútbolFantasy, 6 nov)",
+   "6 nov"
+  ],
+  [
+   "isi",
+   "SUN",
+   "Wilson Isidor (DC)",
+   "gf",
+   0.05,
+   0.5,
+   "Golpe ante Dinamo Zagreb (5 nov), salió al 64'; sin parte antes de Chelsea (Yahoo/Evening Standard, 5 nov)",
+   "6 nov"
+  ],
+  [
+   "jln",
+   "BOU",
+   "Juanlu Sánchez (LD)",
+   "ga",
+   0.03,
+   1,
+   "Tobillo (daño de ligamentos con la sub-21), en evaluación; fuera ante Ipswich (Hayters, 4 nov)",
+   "6 nov"
+  ],
+  [
+   "hgz",
+   "RCC",
+   "Hugo González (EI)",
+   "gf",
+   0.03,
+   0.5,
+   "Aductor (sin rotura); duda ante el Levante (FútbolFantasy, 6 nov)",
+   "6 nov"
+  ],
+  [
+   "brz",
+   "AME",
+   "Brian Rodríguez (ED)",
+   "gf",
+   0.05,
+   1,
+   "Lesión muscular; fuera ~3 semanas, se pierde el Clásico ante Pumas (ClaroSports/TV Azteca, 5 nov)",
+   "6 nov"
+  ],
+  [
+   "dwm",
+   "ARS",
+   "Max Dowman (ED)",
+   "gf",
+   0.03,
+   1,
+   "Suspendido en la Premier por la roja en Fleetwood; fuera ante Hull (ESPN)",
+   "6 nov"
+  ],
+  [
+   "hat",
+   "CFC",
+   "Jorrel Hato (LI)",
+   "ga",
+   0.03,
+   0.5,
+   "Duda ante Sunderland (Sports Mole, 6 nov)",
+   "6 nov"
+  ],
+  [
+   "kns",
+   "ARS",
+   "Ezri Konsa (DFC)",
+   "ga",
+   0.04,
+   0.5,
+   "Rodilla; molestia ante Slavia (4 nov), duda ante Hull, no parece grave (ES/Yahoo, 5 nov)",
+   "6 nov"
+  ],
+  [
+   "rmr",
+   "NAP",
+   "Rafa Marín (DFC)",
+   "ga",
+   0.03,
+   1,
+   "Expulsado ante Porto (4 nov, 1-4); suspendido para la próxima jornada de Champions (Football Italia, 4 nov)",
+   "5 nov"
+  ],
+  [
+   "koi",
+   "AEK",
+   "Koita (DC)",
+   "gf",
+   0.04,
+   1,
+   "Expulsado al final ante Real Madrid (4 nov, 2-3) tras marcar; suspendido para la próxima jornada de Champions",
+   "5 nov"
+  ],
+  [
+   "rod",
+   "BAR",
+   "Rodri (MC)",
+   "gf",
+   0.06,
+   1,
+   "Bíceps femoral derecho (lesión leve, ante Aston Villa el 3 nov); fuera ante el Atleti el dom 8, el club no da plazos (SPORT estima ~1 mes)",
+   "6 nov"
+  ],
+  [
+   "cro",
+   "ATM",
+   "Cuti Romero (DFC)",
+   "ga",
+   0.05,
+   1,
+   "Recaída en el aductor; fuera ante el Barça y más de un mes, lo dieron de baja de Argentina (ElDesmarque/SportAragón, 5 nov)",
+   "6 nov"
+  ],
+  [
+   "bal",
+   "MUN",
+   "Carlos Baleba (MC)",
+   "gf",
+   0.04,
+   1,
+   "Isquiotibial (ante Roma, 3 nov); Carrick: \"de entrada no pinta bien\". Fuera ante Aston Villa el dom 8 (thefalse9, 6 nov)",
+   "6 nov"
+  ],
+  [
+   "lob",
+   "NAP",
+   "Stanislav Lobotka (MC)",
+   "gf",
+   0.04,
+   1,
+   "Fuera en Oporto; también Di Lorenzo, Olivera, Spinazzola y Badiashile (UEFA, previa J4, 4 nov)",
+   "4 nov"
+  ],
+  [
+   "dlz",
+   "NAP",
+   "Giovanni Di Lorenzo (LD)",
+   "ga",
+   0.04,
+   1,
+   "Fuera en Oporto (UEFA, previa J4, 4 nov)",
+   "4 nov"
+  ],
+  [
+   "ake",
+   "FEN",
+   "Nathan Aké (DFC)",
+   "ga",
+   0.04,
+   1,
+   "Isquiotibial; fuera ante Liverpool (UEFA, previa J4, 4 nov)",
+   "4 nov"
+  ],
+  [
+   "frp2",
+   "RBB",
+   "Junior Firpo (LI)",
+   "ga",
+   0.03,
+   1,
+   "Lesión muscular; fuera en Dortmund (UEFA, previa J4, 4 nov)",
+   "4 nov"
+  ],
+  [
+   "edo",
+   "RCL",
+   "Odsonne Édouard (DC)",
+   "gf",
+   0.05,
+   1,
+   "Fuera ante Como, junto con Ganiou y Sima (UEFA, previa J4, 4 nov)",
+   "4 nov"
+  ],
+  [
+   "ram",
+   "NEW",
+   "Jacob Ramsey (MC)",
+   "gf",
+   0.03,
+   1,
+   "Expulsado (doble amarilla) ante Everton el 2 nov; sanción de 1 partido: se pierde solo Fulham el sáb 7 y vuelve el 21 ante Arsenal (The False 9, 3 nov)",
+   "4 nov"
+  ],
+  [
+   "aub",
+   "DEP",
+   "Pierre-Emerick Aubameyang (DC)",
+   "gf",
+   0.1,
+   0,
+   "Ya volvió: entró al 69' ante Osasuna (2 nov). Disponible en Espanyol con minutos dosificados; titularidad sin confirmar (El Español/DXT Campeón, 4 nov)",
+   "4 nov"
+  ],
+  [
+   "mrl",
+   "SHA",
+   "Marlon Santos (DFC)",
+   "ga",
+   0.03,
+   1,
+   "Lesión muscular; fuera ante Sporting (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "nsa",
+   "SPO",
+   "Nuno Santos (EI)",
+   "gf",
+   0.04,
+   1,
+   "Lesión muscular; fuera ante Shakhtar (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "dbs",
+   "SPO",
+   "Zeno Debast (DFC)",
+   "ga",
+   0.03,
+   0.5,
+   "Duda ante Shakhtar (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "sau",
+   "VFB",
+   "Sauer (ED)",
+   "gf",
+   0.03,
+   1,
+   "Lesión muscular; fuera en Estambul (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "sti",
+   "VFB",
+   "Angelo Stiller (MC)",
+   "gf",
+   0.06,
+   1,
+   "Aductor; fuera ante Galatasaray (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "vag",
+   "VFB",
+   "Josha Vagnoman (LD)",
+   "ga",
+   0.03,
+   1,
+   "Isquiotibiales; fuera ante Galatasaray (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "kok",
+   "ATM",
+   "Koke (MC)",
+   "gf",
+   0.03,
+   0.5,
+   "Isquiotibiales; duda ante Bayern (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "hjl",
+   "ATM",
+   "Morten Hjulmand (MC)",
+   "gf",
+   0.04,
+   0.5,
+   "Su sanción era solo de UEFA; debería estar disponible ante el Barça, sin confirmar (Esto es Atleti, 4 nov)",
+   "4 nov"
+  ],
+  [
+   "ldi",
+   "BMU",
+   "Luis Díaz (ED)",
+   "gf",
+   0.08,
+   1,
+   "Isquiotibiales; fuera en el Metropolitano (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "gna",
+   "BMU",
+   "Serge Gnabry (ED)",
+   "gf",
+   0.05,
+   1,
+   "Isquiotibiales; fuera ante Atlético (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "mus",
+   "BMU",
+   "Jamal Musiala (MCO)",
+   "gf",
+   0.1,
+   1,
+   "Muslo; sigue fuera (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "sai",
+   "BMU",
+   "Saibari (MC)",
+   "gf",
+   0.03,
+   1,
+   "Tobillo; fuera ante Atlético (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "neu",
+   "BMU",
+   "Manuel Neuer (POR)",
+   "ga",
+   0.1,
+   0.5,
+   "Pie; duda ante Atlético (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "xes",
+   "BAR",
+   "Xavi Espart (LD)",
+   "ga",
+   0.02,
+   1,
+   "Tobillo; fuera ante Aston Villa (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "chr",
+   "BAR",
+   "Andreas Christensen (DFC)",
+   "ga",
+   0.03,
+   1,
+   "Isquiotibiales; fuera ante Aston Villa (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "ega",
+   "BAR",
+   "Eric García (DFC)",
+   "ga",
+   0.04,
+   1,
+   "Isquiotibiales; fuera ante Aston Villa (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "kou",
+   "BAR",
+   "Jules Koundé (LD)",
+   "ga",
+   0.04,
+   0.5,
+   "Esguince de tobillo; podría ir convocado ante el Atleti pero difícil que sea titular (Comuniate, 5 nov)",
+   "6 nov"
+  ],
+  [
+   "olm",
+   "BAR",
+   "Dani Olmo (MCO)",
+   "gf",
+   0.07,
+   1,
+   "Rotura en el aductor; fuera ante el Atleti (Comuniate, 5 nov)",
+   "6 nov"
+  ],
+  [
+   "bos",
+   "FEY",
+   "Bos (LI)",
+   "ga",
+   0.03,
+   1,
+   "Rodilla; fuera ante Inter (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "mod",
+   "FEY",
+   "Jakub Moder (MC)",
+   "gf",
+   0.03,
+   1,
+   "Espalda; fuera ante Inter (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "nel",
+   "FEY",
+   "Nelson (ED)",
+   "gf",
+   0.03,
+   1,
+   "Lesión muscular; fuera ante Inter (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "nwk",
+   "FEY",
+   "Bart Nieuwkoop (LD)",
+   "ga",
+   0.03,
+   1,
+   "Rodilla; fuera ante Inter (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "sml",
+   "FEY",
+   "Smal (LI)",
+   "ga",
+   0.03,
+   1,
+   "Tobillo; fuera ante Inter (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "vpe",
+   "FEY",
+   "Van Persie (MCO)",
+   "gf",
+   0.03,
+   1,
+   "Golpe; fuera ante Inter (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "sju",
+   "FEY",
+   "Jeremiah St. Juste (DFC)",
+   "ga",
+   0.04,
+   0.5,
+   "Tobillo; duda ante Inter (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "bas",
+   "INT",
+   "Alessandro Bastoni (DFC)",
+   "ga",
+   0.05,
+   1,
+   "Suspendido en Róterdam (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "jns",
+   "INT",
+   "Jones (MC)",
+   "gf",
+   0.03,
+   1,
+   "Muslo; fuera ante Feyenoord (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "lma",
+   "INT",
+   "Lautaro Martínez (DC)",
+   "gf",
+   0.12,
+   1,
+   "Lesión muscular; fuera ante Feyenoord (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "sto",
+   "INT",
+   "John Stones (DFC)",
+   "ga",
+   0.04,
+   1,
+   "Muslo; fuera ante Feyenoord (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "lhe",
+   "INT",
+   "Luis Henrique (ED)",
+   "gf",
+   0.03,
+   0.5,
+   "Muslo; duda ante Feyenoord (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "eje",
+   "BOG",
+   "Ejven (DFC)",
+   "ga",
+   0.03,
+   1,
+   "Rodilla; fuera ante Lille (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "fly",
+   "BOG",
+   "Faye Lund (DFC)",
+   "ga",
+   0.03,
+   1,
+   "Golpe; fuera ante Lille (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "rii",
+   "BOG",
+   "Riisnæs (MC)",
+   "gf",
+   0.03,
+   1,
+   "Rodilla; fuera ante Lille (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "mik",
+   "BOG",
+   "Mikkelsen (ED)",
+   "gf",
+   0.03,
+   1,
+   "Ingle; fuera ante Lille (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "mbp",
+   "LIL",
+   "Mbappé (MC)",
+   "gf",
+   0.04,
+   1,
+   "Suspendido en Bodø (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "tsa",
+   "LIL",
+   "Tiago Santos (LD)",
+   "ga",
+   0.03,
+   1,
+   "Rodilla; fuera en Bodø (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "ued",
+   "LIL",
+   "Ayase Ueda (DC)",
+   "gf",
+   0.04,
+   1,
+   "Pie; fuera en Bodø (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "bel",
+   "ASK",
+   "Bello (DFC)",
+   "ga",
+   0.03,
+   0.5,
+   "Lesión muscular; duda ante Slovan (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "cer",
+   "SLO",
+   "Čerepkai (MC)",
+   "gf",
+   0.03,
+   0.5,
+   "Espalda; duda en Linz (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "ras",
+   "MUN",
+   "Marcus Rashford (ED)",
+   "gf",
+   0.06,
+   0.5,
+   "Cadera; duda ante Aston Villa (thefalse9, 6 nov)",
+   "6 nov"
+  ],
+  [
+   "dia",
+   "MUN",
+   "Amad Diallo (ED)",
+   "gf",
+   0.05,
+   0.5,
+   "Lesión muscular; duda ante Roma (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "ses",
+   "MUN",
+   "Benjamin Šeško (DC)",
+   "gf",
+   0.1,
+   1,
+   "Espinilla; fuera ante Roma (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "dor",
+   "MUN",
+   "Patrick Dorgu (LI)",
+   "ga",
+   0.04,
+   1,
+   "Isquiotibiales; fuera ante Roma (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "sha",
+   "MUN",
+   "Luke Shaw (LI)",
+   "ga",
+   0.04,
+   1,
+   "Isquiotibiales; fuera ante Roma (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "svi",
+   "ROM",
+   "Mile Svilar (POR)",
+   "ga",
+   0.12,
+   1,
+   "Mano; sigue fuera en Old Trafford (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "kne",
+   "ROM",
+   "Manu Koné (MC)",
+   "gf",
+   0.05,
+   1,
+   "Isquiotibiales; fuera ante United (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "pel",
+   "ROM",
+   "Lorenzo Pellegrini (MCO)",
+   "gf",
+   0.04,
+   1,
+   "Isquiotibiales; fuera ante United (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "dyb",
+   "ROM",
+   "Paulo Dybala (DC)",
+   "gf",
+   0.06,
+   0.5,
+   "Gemelo; duda ante United (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "gmo",
+   "VIL",
+   "Gerard Moreno (DC)",
+   "gf",
+   0.06,
+   1,
+   "Lesión muscular; fuera ante PSG (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "akh",
+   "VIL",
+   "Ilias Akhomach (ED)",
+   "gf",
+   0.03,
+   1,
+   "Lesión muscular; fuera ante PSG (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "foy",
+   "VIL",
+   "Juan Foyth (DFC)",
+   "ga",
+   0.04,
+   1,
+   "Lesión muscular; fuera ante PSG (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "ala",
+   "VIL",
+   "Alassane (MC)",
+   "gf",
+   0.03,
+   0.5,
+   "Lesión muscular; duda ante PSG (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "dem",
+   "PSG",
+   "Ousmane Dembélé (DC)",
+   "gf",
+   0.1,
+   1,
+   "Muslo; fuera en Villarreal (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "kva",
+   "PSG",
+   "Khvicha Kvaratskhelia (EI)",
+   "gf",
+   0.08,
+   1,
+   "Rodilla; fuera en Villarreal (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "mqs",
+   "PSG",
+   "Marquinhos (DFC)",
+   "ga",
+   0.05,
+   1,
+   "Muslo; fuera en Villarreal (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "nme",
+   "PSG",
+   "Nuno Mendes (LI)",
+   "ga",
+   0.05,
+   1,
+   "Muslo; fuera en Villarreal (UEFA, previa J4, 3 nov)",
+   "3 nov"
+  ],
+  [
+   "liv",
+   "NEW",
+   "Tino Livramento (LD)",
+   "ga",
+   0.04,
+   1,
+   "Rodilla; fuera, sin fecha de regreso (lista oficial FPL, 30 oct)",
+   "2 nov"
+  ],
+  [
+   "mil",
+   "NEW",
+   "Lewis Miley (MC)",
+   "gf",
+   0.04,
+   0.25,
+   "Lesión muscular; 75% de jugar hoy ante Everton (FPL, 30 oct). Osula (tobillo) y Fernández-Pardo (enfermedad) también al 75%",
+   "2 nov"
+  ],
+  [
+   "oro",
+   "OSA",
+   "Aimar Oroz (MC)",
+   "gf",
+   0.06,
+   1,
+   "Lesionado; sigue de baja para hoy en Riazor (Comuniate, previa J11)",
+   "2 nov"
+  ],
+  [
+   "hrr",
+   "OSA",
+   "Jorge Herrando (DFC)",
+   "ga",
+   0.04,
+   1,
+   "Lesionado; sigue de baja para hoy en Riazor (Comuniate, previa J11)",
+   "2 nov"
+  ],
+  [
+   "dcs",
+   "OSA",
+   "Del Castillo (ED)",
+   "gf",
+   0.03,
+   1,
+   "Lesionado; sigue de baja para hoy en Riazor (Comuniate, previa J11)",
+   "2 nov"
+  ],
+  [
+   "mtt",
+   "CRY",
+   "Jean-Philippe Mateta (DC)",
+   "gf",
+   0.08,
+   1,
+   "Roja directa ante Tottenham (31 oct); rechazaron la apelación: suspendido ante Liverpool el dom 8 (thisisanfield/dave.sport)",
+   "6 nov"
+  ],
+  [
+   "vdv",
+   "TOT",
+   "Micky van de Ven (DFC)",
+   "ga",
+   0.04,
+   0.5,
+   "Duda: quedó dolido tras la entrada de Mateta, sin parte médico (Sky Sports, 31 oct)",
+   "1 nov"
+  ],
+  [
+   "jao",
+   "NEW",
+   "Ewen Jaouen (POR)",
+   "ga",
+   0.05,
+   1,
+   "Portero; isquiotibiales, fuera hasta diciembre aprox. (SportsMole, 30 oct). Impacto estimado: no confirmado si es el titular",
+   "1 nov"
+  ],
+  [
+   "mdy",
+   "RMA",
+   "Ferland Mendy (LI)",
+   "ga",
+   0.03,
+   0.5,
+   "No aparece en la lista de bajas de UEFA para Atenas; probablemente ya disponible, sin confirmar (UEFA, 4 nov)",
+   "4 nov"
+  ],
+  [
+   "agu",
+   "ELC",
+   "Marc Aguado (MC)",
+   "gf",
+   0.04,
+   1,
+   "Tobillo; fuera hasta el parón (FútbolFantasy)",
+   "1 nov"
+  ],
+  [
+   "bue",
+   "AME",
+   "Santiago Bueno (DFC)",
+   "ga",
+   0.04,
+   1,
+   "Roja directa ante Toluca (31 oct); se pierde el clásico ante Pumas, pendiente la resolución de la Comisión Disciplinaria (Excélsior, 1 nov)",
+   "1 nov"
+  ],
+  [
+   "afr",
+   "TIG",
+   "Alan Franco (DFC)",
+   "ga",
+   0.04,
+   1,
+   "Roja directa al 80' ante Pachuca (31 oct); suspendido ante Cruz Azul, pendiente la resolución de la Comisión (Fox Sports MX/RotoWire)",
+   "1 nov"
+  ],
+  [
+   "prt",
+   "TOL",
+   "Pereira (nombre por confirmar)",
+   "ga",
+   0.03,
+   1,
+   "Expulsado por doble amarilla al 90' ante América; suspendido ante Monterrey. Proceso lo llama Federico y Excélsior Andrés Pereira. Impacto estimado",
+   "1 nov"
+  ],
+  [
+   "dit",
+   "CAZ",
+   "Willer Ditta (DFC)",
+   "ga",
+   0.04,
+   1,
+   "Fisura en un dedo del pie; casi descartado ante León (SI/Bolavip, 29-31 oct)",
+   "1 nov"
+  ],
+  [
+   "adr",
+   "MTY",
+   "Esteban Andrada (POR)",
+   "ga",
+   0.08,
+   0.25,
+   "Portero titular; recibió atención en la pierna derecha en el 3-3 ante Tijuana pero siguió jugando. Duda leve para la J16 en Toluca (TUDN, 31 oct)",
+   "1 nov"
+  ],
+  [
+   "dav",
+   "AME",
+   "Víctor Dávila (DC)",
+   "gf",
+   0.05,
+   1,
+   "Rodilla; fuera (FutMercado, 31 oct)",
+   "1 nov"
+  ],
+  [
+   "duk",
+   "ATS",
+   "Duk (DC)",
+   "gf",
+   0.05,
+   1,
+   "Tendón rotuliano; fuera (FutMercado, 31 oct)",
+   "1 nov"
+  ],
+  [
+   "mds",
+   "JUA",
+   "Madson (DC)",
+   "gf",
+   0.04,
+   1,
+   "Lesión muscular; fuera (FutMercado, 31 oct)",
+   "1 nov"
+  ],
+  [
+   "val2",
+   "RMA",
+   "Federico Valverde (MC)",
+   "gf",
+   0.06,
+   0.5,
+   "No aparece en la lista de bajas de UEFA para Atenas; probablemente ya disponible para Valencia, sin confirmar (UEFA, 4 nov)",
+   "4 nov"
+  ],
+  [
+   "kik",
+   "ESP",
+   "Kike García (DC)",
+   "gf",
+   0.05,
+   1,
+   "Lesionado (sin plazo); no jugó en Villarreal (pericos.es, 30 oct)",
+   "1 nov"
+  ],
+  [
+   "lac",
+   "CFC",
+   "Maxence Lacroix (DFC)",
+   "ga",
+   0.04,
+   1,
+   "Isquiotibiales; fuera \"unas semanas\" (SportsMole, 30 oct)",
+   "1 nov"
+  ],
+  [
+   "emi",
+   "CFC",
+   "Emiliano Martínez (POR)",
+   "ga",
+   0.08,
+   0.5,
+   "Portero titular; mandíbula fracturada (17 oct), volvió a entrenar con máscara el 4 nov pero sin alta. Se proyecta a Penders ante Sunderland (ES/RotoWire, 5 nov, sin confirmar)",
+   "6 nov"
+  ],
+  [
+   "jpe",
+   "CFC",
+   "João Pedro (DC)",
+   "gf",
+   0.08,
+   1,
+   "Muslo; descartado \"unas semanas\", no vuelve antes del parón internacional (Khel Now, 29 oct)",
+   "30 oct"
+  ],
+  [
+   "sem",
+   "MCI",
+   "Antoine Semenyo (ED)",
+   "gf",
+   0.08,
+   1,
+   "Rodilla; fuera hasta mediados de diciembre (Fantasy Football Scout, 27 oct)",
+   "28 oct"
+  ],
+  [
+   "sav",
+   "TOT",
+   "Savinho (ED)",
+   "gf",
+   0.04,
+   1,
+   "Lesión muscular; fuera, se espera de vuelta hacia el 7 nov (The False 9, 27 oct)",
+   "28 oct"
+  ],
+  [
+   "dgo",
+   "SAN",
+   "Diego González (MC)",
+   "gf",
+   0.04,
+   1,
+   "Torcedura de tobillo ante Xolos; se pierde el resto del Apertura 2026 según la valoración médica, sin parte oficial del club (El Siglo de Torreón, 27 oct)",
+   "28 oct"
+  ],
+  [
+   "hom",
+   "QRO",
+   "Homenchenko (MC)",
+   "gf",
+   0.03,
+   1,
+   "Fractura en la mano; se perdió la J14 ante Cruz Azul y sigue fuera para la J15 (SI.com)",
+   "26 oct"
+  ],
+  [
+   "edu",
+   "QRO",
+   "Erik Dueñas (MC)",
+   "gf",
+   0.03,
+   1,
+   "Rodilla; se perdió la J14, sin fecha de regreso confirmada para la J15 (SI.com)",
+   "26 oct"
+  ],
+  [
+   "sak",
+   "ARS",
+   "Bukayo Saka (ED)",
+   "gf",
+   0.12,
+   1,
+   "Cuádriceps (se lesionó ante Bayern); 2ª resonancia el 23, Arteta: señales \"no buenas\". Fuera ante Everton; los médicos estiman al menos 6 semanas (The False 9/Sporting Tribune, 24 oct)",
+   "24 oct"
+  ],
+  [
+   "rug",
+   "AVL",
+   "Matteo Ruggeri (LI)",
+   "ga",
+   0.03,
+   1,
+   "Unos 2 meses fuera (Emery, vía Sports Mole)",
+   "22 oct"
+  ],
+  [
+   "luk",
+   "IPS",
+   "Saša Lukić (MC)",
+   "gf",
+   0.03,
+   0.5,
+   "Ingle; se perdió la J8 ante Forest, apunta a volver en Hull el 31 oct (O'Neil, vía Fantasy Football Scout)",
+   "26 oct"
+  ],
+  [
+   "ecc",
+   "COV",
+   "Josh Eccles (MC)",
+   "gf",
+   0.03,
+   1,
+   "Tobillo; aún no entrena en césped",
+   "23 oct"
+  ],
+  [
+   "gar",
+   "ALA",
+   "Facundo Garcés (DFC)",
+   "ga",
+   0.04,
+   1,
+   "Ligamento cruzado roto; baja hasta abril (FútbolFantasy)",
+   "23 oct"
+  ],
+  [
+   "mrd",
+   "ALA",
+   "Mikel Rodríguez (MC)",
+   "gf",
+   0.03,
+   1,
+   "Ligamento cruzado roto; baja hasta abril (FútbolFantasy)",
+   "23 oct"
+  ],
+  [
+   "brg",
+   "TOT",
+   "Lucas Bergvall (MC)",
+   "gf",
+   0.04,
+   1,
+   "Rodilla; fuera",
+   "23 oct"
+  ],
+  [
+   "udo",
+   "TOT",
+   "Destiny Udogie (LI)",
+   "ga",
+   0.03,
+   1,
+   "Rodilla; fuera",
+   "23 oct"
+  ],
+  [
+   "mud",
+   "TOT",
+   "Mykhailo Mudryk (EI)",
+   "gf",
+   0.03,
+   1,
+   "Tobillo; fuera",
+   "23 oct"
+  ],
+  [
+   "wie",
+   "BRI",
+   "Mats Wieffer (MC)",
+   "gf",
+   0.04,
+   1,
+   "Rodilla; probablemente fuera, regreso más probable en la J9 (Hürzeler)",
+   "23 oct"
+  ],
+  [
+   "mjo",
+   "LEE",
+   "Mateo Joseph (DC)",
+   "gf",
+   0.03,
+   1,
+   "Rodilla; fuera",
+   "23 oct"
+  ],
+  [
+   "tot",
+   "BOU",
+   "Alex Tóth (MC)",
+   "gf",
+   0.04,
+   1,
+   "Isquiotibiales; fuera \"algunas semanas\" (Rose)",
+   "23 oct"
+  ],
+  [
+   "ara",
+   "BOU",
+   "Julián Araujo (LD)",
+   "ga",
+   0.03,
+   1,
+   "Muslo; fuera",
+   "23 oct"
+  ],
+  [
+   "nor",
+   "EVE",
+   "Christian Nørgaard (MC)",
+   "gf",
+   0.03,
+   1,
+   "Aún lejos de ser titular (Moyes)",
+   "23 oct"
+  ],
+  [
+   "ses2",
+   "FUL",
+   "Ryan Sessegnon (LI)",
+   "ga",
+   0.03,
+   1,
+   "Suspendido 3 partidos",
+   "23 oct"
+  ],
+  [
+   "nme2",
+   "HUL",
+   "Nobel Mendy (DFC)",
+   "ga",
+   0.03,
+   1,
+   "Ingle; vuelve en la J9",
+   "23 oct"
+  ],
+  [
+   "tgt",
+   "HUL",
+   "Matt Targett (LI)",
+   "ga",
+   0.03,
+   1,
+   "Tobillo; fuera",
+   "23 oct"
+  ],
+  [
+   "tom",
+   "CRY",
+   "Takehiro Tomiyasu (DFC)",
+   "ga",
+   0.03,
+   1,
+   "Gemelo; fuera (Sports Mole)",
+   "23 oct"
+  ],
+  [
+   "ria",
+   "CRY",
+   "Chadi Riad (DFC)",
+   "ga",
+   0.03,
+   1,
+   "Rodilla; fuera",
+   "23 oct"
+  ],
+  [
+   "mun2",
+   "SUN",
+   "Romaine Mundle (ED)",
+   "gf",
+   0.03,
+   1,
+   "Rodilla; fuera",
+   "23 oct"
+  ],
+  [
+   "jof",
+   "ESP",
+   "Jofre Carreras (ED)",
+   "gf",
+   0.03,
+   1,
+   "Lesionado (Comunio)",
+   "23 oct"
+  ],
+  [
+   "eri",
+   "RAC",
+   "Eriksson (POR)",
+   "ga",
+   0.06,
+   0.5,
+   "Portero; duda para la J11 ante Real Madrid (JornadaPerfecta). Impacto estimado: no confirmado si es el titular",
+   "28 oct"
+  ],
+  [
+   "sie",
+   "SEV",
+   "Miguel Sierra (ED)",
+   "gf",
+   0.03,
+   1,
+   "Baja de larga duración (hombro); sigue fuera para el 1 nov en Getafe (JornadaPerfecta, 26 oct)",
+   "27 oct"
+  ],
+  [
+   "mca",
+   "SEV",
+   "Marcão (DFC)",
+   "ga",
+   0.04,
+   1,
+   "Baja de larga duración (lesión muscular); sigue fuera para el 1 nov en Getafe (JornadaPerfecta, 26 oct)",
+   "27 oct"
+  ],
+  [
+   "cor",
+   "PUM",
+   "Sebastián Córdova (MC)",
+   "gf",
+   0.08,
+   1,
+   "Rotura de ligamento cruzado; fuera del torneo",
+   "12 oct"
+  ],
+  [
+   "mac",
+   "PUM",
+   "José Juan Macías (DC)",
+   "gf",
+   0.07,
+   1,
+   "Rodilla (ligamentos); fuera del torneo",
+   "12 oct"
+  ],
+  [
+   "cal",
+   "PUM",
+   "Cristian Calderón (LI)",
+   "ga",
+   0.03,
+   1,
+   "Lesión muscular; sigue fuera",
+   "12 oct"
+  ],
+  [
+   "amo",
+   "CAZ",
+   "Amaury Morales (MC)",
+   "gf",
+   0.04,
+   1,
+   "Rotura de ligamento cruzado; se pierde el torneo",
+   "10 oct"
+  ],
+  [
+   "rom",
+   "CHI",
+   "Luis Romo (MC)",
+   "ga",
+   0.05,
+   1,
+   "Lesión en el bíceps femoral; fuera ante Tigres, sin fecha de regreso (Excélsior)",
+   "17 oct"
+  ],
+  [
+   "sal",
+   "ARS",
+   "William Saliba (DFC)",
+   "ga",
+   0.12,
+   0.5,
+   "Espalda; ya entrena completo, se perfila para la banca ante Hull (ES/Yahoo, 5 nov)",
+   "6 nov"
+  ],
+  [
+   "eki",
+   "LFC",
+   "Hugo Ekitike (DC)",
+   "gf",
+   0.1,
+   1,
+   "Lesión de Aquiles; baja larga",
+   "12 oct"
+  ],
+  [
+   "brd",
+   "LFC",
+   "Conor Bradley (LD)",
+   "ga",
+   0.03,
+   1,
+   "Lesionado",
+   "12 oct"
+  ],
+  [
+   "uga",
+   "MUN",
+   "Manuel Ugarte (MC)",
+   "gf",
+   0.03,
+   1,
+   "Ligamento cruzado de la rodilla",
+   "12 oct"
+  ],
+  [
+   "hen",
+   "CRY",
+   "Dean Henderson (POR)",
+   "ga",
+   0.1,
+   0.5,
+   "Portero titular; pie. \"Touch-and-go\": volvió a entrenar y se evaluará cerca del inicio ante Newcastle; si no, ataja Walter Benítez (Sports Mole, 24 oct)",
+   "24 oct"
+  ],
+  [
+   "sco",
+   "BOU",
+   "Alex Scott (MC)",
+   "gf",
+   0.04,
+   1,
+   "Cuádriceps, con Inglaterra; 6-8 semanas",
+   "12 oct"
+  ],
+  [
+   "git",
+   "CFC",
+   "Jamie Gittens (EI)",
+   "gf",
+   0.04,
+   1,
+   "Tobillo; no antes de finales de octubre",
+   "12 oct"
+  ],
+  [
+   "wri",
+   "COV",
+   "Haji Wright (DC)",
+   "gf",
+   0.1,
+   1,
+   "Cuádriceps; sin fecha de regreso (estado no confirmado)",
+   "12 oct"
+  ],
+  [
+   "bal",
+   "SUN",
+   "Dan Ballard (DFC)",
+   "ga",
+   0.05,
+   1,
+   "Fuera ante Chelsea el dom 8 (dave.sport, 6 nov)",
+   "6 nov"
+  ],
+  [
+   "rod",
+   "LEE",
+   "Joe Rodon (DFC)",
+   "ga",
+   0.05,
+   1,
+   "Isquiotibiales; 8-10 semanas desde finales de agosto",
+   "12 oct"
+  ],
+  [
+   "ona",
+   "AVL",
+   "Amadou Onana (MC)",
+   "gf",
+   0.05,
+   1,
+   "Rotura de ligamento cruzado; se pierde la temporada",
+   "12 oct"
+  ],
+  [
+   "dam",
+   "BRE",
+   "Mikkel Damsgaard (MC)",
+   "gf",
+   0.05,
+   1,
+   "Tobillo; baja larga",
+   "12 oct"
+  ],
+  [
+   "bdg",
+   "BAR",
+   "Roony Bardghji (ED)",
+   "gf",
+   0.03,
+   1,
+   "Ligamento cruzado; vuelve en 2027",
+   "12 oct"
+  ],
+  [
+   "rdg",
+   "RMA",
+   "Rodrygo (ED)",
+   "gf",
+   0.06,
+   1,
+   "Rodilla; apunta a inicios de 2027",
+   "12 oct"
+  ],
+  [
+   "ase",
+   "RMA",
+   "Raúl Asencio (DFC)",
+   "ga",
+   0.04,
+   1,
+   "Fractura por estrés en la tibia; unos 3 meses",
+   "12 oct"
+  ],
+  [
+   "mrc",
+   "SEV",
+   "Marcão (DFC)",
+   "ga",
+   0.04,
+   1,
+   "Cuádriceps; varias semanas",
+   "12 oct"
+  ],
+  [
+   "uch",
+   "GET",
+   "Christantus Uche (MC)",
+   "gf",
+   0.05,
+   1,
+   "Rodilla operada; fuera toda la temporada",
+   "12 oct"
+  ],
+  [
+   "str",
+   "AEK",
+   "Thomas Strakosha (POR)",
+   "ga",
+   0.1,
+   0.5,
+   "Portero titular; muñeca, duda ante Real Madrid. Se proyecta a Brignoli en la portería (UEFA, previa J4)",
+   "4 nov"
+  ],
+  [
+   "igm",
+   "LIL",
+   "Hamza Igamane (DC)",
+   "gf",
+   0.05,
+   1,
+   "Ligamento cruzado; baja larga",
+   "13 oct"
+  ],
+  [
+   "kea",
+   "COM",
+   "Moise Kean (DC)",
+   "gf",
+   0.1,
+   1,
+   "Espinilla; fuera ante Manchester United. Fàbregas verá si llega para el sábado",
+   "21 oct"
+  ],
+  [
+   "vin",
+   "RMA",
+   "Vinícius Jr. (EI)",
+   "gf",
+   0.15,
+   1,
+   "Sanción de 4 partidos de LaLiga: cumplió el 3º el dom 1 en Racing y también se pierde la J12 ante Valencia (okdiario, 31 oct). Sí puede jugar la Champions",
+   "2 nov"
+  ],
+  [
+   "leo",
+   "LFC",
+   "Giovanni Leoni (DFC)",
+   "ga",
+   0.03,
+   1,
+   "Lesión larga",
+   "14 oct"
+  ],
+  [
+   "dur",
+   "MTY",
+   "Uroš Đurđević (DC)",
+   "gf",
+   0.06,
+   1,
+   "Tobillo; entrena por separado, única baja de Monterrey ante Chivas (SI.com, 24 oct)",
+   "24 oct"
+  ],
+  [
+   "bor",
+   "RCC",
+   "Borja Iglesias (DC)",
+   "gf",
+   0.07,
+   1,
+   "Sóleo; fuera ante Betis (Comunio)",
+   "23 oct"
+  ],
+  [
+   "dlo",
+   "VCF",
+   "Diego López (EI)",
+   "gf",
+   0.06,
+   1,
+   "Ligamento cruzado; baja larga",
+   "16 oct"
+  ],
+  [
+   "bat",
+   "RVC",
+   "Augusto Batalla (POR)",
+   "ga",
+   0.1,
+   1,
+   "Portero titular; fractura de tibia, fuera hasta enero",
+   "16 oct"
+  ],
+  [
+   "rui",
+   "RBB",
+   "Aitor Ruibal (LD)",
+   "ga",
+   0.03,
+   1,
+   "Rodilla; fuera ante Barcelona",
+   "16 oct"
+  ],
+  [
+   "rja",
+   "CFC",
+   "Reece James (LD)",
+   "ga",
+   0.05,
+   1,
+   "Operado de la rodilla; unos 3 meses",
+   "16 oct"
+  ],
+  [
+   "but",
+   "HUL",
+   "Jack Butland (POR)",
+   "ga",
+   0.1,
+   1,
+   "Portero titular; hombro, fuera ante Brentford. Ataja Tzolakis (Fantasy Football Scout, 23 oct)",
+   "23 oct"
+  ],
+  [
+   "ela",
+   "NEW",
+   "Anthony Elanga (ED)",
+   "gf",
+   0.05,
+   0.5,
+   "Volvió a entrenar; podría ir convocado pero no para 90' (Jaissle)",
+   "23 oct"
+  ],
+  [
+   "vei",
+   "AME",
+   "Raphael Veiga (MCO)",
+   "gf",
+   0.08,
+   1,
+   "Hombro izquierdo; América confirmó cirugía en São Paulo, sin fecha de regreso. Fuera ante Pachuca (ClaroSports, 23 oct)",
+   "24 oct"
+  ],
+  [
+   "mru",
+   "TOL",
+   "Marcel Ruiz (MC)",
+   "gf",
+   0.05,
+   1,
+   "Rodilla; fuera ante San Luis",
+   "16 oct"
+  ],
+  [
+   "rbb",
+   "SLP",
+   "Robson Bambú (DFC)",
+   "ga",
+   0.04,
+   1,
+   "Fuera (FutMercado, 31 oct)",
+   "1 nov"
+  ],
+  [
+   "jpe",
+   "SLP",
+   "João Pedro (DC)",
+   "gf",
+   0.05,
+   1,
+   "Fuera (FutMercado, 31 oct)",
+   "1 nov"
+  ],
+  [
+   "rzw",
+   "TIG",
+   "Rômulo Zwarg (MC)",
+   "gf",
+   0.04,
+   1,
+   "Sigue fuera (FutMercado, 31 oct)",
+   "1 nov"
+  ],
+  [
+   "xsi",
+   "TOT",
+   "Xavi Simons (MCO)",
+   "gf",
+   0.08,
+   1,
+   "Fuera ante Coventry",
+   "16 oct"
+  ],
+  [
+   "odo",
+   "TOT",
+   "Wilson Odobert (EI)",
+   "gf",
+   0.03,
+   1,
+   "Fuera ante Coventry",
+   "16 oct"
+  ],
+  [
+   "ben",
+   "TOT",
+   "Rodrigo Bentancur (MC)",
+   "ga",
+   0.03,
+   1,
+   "Suspendido por roja hasta el 7 nov; se pierde Coventry y Chelsea",
+   "19 oct"
+  ],
+  [
+   "mit",
+   "BRI",
+   "Kaoru Mitoma (EI)",
+   "gf",
+   0.06,
+   1,
+   "Muslo; fuera hasta el 8 nov aprox.",
+   "19 oct"
+  ],
+  [
+   "fer",
+   "BRI",
+   "Evan Ferguson (DC)",
+   "gf",
+   0.04,
+   1,
+   "Tobillo; fuera ante Crystal Palace",
+   "16 oct"
+  ],
+  [
+   "par",
+   "CAZ",
+   "José Paradela (MC)",
+   "gf",
+   0.04,
+   0.5,
+   "Duda ante León: SI lo da en duda y Bolavip dice que ya se recuperó (29-31 oct)",
+   "1 nov"
+  ],
+  [
+   "frp",
+   "LFC",
+   "Jeremie Frimpong (LD)",
+   "ga",
+   0.04,
+   1,
+   "Isquiotibiales; sigue fuera para el partido ante Arsenal del 1 nov (Khel Now, 30 oct)",
+   "30 oct"
+  ],
+  [
+   "ore",
+   "MCI",
+   "Nico O'Reilly (LI)",
+   "ga",
+   0.03,
+   0.5,
+   "Espalda; no entrenó a media semana, duda ante Aston Villa (Fantasy Football Scout)",
+   "23 oct"
+  ],
+  [
+   "dhs",
+   "VCF",
+   "Justin de Haas (DFC)",
+   "ga",
+   0.03,
+   0.5,
+   "Salió lesionado ante Athletic",
+   "18 oct"
+  ],
+  [
+   "gur",
+   "ATH",
+   "Gorka Guruzeta (DC)",
+   "gf",
+   0.05,
+   1,
+   "Lesionado; fuera ante Getafe (Comunio)",
+   "23 oct"
+  ],
+  [
+   "fbe",
+   "RBB",
+   "Facundo Bernal (MC)",
+   "ga",
+   0.03,
+   1,
+   "Suspendido: cumple el 1º de 4 partidos ante Celta (Comunio)",
+   "23 oct"
+  ],
+  [
+   "yar",
+   "BRE",
+   "Yehor Yarmoliuk (MC)",
+   "gf",
+   0.04,
+   1,
+   "Roja directa ante Liverpool; suspendido hasta el 8 nov",
+   "19 oct"
+  ],
+  [
+   "jan",
+   "BRE",
+   "Vitaly Janelt (MC)",
+   "gf",
+   0.03,
+   1,
+   "Doble amarilla ante Liverpool; suspendido hasta el 28 oct (Hull)",
+   "19 oct"
+  ],
+  [
+   "als",
+   "NAP",
+   "Alisson Santos (EI)",
+   "gf",
+   0.03,
+   1,
+   "Isquiotibiales; fuera ante Bodø/Glimt (UEFA)",
+   "20 oct"
+  ],
+  [
+   "dan",
+   "SUN",
+   "Kevin Danso (DFC)",
+   "ga",
+   0.05,
+   1,
+   "Roja directa al 17' ante Bournemouth; suspendido al menos ante Leeds (25 oct)",
+   "19 oct"
+  ],
+  [
+   "meu",
+   "SUN",
+   "Thomas Meunier (LD)",
+   "ga",
+   0.03,
+   1,
+   "Muslo; fuera hasta el 8 nov aprox.",
+   "19 oct"
+  ],
+  [
+   "min",
+   "BRI",
+   "Yankuba Minteh (ED)",
+   "gf",
+   0.04,
+   1,
+   "Fuera",
+   "19 oct"
+  ],
+  [
+   "tzi",
+   "BRI",
+   "Stefanos Tzimas (DC)",
+   "gf",
+   0.03,
+   1,
+   "Fuera",
+   "19 oct"
+  ],
+  [
+   "cho",
+   "HUL",
+   "Mohamed-Ali Cho (DC)",
+   "gf",
+   0.04,
+   0.5,
+   "Muslo; entrenó toda la semana, posible regreso (Sage)",
+   "23 oct"
+  ],
+  [
+   "igj",
+   "NFO",
+   "Igor Jesus (DC)",
+   "gf",
+   0.05,
+   1,
+   "Fuera hasta el 31 oct aprox.",
+   "19 oct"
+  ],
+  [
+   "awb",
+   "AVL",
+   "Aaron Wan-Bissaka (LD)",
+   "ga",
+   0.04,
+   1,
+   "Fuera hasta el 8 nov aprox.",
+   "19 oct"
+  ],
+  [
+   "lfe",
+   "RVC",
+   "Luiz Felipe (DFC)",
+   "ga",
+   0.04,
+   1,
+   "Rotura del cruzado de la rodilla derecha; fuera toda la temporada (Comunio)",
+   "23 oct"
+  ],
+  [
+   "rat",
+   "RVC",
+   "Andrei Ratiu (LD)",
+   "ga",
+   0.03,
+   0.5,
+   "Duda ante Getafe",
+   "19 oct"
+  ],
+  [
+   "jmi",
+   "GET",
+   "Juanmi (DC)",
+   "gf",
+   0.04,
+   1,
+   "Fuera ante Rayo",
+   "19 oct"
+  ],
+  [
+   "edd",
+   "DEP",
+   "Eddahchouri (DC)",
+   "gf",
+   0.04,
+   1,
+   "Fuera para la J10 ante Atlético",
+   "19 oct"
+  ],
+  [
+   "yhe",
+   "RSO",
+   "Yangel Herrera (MC)",
+   "gf",
+   0.04,
+   0.5,
+   "Molestias musculares; duda ante Levante (Comunio)",
+   "23 oct"
+  ],
+  [
+   "arm",
+   "RSO",
+   "Jon Aramburu (LD)",
+   "ga",
+   0.03,
+   1,
+   "Fuera",
+   "19 oct"
+  ],
+  [
+   "stf",
+   "RCC",
+   "Carl Starfelt (DFC)",
+   "ga",
+   0.03,
+   1,
+   "Fuera",
+   "19 oct"
+  ],
+  [
+   "cns",
+   "VCF",
+   "Sergi Canós (ED)",
+   "gf",
+   0.03,
+   1,
+   "Fuera",
+   "19 oct"
+  ],
+  [
+   "jpr",
+   "TIG",
+   "Joaquim Pereira (DFC)",
+   "ga",
+   0.03,
+   1,
+   "Desgarro grado 1; fuera ante Pumas (ABC Noticias)",
+   "22 oct"
+  ],
+  [
+   "med",
+   "MTY",
+   "Stefan Medina (LD)",
+   "ga",
+   0.04,
+   1,
+   "Fuera",
+   "17 oct"
+  ],
+  [
+   "ore2",
+   "MTY",
+   "Lucas Orellano (EI)",
+   "gf",
+   0.04,
+   1,
+   "Fuera",
+   "17 oct"
+  ],
+  [
+   "ado",
+   "PAC",
+   "Alexei Domínguez (DC)",
+   "gf",
+   0.05,
+   1,
+   "Fuera hasta mediados de noviembre",
+   "17 oct"
+  ],
+  [
+   "zun",
+   "AME",
+   "Zúñiga (DC)",
+   "gf",
+   0.04,
+   1,
+   "Fuera según el reporte de la Liga MX",
+   "17 oct"
+  ],
+  [
+   "stj",
+   "BRI",
+   "Pascal Struijk (DFC)",
+   "ga",
+   0.03,
+   0.5,
+   "Duda",
+   "19 oct"
+  ],
+  [
+   "djn",
+   "GET",
+   "Djené (DFC)",
+   "ga",
+   0.05,
+   1,
+   "Roja directa ante Rayo (19 oct); suspendido ante Athletic (25 oct)",
+   "20 oct"
+  ],
+  [
+   "ner",
+   "NAP",
+   "David Neres (ED)",
+   "gf",
+   0.05,
+   1,
+   "Muslo; fuera ante Bodø/Glimt (UEFA)",
+   "20 oct"
+  ],
+  [
+   "lma2",
+   "MUN",
+   "Lisandro Martínez (DFC)",
+   "ga",
+   0.04,
+   1,
+   "Expulsado por doble amarilla al 63' ante Chelsea (31 oct); suspendido ante Aston Villa el 8 nov (Sky Sports)",
+   "1 nov"
+  ],
+  [
+   "cuc",
+   "RBB",
+   "Cucho Hernández (DC)",
+   "gf",
+   0.06,
+   1,
+   "Lesión muscular; fuera ante Celta (Comunio)",
+   "23 oct"
+  ],
+  [
+   "asn",
+   "FEN",
+   "Marco Asensio (MCO)",
+   "gf",
+   0.06,
+   1,
+   "Rodilla; fuera ante Slavia (UEFA)",
+   "20 oct"
+  ],
+  [
+   "rju",
+   "AME",
+   "Ramón Juárez (DFC)",
+   "ga",
+   0.04,
+   1,
+   "Fuera ante Atlas (OneFootball)",
+   "21 oct"
+  ],
+  [
+   "snb",
+   "PUE",
+   "Sanabria",
+   "gf",
+   0.04,
+   1,
+   "Desgarro; fuera ante Monterrey",
+   "21 oct"
+  ],
+  [
+   "kve",
+   "PUE",
+   "Kevin Velasco",
+   "gf",
+   0.03,
+   1,
+   "Fuera ante Monterrey",
+   "21 oct"
+  ],
+  [
+   "chl",
+   "COM",
+   "Trevoh Chalobah (DFC)",
+   "ga",
+   0.04,
+   0.5,
+   "Duda ante Lens (UEFA, previa J4, 4 nov)",
+   "4 nov"
+  ],
+  [
+   "jro",
+   "COM",
+   "Jesús Rodríguez (ED)",
+   "gf",
+   0.03,
+   1,
+   "Fuera unos dos meses",
+   "21 oct"
+  ]
+ ],
+ "fb_comps": {
+  "MX": {
+   "n": "Liga MX",
+   "sub": "APERTURA 2026 · JORNADA 16",
+   "lg": "MX",
+   "em": "MX",
+   "g": "linear-gradient(160deg,#00d68f,#04503a 70%,#021a14)",
+   "gl": "rgba(0,214,143,.55)",
+   "ac": "#00d68f",
+   "ac2": "#04503a",
+   "sim": [
+    "AME",
+    "MTY"
+   ]
+  },
+  "LL": {
+   "n": "La Liga",
+   "sub": "ESPAÑA · 2026-27",
+   "lg": "LL",
+   "em": "ES",
+   "g": "linear-gradient(160deg,#ff8a1f,#8a2a00 70%,#2a0c00)",
+   "gl": "rgba(255,138,31,.55)",
+   "ac": "#ff8a1f",
+   "ac2": "#6e2300",
+   "sim": [
+    "BAR",
+    "RMA"
+   ]
+  },
+  "PL": {
+   "n": "Premier League",
+   "sub": "INGLATERRA · 2026-27",
+   "lg": "PL",
+   "em": "EN",
+   "g": "linear-gradient(160deg,#c15bff,#3a0b7a 70%,#12032e)",
+   "gl": "rgba(193,91,255,.55)",
+   "ac": "#c15bff",
+   "ac2": "#34096f",
+   "sim": [
+    "ARS",
+    "MCI"
+   ]
+  },
+  "UCL": {
+   "n": "Champions League",
+   "sub": "UEFA · FASE DE LIGA 26/27",
+   "lg": "OT",
+   "em": "UCL",
+   "g": "linear-gradient(160deg,#3d8bff,#0b2a7a 70%,#030c2e)",
+   "gl": "rgba(61,139,255,.6)",
+   "ac": "#3d8bff",
+   "ac2": "#0b2a7a",
+   "sim": [
+    "BMU",
+    "PSG"
+   ]
+  },
+  "UEL": {
+   "n": "Europa League",
+   "sub": "UEFA · FASE DE LIGA 26/27",
+   "lg": "OT",
+   "em": "UEL",
+   "g": "linear-gradient(160deg,#ffb020,#7a3d00 70%,#241200)",
+   "gl": "rgba(255,176,32,.55)",
+   "ac": "#ffb020",
+   "ac2": "#7a3d00",
+   "sim": [
+    "SLB",
+    "B04"
+   ]
+  }
+ },
+ "fb_constants": {
+  "raw": "const LG0={PL:1.45,LL:1.35,MX:1.51,SA:1.21,BL:1.62,L1:1.41,OT:1.40},STR={PL:1,LL:.98,BL:.96,SA:.96,L1:.92,MX:.8,OT:.85},LGU=1.45;"
+ },
+ "nhl_teams": {
+  "ANA": [
+   "Anaheim Ducks",
+   273,
+   288
+  ],
+  "BOS": [
+   "Boston Bruins",
+   272,
+   250
+  ],
+  "BUF": [
+   "Buffalo Sabres",
+   288,
+   241
+  ],
+  "CGY": [
+   "Calgary Flames",
+   208,
+   255
+  ],
+  "CAR": [
+   "Carolina Hurricanes",
+   296,
+   240
+  ],
+  "CHI": [
+   "Chicago Blackhawks",
+   213,
+   275
+  ],
+  "COL": [
+   "Colorado Avalanche",
+   298,
+   197
+  ],
+  "CBJ": [
+   "Columbus Blue Jackets",
+   253,
+   253
+  ],
+  "DAL": [
+   "Dallas Stars",
+   279,
+   226
+  ],
+  "DET": [
+   "Detroit Red Wings",
+   241,
+   258
+  ],
+  "EDM": [
+   "Edmonton Oilers",
+   282,
+   269
+  ],
+  "FLA": [
+   "Florida Panthers",
+   246,
+   274
+  ],
+  "LA": [
+   "Los Angeles Kings",
+   225,
+   247
+  ],
+  "MIN": [
+   "Minnesota Wild",
+   262,
+   227
+  ],
+  "MTL": [
+   "Montréal Canadiens",
+   283,
+   256
+  ],
+  "NSH": [
+   "Nashville Predators",
+   241,
+   261
+  ],
+  "NJ": [
+   "New Jersey Devils",
+   230,
+   254
+  ],
+  "NYI": [
+   "New York Islanders",
+   233,
+   241
+  ],
+  "NYR": [
+   "New York Rangers",
+   238,
+   250
+  ],
+  "OTT": [
+   "Ottawa Senators",
+   278,
+   246
+  ],
+  "PHI": [
+   "Philadelphia Flyers",
+   250,
+   243
+  ],
+  "PIT": [
+   "Pittsburgh Penguins",
+   288,
+   261
+  ],
+  "SJ": [
+   "San Jose Sharks",
+   251,
+   292
+  ],
+  "SEA": [
+   "Seattle Kraken",
+   226,
+   263
+  ],
+  "STL": [
+   "St. Louis Blues",
+   0,
+   0
+  ],
+  "TB": [
+   "Tampa Bay Lightning",
+   286,
+   229
+  ],
+  "TOR": [
+   "Toronto Maple Leafs",
+   253,
+   295
+  ],
+  "UTA": [
+   "Utah Mammoth",
+   268,
+   240
+  ],
+  "VAN": [
+   "Vancouver Canucks",
+   216,
+   316
+  ],
+  "VGK": [
+   "Vegas Golden Knights",
+   265,
+   250
+  ],
+  "WSH": [
+   "Washington Capitals",
+   263,
+   244
+  ],
+  "WPG": [
+   "Winnipeg Jets",
+   231,
+   260
+  ]
+ },
+ "nhl_results": [
+  [
+   "SJ",
+   "LA",
+   5,
+   4
+  ],
+  [
+   "VAN",
+   "CGY",
+   4,
+   1
+  ],
+  [
+   "DET",
+   "WPG",
+   2,
+   3
+  ],
+  [
+   "NYR",
+   "UTA",
+   4,
+   2
+  ],
+  [
+   "SEA",
+   "CGY",
+   6,
+   1
+  ],
+  [
+   "ANA",
+   "FLA",
+   3,
+   2
+  ],
+  [
+   "VAN",
+   "VGK",
+   2,
+   3
+  ],
+  [
+   "TB",
+   "PHI",
+   4,
+   1
+  ],
+  [
+   "PIT",
+   "WPG",
+   2,
+   3
+  ],
+  [
+   "BOS",
+   "OTT",
+   1,
+   4
+  ],
+  [
+   "DAL",
+   "SJ",
+   5,
+   0
+  ],
+  [
+   "TOR",
+   "NSH",
+   5,
+   4
+  ],
+  [
+   "NJ",
+   "UTA",
+   3,
+   5
+  ],
+  [
+   "MTL",
+   "CAR",
+   4,
+   6
+  ],
+  [
+   "DET",
+   "OTT",
+   5,
+   3
+  ],
+  [
+   "BUF",
+   "MIN",
+   3,
+   2
+  ],
+  [
+   "NYR",
+   "NYI",
+   5,
+   2
+  ],
+  [
+   "CHI",
+   "STL",
+   4,
+   2
+  ],
+  [
+   "SEA",
+   "VGK",
+   2,
+   6
+  ],
+  [
+   "LA",
+   "FLA",
+   1,
+   2
+  ],
+  [
+   "DAL",
+   "STL",
+   0,
+   4
+  ],
+  [
+   "COL",
+   "STL",
+   6,
+   1
+  ],
+  [
+   "FLA",
+   "SJ",
+   3,
+   4
+  ],
+  [
+   "WSH",
+   "PIT",
+   5,
+   3
+  ],
+  [
+   "WPG",
+   "COL",
+   3,
+   2
+  ],
+  [
+   "ANA",
+   "EDM",
+   2,
+   5
+  ],
+  [
+   "MTL",
+   "NSH",
+   2,
+   5
+  ],
+  [
+   "BUF",
+   "DAL",
+   0,
+   4
+  ],
+  [
+   "OTT",
+   "PHI",
+   2,
+   1
+  ],
+  [
+   "BOS",
+   "UTA",
+   6,
+   1
+  ],
+  [
+   "CAR",
+   "VAN",
+   7,
+   2
+  ],
+  [
+   "TB",
+   "MIN",
+   3,
+   2
+  ],
+  [
+   "NYI",
+   "CHI",
+   4,
+   1
+  ],
+  [
+   "STL",
+   "SJ",
+   2,
+   3
+  ],
+  [
+   "CGY",
+   "COL",
+   3,
+   7
+  ],
+  [
+   "VGK",
+   "TOR",
+   4,
+   3
+  ],
+  [
+   "WSH",
+   "NYR",
+   3,
+   1
+  ],
+  [
+   "CBJ",
+   "PIT",
+   3,
+   2
+  ],
+  [
+   "DET",
+   "SEA",
+   3,
+   6
+  ],
+  [
+   "WPG",
+   "ANA",
+   1,
+   5
+  ],
+  [
+   "BOS",
+   "PHI",
+   5,
+   1
+  ],
+  [
+   "NJ",
+   "VAN",
+   4,
+   1
+  ],
+  [
+   "SJ",
+   "EDM",
+   1,
+   3
+  ],
+  [
+   "FLA",
+   "MIN",
+   1,
+   4
+  ],
+  [
+   "BUF",
+   "UTA",
+   1,
+   4
+  ],
+  [
+   "MTL",
+   "DET",
+   1,
+   0
+  ],
+  [
+   "OTT",
+   "NSH",
+   3,
+   2
+  ],
+  [
+   "PIT",
+   "DAL",
+   2,
+   1
+  ],
+  [
+   "CHI",
+   "CAR",
+   2,
+   5
+  ],
+  [
+   "STL",
+   "CBJ",
+   5,
+   3
+  ],
+  [
+   "COL",
+   "TOR",
+   3,
+   6
+  ],
+  [
+   "NYI",
+   "TB",
+   3,
+   5
+  ],
+  [
+   "CGY",
+   "ANA",
+   2,
+   4
+  ],
+  [
+   "VGK",
+   "LA",
+   2,
+   1
+  ],
+  [
+   "WSH",
+   "SEA",
+   3,
+   5
+  ],
+  [
+   "NYR",
+   "VAN",
+   6,
+   2
+  ],
+  [
+   "PHI",
+   "CAR",
+   1,
+   4
+  ],
+  [
+   "DET",
+   "NJ",
+   4,
+   5
+  ],
+  [
+   "CBJ",
+   "FLA",
+   3,
+   7
+  ],
+  [
+   "MTL",
+   "BUF",
+   4,
+   3
+  ],
+  [
+   "CAR",
+   "WSH",
+   4,
+   2
+  ],
+  [
+   "PHI",
+   "SEA",
+   2,
+   3
+  ],
+  [
+   "NYR",
+   "TB",
+   4,
+   1
+  ],
+  [
+   "OTT",
+   "STL",
+   2,
+   7
+  ],
+  [
+   "NYI",
+   "VAN",
+   3,
+   2
+  ],
+  [
+   "CHI",
+   "PIT",
+   5,
+   3
+  ],
+  [
+   "WPG",
+   "MIN",
+   5,
+   2
+  ],
+  [
+   "DAL",
+   "COL",
+   2,
+   3
+  ],
+  [
+   "NSH",
+   "VGK",
+   2,
+   5
+  ],
+  [
+   "UTA",
+   "TOR",
+   5,
+   4
+  ],
+  [
+   "ANA",
+   "CGY",
+   2,
+   4
+  ],
+  [
+   "LA",
+   "EDM",
+   1,
+   4
+  ],
+  [
+   "SJ",
+   "BOS",
+   3,
+   6
+  ],
+  [
+   "WSH",
+   "MTL",
+   5,
+   4
+  ],
+  [
+   "COL",
+   "DAL",
+   2,
+   3
+  ],
+  [
+   "TOR",
+   "BUF",
+   4,
+   5
+  ],
+  [
+   "OTT",
+   "NYI",
+   2,
+   1
+  ],
+  [
+   "TB",
+   "SEA",
+   4,
+   3
+  ],
+  [
+   "FLA",
+   "VAN",
+   3,
+   2
+  ],
+  [
+   "NJ",
+   "NYR",
+   7,
+   1
+  ],
+  [
+   "DET",
+   "PHI",
+   2,
+   1
+  ],
+  [
+   "CHI",
+   "WPG",
+   4,
+   3
+  ],
+  [
+   "NSH",
+   "SJ",
+   2,
+   3
+  ],
+  [
+   "MIN",
+   "STL",
+   5,
+   4
+  ],
+  [
+   "EDM",
+   "UTA",
+   2,
+   4
+  ],
+  [
+   "VGK",
+   "CGY",
+   6,
+   2
+  ],
+  [
+   "COL",
+   "PIT",
+   5,
+   2
+  ],
+  [
+   "ANA",
+   "BOS",
+   2,
+   4
+  ],
+  [
+   "WSH",
+   "NJ",
+   4,
+   2
+  ],
+  [
+   "WPG",
+   "CAR",
+   2,
+   3
+  ],
+  [
+   "TB",
+   "VAN",
+   4,
+   2
+  ],
+  [
+   "FLA",
+   "SEA",
+   8,
+   3
+  ],
+  [
+   "TOR",
+   "NYI",
+   1,
+   4
+  ],
+  [
+   "MTL",
+   "BUF",
+   4,
+   3
+  ],
+  [
+   "DET",
+   "SJ",
+   4,
+   3
+  ],
+  [
+   "PHI",
+   "OTT",
+   3,
+   1
+  ],
+  [
+   "CBJ",
+   "NYR",
+   1,
+   0
+  ],
+  [
+   "CHI",
+   "DAL",
+   0,
+   4
+  ],
+  [
+   "NSH",
+   "STL",
+   5,
+   2
+  ],
+  [
+   "LA",
+   "BOS",
+   1,
+   4
+  ],
+  [
+   "UTA",
+   "EDM",
+   2,
+   6
+  ],
+  [
+   "VGK",
+   "PIT",
+   6,
+   2
+  ],
+  [
+   "MIN",
+   "CBJ",
+   2,
+   1
+  ],
+  [
+   "CGY",
+   "CAR",
+   3,
+   2
+  ],
+  [
+   "NYR",
+   "ANA",
+   5,
+   2
+  ],
+  [
+   "PHI",
+   "COL",
+   3,
+   2
+  ],
+  [
+   "TOR",
+   "SJ",
+   3,
+   1
+  ],
+  [
+   "UTA",
+   "PIT",
+   5,
+   4
+  ],
+  [
+   "MTL",
+   "SJ",
+   3,
+   4
+  ],
+  [
+   "NJ",
+   "COL",
+   4,
+   3
+  ],
+  [
+   "NYI",
+   "ANA",
+   3,
+   2
+  ],
+  [
+   "WSH",
+   "LA",
+   2,
+   5
+  ],
+  [
+   "CBJ",
+   "TOR",
+   2,
+   6
+  ],
+  [
+   "STL",
+   "WPG",
+   2,
+   1
+  ],
+  [
+   "DAL",
+   "BOS",
+   3,
+   2
+  ],
+  [
+   "EDM",
+   "MIN",
+   4,
+   3
+  ],
+  [
+   "SEA",
+   "DET",
+   4,
+   3
+  ],
+  [
+   "VAN",
+   "CAR",
+   3,
+   6
+  ],
+  [
+   "VGK",
+   "TB",
+   2,
+   6
+  ],
+  [
+   "OTT",
+   "FLA",
+   5,
+   1
+  ],
+  [
+   "BUF",
+   "PHI",
+   1,
+   3
+  ],
+  [
+   "BOS",
+   "NSH",
+   6,
+   0
+  ],
+  [
+   "TOR",
+   "NYR",
+   5,
+   4
+  ],
+  [
+   "OTT",
+   "SJ",
+   2,
+   6
+  ],
+  [
+   "NJ",
+   "ANA",
+   4,
+   1
+  ],
+  [
+   "PIT",
+   "FLA",
+   4,
+   0
+  ],
+  [
+   "NYI",
+   "LA",
+   2,
+   3
+  ],
+  [
+   "STL",
+   "VGK",
+   6,
+   2
+  ],
+  [
+   "DAL",
+   "WPG",
+   3,
+   2
+  ],
+  [
+   "CGY",
+   "MIN",
+   2,
+   1
+  ],
+  [
+   "EDM",
+   "CAR",
+   6,
+   5
+  ],
+  [
+   "SEA",
+   "UTA",
+   5,
+   3
+  ],
+  [
+   "VAN",
+   "DET",
+   2,
+   5
+  ],
+  [
+   "CHI",
+   "MTL",
+   1,
+   4
+  ],
+  [
+   "COL",
+   "TB",
+   6,
+   3
+  ],
+  [
+   "PHI",
+   "ANA",
+   4,
+   5
+  ],
+  [
+   "NJ",
+   "LA",
+   3,
+   1
+  ],
+  [
+   "BOS",
+   "SJ",
+   6,
+   4
+  ],
+  [
+   "OTT",
+   "NYR",
+   7,
+   4
+  ],
+  [
+   "PIT",
+   "NSH",
+   3,
+   2
+  ],
+  [
+   "WSH",
+   "BUF",
+   4,
+   3
+  ],
+  [
+   "CBJ",
+   "VGK",
+   2,
+   1
+  ],
+  [
+   "STL",
+   "CAR",
+   0,
+   4
+  ],
+  [
+   "EDM",
+   "TOR",
+   2,
+   7
+  ],
+  [
+   "UTA",
+   "TB",
+   5,
+   4
+  ],
+  [
+   "CGY",
+   "DET",
+   4,
+   1
+  ],
+  [
+   "SEA",
+   "MIN",
+   1,
+   5
+  ],
+  [
+   "CHI",
+   "FLA",
+   2,
+   3
+  ],
+  [
+   "DAL",
+   "NYI",
+   6,
+   3
+  ],
+  [
+   "WPG",
+   "MTL",
+   1,
+   2
+  ],
+  [
+   "NSH",
+   "COL",
+   6,
+   2
+  ],
+  [
+   "VAN",
+   "MIN",
+   2,
+   4
+  ],
+  [
+   "NYR",
+   "LA",
+   3,
+   6
+  ],
+  [
+   "CGY",
+   "TOR",
+   5,
+   2
+  ],
+  [
+   "EDM",
+   "DET",
+   3,
+   4
+  ],
+  [
+   "PHI",
+   "CBJ",
+   3,
+   4
+  ],
+  [
+   "CAR",
+   "BOS",
+   2,
+   1
+  ],
+  [
+   "CHI",
+   "LA",
+   2,
+   1
+  ],
+  [
+   "STL",
+   "MTL",
+   0,
+   2
+  ],
+  [
+   "NSH",
+   "NYI",
+   3,
+   4
+  ],
+  [
+   "DAL",
+   "NJ",
+   1,
+   5
+  ],
+  [
+   "WPG",
+   "FLA",
+   1,
+   5
+  ],
+  [
+   "UTA",
+   "MIN",
+   1,
+   3
+  ],
+  [
+   "VGK",
+   "OTT",
+   4,
+   1
+  ],
+  [
+   "ANA",
+   "VAN",
+   5,
+   6
+  ],
+  [
+   "SJ",
+   "BUF",
+   0,
+   2
+  ],
+  [
+   "WSH",
+   "PHI",
+   5,
+   2
+  ],
+  [
+   "EDM",
+   "CGY",
+   4,
+   0
+  ],
+  [
+   "COL",
+   "NJ",
+   5,
+   2
+  ],
+  [
+   "SEA",
+   "TOR",
+   5,
+   4
+  ],
+  [
+   "PIT",
+   "UTA",
+   3,
+   4
+  ],
+  [
+   "TB",
+   "WPG",
+   6,
+   4
+  ],
+  [
+   "CAR",
+   "CBJ",
+   3,
+   2
+  ],
+  [
+   "DET",
+   "CHI",
+   4,
+   1
+  ],
+  [
+   "STL",
+   "BOS",
+   4,
+   1
+  ],
+  [
+   "NSH",
+   "WSH",
+   3,
+   4
+  ],
+  [
+   "DAL",
+   "MTL",
+   2,
+   5
+  ],
+  [
+   "MIN",
+   "NYI",
+   3,
+   4
+  ],
+  [
+   "ANA",
+   "BUF",
+   6,
+   7
+  ],
+  [
+   "LA",
+   "OTT",
+   6,
+   5
+  ],
+  [
+   "SJ",
+   "VAN",
+   3,
+   2
+  ],
+  [
+   "VGK",
+   "NJ",
+   2,
+   5
+  ],
+  [
+   "FLA",
+   "WPG",
+   5,
+   2
+  ],
+  [
+   "CGY",
+   "SEA",
+   6,
+   2
+  ],
+  [
+   "BOS",
+   "CHI",
+   5,
+   4
+  ],
+  [
+   "DET",
+   "STL",
+   4,
+   5
+  ],
+  [
+   "NYI",
+   "EDM",
+   0,
+   4
+  ],
+  [
+   "NSH",
+   "TB",
+   5,
+   4
+  ],
+  [
+   "SJ",
+   "OTT",
+   1,
+   5
+  ],
+  [
+   "LA",
+   "BUF",
+   2,
+   3
+  ],
+  [
+   "MTL",
+   "PIT",
+   5,
+   4
+  ],
+  [
+   "VAN",
+   "TOR",
+   2,
+   4
+  ],
+  [
+   "DAL",
+   "CBJ",
+   3,
+   1
+  ],
+  [
+   "COL",
+   "CGY",
+   5,
+   2
+  ],
+  [
+   "BOS",
+   "VGK",
+   3,
+   2
+  ],
+  [
+   "FLA",
+   "DET",
+   3,
+   5
+  ],
+  [
+   "CHI",
+   "COL",
+   2,
+   5
+  ],
+  [
+   "SJ",
+   "CGY",
+   1,
+   2
+  ],
+  [
+   "PIT",
+   "VGK",
+   2,
+   3
+  ],
+  [
+   "TB",
+   "DET",
+   4,
+   2
+  ],
+  [
+   "NYR",
+   "STL",
+   3,
+   1
+  ],
+  [
+   "TOR",
+   "UTA",
+   2,
+   3
+  ],
+  [
+   "PHI",
+   "MIN",
+   2,
+   4
+  ],
+  [
+   "WSH",
+   "DAL",
+   5,
+   6
+  ],
+  [
+   "MTL",
+   "WPG",
+   4,
+   5
+  ],
+  [
+   "CBJ",
+   "COL",
+   7,
+   2
+  ],
+  [
+   "NJ",
+   "EDM",
+   4,
+   3
+  ],
+  [
+   "NSH",
+   "CAR",
+   4,
+   1
+  ],
+  [
+   "VAN",
+   "ANA",
+   4,
+   5
+  ],
+  [
+   "BUF",
+   "OTT",
+   1,
+   2
+  ],
+  [
+   "FLA",
+   "CHI",
+   5,
+   3
+  ],
+  [
+   "LA",
+   "SJ",
+   7,
+   2
+  ],
+  [
+   "SEA",
+   "CGY",
+   2,
+   1
+  ],
+  [
+   "PIT",
+   "BOS",
+   2,
+   6
+  ],
+  [
+   "CBJ",
+   "DAL",
+   2,
+   1
+  ],
+  [
+   "DET",
+   "VGK",
+   1,
+   2
+  ],
+  [
+   "TB",
+   "CHI",
+   4,
+   1
+  ],
+  [
+   "NJ",
+   "STL",
+   5,
+   4
+  ],
+  [
+   "MTL",
+   "UTA",
+   5,
+   4
+  ],
+  [
+   "NYI",
+   "CAR",
+   3,
+   5
+  ],
+  [
+   "NYR",
+   "PHI",
+   3,
+   2
+  ],
+  [
+   "WPG",
+   "VAN",
+   6,
+   2
+  ],
+  [
+   "EDM",
+   "ANA",
+   4,
+   5
+  ],
+  [
+   "COL",
+   "NSH",
+   2,
+   3
+  ]
+ ],
+ "nhl_audit": [
+  [
+   "PIT",
+   "BOS",
+   2,
+   6
+  ],
+  [
+   "CBJ",
+   "DAL",
+   2,
+   1
+  ],
+  [
+   "DET",
+   "VGK",
+   1,
+   2
+  ],
+  [
+   "TB",
+   "CHI",
+   4,
+   1
+  ],
+  [
+   "NJ",
+   "STL",
+   5,
+   4
+  ],
+  [
+   "MTL",
+   "UTA",
+   5,
+   4
+  ],
+  [
+   "NYI",
+   "CAR",
+   3,
+   5
+  ],
+  [
+   "NYR",
+   "PHI",
+   3,
+   2
+  ],
+  [
+   "WPG",
+   "VAN",
+   6,
+   2
+  ],
+  [
+   "EDM",
+   "ANA",
+   4,
+   5
+  ],
+  [
+   "COL",
+   "NSH",
+   2,
+   3
+  ]
+ ],
+ "nhl_news": [
+  [
+   "hag",
+   "BOS",
+   "James Hagens (C)",
+   "gf",
+   0.06,
+   0.5,
+   "Salió a inicios del 3er periodo el jue 5 en PIT tras un cross-check en la espalda baja y no volvió; sin parte (Boston.com, 5 nov)",
+   "6 nov"
+  ],
+  [
+   "fle",
+   "WPG",
+   "Haydn Fleury (D)",
+   "ga",
+   0.03,
+   0.5,
+   "Bloqueó un tiro con la mano en el 3er periodo el jue 5 vs VAN y no regresó; \"a esperar\" (NHL.com, 5 nov)",
+   "6 nov"
+  ],
+  [
+   "gib",
+   "DET",
+   "John Gibson (G)",
+   "ga",
+   0.3,
+   1,
+   "Abre el suplente Daniil Tarasov en lugar de John Gibson (tren inferior desde el 3 nov, day-to-day; Tarasov jugó el 5 vs VGK). DET recibe a COL el sáb 7 (NHL.com Status Report, 5 nov)",
+   "6 nov"
+  ],
+  [
+   "mrc",
+   "NSH",
+   "Jonathan Marchessault (RW)",
+   "gf",
+   0.06,
+   0.5,
+   "Tren inferior; se perdió el 3 nov y no se esperaba que jugara el 5 en COL (NHL.com, sin confirmar). NSH juega el sáb 7 en STL",
+   "6 nov"
+  ],
+  [
+   "hei",
+   "DAL",
+   "Miro Heiskanen (D)",
+   "ga",
+   0.1,
+   0.5,
+   "Tren superior; no jugó el jue 5 en CBJ. \"Day to day de verdad\", probable regreso el sáb 7 en SJ (NHL.com/RotoWire, 5 nov)",
+   "6 nov"
+  ],
+  [
+   "kan",
+   "CHI",
+   "Patrick Kane (RW)",
+   "gf",
+   0.1,
+   1,
+   "Tren superior desde el 2 nov; no jugó el 5 en TB. Blashill: fuera \"al menos los próximos juegos\"; Dobber estima regreso ~12 nov vs BUF (sin confirmar)",
+   "6 nov"
+  ],
+  [
+   "hub",
+   "CGY",
+   "Jonathan Huberdeau (LW)",
+   "gf",
+   0.08,
+   1,
+   "IR (cadera); no hay confirmación de que volviera el lun 2 en SJ (Flames ganaron 2-1)",
+   "3 nov"
+  ],
+  [
+   "kas",
+   "DET",
+   "Marco Kasper (C)",
+   "gf",
+   0.05,
+   1,
+   "Fuera de la alineación; se pierde el juego de hoy en FLA (TheSpread, 2 nov)",
+   "2 nov"
+  ],
+  [
+   "app",
+   "DET",
+   "Mason Appleton (RW)",
+   "gf",
+   0.03,
+   1,
+   "Fuera de la alineación; se pierde el juego de hoy en FLA (TheSpread, 2 nov)",
+   "2 nov"
+  ],
+  [
+   "how",
+   "EDM",
+   "Isaac Howard (LW)",
+   "gf",
+   0.04,
+   1,
+   "Rodilla (rodillazo de Heineman el 31 oct); semana a semana (DailyFaceoff, 4 nov)",
+   "5 nov"
+  ],
+  [
+   "pry",
+   "STL",
+   "Colton Parayko (D)",
+   "ga",
+   0.06,
+   0.5,
+   "Tren superior; day-to-day, no jugó el sáb 31 en DET (NHL.com)",
+   "1 nov"
+  ],
+  [
+   "cer",
+   "TB",
+   "Erik Cernak (D)",
+   "ga",
+   0.04,
+   0.5,
+   "Day-to-day; no jugó el sáb 31 en NSH (NHL.com)",
+   "1 nov"
+  ],
+  [
+   "chy",
+   "VAN",
+   "Filip Chytil (C)",
+   "gf",
+   0.05,
+   1,
+   "A la IR (NHL.com, 31 oct)",
+   "1 nov"
+  ],
+  [
+   "pul",
+   "NYI",
+   "Ryan Pulock (D)",
+   "ga",
+   0.05,
+   1,
+   "Tren superior; fuera 2-4 semanas, igual que Maccelli (DailyFaceoff, 4 nov)",
+   "5 nov"
+  ],
+  [
+   "lrk",
+   "DET",
+   "Dylan Larkin (C)",
+   "gf",
+   0.15,
+   1,
+   "Suspendido sin sueldo por DET desde el 29 oct tras negarse a jugar; sin traspaso: DET quiere sumar BOS, BUF, LA y MTL a su lista de 10 equipos y el agente se niega (TSN/LeBrun, 4 nov)",
+   "5 nov"
+  ],
+  [
+   "bur",
+   "OTT",
+   "Andre Burakovsky (LW)",
+   "gf",
+   0.04,
+   1,
+   "Tren inferior desde el 29 en LA; a la IR, fuera 3-4 semanas (TSN, 31 oct)",
+   "1 nov"
+  ],
+  [
+   "fog",
+   "OTT",
+   "Warren Foegele (LW)",
+   "gf",
+   0.03,
+   1,
+   "Fuera 3-4 semanas, igual que Burakovsky (TSN, 31 oct)",
+   "1 nov"
+  ],
+  [
+   "hel2",
+   "BUF",
+   "Konsta Helenius (C)",
+   "gf",
+   0.03,
+   1,
+   "Tren superior; fuera sin plazo (DailyFaceoff, 29 oct)",
+   "30 oct"
+  ],
+  [
+   "coo",
+   "CGY",
+   "Devin Cooley (G)",
+   "ga",
+   0.05,
+   1,
+   "Tren inferior; semana a semana. Dustin Wolf es el titular (DailyFaceoff, 31 oct)",
+   "1 nov"
+  ],
+  [
+   "mar2",
+   "TOR",
+   "Kirill Marchenko (RW)",
+   "gf",
+   0.08,
+   1,
+   "Tren inferior; a la IR, semana a semana (DailyFaceoff, 29 oct)",
+   "30 oct"
+  ],
+  [
+   "man",
+   "COL",
+   "Josh Manson (D)",
+   "ga",
+   0.04,
+   1,
+   "Tobillo; fuera unas 8 semanas (NHL.com, 30 oct)",
+   "1 nov"
+  ],
+  [
+   "oth",
+   "CGY",
+   "Brennan Othmann (LW)",
+   "gf",
+   0.03,
+   0.5,
+   "Tren superior; salió del juego del mié 28 en EDM y no regresó (DailyFaceoff)",
+   "29 oct"
+  ],
+  [
+   "ajo",
+   "DET",
+   "Albert Johansson (D)",
+   "ga",
+   0.03,
+   1,
+   "Lesión no revelada; sigue fuera hoy ante CHI (DailyFaceoff, 28 oct)",
+   "29 oct"
+  ],
+  [
+   "ris",
+   "PHI",
+   "Rasmus Ristolainen (D)",
+   "ga",
+   0.05,
+   1,
+   "Tren superior; fuera al menos 2 semanas tras agravar la lesión el sáb 24 (NHL.com, 26 oct)",
+   "27 oct"
+  ],
+  [
+   "and",
+   "EDM",
+   "Frederik Andersen (G)",
+   "ga",
+   0.15,
+   1,
+   "Lesionado junto con Devon Levi; Tristan Jarry es el titular y se proyecta hoy ante CGY (DailyFaceoff, sin confirmar)",
+   "28 oct"
+  ],
+  [
+   "che",
+   "SJ",
+   "Igor Chernyshov (LW)",
+   "gf",
+   0.04,
+   1,
+   "Tren superior; semana a semana (DobberHockey, 25 oct)",
+   "26 oct"
+  ],
+  [
+   "mrn",
+   "UTA",
+   "John Marino (D)",
+   "ga",
+   0.05,
+   1,
+   "Tren superior; pasó de day-to-day a semana a semana (NHL.com, 26 oct)",
+   "27 oct"
+  ],
+  [
+   "mcn",
+   "SEA",
+   "Jared McCann (LW)",
+   "gf",
+   0.12,
+   1,
+   "A la IR el 25 oct; fuera ~10 semanas por lesión en el tren inferior. Kaapo Kakko sube a la primera línea (NHL.com/ProHockeyRumors/DobberHockey)",
+   "26 oct"
+  ],
+  [
+   "des",
+   "WSH",
+   "Vincent Desharnais (D)",
+   "ga",
+   0.03,
+   1,
+   "Apendicectomía; fuera 4-6 semanas (NHL.com)",
+   "24 oct"
+  ],
+  [
+   "lev",
+   "EDM",
+   "Devon Levi (G)",
+   "ga",
+   0.1,
+   1,
+   "A la IR el viernes (lesión no revelada); fuera unas semanas. Subieron a Matt Tomkins (DobberHockey, 25 oct)",
+   "26 oct"
+  ],
+  [
+   "ull",
+   "OTT",
+   "Linus Ullmark (G)",
+   "ga",
+   0.3,
+   1,
+   "IR (tren inferior, desde el 21 oct); practica con el equipo. Regreso posible el sáb 7 vs UTA, sin confirmar (DailyFaceoff, 4-5 nov)",
+   "6 nov"
+  ],
+  [
+   "gus",
+   "MIN",
+   "Filip Gustavsson (G)",
+   "ga",
+   0.25,
+   1,
+   "Cadera; abre Jesper Wallstedt (DailyFaceoff/NHL.com, 20 oct)",
+   "22 oct"
+  ],
+  [
+   "rus",
+   "PIT",
+   "Bryan Rust (RW)",
+   "gf",
+   0.08,
+   1,
+   "Tren inferior (salió el 19 en UTA); será reevaluado en 6 semanas (NHL.com, 22 oct)",
+   "23 oct"
+  ],
+  [
+   "bac",
+   "CGY",
+   "Mikael Backlund (C)",
+   "gf",
+   0.05,
+   1,
+   "Tren superior; se perdió su 2º juego seguido el 24 (NHL.com)",
+   "25 oct"
+  ],
+  [
+   "rit",
+   "NYI",
+   "Brett Ritchie (RW)",
+   "gf",
+   0.02,
+   1,
+   "Tren inferior; fuera (NHL.com Islanders, 19 oct)",
+   "22 oct"
+  ],
+  [
+   "shs",
+   "NYR",
+   "Igor Shesterkin (G)",
+   "ga",
+   0.4,
+   1,
+   "Fuera el resto de la temporada (rodilla); Dylan Garand es el titular",
+   "12 oct"
+  ],
+  [
+   "kor",
+   "NYR",
+   "Joonas Korpisalo (G)",
+   "ga",
+   0.08,
+   1,
+   "Tren inferior/pie; enviado a AHL Hartford en asignación de acondicionamiento el 4 nov (DailyFaceoff)",
+   "5 nov"
+  ],
+  [
+   "bar",
+   "FLA",
+   "Aleksander Barkov (C)",
+   "gf",
+   0.22,
+   1,
+   "IR (tren inferior); hasta ~27 nov",
+   "12 oct"
+  ],
+  [
+   "mch",
+   "FLA",
+   "Brad Marchand (LW)",
+   "gf",
+   0.12,
+   1,
+   "Pierna; volvió a patinar, fuera unas 3 semanas más (~20 nov) (DailyFaceoff, 29 oct)",
+   "30 oct"
+  ],
+  [
+   "dem",
+   "MTL",
+   "Ivan Demidov (RW)",
+   "gf",
+   0.15,
+   1,
+   "Fractura de tobillo; semana a semana (DailyFaceoff, 5 nov)",
+   "5 nov"
+  ],
+  [
+   "mon",
+   "MTL",
+   "Sam Montembeault (G)",
+   "ga",
+   0.3,
+   0.5,
+   "IR (tren inferior), ahora day-to-day; Jacob Fowler y Jakub Dobes se reparten la portería (NHL.com, 31 oct)",
+   "1 nov"
+  ],
+  [
+   "bar2",
+   "NYI",
+   "Mathew Barzal (C)",
+   "gf",
+   0.2,
+   1,
+   "Rodilla (IR); volvió a practicar el mié 4 con jersey de no contacto, sin plazo (DailyFaceoff, 4 nov)",
+   "5 nov"
+  ],
+  [
+   "rom",
+   "NYI",
+   "Alexander Romanov (D)",
+   "ga",
+   0.1,
+   1,
+   "Ligamento cruzado roto; fuera hasta abril",
+   "12 oct"
+  ],
+  [
+   "mor",
+   "WPG",
+   "Josh Morrissey (D)",
+   "ga",
+   0.12,
+   1,
+   "Muñeca; en IR desde el 19 oct, semana a semana. Patinó con jersey de no contacto el 5 nov (RotoWire/Yahoo, 5 nov)",
+   "6 nov"
+  ],
+  [
+   "hel",
+   "WPG",
+   "Connor Hellebuyck (G)",
+   "ga",
+   0.35,
+   1,
+   "Traspasado a NJ el 23 oct por Mercer, Daws, Bjugstad, los derechos de Command y 2 picks (NHL.com). WPG sigue con Skinner/Stevenson; en NJ se espera que Jake Allen pierda minutos",
+   "26 oct"
+  ],
+  [
+   "ekl",
+   "OTT",
+   "William Eklund (LW)",
+   "gf",
+   0.06,
+   1,
+   "Cirugía de tobillo; fuera 10-12 semanas",
+   "16 oct"
+  ],
+  [
+   "sdn",
+   "WSH",
+   "Rasmus Sandin (D)",
+   "ga",
+   0.06,
+   1,
+   "Reconstrucción de ligamento cruzado; regreso estimado a finales de diciembre",
+   "12 oct"
+  ],
+  [
+   "dub",
+   "WSH",
+   "Pierre-Luc Dubois (C)",
+   "gf",
+   0.08,
+   1,
+   "Enfermedad (IR); 5 juegos fuera, podría volver el sáb 24 ante BUF (NHL.com)",
+   "22 oct"
+  ],
+  [
+   "dmk",
+   "VAN",
+   "Thatcher Demko (G)",
+   "ga",
+   0.15,
+   1,
+   "Cadera; IR hasta al menos el 21 dic (CBS)",
+   "19 oct"
+  ],
+  [
+   "sta",
+   "CAR",
+   "Jordan Staal (C)",
+   "gf",
+   0.05,
+   1,
+   "Desgarro en la pantorrilla; fuera 1-2 meses",
+   "14 oct"
+  ],
+  [
+   "fab",
+   "MIN",
+   "Brock Faber (D)",
+   "ga",
+   0.1,
+   1,
+   "Fractura de cráneo; ya superó el protocolo y volverá a patinar en las próximas semanas, sin fecha de regreso (DailyFaceoff, 29 oct)",
+   "30 oct"
+  ],
+  [
+   "olo",
+   "VGK",
+   "Victor Olofsson (LW)",
+   "gf",
+   0.05,
+   1,
+   "Practica con jersey de no contacto; casi 3 semanas sin jugar (DailyFaceoff, 29 oct)",
+   "30 oct"
+  ],
+  [
+   "dom",
+   "TOR",
+   "Max Domi (C)",
+   "gf",
+   0.05,
+   1,
+   "Hasta ~21 nov",
+   "12 oct"
+  ],
+  [
+   "ter",
+   "ANA",
+   "Troy Terry (RW)",
+   "gf",
+   0.1,
+   1,
+   "Cadera; hasta ~21 nov",
+   "12 oct"
+  ],
+  [
+   "fia",
+   "LA",
+   "Kevin Fiala (LW)",
+   "gf",
+   0.1,
+   1,
+   "Tren inferior; practica con jersey de no contacto, semana a semana (DailyFaceoff, 29 oct)",
+   "30 oct"
+  ],
+  [
+   "duc",
+   "DAL",
+   "Matt Duchene (C)",
+   "gf",
+   0.07,
+   1,
+   "Abdomen; IR hasta al menos el 12 ene",
+   "13 oct"
+  ],
+  [
+   "mat",
+   "OTT",
+   "Nikolas Matinpalo (D)",
+   "ga",
+   0.03,
+   1,
+   "Tren superior; hasta ~24 oct",
+   "14 oct"
+  ],
+  [
+   "hal",
+   "CAR",
+   "Taylor Hall (LW)",
+   "gf",
+   0.1,
+   1,
+   "Tren superior; dejó temprano la práctica matutina del mar 27, semana a semana (NHL.com, 28 oct)",
+   "29 oct"
+  ],
+  [
+   "poe",
+   "ANA",
+   "Ryan Poehling (C)",
+   "gf",
+   0.04,
+   1,
+   "Esguince del ligamento colateral medial; 6-8 semanas",
+   "14 oct"
+  ],
+  [
+   "bck",
+   "DAL",
+   "Oskar Bäck (C)",
+   "gf",
+   0.03,
+   1,
+   "Dedo roto; fuera 4-6 semanas (IR)",
+   "16 oct"
+  ],
+  [
+   "tav",
+   "TOR",
+   "John Tavares (C)",
+   "gf",
+   0.12,
+   0.5,
+   "Pasó de IR a day-to-day y practicó como extremo; podría volver el sáb 7 en MTL si pasa la práctica del viernes (NHL.com Status Report, 5 nov)",
+   "6 nov"
+  ],
+  [
+   "nam",
+   "WPG",
+   "Vladislav Namestnikov (C)",
+   "gf",
+   0.04,
+   1,
+   "Lesión no revelada en la práctica del 15 oct; fuera semanas",
+   "18 oct"
+  ],
+  [
+   "grn",
+   "ANA",
+   "Mikael Granlund (C)",
+   "gf",
+   0.08,
+   0.5,
+   "Tren superior; CBS (17 oct) lo pasó a day-to-day",
+   "19 oct"
+  ],
+  [
+   "byr",
+   "CHI",
+   "Bowen Byram (D)",
+   "ga",
+   0.05,
+   1,
+   "Day-to-day (tren superior); tampoco jugó el 25 vs FLA. Practica con jersey de no contacto y no está en protocolo de conmoción (Blashill vía DobberHockey, 25 oct)",
+   "26 oct"
+  ],
+  [
+   "jvr",
+   "PIT",
+   "Trevor van Riemsdyk (D)",
+   "ga",
+   0.04,
+   1,
+   "IR (tren inferior); ESPN estima el 22 oct, sin confirmar",
+   "21 oct"
+  ],
+  [
+   "sou",
+   "WSH",
+   "Justin Sourdif (C)",
+   "gf",
+   0.03,
+   0.5,
+   "Enfermedad; no jugó el 17 ante NJ, day-to-day",
+   "18 oct"
+  ],
+  [
+   "bju",
+   "NJ",
+   "Nick Bjugstad (C)",
+   "gf",
+   0.03,
+   1,
+   "Pectoral; fuera hasta enero. Traspasado a WPG el 23 oct",
+   "23 oct"
+  ],
+  [
+   "gou",
+   "TB",
+   "Yanni Gourde (C)",
+   "gf",
+   0.04,
+   1,
+   "Cadera; fuera",
+   "16 oct"
+  ],
+  [
+   "dic",
+   "EDM",
+   "Jason Dickinson (C)",
+   "gf",
+   0.03,
+   0.5,
+   "Tren inferior (IR desde el 22); podría volver hoy ante CGY tras perderse 6 juegos (NHL.com, 27-28 oct)",
+   "28 oct"
+  ],
+  [
+   "xhe",
+   "MTL",
+   "Florian Xhekaj (LW)",
+   "gf",
+   0.03,
+   1,
+   "Fuera unas 2 semanas",
+   "16 oct"
+  ],
+  [
+   "mth",
+   "MTL",
+   "Mike Matheson (D)",
+   "ga",
+   0.05,
+   1,
+   "Tren inferior; fuera unas 2 semanas (NHL.com, 31 oct)",
+   "1 nov"
+  ],
+  [
+   "chk",
+   "PIT",
+   "Egor Chinakhov (RW)",
+   "gf",
+   0.05,
+   0.5,
+   "Tren inferior (práctica del 15 oct); day-to-day según CBS (17 oct)",
+   "18 oct"
+  ],
+  [
+   "spu",
+   "MIN",
+   "Jared Spurgeon (D)",
+   "ga",
+   0.06,
+   1,
+   "Lesión no revelada; semana a semana (DailyFaceoff, 29 oct)",
+   "30 oct"
+  ],
+  [
+   "nfo",
+   "MIN",
+   "Nick Foligno (RW)",
+   "gf",
+   0.03,
+   1,
+   "IR (tren superior); CBS (19 oct): fuera hasta al menos el 29 oct",
+   "20 oct"
+  ],
+  [
+   "mcc",
+   "NYI",
+   "Matias Maccelli (LW)",
+   "gf",
+   0.04,
+   1,
+   "Tren inferior; fuera 2-4 semanas (DailyFaceoff, 4 nov)",
+   "5 nov"
+  ],
+  [
+   "zac",
+   "BOS",
+   "Pavel Zacha (C)",
+   "gf",
+   0.06,
+   0.5,
+   "Tren superior; day-to-day (CBS, 18 oct)",
+   "19 oct"
+  ],
+  [
+   "hin",
+   "DAL",
+   "Roope Hintz (C)",
+   "gf",
+   0.1,
+   0.5,
+   "Lesión no revelada; day-to-day (CBS, 17 oct)",
+   "19 oct"
+  ],
+  [
+   "gir",
+   "PIT",
+   "Samuel Girard (D)",
+   "ga",
+   0.05,
+   1,
+   "Tren inferior; a la IR (NHL.com, 24 oct)",
+   "25 oct"
+  ],
+  [
+   "car",
+   "UTA",
+   "Michael Carcone (LW)",
+   "gf",
+   0.04,
+   1,
+   "Tren superior; fuera hasta al menos el 1 nov (CBS, 18 oct)",
+   "19 oct"
+  ],
+  [
+   "wot",
+   "VGK",
+   "Parker Wotherspoon (D)",
+   "ga",
+   0.04,
+   1,
+   "Tren superior; fuera hasta al menos el 8 nov (CBS, 18 oct)",
+   "19 oct"
+  ],
+  [
+   "lhe",
+   "COL",
+   "Zachary L'Heureux (LW)",
+   "gf",
+   0.03,
+   1,
+   "Tren superior; semana a semana (NHL.com)",
+   "22 oct"
+  ],
+  [
+   "fab2",
+   "CBJ",
+   "Dante Fabbro (D)",
+   "ga",
+   0.04,
+   1,
+   "Mano (IR); CBS: fuera hasta al menos el 3 nov",
+   "20 oct"
+  ],
+  [
+   "byf",
+   "LA",
+   "Quinton Byfield (C)",
+   "gf",
+   0.08,
+   0.5,
+   "Volvió a patinar el 25 con jersey de no contacto y trabajó en el 1er powerplay; duda para hoy en NYR (LA Kings Insider)",
+   "26 oct"
+  ],
+  [
+   "wen",
+   "SJ",
+   "Alexander Wennberg (C)",
+   "gf",
+   0.04,
+   1,
+   "Tren superior; semana a semana (NHL.com, 22 oct)",
+   "23 oct"
+  ],
+  [
+   "kin",
+   "PIT",
+   "Ben Kindel (C)",
+   "gf",
+   0.04,
+   0.5,
+   "Volvió a practicar el mar 27 tras el síncope en el avión del 20; podría volver el jue 29 vs UTA (NHL.com, 27 oct)",
+   "28 oct"
+  ],
+  [
+   "hym",
+   "EDM",
+   "Zach Hyman (LW)",
+   "gf",
+   0.1,
+   1,
+   "En IR (tren superior/cuello); fuera al menos 3 juegos más (NHL.com/DailyFaceoff, 28 oct)",
+   "29 oct"
+  ],
+  [
+   "cap",
+   "DAL",
+   "Kyle Capobianco (D)",
+   "ga",
+   0.04,
+   1,
+   "Tren inferior; fuera unas 4 semanas (DailyFaceoff, 29 oct)",
+   "30 oct"
+  ],
+  [
+   "sod",
+   "PIT",
+   "Elmer Soderblom (RW)",
+   "gf",
+   0.03,
+   1,
+   "Tren superior; a la IR, fuera al menos una semana (DailyFaceoff, 28 oct)",
+   "29 oct"
+  ]
+ ],
+ "nhl_schedule": [
+  [
+   "Hoy · Vie 6 nov",
+   [
+    [
+     "BUF",
+     "CBJ",
+     "6:00 PM"
+    ],
+    [
+     "CGY",
+     "ANA",
+     "7:00 PM"
+    ],
+    [
+     "MIN",
+     "SJ",
+     "7:00 PM"
+    ]
+   ]
+  ],
+  [
+   "Sáb 7 nov",
+   [
+    [
+     "WSH",
+     "FLA",
+     "11:30 AM"
+    ],
+    [
+     "NSH",
+     "STL",
+     "12:00 PM"
+    ],
+    [
+     "SEA",
+     "NYR",
+     "4:00 PM"
+    ],
+    [
+     "OTT",
+     "UTA",
+     "6:00 PM"
+    ],
+    [
+     "TOR",
+     "MTL",
+     "6:00 PM"
+    ],
+    [
+     "NYI",
+     "NJ",
+     "6:00 PM"
+    ],
+    [
+     "DAL",
+     "SJ",
+     "7:00 PM"
+    ],
+    [
+     "CAR",
+     "CHI",
+     "7:00 PM"
+    ],
+    [
+     "MIN",
+     "TB",
+     "7:00 PM"
+    ],
+    [
+     "LA",
+     "PIT",
+     "8:00 PM"
+    ],
+    [
+     "COL",
+     "DET",
+     "8:00 PM"
+    ],
+    [
+     "EDM",
+     "VAN",
+     "9:00 PM"
+    ]
+   ]
+  ],
+  [
+   "Dom 8 nov",
+   [
+    [
+     "BOS",
+     "FLA",
+     "12:00 PM"
+    ],
+    [
+     "BUF",
+     "VGK",
+     "2:30 PM"
+    ],
+    [
+     "WPG",
+     "TB",
+     "5:00 PM"
+    ],
+    [
+     "TOR",
+     "NJ",
+     "6:00 PM"
+    ],
+    [
+     "CGY",
+     "PHI",
+     "6:00 PM"
+    ],
+    [
+     "ANA",
+     "PIT",
+     "7:00 PM"
+    ]
+   ]
+  ],
+  [
+   "Lun 9 nov",
+   [
+    [
+     "EDM",
+     "NYR",
+     "7:00 PM"
+    ],
+    [
+     "VAN",
+     "PHI",
+     "8:30 PM"
+    ],
+    [
+     "SJ",
+     "NYI",
+     "9:00 PM"
+    ]
+   ]
+  ],
+  [
+   "Mar 10 nov",
+   [
+    [
+     "TOR",
+     "COL",
+     "6:00 PM"
+    ],
+    [
+     "MTL",
+     "MIN",
+     "6:00 PM"
+    ],
+    [
+     "OTT",
+     "WSH",
+     "6:00 PM"
+    ],
+    [
+     "WPG",
+     "NJ",
+     "6:00 PM"
+    ],
+    [
+     "CBJ",
+     "FLA",
+     "6:30 PM"
+    ],
+    [
+     "STL",
+     "DET",
+     "7:00 PM"
+    ],
+    [
+     "LA",
+     "NSH",
+     "9:00 PM"
+    ]
+   ]
+  ],
+  [
+   "Mié 11 nov",
+   [
+    [
+     "BUF",
+     "TB",
+     "6:00 PM"
+    ],
+    [
+     "CGY",
+     "NYR",
+     "6:30 PM"
+    ],
+    [
+     "EDM",
+     "PHI",
+     "8:00 PM"
+    ],
+    [
+     "VGK",
+     "UTA",
+     "8:30 PM"
+    ],
+    [
+     "ANA",
+     "NSH",
+     "9:00 PM"
+    ],
+    [
+     "SJ",
+     "PIT",
+     "9:00 PM"
+    ]
+   ]
+  ],
+  [
+   "Jue 12 nov",
+   [
+    [
+     "SEA",
+     "CAR",
+     "11:00 AM · Helsinki"
+    ],
+    [
+     "OTT",
+     "COL",
+     "6:00 PM"
+    ],
+    [
+     "NJ",
+     "WSH",
+     "6:00 PM"
+    ],
+    [
+     "BOS",
+     "MTL",
+     "6:00 PM"
+    ],
+    [
+     "TOR",
+     "MIN",
+     "6:00 PM"
+    ],
+    [
+     "CBJ",
+     "TB",
+     "6:00 PM"
+    ],
+    [
+     "FLA",
+     "DET",
+     "6:30 PM"
+    ],
+    [
+     "CHI",
+     "BUF",
+     "7:00 PM"
+    ],
+    [
+     "DAL",
+     "WPG",
+     "7:00 PM"
+    ],
+    [
+     "UTA",
+     "STL",
+     "8:00 PM"
+    ],
+    [
+     "LA",
+     "NYI",
+     "9:00 PM"
+    ]
+   ]
+  ],
+  [
+   "Vie 13 nov",
+   [
+    [
+     "VAN",
+     "NYR",
+     "8:00 PM"
+    ],
+    [
+     "VGK",
+     "NSH",
+     "9:00 PM"
+    ]
+   ]
+  ],
+  [
+   "Auditoría 5 nov",
+   [
+    [
+     "PIT",
+     "BOS",
+     "6:00 PM",
+     null,
+     [
+      2,
+      6
+     ]
+    ],
+    [
+     "CBJ",
+     "DAL",
+     "6:00 PM · SO",
+     null,
+     [
+      2,
+      1
+     ]
+    ],
+    [
+     "DET",
+     "VGK",
+     "6:00 PM",
+     null,
+     [
+      1,
+      2
+     ]
+    ],
+    [
+     "TB",
+     "CHI",
+     "6:00 PM",
+     null,
+     [
+      4,
+      1
+     ]
+    ],
+    [
+     "NJ",
+     "STL",
+     "6:00 PM · OT",
+     null,
+     [
+      5,
+      4
+     ]
+    ],
+    [
+     "MTL",
+     "UTA",
+     "6:00 PM · OT",
+     null,
+     [
+      5,
+      4
+     ]
+    ],
+    [
+     "NYI",
+     "CAR",
+     "6:00 PM",
+     null,
+     [
+      3,
+      5
+     ]
+    ],
+    [
+     "NYR",
+     "PHI",
+     "6:00 PM",
+     null,
+     [
+      3,
+      2
+     ]
+    ],
+    [
+     "WPG",
+     "VAN",
+     "6:00 PM",
+     null,
+     [
+      6,
+      2
+     ]
+    ],
+    [
+     "EDM",
+     "ANA",
+     "7:00 PM",
+     null,
+     [
+      4,
+      5
+     ]
+    ],
+    [
+     "COL",
+     "NSH",
+     "8:30 PM · OT",
+     null,
+     [
+      2,
+      3
+     ]
+    ]
+   ]
+  ]
+ ],
+ "nhl_constants": {
+  "raw": "const E=2.15,HFA=.525,K=15,SHR=.85,NG=22,ed={},SO=AVX.odds,SIM={k:\"sim\",h:\"COL\",a:\"CAR\"};"
+ },
+ "mlb_teams": {
+  "ATL": [
+   "Atlanta Braves",
+   4.58,
+   3.87,
+   3.62
+  ],
+  "CLE": [
+   "Cleveland Guardians",
+   4.19,
+   4.12,
+   3.73
+  ],
+  "CWS": [
+   "Chicago White Sox",
+   4.79,
+   4.44,
+   4.13
+  ],
+  "LAD": [
+   "Los Angeles Dodgers",
+   4.94,
+   3.7,
+   3.59
+  ],
+  "MIL": [
+   "Milwaukee Brewers",
+   5.14,
+   3.81,
+   3.52
+  ],
+  "NYY": [
+   "New York Yankees",
+   4.59,
+   3.7,
+   3.2
+  ],
+  "SD": [
+   "San Diego Padres",
+   4.46,
+   4.14,
+   3.93
+  ],
+  "TB": [
+   "Tampa Bay Rays",
+   4.54,
+   4.01,
+   3.73
+  ]
+ },
+ "mlb_batters": [
+  [
+   "dlu",
+   "TB",
+   "Jonny DeLuca",
+   0.06,
+   0,
+   "Sencillo que empató el J4 en la 12ª y anotó la 1ª carrera en la 2ª"
+  ],
+  [
+   "wmb",
+   "TB",
+   "Ben Williamson",
+   0.04,
+   0,
+   "Emergente: roletazo al jardín derecho que dejó tendido a MIL en la 12ª del J4"
+  ],
+  [
+   "frk",
+   "MIL",
+   "Sal Frelick",
+   0.08,
+   0,
+   "Doble productor en la 5ª del J3; 2-4 con jonrón solitario que empató el J2 en la 6ª"
+  ],
+  [
+   "hic",
+   "TB",
+   "Liam Hicks",
+   0.08,
+   0,
+   "Sencillo en el rally de la 12ª del J4; jonrón de 2 carreras en la 1ª del J2"
+  ],
+  [
+   "yel",
+   "MIL",
+   "Christian Yelich",
+   0.15,
+   0,
+   "BD: 1-4 con triple productor en la 1ª del J1, su primer hit en Serie Mundial"
+  ],
+  [
+   "csi",
+   "TB",
+   "Chandler Simpson",
+   0.08,
+   0,
+   "Doble productor en la 2ª del J4 y sencillo que llenó las bases en la 12ª; 1-4 con carrera y CI en el J2"
+  ],
+  [
+   "oht",
+   "LAD",
+   "Shohei Ohtani",
+   0.5,
+   0,
+   "Eliminado: LAD fue barrido. Volvió al 1er turno en el J4 y pegó jonrón de 3 carreras (428 pies), su primer HR y primeras RBI de la postemporada"
+  ],
+  [
+   "fre",
+   "LAD",
+   "Freddie Freeman",
+   0.3,
+   0,
+   "Eliminado: LAD fue barrido. 3er bate en el J4, sin hits destacados; la molestia en la rodilla no se volvió a reportar"
+  ],
+  [
+   "mun",
+   "LAD",
+   "Max Muncy",
+   0.2,
+   0,
+   "Eliminado: LAD fue barrido. Se ponchó ante Romero en la 6ª del J4 con corredor en 3ª"
+  ],
+  [
+   "pag",
+   "LAD",
+   "Andy Pages",
+   0.12,
+   0,
+   "Eliminado: LAD fue barrido. Sencillo productor en la 2ª del J4"
+  ],
+  [
+   "roj",
+   "LAD",
+   "Miguel Rojas",
+   0.05,
+   0,
+   "Eliminado: LAD fue barrido"
+  ],
+  [
+   "con",
+   "MIL",
+   "William Contreras",
+   0.2,
+   0,
+   "2-5 con CI en el J2 (sencillo productor en la 1ª); 2-3 con BB y CI en el J1. Jugador del J1 según Pat Murphy"
+  ],
+  [
+   "cho",
+   "MIL",
+   "Jackson Chourio",
+   0.2,
+   0,
+   "Doble productor en la 5ª del J3 (1er bate); 2-5 con carrera en el J2 y 2-4 con CI en el J1"
+  ],
+  [
+   "tur",
+   "MIL",
+   "Brice Turang",
+   0.15,
+   0,
+   "2 CI con sencillo en el rally de 8 carreras de la 5ª del J3; doble y anotó la carrera de la ventaja en la 7ª del J2"
+  ],
+  [
+   "lar",
+   "MIL",
+   "Luis Lara",
+   0.08,
+   0,
+   "1-3 con 1 RBI en la NLCS. Por el platoon de Murphy podría jugar ante derechos; MLB.com proyecta a Frelick en RF ante el derecho Nick Martinez en el J1"
+  ],
+  [
+   "ort",
+   "MIL",
+   "Joey Ortiz",
+   0.12,
+   0,
+   "Sencillo productor en la 9ª del J3, tras ir 1-10 en la NLDS. MLB.com proyecta a Hamilton en 3B ante el derecho Nick Martinez en el J1"
+  ],
+  [
+   "vau",
+   "MIL",
+   "Andrew Vaughn",
+   0.12,
+   0,
+   "Recibió la base por bolas antes del jonrón de Bauers en la 7ª del J3. Se espera que Yelich sea el BD por encima de él ante la rotación derecha de TB (MLB Trade Rumors)"
+  ],
+  [
+   "cam",
+   "TB",
+   "Junior Caminero",
+   0.3,
+   0,
+   "Llegó por error en la 12ª del J4 e inició el rally; anotó en el J4 con un toque fallado y tiro errado; 1-4 con carrera y CI en el J2"
+  ],
+  [
+   "ram",
+   "CLE",
+   "José Ramírez",
+   0.35,
+   0,
+   "Eliminado: CLE perdió la ALCS 4-2"
+  ],
+  [
+   "roc",
+   "CLE",
+   "Brayan Rocchio",
+   0.08,
+   0,
+   "Eliminado: CLE perdió la ALCS 4-2"
+  ],
+  [
+   "bau",
+   "MIL",
+   "Jake Bauers",
+   0.08,
+   0,
+   "Doble de 2 carreras en el J4; MVP de la NLCS"
+  ],
+  [
+   "mit",
+   "MIL",
+   "Garrett Mitchell",
+   0.06,
+   0,
+   "Sencillo productor en la 5ª del J3 y en la 1ª del J2. Jonrón en los J3 y J4 de la NLCS"
+  ],
+  [
+   "hal",
+   "CLE",
+   "Petey Halpin",
+   0.06,
+   0,
+   "Eliminado: CLE perdió la ALCS 4-2"
+  ],
+  [
+   "ham",
+   "MIL",
+   "David Hamilton",
+   0.05,
+   0,
+   "Jonrón solitario que empató el J4 en la 5ª (también cometió el tiro errado que dio una carrera a TB); sencillo productor en la 5ª del J3"
+  ],
+  [
+   "pra",
+   "MIL",
+   "Cooper Pratt",
+   0.08,
+   0,
+   "4 hits en el J4: doble productor en la 4ª y jonrón solitario en la 12ª; doble de 2 carreras en la 5ª del J3"
+  ],
+  [
+   "dia",
+   "TB",
+   "Yandy Díaz",
+   0.15,
+   0,
+   "2 de los 3 hits de TB en el J3, incluido el doble productor de la única carrera en la 9ª; se ponchó con el empate en 3ª para cerrar el J2"
+  ],
+  [
+   "ara",
+   "TB",
+   "Jonathan Aranda",
+   0.12,
+   0,
+   "Sencillo productor en la 1ª y doble en la 5ª del J2; 3-3 en el J1. .274, 22 HR y 92 CI en la temporada"
+  ],
+  [
+   "baz",
+   "CLE",
+   "Travis Bazzana",
+   0.08,
+   0,
+   "Eliminado: CLE perdió la ALCS 4-2"
+  ],
+  [
+   "kwa",
+   "CLE",
+   "Steven Kwan",
+   0.12,
+   0,
+   "Eliminado: CLE perdió la ALCS 4-2"
+  ]
+ ],
+ "mlb_timeline": [
+  [
+   "Auditoría 8-28 oct",
+   [
+    {
+     "h": "CWS",
+     "a": "CLE",
+     "t": "8 oct · 6:00 PM",
+     "s": "ALDS · Juego 4",
+     "sc": [
+      5,
+      9
+     ]
+    },
+    {
+     "h": "CLE",
+     "a": "CWS",
+     "t": "10 oct · 6:00 PM",
+     "s": "ALDS · Juego 5 · CLE avanza a la ALCS",
+     "sc": [
+      2,
+      0
+     ]
+    },
+    {
+     "h": "MIL",
+     "a": "LAD",
+     "t": "11 oct · 6:00 PM",
+     "s": "NLCS · Juego 1 · Misiorowski vs Skubal",
+     "sc": [
+      2,
+      1
+     ]
+    },
+    {
+     "h": "MIL",
+     "a": "LAD",
+     "t": "12 oct · 3:04 PM",
+     "s": "NLCS · Juego 2 · Henderson vs Yamamoto · HR de Contreras",
+     "sc": [
+      7,
+      4
+     ]
+    },
+    {
+     "h": "TB",
+     "a": "CLE",
+     "t": "12 oct · 6:08 PM",
+     "s": "ALCS · Juego 1 · Rasmussen vs Griffin · HR de DeLauter y Bailey",
+     "sc": [
+      3,
+      7
+     ]
+    },
+    {
+     "h": "TB",
+     "a": "CLE",
+     "t": "13 oct · 6:00 PM",
+     "s": "ALCS · Juego 2 · Peralta (6 IP en blanco) vence a Messick · 3 carreras sucias tras error de Ramírez",
+     "sc": [
+      3,
+      1
+     ]
+    },
+    {
+     "h": "LAD",
+     "a": "MIL",
+     "t": "14 oct · 6:00 PM",
+     "s": "NLCS · Juego 3 · Gasser (5 IP, 0 CL) vence a Snell · HR de Chourio, Bauers y Mitchell",
+     "sc": [
+      2,
+      6
+     ]
+    },
+    {
+     "h": "CLE",
+     "a": "TB",
+     "t": "15 oct · 11:00 AM",
+     "s": "ALCS · Juego 3 · Gavin Williams (5 IP, 2 C, 9 K) vs Jax · HR de 2 carreras de Petey Halpin en la 5ª; salvamento de Cade Smith · CLE 2-1",
+     "sc": [
+      3,
+      2
+     ]
+    },
+    {
+     "h": "LAD",
+     "a": "MIL",
+     "t": "15 oct · 7:00 PM",
+     "s": "NLCS · Juego 4 · MIL barre 4-0 y va a la Serie Mundial · HR de Ohtani (3 C), Mitchell y Hamilton; MVP: Jake Bauers",
+     "sc": [
+      4,
+      6
+     ]
+    },
+    {
+     "h": "CLE",
+     "a": "TB",
+     "t": "17 oct · 6:00 PM",
+     "s": "ALCS · Juego 4 (aplazado del viernes) · Martinez (5.1 IP, 1 C) vs bullpen de CLE (Armstrong 1 IP, Griffin 3.2 IP) · 3 carreras de TB en la 7ª con error de DeLauter; HR de Bazzana (CLE) y de 2 carreras de Yandy Díaz (TB) · perdió Espino · serie 2-2",
+     "sc": [
+      3,
+      7
+     ]
+    },
+    {
+     "h": "CLE",
+     "a": "TB",
+     "t": "18 oct · 3:08 PM",
+     "s": "ALCS · Juego 5 (aplazado) · Rasmussen (7 IP, 4 H, 1 C, 6 K) vence a Messick (2 IP, 2 C, 3 BB) · TB anotó en cada una de las 3 primeras entradas: BB con bases llenas a DeLuca, sencillo productor de Aranda y sencillo de Liam Hicks; CLE descontó en la 7ª con sencillo de DeLauter · salvamento de Bryan Baker · TB 3-2 en la serie",
+     "sc": [
+      1,
+      3
+     ]
+    },
+    {
+     "h": "TB",
+     "a": "CLE",
+     "t": "19 oct · 6:08 PM",
+     "s": "ALCS · Juego 6 · Peralta (5.1 IP) vence al opener Shawn Armstrong · jonrones de 2 carreras de Junior Caminero y Yandy Díaz · TB gana la serie 4-2 y va a la Serie Mundial ante MIL; Peralta, MVP de la ALCS",
+     "sc": [
+      7,
+      3
+     ]
+    },
+    {
+     "h": "MIL",
+     "a": "TB",
+     "t": "23 oct · 6:00 PM",
+     "s": "Serie Mundial · Juego 1 · Misiorowski (5 IP, 4 H, 1 C, 3 K; primer lanzamiento a 103.5 mph, récord de Serie Mundial) gana; Nick Martinez (5 IP, 2 C) · MIL 2 en la 1ª (triple productor de Yelich, sencillo de Contreras) y 1 en la 7ª (sencillo de Chourio); TB 0-6 con corredores en posición de anotar · salvamento de Megill · MIL 1-0 en la serie",
+     "sc": [
+      3,
+      2
+     ]
+    },
+    {
+     "h": "MIL",
+     "a": "TB",
+     "t": "24 oct · 6:00 PM",
+     "s": "Serie Mundial · Juego 2 · TB se fue arriba 4-0 en la 1ª (jonrón de 2 carreras de Liam Hicks) ante Henderson (3 IP, 4 C, 3 CL); Rasmussen 3.2 IP, 3 C · Frelick empató con jonrón solitario en la 6ª y Pratt dio el sencillo de la ventaja en la 7ª · el bullpen de MIL lanzó 6 entradas en blanco; gana Abner Uribe, pierde Tyler Wells; Ashby sacó los últimos 5 outs · MIL 2-0 en la serie",
+     "sc": [
+      5,
+      4
+     ]
+    },
+    {
+     "h": "TB",
+     "a": "MIL",
+     "t": "26 oct · 6:00 PM",
+     "s": "Serie Mundial · Juego 3 · Robert Gasser (6 IP, 1 H, 0 C; enfrentó al mínimo en 6 entradas) vence a Freddy Peralta (4.2 IP) · MIL anotó 2 en la 3ª y 8 en la 5ª con 16 hits: 2 CI de Turang y de Cooper Pratt, 1 de Mitchell, Frelick, Hamilton y Chourio · TB solo 3 hits; doble productor de Yandy Díaz en la 9ª · Brandon Woodruff volvió para lanzar la 9ª · MIL 3-0 en la serie",
+     "sc": [
+      1,
+      10
+     ]
+    },
+    {
+     "h": "TB",
+     "a": "MIL",
+     "t": "27 oct · 6:00 PM",
+     "s": "Serie Mundial · Juego 4 · TB evita la barrida en 12 entradas · Griffin Jax (4+ IP) abrió por TB; doble productor de Chandler Simpson en la 2ª, doble productor de Cooper Pratt en la 4ª y jonrón solitario de David Hamilton en la 5ª · Pratt (4 hits) puso arriba a MIL 3-2 con jonrón en la 12ª, pero Jonny DeLuca empató con sencillo y el emergente Ben Williamson dejó tendido a MIL ante Shane Drohan · MIL 3-1 en la serie",
+     "sc": [
+      4,
+      3
+     ]
+    },
+    {
+     "h": "TB",
+     "a": "MIL",
+     "t": "28 oct · 6:00 PM",
+     "s": "Serie Mundial · Juego 5 · Milwaukee gana 4-1 y es campeón de la Serie Mundial 2026 · temporada terminada",
+     "sc": [
+      1,
+      4
+     ]
+    }
+   ]
+  ]
+ ],
+ "mlb_constants": {
+  "raw": "const LG=4.40,EX=1.83,HFA=.54,SHR=.85,SD=3*Math.SQRT2;"
+ },
+ "mlb_pitchers": [
+  [
+   "mar",
+   "TB",
+   "Nick Martinez",
+   3.1,
+   180
+  ],
+  [
+   "ras",
+   "TB",
+   "Drew Rasmussen",
+   2.67,
+   172
+  ],
+  [
+   "per",
+   "TB",
+   "Freddy Peralta",
+   4.42,
+   169
+  ],
+  [
+   "fri",
+   "NYY",
+   "Max Fried",
+   null,
+   0
+  ],
+  [
+   "sch",
+   "NYY",
+   "Cam Schlittler",
+   null,
+   0
+  ],
+  [
+   "hen",
+   "MIL",
+   "Logan Henderson",
+   2.47,
+   98.3
+  ],
+  [
+   "wro",
+   "LAD",
+   "Justin Wrobleski (bullpen)",
+   3.66,
+   140
+  ],
+  [
+   "may",
+   "MIL",
+   "Dustin May",
+   4.7,
+   145.7
+  ],
+  [
+   "gas",
+   "MIL",
+   "Robert Gasser (proyectado)",
+   3.87,
+   109.3
+  ],
+  [
+   "piv",
+   "SD",
+   "Nick Pivetta",
+   2.86,
+   35
+  ],
+  [
+   "sne",
+   "LAD",
+   "Blake Snell",
+   1.9,
+   42.7
+  ],
+  [
+   "yam",
+   "LAD",
+   "Yoshinobu Yamamoto",
+   2.53,
+   185
+  ],
+  [
+   "sal",
+   "ATL",
+   "Chris Sale",
+   null,
+   0
+  ],
+  [
+   "mah",
+   "ATL",
+   "Tyler Mahle",
+   null,
+   0
+  ],
+  [
+   "esp",
+   "CLE",
+   "Daniel Espino",
+   4.11,
+   15.3
+  ],
+  [
+   "wil",
+   "CLE",
+   "Gavin Williams",
+   3.76,
+   184.3
+  ],
+  [
+   "mes",
+   "CLE",
+   "Parker Messick",
+   2.56,
+   186.3
+  ],
+  [
+   "gri",
+   "CLE",
+   "Foster Griffin",
+   3.6,
+   172.7
+  ],
+  [
+   "new",
+   "CWS",
+   "Sean Newcomb (opener)",
+   3.09,
+   60
+  ],
+  [
+   "sku",
+   "LAD",
+   "Tarik Skubal",
+   2.72,
+   158.7
+  ],
+  [
+   "mis",
+   "MIL",
+   "Jacob Misiorowski",
+   1.8,
+   174.7
+  ],
+  [
+   "gla",
+   "LAD",
+   "Tyler Glasnow",
+   3.53,
+   74
+  ],
+  [
+   "bur",
+   "CWS",
+   "Sean Burke",
+   null,
+   0
+  ],
+  [
+   "arm",
+   "CLE",
+   "Shawn Armstrong (opener)",
+   null,
+   0
+  ],
+  [
+   "cnt",
+   "CLE",
+   "Joey Cantillo (relevo largo)",
+   null,
+   0
+  ],
+  [
+   "jax",
+   "TB",
+   "Griffin Jax",
+   3.53,
+   112.1
+  ],
+  [
+   "can",
+   "CLE",
+   "Joey Cantillo (bullpen)",
+   3.62,
+   159
+  ],
+  [
+   "bib",
+   "CLE",
+   "Tanner Bibee",
+   4.36,
+   188
+  ],
+  [
+   "dro",
+   "MIL",
+   "Shane Drohan (opener; ERA/IP al 4 sep, sin verificar al cierre)",
+   3.75,
+   110.1
+  ]
+ ]
+}

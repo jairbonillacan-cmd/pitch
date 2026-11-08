@@ -1,0 +1,57 @@
+{
+  "application": "TOUCH IQ",
+  "target_url": "https://touchiq.com.mx/",
+  "network_architecture": "Static Single-Page Application (Zero-Runtime-Network)",
+  "infrastructure": {
+    "cdn": "Netlify Edge",
+    "protocol": "HTTP/2 / TLS 1.3",
+    "caching": "public, max-age=0, must-revalidate",
+    "compression": "Brotli (br)",
+    "security_headers": {
+      "strict-transport-security": "max-age=31536000"
+    }
+  },
+  "endpoints_observed": [
+    {
+      "request_id": "REQ-01",
+      "trigger": "Initial Page Navigation",
+      "method": "GET",
+      "endpoint": "/",
+      "query_parameters": {},
+      "request_headers": {
+        "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+        "user-agent": "Mozilla/5.0 (...)"
+      },
+      "response_status": 200,
+      "response_headers": {
+        "server": "Netlify",
+        "cache-status": "\"Netlify Edge\"; hit",
+        "content-type": "text/html; charset=UTF-8",
+        "content-encoding": "br"
+      },
+      "response_schema": "HTML5 Document containing inline CSS (<style>), SVG assets, base64 images, audio synthesizer engine, and 3 <script> tags embedding all domain data and UI modules",
+      "data_returned": {
+        "html_size_uncompressed_bytes": 2416762,
+        "inline_scripts_count": 3,
+        "inline_pages": [
+          { "key": "nfl", "format": "base64-encoded HTML document", "decoded_size_bytes": 1338231 },
+          { "key": "ncaa", "format": "base64-encoded HTML document", "decoded_size_bytes": 97971 }
+        ]
+      },
+      "subsequent_transformations": "Decoded via atob() and Uint8Array/TextDecoder into UTF-8 HTML string, injected into <iframe id=\"fr\"> via srcdoc"
+    },
+    {
+      "request_id": "REQ-02",
+      "trigger": "Browser default icon lookup",
+      "method": "GET",
+      "endpoint": "/favicon.ico",
+      "query_parameters": {},
+      "response_status": 404,
+      "response_schema": "404 Not Found",
+      "impact": "Benign. Single 404 console warning."
+    }
+  ],
+  "runtime_requests": [],
+  "runtime_requests_count": 0,
+  "runtime_traffic_finding": "OBSERVED: Zero background API, fetch, XHR, WebSocket, or telemetry calls during normal operation, sports switching, simulation, bet ticket manipulation, bankroll updates, or local AI assistant queries."
+}

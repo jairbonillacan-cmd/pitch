@@ -1,0 +1,53 @@
+{
+  "network": [
+    {
+      "type": "request",
+      "url": "https://aztecavet.com/",
+      "method": "GET",
+      "headers": {
+        "accept-language": "es-MX",
+        "upgrade-insecure-requests": "1",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36 Edg/157.0.0.0",
+        "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Microsoft Edge\";v=\"157\", \"Chromium\";v=\"157\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\""
+      }
+    },
+    {
+      "type": "response",
+      "url": "https://aztecavet.com/",
+      "status": 200,
+      "headers": {
+        "accept-ranges": "bytes",
+        "age": "7238",
+        "cache-control": "public,max-age=0,must-revalidate",
+        "cache-status": "\"Netlify Edge\"; hit; ttl=31528762",
+        "content-encoding": "br",
+        "content-length": "739330",
+        "content-type": "text/html; charset=UTF-8",
+        "date": "Sun, 08 Nov 2026 19:48:39 GMT",
+        "etag": "W/\"2427bef3e512240dfd1bbaec6e7499aa-ssl\"",
+        "server": "Netlify",
+        "strict-transport-security": "max-age=31536000",
+        "vary": "Accept-Encoding",
+        "x-nf-request-id": "01M6YB9B4B2Y8QR3F3FEMK7H8C"
+      }
+    }
+  ],
+  "console": [
+    {
+      "type": "warning",
+      "text": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. "
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 ()"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 ()"
+    }
+  ],
+  "storage": {},
+  "cookies": []
+}

@@ -1,0 +1,35 @@
+[
+  {
+    "type": "warning",
+    "text": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio",
+    "location": {
+      "url": "https://touchiq.com.mx/",
+      "line": 513,
+      "column": 0,
+      "lineNumber": 513,
+      "columnNumber": 0
+    }
+  },
+  {
+    "type": "error",
+    "text": "Failed to load resource: the server responded with a status of 404 ()",
+    "location": {
+      "url": "https://touchiq.com.mx/favicon.ico",
+      "line": 0,
+      "column": 0,
+      "lineNumber": 0,
+      "columnNumber": 0
+    }
+  },
+  {
+    "type": "error",
+    "text": "Failed to load resource: the server responded with a status of 404 ()",
+    "location": {
+      "url": "https://touchiq.com.mx/favicon.ico",
+      "line": 0,
+      "column": 0,
+      "lineNumber": 0,
+      "columnNumber": 0
+    }
+  }
+]

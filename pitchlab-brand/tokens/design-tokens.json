@@ -1,0 +1,372 @@
+{
+  "color": {
+    "brand-primary": {
+      "name": "Pulso",
+      "hex": "#B49AFF",
+      "rgb": [
+        180,
+        154,
+        255
+      ],
+      "role": "Acción primaria y firma",
+      "use": "Un CTA dominante por región, foco y marca sobre oscuro",
+      "restriction": "Texto Tinta sobre relleno; reservar fuera de series y estados"
+    },
+    "brand-secondary": {
+      "name": "Iris",
+      "hex": "#5940B2",
+      "rgb": [
+        89,
+        64,
+        178
+      ],
+      "role": "Firma sobre claro",
+      "use": "Isotipo sobre Hielo o blanco",
+      "restriction": "Evitar como texto o control sobre oscuro"
+    },
+    "brand-accent": {
+      "name": "Eco",
+      "hex": "#71C9F1",
+      "rgb": [
+        113,
+        201,
+        241
+      ],
+      "role": "Segunda serie comparativa",
+      "use": "Comparadores y series con etiqueta y trazo discontinuo",
+      "restriction": "Reservar Info para mensajes de estado"
+    },
+    "background-primary": {
+      "name": "Tinta",
+      "hex": "#0B1020",
+      "rgb": [
+        11,
+        16,
+        32
+      ],
+      "role": "Lienzo y texto inverso",
+      "use": "App, fondos de firma y texto sobre Pulso",
+      "restriction": "Para texto inverso usar solo sobre fondos claros comprobados"
+    },
+    "background-secondary": {
+      "name": "Órbita",
+      "hex": "#10172A",
+      "rgb": [
+        16,
+        23,
+        42
+      ],
+      "role": "Navegación",
+      "use": "Sidebar, topbar y menú móvil",
+      "restriction": "Separar del lienzo con borde o espacio"
+    },
+    "background-elevated": {
+      "name": "Umbral",
+      "hex": "#1A2440",
+      "rgb": [
+        26,
+        36,
+        64
+      ],
+      "role": "Elevación",
+      "use": "Diálogos, menús y popovers",
+      "restriction": "Evitar apilar más de dos niveles de superficie"
+    },
+    "surface-default": {
+      "name": "Pizarra",
+      "hex": "#151E34",
+      "rgb": [
+        21,
+        30,
+        52
+      ],
+      "role": "Paneles",
+      "use": "Cards, tablas y formularios",
+      "restriction": "Agrupar por estructura, sin alternar colores arbitrariamente"
+    },
+    "surface-hover": {
+      "name": "Bruma",
+      "hex": "#222D49",
+      "rgb": [
+        34,
+        45,
+        73
+      ],
+      "role": "Interacción hover",
+      "use": "Filas, botones secundarios y filtros",
+      "restriction": "Acompañar la interacción con foco visible"
+    },
+    "surface-active": {
+      "name": "Iris nocturno",
+      "hex": "#302650",
+      "rgb": [
+        48,
+        38,
+        80
+      ],
+      "role": "Selección persistente",
+      "use": "Filtros, pestañas y navegación activa",
+      "restriction": "Añadir etiqueta o indicador y aria-current/aria-selected"
+    },
+    "text-primary": {
+      "name": "Hielo",
+      "hex": "#F3F5FD",
+      "rgb": [
+        243,
+        245,
+        253
+      ],
+      "role": "Lectura principal",
+      "use": "Encabezados, métricas y copy",
+      "restriction": "Sobre superficies oscuras"
+    },
+    "text-secondary": {
+      "name": "Niebla",
+      "hex": "#B8C1D7",
+      "rgb": [
+        184,
+        193,
+        215
+      ],
+      "role": "Lectura secundaria",
+      "use": "Descripción, ejes, leyenda y ayuda",
+      "restriction": "Conservar jerarquía con peso y tamaño"
+    },
+    "text-muted": {
+      "name": "Peltre",
+      "hex": "#98A4BF",
+      "rgb": [
+        152,
+        164,
+        191
+      ],
+      "role": "Metadatos legibles",
+      "use": "Fuentes, fechas y notas",
+      "restriction": "Evitar opacidad extra en texto informativo"
+    },
+    "border-default": {
+      "name": "Arista",
+      "hex": "#33405D",
+      "rgb": [
+        51,
+        64,
+        93
+      ],
+      "role": "División ornamental",
+      "use": "Separadores internos o cards estáticas",
+      "restriction": "Usar Arista firme si el contorno identifica un control"
+    },
+    "border-strong": {
+      "name": "Arista firme",
+      "hex": "#73819F",
+      "rgb": [
+        115,
+        129,
+        159
+      ],
+      "role": "Contorno funcional",
+      "use": "Controles secundarios, inputs y límites activos",
+      "restriction": "Usar sobre fondos oscuros del sistema"
+    },
+    "success": {
+      "name": "Menta",
+      "hex": "#66D9AE",
+      "rgb": [
+        102,
+        217,
+        174
+      ],
+      "role": "Operación completada",
+      "use": "Estado con icono y texto",
+      "restriction": "Evitar para comunicar rendimiento por defecto"
+    },
+    "warning": {
+      "name": "Ámbar",
+      "hex": "#FFC473",
+      "rgb": [
+        255,
+        196,
+        115
+      ],
+      "role": "Atención",
+      "use": "Datos parciales o fuera de ventana",
+      "restriction": "Acompañar con motivo visible"
+    },
+    "danger": {
+      "name": "Coral",
+      "hex": "#FF9BAA",
+      "rgb": [
+        255,
+        155,
+        170
+      ],
+      "role": "Error",
+      "use": "Error de proceso o campo",
+      "restriction": "Añadir explicación y recuperación"
+    },
+    "info": {
+      "name": "Azul guía",
+      "hex": "#A9BFFF",
+      "rgb": [
+        169,
+        191,
+        255
+      ],
+      "role": "Aviso informativo",
+      "use": "Disponibilidad, metodología, cambios de fuente",
+      "restriction": "Evitar como segunda serie"
+    },
+    "canvas-light": {
+      "name": "Blanco",
+      "hex": "#FFFFFF",
+      "rgb": [
+        255,
+        255,
+        255
+      ],
+      "role": "Fondo claro de firma",
+      "use": "Documentación o fondos corporativos",
+      "restriction": "Usar firma con Iris y Tinta"
+    },
+    "chart-model": {
+      "name": "Índigo claro",
+      "hex": "#D9DFFF",
+      "rgb": [
+        217,
+        223,
+        255
+      ],
+      "role": "Serie principal",
+      "use": "Modelo o serie enfocada con trazo sólido",
+      "restriction": "Agregar etiqueta directa o leyenda"
+    }
+  },
+  "typography": {
+    "family": "InterVariable, Inter, system-ui, sans-serif",
+    "scale": {
+      "display": {
+        "size": 56,
+        "line": 60,
+        "weight": 750,
+        "tracking": -0.045,
+        "mobile": 40,
+        "mobileLine": 44
+      },
+      "h1": {
+        "size": 40,
+        "line": 44,
+        "weight": 730,
+        "tracking": -0.035,
+        "mobile": 32,
+        "mobileLine": 36
+      },
+      "h2": {
+        "size": 28,
+        "line": 34,
+        "weight": 700,
+        "tracking": -0.025,
+        "mobile": 24,
+        "mobileLine": 30
+      },
+      "h3": {
+        "size": 20,
+        "line": 26,
+        "weight": 650,
+        "tracking": -0.015
+      },
+      "body": {
+        "size": 16,
+        "line": 24,
+        "weight": 400,
+        "tracking": 0
+      },
+      "small": {
+        "size": 14,
+        "line": 20,
+        "weight": 450,
+        "tracking": 0
+      },
+      "caption": {
+        "size": 12,
+        "line": 16,
+        "weight": 500,
+        "tracking": 0.01
+      },
+      "button": {
+        "size": 14,
+        "line": 20,
+        "weight": 650,
+        "tracking": 0
+      },
+      "table": {
+        "size": 14,
+        "line": 20,
+        "weight": 450,
+        "tracking": 0,
+        "figures": "tabular-nums lining-nums"
+      },
+      "numeric-highlight": {
+        "size": 36,
+        "line": 40,
+        "weight": 700,
+        "tracking": -0.03,
+        "mobile": 32,
+        "mobileLine": 36,
+        "figures": "tabular-nums lining-nums"
+      }
+    }
+  },
+  "space": {
+    "1": "4px",
+    "2": "8px",
+    "3": "12px",
+    "4": "16px",
+    "5": "20px",
+    "6": "24px",
+    "8": "32px",
+    "10": "40px",
+    "12": "48px",
+    "16": "64px",
+    "20": "80px"
+  },
+  "radius": {
+    "control": "8px",
+    "panel": "12px",
+    "overlay": "16px",
+    "pill": "999px"
+  },
+  "border": {
+    "width": "1px",
+    "focus": "2px"
+  },
+  "shadow": {
+    "overlay": "0 12px 32px #00000066"
+  },
+  "time": {
+    "fast": "120ms",
+    "base": "180ms",
+    "enter": "240ms",
+    "loading": "900ms"
+  },
+  "ease": {
+    "out": "cubic-bezier(0.2, 0.8, 0.2, 1)"
+  },
+  "layout": {
+    "sidebar": "232px",
+    "header": "64px",
+    "mobilebar": "64px",
+    "touch": "44px",
+    "content": "1440px",
+    "tableRow": "44px"
+  },
+  "breakpoint": {
+    "tablet": 768,
+    "desktop": 1200
+  },
+  "chart": {
+    "observed": "brand-accent",
+    "model": "chart-model",
+    "seriesWidth": 2,
+    "observedDash": "6 4"
+  }
+}

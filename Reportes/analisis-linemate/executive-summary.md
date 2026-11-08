@@ -1,0 +1,104 @@
+# LineMate NFL Reverse Engineering — Executive Summary
+
+## 1. Executive Briefing
+
+This report summarizes the technical and mathematical reverse engineering of **LineMate** (`https://linemate.io/nfl`), conducted to inform the architecture, product strategy, and engineering roadmap of **PitchLab**.
+
+LineMate is a specialized sports betting research platform designed to simplify player props analysis, identify historical trends, and compare sportsbook odds across major American sports leagues (NFL, NBA, MLB, NHL) and soccer.
+
+Through live instrumentation using REA (`reverse-engineer-anything`), Playwright browser scenario automation, CDP network observation, and full client-side source map extraction (`main.1f0201a8.js.map`, 11.8 MB yielding 377 original source files), our team has completely reconstructed LineMate's architecture, data models, calculation routines, API topology, and commercial structure.
+
+```mermaid
+flowchart TD
+    subgraph Data Layer ["Upstream Data Providers"]
+        SR["Sportradar API (Official NFL Stats & Schedules)"]
+        OddsAgg["Odds Aggregators & B2B Feeds (DonBest / The Odds API)"]
+        Sleeper["Sleeper API (Fantasy IDs)"]
+        Kalshi["Kalshi Exchange API (Prediction Markets)"]
+    end
+
+    subgraph Backend Layer ["LineMate Backend (api.linemate.io)"]
+        Conf["Configuration & Geo-location Service (/api/configuration/v3)"]
+        TrendsSvc["Trends & Cheatsheet Precomputation Engine (/api/nfl/v1/trends)"]
+        PlayerSvc["Player & Workstation Service (/api/nfl/v4/players)"]
+        MarketsSvc["Odds & Hit Rates Aggregator (/api/nfl/v3/markets)"]
+        BetslipSvc["Deep Link & Betslip Broker (/api/betslip/v1)"]
+    end
+
+    subgraph Client Layer ["LineMate Frontend (SPA - React 18)"]
+        Home["Home & Matchups Dashboard"]
+        TrendsUI["Trends Explorer (Straight & Parlays)"]
+        WorkstationUI["Player Props Workstation (Interactive Nivo Charts)"]
+        CheatsheetsUI["100% Club Cheatsheets"]
+        ToolsUI["Advanced Tools (Defensive Rank, Injury Impact, Weather)"]
+        SubUI["Firebase Auth & Stripe Paywall (Linemate+)"]
+    end
+
+    SR --> Backend Layer
+    OddsAgg --> Backend Layer
+    Sleeper --> Backend Layer
+    Kalshi --> Backend Layer
+
+    Conf --> Client Layer
+    TrendsSvc --> TrendsUI
+    TrendsSvc --> CheatsheetsUI
+    PlayerSvc --> WorkstationUI
+    MarketsSvc --> WorkstationUI
+    MarketsSvc --> TrendsUI
+    BetslipSvc --> Client Layer
+```
+
+---
+
+## 2. Core Technical Findings
+
+### 2.1 Architecture & Stack
+- **Frontend Framework**: React 18 SPA built with Webpack, React Router DOM v5, Redux/Context (`GlobalContext`), SASS/SCSS styling, and localized through `i18next`.
+- **Data Visualization**: Nivo charts (`@nivo/bar`, responsive SVG/Canvas), Swiper.js for carousels, and custom SVG icons.
+- **Backend Infrastructure**: Google Cloud Platform (evidenced by `x-cloud-trace-context` response headers, Cloud Run/Kubernetes microservices behind `api.linemate.io`).
+- **Authentication & Payments**: Firebase Authentication (`firebase.js`) handling user tokens, paired with Stripe Billing (`openStripeBillingPortal`, `getStripeCheckoutSessionUrl`) for web subscriptions, alongside Apple App Store and Google Play in-app purchases.
+
+### 2.2 Data Provenance & Depth
+- **Primary Sports Statistics Provider**: **Sportradar**. Confirmed by explicit entity fields:
+  - Players: `SRID: "sr:player:1692915"`, `SRGUID: "db1053d7-3343-43a3-9aab-8353f10f1221"`.
+  - Competitors/Teams: `SRID: "sr:competitor:4427"`, `SRGUID: "5fee86ae-74ab-4bdd-8416-42a9dd9964f3"`.
+  - Games: `srGameId: "5ab9e951-17ea-4e84-9c6c-5ce04ac073ad"`.
+- **Fantasy Integration**: `sleeperId` (e.g. `"8155"` for Breece Hall) used to map players across fantasy communities.
+- **Historical Depth**: Player game logs are actively queried via `timeframe=RANGE_2024_2026` (3 seasons of high-fidelity data). Older data beyond 3 years is limited or aggregated into career summaries.
+- **Odds Aggregation**: 19+ bookmakers and platforms monitored in real time, including major US sportsbooks (DraftKings, FanDuel, Caesars, BetMGM, BetRivers), DFS apps (PrizePicks, Underdog, Betr), Canadian books (Bet99, Proline+), exchange platforms (ProphetX, Novig), and prediction markets (Kalshi).
+
+### 2.3 Mathematical Truth vs. Marketing Claim
+- **Descriptive Statistics, NOT Predictive AI**: LineMate's "Trends" and "Cheatsheets" are strictly descriptive aggregations over historical subsets. The platform does not run Poisson regressions, machine learning models, or Bayesian probability estimations.
+- **Hit Rate Formulation**: Calculated via `hits / total_games * 100`. Crucially, pushes are retained in the denominator.
+- **Injury Impact Mechanism**: Operates via a basic SQL/Pandas-style exclusion filter (`withoutPlayerIds=...`), recalculating historical averages on the remaining sample rather than applying a causal econometric or talent-replacement model.
+- **Parlay "Correlation"**: Same Game Parlays (SGPs) are generated by matching individual legs that simultaneously meet high historical hit rates ("Each leg hit in at least 4 of last 5 games"). LineMate does **not** model the joint covariance matrix or copula dependence between player stats in the same game.
+
+---
+
+## 3. Commercial Model & Feature Tiers
+
+LineMate operates a classic SaaS freemium funnel:
+- **Free Tier (`ACCESS_LEVEL_FREE = 1`)**:
+  - Access to basic Home dashboard and matchup previews.
+  - Limited to 5 trends per view.
+  - Standard Last 5 / Last 10 timeframe views.
+  - Main lines only (alternate lines locked).
+  - Advanced filters ("With/Without Teammate", Injury Impact tool, Opponent Defensive Rank full list) are paywalled.
+- **Linemate+ Paid Tier (`ACCESS_LEVEL_PAID = 3`)**:
+  - Pricing: **\$14.99 USD / month** or **\$149.99 USD / year** (with occasional promotional discounts to \$119.99).
+  - Unlocks full historical splits, "With/Without Teammate" query execution, alternate prop lines, unlimited trends feed, full cheatsheets, and OCR betslip scanning.
+
+---
+
+## 4. Strategic Implications & The PitchLab Opportunity
+
+LineMate is visually clean and accessible to recreational bettors, but suffers from significant analytical shortcomings that PitchLab can aggressively exploit:
+
+| Dimension | LineMate Observable Implementation | PitchLab Strategic Opportunity |
+| :--- | :--- | :--- |
+| **Statistical Model** | 100% Historical frequency ("Hit in 8 of last 10 games"). Treats past sample as future probability. | **True Probabilistic Forecasting**: Poisson/Negative Binomial distribution modeling, Monte Carlo simulations, contextual matchup adjustments. |
+| **Parlays / SGPs** | Heuristic pairing (Leg A hit 80% + Leg B hit 80%). No joint correlation calculation. | **Empirical & Copula Correlation Engine**: Quantify covariance between QB passing yards and WR receiving yards, calculate true joint probabilities vs sportsbook parlay vig. |
+| **Push Accounting** | Pushes counted as misses in the percentage calculation (`hits / total`). | **Dual Metric Display**: Transparent reporting of Raw Hit Rate (`hits / total`) vs. Decisive Hit Rate (`hits / (hits + misses)`), reflecting actual bankroll ROI. |
+| **Sportsbook Integration** | US/Canada-centric bookmakers with affiliate redirection. | **Localized Mexican & LATAM Sportsbooks**: Native integration with Caliente.mx, Codere.mx, Betcris, Novibet, and 1xBet alongside global books. |
+| **AI Capabilities** | Passive UI navigation; separate prototype chat. | **Agentic Sports Analyst**: Conversational interface ("Show me running backs facing bottom-5 rush defenses in cold weather") powered by real-time data pipelines. |
+| **Pricing Economics** | \$14.99 USD/mo (~$300 MXN), expensive for LATAM market. | **Tiered Regional Pricing**: Tiered plans optimized for the Mexican market ($149 MXN/mo Starter, $299 MXN/mo Pro) with superior analytical depth. |

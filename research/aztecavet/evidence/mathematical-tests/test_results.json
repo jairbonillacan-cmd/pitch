@@ -1,0 +1,122 @@
+{
+  "odds_conversion": [
+    {
+      "raw": "2.50",
+      "parsed": 2.5,
+      "expected": 2.5,
+      "valid": true
+    },
+    {
+      "raw": "1.40",
+      "parsed": 1.4,
+      "expected": 1.4,
+      "valid": true
+    },
+    {
+      "raw": "+150",
+      "parsed": 2.5,
+      "expected": 2.5,
+      "valid": true
+    },
+    {
+      "raw": "-200",
+      "parsed": 1.5,
+      "expected": 1.5,
+      "valid": true
+    },
+    {
+      "raw": "+100",
+      "parsed": 2,
+      "expected": 2,
+      "valid": true
+    },
+    {
+      "raw": "-110",
+      "parsed": 1.9090909090909092,
+      "expected": 1.90909,
+      "valid": true
+    },
+    {
+      "raw": "invalid",
+      "parsed": null,
+      "expected": null,
+      "valid": true
+    }
+  ],
+  "ev_and_sizing": [
+    {
+      "p": 0.55,
+      "d": 2,
+      "ev": 0.1,
+      "unit": 5,
+      "expectedUnit": 5,
+      "pass": true
+    },
+    {
+      "p": 0.65,
+      "d": 1.8,
+      "ev": 0.17,
+      "unit": 10,
+      "expectedUnit": 10,
+      "pass": true
+    },
+    {
+      "p": 0.5,
+      "d": 2.05,
+      "ev": 0.025,
+      "unit": 0,
+      "expectedUnit": 0,
+      "pass": true
+    },
+    {
+      "p": 0.4,
+      "d": 2.2,
+      "ev": -0.12,
+      "unit": 0,
+      "expectedUnit": 0,
+      "pass": true
+    }
+  ],
+  "football_simulation": {
+    "H_rs": 1.65,
+    "H_ra": 1.1,
+    "A_rs": 1.45,
+    "A_ra": 1.2,
+    "pyth_H": 0.6658,
+    "pyth_A": 0.5797,
+    "neutral_log5": 0.5909,
+    "hfa_share": 0.6096,
+    "projected_goals_home": 1.3113,
+    "projected_goals_away": 1.0563,
+    "prob_home_win": 0.4059,
+    "prob_draw": 0.3123,
+    "prob_away_win": 0.2818,
+    "sum_probs": 1
+  },
+  "nhl_simulation": {},
+  "mlb_simulation": {
+    "projected_runs_home": 4.8,
+    "projected_runs_away": 3.6,
+    "total_runs": 8.4,
+    "line": 8.5,
+    "SD": 4.24264,
+    "prob_over": 0.4906,
+    "prob_under": 0.5094
+  },
+  "parlay_calculation": {
+    "legs": [
+      {
+        "p": 0.65,
+        "d": 1.5
+      },
+      {
+        "p": 0.7,
+        "d": 1.4
+      }
+    ],
+    "combined_p": 0.455,
+    "combined_d": 2.1,
+    "fair_odds": 2.1978,
+    "ev": -0.0445
+  }
+}

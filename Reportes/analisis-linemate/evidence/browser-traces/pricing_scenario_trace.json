@@ -1,0 +1,4572 @@
+{
+  "evidence_id": "ev_388316d007e48d116133dfc199b374fb3181dbf06be8ea4712798a78645c80cd",
+  "subject": null,
+  "provider": {
+    "id": "rea-playwright-browser-scenario",
+    "name": "REA Playwright browser scenario capture provider",
+    "version": "1"
+  },
+  "analysis_profile": null,
+  "predicate_type": "rea.browser-scenario-capture",
+  "operation": "capture_browser_scenario",
+  "parameters": {
+    "browser": {
+      "mode": "launch",
+      "executable_path": "C:\\Users\\jairb\\AppData\\Local\\Google\\Chrome\\Application\\chrome.exe",
+      "headless": true
+    },
+    "start_url": {
+      "url": "https://linemate.io/pricing",
+      "query": []
+    },
+    "environment": {
+      "viewport": {
+        "width": 1280,
+        "height": 720,
+        "device_scale_factor": 1
+      },
+      "locale": "en-US",
+      "timezone": "UTC",
+      "color_scheme": "light",
+      "reduced_motion": "reduce",
+      "service_workers": "block"
+    },
+    "actions": [
+      {
+        "step_id": "wait_pricing",
+        "action": "wait_for_timeout",
+        "duration_ms": 5000
+      }
+    ],
+    "storage": {
+      "cookies": [],
+      "local_storage": [],
+      "session_storage": []
+    },
+    "secrets": [],
+    "capture": {
+      "after_each_step": [],
+      "at_end": [
+        "url",
+        "screenshot",
+        "dom"
+      ],
+      "events": [
+        "network"
+      ],
+      "network": {
+        "request_body": false,
+        "response_body": false,
+        "header_values": false
+      },
+      "limits": {
+        "max_events": 10000,
+        "max_event_allocation_bytes": 4194304,
+        "max_total_event_allocation_bytes": 16777216,
+        "max_network_transactions": 1024,
+        "max_network_body_bytes": 65536,
+        "max_network_body_allocation_bytes": 1048576,
+        "max_network_header_allocation_bytes": 1048576,
+        "max_network_metadata_allocation_bytes": 1048576
+      }
+    },
+    "scenario_sha256": "cb7c5cc3d7d89c0dc8f6c81fe966161bde923465aefe2bdf85a17fee8759b3dd"
+  },
+  "raw_result": null,
+  "normalized_result": {
+    "browser": {
+      "mode": "launch",
+      "process_ownership": "provider-owned",
+      "cleanup": "terminated-owned-process",
+      "product": "Chromium",
+      "version": "156.0.8078.4"
+    },
+    "scenario": {
+      "start_origin": "https://linemate.io",
+      "action_count": 1,
+      "secret_references": [],
+      "network_content": {
+        "request_body": false,
+        "response_body": false,
+        "header_values": false
+      },
+      "event_families": [
+        "network"
+      ],
+      "limits": {
+        "max_events": 10000,
+        "max_event_allocation_bytes": 4194304,
+        "max_total_event_allocation_bytes": 16777216,
+        "max_network_transactions": 1024,
+        "max_network_body_bytes": 65536,
+        "max_network_body_allocation_bytes": 1048576,
+        "max_network_header_allocation_bytes": 1048576,
+        "max_network_metadata_allocation_bytes": 1048576
+      }
+    },
+    "duration_ms": 6147,
+    "steps": [
+      {
+        "step_index": 0,
+        "step_id": "scenario_start",
+        "action": "goto_start",
+        "elapsed_ms": 960,
+        "before_url": {
+          "url": "about:blank",
+          "origin": null,
+          "query_parameter_names": [],
+          "redacted": false
+        },
+        "after_url": {
+          "url": "https://linemate.io/pricing",
+          "origin": "https://linemate.io",
+          "query_parameter_names": [],
+          "redacted": false
+        },
+        "event_sequence_start": 1,
+        "event_sequence_end": 18,
+        "artifacts": {
+          "screenshot": {
+            "state": "not_requested"
+          },
+          "dom": {
+            "state": "not_requested"
+          },
+          "accessibility": {
+            "state": "not_requested"
+          },
+          "url": {
+            "state": "not_requested"
+          },
+          "history": {
+            "state": "not_requested"
+          },
+          "storage": {
+            "state": "not_requested"
+          }
+        },
+        "completeness": {
+          "status": "complete",
+          "equality_eligible": true,
+          "missing_sections": [],
+          "truncated_sections": []
+        },
+        "status": "completed",
+        "error": null
+      },
+      {
+        "step_index": 1,
+        "step_id": "wait_pricing",
+        "action": "wait_for_timeout",
+        "elapsed_ms": 5044,
+        "before_url": {
+          "url": "https://linemate.io/pricing",
+          "origin": "https://linemate.io",
+          "query_parameter_names": [],
+          "redacted": false
+        },
+        "after_url": {
+          "url": "https://linemate.io/pricing",
+          "origin": "https://linemate.io",
+          "query_parameter_names": [],
+          "redacted": false
+        },
+        "event_sequence_start": 19,
+        "event_sequence_end": 144,
+        "artifacts": {
+          "screenshot": {
+            "state": "captured",
+            "value": {
+              "sha256": "a6e61691654e27d0a4f5a58a7c5c78918619f0dd0c9e5e18bfb50b66c9eb9eea",
+              "bytes": 89133,
+              "media_type": "image/png",
+              "data_base64": "<base64_truncated_89133_bytes>"
+            }
+          },
+          "dom": {
+            "state": "captured",
+            "value": {
+              "sha256": "9d28a3991f934e74c4fce4479d4aa77113851e4489ada34675dd0c3f46c8d488",
+              "bytes": 32684,
+              "text": "<dom_truncated_32684_bytes>"
+            }
+          },
+          "accessibility": {
+            "state": "not_requested"
+          },
+          "url": {
+            "state": "captured",
+            "value": {
+              "url": "https://linemate.io/pricing",
+              "origin": "https://linemate.io",
+              "query_parameter_names": [],
+              "redacted": false
+            }
+          },
+          "history": {
+            "state": "not_requested"
+          },
+          "storage": {
+            "state": "not_requested"
+          }
+        },
+        "completeness": {
+          "status": "complete",
+          "equality_eligible": true,
+          "missing_sections": [],
+          "truncated_sections": []
+        },
+        "status": "completed",
+        "error": null
+      }
+    ],
+    "events": {
+      "retained": 144,
+      "dropped": 0,
+      "items": [
+        {
+          "sequence": 1,
+          "step_index": 0,
+          "transaction_id": "request-1",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/pricing",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "document",
+          "header_names": [
+            "accept-language",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "upgrade-insecure-requests",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:37.671Z"
+        },
+        {
+          "sequence": 2,
+          "step_index": 0,
+          "transaction_id": "request-1",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/pricing",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "document",
+          "header_names": [
+            "accept-ranges",
+            "alt-svc",
+            "cache-control",
+            "content-length",
+            "content-type",
+            "date",
+            "etag",
+            "last-modified",
+            "server",
+            "via",
+            "x-cloud-trace-context"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 3,
+          "step_index": 0,
+          "transaction_id": "request-2",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://rsms.me/inter/inter.css",
+            "origin": "https://rsms.me",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "stylesheet",
+          "header_names": [
+            "accept-language",
+            "origin",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:37.770Z"
+        },
+        {
+          "sequence": 4,
+          "step_index": 0,
+          "transaction_id": "request-3",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css",
+            "origin": "https://stackpath.bootstrapcdn.com",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "stylesheet",
+          "header_names": [
+            "accept-language",
+            "origin",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:37.770Z"
+        },
+        {
+          "sequence": 5,
+          "step_index": 0,
+          "transaction_id": "request-4",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/static/js/main.1f0201a8.js",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "script",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:37.770Z"
+        },
+        {
+          "sequence": 6,
+          "step_index": 0,
+          "transaction_id": "request-5",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/static/css/main.f806c574.css",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "stylesheet",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:37.771Z"
+        },
+        {
+          "sequence": 7,
+          "step_index": 0,
+          "transaction_id": "request-1",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/pricing",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "document",
+          "header_names": [
+            "accept-language",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "upgrade-insecure-requests",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:37.672Z",
+          "elapsed_ms": 91.253
+        },
+        {
+          "sequence": 8,
+          "step_index": 0,
+          "transaction_id": "request-6",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/manifest.json",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "manifest",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:37.771Z"
+        },
+        {
+          "sequence": 9,
+          "step_index": 0,
+          "transaction_id": "request-6",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/manifest.json",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "manifest",
+          "header_names": [
+            "accept-ranges",
+            "alt-svc",
+            "cache-control",
+            "content-length",
+            "content-type",
+            "date",
+            "etag",
+            "last-modified",
+            "server",
+            "via",
+            "x-cloud-trace-context"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 10,
+          "step_index": 0,
+          "transaction_id": "request-6",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/manifest.json",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "manifest",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:37.772Z",
+          "elapsed_ms": 79.228
+        },
+        {
+          "sequence": 11,
+          "step_index": 0,
+          "transaction_id": "request-5",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/static/css/main.f806c574.css",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "stylesheet",
+          "header_names": [
+            "accept-ranges",
+            "alt-svc",
+            "cache-control",
+            "content-length",
+            "content-type",
+            "date",
+            "etag",
+            "last-modified",
+            "server",
+            "via",
+            "x-cloud-trace-context"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 12,
+          "step_index": 0,
+          "transaction_id": "request-2",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://rsms.me/inter/inter.css",
+            "origin": "https://rsms.me",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "stylesheet",
+          "header_names": [
+            "accept-ranges",
+            "access-control-allow-origin",
+            "age",
+            "alt-svc",
+            "cache-control",
+            "cf-cache-status",
+            "cf-ray",
+            "content-encoding",
+            "content-length",
+            "content-type",
+            "date",
+            "etag",
+            "expires",
+            "last-modified",
+            "nel",
+            "priority",
+            "report-to",
+            "server",
+            "server-timing",
+            "vary",
+            "via",
+            "x-cache",
+            "x-cache-hits",
+            "x-fastly-request-id",
+            "x-github-request-id",
+            "x-origin-cache",
+            "x-proxy-cache",
+            "x-served-by",
+            "x-timer"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 13,
+          "step_index": 0,
+          "transaction_id": "request-2",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://rsms.me/inter/inter.css",
+            "origin": "https://rsms.me",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "stylesheet",
+          "header_names": [
+            "accept-language",
+            "origin",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:37.769Z",
+          "elapsed_ms": 101.988
+        },
+        {
+          "sequence": 14,
+          "step_index": 0,
+          "transaction_id": "request-3",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css",
+            "origin": "https://stackpath.bootstrapcdn.com",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "stylesheet",
+          "header_names": [
+            "access-control-allow-origin",
+            "age",
+            "alt-svc",
+            "cache-control",
+            "cdn-cache",
+            "cdn-cachedat",
+            "cdn-edgestorageid",
+            "cdn-proxyver",
+            "cdn-pullzone",
+            "cdn-requestcountrycode",
+            "cdn-requestid",
+            "cdn-requestpullcode",
+            "cdn-requestpullsuccess",
+            "cdn-requesttime",
+            "cdn-status",
+            "cf-cache-status",
+            "cf-ray",
+            "content-encoding",
+            "content-type",
+            "cross-origin-resource-policy",
+            "date",
+            "etag",
+            "last-modified",
+            "server",
+            "strict-transport-security",
+            "timing-allow-origin",
+            "vary",
+            "x-content-type-options"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 15,
+          "step_index": 0,
+          "transaction_id": "request-3",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css",
+            "origin": "https://stackpath.bootstrapcdn.com",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "stylesheet",
+          "header_names": [
+            "accept-language",
+            "origin",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:37.769Z",
+          "elapsed_ms": 240.851
+        },
+        {
+          "sequence": 16,
+          "step_index": 0,
+          "transaction_id": "request-5",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/static/css/main.f806c574.css",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "stylesheet",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:37.769Z",
+          "elapsed_ms": 259.068
+        },
+        {
+          "sequence": 17,
+          "step_index": 0,
+          "transaction_id": "request-4",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/static/js/main.1f0201a8.js",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "script",
+          "header_names": [
+            "accept-ranges",
+            "alt-svc",
+            "cache-control",
+            "content-length",
+            "content-type",
+            "date",
+            "etag",
+            "last-modified",
+            "server",
+            "via",
+            "x-cloud-trace-context"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 18,
+          "step_index": 0,
+          "transaction_id": "request-4",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/static/js/main.1f0201a8.js",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "script",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:37.770Z",
+          "elapsed_ms": 410.7
+        },
+        {
+          "sequence": 19,
+          "step_index": 1,
+          "transaction_id": "request-7",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/logo-32.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "other",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:38.368Z"
+        },
+        {
+          "sequence": 20,
+          "step_index": 1,
+          "transaction_id": "request-8",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://api.linemate.io/api/configuration/v3?platform=web",
+            "origin": "https://api.linemate.io",
+            "query_parameter_names": [
+              "platform"
+            ],
+            "redacted": false
+          },
+          "resource_type": "fetch",
+          "header_names": [
+            "accept-language",
+            "linemate-client-build",
+            "linemate-client-country",
+            "linemate-client-locale",
+            "linemate-client-platform",
+            "linemate-client-version",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:38.383Z"
+        },
+        {
+          "sequence": 21,
+          "step_index": 1,
+          "transaction_id": "request-9",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://api.linemate.io/api/localization/v1/getCurrentLocation",
+            "origin": "https://api.linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "fetch",
+          "header_names": [
+            "accept-language",
+            "linemate-client-build",
+            "linemate-client-country",
+            "linemate-client-locale",
+            "linemate-client-platform",
+            "linemate-client-version",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:38.383Z"
+        },
+        {
+          "sequence": 22,
+          "step_index": 1,
+          "transaction_id": "request-7",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/logo-32.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "other",
+          "header_names": [
+            "accept-ranges",
+            "alt-svc",
+            "cache-control",
+            "content-length",
+            "content-type",
+            "date",
+            "etag",
+            "last-modified",
+            "server",
+            "via",
+            "x-cloud-trace-context"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 23,
+          "step_index": 1,
+          "transaction_id": "request-7",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/logo-32.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "other",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:38.365Z",
+          "elapsed_ms": 60.304
+        },
+        {
+          "sequence": 24,
+          "step_index": 1,
+          "transaction_id": "request-8",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://api.linemate.io/api/configuration/v3?platform=web",
+            "origin": "https://api.linemate.io",
+            "query_parameter_names": [
+              "platform"
+            ],
+            "redacted": false
+          },
+          "resource_type": "fetch",
+          "header_names": [
+            "access-control-allow-origin",
+            "alt-svc",
+            "content-encoding",
+            "content-type",
+            "date",
+            "server",
+            "vary",
+            "via"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 25,
+          "step_index": 1,
+          "transaction_id": "request-9",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://api.linemate.io/api/localization/v1/getCurrentLocation",
+            "origin": "https://api.linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "fetch",
+          "header_names": [
+            "access-control-allow-origin",
+            "alt-svc",
+            "content-encoding",
+            "content-type",
+            "date",
+            "server",
+            "vary",
+            "via"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 26,
+          "step_index": 1,
+          "transaction_id": "request-9",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://api.linemate.io/api/localization/v1/getCurrentLocation",
+            "origin": "https://api.linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "fetch",
+          "header_names": [
+            "accept-language",
+            "linemate-client-build",
+            "linemate-client-country",
+            "linemate-client-locale",
+            "linemate-client-platform",
+            "linemate-client-version",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:38.477Z",
+          "elapsed_ms": 160.504
+        },
+        {
+          "sequence": 27,
+          "step_index": 1,
+          "transaction_id": "request-8",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://api.linemate.io/api/configuration/v3?platform=web",
+            "origin": "https://api.linemate.io",
+            "query_parameter_names": [
+              "platform"
+            ],
+            "redacted": false
+          },
+          "resource_type": "fetch",
+          "header_names": [
+            "accept-language",
+            "linemate-client-build",
+            "linemate-client-country",
+            "linemate-client-locale",
+            "linemate-client-platform",
+            "linemate-client-version",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:38.476Z",
+          "elapsed_ms": 175.175
+        },
+        {
+          "sequence": 28,
+          "step_index": 1,
+          "transaction_id": "request-10",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://rsms.me/inter/font-files/Inter-Regular.woff2?v=4.1",
+            "origin": "https://rsms.me",
+            "query_parameter_names": [
+              "v"
+            ],
+            "redacted": false
+          },
+          "resource_type": "font",
+          "header_names": [
+            "accept-language",
+            "origin",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:38.687Z"
+        },
+        {
+          "sequence": 29,
+          "step_index": 1,
+          "transaction_id": "request-11",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://rsms.me/inter/font-files/Inter-Medium.woff2?v=4.1",
+            "origin": "https://rsms.me",
+            "query_parameter_names": [
+              "v"
+            ],
+            "redacted": false
+          },
+          "resource_type": "font",
+          "header_names": [
+            "accept-language",
+            "origin",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:38.687Z"
+        },
+        {
+          "sequence": 30,
+          "step_index": 1,
+          "transaction_id": "request-12",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://rsms.me/inter/font-files/Inter-SemiBold.woff2?v=4.1",
+            "origin": "https://rsms.me",
+            "query_parameter_names": [
+              "v"
+            ],
+            "redacted": false
+          },
+          "resource_type": "font",
+          "header_names": [
+            "accept-language",
+            "origin",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:38.687Z"
+        },
+        {
+          "sequence": 31,
+          "step_index": 1,
+          "transaction_id": "request-13",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/logomark.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:38.687Z"
+        },
+        {
+          "sequence": 32,
+          "step_index": 1,
+          "transaction_id": "request-14",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/chevron-down.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:38.687Z"
+        },
+        {
+          "sequence": 33,
+          "step_index": 1,
+          "transaction_id": "request-15",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/search.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:38.687Z"
+        },
+        {
+          "sequence": 34,
+          "step_index": 1,
+          "transaction_id": "request-16",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/light.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:38.688Z"
+        },
+        {
+          "sequence": 35,
+          "step_index": 1,
+          "transaction_id": "request-17",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/menu.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:38.688Z"
+        },
+        {
+          "sequence": 36,
+          "step_index": 1,
+          "transaction_id": "request-18",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/check-circle.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:38.688Z"
+        },
+        {
+          "sequence": 37,
+          "step_index": 1,
+          "transaction_id": "request-19",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/vector1-light.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:38.688Z"
+        },
+        {
+          "sequence": 38,
+          "step_index": 1,
+          "transaction_id": "request-20",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/vector2-light.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:38.688Z"
+        },
+        {
+          "sequence": 39,
+          "step_index": 1,
+          "transaction_id": "request-21",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/vector3-light.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:38.688Z"
+        },
+        {
+          "sequence": 40,
+          "step_index": 1,
+          "transaction_id": "request-22",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/vector4-light.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:38.688Z"
+        },
+        {
+          "sequence": 41,
+          "step_index": 1,
+          "transaction_id": "request-23",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/vector5-light.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:38.688Z"
+        },
+        {
+          "sequence": 42,
+          "step_index": 1,
+          "transaction_id": "request-24",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/vector6-light.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:38.688Z"
+        },
+        {
+          "sequence": 43,
+          "step_index": 1,
+          "transaction_id": "request-25",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/vector7-light.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:38.688Z"
+        },
+        {
+          "sequence": 44,
+          "step_index": 1,
+          "transaction_id": "request-26",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/vector8-light.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:38.688Z"
+        },
+        {
+          "sequence": 45,
+          "step_index": 1,
+          "transaction_id": "request-27",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/vector9-light.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:38.689Z"
+        },
+        {
+          "sequence": 46,
+          "step_index": 1,
+          "transaction_id": "request-28",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/full-picture-light.png",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:38.689Z"
+        },
+        {
+          "sequence": 47,
+          "step_index": 1,
+          "transaction_id": "request-29",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/pricing-injury-light.png",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:38.689Z"
+        },
+        {
+          "sequence": 48,
+          "step_index": 1,
+          "transaction_id": "request-30",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/pricing-rank-light.png",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:38.689Z"
+        },
+        {
+          "sequence": 49,
+          "step_index": 1,
+          "transaction_id": "request-31",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/pricing-lineups-light.png",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:38.689Z"
+        },
+        {
+          "sequence": 50,
+          "step_index": 1,
+          "transaction_id": "request-32",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/basketball-outline.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:38.689Z"
+        },
+        {
+          "sequence": 51,
+          "step_index": 1,
+          "transaction_id": "request-33",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/baseball-outline.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:38.689Z"
+        },
+        {
+          "sequence": 52,
+          "step_index": 1,
+          "transaction_id": "request-34",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/pricing-weather-light.png",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:38.689Z"
+        },
+        {
+          "sequence": 53,
+          "step_index": 1,
+          "transaction_id": "request-35",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/pricing-testimonials-ratings.png",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:38.689Z"
+        },
+        {
+          "sequence": 54,
+          "step_index": 1,
+          "transaction_id": "request-36",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/star.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:38.690Z"
+        },
+        {
+          "sequence": 55,
+          "step_index": 1,
+          "transaction_id": "request-37",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/chevron-left-medium.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:38.690Z"
+        },
+        {
+          "sequence": 56,
+          "step_index": 1,
+          "transaction_id": "request-38",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/chevron-right-medium.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:38.690Z"
+        },
+        {
+          "sequence": 57,
+          "step_index": 1,
+          "transaction_id": "request-39",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/close.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:38.690Z"
+        },
+        {
+          "sequence": 58,
+          "step_index": 1,
+          "transaction_id": "request-40",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/twitter.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:38.690Z"
+        },
+        {
+          "sequence": 59,
+          "step_index": 1,
+          "transaction_id": "request-41",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/tiktok.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:38.690Z"
+        },
+        {
+          "sequence": 60,
+          "step_index": 1,
+          "transaction_id": "request-42",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/instagram.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:38.690Z"
+        },
+        {
+          "sequence": 61,
+          "step_index": 1,
+          "transaction_id": "request-43",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/youtube.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:38.690Z"
+        },
+        {
+          "sequence": 62,
+          "step_index": 1,
+          "transaction_id": "request-44",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/arrow-outward.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:38.691Z"
+        },
+        {
+          "sequence": 63,
+          "step_index": 1,
+          "transaction_id": "request-45",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/check.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:38.691Z"
+        },
+        {
+          "sequence": 64,
+          "step_index": 1,
+          "transaction_id": "request-46",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://api.linemate.io/api/nfl/v3/games/current?recordType=REGULAR&format=daily",
+            "origin": "https://api.linemate.io",
+            "query_parameter_names": [
+              "recordType",
+              "format"
+            ],
+            "redacted": false
+          },
+          "resource_type": "fetch",
+          "header_names": [
+            "accept-language",
+            "linemate-client-build",
+            "linemate-client-country",
+            "linemate-client-locale",
+            "linemate-client-platform",
+            "linemate-client-version",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:38.691Z"
+        },
+        {
+          "sequence": 65,
+          "step_index": 1,
+          "transaction_id": "request-47",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://api.linemate.io/api/nfl/v3/games/upcoming?recordType=REGULAR&format=daily",
+            "origin": "https://api.linemate.io",
+            "query_parameter_names": [
+              "recordType",
+              "format"
+            ],
+            "redacted": false
+          },
+          "resource_type": "fetch",
+          "header_names": [
+            "accept-language",
+            "linemate-client-build",
+            "linemate-client-country",
+            "linemate-client-locale",
+            "linemate-client-platform",
+            "linemate-client-version",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:38.691Z"
+        },
+        {
+          "sequence": 66,
+          "step_index": 1,
+          "transaction_id": "request-48",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://api.linemate.io/api/nfl/v3/teams",
+            "origin": "https://api.linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "fetch",
+          "header_names": [
+            "accept-language",
+            "linemate-client-build",
+            "linemate-client-country",
+            "linemate-client-locale",
+            "linemate-client-platform",
+            "linemate-client-version",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null,
+          "observed_at": "2026-11-08T19:55:38.691Z"
+        },
+        {
+          "sequence": 67,
+          "step_index": 1,
+          "transaction_id": "request-26",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/vector8-light.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-ranges",
+            "alt-svc",
+            "cache-control",
+            "content-length",
+            "content-type",
+            "date",
+            "etag",
+            "last-modified",
+            "server",
+            "via",
+            "x-cloud-trace-context"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 68,
+          "step_index": 1,
+          "transaction_id": "request-26",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/vector8-light.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:38.675Z",
+          "elapsed_ms": 100.619
+        },
+        {
+          "sequence": 69,
+          "step_index": 1,
+          "transaction_id": "request-32",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/basketball-outline.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-ranges",
+            "alt-svc",
+            "cache-control",
+            "content-length",
+            "content-type",
+            "date",
+            "etag",
+            "last-modified",
+            "server",
+            "via",
+            "x-cloud-trace-context"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 70,
+          "step_index": 1,
+          "transaction_id": "request-32",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/basketball-outline.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:38.675Z",
+          "elapsed_ms": 109.281
+        },
+        {
+          "sequence": 71,
+          "step_index": 1,
+          "transaction_id": "request-36",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/star.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-ranges",
+            "alt-svc",
+            "cache-control",
+            "content-length",
+            "content-type",
+            "date",
+            "etag",
+            "last-modified",
+            "server",
+            "via",
+            "x-cloud-trace-context"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 72,
+          "step_index": 1,
+          "transaction_id": "request-36",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/star.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:38.678Z",
+          "elapsed_ms": 109.081
+        },
+        {
+          "sequence": 73,
+          "step_index": 1,
+          "transaction_id": "request-21",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/vector3-light.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-ranges",
+            "alt-svc",
+            "cache-control",
+            "content-length",
+            "content-type",
+            "date",
+            "etag",
+            "last-modified",
+            "server",
+            "via",
+            "x-cloud-trace-context"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 74,
+          "step_index": 1,
+          "transaction_id": "request-21",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/vector3-light.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:38.674Z",
+          "elapsed_ms": 109.981
+        },
+        {
+          "sequence": 75,
+          "step_index": 1,
+          "transaction_id": "request-18",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/check-circle.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-ranges",
+            "alt-svc",
+            "cache-control",
+            "content-length",
+            "content-type",
+            "date",
+            "etag",
+            "last-modified",
+            "server",
+            "via",
+            "x-cloud-trace-context"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 76,
+          "step_index": 1,
+          "transaction_id": "request-18",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/check-circle.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:38.674Z",
+          "elapsed_ms": 111.753
+        },
+        {
+          "sequence": 77,
+          "step_index": 1,
+          "transaction_id": "request-16",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/light.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-ranges",
+            "alt-svc",
+            "cache-control",
+            "content-length",
+            "content-type",
+            "date",
+            "etag",
+            "last-modified",
+            "server",
+            "via",
+            "x-cloud-trace-context"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 78,
+          "step_index": 1,
+          "transaction_id": "request-16",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/light.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:38.673Z",
+          "elapsed_ms": 111.93
+        },
+        {
+          "sequence": 79,
+          "step_index": 1,
+          "transaction_id": "request-17",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/menu.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-ranges",
+            "alt-svc",
+            "cache-control",
+            "content-length",
+            "content-type",
+            "date",
+            "etag",
+            "last-modified",
+            "server",
+            "via",
+            "x-cloud-trace-context"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 80,
+          "step_index": 1,
+          "transaction_id": "request-17",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/menu.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:38.674Z",
+          "elapsed_ms": 111.982
+        },
+        {
+          "sequence": 81,
+          "step_index": 1,
+          "transaction_id": "request-40",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/twitter.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-ranges",
+            "alt-svc",
+            "cache-control",
+            "content-length",
+            "content-type",
+            "date",
+            "etag",
+            "last-modified",
+            "server",
+            "via",
+            "x-cloud-trace-context"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 82,
+          "step_index": 1,
+          "transaction_id": "request-40",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/twitter.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:38.678Z",
+          "elapsed_ms": 110.286
+        },
+        {
+          "sequence": 83,
+          "step_index": 1,
+          "transaction_id": "request-12",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://rsms.me/inter/font-files/Inter-SemiBold.woff2?v=4.1",
+            "origin": "https://rsms.me",
+            "query_parameter_names": [
+              "v"
+            ],
+            "redacted": false
+          },
+          "resource_type": "font",
+          "header_names": [
+            "accept-ranges",
+            "access-control-allow-origin",
+            "age",
+            "alt-svc",
+            "cache-control",
+            "cf-cache-status",
+            "cf-ray",
+            "content-length",
+            "content-type",
+            "date",
+            "etag",
+            "expires",
+            "last-modified",
+            "nel",
+            "priority",
+            "report-to",
+            "server",
+            "server-timing",
+            "vary",
+            "via",
+            "x-cache",
+            "x-cache-hits",
+            "x-fastly-request-id",
+            "x-github-edge-region",
+            "x-github-request-id",
+            "x-origin-cache",
+            "x-proxy-cache",
+            "x-served-by",
+            "x-timer"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 84,
+          "step_index": 1,
+          "transaction_id": "request-12",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://rsms.me/inter/font-files/Inter-SemiBold.woff2?v=4.1",
+            "origin": "https://rsms.me",
+            "query_parameter_names": [
+              "v"
+            ],
+            "redacted": false
+          },
+          "resource_type": "font",
+          "header_names": [
+            "accept-language",
+            "origin",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:38.682Z",
+          "elapsed_ms": 183.176
+        },
+        {
+          "sequence": 85,
+          "step_index": 1,
+          "transaction_id": "request-27",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/vector9-light.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-ranges",
+            "alt-svc",
+            "cache-control",
+            "content-length",
+            "content-type",
+            "date",
+            "etag",
+            "last-modified",
+            "server",
+            "via",
+            "x-cloud-trace-context"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 86,
+          "step_index": 1,
+          "transaction_id": "request-27",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/vector9-light.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:38.675Z",
+          "elapsed_ms": 126.437
+        },
+        {
+          "sequence": 87,
+          "step_index": 1,
+          "transaction_id": "request-10",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://rsms.me/inter/font-files/Inter-Regular.woff2?v=4.1",
+            "origin": "https://rsms.me",
+            "query_parameter_names": [
+              "v"
+            ],
+            "redacted": false
+          },
+          "resource_type": "font",
+          "header_names": [
+            "accept-ranges",
+            "access-control-allow-origin",
+            "age",
+            "alt-svc",
+            "cache-control",
+            "cf-cache-status",
+            "cf-ray",
+            "content-length",
+            "content-type",
+            "date",
+            "etag",
+            "expires",
+            "last-modified",
+            "nel",
+            "priority",
+            "report-to",
+            "server",
+            "server-timing",
+            "vary",
+            "via",
+            "x-cache",
+            "x-cache-hits",
+            "x-fastly-request-id",
+            "x-github-request-id",
+            "x-origin-cache",
+            "x-proxy-cache",
+            "x-served-by",
+            "x-timer"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 88,
+          "step_index": 1,
+          "transaction_id": "request-10",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://rsms.me/inter/font-files/Inter-Regular.woff2?v=4.1",
+            "origin": "https://rsms.me",
+            "query_parameter_names": [
+              "v"
+            ],
+            "redacted": false
+          },
+          "resource_type": "font",
+          "header_names": [
+            "accept-language",
+            "origin",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:38.681Z",
+          "elapsed_ms": 214.699
+        },
+        {
+          "sequence": 89,
+          "step_index": 1,
+          "transaction_id": "request-47",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://api.linemate.io/api/nfl/v3/games/upcoming?recordType=REGULAR&format=daily",
+            "origin": "https://api.linemate.io",
+            "query_parameter_names": [
+              "recordType",
+              "format"
+            ],
+            "redacted": false
+          },
+          "resource_type": "fetch",
+          "header_names": [
+            "access-control-allow-origin",
+            "alt-svc",
+            "content-encoding",
+            "content-type",
+            "date",
+            "server",
+            "vary",
+            "via"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 90,
+          "step_index": 1,
+          "transaction_id": "request-46",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://api.linemate.io/api/nfl/v3/games/current?recordType=REGULAR&format=daily",
+            "origin": "https://api.linemate.io",
+            "query_parameter_names": [
+              "recordType",
+              "format"
+            ],
+            "redacted": false
+          },
+          "resource_type": "fetch",
+          "header_names": [
+            "access-control-allow-origin",
+            "alt-svc",
+            "content-encoding",
+            "content-type",
+            "date",
+            "server",
+            "vary",
+            "via"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 91,
+          "step_index": 1,
+          "transaction_id": "request-47",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://api.linemate.io/api/nfl/v3/games/upcoming?recordType=REGULAR&format=daily",
+            "origin": "https://api.linemate.io",
+            "query_parameter_names": [
+              "recordType",
+              "format"
+            ],
+            "redacted": false
+          },
+          "resource_type": "fetch",
+          "header_names": [
+            "accept-language",
+            "linemate-client-build",
+            "linemate-client-country",
+            "linemate-client-locale",
+            "linemate-client-platform",
+            "linemate-client-version",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:38.755Z",
+          "elapsed_ms": 152.965
+        },
+        {
+          "sequence": 92,
+          "step_index": 1,
+          "transaction_id": "request-48",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://api.linemate.io/api/nfl/v3/teams",
+            "origin": "https://api.linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "fetch",
+          "header_names": [
+            "access-control-allow-origin",
+            "alt-svc",
+            "content-encoding",
+            "content-type",
+            "date",
+            "server",
+            "vary",
+            "via"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 93,
+          "step_index": 1,
+          "transaction_id": "request-46",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://api.linemate.io/api/nfl/v3/games/current?recordType=REGULAR&format=daily",
+            "origin": "https://api.linemate.io",
+            "query_parameter_names": [
+              "recordType",
+              "format"
+            ],
+            "redacted": false
+          },
+          "resource_type": "fetch",
+          "header_names": [
+            "accept-language",
+            "linemate-client-build",
+            "linemate-client-country",
+            "linemate-client-locale",
+            "linemate-client-platform",
+            "linemate-client-version",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:38.755Z",
+          "elapsed_ms": 165.179
+        },
+        {
+          "sequence": 94,
+          "step_index": 1,
+          "transaction_id": "request-35",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/pricing-testimonials-ratings.png",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-ranges",
+            "alt-svc",
+            "cache-control",
+            "content-length",
+            "content-type",
+            "date",
+            "etag",
+            "last-modified",
+            "server",
+            "via",
+            "x-cloud-trace-context"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 95,
+          "step_index": 1,
+          "transaction_id": "request-14",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/chevron-down.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-ranges",
+            "alt-svc",
+            "cache-control",
+            "content-length",
+            "content-type",
+            "date",
+            "etag",
+            "last-modified",
+            "server",
+            "via",
+            "x-cloud-trace-context"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 96,
+          "step_index": 1,
+          "transaction_id": "request-14",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/chevron-down.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:38.673Z",
+          "elapsed_ms": 184.253
+        },
+        {
+          "sequence": 97,
+          "step_index": 1,
+          "transaction_id": "request-39",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/close.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-ranges",
+            "alt-svc",
+            "cache-control",
+            "content-length",
+            "content-type",
+            "date",
+            "etag",
+            "last-modified",
+            "server",
+            "via",
+            "x-cloud-trace-context"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 98,
+          "step_index": 1,
+          "transaction_id": "request-39",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/close.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:38.678Z",
+          "elapsed_ms": 183.304
+        },
+        {
+          "sequence": 99,
+          "step_index": 1,
+          "transaction_id": "request-20",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/vector2-light.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-ranges",
+            "alt-svc",
+            "cache-control",
+            "content-length",
+            "content-type",
+            "date",
+            "etag",
+            "last-modified",
+            "server",
+            "via",
+            "x-cloud-trace-context"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 100,
+          "step_index": 1,
+          "transaction_id": "request-20",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/vector2-light.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:38.674Z",
+          "elapsed_ms": 187.229
+        },
+        {
+          "sequence": 101,
+          "step_index": 1,
+          "transaction_id": "request-15",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/search.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-ranges",
+            "alt-svc",
+            "cache-control",
+            "content-length",
+            "content-type",
+            "date",
+            "etag",
+            "last-modified",
+            "server",
+            "via",
+            "x-cloud-trace-context"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 102,
+          "step_index": 1,
+          "transaction_id": "request-15",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/search.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:38.673Z",
+          "elapsed_ms": 189.349
+        },
+        {
+          "sequence": 103,
+          "step_index": 1,
+          "transaction_id": "request-43",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/youtube.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-ranges",
+            "alt-svc",
+            "cache-control",
+            "content-length",
+            "content-type",
+            "date",
+            "etag",
+            "last-modified",
+            "server",
+            "via",
+            "x-cloud-trace-context"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 104,
+          "step_index": 1,
+          "transaction_id": "request-43",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/youtube.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:38.679Z",
+          "elapsed_ms": 187.259
+        },
+        {
+          "sequence": 105,
+          "step_index": 1,
+          "transaction_id": "request-11",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://rsms.me/inter/font-files/Inter-Medium.woff2?v=4.1",
+            "origin": "https://rsms.me",
+            "query_parameter_names": [
+              "v"
+            ],
+            "redacted": false
+          },
+          "resource_type": "font",
+          "header_names": [
+            "accept-ranges",
+            "access-control-allow-origin",
+            "age",
+            "alt-svc",
+            "cache-control",
+            "cf-cache-status",
+            "cf-ray",
+            "content-length",
+            "content-type",
+            "date",
+            "etag",
+            "expires",
+            "last-modified",
+            "nel",
+            "priority",
+            "report-to",
+            "server",
+            "server-timing",
+            "vary",
+            "via",
+            "x-cache",
+            "x-cache-hits",
+            "x-fastly-request-id",
+            "x-github-request-id",
+            "x-origin-cache",
+            "x-proxy-cache",
+            "x-served-by",
+            "x-timer"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 106,
+          "step_index": 1,
+          "transaction_id": "request-11",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://rsms.me/inter/font-files/Inter-Medium.woff2?v=4.1",
+            "origin": "https://rsms.me",
+            "query_parameter_names": [
+              "v"
+            ],
+            "redacted": false
+          },
+          "resource_type": "font",
+          "header_names": [
+            "accept-language",
+            "origin",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:38.682Z",
+          "elapsed_ms": 258.99
+        },
+        {
+          "sequence": 107,
+          "step_index": 1,
+          "transaction_id": "request-41",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/tiktok.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-ranges",
+            "alt-svc",
+            "cache-control",
+            "content-length",
+            "content-type",
+            "date",
+            "etag",
+            "last-modified",
+            "server",
+            "via",
+            "x-cloud-trace-context"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 108,
+          "step_index": 1,
+          "transaction_id": "request-41",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/tiktok.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:38.678Z",
+          "elapsed_ms": 190.527
+        },
+        {
+          "sequence": 109,
+          "step_index": 1,
+          "transaction_id": "request-25",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/vector7-light.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-ranges",
+            "alt-svc",
+            "cache-control",
+            "content-length",
+            "content-type",
+            "date",
+            "etag",
+            "last-modified",
+            "server",
+            "via",
+            "x-cloud-trace-context"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 110,
+          "step_index": 1,
+          "transaction_id": "request-35",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/pricing-testimonials-ratings.png",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:38.678Z",
+          "elapsed_ms": 192.352
+        },
+        {
+          "sequence": 111,
+          "step_index": 1,
+          "transaction_id": "request-25",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/vector7-light.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:38.675Z",
+          "elapsed_ms": 194.375
+        },
+        {
+          "sequence": 112,
+          "step_index": 1,
+          "transaction_id": "request-23",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/vector5-light.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-ranges",
+            "alt-svc",
+            "cache-control",
+            "content-length",
+            "content-type",
+            "date",
+            "etag",
+            "last-modified",
+            "server",
+            "via",
+            "x-cloud-trace-context"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 113,
+          "step_index": 1,
+          "transaction_id": "request-23",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/vector5-light.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:38.674Z",
+          "elapsed_ms": 197.359
+        },
+        {
+          "sequence": 114,
+          "step_index": 1,
+          "transaction_id": "request-29",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/pricing-injury-light.png",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-ranges",
+            "alt-svc",
+            "cache-control",
+            "content-length",
+            "content-type",
+            "date",
+            "etag",
+            "last-modified",
+            "server",
+            "via",
+            "x-cloud-trace-context"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 115,
+          "step_index": 1,
+          "transaction_id": "request-19",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/vector1-light.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-ranges",
+            "alt-svc",
+            "cache-control",
+            "content-length",
+            "content-type",
+            "date",
+            "etag",
+            "last-modified",
+            "server",
+            "via",
+            "x-cloud-trace-context"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 116,
+          "step_index": 1,
+          "transaction_id": "request-19",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/vector1-light.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:38.674Z",
+          "elapsed_ms": 196.295
+        },
+        {
+          "sequence": 117,
+          "step_index": 1,
+          "transaction_id": "request-38",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/chevron-right-medium.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-ranges",
+            "alt-svc",
+            "cache-control",
+            "content-length",
+            "content-type",
+            "date",
+            "etag",
+            "last-modified",
+            "server",
+            "via",
+            "x-cloud-trace-context"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 118,
+          "step_index": 1,
+          "transaction_id": "request-38",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/chevron-right-medium.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:38.678Z",
+          "elapsed_ms": 196.742
+        },
+        {
+          "sequence": 119,
+          "step_index": 1,
+          "transaction_id": "request-24",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/vector6-light.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-ranges",
+            "alt-svc",
+            "cache-control",
+            "content-length",
+            "content-type",
+            "date",
+            "etag",
+            "last-modified",
+            "server",
+            "via",
+            "x-cloud-trace-context"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 120,
+          "step_index": 1,
+          "transaction_id": "request-24",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/vector6-light.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:38.675Z",
+          "elapsed_ms": 198.403
+        },
+        {
+          "sequence": 121,
+          "step_index": 1,
+          "transaction_id": "request-42",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/instagram.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-ranges",
+            "alt-svc",
+            "cache-control",
+            "content-length",
+            "content-type",
+            "date",
+            "etag",
+            "last-modified",
+            "server",
+            "via",
+            "x-cloud-trace-context"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 122,
+          "step_index": 1,
+          "transaction_id": "request-42",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/instagram.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:38.678Z",
+          "elapsed_ms": 198.495
+        },
+        {
+          "sequence": 123,
+          "step_index": 1,
+          "transaction_id": "request-13",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/logomark.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-ranges",
+            "alt-svc",
+            "cache-control",
+            "content-length",
+            "content-type",
+            "date",
+            "etag",
+            "last-modified",
+            "server",
+            "via",
+            "x-cloud-trace-context"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 124,
+          "step_index": 1,
+          "transaction_id": "request-13",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/logomark.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:38.673Z",
+          "elapsed_ms": 201.957
+        },
+        {
+          "sequence": 125,
+          "step_index": 1,
+          "transaction_id": "request-30",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/pricing-rank-light.png",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-ranges",
+            "alt-svc",
+            "cache-control",
+            "content-length",
+            "content-type",
+            "date",
+            "etag",
+            "last-modified",
+            "server",
+            "via",
+            "x-cloud-trace-context"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 126,
+          "step_index": 1,
+          "transaction_id": "request-44",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/arrow-outward.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-ranges",
+            "alt-svc",
+            "cache-control",
+            "content-length",
+            "content-type",
+            "date",
+            "etag",
+            "last-modified",
+            "server",
+            "via",
+            "x-cloud-trace-context"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 127,
+          "step_index": 1,
+          "transaction_id": "request-44",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/arrow-outward.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:38.679Z",
+          "elapsed_ms": 203.031
+        },
+        {
+          "sequence": 128,
+          "step_index": 1,
+          "transaction_id": "request-22",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/vector4-light.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-ranges",
+            "alt-svc",
+            "cache-control",
+            "content-length",
+            "content-type",
+            "date",
+            "etag",
+            "last-modified",
+            "server",
+            "via",
+            "x-cloud-trace-context"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 129,
+          "step_index": 1,
+          "transaction_id": "request-34",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/pricing-weather-light.png",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-ranges",
+            "alt-svc",
+            "cache-control",
+            "content-length",
+            "content-type",
+            "date",
+            "etag",
+            "last-modified",
+            "server",
+            "via",
+            "x-cloud-trace-context"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 130,
+          "step_index": 1,
+          "transaction_id": "request-33",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/baseball-outline.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-ranges",
+            "alt-svc",
+            "cache-control",
+            "content-length",
+            "content-type",
+            "date",
+            "etag",
+            "last-modified",
+            "server",
+            "via",
+            "x-cloud-trace-context"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 131,
+          "step_index": 1,
+          "transaction_id": "request-33",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/baseball-outline.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:38.676Z",
+          "elapsed_ms": 206.16
+        },
+        {
+          "sequence": 132,
+          "step_index": 1,
+          "transaction_id": "request-37",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/chevron-left-medium.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-ranges",
+            "alt-svc",
+            "cache-control",
+            "content-length",
+            "content-type",
+            "date",
+            "etag",
+            "last-modified",
+            "server",
+            "via",
+            "x-cloud-trace-context"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 133,
+          "step_index": 1,
+          "transaction_id": "request-37",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/chevron-left-medium.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:38.678Z",
+          "elapsed_ms": 207.787
+        },
+        {
+          "sequence": 134,
+          "step_index": 1,
+          "transaction_id": "request-31",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/pricing-lineups-light.png",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-ranges",
+            "alt-svc",
+            "cache-control",
+            "content-length",
+            "content-type",
+            "date",
+            "etag",
+            "last-modified",
+            "server",
+            "via",
+            "x-cloud-trace-context"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 135,
+          "step_index": 1,
+          "transaction_id": "request-22",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/vector4-light.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:38.674Z",
+          "elapsed_ms": 209.522
+        },
+        {
+          "sequence": 136,
+          "step_index": 1,
+          "transaction_id": "request-45",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/check.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-ranges",
+            "alt-svc",
+            "cache-control",
+            "content-length",
+            "content-type",
+            "date",
+            "etag",
+            "last-modified",
+            "server",
+            "via",
+            "x-cloud-trace-context"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 137,
+          "step_index": 1,
+          "transaction_id": "request-45",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/check.svg",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:38.679Z",
+          "elapsed_ms": 208.631
+        },
+        {
+          "sequence": 138,
+          "step_index": 1,
+          "transaction_id": "request-28",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/full-picture-light.png",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-ranges",
+            "alt-svc",
+            "cache-control",
+            "content-length",
+            "content-type",
+            "date",
+            "etag",
+            "last-modified",
+            "server",
+            "via",
+            "x-cloud-trace-context"
+          ],
+          "kind": "response",
+          "status": 200,
+          "failure": null
+        },
+        {
+          "sequence": 139,
+          "step_index": 1,
+          "transaction_id": "request-31",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/pricing-lineups-light.png",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:38.675Z",
+          "elapsed_ms": 219.834
+        },
+        {
+          "sequence": 140,
+          "step_index": 1,
+          "transaction_id": "request-48",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://api.linemate.io/api/nfl/v3/teams",
+            "origin": "https://api.linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "fetch",
+          "header_names": [
+            "accept-language",
+            "linemate-client-build",
+            "linemate-client-country",
+            "linemate-client-locale",
+            "linemate-client-platform",
+            "linemate-client-version",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:38.757Z",
+          "elapsed_ms": 237.995
+        },
+        {
+          "sequence": 141,
+          "step_index": 1,
+          "transaction_id": "request-30",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/pricing-rank-light.png",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:38.675Z",
+          "elapsed_ms": 379.666
+        },
+        {
+          "sequence": 142,
+          "step_index": 1,
+          "transaction_id": "request-29",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/pricing-injury-light.png",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:38.675Z",
+          "elapsed_ms": 415.067
+        },
+        {
+          "sequence": 143,
+          "step_index": 1,
+          "transaction_id": "request-34",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/pricing-weather-light.png",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:38.676Z",
+          "elapsed_ms": 444.569
+        },
+        {
+          "sequence": 144,
+          "step_index": 1,
+          "transaction_id": "request-28",
+          "redirected_from_transaction_id": null,
+          "redirected_from_transaction_state": "root",
+          "method": "GET",
+          "url": {
+            "url": "https://linemate.io/assets/pricing/full-picture-light.png",
+            "origin": "https://linemate.io",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "image",
+          "header_names": [
+            "accept-language",
+            "referer",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null,
+          "started_at": "2026-11-08T19:55:38.675Z",
+          "elapsed_ms": 489.578
+        }
+      ],
+      "omissions": {
+        "by_kind": [],
+        "network_transactions": [],
+        "network_transaction_range": null
+      }
+    },
+    "completeness": {
+      "status": "complete",
+      "equality_eligible": true,
+      "missing_sections": [],
+      "truncated_sections": []
+    },
+    "limitations": [
+      "Event sequence records provider receipt order; simultaneous browser causality is not inferred.",
+      "Network content is retained only when selected; Playwright response-body bytes are API results and are not guaranteed to match wire bytes.",
+      "Request bytes are limited to what Playwright exposes; not_exposed does not establish body absence or multipart file coverage.",
+      "Network content reads settle within 5 seconds each and the observer does not request bodies from unfinished responses.",
+      "Playwright scenario events do not expose request initiator stacks; receipt order does not prove causality.",
+      "Storage values are hashed only after declared-secret redaction."
+    ]
+  },
+  "confidence": "observed",
+  "authority": "controlled-replay",
+  "environment": {
+    "id": "Chromium@156.0.8078.4",
+    "platform": "unknown",
+    "architecture": "unknown",
+    "isolation": "process"
+  },
+  "limitations": [
+    "Artifact identity is unavailable for this observation.",
+    "Event sequence records provider receipt order; simultaneous browser causality is not inferred.",
+    "Network content is retained only when selected; Playwright response-body bytes are API results and are not guaranteed to match wire bytes.",
+    "Request bytes are limited to what Playwright exposes; not_exposed does not establish body absence or multipart file coverage.",
+    "Network content reads settle within 5 seconds each and the observer does not request bodies from unfinished responses.",
+    "Playwright scenario events do not expose request initiator stacks; receipt order does not prove causality.",
+    "Storage values are hashed only after declared-secret redaction.",
+    "Browser host platform and architecture were not observed."
+  ],
+  "relationship_coverage": null,
+  "locations": [],
+  "evidence_links": []
+}

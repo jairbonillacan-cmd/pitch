@@ -1,0 +1,179 @@
+[
+  {
+    "timestamp": "2026-11-08T19:53:16.260Z",
+    "stepId": "D-01",
+    "action": "Navigate to https://touchiq.com.mx/",
+    "state": "INITIAL_LOAD",
+    "details": {}
+  },
+  {
+    "timestamp": "2026-11-08T19:53:18.648Z",
+    "stepId": "D-02",
+    "action": "Capture Lock Screen Stage 1",
+    "state": "LOCK_STAGE_1",
+    "details": {
+      "screenshot": "01-desktop-lock-stage1.png"
+    }
+  },
+  {
+    "timestamp": "2026-11-08T19:53:19.383Z",
+    "stepId": "D-03",
+    "action": "Click lock screen to reveal PIN pad",
+    "state": "LOCK_STAGE_2_PAD",
+    "details": {
+      "screenshot": "02-desktop-lock-stage2-pad.png"
+    }
+  },
+  {
+    "timestamp": "2026-11-08T19:53:21.553Z",
+    "stepId": "D-04",
+    "action": "Enter PIN 7779",
+    "state": "PIN_ENTERED",
+    "details": {}
+  },
+  {
+    "timestamp": "2026-11-08T19:53:24.129Z",
+    "stepId": "D-05",
+    "action": "Unlock success & Home screen render",
+    "state": "HOME_VIEW",
+    "details": {
+      "screenshot": "03-desktop-home.png"
+    }
+  },
+  {
+    "timestamp": "2026-11-08T19:53:24.133Z",
+    "stepId": "D-06",
+    "action": "Check Audio toggle",
+    "state": "AUDIO_CHECK",
+    "details": {
+      "buttonText": "🔊"
+    }
+  },
+  {
+    "timestamp": "2026-11-08T19:53:25.962Z",
+    "stepId": "D-07",
+    "action": "Click NFL card -> Open iframe",
+    "state": "NFL_DASHBOARD",
+    "details": {
+      "screenshot": "04-desktop-nfl-dashboard.png"
+    }
+  },
+  {
+    "timestamp": "2026-11-08T19:53:27.203Z",
+    "stepId": "D-08",
+    "action": "Click NFL Simulador tab",
+    "state": "NFL_SIMULADOR",
+    "details": {
+      "screenshot": "06-desktop-nfl-tab-simulador.png"
+    }
+  },
+  {
+    "timestamp": "2026-11-08T19:53:28.272Z",
+    "stepId": "D-09",
+    "action": "Click NFL Lesiones tab",
+    "state": "NFL_LESIONES",
+    "details": {
+      "screenshot": "07-desktop-nfl-tab-lesiones.png"
+    }
+  },
+  {
+    "timestamp": "2026-11-08T19:53:29.406Z",
+    "stepId": "D-10",
+    "action": "Click NFL Dinero tab",
+    "state": "NFL_DINERO",
+    "details": {
+      "screenshot": "08-desktop-nfl-tab-dinero.png"
+    }
+  },
+  {
+    "timestamp": "2026-11-08T19:53:30.457Z",
+    "stepId": "D-11",
+    "action": "Click back -> Return to Home",
+    "state": "HOME_VIEW",
+    "details": {}
+  },
+  {
+    "timestamp": "2026-11-08T19:53:32.074Z",
+    "stepId": "D-12",
+    "action": "Click NCAA card -> Open iframe",
+    "state": "NCAA_DASHBOARD",
+    "details": {
+      "screenshot": "09-desktop-ncaa-dashboard.png"
+    }
+  },
+  {
+    "timestamp": "2026-11-08T19:53:33.098Z",
+    "stepId": "D-13",
+    "action": "Click back -> Return to Home",
+    "state": "HOME_VIEW",
+    "details": {}
+  },
+  {
+    "timestamp": "2026-11-08T19:53:33.816Z",
+    "stepId": "D-16",
+    "action": "Open Boleto Drawer (Tab Boleto)",
+    "state": "BOLETO_DRAWER",
+    "details": {
+      "screenshot": "11-desktop-boleto-drawer.png"
+    }
+  },
+  {
+    "timestamp": "2026-11-08T19:53:34.330Z",
+    "stepId": "D-17",
+    "action": "Switch to Historial tab",
+    "state": "BOLETO_HISTORIAL",
+    "details": {
+      "screenshot": "12-desktop-boleto-historial.png"
+    }
+  },
+  {
+    "timestamp": "2026-11-08T19:53:34.839Z",
+    "stepId": "D-18",
+    "action": "Switch to Bankroll tab",
+    "state": "BOLETO_BANKROLL",
+    "details": {
+      "screenshot": "13-desktop-boleto-bankroll.png"
+    }
+  },
+  {
+    "timestamp": "2026-11-08T19:53:35.978Z",
+    "stepId": "D-19",
+    "action": "Open AI Assistant",
+    "state": "ASSISTANT_OPEN",
+    "details": {
+      "screenshot": "14-desktop-assistant-open.png"
+    }
+  },
+  {
+    "timestamp": "2026-11-08T19:53:37.791Z",
+    "stepId": "D-20",
+    "action": "Send query to AI Assistant",
+    "state": "ASSISTANT_REPLIED",
+    "details": {
+      "messages": [
+        "Hola, soy la IA de TOUCH IQ. Abre NFL o NCAA y pregúntame por los partidos, el pick del día, las bajas o cómo decide el modelo; te respondo con los datos de la pantalla.",
+        "¿Cuál es el mejor pick de NFL de hoy?",
+        "Abre NFL o NCAA y te respondo con los picks y datos de esa pantalla."
+      ],
+      "screenshot": "15-desktop-assistant-response.png"
+    }
+  },
+  {
+    "timestamp": "2026-11-08T19:53:45.032Z",
+    "stepId": "M-01",
+    "action": "Mobile Home View",
+    "state": "MOBILE_HOME",
+    "details": {
+      "screenshot": "17-mobile-home.png"
+    }
+  },
+  {
+    "timestamp": "2026-11-08T19:53:46.713Z",
+    "stepId": "M-02",
+    "action": "Mobile NFL Dashboard",
+    "state": "MOBILE_NFL",
+    "details": {
+      "screenshot": "18-mobile-nfl-dashboard.png"
+    }
+  }
+]

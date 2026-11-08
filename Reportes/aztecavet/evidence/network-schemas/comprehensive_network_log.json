@@ -1,0 +1,66 @@
+[
+  {
+    "url": "https://aztecavet.com/",
+    "method": "GET",
+    "headers": {
+      "accept-language": "es-MX",
+      "upgrade-insecure-requests": "1",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36 Edg/157.0.0.0",
+      "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Microsoft Edge\";v=\"157\", \"Chromium\";v=\"157\"",
+      "sec-ch-ua-mobile": "?0",
+      "sec-ch-ua-platform": "\"Windows\""
+    },
+    "postData": null
+  },
+  {
+    "type": "response",
+    "url": "https://aztecavet.com/",
+    "status": 200,
+    "headers": {
+      "accept-ranges": "bytes",
+      "age": "0",
+      "cache-control": "public,max-age=0,must-revalidate",
+      "cache-status": "\"Netlify Edge\"; fwd=miss; fwd-status=200; stored",
+      "content-encoding": "br",
+      "content-type": "text/html; charset=UTF-8",
+      "date": "Sun, 08 Nov 2026 19:51:23 GMT",
+      "etag": "W/\"2427bef3e512240dfd1bbaec6e7499aa-ssl\"",
+      "server": "Netlify",
+      "strict-transport-security": "max-age=31536000",
+      "vary": "Accept-Encoding",
+      "x-nf-request-id": "01M6YBEBABCCEDJY6H0T66HGXJ"
+    }
+  },
+  {
+    "url": "https://aztecavet.com/",
+    "method": "GET",
+    "headers": {
+      "accept-language": "es-MX",
+      "upgrade-insecure-requests": "1",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36 Edg/157.0.0.0",
+      "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Microsoft Edge\";v=\"157\", \"Chromium\";v=\"157\"",
+      "sec-ch-ua-mobile": "?0",
+      "sec-ch-ua-platform": "\"Windows\""
+    },
+    "postData": null
+  },
+  {
+    "type": "response",
+    "url": "https://aztecavet.com/",
+    "status": 200,
+    "headers": {
+      "accept-ranges": "bytes",
+      "age": "0",
+      "cache-control": "public,max-age=0,must-revalidate",
+      "cache-status": "\"Netlify Edge\"; hit; ttl=31535974",
+      "content-encoding": "br",
+      "content-type": "text/html; charset=UTF-8",
+      "date": "Sun, 08 Nov 2026 19:51:49 GMT",
+      "etag": "W/\"2427bef3e512240dfd1bbaec6e7499aa-ssl\"",
+      "server": "Netlify",
+      "strict-transport-security": "max-age=31536000",
+      "vary": "Accept-Encoding",
+      "x-nf-request-id": "01M6YBF439KA1HJF7TCFH99Y2P"
+    }
+  }
+]

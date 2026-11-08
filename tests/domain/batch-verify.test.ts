@@ -9,10 +9,12 @@ import { NflEngine } from "../../src/domain/engine-nfl.js";
 import { NcaaEngine } from "../../src/domain/engine-ncaa.js";
 import { nfl, ncaa } from "../../src/data/index.js";
 
-const BASE = decodeURIComponent(new URL("../../Reportes/analisis-touchiq/", import.meta.url).pathname);
+import { fileURLToPath } from "node:url";
+const BASE = fileURLToPath(new URL("../../Reportes/analisis-touchiq/", import.meta.url));
 
 function originalNfl() {
-  const core = readFileSync(BASE + "page_nfl_s1.js", "utf8").slice(0, 28586);
+  const _s = readFileSync(BASE + "page_nfl_s1.js", "utf8");
+  const core = _s.slice(0, _s.indexOf("function row"));
   const f = new Function(
     `const AVX={odds:{},unit:()=>0,addBtn:()=>""};` + core +
     `;rebuild();return (h,a)=>{const m=model0(h,a,S,false);return {pH:m.pH,cp:m.cp,ct:m.ct,O:m.O.map(o=>[o.id,o.p])}};`,

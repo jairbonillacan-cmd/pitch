@@ -1,0 +1,79 @@
+[
+  {
+    "type": "request",
+    "url": "https://touchiq.com.mx/",
+    "method": "GET",
+    "headers": {
+      "upgrade-insecure-requests": "1",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+      "sec-ch-ua": "\"Not:A-Brand\";v=\"8\", \"Chromium\";v=\"156\"",
+      "sec-ch-ua-mobile": "?0",
+      "sec-ch-ua-platform": "\"Windows\""
+    },
+    "postData": null,
+    "timestamp": 1794167596266
+  },
+  {
+    "type": "request",
+    "url": "https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap",
+    "method": "GET",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://touchiq.com.mx/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+      "sec-ch-ua": "\"Not:A-Brand\";v=\"8\", \"Chromium\";v=\"156\"",
+      "sec-ch-ua-mobile": "?0"
+    },
+    "postData": null,
+    "timestamp": 1794167596529
+  },
+  {
+    "type": "response",
+    "url": "https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap",
+    "status": 200,
+    "headers": {
+      "content-encoding": "gzip",
+      "x-content-type-options": "nosniff",
+      "expires": "Sun, 08 Nov 2026 19:53:17 GMT",
+      "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+      "date": "Sun, 08 Nov 2026 19:53:17 GMT",
+      "content-type": "text/css; charset=utf-8",
+      "vary": "Sec-Fetch-Dest, Sec-Fetch-Mode, Sec-Fetch-Site",
+      "last-modified": "Sun, 08 Nov 2026 19:46:42 GMT",
+      "x-frame-options": "SAMEORIGIN",
+      "strict-transport-security": "max-age=31536000",
+      "link": "<https://fonts.gstatic.com>; rel=preconnect; crossorigin",
+      "cache-control": "private, max-age=86400, stale-while-revalidate=604800",
+      "timing-allow-origin": "*",
+      "cross-origin-opener-policy": "same-origin-allow-popups",
+      "cross-origin-resource-policy": "cross-origin",
+      "access-control-allow-origin": "*",
+      "x-xss-protection": "0",
+      "server": "ESF"
+    },
+    "size": 200,
+    "timestamp": 1794167596640
+  },
+  {
+    "type": "response",
+    "url": "https://touchiq.com.mx/",
+    "status": 200,
+    "headers": {
+      "accept-ranges": "bytes",
+      "age": "45064",
+      "cache-control": "public,max-age=0,must-revalidate",
+      "cache-status": "\"Netlify Edge\"; hit; ttl=31490936",
+      "content-encoding": "br",
+      "content-length": "1590623",
+      "content-type": "text/html; charset=UTF-8",
+      "date": "Sun, 08 Nov 2026 19:53:17 GMT",
+      "etag": "W/\"a303e685d0b2941c465089eb03f3265f-ssl\"",
+      "server": "Netlify",
+      "strict-transport-security": "max-age=31536000",
+      "vary": "Accept-Encoding",
+      "x-nf-request-id": "01M6YBHTRMCBRMEA7F3YZ6K5Z2"
+    },
+    "size": 200,
+    "timestamp": 1794167596931
+  }
+]
