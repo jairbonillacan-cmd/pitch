@@ -12,8 +12,8 @@
 - **F3 (arquitectura y ADRs):** ✅ completa: 18 ADRs y 8 documentos de arquitectura, con revisión cruzada.
 - **F3b (preparación de ejecución):** ✅ completa: frontend, contratos, ownership, integración, plan multiagente, quality gates y plantilla de prompts.
 - **Pre-MVP para socios:** planificado en `docs/product/PRE_MVP.md`. Se ejecuta cuando lo indique el fundador, en paralelo al plan robusto.
-- **D1 diseño base (iteración 3: login, crear cuenta y PIN de beta; barra flotante; sin fuentes ni nombre del motor; barras con favorito):** prototipos en `design/d1/`. Iteración 2: `design/d1/landing.html` y `design/d1/panel.html`. El fundador eligió las tarjetas, con modal centrado y traza de cálculo, temas oscuro y claro, más animaciones y la mascota Radar. ⏳ Pendiente de aprobación final (`docs/design/D1_REVIEW.md`).
-- **Siguiente:** aprobar D1 → contrato de diseño → pre-MVP o F4.
+- **D1 diseño base:** ✅ aprobado (2026-11-08, iteración 4). Contrato en `docs/design/DESIGN_SYSTEM.md`, `INTERACTION_PATTERNS.md` y `RESPONSIVE_RULES.md`. Prototipos en `design/d1/`.
+- **Siguiente:** implementar el pre-MVP (`docs/product/PRE_MVP.md` §9) y/o F4 completo. Bloqueo para publicar: cuentas, DNS y secretos (`DEPLOYMENT.md` §6).
 
 No hay código de producto. El repo todavía contiene el clon de TouchIQ (Vite + `src/domain` con 24 tests dorados), que se archivará en F4.
 
@@ -86,7 +86,7 @@ No hay código de producto. El repo todavía contiene el clon de TouchIQ (Vite +
 ## Pendiente (en orden)
 
 1. **Gate del fundador:** ✅ FD-01 y FD-03…FD-06 confirmadas (2026-11-08). Pendiente: ADR-016 (iconografía) y las acciones de `DEPLOYMENT.md` §6 (cuentas, DNS y secretos), que solo bloquean F4 y el deploy, no el diseño.
-2. **D1 diseño base** y luego **F4:** walking skeleton. Incluye los documentos de diseño generados con el DS: `docs/design/DESIGN_SYSTEM.md`, `INTERACTION_PATTERNS.md`, `RESPONSIVE_RULES.md` y `SPORTS_ASSET_COVERAGE.md` (autogenerado).
+2. **Pre-MVP** (landing, login/PIN, panel con datos reales) y **F4:** walking skeleton (`SPORTS_ASSET_COVERAGE.md` se autogenera ahí).
 3. **F5:** prompts (`prompts/INDEX.md`). **F6:** ejecución multiagente (`AGENT_EXECUTION_PLAN.md`).
 
 ## Bloqueos

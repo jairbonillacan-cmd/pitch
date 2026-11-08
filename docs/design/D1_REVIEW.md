@@ -1,7 +1,7 @@
 # D1 · Revisión de diseño base (landing + panel)
 
 > **Propósito:** prototipos del diseño base para aprobación del fundador antes de implementar (pre-MVP y prompt 00).
-> **Estado:** iteración 4 · ⏳ pendiente de aprobación final · **Fecha:** 2026-11-08
+> **Estado:** ✅ **aprobado por el fundador** (iteración 4) · contrato promovido a `DESIGN_SYSTEM.md`, `INTERACTION_PATTERNS.md` y `RESPONSIVE_RULES.md` · **Fecha:** 2026-11-08
 > **Prototipos:** `design/d1/landing.html`, `login.html`, `signup.html` y `panel.html` (el panel pide el código de socio). Abrir con un servidor desde la raíz del repo: `python -m http.server 4173` → `http://localhost:4173/design/d1/landing.html`.
 
 ## 0. Iteración 4
