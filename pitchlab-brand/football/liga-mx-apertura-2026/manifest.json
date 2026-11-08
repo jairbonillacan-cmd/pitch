@@ -1,0 +1,429 @@
+{
+  "schemaVersion": 1,
+  "designRevision": 1,
+  "season": "2026/27",
+  "tournament": "Apertura 2026",
+  "edition": "Emblemas de club",
+  "source": "https://arbitraje.fmf.mx/detalle-noticia/liga-bbva-mx-apertura-2026--designaciones-arbitrales-jornada-9_2302",
+  "standingsSource": "https://mexico.as.com/resultados/futbol/mexico_apertura/clasificacion/",
+  "entries": [
+    {
+      "id": "liga-mx",
+      "code": "MX",
+      "name": "Liga MX",
+      "shortName": "Liga MX",
+      "motif": "Balón tricolor",
+      "description": "Balón marfil entre dos graderías curvas, verde y granate. Los escalones separan las dos tribunas y enmarcan el saque central.",
+      "kind": "competition",
+      "colors": {
+        "tile": "#F7EBD3",
+        "primary": "#12604D",
+        "accent": "#AD2B43"
+      },
+      "source": "https://arbitraje.fmf.mx/detalle-noticia/liga-bbva-mx-apertura-2026--designaciones-arbitrales-jornada-9_2302",
+      "contrast": {
+        "primaryOnTile": 6.3359,
+        "accentOnTile": 5.5499
+      },
+      "svg": "svg/liga-mx.svg",
+      "png": "png/liga-mx.png",
+      "symbolId": "pitchlab-liga-mx"
+    },
+    {
+      "id": "america",
+      "code": "AME",
+      "name": "Club América",
+      "shortName": "América",
+      "motif": "Águila azulcrema",
+      "description": "Águila en vuelo sobre amarillo crema, con alas extendidas, borde azul y un sol rojo al fondo.",
+      "kind": "club",
+      "colors": {
+        "tile": "#F9E08B",
+        "primary": "#193663",
+        "accent": "#B52D3B"
+      },
+      "source": "https://www.clubamerica.com.mx/",
+      "contrast": {
+        "primaryOnTile": 9.1832,
+        "accentOnTile": 4.7199
+      },
+      "svg": "svg/america.svg",
+      "png": "png/america.png",
+      "symbolId": "pitchlab-america"
+    },
+    {
+      "id": "atlante",
+      "code": "ATE",
+      "name": "Atlante",
+      "shortName": "Atlante",
+      "motif": "Potro azulgrana",
+      "description": "Un potro marfil mira a la derecha con la crin recogida. Barras azulgrana en un escudo de hombros curvos.",
+      "kind": "club",
+      "colors": {
+        "tile": "#122746",
+        "primary": "#FAEEDB",
+        "accent": "#AB263E"
+      },
+      "source": "https://www.espn.com.ve/futbol/mexico/nota/_/id/17052383/liga-mx-atlente-cuando-juega-calendario-disneyplus-apertura-2026",
+      "contrast": {
+        "primaryOnTile": 13.0433,
+        "accentOnTile": 2.192
+      },
+      "svg": "svg/atlante.svg",
+      "png": "png/atlante.png",
+      "symbolId": "pitchlab-atlante"
+    },
+    {
+      "id": "atlas",
+      "code": "ATS",
+      "name": "Atlas",
+      "shortName": "Atlas",
+      "motif": "Zorro rojinegro",
+      "description": "Un zorro frontal recortado en marfil cruza dos mitades rojinegras. Las orejas abren la silueta.",
+      "kind": "club",
+      "colors": {
+        "tile": "#202126",
+        "primary": "#F9EFE0",
+        "accent": "#B4283B"
+      },
+      "source": "https://www.atlasfc.com.mx/",
+      "contrast": {
+        "primaryOnTile": 14.1176,
+        "accentOnTile": 2.5306
+      },
+      "svg": "svg/atlas.svg",
+      "png": "png/atlas.png",
+      "symbolId": "pitchlab-atlas"
+    },
+    {
+      "id": "atletico-san-luis",
+      "code": "ASL",
+      "name": "Atlético de San Luis",
+      "shortName": "Atl. San Luis",
+      "motif": "Caja del Agua",
+      "description": "La cúpula y los arcos de la Caja del Agua encabezan una medalla azul con franjas rojiblancas.",
+      "kind": "club",
+      "colors": {
+        "tile": "#19385C",
+        "primary": "#FFF0D0",
+        "accent": "#B42B42"
+      },
+      "source": "https://storage.atleticodesanluis.mx/files/718_Guia_de_Medios_AP25__compressed.pdf",
+      "contrast": {
+        "primaryOnTile": 10.5742,
+        "accentOnTile": 1.9102
+      },
+      "svg": "svg/atletico-san-luis.svg",
+      "png": "png/atletico-san-luis.png",
+      "symbolId": "pitchlab-atletico-san-luis"
+    },
+    {
+      "id": "chivas",
+      "code": "GDL",
+      "name": "Chivas Guadalajara",
+      "shortName": "Chivas",
+      "motif": "Cuernos del Rebaño",
+      "description": "Una chiva marfil en un campo azul marino remata las franjas verticales del Guadalajara.",
+      "kind": "club",
+      "colors": {
+        "tile": "#173456",
+        "primary": "#FFF0D8",
+        "accent": "#BC2D42"
+      },
+      "source": "https://www.chivasdecorazon.com.mx/es/noticias/39/escudo-del-club-guadalajara",
+      "contrast": {
+        "primaryOnTile": 11.256,
+        "accentOnTile": 2.1614
+      },
+      "svg": "svg/chivas.svg",
+      "png": "png/chivas.png",
+      "symbolId": "pitchlab-chivas"
+    },
+    {
+      "id": "cruz-azul",
+      "code": "CAZ",
+      "name": "Cruz Azul",
+      "shortName": "Cruz Azul",
+      "motif": "Cruz de cuatro brazos",
+      "description": "Cruz marfil de extremos ensanchados sobre azul cobalto. Un rombo rojo remata el campo en la base.",
+      "kind": "club",
+      "colors": {
+        "tile": "#17468C",
+        "primary": "#F9F6E9",
+        "accent": "#BB3042"
+      },
+      "source": "https://cfcruzazul.com/",
+      "contrast": {
+        "primaryOnTile": 8.4615,
+        "accentOnTile": 1.5775
+      },
+      "svg": "svg/cruz-azul.svg",
+      "png": "png/cruz-azul.png",
+      "symbolId": "pitchlab-cruz-azul"
+    },
+    {
+      "id": "fc-juarez",
+      "code": "JUA",
+      "name": "FC Juárez",
+      "shortName": "Juárez",
+      "motif": "Caballo de la frontera",
+      "description": "Caballo verde de crin ascendente entre dos brazos de una herradura roja. El fondo negro concentra el contraste.",
+      "kind": "club",
+      "colors": {
+        "tile": "#1D2625",
+        "primary": "#A6DB63",
+        "accent": "#C93444"
+      },
+      "source": "https://fcjuarez.com/fc-juarez-y-joma-presentan-la-piel-de-bravas-y-bravos-para-la-temporada-2026-27/",
+      "contrast": {
+        "primaryOnTile": 9.5371,
+        "accentOnTile": 2.9923
+      },
+      "svg": "svg/fc-juarez.svg",
+      "png": "png/fc-juarez.png",
+      "symbolId": "pitchlab-fc-juarez"
+    },
+    {
+      "id": "leon",
+      "code": "LEO",
+      "name": "Club León",
+      "shortName": "León",
+      "motif": "León esmeralda",
+      "description": "Un león dorado de perfil mira hacia la derecha. La melena abierta se recorta contra un óvalo verde esmeralda.",
+      "kind": "club",
+      "colors": {
+        "tile": "#075840",
+        "primary": "#FFDB80",
+        "accent": "#B8D9A6"
+      },
+      "source": "https://www.concacaf.com/champions-cup/clubs/club-leon/",
+      "contrast": {
+        "primaryOnTile": 6.3318,
+        "accentOnTile": 5.4514
+      },
+      "svg": "svg/leon.svg",
+      "png": "png/leon.png",
+      "symbolId": "pitchlab-leon"
+    },
+    {
+      "id": "monterrey",
+      "code": "MTY",
+      "name": "Rayados de Monterrey",
+      "shortName": "Monterrey",
+      "motif": "La Silla entre rayas",
+      "description": "El perfil del Cerro de la Silla cruza el escudo al frente de las franjas azul marino y marfil.",
+      "kind": "club",
+      "colors": {
+        "tile": "#163252",
+        "primary": "#F7F2E5",
+        "accent": "#467CA4"
+      },
+      "source": "https://www.rayados.com/es/noticias/13006/jersey-1819-a-la-altura-de-la-mejor-aficion",
+      "contrast": {
+        "primaryOnTile": 11.6531,
+        "accentOnTile": 2.9026
+      },
+      "svg": "svg/monterrey.svg",
+      "png": "png/monterrey.png",
+      "symbolId": "pitchlab-monterrey"
+    },
+    {
+      "id": "necaxa",
+      "code": "NEC",
+      "name": "Necaxa",
+      "shortName": "Necaxa",
+      "motif": "Rayo rojiblanco",
+      "description": "Un relámpago marfil corta las franjas rojas dentro de un escudo estrecho.",
+      "kind": "club",
+      "colors": {
+        "tile": "#FFF5E3",
+        "primary": "#A72539",
+        "accent": "#D54451"
+      },
+      "source": "https://www.clubnecaxa.mx/contenidos/historia",
+      "contrast": {
+        "primaryOnTile": 6.5465,
+        "accentOnTile": 4.0676
+      },
+      "svg": "svg/necaxa.svg",
+      "png": "png/necaxa.png",
+      "symbolId": "pitchlab-necaxa"
+    },
+    {
+      "id": "pachuca",
+      "code": "PAC",
+      "name": "Pachuca",
+      "shortName": "Pachuca",
+      "motif": "Reloj Monumental",
+      "description": "Torre con esfera y cubierta escalonada, al centro de un escudo azul con dos bandas claras.",
+      "kind": "club",
+      "colors": {
+        "tile": "#204275",
+        "primary": "#F6F4EA",
+        "accent": "#96B8D7"
+      },
+      "source": "https://tuzos.com.mx/los-tuzos-homenajearon-a-o-rei-pele-en-el-estadio-hidalgo/",
+      "contrast": {
+        "primaryOnTile": 9.0805,
+        "accentOnTile": 4.8314
+      },
+      "svg": "svg/pachuca.svg",
+      "png": "png/pachuca.png",
+      "symbolId": "pitchlab-pachuca"
+    },
+    {
+      "id": "puebla",
+      "code": "PUE",
+      "name": "Club Puebla",
+      "shortName": "Puebla",
+      "motif": "La franja diagonal",
+      "description": "Una franja azul atraviesa un óvalo marfil. En el centro lleva un rosetón de cuatro lóbulos.",
+      "kind": "club",
+      "colors": {
+        "tile": "#FAF5E8",
+        "primary": "#1D609C",
+        "accent": "#9FC9E5"
+      },
+      "source": "https://www.clubpuebla.com/lafranja/historia",
+      "contrast": {
+        "primaryOnTile": 6.0182,
+        "accentOnTile": 1.6129
+      },
+      "svg": "svg/puebla.svg",
+      "png": "png/puebla.png",
+      "symbolId": "pitchlab-puebla"
+    },
+    {
+      "id": "pumas-unam",
+      "code": "PUM",
+      "name": "Pumas UNAM",
+      "shortName": "Pumas",
+      "motif": "Puma de perfil",
+      "description": "Un puma dorado mira a la izquierda con el lomo arqueado. Su curva ancha ocupa una medalla azul universitaria.",
+      "kind": "club",
+      "colors": {
+        "tile": "#172D4A",
+        "primary": "#F2CD78",
+        "accent": "#BE8F4F"
+      },
+      "source": "https://pumas.mx/identidad",
+      "contrast": {
+        "primaryOnTile": 9.1213,
+        "accentOnTile": 4.7868
+      },
+      "svg": "svg/pumas-unam.svg",
+      "png": "png/pumas-unam.png",
+      "symbolId": "pitchlab-pumas-unam"
+    },
+    {
+      "id": "queretaro",
+      "code": "QRO",
+      "name": "Querétaro",
+      "shortName": "Querétaro",
+      "motif": "Gallo blanco",
+      "description": "Un gallo de plumaje claro y cresta roja se alza sobre un fondo negro con dos franjas azules.",
+      "kind": "club",
+      "colors": {
+        "tile": "#1C222E",
+        "primary": "#F7F6ED",
+        "accent": "#3180C1"
+      },
+      "source": "https://www.clubqueretaro.com/",
+      "contrast": {
+        "primaryOnTile": 14.693,
+        "accentOnTile": 3.7858
+      },
+      "svg": "svg/queretaro.svg",
+      "png": "png/queretaro.png",
+      "symbolId": "pitchlab-queretaro"
+    },
+    {
+      "id": "santos-laguna",
+      "code": "SAN",
+      "name": "Santos Laguna",
+      "shortName": "Santos Laguna",
+      "motif": "Corona albiverde",
+      "description": "Corona cálida sobre un campo de franjas horizontales verdes y marfil. Los tres picos dan la lectura principal.",
+      "kind": "club",
+      "colors": {
+        "tile": "#0D6046",
+        "primary": "#FCF4DE",
+        "accent": "#E9B95F"
+      },
+      "source": "https://www.clubsantos.mx/",
+      "contrast": {
+        "primaryOnTile": 6.886,
+        "accentOnTile": 4.1637
+      },
+      "svg": "svg/santos-laguna.svg",
+      "png": "png/santos-laguna.png",
+      "symbolId": "pitchlab-santos-laguna"
+    },
+    {
+      "id": "tigres-uanl",
+      "code": "TIG",
+      "name": "Tigres UANL",
+      "shortName": "Tigres",
+      "motif": "Tigre auriazul",
+      "description": "Rostro frontal de tigre, con orejas redondas y tres rayas de frente, en una medalla dorada de borde azul.",
+      "kind": "club",
+      "colors": {
+        "tile": "#FFC445",
+        "primary": "#17448B",
+        "accent": "#F8E9B5"
+      },
+      "source": "https://www.tigres.com.mx/",
+      "contrast": {
+        "primaryOnTile": 5.9183,
+        "accentOnTile": 1.3083
+      },
+      "svg": "svg/tigres-uanl.svg",
+      "png": "png/tigres-uanl.png",
+      "symbolId": "pitchlab-tigres-uanl"
+    },
+    {
+      "id": "tijuana",
+      "code": "TIJ",
+      "name": "Xolos de Tijuana",
+      "shortName": "Tijuana",
+      "motif": "Xolo de orejas altas",
+      "description": "Perfil marfil de un xoloitzcuintle con orejas erguidas y morro largo. Un escudo granate sustituye al medallón circular.",
+      "kind": "club",
+      "colors": {
+        "tile": "#9A243A",
+        "primary": "#FAF0DD",
+        "accent": "#242833"
+      },
+      "source": "https://xolos.com.mx/",
+      "contrast": {
+        "primaryOnTile": 6.911,
+        "accentOnTile": 1.8842
+      },
+      "svg": "svg/tijuana.svg",
+      "png": "png/tijuana.png",
+      "symbolId": "pitchlab-tijuana"
+    },
+    {
+      "id": "toluca",
+      "code": "TOL",
+      "name": "Deportivo Toluca",
+      "shortName": "Toluca",
+      "motif": "Diablo escarlata",
+      "description": "Diablo de perfil con cuerno alto y sonrisa corta. Medallón rojo con filete marfil y sombra granate.",
+      "kind": "club",
+      "colors": {
+        "tile": "#B5233A",
+        "primary": "#FFF1DD",
+        "accent": "#731C32"
+      },
+      "source": "https://www.tolucafc.com/identidad",
+      "contrast": {
+        "primaryOnTile": 5.7798,
+        "accentOnTile": 1.6827
+      },
+      "svg": "svg/toluca.svg",
+      "png": "png/toluca.png",
+      "symbolId": "pitchlab-toluca"
+    }
+  ]
+}

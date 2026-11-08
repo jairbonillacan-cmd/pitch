@@ -1,0 +1,897 @@
+{
+  "schemaVersion": 1,
+  "designRevision": 1,
+  "season": "2026/27",
+  "phase": "Fase liga",
+  "edition": "Emblemas de club",
+  "source": "https://www.uefa.com/uefachampionsleague/news/02a6-20d57cfcd03e-407c22a7f465-1000--2026-27-champions-league-teams-dates-draws-format-final/",
+  "entries": [
+    {
+      "id": "champions-league",
+      "code": "UCL",
+      "name": "Champions League",
+      "shortName": "Champions League",
+      "kind": "competition",
+      "motif": "Estrella en órbita",
+      "description": "Una estrella de cinco puntas enmarcada por dos órbitas incompletas sobre azul noche. Dos destellos equilibran la medalla.",
+      "colors": {
+        "tile": "#192A57",
+        "primary": "#FBF5E8",
+        "accent": "#91A9D7",
+        "trim": "#E0DDE9"
+      },
+      "contrast": {
+        "primaryOnTile": 12.7988,
+        "accentOnTile": 5.8673
+      },
+      "source": "https://www.uefa.com/uefachampionsleague/news/02a6-20d57cfcd03e-407c22a7f465-1000--2026-27-champions-league-teams-dates-draws-format-final/",
+      "svg": "svg/champions-league.svg",
+      "png": "png/champions-league.png",
+      "symbolId": "pitchlab-champions-league"
+    },
+    {
+      "id": "aek-athens",
+      "code": "AEK",
+      "name": "AEK Atenas",
+      "shortName": "AEK Atenas",
+      "kind": "club",
+      "country": "GRE",
+      "motif": "Águila bicéfala",
+      "description": "Alas abiertas y dos cabezas negras sobre un escudo amarillo.",
+      "colors": {
+        "tile": "#F7C842",
+        "primary": "#1A2029",
+        "accent": "#E7AD32",
+        "trim": "#1A2029"
+      },
+      "contrast": {
+        "primaryOnTile": 10.3663,
+        "accentOnTile": 1.2758
+      },
+      "source": "https://www.uefa.com/uefachampionsleague/news/02a8-2171a88881a0-c70193b972c6-1000--meet-the-2026-27-champions-league-league-phase-teams/",
+      "svg": "svg/aek-athens.svg",
+      "png": "png/aek-athens.png",
+      "symbolId": "pitchlab-aek-athens"
+    },
+    {
+      "id": "arsenal",
+      "code": "ARS",
+      "name": "Arsenal",
+      "shortName": "Arsenal",
+      "kind": "club",
+      "motif": "Cañón de Woolwich",
+      "description": "Cañón dorado inclinado hacia la izquierda, sobre un campo rojo de punta ancha. La rueda maciza tiene un buje rojo.",
+      "colors": {
+        "tile": "#9F1A2D",
+        "primary": "#FFE0A2",
+        "accent": "#C32236"
+      },
+      "contrast": {
+        "primaryOnTile": 6.1793,
+        "accentOnTile": 1.3544
+      },
+      "source": "https://www.premierleague.com/en/news/4726407/all-20-premier-league-clubs-badges-explained",
+      "svg": "svg/arsenal.svg",
+      "png": "png/arsenal.png",
+      "symbolId": "pitchlab-arsenal",
+      "country": "ENG",
+      "originCollection": "premier-league-2026-27"
+    },
+    {
+      "id": "aston-villa",
+      "code": "AVL",
+      "name": "Aston Villa",
+      "shortName": "Aston Villa",
+      "kind": "club",
+      "motif": "León en salto",
+      "description": "Un león dorado salta hacia la izquierda sobre un óvalo vino con borde celeste. La cola larga y la postura separan la silueta de la heráldica oficial.",
+      "colors": {
+        "tile": "#641E40",
+        "primary": "#FFD482",
+        "accent": "#9CD3F3"
+      },
+      "contrast": {
+        "primaryOnTile": 8.3213,
+        "accentOnTile": 7.2299
+      },
+      "source": "https://www.premierleague.com/en/news/4726407/all-20-premier-league-clubs-badges-explained",
+      "svg": "svg/aston-villa.svg",
+      "png": "png/aston-villa.png",
+      "symbolId": "pitchlab-aston-villa",
+      "country": "ENG",
+      "originCollection": "premier-league-2026-27"
+    },
+    {
+      "id": "atletico-madrid",
+      "code": "ATM",
+      "name": "Atlético de Madrid",
+      "shortName": "Atlético de Madrid",
+      "kind": "club",
+      "country": "ESP",
+      "motif": "Oso y madroño",
+      "description": "Oso en pie y árbol en azul, con franjas rojiblancas en segundo plano.",
+      "colors": {
+        "tile": "#FBF5E8",
+        "primary": "#233A64",
+        "accent": "#B9293F",
+        "trim": "#233A64"
+      },
+      "contrast": {
+        "primaryOnTile": 10.3875,
+        "accentOnTile": 5.5994
+      },
+      "source": "https://www.uefa.com/uefachampionsleague/news/02a8-2171a88881a0-c70193b972c6-1000--meet-the-2026-27-champions-league-league-phase-teams/",
+      "svg": "svg/atletico-madrid.svg",
+      "png": "png/atletico-madrid.png",
+      "symbolId": "pitchlab-atletico-madrid"
+    },
+    {
+      "id": "barcelona",
+      "code": "BAR",
+      "name": "FC Barcelona",
+      "shortName": "FC Barcelona",
+      "kind": "club",
+      "country": "ESP",
+      "motif": "Balón, senyera y franjas",
+      "description": "Balón dorado junto a un listón con los colores de la senyera, sobre franjas azulgrana.",
+      "colors": {
+        "tile": "#233F77",
+        "primary": "#F5C767",
+        "accent": "#A32149",
+        "trim": "#E7BC71"
+      },
+      "contrast": {
+        "primaryOnTile": 6.4659,
+        "accentOnTile": 1.4013
+      },
+      "source": "https://www.fcbarcelona.com/en/club/identity/the-crest",
+      "svg": "svg/barcelona.svg",
+      "png": "png/barcelona.png",
+      "symbolId": "pitchlab-barcelona"
+    },
+    {
+      "id": "bayern-munich",
+      "code": "BAY",
+      "name": "Bayern Múnich",
+      "shortName": "Bayern Múnich",
+      "kind": "club",
+      "country": "GER",
+      "motif": "Rombos bávaros",
+      "description": "Campo de rombos azules y blancos sobre un óvalo rojo.",
+      "colors": {
+        "tile": "#AA233C",
+        "primary": "#FBF5E8",
+        "accent": "#C65063",
+        "trim": "#FBF5E8"
+      },
+      "contrast": {
+        "primaryOnTile": 6.4109,
+        "accentOnTile": 1.5685
+      },
+      "source": "https://fcbayern.com/store/en-zz/i/logo",
+      "svg": "svg/bayern-munich.svg",
+      "png": "png/bayern-munich.png",
+      "symbolId": "pitchlab-bayern-munich"
+    },
+    {
+      "id": "bodo-glimt",
+      "code": "BOD",
+      "name": "Bodø/Glimt",
+      "shortName": "Bodø/Glimt",
+      "kind": "club",
+      "country": "NOR",
+      "motif": "Sol sobre el horizonte",
+      "description": "Medio sol negro y horizonte sobre amarillo, en una medalla con borde oscuro.",
+      "colors": {
+        "tile": "#F4D03F",
+        "primary": "#1A2029",
+        "accent": "#EAB52A",
+        "trim": "#1A2029"
+      },
+      "contrast": {
+        "primaryOnTile": 10.8696,
+        "accentOnTile": 1.2512
+      },
+      "source": "https://www.uefa.com/uefachampionsleague/news/02a8-2171a88881a0-c70193b972c6-1000--meet-the-2026-27-champions-league-league-phase-teams/",
+      "svg": "svg/bodo-glimt.svg",
+      "png": "png/bodo-glimt.png",
+      "symbolId": "pitchlab-bodo-glimt"
+    },
+    {
+      "id": "borussia-dortmund",
+      "code": "BVB",
+      "name": "Borussia Dortmund",
+      "shortName": "Borussia Dortmund",
+      "kind": "club",
+      "country": "GER",
+      "motif": "D de Dortmund",
+      "description": "Letra D negra de trazo ancho sobre un medallón amarillo.",
+      "colors": {
+        "tile": "#F7D43F",
+        "primary": "#1A2029",
+        "accent": "#F7D43F",
+        "trim": "#1A2029"
+      },
+      "contrast": {
+        "primaryOnTile": 11.262,
+        "accentOnTile": 1
+      },
+      "source": "https://www.uefa.com/uefachampionsleague/news/02a8-2171a88881a0-c70193b972c6-1000--meet-the-2026-27-champions-league-league-phase-teams/",
+      "svg": "svg/borussia-dortmund.svg",
+      "png": "png/borussia-dortmund.png",
+      "symbolId": "pitchlab-borussia-dortmund"
+    },
+    {
+      "id": "club-brugge",
+      "code": "BRU",
+      "name": "Club Brugge",
+      "shortName": "Club Brugge",
+      "kind": "club",
+      "country": "BEL",
+      "motif": "Campanario de Brujas",
+      "description": "Una torre marfil sobre franjas negras y azules recoge el perfil de la ciudad.",
+      "colors": {
+        "tile": "#185C9F",
+        "primary": "#FBF5E8",
+        "accent": "#182433",
+        "trim": "#FBF5E8"
+      },
+      "contrast": {
+        "primaryOnTile": 6.2951,
+        "accentOnTile": 2.293
+      },
+      "source": "https://www.uefa.com/uefachampionsleague/news/02a8-2171a88881a0-c70193b972c6-1000--meet-the-2026-27-champions-league-league-phase-teams/",
+      "svg": "svg/club-brugge.svg",
+      "png": "png/club-brugge.png",
+      "symbolId": "pitchlab-club-brugge"
+    },
+    {
+      "id": "como",
+      "code": "COM",
+      "name": "Como 1907",
+      "shortName": "Como 1907",
+      "kind": "club",
+      "country": "ITA",
+      "motif": "Lago de Como",
+      "description": "Montañas y dos olas blancas en un marco azul ancho.",
+      "colors": {
+        "tile": "#1B63A1",
+        "primary": "#FBF5E8",
+        "accent": "#2874B3",
+        "trim": "#C3DFF2"
+      },
+      "contrast": {
+        "primaryOnTile": 5.7765,
+        "accentOnTile": 1.267
+      },
+      "source": "https://www.uefa.com/uefachampionsleague/news/02a8-2171a88881a0-c70193b972c6-1000--meet-the-2026-27-champions-league-league-phase-teams/",
+      "svg": "svg/como.svg",
+      "png": "png/como.png",
+      "symbolId": "pitchlab-como"
+    },
+    {
+      "id": "fenerbahce",
+      "code": "FEN",
+      "name": "Fenerbahçe",
+      "shortName": "Fenerbahçe",
+      "kind": "club",
+      "country": "TUR",
+      "motif": "Hoja de roble",
+      "description": "Hoja dorada sobre franjas azul noche y amarillas, con filete granate.",
+      "colors": {
+        "tile": "#192D4C",
+        "primary": "#F5CD57",
+        "accent": "#D1A133",
+        "trim": "#A52442"
+      },
+      "contrast": {
+        "primaryOnTile": 9.0416,
+        "accentOnTile": 5.8228
+      },
+      "source": "https://www.uefa.com/uefachampionsleague/news/02a8-2171a88881a0-c70193b972c6-1000--meet-the-2026-27-champions-league-league-phase-teams/",
+      "svg": "svg/fenerbahce.svg",
+      "png": "png/fenerbahce.png",
+      "symbolId": "pitchlab-fenerbahce"
+    },
+    {
+      "id": "feyenoord",
+      "code": "FEY",
+      "name": "Feyenoord",
+      "shortName": "Feyenoord",
+      "kind": "club",
+      "country": "NED",
+      "motif": "F sobre rojo y blanco",
+      "description": "Letra F de corte diagonal sobre un óvalo partido en rojo y marfil.",
+      "colors": {
+        "tile": "#FBF5E8",
+        "primary": "#232428",
+        "accent": "#C32F43",
+        "trim": "#252327"
+      },
+      "contrast": {
+        "primaryOnTile": 14.27,
+        "accentOnTile": 5.0755
+      },
+      "source": "https://www.uefa.com/uefachampionsleague/news/02a8-2171a88881a0-c70193b972c6-1000--meet-the-2026-27-champions-league-league-phase-teams/",
+      "svg": "svg/feyenoord.svg",
+      "png": "png/feyenoord.png",
+      "symbolId": "pitchlab-feyenoord"
+    },
+    {
+      "id": "galatasaray",
+      "code": "GAL",
+      "name": "Galatasaray",
+      "shortName": "Galatasaray",
+      "kind": "club",
+      "country": "TUR",
+      "motif": "Inicial en dos tintas",
+      "description": "S granate con un remate amarillo sobre un fondo marfil.",
+      "colors": {
+        "tile": "#F8E9C8",
+        "primary": "#9E2345",
+        "accent": "#E7A642",
+        "trim": "#9E2345"
+      },
+      "contrast": {
+        "primaryOnTile": 6.2877,
+        "accentOnTile": 1.7602
+      },
+      "source": "https://www.uefa.com/uefachampionsleague/news/02a8-2171a88881a0-c70193b972c6-1000--meet-the-2026-27-champions-league-league-phase-teams/",
+      "svg": "svg/galatasaray.svg",
+      "png": "png/galatasaray.png",
+      "symbolId": "pitchlab-galatasaray"
+    },
+    {
+      "id": "inter-milan",
+      "code": "INT",
+      "name": "Inter de Milán",
+      "shortName": "Inter de Milán",
+      "kind": "club",
+      "country": "ITA",
+      "motif": "I sobre azul y negro",
+      "description": "Letra marfil de travesaños anchos sobre dos franjas negras.",
+      "colors": {
+        "tile": "#21528A",
+        "primary": "#FBF5E8",
+        "accent": "#172431",
+        "trim": "#B9CFE0"
+      },
+      "contrast": {
+        "primaryOnTile": 7.3252,
+        "accentOnTile": 1.9792
+      },
+      "source": "https://www.uefa.com/uefachampionsleague/news/02a8-2171a88881a0-c70193b972c6-1000--meet-the-2026-27-champions-league-league-phase-teams/",
+      "svg": "svg/inter-milan.svg",
+      "png": "png/inter-milan.png",
+      "symbolId": "pitchlab-inter-milan"
+    },
+    {
+      "id": "lask",
+      "code": "LAS",
+      "name": "LASK",
+      "shortName": "LASK",
+      "kind": "club",
+      "country": "AUT",
+      "motif": "L en blanco y negro",
+      "description": "L maciza con un acento rojo sobre franjas negras y blancas.",
+      "colors": {
+        "tile": "#FBF5E8",
+        "primary": "#1A2029",
+        "accent": "#292C33",
+        "trim": "#1A2029"
+      },
+      "contrast": {
+        "primaryOnTile": 15.0701,
+        "accentOnTile": 12.8651
+      },
+      "source": "https://www.uefa.com/uefachampionsleague/news/02a8-2171a88881a0-c70193b972c6-1000--meet-the-2026-27-champions-league-league-phase-teams/",
+      "svg": "svg/lask.svg",
+      "png": "png/lask.png",
+      "symbolId": "pitchlab-lask"
+    },
+    {
+      "id": "lens",
+      "code": "LEN",
+      "name": "RC Lens",
+      "shortName": "RC Lens",
+      "kind": "club",
+      "country": "FRA",
+      "motif": "Farol sang et or",
+      "description": "Farol dorado sobre dos campos en rojo y amarillo.",
+      "colors": {
+        "tile": "#A82338",
+        "primary": "#F6CE68",
+        "accent": "#E5AE36",
+        "trim": "#F6CE68"
+      },
+      "contrast": {
+        "primaryOnTile": 4.7079,
+        "accentOnTile": 3.5238
+      },
+      "source": "https://billetterie.rclens.fr/media/20250901_cgv_lampi_club_vdef_maj.pdf",
+      "svg": "svg/lens.svg",
+      "png": "png/lens.png",
+      "symbolId": "pitchlab-lens"
+    },
+    {
+      "id": "rb-leipzig",
+      "code": "RBL",
+      "name": "RB Leipzig",
+      "shortName": "RB Leipzig",
+      "kind": "club",
+      "country": "GER",
+      "motif": "Toro frontal",
+      "description": "Cabeza de toro carmesí en un escudo claro con bandas azul noche.",
+      "colors": {
+        "tile": "#FBF5E8",
+        "primary": "#B42448",
+        "accent": "#254368",
+        "trim": "#21385D"
+      },
+      "contrast": {
+        "primaryOnTile": 5.8809,
+        "accentOnTile": 9.286
+      },
+      "source": "https://www.uefa.com/uefachampionsleague/news/02a8-2171a88881a0-c70193b972c6-1000--meet-the-2026-27-champions-league-league-phase-teams/",
+      "svg": "svg/rb-leipzig.svg",
+      "png": "png/rb-leipzig.png",
+      "symbolId": "pitchlab-rb-leipzig"
+    },
+    {
+      "id": "lille",
+      "code": "LIL",
+      "name": "LOSC Lille",
+      "shortName": "LOSC Lille",
+      "kind": "club",
+      "country": "FRA",
+      "motif": "Dogo de Lille",
+      "description": "Dogo de perfil claro, con un campo rojo y un remate azul.",
+      "colors": {
+        "tile": "#B22543",
+        "primary": "#FBF5E8",
+        "accent": "#1B3050",
+        "trim": "#F0DDD2"
+      },
+      "contrast": {
+        "primaryOnTile": 5.9679,
+        "accentOnTile": 2.043
+      },
+      "source": "https://www.uefa.com/uefachampionsleague/news/02a8-2171a88881a0-c70193b972c6-1000--meet-the-2026-27-champions-league-league-phase-teams/",
+      "svg": "svg/lille.svg",
+      "png": "png/lille.png",
+      "symbolId": "pitchlab-lille"
+    },
+    {
+      "id": "liverpool",
+      "code": "LIV",
+      "name": "Liverpool",
+      "shortName": "Liverpool",
+      "kind": "club",
+      "motif": "Ave del Mersey",
+      "description": "Ave de frente con las alas levantadas, un cuello largo y la cabeza girada. Marfil y rojo recuerdan a Liverpool.",
+      "colors": {
+        "tile": "#A31C32",
+        "primary": "#FFF2D8",
+        "accent": "#DF4453"
+      },
+      "contrast": {
+        "primaryOnTile": 6.8405,
+        "accentOnTile": 1.8377
+      },
+      "source": "https://www.premierleague.com/en/news/4726407/all-20-premier-league-clubs-badges-explained",
+      "svg": "svg/liverpool.svg",
+      "png": "png/liverpool.png",
+      "symbolId": "pitchlab-liverpool",
+      "country": "ENG",
+      "originCollection": "premier-league-2026-27"
+    },
+    {
+      "id": "manchester-city",
+      "code": "MCI",
+      "name": "Manchester City",
+      "shortName": "Manchester City",
+      "kind": "club",
+      "motif": "Velero del canal",
+      "description": "Dos velas en diagonal, un casco dorado y una ola forman un velero sobre celeste. La medalla lleva un solo borde azul.",
+      "colors": {
+        "tile": "#9DD6F5",
+        "primary": "#173952",
+        "accent": "#F9F7E9"
+      },
+      "contrast": {
+        "primaryOnTile": 7.6688,
+        "accentOnTile": 1.4591
+      },
+      "source": "https://www.premierleague.com/en/news/4726407/all-20-premier-league-clubs-badges-explained",
+      "svg": "svg/manchester-city.svg",
+      "png": "png/manchester-city.png",
+      "symbolId": "pitchlab-manchester-city",
+      "country": "ENG",
+      "originCollection": "premier-league-2026-27"
+    },
+    {
+      "id": "manchester-united",
+      "code": "MUN",
+      "name": "Manchester United",
+      "shortName": "Man. United",
+      "kind": "club",
+      "motif": "Tridente de los Red Devils",
+      "description": "Un tridente alto y unos cuernos curvados forman la máscara roja y dorada. La composición deja el centro abierto.",
+      "colors": {
+        "tile": "#A1182B",
+        "primary": "#FFD16E",
+        "accent": "#661625"
+      },
+      "contrast": {
+        "primaryOnTile": 5.4448,
+        "accentOnTile": 1.5711
+      },
+      "source": "https://www.premierleague.com/en/news/4726407/all-20-premier-league-clubs-badges-explained",
+      "svg": "svg/manchester-united.svg",
+      "png": "png/manchester-united.png",
+      "symbolId": "pitchlab-manchester-united",
+      "country": "ENG",
+      "originCollection": "premier-league-2026-27"
+    },
+    {
+      "id": "napoli",
+      "code": "NAP",
+      "name": "Napoli",
+      "shortName": "Napoli",
+      "kind": "club",
+      "country": "ITA",
+      "motif": "N sobre celeste",
+      "description": "N marfil de trazo ancho sobre un anillo celeste y azul.",
+      "colors": {
+        "tile": "#2369AA",
+        "primary": "#FBF5E8",
+        "accent": "#6FC0E7",
+        "trim": "#B9DFF2"
+      },
+      "contrast": {
+        "primaryOnTile": 5.2628,
+        "accentOnTile": 2.8236
+      },
+      "source": "https://www.uefa.com/uefachampionsleague/news/02a8-2171a88881a0-c70193b972c6-1000--meet-the-2026-27-champions-league-league-phase-teams/",
+      "svg": "svg/napoli.svg",
+      "png": "png/napoli.png",
+      "symbolId": "pitchlab-napoli"
+    },
+    {
+      "id": "paris-saint-germain",
+      "code": "PSG",
+      "name": "Paris Saint-Germain",
+      "shortName": "Paris Saint-Germain",
+      "kind": "club",
+      "country": "FRA",
+      "motif": "Torre parisina",
+      "description": "Torre marfil sobre azul noche con un arco rojo inferior.",
+      "colors": {
+        "tile": "#192F58",
+        "primary": "#FBF5E8",
+        "accent": "#BA2847",
+        "trim": "#A8C0D8"
+      },
+      "contrast": {
+        "primaryOnTile": 12.1648,
+        "accentOnTile": 2.1917
+      },
+      "source": "https://www.uefa.com/uefachampionsleague/news/02a8-2171a88881a0-c70193b972c6-1000--meet-the-2026-27-champions-league-league-phase-teams/",
+      "svg": "svg/paris-saint-germain.svg",
+      "png": "png/paris-saint-germain.png",
+      "symbolId": "pitchlab-paris-saint-germain"
+    },
+    {
+      "id": "porto",
+      "code": "POR",
+      "name": "FC Porto",
+      "shortName": "FC Porto",
+      "kind": "club",
+      "country": "POR",
+      "motif": "Dragón azul",
+      "description": "Dragón de perfil azul sobre un campo marfil de franjas azules.",
+      "colors": {
+        "tile": "#FBF5E8",
+        "primary": "#205C9E",
+        "accent": "#3067A3",
+        "trim": "#20548D"
+      },
+      "contrast": {
+        "primaryOnTile": 6.2631,
+        "accentOnTile": 5.3769
+      },
+      "source": "https://www.uefa.com/uefachampionsleague/news/02a8-2171a88881a0-c70193b972c6-1000--meet-the-2026-27-champions-league-league-phase-teams/",
+      "svg": "svg/porto.svg",
+      "png": "png/porto.png",
+      "symbolId": "pitchlab-porto"
+    },
+    {
+      "id": "psv",
+      "code": "PSV",
+      "name": "PSV Eindhoven",
+      "shortName": "PSV Eindhoven",
+      "kind": "club",
+      "country": "NED",
+      "motif": "Banderín rojiblanco",
+      "description": "Banderín granate en un óvalo de franjas rojas y claras.",
+      "colors": {
+        "tile": "#FBF5E8",
+        "primary": "#A1253B",
+        "accent": "#CE3B4E",
+        "trim": "#A1253B"
+      },
+      "contrast": {
+        "primaryOnTile": 6.798,
+        "accentOnTile": 4.4331
+      },
+      "source": "https://www.uefa.com/uefachampionsleague/news/02a8-2171a88881a0-c70193b972c6-1000--meet-the-2026-27-champions-league-league-phase-teams/",
+      "svg": "svg/psv.svg",
+      "png": "png/psv.png",
+      "symbolId": "pitchlab-psv"
+    },
+    {
+      "id": "real-betis",
+      "code": "BET",
+      "name": "Real Betis",
+      "shortName": "Real Betis",
+      "kind": "club",
+      "country": "ESP",
+      "motif": "Corona y franjas verdes",
+      "description": "Corona dorada sobre franjas blancas y verdes en un escudo en punta.",
+      "colors": {
+        "tile": "#08774F",
+        "primary": "#F8D27C",
+        "accent": "#EDF3DB",
+        "trim": "#0D654A"
+      },
+      "contrast": {
+        "primaryOnTile": 3.8546,
+        "accentOnTile": 4.9028
+      },
+      "source": "https://www.uefa.com/uefachampionsleague/news/02a8-2171a88881a0-c70193b972c6-1000--meet-the-2026-27-champions-league-league-phase-teams/",
+      "svg": "svg/real-betis.svg",
+      "png": "png/real-betis.png",
+      "symbolId": "pitchlab-real-betis"
+    },
+    {
+      "id": "real-madrid",
+      "code": "RMA",
+      "name": "Real Madrid",
+      "shortName": "Real Madrid",
+      "kind": "club",
+      "country": "ESP",
+      "motif": "Corona sobre banda violeta",
+      "description": "Corona dorada en medalla marfil con banda violeta en diagonal.",
+      "colors": {
+        "tile": "#FBF5E8",
+        "primary": "#876021",
+        "accent": "#6A528C",
+        "trim": "#B48642"
+      },
+      "contrast": {
+        "primaryOnTile": 5.1883,
+        "accentOnTile": 6.043
+      },
+      "source": "https://www.uefa.com/uefachampionsleague/news/02a8-2171a88881a0-c70193b972c6-1000--meet-the-2026-27-champions-league-league-phase-teams/",
+      "svg": "svg/real-madrid.svg",
+      "png": "png/real-madrid.png",
+      "symbolId": "pitchlab-real-madrid"
+    },
+    {
+      "id": "roma",
+      "code": "ROM",
+      "name": "AS Roma",
+      "shortName": "AS Roma",
+      "kind": "club",
+      "country": "ITA",
+      "motif": "Loba granate",
+      "description": "Loba frontal dorada sobre granate, con hombros de color ámbar.",
+      "colors": {
+        "tile": "#7D2031",
+        "primary": "#F9D172",
+        "accent": "#A95D34",
+        "trim": "#E4AD52"
+      },
+      "contrast": {
+        "primaryOnTile": 6.7788,
+        "accentOnTile": 2.0266
+      },
+      "source": "https://www.uefa.com/uefachampionsleague/news/02a8-2171a88881a0-c70193b972c6-1000--meet-the-2026-27-champions-league-league-phase-teams/",
+      "svg": "svg/roma.svg",
+      "png": "png/roma.png",
+      "symbolId": "pitchlab-roma"
+    },
+    {
+      "id": "sabah",
+      "code": "SAB",
+      "name": "Sabah FK",
+      "shortName": "Sabah FK",
+      "kind": "club",
+      "country": "AZE",
+      "motif": "Halcón en rosa",
+      "description": "Ave en vuelo sobre un escudo negro y rosa con el ala en diagonal.",
+      "colors": {
+        "tile": "#262632",
+        "primary": "#F6A7BD",
+        "accent": "#492F4A",
+        "trim": "#F4AAC2"
+      },
+      "contrast": {
+        "primaryOnTile": 7.9539,
+        "accentOnTile": 1.2725
+      },
+      "source": "https://www.uefa.com/uefachampionsleague/news/02a8-2171a88881a0-c70193b972c6-1000--meet-the-2026-27-champions-league-league-phase-teams/",
+      "svg": "svg/sabah.svg",
+      "png": "png/sabah.png",
+      "symbolId": "pitchlab-sabah"
+    },
+    {
+      "id": "shakhtar-donetsk",
+      "code": "SHA",
+      "name": "Shakhtar Donetsk",
+      "shortName": "Shakhtar Donetsk",
+      "kind": "club",
+      "country": "UKR",
+      "motif": "Herramientas mineras",
+      "description": "Martillos cruzados en negro sobre naranja con un campo en punta.",
+      "colors": {
+        "tile": "#F1853D",
+        "primary": "#212633",
+        "accent": "#EEA057",
+        "trim": "#212633"
+      },
+      "contrast": {
+        "primaryOnTile": 5.8735,
+        "accentOnTile": 1.2008
+      },
+      "source": "https://www.uefa.com/uefachampionsleague/news/02a8-2171a88881a0-c70193b972c6-1000--meet-the-2026-27-champions-league-league-phase-teams/",
+      "svg": "svg/shakhtar-donetsk.svg",
+      "png": "png/shakhtar-donetsk.png",
+      "symbolId": "pitchlab-shakhtar-donetsk"
+    },
+    {
+      "id": "slavia-praha",
+      "code": "SLA",
+      "name": "Slavia Praha",
+      "shortName": "Slavia Praha",
+      "kind": "club",
+      "country": "CZE",
+      "motif": "Estrella roja",
+      "description": "Estrella ladeada y amplia sobre rojo y marfil en un escudo estrecho.",
+      "colors": {
+        "tile": "#FBF5E8",
+        "primary": "#B82342",
+        "accent": "#C8324F",
+        "trim": "#A7223E"
+      },
+      "contrast": {
+        "primaryOnTile": 5.7573,
+        "accentOnTile": 4.802
+      },
+      "source": "https://www.uefa.com/uefachampionsleague/news/02a8-2171a88881a0-c70193b972c6-1000--meet-the-2026-27-champions-league-league-phase-teams/",
+      "svg": "svg/slavia-praha.svg",
+      "png": "png/slavia-praha.png",
+      "symbolId": "pitchlab-slavia-praha"
+    },
+    {
+      "id": "slovan-bratislava",
+      "code": "SLO",
+      "name": "Slovan Bratislava",
+      "shortName": "Slovan Bratislava",
+      "kind": "club",
+      "country": "SVK",
+      "motif": "Doble cruz eslovaca",
+      "description": "Doble cruz marfil sobre azul con tres lomas en rosa claro.",
+      "colors": {
+        "tile": "#164F7C",
+        "primary": "#FBF5E8",
+        "accent": "#9DCBEB",
+        "trim": "#93C1E6"
+      },
+      "contrast": {
+        "primaryOnTile": 7.9098,
+        "accentOnTile": 4.9828
+      },
+      "source": "https://www.skslovan.com/10618",
+      "svg": "svg/slovan-bratislava.svg",
+      "png": "png/slovan-bratislava.png",
+      "symbolId": "pitchlab-slovan-bratislava"
+    },
+    {
+      "id": "sporting-cp",
+      "code": "SCP",
+      "name": "Sporting CP",
+      "shortName": "Sporting CP",
+      "kind": "club",
+      "country": "POR",
+      "motif": "León sobre verde y blanco",
+      "description": "León claro en movimiento sobre franjas verdes y marfil.",
+      "colors": {
+        "tile": "#096846",
+        "primary": "#F6D18D",
+        "accent": "#E3EBDD",
+        "trim": "#D5E6D7"
+      },
+      "contrast": {
+        "primaryOnTile": 4.6826,
+        "accentOnTile": 5.582
+      },
+      "source": "https://www.uefa.com/uefachampionsleague/news/02a8-2171a88881a0-c70193b972c6-1000--meet-the-2026-27-champions-league-league-phase-teams/",
+      "svg": "svg/sporting-cp.svg",
+      "png": "png/sporting-cp.png",
+      "symbolId": "pitchlab-sporting-cp"
+    },
+    {
+      "id": "stuttgart",
+      "code": "VFB",
+      "name": "VfB Stuttgart",
+      "shortName": "VfB Stuttgart",
+      "kind": "club",
+      "country": "GER",
+      "motif": "Astas y franja roja",
+      "description": "Astas negras sobre una banda roja y un escudo claro.",
+      "colors": {
+        "tile": "#FBF5E8",
+        "primary": "#2A282C",
+        "accent": "#C0374B",
+        "trim": "#A82E40"
+      },
+      "contrast": {
+        "primaryOnTile": 13.4378,
+        "accentOnTile": 4.9695
+      },
+      "source": "https://www.uefa.com/uefachampionsleague/news/02a8-2171a88881a0-c70193b972c6-1000--meet-the-2026-27-champions-league-league-phase-teams/",
+      "svg": "svg/stuttgart.svg",
+      "png": "png/stuttgart.png",
+      "symbolId": "pitchlab-stuttgart"
+    },
+    {
+      "id": "viking",
+      "code": "VIK",
+      "name": "Viking FK",
+      "shortName": "Viking FK",
+      "kind": "club",
+      "country": "NOR",
+      "motif": "Roble de Stavanger",
+      "description": "Roble dorado sobre un banderín granate en alusión al emblema histórico.",
+      "colors": {
+        "tile": "#702439",
+        "primary": "#F2CC85",
+        "accent": "#933A4E",
+        "trim": "#E0BA76"
+      },
+      "contrast": {
+        "primaryOnTile": 6.8743,
+        "accentOnTile": 1.4776
+      },
+      "source": "https://www.vikingfotball.no/om-klubben/engelsk/history-of-viking-football-club",
+      "svg": "svg/viking.svg",
+      "png": "png/viking.png",
+      "symbolId": "pitchlab-viking"
+    },
+    {
+      "id": "villarreal",
+      "code": "VIL",
+      "name": "Villarreal CF",
+      "shortName": "Villarreal CF",
+      "kind": "club",
+      "country": "ESP",
+      "motif": "V del Submarino Amarillo",
+      "description": "V azul sobre rombo amarillo, con acento granate en la parte superior.",
+      "colors": {
+        "tile": "#F8D052",
+        "primary": "#1B4A78",
+        "accent": "#E8B23C",
+        "trim": "#A82A40"
+      },
+      "contrast": {
+        "primaryOnTile": 6.153,
+        "accentOnTile": 1.3011
+      },
+      "source": "https://www.uefa.com/uefachampionsleague/news/02a8-2171a88881a0-c70193b972c6-1000--meet-the-2026-27-champions-league-league-phase-teams/",
+      "svg": "svg/villarreal.svg",
+      "png": "png/villarreal.png",
+      "symbolId": "pitchlab-villarreal"
+    }
+  ]
+}
