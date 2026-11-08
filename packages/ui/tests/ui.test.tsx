@@ -109,8 +109,8 @@ describe("@pitchlab/ui components", () => {
       </div>,
     );
 
-    expect(html).toContain("45.3%");
-    expect(html).toContain("2.21 (+121)");
+    expect(html).toContain("45.3 %");
+    expect(html).toContain("2.21");
     expect(html).toContain("Emirates Stadium");
     expect(html).toContain("/legal/creditos");
   });

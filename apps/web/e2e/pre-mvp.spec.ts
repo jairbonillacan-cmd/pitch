@@ -41,8 +41,8 @@ test.describe("PitchLab Pre-MVP E2E Suite", () => {
       fullPage: false,
     });
 
-    // Check interactive demo selector (3 matches)
-    const picks = page.locator("#partidos .pick");
+    // Check interactive demo selector (3 matches in #como / #picks)
+    const picks = page.locator("#picks .pick");
     const pickCount = await picks.count();
     expect(pickCount).toBeGreaterThanOrEqual(2);
 
@@ -113,14 +113,15 @@ test.describe("PitchLab Pre-MVP E2E Suite", () => {
       path: path.join(SCREENSHOT_DIR, `login-${testInfo.project.name}-dark.png`),
     });
 
-    // Submitting locked email form shows notice
-    await page.locator("form.auth-form button[type='submit']").click();
+    // Verify locked email form submit button is disabled and notice is visible
+    await expect(page.locator("form.auth-form button[type='submit']")).toBeDisabled();
     await expect(page.locator(".notice")).toContainText(
-      "El acceso por correo aún no está activo",
+      "Las cuentas abren pronto",
     );
 
     // Open PIN dialog and enter wrong code 9999 (using a dedicated test IP header for PIN check)
-    await page.setExtraHTTPHeaders({ "x-forwarded-for": "198.51.100.25" });
+    const runIpSuffix = `${Math.floor(Math.random() * 200) + 10}.${Math.floor(Math.random() * 200) + 10}`;
+    await page.setExtraHTTPHeaders({ "x-forwarded-for": `198.51.${runIpSuffix}` });
     await page.locator(".btn-beta").click();
     await expect(page.locator("dialog.pin-dialog")).toBeVisible();
 
@@ -132,7 +133,7 @@ test.describe("PitchLab Pre-MVP E2E Suite", () => {
     );
 
     // Verify rate limiter: 6 consecutive failed attempts from a distinct IP return 429
-    const rateLimitIp = `198.51.100.${testInfo.project.name === "desktop" ? "101" : "102"}`;
+    const rateLimitIp = `203.0.${runIpSuffix}`;
     let lastStatus = 0;
     for (let i = 1; i <= 6; i++) {
       const res = await request.post("/api/beta/unlock", {
@@ -157,7 +158,7 @@ test.describe("PitchLab Pre-MVP E2E Suite", () => {
   test("3. Unlock with valid PIN, navigate /app/[league], modal URL sync, reload & logout", async ({
     page,
   }, testInfo) => {
-    const uniqueIp = `198.51.100.${testInfo.project.name === "desktop" ? "201" : "202"}`;
+    const uniqueIp = `192.0.${Math.floor(Math.random() * 200) + 10}.${Math.floor(Math.random() * 200) + 10}`;
     await page.setExtraHTTPHeaders({ "x-forwarded-for": uniqueIp });
 
     await page.goto("/login?next=%2Fapp%2Fpremier-league");
@@ -212,6 +213,12 @@ test.describe("PitchLab Pre-MVP E2E Suite", () => {
     await firstCard.click();
     await expect(page.locator("dialog.analysis-dialog")).toBeVisible();
     expect(page.url()).toContain(`/app/premier-league/games/${gameId}`);
+
+    const skipBtn = page.locator("dialog.analysis-dialog [data-skip]");
+    if (await skipBtn.isVisible()) {
+      await skipBtn.click();
+    }
+    await expect(page.locator("dialog.analysis-dialog .result")).toBeVisible();
 
     await page.screenshot({
       path: path.join(SCREENSHOT_DIR, `modal-pl-${testInfo.project.name}-dark.png`),

@@ -85,34 +85,34 @@ export default function HomePage(): React.JSX.Element {
 
   const leagues: LandingLeagueSummary[] = [
     {
-      id: "premier-league",
-      name: "Premier League",
-      season: snapshots["premier-league"].data?.season ?? "Temporada 2026/27",
-      roundLabel: snapshots["premier-league"].data?.roundLabel ?? "Jornada 10",
-      mascot: "futbol",
-      gameCount: plGames.length,
-      active: plGames.length > 0,
-    },
-    {
-      id: "nfl",
-      name: "NFL",
-      season: snapshots.nfl.data?.season ?? "Temporada 2026",
-      roundLabel: snapshots.nfl.data?.roundLabel ?? "Semana 9",
-      mascot: "americano",
-      gameCount: nflGames.length,
-      active: nflGames.length > 0,
-    },
-    {
       id: "liga-mx",
       name: "Liga MX",
       season: snapshots["liga-mx"].data?.season ?? "Apertura 2026",
       roundLabel:
         mxGames.length > 0
           ? (snapshots["liga-mx"].data?.roundLabel ?? "Jornada 16")
-          : "Pronto",
-      mascot: "celebrando",
+          : "Jornada 16",
+      mascot: "liga-mx",
       gameCount: mxGames.length,
       active: mxGames.length > 0,
+    },
+    {
+      id: "premier-league",
+      name: "Premier League",
+      season: snapshots["premier-league"].data?.season ?? "2026/27",
+      roundLabel: snapshots["premier-league"].data?.roundLabel ?? "Jornada 11",
+      mascot: "premier-league",
+      gameCount: plGames.length,
+      active: plGames.length > 0,
+    },
+    {
+      id: "nfl",
+      name: "NFL",
+      season: snapshots.nfl.data?.season ?? "2026",
+      roundLabel: snapshots.nfl.data?.roundLabel ?? "Semana 10",
+      mascot: "nfl",
+      gameCount: nflGames.length,
+      active: nflGames.length > 0,
     },
   ];
 

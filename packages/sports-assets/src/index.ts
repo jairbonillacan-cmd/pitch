@@ -20,6 +20,7 @@ const MASCOT_ALIASES: Record<string, string> = {
   tactico: "radar",
   futbol: "soccer",
   americano: "american-football",
+  "futbol-americano": "american-football",
   celebrando: "liga-mx",
 };
 

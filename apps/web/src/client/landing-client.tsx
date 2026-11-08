@@ -1,14 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import type { MatchAnalysis } from "@pitchlab/contracts";
-import {
-  formatPercent,
-  formatDecimal,
-  formatAmerican,
-  probabilityToFairOdds,
-} from "@pitchlab/contracts";
-import { getLeagueEmblemPath, getMascotPath } from "@pitchlab/sports-assets";
+import { formatPercent } from "@pitchlab/contracts";
+import { getMascotPath } from "@pitchlab/sports-assets";
 import {
   FloatingNav,
   PublicFooter,
@@ -16,7 +11,10 @@ import {
   Icon,
   TeamBadge,
   LeagueBadge,
+  PBar,
   ProbSplit,
+  MarketTable,
+  leadIndex,
 } from "@pitchlab/ui";
 import { useBetaPin } from "./use-beta-pin.js";
 
@@ -43,14 +41,67 @@ export function LandingClient({
 }): React.JSX.Element {
   const { pinOpen, openPin, closePin, submitPin } = useBetaPin("/app");
   const [selectedDemoIdx, setSelectedDemoIdx] = useState(0);
+  const [calculatingDemo, setCalculatingDemo] = useState(false);
+  const calcTimerRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (calcTimerRef.current !== null) {
+        window.clearTimeout(calcTimerRef.current);
+      }
+    };
+  }, []);
+
+  const handleSelectDemo = (idx: number) => {
+    if (idx === selectedDemoIdx) return;
+    if (calcTimerRef.current !== null) {
+      window.clearTimeout(calcTimerRef.current);
+    }
+    setSelectedDemoIdx(idx);
+    const reduced =
+      typeof window !== "undefined" &&
+      window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (!reduced) {
+      setCalculatingDemo(true);
+      calcTimerRef.current = window.setTimeout(() => {
+        setCalculatingDemo(false);
+      }, 650);
+    }
+  };
 
   const currentDemo = demoMatches[selectedDemoIdx] ?? featuredMatch;
-  const maxOutcomeIdx = featuredMatch.outcomes.reduce(
-    (best, o, idx) =>
-      o.probability > (featuredMatch.outcomes[best]?.probability ?? 0) ? idx : best,
-    0,
+  const nfDemo = currentDemo.league === "nfl";
+  const demoProj = currentDemo.projection ?? {
+    home: nfDemo ? 24 : 1.6,
+    away: nfDemo ? 21 : 1.2,
+    total: nfDemo ? 45 : 2.8,
+  };
+  const demoGroups =
+    currentDemo.marketGroups.length >= 3
+      ? [currentDemo.marketGroups[0]!, currentDemo.marketGroups[2]!]
+      : currentDemo.marketGroups;
+
+  const heroRows =
+    featuredMatch.marketGroups[0]?.rows ??
+    featuredMatch.outcomes.map((o) => ({
+      market: "h2h" as const,
+      selection: o.key,
+      label: o.label,
+      p: o.probability,
+      fairOdds: o.fairOdds?.decimal ?? 2,
+    }));
+  const heroLeadIdx = leadIndex(heroRows.map((r) => r.p));
+
+  const totalsGroup = featuredMatch.marketGroups.find((g) =>
+    g.group.toLowerCase().includes("goles") || g.group.toLowerCase().includes("total"),
   );
-  const topOutcome = featuredMatch.outcomes[maxOutcomeIdx];
+  const over25Row =
+    totalsGroup?.rows.find((r) => r.label.includes("2.5")) ??
+    totalsGroup?.rows[0] ??
+    heroRows[heroLeadIdx];
+
+  const m1 = demoMatches[0] ?? featuredMatch;
+  const m2 = demoMatches[1] ?? featuredMatch;
 
   return (
     <>
@@ -58,16 +109,7 @@ export function LandingClient({
         Saltar al contenido
       </a>
 
-      <FloatingNav
-        links={[
-          { href: "#partidos", label: "Cómo funciona" },
-          { href: "#ligas", label: "Ligas" },
-          { href: "#metodo", label: "El modelo" },
-          { href: "#reglas", label: "Compromiso" },
-        ]}
-        onOpenBetaPin={openPin}
-        activeAuthRoute="landing"
-      />
+      <FloatingNav onOpenBetaPin={openPin} activeAuthRoute="landing" />
 
       <main id="main">
         <section className="hero">
@@ -98,8 +140,9 @@ export function LandingClient({
                 <span className="accent">con datos.</span>
               </h1>
               <p className="lead">
-                Probabilidades para cada partido de Liga MX, Premier League y NFL,
-                calculadas por nuestro propio modelo y actualizadas cada jornada.
+                Probabilidades para cada partido de Liga MX, Premier League y
+                NFL, calculadas por nuestro propio modelo y actualizadas cada
+                jornada.
               </p>
               <div className="ctas">
                 <button
@@ -111,18 +154,22 @@ export function LandingClient({
                   <span>Entrar a la beta</span>
                   <Icon name="arrow" />
                 </button>
-                <a className="btn btn-ghost" href="#partidos">
+                <a className="btn btn-ghost" href="#como">
                   Cómo funciona
                 </a>
               </div>
               <div className="week">
-                <span className="stack" aria-hidden="true">
-                  <LeagueBadge league="liga-mx" size={22} />
-                  <LeagueBadge league="premier-league" size={22} />
-                  <LeagueBadge league="nfl" size={22} />
+                <span className="stack" id="stack" aria-hidden="true">
+                  <LeagueBadge league="liga-mx" size={28} />
+                  <LeagueBadge league="premier-league" size={28} />
+                  <LeagueBadge league="nfl" size={28} />
                 </span>
                 <span className="small secondary">
-                  <b className="num" style={{ color: "var(--text-primary)" }}>
+                  <b
+                    className="num"
+                    id="nGames"
+                    style={{ color: "var(--text-primary)" }}
+                  >
                     {totalGames}
                   </b>{" "}
                   partidos analizados esta semana
@@ -140,15 +187,15 @@ export function LandingClient({
                 />
               </div>
 
-              <div className="panel float-chip">
+              <div className="panel float-chip" id="chip">
                 <Icon name="probability" />
-                <span className="secondary">{topOutcome?.label ?? "Local"}</span>
-                <b className="num">
-                  {formatPercent(topOutcome?.probability ?? 0.5, 1)}
-                </b>
+                <span className="secondary">
+                  {over25Row?.label ?? "Más de 2.5"}
+                </span>
+                <b className="num">{formatPercent(over25Row?.p ?? 0.52, 1)}</b>
               </div>
 
-              <div className="panel float-card">
+              <div className="panel float-card" id="fcard">
                 <div
                   style={{
                     display: "flex",
@@ -169,38 +216,30 @@ export function LandingClient({
                     className="tag tag-model"
                     style={{ marginLeft: "auto" }}
                   >
-                    {featuredMatch.leagueLabel}
+                    Beta cerrada
                   </span>
                 </div>
-                {featuredMatch.outcomes.map((o, idx) => (
-                  <div key={o.key} className="row">
-                    <span>
-                      {o.label}
-                      {idx === maxOutcomeIdx ? (
-                        <span className="fav">Favorito</span>
-                      ) : null}
-                    </span>
-                    <div className="prob-bar">
-                      <span
-                        className={`prob-seg ${idx === maxOutcomeIdx ? "home" : "draw"}`}
-                        style={{
-                          width: `${Math.round(o.probability * 100)}%`,
-                        }}
-                      />
+                {heroRows.map((r, idx) => {
+                  const isLead = idx === heroLeadIdx;
+                  return (
+                    <div key={r.selection} className="row">
+                      <span>
+                        {r.label}
+                        {isLead ? <span className="fav">Favorito</span> : null}
+                      </span>
+                      <PBar p={r.p} lead={isLead} />
+                      <b className={`pv ${isLead ? "lead-txt" : ""}`.trim()}>
+                        {formatPercent(r.p, 1)}
+                      </b>
                     </div>
-                    <b
-                      className={`num ${idx === maxOutcomeIdx ? "lead-txt" : ""}`}
-                    >
-                      {formatPercent(o.probability, 1)}
-                    </b>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           </div>
         </section>
 
-        <section className="block" id="partidos">
+        <section className="block" id="como">
           <div className="wrap">
             <div className="shead">
               <p className="eyebrow">El problema</p>
@@ -225,7 +264,7 @@ export function LandingClient({
                     </div>
                   </div>
                   <div className="bubble">
-                    PICK SEGURO: Local gana y más de 3.5
+                    PICK SEGURO: América gana y más de 3.5 🔒
                     <small>Beto · 9:41</small>
                   </div>
                   <div className="bubble file">
@@ -237,7 +276,7 @@ export function LandingClient({
                     <small>Tú · 9:52</small>
                   </div>
                   <div className="bubble">
-                    de ayer creo
+                    de ayer creo 🤷
                     <small>Beto · 10:07</small>
                   </div>
                   <p className="q">Nadie sabe de dónde salió el número.</p>
@@ -255,6 +294,7 @@ export function LandingClient({
 
                 <div
                   className="picks"
+                  id="picks"
                   role="group"
                   aria-label="Partidos de la jornada"
                 >
@@ -264,116 +304,100 @@ export function LandingClient({
                       type="button"
                       className="pick"
                       aria-pressed={idx === selectedDemoIdx}
-                      onClick={() => setSelectedDemoIdx(idx)}
+                      onClick={() => handleSelectDemo(idx)}
                     >
                       <TeamBadge
                         league={m.league}
                         slug={m.home.slug}
-                        size={22}
+                        size={24}
                       />
                       <span>
-                        {m.home.shortName} vs {m.away.shortName}
+                        {m.home.code} vs {m.away.code}
                       </span>
                     </button>
                   ))}
                 </div>
 
-                <article className="panel dcard" aria-live="polite">
+                <article
+                  className="panel dcard"
+                  id="dcard"
+                  aria-live="polite"
+                >
                   <div className="dmatch">
                     <div className="t">
                       <TeamBadge
                         league={currentDemo.league}
                         slug={currentDemo.home.slug}
-                        size={28}
+                        size={40}
                       />
-                      <div>
-                        <div>{currentDemo.home.name}</div>
-                        <div className="caption muted">
-                          {currentDemo.home.record}
-                        </div>
-                      </div>
+                      <span>{currentDemo.home.name}</span>
                     </div>
                     <div className="s">
-                      <div className="caption muted">
-                        {currentDemo.leagueLabel}
+                      <div className="caption muted">Proyección</div>
+                      <div
+                        className="numeric-hl"
+                        style={{ fontSize: "1.75rem", lineHeight: "2rem" }}
+                      >
+                        {demoProj.home.toFixed(nfDemo ? 0 : 1)} –{" "}
+                        {demoProj.away.toFixed(nfDemo ? 0 : 1)}
                       </div>
-                      <div className="num small">{currentDemo.round}</div>
                     </div>
                     <div className="t away">
-                      <div>
-                        <div>{currentDemo.away.name}</div>
-                        <div className="caption muted">
-                          {currentDemo.away.record}
-                        </div>
-                      </div>
+                      <span>{currentDemo.away.name}</span>
                       <TeamBadge
                         league={currentDemo.league}
                         slug={currentDemo.away.slug}
-                        size={28}
+                        size={40}
                       />
                     </div>
                   </div>
 
-                  <ProbSplit outcomes={currentDemo.outcomes} />
-
-                  <table className="market-table">
-                    <thead>
-                      <tr>
-                        <th>Opción</th>
-                        <th>Probabilidad</th>
-                        <th>Momio justo</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {currentDemo.outcomes.map((o) => {
-                        const fair =
-                          o.fairOdds ?? probabilityToFairOdds(o.probability);
-                        return (
-                          <tr key={o.key}>
-                            <td>
-                              <strong>{o.label}</strong>
-                            </td>
-                            <td className="num">
-                              {formatPercent(o.probability, 1)}
-                            </td>
-                            <td className="num">
-                              {formatDecimal(fair.decimal)} (
-                              {formatAmerican(fair.american)})
-                            </td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
-
-                  <div
-                    style={{
-                      display: "flex",
-                      flexWrap: "wrap",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      gap: "8px",
-                    }}
-                  >
-                    <span className="tag tag-model">
-                      Modelo estadístico · {currentDemo.venue}
-                    </span>
-                    <button
-                      type="button"
-                      className="btn btn-secondary"
-                      onClick={openPin}
-                    >
-                      <span>Ver jornada completa</span>
-                      <Icon name="arrow" />
-                    </button>
-                  </div>
+                  {calculatingDemo && currentDemo.steps.length > 0 ? (
+                    <ul className="calc-mini">
+                      {currentDemo.steps.slice(0, 5).map((step, k) => (
+                        <li
+                          key={k}
+                          style={{ animationDelay: `${k * 110}ms` }}
+                        >
+                          <Icon name="check" />
+                          <span>{step}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <>
+                      <MarketTable
+                        groups={demoGroups}
+                        outcomes={currentDemo.outcomes}
+                        maxRowsPerGroup={3}
+                        style={{ marginTop: "var(--space-4)" }}
+                      />
+                      <div
+                        style={{
+                          display: "flex",
+                          flexWrap: "wrap",
+                          alignItems: "center",
+                          gap: "8px",
+                          marginTop: "var(--space-4)",
+                        }}
+                      >
+                        <span className="tag tag-model">
+                          Modelo PitchLab · en validación
+                        </span>
+                        <span className="fresh">
+                          <span className="dot" />
+                          Corte {currentDemo.updatedAt}
+                        </span>
+                      </div>
+                    </>
+                  )}
                 </article>
               </div>
             </div>
           </div>
         </section>
 
-        <section className="block" id="como">
+        <section className="block">
           <div className="wrap">
             <div className="shead">
               <p className="eyebrow">Un sábado cualquiera</p>
@@ -382,7 +406,7 @@ export function LandingClient({
                 De la jornada al silbatazo final, con lo que ya está en la beta.
               </p>
             </div>
-            <ol className="timeline">
+            <ol className="timeline" id="timeline">
               <li className="tl">
                 <time>10:00</time>
                 <span className="rail" aria-hidden="true" />
@@ -394,52 +418,75 @@ export function LandingClient({
                   <span className="caption muted">
                     {featuredMatch.leagueLabel} · {featuredMatch.round}
                   </span>
-                  <b>{totalGames} partidos analizados esta semana</b>
+                  <b>{totalGames} partidos · jornada activa</b>
                 </div>
               </li>
+
               <li className="tl">
                 <time>12:30</time>
                 <span className="rail" aria-hidden="true" />
                 <div>
                   <b>Comparas dos partidos</b>
                   <p>
-                    Quién llega como favorito y su momio justo, sin abrir otra
-                    pestaña.
+                    Quién llega como favorito, sin abrir otra pestaña.
                   </p>
                 </div>
                 <div className="panel mini">
-                  <span className="caption muted">
-                    {featuredMatch.home.name} vs {featuredMatch.away.name}
-                  </span>
-                  <b className="num">
-                    {featuredMatch.outcomes
-                      .map((o) => `${o.label} ${formatPercent(o.probability, 0)}`)
-                      .join(" · ")}
-                  </b>
+                  {[m1, m2].map((g) => {
+                    const isNf = g.league === "nfl";
+                    const ps = isNf
+                      ? [g.x12[0], g.x12[2]]
+                      : [g.x12[0], g.x12[1], g.x12[2]];
+                    const lbs = isNf
+                      ? [g.home.name, g.away.name]
+                      : [g.home.name, "Empate", g.away.name];
+                    return (
+                      <div key={g.id}>
+                        <div
+                          className="caption"
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            marginBottom: 4,
+                          }}
+                        >
+                          <span>
+                            {g.home.code} vs {g.away.code}
+                          </span>
+                          <span className="muted num">
+                            {ps.map((p) => Math.round(p * 100)).join(" · ")}
+                          </span>
+                        </div>
+                        <ProbSplit probabilities={ps} labels={lbs} />
+                      </div>
+                    );
+                  })}
                 </div>
               </li>
+
               <li className="tl">
                 <time>17:55</time>
                 <span className="rail" aria-hidden="true" />
                 <div>
-                  <b>Revisas el momio justo</b>
+                  <b>Revisas tu cuota</b>
                   <p>
-                    Comparas la probabilidad implícita contra lo que estima el
+                    Escribes la cuota de tu casa y ves la diferencia contra el
                     modelo.
                   </p>
                 </div>
                 <div className="panel mini">
                   <span className="caption muted">
-                    Momio justo sin margen de casa
+                    {over25Row?.label ?? "Más de 2.5"} · tu cuota 2.10
                   </span>
                   <span className="num">
-                    Favorito:{" "}
+                    Implica <b>{formatPercent(1 / 2.1, 1)}</b> · modelo{" "}
                     <b className="lead-txt">
-                      {formatPercent(topOutcome?.probability ?? 0.5, 1)}
+                      {formatPercent(over25Row?.p ?? 0.52, 1)}
                     </b>
                   </span>
                 </div>
               </li>
+
               <li className="tl">
                 <time>20:10</time>
                 <span className="rail" aria-hidden="true" />
@@ -452,14 +499,15 @@ export function LandingClient({
                 </div>
                 <div className="panel mini">
                   <span className="caption muted">
-                    Traza íntegra pre-partido
+                    {featuredMatch.home.shortName} vs{" "}
+                    {featuredMatch.away.shortName} · Corte íntegro
                   </span>
                   <span
                     className="tag tag-info"
                     style={{ justifySelf: "start" }}
                   >
                     <span className="dot" />
-                    Corte verificado antes del inicio
+                    Publicado antes del partido
                   </span>
                 </div>
               </li>
@@ -477,27 +525,15 @@ export function LandingClient({
                 altura.
               </p>
             </div>
-            <div className="leagues">
+            <div className="leagues" id="leagues">
               {leagues.map((L) => (
                 <a
                   key={L.id}
                   className="panel ltile"
-                  href={L.active ? `/app/${L.id}` : "/login"}
+                  href={L.active ? `/app/${L.id}` : "/login#beta"}
                 >
                   <div className="top-row">
-                    <span
-                      className="crest"
-                      style={{ width: 42, height: 42 }}
-                      aria-hidden="true"
-                    >
-                      <img
-                        src={getLeagueEmblemPath(L.id)}
-                        alt=""
-                        width={30}
-                        height={30}
-                        loading="lazy"
-                      />
-                    </span>
+                    <LeagueBadge league={L.id} size={36} />
                     <div>
                       <div className="name">{L.name}</div>
                       <div className="caption muted">
@@ -509,8 +545,8 @@ export function LandingClient({
                     className="pic"
                     src={getMascotPath(L.mascot)}
                     alt=""
-                    width={220}
-                    height={220}
+                    width={230}
+                    height={230}
                     loading="lazy"
                   />
                   <div className="meta">
@@ -536,12 +572,26 @@ export function LandingClient({
 
               <div className="soon">
                 <div className="panel">
-                  <Icon name="hockey" />
+                  <img
+                    src={getMascotPath("nhl")}
+                    alt=""
+                    width={44}
+                    height={44}
+                    loading="lazy"
+                  />
+                  <LeagueBadge league="nhl" size={28} />
                   <span>NHL</span>
                   <span className="tag">Pronto</span>
                 </div>
                 <div className="panel">
-                  <Icon name="baseball" />
+                  <img
+                    src={getMascotPath("mlb")}
+                    alt=""
+                    width={44}
+                    height={44}
+                    loading="lazy"
+                  />
+                  <LeagueBadge league="mlb" size={28} />
                   <span>MLB</span>
                   <span className="tag">Pronto</span>
                 </div>
@@ -550,7 +600,7 @@ export function LandingClient({
           </div>
         </section>
 
-        <section className="block" id="metodo">
+        <section className="block" id="modelo">
           <div className="wrap">
             <div className="shead">
               <p className="eyebrow">El modelo</p>
@@ -610,7 +660,7 @@ export function LandingClient({
           </div>
         </section>
 
-        <section className="block">
+        <section>
           <div className="wrap">
             <div className="panel closing">
               <div className="copy">

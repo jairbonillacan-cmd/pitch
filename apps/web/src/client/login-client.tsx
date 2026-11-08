@@ -1,13 +1,10 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { getMascotPath } from "@pitchlab/sports-assets";
 import {
   FloatingNav,
-  PublicFooter,
   PinPad,
-  Notice,
-  Field,
   Icon,
 } from "@pitchlab/ui";
 import { useBetaPin } from "./use-beta-pin.js";
@@ -18,7 +15,6 @@ export function LoginClient({
   nextPath: string;
 }): React.JSX.Element {
   const { pinOpen, openPin, closePin, submitPin } = useBetaPin(nextPath);
-  const [lockedNotice, setLockedNotice] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined" && window.location.hash === "#beta") {
@@ -28,140 +24,93 @@ export function LoginClient({
 
   return (
     <>
-      <a className="skip-link" href="#main">
+      <a className="skip" href="#main">
         Saltar al contenido
       </a>
 
       <FloatingNav onOpenBetaPin={openPin} activeAuthRoute="login" />
 
-      <main id="main" className="auth-page">
-        <div className="container">
-          <div className="auth-shell">
-            <section className="panel auth-card" aria-labelledby="login-title">
-              <div className="auth-head">
-                <span
-                  className="tag tag-info"
-                  style={{ justifySelf: "start" }}
-                >
-                  <span className="dot" />
-                  Beta por invitación
-                </span>
-                <h1 id="login-title">Iniciar sesión</h1>
-                <p>
-                  Las cuentas por correo se activan en la siguiente ola. Si
-                  tienes invitación, entra con tu código.
-                </p>
-              </div>
+      <main className="auth" id="main">
+        <aside className="visual" aria-hidden="true">
+          <div className="fieldgrid" />
+          <div className="mascot">
+            <img
+              src={getMascotPath("radar")}
+              alt=""
+              width={380}
+              height={380}
+            />
+          </div>
+          <blockquote>
+            <p>Tu código de socio abre la beta.</p>
+            <span>Las cuentas llegan después. Hoy se entra con invitación.</span>
+          </blockquote>
+        </aside>
 
-              <form
-                className="auth-form"
-                noValidate
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  setLockedNotice(true);
-                }}
-              >
-                <Field
-                  id="login-email"
-                  label="Correo electrónico"
+        <section className="panel acard" aria-labelledby="t">
+          <h1 className="h2" id="t">
+            Entrar
+          </h1>
+          <p className="secondary" style={{ margin: 0 }}>
+            Bienvenido de vuelta.
+          </p>
+          <div className="notice">
+            <Icon name="info" />
+            <span>
+              Las cuentas abren pronto. Mientras tanto, la beta es solo con
+              código de socio.
+            </span>
+          </div>
+          <button
+            className="btn btn-primary btn-block btn-beta"
+            type="button"
+            data-open-pin=""
+            onClick={openPin}
+          >
+            Entrar a la beta con código <Icon name="arrow" />
+          </button>
+          <div className="or">o con tu cuenta</div>
+          <form
+            className="auth-form"
+            onSubmit={(e) => e.preventDefault()}
+            aria-describedby="soon-login"
+          >
+            <fieldset disabled>
+              <div className="field">
+                <label htmlFor="em">Correo</label>
+                <input
+                  id="em"
                   type="email"
-                  placeholder="tu@correo.com"
                   autoComplete="email"
+                  placeholder="tu@correo.com"
                 />
-                <Field
-                  id="login-pass"
-                  label="Contraseña"
+              </div>
+              <div className="field">
+                <label htmlFor="pw">Contraseña</label>
+                <input
+                  id="pw"
                   type="password"
-                  placeholder="••••••••"
                   autoComplete="current-password"
                 />
-                <button
-                  className="btn btn-secondary btn-block"
-                  type="submit"
-                >
-                  Continuar con correo
-                </button>
-              </form>
-
-              {lockedNotice ? (
-                <Notice>
-                  El acceso por correo aún no está activo. Usa el código de tu
-                  invitación.
-                </Notice>
-              ) : null}
-
-              <div className="auth-divider">acceso inmediato</div>
-
-              <button
-                className="btn btn-beta"
-                type="button"
-                data-open-pin=""
-                onClick={openPin}
-              >
-                <span
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "10px",
-                  }}
-                >
-                  <Icon name="shield" />
-                  <span>Entrar a la beta con código</span>
-                </span>
-                <Icon name="arrow" />
+              </div>
+              <button className="btn btn-secondary btn-block" type="submit">
+                Iniciar sesión
               </button>
-
-              <div className="auth-foot">
-                ¿Aún no tienes cuenta?{" "}
-                <a href="/signup">Solicitar lugar</a>
-              </div>
-            </section>
-
-            <aside className="panel auth-aside" aria-label="Qué incluye la beta">
-              <div>
-                <p className="eyebrow">Dentro del panel</p>
-                <h2 className="text-h2" style={{ marginTop: "6px" }}>
-                  Tres ligas listas para analizar hoy.
-                </h2>
-              </div>
-
-              <div className="mascot" aria-hidden="true">
-                <img
-                  src={getMascotPath("tactico")}
-                  alt=""
-                  width={230}
-                  height={230}
-                  loading="lazy"
-                />
-              </div>
-
-              <ul className="auth-bullets">
-                <li>
-                  <Icon name="check" />
-                  <span>
-                    Liga MX, Premier League y NFL con probabilidades y momio
-                    justo.
-                  </span>
-                </li>
-                <li>
-                  <Icon name="check" />
-                  <span>
-                    Factores explicados y traza del cálculo en cada partido.
-                  </span>
-                </li>
-                <li>
-                  <Icon name="check" />
-                  <span>
-                    Sin anuncios de casas de apuestas ni venta de picks.
-                  </span>
-                </li>
-              </ul>
-            </aside>
-          </div>
-        </div>
+            </fieldset>
+            <p
+              className="caption muted"
+              id="soon-login"
+              style={{ textAlign: "center", margin: "var(--space-2) 0 0" }}
+            >
+              Disponible al abrir las cuentas.
+            </p>
+          </form>
+          <p className="switch-link">
+            ¿No tienes cuenta? <a href="/signup">Crear cuenta</a>
+          </p>
+        </section>
       </main>
 
-      <PublicFooter onOpenBetaPin={openPin} />
       <PinPad open={pinOpen} onClose={closePin} onSubmitPin={submitPin} />
     </>
   );

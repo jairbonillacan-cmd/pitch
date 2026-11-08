@@ -1,17 +1,13 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { useRouter } from "next/navigation";
-import type {
-  LeagueId,
-  MatchAnalysis,
-} from "@pitchlab/contracts";
-import { getLeagueEmblemPath } from "@pitchlab/sports-assets";
+import type { MatchAnalysis } from "@pitchlab/contracts";
+import { getMascotPath } from "@pitchlab/sports-assets";
 import {
   BrandLogo,
   ThemeToggle,
-  PublicFooter,
-  Icon,
+  LeagueBadge,
   Freshness,
   MatchCard,
   AnalysisDialog,
@@ -34,8 +30,10 @@ export function PanelClient({
   const router = useRouter();
   const snapshot = envelope.data;
   const games = snapshot?.games ?? [];
+  const seenGamesRef = useRef<Set<string>>(new Set());
 
   const [activeDay, setActiveDay] = useState<string>("all");
+  const [skipTrace, setSkipTrace] = useState<boolean>(Boolean(initialGameId));
   const [selectedMatch, setSelectedMatch] = useState<MatchAnalysis | null>(
     () => {
       if (!initialGameId) return null;
@@ -50,12 +48,17 @@ export function PanelClient({
   useEffect(() => {
     if (initialGameId) {
       const found = games.find((g) => g.id === initialGameId) ?? null;
+      setSkipTrace(true);
       setSelectedMatch(found);
     }
   }, [initialGameId, games]);
 
   const handleSelectMatch = useCallback(
     (match: MatchAnalysis) => {
+      const key = `${league}:${match.id}`;
+      const alreadySeen = seenGamesRef.current.has(key);
+      seenGamesRef.current.add(key);
+      setSkipTrace(alreadySeen);
       setSelectedMatch(match);
       if (typeof window !== "undefined") {
         window.history.pushState(
@@ -84,146 +87,53 @@ export function PanelClient({
     router.push("/");
   }, [router]);
 
-  const filteredGames =
-    activeDay === "all"
-      ? games
-      : games.filter((g) => g.day === activeDay);
+  const filteredGames = useMemo(
+    () =>
+      activeDay === "all"
+        ? games
+        : games.filter((g) => g.day === activeDay),
+    [games, activeDay],
+  );
 
-  const days = snapshot?.days ?? [{ id: "all", label: "Todos" }];
+  const dayGroups = useMemo(() => {
+    const groups = new Map<string, MatchAnalysis[]>();
+    for (const g of filteredGames) {
+      const list = groups.get(g.day) ?? [];
+      list.push(g);
+      groups.set(g.day, list);
+    }
+    return Array.from(groups.entries());
+  }, [filteredGames]);
+
+  const days = snapshot?.days ?? [
+    {
+      id: "all",
+      label: league === "nfl" ? "Toda la semana" : "Toda la jornada",
+    },
+  ];
+
+  const leagueMascot = league;
 
   return (
     <>
-      <a className="skip-link" href="#main">
-        Saltar al contenido
+      <a className="skip" href="#games">
+        Saltar a los partidos
       </a>
 
-      <header className="panel-header">
-        <div className="panel-header-inner">
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "var(--space-4)",
-              flexWrap: "wrap",
-            }}
-          >
-            <a className="brand-mark" href="/" aria-label="PitchLab — Inicio">
-              <BrandLogo variant="horizontal" width={133} height={26} />
+      <header className="app-header panel-header">
+        <div className="wrap">
+          <a className="logo" href="/" aria-label="PitchLab · Inicio">
+            <BrandLogo variant="horizontal" width={148} height={29} />
+          </a>
+          <div className="right">
+            <a className="btn btn-ghost method" href="/#como">
+              Cómo funciona
             </a>
-
-            <div
-              className="league-tabs"
-              role="tablist"
-              aria-label="Ligas disponibles"
-            >
-              {leagueAvailability["liga-mx"] ? (
-                <button
-                  className="league-tab"
-                  role="tab"
-                  type="button"
-                  aria-selected={league === "liga-mx"}
-                  data-league="liga-mx"
-                  onClick={() => router.push("/app/liga-mx")}
-                >
-                  <img
-                    src={getLeagueEmblemPath("liga-mx")}
-                    alt=""
-                    width={18}
-                    height={18}
-                  />
-                  <span>Liga MX</span>
-                </button>
-              ) : (
-                <button
-                  className="league-tab"
-                  role="tab"
-                  type="button"
-                  aria-selected="false"
-                  disabled
-                  title="Disponible próximamente"
-                >
-                  <img
-                    src={getLeagueEmblemPath("liga-mx")}
-                    alt=""
-                    width={18}
-                    height={18}
-                  />
-                  <span>Liga MX</span>
-                  <span className="soon-pill">Pronto</span>
-                </button>
-              )}
-
-              <button
-                className="league-tab"
-                role="tab"
-                type="button"
-                aria-selected={league === "premier-league"}
-                data-league="premier-league"
-                onClick={() => router.push("/app/premier-league")}
-              >
-                <img
-                  src={getLeagueEmblemPath("premier-league")}
-                  alt=""
-                  width={18}
-                  height={18}
-                />
-                <span>Premier League</span>
-              </button>
-
-              <button
-                className="league-tab"
-                role="tab"
-                type="button"
-                aria-selected={league === "nfl"}
-                data-league="nfl"
-                onClick={() => router.push("/app/nfl")}
-              >
-                <img
-                  src={getLeagueEmblemPath("nfl")}
-                  alt=""
-                  width={18}
-                  height={18}
-                />
-                <span>NFL</span>
-              </button>
-
-              <button
-                className="league-tab"
-                role="tab"
-                type="button"
-                aria-selected="false"
-                disabled
-                title="Disponible en la siguiente ola"
-              >
-                <Icon name="hockey" />
-                <span>NHL</span>
-                <span className="soon-pill">Pronto</span>
-              </button>
-
-              <button
-                className="league-tab"
-                role="tab"
-                type="button"
-                aria-selected="false"
-                disabled
-                title="Disponible en la siguiente ola"
-              >
-                <Icon name="baseball" />
-                <span>MLB</span>
-                <span className="soon-pill">Pronto</span>
-              </button>
-            </div>
-          </div>
-
-          <div className="nav-actions">
-            <span className="tag tag-ok hide-sm">
-              <span className="dot" />
-              Beta activa
-            </span>
             <ThemeToggle />
             <button
               className="btn btn-ghost"
               type="button"
+              data-logout=""
               onClick={handleLogout}
             >
               Salir
@@ -232,110 +142,190 @@ export function PanelClient({
         </div>
       </header>
 
-      <main id="main" className="panel-main">
-        <div className="panel-bar">
-          <div className="panel-title">
-            <span className="crest" aria-hidden="true">
-              <img
-                id="panel-league-emblem"
-                src={getLeagueEmblemPath(league as LeagueId)}
-                alt=""
-                width={32}
-                height={32}
-              />
-            </span>
+      <nav className="lswitch" aria-label="Ligas">
+        <div className="wrap" id="lswitch">
+          <button
+            className="lchip league-tab"
+            type="button"
+            data-league="liga-mx"
+            disabled={!leagueAvailability["liga-mx"]}
+            aria-current={league === "liga-mx" ? "page" : undefined}
+            onClick={() => router.push("/app/liga-mx")}
+          >
+            <LeagueBadge league="liga-mx" size={26} />
+            Liga MX
+            {!leagueAvailability["liga-mx"] ? (
+              <span className="tag">Pronto</span>
+            ) : null}
+          </button>
+
+          <button
+            className="lchip league-tab"
+            type="button"
+            data-league="premier-league"
+            aria-current={league === "premier-league" ? "page" : undefined}
+            onClick={() => router.push("/app/premier-league")}
+          >
+            <LeagueBadge league="premier-league" size={26} />
+            Premier
+          </button>
+
+          <button
+            className="lchip league-tab"
+            type="button"
+            data-league="nfl"
+            aria-current={league === "nfl" ? "page" : undefined}
+            onClick={() => router.push("/app/nfl")}
+          >
+            <LeagueBadge league="nfl" size={26} />
+            NFL
+          </button>
+
+          <button
+            className="lchip league-tab"
+            type="button"
+            data-league="nhl"
+            disabled
+          >
+            <LeagueBadge league="nhl" size={26} />
+            NHL
+            <span className="tag">Pronto</span>
+          </button>
+
+          <button
+            className="lchip league-tab"
+            type="button"
+            data-league="mlb"
+            disabled
+          >
+            <LeagueBadge league="mlb" size={26} />
+            MLB
+            <span className="tag">Pronto</span>
+          </button>
+        </div>
+      </nav>
+
+      <main id="main">
+        <section className="lhead">
+          <div className="wrap" id="lhead">
+            <LeagueBadge league={league} size={56} />
             <div>
-              <h1 id="panel-league-name">
-                {snapshot?.leagueLabel ?? "Premier League"}
+              <h1 className="h1" id="panel-league-name">
+                {snapshot?.leagueLabel ??
+                  (league === "nfl"
+                    ? "NFL"
+                    : league === "liga-mx"
+                      ? "Liga MX"
+                      : "Premier League")}
               </h1>
-              <div className="panel-sub">
-                <span id="panel-league-round">
-                  {snapshot?.roundLabel ?? "Jornada"} ·{" "}
-                  {snapshot?.season ?? "Temporada 2026"}
+              <div className="meta">
+                <span className="secondary" id="panel-league-round">
+                  {snapshot?.season ?? "2026"} ·{" "}
+                  {snapshot?.roundLabel ?? "Jornada"}
                 </span>
-                <span>·</span>
                 {snapshot?.generatedAt ? (
                   <Freshness generatedAt={snapshot.generatedAt} />
                 ) : null}
+                <span className="tag tag-model">
+                  <span className="dot" />
+                  Beta cerrada
+                </span>
               </div>
             </div>
-          </div>
-
-          <div
-            className="day-chips"
-            id="day-chips"
-            role="group"
-            aria-label="Filtrar por día"
-          >
-            {days.map((d) => (
-              <button
-                key={d.id}
-                type="button"
-                className="day-chip"
-                data-day={d.id}
-                aria-pressed={activeDay === d.id}
-                onClick={() => setActiveDay(d.id)}
-              >
-                {d.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {envelope.state === "error" ? (
-          <ErrorState
-            message={
-              envelope.error?.message ??
-              "No pudimos cargar los datos de la jornada."
-            }
-            code={envelope.error?.code ?? "UPSTREAM"}
-            onRetry={() => router.refresh()}
-          />
-        ) : filteredGames.length === 0 ? (
-          <EmptyState
-            message={
-              games.length === 0
-                ? "Esta liga estará disponible pronto con datos verificados."
-                : "No hay partidos programados para este día en la jornada actual."
-            }
-            actionLabel={
-              games.length === 0
-                ? "Ir a Premier League"
-                : "Ver toda la jornada"
-            }
-            onAction={() => {
-              if (games.length === 0) {
-                router.push("/app/premier-league");
-              } else {
-                setActiveDay("all");
-              }
-            }}
-          />
-        ) : (
-          <section
-            className="match-grid"
-            id="match-grid"
-            aria-live="polite"
-            aria-label="Partidos de la jornada"
-          >
-            {filteredGames.map((match) => (
-              <MatchCard
-                key={match.id}
-                match={match}
-                onSelect={handleSelectMatch}
+            <div className="pic mascot" aria-hidden="true">
+              <img
+                src={getMascotPath(leagueMascot)}
+                alt=""
+                width={170}
+                height={170}
               />
-            ))}
-          </section>
-        )}
+            </div>
+          </div>
+        </section>
+
+        <nav className="days" aria-label="Filtrar por día">
+          <div className="wrap" id="day-chips">
+            {days.map((d) => {
+              const count =
+                d.id === "all"
+                  ? games.length
+                  : games.filter((g) => g.day === d.id).length;
+              return (
+                <button
+                  key={d.id}
+                  type="button"
+                  className="chip day-chip"
+                  data-day={d.id}
+                  aria-pressed={activeDay === d.id}
+                  onClick={() => setActiveDay(d.id)}
+                >
+                  {d.label} <span className="count">{count}</span>
+                </button>
+              );
+            })}
+          </div>
+        </nav>
+
+        <div className="wrap" id="games" tabIndex={-1}>
+          {envelope.state === "error" ? (
+            <ErrorState
+              message={
+                envelope.error?.message ??
+                "No pudimos cargar los datos de la jornada."
+              }
+              code={envelope.error?.code ?? "UPSTREAM"}
+              onRetry={() => router.refresh()}
+            />
+          ) : dayGroups.length === 0 ? (
+            <EmptyState
+              message={
+                games.length === 0
+                  ? "Esta liga estará disponible pronto con datos verificados."
+                  : "No hay partidos este día."
+              }
+              actionLabel={
+                games.length === 0
+                  ? "Ir a Premier League"
+                  : "Ver toda la jornada"
+              }
+              onAction={() => {
+                if (games.length === 0) {
+                  router.push("/app/premier-league");
+                } else {
+                  setActiveDay("all");
+                }
+              }}
+            />
+          ) : (
+            dayGroups.map(([dayId, list]) => (
+              <section
+                className="day"
+                key={dayId}
+                aria-labelledby={`d-${dayId}`}
+              >
+                <h2 id={`d-${dayId}`}>{list[0]?.dayLabel ?? dayId}</h2>
+                <ul className="cards">
+                  {list.map((match) => (
+                    <li key={match.id}>
+                      <MatchCard
+                        match={match}
+                        onSelect={handleSelectMatch}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ))
+          )}
+        </div>
       </main>
 
       <AnalysisDialog
         match={selectedMatch}
         open={selectedMatch !== null}
         onClose={handleCloseModal}
+        skipTrace={skipTrace}
       />
-
-      <PublicFooter />
     </>
   );
 }

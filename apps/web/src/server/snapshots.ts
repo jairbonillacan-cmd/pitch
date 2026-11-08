@@ -63,10 +63,15 @@ export function loadLeagueSnapshotEnvelope(
             ? "Premier League"
             : "NFL",
       sport: leagueKey === "nfl" ? "american-football" : "football",
-      season: leagueKey === "nfl" ? "Temporada 2026" : "Temporada 2026/27",
-      roundLabel: "Próxima jornada",
+      season:
+        leagueKey === "liga-mx"
+          ? "Apertura 2026"
+          : leagueKey === "nfl"
+            ? "2026"
+            : "2026/27",
+      roundLabel: leagueKey === "nfl" ? "Semana 9" : "Jornada 16",
       generatedAt: new Date().toISOString(),
-      days: [{ id: "all", label: "Todos" }],
+      days: [{ id: "all", label: `Toda la ${leagueKey === "nfl" ? "semana" : "jornada"}` }],
       games: [],
     };
     assertNotDemoInProduction("derived");
@@ -93,7 +98,7 @@ export function loadLeagueSnapshotEnvelope(
             ? "Premier League"
             : "NFL",
       sport: parsed.league === "nfl" ? "american-football" : "football",
-      season: `Temporada ${parsed.seasonLabel}`,
+      season: parsed.seasonLabel,
       roundLabel: parsed.periodLabel,
       generatedAt: parsed.updatedAt,
       days,

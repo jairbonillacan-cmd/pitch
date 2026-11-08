@@ -1,5 +1,9 @@
 import type { LeagueId } from "./ids.js";
-import type { LeagueSnapshot } from "./analysis.js";
+import type {
+  AnalysisMarketGroup,
+  LeagueSnapshot,
+  MostLikelyScore,
+} from "./analysis.js";
 import { decimalToAmerican } from "./odds.js";
 
 export interface FairOdds {
@@ -18,6 +22,8 @@ export interface FactorItem {
   label: string;
   detail: string;
   impact: string;
+  value?: string;
+  sub?: string;
 }
 
 export interface CalcStep {
@@ -45,14 +51,27 @@ export interface MatchAnalysis {
     slug: string;
     name: string;
     shortName: string;
+    code: string;
     record: string;
   };
   away: {
     slug: string;
     name: string;
     shortName: string;
+    code: string;
     record: string;
   };
+  projection: {
+    home: number;
+    away: number;
+    total: number;
+    margin?: number;
+  };
+  x12: [number, number, number];
+  marketGroups: AnalysisMarketGroup[];
+  mostLikelyScore?: MostLikelyScore;
+  steps: string[];
+  updatedAt: string;
   outcomes: OutcomeMarket[];
   factors: FactorItem[];
   trace: CalcStep[];
@@ -66,11 +85,19 @@ export function probabilityToFairOdds(p: number): FairOdds {
 }
 
 export function formatPercent(p: number, decimals: number = 1): string {
-  return `${(p * 100).toFixed(decimals)}%`;
+  return (
+    (p * 100).toLocaleString("es-MX", {
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals,
+    }) + " %"
+  );
 }
 
 export function formatDecimal(d: number): string {
-  return d.toFixed(2);
+  return d.toLocaleString("es-MX", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
 }
 
 export function formatAmerican(a: number): string {
@@ -83,48 +110,43 @@ export function formatFreshnessEs(
 ): { label: string; isStale: boolean } {
   const genMs = new Date(generatedAtIso).getTime();
   const diffMin = Math.max(0, Math.round((now.getTime() - genMs) / 60_000));
-  if (diffMin < 60) {
-    return {
-      label: `Actualizado hace ${Math.max(1, diffMin)} min`,
-      isStale: false,
-    };
-  }
-  const diffHours = Math.round(diffMin / 60);
-  if (diffHours <= 24) {
-    return {
-      label: `Actualizado hace ${diffHours} h`,
-      isStale: false,
-    };
-  }
+  const formattedCut = new Date(generatedAtIso).toLocaleDateString("es-MX", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
   return {
-    label: `Corte reciente`,
-    isStale: true,
+    label: `Actualizado ${formattedCut}`,
+    isStale: diffMin > 24 * 60,
   };
 }
 
-const WEEKDAY_MAP: Record<number, { id: string; short: string }> = {
-  0: { id: "dom", short: "Dom" },
-  1: { id: "lun", short: "Lun" },
-  2: { id: "mar", short: "Mar" },
-  3: { id: "mie", short: "Mié" },
-  4: { id: "jue", short: "Jue" },
-  5: { id: "vie", short: "Vie" },
-  6: { id: "sab", short: "Sáb" },
+const WEEKDAY_MAP: Record<number, { id: string; short: string; long: string }> = {
+  0: { id: "dom", short: "Dom", long: "domingo" },
+  1: { id: "lun", short: "Lun", long: "lunes" },
+  2: { id: "mar", short: "Mar", long: "martes" },
+  3: { id: "mie", short: "Mié", long: "miércoles" },
+  4: { id: "jue", short: "Jue", long: "jueves" },
+  5: { id: "vie", short: "Vie", long: "viernes" },
+  6: { id: "sab", short: "Sáb", long: "sábado" },
 };
 
-const MONTHS_SHORT = [
-  "ene",
-  "feb",
-  "mar",
-  "abr",
-  "may",
-  "jun",
-  "jul",
-  "ago",
-  "sep",
-  "oct",
-  "nov",
-  "dic",
+const MONTHS_LONG = [
+  "enero",
+  "febrero",
+  "marzo",
+  "abril",
+  "mayo",
+  "junio",
+  "julio",
+  "agosto",
+  "septiembre",
+  "octubre",
+  "noviembre",
+  "diciembre",
 ];
 
 function formatDayAndHour(startTime: string): {
@@ -135,16 +157,21 @@ function formatDayAndHour(startTime: string): {
 } {
   const normalized = startTime.length === 10 ? `${startTime}T15:00:00Z` : startTime;
   const dateObj = new Date(normalized);
-  const w = WEEKDAY_MAP[dateObj.getUTCDay()] ?? { id: "sab", short: "Sáb" };
+  const w = WEEKDAY_MAP[dateObj.getUTCDay()] ?? {
+    id: "sab",
+    short: "Sáb",
+    long: "sábado",
+  };
   const dayNum = dateObj.getUTCDate();
-  const monthStr = MONTHS_SHORT[dateObj.getUTCMonth()] ?? "nov";
+  const monthLong = MONTHS_LONG[dateObj.getUTCMonth()] ?? "noviembre";
   const hh = String(dateObj.getUTCHours()).padStart(2, "0");
   const mm = String(dateObj.getUTCMinutes()).padStart(2, "0");
+  const fullDay = `${w.long}, ${dayNum} de ${monthLong}`;
 
   return {
-    dayId: `${w.id}-${dayNum}`,
-    dayChipLabel: `${w.short} ${dayNum}`,
-    dayFullLabel: `${w.short} ${dayNum} ${monthStr}`,
+    dayId: startTime.slice(0, 10),
+    dayChipLabel: fullDay,
+    dayFullLabel: fullDay,
     kickoffLocal: `${hh}:${mm}`,
   };
 }
@@ -154,7 +181,8 @@ export function snapshotToMatchAnalyses(snapshot: LeagueSnapshot): {
   matches: MatchAnalysis[];
 } {
   const dayMap = new Map<string, string>();
-  dayMap.set("all", "Todos");
+  const isNfl = snapshot.league === "nfl";
+  dayMap.set("all", `Toda la ${isNfl ? "semana" : "jornada"}`);
 
   const leagueLabel =
     snapshot.league === "liga-mx"
@@ -162,9 +190,12 @@ export function snapshotToMatchAnalyses(snapshot: LeagueSnapshot): {
       : snapshot.league === "premier-league"
         ? "Premier League"
         : "NFL";
-  const isNfl = snapshot.league === "nfl";
 
-  const matches: MatchAnalysis[] = snapshot.games.map((g) => {
+  const sortedGames = snapshot.games
+    .slice()
+    .sort((a, b) => a.startTime.localeCompare(b.startTime));
+
+  const matches: MatchAnalysis[] = sortedGames.map((g) => {
     const analysis = snapshot.analyses[g.id];
     const homeRate = snapshot.teamRates[g.home.id];
     const awayRate = snapshot.teamRates[g.away.id];
@@ -178,18 +209,22 @@ export function snapshotToMatchAnalyses(snapshot: LeagueSnapshot): {
       dayMap.set(dayId, dayChipLabel);
     }
 
-    const x12 = analysis?.x12 ?? [0.45, isNfl ? 0 : 0.25, isNfl ? 0.55 : 0.3];
+    const x12: [number, number, number] = analysis?.x12 ?? [
+      0.45,
+      isNfl ? 0 : 0.25,
+      isNfl ? 0.55 : 0.3,
+    ];
     const outcomes: OutcomeMarket[] = isNfl
       ? [
           {
             key: "home",
-            label: g.home.shortName,
+            label: `${g.home.shortName} gana`,
             probability: x12[0],
             fairOdds: probabilityToFairOdds(x12[0]),
           },
           {
             key: "away",
-            label: g.away.shortName,
+            label: `${g.away.shortName} gana`,
             probability: x12[2],
             fairOdds: probabilityToFairOdds(x12[2]),
           },
@@ -197,7 +232,7 @@ export function snapshotToMatchAnalyses(snapshot: LeagueSnapshot): {
       : [
           {
             key: "home",
-            label: g.home.shortName,
+            label: `${g.home.shortName} gana`,
             probability: x12[0],
             fairOdds: probabilityToFairOdds(x12[0]),
           },
@@ -209,7 +244,7 @@ export function snapshotToMatchAnalyses(snapshot: LeagueSnapshot): {
           },
           {
             key: "away",
-            label: g.away.shortName,
+            label: `${g.away.shortName} gana`,
             probability: x12[2],
             fairOdds: probabilityToFairOdds(x12[2]),
           },
@@ -227,12 +262,37 @@ export function snapshotToMatchAnalyses(snapshot: LeagueSnapshot): {
       label: f.label,
       detail: f.detail ? `${f.value} (${f.detail})` : f.value,
       impact: f.value,
+      value: f.value,
+      sub: f.detail ?? "",
     }));
 
-    const trace: CalcStep[] = (analysis?.steps ?? []).map((stepText, idx) => ({
+    const steps = analysis?.steps ?? [];
+    const trace: CalcStep[] = steps.map((stepText, idx) => ({
       step: `Paso ${idx + 1}`,
       value: stepText,
     }));
+
+    const defaultMarketGroups: AnalysisMarketGroup[] = [
+      {
+        group: isNfl ? "Ganador" : "Resultado",
+        rows: outcomes.map((o) => ({
+          market: "h2h",
+          selection: o.key,
+          label: o.label,
+          p: o.probability,
+          fairOdds: o.fairOdds?.decimal ?? probabilityToFairOdds(o.probability).decimal,
+        })),
+      },
+    ];
+
+    const updatedCut = new Date(snapshot.updatedAt).toLocaleDateString("es-MX", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    });
 
     return {
       id: g.id,
@@ -251,14 +311,26 @@ export function snapshotToMatchAnalyses(snapshot: LeagueSnapshot): {
         slug: homeSlug,
         name: g.home.name,
         shortName: g.home.shortName,
+        code: g.home.code,
         record: homeRec,
       },
       away: {
         slug: awaySlug,
         name: g.away.name,
         shortName: g.away.shortName,
+        code: g.away.code,
         record: awayRec,
       },
+      projection: analysis?.projection ?? {
+        home: isNfl ? 24 : 1.5,
+        away: isNfl ? 21 : 1.2,
+        total: isNfl ? 45 : 2.7,
+      },
+      x12,
+      marketGroups: analysis?.marketGroups ?? defaultMarketGroups,
+      mostLikelyScore: analysis?.mostLikelyScore,
+      steps,
+      updatedAt: updatedCut,
       outcomes,
       factors,
       trace,
