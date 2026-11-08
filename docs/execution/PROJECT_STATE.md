@@ -9,7 +9,8 @@
 - **F1 (spikes y decisiones):** ✅ completa como investigación de escritorio. Las cotizaciones y la confirmación de términos dependen de que el fundador haga los contactos (FD-14).
 - **F2 (product blueprint):** ✅ completa, pendiente de revisión del fundador.
 - **Decisión 2026-11-08:** datos a US$0 por ahora → `docs/architecture/FREE_DATA_STRATEGY.md` (FD-02 decidida).
-- **Siguiente:** F3 (arquitectura y ADRs), ya con las fuentes gratuitas.
+- **F3 (arquitectura y ADRs):** ✅ completa: 18 ADRs y 8 documentos de arquitectura, con revisión cruzada.
+- **Siguiente:** ⛔ gate del fundador, después F4 (walking skeleton).
 
 No hay código de producto. El repo todavía contiene el clon de TouchIQ (Vite + `src/domain` con 24 tests dorados), que se archivará en F4.
 
@@ -37,6 +38,19 @@ No hay código de producto. El repo todavía contiene el clon de TouchIQ (Vite +
 | `docs/product/MVP_DEFINITION.md` | F2 | Completo (Lean+ con ecosistema) |
 | `docs/execution/ROADMAP.md` | F2 | Completo (waves W0–W8 con dependencias) |
 | `docs/architecture/FREE_DATA_STRATEGY.md` | F2→F3 | Vigente: nflverse, openfootball, The Odds API Free y API-Football Free |
+| `docs/architecture/adr/` (ADR-001…018) | F3 | 17 aceptadas, 1 propuesta (ADR-016, iconografía) |
+| `docs/architecture/SYSTEM_ARCHITECTURE.md` | F3 | Módulos, límites, flujo y API `/api/v1` |
+| `docs/architecture/DATA_ARCHITECTURE.md` | F3 | Modelo canónico, ingesta, R2, frescura y as-of (incluye HISTORICAL_STORAGE) |
+| `docs/architecture/PREDICTION_ARCHITECTURE.md` | F3 | Live frente a retro, tablas, gate de publicación |
+| `docs/architecture/AUTH_BILLING_GROWTH.md` | F3 | Auth, entitlements por concesiones, trial, referidos, invitaciones y `BillingProvider` |
+| `docs/architecture/SOCIAL_ARCHITECTURE.md` | F3 | Integridad de picks, métricas, leaderboards y moderación |
+| `docs/architecture/AI_ARCHITECTURE.md` | F3 | Tool use, caching, costos por modelo y cuotas ajustadas |
+| `docs/architecture/SECURITY.md` | F3 | Amenazas, reglas de código, roles, flags legales y respaldos |
+| `docs/architecture/DEPLOYMENT.md` | F3 | Entornos, CI/CD, variables, DNS y correo, presupuestos y acciones del fundador |
+
+## Hallazgos de F3
+
+- Con Sonnet y las cuotas de F2, la IA costaría más que el ingreso de Pro. Se ajustaron las cuotas (Pro 60 consultas al mes) y el enrutamiento (Haiku 5.5 por defecto). Nueva decisión FD-15.
 
 ## Hallazgos de F1 que cambian supuestos
 
@@ -59,18 +73,9 @@ No hay código de producto. El repo todavía contiene el clon de TouchIQ (Vite +
 
 ## Pendiente (en orden)
 
-1. **F3:**
-   - ADRs del stack
-   - `SYSTEM_ARCHITECTURE`
-   - `DATA_ARCHITECTURE` / `HISTORICAL_STORAGE`
-   - `PREDICTION_ARCHITECTURE`
-   - `AUTH_BILLING_GROWTH`
-   - `SOCIAL_ARCHITECTURE`
-   - `AI_ARCHITECTURE`
-   - `SECURITY`
-   - `DEPLOYMENT`
-2. **⛔ Gate:** el fundador confirma FD-01 y FD-03…FD-06 antes de F4 (FD-02 ya está decidida).
-3. **F4:** walking skeleton. **F5:** prompts. **F6:** ejecución multiagente.
+1. **⛔ Gate:** el fundador confirma FD-01 y FD-03…FD-06 y ADR-016, y realiza las acciones de `DEPLOYMENT.md` §6 (cuentas, DNS y secretos).
+2. **F4:** walking skeleton. Incluye los documentos de diseño generados con el DS: `docs/design/DESIGN_SYSTEM.md`, `INTERACTION_PATTERNS.md`, `RESPONSIVE_RULES.md` y `SPORTS_ASSET_COVERAGE.md` (autogenerado).
+3. **F5:** prompts (`prompts/INDEX.md`). **F6:** ejecución multiagente (`AGENT_EXECUTION_PLAN.md`).
 
 ## Bloqueos
 

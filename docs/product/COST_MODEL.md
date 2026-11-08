@@ -15,7 +15,7 @@
 | Ingreso neto por suscriptor | Precio / 1.16 (IVA), menos ~5 % de comisión de pasarela | Comisión: supuesto conservador |
 | Activos / registrados | 40 % (100) · 40 % (1k) · 35 % (10k) | Supuesto |
 | De pago / registrados | 8 % · 6 % · 5 % | Supuesto (los trials de 7 días y los referidos mueven esta cifra) |
-| Costo de IA por suscriptor activo | US$1/mes, con cuota por plan | Supuesto. **Se recalcula con el precio oficial del modelo** (tokens por consulta × consultas × precio) |
+| Costo de IA por suscriptor activo | US$1/mes, con cuota por plan | Consistente con `AI_ARCHITECTURE.md` §5: enrutamiento Haiku 5.5 (≈ US$0.005 por consulta) y Sonnet 5.5 solo en análisis complejo, con 60 consultas al mes en Pro. Se mide en la beta. |
 | Costo de IA del plan Free | Cuota mínima (por ejemplo, 5 consultas/mes) ≈ US$0.10 por activo | Supuesto |
 
 Ingreso neto mensual por suscriptor:
@@ -29,7 +29,7 @@ Ingreso neto mensual por suscriptor:
 |---|---:|---:|---:|---|
 | Vercel (Pro) | 20 | 20 | 40–100 | Asientos más uso |
 | Neon Postgres | 0–20 | 20–70 | 70–200 | Crece con el histórico de cuotas (Parquet en R2 contiene el crecimiento) |
-| Upstash, R2, Fly (jobs Python) y Trigger.dev | 10–30 | 30–70 | 80–200 | |
+| Upstash, R2 y jobs (GitHub Actions; Trigger.dev o contenedores si crecen) | 10–30 | 30–70 | 80–200 | |
 | PostHog, Sentry y Resend | 0 | 0–50 | 50–150 | Tiers gratuitos al inicio |
 | **Subtotal infraestructura** | **≈30–70** | **≈70–210** | **≈240–650** | |
 | Datos «Lean» (API-Sports + The Odds API) | 100–300 | 150–300 | 250–400 | `SECUNDARIO`. Los créditos de props e histórico pesan más con la escala. |

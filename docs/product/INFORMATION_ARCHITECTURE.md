@@ -88,7 +88,7 @@ Reglas:
 | `models.lab` | Resumen | ✅ | ✅ |
 | `backtest.run` | — | — | ✅ |
 | `replay` | — | Temporada actual | Todo |
-| `ai.queries` | 5 al mes | 150 al mes | 600 al mes (cuotas a recalcular con el costo real) |
+| `ai.queries` | 5 al mes | 60 al mes | 250 al mes (provisionales: ver `docs/architecture/AI_ARCHITECTURE.md` §5) |
 | `alerts` | 3 | 50 | 200 |
 | `export.csv` | — | — | ✅ |
 | `social.journal` / `social.public_profile` | ✅ | ✅ | ✅ |

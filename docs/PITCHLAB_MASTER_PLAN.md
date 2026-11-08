@@ -67,7 +67,7 @@ Criterio: startup autofinanciada, 1 fundador más agentes, de 0 a 10k usuarios, 
 | Series de cuotas | Postgres con **particionado nativo mensual** y archivo en **Parquet en Cloudflare R2**, consultado con **DuckDB** para backtests | Timescale no está disponible en Neon. ClickHouse es excesivo para el MVP. |
 | Caché y rate limit | **Upstash Redis** | Serverless y pago por uso. |
 | Jobs e ingesta | **Fase $0: GitHub Actions programado.** Después, **Trigger.dev** (TS, reintentos, cron, idempotencia) para la ingesta de proveedores | Inngest es equivalente. BullMQ exige Redis y un worker propio. |
-| Modelos | **Python** (pandas, NumPy, SciPy, scikit-learn, LightGBM, statsmodels) como **jobs batch en contenedor** (Fly.io Machines programadas). Escriben predicciones versionadas en Postgres. | No hay una API Python siempre encendida en el MVP. La web solo lee predicciones registradas. |
+| Modelos | **Python** (pandas, NumPy, SciPy, scikit-learn, LightGBM, statsmodels) como **jobs batch** (GitHub Actions en la fase $0; contenedores programados si crecen, ADR-008/009). Escriben predicciones versionadas en Postgres. | No hay una API Python siempre encendida en el MVP. La web solo lee predicciones registradas. |
 | Auth | **Better Auth** (self-hosted en la app): email+password, OAuth Google/Apple, magic link, 2FA/passkeys, plugins admin y organization (invitaciones) | Sin costo por MAU (frente a Clerk), datos propios y soporte nativo de invitaciones y roles. |
 | Billing | **Proveedor detrás de una interfaz `BillingProvider`**. El candidato se decide en el spike legal (§9). | ⚠ La lista de negocios prohibidos de Stripe incluye *«sports forecasting or odds making»*, así que hay que obtener aprobación escrita o usar una alternativa (Mercado Pago Suscripciones, Conekta u Openpay). No se elige a ciegas. |
 | Email | **Resend + React Email** desde `no-reply@pitchlab.mx` (SPF, DKIM y DMARC por configurar) | DX y costo bajo. |
@@ -75,7 +75,7 @@ Criterio: startup autofinanciada, 1 fundador más agentes, de 0 a 10k usuarios, 
 | Errores | **Sentry** (web, jobs y Python) | Estándar. |
 | IA | **Claude API**: `claude-sonnet-5-5` para el asistente y `claude-haiku-5-5` para clasificar y resumir, con **tool use** contra una API interna de solo lectura y cuota por plan | Respuestas fundamentadas (§12). |
 | Búsqueda | Postgres FTS + `pg_trgm` (jugadores, equipos y ligas). Meilisearch después si hace falta. | Sin infraestructura extra en el MVP. |
-| Hosting | **Vercel** (web), Neon, Upstash, R2, Trigger.dev Cloud, Fly.io (jobs Python) y Cloudflare DNS para pitchlab.mx | Todo con tier gratuito o barato y escalable. |
+| Hosting | **Vercel** (web), Neon, Upstash, R2, GitHub Actions (jobs en la fase $0; Trigger.dev después) y Cloudflare DNS para pitchlab.mx | Todo con tier gratuito o barato y escalable. |
 | Calidad | ESLint (con reglas de límites de paquete), Prettier, Vitest, Playwright, axe, Lighthouse CI, GitHub Actions, CODEOWNERS | Gates en §11. |
 
 Las versiones exactas se fijan en la ADR al hacer el scaffolding (se verifica la última estable).
