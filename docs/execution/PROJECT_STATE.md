@@ -8,7 +8,8 @@
 - **F0 (auditoría):** ✅ completa.
 - **F1 (spikes y decisiones):** ✅ completa como investigación de escritorio. Las cotizaciones y la confirmación de términos dependen de que el fundador haga los contactos (FD-14).
 - **F2 (product blueprint):** ✅ completa, pendiente de revisión del fundador.
-- **Siguiente:** F3 (arquitectura y ADRs).
+- **Decisión 2026-11-08:** datos a US$0 por ahora → `docs/architecture/FREE_DATA_STRATEGY.md` (FD-02 decidida).
+- **Siguiente:** F3 (arquitectura y ADRs), ya con las fuentes gratuitas.
 
 No hay código de producto. El repo todavía contiene el clon de TouchIQ (Vite + `src/domain` con 24 tests dorados), que se archivará en F4.
 
@@ -35,6 +36,7 @@ No hay código de producto. El repo todavía contiene el clon de TouchIQ (Vite +
 | `docs/product/SECTION_INDEX.md` | F2 | Completo (38 IDs + 11b; 18, 19 y 27 fusionadas) |
 | `docs/product/MVP_DEFINITION.md` | F2 | Completo (Lean+ con ecosistema) |
 | `docs/execution/ROADMAP.md` | F2 | Completo (waves W0–W8 con dependencias) |
+| `docs/architecture/FREE_DATA_STRATEGY.md` | F2→F3 | Vigente: nflverse, openfootball, The Odds API Free y API-Football Free |
 
 ## Hallazgos de F1 que cambian supuestos
 
@@ -67,12 +69,12 @@ No hay código de producto. El repo todavía contiene el clon de TouchIQ (Vite +
    - `AI_ARCHITECTURE`
    - `SECURITY`
    - `DEPLOYMENT`
-2. **⛔ Gate:** el fundador confirma FD-01…FD-06 (y avanza en FD-14) antes de F4.
+2. **⛔ Gate:** el fundador confirma FD-01 y FD-03…FD-06 antes de F4 (FD-02 ya está decidida).
 3. **F4:** walking skeleton. **F5:** prompts. **F6:** ejecución multiagente.
 
 ## Bloqueos
 
-- FD-14: cotizaciones y términos de datos y pagos (los contactos comerciales los hace el fundador).
+- FD-14: confirmación de API-Football para Liga MX comercial y revisión de cuenta de Stripe MX (solo bloquean el cobro, no el desarrollo).
 - Falta el archivo Inter WOFF2 en el paquete de marca (se resuelve en F4).
 
 ## Cambios del fundador sin commit (no incluidos en los commits del plan)

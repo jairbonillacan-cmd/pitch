@@ -35,7 +35,17 @@ Ingreso neto mensual por suscriptor:
 | Datos «Lean» (API-Sports + The Odds API) | 100–300 | 150–300 | 250–400 | `SECUNDARIO`. Los créditos de props e histórico pesan más con la escala. |
 | Datos «Pro» (SportsDataIO u otro) | ≈1,400+ | ≈1,400+ | ≈1,400–3,000 | `COTIZACIÓN`. Referencia: mediana de Vendr ≈ US$16.5k/año |
 
-## 3. Resultado por escenario
+## 2b. Escenario vigente: datos US$0 (decisión del fundador, 2026-11-08)
+
+| Rubro | Antes de cobrar | Al empezar a cobrar |
+|---|---:|---:|
+| Datos (nflverse, openfootball, The Odds API Free, API-Football Free) | $0 | $0 (hasta los disparadores de `FREE_DATA_STRATEGY.md` §6) |
+| Infraestructura en tiers gratuitos (Vercel Hobby, Neon, R2, Upstash, GitHub Actions) | ≈ $0 | ≈ $20–60 (Vercel Pro obligatorio para uso comercial, más algo de DB) |
+| IA | $0 (la IA es W5) | Según cuotas por plan |
+
+**Punto de equilibrio con datos $0 y cobro activo:** ≈ (40 + IA_free) / 5.6 ≈ **8–10 suscriptores** con el precio A, o ≈ **5** con el precio B. El riesgo deja de ser el costo y pasa a ser la **cobertura** (sin cuotas de props ni Liga MX comercial confirmada).
+
+## 3. Resultado por escenario (con datos de pago, para cuando se migre)
 
 **Datos Lean, precio A ($149 MXN):**
 

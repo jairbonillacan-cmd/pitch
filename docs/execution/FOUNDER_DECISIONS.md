@@ -7,7 +7,7 @@
 | ID | Decisión | Default propuesto | Por qué | Bloquea | Estado |
 |---|---|---|---|---|---|
 | FD-01 | Deporte y ligas de lanzamiento | NFL + Liga MX + Premier League | Motor NFL verificado, investigación de LineMate profunda y emblemas de ambas ligas | F2 MVP, F1 spike de datos | Supuesto |
-| FD-02 | Presupuesto mensual máximo de datos | **Lean ≈ US$100–300/mes** (API-Sports + The Odds API) para lanzar; pasar a Pro (SportsDataIO, cotización) al llegar a ~165–300 suscriptores. Ver `docs/product/COST_MODEL.md` y `docs/architecture/DATA_PROVIDER_MATRIX.md` | Define la profundidad histórica y la cobertura de props | F1 → F3 | **Abierta** |
+| FD-02 | Presupuesto mensual máximo de datos | **US$0 por ahora** (decisión del fundador, 2026-11-08): nflverse, openfootball, The Odds API Free y API-Football Free. Ver `docs/architecture/FREE_DATA_STRATEGY.md`. Se paga datos solo con los disparadores de ese documento (§6). | Define la profundidad histórica y la cobertura de props | F3 | **Decidida** |
 | FD-03 | Planes y precios (Free, Pro, Elite) | Modelo de F1: con $149 MXN el equilibrio Lean llega a ~80 suscriptores y con $249 MXN a ~45. Recomendación: validar $199–249 MXN para Pro con el trial de 7 días | Sin costos reales, cualquier precio es inventado | F2 Pricing | Abierta |
 | FD-04 | ¿El trial de 7 días pide tarjeta? | Sin tarjeta para el trial por referido o invitación; con tarjeta para el trial directo desde Pricing (se mide en PostHog) | Equilibra adquisición y abuso | F3 AUTH_BILLING_GROWTH | Supuesto |
 | FD-05 | Recompensa por referido | 1 mes gratis al referente cuando el referido paga su primer mes, con tope de 6 al año | Solo se premia la conversión real | F3 | Supuesto |
@@ -19,4 +19,4 @@
 | FD-11 | Destino de `research/` (espejo duplicado) | Archivar en la rama `archive/` y eliminarlo de main | Evita citas duplicadas | Ninguno | Supuesto |
 | FD-12 | Versionar en git `pitchlab-brand/football/` y los cambios recientes del handoff | Sí, en un commit del fundador | Hoy no están en git | F4 | Abierta |
 | FD-13 | Cuotas de casas mexicanas (Caliente, Codere MX) | Ningún proveedor las confirma. Lanzar con las casas disponibles por licencia y preguntar a los proveedores y a los operadores por un acuerdo de datos. **Nunca scraping.** | Diferenciador «Mexico-first» | MVP odds | Supuesto |
-| FD-14 | Contactos comerciales del spike | El fundador pide cotización y términos por escrito a SportsDataIO, API-Sports y The Odds API (lista en `DATA_PROVIDER_MATRIX.md` §4) y revisión de cuenta a Stripe MX | Datos y pagos | F3 | **Abierta** |
+| FD-14 | Contactos del spike | Ya no hacen falta cotizaciones de datos. Quedan: (a) pedir a API-Football confirmación por escrito del uso comercial de Liga MX en el plan Free; (b) revisión de cuenta a Stripe MX | Liga MX comercial y pagos | Cobro de suscripciones | **Abierta** |

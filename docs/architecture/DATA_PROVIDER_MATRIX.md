@@ -1,5 +1,7 @@
 # Matriz de proveedores de datos y licencias (spike F1)
 
+> **⚠ Actualización 2026-11-08:** el fundador decidió **no pagar datos por ahora**. La estrategia vigente está en `FREE_DATA_STRATEGY.md`. Esta matriz queda como referencia para cuando se active algún disparador de pago.
+
 > **Propósito:** elegir proveedores legales para el MVP y saber qué falta confirmar. Incluye las fuentes de datos observadas en las referencias.
 > **Consumidores:** fundador (FD-02), `DATA_ARCHITECTURE.md` (F3) y owner de `services/ingest`.
 > **Fecha:** 2026-11-08 · **Método:** investigación de escritorio (búsqueda web sobre páginas oficiales y secundarias). **No hay cotizaciones firmadas.**

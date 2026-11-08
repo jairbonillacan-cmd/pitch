@@ -33,6 +33,7 @@
 
 ## Hitos de datos en paralelo (no dependen de la UI)
 
-1. **Al cerrar F4:** el adaptador del proveedor de calendario y resultados escribe en Postgres canónico (staging).
+0. **Fase de datos 0 (US$0):** fuentes y límites en `docs/architecture/FREE_DATA_STRATEGY.md`. Las ingestas corren como jobs programados en GitHub Actions.
+1. **Al cerrar F4:** los adaptadores de nflverse (NFL) y openfootball (Premier League) escriben en Postgres canónico (staging).
 2. **Antes de W4:** captura de snapshots de cuotas encendida (mínimo 4 semanas antes de la beta).
 3. **Durante W2–W4:** pipeline de backtest con el Baseline 0 sobre el histórico licenciado (Python), que prepara el gate de W5.
