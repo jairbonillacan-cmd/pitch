@@ -32,7 +32,7 @@ Plataforma freemium de investigación para apuestas deportivas (web + iOS + Andr
 - [`recover.py`](recover.py) — re-descarga todos los payloads de referencia (genera `api/`).
 
 ### Evidencia compacta
-- [`api-snapshot2/`](api-snapshot2) — payloads de los deportes nuevos (NBA/EPL/NHL trends, trend-by-id lookup, índice de jugadores).
+- [`api-snapshot2/`](api-snapshot2) — **segundo snapshot completo** (2026-11-08 19:2x UTC): NFL trends/games/rankings/injuries + NBA/EPL/NHL trends + lookup por trendId. Evidencia de que las fórmulas se mantienen entre snapshots.
 - `api/` (fase 1, ya en el repo) — snapshot NFL completo del primer análisis.
 - **No incluido en el repo**: los game logs crudos (~58 MB: `api/players*`, `api/teams`) — se regeneran con `python3 recover.py` en un directorio de trabajo (tarda ~1 min).
 
