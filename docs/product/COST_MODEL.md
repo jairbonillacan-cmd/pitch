@@ -15,7 +15,7 @@
 | Ingreso neto por suscriptor | Precio / 1.16 (IVA), menos ~5 % de comisión de pasarela | Comisión: supuesto conservador |
 | Activos / registrados | 40 % (100) · 40 % (1k) · 35 % (10k) | Supuesto |
 | De pago / registrados | 8 % · 6 % · 5 % | Supuesto (los trials de 7 días y los referidos mueven esta cifra) |
-| Costo de IA por suscriptor activo | US$1/mes, con cuota por plan | Consistente con `AI_ARCHITECTURE.md` §5: enrutamiento Haiku 5.5 (≈ US$0.005 por consulta) y Sonnet 5.5 solo en análisis complejo, con 60 consultas al mes en Pro. Se mide en la beta. |
+| Costo de IA por suscriptor activo | US$1/mes, con cuota por plan | Conservador. Con OpenRouter y un modelo barato (`AI_ARCHITECTURE.md` §7: ≈ US$0.002–0.005 por consulta), Pro con 60 consultas al mes cuesta ≈ US$0.12–0.30. Se mide en la beta. |
 | Costo de IA del plan Free | Cuota mínima (por ejemplo, 5 consultas/mes) ≈ US$0.10 por activo | Supuesto |
 
 Ingreso neto mensual por suscriptor:

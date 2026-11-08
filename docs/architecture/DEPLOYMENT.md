@@ -40,7 +40,7 @@
 | `NEXT_PUBLIC_POSTHOG_KEY`, `POSTHOG_PERSONAL_API_KEY` (flags en el servidor) | Vercel |
 | `SENTRY_DSN`, `SENTRY_AUTH_TOKEN` | Vercel y Actions |
 | `BILLING_PROVIDER`, `STRIPE_*` o `MERCADOPAGO_*` | Vercel (cuando se decida FD-06) |
-| `ANTHROPIC_API_KEY` | Vercel (W5) |
+| `OPENROUTER_API_KEY`, `AI_MODEL_DEFAULT`, `AI_MODEL_ESCALATION?` | Vercel (W5) |
 
 `packages/config/env.ts` valida todas las variables con Zod al arrancar, y la app no inicia si falta una obligatoria.
 
@@ -62,7 +62,7 @@ En producción: Core Web Vitals en p75 (LCP ≤ 2.5 s, INP ≤ 200 ms, CLS ≤ 0
 
 ## 6. Acciones del fundador para F4 (no las puede hacer un agente)
 
-1. Crear las cuentas de servicio (con 2FA): Vercel, Neon, Cloudflare (DNS y R2), Upstash, PostHog, Sentry, Resend y GitHub (repo privado y Actions). Más adelante, The Odds API, API-Football y la pasarela.
+1. Crear las cuentas de servicio (con 2FA): Vercel, Neon, Cloudflare (DNS y R2), Upstash, PostHog, Sentry, Resend y GitHub (repo privado y Actions). Más adelante, The Odds API, API-Football, la pasarela y OpenRouter (W5, con límite de gasto mensual).
 2. Apuntar los nameservers de pitchlab.mx a Cloudflare (o crear allí los registros que indique Vercel).
 3. Cargar los secretos en Vercel y en GitHub Actions (ningún agente debe manejar claves en texto plano).
 4. Elegir el proveedor de correo humano.

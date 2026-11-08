@@ -16,7 +16,7 @@
 | [ADR-010](ADR-010-autenticacion-con-better-auth.md) | Autenticación con Better Auth | Aceptada |
 | [ADR-011](ADR-011-billing-desacoplado-y-entitlements-por-concesiones.md) | Billing desacoplado y entitlements por concesiones | Aceptada |
 | [ADR-012](ADR-012-analitica-flags-y-errores-posthog-y-sentry.md) | Analítica, flags y errores: PostHog y Sentry | Aceptada |
-| [ADR-013](ADR-013-pitchlab-ai-claude-api-con-herramientas-tipadas-w5.md) | PitchLab AI: Claude API con herramientas tipadas (W5) | Aceptada (se implementa en W5) |
+| [ADR-013](ADR-013-pitchlab-ai-openrouter-modelo-barato-w5.md) | PitchLab AI vía OpenRouter con un modelo barato y herramientas tipadas (W5) | Aceptada (rev. 2) |
 | [ADR-014](ADR-014-fuentes-de-datos-gratuitas-en-la-fase-inicial.md) | Fuentes de datos gratuitas en la fase inicial | Aceptada |
 | [ADR-015](ADR-015-i18n-con-next-intl-es-mx-por-defecto.md) | i18n con next-intl, es-MX por defecto | Aceptada |
 | [ADR-016](ADR-016-iconografia-iconos-de-marca-lucide-para-los-generi.md) | Iconografía: iconos de marca + Lucide para los genéricos | Propuesta (requiere el visto bueno del fundador) |

@@ -8,7 +8,7 @@
 | # | v1 | v2 | Motivo / evidencia |
 |---|---|---|---|
 | 1 | Pedía generar los 36 prompts en la etapa 5, antes de que hubiera código | Primero se cierra la arquitectura (F0–F3) y el walking skeleton (F4). Los prompts (F5) citan paquetes, tipos y stories reales y pasan un linter. | Instrucción del fundador. Un prompt escrito sobre APIs inexistentes produce contradicciones. |
-| 2 | Stack «a evaluar» | Stack cerrado: Next.js, pnpm con Turborepo, Tailwind v4 desde los tokens, Radix, visx/uPlot, Storybook, Neon/Drizzle, Better Auth, Trigger.dev, Python batch, PostHog, Sentry y Claude API (§3) | Instrucción del fundador |
+| 2 | Stack «a evaluar» | Stack cerrado: Next.js, pnpm con Turborepo, Tailwind v4 desde los tokens, Radix, visx/uPlot, Storybook, Neon/Drizzle, Better Auth, Trigger.dev, Python batch, PostHog, Sentry y OpenRouter con un modelo barato para la IA (§3, ADR-013 rev. 2) | Instrucción del fundador |
 | 3 | Sin Storybook | **Storybook** como contrato visual del DS, con a11y, interaction tests y snapshots | Instrucción del fundador. Es el mecanismo de calidad multiagente. |
 | 4 | Sin emblemas deportivos | Sports Asset Registry con los emblemas de GPT (Liga MX r1 y Premier League r2), fallback neutro e interruptor legal (§6) | `pitchlab-brand/football/*` y la instrucción del fundador |
 | 5 | Sin ecosistema social | Cuentas, perfiles, invitaciones, trial de 7 días, referidos que regalan trial, Pick Journal inmutable y leaderboards por CLV (§7) | Instrucción del fundador |

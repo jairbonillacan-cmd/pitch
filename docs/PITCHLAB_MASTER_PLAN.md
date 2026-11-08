@@ -73,7 +73,7 @@ Criterio: startup autofinanciada, 1 fundador más agentes, de 0 a 10k usuarios, 
 | Email | **Resend + React Email** desde `no-reply@pitchlab.mx` (SPF, DKIM y DMARC por configurar) | DX y costo bajo. |
 | Analítica y flags | **PostHog** (funnels de trial y referidos, feature flags, experimentos) | Una herramienta en lugar de tres. Consentimiento conforme a la LFPDPPP. |
 | Errores | **Sentry** (web, jobs y Python) | Estándar. |
-| IA | **Claude API**: `claude-sonnet-5-5` para el asistente y `claude-haiku-5-5` para clasificar y resumir, con **tool use** contra una API interna de solo lectura y cuota por plan | Respuestas fundamentadas (§12). |
+| IA | **OpenRouter con un modelo muy barato** (decisión del fundador) vía Vercel AI SDK, con tool calling contra una API interna de solo lectura, validador de grounding y cuota por plan (ADR-013 rev. 2) | Respuestas fundamentadas a costo mínimo (`AI_ARCHITECTURE.md`). |
 | Búsqueda | Postgres FTS + `pg_trgm` (jugadores, equipos y ligas). Meilisearch después si hace falta. | Sin infraestructura extra en el MVP. |
 | Hosting | **Vercel** (web), Neon, Upstash, R2, GitHub Actions (jobs en la fase $0; Trigger.dev después) y Cloudflare DNS para pitchlab.mx | Todo con tier gratuito o barato y escalable. |
 | Calidad | ESLint (con reglas de límites de paquete), Prettier, Vitest, Playwright, axe, Lighthouse CI, GitHub Actions, CODEOWNERS | Gates en §11. |

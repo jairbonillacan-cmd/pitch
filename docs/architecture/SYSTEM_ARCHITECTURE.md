@@ -36,7 +36,7 @@ flowchart TB
     PH[PostHog]
     SE[Sentry]
     RS[Resend]
-    CL[Claude API · W5]
+    CL[OpenRouter · modelo barato · W5]
   end
   NV & OF & TOA & AF --> ING
   ING --> R2 & PG
