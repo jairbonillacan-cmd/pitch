@@ -1,0 +1,45 @@
+import React from "react";
+import type { Metadata } from "next";
+import "./globals.css";
+
+export const metadata: Metadata = {
+  title: "PitchLab — Probabilidades deportivas con datos abiertos",
+  description:
+    "Analítica pre-partido para Liga MX, Premier League y NFL. Probabilidades calculadas con modelos estadísticos transparentes.",
+  robots: {
+    index: false,
+    follow: false,
+    nocache: true,
+    googleBot: {
+      index: false,
+      follow: false,
+    },
+  },
+  icons: {
+    icon: "/brand/favicon.svg",
+  },
+};
+
+const THEME_INIT_SCRIPT = `(function(){try{var t=localStorage.getItem("pl-theme");document.documentElement.dataset.theme=(t==="light"||t==="dark")?t:"dark";}catch(e){document.documentElement.dataset.theme="dark";}})();`;
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}): React.JSX.Element {
+  return (
+    <html lang="es-MX" data-theme="dark" suppressHydrationWarning>
+      <head>
+        <link
+          rel="preload"
+          href="/fonts/InterVariable.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+      </head>
+      <body>{children}</body>
+    </html>
+  );
+}

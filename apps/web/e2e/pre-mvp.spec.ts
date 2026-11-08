@@ -1,0 +1,275 @@
+import { test, expect } from "@playwright/test";
+import AxeBuilder from "@axe-core/playwright";
+import path from "node:path";
+import fs from "node:fs";
+
+const FORBIDDEN_FD16_TERMS = [
+  "nflverse",
+  "openfootball",
+  "api-football",
+  "Poisson",
+  "Dixon-Coles",
+  "Pitágoras",
+  "Log5",
+  "machine learning",
+];
+
+const SCREENSHOT_DIR = path.resolve(process.cwd(), "../../test-results/screenshots");
+
+test.beforeAll(() => {
+  fs.mkdirSync(SCREENSHOT_DIR, { recursive: true });
+});
+
+test.describe("PitchLab Pre-MVP E2E Suite", () => {
+  test("1. Landing page, demo selector, theme persistence, FD-16 & a11y", async ({
+    page,
+  }, testInfo) => {
+    const errors: string[] = [];
+    page.on("pageerror", (err) => errors.push(err.message));
+
+    const start = Date.now();
+    await page.goto("/");
+    const elapsed = Date.now() - start;
+    expect(elapsed).toBeLessThan(5000);
+
+    await expect(page.locator("h1")).toContainText("Lee el juego");
+
+    // Save Hero dark screenshot at top of page
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await page.screenshot({
+      path: path.join(SCREENSHOT_DIR, `landing-${testInfo.project.name}-dark.png`),
+      fullPage: false,
+    });
+
+    // Check interactive demo selector (3 matches)
+    const picks = page.locator("#partidos .pick");
+    const pickCount = await picks.count();
+    expect(pickCount).toBeGreaterThanOrEqual(2);
+
+    await picks.nth(1).click();
+    await expect(picks.nth(1)).toHaveAttribute("aria-pressed", "true");
+
+    // FD-16 check on Landing HTML
+    const html = await page.content();
+    for (const term of FORBIDDEN_FD16_TERMS) {
+      expect(html.toLowerCase()).not.toContain(term.toLowerCase());
+    }
+
+    // Toggle theme to light and verify persistence across reload
+    await page. evaluate(() => window.scrollTo(0, 0));
+    await page.locator("[data-theme-toggle]").click();
+    await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+    await page.waitForTimeout(250);
+
+    await page.screenshot({
+      path: path.join(SCREENSHOT_DIR, `landing-${testInfo.project.name}-light.png`),
+      fullPage: false,
+    });
+
+    // Axe accessibility check in light mode
+    const lightA11y = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa"])
+      .analyze();
+    expect(lightA11y.violations).toEqual([]);
+
+    await page.reload();
+    await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+
+    // Switch back to dark
+    await page.locator("[data-theme-toggle]").click();
+    await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+    await page.waitForTimeout(250);
+
+    // Verify all visible images loaded
+    const brokenImages = await page.evaluate(() => {
+      const imgs = Array.from(document.querySelectorAll("img"));
+      return imgs
+        .filter((img) => {
+          const style = window.getComputedStyle(img);
+          if (style.display === "none" || style.visibility === "hidden") return false;
+          return img.complete && img.naturalWidth === 0;
+        })
+        .map((img) => img.src);
+    });
+    expect(brokenImages).toEqual([]);
+
+    // Axe accessibility check
+    const a11y = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa"])
+      .analyze();
+    expect(a11y.violations).toEqual([]);
+    expect(errors).toEqual([]);
+  });
+
+  test("2. Auth protection, wrong PIN, rate limit (429), and locked forms", async ({
+    page,
+    request,
+  }, testInfo) => {
+    // Visiting /app without cookie redirects to /login?next=%2Fapp
+    await page.goto("/app", { waitUntil: "domcontentloaded" });
+    await expect(page).toHaveURL(/\/login\?next=%2Fapp/);
+
+    await page.screenshot({
+      path: path.join(SCREENSHOT_DIR, `login-${testInfo.project.name}-dark.png`),
+    });
+
+    // Submitting locked email form shows notice
+    await page.locator("form.auth-form button[type='submit']").click();
+    await expect(page.locator(".notice")).toContainText(
+      "El acceso por correo aún no está activo",
+    );
+
+    // Open PIN dialog and enter wrong code 9999 (using a dedicated test IP header for PIN check)
+    await page.setExtraHTTPHeaders({ "x-forwarded-for": "198.51.100.25" });
+    await page.locator(".btn-beta").click();
+    await expect(page.locator("dialog.pin-dialog")).toBeVisible();
+
+    for (const d of ["9", "9", "9", "9"]) {
+      await page.locator(`button.pin-key[data-pin-digit='${d}']`).click();
+    }
+    await expect(page.locator(".pin-feedback.error")).toContainText(
+      "Código incorrecto",
+    );
+
+    // Verify rate limiter: 6 consecutive failed attempts from a distinct IP return 429
+    const rateLimitIp = `198.51.100.${testInfo.project.name === "desktop" ? "101" : "102"}`;
+    let lastStatus = 0;
+    for (let i = 1; i <= 6; i++) {
+      const res = await request.post("/api/beta/unlock", {
+        headers: { "x-forwarded-for": rateLimitIp },
+        data: { code: "0000", next: "/app" },
+      });
+      lastStatus = res.status();
+    }
+    expect(lastStatus).toBe(429);
+
+    // Check /signup page
+    await page.goto("/signup");
+    await page.screenshot({
+      path: path.join(SCREENSHOT_DIR, `signup-${testInfo.project.name}-dark.png`),
+    });
+    const signupA11y = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa"])
+      .analyze();
+    expect(signupA11y.violations).toEqual([]);
+  });
+
+  test("3. Unlock with valid PIN, navigate /app/[league], modal URL sync, reload & logout", async ({
+    page,
+  }, testInfo) => {
+    const uniqueIp = `198.51.100.${testInfo.project.name === "desktop" ? "201" : "202"}`;
+    await page.setExtraHTTPHeaders({ "x-forwarded-for": uniqueIp });
+
+    await page.goto("/login?next=%2Fapp%2Fpremier-league");
+    await page.locator(".btn-beta").click();
+    await expect(page.locator("dialog.pin-dialog")).toBeVisible();
+
+    for (const d of ["2", "0", "2", "6"]) {
+      await page.locator(`button.pin-key[data-pin-digit='${d}']`).click();
+    }
+
+    await page.waitForURL("**/app/premier-league", { timeout: 15_000 });
+    await expect(page.locator("#panel-league-name")).toContainText("Premier League");
+
+    // FD-16 check on /app/premier-league
+    const plHtml = await page.content();
+    for (const term of FORBIDDEN_FD16_TERMS) {
+      expect(plHtml.toLowerCase()).not.toContain(term.toLowerCase());
+    }
+
+    await page.screenshot({
+      path: path.join(SCREENSHOT_DIR, `panel-pl-${testInfo.project.name}-dark.png`),
+    });
+
+    // Toggle light mode screenshot of panel
+    await page.locator("[data-theme-toggle]").click();
+    await page.waitForTimeout(250);
+    await page.screenshot({
+      path: path.join(SCREENSHOT_DIR, `panel-pl-${testInfo.project.name}-light.png`),
+    });
+    await page.locator("[data-theme-toggle]").click();
+    await page.waitForTimeout(250);
+
+    // Axe check on /app/premier-league
+    const panelA11y = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa"])
+      .analyze();
+    expect(panelA11y.violations).toEqual([]);
+
+    // Day filter chips
+    const dayChips = page.locator("#day-chips .day-chip");
+    const chipCount = await dayChips.count();
+    expect(chipCount).toBeGreaterThanOrEqual(2);
+    await dayChips.nth(1).click();
+    await expect(dayChips.nth(1)).toHaveAttribute("aria-pressed", "true");
+    await dayChips.first().click();
+
+    // Open a MatchCard modal -> URL updates to /app/premier-league/games/<gameId>
+    const firstCard = page.locator(".match-card").first();
+    const gameId = await firstCard.getAttribute("data-game-id");
+    expect(gameId).toBeTruthy();
+
+    await firstCard.click();
+    await expect(page.locator("dialog.analysis-dialog")).toBeVisible();
+    expect(page.url()).toContain(`/app/premier-league/games/${gameId}`);
+
+    await page.screenshot({
+      path: path.join(SCREENSHOT_DIR, `modal-pl-${testInfo.project.name}-dark.png`),
+    });
+
+    // Reload directly on /app/premier-league/games/<gameId> -> modal opens automatically
+    await page.reload();
+    await expect(page.locator("dialog.analysis-dialog")).toBeVisible();
+
+    // Close modal with Escape -> URL returns to /app/premier-league
+    await page.keyboard.press("Escape");
+    await expect(page.locator("dialog.analysis-dialog")).toBeHidden();
+    expect(page.url()).toMatch(/\/app\/premier-league$/);
+
+    // Switch to NFL tab
+    await page.locator(".league-tab[data-league='nfl']").click();
+    await page.waitForURL("**/app/nfl");
+    await expect(page.locator("#panel-league-name")).toContainText("NFL");
+
+    // FD-16 check on /app/nfl
+    const nflHtml = await page.content();
+    for (const term of FORBIDDEN_FD16_TERMS) {
+      expect(nflHtml.toLowerCase()).not.toContain(term.toLowerCase());
+    }
+
+    // Logout -> clears cookie and redirects to /
+    await page.locator("header.panel-header button", { hasText: "Salir" }).click();
+    await page.waitForURL("**/");
+
+    // Visiting /app after logout redirects to /login
+    await page.goto("/app");
+    await expect(page).toHaveURL(/\/login/);
+  });
+
+  test("4. Responsive viewports (zero horizontal scroll) and /legal/creditos attribution", async ({
+    page,
+  }) => {
+    const widths = [375, 390, 768, 1024, 1280, 1440];
+    await page.goto("/");
+    for (const width of widths) {
+      await page.setViewportSize({ width, height: 844 });
+      const overflow = await page.evaluate(() => {
+        return document.documentElement.scrollWidth > window.innerWidth;
+      });
+      expect(overflow, `Horizontal overflow at ${width}px`).toBe(false);
+    }
+
+    // Verify /legal/creditos has CC-BY 4.0 nflverse and CC0 openfootball attribution
+    await page.goto("/legal/creditos");
+    const creditHtml = await page.content();
+    expect(creditHtml).toContain("nflverse");
+    expect(creditHtml).toContain("CC-BY 4.0");
+    expect(creditHtml).toContain("openfootball");
+    expect(creditHtml).toContain("CC0");
+
+    // Verify robots.txt
+    const robotsRes = await page.request.get("/robots.txt");
+    expect(robotsRes.ok()).toBe(true);
+    expect(await robotsRes.text()).toContain("Disallow: /");
+  });
+});
