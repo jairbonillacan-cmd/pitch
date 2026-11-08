@@ -10,7 +10,7 @@
 // Los modelos originales viven en el cliente (OBSERVADO); nada de servidor.
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 
-const ANALYSIS = decodeURIComponent(new URL("../aztecavet-analysis/", import.meta.url).pathname);
+const ANALYSIS = decodeURIComponent(new URL("../Reportes/analisis-aztecavet/", import.meta.url).pathname);
 const DATA_DIR = decodeURIComponent(new URL("../src/data/", import.meta.url).pathname);
 const REF_DIR = decodeURIComponent(new URL("../reference/aztecavet/", import.meta.url).pathname);
 mkdirSync(DATA_DIR, { recursive: true });

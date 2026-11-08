@@ -15,7 +15,7 @@ export const hex = (h: string): string => {
 
 export function sunSVG(mini: boolean): string {
   const C = 300;
-  const P = (r: number, a: number) => [C + r * Math.cos((a * Math.PI) / 180), C + r * Math.sin((a * Math.PI) / 180)];
+  const P = (r: number, a: number): [number, number] => [C + r * Math.cos((a * Math.PI) / 180), C + r * Math.sin((a * Math.PI) / 180)];
   const f = (n: number) => n.toFixed(1);
   const u = mini ? "m" : "b";
   let rays = "";
@@ -56,7 +56,7 @@ export function sunSVG(mini: boolean): string {
     const a0 = k * 18 - 99, a1 = a0 + 18, aC = k * 18 - 90;
     const p1 = P(R1, a0), p2 = P(R2, a0), p3 = P(R2, a1), p4 = P(R1, a1), gp = P((R1 + R2) / 2, aC);
     cells += `<path class="cell" style="--cd:${((k * 0.31) % 5).toFixed(2)}s" fill="${GOLD}" fill-opacity="0" d="M${f(p1[0])} ${f(p1[1])}L${f(p2[0])} ${f(p2[1])}A${R2} ${R2} 0 0 1 ${f(p3[0])} ${f(p3[1])}L${f(p4[0])} ${f(p4[1])}A${R1} ${R1} 0 0 0 ${f(p1[0])} ${f(p1[1])}Z"/>`;
-    glyphs += `<g transform="translate(${f(gp[0])} ${f(gp[1])}) rotate(${aC + 90})">${gl[k % 5]}</g>`;
+    glyphs += `<g transform="translate(${f(gp[0])} ${f(gp[1])}) rotate(${aC + 90})">${gl[k % 5]!}</g>`;
   }
   let fret = "";
   for (let k = 0; k < 24; k++) {
@@ -97,48 +97,48 @@ export function pyramidSVG(): string {
 
 // ---------- balón 3D (icosaedro) ----------
 const PHI = (1 + Math.sqrt(5)) / 2;
-const nz = (v: number[]) => {
-  const l = Math.hypot(...v);
-  return v.map((x) => x / l);
+const nz = (v: [number, number, number]): [number, number, number] => {
+  const l = Math.hypot(v[0], v[1], v[2]);
+  return [v[0] / l, v[1] / l, v[2] / l];
 };
-const V: number[][] = [
+const V: [number, number, number][] = [
   [0, 1, PHI], [0, 1, -PHI], [0, -1, PHI], [0, -1, -PHI],
   [1, PHI, 0], [1, -PHI, 0], [-1, PHI, 0], [-1, -PHI, 0],
   [PHI, 0, 1], [PHI, 0, -1], [-PHI, 0, 1], [-PHI, 0, -1],
-].map(nz);
-const F: number[][] = (() => {
+].map((v) => nz(v as [number, number, number]));
+const F: [number, number, number][] = (() => {
   let emin = 9;
   for (let i = 0; i < 12; i++)
     for (let j = i + 1; j < 12; j++) {
-      const d = Math.hypot(V[i][0] - V[j][0], V[i][1] - V[j][1], V[i][2] - V[j][2]);
+      const d = Math.hypot(V[i]![0] - V[j]![0], V[i]![1] - V[j]![1], V[i]![2] - V[j]![2]);
       if (d < emin) emin = d;
     }
-  const adj = (a: number, b: number) => Math.abs(Math.hypot(V[a][0] - V[b][0], V[a][1] - V[b][1], V[a][2] - V[b][2]) - emin) < 1e-3;
-  const Fv: number[][] = [];
+  const adj = (a: number, b: number) => Math.abs(Math.hypot(V[a]![0] - V[b]![0], V[a]![1] - V[b]![1], V[a]![2] - V[b]![2]) - emin) < 1e-3;
+  const Fv: [number, number, number][] = [];
   for (let i = 0; i < 12; i++)
     for (let j = i + 1; j < 12; j++)
       if (adj(i, j))
         for (let k = j + 1; k < 12; k++)
-          if (adj(i, k) && adj(j, k)) Fv.push(nz([V[i][0] + V[j][0] + V[k][0], V[i][1] + V[j][1] + V[k][1], V[i][2] + V[j][2] + V[k][2]]));
+          if (adj(i, k) && adj(j, k)) Fv.push(nz([V[i]![0] + V[j]![0] + V[k]![0], V[i]![1] + V[j]![1] + V[k]![1], V[i]![2] + V[j]![2] + V[k]![2]]));
   return Fv;
 })();
 const AP = (16.5 * Math.PI) / 180;
 const AH = (20.9 * Math.PI) / 180;
-const Ld = nz([-0.5, 0.6, 0.65]);
-const Hd = nz([Ld[0], Ld[1], Ld[2] + 1]);
+const Ld: [number, number, number] = nz([-0.5, 0.6, 0.65]);
+const Hd: [number, number, number] = nz([Ld[0], Ld[1], Ld[2] + 1]);
 
 function rot(ay: number, ax: number, az: number): number[][] {
   const cy = Math.cos(ay), sy = Math.sin(ay), cx = Math.cos(ax), sx = Math.sin(ax), cz = Math.cos(az), sz = Math.sin(az);
-  const my = [[cy, 0, sy], [0, 1, 0], [-sy, 0, cy]];
-  const mx = [[1, 0, 0], [0, cx, -sx], [0, sx, cx]];
-  const mz = [[cz, -sz, 0], [sz, cz, 0], [0, 0, 1]];
-  const mm = (a: number[][], b: number[][]) => a.map((r) => [0, 1, 2].map((j) => r[0] * b[0][j] + r[1] * b[1][j] + r[2] * b[2][j]));
-  return mm(mm(mz, mx), my);
+  const my: number[][] = [[cy, 0, sy], [0, 1, 0], [-sy, 0, cy]];
+  const mx: number[][] = [[1, 0, 0], [0, cx, -sx], [0, sx, cx]];
+  const mz: number[][] = [[cz, -sz, 0], [sz, cz, 0], [0, 0, 1]];
+  const mm = (a: number[][], b: number[][]) => a.map((r) => [0, 1, 2].map((j) => r[0]! * b[0]![j]! + r[1]! * b[1]![j]! + r[2]! * b[2]![j]!));
+  return mm(mm(mz, mx), my) as number[][];
 }
-const ap = (M: number[][], v: number[]) => [
-  M[0][0] * v[0] + M[0][1] * v[1] + M[0][2] * v[2],
-  M[1][0] * v[0] + M[1][1] * v[1] + M[1][2] * v[2],
-  M[2][0] * v[0] + M[2][1] * v[1] + M[2][2] * v[2],
+const ap = (M: number[][], v: [number, number, number]): [number, number, number] => [
+  M[0]![0]! * v[0] + M[0]![1]! * v[1] + M[0]![2]! * v[2],
+  M[1]![0]! * v[0] + M[1]![1]! * v[1] + M[1]![2]! * v[2],
+  M[2]![0]! * v[0] + M[2]![1]! * v[1] + M[2]![2]! * v[2],
 ];
 
 interface Ball { cx: CanvasRenderingContext2D; S: number; img: ImageData; px: [number, number, number, number, number][]; vis: () => boolean; spin: number; t0: number; }
@@ -171,21 +171,21 @@ export function ballFrame(now: number): boolean {
     any = true;
     const t = (now - B.t0) * B.spin;
     const M = rot(t * 0.00042 + PTR.x * 0.9, 0.55 + 0.18 * Math.sin(t * 0.0003) + PTR.y * 0.5, 0.25);
-    const Vr = V.map((v) => ap(M, v));
-    const Fr = F.map((v) => ap(M, v));
+    const Vr = V.map((v) => ap(M, v as [number, number, number]));
+    const Fr = F.map((v) => ap(M, v as [number, number, number]));
     const d = B.img.data;
     for (const p of B.px) {
       const i = p[0] * 4;
       const nx = p[1], ny = p[2], nz2 = p[3], rr = p[4];
       let dp = -2, dh = -2;
       for (let k = 0; k < 12; k++) {
-        const c = Vr[k];
-        const q = c[0] * nx + c[1] * ny + c[2] * nz2;
+        const c = Vr[k]!;
+        const q = c[0]! * nx + c[1]! * ny + c[2]! * nz2;
         if (q > dp) dp = q;
       }
       for (let k = 0; k < 20; k++) {
-        const c = Fr[k];
-        const q = c[0] * nx + c[1] * ny + c[2] * nz2;
+        const c = Fr[k]!;
+        const q = c[0]! * nx + c[1]! * ny + c[2]! * nz2;
         if (q > dh) dh = q;
       }
       const sP = Math.acos(Math.min(1, dp)) / AP;

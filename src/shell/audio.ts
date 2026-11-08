@@ -96,7 +96,7 @@ function noiseBuf(dur: number): AudioBuffer {
 function bell(f: number, t: number, vol: number, wet?: number): void {
   const c = AU.ctx!;
   const g = c.createGain();
-  [[1, 1], [2.76, 0.32], [5.4, 0.14]].forEach(([m, amp]) => {
+  [[1, 1], [2.76, 0.32], [5.4, 0.14]].forEach(([m, amp]: [number, number]) => {
     const o = c.createOscillator();
     const og = c.createGain();
     o.type = "sine";
@@ -150,7 +150,7 @@ function conch(t: number, f0: number, dur: number, vol: number): void {
   lfo.frequency.value = 5.2;
   lg.gain.value = f0 * 0.012;
   lfo.connect(lg);
-  [[f0, "sawtooth", 0.6], [f0 * 1.5, "triangle", 0.25], [f0 * 0.5, "sine", 0.5]].forEach(([f, ty, amp]) => {
+  [[f0, "sawtooth", 0.6], [f0 * 1.5, "triangle", 0.25], [f0 * 0.5, "sine", 0.5]].forEach(([f, ty, amp]: [number, string, number]) => {
     const o = c.createOscillator();
     const og = c.createGain();
     o.type = ty as OscillatorType;
@@ -258,7 +258,7 @@ function drone(): void {
   l.connect(lg);
   lg.connect(lp.frequency);
   l.start();
-  [[55, "sine", 0.7], [55.35, "triangle", 0.4], [110.4, "sine", 0.25], [82.4, "sine", 0.2]].forEach(([f, ty, amp]) => {
+  [[55, "sine", 0.7], [55.35, "triangle", 0.4], [110.4, "sine", 0.25], [82.4, "sine", 0.2]].forEach(([f, ty, amp]: [number, string, number]) => {
     const o = c.createOscillator();
     const og = c.createGain();
     o.type = ty as OscillatorType;
@@ -292,7 +292,9 @@ function openingCue(t: number): void {
   sweep(t, 1.7, 0.22, true);
   conch(t + 0.6, 196, 2.6, 0.26);
   drum(t + 2.0, 0.5);
-  [659.25, 783.99, 880, 659.25, 587.33, 440].forEach((f, i) => ocarina(t + 2.4 + [0, 0.55, 1.1, 2.1, 2.7, 3.3][i], f, [0.5, 0.5, 0.9, 0.55, 0.55, 1.5][i], 0.085));
+  const DEL: number[] = [0, 0.55, 1.1, 2.1, 2.7, 3.3];
+  const DUR: number[] = [0.5, 0.5, 0.9, 0.55, 0.55, 1.5];
+  [659.25, 783.99, 880, 659.25, 587.33, 440].forEach((f, i) => ocarina(t + 2.4 + DEL[i]!, f, DUR[i]!, 0.085));
   [1046.5, 1318.5, 1568].forEach((f, i) => bell(f, t + 3.4 + i * 0.18, 0.05, 0.9));
 }
 

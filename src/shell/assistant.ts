@@ -100,10 +100,11 @@ export function initAssistant(getCur: () => string | null): void {
     busy = true;
     add("u", q);
     const outEl = add("a th", "Pensando…");
-    let sample: ((msgs: { role: string; content: string }[], opts: { cache: boolean; onText: (x: { text: string }) => void }) => Promise<{ text?: string }>) | null = null;
+    type SampleFn = (msgs: { role: string; content: string }[], opts: { cache: boolean; onText: (x: { text: string }) => void }) => Promise<{ text?: string }>;
+    let sample: SampleFn | null = null;
     try {
       const c = (window as unknown as { claude?: { use(name: string): Promise<unknown> } }).claude;
-      if (c && c.use) sample = (await c.use("sample")) as typeof sample;
+      if (c && c.use) sample = (await c.use("sample")) as SampleFn;
     } catch { sample = null; }
     if (sample) {
       try {

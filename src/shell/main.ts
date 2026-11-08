@@ -7,9 +7,8 @@
 import "./audio.js";
 import { ballLoop, ballFrame, pyramidSVG, startBall, startIntro, intro, sunSVG } from "./art.js";
 import * as A from "./audio.js";
-import { AV, avInit, lsLoad, lsSave, save, pushCfg, onSportMessage, toast, setRenderSlip, registerFromSlip, saveBet, delBet, curBank, summary, money, pct, dec } from "./store.js";
+import { AV, avInit, lsLoad, lsSave, save, pushCfg, onSportMessage, toast, setRenderSlip, registerFromSlip, saveBet, delBet, curBank, summary, money, pct, dec, profitOf } from "./store.js";
 import { initAssistant } from "./assistant.js";
-import { profitOf } from "../domain/aztecavet/index.js";
 import type { Bet } from "../domain/aztecavet/index.js";
 
 const $ = (id: string) => document.getElementById(id);
@@ -30,6 +29,7 @@ const SP = [
 ];
 let LV = 1;
 let SPOPEN = false;
+let CUR: string | null = null;
 
 // ---------- gate (mejora: validación server-side) ----------
 const CODE_LEN = 4;
@@ -217,6 +217,7 @@ function openSport(i: number): void {
   const s = SP[i];
   if (!s) return;
   SPOPEN = true;
+  CUR = s.pg;
   const f = $("fr") as HTMLIFrameElement;
   f.src = "/" + s.pg + ".html?start=" + s.c;
   f.classList.remove("hide");
@@ -501,44 +502,10 @@ function boot(): void {
   }, true);
 
   // asistente + mensajes del deporte
-  let cur: string | null = null;
-  const setCur = (c: string | null) => { cur = c; };
-  const origOpenSport = openSport;
-  void origOpenSport;
-  initAssistant(() => cur);
-  onSportMessage(() => { /* redraw tras mensajes */ });
-  // capturar CUR del iframe (query al abrir)
-  const origOpen = openSport;
-  void origOpen;
-  const _openSport = openSport;
-  openSport = (i: number) => { void _openSport(i); };
-  // interceptar para CUR
-  const realOpen = function (i: number) {
-    const s = SP[i];
-    if (!s) return;
-    setCur(s.pg);
-    origOpenSport(i);
-  };
-  // rebind del listener de clicks a realOpen: más simple, mutar SP lookup no aplica;
-  // usamos un wrapper global para las páginas: window.__azOpen
-  (window as unknown as { __azCur: { get(): string | null } }).__azCur = { get: () => cur };
-  void realOpen;
+  initAssistant(() => CUR);
+  onSportMessage(() => { /* hook para redibujos futuros */ });
 
   renderSlip();
-  lsLoad();
 }
 
-// abrir deportes con CUR para el asistente
-const originalOpenSport = openSport;
-openSport = function (i: number): void {
-  const s = SP[i];
-  if (s) (window as unknown as { __azCurSet?: (c: string | null) => void }).__azCurSet?.(s.pg);
-  originalOpenSport(i);
-};
-(window as unknown as { __azCurSet: (c: string | null) => void }).__azCurSet = (c) => {
-  // el asistente lee por closure; reexportamos
-  void c;
-};
-
 document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", boot) : boot();
-export { openSport, closeSport };

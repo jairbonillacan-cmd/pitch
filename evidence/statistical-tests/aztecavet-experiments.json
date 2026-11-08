@@ -1,0 +1,226 @@
+{
+ "fecha": "2026-11-08T20:11:29.759Z",
+ "motor": "src/domain/aztecavet",
+ "experimentos": [
+  {
+   "exp": "E1",
+   "desc": "NEC–TIJ: % y proyección iguales a la UI observada",
+   "entrada": {
+    "partido": "NEC–TIJ",
+    "cuotas": "ninguna"
+   },
+   "salida": {
+    "pick": "TIJ gana",
+    "prob": 0.47851730533023407,
+    "proy": [
+     1.2309033328660401,
+     1.7420679081599488
+    ],
+    "ct": "GANA · DOMINA EN ATAQUE Y DEFENSA"
+   }
+  },
+  {
+   "exp": "E1b",
+   "desc": "ATL–SAN: la combinada DC+Over1.5 es el pick (51.1% en UI)",
+   "entrada": {
+    "partido": "ATL–SAN",
+    "empate_prob": 0.3019930088205296
+   },
+   "salida": {
+    "pick": "Empate o SAN + Over 1.5",
+    "prob": 0.5113674436373836
+   }
+  },
+  {
+   "exp": "E1",
+   "desc": "NHL 6 nov: tres valores del ranking observados en UI",
+   "entrada": {
+    "partidos": [
+     "MIN-SJ",
+     "BUF-CBJ",
+     "CGY-ANA"
+    ]
+   },
+   "salida": {
+    "MIN gana+O5.5": 0.4144975467573426,
+    "CBJ+1.5": 0.7492214579532016,
+    "ANA ML": 0.5845085665318536
+   }
+  },
+  {
+   "exp": "E2",
+   "desc": "NEC–TIJ: variando SOLO la cuota del mercado visitante (el pick)",
+   "entrada": {
+    "prob_fija": 0.4785,
+    "cuotas": [
+     "1.50",
+     "1.90",
+     "2.05",
+     "2.20"
+    ]
+   },
+   "salida": [
+    {
+     "cuota": "1.50",
+     "ev": -0.2822,
+     "bestOf": null,
+     "sugEsperada": 0
+    },
+    {
+     "cuota": "1.90",
+     "ev": -0.0908,
+     "bestOf": null,
+     "sugEsperada": 0
+    },
+    {
+     "cuota": "2.05",
+     "ev": -0.019,
+     "bestOf": null,
+     "sugEsperada": 0
+    },
+    {
+     "cuota": "2.20",
+     "ev": 0.0527,
+     "bestOf": "a",
+     "sugEsperada": 5
+    }
+   ]
+  },
+  {
+   "exp": "E3",
+   "desc": "SLP–JUA: Madson fuera→disponible→fuera (única entrada cambiante)",
+   "entrada": {
+    "baja": "JUA Madson gf 0.04",
+    "p_modelo_antes": 0.2023
+   },
+   "salida": {
+    "p_JUA_antes": 0.2023,
+    "p_JUA_sin_baja": 0.2109,
+    "p_JUA_restaurada": 0.2023,
+    "delta": 0.0086
+   }
+  },
+  {
+   "exp": "E4",
+   "desc": "Auditoría MX J15 (9 juegos): contador del header de la app",
+   "entrada": {
+    "jornada": "Auditoría 30 oct-1 nov (jornada 15)",
+    "juegos": 9
+   },
+   "salida": {
+    "pickModelo": "8/9",
+    "favoritoSinEmpate": "6/7"
+   }
+  },
+  {
+   "exp": "E4",
+   "desc": "Auditoría NHL 5 nov (11 juegos) + Brier del pick de confianza",
+   "entrada": {
+    "juegos": 11
+   },
+   "salida": {
+    "pickConfianza": "8/11",
+    "ganadorML": "9/11",
+    "brier": 0.236
+   }
+  },
+  {
+   "exp": "E4",
+   "desc": "MLB 8–28 oct (17 juegos): contadores de la tarjeta de auditoría de la UI",
+   "entrada": {
+    "juegos": 17
+   },
+   "salida": {
+    "pickDelModelo": "9/17",
+    "ganadorML": "11/17",
+    "brier": 0.2523
+   }
+  },
+  {
+   "exp": "E4b",
+   "desc": "CWS@CLE J4: pick pre-juego y marcador observados",
+   "entrada": {
+    "final": [
+     5,
+     9
+    ]
+   },
+   "salida": {
+    "pick": "CLE +1.5"
+   }
+  },
+  {
+   "exp": "E5",
+   "desc": "La Liga auditoría J11 (10 juegos): máx Δ prob vs oráculo verbatim",
+   "entrada": {
+    "comp": "LL",
+    "dia": "Auditoría 30 oct-2 nov (jornada 11)"
+   },
+   "salida": {
+    "filas": [
+     {
+      "partido": "DEP-OSA",
+      "aud": true,
+      "pick": "DEP o empate + Over 1.5",
+      "maxDelta": 0
+     },
+     {
+      "partido": "GET-SEV",
+      "aud": true,
+      "pick": "GET o empate + Over 1.5",
+      "maxDelta": 0
+     },
+     {
+      "partido": "RAC-RMA",
+      "aud": true,
+      "pick": "RMA gana",
+      "maxDelta": 0
+     },
+     {
+      "partido": "ELC-VCF",
+      "aud": true,
+      "pick": "ELC gana",
+      "maxDelta": 0
+     },
+     {
+      "partido": "ATH-RSO",
+      "aud": true,
+      "pick": "ATH o empate + Over 1.5",
+      "maxDelta": 0
+     },
+     {
+      "partido": "VIL-ESP",
+      "aud": true,
+      "pick": "VIL gana",
+      "maxDelta": 0
+     },
+     {
+      "partido": "LEV-ATM",
+      "aud": true,
+      "pick": "Empate o ATM + Over 1.5",
+      "maxDelta": 0
+     },
+     {
+      "partido": "RVC-RCC",
+      "aud": true,
+      "pick": "Empate o RCC + Over 1.5",
+      "maxDelta": 0
+     },
+     {
+      "partido": "RBB-MCF",
+      "aud": true,
+      "pick": "RBB gana",
+      "maxDelta": 0
+     },
+     {
+      "partido": "BAR-ALA",
+      "aud": true,
+      "pick": "BAR gana + Over 2.5",
+      "maxDelta": 0
+     }
+    ],
+    "maxDelta": 0
+   }
+  }
+ ]
+}

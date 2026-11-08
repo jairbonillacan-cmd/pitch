@@ -5,7 +5,7 @@
 // Categoría: OBSERVADO (assets y estilos del propio sitio; autorización del dueño).
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 
-const BASE = decodeURIComponent(new URL("../aztecavet-analysis/", import.meta.url).pathname);
+const BASE = decodeURIComponent(new URL("../Reportes/analisis-aztecavet/", import.meta.url).pathname);
 const SRC = decodeURIComponent(new URL("../src/", import.meta.url).pathname);
 const PUB = decodeURIComponent(new URL("../public/", import.meta.url).pathname);
 mkdirSync(SRC + "styles", { recursive: true });
