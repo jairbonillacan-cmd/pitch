@@ -24,7 +24,7 @@ Una referencia externa (Draftea, las tres competidoras) nunca prevalece sobre lo
 | Contraste | `tokens/contrast-audit.csv` (68 pares más la cabecera) | Verificado por GPT; se re-verificará en el CI (F4) |
 | Tipografía | Inter Variable, con la escala display…caption en el handoff | ⚠ **Falta el archivo WOFF2** en el paquete (0 archivos `.woff*`). F4 debe descargarlo de rsms.me/inter (SIL OFL 1.1). |
 | Espacio, radio, movimiento y layout | Tokens `--space-*`, `--radius-*`, `--time-*`, `--layout-*` | Completo |
-| Iconos | `visuals/icons/`: 8 (assistant, close, filters, games, historical, info, panel, trend) | Insuficiente para la app: hace falta un set base (ver §4) |
+| Iconos | `visuals/icons/`: 19 (se añadieron deportes, modelo, probabilidad, fuentes, equipos, comparar, competición y simulador) | Cubre el pre-MVP. Los genéricos que falten se resuelven con ADR-016. |
 | Reglas de producto | Handoff, sección «Aplicación en producto»: header, sidebar, nav móvil, botones, tablas, gráficas, estados, asistente | Completo; es la base del prompt 00 |
 | Mockups | `applications/*.svg` (dashboard, login, pricing, mobile, splash, loading, hero, email…) | Referencia visual, no especificación |
 | Social | `social/` (open-graph, banner, profile, post-game, post-model, post-stat) | Base de las share cards (§8 del plan maestro) |
