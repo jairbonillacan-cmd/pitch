@@ -13,6 +13,9 @@
     "lint": "pnpm -r lint && node scripts/lint-codebase.mjs",
     "typecheck": "pnpm -r typecheck",
     "snapshot": "pnpm --filter @pitchlab/ingest snapshot",
+    "history": "pnpm --filter @pitchlab/ingest history",
+    "backtest": "pnpm --filter @pitchlab/ingest backtest",
+    "backtest:history": "pnpm --filter @pitchlab/ingest backtest:history",
     "e2e": "pnpm --filter @pitchlab/web e2e",
     "storybook": "pnpm --filter @pitchlab/ui storybook",
     "build-storybook": "pnpm --filter @pitchlab/ui build-storybook"

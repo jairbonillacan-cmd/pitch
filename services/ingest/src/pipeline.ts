@@ -5,6 +5,11 @@
  * Si un partido ya tenía un análisis publicado en un snapshot anterior **antes de su inicio**,
  * el pipeline **lo conserva tal cual** (sin recalcular probabilidades ni cambiar `publishedAt` o `inputsAsOf`)
  * y únicamente actualiza el marcador/estado final en `games` cuando exista.
+ *
+ * Versiones de modelo:
+ *  - `v2` (por defecto): Dixon-Coles estimado (fútbol) y ratings ajustados por rival (NFL),
+ *    con incertidumbre. Es un candidato: no ha pasado el gate de publicación.
+ *  - `v1`: Baseline 0 de `@pitchlab/engines-reference` (paridad con el motor de referencia).
  */
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
@@ -26,6 +31,18 @@ import {
   type FootballTeamRateInput,
   type NflTeamRateInput,
 } from "@pitchlab/engines-reference";
+import {
+  analyzeFootballGameV2,
+  analyzeNflGameV2,
+  fitDixonColes,
+  fitNflRatings,
+  type DixonColesModel,
+  type FootballMatchRow,
+  type NflMatchRow,
+  type NflRatingsModel,
+} from "@pitchlab/models";
+
+export type ModelVersion = "v1" | "v2";
 
 export function shouldPreservePublishedAnalysis(
   previousAnalysis: GameAnalysis | undefined,
@@ -38,6 +55,91 @@ export function shouldPreservePublishedAnalysis(
   return pubMs <= startMs;
 }
 
+function publishedAtFor(game: GameDTO, updatedAt: string): string {
+  const gameStartMs = new Date(game.startTime).getTime();
+  const updatedMs = new Date(updatedAt).getTime();
+  return game.status === "final" && !Number.isNaN(gameStartMs) && gameStartMs < updatedMs
+    ? new Date(gameStartMs - 3600 * 1000).toISOString()
+    : updatedAt;
+}
+
+/** Filas de partido terminado para estimar el modelo de fútbol. */
+export function toFootballMatchRows(seasonGames: readonly GameDTO[]): FootballMatchRow[] {
+  const rows: FootballMatchRow[] = [];
+  for (const game of seasonGames) {
+    if (game.status !== "final" || !game.result) continue;
+    rows.push({
+      date: game.startTime.slice(0, 10),
+      home: game.home.id,
+      away: game.away.id,
+      homeGoals: game.result.home,
+      awayGoals: game.result.away,
+    });
+  }
+  return rows;
+}
+
+/** Filas de partido terminado para estimar los ratings NFL. */
+export function toNflMatchRows(seasonGames: readonly GameDTO[]): NflMatchRow[] {
+  const rows: NflMatchRow[] = [];
+  for (const game of seasonGames) {
+    if (game.status !== "final" || !game.result) continue;
+    rows.push({
+      week: game.week,
+      date: game.startTime.slice(0, 10),
+      home: game.home.id,
+      away: game.away.id,
+      homeScore: game.result.home,
+      awayScore: game.result.away,
+    });
+  }
+  return rows;
+}
+
+function footballTeamRatesFromModel(
+  inputs: readonly FootballTeamRateInput[],
+  model: DixonColesModel,
+): Record<string, TeamSeasonRate> {
+  const rates: Record<string, TeamSeasonRate> = {};
+  for (const t of inputs) {
+    const attack = model.attack[t.teamId] ?? 1;
+    const defense = model.defense[t.teamId] ?? 1;
+    rates[t.teamId] = {
+      teamId: t.teamId,
+      name: t.name,
+      shortName: t.shortName,
+      code: t.code,
+      forPerGame: t.gamesPlayed > 0 ? t.goalsFor / t.gamesPlayed : model.baseRate,
+      againstPerGame: t.gamesPlayed > 0 ? t.goalsAgainst / t.gamesPlayed : model.baseRate,
+      gamesPlayed: t.gamesPlayed,
+      adjustedFor: model.baseRate * attack,
+      adjustedAgainst: model.baseRate * defense,
+    };
+  }
+  return rates;
+}
+
+function nflTeamRatesFromModel(
+  inputs: readonly NflTeamRateInput[],
+  model: NflRatingsModel,
+): Record<string, TeamSeasonRate> {
+  const rates: Record<string, TeamSeasonRate> = {};
+  for (const t of inputs) {
+    rates[t.teamId] = {
+      teamId: t.teamId,
+      name: t.name,
+      shortName: t.shortName,
+      code: t.code,
+      forPerGame: t.gamesPlayed > 0 ? t.pointsFor / t.gamesPlayed : model.intercept,
+      againstPerGame: t.gamesPlayed > 0 ? t.pointsAgainst / t.gamesPlayed : model.intercept,
+      gamesPlayed: t.gamesPlayed,
+      adjustedFor: model.intercept + (model.offense[t.teamId] ?? 0),
+      adjustedAgainst: model.intercept - (model.defense[t.teamId] ?? 0),
+    };
+  }
+  return rates;
+}
+
 export function buildNflSnapshot(params: {
   seasonId: string;
   seasonLabel: string;
@@ -46,6 +148,8 @@ export function buildNflSnapshot(params: {
   teamRateInputs: NflTeamRateInput[];
   updatedAt: string;
   previousSnapshot?: LeagueSnapshot | null;
+  seasonGames?: readonly GameDTO[];
+  modelVersion?: ModelVersion;
 }): LeagueSnapshot {
   const {
     seasonId,
@@ -55,9 +159,19 @@ export function buildNflSnapshot(params: {
     teamRateInputs,
     updatedAt,
     previousSnapshot,
+    seasonGames,
+    modelVersion = "v2",
   } = params;
 
-  const { rates } = computeNflTeamRates(teamRateInputs);
+  const nflModel =
+    modelVersion === "v2" && (seasonGames?.length ?? 0) > 0
+      ? fitNflRatings(toNflMatchRows(seasonGames!), {})
+      : null;
+
+  const rates: Record<string, TeamSeasonRate> = nflModel
+    ? nflTeamRatesFromModel(teamRateInputs, nflModel)
+    : computeNflTeamRates(teamRateInputs).rates;
+
   const analyses: Record<string, GameAnalysis> = {};
 
   for (const game of games) {
@@ -67,22 +181,24 @@ export function buildNflSnapshot(params: {
       continue;
     }
 
-    // Si el partido ya finalizó y no había snapshot previo, su hora de publicación pre-partido
-    // se registra antes del inicio para reflejar el corte previo al silbatazo.
-    const gameStartMs = new Date(game.startTime).getTime();
-    const updatedMs = new Date(updatedAt).getTime();
-    const publishedAt =
-      game.status === "final" && !Number.isNaN(gameStartMs) && gameStartMs < updatedMs
-        ? new Date(gameStartMs - 3600 * 1000).toISOString()
-        : updatedAt;
+    const publishedAt = publishedAtFor(game, updatedAt);
 
-    const analysis = analyzeNflGame({
-      game,
-      teams: teamRateInputs,
-      inputsAsOf: publishedAt,
-      publishedAt,
-      source: "nflverse",
-    });
+    const analysis = nflModel
+      ? analyzeNflGameV2({
+          game,
+          model: nflModel,
+          teamRates: rates,
+          inputsAsOf: publishedAt,
+          publishedAt,
+          source: "nflverse",
+        })
+      : analyzeNflGame({
+          game,
+          teams: teamRateInputs,
+          inputsAsOf: publishedAt,
+          publishedAt,
+          source: "nflverse",
+        });
 
     analyses[game.id] = GameAnalysisSchema.parse(analysis);
   }
@@ -116,6 +232,8 @@ export function buildFootballSnapshot(params: {
   updatedAt: string;
   source: string;
   previousSnapshot?: LeagueSnapshot | null;
+  seasonGames?: readonly GameDTO[];
+  modelVersion?: ModelVersion;
 }): LeagueSnapshot {
   const {
     league,
@@ -128,12 +246,21 @@ export function buildFootballSnapshot(params: {
     updatedAt,
     source,
     previousSnapshot,
+    seasonGames,
+    modelVersion = "v2",
   } = params;
 
-  const { rates }: { rates: Record<string, TeamSeasonRate> } = computeFootballTeamRates(
-    league,
-    teamRateInputs,
-  );
+  const footballModel =
+    modelVersion === "v2" && (seasonGames?.length ?? 0) > 0
+      ? fitDixonColes(toFootballMatchRows(seasonGames!), {
+          referenceDate: updatedAt.slice(0, 10),
+        })
+      : null;
+
+  const rates: Record<string, TeamSeasonRate> = footballModel
+    ? footballTeamRatesFromModel(teamRateInputs, footballModel)
+    : computeFootballTeamRates(league, teamRateInputs).rates;
+
   const analyses: Record<string, GameAnalysis> = {};
 
   for (const game of games) {
@@ -143,22 +270,28 @@ export function buildFootballSnapshot(params: {
       continue;
     }
 
-    const gameStartMs = new Date(game.startTime).getTime();
-    const updatedMs = new Date(updatedAt).getTime();
-    const publishedAt =
-      game.status === "final" && !Number.isNaN(gameStartMs) && gameStartMs < updatedMs
-        ? new Date(gameStartMs - 3600 * 1000).toISOString()
-        : updatedAt;
+    const publishedAt = publishedAtFor(game, updatedAt);
 
-    const analysis = analyzeFootballGame({
-      league,
-      leagueName,
-      game,
-      teams: teamRateInputs,
-      inputsAsOf: publishedAt,
-      publishedAt,
-      source,
-    });
+    const analysis = footballModel
+      ? analyzeFootballGameV2({
+          league,
+          leagueName,
+          game,
+          model: footballModel,
+          teamRates: rates,
+          inputsAsOf: publishedAt,
+          publishedAt,
+          source,
+        })
+      : analyzeFootballGame({
+          league,
+          leagueName,
+          game,
+          teams: teamRateInputs,
+          inputsAsOf: publishedAt,
+          publishedAt,
+          source,
+        });
 
     analyses[game.id] = GameAnalysisSchema.parse(analysis);
   }

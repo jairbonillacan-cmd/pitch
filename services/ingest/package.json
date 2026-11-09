@@ -11,11 +11,15 @@
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "lint": "tsc --noEmit",
-    "snapshot": "tsx src/cli.ts"
+    "snapshot": "tsx src/cli.ts",
+    "history": "tsx src/history/cli.ts",
+    "backtest": "tsx src/backtest.ts",
+    "backtest:history": "tsx src/history-backtest-cli.ts"
   },
   "dependencies": {
     "@pitchlab/contracts": "workspace:*",
     "@pitchlab/engines-reference": "workspace:*",
+    "@pitchlab/models": "workspace:*",
     "@pitchlab/sports-assets": "workspace:*",
     "zod": "4.6.7"
   },

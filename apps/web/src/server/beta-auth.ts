@@ -19,25 +19,25 @@ export function getBetaCookieMaxAge(): number {
 }
 
 function getPreviewAccessCode(): string {
-  const envCode = process.env.PREVIEW_ACCESS_CODE;
+  const envCode = process.env.PITCHLAB_BETA_CODE ?? process.env.PREVIEW_ACCESS_CODE;
   if (envCode && envCode.trim().length > 0) {
     return envCode.trim();
   }
   if (process.env.NODE_ENV !== "production") {
     return "2026";
   }
-  throw new Error("PREVIEW_ACCESS_CODE is not configured in production.");
+  throw new Error("PITCHLAB_BETA_CODE (o PREVIEW_ACCESS_CODE) is not configured in production.");
 }
 
 function getBetaCookieSecret(): string {
-  const envSecret = process.env.BETA_COOKIE_SECRET;
+  const envSecret = process.env.PITCHLAB_COOKIE_SECRET ?? process.env.BETA_COOKIE_SECRET;
   if (envSecret && envSecret.trim().length >= 32) {
     return envSecret.trim();
   }
   if (process.env.NODE_ENV !== "production") {
     return "dev-only-pitchlab-beta-cookie-secret-32chars";
   }
-  throw new Error("BETA_COOKIE_SECRET (>= 32 chars) is not configured in production.");
+  throw new Error("PITCHLAB_COOKIE_SECRET (>= 32 chars) is not configured in production.");
 }
 
 function toHex(bytes: Uint8Array): string {

@@ -146,8 +146,8 @@ interface Losses {
 }
 
 function footballGameDto(row: FootballRow, league: LeagueId, seasonId: string): GameDTO {
-  const home = teamFor(`pl.${row.home}`, league, row.home);
-  const away = teamFor(`pl.${row.away}`, league, row.away);
+  const home = teamFor(`premier-league.${row.home}`, league, row.home);
+  const away = teamFor(`premier-league.${row.away}`, league, row.away);
   return {
     id: asGameId(`bt-${row.season}-r${row.round}-${row.home}-${row.away}`),
     league,
@@ -195,8 +195,8 @@ async function backtestFootball(seasons: string[]) {
       const dc = fitDixonColes(
         train.map((r) => ({
           date: r.date,
-          home: `pl.${r.home}`,
-          away: `pl.${r.away}`,
+          home: `premier-league.${r.home}`,
+          away: `premier-league.${r.away}`,
           homeGoals: r.homeGoals,
           awayGoals: r.awayGoals,
         })),
@@ -206,7 +206,7 @@ async function backtestFootball(seasons: string[]) {
       const { stats, nameOf } = aggregateFootball(train);
       const naive = naiveFootball(train);
       const teams = [...stats.entries()].map(([id, s]) => ({
-        teamId: `pl.${id}`,
+        teamId: `premier-league.${id}`,
         name: nameOf.get(id) ?? id,
         shortName: (nameOf.get(id) ?? id).slice(0, 16),
         code: id.slice(0, 3).toUpperCase(),
@@ -216,7 +216,7 @@ async function backtestFootball(seasons: string[]) {
       }));
 
       for (const row of test) {
-        const v2 = predictFootball(dc, `pl.${row.home}`, `pl.${row.away}`);
+        const v2 = predictFootball(dc, `premier-league.${row.home}`, `premier-league.${row.away}`);
         const baseAnalysis = analyzeFootballGame({
           league: "premier-league",
           leagueName: "Premier League",
@@ -351,8 +351,8 @@ async function backtestNfl(seasons: number[]) {
         train.map((r) => ({
           week: r.week,
           date: r.date,
-          home: r.home,
-          away: r.away,
+          home: `nfl.${r.home.toLowerCase()}`,
+          away: `nfl.${r.away.toLowerCase()}`,
           homeScore: r.homeScore,
           awayScore: r.awayScore,
         })),
@@ -360,29 +360,29 @@ async function backtestNfl(seasons: number[]) {
 
       const stats = new Map<string, { pf: number; pa: number; gp: number }>();
       for (const r of train) {
-        const h = stats.get(r.home) ?? { pf: 0, pa: 0, gp: 0 };
-        const a = stats.get(r.away) ?? { pf: 0, pa: 0, gp: 0 };
+        const h = stats.get(`nfl.${r.home.toLowerCase()}`) ?? { pf: 0, pa: 0, gp: 0 };
+        const a = stats.get(`nfl.${r.away.toLowerCase()}`) ?? { pf: 0, pa: 0, gp: 0 };
         h.pf += r.homeScore;
         h.pa += r.awayScore;
         h.gp++;
         a.pf += r.awayScore;
         a.pa += r.homeScore;
         a.gp++;
-        stats.set(r.home, h);
-        stats.set(r.away, a);
+        stats.set(`nfl.${r.home.toLowerCase()}`, h);
+        stats.set(`nfl.${r.away.toLowerCase()}`, a);
       }
       const teams = [...stats.entries()].map(([id, s]) => ({
         teamId: id,
         name: id,
         shortName: id,
-        code: id,
+        code: id.split(".")[1]!.toUpperCase(),
         pointsFor: s.pf,
         pointsAgainst: s.pa,
         gamesPlayed: s.gp,
       }));
 
       for (const row of test) {
-        const v2 = predictNfl(model, row.home, row.away);
+        const v2 = predictNfl(model, `nfl.${row.home.toLowerCase()}`, `nfl.${row.away.toLowerCase()}`);
         const league = asLeagueId("nfl");
         const game: GameDTO = {
           id: asGameId(`bt-nfl-${row.season}-w${row.week}-${row.away}-${row.home}`),
@@ -392,8 +392,8 @@ async function backtestNfl(seasons: number[]) {
           round: `Semana ${row.week}`,
           startTime: `${row.date}T18:00:00`,
           status: "final",
-          home: teamFor(row.home, league, row.home),
-          away: teamFor(row.away, league, row.away),
+          home: teamFor(`nfl.${row.home.toLowerCase()}`, league, row.home),
+          away: teamFor(`nfl.${row.away.toLowerCase()}`, league, row.away),
           neutralSite: false,
           result: {
             home: row.homeScore,

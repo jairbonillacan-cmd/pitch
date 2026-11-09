@@ -4,7 +4,7 @@
   "season": "nfl-2026",
   "seasonLabel": "2026",
   "periodLabel": "Semana 9",
-  "updatedAt": "2026-11-09T00:27:04.824Z",
+  "updatedAt": "2026-11-09T00:35:51.136Z",
   "source": "nflverse",
   "provenance": "derived",
   "isDemo": false,
@@ -17,8 +17,8 @@
       "forPerGame": 21.875,
       "againstPerGame": 29.75,
       "gamesPlayed": 8,
-      "adjustedFor": 22.45798319327731,
-      "adjustedAgainst": 26.95798319327731
+      "adjustedFor": 21.568787538237096,
+      "adjustedAgainst": 25.600490524765927
     },
     "nfl.atlanta-falcons": {
       "teamId": "nfl.atlanta-falcons",
@@ -28,8 +28,8 @@
       "forPerGame": 21.375,
       "againstPerGame": 23.625,
       "gamesPlayed": 8,
-      "adjustedFor": 22.172268907563023,
-      "adjustedAgainst": 23.45798319327731
+      "adjustedFor": 21.913802710421724,
+      "adjustedAgainst": 23.362713385499642
     },
     "nfl.baltimore-ravens": {
       "teamId": "nfl.baltimore-ravens",
@@ -39,8 +39,8 @@
       "forPerGame": 22.375,
       "againstPerGame": 25.375,
       "gamesPlayed": 8,
-      "adjustedFor": 22.743697478991596,
-      "adjustedAgainst": 24.45798319327731
+      "adjustedFor": 21.477012143680618,
+      "adjustedAgainst": 24.22869288999661
     },
     "nfl.buffalo-bills": {
       "teamId": "nfl.buffalo-bills",
@@ -50,8 +50,8 @@
       "forPerGame": 33.285714285714285,
       "againstPerGame": 25.857142857142858,
       "gamesPlayed": 7,
-      "adjustedFor": 28.647058823529413,
-      "adjustedAgainst": 24.647058823529413
+      "adjustedFor": 27.488794038981816,
+      "adjustedAgainst": 24.298990257690974
     },
     "nfl.carolina-panthers": {
       "teamId": "nfl.carolina-panthers",
@@ -61,8 +61,8 @@
       "forPerGame": 25.428571428571427,
       "againstPerGame": 27.571428571428573,
       "gamesPlayed": 7,
-      "adjustedFor": 24.41628959276018,
-      "adjustedAgainst": 25.570135746606336
+      "adjustedFor": 24.130035309334207,
+      "adjustedAgainst": 25.30203898746319
     },
     "nfl.chicago-bears": {
       "teamId": "nfl.chicago-bears",
@@ -72,8 +72,8 @@
       "forPerGame": 26.75,
       "againstPerGame": 20,
       "gamesPlayed": 8,
-      "adjustedFor": 25.243697478991596,
-      "adjustedAgainst": 21.386554621848738
+      "adjustedFor": 25.10842230313016,
+      "adjustedAgainst": 21.81635413980218
     },
     "nfl.cincinnati-bengals": {
       "teamId": "nfl.cincinnati-bengals",
@@ -83,8 +83,8 @@
       "forPerGame": 29.428571428571427,
       "againstPerGame": 22.571428571428573,
       "gamesPlayed": 7,
-      "adjustedFor": 26.570135746606333,
-      "adjustedAgainst": 22.877828054298643
+      "adjustedFor": 26.659943541364118,
+      "adjustedAgainst": 22.68791919015789
     },
     "nfl.cleveland-browns": {
       "teamId": "nfl.cleveland-browns",
@@ -94,8 +94,8 @@
       "forPerGame": 17.375,
       "againstPerGame": 21.625,
       "gamesPlayed": 8,
-      "adjustedFor": 19.886554621848738,
-      "adjustedAgainst": 22.31512605042017
+      "adjustedFor": 20.299411299851936,
+      "adjustedAgainst": 22.345617080067836
     },
     "nfl.dallas-cowboys": {
       "teamId": "nfl.dallas-cowboys",
@@ -105,8 +105,8 @@
       "forPerGame": 27.375,
       "againstPerGame": 26.625,
       "gamesPlayed": 8,
-      "adjustedFor": 25.600840336134453,
-      "adjustedAgainst": 25.172268907563023
+      "adjustedFor": 24.902580405981634,
+      "adjustedAgainst": 25.15105656986416
     },
     "nfl.denver-broncos": {
       "teamId": "nfl.denver-broncos",
@@ -116,8 +116,8 @@
       "forPerGame": 21.5,
       "againstPerGame": 20.625,
       "gamesPlayed": 8,
-      "adjustedFor": 22.243697478991596,
-      "adjustedAgainst": 21.743697478991596
+      "adjustedFor": 22.795057023463983,
+      "adjustedAgainst": 21.456752338729338
     },
     "nfl.detroit-lions": {
       "teamId": "nfl.detroit-lions",
@@ -127,8 +127,8 @@
       "forPerGame": 29,
       "againstPerGame": 25.714285714285715,
       "gamesPlayed": 7,
-      "adjustedFor": 26.339366515837106,
-      "adjustedAgainst": 24.570135746606336
+      "adjustedFor": 24.9832325618099,
+      "adjustedAgainst": 23.32879268885565
     },
     "nfl.green-bay-packers": {
       "teamId": "nfl.green-bay-packers",
@@ -138,8 +138,8 @@
       "forPerGame": 21.375,
       "againstPerGame": 20.5,
       "gamesPlayed": 8,
-      "adjustedFor": 22.172268907563023,
-      "adjustedAgainst": 21.672268907563023
+      "adjustedFor": 22.126447484205226,
+      "adjustedAgainst": 21.40024422212603
     },
     "nfl.houston-texans": {
       "teamId": "nfl.houston-texans",
@@ -149,8 +149,8 @@
       "forPerGame": 23.571428571428573,
       "againstPerGame": 24.285714285714285,
       "gamesPlayed": 7,
-      "adjustedFor": 23.416289592760183,
-      "adjustedAgainst": 23.800904977375566
+      "adjustedFor": 22.910491311940415,
+      "adjustedAgainst": 22.895958786232878
     },
     "nfl.indianapolis-colts": {
       "teamId": "nfl.indianapolis-colts",
@@ -160,8 +160,8 @@
       "forPerGame": 20.125,
       "againstPerGame": 27.75,
       "gamesPlayed": 8,
-      "adjustedFor": 21.45798319327731,
-      "adjustedAgainst": 25.81512605042017
+      "adjustedFor": 21.888770994626142,
+      "adjustedAgainst": 25.401585255024557
     },
     "nfl.jacksonville-jaguars": {
       "teamId": "nfl.jacksonville-jaguars",
@@ -171,8 +171,8 @@
       "forPerGame": 28,
       "againstPerGame": 15.857142857142858,
       "gamesPlayed": 7,
-      "adjustedFor": 25.800904977375566,
-      "adjustedAgainst": 19.262443438914026
+      "adjustedFor": 25.645071791067796,
+      "adjustedAgainst": 19.23693325779949
     },
     "nfl.kansas-city-chiefs": {
       "teamId": "nfl.kansas-city-chiefs",
@@ -182,8 +182,8 @@
       "forPerGame": 23.857142857142858,
       "againstPerGame": 18.714285714285715,
       "gamesPlayed": 7,
-      "adjustedFor": 23.570135746606336,
-      "adjustedAgainst": 20.800904977375566
+      "adjustedFor": 23.831012079860656,
+      "adjustedAgainst": 20.84138661541876
     },
     "nfl.las-vegas-raiders": {
       "teamId": "nfl.las-vegas-raiders",
@@ -193,8 +193,8 @@
       "forPerGame": 27.625,
       "againstPerGame": 28.75,
       "gamesPlayed": 8,
-      "adjustedFor": 25.743697478991596,
-      "adjustedAgainst": 26.386554621848738
+      "adjustedFor": 24.768343889400594,
+      "adjustedAgainst": 26.464542282404185
     },
     "nfl.los-angeles-chargers": {
       "teamId": "nfl.los-angeles-chargers",
@@ -204,8 +204,8 @@
       "forPerGame": 14.142857142857142,
       "againstPerGame": 25,
       "gamesPlayed": 7,
-      "adjustedFor": 18.339366515837106,
-      "adjustedAgainst": 24.185520361990953
+      "adjustedFor": 18.726533571724666,
+      "adjustedAgainst": 23.418124300053847
     },
     "nfl.los-angeles-rams": {
       "teamId": "nfl.los-angeles-rams",
@@ -215,8 +215,8 @@
       "forPerGame": 24.25,
       "againstPerGame": 21,
       "gamesPlayed": 8,
-      "adjustedFor": 23.81512605042017,
-      "adjustedAgainst": 21.95798319327731
+      "adjustedFor": 22.87340620877833,
+      "adjustedAgainst": 21.421793560581367
     },
     "nfl.miami-dolphins": {
       "teamId": "nfl.miami-dolphins",
@@ -226,8 +226,8 @@
       "forPerGame": 16.714285714285715,
       "againstPerGame": 25.857142857142858,
       "gamesPlayed": 7,
-      "adjustedFor": 19.72398190045249,
-      "adjustedAgainst": 24.647058823529413
+      "adjustedFor": 19.554666679657238,
+      "adjustedAgainst": 23.3124375575436
     },
     "nfl.minnesota-vikings": {
       "teamId": "nfl.minnesota-vikings",
@@ -237,8 +237,8 @@
       "forPerGame": 20,
       "againstPerGame": 13.285714285714286,
       "gamesPlayed": 7,
-      "adjustedFor": 21.49321266968326,
-      "adjustedAgainst": 17.877828054298643
+      "adjustedFor": 21.412621209214908,
+      "adjustedAgainst": 18.383492385140624
     },
     "nfl.new-england-patriots": {
       "teamId": "nfl.new-england-patriots",
@@ -248,8 +248,8 @@
       "forPerGame": 23,
       "againstPerGame": 20.25,
       "gamesPlayed": 8,
-      "adjustedFor": 23.100840336134453,
-      "adjustedAgainst": 21.529411764705884
+      "adjustedFor": 23.07556087874586,
+      "adjustedAgainst": 21.10619693783936
     },
     "nfl.new-orleans-saints": {
       "teamId": "nfl.new-orleans-saints",
@@ -259,8 +259,8 @@
       "forPerGame": 23.142857142857142,
       "againstPerGame": 27.714285714285715,
       "gamesPlayed": 7,
-      "adjustedFor": 23.18552036199095,
-      "adjustedAgainst": 25.647058823529413
+      "adjustedFor": 23.047326502172986,
+      "adjustedAgainst": 25.094447705847205
     },
     "nfl.new-york-giants": {
       "teamId": "nfl.new-york-giants",
@@ -270,8 +270,8 @@
       "forPerGame": 23.285714285714285,
       "againstPerGame": 23,
       "gamesPlayed": 7,
-      "adjustedFor": 23.262443438914026,
-      "adjustedAgainst": 23.108597285067873
+      "adjustedFor": 22.179330487605533,
+      "adjustedAgainst": 22.51816277208091
     },
     "nfl.new-york-jets": {
       "teamId": "nfl.new-york-jets",
@@ -281,8 +281,8 @@
       "forPerGame": 21.25,
       "againstPerGame": 23.5,
       "gamesPlayed": 8,
-      "adjustedFor": 22.100840336134453,
-      "adjustedAgainst": 23.386554621848738
+      "adjustedFor": 21.474876330957095,
+      "adjustedAgainst": 23.940375484914995
     },
     "nfl.philadelphia-eagles": {
       "teamId": "nfl.philadelphia-eagles",
@@ -292,8 +292,8 @@
       "forPerGame": 17.125,
       "againstPerGame": 25.25,
       "gamesPlayed": 8,
-      "adjustedFor": 19.743697478991596,
-      "adjustedAgainst": 24.386554621848738
+      "adjustedFor": 19.270481199378786,
+      "adjustedAgainst": 23.51694458120275
     },
     "nfl.pittsburgh-steelers": {
       "teamId": "nfl.pittsburgh-steelers",
@@ -303,8 +303,8 @@
       "forPerGame": 22.5,
       "againstPerGame": 18,
       "gamesPlayed": 8,
-      "adjustedFor": 22.81512605042017,
-      "adjustedAgainst": 20.243697478991596
+      "adjustedFor": 22.62274292225455,
+      "adjustedAgainst": 20.57157819747403
     },
     "nfl.san-francisco-49ers": {
       "teamId": "nfl.san-francisco-49ers",
@@ -314,8 +314,8 @@
       "forPerGame": 28.142857142857142,
       "againstPerGame": 19.857142857142858,
       "gamesPlayed": 7,
-      "adjustedFor": 25.877828054298643,
-      "adjustedAgainst": 21.41628959276018
+      "adjustedFor": 25.859646703251787,
+      "adjustedAgainst": 21.436865656055236
     },
     "nfl.seattle-seahawks": {
       "teamId": "nfl.seattle-seahawks",
@@ -325,8 +325,8 @@
       "forPerGame": 23.125,
       "againstPerGame": 19.875,
       "gamesPlayed": 8,
-      "adjustedFor": 23.172268907563023,
-      "adjustedAgainst": 21.31512605042017
+      "adjustedFor": 22.598746754506244,
+      "adjustedAgainst": 20.31747527932976
     },
     "nfl.tampa-bay-buccaneers": {
       "teamId": "nfl.tampa-bay-buccaneers",
@@ -336,8 +336,8 @@
       "forPerGame": 22.25,
       "againstPerGame": 18.875,
       "gamesPlayed": 8,
-      "adjustedFor": 22.672268907563023,
-      "adjustedAgainst": 20.743697478991596
+      "adjustedFor": 22.734759731264944,
+      "adjustedAgainst": 20.756254727306995
     },
     "nfl.tennessee-titans": {
       "teamId": "nfl.tennessee-titans",
@@ -347,8 +347,8 @@
       "forPerGame": 18,
       "againstPerGame": 24.875,
       "gamesPlayed": 8,
-      "adjustedFor": 20.243697478991596,
-      "adjustedAgainst": 24.172268907563023
+      "adjustedFor": 20.095561379944247,
+      "adjustedAgainst": 24.243995050586356
     },
     "nfl.washington-commanders": {
       "teamId": "nfl.washington-commanders",
@@ -358,8 +358,8 @@
       "forPerGame": 22.714285714285715,
       "againstPerGame": 26,
       "gamesPlayed": 7,
-      "adjustedFor": 22.95475113122172,
-      "adjustedAgainst": 24.72398190045249
+      "adjustedFor": 22.10499921641819,
+      "adjustedAgainst": 24.27026353537706
     }
   },
   "games": [
@@ -730,7 +730,7 @@
       "week": 9,
       "round": "Semana 9",
       "startTime": "2026-11-08T16:25:00",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "nfl.seattle-seahawks",
         "league": "nfl",
@@ -746,7 +746,13 @@
         "code": "ARI"
       },
       "venue": "Lumen Field",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 17,
+        "away": 3,
+        "observedAt": "2026-11-09T12:00:00.000Z",
+        "source": "nflverse"
+      }
     },
     {
       "id": "nfl-2026-w9-tampa-bay-buccaneers-chicago-bears",
@@ -2370,61 +2376,61 @@
       "game": "nfl-2026-w9-houston-texans-los-angeles-chargers",
       "model": {
         "id": "pitchlab-statistical-nfl",
-        "version": "1.0.0",
-        "status": "reference",
+        "version": "2.0.0",
+        "status": "candidate",
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 19.91062161073741,
-        "away": 23.39736390027087,
-        "total": 43.30798551100828,
-        "margin": -3.48674228953346
+        "home": 18.857688676983432,
+        "away": 23.460389530266287,
+        "total": 42.31807820724972,
+        "margin": -4.602700853282855
       },
       "x12": [
-        0.397352907378454,
+        0.33792298545562516,
         0,
-        0.6026470926215459
+        0.6620770145443748
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "LA Chargers gana",
-          "p": 0.397352907378454,
-          "fairOdds": 2.5166545441872454
+          "p": 0.33792298545562516,
+          "fairOdds": 2.959254158611582
         },
         {
           "market": "h2h",
           "selection": "Houston gana",
-          "p": 0.6026470926215459,
-          "fairOdds": 1.6593459293895345
+          "p": 0.6620770145443748,
+          "fairOdds": 1.510398304173383
         },
         {
           "market": "spreads",
           "selection": "LAC cubre",
-          "line": 3.5,
-          "p": 0.5003948582324191,
-          "fairOdds": 1.9984218133902738
+          "line": 4.5,
+          "p": 0.4962779026412678,
+          "fairOdds": 2.0150000527483596
         },
         {
           "market": "spreads",
           "selection": "HOU cubre",
-          "line": -3.5,
-          "p": 0.49960514176758086,
-          "fairOdds": 2.0015806812196613
+          "line": -4.5,
+          "p": 0.5037220973587322,
+          "fairOdds": 1.9852216236760347
         },
         {
           "market": "totals",
           "selection": "Más",
-          "line": 43.5,
-          "p": 0.49424042015421865,
-          "fairOdds": 2.0233067940658684
+          "line": 42.5,
+          "p": 0.4942043484758696,
+          "fairOdds": 2.02345447401264
         },
         {
           "market": "totals",
           "selection": "Menos",
-          "line": 43.5,
-          "p": 0.5057595798457813,
-          "fairOdds": 1.9772240405311252
+          "line": 42.5,
+          "p": 0.5057956515241304,
+          "fairOdds": 1.9770830314311079
         }
       ],
       "marketGroups": [
@@ -2435,57 +2441,57 @@
               "market": "h2h",
               "selection": "home",
               "label": "LA Chargers gana",
-              "p": 0.397352907378454,
-              "fairOdds": 2.5166545441872454
+              "p": 0.33792298545562516,
+              "fairOdds": 2.959254158611582
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Houston gana",
-              "p": 0.6026470926215459,
-              "fairOdds": 1.6593459293895345
+              "p": 0.6620770145443748,
+              "fairOdds": 1.510398304173383
             }
           ]
         },
         {
-          "group": "Spread LAC +3.5",
+          "group": "Spread LAC +4.5",
           "rows": [
             {
               "market": "spreads",
               "selection": "home",
               "label": "LAC cubre",
-              "line": 3.5,
-              "p": 0.5003948582324191,
-              "fairOdds": 1.9984218133902738
+              "line": 4.5,
+              "p": 0.4962779026412678,
+              "fairOdds": 2.0150000527483596
             },
             {
               "market": "spreads",
               "selection": "away",
               "label": "HOU cubre",
-              "line": -3.5,
-              "p": 0.49960514176758086,
-              "fairOdds": 2.0015806812196613
+              "line": -4.5,
+              "p": 0.5037220973587322,
+              "fairOdds": 1.9852216236760347
             }
           ]
         },
         {
-          "group": "Total 43.5",
+          "group": "Total 42.5",
           "rows": [
             {
               "market": "totals",
               "selection": "over",
               "label": "Más",
-              "line": 43.5,
-              "p": 0.49424042015421865,
-              "fairOdds": 2.0233067940658684
+              "line": 42.5,
+              "p": 0.4942043484758696,
+              "fairOdds": 2.02345447401264
             },
             {
               "market": "totals",
               "selection": "under",
               "label": "Menos",
-              "line": 43.5,
-              "p": 0.5057595798457813,
-              "fairOdds": 1.9772240405311252
+              "line": 42.5,
+              "p": 0.5057956515241304,
+              "fairOdds": 1.9770830314311079
             }
           ]
         }
@@ -2494,50 +2500,50 @@
         {
           "key": "home_offense",
           "label": "Ofensiva local",
-          "value": "14.1 pts/partido",
-          "detail": "7 partidos · ajustado a 18.3"
+          "value": "18.9 pts proyectados",
+          "detail": "7 partidos · ajustado a -4.1 sobre la media"
         },
         {
           "key": "away_defense",
           "label": "Defensa visitante",
-          "value": "24.3 pts permitidos",
-          "detail": "7 partidos · ajustado a 23.8"
+          "value": "22.9 pts permitidos",
+          "detail": "7 partidos · ajustado por rival"
         },
         {
           "key": "away_offense",
           "label": "Ofensiva visitante",
-          "value": "23.6 pts/partido",
-          "detail": "7 partidos · ajustado a 23.4"
+          "value": "23.5 pts proyectados",
+          "detail": "7 partidos · ajustado a 0.1 sobre la media"
         },
         {
           "key": "home_defense",
           "label": "Defensa local",
-          "value": "25.0 pts permitidos",
-          "detail": "7 partidos · ajustado a 24.2"
+          "value": "23.4 pts permitidos",
+          "detail": "7 partidos · ajustado por rival"
         },
         {
           "key": "home_advantage",
           "label": "Localía",
-          "value": "Incluida",
-          "detail": "Ajuste del modelo PitchLab"
+          "value": "+0.1 pts",
+          "detail": "estimada de 132 partidos"
         },
         {
-          "key": "sample_size",
-          "label": "Muestra",
-          "value": "7 y 7 partidos",
-          "detail": "Temporada actual"
+          "key": "uncertainty",
+          "label": "Rango 90%",
+          "value": "margen -22.7 a 13.5",
+          "detail": "total 21.7 a 62.9"
         }
       ],
       "steps": [
-        "Sincronizando NFL · corte 8 nov 2026, 18:27",
-        "Ofensiva y defensa · LAC 14.1 / 25.0 · HOU 23.6 / 24.3",
-        "Ajuste por localía y tamaño de muestra (7 partidos)",
-        "Proyección 19.9 – 23.4 · margen -3.5",
-        "Simulando escenarios de margen y total",
+        "Sincronizando NFL · corte 8 nov 2026, 18:35",
+        "Ofensiva y defensa ajustadas por rival · LAC 18.9 / 23.5",
+        "Fuerza de calendario incluida (132 partidos)",
+        "Proyección 18.9 – 23.5 · margen -4.6",
+        "Simulando escenarios de margen (σ 11.0) y total (σ 12.5)",
         "6 mercados listos"
       ],
-      "inputsAsOf": "2026-11-09T00:27:04.824Z",
-      "publishedAt": "2026-11-09T00:27:04.824Z",
+      "inputsAsOf": "2026-11-09T00:35:51.136Z",
+      "publishedAt": "2026-11-09T00:35:51.136Z",
       "source": "nflverse"
     },
     "nfl-2026-w9-las-vegas-raiders-san-francisco-49ers": {
@@ -2718,61 +2724,61 @@
       "game": "nfl-2026-w9-green-bay-packers-new-england-patriots",
       "model": {
         "id": "pitchlab-statistical-nfl",
-        "version": "1.0.0",
-        "status": "reference",
+        "version": "2.0.0",
+        "status": "candidate",
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 22.43222981200344,
-        "away": 19.803661593503964,
-        "total": 42.2358914055074,
-        "margin": 2.628568218499474
+        "home": 21.711001419897784,
+        "away": 20.36441834031661,
+        "total": 42.075419760214395,
+        "margin": 1.3465830795811726
       },
       "x12": [
-        0.5777583379231948,
+        0.5486820457668156,
         0,
-        0.42224166207680525
+        0.45131795423318444
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "New England gana",
-          "p": 0.5777583379231948,
-          "fairOdds": 1.7308274660208134
+          "p": 0.5486820457668156,
+          "fairOdds": 1.82254915704858
         },
         {
           "market": "h2h",
           "selection": "Green Bay gana",
-          "p": 0.42224166207680525,
-          "fairOdds": 2.368312011376322
+          "p": 0.45131795423318444,
+          "fairOdds": 2.215732812356332
         },
         {
           "market": "spreads",
           "selection": "NE cubre",
-          "line": -2.5,
-          "p": 0.503827820289499,
-          "fairOdds": 1.984805045948834
+          "line": -1.5,
+          "p": 0.4944399458257985,
+          "fairOdds": 2.0224903113963224
         },
         {
           "market": "spreads",
           "selection": "GB cubre",
-          "line": 2.5,
-          "p": 0.496172179710501,
-          "fairOdds": 2.0154294031226514
+          "line": 1.5,
+          "p": 0.5055600541742016,
+          "fairOdds": 1.9780043770139888
         },
         {
           "market": "totals",
           "selection": "Más",
           "line": 42.5,
-          "p": 0.4920782224165966,
-          "fairOdds": 2.0321972289060044
+          "p": 0.4864758850912324,
+          "fairOdds": 2.0556003506987044
         },
         {
           "market": "totals",
           "selection": "Menos",
           "line": 42.5,
-          "p": 0.5079217775834034,
-          "fairOdds": 1.968807096159201
+          "p": 0.5135241149087676,
+          "fairOdds": 1.9473282188075227
         }
       ],
       "marketGroups": [
@@ -2783,36 +2789,36 @@
               "market": "h2h",
               "selection": "home",
               "label": "New England gana",
-              "p": 0.5777583379231948,
-              "fairOdds": 1.7308274660208134
+              "p": 0.5486820457668156,
+              "fairOdds": 1.82254915704858
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Green Bay gana",
-              "p": 0.42224166207680525,
-              "fairOdds": 2.368312011376322
+              "p": 0.45131795423318444,
+              "fairOdds": 2.215732812356332
             }
           ]
         },
         {
-          "group": "Spread NE -2.5",
+          "group": "Spread NE -1.5",
           "rows": [
             {
               "market": "spreads",
               "selection": "home",
               "label": "NE cubre",
-              "line": -2.5,
-              "p": 0.503827820289499,
-              "fairOdds": 1.984805045948834
+              "line": -1.5,
+              "p": 0.4944399458257985,
+              "fairOdds": 2.0224903113963224
             },
             {
               "market": "spreads",
               "selection": "away",
               "label": "GB cubre",
-              "line": 2.5,
-              "p": 0.496172179710501,
-              "fairOdds": 2.0154294031226514
+              "line": 1.5,
+              "p": 0.5055600541742016,
+              "fairOdds": 1.9780043770139888
             }
           ]
         },
@@ -2824,16 +2830,16 @@
               "selection": "over",
               "label": "Más",
               "line": 42.5,
-              "p": 0.4920782224165966,
-              "fairOdds": 2.0321972289060044
+              "p": 0.4864758850912324,
+              "fairOdds": 2.0556003506987044
             },
             {
               "market": "totals",
               "selection": "under",
               "label": "Menos",
               "line": 42.5,
-              "p": 0.5079217775834034,
-              "fairOdds": 1.968807096159201
+              "p": 0.5135241149087676,
+              "fairOdds": 1.9473282188075227
             }
           ]
         }
@@ -2842,111 +2848,111 @@
         {
           "key": "home_offense",
           "label": "Ofensiva local",
-          "value": "23.0 pts/partido",
-          "detail": "8 partidos · ajustado a 23.1"
+          "value": "21.7 pts proyectados",
+          "detail": "8 partidos · ajustado a 0.3 sobre la media"
         },
         {
           "key": "away_defense",
           "label": "Defensa visitante",
-          "value": "20.5 pts permitidos",
-          "detail": "8 partidos · ajustado a 21.7"
+          "value": "21.4 pts permitidos",
+          "detail": "8 partidos · ajustado por rival"
         },
         {
           "key": "away_offense",
           "label": "Ofensiva visitante",
-          "value": "21.4 pts/partido",
-          "detail": "8 partidos · ajustado a 22.2"
+          "value": "20.4 pts proyectados",
+          "detail": "8 partidos · ajustado a -0.7 sobre la media"
         },
         {
           "key": "home_defense",
           "label": "Defensa local",
-          "value": "20.3 pts permitidos",
-          "detail": "8 partidos · ajustado a 21.5"
+          "value": "21.1 pts permitidos",
+          "detail": "8 partidos · ajustado por rival"
         },
         {
           "key": "home_advantage",
           "label": "Localía",
-          "value": "Incluida",
-          "detail": "Ajuste del modelo PitchLab"
+          "value": "+0.1 pts",
+          "detail": "estimada de 132 partidos"
         },
         {
-          "key": "sample_size",
-          "label": "Muestra",
-          "value": "8 y 8 partidos",
-          "detail": "Temporada actual"
+          "key": "uncertainty",
+          "label": "Rango 90%",
+          "value": "margen -16.8 a 19.5",
+          "detail": "total 21.5 a 62.7"
         }
       ],
       "steps": [
-        "Sincronizando NFL · corte 8 nov 2026, 18:27",
-        "Ofensiva y defensa · NE 23.0 / 20.3 · GB 21.4 / 20.5",
-        "Ajuste por localía y tamaño de muestra (8 partidos)",
-        "Proyección 22.4 – 19.8 · margen +2.6",
-        "Simulando escenarios de margen y total",
+        "Sincronizando NFL · corte 8 nov 2026, 18:35",
+        "Ofensiva y defensa ajustadas por rival · NE 21.7 / 20.4",
+        "Fuerza de calendario incluida (132 partidos)",
+        "Proyección 21.7 – 20.4 · margen +1.3",
+        "Simulando escenarios de margen (σ 11.0) y total (σ 12.5)",
         "6 mercados listos"
       ],
-      "inputsAsOf": "2026-11-09T00:27:04.824Z",
-      "publishedAt": "2026-11-09T00:27:04.824Z",
+      "inputsAsOf": "2026-11-09T00:35:51.136Z",
+      "publishedAt": "2026-11-09T00:35:51.136Z",
       "source": "nflverse"
     },
     "nfl-2026-w9-arizona-cardinals-seattle-seahawks": {
       "game": "nfl-2026-w9-arizona-cardinals-seattle-seahawks",
       "model": {
         "id": "pitchlab-statistical-nfl",
-        "version": "1.0.0",
-        "status": "reference",
+        "version": "2.0.0",
+        "status": "candidate",
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 27.274534638932266,
-        "away": 20.375514142704148,
-        "total": 47.650048781636414,
-        "margin": 6.899020496228118
+        "home": 25.43443359829806,
+        "away": 19.01803673583888,
+        "total": 44.45247033413694,
+        "margin": 6.41639686245918
       },
       "x12": [
-        0.6966719623558933,
+        0.7200217751186176,
         0,
-        0.30332803764410665
+        0.27997822488138235
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Seattle gana",
-          "p": 0.6966719623558933,
-          "fairOdds": 1.4353957874497498
+          "p": 0.7200217751186176,
+          "fairOdds": 1.388846885686559
         },
         {
           "market": "h2h",
           "selection": "Arizona gana",
-          "p": 0.30332803764410665,
-          "fairOdds": 3.2967608525964724
+          "p": 0.27997822488138235,
+          "fairOdds": 3.5717063368898327
         },
         {
           "market": "spreads",
           "selection": "SEA cubre",
-          "line": -7.5,
-          "p": 0.4821135402334509,
-          "fairOdds": 2.074200196733276
+          "line": -6.5,
+          "p": 0.49697002918892286,
+          "fairOdds": 2.0121937768199913
         },
         {
           "market": "spreads",
           "selection": "ARI cubre",
-          "line": 7.5,
-          "p": 0.5178864597665491,
-          "fairOdds": 1.9309251692943974
+          "line": 6.5,
+          "p": 0.5030299708110771,
+          "fairOdds": 1.9879531201443459
         },
         {
           "market": "totals",
           "selection": "Más",
-          "line": 47.5,
-          "p": 0.5045008900306016,
-          "fairOdds": 1.9821570581160775
+          "line": 44.5,
+          "p": 0.49848575215271573,
+          "fairOdds": 2.0060753906836655
         },
         {
           "market": "totals",
           "selection": "Menos",
-          "line": 47.5,
-          "p": 0.4954991099693984,
-          "fairOdds": 2.018167096327901
+          "line": 44.5,
+          "p": 0.5015142478472843,
+          "fairOdds": 1.9939612967975124
         }
       ],
       "marketGroups": [
@@ -2957,57 +2963,57 @@
               "market": "h2h",
               "selection": "home",
               "label": "Seattle gana",
-              "p": 0.6966719623558933,
-              "fairOdds": 1.4353957874497498
+              "p": 0.7200217751186176,
+              "fairOdds": 1.388846885686559
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Arizona gana",
-              "p": 0.30332803764410665,
-              "fairOdds": 3.2967608525964724
+              "p": 0.27997822488138235,
+              "fairOdds": 3.5717063368898327
             }
           ]
         },
         {
-          "group": "Spread SEA -7.5",
+          "group": "Spread SEA -6.5",
           "rows": [
             {
               "market": "spreads",
               "selection": "home",
               "label": "SEA cubre",
-              "line": -7.5,
-              "p": 0.4821135402334509,
-              "fairOdds": 2.074200196733276
+              "line": -6.5,
+              "p": 0.49697002918892286,
+              "fairOdds": 2.0121937768199913
             },
             {
               "market": "spreads",
               "selection": "away",
               "label": "ARI cubre",
-              "line": 7.5,
-              "p": 0.5178864597665491,
-              "fairOdds": 1.9309251692943974
+              "line": 6.5,
+              "p": 0.5030299708110771,
+              "fairOdds": 1.9879531201443459
             }
           ]
         },
         {
-          "group": "Total 47.5",
+          "group": "Total 44.5",
           "rows": [
             {
               "market": "totals",
               "selection": "over",
               "label": "Más",
-              "line": 47.5,
-              "p": 0.5045008900306016,
-              "fairOdds": 1.9821570581160775
+              "line": 44.5,
+              "p": 0.49848575215271573,
+              "fairOdds": 2.0060753906836655
             },
             {
               "market": "totals",
               "selection": "under",
               "label": "Menos",
-              "line": 47.5,
-              "p": 0.4954991099693984,
-              "fairOdds": 2.018167096327901
+              "line": 44.5,
+              "p": 0.5015142478472843,
+              "fairOdds": 1.9939612967975124
             }
           ]
         }
@@ -3016,50 +3022,50 @@
         {
           "key": "home_offense",
           "label": "Ofensiva local",
-          "value": "23.1 pts/partido",
-          "detail": "8 partidos · ajustado a 23.2"
+          "value": "25.4 pts proyectados",
+          "detail": "8 partidos · ajustado a -0.2 sobre la media"
         },
         {
           "key": "away_defense",
           "label": "Defensa visitante",
-          "value": "29.8 pts permitidos",
-          "detail": "8 partidos · ajustado a 27.0"
+          "value": "25.6 pts permitidos",
+          "detail": "8 partidos · ajustado por rival"
         },
         {
           "key": "away_offense",
           "label": "Ofensiva visitante",
-          "value": "21.9 pts/partido",
-          "detail": "8 partidos · ajustado a 22.5"
+          "value": "19.0 pts proyectados",
+          "detail": "8 partidos · ajustado a -1.2 sobre la media"
         },
         {
           "key": "home_defense",
           "label": "Defensa local",
-          "value": "19.9 pts permitidos",
-          "detail": "8 partidos · ajustado a 21.3"
+          "value": "20.3 pts permitidos",
+          "detail": "8 partidos · ajustado por rival"
         },
         {
           "key": "home_advantage",
           "label": "Localía",
-          "value": "Incluida",
-          "detail": "Ajuste del modelo PitchLab"
+          "value": "+0.1 pts",
+          "detail": "estimada de 132 partidos"
         },
         {
-          "key": "sample_size",
-          "label": "Muestra",
-          "value": "8 y 8 partidos",
-          "detail": "Temporada actual"
+          "key": "uncertainty",
+          "label": "Rango 90%",
+          "value": "margen -11.7 a 24.5",
+          "detail": "total 23.9 a 65.1"
         }
       ],
       "steps": [
-        "Sincronizando NFL · corte 8 nov 2026, 18:27",
-        "Ofensiva y defensa · SEA 23.1 / 19.9 · ARI 21.9 / 29.8",
-        "Ajuste por localía y tamaño de muestra (8 partidos)",
-        "Proyección 27.3 – 20.4 · margen +6.9",
-        "Simulando escenarios de margen y total",
+        "Sincronizando NFL · corte 8 nov 2026, 15:25",
+        "Ofensiva y defensa ajustadas por rival · SEA 25.4 / 19.0",
+        "Fuerza de calendario incluida (132 partidos)",
+        "Proyección 25.4 – 19.0 · margen +6.4",
+        "Simulando escenarios de margen (σ 11.0) y total (σ 12.5)",
         "6 mercados listos"
       ],
-      "inputsAsOf": "2026-11-09T00:27:04.824Z",
-      "publishedAt": "2026-11-09T00:27:04.824Z",
+      "inputsAsOf": "2026-11-08T21:25:00.000Z",
+      "publishedAt": "2026-11-08T21:25:00.000Z",
       "source": "nflverse"
     },
     "nfl-2026-w9-tampa-bay-buccaneers-chicago-bears": {
