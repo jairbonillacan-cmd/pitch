@@ -14,18 +14,18 @@
 | ID | Severidad | Riesgo | Evidencia (n) | Impacto | Estado |
 |---|---|---|---|---|---|
 | R-01 | **Crítico** | football-data.co.uk **no tiene licencia**; uso comercial NO CONFIRMADO | `terms/licence/about/legal` = 404; solo «My data is free»; `notes.txt` declara compilación desde Oddsportal/Flashscore/ESPN/BBC | no se puede redistribuir ni producir sin resolver derechos | **ABIERTO** (uso interno) |
-| R-02 | **Crítico** | Cobertura de cuotas no uniforme y **Pinnacle desaparece en 2026/27** | cierre Pinnacle 58,55 % (0 % en 2026/27; 41,5 % en 2025/26; 99 % hasta 2024/25); cierre B365 24,47 % (solo 2019/20+); apertura B365 76,23 % | benchmark de mercado incomparable entre temporadas; 2026/27 no tiene referencia afilada | **ABIERTO** |
+| R-02 | **Crítico** | Cobertura de cuotas no uniforme y **Pinnacle desaparece en 2026/27** | cierre Pinnacle 58,55 % (0 % en 2026/27; 41,5 % en 2025/26; 99 % hasta 2024/25); cierre B365 24,47 %; apertura B365 76,23 %; en test la apertura cubre **11.295/16.126 (70,0 %)** | benchmark incomparable entre temporadas; 6 ligas sin apertura → fallback | **ABIERTO** (estructural) |
 | R-03 | **Crítico** | **Sin timestamp de cuota**: no hay CLV ni movimiento intra-semana verificable | `notes.txt`: captura «Friday afternoons / Tuesday afternoons»; ninguna hora por cuota | apertura y cierre son **escenarios**, no una serie temporal; ningún backtest es operable | **ABIERTO** (estructural) |
 | R-04 | **Crítico** | Leakage legacy en motores actuales: MX y NHL | MX 8/9→5/9 y 20/27→16/27; NHL 8/11→7/11 picks y 9/11→7/11 ML | cualquier calibración/EV de MX-NHL está contaminada | `CORREGIDO` solo en el lab nuevo; **legacy intacto** |
-| R-05 | **Crítico** | Leakage de priors S+1 en `features.parquet` (100,00 % de 166.615 filas) | ablación: priors −0,00368 → causales −0,00045 (**88 % del valor era futuro**) | modelos A06 entrenados con él están sobreestimados ~0,003 nats | `CORREGIDO` (código + parquet); **PENDIENTE VERIFICACIÓN** (ablación no re-medida) |
+| R-05 | **Crítico** | Leakage de priors S+1 en `features.parquet` (100,00 % de 166.615 filas) | ablación: priors −0,00368 → causales −0,00045 (**88 % del valor era futuro**); efecto medido en el modelo: hgb **1,00730 → 1,00974** | modelos A06 de v1.0 sobreestimados ~0,0024 nats | `CORREGIDO` y **medido**; ablación por bloques no re-ejecutada en v1.1 |
 | R-06 | Alto | Licencias de terceros: StatsBomb «research», NHL sin licencia, CFBD «All rights reserved», ESPN prohibido | §3 de [`03_FUENTES_DATOS_GRATUITOS.md`](03_FUENTES_DATOS_GRATUITOS.md) | bloquea producto comercial multi-deporte | `MITIGADO` (no se integraron) |
 | R-07 | Alto | **xG ausente** con licencia clara | football-data `HxG/AxG` solo 2026/27 (E0 90/90, SP1 109/109); StatsBomb no cubre temporada actual; Understat caída; FBref 403 | el Motor A no puede usar la familia de features con más señal potencial | **ABIERTO** |
 | R-08 | Alto | **Selección de modelo sobre una sola temporada de validación** | EXP02 elige 1 de **96** configuraciones; EXP06 1 de **5** métodos; val n = 8.152 | IC de val puede ser optimista; el «mejor» puede ser ruido | **ABIERTO** (documentado) |
 | R-09 | Alto | **Sobreajuste al añadir complejidad** | HGB con cuotas: 0,98168 en dev vs 0,99035 en val (A07); M2 gana en val pero en walk-forward de dev: +0,00026/+0,00017/−0,00006/−0,00006 | el clasificador «con cuotas» pierde contra el de-vig | `MITIGADO` (se prohíbe el clasificador como camino principal) |
 | R-10 | Alto | **Mercados no operables** | EXP13 usa cierre (no disponible antes del partido); margen 2,81 % (Pinnacle cierre) y 6,15 % (B365 cierre); el EV nunca se validó contra precio real | ninguna cifra de EXP13 es una estrategia; «batir al de-vig» ≠ batir al precio | **ABIERTO** |
-| R-11 | Alto | **Test reservado sin cerrar** | `test` (16.126 partidos, 2024/25+2025/26) no se ha evaluado; los candidatos no están congelados | no hay verificación final de nada | **ABIERTO** (por diseño) |
-| R-12 | Alto | **Deriva de artefactos**: informes sobre dataset v1.0, artefactos en v1.1 | `validation_report.json` = 181.272 filas (stale); `features_market.parquet` = 181.268×192 (stale); `matches.parquet` = **182.414**; `features.parquet` = **182.410×198** | joins por `match_id` pierden los 1.142 partidos de G1; cifras de A04/A05/A08 no son del canónico actual | **ABIERTO** |
-| R-13 | Medio | Suite ETL en rojo tras v1.1 | `etl/tests/test_validators.py:52` fija `rows == 181272`; resultado real **10/11 (FAILED)** | falsa sensación de que la validación cubre el dataset actual | **ABIERTO** (1 línea) |
+| R-11 | Alto | **Test reservado** | `test` (16.126) evaluado **una sola vez** el 03:36 tras `FREEZE.md` (03:40) | el test ya está usado: no puede volver a usarse para elegir | **CERRADO** (con ese coste) |
+| R-12 | Alto | **Deriva de artefactos** | `validation_report.json` (182.414, 73 checks/0 críticos) y `features_market.parquet` (182.410×192) **regenerados**; `matches` 182.414; `features` 182.410×198 | los informes de A04/A05/A08 conservan cifras de v1.0 | `MITIGADO`; quedan artefactos antiguos con test en disco |
+| R-13 | Medio | Suite ETL en rojo tras v1.1 | `etl/tests/test_validators.py:52` fijaba `rows == 181272` | falsa sensación de que la validación cubre el dataset actual | **CORREGIDO**: **11/11 OK** (7,5 s) |
 | R-14 | Medio | Calidad de datos de origen | 4 partidos sin resultado; 1 fila fuera de ventana (`ARG:20150129`); 693 filas fuera de ventana mensual (554 COVID); 13 filas SOT>tiros; 1 con 145 faltas; 1 con 9 rojas | sesgos si no se excluyen | `MITIGADO` (exclusiones documentadas) |
 | R-15 | Medio | Cuotas corruptas/placeholder | 20 celdas ≤1 anuladas; 15 filas con margen anómalo; **406 filas BFE** con 1,01/1,04; 54 celdas `max<avg`; 2.192 cierres B365 = apertura | agregados de mercado engañosos | `MITIGADO` (BFE excluido; `max` no se usa como libro) |
 | R-16 | Medio | `kickoff_time` con zona horaria desconocida | 73.006 no nulos (40,28 %), 0 % antes de 2019/20; MEX mezcla 18:00/23:00/01:30/03:30 el mismo día | no sirve para ordenar ni para anti-leakage | `MITIGADO` (se usa `match_date` con holgura) |
@@ -173,11 +173,15 @@ Es la restricción que más condiciona el proyecto.
 
 ## 9. Bloqueantes antes de cualquier afirmación pública
 
-1. **Cerrar `test` una sola vez** con candidatos congelados y `metrics.json` reproducible (R-11).
-2. **Regenerar** `features_market.parquet` y `validation_report.json` sobre v1.1 y **actualizar** `etl/tests/test_validators.py:52` (R-12, R-13).
-3. **Re-medir** la ablación de priors y las métricas de A06 sobre v1.1 (R-05).
-4. **Resolver la licencia** de football-data o limitar el producto a investigación interna (R-01).
-5. **No afirmar** CLV, ROI ni valor esperado con datos sin timestamp (R-03, R-10).
-6. **No usar** los 8/9, 8/11 ni 9/17 como evidencia de validez (R-04).
+| # | Bloqueante | Estado al cierre |
+|---|---|---|
+| 1 | Cerrar `test` una sola vez con candidatos congelados y `metrics.json` reproducible (R-11) | **CERRADO** (03:36, `FREEZE.md` 03:40) |
+| 2 | Regenerar `features_market.parquet`, `validation_report.json` y arreglar `test_validators.py:52` (R-12, R-13) | **CERRADO** (182.410×192; 73 checks/0 críticos; 11/11) |
+| 3 | Re-medir el efecto de los priors y las métricas de A06 sobre v1.1 (R-05) | **CERRADO a nivel de modelo** (hgb 1,00730 → 1,00974); ablación por bloques pendiente |
+| 4 | Resolver la licencia de football-data (R-01) | **ABIERTO** — uso interno documentado |
+| 5 | No afirmar CLV/ROI sin cuotas con timestamp (R-03, R-10) | **VIGENTE** (regla permanente) |
+| 6 | No usar 8/9, 8/11 ni 9/17 como evidencia (R-04) | **VIGENTE** (prohibición documental) |
 
-**Lo que sí se puede afirmar hoy:** que existe un dataset canónico con 182.414 partidos y 88 columnas, con invariantes verificadas (0 duplicados, 0 resultados incoherentes, 0 cuotas ≤1); que hay features causales auditadas con un leakage corregido y verificado; que hay un marco de evaluación con 83 tests y walk-forward sin fugas; y que los motores legacy son paridad fiel, no predicción validada.
+**Lo que se puede afirmar hoy con evidencia:** existe un dataset canónico de 182.414 partidos × 88 columnas con invariantes verificadas (0 duplicados, 0 resultados incoherentes, 0 cuotas ≤1); hay features causales auditadas, con el leakage de priors corregido y verificado (99,63 % S−1; 100 % del cuádruple `(n,ppg,gf_pg,ga_pg)` con la temporada anterior observada); hay un marco de evaluación con 83 tests, walk-forward con corte por fecha y un cierre único de test; el Motor A desplegado tiene paridad TS 4,997×10⁻¹³; y **el mercado gana por 0,0188–0,0203**. Los motores legacy son paridad fiel, no predicción validada.
+
+**Lo que no se puede afirmar:** que el sistema tenga *edge*, que bata al mercado, que sea rentable, ni que sus probabilidades sean mejores que el precio de cierre. Cualquier afirmación de ese tipo requiere un test nuevo y cuotas con `captured_at`.

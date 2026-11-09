@@ -213,3 +213,25 @@ A06 cerró a las 03:34 con `status` y un `next` explícito (confirmar hgb vs log
 **Lo que funcionó bien:** contratos autocontenidos (cada subagente pudo trabajar sin preguntar), sistema de archivos compartido (el orquestador corrigió el leakage en minutos), regla de evidencia `OBSERVADO/INFERIDO` (permitió que A01 y A09 discreparan sin invalidarse) y separación worktree/`main` (el repositorio original quedó intacto).
 
 **Conclusión:** la delegación es real y paralela, con ocho entregas verificables y tres correcciones cruzadas entre agentes. El punto débil no fue la ejecución sino el **cierre**: el estado se declaró en JSON y el tablero no se actualizó, y una tarea (A06) terminó sin su contrato de estado.
+
+---
+
+## 9. Ronda 2: cierre del ciclo (03:20–04:00)
+
+Tras la primera entrega documental (03:12), el orquestador ejecutó el cierre:
+
+| Paso | Hora | Evidencia |
+|---|---|---|
+| A09b cierra la auditoría del lab con veredicto **“no apto”** | 03:24 | `reports/A09_adversarial_lab.md`; `status/A09b.json` |
+| Correcciones: `--no-test` efectivo, corte por fecha, Poisson, ensemble walk-forward | 03:14–03:33 | `train_motor_a.py:244-260, 382-384, 478`; `pipeline/make_ensemble.py` |
+| A06 reejecuta sobre v1.1 y publica `status` | 03:34 | `reports/A06_motor_a_experiments.md`; `status/A06.json` |
+| `combine_predictions` → `FINAL/predictions_test.csv` | 03:35 | 108.051 filas, 7 modelos |
+| Congelación pre-test firmada | 03:35:07 | `artifacts/FREEZE.md` (antes de la evaluación) |
+| Evaluación única de test | 03:36:17 | `FINAL/eval_test/{metrics.json,metrics.md}` |
+| Adenda post-test en `FREEZE.md` | 03:52 | cifras finales y transparencia de exposición |
+| Commit del laboratorio | 03:37 | `345b930` |
+| A11 ronda 2: 6 documentos + índice 14/14 | 03:37–03:52 | `docs/predicciones/` |
+
+**Reparto final:** 11 subagentes reales (A01–A10 + A09b + A11) más el orquestador. El orden no fue estrictamente secuencial: A09b auditó mientras A06/A10 corregían, y A11 documentó mientras se congelaba. El sistema de archivos compartido permitió que la documentación viera nacer los artefactos; el coste fue que varias afirmaciones de la ronda 1 quedaron obsoletas en minutos (A10 “en curso”, `features_market` “sin regenerar”, ETL “10/11”) y hubo que corregirlas en esta ronda.
+
+**Lección de la ronda 2:** documentar en paralelo al cierre exige **fechar cada afirmación**. Los documentos 04, 07, 08, 09, 10 y 14 se escribieron ya con el estado final; 01, 05, 11, 12 y este 13 se redactaron antes y se han actualizado con la sección de cierre o ediciones puntuales.
