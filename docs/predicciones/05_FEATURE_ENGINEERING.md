@@ -250,3 +250,22 @@ El 0,37 % restante son equipos que cambian de división (el join agrupa por `div
 Un solo modelo lineal y un solo `C`: un GBM podría extraer más de forma e interacciones y la atribución por bloques es válida para *este* modelo. La imputación por mediana es tosca para nulos estructurales (49 % en tiros). El test de viaje en el tiempo usa dos cortes: un bug que solo se manifestara en otras fechas no se detectaría, aunque la comparación es columna a columna sobre 129k–134k filas con la réplica validada contra el parquet completo. La reconstrucción causal usa «última temporada terminada por fecha», que en ligas de año calendario puede ser una temporada que acabó 6–9 meses antes. Las diferencias de 0,001–0,004 son nítidas (n = 116.830, IC pareado) pero **pequeñas en la práctica**.
 
 **Reproducir:** `./.venv/bin/python features/audit_features.py --skip-ablation` (diccionario + leakage + calidad) o sin flag para la ablación completa (~25 min). Ver [`12_REPRODUCIBILIDAD.md`](12_REPRODUCIBILIDAD.md).
+
+---
+
+## Addendum ciclo 3 — el 11,5 % de priors no exactos no importa (resultado negativo)
+
+A09b midió que solo el 88,5 % de los priors S−1 son exactos (el resto usa una temporada ≥2 atrás o
+queda NaN por cambios de división, porque el join agrupa por `(div, team)`). Se probó una **v1.2**
+que reconstruye los priors con clave `team` (cruzando divisiones) y usa la última temporada
+completada del equipo. Experimento acotado a **val 2023/24** (sin tocar test):
+
+| Variante | Cobertura del prior (null) | Log-loss val | Accuracy |
+|---|---:|---:|---:|
+| v1.1 `(div, team)` (actual) | 3,14 % null | **1,011036** | 0,4935 |
+| v1.2 `team` (cruzando divisiones) | 2,70 % null | 1,011179 | 0,4942 |
+
+Δ (v1.2 − v1.1) = **+0,00014** [−0,00014; +0,00040], 84 % de remuestras en contra. Es decir:
+mejorar la cobertura del prior **no mejora el modelo**; la información añadida es ruido. Se cierra
+el ítem como **resultado negativo documentado** y no se regenera el dataset (evita invalidar el
+cierre). Script: `pipeline/experiment_priors_v12.py`; artefacto: `artifacts/experiment_priors_v12.json`.

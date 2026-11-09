@@ -176,3 +176,9 @@ Walk-forward test 2020–2025 (1.615 partidos):
 
 El mercado gana por **+0,0322** [0,0262; 0,0382] y HGB es peor que la logística (−0,0624). Mismo
 patrón que en fútbol: la información manda. Detalle en `reports/A12_nfl.md`.
+
+### Addendum ciclo 3 — priors v1.2 (resultado negativo)
+
+Corregir los priors S−1 no exactos (88,5 % → 90,6 % exactos; nulls 3,14 % → 2,70 %) **no mejora**
+el log-loss de val: +0,00014 [−0,00014; +0,00040] en contra. Se documenta como resultado negativo y
+no se modifica el dataset congelado. Detalle en `05_FEATURE_ENGINEERING.md` (addendum).

@@ -20,3 +20,4 @@ artifacts/FINAL/eval_test/*
 !artifacts/FINAL/eval_test/README.md
 eval/artifacts/
 models/nfl/artifacts/predictions.csv
+!artifacts/experiment_priors_v12.json
