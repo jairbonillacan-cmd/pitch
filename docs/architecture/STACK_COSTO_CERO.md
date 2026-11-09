@@ -12,8 +12,8 @@
 | Web | Next.js 15 + React + TypeScript, Tailwind + shadcn/ui | Software libre | — |
 | Hosting | Vercel Hobby | Beta cerrada | Cobrar o abrir al público → Vercel Pro (~US$20/mes; Hobby es solo no comercial) |
 | Dominio y DNS | Cloudflare (pitchlab.mx) | DNS y Email Routing gratis | — |
-| Base de datos | **Prisma Postgres** (Postgres estándar, con Drizzle) | 2 GB | Pasar de 2 GB. Alternativa equivalente: Neon (1 GB, con branch por preview) |
-| Respaldos | `pg_dump` diario desde GitHub Actions a R2 | Incluido | Necesario: el plan gratis de Prisma Postgres no trae respaldos |
+| Base de datos | **Neon** (Postgres estándar, con Drizzle), región AWS us-east-1 junto a Vercel | 1 GB por proyecto, branch por preview | Pasar de 1 GB o necesitar más cómputo → plan de pago por uso (~US$19/mes) |
+| Respaldos | Restauración de Neon + `pg_dump` semanal desde GitHub Actions a R2 | Incluido | Copia propia fuera del proveedor |
 | Histórico y archivos | Cloudflare R2 | 10 GB, sin costo de salida | > 10 GB: centavos por GB |
 | Rate limit y caché | Upstash Redis | ~500 mil comandos/mes | Tráfico alto: pago por uso |
 | Login | Better Auth + Google OAuth | Sin límite de usuarios | Apple Sign-In: US$99/año (opcional) |
