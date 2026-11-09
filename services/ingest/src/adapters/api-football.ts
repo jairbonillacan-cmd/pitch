@@ -215,40 +215,58 @@ export async function fetchApiFootballLigaMx(options: {
     }
   }
 
-  if (usedToday >= API_FOOTBALL_DAILY_LIMIT) {
-    throw new Error(
-      `Presupuesto diario de API-Football alcanzado (${usedToday}/${API_FOOTBALL_DAILY_LIMIT} solicitudes hoy).`,
-    );
+  const candidateSeasons = Array.from(
+    new Set([season, 2025, 2024, 2023, 2022]),
+  );
+
+  let lastPayload: unknown = { response: [] };
+
+  for (const candidateSeason of candidateSeasons) {
+    if (usedToday >= API_FOOTBALL_DAILY_LIMIT) {
+      throw new Error(
+        `Presupuesto diario de API-Football alcanzado (${usedToday}/${API_FOOTBALL_DAILY_LIMIT} solicitudes hoy).`,
+      );
+    }
+
+    const url = `${API_FOOTBALL_BASE_URL}/fixtures?league=${LIGA_MX_LEAGUE_ID}&season=${candidateSeason}`;
+    const res = await fetch(url, {
+      headers: {
+        "x-apisports-key": apiKey,
+      },
+    });
+
+    usedToday += 1;
+    if (budgetFilePath) {
+      mkdirSync(dirname(budgetFilePath), { recursive: true });
+      writeFileSync(
+        budgetFilePath,
+        JSON.stringify({ date: today, count: usedToday }, null, 2),
+        "utf8",
+      );
+    }
+
+    if (!res.ok) {
+      throw new Error(`Error de API-Football (${res.status}): ${url}`);
+    }
+
+    const payload = (await res.json()) as {
+      response?: unknown[];
+      errors?: Record<string, string>;
+    };
+    lastPayload = payload;
+
+    if (Array.isArray(payload.response) && payload.response.length > 0) {
+      if (cacheFilePath) {
+        mkdirSync(dirname(cacheFilePath), { recursive: true });
+        writeFileSync(
+          cacheFilePath,
+          JSON.stringify({ date: today, season: candidateSeason, payload }, null, 2),
+          "utf8",
+        );
+      }
+      return payload;
+    }
   }
 
-  const url = `${API_FOOTBALL_BASE_URL}/fixtures?league=${LIGA_MX_LEAGUE_ID}&season=${season}`;
-  const res = await fetch(url, {
-    headers: {
-      "x-apisports-key": apiKey,
-    },
-  });
-
-  if (budgetFilePath) {
-    mkdirSync(dirname(budgetFilePath), { recursive: true });
-    writeFileSync(
-      budgetFilePath,
-      JSON.stringify({ date: today, count: usedToday + 1 }, null, 2),
-      "utf8",
-    );
-  }
-
-  if (!res.ok) {
-    throw new Error(`Error de API-Football (${res.status}): ${url}`);
-  }
-
-  const payload: unknown = await res.json();
-  if (cacheFilePath) {
-    mkdirSync(dirname(cacheFilePath), { recursive: true });
-    writeFileSync(
-      cacheFilePath,
-      JSON.stringify({ date: today, payload }, null, 2),
-      "utf8",
-    );
-  }
-  return payload;
+  return lastPayload;
 }

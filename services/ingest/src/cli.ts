@@ -1,3 +1,4 @@
+import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import {
   fetchNflverseCsv,
@@ -22,7 +23,30 @@ const ROOT_DIR = resolve(import.meta.dirname, "..", "..", "..");
 const SNAPSHOTS_ROOT = resolve(ROOT_DIR, "data", "snapshots");
 const CACHE_DIR = resolve(import.meta.dirname, "..", ".cache");
 
+function loadRootEnvFiles(): void {
+  for (const fileName of [".env.local", ".env"]) {
+    const filePath = resolve(ROOT_DIR, fileName);
+    if (!existsSync(filePath)) continue;
+    const lines = readFileSync(filePath, "utf8").split(/\r?\n/);
+    for (const rawLine of lines) {
+      const line = rawLine.trim();
+      if (!line || line.startsWith("#")) continue;
+      const eqIdx = line.indexOf("=");
+      if (eqIdx <= 0) continue;
+      const key = line.slice(0, eqIdx).trim();
+      const val = line
+        .slice(eqIdx + 1)
+        .trim()
+        .replace(/^['"]|['"]$/g, "");
+      if (key && process.env[key] === undefined) {
+        process.env[key] = val;
+      }
+    }
+  }
+}
+
 async function main() {
+  loadRootEnvFiles();
   const now = new Date();
   const dateStr = process.env.SNAPSHOT_DATE ?? now.toISOString().slice(0, 10);
   const updatedAt = process.env.SNAPSHOT_TIMESTAMP ?? now.toISOString();
