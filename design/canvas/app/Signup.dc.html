@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<title>PitchLab · Crear cuenta</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+.pl-dark{--bg:#0B1020;--nav:#10172A;--elev:#1A2440;--surf:#151E34;--hover:#222D49;--active:#302650;--t1:#F3F5FD;--t2:#B8C1D7;--t3:#98A4BF;--line:#33405D;--line2:#73819F;--brand:#B49AFF;--ok:#66D9AE;--on:#0B1020;--glow:#B49AFF26;--grid:#33405D55}
+.pl-light{--bg:#F3F5FD;--nav:#FFFFFF;--elev:#FFFFFF;--surf:#FFFFFF;--hover:#E9ECF7;--active:#E6E0FF;--t1:#0B1020;--t2:#3B4560;--t3:#5A6480;--line:#D5DAE8;--line2:#7C87A3;--brand:#5940B2;--ok:#12704E;--on:#FFFFFF;--glow:#5940B21F;--grid:#D5DAE8AA}
+a{color:var(--brand);text-decoration:none;font-weight:600}a:hover{text-decoration:underline}
+.num{font-variant-numeric:tabular-nums lining-nums}
+.fieldgrid{background-image:linear-gradient(to right,var(--grid) 1px,transparent 1px),linear-gradient(to bottom,var(--grid) 1px,transparent 1px);background-size:32px 32px}
+</style>
+</helmet>
+<div class="{{themeClass}}" style="min-height: 1040px; background: var(--bg); color: var(--t1); font-family: Inter, system-ui, sans-serif; font-size: 15px; line-height: 1.45; display: flex; flex-wrap: wrap">
+
+  <main style="flex: 1 1 520px; min-width: 0; display: flex; flex-direction: column; padding: 32px 48px; box-sizing: border-box">
+    <a href="#" aria-label="PitchLab, inicio" style="align-self: flex-start">
+      <sc-if value="{{isDark}}" hint-placeholder-val="{{ true }}"><img src="/_blob/847e53db620413581d6e7b6db224bfbc" alt="PitchLab" style="height: 28px; width: auto; display: block"></sc-if>
+      <sc-if value="{{isLight}}" hint-placeholder-val="{{ false }}"><img src="/_blob/f3a2fcc20026bd91a165f9666a357ce8" alt="PitchLab" style="height: 28px; width: auto; display: block"></sc-if>
+    </a>
+
+    <div style="width: 100%; max-width: 420px; margin: auto; display: flex; flex-direction: column; gap: 22px; padding: 36px 0">
+      <div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 12px; background: var(--active)">
+        <span aria-hidden="true" style="width: 36px; height: 36px; flex: none; border-radius: 999px; background: var(--brand); color: var(--on); display: grid; place-items: center; font-weight: 800; font-size: 14px">A</span>
+        <p style="margin: 0; font-size: 14px">Ana te invitó: al crear tu cuenta tienes <strong>7 días de Pro</strong>.</p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 8px">
+        <h1 style="margin: 0; font-size: 32px; line-height: 1.1; font-weight: 800; letter-spacing: -0.03em">Crea tu cuenta</h1>
+        <p style="margin: 0; color: var(--t2)">Empieza a ver qué es lo más probable en cada partido.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+        <button type="button" style="height: 48px; display: flex; align-items: center; justify-content: center; gap: 8px; border-radius: 8px; border: 1px solid var(--line2); background: var(--surf); color: var(--t1); font: inherit; font-weight: 600; cursor: pointer">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.6 12.2c0-.7-.1-1.4-.2-2H12v3.8h5.4a4.6 4.6 0 0 1-2 3v2.5h3.2c1.9-1.7 3-4.3 3-7.3z" opacity=".9"></path><path fill="currentColor" d="M12 22c2.7 0 5-.9 6.6-2.4l-3.2-2.5c-.9.6-2 1-3.4 1-2.6 0-4.8-1.8-5.6-4.1H3.1v2.6A10 10 0 0 0 12 22z" opacity=".7"></path><path fill="currentColor" d="M6.4 14a6 6 0 0 1 0-4V7.4H3.1a10 10 0 0 0 0 9.2z" opacity=".5"></path><path fill="currentColor" d="M12 5.9c1.5 0 2.8.5 3.8 1.5l2.9-2.9A10 10 0 0 0 3.1 7.4L6.4 10c.8-2.3 3-4.1 5.6-4.1z" opacity=".8"></path></svg>Google
+        </button>
+        <button type="button" style="height: 48px; display: flex; align-items: center; justify-content: center; gap: 8px; border-radius: 8px; border: 1px solid var(--line2); background: var(--surf); color: var(--t1); font: inherit; font-weight: 600; cursor: pointer">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.4 12.6c0-2.4 2-3.5 2.1-3.6-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9-.8 0-1.9-.8-3.2-.8A4.7 4.7 0 0 0 4.2 9.6c-1.7 3-.4 7.4 1.2 9.8.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.2-1.2 3-2.4.9-1.4 1.3-2.7 1.3-2.8 0 0-2.6-1-2.7-4zM14 5.4c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1.1.1 2.1-.6 2.8-1.4z"></path></svg>Apple
+        </button>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 12px; font-size: 13px; color: var(--t3)"><span style="flex: 1 1 auto; height: 1px; background: var(--line)"></span>o con tu correo<span style="flex: 1 1 auto; height: 1px; background: var(--line)"></span></div>
+
+      <form style="display: flex; flex-direction: column; gap: 16px" onSubmit="{{noop}}">
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <label for="s-email" style="font-size: 14px; font-weight: 600; color: var(--t2)">Correo</label>
+          <input id="s-email" type="email" autocomplete="email" placeholder="tu@correo.com" style="height: 48px; padding: 0 14px; border-radius: 8px; border: 1px solid var(--line2); background: var(--surf); color: var(--t1); font: inherit; outline: none">
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <label for="s-pass" style="font-size: 14px; font-weight: 600; color: var(--t2)">Contraseña</label>
+          <input id="s-pass" type="password" autocomplete="new-password" aria-describedby="s-pass-hint" onChange="{{onPass}}" style="height: 48px; padding: 0 14px; border-radius: 8px; border: 1px solid var(--line2); background: var(--surf); color: var(--t1); font: inherit; outline: none">
+          <p id="s-pass-hint" style="margin: 0; display: flex; align-items: center; gap: 8px; font-size: 13px; color: {{passColor}}">
+            <sc-if value="{{passOk}}" hint-placeholder-val="{{ false }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"></path></svg></sc-if>
+            {{passText}}
+          </p>
+        </div>
+
+        <fieldset style="margin: 0; padding: 0; border: 0; display: flex; flex-direction: column; gap: 6px">
+          <legend style="padding: 0; margin-bottom: 6px; font-size: 14px; font-weight: 600; color: var(--t2)">Fecha de nacimiento</legend>
+          <div style="display: grid; grid-template-columns: 1fr 1.6fr 1.2fr; gap: 10px">
+            <select aria-label="Día" style="height: 48px; padding: 0 10px; border-radius: 8px; border: 1px solid var(--line2); background: var(--surf); color: var(--t1); font: inherit"><option>Día</option><option>14</option></select>
+            <select aria-label="Mes" style="height: 48px; padding: 0 10px; border-radius: 8px; border: 1px solid var(--line2); background: var(--surf); color: var(--t1); font: inherit"><option>Mes</option><option>marzo</option></select>
+            <select aria-label="Año" style="height: 48px; padding: 0 10px; border-radius: 8px; border: 1px solid var(--line2); background: var(--surf); color: var(--t1); font: inherit"><option>Año</option><option>1994</option></select>
+          </div>
+          <p style="margin: 0; font-size: 13px; color: var(--t3)">Solo mayores de 18. Si no cumples la edad, no creamos la cuenta ni guardamos tus datos.</p>
+        </fieldset>
+
+        <div style="display: flex; flex-direction: column; gap: 12px; padding: 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--surf)">
+          <label style="display: flex; gap: 12px; align-items: flex-start; font-size: 14px; cursor: pointer">
+            <input type="checkbox" checked="{{accepted}}" onChange="{{toggleAccept}}" style="width: 20px; height: 20px; margin: 1px 0 0; accent-color: var(--brand); flex: none">
+            <span>Acepto los <a href="#">Términos</a> y el <a href="#">Aviso de privacidad</a>. <span style="color: var(--t3)">(obligatorio)</span></span>
+          </label>
+          <label style="display: flex; gap: 12px; align-items: flex-start; font-size: 14px; color: var(--t2); cursor: pointer">
+            <input type="checkbox" style="width: 20px; height: 20px; margin: 1px 0 0; accent-color: var(--brand); flex: none">
+            <span>Usar analítica para mejorar PitchLab. <span style="color: var(--t3)">(opcional)</span></span>
+          </label>
+          <label style="display: flex; gap: 12px; align-items: flex-start; font-size: 14px; color: var(--t2); cursor: pointer">
+            <input type="checkbox" style="width: 20px; height: 20px; margin: 1px 0 0; accent-color: var(--brand); flex: none">
+            <span>Recibir novedades por correo. <span style="color: var(--t3)">(opcional)</span></span>
+          </label>
+        </div>
+
+        <sc-if value="{{canSubmit}}" hint-placeholder-val="{{ false }}"><button type="submit" style="height: 48px; border: 0; border-radius: 8px; background: var(--brand); color: var(--on); font: inherit; font-weight: 700; cursor: pointer">Crear cuenta</button></sc-if>
+        <sc-if value="{{cannotSubmit}}" hint-placeholder-val="{{ true }}"><button type="submit" disabled aria-disabled="true" style="height: 48px; border: 0; border-radius: 8px; background: var(--brand); color: var(--on); font: inherit; font-weight: 700; opacity: 0.45; cursor: not-allowed">Crear cuenta</button></sc-if>
+      </form>
+
+      <p style="margin: 0; text-align: center; color: var(--t2)">¿Ya tienes cuenta? <a href="Login.dc.html">Entrar</a></p>
+    </div>
+
+    <p style="margin: 0; font-size: 12px; color: var(--t3)">PitchLab no acepta apuestas ni recibe dinero de apuestas.</p>
+  </main>
+
+  <aside aria-label="Lo que verás en PitchLab" style="flex: 1 1 520px; min-width: 0; position: relative; overflow: hidden; background: var(--nav); border-left: 1px solid var(--line); display: flex; align-items: center; justify-content: center; padding: 48px; box-sizing: border-box">
+    <div class="fieldgrid" aria-hidden="true" style="position: absolute; inset: 0; opacity: 0.9"></div>
+    <div style="position: relative; width: 100%; max-width: 460px; display: flex; flex-direction: column; gap: 18px">
+      <p style="margin: 0; font-size: 26px; line-height: 1.15; font-weight: 800; letter-spacing: -0.02em">Así se ve un partido en PitchLab.</p>
+      <div style="padding: 22px; border-radius: 16px; background: var(--elev); border: 1px solid var(--line); display: flex; flex-direction: column; gap: 16px">
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px">
+          <span style="display: flex; align-items: center; gap: 10px; font-weight: 800"><img src="/_blob/4e78c3fb89c42ae6150d8ed14603a618" alt="" style="width: 32px; height: 32px">Real Madrid</span>
+          <span class="num" style="font-size: 12px; color: var(--t3); text-align: center">sáb 21 nov<br>14:00</span>
+          <span style="display: flex; align-items: center; gap: 10px; font-weight: 800">Celta<img src="/_blob/f54b2ebb2375bae86423365c57c13a9b" alt="" style="width: 32px; height: 32px"></span>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 4px">
+          <span style="font-size: 13px; color: var(--t2)">Lo más probable · Real Madrid gana</span>
+          <span class="num" style="font-size: 44px; line-height: 1; font-weight: 800; letter-spacing: -0.04em; color: var(--brand)">75.2 %</span>
+          <span class="num" style="font-size: 13px; color: var(--t2)">Cuota justa <strong style="color: var(--t1)">1.33</strong></span>
+        </div>
+        <div style="display: flex; gap: 4px; height: 8px" role="img" aria-label="Real Madrid 75.2 %, empate 16.1 %, Celta 8.8 %">
+          <span style="flex: 75.2 1 0; border-radius: 999px; background: var(--brand)"></span>
+          <span style="flex: 16.1 1 0; border-radius: 999px; background: var(--line2)"></span>
+          <span style="flex: 8.8 1 0; border-radius: 999px; background: var(--line2)"></span>
+        </div>
+        <div class="num" style="display: flex; justify-content: space-between; font-size: 13px; color: var(--t3)"><span>Local 75.2 %</span><span>Empate 16.1 %</span><span>Visita 8.8 %</span></div>
+        <div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 10px; background: var(--surf); border: 1px solid var(--line)">
+          <span style="font-size: 13px; color: var(--t2)">Tu cuota</span>
+          <span class="num" style="height: 36px; padding: 0 12px; display: grid; place-items: center; border-radius: 8px; border: 1px solid var(--line2); font-weight: 700">1.40</span>
+          <span class="num" style="font-size: 13px; color: var(--t2)">implica 71.4 % · <strong style="color: var(--t1)">+3.8 pts</strong> a favor</span>
+        </div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 12px">
+        <img src="/_blob/87c91e8a286e9e18afab54fe8d8024a3" alt="" style="width: 72px; height: 72px; flex: none">
+        <p style="margin: 0; font-size: 13px; color: var(--t3)">Probabilidad y cuota justa del Modelo PitchLab · en validación. Tú decides con tu propia cuota.</p>
+      </div>
+    </div>
+  </aside>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["dark","light"],"default":"dark","section":"Tema"},"$preview":{"width":1440,"height":1040}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { len: 0, accepted: false };
+  }
+  renderVals() {
+    const light = this.props.theme === 'light';
+    const ok = this.state.len >= 10;
+    const remaining = 10 - this.state.len;
+    return {
+      themeClass: light ? 'pl-light' : 'pl-dark',
+      isDark: !light,
+      isLight: light,
+      passOk: ok,
+      passText: ok ? 'Contraseña lista.' : (this.state.len === 0 ? 'Mínimo 10 caracteres.' : 'Faltan ' + remaining + ' caracteres.'),
+      passColor: ok ? 'var(--ok)' : 'var(--t3)',
+      onPass: (e) => this.setState({ len: e && e.target ? e.target.value.length : 0 }),
+      accepted: this.state.accepted,
+      toggleAccept: () => this.setState({ accepted: !this.state.accepted }),
+      canSubmit: this.state.accepted && ok,
+      cannotSubmit: !(this.state.accepted && ok),
+      noop: (e) => { if (e && e.preventDefault) e.preventDefault(); }
+    };
+  }
+}
+</script>
+</body>
+</html>

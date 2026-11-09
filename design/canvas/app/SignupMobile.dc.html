@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<title>PitchLab · Crear cuenta (móvil)</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+.pl-dark{--bg:#0B1020;--nav:#10172A;--elev:#1A2440;--surf:#151E34;--hover:#222D49;--active:#302650;--t1:#F3F5FD;--t2:#B8C1D7;--t3:#98A4BF;--line:#33405D;--line2:#73819F;--brand:#B49AFF;--on:#0B1020;--glow:#B49AFF26}
+.pl-light{--bg:#F3F5FD;--nav:#FFFFFF;--elev:#FFFFFF;--surf:#FFFFFF;--hover:#E9ECF7;--active:#E6E0FF;--t1:#0B1020;--t2:#3B4560;--t3:#5A6480;--line:#D5DAE8;--line2:#7C87A3;--brand:#5940B2;--on:#FFFFFF;--glow:#5940B21F}
+a{color:var(--brand);text-decoration:none;font-weight:600}
+.num{font-variant-numeric:tabular-nums lining-nums}
+</style>
+</helmet>
+<div class="{{themeClass}}" style="width: 390px; min-height: 1160px; box-sizing: border-box; background: var(--bg); color: var(--t1); font-family: Inter, system-ui, sans-serif; font-size: 15px; line-height: 1.45; display: flex; flex-direction: column; padding: 20px 20px 28px; gap: 20px">
+  <sc-if value="{{isDark}}" hint-placeholder-val="{{ true }}"><img src="/_blob/6663a8cb7ea42ab8a1684d7c68686f02" alt="PitchLab" style="height: 26px; width: auto; display: block; align-self: flex-start"></sc-if>
+  <sc-if value="{{isLight}}" hint-placeholder-val="{{ false }}"><img src="/_blob/0adefa1c96fea6646bc58f3e765be76c" alt="PitchLab" style="height: 26px; width: auto; display: block; align-self: flex-start"></sc-if>
+
+  <div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 12px; background: var(--active)">
+    <img src="/_blob/a1308dc965b7c2f005bb78b6fa9dafaf" alt="" style="width: 48px; height: 48px; flex: none">
+    <p style="margin: 0; font-size: 14px">Ana te invitó: al crear tu cuenta tienes <strong>7 días de Pro</strong>.</p>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 6px">
+    <h1 style="margin: 0; font-size: 26px; line-height: 1.15; font-weight: 800; letter-spacing: -0.02em">Crea tu cuenta</h1>
+    <p style="margin: 0; font-size: 14px; color: var(--t2)">Empieza a ver qué es lo más probable en cada partido.</p>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+    <button type="button" style="height: 48px; border-radius: 8px; border: 1px solid var(--line2); background: var(--surf); color: var(--t1); font: inherit; font-weight: 600; cursor: pointer">Google</button>
+    <button type="button" style="height: 48px; border-radius: 8px; border: 1px solid var(--line2); background: var(--surf); color: var(--t1); font: inherit; font-weight: 600; cursor: pointer">Apple</button>
+  </div>
+
+  <div style="display: flex; align-items: center; gap: 12px; font-size: 13px; color: var(--t3)"><span style="flex: 1 1 auto; height: 1px; background: var(--line)"></span>o con tu correo<span style="flex: 1 1 auto; height: 1px; background: var(--line)"></span></div>
+
+  <div style="display: flex; flex-direction: column; gap: 16px">
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <label for="ms-email" style="font-size: 14px; font-weight: 600; color: var(--t2)">Correo</label>
+      <input id="ms-email" type="email" autocomplete="email" placeholder="tu@correo.com" style="height: 48px; padding: 0 14px; border-radius: 8px; border: 1px solid var(--line2); background: var(--surf); color: var(--t1); font: inherit; outline: none">
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <label for="ms-pass" style="font-size: 14px; font-weight: 600; color: var(--t2)">Contraseña</label>
+      <input id="ms-pass" type="password" autocomplete="new-password" style="height: 48px; padding: 0 14px; border-radius: 8px; border: 1px solid var(--line2); background: var(--surf); color: var(--t1); font: inherit; outline: none">
+      <p style="margin: 0; font-size: 13px; color: var(--t3)">Mínimo 10 caracteres.</p>
+    </div>
+    <fieldset style="margin: 0; padding: 0; border: 0; display: flex; flex-direction: column; gap: 6px">
+      <legend style="padding: 0; margin-bottom: 6px; font-size: 14px; font-weight: 600; color: var(--t2)">Fecha de nacimiento</legend>
+      <div style="display: grid; grid-template-columns: 1fr 1.6fr 1.2fr; gap: 8px">
+        <select aria-label="Día" style="height: 48px; padding: 0 8px; border-radius: 8px; border: 1px solid var(--line2); background: var(--surf); color: var(--t1); font: inherit"><option>Día</option></select>
+        <select aria-label="Mes" style="height: 48px; padding: 0 8px; border-radius: 8px; border: 1px solid var(--line2); background: var(--surf); color: var(--t1); font: inherit"><option>Mes</option></select>
+        <select aria-label="Año" style="height: 48px; padding: 0 8px; border-radius: 8px; border: 1px solid var(--line2); background: var(--surf); color: var(--t1); font: inherit"><option>Año</option></select>
+      </div>
+      <p style="margin: 0; font-size: 13px; color: var(--t3)">Solo mayores de 18. Si no cumples la edad, no guardamos tus datos.</p>
+    </fieldset>
+    <div style="display: flex; flex-direction: column; gap: 12px; padding: 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--surf)">
+      <label style="display: flex; gap: 12px; align-items: flex-start; font-size: 14px"><input type="checkbox" style="width: 20px; height: 20px; margin: 1px 0 0; accent-color: var(--brand); flex: none"><span>Acepto los <a href="#">Términos</a> y el <a href="#">Aviso de privacidad</a>. <span style="color: var(--t3)">(obligatorio)</span></span></label>
+      <label style="display: flex; gap: 12px; align-items: flex-start; font-size: 14px; color: var(--t2)"><input type="checkbox" style="width: 20px; height: 20px; margin: 1px 0 0; accent-color: var(--brand); flex: none"><span>Analítica para mejorar PitchLab. <span style="color: var(--t3)">(opcional)</span></span></label>
+      <label style="display: flex; gap: 12px; align-items: flex-start; font-size: 14px; color: var(--t2)"><input type="checkbox" style="width: 20px; height: 20px; margin: 1px 0 0; accent-color: var(--brand); flex: none"><span>Novedades por correo. <span style="color: var(--t3)">(opcional)</span></span></label>
+    </div>
+    <button type="button" style="height: 48px; border: 0; border-radius: 8px; background: var(--brand); color: var(--on); font: inherit; font-weight: 700; cursor: pointer">Crear cuenta</button>
+  </div>
+
+  <p style="margin: 0; text-align: center; font-size: 14px; color: var(--t2)">¿Ya tienes cuenta? <a href="#">Entrar</a></p>
+  <p style="margin: 0; text-align: center; font-size: 12px; color: var(--t3)">PitchLab no acepta apuestas.</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["dark","light"],"default":"dark","section":"Tema"},"$preview":{"width":390,"height":1160}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const light = this.props.theme === 'light';
+    return { themeClass: light ? 'pl-light' : 'pl-dark', isDark: !light, isLight: light };
+  }
+}
+</script>
+</body>
+</html>

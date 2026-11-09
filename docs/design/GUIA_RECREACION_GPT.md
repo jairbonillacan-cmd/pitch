@@ -1,8 +1,9 @@
-# Guía para GPT: recrear la landing y `/app` de PitchLab
+# Guía para GPT: recrear la landing, `/app`, Login, Crear cuenta y Planes de PitchLab
 
-> **Para quién:** un agente (GPT/Codex u otro) que va a construir o mantener la landing (`/`) y el Inicio de la app (`/app`) en este repo.
+> **Para quién:** un agente (GPT/Codex u otro) que va a construir o mantener la landing (`/`), el Inicio de la app (`/app`), Login (`/login`), Crear cuenta (`/signup`) y Planes (`/pricing`) en este repo.
 > **Fecha:** 2026-11-09 · **Rama:** `feat/pre-mvp`.
 > **Referencia visual:** el lienzo de diseño de Claude «PitchLab · App (/app)» es privado; su fuente completa está copiada en `design/canvas/app/`. Este documento y esos archivos bastan: no necesitas abrir el lienzo.
+> **Prompts listos para copiar**, uno por pantalla: `prompts/gpt/PANTALLAS.md`.
 
 ## 1. Lee antes de tocar código
 
@@ -17,7 +18,7 @@ En este orden, y sin saltarte ninguno:
 ## 2. Reglas que no se negocian
 
 - **Foco del producto:** cada pantalla dice primero **qué es lo más probable según los datos**, con su probabilidad y su **cuota justa** (`1/p`), para que el usuario lo compare con la cuota de su casa. Se informa; nunca se recomienda monto, «pick seguro», «gana» ni «cobra».
-- **Solo tokens.** Ningún hex fuera de `packages/tokens` (el linter `scripts/lint-codebase.mjs` lo bloquea). Los hex del lienzo se traducen con la tabla del §6.
+- **Solo tokens.** Ningún hex fuera de `packages/tokens` (el linter `scripts/lint-codebase.mjs` lo bloquea). Los hex del lienzo se traducen con la tabla del §7.
 - **Dos temas siempre.** Oscuro por defecto; claro con `data-theme="light"` en `<html>`. Los colores salen de los tokens, que ya cambian con ese atributo.
 - **Librerías por pieza** (detalle en `UI_LIBRARIES.md` §2): primero `@pitchlab/ui`; HeroUI v3 (solo gratis) para formularios, botones, tabs y overlays; Astryx para estructura de app (AppShell, SegmentedControl, BottomSheet); shadcn solo para lo que ya existe. Todo componente de Astryx va dentro de `<AstryxScope>`.
 - **FD-16:** la UI nunca nombra proveedores de datos ni algoritmos (nflverse, openfootball, api-football, Poisson, Dixon-Coles, Pitágoras, Log5). El motor es «Modelo PitchLab · en validación».
@@ -83,7 +84,58 @@ Referencia: `design/canvas/app/Main.dc.html` (escritorio), `Mobile.dc.html` (mó
 
 No está dibujada: rail de 64 px con iconos y tooltip (`INFORMATION_ARCHITECTURE.md` §2), mismo contenido en una columna.
 
-## 5. Mapeo de piezas a componentes
+## 5. Login, Crear cuenta y Planes: por construir
+
+Referencia: `design/canvas/app/Login.dc.html`, `LoginMobile.dc.html`, `Signup.dc.html`, `SignupMobile.dc.html`, `Pricing.dc.html` y `PricingMobile.dc.html`. Los `*Light.dc.html` son las mismas pantallas con `theme="light"`. Reglas de cuentas: `docs/architecture/AUTH_BILLING_GROWTH.md` §1–3.
+
+**Cuidado con el pre-MVP:** hoy `/login` es el acceso de socios con PIN y las E2E 2 y 3 dependen de él. Construye estas pantallas como componentes y stories (`packages/ui/src/auth/`, `packages/ui/src/pricing/`) y conéctalas a sus rutas solo cuando existan cuentas reales (Better Auth); hasta entonces el flujo con PIN se queda.
+
+### 5.1 Login (`/login`)
+
+- **Escritorio:** dos mitades que se apilan en móvil (`flex-wrap`, cada una `flex: 1 1 520px`).
+  - **Izquierda, formulario** (máx. 400 px, centrado): logo; «Entra a PitchLab»; «Lo más probable de cada partido, con su cuota justa.»; botones «Continuar con Google» y «Continuar con Apple» (HeroUI Button, variante secundaria, 48 px); separador «o con tu correo»; Correo; Contraseña con botón de mostrar/ocultar (44 px, `aria-label` que cambia) y enlace «¿La olvidaste?»; botón primario «Entrar». Un botón de texto alterna a **enlace mágico**: la contraseña se cambia por «Te mandamos un enlace para entrar sin contraseña. Vence en 15 minutos.» y el botón «Enviarme el enlace». Pie: «¿No tienes cuenta? Crear cuenta» y «Solo mayores de 18. PitchLab no acepta apuestas.»
+  - **Derecha, muestra de producto** (`--background-secondary` con la retícula `.fieldgrid`): eyebrow «Lee el juego con datos.», título «Lo más probable, con su cuota justa.», Radar de 112 px con halo y una lista de 3 resultados más probables reales (emblema, resultado, partido, cuota justa y probabilidad grande en `--brand-primary`), calculados como en el §4.2.
+- **Móvil:** firma compacta; tarjeta con Radar y el resultado más probable del día; título; Google y Apple en dos columnas; formulario; «Entrar con un enlace por correo»; enlace a Crear cuenta al final.
+
+### 5.2 Crear cuenta (`/signup`)
+
+- **Misma estructura de dos mitades.**
+  - **Formulario** (máx. 420 px):
+    - Si se llega por un enlace de referido o invitación, aviso arriba: «{Nombre} te invitó: al crear tu cuenta tienes 7 días de Pro» (fondo `--surface-active`).
+    - «Crea tu cuenta», Google y Apple, Correo.
+    - **Contraseña** con el requisito en vivo debajo: «Mínimo 10 caracteres» → «Faltan N caracteres» → «Contraseña lista.» en `--success` con ícono.
+    - **Fecha de nacimiento** obligatoria (HeroUI DateField o tres selectores Día/Mes/Año) con «Solo mayores de 18. Si no cumples la edad, no creamos la cuenta ni guardamos tus datos.»
+    - **Consentimientos** en un grupo con borde: Términos y Aviso de privacidad (obligatorio), analítica (opcional) y novedades por correo (opcional), cada uno marcado como tal (HeroUI Checkbox).
+    - «Crear cuenta» deshabilitado hasta que la contraseña sea válida y los términos estén aceptados. Pie: «¿Ya tienes cuenta? Entrar».
+  - **Derecha:** «Así se ve un partido en PitchLab.» con un partido real: emblemas, «Lo más probable · {resultado}», probabilidad grande, cuota justa, barra 1X2 con los tres valores y una fila «Tu cuota» con la probabilidad implícita y la diferencia en puntos. Radar edición `soccer` con «Probabilidad y cuota justa del Modelo PitchLab · en validación. Tú decides con tu propia cuota.»
+- **Móvil:** aviso de invitación con Radar y el formulario completo en una columna.
+- **Backend (no lo inventes):** menor de 18 → se rechaza sin guardar datos; un trial por persona (`trial_claim`); los consentimientos se guardan con su versión (`consent`).
+
+### 5.3 Planes (`/pricing`)
+
+- **Barra pública** igual a la de la landing, con «Planes» activo.
+- **Encabezado centrado:** eyebrow «Planes», título «Lo más probable de cada partido, al precio que elijas.» y «Precios en pesos mexicanos, IVA incluido. Empieza gratis o prueba Pro 7 días.»
+- **Tres tarjetas** desde `LANDING_PLANS` (`packages/ui/src/landing/content.ts`, fuente única de precios y funciones): Free («Gratis», «Crear cuenta»); **Pro destacado** (borde `--brand-primary`, superficie elevada, etiqueta «7 días gratis», «$199 MXN al mes», «Probar 7 días»); Elite («$399 MXN al mes», «Elegir Elite»). El signo `$` va más chico y fuera del centrado de las cifras.
+- **Comparativa** (HeroUI Table, encabezado fijo), desde `INFORMATION_ARCHITECTURE.md` §4 y sin nada posterior al MVP (IA, backtest, alertas):
+
+  | Función | Free | Pro | Elite |
+  |---|---|---|---|
+  | Calendario, resultados y posiciones | ✓ | ✓ | ✓ |
+  | Lo más probable y cuota justa | 1 partido al día | Todos | Todos |
+  | Mercados por partido | 1 partido al día | Todos | Todos |
+  | Cuotas actuales | Mejor cuota y 2 casas | Todas las casas | Todas las casas |
+  | Apertura, cierre y movimiento | — | Temporada actual | Todo el histórico |
+  | Prop Lab NFL | 3 al día | Sin límite | Sin límite |
+  | Pick Journal y perfil público | ✓ | ✓ | ✓ |
+  | Leaderboards | Ver | Ver y aparecer | Ver y aparecer |
+  | Exportación a CSV | — | — | ✓ |
+
+- **Preguntas** (HeroUI Accordion, una abierta a la vez): la prueba de 7 días (una por persona; al terminar sin plan vuelve a Free sin perder datos); IVA incluido; «¿PitchLab me dice a qué apostar?» (no: muestra lo más probable y su cuota justa; la decisión y el monto son tuyos); «¿PitchLab acepta apuestas?» (no); CFDI («[POR CONFIRMAR]»).
+- **Cierre** con Radar sobre `--surface-active`: «Información para decidir.» y «Probar Pro 7 días».
+- **Móvil:** Pro primero, luego Elite y Free; la comparativa muestra un plan a la vez con un Astryx SegmentedControl Free/Pro/Elite (Pro seleccionado), nunca una tabla ancha.
+- **Por confirmar con el fundador antes de publicar:** precio anual, si la prueba desde Planes pide tarjeta y la fecha del CFDI.
+
+## 6. Mapeo de piezas a componentes
 
 | Pieza del lienzo | Construir con |
 |---|---|
@@ -99,8 +151,14 @@ No está dibujada: rail de 64 px con iconos y tooltip (`INFORMATION_ARCHITECTURE
 | Frescura | `@pitchlab/ui` `Freshness` |
 | Tabla de posiciones | `@pitchlab/ui` `StandingsTable` |
 | Tema | `@pitchlab/ui` `ThemeToggle` |
+| Correo, contraseña | HeroUI `TextField` + `Input` + `Label` |
+| Fecha de nacimiento | HeroUI `DateField` (o `Select` Día/Mes/Año) |
+| Consentimientos | HeroUI `Checkbox` |
+| Comparativa de planes (escritorio) | HeroUI `Table` |
+| Preguntas de Planes | HeroUI `Accordion` |
+| Comparativa de planes (móvil) | Astryx `SegmentedControl` |
 
-## 6. Traducción del lienzo a tokens
+## 7. Traducción del lienzo a tokens
 
 El lienzo usa variables cortas con hex. En código usa siempre el token de la derecha.
 
@@ -121,7 +179,7 @@ El lienzo usa variables cortas con hex. En código usa siempre el token de la de
 
 Radios: controles 8 (`--radius-control`), paneles 12 (`--radius-panel`), bloque principal y hojas 16 (`--radius-overlay`). Espaciado en la escala `--space-*`. Tipografía Inter con `font-variant-numeric: tabular-nums` (clase `.num`) en toda cifra.
 
-## 7. Imágenes del lienzo (`/_blob/…`) → archivos del repo
+## 8. Imágenes del lienzo (`/_blob/…`) → archivos del repo
 
 Los `src="/_blob/…"` de `design/canvas/app/` solo existen en el lienzo. Equivalencias:
 
@@ -132,13 +190,13 @@ Los `src="/_blob/…"` de `design/canvas/app/` solo existen en el lienzo. Equiva
 | `a1308dc9…` / `29d73fe2…` / `87c91e8a…` | `apps/web/public/brand/mascot/r1/radar.webp` / `nfl.webp` / `soccer.webp` → `Mascot edition="…"` |
 | emblemas de ligas y equipos | `apps/web/public/brand/sports/<liga>/<r1|r2>/…` → `TeamBadge` / `LeagueBadge` (nunca rutas a mano) |
 
-## 8. Cómo trabajar y cuándo está terminado
+## 9. Cómo trabajar y cuándo está terminado
 
 1. Construye los componentes nuevos en `packages/ui/src/app/` y exponlos desde `@pitchlab/ui`.
 2. Crea sus stories en Storybook con datos reales de `data/snapshots/*/latest.json`, en tema oscuro y claro (selector «Tema» de la barra).
 3. Conecta la ruta `apps/web/app/app/page.tsx` cargando los datos en el servidor, como hace `apps/web/src/server/landing.ts`.
 4. Está terminado cuando, sin excepción:
-   - cada bloque del §4.2 existe con datos reales o marcado como ejemplo;
+   - cada bloque del §4.2 o del §5 existe con datos reales o marcado como ejemplo;
    - se revisó a 375 y 1440 px en los dos temas, sin scroll horizontal;
    - `pnpm typecheck`, `pnpm test` (incluye el linter de hex) y las E2E afectadas pasan;
    - ninguna regla del §2 se rompió.
