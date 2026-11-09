@@ -12,7 +12,8 @@ import {
   type TeamSeasonRate,
 } from "@pitchlab/contracts";
 import { normalCdf } from "../math.js";
-import { predictNfl, type NflPrediction, type NflRatingsModel } from "./ratings.js";
+import { predictNfl, type NflMatchRow, type NflPrediction, type NflRatingsModel } from "./ratings.js";
+import { formatNflForm, recentNflForm } from "./form.js";
 
 export interface NflAnalysisInput {
   game: GameDTO;
@@ -22,6 +23,8 @@ export interface NflAnalysisInput {
   publishedAt: string;
   source: string;
   version?: string;
+  /** Partidos de la temporada (para mostrar la forma reciente). */
+  recentResults?: readonly NflMatchRow[];
 }
 
 export function analyzeNflGameV2(input: NflAnalysisInput): GameAnalysis {
@@ -153,7 +156,9 @@ export function analyzeNflGameV2(input: NflAnalysisInput): GameAnalysis {
     {
       key: "home_advantage",
       label: "Localía",
-      value: game.neutralSite ? "Campo neutral" : `+${(2 * model.homeHalf).toFixed(1)} pts`,
+      value: game.neutralSite
+        ? "Campo neutral"
+        : `${2 * model.homeHalf >= 0 ? "+" : ""}${(2 * model.homeHalf).toFixed(1)} pts`,
       detail: `estimada de ${model.games} partidos`,
     },
     {
@@ -163,6 +168,29 @@ export function analyzeNflGameV2(input: NflAnalysisInput): GameAnalysis {
       detail: `total ${prediction.intervals.total[0].toFixed(1)} a ${prediction.intervals.total[1].toFixed(1)}`,
     },
   ];
+
+  // Forma reciente (informativa): últimos cinco resultados antes del partido.
+  if (input.recentResults && input.recentResults.length > 0) {
+    const matchDate = game.startTime.slice(0, 10);
+    const homeForm = recentNflForm(input.recentResults, game.home.id, matchDate);
+    const awayForm = recentNflForm(input.recentResults, game.away.id, matchDate);
+    if (homeForm.played > 0) {
+      factors.push({
+        key: "home_form",
+        label: "Forma local",
+        value: formatNflForm(homeForm),
+        detail: `${homeForm.pointsFor} pts a favor · ${homeForm.pointsAgainst} en contra`,
+      });
+    }
+    if (awayForm.played > 0) {
+      factors.push({
+        key: "away_form",
+        label: "Forma visitante",
+        value: formatNflForm(awayForm),
+        detail: `${awayForm.pointsFor} pts a favor · ${awayForm.pointsAgainst} en contra`,
+      });
+    }
+  }
 
   return {
     game: game.id,

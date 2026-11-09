@@ -155,7 +155,12 @@ export function fitNflRatings(
         (g.homeScore - g.awayScore - (offense[g.home]! - defense[g.away]!) + (offense[g.away]! - defense[g.home]!));
     }
     const nextIntercept = interceptNum / (2 * weightSum);
-    const nextHalf = halfNum / (2 * weightSum);
+    // Prior de localía: con pocas semanas el estimador libre puede dar valores negativos.
+    // Se contrae hacia 1.5 puntos totales (0.75 por lado) con el peso de ~40 partidos.
+    const homePriorTotal = 1.5;
+    const homePriorWeight = 40;
+    const nextHalf =
+      (halfNum + homePriorWeight * (homePriorTotal / 2)) / (2 * weightSum + homePriorWeight);
     maxDelta = Math.max(
       maxDelta,
       Math.abs(nextIntercept - intercept),

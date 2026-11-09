@@ -57,12 +57,12 @@ Backtest walk-forward (solo datos previos a cada jornada/semana; 2 temporadas):
 | Premier League | v2 | 327 | **1.0217** | **0.6130** | 49.2 % | 4.9 % |
 | Premier League | Baseline 0 | 327 | 1.0239 | 0.6145 | 48.3 % | 2.9 % |
 | Premier League | Ingenuo | 327 | 1.0741 | 0.6493 | 45.0 % | 4.8 % |
-| NFL | v2 | 310 | 0.6468 | 0.4568 | **63.9 %** | 6.3 % |
+| NFL | v2 | 310 | 0.6451 | 0.4554 | **64.5 %** | 5.0 % |
 | NFL | Baseline 0 | 310 | **0.6413** | **0.4513** | 60.3 % | 3.3 % |
 | NFL | Ingenuo | 310 | 0.6998 | 0.5066 | 48.4 % | 5.8 % |
 
 Lectura honesta: **v2 le gana al ingenuo en las dos ligas, pero está estadísticamente empatado con
-el Baseline 0** (Δ log-loss −0.0022 en fútbol con IC95 % [−0.0190, +0.0150]; +0.0055 en NFL con
+el Baseline 0** (Δ log-loss −0.0022 en fútbol con IC95 % [−0.0190, +0.0150]; +0.0038 en NFL con
 IC95 % [−0.0079, +0.0202]). Por eso se publica como `candidate` y con la etiqueta «en validación»:
 el gate exige batir al Baseline 0 con un IC que excluya el 0 (`docs/architecture/PREDICTION_ARCHITECTURE.md` §5).
 

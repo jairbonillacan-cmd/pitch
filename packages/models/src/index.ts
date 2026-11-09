@@ -6,5 +6,6 @@ export * from "./football/elo.js";
 export * from "./football/logistic.js";
 export * from "./football/analyze.js";
 export * from "./nfl/ratings.js";
+export * from "./nfl/form.js";
 export * from "./nfl/analyze.js";
 export * from "./backtest/metrics.js";

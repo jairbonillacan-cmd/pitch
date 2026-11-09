@@ -197,6 +197,7 @@ export function buildNflSnapshot(params: {
           inputsAsOf: publishedAt,
           publishedAt,
           source: "nflverse",
+          recentResults: toNflMatchRows(seasonGames!),
         })
       : analyzeNflGame({
           game,
