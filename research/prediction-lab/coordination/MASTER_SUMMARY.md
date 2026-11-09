@@ -173,3 +173,25 @@ lista 90 archivos, todos del laboratorio (ninguno de ellos existía en `main`).
 - **Pre-registro** (`artifacts/PREREGISTRATION_CYCLE2.md`): el ensemble se evalúa en la muestra
   prospectiva (2026/27 restante + 2027/28) con regla de decisión fijada. No se cambia el modelo
   desplegado con test ni con live observado.
+
+---
+
+# CICLO 3 — en curso (2026-11-09 04:20)
+
+## Completado por el orquestador
+
+- **Priors v1.2 (resultado negativo):** reconstruir los priors con clave `team` (cruzando
+  divisiones) sube la cobertura del 96,9 % al 97,3 % y la exactitud S−1 al 90,6 %, pero **no mejora**
+  el modelo: Δ = +0,00014 [−0,00014; +0,00040] en val. Se cierra el ítem sin tocar el dataset
+  congelado (`pipeline/experiment_priors_v12.py`, `artifacts/experiment_priors_v12.json`).
+- **Model card** (`docs/predicciones/MODEL_CARD.md`) con rendimiento, calibración, límites, hashes
+  y política de versionado de `motor_a_logistic_v1` y `nfl_logistic_v1`.
+- **Export NFL a JSON** (`pipeline/export_model_nfl.py`): 6.880 partidos, 24 features,
+  train log-loss 0,64205, artefacto de 3,9 KB + snapshot de 200 partidos.
+
+## En curso (subagentes)
+
+- **A14:** integración TypeScript del modelo NFL (`predictNFL`, `predictForSport`, 200 tests de
+  paridad).
+- **A15:** features EPA de nflverse `stats_team_week` (CC BY 4.0) y experimento de valor incremental
+  contra el mercado.

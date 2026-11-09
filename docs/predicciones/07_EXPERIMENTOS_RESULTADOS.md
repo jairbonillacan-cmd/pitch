@@ -182,3 +182,11 @@ patrón que en fútbol: la información manda. Detalle en `reports/A12_nfl.md`.
 Corregir los priors S−1 no exactos (88,5 % → 90,6 % exactos; nulls 3,14 % → 2,70 %) **no mejora**
 el log-loss de val: +0,00014 [−0,00014; +0,00040] en contra. Se documenta como resultado negativo y
 no se modifica el dataset congelado. Detalle en `05_FEATURE_ENGINEERING.md` (addendum).
+
+### Addendum ciclo 3 — NFL: integración TS y EPA
+
+- **Integración TS (A14):** `predictNFL` + `predictForSport` en `src/domain/prediction/`;
+  paridad **4,996×10⁻¹³** en 200 partidos y **448 tests** en verde (437 previos + 11 NFL).
+- **EPA (A15):** features causales de nflverse `stats_team_week` (CC BY 4.0). Test: base
+  0,65917 vs +EPA 0,65717 (Δ −0,00199 [−0,00503; +0,00095], 91 % a favor); mercado 0,63000.
+  **No significativo y no cierra la brecha** → no se adopta. Detalle en `reports/A15_nfl_epa.md`.

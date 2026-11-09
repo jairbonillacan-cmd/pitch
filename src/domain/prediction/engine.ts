@@ -12,8 +12,11 @@
  */
 import type {
   BaseRates,
-  ModelArtifact,
+  NFLModelArtifact,
+  NFLSnapshotRow,
   Prediction,
+  PredictionRequest,
+  ModelArtifact,
   SnapshotRow,
 } from "./types.js";
 
@@ -295,6 +298,7 @@ function predictMotorAUnchecked(row: SnapshotRow, model: ModelArtifact): Predict
     // Determinista: la marca temporal es la del artefacto, no el reloj del proceso.
     generatedAt: model.created_at,
     dataQualityFlag: "ok",
+    sport: "football",
   };
 }
 
@@ -344,6 +348,7 @@ function marketPrediction(
     modelVersion: MARKET_MODEL_VERSION,
     generatedAt: model.created_at,
     dataQualityFlag: "ok",
+    sport: "football",
   };
 }
 
@@ -410,6 +415,162 @@ export function predictWithFallback(
       modelVersion: model.version,
       generatedAt: model.created_at,
       dataQualityFlag: "invalid_features",
+      sport: "football",
     };
   }
+}
+
+
+// ---------------------------------------------------------------------------
+// NFL (ciclo 3, A14)
+// ---------------------------------------------------------------------------
+
+/** Identificador del motor NFL exportado por `pipeline/export_model_nfl.py`. */
+export const NFL_MODEL_ID = "nfl_logistic_v1";
+
+/**
+ * Valida el artefacto NFL. A diferencia del de fútbol no hay dummies de división:
+ * el número de features es exactamente `n_features`.
+ */
+export function assertValidNFLModel(model: NFLModelArtifact): void {
+  if (model === null || typeof model !== "object") {
+    invalidModel("el artefacto NFL no es un objeto");
+  }
+  if (model.sport !== "nfl") {
+    invalidModel(`sport esperado "nfl"; recibido ${String(model.sport)}`);
+  }
+  const features = model.features;
+  if (!Array.isArray(features) || features.length === 0) {
+    invalidModel("`features` NFL vacío o no es un array");
+  }
+  const n = features.length;
+  if (model.n_features !== n) {
+    invalidModel(`n_features (${String(model.n_features)}) !== features (${n})`);
+  }
+  if (!Array.isArray(model.coef) || model.coef.length !== 3) {
+    invalidModel("`coef` NFL debe tener 3 filas (H/T/A)");
+  }
+  if (!Array.isArray(model.intercept) || model.intercept.length !== 3) {
+    invalidModel("`intercept` NFL debe tener 3 valores");
+  }
+  if (!Array.isArray(model.classes) || model.classes.length !== 3) {
+    invalidModel("`classes` NFL debe tener 3 valores");
+  }
+  for (const cls of [0, 1, 2]) {
+    if (!model.classes.includes(cls)) {
+      invalidModel(`classes NFL no contiene la clase ${cls}`);
+    }
+  }
+  for (let k = 0; k < 3; k += 1) {
+    const row = model.coef[k];
+    if (row === undefined || !Array.isArray(row) || row.length !== n) {
+      invalidModel(`coef[${k}] NFL debe tener ${n} columnas`);
+    }
+    assertFiniteArray(row, `coef_nfl[${k}]`);
+  }
+  assertFiniteArray(model.intercept, "intercept_nfl");
+  if (!model.scaler || !Array.isArray(model.scaler.mean) || !Array.isArray(model.scaler.scale)) {
+    invalidModel("`scaler` NFL incompleto");
+  }
+  if (model.scaler.mean.length !== n || model.scaler.scale.length !== n) {
+    invalidModel(`scaler NFL debe tener ${n} valores`);
+  }
+  assertFiniteArray(model.scaler.mean, "scaler.mean_nfl");
+  assertFiniteArray(model.scaler.scale, "scaler.scale_nfl");
+  if (typeof model.version !== "string" || model.version.length === 0) {
+    invalidModel("`version` NFL vacío");
+  }
+  if (typeof model.created_at !== "string" || model.created_at.length === 0) {
+    invalidModel("`created_at` NFL vacío");
+  }
+}
+
+/**
+ * Diseño NFL estandarizado. `null` se imputa con la media de entrenamiento
+ * (equivalente a 0 tras estandarizar), que es el mismo criterio que usaría
+ * scikit-learn si se imputara con `SimpleImputer(strategy="mean")`.
+ */
+function buildNFLStandardizedDesign(row: NFLSnapshotRow, model: NFLModelArtifact): number[] {
+  if (row === null || typeof row !== "object") {
+    throw new InvalidFeaturesError("la fila NFL no es un objeto");
+  }
+  const base = row.features;
+  if (!Array.isArray(base)) {
+    throw new InvalidFeaturesError("`features` NFL no es un array");
+  }
+  if (base.length !== model.n_features) {
+    throw new InvalidFeaturesError(
+      `features NFL tiene ${base.length} valores; se esperaban ${model.n_features}`,
+    );
+  }
+  const design = new Array<number>(model.n_features);
+  for (let i = 0; i < model.n_features; i += 1) {
+    const mean = model.scaler.mean[i];
+    const scale = model.scaler.scale[i];
+    if (mean === undefined || scale === undefined) {
+      invalidModel(`escalador NFL incompleto en la columna ${i}`);
+    }
+    let value = base[i];
+    if (value === undefined || value === null) {
+      value = mean;
+    }
+    if (!Number.isFinite(value)) {
+      throw new InvalidFeaturesError(`features NFL[${i}] no es finito (${String(value)})`);
+    }
+    const denominator = scale === 0 ? 1 : scale;
+    const standardized = (value - mean) / denominator;
+    if (!Number.isFinite(standardized)) {
+      throw new InvalidFeaturesError(`la columna NFL ${i} no se puede estandarizar`);
+    }
+    design[i] = standardized;
+  }
+  return design;
+}
+
+/**
+ * Predicción NFL. `classes` se mapea 0=H (local), 1=T (empate), 2=A (visitante);
+ * se reordena si el artefacto serializó otro orden.
+ */
+export function predictNFL(row: NFLSnapshotRow, model: NFLModelArtifact): Prediction {
+  assertValidNFLModel(model);
+  const design = buildNFLStandardizedDesign(row, model);
+  const logits = new Array<number>(3);
+  for (let k = 0; k < 3; k += 1) {
+    const coef = model.coef[k];
+    const intercept = model.intercept[k];
+    if (coef === undefined || intercept === undefined) {
+      invalidModel(`coef/intercept NFL incompletos para la clase ${k}`);
+    }
+    logits[k] = dot(coef, design) + intercept;
+  }
+  const probs = softmax3(logits);
+  const iH = model.classes.indexOf(0);
+  const iT = model.classes.indexOf(1);
+  const iA = model.classes.indexOf(2);
+  if (iH < 0 || iT < 0 || iA < 0) {
+    invalidModel("classes NFL no contiene 0/1/2");
+  }
+  return {
+    pHome: probs[iH]!,
+    pDraw: probs[iT]!,
+    pAway: probs[iA]!,
+    modelId: NFL_MODEL_ID,
+    modelVersion: model.version,
+    generatedAt: model.created_at,
+    dataQualityFlag: "ok",
+    sport: "nfl",
+  };
+}
+
+/** Despacha la petición al motor del deporte correspondiente. */
+export function predictForSport(request: PredictionRequest): Prediction {
+  if (request.sport === "nfl") {
+    return predictNFL(request.row, request.model);
+  }
+  return predictWithFallback(
+    request.row,
+    request.model,
+    request.marketProbs,
+    request.baseRates ?? GLOBAL_HDA_RATES,
+  );
 }

@@ -228,3 +228,11 @@ capturar lunes/jueves/viernes antes del kickoff.
 
 **A09c:** verificación acotada del cierre (no independiente) — 5/5 comprobaciones correctas;
 veredicto "defendible" con la salvedad de exposición parcial a test ya documentada.
+
+### 9.2 Ciclo 3 — integración NFL y EPA
+
+- El contrato `Prediction` ya soporta `sport: "football" | "nfl"`; `nfl_logistic_v1` se sirve en
+  TypeScript con paridad 4,996×10⁻¹³ y 448 tests.
+- EPA no aportó de forma concluyente (Δ −0,002, IC cruza 0). El ciclo 4 debe probar DVOA,
+  lesiones/alineaciones y un feature store NFL, no acumular features sin significancia.
+- Priors v1.2 (fútbol) cerrado como resultado negativo: no mejora val.

@@ -10,15 +10,20 @@
 /** Marca de calidad de una predicción. */
 export type DataQualityFlag = "ok" | "fallback_motor_a" | "invalid_features";
 
+/** Deporte del contrato. El fútbol usa H/D/A; la NFL usa H/T/A (T = empate). */
+export type Sport = "football" | "nfl";
+
 /** Salida pública del motor. `pHome + pDraw + pAway = 1` (tolerancia 1e-9). */
 export interface Prediction {
   pHome: number;
+  /** Empate en fútbol; en NFL, empate (T). */
   pDraw: number;
   pAway: number;
   modelId: string;
   modelVersion: string;
   generatedAt: string;
   dataQualityFlag: DataQualityFlag;
+  sport: Sport;
 }
 
 /** Metadatos de entrenamiento incluidos en el artefacto. */
@@ -93,3 +98,79 @@ export interface BaseRates {
   pDraw: number;
   pAway: number;
 }
+
+
+// ---------------------------------------------------------------------------
+// NFL (ciclo 3)
+// ---------------------------------------------------------------------------
+
+/** Metadatos del artefacto NFL. */
+export interface NFLModelMetadata {
+  source: string;
+  n_matches: number;
+  seasons: readonly number[];
+  train_log_loss: number;
+  tie_rate: number;
+  notes: string;
+}
+
+/**
+ * Forma de `model_nfl.json` (A14).
+ *
+ * Invariantes: `features.length === n_features === scaler.mean.length ===
+ * scaler.scale.length === coef[k].length`; `coef.length === intercept.length === 3`;
+ * `classes` es `[0, 1, 2]` y se mapea 0=H (local), 1=T (empate), 2=A (visitante).
+ */
+export interface NFLModelArtifact {
+  sport: "nfl";
+  type: string;
+  version: string;
+  created_at: string;
+  seed: number;
+  features: readonly string[];
+  n_features: number;
+  scaler: {
+    mean: readonly number[];
+    scale: readonly number[];
+  };
+  coef: ReadonlyArray<readonly number[]>;
+  intercept: readonly number[];
+  classes: readonly number[];
+  class_map?: Record<string, string>;
+  metadata: NFLModelMetadata;
+}
+
+/** Una fila de `nfl_snapshot.json` (24 features, sin dummies de división). */
+export interface NFLSnapshotRow {
+  season?: number;
+  week?: number;
+  home_team?: string;
+  away_team?: string;
+  features: readonly (number | null)[];
+  probs_python?: readonly number[];
+}
+
+/** Forma de `nfl_snapshot.json`. */
+export interface NFLSnapshotFile {
+  generated_at: string;
+  n: number;
+  rows: Record<string, NFLSnapshotRow>;
+}
+
+/** Petición de inferencia de fútbol. */
+export interface FootballPredictionRequest {
+  sport: "football";
+  row: SnapshotRow;
+  model: ModelArtifact;
+  marketProbs?: readonly number[] | null;
+  baseRates?: BaseRates;
+}
+
+/** Petición de inferencia NFL. */
+export interface NFLPredictionRequest {
+  sport: "nfl";
+  row: NFLSnapshotRow;
+  model: NFLModelArtifact;
+}
+
+export type PredictionRequest = FootballPredictionRequest | NFLPredictionRequest;

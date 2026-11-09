@@ -1,0 +1,16 @@
+{
+  "task_id": "A15",
+  "agent": "ORCHESTRATOR (subagente A15 interrumpido; descarga y diseño parciales reutilizados)",
+  "status": "completed",
+  "started_at": "2026-11-09T04:20:00-06:00",
+  "finished_at": "2026-11-09T04:45:00-06:00",
+  "summary": "Features EPA causales desde nflverse stats_team_week (CC BY 4.0, 27 temporadas). Verificación puntual de causalidad (partido 2024_05_NO_KC usa solo semanas 1-4). Test: base 0,65917 vs +EPA 0,65717 (Δ -0,00199, IC [-0,00503,+0,00095], 91% a favor) y mercado 0,63000. EPA no es significativo y no cierra la brecha; no se adopta.",
+  "verdict": "no adopta (mejora no significativa)",
+  "files_written": [
+    "models/nfl/epa_experiment.py", "models/nfl/artifacts/epa_experiment.json",
+    "models/nfl/artifacts/pred_base.csv", "models/nfl/artifacts/pred_epa.csv",
+    "data/nfl/raw/team_week/ (27 CSV + manifest)", "reports/A15_nfl_epa.md"
+  ],
+  "blockers": [],
+  "next": "Probar DVOA/lesiones/alineaciones en ciclo 4; no añadir features sin significancia."
+}

@@ -1,0 +1,18 @@
+{
+  "task_id": "A14",
+  "agent": "ORCHESTRATOR (subagente A14 interrumpido sin entregable)",
+  "status": "completed",
+  "started_at": "2026-11-09T04:20:00-06:00",
+  "finished_at": "2026-11-09T04:40:00-06:00",
+  "summary": "Modelo NFL integrado en el contrato TypeScript: sport en Prediction, NFLModelArtifact, NFLSnapshotRow, predictNFL, assertValidNFLModel y predictForSport. Paridad 4,996e-13 en 200 partidos (600 comparaciones). 11 tests NFL nuevos; suite completa 448/448.",
+  "parity_max_abs_diff": 4.996e-13,
+  "tests_run": 11,
+  "tests_passed": 11,
+  "files_written": [
+    "src/data/prediction/model_nfl.json", "src/data/prediction/nfl_snapshot.json",
+    "src/domain/prediction/types.ts", "src/domain/prediction/engine.ts",
+    "tests/prediction/nfl.test.ts", "reports/A14_nfl_ts.md"
+  ],
+  "blockers": [],
+  "next": "Feature store NFL en TS o publicación de features por el pipeline; EPA/DVOA en ciclo 4."
+}
