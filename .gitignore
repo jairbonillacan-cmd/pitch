@@ -17,3 +17,6 @@ dist/
 # OS
 .DS_Store
 Thumbs.db
+
+# Raw >200MB REA full session bundle (summary + extracted artifacts are tracked)
+evidence/rea-evidence-bundle.json

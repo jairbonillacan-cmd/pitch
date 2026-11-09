@@ -1,0 +1,39 @@
+[
+  {
+    "data": {
+      "teamId": "eu8c408f59yx7egaqossbv25e",
+      "league": "2hsidwomhjsaaytdy9u5niyi4",
+      "season": "9zum4nxferygj8bb0ldcavxn8",
+      "tournament": null,
+      "tab": "overview",
+      "squadColumns": "",
+      "rivals": "",
+      "squadUnit": "total",
+      "squadSort": "Time Played",
+      "squadSortDir": "desc"
+    },
+    "memo": {
+      "id": "Wc5E4kbcSKwEjyLGObIr",
+      "name": "team-detail",
+      "path": "team/club-america-eu8c408f59yx7egaqossbv25e",
+      "method": "GET",
+      "release": "a-a-a",
+      "children": [],
+      "scripts": [],
+      "assets": [],
+      "errors": [],
+      "locale": "es",
+      "islands": [
+        {
+          "name": "squad",
+          "token": "25f6a6e9-1"
+        },
+        {
+          "name": "results",
+          "token": "25f6a6e9-2"
+        }
+      ]
+    },
+    "checksum": "1fc1b95cbaf136c8b0f1de83a8f24ef198ee6dc7c0d8e8684842a6024f2019d5"
+  }
+]

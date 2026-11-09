@@ -1,0 +1,2637 @@
+<!DOCTYPE html><html lang="es" data-theme="light"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Statiskicks — Scouting Software</title>
+  <link rel="icon" type="image/x-icon" href="https://www.statiskicks.com/custom_assets/logos/logo_white.png?v=1787321828">
+
+  
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+  
+  <link href="https://www.statiskicks.com/custom_assets/css/sk.css?v=1794168592" rel="stylesheet" data-navigate-track="">
+  <link href="https://www.statiskicks.com/custom_assets/css/nav-mega-menu.css?v=1791380772" rel="stylesheet" data-navigate-track="">
+  
+  <link rel="preload" as="image" href="https://www.statiskicks.com/custom_assets/logos/footer_logo.png?v=1787321828">
+  <link href="https://www.statiskicks.com/custom_assets/css/page-loader.css?v=1791380772" rel="stylesheet" data-navigate-track="">
+
+  <link href="https://www.statiskicks.com/custom_assets/css/leagues-page.css?v=1793608366" rel="stylesheet">
+  <!-- Livewire Styles --><style>[wire\:loading][wire\:loading], [wire\:loading\.delay][wire\:loading\.delay], [wire\:loading\.list-item][wire\:loading\.list-item], [wire\:loading\.inline-block][wire\:loading\.inline-block], [wire\:loading\.inline][wire\:loading\.inline], [wire\:loading\.block][wire\:loading\.block], [wire\:loading\.flex][wire\:loading\.flex], [wire\:loading\.table][wire\:loading\.table], [wire\:loading\.grid][wire\:loading\.grid], [wire\:loading\.inline-flex][wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.none][wire\:loading\.delay\.none], [wire\:loading\.delay\.shortest][wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter][wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short][wire\:loading\.delay\.short], [wire\:loading\.delay\.default][wire\:loading\.delay\.default], [wire\:loading\.delay\.long][wire\:loading\.delay\.long], [wire\:loading\.delay\.longer][wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest][wire\:loading\.delay\.longest] {display: none;}[wire\:offline][wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}:root {--livewire-progress-bar-color: #2299dd;}[x-cloak] {display: none !important;}[wire\:cloak] {display: none !important;}dialog#livewire-error::backdrop {background-color: rgba(0, 0, 0, .6);}</style>
+
+<style>/* Make clicks pass-through */
+
+    #nprogress {
+      pointer-events: none;
+    }
+
+    #nprogress .bar {
+      background: var(--livewire-progress-bar-color, #29d);
+
+      position: fixed;
+      z-index: 1031;
+      top: 0;
+      left: 0;
+
+      width: 100%;
+      height: 2px;
+    }
+
+    /* Fancy blur effect */
+    #nprogress .peg {
+      display: block;
+      position: absolute;
+      right: 0px;
+      width: 100px;
+      height: 100%;
+      box-shadow: 0 0 10px var(--livewire-progress-bar-color, #29d), 0 0 5px var(--livewire-progress-bar-color, #29d);
+      opacity: 1.0;
+
+      -webkit-transform: rotate(3deg) translate(0px, -4px);
+          -ms-transform: rotate(3deg) translate(0px, -4px);
+              transform: rotate(3deg) translate(0px, -4px);
+    }
+
+    /* Remove these to get rid of the spinner */
+    #nprogress .spinner {
+      display: block;
+      position: fixed;
+      z-index: 1031;
+      top: 15px;
+      right: 15px;
+    }
+
+    #nprogress .spinner-icon {
+      width: 18px;
+      height: 18px;
+      box-sizing: border-box;
+
+      border: solid 2px transparent;
+      border-top-color: var(--livewire-progress-bar-color, #29d);
+      border-left-color: var(--livewire-progress-bar-color, #29d);
+      border-radius: 50%;
+
+      -webkit-animation: nprogress-spinner 400ms linear infinite;
+              animation: nprogress-spinner 400ms linear infinite;
+    }
+
+    .nprogress-custom-parent {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .nprogress-custom-parent #nprogress .spinner,
+    .nprogress-custom-parent #nprogress .bar {
+      position: absolute;
+    }
+
+    @-webkit-keyframes nprogress-spinner {
+      0%   { -webkit-transform: rotate(0deg); }
+      100% { -webkit-transform: rotate(360deg); }
+    }
+    @keyframes nprogress-spinner {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    </style></head>
+<body>
+
+  <div x-persist="sk-page-loader">
+  <div class="sk-loader" data-page-loader="" hidden="" aria-hidden="true">
+    <div class="sk-loader__stage">
+      <div class="sk-loader__mark">
+        <span class="sk-loader__empty"></span>
+
+        <span class="sk-loader__water">
+          <span class="sk-loader__wave--back"></span>
+          <span class="sk-loader__wave"></span>
+          <span class="sk-loader__bubble"></span>
+          <span class="sk-loader__bubble"></span>
+          <span class="sk-loader__bubble"></span>
+          <span class="sk-loader__bubble"></span>
+        </span>
+
+        <span class="sk-loader__shine"></span>
+      </div>
+
+      <p class="sk-loader__label">Cargando</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  /*
+    Shown on wire:navigate, hidden on livewire:navigated.
+
+    Two timings matter more than the animation does:
+
+      DELAY        Most pages here render in well under 200ms. Flashing an
+                   overlay on every click makes a fast app feel busy, so nothing
+                   appears unless the navigation is actually slow enough to
+                   notice.
+
+      MIN_VISIBLE  Once it has appeared, it stays long enough to read as a
+                   deliberate transition. Without this, a navigation finishing
+                   at 210ms produces a 30ms flicker, which looks like a glitch
+                   rather than a loader.
+
+    Bound once per document: this file is inside the persisted region, and
+    wire:navigate re-executes cloned <script> tags, so without the guard every
+    navigation would add another pair of listeners.
+  */
+  (function () {
+    if (window.skPageLoaderBound) return;
+    window.skPageLoaderBound = true;
+
+    const DELAY = 190;
+    const MIN_VISIBLE = 620;
+    const UNLOAD_FAILSAFE = 10000;
+
+    let showTimer = null;
+    let hideTimer = null;
+    let failsafeTimer = null;
+    let shownAt = 0;
+
+    const el = () => document.querySelector('[data-page-loader]');
+
+    function reveal() {
+      const node = el();
+      if (!node) return;
+
+      node.hidden = false;
+      node.setAttribute('aria-hidden', 'false');
+      node.setAttribute('aria-busy', 'true');
+      // Read back before adding the class so the opacity transition runs
+      // instead of being collapsed with the display change.
+      void node.offsetWidth;
+      node.classList.add('is-visible');
+      shownAt = Date.now();
+    }
+
+    function conceal() {
+      const node = el();
+      if (!node) return;
+
+      node.classList.remove('is-visible');
+      node.setAttribute('aria-hidden', 'true');
+      node.removeAttribute('aria-busy');
+
+      // Kept in the layout until the fade finishes, then taken out of the
+      // accessibility tree entirely.
+      hideTimer = window.setTimeout(() => { node.hidden = true; }, 260);
+    }
+
+    // `armFailsafe` is only ever true for beforeunload; see the listeners below.
+    function start(armFailsafe) {
+      window.clearTimeout(showTimer);
+      window.clearTimeout(hideTimer);
+      window.clearTimeout(failsafeTimer);
+
+      showTimer = window.setTimeout(reveal, DELAY);
+
+      if (armFailsafe) {
+        failsafeTimer = window.setTimeout(finish, UNLOAD_FAILSAFE);
+      }
+    }
+
+    function finish() {
+      window.clearTimeout(showTimer);
+      window.clearTimeout(failsafeTimer);
+
+      const node = el();
+
+      if (!node || node.hidden) {
+        shownAt = 0;
+
+        return;
+      }
+
+      const elapsed = Date.now() - shownAt;
+
+      if (elapsed >= MIN_VISIBLE) {
+        conceal();
+      } else {
+        window.setTimeout(conceal, MIN_VISIBLE - elapsed);
+      }
+    }
+
+    /*
+      No failsafe on wire:navigate, deliberately.
+
+      There was a blanket 10s timeout here, and it could not tell a navigation
+      that had died from one that was merely slow. Any page slower than that had
+      its overlay concealed mid-flight, dropping the user back on the page they
+      had just left with no feedback until the response finally arrived — and a
+      league page currently renders in 10–27s, so this was the ordinary case
+      rather than the edge case. Raising the number only moves the cliff.
+
+      Nothing here needs rescuing: a wire:navigate always resolves. Livewire
+      either swaps the page in and fires livewire:navigated, or gives up and
+      falls back to a full page load, which replaces this overlay along with the
+      rest of the document.
+    */
+    document.addEventListener('livewire:navigate', () => start(false));
+    document.addEventListener('livewire:navigated', finish);
+
+    // Leaving for a full page load (a form post, a plain link) deserves the same
+    // feedback, and this is the case that genuinely needs the timeout:
+    // beforeunload also fires for things that do not actually unload the page —
+    // a mailto:, a download, a cancelled navigation — and revealing without one
+    // would strand the overlay on a page that never goes anywhere. The plans
+    // page is full of mailto: links.
+    window.addEventListener('beforeunload', () => start(true));
+
+    // Coming back through the cache should never show a stale overlay.
+    window.addEventListener('pageshow', (event) => { if (event.persisted) finish(); });
+  })();
+</script>
+
+    <div x-persist="navbar">
+      <nav class="sk-navbar">
+    <a href="https://www.statiskicks.com " wire:navigate="" class="brand">
+        <img src="https://www.statiskicks.com/custom_assets/logos/logo_white.png?v=1787321828" alt="Logo">
+    </a>
+
+    
+    <ul class="nav-links">
+            <li class="nav-item nav-item--dropdown">
+        <a href="https://www.statiskicks.com/leagues" wire:navigate="" data-nav-match="https://www.statiskicks.com/leagues|https://www.statiskicks.com/league" class="is-active" aria-current="page" data-current="">Ligas</a>
+        <div class="nav-mega-menu nav-mega-menu--leagues" role="region" aria-label="Menú de ligas">
+    <div class="nav-mega-menu__inner">
+        <div class="nav-mega-menu__body">
+            <aside class="nav-mega-menu__aside" aria-label="Accesos rápidos">
+                <div class="nav-mega-menu__col">
+                    <p class="nav-mega-menu__heading">Explorar</p>
+                    <ul class="nav-mega-menu__list">
+                                                    <li class="nav-mega-menu__item">
+                                <a href="https://www.statiskicks.com/leagues" wire:navigate="" class="nav-mega-menu__link nav-mega-menu__link--primary" data-current="">
+                                    Todas las ligas
+                                </a>
+                            </li>
+                                                    <li class="nav-mega-menu__item">
+                                <a href="https://www.statiskicks.com/players" wire:navigate="" class="nav-mega-menu__link nav-mega-menu__link--primary">
+                                    Búsqueda de jugadores
+                                </a>
+                            </li>
+                                            </ul>
+                </div>
+
+                <div class="nav-mega-menu__col">
+                    <p class="nav-mega-menu__heading">Top ligas</p>
+                    <ul class="nav-mega-menu__list">
+                                                    <li class="nav-mega-menu__item">
+                                <a href="https://www.statiskicks.com/league/2kwbbcootiqqgmrzs6o5inle5" wire:navigate="" class="nav-mega-menu__link">
+                                    <span class="nav-mega-menu__link-name">Premier League</span>
+                                    <span class="nav-mega-menu__link-meta">ENGLAND</span>
+                                </a>
+                            </li>
+                                                    <li class="nav-mega-menu__item">
+                                <a href="https://www.statiskicks.com/league/34pl8szyvrbwcmfkuocjm3r6t" wire:navigate="" class="nav-mega-menu__link">
+                                    <span class="nav-mega-menu__link-name">Primera División</span>
+                                    <span class="nav-mega-menu__link-meta">SPAIN</span>
+                                </a>
+                            </li>
+                                                    <li class="nav-mega-menu__item">
+                                <a href="https://www.statiskicks.com/league/6by3h89i2eykc341oz7lv1ddd" wire:navigate="" class="nav-mega-menu__link">
+                                    <span class="nav-mega-menu__link-name">Bundesliga</span>
+                                    <span class="nav-mega-menu__link-meta">GERMANY</span>
+                                </a>
+                            </li>
+                                                    <li class="nav-mega-menu__item">
+                                <a href="https://www.statiskicks.com/league/1r097lpxe0xn03ihb7wi98kao" wire:navigate="" class="nav-mega-menu__link">
+                                    <span class="nav-mega-menu__link-name">Serie A</span>
+                                    <span class="nav-mega-menu__link-meta">ITALY</span>
+                                </a>
+                            </li>
+                                                    <li class="nav-mega-menu__item">
+                                <a href="https://www.statiskicks.com/league/dm5ka0os1e3dxcp3vh05kmp33" wire:navigate="" class="nav-mega-menu__link">
+                                    <span class="nav-mega-menu__link-name">Ligue 1</span>
+                                    <span class="nav-mega-menu__link-meta">FRANCE</span>
+                                </a>
+                            </li>
+                                            </ul>
+                </div>
+            </aside>
+
+            <div class="nav-mega-menu__regions-wrap">
+                                    <div class="nav-mega-menu__regions nav-mega-menu__regions--primary">
+                                                    <div class="nav-mega-menu__col">
+    <p class="nav-mega-menu__heading">EUROPA</p>
+    <ul class="nav-mega-menu__list">
+                    <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/league/722fdbecxzcq9788l6jqclzlw" wire:navigate="" class="nav-mega-menu__link">
+                    <span class="nav-mega-menu__link-name">2. Bundesliga</span>
+                    <span class="nav-mega-menu__link-meta">GERMANY</span>
+                </a>
+            </li>
+                    <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/league/6by3h89i2eykc341oz7lv1ddd" wire:navigate="" class="nav-mega-menu__link">
+                    <span class="nav-mega-menu__link-name">Bundesliga</span>
+                    <span class="nav-mega-menu__link-meta">GERMANY</span>
+                </a>
+            </li>
+                    <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/league/7ntvbsyq31jnzoqoa8850b9b8" wire:navigate="" class="nav-mega-menu__link">
+                    <span class="nav-mega-menu__link-name">Championship</span>
+                    <span class="nav-mega-menu__link-meta">ENGLAND</span>
+                </a>
+            </li>
+                    <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/league/akmkihra9ruad09ljapsm84b3" wire:navigate="" class="nav-mega-menu__link">
+                    <span class="nav-mega-menu__link-name">Eredivisie</span>
+                    <span class="nav-mega-menu__link-meta">NETHERLANDS</span>
+                </a>
+            </li>
+                    <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/league/4zwgbb66rif2spcoeeol2motx" wire:navigate="" class="nav-mega-menu__link">
+                    <span class="nav-mega-menu__link-name">First Division A</span>
+                    <span class="nav-mega-menu__link-meta">BELGIUM</span>
+                </a>
+            </li>
+                    <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/league/1b70m6qtxrp75b4vtk8hxh8c3" wire:navigate="" class="nav-mega-menu__link">
+                    <span class="nav-mega-menu__link-name">HNL</span>
+                    <span class="nav-mega-menu__link-meta">CROATIA</span>
+                </a>
+            </li>
+                                        <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/leagues?f=europe" wire:navigate="" class="nav-mega-menu__link nav-mega-menu__link--more" data-current="">
+                    Ver todas en EUROPA
+                </a>
+            </li>
+            </ul>
+</div>
+                                                    <div class="nav-mega-menu__col">
+    <p class="nav-mega-menu__heading">AMÉRICA</p>
+    <ul class="nav-mega-menu__list">
+                    <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/league/5y0z0l2epprzbscvzsgldw8vu" wire:navigate="" class="nav-mega-menu__link">
+                    <span class="nav-mega-menu__link-name">Division Profesional</span>
+                    <span class="nav-mega-menu__link-meta">PARAGUAY</span>
+                </a>
+            </li>
+                    <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/league/a9vrdkelbgif0gtu3wxsr75xo" wire:navigate="" class="nav-mega-menu__link">
+                    <span class="nav-mega-menu__link-name">Liga 1</span>
+                    <span class="nav-mega-menu__link-meta">PERU</span>
+                </a>
+            </li>
+                    <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/league/2hsidwomhjsaaytdy9u5niyi4" wire:navigate="" class="nav-mega-menu__link">
+                    <span class="nav-mega-menu__link-name">Liga MX</span>
+                    <span class="nav-mega-menu__link-meta">MEXICO</span>
+                </a>
+            </li>
+                    <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/league/7ut48s80k421xixh6ev5i6h62" wire:navigate="" class="nav-mega-menu__link">
+                    <span class="nav-mega-menu__link-name">Liga MX Femenil</span>
+                    <span class="nav-mega-menu__link-meta">MEXICO</span>
+                </a>
+            </li>
+                    <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/league/6lwpjhktjhl9g7x2w7njmzva6" wire:navigate="" class="nav-mega-menu__link">
+                    <span class="nav-mega-menu__link-name">Liga Pro</span>
+                    <span class="nav-mega-menu__link-meta">ECUADOR</span>
+                </a>
+            </li>
+                    <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/league/581t4mywybx21wcpmpykhyzr3" wire:navigate="" class="nav-mega-menu__link">
+                    <span class="nav-mega-menu__link-name">Liga Profesional Argentina</span>
+                    <span class="nav-mega-menu__link-meta">ARGENTINA</span>
+                </a>
+            </li>
+                                        <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/leagues?f=americas" wire:navigate="" class="nav-mega-menu__link nav-mega-menu__link--more" data-current="">
+                    Ver todas en AMÉRICA
+                </a>
+            </li>
+            </ul>
+</div>
+                                                    <div class="nav-mega-menu__col">
+    <p class="nav-mega-menu__heading">ASIA</p>
+    <ul class="nav-mega-menu__list">
+                    <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/league/ea0h6cf3bhl698hkxhpulh2zz" wire:navigate="" class="nav-mega-menu__link">
+                    <span class="nav-mega-menu__link-name">Saudi League</span>
+                    <span class="nav-mega-menu__link-meta">SAUDI ARABIA</span>
+                </a>
+            </li>
+                    <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/league/xaouuwuk8qyhv1libkeexwjh" wire:navigate="" class="nav-mega-menu__link">
+                    <span class="nav-mega-menu__link-name">Stars League</span>
+                    <span class="nav-mega-menu__link-meta">QATAR</span>
+                </a>
+            </li>
+                    </ul>
+</div>
+                                            </div>
+                
+                            </div>
+        </div>
+
+        <footer class="nav-mega-menu__footer">
+            <a href="https://www.statiskicks.com/leagues" wire:navigate="" class="nav-mega-menu__view-all" data-current="">
+                Ver las 40+ ligas
+            </a>
+        </footer>
+    </div>
+</div>
+      </li>
+      <li class="nav-item nav-item--dropdown">
+        <a href="https://www.statiskicks.com/players" wire:navigate="" data-nav-match="https://www.statiskicks.com/players|https://www.statiskicks.com/player" class="">Scouting</a>
+        <div class="nav-mega-menu nav-mega-menu--compact" role="region" aria-label="Menú de scouting">
+    <div class="nav-mega-menu__inner">
+        <div class="nav-mega-menu__grid nav-mega-menu__grid--compact">
+            <div class="nav-mega-menu__col">
+                <p class="nav-mega-menu__heading">Scouting</p>
+                <ul class="nav-mega-menu__list">
+                    <li class="nav-mega-menu__item">
+                        <a href="https://www.statiskicks.com/players" wire:navigate="" class="nav-mega-menu__link nav-mega-menu__link--primary">
+                            Búsqueda avanzada
+                        </a>
+                    </li>
+                    <li class="nav-mega-menu__item">
+                        <a href="https://www.statiskicks.com" wire:navigate="" class="nav-mega-menu__link">
+                            <span class="nav-mega-menu__link-name">Inicio</span>
+                            <span class="nav-mega-menu__link-meta">Resumen</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="nav-mega-menu__col">
+                <p class="nav-mega-menu__heading">Herramientas</p>
+                <ul class="nav-mega-menu__list">
+                    <li class="nav-mega-menu__item">
+                        <span class="nav-mega-menu__link nav-mega-menu__link--disabled">
+                            <span class="nav-mega-menu__link-name">Comparar jugadores</span>
+                            <span class="nav-mega-menu__link-meta">Próximamente</span>
+                        </span>
+                    </li>
+                    <li class="nav-mega-menu__item">
+                        <span class="nav-mega-menu__link nav-mega-menu__link--disabled">
+                            <span class="nav-mega-menu__link-name">Listas de seguimiento</span>
+                            <span class="nav-mega-menu__link-meta">Próximamente</span>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+      </li>
+      <li class="nav-item nav-item--dropdown">
+        <a href="https://www.statiskicks.com/partidos" wire:navigate="" data-nav-match="https://www.statiskicks.com/partidos" class="">Partidos</a>
+        <div class="nav-mega-menu nav-mega-menu--compact" role="region" aria-label="Menú de partidos">
+    <div class="nav-mega-menu__inner">
+        <div class="nav-mega-menu__grid nav-mega-menu__grid--compact">
+            <div class="nav-mega-menu__col">
+                <p class="nav-mega-menu__heading">Partidos</p>
+                <ul class="nav-mega-menu__list">
+                                            <li class="nav-mega-menu__item">
+                            <a href="https://www.statiskicks.com/partidos" wire:navigate="" class="nav-mega-menu__link">
+                                <span class="nav-mega-menu__link-name">Partidos de hoy</span>
+                                <span class="nav-mega-menu__link-meta">Todas las ligas</span>
+                            </a>
+                        </li>
+                                            <li class="nav-mega-menu__item">
+                            <a href="https://www.statiskicks.com/partidos?estado=en-vivo" wire:navigate="" class="nav-mega-menu__link">
+                                <span class="nav-mega-menu__link-name">En vivo</span>
+                                <span class="nav-mega-menu__link-meta">Marcadores al minuto</span>
+                            </a>
+                        </li>
+                                            <li class="nav-mega-menu__item">
+                            <a href="https://www.statiskicks.com/partidos?estado=finalizados" wire:navigate="" class="nav-mega-menu__link">
+                                <span class="nav-mega-menu__link-name">Resultados</span>
+                                <span class="nav-mega-menu__link-meta">Los ya terminados</span>
+                            </a>
+                        </li>
+                                            <li class="nav-mega-menu__item">
+                            <a href="https://www.statiskicks.com/partidos?estado=por-jugar" wire:navigate="" class="nav-mega-menu__link">
+                                <span class="nav-mega-menu__link-name">Próximos</span>
+                                <span class="nav-mega-menu__link-meta">Lo que falta por jugar</span>
+                            </a>
+                        </li>
+                                    </ul>
+            </div>
+        </div>
+    </div>
+</div>
+      </li>
+      
+      <li class="nav-item">
+        <a href="https://www.statiskicks.com/contacto" wire:navigate="" data-nav-match="https://www.statiskicks.com/contacto" class="">Contacto</a>
+      </li>
+    </ul>
+
+    <div class="right-group">
+      <button type="button" class="sk-search sk-search-trigger" data-open-navbar-search="" aria-label="Buscar jugadores">
+        <i class="bi bi-search"></i>
+        <span class="sk-search-placeholder">Buscar</span>
+      </button>
+      <button class="btn-theme-toggle" id="themeToggle" aria-label="Cambiar tema" data-sk-bound="1">
+        <i class="bi bi-moon-fill" id="themeIcon"></i>
+      </button>      
+      <a href="https://www.statiskicks.com/login" style="text-decoration: none;">
+    <button class="btn-iniciar">Iniciar Sesión</button>
+  </a>
+    </div>
+
+    <!-- Hamburger toggle (mobile only) -->
+    <button class="btn-nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false" data-sk-bound="1">
+      <i class="bi bi-list" id="navToggleIcon"></i>
+    </button>
+  </nav>
+
+  <!-- Mobile nav drawer -->
+  <div class="sk-nav-drawer" id="navDrawer" role="dialog" aria-label="Menú de navegación">
+    <ul class="drawer-links">
+            <li><a href="https://www.statiskicks.com/leagues" wire:navigate="" data-current="">Ligas</a></li>
+      <li><a href="https://www.statiskicks.com/players" wire:navigate="">Scouting</a></li>
+      <li><a href="https://www.statiskicks.com/partidos" wire:navigate="">Partidos</a></li>
+      <li><a href="https://www.statiskicks.com/contacto" wire:navigate="">Contacto</a></li>
+    </ul>
+    <div class="drawer-actions">
+      <button type="button" class="sk-search sk-search-trigger" style="flex:1" data-open-navbar-search="" aria-label="Buscar jugadores">
+        <i class="bi bi-search"></i>
+        <span class="sk-search-placeholder">Buscar</span>
+      </button>
+      <button class="btn-theme-toggle" id="themeToggleMobile" aria-label="Cambiar tema" data-sk-bound="1">
+        <i class="bi bi-moon-fill" id="themeIconMobile"></i>
+      </button>
+      <a href="https://www.statiskicks.com/login" style="text-decoration: none;">
+    <button class="btn-iniciar">Iniciar Sesión</button>
+  </a>
+    </div>
+  </div>
+
+  <script>
+    // Navbar behaviour: the account dropdown and the search trigger.
+    //
+    // Bound once per document. wire:navigate rebuilds the body and clones its
+    // <script> tags, which re-executes this file on every navigation, so
+    // without the guard a second identical listener is added each time. Two
+    // listeners defeat a toggle: the first opens the panel, the second reads it
+    // as already open and closes it again, so the menu worked only on the page
+    // that was loaded first. The listeners are delegated from `document`, which
+    // is never replaced, so binding once is both necessary and sufficient.
+    (function () {
+      if (window.skNavbarBound) return;
+      window.skNavbarBound = true;
+
+      function closeAccountPanels(except) {
+        document.querySelectorAll('[data-account-panel]').forEach((panel) => {
+          if (panel === except) return;
+
+          panel.hidden = true;
+          panel.closest('[data-account-menu]')
+            ?.querySelector('[data-account-trigger]')
+            ?.setAttribute('aria-expanded', 'false');
+        });
+      }
+
+      document.addEventListener('click', (event) => {
+        const trigger = event.target.closest('[data-account-trigger]');
+
+        if (trigger) {
+          const panel = trigger.closest('[data-account-menu]')?.querySelector('[data-account-panel]');
+          const opening = panel?.hidden === true;
+
+          closeAccountPanels(panel);
+
+          if (panel) {
+            panel.hidden = ! opening;
+            trigger.setAttribute('aria-expanded', opening ? 'true' : 'false');
+          }
+
+          return;
+        }
+
+        // A click inside the panel (the logout form) must not close it first.
+        if (event.target.closest('[data-account-panel]')) return;
+
+        closeAccountPanels();
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') closeAccountPanels();
+      });
+
+      /*
+        Which item is lit.
+
+        The bar sits in a persisted region, so wire:navigate keeps this DOM
+        rather than re-rendering it - which means the is-active class Blade wrote
+        on the first load would still be describing that first page several
+        navigations later.
+
+        (Naming the directive here would be a mistake: Blade reads its own
+        directives inside JavaScript comments too, and an unclosed one takes the
+        whole template down with a 500.) Server-rendered markup cannot answer this on its own; it has to be
+        recomputed on arrival.
+
+        Ownership is by path prefix, because a section is more than one route:
+        /league/{id} belongs to Ligas and /player/{id} to Scouting, and neither
+        matches its own index URL.
+      */
+      function syncActiveNav() {
+        const here = window.location.pathname.replace(/\/+$/, '') || '/';
+
+        document.querySelectorAll('.sk-navbar .nav-links [data-nav-match]').forEach((link) => {
+          const owns = link.dataset.navMatch.split('|').some((candidate) => {
+            let path;
+
+            try {
+              path = new URL(candidate, window.location.origin).pathname;
+            } catch (error) {
+              return false;
+            }
+
+            path = path.replace(/\/+$/, '') || '/';
+
+            // Prefix, but only on a segment boundary: /player must not claim
+            // /players.
+            return here === path || here.startsWith(path + '/');
+          });
+
+          link.classList.toggle('is-active', owns);
+
+          if (owns) {
+            link.setAttribute('aria-current', 'page');
+          } else {
+            link.removeAttribute('aria-current');
+          }
+        });
+      }
+
+      // Close on navigation: the navbar is persisted, so an open panel would
+      // otherwise still be hanging open on the page just navigated to.
+      document.addEventListener('livewire:navigated', () => {
+        closeAccountPanels();
+        syncActiveNav();
+      });
+
+      syncActiveNav();
+
+      document.addEventListener('click', (event) => {
+        const trigger = event.target.closest('[data-open-navbar-search]');
+        if (!trigger) return;
+
+        event.preventDefault();
+        window.dispatchEvent(new CustomEvent('navbar-search-open'));
+
+        const drawer = document.getElementById('navDrawer');
+        const navToggle = document.getElementById('navToggle');
+        const navToggleIcon = document.getElementById('navToggleIcon');
+
+        if (drawer?.classList.contains('open')) {
+          drawer.classList.remove('open');
+          navToggle?.setAttribute('aria-expanded', 'false');
+          if (navToggleIcon) navToggleIcon.className = 'bi bi-list';
+        }
+      });
+    })();
+  </script>
+    </div>
+
+    <div id="navbarSearchRoot" x-data="navbarSearchPanel()" x-on:navbar-search-open.window="openPanel()" x-on:keydown.escape.window="open &amp;&amp; closePanel()">
+    <div class="sk-search-backdrop" :class="{ 'is-open': open }" x-on:click="closePanel()" aria-hidden="true"></div>
+
+    <aside class="sk-search-panel" :class="{ 'is-open': open }" role="dialog" aria-modal="true" aria-label="Buscar">
+        <div class="sk-search-panel-header">
+            <h2 class="sk-search-panel-title">Buscar</h2>
+            <button type="button" class="sk-search-panel-close" x-on:click="closePanel()" aria-label="Cerrar búsqueda">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+
+        <div class="sk-search-panel-tabs">
+            <button type="button" class="sk-search-panel-tab active" :class="{ active: activeTab === 'search' }" x-on:click="activeTab = 'search'">
+                Buscar
+            </button>
+            <button type="button" class="sk-search-panel-tab" :class="{ active: activeTab === 'browse' }" x-on:click="activeTab = 'browse'">
+                Explorar
+            </button>
+            <button type="button" class="sk-search-panel-tab" :class="{ active: activeTab === 'recent' }" x-on:click="activeTab = 'recent'">
+                Recientes
+            </button>
+            <button type="button" class="sk-search-panel-tab is-disabled" disabled="" title="Próximamente">
+                Listas <i class="bi bi-lock-fill" style="font-size:0.65rem;margin-left:0.2rem"></i>
+            </button>
+        </div>
+
+        <div class="sk-search-panel-content" x-show="activeTab === 'search'">
+            <div class="sk-search-panel-input-wrap">
+                <i class="bi bi-search"></i>
+                <input type="search" x-ref="searchInput" x-model="query" placeholder="Jugador, equipo o liga..." autocomplete="off" style="">
+                <span class="sk-search-spinner" x-show="loading" aria-hidden="true" style="display: none;"></span>
+            </div>
+
+            <p class="sk-search-panel-hint" x-show="query.trim().length &lt; 2 &amp;&amp; !loading">
+                Escribe al menos 2 caracteres para buscar.
+            </p>
+            <p class="sk-search-panel-hint" x-show="query.trim().length &gt;= 2 &amp;&amp; !loading &amp;&amp; !hasResults &amp;&amp; !limited" style="display: none;">
+                No se encontraron resultados para «<span x-text="query.trim()"></span>».
+            </p>
+            
+            <p class="sk-search-panel-hint" role="status" x-show="limited &amp;&amp; !loading" x-text="limited" style="display: none;"></p>
+
+            <div class="sk-search-panel-results" x-show="hasResults" style="display: none;">
+                <template x-for="section in sections" :key="section.kind">
+                    <section class="sk-search-section">
+                        <h3 class="sk-search-section-title" x-text="section.title"></h3>
+                        <ul class="sk-search-results">
+                            <template x-for="item in section.items" :key="`${section.kind}-${item.id}`">
+                                <li>
+                                    <a :href="item.url" wire:navigate="" class="sk-search-result" x-on:click="selectResult(item, section.kind)">
+                                        <img :src="resultImage(item, section.kind)" :alt="item.name" class="sk-search-result-photo" :class="{ 'sk-search-result-photo--crest': section.kind !== 'player' &amp;&amp; item.image }" loading="lazy">
+                                        <span class="sk-search-result-main">
+                                            <span class="sk-search-result-name" x-text="item.name"></span>
+                                            <span class="sk-search-result-meta" x-text="resultMeta(item, section.kind)"></span>
+                                        </span>
+                                        <img x-show="resultFlag(item, section.kind)" :src="`https://flagcdn.com/20x15/${resultFlag(item, section.kind)}.png`" alt="" class="sk-search-result-flag" loading="lazy">
+                                    </a>
+                                </li>
+                            </template>
+                        </ul>
+                    </section>
+                </template>
+            </div>
+        </div>
+
+        <div class="sk-search-panel-content" x-show="activeTab === 'browse'" style="display: none;">
+            <div class="sk-search-browse-card">
+                    <p class="sk-search-browse-title">Búsqueda avanzada</p>
+                    <p class="sk-search-panel-hint" style="margin:0 0 1rem">
+                        Filtra por liga, posición, edad y estadísticas de la temporada en la página de scouting.
+                    </p>
+                    <a href="https://www.statiskicks.com/players" wire:navigate="" class="btn btn-iniciar" x-on:click="closePanel()">
+                    Ir a Búsqueda Avanzada
+                </a>
+            </div>
+        </div>
+
+        <div class="sk-search-panel-content" x-show="activeTab === 'recent'" style="display: none;">
+            <p class="sk-search-panel-hint" x-show="recentItems.length === 0">
+                Aún no has visitado jugadores, equipos ni ligas recientemente.
+            </p>
+            <div class="sk-search-panel-results" x-show="recentItems.length &gt; 0" style="display: none;">
+                <ul class="sk-search-results">
+                <template x-for="item in recentItems" :key="`${itemKind(item)}-${item.id}`">
+                    <li>
+                        <a :href="item.url || `/player/${item.id}`" wire:navigate="" class="sk-search-result" x-on:click="closePanel()">
+                            <img :src="resultImage(item, itemKind(item))" :alt="item.name" class="sk-search-result-photo" :class="{ 'sk-search-result-photo--crest': itemKind(item) !== 'player' &amp;&amp; item.image }" loading="lazy">
+                            <span class="sk-search-result-main">
+                                <span class="sk-search-result-name" x-text="item.name"></span>
+                                <span class="sk-search-result-meta" x-text="resultMeta(item, itemKind(item))"></span>
+                            </span>
+                        </a>
+                    </li>
+                </template>
+                </ul>
+            </div>
+        </div>
+    </aside>
+</div>
+
+    <div wire:snapshot="{&quot;data&quot;:{&quot;search&quot;:&quot;&quot;,&quot;filter&quot;:&quot;all&quot;},&quot;memo&quot;:{&quot;id&quot;:&quot;IGhh6nCPekUirKBS9NQK&quot;,&quot;name&quot;:&quot;leagues&quot;,&quot;path&quot;:&quot;leagues&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;release&quot;:&quot;a-a-a&quot;,&quot;children&quot;:[],&quot;scripts&quot;:[],&quot;assets&quot;:[],&quot;errors&quot;:[],&quot;locale&quot;:&quot;es&quot;,&quot;islands&quot;:[]},&quot;checksum&quot;:&quot;ed524a41044927d6270bf487533355fab8e73c9362fd1aa30646303faeb022ea&quot;}" wire:effects="{&quot;url&quot;:{&quot;search&quot;:{&quot;as&quot;:&quot;q&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null},&quot;filter&quot;:{&quot;as&quot;:&quot;f&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null}}}" wire:id="IGhh6nCPekUirKBS9NQK" wire:name="leagues" class="leagues-page sk-page-shell container py-5">
+    <div class="sk-page-hero leagues-hero">
+        <span class="leagues-hero__globe" aria-hidden="true"></span>
+        <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-4">
+            <div>
+                <p class="sk-page-hero-eyebrow">Directorio de competiciones</p>
+                <h1 class="sk-page-hero-title">Catálogo de <span>Ligas</span></h1>
+                <p class="sk-page-hero-sub">
+                    Explora competiciones por región, filtra por nivel o datos de scouting y accede
+                    directamente a la búsqueda de jugadores de cada liga.
+                </p>
+            </div>
+            <div class="leagues-hero-stats-wrap d-flex gap-3 flex-wrap">
+                <div class="sk-stat-box players-hero-stat">
+                    <span class="players-hero-stat-val">40</span>
+                    <span class="players-hero-stat-label">Competiciones</span>
+                </div>
+                <div class="sk-stat-box players-hero-stat">
+                    <span class="players-hero-stat-val">3</span>
+                    <span class="players-hero-stat-label">Regiones</span>
+                </div>
+                <div class="sk-stat-box players-hero-stat">
+                    <span class="players-hero-stat-val">40</span>
+                    <span class="players-hero-stat-label">Con scouting</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="leagues-toolbar">
+        <label class="leagues-search">
+            <i class="bi bi-search" aria-hidden="true"></i>
+            <input type="search" wire:model.live.debounce.300ms="search" placeholder="Buscar liga o país…" autocomplete="off" spellcheck="false" style="">
+            <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->        </label>
+
+        <div class="leagues-filters" role="tablist" aria-label="Filtrar ligas">
+            <!--[if BLOCK]><![endif]-->                <button type="button" role="tab" wire:click="setFilter('all')" class="leagues-filter leagues-filter--active" aria-selected="true">
+                    Todas
+                </button>
+                            <button type="button" role="tab" wire:click="setFilter('elite')" class="leagues-filter" aria-selected="false">
+                    Elite
+                </button>
+                            <button type="button" role="tab" wire:click="setFilter('scout')" class="leagues-filter" aria-selected="false">
+                    Scouting
+                </button>
+                            <button type="button" role="tab" wire:click="setFilter('europe')" class="leagues-filter" aria-selected="false">
+                    Europa
+                </button>
+                            <button type="button" role="tab" wire:click="setFilter('americas')" class="leagues-filter" aria-selected="false">
+                    América
+                </button>
+                            <button type="button" role="tab" wire:click="setFilter('asia')" class="leagues-filter" aria-selected="false">
+                    Asia
+                </button>
+                            <button type="button" role="tab" wire:click="setFilter('africa')" class="leagues-filter" aria-selected="false">
+                    África
+                </button>
+                            <button type="button" role="tab" wire:click="setFilter('oceania')" class="leagues-filter" aria-selected="false">
+                    Oceanía
+                </button>
+                            <button type="button" role="tab" wire:click="setFilter('women')" class="leagues-filter" aria-selected="false">
+                    Femenino
+                </button>
+            <!--[if ENDBLOCK]><![endif]-->        </div>
+    </div>
+
+    <!--[if BLOCK]><![endif]-->        <p class="leagues-plan-note">
+            <span><i class="bi bi-lock" aria-hidden="true"></i> Tu plan incluye 9 ligas. El resto se desbloquea con un plan de pago.</span>
+            <a href="https://www.statiskicks.com/planes" wire:navigate="">Ver planes</a>
+        </p>
+    <!--[if ENDBLOCK]><![endif]-->
+    <div class="leagues-body" wire:loading.class="leagues-body--loading">
+        <!--[if BLOCK]><![endif]-->            <!--[if BLOCK]><![endif]-->                <section class="leagues-section" wire:key="section-featured">
+                    <header class="leagues-section__head">
+                        <div>
+                            <h2 class="leagues-section__title">Ligas destacadas</h2>
+                            <p class="leagues-section__subtitle">Las principales competiciones europeas</p>
+                        </div>
+                    </header>
+
+                    <div class="leagues-grid">
+                        <!--[if BLOCK]><![endif]-->                            <a href="https://www.statiskicks.com/league/6by3h89i2eykc341oz7lv1ddd" wire:navigate="" class="league-card" wire:key="league-6by3h89i2eykc341oz7lv1ddd">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/78.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Bundesliga</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/de.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            GERMANY
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <!--[if BLOCK]><![endif]-->                <span class="league-card__tag league-card__tag--scout">Scout</span>
+            <!--[if ENDBLOCK]><![endif]-->            <i class="bi bi-arrow-right-short league-card__arrow" aria-hidden="true"></i>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/league/dm5ka0os1e3dxcp3vh05kmp33" wire:navigate="" class="league-card" wire:key="league-dm5ka0os1e3dxcp3vh05kmp33">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/61.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Ligue 1</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/fr.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            FRANCE
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <!--[if BLOCK]><![endif]-->                <span class="league-card__tag league-card__tag--scout">Scout</span>
+            <!--[if ENDBLOCK]><![endif]-->            <i class="bi bi-arrow-right-short league-card__arrow" aria-hidden="true"></i>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/league/2kwbbcootiqqgmrzs6o5inle5" wire:navigate="" class="league-card" wire:key="league-2kwbbcootiqqgmrzs6o5inle5">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/39.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Premier League</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/gb-eng.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            ENGLAND
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <!--[if BLOCK]><![endif]-->                <span class="league-card__tag league-card__tag--scout">Scout</span>
+            <!--[if ENDBLOCK]><![endif]-->            <i class="bi bi-arrow-right-short league-card__arrow" aria-hidden="true"></i>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/league/34pl8szyvrbwcmfkuocjm3r6t" wire:navigate="" class="league-card" wire:key="league-34pl8szyvrbwcmfkuocjm3r6t">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/140.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Primera División</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/es.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            SPAIN
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <!--[if BLOCK]><![endif]-->                <span class="league-card__tag league-card__tag--scout">Scout</span>
+            <!--[if ENDBLOCK]><![endif]-->            <i class="bi bi-arrow-right-short league-card__arrow" aria-hidden="true"></i>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/league/1r097lpxe0xn03ihb7wi98kao" wire:navigate="" class="league-card" wire:key="league-1r097lpxe0xn03ihb7wi98kao">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/135.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Serie A</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/it.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            ITALY
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <!--[if BLOCK]><![endif]-->                <span class="league-card__tag league-card__tag--scout">Scout</span>
+            <!--[if ENDBLOCK]><![endif]-->            <i class="bi bi-arrow-right-short league-card__arrow" aria-hidden="true"></i>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                        <!--[if ENDBLOCK]><![endif]-->                    </div>
+                </section>
+                            <section class="leagues-section" wire:key="section-scout">
+                    <header class="leagues-section__head">
+                        <div>
+                            <h2 class="leagues-section__title">Datos de scouting</h2>
+                            <p class="leagues-section__subtitle">40 ligas con valoraciones scout disponibles</p>
+                        </div>
+                    </header>
+
+                    <div class="leagues-grid">
+                        <!--[if BLOCK]><![endif]-->                            <a href="https://www.statiskicks.com/league/6by3h89i2eykc341oz7lv1ddd" wire:navigate="" class="league-card" wire:key="league-6by3h89i2eykc341oz7lv1ddd">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/78.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Bundesliga</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/de.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            GERMANY
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <!--[if BLOCK]><![endif]-->                <span class="league-card__tag league-card__tag--scout">Scout</span>
+            <!--[if ENDBLOCK]><![endif]-->            <i class="bi bi-arrow-right-short league-card__arrow" aria-hidden="true"></i>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/planes" wire:navigate="" class="league-card league-card--locked" wire:key="league-5y0z0l2epprzbscvzsgldw8vu" title="Disponible en los planes de pago">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/250.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Division Profesional</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/py.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            PARAGUAY
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <span class="league-card__lock">
+                <i class="bi bi-lock-fill" aria-hidden="true"></i>
+                <span class="visually-hidden">Disponible en los planes de pago</span>
+            </span>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/planes" wire:navigate="" class="league-card league-card--locked" wire:key="league-akmkihra9ruad09ljapsm84b3" title="Disponible en los planes de pago">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/88.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Eredivisie</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/nl.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            NETHERLANDS
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <span class="league-card__lock">
+                <i class="bi bi-lock-fill" aria-hidden="true"></i>
+                <span class="visually-hidden">Disponible en los planes de pago</span>
+            </span>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/planes" wire:navigate="" class="league-card league-card--locked" wire:key="league-4zwgbb66rif2spcoeeol2motx" title="Disponible en los planes de pago">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/144.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">First Division A</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/be.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            BELGIUM
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <span class="league-card__lock">
+                <i class="bi bi-lock-fill" aria-hidden="true"></i>
+                <span class="visually-hidden">Disponible en los planes de pago</span>
+            </span>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/planes" wire:navigate="" class="league-card league-card--locked" wire:key="league-1b70m6qtxrp75b4vtk8hxh8c3" title="Disponible en los planes de pago">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/210.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">HNL</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/hr.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            CROATIA
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <span class="league-card__lock">
+                <i class="bi bi-lock-fill" aria-hidden="true"></i>
+                <span class="visually-hidden">Disponible en los planes de pago</span>
+            </span>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/planes" wire:navigate="" class="league-card league-card--locked" wire:key="league-a9vrdkelbgif0gtu3wxsr75xo" title="Disponible en los planes de pago">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/281.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Liga 1</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/pe.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            PERU
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <span class="league-card__lock">
+                <i class="bi bi-lock-fill" aria-hidden="true"></i>
+                <span class="visually-hidden">Disponible en los planes de pago</span>
+            </span>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/league/2hsidwomhjsaaytdy9u5niyi4" wire:navigate="" class="league-card" wire:key="league-2hsidwomhjsaaytdy9u5niyi4">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/262.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Liga MX</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/mx.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            MEXICO
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <!--[if BLOCK]><![endif]-->                <span class="league-card__tag league-card__tag--scout">Scout</span>
+            <!--[if ENDBLOCK]><![endif]-->            <i class="bi bi-arrow-right-short league-card__arrow" aria-hidden="true"></i>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/planes" wire:navigate="" class="league-card league-card--locked" wire:key="league-7ut48s80k421xixh6ev5i6h62" title="Disponible en los planes de pago">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/673.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Liga MX Femenil</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/mx.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            MEXICO
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <span class="league-card__lock">
+                <i class="bi bi-lock-fill" aria-hidden="true"></i>
+                <span class="visually-hidden">Disponible en los planes de pago</span>
+            </span>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/planes" wire:navigate="" class="league-card league-card--locked" wire:key="league-6lwpjhktjhl9g7x2w7njmzva6" title="Disponible en los planes de pago">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/242.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Liga Pro</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/ec.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            ECUADOR
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <span class="league-card__lock">
+                <i class="bi bi-lock-fill" aria-hidden="true"></i>
+                <span class="visually-hidden">Disponible en los planes de pago</span>
+            </span>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/league/581t4mywybx21wcpmpykhyzr3" wire:navigate="" class="league-card" wire:key="league-581t4mywybx21wcpmpykhyzr3">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/128.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Liga Profesional Argentina</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/ar.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            ARGENTINA
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <!--[if BLOCK]><![endif]-->                <span class="league-card__tag league-card__tag--scout">Scout</span>
+            <!--[if ENDBLOCK]><![endif]-->            <i class="bi bi-arrow-right-short league-card__arrow" aria-hidden="true"></i>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/league/dm5ka0os1e3dxcp3vh05kmp33" wire:navigate="" class="league-card" wire:key="league-dm5ka0os1e3dxcp3vh05kmp33">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/61.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Ligue 1</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/fr.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            FRANCE
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <!--[if BLOCK]><![endif]-->                <span class="league-card__tag league-card__tag--scout">Scout</span>
+            <!--[if ENDBLOCK]><![endif]-->            <i class="bi bi-arrow-right-short league-card__arrow" aria-hidden="true"></i>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/league/287tckirbfj9nb8ar2k9r60vn" wire:navigate="" class="league-card" wire:key="league-287tckirbfj9nb8ar2k9r60vn">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/253.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">MLS</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/us.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            USA
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <!--[if BLOCK]><![endif]-->                <span class="league-card__tag league-card__tag--scout">Scout</span>
+            <!--[if ENDBLOCK]><![endif]-->            <i class="bi bi-arrow-right-short league-card__arrow" aria-hidden="true"></i>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                        <!--[if ENDBLOCK]><![endif]-->                    </div>
+                </section>
+                            <section class="leagues-section" wire:key="section-region-Europe">
+                    <header class="leagues-section__head">
+                        <div>
+                            <h2 class="leagues-section__title">Europa</h2>
+                            <p class="leagues-section__subtitle">21 competiciones</p>
+                        </div>
+                    </header>
+
+                    <div class="leagues-grid">
+                        <!--[if BLOCK]><![endif]-->                            <a href="https://www.statiskicks.com/league/6by3h89i2eykc341oz7lv1ddd" wire:navigate="" class="league-card" wire:key="league-6by3h89i2eykc341oz7lv1ddd">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/78.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Bundesliga</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/de.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            GERMANY
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <!--[if BLOCK]><![endif]-->                <span class="league-card__tag league-card__tag--scout">Scout</span>
+            <!--[if ENDBLOCK]><![endif]-->            <i class="bi bi-arrow-right-short league-card__arrow" aria-hidden="true"></i>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/planes" wire:navigate="" class="league-card league-card--locked" wire:key="league-akmkihra9ruad09ljapsm84b3" title="Disponible en los planes de pago">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/88.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Eredivisie</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/nl.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            NETHERLANDS
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <span class="league-card__lock">
+                <i class="bi bi-lock-fill" aria-hidden="true"></i>
+                <span class="visually-hidden">Disponible en los planes de pago</span>
+            </span>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/planes" wire:navigate="" class="league-card league-card--locked" wire:key="league-4zwgbb66rif2spcoeeol2motx" title="Disponible en los planes de pago">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/144.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">First Division A</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/be.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            BELGIUM
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <span class="league-card__lock">
+                <i class="bi bi-lock-fill" aria-hidden="true"></i>
+                <span class="visually-hidden">Disponible en los planes de pago</span>
+            </span>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/planes" wire:navigate="" class="league-card league-card--locked" wire:key="league-1b70m6qtxrp75b4vtk8hxh8c3" title="Disponible en los planes de pago">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/210.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">HNL</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/hr.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            CROATIA
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <span class="league-card__lock">
+                <i class="bi bi-lock-fill" aria-hidden="true"></i>
+                <span class="visually-hidden">Disponible en los planes de pago</span>
+            </span>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/league/dm5ka0os1e3dxcp3vh05kmp33" wire:navigate="" class="league-card" wire:key="league-dm5ka0os1e3dxcp3vh05kmp33">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/61.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Ligue 1</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/fr.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            FRANCE
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <!--[if BLOCK]><![endif]-->                <span class="league-card__tag league-card__tag--scout">Scout</span>
+            <!--[if ENDBLOCK]><![endif]-->            <i class="bi bi-arrow-right-short league-card__arrow" aria-hidden="true"></i>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/league/2kwbbcootiqqgmrzs6o5inle5" wire:navigate="" class="league-card" wire:key="league-2kwbbcootiqqgmrzs6o5inle5">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/39.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Premier League</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/gb-eng.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            ENGLAND
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <!--[if BLOCK]><![endif]-->                <span class="league-card__tag league-card__tag--scout">Scout</span>
+            <!--[if ENDBLOCK]><![endif]-->            <i class="bi bi-arrow-right-short league-card__arrow" aria-hidden="true"></i>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/planes" wire:navigate="" class="league-card league-card--locked" wire:key="league-3ab1uwtoyjopdj1y1fynyy9jg" title="Disponible en los planes de pago">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/235.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Premier League</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/ru.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            RUSSIA
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <span class="league-card__lock">
+                <i class="bi bi-lock-fill" aria-hidden="true"></i>
+                <span class="visually-hidden">Disponible en los planes de pago</span>
+            </span>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/planes" wire:navigate="" class="league-card league-card--locked" wire:key="league-e21cf135btr8t3upw0vl6n6x0" title="Disponible en los planes de pago">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/179.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Premiership</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/gb-sct.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            SCOTLAND
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <span class="league-card__lock">
+                <i class="bi bi-lock-fill" aria-hidden="true"></i>
+                <span class="visually-hidden">Disponible en los planes de pago</span>
+            </span>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/planes" wire:navigate="" class="league-card league-card--locked" wire:key="league-8yi6ejjd1zudcqtbn07haahg6" title="Disponible en los planes de pago">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/94.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Primeira Liga</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/pt.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            PORTUGAL
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <span class="league-card__lock">
+                <i class="bi bi-lock-fill" aria-hidden="true"></i>
+                <span class="visually-hidden">Disponible en los planes de pago</span>
+            </span>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/league/34pl8szyvrbwcmfkuocjm3r6t" wire:navigate="" class="league-card" wire:key="league-34pl8szyvrbwcmfkuocjm3r6t">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/140.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Primera División</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/es.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            SPAIN
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <!--[if BLOCK]><![endif]-->                <span class="league-card__tag league-card__tag--scout">Scout</span>
+            <!--[if ENDBLOCK]><![endif]-->            <i class="bi bi-arrow-right-short league-card__arrow" aria-hidden="true"></i>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/planes" wire:navigate="" class="league-card league-card--locked" wire:key="league-5k620c7y6dlbmcm88dt3eb7t" title="Disponible en los planes de pago">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/142.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Primera División Femenina</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/es.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            SPAIN
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <span class="league-card__lock">
+                <i class="bi bi-lock-fill" aria-hidden="true"></i>
+                <span class="visually-hidden">Disponible en los planes de pago</span>
+            </span>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/league/1r097lpxe0xn03ihb7wi98kao" wire:navigate="" class="league-card" wire:key="league-1r097lpxe0xn03ihb7wi98kao">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/135.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Serie A</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/it.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            ITALY
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <!--[if BLOCK]><![endif]-->                <span class="league-card__tag league-card__tag--scout">Scout</span>
+            <!--[if ENDBLOCK]><![endif]-->            <i class="bi bi-arrow-right-short league-card__arrow" aria-hidden="true"></i>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/planes" wire:navigate="" class="league-card league-card--locked" wire:key="league-e0lck99w8meo9qoalfrxgo33o" title="Disponible en los planes de pago">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/207.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Super League</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/ch.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            SWITZERLAND
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <span class="league-card__lock">
+                <i class="bi bi-lock-fill" aria-hidden="true"></i>
+                <span class="visually-hidden">Disponible en los planes de pago</span>
+            </span>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/planes" wire:navigate="" class="league-card league-card--locked" wire:key="league-c0r21rtokgnbtc0o2rldjmkxu" title="Disponible en los planes de pago">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/197.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Super League 1</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/gr.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            GREECE
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <span class="league-card__lock">
+                <i class="bi bi-lock-fill" aria-hidden="true"></i>
+                <span class="visually-hidden">Disponible en los planes de pago</span>
+            </span>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/planes" wire:navigate="" class="league-card league-card--locked" wire:key="league-29actv1ohj8r10kd9hu0jnb0n" title="Disponible en los planes de pago">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/119.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Superliga</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/dk.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            DENMARK
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <span class="league-card__lock">
+                <i class="bi bi-lock-fill" aria-hidden="true"></i>
+                <span class="visually-hidden">Disponible en los planes de pago</span>
+            </span>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/planes" wire:navigate="" class="league-card league-card--locked" wire:key="league-482ofyysbdbeoxauk19yg7tdt" title="Disponible en los planes de pago">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/203.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Süper Lig</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/tr.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            TüRKIYE
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <span class="league-card__lock">
+                <i class="bi bi-lock-fill" aria-hidden="true"></i>
+                <span class="visually-hidden">Disponible en los planes de pago</span>
+            </span>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/planes" wire:navigate="" class="league-card league-card--locked" wire:key="league-6vq8j5p3av14nr3iuyi4okhjt" title="Disponible en los planes de pago">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/44.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Women's Super League</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/gb-eng.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            ENGLAND
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <span class="league-card__lock">
+                <i class="bi bi-lock-fill" aria-hidden="true"></i>
+                <span class="visually-hidden">Disponible en los planes de pago</span>
+            </span>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/planes" wire:navigate="" class="league-card league-card--locked" wire:key="league-722fdbecxzcq9788l6jqclzlw" title="Disponible en los planes de pago">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/79.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">2. Bundesliga</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/de.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            GERMANY
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <span class="league-card__lock">
+                <i class="bi bi-lock-fill" aria-hidden="true"></i>
+                <span class="visually-hidden">Disponible en los planes de pago</span>
+            </span>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/planes" wire:navigate="" class="league-card league-card--locked" wire:key="league-7ntvbsyq31jnzoqoa8850b9b8" title="Disponible en los planes de pago">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/40.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Championship</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/gb-eng.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            ENGLAND
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <span class="league-card__lock">
+                <i class="bi bi-lock-fill" aria-hidden="true"></i>
+                <span class="visually-hidden">Disponible en los planes de pago</span>
+            </span>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/planes" wire:navigate="" class="league-card league-card--locked" wire:key="league-3is4bkgf3loxv9qfg3hm8zfqb" title="Disponible en los planes de pago">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/141.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Segunda División</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/es.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            SPAIN
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <span class="league-card__lock">
+                <i class="bi bi-lock-fill" aria-hidden="true"></i>
+                <span class="visually-hidden">Disponible en los planes de pago</span>
+            </span>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/planes" wire:navigate="" class="league-card league-card--locked" wire:key="league-8ey0ww2zsosdmwr8ehsorh6t7" title="Disponible en los planes de pago">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/136.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Serie B</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/it.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            ITALY
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <span class="league-card__lock">
+                <i class="bi bi-lock-fill" aria-hidden="true"></i>
+                <span class="visually-hidden">Disponible en los planes de pago</span>
+            </span>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                        <!--[if ENDBLOCK]><![endif]-->                    </div>
+                </section>
+                            <section class="leagues-section" wire:key="section-region-Americas">
+                    <header class="leagues-section__head">
+                        <div>
+                            <h2 class="leagues-section__title">América</h2>
+                            <p class="leagues-section__subtitle">17 competiciones</p>
+                        </div>
+                    </header>
+
+                    <div class="leagues-grid">
+                        <!--[if BLOCK]><![endif]-->                            <a href="https://www.statiskicks.com/planes" wire:navigate="" class="league-card league-card--locked" wire:key="league-5y0z0l2epprzbscvzsgldw8vu" title="Disponible en los planes de pago">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/250.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Division Profesional</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/py.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            PARAGUAY
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <span class="league-card__lock">
+                <i class="bi bi-lock-fill" aria-hidden="true"></i>
+                <span class="visually-hidden">Disponible en los planes de pago</span>
+            </span>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/planes" wire:navigate="" class="league-card league-card--locked" wire:key="league-a9vrdkelbgif0gtu3wxsr75xo" title="Disponible en los planes de pago">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/281.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Liga 1</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/pe.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            PERU
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <span class="league-card__lock">
+                <i class="bi bi-lock-fill" aria-hidden="true"></i>
+                <span class="visually-hidden">Disponible en los planes de pago</span>
+            </span>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/league/2hsidwomhjsaaytdy9u5niyi4" wire:navigate="" class="league-card" wire:key="league-2hsidwomhjsaaytdy9u5niyi4">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/262.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Liga MX</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/mx.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            MEXICO
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <!--[if BLOCK]><![endif]-->                <span class="league-card__tag league-card__tag--scout">Scout</span>
+            <!--[if ENDBLOCK]><![endif]-->            <i class="bi bi-arrow-right-short league-card__arrow" aria-hidden="true"></i>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/planes" wire:navigate="" class="league-card league-card--locked" wire:key="league-7ut48s80k421xixh6ev5i6h62" title="Disponible en los planes de pago">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/673.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Liga MX Femenil</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/mx.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            MEXICO
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <span class="league-card__lock">
+                <i class="bi bi-lock-fill" aria-hidden="true"></i>
+                <span class="visually-hidden">Disponible en los planes de pago</span>
+            </span>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/planes" wire:navigate="" class="league-card league-card--locked" wire:key="league-6lwpjhktjhl9g7x2w7njmzva6" title="Disponible en los planes de pago">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/242.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Liga Pro</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/ec.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            ECUADOR
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <span class="league-card__lock">
+                <i class="bi bi-lock-fill" aria-hidden="true"></i>
+                <span class="visually-hidden">Disponible en los planes de pago</span>
+            </span>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/league/581t4mywybx21wcpmpykhyzr3" wire:navigate="" class="league-card" wire:key="league-581t4mywybx21wcpmpykhyzr3">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/128.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Liga Profesional Argentina</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/ar.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            ARGENTINA
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <!--[if BLOCK]><![endif]-->                <span class="league-card__tag league-card__tag--scout">Scout</span>
+            <!--[if ENDBLOCK]><![endif]-->            <i class="bi bi-arrow-right-short league-card__arrow" aria-hidden="true"></i>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/league/287tckirbfj9nb8ar2k9r60vn" wire:navigate="" class="league-card" wire:key="league-287tckirbfj9nb8ar2k9r60vn">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/253.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">MLS</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/us.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            USA
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <!--[if BLOCK]><![endif]-->                <span class="league-card__tag league-card__tag--scout">Scout</span>
+            <!--[if ENDBLOCK]><![endif]-->            <i class="bi bi-arrow-right-short league-card__arrow" aria-hidden="true"></i>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/planes" wire:navigate="" class="league-card league-card--locked" wire:key="league-djkvh1luqdkdixpoe653lzixg" title="Disponible en los planes de pago">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/254.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">NWSL</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/us.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            USA
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <span class="league-card__lock">
+                <i class="bi bi-lock-fill" aria-hidden="true"></i>
+                <span class="visually-hidden">Disponible en los planes de pago</span>
+            </span>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/planes" wire:navigate="" class="league-card league-card--locked" wire:key="league-2ty8ihceabty8yddmu31iuuej" title="Disponible en los planes de pago">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/239.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Primera A</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/co.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            COLOMBIA
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <span class="league-card__lock">
+                <i class="bi bi-lock-fill" aria-hidden="true"></i>
+                <span class="visually-hidden">Disponible en los planes de pago</span>
+            </span>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/planes" wire:navigate="" class="league-card league-card--locked" wire:key="league-2y8bntiif3a9y6gtmauv30gt" title="Disponible en los planes de pago">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/265.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Primera División</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/cl.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            CHILE
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <span class="league-card__lock">
+                <i class="bi bi-lock-fill" aria-hidden="true"></i>
+                <span class="visually-hidden">Disponible en los planes de pago</span>
+            </span>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/planes" wire:navigate="" class="league-card league-card--locked" wire:key="league-46b141eaqq9q7o4gz5gtdpikk" title="Disponible en los planes de pago">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/299.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Primera División</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/ve.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            VENEZUELA
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <span class="league-card__lock">
+                <i class="bi bi-lock-fill" aria-hidden="true"></i>
+                <span class="visually-hidden">Disponible en los planes de pago</span>
+            </span>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/league/scf9p4y91yjvqvg5jndxzhxj" wire:navigate="" class="league-card" wire:key="league-scf9p4y91yjvqvg5jndxzhxj">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/71.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Serie A</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/br.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            BRAZIL
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <!--[if BLOCK]><![endif]-->                <span class="league-card__tag league-card__tag--scout">Scout</span>
+            <!--[if ENDBLOCK]><![endif]-->            <i class="bi bi-arrow-right-short league-card__arrow" aria-hidden="true"></i>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/planes" wire:navigate="" class="league-card league-card--locked" wire:key="league-e1kxdivp5g4cpldgpwvnzl1vv" title="Disponible en los planes de pago">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/263.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Liga de Expansión MX</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/mx.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            MEXICO
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <span class="league-card__lock">
+                <i class="bi bi-lock-fill" aria-hidden="true"></i>
+                <span class="visually-hidden">Disponible en los planes de pago</span>
+            </span>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/planes" wire:navigate="" class="league-card league-card--locked" wire:key="league-5zr0b05eyx25km7z1k03ca9jx" title="Disponible en los planes de pago">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/72.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Serie B</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/br.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            BRAZIL
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <span class="league-card__lock">
+                <i class="bi bi-lock-fill" aria-hidden="true"></i>
+                <span class="visually-hidden">Disponible en los planes de pago</span>
+            </span>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/planes" wire:navigate="" class="league-card league-card--locked" wire:key="league-c1d9p6b2e9zr5tqlzx3ktjplg" title="Disponible en los planes de pago">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/255.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">USL Championship</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/us.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            USA
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <span class="league-card__lock">
+                <i class="bi bi-lock-fill" aria-hidden="true"></i>
+                <span class="visually-hidden">Disponible en los planes de pago</span>
+            </span>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/planes" wire:navigate="" class="league-card league-card--locked" wire:key="league-5qmjkpvi92vrzdcb2knassjkk" title="Disponible en los planes de pago">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/909.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">MLS Next Pro</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/us.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            USA
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <span class="league-card__lock">
+                <i class="bi bi-lock-fill" aria-hidden="true"></i>
+                <span class="visually-hidden">Disponible en los planes de pago</span>
+            </span>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/planes" wire:navigate="" class="league-card league-card--locked" wire:key="league-jznihqxle06xych9ygwiwnsa" title="Disponible en los planes de pago">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/489.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">USL League One</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/us.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            USA
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <span class="league-card__lock">
+                <i class="bi bi-lock-fill" aria-hidden="true"></i>
+                <span class="visually-hidden">Disponible en los planes de pago</span>
+            </span>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                        <!--[if ENDBLOCK]><![endif]-->                    </div>
+                </section>
+                            <section class="leagues-section" wire:key="section-region-Asia">
+                    <header class="leagues-section__head">
+                        <div>
+                            <h2 class="leagues-section__title">Asia</h2>
+                            <p class="leagues-section__subtitle">2 competiciones</p>
+                        </div>
+                    </header>
+
+                    <div class="leagues-grid">
+                        <!--[if BLOCK]><![endif]-->                            <a href="https://www.statiskicks.com/planes" wire:navigate="" class="league-card league-card--locked" wire:key="league-ea0h6cf3bhl698hkxhpulh2zz" title="Disponible en los planes de pago">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/307.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Saudi League</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/sa.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            SAUDI ARABIA
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <span class="league-card__lock">
+                <i class="bi bi-lock-fill" aria-hidden="true"></i>
+                <span class="visually-hidden">Disponible en los planes de pago</span>
+            </span>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                                                    <a href="https://www.statiskicks.com/planes" wire:navigate="" class="league-card league-card--locked" wire:key="league-xaouuwuk8qyhv1libkeexwjh" title="Disponible en los planes de pago">
+    <span class="league-card__badge" aria-hidden="true">
+        <!--[if BLOCK]><![endif]-->            <img src="https://www.statiskicks.com/storage/media/leagues/305.png" alt="" width="26" height="26" loading="lazy" class="league-card__logo">
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+
+    <span class="league-card__body">
+        <span class="league-card__name">Stars League</span>
+        <span class="league-card__country">
+            <!--[if BLOCK]><![endif]-->                <img src="https://flagcdn.com/w40/qa.png" alt="" width="16" height="12" loading="lazy" class="league-card__flag">
+            <!--[if ENDBLOCK]><![endif]-->            QATAR
+        </span>
+    </span>
+
+    <span class="league-card__meta">
+        <!--[if BLOCK]><![endif]-->            <span class="league-card__lock">
+                <i class="bi bi-lock-fill" aria-hidden="true"></i>
+                <span class="visually-hidden">Disponible en los planes de pago</span>
+            </span>
+        <!--[if ENDBLOCK]><![endif]-->    </span>
+</a>
+                        <!--[if ENDBLOCK]><![endif]-->                    </div>
+                </section>
+            <!--[if ENDBLOCK]><![endif]-->        <!--[if ENDBLOCK]><![endif]-->    </div>
+</div>
+
+    <footer class="sk-footer">
+  <div class="container">
+    <div class="row g-4">
+
+      <div class="col-lg-5">
+        <div class="footer-logo">
+          <img src="https://www.statiskicks.com/custom_assets/logos/footer_logo.png?v=1787321828" alt="Statiskicks">
+        </div>
+        <p class="footer-desc">
+          Analiza a cualquier nivel de profundidad con datos en vivo para 40
+          competiciones. Rankings, radares, estilos de juego, mapas de eventos,
+          probabilidades y proyecciones, scouting y análisis de equipos.
+        </p>
+                  <a class="footer-contact" href="mailto:contacto@statiskicks.com">
+            <i class="bi bi-envelope" aria-hidden="true"></i> contacto@statiskicks.com
+          </a>
+              </div>
+
+      <div class="col-6 col-lg-3 offset-lg-1">
+        <p class="footer-nav-title">Explora</p>
+        <nav class="footer-nav-col" aria-label="Explora">
+          <a href="https://www.statiskicks.com/leagues" wire:navigate="" data-current="">Ligas</a>
+          <a href="https://www.statiskicks.com/players" wire:navigate="">Búsqueda avanzada</a>
+          <a href="https://www.statiskicks.com/partidos" wire:navigate="">Partidos</a>
+          <a href="https://www.statiskicks.com/planes" wire:navigate="">Planes</a>
+        </nav>
+      </div>
+
+      <div class="col-6 col-lg-3">
+        <p class="footer-nav-title">Tu cuenta</p>
+        <nav class="footer-nav-col" aria-label="Tu cuenta">
+                      <a href="https://www.statiskicks.com/register">Crear cuenta gratis</a>
+            <a href="https://www.statiskicks.com/login">Iniciar sesión</a>
+                    <a href="https://www.statiskicks.com" wire:navigate="">Inicio</a>
+        </nav>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="sk-footer-bottom">
+    <div class="container sk-footer-bottom__row">
+      <p>© 2026 Statiskicks. Todos los derechos reservados.</p>
+      <nav class="sk-footer-legal" aria-label="Legal">
+        <a href="https://www.statiskicks.com/terminos" wire:navigate="">Términos y Condiciones de uso</a>
+        <a href="https://www.statiskicks.com/privacidad" wire:navigate="">Aviso de privacidad integral</a>
+      </nav>
+      <p>Datos de fútbol: Opta (Stats Perform).</p>
+    </div>
+  </div>
+</footer>
+
+    <div x-persist="chat-fab">
+      <div class="sk-chat-fab" data-chat-fab="" x-data="{ open: false }" @keydown.escape.window="open = false" @click.outside="open = false">
+  <div class="sk-chat-fab__popover" id="sk-chat-fab-popover" role="dialog" aria-label="Chat SK" x-show="open" style="display: none;">
+    <button type="button" class="sk-chat-fab__close" @click="open = false" aria-label="Cerrar">
+      <i class="bi bi-x-lg" aria-hidden="true"></i>
+    </button>
+    <div class="sk-coming-soon sk-coming-soon--compact" data-coming-soon="chat">
+      <p class="sk-coming-soon__title">Chat SK</p>
+    <span class="sk-coming-soon__badge">Próximamente · v2.0 (2027)</span>
+</div>
+  </div>
+
+  <button type="button" class="sk-chat-fab__button" aria-label="Chat SK (próximamente)" aria-controls="sk-chat-fab-popover" :aria-expanded="open ? 'true' : 'false'" aria-expanded="false" @click="open = ! open">
+    <i class="bi bi-chat-dots" aria-hidden="true"></i>
+  </button>
+</div>
+    </div>
+
+    
+          <div class="sk-paywall" data-sk-paywall="" data-sk-paywall-downloads="" hidden="">
+    <div class="sk-paywall__backdrop" data-sk-paywall-close=""></div>
+    <div class="sk-paywall__dialog" role="dialog" aria-modal="true" aria-labelledby="sk-paywall-title-downloads" tabindex="-1">
+        <button type="button" class="sk-paywall__close" data-sk-paywall-close="" aria-label="Cerrar">
+            <i class="bi bi-x-lg" aria-hidden="true"></i>
+        </button>
+        <div data-sk-paywall-variant="downloads">
+            <span class="sk-paywall__icon" aria-hidden="true"><i class="bi bi-download"></i></span>
+            <p class="sk-paywall__title" id="sk-paywall-title-downloads">Las descargas son parte de los planes de pago</p>
+            <p class="sk-paywall__text">Descarga gráficas en imagen y tablas y datos en CSV con cualquiera de nuestros paquetes.</p>
+        </div>
+        <div data-sk-paywall-variant="events" hidden="">
+            <span class="sk-paywall__icon" aria-hidden="true"><i class="bi bi-geo-alt"></i></span>
+            <p class="sk-paywall__title" id="sk-paywall-title-events">Todos los mapas de eventos son parte de los planes de pago</p>
+            <p class="sk-paywall__text">Con la cuenta gratuita tienes un evento por sección. Desbloquea todos los pases, remates, duelos y acciones defensivas con cualquiera de nuestros paquetes.</p>
+        </div>
+        <div data-sk-paywall-variant="columns" hidden="">
+            <span class="sk-paywall__icon" aria-hidden="true"><i class="bi bi-table"></i></span>
+            <p class="sk-paywall__title" id="sk-paywall-title-columns">Elegir las métricas de la tabla es parte de los planes de pago</p>
+            <p class="sk-paywall__text">Con la cuenta gratuita ves los minutos, goles, asistencias y el SKore de cada partido. Elige cualquier métrica con cualquiera de nuestros paquetes.</p>
+        </div>
+        <div data-sk-paywall-variant="compare" hidden="">
+            <span class="sk-paywall__icon" aria-hidden="true"><i class="bi bi-people"></i></span>
+            <p class="sk-paywall__title" id="sk-paywall-title-compare">Comparar con jugadores de todas las ligas es parte de los planes de pago</p>
+            <p class="sk-paywall__text">Con la cuenta gratuita comparas con jugadores de las ligas de tu plan. Compara con cualquier jugador de cualquier liga con cualquiera de nuestros paquetes.</p>
+        </div>
+        <div data-sk-paywall-variant="charts" hidden="">
+            <span class="sk-paywall__icon" aria-hidden="true"><i class="bi bi-sliders"></i></span>
+            <p class="sk-paywall__title" id="sk-paywall-title-charts">Personalizar las gráficas es parte de los planes de pago</p>
+            <p class="sk-paywall__text">Cambia la unidad de medida, compara con la media de la liga y elige los atributos que quieres ver con cualquiera de nuestros paquetes.</p>
+        </div>
+
+        <div class="sk-paywall__plans">
+                            <div class="sk-paywall__plan sk-paywall__plan--featured">
+                    <div class="sk-paywall__plan-head">
+                        <span class="sk-paywall__plan-name">Plus</span>
+                        <span class="sk-paywall__plan-price">$129 <small>/mes</small></span>
+                    </div>
+                                            <p class="sk-paywall__plan-tagline">Todas las ligas y todas las herramientas.</p>
+                                                                <ul class="sk-paywall__plan-highlights">
+                                                            <li><i class="bi bi-check-lg" aria-hidden="true"></i>Las 40 ligas, con la proyección completa</li>
+                                                            <li><i class="bi bi-check-lg" aria-hidden="true"></i>Equipos completos: ranking, mapas, red de pases y comparador</li>
+                                                            <li><i class="bi bi-check-lg" aria-hidden="true"></i>Todos los mapas de eventos y las métricas a elegir</li>
+                                                            <li><i class="bi bi-check-lg" aria-hidden="true"></i>Comparador y jugadores similares</li>
+                                                    </ul>
+                                    </div>
+                    </div>
+
+        <a href="https://www.statiskicks.com/planes" wire:navigate="" class="sk-paywall__cta" data-sk-paywall-close="">Ver planes</a>
+    </div>
+</div>
+    
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // ── Hamburger nav toggle ──────────────────────────────────
+    (function () {
+      const toggle = document.getElementById('navToggle');
+      const drawer = document.getElementById('navDrawer');
+      const icon   = document.getElementById('navToggleIcon');
+      if (!toggle || !drawer) return;
+
+      if (toggle.dataset.skBound !== '1') {
+        toggle.dataset.skBound = '1';
+
+        toggle.addEventListener('click', () => {
+          const open = drawer.classList.toggle('open');
+          toggle.setAttribute('aria-expanded', open);
+          icon.className = open ? 'bi bi-x-lg' : 'bi bi-list';
+        });
+
+        // Delegated from the drawer so links added later still close it, and so
+        // there is one listener to guard rather than one per link.
+        drawer.addEventListener('click', (event) => {
+          if (!event.target.closest('a, button.btn-iniciar')) return;
+
+          drawer.classList.remove('open');
+          toggle.setAttribute('aria-expanded', 'false');
+          icon.className = 'bi bi-list';
+        });
+      }
+
+      // Sync mobile theme toggle with main toggle
+      const mainToggle   = document.getElementById('themeToggle');
+      const mobileToggle = document.getElementById('themeToggleMobile');
+      const mobileIcon   = document.getElementById('themeIconMobile');
+
+      if (mobileToggle && mainToggle && mobileToggle.dataset.skBound !== '1') {
+        mobileToggle.dataset.skBound = '1';
+        mobileToggle.addEventListener('click', () => mainToggle.click());
+
+        new MutationObserver(() => {
+          const mainIcon = document.getElementById('themeIcon');
+          if (mobileIcon && mainIcon) mobileIcon.className = mainIcon.className;
+        }).observe(document.getElementById('themeIcon'), { attributes: true, attributeFilter: ['class'] });
+      }
+    })();
+
+    // ── Theme toggle ─────────────────────────────────────────
+    (function () {
+      const root = document.documentElement;
+      const btn  = document.getElementById('themeToggle');
+      const icon = document.getElementById('themeIcon');
+      if (!btn) return;
+
+      const stored = localStorage.getItem('sk-theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const isDark = stored ? stored === 'dark' : prefersDark;
+
+      function applyTheme(dark) {
+        root.setAttribute('data-theme', dark ? 'dark' : 'light');
+        if (icon) icon.className = dark ? 'bi bi-sun-fill' : 'bi bi-moon-fill';
+        localStorage.setItem('sk-theme', dark ? 'dark' : 'light');
+      }
+
+      // Applying on every execution is harmless and keeps the icon in step
+      // after a navigation; only the binding must not repeat.
+      applyTheme(isDark);
+
+      if (btn.dataset.skBound === '1') return;
+      btn.dataset.skBound = '1';
+
+      btn.addEventListener('click', function () {
+        applyTheme(root.getAttribute('data-theme') !== 'dark');
+      });
+    })();
+  </script>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+  <script>
+    // The UMD build does not auto-register with Chart.js 4 — every chart's
+    // `plugins.datalabels` option was silently inert without this.
+    if (window.Chart && window.ChartDataLabels) {
+      Chart.register(ChartDataLabels);
+    }
+  </script>
+  <script src="https://www.statiskicks.com/custom_assets/js/home-motion.js?v=1791380772"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/sk-tooltip.js?v=1792175742"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/download-paywall.js?v=1793826522"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/chart-download.js?v=1794084628"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/search-results-image.js?v=1794084628"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/percentile-rows.js?v=1793360776"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/skore.js?v=1793032870"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/attribute-picker.js?v=1791577902"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/attribute-charts.js?v=1794084628"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/heatmap.js?v=1791561866"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/goalmouth-map.js?v=1794084628"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/event-map.js?v=1793880030"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/league-maps.js?v=1794084628"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/league-scatter.js?v=1794084628"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/league-switcher.js?v=1793361650"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/team-profile.js?v=1791380772"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/team-age-profile.js?v=1794168592"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/team-xg-rolling.js?v=1791380772"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/team-formation-profile.js?v=1791380772"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/team-pass-network.js?v=1794084628"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/live-motion.js?v=1792175986"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/momentum-chart.js?v=1792708794"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/player-heat.js?v=1792491156"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/scroll-lock.js?v=1792589840"></script>
+
+  <script>
+    // Destroy all Chart.js instances before SPA navigation to prevent canvas-in-use errors
+    document.addEventListener('livewire:navigating', function () {
+      document.body.classList.remove('sk-search-open', 'league-modal-open');
+
+      if (typeof Chart !== 'undefined') {
+        Object.values(Chart.instances || {}).forEach(function (chart) {
+          chart.destroy();
+        });
+      }
+    });
+  </script>
+
+  
+  <div class="sk-usage-notice" id="skUsageNotice" role="status" aria-live="polite" hidden="">
+  <i class="bi bi-hourglass-split" aria-hidden="true"></i>
+  <p class="sk-usage-notice__text"></p>
+  <button type="button" class="sk-usage-notice__close" aria-label="Cerrar aviso">
+    <i class="bi bi-x-lg" aria-hidden="true"></i>
+  </button>
+</div>
+
+<script data-navigate-once="">
+  (function () {
+    // Not window.skUsageNotice: the element's id already puts the <div>
+    // there (named access on window), and the guard would never let this run.
+    if (window.skShowUsageNotice) return;
+
+    const fallback = "Recibimos demasiadas solicitudes seguidas. Espera un momento y vuelve a intentarlo.";
+    let timer = null;
+
+    function show(message) {
+      const notice = document.getElementById('skUsageNotice');
+
+      if (!notice) return;
+
+      notice.querySelector('.sk-usage-notice__text').textContent = message || fallback;
+      notice.hidden = false;
+      clearTimeout(timer);
+      timer = setTimeout(function () { notice.hidden = true; }, 9000);
+    }
+
+    window.skShowUsageNotice = show;
+
+    window.addEventListener('sk-usage-limit', function (event) {
+      show(event.detail && event.detail.message);
+    });
+
+    document.addEventListener('click', function (event) {
+      if (event.target.closest('.sk-usage-notice__close')) {
+        const notice = document.getElementById('skUsageNotice');
+
+        if (notice) notice.hidden = true;
+      }
+    });
+
+    let intercepting = false;
+
+    function intercept() {
+      if (intercepting || !window.Livewire || typeof window.Livewire.interceptRequest !== 'function') return;
+
+      intercepting = true;
+      window.Livewire.interceptRequest(function ({ onError }) {
+        onError(function ({ response, body, preventDefault }) {
+          if (!response || response.status !== 429) return;
+
+          preventDefault();
+
+          let message = fallback;
+
+          try {
+            message = JSON.parse(body).message || fallback;
+          } catch (e) {
+            // Not the usage limits' JSON: the generic message will do.
+          }
+
+          show(message);
+        });
+      });
+    }
+
+    document.addEventListener('livewire:init', intercept);
+    intercept();
+  })();
+</script>
+
+  <script src="https://www.statiskicks.com/livewire-e3175f40/livewire.min.js?id=6b3709b1" data-no-progress-bar="" data-csrf="ymQu5a9GyD42FQZ4kCEVC2whAls3MNnLfCLIUmS8" data-module-url="https://www.statiskicks.com/livewire-e3175f40" data-update-uri="https://www.statiskicks.com/livewire-e3175f40/update" data-navigate-once="true"></script>
+  <script>
+    (function () {
+      function sameOriginEndpoint(value) {
+        if (!value) return value;
+
+        try {
+          const parsed = new URL(String(value), window.location.origin);
+
+          if (parsed.origin === window.location.origin) {
+            return parsed.href;
+          }
+
+          return `${window.location.origin}${parsed.pathname}${parsed.search}${parsed.hash}`;
+        } catch {
+          return value;
+        }
+      }
+
+      function normalizeLivewireEndpointConfig() {
+        const livewireScript = document.querySelector('script[data-update-uri]');
+
+        if (livewireScript) {
+          const updateUri = sameOriginEndpoint(livewireScript.getAttribute('data-update-uri'));
+          const moduleUrl = sameOriginEndpoint(livewireScript.getAttribute('data-module-url'));
+
+          if (updateUri) {
+            livewireScript.setAttribute('data-update-uri', updateUri);
+          }
+
+          if (moduleUrl) {
+            livewireScript.setAttribute('data-module-url', moduleUrl);
+          }
+        }
+
+        if (window.livewireScriptConfig) {
+          window.livewireScriptConfig.uri = sameOriginEndpoint(window.livewireScriptConfig.uri);
+          window.livewireScriptConfig.moduleUrl = sameOriginEndpoint(window.livewireScriptConfig.moduleUrl);
+        }
+      }
+
+      normalizeLivewireEndpointConfig();
+      document.addEventListener('livewire:navigated', normalizeLivewireEndpointConfig);
+    })();
+  </script>
+
+  <script>
+    (function () {
+        const rawSearchUrl = "https:\/\/www.statiskicks.com\/search";
+
+        function resolveSearchUrl(url) {
+            const fallbackPath = '/search';
+
+            try {
+                const parsed = new URL(String(url || ''), window.location.origin);
+                const path = parsed.pathname || fallbackPath;
+                const query = parsed.search || '';
+                return `${window.location.origin}${path}${query}`;
+            } catch {
+                const normalized = String(url || '').trim();
+                const path = normalized
+                    ? (normalized.startsWith('/') ? normalized : `/${normalized}`)
+                    : fallbackPath;
+
+                return `${window.location.origin}${path}`;
+            }
+        }
+
+        const searchUrl = resolveSearchUrl(rawSearchUrl);
+
+        function registerNavbarSearchPanel() {
+            Alpine.data('navbarSearchPanel', () => ({
+                open: false,
+                activeTab: 'search',
+                query: '',
+                leagues: [],
+                teams: [],
+                players: [],
+                recentItems: [],
+                loading: false,
+                // Over the search's ceiling (SK-19): the reason, said in the
+                // panel instead of «no results», which would read as "no such
+                // player".
+                limited: '',
+                searchUrl,
+                searchTimer: null,
+                searchController: null,
+
+                init() {
+                    this.loadRecent();
+                    this.$watch('query', (value) => this.queueSearch(value));
+                },
+
+                openPanel() {
+                    this.open = true;
+                    this.activeTab = 'search';
+                    document.body.classList.add('sk-search-open');
+                    this.loadRecent();
+                    this.$nextTick(() => this.$refs.searchInput?.focus());
+                },
+
+                closePanel() {
+                    this.open = false;
+                    this.query = '';
+                    this.clearResults();
+                    this.loading = false;
+                    this.abortSearch();
+                    document.body.classList.remove('sk-search-open');
+                },
+
+                queueSearch(value) {
+                    this.abortSearch();
+                    clearTimeout(this.searchTimer);
+                    this.limited = '';
+
+                    const term = String(value || '').trim();
+                    if (term.length < 2) {
+                        this.clearResults();
+                        this.loading = false;
+                        return;
+                    }
+
+                    this.loading = true;
+                    this.searchTimer = setTimeout(() => this.runSearch(term), 350);
+                },
+
+                abortSearch() {
+                    if (this.searchController) {
+                        this.searchController.abort();
+                        this.searchController = null;
+                    }
+                },
+
+                async runSearch(term) {
+                    this.abortSearch();
+                    this.searchController = new AbortController();
+
+                    try {
+                        const response = await fetch(`${this.searchUrl}?q=${encodeURIComponent(term)}`, {
+                            headers: { Accept: 'application/json' },
+                            signal: this.searchController.signal,
+                        });
+
+                        // Over the search's ceiling (SK-19): say so, rather
+                        // than an empty list that reads as "no players".
+                        if (response.status === 429) {
+                            const limited = await response.json().catch(() => ({}));
+                            this.limited = limited.message || "Demasiadas b\u00fasquedas seguidas; espera un momento.";
+                        }
+
+                        if (!response.ok) {
+                            throw new Error('Search failed');
+                        }
+
+                        const payload = await response.json();
+                        if (String(this.query || '').trim() === term) {
+                            this.leagues = Array.isArray(payload.leagues) ? payload.leagues : [];
+                            this.teams = Array.isArray(payload.teams) ? payload.teams : [];
+                            this.players = Array.isArray(payload.players) ? payload.players : [];
+                        }
+                    } catch (error) {
+                        if (error?.name !== 'AbortError') {
+                            this.clearResults();
+                        }
+                    } finally {
+                        if (String(this.query || '').trim() === term) {
+                            this.loading = false;
+                        }
+                        this.searchController = null;
+                    }
+                },
+
+                clearResults() {
+                    this.leagues = [];
+                    this.teams = [];
+                    this.players = [];
+                },
+
+                get hasResults() {
+                    return this.leagues.length + this.teams.length + this.players.length > 0;
+                },
+
+                get sections() {
+                    return [
+                        { kind: 'league', title: 'Ligas', items: this.leagues },
+                        { kind: 'team', title: 'Equipos', items: this.teams },
+                        { kind: 'player', title: 'Jugadores', items: this.players },
+                    ].filter((section) => section.items.length > 0);
+                },
+
+                loadRecent() {
+                    try {
+                        const stored = JSON.parse(localStorage.getItem('sk-recent-players') || '[]');
+                        this.recentItems = Array.isArray(stored) ? stored : [];
+                    } catch {
+                        this.recentItems = [];
+                    }
+                },
+
+                // Entries saved before teams and leagues were searchable carry no kind: they are players.
+                itemKind(item) {
+                    return item?.kind || 'player';
+                },
+
+                selectResult(item, kind) {
+                    if (!item?.id) {
+                        this.closePanel();
+                        return;
+                    }
+
+                    const entry = { ...item, kind };
+                    const existing = this.recentItems.filter(
+                        (recent) => !(recent.id === entry.id && this.itemKind(recent) === kind)
+                    );
+                    this.recentItems = [entry, ...existing].slice(0, 8);
+
+                    try {
+                        localStorage.setItem('sk-recent-players', JSON.stringify(this.recentItems));
+                    } catch {
+                        // ignore storage errors
+                    }
+
+                    this.closePanel();
+                },
+
+                resultImage(item, kind) {
+                    if (item?.image) {
+                        return item.image;
+                    }
+
+                    const fallback = { league: 'Liga', team: 'Equipo', player: 'Jugador' }[kind] || 'Jugador';
+                    const name = encodeURIComponent(item?.name || fallback);
+                    return `https://ui-avatars.com/api/?name=${name}&background=1D665D&color=fff&size=80`;
+                },
+
+                resultMeta(item, kind) {
+                    if (kind === 'league') {
+                        return item?.country || '—';
+                    }
+
+                    if (kind === 'team') {
+                        return item?.competition || '—';
+                    }
+
+                    return [item?.role, item?.team].filter(Boolean).join(' · ') || '—';
+                },
+
+                resultFlag(item, kind) {
+                    if (kind === 'league') {
+                        return String(item?.alpha2 || '').toLowerCase();
+                    }
+
+                    return kind === 'player' ? (item?.flag || '') : '';
+                },
+            }));
+        }
+
+        function bootNavbarSearchPanel() {
+            if (typeof Alpine === 'undefined') {
+                return;
+            }
+
+            registerNavbarSearchPanel();
+
+            document.querySelectorAll('#navbarSearchRoot[x-data]').forEach((element) => {
+                if (!element.__x) {
+                    Alpine.initTree(element);
+                }
+            });
+        }
+
+        document.addEventListener('alpine:init', registerNavbarSearchPanel);
+        document.addEventListener('livewire:navigated', bootNavbarSearchPanel);
+
+        if (typeof Alpine !== 'undefined') {
+            bootNavbarSearchPanel();
+        }
+    })();
+</script>
+
+
+
+</body></html>
