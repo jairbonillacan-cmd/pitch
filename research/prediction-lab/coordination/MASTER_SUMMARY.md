@@ -153,3 +153,23 @@ Durante la sesión, el checkout principal (`/Users/jairbonilla/Desktop/Pitch Lab
 en el futuro habrá que rebasar sobre `feat/pre-mvp` o sobre el estado que corresponda y revisar
 conflictos en `src/data/index.ts`, `tests/` y `docs/`. `git diff --name-only main prediction-lab`
 lista 90 archivos, todos del laboratorio (ninguno de ellos existía en `main`).
+
+---
+
+# CICLO 2 — arranque (2026-11-09 04:00)
+
+## Nuevo trabajo lanzado
+
+- **A12 — NFL (nflverse, CC BY 4.0):** dataset real 1999–2026, features causales y benchmark
+  contra el mercado. Primer deporte de la expansión (§15 de la misión).
+- **A13 — snapshots de cuotas con timestamp:** se descubrió que
+  `football-data.co.uk/fixtures.csv` publica ~160 partidos próximos con cuotas de varias casas.
+  Se captura el primer snapshot real y se construye el monitor de CLV (resuelve parcialmente el
+  P0 "sin timestamps").
+- **A09c — tercera auditoría adversarial** del estado final (docs + artefactos + test).
+- **Monitorización live 2026/27** (`pipeline/monitoring_report.py`): 3.398 partidos.
+  log-loss: mercado 0,99591 · stack_logit 1,01361 · ensemble 1,01959 · hgb 1,02005 · logit 1,02659.
+  El `logit` desplegado es el que más se degrada; el ensemble aguanta mejor.
+- **Pre-registro** (`artifacts/PREREGISTRATION_CYCLE2.md`): el ensemble se evalúa en la muestra
+  prospectiva (2026/27 restante + 2027/28) con regla de decisión fijada. No se cambia el modelo
+  desplegado con test ni con live observado.

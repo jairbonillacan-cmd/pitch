@@ -1,0 +1,1181 @@
+{
+  "experiment": "EXP08a",
+  "title": "Comparación de métodos de de-vig (proporcional / power / Shin)",
+  "generated_at": "2026-11-09T08:38:24+00:00",
+  "seed": 20261109,
+  "min_cell_n": 500,
+  "partitions": "dev <= 2022/23 · val 2023/24 · test NUNCA usado",
+  "note": "El de-vig es una transformación fila a fila sin parámetros entre partidos; evaluar en dev es selección de hiperparámetro legítima. val confirma.",
+  "populations": {
+    "close_ps": {
+      "label": "Cierre Pinnacle",
+      "phase": "close",
+      "src": "ps",
+      "role": "principal",
+      "n_total": 93624,
+      "n_by_partition": {
+        "dev": 85476,
+        "val": 8148
+      },
+      "n_seasons": 24,
+      "season_range": [
+        "2012/13",
+        "2023"
+      ],
+      "mean_margin": 0.028078023923853505,
+      "metrics": {
+        "all": {
+          "proportional": {
+            "n": 93624,
+            "log_loss": 0.9969427147092567,
+            "brier": 0.5958502699616097,
+            "rps": 0.20168079030253713,
+            "accuracy": 0.5064192941980689,
+            "ece10": 0.009136365457723736,
+            "mean_pmax": 0.500818139681299,
+            "brier_h": 0.21975257459916558,
+            "brier_d": 0.19248868935653515,
+            "brier_a": 0.18360900600590857
+          },
+          "power": {
+            "n": 93624,
+            "log_loss": 0.996704632832554,
+            "brier": 0.5957269728054918,
+            "rps": 0.20162730516315114,
+            "accuracy": 0.5064192941980689,
+            "ece10": 0.005514513434639287,
+            "mean_pmax": 0.5058354838673617,
+            "brier_h": 0.21969612950105016,
+            "brier_d": 0.19247236247919025,
+            "brier_a": 0.1835584808252542
+          },
+          "shin": {
+            "n": 93624,
+            "log_loss": 0.9967502863602556,
+            "brier": 0.5957520603606796,
+            "rps": 0.2016365294741136,
+            "accuracy": 0.5064192941980689,
+            "ece10": 0.005714119768225235,
+            "mean_pmax": 0.504397666661759,
+            "brier_h": 0.21970626032591667,
+            "brier_d": 0.19247900141245375,
+            "brier_a": 0.18356679862231026
+          }
+        },
+        "dev": {
+          "proportional": {
+            "n": 85476,
+            "log_loss": 0.9975695434102376,
+            "brier": 0.5962926278423097,
+            "rps": 0.20193342882537307,
+            "accuracy": 0.5060016846834199,
+            "ece10": 0.008681902613850243,
+            "mean_pmax": 0.5005990166689258,
+            "brier_h": 0.22004869043240277,
+            "brier_d": 0.19242577019156337,
+            "brier_a": 0.18381816721834135
+          },
+          "power": {
+            "n": 85476,
+            "log_loss": 0.9973593377930077,
+            "brier": 0.5961816166617121,
+            "rps": 0.20188688464779891,
+            "accuracy": 0.5060016846834199,
+            "ece10": 0.0056742842229082595,
+            "mean_pmax": 0.5055261329244097,
+            "brier_h": 0.21999685091717178,
+            "brier_d": 0.1924078473661143,
+            "brier_a": 0.18377691837842794
+          },
+          "shin": {
+            "n": 85476,
+            "log_loss": 0.9973986236012405,
+            "brier": 0.5962033270005574,
+            "rps": 0.20189422191673154,
+            "accuracy": 0.5060016846834199,
+            "ece10": 0.005918755363903184,
+            "mean_pmax": 0.5041177181309829,
+            "brier_h": 0.2200055074690436,
+            "brier_d": 0.19241488316709437,
+            "brier_a": 0.18378293636442053
+          }
+        },
+        "val": {
+          "proportional": {
+            "n": 8148,
+            "log_loss": 0.9903670139182574,
+            "brier": 0.5912097468626022,
+            "rps": 0.19903050429640998,
+            "accuracy": 0.5108001963672066,
+            "ece10": 0.013903874790435668,
+            "mean_pmax": 0.5031168336682423,
+            "brier_h": 0.21664619303780583,
+            "brier_d": 0.19314873826978224,
+            "brier_a": 0.18141481555501393
+          },
+          "power": {
+            "n": 8148,
+            "log_loss": 0.9898364981737713,
+            "brier": 0.5909575645759544,
+            "rps": 0.19890420550314183,
+            "accuracy": 0.5108001963672066,
+            "ece10": 0.007917523474990138,
+            "mean_pmax": 0.5090807073823046,
+            "brier_h": 0.2165414334082111,
+            "brier_d": 0.19314915356967097,
+            "brier_a": 0.1812669775980734
+          },
+          "shin": {
+            "n": 8148,
+            "log_loss": 0.9899489517983506,
+            "brier": 0.5910180805729753,
+            "rps": 0.19893322569095023,
+            "accuracy": 0.5108001963672066,
+            "ece10": 0.00975136440115526,
+            "mean_pmax": 0.5073344463152473,
+            "brier_h": 0.2165670299864701,
+            "brier_d": 0.1931516291910745,
+            "brier_a": 0.18129942139543223
+          }
+        }
+      },
+      "calibration_slope": {
+        "proportional": {
+          "intercept": 0.037781704345126184,
+          "slope": 1.0580009305150309,
+          "n_obs": 280872
+        },
+        "power": {
+          "intercept": 0.012323591574684108,
+          "slope": 1.018935484134389,
+          "n_obs": 280872
+        },
+        "shin": {
+          "intercept": 0.01959515949202023,
+          "slope": 1.0301244960919589,
+          "n_obs": 280872
+        }
+      },
+      "winners_by_division": {
+        "n_cells": 23,
+        "n_matches": 93624,
+        "wins": {
+          "proportional": 4,
+          "power": 17,
+          "shin": 2
+        },
+        "wins_share": {
+          "proportional": 0.17391304347826086,
+          "power": 0.7391304347826086,
+          "shin": 0.08695652173913043
+        }
+      },
+      "winners_by_season": {
+        "n_cells": 24,
+        "n_matches": 93624,
+        "wins": {
+          "proportional": 6,
+          "power": 17,
+          "shin": 1
+        },
+        "wins_share": {
+          "proportional": 0.25,
+          "power": 0.7083333333333334,
+          "shin": 0.041666666666666664
+        }
+      },
+      "detail_cells": {
+        "n_cells_season_x_div": 15,
+        "note": "celdas temporada×división; solo pasan n>=500 las ligas de año natural, no sostienen el veredicto"
+      },
+      "season_sign_test": {
+        "power_vs_proportional": {
+          "seasons": 24,
+          "wins": 17,
+          "p_value": 0.06391465663909912
+        },
+        "shin_vs_proportional": {
+          "seasons": 24,
+          "wins": 18,
+          "p_value": 0.022655844688415527
+        }
+      },
+      "division_sign_test": {
+        "power_vs_proportional": {
+          "divisions": 23,
+          "wins": 19,
+          "p_value": 0.002599477767944336
+        },
+        "shin_vs_proportional": {
+          "divisions": 23,
+          "wins": 19,
+          "p_value": 0.002599477767944336
+        }
+      }
+    },
+    "close_b365": {
+      "label": "Cierre Bet365",
+      "phase": "close",
+      "src": "b365",
+      "role": "principal",
+      "n_total": 28589,
+      "n_by_partition": {
+        "dev": 22806,
+        "val": 5783
+      },
+      "n_seasons": 5,
+      "season_range": [
+        "2019/20",
+        "2023/24"
+      ],
+      "mean_margin": 0.06154128496484809,
+      "metrics": {
+        "all": {
+          "proportional": {
+            "n": 28589,
+            "log_loss": 0.9921254367473029,
+            "brier": 0.592039487892732,
+            "rps": 0.20046963920416092,
+            "accuracy": 0.5120850676833747,
+            "ece10": 0.009837210368669304,
+            "mean_pmax": 0.5043745017007627,
+            "brier_h": 0.21391639971603496,
+            "brier_d": 0.19110020948441198,
+            "brier_a": 0.18702287869228504
+          },
+          "power": {
+            "n": 28589,
+            "log_loss": 0.9916262452348749,
+            "brier": 0.5917782954403188,
+            "rps": 0.2003466383368422,
+            "accuracy": 0.5120850676833747,
+            "ece10": 0.006156429329603039,
+            "mean_pmax": 0.5155866317184877,
+            "brier_h": 0.21380197558440894,
+            "brier_d": 0.19108501876663297,
+            "brier_a": 0.1868913010892734
+          },
+          "shin": {
+            "n": 28589,
+            "log_loss": 0.9917114822924923,
+            "brier": 0.591814526452324,
+            "rps": 0.2003605938333489,
+            "accuracy": 0.5120850676833747,
+            "ece10": 0.008928947247321396,
+            "mean_pmax": 0.512148065132977,
+            "brier_h": 0.2138095276752361,
+            "brier_d": 0.19109333878562493,
+            "brier_a": 0.1869116599914599
+          }
+        },
+        "dev": {
+          "proportional": {
+            "n": 22806,
+            "log_loss": 0.9955833938654048,
+            "brier": 0.5944158401469638,
+            "rps": 0.20170790387138657,
+            "accuracy": 0.508331140927826,
+            "ece10": 0.00898277449809236,
+            "mean_pmax": 0.5033328533616995,
+            "brier_h": 0.21487190525336738,
+            "brier_d": 0.191000032404192,
+            "brier_a": 0.18854390248940633
+          },
+          "power": {
+            "n": 22806,
+            "log_loss": 0.9952891948619932,
+            "brier": 0.5942614523923074,
+            "rps": 0.2016433780968162,
+            "accuracy": 0.508331140927826,
+            "ece10": 0.008472885747249463,
+            "mean_pmax": 0.5146128602132514,
+            "brier_h": 0.21480549333802548,
+            "brier_d": 0.19097469619867571,
+            "brier_a": 0.18848126285560435
+          },
+          "shin": {
+            "n": 22806,
+            "log_loss": 0.9953182016789774,
+            "brier": 0.5942638602413938,
+            "rps": 0.2016398878629431,
+            "accuracy": 0.508331140927826,
+            "ece10": 0.010696612710437746,
+            "mean_pmax": 0.511153726618653,
+            "brier_h": 0.21479750037785675,
+            "brier_d": 0.19098408451550544,
+            "brier_a": 0.18848227534802658
+          }
+        },
+        "val": {
+          "proportional": {
+            "n": 5783,
+            "log_loss": 0.9784885406664735,
+            "brier": 0.5826680389025862,
+            "rps": 0.19558638414610313,
+            "accuracy": 0.5268891578765347,
+            "ece10": 0.01840678275009725,
+            "mean_pmax": 0.5084823751264373,
+            "brier_h": 0.21014824144448632,
+            "brier_d": 0.19149527061038024,
+            "brier_a": 0.18102452684772
+          },
+          "power": {
+            "n": 5783,
+            "log_loss": 0.9771809349813633,
+            "brier": 0.5819856484669397,
+            "rps": 0.19523277927304014,
+            "accuracy": 0.5268891578765347,
+            "ece10": 0.007462333706306032,
+            "mean_pmax": 0.5194268241702286,
+            "brier_h": 0.20984447499838554,
+            "brier_d": 0.19152008992086006,
+            "brier_a": 0.18062108354769515
+          },
+          "shin": {
+            "n": 5783,
+            "log_loss": 0.9774879231833482,
+            "brier": 0.5821552654470462,
+            "rps": 0.19531553423816886,
+            "accuracy": 0.5268891578765347,
+            "ece10": 0.010819791661476735,
+            "mean_pmax": 0.516069366215058,
+            "brier_h": 0.20991333098563253,
+            "brier_d": 0.1915241969707088,
+            "brier_a": 0.18071773749070583
+          }
+        }
+      },
+      "calibration_slope": {
+        "proportional": {
+          "intercept": 0.048036427952211094,
+          "slope": 1.0740968463292109,
+          "n_obs": 85767
+        },
+        "power": {
+          "intercept": -0.005406269797802787,
+          "slope": 0.9917459295417149,
+          "n_obs": 85767
+        },
+        "shin": {
+          "intercept": 0.010799570442568563,
+          "slope": 1.016804562093395,
+          "n_obs": 85767
+        }
+      },
+      "winners_by_division": {
+        "n_cells": 17,
+        "n_matches": 28589,
+        "wins": {
+          "proportional": 6,
+          "power": 8,
+          "shin": 3
+        },
+        "wins_share": {
+          "proportional": 0.35294117647058826,
+          "power": 0.47058823529411764,
+          "shin": 0.17647058823529413
+        }
+      },
+      "winners_by_season": {
+        "n_cells": 5,
+        "n_matches": 28589,
+        "wins": {
+          "proportional": 1,
+          "power": 3,
+          "shin": 1
+        },
+        "wins_share": {
+          "proportional": 0.2,
+          "power": 0.6,
+          "shin": 0.2
+        }
+      },
+      "detail_cells": {
+        "n_cells_season_x_div": 5,
+        "note": "celdas temporada×división; solo pasan n>=500 las ligas de año natural, no sostienen el veredicto"
+      },
+      "season_sign_test": {
+        "power_vs_proportional": {
+          "seasons": 5,
+          "wins": 4,
+          "p_value": 0.375
+        },
+        "shin_vs_proportional": {
+          "seasons": 5,
+          "wins": 4,
+          "p_value": 0.375
+        }
+      },
+      "division_sign_test": {
+        "power_vs_proportional": {
+          "divisions": 17,
+          "wins": 10,
+          "p_value": 0.629058837890625
+        },
+        "shin_vs_proportional": {
+          "divisions": 17,
+          "wins": 11,
+          "p_value": 0.332305908203125
+        }
+      }
+    },
+    "open_b365": {
+      "label": "Apertura Bet365",
+      "phase": "open",
+      "src": "b365",
+      "role": "robustez",
+      "n_total": 125299,
+      "n_by_partition": {
+        "dev": 119521,
+        "val": 5778
+      },
+      "n_seasons": 22,
+      "season_range": [
+        "2002/03",
+        "2023/24"
+      ],
+      "mean_margin": 0.07439191636633814,
+      "metrics": {
+        "all": {
+          "proportional": {
+            "n": 125299,
+            "log_loss": 0.9973530547438333,
+            "brier": 0.5962120880759867,
+            "rps": 0.20115147477665746,
+            "accuracy": 0.5070990191462023,
+            "ece10": 0.01147314743969058,
+            "mean_pmax": 0.49623276957947104,
+            "brier_h": 0.2210822003220328,
+            "brier_d": 0.19390913852267497,
+            "brier_a": 0.1812207492312687
+          },
+          "power": {
+            "n": 125299,
+            "log_loss": 0.9964863048967516,
+            "brier": 0.5957349192650667,
+            "rps": 0.2009426727193942,
+            "accuracy": 0.5070990191462023,
+            "ece10": 0.0034556735547176553,
+            "mean_pmax": 0.5089764528903945,
+            "brier_h": 0.2208096297044365,
+            "brier_d": 0.19384957382628684,
+            "brier_a": 0.18107571573435935
+          },
+          "shin": {
+            "n": 125299,
+            "log_loss": 0.9966517887557599,
+            "brier": 0.5958181898995314,
+            "rps": 0.2009727555770957,
+            "accuracy": 0.5070990191462023,
+            "ece10": 0.005130943832192614,
+            "mean_pmax": 0.5050300904290315,
+            "brier_h": 0.22085321301970387,
+            "brier_d": 0.1938726787453467,
+            "brier_a": 0.1810922981344866
+          }
+        },
+        "dev": {
+          "proportional": {
+            "n": 119521,
+            "log_loss": 0.9980858551504616,
+            "brier": 0.596741816813527,
+            "rps": 0.20136981696574635,
+            "accuracy": 0.506413098953322,
+            "ece10": 0.01111205199028983,
+            "mean_pmax": 0.49569980809169084,
+            "brier_h": 0.2215637155383904,
+            "brier_d": 0.19400218288203547,
+            "brier_a": 0.18117591839309308
+          },
+          "power": {
+            "n": 119521,
+            "log_loss": 0.9972294167925783,
+            "brier": 0.5962690917356173,
+            "rps": 0.20116586619061932,
+            "accuracy": 0.506413098953322,
+            "ece10": 0.0034297862073835897,
+            "mean_pmax": 0.5085356590044711,
+            "brier_h": 0.22129053044754396,
+            "brier_d": 0.19393735935438808,
+            "brier_a": 0.18104120193370002
+          },
+          "shin": {
+            "n": 119521,
+            "log_loss": 0.9973925247352712,
+            "brier": 0.5963499450731022,
+            "rps": 0.20119407467566378,
+            "accuracy": 0.506413098953322,
+            "ece10": 0.004615858390624665,
+            "mean_pmax": 0.5045585749308333,
+            "brier_h": 0.22133365735587904,
+            "brier_d": 0.19396179572178068,
+            "brier_a": 0.1810544919954486
+          }
+        },
+        "val": {
+          "proportional": {
+            "n": 5778,
+            "log_loss": 0.9821946889770259,
+            "brier": 0.5852543676814607,
+            "rps": 0.1966349505845332,
+            "accuracy": 0.5212876427829699,
+            "ece10": 0.019221987459722447,
+            "mean_pmax": 0.507257361130351,
+            "brier_h": 0.211121802230325,
+            "brier_d": 0.19198446651239462,
+            "brier_a": 0.18214809893874137
+          },
+          "power": {
+            "n": 5778,
+            "log_loss": 0.9811146404971112,
+            "brier": 0.5846852778921586,
+            "rps": 0.19632579717867193,
+            "accuracy": 0.5212876427829699,
+            "ece10": 0.0141481131686663,
+            "mean_pmax": 0.5180945086258497,
+            "brier_h": 0.21086194231826166,
+            "brier_d": 0.19203368353481418,
+            "brier_a": 0.1817896520390824
+          },
+          "shin": {
+            "n": 5778,
+            "log_loss": 0.9813292714474928,
+            "brier": 0.5848185515990176,
+            "rps": 0.1963946524306857,
+            "accuracy": 0.5212876427829699,
+            "ece10": 0.01714584101168065,
+            "mean_pmax": 0.5147836390375709,
+            "brier_h": 0.21091496665353587,
+            "brier_d": 0.19202924673764662,
+            "brier_a": 0.18187433820783597
+          }
+        }
+      },
+      "calibration_slope": {
+        "proportional": {
+          "intercept": 0.06328331374665624,
+          "slope": 1.0975884236596452,
+          "n_obs": 375897
+        },
+        "power": {
+          "intercept": 0.0010045304241543193,
+          "slope": 1.0015112610957204,
+          "n_obs": 375897
+        },
+        "shin": {
+          "intercept": 0.019361371662714056,
+          "slope": 1.029839238034965,
+          "n_obs": 375897
+        }
+      },
+      "winners_by_division": {
+        "n_cells": 17,
+        "n_matches": 125299,
+        "wins": {
+          "proportional": 4,
+          "power": 13,
+          "shin": 0
+        },
+        "wins_share": {
+          "proportional": 0.23529411764705882,
+          "power": 0.7647058823529411,
+          "shin": 0.0
+        }
+      },
+      "winners_by_season": {
+        "n_cells": 22,
+        "n_matches": 125299,
+        "wins": {
+          "proportional": 1,
+          "power": 20,
+          "shin": 1
+        },
+        "wins_share": {
+          "proportional": 0.045454545454545456,
+          "power": 0.9090909090909091,
+          "shin": 0.045454545454545456
+        }
+      },
+      "detail_cells": {
+        "n_cells_season_x_div": 22,
+        "note": "celdas temporada×división; solo pasan n>=500 las ligas de año natural, no sostienen el veredicto"
+      },
+      "season_sign_test": {
+        "power_vs_proportional": {
+          "seasons": 22,
+          "wins": 21,
+          "p_value": 1.0967254638671875e-05
+        },
+        "shin_vs_proportional": {
+          "seasons": 22,
+          "wins": 21,
+          "p_value": 1.0967254638671875e-05
+        }
+      },
+      "division_sign_test": {
+        "power_vs_proportional": {
+          "divisions": 17,
+          "wins": 13,
+          "p_value": 0.049041748046875
+        },
+        "shin_vs_proportional": {
+          "divisions": 17,
+          "wins": 13,
+          "p_value": 0.049041748046875
+        }
+      }
+    },
+    "open_ps": {
+      "label": "Apertura Pinnacle",
+      "phase": "open",
+      "src": "ps",
+      "role": "robustez",
+      "n_total": 68171,
+      "n_by_partition": {
+        "dev": 62394,
+        "val": 5777
+      },
+      "n_seasons": 12,
+      "season_range": [
+        "2012/13",
+        "2023/24"
+      ],
+      "mean_margin": 0.029609137599282402,
+      "metrics": {
+        "all": {
+          "proportional": {
+            "n": 68171,
+            "log_loss": 0.9944787627609193,
+            "brier": 0.5940490903721143,
+            "rps": 0.20093532113789467,
+            "accuracy": 0.507928591336492,
+            "ece10": 0.006227377352558543,
+            "mean_pmax": 0.5030875376422592,
+            "brier_h": 0.21778933555451038,
+            "brier_d": 0.19217844809632545,
+            "brier_a": 0.18408130672127712
+          },
+          "power": {
+            "n": 68171,
+            "log_loss": 0.9942254236399088,
+            "brier": 0.5939201895496522,
+            "rps": 0.2008805623829331,
+            "accuracy": 0.507928591336492,
+            "ece10": 0.005072757047676521,
+            "mean_pmax": 0.5084592973062526,
+            "brier_h": 0.21773398639930341,
+            "brier_d": 0.19215906478378836,
+            "brier_a": 0.18402713836656467
+          },
+          "shin": {
+            "n": 68171,
+            "log_loss": 0.9942849660805144,
+            "brier": 0.5939496550768415,
+            "rps": 0.20089031512574,
+            "accuracy": 0.507928591336492,
+            "ece10": 0.005181998987512035,
+            "mean_pmax": 0.5069049063143444,
+            "brier_h": 0.21774408008240045,
+            "brier_d": 0.1921690248253611,
+            "brier_a": 0.18403655016907947
+          }
+        },
+        "dev": {
+          "proportional": {
+            "n": 62394,
+            "log_loss": 0.9957480933228157,
+            "brier": 0.5949377905190172,
+            "rps": 0.20135623613323952,
+            "accuracy": 0.5066673077539507,
+            "ece10": 0.005608310898718364,
+            "mean_pmax": 0.5024986923495413,
+            "brier_h": 0.21842340466299465,
+            "brier_d": 0.19222531825253888,
+            "brier_a": 0.1842890676034817
+          },
+          "power": {
+            "n": 62394,
+            "log_loss": 0.9955326444403492,
+            "brier": 0.5948278964776793,
+            "rps": 0.20131389883618261,
+            "accuracy": 0.5066673077539507,
+            "ece10": 0.004201607522919867,
+            "mean_pmax": 0.5077189032765387,
+            "brier_h": 0.21837788304327665,
+            "brier_d": 0.19220009880531633,
+            "brier_a": 0.18424991462909018
+          },
+          "shin": {
+            "n": 62394,
+            "log_loss": 0.9955886857607545,
+            "brier": 0.594853573018331,
+            "rps": 0.2013206579311491,
+            "accuracy": 0.5066673077539507,
+            "ece10": 0.004334978318257365,
+            "mean_pmax": 0.5062150720845153,
+            "brier_h": 0.21838563606145,
+            "brier_d": 0.19221225715603169,
+            "brier_a": 0.18425567980084834
+          }
+        },
+        "val": {
+          "proportional": {
+            "n": 5777,
+            "log_loss": 0.9807694653610651,
+            "brier": 0.5844507595834937,
+            "rps": 0.19638926432301704,
+            "accuracy": 0.5215509780162714,
+            "ece10": 0.014793077004283131,
+            "mean_pmax": 0.5094473114338194,
+            "brier_h": 0.21094112576486276,
+            "brier_d": 0.19167223093746003,
+            "brier_a": 0.1818374028811708
+          },
+          "power": {
+            "n": 5777,
+            "log_loss": 0.9801068959226329,
+            "brier": 0.5841165776287026,
+            "rps": 0.19620034866230768,
+            "accuracy": 0.5215509780162714,
+            "ece10": 0.01448153382587769,
+            "mean_pmax": 0.5164558604168595,
+            "brier_h": 0.21077963514362097,
+            "brier_d": 0.19171588030408693,
+            "brier_a": 0.1816210621809945
+          },
+          "shin": {
+            "n": 5777,
+            "log_loss": 0.9802042519159138,
+            "brier": 0.584186965784597,
+            "rps": 0.1962424340454744,
+            "accuracy": 0.5215509780162714,
+            "ece10": 0.014997131623948426,
+            "mean_pmax": 0.514355402581602,
+            "brier_h": 0.21081500898030472,
+            "brier_d": 0.19170209769364863,
+            "brier_a": 0.18166985911064362
+          }
+        }
+      },
+      "calibration_slope": {
+        "proportional": {
+          "intercept": 0.03513778895019118,
+          "slope": 1.0541252130817698,
+          "n_obs": 204513
+        },
+        "power": {
+          "intercept": 0.00831231076605538,
+          "slope": 1.0128601307107317,
+          "n_obs": 204513
+        },
+        "shin": {
+          "intercept": 0.01601830765224653,
+          "slope": 1.0247434505748065,
+          "n_obs": 204513
+        }
+      },
+      "winners_by_division": {
+        "n_cells": 17,
+        "n_matches": 68171,
+        "wins": {
+          "proportional": 3,
+          "power": 12,
+          "shin": 2
+        },
+        "wins_share": {
+          "proportional": 0.17647058823529413,
+          "power": 0.7058823529411765,
+          "shin": 0.11764705882352941
+        }
+      },
+      "winners_by_season": {
+        "n_cells": 12,
+        "n_matches": 68171,
+        "wins": {
+          "proportional": 2,
+          "power": 10,
+          "shin": 0
+        },
+        "wins_share": {
+          "proportional": 0.16666666666666666,
+          "power": 0.8333333333333334,
+          "shin": 0.0
+        }
+      },
+      "detail_cells": {
+        "n_cells_season_x_div": 12,
+        "note": "celdas temporada×división; solo pasan n>=500 las ligas de año natural, no sostienen el veredicto"
+      },
+      "season_sign_test": {
+        "power_vs_proportional": {
+          "seasons": 12,
+          "wins": 10,
+          "p_value": 0.03857421875
+        },
+        "shin_vs_proportional": {
+          "seasons": 12,
+          "wins": 10,
+          "p_value": 0.03857421875
+        }
+      },
+      "division_sign_test": {
+        "power_vs_proportional": {
+          "divisions": 17,
+          "wins": 13,
+          "p_value": 0.049041748046875
+        },
+        "shin_vs_proportional": {
+          "divisions": 17,
+          "wins": 14,
+          "p_value": 0.012725830078125
+        }
+      }
+    }
+  },
+  "verdict": {
+    "close_ps": {
+      "best_all_logloss": "power",
+      "logloss": {
+        "proportional": 0.9969427147092567,
+        "power": 0.996704632832554,
+        "shin": 0.9967502863602556
+      },
+      "delta_pairs": {
+        "proportional_vs_power": {
+          "delta": 0.00023808187670258703,
+          "ci": [
+            0.00013026526170998248,
+            0.0003481489463266641
+          ],
+          "significant": true
+        },
+        "proportional_vs_shin": {
+          "delta": 0.00019242834900060424,
+          "ci": [
+            0.00011264609162993947,
+            0.0002717629635403269
+          ],
+          "significant": true
+        },
+        "power_vs_shin": {
+          "delta": -4.56535277019828e-05,
+          "ci": [
+            -8.330608288417414e-05,
+            -9.193455167011498e-06
+          ],
+          "significant": true
+        }
+      },
+      "winners_by_division": {
+        "n_cells": 23,
+        "n_matches": 93624,
+        "wins": {
+          "proportional": 4,
+          "power": 17,
+          "shin": 2
+        },
+        "wins_share": {
+          "proportional": 0.17391304347826086,
+          "power": 0.7391304347826086,
+          "shin": 0.08695652173913043
+        }
+      },
+      "winners_by_season": {
+        "n_cells": 24,
+        "n_matches": 93624,
+        "wins": {
+          "proportional": 6,
+          "power": 17,
+          "shin": 1
+        },
+        "wins_share": {
+          "proportional": 0.25,
+          "power": 0.7083333333333334,
+          "shin": 0.041666666666666664
+        }
+      },
+      "season_sign_test": {
+        "power_vs_proportional": {
+          "seasons": 24,
+          "wins": 17,
+          "p_value": 0.06391465663909912
+        },
+        "shin_vs_proportional": {
+          "seasons": 24,
+          "wins": 18,
+          "p_value": 0.022655844688415527
+        }
+      },
+      "division_sign_test": {
+        "power_vs_proportional": {
+          "divisions": 23,
+          "wins": 19,
+          "p_value": 0.002599477767944336
+        },
+        "shin_vs_proportional": {
+          "divisions": 23,
+          "wins": 19,
+          "p_value": 0.002599477767944336
+        }
+      }
+    },
+    "close_b365": {
+      "best_all_logloss": "power",
+      "logloss": {
+        "proportional": 0.9921254367473029,
+        "power": 0.9916262452348749,
+        "shin": 0.9917114822924923
+      },
+      "delta_pairs": {
+        "proportional_vs_power": {
+          "delta": 0.0004991915124278998,
+          "ci": [
+            0.0001102962110809838,
+            0.0009186271482541023
+          ],
+          "significant": true
+        },
+        "proportional_vs_shin": {
+          "delta": 0.000413954454810523,
+          "ci": [
+            0.00013384134842878387,
+            0.000704898290062727
+          ],
+          "significant": true
+        },
+        "power_vs_shin": {
+          "delta": -8.523705761737694e-05,
+          "ci": [
+            -0.00022369402834491802,
+            5.1204761415806415e-05
+          ],
+          "significant": false
+        }
+      },
+      "winners_by_division": {
+        "n_cells": 17,
+        "n_matches": 28589,
+        "wins": {
+          "proportional": 6,
+          "power": 8,
+          "shin": 3
+        },
+        "wins_share": {
+          "proportional": 0.35294117647058826,
+          "power": 0.47058823529411764,
+          "shin": 0.17647058823529413
+        }
+      },
+      "winners_by_season": {
+        "n_cells": 5,
+        "n_matches": 28589,
+        "wins": {
+          "proportional": 1,
+          "power": 3,
+          "shin": 1
+        },
+        "wins_share": {
+          "proportional": 0.2,
+          "power": 0.6,
+          "shin": 0.2
+        }
+      },
+      "season_sign_test": {
+        "power_vs_proportional": {
+          "seasons": 5,
+          "wins": 4,
+          "p_value": 0.375
+        },
+        "shin_vs_proportional": {
+          "seasons": 5,
+          "wins": 4,
+          "p_value": 0.375
+        }
+      },
+      "division_sign_test": {
+        "power_vs_proportional": {
+          "divisions": 17,
+          "wins": 10,
+          "p_value": 0.629058837890625
+        },
+        "shin_vs_proportional": {
+          "divisions": 17,
+          "wins": 11,
+          "p_value": 0.332305908203125
+        }
+      }
+    },
+    "open_b365": {
+      "best_all_logloss": "power",
+      "logloss": {
+        "proportional": 0.9973530547438333,
+        "power": 0.9964863048967516,
+        "shin": 0.9966517887557599
+      },
+      "delta_pairs": {
+        "proportional_vs_power": {
+          "delta": 0.0008667498470817781,
+          "ci": [
+            0.0006323776750310864,
+            0.0011196231097464658
+          ],
+          "significant": true
+        },
+        "proportional_vs_shin": {
+          "delta": 0.0007012659880735382,
+          "ci": [
+            0.0005400117166401861,
+            0.0008730258032324841
+          ],
+          "significant": true
+        },
+        "power_vs_shin": {
+          "delta": -0.00016548385900823974,
+          "ci": [
+            -0.0002489078399705239,
+            -8.44606559734048e-05
+          ],
+          "significant": true
+        }
+      },
+      "winners_by_division": {
+        "n_cells": 17,
+        "n_matches": 125299,
+        "wins": {
+          "proportional": 4,
+          "power": 13,
+          "shin": 0
+        },
+        "wins_share": {
+          "proportional": 0.23529411764705882,
+          "power": 0.7647058823529411,
+          "shin": 0.0
+        }
+      },
+      "winners_by_season": {
+        "n_cells": 22,
+        "n_matches": 125299,
+        "wins": {
+          "proportional": 1,
+          "power": 20,
+          "shin": 1
+        },
+        "wins_share": {
+          "proportional": 0.045454545454545456,
+          "power": 0.9090909090909091,
+          "shin": 0.045454545454545456
+        }
+      },
+      "season_sign_test": {
+        "power_vs_proportional": {
+          "seasons": 22,
+          "wins": 21,
+          "p_value": 1.0967254638671875e-05
+        },
+        "shin_vs_proportional": {
+          "seasons": 22,
+          "wins": 21,
+          "p_value": 1.0967254638671875e-05
+        }
+      },
+      "division_sign_test": {
+        "power_vs_proportional": {
+          "divisions": 17,
+          "wins": 13,
+          "p_value": 0.049041748046875
+        },
+        "shin_vs_proportional": {
+          "divisions": 17,
+          "wins": 13,
+          "p_value": 0.049041748046875
+        }
+      }
+    },
+    "open_ps": {
+      "best_all_logloss": "power",
+      "logloss": {
+        "proportional": 0.9944787627609193,
+        "power": 0.9942254236399088,
+        "shin": 0.9942849660805144
+      },
+      "delta_pairs": {
+        "proportional_vs_power": {
+          "delta": 0.0002533391210108245,
+          "ci": [
+            0.00012003701634807185,
+            0.00039482672364735653
+          ],
+          "significant": true
+        },
+        "proportional_vs_shin": {
+          "delta": 0.00019379668040492407,
+          "ci": [
+            9.749889114718946e-05,
+            0.00029341697821185544
+          ],
+          "significant": true
+        },
+        "power_vs_shin": {
+          "delta": -5.954244060590046e-05,
+          "ci": [
+            -0.00010719820318286414,
+            -1.5242386160288027e-05
+          ],
+          "significant": true
+        }
+      },
+      "winners_by_division": {
+        "n_cells": 17,
+        "n_matches": 68171,
+        "wins": {
+          "proportional": 3,
+          "power": 12,
+          "shin": 2
+        },
+        "wins_share": {
+          "proportional": 0.17647058823529413,
+          "power": 0.7058823529411765,
+          "shin": 0.11764705882352941
+        }
+      },
+      "winners_by_season": {
+        "n_cells": 12,
+        "n_matches": 68171,
+        "wins": {
+          "proportional": 2,
+          "power": 10,
+          "shin": 0
+        },
+        "wins_share": {
+          "proportional": 0.16666666666666666,
+          "power": 0.8333333333333334,
+          "shin": 0.0
+        }
+      },
+      "season_sign_test": {
+        "power_vs_proportional": {
+          "seasons": 12,
+          "wins": 10,
+          "p_value": 0.03857421875
+        },
+        "shin_vs_proportional": {
+          "seasons": 12,
+          "wins": 10,
+          "p_value": 0.03857421875
+        }
+      },
+      "division_sign_test": {
+        "power_vs_proportional": {
+          "divisions": 17,
+          "wins": 13,
+          "p_value": 0.049041748046875
+        },
+        "shin_vs_proportional": {
+          "divisions": 17,
+          "wins": 14,
+          "p_value": 0.012725830078125
+        }
+      }
+    }
+  }
+}

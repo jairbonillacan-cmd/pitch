@@ -1,6 +1,18 @@
 data/
-artifacts/
 logs/
 .venv
 __pycache__/
 *.pyc
+
+# Artefactos: se ignoran los grandes, pero se conservan los documentos de gobierno y métricas finales.
+artifacts/*
+!artifacts/FREEZE.md
+!artifacts/PREREGISTRATION_CYCLE2.md
+!artifacts/FINAL
+artifacts/FINAL/*
+!artifacts/FINAL/monitoring_live.md
+!artifacts/FINAL/monitoring_live.json
+!artifacts/FINAL/eval_test
+artifacts/FINAL/eval_test/*
+!artifacts/FINAL/eval_test/metrics.md
+!artifacts/FINAL/eval_test/metrics.json

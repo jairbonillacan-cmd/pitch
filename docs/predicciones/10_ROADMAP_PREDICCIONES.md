@@ -185,3 +185,30 @@ NHL API sin licencia documentada y CFBD «All rights reserved» con clave «for 
 | Decisión Motor A ciclo 2 | tras el cierre | ensemble vs logit con IC y p; se publica gane o pierda |
 
 **Regla de oro:** si un resultado no se puede reproducir con `(comando, hash del dataset, semilla, n)`, no es un resultado: es una observación.
+
+---
+
+## 9. Estado del ciclo 2 (2026-11-09, tras el cierre del ciclo 1)
+
+**Monitorización live 2026/27** (3.398 partidos, parcial; `artifacts/FINAL/monitoring_live.md`):
+
+| Sistema | Log-loss live | ECE |
+|---|---:|---:|
+| mercado cierre (mejor precio) | 0,99591 | 0,0095 |
+| stack_logit (Motor B exp.) | 1,01361 | 0,0242 |
+| ensemble (candidato) | 1,01959 | 0,0197 |
+| hgb | 1,02005 | 0,0097 |
+| logit (desplegado) | 1,02659 | 0,0094 |
+
+El `logit` desplegado es el que más se degrada en la temporada en curso (−0,016 vs su val 1,0103),
+mientras el ensemble aguanta mejor. No se cambia el modelo con datos observados: se ha abierto un
+**pre-registro** (`artifacts/PREREGISTRATION_CYCLE2.md`) para decidir con la muestra prospectiva
+(partidos de 2026/27 posteriores al 2026-11-09 + 2027/28), con regla de significancia fijada.
+
+**Trabajo en curso del ciclo 2:**
+1. **A13 — snapshots propios de cuotas:** `football-data.co.uk/fixtures.csv` publica ~160 partidos
+   próximos con cuotas; se captura el primer snapshot con `captured_at_utc` y se construye el
+   monitor de CLV. Resuelve parcialmente el P0 de "sin timestamps".
+2. **A12 — expansión NFL:** nflverse (`games.csv`, CC BY 4.0, 1999–2026) para dataset, features
+   causales y benchmark contra el mercado. Primer deporte de la expansión.
+3. **A09c — tercera auditoría adversarial** del estado final (documentos, artefactos y cierre).

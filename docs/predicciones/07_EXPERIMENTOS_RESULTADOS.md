@@ -139,3 +139,21 @@ En val, ensemble vs hgb no era concluyente (−0,00153 [−0,00318, +0,00007]); 
 3. **El mercado es el listón real:** 0,020 de brecha, consistente en val, test, 23 divisiones y 4 bandas de favoritismo.
 4. **Los empates y la calibración no son la palanca:** ni el sesgo de argmax ni el ECE se traducen en pérdida.
 5. **El experimento que falta es el que más importa:** EXP14 (drift) y EXP04 (xG) requieren datos que aún no existen; el próximo ciclo debe producirlos antes de prometer mejoras.
+
+---
+
+## Addendum ciclo 2 — monitorización live 2026/27 (no es test)
+
+Con el modelo congelado, `pipeline/monitoring_report.py` evalúa la temporada en curso (3.398
+partidos, parcial). No se usa para elegir; sirve para detectar deriva:
+
+| Sistema | Log-loss | Brier | RPS | Acc | ECE |
+|---|---:|---:|---:|---:|---:|
+| mercado cierre | 0,99591 | 0,59435 | 0,20379 | 0,5103 | 0,0095 |
+| stack_logit | 1,01361 | 0,60629 | 0,20936 | 0,4997 | 0,0242 |
+| ensemble | 1,01959 | 0,61066 | 0,21131 | 0,4894 | 0,0197 |
+| hgb | 1,02005 | 0,61079 | 0,21147 | 0,4918 | 0,0097 |
+| logit | 1,02659 | 0,61255 | 0,21197 | 0,4932 | 0,0094 |
+
+El logit desplegado se degrada 0,016 respecto a su val; el ensemble, 0,011. El pre-registro
+`PREREGISTRATION_CYCLE2.md` fija la decisión de promoción sobre la muestra prospectiva.

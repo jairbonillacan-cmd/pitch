@@ -1,0 +1,13 @@
+model,metric,n,n_blocks,delta,ci_lo,ci_hi,significant,model_worse
+M1_temp,logloss,8148,23,-9.1e-05,-0.000213,2e-05,False,False
+M1_temp,brier,8148,23,-4.1e-05,-0.000116,2.8e-05,False,False
+M1_temp,rps,8148,23,-2.8e-05,-6.5e-05,5e-06,False,False
+M2_logit,logloss,8148,23,-0.000541,-0.000899,-0.000174,True,False
+M2_logit,brier,8148,23,-0.000329,-0.000529,-0.000127,True,False
+M2_logit,rps,8148,23,-8.4e-05,-0.000131,-3.8e-05,True,False
+M3_logit_m,logloss,8148,23,-0.000537,-0.000891,-0.000174,True,False
+M3_logit_m,brier,8148,23,-0.000326,-0.000525,-0.000126,True,False
+M3_logit_m,rps,8148,23,-8.3e-05,-0.000128,-3.8e-05,True,False
+M4_hgb,logloss,8148,23,0.000512,-0.000966,0.001839,False,True
+M4_hgb,brier,8148,23,0.000513,-0.00043,0.001315,False,True
+M4_hgb,rps,8148,23,0.000215,-0.000226,0.000576,False,True

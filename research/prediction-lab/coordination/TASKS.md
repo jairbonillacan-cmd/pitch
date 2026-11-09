@@ -165,3 +165,15 @@ explícito sobre si los motores actuales pueden considerarse “motor de predicc
 
 **Nota de integridad:** cualquier métrica de test mostrada antes del cierre es exploratoria y no
 puede usarse para seleccionar modelo. El cierre de test se hará en un único run final documentado.
+
+---
+
+# CICLO 2 (2026-11-09 04:00+)
+
+| ID | Agente | Tarea | Estado | Depende de |
+|---|---|---|---|---|
+| A12 | Expansion Researcher NFL | Dataset nflverse + motor NFL + comparación con mercado | en progreso | A03, A08 |
+| A13 | Odds Capture & CLV | Snapshots propios de cuotas con timestamp + monitor CLV | en progreso | A03, A07 |
+| A09c | Adversarial final | Tercera auditoría independiente del estado final | en progreso | cierre ciclo 1 |
+| O2.1 | Orquestador | Monitorización live 2026/27 (`pipeline/monitoring_report.py`) | completada | FINAL |
+| O2.2 | Orquestador | Pre-registro del ensemble para test prospectivo | completada | FREEZE, monitorización |
