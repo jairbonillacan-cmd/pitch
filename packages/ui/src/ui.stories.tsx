@@ -31,6 +31,7 @@ import {
   PinPad,
   AnalysisDialog,
 } from "./shells.js";
+import { DashboardLoading } from "./dashboard-loading.js";
 
 export default {
   title: "PitchLab/D1 Design System",
@@ -245,13 +246,27 @@ export const BadgesShowcase = () => (
   </div>
 );
 
-export const PinPadDialog = () => (
-  <PinPad
-    open
-    onClose={() => {}}
-    onSubmitPin={async (code) => ({ ok: code === "2026" })}
-  />
-);
+export const PinPadDialog = () => {
+  const [entered, setEntered] = React.useState(false);
+  if (entered) {
+    return (
+      <div className="dashboard-entry-overlay">
+        <DashboardLoading confirmed />
+      </div>
+    );
+  }
+  return (
+    <PinPad
+      open
+      onClose={() => setEntered(false)}
+      onSubmitPin={async (code) =>
+        code === "2026"
+          ? { ok: true, continueToApp: () => setEntered(true) }
+          : { ok: false, error: "Ese código no es. Revisa con quien te invitó." }
+      }
+    />
+  );
+};
 
 export const AnalysisModalResult = () => (
   <AnalysisDialog

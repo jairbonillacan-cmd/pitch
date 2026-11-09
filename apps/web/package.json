@@ -12,6 +12,7 @@
     "e2e": "playwright test"
   },
   "dependencies": {
+    "@heroui/styles": "3.2.7",
     "@pitchlab/contracts": "workspace:*",
     "@pitchlab/sports-assets": "workspace:*",
     "@pitchlab/tokens": "workspace:*",

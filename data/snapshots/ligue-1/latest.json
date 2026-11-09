@@ -4,7 +4,7 @@
   "season": "ligue-1-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 11",
-  "updatedAt": "2026-11-09T05:10:10.109Z",
+  "updatedAt": "2026-11-09T16:35:26.039Z",
   "source": "openfootball+football-data",
   "provenance": "derived",
   "isDemo": false,
@@ -209,6 +209,285 @@
     }
   },
   "games": [
+    {
+      "id": "ligue-1-2026-27-md5-monaco-racing-lens",
+      "league": "ligue-1",
+      "season": "ligue-1-2026-27",
+      "week": 5,
+      "round": "Jornada 5",
+      "startTime": "2026-09-18T20:45:00",
+      "status": "final",
+      "home": {
+        "id": "ligue-1.monaco",
+        "league": "ligue-1",
+        "name": "AS Monaco FC",
+        "shortName": "AS Monaco FC",
+        "code": "MON"
+      },
+      "away": {
+        "id": "ligue-1.racing-lens",
+        "league": "ligue-1",
+        "name": "Racing Club de Lens",
+        "shortName": "Racing Club de Lens",
+        "code": "RAC"
+      },
+      "venue": "Francia",
+      "neutralSite": false,
+      "result": {
+        "home": 2,
+        "away": 1,
+        "observedAt": "2026-11-09T12:00:00.000Z",
+        "source": "openfootball"
+      }
+    },
+    {
+      "id": "ligue-1-2026-27-md5-paris-strasbourg-alsace",
+      "league": "ligue-1",
+      "season": "ligue-1-2026-27",
+      "week": 5,
+      "round": "Jornada 5",
+      "startTime": "2026-09-19T17:15:00",
+      "status": "final",
+      "home": {
+        "id": "ligue-1.paris",
+        "league": "ligue-1",
+        "name": "Paris FC",
+        "shortName": "Paris FC",
+        "code": "PAR"
+      },
+      "away": {
+        "id": "ligue-1.strasbourg-alsace",
+        "league": "ligue-1",
+        "name": "RC Strasbourg Alsace",
+        "shortName": "RC Strasbourg Alsace",
+        "code": "STR"
+      },
+      "venue": "Francia",
+      "neutralSite": false,
+      "result": {
+        "home": 2,
+        "away": 1,
+        "observedAt": "2026-11-09T12:00:00.000Z",
+        "source": "openfootball"
+      }
+    },
+    {
+      "id": "ligue-1-2026-27-md5-le-mans-lorient",
+      "league": "ligue-1",
+      "season": "ligue-1-2026-27",
+      "week": 5,
+      "round": "Jornada 5",
+      "startTime": "2026-09-19T20:45:00",
+      "status": "final",
+      "home": {
+        "id": "ligue-1.le-mans",
+        "league": "ligue-1",
+        "name": "Le Mans FC",
+        "shortName": "Le Mans FC",
+        "code": "LEM"
+      },
+      "away": {
+        "id": "ligue-1.lorient",
+        "league": "ligue-1",
+        "name": "FC Lorient",
+        "shortName": "FC Lorient",
+        "code": "LOR"
+      },
+      "venue": "Francia",
+      "neutralSite": false,
+      "result": {
+        "home": 2,
+        "away": 1,
+        "observedAt": "2026-11-09T12:00:00.000Z",
+        "source": "openfootball"
+      }
+    },
+    {
+      "id": "ligue-1-2026-27-md5-toulouse-le-havre",
+      "league": "ligue-1",
+      "season": "ligue-1-2026-27",
+      "week": 5,
+      "round": "Jornada 5",
+      "startTime": "2026-09-19T20:45:00",
+      "status": "final",
+      "home": {
+        "id": "ligue-1.toulouse",
+        "league": "ligue-1",
+        "name": "Toulouse FC",
+        "shortName": "Toulouse FC",
+        "code": "TOU"
+      },
+      "away": {
+        "id": "ligue-1.le-havre",
+        "league": "ligue-1",
+        "name": "Le Havre AC",
+        "shortName": "Le Havre AC",
+        "code": "LEH"
+      },
+      "venue": "Francia",
+      "neutralSite": false,
+      "result": {
+        "home": 3,
+        "away": 2,
+        "observedAt": "2026-11-09T12:00:00.000Z",
+        "source": "openfootball"
+      }
+    },
+    {
+      "id": "ligue-1-2026-27-md5-angers-sco-es-troyes",
+      "league": "ligue-1",
+      "season": "ligue-1-2026-27",
+      "week": 5,
+      "round": "Jornada 5",
+      "startTime": "2026-09-19T20:45:00",
+      "status": "final",
+      "home": {
+        "id": "ligue-1.angers-sco",
+        "league": "ligue-1",
+        "name": "Angers SCO",
+        "shortName": "Angers SCO",
+        "code": "ANG"
+      },
+      "away": {
+        "id": "ligue-1.es-troyes",
+        "league": "ligue-1",
+        "name": "ES Troyes AC",
+        "shortName": "ES Troyes AC",
+        "code": "EST"
+      },
+      "venue": "Francia",
+      "neutralSite": false,
+      "result": {
+        "home": 2,
+        "away": 0,
+        "observedAt": "2026-11-09T12:00:00.000Z",
+        "source": "openfootball"
+      }
+    },
+    {
+      "id": "ligue-1-2026-27-md5-olympique-lyonnais-stade-rennais",
+      "league": "ligue-1",
+      "season": "ligue-1-2026-27",
+      "week": 5,
+      "round": "Jornada 5",
+      "startTime": "2026-09-19T20:45:00",
+      "status": "final",
+      "home": {
+        "id": "ligue-1.olympique-lyonnais",
+        "league": "ligue-1",
+        "name": "Olympique Lyonnais",
+        "shortName": "Olympique Lyonnais",
+        "code": "OLY"
+      },
+      "away": {
+        "id": "ligue-1.stade-rennais",
+        "league": "ligue-1",
+        "name": "Stade Rennais FC 1901",
+        "shortName": "Stade Rennais FC 1901",
+        "code": "STA"
+      },
+      "venue": "Francia",
+      "neutralSite": false,
+      "result": {
+        "home": 4,
+        "away": 0,
+        "observedAt": "2026-11-09T12:00:00.000Z",
+        "source": "openfootball"
+      }
+    },
+    {
+      "id": "ligue-1-2026-27-md5-aj-auxerre-stade-brestois",
+      "league": "ligue-1",
+      "season": "ligue-1-2026-27",
+      "week": 5,
+      "round": "Jornada 5",
+      "startTime": "2026-09-20T15:00:00",
+      "status": "final",
+      "home": {
+        "id": "ligue-1.aj-auxerre",
+        "league": "ligue-1",
+        "name": "AJ Auxerre",
+        "shortName": "AJ Auxerre",
+        "code": "AJA"
+      },
+      "away": {
+        "id": "ligue-1.stade-brestois",
+        "league": "ligue-1",
+        "name": "Stade Brestois 29",
+        "shortName": "Stade Brestois 29",
+        "code": "STA"
+      },
+      "venue": "Francia",
+      "neutralSite": false,
+      "result": {
+        "home": 2,
+        "away": 1,
+        "observedAt": "2026-11-09T12:00:00.000Z",
+        "source": "openfootball"
+      }
+    },
+    {
+      "id": "ligue-1-2026-27-md5-ogc-nice-lille-osc",
+      "league": "ligue-1",
+      "season": "ligue-1-2026-27",
+      "week": 5,
+      "round": "Jornada 5",
+      "startTime": "2026-09-20T17:15:00",
+      "status": "final",
+      "home": {
+        "id": "ligue-1.ogc-nice",
+        "league": "ligue-1",
+        "name": "OGC Nice",
+        "shortName": "OGC Nice",
+        "code": "OGC"
+      },
+      "away": {
+        "id": "ligue-1.lille-osc",
+        "league": "ligue-1",
+        "name": "Lille OSC",
+        "shortName": "Lille OSC",
+        "code": "LIL"
+      },
+      "venue": "Francia",
+      "neutralSite": false,
+      "result": {
+        "home": 2,
+        "away": 1,
+        "observedAt": "2026-11-09T12:00:00.000Z",
+        "source": "openfootball"
+      }
+    },
+    {
+      "id": "ligue-1-2026-27-md5-olympique-marseille-paris-saint-germain",
+      "league": "ligue-1",
+      "season": "ligue-1-2026-27",
+      "week": 5,
+      "round": "Jornada 5",
+      "startTime": "2026-09-20T20:45:00",
+      "status": "final",
+      "home": {
+        "id": "ligue-1.olympique-marseille",
+        "league": "ligue-1",
+        "name": "Olympique de Marseille",
+        "shortName": "Olympique de Marseille",
+        "code": "OLY"
+      },
+      "away": {
+        "id": "ligue-1.paris-saint-germain",
+        "league": "ligue-1",
+        "name": "Paris Saint-Germain FC",
+        "shortName": "Paris Saint-Germain FC",
+        "code": "PAR"
+      },
+      "venue": "Francia",
+      "neutralSite": false,
+      "result": {
+        "home": 1,
+        "away": 2,
+        "observedAt": "2026-11-09T12:00:00.000Z",
+        "source": "openfootball"
+      }
+    },
     {
       "id": "ligue-1-2026-27-md11-es-troyes-le-havre",
       "league": "ligue-1",
@@ -4893,6 +5172,4162 @@
         }
       },
       "picksAt": "2026-11-09T05:09:34.695Z"
+    },
+    "ligue-1-2026-27-md5-monaco-racing-lens": {
+      "game": "ligue-1-2026-27-md5-monaco-racing-lens",
+      "model": {
+        "id": "pitchlab-statistical-ligue-1",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.841116258946162,
+        "away": 1.4693407066115765,
+        "total": 3.3104569655577385,
+        "margin": 0.3717755523345856
+      },
+      "x12": [
+        0.47626100072283195,
+        0.23806909748344862,
+        0.2856699017937197
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "AS Monaco FC gana",
+          "p": 0.47626100072283195,
+          "fairOdds": 2.0996890328670155
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.23806909748344862,
+          "fairOdds": 4.2004611710241955
+        },
+        {
+          "market": "h2h",
+          "selection": "Racing Club de Lens gana",
+          "p": 0.2856699017937197,
+          "fairOdds": 3.500543787500908
+        },
+        {
+          "market": "double_chance",
+          "selection": "AS Monaco FC o empate",
+          "p": 0.7143300982062806,
+          "fairOdds": 1.3999130129208488
+        },
+        {
+          "market": "double_chance",
+          "selection": "Racing Club de Lens o empate",
+          "p": 0.5237389992771684,
+          "fairOdds": 1.9093479793945785
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7619309025165517,
+          "fairOdds": 1.312454970256672
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.8388338083185995,
+          "fairOdds": 1.1921312542283555
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.6369141545683963,
+          "fairOdds": 1.570070303552365
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.3630858454316037,
+          "fairOdds": 2.7541696063951218
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.42278013932716274,
+          "fairOdds": 2.3652955921521266
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.5772198606728373,
+          "fairOdds": 1.7324421215069565
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.6484279990399725,
+          "fairOdds": 1.5421912710131982
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.3515720009600275,
+          "fairOdds": 2.8443675755444944
+        },
+        {
+          "market": "team_totals",
+          "selection": "AS Monaco FC más de 1.5",
+          "line": 1.5,
+          "p": 0.5584675147836702,
+          "fairOdds": 1.7906144467281384
+        },
+        {
+          "market": "team_totals",
+          "selection": "AS Monaco FC menos de 1.5",
+          "line": 1.5,
+          "p": 0.4415324852163298,
+          "fairOdds": 2.2648390174735336
+        },
+        {
+          "market": "team_totals",
+          "selection": "Racing Club de Lens más de 1.5",
+          "line": 1.5,
+          "p": 0.41909660632121293,
+          "fairOdds": 2.3860846996063687
+        },
+        {
+          "market": "team_totals",
+          "selection": "Racing Club de Lens menos de 1.5",
+          "line": 1.5,
+          "p": 0.5809033936787871,
+          "fairOdds": 1.7214566326891767
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.10338377630592425,
+          "fairOdds": 9.672697552088707
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.09214365688222192,
+          "fairOdds": 10.852618984703424
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–2",
+          "p": 0.07359910256096508,
+          "fairOdds": 13.587122195840092
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "AS Monaco FC gana",
+              "p": 0.47626100072283195,
+              "fairOdds": 2.0996890328670155
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.23806909748344862,
+              "fairOdds": 4.2004611710241955
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Racing Club de Lens gana",
+              "p": 0.2856699017937197,
+              "fairOdds": 3.500543787500908
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "AS Monaco FC o empate",
+              "p": 0.7143300982062806,
+              "fairOdds": 1.3999130129208488
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Racing Club de Lens o empate",
+              "p": 0.5237389992771684,
+              "fairOdds": 1.9093479793945785
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7619309025165517,
+              "fairOdds": 1.312454970256672
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.8388338083185995,
+              "fairOdds": 1.1921312542283555
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.6369141545683963,
+              "fairOdds": 1.570070303552365
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.3630858454316037,
+              "fairOdds": 2.7541696063951218
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.42278013932716274,
+              "fairOdds": 2.3652955921521266
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.5772198606728373,
+              "fairOdds": 1.7324421215069565
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.6484279990399725,
+              "fairOdds": 1.5421912710131982
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.3515720009600275,
+              "fairOdds": 2.8443675755444944
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "AS Monaco FC más de 1.5",
+              "line": 1.5,
+              "p": 0.5584675147836702,
+              "fairOdds": 1.7906144467281384
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "AS Monaco FC menos de 1.5",
+              "line": 1.5,
+              "p": 0.4415324852163298,
+              "fairOdds": 2.2648390174735336
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Racing Club de Lens más de 1.5",
+              "line": 1.5,
+              "p": 0.41909660632121293,
+              "fairOdds": 2.3860846996063687
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Racing Club de Lens menos de 1.5",
+              "line": 1.5,
+              "p": 0.5809033936787871,
+              "fairOdds": 1.7214566326891767
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.10338377630592425,
+              "fairOdds": 9.672697552088707
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.09214365688222192,
+              "fairOdds": 10.852618984703424
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-2",
+              "label": "2–2",
+              "p": 0.07359910256096508,
+              "fairOdds": 13.587122195840092
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.10338377630592425
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.52 goles/partido",
+          "detail": "19 % más que la media · 5 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.28 concedidos/partido",
+          "detail": "11 % menos que la media · 5 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.47 goles/partido",
+          "detail": "23 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.20 concedidos/partido",
+          "detail": "17 % menos que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.21",
+          "detail": "estimada de 422 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 2.4–4.5",
+          "detail": "local 28%–72% · 422 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "1.º · 13 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "13.º · 4 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "G-G-G-E · 10 pts",
+          "detail": "6 goles a favor · 2 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-P-P-E · 4 pts",
+          "detail": "8 goles a favor · 7 en contra"
+        },
+        {
+          "key": "long_memory",
+          "label": "Memoria larga",
+          "value": "coincide con la temporada",
+          "detail": "historia 48% / 26% / 26% · temporada 47% / 22% / 31%"
+        }
+      ],
+      "steps": [
+        "Sincronizando Ligue 1 · corte 18 sep 2026, 19:45",
+        "Fuerza ajustada por rival · MON 1.19 / 0.83 · RAC 1.23 / 0.89",
+        "Ponderando 122.2 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.84 – 1.47 · total 3.31",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 2–1"
+      ],
+      "inputsAsOf": "2026-09-19T01:45:00.000Z",
+      "publishedAt": "2026-09-19T01:45:00.000Z",
+      "source": "openfootball",
+      "projectedScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.09214365688222192
+      },
+      "insights": {
+        "why": [
+          "Se esperan 3.3 goles: 1.8 de AS Monaco FC y 1.5 de Racing Club de Lens.",
+          "Racing Club de Lens anota 23 % más que la media.",
+          "AS Monaco FC concede 17 % menos que la media."
+        ],
+        "headToHead": [
+          {
+            "date": "2026-02-21",
+            "homeTeamId": "ligue-1.racing-lens",
+            "awayTeamId": "ligue-1.monaco",
+            "homeGoals": 2,
+            "awayGoals": 3
+          },
+          {
+            "date": "2025-11-08",
+            "homeTeamId": "ligue-1.monaco",
+            "awayTeamId": "ligue-1.racing-lens",
+            "homeGoals": 1,
+            "awayGoals": 4
+          },
+          {
+            "date": "2025-05-17",
+            "homeTeamId": "ligue-1.racing-lens",
+            "awayTeamId": "ligue-1.monaco",
+            "homeGoals": 4,
+            "awayGoals": 0
+          },
+          {
+            "date": "2024-09-01",
+            "homeTeamId": "ligue-1.monaco",
+            "awayTeamId": "ligue-1.racing-lens",
+            "homeGoals": 1,
+            "awayGoals": 1
+          },
+          {
+            "date": "2024-02-25",
+            "homeTeamId": "ligue-1.racing-lens",
+            "awayTeamId": "ligue-1.monaco",
+            "homeGoals": 2,
+            "awayGoals": 3
+          }
+        ],
+        "restDays": {
+          "home": 6,
+          "away": 5
+        }
+      }
+    },
+    "ligue-1-2026-27-md5-paris-strasbourg-alsace": {
+      "game": "ligue-1-2026-27-md5-paris-strasbourg-alsace",
+      "model": {
+        "id": "pitchlab-statistical-ligue-1",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 2.179774595848311,
+        "away": 1.7060368437120759,
+        "total": 3.8858114395603867,
+        "margin": 0.4737377521362349
+      },
+      "x12": [
+        0.4506930331168692,
+        0.24011328909816373,
+        0.3091936777849665
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Paris FC gana",
+          "p": 0.4506930331168692,
+          "fairOdds": 2.218805099081019
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.24011328909816373,
+          "fairOdds": 4.16470077002351
+        },
+        {
+          "market": "h2h",
+          "selection": "RC Strasbourg Alsace gana",
+          "p": 0.3091936777849665,
+          "fairOdds": 3.234218782104159
+        },
+        {
+          "market": "double_chance",
+          "selection": "Paris FC o empate",
+          "p": 0.6908063222150329,
+          "fairOdds": 1.4475837406837193
+        },
+        {
+          "market": "double_chance",
+          "selection": "RC Strasbourg Alsace o empate",
+          "p": 0.5493069668831302,
+          "fairOdds": 1.8204757272134848
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7598867109018357,
+          "fairOdds": 1.3159856405610741
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.8964631937085618,
+          "fairOdds": 1.1154947654494534
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.7338389929386698,
+          "fairOdds": 1.362696735418057
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.26616100706133017,
+          "fairOdds": 3.7571243475554437
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.5433150427104944,
+          "fairOdds": 1.8405527574042349
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.45668495728950564,
+          "fairOdds": 2.189693319296417
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.7326954717293966,
+          "fairOdds": 1.364823502511458
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.26730452827060336,
+          "fairOdds": 3.741051475894411
+        },
+        {
+          "market": "team_totals",
+          "selection": "Paris FC más de 1.5",
+          "line": 1.5,
+          "p": 0.6254894731588548,
+          "fairOdds": 1.5987479292813473
+        },
+        {
+          "market": "team_totals",
+          "selection": "Paris FC menos de 1.5",
+          "line": 1.5,
+          "p": 0.37451052684114516,
+          "fairOdds": 2.6701519138450456
+        },
+        {
+          "market": "team_totals",
+          "selection": "RC Strasbourg Alsace más de 1.5",
+          "line": 1.5,
+          "p": 0.5206790704941322,
+          "fairOdds": 1.9205688430130006
+        },
+        {
+          "market": "team_totals",
+          "selection": "RC Strasbourg Alsace menos de 1.5",
+          "line": 1.5,
+          "p": 0.4793209295058678,
+          "fairOdds": 2.0862848635274505
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.08818155987633539,
+          "fairOdds": 11.34023940382078
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–2",
+          "p": 0.08629669693726774,
+          "fairOdds": 11.587929034258831
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.07604812143067247,
+          "fairOdds": 13.149568736048623
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Paris FC gana",
+              "p": 0.4506930331168692,
+              "fairOdds": 2.218805099081019
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.24011328909816373,
+              "fairOdds": 4.16470077002351
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "RC Strasbourg Alsace gana",
+              "p": 0.3091936777849665,
+              "fairOdds": 3.234218782104159
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Paris FC o empate",
+              "p": 0.6908063222150329,
+              "fairOdds": 1.4475837406837193
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "RC Strasbourg Alsace o empate",
+              "p": 0.5493069668831302,
+              "fairOdds": 1.8204757272134848
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7598867109018357,
+              "fairOdds": 1.3159856405610741
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.8964631937085618,
+              "fairOdds": 1.1154947654494534
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.7338389929386698,
+              "fairOdds": 1.362696735418057
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.26616100706133017,
+              "fairOdds": 3.7571243475554437
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.5433150427104944,
+              "fairOdds": 1.8405527574042349
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.45668495728950564,
+              "fairOdds": 2.189693319296417
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.7326954717293966,
+              "fairOdds": 1.364823502511458
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.26730452827060336,
+              "fairOdds": 3.741051475894411
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Paris FC más de 1.5",
+              "line": 1.5,
+              "p": 0.6254894731588548,
+              "fairOdds": 1.5987479292813473
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Paris FC menos de 1.5",
+              "line": 1.5,
+              "p": 0.37451052684114516,
+              "fairOdds": 2.6701519138450456
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "RC Strasbourg Alsace más de 1.5",
+              "line": 1.5,
+              "p": 0.5206790704941322,
+              "fairOdds": 1.9205688430130006
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "RC Strasbourg Alsace menos de 1.5",
+              "line": 1.5,
+              "p": 0.4793209295058678,
+              "fairOdds": 2.0862848635274505
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.08818155987633539,
+              "fairOdds": 11.34023940382078
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-2",
+              "label": "2–2",
+              "p": 0.08629669693726774,
+              "fairOdds": 11.587929034258831
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.07604812143067247,
+              "fairOdds": 13.149568736048623
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.08818155987633539
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.80 goles/partido",
+          "detail": "19 % más que la media · 3 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.51 concedidos/partido",
+          "detail": "5 % más que la media · 5 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.71 goles/partido",
+          "detail": "26 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.36 concedidos/partido",
+          "detail": "6 % menos que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.21",
+          "detail": "estimada de 422 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 2.9–5.6",
+          "detail": "local 21%–71% · 422 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "5.º · 9 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "7.º · 7 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "G-G · 6 pts",
+          "detail": "6 goles a favor · 2 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "P-G-G-E · 7 pts",
+          "detail": "9 goles a favor · 8 en contra"
+        },
+        {
+          "key": "long_memory",
+          "label": "Memoria larga",
+          "value": "−4 pts al local",
+          "detail": "historia 41% / 28% / 31% · temporada 49% / 20% / 31%"
+        }
+      ],
+      "steps": [
+        "Sincronizando Ligue 1 · corte 19 sep 2026, 16:15",
+        "Fuerza ajustada por rival · PAR 1.19 / 0.94 · STR 1.26 / 1.05",
+        "Ponderando 122.2 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 2.18 – 1.71 · total 3.89",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 2–1"
+      ],
+      "inputsAsOf": "2026-09-19T22:15:00.000Z",
+      "publishedAt": "2026-09-19T22:15:00.000Z",
+      "source": "openfootball",
+      "projectedScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.07604812143067247
+      },
+      "insights": {
+        "why": [
+          "Paris FC gana en 45% de los escenarios; el empate, en 24%.",
+          "RC Strasbourg Alsace anota 26 % más que la media.",
+          "Paris FC anota 19 % más que la media.",
+          "La historia larga favorece menos a Paris FC que esta temporada."
+        ],
+        "headToHead": [
+          {
+            "date": "2025-09-21",
+            "homeTeamId": "ligue-1.paris",
+            "awayTeamId": "ligue-1.strasbourg-alsace",
+            "homeGoals": 2,
+            "awayGoals": 3
+          }
+        ],
+        "restDays": {
+          "home": 13,
+          "away": 7
+        }
+      }
+    },
+    "ligue-1-2026-27-md5-le-mans-lorient": {
+      "game": "ligue-1-2026-27-md5-le-mans-lorient",
+      "model": {
+        "id": "pitchlab-statistical-ligue-1",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.8718423688949892,
+        "away": 1.4575722582328061,
+        "total": 3.3294146271277953,
+        "margin": 0.4142701106621831
+      },
+      "x12": [
+        0.46999949358311427,
+        0.24065553414743343,
+        0.28934497226945205
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Le Mans FC gana",
+          "p": 0.46999949358311427,
+          "fairOdds": 2.127661866987014
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.24065553414743343,
+          "fairOdds": 4.155316866253187
+        },
+        {
+          "market": "h2h",
+          "selection": "FC Lorient gana",
+          "p": 0.28934497226945205,
+          "fairOdds": 3.4560821712455803
+        },
+        {
+          "market": "double_chance",
+          "selection": "Le Mans FC o empate",
+          "p": 0.7106550277305477,
+          "fairOdds": 1.4071525015357529
+        },
+        {
+          "market": "double_chance",
+          "selection": "FC Lorient o empate",
+          "p": 0.5300005064168855,
+          "fairOdds": 1.8867906499950104
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7593444658525663,
+          "fairOdds": 1.316925380995875
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.8408312364891983,
+          "fairOdds": 1.1892992988407447
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.6391931825757273,
+          "fairOdds": 1.5644722554304258
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.3608068174242727,
+          "fairOdds": 2.7715662557010394
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.4263800157095845,
+          "fairOdds": 2.3453256793374644
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.5736199842904155,
+          "fairOdds": 1.7433144370606768
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.6512018803629046,
+          "fairOdds": 1.5356221014637053
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.3487981196370954,
+          "fairOdds": 2.8669879328490735
+        },
+        {
+          "market": "team_totals",
+          "selection": "Le Mans FC más de 1.5",
+          "line": 1.5,
+          "p": 0.5581432855772714,
+          "fairOdds": 1.7916546267608127
+        },
+        {
+          "market": "team_totals",
+          "selection": "Le Mans FC menos de 1.5",
+          "line": 1.5,
+          "p": 0.44185671442272856,
+          "fairOdds": 2.2631771055159082
+        },
+        {
+          "market": "team_totals",
+          "selection": "FC Lorient más de 1.5",
+          "line": 1.5,
+          "p": 0.4234077010933136,
+          "fairOdds": 2.3617898243650814
+        },
+        {
+          "market": "team_totals",
+          "selection": "FC Lorient menos de 1.5",
+          "line": 1.5,
+          "p": 0.5765922989066864,
+          "fairOdds": 1.7343277076300951
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.10416568970777133,
+          "fairOdds": 9.600090037376237
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.08970577242369115,
+          "fairOdds": 11.147554644275061
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–2",
+          "p": 0.07478947149299722,
+          "fairOdds": 13.370865979359584
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Le Mans FC gana",
+              "p": 0.46999949358311427,
+              "fairOdds": 2.127661866987014
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.24065553414743343,
+              "fairOdds": 4.155316866253187
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "FC Lorient gana",
+              "p": 0.28934497226945205,
+              "fairOdds": 3.4560821712455803
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Le Mans FC o empate",
+              "p": 0.7106550277305477,
+              "fairOdds": 1.4071525015357529
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "FC Lorient o empate",
+              "p": 0.5300005064168855,
+              "fairOdds": 1.8867906499950104
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7593444658525663,
+              "fairOdds": 1.316925380995875
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.8408312364891983,
+              "fairOdds": 1.1892992988407447
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.6391931825757273,
+              "fairOdds": 1.5644722554304258
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.3608068174242727,
+              "fairOdds": 2.7715662557010394
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.4263800157095845,
+              "fairOdds": 2.3453256793374644
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.5736199842904155,
+              "fairOdds": 1.7433144370606768
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.6512018803629046,
+              "fairOdds": 1.5356221014637053
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.3487981196370954,
+              "fairOdds": 2.8669879328490735
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Le Mans FC más de 1.5",
+              "line": 1.5,
+              "p": 0.5581432855772714,
+              "fairOdds": 1.7916546267608127
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Le Mans FC menos de 1.5",
+              "line": 1.5,
+              "p": 0.44185671442272856,
+              "fairOdds": 2.2631771055159082
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "FC Lorient más de 1.5",
+              "line": 1.5,
+              "p": 0.4234077010933136,
+              "fairOdds": 2.3617898243650814
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "FC Lorient menos de 1.5",
+              "line": 1.5,
+              "p": 0.5765922989066864,
+              "fairOdds": 1.7343277076300951
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.10416568970777133,
+              "fairOdds": 9.600090037376237
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.08970577242369115,
+              "fairOdds": 11.147554644275061
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-2",
+              "label": "2–2",
+              "p": 0.07478947149299722,
+              "fairOdds": 13.370865979359584
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.10416568970777133
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.54 goles/partido",
+          "detail": "10 % más que la media · 5 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.40 concedidos/partido",
+          "detail": "3 % menos que la media · 4 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.46 goles/partido",
+          "detail": "6 % menos que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.54 concedidos/partido",
+          "detail": "7 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.21",
+          "detail": "estimada de 422 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 2.4–5.2",
+          "detail": "local 22%–74% · 422 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "9.º · 6 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "14.º · 4 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "E-P-E-E · 3 pts",
+          "detail": "7 goles a favor · 8 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "P-G-E · 4 pts",
+          "detail": "4 goles a favor · 4 en contra"
+        },
+        {
+          "key": "long_memory",
+          "label": "Memoria larga",
+          "value": "coincide con la temporada",
+          "detail": "historia 46% / 27% / 27% · temporada 48% / 21% / 31%"
+        }
+      ],
+      "steps": [
+        "Sincronizando Ligue 1 · corte 19 sep 2026, 19:45",
+        "Fuerza ajustada por rival · LEM 1.10 / 1.07 · LOR 0.94 / 0.97",
+        "Ponderando 122.2 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.87 – 1.46 · total 3.33",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 2–1"
+      ],
+      "inputsAsOf": "2026-09-20T01:45:00.000Z",
+      "publishedAt": "2026-09-20T01:45:00.000Z",
+      "source": "openfootball",
+      "projectedScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.08970577242369115
+      },
+      "insights": {
+        "why": [
+          "Se esperan 3.3 goles: 1.9 de Le Mans FC y 1.5 de FC Lorient.",
+          "Le Mans FC anota 10 % más que la media."
+        ],
+        "restDays": {
+          "home": 6,
+          "away": 7
+        }
+      }
+    },
+    "ligue-1-2026-27-md5-toulouse-le-havre": {
+      "game": "ligue-1-2026-27-md5-toulouse-le-havre",
+      "model": {
+        "id": "pitchlab-statistical-ligue-1",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.885975916467375,
+        "away": 1.29261339427221,
+        "total": 3.178589310739585,
+        "margin": 0.593362522195165
+      },
+      "x12": [
+        0.5479076247299991,
+        0.22200780096030046,
+        0.2300845743097004
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Toulouse FC gana",
+          "p": 0.5479076247299991,
+          "fairOdds": 1.825125175968824
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.22200780096030046,
+          "fairOdds": 4.504346224206872
+        },
+        {
+          "market": "h2h",
+          "selection": "Le Havre AC gana",
+          "p": 0.2300845743097004,
+          "fairOdds": 4.346227916409431
+        },
+        {
+          "market": "double_chance",
+          "selection": "Toulouse FC o empate",
+          "p": 0.7699154256902996,
+          "fairOdds": 1.2988439595211494
+        },
+        {
+          "market": "double_chance",
+          "selection": "Le Havre AC o empate",
+          "p": 0.45209237527000085,
+          "fairOdds": 2.211937326752691
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7779921990396995,
+          "fairOdds": 1.2853599319303353
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.8230357948867186,
+          "fairOdds": 1.215013983854297
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.6149482302360568,
+          "fairOdds": 1.626153147259462
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.3850517697639432,
+          "fairOdds": 2.5970533796352946
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.39512215653781535,
+          "fairOdds": 2.5308628824116437
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.6048778434621847,
+          "fairOdds": 1.6532263676186667
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.61144851792242,
+          "fairOdds": 1.635460665433944
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.38855148207757995,
+          "fairOdds": 2.5736615252450266
+        },
+        {
+          "market": "team_totals",
+          "selection": "Toulouse FC más de 1.5",
+          "line": 1.5,
+          "p": 0.5835676740619644,
+          "fairOdds": 1.7135973160395068
+        },
+        {
+          "market": "team_totals",
+          "selection": "Toulouse FC menos de 1.5",
+          "line": 1.5,
+          "p": 0.4164323259380356,
+          "fairOdds": 2.401350562177054
+        },
+        {
+          "market": "team_totals",
+          "selection": "Le Havre AC más de 1.5",
+          "line": 1.5,
+          "p": 0.3490342304468661,
+          "fairOdds": 2.8650485046114444
+        },
+        {
+          "market": "team_totals",
+          "selection": "Le Havre AC menos de 1.5",
+          "line": 1.5,
+          "p": 0.6509657695531339,
+          "fairOdds": 1.5361790846336918
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.10121540622096363,
+          "fairOdds": 9.879918851650876
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.0998366753276833,
+          "fairOdds": 10.016359185818303
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–0",
+          "p": 0.08840377219902512,
+          "fairOdds": 11.311734500974469
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Toulouse FC gana",
+              "p": 0.5479076247299991,
+              "fairOdds": 1.825125175968824
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.22200780096030046,
+              "fairOdds": 4.504346224206872
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Le Havre AC gana",
+              "p": 0.2300845743097004,
+              "fairOdds": 4.346227916409431
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Toulouse FC o empate",
+              "p": 0.7699154256902996,
+              "fairOdds": 1.2988439595211494
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Le Havre AC o empate",
+              "p": 0.45209237527000085,
+              "fairOdds": 2.211937326752691
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7779921990396995,
+              "fairOdds": 1.2853599319303353
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.8230357948867186,
+              "fairOdds": 1.215013983854297
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.6149482302360568,
+              "fairOdds": 1.626153147259462
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.3850517697639432,
+              "fairOdds": 2.5970533796352946
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.39512215653781535,
+              "fairOdds": 2.5308628824116437
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.6048778434621847,
+              "fairOdds": 1.6532263676186667
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.61144851792242,
+              "fairOdds": 1.635460665433944
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.38855148207757995,
+              "fairOdds": 2.5736615252450266
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Toulouse FC más de 1.5",
+              "line": 1.5,
+              "p": 0.5835676740619644,
+              "fairOdds": 1.7135973160395068
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Toulouse FC menos de 1.5",
+              "line": 1.5,
+              "p": 0.4164323259380356,
+              "fairOdds": 2.401350562177054
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Le Havre AC más de 1.5",
+              "line": 1.5,
+              "p": 0.3490342304468661,
+              "fairOdds": 2.8650485046114444
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Le Havre AC menos de 1.5",
+              "line": 1.5,
+              "p": 0.6509657695531339,
+              "fairOdds": 1.5361790846336918
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.10121540622096363,
+              "fairOdds": 9.879918851650876
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.0998366753276833,
+              "fairOdds": 10.016359185818303
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-0",
+              "label": "1–0",
+              "p": 0.08840377219902512,
+              "fairOdds": 11.311734500974469
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.10121540622096363
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.55 goles/partido",
+          "detail": "4 % más que la media · 5 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.50 concedidos/partido",
+          "detail": "4 % más que la media · 4 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.29 goles/partido",
+          "detail": "13 % menos que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.49 concedidos/partido",
+          "detail": "3 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.21",
+          "detail": "estimada de 422 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 2.3–4.6",
+          "detail": "local 33%–79% · 422 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "12.º · 5 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "18.º · 1 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "P-E-P-E · 2 pts",
+          "detail": "4 goles a favor · 7 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "P-E-P · 1 pts",
+          "detail": "2 goles a favor · 4 en contra"
+        },
+        {
+          "key": "long_memory",
+          "label": "Memoria larga",
+          "value": "+3 pts al local",
+          "detail": "historia 58% / 23% / 19% · temporada 52% / 21% / 27%"
+        }
+      ],
+      "steps": [
+        "Sincronizando Ligue 1 · corte 19 sep 2026, 19:45",
+        "Fuerza ajustada por rival · TOU 1.04 / 1.03 · LEH 0.87 / 1.04",
+        "Ponderando 122.2 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.89 – 1.29 · total 3.18",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 2–1"
+      ],
+      "inputsAsOf": "2026-09-20T01:45:00.000Z",
+      "publishedAt": "2026-09-20T01:45:00.000Z",
+      "source": "openfootball",
+      "projectedScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.10121540622096363
+      },
+      "insights": {
+        "why": [
+          "Se esperan 3.2 goles: 1.9 de Toulouse FC y 1.3 de Le Havre AC.",
+          "Le Havre AC anota 13 % menos que la media."
+        ],
+        "headToHead": [
+          {
+            "date": "2026-02-15",
+            "homeTeamId": "ligue-1.le-havre",
+            "awayTeamId": "ligue-1.toulouse",
+            "homeGoals": 2,
+            "awayGoals": 1
+          },
+          {
+            "date": "2025-02-23",
+            "homeTeamId": "ligue-1.le-havre",
+            "awayTeamId": "ligue-1.toulouse",
+            "homeGoals": 1,
+            "awayGoals": 4
+          },
+          {
+            "date": "2024-09-15",
+            "homeTeamId": "ligue-1.toulouse",
+            "awayTeamId": "ligue-1.le-havre",
+            "homeGoals": 2,
+            "awayGoals": 0
+          },
+          {
+            "date": "2024-03-10",
+            "homeTeamId": "ligue-1.le-havre",
+            "awayTeamId": "ligue-1.toulouse",
+            "homeGoals": 1,
+            "awayGoals": 0
+          },
+          {
+            "date": "2023-11-05",
+            "homeTeamId": "ligue-1.toulouse",
+            "awayTeamId": "ligue-1.le-havre",
+            "homeGoals": 1,
+            "awayGoals": 2
+          }
+        ],
+        "restDays": {
+          "home": 7,
+          "away": 14
+        }
+      }
+    },
+    "ligue-1-2026-27-md5-angers-sco-es-troyes": {
+      "game": "ligue-1-2026-27-md5-angers-sco-es-troyes",
+      "model": {
+        "id": "pitchlab-statistical-ligue-1",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.796159577688562,
+        "away": 1.2362972906507916,
+        "total": 3.0324568683393536,
+        "margin": 0.5598622870377703
+      },
+      "x12": [
+        0.5148110790728107,
+        0.23478925282101298,
+        0.25039966810617664
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Angers SCO gana",
+          "p": 0.5148110790728107,
+          "fairOdds": 1.9424601385833193
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.23478925282101298,
+          "fairOdds": 4.259138729668902
+        },
+        {
+          "market": "h2h",
+          "selection": "ES Troyes AC gana",
+          "p": 0.25039966810617664,
+          "fairOdds": 3.9936155169980947
+        },
+        {
+          "market": "double_chance",
+          "selection": "Angers SCO o empate",
+          "p": 0.7496003318938236,
+          "fairOdds": 1.3340442332430078
+        },
+        {
+          "market": "double_chance",
+          "selection": "ES Troyes AC o empate",
+          "p": 0.4851889209271896,
+          "fairOdds": 2.0610528329645557
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7652107471789873,
+          "fairOdds": 1.306829528579653
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.8012206213917044,
+          "fairOdds": 1.24809568463555
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.580388039106906,
+          "fairOdds": 1.7229851971773709
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.41961196089309405,
+          "fairOdds": 2.3831541833831884
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.3607129490111306,
+          "fairOdds": 2.772287501021048
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.6392870509888694,
+          "fairOdds": 1.5642425393306003
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.5900341706885451,
+          "fairOdds": 1.6948170964963638
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.40996582931145487,
+          "fairOdds": 2.4392276831450035
+        },
+        {
+          "market": "team_totals",
+          "selection": "Angers SCO más de 1.5",
+          "line": 1.5,
+          "p": 0.5414939217039555,
+          "fairOdds": 1.846742797875242
+        },
+        {
+          "market": "team_totals",
+          "selection": "Angers SCO menos de 1.5",
+          "line": 1.5,
+          "p": 0.4585060782960445,
+          "fairOdds": 2.18099616850516
+        },
+        {
+          "market": "team_totals",
+          "selection": "ES Troyes AC más de 1.5",
+          "line": 1.5,
+          "p": 0.3421020005276638,
+          "fairOdds": 2.923104800491033
+        },
+        {
+          "market": "team_totals",
+          "selection": "ES Troyes AC menos de 1.5",
+          "line": 1.5,
+          "p": 0.6578979994723362,
+          "fairOdds": 1.5199924620564966
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.10810561741180497,
+          "fairOdds": 9.250213115112384
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.09690276114767497,
+          "fairOdds": 10.319623384890447
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–0",
+          "p": 0.09267169629596801,
+          "fairOdds": 10.790781219826536
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Angers SCO gana",
+              "p": 0.5148110790728107,
+              "fairOdds": 1.9424601385833193
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.23478925282101298,
+              "fairOdds": 4.259138729668902
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "ES Troyes AC gana",
+              "p": 0.25039966810617664,
+              "fairOdds": 3.9936155169980947
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Angers SCO o empate",
+              "p": 0.7496003318938236,
+              "fairOdds": 1.3340442332430078
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "ES Troyes AC o empate",
+              "p": 0.4851889209271896,
+              "fairOdds": 2.0610528329645557
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7652107471789873,
+              "fairOdds": 1.306829528579653
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.8012206213917044,
+              "fairOdds": 1.24809568463555
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.580388039106906,
+              "fairOdds": 1.7229851971773709
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.41961196089309405,
+              "fairOdds": 2.3831541833831884
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.3607129490111306,
+              "fairOdds": 2.772287501021048
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.6392870509888694,
+              "fairOdds": 1.5642425393306003
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.5900341706885451,
+              "fairOdds": 1.6948170964963638
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.40996582931145487,
+              "fairOdds": 2.4392276831450035
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Angers SCO más de 1.5",
+              "line": 1.5,
+              "p": 0.5414939217039555,
+              "fairOdds": 1.846742797875242
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Angers SCO menos de 1.5",
+              "line": 1.5,
+              "p": 0.4585060782960445,
+              "fairOdds": 2.18099616850516
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "ES Troyes AC más de 1.5",
+              "line": 1.5,
+              "p": 0.3421020005276638,
+              "fairOdds": 2.923104800491033
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "ES Troyes AC menos de 1.5",
+              "line": 1.5,
+              "p": 0.6578979994723362,
+              "fairOdds": 1.5199924620564966
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.10810561741180497,
+              "fairOdds": 9.250213115112384
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.09690276114767497,
+              "fairOdds": 10.319623384890447
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-0",
+              "label": "1–0",
+              "p": 0.09267169629596801,
+              "fairOdds": 10.790781219826536
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.10810561741180497
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.48 goles/partido",
+          "detail": "26 % menos que la media · 4 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "2.00 concedidos/partido",
+          "detail": "39 % más que la media · 4 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.24 goles/partido",
+          "detail": "12 % menos que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.40 concedidos/partido",
+          "detail": "3 % menos que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.21",
+          "detail": "estimada de 422 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 2.1–5.1",
+          "detail": "local 24%–79% · 422 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "8.º · 6 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "17.º · 3 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "P-G-P · 3 pts",
+          "detail": "4 goles a favor · 5 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-P-P · 3 pts",
+          "detail": "4 goles a favor · 9 en contra"
+        },
+        {
+          "key": "long_memory",
+          "label": "Memoria larga",
+          "value": "coincide con la temporada",
+          "detail": "historia 52% / 25% / 23% · temporada 51% / 22% / 27%"
+        }
+      ],
+      "steps": [
+        "Sincronizando Ligue 1 · corte 19 sep 2026, 19:45",
+        "Fuerza ajustada por rival · ANG 0.74 / 0.97 · EST 0.88 / 1.39",
+        "Ponderando 122.2 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.80 – 1.24 · total 3.03",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 2–1"
+      ],
+      "inputsAsOf": "2026-09-20T01:45:00.000Z",
+      "publishedAt": "2026-09-20T01:45:00.000Z",
+      "source": "openfootball",
+      "projectedScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.09690276114767497
+      },
+      "insights": {
+        "why": [
+          "Se esperan 3.0 goles: 1.8 de Angers SCO y 1.2 de ES Troyes AC.",
+          "ES Troyes AC concede 39 % más que la media.",
+          "Angers SCO anota 26 % menos que la media."
+        ],
+        "headToHead": [
+          {
+            "date": "2023-05-27",
+            "homeTeamId": "ligue-1.angers-sco",
+            "awayTeamId": "ligue-1.es-troyes",
+            "homeGoals": 2,
+            "awayGoals": 1
+          },
+          {
+            "date": "2022-08-28",
+            "homeTeamId": "ligue-1.es-troyes",
+            "awayTeamId": "ligue-1.angers-sco",
+            "homeGoals": 3,
+            "awayGoals": 1
+          },
+          {
+            "date": "2022-01-23",
+            "homeTeamId": "ligue-1.angers-sco",
+            "awayTeamId": "ligue-1.es-troyes",
+            "homeGoals": 2,
+            "awayGoals": 1
+          },
+          {
+            "date": "2021-09-26",
+            "homeTeamId": "ligue-1.es-troyes",
+            "awayTeamId": "ligue-1.angers-sco",
+            "homeGoals": 1,
+            "awayGoals": 1
+          },
+          {
+            "date": "2018-01-17",
+            "homeTeamId": "ligue-1.angers-sco",
+            "awayTeamId": "ligue-1.es-troyes",
+            "homeGoals": 3,
+            "awayGoals": 1
+          }
+        ],
+        "restDays": {
+          "home": 13,
+          "away": 6
+        }
+      }
+    },
+    "ligue-1-2026-27-md5-olympique-lyonnais-stade-rennais": {
+      "game": "ligue-1-2026-27-md5-olympique-lyonnais-stade-rennais",
+      "model": {
+        "id": "pitchlab-statistical-ligue-1",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 2.2962668094635936,
+        "away": 1.4019148893550648,
+        "total": 3.6981816988186584,
+        "margin": 0.8943519201085288
+      },
+      "x12": [
+        0.5444522886948723,
+        0.22037980063501383,
+        0.23516791067011364
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Olympique Lyonnais gana",
+          "p": 0.5444522886948723,
+          "fairOdds": 1.836708230940013
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.22037980063501383,
+          "fairOdds": 4.537620948555848
+        },
+        {
+          "market": "h2h",
+          "selection": "Stade Rennais FC 1901 gana",
+          "p": 0.23516791067011364,
+          "fairOdds": 4.252280836915584
+        },
+        {
+          "market": "double_chance",
+          "selection": "Olympique Lyonnais o empate",
+          "p": 0.7648320893298861,
+          "fairOdds": 1.3074765219071263
+        },
+        {
+          "market": "double_chance",
+          "selection": "Stade Rennais FC 1901 o empate",
+          "p": 0.4555477113051275,
+          "fairOdds": 2.1951597498646995
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7796201993649859,
+          "fairOdds": 1.2826758475659266
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.8792534239830814,
+          "fairOdds": 1.1373285252276049
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.7048215766259724,
+          "fairOdds": 1.4187987898824923
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.29517842337402755,
+          "fairOdds": 3.387781493543911
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.5035305540827957,
+          "fairOdds": 1.9859768029798044
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.4964694459172043,
+          "fairOdds": 2.014222643958575
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.6829515974797339,
+          "fairOdds": 1.4642326098807819
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.3170484025202661,
+          "fairOdds": 3.154092536189577
+        },
+        {
+          "market": "team_totals",
+          "selection": "Olympique Lyonnais más de 1.5",
+          "line": 1.5,
+          "p": 0.6530895075633013,
+          "fairOdds": 1.5311836867982052
+        },
+        {
+          "market": "team_totals",
+          "selection": "Olympique Lyonnais menos de 1.5",
+          "line": 1.5,
+          "p": 0.3469104924366987,
+          "fairOdds": 2.8825879349338837
+        },
+        {
+          "market": "team_totals",
+          "selection": "Stade Rennais FC 1901 más de 1.5",
+          "line": 1.5,
+          "p": 0.419806164122702,
+          "fairOdds": 2.3820517311597107
+        },
+        {
+          "market": "team_totals",
+          "selection": "Stade Rennais FC 1901 menos de 1.5",
+          "line": 1.5,
+          "p": 0.580193835877298,
+          "fairOdds": 1.7235619170064476
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.08836090792325973,
+          "fairOdds": 11.317221874502316
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.08599149582799423,
+          "fairOdds": 11.629056924422677
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–2",
+          "p": 0.07485495779926177,
+          "fairOdds": 13.359168576137547
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Olympique Lyonnais gana",
+              "p": 0.5444522886948723,
+              "fairOdds": 1.836708230940013
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.22037980063501383,
+              "fairOdds": 4.537620948555848
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Stade Rennais FC 1901 gana",
+              "p": 0.23516791067011364,
+              "fairOdds": 4.252280836915584
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Olympique Lyonnais o empate",
+              "p": 0.7648320893298861,
+              "fairOdds": 1.3074765219071263
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Stade Rennais FC 1901 o empate",
+              "p": 0.4555477113051275,
+              "fairOdds": 2.1951597498646995
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7796201993649859,
+              "fairOdds": 1.2826758475659266
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.8792534239830814,
+              "fairOdds": 1.1373285252276049
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.7048215766259724,
+              "fairOdds": 1.4187987898824923
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.29517842337402755,
+              "fairOdds": 3.387781493543911
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.5035305540827957,
+              "fairOdds": 1.9859768029798044
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.4964694459172043,
+              "fairOdds": 2.014222643958575
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.6829515974797339,
+              "fairOdds": 1.4642326098807819
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.3170484025202661,
+              "fairOdds": 3.154092536189577
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Olympique Lyonnais más de 1.5",
+              "line": 1.5,
+              "p": 0.6530895075633013,
+              "fairOdds": 1.5311836867982052
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Olympique Lyonnais menos de 1.5",
+              "line": 1.5,
+              "p": 0.3469104924366987,
+              "fairOdds": 2.8825879349338837
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Stade Rennais FC 1901 más de 1.5",
+              "line": 1.5,
+              "p": 0.419806164122702,
+              "fairOdds": 2.3820517311597107
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Stade Rennais FC 1901 menos de 1.5",
+              "line": 1.5,
+              "p": 0.580193835877298,
+              "fairOdds": 1.7235619170064476
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.08836090792325973,
+              "fairOdds": 11.317221874502316
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.08599149582799423,
+              "fairOdds": 11.629056924422677
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-2",
+              "label": "2–2",
+              "p": 0.07485495779926177,
+              "fairOdds": 13.359168576137547
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.08836090792325973
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.89 goles/partido",
+          "detail": "25 % más que la media · 4 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.51 concedidos/partido",
+          "detail": "5 % más que la media · 5 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.40 goles/partido",
+          "detail": "21 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.15 concedidos/partido",
+          "detail": "20 % menos que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.21",
+          "detail": "estimada de 422 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 2.7–5.4",
+          "detail": "local 32%–75% · 422 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "2.º · 10 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "4.º · 10 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "G-E-G · 7 pts",
+          "detail": "6 goles a favor · 2 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "E-G-G-G · 10 pts",
+          "detail": "8 goles a favor · 5 en contra"
+        },
+        {
+          "key": "long_memory",
+          "label": "Memoria larga",
+          "value": "−4 pts al local",
+          "detail": "historia 51% / 25% / 24% · temporada 58% / 19% / 23%"
+        }
+      ],
+      "steps": [
+        "Sincronizando Ligue 1 · corte 19 sep 2026, 19:45",
+        "Fuerza ajustada por rival · OLY 1.25 / 0.80 · STA 1.21 / 1.05",
+        "Ponderando 122.2 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 2.30 – 1.40 · total 3.70",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 2–1"
+      ],
+      "inputsAsOf": "2026-09-20T01:45:00.000Z",
+      "publishedAt": "2026-09-20T01:45:00.000Z",
+      "source": "openfootball",
+      "projectedScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.08599149582799423
+      },
+      "insights": {
+        "why": [
+          "Se esperan 3.7 goles: 2.3 de Olympique Lyonnais y 1.4 de Stade Rennais FC 1901.",
+          "Olympique Lyonnais anota 25 % más que la media.",
+          "Olympique Lyonnais concede 20 % menos que la media."
+        ],
+        "headToHead": [
+          {
+            "date": "2026-05-03",
+            "homeTeamId": "ligue-1.olympique-lyonnais",
+            "awayTeamId": "ligue-1.stade-rennais",
+            "homeGoals": 4,
+            "awayGoals": 2
+          },
+          {
+            "date": "2025-09-14",
+            "homeTeamId": "ligue-1.stade-rennais",
+            "awayTeamId": "ligue-1.olympique-lyonnais",
+            "homeGoals": 3,
+            "awayGoals": 1
+          },
+          {
+            "date": "2025-04-26",
+            "homeTeamId": "ligue-1.olympique-lyonnais",
+            "awayTeamId": "ligue-1.stade-rennais",
+            "homeGoals": 4,
+            "awayGoals": 1
+          },
+          {
+            "date": "2024-08-18",
+            "homeTeamId": "ligue-1.stade-rennais",
+            "awayTeamId": "ligue-1.olympique-lyonnais",
+            "homeGoals": 3,
+            "awayGoals": 0
+          },
+          {
+            "date": "2024-01-26",
+            "homeTeamId": "ligue-1.olympique-lyonnais",
+            "awayTeamId": "ligue-1.stade-rennais",
+            "homeGoals": 2,
+            "awayGoals": 3
+          }
+        ],
+        "restDays": {
+          "home": 15,
+          "away": 8
+        }
+      }
+    },
+    "ligue-1-2026-27-md5-aj-auxerre-stade-brestois": {
+      "game": "ligue-1-2026-27-md5-aj-auxerre-stade-brestois",
+      "model": {
+        "id": "pitchlab-statistical-ligue-1",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.7506998842290489,
+        "away": 1.550222982273127,
+        "total": 3.3009228665021757,
+        "margin": 0.20047690195592183
+      },
+      "x12": [
+        0.42812481109311185,
+        0.24858173703502687,
+        0.32329345187186165
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "AJ Auxerre gana",
+          "p": 0.42812481109311185,
+          "fairOdds": 2.335767453997223
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.24858173703502687,
+          "fairOdds": 4.022821675990997
+        },
+        {
+          "market": "h2h",
+          "selection": "Stade Brestois 29 gana",
+          "p": 0.32329345187186165,
+          "fairOdds": 3.0931650307484517
+        },
+        {
+          "market": "double_chance",
+          "selection": "AJ Auxerre o empate",
+          "p": 0.6767065481281387,
+          "fairOdds": 1.4777454167779733
+        },
+        {
+          "market": "double_chance",
+          "selection": "Stade Brestois 29 o empate",
+          "p": 0.5718751889068885,
+          "fairOdds": 1.7486333021571563
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7514182629649735,
+          "fairOdds": 1.3308167358804452
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.8374074222367793,
+          "fairOdds": 1.1941618541294075
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.6326124531538233,
+          "fairOdds": 1.5807466245955235
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.3673875468461767,
+          "fairOdds": 2.7219213296271443
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.42018676856278303,
+          "fairOdds": 2.3798940728677014
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.579813231437217,
+          "fairOdds": 1.7246933077419457
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.6537683250093997,
+          "fairOdds": 1.5295938358372168
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.34623167499060026,
+          "fairOdds": 2.888239500407202
+        },
+        {
+          "market": "team_totals",
+          "selection": "AJ Auxerre más de 1.5",
+          "line": 1.5,
+          "p": 0.5261593349141855,
+          "fairOdds": 1.9005649689045163
+        },
+        {
+          "market": "team_totals",
+          "selection": "AJ Auxerre menos de 1.5",
+          "line": 1.5,
+          "p": 0.47384066508581446,
+          "fairOdds": 2.1104140562078944
+        },
+        {
+          "market": "team_totals",
+          "selection": "Stade Brestois 29 más de 1.5",
+          "line": 1.5,
+          "p": 0.4498764570495658,
+          "fairOdds": 2.222832478406007
+        },
+        {
+          "market": "team_totals",
+          "selection": "Stade Brestois 29 menos de 1.5",
+          "line": 1.5,
+          "p": 0.5501235429504342,
+          "fairOdds": 1.8177735034512046
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.10781591690388309,
+          "fairOdds": 9.275068363899283
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.08662819785518609,
+          "fairOdds": 11.543585400121929
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–2",
+          "p": 0.07700255899143318,
+          "fairOdds": 12.986581395447567
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "AJ Auxerre gana",
+              "p": 0.42812481109311185,
+              "fairOdds": 2.335767453997223
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.24858173703502687,
+              "fairOdds": 4.022821675990997
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Stade Brestois 29 gana",
+              "p": 0.32329345187186165,
+              "fairOdds": 3.0931650307484517
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "AJ Auxerre o empate",
+              "p": 0.6767065481281387,
+              "fairOdds": 1.4777454167779733
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Stade Brestois 29 o empate",
+              "p": 0.5718751889068885,
+              "fairOdds": 1.7486333021571563
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7514182629649735,
+              "fairOdds": 1.3308167358804452
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.8374074222367793,
+              "fairOdds": 1.1941618541294075
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.6326124531538233,
+              "fairOdds": 1.5807466245955235
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.3673875468461767,
+              "fairOdds": 2.7219213296271443
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.42018676856278303,
+              "fairOdds": 2.3798940728677014
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.579813231437217,
+              "fairOdds": 1.7246933077419457
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.6537683250093997,
+              "fairOdds": 1.5295938358372168
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.34623167499060026,
+              "fairOdds": 2.888239500407202
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "AJ Auxerre más de 1.5",
+              "line": 1.5,
+              "p": 0.5261593349141855,
+              "fairOdds": 1.9005649689045163
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "AJ Auxerre menos de 1.5",
+              "line": 1.5,
+              "p": 0.47384066508581446,
+              "fairOdds": 2.1104140562078944
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Stade Brestois 29 más de 1.5",
+              "line": 1.5,
+              "p": 0.4498764570495658,
+              "fairOdds": 2.222832478406007
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Stade Brestois 29 menos de 1.5",
+              "line": 1.5,
+              "p": 0.5501235429504342,
+              "fairOdds": 1.8177735034512046
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.10781591690388309,
+              "fairOdds": 9.275068363899283
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.08662819785518609,
+              "fairOdds": 11.543585400121929
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-2",
+              "label": "2–2",
+              "p": 0.07700255899143318,
+              "fairOdds": 12.986581395447567
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.10781591690388309
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.44 goles/partido",
+          "detail": "7 % menos que la media · 5 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.56 concedidos/partido",
+          "detail": "8 % más que la media · 5 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.55 goles/partido",
+          "detail": "5 % menos que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.62 concedidos/partido",
+          "detail": "13 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.21",
+          "detail": "estimada de 422 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 2.4–4.8",
+          "detail": "local 22%–68% · 422 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "10.º · 6 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "11.º · 5 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "P-P-P-G · 3 pts",
+          "detail": "5 goles a favor · 11 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "E-E-G-P · 5 pts",
+          "detail": "6 goles a favor · 6 en contra"
+        },
+        {
+          "key": "long_memory",
+          "label": "Memoria larga",
+          "value": "coincide con la temporada",
+          "detail": "historia 42% / 28% / 30% · temporada 43% / 22% / 35%"
+        }
+      ],
+      "steps": [
+        "Sincronizando Ligue 1 · corte 20 sep 2026, 14:00",
+        "Fuerza ajustada por rival · AJA 0.93 / 1.13 · STA 0.95 / 1.08",
+        "Ponderando 122.2 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.75 – 1.55 · total 3.30",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 2–1"
+      ],
+      "inputsAsOf": "2026-09-20T20:00:00.000Z",
+      "publishedAt": "2026-09-20T20:00:00.000Z",
+      "source": "openfootball",
+      "projectedScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.08662819785518609
+      },
+      "insights": {
+        "why": [
+          "AJ Auxerre gana en 43% de los escenarios; el empate, en 25%.",
+          "AJ Auxerre concede 13 % más que la media.",
+          "Stade Brestois 29 concede 8 % más que la media."
+        ],
+        "headToHead": [
+          {
+            "date": "2026-03-21",
+            "homeTeamId": "ligue-1.aj-auxerre",
+            "awayTeamId": "ligue-1.stade-brestois",
+            "homeGoals": 3,
+            "awayGoals": 0
+          },
+          {
+            "date": "2026-01-04",
+            "homeTeamId": "ligue-1.stade-brestois",
+            "awayTeamId": "ligue-1.aj-auxerre",
+            "homeGoals": 2,
+            "awayGoals": 0
+          },
+          {
+            "date": "2025-02-14",
+            "homeTeamId": "ligue-1.stade-brestois",
+            "awayTeamId": "ligue-1.aj-auxerre",
+            "homeGoals": 2,
+            "awayGoals": 2
+          },
+          {
+            "date": "2024-09-27",
+            "homeTeamId": "ligue-1.aj-auxerre",
+            "awayTeamId": "ligue-1.stade-brestois",
+            "homeGoals": 3,
+            "awayGoals": 0
+          },
+          {
+            "date": "2023-05-14",
+            "homeTeamId": "ligue-1.stade-brestois",
+            "awayTeamId": "ligue-1.aj-auxerre",
+            "homeGoals": 1,
+            "awayGoals": 0
+          }
+        ],
+        "restDays": {
+          "home": 8,
+          "away": 7
+        }
+      }
+    },
+    "ligue-1-2026-27-md5-ogc-nice-lille-osc": {
+      "game": "ligue-1-2026-27-md5-ogc-nice-lille-osc",
+      "model": {
+        "id": "pitchlab-statistical-ligue-1",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.0968751241946118,
+        "away": 1.6234897565575894,
+        "total": 2.720364880752201,
+        "margin": -0.5266146323629777
+      },
+      "x12": [
+        0.2670354181263167,
+        0.2507674075979659,
+        0.48219717427571723
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "OGC Nice gana",
+          "p": 0.2670354181263167,
+          "fairOdds": 3.7448215933924036
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.2507674075979659,
+          "fairOdds": 3.9877590536135985
+        },
+        {
+          "market": "h2h",
+          "selection": "Lille OSC gana",
+          "p": 0.48219717427571723,
+          "fairOdds": 2.073840439861654
+        },
+        {
+          "market": "double_chance",
+          "selection": "OGC Nice o empate",
+          "p": 0.5178028257242826,
+          "fairOdds": 1.931237046845464
+        },
+        {
+          "market": "double_chance",
+          "selection": "Lille OSC o empate",
+          "p": 0.7329645818736832,
+          "fairOdds": 1.3643224034696084
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.749232592402034,
+          "fairOdds": 1.3346990108825987
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.7483691362459746,
+          "fairOdds": 1.3362389649261528
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.5059689366029485,
+          "fairOdds": 1.976405916762307
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.4940310633970515,
+          "fairOdds": 2.0241642157556043
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.289370529040724,
+          "fairOdds": 3.455776935249916
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.710629470959276,
+          "fairOdds": 1.4072031077603688
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.5334993882524035,
+          "fairOdds": 1.8744163948823325
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.4665006117475965,
+          "fairOdds": 2.1436199113519216
+        },
+        {
+          "market": "team_totals",
+          "selection": "OGC Nice más de 1.5",
+          "line": 1.5,
+          "p": 0.30497933665130195,
+          "fairOdds": 3.2789106664736103
+        },
+        {
+          "market": "team_totals",
+          "selection": "OGC Nice menos de 1.5",
+          "line": 1.5,
+          "p": 0.695020663348698,
+          "fairOdds": 1.438806143089146
+        },
+        {
+          "market": "team_totals",
+          "selection": "Lille OSC más de 1.5",
+          "line": 1.5,
+          "p": 0.47197901851421653,
+          "fairOdds": 2.1187382505857704
+        },
+        {
+          "market": "team_totals",
+          "selection": "Lille OSC menos de 1.5",
+          "line": 1.5,
+          "p": 0.5280209814857835,
+          "fairOdds": 1.893864136205588
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.1187954044497871,
+          "fairOdds": 8.417834045278106
+        },
+        {
+          "market": "correct_score",
+          "selection": "0–1",
+          "p": 0.10832435815484061,
+          "fairOdds": 9.231534043068907
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–2",
+          "p": 0.09143547646156211,
+          "fairOdds": 10.936674020836788
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "OGC Nice gana",
+              "p": 0.2670354181263167,
+              "fairOdds": 3.7448215933924036
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.2507674075979659,
+              "fairOdds": 3.9877590536135985
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Lille OSC gana",
+              "p": 0.48219717427571723,
+              "fairOdds": 2.073840439861654
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "OGC Nice o empate",
+              "p": 0.5178028257242826,
+              "fairOdds": 1.931237046845464
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Lille OSC o empate",
+              "p": 0.7329645818736832,
+              "fairOdds": 1.3643224034696084
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.749232592402034,
+              "fairOdds": 1.3346990108825987
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.7483691362459746,
+              "fairOdds": 1.3362389649261528
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.5059689366029485,
+              "fairOdds": 1.976405916762307
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.4940310633970515,
+              "fairOdds": 2.0241642157556043
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.289370529040724,
+              "fairOdds": 3.455776935249916
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.710629470959276,
+              "fairOdds": 1.4072031077603688
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.5334993882524035,
+              "fairOdds": 1.8744163948823325
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.4665006117475965,
+              "fairOdds": 2.1436199113519216
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "OGC Nice más de 1.5",
+              "line": 1.5,
+              "p": 0.30497933665130195,
+              "fairOdds": 3.2789106664736103
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "OGC Nice menos de 1.5",
+              "line": 1.5,
+              "p": 0.695020663348698,
+              "fairOdds": 1.438806143089146
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Lille OSC más de 1.5",
+              "line": 1.5,
+              "p": 0.47197901851421653,
+              "fairOdds": 2.1187382505857704
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Lille OSC menos de 1.5",
+              "line": 1.5,
+              "p": 0.5280209814857835,
+              "fairOdds": 1.893864136205588
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.1187954044497871,
+              "fairOdds": 8.417834045278106
+            },
+            {
+              "market": "correct_score",
+              "selection": "0-1",
+              "label": "0–1",
+              "p": 0.10832435815484061,
+              "fairOdds": 9.231534043068907
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-2",
+              "label": "1–2",
+              "p": 0.09143547646156211,
+              "fairOdds": 10.936674020836788
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.1187954044497871
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "0.90 goles/partido",
+          "detail": "16 % menos que la media · 4 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.07 concedidos/partido",
+          "detail": "25 % menos que la media · 5 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.62 goles/partido",
+          "detail": "4 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.56 concedidos/partido",
+          "detail": "9 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.21",
+          "detail": "estimada de 422 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 2.0–4.0",
+          "detail": "local 12%–49% · 422 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "15.º · 4 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "3.º · 10 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "P-E-P · 1 pts",
+          "detail": "1 goles a favor · 5 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-E-G-G · 10 pts",
+          "detail": "7 goles a favor · 2 en contra"
+        },
+        {
+          "key": "long_memory",
+          "label": "Memoria larga",
+          "value": "coincide con la temporada",
+          "detail": "historia 27% / 27% / 46% · temporada 26% / 24% / 50%"
+        }
+      ],
+      "steps": [
+        "Sincronizando Ligue 1 · corte 20 sep 2026, 16:15",
+        "Fuerza ajustada por rival · OGC 0.84 / 1.09 · LIL 1.04 / 0.75",
+        "Ponderando 122.2 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.10 – 1.62 · total 2.72",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 1–2"
+      ],
+      "inputsAsOf": "2026-09-20T22:15:00.000Z",
+      "publishedAt": "2026-09-20T22:15:00.000Z",
+      "source": "openfootball",
+      "projectedScore": {
+        "home": 1,
+        "away": 2,
+        "p": 0.09143547646156211
+      },
+      "insights": {
+        "why": [
+          "Se esperan 2.7 goles: 1.1 de OGC Nice y 1.6 de Lille OSC.",
+          "Lille OSC concede 25 % menos que la media.",
+          "OGC Nice anota 16 % menos que la media."
+        ],
+        "headToHead": [
+          {
+            "date": "2025-10-29",
+            "homeTeamId": "ligue-1.ogc-nice",
+            "awayTeamId": "ligue-1.lille-osc",
+            "homeGoals": 2,
+            "awayGoals": 0
+          },
+          {
+            "date": "2025-01-17",
+            "homeTeamId": "ligue-1.lille-osc",
+            "awayTeamId": "ligue-1.ogc-nice",
+            "homeGoals": 2,
+            "awayGoals": 1
+          },
+          {
+            "date": "2024-11-10",
+            "homeTeamId": "ligue-1.ogc-nice",
+            "awayTeamId": "ligue-1.lille-osc",
+            "homeGoals": 2,
+            "awayGoals": 2
+          },
+          {
+            "date": "2024-05-19",
+            "homeTeamId": "ligue-1.lille-osc",
+            "awayTeamId": "ligue-1.ogc-nice",
+            "homeGoals": 2,
+            "awayGoals": 2
+          },
+          {
+            "date": "2023-08-11",
+            "homeTeamId": "ligue-1.ogc-nice",
+            "awayTeamId": "ligue-1.lille-osc",
+            "homeGoals": 1,
+            "awayGoals": 1
+          }
+        ],
+        "restDays": {
+          "home": 8,
+          "away": 7
+        }
+      }
+    },
+    "ligue-1-2026-27-md5-olympique-marseille-paris-saint-germain": {
+      "game": "ligue-1-2026-27-md5-olympique-marseille-paris-saint-germain",
+      "model": {
+        "id": "pitchlab-statistical-ligue-1",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.4996844721402656,
+        "away": 1.8025640076332183,
+        "total": 3.3022484797734837,
+        "margin": -0.30287953549295277
+      },
+      "x12": [
+        0.2833294083332298,
+        0.2347296839707156,
+        0.4819409076960548
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Olympique de Marseille gana",
+          "p": 0.2833294083332298,
+          "fairOdds": 3.5294606581180537
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.2347296839707156,
+          "fairOdds": 4.260219598492528
+        },
+        {
+          "market": "h2h",
+          "selection": "Paris Saint-Germain FC gana",
+          "p": 0.4819409076960548,
+          "fairOdds": 2.0749431808570793
+        },
+        {
+          "market": "double_chance",
+          "selection": "Olympique de Marseille o empate",
+          "p": 0.5180590923039454,
+          "fairOdds": 1.930281728195786
+        },
+        {
+          "market": "double_chance",
+          "selection": "Paris Saint-Germain FC o empate",
+          "p": 0.7166705916667704,
+          "fairOdds": 1.3953411952823216
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7652703160292846,
+          "fairOdds": 1.30672780461242
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.8380704190042747,
+          "fairOdds": 1.1932171537424223
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.6369664261492978,
+          "fairOdds": 1.569941458367558
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.36303357385070223,
+          "fairOdds": 2.754566166960774
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.42148793710223054,
+          "fairOdds": 2.3725471406728618
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.5785120628977695,
+          "fairOdds": 1.7285724259421587
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.6478080550616012,
+          "fairOdds": 1.543667128228142
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.3521919449383988,
+          "fairOdds": 2.8393607928054916
+        },
+        {
+          "market": "team_totals",
+          "selection": "Olympique de Marseille más de 1.5",
+          "line": 1.5,
+          "p": 0.41806523621455527,
+          "fairOdds": 2.3919711886467163
+        },
+        {
+          "market": "team_totals",
+          "selection": "Olympique de Marseille menos de 1.5",
+          "line": 1.5,
+          "p": 0.5819347637854447,
+          "fairOdds": 1.7184056740227551
+        },
+        {
+          "market": "team_totals",
+          "selection": "Paris Saint-Germain FC más de 1.5",
+          "line": 1.5,
+          "p": 0.5594664533955425,
+          "fairOdds": 1.7874172685971585
+        },
+        {
+          "market": "team_totals",
+          "selection": "Paris Saint-Germain FC menos de 1.5",
+          "line": 1.5,
+          "p": 0.44053354660445754,
+          "fairOdds": 2.26997468798414
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.10196156038972888,
+          "fairOdds": 9.807617656866844
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–2",
+          "p": 0.09501442738863429,
+          "fairOdds": 10.524717429593444
+        },
+        {
+          "market": "correct_score",
+          "selection": "0–1",
+          "p": 0.07556680349486576,
+          "fairOdds": 13.233324075537256
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Olympique de Marseille gana",
+              "p": 0.2833294083332298,
+              "fairOdds": 3.5294606581180537
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.2347296839707156,
+              "fairOdds": 4.260219598492528
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Paris Saint-Germain FC gana",
+              "p": 0.4819409076960548,
+              "fairOdds": 2.0749431808570793
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Olympique de Marseille o empate",
+              "p": 0.5180590923039454,
+              "fairOdds": 1.930281728195786
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Paris Saint-Germain FC o empate",
+              "p": 0.7166705916667704,
+              "fairOdds": 1.3953411952823216
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7652703160292846,
+              "fairOdds": 1.30672780461242
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.8380704190042747,
+              "fairOdds": 1.1932171537424223
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.6369664261492978,
+              "fairOdds": 1.569941458367558
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.36303357385070223,
+              "fairOdds": 2.754566166960774
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.42148793710223054,
+              "fairOdds": 2.3725471406728618
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.5785120628977695,
+              "fairOdds": 1.7285724259421587
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.6478080550616012,
+              "fairOdds": 1.543667128228142
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.3521919449383988,
+              "fairOdds": 2.8393607928054916
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Olympique de Marseille más de 1.5",
+              "line": 1.5,
+              "p": 0.41806523621455527,
+              "fairOdds": 2.3919711886467163
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Olympique de Marseille menos de 1.5",
+              "line": 1.5,
+              "p": 0.5819347637854447,
+              "fairOdds": 1.7184056740227551
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Paris Saint-Germain FC más de 1.5",
+              "line": 1.5,
+              "p": 0.5594664533955425,
+              "fairOdds": 1.7874172685971585
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Paris Saint-Germain FC menos de 1.5",
+              "line": 1.5,
+              "p": 0.44053354660445754,
+              "fairOdds": 2.26997468798414
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.10196156038972888,
+              "fairOdds": 9.807617656866844
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-2",
+              "label": "1–2",
+              "p": 0.09501442738863429,
+              "fairOdds": 10.524717429593444
+            },
+            {
+              "market": "correct_score",
+              "selection": "0-1",
+              "label": "0–1",
+              "p": 0.07556680349486576,
+              "fairOdds": 13.233324075537256
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 1,
+        "p": 0.10196156038972888
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.24 goles/partido",
+          "detail": "15 % más que la media · 5 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.07 concedidos/partido",
+          "detail": "25 % menos que la media · 5 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.80 goles/partido",
+          "detail": "35 % más que la media · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.33 concedidos/partido",
+          "detail": "7 % menos que la media · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.21",
+          "detail": "estimada de 422 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 2.4–4.7",
+          "detail": "local 12%–50% · 422 partidos"
+        },
+        {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "16.º · 3 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "6.º · 8 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "G-P-P-P · 3 pts",
+          "detail": "6 goles a favor · 6 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "E-E-P-G · 5 pts",
+          "detail": "6 goles a favor · 6 en contra"
+        },
+        {
+          "key": "long_memory",
+          "label": "Memoria larga",
+          "value": "−4 pts al local",
+          "detail": "historia 24% / 25% / 51% · temporada 33% / 22% / 45%"
+        }
+      ],
+      "steps": [
+        "Sincronizando Ligue 1 · corte 20 sep 2026, 19:45",
+        "Fuerza ajustada por rival · OLY 1.15 / 0.93 · PAR 1.35 / 0.75",
+        "Ponderando 122.2 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.50 – 1.80 · total 3.30",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador proyectado 1–2"
+      ],
+      "inputsAsOf": "2026-09-21T01:45:00.000Z",
+      "publishedAt": "2026-09-21T01:45:00.000Z",
+      "source": "openfootball",
+      "projectedScore": {
+        "home": 1,
+        "away": 2,
+        "p": 0.09501442738863429
+      },
+      "insights": {
+        "why": [
+          "Se esperan 3.3 goles: 1.5 de Olympique de Marseille y 1.8 de Paris Saint-Germain FC.",
+          "Paris Saint-Germain FC anota 35 % más que la media.",
+          "Paris Saint-Germain FC concede 25 % menos que la media.",
+          "La historia larga favorece menos a Olympique de Marseille que esta temporada."
+        ],
+        "headToHead": [
+          {
+            "date": "2026-02-08",
+            "homeTeamId": "ligue-1.paris-saint-germain",
+            "awayTeamId": "ligue-1.olympique-marseille",
+            "homeGoals": 5,
+            "awayGoals": 0
+          },
+          {
+            "date": "2025-09-22",
+            "homeTeamId": "ligue-1.olympique-marseille",
+            "awayTeamId": "ligue-1.paris-saint-germain",
+            "homeGoals": 1,
+            "awayGoals": 0
+          },
+          {
+            "date": "2025-03-16",
+            "homeTeamId": "ligue-1.paris-saint-germain",
+            "awayTeamId": "ligue-1.olympique-marseille",
+            "homeGoals": 3,
+            "awayGoals": 1
+          },
+          {
+            "date": "2024-10-27",
+            "homeTeamId": "ligue-1.olympique-marseille",
+            "awayTeamId": "ligue-1.paris-saint-germain",
+            "homeGoals": 0,
+            "awayGoals": 3
+          },
+          {
+            "date": "2024-03-31",
+            "homeTeamId": "ligue-1.olympique-marseille",
+            "awayTeamId": "ligue-1.paris-saint-germain",
+            "homeGoals": 0,
+            "awayGoals": 2
+          }
+        ],
+        "restDays": {
+          "home": 9,
+          "away": 7
+        }
+      }
     }
   },
   "standings": [

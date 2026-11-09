@@ -6,6 +6,12 @@
       "runtimeExecutable": "python",
       "runtimeArgs": ["-m", "http.server", "4173", "--bind", "127.0.0.1"],
       "port": 4173
+    },
+    {
+      "name": "storybook",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "@pitchlab/ui", "storybook"],
+      "port": 6006
     }
   ]
 }

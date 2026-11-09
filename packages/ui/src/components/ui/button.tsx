@@ -14,9 +14,9 @@ const buttonVariants = cva(
       variant: {
         default:
           "bg-primary text-primary-foreground hover:shadow-[0_0_0_4px_var(--glow)] [&_[data-icon=arrow]]:transition-transform hover:[&_[data-icon=arrow]]:translate-x-[3px]",
-        outline: "border-border bg-transparent text-foreground hover:bg-muted",
-        secondary: "bg-secondary text-secondary-foreground hover:bg-accent",
-        ghost: "bg-transparent text-muted-foreground hover:bg-muted hover:text-foreground",
+        outline: "border-border bg-transparent text-foreground hover:bg-secondary",
+        secondary: "bg-secondary text-secondary-foreground hover:bg-surface-active",
+        ghost: "bg-transparent text-muted-foreground hover:bg-secondary hover:text-foreground",
         destructive: "bg-destructive/10 text-destructive hover:bg-destructive/20",
         link: "h-auto px-0 text-primary underline-offset-4 hover:underline",
       },
@@ -39,7 +39,7 @@ const buttonVariants = cva(
       {
         appearance: "d1",
         variant: "secondary",
-        class: "border-input bg-card hover:bg-muted",
+        class: "border-input bg-card hover:bg-secondary",
       },
     ],
     defaultVariants: {

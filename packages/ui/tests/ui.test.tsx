@@ -13,6 +13,7 @@ import {
   BrandLogo,
   ProbSplit,
   MatchCard,
+  ResultsSection,
   MarketTable,
   CalcTrace,
   FactorsList,
@@ -122,5 +123,69 @@ describe("@pitchlab/ui components", () => {
     expect(html).toContain("2.21");
     expect(html).toContain("Emirates Stadium");
     expect(html).toContain("/legal/creditos");
+  });
+
+  it("colors finished MatchCards green (final-hit) or red (final-miss) and renders ResultsSection", () => {
+    const outcomes = [
+      {
+        key: "home" as const,
+        label: "Arsenal gana",
+        probability: 0.56,
+        fairOdds: { decimal: 1.79, american: -127 },
+      },
+      {
+        key: "draw" as const,
+        label: "Empate",
+        probability: 0.24,
+        fairOdds: { decimal: 4.17, american: 317 },
+      },
+      {
+        key: "away" as const,
+        label: "Newcastle gana",
+        probability: 0.2,
+        fairOdds: { decimal: 5.0, american: 400 },
+      },
+    ];
+    const baseMatch = {
+      id: "epl-ars-new-ft",
+      league: asLeagueId("premier-league"),
+      leagueLabel: "Premier League",
+      sport: "football" as const,
+      round: "Jornada 10",
+      day: "sab",
+      dayLabel: "Sáb 7 nov",
+      kickoffUtc: "2026-11-07T15:00:00Z",
+      kickoffLocal: "09:00",
+      venue: "Emirates Stadium",
+      status: "FT" as const,
+      x12: [0.56, 0.24, 0.2] as [number, number, number],
+      home: {
+        slug: "arsenal",
+        name: "Arsenal",
+        shortName: "Arsenal",
+        record: "10 PJ",
+      },
+      away: {
+        slug: "newcastle-united",
+        name: "Newcastle",
+        shortName: "Newcastle",
+        record: "10 PJ",
+      },
+      outcomes,
+      factors: [],
+      trace: [],
+    };
+
+    const wonMatch = { ...baseMatch, id: "m-won", score: { home: 2, away: 0 } };
+    const lostMatch = { ...baseMatch, id: "m-lost", score: { home: 0, away: 1 } };
+
+    const html = renderToStaticMarkup(
+      <ResultsSection matches={[wonMatch, lostMatch]} leagueLabel="Premier League" />,
+    );
+
+    expect(html).toContain("final-hit");
+    expect(html).toContain("final-miss");
+    expect(html).toContain("1 ganado");
+    expect(html).toContain("1 perdido");
   });
 });

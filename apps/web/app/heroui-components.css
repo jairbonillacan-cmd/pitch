@@ -1,0 +1,116 @@
+/* ==========================================================================
+   Componentes de HeroUI v3 que se cargan en la app (capa «components»).
+   Es la lista de @heroui/styles/dist/components/index.css, en el mismo orden,
+   SIN badge, skeleton, tag y tag-group: sus clases (.badge, .skeleton, .tag)
+   chocan con las de D1. Para esos casos se usan Tag, Skeleton y TeamBadge de
+   @pitchlab/ui. Ver docs/design/UI_LIBRARIES.md §4.
+   ========================================================================== */
+@import "@heroui/styles/components/close-button.css";
+@import "@heroui/styles/components/description.css";
+@import "@heroui/styles/components/error-message.css";
+@import "@heroui/styles/components/field-error.css";
+@import "@heroui/styles/components/label.css";
+@import "@heroui/styles/components/accordion.css";
+@import "@heroui/styles/components/breadcrumbs.css";
+@import "@heroui/styles/components/disclosure-group.css";
+@import "@heroui/styles/components/disclosure.css";
+@import "@heroui/styles/components/link.css";
+@import "@heroui/styles/components/pagination.css";
+@import "@heroui/styles/components/tabs.css";
+@import "@heroui/styles/components/button.css";
+@import "@heroui/styles/components/button-group.css";
+@import "@heroui/styles/components/toggle-button.css";
+@import "@heroui/styles/components/toggle-button-group.css";
+@import "@heroui/styles/components/toolbar.css";
+@import "@heroui/styles/components/dropdown.css";
+@import "@heroui/styles/components/list-box-item.css";
+@import "@heroui/styles/components/list-box-section.css";
+@import "@heroui/styles/components/list-box.css";
+@import "@heroui/styles/components/menu-item.css";
+@import "@heroui/styles/components/menu-section.css";
+@import "@heroui/styles/components/menu.css";
+@import "@heroui/styles/components/color-area.css";
+@import "@heroui/styles/components/color-picker.css";
+@import "@heroui/styles/components/color-slider.css";
+@import "@heroui/styles/components/color-swatch.css";
+@import "@heroui/styles/components/color-swatch-picker.css";
+@import "@heroui/styles/components/color-input-group.css";
+@import "@heroui/styles/components/color-field.css";
+@import "@heroui/styles/components/slider.css";
+@import "@heroui/styles/components/switch.css";
+@import "@heroui/styles/components/switch-group.css";
+@import "@heroui/styles/components/chip.css";
+@import "@heroui/styles/components/table.css";
+@import "@heroui/styles/components/alert.css";
+@import "@heroui/styles/components/empty-state.css";
+@import "@heroui/styles/components/meter.css";
+@import "@heroui/styles/components/progress-bar.css";
+@import "@heroui/styles/components/progress-circle.css";
+@import "@heroui/styles/components/spinner.css";
+@import "@heroui/styles/components/toast.css";
+@import "@heroui/styles/components/checkbox-group.css";
+@import "@heroui/styles/components/checkbox.css";
+@import "@heroui/styles/components/fieldset.css";
+@import "@heroui/styles/components/input-otp.css";
+@import "@heroui/styles/components/input.css";
+@import "@heroui/styles/components/input-group.css";
+@import "@heroui/styles/components/number-field.css";
+@import "@heroui/styles/components/radio-group.css";
+@import "@heroui/styles/components/radio.css";
+@import "@heroui/styles/components/textfield.css";
+@import "@heroui/styles/components/search-field.css";
+@import "@heroui/styles/components/textarea.css";
+@import "@heroui/styles/components/calendar.css";
+@import "@heroui/styles/components/range-calendar.css";
+@import "@heroui/styles/components/calendar-year-picker.css";
+@import "@heroui/styles/components/date-field.css";
+@import "@heroui/styles/components/time-field.css";
+@import "@heroui/styles/components/date-input-group.css";
+@import "@heroui/styles/components/date-picker.css";
+@import "@heroui/styles/components/date-range-picker.css";
+@import "@heroui/styles/components/card.css";
+@import "@heroui/styles/components/header.css";
+@import "@heroui/styles/components/separator.css";
+@import "@heroui/styles/components/surface.css";
+@import "@heroui/styles/components/avatar.css";
+@import "@heroui/styles/components/avatar-group.css";
+@import "@heroui/styles/components/alert-dialog.css";
+@import "@heroui/styles/components/drawer.css";
+@import "@heroui/styles/components/sheet.css";
+@import "@heroui/styles/components/modal.css";
+@import "@heroui/styles/components/popover.css";
+@import "@heroui/styles/components/tooltip.css";
+@import "@heroui/styles/components/combo-box.css";
+@import "@heroui/styles/components/select.css";
+@import "@heroui/styles/components/autocomplete.css";
+@import "@heroui/styles/components/kbd.css";
+@import "@heroui/styles/components/typography.css";
+@import "@heroui/styles/components/scroll-shadow.css";
+
+/* ---------- Tema PitchLab sobre HeroUI ----------
+   HeroUI escala todos sus radios desde --radius (botón ×3 = píldora, tarjeta ×3).
+   La marca fija tres radios (DESIGN_SYSTEM.md §3): controles 8, paneles 12 y
+   overlays 16. Las píldoras quedan para chips, filtros y la barra flotante. */
+.button,
+.toggle-button {
+  border-radius: var(--radius-control);
+}
+/* Objetivo táctil de la marca (--layout-touch, 44 px), igual que el botón de shadcn. */
+.button--md:not(.button--icon-only) {
+  height: var(--layout-touch);
+  padding-inline: var(--space-4);
+}
+.card {
+  border-radius: var(--radius-panel);
+  border: var(--border-width) solid var(--border-default);
+}
+.modal__dialog,
+.alert-dialog__dialog,
+.popover,
+.dropdown__popover,
+.toast {
+  border-radius: var(--radius-overlay);
+}
+.tooltip {
+  border-radius: var(--radius-control);
+}

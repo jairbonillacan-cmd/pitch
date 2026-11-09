@@ -248,6 +248,42 @@ export function featuredPickOf(
   );
 }
 
+/**
+ * Pick efectivo para calificar un partido finalizado: usa el pick destacado publicado
+ * o, si el snapshot ya cerrado omitió la lista de picks, deriva el favorito del modelo (1X2 / Ganador).
+ */
+export function effectiveFeaturedPick(match: MatchAnalysis): AnalysisPick | undefined {
+  const explicit = featuredPickOf(match.picks) ?? match.picks?.[0];
+  if (explicit) return explicit;
+  const nf = match.league === "nfl";
+  const draw = !nf;
+  const x12 = match.x12 ?? [
+    match.outcomes[0]?.probability ?? 0.45,
+    draw ? (match.outcomes[1]?.probability ?? 0.25) : 0,
+    match.outcomes[draw ? 2 : 1]?.probability ?? 0.3,
+  ];
+  const [ph, pd, pa] = x12;
+  const ps = draw ? [ph, pd, pa] : [ph, pa];
+  const li = leadIndex(ps);
+  const p = ps[li] ?? 0.5;
+  const selection = li === 0 ? "home" : draw && li === 1 ? "draw" : "away";
+  const fallbackLabel =
+    selection === "home"
+      ? `${match.home.shortName || match.home.name} gana`
+      : selection === "draw"
+        ? "Empate"
+        : `${match.away.shortName || match.away.name} gana`;
+  const label = match.outcomes[li]?.label ?? fallbackLabel;
+  return {
+    profile: "intermedia",
+    market: asMarketKey("h2h"),
+    selection,
+    label,
+    p,
+    fairOdds: match.outcomes[li]?.fairOdds?.decimal ?? probabilityToFairOdds(p).decimal,
+  };
+}
+
 /** Resultado de un pick con el marcador final (null si no se puede calificar). */
 export function pickResult(
   pick: AnalysisPick,
@@ -387,10 +423,16 @@ export function PicksPanel({
         {order.map((profile) => {
           const pick = picks.find((p) => p.profile === profile);
           const result = pick ? pickResult(pick, score) : null;
+          const liCls = [
+            pick && pick === featured ? "featured" : "",
+            result ? `res-${result}` : "",
+          ]
+            .filter(Boolean)
+            .join(" ");
           return (
             <li
               key={profile}
-              className={pick && pick === featured ? "featured" : undefined}
+              className={liCls || undefined}
               data-profile={profile}
             >
               <span className="prof">{PROFILE_LABELS[profile]}</span>
@@ -404,7 +446,7 @@ export function PicksPanel({
                   <span className="num odds">{formatDecimal(pick.fairOdds)}</span>
                   {result ? (
                     <Badge variant={result === "hit" ? "success" : "danger"} className={"res " + result}>
-                      {result === "hit" ? "Acertado" : "Fallado"}
+                      {result === "hit" ? "Ganado" : "Perdido"}
                     </Badge>
                   ) : null}
                 </>
@@ -586,9 +628,11 @@ export function BestPicks({
 export function MatchCard({
   match,
   onSelect,
+  showLeague = false,
 }: {
   match: MatchAnalysis;
   onSelect?: (match: MatchAnalysis) => void;
+  showLeague?: boolean;
 }): React.JSX.Element {
   const isFinished = match.status === "FT" && match.score !== undefined;
   const nf = match.league === "nfl";
@@ -605,17 +649,26 @@ export function MatchCard({
   const aL = li === ps.length - 1;
   const dL = draw && li === 1;
   const proj = match.projection ?? { home: nf ? 24 : 1.5, away: nf ? 21 : 1.2, total: nf ? 45 : 2.7 };
-  const featured = featuredPickOf(match.picks);
-  const featuredResult = featured ? pickResult(featured, match.score) : null;
+  const featured = isFinished ? effectiveFeaturedPick(match) : featuredPickOf(match.picks);
+  const featuredResult = isFinished && featured ? pickResult(featured, match.score) : null;
+  const finalStateClass =
+    isFinished && featuredResult === "hit"
+      ? "final-hit"
+      : isFinished && featuredResult === "miss"
+        ? "final-miss"
+        : "";
+  const homeWon = isFinished && (match.score?.home ?? 0) > (match.score?.away ?? 0);
+  const awayWon = isFinished && (match.score?.away ?? 0) > (match.score?.home ?? 0);
   const projected = match.projectedScore;
   const moment = useMatchMoment(match.kickoffUtc, isFinished);
 
   return (
     <button
       type="button"
-      className={`panel gcard match-card ${isFinished ? "final" : ""}`.trim()}
+      className={`panel gcard match-card ${isFinished ? "final" : ""} ${finalStateClass}`.replace(/\s+/g, " ").trim()}
       data-game={match.id}
       data-game-id={match.id}
+      data-result={featuredResult ?? undefined}
       aria-haspopup="dialog"
       aria-label={`Analizar ${match.home.name} contra ${match.away.name}, ${
         isFinished ? "finalizado" : match.kickoffLocal
@@ -623,8 +676,19 @@ export function MatchCard({
       onClick={() => onSelect?.(match)}
     >
       <span className="top">
-        <span className="when">{isFinished ? "Final" : match.kickoffLocal}</span>
-        <MomentTag moment={moment} />
+        <span className="when">
+          {isFinished ? (showLeague ? `${match.leagueLabel} · Final` : "Final") : match.kickoffLocal}
+        </span>
+        {isFinished && featuredResult ? (
+          <Badge
+            variant={featuredResult === "hit" ? "success" : "danger"}
+            className={"res res-top " + featuredResult}
+          >
+            {featuredResult === "hit" ? "Ganado" : "Perdido"}
+          </Badge>
+        ) : (
+          <MomentTag moment={moment} />
+        )}
         <span className="venue">{match.venue}</span>
       </span>
 
@@ -634,7 +698,11 @@ export function MatchCard({
           {match.home.name}
           {hL && !isFinished ? <Badge variant="fav" className="fav">Favorito</Badge> : null}
         </span>
-        <span className={`p ${hL && !isFinished ? "lead-txt" : ""}`.trim()}>
+        <span
+          className={`p ${hL && !isFinished ? "lead-txt" : ""} ${homeWon ? "score-win" : ""}`
+            .replace(/\s+/g, " ")
+            .trim()}
+        >
           {isFinished ? match.score?.home : formatPercent(ph, 1)}
         </span>
       </span>
@@ -645,7 +713,11 @@ export function MatchCard({
           {match.away.name}
           {aL && !isFinished ? <Badge variant="fav" className="fav">Favorito</Badge> : null}
         </span>
-        <span className={`p ${aL && !isFinished ? "lead-txt" : ""}`.trim()}>
+        <span
+          className={`p ${aL && !isFinished ? "lead-txt" : ""} ${awayWon ? "score-win" : ""}`
+            .replace(/\s+/g, " ")
+            .trim()}
+        >
           {isFinished ? match.score?.away : formatPercent(pa, 1)}
         </span>
       </span>
@@ -662,7 +734,7 @@ export function MatchCard({
           <span className="num pp">{formatPercent(featured.p, 0)}</span>
           {isFinished && featuredResult ? (
             <Badge variant={featuredResult === "hit" ? "success" : "danger"} className={"res " + featuredResult}>
-              {featuredResult === "hit" ? "Acertado" : "Fallado"}
+              {featuredResult === "hit" ? "Ganado" : "Perdido"}
             </Badge>
           ) : match.confidence ? (
             <ConfidenceBadge confidence={match.confidence} compact />
@@ -674,7 +746,7 @@ export function MatchCard({
         <span>
           {draw ? (
             <>
-              <span className={dL ? "lead-txt" : ""}>Empate {formatPercent(pd, 1)}</span>
+              <span className={dL && !isFinished ? "lead-txt" : ""}>Empate {formatPercent(pd, 1)}</span>
               {" · "}
             </>
           ) : null}
@@ -687,6 +759,116 @@ export function MatchCard({
         </span>
       </span>
     </button>
+  );
+}
+
+/**
+ * Sección de resultados calificados de la liga seleccionada: muestra todas las fichas ya
+ * jugadas coloreadas en verde (ganado) o rojo (perdido) según el pick principal del modelo.
+ */
+export function ResultsSection({
+  matches,
+  leagueLabel,
+  onSelect,
+}: {
+  matches: readonly MatchAnalysis[];
+  leagueLabel?: string;
+  onSelect?: (match: MatchAnalysis) => void;
+}): React.JSX.Element | null {
+  const finished = matches.filter((m) => m.status === "FT" && m.score !== undefined);
+  const [filter, setFilter] = useState<"all" | "hit" | "miss">("all");
+
+  useEffect(() => {
+    setFilter("all");
+  }, [leagueLabel]);
+
+  if (finished.length === 0) {
+    return null;
+  }
+
+  const graded = finished.map((match) => {
+    const pick = effectiveFeaturedPick(match);
+    const result = pick ? pickResult(pick, match.score) : null;
+    return { match, pick, result };
+  });
+
+  const hits = graded.filter((item) => item.result === "hit");
+  const misses = graded.filter((item) => item.result === "miss");
+  const visible =
+    filter === "all" ? graded : graded.filter((item) => item.result === filter);
+  const hitRate = graded.length > 0 ? hits.length / graded.length : 0;
+
+  return (
+    <section
+      className="results-block"
+      aria-labelledby="results-title"
+      data-results-section=""
+    >
+      <div className="results-head">
+        <div className="results-title-wrap">
+          <h2 id="results-title">Resultados</h2>
+          <div className="results-summary" aria-label="Resumen de aciertos">
+            <span className="res-stat hit">
+              <span className="dot" aria-hidden="true" />
+              {hits.length} {hits.length === 1 ? "ganado" : "ganados"}
+            </span>
+            <span className="res-stat miss">
+              <span className="dot" aria-hidden="true" />
+              {misses.length} {misses.length === 1 ? "perdido" : "perdidos"}
+            </span>
+            <span className="res-rate num">
+              {formatPercent(hitRate, 0)} efectividad
+            </span>
+          </div>
+        </div>
+
+        <div className="results-controls">
+          <div className="results-pills" role="group" aria-label="Filtrar por resultado">
+            <button
+              type="button"
+              className={`res-chip ${filter === "all" ? "active" : ""}`.trim()}
+              aria-pressed={filter === "all"}
+              data-results-filter="all"
+              onClick={() => setFilter("all")}
+            >
+              Todos ({graded.length})
+            </button>
+            <button
+              type="button"
+              className={`res-chip hit ${filter === "hit" ? "active" : ""}`.trim()}
+              aria-pressed={filter === "hit"}
+              data-results-filter="hit"
+              onClick={() => setFilter("hit")}
+            >
+              Ganados ({hits.length})
+            </button>
+            <button
+              type="button"
+              className={`res-chip miss ${filter === "miss" ? "active" : ""}`.trim()}
+              aria-pressed={filter === "miss"}
+              data-results-filter="miss"
+              onClick={() => setFilter("miss")}
+            >
+              Perdidos ({misses.length})
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {visible.length === 0 ? (
+        <p className="small secondary results-empty">
+          No hay resultados en este filtro para la selección actual.
+        </p>
+      ) : (
+        <ul className="cards results-cards">
+          {visible.map(({ match }) => (
+            <li key={match.id}>
+              <MatchCard match={match} onSelect={onSelect} />
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
   );
 }
 

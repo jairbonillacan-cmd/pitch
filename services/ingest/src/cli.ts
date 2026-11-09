@@ -57,6 +57,7 @@ async function withFootballData(
     return { season, source: "openfootball" };
   }
 }
+import type { GameDTO } from "@pitchlab/contracts";
 import {
   fetchApiFootballLigaMx,
   normalizeApiFootballLigaMx,
@@ -67,6 +68,34 @@ import {
   loadPreviousSnapshot,
   writeSnapshotFiles,
 } from "./pipeline.js";
+
+/**
+ * Si la jornada activa aún no tiene partidos finalizados (p. ej. tras cerrarse la jornada del fin
+ * de semana), incluye los resultados de la jornada inmediata anterior para que la sección
+ * «Resultados» de la liga seleccionada muestre siempre los marcadores más recientes al día de hoy.
+ */
+function withRecentFinishedRound(
+  activeRoundGames: readonly GameDTO[],
+  allGames: readonly GameDTO[],
+): GameDTO[] {
+  if (activeRoundGames.some((g) => g.status === "final")) {
+    return [...activeRoundGames];
+  }
+  const activeWeek = activeRoundGames[0]?.week ?? 0;
+  const finishedWeeks = [
+    ...new Set(
+      allGames
+        .filter((g) => g.status === "final" && (g.week ?? 0) < activeWeek)
+        .map((g) => g.week ?? 0),
+    ),
+  ].sort((a, b) => b - a);
+  const lastFinishedWeek = finishedWeeks[0];
+  if (!lastFinishedWeek) return [...activeRoundGames];
+  const recentFinished = allGames
+    .filter((g) => g.week === lastFinishedWeek && g.status === "final")
+    .sort((a, b) => a.startTime.localeCompare(b.startTime));
+  return [...recentFinished, ...activeRoundGames];
+}
 
 const ROOT_DIR = resolve(import.meta.dirname, "..", "..", "..");
 const SNAPSHOTS_ROOT = resolve(ROOT_DIR, "data", "snapshots");
@@ -131,7 +160,7 @@ async function main() {
     seasonId: normPl.seasonId,
     seasonLabel: normPl.seasonLabel,
     periodLabel: normPl.periodLabel,
-    games: normPl.activeRoundGames,
+    games: withRecentFinishedRound(normPl.activeRoundGames, normPl.allGames),
     teamRateInputs: normPl.teamRateInputs,
     updatedAt,
     source: "openfootball",
@@ -161,7 +190,7 @@ async function main() {
     seasonId: normLl.seasonId,
     seasonLabel: normLl.seasonLabel,
     periodLabel: normLl.periodLabel,
-    games: normLl.activeRoundGames,
+    games: withRecentFinishedRound(normLl.activeRoundGames, normLl.allGames),
     teamRateInputs: normLl.teamRateInputs,
     updatedAt,
     source: sourceLl,
@@ -212,7 +241,7 @@ async function main() {
       seasonId: normalized.seasonId,
       seasonLabel: normalized.seasonLabel,
       periodLabel: normalized.periodLabel,
-      games: normalized.activeRoundGames,
+      games: withRecentFinishedRound(normalized.activeRoundGames, normalized.allGames),
       teamRateInputs: normalized.teamRateInputs,
       updatedAt,
       source: entrySource,

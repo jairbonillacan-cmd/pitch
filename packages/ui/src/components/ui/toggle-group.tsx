@@ -15,9 +15,9 @@ const toggleVariants = cva(
   {
     variants: {
       variant: {
-        default: "rounded-md bg-transparent hover:bg-muted data-pressed:bg-muted data-pressed:text-foreground",
+        default: "rounded-md bg-transparent hover:bg-secondary data-pressed:bg-secondary data-pressed:text-foreground",
         chip: "min-h-10 rounded-full border border-border bg-transparent px-3.5 hover:border-input data-pressed:border-primary data-pressed:text-foreground",
-        match: "min-h-11 gap-2 rounded-(--radius-pill) border border-border bg-card py-0 pl-2 pr-3 font-semibold text-foreground transition-[background-color,border-color] hover:border-input data-pressed:border-primary data-pressed:bg-accent",
+        match: "min-h-11 gap-2 rounded-(--radius-pill) border border-border bg-card py-0 pl-2 pr-3 font-semibold text-foreground transition-[background-color,border-color] hover:border-input data-pressed:border-primary data-pressed:bg-surface-active",
       },
     },
     defaultVariants: { variant: "default" },

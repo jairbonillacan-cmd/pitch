@@ -3,7 +3,7 @@
 > **Propósito:** el contrato visual aprobado (D1, 2026-11-08) que implementan `packages/tokens`, `packages/ui`, `packages/sports-ui` y `packages/charts`. Toda pantalla nueva parte de aquí.
 > **Fuente visual de referencia:** `design/d1/` (landing, login, crear cuenta, panel). Si este documento y el prototipo difieren, manda este documento.
 > **Consumidores:** prompt 00 (Design System y Shell), pre-MVP y todos los agentes de UI.
-> **Jerarquía:** marca oficial (`pitchlab-brand/`) → este documento → componentes → pantallas.
+> **Jerarquía:** marca oficial (`pitchlab-brand/`) → este documento → `UI_LIBRARIES.md` (HeroUI + shadcn) → componentes → pantallas.
 
 ## 1. Temas
 

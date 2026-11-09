@@ -29,7 +29,7 @@ const tabsListVariants = cva(
   {
     variants: {
       variant: {
-        default: "gap-1 rounded-lg bg-muted p-[3px]",
+        default: "gap-1 rounded-lg bg-secondary p-[3px]",
         chips: "gap-1 overflow-x-auto [scrollbar-width:none]",
       },
     },

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState, useCallback } from "react";
-import type { MarketPulseSide, MatchAnalysis } from "@pitchlab/contracts";
+import type { AnalysisPick, MarketPulseSide, MatchAnalysis } from "@pitchlab/contracts";
 import { formatPercent, marketPulseLean } from "@pitchlab/contracts";
 import { getMascotPath } from "@pitchlab/sports-assets";
 import { Icon } from "./icons.js";
@@ -16,6 +16,7 @@ import {
   PicksPanel,
   WhyList,
   HeadToHead,
+  effectiveFeaturedPick,
 } from "./sports.js";
 import { usePinSound } from "./pin-sounds.js";
 import { FooterSocial } from "./footer-social.js";
@@ -227,17 +228,23 @@ export function PinPad({
   const busyRef = useRef(false);
   const attemptRef = useRef(0);
   const pressTimer = useRef<number>(undefined);
+  const bumpTimer = useRef<number>(undefined);
+  const handoffTimer = useRef<number>(undefined);
   const playSound = usePinSound();
 
   const [digits, setDigits] = useState("");
   const [status, setStatus] = useState<"idle" | "submitting" | "error" | "success">("idle");
   const [msgText, setMsgText] = useState(PIN_PROMPT);
   const [pressedKey, setPressedKey] = useState<string | null>(null);
+  const [avatarBump, setAvatarBump] = useState(false);
+  const [slotAnim, setSlotAnim] = useState<{ index: number; type: "fill" | "clear" } | null>(null);
   const busy = status === "submitting" || status === "success";
 
   const cancelPending = useCallback(() => {
     attemptRef.current += 1;
     window.clearTimeout(pressTimer.current);
+    window.clearTimeout(bumpTimer.current);
+    window.clearTimeout(handoffTimer.current);
   }, []);
 
   useEffect(() => {
@@ -248,6 +255,8 @@ export function PinPad({
     setStatus("idle");
     setMsgText(PIN_PROMPT);
     setPressedKey(null);
+    setAvatarBump(false);
+    setSlotAnim(null);
     return cancelPending;
   }, [open, cancelPending]);
 
@@ -261,7 +270,7 @@ export function PinPad({
       busyRef.current = true;
       const attempt = ++attemptRef.current;
       setStatus("submitting");
-      setMsgText("Verificando código…");
+      setMsgText("Comprobando código…");
       let result: PinSubmission;
       try {
         result = await onSubmitPin(code);
@@ -272,12 +281,19 @@ export function PinPad({
 
       if (result.ok) {
         playSound("success");
+        setStatus("success");
+        setMsgText("Comprobando acceso · Cargando panel…");
         if (result.continueToApp) {
-          setStatus("success");
-          result.continueToApp();
-        } else {
-          setStatus("success");
-          setMsgText("Listo. Bienvenido a PitchLab.");
+          const reduced =
+            typeof window !== "undefined" &&
+            window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+          const waitMs = reduced ? 120 : 900;
+          const go = result.continueToApp;
+          handoffTimer.current = window.setTimeout(() => {
+            if (attempt !== attemptRef.current) return;
+            playSound("handoff");
+            go();
+          }, waitMs);
         }
       } else {
         playSound("error");
@@ -299,24 +315,38 @@ export function PinPad({
     if (next.length === 4) void verifyCode(next);
   }, [verifyCode]);
 
-  const pushDigit = useCallback((digit: string) => {
-    if (busyRef.current) return;
-    playSound("key");
-    setPressedKey(digit);
+  const triggerKeyFeedback = useCallback((keyId: string) => {
+    setPressedKey(keyId);
     window.clearTimeout(pressTimer.current);
-    pressTimer.current = window.setTimeout(() => setPressedKey(null), 120);
+    pressTimer.current = window.setTimeout(() => setPressedKey(null), 130);
+  }, []);
+
+  const pushDigit = useCallback((digit: string) => {
+    if (busyRef.current || digitsRef.current.length >= 4) return;
+    const stepIdx = digitsRef.current.length;
+    playSound("key", stepIdx);
+    triggerKeyFeedback(digit);
+    setSlotAnim({ index: stepIdx, type: "fill" });
+    setAvatarBump(true);
+    window.clearTimeout(bumpTimer.current);
+    bumpTimer.current = window.setTimeout(() => setAvatarBump(false), 220);
     editDigits(digitsRef.current + digit);
-  }, [editDigits, playSound]);
+  }, [editDigits, playSound, triggerKeyFeedback]);
 
   const popDigit = useCallback(() => {
-    if (busyRef.current) return;
-    playSound("key");
+    if (busyRef.current || digitsRef.current.length === 0) return;
+    const clearedIdx = digitsRef.current.length - 1;
+    playSound("back");
+    triggerKeyFeedback("back");
+    setSlotAnim({ index: clearedIdx, type: "clear" });
     editDigits(digitsRef.current.slice(0, -1));
-  }, [editDigits, playSound]);
+  }, [editDigits, playSound, triggerKeyFeedback]);
 
   const clearDigits = () => {
     if (busyRef.current) return;
-    playSound("key");
+    playSound("back");
+    triggerKeyFeedback("clear");
+    setSlotAnim({ index: 0, type: "clear" });
     editDigits("");
   };
 
@@ -336,7 +366,8 @@ export function PinPad({
       const cleaned = (e.clipboardData?.getData("text") ?? "").replace(/\D/g, "").slice(0, 4);
       if (!cleaned || busyRef.current) return;
       e.preventDefault();
-      playSound("key");
+      playSound("key", cleaned.length - 1);
+      setSlotAnim({ index: cleaned.length - 1, type: "fill" });
       editDigits(cleaned);
     };
     window.addEventListener("keydown", onKeyDown);
@@ -350,6 +381,7 @@ export function PinPad({
   const dlgClasses = [
     "pin",
     "pin-dialog",
+    status === "submitting" ? "checking" : "",
     status === "success" ? "ok" : "",
     status === "error" ? "err" : "",
   ]
@@ -388,11 +420,14 @@ export function PinPad({
             <Icon name="close" />
           </Button>
 
-          <div className="pin-avatar" aria-hidden="true">
+          <div
+            className={`pin-avatar ${avatarBump ? "typing-bump" : ""}`.trim()}
+            aria-hidden="true"
+          >
             <img src={getMascotPath("radar")} alt="" />
           </div>
 
-          <p className="eyebrow" style={{ color: "var(--brand-primary)" }}>
+          <p className="eyebrow" style={{ color: status === "success" ? "var(--success)" : "var(--brand-primary)" }}>
             Beta privada
           </p>
           <h2 id="pin-title">Código de acceso</h2>
@@ -402,20 +437,29 @@ export function PinPad({
             role="status"
             aria-live="polite"
           >
-            {status === "success" && <Icon name="check" />}
-            {msgText}
+            {(status === "submitting" || status === "success") && (
+              <span className="pin-spinner" aria-hidden="true" />
+            )}
+            <span>{msgText}</span>
           </p>
 
           <div className="slots pin-slots" id="slots" aria-hidden="true">
             {[0, 1, 2, 3].map((idx) => {
               const isOn = idx < digits.length;
               const isCur = idx === digits.length && status === "idle";
+              const animCls =
+                slotAnim?.index === idx
+                  ? slotAnim.type === "fill"
+                    ? "just-filled"
+                    : "just-cleared"
+                  : "";
               const slotCls = [
                 "slot",
                 "pin-slot",
                 isOn ? "on filled" : "",
                 isCur ? "cur active" : "",
                 status === "error" ? "error" : "",
+                animCls,
               ]
                 .filter(Boolean)
                 .join(" ");
@@ -442,7 +486,7 @@ export function PinPad({
               </button>
             ))}
             <button
-              className="key ghost pin-key aux"
+              className={`key ghost pin-key aux ${pressedKey === "clear" ? "press" : ""}`.trim()}
               type="button"
               disabled={busy}
               data-clear=""
@@ -463,7 +507,7 @@ export function PinPad({
               0
             </button>
             <button
-              className="key ghost pin-key aux"
+              className={`key ghost pin-key aux ${pressedKey === "back" ? "press" : ""}`.trim()}
               type="button"
               disabled={busy}
               data-del=""
@@ -475,7 +519,10 @@ export function PinPad({
             </button>
           </div>
 
-          <p className="pin-foot">TAMBIÉN PUEDES USAR TU TECLADO</p>
+          <p className="pin-foot">
+            {status === "success" ? "PREPARANDO JORNADA…" : "TAMBIÉN PUEDES USAR TU TECLADO"}
+          </p>
+          <span className="pin-progress" aria-hidden="true" />
         </div>
       </div>
         </DialogPopup>
@@ -868,13 +915,23 @@ export function AnalysisDialog({
                         </ul>
                       </section>
                       <div className="side-col">
-                        {shown.picks && shown.picks.length > 0 ? (
-                          <PicksPanel
-                            picks={shown.picks}
-                            confidence={isFinished ? undefined : shown.confidence}
-                            score={isFinished ? shown.score : undefined}
-                          />
-                        ) : null}
+                        {(() => {
+                          const modalPicks: readonly AnalysisPick[] =
+                            shown.picks && shown.picks.length > 0
+                              ? shown.picks
+                              : isFinished
+                                ? [effectiveFeaturedPick(shown)].filter(
+                                    (p): p is AnalysisPick => p !== undefined,
+                                  )
+                                : [];
+                          return modalPicks.length > 0 ? (
+                            <PicksPanel
+                              picks={modalPicks}
+                              confidence={isFinished ? undefined : shown.confidence}
+                              score={isFinished ? shown.score : undefined}
+                            />
+                          ) : null;
+                        })()}
                         {!isFinished && !(shown.picks && shown.picks.length > 0) ? (
                           <p className="caption muted no-picks" data-no-picks="">
                             Sin picks: este análisis se calculó con el partido ya iniciado. Los
