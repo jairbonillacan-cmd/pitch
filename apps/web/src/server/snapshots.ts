@@ -60,6 +60,9 @@ export const PRODUCT_LEAGUES = [
 
 export type ProductLeague = (typeof PRODUCT_LEAGUES)[number];
 
+/** Caché en memoria por archivo y fecha de modificación (se invalida al reescribir el snapshot). */
+const snapshotCache = new Map<string, { mtimeMs: number; envelope: SnapshotEnvelope }>();
+
 const LEAGUE_LABELS: Record<ProductLeague, string> = {
   "liga-mx": "Liga MX",
   "premier-league": "Premier League",
@@ -86,6 +89,7 @@ export function loadLeagueSnapshotEnvelope(leagueKey: ProductLeague): SnapshotEn
   const league = asLeagueId(leagueKey);
 
   if (!fs.existsSync(latestPath)) {
+    snapshotCache.delete(leagueKey);
     const emptySnapshot: ClientLeagueSnapshot = {
       schemaVersion: 1,
       league,
@@ -103,6 +107,19 @@ export function loadLeagueSnapshotEnvelope(leagueKey: ProductLeague): SnapshotEn
       data: emptySnapshot,
       generatedAt: emptySnapshot.generatedAt,
     };
+  }
+
+  // Caché por fecha de modificación: evita parsear y normalizar el mismo snapshot en cada
+  // request (siete ligas por página) y se invalida solo cuando el job lo reescribe.
+  let mtimeMs = 0;
+  try {
+    mtimeMs = fs.statSync(latestPath).mtimeMs;
+  } catch {
+    mtimeMs = 0;
+  }
+  const cached = snapshotCache.get(leagueKey);
+  if (cached && mtimeMs > 0 && cached.mtimeMs === mtimeMs) {
+    return cached.envelope;
   }
 
   try {
@@ -124,11 +141,15 @@ export function loadLeagueSnapshotEnvelope(leagueKey: ProductLeague): SnapshotEn
       standings: parsed.standings,
     };
 
-    return {
+    const envelope: SnapshotEnvelope = {
       state: matches.length > 0 ? "ready" : "empty",
       data: clientSafe,
       generatedAt: clientSafe.generatedAt,
     };
+    if (mtimeMs > 0) {
+      snapshotCache.set(leagueKey, { mtimeMs, envelope });
+    }
+    return envelope;
   } catch (err) {
     const message = err instanceof Error ? err.message : "Error de lectura";
     return {
