@@ -363,6 +363,58 @@ export interface FootballPrediction {
 
 const TOTAL_LINES = [1.5, 2.5, 3.5] as const;
 
+/** Probabilidades 1X2 externas (p. ej. Elo) para mezclar con las del modelo. */
+export interface OutcomeBlend {
+  home: number;
+  draw: number;
+  away: number;
+  /** Peso de la fuente externa (0 = solo el modelo, 1 = solo la externa). */
+  weight: number;
+}
+
+/**
+ * Reescala las tres regiones de la matriz (local gana, empate, visita gana) para que
+ * sumen el 1X2 objetivo. Dentro de cada región se conserva la forma de la matriz, así
+ * que totales, ambos anotan, hándicap y marcadores siguen siendo coherentes con el 1X2.
+ */
+export function rescaleMatrixToOutcome(
+  matrix: number[][],
+  target: { home: number; draw: number; away: number },
+): number[][] {
+  const size = matrix.length;
+  let home = 0;
+  let draw = 0;
+  let away = 0;
+  for (let i = 0; i < size; i++) {
+    for (let j = 0; j < size; j++) {
+      const p = matrix[i]![j]!;
+      if (i > j) home += p;
+      else if (i === j) draw += p;
+      else away += p;
+    }
+  }
+  const fh = home > 0 ? target.home / home : 1;
+  const fd = draw > 0 ? target.draw / draw : 1;
+  const fa = away > 0 ? target.away / away : 1;
+  return matrix.map((row, i) =>
+    row.map((p, j) => p * (i > j ? fh : i === j ? fd : fa)),
+  );
+}
+
+function blendTarget(
+  model: { home: number; draw: number; away: number },
+  blend: OutcomeBlend,
+): { home: number; draw: number; away: number } {
+  const w = clamp(blend.weight, 0, 1);
+  const raw = {
+    home: (1 - w) * model.home + w * blend.home,
+    draw: (1 - w) * model.draw + w * blend.draw,
+    away: (1 - w) * model.away + w * blend.away,
+  };
+  const total = raw.home + raw.draw + raw.away;
+  return { home: raw.home / total, draw: raw.draw / total, away: raw.away / total };
+}
+
 /**
  * Predice un partido con el modelo estimado.
  * La incertidumbre se propaga con 240 simulaciones deterministas de los parámetros.
@@ -371,14 +423,22 @@ export function predictFootball(
   model: DixonColesModel,
   home: string,
   away: string,
-  options: { simulations?: number } = {},
+  options: { simulations?: number; outcomeBlend?: OutcomeBlend } = {},
 ): FootballPrediction {
   const { gridSize } = model;
   const lambdaHome = baseLambdaHome(model, home, away);
   const lambdaAway = baseLambdaAway(model, home, away);
 
-  const joint = scoreMatrix(lambdaHome, lambdaAway, model.rho, gridSize);
-  const outcome = summarise(joint, gridSize);
+  const rawJoint = scoreMatrix(lambdaHome, lambdaAway, model.rho, gridSize);
+  const rawOutcome = summarise(rawJoint, gridSize);
+  const blend = options.outcomeBlend;
+  const joint =
+    blend && blend.weight > 0
+      ? rescaleMatrixToOutcome(rawJoint, blendTarget(rawOutcome, blend))
+      : rawJoint;
+  const outcome = joint === rawJoint ? rawOutcome : summarise(joint, gridSize);
+  // Desplazamiento del intervalo de victoria local para seguir al 1X2 mezclado.
+  const homeShift = outcome.home - rawOutcome.home;
 
   const simulations = options.simulations ?? 240;
   const rng = makeRng(`${home}|${away}|${model.matches}|${model.baseRate.toFixed(4)}`);
@@ -441,8 +501,8 @@ export function predictFootball(
     mostLikelyScore: outcome.mostLikely,
     intervals: {
       homeWin: [
-        quantileSorted(homeDraws, 0.05),
-        quantileSorted(homeDraws, 0.95),
+        clamp(quantileSorted(homeDraws, 0.05) + homeShift, 0, 1),
+        clamp(quantileSorted(homeDraws, 0.95) + homeShift, 0, 1),
       ],
       total: [
         quantileSorted(totalDraws, 0.05),

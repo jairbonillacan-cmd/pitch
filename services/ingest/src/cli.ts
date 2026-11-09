@@ -5,7 +5,7 @@ import {
   normalizeNflverseSchedule,
 } from "./adapters/nflverse.js";
 import { loadRootEnvFiles } from "./env.js";
-import { loadPriorMatches } from "./prior-season.js";
+import { loadLeagueHistory, loadPriorMatches } from "./prior-season.js";
 import {
   fetchOpenFootballBundesliga,
   fetchOpenFootballLaliga,
@@ -102,6 +102,7 @@ async function main() {
     previousSnapshot: prevPl,
     seasonGames: normPl.allGames,
     priorMatches: priorPl,
+    history: loadLeagueHistory("premier-league", dateStr),
     modelVersion,
   });
   const plFiles = writeSnapshotFiles(SNAPSHOTS_ROOT, plSnapshot, dateStr);
@@ -128,6 +129,7 @@ async function main() {
     previousSnapshot: prevLl,
     seasonGames: normLl.allGames,
     priorMatches: priorLl,
+    history: loadLeagueHistory("laliga", dateStr),
     modelVersion,
   });
   const llFiles = writeSnapshotFiles(SNAPSHOTS_ROOT, llSnapshot, dateStr);
@@ -175,6 +177,7 @@ async function main() {
       previousSnapshot: previous,
       seasonGames: normalized.allGames,
       priorMatches: loadPriorMatches(entry.league, dateStr),
+      history: loadLeagueHistory(entry.league, dateStr),
       modelVersion,
     });
     const files = writeSnapshotFiles(SNAPSHOTS_ROOT, snapshot, dateStr);
@@ -210,6 +213,7 @@ async function main() {
       previousSnapshot: prevMx,
       seasonGames: normMx.allGames,
       priorMatches: priorMx,
+      history: loadLeagueHistory("liga-mx", dateStr),
       modelVersion,
     });
     const mxFiles = writeSnapshotFiles(SNAPSHOTS_ROOT, mxSnapshot, dateStr);

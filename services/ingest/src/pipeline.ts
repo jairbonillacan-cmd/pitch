@@ -36,6 +36,9 @@ import {
   analyzeFootballGameV2,
   analyzeNflGameV2,
   fitDixonColes,
+  createEloTracker,
+  type EloMatch,
+  type EloTracker,
   fitNflRatings,
   type DixonColesModel,
   type FootballMatchRow,
@@ -244,6 +247,10 @@ export function buildFootballSnapshot(params: {
   modelVersion?: ModelVersion;
   /** Partidos de la temporada anterior con peso reducido (opcional). */
   priorMatches?: readonly FootballMatchRow[];
+  /** Historial completo de la liga para las ratings de largo plazo (opcional). */
+  history?: readonly EloMatch[];
+  /** Peso de esas ratings en el 1X2 (validado en `backtest:blend`). */
+  historyBlendWeight?: number;
 }): LeagueSnapshot {
   const {
     league,
@@ -259,12 +266,26 @@ export function buildFootballSnapshot(params: {
     seasonGames,
     modelVersion = "v2",
     priorMatches,
+    history,
+    historyBlendWeight = HISTORY_BLEND_WEIGHT,
   } = params;
+
+  const seasonRows = seasonGames ? toFootballMatchRows(seasonGames) : [];
+  // El corpus histórico ya trae partidos de la temporada en curso: se corta en su
+  // arranque para no contarlos dos veces (a peso reducido y como temporada actual).
+  const seasonStart = seasonGames?.length
+    ? seasonGames.map((g) => g.startTime.slice(0, 10)).sort()[0]!
+    : updatedAt.slice(0, 10);
+  const priorBeforeSeason = (priorMatches ?? []).filter((row) => row.date < seasonStart);
+
+  const ratings = history?.length
+    ? buildHistoryRatings(history, seasonRows, seasonStart, seasonId)
+    : null;
 
   const footballModel =
     modelVersion === "v2" && (seasonGames?.length ?? 0) > 0
       ? fitDixonColes(
-          [...(priorMatches ?? []), ...toFootballMatchRows(seasonGames!)],
+          [...priorBeforeSeason, ...seasonRows],
           {
             referenceDate: updatedAt.slice(0, 10),
           },
@@ -300,8 +321,11 @@ export function buildFootballSnapshot(params: {
           inputsAsOf: publishedAt,
           publishedAt,
           source,
-          recentResults: toFootballMatchRows(seasonGames!),
+          recentResults: seasonRows,
           standings,
+          outcomeBlend: ratings
+            ? { ...ratings.predict(game.home.id, game.away.id), weight: historyBlendWeight }
+            : undefined,
         })
       : analyzeFootballGame({
           league,
@@ -333,6 +357,36 @@ export function buildFootballSnapshot(params: {
   };
 
   return LeagueSnapshotSchema.parse(snapshot);
+}
+
+/**
+ * Peso de las ratings de largo plazo en el 1X2 de fútbol. Se fijó en 0.5 con validación
+ * temporal en el benchmark histórico y se confirmó con `pnpm backtest:blend`.
+ */
+export const HISTORY_BLEND_WEIGHT = 0.5;
+
+/**
+ * Ratings incrementales con todo el historial anterior a la temporada y los partidos ya
+ * jugados de la temporada en curso, en orden cronológico.
+ */
+export function buildHistoryRatings(
+  history: readonly EloMatch[],
+  seasonRows: readonly FootballMatchRow[],
+  seasonStart: string,
+  seasonId: string,
+): EloTracker {
+  const tracker = createEloTracker();
+  for (const match of history) {
+    if (match.date >= seasonStart) break;
+    tracker.beginSeason(match.season);
+    tracker.update(match);
+  }
+  tracker.beginSeason(seasonId);
+  const played = [...seasonRows].sort((a, b) => a.date.localeCompare(b.date));
+  for (const row of played) {
+    tracker.update({ ...row, season: seasonId });
+  }
+  return tracker;
 }
 
 /**

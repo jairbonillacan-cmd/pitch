@@ -1,6 +1,6 @@
 import React from "react";
 import { LegalShell } from "../../src/client/legal-shell.js";
-import { MODEL_EVALUATION, formatMetric, formatPercent } from "../../src/server/model-metrics.js";
+import { BLEND_EVALUATION, MODEL_EVALUATION, formatMetric, formatPercent } from "../../src/server/model-metrics.js";
 import { loadAllActiveLeagueSnapshots, PRODUCT_LEAGUES } from "../../src/server/snapshots.js";
 
 export const dynamic = "force-dynamic";
@@ -60,6 +60,11 @@ export default function MetodologiaPage(): React.JSX.Element {
         <li>
           <strong>Peso temporal</strong>: los partidos recientes cuentan más que los de hace meses,
           sin borrar la información anterior.
+        </li>
+        <li>
+          <strong>Memoria larga</strong> (fútbol): la fuerza que cada club acumula a lo largo de
+          muchas temporadas se combina en partes iguales con la de la temporada en curso. Así un
+          arranque raro de cuatro jornadas no borra quince años de nivel.
         </li>
         <li>
           <strong>Proyección de goles</strong> (o puntos, en fútbol americano) por equipo y por
@@ -134,6 +139,14 @@ export default function MetodologiaPage(): React.JSX.Element {
         Ventana: {MODEL_EVALUATION.window}. Generado el {MODEL_EVALUATION.generatedAt}. Es una
         evaluación retro: <strong>no cuenta como historial de aciertos</strong> y puede cambiar cuando
         se recalcule con más datos.
+      </p>
+      <p>
+        <strong>Memoria larga, medida antes de activarla.</strong> En{" "}
+        {formatMetric(BLEND_EVALUATION.n, 0)} partidos de seis ligas de fútbol que el modelo no vio
+        ({BLEND_EVALUATION.window}), combinar la memoria larga bajó el log-loss de{" "}
+        {formatMetric(BLEND_EVALUATION.before.logLoss, 4)} a {formatMetric(BLEND_EVALUATION.after.logLoss, 4)}{" "}
+        y subió el acierto del favorito de {formatPercent(BLEND_EVALUATION.before.accuracy)} a{" "}
+        {formatPercent(BLEND_EVALUATION.after.accuracy)}. El peso se fijó antes de esta prueba.
       </p>
       <p>
         El modelo es <strong>{MODEL_EVALUATION.status}</strong>: supera a la referencia ingenua,

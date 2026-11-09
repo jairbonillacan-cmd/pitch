@@ -7,7 +7,7 @@
  */
 import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import type { FootballMatchRow } from "@pitchlab/models";
+import type { EloMatch, FootballMatchRow } from "@pitchlab/models";
 
 const ROOT = resolve(import.meta.dirname, "..", "..", "..");
 const HISTORY_DIR = resolve(ROOT, "data", "history");
@@ -24,6 +24,7 @@ const HISTORY_FILES: Record<string, string> = {
 
 interface HistoryLine {
   league?: string;
+  season?: string;
   date?: string;
   homeTeam?: string;
   awayTeam?: string;
@@ -97,10 +98,71 @@ export function loadPriorMatches(
   return rows.slice(-maxMatches);
 }
 
-/** El corpus histórico usa `la-liga.<slug>`; el producto, `laliga.<slug>`. */
-function remapTeam(teamId: string, league: string): string {
-  if (league === "laliga") {
-    return teamId.replace(/^la-liga\./, "laliga.");
+/**
+ * Ids del corpus histórico que no coinciden con los del producto.
+ * Sin este mapa, esos equipos llegaban al modelo sin su temporada anterior.
+ */
+const TEAM_ALIASES: Record<string, string> = {
+  "premier-league.bournemouth": "premier-league.afc-bournemouth",
+  "laliga.athletic": "laliga.athletic-club",
+  "laliga.celta": "laliga.celta-vigo",
+  "laliga.real-racing-santander": "laliga.racing-santander",
+  "laliga.espanyol-barcelona": "laliga.espanyol",
+  "liga-mx.atlas-guadalajara": "liga-mx.atlas",
+  "liga-mx.deportivo-guadalajara": "liga-mx.chivas",
+  "liga-mx.uanl-tigres": "liga-mx.tigres-uanl",
+  "liga-mx.deportivo-toluca": "liga-mx.toluca",
+  "liga-mx.juarez": "liga-mx.fc-juarez",
+  "liga-mx.gallos-blancos": "liga-mx.queretaro",
+  "serie-a.atalanta": "serie-a.atalanta-bc",
+  "serie-a.inter": "serie-a.internazionale-milano",
+  "ligue-1.strasbourg": "ligue-1.strasbourg-alsace",
+  "ligue-1.estac-troyes": "ligue-1.es-troyes",
+  "ligue-1.lens": "ligue-1.racing-lens",
+};
+
+/** El corpus histórico usa `la-liga.<slug>` y algunos slugs distintos a los del producto. */
+export function remapTeam(teamId: string, league: string): string {
+  const base = league === "laliga" ? teamId.replace(/^la-liga\./, "laliga.") : teamId;
+  return TEAM_ALIASES[base] ?? base;
+}
+
+/**
+ * Todo el historial de la liga anterior a `beforeDate` (exclusive), en orden, para
+ * alimentar las ratings incrementales. Incluye liguillas y playoffs: son partidos reales.
+ */
+export function loadLeagueHistory(league: string, beforeDate: string): EloMatch[] {
+  const file = HISTORY_FILES[league];
+  if (!file) return [];
+  const path = resolve(HISTORY_DIR, file);
+  if (!existsSync(path)) return [];
+  const beforeMs = Date.parse(`${beforeDate}T00:00:00Z`);
+  if (!Number.isFinite(beforeMs)) return [];
+
+  const rows: EloMatch[] = [];
+  for (const line of readFileSync(path, "utf8").split("\n")) {
+    if (!line.trim()) continue;
+    let parsed: HistoryLine;
+    try {
+      parsed = JSON.parse(line) as HistoryLine;
+    } catch {
+      continue;
+    }
+    if (!parsed.date || !parsed.homeTeam || !parsed.awayTeam || !parsed.season) continue;
+    const homeGoals = Number(parsed.homeScore);
+    const awayGoals = Number(parsed.awayScore);
+    if (!Number.isFinite(homeGoals) || !Number.isFinite(awayGoals)) continue;
+    const ms = Date.parse(`${parsed.date}T00:00:00Z`);
+    if (!Number.isFinite(ms) || ms >= beforeMs) continue;
+    rows.push({
+      date: parsed.date,
+      season: parsed.season,
+      home: remapTeam(parsed.homeTeam, league),
+      away: remapTeam(parsed.awayTeam, league),
+      homeGoals,
+      awayGoals,
+    });
   }
-  return teamId;
+  rows.sort((a, b) => a.date.localeCompare(b.date));
+  return rows;
 }

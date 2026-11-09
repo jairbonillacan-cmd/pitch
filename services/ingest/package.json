@@ -16,6 +16,7 @@
     "history:odds": "tsx src/history/odds-cli.ts",
     "backtest": "tsx src/backtest.ts",
     "backtest:history": "tsx src/history-backtest-cli.ts",
+    "backtest:blend": "tsx src/blend-backtest.ts",
     "history:xg": "tsx src/history/xg-cli.ts",
     "history:api-stats": "tsx src/history/api-stats-cli.ts",
     "history:espn": "tsx src/history/espn-cli.ts"

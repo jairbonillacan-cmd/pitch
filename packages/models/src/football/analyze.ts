@@ -20,6 +20,7 @@ import {
   baseLambdaHome,
   predictFootball,
   type DixonColesModel,
+  type OutcomeBlend,
   type FootballMatchRow,
 } from "./dixon-coles.js";
 import { formatForm, recentForm } from "./form.js";
@@ -38,6 +39,8 @@ export interface FootballAnalysisInput {
   recentResults?: readonly FootballMatchRow[];
   /** Tabla de posiciones del corte (para mostrar la posición de cada equipo). */
   standings?: readonly StandingRow[];
+  /** 1X2 de la fuerza histórica larga (ratings incrementales) para mezclar. */
+  outcomeBlend?: OutcomeBlend;
 }
 
 function pct(value: number): string {
@@ -47,7 +50,9 @@ function pct(value: number): string {
 export function analyzeFootballGameV2(input: FootballAnalysisInput): GameAnalysis {
   const { league, leagueName, game, model, teamRates, inputsAsOf, publishedAt, source } = input;
 
-  const prediction = predictFootball(model, game.home.id, game.away.id);
+  const prediction = predictFootball(model, game.home.id, game.away.id, {
+    outcomeBlend: input.outcomeBlend,
+  });
   const { home, draw, away } = prediction.probabilities;
 
   const over15 = prediction.totals.find((t) => t.line === 1.5);

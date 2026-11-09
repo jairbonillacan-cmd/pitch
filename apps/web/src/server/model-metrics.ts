@@ -42,6 +42,18 @@ export const MODEL_EVALUATION = {
   status: "en validación",
 } as const;
 
+/**
+ * Fútbol: v2 frente a v2 con memoria larga (mezcla 50/50 del 1X2).
+ * Fuente: `Reportes/modelos/backtest-blend.json` (`pnpm --filter @pitchlab/ingest backtest:blend`),
+ * temporadas de prueba, peso fijado antes de la prueba.
+ */
+export const BLEND_EVALUATION = {
+  n: 5529,
+  window: "2023-24 a 2026-27, walk-forward semanal",
+  before: { logLoss: 0.9797, accuracy: 0.538, ece: 0.007 },
+  after: { logLoss: 0.9754, accuracy: 0.541, ece: 0.009 },
+} as const;
+
 export function formatMetric(value: number, digits = 3): string {
   return value.toFixed(digits).replace(".", ",");
 }
