@@ -12,6 +12,7 @@ import {
   type GameAnalysis,
   type GameDTO,
   type MarketProbability,
+  type StandingRow,
   type TeamSeasonRate,
 } from "@pitchlab/contracts";
 import {
@@ -35,6 +36,8 @@ export interface FootballAnalysisInput {
   version?: string;
   /** Partidos de la temporada (para mostrar la forma reciente de cada equipo). */
   recentResults?: readonly FootballMatchRow[];
+  /** Tabla de posiciones del corte (para mostrar la posición de cada equipo). */
+  standings?: readonly StandingRow[];
 }
 
 function pct(value: number): string {
@@ -285,6 +288,31 @@ export function analyzeFootballGameV2(input: FootballAnalysisInput): GameAnalysi
       detail: `local ${pct(prediction.intervals.homeWin[0])}–${pct(prediction.intervals.homeWin[1])} · ${model.matches} partidos`,
     },
   ];
+
+  // Posición en la tabla (informativa) calculada en el mismo corte.
+  if (input.standings && input.standings.length > 0) {
+    const tableIndex = new Map(
+      input.standings.map((row, index) => [row.teamId, { position: index + 1, points: row.points }]),
+    );
+    const homePosition = tableIndex.get(game.home.id);
+    const awayPosition = tableIndex.get(game.away.id);
+    if (homePosition) {
+      factors.push({
+        key: "home_position",
+        label: "Posición local",
+        value: `${homePosition.position}.º · ${homePosition.points} pts`,
+        detail: `de ${input.standings.length} equipos`,
+      });
+    }
+    if (awayPosition) {
+      factors.push({
+        key: "away_position",
+        label: "Posición visitante",
+        value: `${awayPosition.position}.º · ${awayPosition.points} pts`,
+        detail: `de ${input.standings.length} equipos`,
+      });
+    }
+  }
 
   // Forma reciente (informativa): últimos cinco resultados antes del partido.
   if (input.recentResults && input.recentResults.length > 0) {

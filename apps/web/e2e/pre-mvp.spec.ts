@@ -332,6 +332,8 @@ test.describe("PitchLab Pre-MVP E2E Suite", () => {
     await expect(dialog).toContainText("Marcador exacto");
     await expect(dialog).toContainText("Forma local");
     await expect(dialog).toContainText("Forma visitante");
+    await expect(dialog).toContainText("Posición local");
+    await expect(dialog).toContainText("Posición visitante");
   });
 
   test("6. Liga sin emblema (Bundesliga): fallback neutro y sin scroll horizontal", async ({

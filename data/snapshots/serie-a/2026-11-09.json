@@ -4,7 +4,7 @@
   "season": "serie-a-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 11",
-  "updatedAt": "2026-11-09T02:36:41.085Z",
+  "updatedAt": "2026-11-09T02:45:50.838Z",
   "source": "openfootball",
   "provenance": "derived",
   "isDemo": false,
@@ -857,6 +857,18 @@
           "detail": "local 10%–46% · 555 partidos"
         },
         {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "20.º · 0 pts",
+          "detail": "de 20 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "13.º · 4 pts",
+          "detail": "de 20 equipos"
+        },
+        {
           "key": "home_form",
           "label": "Forma local",
           "value": "P-P-P-P-P · 0 pts",
@@ -870,15 +882,15 @@
         }
       ],
       "steps": [
-        "Sincronizando Serie A · corte 8 nov 2026, 20:36",
+        "Sincronizando Serie A · corte 8 nov 2026, 20:45",
         "Fuerza ajustada por rival · VEN 0.74 / 1.49 · UDI 1.00 / 1.14",
         "Ponderando 169.1 partidos por antigüedad y calidad del rival",
         "Proyección de goles 1.19 – 1.92 · total 3.11",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador más probable 1–2"
       ],
-      "inputsAsOf": "2026-11-09T02:36:41.085Z",
-      "publishedAt": "2026-11-09T02:36:41.085Z",
+      "inputsAsOf": "2026-11-09T02:45:50.838Z",
+      "publishedAt": "2026-11-09T02:45:50.838Z",
       "source": "openfootball"
     },
     "serie-a-2026-27-md11-torino-lecce": {
@@ -1255,6 +1267,18 @@
           "detail": "local 28%–71% · 555 partidos"
         },
         {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "14.º · 4 pts",
+          "detail": "de 20 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "12.º · 6 pts",
+          "detail": "de 20 equipos"
+        },
+        {
           "key": "home_form",
           "label": "Forma local",
           "value": "P-P-G-P-E · 4 pts",
@@ -1268,15 +1292,15 @@
         }
       ],
       "steps": [
-        "Sincronizando Serie A · corte 8 nov 2026, 20:36",
+        "Sincronizando Serie A · corte 8 nov 2026, 20:45",
         "Fuerza ajustada por rival · TOR 0.92 / 1.17 · LEC 0.75 / 1.19",
         "Ponderando 169.1 partidos por antigüedad y calidad del rival",
         "Proyección de goles 1.54 – 1.12 · total 2.66",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador más probable 1–1"
       ],
-      "inputsAsOf": "2026-11-09T02:36:41.085Z",
-      "publishedAt": "2026-11-09T02:36:41.085Z",
+      "inputsAsOf": "2026-11-09T02:45:50.838Z",
+      "publishedAt": "2026-11-09T02:45:50.838Z",
       "source": "openfootball"
     },
     "serie-a-2026-27-md11-cagliari-frosinone": {
@@ -1653,6 +1677,18 @@
           "detail": "local 12%–51% · 555 partidos"
         },
         {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "4.º · 12 pts",
+          "detail": "de 20 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "6.º · 10 pts",
+          "detail": "de 20 equipos"
+        },
+        {
           "key": "home_form",
           "label": "Forma local",
           "value": "G-P-G-G-G · 12 pts",
@@ -1666,15 +1702,15 @@
         }
       ],
       "steps": [
-        "Sincronizando Serie A · corte 8 nov 2026, 20:36",
+        "Sincronizando Serie A · corte 8 nov 2026, 20:45",
         "Fuerza ajustada por rival · CAG 0.85 / 0.84 · FRO 1.16 / 0.74",
         "Ponderando 169.1 partidos por antigüedad y calidad del rival",
         "Proyección de goles 0.88 – 1.25 · total 2.14",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador más probable 0–1"
       ],
-      "inputsAsOf": "2026-11-09T02:36:41.085Z",
-      "publishedAt": "2026-11-09T02:36:41.085Z",
+      "inputsAsOf": "2026-11-09T02:45:50.838Z",
+      "publishedAt": "2026-11-09T02:45:50.838Z",
       "source": "openfootball"
     },
     "serie-a-2026-27-md11-parma-bologna": {
@@ -2051,6 +2087,18 @@
           "detail": "local 18%–54% · 555 partidos"
         },
         {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "15.º · 4 pts",
+          "detail": "de 20 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "18.º · 2 pts",
+          "detail": "de 20 equipos"
+        },
+        {
           "key": "home_form",
           "label": "Forma local",
           "value": "P-P-E-P-G · 4 pts",
@@ -2064,15 +2112,15 @@
         }
       ],
       "steps": [
-        "Sincronizando Serie A · corte 8 nov 2026, 20:36",
+        "Sincronizando Serie A · corte 8 nov 2026, 20:45",
         "Fuerza ajustada por rival · PAR 0.71 / 0.99 · BOL 0.87 / 0.94",
         "Ponderando 169.1 partidos por antigüedad y calidad del rival",
         "Proyección de goles 0.93 – 1.12 · total 2.05",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador más probable 0–1"
       ],
-      "inputsAsOf": "2026-11-09T02:36:41.085Z",
-      "publishedAt": "2026-11-09T02:36:41.085Z",
+      "inputsAsOf": "2026-11-09T02:45:50.838Z",
+      "publishedAt": "2026-11-09T02:45:50.838Z",
       "source": "openfootball"
     },
     "serie-a-2026-27-md11-roma-sassuolo": {
@@ -2449,6 +2497,18 @@
           "detail": "local 48%–84% · 555 partidos"
         },
         {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "1.º · 13 pts",
+          "detail": "de 20 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "10.º · 7 pts",
+          "detail": "de 20 equipos"
+        },
+        {
           "key": "home_form",
           "label": "Forma local",
           "value": "G-G-G-G-E · 13 pts",
@@ -2462,15 +2522,15 @@
         }
       ],
       "steps": [
-        "Sincronizando Serie A · corte 8 nov 2026, 20:36",
+        "Sincronizando Serie A · corte 8 nov 2026, 20:45",
         "Fuerza ajustada por rival · ROM 1.39 / 0.62 · SAS 1.11 / 1.15",
         "Ponderando 169.1 partidos por antigüedad y calidad del rival",
         "Proyección de goles 2.25 – 0.89 · total 3.14",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador más probable 2–0"
       ],
-      "inputsAsOf": "2026-11-09T02:36:41.085Z",
-      "publishedAt": "2026-11-09T02:36:41.085Z",
+      "inputsAsOf": "2026-11-09T02:45:50.838Z",
+      "publishedAt": "2026-11-09T02:45:50.838Z",
       "source": "openfootball"
     },
     "serie-a-2026-27-md11-napoli-lazio": {
@@ -2847,6 +2907,18 @@
           "detail": "local 25%–61% · 555 partidos"
         },
         {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "9.º · 7 pts",
+          "detail": "de 20 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "3.º · 13 pts",
+          "detail": "de 20 equipos"
+        },
+        {
           "key": "home_form",
           "label": "Forma local",
           "value": "G-P-P-G-E · 7 pts",
@@ -2860,15 +2932,15 @@
         }
       ],
       "steps": [
-        "Sincronizando Serie A · corte 8 nov 2026, 20:36",
+        "Sincronizando Serie A · corte 8 nov 2026, 20:45",
         "Fuerza ajustada por rival · NAP 1.11 / 0.81 · LAZ 1.02 / 0.81",
         "Ponderando 169.1 partidos por antigüedad y calidad del rival",
         "Proyección de goles 1.26 – 1.06 · total 2.32",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador más probable 1–0"
       ],
-      "inputsAsOf": "2026-11-09T02:36:41.085Z",
-      "publishedAt": "2026-11-09T02:36:41.085Z",
+      "inputsAsOf": "2026-11-09T02:45:50.838Z",
+      "publishedAt": "2026-11-09T02:45:50.838Z",
       "source": "openfootball"
     },
     "serie-a-2026-27-md11-genoa-cfc-milan": {
@@ -3245,6 +3317,18 @@
           "detail": "local 9%–39% · 555 partidos"
         },
         {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "19.º · 1 pts",
+          "detail": "de 20 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "5.º · 11 pts",
+          "detail": "de 20 equipos"
+        },
+        {
           "key": "home_form",
           "label": "Forma local",
           "value": "P-P-P-E-P · 1 pts",
@@ -3258,15 +3342,15 @@
         }
       ],
       "steps": [
-        "Sincronizando Serie A · corte 8 nov 2026, 20:36",
+        "Sincronizando Serie A · corte 8 nov 2026, 20:45",
         "Fuerza ajustada por rival · GEN 0.85 / 1.19 · MIL 1.20 / 0.81",
         "Ponderando 169.1 partidos por antigüedad y calidad del rival",
         "Proyección de goles 0.97 – 1.85 · total 2.82",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador más probable 0–1"
       ],
-      "inputsAsOf": "2026-11-09T02:36:41.085Z",
-      "publishedAt": "2026-11-09T02:36:41.085Z",
+      "inputsAsOf": "2026-11-09T02:45:50.838Z",
+      "publishedAt": "2026-11-09T02:45:50.838Z",
       "source": "openfootball"
     },
     "serie-a-2026-27-md11-monza-atalanta-bc": {
@@ -3643,6 +3727,18 @@
           "detail": "local 9%–62% · 555 partidos"
         },
         {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "16.º · 4 pts",
+          "detail": "de 20 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "11.º · 6 pts",
+          "detail": "de 20 equipos"
+        },
+        {
           "key": "home_form",
           "label": "Forma local",
           "value": "P-P-E-P-G · 4 pts",
@@ -3656,15 +3752,15 @@
         }
       ],
       "steps": [
-        "Sincronizando Serie A · corte 8 nov 2026, 20:36",
+        "Sincronizando Serie A · corte 8 nov 2026, 20:45",
         "Fuerza ajustada por rival · MON 1.01 / 1.48 · ATA 0.94 / 0.99",
         "Ponderando 169.1 partidos por antigüedad y calidad del rival",
         "Proyección de goles 1.40 – 1.79 · total 3.19",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador más probable 1–1"
       ],
-      "inputsAsOf": "2026-11-09T02:36:41.085Z",
-      "publishedAt": "2026-11-09T02:36:41.085Z",
+      "inputsAsOf": "2026-11-09T02:45:50.838Z",
+      "publishedAt": "2026-11-09T02:45:50.838Z",
       "source": "openfootball"
     },
     "serie-a-2026-27-md11-internazionale-milano-como": {
@@ -4041,6 +4137,18 @@
           "detail": "local 18%–71% · 555 partidos"
         },
         {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "2.º · 13 pts",
+          "detail": "de 20 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "8.º · 10 pts",
+          "detail": "de 20 equipos"
+        },
+        {
           "key": "home_form",
           "label": "Forma local",
           "value": "G-G-G-G-E · 13 pts",
@@ -4054,15 +4162,15 @@
         }
       ],
       "steps": [
-        "Sincronizando Serie A · corte 8 nov 2026, 20:36",
+        "Sincronizando Serie A · corte 8 nov 2026, 20:45",
         "Fuerza ajustada por rival · INT 1.70 / 1.07 · COM 1.37 / 0.84",
         "Ponderando 169.1 partidos por antigüedad y calidad del rival",
         "Proyección de goles 2.00 – 1.90 · total 3.90",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador más probable 2–1"
       ],
-      "inputsAsOf": "2026-11-09T02:36:41.085Z",
-      "publishedAt": "2026-11-09T02:36:41.085Z",
+      "inputsAsOf": "2026-11-09T02:45:50.838Z",
+      "publishedAt": "2026-11-09T02:45:50.838Z",
       "source": "openfootball"
     },
     "serie-a-2026-27-md11-fiorentina-juventus": {
@@ -4439,6 +4547,18 @@
           "detail": "local 10%–38% · 555 partidos"
         },
         {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "17.º · 4 pts",
+          "detail": "de 20 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "7.º · 10 pts",
+          "detail": "de 20 equipos"
+        },
+        {
           "key": "home_form",
           "label": "Forma local",
           "value": "P-P-P-G-E · 4 pts",
@@ -4452,15 +4572,15 @@
         }
       ],
       "steps": [
-        "Sincronizando Serie A · corte 8 nov 2026, 20:25",
+        "Sincronizando Serie A · corte 8 nov 2026, 20:45",
         "Fuerza ajustada por rival · FIO 1.00 / 1.25 · JUV 1.20 / 0.76",
         "Ponderando 169.1 partidos por antigüedad y calidad del rival",
         "Proyección de goles 1.06 – 1.94 · total 3.01",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador más probable 0–1"
       ],
-      "inputsAsOf": "2026-11-09T02:25:18.190Z",
-      "publishedAt": "2026-11-09T02:25:18.190Z",
+      "inputsAsOf": "2026-11-09T02:45:50.838Z",
+      "publishedAt": "2026-11-09T02:45:50.838Z",
       "source": "openfootball"
     }
   },

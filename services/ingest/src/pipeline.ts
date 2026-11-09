@@ -275,6 +275,10 @@ export function buildFootballSnapshot(params: {
     ? footballTeamRatesFromModel(teamRateInputs, footballModel)
     : computeFootballTeamRates(league, teamRateInputs).rates;
 
+  const standings = seasonGames
+    ? computeStandings(toFootballMatchRows(seasonGames), teamRateInputs)
+    : [];
+
   const analyses: Record<string, GameAnalysis> = {};
 
   for (const game of games) {
@@ -297,6 +301,7 @@ export function buildFootballSnapshot(params: {
           publishedAt,
           source,
           recentResults: toFootballMatchRows(seasonGames!),
+          standings,
         })
       : analyzeFootballGame({
           league,
@@ -310,10 +315,6 @@ export function buildFootballSnapshot(params: {
 
     analyses[game.id] = GameAnalysisSchema.parse(analysis);
   }
-
-  const standings = seasonGames
-    ? computeStandings(toFootballMatchRows(seasonGames), teamRateInputs)
-    : [];
 
   const snapshot: LeagueSnapshot = {
     schemaVersion: 1,

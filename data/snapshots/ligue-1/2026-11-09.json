@@ -4,7 +4,7 @@
   "season": "ligue-1-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 10",
-  "updatedAt": "2026-11-09T02:36:41.085Z",
+  "updatedAt": "2026-11-09T02:45:50.838Z",
   "source": "openfootball",
   "provenance": "derived",
   "isDemo": false,
@@ -810,6 +810,18 @@
           "detail": "local 18%–72% · 463 partidos"
         },
         {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "12.º · 5 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "7.º · 7 pts",
+          "detail": "de 18 equipos"
+        },
+        {
           "key": "home_form",
           "label": "Forma local",
           "value": "P-E-P-E-G · 5 pts",
@@ -823,15 +835,15 @@
         }
       ],
       "steps": [
-        "Sincronizando Ligue 1 · corte 8 nov 2026, 20:36",
+        "Sincronizando Ligue 1 · corte 8 nov 2026, 20:45",
         "Fuerza ajustada por rival · TOU 1.03 / 1.04 · STR 1.19 / 1.09",
         "Ponderando 138.5 partidos por antigüedad y calidad del rival",
         "Proyección de goles 2.01 – 1.83 · total 3.84",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador más probable 2–1"
       ],
-      "inputsAsOf": "2026-11-09T02:36:41.085Z",
-      "publishedAt": "2026-11-09T02:36:41.085Z",
+      "inputsAsOf": "2026-11-09T02:45:50.838Z",
+      "publishedAt": "2026-11-09T02:45:50.838Z",
       "source": "openfootball"
     },
     "ligue-1-2026-27-md10-aj-auxerre-paris": {
@@ -1208,6 +1220,18 @@
           "detail": "local 11%–51% · 463 partidos"
         },
         {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "10.º · 6 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "5.º · 9 pts",
+          "detail": "de 18 equipos"
+        },
+        {
           "key": "home_form",
           "label": "Forma local",
           "value": "P-P-P-G-G · 6 pts",
@@ -1221,15 +1245,15 @@
         }
       ],
       "steps": [
-        "Sincronizando Ligue 1 · corte 8 nov 2026, 20:36",
+        "Sincronizando Ligue 1 · corte 8 nov 2026, 20:45",
         "Fuerza ajustada por rival · AJA 0.92 / 1.17 · PAR 1.22 / 0.92",
         "Ponderando 138.5 partidos por antigüedad y calidad del rival",
         "Proyección de goles 1.51 – 2.12 · total 3.62",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador más probable 1–2"
       ],
-      "inputsAsOf": "2026-11-09T02:36:41.085Z",
-      "publishedAt": "2026-11-09T02:36:41.085Z",
+      "inputsAsOf": "2026-11-09T02:45:50.838Z",
+      "publishedAt": "2026-11-09T02:45:50.838Z",
       "source": "openfootball"
     },
     "ligue-1-2026-27-md10-paris-saint-germain-es-troyes": {
@@ -1606,6 +1630,18 @@
           "detail": "local 57%–94% · 463 partidos"
         },
         {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "6.º · 8 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "17.º · 3 pts",
+          "detail": "de 18 equipos"
+        },
+        {
           "key": "home_form",
           "label": "Forma local",
           "value": "E-E-P-G-G · 8 pts",
@@ -1619,15 +1655,15 @@
         }
       ],
       "steps": [
-        "Sincronizando Ligue 1 · corte 8 nov 2026, 20:36",
+        "Sincronizando Ligue 1 · corte 8 nov 2026, 20:45",
         "Fuerza ajustada por rival · PAR 1.33 / 0.75 · EST 0.87 / 1.39",
         "Ponderando 138.5 partidos por antigüedad y calidad del rival",
         "Proyección de goles 3.31 – 0.97 · total 4.27",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador más probable 3–0"
       ],
-      "inputsAsOf": "2026-11-09T02:36:41.085Z",
-      "publishedAt": "2026-11-09T02:36:41.085Z",
+      "inputsAsOf": "2026-11-09T02:45:50.838Z",
+      "publishedAt": "2026-11-09T02:45:50.838Z",
       "source": "openfootball"
     },
     "ligue-1-2026-27-md10-stade-rennais-lille-osc": {
@@ -2004,6 +2040,18 @@
           "detail": "local 19%–62% · 463 partidos"
         },
         {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "4.º · 10 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "3.º · 10 pts",
+          "detail": "de 18 equipos"
+        },
+        {
           "key": "home_form",
           "label": "Forma local",
           "value": "E-G-G-G-P · 10 pts",
@@ -2017,15 +2065,15 @@
         }
       ],
       "steps": [
-        "Sincronizando Ligue 1 · corte 8 nov 2026, 20:36",
+        "Sincronizando Ligue 1 · corte 8 nov 2026, 20:45",
         "Fuerza ajustada por rival · STA 1.20 / 1.04 · LIL 1.03 / 0.72",
         "Ponderando 138.5 partidos por antigüedad y calidad del rival",
         "Proyección de goles 1.54 – 1.59 · total 3.13",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador más probable 1–1"
       ],
-      "inputsAsOf": "2026-11-09T02:36:41.085Z",
-      "publishedAt": "2026-11-09T02:36:41.085Z",
+      "inputsAsOf": "2026-11-09T02:45:50.838Z",
+      "publishedAt": "2026-11-09T02:45:50.838Z",
       "source": "openfootball"
     },
     "ligue-1-2026-27-md10-le-mans-monaco": {
@@ -2402,6 +2450,18 @@
           "detail": "local 12%–58% · 463 partidos"
         },
         {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "9.º · 6 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "1.º · 13 pts",
+          "detail": "de 18 equipos"
+        },
+        {
           "key": "home_form",
           "label": "Forma local",
           "value": "E-P-E-E-G · 6 pts",
@@ -2415,15 +2475,15 @@
         }
       ],
       "steps": [
-        "Sincronizando Ligue 1 · corte 8 nov 2026, 20:36",
+        "Sincronizando Ligue 1 · corte 8 nov 2026, 20:45",
         "Fuerza ajustada por rival · LEM 1.09 / 1.11 · MON 1.16 / 0.78",
         "Ponderando 138.5 partidos por antigüedad y calidad del rival",
         "Proyección de goles 1.52 – 1.90 · total 3.42",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador más probable 1–1"
       ],
-      "inputsAsOf": "2026-11-09T02:36:41.085Z",
-      "publishedAt": "2026-11-09T02:36:41.085Z",
+      "inputsAsOf": "2026-11-09T02:45:50.838Z",
+      "publishedAt": "2026-11-09T02:45:50.838Z",
       "source": "openfootball"
     },
     "ligue-1-2026-27-md10-stade-brestois-olympique-lyonnais": {
@@ -2800,6 +2860,18 @@
           "detail": "local 11%–46% · 463 partidos"
         },
         {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "11.º · 5 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "2.º · 10 pts",
+          "detail": "de 18 equipos"
+        },
+        {
           "key": "home_form",
           "label": "Forma local",
           "value": "E-E-G-P-P · 5 pts",
@@ -2813,15 +2885,15 @@
         }
       ],
       "steps": [
-        "Sincronizando Ligue 1 · corte 8 nov 2026, 20:36",
+        "Sincronizando Ligue 1 · corte 8 nov 2026, 20:45",
         "Fuerza ajustada por rival · STA 0.94 / 1.07 · OLY 1.26 / 0.76",
         "Ponderando 138.5 partidos por antigüedad y calidad del rival",
         "Proyección de goles 1.27 – 1.98 · total 3.25",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador más probable 1–2"
       ],
-      "inputsAsOf": "2026-11-09T02:36:41.085Z",
-      "publishedAt": "2026-11-09T02:36:41.085Z",
+      "inputsAsOf": "2026-11-09T02:45:50.838Z",
+      "publishedAt": "2026-11-09T02:45:50.838Z",
       "source": "openfootball"
     },
     "ligue-1-2026-27-md10-le-havre-lorient": {
@@ -3198,6 +3270,18 @@
           "detail": "local 23%–63% · 463 partidos"
         },
         {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "18.º · 1 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "14.º · 4 pts",
+          "detail": "de 18 equipos"
+        },
+        {
           "key": "home_form",
           "label": "Forma local",
           "value": "P-E-P-P · 1 pts",
@@ -3211,15 +3295,15 @@
         }
       ],
       "steps": [
-        "Sincronizando Ligue 1 · corte 8 nov 2026, 20:36",
+        "Sincronizando Ligue 1 · corte 8 nov 2026, 20:45",
         "Fuerza ajustada por rival · LEH 0.86 / 1.04 · LOR 0.91 / 0.97",
         "Ponderando 138.5 partidos por antigüedad y calidad del rival",
         "Proyección de goles 1.47 – 1.39 · total 2.87",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador más probable 1–1"
       ],
-      "inputsAsOf": "2026-11-09T02:36:41.085Z",
-      "publishedAt": "2026-11-09T02:36:41.085Z",
+      "inputsAsOf": "2026-11-09T02:45:50.838Z",
+      "publishedAt": "2026-11-09T02:45:50.838Z",
       "source": "openfootball"
     },
     "ligue-1-2026-27-md10-angers-sco-ogc-nice": {
@@ -3596,6 +3680,18 @@
           "detail": "local 25%–63% · 463 partidos"
         },
         {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "8.º · 6 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "15.º · 4 pts",
+          "detail": "de 18 equipos"
+        },
+        {
           "key": "home_form",
           "label": "Forma local",
           "value": "P-G-P-G · 6 pts",
@@ -3609,15 +3705,15 @@
         }
       ],
       "steps": [
-        "Sincronizando Ligue 1 · corte 8 nov 2026, 20:36",
+        "Sincronizando Ligue 1 · corte 8 nov 2026, 20:45",
         "Fuerza ajustada por rival · ANG 0.75 / 0.95 · OGC 0.81 / 1.06",
         "Ponderando 138.5 partidos por antigüedad y calidad del rival",
         "Proyección de goles 1.42 – 1.13 · total 2.55",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador más probable 1–1"
       ],
-      "inputsAsOf": "2026-11-09T02:36:41.085Z",
-      "publishedAt": "2026-11-09T02:36:41.085Z",
+      "inputsAsOf": "2026-11-09T02:45:50.838Z",
+      "publishedAt": "2026-11-09T02:45:50.838Z",
       "source": "openfootball"
     },
     "ligue-1-2026-27-md10-racing-lens-olympique-marseille": {
@@ -3994,6 +4090,18 @@
           "detail": "local 17%–69% · 463 partidos"
         },
         {
+          "key": "home_position",
+          "label": "Posición local",
+          "value": "13.º · 4 pts",
+          "detail": "de 18 equipos"
+        },
+        {
+          "key": "away_position",
+          "label": "Posición visitante",
+          "value": "16.º · 3 pts",
+          "detail": "de 18 equipos"
+        },
+        {
           "key": "home_form",
           "label": "Forma local",
           "value": "G-P-P-E-P · 4 pts",
@@ -4007,15 +4115,15 @@
         }
       ],
       "steps": [
-        "Sincronizando Ligue 1 · corte 8 nov 2026, 20:25",
+        "Sincronizando Ligue 1 · corte 8 nov 2026, 20:45",
         "Fuerza ajustada por rival · RAC 1.09 / 1.05 · OLY 1.13 / 0.92",
         "Ponderando 138.5 partidos por antigüedad y calidad del rival",
         "Proyección de goles 1.79 – 1.74 · total 3.53",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador más probable 1–1"
       ],
-      "inputsAsOf": "2026-11-09T02:25:18.190Z",
-      "publishedAt": "2026-11-09T02:25:18.190Z",
+      "inputsAsOf": "2026-11-09T02:45:50.838Z",
+      "publishedAt": "2026-11-09T02:45:50.838Z",
       "source": "openfootball"
     }
   },
