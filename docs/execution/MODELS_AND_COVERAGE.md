@@ -25,6 +25,8 @@ comerciales y no hay licencia.
   goles por equipo (línea 1.5) y marcador exacto (tres más probables).
 - **NFL (14 mercados):** ganador, spread al mejor medio punto, hándicap alternativo ±3.5 y ±7.5,
   total y puntos por equipo.
+- **Tabla de posiciones** por liga de fútbol, calculada con los partidos ya jugados (PJ, G, E,
+  P, GF, GC y puntos) y su líder visible en la landing.
 - **Factores (ficha):** fuerza ajustada por rival, localía estimada, tamaño de muestra,
   intervalo del 90 % y **forma reciente** (últimos cinco: G/E/P, puntos y goles).
 
