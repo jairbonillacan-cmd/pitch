@@ -1,6 +1,22 @@
 import React from "react";
 import { LegalShell } from "../../src/client/legal-shell.js";
 import { MODEL_EVALUATION, formatMetric, formatPercent } from "../../src/server/model-metrics.js";
+import { loadAllActiveLeagueSnapshots } from "../../src/server/snapshots.js";
+
+export const dynamic = "force-dynamic";
+
+const COVERAGE_LEAGUES = ["liga-mx", "premier-league", "laliga", "nfl"] as const;
+
+function formatCut(iso: string | undefined): string {
+  if (!iso) return "—";
+  const date = new Date(iso);
+  if (Number.isNaN(date.getTime())) return "—";
+  return new Intl.DateTimeFormat("es-MX", {
+    dateStyle: "medium",
+    timeStyle: "short",
+    timeZone: "America/Mexico_City",
+  }).format(date);
+}
 
 export const metadata = {
   title: "Metodología · PitchLab",
@@ -9,6 +25,21 @@ export const metadata = {
 };
 
 export default function MetodologiaPage(): React.JSX.Element {
+  const snapshots = loadAllActiveLeagueSnapshots();
+  const coverage = COVERAGE_LEAGUES.map((key) => {
+    const envelope = snapshots[key];
+    const data = envelope.data;
+    return {
+      key,
+      label: data?.leagueLabel ?? key,
+      season: data?.season ?? "—",
+      period: data?.roundLabel ?? "—",
+      games: data?.games.length ?? 0,
+      cut: formatCut(envelope.generatedAt ?? data?.generatedAt),
+      ready: envelope.state === "ready" && (data?.games.length ?? 0) > 0,
+    };
+  });
+
   return (
     <LegalShell
       eyebrow="Modelo PitchLab"
@@ -123,6 +154,30 @@ export default function MetodologiaPage(): React.JSX.Element {
         número de partidos usados. Si una fuente falla, la liga queda como &laquo;Pronto&raquo;
         antes que mostrar una cifra vieja como si fuera nueva.
       </p>
+      <table className="mtable">
+        <thead>
+          <tr>
+            <th>Liga</th>
+            <th>Temporada</th>
+            <th>Jornada</th>
+            <th className="r">Partidos</th>
+            <th>Corte (CDMX)</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          {coverage.map((row) => (
+            <tr key={row.key}>
+              <td>{row.label}</td>
+              <td>{row.season}</td>
+              <td>{row.period}</td>
+              <td className="r">{row.games}</td>
+              <td>{row.cut}</td>
+              <td>{row.ready ? "Publicado" : "Pronto"}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
 
       <h2>6. Limitaciones conocidas</h2>
       <ul>
