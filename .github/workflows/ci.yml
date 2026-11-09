@@ -35,7 +35,8 @@ jobs:
       - name: Pruebas unitarias
         run: pnpm test
 
-      # El E2E vive en apps/web y necesita navegador + servidor:
-      #   pnpm --filter @pitchlab/web exec playwright install --with-deps chromium
-      #   pnpm --filter @pitchlab/web e2e
-      # Se ejecuta en local o en un job dedicado para no alargar cada push.
+      - name: Instalar Chromium (E2E)
+        run: pnpm --filter @pitchlab/web exec playwright install --with-deps chromium
+
+      - name: E2E (Playwright, desktop y movil)
+        run: pnpm --filter @pitchlab/web e2e
