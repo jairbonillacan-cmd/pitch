@@ -144,3 +144,12 @@ en vez de 1,658 (el de 2017/18).
 3. Incorporar xG (HxG/AxG de football-data 2026/27) cuando haya cobertura.
 4. Calibración por liga y drift por temporada con las features ya construidas.
 5. Expandir a NFL/NHL/NCAAF con nflverse (CC BY 4.0) y validar contratos.
+
+## Nota de entorno (2026-11-09 03:48)
+
+Durante la sesión, el checkout principal (`/Users/jairbonilla/Desktop/Pitch Lab`) pasó de `main`
+(`8424876`) a la rama `feat/pre-mvp` (`a320d53`, trabajo de otros agentes). El worktree
+`prediction-lab` sigue **basado en `main` 8424876** y no toca ninguna de esas ramas. Para integrar
+en el futuro habrá que rebasar sobre `feat/pre-mvp` o sobre el estado que corresponda y revisar
+conflictos en `src/data/index.ts`, `tests/` y `docs/`. `git diff --name-only main prediction-lab`
+lista 90 archivos, todos del laboratorio (ninguno de ellos existía en `main`).
