@@ -97,7 +97,7 @@ Variables (ver `.env.example`):
 - `PITCHLAB_BETA_CODE` — PIN de 4 dígitos de la beta (acepta también `PREVIEW_ACCESS_CODE`).
 - `PITCHLAB_COOKIE_SECRET` — secreto HMAC de 32+ caracteres (acepta `BETA_COOKIE_SECRET`).
 - `API_FOOTBALL_KEY` — opcional; sin clave, Liga MX aparece como «Pronto».
-- `FOOTBALL_DATA_API_KEY` — opcional; mejora la ingesta de la Premier League.
+- `FOOTBALL_DATA_API_KEY` — recomendada; resultados, estados y horarios al día de Premier League, LaLiga, Bundesliga, Serie A y Ligue 1 (5 solicitudes por corrida, caché de 90 min).
 
 El build de producción incluye el gate `scripts/check-no-demo-prod.mjs`: datos demo no llegan a
 producción. Los snapshots se versionan en `data/snapshots/` y el workflow `.github/workflows/pre-mvp-snapshot.yml`

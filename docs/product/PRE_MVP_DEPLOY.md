@@ -28,7 +28,7 @@ Esta guía describe los pasos exactos para publicar el pre-MVP de PitchLab en **
 | `UPSTASH_REDIS_REST_URL` | **Recomendada** | URL REST de Upstash Redis (plan gratis). Sin ella, el límite de 5 intentos por IP vive en la memoria de cada instancia de Vercel y un atacante puede probar más códigos repartiéndose entre instancias. Con 4 dígitos (10,000 combinaciones) esto importa. El servidor avisa en los logs si falta. |
 | `UPSTASH_REDIS_REST_TOKEN` | **Recomendada** | Token REST de Upstash Redis. |
 | `API_FOOTBALL_KEY` | Opcional | Clave de API-Football para Liga MX en vivo. |
-| `FOOTBALL_DATA_API_KEY` | Opcional | Clave de football-data.org para Premier League. |
+| `FOOTBALL_DATA_API_KEY` | **Recomendada** | Clave gratuita de football-data.org. Sin ella, LaLiga, Bundesliga, Serie A y Ligue 1 quedan con resultados atrasados (la fuente abierta se actualiza con semanas de retraso) y horarios aproximados. |
 
 4. Haz clic en **Deploy**.
 
@@ -57,6 +57,6 @@ El workflow `.github/workflows/pre-mvp-snapshot.yml` descarga los calendarios y 
 3. En GitHub Actions Secrets, agrega:
    - `VERCEL_DEPLOY_HOOK_URL`: la URL del Deploy Hook de Vercel.
    - `API_FOOTBALL_KEY` (opcional): tu clave de API-Football si deseas habilitar Liga MX.
-   - `FOOTBALL_DATA_API_KEY` (opcional): tu clave de football-data.org para Premier League.
+   - `FOOTBALL_DATA_API_KEY` (recomendada): clave de football-data.org para resultados y horarios al día de las cinco ligas europeas.
 4. Para ejecutar un corte manual en cualquier momento:
    - Ve a la pestaña **Actions → Pre-MVP Snapshot Pipeline → Run workflow** en GitHub, o ejecuta `pnpm snapshot` localmente.

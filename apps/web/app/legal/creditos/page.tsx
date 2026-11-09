@@ -25,7 +25,7 @@ export default function CreditosPage(): React.JSX.Element {
       </p>
       <h2>Fútbol europeo — openfootball</h2>
       <p>
-        Los datos de jornadas y marcadores de Premier League provienen de{" "}
+        Los calendarios de Premier League, LaLiga, Bundesliga, Serie A y Ligue 1 provienen de{" "}
         <a
           href="https://github.com/openfootball/football.json"
           target="_blank"
@@ -36,6 +36,19 @@ export default function CreditosPage(): React.JSX.Element {
         </a>
         , dedicados al dominio público bajo licencia{" "}
         <strong>Creative Commons CC0 1.0 Universal (Public Domain)</strong>.
+      </p>
+      <h2>Fútbol europeo — football-data.org</h2>
+      <p>
+        Los marcadores, estados y horarios actualizados de esas cinco ligas provienen de la API de{" "}
+        <a
+          href="https://www.football-data.org"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: "var(--brand-primary)", fontWeight: 600 }}
+        >
+          football-data.org
+        </a>
+        .
       </p>
       <h2>Emblemas y marcas</h2>
       <p>

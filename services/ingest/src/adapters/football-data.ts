@@ -83,44 +83,73 @@ export const FootballDataResponseSchema = z.object({
   matches: z.array(FootballDataMatchSchema),
 });
 
-export async function fetchFootballDataPl(options: {
+/** Códigos de competición del plan gratuito de football-data.org. */
+export const FOOTBALL_DATA_COMPETITIONS = {
+  "premier-league": "PL",
+  laliga: "PD",
+  bundesliga: "BL1",
+  "serie-a": "SA",
+  "ligue-1": "FL1",
+} as const;
+
+/** Minutos que se reutiliza la respuesta en caché (el cron corre cada 3 h en jornada). */
+const FOOTBALL_DATA_CACHE_MINUTES = 90;
+
+/**
+ * Partidos de una competición. Reutiliza la caché si tiene menos de 90 minutos, para que
+ * los resultados del día lleguen en la siguiente corrida sin pasar el límite gratuito
+ * (10 solicitudes por minuto).
+ */
+export async function fetchFootballDataCompetition(options: {
   apiKey: string;
+  code: string;
   cacheFilePath?: string;
 }): Promise<unknown> {
-  const { apiKey, cacheFilePath } = options;
-  const today = new Date().toISOString().slice(0, 10);
+  const { apiKey, code, cacheFilePath } = options;
+  const now = Date.now();
 
   if (cacheFilePath && existsSync(cacheFilePath)) {
     const cached = JSON.parse(readFileSync(cacheFilePath, "utf8")) as {
-      date: string;
+      date?: string;
+      fetchedAt?: string;
       payload: unknown;
     };
-    if (cached.date === today && cached.payload) {
+    const fetchedMs = cached.fetchedAt ? Date.parse(cached.fetchedAt) : Number.NaN;
+    if (
+      cached.payload &&
+      Number.isFinite(fetchedMs) &&
+      now - fetchedMs < FOOTBALL_DATA_CACHE_MINUTES * 60_000
+    ) {
       return cached.payload;
     }
   }
 
-  const url = `${FOOTBALL_DATA_BASE_URL}/competitions/PL/matches`;
-  const res = await fetch(url, {
-    headers: {
-      "X-Auth-Token": apiKey.trim(),
-    },
-  });
-
+  const url = `${FOOTBALL_DATA_BASE_URL}/competitions/${code}/matches`;
+  const res = await fetch(url, { headers: { "X-Auth-Token": apiKey.trim() } });
   if (!res.ok) {
     throw new Error(`Error de football-data.org (${res.status}): ${url}`);
   }
-
   const payload: unknown = await res.json();
   if (cacheFilePath) {
     mkdirSync(dirname(cacheFilePath), { recursive: true });
     writeFileSync(
       cacheFilePath,
-      JSON.stringify({ date: today, payload }, null, 2),
+      JSON.stringify(
+        { date: new Date(now).toISOString().slice(0, 10), fetchedAt: new Date(now).toISOString(), payload },
+        null,
+        2,
+      ),
       "utf8",
     );
   }
   return payload;
+}
+
+export async function fetchFootballDataPl(options: {
+  apiKey: string;
+  cacheFilePath?: string;
+}): Promise<unknown> {
+  return fetchFootballDataCompetition({ ...options, code: "PL" });
 }
 
 export function normalizeFootballDataPremierLeague(
@@ -179,6 +208,11 @@ export function normalizeFootballDataPremierLeague(
       );
       activeMatchday = scheduledMd ?? matchdays[matchdays.length - 1] ?? 10;
     }
+    // Si la jornada «actual» ya terminó completa, se muestra la siguiente por jugar.
+    const current = activeMatchday;
+    const currentDone = allGames.filter((g) => g.week === current).every((g) => g.status === "final");
+    const nextMd = matchdays.find((md) => md > current);
+    if (currentDone && nextMd !== undefined) activeMatchday = nextMd;
   }
 
   const activeRoundGames = allGames

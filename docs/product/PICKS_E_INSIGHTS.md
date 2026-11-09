@@ -10,7 +10,7 @@
 - **Validado fuera de muestra** (`Reportes/modelos/BACKTEST-BLEND.md`, 6 ligas, 2023-24 a 2026-27): los perfiles están calibrados (conservadora 83.7 % anunciado / 82.4 % real; intermedia 65.9 / 65.2; arriesgada 48.0 / 49.0).
 - **La confianza mide la claridad del favorito**, no el acierto de un pick: el favorito acierta 64 % con confianza alta, 48 % con media y 46 % con baja. Así se explica en la UI y en `/metodologia`.
 - **Regla nueva: picks solo antes del inicio.** Cada pick lleva `picksAt`, y uno sin constancia previa se retira. Si el análisis se genera con el partido ya empezado, se publica sin picks.
-- **Hallazgo de datos:** en Bundesliga, LaLiga, Serie A y Ligue 1 la fuente abierta solo trae resultados hasta el 20 sep 2026. Hay jornadas ya jugadas que siguen apareciendo como «programadas» y el modelo va ~7 semanas atrasado. La solución propuesta (football-data.org gratis cubre esas ligas) entra en la fase B.
+- **Hallazgo de datos:** en Bundesliga, LaLiga, Serie A y Ligue 1 la fuente abierta solo trae resultados hasta el 20 sep 2026. Hay jornadas ya jugadas que siguen apareciendo como «programadas» y el modelo va ~7 semanas atrasado. **Resuelto (2026-11-09):** football-data.org completa resultados, estados y horas reales sobre el calendario de openfootball (100 % de partidos emparejados en las cuatro ligas). openfootball además inventaba la hora de las jornadas futuras; ahora se usa la hora UTC real.
 - NFL tiene picks, pero su calibración por perfil todavía no se valida.
 
 ## 0. Resumen

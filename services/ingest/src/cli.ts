@@ -19,9 +19,44 @@ import {
   normalizeOpenFootballSerieA,
 } from "./adapters/openfootball.js";
 import {
+  FOOTBALL_DATA_COMPETITIONS,
+  fetchFootballDataCompetition,
   fetchFootballDataPl,
   normalizeFootballDataPremierLeague,
 } from "./adapters/football-data.js";
+import { mergeFootballDataIntoSeason } from "./adapters/football-data-merge.js";
+import type { NormalizedOpenFootballSeason } from "./adapters/openfootball.js";
+
+/**
+ * Resultados al día para una liga de openfootball: si hay clave de football-data.org se
+ * completan marcadores, estados y horas reales; si falla, se sigue con openfootball.
+ */
+async function withFootballData(
+  league: keyof typeof FOOTBALL_DATA_COMPETITIONS,
+  season: NormalizedOpenFootballSeason,
+  referenceDate: string,
+  cacheDir: string,
+): Promise<{ season: NormalizedOpenFootballSeason; source: string }> {
+  const apiKey = process.env.FOOTBALL_DATA_API_KEY?.trim();
+  if (!apiKey) return { season, source: "openfootball" };
+  try {
+    const raw = await fetchFootballDataCompetition({
+      apiKey,
+      code: FOOTBALL_DATA_COMPETITIONS[league],
+      cacheFilePath: resolve(cacheDir, `football-data-${FOOTBALL_DATA_COMPETITIONS[league].toLowerCase()}.json`),
+    });
+    const merged = mergeFootballDataIntoSeason(season, raw, { referenceDate });
+    console.log(
+      `[snapshot] ${league}: ${merged.report.matched} partidos emparejados con football-data.org, ${merged.report.unmatched} sin emparejar, ${merged.report.updatedResults} resultados nuevos`,
+    );
+    return { season: merged.season, source: "openfootball+football-data" };
+  } catch (err) {
+    console.warn(
+      `[snapshot] ${league}: football-data.org no disponible (${err instanceof Error ? err.message : String(err)}); se usa solo openfootball.`,
+    );
+    return { season, source: "openfootball" };
+  }
+}
 import {
   fetchApiFootballLigaMx,
   normalizeApiFootballLigaMx,
@@ -113,9 +148,12 @@ async function main() {
 
   // 3. LaLiga (openfootball CC0)
   const prevLl = loadPreviousSnapshot(SNAPSHOTS_ROOT, "laliga");
-  const normLl = normalizeOpenFootballLaliga(await fetchOpenFootballLaliga(), {
-    referenceDate: dateStr,
-  });
+  const { season: normLl, source: sourceLl } = await withFootballData(
+    "laliga",
+    normalizeOpenFootballLaliga(await fetchOpenFootballLaliga(), { referenceDate: dateStr }),
+    dateStr,
+    CACHE_DIR,
+  );
   const priorLl = loadPriorMatches("laliga", dateStr);
   const llSnapshot = buildFootballSnapshot({
     league: "laliga",
@@ -126,7 +164,7 @@ async function main() {
     games: normLl.activeRoundGames,
     teamRateInputs: normLl.teamRateInputs,
     updatedAt,
-    source: "openfootball",
+    source: sourceLl,
     previousSnapshot: prevLl,
     seasonGames: normLl.allGames,
     priorMatches: priorLl,
@@ -162,9 +200,12 @@ async function main() {
 
   for (const entry of extraLeagues) {
     const previous = loadPreviousSnapshot(SNAPSHOTS_ROOT, entry.league);
-    const normalized = entry.normalize(await entry.fetchSeason(), {
-      referenceDate: dateStr,
-    });
+    const { season: normalized, source: entrySource } = await withFootballData(
+      entry.league,
+      entry.normalize(await entry.fetchSeason(), { referenceDate: dateStr }),
+      dateStr,
+      CACHE_DIR,
+    );
     const snapshot = buildFootballSnapshot({
       league: entry.league,
       leagueName: entry.name,
@@ -174,7 +215,7 @@ async function main() {
       games: normalized.activeRoundGames,
       teamRateInputs: normalized.teamRateInputs,
       updatedAt,
-      source: "openfootball",
+      source: entrySource,
       previousSnapshot: previous,
       seasonGames: normalized.allGames,
       priorMatches: loadPriorMatches(entry.league, dateStr),
