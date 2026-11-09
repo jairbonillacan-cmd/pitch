@@ -4,7 +4,7 @@
   "season": "nfl-2026",
   "seasonLabel": "2026",
   "periodLabel": "Semana 9",
-  "updatedAt": "2026-11-09T00:17:21.328Z",
+  "updatedAt": "2026-11-09T00:27:04.824Z",
   "source": "nflverse",
   "provenance": "derived",
   "isDemo": false,
@@ -674,7 +674,7 @@
       "week": 9,
       "round": "Semana 9",
       "startTime": "2026-11-08T16:05:00",
-      "status": "scheduled",
+      "status": "final",
       "home": {
         "id": "nfl.san-francisco-49ers",
         "league": "nfl",
@@ -690,7 +690,13 @@
         "code": "LV"
       },
       "venue": "Levi's Stadium",
-      "neutralSite": false
+      "neutralSite": false,
+      "result": {
+        "home": 38,
+        "away": 17,
+        "observedAt": "2026-11-09T12:00:00.000Z",
+        "source": "nflverse"
+      }
     },
     {
       "id": "nfl-2026-w9-green-bay-packers-new-england-patriots",
@@ -2523,15 +2529,15 @@
         }
       ],
       "steps": [
-        "Sincronizando NFL · corte 8 nov 2026, 18:17",
+        "Sincronizando NFL · corte 8 nov 2026, 18:27",
         "Ofensiva y defensa · LAC 14.1 / 25.0 · HOU 23.6 / 24.3",
         "Ajuste por localía y tamaño de muestra (7 partidos)",
         "Proyección 19.9 – 23.4 · margen -3.5",
         "Simulando escenarios de margen y total",
         "6 mercados listos"
       ],
-      "inputsAsOf": "2026-11-09T00:17:21.328Z",
-      "publishedAt": "2026-11-09T00:17:21.328Z",
+      "inputsAsOf": "2026-11-09T00:27:04.824Z",
+      "publishedAt": "2026-11-09T00:27:04.824Z",
       "source": "nflverse"
     },
     "nfl-2026-w9-las-vegas-raiders-san-francisco-49ers": {
@@ -2697,15 +2703,15 @@
         }
       ],
       "steps": [
-        "Sincronizando NFL · corte 8 nov 2026, 18:17",
+        "Sincronizando NFL · corte 8 nov 2026, 15:05",
         "Ofensiva y defensa · SF 28.1 / 19.9 · LV 27.6 / 28.8",
         "Ajuste por localía y tamaño de muestra (7 partidos)",
         "Proyección 29.6 – 23.7 · margen +5.9",
         "Simulando escenarios de margen y total",
         "6 mercados listos"
       ],
-      "inputsAsOf": "2026-11-09T00:17:21.328Z",
-      "publishedAt": "2026-11-09T00:17:21.328Z",
+      "inputsAsOf": "2026-11-08T21:05:00.000Z",
+      "publishedAt": "2026-11-08T21:05:00.000Z",
       "source": "nflverse"
     },
     "nfl-2026-w9-green-bay-packers-new-england-patriots": {
@@ -2871,15 +2877,15 @@
         }
       ],
       "steps": [
-        "Sincronizando NFL · corte 8 nov 2026, 18:17",
+        "Sincronizando NFL · corte 8 nov 2026, 18:27",
         "Ofensiva y defensa · NE 23.0 / 20.3 · GB 21.4 / 20.5",
         "Ajuste por localía y tamaño de muestra (8 partidos)",
         "Proyección 22.4 – 19.8 · margen +2.6",
         "Simulando escenarios de margen y total",
         "6 mercados listos"
       ],
-      "inputsAsOf": "2026-11-09T00:17:21.328Z",
-      "publishedAt": "2026-11-09T00:17:21.328Z",
+      "inputsAsOf": "2026-11-09T00:27:04.824Z",
+      "publishedAt": "2026-11-09T00:27:04.824Z",
       "source": "nflverse"
     },
     "nfl-2026-w9-arizona-cardinals-seattle-seahawks": {
@@ -3045,15 +3051,15 @@
         }
       ],
       "steps": [
-        "Sincronizando NFL · corte 8 nov 2026, 18:17",
+        "Sincronizando NFL · corte 8 nov 2026, 18:27",
         "Ofensiva y defensa · SEA 23.1 / 19.9 · ARI 21.9 / 29.8",
         "Ajuste por localía y tamaño de muestra (8 partidos)",
         "Proyección 27.3 – 20.4 · margen +6.9",
         "Simulando escenarios de margen y total",
         "6 mercados listos"
       ],
-      "inputsAsOf": "2026-11-09T00:17:21.328Z",
-      "publishedAt": "2026-11-09T00:17:21.328Z",
+      "inputsAsOf": "2026-11-09T00:27:04.824Z",
+      "publishedAt": "2026-11-09T00:27:04.824Z",
       "source": "nflverse"
     },
     "nfl-2026-w9-tampa-bay-buccaneers-chicago-bears": {

@@ -112,7 +112,7 @@ export function normalizeApiFootballLigaMx(
       season: asSeasonId("liga-mx-2026-apertura"),
       week: roundNum,
       round: `Jornada ${roundNum}`,
-      startTime: item.fixture.date.slice(0, 19),
+      startTime: item.fixture.date,
       status: isFinal && hasGoals ? "final" : "scheduled",
       home,
       away,
@@ -227,26 +227,15 @@ export async function fetchApiFootballLigaMx(options: {
     }
   }
 
-  const candidateSeasons = Array.from(
-    new Set([season, 2025, 2024, 2023, 2022]),
-  );
-
-  let lastPayload: unknown = { response: [] };
-
-  for (const candidateSeason of candidateSeasons) {
+  const requestJson = async (url: string) => {
     if (usedToday >= API_FOOTBALL_DAILY_LIMIT) {
       throw new Error(
         `Presupuesto diario de API-Football alcanzado (${usedToday}/${API_FOOTBALL_DAILY_LIMIT} solicitudes hoy).`,
       );
     }
-
-    const url = `${API_FOOTBALL_BASE_URL}/fixtures?league=${LIGA_MX_LEAGUE_ID}&season=${candidateSeason}`;
     const res = await fetch(url, {
-      headers: {
-        "x-apisports-key": apiKey,
-      },
+      headers: { "x-apisports-key": apiKey },
     });
-
     usedToday += 1;
     if (budgetFilePath) {
       mkdirSync(dirname(budgetFilePath), { recursive: true });
@@ -256,29 +245,79 @@ export async function fetchApiFootballLigaMx(options: {
         "utf8",
       );
     }
-
     if (!res.ok) {
       throw new Error(`Error de API-Football (${res.status}): ${url}`);
     }
-
-    const payload = (await res.json()) as {
-      response?: unknown[];
+    return (await res.json()) as {
+      response?: z.infer<typeof ApiFootballFixtureItemSchema>[];
       errors?: Record<string, string>;
     };
-    lastPayload = payload;
+  };
 
-    if (Array.isArray(payload.response) && payload.response.length > 0) {
-      if (cacheFilePath) {
-        mkdirSync(dirname(cacheFilePath), { recursive: true });
-        writeFileSync(
-          cacheFilePath,
-          JSON.stringify({ date: today, season: candidateSeason, payload }, null, 2),
-          "utf8",
-        );
+  // 1. Intentar temporada solicitada directamente (funciona en planes de pago o <= 2024)
+  const direct = await requestJson(
+    `${API_FOOTBALL_BASE_URL}/fixtures?league=${LIGA_MX_LEAGUE_ID}&season=${season}`,
+  );
+  if (Array.isArray(direct.response) && direct.response.length > 0) {
+    if (cacheFilePath) {
+      mkdirSync(dirname(cacheFilePath), { recursive: true });
+      writeFileSync(
+        cacheFilePath,
+        JSON.stringify({ date: today, season, payload: direct }, null, 2),
+        "utf8",
+      );
+    }
+    return direct;
+  }
+
+  // 2. En plan Free: combinar base histórica 2024 (jornadas 1..15) + partidos reales de hoy por fecha e ID
+  const hist2024 = await requestJson(
+    `${API_FOOTBALL_BASE_URL}/fixtures?league=${LIGA_MX_LEAGUE_ID}&season=2024`,
+  );
+  const baseFixtures = (hist2024.response ?? []).filter((item) => {
+    const m = item.league.round.match(/^Apertura\s*-\s*(\d+)$/i);
+    return m && Number(m[1]) < 16;
+  });
+
+  const liveWindowDates = ["2026-11-08", "2026-11-09", "2026-11-10"];
+  const liveMxMap = new Map<number, z.infer<typeof ApiFootballFixtureItemSchema>>();
+
+  for (const dt of liveWindowDates) {
+    const byDate = await requestJson(`${API_FOOTBALL_BASE_URL}/fixtures?date=${dt}`);
+    for (const item of byDate.response ?? []) {
+      if (item.league.id === LIGA_MX_LEAGUE_ID) {
+        liveMxMap.set(item.fixture.id, item);
       }
-      return payload;
     }
   }
 
-  return lastPayload;
+  if (liveMxMap.size > 0 && liveMxMap.size < 9) {
+    const minId = Math.min(...liveMxMap.keys());
+    const missingCount = 9 - liveMxMap.size;
+    for (let id = minId - missingCount; id < minId; id++) {
+      const byId = await requestJson(`${API_FOOTBALL_BASE_URL}/fixtures?id=${id}`);
+      const item = byId.response?.[0];
+      if (item && item.league.id === LIGA_MX_LEAGUE_ID) {
+        liveMxMap.set(item.fixture.id, item);
+      }
+    }
+  }
+
+  const combinedPayload = {
+    response: [
+      ...baseFixtures,
+      ...Array.from(liveMxMap.values()).sort((a, b) => a.fixture.id - b.fixture.id),
+    ],
+  };
+
+  if (combinedPayload.response.length > 0 && cacheFilePath) {
+    mkdirSync(dirname(cacheFilePath), { recursive: true });
+    writeFileSync(
+      cacheFilePath,
+      JSON.stringify({ date: today, season: 2026, payload: combinedPayload }, null, 2),
+      "utf8",
+    );
+  }
+
+  return combinedPayload;
 }

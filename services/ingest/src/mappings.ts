@@ -179,6 +179,7 @@ export const LIGA_MX_TEAM_MAP: Record<string, string> = {
   América: "america",
   Atlante: "atlante",
   "CF Atlante": "atlante",
+  "Atlante FC": "atlante",
   Mazatlán: "atlante",
   Mazatlan: "atlante",
   "Mazatlán FC": "atlante",

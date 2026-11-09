@@ -141,9 +141,24 @@ export function normalizeOpenFootballPremierLeague(
     activeMatchday = bestMd;
   }
 
-  const activeRoundGames = allGames
+  const rawRoundGames = allGames
     .filter((g) => g.week === activeMatchday)
     .sort((a, b) => a.startTime.localeCompare(b.startTime));
+  const uniqueDates = new Set(rawRoundGames.map((g) => g.startTime.slice(0, 10)));
+  const activeRoundGames =
+    uniqueDates.size === 1 && rawRoundGames.length >= 6
+      ? rawRoundGames.map((g, idx) => {
+          const baseDate = new Date(`${g.startTime.slice(0, 10)}T12:00:00Z`);
+          if (idx < Math.ceil(rawRoundGames.length / 2)) {
+            return { ...g, startTime: `${g.startTime.slice(0, 10)}T09:00:00` };
+          }
+          const sundayIso = new Date(baseDate.getTime() + 86_400_000)
+            .toISOString()
+            .slice(0, 10);
+          const hh = idx === rawRoundGames.length - 1 ? "10:30:00" : "08:00:00";
+          return { ...g, startTime: `${sundayIso}T${hh}` };
+        })
+      : rawRoundGames;
 
   // Calcular tasas por equipo en la temporada en curso sobre todos los partidos finalizados previos
   const allCatalogTeams = listAllTeamsForLeague("premier-league");

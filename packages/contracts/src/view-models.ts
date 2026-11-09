@@ -72,6 +72,7 @@ export interface MatchAnalysis {
   mostLikelyScore?: MostLikelyScore;
   steps?: string[];
   updatedAt?: string;
+  publicationLabel?: string;
   outcomes: OutcomeMarket[];
   factors: FactorItem[];
   trace: CalcStep[];
@@ -149,14 +150,36 @@ const MONTHS_LONG = [
   "diciembre",
 ];
 
+const analysisDateFormat = new Intl.DateTimeFormat("es-MX", {
+  day: "numeric",
+  month: "short",
+  year: "numeric",
+  hour: "2-digit",
+  minute: "2-digit",
+  hour12: false,
+  timeZone: "America/Mexico_City",
+});
+
 function formatDayAndHour(startTime: string): {
   dayId: string;
   dayChipLabel: string;
   dayFullLabel: string;
   kickoffLocal: string;
 } {
-  const normalized = startTime.length === 10 ? `${startTime}T15:00:00Z` : startTime;
-  const dateObj = new Date(normalized);
+  const hasExplicitTz = /([Zz]|[+-]\d{2}:\d{2})$/.test(startTime);
+  const normalized =
+    startTime.length === 10
+      ? `${startTime}T15:00:00Z`
+      : hasExplicitTz
+        ? startTime
+        : `${startTime}Z`;
+  const rawDate = new Date(normalized);
+  // Si el timestamp viene en UTC (+00:00 / Z), convertir a hora del centro de México (UTC-6)
+  const isUtcOffset = /([Zz]|\+00:00)$/.test(startTime);
+  const dateObj = isUtcOffset
+    ? new Date(rawDate.getTime() - 6 * 3600_000)
+    : rawDate;
+
   const w = WEEKDAY_MAP[dateObj.getUTCDay()] ?? {
     id: "sab",
     short: "Sáb",
@@ -164,12 +187,15 @@ function formatDayAndHour(startTime: string): {
   };
   const dayNum = dateObj.getUTCDate();
   const monthLong = MONTHS_LONG[dateObj.getUTCMonth()] ?? "noviembre";
+  const yyyy = dateObj.getUTCFullYear();
+  const mmDate = String(dateObj.getUTCMonth() + 1).padStart(2, "0");
+  const ddDate = String(dayNum).padStart(2, "0");
   const hh = String(dateObj.getUTCHours()).padStart(2, "0");
   const mm = String(dateObj.getUTCMinutes()).padStart(2, "0");
   const fullDay = `${w.long}, ${dayNum} de ${monthLong}`;
 
   return {
-    dayId: startTime.slice(0, 10),
+    dayId: `${yyyy}-${mmDate}-${ddDate}`,
     dayChipLabel: fullDay,
     dayFullLabel: fullDay,
     kickoffLocal: `${hh}:${mm}`,
@@ -194,6 +220,10 @@ export function snapshotToMatchAnalyses(snapshot: LeagueSnapshot): {
   const sortedGames = snapshot.games
     .slice()
     .sort((a, b) => a.startTime.localeCompare(b.startTime));
+  const updatedAt = Date.parse(snapshot.updatedAt);
+  const updatedCut = Number.isFinite(updatedAt)
+    ? analysisDateFormat.format(updatedAt)
+    : undefined;
 
   const matches: MatchAnalysis[] = sortedGames.map((g) => {
     const analysis = snapshot.analyses[g.id];
@@ -285,14 +315,7 @@ export function snapshotToMatchAnalyses(snapshot: LeagueSnapshot): {
       },
     ];
 
-    const updatedCut = new Date(snapshot.updatedAt).toLocaleDateString("es-MX", {
-      day: "numeric",
-      month: "short",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: false,
-    });
+    const publishedAt = Date.parse(analysis?.publishedAt ?? "");
 
     return {
       id: g.id,
@@ -331,6 +354,9 @@ export function snapshotToMatchAnalyses(snapshot: LeagueSnapshot): {
       mostLikelyScore: analysis?.mostLikelyScore,
       steps,
       updatedAt: updatedCut,
+      publicationLabel: Number.isFinite(publishedAt)
+        ? analysisDateFormat.format(publishedAt)
+        : undefined,
       outcomes,
       factors,
       trace,
