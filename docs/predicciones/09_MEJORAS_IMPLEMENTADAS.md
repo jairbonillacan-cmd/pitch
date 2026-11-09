@@ -104,3 +104,5 @@ El ensemble es estadísticamente mejor en test (−0,00153 [−0,00250, −0,000
 | M14 | Expansión NHL/NCAAF | datos sin licencia clara | **No-go** documentado |
 
 | M15 | Simulación de valor (ROI) | ROI −9,7 % a −11,9 % en 12.373 partidos; IC95 % negativo | **Rechazado**: no hay estrategia rentable |
+
+| M16 | **Peticiones de fixtures para TS** con paridad 9,4e-13 | `fixture_requests.json` + `tests/prediction/fixture_requests.test.ts` | **Aceptado** |

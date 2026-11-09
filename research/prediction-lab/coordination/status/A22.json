@@ -1,0 +1,18 @@
+{
+  "task_id": "A22",
+  "agent": "ORCHESTRATOR (ciclo 9)",
+  "status": "completed",
+  "started_at": "2026-11-09T07:25:00-06:00",
+  "finished_at": "2026-11-09T07:50:00-06:00",
+  "summary": "Exportadas 150 peticiones de inferencia por fixture con features, one-hot, mercado de-vigado y probs Python. El servicio TS reproduce las 150 predicciones con max|Delta|=9,416e-13. Cierra el camino fixtures->features->servicio.",
+  "fixtures": 150,
+  "parity_max_abs_diff": 9.416e-13,
+  "files_written": [
+    "pipeline/export_fixture_requests.py",
+    "src/data/prediction/fixture_requests.json",
+    "tests/prediction/fixture_requests.test.ts",
+    "reports/A22_fixture_requests.md"
+  ],
+  "blockers": [],
+  "next": "Portar fixture_features a TS o servir el vector desde backend; regenerar peticiones por snapshot."
+}

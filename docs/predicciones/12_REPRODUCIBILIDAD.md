@@ -319,3 +319,11 @@ cd research/prediction-lab
 ./.venv/bin/python pipeline/fixture_features.py --validate 300   # paridad 300/300
 ./.venv/bin/python pipeline/predict_fixtures.py                 # 150 fixtures + mercado
 ```
+
+## Ciclo 9 — peticiones de fixtures
+
+```bash
+cd research/prediction-lab
+./.venv/bin/python pipeline/export_fixture_requests.py
+cd ../.. && npx vitest run tests/prediction/fixture_requests.test.ts
+```

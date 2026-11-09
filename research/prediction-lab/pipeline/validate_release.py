@@ -45,7 +45,9 @@ def main():
     ok = ok and reg_ok
 
     # 2. Snapshots de paridad
-    snaps = ["../../src/data/prediction/features_snapshot.json", "../../src/data/prediction/nfl_snapshot.json"]
+    snaps = ["../../src/data/prediction/features_snapshot.json",
+             "../../src/data/prediction/nfl_snapshot.json",
+             "../../src/data/prediction/fixture_requests.json"]
     snap_ok = all(os.path.exists(os.path.join(ROOT, s)) for s in snaps)
     report["blocks"]["snapshots"] = {"ok": snap_ok, "files": snaps}
     ok = ok and snap_ok

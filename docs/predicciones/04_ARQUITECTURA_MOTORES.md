@@ -237,3 +237,11 @@ Comandos completos, hashes y verificación del leakage en [`12_REPRODUCIBILIDAD.
 y calcula las 54 features para un partido no jugado; `pipeline/predict_fixtures.py` aplica el
 artefacto y compara con el mercado. **Paridad 300/300 exacta** con `features.parquet`. Esto cierra
 el hueco "fixture → features → predicción" que quedaba entre el laboratorio y el motor servido.
+
+### 12. Peticiones de fixtures para el servicio (ciclo 9)
+
+`pipeline/export_fixture_requests.py` emite `src/data/prediction/fixture_requests.json`: 150
+fixtures reales con las 54 features, el one-hot de división, el mercado de-vigado y `probsPython`
+como oráculo. El servicio TS `predictMatch` reproduce las 150 predicciones con
+**max|Δ| = 9,416×10⁻¹³**. El backend no reimplementa Elo/forma/priors: Python calcula el vector y
+TS aplica el modelo.

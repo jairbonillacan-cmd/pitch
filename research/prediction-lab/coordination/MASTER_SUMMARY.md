@@ -238,3 +238,12 @@ lista 90 archivos, todos del laboratorio (ninguno de ellos existía en `main`).
   ineficiencia de mercado. Los 146 fixtures confirman el signo (IC amplio).
 - Conclusión de producto: el motor sirve como análisis probabilístico, **no como señal de apuesta**.
   No hay estrategia rentable. Informe: `reports/A21_value_betting.md`.
+
+---
+
+# CICLO 9 — peticiones de fixtures (2026-11-09 07:50)
+
+- `fixture_requests.json`: 150 fixtures con 54 features, one-hot, mercado de-vigado y oráculo Python.
+- El servicio TS reproduce las 150 predicciones con **max|Δ| = 9,416×10⁻¹³**.
+- El camino de producto queda cerrado: fixture → features (Python) → `predictMatch` (TS) → Prediction.
+- Limitación: el cálculo de features sigue en Python; portarlo a TS o servirlo desde backend.
