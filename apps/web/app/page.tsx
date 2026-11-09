@@ -87,6 +87,7 @@ export default function HomePage(): React.JSX.Element {
   const leagues: LandingLeagueSummary[] = PRODUCT_LEAGUES.map((key) => {
     const games = gamesFor(key);
     const data = snapshots[key].data;
+    const leaderRow = data?.standings?.[0];
     return {
       id: asLeagueId(key),
       name: data?.leagueLabel ?? key,
@@ -95,6 +96,7 @@ export default function HomePage(): React.JSX.Element {
       mascot: LEAGUE_MASCOTS[key] ?? "soccer",
       gameCount: games.length,
       active: games.length > 0,
+      leader: leaderRow ? `${leaderRow.shortName} · ${leaderRow.points} pts` : undefined,
     };
   });
 

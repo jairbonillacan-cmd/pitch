@@ -80,6 +80,9 @@ test.describe("PitchLab Pre-MVP E2E Suite", () => {
     await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
     await page.waitForTimeout(250);
 
+    // Cada liga de fútbol con tabla publicada muestra a su líder.
+    await expect(page.locator("#leagues")).toContainText("Líder");
+
     // Verify all visible images loaded
     const brokenImages = await page.evaluate(() => {
       const imgs = Array.from(document.querySelectorAll("img"));

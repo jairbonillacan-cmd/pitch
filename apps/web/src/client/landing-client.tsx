@@ -24,6 +24,8 @@ export interface LandingLeagueSummary {
   mascot: string;
   gameCount: number;
   active: boolean;
+  /** Líder actual de la tabla, si la liga publica posiciones. */
+  leader?: string;
 }
 
 export function LandingClient({
@@ -378,6 +380,9 @@ export function LandingClient({
                             {league.gameCount === 1 ? "partido" : "partidos"}
                           </div>
                         )}
+                        {league.leader ? (
+                          <div className="caption muted">Líder · {league.leader}</div>
+                        ) : null}
                       </div>
                     </div>
                     <img
