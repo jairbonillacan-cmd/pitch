@@ -22,7 +22,7 @@ import { FooterSocial } from "./footer-social.js";
 import { Button } from "./components/ui/button.js";
 import { Dialog, DialogOverlay, DialogPopup, DialogPortal } from "./components/ui/dialog.js";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/ui/tabs.js";
-import { MarketPulseGuide, MarketPulsePanel, MarketPulseTeaser } from "./market-pulse.js";
+import { MarketPulseGuide, MarketPulsePanel } from "./market-pulse.js";
 
 export function FloatingNav({
   links = [
@@ -523,7 +523,7 @@ export function AnalysisDialog({
       setSelectedMarketProb(match.outcomes[0].probability);
     }
 
-    setSection(match.picks && match.picks.length > 0 ? "picks" : "mercados");
+    setSection("mercados");
 
     const isFin = match.status === "FT" && match.score !== undefined;
     const isReduced =
@@ -580,10 +580,52 @@ export function AnalysisDialog({
     shown?.restDays?.away !== undefined ||
     (shown?.factors.length ?? 0) > 0;
   const sections: Array<{ id: AnalysisSection; label: string; flag?: boolean }> = [
-    { id: "picks", label: "Picks" },
     { id: "mercados", label: "Mercados" },
     { id: "dinero", label: "Dinero", flag: pulseLean !== null },
     { id: "contexto", label: "Contexto" },
+    { id: "picks", label: "Picks" },
+  ];
+  // Resumen de las pestañas anteriores para explicar de dónde salen los picks.
+  const favorite = [...(shown?.outcomes ?? [])].sort((a, b) => b.probability - a.probability)[0];
+  const pulseTop = shown?.marketPulse
+    ? [...shown.marketPulse.sides].sort((a, b) => b.share - a.share)[0]
+    : undefined;
+  const contextParts = [
+    (shown?.factors ?? []).some((f) => f.label.startsWith("Forma")) ? "forma" : null,
+    (shown?.factors ?? []).some((f) => f.label.startsWith("Posición")) ? "posición" : null,
+    (shown?.headToHead?.length ?? 0) > 0
+      ? `${shown?.headToHead?.length} cruces recientes`
+      : null,
+    shown?.restDays?.home !== undefined || shown?.restDays?.away !== undefined ? "descanso" : null,
+  ].filter((p): p is string => p !== null);
+  const basis: Array<{ id: AnalysisSection; label: string; role?: string; value: string }> = [
+    {
+      id: "mercados",
+      label: "Mercados",
+      value: favorite
+        ? `${favorite.label} ${formatPercent(favorite.probability, 0)}`
+        : "Probabilidades del modelo",
+    },
+    {
+      id: "contexto",
+      label: "Contexto",
+      value:
+        contextParts.length > 0
+          ? contextParts.join(", ").replace(/^./, (c) => c.toUpperCase())
+          : "Sin datos adicionales",
+    },
+    {
+      id: "dinero",
+      label: "Dinero",
+      role: "para contrastar",
+      value: !shown?.marketPulse
+        ? "Sin mercado abierto"
+        : shown.marketPulse.thin
+          ? "Poco volumen todavía"
+          : pulseTop
+            ? `${formatPercent(pulseTop.share, 0)} a ${sideLabels[pulseTop.side]}`
+            : "—",
+    },
   ];
 
   return (
@@ -795,6 +837,36 @@ export function AnalysisDialog({
                     </div>
 
                     <TabsContent value="picks" className="rbody rbody-split">
+                      <section className="basis" aria-labelledby="basis-title">
+                        <p className="eyebrow" id="basis-title">
+                          De dónde salen los picks
+                        </p>
+                        <p className="small secondary basis-lead">
+                          Los picks se eligen con las probabilidades de Mercados y los datos de
+                          Contexto. El dinero no entra en el cálculo: sirve para contrastar.
+                        </p>
+                        <ul className="basis-list">
+                          {basis.map((b) => (
+                            <li key={b.id}>
+                              <button
+                                type="button"
+                                className="basis-item"
+                                data-basis={b.id}
+                                onClick={() => {
+                                  setSection(b.id);
+                                  winRef.current?.scrollTo({ top: 0 });
+                                }}
+                              >
+                                <span className="caption muted">
+                                  {b.label}
+                                  {b.role ? ` · ${b.role}` : ""}
+                                </span>
+                                <span className="small basis-value">{b.value}</span>
+                              </button>
+                            </li>
+                          ))}
+                        </ul>
+                      </section>
                       <div className="side-col">
                         {shown.picks && shown.picks.length > 0 ? (
                           <PicksPanel
@@ -809,8 +881,6 @@ export function AnalysisDialog({
                             picks solo se publican antes del inicio.
                           </p>
                         ) : null}
-                      </div>
-                      <div className="side-col">
                         {shown.why && shown.why.length > 0 ? (
                           <WhyList
                             why={shown.why}
@@ -834,12 +904,6 @@ export function AnalysisDialog({
                             </span>
                           </div>
                         ) : null}
-                        <MarketPulseTeaser
-                          pulse={shown.marketPulse}
-                          labels={sideLabels}
-                          lean={pulseLean}
-                          onOpen={() => setSection("dinero")}
-                        />
                       </div>
                     </TabsContent>
 

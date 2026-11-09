@@ -79,7 +79,7 @@ export function MarketPulsePanel({
       </div>
 
       <div
-        className={`pulse-stack${pulse.thin ? " is-thin" : ""}`}
+        className={`psplit pulse-stack${pulse.thin ? " is-thin" : ""}`}
         role="img"
         aria-label={pulse.sides
           .map((s) => `${labels[s.side]} ${formatPercent(s.share, 0)} del dinero`)
@@ -89,7 +89,7 @@ export function MarketPulsePanel({
           <span
             key={s.side}
             data-side={s.side}
-            className={s.side === top?.side ? "lead" : ""}
+            className={!pulse.thin && s.side === top?.side ? "lead" : ""}
             style={{ flex: Math.max(s.share, 0.001) }}
           />
         ))}
@@ -101,11 +101,11 @@ export function MarketPulsePanel({
           <tr>
             <th scope="col">Resultado</th>
             <th scope="col" className="num">
-              <span className="key key-money" aria-hidden="true" />
+              <span className="pulse-key key-money" aria-hidden="true" />
               Dinero
             </th>
             <th scope="col" className="num">
-              <span className="key key-model" aria-hidden="true" />
+              <span className="pulse-key key-model" aria-hidden="true" />
               Modelo
             </th>
           </tr>
@@ -118,9 +118,19 @@ export function MarketPulsePanel({
                 <th scope="row">
                   <span className="pulse-label">{labels[s.side]}</span>
                   <span className="pulse-bars" aria-hidden="true">
-                    <span className="bar-money" style={{ width: `${(s.share * 100).toFixed(1)}%` }} />
+                    <span
+                      className="pbar money"
+                      style={{ "--w": `${(s.share * 100).toFixed(1)}%` } as React.CSSProperties}
+                    >
+                      <span />
+                    </span>
                     {p !== undefined ? (
-                      <span className="bar-model" style={{ width: `${(p * 100).toFixed(1)}%` }} />
+                      <span
+                        className="pbar lead model"
+                        style={{ "--w": `${(p * 100).toFixed(1)}%` } as React.CSSProperties}
+                      >
+                        <span />
+                      </span>
                     ) : null}
                   </span>
                 </th>
@@ -150,8 +160,8 @@ export function MarketPulsePanel({
           <Badge variant="pill-warning">Mercado cargado</Badge>
           <p className="small">
             El {formatPercent(lean.share, 0)} del dinero va a <b>{labels[lean.side]}</b>, pero el
-            modelo le da {formatPercent(lean.model, 0)}. Cuando el público se carga de un lado y ese
-            lado falla, es el clásico casinazo.
+            modelo le da {formatPercent(lean.model, 0)}. El mercado le da más peso del que respaldan
+            los datos.
           </p>
         </div>
       ) : (
@@ -165,42 +175,6 @@ export function MarketPulsePanel({
   );
 }
 
-/** Resumen de una línea en la pestaña Picks; lleva a la pestaña Dinero. */
-export function MarketPulseTeaser({
-  pulse,
-  labels,
-  lean,
-  onOpen,
-}: {
-  pulse?: MarketPulseView;
-  labels: Record<MarketPulseSide, string>;
-  lean: ReturnType<typeof marketPulseLean>;
-  onOpen: () => void;
-}): React.JSX.Element | null {
-  if (!pulse) return null;
-  const top = [...pulse.sides].sort((a, b) => b.share - a.share)[0];
-  if (!top) return null;
-  return (
-    <button type="button" className="pulse-teaser panel" onClick={onOpen} data-pulse-teaser="">
-      <span className="eyebrow">Dónde está el dinero</span>
-      <span className="pulse-teaser-line small">
-        {pulse.thin ? (
-          <>Poco volumen todavía · {formatPulseVolume(pulse.totalVolume, pulse.unit)}</>
-        ) : (
-          <>
-            <b className="num">{formatPercent(top.share, 0)}</b> a {labels[top.side]} ·{" "}
-            {formatPulseVolume(pulse.totalVolume, pulse.unit)}
-          </>
-        )}
-      </span>
-      {lean ? <Badge variant="pill-warning">Mercado cargado</Badge> : null}
-      <span className="caption pulse-teaser-cta" aria-hidden="true">
-        Ver detalle →
-      </span>
-    </button>
-  );
-}
-
 /** Cómo leer el panel de dinero: qué mide y qué no. */
 export function MarketPulseGuide(): React.JSX.Element {
   return (
@@ -211,14 +185,14 @@ export function MarketPulseGuide(): React.JSX.Element {
       <dl>
         <div>
           <dt>
-            <span className="key key-money" aria-hidden="true" />
+            <span className="pulse-key key-money" aria-hidden="true" />
             Dinero
           </dt>
           <dd>Parte del volumen negociado en cada resultado.</dd>
         </div>
         <div>
           <dt>
-            <span className="key key-model" aria-hidden="true" />
+            <span className="pulse-key key-model" aria-hidden="true" />
             Modelo
           </dt>
           <dd>Probabilidad que le da el modelo PitchLab al mismo resultado.</dd>
@@ -226,8 +200,8 @@ export function MarketPulseGuide(): React.JSX.Element {
         <div>
           <dt>Mercado cargado</dt>
           <dd>
-            El dinero supera al modelo por {Math.round(MARKET_PULSE_LEAN_GAP * 100)} puntos o más.
-            Si ese lado falla, el público pierde en bloque: el casinazo.
+            El dinero supera al modelo por {Math.round(MARKET_PULSE_LEAN_GAP * 100)} puntos o más
+            en un resultado.
           </dd>
         </div>
       </dl>
