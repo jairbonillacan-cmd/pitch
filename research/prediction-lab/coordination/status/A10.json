@@ -1,0 +1,36 @@
+{
+  "task_id": "A10",
+  "agent": "INTEGRATION ENGINEER",
+  "status": "completed",
+  "started_at": "2026-11-09T03:01:51-06:00",
+  "finished_at": "2026-11-09T03:19:00-06:00",
+  "summary": "Integración TypeScript del Motor A aprobado (model_motor_a.json v1.0.0) con copia byte a byte de los artefactos a src/data/prediction/. Motor puro y determinista: reconstruye [54 features, 23 dummies], imputa null/NaN con la mediana, estandariza con scale=0->1, calcula 3 logits y aplica softmax estable con validación de simplex 1±1e-9. Paridad medida contra probs_python en los 200 partidos del snapshot: 600 comparaciones, max|Δ|=4.997e-13, mean|Δ|=2.502e-13, 0 diferencias >1e-12; el residuo es exactamente el redondeo a 12 decimales de export_model.py (una recomputación Python independiente da el mismo máximo 4.997114e-13). Fallback implementado: mercado válido -> market_devig; mercado inválido -> Motor A con flag fallback_motor_a; features irrecuperables -> prior H/D/A 0.44/0.26/0.30 normalizado con flag invalid_features y modelId base_rates_v1. 21/21 tests vitest pasan; los archivos A10 compilan limpios con tsc estricto (exit 0). El tsc global sigue con 74 errores preexistentes ajenos, ninguno en rutas A10. Sin discrepancia de orden de columnas, escala o softmax.",
+  "parity_max_abs_diff": 4.99711383383783e-13,
+  "parity_mean_abs_diff": 2.501811952049238e-13,
+  "parity_tolerance": 1e-09,
+  "parity_comparisons": 600,
+  "parity_matches": 200,
+  "tests_run": 21,
+  "tests_passed": 21,
+  "tests_command": "npx vitest run tests/prediction/engine.test.ts",
+  "tsc_global_preexisting_errors": 74,
+  "tsc_a10_errors": 0,
+  "files_written": [
+    "/Users/jairbonilla/PitchLab-Prediction-Lab/src/domain/prediction/types.ts",
+    "/Users/jairbonilla/PitchLab-Prediction-Lab/src/domain/prediction/engine.ts",
+    "/Users/jairbonilla/PitchLab-Prediction-Lab/tests/prediction/engine.test.ts",
+    "/Users/jairbonilla/PitchLab-Prediction-Lab/src/data/prediction/model_motor_a.json",
+    "/Users/jairbonilla/PitchLab-Prediction-Lab/src/data/prediction/features_snapshot.json",
+    "/Users/jairbonilla/PitchLab-Prediction-Lab/research/prediction-lab/reports/A10_integration.md",
+    "/Users/jairbonilla/PitchLab-Prediction-Lab/research/prediction-lab/coordination/status/A10.json",
+    "/Users/jairbonilla/PitchLab-Prediction-Lab/reports/A10_integration.md",
+    "/Users/jairbonilla/PitchLab-Prediction-Lab/coordination/status/A10.json"
+  ],
+  "artifacts_sha256": {
+    "model_motor_a.json": "53fbde0f4eb7b47141115d3b7659d3a5229f25169d8a6cc9915522cd17f88ca0",
+    "features_snapshot.json": "bf1743619877720455b34d61902a30765715a54e0288c0c494beb627447eccc6"
+  },
+  "blockers": [],
+  "next": "A11/backend: (1) montar el adaptador que resuelve match_id -> SnapshotRow desde el feature service y llama predictWithFallback; (2) implementar de-vig (proportional/power/Shin) antes de pasar cuotas crudas como marketProbs; (3) instrumentar % invalid_features y % fallback_motor_a; (4) ejecutar A10 en CI cada vez que se regenere el artefacto o el snapshot; (5) añadir requestedAt en el sobre de la API porque generatedAt es la fecha del artefacto; (6) no desplegar el snapshot de 248 KB al cliente; (7) complementar la paridad con calibración OOS (A09/A11), que esta tarea no demuestra.",
+  "notes": "A10 no escribió fuera de sus rutas. Se observó que evidence/statistical-tests/aztecavet-experiments.json cambió su campo fecha a las 2026-11-09T03:14:03-06:00 por una ejecución concurrente de la suite completa; no fue A10 y se dejó intacto para no interferir."
+}

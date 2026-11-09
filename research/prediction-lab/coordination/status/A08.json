@@ -1,0 +1,36 @@
+{
+  "task_id": "A08",
+  "agent": "BACKTESTING & STATISTICS ENGINEER",
+  "status": "completed",
+  "started_at": "2026-11-09T01:28:11-06:00",
+  "finished_at": "2026-11-09T01:47:07-06:00",
+  "summary": "Implementado el laboratorio de evaluación en research/prediction-lab/eval/: metricas exactas del contrato (log-loss natural con clip, Brier multiclase y por clase, RPS H<D<A, accuracy, balanced accuracy, confusion 3x3, per-class, calibracion ECE + one-vs-rest), particiones canonicas dev/val/test/live y walk-forward expanding/rolling con corte temporal anti-fuga, bootstrap pareado por bloques temporada x division (B=2000) + test de permutacion de signos, alineacion estricta por match_id e informe reproducible metrics.json/metrics.md. 83/83 tests OK con unittest (sklearn 1.6.1 como oraculo, tolerancia 1e-9). Verificado sobre matches.parquet real: 181.268 partidos con resultado (>=50.000); cobertura dev=153.592 (84,7%), val=8.152 (4,5%), test=16.126 (8,9%), live=3.398 (1,9%); smoke end-to-end con 362.536 predicciones y 5 comparaciones en 74,9 s. Sin cambios fuera de eval/, reports/A08_*.md y coordination/status/A08.json.",
+  "tests_run": 83,
+  "tests_passed": 83,
+  "files_written": [
+    "research/prediction-lab/eval/__init__.py",
+    "research/prediction-lab/eval/metrics.py",
+    "research/prediction-lab/eval/splits.py",
+    "research/prediction-lab/eval/compare.py",
+    "research/prediction-lab/eval/report.py",
+    "research/prediction-lab/eval/tests/test_metrics.py",
+    "research/prediction-lab/eval/tests/test_splits.py",
+    "research/prediction-lab/eval/tests/test_compare.py",
+    "research/prediction-lab/eval/tests/test_report.py",
+    "research/prediction-lab/eval/artifacts/smoke/predictions.csv",
+    "research/prediction-lab/eval/artifacts/smoke/metrics.json",
+    "research/prediction-lab/eval/artifacts/smoke/metrics.md",
+    "research/prediction-lab/reports/A08_backtesting_framework.md",
+    "research/prediction-lab/coordination/status/A08.json"
+  ],
+  "evidence": [
+    "Comando: cd /Users/jairbonilla/PitchLab-Prediction-Lab && ./.venv/bin/python -m unittest discover -s research/prediction-lab/eval/tests -p \"test_*.py\" -v\nSalida: Ran 83 tests in 4.798s  ->  OK",
+    "Conteo por suite: test_metrics=32 OK (Ran 32 tests in 0.021s); test_splits=14 OK (Ran 14 tests in 0.354s); test_compare=20 OK (Ran 20 tests in 0.086s); test_report=17 OK (Ran 17 tests in 5.969s).",
+    "Comando: ./.venv/bin/python research/prediction-lab/eval/report.py --predictions research/prediction-lab/eval/artifacts/smoke/predictions.csv --matches research/prediction-lab/data/processed/matches.parquet --out-dir research/prediction-lab/eval/artifacts/smoke --bins 10 --bootstrap-B 2000 --permutations 2000 --seed 20261109\nSalida clave: [A08] comparaciones: 5; escrito metrics.json (690 KB) y metrics.md (19 KB); real 1m14.882s. Uniforme verificado: logloss=1.09861 (ln 3), brier=0.66667 (2/3).",
+    "Cobertura real (pandas sobre data/processed/matches.parquet): rows=181272, result_null=4, valid=181268, date_range=2000-07-28..2026-11-06, divisions=23, season_labels=42, particiones: dev=153592 val=8152 test=16126 live=3398.",
+    "Walk-forward real: 23 folds wf_2001..wf_2023 (expanding y rolling-5); check_no_leakage=[]; n_train expanding 5390..150750; n_test 5390..8169; n_train_dropped_date total=26144 (2842 en wf_2023 por ligas de calendario natural).",
+    "Comando: git -C /Users/jairbonilla/PitchLab-Prediction-Lab status --porcelain\nSalida: '?? .venv/' y '?? research/prediction-lab/' unicamente; no se modifico src/, tests/, etl/, data/ ni coordination/MASTER.md/TASKS.md."
+  ],
+  "blockers": [],
+  "next": "A06/A07 deben escribir artifacts/<exp_id>/predictions.csv segun contrato §1 y ejecutar eval/report.py; el orquestador debe aprobar las 6 decisiones metodologicas del informe §9 (orden del recorte, season_start como clave, walk-forward solo dev/val con corte por fecha, regla de significancia CI+p, test agrupado 2024/25+2025/26, bloques temporada x division). Fase 2 sugerida: comparaciones pareadas por temporada con correccion Holm y folds por (temporada, division) si se adoptan modelos por liga."
+}

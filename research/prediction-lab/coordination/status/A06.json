@@ -1,0 +1,50 @@
+{
+ "task_id": "A06",
+ "agent": "MODEL RESEARCHER MOTOR A",
+ "status": "completed",
+ "started_at": "2026-11-09T02:07:53-06:00",
+ "finished_at": "2026-11-09T03:34:00-06:00",
+ "dataset": "features.parquet v1.1 (182.410 partidos, priors de equipo sin leakage); predicciones base limpias de EXP01_final_20261109 y EXP05_hgb_final_20261109",
+ "summary": "Cuatro experimentos reales de Motor A (sin cuotas), walk-forward y sin tocar test. EXP02 (96 configuraciones de Elo): el mejor es K=20, HFA=90, regresion entre temporadas=0 y MOV=on, con val log-loss 1.01453 (Brier 0.60779, RPS 0.20656) frente a 1.01666 de la configuracion por defecto; Delta -0.00212 con IC95% [-0.00371,-0.00068] pareado por division (99.65% de remuestras a favor). La regresion entre temporadas (0 mejor que 0.33/0.5, +0.0041 de 0 a 0.5) y el multiplicador por diferencia de goles (+0.0013) son los unicos parametros con efecto material; K es de segundo orden y la HFA es NO identificable (0.00014 de amplitud entre 40 y 90) porque el umbral del logit absorbe la constante. EXP06 (calibracion: identity, temperature, vector scaling, isotonica OvR, Dirichlet/MLR): con datos limpios la calibracion NO mejora al mejor modelo; hgb empeora con todos los metodos (Delta >= 0, val 1.00974 sin calibrar), y solo elo_ordered-vector (-0.00085, 92.4% remuestras) y logit-dirichlet (-0.00061, 90.2%) mejoran con IC que cruza 0. Si mejora la fiabilidad: ECE top de logit 0.0182 -> 0.0104. Ajustar y evaluar en la misma temporada infla la mejora en 0.005-0.007 (trampa documentada). EXP03 (Poisson vs Dixon-Coles, 3 half-lives x 3 alphas pedidos + rejilla extendida): la rejilla pedida es degenerada en sklearn (alpha=1 aplasta ataque/defensa, sd 0.012); con alpha 0.003-0.03 el mejor DC (hl=730) da val 1.02622 y DC mejora a Poisson en las 18 parejas (Delta -0.00084, IC95% [-0.00141,-0.00022], 99.6% remuestras); rho medio -0.043, 87% de divisiones negativo. EXP10 (empates): P(D) bien calibrada (ECE 0.0080; 0.2639 vs 0.2691), argmax predice empate 0.80% (hgb) y 0.00% (elo/base_rate) frente a 26.62% real; umbral no mejora accuracy (+0.0002); modelo especializado (AUC 0.5557) NO mejora el 1X2 (blend Delta -0.00004, replace -0.00067). El leakage de priors inflaba hgb 0.0024 (1.00730 -> 1.00974) y fabricaba la mejora de calibracion; la recomendacion previa (hgb+dirichlet+blend, 1.00595) queda retirada.",
+ "experiments_run": [
+  "EXP02_elo_dynamic_sweep (96 configuraciones, walk-forward 2008/09-2023/24, 359 s)",
+  "EXP06_calibration (5 metodos x 3 modelos base, walk-forward 2010/11-2023/24)",
+  "EXP03_goals_poisson_vs_dixon_coles (18 combinaciones x 2 variantes = 36 filas, 824 s)",
+  "EXP10_draws (fiabilidad, argmax, umbrales, modelo binario especializado)"
+ ],
+ "best_val": {
+  "model": "logit+dirichlet (1.00968) y hgb sin calibrar (1.00974) empatados; mejor Elo: K=20/HFA=90/reg=0/MOV=on (1.01453)",
+  "log_loss": 1.00968
+ },
+ "key_numbers": {
+  "hgb_uncalibrated_val": 1.00974,
+  "logit_dirichlet_val": 1.00968,
+  "elo_best_val": 1.01453,
+  "elo_default_val": 1.01666,
+  "base_rate_val": 1.07365,
+  "market_pinnacle_close_power_val": 0.9898,
+  "goals_best_val": 1.02622
+ },
+ "decisions": [
+  "Elo recomendado: K=20, HFA=65 (irrelevante), regresion=0, MOV=on; no regenerar features sin aprobacion de A05.",
+  "No adoptar calibracion por defecto: solo logit+Dirichlet empata con hgb y mejora ECE.",
+  "Descartar modelo de goles como Motor A; conservar DC(rho estimado) para mercados de goles.",
+  "Descartar umbral de empate y blend con modelo especializado de empate.",
+  "Retirados los numeros de la corrida v1.0 (priors con leakage)."
+ ],
+ "files_written": [
+  "/Users/jairbonilla/PitchLab-Prediction-Lab/research/prediction-lab/models/a/experiments/common.py",
+  "/Users/jairbonilla/PitchLab-Prediction-Lab/research/prediction-lab/models/a/experiments/exp02_elo.py",
+  "/Users/jairbonilla/PitchLab-Prediction-Lab/research/prediction-lab/models/a/experiments/exp03_goals.py",
+  "/Users/jairbonilla/PitchLab-Prediction-Lab/research/prediction-lab/models/a/experiments/exp06_calibration.py",
+  "/Users/jairbonilla/PitchLab-Prediction-Lab/research/prediction-lab/models/a/experiments/exp10_draws.py",
+  "/Users/jairbonilla/PitchLab-Prediction-Lab/research/prediction-lab/reports/A06_motor_a_experiments.md",
+  "/Users/jairbonilla/PitchLab-Prediction-Lab/research/prediction-lab/coordination/status/A06.json",
+  "/Users/jairbonilla/PitchLab-Prediction-Lab/research/prediction-lab/artifacts/A06_EXP02_elo_20261109/",
+  "/Users/jairbonilla/PitchLab-Prediction-Lab/research/prediction-lab/artifacts/A06_EXP03_goals_20261109/",
+  "/Users/jairbonilla/PitchLab-Prediction-Lab/research/prediction-lab/artifacts/A06_EXP06_calibration_20261109/",
+  "/Users/jairbonilla/PitchLab-Prediction-Lab/research/prediction-lab/artifacts/A06_EXP10_draws_20261109/"
+ ],
+ "blockers": [],
+ "next": "1) Confirmar en test (una sola vez) hgb vs logit+Dirichlet: estan empatados en val (Delta 0.00006) y la decision debe tomarla el orquestador con el protocolo de congelacion. 2) Si A05 regenera features con Elo reg=0/MOV=on, repetir EXP02/EXP06 (EXP02 ya cuantifica la ganancia: -0.0021). 3) Explorar HFA como parametro del modelo (no dentro del rating) para hacerla identificable. 4) No volver a usar EXP01_baselines: common.find_clean_predictions ya bloquea esas predicciones. 5) El mercado sigue 0.020 por delante: la brecha es de informacion."
+}

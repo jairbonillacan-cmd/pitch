@@ -1,0 +1,16 @@
+{
+  "task_id": "A09",
+  "agent": "ADVERSARIAL MODEL AUDITOR",
+  "status": "completed",
+  "started_at": "2026-11-09T01:25:41-06:00",
+  "finished_at": "2026-11-09T01:50:38-06:00",
+  "summary": "Auditoría adversarial reproducida sobre motores AztecaVet/NFL/NCAA, tests y datos. La suite pasa 416/416 y la paridad TS es real (324 tests, eps<1e-9), pero no es validación predictiva. Hay leakage real localizado: (1) Liga MX usa los totales de la temporada en curso (gp=15, cur=0) para 'predecir' la misma temporada; al excluir el propio partido, el backtest J15 cae de 8/9 a 5/9 y J13-J15 de 20/27 a 16/27; (2) las 11 auditorías NHL están dentro de nhl-results.json, SA=build(R) las incluye y S=build(R.concat(AUD)) las cuenta dos veces: 8/11 -> 7/11 picks y 9/11 -> 7/11 ML. Los tests de backtest no lo detectan: batch-verify.test.ts imprime 2-3 vs el 4-1 observado sin ningún expect y evalúa el ML del motor, no el pick almacenado g.pk; E4 fútbol sólo asserta hit>0 y E4 NHL hit>=0. En la única muestra etiquetada (213 auditorías) el 1X2 está descalibrado: empate predicho 25.90% vs observado 16.43% (z=-3.16), Brier 0.6010 vs climatología 0.6227 (BSS +3.48%), y rho=0 mejora Brier (0.5962) y log-loss (0.9990); el rho óptimo in-sample es positivo (+0.30), no -0.08/-0.14. Over/Under y BTTS se calculan fuera de la matriz Poisson+tau: hasta 1.05 pp y 1.78 pp de incoherencia. El tilt de localía cambia el total de goles hasta -0.456 y tau vuelve a mover el share hasta 1.08 pp. NOB devuelve 'SIN VALOR' con un bestOf de EV +19.6% en los tres motores. Veredicto: los motores actuales pueden llamarse reconstrucción fiel con paridad, nunca 'motor de predicciones validado'.",
+  "critical_findings": 3,
+  "high_findings": 9,
+  "files_written": [
+    "/Users/jairbonilla/PitchLab-Prediction-Lab/research/prediction-lab/reports/A09_adversarial_preliminary.md",
+    "/Users/jairbonilla/PitchLab-Prediction-Lab/research/prediction-lab/coordination/status/A09.json"
+  ],
+  "blockers": [],
+  "next": "A08/A10: (1) no usar 8/9, 8/11 ni 9/17 como evidencia de validez; (2) reconstruir el estado point-in-time de MX y deduplicar NHL por match_id; (3) convertir los backtests en aserciones (el 2-3 vs 4-1 debe fallar); (4) tratar 324 tests de paridad como fidelidad, no validación; (5) estimar/validar rho, HFA, K y E en train y reportar log-loss/RPS/Brier OOS con bootstrap por bloques; (6) derivar todos los mercados de una sola matriz y corregir el tilt; (7) corregir NOB (bestOf === null) y bloquear parlays same-match/fallback sintético; (8) añadir match_id/match_date/kickoff/snapshot_id y provenance observed|estimated|missing. El informe A09 contiene 21 riesgos (3 críticos, 9 altos, 6 medios, 3 bajos), 11 verificaciones numéricas y 15 puntos de checklist anti-leakage."
+}

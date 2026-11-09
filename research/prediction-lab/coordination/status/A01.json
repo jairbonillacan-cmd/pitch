@@ -1,0 +1,41 @@
+{
+  "task_id": "A01",
+  "agent": "REPOSITORY AUDITOR",
+  "status": "completed",
+  "started_at": "2026-11-09T01:25:41-06:00",
+  "finished_at": "2026-11-09T01:31:39-06:00",
+  "summary": "Auditoría verificada del worktree prediction-lab (commit 8424876). Los motores existentes son reconstrucciones con paridad exacta (324 tests, eps<1e-9) de heurísticas de terceros con constantes fijas, sin entrenamiento, calibración ni evaluación fuera de muestra. La suite pasa 416/416 (392 del dominio + 24 de tres copias del test Linemate), pero npx tsc --noEmit falla con 74 errores y npm run build está bloqueado. Los datos son instantáneas (242 juegos de fútbol, 121 NFL, 121 NCAA, 224 NHL, 17 MLB) sin fechas por partido ni cuotas históricas. Métricas propias sobre auditorías: fútbol 1X2 Brier 0.6010 vs 0.6362 base-rate (BSS +5.5%), log loss 1.0072, accuracy 55.4%, empate sobreestimado ~9.5 pp; NHL 8/11, MLB 9/17. Veredicto: paridad validada, no predicción validada.",
+  "findings": [
+    "Arquitectura en 4 capas (dominio TS puro, datos JSON con fachada, shell DOM/Vite, tests Vitest) sin framework de UI ni dependencias de runtime; no hay barrel raíz ni alias de paths.",
+    "Los motores no están conectados a la UI: src/shell/main.ts solo importa el tipo Bet; football.html:4, mlb.html:4 y nhl.html:4 apuntan a src/pages/*.ts inexistentes y main.ts:222 usa 'fb.html' mientras el archivo es football.html (404).",
+    "Paridad fuerte pero no validez: 324 tests comparan contra oráculos extraídos del mismo bundle con tolerancia 1e-9; 24 tests dorados reproducen valores de UI; no hay split temporal, calibración ni cuotas históricas.",
+    "Parámetros duros transcritos del bundle (E=1.7, HFA=.54, K=6, rho=-.14/-.08 en constants.ts:17-34; E=2.37/HFA=.55/K=6 NFL; E=2.15/HFA=.525 NHL; E=1.83 HFA=.54 MLB) sin estimación con datos ni justificación verificable en el repo; los motores AztecaVet no permiten inyectar constantes.",
+    "Datos: instantánea 2026-11-06/07, no serie histórica. 242 fixtures de fútbol (213 auditados + 29 futuros), 215 bajas, 115 equipos; NFL 121 resultados (~7.6 juegos/equipo), NCAA 121 (~1.2), NHL 224 (14/equipo), MLB 17 juegos; sin match_date/match_id/odds en resultados; money.json son splits de apuestas, no cuotas.",
+    "La suite verde oculta debilidades: batch-verify.test.ts no tiene ningún expect (solo logs) y su backtest NCAA imprime 2-3 frente al registro 4-1 sin fallar (linea 108); sensitivity.test.ts solo hace console.log; E4 futbol solo asserta hit>0 y E4 NHL hit>=0.",
+    "Build roto: npx tsc --noEmit devuelve 74 errores en 12 archivos (data/index.ts:37, engine-nfl.ts:69-78, engine-ncaa.ts:85-90, props.ts:49-70, betting.ts:60-64, shell/store.ts, shell/audio.ts:99,153); npm run build se detiene en tsc y npm test no typechequea.",
+    "Sin vitest.config: Vitest descubre 9 archivos e incluye tres copias del test Linemate en Reportes/ y research/, inflando el conteo a 416; los 392 tests de dominio son los relevantes.",
+    "Evaluación predictiva propia (script temporal fuera del repo): fútbol 213 auditorías, pick 131/213 (61.5%) con prob media 52.1%, Brier 0.2424; 1X2 accuracy 55.4%, Brier 0.6010, log loss 1.0072, BSS +5.5% vs base-rate, empate medio .2590 vs .1643 real. NHL 8/11 (72.7%, Brier .2360), MLB 9/17 (52.9%, Brier .2523).",
+    "Riesgo P0 para src/domain/prediction/: typecheck ruidoso, contratos Market/Model no canónicos, datos sin dimensión temporal ni odds, y motores legacy con constantes no inyectables; se recomienda modulo aislado, contrato Prediction con simplex validado, dataset multi-temporada y evaluacion walk-forward antes de afirmar validez."
+  ],
+  "files_written": [
+    "/Users/jairbonilla/PitchLab-Prediction-Lab/research/prediction-lab/reports/A01_repository_audit.md",
+    "/Users/jairbonilla/PitchLab-Prediction-Lab/research/prediction-lab/coordination/status/A01.json"
+  ],
+  "evidence": [
+    "npx vitest run -> Test Files 9 passed (9), Tests 416 passed (416), Duration 3.52s",
+    "npx tsc --noEmit -> 74 errors, exit 2 (src/data/index.ts:37, src/domain/engine-nfl.ts:69-78, src/domain/engine-ncaa.ts:85-90, src/domain/props.ts:49-70, src/domain/betting.ts:60-64)",
+    "git branch --show-current -> prediction-lab; git log -1 -> 8424876 (2026-11-08)",
+    "src/domain/aztecavet/constants.ts:17-34 (E=1.7, HFA=.54, K=6, RHO=-.14/-.08)",
+    "src/domain/aztecavet/football.ts:158-172, :198-232, :264-319 (shrink, Pitagoras/Log5/tilt/Poisson-DC, pick)",
+    "src/domain/engine-nfl.ts:50-89, :166-187 (build K=6, pick 72/58); src/domain/engine-ncaa.ts:65-96, :146-177",
+    "tests/domain/aztecavet-parity.test.ts:59-70, :96 (eps=1e-9, 242 juegos)",
+    "tests/domain/aztecavet-experiments.test.ts:156, :179, :198-199, :233-238",
+    "tests/domain/batch-verify.test.ts:84-109 (sin asserts; 2-3 vs 4-1 en linea 108)",
+    "tests/domain/sensitivity.test.ts:10-35 (solo console.log)",
+    "src/data/index.ts:3-4, :52 (instantanea 7 nov 2026); docs/09-football-engine.md:15 (sin cuotas)",
+    "football.html:4, mlb.html:4, nhl.html:4; src/shell/main.ts:222 (entrypoints/iframe)",
+    "Calculo propio via npx vite-node --script /tmp/pitchlab_eval.ts: futbol 1X2 Brier .6010 vs base .6362, logloss 1.0072, acc 55.4%; NHL 8/11 Brier .2360; MLB 9/17 Brier .2523"
+  ],
+  "blockers": [],
+  "next": "A10 debe partir de un modulo prediction aislado: contrato Prediction con simplex validado, sin reutilizar Model/Market; P0-1 sanear tsc (74 errores) antes de integrar; P0-3/P0-4 usar el dataset temporal y walk-forward del lab, no los snapshots de src/data. Tratar los motores actuales como baseline de paridad, nunca como modelo validado."
+}

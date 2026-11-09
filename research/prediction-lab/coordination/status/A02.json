@@ -1,0 +1,45 @@
+{
+  "task_id": "A02",
+  "agent": "SCIENTIFIC RESEARCHER",
+  "status": "completed",
+  "started_at": "2026-11-09T01:25:42-06:00",
+  "finished_at": "2026-11-09T01:36:00-06:00",
+  "summary": "Revisión crítica verificada del paper obligatorio (Sallis, Georgoulas & Tsoulos 2026, Computation 14(9):195) contra el PDF real descargado (HTTP 200, sha256 9dc0f201090eb1a425fbbf1fd6594085d57519fdc158d92514b8b79c9c5e4f27) más 28 referencias de apoyo resueltas por DOI. Todas las cifras del encargo se confirman, con dos matices: (a) el PDF tiene 25 páginas, no 6 como registra MASTER.md §1; (b) los modelos con cuotas no solo 'no mejoran' al mercado: son significativamente peores en log-loss, Brier y RPS (todas las diferencias pareadas positivas con IC95% que excluye el cero). Se traduce la evidencia en 17 experimentos falsables (EXP01-EXP17) con criterio de muerte explícito. Referencias verificadas: 28 (27 de apoyo + el paper obligatorio); no verificadas: 1 ('Klein et al.', no localizable, no citada).",
+  "key_facts": [
+    "Paper obligatorio: 225.474 partidos, 20-oct-2018 a 28-feb-2026, 583 códigos de competición, split cronológico 149.979 train / 75.495 test con corte 9-sep-2022 (pp. 3-4, 7). Datos de OPAP, un solo proveedor y una sola cotización pre-partido; sin dataset ni código depositados.",
+    "El PDF tiene 25 páginas (root /Type/Pages /Count 25; pies 'N of 25'). El '6 pp.' de MASTER.md §1 es erróneo: file(1) reporta el primer nodo /Pages del árbol, no el documento.",
+    "18 features (15 sin cuotas): EloDiff, RankDifference, HistHome/HistAway, Imputed, AvgHs/AvgHc/AvgAs/AvgAc (ventana de 5 partidos por sede), cuatro formas de diferencia y dos frecuencias históricas. Elo con K=20, inicial 1500, sin término de localía, esperado logístico diff/400, empate = medio punto.",
+    "Anti-leakage: solo fechas estrictamente anteriores, agregación día a día (partidos coetáneos no se informan), imputación jerárquica en el 22,4% de los partidos (media point-in-time de competición -> global -> prior 0,30/1,00/0,00) con indicador binario, winsorización al percentil 99,9 estimado solo en train, sin remuestreo. Controles: intersección nula por clave y warm-up del Elo (σ=39).",
+    "Seis clasificadores con configuración fija (Tabla 3, p. 9): LR C=1,0; 'GAM' = HistGradientBoosting depth=1 (no es un GAM de splines); FastTree 300 iter/31 hojas/lr 0,05; RF 200 árboles/127 hojas; RBF = RBFSampler 300 features + LR (gamma 0,05); MLP 32 unidades/L2 1e-4/Adam. Python 3.12.10, sklearn 1.9.0, semilla 42.",
+    "De-vig: power method con exponente por Newton-Raphson desde 1, tolerancia 1e-13, máximo 60 iteraciones (p. 3). El paper no compara con Shin ni con normalización simple.",
+    "Tres clases sin cuotas (Tabla 11): trivial 43,45 / 1,0738 / 0,6498 / 0,2302; bookmaker 51,89 / 0,9836 / 0,5865 / 0,2003; seis modelos 47,96-48,04 de accuracy, log-loss 1,0289-1,0302, Brier 0,6176-0,6185, RPS 0,2147-0,2150.",
+    "Tres clases con cuotas (Tabla 12): modelos 51,70-51,97 de accuracy; GAM 51,97 es el máximo. Diferencias pareadas vs mercado (Tabla 13): GAM +0,086 pp [0,005; 0,158] de accuracy (≈65 aciertos extra sobre 75.495) pero +0,0008 [+0,0004; +0,0011] de log-loss, +0,0004 de Brier y +0,0001 de RPS. Todas las diferencias en reglas propias son positivas con IC que excluye el cero: los modelos son significativamente PEORES que el de-vig, no solo 'no mejores'. RBF es el peor (-0,192 pp, +0,0037 log-loss).",
+    "Binario (Tablas 4-5): error local 34,52% mercado vs 34,50-34,73% modelos (trivial 43,45%); visitante 27,86% vs 27,83-27,98% (trivial 31,18%). Sin cuotas el error sube a 38,09-38,34% y 30,03-30,11%, y el AUC cae de 0,70-0,71 a 0,646-0,652 (Tabla 6).",
+    "Empates: 25,37% del test. En binario el mercado nunca emite la clase X a umbral 0,5 (error = tasa base) y su AUC para el empate es 0,584. En argmax predice 396 de 75.495 (0,52%); los modelos con cuotas 211-728; sin cuotas tres de seis predicen 0 y el resto 14-15 (Tablas 10 y 14).",
+    "Importancia por permutación (Tabla 15): EloDiff domina con 0,1116 (local) y 0,1170 (visitante), ~24x y ~12x la siguiente feature; en empate cae a 0,0154 (las medias de goles suben a 0,0100). Sensibilidad (Tabla 7): 30 reajustes, σ del error 0,012-0,066 pp; la mejor configuración de cada modelo cae en 0,7061-0,7098 de AUC de validación y el mercado marca 0,7104.",
+    "Limitaciones declaradas (pp. 22-23): ninguna mejora en reglas propias; una sola instantánea de cuotas de un solo proveedor (sin movimiento apertura->cierre ni dispersión entre casas); sin datos de jugadores; empate mal predicho; imputación en el 22,4% (retirar indicadores cuesta ≤0,22 pp); solo pool agregado; calibración y señales de apuesta fuera de alcance; sin datos ni código.",
+    "Crítica metodológica propia: un solo corte temporal (sin ventana móvil), bootstrap i.i.d. sobre 75.495 partidos con 583 competiciones (IC probablemente subestimados por dependencia liga/jornada) y mercado tratado como cuasi-verdad (el de-vig corrige margen, no sesgo favorito-longshot).",
+    "Literatura verificada: Elo 1978 (libro, OpenLibrary OL6807294W), Bradley & Terry 1952 (10.2307/2334029), Glickman 1999 (10.1111/1467-9876.00159), Hvattum & Arntzen 2010 (10.1016/j.ijforecast.2009.10.002, V-m), Constantinou & Fenton 2013 pi-ratings (10.1515/jqas-2012-0036, rentabilidad en 5 temporadas de EPL), Wunderlich & Memmert 2018 (10.1371/journal.pone.0198668), Maher 1982 (10.1111/j.1467-9574.1982.tb00782.x, bivariado con correlación 0,2), Dixon & Coles 1997 (10.1111/1467-9876.00065, retorno positivo 1995-96).",
+    "Literatura de mercado y evaluación: Constantinou & Fenton 2012 (10.1515/1559-0410.1418, RPS por ordinalidad), Wheatcroft 2021 (10.1515/jqas-2019-0089, contra el RPS), Shin 1993 (10.2307/2234240, V-m), Forrest-Goddard-Simmons 2005 (10.1016/j.ijforecast.2005.03.003, las cuotas superan al modelo), Levitt 2004 (10.1111/j.1468-0297.2004.00207.x), Angelini & De Angelis 2019 (10.1016/j.ijforecast.2018.07.008, 41 casas/11 ligas: 8 mercados eficientes y 3 no), Štrumbelj 2014 (10.1016/j.ijforecast.2014.02.008, V-m), Hubáček et al. 2019 (10.1016/j.ijforecast.2019.01.001, NBA 2007-2014, beneficio positivo al minimizar correlación con el mercado), Clarke et al. 2017 (10.11648/j.ajss.20170506.12, V-m), Constantinou 2019 Dolores (10.1007/s10994-018-5703-7, V-m), Stübinger et al. 2019 (10.3390/app10010046).",
+    "Evaluación, calibración, drift y leakage: Brier 1950, Epstein 1969, Murphy 1973, Gneiting & Raftery 2007 (10.1198/016214506000001437), Guo et al. 2017 (arXiv:1706.04599, temperature scaling), Timmermann 2006 (10.1016/S1574-0706(05)01004-9), Gama et al. 2014 (10.1145/2523813), Kapoor & Narayanan 2023 (10.1016/j.patter.2023.100804: 17 campos, 294 papers, 8 tipos de leakage).",
+    "'Klein et al.' NO VERIFICADO: no existe referencia localizable con ese autor en este contexto; no se cita. Sustituto verificado: Stübinger, Mangold & Knoll 2019.",
+    "Cinco decisiones que se derivan: (1) no invertir en arquitecturas, sí en features y calibración; (2) Motor B = de-vig + corrección calibrada explícita, no un clasificador que 've' cuotas; (3) aceptar por RPS/log-loss, nunca por accuracy; (4) reportar P(X) calibrada y prohibir decidir empate por argmax; (5) adoptar el protocolo point-in-time del paper y auditar su ausencia de fugas."
+  ],
+  "references_verified": 28,
+  "references_unverified": 1,
+  "files_written": [
+    "/Users/jairbonilla/PitchLab-Prediction-Lab/research/prediction-lab/reports/A02_scientific_research.md",
+    "/Users/jairbonilla/PitchLab-Prediction-Lab/research/prediction-lab/coordination/status/A02.json"
+  ],
+  "blockers": [],
+  "next": [
+    "Corregir MASTER.md §1: el PDF del paper obligatorio tiene 25 páginas, no 6.",
+    "A05 (features): adoptar literalmente el protocolo point-in-time del paper (día a día, ventana de 5 por sede, imputación jerárquica con indicador) y documentar la fracción de test imputada, que el paper no reporta.",
+    "A06 (Motor A): criterio de aceptación en RPS y log-loss; el objetivo realista es RPS ≈0,215 sin cuotas y ≈0,200 alineado con el mercado, no superarlo.",
+    "A07 (Motor B): no construir un clasificador que consuma cuotas; la referencia es el de-vig y cualquier modelo debe batirlo o no existir (EXP08).",
+    "A08 (backtesting): bootstrap por bloques liga-temporada, no i.i.d.; el paper usa i.i.d. sobre 75.495 partidos con 583 competiciones y sus IC están probablemente subestimados.",
+    "A08/A10: EXP06 (calibración) es la oportunidad diferencial, porque el paper la declara explícitamente fuera de alcance.",
+    "Orquestador: si alguno de los 4 abstracts inaccesibles (Hvattum & Arntzen, Štrumbelj, Constantinou 2019, Shin) resulta necesario para una decisión, requiere acceso institucional; no se les ha atribuido ninguna cifra.",
+    "Nota de herramienta: web_search no está operativo en esta sesión (HTTP 401 del endpoint de búsqueda); toda la verificación se hizo con curl a APIs de Crossref/OpenAlex/arXiv y a páginas públicas."
+  ]
+}

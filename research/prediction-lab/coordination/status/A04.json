@@ -1,0 +1,33 @@
+{
+  "task_id": "A04",
+  "agent": "DATA ENGINEER",
+  "status": "completed",
+  "started_at": "2026-11-09T01:39:44-06:00",
+  "finished_at": "2026-11-09T02:30:00-06:00",
+  "summary": "Auditoría independiente del canónico matches.parquet (181.272 filas, 88 columnas, 23 divisiones, 42 etiquetas, 460 archivos de origen) y reconciliación contra 465 CSV crudos (182.415 filas no vacías). Invariantes: 0 match_id duplicados, 0 resultados incoherentes, 0 cuotas <=1, 0 partidos duplicados, 0 equipos vacíos; match_id reproducible al 100%. Cobertura: 181.268 resultados (99,998%), 50,92% tiros, 76,23% apertura B365, 24,47% cierre B365, 58,55% cierre Pinnacle, 22,89% totales cierre B365. Hallazgos: (1) defecto de ingesta G1: 1.142 partidos de 2000/01-2004/05 no entraron porque los CSV usan HT/AT y build_matches.py solo lee HomeTeam/AwayTeam (17,9% de G1, 0,63% del total); (2) 4 partidos sin resultado, 2 con descanso 0-3 y sin marcador final (F2 Bastia-Red Star 2025-12-05; G1 Panathinaikos-Olympiakos 2019-03-17) y 2 sin marcador (BRA Chapecoense-Atlético MG 2016-12-11; G1 Niki Volos-OFI 2015-05-10); (3) 1 fecha fuera de ventana ±1 año (ARG:20150129:boca_juniors:velez_sarsfield, 2015-01-29 etiquetada 2013/14) y 693 avisos de ventana mensual estricta (554 COVID 2019/20 + 138 extensiones ARG/BRA 2020 + 1 ARG); (4) 20 celdas de cuota <=1 en crudo anuladas por el ETL (0 en el parquet final), 406 filas BFE con placeholders 1,01/1,04, 15 filas con margen anómalo en B365/PS/Avg, 54 celdas max<avg y 2.192 cierres B365 idénticos a apertura; (5) 2026/27 (1.868) y 2026 (1.530) en curso, ARG 2020 (134) y SC1 2020/21 (135) cortas; 5 clusters de alias y 1 colisión de slug intra-temporada. Se entrega etl/validators.py con 73 checks (0 críticos, 26 avisos, exit 0, ~22 s, JSON determinista), 11 tests OK y el informe A04. El canónico es apto para 1X2/goles tras exclusiones; no es uniforme para cuotas/tiros/totales.",
+  "critical_issues": [
+    "ETL (no corregido por A04): 1.142 partidos de G1 2000/01-2004/05 no se ingieren porque los CSV usan cabeceras HT/AT y build_matches.py solo mapea HomeTeam/AwayTeam. Pérdida del 17,9% de G1 y 0,63% del dataset; el check season_history_gaps la detecta como aviso, pero la recuperación exige reingestión."
+  ],
+  "warnings": [
+    "4 partidos sin resultado: F2:20251205:bastia:red_star y G1:20190317:panathinaikos:olympiakos (descanso 0-3 sin FT), BRA:20161211:chapecoense_sc:atletico_mg y G1:20150510:niki_volos:ofi (sin marcador). Excluir del target; no imputar.",
+    "1 fila fuera de la ventana ±1 año: ARG:20150129:boca_juniors:velez_sarsfield (2015-01-29, temporada 2013/14). Excluir.",
+    "693 filas fuera de la ventana mensual estricta: 554 de 2019/20 (extensión COVID jul-ago 2020), 26 de ARG 2020 (ene-2021), 112 de BRA 2020 (ene-feb-2021) y la fila ARG anterior; son extensiones de calendario.",
+    "Cuotas: BFE solo existe desde 2024/25 y tiene 406 filas con márgenes anómalos/placeholders 1,01/1,04; 15 filas con margen fuera de rango en B365/PS/Avg; 54 celdas max<avg en 27 partidos; 2.192 cierres B365 idénticos a apertura; 34 saltos apertura->cierre >100% en libros coherentes y 724 en BFE.",
+    "Cobertura de mercado no uniforme: 2000/01-2001/02 sin ninguna cuota 1X2 (10.780 filas); cierre B365 solo desde 2019/20; Pinnacle 41,5% en 2025/26 y 0% en 2026/27; sin apertura ni tiros/totales en las seis ligas extra.",
+    "Temporadas incompletas/en curso: 2026/27 (1.868, 19 divisiones), 2026 (1.530, ARG/BRA/SWE/USA), ARG 2020 (134), SC1 2020/21 (135); 17 temporadas con <80% de partidos por equipo respecto al p90 de su división (COVID, ARG y B1 2009/10).",
+    "Equipos: 5 clusters de alias (Colon Santa FE/Fe, Las Palmas/U.Las Palmas, Lommel/Lommel SK, Extremadura/Extremadura UD, Bastia/CA Bastia), 1 colisión de slug intra-temporada (ARG 2022) y 21 equipos-temporada con <=2 partidos (playoffs JPN/SWE/SC1). No fusionar Bastia/CA Bastia ni filiales.",
+    "Estadísticas: 13 filas con SOT>tiros, 1 con 145 faltas (D2:20020422:bielefeld:hannover) y 1 con 9 rojas visitantes (SP2:20201113:zaragoza:oviedo); anular celdas, no partidos.",
+    "Representación: match_date es string y home_goals/away_goals float64 (por los 4 nulos), no date/int del contrato; 24.362 filas (13,4%) usan etiqueta de temporada YYYY en vez de YYYY/YY."
+  ],
+  "validators_exit_code": 0,
+  "files_written": [
+    "/Users/jairbonilla/PitchLab-Prediction-Lab/research/prediction-lab/etl/validators.py",
+    "/Users/jairbonilla/PitchLab-Prediction-Lab/research/prediction-lab/etl/tests/__init__.py",
+    "/Users/jairbonilla/PitchLab-Prediction-Lab/research/prediction-lab/etl/tests/test_validators.py",
+    "/Users/jairbonilla/PitchLab-Prediction-Lab/research/prediction-lab/data/processed/validation_report.json",
+    "/Users/jairbonilla/PitchLab-Prediction-Lab/research/prediction-lab/reports/A04_data_quality.md",
+    "/Users/jairbonilla/PitchLab-Prediction-Lab/research/prediction-lab/coordination/status/A04.json"
+  ],
+  "blockers": [],
+  "next": "A05/A06/A08/A10: (1) usar etl/validators.py como gate antes de features y reejecutarlo tras cualquier reingesta; (2) excluir del target las 4 filas sin resultado y la fila ARG 2015; excluir de entrenamiento/evaluación 2026/27, 2026 y ARG 2020, y de evaluación comparada SC1 2020/21 y las temporadas COVID cortas; (3) construir paneles de cuotas por fuente: apertura B365 2002/03+, cierre B365 2019/20+, cierre Pinnacle 2012/13-2024/25 y 2025/26 parcial, cierre B365 en 2026/27; no usar BFE ni max como libro; (4) resolver el defecto G1 (HT/AT) en el ETL y reingestionar 1.142 partidos; (5) mapear alias de equipo y marcar playoffs; (6) no usar kickoff_time para anti-leakage; (7) limitar modelos de tiros a divisiones principales y totales a 2019/20+."
+}

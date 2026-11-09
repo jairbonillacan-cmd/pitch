@@ -1,0 +1,23 @@
+{
+  "task_id": "A03",
+  "agent": "DATA SOURCE RESEARCHER",
+  "status": "completed",
+  "started_at": "2026-11-09T01:25:42-06:00",
+  "finished_at": "2026-11-09T01:38:52-06:00",
+  "summary": "Inventario verificado con 24 peticiones HTTP reales (ventana 07:25-07:36 UTC) sobre 22 fuentes gratuitas de datos deportivos: 13 utilizables y 9 bloqueadas. Hallazgos: (1) football-data.co.uk no tiene licencia alguna (terms.php, licence.php, about.php y legal.php dan 404; unica declaracion de uso 'My data is free'), y su notes.txt admite que compila datos de Oddsportal, Flashscore, ESPN y BBC, por lo que el uso comercial queda NO CONFIRMADO; (2) football-data anadio HxG/AxG en la temporada 2026/27 (100% de cobertura en E0 y SP1) y elimino Pinnacle; (3) la mejor fuente gratuita de xG de evento es StatsBomb Open Data (80 pares competicion-temporada, statsbomb_xg por disparo) con licencia de investigacion, mientras Understat esta caida ('We will come back soon') y FBref responde 403 de Cloudflare; (4) NO existe cuota historica gratuita con timestamp: football-data separa apertura y cierre sin hora de captura, The Odds API exige plan de pago para /v4/historical (401 sin clave, 30 USD/mes), Betfair Historical da 403 y OddsPortal redirige a cuotasahora.com sin ToS accesible, de modo que la unica via legitima es capturar snapshots propios desde ahora; (5) NFL es el deporte mejor servido (nflverse, 372 columnas con epa/wpa/spread_line, CC BY 4.0 = comercial permitido con atribucion), NHL funciona tecnicamente pero sin licencia y NCAAF depende de CFBD ('All rights reserved', clave gratuita 'for testing'). Liga MX solo tiene resultado y cuotas de cierre en new/MEX.csv (4.789 partidos desde 2012/13), sin estadisticas de partido.",
+  "sources_verified": 13,
+  "sources_failed": 9,
+  "commercial_ok": [
+    "openfootball/football.json (CC0 1.0, incluye fines comerciales explicitamente)",
+    "openfootball/football.db (dominio publico, ecosistema CC0)",
+    "OpenLigaDB (ODbL: comercial con atribucion y share-alike de la base derivada)",
+    "nflverse/nflverse-data (CC BY 4.0: comercial con atribucion)",
+    "nfl-data-py (MIT, cliente de nflverse)"
+  ],
+  "files_written": [
+    "/Users/jairbonilla/PitchLab-Prediction-Lab/research/prediction-lab/reports/A03_data_sources.md",
+    "/Users/jairbonilla/PitchLab-Prediction-Lab/research/prediction-lab/coordination/status/A03.json"
+  ],
+  "blockers": [],
+  "next": "A10/diseno: adoptar football-data.co.uk como backbone P0 (22 divisiones 1993/94-2026/27 + 14 ligas extra, con cierre y xG nuevos), registrar la fuente como 'no_confirmado' en una capa de licencias que rompa el build si entra en artefactos publicos, y arrancar ya la captura propia de cuotas con timestamp (2 snapshots/dia) porque ninguna fuente gratuita la ofrece. Para xG de evento usar StatsBomb offline (solo investigacion); no integrar Understat (caida) ni FBref (403) ni ESPN (ToS). NFL via nflverse es la unica familia con licencia comercial clara y debe servir de benchmark metodologico. Reintentar Understat/FBref/Betfair en 48 h antes de descartarlas definitivamente."
+}

@@ -1,0 +1,52 @@
+{
+  "task_id": "A11",
+  "agent": "DOCUMENTATION & REPRODUCIBILITY",
+  "status": "completed",
+  "started_at": "2026-11-09T02:54:46-06:00",
+  "finished_at": "2026-11-09T03:11:20-06:00",
+  "summary": "Consolidación documental de 8 informes (A01-A09) en docs/predicciones/: 8 documentos nuevos + índice actualizado. Cada cifra se trazó a un informe o artefacto; lo no verificado se marcó como pendiente. Verificaciones propias durante la consolidación: (1) eval/ 83/83 tests OK en 10,485 s; (2) etl/tests 10/11 (FAILED) porque etl/tests/test_validators.py:52 fija rows==181272 y el canónico v1.1 tiene 182.414; (3) features.parquet actual = 182.410 x 198 y el leakage de priors S+1 está corregido y verificado (99,634 % de coincidencia con el PPG de S-1 frente a 2,473 % con S+1, n=163.905); (4) matches.parquet = 182.414 x 88, sha256 4a43d4ed..., distinto del da31b830... que registró A08 sobre 181.272; (5) features_market.parquet sigue en 181.268 x 192 (pre-v1.1). Contradicciones documentadas: BSS +5,5 % (A01) vs +3,48 % (A09, climatología in-sample 0,62272); TASKS.md desactualizado frente a status/*.json; A06 sin coordination/status/A06.json; MASTER_SUMMARY declara features.parquet con 192 columnas cuando tiene 198. No se modificó código, datos ni tests; solo docs/predicciones/** y este status.",
+  "docs_written": [
+    "docs/predicciones/01_AUDITORIA_ACTUAL.md",
+    "docs/predicciones/02_INVESTIGACION_CIENTIFICA.md",
+    "docs/predicciones/03_FUENTES_DATOS_GRATUITOS.md",
+    "docs/predicciones/05_FEATURE_ENGINEERING.md",
+    "docs/predicciones/06_METODOLOGIA_BACKTESTING.md",
+    "docs/predicciones/11_LIMITACIONES_Y_RIESGOS.md",
+    "docs/predicciones/12_REPRODUCIBILIDAD.md",
+    "docs/predicciones/13_COORDINACION_SUBAGENTES.md",
+    "docs/predicciones/00_INDICE.md"
+  ],
+  "files_written": [
+    "/Users/jairbonilla/PitchLab-Prediction-Lab/docs/predicciones/00_INDICE.md",
+    "/Users/jairbonilla/PitchLab-Prediction-Lab/docs/predicciones/01_AUDITORIA_ACTUAL.md",
+    "/Users/jairbonilla/PitchLab-Prediction-Lab/docs/predicciones/02_INVESTIGACION_CIENTIFICA.md",
+    "/Users/jairbonilla/PitchLab-Prediction-Lab/docs/predicciones/03_FUENTES_DATOS_GRATUITOS.md",
+    "/Users/jairbonilla/PitchLab-Prediction-Lab/docs/predicciones/05_FEATURE_ENGINEERING.md",
+    "/Users/jairbonilla/PitchLab-Prediction-Lab/docs/predicciones/06_METODOLOGIA_BACKTESTING.md",
+    "/Users/jairbonilla/PitchLab-Prediction-Lab/docs/predicciones/11_LIMITACIONES_Y_RIESGOS.md",
+    "/Users/jairbonilla/PitchLab-Prediction-Lab/docs/predicciones/12_REPRODUCIBILIDAD.md",
+    "/Users/jairbonilla/PitchLab-Prediction-Lab/docs/predicciones/13_COORDINACION_SUBAGENTES.md",
+    "/Users/jairbonilla/PitchLab-Prediction-Lab/research/prediction-lab/coordination/status/A11.json"
+  ],
+  "evidence": [
+    "docs/predicciones/*.md: 9 archivos escritos; índice con 8/14 documentos completados y 6 pendientes justificados",
+    "cd research/prediction-lab && ./.venv/bin/python -m unittest discover -s research/prediction-lab/eval/tests -p 'test_*.py' -> Ran 83 tests in 10.485s / OK",
+    "./.venv/bin/python -m unittest discover -s research/prediction-lab/etl/tests -p 'test_*.py' -> Ran 11 tests in 94.338s / FAILED (failures=1): test_validators.py:52 rows 182414 != 181272",
+    "pandas: matches.parquet 182414 x 88, features.parquet 182410 x 198, features_market.parquet 181268 x 192",
+    "sha256 matches.parquet 4a43d4ed36ec89e8f95ccbed9b4011168cb4f98ff07b7c8cd96d78e1f5e1e7e0; features.parquet f233cd0c20d75d64ab17a9dde330cc98c95e0a6c6ed30dadeea0356a8f184f0f; features_market.parquet b16c2b59b28b632e9c93b1194134eaec8f6ad130cd3daac99eb1fc5922046381",
+    "verificación priors: S-1 0.996339 (n=163905) vs S+1 0.024733 (n=151335) recalculando PPG por (div,team,season) desde matches.parquet",
+    "current partitions v1.1: dev 154734, val 8152, test 16126, live 3398 (season_start)",
+    "logs/EXP01_final.log: 182.410 partidos, dev=154.734; artifacts/EXP01_final_20261109/ vacío al cierre (poisson_dc en ejecución)",
+    "A10 en curso al cierre: src/domain/prediction/{types.ts,engine.ts} (03:05-03:07), src/data/prediction/{features_snapshot.json,model_motor_a.json}, tests/prediction/engine.test.ts (03:10); sin coordination/status/A10.json ni informe"
+  ],
+  "contradictions_detected": [
+    "A01 BSS +5,5 % (Brier 0,6010 vs base-rate 0,6362) vs A09 +3,48 % (vs climatología in-sample 0,62272): distinta definición de baseline; A09 corrige a A01, que terminó 19 min antes",
+    "TASKS.md (01:48) marca A04/A05/A06/A09 'en progreso' y A07 'pendiente'; los status/*.json (hasta 02:45) dicen completed",
+    "A06 no tiene coordination/status/A06.json (única tarea completada sin contrato de estado)",
+    "MASTER_SUMMARY §2 declara features.parquet 181.268 x 192; el artefacto real es 182.410 x 198",
+    "validation_report.json describe 181.272 filas y features_market.parquet 181.268: ambos son pre-v1.1; matches.parquet ya tiene 182.414",
+    "A08 registró sha256 de matches.parquet da31b830... (181.272); el actual es 4a43d4ed... (182.414): regeneración por ETL v1.1, no corrupción"
+  ],
+  "blockers": [],
+  "next": "1) Cerrar EXP01_final sobre v1.1 (en ejecución a las 03:10, poisson_dc) y reescribir con sus cifras cualquier resultado de A06/EXP01 citado en docs 04/07/08. 2) Regenerar data/processed/features_market.parquet (181.268 x 192 -> 182.410) y data/processed/validation_report.json; actualizar etl/tests/test_validators.py:52 (181272 -> 182414 o aserción relativa). 3) Re-ejecutar features/audit_features.py sobre v1.1 y registrar la ablación post-corrección. 4) Añadir el test de lista blanca FEATURES_MOTOR_A (A05 R2). 5) A10 arrancó a las 03:05 sin coordination/status/A10.json: crearlo y regenerar TASKS.md desde los status. 6) No publicar CLV/ROI: no hay cuotas con timestamp (A03). 7) Resolver licencia football-data antes de cualquier artefacto público."
+}

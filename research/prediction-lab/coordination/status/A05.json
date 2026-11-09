@@ -1,0 +1,205 @@
+{
+  "task_id": "A05",
+  "agent": "FEATURE ENGINEERING SPECIALIST",
+  "status": "completed",
+  "started_at": "2026-11-09T01:39:44-06:00",
+  "finished_at": "2026-11-09T02:44:08-06:00",
+  "summary": "Auditoría real de las 198 columnas de features.parquet (el encargo decía 192). LEAKAGE CONFIRMADO: (1) crítico, los 10 priors de equipo (home_prev_*/away_prev_*) contienen la temporada SIGUIENTE en el 100,00% de las 166.615 filas con prior no nulo (join invertido left.season == right.prev_of; los nulos crecen 5,3% dev -> 14,3% test -> 100% en 2026/27); (2) crítico, 21 columnas post-partido (elo_*_post, shots_*, ht_*) y 5 de target conviven con las features en el mismo parquet (corr(delta elo local, dif. goles) = 0,879); (3) medio, season_progress usa max(match_date) de la temporada (calendario futuro). Verificado causal y sin fugas: Elo pre-partido (recalculo exacto de E0, error 0,0; formula post = pre + K*MOV*(score-exp) exacta), rolling de forma (.shift(1)) comprobado a mano en 2 casos con fechas, priors de liga. Ninguna feature supera |r| = 0,355 con el target (0 con |r| > 0,95). Calidad: 76 pares |r| > 0,9 (43,1% de las 102 features usables), days_rest con máximo 8.477 días (3,3% > 30 d), prev_sot_pg = 0,0 en el 46,3% por sumar todo-NaN, 3 columnas constantes. Ablación walk-forward 2008/09-2023/24 (16 folds, n=116.830, test intacto): Elo 1,01927; +forma 1,01578 (-0,00349); +descanso/contexto 1,01581 (+0,00003, NO aporta); +priors como están 1,01213 (-0,00368, ganancia falsa); +priors causales 1,01536 (-0,00045); sin tiros 1,01346 (+0,00133); sin season_progress idéntico. El 88% del valor aparente de los priors es futuro. Informe: reports/A05_features.md; JSON: features/feature_audit.json.",
+  "leakage_found": true,
+  "leakage": {
+    "critical": [
+      {
+        "id": "L1",
+        "title": "priors de equipo = temporada siguiente",
+        "columns": 10,
+        "evidence": "100,00% de coincidencia con el PPG de la temporada siguiente en 166.615 filas"
+      },
+      {
+        "id": "L3",
+        "title": "columnas post-partido y target en el parquet de features",
+        "columns": 26,
+        "evidence": "corr(delta elo local, dif. de goles) = 0,879"
+      }
+    ],
+    "soft": [
+      {
+        "id": "L2",
+        "title": "season_progress usa la fecha de fin de temporada",
+        "columns": 2
+      }
+    ],
+    "verified_clean": [
+      "elo_pre",
+      "forma",
+      "descanso",
+      "priors_liga",
+      "contexto (salvo season_progress)"
+    ],
+    "time_travel": {
+      "cutoffs": [
+        "2020-07-01",
+        "2021-01-15"
+      ],
+      "rows_compared": [
+        129203,
+        133901
+      ],
+      "identical_columns": "186/198",
+      "differing": [
+        "away_prev_ga_pg",
+        "away_prev_gf_pg",
+        "away_prev_n",
+        "away_prev_ppg",
+        "away_prev_sot_pg",
+        "elo_diff_x_progress",
+        "home_prev_ga_pg",
+        "home_prev_gf_pg",
+        "home_prev_n",
+        "home_prev_ppg",
+        "home_prev_sot_pg",
+        "season_progress"
+      ]
+    }
+  },
+  "dataset": {
+    "rows": 181268,
+    "columns": 198,
+    "expected_in_brief": 192,
+    "trainable_features": 102,
+    "partitions": {
+      "dev_le_2022": 153592,
+      "val_2023": 8152,
+      "test_2024_2025": 16126,
+      "live_2026": 3398
+    }
+  },
+  "ablations": {
+    "protocol": "LogisticRegression multinomial (C=1.0, max_iter=300) + StandardScaler + SimpleImputer(median) ajustados solo en train; walk-forward expanding por temporada 2008/09-2023/24; n=116.830; test no usado",
+    "blocks": {
+      "a_elo": {
+        "n_features": 3,
+        "log_loss": 1.01927,
+        "brier": 0.61086,
+        "accuracy": 0.49174,
+        "rps": 0.20835
+      },
+      "b_elo_forma": {
+        "n_features": 62,
+        "log_loss": 1.01578,
+        "brier": 0.60848,
+        "accuracy": 0.49362,
+        "rps": 0.20733
+      },
+      "c_elo_forma_descanso_contexto": {
+        "n_features": 76,
+        "log_loss": 1.01581,
+        "brier": 0.60851,
+        "accuracy": 0.49329,
+        "rps": 0.20734
+      },
+      "f_todo_sin_priors": {
+        "n_features": 76,
+        "log_loss": 1.01581,
+        "brier": 0.60851,
+        "accuracy": 0.49329,
+        "rps": 0.20734
+      },
+      "d_todo": {
+        "n_features": 88,
+        "log_loss": 1.01213,
+        "brier": 0.60604,
+        "accuracy": 0.49573,
+        "rps": 0.20618
+      },
+      "e_todo_sin_tiros": {
+        "n_features": 66,
+        "log_loss": 1.01346,
+        "brier": 0.60699,
+        "accuracy": 0.49486,
+        "rps": 0.20664
+      },
+      "g_todo_priors_causales": {
+        "n_features": 86,
+        "log_loss": 1.01536,
+        "brier": 0.60824,
+        "accuracy": 0.49349,
+        "rps": 0.20725
+      },
+      "h_todo_sin_progress": {
+        "n_features": 87,
+        "log_loss": 1.01213,
+        "brier": 0.60603,
+        "accuracy": 0.49566,
+        "rps": 0.20617
+      }
+    },
+    "paired_vs_d_todo_bootstrap_by_season": {
+      "a_elo": {
+        "delta_log_loss_vs_d": 0.00715,
+        "ci95": [
+          0.00607,
+          0.00814
+        ]
+      },
+      "b_elo_forma": {
+        "delta_log_loss_vs_d": 0.00365,
+        "ci95": [
+          0.00312,
+          0.00418
+        ]
+      },
+      "c_elo_forma_descanso_contexto": {
+        "delta_log_loss_vs_d": 0.00368,
+        "ci95": [
+          0.00314,
+          0.0042
+        ]
+      },
+      "f_todo_sin_priors": {
+        "delta_log_loss_vs_d": 0.00368,
+        "ci95": [
+          0.00317,
+          0.00422
+        ]
+      },
+      "e_todo_sin_tiros": {
+        "delta_log_loss_vs_d": 0.00133,
+        "ci95": [
+          0.00078,
+          0.00187
+        ]
+      },
+      "g_todo_priors_causales": {
+        "delta_log_loss_vs_d": 0.00324,
+        "ci95": [
+          0.00277,
+          0.00367
+        ]
+      },
+      "h_todo_sin_progress": {
+        "delta_log_loss_vs_d": -0.0,
+        "ci95": [
+          -7e-05,
+          7e-05
+        ]
+      }
+    },
+    "marginal": {
+      "forma": -0.00349,
+      "descanso_contexto": 3e-05,
+      "priors_como_estan": -0.00368,
+      "priors_causales": -0.00045,
+      "sin_tiros": 0.00133,
+      "sin_season_progress": 0.0
+    },
+    "reading": "Aportan Elo (base) y forma (-0,0035), con los tiros dentro de forma (-0,0013). NO aportan descanso, contexto ni season_progress (~0,0000). Los priors actuales aparentan -0,0037 pero el 88% es fuga de futuro; su valor honesto es -0,0005."
+  },
+  "files_written": [
+    "/Users/jairbonilla/PitchLab-Prediction-Lab/research/prediction-lab/features/audit_features.py",
+    "/Users/jairbonilla/PitchLab-Prediction-Lab/research/prediction-lab/features/feature_audit.json",
+    "/Users/jairbonilla/PitchLab-Prediction-Lab/research/prediction-lab/reports/A05_features.md",
+    "/Users/jairbonilla/PitchLab-Prediction-Lab/research/prediction-lab/coordination/status/A05.json"
+  ],
+  "blockers": [],
+  "next": "1) P0: sacar home_prev_*/away_prev_* de todo modelo (sustituir por el prior causal de la última temporada terminada, coste +0,00045, o eliminar) y corregir el join; 2) P0: lista blanca FEATURES_MOTOR_A + test que falle si entra una columna post-partido/target/mercado (hoy select_dtypes filtraría el resultado); 3) P1: podar forma (8 de 59 columnas), una sola variante de Elo, prev_sot_pg=NaN, days_rest clip 30-45 y season_progress con calendario fijo. A06/A08 deben rehacer cualquier métrica offline que haya usado el bloque de priors."
+}
