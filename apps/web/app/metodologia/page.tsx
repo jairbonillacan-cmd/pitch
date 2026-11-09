@@ -80,6 +80,10 @@ export default function MetodologiaPage(): React.JSX.Element {
       <ul>
         <li>No usa las cuotas de las casas como entrada. El precio no decide la probabilidad.</li>
         <li>No incorpora lesiones, alineaciones, clima ni decisiones arbitrales.</li>
+        <li>
+          La forma reciente y la posición en la tabla son <strong>contexto para leer el partido</strong>,
+          no entradas del modelo: la fuerza ya pondera antigüedad y calidad del rival.
+        </li>
         <li>No promete aciertos ni ganancias, y no sugiere cuánto apostar.</li>
         <li>No ajusta el pasado: un análisis publicado no se recalcula (queda archivado con su hora).</li>
       </ul>
