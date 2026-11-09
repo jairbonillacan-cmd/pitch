@@ -87,6 +87,8 @@ Dos acoplamientos a vigilar: `hockey.ts:14` y `baseball.ts:14` importan `pois`/`
 
 **INFERIDO:** cualquier archivo nuevo en `src/domain/prediction/` será typechecked junto con esos 74 errores y no habrá señal limpia hasta sanear el baseline.
 
+**Actualización (A10, 03:19):** el módulo nuevo (`src/domain/prediction/{types,engine}.ts` + tests) **compila limpio** con `tsc` estricto y pasa **21/21** tests; los 74 errores siguen siendo del baseline legacy y **0** caen en rutas A10. La deuda P0-1 (build global) permanece abierta.
+
 ---
 
 ## 2. Motores: inventario, fórmulas y parámetros
@@ -259,10 +261,10 @@ Empate: predicho 25.90 % vs observado 16.43 % (esperado 55.16, observado 35, z�
 
 | ID | Acción | Criterio |
 |---|---|---|
-| P0-1 | Sanear typecheck o aislar baseline | `npx tsc --noEmit` sale 0; `npm run build` completa; el módulo nuevo no añade errores |
-| P0-2 | Congelar contrato canónico | `Prediction` con `matchId`, simplex `1±1e-6`, `modelId`, `modelVersion`, `generatedAt`; tests de simplex, NaN y determinismo |
-| P0-3 | Construir dataset temporal | Cobertura por liga/temporada; ≥5 temporadas; 0 duplicados de `match_id`; test anti-leakage por fecha |
-| P0-4 | Evaluación walk-forward real | Log loss/Brier/RPS/ECE en `dev/val/test` congelados; baselines base-rate, Elo y mercado; IC bootstrap; test usado una vez |
+| P0-1 | Sanear typecheck o aislar baseline | **abierto**: `tsc` global sigue en 74 errores; el módulo nuevo no añade ninguno (A10) |
+| P0-2 | Congelar contrato canónico | **cumplido**: `Prediction` con simplex validado, `modelId`, `modelVersion`, `generatedAt`; 21 tests (A10) |
+| P0-3 | Construir dataset temporal | **cumplido**: 182.414 partidos, 23 divisiones, ≥5 temporadas, 0 duplicados, anti-leakage por fecha (A04/A09b) |
+| P0-4 | Evaluación walk-forward real | **cumplido**: dev/val/test congelados, baselines base-rate/Elo/mercado, IC bootstrap, test usado una vez (A08/FINAL) |
 
 **P1:** configurar Vitest y eliminar tests vacíos (`include: ["tests/**/*.test.ts"]`; mutar una fórmula debe romper algo); registro de procedencia de cada constante; separar legacy de lab; arreglar o declarar fuera de alcance la UI.
 **P2:** calibración solo en validación; `config.json` con seed/commit/hash; matriz «paridad vs validez» en README/Reportes.

@@ -73,7 +73,7 @@ Salida: `data/processed/matches.parquet` + `matches.csv` + `coverage.json` + `da
 ./.venv/bin/python -m unittest discover -s etl/tests -p "test_*.py"
 ```
 
-**Estado real hoy:** los 73 checks del validador son de la versión v1.0; el **test de aceptación falla** (`10/11`) porque `etl/tests/test_validators.py:52` fija `rows == 181272` y el canónico tiene 182.414. Es un defecto de la aserción, no del dataset.
+**Estado real:** `validation_report.json` regenerado sobre v1.1 (**182.414** filas, 73 checks, 0 críticos) y suite **11/11 OK** (7,5 s) tras actualizar `etl/tests/test_validators.py:52`. El validador y el dataset están alineados.
 
 ### Paso 3 — Features
 
@@ -82,7 +82,7 @@ Salida: `data/processed/matches.parquet` + `matches.csv` + `coverage.json` + `da
 ./.venv/bin/python features/build_market_features.py      # features_market.parquet (de-vig)
 ```
 
-Salida esperada: `features.parquet` **182.410 × 198**; `features_market.parquet` **181.268 × 192** (⚠ generado antes de v1.1: **hay que regenerarlo**; ver §6).
+Salida esperada: `features.parquet` **182.410 × 198**; `features_market.parquet` **182.410 × 192** (regenerado tras v1.1; hash `360e95a2…`).
 `build_features.py` escribe además el catálogo `reports/A05_feature_dictionary.md`.
 
 ### Paso 4 — Motor A (sin cuotas)
@@ -92,7 +92,7 @@ Salida esperada: `features.parquet` **182.410 × 198**; `features_market.parquet
 ```
 
 Modelos: `base_rate`, `elo_ordered`, `logit`, `poisson_dc`, `hgb` (y `ensemble` opcional con `pipeline/make_ensemble.py`). Escribe `artifacts/EXP01_baselines_<fecha>/{pred_*.csv,predictions.csv,metrics.json,config.json}`.
-**Estado:** existe `artifacts/EXP01_baselines_20261109/` (v1.0, pre-corrección de priors). El **relanzamiento sobre v1.1** está en `artifacts/EXP01_final_20261109/` y `logs/EXP01_final.log` (182.410 partidos, `dev=154.734`); a las **03:10** del 2026-11-09 la carpeta seguía vacía porque el proceso continuaba en ejecución (`poisson_dc`, temporada 2008). **Cualquier cifra de `EXP01_baselines` debe citarse como pre-corrección hasta que ese run cierre.**
+**Estado:** `artifacts/EXP01_final_20261109/` **completo** (logit, hgb, elo_ordered, poisson_dc, base_rate y `pred_ensemble.csv` con pesos walk-forward). Es el artefacto que alimenta el cierre. `EXP01_baselines_20261109/` queda como histórico **pre-corrección** y no debe citarse: sus cifras (hgb 1,00730) incluían el leakage de priors.
 
 ### Paso 5 — Motor B (con cuotas)
 
@@ -170,7 +170,10 @@ Salida: `metrics.json` (`schema_version = a08-metrics/1.0`) y `metrics.md` con e
 |---|---|---:|---|
 | `data/processed/matches.parquet` | 182.414 × 88 | 6.956.264 | `4a43d4ed36ec89e8f95ccbed9b4011168cb4f98ff07b7c8cd96d78e1f5e1e7e0` |
 | `data/processed/features.parquet` | 182.410 × 198 | 75.901.221 | `f233cd0c20d75d64ab17a9dde330cc98c95e0a6c6ed30dadeea0356a8f184f0f` |
-| `data/processed/features_market.parquet` | 181.268 × 192 | 58.495.536 | `b16c2b59b28b632e9c93b1194134eaec8f6ad130cd3daac99eb1fc5922046381` |
+| `data/processed/features_market.parquet` | 182.410 × 192 | 58.521.357 | `360e95a2a4b3de719a29fa7e5143b441f0cc2a580c0095c31f09f084aef12251` |
+| `artifacts/FINAL/predictions_test.csv` | 108.051 | 18.131.245 | `6950b97f4ffb0806…` (registrado en `metrics.md`) |
+| `artifacts/model_v1/model_motor_a.json` | 77 cols | 12,7 KB | `53fbde0f4eb7b47141115d3b7659d3a5229f25169d8a6cc9915522cd17f88ca0` |
+| `artifacts/model_v1/features_snapshot.json` | 200 filas | 248 KB | `bf1743619877720455b34d61902a30765715a54e0288c0c494beb627447eccc6` |
 | `eval/artifacts/smoke/predictions.csv` | 362.536 | 65.026.334 | `b725bddd002fdc5b8b1363eff8cd0efd4065768cf2bcf63d169ae8c560ecdb12` |
 | `eval/artifacts/smoke/metrics.json` | — | 706.490 | `d9a5d5aa27c6ebaadecaec626fbfad0d582bd3566bfcd6dd64ae9c52e821aabf` |
 | `artifacts/A06_EXP02_elo_20261109/predictions.csv` | 116.830 | 21.177.989 | `bd187923c4afd46cecb130f9cfc234a4f9989fadab4bb0480c3dc17e714404e3` |
@@ -251,9 +254,9 @@ PY
 |---|---|---|
 | **Cuotas con timestamp** | ninguna fuente gratuita lo publica (`notes.txt`: captura «Friday/Tuesday afternoons») | tratar apertura/cierre como escenarios; no afirmar CLV |
 | **Snapshot v1.0 (181.272)** | fue reemplazado por v1.1; el hash de A08 ya no existe en disco | citar las cifras de A04/A05/A08 como «v1.0» y no mezclarlas con v1.1 |
-| **`features_market.parquet`** | es de v1.0 (181.268 × 192) | regenerar con `build_market_features.py` antes de cualquier join |
+| **Artefactos v1.0 con test** (`EXP01_baselines`, `EXP03_poisson_v2`, `eval_devval`) | contienen bloques `test` y métricas pre-corrección | solo `artifacts/FINAL/` es citable |
 | **2026/27 (`live`)** | la temporada está en curso; football-data actualiza semanalmente | fechar cada ejecución; nunca usar `live` para seleccionar |
-| **Resultados de A06/EXP01** | entrenados con priors S+1 (pre-corrección) | esperar `EXP01_final` sobre v1.1; citarlos como pre-corrección |
+| **Resultados de A06/EXP01 de v1.0** | entrenados con priors S+1 | usar `EXP01_final` / `EXP05_hgb_final` / `EXP03_poisson_final`; v1.0 queda retirado (doc 07 §3) |
 | **Scripts de A01/A09 en `/tmp`** | `vite-node --script /tmp/pitchlab_eval.ts` y sondas no se conservaron | el laboratorio nuevo (`eval/`) los sustituye con código versionado |
 | **`evidence/statistical-tests/aztecavet-experiments.json`** | la suite legacy lo reescribe en cada ejecución; A09 lo restauró a `HEAD` | no usarlo como evidencia inmutable |
 | **Understat / FBref** | caída / 403 en la ventana de verificación | reintentar antes de citar cualquier dato suyo |
@@ -269,17 +272,31 @@ PY
 **Rápida (~15 min, sin reentrenar):**
 
 - [ ] `.venv` con las 6 versiones de §1.
-- [ ] `shasum -a 256 data/processed/matches.parquet` = `4a43d4ed…`.
+- [ ] `shasum -a 256 data/processed/matches.parquet` = `4a43d4ed…`; `features.parquet` = `f233cd0c…`; `features_market.parquet` = `360e95a2…`.
 - [ ] `./.venv/bin/python -m unittest discover -s research/prediction-lab/eval/tests -p "test_*.py"` → **83 OK**.
+- [ ] `./.venv/bin/python -m unittest discover -s research/prediction-lab/etl/tests -p "test_*.py"` → **11 OK**.
+- [ ] `npx vitest run tests/prediction/engine.test.ts` → **21/21**, `max|Δ| = 4,997e-13`.
 - [ ] §6.2 imprime S−1 ≈ 0,996 y S+1 ≈ 0,025.
-- [ ] `eval/artifacts/smoke/predictions.csv` = `b725bddd…` y su `metrics.json` reproduce `ln 3 = 1,09861` y `2/3 = 0,66667`.
+- [ ] `artifacts/FINAL/eval_test/metrics.md` reproduce logit 1,01802 y ensemble 1,01652.
 
-**Completa (~2 h, de cero):**
+**Completa (~2 h, de cero, sin reentrenar el cierre):**
 
-- [ ] pasos 0→3 (descarga, ETL, features).
-- [ ] paso 4 (Motor A) con `--no-test`.
-- [ ] paso 6 (export + `eval/report.py`) y comparar `metrics.json` con el artefacto archivado.
+- [ ] pasos 0→3 (descarga, ETL, features y features de mercado).
+- [ ] paso 4 (Motor A) con `--no-test`; `make_ensemble.py` para los pesos walk-forward.
+- [ ] paso 5 (Motor B, fase `open`).
+- [ ] `combine_predictions.py` → `predictions_select.csv` (≤2023) para selección y `predictions_test.csv` solo con candidatos congelados.
+- [ ] paso 6 (export + `eval/report.py`) y comparar `metrics.json` con `FINAL/eval_test/metrics.json`.
 - [ ] paso 8 solo si se quiere reproducir A06 (96 configuraciones de Elo, calibración, goles, empates).
 - [ ] anotar hash y fecha de cada parquet generado; si cambia la fuente, cambia el hash y **hay que reescribir las cifras**.
+
+**Cierre de test (una sola vez, documentado):**
+
+```bash
+# 1) candidatos congelados en FREEZE.md (pre-registro)
+# 2) predicciones de test de los candidatos + benchmarks
+./.venv/bin/python pipeline/combine_predictions.py   --artifacts artifacts/EXP01_final_20261109,artifacts/EXP08_motor_b_final_20261109   --out artifacts/FINAL/predictions_test.csv
+# 3) evaluación única
+./.venv/bin/python eval/report.py --predictions artifacts/FINAL/predictions_test.csv   --matches data/processed/matches.parquet --out-dir artifacts/FINAL/eval_test   --bins 10 --bootstrap-B 2000 --permutations 10000 --seed 20261109
+```
 
 **Regla de oro del laboratorio:** ninguna cifra se publica sin `(comando, hash del dataset, semilla, n)`. Si falta uno de los cuatro, la cifra es una observación, no un resultado.

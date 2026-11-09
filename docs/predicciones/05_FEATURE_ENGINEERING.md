@@ -5,7 +5,7 @@
 **Fuente:** [`A05_features.md`](../../research/prediction-lab/reports/A05_features.md) · artefacto [`feature_audit.json`](../../research/prediction-lab/features/feature_audit.json) · código [`build_features.py`](../../research/prediction-lab/features/build_features.py).
 **Datos de la auditoría:** `features.parquet` **181.268 × 198** (el encargo decía 192) · `matches.parquet`. Particiones: dev ≤ 2022/23, val 2023/24. **`test` no se usó en ninguna decisión.**
 
-> **Aviso de versión.** La auditoría se ejecutó sobre el artefacto **anterior** al ETL v1.1 (181.268 filas). El `features.parquet` actual tiene **182.410 filas × 198 columnas** tras recuperar 1.142 partidos de G1 y corregir el join de priors. Las cifras de ablación de §6 corresponden al artefacto auditado y **no se han vuelto a medir** sobre v1.1: se marcan como tales ([`12_REPRODUCIBILIDAD.md`](12_REPRODUCIBILIDAD.md) §5).
+> **Aviso de versión.** La auditoría se ejecutó sobre el artefacto **anterior** al ETL v1.1 (181.268 filas). El `features.parquet` actual tiene **182.410 filas × 198 columnas** tras recuperar 1.142 partidos de G1 y corregir el join de priors. Las cifras de ablación de §6 corresponden al artefacto auditado y **no se han vuelto a medir por bloques** sobre v1.1; lo que sí se midió es el efecto en el modelo: hgb pasó de **1,00730 a 1,00974** al corregir el leakage ([`07`](07_EXPERIMENTOS_RESULTADOS.md) §3). A09b verificó además el fix: el cuádruple `(n,ppg,gf_pg,ga_pg)` coincide con la temporada anterior observada en el **100,0000 %** de 364.820 filas-equipo, y el viaje en el tiempo da **0 diferencias en 198 columnas**.
 
 ---
 
@@ -150,7 +150,7 @@ El 0,37 % restante son equipos que cambian de división (el join agrupa por `div
 | Join de priors | **corregido** | `build_features.py:174-186` |
 | `season_progress` | **corregido** (calendario fijo) | `build_features.py:205-217` |
 | Parquet regenerado | **sí** (182.410 × 198, 02:53) | hash en doc 12 |
-| Ablación re-medida post-fix | **pendiente** | `feature_audit.json` es de 02:43, previo al parquet de 02:53 |
+| Ablación re-medida post-fix | **pendiente por bloques**; efecto en modelo medido (hgb 1,00730 → 1,00974) | `feature_audit.json` es de 02:43, previo al parquet de 02:53; A06 reentrenó sobre v1.1 |
 | Lista blanca + test anti-post-partido | **parcial** (lista en `train_motor_a.py:41-60`; test pendiente) | A05 R2 |
 
 ---
