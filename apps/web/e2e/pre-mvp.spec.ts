@@ -304,8 +304,24 @@ test.describe("PitchLab Pre-MVP E2E Suite", () => {
     await page.locator("button:has-text('Analizar')").first().click();
     const dialog = page.locator("[role=dialog].analysis-dialog");
     await expect(dialog).toBeVisible();
+    const skip = dialog.locator("[data-skip]");
+    if (await skip.isVisible().catch(() => false)) await skip.click();
+
+    // Fase A: la liga correcta en el modal y, según la hora, picks o el aviso de que no aplican.
+    await expect(dialog.locator("#modal-league")).toContainText("LaLiga");
+    await dialog.locator("[data-section-tab='picks']").click();
+    const picksOrNote = dialog.locator("[data-picks], [data-no-picks], .tag-info");
+    await expect(picksOrNote.first()).toBeVisible();
+    if ((await dialog.locator("[data-picks]").count()) > 0) {
+      await expect(dialog.locator("[data-picks] li")).toHaveCount(3);
+    }
+
+    // Secciones del análisis: cada pestaña muestra su bloque.
+    await dialog.locator("[data-section-tab='mercados']").click();
     await expect(dialog).toContainText("Goles por equipo");
     await expect(dialog).toContainText("Marcador exacto");
+
+    await dialog.locator("[data-section-tab='contexto']").click();
     await expect(dialog).toContainText("Forma local");
     await expect(dialog).toContainText("Forma visitante");
     await expect(dialog).toContainText("Posición local");
@@ -313,13 +329,10 @@ test.describe("PitchLab Pre-MVP E2E Suite", () => {
     await expect(dialog).toContainText("Contexto del partido");
     await expect(dialog).not.toContainText(/Memoria larga|ajustado por rival/i);
 
-    // Fase A: la liga correcta en el modal y, según la hora, picks o el aviso de que no aplican.
-    await expect(dialog.locator("#modal-league")).toContainText("LaLiga");
-    const picksOrNote = dialog.locator("[data-picks], [data-no-picks], .tag-info");
-    await expect(picksOrNote.first()).toBeVisible();
-    if ((await dialog.locator("[data-picks]").count()) > 0) {
-      await expect(dialog.locator("[data-picks] li")).toHaveCount(3);
-    }
+    // FD-20: el panel de dinero aparece (con datos o vacío) y nunca nombra al proveedor.
+    await dialog.locator("[data-section-tab='dinero']").click();
+    await expect(dialog.locator("[data-market-pulse]")).toBeVisible();
+    await expect(dialog).not.toContainText(/polymarket|kalshi/i);
   });
 
   test("6. Liga sin emblema (Bundesliga): fallback neutro y sin scroll horizontal", async ({

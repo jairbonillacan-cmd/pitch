@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useEffect, useRef, useState, useCallback } from "react";
-import type { MatchAnalysis } from "@pitchlab/contracts";
-import { formatPercent } from "@pitchlab/contracts";
+import type { MarketPulseSide, MatchAnalysis } from "@pitchlab/contracts";
+import { formatPercent, marketPulseLean } from "@pitchlab/contracts";
 import { getMascotPath } from "@pitchlab/sports-assets";
 import { Icon } from "./icons.js";
 import { BrandLogo, ThemeToggle } from "./primitives.js";
@@ -21,6 +21,8 @@ import { usePinSound } from "./pin-sounds.js";
 import { FooterSocial } from "./footer-social.js";
 import { Button } from "./components/ui/button.js";
 import { Dialog, DialogOverlay, DialogPopup, DialogPortal } from "./components/ui/dialog.js";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/ui/tabs.js";
+import { MarketPulseGuide, MarketPulsePanel, MarketPulseTeaser } from "./market-pulse.js";
 
 export function FloatingNav({
   links = [
@@ -482,6 +484,8 @@ export function PinPad({
   );
 }
 
+type AnalysisSection = "picks" | "mercados" | "dinero" | "contexto";
+
 export function AnalysisDialog({
   match,
   open,
@@ -503,6 +507,7 @@ export function AnalysisDialog({
   const [selectedMarketKey, setSelectedMarketKey] = useState<string>("");
   const [selectedMarketLabel, setSelectedMarketLabel] = useState<string>("");
   const [selectedMarketProb, setSelectedMarketProb] = useState<number>(0.5);
+  const [section, setSection] = useState<AnalysisSection>("picks");
 
   useEffect(() => {
     if (!open || !match) return;
@@ -517,6 +522,8 @@ export function AnalysisDialog({
       setSelectedMarketLabel(match.outcomes[0].label);
       setSelectedMarketProb(match.outcomes[0].probability);
     }
+
+    setSection(match.picks && match.picks.length > 0 ? "picks" : "mercados");
 
     const isFin = match.status === "FT" && match.score !== undefined;
     const isReduced =
@@ -558,6 +565,26 @@ export function AnalysisDialog({
   const [ph, pd, pa] = x12;
   const proj = shown?.projection ?? { home: 1.5, away: 1.2, total: 2.7 };
   const steps = shown?.steps ?? [];
+  const sideLabels: Record<MarketPulseSide, string> = {
+    home: shown?.home.name ?? "Local",
+    draw: "Empate",
+    away: shown?.away.name ?? "Visitante",
+  };
+  const sideModel: Partial<Record<MarketPulseSide, number>> = draw
+    ? { home: ph, draw: pd, away: pa }
+    : { home: ph, away: pa };
+  const pulseLean = shown?.marketPulse ? marketPulseLean(shown.marketPulse, sideModel) : null;
+  const hasContext =
+    (shown?.headToHead?.length ?? 0) > 0 ||
+    shown?.restDays?.home !== undefined ||
+    shown?.restDays?.away !== undefined ||
+    (shown?.factors.length ?? 0) > 0;
+  const sections: Array<{ id: AnalysisSection; label: string; flag?: boolean }> = [
+    { id: "picks", label: "Picks" },
+    { id: "mercados", label: "Mercados" },
+    { id: "dinero", label: "Dinero", flag: pulseLean !== null },
+    { id: "contexto", label: "Contexto" },
+  ];
 
   return (
     <Dialog
@@ -744,72 +771,122 @@ export function AnalysisDialog({
                     </div>
                   ) : null}
 
-                  <div className="rbody">
-                    <MarketTable
-                      groups={shown.marketGroups}
-                      outcomes={shown.outcomes}
-                      interactive
-                      selectedKey={selectedMarketKey}
-                      onSelectRow={(key, label, p) => {
-                        setSelectedMarketKey(key);
-                        setSelectedMarketLabel(label);
-                        setSelectedMarketProb(p);
-                      }}
-                    />
+                  <Tabs
+                    value={section}
+                    onValueChange={(v) => setSection(v as AnalysisSection)}
+                    className="rtabs gap-0"
+                  >
+                    <div className="rtabs-bar">
+                      <TabsList variant="chips" aria-label="Secciones del análisis">
+                        {sections.map((sec) => (
+                          <TabsTrigger
+                            key={sec.id}
+                            value={sec.id}
+                            data-section-tab={sec.id}
+                            className="min-h-11 px-4 max-md:px-3"
+                          >
+                            {sec.label}
+                            {sec.flag ? (
+                              <span className="tab-flag" role="img" aria-label="mercado cargado" />
+                            ) : null}
+                          </TabsTrigger>
+                        ))}
+                      </TabsList>
+                    </div>
 
-                    <div className="side-col">
-                      {shown.picks && shown.picks.length > 0 ? (
-                        <PicksPanel
-                          picks={shown.picks}
-                          confidence={isFinished ? undefined : shown.confidence}
-                          score={isFinished ? shown.score : undefined}
-                        />
-                      ) : null}
-                      {!isFinished && !(shown.picks && shown.picks.length > 0) ? (
-                        <p className="caption muted no-picks" data-no-picks="">
-                          Sin picks: este análisis se calculó con el partido ya iniciado. Los picks
-                          solo se publican antes del inicio.
-                        </p>
-                      ) : null}
-                      {shown.why && shown.why.length > 0 ? (
-                        <WhyList
-                          why={shown.why}
-                          title={shown.picks && shown.picks.length > 0 ? "Por qué este pick" : "Lectura del modelo"}
-                        />
-                      ) : null}
-                      {!shown.picks && shown.mostLikelyScore ? (
-                        <div className="panel likely">
-                          <span className="small secondary">
-                            Marcador más probable
-                          </span>
-                          <span>
-                            <b className="num" style={{ fontSize: "1.25rem" }}>
-                              {shown.mostLikelyScore.home}–{shown.mostLikelyScore.away}
-                            </b>{" "}
-                            <span className="caption muted">
-                              {formatPercent(shown.mostLikelyScore.p, 1)}
+                    <TabsContent value="picks" className="rbody rbody-split">
+                      <div className="side-col">
+                        {shown.picks && shown.picks.length > 0 ? (
+                          <PicksPanel
+                            picks={shown.picks}
+                            confidence={isFinished ? undefined : shown.confidence}
+                            score={isFinished ? shown.score : undefined}
+                          />
+                        ) : null}
+                        {!isFinished && !(shown.picks && shown.picks.length > 0) ? (
+                          <p className="caption muted no-picks" data-no-picks="">
+                            Sin picks: este análisis se calculó con el partido ya iniciado. Los
+                            picks solo se publican antes del inicio.
+                          </p>
+                        ) : null}
+                      </div>
+                      <div className="side-col">
+                        {shown.why && shown.why.length > 0 ? (
+                          <WhyList
+                            why={shown.why}
+                            title={
+                              shown.picks && shown.picks.length > 0
+                                ? "Por qué este pick"
+                                : "Lectura del modelo"
+                            }
+                          />
+                        ) : null}
+                        {!shown.picks && shown.mostLikelyScore ? (
+                          <div className="panel likely">
+                            <span className="small secondary">Marcador más probable</span>
+                            <span>
+                              <b className="num" style={{ fontSize: "1.25rem" }}>
+                                {shown.mostLikelyScore.home}–{shown.mostLikelyScore.away}
+                              </b>{" "}
+                              <span className="caption muted">
+                                {formatPercent(shown.mostLikelyScore.p, 1)}
+                              </span>
                             </span>
-                          </span>
-                        </div>
-                      ) : null}
+                          </div>
+                        ) : null}
+                        <MarketPulseTeaser
+                          pulse={shown.marketPulse}
+                          labels={sideLabels}
+                          lean={pulseLean}
+                          onOpen={() => setSection("dinero")}
+                        />
+                      </div>
+                    </TabsContent>
 
-                      <OddsCompare
-                        marketLabel={selectedMarketLabel}
-                        modelProb={selectedMarketProb}
+                    <TabsContent value="mercados" className="rbody">
+                      <MarketTable
+                        groups={shown.marketGroups}
+                        outcomes={shown.outcomes}
+                        interactive
+                        selectedKey={selectedMarketKey}
+                        onSelectRow={(key, label, p) => {
+                          setSelectedMarketKey(key);
+                          setSelectedMarketLabel(label);
+                          setSelectedMarketProb(p);
+                        }}
                       />
+                      <div className="side-col sticky-col">
+                        <OddsCompare
+                          marketLabel={selectedMarketLabel}
+                          modelProb={selectedMarketProb}
+                        />
+                      </div>
+                    </TabsContent>
 
+                    <TabsContent value="dinero" className="rbody">
+                      <MarketPulsePanel
+                        pulse={shown.marketPulse}
+                        labels={sideLabels}
+                        model={sideModel}
+                      />
+                      <MarketPulseGuide />
+                    </TabsContent>
+
+                    <TabsContent value="contexto" className="rbody rbody-split">
                       <HeadToHead
                         rows={shown.headToHead}
                         restDays={shown.restDays}
                         homeName={shown.home.shortName}
                         awayName={shown.away.shortName}
                       />
-
                       {shown.factors.length > 0 ? (
                         <FactorsList title="Contexto del partido" factors={shown.factors} />
                       ) : null}
-                    </div>
-                  </div>
+                      {!hasContext ? (
+                        <p className="caption muted">Sin contexto adicional para este partido.</p>
+                      ) : null}
+                    </TabsContent>
+                  </Tabs>
 
                   <div className="mfoot">
                     <span className="tag tag-model">

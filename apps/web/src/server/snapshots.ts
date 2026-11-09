@@ -2,12 +2,15 @@ import fs from "node:fs";
 import path from "node:path";
 import {
   LeagueSnapshotSchema,
+  MarketPulseFileSchema,
+  toMarketPulseView,
   assertNotDemoInProduction,
   snapshotToMatchAnalyses,
   asLeagueId,
   type LeagueId,
   type StandingRow,
   type MatchAnalysis,
+  type MarketPulseView,
 } from "@pitchlab/contracts";
 
 export interface ClientLeagueSnapshot {
@@ -61,7 +64,31 @@ export const PRODUCT_LEAGUES = [
 export type ProductLeague = (typeof PRODUCT_LEAGUES)[number];
 
 /** Caché en memoria por archivo y fecha de modificación (se invalida al reescribir el snapshot). */
-const snapshotCache = new Map<string, { mtimeMs: number; envelope: SnapshotEnvelope }>();
+const snapshotCache = new Map<string, { key: string; envelope: SnapshotEnvelope }>();
+
+function fileMtime(file: string): number {
+  try {
+    return fs.statSync(file).mtimeMs;
+  } catch {
+    return 0;
+  }
+}
+
+/**
+ * Volumen por resultado de mercados de predicción (FD-20). Vive aparte del snapshot para
+ * actualizarse sin tocar los análisis publicados; si falta o no es válido, el panel no aparece.
+ */
+function loadMarketPulse(file: string): Map<string, MarketPulseView> {
+  const byGame = new Map<string, MarketPulseView>();
+  if (!fs.existsSync(file)) return byGame;
+  try {
+    const parsed = MarketPulseFileSchema.parse(JSON.parse(fs.readFileSync(file, "utf8")));
+    for (const entry of parsed.entries) byGame.set(entry.gameId, toMarketPulseView(entry));
+  } catch {
+    byGame.clear();
+  }
+  return byGame;
+}
 
 const matchContext = new Set([
   "Forma local",
@@ -127,14 +154,12 @@ export function loadLeagueSnapshotEnvelope(leagueKey: ProductLeague): SnapshotEn
 
   // Caché por fecha de modificación: evita parsear y normalizar el mismo snapshot en cada
   // request (siete ligas por página) y se invalida solo cuando el job lo reescribe.
-  let mtimeMs = 0;
-  try {
-    mtimeMs = fs.statSync(latestPath).mtimeMs;
-  } catch {
-    mtimeMs = 0;
-  }
+  const pulsePath = path.join(root, leagueKey, "market-pulse.json");
+  const snapshotMtime = fileMtime(latestPath);
+  // La clave combina ambos archivos: el pulso se actualiza más seguido que el snapshot.
+  const cacheKey = snapshotMtime > 0 ? `${snapshotMtime}:${fileMtime(pulsePath)}` : "";
   const cached = snapshotCache.get(leagueKey);
-  if (cached && mtimeMs > 0 && cached.mtimeMs === mtimeMs) {
+  if (cached && cacheKey && cached.key === cacheKey) {
     return cached.envelope;
   }
 
@@ -144,6 +169,7 @@ export function loadLeagueSnapshotEnvelope(leagueKey: ProductLeague): SnapshotEn
     assertNotDemoInProduction(parsed.provenance);
 
     const { days, matches } = snapshotToMatchAnalyses(parsed);
+    const pulses = loadMarketPulse(pulsePath);
     const clientSafe: ClientLeagueSnapshot = {
       schemaVersion: 1,
       league: parsed.league,
@@ -153,7 +179,10 @@ export function loadLeagueSnapshotEnvelope(leagueKey: ProductLeague): SnapshotEn
       roundLabel: parsed.periodLabel,
       generatedAt: parsed.updatedAt,
       days,
-      games: matches.map(matchForClient),
+      games: matches.map((m) => {
+        const marketPulse = pulses.get(m.id);
+        return marketPulse ? { ...matchForClient(m), marketPulse } : matchForClient(m);
+      }),
       standings: parsed.standings,
     };
 
@@ -162,8 +191,8 @@ export function loadLeagueSnapshotEnvelope(leagueKey: ProductLeague): SnapshotEn
       data: clientSafe,
       generatedAt: clientSafe.generatedAt,
     };
-    if (mtimeMs > 0) {
-      snapshotCache.set(leagueKey, { mtimeMs, envelope });
+    if (cacheKey) {
+      snapshotCache.set(leagueKey, { key: cacheKey, envelope });
     }
     return envelope;
   } catch (err) {

@@ -1,3 +1,4 @@
+import type { MarketPulseView } from "./market-pulse.js";
 import { asMarketKey, type LeagueId } from "./ids.js";
 import type {
   AnalysisConfidence,
@@ -92,6 +93,8 @@ export interface MatchAnalysis {
   why?: string[];
   headToHead?: HeadToHeadView[];
   restDays?: { home?: number; away?: number };
+  /** Volumen por resultado en mercados de predicción (FD-20). Se adjunta en el servidor. */
+  marketPulse?: MarketPulseView;
 }
 
 export function probabilityToFairOdds(p: number): FairOdds {

@@ -44,6 +44,12 @@ jobs:
           FOOTBALL_DATA_API_KEY: ${{ secrets.FOOTBALL_DATA_API_KEY }}
         run: pnpm snapshot
 
+      # FD-20: volumen por resultado en mercados de predicción (API pública, sin clave).
+      # Si falla, los snapshots se publican igual.
+      - name: Volumen por resultado (mercados de predicción)
+        continue-on-error: true
+        run: pnpm --filter @pitchlab/ingest exec tsx src/market-pulse-cli.ts
+
       - name: Guardar cambios en data/snapshots
         run: |
           git config user.name "pitchlab-bot"
