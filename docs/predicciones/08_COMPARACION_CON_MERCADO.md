@@ -183,3 +183,11 @@ Magnitud del movimiento: L1 medio **0,192** (mediana 0,153; p90 0,383); el 89 % 
 | ¿Qué se despliega? | Motor A `logit`; Motor B de-vig *power* sobre apertura como precio/benchmark. |
 | ¿Hay *edge*? | **No demostrable.** La conclusión del paper se replica: manda la información. |
 | ¿Qué queda como candidato? | El `ensemble` (mejor log-loss y ECE en test) para el siguiente ciclo, con datos nuevos. |
+
+## 7. Confirmación prospectiva (ciclo 6)
+
+En 146 fixtures reales del 6–9 nov 2026, predichos por el pipeline completo y puntuados con
+resultados publicados después, el mercado volvió a ganar: 0,91407 vs 0,93943 de log-loss
+(Δ +0,02536 [+0,00585; +0,04434]). Es la tercera muestra independiente (val, test, fixtures) con el
+mismo signo. La comparación no es en tiempo real (predicciones tras el kickoff), pero el modelo
+nunca vio esos partidos.

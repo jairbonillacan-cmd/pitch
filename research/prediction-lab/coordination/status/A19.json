@@ -1,0 +1,20 @@
+{
+  "task_id": "A19",
+  "agent": "ORCHESTRATOR (ciclo 6)",
+  "status": "completed",
+  "started_at": "2026-11-09T06:10:00-06:00",
+  "finished_at": "2026-11-09T06:30:00-06:00",
+  "summary": "Scoring prospectivo de los 150 fixtures pre-registrados: 146 con resultado publicado. Modelo log-loss 0,93943 vs mercado 0,91407 (Delta +0,02536 [+0,00585; +0,04434], 99,4% en contra). ECE modelo 0,110 vs mercado 0,066: alerta de sobreconfianza en 2026/27. Caveat: predicciones generadas tras el kickoff (evaluacion out-of-sample de pipeline, no pronostico en tiempo real).",
+  "n_scored": 146,
+  "model_log_loss": 0.93943,
+  "market_log_loss": 0.91407,
+  "delta_log_loss": 0.02536,
+  "files_written": [
+    "pipeline/score_fixtures.py",
+    "artifacts/FIXTURES/SCORE_20261109T100153Z.json",
+    "artifacts/FIXTURES/REPORT_SCORE_20261109T100153Z.md",
+    "reports/A19_prospective_scoring.md"
+  ],
+  "blockers": [],
+  "next": "Predecir antes del kickoff para un test realmente prospectivo; investigar sobreconfianza 2026/27 en el ciclo de calibracion."
+}

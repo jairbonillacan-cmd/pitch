@@ -195,3 +195,5 @@ Es la restricción que más condiciona el proyecto.
 | R-23 | Bajo | La licencia de nflverse exige atribución (CC BY 4.0) | `data/nfl/raw/manifest.json` | **MITIGADO** (atribución en docs y código) |
 
 | R-24 | Alto | **NHL/NCAAF sin licencia clara**: la API de NHL no declara derechos y los releases de NCAAF no traen licencia de datos | `docs/10` §9.3; A03 | bloquea producto multi-deporte | **ABIERTO** (decisión: no-go hasta licencia) |
+
+| R-25 | Medio | **Sobreconfianza en 2026/27**: ECE 0,110 en los 146 fixtures vs 0,011 en test; log-loss live 1,027 vs 1,010 de val | `REPORT_SCORE_20261109T100153Z.md`; `monitoring_live.md` | calibración peor en la temporada en curso; no invalida el ranking (el mercado sigue ganando) | **ABIERTO** (ciclo de calibración) |

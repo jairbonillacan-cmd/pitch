@@ -214,3 +214,18 @@ fiabilidad pasa a ser requisito de producto. Script: `pipeline/experiment_calibr
   predicciones con hash `0a28484d…` (pre-registro) y comparación con B365 del mismo snapshot.
   Diferencia media abs. modelo−mercado: 5,0/2,6/4,8 pp. No son señales de valor (el mercado gana
   ~0,020 en test); el conjunto queda para puntuarse cuando haya resultados.
+
+### Addendum ciclo 6 — scoring prospectivo de 146 fixtures
+
+Las 150 predicciones pre-registradas del ciclo 5 se puntuaron con los resultados publicados después
+(146 con resultado; `predictions_sha256 0a28484d…`):
+
+| Sistema | Log-loss | Brier | RPS | Accuracy | ECE |
+|---|---:|---:|---:|---:|---:|
+| modelo | 0,93943 | 0,55435 | 0,19320 | 0,5479 | 0,1104 |
+| mercado | **0,91407** | **0,53849** | **0,18610** | **0,5616** | **0,0655** |
+
+Δ = **+0,02536** [+0,00585; +0,04434], 99,4 % en contra: el mercado vuelve a ganar, coherente con
+el +0,020 de test. **Caveat:** las predicciones se generaron después del kickoff (aunque antes de que
+la fuente publicara resultados): es una evaluación out-of-sample del pipeline, no un pronóstico en
+tiempo real. El ECE 0,11 del modelo (vs 0,011 en test) activa la señal de sobreconfianza en 2026/27.
