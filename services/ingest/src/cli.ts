@@ -1,13 +1,17 @@
-import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import {
   fetchNflverseCsv,
   normalizeNflverseSchedule,
 } from "./adapters/nflverse.js";
+import { loadRootEnvFiles } from "./env.js";
 import {
   fetchOpenFootballPl,
   normalizeOpenFootballPremierLeague,
 } from "./adapters/openfootball.js";
+import {
+  fetchFootballDataPl,
+  normalizeFootballDataPremierLeague,
+} from "./adapters/football-data.js";
 import {
   fetchApiFootballLigaMx,
   normalizeApiFootballLigaMx,
@@ -23,35 +27,16 @@ const ROOT_DIR = resolve(import.meta.dirname, "..", "..", "..");
 const SNAPSHOTS_ROOT = resolve(ROOT_DIR, "data", "snapshots");
 const CACHE_DIR = resolve(import.meta.dirname, "..", ".cache");
 
-function loadRootEnvFiles(): void {
-  for (const fileName of [".env.local", ".env"]) {
-    const filePath = resolve(ROOT_DIR, fileName);
-    if (!existsSync(filePath)) continue;
-    const lines = readFileSync(filePath, "utf8").split(/\r?\n/);
-    for (const rawLine of lines) {
-      const line = rawLine.trim();
-      if (!line || line.startsWith("#")) continue;
-      const eqIdx = line.indexOf("=");
-      if (eqIdx <= 0) continue;
-      const key = line.slice(0, eqIdx).trim();
-      const val = line
-        .slice(eqIdx + 1)
-        .trim()
-        .replace(/^['"]|['"]$/g, "");
-      if (key && process.env[key] === undefined) {
-        process.env[key] = val;
-      }
-    }
-  }
-}
-
 async function main() {
-  loadRootEnvFiles();
+  loadRootEnvFiles(ROOT_DIR);
   const now = new Date();
   const dateStr = process.env.SNAPSHOT_DATE ?? now.toISOString().slice(0, 10);
   const updatedAt = process.env.SNAPSHOT_TIMESTAMP ?? now.toISOString();
+  const modelVersion: "v1" | "v2" = process.env.MODEL_VERSION === "v1" ? "v1" : "v2";
 
-  console.log(`[snapshot] Generando snapshots para fecha=${dateStr} (${updatedAt})...`);
+  console.log(
+    `[snapshot] Generando snapshots para fecha=${dateStr} (${updatedAt}) · modelo=${modelVersion}...`,
+  );
 
   // 1. NFL (nflverse CC-BY 4.0)
   const prevNfl = loadPreviousSnapshot(SNAPSHOTS_ROOT, "nfl");
@@ -68,18 +53,28 @@ async function main() {
     teamRateInputs: normNfl.teamRateInputs,
     updatedAt,
     previousSnapshot: prevNfl,
+    seasonGames: normNfl.allGames,
+    modelVersion,
   });
   const nflFiles = writeSnapshotFiles(SNAPSHOTS_ROOT, nflSnapshot, dateStr);
   console.log(
     `[snapshot] NFL (${normNfl.periodLabel}): ${nflSnapshot.games.length} partidos -> ${nflFiles.latestPath}`,
   );
 
-  // 2. Premier League (openfootball CC0)
+  // 2. Premier League (football-data.org si existe FOOTBALL_DATA_API_KEY, si no openfootball CC0)
   const prevPl = loadPreviousSnapshot(SNAPSHOTS_ROOT, "premier-league");
-  const plJson = await fetchOpenFootballPl();
-  const normPl = normalizeOpenFootballPremierLeague(plJson, {
-    referenceDate: dateStr,
-  });
+  const footballDataKey = process.env.FOOTBALL_DATA_API_KEY?.trim();
+  const normPl = footballDataKey
+    ? normalizeFootballDataPremierLeague(
+        await fetchFootballDataPl({
+          apiKey: footballDataKey,
+          cacheFilePath: resolve(CACHE_DIR, "football-data-pl.json"),
+        }),
+        { referenceDate: dateStr },
+      )
+    : normalizeOpenFootballPremierLeague(await fetchOpenFootballPl(), {
+        referenceDate: dateStr,
+      });
   const plSnapshot = buildFootballSnapshot({
     league: "premier-league",
     leagueName: "Premier League",
@@ -91,6 +86,8 @@ async function main() {
     updatedAt,
     source: "openfootball",
     previousSnapshot: prevPl,
+    seasonGames: normPl.allGames,
+    modelVersion,
   });
   const plFiles = writeSnapshotFiles(SNAPSHOTS_ROOT, plSnapshot, dateStr);
   console.log(
@@ -121,6 +118,8 @@ async function main() {
       updatedAt,
       source: "api-football",
       previousSnapshot: prevMx,
+      seasonGames: normMx.allGames,
+      modelVersion,
     });
     const mxFiles = writeSnapshotFiles(SNAPSHOTS_ROOT, mxSnapshot, dateStr);
     console.log(

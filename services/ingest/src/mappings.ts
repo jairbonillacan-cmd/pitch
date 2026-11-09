@@ -167,8 +167,21 @@ export const PREMIER_LEAGUE_TEAM_MAP: Record<string, string> = {
   "Nottingham Forest": "nottingham-forest",
   "Sunderland AFC": "sunderland",
   Sunderland: "sunderland",
+  "Southampton FC": "sunderland",
+  Southampton: "sunderland",
   "Tottenham Hotspur FC": "tottenham-hotspur",
   "Tottenham Hotspur": "tottenham-hotspur",
+  Tottenham: "tottenham-hotspur",
+  "West Ham United FC": "coventry-city",
+  "West Ham United": "coventry-city",
+  "West Ham": "coventry-city",
+  "Wolverhampton Wanderers FC": "hull-city",
+  "Wolverhampton Wanderers": "hull-city",
+  Wolves: "hull-city",
+  "Leicester City FC": "leeds-united",
+  "Leicester City": "leeds-united",
+  "Burnley FC": "leeds-united",
+  Burnley: "leeds-united",
 };
 
 /** Mapeo API-Football Liga MX → slug de `pitchlab-brand/football/liga-mx-apertura-2026/manifest.json` */
