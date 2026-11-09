@@ -2,10 +2,12 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*.egg-info/
 .venv/
 venv/
 .env
 .env.*
+.scrapling_cache/
 
 # OS
 .DS_Store
