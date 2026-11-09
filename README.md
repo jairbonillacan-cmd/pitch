@@ -9,19 +9,22 @@ Rama huérfana dedicada exclusivamente a herramientas y almacenamiento de datos 
 - [`config/sources_catalog.json`](config/sources_catalog.json) — Configuración estructurada de las 24 fuentes, sus ligas, modos de Scrapling y features desbloqueadas.
 - **Scrapers (`scrapers/`):**
   - [`scrapers/base_scraper.py`](scrapers/base_scraper.py) — Clase base `PitchLabScraplingBase` con sellado automático `captured_at_utc` y `sha256`.
-  - [`scrapers/odds_scraper.py`](scrapers/odds_scraper.py) — Extracción de Pinnacle, Caliente.mx y Action Network Splits.
-  - [`scrapers/stats_scraper.py`](scrapers/stats_scraper.py) — Extracción de Statiskicks, Opta Player Stats, ClubElo, Transfermarkt Liga MX y Understat EPL.
-  - [`scrapers/context_scraper.py`](scrapers/context_scraper.py) — Extracción de lesiones Transfermarkt, RotoWire, Mediotiempo (`--ai-targeted`) y Open-Meteo.
-  - [`scrapers/wave2_stats_odds_scraper.py`](scrapers/wave2_stats_odds_scraper.py) — Extracción de FotMob, FBref, Sofascore, SumerSports/PFR, Codere, OddsPortal/Oddschecker y Smarkets Exchange.
-  - [`scrapers/wave2_context_scraper.py`](scrapers/wave2_context_scraper.py) — Extracción de PremierInjuries/SportsGambler, NFL Official Injuries & Ourlads Depth Charts, Fantasy Football Scout/BBC, Marca, ProFootballTalk y WorldFootball/NFLPenalties.
+  - [`scrapers/odds_scraper.py`](scrapers/odds_scraper.py) — Ola 1 de Casinos y Cuotas (Pinnacle, Caliente.mx y Action Network Splits).
+  - [`scrapers/stats_scraper.py`](scrapers/stats_scraper.py) — Ola 1 de Estadísticas Avanzadas (Statiskicks, Opta Player Stats, ClubElo, Transfermarkt Liga MX y Understat EPL).
+  - [`scrapers/context_scraper.py`](scrapers/context_scraper.py) — Ola 1 de Lesiones, Noticias y Clima (Transfermarkt, RotoWire, Mediotiempo `--ai-targeted` y Open-Meteo).
+  - [`scrapers/wave2_stats_odds_scraper.py`](scrapers/wave2_stats_odds_scraper.py) — Ola 2 de Estadísticas y Cuotas (FotMob, FBref, Sofascore, SumerSports/PFR, Codere, OddsPortal/Oddschecker y Smarkets Exchange).
+  - [`scrapers/wave2_context_scraper.py`](scrapers/wave2_context_scraper.py) — Ola 2 de Lesiones, Prensa y Árbitros (PremierInjuries/SportsGambler, NFL Official Injuries & Ourlads Depth Charts, Fantasy Football Scout/BBC, Marca, ProFootballTalk y WorldFootball/NFLPenalties).
+  - [`scrapers/wave3_deep_xg_opta_statiskicks.py`](scrapers/wave3_deep_xg_opta_statiskicks.py) — Ola 3 profunda de **Understat** (5 ligas completas: 96 clubes, 3,502 partidos de historial, 1,752 fixtures, 500 jugadores), **Opta Player Stats** (`api.performfeeds.com/soccerdata/...`: Liga MX y EPL standings, squads, seasonstats y matchstats) y **Statiskicks** (24 subpáginas, tablas `xP` de 6 ligas, series rodantes `xG`/`xGA` y percentiles de Liga MX).
+  - [`scrapers/wave3_deep_six_leagues.py`](scrapers/wave3_deep_six_leagues.py) — Ola 3 profunda de las **6 ligas principales** en **Transfermarkt** (`114` clubes valorados + `340` lesionados/sancionados), **FotMob** (`7` competiciones completas) y **FBref** (`6` competiciones + calendario con `xG` de Liga MX).
+  - [`scrapers/wave3_deep_odds_env_referees.py`](scrapers/wave3_deep_odds_env_referees.py) — Ola 3 profunda de **48 estadios** (18 Liga MX + 30 NFL a 7 días / `8,064` puntos horarios en **Open-Meteo**), **árbitros de las 6 ligas + tipos de castigo NFL** y **cuotas/splits multi-deporte en Action Network y Smarkets Exchange**.
   - [`scrapers/normalize_datasets.py`](scrapers/normalize_datasets.py) — Verificador criptográfico (`sha256`) y normalizador hacia `data/normalized/`.
 - **Datos (`data/`):**
-  - `data/raw/{category}/{source_id}/{YYYY-MM-DD}/` — **25 snapshots crudos** (con sus sobres `captured_at_utc` + `sha256`) y **4 volcados Markdown `--ai-targeted`** cubriendo las **24/24 fuentes**.
-  - `data/normalized/` — **5,214 registros normalizados** listos para modelado:
-    - [`data/normalized/market_microstructure.json`](data/normalized/market_microstructure.json) (`1,749` registros)
-    - [`data/normalized/xg_and_team_ratings.json`](data/normalized/xg_and_team_ratings.json) (`1,004` registros)
-    - [`data/normalized/roster_availability.json`](data/normalized/roster_availability.json) (`2,105` registros)
-    - [`data/normalized/news_and_environment.json`](data/normalized/news_and_environment.json) (`356` registros)
+  - `data/raw/{category}/{source_id}/{YYYY-MM-DD}/` — **36 snapshots crudos** (con sus sobres `captured_at_utc` + `sha256`) y **4 volcados Markdown `--ai-targeted`** cubriendo las **24/24 fuentes**.
+  - `data/normalized/` — **29,686 registros normalizados** listos para modelado:
+    - [`data/normalized/market_microstructure.json`](data/normalized/market_microstructure.json) (`10,190` registros)
+    - [`data/normalized/xg_and_team_ratings.json`](data/normalized/xg_and_team_ratings.json) (`16,118` registros)
+    - [`data/normalized/roster_availability.json`](data/normalized/roster_availability.json) (`2,549` registros)
+    - [`data/normalized/news_and_environment.json`](data/normalized/news_and_environment.json) (`829` registros)
     - [`data/normalized/manifest_summary.json`](data/normalized/manifest_summary.json) (manifiesto de auditoría con `all_sha256_verified: true`)
 
 ## Uso rápido

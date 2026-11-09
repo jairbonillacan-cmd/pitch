@@ -467,17 +467,22 @@ def _normalize_action_network(
         start_time = g.get("start_time")
         num_bets = g.get("num_bets")
 
-        markets_sample = g.get("markets_sample") or []
+        markets_sample = g.get("markets") or g.get("markets_sample") or []
         max_div = None
         for mkt in markets_sample:
             if not isinstance(mkt, dict):
                 continue
             tickets_pct = mkt.get("tickets_pct")
             money_pct = mkt.get("money_pct")
-            divergence = None
-            if tickets_pct is not None and money_pct is not None:
+            divergence = mkt.get("money_minus_tickets_pct")
+            if divergence is None and tickets_pct is not None and money_pct is not None:
                 try:
                     divergence = round(float(money_pct) - float(tickets_pct), 2)
+                except (TypeError, ValueError):
+                    divergence = None
+            if divergence is not None:
+                try:
+                    divergence = round(float(divergence), 2)
                     if max_div is None or abs(divergence) > abs(max_div):
                         max_div = divergence
                 except (TypeError, ValueError):
@@ -492,6 +497,7 @@ def _normalize_action_network(
                     "record_type": "action_network_split_outcome",
                     "game_id": game_id,
                     "league_name": league_name,
+                    "sport": g.get("sport") or league_name,
                     "season": g.get("season"),
                     "week": g.get("week"),
                     "start_time_utc": start_time,
@@ -509,9 +515,15 @@ def _normalize_action_network(
                     "decimal_odds": dec_odds,
                     "is_live": mkt.get("is_live"),
                     "tickets_pct": tickets_pct,
+                    "tickets_value": mkt.get("tickets_value"),
                     "money_pct": money_pct,
+                    "money_value": mkt.get("money_value"),
                     "sharp_money_divergence": divergence,
-                    "sharp_money_flag": bool(divergence is not None and divergence >= 10.0),
+                    "sharp_money_flag": bool(divergence is not None and abs(divergence) >= 10.0),
+                    "reverse_line_movement_signal": bool(
+                        mkt.get("reverse_line_movement_signal")
+                        or (divergence is not None and abs(divergence) >= 15.0)
+                    ),
                 }
             )
 
@@ -568,6 +580,54 @@ def _normalize_generic_odds_source(
                         "event_type": ev.get("type"),
                         "bettable": ev.get("bettable"),
                         "parent_id": ev.get("parent_id"),
+                    }
+                )
+        for mkt in payload.get("exchange_markets") or []:
+            if isinstance(mkt, dict):
+                records.append(
+                    {
+                        **base,
+                        "record_type": "smarkets_exchange_market",
+                        "market_id": mkt.get("market_id") or mkt.get("id"),
+                        "event_id": mkt.get("event_id"),
+                        "name": mkt.get("name"),
+                        "slug": mkt.get("slug"),
+                        "market_type": mkt.get("market_type"),
+                        "state": mkt.get("state"),
+                        "bettable": mkt.get("bettable"),
+                        "inplay_enabled": mkt.get("inplay_enabled"),
+                        "complete": mkt.get("complete"),
+                    }
+                )
+        for qt in payload.get("exchange_quotes") or []:
+            if isinstance(qt, dict):
+                bid_bps = qt.get("best_bid_implied_bps")
+                offer_bps = qt.get("best_offer_implied_bps")
+                mid_prob = (
+                    round((float(bid_bps) + float(offer_bps)) / 20000.0, 6)
+                    if (bid_bps is not None and offer_bps is not None)
+                    else None
+                )
+                spread_bps = (
+                    round(float(offer_bps) - float(bid_bps), 2)
+                    if (bid_bps is not None and offer_bps is not None)
+                    else None
+                )
+                records.append(
+                    {
+                        **base,
+                        "record_type": "smarkets_exchange_quote",
+                        "contract_id": qt.get("contract_id"),
+                        "best_bid_implied_bps": bid_bps,
+                        "best_offer_implied_bps": offer_bps,
+                        "mid_implied_prob": mid_prob,
+                        "bid_offer_spread_bps": spread_bps,
+                        "best_back_decimal_odds": qt.get("best_back_decimal_odds"),
+                        "best_lay_decimal_odds": qt.get("best_lay_decimal_odds"),
+                        "total_bid_quantity_units": qt.get("total_bid_quantity_units"),
+                        "total_offer_quantity_units": qt.get("total_offer_quantity_units"),
+                        "bids_levels_count": len(qt.get("bids_depth") or []),
+                        "offers_levels_count": len(qt.get("offers_depth") or []),
                     }
                 )
         for link in payload.get("dom_links") or []:
@@ -707,12 +767,14 @@ def _normalize_understat(
 ) -> list[dict[str, Any]]:
     payload = envelope.get("payload") or {}
     base = _lineage_fields(envelope, rel_path)
-    league = payload.get("league", "EPL")
+    default_league = payload.get("league", "EPL")
     records: list[dict[str, Any]] = []
 
-    for team in payload.get("teams_xg_table") or []:
+    team_rows = payload.get("teams_xg_table") or payload.get("all_teams_season_table") or []
+    for team in team_rows:
         if not isinstance(team, dict):
             continue
+        lg = str(team.get("league") or default_league)
         title = str(team.get("team_title") or "")
         mp = int(team.get("matches_played") or 0)
         pts = int(team.get("pts") or 0)
@@ -723,7 +785,11 @@ def _normalize_understat(
         npxgd = float(team.get("npxGD") if team.get("npxGD") is not None else (npxg - npxga))
         xpts = float(team.get("xPTS") or 0.0)
         ppda_avg = float(team["ppda_avg"]) if team.get("ppda_avg") is not None else None
+        ppda_allowed_avg = (
+            float(team["ppda_allowed_avg"]) if team.get("ppda_allowed_avg") is not None else None
+        )
         deep_comp = int(team.get("deep_completions") or 0)
+        deep_allowed = int(team.get("deep_allowed") or 0) if team.get("deep_allowed") is not None else None
 
         recent_5 = team.get("recent_5_matches") or []
         g_r5 = sum(int(m.get("scored", 0) or 0) for m in recent_5 if isinstance(m, dict))
@@ -731,15 +797,19 @@ def _normalize_understat(
         xg_r5 = round(sum(float(m.get("xG", 0.0) or 0.0) for m in recent_5 if isinstance(m, dict)), 3)
         xga_r5 = round(sum(float(m.get("xGA", 0.0) or 0.0) for m in recent_5 if isinstance(m, dict)), 3)
 
-        # Goles totales (G): usar campo directo si existe, si no lookup exacto MW24, si no estimación entera
-        if team.get("G") is not None or team.get("goals_for") is not None:
+        # Goles totales (G): usar scored/G/goals_for directo si existe, si no lookup exacto MW24, si no estimación entera
+        if team.get("scored") is not None:
+            goals_for = int(team["scored"])
+        elif team.get("G") is not None or team.get("goals_for") is not None:
             goals_for = int(team.get("G") if team.get("G") is not None else team.get("goals_for"))
         elif title in UNDERSTAT_EPL_MW24_GOALS_LOOKUP and mp == 24:
             goals_for = UNDERSTAT_EPL_MW24_GOALS_LOOKUP[title]["G"]
         else:
             goals_for = int(round(xg + (g_r5 - xg_r5)))
 
-        if team.get("GA") is not None or team.get("goals_against") is not None:
+        if team.get("missed") is not None:
+            goals_against = int(team["missed"])
+        elif team.get("GA") is not None or team.get("goals_against") is not None:
             goals_against = int(team.get("GA") if team.get("GA") is not None else team.get("goals_against"))
         elif title in UNDERSTAT_EPL_MW24_GOALS_LOOKUP and mp == 24:
             goals_against = UNDERSTAT_EPL_MW24_GOALS_LOOKUP[title]["GA"]
@@ -747,17 +817,20 @@ def _normalize_understat(
             goals_against = int(round(xga + (ga_r5 - xga_r5)))
 
         xg_overperf = round(goals_for - xg, 3)
-        xg_overperf_r5 = round(g_r5 - xg_r5, 3)
+        xg_overperf_r5 = round(g_r5 - xg_r5, 3) if recent_5 else None
         pts_overperf = round(pts - xpts, 3)
 
         records.append(
             {
                 **base,
                 "record_type": "understat_team_xg",
-                "league": league,
+                "league": lg,
                 "team_id": str(team.get("team_id") or ""),
                 "team_name": title,
                 "matches_played": mp,
+                "wins": team.get("wins"),
+                "draws": team.get("draws"),
+                "loses": team.get("loses"),
                 "G": goals_for,
                 "GA": goals_against,
                 "pts": pts,
@@ -768,17 +841,120 @@ def _normalize_understat(
                 "npxGD": round(npxgd, 3),
                 "xPTS": round(xpts, 3),
                 "ppda_avg": ppda_avg,
+                "ppda_allowed_avg": ppda_allowed_avg,
                 "deep_completions": deep_comp,
+                "deep_allowed": deep_allowed,
                 "xg_overperformance": xg_overperf,
                 "pts_overperformance": pts_overperf,
-                "G_r5": g_r5,
-                "GA_r5": ga_r5,
-                "xG_r5": xg_r5,
-                "xGA_r5": xga_r5,
+                "G_r5": g_r5 if recent_5 else None,
+                "GA_r5": ga_r5 if recent_5 else None,
+                "xG_r5": xg_r5 if recent_5 else None,
+                "xGA_r5": xga_r5 if recent_5 else None,
                 "xg_overperformance_r5": xg_overperf_r5,
                 "used_archive_mirror": bool(payload.get("used_archive_mirror", False)),
             }
         )
+
+    # Wave-3 deep Understat: `leagues` dict con `teams`->`history`, `dates_matches`, `top_100_players`
+    leagues_dict = payload.get("leagues")
+    if isinstance(leagues_dict, dict):
+        for lg_key, lg_data in leagues_dict.items():
+            if not isinstance(lg_data, dict):
+                continue
+            for tm in lg_data.get("teams") or []:
+                if not isinstance(tm, dict):
+                    continue
+                tm_id = str(tm.get("team_id") or "")
+                tm_title = str(tm.get("team_title") or "")
+                for h in tm.get("history") or []:
+                    if not isinstance(h, dict):
+                        continue
+                    sc = int(h.get("scored") or 0)
+                    ms = int(h.get("missed") or 0)
+                    m_xg = float(h.get("xG") or 0.0)
+                    m_xga = float(h.get("xGA") or 0.0)
+                    records.append(
+                        {
+                            **base,
+                            "record_type": "understat_team_match_history",
+                            "league": lg_key,
+                            "team_id": tm_id,
+                            "team_name": tm_title,
+                            "date": h.get("date"),
+                            "h_a": h.get("h_a"),
+                            "result": h.get("result"),
+                            "G": sc,
+                            "GA": ms,
+                            "pts": h.get("pts"),
+                            "xG": round(m_xg, 4),
+                            "xGA": round(m_xga, 4),
+                            "npxG": h.get("npxG"),
+                            "npxGA": h.get("npxGA"),
+                            "npxGD": h.get("npxGD"),
+                            "xPTS": h.get("xpts"),
+                            "deep_completions": h.get("deep"),
+                            "deep_allowed": h.get("deep_allowed"),
+                            "ppda_avg": h.get("ppda_ratio"),
+                            "ppda_allowed_avg": h.get("ppda_allowed_ratio"),
+                            "xg_overperformance": round(sc - m_xg, 4),
+                        }
+                    )
+            for dm in lg_data.get("dates_matches") or []:
+                if not isinstance(dm, dict):
+                    continue
+                records.append(
+                    {
+                        **base,
+                        "record_type": "understat_match_fixture_xg",
+                        "league": lg_key,
+                        "match_id": str(dm.get("match_id") or ""),
+                        "datetime": dm.get("datetime"),
+                        "is_result": bool(dm.get("is_result", False)),
+                        "home_team_id": str(dm.get("home_team_id") or ""),
+                        "home_team": dm.get("home_team"),
+                        "away_team_id": str(dm.get("away_team_id") or ""),
+                        "away_team": dm.get("away_team"),
+                        "home_goals": dm.get("home_goals"),
+                        "away_goals": dm.get("away_goals"),
+                        "home_xG": dm.get("home_xG"),
+                        "away_xG": dm.get("away_xG"),
+                        "forecast_win": dm.get("forecast_win"),
+                        "forecast_draw": dm.get("forecast_draw"),
+                        "forecast_loss": dm.get("forecast_loss"),
+                    }
+                )
+            for pl in lg_data.get("top_100_players") or []:
+                if not isinstance(pl, dict):
+                    continue
+                p_goals = int(pl.get("goals") or 0)
+                p_xg = float(pl.get("xG") or 0.0)
+                records.append(
+                    {
+                        **base,
+                        "record_type": "understat_player_season_xg",
+                        "league": lg_key,
+                        "player_id": str(pl.get("player_id") or ""),
+                        "player_name": pl.get("player_name"),
+                        "team_name": pl.get("team_title"),
+                        "position": pl.get("position"),
+                        "games": pl.get("games"),
+                        "time_minutes": pl.get("time_minutes"),
+                        "G": p_goals,
+                        "npg": pl.get("npg"),
+                        "assists": pl.get("assists"),
+                        "shots": pl.get("shots"),
+                        "key_passes": pl.get("key_passes"),
+                        "yellow_cards": pl.get("yellow_cards"),
+                        "red_cards": pl.get("red_cards"),
+                        "xG": round(p_xg, 4),
+                        "npxG": pl.get("npxG"),
+                        "xA": pl.get("xA"),
+                        "xG_plus_xA": pl.get("xG_plus_xA"),
+                        "xGChain": pl.get("xGChain"),
+                        "xGBuildup": pl.get("xGBuildup"),
+                        "xg_overperformance": round(p_goals - p_xg, 4),
+                    }
+                )
 
     return records
 
@@ -790,21 +966,24 @@ def _normalize_clubelo_transfermarkt(
     base = _lineage_fields(envelope, rel_path)
     records: list[dict[str, Any]] = []
 
-    # Caso 3B: Transfermarkt Liga MX 18 clubes
+    # Caso 3B: Transfermarkt clubes (18 Liga MX o 114 en 6 ligas)
     if "clubs" in payload and isinstance(payload.get("clubs"), list):
         clubs = [c for c in payload["clubs"] if isinstance(c, dict)]
-        values = [
-            float(v)
-            for v in (
-                c.get("total_squad_market_value_eur")
-                or parse_eur_value(c.get("total_squad_market_value_raw"))
-                for c in clubs
+        values_by_league: dict[str, list[float]] = {}
+        for c in clubs:
+            lg_slug = str(c.get("league") or "liga-mx")
+            val = c.get("total_squad_market_value_eur") or parse_eur_value(
+                c.get("total_squad_market_value_raw")
             )
-            if v is not None and float(v) > 0
-        ]
-        median_val = statistics.median(values) if values else None
+            if val is not None and float(val) > 0:
+                values_by_league.setdefault(lg_slug, []).append(float(val))
+        medians_by_league = {
+            lg_slug: statistics.median(vals) for lg_slug, vals in values_by_league.items() if vals
+        }
 
         for c in clubs:
+            lg_slug = str(c.get("league") or "liga-mx")
+            median_val = medians_by_league.get(lg_slug)
             total_eur = c.get("total_squad_market_value_eur")
             if total_eur is None:
                 total_eur = parse_eur_value(c.get("total_squad_market_value_raw"))
@@ -824,8 +1003,10 @@ def _normalize_clubelo_transfermarkt(
                 {
                     **base,
                     "record_type": "transfermarkt_club_valuation",
-                    "competition": payload.get("competition", "Liga MX Apertura (MEXA)"),
-                    "league": "liga-mx",
+                    "competition": c.get("competition")
+                    or payload.get("competition", "Liga MX Apertura (MEXA)"),
+                    "competition_code": c.get("competition_code"),
+                    "league": lg_slug,
                     "club_name": c.get("club_name"),
                     "club_path": c.get("club_path"),
                     "squad_size": c.get("squad_size"),
@@ -875,6 +1056,20 @@ def _normalize_clubelo_transfermarkt(
     return records
 
 
+def _parse_comma_float(val: Any) -> float | None:
+    if val is None:
+        return None
+    if isinstance(val, (int, float)):
+        return float(val)
+    s = str(val).strip().replace("+", "").replace(",", ".")
+    if not s:
+        return None
+    try:
+        return float(s)
+    except ValueError:
+        return None
+
+
 def _normalize_statiskicks(
     envelope: dict[str, Any], rel_path: str
 ) -> list[dict[str, Any]]:
@@ -917,6 +1112,131 @@ def _normalize_statiskicks(
                 "resource_type": net.get("resource_type"),
             }
         )
+
+    # Wave-3 Statiskicks: `league_xp_standings_tables`
+    xp_tables = payload.get("league_xp_standings_tables")
+    if isinstance(xp_tables, dict):
+        for lg_key, rows in xp_tables.items():
+            if not isinstance(rows, list):
+                continue
+            for r in rows:
+                if not isinstance(r, dict):
+                    continue
+                records.append(
+                    {
+                        **base,
+                        "record_type": "statiskicks_xp_standing_row",
+                        "league_key": lg_key,
+                        "rank": int(_parse_comma_float(r.get("#")) or 0) or None,
+                        "team_name": r.get("Equipo"),
+                        "matches_played": int(_parse_comma_float(r.get("PJ")) or 0) or None,
+                        "goal_diff": _parse_comma_float(r.get("DG")),
+                        "pts": _parse_comma_float(r.get("Pts")),
+                        "xPTS": _parse_comma_float(r.get("xP")),
+                        "xpts_overperformance": _parse_comma_float(r.get("±")),
+                    }
+                )
+
+    # Wave-3 Statiskicks: `ligamx_team_xg_rolling_series` (339 puntos de partidos Liga MX)
+    rolling_series = payload.get("ligamx_team_xg_rolling_series")
+    if isinstance(rolling_series, dict):
+        for tm_key, series_obj in rolling_series.items():
+            if not isinstance(series_obj, dict):
+                continue
+            for pt in series_obj.get("points") or []:
+                if not isinstance(pt, dict):
+                    continue
+                records.append(
+                    {
+                        **base,
+                        "record_type": "statiskicks_team_xg_rolling_point",
+                        "league": "liga-mx",
+                        "team_key": tm_key,
+                        "date": pt.get("date"),
+                        "season": pt.get("season"),
+                        "opponent": pt.get("opponent"),
+                        "is_home": pt.get("home"),
+                        "score": pt.get("score"),
+                        "manager": pt.get("manager"),
+                        "xG": pt.get("xg"),
+                        "xGA": pt.get("xga"),
+                        "rolling_xG": pt.get("rolling_xg"),
+                        "rolling_xGA": pt.get("rolling_xga"),
+                    }
+                )
+
+    # Wave-3 Statiskicks: `ligamx_team_profile_percentile_metrics`
+    pct_profiles = payload.get("ligamx_team_profile_percentile_metrics")
+    if isinstance(pct_profiles, dict):
+        for tm_key, prof in pct_profiles.items():
+            if not isinstance(prof, dict):
+                continue
+            for m in prof.get("metrics") or []:
+                if not isinstance(m, dict):
+                    continue
+                records.append(
+                    {
+                        **base,
+                        "record_type": "statiskicks_team_percentile_metric",
+                        "league": "liga-mx",
+                        "team_key": tm_key,
+                        "metric_key": m.get("key"),
+                        "metric_label": m.get("label"),
+                        "metric_short": m.get("short"),
+                        "metric_group": m.get("group"),
+                        "raw_total": m.get("raw"),
+                        "value": m.get("value"),
+                        "league_average": m.get("average"),
+                        "rank": m.get("rank"),
+                        "rank_total": m.get("rank_total"),
+                        "percentile": m.get("percentile"),
+                        "unit": m.get("unit"),
+                        "normalization": m.get("normalization"),
+                    }
+                )
+
+    # Wave-3 Statiskicks: `subpages` tablas extraídas (708 filas)
+    for sp in payload.get("subpages") or []:
+        if not isinstance(sp, dict):
+            continue
+        sp_slug = sp.get("slug")
+        sp_url = sp.get("url")
+        for tbl in sp.get("tables") or []:
+            if not isinstance(tbl, dict):
+                continue
+            headers = tbl.get("headers") or []
+            for r_idx, row in enumerate(tbl.get("rows") or []):
+                records.append(
+                    {
+                        **base,
+                        "record_type": "statiskicks_subpage_table_row",
+                        "subpage_slug": sp_slug,
+                        "subpage_url": sp_url,
+                        "table_index": tbl.get("table_index"),
+                        "row_index": r_idx + 1,
+                        "headers": headers,
+                        "row": row,
+                    }
+                )
+
+    # Wave-3 Statiskicks: `search_xhr_results` (134 entidades)
+    search_xhr = payload.get("search_xhr_results")
+    if isinstance(search_xhr, dict):
+        for query_term, res_obj in search_xhr.items():
+            if not isinstance(res_obj, dict):
+                continue
+            for entity_kind in ("leagues", "teams", "players"):
+                for ent in res_obj.get(entity_kind) or []:
+                    if isinstance(ent, dict):
+                        records.append(
+                            {
+                                **base,
+                                "record_type": "statiskicks_search_entity",
+                                "query_term": query_term,
+                                "entity_kind": entity_kind,
+                                **ent,
+                            }
+                        )
 
     return records
 
@@ -967,6 +1287,184 @@ def _normalize_opta_player_stats(
             }
         )
 
+    # Wave-3 Opta: `performfeeds_standings` (526 filas Liga MX & Premier League)
+    pf_standings = payload.get("performfeeds_standings")
+    if isinstance(pf_standings, dict):
+        for comp_name, rows in pf_standings.items():
+            if not isinstance(rows, list):
+                continue
+            for r in rows:
+                if isinstance(r, dict):
+                    records.append(
+                        {
+                            **base,
+                            "record_type": "opta_performfeeds_standing_row",
+                            "competition": comp_name,
+                            **r,
+                        }
+                    )
+
+    # Wave-3 Opta: `performfeeds_matches` (200 partidos Liga MX & Premier League)
+    pf_matches = payload.get("performfeeds_matches")
+    if isinstance(pf_matches, dict):
+        for comp_name, matches in pf_matches.items():
+            if not isinstance(matches, list):
+                continue
+            for m in matches:
+                if isinstance(m, dict):
+                    records.append(
+                        {
+                            **base,
+                            "record_type": "opta_performfeeds_match",
+                            "competition": comp_name,
+                            **m,
+                        }
+                    )
+
+    # Wave-3 Opta: `performfeeds_squads` (1,467 jugadores/cuerpo técnico en Liga MX & Premier League)
+    pf_squads = payload.get("performfeeds_squads")
+    if isinstance(pf_squads, dict):
+        for comp_name, clubs in pf_squads.items():
+            if not isinstance(clubs, list):
+                continue
+            for cl in clubs:
+                if not isinstance(cl, dict):
+                    continue
+                c_id = cl.get("contestant_id")
+                c_name = cl.get("contestant_name")
+                c_code = cl.get("contestant_code")
+                venue = cl.get("venue_name")
+                for p in cl.get("persons") or []:
+                    if isinstance(p, dict):
+                        records.append(
+                            {
+                                **base,
+                                "record_type": "opta_performfeeds_squad_person",
+                                "competition": comp_name,
+                                "contestant_id": c_id,
+                                "contestant_name": c_name,
+                                "contestant_code": c_code,
+                                "venue_name": venue,
+                                **p,
+                            }
+                        )
+
+    # Wave-3 Opta: `performfeeds_seasonstats` (8 clubes + 246 jugadores con métricas detalladas Opta)
+    for ss in payload.get("performfeeds_seasonstats") or []:
+        if not isinstance(ss, dict):
+            continue
+        comp_name = ss.get("competition")
+        tmcl_id = ss.get("tmcl_id")
+        c_id = ss.get("contestant_id")
+        c_name = ss.get("club_name")
+        records.append(
+            {
+                **base,
+                "record_type": "opta_performfeeds_club_seasonstats",
+                "competition": comp_name,
+                "tmcl_id": tmcl_id,
+                "contestant_id": c_id,
+                "club_name": c_name,
+                "team_stats_count": ss.get("team_stats_count"),
+                "team_stats": ss.get("team_stats"),
+            }
+        )
+        for pl in ss.get("players") or []:
+            if isinstance(pl, dict):
+                records.append(
+                    {
+                        **base,
+                        "record_type": "opta_performfeeds_player_seasonstats",
+                        "competition": comp_name,
+                        "tmcl_id": tmcl_id,
+                        "contestant_id": c_id,
+                        "club_name": c_name,
+                        **pl,
+                    }
+                )
+
+    # Wave-3 Opta: `performfeeds_matchstats` (6 partidos + 249 filas de boxscore de jugadores)
+    for ms in payload.get("performfeeds_matchstats") or []:
+        if not isinstance(ms, dict):
+            continue
+        comp_name = ms.get("competition")
+        m_id = ms.get("match_id")
+        desc = ms.get("description")
+        m_date = ms.get("date")
+        for tb in ms.get("teams_boxscore") or []:
+            if not isinstance(tb, dict):
+                continue
+            c_id = tb.get("contestant_id")
+            formation = tb.get("formation_used")
+            records.append(
+                {
+                    **base,
+                    "record_type": "opta_performfeeds_match_team_boxscore",
+                    "competition": comp_name,
+                    "match_id": m_id,
+                    "description": desc,
+                    "date": m_date,
+                    "contestant_id": c_id,
+                    "formation_used": formation,
+                    "team_stats": tb.get("team_stats"),
+                }
+            )
+            for pl in tb.get("players") or []:
+                if isinstance(pl, dict):
+                    records.append(
+                        {
+                            **base,
+                            "record_type": "opta_performfeeds_match_player_boxscore",
+                            "competition": comp_name,
+                            "match_id": m_id,
+                            "description": desc,
+                            "date": m_date,
+                            "contestant_id": c_id,
+                            "formation_used": formation,
+                            **pl,
+                        }
+                    )
+
+    # Wave-3 Opta: `dom_tables` (1,513 filas) + `performfeeds_tournament_calendars` (400) + `opta_event_definitions` (75)
+    for dt in payload.get("dom_tables") or []:
+        if not isinstance(dt, dict):
+            continue
+        src_u = dt.get("source_url")
+        t_idx = dt.get("table_index")
+        headers = dt.get("headers") or []
+        for r_idx, row in enumerate(dt.get("rows") or []):
+            records.append(
+                {
+                    **base,
+                    "record_type": "opta_dom_table_row",
+                    "source_url": src_u,
+                    "table_index": t_idx,
+                    "row_index": r_idx + 1,
+                    "headers": headers,
+                    "row": row,
+                }
+            )
+
+    for tc in payload.get("performfeeds_tournament_calendars") or []:
+        if isinstance(tc, dict):
+            records.append(
+                {
+                    **base,
+                    "record_type": "opta_tournament_calendar",
+                    **tc,
+                }
+            )
+
+    for ed in payload.get("opta_event_definitions") or []:
+        if isinstance(ed, dict):
+            records.append(
+                {
+                    **base,
+                    "record_type": "opta_event_definition",
+                    **ed,
+                }
+            )
+
     return records
 
 
@@ -1014,7 +1512,15 @@ def _normalize_generic_stats_source(
                     gf = int(parts[0].strip()) if parts[0].strip().isdigit() else None
                     ga = int(parts[1].strip()) if parts[1].strip().isdigit() else None
                 xg_val = _safe_float(row.get("xg"))
+                xga_val = _safe_float(row.get("xg_conceded"))
+                xpts_val = _safe_float(row.get("xpts"))
+                pts_val = row.get("pts")
                 xg_overperf = round(gf - xg_val, 3) if (gf is not None and xg_val is not None) else None
+                xpts_overperf = (
+                    round(float(pts_val) - xpts_val, 3)
+                    if (pts_val is not None and xpts_val is not None)
+                    else None
+                )
                 records.append(
                     {
                         **base,
@@ -1032,13 +1538,15 @@ def _normalize_generic_stats_source(
                         "G": gf,
                         "GA": ga,
                         "goal_diff": row.get("goal_conceded"),
-                        "pts": row.get("pts"),
-                        "xG": xg_val,
-                        "xGA": _safe_float(row.get("xg_conceded")),
+                        "pts": pts_val,
+                        "xG": round(xg_val, 4) if xg_val is not None else None,
+                        "xGA": round(xga_val, 4) if xga_val is not None else None,
+                        "xPTS": round(xpts_val, 4) if xpts_val is not None else None,
                         "xg_overperformance": xg_overperf,
+                        "xpts_overperformance": xpts_overperf,
                     }
                 )
-            for m in (lg.get("matches") or [])[:40]:
+            for m in lg.get("matches") or lg.get("matches_sample") or []:
                 if isinstance(m, dict):
                     records.append(
                         {
@@ -1065,7 +1573,8 @@ def _normalize_generic_stats_source(
                             "league_slug": lg_slug,
                             "header": st_cat.get("header"),
                             "category": st_cat.get("category"),
-                            "leaders": st_cat.get("leaders") or [],
+                            "stat_name": st_cat.get("stat_name"),
+                            "leaders": st_cat.get("leaders") or st_cat.get("top_3") or [],
                         }
                     )
         if records:
@@ -1388,13 +1897,53 @@ def _normalize_open_meteo(
         if not isinstance(st, dict):
             continue
         summary = st.get("next_24h_summary") or {}
-        elev = st.get("stadium_elevation_m")
+        elev = (
+            st.get("stadium_elevation_m")
+            if st.get("stadium_elevation_m") is not None
+            else st.get("elevation_m")
+        )
         elev_float = float(elev) if elev is not None else None
-        high_alt = bool(elev_float is not None and elev_float > 1500.0)
+        high_alt = bool(
+            st.get("is_high_altitude_gt_1500m")
+            if st.get("is_high_altitude_gt_1500m") is not None
+            else (elev_float is not None and elev_float > 1500.0)
+        )
 
-        max_wind = summary.get("max_wind_speed_mph")
-        max_gusts = summary.get("max_wind_gusts_mph")
-        total_precip = summary.get("total_precipitation_mm")
+        max_wind = (
+            summary.get("max_wind_speed_mph")
+            if summary.get("max_wind_speed_mph") is not None
+            else st.get("max_wind_mph_7d")
+        )
+        max_gusts = (
+            summary.get("max_wind_gusts_mph")
+            if summary.get("max_wind_gusts_mph") is not None
+            else st.get("max_gust_mph_7d")
+        )
+        total_precip = (
+            summary.get("total_precipitation_mm")
+            if summary.get("total_precipitation_mm") is not None
+            else st.get("total_precip_mm_7d")
+        )
+        min_temp = (
+            summary.get("min_temperature_c")
+            if summary.get("min_temperature_c") is not None
+            else st.get("min_temp_c_7d")
+        )
+        max_temp = (
+            summary.get("max_temperature_c")
+            if summary.get("max_temperature_c") is not None
+            else st.get("max_temp_c_7d")
+        )
+        is_dome = bool(
+            st.get("is_dome")
+            if st.get("is_dome") is not None
+            else st.get("is_dome_or_retractable", False)
+        )
+        hourly_count = (
+            st.get("hourly_points_count")
+            if st.get("hourly_points_count") is not None
+            else len(st.get("hourly_forecast_24h") or st.get("hourly_forecast_7d") or [])
+        )
 
         records.append(
             {
@@ -1407,20 +1956,26 @@ def _normalize_open_meteo(
                 "teams": st.get("teams") or [],
                 "latitude": st.get("latitude"),
                 "longitude": st.get("longitude"),
-                "is_dome": bool(st.get("is_dome", False)),
+                "roof_type": st.get("roof_type") or ("dome" if is_dome else "open"),
+                "is_dome": is_dome,
                 "stadium_elevation_m": elev_float,
                 "high_altitude_flag": high_alt,
                 "max_wind_speed_mph": max_wind,
                 "max_wind_gusts_mph": max_gusts,
                 "total_precipitation_mm": total_precip,
-                "min_temperature_c": summary.get("min_temperature_c"),
-                "max_temperature_c": summary.get("max_temperature_c"),
+                "min_temperature_c": min_temp,
+                "max_temperature_c": max_temp,
+                "nfl_wind_alert_gt_15mph": bool(
+                    st.get("nfl_wind_alert_gt_15mph")
+                    if st.get("nfl_wind_alert_gt_15mph") is not None
+                    else (not is_dome and max_wind is not None and float(max_wind) >= 15.0)
+                ),
                 "extreme_wind_flag": bool(
                     (max_wind is not None and float(max_wind) >= 20.0)
                     or (max_gusts is not None and float(max_gusts) >= 30.0)
                 ),
                 "rain_risk_flag": bool(total_precip is not None and float(total_precip) >= 2.0),
-                "hourly_forecast_samples_count": len(st.get("hourly_forecast_24h") or []),
+                "hourly_forecast_samples_count": hourly_count,
             }
         )
 
