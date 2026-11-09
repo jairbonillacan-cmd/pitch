@@ -1,0 +1,1218 @@
+{
+  "source_id": "clubelo_transfermarkt_values",
+  "source_name": "ClubElo & Transfermarkt (Squad Market Values)",
+  "category": "advanced_stats_xg",
+  "url": "https://clubelo.com/",
+  "scrapling_mode": "fetcher_session",
+  "captured_at_utc": "2026-11-09T18:52:00Z",
+  "sha256": "08b0bf13ad52c056c338f6b07e359c6a52deb8a6868aef638f06fc52ee39b6e7",
+  "meta": {
+    "requested_api_url": "http://api.clubelo.com/2026-11-09",
+    "api_status_code": 502,
+    "fetch_mode_used": "AsyncStealthySession(solve_cloudflare=True)",
+    "total_extracted_rows": 1850
+  },
+  "payload": {
+    "requested_api_url": "http://api.clubelo.com/2026-11-09",
+    "resolved_url": "https://clubelo.com/",
+    "fetch_mode_used": "AsyncStealthySession(solve_cloudflare=True)",
+    "api_status_code": 502,
+    "total_extracted_rows": 1850,
+    "top_100_records": [
+      {
+        "club": "VIT Vitesse",
+        "elo": null,
+        "cells": [
+          "dom, noviembre 8th 05:15 GMT-6 8/11 05:15",
+          "VIT Vitesse",
+          "18",
+          "42.9 43 %",
+          "29.2 29 %",
+          "Promotion",
+          "3.8 4 %",
+          "6.1 6 %"
+        ]
+      },
+      {
+        "club": "DEG De Graafschap",
+        "elo": null,
+        "cells": [
+          "DEG De Graafschap",
+          "15",
+          "27.8 28 %",
+          "Promotion",
+          "1.4 1 %",
+          "2.7 3 %",
+          "1.2 1 %",
+          "0.8 1 %"
+        ]
+      },
+      {
+        "club": "SLA Slavia Praha",
+        "elo": null,
+        "cells": [
+          "dom, noviembre 8th 08:00 GMT-6 8/11 08:00",
+          "68    SLA Slavia Praha",
+          "31",
+          "89.9 90 %",
+          "8.0 8 %",
+          "🏆 Champ ion",
+          "90.2 90 %",
+          "91.0 91 %"
+        ]
+      },
+      {
+        "club": "ART Artis Brno",
+        "elo": null,
+        "cells": [
+          "ART Artis Brno",
+          "6",
+          "2.1 2 %",
+          "B ottom  group",
+          "94.4 94 %",
+          "81.7 82 %",
+          "89.7 90 %",
+          "95.2 95 %"
+        ]
+      },
+      {
+        "club": "DEB Debrecen",
+        "elo": null,
+        "cells": [
+          "FT 3-1",
+          "DEB Debrecen",
+          "11",
+          "51.2 51 %",
+          "27.2 27 %",
+          "🏆 Champ ion",
+          "5.6 6 %",
+          "8.0 8 %"
+        ]
+      },
+      {
+        "club": "UJP Ujpest",
+        "elo": null,
+        "cells": [
+          "UJP Ujpest",
+          "13",
+          "21.6 22 %",
+          "🏆 Champ ion",
+          "1.1 1 %",
+          "2.5 3 %",
+          "1.3 1 %",
+          "0.5 <1 %"
+        ]
+      },
+      {
+        "club": "EST Estoril",
+        "elo": null,
+        "cells": [
+          "dom, noviembre 8th 09:30 GMT-6 8/11 09:30",
+          "EST Estoril",
+          "2",
+          "43.9 44 %",
+          "29.6 30 %",
+          "Relegation",
+          "48.2 48 %",
+          "36.1 36 %"
+        ]
+      },
+      {
+        "club": "MAR Maritimo",
+        "elo": null,
+        "cells": [
+          "MAR Maritimo",
+          "8",
+          "26.5 27 %",
+          "Relegation",
+          "27.0 27 %",
+          "12.8 13 %",
+          "24.8 25 %",
+          "37.1 37 %"
+        ]
+      },
+      {
+        "club": "VAS Vasas SC",
+        "elo": null,
+        "cells": [
+          "FT 0-2",
+          "VAS Vasas SC",
+          "9",
+          "9.0 9 %",
+          "19.8 20 %",
+          "🏆 Champ ion",
+          "0.7 1 %",
+          "3.5 4 %"
+        ]
+      },
+      {
+        "club": "FER Ferencvaros",
+        "elo": null,
+        "cells": [
+          "154    FER Ferencvaros",
+          "10",
+          "71.2 71 %",
+          "🏆 Champ ion",
+          "68.9 69 %",
+          "72.3 72 %",
+          "63.3 63 %",
+          "54.8 55 %"
+        ]
+      },
+      {
+        "club": "KRI Kristiansund",
+        "elo": null,
+        "cells": [
+          "HT ' 1-0",
+          "KRI Kristiansund",
+          "23",
+          "32.5 32 %",
+          "29.3 29 %",
+          "B ottom  3",
+          "75.3 75 %",
+          "54.6 55 %"
+        ]
+      },
+      {
+        "club": "VAL Valerenga",
+        "elo": null,
+        "cells": [
+          "VAL Valerenga",
+          "33",
+          "38.2 38 %",
+          "T op  4",
+          "<0.1 <1 %",
+          "<0.1 <1 %",
+          "0% ⨉",
+          "0% ⨉"
+        ]
+      },
+      {
+        "club": "Arsenal",
+        "elo": 2047.0,
+        "cells": [
+          "1  Arsenal",
+          "2047",
+          "+0.14",
+          "0.97"
+        ]
+      },
+      {
+        "club": "Bayern München",
+        "elo": 2046.0,
+        "cells": [
+          "2  Bayern München",
+          "2046",
+          "-0.22",
+          "2.39"
+        ]
+      },
+      {
+        "club": "Barcelona",
+        "elo": 2032.0,
+        "cells": [
+          "3  Barcelona",
+          "2032",
+          "+3.21",
+          "2.43"
+        ]
+      },
+      {
+        "club": "Man City",
+        "elo": 2002.0,
+        "cells": [
+          "4  Man City",
+          "2002",
+          "+0.29",
+          "1.55"
+        ]
+      },
+      {
+        "club": "Real Madrid",
+        "elo": 2001.0,
+        "cells": [
+          "5  Real Madrid",
+          "2001",
+          "-0.08",
+          "1.70"
+        ]
+      },
+      {
+        "club": "Paris SG",
+        "elo": 1989.0,
+        "cells": [
+          "6  Paris SG",
+          "1989",
+          "+0.03",
+          "1.62"
+        ]
+      },
+      {
+        "club": "Internazionale",
+        "elo": 1949.0,
+        "cells": [
+          "7  Internazionale",
+          "1949",
+          "+4.03",
+          "1.47"
+        ]
+      },
+      {
+        "club": "Liverpool",
+        "elo": 1937.0,
+        "cells": [
+          "8  Liverpool",
+          "1937",
+          "+5.29",
+          "1.57"
+        ]
+      },
+      {
+        "club": "Atlético",
+        "elo": 1910.0,
+        "cells": [
+          "9  Atlético",
+          "1910",
+          "-3.63",
+          "1.38"
+        ]
+      },
+      {
+        "club": "Brighton",
+        "elo": 1910.0,
+        "cells": [
+          "10  Brighton",
+          "1910",
+          "+4.72",
+          "1.40"
+        ]
+      },
+      {
+        "club": "Dortmund",
+        "elo": 1899.0,
+        "cells": [
+          "11  Dortmund",
+          "1899",
+          "-0.01",
+          "1.46"
+        ]
+      },
+      {
+        "club": "Aston Villa",
+        "elo": 1899.0,
+        "cells": [
+          "12  Aston Villa",
+          "1899",
+          "+0.49",
+          "1.48"
+        ]
+      },
+      {
+        "club": "Bournemouth",
+        "elo": 1892.0,
+        "cells": [
+          "13  Bournemouth",
+          "1892",
+          "+3.03",
+          "1.47"
+        ]
+      },
+      {
+        "club": "Chelsea",
+        "elo": 1885.0,
+        "cells": [
+          "14  Chelsea",
+          "1885",
+          "-7.06",
+          "1.65"
+        ]
+      },
+      {
+        "club": "Flamengo",
+        "elo": 1883.0,
+        "cells": [
+          "15  Flamengo",
+          "1883",
+          "+0.20",
+          "1.17"
+        ]
+      },
+      {
+        "club": "Benfica",
+        "elo": 1870.0,
+        "cells": [
+          "16  Benfica",
+          "1870",
+          "+1.35",
+          "1.47"
+        ]
+      },
+      {
+        "club": "Roma",
+        "elo": 1865.0,
+        "cells": [
+          "17  Roma",
+          "1865",
+          "+0.47",
+          "1.42"
+        ]
+      },
+      {
+        "club": "Sporting",
+        "elo": 1863.0,
+        "cells": [
+          "18  Sporting",
+          "1863",
+          "-0.19",
+          "1.41"
+        ]
+      },
+      {
+        "club": "Palmeiras",
+        "elo": 1862.0,
+        "cells": [
+          "19  Palmeiras",
+          "1862",
+          "-5.61",
+          "1.09"
+        ]
+      },
+      {
+        "club": "Leverkusen",
+        "elo": 1859.0,
+        "cells": [
+          "20  Leverkusen",
+          "1859",
+          "+2.55",
+          "1.51"
+        ]
+      },
+      {
+        "club": "Newcastle",
+        "elo": 1853.0,
+        "cells": [
+          "21  Newcastle",
+          "1853",
+          "+0.18",
+          "1.64"
+        ]
+      },
+      {
+        "club": "Man United",
+        "elo": 1851.0,
+        "cells": [
+          "22  Man United",
+          "1851",
+          "-0.21",
+          "1.68"
+        ]
+      },
+      {
+        "club": "Brentford",
+        "elo": 1848.0,
+        "cells": [
+          "23  Brentford",
+          "1848",
+          "-4.89",
+          "1.49"
+        ]
+      },
+      {
+        "club": "Porto",
+        "elo": 1843.0,
+        "cells": [
+          "24  Porto",
+          "1843",
+          "+2.56",
+          "1.03"
+        ]
+      },
+      {
+        "club": "Brugge",
+        "elo": 1839.0,
+        "cells": [
+          "25  Brugge",
+          "1839",
+          "-3.89",
+          "1.88"
+        ]
+      },
+      {
+        "club": "Como",
+        "elo": 1838.0,
+        "cells": [
+          "26  Como",
+          "1838",
+          "-4.03",
+          "1.42"
+        ]
+      },
+      {
+        "club": "RB Leipzig",
+        "elo": 1832.0,
+        "cells": [
+          "27  RB Leipzig",
+          "1832",
+          "-0.27",
+          "1.73"
+        ]
+      },
+      {
+        "club": "Everton",
+        "elo": 1831.0,
+        "cells": [
+          "28  Everton",
+          "1831",
+          "-0.19",
+          "0.98"
+        ]
+      },
+      {
+        "club": "Juventus",
+        "elo": 1830.0,
+        "cells": [
+          "29  Juventus",
+          "1830",
+          "-0.89",
+          "1.15"
+        ]
+      },
+      {
+        "club": "Betis",
+        "elo": 1829.0,
+        "cells": [
+          "30  Betis",
+          "1829",
+          "+5.82",
+          "1.43"
+        ]
+      },
+      {
+        "club": "St Gillis",
+        "elo": 1826.0,
+        "cells": [
+          "31  St Gillis",
+          "1826",
+          "+2.68",
+          "1.15"
+        ]
+      },
+      {
+        "club": "Zenit",
+        "elo": 1824.0,
+        "cells": [
+          "32  Zenit",
+          "1824",
+          "-5.44",
+          "1.11"
+        ]
+      },
+      {
+        "club": "Galatasaray",
+        "elo": 1824.0,
+        "cells": [
+          "33  Galatasaray",
+          "1824",
+          "-0.28",
+          "1.71"
+        ]
+      },
+      {
+        "club": "Milan",
+        "elo": 1820.0,
+        "cells": [
+          "34  Milan",
+          "1820",
+          "+4.57",
+          "1.31"
+        ]
+      },
+      {
+        "club": "Stuttgart",
+        "elo": 1819.0,
+        "cells": [
+          "35  Stuttgart",
+          "1819",
+          "-0.05",
+          "1.68"
+        ]
+      },
+      {
+        "club": "Napoli",
+        "elo": 1818.0,
+        "cells": [
+          "36  Napoli",
+          "1818",
+          "-0.71",
+          "1.25"
+        ]
+      },
+      {
+        "club": "Tottenham",
+        "elo": 1814.0,
+        "cells": [
+          "37  Tottenham",
+          "1814",
+          "-0.19",
+          "1.48"
+        ]
+      },
+      {
+        "club": "Leeds",
+        "elo": 1812.0,
+        "cells": [
+          "38  Leeds",
+          "1812",
+          "-0.05",
+          "1.26"
+        ]
+      },
+      {
+        "club": "Lazio",
+        "elo": 1808.0,
+        "cells": [
+          "39  Lazio",
+          "1808",
+          "+1.50",
+          "1.15"
+        ]
+      },
+      {
+        "club": "Crystal Palace",
+        "elo": 1802.0,
+        "cells": [
+          "40  Crystal Palace",
+          "1802",
+          "-5.13",
+          "1.20"
+        ]
+      },
+      {
+        "club": "Forest",
+        "elo": 1801.0,
+        "cells": [
+          "41  Forest",
+          "1801",
+          "+0.01",
+          "1.14"
+        ]
+      },
+      {
+        "club": "Fulham",
+        "elo": 1800.0,
+        "cells": [
+          "42  Fulham",
+          "1800",
+          "-0.03",
+          "1.17"
+        ]
+      },
+      {
+        "club": "Ind del Valle",
+        "elo": 1797.0,
+        "cells": [
+          "43  Ind del Valle",
+          "1797",
+          "+4.24",
+          "1.41"
+        ]
+      },
+      {
+        "club": "Freiburg",
+        "elo": 1793.0,
+        "cells": [
+          "44  Freiburg",
+          "1793",
+          "+3.68",
+          "1.48"
+        ]
+      },
+      {
+        "club": "Boca Juniors",
+        "elo": 1791.0,
+        "cells": [
+          "45  Boca Juniors",
+          "1791",
+          "+0.30",
+          "1.02"
+        ]
+      },
+      {
+        "club": "Monaco",
+        "elo": 1790.0,
+        "cells": [
+          "46  Monaco",
+          "1790",
+          "-2.99",
+          "1.70"
+        ]
+      },
+      {
+        "club": "Real Sociedad",
+        "elo": 1790.0,
+        "cells": [
+          "47  Real Sociedad",
+          "1790",
+          "+3.29",
+          "1.49"
+        ]
+      },
+      {
+        "club": "Villarreal",
+        "elo": 1789.0,
+        "cells": [
+          "48  Villarreal",
+          "1789",
+          "+3.60",
+          "1.86"
+        ]
+      },
+      {
+        "club": "Cruzeiro",
+        "elo": 1786.0,
+        "cells": [
+          "49  Cruzeiro",
+          "1786",
+          "+0.16",
+          "1.13"
+        ]
+      },
+      {
+        "club": "Lyon",
+        "elo": 1784.0,
+        "cells": [
+          "50  Lyon",
+          "1784",
+          "-9.03",
+          "1.44"
+        ]
+      },
+      {
+        "club": "ATM Atlético",
+        "elo": null,
+        "cells": [
+          "9    ATM Atlético",
+          "3    BAR Barcelona",
+          "-115.3  ±76",
+          "66",
+          "42.9 43 %",
+          "1-2",
+          "-415.8  ±480",
+          "-122.6  ±75"
+        ]
+      },
+      {
+        "club": "INT Internazionale",
+        "elo": null,
+        "cells": [
+          "7    INT Internazionale",
+          "26    COM Como",
+          "102.7  ±80",
+          "45",
+          "70.1 70 %",
+          "2-0",
+          "323.2  ±408",
+          "110.8  ±78"
+        ]
+      },
+      {
+        "club": "CRY Crystal Palace",
+        "elo": null,
+        "cells": [
+          "40    CRY Crystal Palace",
+          "8    LIV Liverpool",
+          "-124.9  ±78",
+          "49",
+          "39.2 39 %",
+          "1-3",
+          "-401.9  ±396",
+          "-135.2  ±76"
+        ]
+      },
+      {
+        "club": "BRI Brighton",
+        "elo": null,
+        "cells": [
+          "10    BRI Brighton",
+          "23    BRE Brentford",
+          "52.1  ±81",
+          "49",
+          "64.1 64 %",
+          "2-0",
+          "308.3  ±401",
+          "62.0  ±79"
+        ]
+      },
+      {
+        "club": "MNU Man United",
+        "elo": null,
+        "cells": [
+          "22    MNU Man United",
+          "12    AVL Aston Villa",
+          "-46.9  ±79",
+          "49",
+          "50.3 50 %",
+          "4-4",
+          "-48.9  ±411",
+          "-47.0  ±77"
+        ]
+      },
+      {
+        "club": "IPS Ipswich",
+        "elo": null,
+        "cells": [
+          "129    IPS Ipswich",
+          "13    BOU Bournemouth",
+          "-187.3  ±83",
+          "49",
+          "31.1 31 %",
+          "1-2",
+          "-414.5  ±486",
+          "-193.7  ±82"
+        ]
+      },
+      {
+        "club": "SUN Sunderland",
+        "elo": null,
+        "cells": [
+          "79    SUN Sunderland",
+          "14    CHE Chelsea",
+          "-172.7  ±80",
+          "49",
+          "32.9 33 %",
+          "1-0",
+          "313.1  ±446",
+          "-157.5  ±79"
+        ]
+      },
+      {
+        "club": "EST Estrela Amadora",
+        "elo": null,
+        "cells": [
+          "EST Estrela Amadora",
+          "16    BEN Benfica",
+          "-391.7  ±84",
+          "36",
+          "11.4 11 %",
+          "2-3",
+          "-497.2  ±521",
+          "-394.4  ±83"
+        ]
+      },
+      {
+        "club": "VAS Vasco da Gama",
+        "elo": null,
+        "cells": [
+          "91    VAS Vasco da Gama",
+          "19    PAL Palmeiras",
+          "-156.1  ±72",
+          "76",
+          "38.7 39 %",
+          "2-1",
+          "277.5  ±448",
+          "-145.3  ±71"
+        ]
+      },
+      {
+        "club": "KOE Köln",
+        "elo": null,
+        "cells": [
+          "212    KOE Köln",
+          "20    LEV Leverkusen",
+          "-201.3  ±85",
+          "51",
+          "29.7 30 %",
+          "1-2",
+          "-420.1  ±484",
+          "-207.9  ±84"
+        ]
+      },
+      {
+        "club": "GUI Guimaraes",
+        "elo": null,
+        "cells": [
+          "420    GUI Guimaraes",
+          "24    POR Porto",
+          "-262.7  ±85",
+          "36",
+          "21.4 21 %",
+          "1-2",
+          "-431.6  ±486",
+          "-267.7  ±84"
+        ]
+      },
+      {
+        "club": "BRU Brugge",
+        "elo": null,
+        "cells": [
+          "25    BRU Brugge",
+          "179    AND Anderlecht",
+          "173.6  ±78",
+          "47",
+          "78.1 78 %",
+          "1-1",
+          "-46.8  ±411",
+          "166.0  ±76"
+        ]
+      },
+      {
+        "club": "FIO Fiorentina",
+        "elo": null,
+        "cells": [
+          "90    FIO Fiorentina",
+          "29    JUV Juventus",
+          "-115.2  ±80",
+          "45",
+          "40.0 40 %",
+          "2-2",
+          "-44.9  ±411",
+          "-112.6  ±78"
+        ]
+      },
+      {
+        "club": "ELC Elche",
+        "elo": null,
+        "cells": [
+          "117    ELC Elche",
+          "30    BET Betis",
+          "-111.4  ±82",
+          "66",
+          "43.5 43 %",
+          "0-2",
+          "-415.4  ±391",
+          "-124.2  ±80"
+        ]
+      },
+      {
+        "club": "STG St Gillis",
+        "elo": null,
+        "cells": [
+          "31    STG St Gillis",
+          "172    GEN Genk",
+          "144.1  ±80",
+          "47",
+          "75.0 75 %",
+          "1-0",
+          "334.9  ±487",
+          "149.1  ±79"
+        ]
+      },
+      {
+        "club": "ZEN Zenit",
+        "elo": null,
+        "cells": [
+          "32    ZEN Zenit",
+          "314    ROS Rostov",
+          "230.1  ±83",
+          "47",
+          "83.2 83 %",
+          "2-2",
+          "-47.4  ±411",
+          "219.3  ±81"
+        ]
+      },
+      {
+        "club": "GEN Genoa",
+        "elo": null,
+        "cells": [
+          "161    GEN Genoa",
+          "34    MIL Milan",
+          "-129.9  ±83",
+          "45",
+          "38.0 38 %",
+          "1-2",
+          "-399.2  ±466",
+          "-138.1  ±81"
+        ]
+      },
+      {
+        "club": "NAP Napoli",
+        "elo": null,
+        "cells": [
+          "36    NAP Napoli",
+          "39    LAZ Lazio",
+          "11.5  ±82",
+          "45",
+          "58.0 58 %",
+          "1-1",
+          "-44.9  ±411",
+          "9.3  ±80"
+        ]
+      },
+      {
+        "club": "AUC Aucas",
+        "elo": null,
+        "cells": [
+          "315    AUC Aucas",
+          "43    IND Ind del Valle",
+          "-183.0  ±79",
+          "72",
+          "34.5 35 %",
+          "2-4",
+          "-431.2  ±399",
+          "-192.3  ±77"
+        ]
+      },
+      {
+        "club": "FRE Freiburg",
+        "elo": null,
+        "cells": [
+          "44    FRE Freiburg",
+          "168    UNI Union Berlin",
+          "106.1  ±83",
+          "51",
+          "71.2 71 %",
+          "2-0",
+          "319.6  ±406",
+          "114.7  ±81"
+        ]
+      },
+      {
+        "club": "LEM Le Mans",
+        "elo": null,
+        "cells": [
+          "381    LEM Le Mans",
+          "46    MON Monaco",
+          "-213.4  ±87",
+          "39",
+          "26.8 27 %",
+          "1-1",
+          "-39.2  ±411",
+          "-205.9  ±85"
+        ]
+      },
+      {
+        "club": "RSO Real Sociedad",
+        "elo": null,
+        "cells": [
+          "47    RSO Real Sociedad",
+          "75    RAY Rayo Vallecano",
+          "47.0  ±81",
+          "66",
+          "65.7 66 %",
+          "1-0",
+          "293.6  ±475",
+          "53.9  ±79"
+        ]
+      },
+      {
+        "club": "VIL Villarreal",
+        "elo": null,
+        "cells": [
+          "48    VIL Villarreal",
+          "175    GET Getafe",
+          "105.7  ±81",
+          "66",
+          "72.9 73 %",
+          "2-0",
+          "309.3  ±405",
+          "113.6  ±80"
+        ]
+      },
+      {
+        "club": "BRE Brest",
+        "elo": null,
+        "cells": [
+          "134    BRE Brest",
+          "50    LYO Lyon",
+          "-108.0  ±84",
+          "39",
+          "40.2 40 %",
+          "2-0",
+          "312.8  ±384",
+          "-88.6  ±82"
+        ]
+      },
+      {
+        "club": "CAM Cambuur",
+        "elo": null,
+        "cells": [
+          "CAM Cambuur",
+          "51    PSV PSV",
+          "-325.4  ±84",
+          "44",
+          "16.5 17 %",
+          "2-5",
+          "-464.3  ±397",
+          "-331.3  ±82"
+        ]
+      },
+      {
+        "club": "REN Rennes",
+        "elo": null,
+        "cells": [
+          "66    REN Rennes",
+          "52    LIL Lille",
+          "-23.1  ±83",
+          "39",
+          "52.3 52 %",
+          "1-2",
+          "-386.9  ±458",
+          "-34.5  ±81"
+        ]
+      },
+      {
+        "club": "LEN Lens",
+        "elo": null,
+        "cells": [
+          "56    LEN Lens",
+          "53    MAR Marseille",
+          "11.3  ±83",
+          "39",
+          "57.2 57 %",
+          "1-2",
+          "-389.1  ±461",
+          "-1.2  ±82"
+        ]
+      },
+      {
+        "club": "TRO Tromsø",
+        "elo": null,
+        "cells": [
+          "516    TRO Tromsø",
+          "54    BOD Bodø/Glimt",
+          "-221.2  ±80",
+          "59",
+          "28.2 28 %",
+          "0-2",
+          "-431.0  ±412",
+          "-228.8  ±79"
+        ]
+      },
+      {
+        "club": "ÇOR Çorum FK",
+        "elo": null,
+        "cells": [
+          "370    ÇOR Çorum FK",
+          "55    FEN Fenerbahçe",
+          "-166.0  ±102",
+          "64",
+          "35.7 36 %",
+          "0-5",
+          "-421.2  ±321",
+          "-189.4  ±97"
+        ]
+      },
+      {
+        "club": "MON Monza",
+        "elo": null,
+        "cells": [
+          "254    MON Monza",
+          "57    ATA Atalanta",
+          "-138.8  ±82",
+          "45",
+          "36.8 37 %",
+          "0-1",
+          "-400.8  ±475",
+          "-146.4  ±81"
+        ]
+      },
+      {
+        "club": "OLY Olympiakos",
+        "elo": null,
+        "cells": [
+          "64    OLY Olympiakos",
+          "198    PAO PAOK",
+          "94.8  ±82",
+          "57",
+          "70.6 71 %",
+          "1-1",
+          "-57.0  ±411",
+          "89.0  ±80"
+        ]
+      },
+      {
+        "club": "SLA Slavia Praha",
+        "elo": null,
+        "cells": [
+          "68    SLA Slavia Praha",
+          "ART Artis Brno",
+          "439.0  ±120",
+          "52",
+          "94.4 94 %"
+        ]
+      },
+      {
+        "club": "HOF Hoffenheim",
+        "elo": null,
+        "cells": [
+          "69    HOF Hoffenheim",
+          "248    SCH Schalke",
+          "98.6  ±88",
+          "51",
+          "70.3 70 %",
+          "2-1",
+          "317.4  ±487",
+          "105.5  ±86"
+        ]
+      },
+      {
+        "club": "CEL Celta",
+        "elo": null,
+        "cells": [
+          "70    CEL Celta",
+          "109    LEV Levante",
+          "33.1  ±81",
+          "66",
+          "63.9 64 %",
+          "0-0",
+          "-66.0  ±411",
+          "29.4  ±80"
+        ]
+      },
+      {
+        "club": "SPA Spartak Moskva",
+        "elo": null,
+        "cells": [
+          "71    SPA Spartak Moskva",
+          "AKR Akron Tolyatti",
+          "234.5  ±84",
+          "47",
+          "83.5 84 %",
+          "2-1",
+          "373.1  ±507",
+          "238.2  ±83"
+        ]
+      },
+      {
+        "club": "FCA FC Andorra",
+        "elo": null,
+        "cells": [
+          "371    FCA FC Andorra",
+          "88    MAL Mallorca",
+          "-132.3  ±85",
+          "65",
+          "40.4 40 %"
+        ]
+      },
+      {
+        "club": "TWE Twente",
+        "elo": null,
+        "cells": [
+          "148    TWE Twente",
+          "92    AJA Ajax",
+          "-26.8  ±79",
+          "44",
+          "52.5 52 %",
+          "2-2",
+          "-44.1  ±411",
+          "-27.4  ±78"
+        ]
+      },
+      {
+        "club": "HEE Heerenveen",
+        "elo": null,
+        "cells": [
+          "383    HEE Heerenveen",
+          "95    FEY Feyenoord",
+          "-153.2  ±83",
+          "44",
+          "34.8 35 %",
+          "5-3",
+          "314.7  ±382",
+          "-132.3  ±81"
+        ]
+      }
+    ]
+  }
+}

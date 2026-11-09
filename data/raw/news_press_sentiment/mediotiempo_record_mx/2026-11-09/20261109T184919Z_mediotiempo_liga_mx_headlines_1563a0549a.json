@@ -1,0 +1,243 @@
+{
+  "source_id": "mediotiempo_record_mx",
+  "source_name": "Mediotiempo / Récord (Noticias y Campamento Liga MX)",
+  "category": "news_press_sentiment",
+  "url": "https://www.mediotiempo.com/futbol/liga-mx",
+  "scrapling_mode": "cli_ai_targeted",
+  "captured_at_utc": "2026-11-09T18:49:19Z",
+  "sha256": "1563a0549a4e15b36216c978ad5e9eca87c5a9b35b47b2f7521fc6548e7dc0ce",
+  "meta": {
+    "record_count": 23,
+    "cli_markdown_path": "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\data\\raw\\news_press_sentiment\\mediotiempo_record_mx\\2026-11-09\\mediotiempo_liga_mx_ai_targeted.md",
+    "cli_markdown_chars": 38562
+  },
+  "payload": {
+    "captured_at_utc": "2026-11-09T18:49:19Z",
+    "source_url": "https://www.mediotiempo.com/futbol/liga-mx",
+    "cli_markdown_file": "mediotiempo_liga_mx_ai_targeted.md",
+    "cli_markdown_char_length": 38562,
+    "cli_markdown_excerpt": "lunes, 9.11.2026 / 12:49\n\nHoy interesa:\n\n* [Hormiga González](/futbol/balon-toco-gol-hormiga-gonzalez-olympiacos-video)\n* [Ámerica](/futbol/liga-mx/guillermo-almada-terminara-apertura-2026-sin-ganar-ningun-clasico-como-dt-america)\n* [Pumas](/futbol/liga-mx/que-necesita-pumas-para-clasificar-a-la-liguilla)\n* [Gilberto Mora](/futbol/seleccion-mayor/gilberto-mora-reporto-seleccion-mexicana-duelos-jamaica)\n* [Ámerica Femenil](/futbol/liga-mx-femenil/cuanto-cuestan-los-boletos-del-america-femenil-vs-toluca-en-estadiobanorte)\n* [Liguilla Apertura 2026](/futbol/liga-mx/asi-se-jugara-la-liguilla-al-momento-clasificados-partidos-confirmados)\n* [Formula 1](/automovilismo/f1/gran-premio-las-vegas-fecha-y-horario-de-la-proxima-carrera-de-formula-1)\n\nIniciar sesión\n\n[![Caliente](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFQAAAAmCAYAAABagbwLAAAMB0lEQVRo3u1aC5BUxRVt+S0u7M7OLCAfESUSA0b8BkGigCIRjaAYBVGRKAKiKfGvlKCsgAQUJBANoQQrgAYUSTRGTVARYtD44RMSNIIoqCCiqMt/2dc59/Z5Mz2v3sCwSFWiu1W3Zqa7X39O33vu6X5rzEH4s0XmGGtMffMd+7PWpg5Ox0kzFvYebLytZ44DuIdUA1qVDo2pZUvMCbD70fUe2CuwdbbUbMDnX1B+BdrUrAZ030DWAFg94JFvocttsEoFNGl+g7qGqCvD9/ko24LPZ/H7yGpA4zo41BwOcIajmxUEsRw2D2X9UNc8hgr6ov4jBTZlZtiEOaka0NAjk2YIHq9AOFsFUzyw0DTJ49maaHsbntmOZ3fgcwTAb5b32IXmJGzYBFtsjv5WAAowzsNjr5EjJaxnw37scyO+18Gie6H+edgTqJ+Mz0dgj+L7aHz+FmBu181wG/J6DvDr2bqmhSQ1WCG5eZc+kzTX/V8DigUdihAdo16ZMoEmmhLTM9Kmtq1v2mCxLyvYGcCk/U7YNgXE9bFbPdvVv+ZJrlI8PwX2trYvMUO5kecTzB34/piMddABchtZS9eeh1JJAyohvE9dKRm7FMAIEOJxXmLB88UouxZ1L8K+wveHUX+VLjxpZqHsZoToqbBWKO+E3+fgswvs56gfh88ztJ9ik0Ldm+lNKDHTQs/Xtq6fdrLIgw6kKJKUmQ5boFEGUPMClA//AnYlNGNj/K6b1ShhzkKzrxVM5zE3cOeKUHcUQ/grJqW1qL+wyouQvjJe/ZH0X5V+qvBMzQitna5rymzsVUI5++OhBUwU78MW684kzTCCtZme+TkWeAc6vxHlc/B7mQLs6sQrb0XCaJpjwnUk60vSku9xi0cUdEA/XxDQneive1YSrIvNKzI9Ud4xpv8Uyi9XmSbJUSLD2wwN2WLTHmUD0cf3I1zfTylG2iTNEXooSZmVpCkHaMr8w3cU9NEAffVG+QNo/3vY43DGtlkcSg85F7aUfGf3ao7/PkX7mSKfYhZZJKGMdnNVJkkScp4um7AR3z+WxWjb+qYRfm/wFMM4L0KuZl2gz1BJKLcJFTm+3aSbEYLg+ulNNXKf8q48n4QTlJgSXatssISy8HnCjCLlnJv2TCZLHqOTWl/XHKmnP+dkG9M5wCXJh2OTkgIhGTk3mAL2yxoGCfO9uJMPve1Vtg3oNR1R9ldv5+eF9KKcnFnE+wC4IcHsit9bWVeOdj9Ne5wAmTJfovw/mEtn6uEg3RZSTJImvm9lv5+F3onyC3QcN7enw3CWBKg5wvVRKTyf9mSRd7KhLocMQ93xeohxfVeo0okFVLyqNM0fFfh9F3auj4aU8CkXmyO0aysXpyiJZBHiYSJ5klAIpWkwV6HMeUrCdKMHWfUyin160DIuLlB5JtSEZMjNCpRnJdk5ylrIPjbrRrhEWs6yPZonnPS6y1MgqzVROm3cJy3JHEBjdB71zGFKIa79VqU8iQ6hhkzb0bGySTkuZT7gTgfklrwzKga7xwOzHOB34mQnpw8BLjwuZfsengfJom+mx/4Qv9/xPG61hB3Kj8P398hrm9H+RA3rlJnEpFih3udC/SVvvLcUOJexd3O8XeLZOl5K+fBrr/1CVS4JczLK3/Wi6h5SYx/2U6mHD",
+    "headlines_count": 23,
+    "headlines": [
+      {
+        "headline": "Pumas empata con América en el Clásico Capitalino y está al borde de la eliminación",
+        "url": "https://www.mediotiempo.com/futbol/liga-mx/resumen-partido-pumas-vs-america-jornada-16-apertura-2026",
+        "published_at_utc": "2026-11-09T18:49:19Z",
+        "clubs_mentioned": [
+          "América",
+          "Pumas UNAM"
+        ],
+        "manager_change_signal": false,
+        "rotation_announcement": false
+      },
+      {
+        "headline": "Cruz Azul derrota a Tigres en su casa y toma el liderato del Apertura 2026",
+        "url": "https://www.mediotiempo.com/futbol/liga-mx/resumen-partido-tigres-vs-cruz-azul-jornada-16-apertura-2026",
+        "published_at_utc": "2026-11-09T18:49:19Z",
+        "clubs_mentioned": [
+          "Cruz Azul",
+          "Tigres UANL"
+        ],
+        "manager_change_signal": false,
+        "rotation_announcement": false
+      },
+      {
+        "headline": "Con doblete de Paulinho, Toluca despierta y pulveriza a Rayados",
+        "url": "https://www.mediotiempo.com/futbol/liga-mx/resumen-partido-toluca-vs-rayados-liga-mx-2026",
+        "published_at_utc": "2026-11-09T18:49:19Z",
+        "clubs_mentioned": [
+          "Monterrey",
+          "Toluca"
+        ],
+        "manager_change_signal": false,
+        "rotation_announcement": false
+      },
+      {
+        "headline": "Mejores memes del Pumas vs. América; el Clásico Capitalino 'fue cine'",
+        "url": "https://www.mediotiempo.com/futbol/liga-mx/mejores-memes-pumas-vs-america-clasico-capitalino-hoy",
+        "published_at_utc": "2026-11-09T18:49:19Z",
+        "clubs_mentioned": [
+          "América",
+          "Pumas UNAM"
+        ],
+        "manager_change_signal": false,
+        "rotation_announcement": false
+      },
+      {
+        "headline": "Simulador de la liguilla: Así se jugarían los cuartos de final tras la jornada 16",
+        "url": "https://www.mediotiempo.com/futbol/liga-mx/simulador-apertura-2026-liga-mx-resultados-liguilla-al-momento",
+        "published_at_utc": "2026-11-09T18:49:19Z",
+        "clubs_mentioned": [],
+        "manager_change_signal": false,
+        "rotation_announcement": false
+      },
+      {
+        "headline": "Así se jugará la Liguilla del Apertura 2026 AL MOMENTO: clasificados y partidos EN VIVO",
+        "url": "https://www.mediotiempo.com/futbol/liga-mx/asi-se-jugara-la-liguilla-al-momento-clasificados-partidos-confirmados",
+        "published_at_utc": "2026-11-09T18:49:19Z",
+        "clubs_mentioned": [],
+        "manager_change_signal": false,
+        "rotation_announcement": false
+      },
+      {
+        "headline": "Carlos González apunta a salir de la presidencia de Tigres",
+        "url": "https://www.mediotiempo.com/futbol/liga-mx/carlos-gonzalez-apunta-a-salir-de-la-presidencia-de-tigres-",
+        "published_at_utc": "2026-11-09T18:49:19Z",
+        "clubs_mentioned": [
+          "Tigres UANL"
+        ],
+        "manager_change_signal": true,
+        "rotation_announcement": false
+      },
+      {
+        "headline": "Así fue la bronca entre jugadores de Pumas y América en el Clásico Capitalino | VIDEO",
+        "url": "https://www.mediotiempo.com/futbol/liga-mx/calentaron-animos-bronca-pumas-vs-america-clasico-capitalino-video",
+        "published_at_utc": "2026-11-09T18:49:19Z",
+        "clubs_mentioned": [
+          "América",
+          "Pumas UNAM"
+        ],
+        "manager_change_signal": false,
+        "rotation_announcement": false
+      },
+      {
+        "headline": "Horario y dónde ver EN VIVO a Juan Reynoso en El Método",
+        "url": "https://www.mediotiempo.com/futbol/liga-mx/horario-y-donde-ver-en-vivo-a-juan-reynoso-en-el-metodo",
+        "published_at_utc": "2026-11-09T18:49:19Z",
+        "clubs_mentioned": [],
+        "manager_change_signal": false,
+        "rotation_announcement": false
+      },
+      {
+        "headline": "Liga MX: Lista de equipos que aún NO cumplen la Regla de menores en AP2026",
+        "url": "https://www.mediotiempo.com/futbol/liga-mx/regla-de-menores-que-equipos-faltan-de-cumplir-una-jornada-termine-el-ap2026",
+        "published_at_utc": "2026-11-09T18:49:19Z",
+        "clubs_mentioned": [],
+        "manager_change_signal": false,
+        "rotation_announcement": true
+      },
+      {
+        "headline": "¿Pável Pardo se unirá a la directiva de Tigres? Esto se sabe",
+        "url": "https://www.mediotiempo.com/futbol/liga-mx/pavel-pardo-se-unira-a-la-directiva-de-tigres-esto-se-sabe",
+        "published_at_utc": "2026-11-09T18:49:19Z",
+        "clubs_mentioned": [
+          "Tigres UANL"
+        ],
+        "manager_change_signal": true,
+        "rotation_announcement": false
+      },
+      {
+        "headline": "¡Apretado! Así marcha el torneo Apertura 2026 tras el cierre de la Jornada 16 de la Liga MX",
+        "url": "https://www.mediotiempo.com/futbol/liga-mx/liga-mx-apertura-2026-asi-quedo-tabla-general-tras-jornada-16",
+        "published_at_utc": "2026-11-09T18:49:19Z",
+        "clubs_mentioned": [],
+        "manager_change_signal": false,
+        "rotation_announcement": false
+      },
+      {
+        "headline": "¿Ya está definido? Así quedó la Tabla de Goleo del Apertura 2026 al término de la Jornada 16",
+        "url": "https://www.mediotiempo.com/futbol/liga-mx/definido-tabla-goleo-apertura-2026-termino-jornada-16",
+        "published_at_utc": "2026-11-09T18:49:19Z",
+        "clubs_mentioned": [],
+        "manager_change_signal": false,
+        "rotation_announcement": false
+      },
+      {
+        "headline": "Liguilla del Apertura 2026 AL MOMENTO: clasificados y partidos de Cuartos de Final",
+        "url": "https://www.mediotiempo.com/futbol/liga-mx/asi-se-jugara-la-liguilla-al-momento-clasificados-partidos-confirmados",
+        "published_at_utc": "2026-11-09T18:49:19Z",
+        "clubs_mentioned": [],
+        "manager_change_signal": false,
+        "rotation_announcement": false
+      },
+      {
+        "headline": "¡Chivas no pudo! El Rebaño dejó escapar el liderato ante un León con 10 hombres que peleó hasta el final",
+        "url": "https://www.mediotiempo.com/futbol/liga-mx/resumen-partido-leon-vs-chivas-apertura-2026-jornada-16-liga-mx",
+        "published_at_utc": "2026-11-09T18:49:19Z",
+        "clubs_mentioned": [
+          "Chivas",
+          "León"
+        ],
+        "manager_change_signal": false,
+        "rotation_announcement": false
+      },
+      {
+        "headline": "¿Le alcanza para Liguilla? Rayados se 'mete' en problemas tras ser goleados por Toluca",
+        "url": "https://www.mediotiempo.com/futbol/liga-mx/alcanza-liguilla-rayados-mete-problemas-goleados-toluca",
+        "published_at_utc": "2026-11-09T18:49:19Z",
+        "clubs_mentioned": [
+          "Monterrey",
+          "Toluca"
+        ],
+        "manager_change_signal": false,
+        "rotation_announcement": false
+      },
+      {
+        "headline": "Adonis Frías rompe el silencio tras altercado con Camilo Vargas y afición Rojinegra",
+        "url": "https://www.mediotiempo.com/futbol/liga-mx/adonis-frias-rompe-silencio-altercado-camilo-vargas-aficion-rojinegra",
+        "published_at_utc": "2026-11-09T18:49:19Z",
+        "clubs_mentioned": [
+          "Atlas"
+        ],
+        "manager_change_signal": false,
+        "rotation_announcement": false
+      },
+      {
+        "headline": "¿QUIÉN MANDA EN LA LIGUILLA? El despertar tapatío vs la Capital y Monterrey | #ConexiónMT",
+        "url": "https://www.mediotiempo.com/videos/futbol/liga-mx/manda-liguilla-despertar-tapatio-vs-capital-monterrey-conexionmt",
+        "published_at_utc": "2026-11-09T18:49:19Z",
+        "clubs_mentioned": [
+          "Monterrey"
+        ],
+        "manager_change_signal": false,
+        "rotation_announcement": false
+      },
+      {
+        "headline": "¿América violó el reglamento?",
+        "url": "https://www.mediotiempo.com/videos/futbol/liga-mx/america-violo-el-reglamento",
+        "published_at_utc": "2026-11-09T18:49:19Z",
+        "clubs_mentioned": [
+          "América"
+        ],
+        "manager_change_signal": false,
+        "rotation_announcement": false
+      },
+      {
+        "headline": "¿EXIGENCIA O MEMORIA CORTA? Por qué la afición del América no perdona los errores | #ConexiónMT",
+        "url": "https://www.mediotiempo.com/videos/futbol/liga-mx/exigencia-memoria-corta-aficion-america-perdona-errores-conexionmt",
+        "published_at_utc": "2026-11-09T18:49:19Z",
+        "clubs_mentioned": [
+          "América"
+        ],
+        "manager_change_signal": false,
+        "rotation_announcement": false
+      },
+      {
+        "headline": "Memo Ochoa, ¿ídolo o leyenda del futbol mexicano?",
+        "url": "https://www.mediotiempo.com/videos/futbol/liga-mx/memo-ochoa-idolo-leyenda-futbol-mexicano",
+        "published_at_utc": "2026-11-09T18:49:19Z",
+        "clubs_mentioned": [],
+        "manager_change_signal": false,
+        "rotation_announcement": false
+      },
+      {
+        "headline": "“Seguiré cumpliendo con esa misión que me han encomendado.”",
+        "url": "https://www.mediotiempo.com/videos/futbol/liga-mx/seguire-cumpliendo-con-esa-mision-que-me-han-encomendado",
+        "published_at_utc": "2026-11-09T18:49:19Z",
+        "clubs_mentioned": [],
+        "manager_change_signal": false,
+        "rotation_announcement": false
+      },
+      {
+        "headline": "¿ES UNA LEYENDA? El debate sobre el verdadero legado de Ochoa en América | #ConexiónMT",
+        "url": "https://www.mediotiempo.com/videos/futbol/liga-mx/leyenda-debate-legado-ochoa-america-conexionmt",
+        "published_at_utc": "2026-11-09T18:49:19Z",
+        "clubs_mentioned": [
+          "América"
+        ],
+        "manager_change_signal": false,
+        "rotation_announcement": false
+      }
+    ]
+  }
+}

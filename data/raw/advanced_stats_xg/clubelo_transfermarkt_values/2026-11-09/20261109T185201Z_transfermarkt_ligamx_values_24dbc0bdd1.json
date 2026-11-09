@@ -1,0 +1,217 @@
+{
+  "source_id": "clubelo_transfermarkt_values",
+  "source_name": "ClubElo & Transfermarkt (Squad Market Values)",
+  "category": "advanced_stats_xg",
+  "url": "https://www.transfermarkt.mx/liga-mx-apertura/startseite/wettbewerb/MEXA",
+  "scrapling_mode": "fetcher_session",
+  "captured_at_utc": "2026-11-09T18:52:01Z",
+  "sha256": "24dbc0bdd1c4444bc5e3c03cc0a9806c546342fb33967f3a1e8257cff950f4e2",
+  "meta": {
+    "clubs_count": 18
+  },
+  "payload": {
+    "competition": "Liga MX Apertura (MEXA)",
+    "url": "https://www.transfermarkt.mx/liga-mx-apertura/startseite/wettbewerb/MEXA",
+    "clubs_count": 18,
+    "clubs": [
+      {
+        "club_name": "CF América",
+        "club_path": "/cf-america/startseite/verein/3631/saison_id/2026",
+        "squad_size": 31,
+        "average_age": 26.8,
+        "foreigners_count": 13,
+        "average_player_value_raw": "4.23 M€",
+        "average_player_value_eur": 4230000.0,
+        "total_squad_market_value_raw": "131.18 M€",
+        "total_squad_market_value_eur": 131180000.0
+      },
+      {
+        "club_name": "CD Cruz Azul",
+        "club_path": "/cd-cruz-azul/startseite/verein/3711/saison_id/2026",
+        "squad_size": 32,
+        "average_age": 26.3,
+        "foreigners_count": 11,
+        "average_player_value_raw": "3.14 M€",
+        "average_player_value_eur": 3140000.0,
+        "total_squad_market_value_raw": "100.53 M€",
+        "total_squad_market_value_eur": 100530000.0
+      },
+      {
+        "club_name": "CD Guadalajara",
+        "club_path": "/deportivo-guadalajara/startseite/verein/6711/saison_id/2026",
+        "squad_size": 24,
+        "average_age": 26.4,
+        "foreigners_count": 2,
+        "average_player_value_raw": "4.10 M€",
+        "average_player_value_eur": 4100000.0,
+        "total_squad_market_value_raw": "98.35 M€",
+        "total_squad_market_value_eur": 98350000.0
+      },
+      {
+        "club_name": "Deportivo Toluca FC",
+        "club_path": "/deportivo-toluca/startseite/verein/1804/saison_id/2026",
+        "squad_size": 28,
+        "average_age": 28.5,
+        "foreigners_count": 10,
+        "average_player_value_raw": "3.40 M€",
+        "average_player_value_eur": 3400000.0,
+        "total_squad_market_value_raw": "95.30 M€",
+        "total_squad_market_value_eur": 95300000.0
+      },
+      {
+        "club_name": "Tigres UANL",
+        "club_path": "/tigres-uanl/startseite/verein/7055/saison_id/2026",
+        "squad_size": 29,
+        "average_age": 27.8,
+        "foreigners_count": 13,
+        "average_player_value_raw": "2.63 M€",
+        "average_player_value_eur": 2630000.0,
+        "total_squad_market_value_raw": "76.38 M€",
+        "total_squad_market_value_eur": 76380000.0
+      },
+      {
+        "club_name": "CF Monterrey",
+        "club_path": "/cf-monterrey/startseite/verein/2407/saison_id/2026",
+        "squad_size": 28,
+        "average_age": 28.3,
+        "foreigners_count": 10,
+        "average_player_value_raw": "2.53 M€",
+        "average_player_value_eur": 2530000.0,
+        "total_squad_market_value_raw": "70.93 M€",
+        "total_squad_market_value_eur": 70930000.0
+      },
+      {
+        "club_name": "Club Tijuana",
+        "club_path": "/club-tijuana/startseite/verein/13353/saison_id/2026",
+        "squad_size": 23,
+        "average_age": 26.6,
+        "foreigners_count": 10,
+        "average_player_value_raw": "2.75 M€",
+        "average_player_value_eur": 2750000.0,
+        "total_squad_market_value_raw": "63.20 M€",
+        "total_squad_market_value_eur": 63200000.0
+      },
+      {
+        "club_name": "Pumas UNAM",
+        "club_path": "/unam-pumas/startseite/verein/7633/saison_id/2026",
+        "squad_size": 28,
+        "average_age": 26.7,
+        "foreigners_count": 11,
+        "average_player_value_raw": "2.12 M€",
+        "average_player_value_eur": 2120000.0,
+        "total_squad_market_value_raw": "59.28 M€",
+        "total_squad_market_value_eur": 59280000.0
+      },
+      {
+        "club_name": "Atlas Guadalajara",
+        "club_path": "/atlas-guadalajara/startseite/verein/8590/saison_id/2026",
+        "squad_size": 24,
+        "average_age": 27.6,
+        "foreigners_count": 9,
+        "average_player_value_raw": "2.06 M€",
+        "average_player_value_eur": 2060000.0,
+        "total_squad_market_value_raw": "49.40 M€",
+        "total_squad_market_value_eur": 49400000.0
+      },
+      {
+        "club_name": "Club León FC",
+        "club_path": "/club-leon-fc/startseite/verein/4941/saison_id/2026",
+        "squad_size": 26,
+        "average_age": 27.5,
+        "foreigners_count": 10,
+        "average_player_value_raw": "1.70 M€",
+        "average_player_value_eur": 1700000.0,
+        "total_squad_market_value_raw": "44.08 M€",
+        "total_squad_market_value_eur": 44080000.0
+      },
+      {
+        "club_name": "Santos Laguna",
+        "club_path": "/santos-laguna/startseite/verein/1403/saison_id/2026",
+        "squad_size": 29,
+        "average_age": 25.8,
+        "foreigners_count": 12,
+        "average_player_value_raw": "1.52 M€",
+        "average_player_value_eur": 1520000.0,
+        "total_squad_market_value_raw": "43.95 M€",
+        "total_squad_market_value_eur": 43950000.0
+      },
+      {
+        "club_name": "FC Juárez",
+        "club_path": "/fc-juarez/startseite/verein/49283/saison_id/2026",
+        "squad_size": 28,
+        "average_age": 26.6,
+        "foreigners_count": 13,
+        "average_player_value_raw": "1.50 M€",
+        "average_player_value_eur": 1500000.0,
+        "total_squad_market_value_raw": "42.00 M€",
+        "total_squad_market_value_eur": 42000000.0
+      },
+      {
+        "club_name": "Club Necaxa",
+        "club_path": "/club-necaxa/startseite/verein/1146/saison_id/2026",
+        "squad_size": 26,
+        "average_age": 24.5,
+        "foreigners_count": 10,
+        "average_player_value_raw": "1.50 M€",
+        "average_player_value_eur": 1500000.0,
+        "total_squad_market_value_raw": "39.10 M€",
+        "total_squad_market_value_eur": 39100000.0
+      },
+      {
+        "club_name": "Atlético de San Luis",
+        "club_path": "/atletico-de-san-luis/startseite/verein/40188/saison_id/2026",
+        "squad_size": 26,
+        "average_age": 27.2,
+        "foreigners_count": 11,
+        "average_player_value_raw": "1.45 M€",
+        "average_player_value_eur": 1450000.0,
+        "total_squad_market_value_raw": "37.75 M€",
+        "total_squad_market_value_eur": 37750000.0
+      },
+      {
+        "club_name": "CF Pachuca",
+        "club_path": "/cf-pachuca/startseite/verein/4035/saison_id/2026",
+        "squad_size": 22,
+        "average_age": 26.9,
+        "foreigners_count": 10,
+        "average_player_value_raw": "1.71 M€",
+        "average_player_value_eur": 1710000.0,
+        "total_squad_market_value_raw": "37.65 M€",
+        "total_squad_market_value_eur": 37650000.0
+      },
+      {
+        "club_name": "Querétaro FC",
+        "club_path": "/queretaro-fc/startseite/verein/4961/saison_id/2026",
+        "squad_size": 24,
+        "average_age": 25.8,
+        "foreigners_count": 8,
+        "average_player_value_raw": "991 mil €",
+        "average_player_value_eur": 991000.0,
+        "total_squad_market_value_raw": "23.78 M€",
+        "total_squad_market_value_eur": 23780000.0
+      },
+      {
+        "club_name": "Club Puebla",
+        "club_path": "/puebla-fc/startseite/verein/5662/saison_id/2026",
+        "squad_size": 27,
+        "average_age": 25.9,
+        "foreigners_count": 8,
+        "average_player_value_raw": "811 mil €",
+        "average_player_value_eur": 811000.0,
+        "total_squad_market_value_raw": "21.90 M€",
+        "total_squad_market_value_eur": 21900000.0
+      },
+      {
+        "club_name": "CF Atlante",
+        "club_path": "/cf-atlante/startseite/verein/6709/saison_id/2026",
+        "squad_size": 30,
+        "average_age": 26.0,
+        "foreigners_count": 10,
+        "average_player_value_raw": "586 mil €",
+        "average_player_value_eur": 586000.0,
+        "total_squad_market_value_raw": "17.58 M€",
+        "total_squad_market_value_eur": 17580000.0
+      }
+    ]
+  }
+}

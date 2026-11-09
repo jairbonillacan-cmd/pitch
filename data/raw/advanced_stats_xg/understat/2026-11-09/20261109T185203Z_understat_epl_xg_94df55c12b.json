@@ -1,0 +1,3747 @@
+{
+  "source_id": "understat",
+  "source_name": "Understat",
+  "category": "advanced_stats_xg",
+  "url": "https://understat.com/league/EPL",
+  "scrapling_mode": "fetcher_session",
+  "captured_at_utc": "2026-11-09T18:52:03Z",
+  "sha256": "94df55c12b99e8dbc038fd1337a9e2fca2dd80553dc5ff88df51d719bc3cadd7",
+  "meta": {
+    "teams_count": 20,
+    "recent_matches_sample_count": 25,
+    "used_archive_mirror": true
+  },
+  "payload": {
+    "league": "EPL",
+    "primary_url": "https://understat.com/league/EPL",
+    "live_http_status": 200,
+    "used_archive_mirror": true,
+    "archive_url": "https://web.archive.org/web/20250214144036/https://understat.com/league/EPL",
+    "teams_count": 20,
+    "teams_xg_table": [
+      {
+        "team_id": "87",
+        "team_title": "Liverpool",
+        "matches_played": 24,
+        "pts": 57,
+        "xG": 61.801,
+        "xGA": 24.63,
+        "npxG": 57.234,
+        "npxGA": 23.732,
+        "npxGD": 33.502,
+        "xPTS": 55.318,
+        "ppda_avg": 9.098,
+        "deep_completions": 281,
+        "recent_5_matches": [
+          {
+            "h_a": "a",
+            "xG": 2.72291,
+            "xGA": 0.5292,
+            "npxG": 2.72291,
+            "npxGA": 0.5292,
+            "ppda": {
+              "att": 102,
+              "def": 16
+            },
+            "ppda_allowed": {
+              "att": 237,
+              "def": 11
+            },
+            "deep": 18,
+            "deep_allowed": 2,
+            "scored": 1,
+            "missed": 1,
+            "xpts": 2.7403000000000004,
+            "result": "d",
+            "date": "2025-01-14 20:00:00",
+            "wins": 0,
+            "draws": 1,
+            "loses": 0,
+            "pts": 1,
+            "npxGD": 2.1937100000000003
+          },
+          {
+            "h_a": "a",
+            "xG": 4.16249,
+            "xGA": 1.20021,
+            "npxG": 4.16249,
+            "npxGA": 1.20021,
+            "ppda": {
+              "att": 204,
+              "def": 25
+            },
+            "ppda_allowed": {
+              "att": 169,
+              "def": 10
+            },
+            "deep": 23,
+            "deep_allowed": 8,
+            "scored": 2,
+            "missed": 0,
+            "xpts": 2.7965,
+            "result": "w",
+            "date": "2025-01-18 15:00:00",
+            "wins": 1,
+            "draws": 0,
+            "loses": 0,
+            "pts": 3,
+            "npxGD": 2.96228
+          },
+          {
+            "h_a": "h",
+            "xG": 2.16809,
+            "xGA": 0.804707,
+            "npxG": 2.16809,
+            "npxGA": 0.804707,
+            "ppda": {
+              "att": 190,
+              "def": 29
+            },
+            "ppda_allowed": {
+              "att": 293,
+              "def": 25
+            },
+            "deep": 15,
+            "deep_allowed": 2,
+            "scored": 4,
+            "missed": 1,
+            "xpts": 2.4444,
+            "result": "w",
+            "date": "2025-01-25 15:00:00",
+            "wins": 1,
+            "draws": 0,
+            "loses": 0,
+            "pts": 3,
+            "npxGD": 1.3633829999999998
+          },
+          {
+            "h_a": "a",
+            "xG": 2.7219,
+            "xGA": 1.65273,
+            "npxG": 1.96073,
+            "npxGA": 1.65273,
+            "ppda": {
+              "att": 190,
+              "def": 22
+            },
+            "ppda_allowed": {
+              "att": 213,
+              "def": 26
+            },
+            "deep": 11,
+            "deep_allowed": 5,
+            "scored": 2,
+            "missed": 0,
+            "xpts": 2.1038,
+            "result": "w",
+            "date": "2025-02-01 15:00:00",
+            "wins": 1,
+            "draws": 0,
+            "loses": 0,
+            "pts": 3,
+            "npxGD": 0.30800000000000005
+          },
+          {
+            "h_a": "a",
+            "xG": 0.929103,
+            "xGA": 0.910523,
+            "npxG": 0.929103,
+            "npxGA": 0.910523,
+            "ppda": {
+              "att": 146,
+              "def": 32
+            },
+            "ppda_allowed": {
+              "att": 319,
+              "def": 18
+            },
+            "deep": 2,
+            "deep_allowed": 2,
+            "scored": 2,
+            "missed": 2,
+            "xpts": 1.3736000000000002,
+            "result": "d",
+            "date": "2025-02-12 19:30:00",
+            "wins": 0,
+            "draws": 1,
+            "loses": 0,
+            "pts": 1,
+            "npxGD": 0.01858000000000004
+          }
+        ]
+      },
+      {
+        "team_id": "83",
+        "team_title": "Arsenal",
+        "matches_played": 24,
+        "pts": 50,
+        "xG": 49.587,
+        "xGA": 23.648,
+        "npxG": 48.065,
+        "npxGA": 22.125,
+        "npxGD": 25.94,
+        "xPTS": 48.508,
+        "ppda_avg": 9.394,
+        "deep_completions": 221,
+        "recent_5_matches": [
+          {
+            "h_a": "a",
+            "xG": 1.81142,
+            "xGA": 1.76513,
+            "npxG": 1.81142,
+            "npxGA": 1.00396,
+            "ppda": {
+              "att": 260,
+              "def": 24
+            },
+            "ppda_allowed": {
+              "att": 325,
+              "def": 22
+            },
+            "deep": 8,
+            "deep_allowed": 4,
+            "scored": 1,
+            "missed": 1,
+            "xpts": 1.3613,
+            "result": "d",
+            "date": "2025-01-04 17:30:00",
+            "wins": 0,
+            "draws": 1,
+            "loses": 0,
+            "pts": 1,
+            "npxGD": 0.8074600000000001
+          },
+          {
+            "h_a": "h",
+            "xG": 2.25501,
+            "xGA": 0.777071,
+            "npxG": 2.25501,
+            "npxGA": 0.777071,
+            "ppda": {
+              "att": 227,
+              "def": 37
+            },
+            "ppda_allowed": {
+              "att": 193,
+              "def": 9
+            },
+            "deep": 11,
+            "deep_allowed": 0,
+            "scored": 2,
+            "missed": 1,
+            "xpts": 2.3930999999999996,
+            "result": "w",
+            "date": "2025-01-15 20:00:00",
+            "wins": 1,
+            "draws": 0,
+            "loses": 0,
+            "pts": 3,
+            "npxGD": 1.4779390000000001
+          },
+          {
+            "h_a": "h",
+            "xG": 1.64458,
+            "xGA": 1.20602,
+            "npxG": 1.64458,
+            "npxGA": 1.20602,
+            "ppda": {
+              "att": 150,
+              "def": 22
+            },
+            "ppda_allowed": {
+              "att": 210,
+              "def": 14
+            },
+            "deep": 8,
+            "deep_allowed": 1,
+            "scored": 2,
+            "missed": 2,
+            "xpts": 1.6845,
+            "result": "d",
+            "date": "2025-01-18 17:30:00",
+            "wins": 0,
+            "draws": 1,
+            "loses": 0,
+            "pts": 1,
+            "npxGD": 0.43855999999999984
+          },
+          {
+            "h_a": "a",
+            "xG": 0.887358,
+            "xGA": 0.514724,
+            "npxG": 0.887358,
+            "npxGA": 0.514724,
+            "ppda": {
+              "att": 232,
+              "def": 30
+            },
+            "ppda_allowed": {
+              "att": 182,
+              "def": 27
+            },
+            "deep": 2,
+            "deep_allowed": 0,
+            "scored": 1,
+            "missed": 0,
+            "xpts": 1.6851,
+            "result": "w",
+            "date": "2025-01-25 15:00:00",
+            "wins": 1,
+            "draws": 0,
+            "loses": 0,
+            "pts": 3,
+            "npxGD": 0.372634
+          },
+          {
+            "h_a": "h",
+            "xG": 1.53202,
+            "xGA": 0.743191,
+            "npxG": 1.53202,
+            "npxGA": 0.743191,
+            "ppda": {
+              "att": 217,
+              "def": 15
+            },
+            "ppda_allowed": {
+              "att": 231,
+              "def": 13
+            },
+            "deep": 6,
+            "deep_allowed": 7,
+            "scored": 5,
+            "missed": 1,
+            "xpts": 2.0152,
+            "result": "w",
+            "date": "2025-02-02 16:30:00",
+            "wins": 1,
+            "draws": 0,
+            "loses": 0,
+            "pts": 3,
+            "npxGD": 0.7888289999999999
+          }
+        ]
+      },
+      {
+        "team_id": "73",
+        "team_title": "Bournemouth",
+        "matches_played": 24,
+        "pts": 40,
+        "xG": 50.746,
+        "xGA": 34.811,
+        "npxG": 45.418,
+        "npxGA": 33.289,
+        "npxGD": 12.129,
+        "xPTS": 43.902,
+        "ppda_avg": 9.203,
+        "deep_completions": 180,
+        "recent_5_matches": [
+          {
+            "h_a": "h",
+            "xG": 2.61852,
+            "xGA": 0.561015,
+            "npxG": 2.61852,
+            "npxGA": 0.561015,
+            "ppda": {
+              "att": 107,
+              "def": 27
+            },
+            "ppda_allowed": {
+              "att": 193,
+              "def": 18
+            },
+            "deep": 14,
+            "deep_allowed": 1,
+            "scored": 1,
+            "missed": 0,
+            "xpts": 2.738,
+            "result": "w",
+            "date": "2025-01-04 15:00:00",
+            "wins": 1,
+            "draws": 0,
+            "loses": 0,
+            "pts": 3,
+            "npxGD": 2.057505
+          },
+          {
+            "h_a": "a",
+            "xG": 1.14845,
+            "xGA": 2.53808,
+            "npxG": 0.387282,
+            "npxGA": 2.53808,
+            "ppda": {
+              "att": 232,
+              "def": 26
+            },
+            "ppda_allowed": {
+              "att": 179,
+              "def": 19
+            },
+            "deep": 8,
+            "deep_allowed": 12,
+            "scored": 2,
+            "missed": 2,
+            "xpts": 0.4455,
+            "result": "d",
+            "date": "2025-01-14 19:30:00",
+            "wins": 0,
+            "draws": 1,
+            "loses": 0,
+            "pts": 1,
+            "npxGD": -2.150798
+          },
+          {
+            "h_a": "a",
+            "xG": 2.70174,
+            "xGA": 0.837801,
+            "npxG": 2.70174,
+            "npxGA": 0.837801,
+            "ppda": {
+              "att": 209,
+              "def": 34
+            },
+            "ppda_allowed": {
+              "att": 127,
+              "def": 16
+            },
+            "deep": 8,
+            "deep_allowed": 12,
+            "scored": 4,
+            "missed": 1,
+            "xpts": 2.5229000000000004,
+            "result": "w",
+            "date": "2025-01-18 12:30:00",
+            "wins": 1,
+            "draws": 0,
+            "loses": 0,
+            "pts": 3,
+            "npxGD": 1.863939
+          },
+          {
+            "h_a": "h",
+            "xG": 2.8254,
+            "xGA": 0.996166,
+            "npxG": 2.8254,
+            "npxGA": 0.996166,
+            "ppda": {
+              "att": 161,
+              "def": 21
+            },
+            "ppda_allowed": {
+              "att": 153,
+              "def": 20
+            },
+            "deep": 6,
+            "deep_allowed": 12,
+            "scored": 5,
+            "missed": 0,
+            "xpts": 2.5601000000000003,
+            "result": "w",
+            "date": "2025-01-25 15:00:00",
+            "wins": 1,
+            "draws": 0,
+            "loses": 0,
+            "pts": 3,
+            "npxGD": 1.829234
+          },
+          {
+            "h_a": "h",
+            "xG": 1.65273,
+            "xGA": 2.7219,
+            "npxG": 1.65273,
+            "npxGA": 1.96073,
+            "ppda": {
+              "att": 213,
+              "def": 26
+            },
+            "ppda_allowed": {
+              "att": 190,
+              "def": 22
+            },
+            "deep": 5,
+            "deep_allowed": 11,
+            "scored": 0,
+            "missed": 2,
+            "xpts": 0.7025,
+            "result": "l",
+            "date": "2025-02-01 15:00:00",
+            "wins": 0,
+            "draws": 0,
+            "loses": 1,
+            "pts": 0,
+            "npxGD": -0.30800000000000005
+          }
+        ]
+      },
+      {
+        "team_id": "228",
+        "team_title": "Fulham",
+        "matches_played": 24,
+        "pts": 36,
+        "xG": 40.086,
+        "xGA": 28.398,
+        "npxG": 37.042,
+        "npxGA": 27.637,
+        "npxGD": 9.405,
+        "xPTS": 41.376,
+        "ppda_avg": 13.879,
+        "deep_completions": 143,
+        "recent_5_matches": [
+          {
+            "h_a": "h",
+            "xG": 2.65469,
+            "xGA": 1.4434,
+            "npxG": 1.13235,
+            "npxGA": 0.682234,
+            "ppda": {
+              "att": 131,
+              "def": 16
+            },
+            "ppda_allowed": {
+              "att": 330,
+              "def": 24
+            },
+            "deep": 5,
+            "deep_allowed": 2,
+            "scored": 2,
+            "missed": 2,
+            "xpts": 2.294,
+            "result": "d",
+            "date": "2025-01-05 14:00:00",
+            "wins": 0,
+            "draws": 1,
+            "loses": 0,
+            "pts": 1,
+            "npxGD": 0.45011599999999996
+          },
+          {
+            "h_a": "a",
+            "xG": 2.83581,
+            "xGA": 0.937322,
+            "npxG": 2.83581,
+            "npxGA": 0.937322,
+            "ppda": {
+              "att": 277,
+              "def": 32
+            },
+            "ppda_allowed": {
+              "att": 294,
+              "def": 17
+            },
+            "deep": 9,
+            "deep_allowed": 2,
+            "scored": 2,
+            "missed": 3,
+            "xpts": 2.6248,
+            "result": "l",
+            "date": "2025-01-14 19:30:00",
+            "wins": 0,
+            "draws": 0,
+            "loses": 1,
+            "pts": 0,
+            "npxGD": 1.898488
+          },
+          {
+            "h_a": "a",
+            "xG": 2.36823,
+            "xGA": 0.676934,
+            "npxG": 2.36823,
+            "npxGA": 0.676934,
+            "ppda": {
+              "att": 206,
+              "def": 21
+            },
+            "ppda_allowed": {
+              "att": 304,
+              "def": 16
+            },
+            "deep": 10,
+            "deep_allowed": 2,
+            "scored": 2,
+            "missed": 0,
+            "xpts": 2.6144,
+            "result": "w",
+            "date": "2025-01-18 15:00:00",
+            "wins": 1,
+            "draws": 0,
+            "loses": 0,
+            "pts": 3,
+            "npxGD": 1.691296
+          },
+          {
+            "h_a": "h",
+            "xG": 0.560571,
+            "xGA": 0.201988,
+            "npxG": 0.560571,
+            "npxGA": 0.201988,
+            "ppda": {
+              "att": 308,
+              "def": 10
+            },
+            "ppda_allowed": {
+              "att": 273,
+              "def": 17
+            },
+            "deep": 3,
+            "deep_allowed": 5,
+            "scored": 0,
+            "missed": 1,
+            "xpts": 1.6486999999999998,
+            "result": "l",
+            "date": "2025-01-26 19:00:00",
+            "wins": 0,
+            "draws": 0,
+            "loses": 1,
+            "pts": 0,
+            "npxGD": 0.35858300000000004
+          },
+          {
+            "h_a": "a",
+            "xG": 1.60881,
+            "xGA": 1.22716,
+            "npxG": 1.60881,
+            "npxGA": 1.22716,
+            "ppda": {
+              "att": 223,
+              "def": 19
+            },
+            "ppda_allowed": {
+              "att": 219,
+              "def": 16
+            },
+            "deep": 5,
+            "deep_allowed": 10,
+            "scored": 2,
+            "missed": 1,
+            "xpts": 1.6649999999999998,
+            "result": "w",
+            "date": "2025-02-01 15:00:00",
+            "wins": 1,
+            "draws": 0,
+            "loses": 0,
+            "pts": 3,
+            "npxGD": 0.38165000000000004
+          }
+        ]
+      },
+      {
+        "team_id": "80",
+        "team_title": "Chelsea",
+        "matches_played": 24,
+        "pts": 43,
+        "xG": 51.276,
+        "xGA": 37.245,
+        "npxG": 48.992,
+        "npxGA": 32.678,
+        "npxGD": 16.314,
+        "xPTS": 40.58,
+        "ppda_avg": 11.316,
+        "deep_completions": 223,
+        "recent_5_matches": [
+          {
+            "h_a": "a",
+            "xG": 1.51541,
+            "xGA": 1.2766,
+            "npxG": 1.51541,
+            "npxGA": 1.2766,
+            "ppda": {
+              "att": 204,
+              "def": 22
+            },
+            "ppda_allowed": {
+              "att": 328,
+              "def": 17
+            },
+            "deep": 16,
+            "deep_allowed": 6,
+            "scored": 1,
+            "missed": 1,
+            "xpts": 1.5524,
+            "result": "d",
+            "date": "2025-01-04 15:00:00",
+            "wins": 0,
+            "draws": 1,
+            "loses": 0,
+            "pts": 1,
+            "npxGD": 0.23880999999999997
+          },
+          {
+            "h_a": "h",
+            "xG": 2.53808,
+            "xGA": 1.14845,
+            "npxG": 2.53808,
+            "npxGA": 0.387282,
+            "ppda": {
+              "att": 179,
+              "def": 19
+            },
+            "ppda_allowed": {
+              "att": 232,
+              "def": 26
+            },
+            "deep": 12,
+            "deep_allowed": 8,
+            "scored": 2,
+            "missed": 2,
+            "xpts": 2.3727,
+            "result": "d",
+            "date": "2025-01-14 19:30:00",
+            "wins": 0,
+            "draws": 1,
+            "loses": 0,
+            "pts": 1,
+            "npxGD": 2.150798
+          },
+          {
+            "h_a": "h",
+            "xG": 3.14882,
+            "xGA": 1.06726,
+            "npxG": 3.14882,
+            "npxGA": 1.06726,
+            "ppda": {
+              "att": 172,
+              "def": 13
+            },
+            "ppda_allowed": {
+              "att": 353,
+              "def": 22
+            },
+            "deep": 10,
+            "deep_allowed": 10,
+            "scored": 3,
+            "missed": 1,
+            "xpts": 2.7219,
+            "result": "w",
+            "date": "2025-01-20 20:00:00",
+            "wins": 1,
+            "draws": 0,
+            "loses": 0,
+            "pts": 3,
+            "npxGD": 2.08156
+          },
+          {
+            "h_a": "a",
+            "xG": 1.49843,
+            "xGA": 2.23213,
+            "npxG": 1.49843,
+            "npxGA": 2.23213,
+            "ppda": {
+              "att": 386,
+              "def": 17
+            },
+            "ppda_allowed": {
+              "att": 264,
+              "def": 17
+            },
+            "deep": 5,
+            "deep_allowed": 3,
+            "scored": 1,
+            "missed": 3,
+            "xpts": 0.8682000000000001,
+            "result": "l",
+            "date": "2025-01-25 17:30:00",
+            "wins": 0,
+            "draws": 0,
+            "loses": 1,
+            "pts": 0,
+            "npxGD": -0.7337000000000002
+          },
+          {
+            "h_a": "h",
+            "xG": 1.39066,
+            "xGA": 1.1868,
+            "npxG": 1.39066,
+            "npxGA": 1.1868,
+            "ppda": {
+              "att": 138,
+              "def": 22
+            },
+            "ppda_allowed": {
+              "att": 305,
+              "def": 10
+            },
+            "deep": 6,
+            "deep_allowed": 8,
+            "scored": 2,
+            "missed": 1,
+            "xpts": 1.5123000000000002,
+            "result": "w",
+            "date": "2025-02-03 20:00:00",
+            "wins": 1,
+            "draws": 0,
+            "loses": 0,
+            "pts": 3,
+            "npxGD": 0.20385999999999993
+          }
+        ]
+      },
+      {
+        "team_id": "88",
+        "team_title": "Manchester City",
+        "matches_played": 24,
+        "pts": 41,
+        "xG": 48.212,
+        "xGA": 38.751,
+        "npxG": 46.689,
+        "npxGA": 36.467,
+        "npxGD": 10.222,
+        "xPTS": 38.622,
+        "ppda_avg": 13.303,
+        "deep_completions": 293,
+        "recent_5_matches": [
+          {
+            "h_a": "h",
+            "xG": 1.97986,
+            "xGA": 1.53286,
+            "npxG": 1.97986,
+            "npxGA": 1.53286,
+            "ppda": {
+              "att": 279,
+              "def": 19
+            },
+            "ppda_allowed": {
+              "att": 318,
+              "def": 27
+            },
+            "deep": 9,
+            "deep_allowed": 7,
+            "scored": 4,
+            "missed": 1,
+            "xpts": 1.7275,
+            "result": "w",
+            "date": "2025-01-04 15:00:00",
+            "wins": 1,
+            "draws": 0,
+            "loses": 0,
+            "pts": 3,
+            "npxGD": 0.44700000000000006
+          },
+          {
+            "h_a": "a",
+            "xG": 2.65315,
+            "xGA": 2.39088,
+            "npxG": 2.65315,
+            "npxGA": 2.39088,
+            "ppda": {
+              "att": 222,
+              "def": 11
+            },
+            "ppda_allowed": {
+              "att": 199,
+              "def": 14
+            },
+            "deep": 15,
+            "deep_allowed": 14,
+            "scored": 2,
+            "missed": 2,
+            "xpts": 1.5518,
+            "result": "d",
+            "date": "2025-01-14 19:30:00",
+            "wins": 0,
+            "draws": 1,
+            "loses": 0,
+            "pts": 1,
+            "npxGD": 0.26227
+          },
+          {
+            "h_a": "a",
+            "xG": 3.20228,
+            "xGA": 0.795637,
+            "npxG": 3.20228,
+            "npxGA": 0.795637,
+            "ppda": {
+              "att": 204,
+              "def": 23
+            },
+            "ppda_allowed": {
+              "att": 398,
+              "def": 10
+            },
+            "deep": 17,
+            "deep_allowed": 3,
+            "scored": 6,
+            "missed": 0,
+            "xpts": 2.7443000000000004,
+            "result": "w",
+            "date": "2025-01-19 16:30:00",
+            "wins": 1,
+            "draws": 0,
+            "loses": 0,
+            "pts": 3,
+            "npxGD": 2.406643
+          },
+          {
+            "h_a": "h",
+            "xG": 2.23213,
+            "xGA": 1.49843,
+            "npxG": 2.23213,
+            "npxGA": 1.49843,
+            "ppda": {
+              "att": 264,
+              "def": 17
+            },
+            "ppda_allowed": {
+              "att": 386,
+              "def": 17
+            },
+            "deep": 3,
+            "deep_allowed": 5,
+            "scored": 3,
+            "missed": 1,
+            "xpts": 1.9055999999999997,
+            "result": "w",
+            "date": "2025-01-25 17:30:00",
+            "wins": 1,
+            "draws": 0,
+            "loses": 0,
+            "pts": 3,
+            "npxGD": 0.7337000000000002
+          },
+          {
+            "h_a": "a",
+            "xG": 0.743191,
+            "xGA": 1.53202,
+            "npxG": 0.743191,
+            "npxGA": 1.53202,
+            "ppda": {
+              "att": 231,
+              "def": 13
+            },
+            "ppda_allowed": {
+              "att": 217,
+              "def": 15
+            },
+            "deep": 7,
+            "deep_allowed": 6,
+            "scored": 1,
+            "missed": 5,
+            "xpts": 0.7171,
+            "result": "l",
+            "date": "2025-02-02 16:30:00",
+            "wins": 0,
+            "draws": 0,
+            "loses": 1,
+            "pts": 0,
+            "npxGD": -0.7888289999999999
+          }
+        ]
+      },
+      {
+        "team_id": "86",
+        "team_title": "Newcastle United",
+        "matches_played": 24,
+        "pts": 41,
+        "xG": 43.002,
+        "xGA": 35.451,
+        "npxG": 40.719,
+        "npxGA": 35.451,
+        "npxGD": 5.268,
+        "xPTS": 37.608,
+        "ppda_avg": 10.744,
+        "deep_completions": 225,
+        "recent_5_matches": [
+          {
+            "h_a": "a",
+            "xG": 2.42963,
+            "xGA": 1.00333,
+            "npxG": 2.42963,
+            "npxGA": 1.00333,
+            "ppda": {
+              "att": 201,
+              "def": 26
+            },
+            "ppda_allowed": {
+              "att": 180,
+              "def": 31
+            },
+            "deep": 9,
+            "deep_allowed": 15,
+            "scored": 2,
+            "missed": 1,
+            "xpts": 2.3865000000000003,
+            "result": "w",
+            "date": "2025-01-04 12:30:00",
+            "wins": 1,
+            "draws": 0,
+            "loses": 0,
+            "pts": 3,
+            "npxGD": 1.4263
+          },
+          {
+            "h_a": "h",
+            "xG": 2.13327,
+            "xGA": 1.47433,
+            "npxG": 2.13327,
+            "npxGA": 1.47433,
+            "ppda": {
+              "att": 179,
+              "def": 32
+            },
+            "ppda_allowed": {
+              "att": 356,
+              "def": 24
+            },
+            "deep": 10,
+            "deep_allowed": 8,
+            "scored": 3,
+            "missed": 0,
+            "xpts": 1.8340999999999998,
+            "result": "w",
+            "date": "2025-01-15 19:30:00",
+            "wins": 1,
+            "draws": 0,
+            "loses": 0,
+            "pts": 3,
+            "npxGD": 0.6589400000000001
+          },
+          {
+            "h_a": "h",
+            "xG": 0.837801,
+            "xGA": 2.70174,
+            "npxG": 0.837801,
+            "npxGA": 2.70174,
+            "ppda": {
+              "att": 127,
+              "def": 16
+            },
+            "ppda_allowed": {
+              "att": 209,
+              "def": 34
+            },
+            "deep": 12,
+            "deep_allowed": 8,
+            "scored": 1,
+            "missed": 4,
+            "xpts": 0.3428,
+            "result": "l",
+            "date": "2025-01-18 12:30:00",
+            "wins": 0,
+            "draws": 0,
+            "loses": 1,
+            "pts": 0,
+            "npxGD": -1.863939
+          },
+          {
+            "h_a": "a",
+            "xG": 3.08319,
+            "xGA": 0.825621,
+            "npxG": 2.32202,
+            "npxGA": 0.825621,
+            "ppda": {
+              "att": 246,
+              "def": 22
+            },
+            "ppda_allowed": {
+              "att": 244,
+              "def": 18
+            },
+            "deep": 11,
+            "deep_allowed": 2,
+            "scored": 3,
+            "missed": 1,
+            "xpts": 2.7137,
+            "result": "w",
+            "date": "2025-01-25 15:00:00",
+            "wins": 1,
+            "draws": 0,
+            "loses": 0,
+            "pts": 3,
+            "npxGD": 1.4963990000000003
+          },
+          {
+            "h_a": "h",
+            "xG": 1.22716,
+            "xGA": 1.60881,
+            "npxG": 1.22716,
+            "npxGA": 1.60881,
+            "ppda": {
+              "att": 219,
+              "def": 16
+            },
+            "ppda_allowed": {
+              "att": 223,
+              "def": 19
+            },
+            "deep": 10,
+            "deep_allowed": 5,
+            "scored": 1,
+            "missed": 2,
+            "xpts": 1.0527,
+            "result": "l",
+            "date": "2025-02-01 15:00:00",
+            "wins": 0,
+            "draws": 0,
+            "loses": 1,
+            "pts": 0,
+            "npxGD": -0.38165000000000004
+          }
+        ]
+      },
+      {
+        "team_id": "71",
+        "team_title": "Aston Villa",
+        "matches_played": 24,
+        "pts": 37,
+        "xG": 41.614,
+        "xGA": 36.002,
+        "npxG": 39.331,
+        "npxGA": 34.48,
+        "npxGD": 4.851,
+        "xPTS": 37.094,
+        "ppda_avg": 13.72,
+        "deep_completions": 175,
+        "recent_5_matches": [
+          {
+            "h_a": "h",
+            "xG": 2.3456,
+            "xGA": 0.81548,
+            "npxG": 2.3456,
+            "npxGA": 0.81548,
+            "ppda": {
+              "att": 262,
+              "def": 29
+            },
+            "ppda_allowed": {
+              "att": 396,
+              "def": 19
+            },
+            "deep": 9,
+            "deep_allowed": 3,
+            "scored": 2,
+            "missed": 1,
+            "xpts": 2.5573,
+            "result": "w",
+            "date": "2025-01-04 15:00:00",
+            "wins": 1,
+            "draws": 0,
+            "loses": 0,
+            "pts": 3,
+            "npxGD": 1.5301200000000001
+          },
+          {
+            "h_a": "a",
+            "xG": 1.28522,
+            "xGA": 1.23126,
+            "npxG": 1.28522,
+            "npxGA": 1.23126,
+            "ppda": {
+              "att": 219,
+              "def": 15
+            },
+            "ppda_allowed": {
+              "att": 271,
+              "def": 28
+            },
+            "deep": 5,
+            "deep_allowed": 4,
+            "scored": 1,
+            "missed": 0,
+            "xpts": 1.3870999999999998,
+            "result": "w",
+            "date": "2025-01-15 19:30:00",
+            "wins": 1,
+            "draws": 0,
+            "loses": 0,
+            "pts": 3,
+            "npxGD": 0.05396000000000001
+          },
+          {
+            "h_a": "a",
+            "xG": 1.20602,
+            "xGA": 1.64458,
+            "npxG": 1.20602,
+            "npxGA": 1.64458,
+            "ppda": {
+              "att": 210,
+              "def": 14
+            },
+            "ppda_allowed": {
+              "att": 150,
+              "def": 22
+            },
+            "deep": 1,
+            "deep_allowed": 8,
+            "scored": 2,
+            "missed": 2,
+            "xpts": 1.0373999999999999,
+            "result": "d",
+            "date": "2025-01-18 17:30:00",
+            "wins": 0,
+            "draws": 1,
+            "loses": 0,
+            "pts": 1,
+            "npxGD": -0.43855999999999984
+          },
+          {
+            "h_a": "h",
+            "xG": 0.907851,
+            "xGA": 1.67886,
+            "npxG": 0.907851,
+            "npxGA": 1.67886,
+            "ppda": {
+              "att": 269,
+              "def": 31
+            },
+            "ppda_allowed": {
+              "att": 196,
+              "def": 31
+            },
+            "deep": 7,
+            "deep_allowed": 5,
+            "scored": 1,
+            "missed": 1,
+            "xpts": 0.7566999999999999,
+            "result": "d",
+            "date": "2025-01-26 16:30:00",
+            "wins": 0,
+            "draws": 1,
+            "loses": 0,
+            "pts": 1,
+            "npxGD": -0.771009
+          },
+          {
+            "h_a": "a",
+            "xG": 0.742809,
+            "xGA": 2.00146,
+            "npxG": 0.742809,
+            "npxGA": 2.00146,
+            "ppda": {
+              "att": 161,
+              "def": 14
+            },
+            "ppda_allowed": {
+              "att": 294,
+              "def": 24
+            },
+            "deep": 4,
+            "deep_allowed": 2,
+            "scored": 0,
+            "missed": 2,
+            "xpts": 0.45170000000000005,
+            "result": "l",
+            "date": "2025-02-01 17:30:00",
+            "wins": 0,
+            "draws": 0,
+            "loses": 1,
+            "pts": 0,
+            "npxGD": -1.2586509999999997
+          }
+        ]
+      },
+      {
+        "team_id": "249",
+        "team_title": "Nottingham Forest",
+        "matches_played": 24,
+        "pts": 47,
+        "xG": 38.449,
+        "xGA": 32.277,
+        "npxG": 36.165,
+        "npxGA": 31.516,
+        "npxGD": 4.649,
+        "xPTS": 36.981,
+        "ppda_avg": 16.149,
+        "deep_completions": 156,
+        "recent_5_matches": [
+          {
+            "h_a": "a",
+            "xG": 2.57227,
+            "xGA": 1.90463,
+            "npxG": 2.57227,
+            "npxGA": 1.90463,
+            "ppda": {
+              "att": 273,
+              "def": 15
+            },
+            "ppda_allowed": {
+              "att": 191,
+              "def": 20
+            },
+            "deep": 11,
+            "deep_allowed": 12,
+            "scored": 3,
+            "missed": 0,
+            "xpts": 1.8789,
+            "result": "w",
+            "date": "2025-01-06 20:00:00",
+            "wins": 1,
+            "draws": 0,
+            "loses": 0,
+            "pts": 3,
+            "npxGD": 0.66764
+          },
+          {
+            "h_a": "h",
+            "xG": 0.5292,
+            "xGA": 2.72291,
+            "npxG": 0.5292,
+            "npxGA": 2.72291,
+            "ppda": {
+              "att": 237,
+              "def": 11
+            },
+            "ppda_allowed": {
+              "att": 102,
+              "def": 16
+            },
+            "deep": 2,
+            "deep_allowed": 18,
+            "scored": 1,
+            "missed": 1,
+            "xpts": 0.1675,
+            "result": "d",
+            "date": "2025-01-14 20:00:00",
+            "wins": 0,
+            "draws": 1,
+            "loses": 0,
+            "pts": 1,
+            "npxGD": -2.1937100000000003
+          },
+          {
+            "h_a": "h",
+            "xG": 2.36419,
+            "xGA": 1.25922,
+            "npxG": 2.36419,
+            "npxGA": 1.25922,
+            "ppda": {
+              "att": 244,
+              "def": 19
+            },
+            "ppda_allowed": {
+              "att": 167,
+              "def": 17
+            },
+            "deep": 9,
+            "deep_allowed": 2,
+            "scored": 3,
+            "missed": 2,
+            "xpts": 2.3204,
+            "result": "w",
+            "date": "2025-01-19 14:00:00",
+            "wins": 1,
+            "draws": 0,
+            "loses": 0,
+            "pts": 3,
+            "npxGD": 1.1049699999999998
+          },
+          {
+            "h_a": "a",
+            "xG": 0.996166,
+            "xGA": 2.8254,
+            "npxG": 0.996166,
+            "npxGA": 2.8254,
+            "ppda": {
+              "att": 153,
+              "def": 20
+            },
+            "ppda_allowed": {
+              "att": 161,
+              "def": 21
+            },
+            "deep": 12,
+            "deep_allowed": 6,
+            "scored": 0,
+            "missed": 5,
+            "xpts": 0.3197,
+            "result": "l",
+            "date": "2025-01-25 15:00:00",
+            "wins": 0,
+            "draws": 0,
+            "loses": 1,
+            "pts": 0,
+            "npxGD": -1.829234
+          },
+          {
+            "h_a": "h",
+            "xG": 4.0677,
+            "xGA": 0.756296,
+            "npxG": 3.30653,
+            "npxGA": 0.756296,
+            "ppda": {
+              "att": 319,
+              "def": 16
+            },
+            "ppda_allowed": {
+              "att": 176,
+              "def": 28
+            },
+            "deep": 7,
+            "deep_allowed": 8,
+            "scored": 7,
+            "missed": 0,
+            "xpts": 2.9326,
+            "result": "w",
+            "date": "2025-02-01 12:30:00",
+            "wins": 1,
+            "draws": 0,
+            "loses": 0,
+            "pts": 3,
+            "npxGD": 2.550234
+          }
+        ]
+      },
+      {
+        "team_id": "78",
+        "team_title": "Crystal Palace",
+        "matches_played": 24,
+        "pts": 30,
+        "xG": 39.485,
+        "xGA": 39.069,
+        "npxG": 37.963,
+        "npxGA": 37.546,
+        "npxGD": 0.417,
+        "xPTS": 33.706,
+        "ppda_avg": 14.038,
+        "deep_completions": 150,
+        "recent_5_matches": [
+          {
+            "h_a": "h",
+            "xG": 1.2766,
+            "xGA": 1.51541,
+            "npxG": 1.2766,
+            "npxGA": 1.51541,
+            "ppda": {
+              "att": 328,
+              "def": 17
+            },
+            "ppda_allowed": {
+              "att": 204,
+              "def": 22
+            },
+            "deep": 6,
+            "deep_allowed": 16,
+            "scored": 1,
+            "missed": 1,
+            "xpts": 1.1723,
+            "result": "d",
+            "date": "2025-01-04 15:00:00",
+            "wins": 0,
+            "draws": 1,
+            "loses": 0,
+            "pts": 1,
+            "npxGD": -0.23880999999999997
+          },
+          {
+            "h_a": "a",
+            "xG": 2.2647,
+            "xGA": 2.09904,
+            "npxG": 2.2647,
+            "npxGA": 2.09904,
+            "ppda": {
+              "att": 356,
+              "def": 23
+            },
+            "ppda_allowed": {
+              "att": 270,
+              "def": 22
+            },
+            "deep": 7,
+            "deep_allowed": 7,
+            "scored": 2,
+            "missed": 0,
+            "xpts": 1.52,
+            "result": "w",
+            "date": "2025-01-15 19:30:00",
+            "wins": 1,
+            "draws": 0,
+            "loses": 0,
+            "pts": 3,
+            "npxGD": 0.16565999999999992
+          },
+          {
+            "h_a": "a",
+            "xG": 1.62561,
+            "xGA": 0.221062,
+            "npxG": 0.864444,
+            "npxGA": 0.221062,
+            "ppda": {
+              "att": 344,
+              "def": 27
+            },
+            "ppda_allowed": {
+              "att": 277,
+              "def": 20
+            },
+            "deep": 5,
+            "deep_allowed": 4,
+            "scored": 2,
+            "missed": 0,
+            "xpts": 2.6231,
+            "result": "w",
+            "date": "2025-01-18 15:00:00",
+            "wins": 1,
+            "draws": 0,
+            "loses": 0,
+            "pts": 3,
+            "npxGD": 0.643382
+          },
+          {
+            "h_a": "h",
+            "xG": 1.23177,
+            "xGA": 1.92037,
+            "npxG": 1.23177,
+            "npxGA": 1.1592,
+            "ppda": {
+              "att": 170,
+              "def": 11
+            },
+            "ppda_allowed": {
+              "att": 153,
+              "def": 18
+            },
+            "deep": 9,
+            "deep_allowed": 11,
+            "scored": 1,
+            "missed": 2,
+            "xpts": 0.7787999999999999,
+            "result": "l",
+            "date": "2025-01-26 14:00:00",
+            "wins": 0,
+            "draws": 0,
+            "loses": 1,
+            "pts": 0,
+            "npxGD": 0.07257000000000002
+          },
+          {
+            "h_a": "a",
+            "xG": 2.44633,
+            "xGA": 1.50706,
+            "npxG": 2.44633,
+            "npxGA": 1.50706,
+            "ppda": {
+              "att": 283,
+              "def": 21
+            },
+            "ppda_allowed": {
+              "att": 128,
+              "def": 23
+            },
+            "deep": 6,
+            "deep_allowed": 18,
+            "scored": 2,
+            "missed": 0,
+            "xpts": 2.1191,
+            "result": "w",
+            "date": "2025-02-02 14:00:00",
+            "wins": 1,
+            "draws": 0,
+            "loses": 0,
+            "pts": 3,
+            "npxGD": 0.93927
+          }
+        ]
+      },
+      {
+        "team_id": "82",
+        "team_title": "Tottenham",
+        "matches_played": 24,
+        "pts": 27,
+        "xG": 45.137,
+        "xGA": 42.672,
+        "npxG": 44.376,
+        "npxGA": 41.149,
+        "npxGD": 3.227,
+        "xPTS": 33.511,
+        "ppda_avg": 10.256,
+        "deep_completions": 229,
+        "recent_5_matches": [
+          {
+            "h_a": "h",
+            "xG": 1.00333,
+            "xGA": 2.42963,
+            "npxG": 1.00333,
+            "npxGA": 2.42963,
+            "ppda": {
+              "att": 180,
+              "def": 31
+            },
+            "ppda_allowed": {
+              "att": 201,
+              "def": 26
+            },
+            "deep": 15,
+            "deep_allowed": 9,
+            "scored": 1,
+            "missed": 2,
+            "xpts": 0.44189999999999996,
+            "result": "l",
+            "date": "2025-01-04 12:30:00",
+            "wins": 0,
+            "draws": 0,
+            "loses": 1,
+            "pts": 0,
+            "npxGD": -1.4263
+          },
+          {
+            "h_a": "a",
+            "xG": 0.777071,
+            "xGA": 2.25501,
+            "npxG": 0.777071,
+            "npxGA": 2.25501,
+            "ppda": {
+              "att": 193,
+              "def": 9
+            },
+            "ppda_allowed": {
+              "att": 227,
+              "def": 37
+            },
+            "deep": 0,
+            "deep_allowed": 11,
+            "scored": 1,
+            "missed": 2,
+            "xpts": 0.4317,
+            "result": "l",
+            "date": "2025-01-15 20:00:00",
+            "wins": 0,
+            "draws": 0,
+            "loses": 1,
+            "pts": 0,
+            "npxGD": -1.4779390000000001
+          },
+          {
+            "h_a": "a",
+            "xG": 1.35719,
+            "xGA": 2.56089,
+            "npxG": 1.35719,
+            "npxGA": 2.56089,
+            "ppda": {
+              "att": 171,
+              "def": 19
+            },
+            "ppda_allowed": {
+              "att": 337,
+              "def": 28
+            },
+            "deep": 8,
+            "deep_allowed": 6,
+            "scored": 2,
+            "missed": 3,
+            "xpts": 0.6095,
+            "result": "l",
+            "date": "2025-01-19 14:00:00",
+            "wins": 0,
+            "draws": 0,
+            "loses": 1,
+            "pts": 0,
+            "npxGD": -1.2037000000000002
+          },
+          {
+            "h_a": "h",
+            "xG": 1.27483,
+            "xGA": 1.40469,
+            "npxG": 1.27483,
+            "npxGA": 1.40469,
+            "ppda": {
+              "att": 171,
+              "def": 15
+            },
+            "ppda_allowed": {
+              "att": 304,
+              "def": 27
+            },
+            "deep": 5,
+            "deep_allowed": 5,
+            "scored": 1,
+            "missed": 2,
+            "xpts": 1.1875,
+            "result": "l",
+            "date": "2025-01-26 14:00:00",
+            "wins": 0,
+            "draws": 0,
+            "loses": 1,
+            "pts": 0,
+            "npxGD": -0.1298600000000001
+          },
+          {
+            "h_a": "a",
+            "xG": 0.945355,
+            "xGA": 1.66475,
+            "npxG": 0.945355,
+            "npxGA": 1.66475,
+            "ppda": {
+              "att": 218,
+              "def": 24
+            },
+            "ppda_allowed": {
+              "att": 259,
+              "def": 21
+            },
+            "deep": 4,
+            "deep_allowed": 8,
+            "scored": 2,
+            "missed": 0,
+            "xpts": 0.8316,
+            "result": "w",
+            "date": "2025-02-02 14:00:00",
+            "wins": 1,
+            "draws": 0,
+            "loses": 0,
+            "pts": 3,
+            "npxGD": -0.719395
+          }
+        ]
+      },
+      {
+        "team_id": "220",
+        "team_title": "Brighton",
+        "matches_played": 24,
+        "pts": 34,
+        "xG": 35.995,
+        "xGA": 38.762,
+        "npxG": 35.234,
+        "npxGA": 34.195,
+        "npxGD": 1.039,
+        "xPTS": 33.22,
+        "ppda_avg": 10.024,
+        "deep_completions": 189,
+        "recent_5_matches": [
+          {
+            "h_a": "h",
+            "xG": 1.76513,
+            "xGA": 1.81142,
+            "npxG": 1.00396,
+            "npxGA": 1.81142,
+            "ppda": {
+              "att": 325,
+              "def": 22
+            },
+            "ppda_allowed": {
+              "att": 260,
+              "def": 24
+            },
+            "deep": 4,
+            "deep_allowed": 8,
+            "scored": 1,
+            "missed": 1,
+            "xpts": 1.3562,
+            "result": "d",
+            "date": "2025-01-04 17:30:00",
+            "wins": 0,
+            "draws": 1,
+            "loses": 0,
+            "pts": 1,
+            "npxGD": -0.8074600000000001
+          },
+          {
+            "h_a": "a",
+            "xG": 1.06343,
+            "xGA": 0.268127,
+            "npxG": 1.06343,
+            "npxGA": 0.268127,
+            "ppda": {
+              "att": 274,
+              "def": 26
+            },
+            "ppda_allowed": {
+              "att": 266,
+              "def": 23
+            },
+            "deep": 9,
+            "deep_allowed": 1,
+            "scored": 2,
+            "missed": 0,
+            "xpts": 2.0936,
+            "result": "w",
+            "date": "2025-01-16 19:30:00",
+            "wins": 1,
+            "draws": 0,
+            "loses": 0,
+            "pts": 3,
+            "npxGD": 0.7953030000000001
+          },
+          {
+            "h_a": "a",
+            "xG": 2.17172,
+            "xGA": 1.31823,
+            "npxG": 2.17172,
+            "npxGA": 0.557061,
+            "ppda": {
+              "att": 264,
+              "def": 14
+            },
+            "ppda_allowed": {
+              "att": 266,
+              "def": 30
+            },
+            "deep": 6,
+            "deep_allowed": 8,
+            "scored": 3,
+            "missed": 1,
+            "xpts": 2.0938,
+            "result": "w",
+            "date": "2025-01-19 14:00:00",
+            "wins": 1,
+            "draws": 0,
+            "loses": 0,
+            "pts": 3,
+            "npxGD": 1.614659
+          },
+          {
+            "h_a": "h",
+            "xG": 0.64378,
+            "xGA": 0.870883,
+            "npxG": 0.64378,
+            "npxGA": 0.109715,
+            "ppda": {
+              "att": 174,
+              "def": 26
+            },
+            "ppda_allowed": {
+              "att": 317,
+              "def": 19
+            },
+            "deep": 9,
+            "deep_allowed": 2,
+            "scored": 0,
+            "missed": 1,
+            "xpts": 0.9701,
+            "result": "l",
+            "date": "2025-01-25 15:00:00",
+            "wins": 0,
+            "draws": 0,
+            "loses": 1,
+            "pts": 0,
+            "npxGD": 0.534065
+          },
+          {
+            "h_a": "a",
+            "xG": 0.756296,
+            "xGA": 4.0677,
+            "npxG": 0.756296,
+            "npxGA": 3.30653,
+            "ppda": {
+              "att": 176,
+              "def": 28
+            },
+            "ppda_allowed": {
+              "att": 319,
+              "def": 16
+            },
+            "deep": 8,
+            "deep_allowed": 7,
+            "scored": 0,
+            "missed": 7,
+            "xpts": 0.041800000000000004,
+            "result": "l",
+            "date": "2025-02-01 12:30:00",
+            "wins": 0,
+            "draws": 0,
+            "loses": 1,
+            "pts": 0,
+            "npxGD": -2.550234
+          }
+        ]
+      },
+      {
+        "team_id": "89",
+        "team_title": "Manchester United",
+        "matches_played": 24,
+        "pts": 29,
+        "xG": 37.303,
+        "xGA": 40.458,
+        "npxG": 35.02,
+        "npxGA": 37.364,
+        "npxGD": -2.344,
+        "xPTS": 32.935,
+        "ppda_avg": 10.642,
+        "deep_completions": 185,
+        "recent_5_matches": [
+          {
+            "h_a": "a",
+            "xG": 1.67469,
+            "xGA": 2.862,
+            "npxG": 1.67469,
+            "npxGA": 2.10084,
+            "ppda": {
+              "att": 204,
+              "def": 27
+            },
+            "ppda_allowed": {
+              "att": 204,
+              "def": 23
+            },
+            "deep": 7,
+            "deep_allowed": 7,
+            "scored": 2,
+            "missed": 2,
+            "xpts": 0.6461,
+            "result": "d",
+            "date": "2025-01-05 16:30:00",
+            "wins": 0,
+            "draws": 1,
+            "loses": 0,
+            "pts": 1,
+            "npxGD": -0.4261499999999998
+          },
+          {
+            "h_a": "h",
+            "xG": 3.10847,
+            "xGA": 1.36705,
+            "npxG": 3.10847,
+            "npxGA": 1.36705,
+            "ppda": {
+              "att": 211,
+              "def": 17
+            },
+            "ppda_allowed": {
+              "att": 359,
+              "def": 28
+            },
+            "deep": 15,
+            "deep_allowed": 1,
+            "scored": 3,
+            "missed": 1,
+            "xpts": 2.4094,
+            "result": "w",
+            "date": "2025-01-16 20:00:00",
+            "wins": 1,
+            "draws": 0,
+            "loses": 0,
+            "pts": 3,
+            "npxGD": 1.74142
+          },
+          {
+            "h_a": "h",
+            "xG": 1.31823,
+            "xGA": 2.17172,
+            "npxG": 0.557061,
+            "npxGA": 2.17172,
+            "ppda": {
+              "att": 266,
+              "def": 30
+            },
+            "ppda_allowed": {
+              "att": 264,
+              "def": 14
+            },
+            "deep": 8,
+            "deep_allowed": 6,
+            "scored": 1,
+            "missed": 3,
+            "xpts": 0.673,
+            "result": "l",
+            "date": "2025-01-19 14:00:00",
+            "wins": 0,
+            "draws": 0,
+            "loses": 1,
+            "pts": 0,
+            "npxGD": -1.614659
+          },
+          {
+            "h_a": "a",
+            "xG": 0.201988,
+            "xGA": 0.560571,
+            "npxG": 0.201988,
+            "npxGA": 0.560571,
+            "ppda": {
+              "att": 273,
+              "def": 17
+            },
+            "ppda_allowed": {
+              "att": 308,
+              "def": 10
+            },
+            "deep": 5,
+            "deep_allowed": 3,
+            "scored": 1,
+            "missed": 0,
+            "xpts": 0.8438,
+            "result": "w",
+            "date": "2025-01-26 19:00:00",
+            "wins": 1,
+            "draws": 0,
+            "loses": 0,
+            "pts": 3,
+            "npxGD": -0.35858300000000004
+          },
+          {
+            "h_a": "h",
+            "xG": 1.50706,
+            "xGA": 2.44633,
+            "npxG": 1.50706,
+            "npxGA": 2.44633,
+            "ppda": {
+              "att": 128,
+              "def": 23
+            },
+            "ppda_allowed": {
+              "att": 283,
+              "def": 21
+            },
+            "deep": 18,
+            "deep_allowed": 6,
+            "scored": 0,
+            "missed": 2,
+            "xpts": 0.6737,
+            "result": "l",
+            "date": "2025-02-02 14:00:00",
+            "wins": 0,
+            "draws": 0,
+            "loses": 1,
+            "pts": 0,
+            "npxGD": -0.93927
+          }
+        ]
+      },
+      {
+        "team_id": "244",
+        "team_title": "Brentford",
+        "matches_played": 24,
+        "pts": 31,
+        "xG": 42.271,
+        "xGA": 43.689,
+        "npxG": 39.226,
+        "npxGA": 42.928,
+        "npxGD": -3.702,
+        "xPTS": 30.63,
+        "ppda_avg": 12.785,
+        "deep_completions": 172,
+        "recent_5_matches": [
+          {
+            "h_a": "a",
+            "xG": 5.54874,
+            "xGA": 0.249614,
+            "npxG": 4.78757,
+            "npxGA": 0.249614,
+            "ppda": {
+              "att": 244,
+              "def": 22
+            },
+            "ppda_allowed": {
+              "att": 232,
+              "def": 18
+            },
+            "deep": 15,
+            "deep_allowed": 9,
+            "scored": 5,
+            "missed": 0,
+            "xpts": 2.9964,
+            "result": "w",
+            "date": "2025-01-04 15:00:00",
+            "wins": 1,
+            "draws": 0,
+            "loses": 0,
+            "pts": 3,
+            "npxGD": 4.537955999999999
+          },
+          {
+            "h_a": "h",
+            "xG": 2.39088,
+            "xGA": 2.65315,
+            "npxG": 2.39088,
+            "npxGA": 2.65315,
+            "ppda": {
+              "att": 199,
+              "def": 14
+            },
+            "ppda_allowed": {
+              "att": 222,
+              "def": 11
+            },
+            "deep": 14,
+            "deep_allowed": 15,
+            "scored": 2,
+            "missed": 2,
+            "xpts": 1.2401,
+            "result": "d",
+            "date": "2025-01-14 19:30:00",
+            "wins": 0,
+            "draws": 1,
+            "loses": 0,
+            "pts": 1,
+            "npxGD": -0.26227
+          },
+          {
+            "h_a": "h",
+            "xG": 1.20021,
+            "xGA": 4.16249,
+            "npxG": 1.20021,
+            "npxGA": 4.16249,
+            "ppda": {
+              "att": 169,
+              "def": 10
+            },
+            "ppda_allowed": {
+              "att": 204,
+              "def": 25
+            },
+            "deep": 8,
+            "deep_allowed": 23,
+            "scored": 0,
+            "missed": 2,
+            "xpts": 0.1391,
+            "result": "l",
+            "date": "2025-01-18 15:00:00",
+            "wins": 0,
+            "draws": 0,
+            "loses": 1,
+            "pts": 0,
+            "npxGD": -2.96228
+          },
+          {
+            "h_a": "a",
+            "xG": 1.92037,
+            "xGA": 1.23177,
+            "npxG": 1.1592,
+            "npxGA": 1.23177,
+            "ppda": {
+              "att": 153,
+              "def": 18
+            },
+            "ppda_allowed": {
+              "att": 170,
+              "def": 11
+            },
+            "deep": 11,
+            "deep_allowed": 9,
+            "scored": 2,
+            "missed": 1,
+            "xpts": 1.9575,
+            "result": "w",
+            "date": "2025-01-26 14:00:00",
+            "wins": 1,
+            "draws": 0,
+            "loses": 0,
+            "pts": 3,
+            "npxGD": -0.07257000000000002
+          },
+          {
+            "h_a": "h",
+            "xG": 1.66475,
+            "xGA": 0.945355,
+            "npxG": 1.66475,
+            "npxGA": 0.945355,
+            "ppda": {
+              "att": 259,
+              "def": 21
+            },
+            "ppda_allowed": {
+              "att": 218,
+              "def": 24
+            },
+            "deep": 8,
+            "deep_allowed": 4,
+            "scored": 0,
+            "missed": 2,
+            "xpts": 1.9175999999999997,
+            "result": "l",
+            "date": "2025-02-02 14:00:00",
+            "wins": 0,
+            "draws": 0,
+            "loses": 1,
+            "pts": 0,
+            "npxGD": 0.719395
+          }
+        ]
+      },
+      {
+        "team_id": "72",
+        "team_title": "Everton",
+        "matches_played": 24,
+        "pts": 27,
+        "xG": 28.812,
+        "xGA": 37.708,
+        "npxG": 28.051,
+        "npxGA": 36.186,
+        "npxGD": -8.135,
+        "xPTS": 26.744,
+        "ppda_avg": 15.16,
+        "deep_completions": 127,
+        "recent_5_matches": [
+          {
+            "h_a": "h",
+            "xG": 1.23126,
+            "xGA": 1.28522,
+            "npxG": 1.23126,
+            "npxGA": 1.28522,
+            "ppda": {
+              "att": 271,
+              "def": 28
+            },
+            "ppda_allowed": {
+              "att": 219,
+              "def": 15
+            },
+            "deep": 4,
+            "deep_allowed": 5,
+            "scored": 0,
+            "missed": 1,
+            "xpts": 1.3195999999999999,
+            "result": "l",
+            "date": "2025-01-15 19:30:00",
+            "wins": 0,
+            "draws": 0,
+            "loses": 1,
+            "pts": 0,
+            "npxGD": -0.05396000000000001
+          },
+          {
+            "h_a": "h",
+            "xG": 2.56089,
+            "xGA": 1.35719,
+            "npxG": 2.56089,
+            "npxGA": 1.35719,
+            "ppda": {
+              "att": 337,
+              "def": 28
+            },
+            "ppda_allowed": {
+              "att": 171,
+              "def": 19
+            },
+            "deep": 6,
+            "deep_allowed": 8,
+            "scored": 3,
+            "missed": 2,
+            "xpts": 2.1962,
+            "result": "w",
+            "date": "2025-01-19 14:00:00",
+            "wins": 1,
+            "draws": 0,
+            "loses": 0,
+            "pts": 3,
+            "npxGD": 1.2037000000000002
+          },
+          {
+            "h_a": "a",
+            "xG": 0.870883,
+            "xGA": 0.64378,
+            "npxG": 0.109715,
+            "npxGA": 0.64378,
+            "ppda": {
+              "att": 317,
+              "def": 19
+            },
+            "ppda_allowed": {
+              "att": 174,
+              "def": 26
+            },
+            "deep": 2,
+            "deep_allowed": 9,
+            "scored": 1,
+            "missed": 0,
+            "xpts": 1.6616,
+            "result": "w",
+            "date": "2025-01-25 15:00:00",
+            "wins": 1,
+            "draws": 0,
+            "loses": 0,
+            "pts": 3,
+            "npxGD": -0.534065
+          },
+          {
+            "h_a": "h",
+            "xG": 3.11261,
+            "xGA": 0.447136,
+            "npxG": 3.11261,
+            "npxGA": 0.447136,
+            "ppda": {
+              "att": 323,
+              "def": 18
+            },
+            "ppda_allowed": {
+              "att": 277,
+              "def": 23
+            },
+            "deep": 14,
+            "deep_allowed": 4,
+            "scored": 4,
+            "missed": 0,
+            "xpts": 2.845,
+            "result": "w",
+            "date": "2025-02-01 15:00:00",
+            "wins": 1,
+            "draws": 0,
+            "loses": 0,
+            "pts": 3,
+            "npxGD": 2.665474
+          },
+          {
+            "h_a": "h",
+            "xG": 0.910523,
+            "xGA": 0.929103,
+            "npxG": 0.910523,
+            "npxGA": 0.929103,
+            "ppda": {
+              "att": 319,
+              "def": 18
+            },
+            "ppda_allowed": {
+              "att": 146,
+              "def": 32
+            },
+            "deep": 2,
+            "deep_allowed": 2,
+            "scored": 2,
+            "missed": 2,
+            "xpts": 1.2764000000000002,
+            "result": "d",
+            "date": "2025-02-12 19:30:00",
+            "wins": 0,
+            "draws": 1,
+            "loses": 0,
+            "pts": 1,
+            "npxGD": -0.01858000000000004
+          }
+        ]
+      },
+      {
+        "team_id": "81",
+        "team_title": "West Ham",
+        "matches_played": 24,
+        "pts": 27,
+        "xG": 34.385,
+        "xGA": 48.743,
+        "npxG": 32.102,
+        "npxGA": 46.459,
+        "npxGD": -14.357,
+        "xPTS": 24.795,
+        "ppda_avg": 14.176,
+        "deep_completions": 148,
+        "recent_5_matches": [
+          {
+            "h_a": "a",
+            "xG": 1.53286,
+            "xGA": 1.97986,
+            "npxG": 1.53286,
+            "npxGA": 1.97986,
+            "ppda": {
+              "att": 318,
+              "def": 27
+            },
+            "ppda_allowed": {
+              "att": 279,
+              "def": 19
+            },
+            "deep": 7,
+            "deep_allowed": 9,
+            "scored": 1,
+            "missed": 4,
+            "xpts": 1.0314999999999999,
+            "result": "l",
+            "date": "2025-01-04 15:00:00",
+            "wins": 0,
+            "draws": 0,
+            "loses": 1,
+            "pts": 0,
+            "npxGD": -0.44700000000000006
+          },
+          {
+            "h_a": "h",
+            "xG": 0.937322,
+            "xGA": 2.83581,
+            "npxG": 0.937322,
+            "npxGA": 2.83581,
+            "ppda": {
+              "att": 294,
+              "def": 17
+            },
+            "ppda_allowed": {
+              "att": 277,
+              "def": 32
+            },
+            "deep": 2,
+            "deep_allowed": 9,
+            "scored": 3,
+            "missed": 2,
+            "xpts": 0.25570000000000004,
+            "result": "w",
+            "date": "2025-01-14 19:30:00",
+            "wins": 1,
+            "draws": 0,
+            "loses": 0,
+            "pts": 3,
+            "npxGD": -1.898488
+          },
+          {
+            "h_a": "h",
+            "xG": 0.221062,
+            "xGA": 1.62561,
+            "npxG": 0.221062,
+            "npxGA": 0.864444,
+            "ppda": {
+              "att": 277,
+              "def": 20
+            },
+            "ppda_allowed": {
+              "att": 344,
+              "def": 27
+            },
+            "deep": 4,
+            "deep_allowed": 5,
+            "scored": 0,
+            "missed": 2,
+            "xpts": 0.2249,
+            "result": "l",
+            "date": "2025-01-18 15:00:00",
+            "wins": 0,
+            "draws": 0,
+            "loses": 1,
+            "pts": 0,
+            "npxGD": -0.643382
+          },
+          {
+            "h_a": "a",
+            "xG": 1.67886,
+            "xGA": 0.907851,
+            "npxG": 1.67886,
+            "npxGA": 0.907851,
+            "ppda": {
+              "att": 196,
+              "def": 31
+            },
+            "ppda_allowed": {
+              "att": 269,
+              "def": 31
+            },
+            "deep": 5,
+            "deep_allowed": 7,
+            "scored": 1,
+            "missed": 1,
+            "xpts": 2.0029000000000003,
+            "result": "d",
+            "date": "2025-01-26 16:30:00",
+            "wins": 0,
+            "draws": 1,
+            "loses": 0,
+            "pts": 1,
+            "npxGD": 0.771009
+          },
+          {
+            "h_a": "a",
+            "xG": 1.1868,
+            "xGA": 1.39066,
+            "npxG": 1.1868,
+            "npxGA": 1.39066,
+            "ppda": {
+              "att": 305,
+              "def": 10
+            },
+            "ppda_allowed": {
+              "att": 138,
+              "def": 22
+            },
+            "deep": 8,
+            "deep_allowed": 6,
+            "scored": 1,
+            "missed": 2,
+            "xpts": 1.2126000000000001,
+            "result": "l",
+            "date": "2025-02-03 20:00:00",
+            "wins": 0,
+            "draws": 0,
+            "loses": 1,
+            "pts": 0,
+            "npxGD": -0.20385999999999993
+          }
+        ]
+      },
+      {
+        "team_id": "229",
+        "team_title": "Wolverhampton Wanderers",
+        "matches_played": 24,
+        "pts": 19,
+        "xG": 27.132,
+        "xGA": 42.641,
+        "npxG": 27.132,
+        "npxGA": 38.074,
+        "npxGD": -10.942,
+        "xPTS": 23.853,
+        "ppda_avg": 12.314,
+        "deep_completions": 134,
+        "recent_5_matches": [
+          {
+            "h_a": "h",
+            "xG": 1.90463,
+            "xGA": 2.57227,
+            "npxG": 1.90463,
+            "npxGA": 2.57227,
+            "ppda": {
+              "att": 191,
+              "def": 20
+            },
+            "ppda_allowed": {
+              "att": 273,
+              "def": 15
+            },
+            "deep": 12,
+            "deep_allowed": 11,
+            "scored": 0,
+            "missed": 3,
+            "xpts": 0.8769,
+            "result": "l",
+            "date": "2025-01-06 20:00:00",
+            "wins": 0,
+            "draws": 0,
+            "loses": 1,
+            "pts": 0,
+            "npxGD": -0.66764
+          },
+          {
+            "h_a": "a",
+            "xG": 1.47433,
+            "xGA": 2.13327,
+            "npxG": 1.47433,
+            "npxGA": 2.13327,
+            "ppda": {
+              "att": 356,
+              "def": 24
+            },
+            "ppda_allowed": {
+              "att": 179,
+              "def": 32
+            },
+            "deep": 8,
+            "deep_allowed": 10,
+            "scored": 0,
+            "missed": 3,
+            "xpts": 0.9416,
+            "result": "l",
+            "date": "2025-01-15 19:30:00",
+            "wins": 0,
+            "draws": 0,
+            "loses": 1,
+            "pts": 0,
+            "npxGD": -0.6589400000000001
+          },
+          {
+            "h_a": "a",
+            "xG": 1.06726,
+            "xGA": 3.14882,
+            "npxG": 1.06726,
+            "npxGA": 3.14882,
+            "ppda": {
+              "att": 353,
+              "def": 22
+            },
+            "ppda_allowed": {
+              "att": 172,
+              "def": 13
+            },
+            "deep": 10,
+            "deep_allowed": 10,
+            "scored": 1,
+            "missed": 3,
+            "xpts": 0.1815,
+            "result": "l",
+            "date": "2025-01-20 20:00:00",
+            "wins": 0,
+            "draws": 0,
+            "loses": 1,
+            "pts": 0,
+            "npxGD": -2.08156
+          },
+          {
+            "h_a": "h",
+            "xG": 0.514724,
+            "xGA": 0.887358,
+            "npxG": 0.514724,
+            "npxGA": 0.887358,
+            "ppda": {
+              "att": 182,
+              "def": 27
+            },
+            "ppda_allowed": {
+              "att": 232,
+              "def": 30
+            },
+            "deep": 0,
+            "deep_allowed": 2,
+            "scored": 0,
+            "missed": 1,
+            "xpts": 0.9501,
+            "result": "l",
+            "date": "2025-01-25 15:00:00",
+            "wins": 0,
+            "draws": 0,
+            "loses": 1,
+            "pts": 0,
+            "npxGD": -0.372634
+          },
+          {
+            "h_a": "h",
+            "xG": 2.00146,
+            "xGA": 0.742809,
+            "npxG": 2.00146,
+            "npxGA": 0.742809,
+            "ppda": {
+              "att": 294,
+              "def": 24
+            },
+            "ppda_allowed": {
+              "att": 161,
+              "def": 14
+            },
+            "deep": 2,
+            "deep_allowed": 4,
+            "scored": 2,
+            "missed": 0,
+            "xpts": 2.3543,
+            "result": "w",
+            "date": "2025-02-01 17:30:00",
+            "wins": 1,
+            "draws": 0,
+            "loses": 0,
+            "pts": 3,
+            "npxGD": 1.2586509999999997
+          }
+        ]
+      },
+      {
+        "team_id": "75",
+        "team_title": "Leicester",
+        "matches_played": 24,
+        "pts": 17,
+        "xG": 27.887,
+        "xGA": 54.763,
+        "npxG": 26.364,
+        "npxGA": 54.002,
+        "npxGD": -27.638,
+        "xPTS": 18.789,
+        "ppda_avg": 16.293,
+        "deep_completions": 106,
+        "recent_5_matches": [
+          {
+            "h_a": "a",
+            "xG": 0.81548,
+            "xGA": 2.3456,
+            "npxG": 0.81548,
+            "npxGA": 2.3456,
+            "ppda": {
+              "att": 396,
+              "def": 19
+            },
+            "ppda_allowed": {
+              "att": 262,
+              "def": 29
+            },
+            "deep": 3,
+            "deep_allowed": 9,
+            "scored": 1,
+            "missed": 2,
+            "xpts": 0.2842,
+            "result": "l",
+            "date": "2025-01-04 15:00:00",
+            "wins": 0,
+            "draws": 0,
+            "loses": 1,
+            "pts": 0,
+            "npxGD": -1.5301200000000001
+          },
+          {
+            "h_a": "h",
+            "xG": 2.09904,
+            "xGA": 2.2647,
+            "npxG": 2.09904,
+            "npxGA": 2.2647,
+            "ppda": {
+              "att": 270,
+              "def": 22
+            },
+            "ppda_allowed": {
+              "att": 356,
+              "def": 23
+            },
+            "deep": 7,
+            "deep_allowed": 7,
+            "scored": 0,
+            "missed": 2,
+            "xpts": 1.238,
+            "result": "l",
+            "date": "2025-01-15 19:30:00",
+            "wins": 0,
+            "draws": 0,
+            "loses": 1,
+            "pts": 0,
+            "npxGD": -0.16565999999999992
+          },
+          {
+            "h_a": "h",
+            "xG": 0.676934,
+            "xGA": 2.36823,
+            "npxG": 0.676934,
+            "npxGA": 2.36823,
+            "ppda": {
+              "att": 304,
+              "def": 16
+            },
+            "ppda_allowed": {
+              "att": 206,
+              "def": 21
+            },
+            "deep": 2,
+            "deep_allowed": 10,
+            "scored": 0,
+            "missed": 2,
+            "xpts": 0.25039999999999996,
+            "result": "l",
+            "date": "2025-01-18 15:00:00",
+            "wins": 0,
+            "draws": 0,
+            "loses": 1,
+            "pts": 0,
+            "npxGD": -1.691296
+          },
+          {
+            "h_a": "a",
+            "xG": 1.40469,
+            "xGA": 1.27483,
+            "npxG": 1.40469,
+            "npxGA": 1.27483,
+            "ppda": {
+              "att": 304,
+              "def": 27
+            },
+            "ppda_allowed": {
+              "att": 171,
+              "def": 15
+            },
+            "deep": 5,
+            "deep_allowed": 5,
+            "scored": 2,
+            "missed": 1,
+            "xpts": 1.4557,
+            "result": "w",
+            "date": "2025-01-26 14:00:00",
+            "wins": 1,
+            "draws": 0,
+            "loses": 0,
+            "pts": 3,
+            "npxGD": 0.1298600000000001
+          },
+          {
+            "h_a": "a",
+            "xG": 0.447136,
+            "xGA": 3.11261,
+            "npxG": 0.447136,
+            "npxGA": 3.11261,
+            "ppda": {
+              "att": 277,
+              "def": 23
+            },
+            "ppda_allowed": {
+              "att": 323,
+              "def": 18
+            },
+            "deep": 4,
+            "deep_allowed": 14,
+            "scored": 0,
+            "missed": 4,
+            "xpts": 0.1015,
+            "result": "l",
+            "date": "2025-02-01 15:00:00",
+            "wins": 0,
+            "draws": 0,
+            "loses": 1,
+            "pts": 0,
+            "npxGD": -2.665474
+          }
+        ]
+      },
+      {
+        "team_id": "285",
+        "team_title": "Ipswich",
+        "matches_played": 24,
+        "pts": 16,
+        "xG": 27.404,
+        "xGA": 54.871,
+        "npxG": 25.881,
+        "npxGA": 51.065,
+        "npxGD": -25.184,
+        "xPTS": 17.894,
+        "ppda_avg": 14.956,
+        "deep_completions": 86,
+        "recent_5_matches": [
+          {
+            "h_a": "a",
+            "xG": 1.4434,
+            "xGA": 2.65469,
+            "npxG": 0.682234,
+            "npxGA": 1.13235,
+            "ppda": {
+              "att": 330,
+              "def": 24
+            },
+            "ppda_allowed": {
+              "att": 131,
+              "def": 16
+            },
+            "deep": 2,
+            "deep_allowed": 5,
+            "scored": 2,
+            "missed": 2,
+            "xpts": 0.5066,
+            "result": "d",
+            "date": "2025-01-05 14:00:00",
+            "wins": 0,
+            "draws": 1,
+            "loses": 0,
+            "pts": 1,
+            "npxGD": -0.45011599999999996
+          },
+          {
+            "h_a": "h",
+            "xG": 0.268127,
+            "xGA": 1.06343,
+            "npxG": 0.268127,
+            "npxGA": 1.06343,
+            "ppda": {
+              "att": 266,
+              "def": 23
+            },
+            "ppda_allowed": {
+              "att": 274,
+              "def": 26
+            },
+            "deep": 1,
+            "deep_allowed": 9,
+            "scored": 0,
+            "missed": 2,
+            "xpts": 0.5738,
+            "result": "l",
+            "date": "2025-01-16 19:30:00",
+            "wins": 0,
+            "draws": 0,
+            "loses": 1,
+            "pts": 0,
+            "npxGD": -0.7953030000000001
+          },
+          {
+            "h_a": "h",
+            "xG": 0.795637,
+            "xGA": 3.20228,
+            "npxG": 0.795637,
+            "npxGA": 3.20228,
+            "ppda": {
+              "att": 398,
+              "def": 10
+            },
+            "ppda_allowed": {
+              "att": 204,
+              "def": 23
+            },
+            "deep": 3,
+            "deep_allowed": 17,
+            "scored": 0,
+            "missed": 6,
+            "xpts": 0.1748,
+            "result": "l",
+            "date": "2025-01-19 16:30:00",
+            "wins": 0,
+            "draws": 0,
+            "loses": 1,
+            "pts": 0,
+            "npxGD": -2.406643
+          },
+          {
+            "h_a": "a",
+            "xG": 0.804707,
+            "xGA": 2.16809,
+            "npxG": 0.804707,
+            "npxGA": 2.16809,
+            "ppda": {
+              "att": 293,
+              "def": 25
+            },
+            "ppda_allowed": {
+              "att": 190,
+              "def": 29
+            },
+            "deep": 2,
+            "deep_allowed": 15,
+            "scored": 1,
+            "missed": 4,
+            "xpts": 0.3684,
+            "result": "l",
+            "date": "2025-01-25 15:00:00",
+            "wins": 0,
+            "draws": 0,
+            "loses": 1,
+            "pts": 0,
+            "npxGD": -1.3633829999999998
+          },
+          {
+            "h_a": "h",
+            "xG": 1.94845,
+            "xGA": 1.17566,
+            "npxG": 1.94845,
+            "npxGA": 1.17566,
+            "ppda": {
+              "att": 217,
+              "def": 24
+            },
+            "ppda_allowed": {
+              "att": 299,
+              "def": 29
+            },
+            "deep": 5,
+            "deep_allowed": 1,
+            "scored": 1,
+            "missed": 2,
+            "xpts": 1.9861,
+            "result": "l",
+            "date": "2025-02-01 15:00:00",
+            "wins": 0,
+            "draws": 0,
+            "loses": 1,
+            "pts": 0,
+            "npxGD": 0.7727900000000001
+          }
+        ]
+      },
+      {
+        "team_id": "74",
+        "team_title": "Southampton",
+        "matches_played": 24,
+        "pts": 9,
+        "xG": 28.789,
+        "xGA": 64.785,
+        "npxG": 27.081,
+        "npxGA": 61.741,
+        "npxGD": -34.66,
+        "xPTS": 15.04,
+        "ppda_avg": 12.266,
+        "deep_completions": 130,
+        "recent_5_matches": [
+          {
+            "h_a": "h",
+            "xG": 0.249614,
+            "xGA": 5.54874,
+            "npxG": 0.249614,
+            "npxGA": 4.78757,
+            "ppda": {
+              "att": 232,
+              "def": 18
+            },
+            "ppda_allowed": {
+              "att": 244,
+              "def": 22
+            },
+            "deep": 9,
+            "deep_allowed": 15,
+            "scored": 0,
+            "missed": 5,
+            "xpts": 0.0018,
+            "result": "l",
+            "date": "2025-01-04 15:00:00",
+            "wins": 0,
+            "draws": 0,
+            "loses": 1,
+            "pts": 0,
+            "npxGD": -4.537955999999999
+          },
+          {
+            "h_a": "a",
+            "xG": 1.36705,
+            "xGA": 3.10847,
+            "npxG": 1.36705,
+            "npxGA": 3.10847,
+            "ppda": {
+              "att": 359,
+              "def": 28
+            },
+            "ppda_allowed": {
+              "att": 211,
+              "def": 17
+            },
+            "deep": 1,
+            "deep_allowed": 15,
+            "scored": 1,
+            "missed": 3,
+            "xpts": 0.4456,
+            "result": "l",
+            "date": "2025-01-16 20:00:00",
+            "wins": 0,
+            "draws": 0,
+            "loses": 1,
+            "pts": 0,
+            "npxGD": -1.74142
+          },
+          {
+            "h_a": "a",
+            "xG": 1.25922,
+            "xGA": 2.36419,
+            "npxG": 1.25922,
+            "npxGA": 2.36419,
+            "ppda": {
+              "att": 167,
+              "def": 17
+            },
+            "ppda_allowed": {
+              "att": 244,
+              "def": 19
+            },
+            "deep": 2,
+            "deep_allowed": 9,
+            "scored": 2,
+            "missed": 3,
+            "xpts": 0.4667,
+            "result": "l",
+            "date": "2025-01-19 14:00:00",
+            "wins": 0,
+            "draws": 0,
+            "loses": 1,
+            "pts": 0,
+            "npxGD": -1.1049699999999998
+          },
+          {
+            "h_a": "h",
+            "xG": 0.825621,
+            "xGA": 3.08319,
+            "npxG": 0.825621,
+            "npxGA": 2.32202,
+            "ppda": {
+              "att": 244,
+              "def": 18
+            },
+            "ppda_allowed": {
+              "att": 246,
+              "def": 22
+            },
+            "deep": 2,
+            "deep_allowed": 11,
+            "scored": 1,
+            "missed": 3,
+            "xpts": 0.1946,
+            "result": "l",
+            "date": "2025-01-25 15:00:00",
+            "wins": 0,
+            "draws": 0,
+            "loses": 1,
+            "pts": 0,
+            "npxGD": -1.4963990000000003
+          },
+          {
+            "h_a": "a",
+            "xG": 1.17566,
+            "xGA": 1.94845,
+            "npxG": 1.17566,
+            "npxGA": 1.94845,
+            "ppda": {
+              "att": 299,
+              "def": 29
+            },
+            "ppda_allowed": {
+              "att": 217,
+              "def": 24
+            },
+            "deep": 1,
+            "deep_allowed": 5,
+            "scored": 2,
+            "missed": 1,
+            "xpts": 0.7545999999999999,
+            "result": "w",
+            "date": "2025-02-01 15:00:00",
+            "wins": 1,
+            "draws": 0,
+            "loses": 0,
+            "pts": 3,
+            "npxGD": -0.7727900000000001
+          }
+        ]
+      }
+    ],
+    "recent_matches_sample_count": 25,
+    "recent_matches_sample": [
+      {
+        "id": "26818",
+        "isResult": true,
+        "h": {
+          "id": "89",
+          "title": "Manchester United",
+          "short_title": "MUN"
+        },
+        "a": {
+          "id": "220",
+          "title": "Brighton",
+          "short_title": "BRI"
+        },
+        "goals": {
+          "h": "1",
+          "a": "3"
+        },
+        "xG": {
+          "h": "1.31823",
+          "a": "2.17172"
+        },
+        "datetime": "2025-01-19 14:00:00",
+        "forecast": {
+          "w": "0.1466",
+          "d": "0.2332",
+          "l": "0.6202"
+        }
+      },
+      {
+        "id": "26820",
+        "isResult": true,
+        "h": {
+          "id": "249",
+          "title": "Nottingham Forest",
+          "short_title": "NOT"
+        },
+        "a": {
+          "id": "74",
+          "title": "Southampton",
+          "short_title": "SOU"
+        },
+        "goals": {
+          "h": "3",
+          "a": "2"
+        },
+        "xG": {
+          "h": "2.36419",
+          "a": "1.25922"
+        },
+        "datetime": "2025-01-19 14:00:00",
+        "forecast": {
+          "w": "0.7025",
+          "d": "0.2129",
+          "l": "0.0846"
+        }
+      },
+      {
+        "id": "26816",
+        "isResult": true,
+        "h": {
+          "id": "285",
+          "title": "Ipswich",
+          "short_title": "IPS"
+        },
+        "a": {
+          "id": "88",
+          "title": "Manchester City",
+          "short_title": "MCI"
+        },
+        "goals": {
+          "h": "0",
+          "a": "6"
+        },
+        "xG": {
+          "h": "0.795637",
+          "a": "3.20228"
+        },
+        "datetime": "2025-01-19 16:30:00",
+        "forecast": {
+          "w": "0.0313",
+          "d": "0.0809",
+          "l": "0.8878"
+        }
+      },
+      {
+        "id": "26814",
+        "isResult": true,
+        "h": {
+          "id": "80",
+          "title": "Chelsea",
+          "short_title": "CHE"
+        },
+        "a": {
+          "id": "229",
+          "title": "Wolverhampton Wanderers",
+          "short_title": "WOL"
+        },
+        "goals": {
+          "h": "3",
+          "a": "1"
+        },
+        "xG": {
+          "h": "3.14882",
+          "a": "1.06726"
+        },
+        "datetime": "2025-01-20 20:00:00",
+        "forecast": {
+          "w": "0.8751",
+          "d": "0.0966",
+          "l": "0.0283"
+        }
+      },
+      {
+        "id": "26822",
+        "isResult": true,
+        "h": {
+          "id": "73",
+          "title": "Bournemouth",
+          "short_title": "BOU"
+        },
+        "a": {
+          "id": "249",
+          "title": "Nottingham Forest",
+          "short_title": "NOT"
+        },
+        "goals": {
+          "h": "5",
+          "a": "0"
+        },
+        "xG": {
+          "h": "2.8254",
+          "a": "0.996166"
+        },
+        "datetime": "2025-01-25 15:00:00",
+        "forecast": {
+          "w": "0.8133",
+          "d": "0.1202",
+          "l": "0.0665"
+        }
+      },
+      {
+        "id": "26824",
+        "isResult": true,
+        "h": {
+          "id": "220",
+          "title": "Brighton",
+          "short_title": "BRI"
+        },
+        "a": {
+          "id": "72",
+          "title": "Everton",
+          "short_title": "EVE"
+        },
+        "goals": {
+          "h": "0",
+          "a": "1"
+        },
+        "xG": {
+          "h": "0.64378",
+          "a": "0.870883"
+        },
+        "datetime": "2025-01-25 15:00:00",
+        "forecast": {
+          "w": "0.2006",
+          "d": "0.3683",
+          "l": "0.4311"
+        }
+      },
+      {
+        "id": "26827",
+        "isResult": true,
+        "h": {
+          "id": "87",
+          "title": "Liverpool",
+          "short_title": "LIV"
+        },
+        "a": {
+          "id": "285",
+          "title": "Ipswich",
+          "short_title": "IPS"
+        },
+        "goals": {
+          "h": "4",
+          "a": "1"
+        },
+        "xG": {
+          "h": "2.16809",
+          "a": "0.804707"
+        },
+        "datetime": "2025-01-25 15:00:00",
+        "forecast": {
+          "w": "0.7524",
+          "d": "0.1872",
+          "l": "0.0604"
+        }
+      },
+      {
+        "id": "26829",
+        "isResult": true,
+        "h": {
+          "id": "74",
+          "title": "Southampton",
+          "short_title": "SOU"
+        },
+        "a": {
+          "id": "86",
+          "title": "Newcastle United",
+          "short_title": "NEW"
+        },
+        "goals": {
+          "h": "1",
+          "a": "3"
+        },
+        "xG": {
+          "h": "0.825621",
+          "a": "3.08319"
+        },
+        "datetime": "2025-01-25 15:00:00",
+        "forecast": {
+          "w": "0.0343",
+          "d": "0.0917",
+          "l": "0.874"
+        }
+      },
+      {
+        "id": "26831",
+        "isResult": true,
+        "h": {
+          "id": "229",
+          "title": "Wolverhampton Wanderers",
+          "short_title": "WOL"
+        },
+        "a": {
+          "id": "83",
+          "title": "Arsenal",
+          "short_title": "ARS"
+        },
+        "goals": {
+          "h": "0",
+          "a": "1"
+        },
+        "xG": {
+          "h": "0.514724",
+          "a": "0.887358"
+        },
+        "datetime": "2025-01-25 15:00:00",
+        "forecast": {
+          "w": "0.1951",
+          "d": "0.3648",
+          "l": "0.4401"
+        }
+      },
+      {
+        "id": "26828",
+        "isResult": true,
+        "h": {
+          "id": "88",
+          "title": "Manchester City",
+          "short_title": "MCI"
+        },
+        "a": {
+          "id": "80",
+          "title": "Chelsea",
+          "short_title": "CHE"
+        },
+        "goals": {
+          "h": "3",
+          "a": "1"
+        },
+        "xG": {
+          "h": "2.23213",
+          "a": "1.49843"
+        },
+        "datetime": "2025-01-25 17:30:00",
+        "forecast": {
+          "w": "0.5598",
+          "d": "0.2262",
+          "l": "0.214"
+        }
+      },
+      {
+        "id": "26825",
+        "isResult": true,
+        "h": {
+          "id": "78",
+          "title": "Crystal Palace",
+          "short_title": "CRY"
+        },
+        "a": {
+          "id": "244",
+          "title": "Brentford",
+          "short_title": "BRE"
+        },
+        "goals": {
+          "h": "1",
+          "a": "2"
+        },
+        "xG": {
+          "h": "1.23177",
+          "a": "1.92037"
+        },
+        "datetime": "2025-01-26 14:00:00",
+        "forecast": {
+          "w": "0.1717",
+          "d": "0.2637",
+          "l": "0.5646"
+        }
+      },
+      {
+        "id": "26830",
+        "isResult": true,
+        "h": {
+          "id": "82",
+          "title": "Tottenham",
+          "short_title": "TOT"
+        },
+        "a": {
+          "id": "75",
+          "title": "Leicester",
+          "short_title": "LEI"
+        },
+        "goals": {
+          "h": "1",
+          "a": "2"
+        },
+        "xG": {
+          "h": "1.27483",
+          "a": "1.40469"
+        },
+        "datetime": "2025-01-26 14:00:00",
+        "forecast": {
+          "w": "0.2769",
+          "d": "0.3568",
+          "l": "0.3663"
+        }
+      },
+      {
+        "id": "26823",
+        "isResult": true,
+        "h": {
+          "id": "71",
+          "title": "Aston Villa",
+          "short_title": "AVL"
+        },
+        "a": {
+          "id": "81",
+          "title": "West Ham",
+          "short_title": "WHU"
+        },
+        "goals": {
+          "h": "1",
+          "a": "1"
+        },
+        "xG": {
+          "h": "0.907851",
+          "a": "1.67886"
+        },
+        "datetime": "2025-01-26 16:30:00",
+        "forecast": {
+          "w": "0.1721",
+          "d": "0.2404",
+          "l": "0.5875"
+        }
+      },
+      {
+        "id": "26826",
+        "isResult": true,
+        "h": {
+          "id": "228",
+          "title": "Fulham",
+          "short_title": "FLH"
+        },
+        "a": {
+          "id": "89",
+          "title": "Manchester United",
+          "short_title": "MUN"
+        },
+        "goals": {
+          "h": "0",
+          "a": "1"
+        },
+        "xG": {
+          "h": "0.560571",
+          "a": "0.201988"
+        },
+        "datetime": "2025-01-26 19:00:00",
+        "forecast": {
+          "w": "0.3804",
+          "d": "0.5075",
+          "l": "0.1121"
+        }
+      },
+      {
+        "id": "26840",
+        "isResult": true,
+        "h": {
+          "id": "249",
+          "title": "Nottingham Forest",
+          "short_title": "NOT"
+        },
+        "a": {
+          "id": "220",
+          "title": "Brighton",
+          "short_title": "BRI"
+        },
+        "goals": {
+          "h": "7",
+          "a": "0"
+        },
+        "xG": {
+          "h": "4.0677",
+          "a": "0.756296"
+        },
+        "datetime": "2025-02-01 12:30:00",
+        "forecast": {
+          "w": "0.969",
+          "d": "0.0256",
+          "l": "0.0054"
+        }
+      },
+      {
+        "id": "26832",
+        "isResult": true,
+        "h": {
+          "id": "73",
+          "title": "Bournemouth",
+          "short_title": "BOU"
+        },
+        "a": {
+          "id": "87",
+          "title": "Liverpool",
+          "short_title": "LIV"
+        },
+        "goals": {
+          "h": "0",
+          "a": "2"
+        },
+        "xG": {
+          "h": "1.65273",
+          "a": "2.7219"
+        },
+        "datetime": "2025-02-01 15:00:00",
+        "forecast": {
+          "w": "0.1696",
+          "d": "0.1937",
+          "l": "0.6367"
+        }
+      },
+      {
+        "id": "26836",
+        "isResult": true,
+        "h": {
+          "id": "72",
+          "title": "Everton",
+          "short_title": "EVE"
+        },
+        "a": {
+          "id": "75",
+          "title": "Leicester",
+          "short_title": "LEI"
+        },
+        "goals": {
+          "h": "4",
+          "a": "0"
+        },
+        "xG": {
+          "h": "3.11261",
+          "a": "0.447136"
+        },
+        "datetime": "2025-02-01 15:00:00",
+        "forecast": {
+          "w": "0.9305",
+          "d": "0.0535",
+          "l": "0.016"
+        }
+      },
+      {
+        "id": "26837",
+        "isResult": true,
+        "h": {
+          "id": "285",
+          "title": "Ipswich",
+          "short_title": "IPS"
+        },
+        "a": {
+          "id": "74",
+          "title": "Southampton",
+          "short_title": "SOU"
+        },
+        "goals": {
+          "h": "1",
+          "a": "2"
+        },
+        "xG": {
+          "h": "1.94845",
+          "a": "1.17566"
+        },
+        "datetime": "2025-02-01 15:00:00",
+        "forecast": {
+          "w": "0.5756",
+          "d": "0.2593",
+          "l": "0.1651"
+        }
+      },
+      {
+        "id": "26839",
+        "isResult": true,
+        "h": {
+          "id": "86",
+          "title": "Newcastle United",
+          "short_title": "NEW"
+        },
+        "a": {
+          "id": "228",
+          "title": "Fulham",
+          "short_title": "FLH"
+        },
+        "goals": {
+          "h": "1",
+          "a": "2"
+        },
+        "xG": {
+          "h": "1.22716",
+          "a": "1.60881"
+        },
+        "datetime": "2025-02-01 15:00:00",
+        "forecast": {
+          "w": "0.2568",
+          "d": "0.2823",
+          "l": "0.4609"
+        }
+      },
+      {
+        "id": "26841",
+        "isResult": true,
+        "h": {
+          "id": "229",
+          "title": "Wolverhampton Wanderers",
+          "short_title": "WOL"
+        },
+        "a": {
+          "id": "71",
+          "title": "Aston Villa",
+          "short_title": "AVL"
+        },
+        "goals": {
+          "h": "2",
+          "a": "0"
+        },
+        "xG": {
+          "h": "2.00146",
+          "a": "0.742809"
+        },
+        "datetime": "2025-02-01 17:30:00",
+        "forecast": {
+          "w": "0.7201",
+          "d": "0.194",
+          "l": "0.0859"
+        }
+      },
+      {
+        "id": "26834",
+        "isResult": true,
+        "h": {
+          "id": "244",
+          "title": "Brentford",
+          "short_title": "BRE"
+        },
+        "a": {
+          "id": "82",
+          "title": "Tottenham",
+          "short_title": "TOT"
+        },
+        "goals": {
+          "h": "0",
+          "a": "2"
+        },
+        "xG": {
+          "h": "1.66475",
+          "a": "0.945355"
+        },
+        "datetime": "2025-02-02 14:00:00",
+        "forecast": {
+          "w": "0.5556",
+          "d": "0.2508",
+          "l": "0.1936"
+        }
+      },
+      {
+        "id": "26838",
+        "isResult": true,
+        "h": {
+          "id": "89",
+          "title": "Manchester United",
+          "short_title": "MUN"
+        },
+        "a": {
+          "id": "78",
+          "title": "Crystal Palace",
+          "short_title": "CRY"
+        },
+        "goals": {
+          "h": "0",
+          "a": "2"
+        },
+        "xG": {
+          "h": "1.50706",
+          "a": "2.44633"
+        },
+        "datetime": "2025-02-02 14:00:00",
+        "forecast": {
+          "w": "0.1555",
+          "d": "0.2072",
+          "l": "0.6373"
+        }
+      },
+      {
+        "id": "26833",
+        "isResult": true,
+        "h": {
+          "id": "83",
+          "title": "Arsenal",
+          "short_title": "ARS"
+        },
+        "a": {
+          "id": "88",
+          "title": "Manchester City",
+          "short_title": "MCI"
+        },
+        "goals": {
+          "h": "5",
+          "a": "1"
+        },
+        "xG": {
+          "h": "1.53202",
+          "a": "0.743191"
+        },
+        "datetime": "2025-02-02 16:30:00",
+        "forecast": {
+          "w": "0.5825",
+          "d": "0.2677",
+          "l": "0.1498"
+        }
+      },
+      {
+        "id": "26835",
+        "isResult": true,
+        "h": {
+          "id": "80",
+          "title": "Chelsea",
+          "short_title": "CHE"
+        },
+        "a": {
+          "id": "81",
+          "title": "West Ham",
+          "short_title": "WHU"
+        },
+        "goals": {
+          "h": "2",
+          "a": "1"
+        },
+        "xG": {
+          "h": "1.39066",
+          "a": "1.1868"
+        },
+        "datetime": "2025-02-03 20:00:00",
+        "forecast": {
+          "w": "0.4124",
+          "d": "0.2751",
+          "l": "0.3125"
+        }
+      },
+      {
+        "id": "26748",
+        "isResult": true,
+        "h": {
+          "id": "72",
+          "title": "Everton",
+          "short_title": "EVE"
+        },
+        "a": {
+          "id": "87",
+          "title": "Liverpool",
+          "short_title": "LIV"
+        },
+        "goals": {
+          "h": "2",
+          "a": "2"
+        },
+        "xG": {
+          "h": "0.910523",
+          "a": "0.929103"
+        },
+        "datetime": "2025-02-12 19:30:00",
+        "forecast": {
+          "w": "0.3088",
+          "d": "0.35",
+          "l": "0.3412"
+        }
+      }
+    ]
+  }
+}

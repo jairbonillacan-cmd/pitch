@@ -1,0 +1,1959 @@
+{
+  "source_id": "rotowire_lineups_injuries",
+  "source_name": "RotoWire (Soccer & NFL Lineups / Injury Reports)",
+  "category": "injuries_lineups",
+  "url": "https://www.rotowire.com/soccer/lineups.php",
+  "scrapling_mode": "fetcher_session",
+  "captured_at_utc": "2026-11-09T18:49:15Z",
+  "sha256": "90e16e81a211d2fd1d9400a6c7cf3f590cb40685123c60b855df98ea0fc3ee2a",
+  "meta": {
+    "record_count": 16,
+    "soccer_matchups_count": 11,
+    "nfl_injuries_count": 5
+  },
+  "payload": {
+    "captured_at_utc": "2026-11-09T18:49:15Z",
+    "soccer_lineups_url": "https://www.rotowire.com/soccer/lineups.php",
+    "nfl_injury_report_url": "https://www.rotowire.com/football/injury-report.php",
+    "nfl_injury_table_endpoint": "https://www.rotowire.com/football/tables/injury-report.php?team=ALL&pos=ALL",
+    "nfl_page_title": "NFL Injury Report: Player Injuries & Status | RotoWire",
+    "soccer_matchups_count": 11,
+    "nfl_injuries_count": 5,
+    "soccer_matchups": [
+      {
+        "home_team": "Manchester City",
+        "away_team": "Fulham",
+        "home_lineup": {
+          "confirmed_status": "predicted",
+          "raw_status_label": "Predicted Lineup",
+          "starting_11_players": [
+            {
+              "player_name": "G. Donnarumma",
+              "position": "GK",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "J. Gvardiol",
+              "position": "DL",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "Marc Guehi",
+              "position": "DC",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "Ruben Dias",
+              "position": "DC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "A. Khusanov",
+              "position": "DR",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "E. Fernandez",
+              "position": "DMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "E. Anderson",
+              "position": "DMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Jeremy Doku",
+              "position": "AML",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Rayan Cherki",
+              "position": "AMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "I. Ndiaye",
+              "position": "AMR",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "E. Haaland",
+              "position": "FW",
+              "designation": "STARTER"
+            }
+          ],
+          "injured_out_players": [
+            {
+              "player_name": "A. Semenyo",
+              "position": "F/M",
+              "designation": "OUT"
+            }
+          ],
+          "questionable_players": [
+            {
+              "player_name": "J. Gvardiol",
+              "position": "DL",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "Marc Guehi",
+              "position": "DC",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "Marc Guehi",
+              "position": "D",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "J. Gvardiol",
+              "position": "D",
+              "designation": "QUES"
+            }
+          ]
+        },
+        "away_lineup": {
+          "confirmed_status": "predicted",
+          "raw_status_label": "Predicted Lineup",
+          "starting_11_players": [
+            {
+              "player_name": "Bernd Leno",
+              "position": "GK",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "A. Robinson",
+              "position": "DL",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "C. Bassey",
+              "position": "DC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "D. Affengruber",
+              "position": "DC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "T. Castagne",
+              "position": "DR",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Sander Berge",
+              "position": "DMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Shea Charles",
+              "position": "DMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Alex Iwobi",
+              "position": "AML",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Josh King",
+              "position": "AMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Oscar Bobb",
+              "position": "AMR",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Gonzalo Garcia",
+              "position": "FW",
+              "designation": "STARTER"
+            }
+          ],
+          "injured_out_players": [],
+          "questionable_players": [
+            {
+              "player_name": "Tom Cairney",
+              "position": "M",
+              "designation": "QUES"
+            }
+          ]
+        }
+      },
+      {
+        "home_team": "Tottenham Hotspur",
+        "away_team": "Ipswich Town",
+        "home_lineup": {
+          "confirmed_status": "predicted",
+          "raw_status_label": "Predicted Lineup",
+          "starting_11_players": [
+            {
+              "player_name": "A. Kinsky",
+              "position": "GK",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "A. Robertson",
+              "position": "DL",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "J. van Hecke",
+              "position": "DC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "M. van de Ven",
+              "position": "DC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Pedro Porro",
+              "position": "DR",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "S. Tonali",
+              "position": "MC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Archie Gray",
+              "position": "MC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Mateus Fernandes",
+              "position": "MC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "O. Marmoush",
+              "position": "FWL",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "M. Kudus",
+              "position": "FWR",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "D. Solanke",
+              "position": "FW",
+              "designation": "STARTER"
+            }
+          ],
+          "injured_out_players": [
+            {
+              "player_name": "W. Odobert",
+              "position": "F/M",
+              "designation": "OUT"
+            },
+            {
+              "player_name": "Xavi Simons",
+              "position": "F/M",
+              "designation": "OUT"
+            }
+          ],
+          "questionable_players": [
+            {
+              "player_name": "T. Adarabioyo",
+              "position": "D",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "L. Bergvall",
+              "position": "M",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "Savio",
+              "position": "F/M",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "M. Mudryk",
+              "position": "F/M",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "Mathys Tel",
+              "position": "F",
+              "designation": "QUES"
+            }
+          ]
+        },
+        "away_lineup": {
+          "confirmed_status": "predicted",
+          "raw_status_label": "Predicted Lineup",
+          "starting_11_players": [
+            {
+              "player_name": "C. Walton",
+              "position": "GK",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Leif Davis",
+              "position": "DL",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Dara O'Shea",
+              "position": "DC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Issa Diop",
+              "position": "DC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "A. Ouattara",
+              "position": "DR",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "E. Palacios",
+              "position": "DMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Sasa Lukic",
+              "position": "DMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Jack Clarke",
+              "position": "AML",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Julio Enciso",
+              "position": "AMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Daizen Maeda",
+              "position": "AMR",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Z. Flemming",
+              "position": "FW",
+              "designation": "STARTER"
+            }
+          ],
+          "injured_out_players": [],
+          "questionable_players": []
+        }
+      },
+      {
+        "home_team": "Coventry City",
+        "away_team": "Crystal Palace",
+        "home_lineup": {
+          "confirmed_status": "predicted",
+          "raw_status_label": "Predicted Lineup",
+          "starting_11_players": [
+            {
+              "player_name": "C. Rushworth",
+              "position": "GK",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Jay Dasilva",
+              "position": "DL",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "E. Pinnock",
+              "position": "DC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Bobby Thomas",
+              "position": "DC",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "M. van Ewijk",
+              "position": "DR",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Victor Torp",
+              "position": "DMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "C. Yirenkyi",
+              "position": "DMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Yann Gboho",
+              "position": "AML",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Jack Rudoni",
+              "position": "AMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "T. Sakamoto",
+              "position": "AMR",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "T. Awoniyi",
+              "position": "FW",
+              "designation": "STARTER"
+            }
+          ],
+          "injured_out_players": [
+            {
+              "player_name": "A. Amenda",
+              "position": "D",
+              "designation": "OUT"
+            }
+          ],
+          "questionable_players": [
+            {
+              "player_name": "Bobby Thomas",
+              "position": "DC",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "Josh Eccles",
+              "position": "M",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "Frank Onyeka",
+              "position": "M",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "Bobby Thomas",
+              "position": "D",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "L. Woolfenden",
+              "position": "D",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "Haji Wright",
+              "position": "F",
+              "designation": "QUES"
+            }
+          ]
+        },
+        "away_lineup": {
+          "confirmed_status": "predicted",
+          "raw_status_label": "Predicted Lineup",
+          "starting_11_players": [
+            {
+              "player_name": "D. Henderson",
+              "position": "GK",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "J. Lerma",
+              "position": "DC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Axel Disasi",
+              "position": "DC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "C. Richards",
+              "position": "DC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "T. Mitchell",
+              "position": "ML",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Q. Timber",
+              "position": "MC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Adam Wharton",
+              "position": "MC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "O. Mingueza",
+              "position": "MR",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Yeremy Pino",
+              "position": "AMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "D. Kamada",
+              "position": "AMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "J. Strand Larsen",
+              "position": "FW",
+              "designation": "STARTER"
+            }
+          ],
+          "injured_out_players": [
+            {
+              "player_name": "J. Mateta",
+              "position": "F",
+              "designation": "SUS"
+            },
+            {
+              "player_name": "Chadi Riad",
+              "position": "D",
+              "designation": "OUT"
+            }
+          ],
+          "questionable_players": [
+            {
+              "player_name": "Ismaila Sarr",
+              "position": "F/M",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "T. Tomiyasu",
+              "position": "D",
+              "designation": "QUES"
+            }
+          ]
+        }
+      },
+      {
+        "home_team": "Chelsea",
+        "away_team": "Leeds United",
+        "home_lineup": {
+          "confirmed_status": "predicted",
+          "raw_status_label": "Predicted Lineup",
+          "starting_11_players": [
+            {
+              "player_name": "Mike Penders",
+              "position": "GK",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Pep Chavarria",
+              "position": "DL",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Levi Colwill",
+              "position": "DC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "W. Fofana",
+              "position": "DC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "J. Acheampong",
+              "position": "DR",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "Romeo Lavia",
+              "position": "DMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "M. Caicedo",
+              "position": "MC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "J. Henderson",
+              "position": "MC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Cole Palmer",
+              "position": "AMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "M. Rogers",
+              "position": "AMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Pedro Neto",
+              "position": "FW",
+              "designation": "STARTER"
+            }
+          ],
+          "injured_out_players": [
+            {
+              "player_name": "Reece James",
+              "position": "M/D",
+              "designation": "OUT"
+            }
+          ],
+          "questionable_players": [
+            {
+              "player_name": "J. Acheampong",
+              "position": "DR",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "J. Acheampong",
+              "position": "D",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "J. Gittens",
+              "position": "F",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "Jorrel Hato",
+              "position": "M/D",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "Joao Pedro",
+              "position": "F",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "M. Lacroix",
+              "position": "D",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "E. Martinez",
+              "position": "G",
+              "designation": "QUES"
+            }
+          ]
+        },
+        "away_lineup": {
+          "confirmed_status": "predicted",
+          "raw_status_label": "Predicted Lineup",
+          "starting_11_players": [
+            {
+              "player_name": "J. Trafford",
+              "position": "GK",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "T. Muharemovic",
+              "position": "DC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Nico Elvedi",
+              "position": "DC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "James Justin",
+              "position": "DC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "G. Gudmundsson",
+              "position": "ML",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "Ao Tanaka",
+              "position": "MC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Ethan Ampadu",
+              "position": "MC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Jayden Bogle",
+              "position": "MR",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Anton Stach",
+              "position": "AMC",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "Noah Okafor",
+              "position": "AMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "D. Calvert-Lewin",
+              "position": "FW",
+              "designation": "STARTER"
+            }
+          ],
+          "injured_out_players": [
+            {
+              "player_name": "Mateo Joseph",
+              "position": "F",
+              "designation": "OUT"
+            }
+          ],
+          "questionable_players": [
+            {
+              "player_name": "G. Gudmundsson",
+              "position": "ML",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "Anton Stach",
+              "position": "AMC",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "G. Gudmundsson",
+              "position": "M/D",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "Anton Stach",
+              "position": "M",
+              "designation": "QUES"
+            }
+          ]
+        }
+      },
+      {
+        "home_team": "Aston Villa",
+        "away_team": "Sunderland",
+        "home_lineup": {
+          "confirmed_status": "predicted",
+          "raw_status_label": "Predicted Lineup",
+          "starting_11_players": [
+            {
+              "player_name": "Zion Suzuki",
+              "position": "GK",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Ian Maatsen",
+              "position": "DL",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Pau Torres",
+              "position": "DC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "V. Lindelof",
+              "position": "DC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Matty Cash",
+              "position": "DR",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "L. Goretzka",
+              "position": "DMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "B. Kamara",
+              "position": "DMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "J. Manzambi",
+              "position": "AML",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "John McGinn",
+              "position": "AMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Alysson",
+              "position": "AMR",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "N. Jackson",
+              "position": "FW",
+              "designation": "STARTER"
+            }
+          ],
+          "injured_out_players": [
+            {
+              "player_name": "Amadou Onana",
+              "position": "M",
+              "designation": "OUT"
+            },
+            {
+              "player_name": "M. Ruggeri",
+              "position": "D",
+              "designation": "OUT"
+            }
+          ],
+          "questionable_players": [
+            {
+              "player_name": "A. Wan-Bissaka",
+              "position": "D",
+              "designation": "QUES"
+            }
+          ]
+        },
+        "away_lineup": {
+          "confirmed_status": "predicted",
+          "raw_status_label": "Predicted Lineup",
+          "starting_11_players": [
+            {
+              "player_name": "Robin Roefs",
+              "position": "GK",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Reinildo",
+              "position": "DL",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "N. Mukiele",
+              "position": "DC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Luke O'Nien",
+              "position": "DC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "T. Meunier",
+              "position": "DR",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Noah Sadiki",
+              "position": "DMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Jules Ahoka",
+              "position": "DMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "C. Talbi",
+              "position": "AML",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Enzo Le Fee",
+              "position": "AMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Trai Hume",
+              "position": "AMR",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "B. Brobbey",
+              "position": "FW",
+              "designation": "QUES"
+            }
+          ],
+          "injured_out_players": [
+            {
+              "player_name": "D. Ballard",
+              "position": "D",
+              "designation": "OUT"
+            },
+            {
+              "player_name": "Habib Diarra",
+              "position": "M",
+              "designation": "OUT"
+            },
+            {
+              "player_name": "R. Mundle",
+              "position": "M",
+              "designation": "OUT"
+            }
+          ],
+          "questionable_players": [
+            {
+              "player_name": "B. Brobbey",
+              "position": "FW",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "B. Brobbey",
+              "position": "F",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "Granit Xhaka",
+              "position": "M",
+              "designation": "QUES"
+            }
+          ]
+        }
+      },
+      {
+        "home_team": "AFC Bournemouth",
+        "away_team": "Nottingham Forest",
+        "home_lineup": {
+          "confirmed_status": "predicted",
+          "raw_status_label": "Predicted Lineup",
+          "starting_11_players": [
+            {
+              "player_name": "D. Petrovic",
+              "position": "GK",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "A. Truffert",
+              "position": "DL",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Antonio Silva",
+              "position": "DC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "James Hill",
+              "position": "DC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Adam Smith",
+              "position": "DR",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Tyler Adams",
+              "position": "DMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "R. Christie",
+              "position": "DMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "M. Tavernier",
+              "position": "AML",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "J. Kluivert",
+              "position": "AMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Rayan",
+              "position": "AMR",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Evanilson",
+              "position": "FW",
+              "designation": "STARTER"
+            }
+          ],
+          "injured_out_players": [
+            {
+              "player_name": "J. Araujo",
+              "position": "D",
+              "designation": "OUT"
+            },
+            {
+              "player_name": "Alex Toth",
+              "position": "M",
+              "designation": "OUT"
+            }
+          ],
+          "questionable_players": [
+            {
+              "player_name": "Juanlu",
+              "position": "M/D",
+              "designation": "QUES"
+            }
+          ]
+        },
+        "away_lineup": {
+          "confirmed_status": "predicted",
+          "raw_status_label": "Predicted Lineup",
+          "starting_11_players": [
+            {
+              "player_name": "Matz Sels",
+              "position": "GK",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "N. Milenkovic",
+              "position": "DC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Jair Cunha",
+              "position": "DC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Murillo",
+              "position": "DC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "N. Williams",
+              "position": "ML",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "X. Schlager",
+              "position": "MC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Ryan Yates",
+              "position": "MC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Daniel Munoz",
+              "position": "MR",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "James McAtee",
+              "position": "AMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "M. Gibbs-White",
+              "position": "AMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Liam Delap",
+              "position": "FW",
+              "designation": "STARTER"
+            }
+          ],
+          "injured_out_players": [
+            {
+              "player_name": "N. Dominguez",
+              "position": "M",
+              "designation": "OUT"
+            }
+          ],
+          "questionable_players": [
+            {
+              "player_name": "N. Savona",
+              "position": "D",
+              "designation": "QUES"
+            }
+          ]
+        }
+      },
+      {
+        "home_team": "Newcastle United",
+        "away_team": "Arsenal",
+        "home_lineup": {
+          "confirmed_status": "predicted",
+          "raw_status_label": "Predicted Lineup",
+          "starting_11_players": [
+            {
+              "player_name": "L. Hornicek",
+              "position": "GK",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Lewis Hall",
+              "position": "DL",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Malick Thiaw",
+              "position": "DC",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "Dan Burn",
+              "position": "DC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Amar Dedic",
+              "position": "DR",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Nico Gonzalez",
+              "position": "DMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Sean Steur",
+              "position": "DMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "H. Barnes",
+              "position": "AML",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "M. Fernandez-Pardo",
+              "position": "AMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Jacob Murphy",
+              "position": "AMR",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Will Osula",
+              "position": "FW",
+              "designation": "STARTER"
+            }
+          ],
+          "injured_out_players": [
+            {
+              "player_name": "Joelinton",
+              "position": "F/M",
+              "designation": "OUT"
+            },
+            {
+              "player_name": "Ewen Jaouen",
+              "position": "G",
+              "designation": "OUT"
+            }
+          ],
+          "questionable_players": [
+            {
+              "player_name": "Malick Thiaw",
+              "position": "DC",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "Malick Thiaw",
+              "position": "D",
+              "designation": "QUES"
+            }
+          ]
+        },
+        "away_lineup": {
+          "confirmed_status": "predicted",
+          "raw_status_label": "Predicted Lineup",
+          "starting_11_players": [
+            {
+              "player_name": "David Raya",
+              "position": "GK",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "R. Calafiori",
+              "position": "DL",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Ezri Konsa",
+              "position": "DC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Gabriel",
+              "position": "DC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "J. Timber",
+              "position": "DR",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Declan Rice",
+              "position": "DMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Bruno Guimaraes",
+              "position": "DMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "C. Tzolis",
+              "position": "AML",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "M. Odegaard",
+              "position": "AMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Noni Madueke",
+              "position": "AMR",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Kai Havertz",
+              "position": "FW",
+              "designation": "STARTER"
+            }
+          ],
+          "injured_out_players": [
+            {
+              "player_name": "Max Dowman",
+              "position": "F/M",
+              "designation": "SUS"
+            },
+            {
+              "player_name": "Bukayo Saka",
+              "position": "F/M",
+              "designation": "OUT"
+            }
+          ],
+          "questionable_players": [
+            {
+              "player_name": "W. Saliba",
+              "position": "D",
+              "designation": "QUES"
+            }
+          ]
+        }
+      },
+      {
+        "home_team": "Hull City",
+        "away_team": "Brighton & Hove Albion",
+        "home_lineup": {
+          "confirmed_status": "predicted",
+          "raw_status_label": "Predicted Lineup",
+          "starting_11_players": [
+            {
+              "player_name": "K. Tzolakis",
+              "position": "GK",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "E. Stroud",
+              "position": "DL",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Nobel Mendy",
+              "position": "DC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "John Egan",
+              "position": "DC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Semi Ajayi",
+              "position": "DC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Lewie Coyle",
+              "position": "DR",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Regan Slater",
+              "position": "ML",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "T. Iroegbunam",
+              "position": "MC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "L. Gourna-Douath",
+              "position": "MC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "M. Belloumi",
+              "position": "MR",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "O. McBurnie",
+              "position": "FW",
+              "designation": "STARTER"
+            }
+          ],
+          "injured_out_players": [
+            {
+              "player_name": "Ilyas Ansah",
+              "position": "F",
+              "designation": "OUT"
+            },
+            {
+              "player_name": "Eliot Matazo",
+              "position": "M",
+              "designation": "OUT"
+            },
+            {
+              "player_name": "H. Morita",
+              "position": "M",
+              "designation": "OUT"
+            },
+            {
+              "player_name": "Matt Targett",
+              "position": "D",
+              "designation": "OUT"
+            }
+          ],
+          "questionable_players": [
+            {
+              "player_name": "M. Belloumi",
+              "position": "MR",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "M. Belloumi",
+              "position": "F",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "C. Hughes",
+              "position": "D",
+              "designation": "QUES"
+            }
+          ]
+        },
+        "away_lineup": {
+          "confirmed_status": "predicted",
+          "raw_status_label": "Predicted Lineup",
+          "starting_11_players": [
+            {
+              "player_name": "B. Verbruggen",
+              "position": "GK",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "O. Boscagli",
+              "position": "DL",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "L. Vuskovic",
+              "position": "DC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Lewis Dunk",
+              "position": "DC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Costinha",
+              "position": "DR",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Chema",
+              "position": "DMC",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "Pascal Gross",
+              "position": "DMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "M. De Cuyper",
+              "position": "AML",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Yasin Ayari",
+              "position": "AMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Diego Gomez",
+              "position": "AMR",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "C. Kostoulas",
+              "position": "FW",
+              "designation": "STARTER"
+            }
+          ],
+          "injured_out_players": [],
+          "questionable_players": [
+            {
+              "player_name": "Chema",
+              "position": "DMC",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "Femi Azeez",
+              "position": "M",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "E. Ferguson",
+              "position": "F",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "Chema",
+              "position": "M",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "Kaoru Mitoma",
+              "position": "F/M",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "P. Struijk",
+              "position": "D",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "S. Tzimas",
+              "position": "F",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "Z. Yohanna",
+              "position": "F/M",
+              "designation": "QUES"
+            }
+          ]
+        }
+      },
+      {
+        "home_team": "Liverpool",
+        "away_team": "Manchester United",
+        "home_lineup": {
+          "confirmed_status": "predicted",
+          "raw_status_label": "Predicted Lineup",
+          "starting_11_players": [
+            {
+              "player_name": "Alisson",
+              "position": "GK",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Milos Kerkez",
+              "position": "DL",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "J. Jacquet",
+              "position": "DC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "V. van Dijk",
+              "position": "DC",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "R. Araujo",
+              "position": "DR",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "A. Mac Allister",
+              "position": "DMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "D. Szoboszlai",
+              "position": "DMC",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "B. Barcola",
+              "position": "AML",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "F. Wirtz",
+              "position": "AMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Cody Gakpo",
+              "position": "AMR",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "A. Isak",
+              "position": "FW",
+              "designation": "STARTER"
+            }
+          ],
+          "injured_out_players": [
+            {
+              "player_name": "Hugo Ekitike",
+              "position": "F",
+              "designation": "OUT"
+            },
+            {
+              "player_name": "Amara Nallo",
+              "position": "D",
+              "designation": "OUT"
+            }
+          ],
+          "questionable_players": [
+            {
+              "player_name": "V. van Dijk",
+              "position": "DC",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "D. Szoboszlai",
+              "position": "DMC",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "C. Bradley",
+              "position": "D",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "J. Frimpong",
+              "position": "M/D",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "R. Gravenberch",
+              "position": "M",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "G. Leoni",
+              "position": "D",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "D. Szoboszlai",
+              "position": "M",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "V. van Dijk",
+              "position": "D",
+              "designation": "QUES"
+            }
+          ]
+        },
+        "away_lineup": {
+          "confirmed_status": "predicted",
+          "raw_status_label": "Predicted Lineup",
+          "starting_11_players": [
+            {
+              "player_name": "S. Lammens",
+              "position": "GK",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "P. Dorgu",
+              "position": "DL",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Leny Yoro",
+              "position": "DC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "H. Maguire",
+              "position": "DC",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "Diogo Dalot",
+              "position": "DR",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "K. Mainoo",
+              "position": "DMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Y. Tielemans",
+              "position": "DMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Matheus Cunha",
+              "position": "AML",
+              "designation": "SUS"
+            },
+            {
+              "player_name": "Bruno Fernandes",
+              "position": "AMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Amad Diallo",
+              "position": "AMR",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Bryan Mbeumo",
+              "position": "FW",
+              "designation": "STARTER"
+            }
+          ],
+          "injured_out_players": [
+            {
+              "player_name": "C. Baleba",
+              "position": "M",
+              "designation": "OUT"
+            },
+            {
+              "player_name": "B. Sesko",
+              "position": "F",
+              "designation": "OUT"
+            },
+            {
+              "player_name": "M. Ugarte",
+              "position": "M",
+              "designation": "OUT"
+            }
+          ],
+          "questionable_players": [
+            {
+              "player_name": "H. Maguire",
+              "position": "DC",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "H. Maguire",
+              "position": "D",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "M. Rashford",
+              "position": "F",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "Luke Shaw",
+              "position": "D",
+              "designation": "QUES"
+            }
+          ]
+        }
+      },
+      {
+        "home_team": "Brentford",
+        "away_team": "Everton",
+        "home_lineup": {
+          "confirmed_status": "predicted",
+          "raw_status_label": "Predicted Lineup",
+          "starting_11_players": [
+            {
+              "player_name": "C. Kelleher",
+              "position": "GK",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "K. Lewis-Potter",
+              "position": "DL",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "N. Collins",
+              "position": "DC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "K. Ajer",
+              "position": "DC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "M. Kayode",
+              "position": "DR",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Y. Yarmolyuk",
+              "position": "DMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "V. Janelt",
+              "position": "DMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Kevin Schade",
+              "position": "AML",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "M. Jensen",
+              "position": "AMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "D. Ouattara",
+              "position": "AMR",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "C. Wilson",
+              "position": "FW",
+              "designation": "STARTER"
+            }
+          ],
+          "injured_out_players": [
+            {
+              "player_name": "Igor Thiago",
+              "position": "F",
+              "designation": "SUS"
+            },
+            {
+              "player_name": "Kaye Furo",
+              "position": "F",
+              "designation": "OUT"
+            }
+          ],
+          "questionable_players": [
+            {
+              "player_name": "F. Carvalho",
+              "position": "F/M",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "Josh Dasilva",
+              "position": "M",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "Rico Henry",
+              "position": "D",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "A. Milambo",
+              "position": "M",
+              "designation": "QUES"
+            }
+          ]
+        },
+        "away_lineup": {
+          "confirmed_status": "predicted",
+          "raw_status_label": "Predicted Lineup",
+          "starting_11_players": [
+            {
+              "player_name": "J. Pickford",
+              "position": "GK",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "V. Mykolenko",
+              "position": "DL",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "J. Branthwaite",
+              "position": "DC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "J. Tarkowski",
+              "position": "DC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Jake O'Brien",
+              "position": "DR",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "H. Armstrong",
+              "position": "DMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "James Garner",
+              "position": "DMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "T. George",
+              "position": "AML",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "K. Dewsbury-Hall",
+              "position": "AMC",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "Merlin Rohl",
+              "position": "AMR",
+              "designation": "STARTER"
+            },
+            {
+              "player_name": "T. Barry",
+              "position": "FW",
+              "designation": "STARTER"
+            }
+          ],
+          "injured_out_players": [],
+          "questionable_players": [
+            {
+              "player_name": "J. Grealish",
+              "position": "F/M",
+              "designation": "QUES"
+            }
+          ]
+        }
+      },
+      {
+        "home_team": "Nottingham Forest",
+        "away_team": "Chelsea",
+        "home_lineup": {
+          "confirmed_status": "predicted",
+          "raw_status_label": "Unknown Lineup",
+          "starting_11_players": [],
+          "injured_out_players": [
+            {
+              "player_name": "N. Dominguez",
+              "position": "M",
+              "designation": "OUT"
+            }
+          ],
+          "questionable_players": [
+            {
+              "player_name": "N. Savona",
+              "position": "D",
+              "designation": "QUES"
+            }
+          ]
+        },
+        "away_lineup": {
+          "confirmed_status": "predicted",
+          "raw_status_label": "Unknown Lineup",
+          "starting_11_players": [],
+          "injured_out_players": [
+            {
+              "player_name": "Reece James",
+              "position": "M/D",
+              "designation": "OUT"
+            }
+          ],
+          "questionable_players": [
+            {
+              "player_name": "J. Acheampong",
+              "position": "D",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "J. Gittens",
+              "position": "F",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "Jorrel Hato",
+              "position": "M/D",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "Joao Pedro",
+              "position": "F",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "M. Lacroix",
+              "position": "D",
+              "designation": "QUES"
+            },
+            {
+              "player_name": "E. Martinez",
+              "position": "G",
+              "designation": "QUES"
+            }
+          ]
+        }
+      }
+    ],
+    "nfl_injuries": [
+      {
+        "player_id": "17828",
+        "player_name": "Kris Abrams-Draine",
+        "team": "DEN",
+        "position": "CB",
+        "injury": "Ankle",
+        "game_status_designation": "Inactive",
+        "player_url": "/football/player/kris-abrams-draine-17828"
+      },
+      {
+        "player_id": "16661",
+        "player_name": "De'Von Achane",
+        "team": "MIA",
+        "position": "RB",
+        "injury": "Knee - ACL",
+        "game_status_designation": "IR",
+        "player_url": "/football/player/devon-achane-16661"
+      },
+      {
+        "player_id": "9455",
+        "player_name": "Davante Adams",
+        "team": "LAR",
+        "position": "WR",
+        "injury": "Hamstring",
+        "game_status_designation": "IR",
+        "player_url": "/football/player/davante-adams-9455"
+      },
+      {
+        "player_id": "11985",
+        "player_name": "Jamal Adams",
+        "team": "MIN",
+        "position": "LB",
+        "injury": "Quadriceps",
+        "game_status_designation": "IR",
+        "player_url": "/football/player/jamal-adams-11985"
+      },
+      {
+        "player_id": "14604",
+        "player_name": "Hakeem Adeniji",
+        "team": "BAL",
+        "position": "OG",
+        "injury": "Personal",
+        "game_status_designation": "Reserve-Ret",
+        "player_url": "/football/player/hakeem-adeniji-14604"
+      }
+    ]
+  }
+}

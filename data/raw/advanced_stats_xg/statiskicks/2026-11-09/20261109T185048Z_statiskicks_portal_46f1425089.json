@@ -1,0 +1,968 @@
+{
+  "source_id": "statiskicks",
+  "source_name": "Statiskicks (Analítica Avanzada Liga MX y Fútbol Internacional)",
+  "category": "advanced_stats_xg",
+  "url": "https://www.statiskicks.com/",
+  "scrapling_mode": "network_recorder",
+  "captured_at_utc": "2026-11-09T18:50:48Z",
+  "sha256": "46f14250894d25dd4f763c7a9eed579204ca29ef56ce1b0edd9c5816998f386f",
+  "meta": {
+    "headings_count": 9,
+    "links_count": 77,
+    "network_captured_count": 53
+  },
+  "payload": {
+    "site_title": "Statiskicks — Scouting Software",
+    "headings": [
+      "Buscar",
+      "Los datos no reemplazan al ojo,",
+      "Planes",
+      "Fan",
+      "Plus mensual",
+      "Plus anual",
+      "Clubes y agencias",
+      "Colaboraciones en medios masivos",
+      "40 ligas esperando a que las abras."
+    ],
+    "meta_tags": [
+      {
+        "name": "viewport",
+        "content": "width=device-width, initial-scale=1.0"
+      }
+    ],
+    "navigation_links": [
+      {
+        "text": "",
+        "href": "https://www.statiskicks.com"
+      },
+      {
+        "text": "Ligas",
+        "href": "https://www.statiskicks.com/leagues"
+      },
+      {
+        "text": "Todas las ligas",
+        "href": "https://www.statiskicks.com/leagues"
+      },
+      {
+        "text": "Búsqueda de jugadores",
+        "href": "https://www.statiskicks.com/players"
+      },
+      {
+        "text": "Premier League \n                                     ENGLAND",
+        "href": "https://www.statiskicks.com/league/2kwbbcootiqqgmrzs6o5inle5"
+      },
+      {
+        "text": "Primera División \n                                     SPAIN",
+        "href": "https://www.statiskicks.com/league/34pl8szyvrbwcmfkuocjm3r6t"
+      },
+      {
+        "text": "Bundesliga \n                                     GERMANY",
+        "href": "https://www.statiskicks.com/league/6by3h89i2eykc341oz7lv1ddd"
+      },
+      {
+        "text": "Serie A \n                                     ITALY",
+        "href": "https://www.statiskicks.com/league/1r097lpxe0xn03ihb7wi98kao"
+      },
+      {
+        "text": "Ligue 1 \n                                     FRANCE",
+        "href": "https://www.statiskicks.com/league/dm5ka0os1e3dxcp3vh05kmp33"
+      },
+      {
+        "text": "2. Bundesliga \n                     GERMANY",
+        "href": "https://www.statiskicks.com/league/722fdbecxzcq9788l6jqclzlw"
+      },
+      {
+        "text": "Bundesliga \n                     GERMANY",
+        "href": "https://www.statiskicks.com/league/6by3h89i2eykc341oz7lv1ddd"
+      },
+      {
+        "text": "Championship \n                     ENGLAND",
+        "href": "https://www.statiskicks.com/league/7ntvbsyq31jnzoqoa8850b9b8"
+      },
+      {
+        "text": "Eredivisie \n                     NETHERLANDS",
+        "href": "https://www.statiskicks.com/league/akmkihra9ruad09ljapsm84b3"
+      },
+      {
+        "text": "First Division A \n                     BELGIUM",
+        "href": "https://www.statiskicks.com/league/4zwgbb66rif2spcoeeol2motx"
+      },
+      {
+        "text": "HNL \n                     CROATIA",
+        "href": "https://www.statiskicks.com/league/1b70m6qtxrp75b4vtk8hxh8c3"
+      },
+      {
+        "text": "Ver todas en EUROPA",
+        "href": "https://www.statiskicks.com/leagues?f=europe"
+      },
+      {
+        "text": "Division Profesional \n                     PARAGUAY",
+        "href": "https://www.statiskicks.com/league/5y0z0l2epprzbscvzsgldw8vu"
+      },
+      {
+        "text": "Liga 1 \n                     PERU",
+        "href": "https://www.statiskicks.com/league/a9vrdkelbgif0gtu3wxsr75xo"
+      },
+      {
+        "text": "Liga MX \n                     MEXICO",
+        "href": "https://www.statiskicks.com/league/2hsidwomhjsaaytdy9u5niyi4"
+      },
+      {
+        "text": "Liga MX Femenil \n                     MEXICO",
+        "href": "https://www.statiskicks.com/league/7ut48s80k421xixh6ev5i6h62"
+      },
+      {
+        "text": "Liga Pro \n                     ECUADOR",
+        "href": "https://www.statiskicks.com/league/6lwpjhktjhl9g7x2w7njmzva6"
+      },
+      {
+        "text": "Liga Profesional Argentina \n                     ARGENTINA",
+        "href": "https://www.statiskicks.com/league/581t4mywybx21wcpmpykhyzr3"
+      },
+      {
+        "text": "Ver todas en AMÉRICA",
+        "href": "https://www.statiskicks.com/leagues?f=americas"
+      },
+      {
+        "text": "Saudi League \n                     SAUDI ARABIA",
+        "href": "https://www.statiskicks.com/league/ea0h6cf3bhl698hkxhpulh2zz"
+      },
+      {
+        "text": "Stars League \n                     QATAR",
+        "href": "https://www.statiskicks.com/league/xaouuwuk8qyhv1libkeexwjh"
+      },
+      {
+        "text": "Ver las 40+ ligas",
+        "href": "https://www.statiskicks.com/leagues"
+      },
+      {
+        "text": "Scouting",
+        "href": "https://www.statiskicks.com/players"
+      },
+      {
+        "text": "Búsqueda avanzada",
+        "href": "https://www.statiskicks.com/players"
+      },
+      {
+        "text": "Inicio \n                             Resumen",
+        "href": "https://www.statiskicks.com"
+      },
+      {
+        "text": "Partidos",
+        "href": "https://www.statiskicks.com/partidos"
+      },
+      {
+        "text": "Partidos de hoy \n                                 Todas las ligas",
+        "href": "https://www.statiskicks.com/partidos"
+      },
+      {
+        "text": "En vivo \n                                 Marcadores al minuto",
+        "href": "https://www.statiskicks.com/partidos?estado=en-vivo"
+      },
+      {
+        "text": "Resultados \n                                 Los ya terminados",
+        "href": "https://www.statiskicks.com/partidos?estado=finalizados"
+      },
+      {
+        "text": "Próximos \n                                 Lo que falta por jugar",
+        "href": "https://www.statiskicks.com/partidos?estado=por-jugar"
+      },
+      {
+        "text": "Contacto",
+        "href": "https://www.statiskicks.com/contacto"
+      },
+      {
+        "text": "Iniciar Sesión",
+        "href": "https://www.statiskicks.com/login"
+      },
+      {
+        "text": "Ligas",
+        "href": "https://www.statiskicks.com/leagues"
+      },
+      {
+        "text": "Scouting",
+        "href": "https://www.statiskicks.com/players"
+      },
+      {
+        "text": "Partidos",
+        "href": "https://www.statiskicks.com/partidos"
+      },
+      {
+        "text": "Contacto",
+        "href": "https://www.statiskicks.com/contacto"
+      },
+      {
+        "text": "Iniciar Sesión",
+        "href": "https://www.statiskicks.com/login"
+      },
+      {
+        "text": "Ir a Búsqueda Avanzada",
+        "href": "https://www.statiskicks.com/players"
+      },
+      {
+        "text": "Liga MX",
+        "href": "https://www.statiskicks.com/league/2hsidwomhjsaaytdy9u5niyi4"
+      },
+      {
+        "text": "Premier League",
+        "href": "https://www.statiskicks.com/league/2kwbbcootiqqgmrzs6o5inle5"
+      },
+      {
+        "text": "La Liga",
+        "href": "https://www.statiskicks.com/league/34pl8szyvrbwcmfkuocjm3r6t"
+      },
+      {
+        "text": "Bundesliga",
+        "href": "https://www.statiskicks.com/league/6by3h89i2eykc341oz7lv1ddd"
+      },
+      {
+        "text": "Crea tu cuenta gratis",
+        "href": "https://www.statiskicks.com/register"
+      },
+      {
+        "text": "Explora las ligas",
+        "href": "https://www.statiskicks.com/leagues"
+      },
+      {
+        "text": "",
+        "href": "https://www.statiskicks.com/league/2hsidwomhjsaaytdy9u5niyi4"
+      },
+      {
+        "text": "",
+        "href": "https://www.statiskicks.com/league/2kwbbcootiqqgmrzs6o5inle5"
+      },
+      {
+        "text": "",
+        "href": "https://www.statiskicks.com/league/34pl8szyvrbwcmfkuocjm3r6t"
+      },
+      {
+        "text": "",
+        "href": "https://www.statiskicks.com/league/6by3h89i2eykc341oz7lv1ddd"
+      },
+      {
+        "text": "",
+        "href": "https://www.statiskicks.com/league/1r097lpxe0xn03ihb7wi98kao"
+      },
+      {
+        "text": "",
+        "href": "https://www.statiskicks.com/league/dm5ka0os1e3dxcp3vh05kmp33"
+      },
+      {
+        "text": "",
+        "href": "https://www.statiskicks.com/league/287tckirbfj9nb8ar2k9r60vn"
+      },
+      {
+        "text": "",
+        "href": "https://www.statiskicks.com/league/scf9p4y91yjvqvg5jndxzhxj"
+      },
+      {
+        "text": "",
+        "href": "https://www.statiskicks.com/league/581t4mywybx21wcpmpykhyzr3"
+      },
+      {
+        "text": "",
+        "href": "https://www.statiskicks.com/league/akmkihra9ruad09ljapsm84b3"
+      },
+      {
+        "text": "",
+        "href": "https://www.statiskicks.com/league/8yi6ejjd1zudcqtbn07haahg6"
+      },
+      {
+        "text": "y más…",
+        "href": "https://www.statiskicks.com/leagues"
+      },
+      {
+        "text": "Crear cuenta gratis",
+        "href": "https://www.statiskicks.com/register"
+      },
+      {
+        "text": "Empezar con Plus",
+        "href": "https://www.statiskicks.com/register"
+      },
+      {
+        "text": "Quiero la promo",
+        "href": "https://www.statiskicks.com/register"
+      },
+      {
+        "text": "planes",
+        "href": "https://www.statiskicks.com/planes"
+      },
+      {
+        "text": "Crea tu cuenta gratis",
+        "href": "https://www.statiskicks.com/register"
+      },
+      {
+        "text": "Explora las ligas",
+        "href": "https://www.statiskicks.com/leagues"
+      },
+      {
+        "text": "contacto@statiskicks.com",
+        "href": "mailto:contacto@statiskicks.com"
+      },
+      {
+        "text": "Ligas",
+        "href": "https://www.statiskicks.com/leagues"
+      },
+      {
+        "text": "Búsqueda avanzada",
+        "href": "https://www.statiskicks.com/players"
+      },
+      {
+        "text": "Partidos",
+        "href": "https://www.statiskicks.com/partidos"
+      },
+      {
+        "text": "Planes",
+        "href": "https://www.statiskicks.com/planes"
+      },
+      {
+        "text": "Crear cuenta gratis",
+        "href": "https://www.statiskicks.com/register"
+      },
+      {
+        "text": "Iniciar sesión",
+        "href": "https://www.statiskicks.com/login"
+      },
+      {
+        "text": "Inicio",
+        "href": "https://www.statiskicks.com"
+      },
+      {
+        "text": "Términos y Condiciones de uso",
+        "href": "https://www.statiskicks.com/terminos"
+      },
+      {
+        "text": "Aviso de privacidad integral",
+        "href": "https://www.statiskicks.com/privacidad"
+      },
+      {
+        "text": "Ver planes",
+        "href": "https://www.statiskicks.com/planes"
+      }
+    ],
+    "exposed_text_blocks": [
+      "Cargando",
+      "Explorar",
+      "Top ligas",
+      "Premier League",
+      "ENGLAND",
+      "Primera División",
+      "SPAIN",
+      "Bundesliga",
+      "GERMANY",
+      "Serie A",
+      "ITALY",
+      "Ligue 1",
+      "FRANCE",
+      "EUROPA",
+      "2. Bundesliga",
+      "GERMANY",
+      "Bundesliga",
+      "GERMANY",
+      "Championship",
+      "ENGLAND",
+      "Eredivisie",
+      "NETHERLANDS",
+      "First Division A",
+      "BELGIUM",
+      "CROATIA",
+      "AMÉRICA",
+      "Division Profesional",
+      "PARAGUAY",
+      "Liga 1",
+      "PERU",
+      "Liga MX",
+      "MEXICO",
+      "Liga MX Femenil",
+      "MEXICO",
+      "Liga Pro",
+      "ECUADOR",
+      "Liga Profesional Argentina",
+      "ARGENTINA",
+      "ASIA",
+      "Saudi League",
+      "SAUDI ARABIA",
+      "Stars League",
+      "QATAR",
+      "Scouting",
+      "Inicio",
+      "Resumen",
+      "Herramientas",
+      "Comparar jugadores",
+      "Próximamente",
+      "Listas de seguimiento",
+      "Próximamente",
+      "Partidos",
+      "Partidos de hoy",
+      "Todas las ligas",
+      "En vivo",
+      "Marcadores al minuto",
+      "Resultados",
+      "Los ya terminados",
+      "Próximos",
+      "Lo que falta por jugar",
+      "Buscar",
+      "Iniciar Sesión",
+      "Buscar",
+      "Iniciar Sesión",
+      "Buscar",
+      "Explorar",
+      "Recientes",
+      "Listas",
+      "Escribe al menos 2 caracteres para buscar.",
+      "No se encontraron resultados para «",
+      "Búsqueda avanzada",
+      "Filtra por liga, posición, edad y estadísticas de la temporada en la página de scouting.",
+      "Aún no has visitado jugadores, equipos ni ligas recientemente.",
+      "40 ligas · datos en vivo · cualquier nivel de análisis",
+      "Accede a miles de métricas, gráficos, mapas, probabilidades, rankings y\n                        muchas más funciones\n                                                    para más de 25.000 jugadores y\n                            más de 720 equipos alrededor del mundo.",
+      "Busca cualquier jugador…",
+      "Buscar",
+      "Prueba",
+      "y más…",
+      "Países",
+      "Competiciones",
+      "Equipos",
+      "25.534",
+      "Jugadores",
+      "Equipos y jugadores de la temporada en curso de cada competición, contados en el catálogo, no en un folleto.",
+      "Sigue tus ligas con datos de verdad.",
+      "/mes",
+      "1 usuario",
+      "9 ligas: clasificaciones, resultados y plantillas",
+      "Probabilidad de campeonato y puntos esperados",
+      "Perfiles de jugador con radar y barras",
+      "Búsqueda avanzada de jugadores",
+      "Todas las ligas y todas las herramientas.",
+      "$129",
+      "/mes",
+      "1 usuario",
+      "Las 40 ligas, con la proyección completa",
+      "Equipos completos: ranking, mapas, red de pases y comparador",
+      "Todos los mapas de eventos y las métricas a elegir",
+      "Comparador y jugadores similares",
+      "−50 %",
+      "Precio de lanzamiento",
+      "Todas las ligas y todas las herramientas.",
+      "$774",
+      "/año",
+      "Equivale a $64,50 al mes · hasta el 1 de enero de 2027",
+      "Las 40 ligas, con la proyección completa",
+      "Equipos completos: ranking, mapas, red de pases y comparador",
+      "Todos los mapas de eventos y las métricas a elegir",
+      "Comparador y jugadores similares",
+      "El plan Fan es gratis y no pide tarjeta. Entra con tu correo o con Google.",
+      "Función",
+      "Las 40",
+      "Incluido",
+      "Incluido",
+      "Los primeros 4",
+      "Completa",
+      "Incluido",
+      "Incluido",
+      "No incluido",
+      "Incluido",
+      "Uno por sección",
+      "Todos",
+      "No incluido",
+      "Incluido",
+      "No incluido",
+      "Incluido",
+      "No incluido",
+      "Incluido",
+      "Primeros 10 resultados",
+      "Completa",
+      "Primeros 3 de cada tabla",
+      "Completas",
+      "No incluido",
+      "Incluido",
+      "Consulta el detalle completo en",
+      "Crea una cuenta gratis, con tu correo o con Google, y empieza por la\n                    liga que conoces mejor. Verás antes si los números dicen lo que tú\n                    ya sabes.",
+      "Analiza a cualquier nivel de profundidad con datos en vivo para 40\n          competiciones. Rankings, radares, estilos de juego, mapas de eventos,\n          probabilidades y proyecciones, scouting y análisis de equipos.",
+      "Explora",
+      "Tu cuenta",
+      "© 2026 Statiskicks. Todos los derechos reservados.",
+      "Datos de fútbol: Opta (Stats Perform).",
+      "Chat SK",
+      "Próximamente · v2.0 (2027)",
+      "Las descargas son parte de los planes de pago",
+      "Descarga gráficas en imagen y tablas y datos en CSV con cualquiera de nuestros paquetes.",
+      "Todos los mapas de eventos son parte de los planes de pago",
+      "Con la cuenta gratuita tienes un evento por sección. Desbloquea todos los pases, remates, duelos y acciones defensivas con cualquiera de nuestros paquetes.",
+      "Elegir las métricas de la tabla es parte de los planes de pago",
+      "Con la cuenta gratuita ves los minutos, goles, asistencias y el SKore de cada partido. Elige cualquier métrica con cualquiera de nuestros paquetes."
+    ],
+    "scripts_summary": [
+      {
+        "src": null,
+        "inline_preview": "document.documentElement.classList.add('sk-home-motion');"
+      },
+      {
+        "src": null,
+        "inline_preview": "/*\n    Shown on wire:navigate, hidden on livewire:navigated.\n\n    Two timings matter more than the animation does:\n\n      DELAY        Most pages here render in well under 200ms. Flashing an\n                   overlay on every click makes a fast app feel busy, so nothing\n                   appears unless the navigation is actually slow enough to\n                   notice.\n\n      MIN_VISIBLE  Once it has appeared, it stays long enough to read as a\n                   deliberate transition. Without"
+      },
+      {
+        "src": null,
+        "inline_preview": "// Navbar behaviour: the account dropdown and the search trigger.\n    //\n    // Bound once per document. wire:navigate rebuilds the body and clones its\n    // <script> tags, which re-executes this file on every navigation, so\n    // without the guard a second identical listener is added each time. Two\n    // listeners defeat a toggle: the first opens the panel, the second reads it\n    // as already open and closes it again, so the menu worked only on the page\n    // that was loaded first. The li"
+      },
+      {
+        "src": "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "inline_preview": null
+      },
+      {
+        "src": null,
+        "inline_preview": "// ── Hamburger nav toggle ──────────────────────────────────\n    (function () {\n      const toggle = document.getElementById('navToggle');\n      const drawer = document.getElementById('navDrawer');\n      const icon   = document.getElementById('navToggleIcon');\n      if (!toggle || !drawer) return;\n\n      if (toggle.dataset.skBound !== '1') {\n        toggle.dataset.skBound = '1';\n\n        toggle.addEventListener('click', () => {\n          const open = drawer.classList.toggle('open');\n          t"
+      },
+      {
+        "src": "https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js",
+        "inline_preview": null
+      },
+      {
+        "src": "https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js",
+        "inline_preview": null
+      },
+      {
+        "src": null,
+        "inline_preview": "// The UMD build does not auto-register with Chart.js 4 — every chart's\n    // `plugins.datalabels` option was silently inert without this.\n    if (window.Chart && window.ChartDataLabels) {\n      Chart.register(ChartDataLabels);\n    }"
+      },
+      {
+        "src": "https://www.statiskicks.com/custom_assets/js/home-motion.js?v=1791380772",
+        "inline_preview": null
+      },
+      {
+        "src": "https://www.statiskicks.com/custom_assets/js/sk-tooltip.js?v=1792175742",
+        "inline_preview": null
+      },
+      {
+        "src": "https://www.statiskicks.com/custom_assets/js/download-paywall.js?v=1793826522",
+        "inline_preview": null
+      },
+      {
+        "src": "https://www.statiskicks.com/custom_assets/js/chart-download.js?v=1794084628",
+        "inline_preview": null
+      },
+      {
+        "src": "https://www.statiskicks.com/custom_assets/js/search-results-image.js?v=1794084628",
+        "inline_preview": null
+      },
+      {
+        "src": "https://www.statiskicks.com/custom_assets/js/percentile-rows.js?v=1793360776",
+        "inline_preview": null
+      },
+      {
+        "src": "https://www.statiskicks.com/custom_assets/js/skore.js?v=1793032870",
+        "inline_preview": null
+      },
+      {
+        "src": "https://www.statiskicks.com/custom_assets/js/attribute-picker.js?v=1791577902",
+        "inline_preview": null
+      },
+      {
+        "src": "https://www.statiskicks.com/custom_assets/js/attribute-charts.js?v=1794084628",
+        "inline_preview": null
+      },
+      {
+        "src": "https://www.statiskicks.com/custom_assets/js/heatmap.js?v=1791561866",
+        "inline_preview": null
+      },
+      {
+        "src": "https://www.statiskicks.com/custom_assets/js/goalmouth-map.js?v=1794084628",
+        "inline_preview": null
+      },
+      {
+        "src": "https://www.statiskicks.com/custom_assets/js/event-map.js?v=1793880030",
+        "inline_preview": null
+      },
+      {
+        "src": "https://www.statiskicks.com/custom_assets/js/league-maps.js?v=1794084628",
+        "inline_preview": null
+      },
+      {
+        "src": "https://www.statiskicks.com/custom_assets/js/league-scatter.js?v=1794084628",
+        "inline_preview": null
+      },
+      {
+        "src": "https://www.statiskicks.com/custom_assets/js/league-switcher.js?v=1793361650",
+        "inline_preview": null
+      },
+      {
+        "src": "https://www.statiskicks.com/custom_assets/js/team-profile.js?v=1791380772",
+        "inline_preview": null
+      },
+      {
+        "src": "https://www.statiskicks.com/custom_assets/js/team-age-profile.js?v=1794168592",
+        "inline_preview": null
+      },
+      {
+        "src": "https://www.statiskicks.com/custom_assets/js/team-xg-rolling.js?v=1791380772",
+        "inline_preview": null
+      },
+      {
+        "src": "https://www.statiskicks.com/custom_assets/js/team-formation-profile.js?v=1791380772",
+        "inline_preview": null
+      },
+      {
+        "src": "https://www.statiskicks.com/custom_assets/js/team-pass-network.js?v=1794084628",
+        "inline_preview": null
+      },
+      {
+        "src": "https://www.statiskicks.com/custom_assets/js/live-motion.js?v=1792175986",
+        "inline_preview": null
+      },
+      {
+        "src": "https://www.statiskicks.com/custom_assets/js/momentum-chart.js?v=1792708794",
+        "inline_preview": null
+      },
+      {
+        "src": "https://www.statiskicks.com/custom_assets/js/player-heat.js?v=1792491156",
+        "inline_preview": null
+      },
+      {
+        "src": "https://www.statiskicks.com/custom_assets/js/scroll-lock.js?v=1792589840",
+        "inline_preview": null
+      },
+      {
+        "src": null,
+        "inline_preview": "// Destroy all Chart.js instances before SPA navigation to prevent canvas-in-use errors\n    document.addEventListener('livewire:navigating', function () {\n      document.body.classList.remove('sk-search-open', 'league-modal-open');\n\n      if (typeof Chart !== 'undefined') {\n        Object.values(Chart.instances || {}).forEach(function (chart) {\n          chart.destroy();\n        });\n      }\n    });"
+      },
+      {
+        "src": null,
+        "inline_preview": "(function () {\n    // Not window.skUsageNotice: the element's id already puts the <div>\n    // there (named access on window), and the guard would never let this run.\n    if (window.skShowUsageNotice) return;\n\n    const fallback = \"Recibimos demasiadas solicitudes seguidas. Espera un momento y vuelve a intentarlo.\";\n    let timer = null;\n\n    function show(message) {\n      const notice = document.getElementById('skUsageNotice');\n\n      if (!notice) return;\n\n      notice.querySelector('.sk-usage-"
+      },
+      {
+        "src": "https://www.statiskicks.com/livewire-e3175f40/livewire.min.js?id=6b3709b1",
+        "inline_preview": null
+      },
+      {
+        "src": null,
+        "inline_preview": "(function () {\n      function sameOriginEndpoint(value) {\n        if (!value) return value;\n\n        try {\n          const parsed = new URL(String(value), window.location.origin);\n\n          if (parsed.origin === window.location.origin) {\n            return parsed.href;\n          }\n\n          return `${window.location.origin}${parsed.pathname}${parsed.search}${parsed.hash}`;\n        } catch {\n          return value;\n        }\n      }\n\n      function normalizeLivewireEndpointConfig() {\n        co"
+      },
+      {
+        "src": null,
+        "inline_preview": "(function () {\n        const rawSearchUrl = \"https:\\/\\/www.statiskicks.com\\/search\";\n\n        function resolveSearchUrl(url) {\n            const fallbackPath = '/search';\n\n            try {\n                const parsed = new URL(String(url || ''), window.location.origin);\n                const path = parsed.pathname || fallbackPath;\n                const query = parsed.search || '';\n                return `${window.location.origin}${path}${query}`;\n            } catch {\n                const nor"
+      }
+    ],
+    "network_captured_count": 53,
+    "network_requests": [
+      {
+        "network_id": 1,
+        "url": "https://www.statiskicks.com/",
+        "status": 200,
+        "resource_type": "document"
+      },
+      {
+        "network_id": 2,
+        "url": "https://www.statiskicks.com/custom_assets/css/nav-mega-menu.css?v=1791380772",
+        "status": 200,
+        "resource_type": "stylesheet"
+      },
+      {
+        "network_id": 3,
+        "url": "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css",
+        "status": 200,
+        "resource_type": "stylesheet"
+      },
+      {
+        "network_id": 4,
+        "url": "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css",
+        "status": 200,
+        "resource_type": "stylesheet"
+      },
+      {
+        "network_id": 5,
+        "url": "https://www.statiskicks.com/custom_assets/css/sk.css?v=1794168592",
+        "status": 200,
+        "resource_type": "stylesheet"
+      },
+      {
+        "network_id": 6,
+        "url": "https://www.statiskicks.com/custom_assets/css/page-loader.css?v=1791380772",
+        "status": 200,
+        "resource_type": "stylesheet"
+      },
+      {
+        "network_id": 7,
+        "url": "https://www.statiskicks.com/custom_assets/css/plan-cards.css?v=1794177958",
+        "status": 200,
+        "resource_type": "stylesheet"
+      },
+      {
+        "network_id": 8,
+        "url": "https://www.statiskicks.com/custom_assets/logos/logo_white.png?v=1787321828",
+        "status": 200,
+        "resource_type": "image"
+      },
+      {
+        "network_id": 9,
+        "url": "https://www.statiskicks.com/custom_assets/logos/footer_logo.png?v=1787321828",
+        "status": 200,
+        "resource_type": "image"
+      },
+      {
+        "network_id": 10,
+        "url": "https://www.statiskicks.com/custom_assets/css/home.css?v=1794177958",
+        "status": 200,
+        "resource_type": "stylesheet"
+      },
+      {
+        "network_id": 11,
+        "url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap",
+        "status": 200,
+        "resource_type": "stylesheet",
+        "body_preview": "/* cyrillic-ext */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2JL7SUc.woff2) format('woff2');\n  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;\n}\n/* cyrillic */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa0ZL7SUc.woff2) format('woff2');\n  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;\n}\n/* greek-ext */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2ZL7SUc.woff2) format('woff2');\n  unicode-range: U+1F00-1FFF;\n}\n/* greek */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 400;\n  font-display: swa"
+      },
+      {
+        "network_id": 12,
+        "url": "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 13,
+        "url": "https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 14,
+        "url": "https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 15,
+        "url": "https://www.statiskicks.com/custom_assets/js/sk-tooltip.js?v=1792175742",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 16,
+        "url": "https://www.statiskicks.com/custom_assets/js/home-motion.js?v=1791380772",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 17,
+        "url": "https://www.statiskicks.com/custom_assets/js/download-paywall.js?v=1793826522",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 18,
+        "url": "https://www.statiskicks.com/custom_assets/js/search-results-image.js?v=1794084628",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 19,
+        "url": "https://www.statiskicks.com/custom_assets/js/percentile-rows.js?v=1793360776",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 20,
+        "url": "https://www.statiskicks.com/custom_assets/js/chart-download.js?v=1794084628",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 21,
+        "url": "https://www.statiskicks.com/custom_assets/js/skore.js?v=1793032870",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 22,
+        "url": "https://www.statiskicks.com/custom_assets/js/attribute-picker.js?v=1791577902",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 23,
+        "url": "https://www.statiskicks.com/custom_assets/js/heatmap.js?v=1791561866",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 24,
+        "url": "https://www.statiskicks.com/custom_assets/js/goalmouth-map.js?v=1794084628",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 25,
+        "url": "https://www.statiskicks.com/custom_assets/js/attribute-charts.js?v=1794084628",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 26,
+        "url": "https://www.statiskicks.com/custom_assets/js/league-maps.js?v=1794084628",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 27,
+        "url": "https://www.statiskicks.com/custom_assets/js/team-profile.js?v=1791380772",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 28,
+        "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+        "status": 200,
+        "resource_type": "font"
+      },
+      {
+        "network_id": 29,
+        "url": "https://www.statiskicks.com/custom_assets/js/league-switcher.js?v=1793361650",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 30,
+        "url": "https://www.statiskicks.com/custom_assets/js/team-age-profile.js?v=1794168592",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 31,
+        "url": "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/fonts/bootstrap-icons.woff2?dd67030699838ea613ee6dbda90effa6",
+        "status": 200,
+        "resource_type": "font"
+      },
+      {
+        "network_id": 32,
+        "url": "https://www.statiskicks.com/storage/media/leagues/135.png",
+        "status": 200,
+        "resource_type": "image"
+      },
+      {
+        "network_id": 33,
+        "url": "https://www.statiskicks.com/storage/media/leagues/39.png",
+        "status": 200,
+        "resource_type": "image"
+      },
+      {
+        "network_id": 34,
+        "url": "https://www.statiskicks.com/custom_assets/js/league-scatter.js?v=1794084628",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 35,
+        "url": "https://www.statiskicks.com/custom_assets/js/event-map.js?v=1793880030",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 36,
+        "url": "https://www.statiskicks.com/storage/media/leagues/140.png",
+        "status": 200,
+        "resource_type": "image"
+      },
+      {
+        "network_id": 37,
+        "url": "https://www.statiskicks.com/storage/media/leagues/253.png",
+        "status": 200,
+        "resource_type": "image"
+      },
+      {
+        "network_id": 38,
+        "url": "https://www.statiskicks.com/storage/media/leagues/262.png",
+        "status": 200,
+        "resource_type": "image"
+      },
+      {
+        "network_id": 39,
+        "url": "https://www.statiskicks.com/storage/media/leagues/71.png",
+        "status": 200,
+        "resource_type": "image"
+      },
+      {
+        "network_id": 40,
+        "url": "https://www.statiskicks.com/storage/media/leagues/78.png",
+        "status": 200,
+        "resource_type": "image"
+      },
+      {
+        "network_id": 41,
+        "url": "https://www.statiskicks.com/storage/media/leagues/61.png",
+        "status": 200,
+        "resource_type": "image"
+      },
+      {
+        "network_id": 42,
+        "url": "https://www.statiskicks.com/storage/media/leagues/94.png",
+        "status": 200,
+        "resource_type": "image"
+      },
+      {
+        "network_id": 43,
+        "url": "https://www.statiskicks.com/storage/media/leagues/128.png",
+        "status": 200,
+        "resource_type": "image"
+      },
+      {
+        "network_id": 44,
+        "url": "https://www.statiskicks.com/custom_assets/js/team-xg-rolling.js?v=1791380772",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 45,
+        "url": "https://www.statiskicks.com/storage/media/leagues/88.png",
+        "status": 200,
+        "resource_type": "image"
+      },
+      {
+        "network_id": 46,
+        "url": "https://www.statiskicks.com/custom_assets/js/team-formation-profile.js?v=1791380772",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 47,
+        "url": "https://www.statiskicks.com/custom_assets/js/live-motion.js?v=1792175986",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 48,
+        "url": "https://www.statiskicks.com/custom_assets/js/team-pass-network.js?v=1794084628",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 49,
+        "url": "https://www.statiskicks.com/custom_assets/js/player-heat.js?v=1792491156",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 50,
+        "url": "https://www.statiskicks.com/custom_assets/js/momentum-chart.js?v=1792708794",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 51,
+        "url": "https://www.statiskicks.com/custom_assets/js/scroll-lock.js?v=1792589840",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 52,
+        "url": "https://www.statiskicks.com/livewire-e3175f40/livewire.min.js?id=6b3709b1",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 53,
+        "url": "https://www.statiskicks.com/custom_assets/logos/logo_white.png?v=1787321828",
+        "status": 200,
+        "resource_type": "other"
+      }
+    ]
+  }
+}

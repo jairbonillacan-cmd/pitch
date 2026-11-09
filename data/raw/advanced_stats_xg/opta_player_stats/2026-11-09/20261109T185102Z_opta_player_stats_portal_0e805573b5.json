@@ -1,0 +1,2117 @@
+{
+  "source_id": "opta_player_stats",
+  "source_name": "Opta Player Stats — Stats Perform",
+  "category": "advanced_stats_xg",
+  "url": "https://optaplayerstats.statsperform.com/",
+  "scrapling_mode": "network_recorder",
+  "captured_at_utc": "2026-11-09T18:51:02Z",
+  "sha256": "0e805573b584ac53f35b401e9580a58d5a86a43a4cb8bb2f633eac2c2aeadae2",
+  "meta": {
+    "perform_feeds_captured": 51,
+    "total_network_requests": 67,
+    "tables_count": 0,
+    "links_count": 43
+  },
+  "payload": {
+    "site_title": "Live Scores - Soccer - Betting Showcase",
+    "headings": [
+      "Live Scores"
+    ],
+    "widgets_and_configs": [
+      {
+        "tag": "iframe",
+        "attrib": {
+          "name": "__tcfapiLocator",
+          "style": "display: none;"
+        },
+        "text": ""
+      }
+    ],
+    "tables": [],
+    "links": [
+      {
+        "text": "English",
+        "href": "/en_GB/soccer"
+      },
+      {
+        "text": "Deutsch",
+        "href": "/de_DE/soccer"
+      },
+      {
+        "text": "Español (España)",
+        "href": "/es_ES/soccer"
+      },
+      {
+        "text": "Español de América",
+        "href": "/es_419/soccer"
+      },
+      {
+        "text": "Français",
+        "href": "/fr_FR/soccer"
+      },
+      {
+        "text": "Italiano",
+        "href": "/it_IT/soccer"
+      },
+      {
+        "text": "ελληνικά",
+        "href": "/el_GR/soccer"
+      },
+      {
+        "text": "Português (Brasil)",
+        "href": "/pt_BR/soccer"
+      },
+      {
+        "text": "Português (Portugal)",
+        "href": "/pt_PT/soccer"
+      },
+      {
+        "text": "Polski",
+        "href": "/pl_PL/soccer"
+      },
+      {
+        "text": "български език",
+        "href": "/bg_BG/soccer"
+      },
+      {
+        "text": "Dansk",
+        "href": "/da_DK/soccer"
+      },
+      {
+        "text": "Română",
+        "href": "/ro_RO/soccer"
+      },
+      {
+        "text": "Nederlands",
+        "href": "/nl_NL/soccer"
+      },
+      {
+        "text": "Magyar",
+        "href": "/hu_HU/soccer"
+      },
+      {
+        "text": "",
+        "href": "/en_GB/"
+      },
+      {
+        "text": "Premier League",
+        "href": "/en_GB/soccer/premier-league-2026-2027/6pdwluctev9iebv00r4qqukno/fixtures"
+      },
+      {
+        "text": "Championship",
+        "href": "/en_GB/soccer/championship-2026-2027/al48ooi8acoibema226051250/fixtures"
+      },
+      {
+        "text": "League One",
+        "href": "/en_GB/soccer/league-one-2026-2027/b7amy99ea2lpnx81o6q94pst0/fixtures"
+      },
+      {
+        "text": "League Two",
+        "href": "/en_GB/soccer/league-two-2026-2027/7kjvvls20hnhjguys4t73yjh0/fixtures"
+      },
+      {
+        "text": "FA Cup",
+        "href": "/en_GB/soccer/fa-cup-2026-2027/75p5723yryew2ywn0isvf7cic/fixtures"
+      },
+      {
+        "text": "League Cup",
+        "href": "/en_GB/soccer/league-cup-2026-2027/dap7q17azs3j8a5sv36enfr4k/fixtures"
+      },
+      {
+        "text": "Community Shield",
+        "href": "/en_GB/soccer/community-shield-2026-2027/5ceeum43bprquzd6cc1ydhwyc/results"
+      },
+      {
+        "text": "Women's Super League",
+        "href": "/en_GB/soccer/women-s-super-league-2026-2027/b98jgqlofjpbpvjb8hk20z3tg/fixtures"
+      },
+      {
+        "text": "Women's Play-offs 1/2",
+        "href": "/en_GB/soccer/women-s-play-offs-1-2-2025-2026/4kch104evtug4pph68jejdp0/results"
+      },
+      {
+        "text": "More Leagues",
+        "href": "/en_GB/soccer/competitions"
+      },
+      {
+        "text": "Live Scores",
+        "href": "/en_GB/soccer"
+      },
+      {
+        "text": "Opta Statistics",
+        "href": "/en_GB/soccer/premier-league-2026-2027/6pdwluctev9iebv00r4qqukno/opta-player-stats"
+      },
+      {
+        "text": "Opta Points",
+        "href": "/en_GB/soccer/opta-points"
+      },
+      {
+        "text": "Opta Event Definitions",
+        "href": "/en_GB/opta-event-definitions"
+      },
+      {
+        "text": "About",
+        "href": "/en_GB/about"
+      },
+      {
+        "text": "England - FA Cup",
+        "href": "/en_GB/soccer/fa-cup-2026-2027/75p5723yryew2ywn0isvf7cic/results"
+      },
+      {
+        "text": "13:30 Plymouth Parkway vs Berkhamsted",
+        "href": "/en_GB/soccer/fa-cup-2026-2027/75p5723yryew2ywn0isvf7cic/match/plymouth-parkway-vs-berkhamsted/3tq6hnnmik9bx0t3i1jwx7504"
+      },
+      {
+        "text": "Romania - Liga I",
+        "href": "/en_GB/soccer/liga-i-2026-2027/zbhxyecp7s7s2dqg00ojrbis/results"
+      },
+      {
+        "text": "Half time HT Botoșani 0 - 0 Oţelul Galați",
+        "href": "/en_GB/soccer/liga-i-2026-2027/zbhxyecp7s7s2dqg00ojrbis/match/botoșani-vs-oţelul-galați/11dgyunkb4q9u44gurfnskphw"
+      },
+      {
+        "text": "Spain - Segunda División",
+        "href": "/en_GB/soccer/segunda-división-2026-2027/fgkxmpz2ewao1l63jrbkgg7o/results"
+      },
+      {
+        "text": "13:30 Las Palmas vs Eldense",
+        "href": "/en_GB/soccer/segunda-división-2026-2027/fgkxmpz2ewao1l63jrbkgg7o/match/las-palmas-vs-eldense/4bm5q9alfh9zdqlkfw2zgjw9g"
+      },
+      {
+        "text": "13:30 Sabadell vs Real Sociedad II",
+        "href": "/en_GB/soccer/segunda-división-2026-2027/fgkxmpz2ewao1l63jrbkgg7o/match/sabadell-vs-real-sociedad-ii/4bxcd99c3ge8z843uneglc7is"
+      },
+      {
+        "text": "Terms",
+        "href": "https://www.statsperform.com/terms-of-use/"
+      },
+      {
+        "text": "Privacy Policy",
+        "href": "https://www.statsperform.com/privacy-policy/"
+      },
+      {
+        "text": "Cookie Settings",
+        "href": "#"
+      },
+      {
+        "text": "Cookies",
+        "href": "/en_GB/cookies"
+      },
+      {
+        "text": "Do Not Sell My Information",
+        "href": "https://www.statsperform.com/ccpa-request-form/"
+      }
+    ],
+    "scripts": [
+      {
+        "src": "https://web.cmp.usercentrics.eu/modules/autoblocker.js",
+        "inline_preview": null
+      },
+      {
+        "src": "https://web.cmp.usercentrics.eu/tcf/stub.js",
+        "inline_preview": null
+      },
+      {
+        "src": "https://web.cmp.usercentrics.eu/ui/loader.js",
+        "inline_preview": null
+      },
+      {
+        "src": null,
+        "inline_preview": "window.kickstartWidgetsConfig = {\n      base_url: \"/kickstart-widgets\",\n      lang: \"en-GB\",\n      pbg_api_key: \"AWfSBQY64M1n7863iB\",\n      sdapi_outlet_key: \"14wphx3a371oc1lghwzveu1ldj\",\n      smart_ads_base_url: \"https://smartads-v2.statsperform.com\",\n      opta_widget_subscription_id: \"6805c5f0655c9b241ff536409892ab09\",\n    };"
+      },
+      {
+        "src": "/kickstart-widgets/kickstart-widgets.js",
+        "inline_preview": null
+      },
+      {
+        "src": "https://www.googletagmanager.com/gtag/js?id=G-7T677PWWJ1",
+        "inline_preview": null
+      },
+      {
+        "src": null,
+        "inline_preview": "window.dataLayer = window.dataLayer || [];\n\n    function gtag() {\n      dataLayer.push(arguments);\n    }\n\n    gtag('js', new Date());\n\n    // set \"denied\" as default for both ad and analytics storage, as well as ad_user_data and ad_personalization\n    gtag(\"consent\", \"default\", {\n      ad_personalization: \"denied\",\n      ad_storage: \"denied\",\n      ad_user_data: \"denied\",\n      analytics_storage: \"denied\",\n      functionality_storage: \"denied\",\n      personalization_storage: \"denied\",\n      security_storage: \"granted\",\n      wait_for_update: 2000 // milliseconds to wait for update\n    });\n\n    gtag('config', 'G-7T677PWWJ1');\n\n    // Enable ads data redaction by default [optional]\n    gtag(\"set\", \"ads_data_redaction\", true);"
+      },
+      {
+        "src": null,
+        "inline_preview": "// Please replace 'ucEvent' with the event you have just created\n    window.addEventListener(\"ucEvent\", function(e) {\n      if (e.detail && e.detail.event == \"consent_status\") {\n        // Please replace the analytics service name here with the customized service\n        var ucAnalyticsService = 'Google Analytics';\n        // Please replace the ad service name here with the customized service\n        var ucAdService = 'Google Ads Remarketing';\n\n        if (e.detail.hasOwnProperty(ucAnalyticsService) && e.detail.hasOwnProperty(ucAdService)) {\n          gtag(\"consent\", \"update\", {\n            ad_personalization: e.detail[ucAdService] ? 'granted' : 'denied',\n            ad_storage: e.detail[ucAdService] ? 'granted' : 'denied',\n            ad_user_data: e.detail[ucAdService] ? 'granted' : 'den"
+      },
+      {
+        "src": "https://web.cmp.usercentrics.eu/ui/v/4.31.0/WebSdk.lib.0496cd28.js",
+        "inline_preview": null
+      },
+      {
+        "src": "https://web.cmp.usercentrics.eu/ui/v/4.31.0/GdprCmpController.1711bf3b.js",
+        "inline_preview": null
+      },
+      {
+        "src": "https://web.cmp.usercentrics.eu/ui/TvGdprCmpView.87f558f7.js",
+        "inline_preview": null
+      },
+      {
+        "src": "https://web.cmp.usercentrics.eu/ui/v/4.31.0/UcGdprCmpView.242daee0.js",
+        "inline_preview": null
+      },
+      {
+        "src": "https://web.cmp.usercentrics.eu/ui/v/4.31.0/sections.5a153160.js",
+        "inline_preview": null
+      },
+      {
+        "src": "https://web.cmp.usercentrics.eu/ui/v/4.31.0/secondLayer.03af4dcd.js",
+        "inline_preview": null
+      },
+      {
+        "src": "https://web.cmp.usercentrics.eu/ui/v/4.31.0/getToastifyStyle.4f0a73d7.js",
+        "inline_preview": null
+      },
+      {
+        "src": null,
+        "inline_preview": "(function () {\n    function measure(s) {\n        var frag = document.createDocumentFragment();\n        s.items = Array.prototype.slice.call(s.menu.querySelectorAll(\":scope > li:not(.more)\"))\n            .concat(Array.prototype.slice.call(s.sub.children));\n        s.items.forEach(function (li) { frag.appendChild(li); });\n        s.menu.insertBefore(frag, s.more);\n        s.more.classList.remove(\"is-empty\");\n\n        // is-measuring neutralises flex:1 on mobile so natural widths are read\n        s.menu.classList.add(\"is-measuring\");\n        s.widths = s.items.map(function (li) { return li.getBoundingClientRect().width; });\n        s.moreWidth = s.more.getBoundingClientRect().width;\n        s.width = s.menu.clientWidth;\n        s.menu.classList.remove(\"is-measuring\");\n        s.visible = s.it"
+      },
+      {
+        "src": null,
+        "inline_preview": "fitNav(\"page-menu\");"
+      },
+      {
+        "src": null,
+        "inline_preview": "{\n    \"locale\": \"en_GB\"\n    ,    \"sdapiLocale\": \"en-gb\"\n    ,    \"sport\": \"soccer\"\n    ,    \"whitelabel\": \"betshowcase\"\n    ,    \"package\": \"bookmakerplayerstats:1\"\n    ,    \"page\": \"competition\"\n    ,    \"comp\": \"2kwbbcootiqqgmrzs6o5inle5\"\n    ,    \"compName\": \"Premier League\"\n    ,    \"tmcl\": \"6pdwluctev9iebv00r4qqukno\"\n    ,    \"tmclName\": \"2026\\/2027\"\n    ,    \"betting\": []\n    ,    \"comp_coverage\": 13\n    ,    \"has_premium_match_pages\": \"false\"\n    ,    \"has_team_links\": \"false\"\n    ,    \"terms\": {\"search\":[\"Quick Search\",\"Search\"],\"today\":[\"Today\"],\"owngoal\":[\"Own goal\",\"OG\"],\"search_placeholder\":[\"Search for Team, Country, or Competition\",\"Search\"],\"all_games\":[\"All Games\"],\"live_games\":[\"LIVE Games\"],\"finished_games\":[\"Finished\",\"F\"],\"fulltime\":[\"Full time\",\"FT\"],\"halftime\":[\"Half "
+      },
+      {
+        "src": "https://secure.widget.cloud.opta.net/v3/v3.opta-widgets.js",
+        "inline_preview": null
+      },
+      {
+        "src": null,
+        "inline_preview": "\"use strict\";\n      var data = {};\n\n      try {\n          data = document.getElementById(\"pageData\")\n              ? JSON.parse(document.getElementById(\"pageData\").innerHTML)\n              : {};\n      } catch (e) {\n          console.error(e);\n      }\n\n      var\n        opta_settings = {\n          subscription_id: '6805c5f0655c9b241ff536409892ab09',\n          language: 'en_GB',\n          timezone: 'user',\n          opta_tracking: false,\n          link_callback: function(params) {\n            var baseUrl;\n\n            if (params.type === 'bettingodd') {\n              return params.base_url;\n            }\n\n            switch(data.sport) {\n              case 'cricket':\n                baseUrl = createBaseUrl(\"\");\n\n                switch (params.base_url) {\n                  case 'match':\n     "
+      },
+      {
+        "src": "https://optaplayerstats.statsperform.com/build/assets/app-BbFf9kcs.js",
+        "inline_preview": null
+      }
+    ],
+    "dom_text_blocks": [
+      "Premier League",
+      "Quick Search",
+      "Today",
+      "02/11/2026",
+      "03/11/2026",
+      "04/11/2026",
+      "05/11/2026",
+      "06/11/2026",
+      "07/11/2026",
+      "08/11/2026",
+      "Today",
+      "10/11/2026",
+      "11/11/2026",
+      "12/11/2026",
+      "13/11/2026",
+      "14/11/2026",
+      "15/11/2026",
+      "16/11/2026",
+      "13:30",
+      "Plymouth Parkway",
+      "Berkhamsted",
+      "Half time",
+      "Botoșani",
+      "Oţelul Galați",
+      "13:30",
+      "Las Palmas",
+      "Eldense",
+      "13:30",
+      "Sabadell",
+      "Real Sociedad II",
+      "© Copyright 2026 by Stats Perform. Any commercial use or distribution\n      without the express written consent of Stats Perform is strictly prohibited."
+    ],
+    "perform_and_opta_network_responses": [
+      {
+        "network_id": 1,
+        "url": "https://optaplayerstats.statsperform.com/",
+        "status": 200,
+        "resource_type": "document",
+        "body_preview": "<!DOCTYPE html><html><head> <meta charset=\"utf-8\"> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\"> <meta http-equiv=\"refresh\" content=\"5; URL='/?bm-verify=AAQAAAAO_____6erA1670_cgJ2VOEzSk554X1HCRymxMp3tC41R9OBKKosqLbQyVSVgVDaUvEOmH7_JrsgSpPzM7qU9JTPUPooBnb2tkv3mrfHR2or9fUiCkLvkd6S2zDTwXKSXk8VpegNmlA8KaTOIxNXPoa05KQkFy1cWGQBAouQZPrYd-0keK9jw3L1iEY2Y2Z8n-oF-g553q4BabqK-VNB8j9T3u3_KpzyVQsC1oBLzzK-f_lNq4Ee_6Pclmpa9Qz47aIITAfhwkBF99hHs9hhpCMh_LSDxHTyMUJFzWLS6AsO9Cnw'\" /><title>&nbsp;</title><script> var i = 1794250250; var j = i + Number(\"2051\" + \"55696\"); </script> </head> <noscript> <iframe style=\"border: none; height: 100%; width: 100%;\" src=\"\"></iframe></noscript><body> <iframe style=\"border: none; width: 100vw; height: 100vh;\" src=\"https://kickstart-widgets.statsperform.com/msmc-showcase/akamai/crypto-challenge-interstitial.html\"> </iframe> <script> function triggerInterstitialChallenge() {var xhr = new XMLHttpRequest(); xhr.withCredentials = true; xhr.addEventListener(\"loadend\", function() { try { var data = JSON.parse(xhr.responseText); if (data.hasOwnProperty('reload')) { if (data[\"reload\"] == true) { window.location.replace(window.location.href.replace(/[&?]bm-verify=[^#]*/, \"\"));  if(window.location.hash){ window.location.reload(); } } } else if (data.hasOwnProperty('location')) { window.location.replace(data[\"location\"]); } else { window.location.reload(); } } catch (e) { window.location.reload(); }}); xhr.open(\"POST\", \"/_sec/verif"
+      },
+      {
+        "network_id": 2,
+        "url": "https://kickstart-widgets.statsperform.com/msmc-showcase/akamai/loading.gif",
+        "status": 200,
+        "resource_type": "image"
+      },
+      {
+        "network_id": 3,
+        "url": "https://optaplayerstats.statsperform.com/",
+        "status": 302,
+        "resource_type": "document"
+      },
+      {
+        "network_id": 4,
+        "url": "https://optaplayerstats.statsperform.com/en_GB",
+        "status": 302,
+        "resource_type": "document"
+      },
+      {
+        "network_id": 5,
+        "url": "https://optaplayerstats.statsperform.com/_sec/verify?provider=interstitial",
+        "status": 200,
+        "resource_type": "xhr"
+      },
+      {
+        "network_id": 6,
+        "url": "https://kickstart-widgets.statsperform.com/msmc-showcase/akamai/crypto-challenge-interstitial.html",
+        "status": 200,
+        "resource_type": "document"
+      },
+      {
+        "network_id": 7,
+        "url": "https://optaplayerstats.statsperform.com/en_GB/soccer",
+        "status": 200,
+        "resource_type": "document",
+        "body_preview": "<!doctype html>\n<html lang=\"en-GB\">\n\n<head>\n  <meta charset=\"utf-8\">\n  <title>Live Scores - Soccer - Betting Showcase</title>\n  <meta name=\"description\" content=\"Live soccer scores from top competitions including Premier League, Bundesliga, Primera División, Ligue 1, MLS, Serie A, UEFA Champions League, UEFA Europa League, Serie A, CONMEBOL Libertadores\">\n\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <meta name=\"package\" content=\"bookmakerplayerstats:1\">\n  <link rel=\"preconnect\" href=\"https://app.usercentrics.eu\">\n  <link rel=\"preconnect\" href=\"https://api.usercentrics.eu\">\n  <script src=\"https://web.cmp.usercentrics.eu/modules/autoblocker.js\"></script>\n  <script src=\"https://web.cmp.usercentrics.eu/tcf/stub.js\"></script>\n  <script id=\"usercentrics-cmp\" src=\"https://web.cmp.usercentrics.eu/ui/loader.js\"\n             data-ruleset-id=\"wlJoQUNoshMJCX\"  async>\n  </script>\n\n    <link rel=\"shortcut icon\" href=\"/images/favicon/StatsPerform_Logo_Icon_01.png\" type=\"image/x-icon\">\n  <link rel=\"icon\" href=\"/images/favicon/StatsPerform_Logo_Icon_01.png\" type=\"image/x-icon\">\n  \n    <link\n      rel=\"preload\"\n      href=\"https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&amp;display=swap&amp;subset=latin-ext\"\n      as=\"style\"\n      onload=\"this.onload=null;this.rel='stylesheet'\"\n    >\n  <noscript>\n    <link\n      rel=\"stylesheet\"\n      href=\"https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i"
+      },
+      {
+        "network_id": 8,
+        "url": "https://optaplayerstats.statsperform.com/images/logo/Opta_Logo_Primary_02.png",
+        "status": 200,
+        "resource_type": "image"
+      },
+      {
+        "network_id": 9,
+        "url": "https://optaplayerstats.statsperform.com/build/assets/betshowcase-BlNpZyYM.css",
+        "status": 200,
+        "resource_type": "stylesheet",
+        "body_preview": ".hybridselect .selectNative,.hybridselect .selectCustom{position:relative}.hybridselect .selectCustom{display:none;position:absolute;top:0;left:0}@media (hover:hover){.hybridselect .selectCustom{width:100%;display:block}.hybridselect .selectNative:focus+.selectCustom{display:none}}.hybridselect .selectNative:focus,.hybridselect .selectCustom.isActive .selectCustom-trigger{box-shadow:0 0 0 .2rem #fff,0 0 0 .4rem #ff821f;-webkit-box-shadow:none;outline:none}.hybridselect .select{position:relative}.hybridselect .selectLabel{margin-bottom:.4rem;font-weight:700;display:block}.hybridselect .selectWrapper{position:relative}.hybridselect .selectNative,.hybridselect .selectCustom-trigger{background-color:#0000;border:none;margin:10px 0;padding:10px;font-size:14px}.hybridselect .selectNative{-webkit-appearance:none;-moz-appearance:none;width:100%;height:initial;background-image:url(\"data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>\");background-position:100% 8px;background-repeat:no-repeat;padding-right:25px}.hybridselect .selectCustom-trigger{cursor:pointer;white-space:nowrap;text-overflow:ellipsis;background-color:#fff;position:relative;overflow-x:hidden}.hybridselect .selectCustom-trigger:after{content:\"▾\";line-height:35px;position:absolute;top:0;right:0}.hybridselect .selectCustom-options{z-index:1;background-color:#fff;display:none;position:ab"
+      },
+      {
+        "network_id": 10,
+        "url": "https://optaplayerstats.statsperform.com/images/flags/gb.svg",
+        "status": 200,
+        "resource_type": "image",
+        "body_preview": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 60 30\">\n<clipPath id=\"t\">\n<path d=\"M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z\"/>\n</clipPath>\n<path d=\"M0,0 v30 h60 v-30 z\" fill=\"#00247d\"/>\n<path d=\"M0,0 L60,30 M60,0 L0,30\" stroke=\"#fff\" stroke-width=\"6\"/>\n<path d=\"M0,0 L60,30 M60,0 L0,30\" clip-path=\"url(#t)\" stroke=\"#cf142b\" stroke-width=\"4\"/>\n<path d=\"M30,0 v30 M0,15 h60\" stroke=\"#fff\" stroke-width=\"10\"/>\n<path d=\"M30,0 v30 M0,15 h60\" stroke=\"#cf142b\" stroke-width=\"6\"/>\n</svg>\n"
+      },
+      {
+        "network_id": 13,
+        "url": "https://optaplayerstats.statsperform.com/kickstart-widgets/kickstart-widgets.css",
+        "status": 200,
+        "resource_type": "stylesheet",
+        "body_preview": "kickstart-widget{--font-family: sans-serif;--font-size: 14px;--widget-background-color: #fff;--widget-color: #222;--logo-image: url(./branding/statsperform/opta-logo-white.svg);--loading-image: url(./branding/statsperform/sp-loader.gif);--loading-background-color: #fff;--splash-image: url(./branding/statsperform/opta-logo-dark.svg);--splash-background-color: #fff;--primary-color: #e5202f;--secondary-color: #20d77f;--tertiary-color: #006cfa;--highlight-color: #faa51a;--button-border: none;--button-border-radius: 99px;--button-font-weight: 600;--primary-button-color: #fff;--primary-button-background: var(--primary-color);--primary-dark-button-color: #fff;--primary-dark-button-background: #222;--link-color: #222;--gambleaware-font-color: #fff;--primary-title-background: #222;--primary-title-color: #fff;--progress-color: var(--secondary-color);--popover-background-color: #f2f2f2;--popover-box-shadow: 0 0 5px 0 #444444;--popover-color: #444444;--element-radius: 8px;--element-radius-half: 4px;--element-gap: 16px;--element-border-color: #e2e2e2;--gap-color: #e2e2e2;--header1-color: #6f6f6f;--element-shaded-background-color: #f2f2f2;--element-shaded-color: var(--widget-color);--bg-color-home: #02a6a6;--color-home: #fff;--bg-color-away: #215454;--color-away: #fff;--bg-color-draw: #cccccc;--color-draw: #222;container-name:kickstart-widget;container-type:inline-size;font-family:var(--font-family);display:block;color:var(--widget-font-color);background-color:var(--widget-background-color"
+      },
+      {
+        "network_id": 14,
+        "url": "https://optaplayerstats.statsperform.com/build/assets/icomoon-KhI-wgfl.woff",
+        "status": 200,
+        "resource_type": "font"
+      },
+      {
+        "network_id": 15,
+        "url": "https://optaplayerstats.statsperform.com/kickstart-widgets/kickstart-widgets.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_preview": "import { s as t } from \"./main-BaQTW4nJ.js\";\nexport {\n  t as start\n};\n"
+      },
+      {
+        "network_id": 17,
+        "url": "https://optaplayerstats.statsperform.com/build/assets/app-BbFf9kcs.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_preview": "var e=Object.create,t=Object.defineProperty,n=Object.getOwnPropertyDescriptor,r=Object.getOwnPropertyNames,i=Object.getPrototypeOf,a=Object.prototype.hasOwnProperty,o=(e,t,n)=>()=>{if(n)throw n[0];try{return e&&(t=e(e=0)),t}catch(e){throw n=[e],e}},s=(e,t)=>()=>(t||(e((t={exports:{}}).exports,t),e=null),t.exports),c=(e,n)=>{let r={};for(var i in e)t(r,i,{get:e[i],enumerable:!0});return n||t(r,Symbol.toStringTag,{value:`Module`}),r},l=(e,i,o,s)=>{if(i&&typeof i==`object`||typeof i==`function`)for(var c=r(i),l=0,u=c.length,d;l<u;l++)d=c[l],!a.call(e,d)&&d!==o&&t(e,d,{get:(e=>i[e]).bind(null,d),enumerable:!(s=n(i,d))||s.enumerable});return e},u=(n,r,o)=>(o=n==null?{}:e(i(n)),l(r||!n||!n.__esModule||!a.call(n,`default`)?t(o,`default`,{value:n,enumerable:!0}):o,n)),d=e=>a.call(e,`module.exports`)?e[`module.exports`]:l(t({},`__esModule`,{value:!0}),e),f=c({$:()=>m,default:()=>m,jQuery:()=>m});function p(e,t){if(e===void 0||!e.document)throw Error(`jQuery requires a window with a document`);var n=[],r=Object.getPrototypeOf,i=n.slice,a=n.flat?function(e){return n.flat.call(e)}:function(e){return n.concat.apply([],e)},o=n.push,s=n.indexOf,c={},l=c.toString,u=c.hasOwnProperty,d=u.toString,f=d.call(Object),p={};function m(e){return e==null?e+``:typeof e==`object`?c[l.call(e)]||`object`:typeof e}function h(e){return e!=null&&e===e.window}function g(e){var t=!!e&&e.length,n=m(e);return typeof e==`function`||h(e)?!1:n===`array`||t===0||typeof t==`number`&&t>0&&t-1 in e}var _=e.document,v={"
+      },
+      {
+        "network_id": 18,
+        "url": "https://optaplayerstats.statsperform.com/images/flags/de.svg",
+        "status": 200,
+        "resource_type": "image",
+        "body_preview": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 5 3\">\n<desc>Flag of Germany</desc>\n<rect id=\"black_stripe\" width=\"5\" height=\"3\" y=\"0\" x=\"0\" fill=\"#000\"/>\n<rect id=\"red_stripe\" width=\"5\" height=\"2\" y=\"1\" x=\"0\" fill=\"#D00\"/>\n<rect id=\"gold_stripe\" width=\"5\" height=\"1\" y=\"2\" x=\"0\" fill=\"#FFCE00\"/>\n</svg>\n"
+      },
+      {
+        "network_id": 19,
+        "url": "https://optaplayerstats.statsperform.com/images/flags/es.svg",
+        "status": 200,
+        "resource_type": "image",
+        "body_preview": "<svg xmlns=\"http://www.w3.org/2000/svg\" height=\"500\" width=\"750\" viewBox=\"0 0 750 500\">\n<path fill=\"#c60b1e\" d=\"M0 0h750v500H0z\"/>\n<path fill=\"#ffc400\" d=\"M0 125h750v250H0z\"/>\n<path d=\"M167.99 222.24s-.51 0-.8-.16c-.27-.16-1.12-.96-1.12-.96l-.68-.49-.62-.85s-.73-1.18-.4-2.09c.34-.9.9-1.23 1.42-1.5.5-.26 1.58-.59 1.58-.59s.85-.37 1.13-.42c.28-.06 1.3-.33 1.3-.33s.28-.15.56-.26c.29-.1.68-.1.9-.16.23-.06.8-.24 1.14-.26.52-.02 1.35.1 1.64.1.28 0 1.24.05 1.64.05.39 0 1.8-.1 2.2-.1.4 0 .68-.06 1.13 0 .45.05 1.24.31 1.47.42.23.1 1.58.6 2.1.75.5.16 1.74.37 2.31.64.56.27.9.72 1.19 1.1.28.37.34.78.45 1.05.1.26.11.84 0 1.1-.11.27-.51.82-.51.82l-.62 1.02-.8.64s-.56.54-1 .48c-.46-.05-5.04-.86-7.98-.86-2.94 0-7.63.86-7.63.86\" fill=\"#ad1519\"/>\n<path d=\"M167.99 222.24s-.51 0-.8-.16c-.27-.16-1.12-.96-1.12-.96l-.68-.49-.62-.85s-.73-1.18-.4-2.09c.34-.9.9-1.23 1.42-1.5.5-.26 1.58-.59 1.58-.59s.85-.37 1.13-.42c.28-.06 1.3-.33 1.3-.33s.28-.15.56-.26c.29-.1.68-.1.9-.16.23-.06.8-.24 1.14-.26.52-.02 1.35.1 1.64.1.28 0 1.24.05 1.64.05.39 0 1.8-.1 2.2-.1.4 0 .68-.06 1.13 0 .45.05 1.24.31 1.47.42.23.1 1.58.6 2.1.75.5.16 1.74.37 2.31.64.56.27.9.72 1.19 1.1.28.37.34.78.45 1.05.1.26.11.84 0 1.1-.11.27-.51.82-.51.82l-.62 1.02-.8.64s-.56.54-1 .48c-.46-.05-5.04-.86-7.98-.86-2.94 0-7.63.86-7.63.86z\" fill=\"none\" stroke=\"#000\" stroke-linejoin=\"round\" stroke-width=\".26\"/>\n<path d=\"M174.28 215.68c0-1.38.62-2.5 1.38-2.5.76 0 1.38 1.12 1.38 2.5s-.62 2.5-1.38 2.5c-.76 0-1.38-1.12-1.38-2.5\" fill=\"#c8b100\"/>\n<path d=\"M"
+      },
+      {
+        "network_id": 20,
+        "url": "https://optaplayerstats.statsperform.com/images/flags/419.svg",
+        "status": 200,
+        "resource_type": "image",
+        "body_preview": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<svg width=\"800px\" height=\"800px\" viewBox=\"0 0 64 64\" xmlns=\"http://www.w3.org/2000/svg\"\n    xmlns:xlink=\"http://www.w3.org/1999/xlink\" aria-hidden=\"true\" role=\"img\"\n    class=\"iconify iconify--emojione\" preserveAspectRatio=\"xMidYMid meet\">\n    <path\n        d=\"M62 32c0 16.6-13.4 30-30 30S2 48.6 2 32C2 17.6 12.1 5.6 25.7 2.7h.8l.6-.3c.5-.1 1-.1 1.5-.2h1l.8-.2h.4l1.2.2l.8-.2h.4l1.6.4l1.9-.1c.2 0 .5.1.7.1L44.6 7l7.8 3c5.9 5.5 9.6 13.3 9.6 22\"\n        fill=\"#008db3\">\n</path>\n    <g fill=\"#ffc942\">\n        <path\n            d=\"M33.5 11.5c2 .6 1.9-.6 3.1.8c.7.8 2 2.3 3.5 2.7c.2.1.7-.4.7-.8s-1.1-1.1-1.7-1.3c-.6-.2.2-1.3-.6-1.6s-1.7-1.6-2-2.6c-.3-1-1.7-.2-2.2-.4c-.5-.2-1.1-.1-1.6.7s.3 2.3.8 2.5\">\n\n        </path>\n\n        <path\n            d=\"M44 39.7c0-.4-3.9-2.5-4.3-2.6c-.8 0-1.8-.4-2.5 0c-.3.2-.6.4-.7.7c-.1.2-.9-.2-1.2-.1c-.7.4-1.1-.8-.9-1.3c.5-1.1-1.2-.4-1.4-.7c.2.4-.1-3.2-.7-1.2c-.5 1.5-2.2-.2-2-1.3c.3-1.7 2.9-2 3.5-1.7c.3.2 1.3 1.7 1.5 1.6c.3-.1-.2-1.8-.2-2c-.2-.8 1.4-1.1 1.5-2c.1-.7.6-.5 1.1-.9c.7-.6.2-1.6 1.1-2.2c.3-.2 1.5-.3 1.6-.7c.1-.3-1-1.1 0-1.4c.9-.2 1.8.2 2-1.1c.2-1.1-1.1-1.4-1.4-2.3c-.1-.3-.3-1.8-.8-1.5c-.7.4-1.1 1.2-1.6.2c-1-1.8-3.4-2.6-2.3.3c.6 1.5-1.6 6-1.9 1.8c-.1-1.4-4.4-1.9-3-3.5c1.5-1.6 3.5-1.7 4-4.2c.8-3.5-1.6-.5-2.9-1.2c-1.8-1-.3-.5-1.2.8c-.4.5-1.5-.3-2.1-.2c-.5.1-1.7 1.1-2.1.5c-.6-1.2-4.9-2-6.1-1.5c-2.4.9-3.3-.3-5.7-.8c-.8-.2-5-.3-4.7 1.1c.1.6.5 1 .7 1.5c.3.8-.9.2-1.2.4c-.1.1 1.4 1.1 1.5 1.2c.4.4-1.5.9-1.7 1.6c-.4 1.4 "
+      },
+      {
+        "network_id": 21,
+        "url": "https://optaplayerstats.statsperform.com/images/flags/fr.svg",
+        "status": 200,
+        "resource_type": "image",
+        "body_preview": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 3 2\">\n<rect width=\"3\" height=\"2\" fill=\"#ED2939\"/>\n<rect width=\"2\" height=\"2\" fill=\"#fff\"/>\n<rect width=\"1\" height=\"2\" fill=\"#002395\"/>\n</svg>\n"
+      },
+      {
+        "network_id": 22,
+        "url": "https://optaplayerstats.statsperform.com/images/flags/it.svg",
+        "status": 200,
+        "resource_type": "image",
+        "body_preview": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 3 2\">\n<rect width=\"1\" height=\"2\" fill=\"#009246\"/>\n<rect width=\"1\" height=\"2\" x=\"1\" fill=\"#fff\"/>\n<rect width=\"1\" height=\"2\" x=\"2\" fill=\"#ce2b37\"/>\n</svg>\n"
+      },
+      {
+        "network_id": 23,
+        "url": "https://optaplayerstats.statsperform.com/images/flags/gr.svg",
+        "status": 200,
+        "resource_type": "image",
+        "body_preview": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 27 18\">\n<rect fill=\"#0D5EAF\" width=\"27\" height=\"18\"/>\n<path fill=\"none\" stroke-width=\"2\" stroke=\"#FFF\" d=\"M5,0V11 M0,5H10 M10,3H27 M10,7H27 M0,11H27 M0,15H27\"/>\n</svg>\n"
+      },
+      {
+        "network_id": 24,
+        "url": "https://optaplayerstats.statsperform.com/images/flags/br.svg",
+        "status": 200,
+        "resource_type": "image",
+        "body_preview": "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" viewBox=\"-2100 -1470 4200 2940\">\n<defs>\n<path id=\"D\" fill-rule=\"evenodd\" d=\"m-31.5 0h33a30 30 0 0 0 30 -30v-10a30 30 0 0 0 -30 -30h-33zm13-13h19a19 19 0 0 0 19 -19v-6a19 19 0 0 0 -19 -19h-19z\"/>\n<path id=\"E\" transform=\"translate(-31.5)\" d=\"m0 0h63v-13h-51v-18h40v-12h-40v-14h48v-13h-60z\"/>\n<path id=\"e\" d=\"m-26.25 0h52.5v-12h-40.5v-16h33v-12h-33v-11h39.25v-12h-51.25z\"/>\n<g id=\"G\">\n<clipPath id=\"gcut\">\n<path d=\"m-31.5 0v-70h63v70zm31.5-47v12h31.5v-12z\"/>\n</clipPath>\n<use xlink:href=\"#O\" clip-path=\"url(#gcut)\"/>\n<rect y=\"-35\" x=\"5\" height=\"10\" width=\"26.5\"/>\n<rect y=\"-35\" x=\"21.5\" height=\"35\" width=\"10\"/>\n</g>\n<path id=\"M\" d=\"m-31.5 0h12v-48l14 48h11l14-48v48h12v-70h-17.5l-14 48-14-48h-17.5z\"/>\n<path id=\"O\" fill-rule=\"evenodd\" d=\"m0 0a31.5 35 0 0 0 0 -70 31.5 35 0 0 0 0 70m0-13a18.5 22 0 0 0 0 -44 18.5 22 0 0 0 0 44\"/>\n<path id=\"P\" fill-rule=\"evenodd\" d=\"m-31.5 0h13v-26h28a22 22 0 0 0 0 -44h-40zm13-39h27a9 9 0 0 0 0 -18h-27z\"/>\n<g id=\"R\">\n<use xlink:href=\"#P\"/>\n<path d=\"m28 0c0-10 0-32-15-32h-19c22 0 22 22 22 32\"/>\n</g>\n<path id=\"S\" d=\"m-15.75-22c0 7 6.75 10.5 16.75 10.5s14.74-3.25 14.75-7.75c0-14.25-46.75-5.25-46.5-30.25 0.25-21.5 24.75-20.5 33.75-20.5s26 4 25.75 21.25h-15.25c0-7.5-7-10.25-15-10.25-7.75 0-13.25 1.25-13.25 8.5-0.25 11.75 46.25 4 46.25 28.75 0 18.25-18 21.75-31.5 21.75-11.5 0-31.55-4.5-31.5-22z\"/>\n<g id=\"star\" fill=\"#fff\">\n<g id=\"c\">\n<path id=\"t\" transform=\"rotate(18 0,-1)\" d=\"m0-1v"
+      },
+      {
+        "network_id": 25,
+        "url": "https://optaplayerstats.statsperform.com/images/flags/pt.svg",
+        "status": 200,
+        "resource_type": "image",
+        "body_preview": "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" viewBox=\"0 0 600 400\">\n<rect width=\"600\" height=\"400\" fill=\"#f00\"/>\n<rect width=\"240\" height=\"400\" fill=\"#060\"/>\n<g fill=\"#ff0\" fill-rule=\"evenodd\" stroke=\"#000\" stroke-width=\"0.573\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n<path d=\"m318.24,262.04c-30.21-0.91-168.74-87.38-169.69-101.15l7.6496-12.757c13.741,19.966,155.36,104.06,169.27,101.08l-7.2299,12.823\"/>\n<path d=\"m154.59,146.4c-2.7101,7.2937,36.149,31.318,82.903,59.754,46.752,28.434,87.065,46.006,90.053,43.486,0.18256-0.32544,1.4701-2.5409,1.352-2.5232-0.56001,0.84402-1.9234,1.1104-4.0506,0.49741-12.631-3.6433-45.575-18.765-86.374-43.506-40.798-24.743-76.294-47.544-81.811-57.232-0.38363-0.67116-0.65702-1.8962-0.60146-2.8487l-0.13405-0.002-1.1747,2.0532-0.16139,0.32191h-0.00088zm164.36,116.04c-0.51238,0.92957-1.4675,0.96044-3.2816,0.76112-11.3-1.2506-45.589-17.925-86.162-42.213-47.21-28.26-86.2-54.01-81.97-60.74l1.1509-2.0346,0.22665,0.0706c-3.8037,11.405,76.948,57.578,81.702,60.522,46.724,28.947,86.115,45.851,89.601,41.458l-1.2682,2.181v-0.002z\"/>\n<path d=\"m240.17,169.23c30.237-0.23901,67.55-4.1319,89.023-12.69l-4.6265-7.5168c-12.692,7.0247-50.21,11.644-84.652,12.335-40.736-0.37483-69.49-4.1681-83.897-13.835l-4.3672,8.0045c26.484,11.207,53.623,13.587,88.52,13.703\"/>\n<path d=\"m330.44,156.71c-0.73904,1.1818-14.743,6.0113-35.373,9.5753-13.988,2.1325-32.234,3.9555-55.004,3.9776-21.633,0.0203-39.305-1.5196-52.684-3.3329-21.656-3.3955-32.8"
+      },
+      {
+        "network_id": 26,
+        "url": "https://optaplayerstats.statsperform.com/images/flags/pl.svg",
+        "status": 200,
+        "resource_type": "image",
+        "body_preview": "<svg xmlns=\"http://www.w3.org/2000/svg\" id=\"Flag of Poland\" viewBox=\"0 0 16 10\">\n<rect width=\"16\" height=\"10\" fill=\"#fff\"/>\n<rect width=\"16\" height=\"5\" fill=\"#dc143c\" y=\"5\"/>\n</svg>\n"
+      },
+      {
+        "network_id": 27,
+        "url": "https://optaplayerstats.statsperform.com/images/flags/bg.svg",
+        "status": 200,
+        "resource_type": "image",
+        "body_preview": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 5 3\">\n<rect width=\"5\" height=\"3\" fill=\"#fff\"/>\n<rect width=\"5\" height=\"2\" y=\"1\" fill=\"#00966E\"/>\n<rect width=\"5\" height=\"1\" y=\"2\" fill=\"#D62612\"/>\n</svg>\n"
+      },
+      {
+        "network_id": 28,
+        "url": "https://optaplayerstats.statsperform.com/images/flags/dk.svg",
+        "status": 200,
+        "resource_type": "image",
+        "body_preview": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 370 280\">\n<rect width=\"370\" height=\"280\" fill=\"#c60c30\"/>\n<rect width=\"40\" height=\"280\" x=\"120\" fill=\"#fff\"/>\n<rect width=\"370\" height=\"40\" y=\"120\" fill=\"#fff\"/>\n</svg>\n"
+      },
+      {
+        "network_id": 30,
+        "url": "https://optaplayerstats.statsperform.com/images/flags/nl.svg",
+        "status": 200,
+        "resource_type": "image",
+        "body_preview": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 9 6\">\n<rect fill=\"#21468B\" width=\"9\" height=\"6\"/>\n<rect fill=\"#FFF\" width=\"9\" height=\"4\"/>\n<rect fill=\"#AE1C28\" width=\"9\" height=\"2\"/>\n</svg>\n"
+      },
+      {
+        "network_id": 31,
+        "url": "https://optaplayerstats.statsperform.com/images/flags/hu.svg",
+        "status": 200,
+        "resource_type": "image",
+        "body_preview": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 6 3\">\n<rect fill=\"#436F4D\" width=\"6\" height=\"3\"/>\n<rect fill=\"#FFF\" width=\"6\" height=\"2\"/>\n<rect fill=\"#CD2A3E\" width=\"6\" height=\"1\"/>\n</svg>\n"
+      },
+      {
+        "network_id": 32,
+        "url": "https://optaplayerstats.statsperform.com/images/flags/gb-eng.svg",
+        "status": 200,
+        "resource_type": "image",
+        "body_preview": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 25 15\">\n<rect width=\"25\" height=\"15\" fill=\"#FFF\"/>\n<g fill=\"#CE1124\">\n<rect width=\"3\" height=\"15\" x=\"11\"/>\n<rect width=\"25\" height=\"3\" y=\"6\"/>\n</g>\n</svg>\n"
+      },
+      {
+        "network_id": 33,
+        "url": "https://optaplayerstats.statsperform.com/images/flags/ro.svg",
+        "status": 200,
+        "resource_type": "image",
+        "body_preview": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 3 2\">\n<rect width=\"1\" height=\"2\" x=\"0\" y=\"0\" fill=\"#002B7F\"/>\n<rect width=\"1\" height=\"2\" x=\"1\" y=\"0\" fill=\"#FCD116\"/>\n<rect width=\"1\" height=\"2\" x=\"2\" y=\"0\" fill=\"#CE1126\"/>\n</svg>\n"
+      },
+      {
+        "network_id": 35,
+        "url": "https://v1.api.service.cmp.usercentrics.eu/latest/ruleSetData?id=wlJoQUNoshMJCX",
+        "status": 200,
+        "resource_type": "fetch",
+        "parsed_json": {
+          "ruleSetId": "wlJoQUNoshMJCX",
+          "defaultRule": {
+            "settingsId": "VPm_C0nNsIYyde",
+            "noShow": false
+          },
+          "name": "ConfigMap - wlJoQUNoshMJCX",
+          "rules": [
+            {
+              "settingsId": "zTlUY9rWZoCrnr",
+              "name": "USA",
+              "locations": [
+                "US"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "network_id": 37,
+        "url": "https://v1.api.service.cmp.usercentrics.eu/latest/core/VPm_C0nNsIYyde",
+        "status": 200,
+        "resource_type": "fetch",
+        "parsed_json": {
+          "id": "VPm_C0nNsIYyde",
+          "version": "6.1.13",
+          "languages": [
+            "en",
+            "bg",
+            "da",
+            "nl",
+            "de",
+            "el",
+            "hu",
+            "it",
+            "pl",
+            "pt_br",
+            "pt",
+            "ro",
+            "es"
+          ],
+          "enableBotDetection": true,
+          "allowedDomains": {
+            "list": [
+              "optaplayerstats.statsperform.com",
+              "*.statsperformdev.me",
+              "*.statsperform.com",
+              "*.usercentrics-sandbox.eu",
+              "*.usercentrics-staging.eu",
+              "*.usercentrics.eu",
+              "*.usercentrics-develop.eu",
+              "storage.googleapis.com/usercentrics-integration-test-browser-ui/*",
+              "usercentrics-integration-test-browser-ui.storage.googleapis.com/*",
+              "*.appetize.io/embed/*"
+            ]
+          },
+          "cmp": {
+            "version": "4.31.0",
+            "type": "gdpr"
+          },
+          "testDomains": []
+        }
+      },
+      {
+        "network_id": 39,
+        "url": "https://v1.api.service.cmp.usercentrics.eu/latest/1/cmp/en/GDPR/VPm_C0nNsIYyde/6.1.13/6.1.13?isOutsideRegion=true",
+        "status": 200,
+        "resource_type": "fetch",
+        "parsed_json": {
+          "ui": {
+            "closedView": "none",
+            "theme": "uc",
+            "language": "en",
+            "dpsDisplayFormat": "ALL",
+            "poweredByLogo": "UC",
+            "lifecycleStatus": "active",
+            "gpcSignalHonoured": false
+          },
+          "languages": {
+            "languages": {
+              "bg": {
+                "name": "български"
+              },
+              "da": {
+                "name": "Dansk"
+              },
+              "de": {
+                "name": "Deutsch"
+              },
+              "el": {
+                "name": "Ελληνικά"
+              },
+              "en": {
+                "name": "English"
+              },
+              "es": {
+                "name": "Español"
+              },
+              "hu": {
+                "name": "Magyar"
+              },
+              "it": {
+                "name": "Italiano"
+              },
+              "nl": {
+                "name": "Nederlands"
+              },
+              "pl": {
+                "name": "Polski"
+              },
+              "pt": {
+                "name": "Português (Portugal)"
+              },
+              "pt_br": {
+                "name": "Português (Brasil)"
+              },
+              "ro": {
+                "name": "Română"
+              }
+            }
+          },
+          "core": {
+            "dataLayers": [
+              "dataLayer"
+            ],
+            "customEvents": [
+              "ucEvent"
+            ],
+            "analyticsEnabled": true,
+            "googleConsentModeEnabled": true,
+            "advertiserConsentModeEnabled": true
+          },
+          "setting": {
+            "id": "VPm_C0nNsIYyde",
+            "version": "6.1.13",
+            "type": "GDPR"
+          },
+          "ageVerification": {
+            "enabled": false,
+            "ageThreshold": 18,
+            "verificationMethod": "yesno",
+            "backgroundColor": "",
+            "backgroundOpacity": 70,
+            "aboveAgeBackgroundColor": "",
+            "aboveAgeTextColor": "",
+            "underAgeBackgroundColor": "",
+            "underAgeTextColor": "",
+            "redirectUrl": "",
+            "logoUrl": "",
+            "logoSize": 32,
+            "logoAltTag": "",
+            "contentTitle": "We need to verify your age",
+            "contentText": "You must meet the minimum age required to access the content of this site.",
+            "buttonOverAgeText": "I’m 18 or older",
+            "buttonUnderAgeText": "I’m under 18"
+          },
+          "dps": {
+            "categories": {
+              "marketing": {
+                "name": "Marketing",
+                "dps": {
+                  "HkocEodjb7": false,
+                  "xPiZI7KXsPZvAi": false
+                },
+                "state": "ALL_DENIED"
+              },
+              "functional": {
+                "name": "Functional",
+                "dps": {
+                  "BJ59EidsWQ": false,
+                  "HkPBYFofN": false,
+                  "pd-3srkxrnEqFL": false
+                },
+                "state": "ALL_DENIED"
+              },
+              "essential": {
+                "name": "Essential",
+                "dps": {
+                  "H1Vl5NidjWX": true,
+                  "a0CKpFb_gTX-Tw": true,
+                  "Tunrgwxm3UZVUs": true
+                },
+                "essential": true,
+                "state": "ALL_ACCEPTED"
+              }
+            },
+            "services": {
+              "a0CKpFb_gTX-Tw": {
+                "name": "Stats Perform Kickstart Widgets",
+                "version": "1.0.0",
+                "category": "essential",
+                "essential": true,
+                "consent": {
+                  "given": true,
+                  "type": "IMPLICIT"
+                },
+                "subservices": {},
+                "processorId": "68bafdf0ccc28a148c894b196f99a6a0bb166e5494a6a120332335c0a4c514f3"
+              },
+              "Tunrgwxm3UZVUs": {
+                "name": "Stats Perform Opta Widgets",
+                "version": "1.0.0",
+                "category": "essential",
+                "essential": true,
+                "consent": {
+                  "given": true,
+                  "type": "IMPLICIT"
+                },
+                "subservices": {},
+                "processorId": "e799b8e134333d1f46571577a21ddee5ef1d62e877246db81dc3b327392fd579"
+              },
+              "H1Vl5NidjWX": {
+                "name": "Usercentrics Consent Management Platform",
+                "version": "40.18.46",
+                "category": "essential",
+                "essential": true,
+                "consent": {
+                  "given": true,
+                  "type": "IMPLICIT"
+                },
+                "subservices": {},
+                "processorId": "b371eb2fc592043cb547bb8467db686ad5ec44b873a9c71196e042a7889b482f"
+              },
+              "xPiZI7KXsPZvAi": {
+                "name": "Beehiiv",
+                "version": "1.0.0",
+                "category": "marketing",
+                "essential": false,
+                "consent": {
+                  "given": false,
+                  "type": "IMPLICIT"
+                },
+                "subservices": {},
+                "processorId": "422bd5397d2fa6e0bdbba319c8fd39070a1a3d80dbd95d34e44f39a3ed10aab8",
+                "thirdCountryDataTransfer": true
+              },
+              "HkocEodjb7": {
+                "name": "Google Analytics",
+                "version": "52.11.44",
+                "category": "marketing",
+                "essential": false,
+                "gcm": {
+                  "analyticsStorage": true
+                },
+                "consent": {
+                  "given": false,
+                  "type": "IMPLICIT"
+                },
+                "subservices": {},
+                "processorId": "19204a3fc4ee51d4470c25deea050311a4ee22393bf16f1ea341e4216f1176dd"
+              },
+              "HkPBYFofN": {
+                "name": "Google Fonts",
+                "version": "10.3.2",
+                "category": "functional",
+                "essential": false,
+                "consent": {
+                  "given": false,
+                  "type": "IMPLICIT"
+                },
+                "subservices": {},
+                "processorId": "dd659e6d8e059f50fabdd723aa71f2cf6e562f8dd2e53d3b4ceea5710ea207b3"
+              },
+              "BJ59EidsWQ": {
+                "name": "Google Tag Manager",
+                "version": "25.7.30",
+                "category": "functional",
+                "essential": false,
+                "consent": {
+                  "given": false,
+                  "type": "IMPLICIT"
+                },
+                "subservices": {},
+                "processorId": "e94ccc0e93693c8e8954ee9c3b5257d0ee1a1c4e878cfebb206657ad26314479"
+              },
+              "pd-3srkxrnEqFL": {
+                "name": "OneTrust",
+                "version": "1.0.1",
+                "category": "functional",
+                "essential": false,
+                "consent": {
+                  "given": false,
+                  "type": "IMPLICIT"
+                },
+                "subservices": {},
+                "processorId": "b39a495054e54abcc477cbf18dc048b84f4a3cdfac0b1890fd754b5c07266fd0"
+              }
+            },
+            "granularConsentDisabled": false
+          },
+          "gcm": {
+            "developerId": "developer_id.dOThhZD"
+          },
+          "theme": {
+            "privacyButton": {
+              "default": {
+                "position": "left",
+                "size": 64,
+                "pages": [],
+                "icon": {
+                  "url": "https://img.usercentrics.eu/misc/icon-fingerprint.svg",
+                  "type": "fingerprint"
+                }
+              },
+              "screens": {
+                "mobile": {
+                  "size": 44
+                }
+              }
+            },
+            "cmp": {
+              "default": {
+                "layout": {
+                  "template": "BANNER",
+                  "position": "bottom"
+                },
+                "features": {
+                  "overlay": {
+                    "enabled": false
+                  }
+                },
+                "elements": {
+                  "logo": {
+                    "url": "https://optaplayerstats.statsperform.com/images/logo/scoresway_logo_2021.png",
+                    "alt": "Stats Perform"
+                  },
+                  "buttons": {
+                    "order": [
+                      [
+                        "deny",
+                        "accept"
+                      ]
+                    ]
+                  }
+                },
+                "visibility": {
+                  "showMoreInformationLink": true
+                },
+                "typography": {
+                  "font": "BlinkMacSystemFont,-apple-system,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,Helvetica,Arial,sans-serif"
+                },
+                "colors": {
+                  "light": {
+                    "main": {
+                      "primary": "#0045A5",
+                      "neutral": "#ffffff",
+                      "text": "#303030",
+                      "border": "#DDDDDD"
+                    },
+                    "links": {
+                      "anchor": "#303030"
+                    },
+                    "buttons": {
+                      "accept": {
+                        "background": "#222222",
+                        "text": "#FFFFFF"
+                      },
+                      "deny": {
+                        "background": "#9B9B9B",
+                        "text": "#FFFFFF"
+                      },
+                      "save": {
+                        "background": "#222222",
+                        "text": "#FFFFFF"
+                      },
+                      "ok": {
+                        "background": "#F5F5F5",
+                        "text": "#303030"
+                      }
+                    },
+                    "cmp": {
+                      "background": "#FFFFFF",
+                      "overlay": "#333333"
+                    },
+                    "tabs": {
+                      "containerBackground": "#fff"
+                    },
+                    "toggle": {
+                      "background": {
+                        "active": "#20D77F",
+                        "inactive": "#5A5A5A",
+                        "disabled": "#E2E2E2"
+                      }
+                    }
+                  }
+                }
+              },
+              "screens": {
+                "desktop": {
+                  "first": {
+                    "features": {
+                      "denyConsentsOnClose": false
+                    }
+                  },
+                  "second": {
+                    "layout": {
+                      "position": "center"
+                    },
+                    "elements": {
+                      "buttons": {
+                        "order": [
+                          [
+                            "save",
+                            "deny",
+                            "accept"
+                          ]
+                        ]
+                      }
+                    },
+                    "visibility": {
+                      "hideDataProcessingServices": false,
+                      "hideServicesToggles": false,
+                      "hideLanguageSwitch": false
+                    }
+                  }
+                },
+                "mobile": {
+                  "base": {
+                    "elements": {
+                      "buttons": {
+                        "order": [
+                          [
+                            "accept"
+                          ],
+                          [
+                            "deny"
+                          ]
+                        ]
+                      }
+                    }
+                  },
+                  "second": {
+                    "elements": {
+                      "buttons": {
+                        "order": [
+                          [
+                            "accept"
+                          ],
+                          [
+                            "deny"
+                          ],
+                          [
+                            "save"
+                          ]
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "consent": {
+            "controllerId": "",
+            "createdAt": 0,
+            "language": "en",
+            "required": true,
+            "setting": {
+              "id": "VPm_C0nNsIYyde",
+              "version": "6.1.13",
+              "type": "GDPR"
+            },
+            "updatedAt": 0,
+            "updatedBy": "onInitialPageLoad",
+            "type": "IMPLICIT",
+            "version": 1,
+            "status": "ALL_DENIED",
+            "hash": "",
+            "serviceIds": []
+          },
+          "i18n": {
+            "categories": {
+              "marketing": {
+                "description": "These technologies are used by advertisers to serve ads that are relevant to your interests.",
+                "name": "Marketing",
+                "id": "marketing"
+              },
+              "functional": {
+                "description": "These technologies enable us to analyse usage behavior in order to measure and improve performance.",
+                "name": "Functional",
+                "id": "functional"
+              },
+              "essential": {
+                "description": "These technologies are required to activate the core functionality of our service.",
+                "name": "Essential",
+                "id": "essential"
+              }
+            },
+            "services": {
+              "H1Vl5NidjWX": {
+                "description": "",
+                "id": "H1Vl5NidjWX",
+                "legalBasis": [],
+                "name": "Usercentrics Consent Management Platform"
+              },
+              "BJ59EidsWQ": {
+                "description": "",
+                "id": "BJ59EidsWQ",
+                "legalBasis": [],
+                "name": "Google Tag Manager"
+              },
+              "HkPBYFofN": {
+                "description": "",
+                "id": "HkPBYFofN",
+                "legalBasis": [],
+                "name": "Google Fonts"
+              },
+              "pd-3srkxrnEqFL": {
+                "description": "",
+                "id": "pd-3srkxrnEqFL",
+                "legalBasis": [],
+                "name": "OneTrust"
+              },
+              "a0CKpFb_gTX-Tw": {
+                "description": "",
+                "id": "a0CKpFb_gTX-Tw",
+                "legalBasis": [],
+                "name": "Stats Perform Kickstart Widgets"
+              },
+              "Tunrgwxm3UZVUs": {
+                "description": "",
+                "id": "Tunrgwxm3UZVUs",
+                "legalBasis": [],
+                "name": "Stats Perform Opta Widgets"
+              },
+              "HkocEodjb7": {
+                "description": "",
+                "id": "HkocEodjb7",
+                "legalBasis": [],
+                "name": "Google Analytics"
+              },
+              "xPiZI7KXsPZvAi": {
+                "description": "",
+                "id": "xPiZI7KXsPZvAi",
+                "legalBasis": [],
+                "name": "Beehiiv"
+              }
+            },
+            "base": {
+              "ariaLabels": {
+                "acceptAllButton": "Accept All",
+                "app_collapse": "Collapse",
+                "app_copyControllerId": "Copy Controller ID",
+                "app_expand": "Expand",
+                "app_languageSelector": "Select language",
+                "app_serviceInCategoryDetails": "View Service details",
+                "ccpaButton": "Agree to CCPA",
+                "ccpaMoreInformation": "More Information",
+                "closeButton": "Close Layer",
+                "collapse": "Collapse",
+                "cookiePolicyButton": "Open Cookie Policy",
+                "copyControllerId": "Copy Controller ID",
+                "denyAllButton": "Deny all",
+                "dsrButton": "Open Data Subject Request Form",
+                "expand": "Expand",
+                "fullscreenButton": "Enter full screen",
+                "imprintButton": "Open Imprint",
+                "languageSelector": "Select language",
+                "privacyButton": "Open",
+                "privacyPolicyButton": "Open Privacy Policy",
+                "saveButton": "Save",
+                "serviceInCategoryDetails": "View Service details",
+                "servicesInCategory": "List of Services in this category",
+                "tabButton": "Tab",
+                "tv_collapse": "Collapse",
+                "tv_copyControllerId": "Copy Controller ID",
+                "tv_expand": "Expand",
+                "tv_languageSelector": "Select language",
+                "tv_serviceInCategoryDetails": "View Service details",
+                "usercentricsCMPButtons": "Footer including buttons",
+                "usercentricsCMPContent": "Content",
+                "usercentricsCMPHeader": "Header including language selection and external links",
+                "usercentricsCMPUI": "Consent Management Platform Interface",
+                "usercentricsCard": "Card",
+                "usercentricsList": "List",
+                "vendorConsentToggle": "Consent",
+                "vendorDetailedStorageInformation": "Detailed Storage Information",
+                "vendorLegIntToggle": "Legitimate Interest"
+              },
+              "cookieInformation": {
+                "anyDomain": "any domain (ex. first party cookie)",
+                "cookieRefresh": "Cookie refresh",
+                "cookieStorage": "Cookie storage",
+                "day": "day",
+                "days": "days",
+                "description": "Below you can see the longest potential duration for storage on a device, as set when using any method of storage.",
+                "domain": "Domain",
+                "duration": "Duration",
+                "error": "Sorry, we could not load the required information.",
+                "hour": "hour",
+                "hours": "hours",
+                "identifier": "Identifier",
+                "loading": "Loading storage information",
+                "maximumAge": "Maximum age of cookie storage",
+                "minute": "minute",
+                "minutes": "minutes",
+                "month": "month",
+                "months": "months",
+                "multipleDomains": "multiple subdomains may exist",
+                "name": "Name",
+                "disclosureDescription": "Description",
+                "no": "no",
+                "nonCookieStorage": "Non-cookie storage",
+                "disclosureOptOut": "Opt-out",
+                "purposes": "Purposes",
+                "specialPurposes": "Special Purposes",
+                "second": "second",
+                "seconds": "seconds",
+                "session": "Session",
+                "storedInformation": "Stored Information",
+                "storedInformationDescription": "This service uses different means of storing information on a user’s device as listed below.",
+                "title": "Storage Information",
+                "titleDetailed": "Detailed Storage Information",
+                "tryAgain": "Try again?",
+                "type": "Type",
+                "year": "year",
+                "years": "years",
+                "yes": "yes"
+              },
+              "links": {
+                "imprint": {
+                  "ariaLabel": "Open Terms of Use",
+                  "label": "Terms of Use",
+                  "url": "https://www.statsperform.com/terms-of-use/",
+                  "order": 3,
+                  "type": "imprint"
+                },
+                "privacyPolicy": {
+                  "ariaLabel": "Open Privacy Policy",
+                  "label": "Privacy Policy",
+                  "url": "https://www.statsperform.com/privacy-policy/",
+                  "order": 1,
+                  "type": "privacyPolicy"
+                }
+              },
+              "poweredBy": {
+                "isEnabled": true,
+                "labels": {
+                  "prefix": "Powered by",
+                  "uc": "Usercentrics Consent Management",
+                  "cb": "Usercentrics Cookiebot",
+                  "partner": ""
+                },
+                "links": {
+                  "uc": "https://usercentrics.com/consent-management-platform-powered-by-usercentrics/",
+                  "partner": ""
+                }
+              },
+              "serviceDetail": {
+                "dataCollected": {
+                  "description": "This list represents all (personal) data that is collected by or through the use of this service.",
+                  "title": "Data Collected"
+                },
+                "dataDistribution": {
+                  "processingLocationDescription": "This is the primary location where the collected data is being processed. If the data is also processed in other countries, you are informed separately.",
+                  "processingLocationTitle": "Location of Processing",
+                  "thirdPartyCountriesDescription": "This service may forward the collected data to a different country. Please note that this service might transfer the data to a country without the required data protection standards. Below you can find a list of countries to which the data is being transferred. For more information regarding safeguards please refer to the provider's privacy policy or contact the provider directly.",
+                  "thirdPartyCountriesTitle": "Transfer to Third Countries"
+                },
+                "dataProtectionOfficer": {
+                  "description": "Below you can find the email address of the data protection officer of the processing company.",
+                  "title": "Data Protection Officer of Processing Company"
+                },
+                "dataPurposes": {
+                  "description": "This list represents the purposes of the data collection and processing.",
+                  "title": "Data Purposes"
+                },
+                "dataRecipients": {
+                  "description": "In the following the recipients of the data collected are listed.",
+                  "title": "Data Recipients"
+                },
+                "descriptionTitle": "Description of Service",
+                "history": {
+                  "description": null,
+                  "title": "History"
+                },
+                "legalBasis": {
+                  "description": "In the following the required legal basis for the processing of data is listed.",
+                  "title": "Legal Basis"
+                },
+                "retentionPeriod": {
+                  "description": "The retention period is the time span the collected data is saved for the processing purposes. The data needs to be deleted as soon as it is no longer needed for the stated processing purposes.",
+                  "title": "Retention Period"
+                },
+                "technologiesUsed": {
+                  "description": "This list represents all technologies this service uses to collect data.",
+                  "title": "Technologies Used"
+                },
+                "urls": {
+                  "cookiePolicyTitle": "Click here to read the cookie policy of the data processor",
+                  "optOutTitle": "Click here to opt out from this processor across all domains",
+                  "privacyPolicyTitle": "Click here to read the privacy policy of the data processor"
+                }
+              },
+              "back": "Back",
+              "consentGiven": "yes",
+              "consentNotGiven": "no",
+              "consentType": "Consent type",
+              "controllerId": "ID to request consent data",
+              "copied": "copied",
+              "copy": "copy",
+              "date": "Date",
+              "decision": "Decision",
+              "details": "Details",
+              "explicit": "Explicit",
+              "gpcSignalHonored": "The GPC signal is honored",
+              "implicit": "Implicit",
+              "implicitNo": "no (default)",
+              "implicitYes": "yes (default)",
+              "privacyButton": "Privacy Settings",
+              "showLess": "Read less",
+              "showMore": "Read more",
+              "subservice": "Subservice",
+              "subservices": "Subservices",
+              "subservicesDescription": "Below you can find all the services that are subordinate to this service. The current consent status of this service applies to all subservices.",
+              "accepted": "yes",
+              "anyDomain": "any domain (ex. first party cookie)",
+              "btnBannerReadMore": "Read more",
+              "cookiePolicyInfo": "Click here to read the cookie policy of the data processor",
+              "cookiePolicyLinkText": "Cookie Policy",
+              "cookiePolicyUrl": "",
+              "dataCollectedInfo": "This list represents all (personal) data that is collected by or through the use of this service.",
+              "dataCollectedList": "Data Collected",
+              "dataProtectionOfficer": "Data Protection Officer of Processing Company",
+              "dataProtectionOfficerInfo": "Below you can find the email address of the data protection officer of the processing company.",
+              "dataPurposes": "Data Purposes",
+              "dataPurposesInfo": "This list represents the purposes of the data collection and processing.",
+              "dataRecipientsList": "Data Recipients",
+              "dataRecipientsListInfo": "In the following the recipients of the data collected are listed.",
+              "day": "day",
+              "days": "days",
+              "denied": "no",
+              "descriptionOfService": "Description of Service",
+              "detailedStorageInformation": "Detailed Storage Information",
+              "domain": "Domain",
+              "duration": "Duration",
+              "history": "History",
+              "hour": "hour",
+              "hours": "hours",
+              "identifier": "Identifier",
+              "imprintLinkText": "Terms of Use",
+              "imprintUrl": "https://www.statsperform.com/terms-of-use/",
+              "informationLoadingNotPossible": "Sorry, we could not load the required information.",
+              "legalBasisInfo": "In the following the required legal basis for the processing of data is listed.",
+              "legalBasisList": "Legal Basis",
+              "loadingStorageInformation": "Loading storage information",
+              "locationOfProcessing": "Location of Processing",
+              "locationofProcessingInfo": "This is the primary location where the collected data is being processed. If the data is also processed in other countries, you are informed separately.",
+              "maximumAgeCookieStorage": "Maximum age of cookie storage",
+              "minute": "minute",
+              "minutes": "minutes",
+              "month": "month",
+              "months": "months",
+              "multipleDomains": "multiple subdomains may exist",
+              "name": "Name",
+              "no": "no",
+              "noImplicit": "no (default)",
+              "nonCookieStorage": "Non-cookie storage",
+              "optOut": "Click here to opt out from this processor across all domains",
+              "policyOf": "Click here to read the privacy policy of the data processor",
+              "processingCompany": "Processing Company",
+              "privacyPolicyLinkText": "Privacy Policy",
+              "privacyPolicyUrl": "https://www.statsperform.com/privacy-policy/",
+              "readLess": "Read less",
+              "retentionPeriod": "Retention Period",
+              "retentionPeriodInfo": "The retention period is the time span the collected data is saved for the processing purposes. The data needs to be deleted as soon as it is no longer needed for the stated processing purposes.",
+              "second": "second",
+              "seconds": "seconds",
+              "session": "Session",
+              "storageInformation": "Storage Information",
+              "storageInformationDescription": "Below you can see the longest potential duration for storage on a device, as set when using any method of storage.",
+              "storedInformation": "Stored Information",
+              "storedInformationDescription": "This service uses different means of storing information on a user’s device as listed below.",
+              "tabs": {
+                "categories": "Categories",
+                "services": "Services",
+                "about": "About",
+                "details": "Details",
+                "consent": "Consent"
+              },
+              "technologiesUsed": "Technologies Used",
+              "technologiesUsedInfo": "This list represents all technologies this service uses to collect data.",
+              "transferToThirdCountries": "Transfer to Third Countries",
+              "transferToThirdCountriesInfo": "This service may forward the collected data to a different country. Please note that this service might transfer the data to a country without the required data protection standards. Below you can find a list of countries to which the data is being transferred. For more information regarding safeguards please refer to the provider's privacy policy or contact the provider directly.",
+              "tryAgain": "Try again?",
+              "type": "Type",
+              "year": "year",
+              "years": "years",
+              "yes": "yes",
+              "yesImplicit": "yes (default)",
+              "ageVerificationTitle": "We need to verify your age",
+              "ageVerificationDescription": "You must meet the minimum age required to access the content of this site.",
+              "ageVerificationYes": "I’m 18 or older",
+              "ageVerificationNo": "I’m under 18",
+              "dataTransferFilter": {
+                "all": "All",
+                "thirdCountry": "Data Transfer to Third Countries"
+              },
+              "crossDomainConsent": {
+                "title": "Cross-domain consent",
+                "appliesTo": "Your consent applies to the following domains:",
+                "listOfDomains": "List of domains your consent applies to:"
+              },
+              "dsr": "Do not sell or share my personal information",
+              "unsupportedBrowserMessage": "Your browser version needs an update for this banner to work properly."
+            },
+            "gdpr": {
+              "continueWithoutAccept": "Continue without accepting",
+              "addVendorCount": false,
+              "dutchThirdPartyText": "We work with %THIRD_PARTY_COUNT% third parties who may receive and process your information.",
+              "copMandatoryBadgeLabel": "Mandatory",
+              "exemptedBadgeLabel": "Exempted",
+              "exemptedServicesHeading": "Allow exempted services",
+              "exemptedServicesLabel": "%EXEMPTED_SERVICE_COUNT% services currently marked as exempted",
+              "exemptedServicesOptOutAllLabel": "Deny all exempted",
+              "exemptedServicesOptInAllLabel": "Allow all exempted"
+            },
+            "firstLayer": {
+              "privacy": {
+                "title": "Privacy Settings",
+                "description": "This site uses third-party website tracking technologies to provide and continually improve our services, and to display advertisements according to users' interests. I agree and may revoke or change my consent at any time with effect for the future."
+              },
+              "buttons": {
+                "accept": "Accept All",
+                "deny": "Deny",
+                "more": "More Information",
+                "save": "Save Settings"
+              }
+            },
+            "secondLayer": {
+              "privacy": {
+                "title": "Privacy Settings",
+                "description": "This tool helps you manage consent to third party technologies collecting and processing personal data."
+              },
+              "buttons": {
+                "accept": "Accept All",
+                "deny": "Deny",
+                "save": "Save Settings"
+              }
+            }
+          }
+        }
+      },
+      {
+        "network_id": 41,
+        "url": "https://secure.widget.cloud.opta.net/v3/css/v3.all.opta-widgets.css",
+        "status": 200,
+        "resource_type": "stylesheet",
+        "body_preview": "/**\n * opta-widgets - v3.269.0\n * Copyright (c) 2026 Opta Sports\n * Licenses: http://widget.cloud.opta.net/v3/licences.txt\n */\n\n@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap);\n@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap);\n@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap);\n﻿.Opta div,.Opta span,.Opta h2,.Opta h3,.Opta h4,.Opta p,.Opta a,.Opta abbr,.Opta img,.Opta dl,.Opta dt,.Opta dd,.Opta ul,.Opta ol,.Opta li,.Opta form,.Opta fieldset,.Opta figure,.Opta figcaption,.Opta label,.Opta legend,.Opta table,.Opta tbody,.Opta thead,.Opta tfoot,.Opta tr,.Opta th,.Opta td,.Opta canvas{margin:0;padding:0;border:0;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;-o-box-sizing:border-box;box-sizing:border-box;font-size:12px;font-style:normal;font-weight:normal;vertical-align:baseline;line-height:1.1}.Opta a{background:rgba(0,0,0,0);word-wrap:break-word}.Opta a:active,.Opta a:hover{outline:0}.Opta abbr{text-decoration:none}.Opta img{border:0}.Opta svg:not(:root){overflow:hidden}.Opta button{margin:0;cursor:pointer;overflow:visible;text-transform:none}.Opta input,.Opta select{vertical-align:middle}.Opta{clear:both;width:100%;padding:0;border:none;margin:0 auto;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;-o-box-sizing:border-box;box-sizing:border-box;line-height:1;font-family:Ari"
+      },
+      {
+        "network_id": 44,
+        "url": "https://secure.widget.cloud.opta.net/v3/v3.opta-widgets.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_preview": "/**\n * opta-widgets - v3.269.0\n * Copyright (c) 2026 Opta Sports\n * Licenses: http://widget.cloud.opta.net/v3/licences.txt\n */(()=>{var e,t,n,r,a,s={\"./manual_vendor/teajs/jquery.teajs-2.23.js\"(e,t,n){!function(e){\"use strict\";var t,n,r,a,s;function i(e){for(var t=0,n=e.length,a=[];!(t>=n);)null===r[e.charAt(t)]?a[t]=247:a[t]=r[e.charAt(t)],t+=1;return a}function o(e){for(var t=0,n=e.length,r=\"\";!(t>=n);)r+=a[255&e[t]],t+=1;return r}function c(e){for(var t=[],n=0,r=0,a=e.length;!(t[n]=(255&e[r])<<24,(r+=1)>=a||(t[n]|=(255&e[r])<<16,(r+=1)>=a)||(t[n]|=(255&e[r])<<8,(r+=1)>=a)||(t[n]|=255&e[r],(r+=1)>=a));)n+=1;return t}function l(e){for(var t=[],n=0,r=0,a=e.length;!(r>=a);)t[n]=255&e[r]>>>24,t[n+=1]=255&e[r]>>>16,t[n+=1]=255&e[r]>>>8,t[n+=1]=255&e[r],n+=1,r+=1;return t}function u(e,t){var n,r,a,s=[],o=[],l=[],u=[],f=[],h=0,m=[];for(s[0]=1633837924,s[1]=1650680933,s[2]=1667523942,s[3]=1684366951,o[0]=1633837924,o[1]=1650680933,l=o,a=(r=c(function(e){var t,n=[],r=0,a=0,s=e.length,i=15-s%16;for(n[r]=i,r+=1;a<s;)n[r]=e[a],r+=1,a+=1;for(t=i;t>0;)n[r]=0,r+=1,t-=1;return n}(i(e)))).length;!(h>=a);)u[0]=r[h],h+=1,u[1]=r[h],h+=1,f[0]=r[h],h+=1,f[1]=r[h],h+=1,o=p(d(u,o),s),l=p(d(f,l),s),n=o[0],o[0]=o[1],o[1]=l[0],l[0]=l[1],l[1]=n;return m[0]=o[0],m[1]=o[1],m[2]=l[0],m[3]=l[1],m}function d(e,t){var n=[];return n[0]=e[0]^t[0],n[1]=e[1]^t[1],n}function p(e,t){for(var n=e[0],r=e[1],a=0,s=32;s-- >0;)n+=(r<<4^r>>>5)+r^a+t[3&a],a-=1640531527,r+=((n|=0)<<4^n>>>5)+n^(a|=0)+t[a>>>11&3],r|=0;var i"
+      },
+      {
+        "network_id": 45,
+        "url": "https://v1.api.service.cmp.usercentrics.eu/latest/autoblocker/VPm_C0nNsIYyde?domain=optaplayerstats.statsperform.com&language=en",
+        "status": 200,
+        "resource_type": "fetch",
+        "parsed_json": {
+          "nodes": [
+            {
+              "serviceIds": [
+                "HkPBYFofN"
+              ],
+              "hash": "7062452600294",
+              "src": "https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap&subset=latin-ext"
+            },
+            {
+              "serviceIds": [
+                "HkPBYFofN"
+              ],
+              "hash": "6998922866964",
+              "src": "https://secure.widget.cloud.opta.net/v3/css/v3.all.opta-widgets.css"
+            },
+            {
+              "serviceIds": [
+                "BJ59EidsWQ"
+              ],
+              "hash": "11031590464980",
+              "src": "https://www.googletagmanager.com/gtag/js?id=G-7T677PWWJ1"
+            },
+            {
+              "serviceIds": [
+                "HkocEodjb7"
+              ],
+              "hash": "787711392606"
+            },
+            {
+              "serviceIds": [
+                "xPiZI7KXsPZvAi",
+                "BJ59EidsWQ"
+              ],
+              "hash": "7171139075113",
+              "src": "https://subscribe-forms.beehiiv.com/ecf32e9b-19ec-45e1-8e88-3aa1a97ced49"
+            },
+            {
+              "serviceIds": [
+                "xPiZI7KXsPZvAi"
+              ],
+              "hash": "13941223348189",
+              "src": "https://subscribe-forms.beehiiv.com/embed.js"
+            }
+          ],
+          "allowListURLs": [],
+          "overlayLabels": {
+            "title": "We need your consent to load this service!",
+            "description": "We use some services to embed content that may collect data about your activity. Please review the details and accept those services to see this content.",
+            "moreInfo": "More Information",
+            "accept": "Accept",
+            "poweredBy": "Powered by <a href=\"https://usercentrics.com/?utm_source=cmp&utm_medium=powered_by\" rel=\"nofollow\" target=\"_blank\">Usercentrics Consent Management</a>."
+          }
+        }
+      },
+      {
+        "network_id": 49,
+        "url": "https://optaplayerstats.statsperform.com/build/assets/app-BbFf9kcs.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_preview": "var e=Object.create,t=Object.defineProperty,n=Object.getOwnPropertyDescriptor,r=Object.getOwnPropertyNames,i=Object.getPrototypeOf,a=Object.prototype.hasOwnProperty,o=(e,t,n)=>()=>{if(n)throw n[0];try{return e&&(t=e(e=0)),t}catch(e){throw n=[e],e}},s=(e,t)=>()=>(t||(e((t={exports:{}}).exports,t),e=null),t.exports),c=(e,n)=>{let r={};for(var i in e)t(r,i,{get:e[i],enumerable:!0});return n||t(r,Symbol.toStringTag,{value:`Module`}),r},l=(e,i,o,s)=>{if(i&&typeof i==`object`||typeof i==`function`)for(var c=r(i),l=0,u=c.length,d;l<u;l++)d=c[l],!a.call(e,d)&&d!==o&&t(e,d,{get:(e=>i[e]).bind(null,d),enumerable:!(s=n(i,d))||s.enumerable});return e},u=(n,r,o)=>(o=n==null?{}:e(i(n)),l(r||!n||!n.__esModule||!a.call(n,`default`)?t(o,`default`,{value:n,enumerable:!0}):o,n)),d=e=>a.call(e,`module.exports`)?e[`module.exports`]:l(t({},`__esModule`,{value:!0}),e),f=c({$:()=>m,default:()=>m,jQuery:()=>m});function p(e,t){if(e===void 0||!e.document)throw Error(`jQuery requires a window with a document`);var n=[],r=Object.getPrototypeOf,i=n.slice,a=n.flat?function(e){return n.flat.call(e)}:function(e){return n.concat.apply([],e)},o=n.push,s=n.indexOf,c={},l=c.toString,u=c.hasOwnProperty,d=u.toString,f=d.call(Object),p={};function m(e){return e==null?e+``:typeof e==`object`?c[l.call(e)]||`object`:typeof e}function h(e){return e!=null&&e===e.window}function g(e){var t=!!e&&e.length,n=m(e);return typeof e==`function`||h(e)?!1:n===`array`||t===0||typeof t==`number`&&t>0&&t-1 in e}var _=e.document,v={"
+      },
+      {
+        "network_id": 51,
+        "url": "https://optaplayerstats.statsperform.com/images/logo/scoresway_logo_2021.png",
+        "status": 200,
+        "resource_type": "image"
+      },
+      {
+        "network_id": 52,
+        "url": "https://uct.service.usercentrics.eu/uct?v=2&sid=VPm_C0nNsIYyde&t=24&abv=&r=https%3A%2F%2Foptaplayerstats.statsperform.com%2Fen_GB%2Fsoccer&cb=1794250252727",
+        "status": 200,
+        "resource_type": "image"
+      },
+      {
+        "network_id": 53,
+        "url": "https://uct.service.usercentrics.eu/uct?v=2&sid=VPm_C0nNsIYyde&t=1&abv=&r=https%3A%2F%2Foptaplayerstats.statsperform.com%2Fen_GB%2Fsoccer&cb=1794250252887",
+        "status": 200,
+        "resource_type": "image"
+      },
+      {
+        "network_id": 54,
+        "url": "https://optaplayerstats.statsperform.com/kickstart-widgets/kickstart-widgets.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_preview": "import { s as t } from \"./main-BaQTW4nJ.js\";\nexport {\n  t as start\n};\n"
+      },
+      {
+        "network_id": 56,
+        "url": "https://optaplayerstats.statsperform.com/images/Loading-Circle_Grey.gif",
+        "status": 200,
+        "resource_type": "image"
+      },
+      {
+        "network_id": 57,
+        "url": "https://optaplayerstats.statsperform.com/images/favicon/StatsPerform_Logo_Icon_01.png",
+        "status": 200,
+        "resource_type": "other"
+      },
+      {
+        "network_id": 58,
+        "url": "https://optaplayerstats.statsperform.com/images/favicon/StatsPerform_Logo_Icon_01.png",
+        "status": 200,
+        "resource_type": "other"
+      },
+      {
+        "network_id": 59,
+        "url": "https://optaplayerstats.statsperform.com/kickstart-widgets/main-BaQTW4nJ.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_preview": "function dy(s, a) {\n  for (var l = 0; l < a.length; l++) {\n    const u = a[l];\n    if (typeof u != \"string\" && !Array.isArray(u)) {\n      for (const c in u)\n        if (c !== \"default\" && !(c in s)) {\n          const f = Object.getOwnPropertyDescriptor(u, c);\n          f && Object.defineProperty(s, c, f.get ? f : {\n            enumerable: !0,\n            get: () => u[c]\n          });\n        }\n    }\n  }\n  return Object.freeze(Object.defineProperty(s, Symbol.toStringTag, { value: \"Module\" }));\n}\nvar Z_ = typeof globalThis < \"u\" ? globalThis : typeof window < \"u\" ? window : typeof global < \"u\" ? global : typeof self < \"u\" ? self : {};\nfunction vo(s) {\n  return s && s.__esModule && Object.prototype.hasOwnProperty.call(s, \"default\") ? s.default : s;\n}\nfunction J_(s) {\n  if (Object.prototype.hasOwnProperty.call(s, \"__esModule\")) return s;\n  var a = s.default;\n  if (typeof a == \"function\") {\n    var l = function u() {\n      var c = !1;\n      try {\n        c = this instanceof u;\n      } catch {\n      }\n      return c ? Reflect.construct(a, arguments, this.constructor) : a.apply(this, arguments);\n    };\n    l.prototype = a.prototype;\n  } else l = {};\n  return Object.defineProperty(l, \"__esModule\", { value: !0 }), Object.keys(s).forEach(function(u) {\n    var c = Object.getOwnPropertyDescriptor(s, u);\n    Object.defineProperty(l, u, c.get ? c : {\n      enumerable: !0,\n      get: function() {\n        return s[u];\n      }\n    });\n  }), l;\n}\nvar Bu = { exports: {} }, La = {};\n/**\n * @lice"
+      },
+      {
+        "network_id": 60,
+        "url": "https://secure.widget.cloud.opta.net/translations_v2/default/W3_default_1_en_GB_331.json?callback=W3_default_1_en_GB_331",
+        "status": 200,
+        "resource_type": "script",
+        "body_preview": "W3_default_1_en_GB_331({\"d\": \"531|Attendance¦30901|Stake¦26611|Over %hc%¦26621|Under %hc%¦571|Draw|D¦441|No data found¦671|Second yellow card¦21451|Goal¦711|Own goal|OG¦681|Penalty scored|P¦691|Missed penalty¦631|Red card¦651|Substitution off|Sub off¦661|Substitution on|Sub on¦641|Yellow card¦21611|Fixture|FX¦511|Kick off|KO¦30601|Next¦30591|Click for the next question¦30581|Time is up¦30561|Question {{x}} of {{y}}¦30661|Score¦30671|{{x}} out of {{y}}¦30611|Start Quiz¦30571|Time left¦30621|Hi {{name}}!¦30631|Manage Your Account¦30651|Sign In¦30641|Sign Out¦4241|Live¦24671|Live Win Probability¦551|Loading|Loading¦391|Abandoned|AB¦411|After extra time|AET¦421|After extra time penalties|AET+P¦8841|After full time penalties|FT+P¦15191|Cancelled|CANC¦331|Extra time - first half|1ET¦341|Extra time - half time|EHT¦351|Extra time - second half|2EH¦321|Extra time|ET¦14521|Final¦291|First half|1H¦361|Full time|FT¦301|Half time|HT¦371|Penalty Shootout|SO¦381|Post-match¦401|Postponed|PP¦281|Pre-match|PM¦311|Second half|2H¦8851|Sudden death|SD¦26461|Fulltime Result|1X2¦26741|Total Goals¦30881|Asian Handicap¦30921|Player Shots¦27241|Postponed¦26181|Suspended¦4351|Assists|A¦4471|Fouls won|FW¦4491|Goals|G¦5651|Total passes¦9311|Red cards|RC¦4621|Saves|SAV¦9321|Yellow cards|YC¦5541|Away¦5531|Home¦30941|Bet Now¦30191|COMMENTARY¦30211|INSIGHTS¦30201|MATCH PREVIEW¦30221|PRE MATCH INSIGHTS¦521|Venue¦431|Versus|v¦30931|Popular Bets¦\"})"
+      },
+      {
+        "network_id": 61,
+        "url": "https://optaplayerstats.statsperform.com/api/en_GB/soccer/livescores?offset=360",
+        "status": 200,
+        "resource_type": "xhr",
+        "parsed_json": {
+          "matches": [
+            {
+              "id": "3tq6hnnmik9bx0t3i1jwx7504",
+              "status": "fixture",
+              "coverage": 13,
+              "period": 16,
+              "date": 1794252600,
+              "comp": {
+                "id": "2hj3286pqov1g1g59k2t2qcgm",
+                "name": "FA Cup",
+                "nameSeo": "fa-cup",
+                "country": {
+                  "id": "1fk5l4hkqk12i7zske6mcqju6",
+                  "name": "england",
+                  "fullName": "England",
+                  "nameSeo": "england",
+                  "flag": "/images/flags/gb-eng.svg"
+                },
+                "link": "/en_GB/soccer/fa-cup-2026-2027/75p5723yryew2ywn0isvf7cic/results"
+              },
+              "link": "/en_GB/soccer/fa-cup-2026-2027/75p5723yryew2ywn0isvf7cic/match/plymouth-parkway-vs-berkhamsted/3tq6hnnmik9bx0t3i1jwx7504",
+              "home": {
+                "id": "2nls1lqurox9dbpa4cp3qf127",
+                "name": "Plymouth Parkway"
+              },
+              "away": {
+                "id": "6943vv6vi331m2z4dw4eamnec",
+                "name": "Berkhamsted"
+              },
+              "updated": 1794249978
+            },
+            {
+              "id": "11dgyunkb4q9u44gurfnskphw",
+              "status": "playing",
+              "coverage": 13,
+              "period": 10,
+              "date": 1794247200,
+              "comp": {
+                "id": "89ovpy1rarewwzqvi30bfdr8b",
+                "name": "Liga I",
+                "nameSeo": "liga-i",
+                "country": {
+                  "id": "17oj2qrzqlkhdjvazum10sx2i",
+                  "name": "romania",
+                  "fullName": "Romania",
+                  "nameSeo": "romania",
+                  "flag": "/images/flags/ro.svg"
+                },
+                "link": "/en_GB/soccer/liga-i-2026-2027/zbhxyecp7s7s2dqg00ojrbis/results"
+              },
+              "link": "/en_GB/soccer/liga-i-2026-2027/zbhxyecp7s7s2dqg00ojrbis/match/botoșani-vs-oţelul-galați/11dgyunkb4q9u44gurfnskphw",
+              "home": {
+                "id": "a3o7a3tkzwjzwjlphzl531emn",
+                "name": "Botoșani"
+              },
+              "away": {
+                "id": "3yo4oywqy61m0zjsnbi45xq1o",
+                "name": "Oţelul Galați"
+              },
+              "score": {
+                "ht": {
+                  "home": 0,
+                  "away": 0
+                },
+                "ft": {
+                  "home": 0,
+                  "away": 0
+                },
+                "total": {
+                  "home": 0,
+                  "away": 0
+                }
+              },
+              "events": [
+                {
+                  "periodId": 1,
+                  "min": 30,
+                  "timeStr": "29:55",
+                  "teamId": "a3o7a3tkzwjzwjlphzl531emn",
+                  "entity_type": "card",
+                  "playerId": "7d416c2khkrla17neoac33s9h",
+                  "playerName": "E. Papa",
+                  "type": "YC",
+                  "reason": "Foul"
+                },
+                {
+                  "periodId": 1,
+                  "min": 37,
+                  "timeStr": "36:01",
+                  "teamId": "3yo4oywqy61m0zjsnbi45xq1o",
+                  "entity_type": "card",
+                  "playerId": "933igop1dhpmqez0b9s5l7pat",
+                  "playerName": "P. Iacob",
+                  "type": "YC",
+                  "reason": "Foul"
+                }
+              ],
+              "updated": 1794250029
+            },
+            {
+              "id": "4bm5q9alfh9zdqlkfw2zgjw9g",
+              "status": "fixture",
+              "coverage": 13,
+              "period": 16,
+              "date": 1794252600,
+              "comp": {
+                "id": "3is4bkgf3loxv9qfg3hm8zfqb",
+                "name": "Segunda División",
+                "nameSeo": "segunda-división",
+                "country": {
+                  "id": "49ih1pwv3ahshdf8uzrimi54c",
+                  "name": "spain",
+                  "fullName": "Spain",
+                  "nameSeo": "spain",
+                  "flag": "/images/flags/es.svg"
+                },
+                "link": "/en_GB/soccer/segunda-división-2026-2027/fgkxmpz2ewao1l63jrbkgg7o/results"
+              },
+              "link": "/en_GB/soccer/segunda-división-2026-2027/fgkxmpz2ewao1l63jrbkgg7o/match/las-palmas-vs-eldense/4bm5q9alfh9zdqlkfw2zgjw9g",
+              "home": {
+                "id": "1ae3awgwm3i1jds5tfct5441j",
+                "name": "Las Palmas"
+              },
+              "away": {
+                "id": "ba8jyjo18tvjwei7w7thljw10",
+                "name": "Eldense"
+              },
+              "updated": 1794248709
+            },
+            {
+              "id": "4bxcd99c3ge8z843uneglc7is",
+              "status": "fixture",
+              "coverage": 13,
+              "period": 16,
+              "date": 1794252600,
+              "comp": {
+                "id": "3is4bkgf3loxv9qfg3hm8zfqb",
+                "name": "Segunda División",
+                "nameSeo": "segunda-división",
+                "country": {
+                  "id": "49ih1pwv3ahshdf8uzrimi54c",
+                  "name": "spain",
+                  "fullName": "Spain",
+                  "nameSeo": "spain",
+                  "flag": "/images/flags/es.svg"
+                },
+                "link": "/en_GB/soccer/segunda-división-2026-2027/fgkxmpz2ewao1l63jrbkgg7o/results"
+              },
+              "link": "/en_GB/soccer/segunda-división-2026-2027/fgkxmpz2ewao1l63jrbkgg7o/match/sabadell-vs-real-sociedad-ii/4bxcd99c3ge8z843uneglc7is",
+              "home": {
+                "id": "55twm9j9y3hvwk7hlk1vi6zst",
+                "name": "Sabadell"
+              },
+              "away": {
+                "id": "8drpno9gdt807yn09qdud0kzb",
+                "name": "Real Sociedad II"
+              },
+              "updated": 1794248944
+            }
+          ]
+        }
+      },
+      {
+        "network_id": 63,
+        "url": "https://secure.widget.cloud.opta.net/subscriptions/v3_6805c5f0655c9b241ff536409892ab09.json",
+        "status": 200,
+        "resource_type": "script",
+        "body_preview": "v3_6805c5f0655c9b241ff536409892ab09 ({\"data\":\"BjY4MDVjNWYwNjU1YzliMjQxZmY1MzY0MDk4OTJhYjA5AGZ0MXRpdjFpbnE3djFzazN5OXR2MTJ5aDUAAAAAAAAwAAATc2VjdXJlLndpZGdldC5jbG91ZC5vcHRhLm5ldAAqLnNjb3Jlc3dheS5jb20AKi5zdGF0c3BlcmZvcm1kZXYuY29tACouc3RhdHNwZXJmb3JtZGV2Lm1lAGJldC1tc21jLnN0YXRzcGVyZm9ybS5jb20AYmV0LW1zbWMuc3RhdHNwZXJmb3JtZGV2LmNvbQBiZXQtbXNtYy5zdGF0c3BlcmZvcm1kZXYubWUAbG9jYWxob3N0AG1zbWMuc3RhdHNwZXJmb3JtZGV2LmNvbQBtc21jLnN0YXRzcGVyZm9ybWRldi5tZQBvcHRhLW1zbWMuc3RhdHNwZXJmb3JtZGV2LmNvbQBvcHRhLW1zbWMuc3RhdHNwZXJmb3JtZGV2Lm1lAG9wdGFwbGF5ZXJzdGF0cy1zdGFnZS5zdGF0c3BlcmZvcm0uY29tAG9wdGFwbGF5ZXJzdGF0cy5zdGF0c3BlcmZvcm0uY29tAHNjb3Jlc3dheS1tc21jLnN0YXRzcGVyZm9ybWRldi5jb20Ac2NvcmVzd2F5LW1zbWMuc3RhdHNwZXJmb3JtZGV2Lm1lAHNjb3Jlc3dheS5jb20Ac2t5YmV0LW1zbWMuc3RhdHNwZXJmb3JtZGV2LmNvbQBza3liZXQtbXNtYy5zdGF0c3BlcmZvcm1kZXYubWUAAAEAAgAFABYAAQAAAQAAAAhjb21tZW50YXJ5AG1hdGNoc3RhdHMAcGxheWVyX3JhbmtpbmcAcmVmZXJlZXMAdGVhbV9yYW5raW5nAGZpeHR1cmVzAG1hdGNoX3N1bW1hcnkAc3RhbmRpbmdzAAACAAABAAAACGNvbW1lbnRhcnkAbWF0Y2hzdGF0cwBwbGF5ZXJfcmFua2luZwByZWZlcmVlcwB0ZWFtX3JhbmtpbmcAZml4dHVyZXMAbWF0Y2hfc3VtbWFyeQBzdGFuZGluZ3MAAAMAAAEAAAAIY29tbWVudGFyeQBtYXRjaHN0YXRzAHBsYXllcl9yYW5raW5nAHJlZmVyZWVzAHRlYW1fcmFua2luZwBmaXh0dXJlcwBtYXRjaF9zdW1tYXJ5AHN0YW5kaW5ncwAABAAAAQAAAAhjb21tZW50YXJ5AG1hdGNoc3RhdHMAcGxheWVyX3JhbmtpbmcAcmVmZXJlZXMAdGVhbV9yYW5raW5nAGZpeHR1cmVzAG1hdGNoX3N1bW1hcnkAc3RhbmRpbmdzAAAFAAABAAAACGNvbW1lbnRhcnkAbWF0Y2hzdGF0cwBwbGF5ZXJfcmFua2luZwByZWZlcmVlcwB0ZWFtX3JhbmtpbmcAZml4dHVyZXMAbWF0Y2hfc3VtbWFyeQBzdGFuZGluZ3MAAA"
+      },
+      {
+        "network_id": 64,
+        "url": "https://secure.widget.cloud.opta.net/v3/chunks/dayjslocale_en-gb-js.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_preview": "(window.webpackChunkOptaWidgetsV3=window.webpackChunkOptaWidgetsV3||[]).push([[\"chunks/dayjslocale_en-gb-js\"],{\"./node_modules/dayjs/locale/en-gb.js\"(e,a,_){e.exports=function(e){\"use strict\";function a(e){return e&&\"object\"==typeof e&&\"default\"in e?e:{default:e}}var _=a(e),t={name:\"en-gb\",weekdays:\"Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday\".split(\"_\"),weekdaysShort:\"Sun_Mon_Tue_Wed_Thu_Fri_Sat\".split(\"_\"),weekdaysMin:\"Su_Mo_Tu_We_Th_Fr_Sa\".split(\"_\"),months:\"January_February_March_April_May_June_July_August_September_October_November_December\".split(\"_\"),monthsShort:\"Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec\".split(\"_\"),weekStart:1,yearStart:4,relativeTime:{future:\"in %s\",past:\"%s ago\",s:\"a few seconds\",m:\"a minute\",mm:\"%d minutes\",h:\"an hour\",hh:\"%d hours\",d:\"a day\",dd:\"%d days\",M:\"a month\",MM:\"%d months\",y:\"a year\",yy:\"%d years\"},formats:{LT:\"HH:mm\",LTS:\"HH:mm:ss\",L:\"DD/MM/YYYY\",LL:\"D MMMM YYYY\",LLL:\"D MMMM YYYY HH:mm\",LLLL:\"dddd, D MMMM YYYY HH:mm\"},ordinal:function(e){var a=[\"th\",\"st\",\"nd\",\"rd\"],_=e%100;return\"[\"+e+(a[(_-20)%10]||a[_]||a[0])+\"]\"}};return _.default.locale(t,null,!0),t}(_(\"./node_modules/dayjs/dayjs.min.js\"))}}]);\n//# sourceURL=https://secure.widget.cloud.opta.net/v3/chunks/dayjslocale_en-gb-js.js\n//# sourceMappingURL=https://secure.widget.cloud.opta.net/v3/sourcemap/chunks/dayjslocale_en-gb-js.js.map"
+      },
+      {
+        "network_id": 65,
+        "url": "https://secure.widget.cloud.opta.net/v3/bin/subscriptions_6.js?v=3.269.0",
+        "status": 200,
+        "resource_type": "script",
+        "body_preview": "/**\n * opta-widgets - v3.269.0\n * Copyright (c) 2026 Opta Sports\n * Licenses: http://widget.cloud.opta.net/v3/licences.txt\n */\n(window.webpackChunkOptaWidgetsV3=window.webpackChunkOptaWidgetsV3||[]).push([[\"bin/subscriptions_6\"],{\"./src/bin/subscriptions_6.js\"(){Opta.bin.subscriptions_6=function(i){\"use strict\";var n,s=Opta,t=s._,e=s.binary.readString,r=function(){return i.getInt16()},a={bin_ver:6,subscription_id:e(i),sdapi_key:e(i),eplayer_key:e(i),dfp_partner_id:e(i),dfp_region:e(i),omo_username:e(i),omo_password:e(i),fast_data:e(i),widgets:{},feeds:{}};return n=r(),a.domains=new Array(n),t.times(n,(function(n){a.domains[n]=e(i)})),a.no_domain=r(),n=r(),t.times(n,(function(){var n=r(),s=r(),o={};t.times(s,(function(){var n=r(),s=e(i),a=r();n&&(o[n]={}),s&&(o[s]={}),t.times(a,(function(){var a=r(),u=r();n&&(o[n][a]={}),s&&(o[s][a]={}),t.times(u,(function(){var t=e(i);n&&(o[n][a][t]=!0),s&&(o[s][a][t]=!0)}))}))})),a.widgets[n]=o})),n=r(),t.times(n,(function(){var n=e(i),s=r(),o={};t.times(s,(function(){var n=r(),s=e(i),a=r();o[n]={},o[s]={},t.times(a,(function(){var i=r();o[n][i]=!0,o[s][i]=!0}))})),a.feeds[n]=o})),a}}},i=>{var n;n=\"./src/bin/subscriptions_6.js\",i(i.s=n)}]);\n//# sourceURL=https://secure.widget.cloud.opta.net/v3/bin/subscriptions_6.js\n//# sourceMappingURL=https://secure.widget.cloud.opta.net/v3/sourcemap/bin/subscriptions_6.js.map"
+      },
+      {
+        "network_id": 66,
+        "url": "https://secure.widget.cloud.opta.net/v3/v3.app.opta-widgets.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_preview": "/**\n * opta-widgets - v3.269.0\n * Copyright (c) 2026 Opta Sports\n * Licenses: http://widget.cloud.opta.net/v3/licences.txt\n */\n(window.webpackChunkOptaWidgetsV3=window.webpackChunkOptaWidgetsV3||[]).push([[\"v3.app.opta-widgets\"],{\"./node_modules/tablesorter/dist/js/jquery.tablesorter.js\"(t){t.exports=function(t){return function(e){\"use strict\";var s=e.tablesorter={version:\"2.28.15\",parsers:[],widgets:[],defaults:{theme:\"default\",widthFixed:!1,showProcessing:!1,headerTemplate:\"{content}\",onRenderTemplate:null,onRenderHeader:null,cancelSelection:!0,tabIndex:!0,dateFormat:\"mmddyyyy\",sortMultiSortKey:\"shiftKey\",sortResetKey:\"ctrlKey\",usNumberFormat:!0,delayInit:!1,serverSideSorting:!1,resort:!0,headers:{},ignoreCase:!0,sortForce:null,sortList:[],sortAppend:null,sortStable:!1,sortInitialOrder:\"asc\",sortLocaleCompare:!1,sortReset:!1,sortRestart:!1,emptyTo:\"bottom\",stringTo:\"max\",duplicateSpan:!0,textExtraction:\"basic\",textAttribute:\"data-text\",textSorter:null,numberSorter:null,initWidgets:!0,widgetClass:\"widget-{name}\",widgets:[],widgetOptions:{zebra:[\"even\",\"odd\"]},initialized:null,tableClass:\"\",cssAsc:\"\",cssDesc:\"\",cssNone:\"\",cssHeader:\"\",cssHeaderRow:\"\",cssProcessing:\"\",cssChildRow:\"tablesorter-childRow\",cssInfoBlock:\"tablesorter-infoOnly\",cssNoSort:\"tablesorter-noSort\",cssIgnoreRow:\"tablesorter-ignoreRow\",cssIcon:\"tablesorter-icon\",cssIconNone:\"\",cssIconAsc:\"\",cssIconDesc:\"\",cssIconDisabled:\"\",pointerClick:\"click\",pointerDown:\"mousedown\",pointerUp:\"mouseup\",selectorHeaders:\"> t"
+      },
+      {
+        "network_id": 67,
+        "url": "https://secure.widget.cloud.opta.net/v3/components/generic.all.js?v=3.269.0",
+        "status": 200,
+        "resource_type": "script",
+        "body_preview": "/**\n * opta-widgets - v3.269.0\n * Copyright (c) 2026 Opta Sports\n * Licenses: http://widget.cloud.opta.net/v3/licences.txt\n */\n(window.webpackChunkOptaWidgetsV3=window.webpackChunkOptaWidgetsV3||[]).push([[\"components/generic.all\"],{\"./src/components/generic/ad.ts\"(_,t,e){\"use strict\";var E=e(\"./src/components/generic/advertisement/AdStorage.ts\"),a=e(\"./src/components/generic/advertisement/ImaSdk.ts\"),T=e(\"./src/tsmodules/Opta.ts\");const s=\"Opta-AdPlayButton\";class i extends a.X{constructor(_){super(_),this.hasRecentDfp=()=>this.ad_storage.hasRecentDfp(),this.setAdStorage=()=>this.ad_storage.setAdStorage(),this.is_overlay=\"overlay\"===this.params.dfp_mode,this.ad_storage=new E.D({dfp_scope:this.params.dfp_scope,no_repeat_secs:this.params.dfp_ad_spacing,uid:this.options.uid}),this.params.muted=this.ad_storage.getMuteState()||this.params.muted,this.init()}play(){this.adsInitiated.then((()=>{this.adsLoader.requestAds(this.adsRequest),T.A.events.publish(\"advertisement.request\"),this.debug(\"AD: play requested\")}))}stop(){this.adsManager.stop(),this.debug(\"AD: stopped\")}pause(){this.adsManager.pause(),this.debug(\"AD: paused\")}resume(){this.adsManager.resume(),this.debug(\"AD: resumed\")}resize(){if(this.adsManager&&-1!==this.adsManager.getRemainingTime()){const _=this.containerElement.clientHeight,t=this.containerElement.clientWidth;this.adsManager.resize(t,_,google.ima.ViewMode.NORMAL),this.has_button&&!this.is_overlay&&(0,T.A)(this.containerElement).height(_),this.debug(\"AD: resized"
+      }
+    ],
+    "all_network_requests_count": 67,
+    "all_network_requests": [
+      {
+        "network_id": 1,
+        "url": "https://optaplayerstats.statsperform.com/",
+        "status": 200,
+        "resource_type": "document"
+      },
+      {
+        "network_id": 2,
+        "url": "https://kickstart-widgets.statsperform.com/msmc-showcase/akamai/loading.gif",
+        "status": 200,
+        "resource_type": "image"
+      },
+      {
+        "network_id": 3,
+        "url": "https://optaplayerstats.statsperform.com/",
+        "status": 302,
+        "resource_type": "document"
+      },
+      {
+        "network_id": 4,
+        "url": "https://optaplayerstats.statsperform.com/en_GB",
+        "status": 302,
+        "resource_type": "document"
+      },
+      {
+        "network_id": 5,
+        "url": "https://optaplayerstats.statsperform.com/_sec/verify?provider=interstitial",
+        "status": 200,
+        "resource_type": "xhr"
+      },
+      {
+        "network_id": 6,
+        "url": "https://kickstart-widgets.statsperform.com/msmc-showcase/akamai/crypto-challenge-interstitial.html",
+        "status": 200,
+        "resource_type": "document"
+      },
+      {
+        "network_id": 7,
+        "url": "https://optaplayerstats.statsperform.com/en_GB/soccer",
+        "status": 200,
+        "resource_type": "document"
+      },
+      {
+        "network_id": 8,
+        "url": "https://optaplayerstats.statsperform.com/images/logo/Opta_Logo_Primary_02.png",
+        "status": 200,
+        "resource_type": "image"
+      },
+      {
+        "network_id": 9,
+        "url": "https://optaplayerstats.statsperform.com/build/assets/betshowcase-BlNpZyYM.css",
+        "status": 200,
+        "resource_type": "stylesheet"
+      },
+      {
+        "network_id": 10,
+        "url": "https://optaplayerstats.statsperform.com/images/flags/gb.svg",
+        "status": 200,
+        "resource_type": "image"
+      },
+      {
+        "network_id": 11,
+        "url": "https://web.cmp.usercentrics.eu/modules/autoblocker.js",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 12,
+        "url": "https://web.cmp.usercentrics.eu/tcf/stub.js",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 13,
+        "url": "https://optaplayerstats.statsperform.com/kickstart-widgets/kickstart-widgets.css",
+        "status": 200,
+        "resource_type": "stylesheet"
+      },
+      {
+        "network_id": 14,
+        "url": "https://optaplayerstats.statsperform.com/build/assets/icomoon-KhI-wgfl.woff",
+        "status": 200,
+        "resource_type": "font"
+      },
+      {
+        "network_id": 15,
+        "url": "https://optaplayerstats.statsperform.com/kickstart-widgets/kickstart-widgets.js",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 16,
+        "url": "https://web.cmp.usercentrics.eu/ui/loader.js",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 17,
+        "url": "https://optaplayerstats.statsperform.com/build/assets/app-BbFf9kcs.js",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 18,
+        "url": "https://optaplayerstats.statsperform.com/images/flags/de.svg",
+        "status": 200,
+        "resource_type": "image"
+      },
+      {
+        "network_id": 19,
+        "url": "https://optaplayerstats.statsperform.com/images/flags/es.svg",
+        "status": 200,
+        "resource_type": "image"
+      },
+      {
+        "network_id": 20,
+        "url": "https://optaplayerstats.statsperform.com/images/flags/419.svg",
+        "status": 200,
+        "resource_type": "image"
+      },
+      {
+        "network_id": 21,
+        "url": "https://optaplayerstats.statsperform.com/images/flags/fr.svg",
+        "status": 200,
+        "resource_type": "image"
+      },
+      {
+        "network_id": 22,
+        "url": "https://optaplayerstats.statsperform.com/images/flags/it.svg",
+        "status": 200,
+        "resource_type": "image"
+      },
+      {
+        "network_id": 23,
+        "url": "https://optaplayerstats.statsperform.com/images/flags/gr.svg",
+        "status": 200,
+        "resource_type": "image"
+      },
+      {
+        "network_id": 24,
+        "url": "https://optaplayerstats.statsperform.com/images/flags/br.svg",
+        "status": 200,
+        "resource_type": "image"
+      },
+      {
+        "network_id": 25,
+        "url": "https://optaplayerstats.statsperform.com/images/flags/pt.svg",
+        "status": 200,
+        "resource_type": "image"
+      },
+      {
+        "network_id": 26,
+        "url": "https://optaplayerstats.statsperform.com/images/flags/pl.svg",
+        "status": 200,
+        "resource_type": "image"
+      },
+      {
+        "network_id": 27,
+        "url": "https://optaplayerstats.statsperform.com/images/flags/bg.svg",
+        "status": 200,
+        "resource_type": "image"
+      },
+      {
+        "network_id": 28,
+        "url": "https://optaplayerstats.statsperform.com/images/flags/dk.svg",
+        "status": 200,
+        "resource_type": "image"
+      },
+      {
+        "network_id": 29,
+        "url": "https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap&subset=latin-ext",
+        "status": 200,
+        "resource_type": "stylesheet"
+      },
+      {
+        "network_id": 30,
+        "url": "https://optaplayerstats.statsperform.com/images/flags/nl.svg",
+        "status": 200,
+        "resource_type": "image"
+      },
+      {
+        "network_id": 31,
+        "url": "https://optaplayerstats.statsperform.com/images/flags/hu.svg",
+        "status": 200,
+        "resource_type": "image"
+      },
+      {
+        "network_id": 32,
+        "url": "https://optaplayerstats.statsperform.com/images/flags/gb-eng.svg",
+        "status": 200,
+        "resource_type": "image"
+      },
+      {
+        "network_id": 33,
+        "url": "https://optaplayerstats.statsperform.com/images/flags/ro.svg",
+        "status": 200,
+        "resource_type": "image"
+      },
+      {
+        "network_id": 34,
+        "url": "https://web.cmp.usercentrics.eu/ui/v/4.31.0/WebSdk.lib.0496cd28.js",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 35,
+        "url": "https://v1.api.service.cmp.usercentrics.eu/latest/ruleSetData?id=wlJoQUNoshMJCX",
+        "status": 200,
+        "resource_type": "fetch"
+      },
+      {
+        "network_id": 36,
+        "url": "https://fonts.gstatic.com/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBA.woff2",
+        "status": 200,
+        "resource_type": "font"
+      },
+      {
+        "network_id": 37,
+        "url": "https://v1.api.service.cmp.usercentrics.eu/latest/core/VPm_C0nNsIYyde",
+        "status": 200,
+        "resource_type": "fetch"
+      },
+      {
+        "network_id": 38,
+        "url": "https://app.usercentrics.eu/session/1px.png?settingsId=VPm_C0nNsIYyde",
+        "status": 200,
+        "resource_type": "image"
+      },
+      {
+        "network_id": 39,
+        "url": "https://v1.api.service.cmp.usercentrics.eu/latest/1/cmp/en/GDPR/VPm_C0nNsIYyde/6.1.13/6.1.13?isOutsideRegion=true",
+        "status": 200,
+        "resource_type": "fetch"
+      },
+      {
+        "network_id": 40,
+        "url": "https://web.cmp.usercentrics.eu/ui/v/4.31.0/GdprCmpController.1711bf3b.js",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 41,
+        "url": "https://secure.widget.cloud.opta.net/v3/css/v3.all.opta-widgets.css",
+        "status": 200,
+        "resource_type": "stylesheet"
+      },
+      {
+        "network_id": 42,
+        "url": "https://web.cmp.usercentrics.eu/ui/TvGdprCmpView.87f558f7.js",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 43,
+        "url": "https://web.cmp.usercentrics.eu/ui/v/4.31.0/UcGdprCmpView.242daee0.js",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 44,
+        "url": "https://secure.widget.cloud.opta.net/v3/v3.opta-widgets.js",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 45,
+        "url": "https://v1.api.service.cmp.usercentrics.eu/latest/autoblocker/VPm_C0nNsIYyde?domain=optaplayerstats.statsperform.com&language=en",
+        "status": 200,
+        "resource_type": "fetch"
+      },
+      {
+        "network_id": 46,
+        "url": "https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap",
+        "status": 200,
+        "resource_type": "stylesheet"
+      },
+      {
+        "network_id": 47,
+        "url": "https://web.cmp.usercentrics.eu/ui/v/4.31.0/sections.5a153160.js",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 48,
+        "url": "https://web.cmp.usercentrics.eu/ui/v/4.31.0/secondLayer.03af4dcd.js",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 49,
+        "url": "https://optaplayerstats.statsperform.com/build/assets/app-BbFf9kcs.js",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 50,
+        "url": "https://web.cmp.usercentrics.eu/ui/v/4.31.0/getToastifyStyle.4f0a73d7.js",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 51,
+        "url": "https://optaplayerstats.statsperform.com/images/logo/scoresway_logo_2021.png",
+        "status": 200,
+        "resource_type": "image"
+      },
+      {
+        "network_id": 52,
+        "url": "https://uct.service.usercentrics.eu/uct?v=2&sid=VPm_C0nNsIYyde&t=24&abv=&r=https%3A%2F%2Foptaplayerstats.statsperform.com%2Fen_GB%2Fsoccer&cb=1794250252727",
+        "status": 200,
+        "resource_type": "image"
+      },
+      {
+        "network_id": 53,
+        "url": "https://uct.service.usercentrics.eu/uct?v=2&sid=VPm_C0nNsIYyde&t=1&abv=&r=https%3A%2F%2Foptaplayerstats.statsperform.com%2Fen_GB%2Fsoccer&cb=1794250252887",
+        "status": 200,
+        "resource_type": "image"
+      },
+      {
+        "network_id": 54,
+        "url": "https://optaplayerstats.statsperform.com/kickstart-widgets/kickstart-widgets.js",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 55,
+        "url": "https://fonts.gstatic.com/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMaxKUBGEe.woff2",
+        "status": 200,
+        "resource_type": "font"
+      },
+      {
+        "network_id": 56,
+        "url": "https://optaplayerstats.statsperform.com/images/Loading-Circle_Grey.gif",
+        "status": 200,
+        "resource_type": "image"
+      },
+      {
+        "network_id": 57,
+        "url": "https://optaplayerstats.statsperform.com/images/favicon/StatsPerform_Logo_Icon_01.png",
+        "status": 200,
+        "resource_type": "other"
+      },
+      {
+        "network_id": 58,
+        "url": "https://optaplayerstats.statsperform.com/images/favicon/StatsPerform_Logo_Icon_01.png",
+        "status": 200,
+        "resource_type": "other"
+      },
+      {
+        "network_id": 59,
+        "url": "https://optaplayerstats.statsperform.com/kickstart-widgets/main-BaQTW4nJ.js",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 60,
+        "url": "https://secure.widget.cloud.opta.net/translations_v2/default/W3_default_1_en_GB_331.json?callback=W3_default_1_en_GB_331",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 61,
+        "url": "https://optaplayerstats.statsperform.com/api/en_GB/soccer/livescores?offset=360",
+        "status": 200,
+        "resource_type": "xhr"
+      },
+      {
+        "network_id": 62,
+        "url": "https://fonts.gstatic.com/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3KUBGEe.woff2",
+        "status": 200,
+        "resource_type": "font"
+      },
+      {
+        "network_id": 63,
+        "url": "https://secure.widget.cloud.opta.net/subscriptions/v3_6805c5f0655c9b241ff536409892ab09.json",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 64,
+        "url": "https://secure.widget.cloud.opta.net/v3/chunks/dayjslocale_en-gb-js.js",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 65,
+        "url": "https://secure.widget.cloud.opta.net/v3/bin/subscriptions_6.js?v=3.269.0",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 66,
+        "url": "https://secure.widget.cloud.opta.net/v3/v3.app.opta-widgets.js",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "network_id": 67,
+        "url": "https://secure.widget.cloud.opta.net/v3/components/generic.all.js?v=3.269.0",
+        "status": 200,
+        "resource_type": "script"
+      }
+    ]
+  }
+}

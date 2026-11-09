@@ -1,0 +1,4995 @@
+{
+  "source_id": "caliente_mx",
+  "source_name": "Caliente.mx Sportsbook",
+  "category": "odds_casinos",
+  "url": "https://sports.caliente.mx/es_MX/Futbol",
+  "scrapling_mode": "network_recorder",
+  "captured_at_utc": "2026-11-09T18:46:52Z",
+  "sha256": "53637d96c9ab1c0382593065eb86a8449e37f96374944f9696aaa37c6e266b59",
+  "meta": {
+    "unique_events_extracted": 273,
+    "network_requests_recorded": 30
+  },
+  "payload": {
+    "source": "caliente_mx",
+    "target_urls": [
+      "https://sports.caliente.mx/es_MX/Futbol",
+      "https://sports.caliente.mx/es_MX"
+    ],
+    "summary": {
+      "pages_visited": 2,
+      "unique_events_extracted": 273,
+      "total_odds_selections_extracted": 562,
+      "network_requests_recorded": 30
+    },
+    "events": [
+      {
+        "home_team": "Hvidovre IF vs Aarhus Fremad",
+        "away_team": "Hvidovre IF",
+        "extra_labels": [
+          "Empate",
+          "Aarhus Fremad"
+        ],
+        "odds_values": [
+          "1.071",
+          "-1400",
+          "8.25",
+          "+725",
+          "26.00",
+          "+2500"
+        ],
+        "event_url": "/es_MX/e/33904024/Hvidovre-IF-vs-Aarhus-Fremad"
+      },
+      {
+        "home_team": "Kristiansund BK vs Valerenga IF",
+        "away_team": "Kristiansund BK",
+        "extra_labels": [
+          "Empate",
+          "Valerenga IF"
+        ],
+        "odds_values": [
+          "1.60",
+          "-167",
+          "3.70",
+          "+270",
+          "5.50",
+          "+450"
+        ],
+        "event_url": "/es_MX/e/33960328/Kristiansund-BK-vs-Valerenga-IF"
+      },
+      {
+        "home_team": "Hapoel Kfar Saba vs Maccabi Bney Reine",
+        "away_team": "Over",
+        "extra_labels": [
+          "Under"
+        ],
+        "odds_values": [
+          "2.5",
+          "3.45",
+          "+245",
+          "2.5",
+          "1.25",
+          "-400"
+        ],
+        "event_url": "/es_MX/e/33892990/Hapoel-Kfar-Saba-vs-Maccabi-Bney-Reine"
+      },
+      {
+        "home_team": "Ironi Modiin vs Hapoel Acre",
+        "away_team": "Ironi Modiin",
+        "extra_labels": [
+          "Empate",
+          "Hapoel Acre"
+        ],
+        "odds_values": [
+          "7.25",
+          "+625",
+          "1.125",
+          "-800",
+          "14.00",
+          "+1300"
+        ],
+        "event_url": "/es_MX/e/33892993/Ironi-Modiin-vs-Hapoel-Acre"
+      },
+      {
+        "home_team": "FC Kafr Qasim vs Hapoel Afula",
+        "away_team": "FC Kafr Qasim",
+        "extra_labels": [
+          "Empate",
+          "Hapoel Afula"
+        ],
+        "odds_values": [
+          "46.00",
+          "+4500",
+          "5.75",
+          "+475",
+          "1.10",
+          "-1000"
+        ],
+        "event_url": "/es_MX/e/33892995/FC-Kafr-Qasim-vs-Hapoel-Afula"
+      },
+      {
+        "home_team": "Hvidovre IF",
+        "away_team": "Aarhus Fremad",
+        "extra_labels": [
+          "44 >"
+        ],
+        "odds_values": [
+          "1.071",
+          "-1400",
+          "8.25",
+          "+725",
+          "26.00",
+          "+2500"
+        ],
+        "event_url": "/es_MX/e/33904024/Hvidovre-IF-vs-Aarhus-Fremad"
+      },
+      {
+        "home_team": "Kristiansund BK",
+        "away_team": "Valerenga IF",
+        "extra_labels": [
+          "63 >"
+        ],
+        "odds_values": [
+          "1.60",
+          "-167",
+          "3.70",
+          "+270",
+          "5.50",
+          "+450"
+        ],
+        "event_url": "/es_MX/e/33960328/Kristiansund-BK-vs-Valerenga-IF"
+      },
+      {
+        "home_team": "Ironi Modiin",
+        "away_team": "Hapoel Acre",
+        "extra_labels": [
+          "15 >"
+        ],
+        "odds_values": [
+          "7.25",
+          "+625",
+          "1.125",
+          "-800",
+          "14.00",
+          "+1300"
+        ],
+        "event_url": "/es_MX/e/33892993/Ironi-Modiin-vs-Hapoel-Acre"
+      },
+      {
+        "home_team": "FC Kafr Qasim",
+        "away_team": "Hapoel Afula",
+        "extra_labels": [
+          "17 >"
+        ],
+        "odds_values": [
+          "46.00",
+          "+4500",
+          "5.75",
+          "+475",
+          "1.10",
+          "-1000"
+        ],
+        "event_url": "/es_MX/e/33892995/FC-Kafr-Qasim-vs-Hapoel-Afula"
+      },
+      {
+        "home_team": "FC Botosani",
+        "away_team": "FC Otelul Galati",
+        "extra_labels": [
+          "50 >"
+        ],
+        "odds_values": [
+          "2.60",
+          "+160",
+          "2.30",
+          "+130",
+          "3.75",
+          "+275"
+        ],
+        "event_url": "/es_MX/e/33892992/FC-Botosani-vs-FC-Otelul-Galati"
+      },
+      {
+        "home_team": "Javor Ivanjica",
+        "away_team": "TSC Backa Topola",
+        "extra_labels": [
+          "9 >"
+        ],
+        "odds_values": [
+          "61.00",
+          "+6000",
+          "6.00",
+          "+500",
+          "1.062",
+          "-1600"
+        ],
+        "event_url": "/es_MX/e/33863038/Javor-Ivanjica-vs-TSC-Backa-Topola"
+      },
+      {
+        "home_team": "Palmeiras SP U20",
+        "away_team": "Santos FC U20",
+        "extra_labels": [
+          "9 >"
+        ],
+        "odds_values": [
+          "2.95",
+          "+195",
+          "2.90",
+          "+190",
+          "2.30",
+          "+130"
+        ],
+        "event_url": "/es_MX/e/33921643/Palmeiras-SP-U20-vs-Santos-FC-U20"
+      },
+      {
+        "home_team": "Mushuc Runa",
+        "away_team": "Delfin",
+        "extra_labels": [
+          "57 >"
+        ],
+        "odds_values": [
+          "2.00",
+          "+100",
+          "2.60",
+          "+160",
+          "5.25",
+          "+425"
+        ],
+        "event_url": "/es_MX/e/33911666/Mushuc-Runa-vs-Delfin"
+      },
+      {
+        "home_team": "Club Oriental de Football (R)",
+        "away_team": "Progreso (R)",
+        "extra_labels": [
+          "8 >"
+        ],
+        "odds_values": [
+          "34.00",
+          "+3300",
+          "5.20",
+          "+420",
+          "1.111",
+          "-900"
+        ],
+        "event_url": "/es_MX/e/33940152/Club-Oriental-de-Football-%28R%29-vs-Progreso-%28R%29"
+      },
+      {
+        "home_team": "Bnot Netanya (W)",
+        "away_team": "Hapoel Tel Aviv (W)",
+        "extra_labels": [
+          "18 >"
+        ],
+        "odds_values": [
+          "13.00",
+          "+1200",
+          "5.60",
+          "+460",
+          "1.166",
+          "-600"
+        ],
+        "event_url": "/es_MX/e/33905595/Bnot-Netanya-%28W%29-vs-Hapoel-Tel-Aviv-%28W%29"
+      },
+      {
+        "home_team": "Atlético Madrid (M)",
+        "away_team": "FC Levante Badalona (W)",
+        "extra_labels": [
+          "38 >"
+        ],
+        "odds_values": [
+          "1.571",
+          "-175",
+          "3.00",
+          "+200",
+          "7.60",
+          "+660"
+        ],
+        "event_url": "/es_MX/e/33891777/Atl%C3%A9tico-Madrid-%28M%29-vs-FC-Levante-Badalona-%28W%29"
+      },
+      {
+        "home_team": "Querétaro FC",
+        "away_team": "Monterrey",
+        "extra_labels": [
+          "230 >"
+        ],
+        "odds_values": [
+          "3.45",
+          "+245",
+          "3.75",
+          "+275",
+          "1.98",
+          "-103"
+        ],
+        "event_url": "/es_MX/e/33965321/Quer%C3%A9taro-FC-vs-Monterrey"
+      },
+      {
+        "home_team": "Puebla",
+        "away_team": "Atlético San Luis",
+        "extra_labels": [
+          "149 >"
+        ],
+        "odds_values": [
+          "2.52",
+          "+152",
+          "3.45",
+          "+245",
+          "2.66",
+          "+166"
+        ],
+        "event_url": "/es_MX/e/34003540/Puebla-vs-Atl%C3%A9tico-San-Luis"
+      },
+      {
+        "home_team": "Tijuana Xolos de Caliente",
+        "away_team": "Atlante",
+        "extra_labels": [
+          "201 >"
+        ],
+        "odds_values": [
+          "1.79",
+          "-127",
+          "3.80",
+          "+280",
+          "4.20",
+          "+320"
+        ],
+        "event_url": "/es_MX/e/33897590/Tijuana-Xolos-de-Caliente-vs-Atlante"
+      },
+      {
+        "home_team": "FC Juárez",
+        "away_team": "Atlas",
+        "extra_labels": [
+          "182 >"
+        ],
+        "odds_values": [
+          "2.72",
+          "+172",
+          "3.55",
+          "+255",
+          "2.44",
+          "+144"
+        ],
+        "event_url": "/es_MX/e/34003538/FC-Ju%C3%A1rez-vs-Atlas"
+      },
+      {
+        "home_team": "Pachuca",
+        "away_team": "Toluca",
+        "extra_labels": [
+          "243 >"
+        ],
+        "odds_values": [
+          "2.56",
+          "+156",
+          "3.90",
+          "+290",
+          "2.42",
+          "+142"
+        ],
+        "event_url": "/es_MX/e/34001316/Pachuca-vs-Toluca"
+      },
+      {
+        "home_team": "Santos Laguna",
+        "away_team": "León",
+        "extra_labels": [
+          "191 >"
+        ],
+        "odds_values": [
+          "2.46",
+          "+146",
+          "3.65",
+          "+265",
+          "2.64",
+          "+164"
+        ],
+        "event_url": "/es_MX/e/34002554/Santos-Laguna-vs-Le%C3%B3n"
+      },
+      {
+        "home_team": "Pumas UNAM",
+        "away_team": "Monterrey",
+        "extra_labels": [
+          "149 >"
+        ],
+        "odds_values": [
+          "2.55",
+          "+155",
+          "3.65",
+          "+265",
+          "2.55",
+          "+155"
+        ],
+        "event_url": "/es_MX/e/34002560/Pumas-UNAM-vs-Monterrey"
+      },
+      {
+        "home_team": "Tigres UANL",
+        "away_team": "América",
+        "extra_labels": [
+          "149 >"
+        ],
+        "odds_values": [
+          "2.88",
+          "+188",
+          "3.55",
+          "+255",
+          "2.32",
+          "+132"
+        ],
+        "event_url": "/es_MX/e/34000023/Tigres-UANL-vs-Am%C3%A9rica"
+      },
+      {
+        "home_team": "Chivas Guadalajara",
+        "away_team": "Cruz Azul",
+        "extra_labels": [
+          "150 >"
+        ],
+        "odds_values": [
+          "2.10",
+          "+110",
+          "3.75",
+          "+275",
+          "3.20",
+          "+220"
+        ],
+        "event_url": "/es_MX/e/34003630/Chivas-Guadalajara-vs-Cruz-Azul"
+      },
+      {
+        "home_team": "Querétaro FC",
+        "away_team": "Necaxa",
+        "extra_labels": [
+          "146 >"
+        ],
+        "odds_values": [
+          "1.51",
+          "-197",
+          "4.45",
+          "+345",
+          "5.75",
+          "+475"
+        ],
+        "event_url": "/es_MX/e/34003587/Quer%C3%A9taro-FC-vs-Necaxa"
+      },
+      {
+        "home_team": "Argentina",
+        "away_team": "Uruguay",
+        "extra_labels": [
+          "146 >"
+        ],
+        "odds_values": [
+          "1.54",
+          "-186",
+          "3.80",
+          "+280",
+          "6.80",
+          "+580"
+        ],
+        "event_url": "/es_MX/e/33998753/Argentina-vs-Uruguay"
+      },
+      {
+        "home_team": "Bodo Glimt",
+        "away_team": "LASK Linz",
+        "extra_labels": [
+          "152 >"
+        ],
+        "odds_values": [
+          "1.48",
+          "-209",
+          "4.85",
+          "+385",
+          "5.60",
+          "+460"
+        ],
+        "event_url": "/es_MX/e/33947475/Bodo-Glimt-vs-LASK-Linz"
+      },
+      {
+        "home_team": "Galatasaray",
+        "away_team": "Aston Villa",
+        "extra_labels": [
+          "149 >"
+        ],
+        "odds_values": [
+          "2.58",
+          "+158",
+          "3.80",
+          "+280",
+          "2.44",
+          "+144"
+        ],
+        "event_url": "/es_MX/e/33947476/Galatasaray-vs-Aston-Villa"
+      },
+      {
+        "home_team": "Arsenal",
+        "away_team": "Borussia Dortmund",
+        "extra_labels": [
+          "147 >"
+        ],
+        "odds_values": [
+          "1.39",
+          "-257",
+          "4.90",
+          "+390",
+          "7.40",
+          "+640"
+        ],
+        "event_url": "/es_MX/e/33947477/Arsenal-vs-Borussia-Dortmund"
+      },
+      {
+        "home_team": "Como",
+        "away_team": "AEK Athens",
+        "extra_labels": [
+          "150 >"
+        ],
+        "odds_values": [
+          "1.31",
+          "-323",
+          "5.30",
+          "+430",
+          "9.30",
+          "+830"
+        ],
+        "event_url": "/es_MX/e/33947595/Como-vs-AEK-Athens"
+      },
+      {
+        "home_team": "Feyenoord Rotterdam",
+        "away_team": "FC Porto",
+        "extra_labels": [
+          "149 >"
+        ],
+        "odds_values": [
+          "2.82",
+          "+182",
+          "3.70",
+          "+270",
+          "2.30",
+          "+130"
+        ],
+        "event_url": "/es_MX/e/33947631/Feyenoord-Rotterdam-vs-FC-Porto"
+      },
+      {
+        "home_team": "Manchester City",
+        "away_team": "Napoles",
+        "extra_labels": [
+          "151 >"
+        ],
+        "odds_values": [
+          "1.25",
+          "-400",
+          "6.25",
+          "+525",
+          "10.00",
+          "+900"
+        ],
+        "event_url": "/es_MX/e/33947632/Manchester-City-vs-Napoles"
+      },
+      {
+        "home_team": "RB Leipzig",
+        "away_team": "RC Lens",
+        "extra_labels": [
+          "151 >"
+        ],
+        "odds_values": [
+          "1.41",
+          "-244",
+          "5.00",
+          "+400",
+          "6.60",
+          "+560"
+        ],
+        "event_url": "/es_MX/e/33947633/RB-Leipzig-vs-RC-Lens"
+      },
+      {
+        "home_team": "Slovan Bratislava",
+        "away_team": "Real Betis",
+        "extra_labels": [
+          "147 >"
+        ],
+        "odds_values": [
+          "10.00",
+          "+900",
+          "5.70",
+          "+470",
+          "1.27",
+          "-371"
+        ],
+        "event_url": "/es_MX/e/33947661/Slovan-Bratislava-vs-Real-Betis"
+      },
+      {
+        "home_team": "Real Madrid",
+        "away_team": "PSV Eindhoven",
+        "extra_labels": [
+          "151 >"
+        ],
+        "odds_values": [
+          "1.19",
+          "-527",
+          "7.50",
+          "+650",
+          "12.00",
+          "+1100"
+        ],
+        "event_url": "/es_MX/e/33947664/Real-Madrid-vs-PSV-Eindhoven"
+      },
+      {
+        "home_team": "Sabah",
+        "away_team": "Barcelona",
+        "extra_labels": [
+          "142 >"
+        ],
+        "odds_values": [
+          "20.00",
+          "+1900",
+          "10.75",
+          "+975",
+          "1.09",
+          "-1112"
+        ],
+        "event_url": "/es_MX/e/33947667/Sabah-vs-Barcelona"
+      },
+      {
+        "home_team": "Slavia Prague",
+        "away_team": "Villarreal",
+        "extra_labels": [
+          "149 >"
+        ],
+        "odds_values": [
+          "3.05",
+          "+205",
+          "3.60",
+          "+260",
+          "2.18",
+          "+118"
+        ],
+        "event_url": "/es_MX/e/33947691/Slavia-Prague-vs-Villarreal"
+      },
+      {
+        "home_team": "Sporting Lisboa",
+        "away_team": "Manchester United",
+        "extra_labels": [
+          "149 >"
+        ],
+        "odds_values": [
+          "2.56",
+          "+156",
+          "3.55",
+          "+255",
+          "2.56",
+          "+156"
+        ],
+        "event_url": "/es_MX/e/33947665/Sporting-Lisboa-vs-Manchester-United"
+      },
+      {
+        "home_team": "PSG",
+        "away_team": "Roma",
+        "extra_labels": [
+          "150 >"
+        ],
+        "odds_values": [
+          "1.34",
+          "-295",
+          "5.25",
+          "+425",
+          "8.20",
+          "+720"
+        ],
+        "event_url": "/es_MX/e/33947668/PSG-vs-Roma"
+      },
+      {
+        "home_team": "Lille",
+        "away_team": "Bayern Munich",
+        "extra_labels": [
+          "147 >"
+        ],
+        "odds_values": [
+          "7.80",
+          "+680",
+          "5.60",
+          "+460",
+          "1.33",
+          "-304"
+        ],
+        "event_url": "/es_MX/e/33947700/Lille-vs-Bayern-Munich"
+      },
+      {
+        "home_team": "Atlético Madrid",
+        "away_team": "Viking",
+        "extra_labels": [
+          "148 >"
+        ],
+        "odds_values": [
+          "1.11",
+          "-910",
+          "8.90",
+          "+790",
+          "23.00",
+          "+2200"
+        ],
+        "event_url": "/es_MX/e/33947701/Atl%C3%A9tico-Madrid-vs-Viking"
+      },
+      {
+        "home_team": "Club Brugge",
+        "away_team": "Liverpool",
+        "extra_labels": [
+          "152 >"
+        ],
+        "odds_values": [
+          "4.20",
+          "+320",
+          "4.45",
+          "+345",
+          "1.68",
+          "-148"
+        ],
+        "event_url": "/es_MX/e/33947702/Club-Brugge-vs-Liverpool"
+      },
+      {
+        "home_team": "Shakhtar Donetsk",
+        "away_team": "Fenerbahce",
+        "extra_labels": [
+          "149 >"
+        ],
+        "odds_values": [
+          "2.58",
+          "+158",
+          "3.50",
+          "+250",
+          "2.58",
+          "+158"
+        ],
+        "event_url": "/es_MX/e/33947703/Shakhtar-Donetsk-vs-Fenerbahce"
+      },
+      {
+        "home_team": "Inter",
+        "away_team": "Stuttgart",
+        "extra_labels": [
+          "152 >"
+        ],
+        "odds_values": [
+          "1.43",
+          "-233",
+          "5.25",
+          "+425",
+          "5.90",
+          "+490"
+        ],
+        "event_url": "/es_MX/e/33947704/Inter-vs-Stuttgart"
+      },
+      {
+        "home_team": "Armenia",
+        "away_team": "Chipre",
+        "extra_labels": [
+          "179 >"
+        ],
+        "odds_values": [
+          "2.30",
+          "+130",
+          "3.35",
+          "+235",
+          "3.10",
+          "+210"
+        ],
+        "event_url": "/es_MX/e/33912309/Armenia-vs-Chipre"
+      },
+      {
+        "home_team": "Turquía",
+        "away_team": "Bélgica",
+        "extra_labels": [
+          "198 >"
+        ],
+        "odds_values": [
+          "3.50",
+          "+250",
+          "3.95",
+          "+295",
+          "1.91",
+          "-110"
+        ],
+        "event_url": "/es_MX/e/33912315/Turqu%C3%ADa-vs-B%C3%A9lgica"
+      },
+      {
+        "home_team": "Albania",
+        "away_team": "Finlandia",
+        "extra_labels": [
+          "193 >"
+        ],
+        "odds_values": [
+          "1.85",
+          "-118",
+          "3.40",
+          "+240",
+          "4.40",
+          "+340"
+        ],
+        "event_url": "/es_MX/e/33912318/Albania-vs-Finlandia"
+      },
+      {
+        "home_team": "Republica Checa",
+        "away_team": "España",
+        "extra_labels": [
+          "176 >"
+        ],
+        "odds_values": [
+          "13.50",
+          "+1250",
+          "6.75",
+          "+575",
+          "1.19",
+          "-527"
+        ],
+        "event_url": "/es_MX/e/33912341/Republica-Checa-vs-Espa%C3%B1a"
+      },
+      {
+        "home_team": "Inglaterra",
+        "away_team": "Croacia",
+        "extra_labels": [
+          "197 >"
+        ],
+        "odds_values": [
+          "1.24",
+          "-417",
+          "5.90",
+          "+490",
+          "11.50",
+          "+1050"
+        ],
+        "event_url": "/es_MX/e/33912342/Inglaterra-vs-Croacia"
+      },
+      {
+        "home_team": "Italia",
+        "away_team": "Francia",
+        "extra_labels": [
+          "195 >"
+        ],
+        "odds_values": [
+          "4.20",
+          "+320",
+          "3.90",
+          "+290",
+          "1.76",
+          "-132"
+        ],
+        "event_url": "/es_MX/e/33912343/Italia-vs-Francia"
+      },
+      {
+        "home_team": "Montenegro",
+        "away_team": "Letonia",
+        "extra_labels": [
+          "175 >"
+        ],
+        "odds_values": [
+          "1.31",
+          "-323",
+          "4.85",
+          "+385",
+          "11.00",
+          "+1000"
+        ],
+        "event_url": "/es_MX/e/33913583/Montenegro-vs-Letonia"
+      },
+      {
+        "home_team": "Moldavia",
+        "away_team": "Kazajistán",
+        "extra_labels": [
+          "172 >"
+        ],
+        "odds_values": [
+          "2.60",
+          "+160",
+          "3.00",
+          "+200",
+          "2.90",
+          "+190"
+        ],
+        "event_url": "/es_MX/e/33912369/Moldavia-vs-Kazajist%C3%A1n"
+      },
+      {
+        "home_team": "Bulgaria",
+        "away_team": "Islandia",
+        "extra_labels": [
+          "175 >"
+        ],
+        "odds_values": [
+          "4.30",
+          "+330",
+          "3.50",
+          "+250",
+          "1.85",
+          "-118"
+        ],
+        "event_url": "/es_MX/e/33912370/Bulgaria-vs-Islandia"
+      },
+      {
+        "home_team": "Luxemburgo",
+        "away_team": "Estonia",
+        "extra_labels": [
+          "193 >"
+        ],
+        "odds_values": [
+          "2.12",
+          "+112",
+          "3.20",
+          "+220",
+          "3.65",
+          "+265"
+        ],
+        "event_url": "/es_MX/e/33912371/Luxemburgo-vs-Estonia"
+      },
+      {
+        "home_team": "Escocia",
+        "away_team": "Macedonia del Norte",
+        "extra_labels": [
+          "190 >"
+        ],
+        "odds_values": [
+          "1.19",
+          "-527",
+          "6.00",
+          "+500",
+          "18.00",
+          "+1700"
+        ],
+        "event_url": "/es_MX/e/33912372/Escocia-vs-Macedonia-del-Norte"
+      },
+      {
+        "home_team": "Eslovenia",
+        "away_team": "Suiza",
+        "extra_labels": [
+          "191 >"
+        ],
+        "odds_values": [
+          "5.70",
+          "+470",
+          "3.70",
+          "+270",
+          "1.63",
+          "-159"
+        ],
+        "event_url": "/es_MX/e/33912373/Eslovenia-vs-Suiza"
+      },
+      {
+        "home_team": "Eslovaquia",
+        "away_team": "Islas Feroe",
+        "extra_labels": [
+          "177 >"
+        ],
+        "odds_values": [
+          "1.35",
+          "-286",
+          "4.90",
+          "+390",
+          "8.50",
+          "+750"
+        ],
+        "event_url": "/es_MX/e/33912374/Eslovaquia-vs-Islas-Feroe"
+      },
+      {
+        "home_team": "Serbia",
+        "away_team": "Alemania",
+        "extra_labels": [
+          "194 >"
+        ],
+        "odds_values": [
+          "10.50",
+          "+950",
+          "5.60",
+          "+460",
+          "1.27",
+          "-371"
+        ],
+        "event_url": "/es_MX/e/33912376/Serbia-vs-Alemania"
+      },
+      {
+        "home_team": "Países Bajos",
+        "away_team": "Grecia",
+        "extra_labels": [
+          "193 >"
+        ],
+        "odds_values": [
+          "1.50",
+          "-200",
+          "4.40",
+          "+340",
+          "6.00",
+          "+500"
+        ],
+        "event_url": "/es_MX/e/33912377/Pa%C3%ADses-Bajos-vs-Grecia"
+      },
+      {
+        "home_team": "Andorra",
+        "away_team": "Gibraltar",
+        "extra_labels": [
+          "140 >"
+        ],
+        "odds_values": [
+          "1.93",
+          "-108",
+          "3.15",
+          "+215",
+          "4.50",
+          "+350"
+        ],
+        "event_url": "/es_MX/e/33972481/Andorra-vs-Gibraltar"
+      },
+      {
+        "home_team": "Liechtenstein",
+        "away_team": "Azerbaiyán",
+        "extra_labels": [
+          "159 >"
+        ],
+        "odds_values": [
+          "15.50",
+          "+1450",
+          "4.90",
+          "+390",
+          "1.26",
+          "-385"
+        ],
+        "event_url": "/es_MX/e/33972526/Liechtenstein-vs-Azerbaiy%C3%A1n"
+      },
+      {
+        "home_team": "Kosovo",
+        "away_team": "Israel",
+        "extra_labels": [
+          "176 >"
+        ],
+        "odds_values": [
+          "1.91",
+          "-110",
+          "3.55",
+          "+255",
+          "3.95",
+          "+295"
+        ],
+        "event_url": "/es_MX/e/33912393/Kosovo-vs-Israel"
+      },
+      {
+        "home_team": "Georgia",
+        "away_team": "Hungría",
+        "extra_labels": [
+          "174 >"
+        ],
+        "odds_values": [
+          "3.25",
+          "+225",
+          "3.10",
+          "+210",
+          "2.32",
+          "+132"
+        ],
+        "event_url": "/es_MX/e/33912395/Georgia-vs-Hungr%C3%ADa"
+      },
+      {
+        "home_team": "Noruega",
+        "away_team": "Gales",
+        "extra_labels": [
+          "179 >"
+        ],
+        "odds_values": [
+          "1.26",
+          "-385",
+          "6.00",
+          "+500",
+          "10.00",
+          "+900"
+        ],
+        "event_url": "/es_MX/e/33912396/Noruega-vs-Gales"
+      },
+      {
+        "home_team": "Austria",
+        "away_team": "Irlanda",
+        "extra_labels": [
+          "174 >"
+        ],
+        "odds_values": [
+          "1.58",
+          "-173",
+          "3.95",
+          "+295",
+          "5.70",
+          "+470"
+        ],
+        "event_url": "/es_MX/e/33912397/Austria-vs-Irlanda"
+      },
+      {
+        "home_team": "Portugal",
+        "away_team": "Dinamarca",
+        "extra_labels": [
+          "177 >"
+        ],
+        "odds_values": [
+          "1.46",
+          "-218",
+          "4.45",
+          "+345",
+          "6.60",
+          "+560"
+        ],
+        "event_url": "/es_MX/e/33912399/Portugal-vs-Dinamarca"
+      },
+      {
+        "home_team": "Rumania",
+        "away_team": "Polonia",
+        "extra_labels": [
+          "177 >"
+        ],
+        "odds_values": [
+          "3.80",
+          "+280",
+          "3.65",
+          "+265",
+          "1.91",
+          "-110"
+        ],
+        "event_url": "/es_MX/e/33912400/Rumania-vs-Polonia"
+      },
+      {
+        "home_team": "Suecia",
+        "away_team": "Bosnia & Herzegovina",
+        "extra_labels": [
+          "177 >"
+        ],
+        "odds_values": [
+          "1.52",
+          "-193",
+          "4.30",
+          "+330",
+          "6.00",
+          "+500"
+        ],
+        "event_url": "/es_MX/e/33912401/Suecia-vs-Bosnia-%26-Herzegovina"
+      },
+      {
+        "home_team": "Irlanda del Norte",
+        "away_team": "Ucrania",
+        "extra_labels": [
+          "175 >"
+        ],
+        "odds_values": [
+          "2.32",
+          "+132",
+          "3.10",
+          "+210",
+          "3.25",
+          "+225"
+        ],
+        "event_url": "/es_MX/e/33912402/Irlanda-del-Norte-vs-Ucrania"
+      },
+      {
+        "home_team": "Jamaica",
+        "away_team": "México",
+        "extra_labels": [
+          "1 >"
+        ],
+        "odds_values": [
+          "4.40",
+          "+340",
+          "3.75",
+          "+275",
+          "1.55",
+          "-182"
+        ],
+        "event_url": "/es_MX/e/34004258/Jamaica-vs-M%C3%A9xico"
+      },
+      {
+        "home_team": "Athletic Bilbao",
+        "away_team": "Espanyol",
+        "extra_labels": [
+          "149 >"
+        ],
+        "odds_values": [
+          "1.48",
+          "-209",
+          "4.20",
+          "+320",
+          "6.80",
+          "+580"
+        ],
+        "event_url": "/es_MX/La-Liga/2026-11-20/Athletic-Bilbao-vs-Espanyol"
+      },
+      {
+        "home_team": "CD Alaves",
+        "away_team": "Deportivo La Coruna",
+        "extra_labels": [
+          "150 >"
+        ],
+        "odds_values": [
+          "2.10",
+          "+110",
+          "3.30",
+          "+230",
+          "3.55",
+          "+255"
+        ],
+        "event_url": "/es_MX/e/33905692/CD-Alaves-vs-Deportivo-La-Coruna"
+      },
+      {
+        "home_team": "Rayo Vallecano",
+        "away_team": "Valencia",
+        "extra_labels": [
+          "150 >"
+        ],
+        "odds_values": [
+          "1.98",
+          "-103",
+          "3.45",
+          "+245",
+          "3.80",
+          "+280"
+        ],
+        "event_url": "/es_MX/e/33905698/Rayo-Vallecano-vs-Valencia"
+      },
+      {
+        "home_team": "Sevilla",
+        "away_team": "Real Betis",
+        "extra_labels": [
+          "153 >"
+        ],
+        "odds_values": [
+          "2.92",
+          "+192",
+          "3.50",
+          "+250",
+          "2.32",
+          "+132"
+        ],
+        "event_url": "/es_MX/e/33905688/Sevilla-vs-Real-Betis"
+      },
+      {
+        "home_team": "Real Madrid",
+        "away_team": "Celta de Vigo",
+        "extra_labels": [
+          "154 >"
+        ],
+        "odds_values": [
+          "1.19",
+          "-527",
+          "6.50",
+          "+550",
+          "14.50",
+          "+1350"
+        ],
+        "event_url": "/es_MX/e/33905668/Real-Madrid-vs-Celta-de-Vigo"
+      },
+      {
+        "home_team": "Manchester City",
+        "away_team": "Fulham",
+        "extra_labels": [
+          "151 >"
+        ],
+        "odds_values": [
+          "1.42",
+          "-239",
+          "4.70",
+          "+370",
+          "7.00",
+          "+600"
+        ],
+        "event_url": "/es_MX/Premier-League/2026-11-21/Manchester-City-vs-Fulham"
+      },
+      {
+        "home_team": "Coventry",
+        "away_team": "Crystal Palace",
+        "extra_labels": [
+          "154 >"
+        ],
+        "odds_values": [
+          "2.32",
+          "+132",
+          "3.50",
+          "+250",
+          "2.90",
+          "+190"
+        ],
+        "event_url": "/es_MX/e/33874955/Coventry-vs-Crystal-Palace"
+      },
+      {
+        "home_team": "Tottenham",
+        "away_team": "Ipswich Town",
+        "extra_labels": [
+          "150 >"
+        ],
+        "odds_values": [
+          "1.52",
+          "-193",
+          "4.30",
+          "+330",
+          "6.00",
+          "+500"
+        ],
+        "event_url": "/es_MX/e/33874970/Tottenham-vs-Ipswich-Town"
+      },
+      {
+        "home_team": "Aston Villa",
+        "away_team": "Sunderland",
+        "extra_labels": [
+          "149 >"
+        ],
+        "odds_values": [
+          "1.71",
+          "-141",
+          "3.85",
+          "+285",
+          "4.65",
+          "+365"
+        ],
+        "event_url": "/es_MX/e/33874975/Aston-Villa-vs-Sunderland"
+      },
+      {
+        "home_team": "Chelsea",
+        "away_team": "Leeds United",
+        "extra_labels": [
+          "151 >"
+        ],
+        "odds_values": [
+          "1.82",
+          "-122",
+          "3.75",
+          "+275",
+          "4.10",
+          "+310"
+        ],
+        "event_url": "/es_MX/e/33875002/Chelsea-vs-Leeds-United"
+      },
+      {
+        "home_team": "Bournemouth",
+        "away_team": "Nottingham Forest",
+        "extra_labels": [
+          "152 >"
+        ],
+        "odds_values": [
+          "1.98",
+          "-103",
+          "3.55",
+          "+255",
+          "3.65",
+          "+265"
+        ],
+        "event_url": "/es_MX/e/33875008/Bournemouth-vs-Nottingham-Forest"
+      },
+      {
+        "home_team": "Newcastle",
+        "away_team": "Arsenal",
+        "extra_labels": [
+          "149 >"
+        ],
+        "odds_values": [
+          "5.40",
+          "+440",
+          "4.20",
+          "+320",
+          "1.57",
+          "-176"
+        ],
+        "event_url": "/es_MX/e/33874987/Newcastle-vs-Arsenal"
+      },
+      {
+        "home_team": "Hull City",
+        "away_team": "Brighton",
+        "extra_labels": [
+          "148 >"
+        ],
+        "odds_values": [
+          "6.40",
+          "+540",
+          "4.30",
+          "+330",
+          "1.49",
+          "-205"
+        ],
+        "event_url": "/es_MX/e/33874998/Hull-City-vs-Brighton"
+      },
+      {
+        "home_team": "Liverpool",
+        "away_team": "Manchester United",
+        "extra_labels": [
+          "154 >"
+        ],
+        "odds_values": [
+          "1.68",
+          "-148",
+          "4.20",
+          "+320",
+          "4.40",
+          "+340"
+        ],
+        "event_url": "/es_MX/e/33912441/Liverpool-vs-Manchester-United"
+      },
+      {
+        "home_team": "Brentford",
+        "away_team": "Everton",
+        "extra_labels": [
+          "153 >"
+        ],
+        "odds_values": [
+          "1.98",
+          "-103",
+          "3.65",
+          "+265",
+          "3.55",
+          "+255"
+        ],
+        "event_url": "/es_MX/e/33874993/Brentford-vs-Everton"
+      },
+      {
+        "home_team": "Nottingham Forest",
+        "away_team": "Chelsea",
+        "extra_labels": [
+          "152 >"
+        ],
+        "odds_values": [
+          "2.96",
+          "+196",
+          "3.40",
+          "+240",
+          "2.34",
+          "+134"
+        ],
+        "event_url": "/es_MX/e/33912442/Nottingham-Forest-vs-Chelsea"
+      },
+      {
+        "home_team": "Manchester United",
+        "away_team": "Brentford",
+        "extra_labels": [
+          "152 >"
+        ],
+        "odds_values": [
+          "2.12",
+          "+112",
+          "3.65",
+          "+265",
+          "3.20",
+          "+220"
+        ],
+        "event_url": "/es_MX/e/33974409/Manchester-United-vs-Brentford"
+      },
+      {
+        "home_team": "Leeds United",
+        "away_team": "Coventry",
+        "extra_labels": [
+          "146 >"
+        ],
+        "odds_values": [
+          "1.57",
+          "-176",
+          "4.20",
+          "+320",
+          "5.40",
+          "+440"
+        ],
+        "event_url": "/es_MX/e/33974413/Leeds-United-vs-Coventry"
+      },
+      {
+        "home_team": "Ipswich Town",
+        "away_team": "Aston Villa",
+        "extra_labels": [
+          "151 >"
+        ],
+        "odds_values": [
+          "3.25",
+          "+225",
+          "3.75",
+          "+275",
+          "2.06",
+          "+106"
+        ],
+        "event_url": "/es_MX/e/33974393/Ipswich-Town-vs-Aston-Villa"
+      },
+      {
+        "home_team": "Everton",
+        "away_team": "Liverpool",
+        "extra_labels": [
+          "151 >"
+        ],
+        "odds_values": [
+          "3.30",
+          "+230",
+          "3.65",
+          "+265",
+          "2.08",
+          "+108"
+        ],
+        "event_url": "/es_MX/e/33974410/Everton-vs-Liverpool"
+      },
+      {
+        "home_team": "Fulham",
+        "away_team": "Bournemouth",
+        "extra_labels": [
+          "150 >"
+        ],
+        "odds_values": [
+          "2.58",
+          "+158",
+          "3.55",
+          "+255",
+          "2.58",
+          "+158"
+        ],
+        "event_url": "/es_MX/e/33974388/Fulham-vs-Bournemouth"
+      },
+      {
+        "home_team": "Sunderland",
+        "away_team": "Tottenham",
+        "extra_labels": [
+          "150 >"
+        ],
+        "odds_values": [
+          "3.25",
+          "+225",
+          "3.35",
+          "+235",
+          "2.22",
+          "+122"
+        ],
+        "event_url": "/es_MX/e/33974406/Sunderland-vs-Tottenham"
+      },
+      {
+        "home_team": "Brighton",
+        "away_team": "Newcastle",
+        "extra_labels": [
+          "150 >"
+        ],
+        "odds_values": [
+          "1.56",
+          "-179",
+          "4.40",
+          "+340",
+          "5.25",
+          "+425"
+        ],
+        "event_url": "/es_MX/e/33974411/Brighton-vs-Newcastle"
+      },
+      {
+        "home_team": "Crystal Palace",
+        "away_team": "Hull City",
+        "extra_labels": [
+          "146 >"
+        ],
+        "odds_values": [
+          "1.76",
+          "-132",
+          "3.80",
+          "+280",
+          "4.40",
+          "+340"
+        ],
+        "event_url": "/es_MX/e/33974417/Crystal-Palace-vs-Hull-City"
+      },
+      {
+        "home_team": "Arsenal",
+        "away_team": "Manchester City",
+        "extra_labels": [
+          "151 >"
+        ],
+        "odds_values": [
+          "2.02",
+          "+102",
+          "3.60",
+          "+260",
+          "3.45",
+          "+245"
+        ],
+        "event_url": "/es_MX/e/33974389/Arsenal-vs-Manchester-City"
+      },
+      {
+        "home_team": "Bayern Munich",
+        "away_team": "Cologne",
+        "extra_labels": [
+          "148 >"
+        ],
+        "odds_values": [
+          "1.09",
+          "-1112",
+          "10.25",
+          "+925",
+          "22.00",
+          "+2100"
+        ],
+        "event_url": "/es_MX/Bundesliga-1/2026-11-20/Bayern-Munich-vs-Cologne"
+      },
+      {
+        "home_team": "Bayer Leverkusen",
+        "away_team": "Paderborn",
+        "extra_labels": [
+          "154 >"
+        ],
+        "odds_values": [
+          "1.25",
+          "-400",
+          "6.00",
+          "+500",
+          "11.00",
+          "+1000"
+        ],
+        "event_url": "/es_MX/e/33886566/Bayer-Leverkusen-vs-Paderborn"
+      },
+      {
+        "home_team": "Borussia Monchengladbach",
+        "away_team": "Borussia Dortmund",
+        "extra_labels": [
+          "153 >"
+        ],
+        "odds_values": [
+          "5.10",
+          "+410",
+          "4.20",
+          "+320",
+          "1.60",
+          "-167"
+        ],
+        "event_url": "/es_MX/e/33886578/Borussia-Monchengladbach-vs-Borussia-Dortmund"
+      },
+      {
+        "home_team": "SV Elversberg",
+        "away_team": "Freiburg",
+        "extra_labels": [
+          "152 >"
+        ],
+        "odds_values": [
+          "3.30",
+          "+230",
+          "3.85",
+          "+285",
+          "2.02",
+          "+102"
+        ],
+        "event_url": "/es_MX/e/33886692/SV-Elversberg-vs-Freiburg"
+      },
+      {
+        "home_team": "Eintracht Frankfurt",
+        "away_team": "Hoffenheim",
+        "extra_labels": [
+          "154 >"
+        ],
+        "odds_values": [
+          "2.35",
+          "+135",
+          "4.00",
+          "+300",
+          "2.60",
+          "+160"
+        ],
+        "event_url": "/es_MX/e/33886782/Eintracht-Frankfurt-vs-Hoffenheim"
+      },
+      {
+        "home_team": "Union Berlin",
+        "away_team": "RB Leipzig",
+        "extra_labels": [
+          "152 >"
+        ],
+        "odds_values": [
+          "5.00",
+          "+400",
+          "4.50",
+          "+350",
+          "1.57",
+          "-176"
+        ],
+        "event_url": "/es_MX/e/33886833/Union-Berlin-vs-RB-Leipzig"
+      },
+      {
+        "home_team": "Schalke 04",
+        "away_team": "Stuttgart",
+        "extra_labels": [
+          "153 >"
+        ],
+        "odds_values": [
+          "4.00",
+          "+300",
+          "4.10",
+          "+310",
+          "1.77",
+          "-130"
+        ],
+        "event_url": "/es_MX/e/33886785/Schalke-04-vs-Stuttgart"
+      },
+      {
+        "home_team": "Augsburg",
+        "away_team": "Mainz 05",
+        "extra_labels": [
+          "152 >"
+        ],
+        "odds_values": [
+          "2.65",
+          "+165",
+          "3.85",
+          "+285",
+          "2.38",
+          "+138"
+        ],
+        "event_url": "/es_MX/e/33887986/Augsburg-vs-Mainz-05"
+      },
+      {
+        "home_team": "Werder Bremen",
+        "away_team": "Hamburger SV",
+        "extra_labels": [
+          "152 >"
+        ],
+        "odds_values": [
+          "1.67",
+          "-150",
+          "4.10",
+          "+310",
+          "4.65",
+          "+365"
+        ],
+        "event_url": "/es_MX/e/33889741/Werder-Bremen-vs-Hamburger-SV"
+      },
+      {
+        "home_team": "Werder Bremen",
+        "away_team": "Borussia Monchengladbach",
+        "extra_labels": [
+          "152 >"
+        ],
+        "odds_values": [
+          "1.89",
+          "-113",
+          "3.95",
+          "+295",
+          "3.60",
+          "+260"
+        ],
+        "event_url": "/es_MX/e/33986683/Werder-Bremen-vs-Borussia-Monchengladbach"
+      },
+      {
+        "home_team": "Cologne",
+        "away_team": "SV Elversberg",
+        "extra_labels": [
+          "152 >"
+        ],
+        "odds_values": [
+          "1.98",
+          "-103",
+          "3.80",
+          "+280",
+          "3.45",
+          "+245"
+        ],
+        "event_url": "/es_MX/e/33986682/Cologne-vs-SV-Elversberg"
+      },
+      {
+        "home_team": "Hamburger SV",
+        "away_team": "Bayern Munich",
+        "extra_labels": [
+          "146 >"
+        ],
+        "odds_values": [
+          "15.50",
+          "+1450",
+          "8.30",
+          "+730",
+          "1.14",
+          "-715"
+        ],
+        "event_url": "/es_MX/e/33986689/Hamburger-SV-vs-Bayern-Munich"
+      },
+      {
+        "home_team": "Paderborn",
+        "away_team": "Schalke 04",
+        "extra_labels": [
+          "152 >"
+        ],
+        "odds_values": [
+          "2.28",
+          "+128",
+          "3.45",
+          "+245",
+          "3.00",
+          "+200"
+        ],
+        "event_url": "/es_MX/e/33986695/Paderborn-vs-Schalke-04"
+      },
+      {
+        "home_team": "Mainz 05",
+        "away_team": "Union Berlin",
+        "extra_labels": [
+          "149 >"
+        ],
+        "odds_values": [
+          "1.56",
+          "-179",
+          "4.45",
+          "+345",
+          "5.10",
+          "+410"
+        ],
+        "event_url": "/es_MX/e/33986699/Mainz-05-vs-Union-Berlin"
+      },
+      {
+        "home_team": "Stuttgart",
+        "away_team": "Eintracht Frankfurt",
+        "extra_labels": [
+          "155 >"
+        ],
+        "odds_values": [
+          "1.60",
+          "-167",
+          "4.50",
+          "+350",
+          "4.70",
+          "+370"
+        ],
+        "event_url": "/es_MX/e/33986686/Stuttgart-vs-Eintracht-Frankfurt"
+      },
+      {
+        "home_team": "Freiburg",
+        "away_team": "RB Leipzig",
+        "extra_labels": [
+          "153 >"
+        ],
+        "odds_values": [
+          "2.48",
+          "+148",
+          "4.00",
+          "+300",
+          "2.48",
+          "+148"
+        ],
+        "event_url": "/es_MX/e/33998672/Freiburg-vs-RB-Leipzig"
+      },
+      {
+        "home_team": "Hoffenheim",
+        "away_team": "Augsburg",
+        "extra_labels": [
+          "156 >"
+        ],
+        "odds_values": [
+          "1.58",
+          "-173",
+          "4.65",
+          "+365",
+          "4.70",
+          "+370"
+        ],
+        "event_url": "/es_MX/e/33998667/Hoffenheim-vs-Augsburg"
+      },
+      {
+        "home_team": "Borussia Dortmund",
+        "away_team": "Bayer Leverkusen",
+        "extra_labels": [
+          "152 >"
+        ],
+        "odds_values": [
+          "2.05",
+          "+105",
+          "3.95",
+          "+295",
+          "3.15",
+          "+215"
+        ],
+        "event_url": "/es_MX/e/33998679/Borussia-Dortmund-vs-Bayer-Leverkusen"
+      },
+      {
+        "home_team": "Lazio",
+        "away_team": "Lecce",
+        "extra_labels": [
+          "150 >"
+        ],
+        "odds_values": [
+          "1.32",
+          "-313",
+          "4.85",
+          "+385",
+          "10.25",
+          "+925"
+        ],
+        "event_url": "/es_MX/Serie-A/2026-11-21/Lazio-vs-Lecce"
+      },
+      {
+        "home_team": "Como",
+        "away_team": "Cagliari",
+        "extra_labels": [
+          "151 >"
+        ],
+        "odds_values": [
+          "1.31",
+          "-323",
+          "5.20",
+          "+420",
+          "9.60",
+          "+860"
+        ],
+        "event_url": "/es_MX/e/33888620/Como-vs-Cagliari"
+      },
+      {
+        "home_team": "Parma",
+        "away_team": "Roma",
+        "extra_labels": [
+          "148 >"
+        ],
+        "odds_values": [
+          "9.70",
+          "+870",
+          "5.20",
+          "+420",
+          "1.31",
+          "-323"
+        ],
+        "event_url": "/es_MX/e/33888615/Parma-vs-Roma"
+      },
+      {
+        "home_team": "Napoles",
+        "away_team": "Torino",
+        "extra_labels": [
+          "149 >"
+        ],
+        "odds_values": [
+          "1.45",
+          "-223",
+          "4.40",
+          "+340",
+          "6.80",
+          "+580"
+        ],
+        "event_url": "/es_MX/e/33888618/Napoles-vs-Torino"
+      },
+      {
+        "home_team": "Juventus",
+        "away_team": "Venezia",
+        "extra_labels": [
+          "150 >"
+        ],
+        "odds_values": [
+          "1.32",
+          "-313",
+          "4.90",
+          "+390",
+          "10.25",
+          "+925"
+        ],
+        "event_url": "/es_MX/e/33888587/Juventus-vs-Venezia"
+      },
+      {
+        "home_team": "Bologna",
+        "away_team": "Udinese",
+        "extra_labels": [
+          "149 >"
+        ],
+        "odds_values": [
+          "1.70",
+          "-143",
+          "3.70",
+          "+270",
+          "5.00",
+          "+400"
+        ],
+        "event_url": "/es_MX/e/33888559/Bologna-vs-Udinese"
+      },
+      {
+        "home_team": "Sassuolo",
+        "away_team": "Génova",
+        "extra_labels": [
+          "152 >"
+        ],
+        "odds_values": [
+          "2.55",
+          "+155",
+          "3.30",
+          "+230",
+          "2.75",
+          "+175"
+        ],
+        "event_url": "/es_MX/e/33888623/Sassuolo-vs-G%C3%A9nova"
+      },
+      {
+        "home_team": "AC Milán",
+        "away_team": "Frosinone",
+        "extra_labels": [
+          "154 >"
+        ],
+        "odds_values": [
+          "1.52",
+          "-193",
+          "4.60",
+          "+360",
+          "5.50",
+          "+450"
+        ],
+        "event_url": "/es_MX/e/33892499/AC-Mil%C3%A1n-vs-Frosinone"
+      },
+      {
+        "home_team": "Atalanta",
+        "away_team": "Inter",
+        "extra_labels": [
+          "154 >"
+        ],
+        "odds_values": [
+          "4.90",
+          "+390",
+          "4.33",
+          "+333",
+          "1.60",
+          "-167"
+        ],
+        "event_url": "/es_MX/e/33912563/Atalanta-vs-Inter"
+      },
+      {
+        "home_team": "Monza",
+        "away_team": "Fiorentina",
+        "extra_labels": [
+          "152 >"
+        ],
+        "odds_values": [
+          "3.50",
+          "+250",
+          "3.70",
+          "+270",
+          "1.98",
+          "-103"
+        ],
+        "event_url": "/es_MX/e/33912595/Monza-vs-Fiorentina"
+      },
+      {
+        "home_team": "Venezia",
+        "away_team": "Bologna",
+        "extra_labels": [
+          "148 >"
+        ],
+        "odds_values": [
+          "3.75",
+          "+275",
+          "3.50",
+          "+250",
+          "1.97",
+          "-104"
+        ],
+        "event_url": "/es_MX/e/33988081/Venezia-vs-Bologna"
+      },
+      {
+        "home_team": "Frosinone",
+        "away_team": "Parma",
+        "extra_labels": [
+          "151 >"
+        ],
+        "odds_values": [
+          "1.52",
+          "-193",
+          "4.75",
+          "+375",
+          "5.20",
+          "+420"
+        ],
+        "event_url": "/es_MX/e/33988080/Frosinone-vs-Parma"
+      },
+      {
+        "home_team": "Torino",
+        "away_team": "Lazio",
+        "extra_labels": [
+          "149 >"
+        ],
+        "odds_values": [
+          "3.85",
+          "+285",
+          "3.60",
+          "+260",
+          "1.91",
+          "-110"
+        ],
+        "event_url": "/es_MX/e/33988084/Torino-vs-Lazio"
+      },
+      {
+        "home_team": "Inter",
+        "away_team": "Génova",
+        "extra_labels": [
+          "150 >"
+        ],
+        "odds_values": [
+          "1.24",
+          "-417",
+          "5.75",
+          "+475",
+          "12.50",
+          "+1150"
+        ],
+        "event_url": "/es_MX/e/33988085/Inter-vs-G%C3%A9nova"
+      },
+      {
+        "home_team": "Udinese",
+        "away_team": "Fiorentina",
+        "extra_labels": [
+          "151 >"
+        ],
+        "odds_values": [
+          "3.15",
+          "+215",
+          "3.50",
+          "+250",
+          "2.20",
+          "+120"
+        ],
+        "event_url": "/es_MX/e/33988077/Udinese-vs-Fiorentina"
+      },
+      {
+        "home_team": "Sassuolo",
+        "away_team": "Napoles",
+        "extra_labels": [
+          "149 >"
+        ],
+        "odds_values": [
+          "4.65",
+          "+365",
+          "4.20",
+          "+320",
+          "1.65",
+          "-154"
+        ],
+        "event_url": "/es_MX/e/33988388/Sassuolo-vs-Napoles"
+      },
+      {
+        "home_team": "Roma",
+        "away_team": "Monza",
+        "extra_labels": [
+          "151 >"
+        ],
+        "odds_values": [
+          "1.18",
+          "-556",
+          "6.80",
+          "+580",
+          "15.50",
+          "+1450"
+        ],
+        "event_url": "/es_MX/e/33998656/Roma-vs-Monza"
+      },
+      {
+        "home_team": "Como",
+        "away_team": "Juventus",
+        "extra_labels": [
+          "152 >"
+        ],
+        "odds_values": [
+          "2.26",
+          "+126",
+          "3.50",
+          "+250",
+          "3.05",
+          "+205"
+        ],
+        "event_url": "/es_MX/e/33998659/Como-vs-Juventus"
+      },
+      {
+        "home_team": "Troyes",
+        "away_team": "AC Le Havre",
+        "extra_labels": [
+          "194 >"
+        ],
+        "odds_values": [
+          "2.08",
+          "+108",
+          "3.60",
+          "+260",
+          "3.35",
+          "+235"
+        ],
+        "event_url": "/es_MX/e/33960561/Troyes-vs-AC-Le-Havre"
+      },
+      {
+        "home_team": "Nice",
+        "away_team": "PSG",
+        "extra_labels": [
+          "232 >"
+        ],
+        "odds_values": [
+          "6.00",
+          "+500",
+          "5.00",
+          "+400",
+          "1.44",
+          "-228"
+        ],
+        "event_url": "/es_MX/e/33960562/Nice-vs-PSG"
+      },
+      {
+        "home_team": "AS Monaco",
+        "away_team": "AJ Auxerre",
+        "extra_labels": [
+          "150 >"
+        ],
+        "odds_values": [
+          "1.36",
+          "-278",
+          "4.90",
+          "+390",
+          "8.25",
+          "+725"
+        ],
+        "event_url": "/es_MX/e/33960578/AS-Monaco-vs-AJ-Auxerre"
+      },
+      {
+        "home_team": "Lille",
+        "away_team": "Lyon",
+        "extra_labels": [
+          "151 >"
+        ],
+        "odds_values": [
+          "2.34",
+          "+134",
+          "3.35",
+          "+235",
+          "3.00",
+          "+200"
+        ],
+        "event_url": "/es_MX/e/33960579/Lille-vs-Lyon"
+      },
+      {
+        "home_team": "RC Lens",
+        "away_team": "Toulouse",
+        "extra_labels": [
+          "221 >"
+        ],
+        "odds_values": [
+          "1.79",
+          "-127",
+          "3.85",
+          "+285",
+          "4.10",
+          "+310"
+        ],
+        "event_url": "/es_MX/e/33960595/RC-Lens-vs-Toulouse"
+      },
+      {
+        "home_team": "Strasbourg",
+        "away_team": "Brest",
+        "extra_labels": [
+          "153 >"
+        ],
+        "odds_values": [
+          "2.20",
+          "+120",
+          "3.60",
+          "+260",
+          "3.10",
+          "+210"
+        ],
+        "event_url": "/es_MX/e/33960612/Strasbourg-vs-Brest"
+      },
+      {
+        "home_team": "Paris FC",
+        "away_team": "Angers SCO",
+        "extra_labels": [
+          "150 >"
+        ],
+        "odds_values": [
+          "1.35",
+          "-286",
+          "5.00",
+          "+400",
+          "8.40",
+          "+740"
+        ],
+        "event_url": "/es_MX/e/33960613/Paris-FC-vs-Angers-SCO"
+      },
+      {
+        "home_team": "Lorient",
+        "away_team": "Rennes",
+        "extra_labels": [
+          "152 >"
+        ],
+        "odds_values": [
+          "2.96",
+          "+196",
+          "3.40",
+          "+240",
+          "2.34",
+          "+134"
+        ],
+        "event_url": "/es_MX/e/33960629/Lorient-vs-Rennes"
+      },
+      {
+        "home_team": "Marseille",
+        "away_team": "Le Mans",
+        "extra_labels": [
+          "149 >"
+        ],
+        "odds_values": [
+          "1.42",
+          "-239",
+          "4.70",
+          "+370",
+          "7.00",
+          "+600"
+        ],
+        "event_url": "/es_MX/e/33960631/Marseille-vs-Le-Mans"
+      },
+      {
+        "home_team": "NEC Nijmegen",
+        "away_team": "PSV Eindhoven",
+        "extra_labels": [
+          "152 >"
+        ],
+        "odds_values": [
+          "3.90",
+          "+290",
+          "4.40",
+          "+340",
+          "1.73",
+          "-137"
+        ],
+        "event_url": "/es_MX/e/33888637/NEC-Nijmegen-vs-PSV-Eindhoven"
+      },
+      {
+        "home_team": "Utrecht",
+        "away_team": "Cambuur Leeuwarden",
+        "extra_labels": [
+          "152 >"
+        ],
+        "odds_values": [
+          "1.92",
+          "-109",
+          "3.95",
+          "+295",
+          "3.50",
+          "+250"
+        ],
+        "event_url": "/es_MX/e/33888634/Utrecht-vs-Cambuur-Leeuwarden"
+      },
+      {
+        "home_team": "Feyenoord Rotterdam",
+        "away_team": "SBV Excelsior",
+        "extra_labels": [
+          "151 >"
+        ],
+        "odds_values": [
+          "1.18",
+          "-556",
+          "6.80",
+          "+580",
+          "15.00",
+          "+1400"
+        ],
+        "event_url": "/es_MX/e/33888660/Feyenoord-Rotterdam-vs-SBV-Excelsior"
+      },
+      {
+        "home_team": "Groningen",
+        "away_team": "Heerenveen",
+        "extra_labels": [
+          "152 >"
+        ],
+        "odds_values": [
+          "2.45",
+          "+145",
+          "3.70",
+          "+270",
+          "2.62",
+          "+162"
+        ],
+        "event_url": "/es_MX/e/33888632/Groningen-vs-Heerenveen"
+      },
+      {
+        "home_team": "SC Telstar",
+        "away_team": "Zwolle",
+        "extra_labels": [
+          "151 >"
+        ],
+        "odds_values": [
+          "1.98",
+          "-103",
+          "3.75",
+          "+275",
+          "3.45",
+          "+245"
+        ],
+        "event_url": "/es_MX/e/33888662/SC-Telstar-vs-Zwolle"
+      },
+      {
+        "home_team": "Twente",
+        "away_team": "Willem II Tilburg",
+        "extra_labels": [
+          "146 >"
+        ],
+        "odds_values": [
+          "1.07",
+          "-1429",
+          "11.00",
+          "+1000",
+          "30.00",
+          "+2900"
+        ],
+        "event_url": "/es_MX/e/33888636/Twente-vs-Willem-II-Tilburg"
+      },
+      {
+        "home_team": "Sparta Rotterdam",
+        "away_team": "AZ Alkmaar",
+        "extra_labels": [
+          "151 >"
+        ],
+        "odds_values": [
+          "4.35",
+          "+335",
+          "4.00",
+          "+300",
+          "1.72",
+          "-139"
+        ],
+        "event_url": "/es_MX/e/33888640/Sparta-Rotterdam-vs-AZ-Alkmaar"
+      },
+      {
+        "home_team": "Ajax Amsterdam",
+        "away_team": "ADO Den Haag",
+        "extra_labels": [
+          "151 >"
+        ],
+        "odds_values": [
+          "1.18",
+          "-556",
+          "7.30",
+          "+630",
+          "13.50",
+          "+1250"
+        ],
+        "event_url": "/es_MX/e/33888646/Ajax-Amsterdam-vs-ADO-Den-Haag"
+      },
+      {
+        "home_team": "GO Ahead Eagles",
+        "away_team": "Fortuna Sittard",
+        "extra_labels": [
+          "149 >"
+        ],
+        "odds_values": [
+          "1.59",
+          "-170",
+          "4.33",
+          "+333",
+          "5.00",
+          "+400"
+        ],
+        "event_url": "/es_MX/e/33888555/GO-Ahead-Eagles-vs-Fortuna-Sittard"
+      },
+      {
+        "home_team": "Groningen",
+        "away_team": "Willem II Tilburg",
+        "extra_labels": [
+          "149 >"
+        ],
+        "odds_values": [
+          "1.22",
+          "-455",
+          "6.25",
+          "+525",
+          "12.00",
+          "+1100"
+        ],
+        "event_url": "/es_MX/e/33990979/Groningen-vs-Willem-II-Tilburg"
+      },
+      {
+        "home_team": "SBV Excelsior",
+        "away_team": "SC Telstar",
+        "extra_labels": [
+          "150 >"
+        ],
+        "odds_values": [
+          "1.98",
+          "-103",
+          "3.75",
+          "+275",
+          "3.50",
+          "+250"
+        ],
+        "event_url": "/es_MX/e/33990972/SBV-Excelsior-vs-SC-Telstar"
+      },
+      {
+        "home_team": "PSV Eindhoven",
+        "away_team": "GO Ahead Eagles",
+        "extra_labels": [
+          "150 >"
+        ],
+        "odds_values": [
+          "1.26",
+          "-385",
+          "6.50",
+          "+550",
+          "8.90",
+          "+790"
+        ],
+        "event_url": "/es_MX/e/33990899/PSV-Eindhoven-vs-GO-Ahead-Eagles"
+      },
+      {
+        "home_team": "Cambuur Leeuwarden",
+        "away_team": "Sparta Rotterdam",
+        "extra_labels": [
+          "149 >"
+        ],
+        "odds_values": [
+          "2.52",
+          "+152",
+          "3.80",
+          "+280",
+          "2.52",
+          "+152"
+        ],
+        "event_url": "/es_MX/e/33990982/Cambuur-Leeuwarden-vs-Sparta-Rotterdam"
+      },
+      {
+        "home_team": "ADO Den Haag",
+        "away_team": "Utrecht",
+        "extra_labels": [
+          "149 >"
+        ],
+        "odds_values": [
+          "2.72",
+          "+172",
+          "3.55",
+          "+255",
+          "2.44",
+          "+144"
+        ],
+        "event_url": "/es_MX/e/33990983/ADO-Den-Haag-vs-Utrecht"
+      },
+      {
+        "home_team": "Feyenoord Rotterdam",
+        "away_team": "Ajax Amsterdam",
+        "extra_labels": [
+          "151 >"
+        ],
+        "odds_values": [
+          "2.02",
+          "+102",
+          "3.70",
+          "+270",
+          "3.40",
+          "+240"
+        ],
+        "event_url": "/es_MX/e/33990945/Feyenoord-Rotterdam-vs-Ajax-Amsterdam"
+      },
+      {
+        "home_team": "Fortuna Sittard",
+        "away_team": "Heerenveen",
+        "extra_labels": [
+          "149 >"
+        ],
+        "odds_values": [
+          "3.25",
+          "+225",
+          "3.75",
+          "+275",
+          "2.06",
+          "+106"
+        ],
+        "event_url": "/es_MX/e/33991030/Fortuna-Sittard-vs-Heerenveen"
+      },
+      {
+        "home_team": "Zwolle",
+        "away_team": "AZ Alkmaar",
+        "extra_labels": [
+          "149 >"
+        ],
+        "odds_values": [
+          "5.30",
+          "+430",
+          "4.70",
+          "+370",
+          "1.52",
+          "-193"
+        ],
+        "event_url": "/es_MX/e/33991029/Zwolle-vs-AZ-Alkmaar"
+      },
+      {
+        "home_team": "NEC Nijmegen",
+        "away_team": "Twente",
+        "extra_labels": [
+          "149 >"
+        ],
+        "odds_values": [
+          "3.40",
+          "+240",
+          "3.50",
+          "+250",
+          "2.08",
+          "+108"
+        ],
+        "event_url": "/es_MX/e/33991916/NEC-Nijmegen-vs-Twente"
+      },
+      {
+        "home_team": "Moreirense",
+        "away_team": "Santa Clara",
+        "extra_labels": [
+          "146 >"
+        ],
+        "odds_values": [
+          "3.65",
+          "+265",
+          "3.20",
+          "+220",
+          "2.12",
+          "+112"
+        ],
+        "event_url": "/es_MX/e/34000024/Moreirense-vs-Santa-Clara"
+      },
+      {
+        "home_team": "Arouca",
+        "away_team": "Rio Ave",
+        "extra_labels": [
+          "145 >"
+        ],
+        "odds_values": [
+          "1.75",
+          "-134",
+          "3.75",
+          "+275",
+          "4.50",
+          "+350"
+        ],
+        "event_url": "/es_MX/e/34000354/Arouca-vs-Rio-Ave"
+      },
+      {
+        "home_team": "Academica Viseu",
+        "away_team": "Alverca",
+        "extra_labels": [
+          "149 >"
+        ],
+        "odds_values": [
+          "2.36",
+          "+136",
+          "3.20",
+          "+220",
+          "3.10",
+          "+210"
+        ],
+        "event_url": "/es_MX/e/34000419/Academica-Viseu-vs-Alverca"
+      },
+      {
+        "home_team": "Vitoria Guimaraes",
+        "away_team": "CF Estrela",
+        "extra_labels": [
+          "145 >"
+        ],
+        "odds_values": [
+          "1.66",
+          "-152",
+          "3.85",
+          "+285",
+          "5.00",
+          "+400"
+        ],
+        "event_url": "/es_MX/e/34000413/Vitoria-Guimaraes-vs-CF-Estrela"
+      },
+      {
+        "home_team": "Gil Vicente",
+        "away_team": "Estoril",
+        "extra_labels": [
+          "146 >"
+        ],
+        "odds_values": [
+          "1.82",
+          "-122",
+          "3.60",
+          "+260",
+          "4.30",
+          "+330"
+        ],
+        "event_url": "/es_MX/e/34000416/Gil-Vicente-vs-Estoril"
+      },
+      {
+        "home_team": "FC Porto",
+        "away_team": "Sporting Lisboa",
+        "extra_labels": [
+          "147 >"
+        ],
+        "odds_values": [
+          "2.02",
+          "+102",
+          "3.30",
+          "+230",
+          "3.85",
+          "+285"
+        ],
+        "event_url": "/es_MX/e/34000025/FC-Porto-vs-Sporting-Lisboa"
+      },
+      {
+        "home_team": "Buffalo Bills",
+        "away_team": "327 >",
+        "extra_labels": [],
+        "odds_values": [
+          "-3.5",
+          "1.95",
+          "-106",
+          "45.5",
+          "1.95",
+          "-106"
+        ],
+        "event_url": "/es_MX/NFL/2026-11-09/Buffalo-Bills-vs-Minnesota-Vikings"
+      },
+      {
+        "home_team": "Washington Commanders",
+        "away_team": "285 >",
+        "extra_labels": [],
+        "odds_values": [
+          "+1.5",
+          "1.909",
+          "-110",
+          "42.5",
+          "1.95",
+          "-106"
+        ],
+        "event_url": "/es_MX/e/33912863/Washington-Commanders-%40-New-York-Giants"
+      },
+      {
+        "home_team": "New England Patriots",
+        "away_team": "253 >",
+        "extra_labels": [],
+        "odds_values": [
+          "+2.5",
+          "2.00",
+          "+100",
+          "51",
+          "1.909",
+          "-110"
+        ],
+        "event_url": "/es_MX/e/33912864/New-England-Patriots-vs-Detroit-Lions-%28Allianz-Arena-Munich%2C-DE%29"
+      },
+      {
+        "home_team": "Jacksonville Jaguars",
+        "away_team": "258 >",
+        "extra_labels": [],
+        "odds_values": [
+          "-10",
+          "1.95",
+          "-106",
+          "46.5",
+          "1.909",
+          "-110"
+        ],
+        "event_url": "/es_MX/e/33912859/Jacksonville-Jaguars-%40-Tennessee-Titans"
+      },
+      {
+        "home_team": "Miami Dolphins",
+        "away_team": "197 >",
+        "extra_labels": [],
+        "odds_values": [
+          "+2.5",
+          "1.909",
+          "-110",
+          "40.5",
+          "1.909",
+          "-110"
+        ],
+        "event_url": "/es_MX/e/33912860/Miami-Dolphins-%40-Indianapolis-Colts"
+      },
+      {
+        "home_team": "Houston Texans",
+        "away_team": "255 >",
+        "extra_labels": [],
+        "odds_values": [
+          "-5",
+          "1.909",
+          "-110",
+          "39.5",
+          "1.909",
+          "-110"
+        ],
+        "event_url": "/es_MX/e/33912862/Houston-Texans-%40-Cleveland-Browns"
+      },
+      {
+        "home_team": "Minnesota Vikings",
+        "away_team": "148 >",
+        "extra_labels": [],
+        "odds_values": [
+          "+3.5",
+          "1.87",
+          "-115",
+          "42",
+          "1.909",
+          "-110"
+        ],
+        "event_url": "/es_MX/e/33912865/Minnesota-Vikings-%40-Green-Bay-Packers"
+      },
+      {
+        "home_team": "Kansas City Chiefs",
+        "away_team": "207 >",
+        "extra_labels": [],
+        "odds_values": [
+          "-3",
+          "1.833",
+          "-120",
+          "45",
+          "1.909",
+          "-110"
+        ],
+        "event_url": "/es_MX/e/33912873/Kansas-City-Chiefs-%40-Atlanta-Falcons"
+      },
+      {
+        "home_team": "Carolina Panthers",
+        "away_team": "208 >",
+        "extra_labels": [],
+        "odds_values": [
+          "+1.5",
+          "1.87",
+          "-115",
+          "47.5",
+          "1.909",
+          "-110"
+        ],
+        "event_url": "/es_MX/e/33912878/Carolina-Panthers-%40-New-Orleans-Saints"
+      },
+      {
+        "home_team": "Buffalo Bills",
+        "away_team": "153 >",
+        "extra_labels": [],
+        "odds_values": [
+          "-7.5",
+          "1.909",
+          "-110",
+          "50.5",
+          "1.87",
+          "-115"
+        ],
+        "event_url": "/es_MX/e/33912880/Buffalo-Bills-%40-New-York-Jets"
+      },
+      {
+        "home_team": "Seattle Seahawks",
+        "away_team": "179 >",
+        "extra_labels": [],
+        "odds_values": [
+          "-3.5",
+          "1.95",
+          "-106",
+          "43.5",
+          "1.909",
+          "-110"
+        ],
+        "event_url": "/es_MX/e/33912861/Seattle-Seahawks-%40-Las-Vegas-Raiders"
+      },
+      {
+        "home_team": "Los Angeles Rams",
+        "away_team": "202 >",
+        "extra_labels": [],
+        "odds_values": [
+          "-7.5",
+          "1.95",
+          "-106",
+          "44.5",
+          "1.95",
+          "-106"
+        ],
+        "event_url": "/es_MX/e/33912866/Los-Angeles-Rams-%40-Arizona-Cardinals"
+      },
+      {
+        "home_team": "San Francisco 49ers",
+        "away_team": "211 >",
+        "extra_labels": [],
+        "odds_values": [
+          "-4",
+          "1.909",
+          "-110",
+          "56",
+          "1.909",
+          "-110"
+        ],
+        "event_url": "/es_MX/e/33912874/San-Francisco-49ers-%40-Dallas-Cowboys"
+      },
+      {
+        "home_team": "Pittsburgh Steelers",
+        "away_team": "209 >",
+        "extra_labels": [],
+        "odds_values": [
+          "+3.5",
+          "1.909",
+          "-110",
+          "48.5",
+          "1.909",
+          "-110"
+        ],
+        "event_url": "/es_MX/e/33912867/Pittsburgh-Steelers-%40-Cincinnati-Bengals"
+      },
+      {
+        "home_team": "Los Angeles Chargers",
+        "away_team": "196 >",
+        "extra_labels": [],
+        "odds_values": [
+          "+5.5",
+          "1.909",
+          "-110",
+          "38.5",
+          "1.909",
+          "-110"
+        ],
+        "event_url": "/es_MX/NFL/2026-11-16/Los-Angeles-Chargers-vs-Baltimore-Ravens"
+      },
+      {
+        "home_team": "Plymouth Parkway",
+        "away_team": "Berkhamsted Town",
+        "extra_labels": [
+          "131 >"
+        ],
+        "odds_values": [
+          "1.64",
+          "-157",
+          "4.20",
+          "+320",
+          "4.55",
+          "+355"
+        ],
+        "event_url": "/es_MX/e/33816661/Plymouth-Parkway-vs-Berkhamsted-Town"
+      },
+      {
+        "home_team": "UNAM Pumas (M)",
+        "away_team": "UANL Tigres (M)",
+        "extra_labels": [
+          "102 >"
+        ],
+        "odds_values": [
+          "4.55",
+          "+355",
+          "4.20",
+          "+320",
+          "1.64",
+          "-157"
+        ],
+        "event_url": "/es_MX/e/33970832/UNAM-Pumas-%28M%29-vs-UANL-Tigres-%28M%29"
+      },
+      {
+        "home_team": "Juárez (M)",
+        "away_team": "Chivas Guadalajara (M)",
+        "extra_labels": [
+          "104 >"
+        ],
+        "odds_values": [
+          "2.54",
+          "+154",
+          "3.30",
+          "+230",
+          "2.70",
+          "+170"
+        ],
+        "event_url": "/es_MX/e/33970816/Ju%C3%A1rez-%28M%29-vs-Chivas-Guadalajara-%28M%29"
+      },
+      {
+        "home_team": "Club América (M)",
+        "away_team": "Toluca (M)",
+        "extra_labels": [
+          "103 >"
+        ],
+        "odds_values": [
+          "1.21",
+          "-477",
+          "7.40",
+          "+640",
+          "9.40",
+          "+840"
+        ],
+        "event_url": "/es_MX/e/33998682/Club-Am%C3%A9rica-%28M%29-vs-Toluca-%28M%29"
+      },
+      {
+        "home_team": "Pachuca (M)",
+        "away_team": "Monterrey (M)",
+        "extra_labels": [
+          "1 >"
+        ],
+        "odds_values": [
+          "2.40",
+          "+140",
+          "3.75",
+          "+275",
+          "2.40",
+          "+140"
+        ],
+        "event_url": "/es_MX/e/33970797/Pachuca-%28M%29-vs-Monterrey-%28M%29"
+      },
+      {
+        "home_team": "Atletico Morelia",
+        "away_team": "Leones Negros",
+        "extra_labels": [
+          "102 >"
+        ],
+        "odds_values": [
+          "1.81",
+          "-124",
+          "3.80",
+          "+280",
+          "3.90",
+          "+290"
+        ],
+        "event_url": "/es_MX/e/34000464/Atletico-Morelia-vs-Leones-Negros"
+      },
+      {
+        "home_team": "Piratas Veracruz",
+        "away_team": "Club Atletico La Paz",
+        "extra_labels": [
+          "102 >"
+        ],
+        "odds_values": [
+          "1.70",
+          "-143",
+          "3.95",
+          "+295",
+          "4.35",
+          "+335"
+        ],
+        "event_url": "/es_MX/e/34000482/Piratas-Veracruz-vs-Club-Atletico-La-Paz"
+      },
+      {
+        "home_team": "Orlando City SC",
+        "away_team": "FC Cincinnati",
+        "extra_labels": [
+          "235 >"
+        ],
+        "odds_values": [
+          "2.42",
+          "+142",
+          "3.95",
+          "+295",
+          "2.55",
+          "+155"
+        ],
+        "event_url": "/es_MX/e/33984861/Orlando-City-SC-vs-FC-Cincinnati"
+      },
+      {
+        "home_team": "Seattle Sounders",
+        "away_team": "Real Salt Lake",
+        "extra_labels": [
+          "243 >"
+        ],
+        "odds_values": [
+          "1.98",
+          "-103",
+          "3.80",
+          "+280",
+          "3.45",
+          "+245"
+        ],
+        "event_url": "/es_MX/e/33984880/Seattle-Sounders-vs-Real-Salt-Lake"
+      },
+      {
+        "home_team": "Middlesbrough U21",
+        "away_team": "Derby County U21",
+        "extra_labels": [
+          "43 >"
+        ],
+        "odds_values": [
+          "1.571",
+          "-175",
+          "4.40",
+          "+340",
+          "4.20",
+          "+320"
+        ],
+        "event_url": "/es_MX/e/33795853/Middlesbrough-U21-vs-Derby-County-U21"
+      },
+      {
+        "home_team": "Racing Club Montevideo (R)",
+        "away_team": "Atletico River Plate (Uru) (R)",
+        "extra_labels": [
+          "16 >"
+        ],
+        "odds_values": [
+          "2.10",
+          "+110",
+          "3.40",
+          "+240",
+          "2.875",
+          "+187"
+        ],
+        "event_url": "/es_MX/e/33940146/Racing-Club-Montevideo-%28R%29-vs-Atletico-River-Plate-%28Uru%29-%28R%29"
+      },
+      {
+        "home_team": "Penarol (R)",
+        "away_team": "Juventud de Las Piedras (R)",
+        "extra_labels": [
+          "16 >"
+        ],
+        "odds_values": [
+          "1.85",
+          "-118",
+          "3.65",
+          "+265",
+          "3.25",
+          "+225"
+        ],
+        "event_url": "/es_MX/e/33940149/Penarol-%28R%29-vs-Juventud-de-Las-Piedras-%28R%29"
+      },
+      {
+        "home_team": "La Luz FC (R)",
+        "away_team": "Albion FC (R)",
+        "extra_labels": [
+          "16 >"
+        ],
+        "odds_values": [
+          "2.05",
+          "+105",
+          "3.40",
+          "+240",
+          "3.00",
+          "+200"
+        ],
+        "event_url": "/es_MX/e/33940150/La-Luz-FC-%28R%29-vs-Albion-FC-%28R%29"
+      },
+      {
+        "home_team": "Colon Fc (R)",
+        "away_team": "Defensor Sporting (R)",
+        "extra_labels": [
+          "16 >"
+        ],
+        "odds_values": [
+          "3.40",
+          "+240",
+          "3.55",
+          "+255",
+          "1.85",
+          "-118"
+        ],
+        "event_url": "/es_MX/e/33940151/Colon-Fc-%28R%29-vs-Defensor-Sporting-%28R%29"
+      },
+      {
+        "home_team": "Torque (R)",
+        "away_team": "Boston River (R)",
+        "extra_labels": [
+          "16 >"
+        ],
+        "odds_values": [
+          "1.533",
+          "-188",
+          "3.85",
+          "+285",
+          "4.80",
+          "+380"
+        ],
+        "event_url": "/es_MX/e/33940153/Torque-%28R%29-vs-Boston-River-%28R%29"
+      },
+      {
+        "home_team": "West Brom U21",
+        "away_team": "Bromley U21",
+        "extra_labels": [
+          "16 >"
+        ],
+        "odds_values": [
+          "1.333",
+          "-300",
+          "4.80",
+          "+380",
+          "6.25",
+          "+525"
+        ],
+        "event_url": "/es_MX/e/33986406/West-Brom-U21-vs-Bromley-U21"
+      },
+      {
+        "home_team": "Las Palmas",
+        "away_team": "CD Eldense",
+        "extra_labels": [
+          "114 >"
+        ],
+        "odds_values": [
+          "2.02",
+          "+102",
+          "3.45",
+          "+245",
+          "3.50",
+          "+250"
+        ],
+        "event_url": "/es_MX/e/33889893/Las-Palmas-vs-CD-Eldense"
+      },
+      {
+        "home_team": "CE Sabadell FC",
+        "away_team": "Real Sociedad B",
+        "extra_labels": [
+          "122 >"
+        ],
+        "odds_values": [
+          "1.68",
+          "-148",
+          "3.55",
+          "+255",
+          "5.25",
+          "+425"
+        ],
+        "event_url": "/es_MX/e/33903398/CE-Sabadell-FC-vs-Real-Sociedad-B"
+      },
+      {
+        "home_team": "ASD Team Altamura",
+        "away_team": "Cavese",
+        "extra_labels": [
+          "48 >"
+        ],
+        "odds_values": [
+          "2.60",
+          "+160",
+          "3.25",
+          "+225",
+          "2.45",
+          "+145"
+        ],
+        "event_url": "/es_MX/e/33905104/ASD-Team-Altamura-vs-Cavese"
+      },
+      {
+        "home_team": "Foggia",
+        "away_team": "Barletta",
+        "extra_labels": [
+          "48 >"
+        ],
+        "odds_values": [
+          "2.05",
+          "+105",
+          "3.10",
+          "+210",
+          "3.40",
+          "+240"
+        ],
+        "event_url": "/es_MX/e/33905106/Foggia-vs-Barletta"
+      },
+      {
+        "home_team": "Pineto Calcio",
+        "away_team": "Vis Pesaro 1898",
+        "extra_labels": [
+          "48 >"
+        ],
+        "odds_values": [
+          "1.833",
+          "-120",
+          "3.60",
+          "+260",
+          "3.60",
+          "+260"
+        ],
+        "event_url": "/es_MX/e/33905107/Pineto-Calcio-vs-Vis-Pesaro-1898"
+      },
+      {
+        "home_team": "CA Lito",
+        "away_team": "Danubio",
+        "extra_labels": [
+          "45 >"
+        ],
+        "odds_values": [
+          "3.30",
+          "+230",
+          "3.65",
+          "+265",
+          "1.909",
+          "-110"
+        ],
+        "event_url": "/es_MX/e/33953068/CA-Lito-vs-Danubio"
+      },
+      {
+        "home_team": "Chelmsford City",
+        "away_team": "Ebbsfleet United",
+        "extra_labels": [
+          "43 >"
+        ],
+        "odds_values": [
+          "3.45",
+          "+245",
+          "3.65",
+          "+265",
+          "1.85",
+          "-118"
+        ],
+        "event_url": "/es_MX/e/33796423/Chelmsford-City-vs-Ebbsfleet-United"
+      },
+      {
+        "home_team": "AZ Picerno",
+        "away_team": "Bari",
+        "extra_labels": [
+          "48 >"
+        ],
+        "odds_values": [
+          "3.45",
+          "+245",
+          "3.10",
+          "+210",
+          "2.05",
+          "+105"
+        ],
+        "event_url": "/es_MX/e/33905196/AZ-Picerno-vs-Bari"
+      },
+      {
+        "home_team": "Redditch United",
+        "away_team": "Peterborough Sports FC",
+        "extra_labels": [
+          "16 >"
+        ],
+        "odds_values": [
+          "2.15",
+          "+115",
+          "3.65",
+          "+265",
+          "2.65",
+          "+165"
+        ],
+        "event_url": "/es_MX/e/33796424/Redditch-United-vs-Peterborough-Sports-FC"
+      },
+      {
+        "home_team": "Redbridge",
+        "away_team": "Southall",
+        "extra_labels": [
+          "16 >"
+        ],
+        "odds_values": [
+          "2.35",
+          "+135",
+          "3.75",
+          "+275",
+          "2.35",
+          "+135"
+        ],
+        "event_url": "/es_MX/e/33991112/Redbridge-vs-Southall"
+      },
+      {
+        "home_team": "Deportes Tolima U19",
+        "away_team": "Once Caldas U19",
+        "extra_labels": [
+          "16 >"
+        ],
+        "odds_values": [
+          "1.727",
+          "-138",
+          "3.65",
+          "+265",
+          "3.80",
+          "+280"
+        ],
+        "event_url": "/es_MX/e/33998070/Deportes-Tolima-U19-vs-Once-Caldas-U19"
+      },
+      {
+        "home_team": "Swindon Supermarine",
+        "away_team": "Westbury United",
+        "extra_labels": [
+          "16 >"
+        ],
+        "odds_values": [
+          "1.60",
+          "-167",
+          "3.95",
+          "+295",
+          "4.20",
+          "+320"
+        ],
+        "event_url": "/es_MX/e/33999443/Swindon-Supermarine-vs-Westbury-United"
+      },
+      {
+        "home_team": "Sportivo San Lorenzo",
+        "away_team": "Rubio Nu",
+        "extra_labels": [
+          "98 >"
+        ],
+        "odds_values": [
+          "3.70",
+          "+270",
+          "3.45",
+          "+245",
+          "1.88",
+          "-114"
+        ],
+        "event_url": "/es_MX/e/33903607/Sportivo-San-Lorenzo-vs-Rubio-Nu"
+      },
+      {
+        "home_team": "Deportivo La Coruna (W)",
+        "away_team": "Valencia (W)",
+        "extra_labels": [
+          "43 >"
+        ],
+        "odds_values": [
+          "1.55",
+          "-182",
+          "3.75",
+          "+275",
+          "5.25",
+          "+425"
+        ],
+        "event_url": "/es_MX/e/33891781/Deportivo-La-Coruna-%28W%29-vs-Valencia-%28W%29"
+      },
+      {
+        "home_team": "Cliftonville (R)",
+        "away_team": "Linfield (R)",
+        "extra_labels": [
+          "16 >"
+        ],
+        "odds_values": [
+          "3.80",
+          "+280",
+          "4.20",
+          "+320",
+          "1.615",
+          "-163"
+        ],
+        "event_url": "/es_MX/e/33991108/Cliftonville-%28R%29-vs-Linfield-%28R%29"
+      },
+      {
+        "home_team": "Universitario (W)",
+        "away_team": "FC Melgar (W)",
+        "extra_labels": [
+          "15 >"
+        ],
+        "odds_values": [
+          "1.09",
+          "-1100",
+          "7.00",
+          "+600",
+          "17.00",
+          "+1600"
+        ],
+        "event_url": "/es_MX/e/33992078/Universitario-%28W%29-vs-FC-Melgar-%28W%29"
+      },
+      {
+        "home_team": "Torreense",
+        "away_team": "Uniao Leiria",
+        "extra_labels": [
+          "95 >"
+        ],
+        "odds_values": [
+          "1.88",
+          "-114",
+          "3.60",
+          "+260",
+          "3.60",
+          "+260"
+        ],
+        "event_url": "/es_MX/e/33905762/Torreense-vs-Uniao-Leiria"
+      },
+      {
+        "home_team": "Independiente Yumbo",
+        "away_team": "Union Magdalena",
+        "extra_labels": [
+          "43 >"
+        ],
+        "odds_values": [
+          "2.55",
+          "+155",
+          "3.00",
+          "+200",
+          "2.65",
+          "+165"
+        ],
+        "event_url": "/es_MX/e/33934097/Independiente-Yumbo-vs-Union-Magdalena"
+      },
+      {
+        "home_team": "CD Choloma (R)",
+        "away_team": "CA Independiente Siguatepeque Reserves",
+        "extra_labels": [
+          "16 >"
+        ],
+        "odds_values": [
+          "2.00",
+          "+100",
+          "3.75",
+          "+275",
+          "2.85",
+          "+185"
+        ],
+        "event_url": "/es_MX/e/33983861/CD-Choloma-%28R%29-vs-CA-Independiente-Siguatepeque-Reserves"
+      },
+      {
+        "home_team": "Marathon (R)",
+        "away_team": "Club Deportivo Platense (R)",
+        "extra_labels": [
+          "16 >"
+        ],
+        "odds_values": [
+          "2.70",
+          "+170",
+          "3.50",
+          "+250",
+          "2.15",
+          "+115"
+        ],
+        "event_url": "/es_MX/e/33983878/Marathon-%28R%29-vs-Club-Deportivo-Platense-%28R%29"
+      },
+      {
+        "home_team": "Santa Cruz FC RJ",
+        "away_team": "Serra Macaense RJ",
+        "extra_labels": [
+          "16 >"
+        ],
+        "odds_values": [
+          "2.50",
+          "+150",
+          "3.10",
+          "+210",
+          "2.50",
+          "+150"
+        ],
+        "event_url": "/es_MX/e/33906683/Santa-Cruz-FC-RJ-vs-Serra-Macaense-RJ"
+      },
+      {
+        "home_team": "FC Olancho (R)",
+        "away_team": "Lobos UPNFM (R)",
+        "extra_labels": [
+          "16 >"
+        ],
+        "odds_values": [
+          "2.70",
+          "+170",
+          "3.75",
+          "+275",
+          "2.05",
+          "+105"
+        ],
+        "event_url": "/es_MX/e/33983879/FC-Olancho-%28R%29-vs-Lobos-UPNFM-%28R%29"
+      },
+      {
+        "home_team": "Washington Wizards",
+        "away_team": "337 >",
+        "extra_labels": [],
+        "odds_values": [
+          "+10.5",
+          "1.909",
+          "-110",
+          "219",
+          "1.909",
+          "-110"
+        ],
+        "event_url": "/es_MX/e/33970637/Washington-Wizards-%40-Detroit-Pistons"
+      },
+      {
+        "home_team": "Cleveland Cavaliers",
+        "away_team": "299 >",
+        "extra_labels": [],
+        "odds_values": [
+          "-8.5",
+          "1.909",
+          "-110",
+          "214.5",
+          "1.909",
+          "-110"
+        ],
+        "event_url": "/es_MX/e/33970645/Cleveland-Cavaliers-%40-Charlotte-Hornets"
+      },
+      {
+        "home_team": "Los Angeles Lakers",
+        "away_team": "389 >",
+        "extra_labels": [],
+        "odds_values": [
+          "+2",
+          "1.909",
+          "-110",
+          "236",
+          "1.909",
+          "-110"
+        ],
+        "event_url": "/es_MX/e/33970647/Los-Angeles-Lakers-%40-Atlanta-Hawks"
+      },
+      {
+        "home_team": "Memphis Grizzlies",
+        "away_team": "356 >",
+        "extra_labels": [],
+        "odds_values": [
+          "+2.5",
+          "1.909",
+          "-110",
+          "228.5",
+          "1.909",
+          "-110"
+        ],
+        "event_url": "/es_MX/e/33970633/Memphis-Grizzlies-%40-Toronto-Raptors"
+      },
+      {
+        "home_team": "Indiana Pacers",
+        "away_team": "315 >",
+        "extra_labels": [],
+        "odds_values": [
+          "+3.5",
+          "1.909",
+          "-110",
+          "225.5",
+          "1.87",
+          "-115"
+        ],
+        "event_url": "/es_MX/e/33970643/Indiana-Pacers-%40-Dallas-Mavericks"
+      },
+      {
+        "home_team": "Denver Nuggets",
+        "away_team": "358 >",
+        "extra_labels": [],
+        "odds_values": [
+          "+9",
+          "1.909",
+          "-110",
+          "220",
+          "1.909",
+          "-110"
+        ],
+        "event_url": "/es_MX/e/33970646/Denver-Nuggets-%40-Houston-Rockets"
+      },
+      {
+        "home_team": "San Antonio Spurs",
+        "away_team": "371 >",
+        "extra_labels": [],
+        "odds_values": [
+          "-8.5",
+          "1.909",
+          "-110",
+          "226.5",
+          "1.95",
+          "-106"
+        ],
+        "event_url": "/es_MX/e/33970634/San-Antonio-Spurs-%40-Phoenix-Suns"
+      },
+      {
+        "home_team": "New Orleans Pelicans",
+        "away_team": "377 >",
+        "extra_labels": [],
+        "odds_values": [
+          "+9",
+          "1.909",
+          "-110",
+          "232",
+          "1.909",
+          "-110"
+        ],
+        "event_url": "/es_MX/e/33970648/New-Orleans-Pelicans-%40-Golden-State-Warriors"
+      },
+      {
+        "home_team": "Boston Celtics",
+        "away_team": "62 >",
+        "extra_labels": [],
+        "odds_values": [
+          "-1.5",
+          "1.95",
+          "-106",
+          "215.5",
+          "1.95",
+          "-106"
+        ],
+        "event_url": "/es_MX/e/33985437/Boston-Celtics-%40-Philadelphia-76ers"
+      },
+      {
+        "home_team": "San Antonio Spurs",
+        "away_team": "3 >",
+        "extra_labels": [],
+        "odds_values": [
+          "-1.5",
+          "1.95",
+          "-106",
+          "228.5",
+          "1.909",
+          "-110"
+        ],
+        "event_url": "/es_MX/e/33697428/San-Antonio-Spurs-%40-New-York-Knicks"
+      },
+      {
+        "home_team": "Miami Heat",
+        "away_team": "3 >",
+        "extra_labels": [],
+        "odds_values": [
+          "+5.5",
+          "1.909",
+          "-110",
+          "230.5",
+          "1.909",
+          "-110"
+        ],
+        "event_url": "/es_MX/e/33697441/Miami-Heat-%40-Boston-Celtics"
+      },
+      {
+        "home_team": "Philadelphia 76ers",
+        "away_team": "3 >",
+        "extra_labels": [],
+        "odds_values": [
+          "+1.5",
+          "1.87",
+          "-115",
+          "237.5",
+          "1.909",
+          "-110"
+        ],
+        "event_url": "/es_MX/e/33697442/Philadelphia-76ers-%40-Los-Angeles-Lakers"
+      },
+      {
+        "home_team": "Oklahoma City Thunder",
+        "away_team": "3 >",
+        "extra_labels": [],
+        "odds_values": [
+          "-4.5",
+          "1.909",
+          "-110",
+          "233.5",
+          "1.909",
+          "-110"
+        ],
+        "event_url": "/es_MX/e/33697443/Oklahoma-City-Thunder-%40-Minnesota-Timberwolves"
+      },
+      {
+        "home_team": "Denver Nuggets",
+        "away_team": "3 >",
+        "extra_labels": [],
+        "odds_values": [
+          "-2.5",
+          "1.909",
+          "-110",
+          "235.5",
+          "1.909",
+          "-110"
+        ],
+        "event_url": "/es_MX/e/33697444/Denver-Nuggets-%40-Golden-State-Warriors"
+      },
+      {
+        "home_team": "Western Michigan",
+        "away_team": "53 >",
+        "extra_labels": [],
+        "odds_values": [
+          "-14",
+          "1.87",
+          "-115",
+          "48",
+          "1.909",
+          "-110"
+        ],
+        "event_url": "/es_MX/e/33985408/Western-Michigan-%40-Akron"
+      },
+      {
+        "home_team": "Kent State",
+        "away_team": "50 >",
+        "extra_labels": [],
+        "odds_values": [
+          "+6",
+          "1.909",
+          "-110",
+          "44.5",
+          "1.909",
+          "-110"
+        ],
+        "event_url": "/es_MX/e/33985510/Kent-State-%40-Bowling-Green"
+      },
+      {
+        "home_team": "Ohio",
+        "away_team": "55 >",
+        "extra_labels": [],
+        "odds_values": [
+          "-1.5",
+          "1.909",
+          "-110",
+          "48.5",
+          "1.909",
+          "-110"
+        ],
+        "event_url": "/es_MX/e/33985478/Ohio-%40-Miami-Ohio"
+      },
+      {
+        "home_team": "Buffalo",
+        "away_team": "53 >",
+        "extra_labels": [],
+        "odds_values": [
+          "-2.5",
+          "1.909",
+          "-110",
+          "51.5",
+          "1.95",
+          "-106"
+        ],
+        "event_url": "/es_MX/e/33985416/Buffalo-%40-Ball-State"
+      },
+      {
+        "home_team": "Massachusetts",
+        "away_team": "53 >",
+        "extra_labels": [],
+        "odds_values": [
+          "+14.5",
+          "1.87",
+          "-115",
+          "52.5",
+          "1.909",
+          "-110"
+        ],
+        "event_url": "/es_MX/e/33985419/Massachusetts-%40-Toledo"
+      },
+      {
+        "home_team": "Sacramento State",
+        "away_team": "45 >",
+        "extra_labels": [],
+        "odds_values": [
+          "+18",
+          "1.909",
+          "-110",
+          "43.5",
+          "1.87",
+          "-115"
+        ],
+        "event_url": "/es_MX/e/33985507/Sacramento-State-%40-Central-Michigan"
+      },
+      {
+        "home_team": "Memphis",
+        "away_team": "50 >",
+        "extra_labels": [],
+        "odds_values": [
+          "-4.5",
+          "1.87",
+          "-115",
+          "48.5",
+          "1.909",
+          "-110"
+        ],
+        "event_url": "/es_MX/e/33985441/Memphis-%40-South-Florida"
+      },
+      {
+        "home_team": "UL Lafayette",
+        "away_team": "52 >",
+        "extra_labels": [],
+        "odds_values": [
+          "-10.5",
+          "1.909",
+          "-110",
+          "48.5",
+          "1.909",
+          "-110"
+        ],
+        "event_url": "/es_MX/e/33985442/UL-Lafayette-%40-Ul-Monroe"
+      },
+      {
+        "home_team": "Florida State",
+        "away_team": "43 >",
+        "extra_labels": [],
+        "odds_values": [
+          "+3.5",
+          "1.87",
+          "-115",
+          "54",
+          "1.909",
+          "-110"
+        ],
+        "event_url": "/es_MX/e/33985420/Florida-State-%40-Pittsburgh"
+      },
+      {
+        "home_team": "Illinois",
+        "away_team": "57 >",
+        "extra_labels": [],
+        "odds_values": [
+          "+10",
+          "1.909",
+          "-110",
+          "46.5",
+          "1.909",
+          "-110"
+        ],
+        "event_url": "/es_MX/e/33985465/Illinois-%40-UCLA"
+      },
+      {
+        "home_team": "Houston",
+        "away_team": "41 >",
+        "extra_labels": [],
+        "odds_values": [
+          "-10",
+          "1.909",
+          "-110",
+          "51",
+          "1.909",
+          "-110"
+        ],
+        "event_url": "/es_MX/e/33985422/Houston-%40-Colorado"
+      },
+      {
+        "home_team": "Wake Forest",
+        "away_team": "44 >",
+        "extra_labels": [],
+        "odds_values": [
+          "-1.5",
+          "1.909",
+          "-110",
+          "61.5",
+          "1.909",
+          "-110"
+        ],
+        "event_url": "/es_MX/e/33985396/Wake-Forest-%40-SMU"
+      },
+      {
+        "home_team": "Duke",
+        "away_team": "42 >",
+        "extra_labels": [],
+        "odds_values": [
+          "+13.5",
+          "1.909",
+          "-110",
+          "54.5",
+          "1.95",
+          "-106"
+        ],
+        "event_url": "/es_MX/e/33985417/Duke-%40-Miami-Florida"
+      },
+      {
+        "home_team": "Cincinnati",
+        "away_team": "52 >",
+        "extra_labels": [],
+        "odds_values": [
+          "+2.5",
+          "1.909",
+          "-110",
+          "61",
+          "1.909",
+          "-110"
+        ],
+        "event_url": "/es_MX/e/33985418/Cincinnati-%40-Iowa-State"
+      },
+      {
+        "home_team": "Northwestern",
+        "away_team": "38 >",
+        "extra_labels": [],
+        "odds_values": [
+          "+12.5",
+          "1.909",
+          "-110",
+          "47.5",
+          "1.95",
+          "-106"
+        ],
+        "event_url": "/es_MX/e/33985424/Northwestern-%40-Ohio-State"
+      },
+      {
+        "home_team": "Auburn",
+        "away_team": "52 >",
+        "extra_labels": [],
+        "odds_values": [
+          "-2.5",
+          "1.833",
+          "-120",
+          "50.5",
+          "1.909",
+          "-110"
+        ],
+        "event_url": "/es_MX/e/33985426/Auburn-%40-Mississippi-State"
+      },
+      {
+        "home_team": "Syracuse",
+        "away_team": "52 >",
+        "extra_labels": [],
+        "odds_values": [
+          "-3",
+          "1.95",
+          "-106",
+          "54.5",
+          "1.909",
+          "-110"
+        ],
+        "event_url": "/es_MX/e/33985443/Syracuse-%40-NC-State"
+      },
+      {
+        "home_team": "Wisconsin",
+        "away_team": "45 >",
+        "extra_labels": [],
+        "odds_values": [
+          "-8.5",
+          "1.909",
+          "-110",
+          "43.5",
+          "1.909",
+          "-110"
+        ],
+        "event_url": "/es_MX/e/33985489/Wisconsin-%40-Maryland"
+      }
+    ],
+    "dom_pages": [
+      {
+        "url": "https://sports.caliente.mx/es_MX/Futbol",
+        "status": 200,
+        "title": "Apuestas Fútbol en Caliente.mx. Las mejores apuestas y momios online",
+        "events_count": 165,
+        "raw_odds_count": 280,
+        "sport_links_count": 22,
+        "sport_links_sample": [
+          {
+            "text": "",
+            "href": "/es_MX/Futbol"
+          },
+          {
+            "text": "Fútbol México",
+            "href": "/es_MX/Apuestas-Futbol-Mexico"
+          },
+          {
+            "text": "Especiales Fútbol",
+            "href": "/es_MX/Apuestas-Especiales-Futbol"
+          },
+          {
+            "text": "NFL",
+            "href": "/es_MX/NFL"
+          },
+          {
+            "text": "",
+            "href": "/es_MX/Futbol"
+          },
+          {
+            "text": "",
+            "href": "/es_MX/Liga-MX"
+          },
+          {
+            "text": "",
+            "href": "/es_MX/Liga-MX-Femenil"
+          },
+          {
+            "text": "",
+            "href": "/es_MX/Liga-MX-Campeon-Apertura-2026"
+          },
+          {
+            "text": "",
+            "href": "/es_MX/t/49909/M%C3%A9xico-Liga-MX-Femenil"
+          },
+          {
+            "text": "",
+            "href": "/es_MX/Futbol-Americano"
+          },
+          {
+            "text": "",
+            "href": "/es_MX/NFL"
+          },
+          {
+            "text": "",
+            "href": "/es_MX/t/533780/NFL-Super-Bowl"
+          },
+          {
+            "text": "",
+            "href": "/es_MX/t/47645/NFL-Conferencias"
+          },
+          {
+            "text": "",
+            "href": "/es_MX/t/48284/NFL-Divisiones"
+          },
+          {
+            "text": "",
+            "href": "/es_MX/Futbol-Australiano"
+          },
+          {
+            "text": "Fútbol",
+            "href": "/es_MX/Futbol"
+          },
+          {
+            "text": "Liga MX",
+            "href": "/es_MX/Liga-MX"
+          },
+          {
+            "text": "México - Liga MX Femenil",
+            "href": "/es_MX/Liga-MX-Femenil"
+          },
+          {
+            "text": "México - Liga MX",
+            "href": "/es_MX/Liga-MX-Campeon-Apertura-2026"
+          },
+          {
+            "text": "México - Liga MX Femenil",
+            "href": "/es_MX/t/49909/M%C3%A9xico-Liga-MX-Femenil"
+          },
+          {
+            "text": "Apuesta ahora",
+            "href": "https://sports.caliente.mx/es_MX/Futbol"
+          },
+          {
+            "text": "Apuesta Ahora",
+            "href": "https://sports.caliente.mx/es_MX/Futbol"
+          }
+        ],
+        "raw_selections_sample": [
+          {
+            "label": "Hvidovre IF",
+            "odds": "-1400"
+          },
+          {
+            "label": "Empate",
+            "odds": "8.25"
+          },
+          {
+            "label": "Aarhus Fremad",
+            "odds": "26.00"
+          },
+          {
+            "label": "Kristiansund BK",
+            "odds": "1.60"
+          },
+          {
+            "label": "Empate",
+            "odds": "3.70"
+          },
+          {
+            "label": "Valerenga IF",
+            "odds": "5.50"
+          },
+          {
+            "label": "Over",
+            "odds": "3.45"
+          },
+          {
+            "label": "Under",
+            "odds": "1.25"
+          },
+          {
+            "label": "Ironi Modiin",
+            "odds": "7.25"
+          },
+          {
+            "label": "Empate",
+            "odds": "-800"
+          },
+          {
+            "label": "Hapoel Acre",
+            "odds": "14.00"
+          },
+          {
+            "label": "FC Kafr Qasim",
+            "odds": "46.00"
+          },
+          {
+            "label": "Empate",
+            "odds": "5.75"
+          },
+          {
+            "label": "Hapoel Afula",
+            "odds": "1.10"
+          },
+          {
+            "label": "Hvidovre IF",
+            "odds": "-1400"
+          },
+          {
+            "label": "Hvidovre IF",
+            "odds": "-1400"
+          },
+          {
+            "label": "Empate",
+            "odds": "8.25"
+          },
+          {
+            "label": "Empate",
+            "odds": "8.25"
+          },
+          {
+            "label": "Aarhus Fremad",
+            "odds": "26.00"
+          },
+          {
+            "label": "Aarhus Fremad",
+            "odds": "26.00"
+          },
+          {
+            "label": "Kristiansund BK",
+            "odds": "1.60"
+          },
+          {
+            "label": "Kristiansund BK",
+            "odds": "1.60"
+          },
+          {
+            "label": "Empate",
+            "odds": "3.70"
+          },
+          {
+            "label": "Empate",
+            "odds": "3.70"
+          },
+          {
+            "label": "Valerenga IF",
+            "odds": "5.50"
+          },
+          {
+            "label": "Valerenga IF",
+            "odds": "5.50"
+          },
+          {
+            "label": "Ironi Modiin",
+            "odds": "7.25"
+          },
+          {
+            "label": "Ironi Modiin",
+            "odds": "7.25"
+          },
+          {
+            "label": "Empate",
+            "odds": "-800"
+          },
+          {
+            "label": "Empate",
+            "odds": "-800"
+          },
+          {
+            "label": "Hapoel Acre",
+            "odds": "14.00"
+          },
+          {
+            "label": "Hapoel Acre",
+            "odds": "14.00"
+          },
+          {
+            "label": "FC Kafr Qasim",
+            "odds": "46.00"
+          },
+          {
+            "label": "FC Kafr Qasim",
+            "odds": "46.00"
+          },
+          {
+            "label": "Empate",
+            "odds": "5.75"
+          },
+          {
+            "label": "Empate",
+            "odds": "5.75"
+          },
+          {
+            "label": "Hapoel Afula",
+            "odds": "1.10"
+          },
+          {
+            "label": "Hapoel Afula",
+            "odds": "1.10"
+          },
+          {
+            "label": "FC Botosani",
+            "odds": "2.60"
+          },
+          {
+            "label": "FC Botosani",
+            "odds": "2.60"
+          },
+          {
+            "label": "Empate",
+            "odds": "2.30"
+          },
+          {
+            "label": "Empate",
+            "odds": "2.30"
+          },
+          {
+            "label": "FC Otelul Galati",
+            "odds": "3.75"
+          },
+          {
+            "label": "FC Otelul Galati",
+            "odds": "3.75"
+          },
+          {
+            "label": "Javor Ivanjica",
+            "odds": "61.00"
+          },
+          {
+            "label": "Javor Ivanjica",
+            "odds": "61.00"
+          },
+          {
+            "label": "Empate",
+            "odds": "6.00"
+          },
+          {
+            "label": "Empate",
+            "odds": "6.00"
+          },
+          {
+            "label": "TSC Backa Topola",
+            "odds": "-1600"
+          },
+          {
+            "label": "TSC Backa Topola",
+            "odds": "-1600"
+          },
+          {
+            "label": "Palmeiras SP U20",
+            "odds": "2.95"
+          },
+          {
+            "label": "Palmeiras SP U20",
+            "odds": "2.95"
+          },
+          {
+            "label": "Empate",
+            "odds": "2.90"
+          },
+          {
+            "label": "Empate",
+            "odds": "2.90"
+          },
+          {
+            "label": "Santos FC U20",
+            "odds": "2.30"
+          },
+          {
+            "label": "Santos FC U20",
+            "odds": "2.30"
+          },
+          {
+            "label": "Mushuc Runa",
+            "odds": "2.00"
+          },
+          {
+            "label": "Mushuc Runa",
+            "odds": "2.00"
+          },
+          {
+            "label": "Empate",
+            "odds": "2.60"
+          },
+          {
+            "label": "Empate",
+            "odds": "2.60"
+          }
+        ]
+      },
+      {
+        "url": "https://sports.caliente.mx/es_MX",
+        "status": 200,
+        "title": "Recibe $1,000 MXN gratis sin depósito",
+        "events_count": 212,
+        "raw_odds_count": 282,
+        "sport_links_count": 28,
+        "sport_links_sample": [
+          {
+            "text": "",
+            "href": "/es_MX/Futbol"
+          },
+          {
+            "text": "Fútbol México",
+            "href": "/es_MX/Apuestas-Futbol-Mexico"
+          },
+          {
+            "text": "Especiales Fútbol",
+            "href": "/es_MX/Apuestas-Especiales-Futbol"
+          },
+          {
+            "text": "NFL",
+            "href": "/es_MX/NFL"
+          },
+          {
+            "text": "",
+            "href": "/es_MX/Futbol"
+          },
+          {
+            "text": "",
+            "href": "/es_MX/Liga-MX"
+          },
+          {
+            "text": "",
+            "href": "/es_MX/Liga-MX-Femenil"
+          },
+          {
+            "text": "",
+            "href": "/es_MX/Liga-MX-Campeon-Apertura-2026"
+          },
+          {
+            "text": "",
+            "href": "/es_MX/t/49909/M%C3%A9xico-Liga-MX-Femenil"
+          },
+          {
+            "text": "",
+            "href": "/es_MX/Futbol-Americano"
+          },
+          {
+            "text": "",
+            "href": "/es_MX/NFL"
+          },
+          {
+            "text": "",
+            "href": "/es_MX/t/533780/NFL-Super-Bowl"
+          },
+          {
+            "text": "",
+            "href": "/es_MX/t/47645/NFL-Conferencias"
+          },
+          {
+            "text": "",
+            "href": "/es_MX/t/48284/NFL-Divisiones"
+          },
+          {
+            "text": "",
+            "href": "/es_MX/Futbol-Australiano"
+          },
+          {
+            "text": "Buffalo Bills",
+            "href": "/es_MX/NFL/2026-11-09/Buffalo-Bills-vs-Minnesota-Vikings"
+          },
+          {
+            "text": "327 >",
+            "href": "/es_MX/NFL/2026-11-09/Buffalo-Bills-vs-Minnesota-Vikings"
+          },
+          {
+            "text": "Minnesota Vikings",
+            "href": "/es_MX/NFL/2026-11-09/Buffalo-Bills-vs-Minnesota-Vikings"
+          },
+          {
+            "text": "Los Angeles Chargers",
+            "href": "/es_MX/NFL/2026-11-16/Los-Angeles-Chargers-vs-Baltimore-Ravens"
+          },
+          {
+            "text": "196 >",
+            "href": "/es_MX/NFL/2026-11-16/Los-Angeles-Chargers-vs-Baltimore-Ravens"
+          },
+          {
+            "text": "Baltimore Ravens",
+            "href": "/es_MX/NFL/2026-11-16/Los-Angeles-Chargers-vs-Baltimore-Ravens"
+          },
+          {
+            "text": "",
+            "href": "https://sports.caliente.mx/es_MX/Liga-MX-Campeon-Apertura-2026"
+          },
+          {
+            "text": "",
+            "href": "https://sports.caliente.mx/es_MX/t/533780/NFL-Super-Bowl"
+          },
+          {
+            "text": "",
+            "href": "https://sports.caliente.mx/es_MX/Futbol"
+          },
+          {
+            "text": "Buffalo Bills @ Minnesota Vikings",
+            "href": "/es_MX/NFL/2026-11-09/Buffalo-Bills-vs-Minnesota-Vikings"
+          },
+          {
+            "text": "Apuesta ahora",
+            "href": "https://sports.caliente.mx/es_MX/Futbol"
+          },
+          {
+            "text": "Apuesta ahora",
+            "href": "https://sports.caliente.mx/es_MX/Futbol"
+          },
+          {
+            "text": "Apuesta Ahora",
+            "href": "https://sports.caliente.mx/es_MX/Futbol"
+          }
+        ],
+        "raw_selections_sample": [
+          {
+            "label": "Hvidovre IF",
+            "odds": "-1400"
+          },
+          {
+            "label": "Empate",
+            "odds": "8.25"
+          },
+          {
+            "label": "Aarhus Fremad",
+            "odds": "26.00"
+          },
+          {
+            "label": "Kristiansund BK",
+            "odds": "-175"
+          },
+          {
+            "label": "Empate",
+            "odds": "3.70"
+          },
+          {
+            "label": "Valerenga IF",
+            "odds": "5.60"
+          },
+          {
+            "label": "Over",
+            "odds": "3.60"
+          },
+          {
+            "label": "Under",
+            "odds": "-450"
+          },
+          {
+            "label": "Ironi Modiin",
+            "odds": "8.00"
+          },
+          {
+            "label": "Empate",
+            "odds": "1.10"
+          },
+          {
+            "label": "Hapoel Acre",
+            "odds": "17.00"
+          },
+          {
+            "label": "FC Kafr Qasim",
+            "odds": "46.00"
+          },
+          {
+            "label": "Empate",
+            "odds": "5.75"
+          },
+          {
+            "label": "Hapoel Afula",
+            "odds": "1.10"
+          },
+          {
+            "label": "Hvidovre IF",
+            "odds": "-1400"
+          },
+          {
+            "label": "Hvidovre IF",
+            "odds": "-1400"
+          },
+          {
+            "label": "Empate",
+            "odds": "8.25"
+          },
+          {
+            "label": "Empate",
+            "odds": "8.25"
+          },
+          {
+            "label": "Aarhus Fremad",
+            "odds": "26.00"
+          },
+          {
+            "label": "Aarhus Fremad",
+            "odds": "26.00"
+          },
+          {
+            "label": "Kristiansund BK",
+            "odds": "-175"
+          },
+          {
+            "label": "Kristiansund BK",
+            "odds": "-175"
+          },
+          {
+            "label": "Empate",
+            "odds": "3.70"
+          },
+          {
+            "label": "Empate",
+            "odds": "3.70"
+          },
+          {
+            "label": "Valerenga IF",
+            "odds": "5.60"
+          },
+          {
+            "label": "Valerenga IF",
+            "odds": "5.60"
+          },
+          {
+            "label": "Ironi Modiin",
+            "odds": "8.00"
+          },
+          {
+            "label": "Ironi Modiin",
+            "odds": "8.00"
+          },
+          {
+            "label": "Empate",
+            "odds": "1.10"
+          },
+          {
+            "label": "Empate",
+            "odds": "1.10"
+          },
+          {
+            "label": "Hapoel Acre",
+            "odds": "17.00"
+          },
+          {
+            "label": "Hapoel Acre",
+            "odds": "17.00"
+          },
+          {
+            "label": "FC Kafr Qasim",
+            "odds": "46.00"
+          },
+          {
+            "label": "FC Kafr Qasim",
+            "odds": "46.00"
+          },
+          {
+            "label": "Empate",
+            "odds": "5.75"
+          },
+          {
+            "label": "Empate",
+            "odds": "5.75"
+          },
+          {
+            "label": "Hapoel Afula",
+            "odds": "1.10"
+          },
+          {
+            "label": "Hapoel Afula",
+            "odds": "1.10"
+          },
+          {
+            "label": "FC Botosani",
+            "odds": "2.55"
+          },
+          {
+            "label": "FC Botosani",
+            "odds": "2.55"
+          },
+          {
+            "label": "Empate",
+            "odds": "2.30"
+          },
+          {
+            "label": "Empate",
+            "odds": "2.30"
+          },
+          {
+            "label": "FC Otelul Galati",
+            "odds": "3.75"
+          },
+          {
+            "label": "FC Otelul Galati",
+            "odds": "3.75"
+          },
+          {
+            "label": "Javor Ivanjica",
+            "odds": "61.00"
+          },
+          {
+            "label": "Javor Ivanjica",
+            "odds": "61.00"
+          },
+          {
+            "label": "Empate",
+            "odds": "6.20"
+          },
+          {
+            "label": "Empate",
+            "odds": "6.20"
+          },
+          {
+            "label": "TSC Backa Topola",
+            "odds": "-1400"
+          },
+          {
+            "label": "TSC Backa Topola",
+            "odds": "-1400"
+          },
+          {
+            "label": "Palmeiras SP U20",
+            "odds": "2.95"
+          },
+          {
+            "label": "Palmeiras SP U20",
+            "odds": "2.95"
+          },
+          {
+            "label": "Empate",
+            "odds": "2.90"
+          },
+          {
+            "label": "Empate",
+            "odds": "2.90"
+          },
+          {
+            "label": "Santos FC U20",
+            "odds": "2.30"
+          },
+          {
+            "label": "Santos FC U20",
+            "odds": "2.30"
+          },
+          {
+            "label": "Mushuc Runa",
+            "odds": "2.10"
+          },
+          {
+            "label": "Mushuc Runa",
+            "odds": "2.10"
+          },
+          {
+            "label": "Empate",
+            "odds": "2.50"
+          },
+          {
+            "label": "Empate",
+            "odds": "2.50"
+          }
+        ]
+      }
+    ],
+    "network_requests": [
+      {
+        "network_id": 1,
+        "url": "https://sports.caliente.mx/es_MX/Futbol",
+        "status": 200,
+        "resource_type": "document",
+        "body_bytes": 636975
+      },
+      {
+        "network_id": 60,
+        "url": "https://sports.caliente.mx/web_nr?key=CMS.web.logo_util.get_logo_full_url&logo_type=POPUP&platform=DESKTOP",
+        "status": 200,
+        "resource_type": "xhr",
+        "body_bytes": 200,
+        "has_json": true,
+        "json_preview": {
+          "region": "gb",
+          "current_logo_full_url": "https://static.caliente.mx/sports/web_static/R_67c20345c7f6/desktop/bh/CAL/desktop_popup_logo.png",
+          "site_code": "CAL",
+          "logo_height": 32,
+          "logo_width": 182
+        }
+      },
+      {
+        "network_id": 61,
+        "url": "https://sports.caliente.mx/web_nr?key=do_get_server_time&_=1794249975456",
+        "status": 200,
+        "resource_type": "xhr",
+        "body_bytes": 41,
+        "has_json": true,
+        "json_preview": {
+          "server_time": 1794249975,
+          "tz_offset": -6
+        }
+      },
+      {
+        "network_id": 74,
+        "url": "https://sports.caliente.mx/cdn-cgi/rum?",
+        "status": 204,
+        "resource_type": "xhr",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 75,
+        "url": "https://sports.caliente.mx/web_nr",
+        "status": 200,
+        "resource_type": "xhr",
+        "body_bytes": 2244,
+        "has_json": true,
+        "json_preview": {
+          "keys": [
+            "obt_token_removed_by_user",
+            "sep_char",
+            "bonus_token_count",
+            "accumulator_suggestion_message",
+            "slip_data",
+            "num_valid_bets",
+            "html",
+            "accumulator_hash",
+            "dec_point",
+            "err_alert",
+            "ccy_fmt",
+            "checked_odds_tokens",
+            "fixed_line_switch_data"
+          ]
+        }
+      },
+      {
+        "network_id": 82,
+        "url": "https://login.caliente.mx/PreAuthConf?casino=calienteclub",
+        "status": 200,
+        "resource_type": "xhr",
+        "body_bytes": 402,
+        "has_json": true,
+        "json_preview": {
+          "enforceCaptcha": false,
+          "captchaProvider": "recaptcha",
+          "captchaPublicKey": "6Lfw-XgaAAAAANZQmYzNECcILSMSSIwLaGtSo2r8",
+          "directCaptcha": false,
+          "enforcedCaptchaServices": [],
+          "fidoEnabled": false,
+          "googleClientId": null,
+          "fitToPlaySubmissionRequired": false,
+          "twoFactorAuthenticationConf": {
+            "enabled": false,
+            "defaultChannel": null,
+            "configuredServices": [],
+            "loginDeviceSupport": false,
+            "skipTwoFactorWithRememberMe": false
+          }
+        }
+      },
+      {
+        "network_id": 83,
+        "url": "https://sports.caliente.mx/cdn-cgi/challenge-platform/h/b/jsd/oneshot/8340802ab0bb/0.2774740265783744:1794244543:uV40zzFxa7N_0kwvjwlPUQxfQIYXZLLCcXk9Q56HhIE/a57efaaa3bdab1f2",
+        "status": 200,
+        "resource_type": "xhr",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 84,
+        "url": "https://login.caliente.mx/pasSetupPage.php?casino=calienteclub",
+        "status": 200,
+        "resource_type": "document",
+        "body_bytes": 15162
+      },
+      {
+        "network_id": 93,
+        "url": "https://ad.doubleclick.net/ccm/s/collect?auid=1944901381.1794249977&gtm=45He6b50v76036477za200zd76036477xeaxf1&fmt=8",
+        "status": 204,
+        "resource_type": "fetch",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 95,
+        "url": "https://sports.caliente.mx/update_server",
+        "status": 200,
+        "resource_type": "xhr",
+        "body_bytes": 80945,
+        "has_json": true,
+        "json_preview": {
+          "keys": [
+            "mn",
+            "upds",
+            "ms"
+          ]
+        }
+      },
+      {
+        "network_id": 98,
+        "url": "https://analytics.google.com/g/collect?v=2&tid=G-V8PEGNP43B&gtm=45je6b50v890780042z876036477za20gzb76036477zd76036477xf1&_p=1794249975482&_gaz=1&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAAAAGAC&_prs=ok&cid=661141247.1794249977&frm=0&pscdl=noapi&rcb=13&sr=1920x1080&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B8.0.0.0%7CChromium%3B156.0.8078.4&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=es-es&gaf=2&_s=1&tag_exp=115938465~115938469~117227716~118897920~118897930~120213116~120385422~120412528~120420414~120469145~120469153~121191153~121246026~121246034~123814183&sid=1794249977&sct=1&seg=0&dl=https%3A%2F%2Fsports.caliente.mx%2Fes_MX%2FFutbol&dt=Apuestas%20F%C3%BAtbol%20en%20Caliente.mx.%20Las%20mejores%20apuestas%20y%20momios%20online&en=page_view&_fv=1&_nsi=1&_ss=2&tfd=2296",
+        "status": 204,
+        "resource_type": "fetch",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 101,
+        "url": "https://login.caliente.mx/cdn-cgi/challenge-platform/h/b/jsd/oneshot/8340802ab0bb/0.2774740265783744:1794244543:uV40zzFxa7N_0kwvjwlPUQxfQIYXZLLCcXk9Q56HhIE/a57efab47e720a16",
+        "status": 200,
+        "resource_type": "xhr",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 102,
+        "url": "https://connect.facebook.net/app_config/json/1408698396126159/",
+        "status": 200,
+        "resource_type": "fetch",
+        "body_bytes": 27,
+        "has_json": true,
+        "json_preview": {
+          "fedcm": {
+            "default": false
+          }
+        }
+      },
+      {
+        "network_id": 105,
+        "url": "https://www.facebook.com/tr/",
+        "status": 200,
+        "resource_type": "document",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 106,
+        "url": "https://www.tiktok.com/embed/@calientesports?lang=es-ES&referrer=https%3A%2F%2Fsports.caliente.mx%2Fes_MX%2FFutbol",
+        "status": 503,
+        "resource_type": "document",
+        "body_bytes": 26
+      },
+      {
+        "network_id": 109,
+        "url": "https://sports.caliente.mx/web_nr?key=sportsbook.cms.handlers.get_all_highlights&bh_container_codes=win_centre_promo&bh_container_codes=jackpotend&bh_container_codes=jackpot_area&bh_container_codes=winner_game_month&bh_container_codes=winner_casino_mobile&bh_container_codes=right_sign_up&bh_container_codes=jackpot_areas&bh_container_codes=jackpotend&bh_container_codes=winner_promos&bh_container_codes=caliente_news_&sport_codes=FOOT&sport_codes=&sport_codes=&sport_codes=&sport_codes=&sport_codes=&sport_codes=&sport_codes=FOOT&sport_codes=FOOT&sport_codes=&non_sports=N&non_sports=Y&non_sports=Y&non_sports=Y&non_sports=Y&non_sports=Y&non_sports=Y&non_sports=N&non_sports=N&non_sports=Y",
+        "status": 302,
+        "resource_type": "xhr",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 110,
+        "url": "https://sports.caliente.mx/web_nr?key=sportsbook.cms.handlers.get_all_highlights&bh_container_codes=win_centre_promo&bh_container_codes=jackpotend&bh_container_codes=jackpot_area&bh_container_codes=winner_game_month&bh_container_codes=winner_casino_mobile&bh_container_codes=right_sign_up&bh_container_codes=jackpot_areas&bh_container_codes=jackpotend&bh_container_codes=winner_promos&bh_container_codes=caliente_news_&sport_codes=FOOT&sport_codes=&sport_codes=&sport_codes=&sport_codes=&sport_codes=&sport_codes=&sport_codes=FOOT&sport_codes=FOOT&sport_codes=&non_sports=N&non_sports=Y&non_sports=Y&non_sports=Y&non_sports=Y&non_sports=Y&non_sports=Y&non_sports=N&non_sports=N&non_sports=Y&seg=0-0-es_MX-d-MXN-d-1017-0--6",
+        "status": 200,
+        "resource_type": "xhr",
+        "body_bytes": 3092,
+        "has_json": true,
+        "json_preview": {
+          "keys": [
+            "right_sign_up-BLANK-Y",
+            "winner_casino_mobile-BLANK-Y",
+            "jackpot_areas-BLANK-Y",
+            "win_centre_promo-FOOT-N",
+            "jackpot_area-BLANK-Y",
+            "jackpotend-FOOT-N",
+            "jackpotend-BLANK-Y",
+            "caliente_news_-BLANK-Y",
+            "winner_promos-FOOT-N",
+            "winner_game_month-BLANK-Y"
+          ]
+        }
+      },
+      {
+        "network_id": 191,
+        "url": "https://sports.caliente.mx/es_MX",
+        "status": 200,
+        "resource_type": "document",
+        "body_bytes": 918673
+      },
+      {
+        "network_id": 196,
+        "url": "https://sports.caliente.mx/web_nr?key=CMS.web.logo_util.get_logo_full_url&logo_type=POPUP&platform=DESKTOP",
+        "status": 200,
+        "resource_type": "xhr",
+        "body_bytes": 200,
+        "has_json": true,
+        "json_preview": {
+          "region": "gb",
+          "current_logo_full_url": "https://static.caliente.mx/sports/web_static/R_67c20345c7f6/desktop/bh/CAL/desktop_popup_logo.png",
+          "site_code": "CAL",
+          "logo_height": 32,
+          "logo_width": 182
+        }
+      },
+      {
+        "network_id": 205,
+        "url": "https://sports.caliente.mx/cdn-cgi/rum?",
+        "status": 204,
+        "resource_type": "xhr",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 211,
+        "url": "https://login.caliente.mx/PreAuthConf?casino=calienteclub",
+        "status": 200,
+        "resource_type": "xhr",
+        "body_bytes": 402,
+        "has_json": true,
+        "json_preview": {
+          "enforceCaptcha": false,
+          "captchaProvider": "recaptcha",
+          "captchaPublicKey": "6Lfw-XgaAAAAANZQmYzNECcILSMSSIwLaGtSo2r8",
+          "directCaptcha": false,
+          "enforcedCaptchaServices": [],
+          "fidoEnabled": false,
+          "googleClientId": null,
+          "fitToPlaySubmissionRequired": false,
+          "twoFactorAuthenticationConf": {
+            "enabled": false,
+            "defaultChannel": null,
+            "configuredServices": [],
+            "loginDeviceSupport": false,
+            "skipTwoFactorWithRememberMe": false
+          }
+        }
+      },
+      {
+        "network_id": 216,
+        "url": "https://login.caliente.mx/pasSetupPage.php?casino=calienteclub",
+        "status": 200,
+        "resource_type": "document",
+        "body_bytes": 14048
+      },
+      {
+        "network_id": 218,
+        "url": "https://sports.caliente.mx/cdn-cgi/challenge-platform/h/b/jsd/oneshot/8340802ab0bb/0.2774740265783744:1794244543:uV40zzFxa7N_0kwvjwlPUQxfQIYXZLLCcXk9Q56HhIE/a57efb192a7cb1f2",
+        "status": 200,
+        "resource_type": "xhr",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 221,
+        "url": "https://www.tiktok.com/embed/@calientesports?lang=es-ES&referrer=https%3A%2F%2Fsports.caliente.mx%2Fes_MX",
+        "status": 503,
+        "resource_type": "document",
+        "body_bytes": 26
+      },
+      {
+        "network_id": 222,
+        "url": "https://sports.caliente.mx/update_server",
+        "status": 200,
+        "resource_type": "xhr",
+        "body_bytes": 47293,
+        "has_json": true,
+        "json_preview": {
+          "keys": [
+            "mn",
+            "upds",
+            "ms"
+          ]
+        }
+      },
+      {
+        "network_id": 225,
+        "url": "https://www.facebook.com/tr/",
+        "status": 200,
+        "resource_type": "document",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 227,
+        "url": "https://sports.caliente.mx/web_nr?key=sportsbook.cms.handlers.get_all_highlights&bh_container_codes=asas&bh_container_codes=win_centre_promo&bh_container_codes=jackpotend&bh_container_codes=jackpot_area&bh_container_codes=winner_game_month&bh_container_codes=winner_casino_mobile&bh_container_codes=right_sign_up&bh_container_codes=jackpot_areas&bh_container_codes=winner_promos&bh_container_codes=caliente_news_&sport_codes=&sport_codes=&sport_codes=&sport_codes=&sport_codes=&sport_codes=&sport_codes=&sport_codes=&sport_codes=&sport_codes=&non_sports=Y&non_sports=Y&non_sports=Y&non_sports=Y&non_sports=Y&non_sports=Y&non_sports=Y&non_sports=Y&non_sports=Y&non_sports=Y&seg=0-0-es_MX-d-MXN-d-1017-0--6",
+        "status": 200,
+        "resource_type": "xhr",
+        "body_bytes": 10728,
+        "has_json": true,
+        "json_preview": {
+          "keys": [
+            "right_sign_up-BLANK-Y",
+            "winner_casino_mobile-BLANK-Y",
+            "jackpot_areas-BLANK-Y",
+            "jackpot_area-BLANK-Y",
+            "win_centre_promo-BLANK-Y",
+            "jackpotend-BLANK-Y",
+            "winner_promos-BLANK-Y",
+            "asas-BLANK-Y",
+            "caliente_news_-BLANK-Y",
+            "winner_game_month-BLANK-Y"
+          ]
+        }
+      },
+      {
+        "network_id": 234,
+        "url": "https://analytics.google.com/g/collect?v=2&tid=G-V8PEGNP43B&gtm=45je6b50v890780042z876036477za20gzb76036477zd76036477xf1&_p=1794249993040&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAAAAGQC&cid=661141247.1794249977&frm=0&pscdl=noapi&rcb=19&sr=1920x1080&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B8.0.0.0%7CChromium%3B156.0.8078.4&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=es-es&gaf=2&_s=1&tag_exp=115938466~115938469~118897920~118897930~120213116~120385423~120412526~120420416~120469145~120469153~121246026~121246034~123814183~124013661&sid=1794249977&sct=1&seg=1&dl=https%3A%2F%2Fsports.caliente.mx%2Fes_MX&dt=Recibe%20%241%2C000%20MXN%20gratis%20sin%20dep%C3%B3sito&en=page_view&tfd=8897",
+        "status": 204,
+        "resource_type": "fetch",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 235,
+        "url": "https://sports.caliente.mx/update_server",
+        "status": 200,
+        "resource_type": "xhr",
+        "body_bytes": 48741,
+        "has_json": true,
+        "json_preview": {
+          "keys": [
+            "mn",
+            "upds",
+            "ms"
+          ]
+        }
+      },
+      {
+        "network_id": 238,
+        "url": "https://sports.caliente.mx/web_nr",
+        "status": 200,
+        "resource_type": "xhr",
+        "body_bytes": 6,
+        "has_json": true,
+        "json_preview": [
+          null
+        ]
+      }
+    ]
+  }
+}
