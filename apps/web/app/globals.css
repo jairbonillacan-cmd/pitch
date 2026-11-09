@@ -344,27 +344,6 @@ html[data-theme="light"] .only-light {
 .btn:active {
   transform: translateY(1px);
 }
-.btn-primary {
-  background: var(--brand-primary);
-  color: var(--on-primary);
-}
-.btn-primary:hover {
-  box-shadow: 0 0 0 4px var(--glow);
-}
-.btn-primary .icon {
-  transition: transform var(--time-fast) var(--ease-out);
-}
-.btn-primary:hover .icon {
-  transform: translateX(3px);
-}
-.btn-secondary {
-  background: var(--surface-default);
-  color: var(--text-primary);
-  border-color: var(--border-strong);
-}
-.btn-secondary:hover {
-  background: var(--surface-hover);
-}
 .btn-ghost {
   background: transparent;
   color: var(--text-secondary);
@@ -372,10 +351,6 @@ html[data-theme="light"] .only-light {
 .btn-ghost:hover {
   background: var(--surface-hover);
   color: var(--text-primary);
-}
-.btn-icon {
-  width: var(--layout-touch);
-  padding: 0;
 }
 .icon {
   width: 20px;
@@ -402,10 +377,6 @@ html[data-theme="light"] .only-light {
   color: var(--text-secondary);
   white-space: nowrap;
 }
-.tag-demo {
-  color: var(--warning);
-  border-color: color-mix(in srgb, var(--warning) 45%, transparent);
-}
 .tag-model {
   color: var(--chart-model);
   border-color: color-mix(in srgb, var(--chart-model) 40%, transparent);
@@ -414,10 +385,6 @@ html[data-theme="light"] .only-light {
   color: var(--info);
   border-color: color-mix(in srgb, var(--info) 40%, transparent);
 }
-.tag-ok {
-  color: var(--success);
-  border-color: color-mix(in srgb, var(--success) 40%, transparent);
-}
 .dot {
   width: 6px;
   height: 6px;
@@ -425,7 +392,6 @@ html[data-theme="light"] .only-light {
   background: currentColor;
   flex: none;
 }
-.tag-ok .dot,
 .fresh .dot {
   animation: pulse 2.4s var(--ease-out) infinite;
 }
@@ -828,13 +794,6 @@ section[id] {
   align-items: center;
   gap: var(--space-1);
 }
-.fnav .btn {
-  min-height: 44px;
-  border-radius: var(--radius-pill);
-}
-.fnav .btn-primary {
-  padding: 0 var(--space-5);
-}
 @keyframes navIn {
   from {
     transform: translate(-50%, -12px);
@@ -852,13 +811,6 @@ section[id] {
   }
 }
 @media (max-width: 479px) {
-  .fnav .signup {
-    display: none;
-  }
-  .fnav .beta-access {
-    padding: 0 var(--space-3);
-    font-size: var(--type-small);
-  }
   .fnav .logo img {
     height: 22px;
   }
@@ -873,10 +825,6 @@ section[id] {
   }
   .fnav .logo img {
     height: 17px;
-  }
-  .fnav .beta-access {
-    padding: 0 var(--space-2);
-    font-size: var(--type-caption);
   }
 }
 
@@ -1089,29 +1037,6 @@ section[id] {
   flex-wrap: wrap;
   margin-bottom: var(--space-3);
 }
-.pick {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  min-height: 40px;
-  padding: 0 var(--space-3) 0 var(--space-2);
-  border-radius: var(--radius-pill);
-  border: var(--border-width) solid var(--border-default);
-  background: var(--surface-default);
-  cursor: pointer;
-  font-size: var(--type-small);
-  font-weight: 600;
-  transition:
-    border-color var(--time-fast),
-    background-color var(--time-fast);
-}
-.pick:hover {
-  border-color: var(--border-strong);
-}
-.pick[aria-pressed="true"] {
-  border-color: var(--brand-primary);
-  background: var(--surface-active);
-}
 .dcard {
   padding: var(--space-5);
   box-shadow: var(--shadow-overlay);
@@ -1186,23 +1111,11 @@ section[id] {
     line-height: 1.5rem;
     margin: var(--space-4) 0 var(--space-5);
   }
-  .hero .ctas .btn {
-    flex: 1 1 auto;
-  }
   .hero .week {
     margin-top: var(--space-4);
   }
   .demo-mascot {
     width: 64px;
-  }
-  .pick {
-    flex: 1;
-    justify-content: center;
-    white-space: nowrap;
-    padding: 0 var(--space-2);
-  }
-  .pick .badge {
-    display: none;
   }
   .dcard {
     padding: var(--space-3);
@@ -1390,9 +1303,6 @@ a.ltile:hover .pic {
   gap: var(--space-3);
   padding: var(--space-4);
   color: var(--text-secondary);
-}
-.soon .panel .tag {
-  margin-left: auto;
 }
 @media (max-width: 1023px) {
   .leagues {
@@ -1672,13 +1582,6 @@ fieldset[disabled] button {
   flex: 1;
   height: 1px;
   background: var(--border-default);
-}
-.btn-block {
-  width: 100%;
-}
-.btn-beta {
-  min-height: 52px;
-  font-size: 1rem;
 }
 .switch-link {
   text-align: center;
@@ -2034,43 +1937,6 @@ fieldset[disabled] button {
 .lswitch .wrap::-webkit-scrollbar {
   display: none;
 }
-.lchip {
-  flex: none;
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  min-height: 40px;
-  padding: 0 var(--space-4) 0 var(--space-2);
-  border-radius: var(--radius-pill);
-  border: var(--border-width) solid var(--border-default);
-  background: var(--surface-default);
-  color: var(--text-secondary);
-  font-size: var(--type-small);
-  font-weight: 600;
-  cursor: pointer;
-  transition:
-    border-color var(--time-fast),
-    background-color var(--time-fast),
-    color var(--time-fast);
-}
-.lchip:hover:not([disabled]) {
-  color: var(--text-primary);
-  border-color: var(--border-strong);
-}
-.lchip[aria-current="page"],
-.lchip[aria-selected="true"] {
-  background: var(--surface-active);
-  color: var(--text-primary);
-  border-color: var(--brand-primary);
-}
-.lchip[disabled] {
-  opacity: 0.55;
-  cursor: default;
-}
-.lchip .tag {
-  height: 20px;
-  font-size: 11px;
-}
 
 /* Encabezado de liga */
 .lhead {
@@ -2137,38 +2003,6 @@ fieldset[disabled] button {
 }
 .days .wrap::-webkit-scrollbar {
   display: none;
-}
-.chip {
-  flex: none;
-  min-height: 36px;
-  padding: 0 var(--space-3);
-  border-radius: var(--radius-pill);
-  border: var(--border-width) solid var(--border-strong);
-  background: var(--surface-default);
-  color: var(--text-secondary);
-  font-size: var(--type-small);
-  font-weight: 500;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  transition:
-    background-color var(--time-fast),
-    color var(--time-fast),
-    border-color var(--time-fast);
-}
-.chip:hover {
-  background: var(--surface-hover);
-  color: var(--text-primary);
-}
-.chip[aria-pressed="true"] {
-  background: var(--surface-active);
-  color: var(--text-primary);
-  border-color: var(--brand-primary);
-}
-.chip .count {
-  color: var(--text-muted);
-  font-variant-numeric: tabular-nums;
 }
 
 /* Partidos */
@@ -2944,10 +2778,6 @@ fieldset[disabled] button {
   gap: var(--space-1);
   overflow-x: auto;
   scrollbar-width: none;
-}
-.best .seg .chip[aria-selected="true"] {
-  color: var(--text-primary);
-  border-color: var(--brand-primary);
 }
 .best-list {
   list-style: none;

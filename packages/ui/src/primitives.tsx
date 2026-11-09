@@ -3,10 +3,18 @@
 import React from "react";
 import { getLogoPath, getMascotPath } from "@pitchlab/sports-assets";
 import { Icon } from "./icons.js";
-
-// El botón vive en `components/ui/button.tsx` (shadcn/ui, estilo Mira, Base UI).
+import { Badge } from "./components/ui/badge.js";
+import { Button } from "./components/ui/button.js";
 
 export type TagVariant = "default" | "ok" | "info" | "model" | "demo";
+
+const tagVariants = {
+  default: "pill",
+  ok: "pill-success",
+  info: "pill-info",
+  model: "pill-model",
+  demo: "pill-warning",
+} as const satisfies Record<TagVariant, React.ComponentProps<typeof Badge>["variant"]>;
 
 export function Tag({
   variant = "default",
@@ -21,12 +29,11 @@ export function Tag({
   style?: React.CSSProperties;
   children: React.ReactNode;
 }): React.JSX.Element {
-  const vClass = variant === "default" ? "" : `tag-${variant}`;
   return (
-    <span className={`tag ${vClass} ${className}`.trim()} style={style}>
-      {dot ? <span className="dot" /> : null}
+    <Badge variant={tagVariants[variant]} className={className} style={style}>
+      {dot ? <span className="dot" aria-hidden="true" /> : null}
       {children}
-    </span>
+    </Badge>
   );
 }
 
@@ -141,7 +148,7 @@ export function BrandLogo({
   );
 }
 
-export function ThemeToggle(): React.JSX.Element {
+export function ThemeToggle({ shape }: { shape?: "pill" } = {}): React.JSX.Element {
   const handleToggle = () => {
     if (typeof document === "undefined") return;
     const current = document.documentElement.dataset.theme === "light" ? "light" : "dark";
@@ -155,16 +162,20 @@ export function ThemeToggle(): React.JSX.Element {
   };
 
   return (
-    <button
-      className="btn btn-ghost btn-icon theme-btn"
+    <Button
+      variant="ghost"
+      size="icon"
+      shape={shape}
+      appearance="d1"
+      className="theme-btn p-0 text-sm"
       type="button"
       data-theme-toggle=""
       aria-label="Cambiar tema claro u oscuro"
       onClick={handleToggle}
     >
-      <Icon name="moon" />
-      <Icon name="sun" />
-    </button>
+      <Icon name="moon" className="icon size-5" />
+      <Icon name="sun" className="icon size-5" />
+    </Button>
   );
 }
 
@@ -200,9 +211,9 @@ export function EmptyState({
       <img src={getMascotPath("radar")} alt="" width={160} height={160} />
       <p>{message}</p>
       {onAction ? (
-        <button className="btn btn-secondary" type="button" onClick={onAction}>
+        <Button variant="secondary" appearance="d1" type="button" onClick={onAction}>
           {actionLabel}
-        </button>
+        </Button>
       ) : null}
     </div>
   );
@@ -223,9 +234,9 @@ export function ErrorState({
       <p>{message}</p>
       <span className="caption muted">Código: {code}</span>
       {onRetry ? (
-        <button className="btn btn-secondary" type="button" onClick={onRetry}>
+        <Button variant="secondary" appearance="d1" type="button" onClick={onRetry}>
           Reintentar
-        </button>
+        </Button>
       ) : null}
     </div>
   );

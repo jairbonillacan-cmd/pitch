@@ -5,6 +5,8 @@ import type { LeagueId, MatchAnalysis } from "@pitchlab/contracts";
 import { formatPercent } from "@pitchlab/contracts";
 import { getMascotPath } from "@pitchlab/sports-assets";
 import {
+  Badge,
+  Button,
   FloatingNav,
   PublicFooter,
   PinPad,
@@ -13,6 +15,9 @@ import {
   LeagueBadge,
   ProbSplit,
   MarketTable,
+  Tag,
+  ToggleGroup,
+  ToggleGroupItem,
 } from "@pitchlab/ui";
 import { useBetaPin } from "./use-beta-pin.js";
 
@@ -89,10 +94,9 @@ export function LandingClient({
           </svg>
           <div className="wrap">
             <div>
-              <span className="status tag tag-ok">
-                <span className="dot" />
+              <Tag className="status" variant="ok" dot>
                 Beta cerrada · acceso con código
-              </span>
+              </Tag>
               <h1 className="h-display">
                 Lee el juego
                 <br />
@@ -104,12 +108,26 @@ export function LandingClient({
                   : "Explora las probabilidades de un partido y aprende a compararlas con tus cuotas."}
               </p>
               <div className="ctas">
-                <a className="btn btn-primary" href="#demo">
-                  Probar un partido <Icon name="arrow" />
-                </a>
-                <a className="btn btn-ghost" href="#como">
+                <Button
+                  appearance="d1"
+                  className="max-[600px]:flex-auto"
+                  render={<a href="#demo" />}
+                  nativeButton={false}
+                >
+                  Probar un partido{" "}
+                  <span data-icon="arrow">
+                    <Icon name="arrow" className="icon size-5" />
+                  </span>
+                </Button>
+                <Button
+                  variant="ghost"
+                  appearance="d1"
+                  className="max-[600px]:flex-auto"
+                  render={<a href="#como" />}
+                  nativeButton={false}
+                >
                   Cómo funciona
-                </a>
+                </Button>
               </div>
               {totalGames > 0 && (
                 <div className="week">
@@ -143,30 +161,33 @@ export function LandingClient({
                 />
               </header>
               {demoMatches.length > 1 && (
-                <div
-                  className="picks"
+                <ToggleGroup
+                  className="picks w-full flex-wrap items-stretch"
                   id="picks"
-                  role="group"
                   aria-label="Elige un partido"
+                  value={[String(selectedDemoIdx)]}
+                  onValueChange={([next]) => {
+                    if (next !== undefined) setSelectedDemoIdx(Number(next));
+                  }}
                 >
                   {demoMatches.map((match, idx) => (
-                    <button
+                    <ToggleGroupItem
                       key={match.id}
                       type="button"
-                      className="pick"
+                      variant="match"
+                      value={String(idx)}
+                      className="pick max-[600px]:flex-1 max-[600px]:px-2 max-[600px]:[&>.badge]:hidden"
                       aria-label={`${match.home.name} vs ${match.away.name}`}
                       aria-controls="dcard"
-                      aria-pressed={idx === selectedDemoIdx}
-                      onClick={() => setSelectedDemoIdx(idx)}
                     >
                       <TeamBadge league={match.league} slug={match.home.slug} size={24} />
                       <span>
                         {match.home.code ?? match.home.shortName} vs{" "}
                         {match.away.code ?? match.away.shortName}
                       </span>
-                    </button>
+                    </ToggleGroupItem>
                   ))}
-                </div>
+                </ToggleGroup>
               )}
               <article className="panel dcard" id="dcard" aria-live="polite">
                 <div className="dmatch">
@@ -396,13 +417,13 @@ export function LandingClient({
                     <div className="meta">
                       {league.active ? (
                         <>
-                          <span className="tag">Requiere código</span>
+                          <Badge variant="pill">Requiere código</Badge>
                           <span className="go" aria-hidden="true">
                             <Icon name="arrow" />
                           </span>
                         </>
                       ) : (
-                        <span className="tag">Próximamente</span>
+                        <Badge variant="pill">Próximamente</Badge>
                       )}
                     </div>
                   </Tile>
@@ -420,7 +441,7 @@ export function LandingClient({
                   />
                   <LeagueBadge league="nhl" size={28} />
                   <span>NHL</span>
-                  <span className="tag">Pronto</span>
+                  <Badge variant="pill" className="ml-auto">Pronto</Badge>
                 </div>
                 <div className="panel">
                   <img
@@ -432,7 +453,7 @@ export function LandingClient({
                   />
                   <LeagueBadge league="mlb" size={28} />
                   <span>MLB</span>
-                  <span className="tag">Pronto</span>
+                  <Badge variant="pill" className="ml-auto">Pronto</Badge>
                 </div>
               </div>
             </div>
@@ -506,15 +527,17 @@ export function LandingClient({
                 >
                   Si tienes código de socio, entra ya.
                 </p>
-                <button
-                  className="btn btn-primary"
+                <Button
+                  appearance="d1"
                   type="button"
                   data-open-pin=""
                   onClick={openPin}
                 >
                   <span>Entrar con código</span>
-                  <Icon name="arrow" />
-                </button>
+                  <span data-icon="arrow">
+                    <Icon name="arrow" className="icon size-5" />
+                  </span>
+                </Button>
               </div>
               <div className="mascot">
                 <img

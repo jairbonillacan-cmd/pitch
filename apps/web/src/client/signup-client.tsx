@@ -3,6 +3,7 @@
 import React from "react";
 import { getMascotPath } from "@pitchlab/sports-assets";
 import {
+  Button,
   FloatingNav,
   PinPad,
   Icon,
@@ -99,9 +100,14 @@ export function SignupClient(): React.JSX.Element {
                 <input type="checkbox" /> Tengo 18 años o más y acepto los
                 términos y el aviso de privacidad.
               </label>
-              <button className="btn btn-secondary btn-block" type="submit">
+              <Button
+                variant="secondary"
+                appearance="d1"
+                className="w-full disabled:pointer-events-auto disabled:cursor-not-allowed disabled:opacity-100"
+                type="submit"
+              >
                 Crear cuenta
-              </button>
+              </Button>
             </fieldset>
             <p
               className="caption muted"
@@ -112,14 +118,19 @@ export function SignupClient(): React.JSX.Element {
             </p>
           </form>
           <div className="or">¿tienes código?</div>
-          <button
-            className="btn btn-primary btn-block btn-beta"
+          <Button
+            size="tall"
+            appearance="d1"
+            className="w-full btn-beta"
             type="button"
             data-open-pin=""
             onClick={openPin}
           >
-            Entrar a la beta <Icon name="arrow" />
-          </button>
+            Entrar a la beta{" "}
+            <span data-icon="arrow">
+              <Icon name="arrow" className="icon size-5" />
+            </span>
+          </Button>
           <p className="switch-link">
             ¿Ya tienes cuenta? <a href="/login">Entrar</a>
           </p>

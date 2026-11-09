@@ -5,6 +5,7 @@ import { asLeagueId } from "@pitchlab/contracts";
 import {
   Button,
   Tag,
+  ThemeToggle,
   Panel,
   Notice,
   Field,
@@ -23,9 +24,6 @@ describe("@pitchlab/ui components", () => {
     const html = renderToStaticMarkup(
       <div>
         <Button>Entrar</Button>
-        <Tag variant="info" dot>
-          Beta
-        </Tag>
         <Panel>Contenido</Panel>
         <Notice>Aviso</Notice>
         <Field id="f1" label="Correo" />
@@ -35,8 +33,18 @@ describe("@pitchlab/ui components", () => {
     );
     expect(html).toContain("data-slot=\"button\"");
     expect(html).toContain("bg-primary");
-    expect(html).toContain("tag-info");
     expect(html).toContain("/brand/mascot/r1/radar.webp");
+  });
+
+  it("renders Tag and ThemeToggle with the shadcn slots", () => {
+    const tag = renderToStaticMarkup(<Tag variant="info" dot>Beta</Tag>);
+    const toggle = renderToStaticMarkup(<ThemeToggle />);
+
+    expect(tag).toContain('data-slot="badge"');
+    expect(tag).toContain('data-variant="pill-info"');
+    expect(tag).toContain('class="dot"');
+    expect(toggle).toContain('data-slot="button"');
+    expect(toggle).toContain('data-theme-toggle=""');
   });
 
   it("renders sports components and footer without leaking internal model names", () => {

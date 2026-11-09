@@ -3,6 +3,7 @@
 import React, { useEffect } from "react";
 import { getMascotPath } from "@pitchlab/sports-assets";
 import {
+  Button,
   FloatingNav,
   PinPad,
   Icon,
@@ -61,14 +62,19 @@ export function LoginClient({
               código de socio.
             </span>
           </div>
-          <button
-            className="btn btn-primary btn-block btn-beta"
+          <Button
+            size="tall"
+            appearance="d1"
+            className="w-full btn-beta"
             type="button"
             data-open-pin=""
             onClick={openPin}
           >
-            Entrar a la beta con código <Icon name="arrow" />
-          </button>
+            Entrar a la beta con código{" "}
+            <span data-icon="arrow">
+              <Icon name="arrow" className="icon size-5" />
+            </span>
+          </Button>
           <div className="or">o con tu cuenta</div>
           <form
             className="auth-form"
@@ -93,9 +99,14 @@ export function LoginClient({
                   autoComplete="current-password"
                 />
               </div>
-              <button className="btn btn-secondary btn-block" type="submit">
+              <Button
+                variant="secondary"
+                appearance="d1"
+                className="w-full disabled:pointer-events-auto disabled:cursor-not-allowed disabled:opacity-100"
+                type="submit"
+              >
                 Iniciar sesión
-              </button>
+              </Button>
             </fieldset>
             <p
               className="caption muted"

@@ -99,23 +99,37 @@ export function FloatingNav({
         </nav>
 
         <div className="right">
-          <ThemeToggle />
+          <ThemeToggle shape="pill" />
           {onOpenBetaPin ? (
-            <button
-              className="btn btn-primary beta-access"
+            <Button
+              shape="pill"
+              appearance="d1"
+              className="beta-access px-5 max-[480px]:px-3 max-[360px]:px-2 max-[360px]:text-xs"
               type="button"
               onClick={onOpenBetaPin}
             >
               Entrar con código
-            </button>
+            </Button>
           ) : (
             <>
-              <a className="btn btn-ghost" href="/login">
+              <Button
+                variant="ghost"
+                shape="pill"
+                appearance="d1"
+                render={<a href="/login" />}
+                nativeButton={false}
+              >
                 Entrar
-              </a>
-              <a className="btn btn-primary signup" href="/signup">
+              </Button>
+              <Button
+                shape="pill"
+                appearance="d1"
+                className="signup hidden px-5 min-[480px]:inline-flex"
+                render={<a href="/signup" />}
+                nativeButton={false}
+              >
                 Crear cuenta
-              </a>
+              </Button>
             </>
           )}
         </div>

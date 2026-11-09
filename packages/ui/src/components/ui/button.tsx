@@ -24,10 +24,24 @@ const buttonVariants = cva(
         default: "h-11 px-4 text-sm",
         sm: "h-9 px-3 text-sm",
         lg: "h-12 px-5 text-base",
+        tall: "h-[52px] px-4 text-base",
         icon: "size-11",
         "icon-sm": "size-9",
       },
+      shape: {
+        pill: "rounded-(--radius-pill)",
+      },
+      appearance: {
+        d1: "bg-clip-border font-[number:var(--weight-button)]",
+      },
     },
+    compoundVariants: [
+      {
+        appearance: "d1",
+        variant: "secondary",
+        class: "border-input bg-card hover:bg-muted",
+      },
+    ],
     defaultVariants: {
       variant: "default",
       size: "default",
@@ -39,12 +53,14 @@ function Button({
   className,
   variant = "default",
   size = "default",
+  shape,
+  appearance,
   ...props
 }: ButtonPrimitive.Props & VariantProps<typeof buttonVariants>): React.JSX.Element {
   return (
     <ButtonPrimitive
       data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }))}
+      className={cn(buttonVariants({ variant, size, shape, appearance, className }))}
       {...props}
     />
   );

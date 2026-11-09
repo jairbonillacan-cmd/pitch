@@ -15,12 +15,17 @@ import {
   ErrorState,
   StandingsTable,
   BestPicks,
+  Badge,
   Button,
   ToggleGroup,
   ToggleGroupItem,
 } from "@pitchlab/ui";
 import type { SnapshotEnvelope } from "../server/snapshots.js";
 import type { ProductLeague } from "../server/snapshots.js";
+
+const leagueTabClass =
+  "lchip league-tab bg-card pl-2 text-muted-foreground hover:border-input hover:bg-card hover:text-foreground aria-[current=page]:border-primary aria-[current=page]:bg-accent aria-[current=page]:text-foreground disabled:opacity-[0.55]";
+const upcomingLeagueBadgeClass = "h-5 text-[11px]";
 
 const PANEL_LEAGUE_LABELS: Record<string, string> = {
   "liga-mx": "Liga MX",
@@ -160,8 +165,10 @@ export function PanelClient({
 
       <nav className="lswitch" aria-label="Ligas">
         <div className="wrap" id="lswitch">
-          <button
-            className="lchip league-tab"
+          <Button
+            variant="outline"
+            shape="pill"
+            className={leagueTabClass}
             type="button"
             data-league="liga-mx"
             disabled={!leagueAvailability["liga-mx"]}
@@ -171,12 +178,14 @@ export function PanelClient({
             <LeagueBadge league="liga-mx" size={26} />
             Liga MX
             {!leagueAvailability["liga-mx"] ? (
-              <span className="tag">Pronto</span>
+              <Badge variant="pill" className={upcomingLeagueBadgeClass}>Pronto</Badge>
             ) : null}
-          </button>
+          </Button>
 
-          <button
-            className="lchip league-tab"
+          <Button
+            variant="outline"
+            shape="pill"
+            className={leagueTabClass}
             type="button"
             data-league="premier-league"
             aria-current={league === "premier-league" ? "page" : undefined}
@@ -184,10 +193,12 @@ export function PanelClient({
           >
             <LeagueBadge league="premier-league" size={26} />
             Premier
-          </button>
+          </Button>
 
-          <button
-            className="lchip league-tab"
+          <Button
+            variant="outline"
+            shape="pill"
+            className={leagueTabClass}
             type="button"
             data-league="laliga"
             disabled={!leagueAvailability["laliga"]}
@@ -196,11 +207,13 @@ export function PanelClient({
           >
             <LeagueBadge league="laliga" size={26} />
             LaLiga
-            {!leagueAvailability["laliga"] ? <span className="tag">Pronto</span> : null}
-          </button>
+            {!leagueAvailability["laliga"] ? <Badge variant="pill" className={upcomingLeagueBadgeClass}>Pronto</Badge> : null}
+          </Button>
 
-          <button
-            className="lchip league-tab"
+          <Button
+            variant="outline"
+            shape="pill"
+            className={leagueTabClass}
             type="button"
             data-league="bundesliga"
             disabled={!leagueAvailability.bundesliga}
@@ -209,11 +222,13 @@ export function PanelClient({
           >
             <LeagueBadge league="bundesliga" label="Bundesliga" size={26} />
             Bundesliga
-            {!leagueAvailability.bundesliga ? <span className="tag">Pronto</span> : null}
-          </button>
+            {!leagueAvailability.bundesliga ? <Badge variant="pill" className={upcomingLeagueBadgeClass}>Pronto</Badge> : null}
+          </Button>
 
-          <button
-            className="lchip league-tab"
+          <Button
+            variant="outline"
+            shape="pill"
+            className={leagueTabClass}
             type="button"
             data-league="serie-a"
             disabled={!leagueAvailability["serie-a"]}
@@ -222,11 +237,13 @@ export function PanelClient({
           >
             <LeagueBadge league="serie-a" label="Serie A" size={26} />
             Serie A
-            {!leagueAvailability["serie-a"] ? <span className="tag">Pronto</span> : null}
-          </button>
+            {!leagueAvailability["serie-a"] ? <Badge variant="pill" className={upcomingLeagueBadgeClass}>Pronto</Badge> : null}
+          </Button>
 
-          <button
-            className="lchip league-tab"
+          <Button
+            variant="outline"
+            shape="pill"
+            className={leagueTabClass}
             type="button"
             data-league="ligue-1"
             disabled={!leagueAvailability["ligue-1"]}
@@ -235,11 +252,13 @@ export function PanelClient({
           >
             <LeagueBadge league="ligue-1" label="Ligue 1" size={26} />
             Ligue 1
-            {!leagueAvailability["ligue-1"] ? <span className="tag">Pronto</span> : null}
-          </button>
+            {!leagueAvailability["ligue-1"] ? <Badge variant="pill" className={upcomingLeagueBadgeClass}>Pronto</Badge> : null}
+          </Button>
 
-          <button
-            className="lchip league-tab"
+          <Button
+            variant="outline"
+            shape="pill"
+            className={leagueTabClass}
             type="button"
             data-league="nfl"
             aria-current={league === "nfl" ? "page" : undefined}
@@ -247,29 +266,33 @@ export function PanelClient({
           >
             <LeagueBadge league="nfl" size={26} />
             NFL
-          </button>
+          </Button>
 
-          <button
-            className="lchip league-tab"
+          <Button
+            variant="outline"
+            shape="pill"
+            className={leagueTabClass}
             type="button"
             data-league="nhl"
             disabled
           >
             <LeagueBadge league="nhl" size={26} />
             NHL
-            <span className="tag">Pronto</span>
-          </button>
+            <Badge variant="pill" className={upcomingLeagueBadgeClass}>Pronto</Badge>
+          </Button>
 
-          <button
-            className="lchip league-tab"
+          <Button
+            variant="outline"
+            shape="pill"
+            className={leagueTabClass}
             type="button"
             data-league="mlb"
             disabled
           >
             <LeagueBadge league="mlb" size={26} />
             MLB
-            <span className="tag">Pronto</span>
-          </button>
+            <Badge variant="pill" className={upcomingLeagueBadgeClass}>Pronto</Badge>
+          </Button>
         </div>
       </nav>
 
