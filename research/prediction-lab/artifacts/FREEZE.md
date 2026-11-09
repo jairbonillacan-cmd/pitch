@@ -1,5 +1,13 @@
 # Congelación de candidatos (pre-test) — 2026-11-09 03:35 (antes de la evaluación de test)
 
+> **Estructura del archivo (corrección post-auditoría A09c, 2026-11-09 04:45).** Este documento
+> contiene únicamente el cuerpo **pre-test**. La adenda post-test se separó a
+> `FREEZE_ADDENDUM_post_test.md` para que el freeze sea citable como artefacto previo. El archivo
+> original se creó a las 03:35:07 y fue modificado a las 03:48:21 para añadir la adenda; la primera
+> versión fechaba esa adenda a las 03:52, hora imposible frente al *mtime* (discrepancia D1 de A09c).
+> El hash del cuerpo original no se conservó antes de la edición: eso queda como limitación
+> documentada.
+
 **Regla:** la selección se hace SOLO con `val` (2023/24) y con la robustez por temporada en
 `dev`. El conjunto `test` (2024/25 + 2025/26) no se usa para elegir. A partir de este documento,
 los candidatos quedan congelados y se evalúan una única vez.
@@ -59,40 +67,4 @@ mezcla ni el stacking: no superan al mercado de forma robusta. Se documenta el r
   permutación 10.000; se declara mejora solo si IC95 % excluye 0 **y** p < 0,05.
 - Nada se reentrena ni se reajusta después de este documento.
 
-**Firmado:** Orquestador · **Fecha:** 2026-11-09T03:35-06:00 (creado antes de `eval.report` sobre test; la adenda se añadió a las 03:52)
-
----
-
-## 5. Adenda POST-TEST (2026-11-09 03:52) — solo para trazabilidad
-
-Evaluación única sobre `test` (2024/25 + 2025/26, 16.126 partidos), con los candidatos congelados:
-
-| Sistema | Log-loss | Brier | RPS | Accuracy | ECE |
-|---|---:|---:|---:|---:|---:|
-| `logit` (Motor A congelado) | 1,01802 | 0,60983 | 0,20820 | 0,4890 | 0,0112 |
-| `hgb` (alternativa) | 1,01860 | 0,61043 | 0,20835 | 0,4904 | 0,0055 |
-| `ensemble` (alternativa pre-especificada) | 1,01652 | 0,60907 | 0,20789 | 0,4901 | 0,0047 |
-| `stack_logit` (Motor B experimental) | 1,00527 | 0,60159 | 0,20443 | 0,4995 | 0,0082 |
-| mercado cierre (mejor precio) | 0,99770 | 0,59645 | 0,20203 | 0,5062 | 0,0063 |
-| mercado apertura (mejor precio, n=11.295) | 0,99176 | 0,59238 | 0,20004 | 0,5115 | 0,0063 |
-| base_rate | 1,07506 | 0,65044 | 0,22784 | 0,4376 | 0,0154 |
-
-Comparaciones pareadas clave (Δ = pérdida(A) − pérdida(B); <0 ⇒ A mejor):
-- `ensemble` vs `logit`: −0,00153 [−0,00250, −0,00050], p=0,001 → **el ensemble supera a logit en test**.
-- `ensemble` vs `hgb`: −0,00208 [−0,00320, −0,00100], p=0,000.
-- `logit` vs `market_close`: +0,0203 [0,0175, 0,0231] → el mercado gana con claridad.
-- `ensemble` vs `market_close`: +0,0188 [0,0161, 0,0214].
-- `market_open` vs `stack_logit` (n=11.295): +0,0007 [−0,0000, +0,0015], p=0,97 → **sin diferencia significativa**.
-- `market_close` vs `market_open` (n=11.295): −0,0034 [−0,0047, −0,0021] → el cierre es mejor que la apertura.
-
-**Transparencia sobre exposición a test:** el pipeline de walk-forward calcula por diseño todas las
-particiones y algunos `metrics.json` intermedios (p. ej. `EXP01_final`) incluían la columna `test`
-antes de este documento. Las decisiones de selección se tomaron con `val` y la tabla de arriba es la
-evaluación formal pre-registrada; la exposición previa se registra aquí para que un revisor pueda
-juzgar el riesgo de data snooping (fue mínima y no guió ninguna elección).
-
-**Lectura honesta:** el Motor A congelado (logit) queda 0,020 por detrás del cierre. El ensemble,
-también pre-especificado antes de test, resulta significativamente mejor que logit en test; como eso
-se decide mirando test, NO se cambia retroactivamente el modelo desplegado: se propone como
-candidato principal del siguiente ciclo, a confirmar con datos nuevos. Motor B (stacking) no supera
-al mercado de forma significativa. La conclusión del paper se replica: la información manda.
+**Firmado:** Orquestador · **Fecha:** 2026-11-09T03:35-06:00 (creado antes de `eval.report` sobre test; ver *birth time* 03:35:07 en la auditoría A09c)

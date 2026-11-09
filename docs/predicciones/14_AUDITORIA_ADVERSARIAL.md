@@ -146,3 +146,31 @@ A09b listó seis condiciones para que el laboratorio fuera “defendible” para
 4. **Lo que la auditoría cambió de verdad:** el leakage de priors (0,0024 de rendimiento aparente), el corte por fecha, el bloqueo efectivo de test y la invalidación del ensemble anterior. Sin A09b, el cierre habría reportado cifras de un pipeline con fuga y un ensemble sin modelo detrás.
 
 **Regla que queda instalada:** ningún resultado se publica sin `(comando, hash del dataset, semilla, n)`, y ninguna corrección se declara cerrada sin una verificación independiente que la reproduzca.
+
+---
+
+## 6. Tercera auditoría (A09c, independiente) — 2026-11-09 04:17
+
+Se ejecutó por fin una auditoría **independiente** del cierre (subagente que no participó en la
+implementación). Resultado: **5/5 comprobaciones correctas**, `checks_failed=0`.
+
+| # | Comprobación | Resultado |
+|---|---|---|
+| 1 | Log-loss test recalculado (4 modelos) | Δ = **0,000e+00** exacto (n=16.126; join 1:1 sin huérfanos) |
+| 2 | Orden freeze → evaluación | **Pasa por creación**: `FREEZE.md` birth 03:35:07 < `metrics.json` birth 03:36:17; el fichero fue modificado a las 03:48:21 para añadir la adenda |
+| 3 | 6 cifras de estos documentos | **6/6 correctas** |
+| 4 | Integridad de `predictions_test.csv` | 0 duplicados; `max|Σp−1| = 5,55e-16`; 16.126/modelo (market_open 11.295 por cobertura) |
+| 5 | `vitest tests/prediction/engine.test.ts` | **21/21**, 613 ms |
+
+**Discrepancias detectadas y resueltas:**
+- **D1 (media):** la adenda del freeze declaraba 03:52, cuatro minutos después de su propio *mtime*
+  (03:48:21) — hora imposible. **Corregido:** la adenda se separó a
+  `artifacts/FREEZE_ADDENDUM_post_test.md`, el cuerpo pre-test quedó en `FREEZE.md` y se documentó
+  que el hash del cuerpo original no se conservó antes de la edición.
+- **D2 (baja):** `FINAL/eval_test/metrics.json` es solo test y no lo declaraba. **Corregido:** se
+  añadió `FINAL/eval_test/README.md` que lo declara test-only y enlaza los artefactos de `val`.
+- **D3 (abierta):** la exposición previa a test está declarada pero no auditada; el cierre no es un
+  pre-registro inmutable. Se acepta como limitación y se refleja en el veredicto.
+
+**Veredicto del auditor:** *defendible como foto final de resultados; defendible con reservas como
+pre-registro.* Esta es la calificación que debe citarse.

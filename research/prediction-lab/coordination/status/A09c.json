@@ -1,14 +1,13 @@
 {
   "task_id": "A09c",
-  "agent": "ORCHESTRATOR VERIFICATION (auditoría acotada, no independiente)",
+  "agent": "AUDITOR FINAL ACOTADO",
   "status": "completed",
-  "started_at": "2026-11-09T04:20:00-06:00",
-  "finished_at": "2026-11-09T04:40:00-06:00",
-  "summary": "Cinco comprobaciones: recálculo de log-loss test de 4 modelos (Δ=0), orden freeze(03:35:07)->test(03:36:17) por birth time, 6/6 cifras de docs correctas, integridad de predictions_test (0 duplicados, max|sum-1|=5,55e-16), TS 21/21 con paridad 4,997e-13. Veredicto: cierre defendible con dos condiciones (declarar exposición parcial a test y no reutilizarlo). No sustituye a una auditoría independiente.",
+  "started_at": "2026-11-09T04:07:05-06:00",
+  "finished_at": "2026-11-09T04:17:36-06:00",
+  "summary": "Cinco comprobaciones: (1) log-loss test recalculado desde predictions_test.csv + matches.parquet reproduce metrics.json con diferencia 0,000e+00 en logit, ensemble, market_close_best_power y stack_logit; (2) FREEZE.md creado 03:35:07, antes de metrics.json 03:36:17 (birth time), aunque modificado 03:48:21 para añadir la adenda post-test, cuya hora declarada (03:52) es incompatible con el mtime; (3) 6/6 cifras de docs/predicciones correctas (182.414; 182.410x198; 1,01802; +0,0203; 4,997e-13; 83/83); (4) predictions_test.csv: 0 duplicados (match_id, model_id), max|sum-1|=5,55e-16, 16.126 partidos por modelo salvo market_open (11.295 por cobertura de cuotas); (5) vitest 21/21 en 613 ms. Veredicto: cierre defendible como foto final; el pre-registro es defendible con reservas (artefacto modificado tras evaluar, exposición previa a test declarada).",
   "verdict": "defendible",
   "checks_run": 5,
   "checks_failed": 0,
-  "files_written": ["reports/A09c_final_audit.md"],
-  "blockers": [],
-  "next": "Auditoría independiente real en el ciclo 3; promover ensemble vía PREREGISTRATION_CYCLE2."
+  "files_written": ["reports/A09c_final_audit.md", "coordination/status/A09c.json"],
+  "blockers": []
 }

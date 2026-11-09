@@ -7,6 +7,7 @@ __pycache__/
 # Artefactos: se ignoran los grandes, pero se conservan los documentos de gobierno y métricas finales.
 artifacts/*
 !artifacts/FREEZE.md
+!artifacts/FREEZE_ADDENDUM_post_test.md
 !artifacts/PREREGISTRATION_CYCLE2.md
 !artifacts/FINAL
 artifacts/FINAL/*
@@ -16,5 +17,6 @@ artifacts/FINAL/*
 artifacts/FINAL/eval_test/*
 !artifacts/FINAL/eval_test/metrics.md
 !artifacts/FINAL/eval_test/metrics.json
+!artifacts/FINAL/eval_test/README.md
 eval/artifacts/
 models/nfl/artifacts/predictions.csv
