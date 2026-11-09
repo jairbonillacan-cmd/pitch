@@ -9,16 +9,21 @@ import {
   Tabs,
   TextField,
 } from "@heroui/react";
+import { Button as AstryxButton } from "@astryxdesign/core/Button";
+import { Badge as AstryxBadge } from "@astryxdesign/core/Badge";
+import { Card as AstryxCard } from "@astryxdesign/core/Card";
+import { SegmentedControl, SegmentedControlItem } from "@astryxdesign/core/SegmentedControl";
 import { Button } from "./components/ui/button.js";
 import { Tag, Panel } from "./primitives.js";
+import { AstryxScope } from "./astryx.js";
 
 /**
- * Convivencia de librerías: HeroUI v3 (gratis) y shadcn/ui leen los mismos tokens
+ * Convivencia de librerías: HeroUI v3 (gratis), shadcn/ui y Astryx leen los mismos tokens
  * de PitchLab, así que un botón primario es Pulso venga de donde venga.
  * Reglas: docs/design/UI_LIBRARIES.md.
  */
 export default {
-  title: "PitchLab/Librerías · HeroUI + shadcn",
+  title: "PitchLab/Librerías · HeroUI + shadcn + Astryx",
   id: "pitchlab-librerias",
   parameters: { layout: "padded" },
 };
@@ -54,6 +59,17 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   );
 }
 
+function LigaSegmentada() {
+  const [liga, setLiga] = React.useState("liga-mx");
+  return (
+    <SegmentedControl label="Liga" value={liga} onChange={setLiga}>
+      <SegmentedControlItem value="liga-mx" label="Liga MX" />
+      <SegmentedControlItem value="premier" label="Premier" />
+      <SegmentedControlItem value="nfl" label="NFL" />
+    </SegmentedControl>
+  );
+}
+
 export const LadoALado = () => (
   <div style={stack}>
     <Section title="Botones · HeroUI">
@@ -77,6 +93,28 @@ export const LadoALado = () => (
         <Button variant="ghost">Cancelar</Button>
         <Button variant="destructive">Eliminar pick</Button>
       </div>
+    </Section>
+
+    <Section title="Botones · Astryx">
+      <AstryxScope>
+        <div style={row}>
+          <AstryxButton variant="primary" label="Ver análisis" />
+          <AstryxButton variant="secondary" label="Comparar cuota" />
+          <AstryxButton variant="ghost" label="Cancelar" />
+          <AstryxButton variant="destructive" label="Eliminar pick" />
+        </div>
+      </AstryxScope>
+    </Section>
+
+    <Section title="Selector segmentado y estados · Astryx">
+      <AstryxScope>
+        <div style={row}>
+          <LigaSegmentada />
+          <AstryxBadge variant="success" label="Datos frescos" />
+          <AstryxBadge variant="warning" label="Muestra corta" />
+          <AstryxBadge variant="purple" label="Liga MX" />
+        </div>
+      </AstryxScope>
     </Section>
 
     <Section title="Chips · HeroUI  ·  Tag · PitchLab">
@@ -144,6 +182,15 @@ export const LadoALado = () => (
             </HeroButton>
           </Card.Footer>
         </Card>
+        <AstryxScope>
+          <AstryxCard>
+            <p style={{ margin: 0, fontWeight: 600 }}>América vs. Cruz Azul</p>
+            <p style={{ margin: "var(--space-1) 0 var(--space-3)", color: "var(--text-secondary)" }}>
+              Jornada 17 · sábado 19:05 · Astryx Card
+            </p>
+            <span className="num">Local 46.2 %</span>
+          </AstryxCard>
+        </AstryxScope>
         <Panel>
           <p style={{ margin: 0, fontWeight: 600 }}>América vs. Cruz Azul</p>
           <p style={{ margin: "var(--space-1) 0 var(--space-3)", color: "var(--text-secondary)" }}>

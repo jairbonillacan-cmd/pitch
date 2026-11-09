@@ -12,11 +12,14 @@
     "e2e": "playwright test"
   },
   "dependencies": {
+    "@astryxdesign/core": "0.7.11",
+    "@astryxdesign/theme-neutral": "0.7.11",
     "@heroui/styles": "3.2.7",
     "@pitchlab/contracts": "workspace:*",
     "@pitchlab/sports-assets": "workspace:*",
     "@pitchlab/tokens": "workspace:*",
     "@pitchlab/ui": "workspace:*",
+    "@stylexjs/stylex": "0.19.1",
     "next": "^15.1.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"

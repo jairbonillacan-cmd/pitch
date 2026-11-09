@@ -37,7 +37,7 @@ export interface SnapshotEnvelope {
   };
 }
 
-function resolveSnapshotsRoot(): string {
+export function resolveSnapshotsRoot(): string {
   const candidates = [
     path.resolve(process.cwd(), "data/snapshots"),
     path.resolve(process.cwd(), "../../data/snapshots"),

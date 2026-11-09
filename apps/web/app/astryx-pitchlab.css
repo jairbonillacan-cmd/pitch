@@ -1,0 +1,83 @@
+/* ==========================================================================
+   Puente Astryx → tokens de PitchLab (capa «astryx-pitchlab», gana a «astryx-theme»).
+   Astryx declara su tema en el contenedor [data-astryx-theme]; aquí se repintan esos
+   mismos tokens con la marca, así que oscuro y claro salen de data-theme en <html>
+   sin duplicar valores. Nada de hex. Ver docs/design/UI_LIBRARIES.md §3.
+   ========================================================================== */
+/* El envoltorio de Astryx («system») pondría color-scheme claro/oscuro según el
+   sistema operativo; aquí hereda el de <html>, que sigue el tema de PitchLab. */
+[data-astryx-theme]:not(:root) {
+  color-scheme: inherit;
+}
+
+[data-astryx-theme] {
+  /* Tipografía de la marca */
+  --font-family-body: var(--font-family);
+  --font-family-heading: var(--font-family);
+  font-family: var(--font-family);
+  color: var(--text-primary);
+
+  /* Acción: Pulso, igual que HeroUI y shadcn */
+  --color-accent: var(--brand-primary);
+  --color-accent-muted: var(--surface-active);
+  --color-on-accent: var(--on-primary);
+  --color-text-accent: var(--brand-primary);
+  --color-icon-accent: var(--brand-primary);
+
+  /* Texto e iconos */
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-disabled: var(--text-muted);
+  --color-icon-primary: var(--text-primary);
+  --color-icon-secondary: var(--text-secondary);
+
+  /* Superficies: lienzo → panel → elevada */
+  --color-background-body: var(--background-primary);
+  --color-background-surface: var(--surface-default);
+  --color-background-card: var(--surface-default);
+  --color-background-popover: var(--background-elevated);
+  --color-background-muted: var(--surface-hover);
+  --color-neutral: var(--surface-hover);
+  --color-skeleton: var(--surface-hover);
+  --color-overlay: color-mix(in srgb, var(--background-primary) 72%, transparent);
+  --color-overlay-hover: color-mix(in srgb, var(--text-primary) 6%, transparent);
+  --color-overlay-pressed: color-mix(in srgb, var(--text-primary) 12%, transparent);
+  --color-tint-hover: var(--text-primary);
+
+  /* Bordes */
+  --color-border: var(--border-default);
+  --color-border-emphasized: var(--border-strong);
+
+  /* Estados (siempre con texto o icono, DESIGN_SYSTEM.md §4) */
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--danger);
+  --color-info: var(--info);
+  --color-on-success: var(--on-primary);
+  --color-on-warning: var(--on-primary);
+  --color-on-error: var(--on-primary);
+  --color-on-info: var(--on-primary);
+  --color-text-success: var(--success);
+  --color-text-warning: var(--warning);
+  --color-text-error: var(--danger);
+  --color-text-info: var(--info);
+  --color-success-muted: color-mix(in srgb, var(--success) 18%, transparent);
+  --color-warning-muted: color-mix(in srgb, var(--warning) 18%, transparent);
+  --color-error-muted: color-mix(in srgb, var(--danger) 18%, transparent);
+  --color-info-muted: color-mix(in srgb, var(--info) 18%, transparent);
+  --color-on-success-muted: var(--success);
+  --color-on-warning-muted: var(--warning);
+  --color-on-error-muted: var(--danger);
+  --color-on-info-muted: var(--info);
+
+  /* Radios de la marca: controles 8, paneles 12, overlays 16 */
+  --radius-inner: calc(var(--radius-control) - 2px);
+  --radius-element: var(--radius-control);
+  --radius-container: var(--radius-panel);
+  --radius-page: var(--radius-overlay);
+
+  /* Elevación: borde en superficies; la sombra queda para overlays */
+  --shadow-low: none;
+  --shadow-med: var(--shadow-overlay);
+  --shadow-high: var(--shadow-overlay);
+}

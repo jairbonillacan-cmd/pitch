@@ -5,7 +5,11 @@
    clases de los componentes (HeroUI y shadcn) ganan a «legacy» solo en esos componentes.
    Reglas de convivencia: docs/design/UI_LIBRARIES.md.
    ========================================================================== */
-@layer theme, base, legacy, components, utilities;
+/* «reset», «astryx-base» y «astryx-theme» son las capas de Astryx. Van antes de D1
+   («legacy»): el tema de Astryx trae reglas de encabezados que no deben pisar las
+   pantallas aprobadas. El puente «astryx-pitchlab» va después y pinta Astryx con los
+   tokens de la marca. */
+@layer theme, base, reset, astryx-base, astryx-theme, legacy, astryx-pitchlab, components, utilities;
 
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" layer(utilities);
@@ -18,6 +22,16 @@
 @import "@heroui/styles/variants";
 @import "@heroui/styles/themes/default" layer(theme);
 @import "./heroui-components.css" layer(components);
+
+/* Astryx (Meta, MIT): componentes precompilados + tema neutral como base estructural
+   (tipografía, espaciado, radios). Todo vive dentro de [data-astryx-theme], que pone
+   <AstryxScope> de @pitchlab/ui. Sin reset.css: la app trabaja sin preflight global. */
+@import "@astryxdesign/core/astryx.css";
+@import "@astryxdesign/theme-neutral/theme.css";
+@import "./astryx-pitchlab.css" layer(astryx-pitchlab);
+
+/* Landing definitiva («Pregunta un partido»), después de HeroUI en «components». */
+@import "./landing-v2.css" layer(components);
 
 @source "../../../packages/ui/src";
 @source "../../../packages/ui/node_modules/@heroui/react/dist";

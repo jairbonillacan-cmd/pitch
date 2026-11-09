@@ -31,7 +31,7 @@ test.describe("PitchLab Pre-MVP E2E Suite", () => {
     const elapsed = Date.now() - start;
     expect(elapsed).toBeLessThan(5000);
 
-    await expect(page.locator("h1")).toContainText("Probabilidades");
+    await expect(page.locator("h1")).toContainText("Lee el juego con datos");
 
     // Save Hero dark screenshot at top of page
     await page.evaluate(() => window.scrollTo(0, 0));
@@ -40,13 +40,18 @@ test.describe("PitchLab Pre-MVP E2E Suite", () => {
       fullPage: false,
     });
 
-    // Check interactive demo selector (3 matches in #como / #picks)
-    const picks = page.locator("#picks .pick");
+    // «Pregunta un partido»: elegir otro partido abre su análisis en la hoja.
+    const picks = page.locator(".lv-rail .lv-chip");
     const pickCount = await picks.count();
     expect(pickCount).toBeGreaterThanOrEqual(2);
 
     await picks.nth(1).click();
-    await expect(picks.nth(1)).toHaveAttribute("aria-pressed", "true");
+    await expect(picks.nth(1)).toHaveAttribute("aria-selected", "true");
+    await expect(page.locator(".lv-sheet .lv-big")).toContainText("%");
+
+    // «Tu cuota» compara la cuota escrita con la probabilidad del modelo.
+    await page.locator(".lv-yours input").fill("2.10");
+    await expect(page.locator(".lv-yours-read")).toContainText("pts");
 
     // FD-16 check on Landing HTML
     const html = await page.content();
@@ -80,7 +85,7 @@ test.describe("PitchLab Pre-MVP E2E Suite", () => {
     await page.waitForTimeout(250);
 
     // Cada liga de fútbol con tabla publicada muestra a su líder.
-    await expect(page.locator("#leagues")).toContainText("Líder");
+    await expect(page.locator("#ligas")).toContainText("Liga MX");
 
     // Verify all visible images loaded
     const brokenImages = await page.evaluate(() => {
@@ -287,7 +292,7 @@ test.describe("PitchLab Pre-MVP E2E Suite", () => {
     await page.setExtraHTTPHeaders({ "x-forwarded-for": uniqueIp });
 
     await page.goto("/metodologia");
-    await expect(page).toHaveURL(/\/#como$/);
+    await expect(page).toHaveURL(/\/#como-se-lee$/);
     await expect(page.locator('a[href="/metodologia"]')).toHaveCount(0);
 
     // Panel de LaLiga con los mercados nuevos.

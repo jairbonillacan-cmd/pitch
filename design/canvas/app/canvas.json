@@ -1,0 +1,33 @@
+{
+  "v": 3,
+  "createdOnFiles": { "v": 1, "at": "2026-11-09T19:40:00Z" },
+  "title": "PitchLab · App (/app)",
+  "launch": { "view": "canvas" },
+  "pages": [],
+  "boards": {
+    "Main.dc.html": { "x": 0, "y": 0, "w": 1440, "h": 1240, "title": "Inicio · escritorio · oscuro", "expand": "fill", "is_interactive": true },
+    "Mobile.dc.html": { "x": 1520, "y": 0, "w": 390, "h": 844, "title": "Inicio · móvil · oscuro", "is_interactive": true },
+    "MobileMore.dc.html": { "x": 1990, "y": 0, "w": 390, "h": 844, "title": "Menú «Más» · oscuro", "is_interactive": true },
+    "MainLight.dc.html": { "x": 0, "y": 1700, "w": 1440, "h": 1240, "title": "Inicio · escritorio · claro", "expand": "fill", "is_interactive": true },
+    "MobileLight.dc.html": { "x": 1520, "y": 1700, "w": 390, "h": 844, "title": "Inicio · móvil · claro", "is_interactive": true },
+    "MobileMoreLight.dc.html": { "x": 1990, "y": 1700, "w": 390, "h": 844, "title": "Menú «Más» · claro", "is_interactive": true }
+  },
+  "order": ["Main.dc.html", "Mobile.dc.html", "MobileMore.dc.html", "MainLight.dc.html", "MobileLight.dc.html", "MobileMoreLight.dc.html"],
+  "notes": {
+    "title": { "x": 0, "y": -300, "text": "/app · Inicio · modo oscuro", "kind": "title1", "maxW": 2380 },
+    "titleLight": { "x": 0, "y": 1400, "text": "/app · Inicio · modo claro", "kind": "title1", "maxW": 2380 },
+    "data": {
+      "x": 1520, "y": 924, "w": 420, "fill": "orange",
+      "text": "Enfoque: decirle al usuario qué es lo más probable según los datos y su cuota justa, para que lo compare con la cuota de su casa antes de decidir. Datos reales: partidos, probabilidades, cuotas justas y tabla de Liga MX (snapshots del 9 nov 2026). De EJEMPLO: «Mis picks» y «Movimientos de cuota» (aún no hay cuentas ni histórico de cuotas)."
+    },
+    "scope": {
+      "x": 1990, "y": 924, "w": 390, "fill": "blue",
+      "text": "Alcance MVP (INFORMATION_ARCHITECTURE §2): Inicio, Deportes, Investigar, Mercados, Comunidad y Personal. Inteligencia, IA y notificaciones llegan después (W5–W6). Radar aparece en «Lo más probable», en la tarjeta NFL (edición NFL) y en el menú «Más»; nunca tapa cifras."
+    },
+    "libs": {
+      "x": 2460, "y": 0, "w": 460, "fill": "purple",
+      "text": "Componentes al construirlo (docs/design/UI_LIBRARIES.md):\n• Shell y barra lateral → Astryx AppShell\n• Filtro Todos/Fútbol/NFL → Astryx SegmentedControl\n• Hoja «Más» → Astryx BottomSheet\n• Buscar → HeroUI SearchField · botones → HeroUI Button\n• Chip «Prueba Pro» → HeroUI Chip\n• Barras 1X2 y probabilidad → @pitchlab/ui ProbSplit / ProbBar\n• Emblemas → @pitchlab/ui TeamBadge · Radar → Mascot\n• Tabla → @pitchlab/ui StandingsTable\nTodo con los tokens de @pitchlab/tokens, en claro y oscuro."
+    }
+  },
+  "designSystems": []
+}

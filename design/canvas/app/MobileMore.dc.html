@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<title>PitchLab · Menú Más</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+.pl-dark{--bg:#0B1020;--nav:#10172A;--elev:#1A2440;--surf:#151E34;--hover:#222D49;--active:#302650;--t1:#F3F5FD;--t2:#B8C1D7;--t3:#98A4BF;--line:#33405D;--line2:#73819F;--brand:#B49AFF;--scrim:#0B1020B8;--glow:#B49AFF26}
+.pl-light{--bg:#F3F5FD;--nav:#FFFFFF;--elev:#FFFFFF;--surf:#F3F5FD;--hover:#E9ECF7;--active:#E6E0FF;--t1:#0B1020;--t2:#3B4560;--t3:#5A6480;--line:#D5DAE8;--line2:#7C87A3;--brand:#5940B2;--scrim:#0B102066;--glow:#5940B21F}
+a{color:var(--t1);text-decoration:none}
+</style>
+</helmet>
+<div class="{{themeClass}}" style="width: 390px; height: 844px; box-sizing: border-box; background: var(--bg); color: var(--t1); font-family: Inter, system-ui, sans-serif; font-size: 15px; line-height: 1.45; position: relative; overflow: hidden">
+
+  <!-- Inicio detrás de la hoja (atenuado) -->
+  <div aria-hidden="true" style="position: absolute; inset: 0; display: flex; flex-direction: column">
+    <div style="height: 56px; display: flex; align-items: center; padding: 0 16px; border-bottom: 1px solid var(--line); background: var(--nav)">
+      <sc-if value="{{isDark}}" hint-placeholder-val="{{ true }}"><img src="/_blob/6663a8cb7ea42ab8a1684d7c68686f02" alt="" style="height: 24px; width: auto; display: block"></sc-if>
+      <sc-if value="{{isLight}}" hint-placeholder-val="{{ false }}"><img src="/_blob/0adefa1c96fea6646bc58f3e765be76c" alt="" style="height: 24px; width: auto; display: block"></sc-if>
+    </div>
+    <div style="padding: 18px 16px; display: flex; flex-direction: column; gap: 14px">
+      <div style="display: flex; align-items: center; gap: 14px"><div style="width: 64px; height: 64px; border-radius: 999px; background: var(--glow)"></div><div style="display: flex; flex-direction: column; gap: 8px"><div style="width: 140px; height: 9px; border-radius: 999px; background: var(--line)"></div><div style="width: 180px; height: 16px; border-radius: 6px; background: var(--line)"></div></div></div>
+      <div style="height: 210px; border-radius: 16px; background: var(--elev); border: 1px solid var(--line)"></div>
+    </div>
+  </div>
+  <div aria-hidden="true" style="position: absolute; inset: 0; background: var(--scrim)"></div>
+
+  <!-- BottomSheet (Astryx) -->
+  <section role="dialog" aria-modal="true" aria-labelledby="more-title" style="position: absolute; left: 0; right: 0; bottom: 0; box-sizing: border-box; padding: 10px 16px 24px; border-radius: 16px 16px 0 0; background: var(--elev); border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 16px">
+    <div style="align-self: center; width: 36px; height: 5px; border-radius: 999px; background: var(--line2)"></div>
+    <div style="display: flex; align-items: center; justify-content: space-between">
+      <h2 id="more-title" style="margin: 0; font-size: 20px; font-weight: 800; letter-spacing: -0.02em">Más</h2>
+      <a href="{{backHref}}" aria-label="Cerrar" style="width: 44px; height: 44px; display: grid; place-items: center; border-radius: 999px; background: var(--hover)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg>
+      </a>
+    </div>
+
+    <div style="display: flex; flex-direction: column; border-radius: 12px; background: var(--surf); border: 1px solid var(--line); overflow: hidden">
+      <a href="#" style="display: flex; align-items: center; gap: 14px; height: 52px; padding: 0 16px; border-bottom: 1px solid var(--line)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"></path><path d="M15 7h6v6"></path></svg>Cuotas
+        <svg style="margin-left: auto" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--t3)" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg>
+      </a>
+      <a href="#" style="display: flex; align-items: center; gap: 14px; height: 52px; padding: 0 16px; border-bottom: 1px solid var(--line)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"></path></svg>Leaderboards
+        <svg style="margin-left: auto" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--t3)" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg>
+      </a>
+      <a href="#" style="display: flex; align-items: center; gap: 14px; height: 52px; padding: 0 16px">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="1.75" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4z"></path></svg>Watchlists
+        <svg style="margin-left: auto" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--t3)" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg>
+      </a>
+    </div>
+
+    <div style="display: flex; flex-direction: column; border-radius: 12px; background: var(--surf); border: 1px solid var(--line); overflow: hidden">
+      <a href="#" style="display: flex; align-items: center; gap: 14px; height: 52px; padding: 0 16px; border-bottom: 1px solid var(--line)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--t2)" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"></path></svg>Cuenta y plan
+        <span style="margin-left: auto; font-size: 12px; font-weight: 600; padding: 3px 8px; border-radius: 999px; background: var(--active); color: var(--t1)">Prueba Pro · 5 días</span>
+      </a>
+      <a href="#" style="display: flex; align-items: center; gap: 14px; height: 52px; padding: 0 16px">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--t2)" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6v.6M12 17.5v.01"></path></svg>Ayuda y juego responsable
+        <svg style="margin-left: auto" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--t3)" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg>
+      </a>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 12px; padding: 4px 4px 0">
+      <img src="/_blob/87c91e8a286e9e18afab54fe8d8024a3" alt="" style="width: 52px; height: 52px; flex: none">
+      <p style="margin: 0; font-size: 12px; color: var(--t3)">Información para decidir, no una garantía. PitchLab no acepta apuestas. Solo mayores de 18.</p>
+    </div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["dark","light"],"default":"dark","section":"Tema"},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const light = this.props.theme === 'light';
+    return {
+      themeClass: light ? 'pl-light' : 'pl-dark',
+      isDark: !light,
+      isLight: light,
+      backHref: light ? 'MobileLight.dc.html' : 'Mobile.dc.html'
+    };
+  }
+}
+</script>
+</body>
+</html>

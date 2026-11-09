@@ -12,6 +12,12 @@
       "runtimeExecutable": "pnpm",
       "runtimeArgs": ["--filter", "@pitchlab/ui", "storybook"],
       "port": 6006
+    },
+    {
+      "name": "web",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "@pitchlab/web", "dev"],
+      "port": 3000
     }
   ]
 }
