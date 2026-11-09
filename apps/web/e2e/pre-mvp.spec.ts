@@ -358,6 +358,10 @@ test.describe("PitchLab Pre-MVP E2E Suite", () => {
     );
     expect(overflow).toBe(false);
 
+    // Tabla de posiciones calculada del snapshot.
+    await expect(page.locator(".standings-block")).toBeVisible();
+    await expect(page.locator(".standings")).toContainText("Pts");
+
     await page.screenshot({
       path: path.join(SCREENSHOT_DIR, `panel-bundesliga-${testInfo.project.name}-dark.png`),
     });

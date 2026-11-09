@@ -13,7 +13,8 @@ Las ligas sin paquete de emblemas propio (Bundesliga, Serie A, Ligue 1) usan el 
 neutro** del sistema de diseño: iniciales por equipo y código de liga, nunca una imagen rota.
 
 Cada partido publica hasta 20 mercados (resultado, doble oportunidad, totales, ambos anotan, goles
-por equipo y marcador exacto), su cuota justa y el intervalo del 90 % del modelo.
+por equipo y marcador exacto), su cuota justa, el intervalo del 90 % del modelo, la forma reciente
+de cada equipo y una tabla de posiciones calculada con los partidos ya jugados.
 
 ## Estructura
 
