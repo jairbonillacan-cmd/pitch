@@ -16,7 +16,7 @@
 | Otras ligas (AHL/ECHL/CHL/USHL/PWHL) | HockeyTech (`lscluster.hockeytech.com`) | Informalmente sí | ⚠️ No es API pública; sin garantía de continuidad | Endpoints no oficiales, pueden bloquear |
 | NCAA FBS/FCS | **CollegeFootballData.com (CFBD)** | Sí (key gratuita) | ✅ **Sí, explícitamente permitido en cualquier tier** | Tier gratuito: 1.000 llamadas/mes; sin datos en vivo |
 | NCAA — volumetría | ESPN hidden API (`site.api.espn.com`) | Sí (sin key) | ⚠️ Uso no comercial implícito | No documentada; cambios sin aviso |
-| NCAA — ratings | WarrenNolan.com (Elo), FiveThirtyEight repo | Sí | ⚠️ WarrenNolan sin términos explícitos | Sin API estructurada (HTML) |
+| NCAA — ratings | WarrenNolan (Elo), **Massey Ratings (compuestos + export CSV)**, Sagarin, FiveThirtyEight repo | Sí | ⚠️ WarrenNolan/Massey/Sagarin sin términos explícitos (Massey y Sagarin detrás de Cloudflare o UA de navegador) | Sin API estructurada (HTML/CSV manual) |
 
 **Conclusión clave:** para un producto comercial, la única fuente grande con permiso comercial **explícito y gratuito** es **CollegeFootballData.com**. En hockey, la API de la NHL es la base de facto de todo el ecosistema de analítica, pero su uso automatizado formalmente viola los ToS de la NHL — es el riesgo estándar asumido por casi toda la industria de analítica; debe registrarse como riesgo legal conocido. MoneyPuck, Sports-Reference y Elite Prospects no son opciones comerciales gratuitas.
 
@@ -30,9 +30,11 @@
 - **Documentación de facto:** [Zmalski/NHL-API-Reference (GitHub)](https://github.com/Zmalski/NHL-API-Reference) (repo con licencia MIT, documenta ambos bases; verificado HTTP 200)
 - **Verificación de enlace:** `GET https://api-web.nhle.com/v1/schedule/2026-11-08` → HTTP 200 ✅
 - **Competiciones:** NHL (temporada regular + playoffs). Las dos APIs alimentan NHL.com y las apps oficiales.
-- **Cobertura histórica:**
-  - Calendario/resultados por fecha: profundidad alta (consultable por fecha; verificado para temporadas recientes). La API antigua `statsapi.web.nhl.com` fue apagada en 2023–2024; algunos endpoints del nuevo API alcanzan temporadas anteriores vía `season`/rosters históricos.
-  - Play-by-play estructurado (con coordenadas XY de jugadas): ~2009–2010 en adelante, con mejor granularidad en temporadas recientes.
+- **Cobertura histórica (verificada por sondeo directo el 2026-11-08):**
+  - **Calendario/resultados: desde 1917-12-19** — el primer juego de la historia de la NHL responde con sus datos (`/v1/schedule/1917-12-19` → 2 juegos, Laurier Avenue Arena). Toda la historia de resultados de la liga está consultable por fecha. ✅ probado también para 1993 y 2010.
+  - **Play-by-play: existe desde al menos 1992-93** — el juego de la Final de la Copa Stanley 1993 (id `1992030411`, Montreal Forum) devuelve eventos con periodo, tiempo, tipo (goles, penalidades con jugador y duración, etc.). ⚠️ Los PBP pre-2000s son **escasos** (~22 eventos por juego: goles/penalidades; sin tiros ni coordenadas). PBP completo con eventos por tiro: ~2007-08 verificado (`2007020001` → 200); PBP con coordenadas XY: ~2010-11 verificado.
+  - **Boxscore:** funcional para juegos históricos (probado 1992-93 y 2010-11 → 200).
+  - **Shift charts:** verificados para juego 2010 vía `api.nhle.com/stats/rest/en/shiftcharts?cayenneExp=gameId=2010020003` → devuelve shifts con periodo, duración y playerId. La API antigua `statsapi.web.nhl.com` fue apagada en 2023–2024; el nuevo `/stats/rest` los reemplazó.
 - **Datos disponibles (mapeados a nuestra lista de requisitos):**
   - Calendarios y resultados ✅ (`/v1/schedule/{fecha}`, `/v1/score/{fecha}`)
   - Boxscore completo ✅ (`/v1/gamecenter/{gameId}/boxscore`): goles por periodo, tiros, hits, bloqueos, PIM, faceoffs ganados/perdidos, PP/PK, TOI por jugador
@@ -73,7 +75,10 @@
 - **Autenticación:** ninguna.
 - **Límites:** sin límite técnico declarado para los archivos listados; **scraping de cualquier cosa no listada requiere aprobación previa por email**; scraping no aprobado será bloqueado.
 - **Condiciones de uso comercial:** ❌ **«Free for non-commercial purposes» + atribución obligatoria («clearly credit MoneyPuck.com»)**; otros usos requieren consulta por email. **No usable en producto comercial sin permiso explícito.**
-- **Descarga:** sí, completa (archivos estáticos).
+- **Descarga:** sí, completa (archivos estáticos). **URLs directas verificadas (2026-11-08):**
+  - ZIP de tiros completo 2007–2025: `https://peter-tanner.com/moneypuck/downloads/shots_2007-2025.zip` → HTTP 206 (existe) ✅ — también ZIPs por temporada (`shots_2007.zip` … `shots_2013.zip` …) y `shots_2021-2025.zip` «Recommended For Excel Users»
+  - Game-by-game combinado: `https://moneypuck.com/moneypuck/playerData/careers/gameByGame/all_teams.csv` → HTTP 200, **128 MB** ✅
+  - Resúmenes de temporada: `https://moneypuck.com/moneypuck/playerData/seasonSummary/{año}/regular/skaters.csv` → HTTP 200 ✅ (mismo patrón para `goalies.csv`, `lines.csv`, teams)
 - **Calidad:** alta; es el estándar de facto de xG NHL junto con Natural Stat Trick y Evolving-Hockey (este último de pago).
 - **Utilidad:** ★★★★★ para I&D interno, calibrar/validar nuestro propio modelo de xG; ★☆☆☆☆ como insumo directo de producto comercial.
 
@@ -145,6 +150,19 @@
 - **Plan gratuito:** 100 req/día por API, reset a las 00:00 UTC, cubre NHL + 170 ligas, endpoints de fixtures/standings/players/stats.
 - **Condiciones:** el plan free exige atribución («Powered by API-Sports») y su uso está pensado para desarrollo/pruebas; **uso comercial requiere plan pago**. Sin garantía de profundidad histórica completa en free.
 - **Utilidad:** ★★☆☆☆ — cuota diaria muy pequeña para ingesta histórica; viable solo como checador de resultados en vivo de baja frecuencia.
+
+### 1.11 Evolving-Hockey
+
+- **URL:** [evolving-hockey.com](https://evolving-hockey.com)
+- **Datos:** estándar de facto en métricas avanzadas NHL (GAR/xGAR, RAPM, proyecciones de jugadores y equipos); su suite de query tools es la más completa del ecosistema.
+- **Gratuidad:** ❌ **mayormente de pago**: $9.99/mes o $99.99/año (precio actualizado 2025; antes $5/mes). Blog y algunas herramientas gratuitas; query tools y datos completos con suscripción.
+- **Utilidad:** ★★★☆☆ para I&D pagado futuro; ★☆☆☆☆ como fuente gratuita. **No recomendada en este inventario** salvo como referencia metodológica pública.
+
+### 1.12 Ligas europeas (KHL, SHL, Liiga, DEL)
+
+- **Estado:** **no existe API gratuita unificada ni verificada** para ninguna de ellas. Cada liga expone endpoints JSON internos usados por sus sitios web (p. ej. `liiga.fi`), envueltos por scrapers comunitarios específicos; para la **KHL** existe soporte informal en el ecosistema [SportsDataverse (`sdv-py`)](https://www.sportsdataverse.org/packages). Proveedores comerciales (Goalserve, Sportradar) cubren Liiga/SHL de pago.
+- **Riesgo:** endpoints internos sin documentación ni garantía; mismas cautelas que HockeyTech (rate limit propio, tolerancia a roturas).
+- **Utilidad:** ★★☆☆☆ — fuera del alcance recomendable para el pre-MVP; solo exploración manual si algún día se necesita.
 
 ---
 
@@ -245,6 +263,37 @@
 - **FPI:** consultable gratis en [espn.com/college-football/fpi](https://www.espn.com/college-football/fpi) y vía ESPN hidden API.
 - **Utilidad:** ★★☆☆☆ como señales de referencia (no como insumo estructurado gratuito).
 
+### 2.9 Massey Ratings — ratings compuestos y export CSV
+
+- **URL:** [masseyratings.com](https://masseyratings.com) (verificado HTTP 200 ✅ con user-agent de navegador; curl básico → 403 por Cloudflare)
+- **Datos:** ratings computacionales compuestos (promedio de ~100 sistemas de rating, incluidos los propios Massey), scores/schedules completos, predicciones y "extreme games"; **FBS, FCS, D-II, D-III, NAIA, NJCAA**. Archivos históricos por temporada con URL de patrón `masseyratings.com/cf{año}/...` (verificado el patrón documentado: `cf1995/ncaa/ratings`).
+- **Export CSV:** botón «More → Export» en cada tabla descarga ratings en CSV (patrón interceptable programáticamente como documentan usuarios de R/rvest). Histórico de rankings semanales desde los 90s.
+- **Autenticación:** ninguna. **Formato:** HTML + CSV exportable. **Límites/ToS:** no hay términos formales publicados; Cloudflare activo → usar rate limit y UA de navegador.
+- **Utilidad:** ★★★★☆ — la fuente gratuita más rica de **ratings históricos compuestos** por temporada para features de nuestro motor; complementa el Elo de WarrenNolan.
+
+### 2.10 Sagarin Ratings
+
+- **URL:** [sagarin.com/sports/cfsend.htm](http://sagarin.com/sports/cfsend.htm) (verificado HTTP 200 ✅)
+- **Contexto:** USA Today **retiró** el archivo Sagarin (era el hogar histórico); Sagarin publicó su propio sitio: «Jeff's Sports Ratings – the only place to find my updated ratings». Archivo antiguo disponible vía Wayback Machine (web.archive.org).
+- **Datos:** ratings Sagarin (Elo-like con diferencial de puntos, predictor y golden mean) para fútbol americano colegial; página por temporada.
+- **Gratuidad:** sí, gratuita. **Formato:** HTML plano. Sin API.
+- **Utilidad:** ★★★☆☆ — ratings históricos de referencia (uno de los sistemas con más historia continua de CFB); scraping sencillo pero sin licencia explícita.
+
+### 2.11 CFBStats.com
+
+- **URL:** [cfbstats.com](https://www.cfbstats.com/) (verificado HTTP 200 ✅; TLS intermitente desde curl — reintentar)
+- **Datos:** stats oficiales-lizadas de equipo y jugador (ofensiva/defensa por categoría), box scores, depth charts, resultados por temporada.
+- **⚠️ Histórico recortado:** sondeo directo confirma **solo temporadas ~2021–2025 vivas** (`/2021|2022|2023|2024|2025/team/index.html` → 200; `/2008|2009|2010|2013|2016|2019` → 404). Las temporadas antiguas que antes alojaba fueron eliminadas.
+- **Autenticación:** ninguna. **Formato:** HTML. **ToS:** sin términos públicos.
+- **Utilidad:** ★★☆☆☆ — redundante con CFBD para FBS reciente; valor marginal hoy (antes era valioso para 2008–2018).
+
+### 2.12 TeamRankings
+
+- **URL:** [teamrankings.com/ncf/](https://www.teamrankings.com/ncf/) (verificado HTTP 200 ✅ tras redirect)
+- **Datos:** power ratings propias, strength of schedule, tendencias vs. spread (ATS), over/under, estadísticas avanzadas de equipo por temporada; predicciones de línea.
+- **Gratuidad:** páginas gratuitas con contenido parcial (alguna data histórica detallada requiere pago). Sin API. **ToS:** prohibición de scraping explícita en sus términos → solo consulta manual.
+- **Utilidad:** ★★☆☆☆ — referencia manual de SoS/ATS; no como pipeline.
+
 ---
 
 ## 3. Catálogo — Datasets históricos y repositorios open source
@@ -262,7 +311,9 @@
 | **sportsdataverse/fastRhockey** | Paquete R | NHL + PWHL (HockeyTech); PBP/schedules | Open source | [github.com/sportsdataverse/fastRhockey](https://github.com/sportsdataverse/fastRhockey) |
 | **sportsdataverse js (hockeyTech)** | Doc/lib JS | Endpoints HockeyTech para ligas menores/PWHL | Open source (la doc); feeds según ligas | [js.sportsdataverse.org/docs/reference/hockeytech](https://js.sportsdataverse.org/docs/reference/hockeytech) |
 | **pwhl-scraper** | Paquete Python | PBP/stats PWHL vía HockeyTech | Open source | [github.com/topics/pwhl](https://github.com/topics/pwhl) |
-| **Kaggle: NHL Game Data** | Dataset | Partidos/stats NHL ~2014–2023 (derivados de NHL API/Hockey-Reference) | Verificar licencia por dataset | [kaggle.com](https://www.kaggle.com/datasets) |
+| **Kaggle: NHL Game Data** | Dataset | Tablas relacionales NHL (~2014–2023): game, game_teams_stats, game_skater_stats, game_goalie_stats, game_plays ([martinellis/nhl-game-data](https://www.kaggle.com/martinellis/nhl-game-data/data)) | Verificar licencia en la página (requiere cuenta Kaggle) | [kaggle.com](https://www.kaggle.com/datasets) |
+| **Kaggle: NHL Game Data 2024–25 Advanced** | Dataset | 25 temporadas de métricas de juego (wins, shots, referees, hits, faceoffs, PIMs, attendance, rest days) ([jonathanncoletti](https://www.kaggle.com/datasets/jonathanncoletti/nhl-game-data-2024-2025-advanced-metrics)) | Verificar licencia | [kaggle.com](https://www.kaggle.com/datasets) |
+| **Kaggle: NHL Stanley Cup Playoffs** | Dataset | Playoffs NHL **1918–2022** | Verificar licencia | [kaggle.com](https://www.kaggle.com/datasets) |
 | **Kaggle: College Football box scores** | Dataset | Box scores CFB 2002–2025 | Verificar licencia por dataset | [kaggle.com](https://www.kaggle.com/datasets) |
 | **jhowell.net scores** | Dataset web | Resultados major college desde 1869 | Sin licencia explícita; contactar autor | [jhowell.net/cf/scores/byname.htm](https://www.jhowell.net/cf/scores/byname.htm) ✅200 |
 
@@ -276,7 +327,7 @@
 
 | Fuente | Calendarios/Resultados | PBP | xG | Porteros (sv%) | Faceoffs/PP/PK | TOI/shifts | Alineaciones | Lesiones | En vivo | Histórico | Uso comercial | Fiabilidad |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| NHL API | ✅ | ✅ (coords) | ❌ (calcular) | ✅ | ✅ | ✅ (shiftcharts) | ✅ rosters | ❌ | ✅ | ~2009+ PBP; más atrás agregado | ⚠️ gris | Alta |
+| NHL API | ✅ | ✅ (coords ~2010+; básico 2007+; escaso 1993+) | ❌ (calcular) | ✅ | ✅ | ✅ (shiftcharts verificado) | ✅ rosters | ❌ | ✅ | **schedule 1917+; PBP 1993+ (escaso), 2007+ (básico), 2010+ (completo)** | ⚠️ gris | Alta |
 | MoneyPuck | ⚠️ parcial | ⚠️ shots only | ✅ por tiro | ✅ derivado | ✅ derivado | ✅ TOI por tiro | ❌ | ❌ | ❌ (nocturna) | 2007+ | ❌ no-comercial | Alta |
 | NST | ✅ | ⚠️ tablas | ✅ equipo/jugador | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | 2007+ | ⚠️ sin ToS | Media-alta |
 | Hockey-Reference | ✅ | ⚠️ boxscores | ❌ | ✅ | ✅ | ⚠️ | ⚠️ | ❌ | ❌ | **1917+** | ❌ licencia | Alta |
@@ -292,6 +343,10 @@
 | **CFBD** | ✅ **1869+** | ✅ | ✅ ~2011+ | ✅ | ✅ | ✅ | ⚠️ | ⚠️ derivable de drives | ✅ calculable | ✅ polls | ✅ históricas | ✅ | ✅ (PBP irregular) | ❌ | **✅ sí** | Alta |
 | ESPN CFB | ✅ (limit=200, todo D-I) | ✅ | ⚠️ reciente | ❌ | ❌ | ⚠️ | ⚠️ | ⚠️ | ❌ | ✅ polls/FPI | ❌ | ✅ histórico | ✅ | ✅ | ⚠️ | Media-alta |
 | WarrenNolan | ✅ | ⚠️ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ implícito | ✅ **Elo** | ❌ | ❌ | ✅ | ⚠️ | ⚠️ sin ToS | Media-alta |
+| **Massey Ratings** | ✅ | ⚠️ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ (ratings implícitos) | ✅ **compuestos por semana, décadas** | ❌ | ❌ | ✅ (+D-II/D-III/NAIA) | ⚠️ | ⚠️ sin ToS + Cloudflare | Media-alta |
+| Sagarin | ✅ implícito | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ | ❌ | ❌ | ⚠️ | ❌ | ⚠️ sin licencia | Media |
+| CFBStats | ✅ 2021–25 | ✅ | ❌ | ❌ | ❌ | ✅ | ⚠️ | ⚠️ | ❌ | ❌ | ❌ | ❌ | ✅ | ⚠️ | ⚠️ | Media (histórico recortado) |
+| TeamRankings | ✅ | ⚠️ | ❌ | ❌ | ❌ | ❌ | ❌ | ⚠️ | ✅ SoS | ✅ propias | ⚠️ ATS | ❌ | ⚠️ | ⚠️ | ❌ scraping prohibido | Media-alta |
 | stats.ncaa.org | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (team stats) | ⚠️ | ⚠️ | ❌ | ❌ | ❌ | ❌ | ✅ (todas divisiones) | ⚠️ | ⚠️ | Media |
 | Sports-Ref CFB | ✅ 1869+ | ✅ | ❌ | ❌ | ❌ | ✅ | ⚠️ | ⚠️ | ✅ (SRS) | ❌ | ✅ históricas | ⚠️ | ⚠️ | ❌ | ❌ licencia | Alta |
 | jhowell.net | ✅ 1869+ (FBS-eq) | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ⚠️ sin licencia | Alta |
@@ -339,14 +394,14 @@
 
 | Liga/Competición | Fuente gratuita | Temporadas con datos gratuitos |
 |---|---|---|
-| NHL | NHL API | PBP detallado ~2009-10→hoy; boxscores/schedule atrás adicionales; registros históricos profundos vía Hockey-Reference (no comercial) |
-| NHL — tiros con xG | MoneyPuck | **2007-08 → 2025-26** (+2026-27 nocturna) |
+| NHL | NHL API | **schedule/resultados 1917+** (primer juego verificado); PBP escaso 1993+, básico 2007+, completo con coordenadas ~2010+; shift charts (2010+ verificado); registros históricos profundos vía Hockey-Reference (no comercial) |
+| NHL — tiros con xG | MoneyPuck | **2007-08 → 2025-26** (+2026-27 nocturna); URLs directas verificadas |
 | AHL / ECHL / CHL / USHL / PWHL | HockeyTech informal | Variable por liga (típicamente ~2015+, con lagunas) |
 | IIHF (torneos) | stats.iihf.com | Histórico de torneos; PDFs |
 | NCAA FBS | CFBD | Scores **1869+**; box scores modernos; **PBP ~2011+**; EPA/WP 2011+; líneas históricas; recruiting 2000+ |
 | NCAA FCS | CFBD | Scores completos; PBP irregular (mejor 2014+); stats de temporada |
 | NCAA D-II/D-III | stats.ncaa.org (manual) | ~2002+ online |
-| Polls/rankings CFB | CFBD + ESPN + WarrenNolan | CFBD polls históricos; ESPN FPI varias temporadas; WarrenNolan Elo por año |
+| Polls/rankings CFB | CFBD + ESPN + WarrenNolan + **Massey** + Sagarin | CFBD polls históricos; ESPN FPI varias temporadas; WarrenNolan Elo por año; **Massey compuestos semanales décadas**; Sagarin continuo (hoy en sagarin.com, archivo USA Today vía Wayback) |
 | NFL-Elo (referencia metodológica) | fivethirtyeight/data | 1920+ (archivo estático, no CFB) |
 
 ---
@@ -369,13 +424,15 @@
 1. **CFBD** — backbone con licencia comercial explícita y gratuita (key gratuita; 1.000/mes). Cubre ~90% de la lista de requisitos del objetivo.
 2. **ESPN CFB hidden API** — scores del día de todo D-I en 1 llamada (ahorra cuota CFBD); boxscores de respaldo.
 3. **WarrenNolan** — Elo por temporada para features de ratings.
-4. **jhowell.net** — solo si se requiere historia pre-2002 masiva (pedir permiso al autor).
-5. **stats.ncaa.org** — solo para huecos FCS/D-II puntuales (manual, no pipeline).
+4. **Massey Ratings** — ratings compuestos semanales con export CSV (FBS/FCS/D-II/D-III/NAIA) para enriquecer features; usar UA de navegador y rate limit por Cloudflare.
+5. **jhowell.net** — solo si se requiere historia pre-2002 masiva (pedir permiso al autor).
+6. **stats.ncaa.org** — solo para huecos FCS/D-II puntuales (manual, no pipeline).
+7. **Sagarin (sagarin.com)** — referencia histórica de ratings; opcional y sin API.
 
 ### Hockey (orden de adopción)
-1. **NHL API (`api-web.nhle.com` + `stats/rest`)** — backbone técnico completo (calendario, boxscore, PBP con coordenadas, shifts, EDGE). Documentar el riesgo ToS y el plan de mitigación (caching, baja frecuencia, proveedor pago como plan B).
+1. **NHL API (`api-web.nhle.com` + `stats/rest`)** — backbone técnico completo: **resultados desde 1917**, PBP (escaso 1993+, completo con coordenadas ~2010+), boxscores, shifts, EDGE. Documentar el riesgo ToS y el plan de mitigación (caching, baja frecuencia, proveedor pago como plan B).
 2. **MoneyPuck CSVs** — para calibrar nuestro propio modelo de xG en fase de I&D; **no** como insumo de producto.
-3. **HockeyTech feeds** — si se expande a AHL/ECHL/CHL/PWHL, con rate limiting propio y tolerancia a roturas.
+3. **HockeyTech feeds** — si se expande a AHL/ECHL/CHL/PWHL, con rate limiting propio y tolerancia a roturas (gateway `lscluster.hockeytech.com` verificado vivo; key por liga).
 4. **Modelo xG propio** — construido sobre PBP NHL (gap estructural: xG comercial no existe gratis).
 
 ---
@@ -419,6 +476,19 @@
 | https://stats.iihf.com | 200 | ✅ vivo |
 | https://www.ncaa.com/stats/football/fbs | 200 | ✅ vivo |
 | https://lscluster.hockeytech.com/feed/index.php?feed=gc&key=…&client_code=pwhl… | 200 | ✅ feed vivo |
+| https://lscluster.hockeytech.com/feed/index.php?feed=modulekit&view=scorebar&key=…&client_code=ahl… | 200 | ✅ AHL vivo (key por liga: OHL rechaza key de PWHL) |
+| http://sagarin.com/sports/cfsend.htm | 200 | ✅ vivo (hogar nuevo de Sagarin) |
+| https://www.cfbstats.com/2024/team/index.html | 200 | ✅ vivo (temporadas ~2021–2025; antiguas eliminadas) |
+| https://masseyratings.com/ | 200 (UA navegador; curl básico → 403) | ✅ vivo (export CSV por tabla) |
+| https://www.teamrankings.com/ncf/ | 200 | ✅ vivo |
+| https://evolving-hockey.com | (lectura) | ✅ vivo (suscripción $9.99/mes) |
+| https://peter-tanner.com/moneypuck/downloads/shots_2007-2025.zip | 206 | ✅ ZIP existe |
+| https://moneypuck.com/moneypuck/playerData/careers/gameByGame/all_teams.csv | 200 (128 MB) | ✅ descarga directa |
+| https://moneypuck.com/moneypuck/playerData/seasonSummary/2024/regular/skaters.csv | 200 | ✅ patrón confirmado |
+| https://api.nhle.com/stats/rest/en/shiftcharts?cayenneExp=gameId=2010020003 | 200 | ✅ shifts 2010 |
+| https://api-web.nhle.com/v1/schedule/1917-12-19 | 200 | ✅ primer juego NHL |
+| https://api-web.nhle.com/v1/gamecenter/1992030411/play-by-play | 200 | ✅ PBP Final 1993 (escaso) |
+| https://www.kaggle.com/martinellis/nhl-game-data/data | (página) | ✅ dataset conocido (licencia a verificar con cuenta) |
 | https://github.com/Zmalski/NHL-API-Reference | 200 | ✅ |
 | https://github.com/sportsdataverse/cfbfastR | 200 | ✅ |
 | https://github.com/armstjc/ncaa_stats_py | 200 | ✅ |
@@ -429,4 +499,19 @@
 | https://www.sports-reference.com/cfb/ y /data_use.html | 403 (anti-bot) | ✅ sitio activo, acceso manual libre |
 | https://api-sports.io | 403 (anti-bot) | ✅ sitio activo; free 100/día, no-comercial |
 
-**Referencias comunitarias consultadas:** [Gist ESPN hidden API](https://gist.github.com/akeaswaran/b48b02f1c94f873c6655e7129910fc3b) · [sportsdataverse hockeyTech docs](https://js.sportsdataverse.org/docs/reference/hockeytech) · [NHL ToS](https://www.nhl.com/info/terms-of-service) · [Sports-Reference ToS](https://www.sports-reference.com/termsofuse.html) y [Data Use](https://www.sports-reference.com/data_use.html) · [blog límites The Odds API](https://oddspapi.io/blog/the-odds-api-free-tier-limits) · [r/CFBAnalysis (cobertura PBP CFBD)](https://www.reddit.com/r/CFBAnalysis/) · [hockeyR](https://github.com/danmorse314/hockeyR) · [fastRhockey](https://github.com/sportsdataverse/fastRhockey) · [Hockey-Scraper](https://github.com/HarryShomer/Hockey-Scraper) · [topics/pwhl](https://github.com/topics/pwhl)
+**Referencias comunitarias consultadas:** [Gist ESPN hidden API](https://gist.github.com/akeaswaran/b48b02f1c94f873c6655e7129910fc3b) · [sportsdataverse hockeyTech docs](https://js.sportsdataverse.org/docs/reference/hockeytech) · [NHL ToS](https://www.nhl.com/info/terms-of-service) · [Sports-Reference ToS](https://www.sports-reference.com/termsofuse.html) y [Data Use](https://www.sports-reference.com/data_use.html) · [blog límites The Odds API](https://oddspapi.io/blog/the-odds-api-free-tier-limits) · [r/CFBAnalysis (cobertura PBP CFBD)](https://www.reddit.com/r/CFBAnalysis/) · [r/CFB «Sagarin archive is off the web»](https://www.reddit.com/r/CFB/comments/1pdolu3/sagarin_archive_is_off_the_web) · [hockeyR](https://github.com/danmorse314/hockeyR) · [fastRhockey](https://github.com/sportsdataverse/fastRhockey) · [Hockey-Scraper](https://github.com/HarryShomer/Hockey-Scraper) · [topics/pwhl](https://github.com/topics/pwhl) · [SportsDataverse packages (sdv-py KHL)](https://www.sportsdataverse.org/packages)
+
+---
+
+## 11. Bitácora de la segunda ronda de verificación (2026-11-08)
+
+Correcciones y ampliaciones respecto a la primera versión de este reporte:
+
+1. **NHL API más profunda de lo documentado:** el calendario consultable por fecha llega hasta **1917-12-19** (primer juego de la liga, verificado); el play-by-play existe desde al menos **1992-93** (Final 1993 verificada con eventos de periodo/tipo/jugador, aunque escasa ~22 eventos), básico en 2007-08 (verificado) y completo con coordenadas ~2010-11. Los shift charts funcionan con `cayenneExp=gameId=` (verificado para un juego de 2010).
+2. **MoneyPuck:** URLs directas de descarga capturadas y verificadas (ZIP completo de tiros 2007–2025 en `peter-tanner.com`; `all_teams.csv` = 128 MB; patrón `seasonSummary/{año}/regular/skaters.csv` → 200).
+3. **HockeyTech:** gateway `lscluster.hockeytech.com` vivo; la key es **por liga** (la de PWHL es rechazada por OHL: «Invalid key»; AHL aceptó la de prueba). Las claves están embebidas en el JS público de cada sitio de liga.
+4. **CFBStats.com** eliminó sus temporadas antiguas: solo **~2021–2025** siguen vivas (sondeo directo); antes cubría 2008+. TLS intermitente.
+5. **Sagarin** abandonó USA Today y se mudó a **sagarin.com** (verificado 200); el archivo histórico de USA Today solo sobrevive en Wayback Machine.
+6. **Nuevas fuentes CFB añadidas:** **Massey Ratings** (compuestos con export CSV, décadas de archivo, FBS/FCS/D-II/D-III/NAIA), **TeamRankings** (SoS/ATS, scraping prohibido), CFBStats (ya en desuso por recorte histórico), Sagarin.
+7. **Evolving-Hockey** confirmado mayormente de pago ($9.99/mes); **Kaggle**: el dataset NHL conocido es `martinellis/nhl-game-data` (no «martingeorgiev»), existen variantes con 25 temporadas y playoffs 1918–2022; licencias por verificar con cuenta Kaggle.
+8. **Ligas europeas (KHL/SHL/Liiga/DEL):** sin API gratuita verificada; soporte informal vía SportsDataverse para KHL; permanecen fuera del alcance recomendado.

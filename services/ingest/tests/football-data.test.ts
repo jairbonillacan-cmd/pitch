@@ -6,6 +6,7 @@ import {
   fdSeasonUrl,
   getHistoryLeague,
   normalizeFdSeason,
+  normalizeFdXg,
   parseFdDate,
   selectOdds,
 } from "../src/index.js";
@@ -142,5 +143,25 @@ describe("football-data.co.uk — normalización de una temporada", () => {
     expect(research.fallbackNames).toEqual(["Inventado FC"]);
     const invented = research.games.find((game) => game.id.includes("inventado"))!;
     expect(invented.homeTeam).toBe("premier-league.inventado");
+  });
+
+  it("extrae el xG de las columnas HxG/AxG de 2026-27", () => {
+    const csv = [
+      "Div,Date,HomeTeam,AwayTeam,FTHG,FTAG,HxG,AxG",
+      "E0,16/08/2026,Man United,Fulham,1,0,1.82,0.74",
+      "E0,17/08/2026,Arsenal,Chelsea,2,2,1.10,1.05",
+      "E0,18/08/2026,Everton,Brighton,0,1,,",
+    ].join("\n");
+    const games = normalizeFdXg(csv, {
+      league: getHistoryLeague("premier-league"),
+      season: "2026-27",
+    });
+    expect(games).toHaveLength(2);
+    expect(games[0]).toMatchObject({
+      id: "premier-league:2026-27:manchester-united:fulham",
+      homeXg: 1.82,
+      awayXg: 0.74,
+      date: "2026-08-16",
+    });
   });
 });

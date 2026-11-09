@@ -13,13 +13,15 @@
 
 | Métrica | Valor |
 |---|---|
-| Registros en manifest | 665 |
-| Descargados | 596 |
-| Preexistentes registrados (games.csv, sin re-descargar) | 1 (+1 duplicado de registro en re-corrida de stats_team) |
+| Registros en manifest | 667 (append-only; 3 registros `preexisting` de games.csv por corridas separadas, 1 descarga real) |
+| Descargados | 597 (incl. players.parquet añadido en validación) |
+| Preexistentes registrados (games.csv, sin re-descargar) | 1 archivo · 3 registros |
 | Omitidos por ya existir (resume) | 27 |
 | Ausentes en origen (404 esperados) | 40 |
 | Errores de red/descarga | 0 |
-| Bytes verificados con checksum | 634,609,953 |
+| Checksums re-verificados contra disco | **598 ok · 0 mismatch · 0 faltantes** (verify_manifest_checksums.py) |
+
+Nota: el script ya no re-registra games.csv en corridas futuras (dedupe por dataset+asset).
 
 ## Estados usados
 

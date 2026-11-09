@@ -22,6 +22,8 @@ interface CliOptions {
   minTrainRows?: number;
   bootstrapIterations?: number;
   includeHistoricalResearch?: boolean;
+  includeStack?: boolean;
+  exportFeaturesPath?: string;
 }
 
 function parsePositiveInt(raw: string, flag: string): number {
@@ -37,6 +39,10 @@ function parseArgs(argv: readonly string[]): CliOptions {
   for (const arg of argv) {
     if (arg === "--include-research-history") {
       options.includeHistoricalResearch = true;
+      continue;
+    }
+    if (arg === "--with-stack") {
+      options.includeStack = true;
       continue;
     }
     const match = arg.match(/^--([a-z-]+)=(.+)$/);
@@ -57,6 +63,9 @@ function parseArgs(argv: readonly string[]): CliOptions {
         break;
       case "bootstrap":
         options.bootstrapIterations = parsePositiveInt(value!, "--bootstrap");
+        break;
+      case "export-features":
+        options.exportFeaturesPath = resolve(ROOT_DIR, value!);
         break;
       default:
         throw new Error(`Flag desconocida: '--${key}'.`);
@@ -79,6 +88,10 @@ function main(): void {
       : {}),
     ...(options.includeHistoricalResearch
       ? { includeHistoricalResearch: true }
+      : {}),
+    ...(options.includeStack ? { includeStack: true } : {}),
+    ...(options.exportFeaturesPath
+      ? { exportFeaturesPath: options.exportFeaturesPath }
       : {}),
   });
 

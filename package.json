@@ -19,7 +19,10 @@
     "backtest:history": "pnpm --filter @pitchlab/ingest backtest:history",
     "e2e": "pnpm --filter @pitchlab/web e2e",
     "storybook": "pnpm --filter @pitchlab/ui storybook",
-    "build-storybook": "pnpm --filter @pitchlab/ui build-storybook"
+    "build-storybook": "pnpm --filter @pitchlab/ui build-storybook",
+    "history:xg": "pnpm --filter @pitchlab/ingest history:xg",
+    "history:api-stats": "pnpm --filter @pitchlab/ingest history:api-stats",
+    "history:espn": "pnpm --filter @pitchlab/ingest history:espn"
   },
   "devDependencies": {
     "@types/node": "26.6.6",

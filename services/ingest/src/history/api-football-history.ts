@@ -75,6 +75,19 @@ function stageSlug(stage: string): string {
     .replace(/^-|-$/g, "");
 }
 
+/** Id canónico (`liga-mx:<temporada>:<torneo>:<local>:<visitante>`) desde una ronda. */
+export function apiFootballGameId(options: {
+  leagueId: string;
+  season: number;
+  round: string;
+  homeSlug: string;
+  awaySlug: string;
+}): string | null {
+  const parsed = parseApiRound(options.round);
+  if (!parsed) return null;
+  return `${options.leagueId}:${apiFootballSeasonLabel(options.season)}:${stageSlug(parsed.stage)}:${options.homeSlug}:${options.awaySlug}`;
+}
+
 /**
  * Nombres de API-Football → slug del corpus.
  * El corpus usa los nombres de openfootball (`Deportivo Guadalajara`, `UANL Tigres`,

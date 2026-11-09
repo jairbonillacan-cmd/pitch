@@ -33,24 +33,26 @@ La atribución final debe citar la cadena: `nflverse (CC-BY 4.0)` + fuente origi
 |---|---|---|---|---|---|
 | schedules (games.csv) | `schedules` | CC-BY-4.0 | Sí | ✅ (preexistente, 1999–2026) | incluye moneyline/spread/total de cierre |
 | play_by_play | `pbp` | CC-BY-4.0 | Sí | ✅ 1999–2026 | nflfastR; incluye EPA/WPA/CPoe |
-| player_stats (weekly + season + kicking) | `player_stats` | CC-BY-4.0 | Sí | ✅ 1999–2026 | kicking desde 2017 |
+| player_stats (weekly + season + kicking) | `player_stats` | CC-BY-4.0 | Sí | ✅ 1999–2024 | kicking desde 2017 |
 | stats_player (reg/post/regpost/week) | `stats_player` | CC-BY-4.0 | Sí | ✅ 1999–2026 | agregados oficiales |
-| stats_team (+ post) | `stats_team` | CC-BY-4.0 | Sí | ✅ 1999–2026 | |
+| stats_team (+ post/regpost/week) | `stats_team` | CC-BY-4.0 | Sí | ✅ 1999–2026 | |
 | rosters (histórico) | `rosters` | CC-BY-4.0 | Sí | ✅ 1920–2026 | fuente PFR vía nflverse |
 | weekly_rosters | `weekly_rosters` | CC-BY-4.0 | Sí | ✅ 2002–2026 | |
-| snap_counts | `snap_counts` | CC-BY-4.0 | Sí | ✅ 2012–2026 | fuente PFR vía nflverse |
+| snap_counts | `snap_counts` | CC-BY-4.0 | Sí | ✅ 2012–2026 (datos 2013+) | fuente PFR vía nflverse |
 | injuries | `injuries` | CC-BY-4.0 | Sí | ✅ 2009–2026 | reportes NFL.com |
-| depth_charts | `depth_charts` | CC-BY-4.0 | Sí | ✅ 2001–2026 | |
-| officials | `officials` | CC-BY-4.0 | Sí | ✅ histórico completo | |
+| depth_charts | `depth_charts` | CC-BY-4.0 | Sí | ✅ 2001–2026 | esquema cambia 2025 (usa `dt`) |
+| officials | `officials` | CC-BY-4.0 | Sí | ✅ 2015–2026 | |
 | contracts | `contracts` | CC-BY-4.0 | Sí | ✅ histórico completo | fuente OverTheCap |
-| combine | `combine` | CC-BY-4.0 | Sí | ✅ histórico completo | fuente PFR vía nflverse |
-| draft_picks | `draft_picks` | CC-BY-4.0 | Sí | ✅ 1936–2026 | fuente PFR vía nflverse |
-| trades | `trades` | CC-BY-4.0 | Sí | ✅ histórico completo | |
-| nextgen_stats | `nextgen_stats` | CC-BY-4.0 | Sí | ✅ passing/receiving/rushing | NFL Next Gen Stats vía nflverse |
+| combine | `combine` | CC-BY-4.0 | Sí | ✅ 2000–2026 | fuente PFR vía nflverse |
+| draft_picks | `draft_picks` | CC-BY-4.0 | Sí | ✅ 1980–2026 | fuente PFR vía nflverse |
+| trades | `trades` | CC-BY-4.0 | Sí | ✅ 2002–2026 | |
+| nextgen_stats | `nextgen_stats` | CC-BY-4.0 | Sí | ✅ 2016–2026 | NFL Next Gen Stats vía nflverse |
 | pfr_advstats | `pfr_advstats` | CC-BY-4.0 | Sí | ✅ season + week 2018–2026 | fuente PFR vía nflverse |
-| espn_qbr | `espn_data` | CC-BY-4.0 | Sí | ✅ season/week level | ESPN QBR vía nflverse |
-| misc (pfr_rosters) | `misc` | CC-BY-4.0 | Sí | ✅ | rosters antiguos PFR |
+| espn_qbr | `espn_data` | CC-BY-4.0 | Sí | ✅ 2006–2026 | ESPN QBR vía nflverse |
+| misc (pfr_rosters) | `misc` | CC-BY-4.0 | Sí | ✅ 2002–2022 | rosters antiguos PFR |
+| players (crosswalk) | `players` | CC-BY-4.0 | Sí | ✅ 24,867 jugadores | 8 sistemas de IDs |
 | teams | `teams` | CC-BY-4.0 | Sí | ✅ | solo metadatos/colores; **NO se descargan imágenes de logos** (IP de NFL) |
+| **clima GHCN-Daily** (NOAA NCEI) | NCEI Data Service v1 | **Dominio público EE.UU.** (sin copyright; citar NCEI) | Sí | ✅ 43 estaciones, 1999–2026 | detalle en `NOAA_WEATHER.md` |
 
 ## Descartados por licencia
 

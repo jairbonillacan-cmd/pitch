@@ -1,48 +1,48 @@
 # Benchmark histórico walk-forward
 
-Generado: 2026-11-09T01:47:24.129Z
+Generado: 2026-11-09T03:36:31.631Z
 
 Ventana móvil de entrenamiento: 1095 días. Cada jornada se predice solo con partidos anteriores a su fecha.
 
 > Evaluación retro: **no** cuenta como track record (PREDICTION_ARCHITECTURE.md §2).
 
-## Fútbol: Dixon-Coles, Elo y mezcla
+## Fútbol: Dixon-Coles, Elo (goles y xG), mezclas y stacking
 
-| Liga | Temporadas | n | Dixon-Coles | Elo | Mezcla 50/50 | Ingenuo | Mercado | Δ DC−mercado | Δ mezcla−mercado |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| premier-league | 17 | 6098 | 0.9771 | 0.9766 | 0.9744 | 1.0656 | 0.9594 | 0.0177 [0.0131, 0.0221] | 0.0150 [0.0108, 0.0189] |
-| la-liga | 15 | 5359 | 0.9728 | 0.9721 | 0.9703 | 1.0624 | 0.9525 | 0.0203 [0.0152, 0.0256] | 0.0178 [0.0132, 0.0226] |
-| bundesliga | 17 | 4917 | 0.9982 | 0.9970 | 0.9957 | 1.0674 | 0.9812 | 0.0170 [0.0122, 0.0218] | 0.0144 [0.0099, 0.0190] |
-| serie-a | 14 | 4944 | 0.9735 | 0.9730 | 0.9707 | 1.0759 | 0.9489 | 0.0246 [0.0199, 0.0292] | 0.0218 [0.0174, 0.0264] |
-| ligue-1 | 13 | 4254 | 1.0021 | 1.0009 | 0.9993 | 1.0691 | 0.9820 | 0.0201 [0.0147, 0.0259] | 0.0173 [0.0124, 0.0226] |
-| liga-mx | 4 | 982 | 1.0050 | 1.0030 | 1.0020 | 1.0571 | — | — | — |
+| Liga | n | Dixon-Coles | Elo | Elo-xG | Mezcla | Mezcla-xG | Stack | Mercado | Δ DC−mercado | Δ mezcla−mercado | Δ mezcla-xG−mercado |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| premier-league | 6098 | 0.9771 | 0.9766 | 0.9866 | 0.9744 | 0.9721 | — | 0.9594 | 0.0177 [0.0131, 0.0221] | 0.0150 [0.0108, 0.0189] | 0.0127 [0.0084, 0.0166] |
+| la-liga | 5359 | 0.9728 | 0.9721 | 0.9759 | 0.9703 | 0.9670 | — | 0.9525 | 0.0203 [0.0152, 0.0256] | 0.0178 [0.0132, 0.0226] | 0.0145 [0.0098, 0.0190] |
+| bundesliga | 4917 | 0.9982 | 0.9970 | 1.0005 | 0.9957 | 0.9928 | — | 0.9812 | 0.0170 [0.0122, 0.0218] | 0.0144 [0.0099, 0.0190] | 0.0116 [0.0073, 0.0162] |
+| serie-a | 4944 | 0.9735 | 0.9730 | 0.9764 | 0.9707 | 0.9660 | — | 0.9489 | 0.0246 [0.0199, 0.0292] | 0.0218 [0.0174, 0.0264] | 0.0171 [0.0123, 0.0218] |
+| ligue-1 | 4254 | 1.0021 | 1.0009 | 1.0099 | 0.9993 | 0.9987 | — | 0.9820 | 0.0201 [0.0147, 0.0259] | 0.0173 [0.0124, 0.0226] | 0.0167 [0.0118, 0.0217] |
+| liga-mx | 982 | 1.0050 | 1.0030 | 1.0053 | 1.0020 | 1.0011 | — | — | — | — | — |
 
 Mercado sin vig: 25,572 predicciones emparejadas. Cuota de cierre en 94.6% de los casos; el resto es cuota pre-partido (temporadas antiguas).
 
 > Las cuotas vienen de football-data.co.uk y son **research-only**; no se publican.
 
-### Elo y mezcla frente a Dixon-Coles
+### Elo, mezcla y stacking frente a Dixon-Coles
 
-| Liga | Δ Elo−DC | Δ mezcla−DC |
-|---|---:|---:|
-| premier-league | -0.0005 [-0.0040, 0.0030] | -0.0027 [-0.0045, -0.0010] |
-| la-liga | -0.0007 [-0.0045, 0.0027] | -0.0025 [-0.0044, -0.0008] |
-| bundesliga | -0.0011 [-0.0047, 0.0023] | -0.0025 [-0.0043, -0.0008] |
-| serie-a | -0.0005 [-0.0043, 0.0033] | -0.0027 [-0.0046, -0.0009] |
-| ligue-1 | -0.0012 [-0.0051, 0.0027] | -0.0028 [-0.0047, -0.0009] |
-| liga-mx | -0.0020 [-0.0101, 0.0055] | -0.0030 [-0.0071, 0.0010] |
+| Liga | Δ Elo−DC | Δ Elo-xG−DC | Δ mezcla−DC | Δ mezcla-xG−DC | Δ stack−DC |
+|---|---:|---:|---:|---:|---:|
+| premier-league | -0.0005 [-0.0040, 0.0030] | 0.0095 [0.0019, 0.0169] | -0.0027 [-0.0045, -0.0010] | -0.0050 [-0.0084, -0.0017] | — |
+| la-liga | -0.0007 [-0.0045, 0.0027] | 0.0031 [-0.0036, 0.0099] | -0.0025 [-0.0044, -0.0008] | -0.0059 [-0.0088, -0.0029] | — |
+| bundesliga | -0.0011 [-0.0047, 0.0023] | 0.0024 [-0.0042, 0.0092] | -0.0025 [-0.0043, -0.0008] | -0.0054 [-0.0084, -0.0024] | — |
+| serie-a | -0.0005 [-0.0043, 0.0033] | 0.0029 [-0.0047, 0.0108] | -0.0027 [-0.0046, -0.0009] | -0.0075 [-0.0107, -0.0041] | — |
+| ligue-1 | -0.0012 [-0.0051, 0.0027] | 0.0079 [0.0008, 0.0154] | -0.0028 [-0.0047, -0.0009] | -0.0034 [-0.0068, 0.0002] | — |
+| liga-mx | -0.0020 [-0.0101, 0.0055] | 0.0003 [-0.0111, 0.0117] | -0.0030 [-0.0071, 0.0010] | -0.0039 [-0.0097, 0.0019] | — |
 
-Δ negativo = Elo/mezcla pierden menos que Dixon-Coles.
+Δ negativo = el candidato pierde menos que Dixon-Coles.
 
 ### Totales (más/menos 2.5) frente al mercado
 
-| Liga | n | LogLoss modelo | LogLoss mercado |
-|---|---:|---:|---:|
-| premier-league | 2667 | 0.6830 | 0.6732 |
-| la-liga | 2695 | 0.6904 | 0.6672 |
-| bundesliga | 2112 | 0.6621 | 0.6438 |
-| serie-a | 2664 | 0.6915 | 0.6796 |
-| ligue-1 | 2348 | 0.6916 | 0.6706 |
+| Liga | n | LogLoss modelo | LogLoss xG | LogLoss mercado |
+|---|---:|---:|---:|---:|
+| premier-league | 2667 | 0.6830 | 0.6835 | 0.6732 |
+| la-liga | 2695 | 0.6904 | 0.7054 | 0.6672 |
+| bundesliga | 2112 | 0.6621 | 0.6577 | 0.6438 |
+| serie-a | 2664 | 0.6915 | 0.6917 | 0.6796 |
+| ligue-1 | 2348 | 0.6916 | 0.6859 | 0.6706 |
 
 Entrenamiento ampliado: 34,669 partidos research-only anteriores al corpus (1993-94 en adelante) se usan solo para ajustar; la evaluación sigue sobre el corpus publicable.
 
@@ -53,11 +53,11 @@ Entrenamiento ampliado: 34,669 partidos research-only anteriores al corpus (1993
 | Métrica | n | Modelo | Ingenuo |
 |---|---:|---:|---:|
 | LogLoss moneyline | 7204 | 0.6545 | 0.6860 |
-| Brier moneyline | 7204 | 0.4624 | 0.4929 |
-| Acierto | 7204 | 61.6% | 56.2% |
+| Brier moneyline | 7204 | 0.4623 | 0.4929 |
+| Acierto | 7204 | 61.7% | 56.2% |
 | LogLoss totales en la línea de cierre | 7204 | 0.7155 | 0.7229 |
 
-Δ LogLoss moneyline frente al ingenuo: **-0.0315**, IC 95% [-0.0389, -0.0237].
+Δ LogLoss moneyline frente al ingenuo: **-0.0315**, IC 95% [-0.0390, -0.0237].
 
 Mercado sin vig (moneylines de cierre de nflverse), 5426 partidos: LogLoss 0.6106, Brier 0.4231.
 
@@ -68,7 +68,7 @@ Mercado sin vig (moneylines de cierre de nflverse), 5426 partidos: LogLoss 0.610
 ## Notas metodológicas
 
 - Evaluación retro walk-forward: cada jornada se predice con datos anteriores a su fecha.
-- El modelo de fútbol es Dixon-Coles con decaimiento temporal; se compara con un Elo incremental y una mezcla 50/50. El de NFL, ratings ridge con localía.
+- El modelo de fútbol es Dixon-Coles con decaimiento temporal; se compara con un Elo incremental, una mezcla 50/50 y un stacking logístico con features as-of (descanso, forma y tiros a puerta). El de NFL, ratings ridge con localía.
 - La referencia ingenua usa las tasas base de la ventana de entrenamiento.
 - El benchmark público entrena solo con el corpus versionado; --include-research-history añade 1993-2010 (research-only) sin cambiar la evaluación.
 - El mercado de fútbol usa cuotas sin vig de football-data.co.uk (research-only); el de NFL, moneylines de cierre de nflverse.

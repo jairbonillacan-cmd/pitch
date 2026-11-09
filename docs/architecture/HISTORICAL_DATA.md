@@ -132,6 +132,44 @@ Archivos: `data/history/research/<liga>.jsonl` (ignorado por git), `manifest.jso
 - **Liga MX:** 1,022 partidos de las temporadas 2022-23, 2023-24 y 2024-25 (312 emparejados con el corpus, el resto son huecos que openfootball no publica). Sin cuotas: el endpoint de fixtures no las trae. El plan Free bloquea 2021, 2025 y 2026 («try from 2022 to 2024»).
 - **Cinco grandes:** 59,531 filas con resultados desde 1993-94, cuotas y estadísticas.
 
+### xG (Understat, research-only)
+
+`pnpm history:xg` reconstruye el **xG por partido** desde snapshots de la Wayback Machine (el sitio en vivo respondió «We will come back soon» el 2026-11-09). Se elige el snapshot más reciente con al menos el 90 % de los partidos de la temporada y se cachea en `data/history/raw/understat/`.
+
+| Liga | Filas | Emparejadas | Cobertura del corpus |
+|---|---:|---:|---:|
+| Premier League | 9,970 | 6,098 | 100 % |
+| LaLiga | 8,089 | 5,359 | 100 % |
+| Bundesliga | 6,804 | 4,917 | 100 % |
+| Serie A | 8,065 | 4,944 | 100 % |
+| Ligue 1 | 7,736 | 4,253 | 100 % |
+| Liga MX | 1,054 | 413 | 34.7 % |
+
+- Total: **41,718 filas**; 25,984 emparejadas con el corpus.
+- La temporada **2026-27** se completa con el xG de football-data.co.uk (`HxG`/`AxG`), que solo se publica en esa temporada; el resto viene de Understat.
+- **xG estimado:** donde no hay xG real (2010-2014, 2025-26 incompleto y toda Liga MX) se estima desde tiros y tiros a puerta con una regresión ajustada en 18,692 partidos de las cinco grandes (R² ≈ 0.51): `xG = 0.01047 + 0.05521·tiros + 0.16496·SOT` (local) y `-0.01954 + 0.05718·tiros + 0.15558·SOT` (visita). Se marca como `estimated-from-shots`.
+- La cobertura de las cinco grandes llega al 100 % del corpus; Liga MX queda en 34.7 % porque ESPN solo cubre 2020-21 y 2022-25.
+- **Research-only:** Understat no declara licencia de reutilización; no se publica ni se redistribuye.
+- Se usa de dos formas: como **feature** (xG reciente) y para un **Elo-xG** que actualiza ratings con xG en lugar de goles.
+
+### Estadísticas de Liga MX (API-Football, research-only)
+
+`pnpm history:api-stats` descarga `/fixtures/statistics` de forma **incremental y reanudable** (caché por fixture y presupuesto diario de 100 solicitudes). Devuelve tiros, tiros a puerta, córners, posesión y tarjetas por equipo.
+
+- **No hay xG para Liga MX:** `expected_goals` viene `null` en la respuesta (verificado el 2026-11-09); el endpoint sí trae xG en otras competiciones.
+- La cuota diaria se agotó durante la prueba y quedaron **10 partidos cacheados**; el descargador continuará en las siguientes corridas.
+- Dataset: `data/history/research/liga-mx-stats.jsonl` + manifiesto con cobertura y temporadas.
+
+### Estadísticas de Liga MX desde ESPN
+
+`pnpm history:espn` recorre los calendarios de los 18 equipos en ESPN y descarga el `summary` de cada partido terminado (sin API key ni cuota). Extrae tiros, tiros a puerta, córners, posesión y tarjetas, y empareja con el corpus por equipos y fecha (±2 días).
+
+- **2024-25: 278 de 340 partidos** emparejados con el corpus. Dataset: `data/history/research/liga-mx-espn-stats.jsonl` (research-only).
+- Ampliado a **1,054 partidos** de cuatro temporadas: 2020-21 (135), 2022-23 (308), 2023-24 (305) y 2024-25 (306). Para las temporadas que no están en el corpus canónico se empareja contra los ids del dataset research.
+- Experimentos con esas features: Elo de tiros 1.0072 por sí solo; mezcla DC + Elo de tiros 1.0022 (igual que la mezcla actual DC + Elo de goles) y mezcla triple DC + Elo + Elo-tiros **1.0016**. La mejora es de 0.0006, demasiado pequeña para cambiar el candidato; el dataset se conserva para features y para más temporadas.
+- El adaptador es incremental (`--seasons=2024,2023,2022,2021`) y mergea con el dataset existente: no pierde temporadas de corridas anteriores.
+- El adaptador puede crecer a más temporadas (`--seasons=2024,2023`).
+
 Además del `id`, la fecha, los equipos y el marcador, cada fila trae:
 
 - `odds`: `{ source, bookmaker, timing, home, draw, away, over25, under25, usage: "research-only" }`. Prioridad Pinnacle > B365 > promedio; `timing: closing` desde 2020-21 y `pre-match` antes.
@@ -169,6 +207,8 @@ Resultado observado (2026-11-09, bootstrap 2,000, mercado sin vig):
 - **Mezcla 50/50** (promedio de Dixon-Coles y Elo) mejora a Dixon-Coles en las 6 ligas: Δ de −0.0012 a −0.0025, con IC 95 % que excluye el 0 en Premier League, LaLiga, Bundesliga y Ligue 1.
 - **Frente al mercado**, Dixon-Coles perdía 0.0175–0.0237 y la mezcla pierde 0.0152–0.0225: cierra entre 10 % y 15 % de la brecha, pero sigue por detrás. Es la primera mejora verificada del motor contra su propia referencia.
 - Liga MX no tiene cuotas de mercado, así que solo se mide contra el ingenuo.
+- **Stacking logístico** (Dixon-Coles + Elo + descanso, forma y tiros a puerta) probado con `--with-stack`: **no supera a la mezcla** salvo en Bundesliga (0.9941 vs 0.9957). Premier League 0.9748 vs 0.9744, LaLiga 0.9743 vs 0.9703, Ligue 1 1.0050 vs 0.9993. Queda como candidato experimental para cuando exista un GBM con más features.
+- **GBM (LightGBM)** sobre las mismas features, entrenado por temporada y agrupado entre ligas (`services/models/train_gbm.py`): tampoco supera a la mezcla. Premier League 0.9710 vs 0.9695, LaLiga 0.9729 vs 0.9703, Bundesliga 0.9930 vs 0.9915; Δ de +0.0015 a +0.0027 con IC 95 % que incluye el 0. Reporte: `Reportes/modelos/BACKTEST-GBM.md`. Conclusión: la señal ya está en los motores base; el siguiente salto requiere **datos nuevos** (xG, alineaciones, cuotas), no otra clase de modelo.
 - Totales O/U 2.5 frente al mercado: Dixon-Coles sigue por detrás (Premier League 0.6826 vs 0.6732; LaLiga 0.6902 vs 0.6672).
 - Reportes: `Reportes/modelos/BACKTEST-HISTORICO.md` y `backtest-historico.json`.
 
@@ -187,6 +227,27 @@ El dataset research permite entrenar con 33,959 partidos anteriores al corpus (d
 
 Conclusión honesta: **más volumen no cierra la brecha**. Mejora dos ligas, empeora dos y deja el resto igual; el orden de magnitud frente al mercado (0.017–0.025 de log loss) se mantiene. En Liga MX añade 710 partidos de entrenamiento y 201 predicciones más, con un Δ frente al ingenuo de −0.0522 (antes −0.0499). El siguiente salto tiene que venir de features (tiros/córners, descanso, Elo) y de un GBM, no de acumular temporadas. Reporte: `Reportes/modelos/BACKTEST-HISTORICO-RESEARCH.md`.
 
+### xG en el benchmark research
+
+Con `pnpm history:xg` y `--include-research-history`, el benchmark añade **Elo-xG** (ratings actualizadas con xG en lugar de goles) y su mezcla con Dixon-Coles:
+
+| Liga | DC | Elo | Elo-xG | Mezcla | Mezcla-xG | Mercado | Δ mezcla-xG − mercado |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Premier League | 0.9771 | 0.9766 | 0.9866 | 0.9744 | **0.9721** | 0.9594 | **0.0127** |
+| LaLiga | 0.9728 | 0.9721 | 0.9759 | 0.9703 | **0.9670** | 0.9525 | **0.0145** |
+| Bundesliga | 0.9982 | 0.9970 | 1.0005 | 0.9957 | **0.9928** | 0.9812 | **0.0116** |
+| Serie A | 0.9735 | 0.9730 | 0.9764 | 0.9707 | **0.9660** | 0.9489 | **0.0171** |
+| Ligue 1 | 1.0021 | 1.0009 | 1.0099 | 0.9993 | **0.9987** | 0.9820 | **0.0167** |
+| Liga MX | 1.0050 | 1.0030 | 1.0053 | 1.0020 | **1.0011** | — | — |
+
+- El Elo-xG **solo** empeora cuando entra el xG estimado (más ruido), pero su **mezcla con Dixon-Coles** sigue ganando: Δ de −0.0034 a −0.0075 frente a la mezcla 50/50, con IC 95 % que excluye el 0 en cuatro de cinco ligas.
+- La brecha contra el mercado baja a **0.0116–0.0171**.
+- En **Liga MX**, el xG estimado por tiros mejora la mezcla de 1.0020 a **1.0011**.
+- La feature cruda de xG en el GBM apenas cambia el resultado (+0.001–0.002): el valor está en las **ratings xG**, no en el promedio móvil.
+- **Dixon-Coles sobre xG** (probado en la Premier League, subconjunto con xG): la mezcla de DC-goles y DC-xG da 0.9682 frente a 0.9712 de DC-goles; al combinarla con Elo-xG la mejora es marginal (0.9651 vs 0.9654), así que **no se integra** como candidato.
+- **Totales con xG**: resultados mixtos. Mejora Serie A (0.6870 vs 0.6915) y Ligue 1 (0.6875 vs 0.6916), empeora LaLiga (0.7077 vs 0.6904) y Premier League (0.6848 vs 0.6830). Se deja como **columna de evaluación** en el reporte, no como modelo.
+- **Ajuste de hiperparámetros del Elo-xG** con validación temporal: el óptimo en validación (K=8) empeora en test (0.9783) frente a otros (0.9730); no hay ganancia estable, así que se mantienen los valores por defecto.
+
 ### Hallazgo corregido en el camino
 
 `fitNflRatings` divergía cuando se entrenaba con más de ~240 partidos (intercepto ~1e38) porque centraba ofensiva y defensiva restando **medias distintas**. El ridge ya identifica el modelo, así que se eliminó ese centrado; hay una prueba de regresión con 320 partidos en `packages/models/tests/models.test.ts`. Sin esa corrección, el benchmark de NFL era inservible (log loss 4.64).
@@ -199,8 +260,10 @@ pnpm history --offline                        # solo con data/history/raw
 pnpm history --leagues=premier-league,nfl
 pnpm history --soccer-seasons=2024-25,2025-26
 pnpm history:odds                             # cuotas y estadísticas (research-only, 1993-2026)
+pnpm history:xg                               # xG por partido desde Understat vía Wayback (research-only)
 pnpm backtest:history                         # benchmark walk-forward con mercado
 pnpm backtest:history --include-research-history   # experimento: entrena con 1993-2010
+pnpm backtest:history --with-stack            # experimento: stacking logístico
 pnpm test -- --pool=threads                   # si el entorno bloquea procesos hijo de Vitest
 ```
 
@@ -212,12 +275,13 @@ pnpm test -- --pool=threads                   # si el entorno bloquea procesos h
 ## 10. Límites conocidos y siguientes pasos
 
 - **Liga MX** solo tiene 4 temporadas en openfootball (2018-19, 2019-20, 2020-21 y 2024-25) y termina en 2024-25. El dataset research añade 2022-23 y 2023-24 (y completa 2024-25) vía API-Football; el plan Free bloquea 2021, 2025 y 2026. No hay cuotas de mercado para Liga MX. La temporada en curso se obtiene en vivo con API-Football detrás del flag de beta.
+- **xG**: 41,718 filas (real 2014-2026 + estimado por tiros 2010-2014 y Liga MX). Cobertura del 100 % del corpus en las cinco grandes y 34.7 % en Liga MX (ESPN solo cubre 2020-21 y 2022-25). Understat/ESPN no declaran licencia, así que es research-only y no se publica.
 - **LaLiga** empieza en 2012-13 y **Serie A** en 2013-14: openfootball no publica antes.
 - La temporada en curso de openfootball llega a **2026-09-20**; para frescura del día se usan los adaptadores en vivo (`football-data.org` o `openfootball` en `pnpm snapshot`, y API-Football para Liga MX).
 - Sin datos de jugadores, alineaciones ni lesiones. Prop Lab y CLV siguen bloqueados por sus fuentes.
 - El corpus aún no está en Postgres ni en Parquet: es la entrada para `services/models` y para el histórico de R2 de `DATA_ARCHITECTURE.md` §4.
 - El dataset research no se versiona: se regenera con `pnpm history:odds`. Sus cuotas no se pueden mostrar ni redistribuir.
-- Siguientes pasos naturales: (1) features as-of con tiros, córners y descanso entre partidos; (2) LightGBM sobre esas features que use Dixon-Coles y Elo como entradas; (3) histórico de Liga MX 2021/2025-26 si se confirma la licencia o se sube de plan; (4) cuotas de mercado para Liga MX.
+- Siguientes pasos naturales: (1) usar xG también para afinar Dixon-Coles (Poisson sobre xG) y no solo Elo; (2) features de xG por periodo/tiro; (3) LightGBM con ratings xG; (4) histórico de Liga MX 2021/2025-26 si se confirma la licencia o se sube de plan.
 
 ## Referencias
 

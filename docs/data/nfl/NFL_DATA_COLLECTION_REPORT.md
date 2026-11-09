@@ -24,12 +24,13 @@ ftn_charting y pbp_participation (términos FTN share-alike). Detalle: `DATASET_
 
 | Métrica | Valor |
 |---|---|
-| Temporadas | pbp/stats 1999–2026 · rosters 1920–2026 · draft 1980–2026 · combine 2000–2026 · weekly_rosters 2002–2026 · injuries 2009–2026 · depth_charts 2001–2026 · snap_counts 2012–2026 · NGS 2016–2026 · QBR 2006–2026 · advstats 2018–2026 |
-| Datasets | 20 familias (incl. games.csv preexistente re-registrado) |
-| Archivos | 597 verificados (596 parquet + games.csv) |
-| Registros | 6,136,693 filas |
-| Tamaño total | 630.9 MB crudos (634.6 MB con checksums verificados en manifest) |
-| Checksums | SHA-256 para el 100% de los archivos (manifest JSONL) |
+| Temporadas | pbp/stats 1999–2026 · rosters 1920–2026 · draft 1980–2026 · combine 2000–2026 · weekly_rosters 2002–2026 · injuries 2009–2026 · depth_charts 2001–2026 · snap_counts 2012–2026 (datos 2013+) · NGS 2016–2026 · QBR 2006–2026 · advstats 2018–2026 |
+| Datasets | 22 familias (21 nflverse + clima GHCN-Daily NOAA) |
+| Archivos | 598 nflverse verificados + 43 estaciones NOAA |
+| Registros | 6,161,560 filas nflverse + 431,484 filas clima |
+| Tamaño total | 634.3 MB nflverse + 25.7 MB clima = 660.0 MB |
+| Checksums | SHA-256 para el 100% (manifests JSONL) |
+| Validación cruzada | pbp↔games 99.9% (7,403/7,407 jugados); nfl.jsonl ≡ juegos jugados (7,407); clima cubre 44/47 venues (7,537/7,548 juegos); **nflverse↔NOAA r=0.909, mediana \|Δtemp\|=2.24°C** (weather_cross_validation.json) |
 
 ## 9. Ubicación
 
@@ -40,11 +41,18 @@ data/history/raw/nflverse/          ← datos crudos (gitignored)
   ├── stats_team/      (111)        ├── rosters/       (107)   ├── weekly_rosters/ (25)
   ├── snap_counts/     (15)         ├── injuries/      (18)    ├── depth_charts/ (26)
   ├── officials/ contracts/ combine/ draft_picks/ trades/   ├── nextgen_stats/ (3)
-  ├── pfr_advstats/    (40)         ├── espn_qbr/      (2)     ├── misc/ teams/
-data/history/manifests/nfl-downloads-manifest.jsonl   ← manifest versionado
-data/history/quality_reports/nfl/                     ← quality_report.json + schemas.json
+  ├── pfr_advstats/    (40)         ├── espn_qbr/      (2)     ├── misc/ teams/ players/
+data/history/raw/noaa-ghcn/         ← clima GHCN-Daily (gitignored): inventario + stations/ (43)
+data/history/normalized/nfl/        ← capa derivada de consulta: games_with_weather.parquet + build_manifest.json
+data/history/manifests/nfl-downloads-manifest.jsonl   ← manifest nflverse versionado
+data/history/manifests/noaa-downloads-manifest.jsonl  ← manifest clima versionado
+data/history/manifests/nfl-station-mapping.csv        ← estadio→estación versionado
+data/history/quality_reports/nfl/                     ← quality_report.json + schemas.json + deep_validation.json
 tools/nfl-data/scripts/download_nflverse.py           ← descarga con resume+checksums
+tools/nfl-data/scripts/download_noaa_weather.py       ← clima (mapping validado + checksums)
 tools/nfl-data/scripts/quality_check_nflverse.py      ← validación (polars)
+tools/nfl-data/scripts/deep_validation_nflverse.py    ← validaciones cruzadas (polars)
+tools/nfl-data/scripts/verify_manifest_checksums.py   ← re-verificación de checksums
 tools/nfl-data/.venv/                                 ← entorno Python (gitignored)
 docs/data/nfl/*.md                                    ← esta documentación
 ```

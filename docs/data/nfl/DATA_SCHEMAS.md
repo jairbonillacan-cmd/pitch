@@ -4,9 +4,10 @@
 
 ## Diccionario completo por archivo
 
-El diccionario exacto (columna → tipo Polars) de cada uno de los 597 archivos quedó exportado en:
+El diccionario exacto (columna → tipo Polars) de cada uno de los 598 archivos quedó exportado en:
 
 - `data/history/quality_reports/nfl/schemas.json` (versionado en Git)
+- Validaciones cruzadas: `data/history/quality_reports/nfl/deep_validation.json`
 
 ## Resumen de campos principales por dataset
 
@@ -30,6 +31,7 @@ El diccionario exacto (columna → tipo Polars) de cada uno de los 597 archivos 
 | `nextgen_stats` | season+week+player_display_name | avg_time_to_throw, cpoe, completion_pct, aggs — passing/receiving/rushing |
 | `pfr_advstats` | season(+week)+pfr_player_id | drops, bad throws, pressure, targets separados (pass/rec/rush/def) |
 | `espn_qbr` | season+game_id+player_id | qbr_total, qb_plays, etc. (season y week level) |
+| `players` (crosswalk) | `player_id` (gsis) PK | display_name, first/last_name, position, heights/weights, birthdate, rookie_year, draft info + **IDs cruzados: gsis_id, esb_id, nfl_id, pfr_id, pff_id, otc_id, espn_id, smart_id** (24,867 jugadores) |
 | `teams` | team_abbr | nombres, colores, logos (URL; imágenes no descargadas) |
 
 ## Convenciones

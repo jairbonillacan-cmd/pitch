@@ -9,6 +9,7 @@
 |---|---|---|---|---|---|
 | **nflverse-data** (GitHub releases) | Datasets históricos curados | pbp 1999+, stats 1999+, rosters 1920+, injuries 2009+, depth charts 2001+, snap counts 2012+, draft/combine/contracts/trades/NGS/QBR | CC-BY-4.0 | ✅ | **USADA — fuente principal** |
 | nflreadpy / nflreadr | Librerías de acceso a nflverse | ídem | MIT (código) | ✅ | Usada como referencia de catálogo; descarga directa de releases parquet |
+| **NOAA NCEI GHCN-Daily** (clima) | Observaciones meteorológicas diarias por estación | 1999–2026, ~40 estaciones mapeadas a estadios NFL | **Dominio público de EE.UU.** (datos federales, sin copyright; se solicita citar NCEI/NOAA) | ✅ | **USADA — clima histórico (sección 5.J)** |
 | openfootball (nfl) | Calendarios | limitado | libre (fútbol soccer principalmente) | ✅ | No necesario; nflverse supera su cobertura NFL |
 | nfldata (github nflverse/nfldata) | Utilidades y mappings | equipos/conferencias | MIT/varios | ✅ | Complementaria; mappings incluidos en nflverse |
 | Kaggle `tobycrabtree/nfl-scores-and-betting-data` | Scores + betting 1966/1979+ | 1966–presente | "Other" del uploader (no verificable) | ⚠️ pendiente | **PENDIENTE — no descargado masivamente** |
@@ -47,7 +48,7 @@ sin inventar datos.
 
 ## 4. Datos complementarios investigados (sección 5.J de la misión)
 
-| Dato | Estado | Fuente nflverse |
+| Dato | Estado | Fuente |
 |---|---|---|
 | Draft | ✅ | `draft_picks.parquet` (1936–2026) |
 | Combine | ✅ | `combine.parquet` |
@@ -55,7 +56,7 @@ sin inventar datos.
 | Cambios de equipo | ✅ (parcial) | `trades` + `weekly_rosters` (movimientos semanales) + `contracts` |
 | Calendarios históricos | ✅ | `games.csv` (preexistente) |
 | Estadio | ✅ | columnas `stadium`, `roof`, `surface` en games.csv |
-| Meteorología histórica | ✅ (parcial) | columnas `temp`, `wind` en games.csv (estadios abiertos) |
+| **Meteorología histórica** | ✅ **AMPLIADA** | nflverse `temp`/`wind` en games.csv (del gamebook, estadios abiertos) **+ NOAA NCEI GHCN-Daily** (TMAX/TMIN/PRCP/SNOW/SNWD/AWND diarios 1999–2026 por ~40 estaciones mapeadas a estadios; dominio público EE.UU., sin key, sin costo) — detalle y limitaciones en `NOAA_WEATHER.md` |
 | Descanso entre partidos | ✅ | columnas `away_rest`, `home_rest` en games.csv |
 
 ## 5. Exclusiones razonadas
@@ -73,6 +74,8 @@ sin inventar datos.
 - https://github.com/nflverse/nflverse-data (releases y LICENSE)
 - https://nflreadr.nflverse.com/reference/index.html (catálogo de datasets)
 - https://nflreadpy.nflverse.com (cliente Python)
+- https://www.ncei.noaa.gov/products/land-based-station/global-historical-climatology-network-daily (GHCN-Daily, dominio público EE.UU.)
+- https://www.ncei.noaa.gov/access/services/data/v1 (NCEI Data Service API, sin key)
 - https://www.kaggle.com/datasets/tobycrabtree/nfl-scores-and-betting-data (pendiente de licencia)
 - https://the-odds-api.com/sports-odds-data/nfl-odds.html (comercial → no usado)
 - Informes REA previos del repo: `Reportes/analisis-linemate/historical-odds.md`,

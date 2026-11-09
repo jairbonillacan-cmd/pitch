@@ -315,8 +315,10 @@ export function estimateRho(
         }
       }
       if (total <= 0) continue;
-      const hi = Math.min(row.homeGoals, gridSize - 1);
-      const ai = Math.min(row.awayGoals, gridSize - 1);
+      // Los goles observados pueden venir como xG (valores continuos): para la rejilla
+      // de ρ se redondean al marcador entero más cercano.
+      const hi = Math.min(Math.round(row.homeGoals), gridSize - 1);
+      const ai = Math.min(Math.round(row.awayGoals), gridSize - 1);
       const p =
         (c.matrix[hi]! * c.matrixAway[ai]! * tau(hi, ai, c.lh, c.la, rho)) / total;
       ll += row.weight * Math.log(Math.max(p, 1e-12));

@@ -8,20 +8,24 @@
  *
  * Es una evaluación `retro`: no cuenta como track record (PREDICTION_ARCHITECTURE.md §2).
  */
-import { existsSync, readFileSync } from "node:fs";
-import { join } from "node:path";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { dirname, join } from "node:path";
 import {
   createEloTracker,
   evaluateFootball,
   evaluateNfl,
   fitDixonColes,
+  fitMultinomialLogistic,
   fitNflRatings,
   normalCdf,
   pairedBootstrap,
   predictFootball,
+  predictMultinomialLogistic,
   predictNfl,
   type FootballPredictionRow,
+  type LogisticSample,
   type ModelMetrics,
+  type MultinomialLogisticModel,
   type NflPredictionRow,
   type Outcome,
 } from "@pitchlab/models";
@@ -44,6 +48,27 @@ export interface HistoryBacktestOptions {
    * versionado. Actívalo con `--include-research-history` para experimentar.
    */
   includeHistoricalResearch?: boolean;
+  /**
+   * Añade el stacking logístico (Dixon-Coles + Elo + descanso, forma y tiros).
+   * Desactivado por defecto: es un candidato experimental y alarga el benchmark.
+   */
+  includeStack?: boolean;
+  /** Exporta las features as-of a JSONL para entrenar un GBM externo (Python). */
+  exportFeaturesPath?: string;
+}
+
+/** Fila de features as-of exportable para el GBM. */
+export interface FeatureRow {
+  id: string;
+  league: string;
+  season: string;
+  date: string;
+  features: number[];
+  dc: [number, number, number];
+  elo: [number, number, number];
+  blend: [number, number, number];
+  outcome: 0 | 1 | 2;
+  market: [number, number, number] | null;
 }
 
 export interface PeriodBlock {
@@ -72,13 +97,32 @@ export interface FootballBacktestResult {
   deltaMarket: { meanDiff: number; lower: number; upper: number } | null;
   /** Totales (más/menos 2.5) frente a la cuota de mercado sin vig. */
   totalsMarket: { n: number; modelLogLoss: number; marketLogLoss: number } | null;
+  /** Totales con Dixon-Coles ajustado sobre xG (solo research). */
+  totalsXg: { n: number; modelLogLoss: number; marketLogLoss: number } | null;
   /** Elo incremental evaluado en los mismos partidos que Dixon-Coles. */
   elo: { n: number; logLoss1x2: number; brier1x2: number; accuracy: number } | null;
+  /** Elo actualizado con xG en vez de goles (fallback a goles donde no hay xG). */
+  xgElo: { n: number; logLoss1x2: number; brier1x2: number; accuracy: number } | null;
   /** Mezcla 50/50 de Dixon-Coles y Elo. */
   blend: { n: number; logLoss1x2: number; brier1x2: number; accuracy: number } | null;
+  /** Mezcla 50/50 de Dixon-Coles y Elo-xG. */
+  blendXg: { n: number; logLoss1x2: number; brier1x2: number; accuracy: number } | null;
+  /** Mezcla 50/50 de DC (promedio goles+xG) y Elo-xG. */
+  blendDcMix: { n: number; logLoss1x2: number; brier1x2: number; accuracy: number } | null;
+  /** Mezcla 50% DC + 25% Elo + 25% Elo-xG. */
+  blendBoth: { n: number; logLoss1x2: number; brier1x2: number; accuracy: number } | null;
   deltaElo: { meanDiff: number; lower: number; upper: number } | null;
+  deltaXgElo: { meanDiff: number; lower: number; upper: number } | null;
   deltaBlend: { meanDiff: number; lower: number; upper: number } | null;
+  deltaBlendXg: { meanDiff: number; lower: number; upper: number } | null;
+  deltaBlendDcMix: { meanDiff: number; lower: number; upper: number } | null;
+  deltaBlendDcMixMarket: { meanDiff: number; lower: number; upper: number } | null;
   deltaBlendMarket: { meanDiff: number; lower: number; upper: number } | null;
+  deltaBlendXgMarket: { meanDiff: number; lower: number; upper: number } | null;
+  /** Regresión logística apilada con Elo, Dixon-Coles y features as-of. */
+  stack: { n: number; logLoss1x2: number; brier1x2: number; accuracy: number } | null;
+  deltaStack: { meanDiff: number; lower: number; upper: number } | null;
+  deltaStackMarket: { meanDiff: number; lower: number; upper: number } | null;
   /** Partidos research-only usados solo para entrenar (anteriores al corpus). */
   researchTrainingRows: number;
 }
@@ -127,6 +171,7 @@ export interface TrainingGame {
   awayTeam: string;
   homeScore: number;
   awayScore: number;
+  stats?: ResearchGame["stats"];
 }
 
 /**
@@ -151,15 +196,52 @@ export function loadResearchHistory(rootDir: string, league: string): TrainingGa
       awayTeam: parsed.awayTeam,
       homeScore: parsed.homeScore,
       awayScore: parsed.awayScore,
+      ...(parsed.stats ? { stats: parsed.stats } : {}),
     };
   });
 }
 
 /**
- * Carga el dataset de investigación (cuotas y stats) de una liga, indexado por `id`.
- * Si no existe, devuelve un mapa vacío: el benchmark sigue funcionando sin mercado.
+ * Carga el xG research de una liga (`data/history/research/xg/<liga>.jsonl`), por `id`.
  */
-export function loadResearchOdds(rootDir: string, league: string): Map<string, ResearchGame> {
+export function loadXgGames(
+  rootDir: string,
+  league: string,
+): Map<string, { homeXg: number; awayXg: number }> {
+  const path = join(rootDir, "data", "history", "research", "xg", `${league}.jsonl`);
+  if (!existsSync(path)) return new Map();
+  const map = new Map<string, { homeXg: number; awayXg: number }>();
+  for (const line of readFileSync(path, "utf8").split("\n")) {
+    if (!line.trim()) continue;
+    const row = JSON.parse(line) as { id: string; homeXg: number; awayXg: number };
+    map.set(row.id, { homeXg: row.homeXg, awayXg: row.awayXg });
+  }
+  return map;
+}
+
+export function loadLigaMxEspnStats(
+  rootDir: string,
+): Map<string, { shotsOnTargetHome: number | null; shotsOnTargetAway: number | null }> {
+  const path = join(rootDir, "data", "history", "research", "liga-mx-espn-stats.jsonl");
+  if (!existsSync(path)) return new Map();
+  const map = new Map<string, { shotsOnTargetHome: number | null; shotsOnTargetAway: number | null }>();
+  for (const line of readFileSync(path, "utf8").split("\n")) {
+    if (!line.trim()) continue;
+    const row = JSON.parse(line) as {
+      id: string;
+      shotsOnTargetHome: number | null;
+      shotsOnTargetAway: number | null;
+    };
+    map.set(row.id, { shotsOnTargetHome: row.shotsOnTargetHome, shotsOnTargetAway: row.shotsOnTargetAway });
+  }
+  return map;
+}
+
+/**
+ * Carga el dataset de investigación completo (cuotas, estadísticas y contexto) por `id`.
+ * Solo necesita existir `data/history/research/<liga>.jsonl`.
+ */
+export function loadResearchGames(rootDir: string, league: string): Map<string, ResearchGame> {
   const path = join(rootDir, "data", "history", "research", `${league}.jsonl`);
   if (!existsSync(path)) return new Map();
   const lines = readFileSync(path, "utf8")
@@ -169,9 +251,18 @@ export function loadResearchOdds(rootDir: string, league: string): Map<string, R
   const map = new Map<string, ResearchGame>();
   for (const line of lines) {
     const game = ResearchGameSchema.parse(JSON.parse(line));
-    if (game.odds) map.set(game.id, game);
+    map.set(game.id, game);
   }
   return map;
+}
+
+/**
+ * Carga el dataset de investigación (cuotas y stats) de una liga, indexado por `id`.
+ * Si no existe, devuelve un mapa vacío: el benchmark sigue funcionando sin mercado.
+ */
+export function loadResearchOdds(rootDir: string, league: string): Map<string, ResearchGame> {
+  const all = loadResearchGames(rootDir, league);
+  return new Map([...all.entries()].filter(([, game]) => game.odds !== null));
 }
 
 /** Agrupa partidos por jornada (temporada + torneo + número) ordenados por fecha. */
@@ -263,9 +354,12 @@ function naiveFootball(train: readonly TrainingGame[]): NaiveFootball {
 function runFootballLeague(
   league: string,
   games: readonly HistoricalGame[],
-  options: Required<Pick<HistoryBacktestOptions, "windowDays" | "minTrainRows" | "bootstrapIterations">>,
-  oddsById: ReadonlyMap<string, ResearchGame>,
+  options: Required<Pick<HistoryBacktestOptions, "windowDays" | "minTrainRows" | "bootstrapIterations" | "includeStack">>,
+  researchById: ReadonlyMap<string, ResearchGame>,
   historicalGames: readonly TrainingGame[],
+  xgById: ReadonlyMap<string, { homeXg: number; awayXg: number }>,
+  espnStats: ReadonlyMap<string, { shotsOnTargetHome: number | null; shotsOnTargetAway: number | null }>,
+  onFeatureRow?: (row: FeatureRow) => void,
 ): FootballBacktestResult {
   const blocks = groupIntoPeriods(games);
   const canonicalIds = new Set(games.map((game) => game.id));
@@ -288,15 +382,96 @@ function runFootballLeague(
   let closingCount = 0;
   const totalModelLosses: number[] = [];
   const totalMarketLosses: number[] = [];
+  const totalXgModelLosses: number[] = [];
+  const totalXgMarketLosses: number[] = [];
 
   const elo = createEloTracker();
+  const eloXg = createEloTracker();
   const eloLosses: number[] = [];
+  const xgEloLosses: number[] = [];
   const blendLosses: number[] = [];
+  const blendXgLosses: number[] = [];
+  const blendDcMixLosses: number[] = [];
+  const blendDcMixMarketLosses: number[] = [];
+  const blendBothLosses: number[] = [];
+  const blendXgMarketLosses: number[] = [];
   let eloBrier = 0;
   let eloHits = 0;
   let eloCount = 0;
+  let xgEloBrier = 0;
+  let xgEloHits = 0;
   let blendBrier = 0;
   let blendHits = 0;
+  let blendXgBrier = 0;
+  let blendXgHits = 0;
+  let blendDcMixBrier = 0;
+  let blendDcMixHits = 0;
+  let blendBothBrier = 0;
+  let blendBothHits = 0;
+
+  // Estado as-of por equipo para features de contexto (descanso, forma, tiros).
+  interface TeamForm {
+    lastDate: string | null;
+    points: number[];
+    shotDiff: number[];
+    xgDiff: number[];
+  }
+  const formByTeam = new Map<string, TeamForm>();
+  const formOf = (team: string): TeamForm => {
+    const existing = formByTeam.get(team);
+    if (existing) return existing;
+    const created: TeamForm = { lastDate: null, points: [], shotDiff: [], xgDiff: [] };
+    formByTeam.set(team, created);
+    return created;
+  };
+  const restFeature = (team: string, date: string): number => {
+    const form = formByTeam.get(team);
+    if (!form?.lastDate) return 0.5;
+    const days = Math.max(0, (Date.parse(`${date}T00:00:00Z`) - Date.parse(`${form.lastDate}T00:00:00Z`)) / DAY_MS);
+    return Math.min(days, 14) / 14;
+  };
+  const formFeature = (team: string): number => {
+    const form = formByTeam.get(team);
+    if (!form || form.points.length === 0) return 0.5;
+    const total = form.points.reduce((sum, value) => sum + value, 0);
+    return total / (form.points.length * 3);
+  };
+  const shotFeature = (team: string): number => {
+    const form = formByTeam.get(team);
+    if (!form || form.shotDiff.length === 0) return 0.5;
+    const average = form.shotDiff.reduce((sum, value) => sum + value, 0) / form.shotDiff.length;
+    return Math.min(1, Math.max(0, average / 8 + 0.5));
+  };
+  const updateForm = (
+    team: string,
+    date: string,
+    points: number,
+    shotDiff: number | null,
+    xgDiff: number | null,
+  ): void => {
+    const form = formOf(team);
+    form.lastDate = date;
+    form.points = [...form.points, points].slice(-5);
+    if (shotDiff !== null) form.shotDiff = [...form.shotDiff, shotDiff].slice(-5);
+    if (xgDiff !== null) form.xgDiff = [...form.xgDiff, xgDiff].slice(-5);
+  };
+  const xgFeature = (team: string): number => {
+    const form = formByTeam.get(team);
+    if (!form || form.xgDiff.length === 0) return 0.5;
+    const average = form.xgDiff.reduce((sum, value) => sum + value, 0) / form.xgDiff.length;
+    return Math.min(1, Math.max(0, average / 4 + 0.5));
+  };
+
+  const stackSamples: LogisticSample[] = [];
+  const stackLosses: number[] = [];
+  const stackMarketLosses: number[] = [];
+  let stackModel: MultinomialLogisticModel | null = null;
+  let blocksSinceFit = 0;
+  let stackBrier = 0;
+  let stackHits = 0;
+  const STACK_MIN_SAMPLES = 400;
+  const STACK_REFIT_EVERY = 10;
+  const trackFeatures = options.includeStack || onFeatureRow !== undefined;
 
   const seasons = new Set<string>();
 
@@ -304,6 +479,7 @@ function runFootballLeague(
     while (pendingIndex < pending.length && pending[pendingIndex]!.date < block.date) {
       const extra = pending[pendingIndex]!;
       elo.beginSeason(extra.season);
+      eloXg.beginSeason(extra.season);
       elo.update({
         date: extra.date,
         season: extra.season,
@@ -312,6 +488,36 @@ function runFootballLeague(
         homeGoals: extra.homeScore,
         awayGoals: extra.awayScore,
       });
+      const extraXgMatch = xgById.get(extra.id);
+      eloXg.update({
+        date: extra.date,
+        season: extra.season,
+        home: extra.homeTeam,
+        away: extra.awayTeam,
+        homeGoals: extraXgMatch?.homeXg ?? extra.homeScore,
+        awayGoals: extraXgMatch?.awayXg ?? extra.awayScore,
+      });
+      if (trackFeatures) {
+        const extraStatsRow = researchById.get(extra.id)?.stats ?? espnStats.get(extra.id);
+        const extraShotsHome = extraStatsRow?.shotsOnTargetHome ?? null;
+        const extraShotsAway = extraStatsRow?.shotsOnTargetAway ?? null;
+        const extraShotDiff =
+          extraShotsHome !== null && extraShotsAway !== null ? extraShotsHome - extraShotsAway : null;
+        const extraXg = xgById.get(extra.id);
+        const extraXgDiff = extraXg ? extraXg.homeXg - extraXg.awayXg : null;
+        const extraHomePoints =
+          extra.homeScore > extra.awayScore ? 3 : extra.homeScore === extra.awayScore ? 1 : 0;
+        const extraAwayPoints =
+          extra.awayScore > extra.homeScore ? 3 : extra.homeScore === extra.awayScore ? 1 : 0;
+        updateForm(extra.homeTeam, extra.date, extraHomePoints, extraShotDiff, extraXgDiff);
+        updateForm(
+          extra.awayTeam,
+          extra.date,
+          extraAwayPoints,
+          extraShotDiff === null ? null : -extraShotDiff,
+          extraXgDiff === null ? null : -extraXgDiff,
+        );
+      }
       history.push(extra);
       pendingIndex++;
     }
@@ -319,6 +525,21 @@ function runFootballLeague(
     const cutoffMs = Date.parse(`${block.date}T00:00:00Z`) - options.windowDays * DAY_MS;
     const train = history.filter((game) => Date.parse(`${game.date}T00:00:00Z`) >= cutoffMs);
     elo.beginSeason(block.games[0]!.season);
+    eloXg.beginSeason(block.games[0]!.season);
+
+    if (
+      options.includeStack &&
+      stackSamples.length >= STACK_MIN_SAMPLES &&
+      (stackModel === null || blocksSinceFit >= STACK_REFIT_EVERY)
+    ) {
+      stackModel = fitMultinomialLogistic(stackSamples, {
+        iterations: 120,
+        learningRate: 0.5,
+        l2: 1e-3,
+      });
+      blocksSinceFit = 0;
+    }
+    blocksSinceFit++;
 
     if (train.length >= options.minTrainRows) {
       const model = fitDixonColes(
@@ -332,6 +553,23 @@ function runFootballLeague(
         { referenceDate: block.date },
       );
       const naive = naiveFootball(train);
+      const xgTrain = train.filter((game) => xgById.has(game.id));
+      const xgDcModel =
+        xgTrain.length >= 200
+          ? fitDixonColes(
+              xgTrain.map((game) => {
+                const match = xgById.get(game.id)!;
+                return {
+                  date: game.date,
+                  home: game.homeTeam,
+                  away: game.awayTeam,
+                  homeGoals: match.homeXg,
+                  awayGoals: match.awayXg,
+                };
+              }),
+              { referenceDate: block.date },
+            )
+          : null;
 
       for (const game of block.games) {
         const prediction = predictFootball(model, game.homeTeam, game.awayTeam);
@@ -395,7 +633,147 @@ function runFootballLeague(
           blend[0] >= blend[1] && blend[0] >= blend[2] ? 0 : blend[1] >= blend[2] ? 1 : 2;
         if (blendBest === observed) blendHits++;
 
-        const research = oddsById.get(game.id);
+        const xgMatch = xgById.get(game.id);
+        const xgEloPrediction = eloXg.predict(game.homeTeam, game.awayTeam);
+        const xgEloProbabilities: [number, number, number] = [
+          xgEloPrediction.home,
+          xgEloPrediction.draw,
+          xgEloPrediction.away,
+        ];
+        xgEloLosses.push(-Math.log(Math.max(xgEloProbabilities[observed], 1e-12)));
+        let xgEloGameBrier = 0;
+        for (let i = 0; i < 3; i++) {
+          const diff = xgEloProbabilities[i]! - (i === observed ? 1 : 0);
+          xgEloGameBrier += diff * diff;
+        }
+        xgEloBrier += xgEloGameBrier;
+        const xgEloBest =
+          xgEloProbabilities[0] >= xgEloProbabilities[1] &&
+          xgEloProbabilities[0] >= xgEloProbabilities[2]
+            ? 0
+            : xgEloProbabilities[1] >= xgEloProbabilities[2]
+              ? 1
+              : 2;
+        if (xgEloBest === observed) xgEloHits++;
+
+        const blendXg: [number, number, number] = [
+          0.5 * modelRow.p1x2[0] + 0.5 * xgEloProbabilities[0],
+          0.5 * modelRow.p1x2[1] + 0.5 * xgEloProbabilities[1],
+          0.5 * modelRow.p1x2[2] + 0.5 * xgEloProbabilities[2],
+        ];
+        blendXgLosses.push(-Math.log(Math.max(blendXg[observed], 1e-12)));
+        let blendXgGameBrier = 0;
+        for (let i = 0; i < 3; i++) {
+          const diff = blendXg[i]! - (i === observed ? 1 : 0);
+          blendXgGameBrier += diff * diff;
+        }
+        blendXgBrier += blendXgGameBrier;
+        const blendXgBest =
+          blendXg[0] >= blendXg[1] && blendXg[0] >= blendXg[2] ? 0 : blendXg[1] >= blendXg[2] ? 1 : 2;
+        if (blendXgBest === observed) blendXgHits++;
+
+        const blendBoth: [number, number, number] = [
+          0.5 * modelRow.p1x2[0] + 0.25 * eloProbabilities[0] + 0.25 * xgEloProbabilities[0],
+          0.5 * modelRow.p1x2[1] + 0.25 * eloProbabilities[1] + 0.25 * xgEloProbabilities[1],
+          0.5 * modelRow.p1x2[2] + 0.25 * eloProbabilities[2] + 0.25 * xgEloProbabilities[2],
+        ];
+        blendBothLosses.push(-Math.log(Math.max(blendBoth[observed], 1e-12)));
+        let blendBothGameBrier = 0;
+        for (let i = 0; i < 3; i++) {
+          const diff = blendBoth[i]! - (i === observed ? 1 : 0);
+          blendBothGameBrier += diff * diff;
+        }
+        blendBothBrier += blendBothGameBrier;
+        const blendBothBest =
+          blendBoth[0] >= blendBoth[1] && blendBoth[0] >= blendBoth[2]
+            ? 0
+            : blendBoth[1] >= blendBoth[2]
+              ? 1
+              : 2;
+        if (blendBothBest === observed) blendBothHits++;
+
+        const xgDcProbabilities: [number, number, number] | null = xgDcModel
+          ? (() => {
+              const prediction = predictFootball(xgDcModel, game.homeTeam, game.awayTeam);
+              return [
+                prediction.probabilities.home,
+                prediction.probabilities.draw,
+                prediction.probabilities.away,
+              ];
+            })()
+          : null;
+        const dcMix: [number, number, number] = xgDcProbabilities
+          ? [
+              0.5 * modelRow.p1x2[0] + 0.5 * xgDcProbabilities[0],
+              0.5 * modelRow.p1x2[1] + 0.5 * xgDcProbabilities[1],
+              0.5 * modelRow.p1x2[2] + 0.5 * xgDcProbabilities[2],
+            ]
+          : [modelRow.p1x2[0], modelRow.p1x2[1], modelRow.p1x2[2]];
+        const blendDcMix: [number, number, number] = [
+          0.5 * dcMix[0] + 0.5 * xgEloProbabilities[0],
+          0.5 * dcMix[1] + 0.5 * xgEloProbabilities[1],
+          0.5 * dcMix[2] + 0.5 * xgEloProbabilities[2],
+        ];
+        blendDcMixLosses.push(-Math.log(Math.max(blendDcMix[observed], 1e-12)));
+        let blendDcMixGameBrier = 0;
+        for (let i = 0; i < 3; i++) {
+          const diff = blendDcMix[i]! - (i === observed ? 1 : 0);
+          blendDcMixGameBrier += diff * diff;
+        }
+        blendDcMixBrier += blendDcMixGameBrier;
+        const blendDcMixBest =
+          blendDcMix[0] >= blendDcMix[1] && blendDcMix[0] >= blendDcMix[2]
+            ? 0
+            : blendDcMix[1] >= blendDcMix[2]
+              ? 1
+              : 2;
+        if (blendDcMixBest === observed) blendDcMixHits++;
+
+        let stackProbabilities: [number, number, number] | null = null;
+        let featureVector: number[] | null = null;
+        if (trackFeatures) {          featureVector = [
+            eloProbabilities[0],
+            eloProbabilities[1],
+            eloProbabilities[2],
+            modelRow.p1x2[0],
+            modelRow.p1x2[1],
+            modelRow.p1x2[2],
+            restFeature(game.homeTeam, game.date),
+            restFeature(game.awayTeam, game.date),
+            formFeature(game.homeTeam),
+            formFeature(game.awayTeam),
+            shotFeature(game.homeTeam),
+            shotFeature(game.awayTeam),
+            xgFeature(game.homeTeam),
+            xgFeature(game.awayTeam),
+          ];
+          if (options.includeStack) {
+            if (stackModel) {
+              stackProbabilities = predictMultinomialLogistic(stackModel, featureVector);
+              stackLosses.push(
+                -Math.log(Math.max(stackProbabilities[observed], 1e-12)),
+              );
+              let stackGameBrier = 0;
+              for (let i = 0; i < 3; i++) {
+                const diff = stackProbabilities[i]! - (i === observed ? 1 : 0);
+                stackGameBrier += diff * diff;
+              }
+              stackBrier += stackGameBrier;
+              const stackBest =
+                stackProbabilities[0] >= stackProbabilities[1] &&
+                stackProbabilities[0] >= stackProbabilities[2]
+                  ? 0
+                  : stackProbabilities[1] >= stackProbabilities[2]
+                    ? 1
+                    : 2;
+              if (stackBest === observed) stackHits++;
+            }
+            stackSamples.push({ features: featureVector, outcome: observed });
+          }
+        }
+
+        let marketForRow: [number, number, number] | null = null;
+        const research = researchById.get(game.id);
         if (research?.odds) {
           const marketProb = noVigThree(
             research.odds.home,
@@ -403,11 +781,19 @@ function runFootballLeague(
             research.odds.away,
           );
           if (marketProb) {
+            marketForRow = marketProb;
             marketLosses.push(-Math.log(Math.max(marketProb[observed], 1e-12)));
             marketModelLosses.push(
               -Math.log(Math.max(modelRow.p1x2[observed], 1e-12)),
             );
             marketBlendLosses.push(-Math.log(Math.max(blend[observed], 1e-12)));
+            blendXgMarketLosses.push(-Math.log(Math.max(blendXg[observed], 1e-12)));
+            blendDcMixMarketLosses.push(-Math.log(Math.max(blendDcMix[observed], 1e-12)));
+            if (stackProbabilities) {
+              stackMarketLosses.push(
+                -Math.log(Math.max(stackProbabilities[observed], 1e-12)),
+              );
+            }
             let brier = 0;
             for (let i = 0; i < 3; i++) {
               const diff = marketProb[i]! - (i === observed ? 1 : 0);
@@ -434,8 +820,33 @@ function runFootballLeague(
               totalMarketLosses.push(
                 -Math.log(Math.max(isOver ? pair.home : pair.away, 1e-12)),
               );
+              if (xgDcModel && xgById.has(game.id)) {
+                const xgTotals = predictFootball(xgDcModel, game.homeTeam, game.awayTeam);
+                const pOverXg = xgTotals.totals.find((total) => total.line === 2.5)?.over ?? 0.5;
+                totalXgModelLosses.push(
+                  -Math.log(Math.max(isOver ? pOverXg : 1 - pOverXg, 1e-12)),
+                );
+                totalXgMarketLosses.push(
+                  -Math.log(Math.max(isOver ? pair.home : pair.away, 1e-12)),
+                );
+              }
             }
           }
+        }
+
+        if (onFeatureRow && featureVector) {
+          onFeatureRow({
+            id: game.id,
+            league,
+            season: game.season,
+            date: game.date,
+            features: featureVector,
+            dc: modelRow.p1x2,
+            elo: eloProbabilities,
+            blend,
+            outcome: observed,
+            market: marketForRow,
+          });
         }
       }
     }
@@ -449,6 +860,28 @@ function runFootballLeague(
         homeGoals: game.homeScore,
         awayGoals: game.awayScore,
       });
+      const xg = xgById.get(game.id);
+      eloXg.update({
+        date: game.date,
+        season: game.season,
+        home: game.homeTeam,
+        away: game.awayTeam,
+        homeGoals: xg?.homeXg ?? game.homeScore,
+        awayGoals: xg?.awayXg ?? game.awayScore,
+      });
+
+      if (trackFeatures) {
+        const stats = researchById.get(game.id)?.stats ?? espnStats.get(game.id);
+        const shotsHome = stats?.shotsOnTargetHome ?? null;
+        const shotsAway = stats?.shotsOnTargetAway ?? null;
+        const shotDiff = shotsHome !== null && shotsAway !== null ? shotsHome - shotsAway : null;
+        const xg = xgById.get(game.id);
+        const xgDiff = xg ? xg.homeXg - xg.awayXg : null;
+        const homePoints = game.homeScore > game.awayScore ? 3 : game.homeScore === game.awayScore ? 1 : 0;
+        const awayPoints = game.awayScore > game.homeScore ? 3 : game.homeScore === game.awayScore ? 1 : 0;
+        updateForm(game.homeTeam, game.date, homePoints, shotDiff, xgDiff);
+        updateForm(game.awayTeam, game.date, awayPoints, shotDiff === null ? null : -shotDiff, xgDiff === null ? null : -xgDiff);
+      }
     }
 
     history.push(...block.games);
@@ -490,6 +923,14 @@ function runFootballLeague(
             modelLogLoss: mean(totalModelLosses),
             marketLogLoss: mean(totalMarketLosses),
           },
+    totalsXg:
+      totalXgMarketLosses.length === 0
+        ? null
+        : {
+            n: totalXgMarketLosses.length,
+            modelLogLoss: mean(totalXgModelLosses),
+            marketLogLoss: mean(totalXgMarketLosses),
+          },
     elo:
       eloCount === 0
         ? null
@@ -508,17 +949,90 @@ function runFootballLeague(
             brier1x2: blendBrier / blendLosses.length,
             accuracy: blendHits / blendLosses.length,
           },
+    xgElo:
+      xgEloLosses.length === 0
+        ? null
+        : {
+            n: xgEloLosses.length,
+            logLoss1x2: mean(xgEloLosses),
+            brier1x2: xgEloBrier / xgEloLosses.length,
+            accuracy: xgEloHits / xgEloLosses.length,
+          },
+    blendXg:
+      blendXgLosses.length === 0
+        ? null
+        : {
+            n: blendXgLosses.length,
+            logLoss1x2: mean(blendXgLosses),
+            brier1x2: blendXgBrier / blendXgLosses.length,
+            accuracy: blendXgHits / blendXgLosses.length,
+          },
+    blendBoth:
+      blendBothLosses.length === 0
+        ? null
+        : {
+            n: blendBothLosses.length,
+            logLoss1x2: mean(blendBothLosses),
+            brier1x2: blendBothBrier / blendBothLosses.length,
+            accuracy: blendBothHits / blendBothLosses.length,
+          },
+    blendDcMix:
+      blendDcMixLosses.length === 0
+        ? null
+        : {
+            n: blendDcMixLosses.length,
+            logLoss1x2: mean(blendDcMixLosses),
+            brier1x2: blendDcMixBrier / blendDcMixLosses.length,
+            accuracy: blendDcMixHits / blendDcMixLosses.length,
+          },
     deltaElo:
       eloLosses.length > 0
         ? pairedBootstrap(modelLosses, eloLosses, options.bootstrapIterations)
+        : null,
+    deltaXgElo:
+      xgEloLosses.length > 0
+        ? pairedBootstrap(modelLosses, xgEloLosses, options.bootstrapIterations)
         : null,
     deltaBlend:
       blendLosses.length > 0
         ? pairedBootstrap(modelLosses, blendLosses, options.bootstrapIterations)
         : null,
+    deltaBlendXg:
+      blendXgLosses.length > 0
+        ? pairedBootstrap(modelLosses, blendXgLosses, options.bootstrapIterations)
+        : null,
+    deltaBlendDcMix:
+      blendDcMixLosses.length > 0
+        ? pairedBootstrap(modelLosses, blendDcMixLosses, options.bootstrapIterations)
+        : null,
+    deltaBlendDcMixMarket:
+      blendDcMixMarketLosses.length > 0
+        ? pairedBootstrap(marketLosses, blendDcMixMarketLosses, options.bootstrapIterations)
+        : null,
     deltaBlendMarket:
       marketBlendLosses.length > 0
         ? pairedBootstrap(marketLosses, marketBlendLosses, options.bootstrapIterations)
+        : null,
+    deltaBlendXgMarket:
+      blendXgMarketLosses.length > 0
+        ? pairedBootstrap(marketLosses, blendXgMarketLosses, options.bootstrapIterations)
+        : null,
+    stack:
+      stackLosses.length === 0
+        ? null
+        : {
+            n: stackLosses.length,
+            logLoss1x2: mean(stackLosses),
+            brier1x2: stackBrier / stackLosses.length,
+            accuracy: stackHits / stackLosses.length,
+          },
+    deltaStack:
+      stackLosses.length > 0
+        ? pairedBootstrap(modelLosses, stackLosses, options.bootstrapIterations)
+        : null,
+    deltaStackMarket:
+      stackMarketLosses.length > 0
+        ? pairedBootstrap(marketLosses, stackMarketLosses, options.bootstrapIterations)
         : null,
     researchTrainingRows: pending.length,
   };
@@ -690,10 +1204,18 @@ export function runHistoryBacktest(options: HistoryBacktestOptions): HistoryBack
     windowDays: options.windowDays ?? 1095,
     minTrainRows: options.minTrainRows ?? 200,
     bootstrapIterations: options.bootstrapIterations ?? 2000,
+    includeStack: options.includeStack ?? false,
   };
 
   const football: FootballBacktestResult[] = [];
   let nfl: NflBacktestResult | null = null;
+  const featureRows: FeatureRow[] = [];
+  const onFeatureRow =
+    options.exportFeaturesPath !== undefined
+      ? (row: FeatureRow): void => {
+          featureRows.push(row);
+        }
+      : undefined;
 
   for (const league of leagues) {
     const games = loadHistoryGames(options.rootDir, league);
@@ -705,16 +1227,30 @@ export function runHistoryBacktest(options: HistoryBacktestOptions): HistoryBack
         options.includeHistoricalResearch === true
           ? loadResearchHistory(options.rootDir, league)
           : [];
+      // El xG es research-only (Understat): solo entra al benchmark research.
+      const xgById =
+        options.includeHistoricalResearch === true
+          ? loadXgGames(options.rootDir, league)
+          : new Map<string, { homeXg: number; awayXg: number }>();
       football.push(
         runFootballLeague(
           league,
           games,
           resolved,
-          loadResearchOdds(options.rootDir, league),
+          loadResearchGames(options.rootDir, league),
           extras,
+          xgById,
+          league === "liga-mx" ? loadLigaMxEspnStats(options.rootDir) : new Map(),
+          onFeatureRow,
         ),
       );
     }
+  }
+
+  if (options.exportFeaturesPath) {
+    mkdirSync(dirname(options.exportFeaturesPath), { recursive: true });
+    const body = featureRows.map((row) => JSON.stringify(row)).join("\n") + "\n";
+    writeFileSync(options.exportFeaturesPath, body, "utf8");
   }
 
   return {
@@ -724,7 +1260,7 @@ export function runHistoryBacktest(options: HistoryBacktestOptions): HistoryBack
     nfl,
     notes: [
       "Evaluación retro walk-forward: cada jornada se predice con datos anteriores a su fecha.",
-      "El modelo de fútbol es Dixon-Coles con decaimiento temporal; se compara con un Elo incremental y una mezcla 50/50. El de NFL, ratings ridge con localía.",
+      "El modelo de fútbol es Dixon-Coles con decaimiento temporal; se compara con un Elo incremental, una mezcla 50/50 y un stacking logístico con features as-of (descanso, forma y tiros a puerta). El de NFL, ratings ridge con localía.",
       "La referencia ingenua usa las tasas base de la ventana de entrenamiento.",
       "El benchmark público entrena solo con el corpus versionado; --include-research-history añade 1993-2010 (research-only) sin cambiar la evaluación.",
       "El mercado de fútbol usa cuotas sin vig de football-data.co.uk (research-only); el de NFL, moneylines de cierre de nflverse.",
@@ -751,18 +1287,19 @@ export function renderHistoryBacktestReport(
     "",
     "> Evaluación retro: **no** cuenta como track record (PREDICTION_ARCHITECTURE.md §2).",
     "",
-    "## Fútbol: Dixon-Coles, Elo y mezcla",
+    "## Fútbol: Dixon-Coles, Elo (goles y xG), mezclas y stacking",
     "",
-    "| Liga | Temporadas | n | Dixon-Coles | Elo | Mezcla 50/50 | Ingenuo | Mercado | Δ DC−mercado | Δ mezcla−mercado |",
-    "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
+    "| Liga | n | Dixon-Coles | Elo | Elo-xG | Mezcla | Mezcla-xG | Stack | Mercado | Δ DC−mercado | Δ mezcla−mercado | Δ mezcla-xG−mercado |",
+    "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
   ];
 
   for (const result of report.football) {
     const market = result.market;
     const deltaMarket = result.deltaMarket;
     const deltaBlendMarket = result.deltaBlendMarket;
+    const deltaBlendXgMarket = result.deltaBlendXgMarket;
     lines.push(
-      `| ${result.league} | ${result.seasons} | ${result.predictions} | ${result.model.logLoss1x2.toFixed(4)} | ${result.elo ? result.elo.logLoss1x2.toFixed(4) : "—"} | ${result.blend ? result.blend.logLoss1x2.toFixed(4) : "—"} | ${result.naive.logLoss1x2.toFixed(4)} | ${market ? market.logLoss1x2.toFixed(4) : "—"} | ${deltaMarket ? `${deltaMarket.meanDiff.toFixed(4)} [${deltaMarket.lower.toFixed(4)}, ${deltaMarket.upper.toFixed(4)}]` : "—"} | ${deltaBlendMarket ? `${deltaBlendMarket.meanDiff.toFixed(4)} [${deltaBlendMarket.lower.toFixed(4)}, ${deltaBlendMarket.upper.toFixed(4)}]` : "—"} |`,
+      `| ${result.league} | ${result.predictions} | ${result.model.logLoss1x2.toFixed(4)} | ${result.elo ? result.elo.logLoss1x2.toFixed(4) : "—"} | ${result.xgElo ? result.xgElo.logLoss1x2.toFixed(4) : "—"} | ${result.blend ? result.blend.logLoss1x2.toFixed(4) : "—"} | ${result.blendXg ? result.blendXg.logLoss1x2.toFixed(4) : "—"} | ${result.stack ? result.stack.logLoss1x2.toFixed(4) : "—"} | ${market ? market.logLoss1x2.toFixed(4) : "—"} | ${deltaMarket ? `${deltaMarket.meanDiff.toFixed(4)} [${deltaMarket.lower.toFixed(4)}, ${deltaMarket.upper.toFixed(4)}]` : "—"} | ${deltaBlendMarket ? `${deltaBlendMarket.meanDiff.toFixed(4)} [${deltaBlendMarket.lower.toFixed(4)}, ${deltaBlendMarket.upper.toFixed(4)}]` : "—"} | ${deltaBlendXgMarket ? `${deltaBlendXgMarket.meanDiff.toFixed(4)} [${deltaBlendXgMarket.lower.toFixed(4)}, ${deltaBlendXgMarket.upper.toFixed(4)}]` : "—"} |`,
     );
   }
 
@@ -785,17 +1322,36 @@ export function renderHistoryBacktestReport(
       `${delta.meanDiff.toFixed(4)} [${delta.lower.toFixed(4)}, ${delta.upper.toFixed(4)}]`;
     lines.push(
       "",
-      "### Elo y mezcla frente a Dixon-Coles",
+      "### Elo, mezcla y stacking frente a Dixon-Coles",
       "",
-      "| Liga | Δ Elo−DC | Δ mezcla−DC |",
-      "|---|---:|---:|",
+      "| Liga | Δ Elo−DC | Δ Elo-xG−DC | Δ mezcla−DC | Δ mezcla-xG−DC | Δ stack−DC |",
+      "|---|---:|---:|---:|---:|---:|",
     );
     for (const result of comparisons) {
       lines.push(
-        `| ${result.league} | ${fmt(result.deltaElo!)} | ${fmt(result.deltaBlend!)} |`,
+        `| ${result.league} | ${fmt(result.deltaElo!)} | ${result.deltaXgElo ? fmt(result.deltaXgElo) : "—"} | ${fmt(result.deltaBlend!)} | ${result.deltaBlendXg ? fmt(result.deltaBlendXg) : "—"} | ${result.deltaStack ? fmt(result.deltaStack) : "—"} |`,
       );
     }
-    lines.push("", "Δ negativo = Elo/mezcla pierden menos que Dixon-Coles.");
+    lines.push("", "Δ negativo = el candidato pierde menos que Dixon-Coles.");
+  }
+
+  const withDcMix = report.football.filter((result) => result.blendDcMix !== null);
+  if (withDcMix.length > 0) {
+    const fmt = (delta: { meanDiff: number; lower: number; upper: number }): string =>
+      `${delta.meanDiff.toFixed(4)} [${delta.lower.toFixed(4)}, ${delta.upper.toFixed(4)}]`;
+    lines.push(
+      "",
+      "### Mezcla con DC-xG (goles + xG) y Elo-xG",
+      "",
+      "| Liga | Mezcla-xG | Mezcla DC-xG | Δ vs mezcla-xG | Mercado | Δ mezcla DC-xG − mercado |",
+      "|---|---:|---:|---:|---:|---:|",
+    );
+    for (const result of withDcMix) {
+      const market = result.market;
+      lines.push(
+        `| ${result.league} | ${result.blendXg ? result.blendXg.logLoss1x2.toFixed(4) : "—"} | ${result.blendDcMix!.logLoss1x2.toFixed(4)} | ${result.deltaBlendDcMix && result.deltaBlendXg ? fmt({ meanDiff: result.deltaBlendDcMix.meanDiff - result.deltaBlendXg.meanDiff, lower: 0, upper: 0 }) : "—"} | ${market ? market.logLoss1x2.toFixed(4) : "—"} | ${result.deltaBlendDcMixMarket ? fmt(result.deltaBlendDcMixMarket) : "—"} |`,
+      );
+    }
   }
 
   const withTotals = report.football.filter((result) => result.totalsMarket !== null);
@@ -804,13 +1360,14 @@ export function renderHistoryBacktestReport(
       "",
       "### Totales (más/menos 2.5) frente al mercado",
       "",
-      "| Liga | n | LogLoss modelo | LogLoss mercado |",
-      "|---|---:|---:|---:|",
+      "| Liga | n | LogLoss modelo | LogLoss xG | LogLoss mercado |",
+      "|---|---:|---:|---:|---:|",
     );
     for (const result of withTotals) {
       const totals = result.totalsMarket!;
+      const xg = result.totalsXg;
       lines.push(
-        `| ${result.league} | ${totals.n} | ${totals.modelLogLoss.toFixed(4)} | ${totals.marketLogLoss.toFixed(4)} |`,
+        `| ${result.league} | ${totals.n} | ${totals.modelLogLoss.toFixed(4)} | ${xg ? xg.modelLogLoss.toFixed(4) : "—"} | ${totals.marketLogLoss.toFixed(4)} |`,
       );
     }
   }

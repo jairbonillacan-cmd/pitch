@@ -127,6 +127,22 @@ describe("fútbol v2 — Dixon-Coles", () => {
     expect(matrix.every((row) => row.every((v) => v >= 0))).toBe(true);
   });
 
+  it("acepta goles fraccionarios (xG) sin romper la rejilla de rho", () => {
+    const rows = [
+      { date: "2025-08-15", home: "A", away: "B", homeGoals: 1.42, awayGoals: 0.87 },
+      { date: "2025-08-22", home: "B", away: "C", homeGoals: 2.1, awayGoals: 1.05 },
+      { date: "2025-08-29", home: "C", away: "A", homeGoals: 0.66, awayGoals: 1.98 },
+      { date: "2025-09-05", home: "A", away: "C", homeGoals: 1.1, awayGoals: 1.1 },
+      { date: "2025-09-12", home: "B", away: "A", homeGoals: 0.4, awayGoals: 2.3 },
+    ];
+    const model = fitDixonColes(rows);
+    expect(Number.isFinite(model.rho)).toBe(true);
+    expect(model.matches).toBe(rows.length);
+    const prediction = predictFootball(model, "A", "B");
+    expect(prediction.probabilities.home + prediction.probabilities.draw + prediction.probabilities.away).toBeCloseTo(1, 9);
+    expect(Number.isFinite(prediction.lambdaHome)).toBe(true);
+  });
+
   it("sin datos devuelve un modelo neutro en vez de romperse", () => {
     const model = fitDixonColes([]);
     expect(model.matches).toBe(0);

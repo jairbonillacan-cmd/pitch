@@ -15,6 +15,8 @@
 | **Liga MX**: calendario, resultados, tabla y stats | **API-Football, plan Free** (100 requests al día) | Los términos trasladan al usuario la obtención de licencias para publicar y **no otorgan derechos comerciales sobre las competiciones** | ◐ **Solo beta privada sin cobro** mientras no haya confirmación por escrito. Histórico 2022-2024 integrado como research-only (el plan Free bloquea 2021, 2025 y 2026) | ✅ probado (fixtures por temporada) |
 | Premier League: stats de jugadores | API-Football Free (mismo cupo) | Ídem | ◐ Ídem | 🔎 |
 | Investigación interna (backtests de fútbol con cuotas de cierre históricas) | football-data.co.uk | Términos no localizados | ◐ **Solo investigación offline**: no se muestra en la app ni se redistribuye | ✅ integrado (2026-11-09) como dataset research-only: resultados 1993-94–2026-27, cuotas 1X2 y O/U 2.5, tiros y córners de las cinco grandes ligas |
+| xG por partido (investigación y ratings) | Understat, vía snapshots de Wayback Machine (el sitio en vivo estaba en mantenimiento el 2026-11-09) | Sin licencia de reutilización declarada | ◐ **Solo investigación**: no se muestra en la app ni se redistribuye | ✅ integrado (2026-11-09): 18,693 partidos, 2014-15 a 2026-27 |
+| Estadísticas de partido de Liga MX (investigación) | ESPN (`site.api.espn.com`), calendarios + summaries | Sin licencia de reutilización declarada | ◐ **Solo investigación** | ✅ integrado (2026-11-09): 278 partidos de 2024-25 (tiros, córners, posesión, tarjetas) |
 
 **Descartadas en esta fase:**
 

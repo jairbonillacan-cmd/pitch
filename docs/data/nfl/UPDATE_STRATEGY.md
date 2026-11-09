@@ -23,7 +23,13 @@ python -I tools/nfl-data/scripts/download_nflverse.py --only play_by_play,injuri
 
 ```bash
 python -I tools/nfl-data/scripts/quality_check_nflverse.py
+python -I tools/nfl-data/scripts/noaa_coverage_report.py     # cobertura clima por estación/año
+python -I tools/nfl-data/scripts/weather_cross_validation.py # consistencia nflverse↔NOAA
+python -I tools/nfl-data/scripts/verify_manifest_checksums.py # integridad completa (opcional, lento)
 ```
+
+- **Consultas:** polars o DuckDB 2.0.0 (instalado en el venv) — ejemplos probados en QUERY_EXAMPLES.md.
+- **Guía de herramientas:** `tools/nfl-data/README.md`.
 
 ## Frecuencia recomendada (sin servicios de pago, sin procesos residentes)
 
@@ -33,6 +39,32 @@ python -I tools/nfl-data/scripts/quality_check_nflverse.py
 | Cierre de temporada (feb) | todos los de la temporada | incluye playoffs completos |
 | Fuera de temporada | draft_picks, combine, contracts, trades, rosters | puntual |
 | Nunca en producción | — | este almacén es insumo, no servicio |
+
+Rutina completa tras cada refresco (descarga → calidad → reportes de clima), y verificación de
+integridad mensual o tras descargas grandes:
+
+```bash
+python -I tools/nfl-data/scripts/download_nflverse.py
+python -I tools/nfl-data/scripts/download_noaa_weather.py
+python -I tools/nfl-data/scripts/quality_check_nflverse.py
+python -I tools/nfl-data/scripts/noaa_coverage_report.py
+python -I tools/nfl-data/scripts/weather_cross_validation.py
+# mensual / post-descarga grande:
+python -I tools/nfl-data/scripts/verify_manifest_checksums.py
+```
+
+### Manifests append-only: convivencia con reintentos
+
+Los manifests (`nfl-downloads-manifest.jsonl`, `noaa-downloads-manifest.jsonl`) son append-only:
+cada corrida agrega registros con su fecha. Reglas:
+- `downloaded`/`skipped_existing`/`preexisting_registered` son registros válidos acumulables;
+  el "último registro por asset" es el vigente (así opera `verify_manifest_checksums.py`).
+- Si una corrida se aborta a mitad (p. ej. por reintento de metodología), se puede reiniciar el
+  manifest NOAA borrándolo y re-ejecutando `download_noaa_weather.py` (resume re-descarga lo
+  faltante y valida datos en cada respuesta). Tras el reinicio del 2026-11-08, el audit de
+  consistencia muestra: 43 registros, 0 duplicados, 0 huérfanos, 0 archivos vacíos.
+- Los `missing_404` del manifest nflverse son registros permanentes de assets que el origen no
+  publica (ver MISSING_DATA.md).
 
 ## Automatización futura (opcional, gratuita)
 

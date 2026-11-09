@@ -6,13 +6,13 @@
 
 | Campo | Valor |
 |---|---|
-| Fuente | nflverse-data (GitHub releases) |
-| URL | https://github.com/nflverse/nflverse-data/releases |
-| Licencia | CC-BY-4.0 (atribución obligatoria) |
-| Formato descargado | Parquet (salvo schedules preexistente en CSV) |
-| Ubicación local | `data/history/raw/nflverse/` (gitignored) |
-| Manifest | `data/history/manifests/nfl-downloads-manifest.jsonl` |
-| Método de descarga | `tools/nfl-data/scripts/download_nflverse.py` (resume + checksums) |
+| Fuente | nflverse-data (GitHub releases) + NOAA NCEI GHCN-Daily (clima) |
+| URL | https://github.com/nflverse/nflverse-data/releases · https://www.ncei.noaa.gov/access/services/data/v1 |
+| Licencia | CC-BY-4.0 (nflverse) · Dominio público EE.UU. (NOAA) |
+| Formato descargado | Parquet (nflverse), CSV (games.csv preexistente, clima GHCN) |
+| Ubicación local | `data/history/raw/nflverse/` y `data/history/raw/noaa-ghcn/` (gitignored) |
+| Manifest | `data/history/manifests/nfl-downloads-manifest.jsonl` · `noaa-downloads-manifest.jsonl` · `nfl-station-mapping.csv` |
+| Método de descarga | `tools/nfl-data/scripts/download_nflverse.py` · `download_noaa_weather.py` (resume + checksums) |
 
 ## Datasets y cobertura objetivo
 
@@ -37,7 +37,9 @@
 | 16 | Advanced stats PFR (temporada + semanales) | `pfr_advstats/` | pfr_advstats | season + week 2018–2026 | 9 |
 | 17 | ESPN QBR | `espn_qbr/` | espn_data | season/week level | 9 |
 | 18 | PFR rosters (histórico antiguo) | `misc/` | misc | histórico | 10 |
-| 19 | Equipos: metadatos, colores, abreviaturas | `teams/` | teams | vigente | 10 |
+| 19 | Crosswalk de IDs de jugadores | `players/` | players | vigente (24,867 jugadores) | 8 |
+| 20 | Equipos: metadatos, colores, abreviaturas | `teams/` | teams | vigente | 10 |
+| 21 | **Clima diario por estadio** (TMAX/TMIN/PRCP/SNOW/SNWD/AWND) | `data/history/raw/noaa-ghcn/` (NOAA) | NCEI GHCN-Daily | 1999–2026 · 43 estaciones · 44/47 venues | 7 (5.J) |
 
 ## Datasets de nflverse NO descargados
 

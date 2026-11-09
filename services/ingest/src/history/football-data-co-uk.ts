@@ -518,3 +518,50 @@ export function normalizeFdSeason(csvText: string, options: FdNormalizeOptions):
     skippedRows,
   };
 }
+
+export interface FdXgGame {
+  id: string;
+  league: string;
+  season: string;
+  date: string;
+  homeTeam: string;
+  awayTeam: string;
+  homeXg: number;
+  awayXg: number;
+}
+
+/**
+ * xG de football-data.co.uk (`HxG`/`AxG`). Solo la temporada 2026-27 publica estas
+ * columnas; sirve para completar el xG de la temporada en curso sin depender de Understat.
+ */
+export function normalizeFdXg(
+  csvText: string,
+  options: { league: HistoryLeagueConfig; season: string },
+): FdXgGame[] {
+  const slugByFdName = FD_TEAM_SLUGS[options.league.id];
+  if (!slugByFdName) return [];
+  const games: FdXgGame[] = [];
+  for (const row of parseCsv(csvText)) {
+    const homeSlug = slugByFdName[row.HomeTeam?.trim() ?? ""];
+    const awaySlug = slugByFdName[row.AwayTeam?.trim() ?? ""];
+    const date = parseFdDate(row.Date ?? "");
+    const homeRaw = (row.HxG ?? "").trim();
+    const awayRaw = (row.AxG ?? "").trim();
+    if (!homeSlug || !awaySlug || !date) continue;
+    if (homeRaw === "" || awayRaw === "") continue;
+    const homeXg = Number(homeRaw);
+    const awayXg = Number(awayRaw);
+    if (!Number.isFinite(homeXg) || !Number.isFinite(awayXg)) continue;
+    games.push({
+      id: `${options.league.id}:${options.season}:${homeSlug}:${awaySlug}`,
+      league: options.league.id,
+      season: options.season,
+      date,
+      homeTeam: `${options.league.id}.${homeSlug}`,
+      awayTeam: `${options.league.id}.${awaySlug}`,
+      homeXg,
+      awayXg,
+    });
+  }
+  return games;
+}

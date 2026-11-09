@@ -257,6 +257,159 @@ _(Cada sesión de agente agrega aquí su entrada con el formato de `AGENT_EXECUT
 - **Cómo probarlo:**
   - `pnpm backtest:history` (público, tabla DC/Elo/mezcla) y `pnpm backtest:history --include-research-history`; `pnpm --filter @pitchlab/models exec vitest run --pool=threads` (21 tests) y `pnpm --filter @pitchlab/ingest exec vitest run --pool=threads` (36 tests).
 
+### MODEL-02 · Regresión logística y stacking con features as-of — 2026-11-09 — Rama `feat/pre-mvp`
+- **Hecho:**
+  - `packages/models/src/football/logistic.ts`: regresión logística multinomial (softmax) con estandarización de features, L2 y descenso de gradiente determinista; `fitMultinomialLogistic` / `predictMultinomialLogistic` y 4 pruebas unitarias.
+  - `history-backtest` construye features as-of por partido: probabilidades de Dixon-Coles y Elo, descanso (días desde el último partido), forma (puntos de los últimos 5) y diferencia de tiros a puerta (cuando el dataset research tiene estadísticas). El modelo se reajusta cada 10 jornadas y predice las siguientes; evaluación solo con partidos posteriores.
+  - Resultado del experimento (`--with-stack`): **no supera a la mezcla 50/50** salvo en Bundesliga (0.9941 vs 0.9957). PL 0.9748 vs 0.9744; LaLiga 0.9743 vs 0.9703; Serie A 0.9729 vs 0.9707; Ligue 1 1.0050 vs 0.9993; Liga MX 1.0104 vs 1.0020. La mezcla sigue siendo el mejor candidato.
+  - Stack desactivado por defecto para que el benchmark público siga siendo rápido y reproducible; se activa con `--with-stack`.
+- **No hecho / fuera de alcance:**
+  - GBM real (LightGBM) con las mismas features y más capacidad.
+  - Optimizar el peso de la mezcla o el número de iteraciones del stack con validación propia.
+- **Decisiones tomadas (y por qué):**
+  - El stack se descarta como candidato publicado: con 12 features lineales no aporta sobre la mezcla y añade complejidad.
+  - Se conserva el código y el flag porque son la base del GBM y permiten repetir el experimento.
+- **Riesgos o deuda:**
+  - Las features de tiros dependen del dataset research (big-five); Liga MX y las temporadas antiguas no las tienen.
+  - El stack reajusta sobre muestras de predicciones pasadas; con pocos datos al inicio es ruidoso (primeros ~400 partidos sin stack).
+- **Cómo probarlo:**
+  - `pnpm backtest:history --include-research-history --with-stack` (reporte research con columna Stack); `pnpm --filter @pitchlab/models exec vitest run --pool=threads` (25 tests) y `pnpm --filter @pitchlab/ingest exec vitest run --pool=threads` (36 tests).
+
+### MODEL-03 · GBM (LightGBM) sobre features as-of — 2026-11-09 — Rama `feat/pre-mvp`
+- **Hecho:**
+  - `pnpm backtest:history --export-features` exporta una fila por partido evaluado con features as-of (Elo, Dixon-Coles, descanso, forma, tiros a puerta), probabilidades base y cuota de mercado. Archivo `Reportes/modelos/features-asof.jsonl` (25,554 filas, gitignored).
+  - `services/models/train_gbm.py` (LightGBM 4.7 vía API nativa, sin scikit-learn): walk-forward por temporada con entrenamiento agrupado entre ligas y one-hot de liga; compara GBM contra DC, Elo, mezcla y mercado con bootstrap pareado.
+  - `services/models/README.md` y `requirements.txt`; dependencias locales en `services/models/.deps` (gitignored) porque el sandbox bloquea `pip install` global/temporal.
+  - Resultado: el GBM **no supera a la mezcla**. Premier League 0.9710 vs 0.9695, LaLiga 0.9729 vs 0.9703, Bundesliga 0.9930 vs 0.9915, Serie A 0.9726 vs 0.9707, Ligue 1 1.0019 vs 0.9993; Δ +0.0015 a +0.0027 con IC 95 % que incluye el 0. Frente al mercado sigue a +0.017–0.024.
+- **No hecho / fuera de alcance:**
+  - Features nuevas (xG, alineaciones, lesiones, cuotas de apertura) que sí podrían mover la aguja.
+  - Integrar el GBM al pipeline de predicción live (sigue siendo experimento).
+- **Decisiones tomadas (y por qué):**
+  - Entrenamiento agrupado entre ligas: con una sola liga hay muy pocas filas por temporada y el GBM sobreajusta (log loss 1.02–1.06). El one-hot de liga recupera la escala y lo deja cerca de la mezcla.
+  - No se toca el benchmark público: GBM y stacking son experimentos opt-in; la mezcla 50/50 sigue siendo el candidato.
+- **Riesgos o deuda:**
+  - `services/models/.deps` son ~112 MB locales; no se versiona. El README documenta la instalación.
+  - LightGBM sin scikit-learn: se usa `lgb.train`, no el wrapper `LGBMClassifier`.
+- **Cómo probarlo:**
+  - `pnpm backtest:history --include-research-history --export-features=Reportes/modelos/features-asof.jsonl`; `$env:PYTHONPATH="services/models/.deps"; python services/models/train_gbm.py`; reporte `Reportes/modelos/BACKTEST-GBM.md`.
+
+### DATA-05 · xG histórico (Understat vía Wayback) y Elo-xG — 2026-11-09 — Rama `feat/pre-mvp`
+- **Hecho:**
+  - `services/ingest/src/history/understat.ts` + `xg.ts`: scrapea Understat a través de la Wayback Machine (el sitio en vivo respondía «We will come back soon»), elige el snapshot más reciente con ≥90 % de los partidos, decodifica `datesData`, normaliza ids con los slugs del corpus y cachea el HTML en `data/history/raw/understat/`.
+  - Dataset `data/history/research/xg/`: **18,241 partidos** de las cinco grandes (2014-15 a 2025-26), 18,209 emparejados con el corpus; cobertura 62–79 % (Understat empieza en 2014 y algunos snapshots son parciales). Reporte: `Reportes/datos/XG-QUALITY.md`.
+  - Nuevo candidato **Elo-xG**: ratings actualizadas con xG en vez de goles y su mezcla con Dixon-Coles (50/50). En el benchmark research: Premier League **0.9720** vs 0.9744 de la mezcla 50/50; LaLiga 0.9673 vs 0.9703; Bundesliga 0.9933 vs 0.9957; Serie A 0.9670 vs 0.9707; Ligue 1 0.9985 vs 0.9993. Δ de −0.0036 a −0.0065, IC 95 % que excluye el 0 en las cinco ligas.
+  - La brecha frente al mercado baja a **0.012–0.018** (antes 0.017–0.025). Es la mayor mejora del motor y proviene de datos nuevos.
+  - xG también entra como feature del GBM (`xg_home`, `xg_away`): mejora poco (+0.001–0.002), así que el valor está en las ratings xG.
+- **No hecho / fuera de alcance:**
+  - xG para Liga MX (Understat no la cubre) y temporadas previas a 2014-15.
+  - Poisson sobre xG (afinar Dixon-Coles) y xG por tiro/periodo.
+  - Publicar el dataset: es research-only por licencia.
+- **Decisiones tomadas (y por qué):**
+  - Wayback en lugar de scraping directo: el sitio estaba caído y el archivo conserva el HTML con los datos.
+  - xG solo entra al benchmark research (igual que el histórico 1993-2010): el benchmark público sigue reproducible sin datos research.
+  - La mezcla con xG se evalúa con peso fijo 0.5; no se ajusta sobre el test.
+- **Riesgos o deuda:**
+  - Depende de Wayback: si un snapshot falta o es parcial, esa temporada queda incompleta (Ligue 1 2024-25: 171/306).
+  - Understat no declara licencia; el dataset no se versiona y no debe publicarse.
+  - El Elo-xG necesita goles como fallback cuando no hay xG (Liga MX, pretemporadas).
+- **Cómo probarlo:**
+  - `pnpm history:xg` (18,241 filas, 5 ligas); `pnpm backtest:history --include-research-history` (reporte con columnas Elo-xG y Mezcla-xG); `pnpm --filter @pitchlab/ingest exec vitest run --pool=threads` (41 tests, 5 nuevos de Understat).
+
+### MODEL-04 · Dixon-Coles sobre xG y totales con xG — 2026-11-09 — Rama `feat/pre-mvp`
+- **Hecho:**
+  - `fitDixonColes` acepta goles fraccionarios (xG): la rejilla de ρ redondea al marcador entero. Prueba de regresión con xG en `packages/models/tests/models.test.ts`.
+  - Benchmark: se ajusta un segundo Dixon-Coles sobre xG (solo filas con xG) y se evalúan **totales O/U 2.5 con xG** frente a goles y mercado; nueva columna `totalsXg` en el reporte research.
+  - Experimentos: (a) mezcla DC-goles + DC-xG = 0.9682 vs 0.9712 de DC-goles en Premier League, pero combinada con Elo-xG solo mejora 0.0003 → no se integra; (b) totales xG mixtos: mejora Serie A y Ligue 1 (~0.004), empeora LaLiga y PL; (c) hiperparámetros del Elo-xG no estables con validación temporal (K=8 gana en validación y pierde en test).
+- **No hecho / fuera de alcance:**
+  - Poisson bivariado con xG por equipo y covariables.
+  - xG por tiro/periodo (requeriría páginas de partido de Understat).
+- **Decisiones tomadas (y por qué):**
+  - No se cambia el candidato publicado: la mejora de DC-xG en 1X2 es marginal y no consistente; se documenta el experimento.
+  - Los totales xG quedan como evaluación, no como modelo de producción, hasta verlos consistentes en más ligas.
+- **Riesgos o deuda:**
+  - El modelo xG se ajusta solo con partidos que tienen xG (2014+), así que su ventana efectiva es menor que la del modelo de goles.
+  - Understat sigue caído; las temporadas 2025-26 están incompletas.
+- **Cómo probarlo:**
+  - `pnpm backtest:history --include-research-history` (columna LogLoss xG en totales); `pnpm --filter @pitchlab/models exec vitest run --pool=threads` (32 tests).
+
+### DATA-06 · xG de 2026-27 y descargador incremental de estadísticas de Liga MX — 2026-11-09 — Rama `feat/pre-mvp`
+- **Hecho:**
+  - El dataset xG incorpora la temporada **2026-27** con las columnas `HxG`/`AxG` de football-data.co.uk (la única temporada en que las publica). Total: **18,693 partidos**, 18,442 emparejados con el corpus; cobertura 63.4–80.1 % por liga.
+  - `services/ingest/src/history/api-football-stats.ts` + `pnpm history:api-stats`: descarga `/fixtures/statistics` de Liga MX de forma incremental y reanudable, con caché por fixture, presupuesto diario (90) y reconstrucción de `liga-mx-stats.jsonl`.
+  - Hallazgo: API-Football devuelve `expected_goals = null` para Liga MX (sí trae xG en otras competiciones). Sí entrega tiros, tiros a puerta, córners, posesión y tarjetas.
+  - La cuota diaria se agotó durante la prueba (90/90) y quedaron 10 partidos cacheados; el descargador continuará en las siguientes corridas sin repetir trabajo.
+- **No hecho / fuera de alcance:**
+  - Liga MX sigue sin xG: habría que buscar otra fuente o confirmar que API-Football lo habilite.
+  - Integrar las estadísticas de Liga MX al benchmark cuando la cobertura sea suficiente (hoy 10 partidos).
+- **Decisiones tomadas (y por qué):**
+  - El xG de 2026-27 entra por football-data.co.uk en vez de Understat: son los mismos datos y no depende de Wayback.
+  - El descargador de API-Football se diseñó incremental para no agotar cuota ni repetir fixtures ya cacheados.
+- **Riesgos o deuda:**
+  - Presupuesto Free compartido con el snapshot de Liga MX; 90 solicitudes/día para ~340 fixtures por temporada.
+  - Las estadísticas de Liga MX no incluyen xG, así que no mejoran el Elo-xG de esa liga.
+- **Cómo probarlo:**
+  - `pnpm history:xg --offline` (18,693 filas), `pnpm history:api-stats --build-only` (dataset desde caché) y `pnpm --filter @pitchlab/ingest exec vitest run --pool=threads` (45 tests, 3 nuevos de estadísticas).
+
+### DATA-07 · Estadísticas de Liga MX desde ESPN — 2026-11-09 — Rama `feat/pre-mvp`
+- **Hecho:**
+  - `services/ingest/src/history/espn-liga-mx.ts` + `pnpm history:espn`: enumera los calendarios de los 18 equipos en ESPN, deduplica eventos y descarga el `summary` de cada partido terminado (sin API key ni cuota). Parsea tiros, tiros a puerta, córners, posesión y tarjetas, y empareja con el corpus por equipos y fecha (±2 días).
+  - Dataset `data/history/research/liga-mx-espn-stats.jsonl`: **278 de 340 partidos** de 2024-25 emparejados; research-only por licencia.
+  - Integración como features del benchmark (tiros a puerta) para Liga MX y experimentos: Elo de tiros 1.0032 vs mezcla actual 1.0030; GBM con features ESPN 1.0056 vs 1.0020. **Sin mejora**, documentado.
+  - Understat sigue caído; el xG de 2026-27 ya entra por football-data.co.uk.
+- **No hecho / fuera de alcance:**
+  - Ampliar ESPN a 2021-2023 (el adaptador lo permite con `--seasons`).
+  - xG para Liga MX: ESPN no lo trae y API-Football devuelve `null`.
+- **Decisiones tomadas (y por qué):**
+  - Se conserva el dataset ESPN aunque no mejore el candidato: cubre un hueco de datos del producto y sirve para features cuando haya más temporadas.
+  - No se cambia la mezcla publicada; los experimentos quedan fuera del reporte público.
+- **Riesgos o deuda:**
+  - Sin cuota, pero ESPN puede cambiar el esquema o bloquear; el adaptador cachea todo y tolera fallos por evento.
+  - Solo 2024-25 está cubierto; 2021-2023 requeriría otra corrida (~340 summaries por temporada).
+- **Cómo probarlo:**
+  - `pnpm history:espn --seasons=2024 --offline` (278 partidos desde caché) y `pnpm --filter @pitchlab/ingest exec vitest run --pool=threads` (50 tests, 2 nuevos de ESPN).
+
+### DATA-08 · ESPN ampliado a cuatro temporadas de Liga MX — 2026-11-09 — Rama `feat/pre-mvp`
+- **Hecho:**
+  - El constructor ESPN ahora mergea con el dataset existente y empareja contra los ids del **corpus canónico y del research** (las temporadas 2021-22…2023-24 solo existen en research).
+  - Dataset: **1,054 partidos** de Liga MX con tiros, tiros a puerta, córners, posesión y tarjetas: 2020-21 (135), 2022-23 (308), 2023-24 (305), 2024-25 (306). Research-only.
+  - Experimento con histórico ampliado: Elo de tiros 1.0072; DC + Elo de tiros 1.0022 (igual que la mezcla actual); mezcla triple DC + Elo + Elo-tiros **1.0016** (mejora 0.0006). No se cambia el candidato por una diferencia tan pequeña.
+- **No hecho / fuera de alcance:**
+  - xG real para Liga MX (ESPN/API-Football no lo dan).
+  - Integrar el Elo-tiros al reporte público; la mejora no supera el ruido.
+- **Decisiones tomadas (y por qué):**
+  - Merge incremental en el constructor: cada corrida conserva las temporadas anteriores.
+  - Se prioriza cobertura de datos sobre un cambio de modelo marginal.
+- **Riesgos o deuda:**
+  - 2020-21 solo tiene 135 de 342 partidos emparejados (los summaries de esa temporada están incompletos en ESPN).
+  - La licencia de ESPN sigue sin clasificar; el dataset no se versiona.
+- **Cómo probarlo:**
+  - `pnpm history:espn --seasons=2024,2023,2022,2021 --offline` (1,054 partidos desde caché) y `pnpm --filter @pitchlab/ingest exec vitest run --pool=threads` (50 tests).
+
+### MODEL-05 · xG estimado por tiros y Elo-xG en todas las ligas — 2026-11-09 — Rama `feat/pre-mvp`
+- **Hecho:**
+  - `services/ingest/src/history/xg-estimate.ts`: regresión lineal tiros/SOT → xG ajustada sobre **18,692 partidos** de las cinco grandes con xG y estadísticas (R² ≈ 0.51). Coeficientes documentados.
+  - `pnpm history:xg` rellena con xG estimado (`estimated-from-shots`) los partidos sin xG real: 2010-2014, 2025-26 incompleto y toda Liga MX. Dataset xG: **41,718 filas**, cobertura **100 %** del corpus en las cinco grandes y 34.7 % en Liga MX.
+  - Benchmark research: la mezcla Elo-xG gana a la mezcla 50/50 en todas las ligas (Δ −0.0034 a −0.0075; IC 95 % excluye el 0 en cuatro de cinco) y Liga MX mejora de 1.0020 a **1.0011**. Brecha frente al mercado: **0.0116–0.0171**.
+- **No hecho / fuera de alcance:**
+  - El xG estimado no sustituye al real en la published model; el benchmark público sigue sin datos research.
+  - La estimación es lineal con tiros/SOT; un GBM de xG podría afinarla.
+- **Decisiones tomadas (y por qué):**
+  - Estimar xG desde tiros permite extender el Elo-xG a temporadas sin proveedor y a Liga MX, con mejora medida.
+  - Se marca la fuente en cada fila (`estimated-from-shots`) para no confundirla con xG observado.
+- **Riesgos o deuda:**
+  - El Elo-xG con xG estimado empeora solo (0.9866 en PL), pero su mezcla con DC sigue ganando; el ruido lo absorbe la mezcla.
+  - La regresión se ajustó en las cinco grandes y se transfiere a Liga MX; puede tener sesgo de liga.
+- **Cómo probarlo:**
+  - `pnpm history:xg --offline` (41,718 filas) y `pnpm backtest:history --include-research-history` (reporte con Elo-xG y mezcla-xG en Liga MX); `pnpm --filter @pitchlab/ingest exec vitest run --pool=threads` (50 tests).
+
+
+
+
+
+
+
+
+
 
 
 
