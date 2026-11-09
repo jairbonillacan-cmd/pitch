@@ -1,7 +1,7 @@
 # 04 — Arquitectura de motores e integración
 
 **Documento:** arquitectura real del laboratorio y del motor desplegado, con los contratos y la integración TypeScript.
-**Fecha:** 2026-11-09 · **Autor:** SUBAGENTE 11 — DOCUMENTATION & REPRODUCIBILITY · **Commit:** `345b930`.
+**Fecha:** 2026-11-09 · **Autor:** SUBAGENTE 11 — DOCUMENTATION & REPRODUCIBILITY · **Commit:** `a680a4f`.
 **Fuentes:** [`A06_motor_a_experiments.md`](../../research/prediction-lab/reports/A06_motor_a_experiments.md) · [`A07_market_intelligence.md`](../../research/prediction-lab/reports/A07_market_intelligence.md) · [`A10_integration.md`](../../research/prediction-lab/reports/A10_integration.md) · [`FREEZE.md`](../../research/prediction-lab/artifacts/FREEZE.md) · [`FINAL/eval_test/metrics.md`](../../research/prediction-lab/artifacts/FINAL/eval_test/metrics.md).
 
 > **Estado:** Motor A desplegado = **regresión logística multinomial** (`motor_a_logistic_v1`, v1.0.0), exportada a JSON y verificada en TypeScript con paridad **4,997×10⁻¹³**. Motor B = **de-vig *power* sobre apertura** (operable), **no** un clasificador. El *stacking* de Motor B se evaluó y **no se adoptó**. El mercado gana por **0,0188–0,0203** de log-loss en test.

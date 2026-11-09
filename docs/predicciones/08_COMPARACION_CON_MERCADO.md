@@ -1,7 +1,7 @@
 # 08 — Comparación con el mercado
 
 **Documento:** Motor A vs mercado vs Motor B, con las cifras finales de validación y del cierre único de test.
-**Fecha:** 2026-11-09 · **Autor:** SUBAGENTE 11 — DOCUMENTATION & REPRODUCIBILITY · **Commit:** `345b930`.
+**Fecha:** 2026-11-09 · **Autor:** SUBAGENTE 11 — DOCUMENTATION & REPRODUCIBILITY · **Commit:** `a680a4f`.
 **Fuentes:** [`A07_market_intelligence.md`](../../research/prediction-lab/reports/A07_market_intelligence.md) · [`FREEZE.md`](../../research/prediction-lab/artifacts/FREEZE.md) · [`FINAL/eval_test/metrics.md`](../../research/prediction-lab/artifacts/FINAL/eval_test/metrics.md) · [`A06`](../../research/prediction-lab/reports/A06_motor_a_experiments.md).
 **Convención:** Δ = pérdida(A) − pérdida(B); **Δ < 0 ⇒ A mejor**. IC95 % bootstrap por bloques temporada×división (B=2000); p de permutación (10.000).
 

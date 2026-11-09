@@ -3,7 +3,7 @@
 Esta carpeta contiene los **14 documentos** exigidos por la misión. Cada uno se apoya en artefactos
 reproducibles del laboratorio (`research/prediction-lab/`), no en afirmaciones.
 
-**Estado global: 14/14 completados** · 2026-11-09 · rama `prediction-lab` · commit **`345b930`** ·
+**Estado global: 14/14 completados** · 2026-11-09 · rama `prediction-lab` · commit **`a680a4f`** ·
 cierre de test ejecutado **una sola vez** sobre candidatos congelados (`artifacts/FREEZE.md`).
 
 | Doc | Contenido | Fuente principal | Estado |

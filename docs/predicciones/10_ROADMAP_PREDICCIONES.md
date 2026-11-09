@@ -1,7 +1,7 @@
 # 10 — Roadmap de predicciones
 
 **Documento:** siguiente ciclo de trabajo, prioridades y criterios de aceptación.
-**Fecha:** 2026-11-09 · **Autor:** SUBAGENTE 11 — DOCUMENTATION & REPRODUCIBILITY · **Commit:** `345b930`.
+**Fecha:** 2026-11-09 · **Autor:** SUBAGENTE 11 — DOCUMENTATION & REPRODUCIBILITY · **Commit:** `a680a4f`.
 **Fuentes:** [`A03`](../../research/prediction-lab/reports/A03_data_sources.md) · [`A07`](../../research/prediction-lab/reports/A07_market_intelligence.md) · [`A09b`](../../research/prediction-lab/reports/A09_adversarial_lab.md) · [`A10`](../../research/prediction-lab/reports/A10_integration.md) · [`FREEZE.md`](../../research/prediction-lab/artifacts/FREEZE.md) · [`11_LIMITACIONES_Y_RIESGOS.md`](11_LIMITACIONES_Y_RIESGOS.md).
 
 > **Punto de partida:** el ciclo 0 está cerrado con un Motor A desplegado (`logit`), un Motor B de de-vig y una medición honesta de test que dice **“el mercado gana por 0,0188–0,0203; no hay *edge* demostrable”**. El roadmap no promete *edge*: promete **infraestructura para poder demostrarlo o descartarlo**.

@@ -1,7 +1,7 @@
 # 07 — Experimentos y resultados finales
 
 **Documento:** los 17 experimentos del plan científico (EXP01–EXP17) con las cifras **finales** del ciclo, su veredicto y lo que se retiró.
-**Fecha:** 2026-11-09 · **Autor:** SUBAGENTE 11 — DOCUMENTATION & REPRODUCIBILITY · **Commit:** `345b930`.
+**Fecha:** 2026-11-09 · **Autor:** SUBAGENTE 11 — DOCUMENTATION & REPRODUCIBILITY · **Commit:** `a680a4f`.
 **Fuentes:** [`A06`](../../research/prediction-lab/reports/A06_motor_a_experiments.md) (v1.1) · [`A07`](../../research/prediction-lab/reports/A07_market_intelligence.md) · [`A08`](../../research/prediction-lab/reports/A08_backtesting_framework.md) · [`A05`](../../research/prediction-lab/reports/A05_features.md) · [`FREEZE.md`](../../research/prediction-lab/artifacts/FREEZE.md) · [`FINAL/eval_test/metrics.md`](../../research/prediction-lab/artifacts/FINAL/eval_test/metrics.md).
 
 > **Regla de lectura.** `val` = 2023/24 (8.152) se usó para elegir; `test` = 2024/25 + 2025/26 (16.126) se evaluó **una sola vez** tras congelar. Toda comparación es pareada por `match_id`, con bootstrap por bloques temporada×división (B=2.000) y permutación (10.000); se declara mejora solo si el IC95 % excluye 0 **y** p < 0,05. Δ = pérdida(A) − pérdida(B): **Δ < 0 ⇒ A mejor**.

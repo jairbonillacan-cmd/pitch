@@ -1,7 +1,7 @@
 # 09 — Mejoras implementadas (aceptadas y rechazadas)
 
 **Documento:** registro de cambios del ciclo, con la evidencia **antes/después** y la decisión.
-**Fecha:** 2026-11-09 · **Autor:** SUBAGENTE 11 — DOCUMENTATION & REPRODUCIBILITY · **Commit:** `345b930`.
+**Fecha:** 2026-11-09 · **Autor:** SUBAGENTE 11 — DOCUMENTATION & REPRODUCIBILITY · **Commit:** `a680a4f`.
 **Fuentes:** [`A05`](../../research/prediction-lab/reports/A05_features.md) · [`A06`](../../research/prediction-lab/reports/A06_motor_a_experiments.md) · [`A07`](../../research/prediction-lab/reports/A07_market_intelligence.md) · [`A08`](../../research/prediction-lab/reports/A08_backtesting_framework.md) · [`A09b`](../../research/prediction-lab/reports/A09_adversarial_lab.md) · [`A10`](../../research/prediction-lab/reports/A10_integration.md) · [`FREEZE.md`](../../research/prediction-lab/artifacts/FREEZE.md).
 
 > **Criterio de aceptación.** Un cambio entra si (a) mejora una regla propia (log-loss/Brier/RPS) con IC95 % que excluye 0 **y** p < 0,05, o (b) corrige un defecto de integridad/leakage verificable, o (c) es una condición necesaria de reproducibilidad. Lo que solo mejora *accuracy* o un subconjunto elegido después **no entra**.
@@ -72,7 +72,7 @@ El ensemble es estadísticamente mejor en test (−0,00153 [−0,00250, −0,000
 | `etl/tests/test_validators.py` actualizado | fijaba `rows == 181272` | **11/11 OK** (7,5 s) |
 | `A06.json` creado | A06 era la única tarea sin `status` | `coordination/status/A06.json` |
 | `A09_adversarial_lab.md` y `A10_integration.md` | auditoría fase 2 e integración | informes en `reports/` |
-| Commit del laboratorio | estaba `untracked` | commit **`345b930`** |
+| Commit del laboratorio | estaba `untracked` | commit **`a680a4f`** |
 | `folds`/`config` con hashes | trazabilidad | `FINAL/eval_test/metrics.json` |
 
 ---

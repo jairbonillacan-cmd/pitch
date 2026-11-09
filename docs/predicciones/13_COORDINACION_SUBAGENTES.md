@@ -229,7 +229,7 @@ Tras la primera entrega documental (03:12), el orquestador ejecutó el cierre:
 | Congelación pre-test firmada | 03:35:07 | `artifacts/FREEZE.md` (antes de la evaluación) |
 | Evaluación única de test | 03:36:17 | `FINAL/eval_test/{metrics.json,metrics.md}` |
 | Adenda post-test en `FREEZE.md` | 03:52 | cifras finales y transparencia de exposición |
-| Commit del laboratorio | 03:37 | `345b930` |
+| Commit del laboratorio | 03:37 | `a680a4f` |
 | A11 ronda 2: 6 documentos + índice 14/14 | 03:37–03:52 | `docs/predicciones/` |
 
 **Reparto final:** 11 subagentes reales (A01–A10 + A09b + A11) más el orquestador. El orden no fue estrictamente secuencial: A09b auditó mientras A06/A10 corregían, y A11 documentó mientras se congelaba. El sistema de archivos compartido permitió que la documentación viera nacer los artefactos; el coste fue que varias afirmaciones de la ronda 1 quedaron obsoletas en minutos (A10 “en curso”, `features_market` “sin regenerar”, ETL “10/11”) y hubo que corregirlas en esta ronda.

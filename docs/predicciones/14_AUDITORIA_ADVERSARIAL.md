@@ -1,7 +1,7 @@
 # 14 — Auditoría adversarial: hallazgos y resolución
 
 **Documento:** las dos fases de auditoría adversarial (motores legacy y laboratorio nuevo), qué se corrigió y qué sigue abierto.
-**Fecha:** 2026-11-09 · **Autor:** SUBAGENTE 11 — DOCUMENTATION & REPRODUCIBILITY · **Commit:** `345b930`.
+**Fecha:** 2026-11-09 · **Autor:** SUBAGENTE 11 — DOCUMENTATION & REPRODUCIBILITY · **Commit:** `a680a4f`.
 **Fuentes:** [`A09_adversarial_preliminary.md`](../../research/prediction-lab/reports/A09_adversarial_preliminary.md) (legacy) · [`A09_adversarial_lab.md`](../../research/prediction-lab/reports/A09_adversarial_lab.md) (lab, fase 2) · [`A09b.json`](../../research/prediction-lab/coordination/status/A09b.json) · [`FREEZE.md`](../../research/prediction-lab/artifacts/FREEZE.md) · [`FINAL/eval_test/metrics.md`](../../research/prediction-lab/artifacts/FINAL/eval_test/metrics.md).
 
 > **Método.** A09 auditó los motores legacy (01:25–01:50) y A09b el laboratorio nuevo (02:55–03:24), ambos con reproducción numérica independiente y sin modificar código. A11 verificó en esta sesión qué correcciones están realmente en el árbol y cuáles siguen abiertas. **No existe una tercera auditoría adversarial del estado final**: lo que sigue es la evidencia de A11, no un veredicto de A09.
@@ -97,7 +97,7 @@ A09b listó seis condiciones para que el laboratorio fuera “defendible” para
 | C2 ensemble inválido | `pipeline/make_ensemble.py` con pesos walk-forward (`years < S`, suavizado 50/50) y miembros logit/hgb/poisson; guardas de `NaN` | `EXP01_final/ensemble_weights.json` con pesos por temporada; log-loss del ensemble **1,01652** recomputado por A11 |
 | H1 sin corte por fecha | `cut = test.match_date.min(); train = train[train.match_date < cut]` | `train_motor_a.py:382-384`; `run_walk_forward` documentado |
 | H2 artefactos pre-v1.1 | reejecución completa sobre 182.410 | `EXP01_final`, `EXP05_hgb_final`, `EXP03_poisson_final`, `EXP08_motor_b_final`; FINAL con hash `4a43d4ed…` |
-| H4 Motor B no reproducible | run final con `config.json` (fuentes, cobertura 0,7939, pesos) y código commiteado | `EXP08_motor_b_final/config.json`; commit `345b930` |
+| H4 Motor B no reproducible | run final con `config.json` (fuentes, cobertura 0,7939, pesos) y código commiteado | `EXP08_motor_b_final/config.json`; commit `a680a4f` |
 | H5 índice de Poisson | `known_h` en local y visitante; fallback a climatología si `div` no está en el modelo; filtro `isfinite` | `train_motor_a.py:240-260`, `:396` |
 | M5 ensemble contaminado | ensemble walk-forward por temporada | `ensemble_weights.json` (2005: 1/3 cada uno; 2010: 0,4712/0,3128/0,2160…) |
 | M6 B=200 | FINAL con `B=2000`, `permutaciones=10000`, `seed=20261109` | `FINAL/eval_test/metrics.md` §1 |
