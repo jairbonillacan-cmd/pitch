@@ -52,6 +52,25 @@ export function withPreKickoffPicksOnly(
   return stripPicks(analysis);
 }
 
+/** El descanso es contexto: se retira si supera el máximo (señal de resultados faltantes). */
+function withoutImplausibleRest(analysis: GameAnalysis): GameAnalysis {
+  const rest = analysis.insights?.restDays;
+  if (!rest || !analysis.insights) return analysis;
+  const ok = (d?: number) => (d !== undefined && d <= MAX_REST_DAYS ? d : undefined);
+  const home = ok(rest.home);
+  const away = ok(rest.away);
+  if (home === rest.home && away === rest.away) return analysis;
+  const { restDays: _restDays, ...insights } = analysis.insights;
+  void _restDays;
+  return {
+    ...analysis,
+    insights:
+      home === undefined && away === undefined
+        ? insights
+        : { ...insights, restDays: { ...(home !== undefined ? { home } : {}), ...(away !== undefined ? { away } : {}) } },
+  };
+}
+
 function stripPicks(analysis: GameAnalysis): GameAnalysis {
   const { picks: _picks, confidence: _confidence, picksAt: _picksAt, ...rest } = analysis;
   void _picks;
@@ -64,7 +83,8 @@ function stripPicks(analysis: GameAnalysis): GameAnalysis {
  * Un análisis preservado conserva sus picks solo si consta que se calcularon antes del
  * inicio (`picksAt` < inicio). Sin esa constancia, se retiran.
  */
-export function keepVerifiedPicks(analysis: GameAnalysis, game: GameDTO): GameAnalysis {
+export function keepVerifiedPicks(input: GameAnalysis, game: GameDTO): GameAnalysis {
+  const analysis = withoutImplausibleRest(input);
   if (!analysis.picks) return analysis;
   const start = Date.parse(game.startTime);
   const at = analysis.picksAt ? Date.parse(analysis.picksAt) : Number.NaN;

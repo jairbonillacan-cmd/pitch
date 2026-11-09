@@ -2914,3 +2914,9 @@ dialog.modal.show .modal-win {
   .best-list .odds { grid-area: odds; }
   .best-list .conf { grid-area: conf; justify-self: end; }
 }
+.pickline .conf {
+  flex: none;
+}
+.no-picks {
+  margin: 0;
+}

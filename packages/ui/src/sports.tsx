@@ -291,7 +291,14 @@ export function ConfidenceBadge({
         <i />
         <i />
       </span>
-      {CONFIDENCE_LABELS[confidence.level]}
+      {compact ? (
+        <>
+          <span className="sr-only">Confianza </span>
+          {confidence.level.charAt(0).toUpperCase() + confidence.level.slice(1)}
+        </>
+      ) : (
+        CONFIDENCE_LABELS[confidence.level]
+      )}
     </span>
   );
 }
@@ -637,6 +644,8 @@ export function MatchCard({
             <span className={"res " + featuredResult}>
               {featuredResult === "hit" ? "Acertado" : "Fallado"}
             </span>
+          ) : match.confidence ? (
+            <ConfidenceBadge confidence={match.confidence} compact />
           ) : null}
         </span>
       ) : null}
@@ -650,12 +659,9 @@ export function MatchCard({
             </>
           ) : null}
           {projected && !nf
-            ? "Marcador proyectado " + projected.home + "–" + projected.away
+            ? "Proyectado " + projected.home + "–" + projected.away
             : "Proy. " + proj.home.toFixed(nf ? 0 : 1) + "–" + proj.away.toFixed(nf ? 0 : 1)}
         </span>
-        {match.confidence && !isFinished ? (
-          <ConfidenceBadge confidence={match.confidence} compact />
-        ) : null}
         <span className="open">
           Analizar <Icon name="arrow" />
         </span>
