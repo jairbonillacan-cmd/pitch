@@ -40,6 +40,21 @@ function getBetaCookieSecret(): string {
   throw new Error("PITCHLAB_COOKIE_SECRET (>= 32 chars) is not configured in production.");
 }
 
+/**
+ * Clave con la que se firma la cookie: el secreto más el código vigente.
+ * Cambiar PITCHLAB_BETA_CODE invalida todas las cookies emitidas con el código
+ * anterior, sin tener que rotar también PITCHLAB_COOKIE_SECRET.
+ */
+export function betaCookieSigningKey(secret: string, code: string): string {
+  return `${secret}|code:${code}`;
+}
+
+function defaultCookieSigningKey(): string {
+  return betaCookieSigningKey(getBetaCookieSecret(), getPreviewAccessCode());
+}
+
+let warnedMemoryRateLimit = false;
+
 function toHex(bytes: Uint8Array): string {
   return Array.from(bytes)
     .map((b) => b.toString(16).padStart(2, "0"))
@@ -94,7 +109,7 @@ export async function signBetaCookieToken(
   nowMs: number = Date.now(),
   secretOverride?: string,
 ): Promise<string> {
-  const secret = secretOverride ?? getBetaCookieSecret();
+  const secret = secretOverride ?? defaultCookieSigningKey();
   const issuedAt = Math.floor(nowMs / 1000);
   const exp = issuedAt + COOKIE_MAX_AGE_SECONDS;
   const payload = `${issuedAt}.${exp}`;
@@ -127,7 +142,7 @@ export async function verifyBetaCookieToken(
   if (exp <= nowSec || iat > nowSec + 300) {
     return false;
   }
-  const secret = secretOverride ?? getBetaCookieSecret();
+  const secret = secretOverride ?? defaultCookieSigningKey();
   const expectedBytes = await hmacSha256Bytes(secret, `${iat}.${exp}`);
   const actualBytes = new Uint8Array(32);
   for (let i = 0; i < 32; i++) {
@@ -173,6 +188,15 @@ export async function checkRateLimit(
       // Fallback to in-memory rate limiter if Upstash is unreachable
       void err;
     }
+  }
+
+  if (process.env.NODE_ENV === "production" && !warnedMemoryRateLimit) {
+    // En serverless cada instancia tiene su propia memoria: el límite real de
+    // intentos se multiplica por el número de instancias. Configura Upstash.
+    warnedMemoryRateLimit = true;
+    console.warn(
+      "[beta-auth] Límite de intentos en memoria: configura UPSTASH_REDIS_REST_URL y UPSTASH_REDIS_REST_TOKEN para que sea global.",
+    );
   }
 
   const existing = memoryRateStore.get(key);

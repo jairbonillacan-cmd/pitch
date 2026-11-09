@@ -6,6 +6,7 @@ import {
   checkRateLimit,
   resetMemoryRateLimitForTests,
   sanitizeNextPath,
+  betaCookieSigningKey,
 } from "../src/server/beta-auth.js";
 
 describe("beta-auth", () => {
@@ -33,6 +34,19 @@ describe("beta-auth", () => {
         now + 31 * 24 * 60 * 60 * 1000,
         secret,
       ),
+    ).toBe(false);
+  });
+
+  it("invalidates cookies issued with a previous access code", async () => {
+    const now = 1_762_620_000_000;
+    const secret = "test-secret-of-at-least-32-characters-long!!";
+    const token = await signBetaCookieToken(now, betaCookieSigningKey(secret, "1111"));
+
+    expect(
+      await verifyBetaCookieToken(token, now + 1000, betaCookieSigningKey(secret, "1111")),
+    ).toBe(true);
+    expect(
+      await verifyBetaCookieToken(token, now + 1000, betaCookieSigningKey(secret, "2222")),
     ).toBe(false);
   });
 
