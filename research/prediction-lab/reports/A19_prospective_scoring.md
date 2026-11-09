@@ -36,10 +36,10 @@ diferencias por división son ruido y no se interpretan individualmente.
 
 1. **Se confirma la conclusión principal con datos nuevos**: el motor deportivo no bate al mercado
    (+0,025 en 146 partidos, coherente con +0,020 de test).
-2. **Alerta de calibración:** el ECE del modelo (0,110) duplica el del mercado (0,066) y está muy
-   por encima del ECE histórico (0,011 en test). Con 146 partidos el ECE es ruidoso, pero junto a la
-   monitorización live (log-loss 1,027 vs 1,010 de val) sugiere **ligera sobreconfianza en 2026/27**.
-   No se cambia el modelo; se registra como señal para el ciclo de calibración.
+2. **Calibración (corregido en el ciclo 7):** el ECE 0,110 parecía sobreconfianza, pero su IC95 %
+   es [0,072; 0,188] con 146 partidos y el gap dominante es **infraconfianza** en el bin 0,6–0,8
+   (n=24). Una temperatura ajustada fuera de muestra empeora el log-loss. **No hay evidencia de
+   deriva de calibración ni se aplica corrección** (ver `A20_calibration_audit.md`).
 3. **El pipeline funciona de punta a punta**: estado → features (paridad 300/300) → predicción →
    scoring, sin intervención manual y con pre-registro verificable.
 

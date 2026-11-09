@@ -228,4 +228,7 @@ Las 150 predicciones pre-registradas del ciclo 5 se puntuaron con los resultados
 Δ = **+0,02536** [+0,00585; +0,04434], 99,4 % en contra: el mercado vuelve a ganar, coherente con
 el +0,020 de test. **Caveat:** las predicciones se generaron después del kickoff (aunque antes de que
 la fuente publicara resultados): es una evaluación out-of-sample del pipeline, no un pronóstico en
-tiempo real. El ECE 0,11 del modelo (vs 0,011 en test) activa la señal de sobreconfianza en 2026/27.
+tiempo real. El ECE 0,110 parecía señalar sobreconfianza, pero el ciclo 7 lo corrigió: su IC95 % es
+[0,072; 0,188] (146 partidos) y el gap dominante es **infraconfianza** en el bin 0,6–0,8 (n=24);
+una temperatura ajustada fuera de muestra empeora el log-loss (+0,005) y no mejora el ECE de forma
+significativa. **No se aplica calibración** (ver `reports/A20_calibration_audit.md`).

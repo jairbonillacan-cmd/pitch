@@ -1,0 +1,16 @@
+{
+  "task_id": "A20",
+  "agent": "ORCHESTRATOR (ciclo 7)",
+  "status": "completed",
+  "started_at": "2026-11-09T06:35:00-06:00",
+  "finished_at": "2026-11-09T06:55:00-06:00",
+  "summary": "Auditoria de calibracion sobre 146 fixtures: la temperatura ajustada fuera de muestra empeora log-loss (+0,00501 [+0,00108; +0,00900]) y no mejora ECE de forma significativa (-0,0093 [-0,040; +0,021]). El IC95% del ECE del modelo es [0,072; 0,188]: la 'sobreconfianza' del ciclo 6 era una lectura erronea; el gap dominante es infraconfianza en el bin 0,6-0,8 (n=24). No se aplica calibracion; R-25 reclasificado.",
+  "verdict": "no accion (evidencia insuficiente)",
+  "files_written": [
+    "pipeline/experiment_calibration_fixtures.py",
+    "artifacts/FIXTURES/calibration_fixtures.json",
+    "reports/A20_calibration_audit.md"
+  ],
+  "blockers": [],
+  "next": "Repetir calibracion con >=1.000 partidos de 2026/27; no adoptar temperatura."
+}

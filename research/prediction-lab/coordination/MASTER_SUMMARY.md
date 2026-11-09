@@ -216,3 +216,14 @@ lista 90 archivos, todos del laboratorio (ninguno de ellos existía en `main`).
   comparados con B365; hash de pre-registro `0a28484d…`. 10 fixtures SC2/SC3 excluidos.
 - Con esto el pipeline va de fixture a predicción sin intervención manual; queda portar el
   adaptador a TS o servir el vector desde el backend, y puntuar los 150 cuando haya resultados.
+
+---
+
+# CICLO 7 — auditoría de calibración (2026-11-09 06:55)
+
+- Temperatura T=1,0766 (ajustada ≤2022) aplicada a los 146 fixtures: **empeora** log-loss
+  (+0,00501 [+0,00108; +0,00900]) y no mejora ECE (−0,0093 [−0,040; +0,021]).
+- El IC95 % del ECE del modelo es **[0,072; 0,188]**: la "sobreconfianza" del ciclo 6 era una
+  lectura errónea; el gap dominante es **infraconfianza** en el bin 0,6–0,8 (n=24).
+- Decisión: **no se aplica calibración**; repetir con ≈1.300 partidos (±0,02) o ≈5.000 (±0,01).
+  R-25 reclasificado a riesgo bajo. Informe: `reports/A20_calibration_audit.md`.
