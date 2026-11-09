@@ -1,0 +1,268 @@
+- document:
+  - navigation:
+    - link "Logo":
+      - /url: "https://www.statiskicks.com "
+      - img "Logo"
+    - list:
+      - listitem:
+        - link "Ligas":
+          - /url: https://www.statiskicks.com/leagues
+      - listitem:
+        - link "Scouting":
+          - /url: https://www.statiskicks.com/players
+      - listitem:
+        - link "Partidos":
+          - /url: https://www.statiskicks.com/partidos
+      - listitem:
+        - link "Contacto":
+          - /url: https://www.statiskicks.com/contacto
+    - button "Buscar jugadores":  Buscar
+    - button "Cambiar tema": 
+    - link "Iniciar Sesión":
+      - /url: https://www.statiskicks.com/login
+      - button "Iniciar Sesión"
+  - paragraph: 40 ligas · datos en vivo · cualquier nivel de análisis
+  - heading "Los datos no reemplazan al ojo, lo afilan." [level=1]:
+    - text: Los datos no reemplazan al ojo,
+    - emphasis: lo afilan.
+  - paragraph:
+    - text: Accede a miles de métricas, gráficos, mapas, probabilidades, rankings y muchas más funciones para más de 25.000 jugadores y más de 720 equipos alrededor del mundo.
+    - strong: Crea tu cuenta gratis y selecciona la mejor opción para ti.
+  - button "Busca cualquier jugador… Buscar"
+  - paragraph:
+    - text: Prueba
+    - link "Liga MX":
+      - /url: https://www.statiskicks.com/league/2hsidwomhjsaaytdy9u5niyi4
+    - link "Premier League":
+      - /url: https://www.statiskicks.com/league/2kwbbcootiqqgmrzs6o5inle5
+    - link "La Liga":
+      - /url: https://www.statiskicks.com/league/34pl8szyvrbwcmfkuocjm3r6t
+    - link "Bundesliga":
+      - /url: https://www.statiskicks.com/league/6by3h89i2eykc341oz7lv1ddd
+  - link "Crea tu cuenta gratis":
+    - /url: https://www.statiskicks.com/register
+  - link "Explora las ligas":
+    - /url: https://www.statiskicks.com/leagues
+  - navigation "Ligas":
+    - link "Liga MX":
+      - /url: https://www.statiskicks.com/league/2hsidwomhjsaaytdy9u5niyi4
+      - img "Liga MX"
+    - link "Premier League":
+      - /url: https://www.statiskicks.com/league/2kwbbcootiqqgmrzs6o5inle5
+      - img "Premier League"
+    - link "La Liga":
+      - /url: https://www.statiskicks.com/league/34pl8szyvrbwcmfkuocjm3r6t
+      - img "La Liga"
+    - link "Bundesliga":
+      - /url: https://www.statiskicks.com/league/6by3h89i2eykc341oz7lv1ddd
+      - img "Bundesliga"
+    - link "Serie A":
+      - /url: https://www.statiskicks.com/league/1r097lpxe0xn03ihb7wi98kao
+      - img "Serie A"
+    - link "Ligue 1":
+      - /url: https://www.statiskicks.com/league/dm5ka0os1e3dxcp3vh05kmp33
+      - img "Ligue 1"
+    - link "MLS":
+      - /url: https://www.statiskicks.com/league/287tckirbfj9nb8ar2k9r60vn
+      - img "MLS"
+    - link "Brasileirão":
+      - /url: https://www.statiskicks.com/league/scf9p4y91yjvqvg5jndxzhxj
+      - img "Brasileirão"
+    - link "Liga Profesional Argentina":
+      - /url: https://www.statiskicks.com/league/581t4mywybx21wcpmpykhyzr3
+      - img "Liga Profesional Argentina"
+    - link "Eredivisie":
+      - /url: https://www.statiskicks.com/league/akmkihra9ruad09ljapsm84b3
+      - img "Eredivisie"
+    - link "Liga Portugal":
+      - /url: https://www.statiskicks.com/league/8yi6ejjd1zudcqtbn07haahg6
+      - img "Liga Portugal"
+    - link "y más…":
+      - /url: https://www.statiskicks.com/leagues
+  - paragraph: "27"
+  - paragraph: Países
+  - paragraph: "40"
+  - paragraph: Competiciones
+  - paragraph: "724"
+  - paragraph: Equipos
+  - paragraph: "25.534"
+  - paragraph: Jugadores
+  - paragraph: Equipos y jugadores de la temporada en curso de cada competición, contados en el catálogo, no en un folleto.
+  - heading "Planes" [level=2]
+  - heading "Fan" [level=3]
+  - paragraph: Sigue tus ligas con datos de verdad.
+  - paragraph: $0/mes
+  - paragraph: 1 usuario
+  - list:
+    - listitem: " 9 ligas: clasificaciones, resultados y plantillas"
+    - listitem:  Probabilidad de campeonato y puntos esperados
+    - listitem:  Perfiles de jugador con radar y barras
+    - listitem:  Búsqueda avanzada de jugadores
+  - link "Crear cuenta gratis":
+    - /url: https://www.statiskicks.com/register
+  - heading "Plus mensual" [level=3]
+  - paragraph: Todas las ligas y todas las herramientas.
+  - paragraph: $129/mes
+  - paragraph: 1 usuario
+  - list:
+    - listitem:  Las 40 ligas, con la proyección completa
+    - listitem: " Equipos completos: ranking, mapas, red de pases y comparador"
+    - listitem:  Todos los mapas de eventos y las métricas a elegir
+    - listitem:  Comparador y jugadores similares
+  - link "Empezar con Plus":
+    - /url: https://www.statiskicks.com/register
+  - text: −50 % Precio de lanzamiento
+  - heading "Plus anual" [level=3]
+  - paragraph: Todas las ligas y todas las herramientas.
+  - paragraph: $1.548 $774/año
+  - paragraph: Equivale a $64,50 al mes · hasta el 1 de enero de 2027
+  - list:
+    - listitem:  Las 40 ligas, con la proyección completa
+    - listitem: " Equipos completos: ranking, mapas, red de pases y comparador"
+    - listitem:  Todos los mapas de eventos y las métricas a elegir
+    - listitem:  Comparador y jugadores similares
+  - link "Quiero la promo":
+    - /url: https://www.statiskicks.com/register
+  - paragraph: El plan Fan es gratis y no pide tarjeta. Entra con tu correo o con Google.
+  - region "Comparación de planes":
+    - table:
+      - rowgroup:
+        - row "Función Fan Plus":
+          - columnheader "Función"
+          - columnheader "Fan"
+          - columnheader "Plus"
+      - rowgroup:
+        - row "Ligas 9 Las 40":
+          - rowheader "Ligas"
+          - cell "9"
+          - cell "Las 40"
+        - row "Clasificación, resultados y plantillas Incluido Incluido":
+          - rowheader "Clasificación, resultados y plantillas"
+          - cell "Incluido"
+          - cell "Incluido"
+        - row "Probabilidad de campeonato y puntos esperados Los primeros 4 Completa":
+          - rowheader "Probabilidad de campeonato y puntos esperados"
+          - cell "Los primeros 4"
+          - cell "Completa"
+        - 'row "Perfil del jugador: radar, barras y mapa de calor Incluido Incluido"':
+          - 'rowheader "Perfil del jugador: radar, barras y mapa de calor"'
+          - cell "Incluido"
+          - cell "Incluido"
+        - row "Media de la posición y atributos a elegir No incluido Incluido":
+          - rowheader "Media de la posición y atributos a elegir"
+          - cell "No incluido"
+          - cell "Incluido"
+        - row "Mapas de eventos del jugador Uno por sección Todos":
+          - rowheader "Mapas de eventos del jugador"
+          - cell "Uno por sección"
+          - cell "Todos"
+        - 'row "Equipo: ranking, mapas, red de pases y comparador No incluido Incluido"':
+          - 'rowheader "Equipo: ranking, mapas, red de pases y comparador"'
+          - cell "No incluido"
+          - cell "Incluido"
+        - row "Valoraciones scout y dispersión No incluido Incluido":
+          - rowheader "Valoraciones scout y dispersión"
+          - cell "No incluido"
+          - cell "Incluido"
+        - row "Comparador y jugadores similares No incluido Incluido":
+          - rowheader "Comparador y jugadores similares"
+          - cell "No incluido"
+          - cell "Incluido"
+        - row "Búsqueda avanzada Primeros 10 resultados Completa":
+          - rowheader "Búsqueda avanzada"
+          - cell "Primeros 10 resultados"
+          - cell "Completa"
+        - row "Estadísticas de la liga Primeros 3 de cada tabla Completas":
+          - rowheader "Estadísticas de la liga"
+          - cell "Primeros 3 de cada tabla"
+          - cell "Completas"
+        - row "Descarga de gráficas y tablas No incluido Incluido":
+          - rowheader "Descarga de gráficas y tablas"
+          - cell "No incluido"
+          - cell "Incluido"
+  - paragraph:
+    - text: Consulta el detalle completo en
+    - link "planes":
+      - /url: https://www.statiskicks.com/planes
+    - text: .
+  - heading "Clubes y agencias" [level=2]
+  - list:
+    - listitem:
+      - img "Guadalajara"
+    - listitem:
+      - img "Toluca"
+    - listitem:
+      - img "León"
+    - listitem:
+      - img "Pachuca"
+    - listitem:
+      - img "Mineros de Zacatecas"
+    - listitem:
+      - img "Venados"
+    - listitem:
+      - img "Real Oviedo"
+    - listitem:
+      - img "Central Córdoba"
+    - listitem:
+      - img "Everton de Viña del Mar"
+  - heading "Colaboraciones en medios masivos" [level=2]
+  - list:
+    - listitem:
+      - img "ESPN Deportes"
+    - listitem:
+      - img "Fox Sports México"
+    - listitem:
+      - img "TUDN"
+    - listitem:
+      - img "TV Azteca"
+    - listitem:
+      - img "Telemundo"
+    - listitem:
+      - img "TNT Sports"
+    - listitem:
+      - img "Milenio"
+    - listitem:
+      - img "Multimedios"
+    - listitem:
+      - img "Marca"
+    - listitem:
+      - img "AS"
+    - listitem:
+      - img "El Economista"
+  - heading "40 ligas esperando a que las abras." [level=2]
+  - paragraph: Crea una cuenta gratis, con tu correo o con Google, y empieza por la liga que conoces mejor. Verás antes si los números dicen lo que tú ya sabes.
+  - link "Crea tu cuenta gratis":
+    - /url: https://www.statiskicks.com/register
+  - link "Explora las ligas":
+    - /url: https://www.statiskicks.com/leagues
+  - contentinfo:
+    - img "Statiskicks"
+    - paragraph: Analiza a cualquier nivel de profundidad con datos en vivo para 40 competiciones. Rankings, radares, estilos de juego, mapas de eventos, probabilidades y proyecciones, scouting y análisis de equipos.
+    - link "contacto@statiskicks.com":
+      - /url: mailto:contacto@statiskicks.com
+    - paragraph: Explora
+    - navigation "Explora":
+      - link "Ligas":
+        - /url: https://www.statiskicks.com/leagues
+      - link "Búsqueda avanzada":
+        - /url: https://www.statiskicks.com/players
+      - link "Partidos":
+        - /url: https://www.statiskicks.com/partidos
+      - link "Planes":
+        - /url: https://www.statiskicks.com/planes
+    - paragraph: Tu cuenta
+    - navigation "Tu cuenta":
+      - link "Crear cuenta gratis":
+        - /url: https://www.statiskicks.com/register
+      - link "Iniciar sesión":
+        - /url: https://www.statiskicks.com/login
+      - link "Inicio":
+        - /url: https://www.statiskicks.com
+    - paragraph: © 2026 Statiskicks. Todos los derechos reservados.
+    - navigation "Legal":
+      - link "Términos y Condiciones de uso":
+        - /url: https://www.statiskicks.com/terminos
+      - link "Aviso de privacidad integral":
+        - /url: https://www.statiskicks.com/privacidad
+    - paragraph: "Datos de fútbol: Opta (Stats Perform)."
+  - button "Chat SK (próximamente)"

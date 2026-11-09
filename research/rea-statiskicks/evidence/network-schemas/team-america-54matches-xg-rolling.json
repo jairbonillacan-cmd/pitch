@@ -1,0 +1,735 @@
+{
+  "status": "ready",
+  "window": 5,
+  "matches": 54,
+  "first_season": "2025/2026",
+  "last": {
+    "xg": 2.051,
+    "xga": 1.399,
+    "diff": 0.652
+  },
+  "points": [
+    {
+      "date": "11/07/2025",
+      "season": "2025/2026",
+      "opponent": "Juárez",
+      "home": false,
+      "score": "1-1",
+      "manager": "André Jardine",
+      "xg": 1.0985,
+      "xga": 0.4416,
+      "rolling_xg": null,
+      "rolling_xga": null
+    },
+    {
+      "date": "16/07/2025",
+      "season": "2025/2026",
+      "opponent": "Tijuana",
+      "home": true,
+      "score": "3-1",
+      "manager": "André Jardine",
+      "xg": 1.814,
+      "xga": 0.7022,
+      "rolling_xg": null,
+      "rolling_xga": null
+    },
+    {
+      "date": "26/07/2025",
+      "season": "2025/2026",
+      "opponent": "Necaxa",
+      "home": false,
+      "score": "1-1",
+      "manager": "André Jardine",
+      "xg": 1.1677,
+      "xga": 1.2834,
+      "rolling_xg": null,
+      "rolling_xga": null
+    },
+    {
+      "date": "09/08/2025",
+      "season": "2025/2026",
+      "opponent": "Querétaro",
+      "home": true,
+      "score": "1-0",
+      "manager": "André Jardine",
+      "xg": 1.6878,
+      "xga": 0.2413,
+      "rolling_xg": null,
+      "rolling_xga": null
+    },
+    {
+      "date": "16/08/2025",
+      "season": "2025/2026",
+      "opponent": "Tigres UANL",
+      "home": false,
+      "score": "3-1",
+      "manager": "André Jardine",
+      "xg": 1.3433,
+      "xga": 1.2105,
+      "rolling_xg": 1.422,
+      "rolling_xga": 0.776
+    },
+    {
+      "date": "24/08/2025",
+      "season": "2025/2026",
+      "opponent": "Atlas",
+      "home": false,
+      "score": "4-2",
+      "manager": "André Jardine",
+      "xg": 2.8254,
+      "xga": 0.8169,
+      "rolling_xg": 1.768,
+      "rolling_xga": 0.851
+    },
+    {
+      "date": "30/08/2025",
+      "season": "2025/2026",
+      "opponent": "Pachuca",
+      "home": true,
+      "score": "2-0",
+      "manager": "André Jardine",
+      "xg": 1.3557,
+      "xga": 1.2526,
+      "rolling_xg": 1.676,
+      "rolling_xga": 0.961
+    },
+    {
+      "date": "13/09/2025",
+      "season": "2025/2026",
+      "opponent": "Guadalajara",
+      "home": true,
+      "score": "1-2",
+      "manager": "André Jardine",
+      "xg": 0.5992,
+      "xga": 1.1386,
+      "rolling_xg": 1.562,
+      "rolling_xga": 0.932
+    },
+    {
+      "date": "20/09/2025",
+      "season": "2025/2026",
+      "opponent": "Monterrey",
+      "home": false,
+      "score": "2-2",
+      "manager": "André Jardine",
+      "xg": 0.9966,
+      "xga": 2.0958,
+      "rolling_xg": 1.424,
+      "rolling_xga": 1.303
+    },
+    {
+      "date": "24/09/2025",
+      "season": "2025/2026",
+      "opponent": "Atlético San Luis",
+      "home": false,
+      "score": "1-0",
+      "manager": "André Jardine",
+      "xg": 0.6338,
+      "xga": 0.3906,
+      "rolling_xg": 1.282,
+      "rolling_xga": 1.139
+    },
+    {
+      "date": "27/09/2025",
+      "season": "2025/2026",
+      "opponent": "Pumas UNAM",
+      "home": true,
+      "score": "4-1",
+      "manager": "André Jardine",
+      "xg": 3.4762,
+      "xga": 0.5384,
+      "rolling_xg": 1.412,
+      "rolling_xga": 1.083
+    },
+    {
+      "date": "04/10/2025",
+      "season": "2025/2026",
+      "opponent": "Santos Laguna",
+      "home": true,
+      "score": "3-0",
+      "manager": "André Jardine",
+      "xg": 2.2917,
+      "xga": 0.7122,
+      "rolling_xg": 1.6,
+      "rolling_xga": 0.975
+    },
+    {
+      "date": "18/10/2025",
+      "season": "2025/2026",
+      "opponent": "Cruz Azul",
+      "home": false,
+      "score": "1-2",
+      "manager": "André Jardine",
+      "xg": 0.7281,
+      "xga": 1.4905,
+      "rolling_xg": 1.625,
+      "rolling_xga": 1.046
+    },
+    {
+      "date": "21/10/2025",
+      "season": "2025/2026",
+      "opponent": "Puebla",
+      "home": true,
+      "score": "2-1",
+      "manager": "André Jardine",
+      "xg": 1.9072,
+      "xga": 0.2935,
+      "rolling_xg": 1.807,
+      "rolling_xga": 0.685
+    },
+    {
+      "date": "24/10/2025",
+      "season": "2025/2026",
+      "opponent": "Mazatlán",
+      "home": false,
+      "score": "2-2",
+      "manager": "André Jardine",
+      "xg": 2.3642,
+      "xga": 0.2939,
+      "rolling_xg": 2.153,
+      "rolling_xga": 0.666
+    },
+    {
+      "date": "01/11/2025",
+      "season": "2025/2026",
+      "opponent": "León",
+      "home": true,
+      "score": "2-0",
+      "manager": "André Jardine",
+      "xg": 1.4731,
+      "xga": 0.4214,
+      "rolling_xg": 1.753,
+      "rolling_xga": 0.642
+    },
+    {
+      "date": "08/11/2025",
+      "season": "2025/2026",
+      "opponent": "Toluca",
+      "home": false,
+      "score": "0-2",
+      "manager": "André Jardine",
+      "xg": 0.6616,
+      "xga": 1.5633,
+      "rolling_xg": 1.427,
+      "rolling_xga": 0.813
+    },
+    {
+      "date": "26/11/2025",
+      "season": "2025/2026",
+      "opponent": "Monterrey",
+      "home": false,
+      "score": "0-2",
+      "manager": "André Jardine",
+      "xg": 0.7734,
+      "xga": 0.6575,
+      "rolling_xg": 1.436,
+      "rolling_xga": 0.646
+    },
+    {
+      "date": "29/11/2025",
+      "season": "2025/2026",
+      "opponent": "Monterrey",
+      "home": true,
+      "score": "2-1",
+      "manager": "André Jardine",
+      "xg": 1.7062,
+      "xga": 0.6586,
+      "rolling_xg": 1.396,
+      "rolling_xga": 0.719
+    },
+    {
+      "date": "09/01/2026",
+      "season": "2025/2026",
+      "opponent": "Tijuana",
+      "home": false,
+      "score": "0-0",
+      "manager": "Paulo Rodrigues",
+      "xg": 0.1331,
+      "xga": 0.5076,
+      "rolling_xg": 0.949,
+      "rolling_xga": 0.762
+    },
+    {
+      "date": "14/01/2026",
+      "season": "2025/2026",
+      "opponent": "Atlético San Luis",
+      "home": true,
+      "score": "0-2",
+      "manager": "André Jardine",
+      "xg": 0.4305,
+      "xga": 1.3955,
+      "rolling_xg": 0.741,
+      "rolling_xga": 0.956
+    },
+    {
+      "date": "18/01/2026",
+      "season": "2025/2026",
+      "opponent": "Pachuca",
+      "home": false,
+      "score": "0-0",
+      "manager": "André Jardine",
+      "xg": 0.5539,
+      "xga": 0.383,
+      "rolling_xg": 0.719,
+      "rolling_xga": 0.72
+    },
+    {
+      "date": "31/01/2026",
+      "season": "2025/2026",
+      "opponent": "Necaxa",
+      "home": true,
+      "score": "2-0",
+      "manager": "André Jardine",
+      "xg": 2.2229,
+      "xga": 0.2452,
+      "rolling_xg": 1.009,
+      "rolling_xga": 0.638
+    },
+    {
+      "date": "07/02/2026",
+      "season": "2025/2026",
+      "opponent": "Monterrey",
+      "home": true,
+      "score": "1-0",
+      "manager": "André Jardine",
+      "xg": 1.2278,
+      "xga": 0.081,
+      "rolling_xg": 0.914,
+      "rolling_xga": 0.522
+    },
+    {
+      "date": "14/02/2026",
+      "season": "2025/2026",
+      "opponent": "Guadalajara",
+      "home": false,
+      "score": "0-1",
+      "manager": "André Jardine",
+      "xg": 0.3146,
+      "xga": 1.7541,
+      "rolling_xg": 0.95,
+      "rolling_xga": 0.772
+    },
+    {
+      "date": "20/02/2026",
+      "season": "2025/2026",
+      "opponent": "Puebla",
+      "home": false,
+      "score": "4-0",
+      "manager": "André Jardine",
+      "xg": 2.5127,
+      "xga": 1.1023,
+      "rolling_xg": 1.366,
+      "rolling_xga": 0.713
+    },
+    {
+      "date": "28/02/2026",
+      "season": "2025/2026",
+      "opponent": "Tigres UANL",
+      "home": true,
+      "score": "1-4",
+      "manager": "André Jardine",
+      "xg": 0.8727,
+      "xga": 1.6275,
+      "rolling_xg": 1.43,
+      "rolling_xga": 0.962
+    },
+    {
+      "date": "04/03/2026",
+      "season": "2025/2026",
+      "opponent": "Juárez",
+      "home": true,
+      "score": "1-2",
+      "manager": "André Jardine",
+      "xg": 1.3262,
+      "xga": 2.4827,
+      "rolling_xg": 1.251,
+      "rolling_xga": 1.41
+    },
+    {
+      "date": "07/03/2026",
+      "season": "2025/2026",
+      "opponent": "Querétaro",
+      "home": false,
+      "score": "2-1",
+      "manager": "André Jardine",
+      "xg": 2.214,
+      "xga": 1.5053,
+      "rolling_xg": 1.448,
+      "rolling_xga": 1.694
+    },
+    {
+      "date": "15/03/2026",
+      "season": "2025/2026",
+      "opponent": "Mazatlán",
+      "home": true,
+      "score": "2-0",
+      "manager": "André Jardine",
+      "xg": 2.6205,
+      "xga": 0.9713,
+      "rolling_xg": 1.909,
+      "rolling_xga": 1.538
+    },
+    {
+      "date": "21/03/2026",
+      "season": "2025/2026",
+      "opponent": "Pumas UNAM",
+      "home": false,
+      "score": "0-1",
+      "manager": "André Jardine",
+      "xg": 0.3871,
+      "xga": 1.3528,
+      "rolling_xg": 1.484,
+      "rolling_xga": 1.588
+    },
+    {
+      "date": "04/04/2026",
+      "season": "2025/2026",
+      "opponent": "Santos Laguna",
+      "home": false,
+      "score": "1-1",
+      "manager": "André Jardine",
+      "xg": 1.2805,
+      "xga": 0.3869,
+      "rolling_xg": 1.566,
+      "rolling_xga": 1.34
+    },
+    {
+      "date": "11/04/2026",
+      "season": "2025/2026",
+      "opponent": "Cruz Azul",
+      "home": true,
+      "score": "1-1",
+      "manager": "André Jardine",
+      "xg": 0.3993,
+      "xga": 0.7222,
+      "rolling_xg": 1.38,
+      "rolling_xga": 0.988
+    },
+    {
+      "date": "18/04/2026",
+      "season": "2025/2026",
+      "opponent": "Toluca",
+      "home": true,
+      "score": "2-1",
+      "manager": "André Jardine",
+      "xg": 0.9709,
+      "xga": 1.0589,
+      "rolling_xg": 1.132,
+      "rolling_xga": 0.898
+    },
+    {
+      "date": "21/04/2026",
+      "season": "2025/2026",
+      "opponent": "León",
+      "home": false,
+      "score": "3-2",
+      "manager": "André Jardine",
+      "xg": 1.8203,
+      "xga": 1.2092,
+      "rolling_xg": 0.972,
+      "rolling_xga": 0.946
+    },
+    {
+      "date": "25/04/2026",
+      "season": "2025/2026",
+      "opponent": "Atlas",
+      "home": true,
+      "score": "0-1",
+      "manager": "André Jardine",
+      "xg": 1.086,
+      "xga": 0.5115,
+      "rolling_xg": 1.111,
+      "rolling_xga": 0.778
+    },
+    {
+      "date": "03/05/2026",
+      "season": "2025/2026",
+      "opponent": "Pumas UNAM",
+      "home": true,
+      "score": "3-3",
+      "manager": "André Jardine",
+      "xg": 2.9403,
+      "xga": 0.4174,
+      "rolling_xg": 1.443,
+      "rolling_xga": 0.784
+    },
+    {
+      "date": "10/05/2026",
+      "season": "2025/2026",
+      "opponent": "Pumas UNAM",
+      "home": false,
+      "score": "3-3",
+      "manager": "André Jardine",
+      "xg": 3.46,
+      "xga": 1.0428,
+      "rolling_xg": 2.056,
+      "rolling_xga": 0.848
+    },
+    {
+      "date": "18/07/2026",
+      "season": "2026/2027",
+      "opponent": "Querétaro",
+      "home": false,
+      "score": "1-0",
+      "manager": "Guillermo Almada",
+      "xg": 1.641,
+      "xga": 0.9513,
+      "rolling_xg": 2.19,
+      "rolling_xga": 0.826
+    },
+    {
+      "date": "24/07/2026",
+      "season": "2026/2027",
+      "opponent": "Atlante",
+      "home": false,
+      "score": "1-1",
+      "manager": "Guillermo Almada",
+      "xg": 1.5036,
+      "xga": 0.7843,
+      "rolling_xg": 2.126,
+      "rolling_xga": 0.741
+    },
+    {
+      "date": "02/08/2026",
+      "season": "2026/2027",
+      "opponent": "Santos Laguna",
+      "home": true,
+      "score": "3-0",
+      "manager": "Guillermo Almada",
+      "xg": 1.9001,
+      "xga": 2.2499,
+      "rolling_xg": 2.289,
+      "rolling_xga": 1.089
+    },
+    {
+      "date": "16/08/2026",
+      "season": "2026/2027",
+      "opponent": "Atlético San Luis",
+      "home": true,
+      "score": "3-0",
+      "manager": "Guillermo Almada",
+      "xg": 1.984,
+      "xga": 0.9055,
+      "rolling_xg": 2.098,
+      "rolling_xga": 1.187
+    },
+    {
+      "date": "21/08/2026",
+      "season": "2026/2027",
+      "opponent": "Juárez",
+      "home": false,
+      "score": "2-1",
+      "manager": "Guillermo Almada",
+      "xg": 1.9304,
+      "xga": 1.368,
+      "rolling_xg": 1.792,
+      "rolling_xga": 1.252
+    },
+    {
+      "date": "29/08/2026",
+      "season": "2026/2027",
+      "opponent": "Puebla",
+      "home": true,
+      "score": "2-0",
+      "manager": "Guillermo Almada",
+      "xg": 0.8449,
+      "xga": 1.0074,
+      "rolling_xg": 1.633,
+      "rolling_xga": 1.263
+    },
+    {
+      "date": "12/09/2026",
+      "season": "2026/2027",
+      "opponent": "Cruz Azul",
+      "home": false,
+      "score": "3-4",
+      "manager": "Guillermo Almada",
+      "xg": 2.3008,
+      "xga": 2.1366,
+      "rolling_xg": 1.792,
+      "rolling_xga": 1.533
+    },
+    {
+      "date": "19/09/2026",
+      "season": "2026/2027",
+      "opponent": "Guadalajara",
+      "home": true,
+      "score": "2-2",
+      "manager": "Guillermo Almada",
+      "xg": 0.9898,
+      "xga": 1.9205,
+      "rolling_xg": 1.61,
+      "rolling_xga": 1.468
+    },
+    {
+      "date": "27/09/2026",
+      "season": "2026/2027",
+      "opponent": "Necaxa",
+      "home": false,
+      "score": "4-2",
+      "manager": "Guillermo Almada",
+      "xg": 4.3956,
+      "xga": 2.661,
+      "rolling_xg": 2.092,
+      "rolling_xga": 1.819
+    },
+    {
+      "date": "10/10/2026",
+      "season": "2026/2027",
+      "opponent": "Monterrey",
+      "home": true,
+      "score": "1-1",
+      "manager": "Guillermo Almada",
+      "xg": 1.5622,
+      "xga": 0.5109,
+      "rolling_xg": 2.019,
+      "rolling_xga": 1.647
+    },
+    {
+      "date": "17/10/2026",
+      "season": "2026/2027",
+      "opponent": "León",
+      "home": false,
+      "score": "5-3",
+      "manager": "Guillermo Almada",
+      "xg": 2.1301,
+      "xga": 1.5648,
+      "rolling_xg": 2.276,
+      "rolling_xga": 1.759
+    },
+    {
+      "date": "21/10/2026",
+      "season": "2026/2027",
+      "opponent": "Atlas",
+      "home": false,
+      "score": "5-2",
+      "manager": "Guillermo Almada",
+      "xg": 2.18,
+      "xga": 2.4794,
+      "rolling_xg": 2.252,
+      "rolling_xga": 1.827
+    },
+    {
+      "date": "25/10/2026",
+      "season": "2026/2027",
+      "opponent": "Pachuca",
+      "home": true,
+      "score": "1-2",
+      "manager": "Guillermo Almada",
+      "xg": 2.7074,
+      "xga": 0.6686,
+      "rolling_xg": 2.595,
+      "rolling_xga": 1.577
+    },
+    {
+      "date": "28/10/2026",
+      "season": "2026/2027",
+      "opponent": "Tijuana",
+      "home": true,
+      "score": "1-1",
+      "manager": "Guillermo Almada",
+      "xg": 1.5348,
+      "xga": 0.4016,
+      "rolling_xg": 2.023,
+      "rolling_xga": 1.125
+    },
+    {
+      "date": "31/10/2026",
+      "season": "2026/2027",
+      "opponent": "Toluca",
+      "home": true,
+      "score": "2-2",
+      "manager": "Guillermo Almada",
+      "xg": 2.0005,
+      "xga": 1.8748,
+      "rolling_xg": 2.111,
+      "rolling_xga": 1.398
+    },
+    {
+      "date": "07/11/2026",
+      "season": "2026/2027",
+      "opponent": "Pumas UNAM",
+      "home": false,
+      "score": "2-2",
+      "manager": "Guillermo Almada",
+      "xg": 1.8345,
+      "xga": 1.5715,
+      "rolling_xg": 2.051,
+      "rolling_xga": 1.399
+    }
+  ],
+  "coach_changes": [
+    {
+      "index": 38,
+      "manager": "Guillermo Almada"
+    }
+  ],
+  "season_starts": [
+    {
+      "index": 38,
+      "label": "2026/2027"
+    }
+  ],
+  "month_ticks": [
+    {
+      "index": 0,
+      "label": "jul 2025"
+    },
+    {
+      "index": 3,
+      "label": "ago"
+    },
+    {
+      "index": 7,
+      "label": "sep"
+    },
+    {
+      "index": 11,
+      "label": "oct"
+    },
+    {
+      "index": 15,
+      "label": "nov"
+    },
+    {
+      "index": 19,
+      "label": "ene 2026"
+    },
+    {
+      "index": 23,
+      "label": "feb"
+    },
+    {
+      "index": 27,
+      "label": "mar"
+    },
+    {
+      "index": 31,
+      "label": "abr"
+    },
+    {
+      "index": 36,
+      "label": "may"
+    },
+    {
+      "index": 38,
+      "label": "jul"
+    },
+    {
+      "index": 40,
+      "label": "ago"
+    },
+    {
+      "index": 44,
+      "label": "sep"
+    },
+    {
+      "index": 47,
+      "label": "oct"
+    },
+    {
+      "index": 53,
+      "label": "nov"
+    }
+  ]
+}

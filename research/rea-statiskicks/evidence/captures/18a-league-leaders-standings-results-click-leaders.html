@@ -1,0 +1,2650 @@
+<!DOCTYPE html><html lang="es" data-theme="light"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Statiskicks — Scouting Software</title>
+  <link rel="icon" type="image/x-icon" href="https://www.statiskicks.com/custom_assets/logos/logo_white.png?v=1787321828">
+
+  
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+  
+  <link href="https://www.statiskicks.com/custom_assets/css/sk.css?v=1794168592" rel="stylesheet" data-navigate-track="">
+  <link href="https://www.statiskicks.com/custom_assets/css/nav-mega-menu.css?v=1791380772" rel="stylesheet" data-navigate-track="">
+  
+  <link rel="preload" as="image" href="https://www.statiskicks.com/custom_assets/logos/footer_logo.png?v=1787321828">
+  <link href="https://www.statiskicks.com/custom_assets/css/page-loader.css?v=1791380772" rel="stylesheet" data-navigate-track="">
+
+  <link href="https://www.statiskicks.com/custom_assets/css/match-list.css?v=1793360776" rel="stylesheet">
+<link href="https://www.statiskicks.com/custom_assets/css/league-detail.css?v=1794084628" rel="stylesheet">
+  <!-- Livewire Styles --><style>[wire\:loading][wire\:loading], [wire\:loading\.delay][wire\:loading\.delay], [wire\:loading\.list-item][wire\:loading\.list-item], [wire\:loading\.inline-block][wire\:loading\.inline-block], [wire\:loading\.inline][wire\:loading\.inline], [wire\:loading\.block][wire\:loading\.block], [wire\:loading\.flex][wire\:loading\.flex], [wire\:loading\.table][wire\:loading\.table], [wire\:loading\.grid][wire\:loading\.grid], [wire\:loading\.inline-flex][wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.none][wire\:loading\.delay\.none], [wire\:loading\.delay\.shortest][wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter][wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short][wire\:loading\.delay\.short], [wire\:loading\.delay\.default][wire\:loading\.delay\.default], [wire\:loading\.delay\.long][wire\:loading\.delay\.long], [wire\:loading\.delay\.longer][wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest][wire\:loading\.delay\.longest] {display: none;}[wire\:offline][wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}:root {--livewire-progress-bar-color: #2299dd;}[x-cloak] {display: none !important;}[wire\:cloak] {display: none !important;}dialog#livewire-error::backdrop {background-color: rgba(0, 0, 0, .6);}</style>
+
+<style>/* Make clicks pass-through */
+
+    #nprogress {
+      pointer-events: none;
+    }
+
+    #nprogress .bar {
+      background: var(--livewire-progress-bar-color, #29d);
+
+      position: fixed;
+      z-index: 1031;
+      top: 0;
+      left: 0;
+
+      width: 100%;
+      height: 2px;
+    }
+
+    /* Fancy blur effect */
+    #nprogress .peg {
+      display: block;
+      position: absolute;
+      right: 0px;
+      width: 100px;
+      height: 100%;
+      box-shadow: 0 0 10px var(--livewire-progress-bar-color, #29d), 0 0 5px var(--livewire-progress-bar-color, #29d);
+      opacity: 1.0;
+
+      -webkit-transform: rotate(3deg) translate(0px, -4px);
+          -ms-transform: rotate(3deg) translate(0px, -4px);
+              transform: rotate(3deg) translate(0px, -4px);
+    }
+
+    /* Remove these to get rid of the spinner */
+    #nprogress .spinner {
+      display: block;
+      position: fixed;
+      z-index: 1031;
+      top: 15px;
+      right: 15px;
+    }
+
+    #nprogress .spinner-icon {
+      width: 18px;
+      height: 18px;
+      box-sizing: border-box;
+
+      border: solid 2px transparent;
+      border-top-color: var(--livewire-progress-bar-color, #29d);
+      border-left-color: var(--livewire-progress-bar-color, #29d);
+      border-radius: 50%;
+
+      -webkit-animation: nprogress-spinner 400ms linear infinite;
+              animation: nprogress-spinner 400ms linear infinite;
+    }
+
+    .nprogress-custom-parent {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .nprogress-custom-parent #nprogress .spinner,
+    .nprogress-custom-parent #nprogress .bar {
+      position: absolute;
+    }
+
+    @-webkit-keyframes nprogress-spinner {
+      0%   { -webkit-transform: rotate(0deg); }
+      100% { -webkit-transform: rotate(360deg); }
+    }
+    @keyframes nprogress-spinner {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    </style></head>
+<body>
+
+  <div x-persist="sk-page-loader">
+  <div class="sk-loader" data-page-loader="" hidden="" aria-hidden="true">
+    <div class="sk-loader__stage">
+      <div class="sk-loader__mark">
+        <span class="sk-loader__empty"></span>
+
+        <span class="sk-loader__water">
+          <span class="sk-loader__wave--back"></span>
+          <span class="sk-loader__wave"></span>
+          <span class="sk-loader__bubble"></span>
+          <span class="sk-loader__bubble"></span>
+          <span class="sk-loader__bubble"></span>
+          <span class="sk-loader__bubble"></span>
+        </span>
+
+        <span class="sk-loader__shine"></span>
+      </div>
+
+      <p class="sk-loader__label">Cargando</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  /*
+    Shown on wire:navigate, hidden on livewire:navigated.
+
+    Two timings matter more than the animation does:
+
+      DELAY        Most pages here render in well under 200ms. Flashing an
+                   overlay on every click makes a fast app feel busy, so nothing
+                   appears unless the navigation is actually slow enough to
+                   notice.
+
+      MIN_VISIBLE  Once it has appeared, it stays long enough to read as a
+                   deliberate transition. Without this, a navigation finishing
+                   at 210ms produces a 30ms flicker, which looks like a glitch
+                   rather than a loader.
+
+    Bound once per document: this file is inside the persisted region, and
+    wire:navigate re-executes cloned <script> tags, so without the guard every
+    navigation would add another pair of listeners.
+  */
+  (function () {
+    if (window.skPageLoaderBound) return;
+    window.skPageLoaderBound = true;
+
+    const DELAY = 190;
+    const MIN_VISIBLE = 620;
+    const UNLOAD_FAILSAFE = 10000;
+
+    let showTimer = null;
+    let hideTimer = null;
+    let failsafeTimer = null;
+    let shownAt = 0;
+
+    const el = () => document.querySelector('[data-page-loader]');
+
+    function reveal() {
+      const node = el();
+      if (!node) return;
+
+      node.hidden = false;
+      node.setAttribute('aria-hidden', 'false');
+      node.setAttribute('aria-busy', 'true');
+      // Read back before adding the class so the opacity transition runs
+      // instead of being collapsed with the display change.
+      void node.offsetWidth;
+      node.classList.add('is-visible');
+      shownAt = Date.now();
+    }
+
+    function conceal() {
+      const node = el();
+      if (!node) return;
+
+      node.classList.remove('is-visible');
+      node.setAttribute('aria-hidden', 'true');
+      node.removeAttribute('aria-busy');
+
+      // Kept in the layout until the fade finishes, then taken out of the
+      // accessibility tree entirely.
+      hideTimer = window.setTimeout(() => { node.hidden = true; }, 260);
+    }
+
+    // `armFailsafe` is only ever true for beforeunload; see the listeners below.
+    function start(armFailsafe) {
+      window.clearTimeout(showTimer);
+      window.clearTimeout(hideTimer);
+      window.clearTimeout(failsafeTimer);
+
+      showTimer = window.setTimeout(reveal, DELAY);
+
+      if (armFailsafe) {
+        failsafeTimer = window.setTimeout(finish, UNLOAD_FAILSAFE);
+      }
+    }
+
+    function finish() {
+      window.clearTimeout(showTimer);
+      window.clearTimeout(failsafeTimer);
+
+      const node = el();
+
+      if (!node || node.hidden) {
+        shownAt = 0;
+
+        return;
+      }
+
+      const elapsed = Date.now() - shownAt;
+
+      if (elapsed >= MIN_VISIBLE) {
+        conceal();
+      } else {
+        window.setTimeout(conceal, MIN_VISIBLE - elapsed);
+      }
+    }
+
+    /*
+      No failsafe on wire:navigate, deliberately.
+
+      There was a blanket 10s timeout here, and it could not tell a navigation
+      that had died from one that was merely slow. Any page slower than that had
+      its overlay concealed mid-flight, dropping the user back on the page they
+      had just left with no feedback until the response finally arrived — and a
+      league page currently renders in 10–27s, so this was the ordinary case
+      rather than the edge case. Raising the number only moves the cliff.
+
+      Nothing here needs rescuing: a wire:navigate always resolves. Livewire
+      either swaps the page in and fires livewire:navigated, or gives up and
+      falls back to a full page load, which replaces this overlay along with the
+      rest of the document.
+    */
+    document.addEventListener('livewire:navigate', () => start(false));
+    document.addEventListener('livewire:navigated', finish);
+
+    // Leaving for a full page load (a form post, a plain link) deserves the same
+    // feedback, and this is the case that genuinely needs the timeout:
+    // beforeunload also fires for things that do not actually unload the page —
+    // a mailto:, a download, a cancelled navigation — and revealing without one
+    // would strand the overlay on a page that never goes anywhere. The plans
+    // page is full of mailto: links.
+    window.addEventListener('beforeunload', () => start(true));
+
+    // Coming back through the cache should never show a stale overlay.
+    window.addEventListener('pageshow', (event) => { if (event.persisted) finish(); });
+  })();
+</script>
+
+    <div x-persist="navbar">
+      <nav class="sk-navbar">
+    <a href="https://www.statiskicks.com " wire:navigate="" class="brand">
+        <img src="https://www.statiskicks.com/custom_assets/logos/logo_white.png?v=1787321828" alt="Logo">
+    </a>
+
+    
+    <ul class="nav-links">
+            <li class="nav-item nav-item--dropdown">
+        <a href="https://www.statiskicks.com/leagues" wire:navigate="" data-nav-match="https://www.statiskicks.com/leagues|https://www.statiskicks.com/league" class="is-active" aria-current="page">Ligas</a>
+        <div class="nav-mega-menu nav-mega-menu--leagues" role="region" aria-label="Menú de ligas">
+    <div class="nav-mega-menu__inner">
+        <div class="nav-mega-menu__body">
+            <aside class="nav-mega-menu__aside" aria-label="Accesos rápidos">
+                <div class="nav-mega-menu__col">
+                    <p class="nav-mega-menu__heading">Explorar</p>
+                    <ul class="nav-mega-menu__list">
+                                                    <li class="nav-mega-menu__item">
+                                <a href="https://www.statiskicks.com/leagues" wire:navigate="" class="nav-mega-menu__link nav-mega-menu__link--primary">
+                                    Todas las ligas
+                                </a>
+                            </li>
+                                                    <li class="nav-mega-menu__item">
+                                <a href="https://www.statiskicks.com/players" wire:navigate="" class="nav-mega-menu__link nav-mega-menu__link--primary">
+                                    Búsqueda de jugadores
+                                </a>
+                            </li>
+                                            </ul>
+                </div>
+
+                <div class="nav-mega-menu__col">
+                    <p class="nav-mega-menu__heading">Top ligas</p>
+                    <ul class="nav-mega-menu__list">
+                                                    <li class="nav-mega-menu__item">
+                                <a href="https://www.statiskicks.com/league/2kwbbcootiqqgmrzs6o5inle5" wire:navigate="" class="nav-mega-menu__link">
+                                    <span class="nav-mega-menu__link-name">Premier League</span>
+                                    <span class="nav-mega-menu__link-meta">ENGLAND</span>
+                                </a>
+                            </li>
+                                                    <li class="nav-mega-menu__item">
+                                <a href="https://www.statiskicks.com/league/34pl8szyvrbwcmfkuocjm3r6t" wire:navigate="" class="nav-mega-menu__link">
+                                    <span class="nav-mega-menu__link-name">Primera División</span>
+                                    <span class="nav-mega-menu__link-meta">SPAIN</span>
+                                </a>
+                            </li>
+                                                    <li class="nav-mega-menu__item">
+                                <a href="https://www.statiskicks.com/league/6by3h89i2eykc341oz7lv1ddd" wire:navigate="" class="nav-mega-menu__link">
+                                    <span class="nav-mega-menu__link-name">Bundesliga</span>
+                                    <span class="nav-mega-menu__link-meta">GERMANY</span>
+                                </a>
+                            </li>
+                                                    <li class="nav-mega-menu__item">
+                                <a href="https://www.statiskicks.com/league/1r097lpxe0xn03ihb7wi98kao" wire:navigate="" class="nav-mega-menu__link">
+                                    <span class="nav-mega-menu__link-name">Serie A</span>
+                                    <span class="nav-mega-menu__link-meta">ITALY</span>
+                                </a>
+                            </li>
+                                                    <li class="nav-mega-menu__item">
+                                <a href="https://www.statiskicks.com/league/dm5ka0os1e3dxcp3vh05kmp33" wire:navigate="" class="nav-mega-menu__link">
+                                    <span class="nav-mega-menu__link-name">Ligue 1</span>
+                                    <span class="nav-mega-menu__link-meta">FRANCE</span>
+                                </a>
+                            </li>
+                                            </ul>
+                </div>
+            </aside>
+
+            <div class="nav-mega-menu__regions-wrap">
+                                    <div class="nav-mega-menu__regions nav-mega-menu__regions--primary">
+                                                    <div class="nav-mega-menu__col">
+    <p class="nav-mega-menu__heading">EUROPA</p>
+    <ul class="nav-mega-menu__list">
+                    <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/league/722fdbecxzcq9788l6jqclzlw" wire:navigate="" class="nav-mega-menu__link">
+                    <span class="nav-mega-menu__link-name">2. Bundesliga</span>
+                    <span class="nav-mega-menu__link-meta">GERMANY</span>
+                </a>
+            </li>
+                    <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/league/6by3h89i2eykc341oz7lv1ddd" wire:navigate="" class="nav-mega-menu__link">
+                    <span class="nav-mega-menu__link-name">Bundesliga</span>
+                    <span class="nav-mega-menu__link-meta">GERMANY</span>
+                </a>
+            </li>
+                    <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/league/7ntvbsyq31jnzoqoa8850b9b8" wire:navigate="" class="nav-mega-menu__link">
+                    <span class="nav-mega-menu__link-name">Championship</span>
+                    <span class="nav-mega-menu__link-meta">ENGLAND</span>
+                </a>
+            </li>
+                    <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/league/akmkihra9ruad09ljapsm84b3" wire:navigate="" class="nav-mega-menu__link">
+                    <span class="nav-mega-menu__link-name">Eredivisie</span>
+                    <span class="nav-mega-menu__link-meta">NETHERLANDS</span>
+                </a>
+            </li>
+                    <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/league/4zwgbb66rif2spcoeeol2motx" wire:navigate="" class="nav-mega-menu__link">
+                    <span class="nav-mega-menu__link-name">First Division A</span>
+                    <span class="nav-mega-menu__link-meta">BELGIUM</span>
+                </a>
+            </li>
+                    <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/league/1b70m6qtxrp75b4vtk8hxh8c3" wire:navigate="" class="nav-mega-menu__link">
+                    <span class="nav-mega-menu__link-name">HNL</span>
+                    <span class="nav-mega-menu__link-meta">CROATIA</span>
+                </a>
+            </li>
+                                        <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/leagues?f=europe" wire:navigate="" class="nav-mega-menu__link nav-mega-menu__link--more">
+                    Ver todas en EUROPA
+                </a>
+            </li>
+            </ul>
+</div>
+                                                    <div class="nav-mega-menu__col">
+    <p class="nav-mega-menu__heading">AMÉRICA</p>
+    <ul class="nav-mega-menu__list">
+                    <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/league/5y0z0l2epprzbscvzsgldw8vu" wire:navigate="" class="nav-mega-menu__link">
+                    <span class="nav-mega-menu__link-name">Division Profesional</span>
+                    <span class="nav-mega-menu__link-meta">PARAGUAY</span>
+                </a>
+            </li>
+                    <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/league/a9vrdkelbgif0gtu3wxsr75xo" wire:navigate="" class="nav-mega-menu__link">
+                    <span class="nav-mega-menu__link-name">Liga 1</span>
+                    <span class="nav-mega-menu__link-meta">PERU</span>
+                </a>
+            </li>
+                    <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/league/2hsidwomhjsaaytdy9u5niyi4" wire:navigate="" class="nav-mega-menu__link" data-current="">
+                    <span class="nav-mega-menu__link-name">Liga MX</span>
+                    <span class="nav-mega-menu__link-meta">MEXICO</span>
+                </a>
+            </li>
+                    <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/league/7ut48s80k421xixh6ev5i6h62" wire:navigate="" class="nav-mega-menu__link">
+                    <span class="nav-mega-menu__link-name">Liga MX Femenil</span>
+                    <span class="nav-mega-menu__link-meta">MEXICO</span>
+                </a>
+            </li>
+                    <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/league/6lwpjhktjhl9g7x2w7njmzva6" wire:navigate="" class="nav-mega-menu__link">
+                    <span class="nav-mega-menu__link-name">Liga Pro</span>
+                    <span class="nav-mega-menu__link-meta">ECUADOR</span>
+                </a>
+            </li>
+                    <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/league/581t4mywybx21wcpmpykhyzr3" wire:navigate="" class="nav-mega-menu__link">
+                    <span class="nav-mega-menu__link-name">Liga Profesional Argentina</span>
+                    <span class="nav-mega-menu__link-meta">ARGENTINA</span>
+                </a>
+            </li>
+                                        <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/leagues?f=americas" wire:navigate="" class="nav-mega-menu__link nav-mega-menu__link--more">
+                    Ver todas en AMÉRICA
+                </a>
+            </li>
+            </ul>
+</div>
+                                                    <div class="nav-mega-menu__col">
+    <p class="nav-mega-menu__heading">ASIA</p>
+    <ul class="nav-mega-menu__list">
+                    <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/league/ea0h6cf3bhl698hkxhpulh2zz" wire:navigate="" class="nav-mega-menu__link">
+                    <span class="nav-mega-menu__link-name">Saudi League</span>
+                    <span class="nav-mega-menu__link-meta">SAUDI ARABIA</span>
+                </a>
+            </li>
+                    <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/league/xaouuwuk8qyhv1libkeexwjh" wire:navigate="" class="nav-mega-menu__link">
+                    <span class="nav-mega-menu__link-name">Stars League</span>
+                    <span class="nav-mega-menu__link-meta">QATAR</span>
+                </a>
+            </li>
+                    </ul>
+</div>
+                                            </div>
+                
+                            </div>
+        </div>
+
+        <footer class="nav-mega-menu__footer">
+            <a href="https://www.statiskicks.com/leagues" wire:navigate="" class="nav-mega-menu__view-all">
+                Ver las 40+ ligas
+            </a>
+        </footer>
+    </div>
+</div>
+      </li>
+      <li class="nav-item nav-item--dropdown">
+        <a href="https://www.statiskicks.com/players" wire:navigate="" data-nav-match="https://www.statiskicks.com/players|https://www.statiskicks.com/player" class="">Scouting</a>
+        <div class="nav-mega-menu nav-mega-menu--compact" role="region" aria-label="Menú de scouting">
+    <div class="nav-mega-menu__inner">
+        <div class="nav-mega-menu__grid nav-mega-menu__grid--compact">
+            <div class="nav-mega-menu__col">
+                <p class="nav-mega-menu__heading">Scouting</p>
+                <ul class="nav-mega-menu__list">
+                    <li class="nav-mega-menu__item">
+                        <a href="https://www.statiskicks.com/players" wire:navigate="" class="nav-mega-menu__link nav-mega-menu__link--primary">
+                            Búsqueda avanzada
+                        </a>
+                    </li>
+                    <li class="nav-mega-menu__item">
+                        <a href="https://www.statiskicks.com" wire:navigate="" class="nav-mega-menu__link">
+                            <span class="nav-mega-menu__link-name">Inicio</span>
+                            <span class="nav-mega-menu__link-meta">Resumen</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="nav-mega-menu__col">
+                <p class="nav-mega-menu__heading">Herramientas</p>
+                <ul class="nav-mega-menu__list">
+                    <li class="nav-mega-menu__item">
+                        <span class="nav-mega-menu__link nav-mega-menu__link--disabled">
+                            <span class="nav-mega-menu__link-name">Comparar jugadores</span>
+                            <span class="nav-mega-menu__link-meta">Próximamente</span>
+                        </span>
+                    </li>
+                    <li class="nav-mega-menu__item">
+                        <span class="nav-mega-menu__link nav-mega-menu__link--disabled">
+                            <span class="nav-mega-menu__link-name">Listas de seguimiento</span>
+                            <span class="nav-mega-menu__link-meta">Próximamente</span>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+      </li>
+      <li class="nav-item nav-item--dropdown">
+        <a href="https://www.statiskicks.com/partidos" wire:navigate="" data-nav-match="https://www.statiskicks.com/partidos" class="">Partidos</a>
+        <div class="nav-mega-menu nav-mega-menu--compact" role="region" aria-label="Menú de partidos">
+    <div class="nav-mega-menu__inner">
+        <div class="nav-mega-menu__grid nav-mega-menu__grid--compact">
+            <div class="nav-mega-menu__col">
+                <p class="nav-mega-menu__heading">Partidos</p>
+                <ul class="nav-mega-menu__list">
+                                            <li class="nav-mega-menu__item">
+                            <a href="https://www.statiskicks.com/partidos" wire:navigate="" class="nav-mega-menu__link">
+                                <span class="nav-mega-menu__link-name">Partidos de hoy</span>
+                                <span class="nav-mega-menu__link-meta">Todas las ligas</span>
+                            </a>
+                        </li>
+                                            <li class="nav-mega-menu__item">
+                            <a href="https://www.statiskicks.com/partidos?estado=en-vivo" wire:navigate="" class="nav-mega-menu__link">
+                                <span class="nav-mega-menu__link-name">En vivo</span>
+                                <span class="nav-mega-menu__link-meta">Marcadores al minuto</span>
+                            </a>
+                        </li>
+                                            <li class="nav-mega-menu__item">
+                            <a href="https://www.statiskicks.com/partidos?estado=finalizados" wire:navigate="" class="nav-mega-menu__link">
+                                <span class="nav-mega-menu__link-name">Resultados</span>
+                                <span class="nav-mega-menu__link-meta">Los ya terminados</span>
+                            </a>
+                        </li>
+                                            <li class="nav-mega-menu__item">
+                            <a href="https://www.statiskicks.com/partidos?estado=por-jugar" wire:navigate="" class="nav-mega-menu__link">
+                                <span class="nav-mega-menu__link-name">Próximos</span>
+                                <span class="nav-mega-menu__link-meta">Lo que falta por jugar</span>
+                            </a>
+                        </li>
+                                    </ul>
+            </div>
+        </div>
+    </div>
+</div>
+      </li>
+      
+      <li class="nav-item">
+        <a href="https://www.statiskicks.com/contacto" wire:navigate="" data-nav-match="https://www.statiskicks.com/contacto" class="">Contacto</a>
+      </li>
+    </ul>
+
+    <div class="right-group">
+      <button type="button" class="sk-search sk-search-trigger" data-open-navbar-search="" aria-label="Buscar jugadores">
+        <i class="bi bi-search"></i>
+        <span class="sk-search-placeholder">Buscar</span>
+      </button>
+      <button class="btn-theme-toggle" id="themeToggle" aria-label="Cambiar tema" data-sk-bound="1">
+        <i class="bi bi-moon-fill" id="themeIcon"></i>
+      </button>      
+      <a href="https://www.statiskicks.com/login" style="text-decoration: none;">
+    <button class="btn-iniciar">Iniciar Sesión</button>
+  </a>
+    </div>
+
+    <!-- Hamburger toggle (mobile only) -->
+    <button class="btn-nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false" data-sk-bound="1">
+      <i class="bi bi-list" id="navToggleIcon"></i>
+    </button>
+  </nav>
+
+  <!-- Mobile nav drawer -->
+  <div class="sk-nav-drawer" id="navDrawer" role="dialog" aria-label="Menú de navegación">
+    <ul class="drawer-links">
+            <li><a href="https://www.statiskicks.com/leagues" wire:navigate="">Ligas</a></li>
+      <li><a href="https://www.statiskicks.com/players" wire:navigate="">Scouting</a></li>
+      <li><a href="https://www.statiskicks.com/partidos" wire:navigate="">Partidos</a></li>
+      <li><a href="https://www.statiskicks.com/contacto" wire:navigate="">Contacto</a></li>
+    </ul>
+    <div class="drawer-actions">
+      <button type="button" class="sk-search sk-search-trigger" style="flex:1" data-open-navbar-search="" aria-label="Buscar jugadores">
+        <i class="bi bi-search"></i>
+        <span class="sk-search-placeholder">Buscar</span>
+      </button>
+      <button class="btn-theme-toggle" id="themeToggleMobile" aria-label="Cambiar tema" data-sk-bound="1">
+        <i class="bi bi-moon-fill" id="themeIconMobile"></i>
+      </button>
+      <a href="https://www.statiskicks.com/login" style="text-decoration: none;">
+    <button class="btn-iniciar">Iniciar Sesión</button>
+  </a>
+    </div>
+  </div>
+
+  <script>
+    // Navbar behaviour: the account dropdown and the search trigger.
+    //
+    // Bound once per document. wire:navigate rebuilds the body and clones its
+    // <script> tags, which re-executes this file on every navigation, so
+    // without the guard a second identical listener is added each time. Two
+    // listeners defeat a toggle: the first opens the panel, the second reads it
+    // as already open and closes it again, so the menu worked only on the page
+    // that was loaded first. The listeners are delegated from `document`, which
+    // is never replaced, so binding once is both necessary and sufficient.
+    (function () {
+      if (window.skNavbarBound) return;
+      window.skNavbarBound = true;
+
+      function closeAccountPanels(except) {
+        document.querySelectorAll('[data-account-panel]').forEach((panel) => {
+          if (panel === except) return;
+
+          panel.hidden = true;
+          panel.closest('[data-account-menu]')
+            ?.querySelector('[data-account-trigger]')
+            ?.setAttribute('aria-expanded', 'false');
+        });
+      }
+
+      document.addEventListener('click', (event) => {
+        const trigger = event.target.closest('[data-account-trigger]');
+
+        if (trigger) {
+          const panel = trigger.closest('[data-account-menu]')?.querySelector('[data-account-panel]');
+          const opening = panel?.hidden === true;
+
+          closeAccountPanels(panel);
+
+          if (panel) {
+            panel.hidden = ! opening;
+            trigger.setAttribute('aria-expanded', opening ? 'true' : 'false');
+          }
+
+          return;
+        }
+
+        // A click inside the panel (the logout form) must not close it first.
+        if (event.target.closest('[data-account-panel]')) return;
+
+        closeAccountPanels();
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') closeAccountPanels();
+      });
+
+      /*
+        Which item is lit.
+
+        The bar sits in a persisted region, so wire:navigate keeps this DOM
+        rather than re-rendering it - which means the is-active class Blade wrote
+        on the first load would still be describing that first page several
+        navigations later.
+
+        (Naming the directive here would be a mistake: Blade reads its own
+        directives inside JavaScript comments too, and an unclosed one takes the
+        whole template down with a 500.) Server-rendered markup cannot answer this on its own; it has to be
+        recomputed on arrival.
+
+        Ownership is by path prefix, because a section is more than one route:
+        /league/{id} belongs to Ligas and /player/{id} to Scouting, and neither
+        matches its own index URL.
+      */
+      function syncActiveNav() {
+        const here = window.location.pathname.replace(/\/+$/, '') || '/';
+
+        document.querySelectorAll('.sk-navbar .nav-links [data-nav-match]').forEach((link) => {
+          const owns = link.dataset.navMatch.split('|').some((candidate) => {
+            let path;
+
+            try {
+              path = new URL(candidate, window.location.origin).pathname;
+            } catch (error) {
+              return false;
+            }
+
+            path = path.replace(/\/+$/, '') || '/';
+
+            // Prefix, but only on a segment boundary: /player must not claim
+            // /players.
+            return here === path || here.startsWith(path + '/');
+          });
+
+          link.classList.toggle('is-active', owns);
+
+          if (owns) {
+            link.setAttribute('aria-current', 'page');
+          } else {
+            link.removeAttribute('aria-current');
+          }
+        });
+      }
+
+      // Close on navigation: the navbar is persisted, so an open panel would
+      // otherwise still be hanging open on the page just navigated to.
+      document.addEventListener('livewire:navigated', () => {
+        closeAccountPanels();
+        syncActiveNav();
+      });
+
+      syncActiveNav();
+
+      document.addEventListener('click', (event) => {
+        const trigger = event.target.closest('[data-open-navbar-search]');
+        if (!trigger) return;
+
+        event.preventDefault();
+        window.dispatchEvent(new CustomEvent('navbar-search-open'));
+
+        const drawer = document.getElementById('navDrawer');
+        const navToggle = document.getElementById('navToggle');
+        const navToggleIcon = document.getElementById('navToggleIcon');
+
+        if (drawer?.classList.contains('open')) {
+          drawer.classList.remove('open');
+          navToggle?.setAttribute('aria-expanded', 'false');
+          if (navToggleIcon) navToggleIcon.className = 'bi bi-list';
+        }
+      });
+    })();
+  </script>
+    </div>
+
+    <div id="navbarSearchRoot" x-data="navbarSearchPanel()" x-on:navbar-search-open.window="openPanel()" x-on:keydown.escape.window="open &amp;&amp; closePanel()">
+    <div class="sk-search-backdrop" :class="{ 'is-open': open }" x-on:click="closePanel()" aria-hidden="true"></div>
+
+    <aside class="sk-search-panel" :class="{ 'is-open': open }" role="dialog" aria-modal="true" aria-label="Buscar">
+        <div class="sk-search-panel-header">
+            <h2 class="sk-search-panel-title">Buscar</h2>
+            <button type="button" class="sk-search-panel-close" x-on:click="closePanel()" aria-label="Cerrar búsqueda">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+
+        <div class="sk-search-panel-tabs">
+            <button type="button" class="sk-search-panel-tab active" :class="{ active: activeTab === 'search' }" x-on:click="activeTab = 'search'">
+                Buscar
+            </button>
+            <button type="button" class="sk-search-panel-tab" :class="{ active: activeTab === 'browse' }" x-on:click="activeTab = 'browse'">
+                Explorar
+            </button>
+            <button type="button" class="sk-search-panel-tab" :class="{ active: activeTab === 'recent' }" x-on:click="activeTab = 'recent'">
+                Recientes
+            </button>
+            <button type="button" class="sk-search-panel-tab is-disabled" disabled="" title="Próximamente">
+                Listas <i class="bi bi-lock-fill" style="font-size:0.65rem;margin-left:0.2rem"></i>
+            </button>
+        </div>
+
+        <div class="sk-search-panel-content" x-show="activeTab === 'search'">
+            <div class="sk-search-panel-input-wrap">
+                <i class="bi bi-search"></i>
+                <input type="search" x-ref="searchInput" x-model="query" placeholder="Jugador, equipo o liga..." autocomplete="off">
+                <span class="sk-search-spinner" x-show="loading" aria-hidden="true" style="display: none;"></span>
+            </div>
+
+            <p class="sk-search-panel-hint" x-show="query.trim().length &lt; 2 &amp;&amp; !loading">
+                Escribe al menos 2 caracteres para buscar.
+            </p>
+            <p class="sk-search-panel-hint" x-show="query.trim().length &gt;= 2 &amp;&amp; !loading &amp;&amp; !hasResults &amp;&amp; !limited" style="display: none;">
+                No se encontraron resultados para «<span x-text="query.trim()"></span>».
+            </p>
+            
+            <p class="sk-search-panel-hint" role="status" x-show="limited &amp;&amp; !loading" x-text="limited" style="display: none;"></p>
+
+            <div class="sk-search-panel-results" x-show="hasResults" style="display: none;">
+                <template x-for="section in sections" :key="section.kind">
+                    <section class="sk-search-section">
+                        <h3 class="sk-search-section-title" x-text="section.title"></h3>
+                        <ul class="sk-search-results">
+                            <template x-for="item in section.items" :key="`${section.kind}-${item.id}`">
+                                <li>
+                                    <a :href="item.url" wire:navigate="" class="sk-search-result" x-on:click="selectResult(item, section.kind)">
+                                        <img :src="resultImage(item, section.kind)" :alt="item.name" class="sk-search-result-photo" :class="{ 'sk-search-result-photo--crest': section.kind !== 'player' &amp;&amp; item.image }" loading="lazy">
+                                        <span class="sk-search-result-main">
+                                            <span class="sk-search-result-name" x-text="item.name"></span>
+                                            <span class="sk-search-result-meta" x-text="resultMeta(item, section.kind)"></span>
+                                        </span>
+                                        <img x-show="resultFlag(item, section.kind)" :src="`https://flagcdn.com/20x15/${resultFlag(item, section.kind)}.png`" alt="" class="sk-search-result-flag" loading="lazy">
+                                    </a>
+                                </li>
+                            </template>
+                        </ul>
+                    </section>
+                </template>
+            </div>
+        </div>
+
+        <div class="sk-search-panel-content" x-show="activeTab === 'browse'" style="display: none;">
+            <div class="sk-search-browse-card">
+                    <p class="sk-search-browse-title">Búsqueda avanzada</p>
+                    <p class="sk-search-panel-hint" style="margin:0 0 1rem">
+                        Filtra por liga, posición, edad y estadísticas de la temporada en la página de scouting.
+                    </p>
+                    <a href="https://www.statiskicks.com/players" wire:navigate="" class="btn btn-iniciar" x-on:click="closePanel()">
+                    Ir a Búsqueda Avanzada
+                </a>
+            </div>
+        </div>
+
+        <div class="sk-search-panel-content" x-show="activeTab === 'recent'" style="display: none;">
+            <p class="sk-search-panel-hint" x-show="recentItems.length === 0">
+                Aún no has visitado jugadores, equipos ni ligas recientemente.
+            </p>
+            <div class="sk-search-panel-results" x-show="recentItems.length &gt; 0" style="display: none;">
+                <ul class="sk-search-results">
+                <template x-for="item in recentItems" :key="`${itemKind(item)}-${item.id}`">
+                    <li>
+                        <a :href="item.url || `/player/${item.id}`" wire:navigate="" class="sk-search-result" x-on:click="closePanel()">
+                            <img :src="resultImage(item, itemKind(item))" :alt="item.name" class="sk-search-result-photo" :class="{ 'sk-search-result-photo--crest': itemKind(item) !== 'player' &amp;&amp; item.image }" loading="lazy">
+                            <span class="sk-search-result-main">
+                                <span class="sk-search-result-name" x-text="item.name"></span>
+                                <span class="sk-search-result-meta" x-text="resultMeta(item, itemKind(item))"></span>
+                            </span>
+                        </a>
+                    </li>
+                </template>
+                </ul>
+            </div>
+        </div>
+    </aside>
+</div>
+
+    <div wire:snapshot="{&quot;data&quot;:{&quot;leagueId&quot;:&quot;2hsidwomhjsaaytdy9u5niyi4&quot;,&quot;season&quot;:&quot;9zum4nxferygj8bb0ldcavxn8&quot;,&quot;tab&quot;:&quot;overview&quot;,&quot;tournament&quot;:&quot;&quot;,&quot;statsSide&quot;:&quot;players&quot;,&quot;statsCategory&quot;:&quot;summary&quot;,&quot;statsColumns&quot;:&quot;&quot;,&quot;statsUnit&quot;:&quot;total&quot;,&quot;statsSearch&quot;:&quot;&quot;,&quot;statsGroups&quot;:&quot;&quot;,&quot;statsTeams&quot;:&quot;&quot;,&quot;statsAgeMin&quot;:null,&quot;statsAgeMax&quot;:null,&quot;statsMinsMin&quot;:null,&quot;statsMinsMax&quot;:null,&quot;statsSort&quot;:&quot;&quot;,&quot;statsSortDir&quot;:&quot;desc&quot;,&quot;leadersPer90&quot;:false,&quot;leadersCategories&quot;:&quot;&quot;,&quot;leadersBoard&quot;:&quot;&quot;,&quot;leadersTeam&quot;:&quot;&quot;,&quot;standingsXp&quot;:false,&quot;standingsSort&quot;:&quot;rank&quot;,&quot;standingsSortDir&quot;:&quot;asc&quot;,&quot;projectionSort&quot;:&quot;expected_position&quot;,&quot;projectionSortDir&quot;:&quot;asc&quot;,&quot;projectionMatrix&quot;:true,&quot;calendarSort&quot;:&quot;difficulty&quot;,&quot;calendarSortDir&quot;:&quot;asc&quot;,&quot;matchRound&quot;:&quot;&quot;,&quot;matchDate&quot;:&quot;&quot;,&quot;teamStatsCategory&quot;:&quot;summary&quot;,&quot;teamStatsColumns&quot;:&quot;&quot;,&quot;teamStatsUnit&quot;:&quot;per_match&quot;,&quot;teamStatsSearch&quot;:&quot;&quot;,&quot;teamStatsGroup&quot;:&quot;&quot;,&quot;teamStatsSort&quot;:&quot;&quot;,&quot;teamStatsSortDir&quot;:&quot;desc&quot;,&quot;scoutSearch&quot;:&quot;&quot;,&quot;scoutPosition&quot;:&quot;&quot;,&quot;scoutAge&quot;:&quot;&quot;,&quot;scoutTeamId&quot;:&quot;&quot;,&quot;scoutNationality&quot;:&quot;&quot;,&quot;scoutSort&quot;:&quot;skore&quot;,&quot;scoutSortDir&quot;:&quot;desc&quot;,&quot;paginators&quot;:[[],{&quot;s&quot;:&quot;arr&quot;}]},&quot;memo&quot;:{&quot;id&quot;:&quot;Pp1Ux02f5jDP3v1rfCFn&quot;,&quot;name&quot;:&quot;league-detail&quot;,&quot;path&quot;:&quot;league\/2hsidwomhjsaaytdy9u5niyi4&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;release&quot;:&quot;a-a-a&quot;,&quot;children&quot;:[],&quot;scripts&quot;:[],&quot;assets&quot;:[],&quot;errors&quot;:[],&quot;locale&quot;:&quot;es&quot;,&quot;islands&quot;:[]},&quot;checksum&quot;:&quot;5a2f53acde34ae7712fafd9bd7fc3fd3eaf8b8f96254bf8af9442f30617e956b&quot;}" wire:effects="{&quot;url&quot;:{&quot;season&quot;:{&quot;as&quot;:&quot;season&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null},&quot;tab&quot;:{&quot;as&quot;:&quot;tab&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null},&quot;tournament&quot;:{&quot;as&quot;:&quot;torneo&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null},&quot;statsSide&quot;:{&quot;as&quot;:&quot;pob&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null},&quot;statsCategory&quot;:{&quot;as&quot;:&quot;cat&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null},&quot;statsColumns&quot;:{&quot;as&quot;:&quot;cols&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null},&quot;statsUnit&quot;:{&quot;as&quot;:&quot;u&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null},&quot;statsSearch&quot;:{&quot;as&quot;:&quot;q&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null},&quot;statsGroups&quot;:{&quot;as&quot;:&quot;pos&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null},&quot;statsTeams&quot;:{&quot;as&quot;:&quot;team&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null},&quot;statsAgeMin&quot;:{&quot;as&quot;:&quot;age_min&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null},&quot;statsAgeMax&quot;:{&quot;as&quot;:&quot;age_max&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null},&quot;statsMinsMin&quot;:{&quot;as&quot;:&quot;mins_min&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null},&quot;statsMinsMax&quot;:{&quot;as&quot;:&quot;mins_max&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null},&quot;statsSort&quot;:{&quot;as&quot;:&quot;sort&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null},&quot;statsSortDir&quot;:{&quot;as&quot;:&quot;dir&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null},&quot;leadersPer90&quot;:{&quot;as&quot;:&quot;ld_p90&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null},&quot;leadersCategories&quot;:{&quot;as&quot;:&quot;ld_cat&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null},&quot;leadersBoard&quot;:{&quot;as&quot;:&quot;ld_tabla&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null},&quot;leadersTeam&quot;:{&quot;as&quot;:&quot;ld_equipo&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null},&quot;standingsXp&quot;:{&quot;as&quot;:&quot;xp&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null},&quot;standingsSort&quot;:{&quot;as&quot;:&quot;st_sort&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null},&quot;standingsSortDir&quot;:{&quot;as&quot;:&quot;st_dir&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null},&quot;projectionSort&quot;:{&quot;as&quot;:&quot;pr_sort&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null},&quot;projectionSortDir&quot;:{&quot;as&quot;:&quot;pr_dir&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null},&quot;projectionMatrix&quot;:{&quot;as&quot;:&quot;pr_pos&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null},&quot;calendarSort&quot;:{&quot;as&quot;:&quot;cal_sort&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null},&quot;calendarSortDir&quot;:{&quot;as&quot;:&quot;cal_dir&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null},&quot;matchRound&quot;:{&quot;as&quot;:&quot;jor&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null},&quot;matchDate&quot;:{&quot;as&quot;:&quot;fecha&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null},&quot;teamStatsCategory&quot;:{&quot;as&quot;:&quot;ts_cat&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null},&quot;teamStatsColumns&quot;:{&quot;as&quot;:&quot;ts_cols&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null},&quot;teamStatsUnit&quot;:{&quot;as&quot;:&quot;ts_u&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null},&quot;teamStatsSearch&quot;:{&quot;as&quot;:&quot;ts_q&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null},&quot;teamStatsGroup&quot;:{&quot;as&quot;:&quot;ts_grp&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null},&quot;teamStatsSort&quot;:{&quot;as&quot;:&quot;ts_sort&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null},&quot;teamStatsSortDir&quot;:{&quot;as&quot;:&quot;ts_dir&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null},&quot;scoutSearch&quot;:{&quot;as&quot;:&quot;sc_q&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null},&quot;scoutPosition&quot;:{&quot;as&quot;:&quot;sc_pos&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null},&quot;scoutAge&quot;:{&quot;as&quot;:&quot;sc_age&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null},&quot;scoutTeamId&quot;:{&quot;as&quot;:&quot;sc_team&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null},&quot;scoutNationality&quot;:{&quot;as&quot;:&quot;sc_nat&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null},&quot;scoutSort&quot;:{&quot;as&quot;:&quot;sc_sort&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null},&quot;scoutSortDir&quot;:{&quot;as&quot;:&quot;sc_dir&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null}}}" wire:id="Pp1Ux02f5jDP3v1rfCFn" wire:name="league-detail" class="league-detail sk-page-shell container py-5" data-sk-chart-context="Liga MX 2026/2027">
+    <div class="league-detail__layout">
+        <aside class="league-detail__sidebar sk-card">
+            <a href="https://www.statiskicks.com/leagues" wire:navigate="" class="league-detail__back">
+                <i class="bi bi-arrow-left"></i> Todas las ligas
+            </a>
+
+            
+                        <div class="league-detail__league-switch" x-data="{ open: false, query: '' }" @click.outside="open = false" @keydown.escape.stop="open = false; $refs.trigger.focus()">
+                <button type="button" class="league-detail__league-badge" x-ref="trigger" @click="open = !open; if (open) $nextTick(() =&gt; $refs.search.focus())" :aria-expanded="open.toString()" aria-expanded="false" aria-haspopup="true" aria-controls="league-switch-menu" title="Cambiar de liga">
+                    <span class="league-detail__league-initials" aria-hidden="true">
+                        <!--[if BLOCK]><![endif]-->                            <img src="https://www.statiskicks.com/storage/media/leagues/262.png" alt="" width="30" height="30" loading="lazy" class="league-detail__league-logo">
+                        <!--[if ENDBLOCK]><![endif]-->                    </span>
+                    <span class="league-detail__league-text">
+                        <span class="league-detail__league-name">Liga MX</span>
+                        <span class="league-detail__league-country">
+                            <!--[if BLOCK]><![endif]-->                                <img src="https://flagcdn.com/w40/mx.png" alt="" width="16" height="12" class="league-detail__flag">
+                            <!--[if ENDBLOCK]><![endif]-->                            MEXICO
+                        </span>
+                    </span>
+                    <i class="bi bi-chevron-down league-detail__league-chevron" aria-hidden="true"></i>
+                </button>
+
+                <div id="league-switch-menu" class="sk-dropdown-menu league-detail__league-menu" x-show="open" style="display: none;">
+                    <label class="sk-search-field league-detail__league-search">
+                        <i class="bi bi-search" aria-hidden="true"></i>
+                        <input type="search" x-ref="search" x-model="query" placeholder="Buscar liga…" autocomplete="off" aria-label="Buscar liga">
+                    </label>
+                    <ul class="league-detail__league-list" aria-label="Ligas">
+                        <!--[if BLOCK]><![endif]-->                            <li x-show="! query || 'liga profesional argentina argentina'.includes(query.toLowerCase())">
+                                <a href="https://www.statiskicks.com/league/581t4mywybx21wcpmpykhyzr3" wire:navigate="" class="sk-menu-item league-detail__league-option" @click="window.dispatchEvent(new CustomEvent('sk:league-switch'))">
+                                    <span class="league-detail__league-option-logo" aria-hidden="true">
+                                        <!--[if BLOCK]><![endif]-->                                            <img src="https://www.statiskicks.com/storage/media/leagues/128.png" alt="" width="20" height="20" loading="lazy">
+                                        <!--[if ENDBLOCK]><![endif]-->                                    </span>
+                                    <span class="league-detail__league-option-text">
+                                        <span>Liga Profesional Argentina</span>
+                                        <small>ARGENTINA</small>
+                                    </span>
+                                </a>
+                            </li>
+                                                    <li x-show="! query || 'serie a brazil'.includes(query.toLowerCase())">
+                                <a href="https://www.statiskicks.com/league/scf9p4y91yjvqvg5jndxzhxj" wire:navigate="" class="sk-menu-item league-detail__league-option" @click="window.dispatchEvent(new CustomEvent('sk:league-switch'))">
+                                    <span class="league-detail__league-option-logo" aria-hidden="true">
+                                        <!--[if BLOCK]><![endif]-->                                            <img src="https://www.statiskicks.com/storage/media/leagues/71.png" alt="" width="20" height="20" loading="lazy">
+                                        <!--[if ENDBLOCK]><![endif]-->                                    </span>
+                                    <span class="league-detail__league-option-text">
+                                        <span>Serie A</span>
+                                        <small>BRAZIL</small>
+                                    </span>
+                                </a>
+                            </li>
+                                                    <li x-show="! query || 'premier league england'.includes(query.toLowerCase())">
+                                <a href="https://www.statiskicks.com/league/2kwbbcootiqqgmrzs6o5inle5" wire:navigate="" class="sk-menu-item league-detail__league-option" @click="window.dispatchEvent(new CustomEvent('sk:league-switch'))">
+                                    <span class="league-detail__league-option-logo" aria-hidden="true">
+                                        <!--[if BLOCK]><![endif]-->                                            <img src="https://www.statiskicks.com/storage/media/leagues/39.png" alt="" width="20" height="20" loading="lazy">
+                                        <!--[if ENDBLOCK]><![endif]-->                                    </span>
+                                    <span class="league-detail__league-option-text">
+                                        <span>Premier League</span>
+                                        <small>ENGLAND</small>
+                                    </span>
+                                </a>
+                            </li>
+                                                    <li x-show="! query || 'ligue 1 france'.includes(query.toLowerCase())">
+                                <a href="https://www.statiskicks.com/league/dm5ka0os1e3dxcp3vh05kmp33" wire:navigate="" class="sk-menu-item league-detail__league-option" @click="window.dispatchEvent(new CustomEvent('sk:league-switch'))">
+                                    <span class="league-detail__league-option-logo" aria-hidden="true">
+                                        <!--[if BLOCK]><![endif]-->                                            <img src="https://www.statiskicks.com/storage/media/leagues/61.png" alt="" width="20" height="20" loading="lazy">
+                                        <!--[if ENDBLOCK]><![endif]-->                                    </span>
+                                    <span class="league-detail__league-option-text">
+                                        <span>Ligue 1</span>
+                                        <small>FRANCE</small>
+                                    </span>
+                                </a>
+                            </li>
+                                                    <li x-show="! query || 'bundesliga germany'.includes(query.toLowerCase())">
+                                <a href="https://www.statiskicks.com/league/6by3h89i2eykc341oz7lv1ddd" wire:navigate="" class="sk-menu-item league-detail__league-option" @click="window.dispatchEvent(new CustomEvent('sk:league-switch'))">
+                                    <span class="league-detail__league-option-logo" aria-hidden="true">
+                                        <!--[if BLOCK]><![endif]-->                                            <img src="https://www.statiskicks.com/storage/media/leagues/78.png" alt="" width="20" height="20" loading="lazy">
+                                        <!--[if ENDBLOCK]><![endif]-->                                    </span>
+                                    <span class="league-detail__league-option-text">
+                                        <span>Bundesliga</span>
+                                        <small>GERMANY</small>
+                                    </span>
+                                </a>
+                            </li>
+                                                    <li x-show="! query || 'serie a italy'.includes(query.toLowerCase())">
+                                <a href="https://www.statiskicks.com/league/1r097lpxe0xn03ihb7wi98kao" wire:navigate="" class="sk-menu-item league-detail__league-option" @click="window.dispatchEvent(new CustomEvent('sk:league-switch'))">
+                                    <span class="league-detail__league-option-logo" aria-hidden="true">
+                                        <!--[if BLOCK]><![endif]-->                                            <img src="https://www.statiskicks.com/storage/media/leagues/135.png" alt="" width="20" height="20" loading="lazy">
+                                        <!--[if ENDBLOCK]><![endif]-->                                    </span>
+                                    <span class="league-detail__league-option-text">
+                                        <span>Serie A</span>
+                                        <small>ITALY</small>
+                                    </span>
+                                </a>
+                            </li>
+                                                    <li x-show="! query || 'liga mx mexico'.includes(query.toLowerCase())">
+                                <a href="https://www.statiskicks.com/league/2hsidwomhjsaaytdy9u5niyi4" wire:navigate="" class="sk-menu-item league-detail__league-option selected" @click="window.dispatchEvent(new CustomEvent('sk:league-switch'))" aria-current="page" data-current="">
+                                    <span class="league-detail__league-option-logo" aria-hidden="true">
+                                        <!--[if BLOCK]><![endif]-->                                            <img src="https://www.statiskicks.com/storage/media/leagues/262.png" alt="" width="20" height="20" loading="lazy">
+                                        <!--[if ENDBLOCK]><![endif]-->                                    </span>
+                                    <span class="league-detail__league-option-text">
+                                        <span>Liga MX</span>
+                                        <small>MEXICO</small>
+                                    </span>
+                                </a>
+                            </li>
+                                                    <li x-show="! query || 'primera división spain'.includes(query.toLowerCase())">
+                                <a href="https://www.statiskicks.com/league/34pl8szyvrbwcmfkuocjm3r6t" wire:navigate="" class="sk-menu-item league-detail__league-option" @click="window.dispatchEvent(new CustomEvent('sk:league-switch'))">
+                                    <span class="league-detail__league-option-logo" aria-hidden="true">
+                                        <!--[if BLOCK]><![endif]-->                                            <img src="https://www.statiskicks.com/storage/media/leagues/140.png" alt="" width="20" height="20" loading="lazy">
+                                        <!--[if ENDBLOCK]><![endif]-->                                    </span>
+                                    <span class="league-detail__league-option-text">
+                                        <span>Primera División</span>
+                                        <small>SPAIN</small>
+                                    </span>
+                                </a>
+                            </li>
+                                                    <li x-show="! query || 'mls usa'.includes(query.toLowerCase())">
+                                <a href="https://www.statiskicks.com/league/287tckirbfj9nb8ar2k9r60vn" wire:navigate="" class="sk-menu-item league-detail__league-option" @click="window.dispatchEvent(new CustomEvent('sk:league-switch'))">
+                                    <span class="league-detail__league-option-logo" aria-hidden="true">
+                                        <!--[if BLOCK]><![endif]-->                                            <img src="https://www.statiskicks.com/storage/media/leagues/253.png" alt="" width="20" height="20" loading="lazy">
+                                        <!--[if ENDBLOCK]><![endif]-->                                    </span>
+                                    <span class="league-detail__league-option-text">
+                                        <span>MLS</span>
+                                        <small>USA</small>
+                                    </span>
+                                </a>
+                            </li>
+                        <!--[if ENDBLOCK]><![endif]-->                    </ul>
+                    <!--[if BLOCK]><![endif]-->                        <p class="league-detail__league-plan">
+                            Tu plan incluye 9 ligas.
+                            <a href="https://www.statiskicks.com/planes" wire:navigate="">Ver planes</a>
+                        </p>
+                    <!--[if ENDBLOCK]><![endif]-->                </div>
+            </div>
+
+            <!--[if BLOCK]><![endif]-->                <div class="sk-detail-control">
+  <p class="sk-select-label">Temporada</p>
+  <div class="sk-field-dropdown sk-pill-dropdown" data-sk-pill-dropdown="" x-data="{ open: false }" @click.outside="open = false" @keydown.escape.stop="open = false; $refs.trigger.focus()">
+    <button type="button" class="btn sk-pill-control rounded-pill" data-sk-pill-trigger="" x-ref="trigger" @click="open = !open" :aria-expanded="open.toString()" aria-haspopup="listbox" aria-controls="league-season-menu" wire:loading.attr="disabled" wire:target="setTab,season,tournament" aria-expanded="false">
+      <span class="sk-pill-dropdown__label">2026/2027</span>
+      <i class="bi bi-chevron-down ms-1" aria-hidden="true"></i>
+    </button>
+
+    <ul id="league-season-menu" class="sk-dropdown-menu" role="listbox" x-show="open" style="display: none;">
+      <!--[if BLOCK]><![endif]-->        <li role="presentation" wire:loading="" wire:target="setTab,season,tournament">
+          <button type="button" class="sk-menu-item" role="option" disabled="">Cargando...</button>
+        </li>
+      <!--[if ENDBLOCK]><![endif]-->      <!--[if BLOCK]><![endif]-->                <li role="presentation" wire:loading.remove="" wire:target="setTab,season,tournament">
+          <button type="button" class="sk-menu-item selected" role="option" aria-selected="true" wire:click="$set('season', '9zum4nxferygj8bb0ldcavxn8')" @click="open = false">2026/2027</button>
+        </li>
+                      <li role="presentation" wire:loading.remove="" wire:target="setTab,season,tournament">
+          <button type="button" class="sk-menu-item" role="option" aria-selected="false" wire:click="$set('season', 'aegyls91smdw9kipjgbsu8tn8')" @click="open = false">2025/2026</button>
+        </li>
+      <!--[if ENDBLOCK]><![endif]-->    </ul>
+  </div>
+</div>
+            <!--[if ENDBLOCK]><![endif]-->
+            
+            <!--[if BLOCK]><![endif]-->                <div class="sk-detail-control">
+  <p class="sk-select-label">Torneo</p>
+  <div class="sk-field-dropdown sk-pill-dropdown" data-sk-pill-dropdown="" x-data="{ open: false }" @click.outside="open = false" @keydown.escape.stop="open = false; $refs.trigger.focus()">
+    <button type="button" class="btn sk-pill-control rounded-pill" data-sk-pill-trigger="" x-ref="trigger" @click="open = !open" :aria-expanded="open.toString()" aria-haspopup="listbox" aria-controls="league-tournament-menu" wire:loading.attr="disabled" wire:target="setTab,season,tournament" aria-expanded="false">
+      <span class="sk-pill-dropdown__label">Apertura (en curso)</span>
+      <i class="bi bi-chevron-down ms-1" aria-hidden="true"></i>
+    </button>
+
+    <ul id="league-tournament-menu" class="sk-dropdown-menu" role="listbox" x-show="open" style="display: none;">
+      <!--[if BLOCK]><![endif]-->        <li role="presentation" wire:loading="" wire:target="setTab,season,tournament">
+          <button type="button" class="sk-menu-item" role="option" disabled="">Cargando...</button>
+        </li>
+      <!--[if ENDBLOCK]><![endif]-->      <!--[if BLOCK]><![endif]-->                <li role="presentation" wire:loading.remove="" wire:target="setTab,season,tournament">
+          <button type="button" class="sk-menu-item selected" role="option" aria-selected="true" wire:click="$set('tournament', '')" @click="open = false">Apertura (en curso)</button>
+        </li>
+      <!--[if ENDBLOCK]><![endif]-->    </ul>
+  </div>
+</div>
+            <!--[if ENDBLOCK]><![endif]-->
+            <nav class="league-detail__nav" aria-label="Secciones de la liga">
+                <button type="button" wire:click="setTab('overview')" wire:loading.attr="disabled" wire:target="setTab,season,tournament" class="league-detail__nav-item league-detail__nav-item--active">
+                    <i class="bi bi-grid-1x2"></i> Resumen
+                </button>
+                <button type="button" wire:click="setTab('leaders')" wire:loading.attr="disabled" wire:target="setTab,season,tournament" class="league-detail__nav-item">
+                    <i class="bi bi-award"></i> Líderes estadísticos
+                </button>
+                <button type="button" wire:click="setTab('standings')" wire:loading.attr="disabled" wire:target="setTab,season,tournament" class="league-detail__nav-item">
+                    <i class="bi bi-list-ol"></i> Clasificación
+                </button>
+                <button type="button" wire:click="setTab('projection')" wire:loading.attr="disabled" wire:target="setTab,season,tournament" class="league-detail__nav-item">
+                    <i class="bi bi-graph-up"></i> Proyección
+                </button>
+                <button type="button" wire:click="setTab('results')" wire:loading.attr="disabled" wire:target="setTab,season,tournament" class="league-detail__nav-item">
+                    <i class="bi bi-calendar3"></i> Partidos
+                </button>
+                <button type="button" wire:click="setTab('calendar')" wire:loading.attr="disabled" wire:target="setTab,season,tournament" class="league-detail__nav-item">
+                    <i class="bi bi-calendar-range"></i> Matriz de dificultad
+                </button>
+                <button type="button" wire:click="setTab('maps')" wire:loading.attr="disabled" wire:target="setTab,season,tournament" class="league-detail__nav-item">
+                    <i class="bi bi-map"></i> Mapas
+                </button>
+                <button type="button" wire:click="setTab('scatter')" wire:loading.attr="disabled" wire:target="setTab,season,tournament" class="league-detail__nav-item">
+                    <i class="bi bi-crosshair"></i> Dispersión
+                </button>
+                <button type="button" wire:click="setTab('stats')" wire:loading.attr="disabled" wire:target="setTab,season,tournament" class="league-detail__nav-item">
+                    <i class="bi bi-bar-chart-line"></i> Estadísticas
+                </button>
+                <button type="button" wire:click="setTab('scout-ratings')" wire:loading.attr="disabled" wire:target="setTab,season,tournament" class="league-detail__nav-item">
+                    <i class="bi bi-star"></i> Valoraciones scout
+                </button>
+                
+                <a href="https://www.statiskicks.com/players?liga=2hsidwomhjsaaytdy9u5niyi4&amp;temporada=2026%2F2027&amp;buscar=1" wire:navigate="" class="league-detail__nav-item">
+                    <i class="bi bi-person-lines-fill"></i> Buscar jugadores
+                </a>
+            </nav>
+        </aside>
+
+        <main class="league-detail__main">
+            <div class="sk-page-hero league-detail-hero">
+                <!--[if BLOCK]><![endif]-->                    <img src="https://www.statiskicks.com/storage/media/leagues/262.png" alt="" class="league-detail-hero__crest" aria-hidden="true">
+                <!--[if ENDBLOCK]><![endif]-->                <div class="d-flex flex-column flex-lg-row align-items-lg-end justify-content-between gap-3">
+                    <div>
+                        <p class="sk-page-hero-eyebrow">Vista de liga</p>
+                        <h1 class="sk-page-hero-title">
+                            <!--[if BLOCK]><![endif]-->                                Liga MX <span>2026/2027</span>
+                            <!--[if ENDBLOCK]><![endif]-->                        </h1>
+                        
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="league-detail__content" wire:loading.class="league-detail__content--loading" wire:target.except="setMatchRound,setMatchDate,resetMatchFilters,loadLeagueMap,loadScatter">
+                
+                <div class="league-detail__tab-panel" wire:key="tab-panel-overview-9zum4nxferygj8bb0ldcavxn8-apertura">
+            
+            <!--[if BLOCK]><![endif]-->                <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->            <!--[if ENDBLOCK]><![endif]-->            
+            <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->            <!--[if BLOCK]><![endif]-->                <section class="league-detail-section">
+    <header class="league-detail-section__head">
+        <h2 class="league-detail-section__title">Líderes estadísticos</h2>
+        <a href="#" wire:click.prevent="setTab('leaders')" class="league-detail-section__link">
+            Ver todos los líderes <i class="bi bi-arrow-right"></i>
+        </a>
+    </header>
+    <!--[if BLOCK]><![endif]-->        
+        <div class="league-detail-leaderboards league-detail-leaderboards--banded">
+            <!--[if BLOCK]><![endif]-->                <article class="league-detail-lb sk-card" wire:key="lb-np_goals">
+    <header class="league-detail-lb__head">
+        <h3 class="league-detail-lb__title">Goles (sin penales)</h3>
+        <!--[if BLOCK]><![endif]-->            <button type="button" class="league-detail-lb__more" wire:click="showLeadersBoard('np_goals')" aria-label="Ver todos los jugadores: Goles (sin penales)">
+                Ver todos <i class="bi bi-arrow-right" aria-hidden="true"></i>
+            </button>
+        <!--[if ENDBLOCK]><![endif]-->    </header>
+    <ol class="league-detail-lb__list">
+        <!--[if BLOCK]><![endif]-->                        <li wire:key="lb-np_goals-20wvh9al53baedfzbzykpvkyd">
+                <a href="https://www.statiskicks.com/player/20wvh9al53baedfzbzykpvkyd/jose-rondon" wire:navigate="" class="league-detail-lb__row">
+                    <span class="league-detail-lb__rank">1</span>
+                    <img src="https://media.api-sports.io/football/players/2461.png" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=S.%20Rond%C3%B3n&amp;size=64&amp;background=1d665d&amp;color=fff'" alt="" class="league-detail-lb__photo" loading="lazy">
+                    <span class="league-detail-lb__info">
+                        <span class="league-detail-lb__name" title="S. Rondón · Pachuca">S. Rondón</span>
+                    </span>
+                    <span class="league-detail-lb__val">13</span>
+                </a>
+            </li>
+                                <li wire:key="lb-np_goals-6nr7ekkfr3n9tr44z6fowj5gq">
+                <a href="https://www.statiskicks.com/player/6nr7ekkfr3n9tr44z6fowj5gq/federico-vinas" wire:navigate="" class="league-detail-lb__row">
+                    <span class="league-detail-lb__rank">2</span>
+                    <img src="https://media.api-sports.io/football/players/51530.png" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=F.%20Vi%C3%B1as&amp;size=64&amp;background=1d665d&amp;color=fff'" alt="" class="league-detail-lb__photo" loading="lazy">
+                    <span class="league-detail-lb__info">
+                        <span class="league-detail-lb__name" title="F. Viñas · Toluca">F. Viñas</span>
+                    </span>
+                    <span class="league-detail-lb__val">7</span>
+                </a>
+            </li>
+                                <li wire:key="lb-np_goals-7r96u3b7t46s0kg5t5qew3tnt">
+                <a href="https://www.statiskicks.com/player/7r96u3b7t46s0kg5t5qew3tnt/olavio-vieira" wire:navigate="" class="league-detail-lb__row">
+                    <span class="league-detail-lb__rank">2</span>
+                    <img src="https://media.api-sports.io/football/players/9623.png" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=Juninho&amp;size=64&amp;background=1d665d&amp;color=fff'" alt="" class="league-detail-lb__photo" loading="lazy">
+                    <span class="league-detail-lb__info">
+                        <span class="league-detail-lb__name" title="Juninho · Pumas UNAM">Juninho</span>
+                    </span>
+                    <span class="league-detail-lb__val">7</span>
+                </a>
+            </li>
+                                <li wire:key="lb-np_goals-auegpd36ras84mp8q6j6gs8a1">
+                <a href="https://www.statiskicks.com/player/auegpd36ras84mp8q6j6gs8a1/juan-brunetta" wire:navigate="" class="league-detail-lb__row">
+                    <span class="league-detail-lb__rank">2</span>
+                    <img src="https://media.api-sports.io/football/players/6579.png" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=J.%20Brunetta&amp;size=64&amp;background=1d665d&amp;color=fff'" alt="" class="league-detail-lb__photo" loading="lazy">
+                    <span class="league-detail-lb__info">
+                        <span class="league-detail-lb__name" title="J. Brunetta · Tigres UANL">J. Brunetta</span>
+                    </span>
+                    <span class="league-detail-lb__val">7</span>
+                </a>
+            </li>
+                                <li wire:key="lb-np_goals-aqkesczefhflo2f7tyfjnkted">
+                <a href="https://www.statiskicks.com/player/aqkesczefhflo2f7tyfjnkted/miguel-borja" wire:navigate="" class="league-detail-lb__row">
+                    <span class="league-detail-lb__rank">5</span>
+                    <img src="https://media.api-sports.io/football/players/9933.png" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=M.%20Borja&amp;size=64&amp;background=1d665d&amp;color=fff'" alt="" class="league-detail-lb__photo" loading="lazy">
+                    <span class="league-detail-lb__info">
+                        <span class="league-detail-lb__name" title="M. Borja · Club América">M. Borja</span>
+                    </span>
+                    <span class="league-detail-lb__val">6</span>
+                </a>
+            </li>
+        <!--[if ENDBLOCK]><![endif]-->    </ol>
+</article>
+                            <article class="league-detail-lb sk-card" wire:key="lb-assists">
+    <header class="league-detail-lb__head">
+        <h3 class="league-detail-lb__title">Asistencias</h3>
+        <!--[if BLOCK]><![endif]-->            <button type="button" class="league-detail-lb__more" wire:click="showLeadersBoard('assists')" aria-label="Ver todos los jugadores: Asistencias">
+                Ver todos <i class="bi bi-arrow-right" aria-hidden="true"></i>
+            </button>
+        <!--[if ENDBLOCK]><![endif]-->    </header>
+    <ol class="league-detail-lb__list">
+        <!--[if BLOCK]><![endif]-->                        <li wire:key="lb-assists-cdtqwtqf0k8ej2lwipsu00huy">
+                <a href="https://www.statiskicks.com/player/cdtqwtqf0k8ej2lwipsu00huy/helio-nunes" wire:navigate="" class="league-detail-lb__row">
+                    <span class="league-detail-lb__rank">1</span>
+                    <img src="https://media.api-sports.io/football/players/9965.png" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=Helinho&amp;size=64&amp;background=1d665d&amp;color=fff'" alt="" class="league-detail-lb__photo" loading="lazy">
+                    <span class="league-detail-lb__info">
+                        <span class="league-detail-lb__name" title="Helinho · Toluca">Helinho</span>
+                    </span>
+                    <span class="league-detail-lb__val">8</span>
+                </a>
+            </li>
+                                <li wire:key="lb-assists-ebkkhbtt1kvxn9agafp2jil1w">
+                <a href="https://www.statiskicks.com/player/ebkkhbtt1kvxn9agafp2jil1w/andres-montano" wire:navigate="" class="league-detail-lb__row">
+                    <span class="league-detail-lb__rank">2</span>
+                    <img src="https://media.api-sports.io/football/players/357997.png" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=A.%20Monta%C3%B1o&amp;size=64&amp;background=1d665d&amp;color=fff'" alt="" class="league-detail-lb__photo" loading="lazy">
+                    <span class="league-detail-lb__info">
+                        <span class="league-detail-lb__name" title="A. Montaño · Cruz Azul">A. Montaño</span>
+                    </span>
+                    <span class="league-detail-lb__val">5</span>
+                </a>
+            </li>
+                                <li wire:key="lb-assists-dvs7ja8gdbmg4gj5sspigesq1">
+                <a href="https://www.statiskicks.com/player/dvs7ja8gdbmg4gj5sspigesq1/jose-paradela" wire:navigate="" class="league-detail-lb__row">
+                    <span class="league-detail-lb__rank">2</span>
+                    <img src="https://media.api-sports.io/football/players/6441.png" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=J.%20Paradela&amp;size=64&amp;background=1d665d&amp;color=fff'" alt="" class="league-detail-lb__photo" loading="lazy">
+                    <span class="league-detail-lb__info">
+                        <span class="league-detail-lb__name" title="J. Paradela · Cruz Azul">J. Paradela</span>
+                    </span>
+                    <span class="league-detail-lb__val">5</span>
+                </a>
+            </li>
+                                <li wire:key="lb-assists-8n4f10q0l2wjhhfdkpp8kfzdh">
+                <a href="https://www.statiskicks.com/player/8n4f10q0l2wjhhfdkpp8kfzdh/oliver-torres" wire:navigate="" class="league-detail-lb__row">
+                    <span class="league-detail-lb__rank">2</span>
+                    <img src="https://media.api-sports.io/football/players/385.png" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=%C3%93liver%20Torres&amp;size=64&amp;background=1d665d&amp;color=fff'" alt="" class="league-detail-lb__photo" loading="lazy">
+                    <span class="league-detail-lb__info">
+                        <span class="league-detail-lb__name" title="Óliver Torres · Monterrey">Óliver Torres</span>
+                    </span>
+                    <span class="league-detail-lb__val">5</span>
+                </a>
+            </li>
+                                <li wire:key="lb-assists-dmtsbln16ttjoymm2rqfuyw2x">
+                <a href="https://www.statiskicks.com/player/dmtsbln16ttjoymm2rqfuyw2x/carlos-rodriguez" wire:navigate="" class="league-detail-lb__row">
+                    <span class="league-detail-lb__rank">2</span>
+                    <img src="https://media.api-sports.io/football/players/2888.png" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=C.%20Rodr%C3%ADguez&amp;size=64&amp;background=1d665d&amp;color=fff'" alt="" class="league-detail-lb__photo" loading="lazy">
+                    <span class="league-detail-lb__info">
+                        <span class="league-detail-lb__name" title="C. Rodríguez · Cruz Azul">C. Rodríguez</span>
+                    </span>
+                    <span class="league-detail-lb__val">5</span>
+                </a>
+            </li>
+        <!--[if ENDBLOCK]><![endif]-->    </ol>
+</article>
+                            <article class="league-detail-lb sk-card" wire:key="lb-xt">
+    <header class="league-detail-lb__head">
+        <h3 class="league-detail-lb__title">xT</h3>
+        <!--[if BLOCK]><![endif]-->            <button type="button" class="league-detail-lb__more" wire:click="showLeadersBoard('xt')" aria-label="Ver todos los jugadores: xT">
+                Ver todos <i class="bi bi-arrow-right" aria-hidden="true"></i>
+            </button>
+        <!--[if ENDBLOCK]><![endif]-->    </header>
+    <ol class="league-detail-lb__list">
+        <!--[if BLOCK]><![endif]-->                        <li wire:key="lb-xt-a89554tzfy4nfxrycpr2z0xjp">
+                <a href="https://www.statiskicks.com/player/a89554tzfy4nfxrycpr2z0xjp/oussama-idrissi" wire:navigate="" class="league-detail-lb__row">
+                    <span class="league-detail-lb__rank">1</span>
+                    <img src="https://media.api-sports.io/football/players/2723.png" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=O.%20Idrissi&amp;size=64&amp;background=1d665d&amp;color=fff'" alt="" class="league-detail-lb__photo" loading="lazy">
+                    <span class="league-detail-lb__info">
+                        <span class="league-detail-lb__name" title="O. Idrissi · Pachuca">O. Idrissi</span>
+                    </span>
+                    <span class="league-detail-lb__val">3,86</span>
+                </a>
+            </li>
+                                <li wire:key="lb-xt-dmtsbln16ttjoymm2rqfuyw2x">
+                <a href="https://www.statiskicks.com/player/dmtsbln16ttjoymm2rqfuyw2x/carlos-rodriguez" wire:navigate="" class="league-detail-lb__row">
+                    <span class="league-detail-lb__rank">2</span>
+                    <img src="https://media.api-sports.io/football/players/2888.png" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=C.%20Rodr%C3%ADguez&amp;size=64&amp;background=1d665d&amp;color=fff'" alt="" class="league-detail-lb__photo" loading="lazy">
+                    <span class="league-detail-lb__info">
+                        <span class="league-detail-lb__name" title="C. Rodríguez · Cruz Azul">C. Rodríguez</span>
+                    </span>
+                    <span class="league-detail-lb__val">3,59</span>
+                </a>
+            </li>
+                                <li wire:key="lb-xt-7x3sqcf8wtq2qwyqcbv2itw8a">
+                <a href="https://www.statiskicks.com/player/7x3sqcf8wtq2qwyqcbv2itw8a/mauricio-aimar" wire:navigate="" class="league-detail-lb__row">
+                    <span class="league-detail-lb__rank">3</span>
+                    <img src="https://media.api-sports.io/football/players/71219.png" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=M.%20Cuevas&amp;size=64&amp;background=1d665d&amp;color=fff'" alt="" class="league-detail-lb__photo" loading="lazy">
+                    <span class="league-detail-lb__info">
+                        <span class="league-detail-lb__name" title="M. Cuevas · Santos Laguna">M. Cuevas</span>
+                    </span>
+                    <span class="league-detail-lb__val">3,56</span>
+                </a>
+            </li>
+                                <li wire:key="lb-xt-cfh9mfz1snjuj4b9hwj0v0amt">
+                <a href="https://www.statiskicks.com/player/cfh9mfz1snjuj4b9hwj0v0amt/francisco-villalba" wire:navigate="" class="league-detail-lb__row">
+                    <span class="league-detail-lb__rank">3</span>
+                    <img src="https://media.api-sports.io/football/players/47143.png" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=Fran%20Villalba&amp;size=64&amp;background=1d665d&amp;color=fff'" alt="" class="league-detail-lb__photo" loading="lazy">
+                    <span class="league-detail-lb__info">
+                        <span class="league-detail-lb__name" title="Fran Villalba · Santos Laguna">Fran Villalba</span>
+                    </span>
+                    <span class="league-detail-lb__val">3,56</span>
+                </a>
+            </li>
+                                <li wire:key="lb-xt-1q2jy6ztzyfm4l0weu15ovwiy">
+                <a href="https://www.statiskicks.com/player/1q2jy6ztzyfm4l0weu15ovwiy/adonis-preciado" wire:navigate="" class="league-detail-lb__row">
+                    <span class="league-detail-lb__rank">5</span>
+                    <img src="https://media.api-sports.io/football/players/16688.png" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=A.%20Preciado&amp;size=64&amp;background=1d665d&amp;color=fff'" alt="" class="league-detail-lb__photo" loading="lazy">
+                    <span class="league-detail-lb__info">
+                        <span class="league-detail-lb__name" title="A. Preciado · Tijuana">A. Preciado</span>
+                    </span>
+                    <span class="league-detail-lb__val">3,43</span>
+                </a>
+            </li>
+        <!--[if ENDBLOCK]><![endif]-->    </ol>
+</article>
+                            <article class="league-detail-lb sk-card" wire:key="lb-goals_prevented">
+    <header class="league-detail-lb__head">
+        <h3 class="league-detail-lb__title">Goles prevenidos</h3>
+        <!--[if BLOCK]><![endif]-->            <button type="button" class="league-detail-lb__more" wire:click="showLeadersBoard('goals_prevented')" aria-label="Ver todos los jugadores: Goles prevenidos">
+                Ver todos <i class="bi bi-arrow-right" aria-hidden="true"></i>
+            </button>
+        <!--[if ENDBLOCK]><![endif]-->    </header>
+    <ol class="league-detail-lb__list">
+        <!--[if BLOCK]><![endif]-->                        <li wire:key="lb-goals_prevented-bwt9uej9k7ad5acandyvr7iwa">
+                <a href="https://www.statiskicks.com/player/bwt9uej9k7ad5acandyvr7iwa/carlos-moreno" wire:navigate="" class="league-detail-lb__row">
+                    <span class="league-detail-lb__rank">1</span>
+                    <img src="https://media.api-sports.io/football/players/11627.png" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=C.%20Moreno&amp;size=64&amp;background=1d665d&amp;color=fff'" alt="" class="league-detail-lb__photo" loading="lazy">
+                    <span class="league-detail-lb__info">
+                        <span class="league-detail-lb__name" title="C. Moreno · Pachuca">C. Moreno</span>
+                    </span>
+                    <span class="league-detail-lb__val">+3,0</span>
+                </a>
+            </li>
+                                <li wire:key="lb-goals_prevented-7e0gqoexhr0a1nlysflla04id">
+                <a href="https://www.statiskicks.com/player/7e0gqoexhr0a1nlysflla04id/manuel-lajud" wire:navigate="" class="league-detail-lb__row">
+                    <span class="league-detail-lb__rank">2</span>
+                    <img src="https://media.api-sports.io/football/players/35674.png" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=G.%20Lajud&amp;size=64&amp;background=1d665d&amp;color=fff'" alt="" class="league-detail-lb__photo" loading="lazy">
+                    <span class="league-detail-lb__info">
+                        <span class="league-detail-lb__name" title="G. Lajud · Atlético San Luis">G. Lajud</span>
+                    </span>
+                    <span class="league-detail-lb__val">+1,7</span>
+                </a>
+            </li>
+                                <li wire:key="lb-goals_prevented-4hxcnch5nam895sdszm41rhzp">
+                <a href="https://www.statiskicks.com/player/4hxcnch5nam895sdszm41rhzp/jose-rodriguez" wire:navigate="" class="league-detail-lb__row">
+                    <span class="league-detail-lb__rank">3</span>
+                    <img src="https://media.api-sports.io/football/players/35797.png" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=A.%20Rodr%C3%ADguez&amp;size=64&amp;background=1d665d&amp;color=fff'" alt="" class="league-detail-lb__photo" loading="lazy">
+                    <span class="league-detail-lb__info">
+                        <span class="league-detail-lb__name" title="A. Rodríguez · Tijuana">A. Rodríguez</span>
+                    </span>
+                    <span class="league-detail-lb__val">+1,5</span>
+                </a>
+            </li>
+                                <li wire:key="lb-goals_prevented-cs0ukx1l3r8kdyn8iu26qupyh">
+                <a href="https://www.statiskicks.com/player/cs0ukx1l3r8kdyn8iu26qupyh/carlos-acevedo" wire:navigate="" class="league-detail-lb__row">
+                    <span class="league-detail-lb__rank">4</span>
+                    <img src="https://media.api-sports.io/football/players/35769.png" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=C.%20Acevedo&amp;size=64&amp;background=1d665d&amp;color=fff'" alt="" class="league-detail-lb__photo" loading="lazy">
+                    <span class="league-detail-lb__info">
+                        <span class="league-detail-lb__name" title="C. Acevedo · Santos Laguna">C. Acevedo</span>
+                    </span>
+                    <span class="league-detail-lb__val">+1,4</span>
+                </a>
+            </li>
+                                <li wire:key="lb-goals_prevented-d2y0n3bf5ttu1dsqg1atuczu2">
+                <a href="https://www.statiskicks.com/player/d2y0n3bf5ttu1dsqg1atuczu2/jose-rangel" wire:navigate="" class="league-detail-lb__row">
+                    <span class="league-detail-lb__rank">5</span>
+                    <img src="https://media.api-sports.io/football/players/270774.png" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=R.%20Rangel&amp;size=64&amp;background=1d665d&amp;color=fff'" alt="" class="league-detail-lb__photo" loading="lazy">
+                    <span class="league-detail-lb__info">
+                        <span class="league-detail-lb__name" title="R. Rangel · Guadalajara">R. Rangel</span>
+                    </span>
+                    <span class="league-detail-lb__val">+1,2</span>
+                </a>
+            </li>
+        <!--[if ENDBLOCK]><![endif]-->    </ol>
+</article>
+            <!--[if ENDBLOCK]><![endif]-->        </div>
+    <!--[if ENDBLOCK]><![endif]--></section>
+
+<div class="league-detail-columns league-detail-columns--xi">
+    
+    <section class="league-detail-section">
+        <header class="league-detail-section__head">
+            <h2 class="league-detail-section__title">Mejor XI al momento</h2>
+            <!--[if BLOCK]><![endif]-->                <div class="league-detail-section__tools">
+                    
+                    <span class="league-detail-section__hint" title="La formación más usada en el torneo: 41 % de las alineaciones">
+                        4-2-3-1 · media 7.42
+                    </span>
+                    
+                    <button type="button" data-sk-chart-download="mejor-xi" data-sk-chart-title="Mejor XI al momento" data-sk-chart-source="html" data-sk-chart-target=".league-xi__pitch" class="sk-chart-download-btn sk-chart-download-btn--inline" aria-label="Descargar gráfica" title="Descargar gráfica" aria-haspopup="dialog" aria-expanded="false">
+  <svg width="11" height="11" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path d="M8 1.5v8.25m0 0L4.75 6.75M8 9.75 11.25 6.75" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path>
+  <path d="M2.5 11.5v1.25a1.25 1.25 0 0 0 1.25 1.25h8.5a1.25 1.25 0 0 0 1.25-1.25V11.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+  <span class="sk-download-btn__text">Descargar</span>
+</button>
+                </div>
+            <!--[if ENDBLOCK]><![endif]-->        </header>
+        <div class="sk-card league-xi">
+            <!--[if BLOCK]><![endif]-->                
+                
+                <div class="league-xi__pitch" data-sk-export-min-width="560">
+                    <div class="league-xi__field" role="list" aria-label="Mejor XI en 4-2-3-1">
+                        <span class="league-xi__mark league-xi__mark--half" aria-hidden="true"></span>
+                        <span class="league-xi__mark league-xi__mark--circle" aria-hidden="true"></span>
+                        <span class="league-xi__mark league-xi__mark--spot league-xi__mark--spot-centre" aria-hidden="true"></span>
+                        <span class="league-xi__mark league-xi__mark--box league-xi__mark--own" aria-hidden="true"></span>
+                        <span class="league-xi__mark league-xi__mark--box league-xi__mark--opp" aria-hidden="true"></span>
+                        <span class="league-xi__mark league-xi__mark--six league-xi__mark--own" aria-hidden="true"></span>
+                        <span class="league-xi__mark league-xi__mark--six league-xi__mark--opp" aria-hidden="true"></span>
+                        <span class="league-xi__mark league-xi__mark--spot league-xi__mark--spot-own" aria-hidden="true"></span>
+                        <span class="league-xi__mark league-xi__mark--spot league-xi__mark--spot-opp" aria-hidden="true"></span>
+                        <!--[if BLOCK]><![endif]-->                                                        <a href="https://www.statiskicks.com/player/bwt9uej9k7ad5acandyvr7iwa/carlos-moreno" wire:navigate="" role="listitem" class="league-xi__player" style="left: 7%; top: 50%;" title="Carlos Moreno · Pachuca · 16 partidos" wire:key="xi-bwt9uej9k7ad5acandyvr7iwa">
+                                <img src="https://media.api-sports.io/football/players/11627.png" onerror="this.onerror=null;this.src='https://media.api-sports.io/football/players/11627.png'" alt="" class="league-xi__photo" loading="lazy">
+                                <span class="league-xi__name">C. Moreno</span>
+                                <span class="league-xi__meta">
+                                    <abbr class="sk-position" title="Portero">POR</abbr>
+                                    <span class="league-xi__rating sk-skore sk-skore-chip sk-skore--high" title="SKore de la temporada">7.16</span>
+                                </span>
+                            </a>
+                                                                                <a href="https://www.statiskicks.com/player/306gjy5xp2u15gh9qwrek551x/jesus-gallardo" wire:navigate="" role="listitem" class="league-xi__player" style="left: 30%; top: 13%;" title="Jesús Gallardo · Toluca · 13 partidos" wire:key="xi-306gjy5xp2u15gh9qwrek551x">
+                                <img src="https://media.api-sports.io/football/players/2881.png" onerror="this.onerror=null;this.src='https://media.api-sports.io/football/players/2881.png'" alt="" class="league-xi__photo" loading="lazy">
+                                <span class="league-xi__name">J. Gallardo</span>
+                                <span class="league-xi__meta">
+                                    <abbr class="sk-position" title="Lateral izquierdo">LI</abbr>
+                                    <span class="league-xi__rating sk-skore sk-skore-chip sk-skore--high" title="SKore de la temporada">7.28</span>
+                                </span>
+                            </a>
+                                                                                <a href="https://www.statiskicks.com/player/1cyhpfi77dom7gmpuownxlcrt/luis-romo" wire:navigate="" role="listitem" class="league-xi__player" style="left: 24%; top: 37%;" title="Luis Romo · Guadalajara · 12 partidos" wire:key="xi-1cyhpfi77dom7gmpuownxlcrt">
+                                <img src="https://media.api-sports.io/football/players/35970.png" onerror="this.onerror=null;this.src='https://media.api-sports.io/football/players/35970.png'" alt="" class="league-xi__photo" loading="lazy">
+                                <span class="league-xi__name">L. Romo</span>
+                                <span class="league-xi__meta">
+                                    <abbr class="sk-position" title="Defensa central">DFC</abbr>
+                                    <span class="league-xi__rating sk-skore sk-skore-chip sk-skore--high" title="SKore de la temporada">7.43</span>
+                                </span>
+                            </a>
+                                                                                <a href="https://www.statiskicks.com/player/bqc9q35pmfzele2x6xb9z6tm2/daniel-aguirre" wire:navigate="" role="listitem" class="league-xi__player" style="left: 24%; top: 63%;" title="Daniel Aguirre · Guadalajara · 13 partidos" wire:key="xi-bqc9q35pmfzele2x6xb9z6tm2">
+                                <img src="https://media.api-sports.io/football/players/312907.png" onerror="this.onerror=null;this.src='https://media.api-sports.io/football/players/312907.png'" alt="" class="league-xi__photo" loading="lazy">
+                                <span class="league-xi__name">D. Aguirre</span>
+                                <span class="league-xi__meta">
+                                    <abbr class="sk-position" title="Defensa central">DFC</abbr>
+                                    <span class="league-xi__rating sk-skore sk-skore-chip sk-skore--high" title="SKore de la temporada">7.42</span>
+                                </span>
+                            </a>
+                                                                                <a href="https://www.statiskicks.com/player/dsif2f4ny3beg21vrvnociwru/angel-marquez" wire:navigate="" role="listitem" class="league-xi__player" style="left: 30%; top: 87%;" title="Jeremy Márquez · Cruz Azul · 14 partidos" wire:key="xi-dsif2f4ny3beg21vrvnociwru">
+                                <img src="https://media.api-sports.io/football/players/35850.png" onerror="this.onerror=null;this.src='https://media.api-sports.io/football/players/35850.png'" alt="" class="league-xi__photo" loading="lazy">
+                                <span class="league-xi__name">J. Márquez</span>
+                                <span class="league-xi__meta">
+                                    <abbr class="sk-position" title="Lateral derecho">LD</abbr>
+                                    <span class="league-xi__rating sk-skore sk-skore-chip sk-skore--high" title="SKore de la temporada">7.35</span>
+                                </span>
+                            </a>
+                                                                                <a href="https://www.statiskicks.com/player/54kcu71vtiz8xlkke60k394a1/erick-sanchez" wire:navigate="" role="listitem" class="league-xi__player" style="left: 45%; top: 35%;" title="Érick Sánchez · Club América · 16 partidos" wire:key="xi-54kcu71vtiz8xlkke60k394a1">
+                                <img src="https://media.api-sports.io/football/players/36093.png" onerror="this.onerror=null;this.src='https://media.api-sports.io/football/players/36093.png'" alt="" class="league-xi__photo" loading="lazy">
+                                <span class="league-xi__name">É. Sánchez</span>
+                                <span class="league-xi__meta">
+                                    <abbr class="sk-position" title="Mediocentro defensivo">MCD</abbr>
+                                    <span class="league-xi__rating sk-skore sk-skore-chip sk-skore--high" title="SKore de la temporada">7.29</span>
+                                </span>
+                            </a>
+                                                                                <a href="https://www.statiskicks.com/player/290eq9srth2n1q3349b7v9mok/santiago-homenchenko" wire:navigate="" role="listitem" class="league-xi__player" style="left: 45%; top: 65%;" title="Santiago Homenchenko · Querétaro · 12 partidos" wire:key="xi-290eq9srth2n1q3349b7v9mok">
+                                <img src="https://media.api-sports.io/football/players/315243.png" onerror="this.onerror=null;this.src='https://media.api-sports.io/football/players/315243.png'" alt="" class="league-xi__photo" loading="lazy">
+                                <span class="league-xi__name">S. Homenchenko</span>
+                                <span class="league-xi__meta">
+                                    <abbr class="sk-position" title="Mediocentro defensivo">MCD</abbr>
+                                    <span class="league-xi__rating sk-skore sk-skore-chip sk-skore--high" title="SKore de la temporada">7.24</span>
+                                </span>
+                            </a>
+                                                                                <a href="https://www.statiskicks.com/player/euha4w0awkqy0zo5rktvje57t/paul-rodriguez" wire:navigate="" role="listitem" class="league-xi__player" style="left: 68%; top: 15%;" title="Brian Rodríguez · Club América · 11 partidos" wire:key="xi-euha4w0awkqy0zo5rktvje57t">
+                                <img src="https://media.api-sports.io/football/players/51618.png" onerror="this.onerror=null;this.src='https://media.api-sports.io/football/players/51618.png'" alt="" class="league-xi__photo" loading="lazy">
+                                <span class="league-xi__name">B. Rodríguez</span>
+                                <span class="league-xi__meta">
+                                    <abbr class="sk-position" title="Extremo izquierdo">EI</abbr>
+                                    <span class="league-xi__rating sk-skore sk-skore-chip sk-skore--high" title="SKore de la temporada">7.74</span>
+                                </span>
+                            </a>
+                                                                                <a href="https://www.statiskicks.com/player/auegpd36ras84mp8q6j6gs8a1/juan-brunetta" wire:navigate="" role="listitem" class="league-xi__player" style="left: 66%; top: 50%;" title="Juan Brunetta · Tigres UANL · 15 partidos" wire:key="xi-auegpd36ras84mp8q6j6gs8a1">
+                                <img src="https://media.api-sports.io/football/players/6579.png" onerror="this.onerror=null;this.src='https://media.api-sports.io/football/players/6579.png'" alt="" class="league-xi__photo" loading="lazy">
+                                <span class="league-xi__name">J. Brunetta</span>
+                                <span class="league-xi__meta">
+                                    <abbr class="sk-position" title="Mediapunta">MCO</abbr>
+                                    <span class="league-xi__rating sk-skore sk-skore-chip sk-skore--high" title="SKore de la temporada">7.75</span>
+                                </span>
+                            </a>
+                                                                                <a href="https://www.statiskicks.com/player/cdtqwtqf0k8ej2lwipsu00huy/helio-nunes" wire:navigate="" role="listitem" class="league-xi__player" style="left: 68%; top: 85%;" title="Hélio Júnio Nunes de Castro · Toluca · 15 partidos" wire:key="xi-cdtqwtqf0k8ej2lwipsu00huy">
+                                <img src="https://media.api-sports.io/football/players/9965.png" onerror="this.onerror=null;this.src='https://media.api-sports.io/football/players/9965.png'" alt="" class="league-xi__photo" loading="lazy">
+                                <span class="league-xi__name">Helinho</span>
+                                <span class="league-xi__meta">
+                                    <abbr class="sk-position" title="Extremo derecho">ED</abbr>
+                                    <span class="league-xi__rating sk-skore sk-skore-chip sk-skore--high" title="SKore de la temporada">7.43</span>
+                                </span>
+                            </a>
+                                                                                <a href="https://www.statiskicks.com/player/20wvh9al53baedfzbzykpvkyd/jose-rondon" wire:navigate="" role="listitem" class="league-xi__player" style="left: 87%; top: 50%;" title="Salomón Rondón · Pachuca · 16 partidos" wire:key="xi-20wvh9al53baedfzbzykpvkyd">
+                                <img src="https://media.api-sports.io/football/players/2461.png" onerror="this.onerror=null;this.src='https://media.api-sports.io/football/players/2461.png'" alt="" class="league-xi__photo" loading="lazy">
+                                <span class="league-xi__name">S. Rondón</span>
+                                <span class="league-xi__meta">
+                                    <abbr class="sk-position" title="Delantero centro">DC</abbr>
+                                    <span class="league-xi__rating sk-skore sk-skore-chip sk-skore--high" title="SKore de la temporada">7.57</span>
+                                </span>
+                            </a>
+                        <!--[if ENDBLOCK]><![endif]-->                    </div>
+                </div>
+            <!--[if ENDBLOCK]><![endif]-->        </div>
+    </section>
+
+    
+    <section class="league-detail-section">
+        <header class="league-detail-section__head">
+            <h2 class="league-detail-section__title">Equipos en mejor forma</h2>
+            <span class="league-detail-section__hint">xG − xGA, últimos 5 partidos</span>
+        </header>
+        <div class="sk-card league-form">
+            <!--[if BLOCK]><![endif]-->                                <article class="league-form__row" wire:key="form-eu8c408f59yx7egaqossbv25e">
+                    <span class="league-form__rank">1</span>
+                    <div class="league-form__team">
+                        <a href="https://www.statiskicks.com/team/club-america-eu8c408f59yx7egaqossbv25e" wire:navigate="" class="league-form__name">Club América</a>
+                        <span class="league-form__xg">xG 2,05 · xGA 1,40</span>
+                        <span class="league-standings__form">
+                            <!--[if BLOCK]><![endif]-->                                <span class="league-standings__form-pill league-standings__form-pill--W" data-sk-tip="Victoria" role="img" aria-label="Victoria">V</span>
+                                                            <span class="league-standings__form-pill league-standings__form-pill--L" data-sk-tip="Derrota" role="img" aria-label="Derrota">D</span>
+                                                            <span class="league-standings__form-pill league-standings__form-pill--D" data-sk-tip="Empate" role="img" aria-label="Empate">E</span>
+                                                            <span class="league-standings__form-pill league-standings__form-pill--D" data-sk-tip="Empate" role="img" aria-label="Empate">E</span>
+                                                            <span class="league-standings__form-pill league-standings__form-pill--D" data-sk-tip="Empate" role="img" aria-label="Empate">E</span>
+                            <!--[if ENDBLOCK]><![endif]-->                        </span>
+                    </div>
+                    <span class="league-form__bars" aria-hidden="true">
+                        <!--[if BLOCK]><![endif]-->                            <span class="league-form__bar league-form__bar--neg" style="height: 15%;"></span>
+                                                    <span class="league-form__bar" style="height: 100%;"></span>
+                                                    <span class="league-form__bar" style="height: 55%;"></span>
+                                                    <span class="league-form__bar" style="height: 8%;"></span>
+                                                    <span class="league-form__bar" style="height: 13%;"></span>
+                        <!--[if ENDBLOCK]><![endif]-->                    </span>
+                    <div class="league-form__numbers">
+                        <span class="league-form__diff league-standings__gd--pos" title="Diferencial de xG por partido">+0,65</span>
+                        <!--[if BLOCK]><![endif]-->                            <span class="league-form__trend" title="Tendencia frente a los 5 partidos anteriores">
+                                <i class="bi bi-arrow-up-right league-standings__gd--pos"></i>
+                                +0,14
+                            </span>
+                        <!--[if ENDBLOCK]><![endif]-->                    </div>
+                </article>
+                                            <article class="league-form__row" wire:key="form-evyhlelybkbj2vry2xhct08pb">
+                    <span class="league-form__rank">2</span>
+                    <div class="league-form__team">
+                        <a href="https://www.statiskicks.com/team/atlante-evyhlelybkbj2vry2xhct08pb" wire:navigate="" class="league-form__name">Atlante</a>
+                        <span class="league-form__xg">xG 1,48 · xGA 0,88</span>
+                        <span class="league-standings__form">
+                            <!--[if BLOCK]><![endif]-->                                <span class="league-standings__form-pill league-standings__form-pill--L" data-sk-tip="Derrota" role="img" aria-label="Derrota">D</span>
+                                                            <span class="league-standings__form-pill league-standings__form-pill--W" data-sk-tip="Victoria" role="img" aria-label="Victoria">V</span>
+                                                            <span class="league-standings__form-pill league-standings__form-pill--L" data-sk-tip="Derrota" role="img" aria-label="Derrota">D</span>
+                                                            <span class="league-standings__form-pill league-standings__form-pill--L" data-sk-tip="Derrota" role="img" aria-label="Derrota">D</span>
+                                                            <span class="league-standings__form-pill league-standings__form-pill--L" data-sk-tip="Derrota" role="img" aria-label="Derrota">D</span>
+                            <!--[if ENDBLOCK]><![endif]-->                        </span>
+                    </div>
+                    <span class="league-form__bars" aria-hidden="true">
+                        <!--[if BLOCK]><![endif]-->                            <span class="league-form__bar" style="height: 8%;"></span>
+                                                    <span class="league-form__bar" style="height: 21%;"></span>
+                                                    <span class="league-form__bar" style="height: 100%;"></span>
+                                                    <span class="league-form__bar league-form__bar--neg" style="height: 8%;"></span>
+                                                    <span class="league-form__bar" style="height: 58%;"></span>
+                        <!--[if ENDBLOCK]><![endif]-->                    </span>
+                    <div class="league-form__numbers">
+                        <span class="league-form__diff league-standings__gd--pos" title="Diferencial de xG por partido">+0,60</span>
+                        <!--[if BLOCK]><![endif]-->                            <span class="league-form__trend" title="Tendencia frente a los 5 partidos anteriores">
+                                <i class="bi bi-arrow-up-right league-standings__gd--pos"></i>
+                                +0,05
+                            </span>
+                        <!--[if ENDBLOCK]><![endif]-->                    </div>
+                </article>
+                                            <article class="league-form__row" wire:key="form-233335xtoe3e3phg3hp91xguq">
+                    <span class="league-form__rank">3</span>
+                    <div class="league-form__team">
+                        <a href="https://www.statiskicks.com/team/monterrey-233335xtoe3e3phg3hp91xguq" wire:navigate="" class="league-form__name">Monterrey</a>
+                        <span class="league-form__xg">xG 1,71 · xGA 1,16</span>
+                        <span class="league-standings__form">
+                            <!--[if BLOCK]><![endif]-->                                <span class="league-standings__form-pill league-standings__form-pill--W" data-sk-tip="Victoria" role="img" aria-label="Victoria">V</span>
+                                                            <span class="league-standings__form-pill league-standings__form-pill--W" data-sk-tip="Victoria" role="img" aria-label="Victoria">V</span>
+                                                            <span class="league-standings__form-pill league-standings__form-pill--L" data-sk-tip="Derrota" role="img" aria-label="Derrota">D</span>
+                                                            <span class="league-standings__form-pill league-standings__form-pill--D" data-sk-tip="Empate" role="img" aria-label="Empate">E</span>
+                                                            <span class="league-standings__form-pill league-standings__form-pill--L" data-sk-tip="Derrota" role="img" aria-label="Derrota">D</span>
+                            <!--[if ENDBLOCK]><![endif]-->                        </span>
+                    </div>
+                    <span class="league-form__bars" aria-hidden="true">
+                        <!--[if BLOCK]><![endif]-->                            <span class="league-form__bar" style="height: 56%;"></span>
+                                                    <span class="league-form__bar" style="height: 30%;"></span>
+                                                    <span class="league-form__bar" style="height: 8%;"></span>
+                                                    <span class="league-form__bar" style="height: 100%;"></span>
+                                                    <span class="league-form__bar league-form__bar--neg" style="height: 37%;"></span>
+                        <!--[if ENDBLOCK]><![endif]-->                    </span>
+                    <div class="league-form__numbers">
+                        <span class="league-form__diff league-standings__gd--pos" title="Diferencial de xG por partido">+0,55</span>
+                        <!--[if BLOCK]><![endif]-->                            <span class="league-form__trend" title="Tendencia frente a los 5 partidos anteriores">
+                                <i class="bi bi-arrow-up-right league-standings__gd--pos"></i>
+                                +0,74
+                            </span>
+                        <!--[if ENDBLOCK]><![endif]-->                    </div>
+                </article>
+                                            <article class="league-form__row" wire:key="form-1aw67co8uut64yckd3wbhy9t2">
+                    <span class="league-form__rank">4</span>
+                    <div class="league-form__team">
+                        <a href="https://www.statiskicks.com/team/cruz-azul-1aw67co8uut64yckd3wbhy9t2" wire:navigate="" class="league-form__name">Cruz Azul</a>
+                        <span class="league-form__xg">xG 1,97 · xGA 1,44</span>
+                        <span class="league-standings__form">
+                            <!--[if BLOCK]><![endif]-->                                <span class="league-standings__form-pill league-standings__form-pill--W" data-sk-tip="Victoria" role="img" aria-label="Victoria">V</span>
+                                                            <span class="league-standings__form-pill league-standings__form-pill--W" data-sk-tip="Victoria" role="img" aria-label="Victoria">V</span>
+                                                            <span class="league-standings__form-pill league-standings__form-pill--W" data-sk-tip="Victoria" role="img" aria-label="Victoria">V</span>
+                                                            <span class="league-standings__form-pill league-standings__form-pill--W" data-sk-tip="Victoria" role="img" aria-label="Victoria">V</span>
+                                                            <span class="league-standings__form-pill league-standings__form-pill--W" data-sk-tip="Victoria" role="img" aria-label="Victoria">V</span>
+                            <!--[if ENDBLOCK]><![endif]-->                        </span>
+                    </div>
+                    <span class="league-form__bars" aria-hidden="true">
+                        <!--[if BLOCK]><![endif]-->                            <span class="league-form__bar" style="height: 100%;"></span>
+                                                    <span class="league-form__bar" style="height: 22%;"></span>
+                                                    <span class="league-form__bar" style="height: 57%;"></span>
+                                                    <span class="league-form__bar league-form__bar--neg" style="height: 42%;"></span>
+                                                    <span class="league-form__bar" style="height: 28%;"></span>
+                        <!--[if ENDBLOCK]><![endif]-->                    </span>
+                    <div class="league-form__numbers">
+                        <span class="league-form__diff league-standings__gd--pos" title="Diferencial de xG por partido">+0,53</span>
+                        <!--[if BLOCK]><![endif]-->                            <span class="league-form__trend" title="Tendencia frente a los 5 partidos anteriores">
+                                <i class="bi bi-arrow-down-right league-standings__gd--neg"></i>
+                                -0,12
+                            </span>
+                        <!--[if ENDBLOCK]><![endif]-->                    </div>
+                </article>
+                                            <article class="league-form__row" wire:key="form-e603sojy77s4u0ypqds2v2a1g">
+                    <span class="league-form__rank">5</span>
+                    <div class="league-form__team">
+                        <a href="https://www.statiskicks.com/team/guadalajara-e603sojy77s4u0ypqds2v2a1g" wire:navigate="" class="league-form__name">Guadalajara</a>
+                        <span class="league-form__xg">xG 1,43 · xGA 1,01</span>
+                        <span class="league-standings__form">
+                            <!--[if BLOCK]><![endif]-->                                <span class="league-standings__form-pill league-standings__form-pill--D" data-sk-tip="Empate" role="img" aria-label="Empate">E</span>
+                                                            <span class="league-standings__form-pill league-standings__form-pill--W" data-sk-tip="Victoria" role="img" aria-label="Victoria">V</span>
+                                                            <span class="league-standings__form-pill league-standings__form-pill--W" data-sk-tip="Victoria" role="img" aria-label="Victoria">V</span>
+                                                            <span class="league-standings__form-pill league-standings__form-pill--W" data-sk-tip="Victoria" role="img" aria-label="Victoria">V</span>
+                                                            <span class="league-standings__form-pill league-standings__form-pill--D" data-sk-tip="Empate" role="img" aria-label="Empate">E</span>
+                            <!--[if ENDBLOCK]><![endif]-->                        </span>
+                    </div>
+                    <span class="league-form__bars" aria-hidden="true">
+                        <!--[if BLOCK]><![endif]-->                            <span class="league-form__bar" style="height: 80%;"></span>
+                                                    <span class="league-form__bar league-form__bar--neg" style="height: 10%;"></span>
+                                                    <span class="league-form__bar league-form__bar--neg" style="height: 8%;"></span>
+                                                    <span class="league-form__bar" style="height: 8%;"></span>
+                                                    <span class="league-form__bar" style="height: 100%;"></span>
+                        <!--[if ENDBLOCK]><![endif]-->                    </span>
+                    <div class="league-form__numbers">
+                        <span class="league-form__diff league-standings__gd--pos" title="Diferencial de xG por partido">+0,42</span>
+                        <!--[if BLOCK]><![endif]-->                            <span class="league-form__trend" title="Tendencia frente a los 5 partidos anteriores">
+                                <i class="bi bi-arrow-up-right league-standings__gd--pos"></i>
+                                +0,10
+                            </span>
+                        <!--[if ENDBLOCK]><![endif]-->                    </div>
+                </article>
+            <!--[if ENDBLOCK]><![endif]-->        </div>
+    </section>
+</div>
+
+<div class="league-detail-columns">
+    
+    <section class="league-detail-section league-detail-section--half">
+        <header class="league-detail-section__head">
+            <h2 class="league-detail-section__title">Clasificación</h2>
+            <a href="#" wire:click.prevent="setTab('standings')" class="league-detail-section__link">
+                Tabla completa <i class="bi bi-arrow-right"></i>
+            </a>
+        </header>
+        <div class="sk-card league-detail-table-wrap">
+            <!--[if BLOCK]><![endif]-->                <table class="league-detail-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Equipo</th>
+                            <th>PJ</th>
+                            <th>DG</th>
+                            <th>Pts</th>
+                            <th><abbr title="Puntos esperados según el xG de cada partido">xP</abbr></th>
+                            <th><abbr title="Puntos menos puntos esperados">±</abbr></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                                                <!--[if BLOCK]><![endif]-->                            
+                            <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->                                                        <tr wire:key="stand-1aw67co8uut64yckd3wbhy9t2">
+                                <td>1</td>
+                                <td>
+                                    <a href="https://www.statiskicks.com/team/cruz-azul-1aw67co8uut64yckd3wbhy9t2" wire:navigate="" class="league-detail-table__team">
+                                        <!--[if BLOCK]><![endif]-->                                            <img src="https://www.statiskicks.com/storage/media/teams/2295.png" alt="" width="18" height="18" loading="lazy">
+                                        <!--[if ENDBLOCK]><![endif]-->                                        Cruz Azul
+                                    </a>
+                                </td>
+                                <td>16</td>
+                                <td>+11</td>
+                                <td class="league-detail-table__pts">32</td>
+                                <td class="league-detail-table__xp" title="xG 31,37 · xGA 21,94 en 16 partidos">27,9</td>
+                                <td class="league-detail-table__gap league-standings__gd--pos">+4,1</td>
+                            </tr>
+                                                    
+                            <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->                                                        <tr wire:key="stand-eu8c408f59yx7egaqossbv25e">
+                                <td>2</td>
+                                <td>
+                                    <a href="https://www.statiskicks.com/team/club-america-eu8c408f59yx7egaqossbv25e" wire:navigate="" class="league-detail-table__team">
+                                        <!--[if BLOCK]><![endif]-->                                            <img src="https://www.statiskicks.com/storage/media/teams/2287.png" alt="" width="18" height="18" loading="lazy">
+                                        <!--[if ENDBLOCK]><![endif]-->                                        Club América
+                                    </a>
+                                </td>
+                                <td>16</td>
+                                <td>+15</td>
+                                <td class="league-detail-table__pts">30</td>
+                                <td class="league-detail-table__xp" title="xG 31,44 · xGA 23,06 en 16 partidos">27,3</td>
+                                <td class="league-detail-table__gap league-standings__gd--pos">+2,7</td>
+                            </tr>
+                                                    
+                            <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->                                                        <tr wire:key="stand-e603sojy77s4u0ypqds2v2a1g">
+                                <td>3</td>
+                                <td>
+                                    <a href="https://www.statiskicks.com/team/guadalajara-e603sojy77s4u0ypqds2v2a1g" wire:navigate="" class="league-detail-table__team">
+                                        <!--[if BLOCK]><![endif]-->                                            <img src="https://www.statiskicks.com/storage/media/teams/2278.png" alt="" width="18" height="18" loading="lazy">
+                                        <!--[if ENDBLOCK]><![endif]-->                                        Guadalajara
+                                    </a>
+                                </td>
+                                <td>16</td>
+                                <td>+11</td>
+                                <td class="league-detail-table__pts">30</td>
+                                <td class="league-detail-table__xp" title="xG 24,57 · xGA 16,53 en 16 partidos">27,4</td>
+                                <td class="league-detail-table__gap league-standings__gd--pos">+2,6</td>
+                            </tr>
+                                                    
+                            <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->                                                        <tr wire:key="stand-3390h9hdgoxzzofnrpyktanuz">
+                                <td>4</td>
+                                <td>
+                                    <a href="https://www.statiskicks.com/team/toluca-3390h9hdgoxzzofnrpyktanuz" wire:navigate="" class="league-detail-table__team">
+                                        <!--[if BLOCK]><![endif]-->                                            <img src="https://www.statiskicks.com/storage/media/teams/2281.png" alt="" width="18" height="18" loading="lazy">
+                                        <!--[if ENDBLOCK]><![endif]-->                                        Toluca
+                                    </a>
+                                </td>
+                                <td>16</td>
+                                <td>+14</td>
+                                <td class="league-detail-table__pts">27</td>
+                                <td class="league-detail-table__xp" title="xG 30,71 · xGA 20,06 en 16 partidos">28,4</td>
+                                <td class="league-detail-table__gap league-standings__gd--neg">-1,4</td>
+                            </tr>
+                                                    
+                            <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->                                                        <tr wire:key="stand-8jjxbd5vr23vhu1v5r21rzkrn">
+                                <td>5</td>
+                                <td>
+                                    <a href="https://www.statiskicks.com/team/atlas-8jjxbd5vr23vhu1v5r21rzkrn" wire:navigate="" class="league-detail-table__team">
+                                        <!--[if BLOCK]><![endif]-->                                            <img src="https://www.statiskicks.com/storage/media/teams/2283.png" alt="" width="18" height="18" loading="lazy">
+                                        <!--[if ENDBLOCK]><![endif]-->                                        Atlas
+                                    </a>
+                                </td>
+                                <td>16</td>
+                                <td>-3</td>
+                                <td class="league-detail-table__pts">27</td>
+                                <td class="league-detail-table__xp" title="xG 22,15 · xGA 27,24 en 16 partidos">19,2</td>
+                                <td class="league-detail-table__gap league-standings__gd--pos">+7,8</td>
+                            </tr>
+                                                    
+                            <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->                                                        <tr wire:key="stand-8yn3l36qkq1fxbw4ufmwyfyt9">
+                                <td>6</td>
+                                <td>
+                                    <a href="https://www.statiskicks.com/team/santos-laguna-8yn3l36qkq1fxbw4ufmwyfyt9" wire:navigate="" class="league-detail-table__team">
+                                        <!--[if BLOCK]><![endif]-->                                            <img src="https://www.statiskicks.com/storage/media/teams/2285.png" alt="" width="18" height="18" loading="lazy">
+                                        <!--[if ENDBLOCK]><![endif]-->                                        Santos Laguna
+                                    </a>
+                                </td>
+                                <td>16</td>
+                                <td>+3</td>
+                                <td class="league-detail-table__pts">25</td>
+                                <td class="league-detail-table__xp" title="xG 25,50 · xGA 26,21 en 16 partidos">21,4</td>
+                                <td class="league-detail-table__gap league-standings__gd--pos">+3,6</td>
+                            </tr>
+                                                    
+                            <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->                                                        <tr wire:key="stand-2ei66pjfsrr6uxqp1bywq31lo">
+                                <td>7</td>
+                                <td>
+                                    <a href="https://www.statiskicks.com/team/leon-2ei66pjfsrr6uxqp1bywq31lo" wire:navigate="" class="league-detail-table__team">
+                                        <!--[if BLOCK]><![endif]-->                                            <img src="https://www.statiskicks.com/storage/media/teams/2289.png" alt="" width="18" height="18" loading="lazy">
+                                        <!--[if ENDBLOCK]><![endif]-->                                        León
+                                    </a>
+                                </td>
+                                <td>16</td>
+                                <td>+2</td>
+                                <td class="league-detail-table__pts">23</td>
+                                <td class="league-detail-table__xp" title="xG 23,31 · xGA 23,45 en 16 partidos">21,9</td>
+                                <td class="league-detail-table__gap league-standings__gd--pos">+1,1</td>
+                            </tr>
+                                                    
+                            <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->                                                        <tr wire:key="stand-cynfvfb31rml7xrlsnejf8r6j">
+                                <td>8</td>
+                                <td>
+                                    <a href="https://www.statiskicks.com/team/pachuca-cynfvfb31rml7xrlsnejf8r6j" wire:navigate="" class="league-detail-table__team">
+                                        <!--[if BLOCK]><![endif]-->                                            <img src="https://www.statiskicks.com/storage/media/teams/2292.png" alt="" width="18" height="18" loading="lazy">
+                                        <!--[if ENDBLOCK]><![endif]-->                                        Pachuca
+                                    </a>
+                                </td>
+                                <td>16</td>
+                                <td>+9</td>
+                                <td class="league-detail-table__pts">22</td>
+                                <td class="league-detail-table__xp" title="xG 23,16 · xGA 27,05 en 16 partidos">20,3</td>
+                                <td class="league-detail-table__gap league-standings__gd--pos">+1,7</td>
+                            </tr>
+                                                    
+                            <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->                                                        <tr wire:key="stand-c1wcescnsnfuyv06enhwaoqr6">
+                                <td>9</td>
+                                <td>
+                                    <a href="https://www.statiskicks.com/team/tijuana-c1wcescnsnfuyv06enhwaoqr6" wire:navigate="" class="league-detail-table__team">
+                                        <!--[if BLOCK]><![endif]-->                                            <img src="https://www.statiskicks.com/storage/media/teams/2280.png" alt="" width="18" height="18" loading="lazy">
+                                        <!--[if ENDBLOCK]><![endif]-->                                        Tijuana
+                                    </a>
+                                </td>
+                                <td>16</td>
+                                <td>+3</td>
+                                <td class="league-detail-table__pts">22</td>
+                                <td class="league-detail-table__xp" title="xG 26,71 · xGA 22,36 en 16 partidos">24,6</td>
+                                <td class="league-detail-table__gap league-standings__gd--neg">-2,6</td>
+                            </tr>
+                                                    
+                            <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->                                                        <tr wire:key="stand-233335xtoe3e3phg3hp91xguq">
+                                <td>10</td>
+                                <td>
+                                    <a href="https://www.statiskicks.com/team/monterrey-233335xtoe3e3phg3hp91xguq" wire:navigate="" class="league-detail-table__team">
+                                        <!--[if BLOCK]><![endif]-->                                            <img src="https://www.statiskicks.com/storage/media/teams/2282.png" alt="" width="18" height="18" loading="lazy">
+                                        <!--[if ENDBLOCK]><![endif]-->                                        Monterrey
+                                    </a>
+                                </td>
+                                <td>15</td>
+                                <td>+1</td>
+                                <td class="league-detail-table__pts">21</td>
+                                <td class="league-detail-table__xp" title="xG 23,60 · xGA 20,12 en 15 partidos">22,9</td>
+                                <td class="league-detail-table__gap league-standings__gd--neg">-1,9</td>
+                            </tr>
+                                                    
+                            <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->                                                        <tr wire:key="stand-ayabrorjqa1bj7jk1fdqu1t57">
+                                <td>11</td>
+                                <td>
+                                    <a href="https://www.statiskicks.com/team/pumas-unam-ayabrorjqa1bj7jk1fdqu1t57" wire:navigate="" class="league-detail-table__team">
+                                        <!--[if BLOCK]><![endif]-->                                            <img src="https://www.statiskicks.com/storage/media/teams/2286.png" alt="" width="18" height="18" loading="lazy">
+                                        <!--[if ENDBLOCK]><![endif]-->                                        Pumas UNAM
+                                    </a>
+                                </td>
+                                <td>16</td>
+                                <td>-2</td>
+                                <td class="league-detail-table__pts">21</td>
+                                <td class="league-detail-table__xp" title="xG 19,09 · xGA 25,01 en 16 partidos">18,0</td>
+                                <td class="league-detail-table__gap league-standings__gd--pos">+3,0</td>
+                            </tr>
+                                                    
+                            <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->                                                        <tr wire:key="stand-ccye1b5fvtq8tzlz0gosyw10b">
+                                <td>12</td>
+                                <td>
+                                    <a href="https://www.statiskicks.com/team/queretaro-ccye1b5fvtq8tzlz0gosyw10b" wire:navigate="" class="league-detail-table__team">
+                                        <!--[if BLOCK]><![endif]-->                                            <img src="https://www.statiskicks.com/storage/media/teams/2290.png" alt="" width="18" height="18" loading="lazy">
+                                        <!--[if ENDBLOCK]><![endif]-->                                        Querétaro
+                                    </a>
+                                </td>
+                                <td>15</td>
+                                <td>-5</td>
+                                <td class="league-detail-table__pts">20</td>
+                                <td class="league-detail-table__xp" title="xG 24,37 · xGA 25,68 en 15 partidos">20,5</td>
+                                <td class="league-detail-table__gap league-standings__gd--neg">-0,5</td>
+                            </tr>
+                                                    
+                            <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->                                                        <tr wire:key="stand-4kw25nmgmacpbvo24ttr994k5">
+                                <td>13</td>
+                                <td>
+                                    <a href="https://www.statiskicks.com/team/puebla-4kw25nmgmacpbvo24ttr994k5" wire:navigate="" class="league-detail-table__team">
+                                        <!--[if BLOCK]><![endif]-->                                            <img src="https://www.statiskicks.com/storage/media/teams/2291.png" alt="" width="18" height="18" loading="lazy">
+                                        <!--[if ENDBLOCK]><![endif]-->                                        Puebla
+                                    </a>
+                                </td>
+                                <td>16</td>
+                                <td>-4</td>
+                                <td class="league-detail-table__pts">19</td>
+                                <td class="league-detail-table__xp" title="xG 15,63 · xGA 25,06 en 16 partidos">15,9</td>
+                                <td class="league-detail-table__gap league-standings__gd--pos">+3,1</td>
+                            </tr>
+                                                    
+                            <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->                                                        <tr wire:key="stand-54ph1k82y99hhjsf7m2usns8u">
+                                <td>14</td>
+                                <td>
+                                    <a href="https://www.statiskicks.com/team/atletico-san-luis-54ph1k82y99hhjsf7m2usns8u" wire:navigate="" class="league-detail-table__team">
+                                        <!--[if BLOCK]><![endif]-->                                            <img src="https://www.statiskicks.com/storage/media/teams/2314.png" alt="" width="18" height="18" loading="lazy">
+                                        <!--[if ENDBLOCK]><![endif]-->                                        Atlético San Luis
+                                    </a>
+                                </td>
+                                <td>16</td>
+                                <td>-5</td>
+                                <td class="league-detail-table__pts">19</td>
+                                <td class="league-detail-table__xp" title="xG 19,19 · xGA 25,31 en 16 partidos">18,5</td>
+                                <td class="league-detail-table__gap league-standings__gd--pos">+0,5</td>
+                            </tr>
+                                                    
+                            <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->                                                        <tr wire:key="stand-6hmo9mrlz73nwxkshwuu5vsfm">
+                                <td>15</td>
+                                <td>
+                                    <a href="https://www.statiskicks.com/team/tigres-uanl-6hmo9mrlz73nwxkshwuu5vsfm" wire:navigate="" class="league-detail-table__team">
+                                        <!--[if BLOCK]><![endif]-->                                            <img src="https://www.statiskicks.com/storage/media/teams/2279.png" alt="" width="18" height="18" loading="lazy">
+                                        <!--[if ENDBLOCK]><![endif]-->                                        Tigres UANL
+                                    </a>
+                                </td>
+                                <td>16</td>
+                                <td>-8</td>
+                                <td class="league-detail-table__pts">15</td>
+                                <td class="league-detail-table__xp" title="xG 23,18 · xGA 26,38 en 16 partidos">20,3</td>
+                                <td class="league-detail-table__gap league-standings__gd--neg">-5,3</td>
+                            </tr>
+                                                    
+                            <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->                                                        <tr wire:key="stand-evyhlelybkbj2vry2xhct08pb">
+                                <td>16</td>
+                                <td>
+                                    <a href="https://www.statiskicks.com/team/atlante-evyhlelybkbj2vry2xhct08pb" wire:navigate="" class="league-detail-table__team">
+                                        <!--[if BLOCK]><![endif]-->                                            <img src="https://www.statiskicks.com/storage/media/teams/2312.png" alt="" width="18" height="18" loading="lazy">
+                                        <!--[if ENDBLOCK]><![endif]-->                                        Atlante
+                                    </a>
+                                </td>
+                                <td>16</td>
+                                <td>-10</td>
+                                <td class="league-detail-table__pts">14</td>
+                                <td class="league-detail-table__xp" title="xG 22,74 · xGA 20,98 en 16 partidos">23,3</td>
+                                <td class="league-detail-table__gap league-standings__gd--neg">-9,3</td>
+                            </tr>
+                                                    
+                            <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->                                                        <tr wire:key="stand-b7hn6knkuxbpj1i8rmzapns7b">
+                                <td>17</td>
+                                <td>
+                                    <a href="https://www.statiskicks.com/team/necaxa-b7hn6knkuxbpj1i8rmzapns7b" wire:navigate="" class="league-detail-table__team">
+                                        <!--[if BLOCK]><![endif]-->                                            <img src="https://www.statiskicks.com/storage/media/teams/2288.png" alt="" width="18" height="18" loading="lazy">
+                                        <!--[if ENDBLOCK]><![endif]-->                                        Necaxa
+                                    </a>
+                                </td>
+                                <td>16</td>
+                                <td>-11</td>
+                                <td class="league-detail-table__pts">13</td>
+                                <td class="league-detail-table__xp" title="xG 29,43 · xGA 25,34 en 16 partidos">24,4</td>
+                                <td class="league-detail-table__gap league-standings__gd--neg">-11,4</td>
+                            </tr>
+                                                    
+                            <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->                                                        <tr wire:key="stand-ecphe4bqgmin2tzsohf50egvd">
+                                <td>18</td>
+                                <td>
+                                    <a href="https://www.statiskicks.com/team/juarez-ecphe4bqgmin2tzsohf50egvd" wire:navigate="" class="league-detail-table__team">
+                                        <!--[if BLOCK]><![endif]-->                                            <img src="https://www.statiskicks.com/storage/media/teams/2298.png" alt="" width="18" height="18" loading="lazy">
+                                        <!--[if ENDBLOCK]><![endif]-->                                        Juárez
+                                    </a>
+                                </td>
+                                <td>16</td>
+                                <td>-21</td>
+                                <td class="league-detail-table__pts">11</td>
+                                <td class="league-detail-table__xp" title="xG 16,94 · xGA 31,33 en 16 partidos">14,8</td>
+                                <td class="league-detail-table__gap league-standings__gd--neg">-3,8</td>
+                            </tr>
+                        <!--[if ENDBLOCK]><![endif]-->                    </tbody>
+                </table>
+                <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->            <!--[if ENDBLOCK]><![endif]-->        </div>
+    </section>
+
+    
+    <section class="league-detail-section league-detail-section--half">
+        <header class="league-detail-section__head">
+            <h2 class="league-detail-section__title">Últimos resultados</h2>
+        </header>
+        <div class="sk-card league-detail-results">
+            <!--[if BLOCK]><![endif]-->                                <article class="league-detail-result" wire:key="match-9enz9ejz74zc2m07mw8rnq044">
+                    <time class="league-detail-result__date">08 Nov 2026</time>
+                    <div class="league-detail-result__teams">
+                        <a href="https://www.statiskicks.com/team/leon-2ei66pjfsrr6uxqp1bywq31lo" wire:navigate="" class="league-detail-result__side">
+                            <!--[if BLOCK]><![endif]-->                                <img src="https://www.statiskicks.com/storage/media/teams/2289.png" alt="" width="16" height="16" loading="lazy">
+                            <!--[if ENDBLOCK]><![endif]-->                            León
+                        </a>
+                        
+                        <a href="https://www.statiskicks.com/partido/leon-vs-guadalajara-9enz9ejz74zc2m07mw8rnq044" wire:navigate="" class="league-detail-result__score" title="Ver el partido">
+                            1 – 1
+                            <!--[if BLOCK]><![endif]-->                                <span class="league-detail-result__xg">xG 0,4 – 1,6</span>
+                            <!--[if ENDBLOCK]><![endif]-->                        </a>
+                        <a href="https://www.statiskicks.com/team/guadalajara-e603sojy77s4u0ypqds2v2a1g" wire:navigate="" class="league-detail-result__side league-detail-result__side--away">
+                            <!--[if BLOCK]><![endif]-->                                <img src="https://www.statiskicks.com/storage/media/teams/2278.png" alt="" width="16" height="16" loading="lazy">
+                            <!--[if ENDBLOCK]><![endif]-->                            Guadalajara
+                        </a>
+                    </div>
+                </article>
+                                            <article class="league-detail-result" wire:key="match-9eb6gaa9cu2wx89f327tpx250">
+                    <time class="league-detail-result__date">08 Nov 2026</time>
+                    <div class="league-detail-result__teams">
+                        <a href="https://www.statiskicks.com/team/queretaro-ccye1b5fvtq8tzlz0gosyw10b" wire:navigate="" class="league-detail-result__side">
+                            <!--[if BLOCK]><![endif]-->                                <img src="https://www.statiskicks.com/storage/media/teams/2290.png" alt="" width="16" height="16" loading="lazy">
+                            <!--[if ENDBLOCK]><![endif]-->                            Querétaro
+                        </a>
+                        
+                        <a href="https://www.statiskicks.com/partido/queretaro-vs-puebla-9eb6gaa9cu2wx89f327tpx250" wire:navigate="" class="league-detail-result__score" title="Ver el partido">
+                            0 – 2
+                            <!--[if BLOCK]><![endif]-->                                <span class="league-detail-result__xg">xG 1,4 – 1,3</span>
+                            <!--[if ENDBLOCK]><![endif]-->                        </a>
+                        <a href="https://www.statiskicks.com/team/puebla-4kw25nmgmacpbvo24ttr994k5" wire:navigate="" class="league-detail-result__side league-detail-result__side--away">
+                            <!--[if BLOCK]><![endif]-->                                <img src="https://www.statiskicks.com/storage/media/teams/2291.png" alt="" width="16" height="16" loading="lazy">
+                            <!--[if ENDBLOCK]><![endif]-->                            Puebla
+                        </a>
+                    </div>
+                </article>
+                                            <article class="league-detail-result" wire:key="match-9dy7dhz5f13b2ejz2a5tok2l0">
+                    <time class="league-detail-result__date">07 Nov 2026</time>
+                    <div class="league-detail-result__teams">
+                        <a href="https://www.statiskicks.com/team/pumas-unam-ayabrorjqa1bj7jk1fdqu1t57" wire:navigate="" class="league-detail-result__side">
+                            <!--[if BLOCK]><![endif]-->                                <img src="https://www.statiskicks.com/storage/media/teams/2286.png" alt="" width="16" height="16" loading="lazy">
+                            <!--[if ENDBLOCK]><![endif]-->                            Pumas UNAM
+                        </a>
+                        
+                        <a href="https://www.statiskicks.com/partido/pumas-unam-vs-club-america-9dy7dhz5f13b2ejz2a5tok2l0" wire:navigate="" class="league-detail-result__score" title="Ver el partido">
+                            2 – 2
+                            <!--[if BLOCK]><![endif]-->                                <span class="league-detail-result__xg">xG 1,6 – 1,8</span>
+                            <!--[if ENDBLOCK]><![endif]-->                        </a>
+                        <a href="https://www.statiskicks.com/team/club-america-eu8c408f59yx7egaqossbv25e" wire:navigate="" class="league-detail-result__side league-detail-result__side--away">
+                            <!--[if BLOCK]><![endif]-->                                <img src="https://www.statiskicks.com/storage/media/teams/2287.png" alt="" width="16" height="16" loading="lazy">
+                            <!--[if ENDBLOCK]><![endif]-->                            Club América
+                        </a>
+                    </div>
+                </article>
+                                            <article class="league-detail-result" wire:key="match-9dldhty9x44qsr18ap6f7v3f8">
+                    <time class="league-detail-result__date">07 Nov 2026</time>
+                    <div class="league-detail-result__teams">
+                        <a href="https://www.statiskicks.com/team/toluca-3390h9hdgoxzzofnrpyktanuz" wire:navigate="" class="league-detail-result__side">
+                            <!--[if BLOCK]><![endif]-->                                <img src="https://www.statiskicks.com/storage/media/teams/2281.png" alt="" width="16" height="16" loading="lazy">
+                            <!--[if ENDBLOCK]><![endif]-->                            Toluca
+                        </a>
+                        
+                        <a href="https://www.statiskicks.com/partido/toluca-vs-monterrey-9dldhty9x44qsr18ap6f7v3f8" wire:navigate="" class="league-detail-result__score" title="Ver el partido">
+                            4 – 0
+                            <!--[if BLOCK]><![endif]-->                                <span class="league-detail-result__xg">xG 1,0 – 0,4</span>
+                            <!--[if ENDBLOCK]><![endif]-->                        </a>
+                        <a href="https://www.statiskicks.com/team/monterrey-233335xtoe3e3phg3hp91xguq" wire:navigate="" class="league-detail-result__side league-detail-result__side--away">
+                            <!--[if BLOCK]><![endif]-->                                <img src="https://www.statiskicks.com/storage/media/teams/2282.png" alt="" width="16" height="16" loading="lazy">
+                            <!--[if ENDBLOCK]><![endif]-->                            Monterrey
+                        </a>
+                    </div>
+                </article>
+                                            <article class="league-detail-result" wire:key="match-9d8j34de4vnr5dp0qt93duplg">
+                    <time class="league-detail-result__date">07 Nov 2026</time>
+                    <div class="league-detail-result__teams">
+                        <a href="https://www.statiskicks.com/team/tigres-uanl-6hmo9mrlz73nwxkshwuu5vsfm" wire:navigate="" class="league-detail-result__side">
+                            <!--[if BLOCK]><![endif]-->                                <img src="https://www.statiskicks.com/storage/media/teams/2279.png" alt="" width="16" height="16" loading="lazy">
+                            <!--[if ENDBLOCK]><![endif]-->                            Tigres UANL
+                        </a>
+                        
+                        <a href="https://www.statiskicks.com/partido/tigres-uanl-vs-cruz-azul-9d8j34de4vnr5dp0qt93duplg" wire:navigate="" class="league-detail-result__score" title="Ver el partido">
+                            2 – 3
+                            <!--[if BLOCK]><![endif]-->                                <span class="league-detail-result__xg">xG 1,7 – 2,2</span>
+                            <!--[if ENDBLOCK]><![endif]-->                        </a>
+                        <a href="https://www.statiskicks.com/team/cruz-azul-1aw67co8uut64yckd3wbhy9t2" wire:navigate="" class="league-detail-result__side league-detail-result__side--away">
+                            <!--[if BLOCK]><![endif]-->                                <img src="https://www.statiskicks.com/storage/media/teams/2295.png" alt="" width="16" height="16" loading="lazy">
+                            <!--[if ENDBLOCK]><![endif]-->                            Cruz Azul
+                        </a>
+                    </div>
+                </article>
+                                            <article class="league-detail-result" wire:key="match-9cvplzj23tb7iyv3ezq1qya6s">
+                    <time class="league-detail-result__date">07 Nov 2026</time>
+                    <div class="league-detail-result__teams">
+                        <a href="https://www.statiskicks.com/team/atlas-8jjxbd5vr23vhu1v5r21rzkrn" wire:navigate="" class="league-detail-result__side">
+                            <!--[if BLOCK]><![endif]-->                                <img src="https://www.statiskicks.com/storage/media/teams/2283.png" alt="" width="16" height="16" loading="lazy">
+                            <!--[if ENDBLOCK]><![endif]-->                            Atlas
+                        </a>
+                        
+                        <a href="https://www.statiskicks.com/partido/atlas-vs-pachuca-9cvplzj23tb7iyv3ezq1qya6s" wire:navigate="" class="league-detail-result__score" title="Ver el partido">
+                            1 – 4
+                            <!--[if BLOCK]><![endif]-->                                <span class="league-detail-result__xg">xG 1,2 – 1,8</span>
+                            <!--[if ENDBLOCK]><![endif]-->                        </a>
+                        <a href="https://www.statiskicks.com/team/pachuca-cynfvfb31rml7xrlsnejf8r6j" wire:navigate="" class="league-detail-result__side league-detail-result__side--away">
+                            <!--[if BLOCK]><![endif]-->                                <img src="https://www.statiskicks.com/storage/media/teams/2292.png" alt="" width="16" height="16" loading="lazy">
+                            <!--[if ENDBLOCK]><![endif]-->                            Pachuca
+                        </a>
+                    </div>
+                </article>
+                                            <article class="league-detail-result" wire:key="match-9ciwv4z9znd9je18y0lqs1ogk">
+                    <time class="league-detail-result__date">06 Nov 2026</time>
+                    <div class="league-detail-result__teams">
+                        <a href="https://www.statiskicks.com/team/atlante-evyhlelybkbj2vry2xhct08pb" wire:navigate="" class="league-detail-result__side">
+                            <!--[if BLOCK]><![endif]-->                                <img src="https://www.statiskicks.com/storage/media/teams/2312.png" alt="" width="16" height="16" loading="lazy">
+                            <!--[if ENDBLOCK]><![endif]-->                            Atlante
+                        </a>
+                        
+                        <a href="https://www.statiskicks.com/partido/atlante-vs-santos-laguna-9ciwv4z9znd9je18y0lqs1ogk" wire:navigate="" class="league-detail-result__score" title="Ver el partido">
+                            0 – 2
+                            <!--[if BLOCK]><![endif]-->                                <span class="league-detail-result__xg">xG 1,6 – 0,7</span>
+                            <!--[if ENDBLOCK]><![endif]-->                        </a>
+                        <a href="https://www.statiskicks.com/team/santos-laguna-8yn3l36qkq1fxbw4ufmwyfyt9" wire:navigate="" class="league-detail-result__side league-detail-result__side--away">
+                            <!--[if BLOCK]><![endif]-->                                <img src="https://www.statiskicks.com/storage/media/teams/2285.png" alt="" width="16" height="16" loading="lazy">
+                            <!--[if ENDBLOCK]><![endif]-->                            Santos Laguna
+                        </a>
+                    </div>
+                </article>
+                                            <article class="league-detail-result" wire:key="match-9c6607fhbtgnchwvtwo08edxw">
+                    <time class="league-detail-result__date">06 Nov 2026</time>
+                    <div class="league-detail-result__teams">
+                        <a href="https://www.statiskicks.com/team/necaxa-b7hn6knkuxbpj1i8rmzapns7b" wire:navigate="" class="league-detail-result__side">
+                            <!--[if BLOCK]><![endif]-->                                <img src="https://www.statiskicks.com/storage/media/teams/2288.png" alt="" width="16" height="16" loading="lazy">
+                            <!--[if ENDBLOCK]><![endif]-->                            Necaxa
+                        </a>
+                        
+                        <a href="https://www.statiskicks.com/partido/necaxa-vs-tijuana-9c6607fhbtgnchwvtwo08edxw" wire:navigate="" class="league-detail-result__score" title="Ver el partido">
+                            1 – 0
+                            <!--[if BLOCK]><![endif]-->                                <span class="league-detail-result__xg">xG 1,2 – 1,7</span>
+                            <!--[if ENDBLOCK]><![endif]-->                        </a>
+                        <a href="https://www.statiskicks.com/team/tijuana-c1wcescnsnfuyv06enhwaoqr6" wire:navigate="" class="league-detail-result__side league-detail-result__side--away">
+                            <!--[if BLOCK]><![endif]-->                                <img src="https://www.statiskicks.com/storage/media/teams/2280.png" alt="" width="16" height="16" loading="lazy">
+                            <!--[if ENDBLOCK]><![endif]-->                            Tijuana
+                        </a>
+                    </div>
+                </article>
+            <!--[if ENDBLOCK]><![endif]-->        </div>
+    </section>
+</div>
+            <!--[if ENDBLOCK]><![endif]-->                </div>
+
+                <div class="league-detail__tab-overlay" wire:loading.class="league-detail__tab-overlay--show" wire:loading.delay="" wire:target="setTab,season,tournament" aria-hidden="true">
+                    <div class="league-detail-tab-skeleton sk-card" role="status" aria-live="polite" aria-busy="true">
+    <div class="league-detail-tab-skeleton__body">
+        <div class="league-detail-tab-skeleton__message">
+            <span class="league-detail-tab-skeleton__spinner" aria-hidden="true"></span>
+            <p class="league-detail-tab-skeleton__label">Cargando contenido</p>
+        </div>
+        <div class="league-detail-tab-skeleton__preview" aria-hidden="true">
+            <!--[if BLOCK]><![endif]-->                <span class="sk-skel league-detail-tab-skeleton__row"></span>
+                            <span class="sk-skel league-detail-tab-skeleton__row"></span>
+                            <span class="sk-skel league-detail-tab-skeleton__row"></span>
+                            <span class="sk-skel league-detail-tab-skeleton__row"></span>
+                            <span class="sk-skel league-detail-tab-skeleton__row"></span>
+                            <span class="sk-skel league-detail-tab-skeleton__row"></span>
+                            <span class="sk-skel league-detail-tab-skeleton__row"></span>
+                            <span class="sk-skel league-detail-tab-skeleton__row"></span>
+            <!--[if ENDBLOCK]><![endif]-->        </div>
+    </div>
+</div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+    <footer class="sk-footer">
+  <div class="container">
+    <div class="row g-4">
+
+      <div class="col-lg-5">
+        <div class="footer-logo">
+          <img src="https://www.statiskicks.com/custom_assets/logos/footer_logo.png?v=1787321828" alt="Statiskicks">
+        </div>
+        <p class="footer-desc">
+          Analiza a cualquier nivel de profundidad con datos en vivo para 40
+          competiciones. Rankings, radares, estilos de juego, mapas de eventos,
+          probabilidades y proyecciones, scouting y análisis de equipos.
+        </p>
+                  <a class="footer-contact" href="mailto:contacto@statiskicks.com">
+            <i class="bi bi-envelope" aria-hidden="true"></i> contacto@statiskicks.com
+          </a>
+              </div>
+
+      <div class="col-6 col-lg-3 offset-lg-1">
+        <p class="footer-nav-title">Explora</p>
+        <nav class="footer-nav-col" aria-label="Explora">
+          <a href="https://www.statiskicks.com/leagues" wire:navigate="">Ligas</a>
+          <a href="https://www.statiskicks.com/players" wire:navigate="">Búsqueda avanzada</a>
+          <a href="https://www.statiskicks.com/partidos" wire:navigate="">Partidos</a>
+          <a href="https://www.statiskicks.com/planes" wire:navigate="">Planes</a>
+        </nav>
+      </div>
+
+      <div class="col-6 col-lg-3">
+        <p class="footer-nav-title">Tu cuenta</p>
+        <nav class="footer-nav-col" aria-label="Tu cuenta">
+                      <a href="https://www.statiskicks.com/register">Crear cuenta gratis</a>
+            <a href="https://www.statiskicks.com/login">Iniciar sesión</a>
+                    <a href="https://www.statiskicks.com" wire:navigate="">Inicio</a>
+        </nav>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="sk-footer-bottom">
+    <div class="container sk-footer-bottom__row">
+      <p>© 2026 Statiskicks. Todos los derechos reservados.</p>
+      <nav class="sk-footer-legal" aria-label="Legal">
+        <a href="https://www.statiskicks.com/terminos" wire:navigate="">Términos y Condiciones de uso</a>
+        <a href="https://www.statiskicks.com/privacidad" wire:navigate="">Aviso de privacidad integral</a>
+      </nav>
+      <p>Datos de fútbol: Opta (Stats Perform).</p>
+    </div>
+  </div>
+</footer>
+
+    <div x-persist="chat-fab">
+      <div class="sk-chat-fab" data-chat-fab="" x-data="{ open: false }" @keydown.escape.window="open = false" @click.outside="open = false">
+  <div class="sk-chat-fab__popover" id="sk-chat-fab-popover" role="dialog" aria-label="Chat SK" x-show="open" style="display: none;">
+    <button type="button" class="sk-chat-fab__close" @click="open = false" aria-label="Cerrar">
+      <i class="bi bi-x-lg" aria-hidden="true"></i>
+    </button>
+    <div class="sk-coming-soon sk-coming-soon--compact" data-coming-soon="chat">
+      <p class="sk-coming-soon__title">Chat SK</p>
+    <span class="sk-coming-soon__badge">Próximamente · v2.0 (2027)</span>
+</div>
+  </div>
+
+  <button type="button" class="sk-chat-fab__button" aria-label="Chat SK (próximamente)" aria-controls="sk-chat-fab-popover" :aria-expanded="open ? 'true' : 'false'" aria-expanded="false" @click="open = ! open">
+    <i class="bi bi-chat-dots" aria-hidden="true"></i>
+  </button>
+</div>
+    </div>
+
+    
+          <div class="sk-paywall" data-sk-paywall="" data-sk-paywall-downloads="" hidden="">
+    <div class="sk-paywall__backdrop" data-sk-paywall-close=""></div>
+    <div class="sk-paywall__dialog" role="dialog" aria-modal="true" aria-labelledby="sk-paywall-title-downloads" tabindex="-1">
+        <button type="button" class="sk-paywall__close" data-sk-paywall-close="" aria-label="Cerrar">
+            <i class="bi bi-x-lg" aria-hidden="true"></i>
+        </button>
+        <div data-sk-paywall-variant="downloads">
+            <span class="sk-paywall__icon" aria-hidden="true"><i class="bi bi-download"></i></span>
+            <p class="sk-paywall__title" id="sk-paywall-title-downloads">Las descargas son parte de los planes de pago</p>
+            <p class="sk-paywall__text">Descarga gráficas en imagen y tablas y datos en CSV con cualquiera de nuestros paquetes.</p>
+        </div>
+        <div data-sk-paywall-variant="events" hidden="">
+            <span class="sk-paywall__icon" aria-hidden="true"><i class="bi bi-geo-alt"></i></span>
+            <p class="sk-paywall__title" id="sk-paywall-title-events">Todos los mapas de eventos son parte de los planes de pago</p>
+            <p class="sk-paywall__text">Con la cuenta gratuita tienes un evento por sección. Desbloquea todos los pases, remates, duelos y acciones defensivas con cualquiera de nuestros paquetes.</p>
+        </div>
+        <div data-sk-paywall-variant="columns" hidden="">
+            <span class="sk-paywall__icon" aria-hidden="true"><i class="bi bi-table"></i></span>
+            <p class="sk-paywall__title" id="sk-paywall-title-columns">Elegir las métricas de la tabla es parte de los planes de pago</p>
+            <p class="sk-paywall__text">Con la cuenta gratuita ves los minutos, goles, asistencias y el SKore de cada partido. Elige cualquier métrica con cualquiera de nuestros paquetes.</p>
+        </div>
+        <div data-sk-paywall-variant="compare" hidden="">
+            <span class="sk-paywall__icon" aria-hidden="true"><i class="bi bi-people"></i></span>
+            <p class="sk-paywall__title" id="sk-paywall-title-compare">Comparar con jugadores de todas las ligas es parte de los planes de pago</p>
+            <p class="sk-paywall__text">Con la cuenta gratuita comparas con jugadores de las ligas de tu plan. Compara con cualquier jugador de cualquier liga con cualquiera de nuestros paquetes.</p>
+        </div>
+        <div data-sk-paywall-variant="charts" hidden="">
+            <span class="sk-paywall__icon" aria-hidden="true"><i class="bi bi-sliders"></i></span>
+            <p class="sk-paywall__title" id="sk-paywall-title-charts">Personalizar las gráficas es parte de los planes de pago</p>
+            <p class="sk-paywall__text">Cambia la unidad de medida, compara con la media de la liga y elige los atributos que quieres ver con cualquiera de nuestros paquetes.</p>
+        </div>
+
+        <div class="sk-paywall__plans">
+                            <div class="sk-paywall__plan sk-paywall__plan--featured">
+                    <div class="sk-paywall__plan-head">
+                        <span class="sk-paywall__plan-name">Plus</span>
+                        <span class="sk-paywall__plan-price">$129 <small>/mes</small></span>
+                    </div>
+                                            <p class="sk-paywall__plan-tagline">Todas las ligas y todas las herramientas.</p>
+                                                                <ul class="sk-paywall__plan-highlights">
+                                                            <li><i class="bi bi-check-lg" aria-hidden="true"></i>Las 40 ligas, con la proyección completa</li>
+                                                            <li><i class="bi bi-check-lg" aria-hidden="true"></i>Equipos completos: ranking, mapas, red de pases y comparador</li>
+                                                            <li><i class="bi bi-check-lg" aria-hidden="true"></i>Todos los mapas de eventos y las métricas a elegir</li>
+                                                            <li><i class="bi bi-check-lg" aria-hidden="true"></i>Comparador y jugadores similares</li>
+                                                    </ul>
+                                    </div>
+                    </div>
+
+        <a href="https://www.statiskicks.com/planes" wire:navigate="" class="sk-paywall__cta" data-sk-paywall-close="">Ver planes</a>
+    </div>
+</div>
+    
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // ── Hamburger nav toggle ──────────────────────────────────
+    (function () {
+      const toggle = document.getElementById('navToggle');
+      const drawer = document.getElementById('navDrawer');
+      const icon   = document.getElementById('navToggleIcon');
+      if (!toggle || !drawer) return;
+
+      if (toggle.dataset.skBound !== '1') {
+        toggle.dataset.skBound = '1';
+
+        toggle.addEventListener('click', () => {
+          const open = drawer.classList.toggle('open');
+          toggle.setAttribute('aria-expanded', open);
+          icon.className = open ? 'bi bi-x-lg' : 'bi bi-list';
+        });
+
+        // Delegated from the drawer so links added later still close it, and so
+        // there is one listener to guard rather than one per link.
+        drawer.addEventListener('click', (event) => {
+          if (!event.target.closest('a, button.btn-iniciar')) return;
+
+          drawer.classList.remove('open');
+          toggle.setAttribute('aria-expanded', 'false');
+          icon.className = 'bi bi-list';
+        });
+      }
+
+      // Sync mobile theme toggle with main toggle
+      const mainToggle   = document.getElementById('themeToggle');
+      const mobileToggle = document.getElementById('themeToggleMobile');
+      const mobileIcon   = document.getElementById('themeIconMobile');
+
+      if (mobileToggle && mainToggle && mobileToggle.dataset.skBound !== '1') {
+        mobileToggle.dataset.skBound = '1';
+        mobileToggle.addEventListener('click', () => mainToggle.click());
+
+        new MutationObserver(() => {
+          const mainIcon = document.getElementById('themeIcon');
+          if (mobileIcon && mainIcon) mobileIcon.className = mainIcon.className;
+        }).observe(document.getElementById('themeIcon'), { attributes: true, attributeFilter: ['class'] });
+      }
+    })();
+
+    // ── Theme toggle ─────────────────────────────────────────
+    (function () {
+      const root = document.documentElement;
+      const btn  = document.getElementById('themeToggle');
+      const icon = document.getElementById('themeIcon');
+      if (!btn) return;
+
+      const stored = localStorage.getItem('sk-theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const isDark = stored ? stored === 'dark' : prefersDark;
+
+      function applyTheme(dark) {
+        root.setAttribute('data-theme', dark ? 'dark' : 'light');
+        if (icon) icon.className = dark ? 'bi bi-sun-fill' : 'bi bi-moon-fill';
+        localStorage.setItem('sk-theme', dark ? 'dark' : 'light');
+      }
+
+      // Applying on every execution is harmless and keeps the icon in step
+      // after a navigation; only the binding must not repeat.
+      applyTheme(isDark);
+
+      if (btn.dataset.skBound === '1') return;
+      btn.dataset.skBound = '1';
+
+      btn.addEventListener('click', function () {
+        applyTheme(root.getAttribute('data-theme') !== 'dark');
+      });
+    })();
+  </script>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+  <script>
+    // The UMD build does not auto-register with Chart.js 4 — every chart's
+    // `plugins.datalabels` option was silently inert without this.
+    if (window.Chart && window.ChartDataLabels) {
+      Chart.register(ChartDataLabels);
+    }
+  </script>
+  <script src="https://www.statiskicks.com/custom_assets/js/home-motion.js?v=1791380772"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/sk-tooltip.js?v=1792175742"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/download-paywall.js?v=1793826522"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/chart-download.js?v=1794084628"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/search-results-image.js?v=1794084628"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/percentile-rows.js?v=1793360776"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/skore.js?v=1793032870"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/attribute-picker.js?v=1791577902"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/attribute-charts.js?v=1794084628"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/heatmap.js?v=1791561866"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/goalmouth-map.js?v=1794084628"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/event-map.js?v=1793880030"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/league-maps.js?v=1794084628"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/league-scatter.js?v=1794084628"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/league-switcher.js?v=1793361650"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/team-profile.js?v=1791380772"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/team-age-profile.js?v=1794168592"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/team-xg-rolling.js?v=1791380772"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/team-formation-profile.js?v=1791380772"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/team-pass-network.js?v=1794084628"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/live-motion.js?v=1792175986"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/momentum-chart.js?v=1792708794"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/player-heat.js?v=1792491156"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/scroll-lock.js?v=1792589840"></script>
+
+  <script>
+    // Destroy all Chart.js instances before SPA navigation to prevent canvas-in-use errors
+    document.addEventListener('livewire:navigating', function () {
+      document.body.classList.remove('sk-search-open', 'league-modal-open');
+
+      if (typeof Chart !== 'undefined') {
+        Object.values(Chart.instances || {}).forEach(function (chart) {
+          chart.destroy();
+        });
+      }
+    });
+  </script>
+
+  
+  <div class="sk-usage-notice" id="skUsageNotice" role="status" aria-live="polite" hidden="">
+  <i class="bi bi-hourglass-split" aria-hidden="true"></i>
+  <p class="sk-usage-notice__text"></p>
+  <button type="button" class="sk-usage-notice__close" aria-label="Cerrar aviso">
+    <i class="bi bi-x-lg" aria-hidden="true"></i>
+  </button>
+</div>
+
+<script data-navigate-once="">
+  (function () {
+    // Not window.skUsageNotice: the element's id already puts the <div>
+    // there (named access on window), and the guard would never let this run.
+    if (window.skShowUsageNotice) return;
+
+    const fallback = "Recibimos demasiadas solicitudes seguidas. Espera un momento y vuelve a intentarlo.";
+    let timer = null;
+
+    function show(message) {
+      const notice = document.getElementById('skUsageNotice');
+
+      if (!notice) return;
+
+      notice.querySelector('.sk-usage-notice__text').textContent = message || fallback;
+      notice.hidden = false;
+      clearTimeout(timer);
+      timer = setTimeout(function () { notice.hidden = true; }, 9000);
+    }
+
+    window.skShowUsageNotice = show;
+
+    window.addEventListener('sk-usage-limit', function (event) {
+      show(event.detail && event.detail.message);
+    });
+
+    document.addEventListener('click', function (event) {
+      if (event.target.closest('.sk-usage-notice__close')) {
+        const notice = document.getElementById('skUsageNotice');
+
+        if (notice) notice.hidden = true;
+      }
+    });
+
+    let intercepting = false;
+
+    function intercept() {
+      if (intercepting || !window.Livewire || typeof window.Livewire.interceptRequest !== 'function') return;
+
+      intercepting = true;
+      window.Livewire.interceptRequest(function ({ onError }) {
+        onError(function ({ response, body, preventDefault }) {
+          if (!response || response.status !== 429) return;
+
+          preventDefault();
+
+          let message = fallback;
+
+          try {
+            message = JSON.parse(body).message || fallback;
+          } catch (e) {
+            // Not the usage limits' JSON: the generic message will do.
+          }
+
+          show(message);
+        });
+      });
+    }
+
+    document.addEventListener('livewire:init', intercept);
+    intercept();
+  })();
+</script>
+
+  <script src="https://www.statiskicks.com/livewire-e3175f40/livewire.min.js?id=6b3709b1" data-no-progress-bar="" data-csrf="KBU7h4OS9nrBwtE680dtxnzLscL5O6r2PFiEMSwa" data-module-url="https://www.statiskicks.com/livewire-e3175f40" data-update-uri="https://www.statiskicks.com/livewire-e3175f40/update" data-navigate-once="true"></script>
+  <script>
+    (function () {
+      function sameOriginEndpoint(value) {
+        if (!value) return value;
+
+        try {
+          const parsed = new URL(String(value), window.location.origin);
+
+          if (parsed.origin === window.location.origin) {
+            return parsed.href;
+          }
+
+          return `${window.location.origin}${parsed.pathname}${parsed.search}${parsed.hash}`;
+        } catch {
+          return value;
+        }
+      }
+
+      function normalizeLivewireEndpointConfig() {
+        const livewireScript = document.querySelector('script[data-update-uri]');
+
+        if (livewireScript) {
+          const updateUri = sameOriginEndpoint(livewireScript.getAttribute('data-update-uri'));
+          const moduleUrl = sameOriginEndpoint(livewireScript.getAttribute('data-module-url'));
+
+          if (updateUri) {
+            livewireScript.setAttribute('data-update-uri', updateUri);
+          }
+
+          if (moduleUrl) {
+            livewireScript.setAttribute('data-module-url', moduleUrl);
+          }
+        }
+
+        if (window.livewireScriptConfig) {
+          window.livewireScriptConfig.uri = sameOriginEndpoint(window.livewireScriptConfig.uri);
+          window.livewireScriptConfig.moduleUrl = sameOriginEndpoint(window.livewireScriptConfig.moduleUrl);
+        }
+      }
+
+      normalizeLivewireEndpointConfig();
+      document.addEventListener('livewire:navigated', normalizeLivewireEndpointConfig);
+    })();
+  </script>
+
+  <script>
+    (function () {
+        const rawSearchUrl = "https:\/\/www.statiskicks.com\/search";
+
+        function resolveSearchUrl(url) {
+            const fallbackPath = '/search';
+
+            try {
+                const parsed = new URL(String(url || ''), window.location.origin);
+                const path = parsed.pathname || fallbackPath;
+                const query = parsed.search || '';
+                return `${window.location.origin}${path}${query}`;
+            } catch {
+                const normalized = String(url || '').trim();
+                const path = normalized
+                    ? (normalized.startsWith('/') ? normalized : `/${normalized}`)
+                    : fallbackPath;
+
+                return `${window.location.origin}${path}`;
+            }
+        }
+
+        const searchUrl = resolveSearchUrl(rawSearchUrl);
+
+        function registerNavbarSearchPanel() {
+            Alpine.data('navbarSearchPanel', () => ({
+                open: false,
+                activeTab: 'search',
+                query: '',
+                leagues: [],
+                teams: [],
+                players: [],
+                recentItems: [],
+                loading: false,
+                // Over the search's ceiling (SK-19): the reason, said in the
+                // panel instead of «no results», which would read as "no such
+                // player".
+                limited: '',
+                searchUrl,
+                searchTimer: null,
+                searchController: null,
+
+                init() {
+                    this.loadRecent();
+                    this.$watch('query', (value) => this.queueSearch(value));
+                },
+
+                openPanel() {
+                    this.open = true;
+                    this.activeTab = 'search';
+                    document.body.classList.add('sk-search-open');
+                    this.loadRecent();
+                    this.$nextTick(() => this.$refs.searchInput?.focus());
+                },
+
+                closePanel() {
+                    this.open = false;
+                    this.query = '';
+                    this.clearResults();
+                    this.loading = false;
+                    this.abortSearch();
+                    document.body.classList.remove('sk-search-open');
+                },
+
+                queueSearch(value) {
+                    this.abortSearch();
+                    clearTimeout(this.searchTimer);
+                    this.limited = '';
+
+                    const term = String(value || '').trim();
+                    if (term.length < 2) {
+                        this.clearResults();
+                        this.loading = false;
+                        return;
+                    }
+
+                    this.loading = true;
+                    this.searchTimer = setTimeout(() => this.runSearch(term), 350);
+                },
+
+                abortSearch() {
+                    if (this.searchController) {
+                        this.searchController.abort();
+                        this.searchController = null;
+                    }
+                },
+
+                async runSearch(term) {
+                    this.abortSearch();
+                    this.searchController = new AbortController();
+
+                    try {
+                        const response = await fetch(`${this.searchUrl}?q=${encodeURIComponent(term)}`, {
+                            headers: { Accept: 'application/json' },
+                            signal: this.searchController.signal,
+                        });
+
+                        // Over the search's ceiling (SK-19): say so, rather
+                        // than an empty list that reads as "no players".
+                        if (response.status === 429) {
+                            const limited = await response.json().catch(() => ({}));
+                            this.limited = limited.message || "Demasiadas b\u00fasquedas seguidas; espera un momento.";
+                        }
+
+                        if (!response.ok) {
+                            throw new Error('Search failed');
+                        }
+
+                        const payload = await response.json();
+                        if (String(this.query || '').trim() === term) {
+                            this.leagues = Array.isArray(payload.leagues) ? payload.leagues : [];
+                            this.teams = Array.isArray(payload.teams) ? payload.teams : [];
+                            this.players = Array.isArray(payload.players) ? payload.players : [];
+                        }
+                    } catch (error) {
+                        if (error?.name !== 'AbortError') {
+                            this.clearResults();
+                        }
+                    } finally {
+                        if (String(this.query || '').trim() === term) {
+                            this.loading = false;
+                        }
+                        this.searchController = null;
+                    }
+                },
+
+                clearResults() {
+                    this.leagues = [];
+                    this.teams = [];
+                    this.players = [];
+                },
+
+                get hasResults() {
+                    return this.leagues.length + this.teams.length + this.players.length > 0;
+                },
+
+                get sections() {
+                    return [
+                        { kind: 'league', title: 'Ligas', items: this.leagues },
+                        { kind: 'team', title: 'Equipos', items: this.teams },
+                        { kind: 'player', title: 'Jugadores', items: this.players },
+                    ].filter((section) => section.items.length > 0);
+                },
+
+                loadRecent() {
+                    try {
+                        const stored = JSON.parse(localStorage.getItem('sk-recent-players') || '[]');
+                        this.recentItems = Array.isArray(stored) ? stored : [];
+                    } catch {
+                        this.recentItems = [];
+                    }
+                },
+
+                // Entries saved before teams and leagues were searchable carry no kind: they are players.
+                itemKind(item) {
+                    return item?.kind || 'player';
+                },
+
+                selectResult(item, kind) {
+                    if (!item?.id) {
+                        this.closePanel();
+                        return;
+                    }
+
+                    const entry = { ...item, kind };
+                    const existing = this.recentItems.filter(
+                        (recent) => !(recent.id === entry.id && this.itemKind(recent) === kind)
+                    );
+                    this.recentItems = [entry, ...existing].slice(0, 8);
+
+                    try {
+                        localStorage.setItem('sk-recent-players', JSON.stringify(this.recentItems));
+                    } catch {
+                        // ignore storage errors
+                    }
+
+                    this.closePanel();
+                },
+
+                resultImage(item, kind) {
+                    if (item?.image) {
+                        return item.image;
+                    }
+
+                    const fallback = { league: 'Liga', team: 'Equipo', player: 'Jugador' }[kind] || 'Jugador';
+                    const name = encodeURIComponent(item?.name || fallback);
+                    return `https://ui-avatars.com/api/?name=${name}&background=1D665D&color=fff&size=80`;
+                },
+
+                resultMeta(item, kind) {
+                    if (kind === 'league') {
+                        return item?.country || '—';
+                    }
+
+                    if (kind === 'team') {
+                        return item?.competition || '—';
+                    }
+
+                    return [item?.role, item?.team].filter(Boolean).join(' · ') || '—';
+                },
+
+                resultFlag(item, kind) {
+                    if (kind === 'league') {
+                        return String(item?.alpha2 || '').toLowerCase();
+                    }
+
+                    return kind === 'player' ? (item?.flag || '') : '';
+                },
+            }));
+        }
+
+        function bootNavbarSearchPanel() {
+            if (typeof Alpine === 'undefined') {
+                return;
+            }
+
+            registerNavbarSearchPanel();
+
+            document.querySelectorAll('#navbarSearchRoot[x-data]').forEach((element) => {
+                if (!element.__x) {
+                    Alpine.initTree(element);
+                }
+            });
+        }
+
+        document.addEventListener('alpine:init', registerNavbarSearchPanel);
+        document.addEventListener('livewire:navigated', bootNavbarSearchPanel);
+
+        if (typeof Alpine !== 'undefined') {
+            bootNavbarSearchPanel();
+        }
+    })();
+</script>
+
+
+
+</body></html>

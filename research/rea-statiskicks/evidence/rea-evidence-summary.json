@@ -1,0 +1,1209 @@
+{
+  "total_retained_records": 65,
+  "unknown_count": 8,
+  "records": [
+    {
+      "evidence_id": "ev_045ab7e234fb4d11eef578d40992f5c0ce080058997d3af2b9bd60cda4e9bfcc",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "provider": {
+        "id": "rea-playwright-browser-scenario",
+        "name": "REA Playwright browser scenario capture provider",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 9
+    },
+    {
+      "evidence_id": "ev_04b1ede55ec1bd3f547cd81c48dc5a1fc2e4e8b8f9a9020481a3e35092a126e8",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "provider": {
+        "id": "rea-playwright-browser-scenario",
+        "name": "REA Playwright browser scenario capture provider",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 222
+    },
+    {
+      "evidence_id": "ev_0700c65f2578ac47321b10307b377cc8c867c497219d6853bba0e13b4570ecba",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "provider": {
+        "id": "rea-playwright-browser-scenario",
+        "name": "REA Playwright browser scenario capture provider",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 215
+    },
+    {
+      "evidence_id": "ev_1318b6ef36cbf6e763ddae14da0f95b3088da1ea954e8c8993b2994b188569fd",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "provider": {
+        "id": "rea-playwright-browser-scenario",
+        "name": "REA Playwright browser scenario capture provider",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 9
+    },
+    {
+      "evidence_id": "ev_1aca05e36ccaa985872bbd1b6aa022b7b62b044a82977aab6f452256598c36d0",
+      "operation": "record_unknown",
+      "authority": "analyst-inference",
+      "confidence": "derived",
+      "provider": {
+        "id": "rea-unknown-registry",
+        "name": "REA residual unknown registry",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 2
+    },
+    {
+      "evidence_id": "ev_2191f71b0297e698f986efc5ccee69555a95d8051cd43d90ed0b3ebd5743c80b",
+      "operation": "trace_application_feature",
+      "authority": "analyst-inference",
+      "confidence": "inferred",
+      "provider": {
+        "id": "rea-javascript-application-workflows",
+        "name": "REA JavaScript application workflows",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 5
+    },
+    {
+      "evidence_id": "ev_255c7ad82b9fb815c42003d4700d2a585c32ed40d38e53d5d2b0954b113f51a4",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "provider": {
+        "id": "rea-playwright-browser-scenario",
+        "name": "REA Playwright browser scenario capture provider",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 9
+    },
+    {
+      "evidence_id": "ev_25c63b453dd7eade256fd2fc4611d1d2ea0dc6f6d9801f798278c1182d38a006",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "provider": {
+        "id": "rea-playwright-browser-scenario",
+        "name": "REA Playwright browser scenario capture provider",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 10
+    },
+    {
+      "evidence_id": "ev_296f62498cf90c3e87cd48ef454168c2d290f4a839a442208f9adfef04c8aeda",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "provider": {
+        "id": "rea-playwright-browser-scenario",
+        "name": "REA Playwright browser scenario capture provider",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 11
+    },
+    {
+      "evidence_id": "ev_29b855423c405747f62b135a8e740ea6f51016bfd5f5e06d85762496b82e346e",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "provider": {
+        "id": "rea-playwright-browser-scenario",
+        "name": "REA Playwright browser scenario capture provider",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 12
+    },
+    {
+      "evidence_id": "ev_29ff56dc035f280348f37506fb13b97ef5f91f78d023d03c699407f1af4a7cf2",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "provider": {
+        "id": "rea-playwright-browser-scenario",
+        "name": "REA Playwright browser scenario capture provider",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 9
+    },
+    {
+      "evidence_id": "ev_2f33defce277f32dddefaa65cc9177b42a0fd48fb1a979e6cd2cfe5fccfab645",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "provider": {
+        "id": "rea-playwright-browser-scenario",
+        "name": "REA Playwright browser scenario capture provider",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 80
+    },
+    {
+      "evidence_id": "ev_335de90378b272c482836a4240f089d8ecf3577c8cadb87ee7434bbe6b8326c6",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "provider": {
+        "id": "rea-playwright-browser-scenario",
+        "name": "REA Playwright browser scenario capture provider",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 11
+    },
+    {
+      "evidence_id": "ev_395531c7080763fd214c8b3cd28cc74cf54f1bcdd5b8885955b271c040ed624b",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "provider": {
+        "id": "rea-playwright-browser-scenario",
+        "name": "REA Playwright browser scenario capture provider",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 9
+    },
+    {
+      "evidence_id": "ev_3ac551c24f4e611cbb3199718f0b1f3b685b12f788d49861116a5cead3544fe9",
+      "operation": "inspect_analysis_view",
+      "authority": "controlled-replay",
+      "confidence": "inferred",
+      "provider": {
+        "id": "rea-analysis-view",
+        "name": "REA analysis view projection",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 232
+    },
+    {
+      "evidence_id": "ev_41b5aea3bed59d22cc2341601bbb6e439bbddbfe0f29718f52b6d936339f0f29",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "provider": {
+        "id": "rea-playwright-browser-scenario",
+        "name": "REA Playwright browser scenario capture provider",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 10
+    },
+    {
+      "evidence_id": "ev_444c65c0ac022f92c1494f7751812cdf460b27bfbf84235f695c45810217d1a2",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "provider": {
+        "id": "rea-playwright-browser-scenario",
+        "name": "REA Playwright browser scenario capture provider",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 9
+    },
+    {
+      "evidence_id": "ev_482682a24fd4fcd19349905f007b23096081b432e95c45cd63aa8f8a9b260167",
+      "operation": "inspect_analysis_view",
+      "authority": "shipped-artifact",
+      "confidence": "derived",
+      "provider": {
+        "id": "rea-analysis-view",
+        "name": "REA analysis view projection",
+        "version": "1"
+      },
+      "subject": {
+        "architecture": null,
+        "digest": {
+          "sha256": "681a690eb3eeaf1c75585cbf6f3c60813ba4e9cc3def65736fb80c26728b89e5"
+        },
+        "format": "directory",
+        "local_path": "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\REA-stats\\evidence\\javascript\\inline-pages",
+        "name": "inline-pages"
+      },
+      "limitation_count": 10
+    },
+    {
+      "evidence_id": "ev_4c7a9b21f3882e78013ffcd596a3ddad7979a999d3cd1dead182240ea7fc09f9",
+      "operation": "update_unknown",
+      "authority": "analyst-inference",
+      "confidence": "derived",
+      "provider": {
+        "id": "rea-unknown-registry",
+        "name": "REA residual unknown registry",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 2
+    },
+    {
+      "evidence_id": "ev_4eed275c42f822f7b510a3c9958146a4e8def3db684be6f2ffe85c772550dead",
+      "operation": "inspect_analysis_view",
+      "authority": "shipped-artifact",
+      "confidence": "derived",
+      "provider": {
+        "id": "rea-analysis-view",
+        "name": "REA analysis view projection",
+        "version": "1"
+      },
+      "subject": {
+        "architecture": null,
+        "digest": {
+          "sha256": "2a71da46817d7a4ab453a76b906e31f84858e6fab1d523eed1d831c75340d9a8"
+        },
+        "format": "directory",
+        "local_path": "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\REA-stats\\evidence\\javascript",
+        "name": "javascript"
+      },
+      "limitation_count": 28
+    },
+    {
+      "evidence_id": "ev_515c62defcab6088320c2b5c046d749e96d8601ffd4af10fc6af6657f57d3a98",
+      "operation": "record_unknown",
+      "authority": "analyst-inference",
+      "confidence": "derived",
+      "provider": {
+        "id": "rea-unknown-registry",
+        "name": "REA residual unknown registry",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 2
+    },
+    {
+      "evidence_id": "ev_59e57f74d8e4894a8c290cd1f58354701d398bea6301f1cdfe07edeeef89f945",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "provider": {
+        "id": "rea-playwright-browser-scenario",
+        "name": "REA Playwright browser scenario capture provider",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 9
+    },
+    {
+      "evidence_id": "ev_5e82f59a9268f45ac0f73d19b19287c5866a288569713ed71d729385188aaf62",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "provider": {
+        "id": "rea-playwright-browser-scenario",
+        "name": "REA Playwright browser scenario capture provider",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 10
+    },
+    {
+      "evidence_id": "ev_643a343e34fadc05f5e77db59a547ec794b7b026f0f8da2458052732d6c28445",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "provider": {
+        "id": "rea-playwright-browser-scenario",
+        "name": "REA Playwright browser scenario capture provider",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 9
+    },
+    {
+      "evidence_id": "ev_69bca58bca2cf0938b223895c7c47d22a1b96dcfd8c2cfb6e812808b1d2fd489",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "provider": {
+        "id": "rea-playwright-browser-scenario",
+        "name": "REA Playwright browser scenario capture provider",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 61
+    },
+    {
+      "evidence_id": "ev_6b549dd49e412ea51ee2493cc932cd8e19fdd6c66225d9b2e9486215bf236a16",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "provider": {
+        "id": "rea-playwright-browser-scenario",
+        "name": "REA Playwright browser scenario capture provider",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 9
+    },
+    {
+      "evidence_id": "ev_6f32762bb5eaa2f8561fb62de9190b30fe0080d805e0bb03ad3377847062ea5f",
+      "operation": "analyze_javascript_application",
+      "authority": "shipped-artifact",
+      "confidence": "derived",
+      "provider": {
+        "id": "rea-javascript-application",
+        "name": "REA JavaScript application analyzer",
+        "version": "1"
+      },
+      "subject": {
+        "architecture": null,
+        "digest": {
+          "sha256": "2a71da46817d7a4ab453a76b906e31f84858e6fab1d523eed1d831c75340d9a8"
+        },
+        "format": "directory",
+        "local_path": "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\REA-stats\\evidence\\javascript",
+        "name": "javascript"
+      },
+      "limitation_count": 89
+    },
+    {
+      "evidence_id": "ev_74a52e0220f984a17430b4b2b419aa9f80fa8d74ef2ff815ea1436e3eaf8b0e9",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "provider": {
+        "id": "rea-playwright-browser-scenario",
+        "name": "REA Playwright browser scenario capture provider",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 10
+    },
+    {
+      "evidence_id": "ev_79a56451a09d51677862255369247e2c2e598f8d18357e0a09a43c47da3e73ac",
+      "operation": "inspect_analysis_view",
+      "authority": "shipped-artifact",
+      "confidence": "derived",
+      "provider": {
+        "id": "rea-analysis-view",
+        "name": "REA analysis view projection",
+        "version": "1"
+      },
+      "subject": {
+        "architecture": null,
+        "digest": {
+          "sha256": "2a71da46817d7a4ab453a76b906e31f84858e6fab1d523eed1d831c75340d9a8"
+        },
+        "format": "directory",
+        "local_path": "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\REA-stats\\evidence\\javascript",
+        "name": "javascript"
+      },
+      "limitation_count": 28
+    },
+    {
+      "evidence_id": "ev_824f305b6c1a722075d693463d7ea219018a4dc4a087baa6d286f700f201150d",
+      "operation": "inspect_analysis_view",
+      "authority": "shipped-artifact",
+      "confidence": "derived",
+      "provider": {
+        "id": "rea-analysis-view",
+        "name": "REA analysis view projection",
+        "version": "1"
+      },
+      "subject": {
+        "architecture": null,
+        "digest": {
+          "sha256": "681a690eb3eeaf1c75585cbf6f3c60813ba4e9cc3def65736fb80c26728b89e5"
+        },
+        "format": "directory",
+        "local_path": "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\REA-stats\\evidence\\javascript\\inline-pages",
+        "name": "inline-pages"
+      },
+      "limitation_count": 17
+    },
+    {
+      "evidence_id": "ev_8b664e194ac67d05a98289a150adcb3f310fb2622bcc70a084ab5c7d978cb365",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "provider": {
+        "id": "rea-playwright-browser-scenario",
+        "name": "REA Playwright browser scenario capture provider",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 10
+    },
+    {
+      "evidence_id": "ev_8ebf258ad84c478acf2afb3225c8b83b1692856dbf2e1756943e4c25fab6571c",
+      "operation": "analyze_javascript_application",
+      "authority": "shipped-artifact",
+      "confidence": "derived",
+      "provider": {
+        "id": "rea-javascript-application",
+        "name": "REA JavaScript application analyzer",
+        "version": "1"
+      },
+      "subject": {
+        "architecture": null,
+        "digest": {
+          "sha256": "681a690eb3eeaf1c75585cbf6f3c60813ba4e9cc3def65736fb80c26728b89e5"
+        },
+        "format": "directory",
+        "local_path": "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\REA-stats\\evidence\\javascript\\inline-pages",
+        "name": "inline-pages"
+      },
+      "limitation_count": 6
+    },
+    {
+      "evidence_id": "ev_9435086f6ae02ff0707fefa83c7cf473eda660deed890524e621cb9825c97446",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "provider": {
+        "id": "rea-playwright-browser-scenario",
+        "name": "REA Playwright browser scenario capture provider",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 53
+    },
+    {
+      "evidence_id": "ev_97e91618307b79c26283cb7092099714480742f83252e97a242081625f31cf52",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "provider": {
+        "id": "rea-playwright-browser-scenario",
+        "name": "REA Playwright browser scenario capture provider",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 9
+    },
+    {
+      "evidence_id": "ev_9b93f41739eb99c51777c9286037ed7e8ccad7ddb5cdb0c658a3aebbc031e733",
+      "operation": "inspect_analysis_view",
+      "authority": "controlled-replay",
+      "confidence": "derived",
+      "provider": {
+        "id": "rea-analysis-view",
+        "name": "REA analysis view projection",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 16
+    },
+    {
+      "evidence_id": "ev_9e16df560f7b4515f78a74c98f23526df34fa3ee180451991dfd5c4b6c5ec2d7",
+      "operation": "analyze_javascript_application",
+      "authority": "shipped-artifact",
+      "confidence": "derived",
+      "provider": {
+        "id": "rea-javascript-application",
+        "name": "REA JavaScript application analyzer",
+        "version": "1"
+      },
+      "subject": {
+        "architecture": null,
+        "digest": {
+          "sha256": "9ba8e3b19c6dec2099e6617c62db54f4b39dcd5abd0d0b34a9930cf7d844ca4b"
+        },
+        "format": "directory",
+        "local_path": "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\REA-stats\\evidence\\javascript\\home-scripts\\files",
+        "name": "files"
+      },
+      "limitation_count": 7
+    },
+    {
+      "evidence_id": "ev_9e97f0da03ce8f6adbf6e2d536cba1f4eec1ce93768cad44b320afa928e9d3f4",
+      "operation": "inspect_analysis_view",
+      "authority": "shipped-artifact",
+      "confidence": "derived",
+      "provider": {
+        "id": "rea-analysis-view",
+        "name": "REA analysis view projection",
+        "version": "1"
+      },
+      "subject": {
+        "architecture": null,
+        "digest": {
+          "sha256": "9ba8e3b19c6dec2099e6617c62db54f4b39dcd5abd0d0b34a9930cf7d844ca4b"
+        },
+        "format": "directory",
+        "local_path": "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\REA-stats\\evidence\\javascript\\home-scripts\\files",
+        "name": "files"
+      },
+      "limitation_count": 19
+    },
+    {
+      "evidence_id": "ev_a13712a97f5158230d64a59092c63a98ca6afd6d670fc19dfb32ed33b9dcf37b",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "provider": {
+        "id": "rea-playwright-browser-scenario",
+        "name": "REA Playwright browser scenario capture provider",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 9
+    },
+    {
+      "evidence_id": "ev_a1d8facdf931a87bf33ba5e703e23d73cd2ee0c4550557ba3b84cdb9a1c10088",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "provider": {
+        "id": "rea-playwright-browser-scenario",
+        "name": "REA Playwright browser scenario capture provider",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 83
+    },
+    {
+      "evidence_id": "ev_a57fa32050d099e784ee0a2f3d1e0f302a0c917dcc1a8c686b3c3b363666b0df",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "provider": {
+        "id": "rea-playwright-browser-scenario",
+        "name": "REA Playwright browser scenario capture provider",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 10
+    },
+    {
+      "evidence_id": "ev_a859568ca7db50587c1641eb0abe6a44c8aa6a0ed8d47ba2ce6572109480017a",
+      "operation": "inspect_analysis_view",
+      "authority": "shipped-artifact",
+      "confidence": "derived",
+      "provider": {
+        "id": "rea-analysis-view",
+        "name": "REA analysis view projection",
+        "version": "1"
+      },
+      "subject": {
+        "architecture": null,
+        "digest": {
+          "sha256": "9ba8e3b19c6dec2099e6617c62db54f4b39dcd5abd0d0b34a9930cf7d844ca4b"
+        },
+        "format": "directory",
+        "local_path": "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\REA-stats\\evidence\\javascript\\home-scripts\\files",
+        "name": "files"
+      },
+      "limitation_count": 19
+    },
+    {
+      "evidence_id": "ev_aa5f2d74196b21062c132e8b6ec8934f023380f93c40f78f99e333a43bfc9977",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "provider": {
+        "id": "rea-playwright-browser-scenario",
+        "name": "REA Playwright browser scenario capture provider",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 9
+    },
+    {
+      "evidence_id": "ev_aa7bde93d6510d0cc29dfc4bf0e36b21364f2e36c6701d17233f7fade93e85b7",
+      "operation": "inspect_analysis_view",
+      "authority": "controlled-replay",
+      "confidence": "derived",
+      "provider": {
+        "id": "rea-analysis-view",
+        "name": "REA analysis view projection",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 231
+    },
+    {
+      "evidence_id": "ev_ae1b0493c16a440b51a7596afbe0c5af7cf297e66014c9e86aa9638018249441",
+      "operation": "export_web_scripts",
+      "authority": "historical-reference",
+      "confidence": "derived",
+      "provider": {
+        "id": "rea-web-script-export",
+        "name": "REA captured script export",
+        "version": "1"
+      },
+      "subject": {
+        "architecture": null,
+        "digest": {
+          "sha256": "534d24ebb1a7698f11dffce40ba3c56f64b48081e2ac6679fef63a43bd326f1f"
+        },
+        "format": "file",
+        "local_path": "c:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\REA-stats\\evidence\\captures\\01-home-capture.json",
+        "name": "01-home-capture.json"
+      },
+      "limitation_count": 13
+    },
+    {
+      "evidence_id": "ev_aeeee4090a72a32f447cc1d115c1484253d9483081906afc010d6e7efd6fccc3",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "provider": {
+        "id": "rea-playwright-browser-scenario",
+        "name": "REA Playwright browser scenario capture provider",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 9
+    },
+    {
+      "evidence_id": "ev_bba17f5b8205d109afaa59748445fa3e6b8b763f44c88cfbb1a22847a3d405b9",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "provider": {
+        "id": "rea-playwright-browser-scenario",
+        "name": "REA Playwright browser scenario capture provider",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 10
+    },
+    {
+      "evidence_id": "ev_bc7ebac834b73578fd1ad9b68b2e5d06774bea085283377a605b1989ed3114af",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "provider": {
+        "id": "rea-playwright-browser-scenario",
+        "name": "REA Playwright browser scenario capture provider",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 9
+    },
+    {
+      "evidence_id": "ev_bd430f00f4cc3e0cb3e7d1c12ddd223536657c09ba63ee662b710fb3bdab574a",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "provider": {
+        "id": "rea-playwright-browser-scenario",
+        "name": "REA Playwright browser scenario capture provider",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 11
+    },
+    {
+      "evidence_id": "ev_c1ece6e874a978ad36a2eaa7a6619c1b6418f52cb1257fe6dd1a9bb549ca9190",
+      "operation": "inspect_analysis_view",
+      "authority": "shipped-artifact",
+      "confidence": "derived",
+      "provider": {
+        "id": "rea-analysis-view",
+        "name": "REA analysis view projection",
+        "version": "1"
+      },
+      "subject": {
+        "architecture": null,
+        "digest": {
+          "sha256": "9ba8e3b19c6dec2099e6617c62db54f4b39dcd5abd0d0b34a9930cf7d844ca4b"
+        },
+        "format": "directory",
+        "local_path": "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\REA-stats\\evidence\\javascript\\home-scripts\\files",
+        "name": "files"
+      },
+      "limitation_count": 19
+    },
+    {
+      "evidence_id": "ev_c5ee120c0b76e8a9fab5e7dbb9d324d0e932523cc84b2bc86cf9a3471b1f2118",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "provider": {
+        "id": "rea-playwright-browser-scenario",
+        "name": "REA Playwright browser scenario capture provider",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 10
+    },
+    {
+      "evidence_id": "ev_c6c72944edca6f9ce94b4e6fd79de313b548a71abc0d9de5d87e747dccc5c26f",
+      "operation": "inspect_analysis_view",
+      "authority": "shipped-artifact",
+      "confidence": "derived",
+      "provider": {
+        "id": "rea-analysis-view",
+        "name": "REA analysis view projection",
+        "version": "1"
+      },
+      "subject": {
+        "architecture": null,
+        "digest": {
+          "sha256": "9ba8e3b19c6dec2099e6617c62db54f4b39dcd5abd0d0b34a9930cf7d844ca4b"
+        },
+        "format": "directory",
+        "local_path": "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\REA-stats\\evidence\\javascript\\home-scripts\\files",
+        "name": "files"
+      },
+      "limitation_count": 11
+    },
+    {
+      "evidence_id": "ev_c8e0a8f23a3baa5911355358bdd0060f0d26e3178328b95747645593cdd4e49c",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "provider": {
+        "id": "rea-playwright-browser-scenario",
+        "name": "REA Playwright browser scenario capture provider",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 9
+    },
+    {
+      "evidence_id": "ev_ce5f417f41b54deef97935e2ab1366360d7291cfe7885c5c8dfa84e81090b679",
+      "operation": "record_unknown",
+      "authority": "analyst-inference",
+      "confidence": "derived",
+      "provider": {
+        "id": "rea-unknown-registry",
+        "name": "REA residual unknown registry",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 2
+    },
+    {
+      "evidence_id": "ev_dc534965b087ec9e072da93a87df3debd093c9278084537554efafdf56a1291f",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "provider": {
+        "id": "rea-playwright-browser-scenario",
+        "name": "REA Playwright browser scenario capture provider",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 122
+    },
+    {
+      "evidence_id": "ev_dcc12f8c778204ef36132e122b3c011a02f22ddcaa95eb0e82fc088aaf92094d",
+      "operation": "update_unknown",
+      "authority": "analyst-inference",
+      "confidence": "derived",
+      "provider": {
+        "id": "rea-unknown-registry",
+        "name": "REA residual unknown registry",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 2
+    },
+    {
+      "evidence_id": "ev_dcdcd07faf8ea5d672bbd6fc03528d081c9be400c140fbe976fa7a58b5d25c4f",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "provider": {
+        "id": "rea-playwright-browser-scenario",
+        "name": "REA Playwright browser scenario capture provider",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 10
+    },
+    {
+      "evidence_id": "ev_e0fba869bad683bd397be0afcd22a136c0c5b9a99c5ffeaf3d9bac073c405b95",
+      "operation": "record_unknown",
+      "authority": "analyst-inference",
+      "confidence": "derived",
+      "provider": {
+        "id": "rea-unknown-registry",
+        "name": "REA residual unknown registry",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 2
+    },
+    {
+      "evidence_id": "ev_e95b70f6d4f87d91489c500168379faaca12269585f69cf10f867ed0d8b2653a",
+      "operation": "update_unknown",
+      "authority": "analyst-inference",
+      "confidence": "derived",
+      "provider": {
+        "id": "rea-unknown-registry",
+        "name": "REA residual unknown registry",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 2
+    },
+    {
+      "evidence_id": "ev_e97046d53210bf233f1dc576a689f77283053071ff3e34bcc5c159f70a48d467",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "provider": {
+        "id": "rea-playwright-browser-scenario",
+        "name": "REA Playwright browser scenario capture provider",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 9
+    },
+    {
+      "evidence_id": "ev_ee1b824445ea515e9b3e77beab6b26944bada18d1da9672c4e24e67a44959dfc",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "provider": {
+        "id": "rea-playwright-browser-scenario",
+        "name": "REA Playwright browser scenario capture provider",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 76
+    },
+    {
+      "evidence_id": "ev_f944d1f7761451d7144ab5bdf5bbffcc01211fd62806ebf9298cc86527d498ac",
+      "operation": "inspect_analysis_view",
+      "authority": "shipped-artifact",
+      "confidence": "derived",
+      "provider": {
+        "id": "rea-analysis-view",
+        "name": "REA analysis view projection",
+        "version": "1"
+      },
+      "subject": {
+        "architecture": null,
+        "digest": {
+          "sha256": "9ba8e3b19c6dec2099e6617c62db54f4b39dcd5abd0d0b34a9930cf7d844ca4b"
+        },
+        "format": "directory",
+        "local_path": "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\REA-stats\\evidence\\javascript\\home-scripts\\files",
+        "name": "files"
+      },
+      "limitation_count": 19
+    },
+    {
+      "evidence_id": "ev_fba261f1679008e019d57771da85a84cf122769fdc93ab4a8088dfb8ed05ae76",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "provider": {
+        "id": "rea-playwright-browser-scenario",
+        "name": "REA Playwright browser scenario capture provider",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 9
+    },
+    {
+      "evidence_id": "ev_fc37d09ce669eb10e6f3f259c09be08cf96733bdf6bb461795f43e0e2d5118dd",
+      "operation": "update_unknown",
+      "authority": "analyst-inference",
+      "confidence": "derived",
+      "provider": {
+        "id": "rea-unknown-registry",
+        "name": "REA residual unknown registry",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 2
+    },
+    {
+      "evidence_id": "ev_fe42082cd8d0baca9b09feadf5a7043af49f99fc8df21e3c25b291c188485f39",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "provider": {
+        "id": "rea-playwright-browser-scenario",
+        "name": "REA Playwright browser scenario capture provider",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 10
+    },
+    {
+      "evidence_id": "ev_449855e761d6dbe27417aafa636563c77616e5580c996b8226b13736395a1576",
+      "operation": "capture_browser_scenario",
+      "authority": "controlled-replay",
+      "confidence": "observed",
+      "provider": {
+        "id": "rea-playwright-browser-scenario",
+        "name": "REA Playwright browser scenario capture provider",
+        "version": "1"
+      },
+      "subject": null,
+      "limitation_count": 8
+    }
+  ],
+  "unknowns": [
+    {
+      "contradicting_evidence_ids": [],
+      "domain": "backend-opta-ingestion-cron",
+      "mutation_evidence_ids": [
+        "ev_515c62defcab6088320c2b5c046d749e96d8601ffd4af10fc6af6657f57d3a98"
+      ],
+      "previous_revision_digest": null,
+      "question": "What is the exact Laravel Artisan scheduler/queue frequency and Stats Perform SDAPI feed credential tier used to synchronize Opta competition, match, and event feeds into the Statiskicks database?",
+      "recommended_probes": [
+        {
+          "operation": "inspect_server_source",
+          "rationale": "Requires access to private Laravel console kernel, queue workers, and .env configuration on the origin server."
+        }
+      ],
+      "relationships": [],
+      "required_authority": "shipped-artifact",
+      "required_confidence": "observed",
+      "required_environment": null,
+      "resolution": null,
+      "revision": 1,
+      "revision_digest": "840194fdc14c25c83d1f5bd8da61716236d4d7a4df80791bdc6f795f4a1842ac",
+      "scope_digest": null,
+      "severity": "low",
+      "status": "open",
+      "supporting_evidence_ids": [
+        "ev_a57fa32050d099e784ee0a2f3d1e0f302a0c917dcc1a8c686b3c3b363666b0df",
+        "ev_bc7ebac834b73578fd1ad9b68b2e5d06774bea085283377a605b1989ed3114af"
+      ],
+      "unknown_id": "unk_3ffbf6b463b1f26fc643b3a6539eb1c20a8c6bbefb3efa86a2399337eeb22e23"
+    },
+    {
+      "contradicting_evidence_ids": [],
+      "domain": "backend-opta-ingestion-cron",
+      "mutation_evidence_ids": [
+        "ev_4c7a9b21f3882e78013ffcd596a3ddad7979a999d3cd1dead182240ea7fc09f9",
+        "ev_515c62defcab6088320c2b5c046d749e96d8601ffd4af10fc6af6657f57d3a98"
+      ],
+      "previous_revision_digest": "840194fdc14c25c83d1f5bd8da61716236d4d7a4df80791bdc6f795f4a1842ac",
+      "question": "What is the exact Laravel Artisan scheduler/queue frequency and Stats Perform SDAPI feed credential tier used to synchronize Opta competition, match, and event feeds into the Statiskicks database?",
+      "recommended_probes": [
+        {
+          "operation": "inspect_server_source",
+          "rationale": "Requires access to private Laravel console kernel, queue workers, and .env configuration on the origin server."
+        }
+      ],
+      "relationships": [],
+      "required_authority": "shipped-artifact",
+      "required_confidence": "observed",
+      "required_environment": null,
+      "resolution": null,
+      "revision": 2,
+      "revision_digest": "2baac2c17a8f55529721201387592a51f4f698bd1ef11bb15e99730f225e131f",
+      "scope_digest": null,
+      "severity": "low",
+      "status": "open",
+      "supporting_evidence_ids": [
+        "ev_04b1ede55ec1bd3f547cd81c48dc5a1fc2e4e8b8f9a9020481a3e35092a126e8",
+        "ev_6f32762bb5eaa2f8561fb62de9190b30fe0080d805e0bb03ad3377847062ea5f",
+        "ev_a57fa32050d099e784ee0a2f3d1e0f302a0c917dcc1a8c686b3c3b363666b0df",
+        "ev_bc7ebac834b73578fd1ad9b68b2e5d06774bea085283377a605b1989ed3114af"
+      ],
+      "unknown_id": "unk_3ffbf6b463b1f26fc643b3a6539eb1c20a8c6bbefb3efa86a2399337eeb22e23"
+    },
+    {
+      "contradicting_evidence_ids": [],
+      "domain": "backend-rating-weights",
+      "mutation_evidence_ids": [
+        "ev_1aca05e36ccaa985872bbd1b6aa022b7b62b044a82977aab6f452256598c36d0"
+      ],
+      "previous_revision_digest": null,
+      "question": "What are the exact server-side positional weights inside App\\\\Services\\\\Opta\\\\OptaMatchRatingService that combine raw Opta event counts into the scalar SKORE (0.00-10.00) before sending it to skore.js?",
+      "recommended_probes": [
+        {
+          "operation": "inspect_server_source",
+          "rationale": "Requires access to private PHP source code in app/Services/Opta/OptaMatchRatingService.php on the origin server."
+        }
+      ],
+      "relationships": [],
+      "required_authority": "shipped-artifact",
+      "required_confidence": "observed",
+      "required_environment": null,
+      "resolution": null,
+      "revision": 1,
+      "revision_digest": "0a951cf61b2990296fbdabbb8954d0b3d6f272e0549f62c5f6e9701a36729050",
+      "scope_digest": null,
+      "severity": "low",
+      "status": "open",
+      "supporting_evidence_ids": [
+        "ev_1318b6ef36cbf6e763ddae14da0f95b3088da1ea954e8c8993b2994b188569fd",
+        "ev_ae1b0493c16a440b51a7596afbe0c5af7cf297e66014c9e86aa9638018249441"
+      ],
+      "unknown_id": "unk_6c968367f663c52fef00c7cd11c2fc40d38a709990f5c46d90d9f37fb4311a39"
+    },
+    {
+      "contradicting_evidence_ids": [],
+      "domain": "backend-rating-weights",
+      "mutation_evidence_ids": [
+        "ev_1aca05e36ccaa985872bbd1b6aa022b7b62b044a82977aab6f452256598c36d0",
+        "ev_e95b70f6d4f87d91489c500168379faaca12269585f69cf10f867ed0d8b2653a"
+      ],
+      "previous_revision_digest": "0a951cf61b2990296fbdabbb8954d0b3d6f272e0549f62c5f6e9701a36729050",
+      "question": "What are the exact server-side positional weights inside App\\\\Services\\\\Opta\\\\OptaMatchRatingService that combine raw Opta event counts into the scalar SKORE (0.00-10.00) before sending it to skore.js?",
+      "recommended_probes": [
+        {
+          "operation": "inspect_server_source",
+          "rationale": "Requires access to private PHP source code in app/Services/Opta/OptaMatchRatingService.php on the origin server."
+        }
+      ],
+      "relationships": [],
+      "required_authority": "shipped-artifact",
+      "required_confidence": "observed",
+      "required_environment": null,
+      "resolution": null,
+      "revision": 2,
+      "revision_digest": "a566337f7b2fa9ed55d9b824fc93332b2e979cccf4583cbf8ded46a690827ac5",
+      "scope_digest": null,
+      "severity": "low",
+      "status": "open",
+      "supporting_evidence_ids": [
+        "ev_1318b6ef36cbf6e763ddae14da0f95b3088da1ea954e8c8993b2994b188569fd",
+        "ev_6f32762bb5eaa2f8561fb62de9190b30fe0080d805e0bb03ad3377847062ea5f",
+        "ev_9435086f6ae02ff0707fefa83c7cf473eda660deed890524e621cb9825c97446",
+        "ev_ae1b0493c16a440b51a7596afbe0c5af7cf297e66014c9e86aa9638018249441"
+      ],
+      "unknown_id": "unk_6c968367f663c52fef00c7cd11c2fc40d38a709990f5c46d90d9f37fb4311a39"
+    },
+    {
+      "contradicting_evidence_ids": [],
+      "domain": "backend-paywall-gated-team-tabs",
+      "mutation_evidence_ids": [
+        "ev_ce5f417f41b54deef97935e2ab1366360d7291cfe7885c5c8dfa84e81090b679"
+      ],
+      "previous_revision_digest": null,
+      "question": "What live data payloads are rendered inside the server-gated Plus subscriber tabs on /team/{slug}-{id} (stats, maps, compare) and /league/{id} (teams 5-18 in projection and 9-18 in maps) when authenticated with a paid Plus subscription?",
+      "recommended_probes": [
+        {
+          "operation": "capture_browser_scenario",
+          "rationale": "Requires authenticated session cookies for a paid Plus account ($129 MXN/month); client rendering schemas for all gated views are already 100% recovered from shipped JS bundles."
+        }
+      ],
+      "relationships": [],
+      "required_authority": "controlled-replay",
+      "required_confidence": "observed",
+      "required_environment": null,
+      "resolution": null,
+      "revision": 1,
+      "revision_digest": "5fc9add70cf0b71d939668b727c6ca06e9ada1a5b6f7fd2dfcc9c667c24107ba",
+      "scope_digest": null,
+      "severity": "low",
+      "status": "open",
+      "supporting_evidence_ids": [
+        "ev_8b664e194ac67d05a98289a150adcb3f310fb2622bcc70a084ab5c7d978cb365",
+        "ev_bd430f00f4cc3e0cb3e7d1c12ddd223536657c09ba63ee662b710fb3bdab574a"
+      ],
+      "unknown_id": "unk_c22a37c87f1d1dcb9bb68b65b2a5cc12247f0c94cab5c7cfabcd7bf45ede19f2"
+    },
+    {
+      "contradicting_evidence_ids": [],
+      "domain": "backend-paywall-gated-team-tabs",
+      "mutation_evidence_ids": [
+        "ev_ce5f417f41b54deef97935e2ab1366360d7291cfe7885c5c8dfa84e81090b679",
+        "ev_fc37d09ce669eb10e6f3f259c09be08cf96733bdf6bb461795f43e0e2d5118dd"
+      ],
+      "previous_revision_digest": "5fc9add70cf0b71d939668b727c6ca06e9ada1a5b6f7fd2dfcc9c667c24107ba",
+      "question": "What live data payloads are rendered inside the server-gated Plus subscriber tabs on /team/{slug}-{id} (stats, maps, compare) and /league/{id} (teams 5-18 in projection and 9-18 in maps) when authenticated with a paid Plus subscription?",
+      "recommended_probes": [
+        {
+          "operation": "capture_browser_scenario",
+          "rationale": "Requires authenticated session cookies for a paid Plus account ($129 MXN/month); client rendering schemas for all gated views are already 100% recovered from shipped JS bundles."
+        }
+      ],
+      "relationships": [],
+      "required_authority": "controlled-replay",
+      "required_confidence": "observed",
+      "required_environment": null,
+      "resolution": null,
+      "revision": 2,
+      "revision_digest": "7bda064c755a4d4fd71f029fedb3ab2d919e5a3ba6c6c0d81a22cd1cf36dc81c",
+      "scope_digest": null,
+      "severity": "low",
+      "status": "open",
+      "supporting_evidence_ids": [
+        "ev_8b664e194ac67d05a98289a150adcb3f310fb2622bcc70a084ab5c7d978cb365",
+        "ev_9435086f6ae02ff0707fefa83c7cf473eda660deed890524e621cb9825c97446",
+        "ev_a1d8facdf931a87bf33ba5e703e23d73cd2ee0c4550557ba3b84cdb9a1c10088",
+        "ev_bd430f00f4cc3e0cb3e7d1c12ddd223536657c09ba63ee662b710fb3bdab574a"
+      ],
+      "unknown_id": "unk_c22a37c87f1d1dcb9bb68b65b2a5cc12247f0c94cab5c7cfabcd7bf45ede19f2"
+    },
+    {
+      "contradicting_evidence_ids": [],
+      "domain": "data-provider-rosetta-and-locked-leagues",
+      "mutation_evidence_ids": [
+        "ev_e0fba869bad683bd397be0afcd22a136c0c5b9a99c5ffeaf3d9bac073c405b95"
+      ],
+      "previous_revision_digest": null,
+      "question": "How do Statiskicks 25-character base-36 entity IDs (leagueId, teamId, playerId, fixtureId, seasonId) map across external football data providers and media CDNs, and how does the server handle direct URL navigation to the 31 locked Plus leagues?",
+      "recommended_probes": [
+        {
+          "operation": "capture_browser_scenario",
+          "rationale": "Extract wire:effects scripts and probe direct navigation to /league/{locked_opta_id}."
+        }
+      ],
+      "relationships": [],
+      "required_authority": "controlled-replay",
+      "required_confidence": "observed",
+      "required_environment": null,
+      "resolution": null,
+      "revision": 1,
+      "revision_digest": "ccc46fab79f05466675f443a071721a5890c16dc134467aa4f7bd51a94976458",
+      "scope_digest": null,
+      "severity": "medium",
+      "status": "open",
+      "supporting_evidence_ids": [
+        "ev_04b1ede55ec1bd3f547cd81c48dc5a1fc2e4e8b8f9a9020481a3e35092a126e8",
+        "ev_a1d8facdf931a87bf33ba5e703e23d73cd2ee0c4550557ba3b84cdb9a1c10088"
+      ],
+      "unknown_id": "unk_c7104fcac7a6781cc23c6d1216a43d4cc6e1e384c408bca299be9c4270d61191"
+    },
+    {
+      "contradicting_evidence_ids": [],
+      "domain": "data-provider-rosetta-and-locked-leagues",
+      "mutation_evidence_ids": [
+        "ev_dcc12f8c778204ef36132e122b3c011a02f22ddcaa95eb0e82fc088aaf92094d",
+        "ev_e0fba869bad683bd397be0afcd22a136c0c5b9a99c5ffeaf3d9bac073c405b95"
+      ],
+      "previous_revision_digest": "ccc46fab79f05466675f443a071721a5890c16dc134467aa4f7bd51a94976458",
+      "question": "How do Statiskicks 25-character base-36 entity IDs (leagueId, teamId, playerId, fixtureId, seasonId) map across external football data providers and media CDNs, and how does the server handle direct URL navigation to the 31 locked Plus leagues?",
+      "recommended_probes": [],
+      "relationships": [],
+      "required_authority": "controlled-replay",
+      "required_confidence": "observed",
+      "required_environment": null,
+      "resolution": {
+        "disposition": "verified",
+        "evidence_ids": [
+          "ev_04b1ede55ec1bd3f547cd81c48dc5a1fc2e4e8b8f9a9020481a3e35092a126e8",
+          "ev_a1d8facdf931a87bf33ba5e703e23d73cd2ee0c4550557ba3b84cdb9a1c10088"
+        ],
+        "rationale": "Statiskicks uses Stats Perform / Opta Sports Data API (SDAPI) 25-character base-36 UUIDs as primary keys for all competitions, seasons, stages, teams, players, and fixtures, paired with API-Football (api-sports.io) numeric IDs for league/team/player imagery and FotMob CDN for fallback player avatars. Direct navigation to locked Plus leagues enforces server-side paywall gating."
+      },
+      "revision": 2,
+      "revision_digest": "608f36ee8b81adb686552aeca3c73172ec7af3ec73ea92d472c40638b6e1241d",
+      "scope_digest": null,
+      "severity": "medium",
+      "status": "resolved",
+      "supporting_evidence_ids": [
+        "ev_04b1ede55ec1bd3f547cd81c48dc5a1fc2e4e8b8f9a9020481a3e35092a126e8",
+        "ev_a1d8facdf931a87bf33ba5e703e23d73cd2ee0c4550557ba3b84cdb9a1c10088"
+      ],
+      "unknown_id": "unk_c7104fcac7a6781cc23c6d1216a43d4cc6e1e384c408bca299be9c4270d61191"
+    }
+  ]
+}

@@ -1,0 +1,426 @@
+/**
+ * Navbar mega-menu dropdowns
+ * Block: .nav-mega-menu
+ *
+ * Important: dropdown links live inside .nav-links — reset navbar anchor
+ * styles so they do not inherit height/padding from .sk-navbar .nav-links a
+ */
+
+.sk-navbar {
+  /* Distance to the bottom of the header, shared with sk.css rather than a
+     second copy of 64px — the header floats with a margin now, so a duplicate
+     would leave the panels overlapping it by exactly that gap. */
+  --sk-navbar-height: var(--sk-navbar-total, 64px);
+  /* --sk-navbar-pad-x defined in sk.css */
+}
+
+/* ── Nav item: stack trigger + panel (fix flex row on <li>) ─── */
+
+.sk-navbar .nav-links .nav-item--dropdown {
+  position: relative;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.sk-navbar .nav-item--dropdown > a,
+.sk-navbar .nav-item--dropdown > .nav-link {
+  flex-shrink: 0;
+}
+
+/*
+  Held open: the trigger keeps the hover pill while its panel is down, so the
+  open menu is visibly attached to the item that owns it. This used to colour a
+  bottom border, which the pill treatment in sk.css no longer has.
+*/
+.sk-navbar .nav-item--dropdown:hover > a,
+.sk-navbar .nav-item--dropdown:focus-within > a,
+.sk-navbar .nav-item--dropdown:hover > .nav-link,
+.sk-navbar .nav-item--dropdown:focus-within > .nav-link {
+  color: var(--sk-header-text-strong);
+  background-color: var(--sk-header-hover-bg);
+}
+
+/* An open panel does not outrank the page you are actually on. */
+.sk-navbar .nav-item--dropdown:hover > a.is-active,
+.sk-navbar .nav-item--dropdown:focus-within > a.is-active {
+  color: var(--sk-header-active-text);
+  background-color: var(--sk-header-active-bg);
+}
+
+.sk-navbar .nav-item--dropdown:hover > .nav-mega-menu,
+.sk-navbar .nav-item--dropdown:focus-within > .nav-mega-menu {
+  display: block;
+}
+
+/*
+  Hover bridge across the navbar's bottom inset.
+
+  The panel is fixed at --sk-navbar-total, which is the height of the whole
+  band: content plus the 0.85rem inset above AND below it. The trigger's <li>
+  only reaches the bottom of the *content*, so between them lies a strip
+  belonging to neither — measured at 14.6px (li bottom 76.6, panel top 91.2).
+
+  Moving the cursor straight down from "Ligas" crosses that strip, :hover
+  drops off the <li>, `display: none` comes back and the panel vanishes before
+  it can be reached. Nothing in the menu was clickable by hover at all.
+
+  The bridge is a pseudo-element of the <li>, not of the panel, because
+  .nav-mega-menu--leagues sets `overflow: hidden` and would clip anything drawn
+  outside its own box. It exists only while the item is hovered or focused, is
+  transparent, and is inset slightly wider than the trigger so a diagonal move
+  toward the panel body does not fall off the side of it.
+*/
+.sk-navbar .nav-item--dropdown:hover::after,
+.sk-navbar .nav-item--dropdown:focus-within::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: -1.5rem;
+  right: -1.5rem;
+  /* The inset, plus a little for the band's bottom border. */
+  height: calc(var(--sk-navbar-gap, 0.85rem) + 3px);
+}
+
+/* ── Reset navbar link styles inside mega-menu ───────────────── */
+
+.sk-navbar .nav-mega-menu a,
+.sk-navbar .nav-mega-menu .nav-link {
+  display: block;
+  height: auto;
+  min-height: 0;
+  padding: 0;
+  border-bottom: none;
+  letter-spacing: normal;
+  font-weight: 500;
+  box-sizing: border-box;
+}
+
+.sk-navbar .nav-mega-menu a:hover,
+.sk-navbar .nav-mega-menu a:focus-visible {
+  border-bottom: none;
+}
+
+/* ── Design tokens ───────────────────────────────────────────── */
+
+.nav-mega-menu {
+  /*
+     The panels hang off the bottom edge of the bar, so they follow it: every
+     colour here is the header's, and the whole dropdown flips with the band. A
+     near-black panel under a light green header reads as a rendering fault, not
+     as a design.
+
+     The accent was #e8930a / #f5a623 - an orange left over from an earlier
+     palette, which made the one accent in the header the one colour the product
+     does not use. It now tracks --sk-header-active-text, which is eucalyptus on
+     the light theme and pistachio on the dark one: pistachio on white is too
+     pale to read as a link.
+  */
+  --nav-mega-bg: var(--sk-header-panel-bg);
+  --nav-mega-accent: var(--sk-header-active-text);
+  --nav-mega-accent-hover: var(--sk-header-text-strong);
+  --nav-mega-hover-bg: var(--sk-header-hover-bg);
+  --nav-mega-border: var(--sk-header-panel-line);
+  --nav-mega-text: var(--sk-header-text);
+  --nav-mega-text-muted: var(--sk-header-text-muted);
+  --nav-mega-meta: var(--sk-header-text-muted);
+  --nav-mega-col-min: 140px;
+  --nav-mega-aside-width: 172px;
+  --nav-mega-gap: 1.75rem;
+  --nav-mega-font-link: 0.75rem;
+  --nav-mega-font-meta: 0.625rem;
+  --nav-mega-font-heading: 0.6rem;
+  --nav-mega-font-footer: 0.75rem;
+}
+
+/* ── Shell ───────────────────────────────────────────────────── */
+
+.nav-mega-menu {
+  display: none;
+  z-index: 1001;
+  background: var(--nav-mega-bg);
+  border: 1px solid var(--nav-mega-border);
+  box-shadow: var(--sk-header-panel-shadow);
+  box-sizing: border-box;
+}
+
+.nav-mega-menu--leagues {
+  position: fixed;
+  top: var(--sk-navbar-height);
+  left: var(--sk-navbar-pad-x, 4rem);
+  right: var(--sk-navbar-pad-x, 4rem);
+  width: auto;
+  min-height: 420px;
+  max-height: min(620px, calc(100vh - var(--sk-navbar-height) - 0.75rem));
+  padding: 1.35rem 0 1rem;
+  border-radius: 0 0 10px 10px;
+  overflow: hidden;
+}
+
+.nav-mega-menu--compact {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: min(340px, 90vw);
+  padding: 0.85rem 0;
+  border-radius: 0 0 6px 6px;
+}
+
+.nav-mega-menu__inner {
+  padding: 0 1.75rem;
+  box-sizing: border-box;
+}
+
+.nav-mega-menu--leagues .nav-mega-menu__inner {
+  display: flex;
+  flex-direction: column;
+  max-height: inherit;
+  min-height: 0;
+}
+
+/* ── Leagues: aside + scrollable regions ─────────────────────── */
+
+.nav-mega-menu__body {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: var(--nav-mega-gap);
+  min-height: 0;
+  flex: 1 1 auto;
+  overflow: hidden;
+}
+
+.nav-mega-menu__aside {
+  flex: 0 0 var(--nav-mega-aside-width);
+  width: var(--nav-mega-aside-width);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-right: var(--nav-mega-gap);
+  margin-right: 0;
+  border-right: 1px solid var(--nav-mega-border);
+  box-sizing: border-box;
+}
+
+.nav-mega-menu__regions-wrap {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 340px;
+  max-height: min(480px, calc(100vh - var(--sk-navbar-height) - 9rem));
+  overflow-y: auto;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--sk-header-line) transparent;
+}
+
+.nav-mega-menu__regions-wrap::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.nav-mega-menu__regions-wrap::-webkit-scrollbar-thumb {
+  background: var(--sk-header-line);
+  border-radius: 4px;
+}
+
+.nav-mega-menu__regions {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(var(--nav-mega-col-min), 1fr));
+  gap: 0 1.5rem;
+  width: 100%;
+  min-width: min(100%, calc(4 * var(--nav-mega-col-min) + 3 * 1.5rem));
+  box-sizing: border-box;
+}
+
+.nav-mega-menu__regions--secondary {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--nav-mega-border);
+  grid-template-columns: repeat(4, minmax(var(--nav-mega-col-min), 1fr));
+}
+
+/* ── Compact grid ────────────────────────────────────────────── */
+
+.nav-mega-menu__grid--compact {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem 1.25rem;
+}
+
+/* ── Columns & lists ─────────────────────────────────────────── */
+
+.nav-mega-menu__col {
+  min-width: var(--nav-mega-col-min);
+  max-width: 100%;
+  padding: 0 0.25rem;
+  box-sizing: border-box;
+}
+
+.nav-mega-menu__heading {
+  margin: 0 0 0.5rem;
+  /* Matches the inline padding on .nav-mega-menu__link, so the heading sits on
+     the same vertical as the rows under it. */
+  padding: 0 0.5rem;
+  font-size: var(--nav-mega-font-heading);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--nav-mega-text-muted);
+  line-height: 1.3;
+}
+
+.nav-mega-menu__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-mega-menu__item {
+  margin: 0;
+  padding: 0;
+}
+
+.nav-mega-menu__item + .nav-mega-menu__item {
+  margin-top: 0.35rem;
+}
+
+/* ── Links (stacked: name, then country) ─────────────────────── */
+
+/*
+  The hit area is padded so hovering has something to fill. These rows used to
+  shift from rgba(255,255,255,0.85) to #ffffff and nothing else - a change of
+  about four percent of one channel, so pointing at a league and pointing next to
+  it looked the same and there was no way to tell what a click would open.
+
+  The padding must not be bought back with a negative inline margin. Two
+  ancestors clip: .nav-mega-menu__body, which bounds the aside, and
+  .nav-mega-menu__regions-wrap, which scrolls the region grid. A row pulled left
+  of either one loses its first character to the clip - not to an ellipsis, just
+  gone, so "Premier League" reads as "remier League" in the first column of each.
+  The heading and the footer link carry the same inset instead, which keeps the
+  whole column on one vertical.
+*/
+.nav-mega-menu__link {
+  display: block;
+  padding: 0.3rem 0.5rem;
+  border-radius: 6px;
+  text-decoration: none;
+  color: var(--nav-mega-text);
+  font-size: var(--nav-mega-font-link);
+  font-weight: 500;
+  line-height: 1.3;
+  cursor: pointer;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.nav-mega-menu__link:hover,
+.nav-mega-menu__link:focus-visible {
+  color: var(--sk-header-text-strong);
+  background-color: var(--nav-mega-hover-bg);
+  outline: none;
+}
+
+.nav-mega-menu__link--primary {
+  font-weight: 600;
+  color: var(--sk-header-text-strong);
+  padding: 0.2rem 0;
+}
+
+.nav-mega-menu__link--more {
+  margin-top: 0.25rem;
+  padding-top: 0.25rem;
+  font-size: var(--nav-mega-font-meta);
+  font-weight: 600;
+  color: var(--nav-mega-accent);
+}
+
+.nav-mega-menu__link--more:hover {
+  color: var(--nav-mega-accent-hover);
+}
+
+.nav-mega-menu__link--disabled {
+  cursor: default;
+  opacity: 0.4;
+}
+
+/* No pointer and no highlight, because there is nothing behind it. The
+   "Próximamente" meta line next to each of these is what explains why. */
+.nav-mega-menu__link--disabled:hover {
+  color: var(--nav-mega-text);
+  background-color: transparent;
+}
+
+.nav-mega-menu__link-name {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.nav-mega-menu__link-meta {
+  display: block;
+  margin-top: 0.1rem;
+  font-size: var(--nav-mega-font-meta);
+  font-weight: 500;
+  color: var(--nav-mega-meta);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── Footer ──────────────────────────────────────────────────── */
+
+.nav-mega-menu__footer {
+  flex-shrink: 0;
+  margin-top: 0.75rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid var(--nav-mega-border);
+}
+
+.nav-mega-menu__view-all {
+  /* The column's own padding plus the row padding: the footer sits outside the
+     columns, so it has to add both to line up with them. */
+  padding-left: 0.75rem;
+  font-size: var(--nav-mega-font-footer);
+  font-weight: 600;
+  color: var(--nav-mega-accent);
+  text-decoration: none;
+}
+
+.nav-mega-menu__view-all:hover {
+  color: var(--nav-mega-accent-hover);
+}
+
+/* ── Responsive ──────────────────────────────────────────────── */
+
+@media (max-width: 1100px) {
+  .nav-mega-menu__regions,
+  .nav-mega-menu__regions--secondary {
+    grid-template-columns: repeat(3, minmax(var(--nav-mega-col-min), 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-mega-menu__body {
+    flex-direction: column;
+  }
+
+  .nav-mega-menu__aside {
+    flex: none;
+    width: 100%;
+    flex-direction: row;
+    gap: 1.5rem;
+    padding-right: 0;
+    padding-bottom: 0.75rem;
+    border-right: none;
+    border-bottom: 1px solid var(--nav-mega-border);
+  }
+
+  .nav-mega-menu__regions,
+  .nav-mega-menu__regions--secondary {
+    grid-template-columns: repeat(2, minmax(var(--nav-mega-col-min), 1fr));
+  }
+}

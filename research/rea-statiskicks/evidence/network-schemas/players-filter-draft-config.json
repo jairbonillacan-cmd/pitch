@@ -1,0 +1,2549 @@
+{
+  "defaultLeagueId": "2hsidwomhjsaaytdy9u5niyi4",
+  "leagueById": {
+    "2kwbbcootiqqgmrzs6o5inle5": "Premier League",
+    "dm5ka0os1e3dxcp3vh05kmp33": "Ligue 1",
+    "6by3h89i2eykc341oz7lv1ddd": "Bundesliga",
+    "1r097lpxe0xn03ihb7wi98kao": "Serie A",
+    "34pl8szyvrbwcmfkuocjm3r6t": "Primera División",
+    "581t4mywybx21wcpmpykhyzr3": "Liga Profesional Argentina",
+    "scf9p4y91yjvqvg5jndxzhxj": "Serie A",
+    "2hsidwomhjsaaytdy9u5niyi4": "Liga MX",
+    "287tckirbfj9nb8ar2k9r60vn": "MLS"
+  },
+  "leagueCatalogGrouped": [
+    {
+      "region": "EUROPA",
+      "countries": [
+        {
+          "country": "GERMANY",
+          "label": "Alemania",
+          "alpha2": "de",
+          "leagues": [
+            {
+              "id": "6by3h89i2eykc341oz7lv1ddd",
+              "name": "Bundesliga",
+              "is_scout": true,
+              "gender": "male"
+            }
+          ]
+        },
+        {
+          "country": "SPAIN",
+          "label": "España",
+          "alpha2": "es",
+          "leagues": [
+            {
+              "id": "34pl8szyvrbwcmfkuocjm3r6t",
+              "name": "Primera División",
+              "is_scout": true,
+              "gender": "male"
+            }
+          ]
+        },
+        {
+          "country": "FRANCE",
+          "label": "Francia",
+          "alpha2": "fr",
+          "leagues": [
+            {
+              "id": "dm5ka0os1e3dxcp3vh05kmp33",
+              "name": "Ligue 1",
+              "is_scout": true,
+              "gender": "male"
+            }
+          ]
+        },
+        {
+          "country": "ENGLAND",
+          "label": "Inglaterra",
+          "alpha2": "gb-eng",
+          "leagues": [
+            {
+              "id": "2kwbbcootiqqgmrzs6o5inle5",
+              "name": "Premier League",
+              "is_scout": true,
+              "gender": "male"
+            }
+          ]
+        },
+        {
+          "country": "ITALY",
+          "label": "Italia",
+          "alpha2": "it",
+          "leagues": [
+            {
+              "id": "1r097lpxe0xn03ihb7wi98kao",
+              "name": "Serie A",
+              "is_scout": true,
+              "gender": "male"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "region": "AMÉRICA",
+      "countries": [
+        {
+          "country": "ARGENTINA",
+          "label": "Argentina",
+          "alpha2": "ar",
+          "leagues": [
+            {
+              "id": "581t4mywybx21wcpmpykhyzr3",
+              "name": "Liga Profesional Argentina",
+              "is_scout": true,
+              "gender": "male"
+            }
+          ]
+        },
+        {
+          "country": "BRAZIL",
+          "label": "Brasil",
+          "alpha2": "br",
+          "leagues": [
+            {
+              "id": "scf9p4y91yjvqvg5jndxzhxj",
+              "name": "Serie A",
+              "is_scout": true,
+              "gender": "male"
+            }
+          ]
+        },
+        {
+          "country": "USA",
+          "label": "Estados Unidos",
+          "alpha2": "us",
+          "leagues": [
+            {
+              "id": "287tckirbfj9nb8ar2k9r60vn",
+              "name": "MLS",
+              "is_scout": true,
+              "gender": "male"
+            }
+          ]
+        },
+        {
+          "country": "MEXICO",
+          "label": "México",
+          "alpha2": "mx",
+          "leagues": [
+            {
+              "id": "2hsidwomhjsaaytdy9u5niyi4",
+              "name": "Liga MX",
+              "is_scout": true,
+              "gender": "male"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "leagueSeasonCoverage": {
+    "4zwgbb66rif2spcoeeol2motx": {
+      "2026/2027": true,
+      "2025/2026": true
+    },
+    "1b70m6qtxrp75b4vtk8hxh8c3": {
+      "2026/2027": true,
+      "2025/2026": true
+    },
+    "29actv1ohj8r10kd9hu0jnb0n": {
+      "2026/2027": true,
+      "2025/2026": true
+    },
+    "2kwbbcootiqqgmrzs6o5inle5": {
+      "2026/2027": true,
+      "2025/2026": true
+    },
+    "6vq8j5p3av14nr3iuyi4okhjt": {
+      "2026/2027": true,
+      "2025/2026": true
+    },
+    "7ntvbsyq31jnzoqoa8850b9b8": {
+      "2026/2027": true,
+      "2025/2026": true
+    },
+    "dm5ka0os1e3dxcp3vh05kmp33": {
+      "2026/2027": true,
+      "2025/2026": true
+    },
+    "6by3h89i2eykc341oz7lv1ddd": {
+      "2026/2027": true,
+      "2025/2026": true
+    },
+    "722fdbecxzcq9788l6jqclzlw": {
+      "2026/2027": true,
+      "2025/2026": true
+    },
+    "c0r21rtokgnbtc0o2rldjmkxu": {
+      "2026/2027": true,
+      "2025/2026": true
+    },
+    "1r097lpxe0xn03ihb7wi98kao": {
+      "2026/2027": true,
+      "2025/2026": true
+    },
+    "8ey0ww2zsosdmwr8ehsorh6t7": {
+      "2026/2027": true,
+      "2025/2026": true
+    },
+    "akmkihra9ruad09ljapsm84b3": {
+      "2026/2027": true,
+      "2025/2026": true
+    },
+    "8yi6ejjd1zudcqtbn07haahg6": {
+      "2026/2027": true,
+      "2025/2026": true
+    },
+    "3ab1uwtoyjopdj1y1fynyy9jg": {
+      "2026/2027": true,
+      "2025/2026": true
+    },
+    "e21cf135btr8t3upw0vl6n6x0": {
+      "2026/2027": true,
+      "2025/2026": true
+    },
+    "34pl8szyvrbwcmfkuocjm3r6t": {
+      "2026/2027": true,
+      "2025/2026": true
+    },
+    "5k620c7y6dlbmcm88dt3eb7t": {
+      "2026/2027": true,
+      "2025/2026": true
+    },
+    "3is4bkgf3loxv9qfg3hm8zfqb": {
+      "2026/2027": true,
+      "2025/2026": true
+    },
+    "e0lck99w8meo9qoalfrxgo33o": {
+      "2026/2027": true,
+      "2025/2026": true
+    },
+    "482ofyysbdbeoxauk19yg7tdt": {
+      "2026/2027": true,
+      "2025/2026": true
+    },
+    "581t4mywybx21wcpmpykhyzr3": {
+      "2026": true,
+      "2025": true
+    },
+    "scf9p4y91yjvqvg5jndxzhxj": {
+      "2026": true,
+      "2025": true
+    },
+    "5zr0b05eyx25km7z1k03ca9jx": {
+      "2026": true,
+      "2025": true
+    },
+    "2y8bntiif3a9y6gtmauv30gt": {
+      "2026": true,
+      "2025": true
+    },
+    "2ty8ihceabty8yddmu31iuuej": {
+      "2026": true,
+      "2025": true
+    },
+    "6lwpjhktjhl9g7x2w7njmzva6": {
+      "2026": true,
+      "2025": true
+    },
+    "2hsidwomhjsaaytdy9u5niyi4": {
+      "2026/2027": true,
+      "2025/2026": true
+    },
+    "7ut48s80k421xixh6ev5i6h62": {
+      "2026/2027": true,
+      "2025/2026": false
+    },
+    "e1kxdivp5g4cpldgpwvnzl1vv": {
+      "2026/2027": true,
+      "2025/2026": false
+    },
+    "5y0z0l2epprzbscvzsgldw8vu": {
+      "2026": true,
+      "2025": true
+    },
+    "a9vrdkelbgif0gtu3wxsr75xo": {
+      "2026": true,
+      "2025": true
+    },
+    "287tckirbfj9nb8ar2k9r60vn": {
+      "2027": false,
+      "2026": true,
+      "2025": true
+    },
+    "djkvh1luqdkdixpoe653lzixg": {
+      "2026": true,
+      "2025": true
+    },
+    "c1d9p6b2e9zr5tqlzx3ktjplg": {
+      "2026": true,
+      "2025": true
+    },
+    "5qmjkpvi92vrzdcb2knassjkk": {
+      "2026": true,
+      "2025": true
+    },
+    "jznihqxle06xych9ygwiwnsa": {
+      "2026": true,
+      "2025": true
+    },
+    "46b141eaqq9q7o4gz5gtdpikk": {
+      "2026": true,
+      "2025": true
+    },
+    "xaouuwuk8qyhv1libkeexwjh": {
+      "2026/2027": true,
+      "2025/2026": true
+    },
+    "ea0h6cf3bhl698hkxhpulh2zz": {
+      "2026/2027": true,
+      "2025/2026": true
+    }
+  },
+  "leagueDefaultSeasonLabel": {
+    "4zwgbb66rif2spcoeeol2motx": "2026/2027",
+    "1b70m6qtxrp75b4vtk8hxh8c3": "2026/2027",
+    "29actv1ohj8r10kd9hu0jnb0n": "2026/2027",
+    "2kwbbcootiqqgmrzs6o5inle5": "2026/2027",
+    "6vq8j5p3av14nr3iuyi4okhjt": "2026/2027",
+    "7ntvbsyq31jnzoqoa8850b9b8": "2026/2027",
+    "dm5ka0os1e3dxcp3vh05kmp33": "2026/2027",
+    "6by3h89i2eykc341oz7lv1ddd": "2026/2027",
+    "722fdbecxzcq9788l6jqclzlw": "2026/2027",
+    "c0r21rtokgnbtc0o2rldjmkxu": "2026/2027",
+    "1r097lpxe0xn03ihb7wi98kao": "2026/2027",
+    "8ey0ww2zsosdmwr8ehsorh6t7": "2026/2027",
+    "akmkihra9ruad09ljapsm84b3": "2026/2027",
+    "8yi6ejjd1zudcqtbn07haahg6": "2026/2027",
+    "3ab1uwtoyjopdj1y1fynyy9jg": "2026/2027",
+    "e21cf135btr8t3upw0vl6n6x0": "2026/2027",
+    "34pl8szyvrbwcmfkuocjm3r6t": "2026/2027",
+    "5k620c7y6dlbmcm88dt3eb7t": "2026/2027",
+    "3is4bkgf3loxv9qfg3hm8zfqb": "2026/2027",
+    "e0lck99w8meo9qoalfrxgo33o": "2026/2027",
+    "482ofyysbdbeoxauk19yg7tdt": "2026/2027",
+    "581t4mywybx21wcpmpykhyzr3": "2026",
+    "scf9p4y91yjvqvg5jndxzhxj": "2026",
+    "5zr0b05eyx25km7z1k03ca9jx": "2026",
+    "2y8bntiif3a9y6gtmauv30gt": "2026",
+    "2ty8ihceabty8yddmu31iuuej": "2026",
+    "6lwpjhktjhl9g7x2w7njmzva6": "2026",
+    "2hsidwomhjsaaytdy9u5niyi4": "2026/2027",
+    "7ut48s80k421xixh6ev5i6h62": "2026/2027",
+    "e1kxdivp5g4cpldgpwvnzl1vv": "2026/2027",
+    "5y0z0l2epprzbscvzsgldw8vu": "2026",
+    "a9vrdkelbgif0gtu3wxsr75xo": "2026",
+    "287tckirbfj9nb8ar2k9r60vn": "2026",
+    "djkvh1luqdkdixpoe653lzixg": "2026",
+    "c1d9p6b2e9zr5tqlzx3ktjplg": "2026",
+    "5qmjkpvi92vrzdcb2knassjkk": "2026",
+    "jznihqxle06xych9ygwiwnsa": "2026",
+    "46b141eaqq9q7o4gz5gtdpikk": "2026",
+    "xaouuwuk8qyhv1libkeexwjh": "2026/2027",
+    "ea0h6cf3bhl698hkxhpulh2zz": "2026/2027"
+  },
+  "seasonOptions": [
+    2027,
+    "2026/2027",
+    2026,
+    "2025/2026",
+    2025
+  ],
+  "tournamentLabels": {
+    "apertura": "Apertura",
+    "clausura": "Clausura",
+    "primera-fase": "Primera fase",
+    "segunda-fase": "Segunda fase"
+  },
+  "leagueCatalogCount": 9,
+  "leagueDbCount": 9,
+  "defaults": {
+    "filterSeason": "",
+    "filterTournament": "",
+    "filterPositions": [
+      "GK",
+      "LB",
+      "CB",
+      "RB",
+      "LWB",
+      "RWB",
+      "DMF",
+      "CMF",
+      "LW",
+      "RW",
+      "AMF",
+      "LWF",
+      "CF",
+      "RWF"
+    ],
+    "filterLeagues": [],
+    "filterNationalities": [],
+    "filterClubs": [],
+    "ageMin": 15,
+    "ageMax": 40,
+    "heightMin": 150,
+    "heightMax": 210,
+    "minutesMin": null,
+    "minutesMax": null,
+    "statFilters": [
+      {
+        "key": "skore",
+        "unit": "rating",
+        "min": null,
+        "max": null
+      }
+    ],
+    "statUnit": "p90",
+    "period": []
+  },
+  "applied": {
+    "filterSeason": "",
+    "filterTournament": "",
+    "filterPositions": [
+      "GK",
+      "LB",
+      "CB",
+      "RB",
+      "LWB",
+      "RWB",
+      "DMF",
+      "CMF",
+      "LW",
+      "RW",
+      "AMF",
+      "LWF",
+      "CF",
+      "RWF"
+    ],
+    "filterLeagues": [],
+    "filterNationalities": [],
+    "filterClubs": [],
+    "ageMin": 15,
+    "ageMax": 40,
+    "heightMin": 150,
+    "heightMax": 210,
+    "minutesMin": null,
+    "minutesMax": null,
+    "statFilters": [
+      {
+        "key": "skore",
+        "unit": "rating",
+        "min": null,
+        "max": null
+      }
+    ],
+    "statUnit": "p90",
+    "period": []
+  },
+  "positionOptions": [
+    {
+      "code": "GK",
+      "short": "POR",
+      "label": "Portero"
+    },
+    {
+      "code": "LB",
+      "short": "LI",
+      "label": "Lateral izquierdo"
+    },
+    {
+      "code": "CB",
+      "short": "DFC",
+      "label": "Defensa central"
+    },
+    {
+      "code": "RB",
+      "short": "LD",
+      "label": "Lateral derecho"
+    },
+    {
+      "code": "LWB",
+      "short": "CAI",
+      "label": "Carrilero izquierdo"
+    },
+    {
+      "code": "RWB",
+      "short": "CAD",
+      "label": "Carrilero derecho"
+    },
+    {
+      "code": "DMF",
+      "short": "MCD",
+      "label": "Mediocentro defensivo"
+    },
+    {
+      "code": "CMF",
+      "short": "MC",
+      "label": "Mediocentro"
+    },
+    {
+      "code": "LW",
+      "short": "VI",
+      "label": "Volante izquierdo"
+    },
+    {
+      "code": "RW",
+      "short": "VD",
+      "label": "Volante derecho"
+    },
+    {
+      "code": "AMF",
+      "short": "MCO",
+      "label": "Mediapunta"
+    },
+    {
+      "code": "LWF",
+      "short": "EI",
+      "label": "Extremo izquierdo"
+    },
+    {
+      "code": "CF",
+      "short": "DC",
+      "label": "Delantero centro"
+    },
+    {
+      "code": "RWF",
+      "short": "ED",
+      "label": "Extremo derecho"
+    }
+  ],
+  "positionsPending": [],
+  "nationalityOptions": [
+    {
+      "value": "Argentina",
+      "label": "Argentina"
+    },
+    {
+      "value": "Belgium",
+      "label": "Bélgica"
+    },
+    {
+      "value": "Brazil",
+      "label": "Brasil"
+    },
+    {
+      "value": "Cabo Verde",
+      "label": "Cabo Verde"
+    },
+    {
+      "value": "Cameroon",
+      "label": "Camerún"
+    },
+    {
+      "value": "Canada",
+      "label": "Canadá"
+    },
+    {
+      "value": "Chile",
+      "label": "Chile"
+    },
+    {
+      "value": "Colombia",
+      "label": "Colombia"
+    },
+    {
+      "value": "Costa Rica",
+      "label": "Costa Rica"
+    },
+    {
+      "value": "Ecuador",
+      "label": "Ecuador"
+    },
+    {
+      "value": "Spain",
+      "label": "España"
+    },
+    {
+      "value": "USA",
+      "label": "Estados Unidos"
+    },
+    {
+      "value": "France",
+      "label": "Francia"
+    },
+    {
+      "value": "Italy",
+      "label": "Italia"
+    },
+    {
+      "value": "Jamaica",
+      "label": "Jamaica"
+    },
+    {
+      "value": "Lebanon",
+      "label": "Líbano"
+    },
+    {
+      "value": "Morocco",
+      "label": "Marruecos"
+    },
+    {
+      "value": "Mexico",
+      "label": "México"
+    },
+    {
+      "value": "Montenegro",
+      "label": "Montenegro"
+    },
+    {
+      "value": "Nigeria",
+      "label": "Nigeria"
+    },
+    {
+      "value": "Norway",
+      "label": "Noruega"
+    },
+    {
+      "value": "Panama",
+      "label": "Panamá"
+    },
+    {
+      "value": "Paraguay",
+      "label": "Paraguay"
+    },
+    {
+      "value": "Peru",
+      "label": "Perú"
+    },
+    {
+      "value": "Portugal",
+      "label": "Portugal"
+    },
+    {
+      "value": "Senegal",
+      "label": "Senegal"
+    },
+    {
+      "value": "Uruguay",
+      "label": "Uruguay"
+    },
+    {
+      "value": "Venezuela",
+      "label": "Venezuela"
+    }
+  ],
+  "clubOptions": [
+    {
+      "value": "evyhlelybkbj2vry2xhct08pb",
+      "label": "Atlante",
+      "image": "https://www.statiskicks.com/storage/media/teams/2312.png"
+    },
+    {
+      "value": "8jjxbd5vr23vhu1v5r21rzkrn",
+      "label": "Atlas",
+      "image": "https://www.statiskicks.com/storage/media/teams/2283.png"
+    },
+    {
+      "value": "54ph1k82y99hhjsf7m2usns8u",
+      "label": "Atlético San Luis",
+      "image": "https://www.statiskicks.com/storage/media/teams/2314.png"
+    },
+    {
+      "value": "eu8c408f59yx7egaqossbv25e",
+      "label": "Club América",
+      "image": "https://www.statiskicks.com/storage/media/teams/2287.png"
+    },
+    {
+      "value": "1aw67co8uut64yckd3wbhy9t2",
+      "label": "Cruz Azul",
+      "image": "https://www.statiskicks.com/storage/media/teams/2295.png"
+    },
+    {
+      "value": "e603sojy77s4u0ypqds2v2a1g",
+      "label": "Guadalajara",
+      "image": "https://www.statiskicks.com/storage/media/teams/2278.png"
+    },
+    {
+      "value": "ecphe4bqgmin2tzsohf50egvd",
+      "label": "Juárez",
+      "image": "https://www.statiskicks.com/storage/media/teams/2298.png"
+    },
+    {
+      "value": "2ei66pjfsrr6uxqp1bywq31lo",
+      "label": "León",
+      "image": "https://www.statiskicks.com/storage/media/teams/2289.png"
+    },
+    {
+      "value": "233335xtoe3e3phg3hp91xguq",
+      "label": "Monterrey",
+      "image": "https://www.statiskicks.com/storage/media/teams/2282.png"
+    },
+    {
+      "value": "b7hn6knkuxbpj1i8rmzapns7b",
+      "label": "Necaxa",
+      "image": "https://www.statiskicks.com/storage/media/teams/2288.png"
+    },
+    {
+      "value": "cynfvfb31rml7xrlsnejf8r6j",
+      "label": "Pachuca",
+      "image": "https://www.statiskicks.com/storage/media/teams/2292.png"
+    },
+    {
+      "value": "4kw25nmgmacpbvo24ttr994k5",
+      "label": "Puebla",
+      "image": "https://www.statiskicks.com/storage/media/teams/2291.png"
+    },
+    {
+      "value": "ayabrorjqa1bj7jk1fdqu1t57",
+      "label": "Pumas UNAM",
+      "image": "https://www.statiskicks.com/storage/media/teams/2286.png"
+    },
+    {
+      "value": "ccye1b5fvtq8tzlz0gosyw10b",
+      "label": "Querétaro",
+      "image": "https://www.statiskicks.com/storage/media/teams/2290.png"
+    },
+    {
+      "value": "8yn3l36qkq1fxbw4ufmwyfyt9",
+      "label": "Santos Laguna",
+      "image": "https://www.statiskicks.com/storage/media/teams/2285.png"
+    },
+    {
+      "value": "6hmo9mrlz73nwxkshwuu5vsfm",
+      "label": "Tigres UANL",
+      "image": "https://www.statiskicks.com/storage/media/teams/2279.png"
+    },
+    {
+      "value": "c1wcescnsnfuyv06enhwaoqr6",
+      "label": "Tijuana",
+      "image": "https://www.statiskicks.com/storage/media/teams/2280.png"
+    },
+    {
+      "value": "3390h9hdgoxzzofnrpyktanuz",
+      "label": "Toluca",
+      "image": "https://www.statiskicks.com/storage/media/teams/2281.png"
+    }
+  ],
+  "coverageKnown": true,
+  "statCatalog": [
+    {
+      "category": "Balón Parado",
+      "attributes": [
+        {
+          "key": "Corners Taken (incl short corners)",
+          "label": "Córners cobrados (incl. cortos)",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Direct Corner Goals",
+          "label": "Goles de córner directo",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": false,
+          "goalkeeper": false
+        },
+        {
+          "key": "Direct Setpiece Goals",
+          "label": "Goles directos de balón parado",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": false,
+          "goalkeeper": false
+        },
+        {
+          "key": "Expected Goals Setpiece",
+          "label": "xG en jugadas a balón parado",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Expected Goals Free Kick",
+          "label": "xG en tiros libres directos",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Successful Corners into Box",
+          "label": "Córners exitosos al área",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Unsuccessful Corners into Box",
+          "label": "Córners fallados al área",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Throw Ins to Opposition Player",
+          "label": "Saques de banda al rival",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Throw Ins to Own Player",
+          "label": "Saques de banda a compañero",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Attempts from Set Pieces",
+          "label": "Remates de tiro libre directo",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Set Pieces Goals",
+          "label": "Goles de tiro libre directo",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        }
+      ]
+    },
+    {
+      "category": "Creación",
+      "attributes": [
+        {
+          "key": "Assists (Intentional)",
+          "label": "Asistencias intencionales",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Expected Assists",
+          "label": "Asistencias esperadas (xA)",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Expected Assists Openplay",
+          "label": "xA en juego abierto",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Expected Assists Setpiece",
+          "label": "xA en jugadas a balón parado",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Goal Assists",
+          "label": "Asistencias de gol",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Key Passes (Attempt Assists)",
+          "label": "Pases clave",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Second Goal Assists",
+          "label": "Segundas asistencias",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Successful Crosses & Corners",
+          "label": "Centros y córners exitosos",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Successful Crosses open play",
+          "label": "Centros exitosos de jugada",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Through balls",
+          "label": "Pases filtrados",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Total Big Chances Created",
+          "label": "Ocasiones claras creadas",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Unsuccessful Crosses & Corners",
+          "label": "Centros y córners fallados",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Unsuccessful Crosses open play",
+          "label": "Centros fallados de jugada",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        }
+      ]
+    },
+    {
+      "category": "Defensa",
+      "attributes": [
+        {
+          "key": "Blocked Shots",
+          "label": "Remates bloqueados",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Blocks",
+          "label": "Bloqueos",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Clearances Off the Line",
+          "label": "Despejes sobre la línea",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Interceptions",
+          "label": "Intercepciones",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Last Player Tackle",
+          "label": "Entrada como último hombre",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Own Goal Scored",
+          "label": "Autogol",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Recoveries",
+          "label": "Recuperaciones",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Tackle Success Rate",
+          "label": "Efectividad de entradas",
+          "units": [
+            "percent"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Tackles Lost",
+          "label": "Entradas perdidas",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Tackles Won",
+          "label": "Entradas ganadas",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Total Clearances",
+          "label": "Despejes totales",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Total Tackles",
+          "label": "Entradas totales",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Defensive Actions",
+          "label": "Acciones defensivas",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "PutThrough/Blocked Distribution",
+          "label": "Saques bloqueados",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "PutThrough/Blocked Distribution Won",
+          "label": "Saques bloqueados recuperados",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        }
+      ]
+    },
+    {
+      "category": "Disciplina",
+      "attributes": [
+        {
+          "key": "Penalties Conceded",
+          "label": "Penales cometidos",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Red Cards - 2nd Yellow",
+          "label": "Roja por doble amarilla",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Straight Red Cards",
+          "label": "Rojas directas",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Total Red Cards",
+          "label": "Rojas totales",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Total Fouls Conceded",
+          "label": "Faltas cometidas",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Yellow Cards",
+          "label": "Tarjetas amarillas",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        }
+      ]
+    },
+    {
+      "category": "Duelos",
+      "attributes": [
+        {
+          "key": "Aerial Duel Success Rate",
+          "label": "Efectividad de duelos aéreos",
+          "units": [
+            "percent"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Duel Success Rate",
+          "label": "Efectividad de duelos",
+          "units": [
+            "percent"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Duels",
+          "label": "Duelos",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Duels lost",
+          "label": "Duelos perdidos",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Duels won",
+          "label": "Duelos ganados",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Ground Duel Success Rate",
+          "label": "Efectividad de duelos a ras de suelo",
+          "units": [
+            "percent"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Ground Duels",
+          "label": "Duelos a ras de suelo",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Ground Duels lost",
+          "label": "Duelos a ras de suelo perdidos",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Ground Duels won",
+          "label": "Duelos a ras de suelo ganados",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        }
+      ]
+    },
+    {
+      "category": "Errores",
+      "attributes": [
+        {
+          "key": "Errors Leading to Goal",
+          "label": "Error que termina en gol",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Errors Leading to Shot",
+          "label": "Error que termina en tiro",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        }
+      ]
+    },
+    {
+      "category": "Finalización",
+      "attributes": [
+        {
+          "key": "Goal Conversion",
+          "label": "Conversión de gol",
+          "units": [
+            "percent"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Big Chance Conversion",
+          "label": "Conversión de ocasiones claras",
+          "units": [
+            "percent"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Expected Goals",
+          "label": "Goles esperados (xG)",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Non-Penalty Expected Goals",
+          "label": "xG (excluyendo penales)",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Expected Goals On Target",
+          "label": "xG a puerta (xGOT)",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Non-Penalty Expected Goals On Target",
+          "label": "xGOT (excluyendo penales)",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Expected Goals Openplay",
+          "label": "xG en juego abierto",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Expected Goals Left Foot",
+          "label": "xG pierna izquierda",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Expected Goals Right Foot",
+          "label": "xG pierna derecha",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Goals",
+          "label": "Goles",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Non-Penalty Goals",
+          "label": "Goles (excluyendo penales)",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Non-Penalty Goal Contributions",
+          "label": "Goles producidos (excluyendo penales)",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Goals from Inside Box",
+          "label": "Goles dentro del área",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Goals from Outside Box",
+          "label": "Goles fuera del área",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Goals Openplay",
+          "label": "Goles de jugada",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Other Goals",
+          "label": "Otros goles",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Penalties Off Target",
+          "label": "Penales desviados",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Penalties Taken",
+          "label": "Penales cobrados",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Penalty Goals",
+          "label": "Goles de penal",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Right Foot Goals",
+          "label": "Goles de pierna derecha",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Shots Created",
+          "label": "Remates generados",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Shots Off Target (inc woodwork)",
+          "label": "Remates desviados (incl. palo)",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Shots On Target ( inc goals )",
+          "label": "Remates al arco (incl. goles)",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Total Big Chances Missed",
+          "label": "Ocasiones claras falladas",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Total Big Chances Scored",
+          "label": "Ocasiones claras convertidas",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Total Shots",
+          "label": "Remates totales",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Winning Goal",
+          "label": "Gol de la victoria",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        }
+      ]
+    },
+    {
+      "category": "General",
+      "attributes": [
+        {
+          "key": "skore",
+          "label": "SKore",
+          "units": [
+            "rating"
+          ],
+          "rangeable": true
+        },
+        {
+          "key": "Appearances",
+          "label": "Partidos jugados",
+          "units": [
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Away Goals",
+          "label": "Goles de visitante",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Foul Attempted Tackle",
+          "label": "Falta por intento de entrada",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Games Played",
+          "label": "Partidos jugados",
+          "units": [
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Handballs conceded",
+          "label": "Manos cometidas",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Hit Woodwork",
+          "label": "Remates al palo",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Home Goals",
+          "label": "Goles de local",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Left Foot Goals",
+          "label": "Goles de pierna izquierda",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Offsides",
+          "label": "Fueras de lugar",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Starts",
+          "label": "Titularidades",
+          "units": [
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Substitute Off",
+          "label": "Salió de cambio",
+          "units": [
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Substitute On",
+          "label": "Entró de cambio",
+          "units": [
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Time Played",
+          "label": "Minutos jugados",
+          "units": [
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        }
+      ]
+    },
+    {
+      "category": "Juego Aéreo",
+      "attributes": [
+        {
+          "key": "Aerial Duels",
+          "label": "Duelos aéreos",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Aerial Duels lost",
+          "label": "Duelos aéreos perdidos",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Aerial Duels won",
+          "label": "Duelos aéreos ganados",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Offensive Aerial Duels",
+          "label": "Duelos aéreos ofensivos",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Offensive Aerial Duels won",
+          "label": "Duelos aéreos ofensivos ganados",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Offensive Aerial Duel Success Rate",
+          "label": "Efectividad de duelos aéreos ofensivos",
+          "units": [
+            "percent"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Defensive Aerial Duels",
+          "label": "Duelos aéreos defensivos",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Defensive Aerial Duels won",
+          "label": "Duelos aéreos defensivos ganados",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Defensive Aerial Duel Success Rate",
+          "label": "Efectividad de duelos aéreos defensivos",
+          "units": [
+            "percent"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Expected Goals Headed",
+          "label": "xG cabeceo",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Headed Goals",
+          "label": "Goles de cabeza",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        }
+      ]
+    },
+    {
+      "category": "Pase",
+      "attributes": [
+        {
+          "key": "Backward Passes",
+          "label": "Pases hacia atrás",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Pass Accuracy",
+          "label": "Precisión de pase",
+          "units": [
+            "percent"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Forward Passes",
+          "label": "Pases hacia adelante",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Leftside Passes",
+          "label": "Pases a la izquierda",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Open Play Passes",
+          "label": "Pases en jugada",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Rightside Passes",
+          "label": "Pases por derecha",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Successful Lay-offs",
+          "label": "Descargas exitosas",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Successful Long Passes",
+          "label": "Pases largos exitosos",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Successful Open Play Passes",
+          "label": "Pases de juego abierto exitosos",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Successful Passes Opposition Half",
+          "label": "Pases exitosos en campo rival",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Successful Progressive Passes",
+          "label": "Pases progresivos exitosos",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Successful Passes Own Half",
+          "label": "Pases exitosos en campo propio",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Successful Short Passes",
+          "label": "Pases cortos exitosos",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Total Passes",
+          "label": "Pases totales",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Total Successful Passes ( Excl Crosses & Corners )",
+          "label": "Pases exitosos (sin centros/córners)",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Total Unsuccessful Passes ( Excl Crosses & Corners )",
+          "label": "Pases fallados (sin centros/córners)",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Unsuccessful lay-offs",
+          "label": "Descargas falladas",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Unsuccessful Long Passes",
+          "label": "Pases largos fallados",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Unsuccessful Passes Opposition Half",
+          "label": "Pases fallados en campo rival",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Unsuccessful Passes Own Half",
+          "label": "Pases fallados en campo propio",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Unsuccessful Short Passes",
+          "label": "Pases cortos fallados",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        }
+      ]
+    },
+    {
+      "category": "Portero",
+      "attributes": [
+        {
+          "key": "Catches",
+          "label": "Atrapadas",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": true
+        },
+        {
+          "key": "Clean Sheets",
+          "label": "Porterías invictas",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": true
+        },
+        {
+          "key": "Drops",
+          "label": "Balones soltados",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": true
+        },
+        {
+          "key": "Expected Goals Conceded",
+          "label": "xG concedidos",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": true
+        },
+        {
+          "key": "Non-Penalty Expected Goals Conceded",
+          "label": "xG concedidos (excluyendo penales)",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": true
+        },
+        {
+          "key": "Expected Goals On Target Conceded",
+          "label": "xGOT concedidos",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": true
+        },
+        {
+          "key": "Non-Penalty Expected Goals On Target Conceded",
+          "label": "xGOT concedidos (excluyendo penales)",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": true
+        },
+        {
+          "key": "GK Successful Distribution",
+          "label": "Saques exitosos del arquero",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": true
+        },
+        {
+          "key": "GK Unsuccessful Distribution",
+          "label": "Saques fallidos del arquero",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": true
+        },
+        {
+          "key": "Goal Kicks",
+          "label": "Saques de arco",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": true
+        },
+        {
+          "key": "Goals Conceded",
+          "label": "Goles recibidos",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": true
+        },
+        {
+          "key": "Goals Conceded Inside Box",
+          "label": "Goles recibidos dentro del área",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": true
+        },
+        {
+          "key": "Goals Conceded Outside Box",
+          "label": "Goles recibidos fuera del área",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": true
+        },
+        {
+          "key": "Goals Prevented",
+          "label": "Goles prevenidos",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": true
+        },
+        {
+          "key": "Save Percentage",
+          "label": "Efectividad de atajadas",
+          "units": [
+            "percent"
+          ],
+          "rangeable": true,
+          "goalkeeper": true
+        },
+        {
+          "key": "Goalkeeper Smother",
+          "label": "Achiques",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": true
+        },
+        {
+          "key": "Penalties Faced",
+          "label": "Penales enfrentados",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": true
+        },
+        {
+          "key": "Penalties Saved",
+          "label": "Penales atajados",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": true
+        },
+        {
+          "key": "Penalty Goals Conceded",
+          "label": "Goles de penal recibidos",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": true
+        },
+        {
+          "key": "Punches",
+          "label": "Despejes con el puño",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": true
+        },
+        {
+          "key": "Saves from Penalty",
+          "label": "Atajadas de penal",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": true
+        },
+        {
+          "key": "Saves Made",
+          "label": "Atajadas",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": true
+        },
+        {
+          "key": "Saves made - caught",
+          "label": "Atajadas con control",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": false,
+          "goalkeeper": true
+        },
+        {
+          "key": "Saves made - parried",
+          "label": "Atajadas con rechace",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": true
+        },
+        {
+          "key": "Saves Made from Inside Box",
+          "label": "Atajadas dentro del área",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": true
+        },
+        {
+          "key": "Saves Made from Outside Box",
+          "label": "Atajadas fuera del área",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": true
+        },
+        {
+          "key": "Successful Launches",
+          "label": "Pases largos precisos",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": true
+        },
+        {
+          "key": "Total Big Chances Saved",
+          "label": "Ocasiones claras atajadas",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": true
+        },
+        {
+          "key": "Unsuccessful Launches",
+          "label": "Balones largos fallados",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": true
+        }
+      ]
+    },
+    {
+      "category": "Posesión",
+      "attributes": [
+        {
+          "key": "Carries",
+          "label": "Conducciones",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": false,
+          "goalkeeper": false
+        },
+        {
+          "key": "Corners Won",
+          "label": "Córners ganados",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Dribble Success Rate",
+          "label": "Efectividad de regates",
+          "units": [
+            "percent"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Final Third Touches",
+          "label": "Toques en último tercio",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Foul Won Penalty",
+          "label": "Penal ganado por falta",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Overruns",
+          "label": "Alargue de balón (pérdida)",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Possession Retention",
+          "label": "Retención",
+          "units": [
+            "percent"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Progressive Carries",
+          "label": "Conducciones progresivas",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": false,
+          "goalkeeper": false
+        },
+        {
+          "key": "Successful Dribbles",
+          "label": "Regates exitosos",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Times Tackled",
+          "label": "Veces entrado",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Total Fouls Won",
+          "label": "Faltas recibidas",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Total Losses Of Possession",
+          "label": "Pérdidas de balón",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Total Touches In Opposition Box",
+          "label": "Toques en área rival",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Touches",
+          "label": "Toques",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Unsuccessful Dribbles",
+          "label": "Regates fallados",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Unsuccessful Touches",
+          "label": "Mal control",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        }
+      ]
+    },
+    {
+      "category": "Progresión",
+      "attributes": [
+        {
+          "key": "Expected Threat",
+          "label": "xT (amenaza esperada)",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Expected Threat Passes",
+          "label": "xT por pases",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        },
+        {
+          "key": "Expected Threat Carries",
+          "label": "xT por conducciones",
+          "units": [
+            "p90",
+            "total"
+          ],
+          "rangeable": true,
+          "goalkeeper": false
+        }
+      ]
+    }
+  ],
+  "unitLabels": {
+    "p90": "p90",
+    "total": "Total",
+    "percent": "%",
+    "rating": ""
+  },
+  "rangesMethod": "statRanges",
+  "periodCalendarMethod": "periodCalendar",
+  "minutesThreshold": 270,
+  "maxStatFilters": 8,
+  "minutesAttribute": "Time Played"
+}

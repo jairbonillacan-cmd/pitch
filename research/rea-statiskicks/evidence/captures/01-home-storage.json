@@ -1,0 +1,33 @@
+{
+  "fingerprint_version": 2,
+  "cookies": [
+    {
+      "name": "XSRF-TOKEN",
+      "domain": "www.statiskicks.com",
+      "path": "/",
+      "secure": true,
+      "http_only": false,
+      "same_site": "Lax",
+      "value_state": "hashed",
+      "value_sha256": "0314b5ef199f49379a64517834b57a2fdd0b72ebf03f85aefe0523be2d878d96"
+    },
+    {
+      "name": "statiskicks-session",
+      "domain": "www.statiskicks.com",
+      "path": "/",
+      "secure": true,
+      "http_only": true,
+      "same_site": "Lax",
+      "value_state": "hashed",
+      "value_sha256": "37fef1149d2f704d5d040d854385b40b37a3d7918a5522d5817e469cb0e07a11"
+    }
+  ],
+  "local_storage": [
+    {
+      "name": "sk-theme",
+      "value_state": "hashed",
+      "value_sha256": "99a7026172d42714d0293e5598ec1c8e8260d7d0c4b8582ad002c1883494e216"
+    }
+  ],
+  "session_storage": []
+}

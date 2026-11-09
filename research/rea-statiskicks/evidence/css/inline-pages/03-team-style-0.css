@@ -1,0 +1,190 @@
+
+  .team-page { min-height: calc(100vh - var(--sk-navbar-total, 64px)); }
+  .team-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1rem; }
+  .team-card { margin-bottom: 0; }
+  .team-card--span-3 { grid-column: span 3; }
+  .team-card--span-4 { grid-column: span 4; }
+  .team-card--span-5 { grid-column: span 5; }
+  .team-card--span-6 { grid-column: span 6; }
+  .team-card--span-7 { grid-column: span 7; }
+  .team-card--span-8 { grid-column: span 8; }
+  .team-card--span-12 { grid-column: span 12; }
+  .team-snapshot { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .6rem; }
+  .team-snapshot__item { border: 1px solid var(--border-light); border-radius: 8px; padding: .75rem; background: rgba(255,255,255,.03); }
+  .team-snapshot__label { display: block; color: var(--text-muted); font-size: .68rem; text-transform: uppercase; letter-spacing: .06em; }
+  .team-snapshot__value { display: block; margin-top: .25rem; color: var(--text); font-size: 1.2rem; font-weight: 800; }
+  .team-table-wrap { width: 100%; overflow-x: auto; }
+  .team-table { width: 100%; min-width: 760px; border-collapse: separate; border-spacing: 0; font-size: .82rem; }
+  .team-table--stats { min-width: 620px; }
+  .team-table th { color: var(--text-muted); font-size: .68rem; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; }
+  .team-table th, .team-table td { padding: .65rem .55rem; border-bottom: 1px solid var(--border-light); vertical-align: middle; }
+  .team-table td { color: var(--text-secondary); }
+  .team-ranking td strong { color: var(--text); font-weight: 800; white-space: nowrap; }
+  /*
+    The squad tables are the advanced search's results table (sk.css). Beside
+    the age profile, a quarter of a full-width row, the featured players drop
+    the avatar and let a long name wrap so five columns fit without scrolling.
+  */
+  .team-featured-table .sk-player-table__avatar-link { display: none; }
+  .team-featured-table .sk-player-table__player-text { white-space: normal; }
+  .team-featured-table thead th, .team-featured-table tbody td { padding-left: .3rem; padding-right: .3rem; }
+  .team-featured-table .sk-player-table__rank { width: 1.25rem; }
+  .team-card--xxl-3, .team-card--xxl-9 { min-width: 0; }
+  @media (min-width: 1400px) {
+    .team-card--xxl-3 { grid-column: span 3; }
+    .team-card--xxl-9 { grid-column: span 9; }
+    .team-featured-card { padding: 1.25rem 1rem; }
+  }
+  .team-visual-card { min-height: 360px; }
+  .team-visual-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: .75rem; }
+  /* Ranking and Mapas y Gráficas on a plan without them: made-up stand-ins, blurred (.sk-unlock-ghost), under the call to the plans. */
+  .team-locked { min-height: 520px; overflow: hidden; }
+  .team-locked__table { width: 100%; border-collapse: collapse; font-size: .85rem; color: var(--text); }
+  .team-locked__table th { text-align: left; font-size: .7rem; letter-spacing: .06em; text-transform: uppercase; color: var(--text-muted); padding: .6rem .5rem; }
+  .team-locked__table td { padding: .6rem .5rem; border-top: 1px solid var(--border-light); }
+  .team-locked__category td { font-size: .72rem; font-weight: 700; text-transform: uppercase; background: var(--bg-secondary); }
+  .team-locked__chip { display: inline-block; padding: .05rem .4rem; border-radius: 4px; font-size: .72rem; font-weight: 700; color: #102018; background: #b2d98b; }
+  .team-locked__chip--mid { background: #f5d547; }
+  .team-locked__chip--low { background: #f4a259; }
+  .team-locked__maps { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 1rem; }
+  .team-locked__toggle { display: inline-flex; margin-bottom: 1rem; }
+  .team-locked__pitch { display: block; width: 100%; height: auto; }
+  .team-locked__line { fill: none; stroke: var(--border); stroke-width: 3; }
+  .team-locked__dot { fill: #b2d98b; opacity: .8; }
+  @media (max-width: 768px) { .team-locked__maps { grid-template-columns: minmax(0, 1fr); } .team-locked__filters { display: none; } }
+  .team-locked__compare-head { margin-bottom: 1rem; }
+  .team-locked__compare-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+  .team-locked__compare-side { margin: .5rem 0 .3rem; font-size: .82rem; color: var(--text-secondary); }
+  .team-locked__compare-row { display: flex; align-items: center; gap: .75rem; }
+  .team-locked__compare-track { flex: 1; height: 10px; border-radius: 999px; background: var(--bg-secondary); overflow: hidden; }
+  .team-locked__compare-bar { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #f4a259, #f5d547, #b2d98b); }
+  @media (max-width: 992px) { .team-locked__compare-grid { grid-template-columns: minmax(0, 1fr); } }
+  /* Perfil de edad: the subtitle beside the title, clear of the card's download button; it wraps under it on a narrow card. */
+  .team-visual-header--inline { justify-content: flex-start; align-items: baseline; column-gap: .75rem; row-gap: .15rem; padding: 0 7.5rem .75rem 0; margin-bottom: 1rem; border-bottom: 1px solid var(--border-light); }
+  /* sk.css rules a card's heading off under its last line and pads a title clear of the download button; here the header does both, across the card. */
+  .sk-card .team-visual-header--inline .sk-card-title,
+  .sk-card .team-visual-header--inline .sk-card-subtitle { margin: 0; padding: 0; border: 0; }
+  @media (max-width: 576px) { .team-visual-header--inline { padding-right: 2rem; } }
+  .team-chart-wrap { position: relative; width: 100%; min-height: 460px; }
+  .team-chart-wrap canvas { width: 100% !important; height: 460px !important; }
+  .team-formation-stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .6rem; }
+  .team-formation-stat { border: 1px solid var(--border-light); border-radius: 8px; padding: .75rem; background: rgba(255,255,255,.03); }
+  .team-formation-stat span { display: block; color: var(--text-muted); font-size: .68rem; text-transform: uppercase; letter-spacing: .06em; }
+  .team-formation-stat strong { display: block; margin-top: .25rem; color: var(--text); font-size: 1.15rem; }
+  .team-formation-note { color: var(--text-muted); font-size: .78rem; margin: 0; }
+  [data-pass-network-node]:focus, [data-pass-network-edge]:focus { outline: none; }
+  .team-content { position: relative; }
+  .team-content--loading { opacity: .58; pointer-events: none; transition: opacity .12s ease; }
+
+  /* Ranking (Fase 3): the title, then the unit and the attribute picker on the right. */
+  .team-ranking__head { display: flex; align-items: flex-end; justify-content: space-between; gap: .75rem 1rem; flex-wrap: wrap; margin-bottom: .75rem; }
+  .team-ranking__head .sk-card-subtitle { margin-bottom: 0; }
+  .team-ranking__controls { display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; }
+  /* The two pills one width: the toggle's two buttons share the attribute button's. */
+  .team-ranking__controls .chart-toggle { min-width: 164px; }
+  .team-ranking__controls .chart-toggle-btn { flex: 1 1 auto; }
+  /* Plantilla (Fase 7): the Estadísticas tab's head, its controls level with the title, and the advanced search's hand-off link. */
+  /*
+    The title and the controls share one row, the subtitle and the card's
+    rule under both: a card too narrow for the controls beside the title
+    wraps them under it, never under the subtitle, so the table stays close.
+  */
+  .team-squad__head { align-items: center; gap: .5rem 1rem; margin-bottom: .5rem; }
+  /* sk.css rules off a title with no subtitle beside it; here the rule is the subtitle's. */
+  .sk-card.team-squad .team-squad__head > .sk-card-title { margin-bottom: 0; padding-bottom: 0; border-bottom: 0; }
+  .team-squad__head + .sk-card-subtitle { margin-bottom: 1rem; padding-bottom: .75rem; border-bottom: 1px solid var(--border-light); }
+  .team-squad__handoff { display: inline-flex; align-items: center; gap: .35rem; padding: 0; border: 0; background: none; font-size: .8rem; font-weight: 600; color: var(--accent-ink); text-decoration: none; }
+  .team-squad__handoff:hover, .team-squad__handoff:focus-visible { color: var(--text); }
+  /* Resultados (Fase 7): the label, and the rival menu at its right. */
+  .team-matches__head { display: flex; align-items: center; justify-content: space-between; gap: .5rem 1rem; flex-wrap: wrap; margin-bottom: .75rem; }
+  .team-matches__head .team-matches__label { margin-bottom: 0; }
+  /*
+    Comparar (SK-12, SK-12.1): three cards a row, two on a tablet, one on a
+    phone, each team's crest and name over its bar. The head's three controls
+    share one row, their labels level with the title, so the card is no
+    taller than it has to be; on a narrow screen they wrap under the title.
+  */
+  .team-compare__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem 1.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+  .team-compare__head .sk-card-title + .sk-card-subtitle { margin-bottom: 0; }
+  /* The controls are the Resumen's (sk.css .sk-analysis-filter-field): same pills, same widths. */
+  .team-compare__controls { display: flex; align-items: flex-end; gap: .75rem 1rem; flex-wrap: wrap; }
+  .team-compare__chart { position: relative; transition: opacity .2s ease; }
+  /* The download is the controls' last, level with the title, as the player page's corner buttons are. */
+  .team-compare__controls .sk-chart-download-btn--inline { align-self: flex-start; }
+  /* Only while the network is drawn: before it lands, or without one, there is nothing to save. */
+  .team-pass-network-card:not(:has(.team-pass-network-pitch)) > .sk-chart-download-btn,
+  .team-pass-matrix-card:not(:has([data-team-pass-matrix-table] tbody)) > .sk-chart-download-btn { display: none; }
+  .team-compare__chart--loading { opacity: .55; pointer-events: none; }
+  /* The columns follow the chart's own width, so a download laid out narrower (Fase 6) takes fewer. */
+  .team-compare__chart { container: team-compare / inline-size; }
+  .team-compare__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+  .team-compare__card { display: grid; gap: .85rem; margin: 0; padding: 1.1rem 1.2rem; animation: team-compare-in .36s cubic-bezier(.22, 1, .36, 1) backwards; animation-delay: calc(min(var(--i, 0), 12) * 30ms); }
+  .team-compare__title { display: flex; align-items: baseline; justify-content: space-between; gap: .5rem; margin: 0; font-size: .9rem; font-weight: 800; color: var(--text); }
+  .team-compare__hint { flex: none; font-size: .66rem; font-weight: 600; color: var(--text-muted); }
+  .team-compare__side { display: grid; gap: .4rem; }
+  .team-compare__club { display: flex; align-items: center; gap: .45rem; min-width: 0; font-size: .82rem; font-weight: 600; color: var(--text-secondary); }
+  .team-compare__club span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .team-compare__club img { flex: none; object-fit: contain; }
+  .team-compare__placeholder { display: flex; align-items: center; justify-content: center; gap: .75rem; min-height: 320px; color: var(--text-secondary); font-weight: 700; }
+  @keyframes team-compare-in { from { opacity: 0; transform: translateY(-10px); } }
+  @container team-compare (max-width: 860px) { .team-compare__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @container team-compare (max-width: 520px) { .team-compare__grid { grid-template-columns: 1fr; } }
+  @media (max-width: 640px) {
+    .team-compare__controls { width: 100%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .team-compare__card { animation: none; }
+  }
+  .team-tab-panel { display: none; }
+  /*
+    Every tab comes in the same way when it is picked: a short fade and rise.
+    display:none to block restarts the animation on each switch. `backwards`,
+    not `both`: once it ends no transform is left on the panel, which would
+    otherwise become the containing block of its position:fixed modals (the
+    attribute picker). The period toolbar, shown or hidden by tab, does the same.
+  */
+  .team-tab-panel.is-active { display: block; animation: team-tab-in .32s cubic-bezier(.22, 1, .36, 1) backwards; }
+  .team-page .sk-detail-context-toolbar { animation: team-tab-in .32s cubic-bezier(.22, 1, .36, 1) backwards; }
+  @keyframes team-tab-in { from { opacity: 0; transform: translateY(8px); } }
+  @media (prefers-reduced-motion: reduce) {
+    .team-tab-panel.is-active,
+    .team-page .sk-detail-context-toolbar { animation: none; }
+  }
+  /*
+    On the Resumen tab the period is picked in its "Periodo de análisis" card,
+    beside the chart controls, as on the player page; the toolbar keeps that
+    job on every other tab. Both drive the same league and season.
+  */
+  .team-page[data-active-team-tab="overview"] .sk-detail-context-toolbar { display: none; }
+  /* A tab this plan sees only blurred has nothing to pick a period for, so it shows no toolbar either. */
+    .team-page[data-active-team-tab="stats"] .sk-detail-context-toolbar { display: none; }
+    .team-page[data-active-team-tab="maps"] .sk-detail-context-toolbar { display: none; }
+    .team-page[data-active-team-tab="compare"] .sk-detail-context-toolbar { display: none; }
+    /* Nor does a tab that only says what version 2.0 brings. */
+    .team-page[data-active-team-tab="set-pieces"] .sk-detail-context-toolbar { display: none; }
+    .team-page[data-active-team-tab="rival-analysis"] .sk-detail-context-toolbar { display: none; }
+    .team-page[data-active-team-tab="autoreport"] .sk-detail-context-toolbar { display: none; }
+    /*
+    The filter cards and the charts are two grid items. The chart pair is 100%
+    tall so it fills its column on the player page; sharing a box with the
+    filters, that 100% took in their height too and the charts ran over the
+    card below. Here the pair is as tall as its cards.
+  */
+  .team-grid > .sk-analysis-filters { grid-column: span 12; margin-bottom: 0; }
+  .team-attribute-charts { grid-column: span 12; min-width: 0; }
+  .team-attribute-charts .sk-analysis-chart-pair { height: auto; }
+  /* Resultados: the label and note around the shared match list (match-list.css). */
+  .team-matches__label { margin: 0 0 .75rem; color: var(--text-muted); font-size: .82rem; }
+  .team-matches__count { color: var(--accent-ink); font-weight: 700; font-variant-numeric: tabular-nums; }
+  .team-matches__note { margin: .65rem 0 0; color: var(--text-muted); font-size: .72rem; }
+  .team-empty { color: var(--text-muted); text-align: center; padding: 2.5rem 1rem; }
+  .team-notice { display: flex; align-items: baseline; flex-wrap: wrap; gap: .4rem; margin: 0 0 .75rem; color: var(--text-secondary); font-size: .82rem; }
+  @media (max-width: 992px) {
+    .team-card--span-3, .team-card--span-4, .team-card--span-5, .team-card--span-6, .team-card--span-7, .team-card--span-8 { grid-column: span 12; }
+  }
+  @media (max-width: 640px) {
+    .team-snapshot { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .team-formation-stats { grid-template-columns: 1fr; }
+    .team-chart-wrap { min-height: 380px; }
+    .team-chart-wrap canvas { height: 380px !important; }
+  }

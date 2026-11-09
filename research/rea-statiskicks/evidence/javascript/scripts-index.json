@@ -1,0 +1,198 @@
+[
+  {
+    "name": "bootstrap.bundle.min.js",
+    "url": "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+    "isolated_path": "isolated/source-1-65a4e20d39a2286f77a6bff9df88796bbaf646ea6c8954721f3632931a564a32.js",
+    "sha256": "0833b2e9c3a26c258476c46266e6877fc75218625162e0460be9a3a098a61c6c",
+    "bytes": 80721
+  },
+  {
+    "name": "chart.umd.min.js",
+    "url": "https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js",
+    "isolated_path": "isolated/source-2-bad047a9fc345f9e4604e285c11c2ede916af83c93bed940cfd7ee1906e897c2.js",
+    "sha256": "d46d97a1fd022c5fb29fa2f45ebcbc32202d73aeebf076ce5f7248f5498fc7d7",
+    "bytes": 205637
+  },
+  {
+    "name": "chartjs-plugin-datalabels.min.js",
+    "url": "https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js",
+    "isolated_path": "isolated/source-3-fb8836e762c708171c54aee938e25f7dbbe09d319bdebd421f22a0bb878fb029.js",
+    "sha256": "20c08f3d9c6d2ef76df6d6a6f1127c0013339fe32add24222276c398c6308c38",
+    "bytes": 12937
+  },
+  {
+    "name": "home-motion.js",
+    "url": "https://www.statiskicks.com/custom_assets/js/home-motion.js?v=1791380772",
+    "isolated_path": "isolated/source-4-c7fe787f17daea0cd733d9a13956acb3f13a61cb13b2f6599a98d05edfbd1f52.js",
+    "sha256": "22559f239e73a2d3cfc2933aceaa258693487e84ef9e9513a20eb7c70d18f1d6",
+    "bytes": 3999
+  },
+  {
+    "name": "sk-tooltip.js",
+    "url": "https://www.statiskicks.com/custom_assets/js/sk-tooltip.js?v=1792175742",
+    "isolated_path": "isolated/source-5-46db824677291b557334c059b2b5203a74f5bce0943a0552179cbd0a77ab7774.js",
+    "sha256": "fe7367342c87234dc2fa7e0157511fd63252c25e9bcaafa004668144720bca8b",
+    "bytes": 5286
+  },
+  {
+    "name": "download-paywall.js",
+    "url": "https://www.statiskicks.com/custom_assets/js/download-paywall.js?v=1793826522",
+    "isolated_path": "isolated/source-6-452bdea5a355f0cc842049e9c2a89a41007e76eb51f434930416f5e6ba732c21.js",
+    "sha256": "607fc88ac6d0f2a549f033851901599a3b1afb1cc771ae1904e8f11ccec67e3c",
+    "bytes": 4871
+  },
+  {
+    "name": "chart-download.js",
+    "url": "https://www.statiskicks.com/custom_assets/js/chart-download.js?v=1794084628",
+    "isolated_path": "isolated/source-7-663134bd67776aafe739c5fc6654f4c98dfdf183d5fca0426fee28f7820e6e35.js",
+    "sha256": "1b5758059e8826e09c245ca01e94963880d38b8b1fb416493f4588815490eada",
+    "bytes": 82271
+  },
+  {
+    "name": "search-results-image.js",
+    "url": "https://www.statiskicks.com/custom_assets/js/search-results-image.js?v=1794084628",
+    "isolated_path": "isolated/source-8-25e6f0c6288596c52938abfe48020a88693426291e25132a738790d2f2d653a7.js",
+    "sha256": "25372b446898cb2530c1975c9050d492f82fd9df045033a3bfdfa697a000169f",
+    "bytes": 15500
+  },
+  {
+    "name": "percentile-rows.js",
+    "url": "https://www.statiskicks.com/custom_assets/js/percentile-rows.js?v=1793360776",
+    "isolated_path": "isolated/source-9-6735a04ec72bef24d5d2e41d2b44c3958b1757a6321d07bdf91e33c1cd95be98.js",
+    "sha256": "0c3610604969038c0cf35435cb87fd4547652088dad675798567d0423998c7c1",
+    "bytes": 16494
+  },
+  {
+    "name": "skore.js",
+    "url": "https://www.statiskicks.com/custom_assets/js/skore.js?v=1793032870",
+    "isolated_path": "isolated/source-10-e77eee2db0f6fb902c7ae9dc8168b24ee39cc56f39d73c94197d5f512d3bafae.js",
+    "sha256": "67c17289fb0d3ba5d9a011729ca66f2c0cf4b6553b15d889175b419d5a5dc9c6",
+    "bytes": 1025
+  },
+  {
+    "name": "attribute-picker.js",
+    "url": "https://www.statiskicks.com/custom_assets/js/attribute-picker.js?v=1791577902",
+    "isolated_path": "isolated/source-11-fd1c6440929cde2aec5dbc5dc4660cdb7d6aa42a786e20c09227e1e64cb3e0c6.js",
+    "sha256": "558267b51ef8c3d6531378faad3aa2fa3ca911005cf807c216b70e81f54208ed",
+    "bytes": 3993
+  },
+  {
+    "name": "attribute-charts.js",
+    "url": "https://www.statiskicks.com/custom_assets/js/attribute-charts.js?v=1794084628",
+    "isolated_path": "isolated/source-12-585c1bdac75f103417e23e2ded0458dbc679ee49ae8776cc92271414d37abea7.js",
+    "sha256": "e18e09e5eb7df4f53bf7359a6b880e8345042e128d4b6e4f9b37a9f419cb6dda",
+    "bytes": 43926
+  },
+  {
+    "name": "heatmap.js",
+    "url": "https://www.statiskicks.com/custom_assets/js/heatmap.js?v=1791561866",
+    "isolated_path": "isolated/source-13-f788798691f4c4253d1f8b6f62afddeef442b1e91c1ba231297e6a3578d6b0d5.js",
+    "sha256": "ae977db0cf0906866538b5a5794ee07784cc89094997dbee21e6b943d32b5d91",
+    "bytes": 8470
+  },
+  {
+    "name": "goalmouth-map.js",
+    "url": "https://www.statiskicks.com/custom_assets/js/goalmouth-map.js?v=1794084628",
+    "isolated_path": "isolated/source-14-980ee3e54aa872f2619b61acb3ab16977aba440cc77155dc91f5067b461909ab.js",
+    "sha256": "9f0355309588c0a610eea120f783753795a981ee05222a8db951c644b9db89a3",
+    "bytes": 19168
+  },
+  {
+    "name": "event-map.js",
+    "url": "https://www.statiskicks.com/custom_assets/js/event-map.js?v=1793880030",
+    "isolated_path": "isolated/source-15-73a1d39a3e78d4322ea2cb3a43cf302ffc489586353ff8f041315d0819a28111.js",
+    "sha256": "2ea7370b26667ae8bcfe84789682a80a7fc8d3d7f4da7a65929203a3eb80471d",
+    "bytes": 101374
+  },
+  {
+    "name": "league-maps.js",
+    "url": "https://www.statiskicks.com/custom_assets/js/league-maps.js?v=1794084628",
+    "isolated_path": "isolated/source-16-13c0da10f418eea498a08b0cfe31ce7dbc273d9b7d92babd3844a3071d77b0a2.js",
+    "sha256": "8dc40486c29927a54150723be3a9260add810eeb7c75a9dedb64996df70c9f5f",
+    "bytes": 47505
+  },
+  {
+    "name": "league-scatter.js",
+    "url": "https://www.statiskicks.com/custom_assets/js/league-scatter.js?v=1794084628",
+    "isolated_path": "isolated/source-17-05a4e0ede7b0017df85224de90bcfd18e65981a818a074cc48bc96e1dfa2a6dd.js",
+    "sha256": "f1ad9e5d980503c9d6aca9747f536d1a37dc913947642829145e8d238c38c88f",
+    "bytes": 62610
+  },
+  {
+    "name": "league-switcher.js",
+    "url": "https://www.statiskicks.com/custom_assets/js/league-switcher.js?v=1793361650",
+    "isolated_path": "isolated/source-18-f25d1a6b20abd37d8125dde88ea5c84b8a3fa36fb460074cb2c18582eccf82cc.js",
+    "sha256": "bb18600c8c581ceede69688481ab0612772eeb0061d716da71b249f68efbb29a",
+    "bytes": 974
+  },
+  {
+    "name": "team-profile.js",
+    "url": "https://www.statiskicks.com/custom_assets/js/team-profile.js?v=1791380772",
+    "isolated_path": "isolated/source-19-e6f602fa8967b43bf525caab37684018af17b732973f5a45078b1b1f87a19e41.js",
+    "sha256": "988e995db44d6d408fb99ea5eb30a212f584f7f6b910c1b36c4cb17b4dcae813",
+    "bytes": 7387
+  },
+  {
+    "name": "team-age-profile.js",
+    "url": "https://www.statiskicks.com/custom_assets/js/team-age-profile.js?v=1794168592",
+    "isolated_path": "isolated/source-20-bca26724567ebfb5e0bef4da4b1f623753c3ad035d04f43f11548273f0d20dd4.js",
+    "sha256": "e07abe994dfbf94e98e191d066a40463e516de94414e56df99604e2b534d7f7a",
+    "bytes": 16117
+  },
+  {
+    "name": "team-xg-rolling.js",
+    "url": "https://www.statiskicks.com/custom_assets/js/team-xg-rolling.js?v=1791380772",
+    "isolated_path": "isolated/source-21-958e2a62fd9c6f12e20c2989f1ab05ae13f3358ff7537f8ecf487c47b097077b.js",
+    "sha256": "9c5c70564ce37db63366d9db0ee8e44dadf009a11d19588df4f1b162da642997",
+    "bytes": 13984
+  },
+  {
+    "name": "team-formation-profile.js",
+    "url": "https://www.statiskicks.com/custom_assets/js/team-formation-profile.js?v=1791380772",
+    "isolated_path": "isolated/source-22-62e3c13132e6e798744d756658c516f36f8bce153a3810684b735c5efb8bc796.js",
+    "sha256": "ce680500d130ce08de8b755287790804d529a1e20c7da941c6107f110fd7a00e",
+    "bytes": 3323
+  },
+  {
+    "name": "team-pass-network.js",
+    "url": "https://www.statiskicks.com/custom_assets/js/team-pass-network.js?v=1794084628",
+    "isolated_path": "isolated/source-23-01b960df8bd4e7ce9455fb24ecea93ecb3d183e9bb919b592f826bca58906fd5.js",
+    "sha256": "a37025c7884995e1c017ef0db0bbd96853353809105ae4135bd598e50f56c400",
+    "bytes": 43792
+  },
+  {
+    "name": "live-motion.js",
+    "url": "https://www.statiskicks.com/custom_assets/js/live-motion.js?v=1792175986",
+    "isolated_path": "isolated/source-24-0753dcbb75ec8c1180b34b540dcf3b62daa7f3dd2b0db911f3445829dc47c060.js",
+    "sha256": "63ece23dfa253f2ad5bb9c709dfd4c11f7f37c6faf372e6bce7b21b4b2fe458e",
+    "bytes": 4880
+  },
+  {
+    "name": "momentum-chart.js",
+    "url": "https://www.statiskicks.com/custom_assets/js/momentum-chart.js?v=1792708794",
+    "isolated_path": "isolated/source-25-eb16742d4d588128d39c841973d28d51ff5cb2224d68a4ecdc7271de6910b0de.js",
+    "sha256": "7c85598927d5e81fce72b9a1b2d54feec95dceff0a5a9c407ebf6d07aedd92a1",
+    "bytes": 19165
+  },
+  {
+    "name": "player-heat.js",
+    "url": "https://www.statiskicks.com/custom_assets/js/player-heat.js?v=1792491156",
+    "isolated_path": "isolated/source-26-771d7503bf5b9143ca8f7fca5fd6febc1a4239121fa3404be25d9d1e6f1fab95.js",
+    "sha256": "14d579d847824dcf3a38f993be443dd95ca8d1a17711cc9ddc7f5c4631e2b98e",
+    "bytes": 6706
+  },
+  {
+    "name": "scroll-lock.js",
+    "url": "https://www.statiskicks.com/custom_assets/js/scroll-lock.js?v=1792589840",
+    "isolated_path": "isolated/source-27-cdb6dff96a10bb956e050fc7eff9646f15c54fe1dfd44430daf3b456e6a606ff.js",
+    "sha256": "14b451fbb0042bd23c1f1aade6d1603e210ce55a359ef050d332c6e5e36ad92d",
+    "bytes": 1452
+  },
+  {
+    "name": "livewire.min.js",
+    "url": "https://www.statiskicks.com/livewire-e3175f40/livewire.min.js?id=6b3709b1",
+    "isolated_path": "isolated/source-28-e7f099a3aa904bc9ba4eaf04a77e360e5934757956312d3bee83aff3c7ed80fa.js",
+    "sha256": "4f67d55949e15c5c6d680b31dec3474dd2f9efb144a5661455fe5326ce40bf1f",
+    "bytes": 237673
+  }
+]

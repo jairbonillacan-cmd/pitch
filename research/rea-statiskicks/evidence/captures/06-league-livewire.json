@@ -1,0 +1,71 @@
+[
+  {
+    "data": {
+      "leagueId": "2hsidwomhjsaaytdy9u5niyi4",
+      "season": "9zum4nxferygj8bb0ldcavxn8",
+      "tab": "overview",
+      "tournament": "",
+      "statsSide": "players",
+      "statsCategory": "summary",
+      "statsColumns": "",
+      "statsUnit": "total",
+      "statsSearch": "",
+      "statsGroups": "",
+      "statsTeams": "",
+      "statsAgeMin": null,
+      "statsAgeMax": null,
+      "statsMinsMin": null,
+      "statsMinsMax": null,
+      "statsSort": "",
+      "statsSortDir": "desc",
+      "leadersPer90": false,
+      "leadersCategories": "",
+      "leadersBoard": "",
+      "leadersTeam": "",
+      "standingsXp": false,
+      "standingsSort": "rank",
+      "standingsSortDir": "asc",
+      "projectionSort": "expected_position",
+      "projectionSortDir": "asc",
+      "projectionMatrix": true,
+      "calendarSort": "difficulty",
+      "calendarSortDir": "asc",
+      "matchRound": "",
+      "matchDate": "",
+      "teamStatsCategory": "summary",
+      "teamStatsColumns": "",
+      "teamStatsUnit": "per_match",
+      "teamStatsSearch": "",
+      "teamStatsGroup": "",
+      "teamStatsSort": "",
+      "teamStatsSortDir": "desc",
+      "scoutSearch": "",
+      "scoutPosition": "",
+      "scoutAge": "",
+      "scoutTeamId": "",
+      "scoutNationality": "",
+      "scoutSort": "skore",
+      "scoutSortDir": "desc",
+      "paginators": [
+        [],
+        {
+          "s": "arr"
+        }
+      ]
+    },
+    "memo": {
+      "id": "gBJP6crSxlHfv03REsZ4",
+      "name": "league-detail",
+      "path": "league/2hsidwomhjsaaytdy9u5niyi4",
+      "method": "GET",
+      "release": "a-a-a",
+      "children": [],
+      "scripts": [],
+      "assets": [],
+      "errors": [],
+      "locale": "es",
+      "islands": []
+    },
+    "checksum": "1da57db379c524aaacb7377df22d6db57a16d45bd7a3aba4c66ee9a2bd49c965"
+  }
+]

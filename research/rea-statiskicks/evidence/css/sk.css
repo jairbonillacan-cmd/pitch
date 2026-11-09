@@ -1,0 +1,6049 @@
+/* ─── Palette variables ──────────────────────────────────────── */
+/*
+  Two surfaces, two ink sets.
+
+  Light is a warm paper theme: a cream page, white cards floating on it, and
+  near-black ink. The page used to be plain white with mint-tinted cards, which
+  left card and page about two percent of luminance apart - so nothing read as
+  raised, and every label had to carry the hierarchy on its own. Cream under
+  white does that work instead, and it lets the ink go almost black without the
+  page feeling like a printout.
+
+  Dark is unchanged. Every token below has a value in both themes, so a rule
+  reads the token and never asks which theme is on.
+*/
+:root {
+  --clr-off-white:   #D2D2D2;
+  --clr-pistachio:   #B2D98B;
+  --clr-eucalyptus:  #1D665D;
+  --clr-black-glaze: #061611;
+
+  /*
+    A category's band (beta-feature-2): the Rankings' "Finalización",
+    "Creación"... rows (.team-stats-group-row), and the league Resumen's
+    leaders cards' titles, which wear the same highlight (Dario, 2 nov).
+    Read from each theme's own tokens on this same element, so one pair
+    serves both: a soft grey-green and near-black ink in light, the deep
+    green and off-white in dark.
+  */
+  --category-band-bg:   color-mix(in srgb, var(--bg-secondary) 72%, transparent);
+  --category-band-text: var(--text);
+
+  /* Light theme: a white page, neutral greys (decided 2026-10-22; it was a
+     cream page with beige surfaces). Cards are white too, so they keep their
+     edge from --shadow-card's 1px ring. */
+  --bg:              #FFFFFF;
+  --bg-secondary:    #F4F6F5;
+  --bg-card:         #ffffff;
+  --bg-dark:         var(--clr-black-glaze);
+  /*
+    The surface a control moves to on hover, one step down from the one it
+    rests on. Its own token because --bg-dark is dark in BOTH themes - the
+    footer and the search panel want it that way - so controls that reached for
+    it on hover went near-black under near-black --text on the light page.
+  */
+  --bg-hover:        #E8ECEA;
+  --text:            #101511;
+  --text-secondary:  #414B44;
+  --text-muted:      #6E7A6F;
+  --border:          #DDE2DF;
+  --border-light:    #EBEEEC;
+  --border-strong:   rgba(29, 102, 93, 0.30);
+  --accent:          var(--clr-pistachio);
+  --accent-hover:    #9ecb72;
+  --accent-dark:     var(--clr-eucalyptus);
+
+  /*
+    --accent is the pistachio *fill*: a chip, a button, a bar. As ink on a light
+    surface it is about 1.6:1, which is why every accent-coloured label on the
+    light theme used to read as a smudge. --accent-ink is the same role for
+    text - deep enough to pass AA on both the cream page and a white card - and
+    it is what a color: declaration should read. On the dark theme it resolves
+    back to pistachio, so dark is untouched; on the surfaces that stay dark in
+    both themes (the footer, below) it is scoped back to pistachio too.
+  */
+  --accent-ink:      #0E6E55;
+  --accent-ink-soft: rgba(14, 110, 85, 0.10);
+  --accent-wash:     #E8F3E4;
+
+  --shadow-card:     0 1px 2px rgba(16, 21, 17, 0.05), 0 2px 6px rgba(16, 21, 17, 0.06), 0 0 0 1px rgba(16, 21, 17, 0.09);
+  --shadow-hover:    rgba(16, 21, 17, 0.16) 0px 10px 30px;
+  --sk-navbar-h:     44px;      /* the content row; the tallest thing in it is the 34px search field */
+  --sk-navbar-gap:   0.4rem;    /* inset above AND below the content, inside the dark band */
+  --sk-navbar-total: calc(var(--sk-navbar-h) + var(--sk-navbar-gap) * 2);
+  /*
+    The width of the content column, read by the header, the footer and the
+    .container override further down. Bootstrap's own cap at this breakpoint is
+    1320px, which left too much of the page as gutter on a wide monitor.
+
+    One token rather than a number in each place: the header centres itself over
+    this column, so a container that widened on its own would leave the logo
+    sitting inboard of the content it is meant to be the top edge of.
+  */
+  --sk-content-max:  1320px;
+  --pitch-fill:      #ffffff;
+  --pitch-line:      rgba(16, 21, 17, 0.26);
+
+  /* ── Chart ink ───────────────────────────────────────────────
+     A canvas cannot read a stylesheet, so every chart used to carry its own
+     light/dark pair and the light halves drifted apart - one radar labelled at
+     55% black, another at #2f3d33, a third reading --text. These are the one
+     set they all resolve through, so a label inside a graph is the same ink as
+     a label beside it. */
+  --chart-label:     #141A15;
+  --chart-tick:      #55625A;
+  --chart-grid:      rgba(16, 21, 17, 0.14);
+  --chart-grid-soft: rgba(16, 21, 17, 0.08);
+  --chart-surface:   #ffffff;
+  --chart-outline:   rgba(16, 21, 17, 0.26);
+  --chart-series:    #2C7A55;
+  /* Categorical series, in order, for any chart plotting more than one player
+     or team. Light needs its own set: the dark trio (pistachio, sky, amber) is
+     tuned for a near-black card and lands between 1.6:1 and 2.2:1 on paper. */
+  --series-1:        #216E4E;
+  --series-2:        #1D4FD8;
+  --series-3:        #A65107;
+  --chart-series-fill: rgba(33, 110, 78, 0.16);
+  /* Percentile bands for the ranked rows, their badges and the SKore bars:
+     green at 80 and up, yellow from 40, orange below. Three steps, not five -
+     the extra resolution made a chart that was easier to rank but harder to
+     read at a glance, which is the job these are doing.
+
+     The light values are deepened. The dark ones are the palette as drawn: on
+     a near-black card pistachio is a strong fill, but the same pistachio on
+     paper is a tint of the page rather than a shape on it. The ink inside a
+     band is picked from the fill at draw time, not fixed here. */
+  --rank-high:       #93CC63;
+  --rank-mid:        #F0C32E;
+  --rank-low:        #F2924A;
+  /* Comparar's player colours: the eucalyptus ramp (#1F665D is --clr-eucalyptus),
+     one shade a player, and its wash for the grid's blocks. Spread across
+     the ramp's lightness (beta-final-changes fase 4, J4): the brand teal,
+     the ramp's ink and its deep step. Closest pair ΔE 28 (dataviz validator);
+     #3CC3B1 under 3:1 on paper, so each player is named beside their colour. */
+  --compare-1:       #3CC3B1;
+  --compare-2:       #061412;
+  --compare-3:       #1F665D;
+  --compare-wash:    #3CC3B1;
+  /* The amber counterpart to --accent-ink, for the "needs work" headings that
+     pair with a strength heading. The fill amber is 2.1:1 as text on paper. */
+  --warn-ink:        #9A5000;
+
+  /* Win / draw / loss, the one set the form pills and result chips read.
+     The light values are darkened: the originals were picked against a dark
+     card and sat near 2.5:1 on paper. */
+  --result-win:      #1F7A68;
+  --result-win-bg:   rgba(31, 122, 104, 0.14);
+  --result-draw:     #9A6400;
+  --result-draw-bg:  rgba(232, 147, 10, 0.18);
+  --result-loss:     #AE4444;
+  --result-loss-bg:  rgba(174, 68, 68, 0.13);
+
+  /* Fixture difficulty, the team page's Calendario (SK-10.5): 1 the easiest
+     fifth of a league's fixtures, 5 the hardest. Read off the result set, so
+     an easy match is the colour of a win and a hard one of a loss, and every
+     theme follows from those. The grade is always printed in its chip. */
+  --sk-fdr-1:        var(--result-win);
+  --sk-fdr-2:        color-mix(in srgb, var(--result-win) 45%, var(--bg-card));
+  --sk-fdr-3:        color-mix(in srgb, var(--text-muted) 30%, var(--bg-card));
+  --sk-fdr-4:        color-mix(in srgb, var(--result-loss) 45%, var(--bg-card));
+  --sk-fdr-5:        var(--result-loss);
+
+  /* Game identity track: a neutral scale whose ends are two styles, not a
+     worse and a better one. The muted tones of the previous card, resolved per
+     theme: #ffaa60 at 42% and the pistachio accent at 54%, each mixed into
+     this theme's --bg-secondary; mid is the 55% point of that line, so the
+     three stops draw the old two-stop gradient exactly. On paper they are
+     tints (1.4:1), and the marker (13:1) and the midpoint carry the reading.
+     The midpoint needs its own token: --border is 1.3:1 here. */
+  --identity-track:       rgba(110, 122, 111, 0.2);
+  --identity-midpoint:    #6E7A6F;
+
+  /* ── Header surface ──────────────────────────────────────────
+     Its own tokens rather than --bg-dark, which the footer still wants dark in
+     both themes. Every colour the header paints reads one of these, so the band
+     can flip without hunting down the ~30 hardcoded whites that used to be safe
+     only because the bar was dark in both themes. */
+  --sk-header-bg:           #FFFFFF;
+  --sk-header-border:       #E3E7E5;
+  --sk-header-text:         #414B44;
+  --sk-header-text-strong:  #101511;
+  --sk-header-text-muted:   #77836F;
+  --sk-header-hover-bg:     rgba(14, 110, 85, 0.09);
+  --sk-header-line:         #E3E7E5;
+  --sk-header-field-bg:     #ffffff;
+  --sk-header-active-text:  var(--accent-ink);
+  --sk-header-active-bg:    rgba(178, 217, 139, 0.38);
+  --sk-header-cta-bg:       #10201A;
+  --sk-header-cta-text:     #ffffff;
+  --sk-header-panel-bg:     #ffffff;
+  --sk-header-panel-line:   #ECEFED;
+  --sk-header-panel-shadow: 0 16px 38px rgba(16, 21, 17, 0.13);
+  /* The logo files are white artwork on transparency - see the note on .brand. */
+  --sk-header-logo-filter:  brightness(0);
+}
+
+/*
+  Dark in both themes, so accent ink stays pistachio here rather than the deep
+  green the light page wants.
+*/
+.sk-footer {
+  --accent-ink: var(--clr-pistachio);
+}
+
+[data-theme="dark"] {
+  --bg:              #0A0F13;
+  --bg-secondary:    #111f16;
+  --bg-card:         #15212A;
+  --bg-dark:         #050e08;
+  --bg-hover:        #050e08;
+  --text:            #D2D2D2;
+  --text-secondary:  #a0b8a6;
+  --text-muted:      #6e8a72;
+  --border:          #B4B4B4;
+  --border-light:    #172a1e;
+  --border-strong:   rgba(178, 217, 139, 0.22);
+  --accent-ink:      var(--clr-pistachio);
+  --accent-ink-soft: rgba(178, 217, 139, 0.14);
+  --accent-wash:     rgba(178, 217, 139, 0.12);
+  --shadow-card:     none;
+  --shadow-hover:    none;
+  /* Black, as the Jugador del partido tiles (decided 2026-10-22; was a dark green). */
+  --pitch-fill:      #050605;
+  --pitch-line:      rgba(255,255,255,0.18);
+
+  --chart-label:     #E8EFE9;
+  --chart-tick:      rgba(255, 255, 255, 0.62);
+  --chart-grid:      rgba(255, 255, 255, 0.14);
+  --chart-grid-soft: rgba(255, 255, 255, 0.08);
+  --chart-surface:   #17231b;
+  --chart-outline:   rgba(255, 255, 255, 0.28);
+  --chart-series:    #B2D98B;
+  --series-1:        #B2D98B;
+  --series-2:        #60a5fa;
+  --series-3:        #f59e0b;
+  --chart-series-fill: rgba(178, 217, 139, 0.20);
+  --rank-high:       #B2D98B;
+  --rank-mid:        #FFDC51;
+  --rank-low:        #FFAA60;
+  /* The brand teal, the ramp's paper and its deep step, the widest the ramp
+     spreads on the dark card: closest pair ΔE 25.2 (fase 4, J4; #267D71 read
+     too close to the teal). #1F665D is under 3:1 here, so each player is
+     named beside their colour. */
+  --compare-1:       #3CC3B1;
+  --compare-2:       #EBF9F7;
+  --compare-3:       #1F665D;
+  --compare-wash:    #3CC3B1;
+  --warn-ink:        #FFAA60;
+
+  --result-win:      #3d9a8a;
+  --result-win-bg:   rgba(61, 154, 138, 0.20);
+  --result-draw:     #e8930a;
+  --result-draw-bg:  rgba(232, 147, 10, 0.20);
+  --result-loss:     #c96a6a;
+  --result-loss-bg:  rgba(201, 106, 106, 0.20);
+
+  /* Game identity track: the same mix as the light block, into #111f16. */
+  --identity-track:       rgba(180, 180, 180, 0.18);
+  --identity-midpoint:    #B4B4B4;
+
+  /* Header surface: the values the bar carried when it was dark in both themes. */
+  --sk-header-bg:           #050e08;
+  --sk-header-border:       rgba(255, 255, 255, 0.06);
+  --sk-header-text:         rgba(255, 255, 255, 0.72);
+  --sk-header-text-strong:  #ffffff;
+  --sk-header-text-muted:   rgba(255, 255, 255, 0.5);
+  --sk-header-hover-bg:     rgba(255, 255, 255, 0.10);
+  --sk-header-line:         rgba(255, 255, 255, 0.25);
+  --sk-header-field-bg:     rgba(255, 255, 255, 0.08);
+  --sk-header-active-text:  var(--clr-pistachio);
+  --sk-header-active-bg:    rgba(178, 217, 139, 0.16);
+  --sk-header-cta-bg:       #ffffff;
+  --sk-header-cta-text:     var(--clr-black-glaze);
+  --sk-header-panel-bg:     #0a0e12;
+  --sk-header-panel-line:   rgba(255, 255, 255, 0.08);
+  --sk-header-panel-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+  --sk-header-logo-filter:  none;
+}
+
+[data-theme="light"] {
+  --bg:              #FFFFFF;
+  --bg-secondary:    #F4F6F5;
+  --bg-card:         #ffffff;
+  --bg-hover:        #E8ECEA;
+  --text:            #101511;
+  --text-secondary:  #414B44;
+  --text-muted:      #6E7A6F;
+  --border:          #DDE2DF;
+  --border-light:    #EBEEEC;
+  --border-strong:   rgba(29, 102, 93, 0.30);
+  --accent-ink:      #0E6E55;
+  --accent-ink-soft: rgba(14, 110, 85, 0.10);
+  --accent-wash:     #E8F3E4;
+  --shadow-card:     0 1px 2px rgba(16, 21, 17, 0.05), 0 2px 6px rgba(16, 21, 17, 0.06), 0 0 0 1px rgba(16, 21, 17, 0.09);
+  --pitch-fill:      #ffffff;
+  --pitch-line:      rgba(16, 21, 17, 0.26);
+
+  --chart-label:     #141A15;
+  --chart-tick:      #55625A;
+  --chart-grid:      rgba(16, 21, 17, 0.14);
+  --chart-grid-soft: rgba(16, 21, 17, 0.08);
+  --chart-surface:   #ffffff;
+  --chart-outline:   rgba(16, 21, 17, 0.26);
+  --chart-series:    #2C7A55;
+  /* Categorical series, in order, for any chart plotting more than one player
+     or team. Light needs its own set: the dark trio (pistachio, sky, amber) is
+     tuned for a near-black card and lands between 1.6:1 and 2.2:1 on paper. */
+  --series-1:        #216E4E;
+  --series-2:        #1D4FD8;
+  --series-3:        #A65107;
+  --chart-series-fill: rgba(33, 110, 78, 0.16);
+  /* Percentile bands for the ranked rows, their badges and the SKore bars:
+     green at 80 and up, yellow from 40, orange below. Three steps, not five -
+     the extra resolution made a chart that was easier to rank but harder to
+     read at a glance, which is the job these are doing.
+
+     The light values are deepened. The dark ones are the palette as drawn: on
+     a near-black card pistachio is a strong fill, but the same pistachio on
+     paper is a tint of the page rather than a shape on it. The ink inside a
+     band is picked from the fill at draw time, not fixed here. */
+  --rank-high:       #93CC63;
+  --rank-mid:        #F0C32E;
+  --rank-low:        #F2924A;
+  /* Comparar's player colours: the eucalyptus ramp (#1F665D is --clr-eucalyptus),
+     one shade a player, and its wash for the grid's blocks. Spread across
+     the ramp's lightness (beta-final-changes fase 4, J4): the brand teal,
+     the ramp's ink and its deep step. Closest pair ΔE 28 (dataviz validator);
+     #3CC3B1 under 3:1 on paper, so each player is named beside their colour. */
+  --compare-1:       #3CC3B1;
+  --compare-2:       #061412;
+  --compare-3:       #1F665D;
+  --compare-wash:    #3CC3B1;
+  /* The amber counterpart to --accent-ink, for the "needs work" headings that
+     pair with a strength heading. The fill amber is 2.1:1 as text on paper. */
+  --warn-ink:        #9A5000;
+
+  /* Win / draw / loss, the one set the form pills and result chips read.
+     The light values are darkened: the originals were picked against a dark
+     card and sat near 2.5:1 on paper. */
+  --result-win:      #1F7A68;
+  --result-win-bg:   rgba(31, 122, 104, 0.14);
+  --result-draw:     #9A6400;
+  --result-draw-bg:  rgba(232, 147, 10, 0.18);
+  --result-loss:     #AE4444;
+  --result-loss-bg:  rgba(174, 68, 68, 0.13);
+
+  --identity-track:       rgba(110, 122, 111, 0.2);
+  --identity-midpoint:    #6E7A6F;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:              #0A0F13;
+    --bg-secondary:    #111517;
+    --bg-card:         #15212A;
+    --bg-dark:         #050e08;
+    --bg-hover:        #050e08;
+    --text:            #FFFFFF;
+    --text-secondary:  #A7A7A7;
+    --text-muted:      #6D6E74;
+    --border:          #B4B4B4;
+    --border-light:    #172a1e;
+    --accent-ink:      var(--clr-pistachio);
+    --accent-ink-soft: rgba(178, 217, 139, 0.14);
+    --accent-wash:     rgba(178, 217, 139, 0.12);
+    --shadow-card:     none;
+    --shadow-hover:    none;
+    /* Black, as [data-theme="dark"] (was a dark plum). */
+    --pitch-fill:      #050605;
+    --pitch-line:      #ffffff2e;
+
+    --chart-label:     #E8EFE9;
+    --chart-tick:      rgba(255, 255, 255, 0.62);
+    --chart-grid:      rgba(255, 255, 255, 0.14);
+    --chart-grid-soft: rgba(255, 255, 255, 0.08);
+    --chart-surface:   #17231b;
+    --chart-outline:   rgba(255, 255, 255, 0.28);
+    --chart-series:    #B2D98B;
+    --series-1:        #B2D98B;
+    --series-2:        #60a5fa;
+    --series-3:        #f59e0b;
+    --chart-series-fill: rgba(178, 217, 139, 0.20);
+    --rank-high:       #B2D98B;
+    --rank-mid:        #FFDC51;
+    --rank-low:        #FFAA60;
+    /* The brand teal, the ramp's paper and its deep step, the widest the ramp
+       spreads on the dark card: closest pair ΔE 25.2 (fase 4, J4; #267D71 read
+       too close to the teal). #1F665D is under 3:1 here, so each player is
+       named beside their colour. */
+    --compare-1:       #3CC3B1;
+    --compare-2:       #EBF9F7;
+    --compare-3:       #1F665D;
+    --compare-wash:    #3CC3B1;
+    --warn-ink:        #FFAA60;
+
+    --result-win:      #3d9a8a;
+    --result-win-bg:   rgba(61, 154, 138, 0.20);
+    --result-draw:     #e8930a;
+    --result-draw-bg:  rgba(232, 147, 10, 0.20);
+    --result-loss:     #c96a6a;
+    --result-loss-bg:  rgba(201, 106, 106, 0.20);
+
+    --identity-track:       rgba(180, 180, 180, 0.18);
+    --identity-midpoint:    #B4B4B4;
+
+    /* Header surface: the values the bar carried when it was dark in both themes. */
+    --sk-header-bg:           #050e08;
+    --sk-header-border:       rgba(255, 255, 255, 0.06);
+    --sk-header-text:         rgba(255, 255, 255, 0.72);
+    --sk-header-text-strong:  #ffffff;
+    --sk-header-text-muted:   rgba(255, 255, 255, 0.5);
+    --sk-header-hover-bg:     rgba(255, 255, 255, 0.10);
+    --sk-header-line:         rgba(255, 255, 255, 0.25);
+    --sk-header-field-bg:     rgba(255, 255, 255, 0.08);
+    --sk-header-active-text:  var(--clr-pistachio);
+    --sk-header-active-bg:    rgba(178, 217, 139, 0.16);
+    --sk-header-cta-bg:       #ffffff;
+    --sk-header-cta-text:     var(--clr-black-glaze);
+    --sk-header-panel-bg:     #0a0e12;
+    --sk-header-panel-line:   rgba(255, 255, 255, 0.08);
+    --sk-header-panel-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+    --sk-header-logo-filter:  none;
+  }
+}
+
+/* ─── Global ──────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg);
+  color: var(--text);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* ─── Navbar ──────────────────────────────────────────────────── */
+/*
+  The bar runs edge to edge and the inset is *inside* it, not around it.
+
+  It was briefly a floating bar with a margin, which left a strip of page
+  background above and beside it, which is the gap this fills. Filling that strip
+  with the header's own background makes the margin visually identical to
+  padding, so it is padding: one band, content inset on every side, and nothing
+  of the page showing through.
+
+  The band follows the theme: light green-white on the light theme, near-black on
+  the dark one. It reads --sk-header-* rather than --bg-dark, because the footer
+  wants to stay dark on both.
+
+  --sk-navbar-gap is therefore an inset rather than a margin, and
+  --sk-navbar-total (height + two gaps) remains the distance from the viewport
+  top to the bottom of the bar, which is what everything positioning against the
+  header reads. Change either and the sticky sidebars, the page min-heights and
+  the mega panels all follow, because they all read the total rather than a
+  number.
+
+  The inset is applied top and bottom. It used to be top only, with the height
+  covering one gap, so the content box hung off the bottom of the band: the nav
+  pills ended up with 25.6px of dark above them and 12px below, and the bar read
+  as sitting too low in itself. Two gaps and a symmetric padding centre it.
+*/
+.sk-navbar {
+  /*
+    The inset centres the header over the same column the pages below it use -
+    Bootstrap's .container, which tops out at 1320px - rather than sitting a
+    fixed distance from the window edge. At 1920px the old flat 5.5rem put the
+    logo about 270px to the left of the content it sits above, which is what
+    made the header read as detached from the page rather than as its top edge.
+
+    The floor takes over once the viewport is narrower than the container, where
+    the container is full-width anyway. Percentages resolve against the bar,
+    which spans the body, so this is not affected by scrollbar width the way a
+    vw-based calc would be - and the mega panels read the same variable for
+    their own left/right, so they stay aligned with the trigger for free.
+  */
+  --sk-navbar-max: var(--sk-content-max);
+  --sk-navbar-pad-x: max(1.25rem, calc((100% - var(--sk-navbar-max)) / 2));
+  box-sizing: border-box;
+  background-color: var(--sk-header-bg);
+  /* Inside the border box, so it does not add to --sk-navbar-total and put every
+     sticky offset on the site 1px out. */
+  border-bottom: 1px solid var(--sk-header-border);
+  padding: var(--sk-navbar-gap) var(--sk-navbar-pad-x);
+  height: var(--sk-navbar-total);
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: background-color 0.3s;
+}
+
+.sk-navbar .brand {
+  display: inline-flex;
+  align-items: center;
+  font-size: 1.75rem;
+  font-weight: 900;
+  color: var(--sk-header-text-strong);
+  letter-spacing: -1px;
+  text-decoration: none;
+  margin-right: 1.5rem;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/*
+  Both logo files are white artwork on transparency - the mark is the alpha
+  channel, which is why page-loader.css can use one of them as a CSS mask. White
+  is invisible on a light band, so on the light theme the artwork is flattened to
+  ink with a filter; the alpha is untouched, so the shape survives.
+
+  brightness(0) gives near-black rather than the brand green: recolouring
+  monochrome art to an arbitrary hue with filters takes an unreadable chain of
+  magic numbers, and the honest alternative is a second asset or the mask trick,
+  neither of which belongs in a colour swap.
+*/
+.sk-navbar .brand img,
+.sk-nav-drawer .brand img {
+  filter: var(--sk-header-logo-filter);
+}
+
+/*
+  The logo file is an 80x80 PNG whose mark occupies only the middle 34px - the
+  23px above it and the 23px below are transparent. Rendered at its natural
+  size it therefore reserved 80px of band height to show 34px of logo, which is
+  most of the reason the header sat as tall as it did: it was the tallest thing
+  in the bar by a wide margin, taller even than the nominal content row.
+
+  The negative block margins pull the layout box in to the mark itself. The
+  image still paints at full size and is not clipped, so the logo is unchanged
+  on screen - only the space it claimed is. Keyed to this file: a logo exported
+  with different padding needs these re-measured, which the test checks for by
+  pinning the file's dimensions.
+*/
+.sk-navbar .brand {
+  /*
+    Clips the transparent bands the negative margins pulled outside the link.
+    They paint nothing, but they are still part of the image's box and would
+    otherwise take clicks in a strip above the header and below it, over
+    whatever the sticky bar happens to be covering.
+  */
+  overflow: hidden;
+}
+
+.sk-navbar .brand img {
+  /*
+    The height the 80px file is drawn at. The trim is the same fraction of it
+    that the transparent bands are of the file, so the box stays exactly the
+    mark however the logo is scaled: 23 of the file's 80 rows, each side.
+  */
+  --sk-logo-h: 56px;
+  display: block;
+  height: var(--sk-logo-h);
+  width: auto;
+  margin-block: calc(var(--sk-logo-h) * -23 / 80);
+}
+
+.sk-navbar .nav-links {
+  display: flex;
+  align-items: stretch;
+  gap: 0.15rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+/*
+  The <li> keeps its full height while the pill inside it does not. That is
+  deliberate: the mega panels open at the bottom edge of the bar and stay open on
+  :hover of the <li>, so the strip between the pill and that edge is the bridge
+  the pointer crosses on its way down. Shrink the <li> to the pill and the menu
+  closes underneath the cursor halfway there.
+*/
+.sk-navbar .nav-links li {
+  display: flex;
+  align-items: stretch;
+}
+
+.sk-navbar .nav-links > li > a,
+.sk-navbar .nav-links > li > .nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  height: auto;
+  /*
+    Auto block margins, so the pill is sized by its own padding and sits on the
+    middle of the row - which is what puts it on the same line as the brand, the
+    search field and the account control beside it.
+
+    It has to be margins rather than `align-self: center`, because the two kinds
+    of <li> are flexed in different directions. A plain item's <li> is a row, so
+    vertical is its cross axis and align-self does centre it there; a dropdown's
+    <li> is a column, where vertical is the *main* axis, align-self only moves it
+    horizontally, and the default justify-content left it pinned to the top of
+    the band - about 14px above everything else in the header. Auto margins
+    absorb free space on either axis, so one declaration covers both, and they
+    also stop the row-direction anchor stretching to the full band, which is what
+    used to make the two kinds different heights.
+
+    The <li> itself still fills the band: it stretches as a flex item of
+    .nav-links, and that full-height box is the bridge the pointer crosses to
+    reach the panel.
+  */
+  margin-block: auto;
+  padding: 0.38rem 0.75rem;
+  border-radius: 999px;
+  color: var(--sk-header-text);
+  text-decoration: none;
+  font-size: 0.86rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.2s ease, background-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+.sk-navbar .nav-links > li > a:hover,
+.sk-navbar .nav-links > li > a:focus-visible,
+.sk-navbar .nav-links > li > .nav-link:hover,
+.sk-navbar .nav-links > li > .nav-link:focus-visible {
+  color: var(--sk-header-text-strong);
+  background-color: var(--sk-header-hover-bg);
+  outline: none;
+}
+
+/*
+  Where you are. There was no selected state at all before, only a hover
+  underline, so the bar looked identical on every page and the answer to "which
+  section am I in" was the URL.
+
+  Tinted rather than a neutral fill, so it cannot be mistaken for the hover
+  state on the item next to it - the two have to be legible at the same time,
+  because one of them is under the pointer whenever the other is being compared
+  to it.
+*/
+.sk-navbar .nav-links > li > a.is-active,
+.sk-navbar .nav-links > li > a.is-active:hover {
+  color: var(--sk-header-active-text);
+  background-color: var(--sk-header-active-bg);
+}
+
+/*
+  Not a link yet: the panel behind it is a list of "Próximamente". The cursor
+  stays default because clicking really does nothing, and the badge in the
+  markup is what makes that legible instead of looking broken.
+*/
+.sk-navbar .nav-links > li > .nav-link.nav-link--muted {
+  color: var(--sk-header-text-muted);
+  cursor: default;
+}
+
+.sk-navbar .nav-links > li > .nav-link.nav-link--muted:hover {
+  color: var(--sk-header-text);
+  background-color: var(--sk-header-hover-bg);
+}
+
+.sk-navbar .nav-link__soon {
+  padding: 0.05rem 0.35rem;
+  border: 1px solid var(--sk-header-line);
+  border-radius: 999px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sk-header-text-muted);
+}
+
+.sk-navbar .right-group {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-left: auto;
+  padding-left: 1.5rem;
+}
+
+.sk-search {
+  display: flex;
+  align-items: center;
+  background-color: var(--sk-header-field-bg);
+  border: 1px solid var(--sk-header-line);
+  border-radius: 999px;
+  padding: 0.38rem 0.9rem;
+  gap: 0.45rem;
+  width: 250px;
+}
+
+.sk-search input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--sk-header-text-strong);
+  font-size: 0.82rem;
+  width: 100%;
+}
+
+.sk-search-trigger {
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+}
+
+.sk-search-placeholder {
+  color: var(--sk-header-text-muted);
+  font-size: 0.82rem;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sk-search input::placeholder { color: var(--sk-header-text-muted); }
+.sk-search .bi-search { color: var(--sk-header-text-muted); font-size: 0.84rem; }
+
+.btn-iniciar {
+  background-color: var(--sk-header-cta-bg);
+  color: var(--sk-header-cta-text);
+  border: none;
+  border-radius: 999px;
+  padding: 0.38rem 1.15rem;
+  font-weight: 600;
+  font-size: 0.84rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.btn-iniciar:hover { background-color: var(--accent); }
+
+.btn-theme-toggle {
+  background: transparent;
+  border: 1px solid var(--sk-header-line);
+  border-radius: 999px;
+  width: 31px;
+  height: 31px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--sk-header-text);
+  font-size: 0.9rem;
+  transition: border-color 0.2s, color 0.2s;
+  flex-shrink: 0;
+}
+
+.btn-theme-toggle:hover {
+  border-color: var(--accent-ink);
+  color: var(--accent-ink);
+}
+
+/* ─── Hamburger button ────────────────────────────────────────── */
+.btn-nav-toggle {
+  display: none;
+  margin-left: auto;
+  background: transparent;
+  border: 1px solid var(--sk-header-line);
+  border-radius: 8px;
+  width: 36px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--sk-header-text);
+  font-size: 1.1rem;
+  margin-left: auto;
+  flex-shrink: 0;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.btn-nav-toggle:hover { border-color: var(--accent-ink); color: var(--accent-ink); }
+
+/* ─── Mobile nav drawer ───────────────────────────────────────── */
+.sk-nav-drawer {
+  display: none;
+  position: fixed;
+  top: var(--sk-navbar-total, 64px);
+  left: 0;
+  right: 0;
+  background-color: var(--sk-header-bg);
+  z-index: 999;
+  padding: 0.5rem 1.5rem 1.25rem;
+  flex-direction: column;
+  gap: 0;
+  border-top: 1px solid var(--sk-header-border);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+}
+
+.sk-nav-drawer.open { display: flex; }
+
+.sk-nav-drawer .drawer-links { list-style: none; margin: 0; padding: 0; }
+
+.sk-nav-drawer .drawer-links li a {
+  display: block;
+  padding: 0.85rem 0;
+  color: var(--sk-header-text);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  border-bottom: 1px solid var(--sk-header-panel-line);
+  box-shadow: inset 0 -2px 0 transparent;
+  transition: color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sk-nav-drawer .drawer-links li a:hover,
+.sk-nav-drawer .drawer-links li a:focus-visible {
+  color: var(--sk-header-text-strong);
+  box-shadow: inset 0 -2px 0 var(--sk-header-active-text);
+  outline: none;
+}
+
+.sk-nav-drawer .drawer-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.sk-nav-drawer .drawer-actions .sk-search,
+.sk-nav-drawer .sk-search { width: 100%; max-width: 100%; }
+
+/* ─── Footer ─────────────────────────────────────────────────── */
+.sk-footer {
+  background-color: var(--bg-dark);
+  color: var(--clr-off-white);
+  padding: 3.5rem 2rem 0;
+  transition: background-color 0.3s;
+}
+
+.sk-footer-wrap { padding: 0 7rem; }
+
+.sk-footer .footer-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.3rem;
+  margin-bottom: 1.2rem;
+}
+
+.sk-footer .footer-logo .logo-mark {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -1px;
+  line-height: 1;
+}
+
+.sk-footer .footer-logo .logo-wordmark {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--clr-off-white);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.sk-footer .footer-desc {
+  font-size: 0.83rem;
+  color: var(--clr-off-white);
+  opacity: 0.7;
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+  max-width: 420px;
+}
+
+.sk-footer .social-icons {
+  display: flex;
+  gap: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.sk-footer .social-icons a {
+  color: var(--clr-off-white);
+  font-size: 1.25rem;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.sk-footer .social-icons a:hover { color: var(--accent-ink); }
+
+.sk-footer .footer-nav-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.sk-footer .footer-nav-cols {
+  display: flex;
+  gap: 3rem;
+}
+
+.sk-footer .footer-nav-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.sk-footer .footer-nav-col a {
+  font-size: 0.85rem;
+  color: var(--clr-off-white);
+  opacity: 0.7;
+  text-decoration: none;
+  transition: color 0.2s, opacity 0.2s;
+}
+
+.sk-footer .footer-nav-col a:hover { color: var(--accent-ink); opacity: 1; }
+
+.sk-footer-bottom {
+  background-color: var(--bg-dark);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding: 1rem 2rem;
+  margin-top: 2.5rem;
+}
+
+.sk-footer-bottom p {
+  font-size: 0.8rem;
+  color: var(--clr-off-white);
+  opacity: 0.4;
+  margin: 0;
+}
+
+/* The copyright and the data credit, on one line on a wide screen. */
+.sk-footer-bottom__row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.35rem 1.5rem;
+}
+
+.sk-footer .footer-logo img { max-width: 11rem; height: auto; }
+
+/* The legal documents' links, between the copyright and the data credit. */
+.sk-footer-legal { display: flex; flex-wrap: wrap; gap: 0.35rem 1.25rem; }
+.sk-footer-legal a {
+  font-size: 0.8rem;
+  color: var(--clr-off-white);
+  opacity: 0.6;
+  text-decoration: none;
+  transition: opacity 0.15s ease, color 0.15s ease;
+}
+.sk-footer-legal a:hover, .sk-footer-legal a:focus-visible { color: var(--accent); opacity: 1; }
+
+.sk-footer .footer-contact {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--clr-off-white);
+  text-decoration: none;
+  opacity: 0.85;
+}
+
+.sk-footer .footer-contact:hover { color: var(--accent-ink); opacity: 1; }
+
+/* ─── Shared section helpers ──────────────────────────────────── */
+.sk-section-title {
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 0.4rem;
+}
+
+.sk-section-subtitle {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 2.5rem;
+}
+
+/*
+  Light paints a flat white card on the cream page and lets the shadow do the
+  lifting. It used to be a mint wash (--bg-secondary under two green gradients)
+  inside a pistachio-to-eucalyptus gradient border, which on the old white page
+  made the card the *darker* of the two surfaces - the page read as the card and
+  the card as a panel sunk into it. Against cream, plain white rises on its own
+  and every chart, badge and table inside it gets a neutral ground instead of a
+  green cast to fight.
+
+  Dark keeps its gradient below; it was never the problem.
+*/
+.sk-card {
+  position: relative;
+  overflow: visible;
+  border: 1px solid var(--border-light);
+  background: var(--bg-card);
+  border-radius: .75rem;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: var(--shadow-card);
+}
+
+/*
+  Dark only repaints the card. It must not re-declare position, overflow,
+  padding, border-radius or margin.
+
+  `[data-theme="dark"] .sk-card` is specificity 0-2-0; every companion class that
+  tunes a card - .league-detail__sidebar, .league-detail-lb,
+  .league-standings__card, the various __table-wrap - is a single class, 0-1-0.
+  So any box property repeated here beats the companion in dark and loses to it
+  in light, which is how the two themes end up with different layouts from the
+  same markup. It pushed the league sidebar ~94px down the page: `position`
+  reverted to relative, so the sidebar's own `top` stopped being a sticky
+  threshold and became a relative offset. The table wrappers lost `padding: 0`
+  and `overflow: hidden` the same way.
+*/
+[data-theme="dark"] .sk-card {
+  border: none;
+  background:
+    linear-gradient(180deg, rgba(178, 217, 139, 0) 0%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 40%, rgba(29, 102, 93, 0.25) 100%) padding-box,
+    linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
+    linear-gradient(180deg, rgba(178, 217, 139, 0.28), rgba(29, 102, 93, 0.35)) border-box;
+}
+
+
+.sk-card::before {
+  content: none;
+}
+
+.sk-divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 1.75rem 0;
+}
+
+.sk-card-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.25rem;
+}
+
+.sk-card-subtitle {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+/*
+  A card's heading is ruled off from what it introduces. The rule lands on
+  whichever of the two comes last, so a card with only a title gets one too,
+  while a subtitle used anywhere other than directly under a title - the radar's
+  caption, which sits below its chart - is left alone.
+*/
+.sk-card .sk-card-title:not(:has(+ .sk-card-subtitle)),
+.sk-card .sk-card-title + .sk-card-subtitle {
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+/* Shared page system: use these for new scouting views so they stay aligned with players.blade.php */
+.sk-page-shell {
+  min-height: calc(100vh - var(--sk-navbar-total, 64px));
+}
+
+.sk-page-hero,
+.players-hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-card);
+  border: 1px solid var(--border-strong);
+  border-radius: 1rem;
+  padding: 3rem 2.5rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-card);
+}
+
+[data-theme="dark"] .sk-page-hero,
+[data-theme="dark"] .players-hero {
+  border: none;
+  box-shadow: none;
+}
+
+[data-theme="dark"] .player-avatar,
+[data-theme="dark"] .stats-loading-box {
+  box-shadow: none;
+}
+
+/*
+  The wash is lighter on the light theme and weighted towards the pistachio
+  rather than the eucalyptus. At the dark theme's strength it laid a cool green
+  cast over a white panel sitting on a warm page, so the hero read as a
+  different material from every card below it. Dark keeps the original values,
+  where the wash is what gives a near-black panel any depth at all.
+*/
+.sk-page-hero::before,
+.players-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 70% 50%, rgba(178, 217, 139, .18) 0%, transparent 65%),
+    radial-gradient(ellipse at 20% 80%, rgba(29, 102, 93, .09) 0%, transparent 55%);
+  pointer-events: none;
+}
+
+[data-theme="dark"] .sk-page-hero::before,
+[data-theme="dark"] .players-hero::before {
+  background: radial-gradient(ellipse at 70% 50%, rgba(178, 217, 139, .15) 0%, transparent 65%),
+    radial-gradient(ellipse at 20% 80%, rgba(29, 102, 93, .25) 0%, transparent 55%);
+}
+
+.sk-page-hero > *,
+.players-hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+.sk-page-hero-eyebrow,
+.players-hero-eyebrow {
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+  margin-bottom: .5rem;
+}
+
+.sk-page-hero-title,
+.players-hero-title,
+.player-hero-title {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.1;
+  margin-bottom: .75rem;
+}
+
+/*
+  The advanced search's results motion (league-detail.css's panel motion):
+  while a request that replaces the results is in flight they step out and
+  the skeleton (partials/players-results-skeleton) fades in over their space;
+  the new body, keyed on what it shows, then descends into place. Shared by
+  the search's two tabs and the team page's Plantilla (Fase 7).
+*/
+.players-results__stage {
+  position: relative;
+}
+
+.players-results__body {
+  animation: players-results-in 0.36s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  transition: opacity 0.24s ease, transform 0.24s ease;
+}
+
+.players-results__stage--loading .players-results__body {
+  pointer-events: none;
+  user-select: none;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.18s ease-in, transform 0.18s ease-in;
+}
+
+/* Kept in the layout so it can fade out as well as in (see league-detail.css). */
+.players-results__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.24s ease, visibility 0.24s;
+}
+
+.players-results__overlay--show {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+@keyframes players-results-in {
+  from { opacity: 0; transform: translateY(-14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes players-results-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+
+/* Reduced motion keeps the fades and drops every displacement, as the league page does. */
+@media (prefers-reduced-motion: reduce) {
+  .players-results__body {
+    animation-name: players-results-fade;
+  }
+
+  .players-results__stage--loading .players-results__body {
+    transform: none;
+  }
+}
+
+/* The one-attribute chart's order switch (players-results-order), above the
+   advanced search's, the league's Estadísticas' and the team's Plantilla's bars. */
+.players-bars__head {
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 0.5rem;
+}
+
+/* A title with nothing under it (the league tabs) leaves no gap below. */
+.sk-page-hero-title:last-child {
+  margin-bottom: 0;
+}
+
+.players-hero-title span,
+.sk-page-hero-title span {
+  color: var(--accent-ink);
+}
+
+.sk-page-hero-sub,
+.players-hero-sub {
+  font-size: .9rem;
+  color: var(--text-muted);
+  max-width: 420px;
+  margin-bottom: 0;
+}
+
+.sk-page-hero-icon,
+.players-hero-icon {
+  position: absolute;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 9rem;
+  color: rgba(178, 217, 139, .06);
+  pointer-events: none;
+  line-height: 1;
+  z-index: 0;
+}
+
+.sk-stat-box,
+.players-hero-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(29, 102, 93, 0.05);
+  border: 1px solid var(--border-strong);
+  border-radius: .75rem;
+  padding: .85rem 1.25rem;
+  min-width: 90px;
+}
+
+[data-theme="dark"] .sk-stat-box,
+[data-theme="dark"] .players-hero-stat {
+  background: rgba(255, 255, 255, .04);
+  border: none;
+}
+
+/* ─── Hero sub-cards ────────────────────────────────────────────────────── */
+/*
+  The cards a detail page's hero carries beside its identity block: the
+  player page's ranking, SKore and positions, the team page's season
+  summary, form and formation. Each is an .sk-stat-box with a small accent
+  title and a muted subtitle, all one height whether they share a row or
+  wrap. Each page sets its own cards' widths.
+
+  .sk-hero-main is the identity block: basis 0, so it only takes the space
+  the cards leave and its content can never push them to a second row.
+  Three cards beside it fit one row only on wide screens; below that they
+  drop to a centred row of their own rather than squeezing the name.
+*/
+.sk-hero-main {
+  min-width: 0;
+  flex: 1 1 0%;
+}
+
+.sk-hero-side {
+  display: flex;
+  align-items: stretch;
+  justify-content: flex-end;
+  gap: 1.25rem;
+  flex-wrap: nowrap;
+}
+
+.sk-hero-card {
+  flex-shrink: 0;
+  text-align: center;
+}
+
+.sk-hero-side > .sk-hero-card {
+  min-height: 13.25rem;
+}
+
+.sk-hero-card__title {
+  font-size: .65rem;
+  font-weight: 700;
+  color: var(--accent-ink);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin: 0 0 0.1rem;
+}
+
+.sk-hero-card__sub {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin: 0 0 0.55rem;
+}
+
+@media (max-width: 1399.98px) {
+  .sk-hero-side {
+    width: 100%;
+    margin-left: 0 !important;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
+.players-hero-stat-val {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--accent-ink);
+  line-height: 1;
+}
+
+.players-hero-stat-label {
+  font-size: .65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--text-muted);
+  margin-top: .25rem;
+}
+
+.sk-pill-control,
+.btn-pill {
+  border-color: var(--border);
+  color: var(--text);
+  background: var(--bg-secondary);
+  border-radius: 999px;
+}
+
+.sk-pill-control:hover,
+.sk-pill-control:focus,
+.btn-pill:hover,
+.btn-pill:focus {
+  background: var(--bg-hover);
+  color: var(--text);
+  border-color: var(--border);
+}
+
+.sk-pill-control.active,
+.btn-pill.active {
+  border-color: var(--accent-ink);
+  color: var(--accent-ink);
+  background: var(--bg-secondary);
+}
+
+.players-search {
+  background: var(--bg-secondary);
+  color: var(--text);
+  border-color: var(--border);
+}
+
+.players-search::placeholder {
+  color: var(--text-muted);
+}
+
+.players-search:focus {
+  background: var(--bg-secondary);
+  color: var(--text);
+  border-color: var(--accent-ink);
+  box-shadow: none;
+}
+
+.input-group-text.search-icon {
+  background: var(--bg-secondary);
+  border-color: var(--border);
+  color: var(--text-muted);
+}
+
+[x-cloak] {
+  display: none !important;
+}
+
+@keyframes sk-shimmer {
+  0% {
+    background-position: -600px 0;
+  }
+
+  100% {
+    background-position: 600px 0;
+  }
+}
+
+.sk-skel {
+  display: block;
+  border-radius: 4px;
+  flex-shrink: 0;
+  background: linear-gradient(90deg, var(--border-light) 25%, var(--border) 50%, var(--border-light) 75%);
+  background-size: 1200px 100%;
+  animation: sk-shimmer 1.4s ease-in-out infinite;
+}
+
+.sk-select-label {
+  display: block;
+  margin: 0 0 0.35rem;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.sk-field-dropdown {
+  position: relative;
+}
+
+.sk-field-dropdown .btn {
+  font-size: 0.95rem;
+}
+
+.sk-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  bottom: auto;
+  left: 0;
+  right: auto;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: .5rem;
+  padding: .25rem 0;
+  list-style: none;
+  margin: 0;
+  min-width: 100%;
+  max-height: 260px;
+  overflow-y: auto;
+  z-index: 1050;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, .18);
+}
+
+[data-theme="dark"] .sk-dropdown-menu {
+  background: var(--bg-secondary);
+  border: none;
+  box-shadow: none;
+}
+
+/* ─── Responsive ─────────────────────────────────────────────── */
+/*
+  Widens the content column past Bootstrap's 1320px on large monitors. Kept to
+  this one breakpoint because it is the only one where every .container-*
+  variant shares a cap - below it they still step, and .container-md and friends
+  are meant to run full width under their own breakpoint.
+*/
+@media (min-width: 1400px) {
+  :root { --sk-content-max: 1520px; }
+
+  .container,
+  .container-sm,
+  .container-md,
+  .container-lg,
+  .container-xl,
+  .container-xxl {
+    max-width: var(--sk-content-max);
+  }
+}
+
+@media (max-width: 1200px) {
+  .sk-footer-wrap { padding: 0 2.5rem; }
+}
+
+@media (max-width: 768px) {
+  :root                           { --sk-navbar-gap: 0rem; }
+  .sk-navbar                      { --sk-navbar-pad-x: 1rem; }
+  .sk-navbar .nav-links           { display: none; }
+  .sk-navbar .right-group         { display: none; }
+  .btn-nav-toggle                 { display: flex; }
+  .sk-footer .footer-nav-cols     { flex-direction: column; gap: 1rem; }
+  .sk-footer-wrap                 { padding: 0 0.75rem; }
+}
+/* ─── Players page custom dropdowns ───────────────────────────────────── */
+.sk-menu-item {
+  display: block; width: 100%; padding: .45rem 1rem;
+  background: transparent !important; border: none; text-align: left;
+  color: var(--text) !important; font-size: .9rem; cursor: pointer;
+  white-space: nowrap;
+}
+/*
+  The row used to invert to --bg-dark on hover, which is why the label had to be
+  pistachio: it was the only accent legible on near-black. That left .selected -
+  which is later in the file and the same specificity - painting pistachio on
+  the panel's own light background, where it disappears. A tinted hover keeps
+  both states on the same surface, so both can read the one accent ink.
+*/
+.sk-menu-item:hover,
+.sk-menu-item:focus {
+  background: var(--accent-ink-soft) !important;
+  color: var(--accent-ink) !important;
+  outline: none;
+}
+.sk-menu-item.selected {
+  color: var(--accent-ink) !important;
+  font-weight: 600;
+}
+
+.btn-follow { border-color: var(--border); color: var(--text); background: transparent; }
+.btn-follow:hover { background: var(--accent) !important; color: #000 !important; border-color: var(--accent) !important; }
+[data-theme="dark"] .btn-follow { border: none; }
+[data-theme="dark"] .btn-follow:hover { border: none !important; }
+
+/* ─── Navbar player search panel ─────────────────────────────── */
+body.sk-search-open { overflow: hidden; }
+/* A modal open (scroll-lock.js): the page holds still, its scrollbar's room kept. */
+body.sk-modal-open {
+  overflow: hidden;
+  padding-right: var(--sk-scrollbar-gap, 0);
+}
+
+.sk-search-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(2px);
+  z-index: 1200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.sk-search-backdrop.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sk-search-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(420px, 100vw);
+  height: 100vh;
+  height: 100dvh;
+  background: var(--bg-dark);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 1201;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+  transform: translateX(100%);
+  transition: transform 0.28s ease;
+  box-shadow: -12px 0 40px rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.sk-search-panel.is-open {
+  transform: translateX(0);
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.sk-search-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem 1.25rem 0.75rem;
+  flex-shrink: 0;
+}
+
+.sk-search-panel-title {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--clr-off-white);
+}
+
+.sk-search-panel-close {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--clr-off-white);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.sk-search-panel-close:hover {
+  border-color: var(--accent-ink);
+  color: var(--accent-ink);
+}
+
+.sk-search-panel-tabs {
+  display: flex;
+  gap: 1.25rem;
+  padding: 0 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  overflow-x: auto;
+  overflow-y: hidden;
+  flex-shrink: 0;
+  scrollbar-width: none;
+}
+
+.sk-search-panel-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.sk-search-panel-tab {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.92rem;
+  font-weight: 600;
+  padding: 0.85rem 0;
+  margin-bottom: -1px;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.sk-search-panel-tab.active {
+  color: var(--clr-off-white);
+  border-bottom-color: var(--clr-off-white);
+}
+
+.sk-search-panel-tab.is-disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.sk-search-panel-content {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding-bottom: 1.25rem;
+}
+
+.sk-search-panel-input-wrap {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin: 1rem 1.25rem 0;
+  padding: 0.8rem 1rem;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.sk-search-panel-input-wrap i {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.sk-search-panel-input-wrap input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--clr-off-white);
+  font-size: 0.95rem;
+}
+
+.sk-search-panel-input-wrap input::placeholder {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.sk-search-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-top-color: var(--accent-ink);
+  border-radius: 50%;
+  animation: sk-search-spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes sk-search-spin {
+  to { transform: rotate(360deg); }
+}
+
+.sk-search-panel-results {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  margin-top: 0.85rem;
+  padding: 0 1.25rem;
+}
+
+.sk-search-panel-results::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sk-search-panel-results::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sk-search-panel-results::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+}
+
+.sk-search-panel-results::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.sk-search-panel-hint {
+  margin: 0.85rem 1.25rem 0;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.88rem;
+  line-height: 1.5;
+  flex-shrink: 0;
+}
+
+.sk-search-results {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.sk-search-result {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 0.7rem;
+  border-radius: 12px;
+  text-decoration: none;
+  color: inherit;
+  transition: background-color 0.15s;
+}
+
+.sk-search-result:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.sk-search-result-photo {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* Club crests and league logos: shown whole, not cropped like a photo. */
+.sk-search-result-photo--crest {
+  object-fit: contain;
+  padding: 6px;
+}
+
+.sk-search-section + .sk-search-section {
+  margin-top: 1rem;
+}
+
+.sk-search-section-title {
+  margin: 0 0 0.35rem;
+  padding: 0 0.7rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.sk-search-result-main {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.sk-search-result-name {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--clr-off-white);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sk-search-result-meta {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.55);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sk-search-result-flag {
+  width: 20px;
+  height: auto;
+  flex-shrink: 0;
+  border-radius: 2px;
+}
+
+.sk-search-browse-card {
+  margin: 1rem 1.25rem 0;
+  padding: 1rem;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.sk-search-browse-title {
+  margin: 0 0 0.35rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--clr-off-white);
+}
+
+/* ==========================================================================
+   Account menu (navbar)
+   Replaces the old static "Iniciar Sesión" link. Lives here rather than in
+   auth.css because the navbar is on every page, and auth.css only loads on the
+   authentication screens.
+   ========================================================================== */
+
+.sk-account {
+  position: relative;
+}
+
+.sk-account__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: transparent;
+  border: 1px solid var(--sk-header-line);
+  border-radius: 999px;
+  padding: 0.2rem 0.5rem 0.2rem 0.2rem;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.sk-account__trigger:hover { border-color: var(--accent-ink); }
+
+.sk-account__avatar {
+  width: 1.75rem;
+  height: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--clr-black-glaze);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+
+.sk-account__caret {
+  font-size: 0.6rem;
+  color: var(--sk-header-text-muted);
+}
+
+.sk-account__menu {
+  position: absolute;
+  top: calc(100% + 0.6rem);
+  right: 0;
+  z-index: 1200;
+  width: 15.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: 0.7rem;
+  box-shadow: 0 16px 40px rgba(6, 22, 17, 0.22);
+  padding: 0.4rem;
+  overflow: hidden;
+}
+
+[data-theme="dark"] .sk-account__menu {
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.5);
+}
+
+.sk-account__head {
+  padding: 0.6rem 0.65rem 0.7rem;
+  border-bottom: 1px solid var(--border-light);
+  margin-bottom: 0.35rem;
+}
+
+[data-theme="dark"] .sk-account__head { border-bottom-color: rgba(255, 255, 255, 0.08); }
+
+.sk-account__name {
+  margin: 0;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.sk-account__email {
+  margin: 0.1rem 0 0;
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  word-break: break-all;
+}
+
+.sk-account__org {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0.5rem 0 0;
+  font-size: 0.76rem;
+  color: var(--text-secondary);
+}
+
+.sk-account__plan {
+  margin-left: auto;
+  flex-shrink: 0;
+  font-size: 0.64rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 0.1rem 0.4rem;
+  border-radius: 999px;
+  background: rgba(178, 217, 139, 0.28);
+  color: var(--accent-dark);
+}
+
+[data-theme="dark"] .sk-account__plan { color: var(--accent-ink); }
+
+.sk-account__item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  background: transparent;
+  border: none;
+  text-align: left;
+  padding: 0.5rem 0.65rem;
+  border-radius: 0.45rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.sk-account__item:hover { background: var(--bg-secondary); color: var(--text); }
+
+.sk-account__item--danger { color: #b23b36; }
+
+[data-theme="dark"] .sk-account__item--danger { color: #ff9c97; }
+
+.sk-account__staff {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.65rem;
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--accent-dark);
+}
+
+[data-theme="dark"] .sk-account__staff { color: var(--accent-ink); }
+
+.sk-account__logout {
+  margin: 0.35rem 0 0;
+  padding-top: 0.35rem;
+  border-top: 1px solid var(--border-light);
+}
+
+[data-theme="dark"] .sk-account__logout { border-top-color: rgba(255, 255, 255, 0.08); }
+
+/* In the mobile drawer the menu opens in flow, not over the page. */
+.sk-nav-drawer .sk-account { width: 100%; }
+.sk-nav-drawer .sk-account__trigger { width: 100%; justify-content: center; }
+.sk-nav-drawer .sk-account__menu {
+  position: static;
+  width: 100%;
+  margin-top: 0.5rem;
+  box-shadow: none;
+}
+
+/* Shared player/team detail navigation. */
+.sk-detail-tabs {
+  display: flex;
+  gap: 0;
+  margin: 0 0 1.5rem;
+  overflow-x: auto;
+  white-space: nowrap;
+  transition: background-color 0.3s;
+}
+
+.sk-detail-tab {
+  padding: 0.85rem 1.25rem;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.sk-detail-tab:hover { color: var(--text); }
+.sk-detail-tab.active {
+  color: var(--text);
+  border-bottom-color: var(--accent-ink);
+  font-weight: 600;
+}
+
+.sk-detail-context-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 0.75rem;
+  margin: -0.5rem 0 1.5rem;
+}
+
+.sk-detail-control { min-width: min(280px, 100%); }
+.sk-pill-dropdown { width: 100%; max-width: 320px; }
+.sk-pill-dropdown .btn,
+.sk-event-map__dropdown .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 42px;
+  gap: 0.75rem;
+  text-align: left;
+  font-size: 0.88rem;
+}
+
+.sk-pill-dropdown__label,
+.sk-event-map__dropdown-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sk-pill-dropdown .sk-dropdown-menu,
+.sk-event-map__dropdown .sk-dropdown-menu {
+  width: 100%;
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.sk-pill-dropdown .sk-menu-item:disabled,
+.sk-event-map__dropdown .sk-menu-item:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+}
+
+.sk-segmented-control {
+  display: inline-flex;
+  max-width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg-secondary);
+}
+
+.sk-segmented-control__button {
+  padding: 0.35rem 1rem;
+  border: 0;
+  background: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.sk-segmented-control__button.active {
+  color: var(--accent-ink);
+  font-weight: 700;
+}
+
+.sk-event-map { margin-bottom: 1rem; }
+.sk-event-map [hidden] { display: none !important; }
+.sk-event-map__field { margin-bottom: 1rem; }
+.sk-event-map__nested-field { margin-top: 0.85rem; }
+.sk-event-map__dropdown { width: 100%; max-width: 100%; }
+.sk-event-map__views { flex-wrap: wrap; }
+.sk-event-map__summary {
+  display: grid;
+  gap: 0.45rem;
+  margin-top: 1rem;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
+.sk-event-map__summary strong { color: var(--text); font-weight: 800; }
+.sk-event-map__summary-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 1rem;
+}
+
+/* The map's insights panel, under the summary. */
+.sk-event-map__insights {
+  margin-top: 1rem;
+  padding: 0.75rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-secondary);
+  transition: opacity 0.2s;
+}
+.sk-event-map__insights--loading { opacity: 0.5; }
+.sk-event-map__insights-title {
+  margin: 0 0 0.6rem;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.sk-event-map__insights-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--insight-columns, 3), minmax(0, 1fr));
+  gap: 0.65rem 0.5rem;
+}
+.sk-event-map__stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+.sk-event-map__stat strong {
+  color: var(--text);
+  font-size: 1.05rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+.sk-event-map__stat span {
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  line-height: 1.2;
+}
+.sk-event-map__insights-grid--dense { gap: 0.6rem 0.4rem; }
+.sk-event-map__insights-grid--dense .sk-event-map__stat strong { font-size: 0.95rem; }
+.sk-event-map__insights-grid--dense .sk-event-map__stat span { font-size: 0.66rem; }
+.sk-event-map__stat--up strong { color: var(--chart-series); }
+.sk-event-map__stat--down strong { color: var(--chart-tick); }
+/* The zones of control, in the inks their zones are washed in (event-map.js readMapInk()). */
+.sk-event-map__stat--controlled strong { color: var(--result-win); }
+.sk-event-map__stat--conceded strong { color: var(--result-loss); }
+.sk-event-map__insights-table {
+  width: 100%;
+  margin-top: 0.75rem;
+  border-collapse: collapse;
+  font-size: 0.74rem;
+  font-variant-numeric: tabular-nums;
+}
+.sk-event-map__insights-table th,
+.sk-event-map__insights-table td {
+  padding: 0.25rem 0.3rem;
+  border-top: 1px solid var(--border);
+  text-align: right;
+}
+.sk-event-map__insights-table thead th {
+  border-top: 0;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+.sk-event-map__insights-table th:first-child { padding-left: 0; text-align: left; }
+.sk-event-map__insights-table tbody th { color: var(--text); font-weight: 600; }
+.sk-event-map__insights-table td { color: var(--text); }
+.sk-event-map__insights-note {
+  margin: 0.6rem 0 0;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+}
+.sk-event-map__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.85rem;
+}
+
+.sk-event-map__canvas-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1.6;
+  min-height: 260px;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.sk-event-map__canvas-wrap canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.sk-event-map__canvas-wrap canvas.sk-event-map__canvas--focusable { cursor: pointer; }
+
+/*
+  A choice on the map crossfades (event-map.js, crossfadeOnChange): the last
+  drawing, copied over the pitch, fades out as the new one draws under it.
+*/
+.sk-event-map__canvas-wrap canvas.sk-event-map__ghost {
+  pointer-events: none;
+  animation: sk-event-map-ghost-out 0.42s ease-out forwards;
+}
+
+@keyframes sk-event-map-ghost-out {
+  to { opacity: 0; transform: scale(0.992); }
+}
+
+/*
+  A field or block a choice brings in fades in (event-map.js adds the class
+  when one loses [hidden], once the first map is in).
+*/
+.sk-event-map__reveal {
+  animation: sk-event-map-field-in 0.28s ease-out;
+}
+
+@keyframes sk-event-map-field-in {
+  from { opacity: 0; transform: translateY(-4px); }
+}
+
+/* The map's notes sit over the pitch; clicks and hovers go through to it. */
+.sk-event-map__canvas-wrap .heatmap-empty { pointer-events: none; }
+
+/* A clicked third or zone, and the way back to the whole pitch. */
+.sk-event-map__focus {
+  display: flex;
+  flex: none;
+  align-items: center;
+  min-height: 1.9rem;
+}
+.sk-event-map__focus-hint {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.76rem;
+}
+.sk-event-map__focus-clear {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.7rem;
+  border: 1px solid var(--accent-ink);
+  border-radius: 999px;
+  background: var(--accent-ink-soft);
+  color: var(--accent-ink);
+  cursor: pointer;
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+.sk-event-map__focus-clear:hover,
+.sk-event-map__focus-clear:focus-visible { outline: 2px solid var(--accent-ink-soft); outline-offset: 2px; }
+.sk-event-map__focus-action { font-weight: 600; }
+
+.sk-event-map__tooltip {
+  position: absolute;
+  z-index: 5;
+  max-width: min(260px, calc(100% - 2rem));
+  padding: 0.55rem 0.65rem;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  background: var(--bg-secondary);
+  box-shadow: var(--shadow);
+  color: var(--text);
+  font-size: 0.76rem;
+  line-height: 1.35;
+  pointer-events: none;
+}
+
+.sk-event-map__tooltip strong {
+  display: block;
+  margin-bottom: 0.15rem;
+  font-size: 0.78rem;
+}
+
+.sk-event-map__cluster-scale {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.85rem;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+}
+
+.sk-event-map__cluster-scale strong { color: var(--text); }
+
+/* The event menu is grouped by section: a non-interactive heading per section,
+   its events indented under it. Taller than the other dropdowns because it
+   holds eight sections. */
+.sk-event-map__dropdown .sk-event-map__event-menu { max-height: 360px; }
+.sk-menu-group {
+  padding: 0.55rem 1rem 0.2rem;
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.sk-menu-item--grouped { padding-left: 1.6rem; }
+
+/* What the selected map's colours and sizes mean, or - for the team's
+   defensive territory - the players whose hull can be highlighted. */
+.sk-event-map__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1rem;
+  margin-top: 0.75rem;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+}
+.sk-event-map__legend-item { display: inline-flex; align-items: center; gap: 0.4rem; }
+.sk-event-map__legend-swatch {
+  width: 0.8rem;
+  height: 0.8rem;
+  flex: none;
+  border-radius: 999px;
+}
+.sk-event-map__legend-swatch--size {
+  width: 0.9rem;
+  height: 0.9rem;
+  border: 1.5px solid var(--chart-tick);
+  background: radial-gradient(circle, var(--chart-tick) 0 28%, transparent 30%);
+}
+.sk-event-map__legend-item--muted { opacity: 0.4; }
+
+/* The map's title, with the result toggle beside it. */
+.sk-event-map__heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1.25rem;
+  min-width: 0;
+}
+.sk-event-map__outcomes { flex: none; }
+
+/* The result toggle: each side carries its colour on the map. */
+.sk-event-map__outcome {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.sk-event-map__outcome:not(.active) { opacity: 0.55; }
+.sk-event-map__outcome-swatch {
+  width: 0.65rem;
+  height: 0.65rem;
+  flex: none;
+  border-radius: 999px;
+}
+.sk-event-map__outcome-swatch--success { background: var(--chart-series); }
+.sk-event-map__outcome-swatch--miss { background: var(--chart-tick); }
+
+/* The heatmap's density ramp, painted from heatmap.js's active palette. */
+.sk-event-map__legend-swatch--ramp {
+  width: 4.5rem;
+  height: 0.6rem;
+  border: 1px solid var(--chart-outline);
+}
+.sk-event-map__legend-player {
+  padding: 0.2rem 0.65rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 0.76rem;
+  font-weight: 600;
+}
+.sk-event-map__legend-player:hover,
+.sk-event-map__legend-player:focus-visible { color: var(--accent-ink); outline: none; }
+.sk-event-map__legend-player.active {
+  border-color: var(--accent-ink);
+  background: var(--accent-ink-soft);
+  color: var(--accent-ink);
+}
+
+.desemp-radio {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.desemp-radio input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.desemp-radio-label {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.desemp-radio-label::before {
+  content: '';
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  border: 1.5px solid #b0c4b8;
+  border-radius: 50%;
+  background: transparent;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.desemp-radio input:checked + .desemp-radio-label::before {
+  border-color: var(--accent-dark);
+  box-shadow: inset 0 0 0 3px #fff, inset 0 0 0 6px var(--accent-dark);
+}
+
+.desemp-radio input:focus-visible + .desemp-radio-label::before {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.heatmap-empty {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(14, 30, 20, 0.18);
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.stats-loading-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--bg-card) 70%, transparent);
+  backdrop-filter: blur(2px);
+}
+
+.stats-loading-overlay--show { display: flex; }
+.stats-loading-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.7rem 0.95rem;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  background: var(--bg-secondary);
+  box-shadow: var(--shadow);
+  color: var(--text);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.stats-loading-spinner {
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid var(--border);
+  border-top-color: var(--accent-ink);
+  border-radius: 50%;
+  animation: sk-spin 0.7s linear infinite;
+}
+
+@keyframes sk-spin { to { transform: rotate(360deg); } }
+
+/* Team statistical profile */
+.team-profile-sections {
+  grid-column: span 12;
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.team-profile-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.team-profile-sample {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.4rem;
+  color: var(--text-muted);
+  font-size: 0.76rem;
+}
+
+.team-profile-sample span {
+  padding: 0.32rem 0.58rem;
+  border: 1px solid var(--border-light);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--bg-secondary) 75%, transparent);
+}
+
+.team-profile-notice {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.85rem;
+  padding: 0.65rem 0.75rem;
+  border-left: 3px solid var(--warn-ink);
+  background: color-mix(in srgb, #ffaa60 10%, transparent);
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+}
+
+.team-identity-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.15rem 1.5rem;
+  margin-top: 1.15rem;
+}
+
+.team-identity-trait {
+  min-width: 0;
+}
+
+.team-identity-trait__header,
+.team-identity-trait__scale {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+
+.team-identity-trait__header {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+}
+
+.team-identity-trait__header strong { color: var(--text); }
+
+.team-identity-trait__values {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.45rem;
+}
+
+.team-identity-trait__value {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.team-identity-trait__value > span {
+  margin-right: 0.18rem;
+  color: var(--text-muted);
+  font-size: 0.68rem;
+  font-weight: 600;
+}
+
+.team-identity-percentile-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28rem;
+  min-height: 28px;
+  padding: 0.26rem 0.48rem;
+  border: 1px solid var(--border-light);
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--bg-secondary) 82%, transparent);
+  color: var(--text);
+  font-weight: 800;
+}
+
+.team-identity-percentile-badge > span {
+  color: var(--text-muted);
+  font-size: 0.64rem;
+  font-weight: 600;
+}
+
+.team-identity-track {
+  position: relative;
+  height: 8px;
+  margin-top: 0.5rem;
+  border-radius: 999px;
+  /* One neutral track (owner, 7 Nov): neither end of a trait is the bad one. */
+  background: var(--identity-track);
+}
+
+.team-identity-track:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--accent) 72%, white);
+  outline-offset: 4px;
+}
+
+.team-identity-track__midpoint {
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  left: 50%;
+  width: 1px;
+  background: var(--identity-midpoint);
+}
+
+.team-identity-track__marker {
+  position: absolute;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--bg-card);
+  border-radius: 50%;
+  background: var(--accent-ink);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.28);
+  transform: translate(-50%, -50%);
+}
+
+.team-identity-track.is-unavailable {
+  background: color-mix(in srgb, var(--border) 55%, transparent);
+}
+
+.team-identity-trait__scale {
+  margin-top: 0.3rem;
+  color: var(--text-muted);
+  font-size: 0.66rem;
+}
+
+.team-profile-tooltip {
+  position: fixed;
+  z-index: 1080;
+  display: grid;
+  gap: 0.12rem;
+  width: max-content;
+  max-width: min(330px, calc(100vw - 24px));
+  padding: 0.62rem 0.72rem;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  background: var(--bg-secondary);
+  box-shadow: var(--shadow);
+  color: var(--text-secondary);
+  font-size: 0.74rem;
+  line-height: 1.4;
+  pointer-events: none;
+}
+
+.team-profile-tooltip[hidden] { display: none; }
+
+.team-profile-tooltip strong {
+  margin-bottom: 0.12rem;
+  color: var(--text);
+  font-size: 0.79rem;
+}
+
+.team-profile-tooltip__note {
+  margin-top: 0.22rem;
+  padding-top: 0.28rem;
+  border-top: 1px solid var(--border-light);
+  color: var(--text-muted);
+  font-size: 0.68rem;
+}
+
+.team-stats-group-row th {
+  padding-top: 1rem;
+  background: var(--category-band-bg);
+  color: var(--category-band-text) !important;
+}
+
+/*
+  The Ranking tables (team and player pages, beta-feature-2), drawn by
+  attribute-charts.js's rankingRows(): the place a chip in the SKore's
+  colours, the sorted column's header in the accent.
+*/
+/*
+  Every chip as wide as the widest: the column shrinks to its longest place
+  ("123 de 456") and each chip fills it, so "1 de 18" and "18 de 18" are the
+  same button (beta-final-changes fase 4, J3). Both pages, one renderer.
+*/
+td.sk-ranking-place-cell {
+  width: 1%;
+  white-space: nowrap;
+}
+
+.sk-ranking-place {
+  width: 100%;
+  min-width: 4.4rem;
+  white-space: nowrap;
+}
+
+td.sk-ranking-empty {
+  padding: 2rem 1rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* A sorting header reads like its neighbours: a button drops the th's caps otherwise. */
+[data-ranking-sort] {
+  text-transform: inherit;
+  letter-spacing: inherit;
+  font-weight: inherit;
+}
+
+th:is([aria-sort="ascending"], [aria-sort="descending"]) > [data-ranking-sort] {
+  color: var(--accent-dark);
+}
+
+/*
+  A download that is one control among pills (the Rankings): the league
+  maps' round icon pill (league-detail.css .league-maps__download), as tall
+  as the filter pills beside it.
+*/
+.sk-download-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--border);
+}
+
+[data-theme="dark"] .sk-download-pill {
+  border-color: transparent;
+}
+
+.sk-download-pill svg {
+  width: 14px;
+  height: 14px;
+}
+
+.team-stat-normalization {
+  display: block;
+  margin-top: 0.12rem;
+  color: var(--text-muted);
+  font-size: 0.68rem;
+}
+
+@media (max-width: 700px) {
+  .team-profile-header { display: block; }
+  .team-profile-sample { justify-content: flex-start; margin-top: 0.75rem; }
+  .team-identity-grid { grid-template-columns: 1fr; }
+  .team-identity-trait__header { align-items: flex-start; }
+}
+
+/* ── Team page: rolling xG vs xGA (x-team-xg-rolling) ─────────────────────
+   xG in the win ink, xGA in the loss ink: both tokens are already tuned per
+   theme. The canvas height is set with the card's class too, so it wins over
+   the team page's generic .team-chart-wrap canvas rule whatever loads last. */
+.team-xg-rolling { --xg-for: var(--result-win); --xg-against: var(--result-loss); }
+.team-xg-rolling__kpis { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.team-xg-rolling__kpi {
+  min-width: 84px;
+  padding: 0.55rem 0.8rem;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--bg-secondary) 60%, transparent);
+}
+.team-xg-rolling__kpi span { display: flex; align-items: center; gap: 0.35rem; color: var(--text-muted); font-size: 0.7rem; font-weight: 700; }
+.team-xg-rolling__kpi i { width: 8px; height: 8px; border-radius: 50%; }
+.team-xg-rolling__kpi strong {
+  display: block;
+  margin-top: 0.15rem;
+  color: var(--text);
+  font-size: 1.3rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+.team-xg-rolling__kpi--xg i { background: var(--xg-for); }
+.team-xg-rolling__kpi--xg strong { color: var(--xg-for); }
+.team-xg-rolling__kpi--xga i { background: var(--xg-against); }
+.team-xg-rolling__kpi--xga strong { color: var(--xg-against); }
+.team-xg-rolling .team-xg-rolling__chart { position: relative; width: 100%; min-height: 400px; }
+.team-xg-rolling .team-xg-rolling__chart canvas { width: 100% !important; height: 400px !important; }
+.team-xg-rolling__footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.6rem 1.2rem;
+  margin-top: 0.75rem;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+.team-xg-rolling__legend { display: flex; flex-wrap: wrap; gap: 0.5rem 1.1rem; }
+.team-xg-rolling__legend-item { display: inline-flex; align-items: center; gap: 0.4rem; }
+.team-xg-rolling__legend-item i { width: 18px; height: 3px; border-radius: 2px; }
+.team-xg-rolling__legend-item--xg i { background: var(--xg-for); }
+.team-xg-rolling__legend-item--xga i { background: var(--xg-against); }
+.team-xg-rolling__legend-item--coach i { height: 0; border-top: 2px dashed var(--chart-outline); border-radius: 0; }
+
+@media (max-width: 640px) {
+  .team-xg-rolling .team-xg-rolling__chart { min-height: 320px; }
+  .team-xg-rolling .team-xg-rolling__chart canvas { height: 320px !important; }
+}
+
+@media (max-width: 640px) {
+  .sk-detail-context-toolbar { align-items: stretch; }
+  .sk-detail-control,
+  .sk-pill-dropdown { width: 100%; max-width: none; }
+  .sk-segmented-control { width: 100%; }
+  .sk-segmented-control__button { flex: 1 1 auto; padding-inline: 0.65rem; }
+  .sk-event-map__canvas-wrap { min-height: 220px; }
+  .sk-event-map__header { flex-wrap: wrap; gap: 0.5rem; }
+}
+
+/*
+  The platform's search field: a pill with a magnifier, the league page's
+  (Valoraciones scout, Estadísticas, Dispersión) and the player page's
+  comparison search.
+*/
+.sk-search-field {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 36px;
+  margin: 0;
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.sk-search-field input {
+  width: 11rem;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  font-size: 0.82rem;
+  outline: none;
+}
+
+@media (max-width: 575.98px) {
+  .sk-search-field input {
+    width: 8.5rem;
+  }
+}
+
+/*
+  One download button shared by every chart/graph card (see
+  chart-download.js). It sits inside whichever wrap already establishes
+  position:relative for its canvas/svg, so no per-chart positioning is
+  needed - only the wrap + this button + the data-sk-chart-download name.
+  .sk-data-download-btn is the same button for a file the server builds
+  (x-data-download-button); chart-download.js leaves it alone.
+*/
+.sk-chart-download-btn,
+.sk-data-download-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 6;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  /*
+    At full strength, as the radar's (i) beside it: it used to sit at 0.22
+    so as not to compete with the chart under it, and nobody found it. It
+    now says "Descargar", and the chart under it starts 10px lower (below).
+  */
+  transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+}
+
+/* The icon alone on a narrow phone. */
+@media (max-width: 400px) {
+  .sk-chart-download-btn,
+  .sk-data-download-btn {
+    width: 20px;
+    padding: 0;
+  }
+
+  .sk-download-btn__text {
+    display: none;
+  }
+}
+
+/*
+  The chart under a corner download button starts 10px lower, so the button
+  covers less of it. Only the chart's own box: a card holding the button
+  (the search's results) already clears it with its padding.
+*/
+:has(> .sk-chart-download-btn):not(.sk-card) {
+  padding-top: 10px;
+}
+
+.sk-chart-download-btn:hover,
+.sk-chart-download-btn:focus-visible,
+.sk-data-download-btn:hover,
+.sk-data-download-btn:focus-visible {
+  opacity: 1;
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+.sk-chart-download-btn svg,
+.sk-data-download-btn svg { display: block; width: 11px; height: 11px; }
+
+/* While the server builds the file: held at full strength, clicks off. */
+.sk-data-download-btn:disabled {
+  opacity: 1;
+  cursor: progress;
+}
+
+/*
+  placement="card": the card's top-right corner, level with its title, not
+  over the chart (which data-sk-chart-target names for the download). The
+  title leaves it room. A match card's padding is its own.
+*/
+:is(.sk-card, .match-card) > .sk-chart-download-btn--card {
+  top: 1.5rem;
+  right: 1.5rem;
+}
+
+.match-card > .sk-chart-download-btn--card {
+  top: 0.9rem;
+  right: 1.1rem;
+}
+
+:is(.sk-card, .match-card):has(> .sk-chart-download-btn--card) :is(.sk-card-title, .match-card__title) {
+  padding-right: 6.5rem;
+}
+
+@media (max-width: 400px) {
+  :is(.sk-card, .match-card):has(> .sk-chart-download-btn--card) :is(.sk-card-title, .match-card__title) {
+    padding-right: 2rem;
+  }
+}
+
+/*
+  A chart's copy laid out for a download (chart-download.js htmlInto(),
+  Fase 6): painted at once, so nothing on it fades or slides in.
+*/
+[data-sk-export-clone],
+[data-sk-export-clone] * {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* placement="inline": one of a row of controls, in its flow. */
+.sk-chart-download-btn--inline {
+  position: static;
+  flex: none;
+}
+
+/* The chart icon whose menu is open stays lit. */
+.sk-chart-download-btn[aria-expanded="true"] {
+  opacity: 1;
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+/*
+  The chart download's menu (chart-download.js, SK-18): size and format.
+  One element on <body>, outside every Livewire root and every card's
+  overflow, placed under the icon that opened it (above it when there is no
+  room: data-placement). It grows out of the icon's corner and its rows
+  follow it in; it shrinks back on close. All of it stands still for a
+  reader who asks for reduced motion.
+*/
+.sk-export-menu {
+  --sk-export-shift: -6px;
+  position: fixed;
+  z-index: 1090;
+  box-sizing: border-box;
+  width: 19.5rem;
+  max-height: calc(100vh - 16px);
+  overflow-y: auto;
+  padding: 0.75rem 0.85rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: 0.6rem;
+  background: var(--bg-card);
+  color: var(--text);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  font-size: 0.8rem;
+  transform-origin: top right;
+}
+
+.sk-export-menu[data-placement="above"] {
+  --sk-export-shift: 6px;
+  transform-origin: bottom right;
+}
+
+.sk-export-menu[hidden] { display: none; }
+
+.sk-export-menu[data-state="open"] {
+  animation: sk-export-menu-in 0.2s cubic-bezier(0.2, 0.9, 0.3, 1.15) backwards;
+}
+
+.sk-export-menu[data-state="closing"] {
+  animation: sk-export-menu-out 0.14s ease-in both;
+  pointer-events: none;
+}
+
+@keyframes sk-export-menu-in {
+  from { opacity: 0; transform: translateY(var(--sk-export-shift)) scale(0.94); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes sk-export-menu-out {
+  from { opacity: 1; transform: none; }
+  to { opacity: 0; transform: translateY(var(--sk-export-shift)) scale(0.96); }
+}
+
+/* The rows arrive one after another, just behind the card. */
+.sk-export-menu[data-state="open"] .sk-export-menu__size,
+.sk-export-menu[data-state="open"] .sk-export-menu__formats,
+.sk-export-menu[data-state="open"] .sk-export-menu__submit {
+  /* backwards, not both: once in, hover and press move them again. */
+  animation: sk-export-menu-row 0.24s ease-out backwards;
+  animation-delay: calc(0.04s + var(--i, 0) * 0.025s);
+}
+
+.sk-export-menu[data-state="open"] .sk-export-menu__formats { --i: 6; }
+.sk-export-menu[data-state="open"] .sk-export-menu__submit { --i: 7; }
+
+@keyframes sk-export-menu-row {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: none; }
+}
+
+.sk-export-menu__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.sk-export-menu__title {
+  margin: 0;
+  font-size: 0.88rem;
+  font-weight: 800;
+}
+
+.sk-export-menu__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color 0.15s, background-color 0.15s, transform 0.2s ease;
+}
+
+.sk-export-menu__close:hover,
+.sk-export-menu__close:focus-visible { color: var(--text); background: var(--bg-secondary); transform: rotate(90deg); }
+
+.sk-export-menu__group {
+  margin: 0 0 0.6rem;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+.sk-export-menu__label {
+  margin: 0 0 0.25rem;
+  padding: 0;
+  color: var(--text-muted);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.sk-export-menu__size {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0.4rem;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  transition: background-color 0.18s ease, transform 0.18s ease;
+}
+
+.sk-export-menu__size:hover { background: var(--bg-secondary); transform: translateX(2px); }
+.sk-export-menu__size:has(input:checked) { background: var(--accent-ink-soft); transform: none; }
+
+.sk-export-menu__size input {
+  flex: none;
+  margin: 0;
+  accent-color: var(--accent-ink);
+}
+
+.sk-export-menu__size-name {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-weight: 700;
+}
+
+.sk-export-menu__size-px {
+  flex: none;
+  color: var(--text-secondary);
+  font-size: 0.7rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  transition: color 0.18s ease;
+}
+
+.sk-export-menu__size:has(input:checked) .sk-export-menu__size-px { color: var(--accent-ink); }
+
+/*
+  PNG | JPG (| CSV), and the advanced search's row counts: the platform's
+  segmented control over radios, with the selected pill sliding between
+  them (--sk-segments and --sk-segment, set by the script).
+*/
+.sk-export-menu__formats {
+  position: relative;
+  display: inline-grid;
+  grid-template-columns: repeat(var(--sk-segments, 2), 1fr);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg-secondary);
+}
+
+.sk-export-menu__formats::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: calc(100% / var(--sk-segments, 2));
+  border-radius: 999px;
+  background: var(--accent-ink-soft);
+  transform: translateX(calc(var(--sk-segment, 0) * 100%));
+  transition: transform 0.25s cubic-bezier(0.3, 0.9, 0.3, 1.1);
+}
+
+.sk-export-menu__format { position: relative; margin: 0; cursor: pointer; }
+.sk-export-menu__format[hidden] { display: none; }
+
+/* The row counts are numbers: a narrower pill each. */
+.sk-export-menu__rows .sk-export-menu__format span { padding-inline: 0.85rem; }
+
+/* What only the image reads, while the CSV is picked: there, but set aside. */
+.sk-export-menu__group:disabled { opacity: 0.45; }
+.sk-export-menu__group:disabled .sk-export-menu__size,
+.sk-export-menu__group:disabled .sk-export-menu__format { cursor: not-allowed; }
+.sk-export-menu__group:disabled .sk-export-menu__size:hover { background: none; transform: none; }
+
+.sk-export-menu__note {
+  margin: 0.35rem 0 0;
+  color: var(--text-secondary);
+  font-size: 0.72rem;
+}
+
+/*
+  SK-18.2: "Incluir datos del jugador", on one player's charts only. A row
+  like a size's, a checkbox for its radio; the note under it names whose
+  card it is.
+*/
+.sk-export-menu__check {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0.4rem;
+  border-radius: 0.4rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.18s ease;
+}
+
+.sk-export-menu__check:hover { background: var(--bg-secondary); }
+.sk-export-menu__check:has(input:checked) { background: var(--accent-ink-soft); }
+
+.sk-export-menu__check input {
+  flex: none;
+  margin: 0;
+  accent-color: var(--accent-ink);
+}
+
+.sk-export-menu__check + .sk-export-menu__note {
+  margin: 0.15rem 0 0;
+  padding-inline: 0.4rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sk-export-menu__group:disabled .sk-export-menu__check { cursor: not-allowed; }
+.sk-export-menu__group:disabled .sk-export-menu__check:hover { background: none; }
+
+.sk-export-menu[data-state="open"] .sk-export-menu__check {
+  animation: sk-export-menu-row 0.24s ease-out backwards;
+  animation-delay: calc(0.04s + var(--i, 0) * 0.025s);
+}
+
+/* Above the label it covers (the label sits over the sliding pill), so it takes the click. */
+.sk-export-menu__format input {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.sk-export-menu__format span {
+  position: relative;
+  display: block;
+  padding: 0.3rem 1.1rem;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-align: center;
+  transition: color 0.2s;
+}
+
+.sk-export-menu__format input:checked + span {
+  color: var(--accent-ink);
+  font-weight: 700;
+}
+
+.sk-export-menu__format input:focus-visible + span {
+  border-radius: 999px;
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.sk-export-menu__submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  width: 100%;
+  padding: 0.45rem 0.75rem;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--clr-black-glaze);
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 700;
+  transition: filter 0.15s, transform 0.12s ease, opacity 0.15s;
+}
+
+.sk-export-menu__submit:hover:not(:disabled),
+.sk-export-menu__submit:focus-visible { filter: brightness(1.08); }
+
+.sk-export-menu__submit:active:not(:disabled) { transform: scale(0.97); }
+
+.sk-export-menu__submit:disabled { cursor: progress; }
+.sk-export-menu__submit:disabled:not([data-phase]) { opacity: 0.55; cursor: not-allowed; }
+
+/* Building: a spinner; done: a tick that pops in. Nothing while ready. */
+.sk-export-menu__submit-icon {
+  display: none;
+  flex: none;
+  width: 0.85rem;
+  height: 0.85rem;
+}
+
+.sk-export-menu__submit[data-phase="busy"] .sk-export-menu__submit-icon {
+  display: block;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: sk-export-spin 0.7s linear infinite;
+}
+
+.sk-export-menu__submit[data-phase="done"] .sk-export-menu__submit-icon {
+  display: block;
+  background: currentColor;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5l3.2 3L13 4.5' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  animation: sk-export-pop 0.3s cubic-bezier(0.3, 1.5, 0.5, 1) both;
+}
+
+@keyframes sk-export-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes sk-export-pop {
+  from { opacity: 0; transform: scale(0.4); }
+  to { opacity: 1; transform: none; }
+}
+
+.sk-export-menu__status {
+  margin: 0.5rem 0 0;
+  color: var(--text-secondary);
+  font-size: 0.72rem;
+  animation: sk-export-menu-row 0.2s ease-out both;
+}
+
+.sk-export-menu__status[hidden] { display: none; }
+
+@media (max-width: 575.98px) {
+  .sk-export-menu { width: calc(100vw - 32px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sk-export-menu,
+  .sk-export-menu *,
+  .sk-export-menu *::before {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .sk-export-menu__close:hover,
+  .sk-export-menu__close:focus-visible,
+  .sk-export-menu__size:hover { transform: none; }
+
+  /* The spinner still says "working", standing still. */
+  .sk-export-menu__submit[data-phase="busy"] .sk-export-menu__submit-icon { border-right-color: currentColor; opacity: 0.6; }
+}
+
+/* ─── Attribute picker + unit toggle ───────────────────────────────────── */
+/*
+  Shared by the player page (Perfil / Comparar "Seleccionar atributos" and the
+  Percentil/p90 switch) and the advanced search (stat filters and table
+  columns). Moved here from player-detail.blade.php unchanged, so both pages
+  draw the same modal, category boxes, chips and pill toggle. Page-specific
+  sizing still lives in each page (e.g. .player-filter-field .chart-toggle).
+*/
+.traits-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.traits-category-box {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem 0.75rem 0.65rem;
+}
+
+.traits-category-label {
+  position: absolute;
+  top: -0.65rem;
+  left: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: var(--bg-card);
+  border: none;
+  padding: 0 0.4rem;
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--text-muted);
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.2s;
+}
+
+.traits-category-label:hover { color: var(--text); }
+.traits-category-label--all { color: var(--accent-ink); }
+.traits-category-label--partial { color: var(--text-secondary); }
+/* One attribute at a time (the league Dispersión tab): a heading, not a toggle. */
+.traits-category-label--static,
+.traits-category-label--static:hover { cursor: default; color: var(--text-muted); }
+
+.traits-category-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+}
+
+.trait-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0.2rem 0.1rem;
+  user-select: none;
+  transition: color 0.2s;
+}
+
+.trait-chip:hover { color: var(--text); }
+
+.trait-icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+  color: var(--accent-ink);
+  transition: color 0.2s;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+}
+
+.trait-icon svg { display: block; }
+
+.trait-chip.hidden .trait-icon { color: var(--border); }
+.trait-chip.hidden { color: var(--text-muted); }
+/*
+  An attribute the scope cannot take (pickerDisabled(key)): the advanced
+  search's period cannot read it, or Partidos has no per-match source or no
+  column left. Shared here, so every page's picker dims it.
+*/
+.trait-chip.trait-chip--disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* Which axis holds a chip, in the league Dispersión tab's window. */
+.trait-chip-tag {
+  margin-left: auto;
+  padding: 0.05rem 0.45rem;
+  border-radius: 999px;
+  background: var(--accent-ink-soft);
+  color: var(--accent-ink);
+  font-size: 0.62rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.traits-open-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 0.55rem 0.9rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.traits-open-btn:hover {
+  background: var(--bg-hover);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+/*
+  Opening is a class flip rather than the `hidden` flip alone. `[hidden]` is
+  display:none, and an element that has only just been displayed has no
+  previous value for the browser to transition from, so the panel would land
+  on its final state in one frame. Both modals here carry these two classes,
+  so the open and close paths are shared - see openModalBackdrop.
+*/
+.traits-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.75);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms ease;
+}
+
+.traits-modal-backdrop.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.traits-modal {
+  width: min(900px, 100%);
+  max-height: 85vh;
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  /*
+    A column so the body is the only part that scrolls. The body used to
+    cap itself at calc(85vh - 80px), a hard-coded guess at the header, which
+    the search row above it would have silently invalidated.
+  */
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transform: translateY(12px) scale(0.98);
+  transition: opacity 220ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.traits-modal-backdrop.is-open .traits-modal {
+  opacity: 1;
+  transform: none;
+}
+
+/*
+  Same reasoning as the tab panels: the objection is to things travelling
+  across the screen, and without the fade an opening modal is an unexplained
+  hard cut.
+*/
+@media (prefers-reduced-motion: reduce) {
+  .traits-modal {
+    transform: none;
+    transition: opacity 160ms ease;
+  }
+}
+
+/*
+  No tint over the window: the boxes' floating labels sit on --bg-card, so a
+  gradient over the body made every label a lighter patch (owner, 7 Nov).
+*/
+
+.traits-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.traits-modal-body {
+  padding: 1rem 1.25rem 1.25rem;
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+}
+
+.traits-modal-search {
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.traits-search-input {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+  color: var(--text);
+  font-size: 0.875rem;
+}
+
+.traits-search-input::placeholder {
+  color: var(--text-muted);
+}
+
+.traits-search-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.traits-search-empty {
+  margin: 0;
+  padding: 1.5rem 0;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+.traits-modal-close {
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+}
+
+.traits-modal-close:hover {
+  color: var(--text);
+}
+
+.traits-modal-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.traits-clear-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 0.45rem 0.75rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.traits-clear-btn:hover {
+  background: var(--bg-hover);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.chart-toggle {
+  display: inline-flex;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 1.25rem;
+  background: var(--bg-secondary);
+}
+
+.chart-toggle-btn {
+  padding: 0.35rem 1rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.chart-toggle-btn.active {
+  background-color: transparent;
+  color: var(--accent-ink);
+  font-weight: 700;
+}
+
+.chart-toggle-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+/* A Gráficas option the plan does not include (chart-controls `locked`): it
+   still reads as an option, with a small lock, and opens the paywall. */
+.chart-toggle-lock {
+  margin-right: 0.3rem;
+  font-size: 0.68em;
+  opacity: 0.75;
+  vertical-align: 0.05em;
+}
+
+.chart-toggle-btn.is-locked:hover,
+.traits-open-btn.is-locked:hover .chart-toggle-lock {
+  color: var(--text);
+}
+
+/* ─── Attribute charts ──────────────────────────────────────────────────── */
+/*
+  The filters, bars and radar the player page's Perfil tab and the team
+  page's Resumen tab share (resources/views/components/attribute-charts/,
+  public/custom_assets/js/attribute-charts.js). One set of rules, so the two
+  sections cannot drift apart.
+
+  Two filter cards: the period being analysed, and what the charts draw. Both
+  are built the same way - a card heading, then one labelled control per
+  field - so the two read as a single row of controls at a single size. The
+  pair stretches to a common height and each card pushes its controls to the
+  bottom, which keeps them on one line across both cards even when one
+  heading wraps and the other does not.
+*/
+.sk-analysis-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+/*
+  flex-basis: auto sizes each card to the row it holds, so the card with
+  three controls is wider than the one with two by exactly the difference,
+  and neither is squeezed into wrapping while the other has room to spare.
+
+  This pair is a toolbar rather than a panel, so it is set tighter than a
+  content card: smaller type, less padding, and a 32px pill in place of the
+  42px one the detail pages use for a control that stands on its own.
+*/
+.sk-analysis-filter-card {
+  display: flex;
+  flex: 1 1 auto;
+  min-width: min(340px, 100%);
+  margin-bottom: 0;
+  padding: 0.75rem 1rem;
+}
+
+/*
+  Narrower than that, the two rows cannot both stay whole. Sharing the line
+  and wrapping inside costs less height than stacking one card under the
+  other, so below this the cards go back to a shared basis, weighted by how
+  many controls each holds.
+*/
+@media (max-width: 1400px) {
+  .sk-analysis-filter-card {
+    flex-basis: 340px;
+  }
+
+  .sk-analysis-filter-card:last-child {
+    flex-grow: 1.7;
+  }
+}
+
+.sk-analysis-filter-card__body {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.sk-analysis-filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.6rem 1rem;
+  margin-top: auto;
+}
+
+.sk-analysis-filter-field {
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+.sk-analysis-filter-field .sk-select-label {
+  font-size: 0.7rem;
+  margin-bottom: 0.3rem;
+  white-space: nowrap;
+}
+
+.sk-analysis-filter-field .sk-pill-dropdown {
+  width: 200px;
+  max-width: 100%;
+}
+
+.sk-analysis-filter-card .sk-card-title {
+  font-size: 0.85rem;
+  margin-bottom: 0.05rem;
+}
+
+.sk-analysis-filter-card .sk-card-subtitle {
+  font-size: 0.73rem;
+  line-height: 1.35;
+}
+
+/* Same rule as every card, drawn tight enough to keep the toolbar's height. */
+.sk-analysis-filter-card .sk-card-title + .sk-card-subtitle {
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.4rem;
+}
+
+/*
+  One pill for all three kinds of control: height and font are set on the
+  dropdown button, the toggles and the attribute button together, so none of
+  them can drift taller than the others.
+*/
+.sk-analysis-filter-field .sk-pill-dropdown .btn,
+.sk-analysis-filter-field .chart-toggle,
+.sk-analysis-filter-field .traits-open-btn {
+  min-height: 32px;
+}
+
+.sk-analysis-filter-field .sk-pill-dropdown .btn,
+.sk-analysis-filter-field .chart-toggle-btn,
+.sk-analysis-filter-field .traits-open-btn {
+  font-size: 0.8rem;
+}
+
+.sk-analysis-filter-field .chart-toggle {
+  margin-bottom: 0;
+  align-items: stretch;
+}
+
+.sk-analysis-filter-field .chart-toggle-btn {
+  padding: 0.25rem 0.85rem;
+}
+
+.sk-analysis-filter-field .traits-open-btn {
+  padding: 0.25rem 0.95rem;
+}
+
+@media (max-width: 640px) {
+  .sk-analysis-filter-field,
+  .sk-analysis-filter-field .sk-pill-dropdown,
+  .sk-analysis-filter-field .chart-toggle,
+  .sk-analysis-filter-field .traits-open-btn {
+    width: 100%;
+    max-width: none;
+  }
+
+  .sk-analysis-filter-field {
+    flex: 1 1 100%;
+  }
+}
+
+/*
+  Bars and radar side by side, each in its own card. They wrap onto separate
+  lines when the column is too narrow for two.
+*/
+.sk-analysis-chart-pair {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  height: 100%;
+}
+
+.sk-analysis-chart-pair > .sk-card {
+  flex: 1 1 420px;
+  min-width: 0;
+  margin-bottom: 0;
+}
+
+/*
+  The radar is sized by its own aspect ratio; the bar list is the only card
+  here whose height follows the data, so it is the one that must not decide
+  the row's. Its scroll area takes a zero flex basis, contributing nothing to
+  the card's own height, then grows into whatever height the others settle
+  on. Adding attributes lengthens the scroll, not the card.
+
+  The list chains its scroll to the page (no overscroll-behavior): once it
+  reaches its top or bottom, the wheel goes on scrolling the page. Contained,
+  a pointer resting on the list pinned the page wherever the list stood.
+*/
+.sk-analysis-bars-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.sk-analysis-bars-scroll {
+  flex: 1 1 0;
+  min-height: min(320px, 60vh);
+  overflow-y: auto;
+  /* The bar rides the card's padding rather than crowding the rows. */
+  margin-right: -0.75rem;
+  padding-right: 0.75rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(16, 21, 17, 0.28) transparent;
+}
+
+/* Same bar the search panel uses, inked for whichever theme is on. */
+.sk-analysis-bars-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sk-analysis-bars-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sk-analysis-bars-scroll::-webkit-scrollbar-thumb {
+  background: rgba(16, 21, 17, 0.28);
+  border-radius: 999px;
+}
+
+.sk-analysis-bars-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(16, 21, 17, 0.42);
+}
+
+[data-theme="dark"] .sk-analysis-bars-scroll {
+  scrollbar-color: rgba(255, 255, 255, 0.22) transparent;
+}
+
+[data-theme="dark"] .sk-analysis-bars-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+[data-theme="dark"] .sk-analysis-bars-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+/*
+  The box the bar rows are drawn in. Livewire leaves it alone (wire:ignore);
+  should anything else reset it, a block canvas in a clipped box still
+  cannot feed Chart.js its own growth. An inline canvas leaves a few pixels
+  of line gap under it, the box grows by that much, Chart.js resizes the
+  canvas to the box, and the list scrolls on forever.
+*/
+.sk-analysis-bars-box {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.sk-analysis-bars-box > canvas {
+  display: block;
+}
+
+.sk-analysis-radar-box {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  aspect-ratio: 1;
+}
+
+/* The radar box and its (i), one frame the same size as the box. */
+.sk-analysis-radar-frame {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+}
+
+/*
+  An (i) that opens a short explanation over the chart, on click, in the
+  chart's top-left corner: the download icon's box and offset.
+*/
+.sk-info-tip {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 6;
+}
+
+.sk-info-tip__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+  color: var(--text-muted);
+  font-size: 12px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.sk-info-tip__button:hover,
+.sk-info-tip__button:focus-visible,
+.sk-info-tip__button[aria-expanded="true"] {
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+.sk-info-tip__panel {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 30;
+  width: max-content;
+  max-width: min(320px, 80vw);
+  margin: 0;
+  padding: 0.6rem 0.75rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: .5rem;
+  box-shadow: var(--shadow-card);
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+.sk-info-tip__panel[hidden] {
+  display: none;
+}
+
+/* ─── Rank bars ─────────────────────────────────────────────────────────── */
+/*
+  One look for every bar that ranks a value: the advanced search's
+  single-stat chart, drawn here in HTML, and the player and team pages'
+  attribute bars, which percentile-rows.js paints on canvas from these same
+  tokens (it reads them off :root), so a change here changes both.
+
+  A measure is a track with a round-ended fill and the badge at its end. The
+  fill is coloured by standing: one orange–yellow–green gradient across the
+  whole track, shown up to the bar's length, turning where the badge colour
+  does (App\Support\RankBands places the turns). Badges are filled from the
+  three rank tokens — green from the 80th percentile, yellow from the 40th,
+  orange below — each light enough for the one dark ink, in both themes.
+
+  Geometry in px: the canvas reads these numbers as they are.
+*/
+:root {
+  --rank-bar-height: 14px;
+  --rank-bar-radius: 7px;
+  --rank-bar-gap: 14px;
+  --rank-bar-grow: 620ms;
+  --rank-badge-min-width: 42px;
+  --rank-badge-height: 24px;
+  --rank-badge-padding: 8px;
+  --rank-badge-radius: 6px;
+  --rank-badge-font-size: 12px;
+  --rank-ink: #0e1e14;
+}
+
+.sk-rank-badge {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--rank-badge-min-width);
+  height: var(--rank-badge-height);
+  padding: 0 var(--rank-badge-padding);
+  border-radius: var(--rank-badge-radius);
+  font: 700 var(--rank-badge-font-size)/1 'Inter', sans-serif;
+  font-variant-numeric: tabular-nums;
+  color: var(--rank-ink);
+  white-space: nowrap;
+}
+
+.sk-rank-badge--high { background: var(--rank-high); }
+.sk-rank-badge--mid  { background: var(--rank-mid); }
+.sk-rank-badge--low  { background: var(--rank-low); }
+
+/* Nothing to rank against yet (a season still being computed). */
+.sk-rank-badge--none {
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+}
+
+/*
+  A SKore's pill, in the rank bars' colours: green from 7, yellow from 6.5,
+  orange below (OptaMatchRatingService::grade(), skore.js). The match page's
+  chips (.match-rating--*, match-detail.css) are the same three.
+
+  .sk-skore-chip is the small one players' lists show beside a name, shaped
+  as the match page's chip (.match-rating) so the SKore reads the same in a
+  match and in a list.
+*/
+.sk-skore-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  min-width: 2.4rem;
+  padding: 0.12rem 0.35rem;
+  border-radius: 6px;
+  background: var(--bg-secondary);
+  color: var(--text);
+  font-size: 0.72rem;
+  font-weight: 800;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}
+
+.sk-skore-chip.sk-skore--none { color: var(--text-muted); }
+
+.sk-skore.sk-skore--high { background: var(--rank-high); color: var(--clr-black-glaze); }
+.sk-skore.sk-skore--mid  { background: var(--rank-mid); color: var(--clr-black-glaze); }
+.sk-skore.sk-skore--low  { background: var(--rank-low); color: var(--clr-black-glaze); }
+
+.sk-rank-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--rank-bar-gap);
+  min-width: 0;
+}
+
+.sk-rank-bar__track {
+  position: relative;
+  flex: 1 1 auto;
+  height: var(--rank-bar-height);
+  border-radius: var(--rank-bar-radius);
+  background: var(--chart-grid);
+  overflow: hidden;
+}
+
+/* 620ms on easeOutQuart, as the canvas bars grow. */
+.sk-rank-bar__fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--bar-ratio, 0%);
+  border-radius: var(--rank-bar-radius);
+  animation: sk-rank-bar-grow var(--rank-bar-grow) cubic-bezier(0.25, 1, 0.5, 1) backwards;
+}
+
+.sk-rank-bar__fill--high { background: var(--rank-high); }
+.sk-rank-bar__fill--mid  { background: var(--rank-mid); }
+.sk-rank-bar__fill--low  { background: var(--rank-low); }
+.sk-rank-bar__fill--none { background: var(--chart-outline); }
+
+/*
+  With a population to rank against, the element holding the bars carries
+  the gradient's stops (RankBands::style()) and every fill is that gradient
+  drawn across its whole track (100cqw of it). Bars that grow toward the
+  worst value set --rank-gradient-direction to 270deg: green at the left,
+  the colour of the worst at the right.
+*/
+.sk-rank-bars--graded .sk-rank-bar__track {
+  container-type: inline-size;
+}
+
+.sk-rank-bars--graded .sk-rank-bar__fill {
+  background: linear-gradient(var(--rank-gradient-direction, 90deg),
+    var(--rank-low) var(--rank-gradient-low),
+    var(--rank-mid) var(--rank-gradient-mid-from),
+    var(--rank-mid) var(--rank-gradient-mid-to),
+    var(--rank-high) var(--rank-gradient-high)) left / 100cqw 100% no-repeat;
+}
+
+/*
+  A diverging bar (the search's chart of Goals Prevented, beta-final-changes
+  fase 5, B1): 0 at the track's centre, marked by a hairline; a positive
+  value runs right from it, a negative one left, each grown from the centre
+  and rounded only at its far end. --bar-ratio is its length in % of the
+  track (half the share), --bar-half the same number unitless. On a graded
+  table the gradient still spans the whole track (RankBands::divergingGradient():
+  yellow on 0), so each fill shifts its background back to the track's left.
+*/
+.sk-rank-bar__track--diverging {
+  container-type: inline-size;
+}
+
+.sk-rank-bar__track--diverging::after {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 50%;
+  width: 2px;
+  transform: translateX(-50%);
+  background: var(--text-muted);
+  opacity: 0.6;
+}
+
+.sk-rank-bar__fill--pos {
+  inset: 0 auto 0 50%;
+  border-radius: 0 var(--rank-bar-radius) var(--rank-bar-radius) 0;
+}
+
+.sk-rank-bar__fill--neg {
+  inset: 0 50% 0 auto;
+  border-radius: var(--rank-bar-radius) 0 0 var(--rank-bar-radius);
+}
+
+.sk-rank-bars--graded .sk-rank-bar__fill--pos {
+  background-position: -50cqw 0;
+}
+
+.sk-rank-bars--graded .sk-rank-bar__fill--neg {
+  background-position: calc((var(--bar-half, 0) - 50) * 1cqw) 0;
+}
+
+/* No value: a dash as wide as a badge, so the tracks all end on one line. */
+.sk-rank-bar__empty {
+  min-width: var(--rank-badge-min-width);
+  color: var(--text-muted);
+  text-align: center;
+}
+
+@keyframes sk-rank-bar-grow {
+  from { width: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sk-rank-bar__fill {
+    animation: none;
+  }
+}
+
+/* ─── Position acronym ──────────────────────────────────────────────────── */
+/*
+  <x-position>: a Spanish position acronym whose full name is its native
+  tooltip. An <abbr> for what it is, without the dotted underline Bootstrap
+  gives abbreviations; whatever it sits in (a pill, a badge, a cell) styles it.
+  No border here: this rule outranks .players-table__pos and .badge-position,
+  so a border reset would cut off the bottom edge of their pill outline.
+*/
+abbr.sk-position,
+abbr.sk-position[title] {
+  text-decoration: none;
+  cursor: help;
+}
+
+/* ─── Player stats table ────────────────────────────────────────────────── */
+/*
+  The league page's "Estadísticas de jugadores" table, shared with the
+  advanced search's results so both read as one table: rank, the player (an
+  avatar, the name and the team beneath it), position, age, then the stat
+  columns. The player cell is livewire/partials/player-table-player.
+*/
+.sk-player-table-scroll {
+  overflow-x: auto;
+}
+
+.sk-player-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+
+.sk-player-table thead th {
+  padding: 0.65rem 0.5rem;
+  text-align: left;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border-light);
+  white-space: nowrap;
+}
+
+.sk-player-table tbody td {
+  padding: 0.55rem 0.5rem;
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text);
+  vertical-align: middle;
+}
+
+.sk-player-table__th-player {
+  min-width: 200px;
+}
+
+.sk-player-table__rank {
+  color: var(--text-muted);
+  font-weight: 600;
+  width: 2rem;
+}
+
+.sk-player-table__player {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  text-decoration: none;
+  color: inherit;
+  min-width: 0;
+}
+
+.sk-player-table__player:hover .sk-player-table__name {
+  color: var(--accent-dark);
+}
+
+.sk-player-table__avatar-link,
+.sk-player-table__name,
+.sk-player-table__team {
+  text-decoration: none;
+}
+
+.sk-player-table__avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+/* A team's row: its crest whole, not cropped into a face's circle. */
+.sk-player-table__avatar--crest {
+  border-radius: 0;
+  object-fit: contain;
+}
+
+.sk-player-table__avatar--placeholder {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(29, 102, 93, 0.12);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent-dark);
+}
+
+.sk-player-table__player-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.sk-player-table__name {
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--text);
+}
+
+.sk-player-table__team {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+a.sk-player-table__team:hover {
+  color: var(--accent-dark);
+}
+
+/* The crest (or the league's logo) beside the line under the name. */
+.sk-player-table__team img {
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.sk-player-table__sort {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.sk-player-table__sort:hover {
+  color: var(--accent-dark);
+}
+
+.sk-player-table__stat--active {
+  font-weight: 700;
+  color: var(--accent-dark);
+}
+
+/*
+  ── The multi-stat table ──
+  The table above as the advanced search shows two or more attributes, and
+  as the team page shows its squad: rank, player, position and age as narrow
+  as their content, then the stat columns sharing the rest of the width
+  (each header can carry its share), each value washed by its standing.
+*/
+/* Rank, player, position and age hug their content, so position and age
+   sit right beside the name: no minimum width, and the name and team keep
+   to one line each. The stat columns, or with none the last column, take
+   whatever width is left. */
+.players-results__table .sk-player-table__th-player {
+  min-width: 0;
+}
+
+.players-results__table .sk-player-table__player-text {
+  white-space: nowrap;
+}
+
+.players-results__table .players-table__stat-head {
+  white-space: normal;
+  vertical-align: bottom;
+}
+
+/* A stat's name wraps, centred over its column; never narrower than a
+   readable value, so a phone scrolls the table rather than crushing its
+   columns. */
+.players-results__table thead th.players-table__stat-head {
+  text-align: center;
+}
+
+.players-results__table .players-table__stat-head .sk-player-table__sort {
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: baseline;
+  column-gap: 0.3rem;
+  min-width: 5rem;
+  text-align: center;
+  text-transform: inherit;
+  letter-spacing: inherit;
+}
+
+.players-table__stat-head.is-sorted .sk-player-table__sort,
+.players-table__skore-head.is-sorted .sk-player-table__sort {
+  color: var(--accent-dark);
+}
+
+/* The SKore's column (Dario, 30 Oct): its pill, centred, as narrow as
+   position and age, before the stat columns. */
+.players-results__table thead th.players-table__skore-head,
+.players-results__table .players-table__skore {
+  text-align: center;
+}
+
+/* Alone, it takes the spare width but keeps to the left, beside the age. */
+.players-results__table thead th.players-table__skore--alone,
+.players-results__table .players-table__skore--alone {
+  text-align: left;
+}
+
+.players-table__stat-unit {
+  font-size: 0.62rem;
+  letter-spacing: 0.04em;
+  opacity: 0.8;
+}
+
+.players-table__stat {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/*
+  Each value in a rounded block, centred, washed green by its standing
+  (Players::washStyle()): as strong as the player page's bar would be
+  long, so a light tint of the rank colours' green for the best result in
+  the column only — the lowest, where lower is better. The blocks mark the rows, so
+  the stat cells leave out the row line.
+*/
+/* The player page's Comparar grid (.comparison-grid__table) is the same table in miniature. */
+.players-results__table,
+.comparison-grid__table {
+  --wash-green: color-mix(in srgb, var(--rank-high) 38%, transparent);
+}
+
+[data-theme="dark"] .players-results__table,
+[data-theme="dark"] .comparison-grid__table {
+  --wash-green: color-mix(in srgb, var(--rank-high) 28%, transparent);
+}
+
+/*
+  Comparar's grid washes each block in its player's colour (--compare-wash,
+  set on the block from --compare-1/2/3), not the rank green; the share it
+  reaches is the search's --wash-alpha. Declared on the block itself, so the
+  colour the block carries is the one mixed.
+*/
+.comparison-grid__table .players-table__cell {
+  --wash-green: color-mix(in srgb, var(--compare-wash) 38%, transparent);
+}
+
+[data-theme="dark"] .comparison-grid__table .players-table__cell {
+  --wash-green: color-mix(in srgb, var(--compare-wash) 28%, transparent);
+}
+
+.players-results__table tbody td.players-table__stat:not(.players-results__bar-cell) {
+  padding: 3px;
+  border-bottom-color: transparent;
+}
+
+.players-table__cell {
+  padding: 0.45rem 0.5rem;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--wash-green) var(--wash-alpha, 0%), transparent);
+  text-align: center;
+}
+
+.players-table__value {
+  font-weight: 600;
+}
+
+.players-table__empty {
+  color: var(--text-muted);
+}
+
+/* ─── Results pagination ────────────────────────────────────────────────── */
+/*
+  livewire/partials/results-pagination: "← Anterior", "Página n de m",
+  "Siguiente →". The advanced search's results and the league page's player
+  stats and scout ratings share it; each page sets the space around it.
+*/
+.sk-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sk-pagination__prev,
+.sk-pagination__next {
+  flex: 0 0 7.5rem;
+}
+
+.sk-pagination__next {
+  text-align: right;
+}
+
+.sk-pagination__indicator {
+  flex: 1 1 auto;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.sk-pagination__current {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.75rem;
+  height: 1.75rem;
+  margin: 0 0.35rem;
+  padding: 0 0.45rem;
+  border-radius: 999px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  color: var(--accent-dark);
+  font-weight: 700;
+}
+
+[data-theme="dark"] .sk-pagination__current {
+  border: none;
+  color: var(--accent-ink);
+}
+
+.sk-pagination .sk-pagination__btn {
+  border-color: var(--border);
+  color: var(--text);
+  background: var(--bg-card);
+  border-radius: 999px;
+  font-weight: 600;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.sk-pagination .sk-pagination__btn:hover,
+.sk-pagination .sk-pagination__btn:focus {
+  background: var(--bg-hover);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+[data-theme="dark"] .sk-pagination .sk-pagination__btn,
+[data-theme="dark"] .sk-pagination .sk-pagination__btn:hover,
+[data-theme="dark"] .sk-pagination .sk-pagination__btn:focus {
+  border: none;
+}
+
+[data-theme="dark"] .sk-pagination .sk-pagination__btn {
+  background: var(--bg-secondary);
+}
+
+[data-theme="dark"] .sk-pagination .sk-pagination__btn:hover,
+[data-theme="dark"] .sk-pagination .sk-pagination__btn:focus {
+  background: var(--bg-hover);
+}
+
+/* ─── Dual-handle range ────────────────────────────────────────────────── */
+/*
+  One track, two thumbs: the advanced search's age, height and minutes
+  filters and the league page's Dispersión tab. Moved here from
+  players.blade.php unchanged when the second page needed it.
+*/
+.players-dual-range {
+  position: relative;
+  width: 100%;
+  height: 1.35rem;
+  margin-top: 0.35rem;
+}
+
+.players-dual-range__track,
+.players-dual-range__fill {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 3px;
+  border-radius: 999px;
+  pointer-events: none;
+}
+
+.players-dual-range__track {
+  left: 0;
+  right: 0;
+  background: var(--border);
+}
+
+[data-theme="dark"] .players-dual-range__track {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.players-dual-range__fill {
+  left: var(--range-left, 0%);
+  width: var(--range-width, 0%);
+  background: var(--text);
+}
+
+[data-theme="dark"] .players-dual-range__fill {
+  background: #fff;
+}
+
+.players-dual-range__input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  pointer-events: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.players-dual-range__input::-webkit-slider-runnable-track {
+  -webkit-appearance: none;
+  height: 3px;
+  background: transparent;
+  border: none;
+}
+
+.players-dual-range__input::-moz-range-track {
+  height: 3px;
+  background: transparent;
+  border: none;
+}
+
+.players-dual-range__input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  pointer-events: all;
+  width: 14px;
+  height: 14px;
+  margin-top: -5.5px;
+  border-radius: 50%;
+  background: var(--accent-dark);
+  border: 2px solid #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+}
+
+.players-dual-range__input::-moz-range-thumb {
+  pointer-events: all;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent-dark);
+  border: 2px solid #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+}
+
+.players-dual-range__input--min {
+  z-index: 3;
+}
+
+.players-dual-range__input--max {
+  z-index: 4;
+}
+
+.players-dual-range__input:focus {
+  outline: none;
+}
+
+.players-dual-range__input--min:focus,
+.players-dual-range__input--min:active {
+  z-index: 5;
+}
+
+.players-dual-range__input--max:focus,
+.players-dual-range__input--max:active {
+  z-index: 5;
+}
+
+[data-theme="dark"] .players-dual-range__input::-webkit-slider-thumb,
+[data-theme="dark"] .players-dual-range__input::-moz-range-thumb {
+  box-shadow: none;
+}
+
+.players-range-endpoints {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 0.25rem;
+}
+
+/* ─── Tick menus ───────────────────────────────────────────────────────── */
+/*
+  A menu whose rows tick: the small green check before the picked rows. The
+  advanced search's nationality and league menus and the league page's
+  Dispersión tab. Moved here from players.blade.php unchanged.
+*/
+.players-multi-menu .sk-menu-item {
+  display: flex;
+  align-items: center;
+}
+
+.players-multi-menu__check {
+  flex: 0 0 1rem;
+  width: 1rem;
+  margin-right: 0.45rem;
+  font-size: 0.85rem;
+  color: var(--accent-ink);
+}
+
+/* The Club filter: each club's crest before its name. */
+.players-multi-menu__crest {
+  flex-shrink: 0;
+  margin-right: 0.4rem;
+  object-fit: contain;
+}
+
+/*
+  x-sk-multi-select: the advanced search's Club filter as a component (its
+  pill, popup and search box, players.blade.php's .players-filterbar__*), for
+  pages without the search's styles — the team page's Resultados (Fase 7).
+*/
+.sk-multi-select {
+  position: relative;
+}
+
+.sk-multi-select__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 36px;
+  max-width: 15rem;
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--border);
+  font-size: 0.82rem;
+  font-weight: 500;
+}
+
+[data-theme="dark"] .sk-multi-select__pill {
+  border-color: transparent;
+}
+
+[data-theme="dark"] .sk-multi-select__pill.active {
+  border-color: var(--accent-ink);
+}
+
+.sk-multi-select__pill > .bi {
+  flex-shrink: 0;
+}
+
+.sk-multi-select__pill > .bi:first-child {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.sk-multi-select__pill.active > .bi:first-child {
+  color: inherit;
+}
+
+.sk-multi-select__label {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
+}
+
+.sk-multi-select__chevron {
+  font-size: 0.62rem;
+  opacity: 0.7;
+  transition: transform 0.15s;
+}
+
+.sk-multi-select__pill[aria-expanded="true"] .sk-multi-select__chevron {
+  transform: rotate(180deg);
+}
+
+.sk-multi-select__panel {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 20;
+  min-width: 15rem;
+  padding: 0.25rem 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+}
+
+[data-theme="dark"] .sk-multi-select__panel {
+  background: var(--bg-secondary);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.sk-multi-select__menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.sk-multi-select__search {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 0.35rem 0.5rem;
+  background: var(--bg-card);
+}
+
+[data-theme="dark"] .sk-multi-select__search {
+  background: var(--bg-secondary);
+}
+
+.sk-multi-select__search input {
+  width: 100%;
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-light);
+  background: var(--bg-secondary);
+  color: var(--text);
+  font-size: 0.82rem;
+  outline: none;
+}
+
+.sk-multi-select__search input:focus {
+  border-color: var(--accent-dark);
+}
+
+[data-theme="dark"] .sk-multi-select__search input {
+  background: var(--bg-card);
+}
+
+.sk-multi-select__empty {
+  padding: 0.5rem 1rem;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+/* ─── Match chances ────────────────────────────────────────────────────── */
+/*
+  One match's win / draw / loss as a single bar (components/match-chances).
+  The league page's Partidos tab colours it by side - home, draw, away, as it
+  always has; the team page's Calendario by outcome for that team - win,
+  draw, loss, the result set the form pills read. Moved here from
+  league-detail.css when the Calendario began to share it.
+*/
+.sk-chances {
+  display: flex;
+  gap: 2px;
+  height: 1.15rem;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+/* The shares sit inside their segments; one too thin for its number keeps it in the tooltip. */
+.sk-chances__segment {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 3px;
+  flex-basis: 0;
+  font-size: 0.66rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.sk-chances__segment--home {
+  background: var(--accent-dark);
+  color: #fff;
+}
+
+.sk-chances__segment--draw {
+  background: var(--border);
+  color: var(--text);
+}
+
+.sk-chances__segment--away {
+  background: var(--accent);
+  color: var(--clr-black-glaze);
+}
+
+[data-theme="dark"] .sk-chances__segment--draw {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .sk-chances__segment--draw {
+    background: rgba(255, 255, 255, 0.2);
+  }
+}
+
+.sk-chances__segment--win {
+  background: var(--result-win);
+  color: var(--bg-card);
+}
+
+.sk-chances__segment--loss {
+  background: var(--result-loss);
+  color: var(--bg-card);
+}
+
+.sk-chances--played .sk-chances__segment:not(.sk-chances__segment--happened) {
+  opacity: 0.3;
+}
+
+.sk-chances__segment--happened {
+  box-shadow: inset 0 0 0 2px var(--text);
+}
+
+/* A fixture's difficulty grade, 1 to 5 (--sk-fdr-*). */
+.sk-grade {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  padding: 0 0.3rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+}
+
+.sk-grade--1 { background: var(--sk-fdr-1); color: var(--bg-card); }
+.sk-grade--2 { background: var(--sk-fdr-2); }
+.sk-grade--3 { background: var(--sk-fdr-3); }
+.sk-grade--4 { background: var(--sk-fdr-4); }
+.sk-grade--5 { background: var(--sk-fdr-5); color: var(--bg-card); }
+
+/* ─── Tooltip ──────────────────────────────────────────────────────────── */
+/*
+  The site's tooltip in place of the browser's `title` (sk-tooltip.js reads
+  data-sk-tip). It copies the charts' tooltips - Chart.js's defaults, which
+  every chart on the team page shows on hover: a dark translucent box in both
+  themes, a bold title, white body lines, a 5px caret toward what is hovered.
+  Its motion is theirs too: a 200ms linear fade in and out, and a 400ms
+  easeOutQuart glide, caret and all, from one element to the next.
+*/
+.sk-tip {
+  position: fixed;
+  z-index: 1090;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: max-content;
+  max-width: min(280px, calc(100vw - 16px));
+  padding: 6px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  font-size: 12px;
+  line-height: 1.25;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  /* Hidden only once faded out. */
+  transition: opacity 200ms linear, visibility 0s linear 200ms;
+}
+
+.sk-tip.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 200ms linear, visibility 0s;
+}
+
+.sk-tip.is-visible.is-gliding {
+  transition: opacity 200ms linear, visibility 0s,
+              left 400ms cubic-bezier(0.25, 1, 0.5, 1), top 400ms cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.sk-tip.is-gliding::after {
+  transition: left 400ms cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Nothing travels; the fade stays, or it would be a hard cut. */
+@media (prefers-reduced-motion: reduce) {
+  .sk-tip.is-visible.is-gliding { transition: opacity 200ms linear, visibility 0s; }
+  .sk-tip.is-gliding::after { transition: none; }
+}
+
+.sk-tip strong {
+  margin-bottom: 4px;
+  font-weight: 700;
+}
+
+.sk-tip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: var(--sk-tip-caret, 50%);
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: rgba(0, 0, 0, 0.8);
+}
+
+.sk-tip--below::after {
+  top: auto;
+  bottom: 100%;
+  border-top-color: transparent;
+  border-bottom-color: rgba(0, 0, 0, 0.8);
+}
+
+/*
+  Dark theme: a crest or a league logo drawn on transparency — a navy
+  Tottenham, Monterrey's dark blue — sinks into the near-black surfaces. A
+  thin light glow along the artwork's own edge lifts it without boxing it,
+  so a white crest (Juventus) stays as it was (decided 2026-10-22, over a
+  light disc behind every crest, which washed the white ones out). Every
+  crest is the media host's or our mirror's, so the rule reads the src.
+*/
+[data-theme="dark"] img[src*="/media/teams/"],
+[data-theme="dark"] img[src*="/football/teams/"],
+[data-theme="dark"] img[src*="/media/leagues/"],
+[data-theme="dark"] img[src*="/football/leagues/"] {
+  filter: drop-shadow(0 0 0.6px rgba(255, 255, 255, 0.85)) drop-shadow(0 0 1.4px rgba(255, 255, 255, 0.35));
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) img[src*="/media/teams/"],
+  :root:not([data-theme="light"]) img[src*="/football/teams/"],
+  :root:not([data-theme="light"]) img[src*="/media/leagues/"],
+  :root:not([data-theme="light"]) img[src*="/football/leagues/"] {
+    filter: drop-shadow(0 0 0.6px rgba(255, 255, 255, 0.85)) drop-shadow(0 0 1.4px rgba(255, 255, 255, 0.35));
+  }
+}
+
+/*
+  The paywall a plan without downloads gets from every download button
+  (layouts/partials/download-paywall, download-paywall.js): what downloads
+  are part of, the paid plans, and the way to them.
+*/
+body.sk-paywall-open {
+  overflow: hidden;
+}
+
+.sk-paywall {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.sk-paywall[hidden] {
+  display: none;
+}
+
+.sk-paywall__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 14, 12, 0.55);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+  opacity: 0;
+  /* Out: a little quicker than in, and easing away. */
+  transition: opacity 0.2s ease-in;
+}
+
+.sk-paywall__dialog {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(30rem, 100%);
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
+  padding: 1.75rem 1.5rem 1.5rem;
+  border: 1px solid var(--border-light);
+  border-radius: 18px;
+  background: var(--bg-card, var(--bg));
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  opacity: 0;
+  transform: translateY(14px) scale(0.96);
+  transition: opacity 0.18s ease-in, transform 0.22s cubic-bezier(0.4, 0, 1, 1);
+}
+
+.sk-paywall__dialog:focus {
+  outline: none;
+}
+
+.sk-paywall.is-open .sk-paywall__backdrop,
+.sk-paywall.is-open .sk-paywall__dialog {
+  opacity: 1;
+}
+
+.sk-paywall.is-open .sk-paywall__dialog {
+  transform: none;
+}
+
+/* In: the backdrop fades, the dialog rises and settles with a soft ease-out. */
+.sk-paywall.is-open .sk-paywall__backdrop {
+  transition: opacity 0.28s ease-out;
+}
+
+.sk-paywall.is-open .sk-paywall__dialog {
+  transition: opacity 0.24s ease-out, transform 0.36s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* While it runs out, clicks go to the page again. */
+.sk-paywall.is-closing {
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sk-paywall__backdrop,
+  .sk-paywall__dialog {
+    transition: none;
+  }
+}
+
+.sk-paywall__close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--text-muted);
+}
+
+.sk-paywall__close:hover {
+  background: var(--bg-secondary);
+  color: var(--text);
+}
+
+.sk-paywall__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: 0.75rem;
+  border-radius: 50%;
+  background: var(--bg-secondary);
+  color: var(--clr-eucalyptus, #1d665d);
+  font-size: 1.25rem;
+}
+
+.sk-paywall__title {
+  margin: 0 0 0.35rem;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.sk-paywall__text {
+  margin: 0 0 1.1rem;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+.sk-paywall__plans {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  width: 100%;
+  margin-bottom: 1.1rem;
+  text-align: left;
+}
+
+.sk-paywall__plan {
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+}
+
+.sk-paywall__plan--featured {
+  border-color: var(--clr-eucalyptus, #1d665d);
+}
+
+.sk-paywall__plan-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.sk-paywall__plan-name {
+  font-weight: 800;
+  color: var(--text);
+}
+
+.sk-paywall__plan-price {
+  font-weight: 800;
+  color: var(--clr-eucalyptus, #1d665d);
+  white-space: nowrap;
+}
+
+.sk-paywall__plan-price small {
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.sk-paywall__plan-tagline {
+  margin: 0.2rem 0 0;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.sk-paywall__plan-highlights {
+  margin: 0.55rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.8rem;
+  color: var(--text);
+}
+
+.sk-paywall__plan-highlights li {
+  display: flex;
+  gap: 0.4rem;
+  margin-top: 0.2rem;
+}
+
+.sk-paywall__plan-highlights .bi {
+  color: var(--clr-eucalyptus, #1d665d);
+}
+
+.sk-paywall__cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.6rem 1.6rem;
+  border-radius: 999px;
+  background: var(--clr-eucalyptus, #1d665d);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.sk-paywall__cta:hover {
+  color: #fff;
+  filter: brightness(1.1);
+}
+
+[data-theme="dark"] .sk-paywall__dialog {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .sk-paywall__icon,
+[data-theme="dark"] .sk-paywall__plan-price,
+[data-theme="dark"] .sk-paywall__plan-highlights .bi {
+  color: var(--accent-ink);
+}
+
+[data-theme="dark"] .sk-paywall__plan--featured {
+  border-color: var(--accent-ink);
+}
+
+[data-theme="dark"] .sk-paywall__cta {
+  background: var(--accent-ink);
+  color: #0b1f1a;
+}
+
+/*
+  The call to the plans over a tab's blurred part (plan-unlock):
+  one card, placed two ways. Over a grid or a chart, .sk-unlock-zone
+  centres it. In a table, the rows scroll sideways and their height is the
+  table's, so the card hangs from an empty row put halfway down the blurred
+  ones (.sk-unlock-anchor) — half a row lower when their count is odd —
+  in a layer as wide as the visible table (100cqi of the scroll box) that
+  stays put as the matrix scrolls.
+*/
+.sk-unlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  width: max-content;
+  max-width: min(calc(100vw - 2rem), 26rem);
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--border-light);
+  border-radius: 14px;
+  background: var(--bg);
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.14);
+  text-align: center;
+  white-space: normal;
+}
+
+.sk-unlock__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  margin-bottom: 0.15rem;
+  border-radius: 50%;
+  background: var(--bg-secondary);
+  color: var(--clr-eucalyptus, #1d665d);
+}
+
+.sk-unlock__title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--text);
+}
+
+.sk-unlock__text {
+  margin: 0 0 0.4rem;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.sk-unlock__cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 1.1rem;
+  border-radius: 999px;
+  background: var(--clr-eucalyptus, #1d665d);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.82rem;
+  text-decoration: none;
+}
+
+.sk-unlock__cta:hover {
+  color: #fff;
+  filter: brightness(1.1);
+}
+
+[data-theme="dark"] .sk-unlock {
+  border-color: rgba(255, 255, 255, 0.08);
+  background: var(--bg-card);
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.45);
+}
+
+[data-theme="dark"] .sk-unlock__icon {
+  color: var(--accent-ink);
+}
+
+[data-theme="dark"] .sk-unlock__cta {
+  background: var(--accent-ink);
+  color: #0b1f1a;
+}
+
+.sk-unlock-zone {
+  position: relative;
+}
+
+.sk-unlock-zone > .sk-unlock {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 6;
+  transform: translate(-50%, -50%);
+}
+
+/* A whole locked tab's stand-in (made-up content), blurred under the card. */
+.sk-unlock-ghost {
+  filter: blur(5px);
+  opacity: 0.55;
+  user-select: none;
+  pointer-events: none;
+}
+
+.sk-unlock-scroll {
+  container-type: inline-size;
+}
+
+.sk-unlock-anchor td {
+  height: 0;
+  padding: 0 !important;
+  border: 0 !important;
+}
+
+.sk-unlock-anchor__layer {
+  position: sticky;
+  left: 0;
+  z-index: 6;
+  width: 100%;
+  width: 100cqi;
+  height: 0;
+}
+
+.sk-unlock-anchor__layer > .sk-unlock {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.sk-unlock-anchor--half .sk-unlock-anchor__layer > .sk-unlock {
+  top: calc(var(--sk-unlock-row, 2.4rem) / 2);
+}
+
+/* The advanced search's results past a plan's first rows (Players::searchLimit()). */
+.players-results__row--locked td {
+  filter: blur(5px);
+  opacity: 0.55;
+  user-select: none;
+  pointer-events: none;
+}
+
+.players-results__ghost {
+  font-weight: 600;
+}
+
+.players-results__table .sk-unlock-anchor {
+  --sk-unlock-row: 3.2rem;
+}
+
+/*
+  Version 2.0's placeholders (spec beta-final-changes-fase-1, D1 and D2):
+  <x-coming-soon> fills the team page's Balón parado and Análisis del rival
+  tabs and the player page's AutoReport with an icon and the badge, and,
+  compact, the chat button's note with the chat's name and the badge.
+  Copy in lang/es/coming_soon.php; everything here reads the theme's tokens.
+*/
+.sk-coming-soon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  text-align: center;
+  padding: 3.5rem 1.5rem;
+  color: var(--text-muted);
+}
+
+.sk-coming-soon__icon {
+  font-size: 2.25rem;
+  line-height: 1;
+  color: var(--accent-ink);
+  opacity: 0.55;
+}
+
+.sk-coming-soon__badge {
+  display: inline-block;
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  background: var(--accent-wash);
+  color: var(--accent-ink);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.sk-coming-soon__title {
+  margin: 0;
+  color: var(--text);
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.sk-coming-soon--compact {
+  align-items: flex-start;
+  gap: 0.4rem;
+  padding: 0;
+  text-align: left;
+}
+
+.sk-coming-soon--compact .sk-coming-soon__title {
+  font-size: 0.92rem;
+}
+
+/*
+  The chat button (D2): small and quiet, since there is no chat yet. Above the
+  page, below every tooltip (1080-1090), the paywall (1100) and the search and
+  modals (1200), and gone while one of those is open or the page is printed.
+*/
+.sk-chat-fab {
+  position: fixed;
+  right: calc(1.25rem + env(safe-area-inset-right, 0px));
+  bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px));
+  z-index: 1040;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.sk-chat-fab__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--bg-card);
+  color: var(--text-muted);
+  font-size: 1rem;
+  box-shadow: var(--shadow-card);
+  opacity: 0.8;
+  cursor: pointer;
+  transition: opacity 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.sk-chat-fab__button:hover,
+.sk-chat-fab__button:focus-visible,
+.sk-chat-fab__button[aria-expanded="true"] {
+  opacity: 1;
+  color: var(--accent-ink);
+  border-color: var(--accent-ink);
+}
+
+.sk-chat-fab__popover {
+  position: relative;
+  width: min(16rem, calc(100vw - 2.5rem));
+  padding: 0.9rem 2.2rem 0.9rem 0.9rem;
+  border: 1px solid var(--border-light);
+  border-radius: 0.75rem;
+  background: var(--bg-card);
+  box-shadow: var(--shadow-hover);
+  transform-origin: bottom right;
+  animation: sk-chat-fab-in 0.18s ease-out;
+}
+
+@keyframes sk-chat-fab-in {
+  from { opacity: 0; transform: translateY(6px) scale(0.98); }
+}
+
+.sk-chat-fab__close {
+  position: absolute;
+  top: 0.45rem;
+  right: 0.45rem;
+  padding: 0.1rem 0.3rem;
+  border: 0;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.sk-chat-fab__close:hover {
+  color: var(--text);
+}
+
+body.sk-search-open .sk-chat-fab,
+body.sk-modal-open .sk-chat-fab,
+body.sk-paywall-open .sk-chat-fab,
+body.league-modal-open .sk-chat-fab {
+  display: none;
+}
+
+@media (max-width: 576px) {
+  .sk-chat-fab {
+    right: calc(0.85rem + env(safe-area-inset-right, 0px));
+    bottom: calc(0.85rem + env(safe-area-inset-bottom, 0px));
+  }
+
+  .sk-chat-fab__button {
+    width: 32px;
+    height: 32px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sk-chat-fab__popover { animation: none; }
+}
+
+@media print {
+  .sk-chat-fab { display: none; }
+}
+
+/*
+  Mapa de portería (spec beta-final-changes fase 2): a goalkeeper's shots faced
+  on his goal, seen from him. goalmouth-map.js draws it into one SVG (so the
+  download is the whole picture) with these classes; every colour is a token,
+  so a theme flip repaints it without a redraw.
+*/
+.sk-goalmouth {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.sk-goalmouth__controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.sk-goalmouth__controls .chart-toggle {
+  margin-bottom: 0;
+}
+
+/* Atajadas | Goles, only while Calor is shown. */
+.sk-goalmouth__controls .chart-toggle[hidden] {
+  display: none;
+}
+
+.sk-goalmouth__controls .chart-toggle-btn {
+  padding: 0.3rem 0.7rem;
+  font-size: 0.74rem;
+}
+
+.sk-goalmouth__frame {
+  border-radius: 8px;
+  background: var(--pitch-fill);
+}
+
+.sk-goalmouth__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.sk-goalmouth__posts {
+  fill: none;
+  stroke: var(--text);
+  stroke-width: 3.5;
+  stroke-linejoin: round;
+}
+
+.sk-goalmouth__ground {
+  stroke: var(--pitch-line);
+  stroke-width: 2;
+}
+
+.sk-goalmouth__net line {
+  stroke: var(--pitch-line);
+  stroke-width: 0.8;
+}
+
+.sk-goalmouth__side,
+.sk-goalmouth__legend text,
+.sk-goalmouth__zone-count {
+  fill: var(--text-muted);
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.sk-goalmouth__shot {
+  stroke: var(--pitch-fill);
+  stroke-width: 1.2;
+  fill-opacity: 0.85;
+  cursor: pointer;
+}
+
+.sk-goalmouth__shot--save { fill: var(--rank-high); }
+.sk-goalmouth__shot--goal { fill: var(--rank-low); }
+
+.sk-goalmouth__shot:hover,
+.sk-goalmouth__shot:focus-visible {
+  fill-opacity: 1;
+  stroke: var(--text);
+  outline: none;
+}
+
+/* Calor: the shared heat map as an image under the posts; each shot a faint ring to hover. */
+.sk-goalmouth__heat {
+  pointer-events: none;
+}
+
+.sk-goalmouth__mark {
+  fill: transparent;
+  stroke: var(--text);
+  stroke-width: 0.8;
+  stroke-opacity: 0.45;
+  cursor: pointer;
+}
+
+/* Ambos: a goal's mark filled, a save's a ring. */
+.sk-goalmouth__mark--goal {
+  fill: var(--text);
+  fill-opacity: 0.5;
+}
+
+.sk-goalmouth__mark:hover,
+.sk-goalmouth__mark:focus-visible {
+  stroke-opacity: 1;
+  stroke-width: 1.4;
+  outline: none;
+}
+
+.sk-goalmouth__zone {
+  stroke: none;
+  cursor: pointer;
+}
+
+.sk-goalmouth__zone--high { fill: var(--rank-high); fill-opacity: 0.55; }
+.sk-goalmouth__zone--mid { fill: var(--rank-mid); fill-opacity: 0.55; }
+.sk-goalmouth__zone--low { fill: var(--rank-low); fill-opacity: 0.55; }
+.sk-goalmouth__zone--none { fill: var(--bg-secondary); fill-opacity: 0.35; }
+
+.sk-goalmouth__zone:focus-visible {
+  outline: none;
+  stroke: var(--text);
+  stroke-width: 1.5;
+}
+
+.sk-goalmouth__zone-pct {
+  fill: var(--text);
+  font-size: 12px;
+  font-weight: 800;
+  pointer-events: none;
+}
+
+.sk-goalmouth__zone-count {
+  pointer-events: none;
+}
+
+.sk-goalmouth__summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.6rem 0.75rem;
+  margin: 0;
+}
+
+.sk-goalmouth__summary dt {
+  color: var(--text-muted);
+  font-size: 0.68rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.sk-goalmouth__summary dd {
+  margin: 0.1rem 0 0;
+  color: var(--text);
+  font-size: 0.95rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.sk-goalmouth__summary dd.is-positive { color: var(--accent-ink); }
+.sk-goalmouth__summary dd.is-negative { color: var(--rank-low); }
+
+.sk-goalmouth__empty {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+/* ── Buzón de sugerencias, /contacto (spec beta-final-changes fase 3) ───── */
+
+.sk-contact {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 2.25rem 1.25rem 4rem;
+}
+
+.sk-contact__title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  margin: 0 0 0.3rem;
+  color: var(--text);
+}
+
+.sk-contact__lede {
+  margin: 0 0 1.6rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.sk-contact__panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: 0.85rem;
+  padding: 1.4rem 1.5rem;
+  box-shadow: var(--shadow-card);
+}
+
+.sk-contact__group {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+.sk-contact__label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 0.45rem;
+  padding: 0;
+}
+
+.sk-contact__sublabel {
+  display: block;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 0.3rem;
+}
+
+.sk-contact__kind .sk-select-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 0.45rem;
+}
+
+.sk-contact__input {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 0.55rem 0.7rem;
+  font-size: 0.9rem;
+  color: var(--text);
+  font-family: inherit;
+}
+
+[data-theme="dark"] .sk-contact__input {
+  background: var(--bg-secondary);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.sk-contact__input:focus {
+  outline: none;
+  border-color: var(--accent-dark);
+  box-shadow: 0 0 0 3px var(--accent-wash);
+}
+
+.sk-contact__input[aria-invalid="true"] {
+  border-color: var(--rank-low);
+}
+
+.sk-contact__textarea {
+  resize: vertical;
+  min-height: 8rem;
+  line-height: 1.45;
+}
+
+.sk-contact__meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-top: 0.3rem;
+}
+
+.sk-contact__count {
+  flex-shrink: 0;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.sk-contact__error {
+  margin: 0.3rem 0 0;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--rank-low);
+}
+
+.sk-contact__meta .sk-contact__error {
+  margin: 0;
+}
+
+.sk-contact__signed,
+.sk-contact__invite {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.sk-contact__invite {
+  margin-bottom: 1rem;
+  padding: 0.65rem 0.8rem;
+  border-radius: 0.55rem;
+  background: var(--accent-wash);
+  color: var(--text);
+}
+
+.sk-contact__invite a {
+  font-weight: 700;
+  color: var(--accent-dark);
+}
+
+[data-theme="dark"] .sk-contact__invite a {
+  color: var(--accent-ink);
+}
+
+.sk-contact__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 0.9rem;
+}
+
+.sk-contact__hint {
+  margin: 0.55rem 0 0;
+  font-size: 0.74rem;
+  color: var(--text-muted);
+}
+
+/* The trap: off screen, not display:none, which some bots skip. The
+   registration form carries the same one (SK-19). */
+.sk-contact__trap,
+.sk-auth__trap {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.sk-contact__actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.sk-contact__submit,
+.sk-contact__secondary {
+  border-radius: 999px;
+  padding: 0.5rem 1.5rem;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.sk-contact__submit {
+  background: var(--accent);
+  color: var(--clr-black-glaze);
+  border: none;
+}
+
+.sk-contact__submit:hover {
+  background: var(--accent-hover);
+}
+
+.sk-contact__submit[disabled] {
+  opacity: 0.65;
+  cursor: progress;
+}
+
+.sk-contact__secondary {
+  align-self: center;
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.sk-contact__done {
+  align-items: center;
+  text-align: center;
+  gap: 0.6rem;
+  padding: 2.2rem 1.5rem;
+}
+
+.sk-contact__done-icon {
+  font-size: 2rem;
+  color: var(--rank-high);
+}
+
+.sk-contact__done-title {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.sk-contact__done-text {
+  margin: 0 0 0.6rem;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+}
+
+/* ─── Usage limits notice (SK-19) ─────────────────────────────────────────
+   What a usage limit leaves on screen: the day's CSVs, the search's or
+   Livewire's ceiling (layouts/partials/usage-notice). The header panel's
+   tokens, so it follows the theme as the navbar's menus do. */
+.sk-usage-notice {
+  position: fixed;
+  /* Over the search panel and its backdrop (1200/1201), the highest layers. */
+  z-index: 1300;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  width: min(520px, calc(100vw - 32px));
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  padding: 0.85rem 1rem;
+  background: var(--sk-header-panel-bg);
+  color: var(--sk-header-text-strong);
+  border: 1px solid var(--sk-header-panel-line);
+  border-radius: 12px;
+  box-shadow: var(--sk-header-panel-shadow);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.sk-usage-notice[hidden] {
+  display: none;
+}
+
+.sk-usage-notice__text {
+  flex: 1;
+  margin: 0;
+}
+
+.sk-usage-notice__close {
+  flex: none;
+  padding: 0 0.1rem;
+  border: 0;
+  background: none;
+  color: var(--sk-header-text-muted);
+  cursor: pointer;
+}
+
+.sk-usage-notice__close:hover,
+.sk-usage-notice__close:focus-visible {
+  color: var(--sk-header-text-strong);
+}
+
+/* ── Términos y Condiciones / Aviso de Privacidad (/terminos, /privacidad) ── */
+
+.sk-legal {
+  max-width: 68rem;
+  margin: 0 auto;
+  padding: 2.25rem 1.25rem 4rem;
+  color: var(--text);
+}
+
+.sk-legal__header { margin-bottom: 1.75rem; }
+
+.sk-legal__eyebrow {
+  margin: 0 0 0.4rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.sk-legal__title {
+  margin: 0;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+}
+
+/* The contents beside the document from a laptop up, sticky as it scrolls. */
+.sk-legal__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.5rem;
+}
+
+.sk-legal__toc {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: 0.85rem;
+  padding: 1rem 1.1rem;
+}
+
+.sk-legal__toc-title {
+  margin: 0 0 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.sk-legal__toc ol { margin: 0; padding-left: 1.2rem; font-size: 0.82rem; line-height: 1.35; }
+.sk-legal__toc li + li { margin-top: 0.35rem; }
+.sk-legal__toc a { color: var(--text); text-decoration: none; }
+.sk-legal__toc a:hover, .sk-legal__toc a:focus-visible { color: var(--accent-ink); text-decoration: underline; }
+
+.sk-legal__section {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: 0.85rem;
+  padding: 1.25rem 1.5rem;
+  box-shadow: var(--shadow-card);
+  scroll-margin-top: 5.5rem;
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+
+.sk-legal__section h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.sk-legal__section p { margin: 0 0 0.75rem; }
+.sk-legal__section ul { margin: 0 0 0.75rem; padding-left: 1.25rem; }
+.sk-legal__section li + li { margin-top: 0.3rem; }
+.sk-legal__section > :last-child { margin-bottom: 0; }
+.sk-legal__section strong { font-weight: 700; }
+.sk-legal__section a, .sk-legal__other a { color: var(--accent-ink); text-decoration: underline; text-underline-offset: 2px; }
+
+/* A table scrolls inside its own box on a phone, never the page. */
+.sk-legal__table-wrap { overflow-x: auto; margin: 0 0 0.85rem; border: 1px solid var(--border-light); border-radius: 0.6rem; }
+.sk-legal__table { width: 100%; min-width: 32rem; border-collapse: collapse; font-size: 0.85rem; line-height: 1.45; }
+.sk-legal__table th, .sk-legal__table td { padding: 0.6rem 0.8rem; text-align: left; vertical-align: top; border-top: 1px solid var(--border-light); }
+.sk-legal__table thead th { border-top: 0; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-muted); }
+.sk-legal__table tbody th { font-weight: 700; }
+
+.sk-legal__other { margin: 1.75rem 0 0; font-size: 0.9rem; color: var(--text-muted); }
+
+@media (min-width: 992px) {
+  .sk-legal__body { grid-template-columns: 15.5rem minmax(0, 1fr); gap: 1.25rem 1.75rem; }
+  .sk-legal__toc { grid-column: 1; grid-row: 1 / span 20; align-self: start; position: sticky; top: 5.5rem; }
+  .sk-legal__section { grid-column: 2; }
+}

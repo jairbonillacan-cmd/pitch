@@ -1,0 +1,2143 @@
+<!DOCTYPE html><html lang="es" data-theme="light"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Statiskicks — Scouting Software</title>
+  <link rel="icon" type="image/x-icon" href="https://www.statiskicks.com/custom_assets/logos/logo_white.png?v=1787321828">
+
+  
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+  
+  <link href="https://www.statiskicks.com/custom_assets/css/sk.css?v=1794168592" rel="stylesheet" data-navigate-track="">
+  <link href="https://www.statiskicks.com/custom_assets/css/nav-mega-menu.css?v=1791380772" rel="stylesheet" data-navigate-track="">
+  
+  <link rel="preload" as="image" href="https://www.statiskicks.com/custom_assets/logos/footer_logo.png?v=1787321828">
+  <link href="https://www.statiskicks.com/custom_assets/css/page-loader.css?v=1791380772" rel="stylesheet" data-navigate-track="">
+
+  <link href="https://www.statiskicks.com/custom_assets/css/match-list.css?v=1793360776" rel="stylesheet">
+<link href="https://www.statiskicks.com/custom_assets/css/league-detail.css?v=1794084628" rel="stylesheet">
+  <!-- Livewire Styles --><style>[wire\:loading][wire\:loading], [wire\:loading\.delay][wire\:loading\.delay], [wire\:loading\.list-item][wire\:loading\.list-item], [wire\:loading\.inline-block][wire\:loading\.inline-block], [wire\:loading\.inline][wire\:loading\.inline], [wire\:loading\.block][wire\:loading\.block], [wire\:loading\.flex][wire\:loading\.flex], [wire\:loading\.table][wire\:loading\.table], [wire\:loading\.grid][wire\:loading\.grid], [wire\:loading\.inline-flex][wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.none][wire\:loading\.delay\.none], [wire\:loading\.delay\.shortest][wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter][wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short][wire\:loading\.delay\.short], [wire\:loading\.delay\.default][wire\:loading\.delay\.default], [wire\:loading\.delay\.long][wire\:loading\.delay\.long], [wire\:loading\.delay\.longer][wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest][wire\:loading\.delay\.longest] {display: none;}[wire\:offline][wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}:root {--livewire-progress-bar-color: #2299dd;}[x-cloak] {display: none !important;}[wire\:cloak] {display: none !important;}dialog#livewire-error::backdrop {background-color: rgba(0, 0, 0, .6);}</style>
+
+<style>/* Make clicks pass-through */
+
+    #nprogress {
+      pointer-events: none;
+    }
+
+    #nprogress .bar {
+      background: var(--livewire-progress-bar-color, #29d);
+
+      position: fixed;
+      z-index: 1031;
+      top: 0;
+      left: 0;
+
+      width: 100%;
+      height: 2px;
+    }
+
+    /* Fancy blur effect */
+    #nprogress .peg {
+      display: block;
+      position: absolute;
+      right: 0px;
+      width: 100px;
+      height: 100%;
+      box-shadow: 0 0 10px var(--livewire-progress-bar-color, #29d), 0 0 5px var(--livewire-progress-bar-color, #29d);
+      opacity: 1.0;
+
+      -webkit-transform: rotate(3deg) translate(0px, -4px);
+          -ms-transform: rotate(3deg) translate(0px, -4px);
+              transform: rotate(3deg) translate(0px, -4px);
+    }
+
+    /* Remove these to get rid of the spinner */
+    #nprogress .spinner {
+      display: block;
+      position: fixed;
+      z-index: 1031;
+      top: 15px;
+      right: 15px;
+    }
+
+    #nprogress .spinner-icon {
+      width: 18px;
+      height: 18px;
+      box-sizing: border-box;
+
+      border: solid 2px transparent;
+      border-top-color: var(--livewire-progress-bar-color, #29d);
+      border-left-color: var(--livewire-progress-bar-color, #29d);
+      border-radius: 50%;
+
+      -webkit-animation: nprogress-spinner 400ms linear infinite;
+              animation: nprogress-spinner 400ms linear infinite;
+    }
+
+    .nprogress-custom-parent {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .nprogress-custom-parent #nprogress .spinner,
+    .nprogress-custom-parent #nprogress .bar {
+      position: absolute;
+    }
+
+    @-webkit-keyframes nprogress-spinner {
+      0%   { -webkit-transform: rotate(0deg); }
+      100% { -webkit-transform: rotate(360deg); }
+    }
+    @keyframes nprogress-spinner {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    </style></head>
+<body>
+
+  <div x-persist="sk-page-loader">
+  <div class="sk-loader" data-page-loader="" hidden="" aria-hidden="true">
+    <div class="sk-loader__stage">
+      <div class="sk-loader__mark">
+        <span class="sk-loader__empty"></span>
+
+        <span class="sk-loader__water">
+          <span class="sk-loader__wave--back"></span>
+          <span class="sk-loader__wave"></span>
+          <span class="sk-loader__bubble"></span>
+          <span class="sk-loader__bubble"></span>
+          <span class="sk-loader__bubble"></span>
+          <span class="sk-loader__bubble"></span>
+        </span>
+
+        <span class="sk-loader__shine"></span>
+      </div>
+
+      <p class="sk-loader__label">Cargando</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  /*
+    Shown on wire:navigate, hidden on livewire:navigated.
+
+    Two timings matter more than the animation does:
+
+      DELAY        Most pages here render in well under 200ms. Flashing an
+                   overlay on every click makes a fast app feel busy, so nothing
+                   appears unless the navigation is actually slow enough to
+                   notice.
+
+      MIN_VISIBLE  Once it has appeared, it stays long enough to read as a
+                   deliberate transition. Without this, a navigation finishing
+                   at 210ms produces a 30ms flicker, which looks like a glitch
+                   rather than a loader.
+
+    Bound once per document: this file is inside the persisted region, and
+    wire:navigate re-executes cloned <script> tags, so without the guard every
+    navigation would add another pair of listeners.
+  */
+  (function () {
+    if (window.skPageLoaderBound) return;
+    window.skPageLoaderBound = true;
+
+    const DELAY = 190;
+    const MIN_VISIBLE = 620;
+    const UNLOAD_FAILSAFE = 10000;
+
+    let showTimer = null;
+    let hideTimer = null;
+    let failsafeTimer = null;
+    let shownAt = 0;
+
+    const el = () => document.querySelector('[data-page-loader]');
+
+    function reveal() {
+      const node = el();
+      if (!node) return;
+
+      node.hidden = false;
+      node.setAttribute('aria-hidden', 'false');
+      node.setAttribute('aria-busy', 'true');
+      // Read back before adding the class so the opacity transition runs
+      // instead of being collapsed with the display change.
+      void node.offsetWidth;
+      node.classList.add('is-visible');
+      shownAt = Date.now();
+    }
+
+    function conceal() {
+      const node = el();
+      if (!node) return;
+
+      node.classList.remove('is-visible');
+      node.setAttribute('aria-hidden', 'true');
+      node.removeAttribute('aria-busy');
+
+      // Kept in the layout until the fade finishes, then taken out of the
+      // accessibility tree entirely.
+      hideTimer = window.setTimeout(() => { node.hidden = true; }, 260);
+    }
+
+    // `armFailsafe` is only ever true for beforeunload; see the listeners below.
+    function start(armFailsafe) {
+      window.clearTimeout(showTimer);
+      window.clearTimeout(hideTimer);
+      window.clearTimeout(failsafeTimer);
+
+      showTimer = window.setTimeout(reveal, DELAY);
+
+      if (armFailsafe) {
+        failsafeTimer = window.setTimeout(finish, UNLOAD_FAILSAFE);
+      }
+    }
+
+    function finish() {
+      window.clearTimeout(showTimer);
+      window.clearTimeout(failsafeTimer);
+
+      const node = el();
+
+      if (!node || node.hidden) {
+        shownAt = 0;
+
+        return;
+      }
+
+      const elapsed = Date.now() - shownAt;
+
+      if (elapsed >= MIN_VISIBLE) {
+        conceal();
+      } else {
+        window.setTimeout(conceal, MIN_VISIBLE - elapsed);
+      }
+    }
+
+    /*
+      No failsafe on wire:navigate, deliberately.
+
+      There was a blanket 10s timeout here, and it could not tell a navigation
+      that had died from one that was merely slow. Any page slower than that had
+      its overlay concealed mid-flight, dropping the user back on the page they
+      had just left with no feedback until the response finally arrived — and a
+      league page currently renders in 10–27s, so this was the ordinary case
+      rather than the edge case. Raising the number only moves the cliff.
+
+      Nothing here needs rescuing: a wire:navigate always resolves. Livewire
+      either swaps the page in and fires livewire:navigated, or gives up and
+      falls back to a full page load, which replaces this overlay along with the
+      rest of the document.
+    */
+    document.addEventListener('livewire:navigate', () => start(false));
+    document.addEventListener('livewire:navigated', finish);
+
+    // Leaving for a full page load (a form post, a plain link) deserves the same
+    // feedback, and this is the case that genuinely needs the timeout:
+    // beforeunload also fires for things that do not actually unload the page —
+    // a mailto:, a download, a cancelled navigation — and revealing without one
+    // would strand the overlay on a page that never goes anywhere. The plans
+    // page is full of mailto: links.
+    window.addEventListener('beforeunload', () => start(true));
+
+    // Coming back through the cache should never show a stale overlay.
+    window.addEventListener('pageshow', (event) => { if (event.persisted) finish(); });
+  })();
+</script>
+
+    <div x-persist="navbar">
+      <nav class="sk-navbar">
+    <a href="https://www.statiskicks.com " wire:navigate="" class="brand">
+        <img src="https://www.statiskicks.com/custom_assets/logos/logo_white.png?v=1787321828" alt="Logo">
+    </a>
+
+    
+    <ul class="nav-links">
+            <li class="nav-item nav-item--dropdown">
+        <a href="https://www.statiskicks.com/leagues" wire:navigate="" data-nav-match="https://www.statiskicks.com/leagues|https://www.statiskicks.com/league" class="is-active" aria-current="page">Ligas</a>
+        <div class="nav-mega-menu nav-mega-menu--leagues" role="region" aria-label="Menú de ligas">
+    <div class="nav-mega-menu__inner">
+        <div class="nav-mega-menu__body">
+            <aside class="nav-mega-menu__aside" aria-label="Accesos rápidos">
+                <div class="nav-mega-menu__col">
+                    <p class="nav-mega-menu__heading">Explorar</p>
+                    <ul class="nav-mega-menu__list">
+                                                    <li class="nav-mega-menu__item">
+                                <a href="https://www.statiskicks.com/leagues" wire:navigate="" class="nav-mega-menu__link nav-mega-menu__link--primary">
+                                    Todas las ligas
+                                </a>
+                            </li>
+                                                    <li class="nav-mega-menu__item">
+                                <a href="https://www.statiskicks.com/players" wire:navigate="" class="nav-mega-menu__link nav-mega-menu__link--primary">
+                                    Búsqueda de jugadores
+                                </a>
+                            </li>
+                                            </ul>
+                </div>
+
+                <div class="nav-mega-menu__col">
+                    <p class="nav-mega-menu__heading">Top ligas</p>
+                    <ul class="nav-mega-menu__list">
+                                                    <li class="nav-mega-menu__item">
+                                <a href="https://www.statiskicks.com/league/2kwbbcootiqqgmrzs6o5inle5" wire:navigate="" class="nav-mega-menu__link">
+                                    <span class="nav-mega-menu__link-name">Premier League</span>
+                                    <span class="nav-mega-menu__link-meta">ENGLAND</span>
+                                </a>
+                            </li>
+                                                    <li class="nav-mega-menu__item">
+                                <a href="https://www.statiskicks.com/league/34pl8szyvrbwcmfkuocjm3r6t" wire:navigate="" class="nav-mega-menu__link">
+                                    <span class="nav-mega-menu__link-name">Primera División</span>
+                                    <span class="nav-mega-menu__link-meta">SPAIN</span>
+                                </a>
+                            </li>
+                                                    <li class="nav-mega-menu__item">
+                                <a href="https://www.statiskicks.com/league/6by3h89i2eykc341oz7lv1ddd" wire:navigate="" class="nav-mega-menu__link">
+                                    <span class="nav-mega-menu__link-name">Bundesliga</span>
+                                    <span class="nav-mega-menu__link-meta">GERMANY</span>
+                                </a>
+                            </li>
+                                                    <li class="nav-mega-menu__item">
+                                <a href="https://www.statiskicks.com/league/1r097lpxe0xn03ihb7wi98kao" wire:navigate="" class="nav-mega-menu__link">
+                                    <span class="nav-mega-menu__link-name">Serie A</span>
+                                    <span class="nav-mega-menu__link-meta">ITALY</span>
+                                </a>
+                            </li>
+                                                    <li class="nav-mega-menu__item">
+                                <a href="https://www.statiskicks.com/league/dm5ka0os1e3dxcp3vh05kmp33" wire:navigate="" class="nav-mega-menu__link">
+                                    <span class="nav-mega-menu__link-name">Ligue 1</span>
+                                    <span class="nav-mega-menu__link-meta">FRANCE</span>
+                                </a>
+                            </li>
+                                            </ul>
+                </div>
+            </aside>
+
+            <div class="nav-mega-menu__regions-wrap">
+                                    <div class="nav-mega-menu__regions nav-mega-menu__regions--primary">
+                                                    <div class="nav-mega-menu__col">
+    <p class="nav-mega-menu__heading">EUROPA</p>
+    <ul class="nav-mega-menu__list">
+                    <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/league/722fdbecxzcq9788l6jqclzlw" wire:navigate="" class="nav-mega-menu__link">
+                    <span class="nav-mega-menu__link-name">2. Bundesliga</span>
+                    <span class="nav-mega-menu__link-meta">GERMANY</span>
+                </a>
+            </li>
+                    <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/league/6by3h89i2eykc341oz7lv1ddd" wire:navigate="" class="nav-mega-menu__link">
+                    <span class="nav-mega-menu__link-name">Bundesliga</span>
+                    <span class="nav-mega-menu__link-meta">GERMANY</span>
+                </a>
+            </li>
+                    <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/league/7ntvbsyq31jnzoqoa8850b9b8" wire:navigate="" class="nav-mega-menu__link">
+                    <span class="nav-mega-menu__link-name">Championship</span>
+                    <span class="nav-mega-menu__link-meta">ENGLAND</span>
+                </a>
+            </li>
+                    <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/league/akmkihra9ruad09ljapsm84b3" wire:navigate="" class="nav-mega-menu__link">
+                    <span class="nav-mega-menu__link-name">Eredivisie</span>
+                    <span class="nav-mega-menu__link-meta">NETHERLANDS</span>
+                </a>
+            </li>
+                    <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/league/4zwgbb66rif2spcoeeol2motx" wire:navigate="" class="nav-mega-menu__link">
+                    <span class="nav-mega-menu__link-name">First Division A</span>
+                    <span class="nav-mega-menu__link-meta">BELGIUM</span>
+                </a>
+            </li>
+                    <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/league/1b70m6qtxrp75b4vtk8hxh8c3" wire:navigate="" class="nav-mega-menu__link">
+                    <span class="nav-mega-menu__link-name">HNL</span>
+                    <span class="nav-mega-menu__link-meta">CROATIA</span>
+                </a>
+            </li>
+                                        <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/leagues?f=europe" wire:navigate="" class="nav-mega-menu__link nav-mega-menu__link--more">
+                    Ver todas en EUROPA
+                </a>
+            </li>
+            </ul>
+</div>
+                                                    <div class="nav-mega-menu__col">
+    <p class="nav-mega-menu__heading">AMÉRICA</p>
+    <ul class="nav-mega-menu__list">
+                    <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/league/5y0z0l2epprzbscvzsgldw8vu" wire:navigate="" class="nav-mega-menu__link">
+                    <span class="nav-mega-menu__link-name">Division Profesional</span>
+                    <span class="nav-mega-menu__link-meta">PARAGUAY</span>
+                </a>
+            </li>
+                    <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/league/a9vrdkelbgif0gtu3wxsr75xo" wire:navigate="" class="nav-mega-menu__link">
+                    <span class="nav-mega-menu__link-name">Liga 1</span>
+                    <span class="nav-mega-menu__link-meta">PERU</span>
+                </a>
+            </li>
+                    <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/league/2hsidwomhjsaaytdy9u5niyi4" wire:navigate="" class="nav-mega-menu__link" data-current="">
+                    <span class="nav-mega-menu__link-name">Liga MX</span>
+                    <span class="nav-mega-menu__link-meta">MEXICO</span>
+                </a>
+            </li>
+                    <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/league/7ut48s80k421xixh6ev5i6h62" wire:navigate="" class="nav-mega-menu__link">
+                    <span class="nav-mega-menu__link-name">Liga MX Femenil</span>
+                    <span class="nav-mega-menu__link-meta">MEXICO</span>
+                </a>
+            </li>
+                    <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/league/6lwpjhktjhl9g7x2w7njmzva6" wire:navigate="" class="nav-mega-menu__link">
+                    <span class="nav-mega-menu__link-name">Liga Pro</span>
+                    <span class="nav-mega-menu__link-meta">ECUADOR</span>
+                </a>
+            </li>
+                    <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/league/581t4mywybx21wcpmpykhyzr3" wire:navigate="" class="nav-mega-menu__link">
+                    <span class="nav-mega-menu__link-name">Liga Profesional Argentina</span>
+                    <span class="nav-mega-menu__link-meta">ARGENTINA</span>
+                </a>
+            </li>
+                                        <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/leagues?f=americas" wire:navigate="" class="nav-mega-menu__link nav-mega-menu__link--more">
+                    Ver todas en AMÉRICA
+                </a>
+            </li>
+            </ul>
+</div>
+                                                    <div class="nav-mega-menu__col">
+    <p class="nav-mega-menu__heading">ASIA</p>
+    <ul class="nav-mega-menu__list">
+                    <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/league/ea0h6cf3bhl698hkxhpulh2zz" wire:navigate="" class="nav-mega-menu__link">
+                    <span class="nav-mega-menu__link-name">Saudi League</span>
+                    <span class="nav-mega-menu__link-meta">SAUDI ARABIA</span>
+                </a>
+            </li>
+                    <li class="nav-mega-menu__item">
+                <a href="https://www.statiskicks.com/league/xaouuwuk8qyhv1libkeexwjh" wire:navigate="" class="nav-mega-menu__link">
+                    <span class="nav-mega-menu__link-name">Stars League</span>
+                    <span class="nav-mega-menu__link-meta">QATAR</span>
+                </a>
+            </li>
+                    </ul>
+</div>
+                                            </div>
+                
+                            </div>
+        </div>
+
+        <footer class="nav-mega-menu__footer">
+            <a href="https://www.statiskicks.com/leagues" wire:navigate="" class="nav-mega-menu__view-all">
+                Ver las 40+ ligas
+            </a>
+        </footer>
+    </div>
+</div>
+      </li>
+      <li class="nav-item nav-item--dropdown">
+        <a href="https://www.statiskicks.com/players" wire:navigate="" data-nav-match="https://www.statiskicks.com/players|https://www.statiskicks.com/player" class="">Scouting</a>
+        <div class="nav-mega-menu nav-mega-menu--compact" role="region" aria-label="Menú de scouting">
+    <div class="nav-mega-menu__inner">
+        <div class="nav-mega-menu__grid nav-mega-menu__grid--compact">
+            <div class="nav-mega-menu__col">
+                <p class="nav-mega-menu__heading">Scouting</p>
+                <ul class="nav-mega-menu__list">
+                    <li class="nav-mega-menu__item">
+                        <a href="https://www.statiskicks.com/players" wire:navigate="" class="nav-mega-menu__link nav-mega-menu__link--primary">
+                            Búsqueda avanzada
+                        </a>
+                    </li>
+                    <li class="nav-mega-menu__item">
+                        <a href="https://www.statiskicks.com" wire:navigate="" class="nav-mega-menu__link">
+                            <span class="nav-mega-menu__link-name">Inicio</span>
+                            <span class="nav-mega-menu__link-meta">Resumen</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="nav-mega-menu__col">
+                <p class="nav-mega-menu__heading">Herramientas</p>
+                <ul class="nav-mega-menu__list">
+                    <li class="nav-mega-menu__item">
+                        <span class="nav-mega-menu__link nav-mega-menu__link--disabled">
+                            <span class="nav-mega-menu__link-name">Comparar jugadores</span>
+                            <span class="nav-mega-menu__link-meta">Próximamente</span>
+                        </span>
+                    </li>
+                    <li class="nav-mega-menu__item">
+                        <span class="nav-mega-menu__link nav-mega-menu__link--disabled">
+                            <span class="nav-mega-menu__link-name">Listas de seguimiento</span>
+                            <span class="nav-mega-menu__link-meta">Próximamente</span>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+      </li>
+      <li class="nav-item nav-item--dropdown">
+        <a href="https://www.statiskicks.com/partidos" wire:navigate="" data-nav-match="https://www.statiskicks.com/partidos" class="">Partidos</a>
+        <div class="nav-mega-menu nav-mega-menu--compact" role="region" aria-label="Menú de partidos">
+    <div class="nav-mega-menu__inner">
+        <div class="nav-mega-menu__grid nav-mega-menu__grid--compact">
+            <div class="nav-mega-menu__col">
+                <p class="nav-mega-menu__heading">Partidos</p>
+                <ul class="nav-mega-menu__list">
+                                            <li class="nav-mega-menu__item">
+                            <a href="https://www.statiskicks.com/partidos" wire:navigate="" class="nav-mega-menu__link">
+                                <span class="nav-mega-menu__link-name">Partidos de hoy</span>
+                                <span class="nav-mega-menu__link-meta">Todas las ligas</span>
+                            </a>
+                        </li>
+                                            <li class="nav-mega-menu__item">
+                            <a href="https://www.statiskicks.com/partidos?estado=en-vivo" wire:navigate="" class="nav-mega-menu__link">
+                                <span class="nav-mega-menu__link-name">En vivo</span>
+                                <span class="nav-mega-menu__link-meta">Marcadores al minuto</span>
+                            </a>
+                        </li>
+                                            <li class="nav-mega-menu__item">
+                            <a href="https://www.statiskicks.com/partidos?estado=finalizados" wire:navigate="" class="nav-mega-menu__link">
+                                <span class="nav-mega-menu__link-name">Resultados</span>
+                                <span class="nav-mega-menu__link-meta">Los ya terminados</span>
+                            </a>
+                        </li>
+                                            <li class="nav-mega-menu__item">
+                            <a href="https://www.statiskicks.com/partidos?estado=por-jugar" wire:navigate="" class="nav-mega-menu__link">
+                                <span class="nav-mega-menu__link-name">Próximos</span>
+                                <span class="nav-mega-menu__link-meta">Lo que falta por jugar</span>
+                            </a>
+                        </li>
+                                    </ul>
+            </div>
+        </div>
+    </div>
+</div>
+      </li>
+      
+      <li class="nav-item">
+        <a href="https://www.statiskicks.com/contacto" wire:navigate="" data-nav-match="https://www.statiskicks.com/contacto" class="">Contacto</a>
+      </li>
+    </ul>
+
+    <div class="right-group">
+      <button type="button" class="sk-search sk-search-trigger" data-open-navbar-search="" aria-label="Buscar jugadores">
+        <i class="bi bi-search"></i>
+        <span class="sk-search-placeholder">Buscar</span>
+      </button>
+      <button class="btn-theme-toggle" id="themeToggle" aria-label="Cambiar tema" data-sk-bound="1">
+        <i class="bi bi-moon-fill" id="themeIcon"></i>
+      </button>      
+      <a href="https://www.statiskicks.com/login" style="text-decoration: none;">
+    <button class="btn-iniciar">Iniciar Sesión</button>
+  </a>
+    </div>
+
+    <!-- Hamburger toggle (mobile only) -->
+    <button class="btn-nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false" data-sk-bound="1">
+      <i class="bi bi-list" id="navToggleIcon"></i>
+    </button>
+  </nav>
+
+  <!-- Mobile nav drawer -->
+  <div class="sk-nav-drawer" id="navDrawer" role="dialog" aria-label="Menú de navegación">
+    <ul class="drawer-links">
+            <li><a href="https://www.statiskicks.com/leagues" wire:navigate="">Ligas</a></li>
+      <li><a href="https://www.statiskicks.com/players" wire:navigate="">Scouting</a></li>
+      <li><a href="https://www.statiskicks.com/partidos" wire:navigate="">Partidos</a></li>
+      <li><a href="https://www.statiskicks.com/contacto" wire:navigate="">Contacto</a></li>
+    </ul>
+    <div class="drawer-actions">
+      <button type="button" class="sk-search sk-search-trigger" style="flex:1" data-open-navbar-search="" aria-label="Buscar jugadores">
+        <i class="bi bi-search"></i>
+        <span class="sk-search-placeholder">Buscar</span>
+      </button>
+      <button class="btn-theme-toggle" id="themeToggleMobile" aria-label="Cambiar tema" data-sk-bound="1">
+        <i class="bi bi-moon-fill" id="themeIconMobile"></i>
+      </button>
+      <a href="https://www.statiskicks.com/login" style="text-decoration: none;">
+    <button class="btn-iniciar">Iniciar Sesión</button>
+  </a>
+    </div>
+  </div>
+
+  <script>
+    // Navbar behaviour: the account dropdown and the search trigger.
+    //
+    // Bound once per document. wire:navigate rebuilds the body and clones its
+    // <script> tags, which re-executes this file on every navigation, so
+    // without the guard a second identical listener is added each time. Two
+    // listeners defeat a toggle: the first opens the panel, the second reads it
+    // as already open and closes it again, so the menu worked only on the page
+    // that was loaded first. The listeners are delegated from `document`, which
+    // is never replaced, so binding once is both necessary and sufficient.
+    (function () {
+      if (window.skNavbarBound) return;
+      window.skNavbarBound = true;
+
+      function closeAccountPanels(except) {
+        document.querySelectorAll('[data-account-panel]').forEach((panel) => {
+          if (panel === except) return;
+
+          panel.hidden = true;
+          panel.closest('[data-account-menu]')
+            ?.querySelector('[data-account-trigger]')
+            ?.setAttribute('aria-expanded', 'false');
+        });
+      }
+
+      document.addEventListener('click', (event) => {
+        const trigger = event.target.closest('[data-account-trigger]');
+
+        if (trigger) {
+          const panel = trigger.closest('[data-account-menu]')?.querySelector('[data-account-panel]');
+          const opening = panel?.hidden === true;
+
+          closeAccountPanels(panel);
+
+          if (panel) {
+            panel.hidden = ! opening;
+            trigger.setAttribute('aria-expanded', opening ? 'true' : 'false');
+          }
+
+          return;
+        }
+
+        // A click inside the panel (the logout form) must not close it first.
+        if (event.target.closest('[data-account-panel]')) return;
+
+        closeAccountPanels();
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') closeAccountPanels();
+      });
+
+      /*
+        Which item is lit.
+
+        The bar sits in a persisted region, so wire:navigate keeps this DOM
+        rather than re-rendering it - which means the is-active class Blade wrote
+        on the first load would still be describing that first page several
+        navigations later.
+
+        (Naming the directive here would be a mistake: Blade reads its own
+        directives inside JavaScript comments too, and an unclosed one takes the
+        whole template down with a 500.) Server-rendered markup cannot answer this on its own; it has to be
+        recomputed on arrival.
+
+        Ownership is by path prefix, because a section is more than one route:
+        /league/{id} belongs to Ligas and /player/{id} to Scouting, and neither
+        matches its own index URL.
+      */
+      function syncActiveNav() {
+        const here = window.location.pathname.replace(/\/+$/, '') || '/';
+
+        document.querySelectorAll('.sk-navbar .nav-links [data-nav-match]').forEach((link) => {
+          const owns = link.dataset.navMatch.split('|').some((candidate) => {
+            let path;
+
+            try {
+              path = new URL(candidate, window.location.origin).pathname;
+            } catch (error) {
+              return false;
+            }
+
+            path = path.replace(/\/+$/, '') || '/';
+
+            // Prefix, but only on a segment boundary: /player must not claim
+            // /players.
+            return here === path || here.startsWith(path + '/');
+          });
+
+          link.classList.toggle('is-active', owns);
+
+          if (owns) {
+            link.setAttribute('aria-current', 'page');
+          } else {
+            link.removeAttribute('aria-current');
+          }
+        });
+      }
+
+      // Close on navigation: the navbar is persisted, so an open panel would
+      // otherwise still be hanging open on the page just navigated to.
+      document.addEventListener('livewire:navigated', () => {
+        closeAccountPanels();
+        syncActiveNav();
+      });
+
+      syncActiveNav();
+
+      document.addEventListener('click', (event) => {
+        const trigger = event.target.closest('[data-open-navbar-search]');
+        if (!trigger) return;
+
+        event.preventDefault();
+        window.dispatchEvent(new CustomEvent('navbar-search-open'));
+
+        const drawer = document.getElementById('navDrawer');
+        const navToggle = document.getElementById('navToggle');
+        const navToggleIcon = document.getElementById('navToggleIcon');
+
+        if (drawer?.classList.contains('open')) {
+          drawer.classList.remove('open');
+          navToggle?.setAttribute('aria-expanded', 'false');
+          if (navToggleIcon) navToggleIcon.className = 'bi bi-list';
+        }
+      });
+    })();
+  </script>
+    </div>
+
+    <div id="navbarSearchRoot" x-data="navbarSearchPanel()" x-on:navbar-search-open.window="openPanel()" x-on:keydown.escape.window="open &amp;&amp; closePanel()">
+    <div class="sk-search-backdrop" :class="{ 'is-open': open }" x-on:click="closePanel()" aria-hidden="true"></div>
+
+    <aside class="sk-search-panel" :class="{ 'is-open': open }" role="dialog" aria-modal="true" aria-label="Buscar">
+        <div class="sk-search-panel-header">
+            <h2 class="sk-search-panel-title">Buscar</h2>
+            <button type="button" class="sk-search-panel-close" x-on:click="closePanel()" aria-label="Cerrar búsqueda">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+
+        <div class="sk-search-panel-tabs">
+            <button type="button" class="sk-search-panel-tab active" :class="{ active: activeTab === 'search' }" x-on:click="activeTab = 'search'">
+                Buscar
+            </button>
+            <button type="button" class="sk-search-panel-tab" :class="{ active: activeTab === 'browse' }" x-on:click="activeTab = 'browse'">
+                Explorar
+            </button>
+            <button type="button" class="sk-search-panel-tab" :class="{ active: activeTab === 'recent' }" x-on:click="activeTab = 'recent'">
+                Recientes
+            </button>
+            <button type="button" class="sk-search-panel-tab is-disabled" disabled="" title="Próximamente">
+                Listas <i class="bi bi-lock-fill" style="font-size:0.65rem;margin-left:0.2rem"></i>
+            </button>
+        </div>
+
+        <div class="sk-search-panel-content" x-show="activeTab === 'search'">
+            <div class="sk-search-panel-input-wrap">
+                <i class="bi bi-search"></i>
+                <input type="search" x-ref="searchInput" x-model="query" placeholder="Jugador, equipo o liga..." autocomplete="off">
+                <span class="sk-search-spinner" x-show="loading" aria-hidden="true" style="display: none;"></span>
+            </div>
+
+            <p class="sk-search-panel-hint" x-show="query.trim().length &lt; 2 &amp;&amp; !loading">
+                Escribe al menos 2 caracteres para buscar.
+            </p>
+            <p class="sk-search-panel-hint" x-show="query.trim().length &gt;= 2 &amp;&amp; !loading &amp;&amp; !hasResults &amp;&amp; !limited" style="display: none;">
+                No se encontraron resultados para «<span x-text="query.trim()"></span>».
+            </p>
+            
+            <p class="sk-search-panel-hint" role="status" x-show="limited &amp;&amp; !loading" x-text="limited" style="display: none;"></p>
+
+            <div class="sk-search-panel-results" x-show="hasResults" style="display: none;">
+                <template x-for="section in sections" :key="section.kind">
+                    <section class="sk-search-section">
+                        <h3 class="sk-search-section-title" x-text="section.title"></h3>
+                        <ul class="sk-search-results">
+                            <template x-for="item in section.items" :key="`${section.kind}-${item.id}`">
+                                <li>
+                                    <a :href="item.url" wire:navigate="" class="sk-search-result" x-on:click="selectResult(item, section.kind)">
+                                        <img :src="resultImage(item, section.kind)" :alt="item.name" class="sk-search-result-photo" :class="{ 'sk-search-result-photo--crest': section.kind !== 'player' &amp;&amp; item.image }" loading="lazy">
+                                        <span class="sk-search-result-main">
+                                            <span class="sk-search-result-name" x-text="item.name"></span>
+                                            <span class="sk-search-result-meta" x-text="resultMeta(item, section.kind)"></span>
+                                        </span>
+                                        <img x-show="resultFlag(item, section.kind)" :src="`https://flagcdn.com/20x15/${resultFlag(item, section.kind)}.png`" alt="" class="sk-search-result-flag" loading="lazy">
+                                    </a>
+                                </li>
+                            </template>
+                        </ul>
+                    </section>
+                </template>
+            </div>
+        </div>
+
+        <div class="sk-search-panel-content" x-show="activeTab === 'browse'" style="display: none;">
+            <div class="sk-search-browse-card">
+                    <p class="sk-search-browse-title">Búsqueda avanzada</p>
+                    <p class="sk-search-panel-hint" style="margin:0 0 1rem">
+                        Filtra por liga, posición, edad y estadísticas de la temporada en la página de scouting.
+                    </p>
+                    <a href="https://www.statiskicks.com/players" wire:navigate="" class="btn btn-iniciar" x-on:click="closePanel()">
+                    Ir a Búsqueda Avanzada
+                </a>
+            </div>
+        </div>
+
+        <div class="sk-search-panel-content" x-show="activeTab === 'recent'" style="display: none;">
+            <p class="sk-search-panel-hint" x-show="recentItems.length === 0">
+                Aún no has visitado jugadores, equipos ni ligas recientemente.
+            </p>
+            <div class="sk-search-panel-results" x-show="recentItems.length &gt; 0" style="display: none;">
+                <ul class="sk-search-results">
+                <template x-for="item in recentItems" :key="`${itemKind(item)}-${item.id}`">
+                    <li>
+                        <a :href="item.url || `/player/${item.id}`" wire:navigate="" class="sk-search-result" x-on:click="closePanel()">
+                            <img :src="resultImage(item, itemKind(item))" :alt="item.name" class="sk-search-result-photo" :class="{ 'sk-search-result-photo--crest': itemKind(item) !== 'player' &amp;&amp; item.image }" loading="lazy">
+                            <span class="sk-search-result-main">
+                                <span class="sk-search-result-name" x-text="item.name"></span>
+                                <span class="sk-search-result-meta" x-text="resultMeta(item, itemKind(item))"></span>
+                            </span>
+                        </a>
+                    </li>
+                </template>
+                </ul>
+            </div>
+        </div>
+    </aside>
+</div>
+
+    <div wire:snapshot="{&quot;data&quot;:{&quot;leagueId&quot;:&quot;2hsidwomhjsaaytdy9u5niyi4&quot;,&quot;season&quot;:&quot;9zum4nxferygj8bb0ldcavxn8&quot;,&quot;tab&quot;:&quot;maps&quot;,&quot;tournament&quot;:&quot;&quot;,&quot;statsSide&quot;:&quot;players&quot;,&quot;statsCategory&quot;:&quot;summary&quot;,&quot;statsColumns&quot;:&quot;&quot;,&quot;statsUnit&quot;:&quot;total&quot;,&quot;statsSearch&quot;:&quot;&quot;,&quot;statsGroups&quot;:&quot;&quot;,&quot;statsTeams&quot;:&quot;&quot;,&quot;statsAgeMin&quot;:null,&quot;statsAgeMax&quot;:null,&quot;statsMinsMin&quot;:null,&quot;statsMinsMax&quot;:null,&quot;statsSort&quot;:&quot;&quot;,&quot;statsSortDir&quot;:&quot;desc&quot;,&quot;leadersPer90&quot;:false,&quot;leadersCategories&quot;:&quot;&quot;,&quot;leadersBoard&quot;:&quot;&quot;,&quot;leadersTeam&quot;:&quot;&quot;,&quot;standingsXp&quot;:false,&quot;standingsSort&quot;:&quot;rank&quot;,&quot;standingsSortDir&quot;:&quot;asc&quot;,&quot;projectionSort&quot;:&quot;expected_position&quot;,&quot;projectionSortDir&quot;:&quot;asc&quot;,&quot;projectionMatrix&quot;:true,&quot;calendarSort&quot;:&quot;difficulty&quot;,&quot;calendarSortDir&quot;:&quot;asc&quot;,&quot;matchRound&quot;:&quot;&quot;,&quot;matchDate&quot;:&quot;&quot;,&quot;teamStatsCategory&quot;:&quot;summary&quot;,&quot;teamStatsColumns&quot;:&quot;&quot;,&quot;teamStatsUnit&quot;:&quot;per_match&quot;,&quot;teamStatsSearch&quot;:&quot;&quot;,&quot;teamStatsGroup&quot;:&quot;&quot;,&quot;teamStatsSort&quot;:&quot;&quot;,&quot;teamStatsSortDir&quot;:&quot;desc&quot;,&quot;scoutSearch&quot;:&quot;&quot;,&quot;scoutPosition&quot;:&quot;&quot;,&quot;scoutAge&quot;:&quot;&quot;,&quot;scoutTeamId&quot;:&quot;&quot;,&quot;scoutNationality&quot;:&quot;&quot;,&quot;scoutSort&quot;:&quot;skore&quot;,&quot;scoutSortDir&quot;:&quot;desc&quot;,&quot;paginators&quot;:[{&quot;page&quot;:1},{&quot;s&quot;:&quot;arr&quot;}]},&quot;memo&quot;:{&quot;id&quot;:&quot;D1sx0RAoPQ1huMt5hHPC&quot;,&quot;name&quot;:&quot;league-detail&quot;,&quot;path&quot;:&quot;league\/2hsidwomhjsaaytdy9u5niyi4&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;release&quot;:&quot;a-a-a&quot;,&quot;children&quot;:[],&quot;scripts&quot;:[],&quot;assets&quot;:[],&quot;errors&quot;:[],&quot;locale&quot;:&quot;es&quot;,&quot;islands&quot;:[]},&quot;checksum&quot;:&quot;31377909a0f9ec22ef70a68afa9a6abe87eeb1a0c23bfb2756b0460b8e2e38a1&quot;}" wire:effects="{&quot;returns&quot;:[null]}" wire:id="D1sx0RAoPQ1huMt5hHPC" wire:name="league-detail" class="league-detail sk-page-shell container py-5" data-sk-chart-context="Liga MX 2026/2027">
+    <div class="league-detail__layout">
+        <aside class="league-detail__sidebar sk-card">
+            <a href="https://www.statiskicks.com/leagues" wire:navigate="" class="league-detail__back">
+                <i class="bi bi-arrow-left"></i> Todas las ligas
+            </a>
+
+            
+                        <div class="league-detail__league-switch" x-data="{ open: false, query: '' }" @click.outside="open = false" @keydown.escape.stop="open = false; $refs.trigger.focus()" data-has-alpine-state="true">
+                <button type="button" class="league-detail__league-badge" x-ref="trigger" @click="open = !open; if (open) $nextTick(() =&gt; $refs.search.focus())" :aria-expanded="open.toString()" aria-expanded="false" aria-haspopup="true" aria-controls="league-switch-menu" title="Cambiar de liga">
+                    <span class="league-detail__league-initials" aria-hidden="true">
+                        <!--[if BLOCK]><![endif]-->                            <img src="https://www.statiskicks.com/storage/media/leagues/262.png" alt="" width="30" height="30" loading="lazy" class="league-detail__league-logo">
+                        <!--[if ENDBLOCK]><![endif]-->                    </span>
+                    <span class="league-detail__league-text">
+                        <span class="league-detail__league-name">Liga MX</span>
+                        <span class="league-detail__league-country">
+                            <!--[if BLOCK]><![endif]-->                                <img src="https://flagcdn.com/w40/mx.png" alt="" width="16" height="12" class="league-detail__flag">
+                            <!--[if ENDBLOCK]><![endif]-->                            MEXICO
+                        </span>
+                    </span>
+                    <i class="bi bi-chevron-down league-detail__league-chevron" aria-hidden="true"></i>
+                </button>
+
+                <div id="league-switch-menu" class="sk-dropdown-menu league-detail__league-menu" x-show="open" style="display: none;">
+                    <label class="sk-search-field league-detail__league-search">
+                        <i class="bi bi-search" aria-hidden="true"></i>
+                        <input type="search" x-ref="search" x-model="query" placeholder="Buscar liga…" autocomplete="off" aria-label="Buscar liga">
+                    </label>
+                    <ul class="league-detail__league-list" aria-label="Ligas">
+                        <!--[if BLOCK]><![endif]-->                            <li x-show="! query || 'liga profesional argentina argentina'.includes(query.toLowerCase())">
+                                <a href="https://www.statiskicks.com/league/581t4mywybx21wcpmpykhyzr3?tab=maps" wire:navigate="" class="sk-menu-item league-detail__league-option" @click="window.dispatchEvent(new CustomEvent('sk:league-switch'))">
+                                    <span class="league-detail__league-option-logo" aria-hidden="true">
+                                        <!--[if BLOCK]><![endif]-->                                            <img src="https://www.statiskicks.com/storage/media/leagues/128.png" alt="" width="20" height="20" loading="lazy">
+                                        <!--[if ENDBLOCK]><![endif]-->                                    </span>
+                                    <span class="league-detail__league-option-text">
+                                        <span>Liga Profesional Argentina</span>
+                                        <small>ARGENTINA</small>
+                                    </span>
+                                </a>
+                            </li>
+                                                    <li x-show="! query || 'serie a brazil'.includes(query.toLowerCase())">
+                                <a href="https://www.statiskicks.com/league/scf9p4y91yjvqvg5jndxzhxj?tab=maps" wire:navigate="" class="sk-menu-item league-detail__league-option" @click="window.dispatchEvent(new CustomEvent('sk:league-switch'))">
+                                    <span class="league-detail__league-option-logo" aria-hidden="true">
+                                        <!--[if BLOCK]><![endif]-->                                            <img src="https://www.statiskicks.com/storage/media/leagues/71.png" alt="" width="20" height="20" loading="lazy">
+                                        <!--[if ENDBLOCK]><![endif]-->                                    </span>
+                                    <span class="league-detail__league-option-text">
+                                        <span>Serie A</span>
+                                        <small>BRAZIL</small>
+                                    </span>
+                                </a>
+                            </li>
+                                                    <li x-show="! query || 'premier league england'.includes(query.toLowerCase())">
+                                <a href="https://www.statiskicks.com/league/2kwbbcootiqqgmrzs6o5inle5?tab=maps" wire:navigate="" class="sk-menu-item league-detail__league-option" @click="window.dispatchEvent(new CustomEvent('sk:league-switch'))">
+                                    <span class="league-detail__league-option-logo" aria-hidden="true">
+                                        <!--[if BLOCK]><![endif]-->                                            <img src="https://www.statiskicks.com/storage/media/leagues/39.png" alt="" width="20" height="20" loading="lazy">
+                                        <!--[if ENDBLOCK]><![endif]-->                                    </span>
+                                    <span class="league-detail__league-option-text">
+                                        <span>Premier League</span>
+                                        <small>ENGLAND</small>
+                                    </span>
+                                </a>
+                            </li>
+                                                    <li x-show="! query || 'ligue 1 france'.includes(query.toLowerCase())">
+                                <a href="https://www.statiskicks.com/league/dm5ka0os1e3dxcp3vh05kmp33?tab=maps" wire:navigate="" class="sk-menu-item league-detail__league-option" @click="window.dispatchEvent(new CustomEvent('sk:league-switch'))">
+                                    <span class="league-detail__league-option-logo" aria-hidden="true">
+                                        <!--[if BLOCK]><![endif]-->                                            <img src="https://www.statiskicks.com/storage/media/leagues/61.png" alt="" width="20" height="20" loading="lazy">
+                                        <!--[if ENDBLOCK]><![endif]-->                                    </span>
+                                    <span class="league-detail__league-option-text">
+                                        <span>Ligue 1</span>
+                                        <small>FRANCE</small>
+                                    </span>
+                                </a>
+                            </li>
+                                                    <li x-show="! query || 'bundesliga germany'.includes(query.toLowerCase())">
+                                <a href="https://www.statiskicks.com/league/6by3h89i2eykc341oz7lv1ddd?tab=maps" wire:navigate="" class="sk-menu-item league-detail__league-option" @click="window.dispatchEvent(new CustomEvent('sk:league-switch'))">
+                                    <span class="league-detail__league-option-logo" aria-hidden="true">
+                                        <!--[if BLOCK]><![endif]-->                                            <img src="https://www.statiskicks.com/storage/media/leagues/78.png" alt="" width="20" height="20" loading="lazy">
+                                        <!--[if ENDBLOCK]><![endif]-->                                    </span>
+                                    <span class="league-detail__league-option-text">
+                                        <span>Bundesliga</span>
+                                        <small>GERMANY</small>
+                                    </span>
+                                </a>
+                            </li>
+                                                    <li x-show="! query || 'serie a italy'.includes(query.toLowerCase())">
+                                <a href="https://www.statiskicks.com/league/1r097lpxe0xn03ihb7wi98kao?tab=maps" wire:navigate="" class="sk-menu-item league-detail__league-option" @click="window.dispatchEvent(new CustomEvent('sk:league-switch'))">
+                                    <span class="league-detail__league-option-logo" aria-hidden="true">
+                                        <!--[if BLOCK]><![endif]-->                                            <img src="https://www.statiskicks.com/storage/media/leagues/135.png" alt="" width="20" height="20" loading="lazy">
+                                        <!--[if ENDBLOCK]><![endif]-->                                    </span>
+                                    <span class="league-detail__league-option-text">
+                                        <span>Serie A</span>
+                                        <small>ITALY</small>
+                                    </span>
+                                </a>
+                            </li>
+                                                    <li x-show="! query || 'liga mx mexico'.includes(query.toLowerCase())">
+                                <a href="https://www.statiskicks.com/league/2hsidwomhjsaaytdy9u5niyi4?tab=maps" wire:navigate="" class="sk-menu-item league-detail__league-option selected" @click="window.dispatchEvent(new CustomEvent('sk:league-switch'))" aria-current="page">
+                                    <span class="league-detail__league-option-logo" aria-hidden="true">
+                                        <!--[if BLOCK]><![endif]-->                                            <img src="https://www.statiskicks.com/storage/media/leagues/262.png" alt="" width="20" height="20" loading="lazy">
+                                        <!--[if ENDBLOCK]><![endif]-->                                    </span>
+                                    <span class="league-detail__league-option-text">
+                                        <span>Liga MX</span>
+                                        <small>MEXICO</small>
+                                    </span>
+                                </a>
+                            </li>
+                                                    <li x-show="! query || 'primera división spain'.includes(query.toLowerCase())">
+                                <a href="https://www.statiskicks.com/league/34pl8szyvrbwcmfkuocjm3r6t?tab=maps" wire:navigate="" class="sk-menu-item league-detail__league-option" @click="window.dispatchEvent(new CustomEvent('sk:league-switch'))">
+                                    <span class="league-detail__league-option-logo" aria-hidden="true">
+                                        <!--[if BLOCK]><![endif]-->                                            <img src="https://www.statiskicks.com/storage/media/leagues/140.png" alt="" width="20" height="20" loading="lazy">
+                                        <!--[if ENDBLOCK]><![endif]-->                                    </span>
+                                    <span class="league-detail__league-option-text">
+                                        <span>Primera División</span>
+                                        <small>SPAIN</small>
+                                    </span>
+                                </a>
+                            </li>
+                                                    <li x-show="! query || 'mls usa'.includes(query.toLowerCase())">
+                                <a href="https://www.statiskicks.com/league/287tckirbfj9nb8ar2k9r60vn?tab=maps" wire:navigate="" class="sk-menu-item league-detail__league-option" @click="window.dispatchEvent(new CustomEvent('sk:league-switch'))">
+                                    <span class="league-detail__league-option-logo" aria-hidden="true">
+                                        <!--[if BLOCK]><![endif]-->                                            <img src="https://www.statiskicks.com/storage/media/leagues/253.png" alt="" width="20" height="20" loading="lazy">
+                                        <!--[if ENDBLOCK]><![endif]-->                                    </span>
+                                    <span class="league-detail__league-option-text">
+                                        <span>MLS</span>
+                                        <small>USA</small>
+                                    </span>
+                                </a>
+                            </li>
+                        <!--[if ENDBLOCK]><![endif]-->                    </ul>
+                    <!--[if BLOCK]><![endif]-->                        <p class="league-detail__league-plan">
+                            Tu plan incluye 9 ligas.
+                            <a href="https://www.statiskicks.com/planes" wire:navigate="">Ver planes</a>
+                        </p>
+                    <!--[if ENDBLOCK]><![endif]-->                </div>
+            </div>
+
+            <!--[if BLOCK]><![endif]-->                <div class="sk-detail-control">
+  <p class="sk-select-label">Temporada</p>
+  <div class="sk-field-dropdown sk-pill-dropdown" data-sk-pill-dropdown="" x-data="{ open: false }" @click.outside="open = false" @keydown.escape.stop="open = false; $refs.trigger.focus()" data-has-alpine-state="true">
+    <button type="button" class="btn sk-pill-control rounded-pill" data-sk-pill-trigger="" x-ref="trigger" @click="open = !open" :aria-expanded="open.toString()" aria-haspopup="listbox" aria-controls="league-season-menu" wire:loading.attr="disabled" wire:target="setTab,season,tournament" aria-expanded="false">
+      <span class="sk-pill-dropdown__label">2026/2027</span>
+      <i class="bi bi-chevron-down ms-1" aria-hidden="true"></i>
+    </button>
+
+    <ul id="league-season-menu" class="sk-dropdown-menu" role="listbox" x-show="open" style="display: none;">
+      <!--[if BLOCK]><![endif]-->        <li role="presentation" wire:loading="" wire:target="setTab,season,tournament">
+          <button type="button" class="sk-menu-item" role="option" disabled="">Cargando...</button>
+        </li>
+      <!--[if ENDBLOCK]><![endif]-->      <!--[if BLOCK]><![endif]-->                <li role="presentation" wire:loading.remove="" wire:target="setTab,season,tournament">
+          <button type="button" class="sk-menu-item selected" role="option" aria-selected="true" wire:click="$set('season', '9zum4nxferygj8bb0ldcavxn8')" @click="open = false">2026/2027</button>
+        </li>
+                      <li role="presentation" wire:loading.remove="" wire:target="setTab,season,tournament">
+          <button type="button" class="sk-menu-item" role="option" aria-selected="false" wire:click="$set('season', 'aegyls91smdw9kipjgbsu8tn8')" @click="open = false">2025/2026</button>
+        </li>
+      <!--[if ENDBLOCK]><![endif]-->    </ul>
+  </div>
+</div>
+            <!--[if ENDBLOCK]><![endif]-->
+            
+            <!--[if BLOCK]><![endif]-->                <div class="sk-detail-control">
+  <p class="sk-select-label">Torneo</p>
+  <div class="sk-field-dropdown sk-pill-dropdown" data-sk-pill-dropdown="" x-data="{ open: false }" @click.outside="open = false" @keydown.escape.stop="open = false; $refs.trigger.focus()" data-has-alpine-state="true">
+    <button type="button" class="btn sk-pill-control rounded-pill" data-sk-pill-trigger="" x-ref="trigger" @click="open = !open" :aria-expanded="open.toString()" aria-haspopup="listbox" aria-controls="league-tournament-menu" wire:loading.attr="disabled" wire:target="setTab,season,tournament" aria-expanded="false">
+      <span class="sk-pill-dropdown__label">Apertura (en curso)</span>
+      <i class="bi bi-chevron-down ms-1" aria-hidden="true"></i>
+    </button>
+
+    <ul id="league-tournament-menu" class="sk-dropdown-menu" role="listbox" x-show="open" style="display: none;">
+      <!--[if BLOCK]><![endif]-->        <li role="presentation" wire:loading="" wire:target="setTab,season,tournament">
+          <button type="button" class="sk-menu-item" role="option" disabled="">Cargando...</button>
+        </li>
+      <!--[if ENDBLOCK]><![endif]-->      <!--[if BLOCK]><![endif]-->                <li role="presentation" wire:loading.remove="" wire:target="setTab,season,tournament">
+          <button type="button" class="sk-menu-item selected" role="option" aria-selected="true" wire:click="$set('tournament', '')" @click="open = false">Apertura (en curso)</button>
+        </li>
+      <!--[if ENDBLOCK]><![endif]-->    </ul>
+  </div>
+</div>
+            <!--[if ENDBLOCK]><![endif]-->
+            <nav class="league-detail__nav" aria-label="Secciones de la liga">
+                <button type="button" wire:click="setTab('overview')" wire:loading.attr="disabled" wire:target="setTab,season,tournament" class="league-detail__nav-item">
+                    <i class="bi bi-grid-1x2"></i> Resumen
+                </button>
+                <button type="button" wire:click="setTab('leaders')" wire:loading.attr="disabled" wire:target="setTab,season,tournament" class="league-detail__nav-item">
+                    <i class="bi bi-award"></i> Líderes estadísticos
+                </button>
+                <button type="button" wire:click="setTab('standings')" wire:loading.attr="disabled" wire:target="setTab,season,tournament" class="league-detail__nav-item">
+                    <i class="bi bi-list-ol"></i> Clasificación
+                </button>
+                <button type="button" wire:click="setTab('projection')" wire:loading.attr="disabled" wire:target="setTab,season,tournament" class="league-detail__nav-item">
+                    <i class="bi bi-graph-up"></i> Proyección
+                </button>
+                <button type="button" wire:click="setTab('results')" wire:loading.attr="disabled" wire:target="setTab,season,tournament" class="league-detail__nav-item">
+                    <i class="bi bi-calendar3"></i> Partidos
+                </button>
+                <button type="button" wire:click="setTab('calendar')" wire:loading.attr="disabled" wire:target="setTab,season,tournament" class="league-detail__nav-item">
+                    <i class="bi bi-calendar-range"></i> Matriz de dificultad
+                </button>
+                <button type="button" wire:click="setTab('maps')" wire:loading.attr="disabled" wire:target="setTab,season,tournament" class="league-detail__nav-item league-detail__nav-item--active">
+                    <i class="bi bi-map"></i> Mapas
+                </button>
+                <button type="button" wire:click="setTab('scatter')" wire:loading.attr="disabled" wire:target="setTab,season,tournament" class="league-detail__nav-item">
+                    <i class="bi bi-crosshair"></i> Dispersión
+                </button>
+                <button type="button" wire:click="setTab('stats')" wire:loading.attr="disabled" wire:target="setTab,season,tournament" class="league-detail__nav-item">
+                    <i class="bi bi-bar-chart-line"></i> Estadísticas
+                </button>
+                <button type="button" wire:click="setTab('scout-ratings')" wire:loading.attr="disabled" wire:target="setTab,season,tournament" class="league-detail__nav-item">
+                    <i class="bi bi-star"></i> Valoraciones scout
+                </button>
+                
+                <a href="https://www.statiskicks.com/players?liga=2hsidwomhjsaaytdy9u5niyi4&amp;temporada=2026%2F2027&amp;buscar=1" wire:navigate="" class="league-detail__nav-item">
+                    <i class="bi bi-person-lines-fill"></i> Buscar jugadores
+                </a>
+            </nav>
+        </aside>
+
+        <main class="league-detail__main">
+            <div class="sk-page-hero league-detail-hero">
+                <!--[if BLOCK]><![endif]-->                    <img src="https://www.statiskicks.com/storage/media/leagues/262.png" alt="" class="league-detail-hero__crest" aria-hidden="true">
+                <!--[if ENDBLOCK]><![endif]-->                <div class="d-flex flex-column flex-lg-row align-items-lg-end justify-content-between gap-3">
+                    <div>
+                        <p class="sk-page-hero-eyebrow">Vista de liga</p>
+                        <h1 class="sk-page-hero-title">
+                            <!--[if BLOCK]><![endif]-->                                Mapas <span>2026/2027</span>
+                            <!--[if ENDBLOCK]><![endif]-->                        </h1>
+                        
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="league-detail__content" wire:loading.class="league-detail__content--loading" wire:target.except="setMatchRound,setMatchDate,resetMatchFilters,loadLeagueMap,loadScatter">
+                
+                <div class="league-detail__tab-panel" wire:key="tab-panel-maps-9zum4nxferygj8bb0ldcavxn8-apertura">
+            
+            <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->            
+            <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->            <!--[if BLOCK]><![endif]-->                <section class="league-maps">
+    <!--[if BLOCK]><![endif]-->        <div class="league-maps__root" data-league-maps="" data-bootstrap="{&quot;teams&quot;:[{&quot;id&quot;:&quot;1aw67co8uut64yckd3wbhy9t2&quot;,&quot;name&quot;:&quot;Cruz Azul&quot;,&quot;rank&quot;:1,&quot;group&quot;:&quot;&quot;},{&quot;id&quot;:&quot;eu8c408f59yx7egaqossbv25e&quot;,&quot;name&quot;:&quot;Club Am\u00e9rica&quot;,&quot;rank&quot;:2,&quot;group&quot;:&quot;&quot;},{&quot;id&quot;:&quot;e603sojy77s4u0ypqds2v2a1g&quot;,&quot;name&quot;:&quot;Guadalajara&quot;,&quot;rank&quot;:3,&quot;group&quot;:&quot;&quot;},{&quot;id&quot;:&quot;3390h9hdgoxzzofnrpyktanuz&quot;,&quot;name&quot;:&quot;Toluca&quot;,&quot;rank&quot;:4,&quot;group&quot;:&quot;&quot;},{&quot;id&quot;:&quot;8jjxbd5vr23vhu1v5r21rzkrn&quot;,&quot;name&quot;:&quot;Atlas&quot;,&quot;rank&quot;:5,&quot;group&quot;:&quot;&quot;},{&quot;id&quot;:&quot;8yn3l36qkq1fxbw4ufmwyfyt9&quot;,&quot;name&quot;:&quot;Santos Laguna&quot;,&quot;rank&quot;:6,&quot;group&quot;:&quot;&quot;},{&quot;id&quot;:&quot;2ei66pjfsrr6uxqp1bywq31lo&quot;,&quot;name&quot;:&quot;Le\u00f3n&quot;,&quot;rank&quot;:7,&quot;group&quot;:&quot;&quot;},{&quot;id&quot;:&quot;cynfvfb31rml7xrlsnejf8r6j&quot;,&quot;name&quot;:&quot;Pachuca&quot;,&quot;rank&quot;:8,&quot;group&quot;:&quot;&quot;}],&quot;stages&quot;:[],&quot;config&quot;:{&quot;events&quot;:[{&quot;key&quot;:&quot;involvement&quot;,&quot;section&quot;:&quot;involvement&quot;,&quot;sectionLabel&quot;:&quot;Involucramiento&quot;,&quot;label&quot;:&quot;Involucramiento&quot;,&quot;kind&quot;:&quot;point&quot;,&quot;color&quot;:null,&quot;views&quot;:[&quot;scatterplot&quot;,&quot;heatmap&quot;,&quot;control&quot;],&quot;variants&quot;:[],&quot;successMetric&quot;:null,&quot;outcomes&quot;:[],&quot;insights&quot;:null,&quot;hasClusterOptions&quot;:false},{&quot;key&quot;:&quot;shots_xg&quot;,&quot;section&quot;:&quot;shots&quot;,&quot;sectionLabel&quot;:&quot;Remate&quot;,&quot;label&quot;:&quot;Mapa de xG&quot;,&quot;kind&quot;:&quot;shot&quot;,&quot;color&quot;:&quot;goal&quot;,&quot;views&quot;:[&quot;scatterplot&quot;,&quot;heatmap&quot;],&quot;variants&quot;:[],&quot;successMetric&quot;:null,&quot;outcomes&quot;:[{&quot;key&quot;:&quot;success&quot;,&quot;label&quot;:&quot;Goles&quot;},{&quot;key&quot;:&quot;miss&quot;,&quot;label&quot;:&quot;Sin gol&quot;}],&quot;insights&quot;:&quot;shots&quot;,&quot;hasClusterOptions&quot;:false},{&quot;key&quot;:&quot;shots_right_foot&quot;,&quot;section&quot;:&quot;shots&quot;,&quot;sectionLabel&quot;:&quot;Remate&quot;,&quot;label&quot;:&quot;Pie derecho&quot;,&quot;kind&quot;:&quot;shot&quot;,&quot;color&quot;:&quot;goal&quot;,&quot;views&quot;:[&quot;scatterplot&quot;],&quot;variants&quot;:[],&quot;successMetric&quot;:null,&quot;outcomes&quot;:[{&quot;key&quot;:&quot;success&quot;,&quot;label&quot;:&quot;Goles&quot;},{&quot;key&quot;:&quot;miss&quot;,&quot;label&quot;:&quot;Sin gol&quot;}],&quot;insights&quot;:&quot;shots&quot;,&quot;hasClusterOptions&quot;:false},{&quot;key&quot;:&quot;shots_left_foot&quot;,&quot;section&quot;:&quot;shots&quot;,&quot;sectionLabel&quot;:&quot;Remate&quot;,&quot;label&quot;:&quot;Pie izquierdo&quot;,&quot;kind&quot;:&quot;shot&quot;,&quot;color&quot;:&quot;goal&quot;,&quot;views&quot;:[&quot;scatterplot&quot;],&quot;variants&quot;:[],&quot;successMetric&quot;:null,&quot;outcomes&quot;:[{&quot;key&quot;:&quot;success&quot;,&quot;label&quot;:&quot;Goles&quot;},{&quot;key&quot;:&quot;miss&quot;,&quot;label&quot;:&quot;Sin gol&quot;}],&quot;insights&quot;:&quot;shots&quot;,&quot;hasClusterOptions&quot;:false},{&quot;key&quot;:&quot;shots_header&quot;,&quot;section&quot;:&quot;shots&quot;,&quot;sectionLabel&quot;:&quot;Remate&quot;,&quot;label&quot;:&quot;Cabeza&quot;,&quot;kind&quot;:&quot;shot&quot;,&quot;color&quot;:&quot;goal&quot;,&quot;views&quot;:[&quot;scatterplot&quot;],&quot;variants&quot;:[],&quot;successMetric&quot;:null,&quot;outcomes&quot;:[{&quot;key&quot;:&quot;success&quot;,&quot;label&quot;:&quot;Goles&quot;},{&quot;key&quot;:&quot;miss&quot;,&quot;label&quot;:&quot;Sin gol&quot;}],&quot;insights&quot;:&quot;shots&quot;,&quot;hasClusterOptions&quot;:false},{&quot;key&quot;:&quot;pass_progressive&quot;,&quot;section&quot;:&quot;passing&quot;,&quot;sectionLabel&quot;:&quot;Pase&quot;,&quot;label&quot;:&quot;Progresivos&quot;,&quot;kind&quot;:&quot;pass&quot;,&quot;color&quot;:&quot;accurate&quot;,&quot;views&quot;:[&quot;scatterplot&quot;,&quot;zone_plot&quot;],&quot;variants&quot;:[],&quot;successMetric&quot;:&quot;accurate&quot;,&quot;outcomes&quot;:[{&quot;key&quot;:&quot;success&quot;,&quot;label&quot;:&quot;Completos&quot;},{&quot;key&quot;:&quot;miss&quot;,&quot;label&quot;:&quot;Incompletos&quot;}],&quot;insights&quot;:&quot;passes&quot;,&quot;hasClusterOptions&quot;:false},{&quot;key&quot;:&quot;pass_long&quot;,&quot;section&quot;:&quot;passing&quot;,&quot;sectionLabel&quot;:&quot;Pase&quot;,&quot;label&quot;:&quot;Largos&quot;,&quot;kind&quot;:&quot;pass&quot;,&quot;color&quot;:&quot;accurate&quot;,&quot;views&quot;:[&quot;scatterplot&quot;,&quot;zone_plot&quot;],&quot;variants&quot;:[],&quot;successMetric&quot;:&quot;accurate&quot;,&quot;outcomes&quot;:[{&quot;key&quot;:&quot;success&quot;,&quot;label&quot;:&quot;Completos&quot;},{&quot;key&quot;:&quot;miss&quot;,&quot;label&quot;:&quot;Incompletos&quot;}],&quot;insights&quot;:&quot;passes&quot;,&quot;hasClusterOptions&quot;:false},{&quot;key&quot;:&quot;pass_forward&quot;,&quot;section&quot;:&quot;passing&quot;,&quot;sectionLabel&quot;:&quot;Pase&quot;,&quot;label&quot;:&quot;Frontales&quot;,&quot;kind&quot;:&quot;pass&quot;,&quot;color&quot;:&quot;accurate&quot;,&quot;views&quot;:[&quot;scatterplot&quot;,&quot;zone_plot&quot;],&quot;variants&quot;:[],&quot;successMetric&quot;:&quot;accurate&quot;,&quot;outcomes&quot;:[{&quot;key&quot;:&quot;success&quot;,&quot;label&quot;:&quot;Completos&quot;},{&quot;key&quot;:&quot;miss&quot;,&quot;label&quot;:&quot;Incompletos&quot;}],&quot;insights&quot;:&quot;passes&quot;,&quot;hasClusterOptions&quot;:false},{&quot;key&quot;:&quot;pass_lateral&quot;,&quot;section&quot;:&quot;passing&quot;,&quot;sectionLabel&quot;:&quot;Pase&quot;,&quot;label&quot;:&quot;Laterales&quot;,&quot;kind&quot;:&quot;pass&quot;,&quot;color&quot;:&quot;accurate&quot;,&quot;views&quot;:[&quot;scatterplot&quot;,&quot;zone_plot&quot;],&quot;variants&quot;:[],&quot;successMetric&quot;:&quot;accurate&quot;,&quot;outcomes&quot;:[{&quot;key&quot;:&quot;success&quot;,&quot;label&quot;:&quot;Completos&quot;},{&quot;key&quot;:&quot;miss&quot;,&quot;label&quot;:&quot;Incompletos&quot;}],&quot;insights&quot;:&quot;passes&quot;,&quot;hasClusterOptions&quot;:false},{&quot;key&quot;:&quot;pass_backward&quot;,&quot;section&quot;:&quot;passing&quot;,&quot;sectionLabel&quot;:&quot;Pase&quot;,&quot;label&quot;:&quot;Hacia atr\u00e1s&quot;,&quot;kind&quot;:&quot;pass&quot;,&quot;color&quot;:&quot;accurate&quot;,&quot;views&quot;:[&quot;scatterplot&quot;,&quot;zone_plot&quot;],&quot;variants&quot;:[],&quot;successMetric&quot;:&quot;accurate&quot;,&quot;outcomes&quot;:[{&quot;key&quot;:&quot;success&quot;,&quot;label&quot;:&quot;Completos&quot;},{&quot;key&quot;:&quot;miss&quot;,&quot;label&quot;:&quot;Incompletos&quot;}],&quot;insights&quot;:&quot;passes&quot;,&quot;hasClusterOptions&quot;:false},{&quot;key&quot;:&quot;pass_box&quot;,&quot;section&quot;:&quot;passing&quot;,&quot;sectionLabel&quot;:&quot;Pase&quot;,&quot;label&quot;:&quot;Al \u00e1rea&quot;,&quot;kind&quot;:&quot;pass&quot;,&quot;color&quot;:&quot;accurate&quot;,&quot;views&quot;:[&quot;scatterplot&quot;,&quot;zone_plot&quot;],&quot;variants&quot;:[],&quot;successMetric&quot;:&quot;accurate&quot;,&quot;outcomes&quot;:[{&quot;key&quot;:&quot;success&quot;,&quot;label&quot;:&quot;Completos&quot;},{&quot;key&quot;:&quot;miss&quot;,&quot;label&quot;:&quot;Incompletos&quot;}],&quot;insights&quot;:&quot;passes&quot;,&quot;hasClusterOptions&quot;:false},{&quot;key&quot;:&quot;xt_heatmap&quot;,&quot;section&quot;:&quot;progression&quot;,&quot;sectionLabel&quot;:&quot;Progresi\u00f3n (xT)&quot;,&quot;label&quot;:&quot;Mapa de calor xT&quot;,&quot;kind&quot;:&quot;xt&quot;,&quot;color&quot;:&quot;xt&quot;,&quot;views&quot;:[&quot;heatmap&quot;],&quot;variants&quot;:[],&quot;successMetric&quot;:null,&quot;outcomes&quot;:[],&quot;insights&quot;:&quot;xt&quot;,&quot;hasClusterOptions&quot;:false},{&quot;key&quot;:&quot;xt_carries&quot;,&quot;section&quot;:&quot;progression&quot;,&quot;sectionLabel&quot;:&quot;Progresi\u00f3n (xT)&quot;,&quot;label&quot;:&quot;Conducciones&quot;,&quot;kind&quot;:&quot;xt&quot;,&quot;color&quot;:&quot;xt&quot;,&quot;views&quot;:[&quot;scatterplot&quot;],&quot;variants&quot;:[],&quot;successMetric&quot;:null,&quot;outcomes&quot;:[],&quot;insights&quot;:&quot;xt&quot;,&quot;hasClusterOptions&quot;:false},{&quot;key&quot;:&quot;xt_passes&quot;,&quot;section&quot;:&quot;progression&quot;,&quot;sectionLabel&quot;:&quot;Progresi\u00f3n (xT)&quot;,&quot;label&quot;:&quot;Pases&quot;,&quot;kind&quot;:&quot;xt&quot;,&quot;color&quot;:&quot;xt&quot;,&quot;views&quot;:[&quot;scatterplot&quot;],&quot;variants&quot;:[],&quot;successMetric&quot;:null,&quot;outcomes&quot;:[],&quot;insights&quot;:&quot;xt&quot;,&quot;hasClusterOptions&quot;:false},{&quot;key&quot;:&quot;xt_all&quot;,&quot;section&quot;:&quot;progression&quot;,&quot;sectionLabel&quot;:&quot;Progresi\u00f3n (xT)&quot;,&quot;label&quot;:&quot;Todas&quot;,&quot;kind&quot;:&quot;xt&quot;,&quot;color&quot;:&quot;xt&quot;,&quot;views&quot;:[&quot;scatterplot&quot;],&quot;variants&quot;:[],&quot;successMetric&quot;:null,&quot;outcomes&quot;:[],&quot;insights&quot;:&quot;xt&quot;,&quot;hasClusterOptions&quot;:false},{&quot;key&quot;:&quot;assists&quot;,&quot;section&quot;:&quot;creation&quot;,&quot;sectionLabel&quot;:&quot;Creaci\u00f3n&quot;,&quot;label&quot;:&quot;Asistencias&quot;,&quot;kind&quot;:&quot;chance&quot;,&quot;color&quot;:&quot;chance&quot;,&quot;views&quot;:[&quot;scatterplot&quot;],&quot;variants&quot;:[],&quot;successMetric&quot;:null,&quot;outcomes&quot;:[],&quot;insights&quot;:&quot;chances&quot;,&quot;hasClusterOptions&quot;:false},{&quot;key&quot;:&quot;chances_open_play&quot;,&quot;section&quot;:&quot;creation&quot;,&quot;sectionLabel&quot;:&quot;Creaci\u00f3n&quot;,&quot;label&quot;:&quot;En jugada&quot;,&quot;kind&quot;:&quot;chance&quot;,&quot;color&quot;:&quot;chance&quot;,&quot;views&quot;:[&quot;scatterplot&quot;],&quot;variants&quot;:[{&quot;key&quot;:&quot;all&quot;,&quot;label&quot;:&quot;Todas&quot;},{&quot;key&quot;:&quot;assist&quot;,&quot;label&quot;:&quot;Asistencia&quot;},{&quot;key&quot;:&quot;key_pass&quot;,&quot;label&quot;:&quot;Pase clave&quot;}],&quot;successMetric&quot;:null,&quot;outcomes&quot;:[],&quot;insights&quot;:&quot;chances&quot;,&quot;hasClusterOptions&quot;:false},{&quot;key&quot;:&quot;chances_set_piece&quot;,&quot;section&quot;:&quot;creation&quot;,&quot;sectionLabel&quot;:&quot;Creaci\u00f3n&quot;,&quot;label&quot;:&quot;ABP&quot;,&quot;kind&quot;:&quot;chance&quot;,&quot;color&quot;:&quot;chance&quot;,&quot;views&quot;:[&quot;scatterplot&quot;],&quot;variants&quot;:[{&quot;key&quot;:&quot;all&quot;,&quot;label&quot;:&quot;Todas&quot;},{&quot;key&quot;:&quot;assist&quot;,&quot;label&quot;:&quot;Asistencia&quot;},{&quot;key&quot;:&quot;key_pass&quot;,&quot;label&quot;:&quot;Pase clave&quot;}],&quot;successMetric&quot;:null,&quot;outcomes&quot;:[],&quot;insights&quot;:&quot;chances&quot;,&quot;hasClusterOptions&quot;:false},{&quot;key&quot;:&quot;crosses&quot;,&quot;section&quot;:&quot;creation&quot;,&quot;sectionLabel&quot;:&quot;Creaci\u00f3n&quot;,&quot;label&quot;:&quot;Centros&quot;,&quot;kind&quot;:&quot;pass&quot;,&quot;color&quot;:&quot;accurate&quot;,&quot;views&quot;:[&quot;scatterplot&quot;,&quot;zone_plot&quot;],&quot;variants&quot;:[],&quot;successMetric&quot;:&quot;accurate&quot;,&quot;outcomes&quot;:[{&quot;key&quot;:&quot;success&quot;,&quot;label&quot;:&quot;Completos&quot;},{&quot;key&quot;:&quot;miss&quot;,&quot;label&quot;:&quot;Incompletos&quot;}],&quot;insights&quot;:&quot;passes&quot;,&quot;hasClusterOptions&quot;:false},{&quot;key&quot;:&quot;through_balls&quot;,&quot;section&quot;:&quot;creation&quot;,&quot;sectionLabel&quot;:&quot;Creaci\u00f3n&quot;,&quot;label&quot;:&quot;Filtrados&quot;,&quot;kind&quot;:&quot;pass&quot;,&quot;color&quot;:&quot;accurate&quot;,&quot;views&quot;:[&quot;scatterplot&quot;,&quot;zone_plot&quot;],&quot;variants&quot;:[],&quot;successMetric&quot;:&quot;accurate&quot;,&quot;outcomes&quot;:[{&quot;key&quot;:&quot;success&quot;,&quot;label&quot;:&quot;Completos&quot;},{&quot;key&quot;:&quot;miss&quot;,&quot;label&quot;:&quot;Incompletos&quot;}],&quot;insights&quot;:&quot;passes&quot;,&quot;hasClusterOptions&quot;:false},{&quot;key&quot;:&quot;duels_aerial&quot;,&quot;section&quot;:&quot;duels&quot;,&quot;sectionLabel&quot;:&quot;Duelos&quot;,&quot;label&quot;:&quot;A\u00e9reos&quot;,&quot;kind&quot;:&quot;duel&quot;,&quot;color&quot;:&quot;success&quot;,&quot;views&quot;:[&quot;scatterplot&quot;,&quot;zone_plot&quot;],&quot;variants&quot;:[{&quot;key&quot;:&quot;all&quot;,&quot;label&quot;:&quot;Todos&quot;},{&quot;key&quot;:&quot;defensive&quot;,&quot;label&quot;:&quot;Defensivos&quot;},{&quot;key&quot;:&quot;offensive&quot;,&quot;label&quot;:&quot;Ofensivos&quot;}],&quot;successMetric&quot;:&quot;success&quot;,&quot;outcomes&quot;:[{&quot;key&quot;:&quot;success&quot;,&quot;label&quot;:&quot;Ganados&quot;},{&quot;key&quot;:&quot;miss&quot;,&quot;label&quot;:&quot;Perdidos&quot;}],&quot;insights&quot;:&quot;duels&quot;,&quot;hasClusterOptions&quot;:false},{&quot;key&quot;:&quot;duels_total&quot;,&quot;section&quot;:&quot;duels&quot;,&quot;sectionLabel&quot;:&quot;Duelos&quot;,&quot;label&quot;:&quot;Totales&quot;,&quot;kind&quot;:&quot;duel&quot;,&quot;color&quot;:&quot;success&quot;,&quot;views&quot;:[&quot;scatterplot&quot;,&quot;zone_plot&quot;],&quot;variants&quot;:[],&quot;successMetric&quot;:&quot;success&quot;,&quot;outcomes&quot;:[{&quot;key&quot;:&quot;success&quot;,&quot;label&quot;:&quot;Ganados&quot;},{&quot;key&quot;:&quot;miss&quot;,&quot;label&quot;:&quot;Perdidos&quot;}],&quot;insights&quot;:&quot;duels&quot;,&quot;hasClusterOptions&quot;:false},{&quot;key&quot;:&quot;duels_ground&quot;,&quot;section&quot;:&quot;duels&quot;,&quot;sectionLabel&quot;:&quot;Duelos&quot;,&quot;label&quot;:&quot;Al ras de suelo&quot;,&quot;kind&quot;:&quot;duel&quot;,&quot;color&quot;:&quot;success&quot;,&quot;views&quot;:[&quot;scatterplot&quot;,&quot;zone_plot&quot;],&quot;variants&quot;:[],&quot;successMetric&quot;:&quot;success&quot;,&quot;outcomes&quot;:[{&quot;key&quot;:&quot;success&quot;,&quot;label&quot;:&quot;Ganados&quot;},{&quot;key&quot;:&quot;miss&quot;,&quot;label&quot;:&quot;Perdidos&quot;}],&quot;insights&quot;:&quot;duels&quot;,&quot;hasClusterOptions&quot;:false},{&quot;key&quot;:&quot;tackles&quot;,&quot;section&quot;:&quot;duels&quot;,&quot;sectionLabel&quot;:&quot;Duelos&quot;,&quot;label&quot;:&quot;Entradas&quot;,&quot;kind&quot;:&quot;duel&quot;,&quot;color&quot;:&quot;success&quot;,&quot;views&quot;:[&quot;scatterplot&quot;,&quot;zone_plot&quot;],&quot;variants&quot;:[],&quot;successMetric&quot;:&quot;success&quot;,&quot;outcomes&quot;:[{&quot;key&quot;:&quot;success&quot;,&quot;label&quot;:&quot;Con recuperaci\u00f3n&quot;},{&quot;key&quot;:&quot;miss&quot;,&quot;label&quot;:&quot;Sin recuperaci\u00f3n&quot;}],&quot;insights&quot;:&quot;duels&quot;,&quot;hasClusterOptions&quot;:false},{&quot;key&quot;:&quot;dribbles_won&quot;,&quot;section&quot;:&quot;dribbles&quot;,&quot;sectionLabel&quot;:&quot;Regate&quot;,&quot;label&quot;:&quot;Exitosos&quot;,&quot;kind&quot;:&quot;point&quot;,&quot;color&quot;:null,&quot;views&quot;:[&quot;scatterplot&quot;,&quot;heatmap&quot;,&quot;zone_plot&quot;],&quot;variants&quot;:[],&quot;successMetric&quot;:null,&quot;outcomes&quot;:[],&quot;insights&quot;:null,&quot;hasClusterOptions&quot;:false},{&quot;key&quot;:&quot;dribbles_lost&quot;,&quot;section&quot;:&quot;dribbles&quot;,&quot;sectionLabel&quot;:&quot;Regate&quot;,&quot;label&quot;:&quot;Perdidos&quot;,&quot;kind&quot;:&quot;point&quot;,&quot;color&quot;:null,&quot;views&quot;:[&quot;scatterplot&quot;,&quot;heatmap&quot;,&quot;zone_plot&quot;],&quot;variants&quot;:[],&quot;successMetric&quot;:null,&quot;outcomes&quot;:[],&quot;insights&quot;:null,&quot;hasClusterOptions&quot;:false},{&quot;key&quot;:&quot;recoveries_defensive&quot;,&quot;section&quot;:&quot;defending&quot;,&quot;sectionLabel&quot;:&quot;Sin bal\u00f3n&quot;,&quot;label&quot;:&quot;Recuperaciones tras acci\u00f3n defensiva&quot;,&quot;kind&quot;:&quot;point&quot;,&quot;color&quot;:null,&quot;views&quot;:[&quot;scatterplot&quot;,&quot;heatmap&quot;,&quot;zone_plot&quot;],&quot;variants&quot;:[],&quot;successMetric&quot;:null,&quot;outcomes&quot;:[],&quot;insights&quot;:null,&quot;hasClusterOptions&quot;:false},{&quot;key&quot;:&quot;recoveries_counterpress&quot;,&quot;section&quot;:&quot;defending&quot;,&quot;sectionLabel&quot;:&quot;Sin bal\u00f3n&quot;,&quot;label&quot;:&quot;Recuperaciones por contrapresi\u00f3n&quot;,&quot;kind&quot;:&quot;point&quot;,&quot;color&quot;:null,&quot;views&quot;:[&quot;scatterplot&quot;,&quot;heatmap&quot;,&quot;zone_plot&quot;],&quot;variants&quot;:[],&quot;successMetric&quot;:null,&quot;outcomes&quot;:[],&quot;insights&quot;:null,&quot;hasClusterOptions&quot;:false},{&quot;key&quot;:&quot;interceptions&quot;,&quot;section&quot;:&quot;defending&quot;,&quot;sectionLabel&quot;:&quot;Sin bal\u00f3n&quot;,&quot;label&quot;:&quot;Intercepciones&quot;,&quot;kind&quot;:&quot;point&quot;,&quot;color&quot;:null,&quot;views&quot;:[&quot;scatterplot&quot;,&quot;heatmap&quot;,&quot;zone_plot&quot;],&quot;variants&quot;:[],&quot;successMetric&quot;:null,&quot;outcomes&quot;:[],&quot;insights&quot;:null,&quot;hasClusterOptions&quot;:false},{&quot;key&quot;:&quot;clearances_blocks&quot;,&quot;section&quot;:&quot;defending&quot;,&quot;sectionLabel&quot;:&quot;Sin bal\u00f3n&quot;,&quot;label&quot;:&quot;Despejes y rechaces&quot;,&quot;kind&quot;:&quot;point&quot;,&quot;color&quot;:null,&quot;views&quot;:[&quot;scatterplot&quot;,&quot;heatmap&quot;,&quot;zone_plot&quot;],&quot;variants&quot;:[],&quot;successMetric&quot;:null,&quot;outcomes&quot;:[],&quot;insights&quot;:null,&quot;hasClusterOptions&quot;:false}],&quot;views&quot;:[{&quot;key&quot;:&quot;scatterplot&quot;,&quot;label&quot;:&quot;Dispersi\u00f3n&quot;},{&quot;key&quot;:&quot;heatmap&quot;,&quot;label&quot;:&quot;Mapa de calor&quot;},{&quot;key&quot;:&quot;zone_plot&quot;,&quot;label&quot;:&quot;Gr\u00e1fico de zona&quot;},{&quot;key&quot;:&quot;control&quot;,&quot;label&quot;:&quot;Zonas de control&quot;}],&quot;defaults&quot;:{&quot;eventKey&quot;:&quot;involvement&quot;,&quot;viewKey&quot;:&quot;heatmap&quot;,&quot;variantKey&quot;:&quot;all&quot;,&quot;stage&quot;:&quot;apertura&quot;}},&quot;title&quot;:&quot;Liga MX \u00b7 Apertura \u00b7 2026\/2027&quot;}" wire:ignore="">
+            <div class="league-standings__toolbar">
+                <p class="league-standings__toolbar-label" aria-live="polite">
+                    Liga MX · 2026/2027
+                    · <span class="league-maps__count" data-maps-visible="">8</span> de 18 equipos
+                    <span data-maps-progress="" hidden="">· cargando 9 de 8</span>
+                </p>
+
+                <div class="league-maps__actions">
+                
+                <button type="button" class="btn sk-pill-control league-filterbar__reset league-maps__download" data-maps-download="" data-sk-chart-source="league-maps" title="Descargar los mapas visibles" aria-label="Descargar los mapas visibles" aria-haspopup="dialog" aria-expanded="false">
+                    <svg width="11" height="11" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path d="M8 1.5v8.25m0 0L4.75 6.75M8 9.75 11.25 6.75" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path>
+  <path d="M2.5 11.5v1.25a1.25 1.25 0 0 0 1.25 1.25h8.5a1.25 1.25 0 0 0 1.25-1.25V11.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+                </button>
+
+                
+                <div class="league-filterbar__item" x-data="{ open: false }" @click.outside="open = false" @keydown.escape.stop="open = false; $refs.trigger.focus()">
+                    <button type="button" class="btn sk-pill-control league-filterbar__pill" x-ref="trigger" @click="open = !open" :aria-expanded="open.toString()" aria-haspopup="true" aria-controls="league-maps-teams-menu" data-maps-teams-pill="" aria-expanded="false">
+                        <i class="bi bi-eye" aria-hidden="true"></i>
+                        <span class="league-filterbar__pill-label" data-maps-teams-label="">Todos los equipos</span>
+                        <i class="bi bi-chevron-down league-filterbar__chevron" aria-hidden="true"></i>
+                    </button>
+                    <ul id="league-maps-teams-menu" class="sk-dropdown-menu league-filterbar__menu league-filterbar__menu--end" role="menu" x-show="open" style="display: none;">
+                        <li role="presentation"><button type="button" class="sk-menu-item" role="menuitem" data-maps-show="all">Mostrar todos</button></li>
+                        <li role="presentation"><button type="button" class="sk-menu-item" role="menuitem" data-maps-show="none">Ocultar todos</button></li>
+                        <!--[if BLOCK]><![endif]-->                            <li role="presentation">
+                                <button type="button" class="sk-menu-item league-maps__team-toggle selected" role="menuitemcheckbox" aria-checked="true" data-maps-team-toggle="1aw67co8uut64yckd3wbhy9t2">
+                                    <i class="bi bi-check-lg league-maps__check" aria-hidden="true"></i>1 · Cruz Azul
+                                </button>
+                            </li>
+                                                    <li role="presentation">
+                                <button type="button" class="sk-menu-item league-maps__team-toggle selected" role="menuitemcheckbox" aria-checked="true" data-maps-team-toggle="eu8c408f59yx7egaqossbv25e">
+                                    <i class="bi bi-check-lg league-maps__check" aria-hidden="true"></i>2 · Club América
+                                </button>
+                            </li>
+                                                    <li role="presentation">
+                                <button type="button" class="sk-menu-item league-maps__team-toggle selected" role="menuitemcheckbox" aria-checked="true" data-maps-team-toggle="e603sojy77s4u0ypqds2v2a1g">
+                                    <i class="bi bi-check-lg league-maps__check" aria-hidden="true"></i>3 · Guadalajara
+                                </button>
+                            </li>
+                                                    <li role="presentation">
+                                <button type="button" class="sk-menu-item league-maps__team-toggle selected" role="menuitemcheckbox" aria-checked="true" data-maps-team-toggle="3390h9hdgoxzzofnrpyktanuz">
+                                    <i class="bi bi-check-lg league-maps__check" aria-hidden="true"></i>4 · Toluca
+                                </button>
+                            </li>
+                                                    <li role="presentation">
+                                <button type="button" class="sk-menu-item league-maps__team-toggle selected" role="menuitemcheckbox" aria-checked="true" data-maps-team-toggle="8jjxbd5vr23vhu1v5r21rzkrn">
+                                    <i class="bi bi-check-lg league-maps__check" aria-hidden="true"></i>5 · Atlas
+                                </button>
+                            </li>
+                                                    <li role="presentation">
+                                <button type="button" class="sk-menu-item league-maps__team-toggle selected" role="menuitemcheckbox" aria-checked="true" data-maps-team-toggle="8yn3l36qkq1fxbw4ufmwyfyt9">
+                                    <i class="bi bi-check-lg league-maps__check" aria-hidden="true"></i>6 · Santos Laguna
+                                </button>
+                            </li>
+                                                    <li role="presentation">
+                                <button type="button" class="sk-menu-item league-maps__team-toggle selected" role="menuitemcheckbox" aria-checked="true" data-maps-team-toggle="2ei66pjfsrr6uxqp1bywq31lo">
+                                    <i class="bi bi-check-lg league-maps__check" aria-hidden="true"></i>7 · León
+                                </button>
+                            </li>
+                                                    <li role="presentation">
+                                <button type="button" class="sk-menu-item league-maps__team-toggle selected" role="menuitemcheckbox" aria-checked="true" data-maps-team-toggle="cynfvfb31rml7xrlsnejf8r6j">
+                                    <i class="bi bi-check-lg league-maps__check" aria-hidden="true"></i>8 · Pachuca
+                                </button>
+                            </li>
+                        <!--[if ENDBLOCK]><![endif]-->                    </ul>
+                </div>
+                </div>
+            </div>
+
+            <div class="league-filterbar">
+                <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
+                <div class="league-filterbar__item" x-data="{ open: false }" @click.outside="open = false" @keydown.escape.stop="open = false; $refs.trigger.focus()">
+                    <button type="button" class="btn sk-pill-control league-filterbar__pill active" x-ref="trigger" @click="open = !open" :aria-expanded="open.toString()" aria-haspopup="listbox" aria-controls="league-maps-event-menu" data-maps-pill="event" aria-expanded="false">
+                        <i class="bi bi-geo-alt" aria-hidden="true"></i>
+                        <span class="league-filterbar__pill-label" data-maps-label="event">Involucramiento</span>
+                        <i class="bi bi-chevron-down league-filterbar__chevron" aria-hidden="true"></i>
+                    </button>
+                    <ul id="league-maps-event-menu" class="sk-dropdown-menu league-filterbar__menu league-filterbar__menu--tall" role="listbox" aria-label="Evento" x-show="open" style="display: none;">
+                        <!--[if BLOCK]><![endif]-->                            <li class="sk-menu-group" role="presentation">Involucramiento</li>
+                            <!--[if BLOCK]><![endif]-->                                                                <li role="presentation">
+                                    <button type="button" class="sk-menu-item sk-menu-item--grouped selected" role="option" aria-selected="true" data-maps-option="event" data-value="involvement" data-label="Involucramiento" @click="open = false">Involucramiento</button>
+                                </li>
+                            <!--[if ENDBLOCK]><![endif]-->                                                    <li class="sk-menu-group" role="presentation">Remate</li>
+                            <!--[if BLOCK]><![endif]-->                                                                <li role="presentation">
+                                    <button type="button" class="sk-menu-item sk-menu-item--grouped" role="option" aria-selected="false" data-maps-option="event" data-value="shots_xg" data-label="Remate · Mapa de xG" @click="open = false">Mapa de xG</button>
+                                </li>
+                                                                                            <li role="presentation">
+                                    <button type="button" class="sk-menu-item sk-menu-item--grouped" role="option" aria-selected="false" data-maps-option="event" data-value="shots_right_foot" data-label="Remate · Pie derecho" @click="open = false">Pie derecho</button>
+                                </li>
+                                                                                            <li role="presentation">
+                                    <button type="button" class="sk-menu-item sk-menu-item--grouped" role="option" aria-selected="false" data-maps-option="event" data-value="shots_left_foot" data-label="Remate · Pie izquierdo" @click="open = false">Pie izquierdo</button>
+                                </li>
+                                                                                            <li role="presentation">
+                                    <button type="button" class="sk-menu-item sk-menu-item--grouped" role="option" aria-selected="false" data-maps-option="event" data-value="shots_header" data-label="Remate · Cabeza" @click="open = false">Cabeza</button>
+                                </li>
+                            <!--[if ENDBLOCK]><![endif]-->                                                    <li class="sk-menu-group" role="presentation">Pase</li>
+                            <!--[if BLOCK]><![endif]-->                                                                <li role="presentation">
+                                    <button type="button" class="sk-menu-item sk-menu-item--grouped" role="option" aria-selected="false" data-maps-option="event" data-value="pass_progressive" data-label="Pase · Progresivos" @click="open = false">Progresivos</button>
+                                </li>
+                                                                                            <li role="presentation">
+                                    <button type="button" class="sk-menu-item sk-menu-item--grouped" role="option" aria-selected="false" data-maps-option="event" data-value="pass_long" data-label="Pase · Largos" @click="open = false">Largos</button>
+                                </li>
+                                                                                            <li role="presentation">
+                                    <button type="button" class="sk-menu-item sk-menu-item--grouped" role="option" aria-selected="false" data-maps-option="event" data-value="pass_forward" data-label="Pase · Frontales" @click="open = false">Frontales</button>
+                                </li>
+                                                                                            <li role="presentation">
+                                    <button type="button" class="sk-menu-item sk-menu-item--grouped" role="option" aria-selected="false" data-maps-option="event" data-value="pass_lateral" data-label="Pase · Laterales" @click="open = false">Laterales</button>
+                                </li>
+                                                                                            <li role="presentation">
+                                    <button type="button" class="sk-menu-item sk-menu-item--grouped" role="option" aria-selected="false" data-maps-option="event" data-value="pass_backward" data-label="Pase · Hacia atrás" @click="open = false">Hacia atrás</button>
+                                </li>
+                                                                                            <li role="presentation">
+                                    <button type="button" class="sk-menu-item sk-menu-item--grouped" role="option" aria-selected="false" data-maps-option="event" data-value="pass_box" data-label="Pase · Al área" @click="open = false">Al área</button>
+                                </li>
+                            <!--[if ENDBLOCK]><![endif]-->                                                    <li class="sk-menu-group" role="presentation">Progresión (xT)</li>
+                            <!--[if BLOCK]><![endif]-->                                                                <li role="presentation">
+                                    <button type="button" class="sk-menu-item sk-menu-item--grouped" role="option" aria-selected="false" data-maps-option="event" data-value="xt_heatmap" data-label="Progresión (xT) · Mapa de calor xT" @click="open = false">Mapa de calor xT</button>
+                                </li>
+                                                                                            <li role="presentation">
+                                    <button type="button" class="sk-menu-item sk-menu-item--grouped" role="option" aria-selected="false" data-maps-option="event" data-value="xt_carries" data-label="Progresión (xT) · Conducciones" @click="open = false">Conducciones</button>
+                                </li>
+                                                                                            <li role="presentation">
+                                    <button type="button" class="sk-menu-item sk-menu-item--grouped" role="option" aria-selected="false" data-maps-option="event" data-value="xt_passes" data-label="Progresión (xT) · Pases" @click="open = false">Pases</button>
+                                </li>
+                                                                                            <li role="presentation">
+                                    <button type="button" class="sk-menu-item sk-menu-item--grouped" role="option" aria-selected="false" data-maps-option="event" data-value="xt_all" data-label="Progresión (xT) · Todas" @click="open = false">Todas</button>
+                                </li>
+                            <!--[if ENDBLOCK]><![endif]-->                                                    <li class="sk-menu-group" role="presentation">Creación</li>
+                            <!--[if BLOCK]><![endif]-->                                                                <li role="presentation">
+                                    <button type="button" class="sk-menu-item sk-menu-item--grouped" role="option" aria-selected="false" data-maps-option="event" data-value="assists" data-label="Creación · Asistencias" @click="open = false">Asistencias</button>
+                                </li>
+                                                                                            <li role="presentation">
+                                    <button type="button" class="sk-menu-item sk-menu-item--grouped" role="option" aria-selected="false" data-maps-option="event" data-value="chances_open_play" data-label="Creación · En jugada" @click="open = false">En jugada</button>
+                                </li>
+                                                                                            <li role="presentation">
+                                    <button type="button" class="sk-menu-item sk-menu-item--grouped" role="option" aria-selected="false" data-maps-option="event" data-value="chances_set_piece" data-label="Creación · ABP" @click="open = false">ABP</button>
+                                </li>
+                                                                                            <li role="presentation">
+                                    <button type="button" class="sk-menu-item sk-menu-item--grouped" role="option" aria-selected="false" data-maps-option="event" data-value="crosses" data-label="Creación · Centros" @click="open = false">Centros</button>
+                                </li>
+                                                                                            <li role="presentation">
+                                    <button type="button" class="sk-menu-item sk-menu-item--grouped" role="option" aria-selected="false" data-maps-option="event" data-value="through_balls" data-label="Creación · Filtrados" @click="open = false">Filtrados</button>
+                                </li>
+                            <!--[if ENDBLOCK]><![endif]-->                                                    <li class="sk-menu-group" role="presentation">Duelos</li>
+                            <!--[if BLOCK]><![endif]-->                                                                <li role="presentation">
+                                    <button type="button" class="sk-menu-item sk-menu-item--grouped" role="option" aria-selected="false" data-maps-option="event" data-value="duels_aerial" data-label="Duelos · Aéreos" @click="open = false">Aéreos</button>
+                                </li>
+                                                                                            <li role="presentation">
+                                    <button type="button" class="sk-menu-item sk-menu-item--grouped" role="option" aria-selected="false" data-maps-option="event" data-value="duels_total" data-label="Duelos · Totales" @click="open = false">Totales</button>
+                                </li>
+                                                                                            <li role="presentation">
+                                    <button type="button" class="sk-menu-item sk-menu-item--grouped" role="option" aria-selected="false" data-maps-option="event" data-value="duels_ground" data-label="Duelos · Al ras de suelo" @click="open = false">Al ras de suelo</button>
+                                </li>
+                                                                                            <li role="presentation">
+                                    <button type="button" class="sk-menu-item sk-menu-item--grouped" role="option" aria-selected="false" data-maps-option="event" data-value="tackles" data-label="Duelos · Entradas" @click="open = false">Entradas</button>
+                                </li>
+                            <!--[if ENDBLOCK]><![endif]-->                                                    <li class="sk-menu-group" role="presentation">Regate</li>
+                            <!--[if BLOCK]><![endif]-->                                                                <li role="presentation">
+                                    <button type="button" class="sk-menu-item sk-menu-item--grouped" role="option" aria-selected="false" data-maps-option="event" data-value="dribbles_won" data-label="Regate · Exitosos" @click="open = false">Exitosos</button>
+                                </li>
+                                                                                            <li role="presentation">
+                                    <button type="button" class="sk-menu-item sk-menu-item--grouped" role="option" aria-selected="false" data-maps-option="event" data-value="dribbles_lost" data-label="Regate · Perdidos" @click="open = false">Perdidos</button>
+                                </li>
+                            <!--[if ENDBLOCK]><![endif]-->                                                    <li class="sk-menu-group" role="presentation">Sin balón</li>
+                            <!--[if BLOCK]><![endif]-->                                                                <li role="presentation">
+                                    <button type="button" class="sk-menu-item sk-menu-item--grouped" role="option" aria-selected="false" data-maps-option="event" data-value="recoveries_defensive" data-label="Sin balón · Recuperaciones tras acción defensiva" @click="open = false">Recuperaciones tras acción defensiva</button>
+                                </li>
+                                                                                            <li role="presentation">
+                                    <button type="button" class="sk-menu-item sk-menu-item--grouped" role="option" aria-selected="false" data-maps-option="event" data-value="recoveries_counterpress" data-label="Sin balón · Recuperaciones por contrapresión" @click="open = false">Recuperaciones por contrapresión</button>
+                                </li>
+                                                                                            <li role="presentation">
+                                    <button type="button" class="sk-menu-item sk-menu-item--grouped" role="option" aria-selected="false" data-maps-option="event" data-value="interceptions" data-label="Sin balón · Intercepciones" @click="open = false">Intercepciones</button>
+                                </li>
+                                                                                            <li role="presentation">
+                                    <button type="button" class="sk-menu-item sk-menu-item--grouped" role="option" aria-selected="false" data-maps-option="event" data-value="clearances_blocks" data-label="Sin balón · Despejes y rechaces" @click="open = false">Despejes y rechaces</button>
+                                </li>
+                            <!--[if ENDBLOCK]><![endif]-->                        <!--[if ENDBLOCK]><![endif]-->                    </ul>
+                </div>
+
+                
+                <div class="chart-toggle league-filterbar__modes" role="group" aria-label="Tipo de gráfica" data-maps-views=""><button type="button" class="chart-toggle-btn" aria-pressed="false" data-maps-view="scatterplot">Dispersión</button><button type="button" class="chart-toggle-btn active" aria-pressed="true" data-maps-view="heatmap">Mapa de calor</button><button type="button" class="chart-toggle-btn" aria-pressed="false" data-maps-view="control">Zonas de control</button></div>
+                <div class="chart-toggle league-filterbar__modes" role="group" aria-label="Mostrar" data-maps-variants="" hidden=""></div>
+                
+                <div class="chart-toggle league-filterbar__modes" role="group" aria-label="A favor o en contra" data-maps-sides=""><button type="button" class="chart-toggle-btn active" aria-pressed="true" data-maps-side="for" title="">A favor</button><button type="button" class="chart-toggle-btn" aria-pressed="false" data-maps-side="against" title="">En contra</button></div>
+
+                
+                <div class="chart-toggle league-filterbar__modes" role="group" aria-label="Orden" data-maps-sorts="">
+                    <button type="button" class="chart-toggle-btn active" aria-pressed="true" data-maps-sort="table">Tabla</button>
+                    <button type="button" class="chart-toggle-btn" aria-pressed="false" data-maps-sort="metric">Métrica</button>
+                </div>
+
+                
+                <div class="chart-toggle league-filterbar__modes" role="group" aria-label="División de la cancha" data-maps-divisions="">
+                    <button type="button" class="chart-toggle-btn active" aria-pressed="true" data-maps-division="thirds">Tercios</button>
+                    <button type="button" class="chart-toggle-btn" aria-pressed="false" data-maps-division="zones">Zonas</button>
+                </div>
+                <div class="sk-event-map__focus league-maps__focus" data-maps-focus="">
+                    <button type="button" class="sk-event-map__focus-clear" data-maps-focus-clear="" title="Ver toda la cancha" hidden="">
+                        <span data-maps-focus-label=""></span>
+                        <span class="sk-event-map__focus-action">· Ver todos</span>
+                        <i class="bi bi-x-lg" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="sk-event-map__legend league-maps__legend" data-maps-legend=""><span class="sk-event-map__legend-item"><span class="sk-event-map__legend-swatch sk-event-map__legend-swatch--ramp" style="background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(76, 214, 126, 0.643) 9.1%, rgba(47, 205, 109, 0.804) 18.2%, rgba(94, 214, 93, 0.86) 27.3%, rgba(137, 220, 78, 0.906) 36.4%, rgba(182, 220, 65, 0.937) 45.5%, rgba(225, 220, 52, 0.965) 54.5%, rgba(247, 205, 47, 0.98) 63.6%, rgba(240, 167, 52, 0.99) 72.7%, rgba(233, 130, 56, 0.992) 81.8%, rgba(226, 94, 61, 0.996) 90.9%, rgb(220, 60, 65) 100%);"></span>Más intenso = más eventos · cada mapa en su propia escala</span></div>
+
+            <div class="league-maps__grid">
+                                <!--[if BLOCK]><![endif]-->                    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->                    <article class="sk-card league-maps__card" data-map-team="1aw67co8uut64yckd3wbhy9t2" data-map-group="">
+                        <header class="league-maps__head">
+                            <span class="league-maps__rank">1</span>
+                            <span class="league-maps__title">
+                                <a href="https://www.statiskicks.com/team/cruz-azul-1aw67co8uut64yckd3wbhy9t2" wire:navigate="" class="league-maps__team" title="Cruz Azul">Cruz Azul</a>
+                                <span class="league-maps__meta" data-map-meta="">16 PJ · 694,8 por partido</span>
+                            </span>
+                            <button type="button" class="league-maps__hide" data-map-hide="" title="Ocultar Cruz Azul" aria-label="Ocultar Cruz Azul">
+                                <i class="bi bi-eye-slash" aria-hidden="true"></i>
+                            </button>
+                        </header>
+                        <div class="league-maps__canvas-wrap">
+                            <canvas data-map-canvas="" role="img" aria-label="Mapa de Cruz Azul" class="league-maps__canvas--focusable" width="387" height="242"></canvas>
+                            <span class="sk-skel league-maps__skeleton" data-map-loading="" hidden=""></span>
+                            <p class="league-maps__empty" data-map-empty="" hidden=""></p>
+                        </div>
+                    </article>
+                                    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->                    <article class="sk-card league-maps__card" data-map-team="eu8c408f59yx7egaqossbv25e" data-map-group="">
+                        <header class="league-maps__head">
+                            <span class="league-maps__rank">2</span>
+                            <span class="league-maps__title">
+                                <a href="https://www.statiskicks.com/team/club-america-eu8c408f59yx7egaqossbv25e" wire:navigate="" class="league-maps__team" title="Club América">Club América</a>
+                                <span class="league-maps__meta" data-map-meta="">16 PJ · 683,9 por partido</span>
+                            </span>
+                            <button type="button" class="league-maps__hide" data-map-hide="" title="Ocultar Club América" aria-label="Ocultar Club América">
+                                <i class="bi bi-eye-slash" aria-hidden="true"></i>
+                            </button>
+                        </header>
+                        <div class="league-maps__canvas-wrap">
+                            <canvas data-map-canvas="" role="img" aria-label="Mapa de Club América" class="league-maps__canvas--focusable" width="387" height="242"></canvas>
+                            <span class="sk-skel league-maps__skeleton" data-map-loading="" hidden=""></span>
+                            <p class="league-maps__empty" data-map-empty="" hidden=""></p>
+                        </div>
+                    </article>
+                                    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->                    <article class="sk-card league-maps__card" data-map-team="e603sojy77s4u0ypqds2v2a1g" data-map-group="">
+                        <header class="league-maps__head">
+                            <span class="league-maps__rank">3</span>
+                            <span class="league-maps__title">
+                                <a href="https://www.statiskicks.com/team/guadalajara-e603sojy77s4u0ypqds2v2a1g" wire:navigate="" class="league-maps__team" title="Guadalajara">Guadalajara</a>
+                                <span class="league-maps__meta" data-map-meta="">16 PJ · 775,3 por partido</span>
+                            </span>
+                            <button type="button" class="league-maps__hide" data-map-hide="" title="Ocultar Guadalajara" aria-label="Ocultar Guadalajara">
+                                <i class="bi bi-eye-slash" aria-hidden="true"></i>
+                            </button>
+                        </header>
+                        <div class="league-maps__canvas-wrap">
+                            <canvas data-map-canvas="" role="img" aria-label="Mapa de Guadalajara" class="league-maps__canvas--focusable" width="387" height="242"></canvas>
+                            <span class="sk-skel league-maps__skeleton" data-map-loading="" hidden=""></span>
+                            <p class="league-maps__empty" data-map-empty="" hidden=""></p>
+                        </div>
+                    </article>
+                                    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->                    <article class="sk-card league-maps__card" data-map-team="3390h9hdgoxzzofnrpyktanuz" data-map-group="">
+                        <header class="league-maps__head">
+                            <span class="league-maps__rank">4</span>
+                            <span class="league-maps__title">
+                                <a href="https://www.statiskicks.com/team/toluca-3390h9hdgoxzzofnrpyktanuz" wire:navigate="" class="league-maps__team" title="Toluca">Toluca</a>
+                                <span class="league-maps__meta" data-map-meta="">16 PJ · 748,1 por partido</span>
+                            </span>
+                            <button type="button" class="league-maps__hide" data-map-hide="" title="Ocultar Toluca" aria-label="Ocultar Toluca">
+                                <i class="bi bi-eye-slash" aria-hidden="true"></i>
+                            </button>
+                        </header>
+                        <div class="league-maps__canvas-wrap">
+                            <canvas data-map-canvas="" role="img" aria-label="Mapa de Toluca" class="league-maps__canvas--focusable" width="387" height="242"></canvas>
+                            <span class="sk-skel league-maps__skeleton" data-map-loading="" hidden=""></span>
+                            <p class="league-maps__empty" data-map-empty="" hidden=""></p>
+                        </div>
+                    </article>
+                                    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->                    <article class="sk-card league-maps__card" data-map-team="8jjxbd5vr23vhu1v5r21rzkrn" data-map-group="">
+                        <header class="league-maps__head">
+                            <span class="league-maps__rank">5</span>
+                            <span class="league-maps__title">
+                                <a href="https://www.statiskicks.com/team/atlas-8jjxbd5vr23vhu1v5r21rzkrn" wire:navigate="" class="league-maps__team" title="Atlas">Atlas</a>
+                                <span class="league-maps__meta" data-map-meta="">16 PJ · 644,9 por partido</span>
+                            </span>
+                            <button type="button" class="league-maps__hide" data-map-hide="" title="Ocultar Atlas" aria-label="Ocultar Atlas">
+                                <i class="bi bi-eye-slash" aria-hidden="true"></i>
+                            </button>
+                        </header>
+                        <div class="league-maps__canvas-wrap">
+                            <canvas data-map-canvas="" role="img" aria-label="Mapa de Atlas" class="league-maps__canvas--focusable" width="387" height="242"></canvas>
+                            <span class="sk-skel league-maps__skeleton" data-map-loading="" hidden=""></span>
+                            <p class="league-maps__empty" data-map-empty="" hidden=""></p>
+                        </div>
+                    </article>
+                                    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->                    <article class="sk-card league-maps__card" data-map-team="8yn3l36qkq1fxbw4ufmwyfyt9" data-map-group="">
+                        <header class="league-maps__head">
+                            <span class="league-maps__rank">6</span>
+                            <span class="league-maps__title">
+                                <a href="https://www.statiskicks.com/team/santos-laguna-8yn3l36qkq1fxbw4ufmwyfyt9" wire:navigate="" class="league-maps__team" title="Santos Laguna">Santos Laguna</a>
+                                <span class="league-maps__meta" data-map-meta="">16 PJ · 678,8 por partido</span>
+                            </span>
+                            <button type="button" class="league-maps__hide" data-map-hide="" title="Ocultar Santos Laguna" aria-label="Ocultar Santos Laguna">
+                                <i class="bi bi-eye-slash" aria-hidden="true"></i>
+                            </button>
+                        </header>
+                        <div class="league-maps__canvas-wrap">
+                            <canvas data-map-canvas="" role="img" aria-label="Mapa de Santos Laguna" class="league-maps__canvas--focusable" width="387" height="242"></canvas>
+                            <span class="sk-skel league-maps__skeleton" data-map-loading="" hidden=""></span>
+                            <p class="league-maps__empty" data-map-empty="" hidden=""></p>
+                        </div>
+                    </article>
+                                    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->                    <article class="sk-card league-maps__card" data-map-team="2ei66pjfsrr6uxqp1bywq31lo" data-map-group="">
+                        <header class="league-maps__head">
+                            <span class="league-maps__rank">7</span>
+                            <span class="league-maps__title">
+                                <a href="https://www.statiskicks.com/team/leon-2ei66pjfsrr6uxqp1bywq31lo" wire:navigate="" class="league-maps__team" title="León">León</a>
+                                <span class="league-maps__meta" data-map-meta="">16 PJ · 620,7 por partido</span>
+                            </span>
+                            <button type="button" class="league-maps__hide" data-map-hide="" title="Ocultar León" aria-label="Ocultar León">
+                                <i class="bi bi-eye-slash" aria-hidden="true"></i>
+                            </button>
+                        </header>
+                        <div class="league-maps__canvas-wrap">
+                            <canvas data-map-canvas="" role="img" aria-label="Mapa de León" class="league-maps__canvas--focusable" width="387" height="242"></canvas>
+                            <span class="sk-skel league-maps__skeleton" data-map-loading="" hidden=""></span>
+                            <p class="league-maps__empty" data-map-empty="" hidden=""></p>
+                        </div>
+                    </article>
+                                    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->                    <article class="sk-card league-maps__card" data-map-team="cynfvfb31rml7xrlsnejf8r6j" data-map-group="">
+                        <header class="league-maps__head">
+                            <span class="league-maps__rank">8</span>
+                            <span class="league-maps__title">
+                                <a href="https://www.statiskicks.com/team/pachuca-cynfvfb31rml7xrlsnejf8r6j" wire:navigate="" class="league-maps__team" title="Pachuca">Pachuca</a>
+                                <span class="league-maps__meta" data-map-meta="">16 PJ · 601,6 por partido</span>
+                            </span>
+                            <button type="button" class="league-maps__hide" data-map-hide="" title="Ocultar Pachuca" aria-label="Ocultar Pachuca">
+                                <i class="bi bi-eye-slash" aria-hidden="true"></i>
+                            </button>
+                        </header>
+                        <div class="league-maps__canvas-wrap">
+                            <canvas data-map-canvas="" role="img" aria-label="Mapa de Pachuca" class="league-maps__canvas--focusable" width="387" height="242"></canvas>
+                            <span class="sk-skel league-maps__skeleton" data-map-loading="" hidden=""></span>
+                            <p class="league-maps__empty" data-map-empty="" hidden=""></p>
+                        </div>
+                    </article>
+                <!--[if ENDBLOCK]><![endif]-->            </div>
+
+            <!--[if BLOCK]><![endif]-->                <div class="sk-unlock-zone league-maps__locked">
+                
+                <div class="league-maps__grid league-maps__grid--locked" aria-hidden="true">
+                    <!--[if BLOCK]><![endif]-->                        <article class="sk-card league-maps__card">
+                            <header class="league-maps__head">
+                                <span class="league-maps__rank">9</span>
+                                <span class="league-maps__title">
+                                    <span class="league-maps__team">Equipo bloqueado</span>
+                                    <span class="league-maps__meta">0 PJ · 000,0 por partido</span>
+                                </span>
+                            </header>
+                            <div class="league-maps__canvas-wrap league-maps__ghost" style="--ghost-x: 20%; --ghost-y: 25%"></div>
+                        </article>
+                                            <article class="sk-card league-maps__card">
+                            <header class="league-maps__head">
+                                <span class="league-maps__rank">10</span>
+                                <span class="league-maps__title">
+                                    <span class="league-maps__team">Equipo bloqueado</span>
+                                    <span class="league-maps__meta">0 PJ · 000,0 por partido</span>
+                                </span>
+                            </header>
+                            <div class="league-maps__canvas-wrap league-maps__ghost" style="--ghost-x: 57%; --ghost-y: 48%"></div>
+                        </article>
+                                            <article class="sk-card league-maps__card">
+                            <header class="league-maps__head">
+                                <span class="league-maps__rank">11</span>
+                                <span class="league-maps__title">
+                                    <span class="league-maps__team">Equipo bloqueado</span>
+                                    <span class="league-maps__meta">0 PJ · 000,0 por partido</span>
+                                </span>
+                            </header>
+                            <div class="league-maps__canvas-wrap league-maps__ghost" style="--ghost-x: 34%; --ghost-y: 71%"></div>
+                        </article>
+                                            <article class="sk-card league-maps__card">
+                            <header class="league-maps__head">
+                                <span class="league-maps__rank">12</span>
+                                <span class="league-maps__title">
+                                    <span class="league-maps__team">Equipo bloqueado</span>
+                                    <span class="league-maps__meta">0 PJ · 000,0 por partido</span>
+                                </span>
+                            </header>
+                            <div class="league-maps__canvas-wrap league-maps__ghost" style="--ghost-x: 71%; --ghost-y: 44%"></div>
+                        </article>
+                                            <article class="sk-card league-maps__card">
+                            <header class="league-maps__head">
+                                <span class="league-maps__rank">13</span>
+                                <span class="league-maps__title">
+                                    <span class="league-maps__team">Equipo bloqueado</span>
+                                    <span class="league-maps__meta">0 PJ · 000,0 por partido</span>
+                                </span>
+                            </header>
+                            <div class="league-maps__canvas-wrap league-maps__ghost" style="--ghost-x: 48%; --ghost-y: 67%"></div>
+                        </article>
+                                            <article class="sk-card league-maps__card">
+                            <header class="league-maps__head">
+                                <span class="league-maps__rank">14</span>
+                                <span class="league-maps__title">
+                                    <span class="league-maps__team">Equipo bloqueado</span>
+                                    <span class="league-maps__meta">0 PJ · 000,0 por partido</span>
+                                </span>
+                            </header>
+                            <div class="league-maps__canvas-wrap league-maps__ghost" style="--ghost-x: 25%; --ghost-y: 40%"></div>
+                        </article>
+                                            <article class="sk-card league-maps__card">
+                            <header class="league-maps__head">
+                                <span class="league-maps__rank">15</span>
+                                <span class="league-maps__title">
+                                    <span class="league-maps__team">Equipo bloqueado</span>
+                                    <span class="league-maps__meta">0 PJ · 000,0 por partido</span>
+                                </span>
+                            </header>
+                            <div class="league-maps__canvas-wrap league-maps__ghost" style="--ghost-x: 62%; --ghost-y: 63%"></div>
+                        </article>
+                                            <article class="sk-card league-maps__card">
+                            <header class="league-maps__head">
+                                <span class="league-maps__rank">16</span>
+                                <span class="league-maps__title">
+                                    <span class="league-maps__team">Equipo bloqueado</span>
+                                    <span class="league-maps__meta">0 PJ · 000,0 por partido</span>
+                                </span>
+                            </header>
+                            <div class="league-maps__canvas-wrap league-maps__ghost" style="--ghost-x: 39%; --ghost-y: 36%"></div>
+                        </article>
+                                            <article class="sk-card league-maps__card">
+                            <header class="league-maps__head">
+                                <span class="league-maps__rank">17</span>
+                                <span class="league-maps__title">
+                                    <span class="league-maps__team">Equipo bloqueado</span>
+                                    <span class="league-maps__meta">0 PJ · 000,0 por partido</span>
+                                </span>
+                            </header>
+                            <div class="league-maps__canvas-wrap league-maps__ghost" style="--ghost-x: 76%; --ghost-y: 59%"></div>
+                        </article>
+                                            <article class="sk-card league-maps__card">
+                            <header class="league-maps__head">
+                                <span class="league-maps__rank">18</span>
+                                <span class="league-maps__title">
+                                    <span class="league-maps__team">Equipo bloqueado</span>
+                                    <span class="league-maps__meta">0 PJ · 000,0 por partido</span>
+                                </span>
+                            </header>
+                            <div class="league-maps__canvas-wrap league-maps__ghost" style="--ghost-x: 53%; --ghost-y: 32%"></div>
+                        </article>
+                    <!--[if ENDBLOCK]><![endif]-->                </div>
+                <div class="sk-unlock" role="note">
+    <span class="sk-unlock__icon" aria-hidden="true"><i class="bi bi-lock-fill"></i></span>
+    <p class="sk-unlock__title">¿Quieres ver los mapas de los otros 10 equipos?</p>
+    <p class="sk-unlock__text">Adquiere uno de nuestros paquetes para verlo completo.</p>
+    <a href="https://www.statiskicks.com/planes" wire:navigate="" class="sk-unlock__cta">Ver planes</a>
+</div>
+                </div>
+            <!--[if ENDBLOCK]><![endif]-->
+            <div class="league-detail-empty sk-card" data-maps-none="" hidden="">
+                <i class="bi bi-eye-slash"></i>
+                <p>Todos los mapas están ocultos. Elige equipos en «Todos los equipos».</p>
+            </div>
+
+            <p class="league-standings__note">
+                Cada mapa reúne los partidos de liga del equipo en el periodo elegido y se ve como en la página del equipo:
+                cada uno en su propia escala, así que muestra dónde actúa cada equipo, no cuánto más que otro.
+                En dispersión, un equipo con muchos eventos muestra una muestra de ellos.
+            </p>
+        </div>
+    <!--[if ENDBLOCK]><![endif]--></section>
+            <!--[if ENDBLOCK]><![endif]-->                </div>
+
+                <div class="league-detail__tab-overlay" wire:loading.class="league-detail__tab-overlay--show" wire:loading.delay="" wire:target="setTab,season,tournament" aria-hidden="true">
+                    <div class="league-detail-tab-skeleton sk-card" role="status" aria-live="polite" aria-busy="true">
+    <div class="league-detail-tab-skeleton__body">
+        <div class="league-detail-tab-skeleton__message">
+            <span class="league-detail-tab-skeleton__spinner" aria-hidden="true"></span>
+            <p class="league-detail-tab-skeleton__label">Cargando contenido</p>
+        </div>
+        <div class="league-detail-tab-skeleton__preview" aria-hidden="true">
+            <!--[if BLOCK]><![endif]-->                <span class="sk-skel league-detail-tab-skeleton__row"></span>
+                            <span class="sk-skel league-detail-tab-skeleton__row"></span>
+                            <span class="sk-skel league-detail-tab-skeleton__row"></span>
+                            <span class="sk-skel league-detail-tab-skeleton__row"></span>
+                            <span class="sk-skel league-detail-tab-skeleton__row"></span>
+                            <span class="sk-skel league-detail-tab-skeleton__row"></span>
+                            <span class="sk-skel league-detail-tab-skeleton__row"></span>
+                            <span class="sk-skel league-detail-tab-skeleton__row"></span>
+            <!--[if ENDBLOCK]><![endif]-->        </div>
+    </div>
+</div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+    <footer class="sk-footer">
+  <div class="container">
+    <div class="row g-4">
+
+      <div class="col-lg-5">
+        <div class="footer-logo">
+          <img src="https://www.statiskicks.com/custom_assets/logos/footer_logo.png?v=1787321828" alt="Statiskicks">
+        </div>
+        <p class="footer-desc">
+          Analiza a cualquier nivel de profundidad con datos en vivo para 40
+          competiciones. Rankings, radares, estilos de juego, mapas de eventos,
+          probabilidades y proyecciones, scouting y análisis de equipos.
+        </p>
+                  <a class="footer-contact" href="mailto:contacto@statiskicks.com">
+            <i class="bi bi-envelope" aria-hidden="true"></i> contacto@statiskicks.com
+          </a>
+              </div>
+
+      <div class="col-6 col-lg-3 offset-lg-1">
+        <p class="footer-nav-title">Explora</p>
+        <nav class="footer-nav-col" aria-label="Explora">
+          <a href="https://www.statiskicks.com/leagues" wire:navigate="">Ligas</a>
+          <a href="https://www.statiskicks.com/players" wire:navigate="">Búsqueda avanzada</a>
+          <a href="https://www.statiskicks.com/partidos" wire:navigate="">Partidos</a>
+          <a href="https://www.statiskicks.com/planes" wire:navigate="">Planes</a>
+        </nav>
+      </div>
+
+      <div class="col-6 col-lg-3">
+        <p class="footer-nav-title">Tu cuenta</p>
+        <nav class="footer-nav-col" aria-label="Tu cuenta">
+                      <a href="https://www.statiskicks.com/register">Crear cuenta gratis</a>
+            <a href="https://www.statiskicks.com/login">Iniciar sesión</a>
+                    <a href="https://www.statiskicks.com" wire:navigate="">Inicio</a>
+        </nav>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="sk-footer-bottom">
+    <div class="container sk-footer-bottom__row">
+      <p>© 2026 Statiskicks. Todos los derechos reservados.</p>
+      <nav class="sk-footer-legal" aria-label="Legal">
+        <a href="https://www.statiskicks.com/terminos" wire:navigate="">Términos y Condiciones de uso</a>
+        <a href="https://www.statiskicks.com/privacidad" wire:navigate="">Aviso de privacidad integral</a>
+      </nav>
+      <p>Datos de fútbol: Opta (Stats Perform).</p>
+    </div>
+  </div>
+</footer>
+
+    <div x-persist="chat-fab">
+      <div class="sk-chat-fab" data-chat-fab="" x-data="{ open: false }" @keydown.escape.window="open = false" @click.outside="open = false">
+  <div class="sk-chat-fab__popover" id="sk-chat-fab-popover" role="dialog" aria-label="Chat SK" x-show="open" style="display: none;">
+    <button type="button" class="sk-chat-fab__close" @click="open = false" aria-label="Cerrar">
+      <i class="bi bi-x-lg" aria-hidden="true"></i>
+    </button>
+    <div class="sk-coming-soon sk-coming-soon--compact" data-coming-soon="chat">
+      <p class="sk-coming-soon__title">Chat SK</p>
+    <span class="sk-coming-soon__badge">Próximamente · v2.0 (2027)</span>
+</div>
+  </div>
+
+  <button type="button" class="sk-chat-fab__button" aria-label="Chat SK (próximamente)" aria-controls="sk-chat-fab-popover" :aria-expanded="open ? 'true' : 'false'" aria-expanded="false" @click="open = ! open">
+    <i class="bi bi-chat-dots" aria-hidden="true"></i>
+  </button>
+</div>
+    </div>
+
+    
+          <div class="sk-paywall" data-sk-paywall="" data-sk-paywall-downloads="" hidden="">
+    <div class="sk-paywall__backdrop" data-sk-paywall-close=""></div>
+    <div class="sk-paywall__dialog" role="dialog" aria-modal="true" aria-labelledby="sk-paywall-title-downloads" tabindex="-1">
+        <button type="button" class="sk-paywall__close" data-sk-paywall-close="" aria-label="Cerrar">
+            <i class="bi bi-x-lg" aria-hidden="true"></i>
+        </button>
+        <div data-sk-paywall-variant="downloads">
+            <span class="sk-paywall__icon" aria-hidden="true"><i class="bi bi-download"></i></span>
+            <p class="sk-paywall__title" id="sk-paywall-title-downloads">Las descargas son parte de los planes de pago</p>
+            <p class="sk-paywall__text">Descarga gráficas en imagen y tablas y datos en CSV con cualquiera de nuestros paquetes.</p>
+        </div>
+        <div data-sk-paywall-variant="events" hidden="">
+            <span class="sk-paywall__icon" aria-hidden="true"><i class="bi bi-geo-alt"></i></span>
+            <p class="sk-paywall__title" id="sk-paywall-title-events">Todos los mapas de eventos son parte de los planes de pago</p>
+            <p class="sk-paywall__text">Con la cuenta gratuita tienes un evento por sección. Desbloquea todos los pases, remates, duelos y acciones defensivas con cualquiera de nuestros paquetes.</p>
+        </div>
+        <div data-sk-paywall-variant="columns" hidden="">
+            <span class="sk-paywall__icon" aria-hidden="true"><i class="bi bi-table"></i></span>
+            <p class="sk-paywall__title" id="sk-paywall-title-columns">Elegir las métricas de la tabla es parte de los planes de pago</p>
+            <p class="sk-paywall__text">Con la cuenta gratuita ves los minutos, goles, asistencias y el SKore de cada partido. Elige cualquier métrica con cualquiera de nuestros paquetes.</p>
+        </div>
+        <div data-sk-paywall-variant="compare" hidden="">
+            <span class="sk-paywall__icon" aria-hidden="true"><i class="bi bi-people"></i></span>
+            <p class="sk-paywall__title" id="sk-paywall-title-compare">Comparar con jugadores de todas las ligas es parte de los planes de pago</p>
+            <p class="sk-paywall__text">Con la cuenta gratuita comparas con jugadores de las ligas de tu plan. Compara con cualquier jugador de cualquier liga con cualquiera de nuestros paquetes.</p>
+        </div>
+        <div data-sk-paywall-variant="charts" hidden="">
+            <span class="sk-paywall__icon" aria-hidden="true"><i class="bi bi-sliders"></i></span>
+            <p class="sk-paywall__title" id="sk-paywall-title-charts">Personalizar las gráficas es parte de los planes de pago</p>
+            <p class="sk-paywall__text">Cambia la unidad de medida, compara con la media de la liga y elige los atributos que quieres ver con cualquiera de nuestros paquetes.</p>
+        </div>
+
+        <div class="sk-paywall__plans">
+                            <div class="sk-paywall__plan sk-paywall__plan--featured">
+                    <div class="sk-paywall__plan-head">
+                        <span class="sk-paywall__plan-name">Plus</span>
+                        <span class="sk-paywall__plan-price">$129 <small>/mes</small></span>
+                    </div>
+                                            <p class="sk-paywall__plan-tagline">Todas las ligas y todas las herramientas.</p>
+                                                                <ul class="sk-paywall__plan-highlights">
+                                                            <li><i class="bi bi-check-lg" aria-hidden="true"></i>Las 40 ligas, con la proyección completa</li>
+                                                            <li><i class="bi bi-check-lg" aria-hidden="true"></i>Equipos completos: ranking, mapas, red de pases y comparador</li>
+                                                            <li><i class="bi bi-check-lg" aria-hidden="true"></i>Todos los mapas de eventos y las métricas a elegir</li>
+                                                            <li><i class="bi bi-check-lg" aria-hidden="true"></i>Comparador y jugadores similares</li>
+                                                    </ul>
+                                    </div>
+                    </div>
+
+        <a href="https://www.statiskicks.com/planes" wire:navigate="" class="sk-paywall__cta" data-sk-paywall-close="">Ver planes</a>
+    </div>
+</div>
+    
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // ── Hamburger nav toggle ──────────────────────────────────
+    (function () {
+      const toggle = document.getElementById('navToggle');
+      const drawer = document.getElementById('navDrawer');
+      const icon   = document.getElementById('navToggleIcon');
+      if (!toggle || !drawer) return;
+
+      if (toggle.dataset.skBound !== '1') {
+        toggle.dataset.skBound = '1';
+
+        toggle.addEventListener('click', () => {
+          const open = drawer.classList.toggle('open');
+          toggle.setAttribute('aria-expanded', open);
+          icon.className = open ? 'bi bi-x-lg' : 'bi bi-list';
+        });
+
+        // Delegated from the drawer so links added later still close it, and so
+        // there is one listener to guard rather than one per link.
+        drawer.addEventListener('click', (event) => {
+          if (!event.target.closest('a, button.btn-iniciar')) return;
+
+          drawer.classList.remove('open');
+          toggle.setAttribute('aria-expanded', 'false');
+          icon.className = 'bi bi-list';
+        });
+      }
+
+      // Sync mobile theme toggle with main toggle
+      const mainToggle   = document.getElementById('themeToggle');
+      const mobileToggle = document.getElementById('themeToggleMobile');
+      const mobileIcon   = document.getElementById('themeIconMobile');
+
+      if (mobileToggle && mainToggle && mobileToggle.dataset.skBound !== '1') {
+        mobileToggle.dataset.skBound = '1';
+        mobileToggle.addEventListener('click', () => mainToggle.click());
+
+        new MutationObserver(() => {
+          const mainIcon = document.getElementById('themeIcon');
+          if (mobileIcon && mainIcon) mobileIcon.className = mainIcon.className;
+        }).observe(document.getElementById('themeIcon'), { attributes: true, attributeFilter: ['class'] });
+      }
+    })();
+
+    // ── Theme toggle ─────────────────────────────────────────
+    (function () {
+      const root = document.documentElement;
+      const btn  = document.getElementById('themeToggle');
+      const icon = document.getElementById('themeIcon');
+      if (!btn) return;
+
+      const stored = localStorage.getItem('sk-theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const isDark = stored ? stored === 'dark' : prefersDark;
+
+      function applyTheme(dark) {
+        root.setAttribute('data-theme', dark ? 'dark' : 'light');
+        if (icon) icon.className = dark ? 'bi bi-sun-fill' : 'bi bi-moon-fill';
+        localStorage.setItem('sk-theme', dark ? 'dark' : 'light');
+      }
+
+      // Applying on every execution is harmless and keeps the icon in step
+      // after a navigation; only the binding must not repeat.
+      applyTheme(isDark);
+
+      if (btn.dataset.skBound === '1') return;
+      btn.dataset.skBound = '1';
+
+      btn.addEventListener('click', function () {
+        applyTheme(root.getAttribute('data-theme') !== 'dark');
+      });
+    })();
+  </script>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+  <script>
+    // The UMD build does not auto-register with Chart.js 4 — every chart's
+    // `plugins.datalabels` option was silently inert without this.
+    if (window.Chart && window.ChartDataLabels) {
+      Chart.register(ChartDataLabels);
+    }
+  </script>
+  <script src="https://www.statiskicks.com/custom_assets/js/home-motion.js?v=1791380772"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/sk-tooltip.js?v=1792175742"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/download-paywall.js?v=1793826522"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/chart-download.js?v=1794084628"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/search-results-image.js?v=1794084628"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/percentile-rows.js?v=1793360776"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/skore.js?v=1793032870"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/attribute-picker.js?v=1791577902"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/attribute-charts.js?v=1794084628"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/heatmap.js?v=1791561866"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/goalmouth-map.js?v=1794084628"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/event-map.js?v=1793880030"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/league-maps.js?v=1794084628"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/league-scatter.js?v=1794084628"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/league-switcher.js?v=1793361650"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/team-profile.js?v=1791380772"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/team-age-profile.js?v=1794168592"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/team-xg-rolling.js?v=1791380772"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/team-formation-profile.js?v=1791380772"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/team-pass-network.js?v=1794084628"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/live-motion.js?v=1792175986"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/momentum-chart.js?v=1792708794"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/player-heat.js?v=1792491156"></script>
+  <script src="https://www.statiskicks.com/custom_assets/js/scroll-lock.js?v=1792589840"></script>
+
+  <script>
+    // Destroy all Chart.js instances before SPA navigation to prevent canvas-in-use errors
+    document.addEventListener('livewire:navigating', function () {
+      document.body.classList.remove('sk-search-open', 'league-modal-open');
+
+      if (typeof Chart !== 'undefined') {
+        Object.values(Chart.instances || {}).forEach(function (chart) {
+          chart.destroy();
+        });
+      }
+    });
+  </script>
+
+  
+  <div class="sk-usage-notice" id="skUsageNotice" role="status" aria-live="polite" hidden="">
+  <i class="bi bi-hourglass-split" aria-hidden="true"></i>
+  <p class="sk-usage-notice__text"></p>
+  <button type="button" class="sk-usage-notice__close" aria-label="Cerrar aviso">
+    <i class="bi bi-x-lg" aria-hidden="true"></i>
+  </button>
+</div>
+
+<script data-navigate-once="">
+  (function () {
+    // Not window.skUsageNotice: the element's id already puts the <div>
+    // there (named access on window), and the guard would never let this run.
+    if (window.skShowUsageNotice) return;
+
+    const fallback = "Recibimos demasiadas solicitudes seguidas. Espera un momento y vuelve a intentarlo.";
+    let timer = null;
+
+    function show(message) {
+      const notice = document.getElementById('skUsageNotice');
+
+      if (!notice) return;
+
+      notice.querySelector('.sk-usage-notice__text').textContent = message || fallback;
+      notice.hidden = false;
+      clearTimeout(timer);
+      timer = setTimeout(function () { notice.hidden = true; }, 9000);
+    }
+
+    window.skShowUsageNotice = show;
+
+    window.addEventListener('sk-usage-limit', function (event) {
+      show(event.detail && event.detail.message);
+    });
+
+    document.addEventListener('click', function (event) {
+      if (event.target.closest('.sk-usage-notice__close')) {
+        const notice = document.getElementById('skUsageNotice');
+
+        if (notice) notice.hidden = true;
+      }
+    });
+
+    let intercepting = false;
+
+    function intercept() {
+      if (intercepting || !window.Livewire || typeof window.Livewire.interceptRequest !== 'function') return;
+
+      intercepting = true;
+      window.Livewire.interceptRequest(function ({ onError }) {
+        onError(function ({ response, body, preventDefault }) {
+          if (!response || response.status !== 429) return;
+
+          preventDefault();
+
+          let message = fallback;
+
+          try {
+            message = JSON.parse(body).message || fallback;
+          } catch (e) {
+            // Not the usage limits' JSON: the generic message will do.
+          }
+
+          show(message);
+        });
+      });
+    }
+
+    document.addEventListener('livewire:init', intercept);
+    intercept();
+  })();
+</script>
+
+  <script src="https://www.statiskicks.com/livewire-e3175f40/livewire.min.js?id=6b3709b1" data-no-progress-bar="" data-csrf="SeB795TKrTNXZD3k1o9CLjHORbWlKQRjfbpXIthG" data-module-url="https://www.statiskicks.com/livewire-e3175f40" data-update-uri="https://www.statiskicks.com/livewire-e3175f40/update" data-navigate-once="true"></script>
+  <script>
+    (function () {
+      function sameOriginEndpoint(value) {
+        if (!value) return value;
+
+        try {
+          const parsed = new URL(String(value), window.location.origin);
+
+          if (parsed.origin === window.location.origin) {
+            return parsed.href;
+          }
+
+          return `${window.location.origin}${parsed.pathname}${parsed.search}${parsed.hash}`;
+        } catch {
+          return value;
+        }
+      }
+
+      function normalizeLivewireEndpointConfig() {
+        const livewireScript = document.querySelector('script[data-update-uri]');
+
+        if (livewireScript) {
+          const updateUri = sameOriginEndpoint(livewireScript.getAttribute('data-update-uri'));
+          const moduleUrl = sameOriginEndpoint(livewireScript.getAttribute('data-module-url'));
+
+          if (updateUri) {
+            livewireScript.setAttribute('data-update-uri', updateUri);
+          }
+
+          if (moduleUrl) {
+            livewireScript.setAttribute('data-module-url', moduleUrl);
+          }
+        }
+
+        if (window.livewireScriptConfig) {
+          window.livewireScriptConfig.uri = sameOriginEndpoint(window.livewireScriptConfig.uri);
+          window.livewireScriptConfig.moduleUrl = sameOriginEndpoint(window.livewireScriptConfig.moduleUrl);
+        }
+      }
+
+      normalizeLivewireEndpointConfig();
+      document.addEventListener('livewire:navigated', normalizeLivewireEndpointConfig);
+    })();
+  </script>
+
+  <script>
+    (function () {
+        const rawSearchUrl = "https:\/\/www.statiskicks.com\/search";
+
+        function resolveSearchUrl(url) {
+            const fallbackPath = '/search';
+
+            try {
+                const parsed = new URL(String(url || ''), window.location.origin);
+                const path = parsed.pathname || fallbackPath;
+                const query = parsed.search || '';
+                return `${window.location.origin}${path}${query}`;
+            } catch {
+                const normalized = String(url || '').trim();
+                const path = normalized
+                    ? (normalized.startsWith('/') ? normalized : `/${normalized}`)
+                    : fallbackPath;
+
+                return `${window.location.origin}${path}`;
+            }
+        }
+
+        const searchUrl = resolveSearchUrl(rawSearchUrl);
+
+        function registerNavbarSearchPanel() {
+            Alpine.data('navbarSearchPanel', () => ({
+                open: false,
+                activeTab: 'search',
+                query: '',
+                leagues: [],
+                teams: [],
+                players: [],
+                recentItems: [],
+                loading: false,
+                // Over the search's ceiling (SK-19): the reason, said in the
+                // panel instead of «no results», which would read as "no such
+                // player".
+                limited: '',
+                searchUrl,
+                searchTimer: null,
+                searchController: null,
+
+                init() {
+                    this.loadRecent();
+                    this.$watch('query', (value) => this.queueSearch(value));
+                },
+
+                openPanel() {
+                    this.open = true;
+                    this.activeTab = 'search';
+                    document.body.classList.add('sk-search-open');
+                    this.loadRecent();
+                    this.$nextTick(() => this.$refs.searchInput?.focus());
+                },
+
+                closePanel() {
+                    this.open = false;
+                    this.query = '';
+                    this.clearResults();
+                    this.loading = false;
+                    this.abortSearch();
+                    document.body.classList.remove('sk-search-open');
+                },
+
+                queueSearch(value) {
+                    this.abortSearch();
+                    clearTimeout(this.searchTimer);
+                    this.limited = '';
+
+                    const term = String(value || '').trim();
+                    if (term.length < 2) {
+                        this.clearResults();
+                        this.loading = false;
+                        return;
+                    }
+
+                    this.loading = true;
+                    this.searchTimer = setTimeout(() => this.runSearch(term), 350);
+                },
+
+                abortSearch() {
+                    if (this.searchController) {
+                        this.searchController.abort();
+                        this.searchController = null;
+                    }
+                },
+
+                async runSearch(term) {
+                    this.abortSearch();
+                    this.searchController = new AbortController();
+
+                    try {
+                        const response = await fetch(`${this.searchUrl}?q=${encodeURIComponent(term)}`, {
+                            headers: { Accept: 'application/json' },
+                            signal: this.searchController.signal,
+                        });
+
+                        // Over the search's ceiling (SK-19): say so, rather
+                        // than an empty list that reads as "no players".
+                        if (response.status === 429) {
+                            const limited = await response.json().catch(() => ({}));
+                            this.limited = limited.message || "Demasiadas b\u00fasquedas seguidas; espera un momento.";
+                        }
+
+                        if (!response.ok) {
+                            throw new Error('Search failed');
+                        }
+
+                        const payload = await response.json();
+                        if (String(this.query || '').trim() === term) {
+                            this.leagues = Array.isArray(payload.leagues) ? payload.leagues : [];
+                            this.teams = Array.isArray(payload.teams) ? payload.teams : [];
+                            this.players = Array.isArray(payload.players) ? payload.players : [];
+                        }
+                    } catch (error) {
+                        if (error?.name !== 'AbortError') {
+                            this.clearResults();
+                        }
+                    } finally {
+                        if (String(this.query || '').trim() === term) {
+                            this.loading = false;
+                        }
+                        this.searchController = null;
+                    }
+                },
+
+                clearResults() {
+                    this.leagues = [];
+                    this.teams = [];
+                    this.players = [];
+                },
+
+                get hasResults() {
+                    return this.leagues.length + this.teams.length + this.players.length > 0;
+                },
+
+                get sections() {
+                    return [
+                        { kind: 'league', title: 'Ligas', items: this.leagues },
+                        { kind: 'team', title: 'Equipos', items: this.teams },
+                        { kind: 'player', title: 'Jugadores', items: this.players },
+                    ].filter((section) => section.items.length > 0);
+                },
+
+                loadRecent() {
+                    try {
+                        const stored = JSON.parse(localStorage.getItem('sk-recent-players') || '[]');
+                        this.recentItems = Array.isArray(stored) ? stored : [];
+                    } catch {
+                        this.recentItems = [];
+                    }
+                },
+
+                // Entries saved before teams and leagues were searchable carry no kind: they are players.
+                itemKind(item) {
+                    return item?.kind || 'player';
+                },
+
+                selectResult(item, kind) {
+                    if (!item?.id) {
+                        this.closePanel();
+                        return;
+                    }
+
+                    const entry = { ...item, kind };
+                    const existing = this.recentItems.filter(
+                        (recent) => !(recent.id === entry.id && this.itemKind(recent) === kind)
+                    );
+                    this.recentItems = [entry, ...existing].slice(0, 8);
+
+                    try {
+                        localStorage.setItem('sk-recent-players', JSON.stringify(this.recentItems));
+                    } catch {
+                        // ignore storage errors
+                    }
+
+                    this.closePanel();
+                },
+
+                resultImage(item, kind) {
+                    if (item?.image) {
+                        return item.image;
+                    }
+
+                    const fallback = { league: 'Liga', team: 'Equipo', player: 'Jugador' }[kind] || 'Jugador';
+                    const name = encodeURIComponent(item?.name || fallback);
+                    return `https://ui-avatars.com/api/?name=${name}&background=1D665D&color=fff&size=80`;
+                },
+
+                resultMeta(item, kind) {
+                    if (kind === 'league') {
+                        return item?.country || '—';
+                    }
+
+                    if (kind === 'team') {
+                        return item?.competition || '—';
+                    }
+
+                    return [item?.role, item?.team].filter(Boolean).join(' · ') || '—';
+                },
+
+                resultFlag(item, kind) {
+                    if (kind === 'league') {
+                        return String(item?.alpha2 || '').toLowerCase();
+                    }
+
+                    return kind === 'player' ? (item?.flag || '') : '';
+                },
+            }));
+        }
+
+        function bootNavbarSearchPanel() {
+            if (typeof Alpine === 'undefined') {
+                return;
+            }
+
+            registerNavbarSearchPanel();
+
+            document.querySelectorAll('#navbarSearchRoot[x-data]').forEach((element) => {
+                if (!element.__x) {
+                    Alpine.initTree(element);
+                }
+            });
+        }
+
+        document.addEventListener('alpine:init', registerNavbarSearchPanel);
+        document.addEventListener('livewire:navigated', bootNavbarSearchPanel);
+
+        if (typeof Alpine !== 'undefined') {
+            bootNavbarSearchPanel();
+        }
+    })();
+</script>
+
+
+
+</body></html>

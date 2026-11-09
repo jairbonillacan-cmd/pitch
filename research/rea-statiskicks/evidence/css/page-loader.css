@@ -1,0 +1,264 @@
+/* ==========================================================================
+   Page transition loader — the SK mark filling with water
+   ==========================================================================
+
+   No SVG conversion was needed. The logo PNG is RGBA with the mark as its alpha
+   channel, so `mask-image` paints anything through that silhouette — here a
+   rising, wobbling body of water. Everything inside .sk-loader__mark is clipped
+   to the mark, including the waves and bubbles.
+
+   The source is footer_logo.png rather than logo_white.png: both carry the same
+   SK mark, but the footer file holds it at 96×52 instead of 60×34, which is 1.6×
+   the resolution for the same shape. It also carries a wordmark underneath, so
+   the mask is cropped to the mark's own band (x 24–119, y 36–87 of a 140×140
+   canvas) — hence the offsets below, all derived from one scale factor.
+
+   Swapping in a proper SVG later means pointing --sk-mark-src at it and setting
+   the crop values to 0; nothing else changes.
+   ========================================================================== */
+
+.sk-loader {
+  --sk-mark-src: url('../logos/footer_logo.png');
+
+  /* Crop: the mark's box inside the source canvas. */
+  --sk-mark-scale: 1.55;
+  --sk-mark-canvas: 140px;
+  --sk-mark-x: 24px;
+  --sk-mark-y: 36px;
+  --sk-mark-w: 96px;
+  --sk-mark-h: 52px;
+
+  position: fixed;
+  inset: 0;
+  z-index: 2000;              /* above the navbar's 1000 and the search panel's 1201 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(7px) saturate(115%);
+  -webkit-backdrop-filter: blur(7px) saturate(115%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease;
+}
+
+/* color-mix is widely supported but not universal; this is the fallback. */
+@supports not (background: color-mix(in srgb, red 50%, transparent)) {
+  .sk-loader { background: var(--bg); }
+}
+
+.sk-loader[hidden] { display: none; }
+
+.sk-loader.is-visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.sk-loader__stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+  transform: translateY(-2%) scale(0.96);
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sk-loader.is-visible .sk-loader__stage { transform: translateY(0) scale(1); }
+
+/* ── The masked mark ─────────────────────────────────────────────────────── */
+
+.sk-loader__mark {
+  position: relative;
+  width: calc(var(--sk-mark-w) * var(--sk-mark-scale));
+  height: calc(var(--sk-mark-h) * var(--sk-mark-scale));
+  overflow: hidden;
+
+  -webkit-mask-image: var(--sk-mark-src);
+  mask-image: var(--sk-mark-src);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: calc(var(--sk-mark-canvas) * var(--sk-mark-scale)) calc(var(--sk-mark-canvas) * var(--sk-mark-scale));
+  mask-size: calc(var(--sk-mark-canvas) * var(--sk-mark-scale)) calc(var(--sk-mark-canvas) * var(--sk-mark-scale));
+  -webkit-mask-position: calc(var(--sk-mark-x) * var(--sk-mark-scale) * -1) calc(var(--sk-mark-y) * var(--sk-mark-scale) * -1);
+  mask-position: calc(var(--sk-mark-x) * var(--sk-mark-scale) * -1) calc(var(--sk-mark-y) * var(--sk-mark-scale) * -1);
+}
+
+/* The unfilled mark: faint, so the shape reads before the water reaches it. */
+.sk-loader__empty {
+  position: absolute;
+  inset: 0;
+  background: var(--text);
+  opacity: 0.13;
+}
+
+[data-theme="dark"] .sk-loader__empty { opacity: 0.16; }
+
+/* ── The water ───────────────────────────────────────────────────────────── */
+
+.sk-loader__water {
+  position: absolute;
+  left: -10%;
+  right: -10%;              /* wider than the mark so the waves never run out */
+  bottom: 0;
+  height: 100%;
+  background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 85%);
+
+  /*
+    The resting level, used only when `sk-fill` is not running.
+
+    This used to be translateY(100%) — the water parked entirely below the
+    mark, invisible, on the assumption that the animation would immediately
+    lift it. Whenever the animation did *not* run, the mark collapsed to the
+    0.13-opacity ghost of .sk-loader__empty and the overlay read as the word
+    "Cargando" floating on a blurred page with no logo at all.
+
+    That is not a rare state. The loader is shown on `beforeunload` for every
+    full page navigation, and a document being torn down stops animating; a
+    backgrounded or heavily throttled tab does the same. The animation is the
+    one thing that cannot be relied on, so it must not be the only thing
+    making the mark visible.
+
+    A running animation overrides this with its own 0% keyframe, so the
+    working case is unchanged — this is purely the floor beneath it. The level
+    matches what the reduced-motion block already chose.
+  */
+  transform: translateY(38%);
+  animation: sk-fill 1.85s cubic-bezier(0.45, 0.05, 0.35, 1) infinite;
+}
+
+/*
+  The surface. Two wave tiles at different speeds and opacities read as water;
+  one alone reads as a moving stripe. They sit above the water's top edge, so
+  the crests break past the current level.
+*/
+.sk-loader__wave,
+.sk-loader__wave--back {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 100%;
+  height: 0.85rem;
+  background-repeat: repeat-x;
+  background-size: 7rem 100%;
+}
+
+.sk-loader__wave {
+  margin-bottom: -1px;      /* close the hairline between wave and body */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 22' preserveAspectRatio='none'%3E%3Cpath d='M0 12 Q 15 1 30 12 T 60 12 T 90 12 T 120 12 V22 H0 Z' fill='%23B2D98B'/%3E%3C/svg%3E");
+  animation: sk-wave 1.35s linear infinite;
+}
+
+.sk-loader__wave--back {
+  margin-bottom: -2px;
+  opacity: 0.5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 22' preserveAspectRatio='none'%3E%3Cpath d='M0 11 Q 18 21 36 11 T 72 11 T 108 11 T 144 11 V22 H0 Z' fill='%23B2D98B'/%3E%3C/svg%3E");
+  animation: sk-wave-back 2.1s linear infinite;
+}
+
+/* ── Bubbles ─────────────────────────────────────────────────────────────── */
+
+.sk-loader__bubble {
+  position: absolute;
+  bottom: -0.5rem;
+  width: 0.3rem;
+  height: 0.3rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.55);
+  opacity: 0;
+  animation: sk-bubble 2.6s ease-in infinite;
+}
+
+.sk-loader__bubble:nth-child(1) { left: 22%; animation-delay: 0.25s; }
+.sk-loader__bubble:nth-child(2) { left: 47%; width: 0.22rem; height: 0.22rem; animation-delay: 1.05s; }
+.sk-loader__bubble:nth-child(3) { left: 68%; width: 0.36rem; height: 0.36rem; animation-delay: 1.75s; }
+.sk-loader__bubble:nth-child(4) { left: 83%; width: 0.2rem;  height: 0.2rem;  animation-delay: 0.7s; }
+
+/* A highlight sweeping across the mark, so the filled area is not flat. */
+.sk-loader__shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.4) 50%, transparent 65%);
+  transform: translateX(-120%);
+  animation: sk-shine 2.6s ease-in-out infinite;
+}
+
+/* ── Label ───────────────────────────────────────────────────────────────── */
+
+.sk-loader__label {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  animation: sk-pulse 1.6s ease-in-out infinite;
+}
+
+/* ── Keyframes ───────────────────────────────────────────────────────────── */
+
+/*
+  Rise, hold at the top, then fade before looping. The fade is what hides the
+  reset: without it the water would visibly snap from full back to empty.
+*/
+@keyframes sk-fill {
+  0%   { transform: translateY(100%); opacity: 1; }
+  72%  { transform: translateY(0);    opacity: 1; }
+  90%  { transform: translateY(0);    opacity: 1; }
+  100% { transform: translateY(0);    opacity: 0; }
+}
+
+@keyframes sk-wave {
+  from { background-position-x: 0; }
+  to   { background-position-x: 7rem; }
+}
+
+@keyframes sk-wave-back {
+  from { background-position-x: 0; }
+  to   { background-position-x: -7rem; }
+}
+
+@keyframes sk-bubble {
+  0%   { opacity: 0;    transform: translateY(0) scale(0.6); }
+  12%  { opacity: 0.75; }
+  75%  { opacity: 0.5; }
+  100% { opacity: 0;    transform: translateY(-4.5rem) scale(1.05); }
+}
+
+@keyframes sk-shine {
+  0%, 55% { transform: translateX(-120%); }
+  100%    { transform: translateX(120%); }
+}
+
+@keyframes sk-pulse {
+  0%, 100% { opacity: 0.55; }
+  50%      { opacity: 1; }
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+
+/*
+  Still communicates "loading", with nothing that moves: the mark sits part
+  filled and the label holds steady.
+*/
+@media (prefers-reduced-motion: reduce) {
+  .sk-loader,
+  .sk-loader__stage { transition: none; }
+
+  .sk-loader__water {
+    animation: none;
+    transform: translateY(38%);
+  }
+
+  .sk-loader__wave,
+  .sk-loader__wave--back,
+  .sk-loader__shine,
+  .sk-loader__bubble { animation: none; }
+
+  .sk-loader__bubble { display: none; }
+  .sk-loader__shine { display: none; }
+  .sk-loader__label { animation: none; opacity: 0.8; }
+}
+
+@media (max-width: 30rem) {
+  .sk-loader { --sk-mark-scale: 1.2; }
+}

@@ -1,0 +1,76 @@
+/**
+ * The animations live-motion.js adds to what changed on a live page â€” a
+ * goal, a sending-off, a new event â€” and the transitions that let bars and
+ * the momentum line glide to their new values instead of jumping. All of it
+ * is transform / opacity / colour except the bars' width, and all of it is
+ * off for a visitor who asks for reduced motion.
+ */
+
+.live-goal {
+  animation: live-goal-pop 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.live-goal--home { --live-goal-colour: var(--match-home-ink, var(--series-1)); }
+.live-goal--away { --live-goal-colour: var(--match-away-ink, var(--series-2)); }
+
+@keyframes live-goal-pop {
+  0% { transform: scale(1); }
+  18% { transform: scale(1.28); color: var(--live-goal-colour, var(--accent-ink)); text-shadow: 0 0 18px var(--live-goal-colour, var(--accent-ink)); }
+  45% { transform: scale(0.96); color: var(--live-goal-colour, var(--accent-ink)); }
+  70% { transform: scale(1.04); }
+  100% { transform: scale(1); }
+}
+
+/* The whole line of a match that has just scored, on Partidos. */
+.live-row-goal {
+  animation: live-row-glow 2.4s ease-out;
+}
+
+@keyframes live-row-glow {
+  0%, 25% { background-color: var(--accent-wash); }
+  100% { background-color: transparent; }
+}
+
+.live-red {
+  animation: live-red-flash 1.6s ease-out;
+}
+
+@keyframes live-red-flash {
+  0%, 20% { background-color: rgba(214, 45, 59, 0.22); }
+  100% { background-color: transparent; }
+}
+
+.live-enter {
+  animation: live-enter 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes live-enter {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Glide to the new figure rather than jump to it. */
+.match-stats__bar span,
+.match-chances__seg {
+  transition: width 0.7s cubic-bezier(0.22, 1, 0.36, 1), flex-grow 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* The momentum line grows into its new minutes (a path's d, where supported). */
+.match-momentum__area {
+  transition: d 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .live-goal,
+  .live-row-goal,
+  .live-red,
+  .live-enter {
+    animation: none;
+  }
+
+  .match-stats__bar span,
+  .match-chances__seg,
+  .match-momentum__area {
+    transition: none;
+  }
+}
