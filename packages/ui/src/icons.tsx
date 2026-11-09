@@ -6,6 +6,12 @@ export type IconName =
   | "close"
   | "trend"
   | "panel"
+  | "home"
+  | "search"
+  | "user"
+  | "bookmark"
+  | "more"
+  | "chevron"
   | "soccer"
   | "football"
   | "hockey"
@@ -65,6 +71,18 @@ function renderIconPaths(name: IconName): React.ReactNode {
       return <path d="M4 19V5M4 19H20M7 15L11 11L15 13L20 6" />;
     case "panel":
       return <path d="M3 3H21V21H3ZM9 3V21" />;
+    case "home":
+      return <path d="m3 10 9-7 9 7v10h-6v-6H9v6H3z" />;
+    case "search":
+      return <><circle cx="10.5" cy="10.5" r="6.5" /><path d="m15.5 15.5 4.5 4.5" /></>;
+    case "user":
+      return <><circle cx="12" cy="8" r="3.5" /><path d="M5 21v-2a7 7 0 0 1 14 0v2" /></>;
+    case "bookmark":
+      return <path d="M6 4h12v16l-6-4-6 4z" />;
+    case "more":
+      return <path d="M5 12h.01m6.99 0h.01m6.99 0h.01" strokeWidth={3} />;
+    case "chevron":
+      return <path d="m9 6 6 6-6 6" />;
     case "soccer":
       return (
         <>

@@ -32,6 +32,8 @@
 
 /* Landing definitiva («Pregunta un partido»), después de HeroUI en «components». */
 @import "./landing-v2.css" layer(components);
+@import "./app-home.css" layer(components);
+@import "./account-previews.css" layer(components);
 
 @source "../../../packages/ui/src";
 @source "../../../packages/ui/node_modules/@heroui/react/dist";
@@ -3296,7 +3298,7 @@ fieldset[disabled] button {
   background: var(--surface-hover);
 }
 .jump-chip.active {
-  background: color-mix(in srgb, var(--brand-primary) 16%, var(--surface-active));
+  background: var(--surface-active);
   color: var(--brand-primary);
   border-color: color-mix(in srgb, var(--brand-primary) 45%, transparent);
 }

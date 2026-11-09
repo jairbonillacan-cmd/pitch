@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useId, useState } from "react";
 import type {
   AnalysisConfidence,
   AnalysisMarketGroup,
@@ -217,15 +217,18 @@ export function ProbSplit({
 export function Freshness({
   generatedAt,
   now,
+  label,
+  stale,
 }: {
   generatedAt: string;
   now?: Date;
+  label?: string;
+  stale?: boolean;
 }): React.JSX.Element {
-  const info = formatFreshnessEs(generatedAt, now);
   return (
-    <span className="fresh" title={generatedAt}>
+    <span className="fresh" title={generatedAt} data-stale={stale || undefined}>
       <span className="dot" />
-      <span>{info.label}</span>
+      <span>{label ?? formatFreshnessEs(generatedAt, now).label}</span>
     </span>
   );
 }
@@ -1097,18 +1100,21 @@ export function StandingsTable({
   rows,
   league,
   limit,
+  title = "Tabla de posiciones",
 }: {
   rows: readonly StandingRow[];
   league: LeagueId | string;
   limit?: number;
+  title?: string;
 }): React.JSX.Element | null {
+  const titleId = useId();
   if (rows.length === 0) return null;
   const visible = typeof limit === "number" ? rows.slice(0, limit) : rows;
 
   return (
-    <section className="standings-block" aria-labelledby="standings-title">
-      <h2 id="standings-title" className="h3">
-        Tabla de posiciones
+    <section className="standings-block" aria-labelledby={titleId}>
+      <h2 id={titleId} className="h3">
+        {title}
       </h2>
       <table className="mtable standings">
         <thead>

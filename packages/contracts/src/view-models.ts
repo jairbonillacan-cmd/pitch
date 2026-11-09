@@ -16,6 +16,7 @@ export interface HeadToHeadView {
   awayGoals: number;
 }
 import { decimalToAmerican } from "./odds.js";
+import type { GameDTO } from "./sports/index.js";
 
 export interface FairOdds {
   decimal: number;
@@ -54,6 +55,7 @@ export interface MatchAnalysis {
   kickoffLocal: string;
   venue: string;
   status: "NS" | "FT" | "LIVE";
+  scheduleStatus?: GameDTO["status"];
   score?: {
     home: number;
     away: number;
@@ -370,6 +372,7 @@ export function snapshotToMatchAnalyses(snapshot: LeagueSnapshot): {
       kickoffLocal,
       venue: g.venue ?? (isNfl ? "Estadio NFL" : "Estadio"),
       status: g.status === "final" ? "FT" : g.status === "in_progress" ? "LIVE" : "NS",
+      scheduleStatus: g.status,
       score: g.result ? { home: g.result.home, away: g.result.away } : undefined,
       home: {
         slug: homeSlug,

@@ -39,6 +39,22 @@ export const LANDING_PLANS: LandingPlan[] = [
   },
 ];
 
+/** Matriz comercial del MVP. El orden de las columnas se identifica por plan. */
+export const LANDING_PLAN_COMPARISON: {
+  feature: string;
+  plans: Record<LandingPlan["id"], string | boolean>;
+}[] = [
+  { feature: "Calendario, resultados y posiciones", plans: { free: true, pro: true, elite: true } },
+  { feature: "Lo más probable y cuota justa", plans: { free: "1 partido al día", pro: "Todos", elite: "Todos" } },
+  { feature: "Mercados por partido", plans: { free: "1 partido al día", pro: "Todos", elite: "Todos" } },
+  { feature: "Cuotas actuales", plans: { free: "Mejor cuota y 2 casas", pro: "Todas las casas", elite: "Todas las casas" } },
+  { feature: "Apertura, cierre y movimiento", plans: { free: false, pro: "Temporada actual", elite: "Todo el histórico" } },
+  { feature: "Prop Lab NFL", plans: { free: "3 al día", pro: "Sin límite", elite: "Sin límite" } },
+  { feature: "Pick Journal y perfil público", plans: { free: true, pro: true, elite: true } },
+  { feature: "Leaderboards", plans: { free: "Ver", pro: "Ver y aparecer", elite: "Ver y aparecer" } },
+  { feature: "Exportación a CSV", plans: { free: false, pro: false, elite: true } },
+];
+
 export const LANDING_COVERAGE: LandingV2Props["coverage"] = [
   { slug: "liga-mx", label: "Liga MX" },
   { slug: "nfl", label: "NFL" },

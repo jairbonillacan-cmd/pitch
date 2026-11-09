@@ -44,7 +44,9 @@ La landing «Pregunta un partido» está implementada y probada. Para cambiarla,
 
 Orden de secciones: barra (logo, enlaces, tema, Entrar, «Prueba 7 días») → hero con selector de liga (Astryx SegmentedControl deslizable) y riel de partidos → hoja de análisis (probabilidad grande, barra 1X2, leyenda seleccionable, Más de 2.5, Ambos anotan, marcador más probable, campo «Tu cuota» de HeroUI y factores) → «Cómo se lee» (3 filas) → «Historial íntegro» → ligas → planes (Free, Pro $199, Elite $399 MXN/mes, IVA incluido) → cierre con Radar → pie.
 
-## 4. `/app`: Inicio, por construir
+## 4. `/app`: Inicio implementado
+
+La ruta `apps/web/app/app/page.tsx` carga los snapshots en el servidor y monta `AppHome` de `@pitchlab/ui/app`. La story **PitchLab/Inicio** incluye jornada, datos parciales y estado sin datos. En la beta se muestran las ligas con datos y el buscador encuentra equipos y partidos publicados. Los picks, los movimientos de cuota y la prueba Pro se marcan como ejemplos.
 
 Referencia: `design/canvas/app/Main.dc.html` (escritorio), `Mobile.dc.html` (móvil) y `MobileMore.dc.html` (menú «Más»). El tema claro es el mismo archivo con `theme="light"`.
 
@@ -84,7 +86,9 @@ Referencia: `design/canvas/app/Main.dc.html` (escritorio), `Mobile.dc.html` (mó
 
 No está dibujada: rail de 64 px con iconos y tooltip (`INFORMATION_ARCHITECTURE.md` §2), mismo contenido en una columna.
 
-## 5. Login, Crear cuenta y Planes: por construir
+## 5. Login, Crear cuenta y Planes: implementados en Storybook
+
+Las vistas están en las stories **PitchLab/Entrar**, **PitchLab/Crear cuenta** y **PitchLab/Planes**, con el selector **Tema**. Los formularios reciben acciones por props desde `@pitchlab/ui/auth`. La comparativa y los precios de `@pitchlab/ui/pricing` usan el mismo catálogo que la landing. Las interacciones de cuenta y selección de plan son ejemplos en Storybook.
 
 Referencia: `design/canvas/app/Login.dc.html`, `LoginMobile.dc.html`, `Signup.dc.html`, `SignupMobile.dc.html`, `Pricing.dc.html` y `PricingMobile.dc.html`. Los `*Light.dc.html` son las mismas pantallas con `theme="light"`. Reglas de cuentas: `docs/architecture/AUTH_BILLING_GROWTH.md` §1–3.
 

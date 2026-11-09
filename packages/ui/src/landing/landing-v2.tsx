@@ -5,11 +5,12 @@ import { Input, Label, TextField } from "@heroui/react";
 import { SegmentedControl, SegmentedControlItem } from "@astryxdesign/core/SegmentedControl";
 import { formatDecimal, formatPercent } from "@pitchlab/contracts";
 import { AstryxScope } from "../astryx.js";
-import { BrandLogo, Mascot, ThemeToggle } from "../primitives.js";
+import { BrandLogo, Mascot } from "../primitives.js";
 import { Icon } from "../icons.js";
 import { LeagueBadge, ProbSplit, TeamBadge } from "../sports.js";
 import { leadIndex } from "../sports.js";
 import type { LvLeague, LvMatch, LvOutcome } from "./data.js";
+import { PublicNav } from "./public-nav.js";
 
 /* ==========================================================================
    Landing «Pregunta un partido» (app definitiva)
@@ -67,35 +68,6 @@ function kickoffLabel(iso: string): string {
 function parseOdds(raw: string): number | null {
   const n = Number(raw.replace(",", ".").trim());
   return Number.isFinite(n) && n > 1 ? n : null;
-}
-
-/* ---------------------------------------------------------------- Nav */
-
-function Nav({ signupHref, loginHref }: { signupHref: string; loginHref: string }) {
-  return (
-    <header className="lv-nav">
-      <div className="lv-nav-in">
-        <a href="/" className="lv-logo" aria-label="PitchLab, inicio">
-          <BrandLogo variant="horizontal" width={132} />
-        </a>
-        <nav aria-label="Secciones" className="lv-links">
-          <a href="#como-se-lee">Cómo se lee</a>
-          <a href="#historial">Historial</a>
-          <a href="#ligas">Ligas</a>
-          <a href="#planes">Planes</a>
-        </nav>
-        <div className="lv-nav-actions">
-          <ThemeToggle />
-          <a href={loginHref} className="button button--ghost button--sm">
-            Entrar
-          </a>
-          <a href={signupHref} className="button button--primary button--sm">
-            Prueba 7 días
-          </a>
-        </div>
-      </div>
-    </header>
-  );
 }
 
 /* ---------------------------------------------------------------- Hoja de análisis */
@@ -588,7 +560,7 @@ export function LandingV2({
 
   return (
     <div className="lv">
-      <Nav signupHref={signupHref} loginHref={loginHref} />
+      <PublicNav signupHref={signupHref} loginHref={loginHref} />
       <main>
         <Hero leagues={leagues} signupHref={signupHref} />
         {sample ? <HowToRead m={sample} /> : null}

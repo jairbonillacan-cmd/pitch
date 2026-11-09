@@ -340,7 +340,7 @@ test.describe("PitchLab Pre-MVP E2E Suite", () => {
     await expect(dialog).not.toContainText(/polymarket|kalshi/i);
   });
 
-  test("6. Liga sin emblema (Bundesliga): fallback neutro y sin scroll horizontal", async ({
+  test("6. Bundesliga: emblema, tabla y sin scroll horizontal", async ({
     page,
   }, testInfo) => {
     const uniqueIp = `203.0.${Math.floor(Math.random() * 200) + 10}.${Math.floor(Math.random() * 200) + 10}`;
@@ -354,9 +354,9 @@ test.describe("PitchLab Pre-MVP E2E Suite", () => {
     await page.waitForURL("**/app/bundesliga", { timeout: 15_000 });
     await expect(page.locator("#panel-league-name")).toContainText("Bundesliga");
 
-    // Emblema de liga y de equipos con fallback (iniciales), sin imágenes rotas.
-    const fallback = page.locator(".badge-fallback").first();
-    await expect(fallback).toBeVisible();
+    const badge = page.locator('img[src$="/bundesliga.svg"]:visible').first();
+    await expect(badge).toBeVisible();
+    await expect.poll(() => badge.evaluate((image: HTMLImageElement) => image.naturalWidth)).toBeGreaterThan(0);
 
     // La fila de ligas hace scroll interno: nunca desborda la página.
     const overflow = await page.evaluate(

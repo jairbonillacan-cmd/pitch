@@ -1,10 +1,11 @@
-import { redirect } from "next/navigation";
-import { loadLeagueSnapshotEnvelope } from "../../src/server/snapshots.js";
+import React from "react";
+import type { Viewport } from "next";
+import { AppHome } from "@pitchlab/ui/app";
+import { loadAppHome } from "../../src/server/app-home.js";
 
-export default function AppIndexPage(): never {
-  const mx = loadLeagueSnapshotEnvelope("liga-mx");
-  if (mx.state === "ready" && (mx.data?.games.length ?? 0) > 0) {
-    redirect("/app/liga-mx");
-  }
-  redirect("/app/premier-league");
+export const dynamic = "force-dynamic";
+export const viewport: Viewport = { viewportFit: "cover" };
+
+export default function AppIndexPage(): React.JSX.Element {
+  return <AppHome data={loadAppHome()} />;
 }
