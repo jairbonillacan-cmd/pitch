@@ -102,3 +102,5 @@ El ensemble es estadísticamente mejor en test (−0,00153 [−0,00250, −0,000
 | M12 | **Registro de modelos + release gate** | `registry/models.json`; `validate_release.py` 7/7 bloques OK | **Aceptado** |
 | M13 | Calibración por división | Δ −0,00069 [−0,00143; +0,00013] | **Rechazado** (no significativo) |
 | M14 | Expansión NHL/NCAAF | datos sin licencia clara | **No-go** documentado |
+
+| M15 | Simulación de valor (ROI) | ROI −9,7 % a −11,9 % en 12.373 partidos; IC95 % negativo | **Rechazado**: no hay estrategia rentable |

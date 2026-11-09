@@ -1,0 +1,18 @@
+{
+  "task_id": "A21",
+  "agent": "ORCHESTRATOR (ciclo 8)",
+  "status": "completed",
+  "started_at": "2026-11-09T07:00:00-06:00",
+  "finished_at": "2026-11-09T07:20:00-06:00",
+  "summary": "Simulacion de apuestas por valor sobre 12.373 partidos de test: ROI -9,73% a -11,94% en todos los umbrales (0-0,15), con IC95% enteramente negativo. Fixtures 146: mismo signo, IC amplio. El modelo cree edges de +15% a +31%: sobreconfianza en probabilidades extremas, no ineficiencia de mercado. No hay estrategia rentable.",
+  "test_n": 12373,
+  "roi_range": [-0.1194, -0.0889],
+  "files_written": [
+    "pipeline/experiment_value_betting.py",
+    "artifacts/VALUE_BETTING/value_betting.json",
+    "artifacts/VALUE_BETTING/value_betting.md",
+    "reports/A21_value_betting.md"
+  ],
+  "blockers": [],
+  "next": "Ninguna estrategia de valor; mantener el motor como analisis probabilistico, no como senal de apuesta."
+}

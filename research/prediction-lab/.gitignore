@@ -29,3 +29,7 @@ artifacts/FIXTURES/*
 !artifacts/FIXTURES/summary_*.json
 !artifacts/FIXTURES/SCORE_*.json
 !artifacts/FIXTURES/calibration_*.json
+!artifacts/VALUE_BETTING
+artifacts/VALUE_BETTING/*
+!artifacts/VALUE_BETTING/value_betting.json
+!artifacts/VALUE_BETTING/value_betting.md

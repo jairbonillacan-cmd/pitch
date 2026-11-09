@@ -232,3 +232,12 @@ tiempo real. El ECE 0,110 parecía señalar sobreconfianza, pero el ciclo 7 lo c
 [0,072; 0,188] (146 partidos) y el gap dominante es **infraconfianza** en el bin 0,6–0,8 (n=24);
 una temperatura ajustada fuera de muestra empeora el log-loss (+0,005) y no mejora el ECE de forma
 significativa. **No se aplica calibración** (ver `reports/A20_calibration_audit.md`).
+
+### Addendum ciclo 8 — simulación de apuestas por valor (ROI)
+
+Sobre 12.373 partidos de test con cuota B365 de cierre: apostar 1 unidad al mayor
+`edge = p_modelo·cuota − 1` da **ROI −9,73 %** (τ=0) y entre **−8,9 % y −11,9 %** para
+τ=0,02–0,15, con IC95 % **enteramente negativo** en todos los umbrales. El modelo cree edges de
++15 % a +31 %, pero pierde: **sobreconfianza en los picks de mayor edge**, no ineficiencia de
+mercado. En los 146 fixtures el signo es el mismo (ROI −1 % a −48 %, IC amplio). No existe
+estrategia de valor con este motor.

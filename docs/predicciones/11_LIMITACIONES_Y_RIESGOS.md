@@ -196,4 +196,4 @@ Es la restricción que más condiciona el proyecto.
 
 | R-24 | Alto | **NHL/NCAAF sin licencia clara**: la API de NHL no declara derechos y los releases de NCAAF no traen licencia de datos | `docs/10` §9.3; A03 | bloquea producto multi-deporte | **ABIERTO** (decisión: no-go hasta licencia) |
 
-| R-25 | Bajo | **ECE ruidoso en muestras pequeñas**: 0,110 en 146 fixtures (IC95 % [0,072; 0,188]) vs 0,011 en test; el gap dominante es infraconfianza en el bin 0,6–0,8 (n=24) | `reports/A20_calibration_audit.md` | la "sobreconfianza" no está demostrada; no se actúa sin ≈1.300 partidos (IC95 % ±0,02) | **MITIGADO** (documentado; monitorizar) |
+| R-25 | Medio | **Sobreconfianza local en picks de alto edge**: ROI −9,7 % a −11,9 % en 12.373 apuestas (IC95 % negativo); el ECE de 146 fixtures era ruidoso | `reports/A21_value_betting.md`; `A20_calibration_audit.md` | las "ventajas" del modelo no son reales; no usar para apuestas | **MITIGADO** (documentado; sin señal de apuesta) |

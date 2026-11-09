@@ -191,3 +191,10 @@ resultados publicados después, el mercado volvió a ganar: 0,91407 vs 0,93943 d
 (Δ +0,02536 [+0,00585; +0,04434]). Es la tercera muestra independiente (val, test, fixtures) con el
 mismo signo. La comparación no es en tiempo real (predicciones tras el kickoff), pero el modelo
 nunca vio esos partidos.
+
+## 8. ROI de una estrategia de valor (ciclo 8)
+
+Apostar al mayor edge del modelo con cuota B365 de cierre produce **ROI −9,73 %** en 10.048
+apuestas (τ=0) y entre −8,9 % y −11,9 % con umbrales de 0,02–0,15; todos los IC95 % excluyen el 0.
+El mercado no es batible con este motor ni siquiera en el subconjunto donde el modelo cree tener más
+ventaja. Detalle en `reports/A21_value_betting.md`.
