@@ -1,6 +1,6 @@
 {
   "manifest_version": "1.0.0",
-  "generated_at_utc": "2026-11-09T20:59:10Z",
+  "generated_at_utc": "2026-11-09T21:49:05Z",
   "anti_leakage_contract": {
     "rule": "captured_at_utc <= predicted_at_utc",
     "all_sha256_verified": true,

@@ -1,0 +1,92 @@
+{
+  "feature_store_version": "1.0.0",
+  "generated_at_utc": "2026-11-09T22:05:20Z",
+  "entity_resolution_summary": {
+    "total_canonical_teams": 146,
+    "soccer_clubs_resolved": 114,
+    "nfl_franchises_resolved": 32,
+    "distinct_Aliases_registered": 368,
+    "avg_sources_joined_overall": 9.18
+  },
+  "datasets_summary": {
+    "team_master_features": {
+      "json_path": "data/feature_store/team_master_features.json",
+      "csv_path": "data/feature_store/team_master_features.csv",
+      "records_count": 146
+    },
+    "historical_matches_xg": {
+      "json_path": "data/feature_store/historical_matches_xg.json",
+      "csv_path": "data/feature_store/historical_matches_xg.csv",
+      "records_count": 4817
+    },
+    "live_matchups_edge_matrix": {
+      "json_path": "data/feature_store/live_matchups_edge_matrix.json",
+      "records_count": 129
+    }
+  },
+  "completeness_by_league": {
+    "liga-mx": {
+      "teams_count": 18,
+      "avg_sources_joined_per_team": 9.33,
+      "valuation_coverage_pct": 100.0,
+      "xg_or_epa_coverage_pct": 100.0,
+      "availability_coverage_pct": 100.0,
+      "stadium_weather_coverage_pct": 100.0,
+      "sofascore_rating_coverage_pct": 100.0
+    },
+    "epl": {
+      "teams_count": 20,
+      "avg_sources_joined_per_team": 10.75,
+      "valuation_coverage_pct": 100.0,
+      "xg_or_epa_coverage_pct": 100.0,
+      "availability_coverage_pct": 100.0,
+      "stadium_weather_coverage_pct": 100.0,
+      "sofascore_rating_coverage_pct": 100.0
+    },
+    "laliga": {
+      "teams_count": 20,
+      "avg_sources_joined_per_team": 9.7,
+      "valuation_coverage_pct": 100.0,
+      "xg_or_epa_coverage_pct": 100.0,
+      "availability_coverage_pct": 100.0,
+      "stadium_weather_coverage_pct": 100.0,
+      "sofascore_rating_coverage_pct": 100.0
+    },
+    "bundesliga": {
+      "teams_count": 18,
+      "avg_sources_joined_per_team": 10.17,
+      "valuation_coverage_pct": 100.0,
+      "xg_or_epa_coverage_pct": 100.0,
+      "availability_coverage_pct": 100.0,
+      "stadium_weather_coverage_pct": 100.0,
+      "sofascore_rating_coverage_pct": 100.0
+    },
+    "serie-a": {
+      "teams_count": 20,
+      "avg_sources_joined_per_team": 10.35,
+      "valuation_coverage_pct": 100.0,
+      "xg_or_epa_coverage_pct": 100.0,
+      "availability_coverage_pct": 100.0,
+      "stadium_weather_coverage_pct": 100.0,
+      "sofascore_rating_coverage_pct": 100.0
+    },
+    "ligue-1": {
+      "teams_count": 18,
+      "avg_sources_joined_per_team": 10.22,
+      "valuation_coverage_pct": 100.0,
+      "xg_or_epa_coverage_pct": 100.0,
+      "availability_coverage_pct": 100.0,
+      "stadium_weather_coverage_pct": 100.0,
+      "sofascore_rating_coverage_pct": 100.0
+    },
+    "nfl": {
+      "teams_count": 32,
+      "avg_sources_joined_per_team": 5.91,
+      "valuation_coverage_pct": 0.0,
+      "xg_or_epa_coverage_pct": 100.0,
+      "availability_coverage_pct": 100.0,
+      "stadium_weather_coverage_pct": 100.0,
+      "sofascore_rating_coverage_pct": 100.0
+    }
+  }
+}

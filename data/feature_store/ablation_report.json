@@ -1,0 +1,586 @@
+{
+  "report_version": "1.0.0",
+  "generated_at_utc": "2026-11-09T22:44:43Z",
+  "anti_leakage_contract": {
+    "rule": "captured_at_utc <= predicted_at_utc AND feature_match_date < target_match_date",
+    "all_sha256_verified": true,
+    "raw_snapshots_verified_count": 45,
+    "total_normalized_records": 61033
+  },
+  "experiments": {
+    "experiment_1_european_5leagues": {
+      "experiment_id": "exp1_european_5leagues_walk_forward",
+      "description": "Walk-forward out-of-sample evaluation across EPL, La_liga, Bundesliga, Serie_A, and Ligue_1 (2023-2025)",
+      "total_matches_processed": 3504,
+      "initial_training_matches": 1752,
+      "out_of_sample_eval_matches": 1752,
+      "refit_step_matches": 175,
+      "models": {
+        "M0_climatology": {
+          "n_matches": 1752,
+          "log_loss": 1.07893,
+          "brier_score": 0.65366,
+          "rps": 0.23296,
+          "accuracy": 0.42009,
+          "ece": 0.01253
+        },
+        "M1_baseline_goals_elo": {
+          "n_matches": 1752,
+          "log_loss": 0.99955,
+          "brier_score": 0.59733,
+          "rps": 0.20506,
+          "accuracy": 0.52683,
+          "ece": 0.0259
+        },
+        "M2_scraped_xg_ppda_deep": {
+          "n_matches": 1752,
+          "log_loss": 0.98042,
+          "brier_score": 0.5839,
+          "rps": 0.19927,
+          "accuracy": 0.53196,
+          "ece": 0.02977,
+          "bootstrap_vs_M1_log_loss": {
+            "delta_mean": -0.01913,
+            "ci95_low": -0.02833,
+            "ci95_high": -0.0092,
+            "p_value_improvement": 0.0,
+            "statistically_significant_95": true
+          }
+        },
+        "M3_scraped_full_plus_tm_values": {
+          "n_matches": 1752,
+          "log_loss": 0.97787,
+          "brier_score": 0.58232,
+          "rps": 0.19856,
+          "accuracy": 0.53025,
+          "ece": 0.01689,
+          "bootstrap_vs_M1_log_loss": {
+            "delta_mean": -0.02168,
+            "ci95_low": -0.02957,
+            "ci95_high": -0.01088,
+            "p_value_improvement": 0.0,
+            "statistically_significant_95": true
+          },
+          "bootstrap_vs_M2_log_loss": {
+            "delta_mean": -0.00254,
+            "ci95_low": -0.00594,
+            "ci95_high": 0.00128,
+            "p_value_improvement": 0.126,
+            "statistically_significant_95": false
+          }
+        },
+        "M4_understat_shot_forecast_ensemble": {
+          "n_matches": 1752,
+          "log_loss": 0.8587,
+          "brier_score": 0.5018,
+          "rps": 0.16239,
+          "accuracy": 0.61016,
+          "ece": 0.03939,
+          "bootstrap_vs_M1_log_loss": {
+            "delta_mean": -0.14085,
+            "ci95_low": -0.15695,
+            "ci95_high": -0.12234,
+            "p_value_improvement": 0.0,
+            "statistically_significant_95": true
+          }
+        }
+      },
+      "per_league_breakdown": {
+        "EPL": {
+          "n_eval_matches": 380,
+          "m0_climatology_log_loss": 1.08224,
+          "m1_baseline_goals_elo_log_loss": 1.00802,
+          "m2_scraped_xg_ppda_deep_log_loss": 0.98095,
+          "m3_scraped_full_plus_tm_values_log_loss": 0.97642,
+          "m4_ensemble_shot_forecast_log_loss": 0.86044,
+          "delta_m3_vs_m1_log_loss": -0.0316,
+          "m1_rps": 0.20929,
+          "m3_rps": 0.19908,
+          "m4_rps": 0.16325
+        },
+        "La_liga": {
+          "n_eval_matches": 380,
+          "m0_climatology_log_loss": 1.07297,
+          "m1_baseline_goals_elo_log_loss": 0.98715,
+          "m2_scraped_xg_ppda_deep_log_loss": 0.97223,
+          "m3_scraped_full_plus_tm_values_log_loss": 0.97206,
+          "m4_ensemble_shot_forecast_log_loss": 0.87917,
+          "delta_m3_vs_m1_log_loss": -0.01509,
+          "m1_rps": 0.19996,
+          "m3_rps": 0.19473,
+          "m4_rps": 0.1675
+        },
+        "Bundesliga": {
+          "n_eval_matches": 306,
+          "m0_climatology_log_loss": 1.09058,
+          "m1_baseline_goals_elo_log_loss": 1.03289,
+          "m2_scraped_xg_ppda_deep_log_loss": 0.99556,
+          "m3_scraped_full_plus_tm_values_log_loss": 0.99538,
+          "m4_ensemble_shot_forecast_log_loss": 0.8666,
+          "delta_m3_vs_m1_log_loss": -0.03751,
+          "m1_rps": 0.21469,
+          "m3_rps": 0.20342,
+          "m4_rps": 0.16283
+        },
+        "Serie_A": {
+          "n_eval_matches": 380,
+          "m0_climatology_log_loss": 1.09167,
+          "m1_baseline_goals_elo_log_loss": 0.98849,
+          "m2_scraped_xg_ppda_deep_log_loss": 0.97416,
+          "m3_scraped_full_plus_tm_values_log_loss": 0.96768,
+          "m4_ensemble_shot_forecast_log_loss": 0.86596,
+          "delta_m3_vs_m1_log_loss": -0.02081,
+          "m1_rps": 0.19367,
+          "m3_rps": 0.18813,
+          "m4_rps": 0.15817
+        },
+        "Ligue_1": {
+          "n_eval_matches": 306,
+          "m0_climatology_log_loss": 1.05473,
+          "m1_baseline_goals_elo_log_loss": 0.98484,
+          "m2_scraped_xg_ppda_deep_log_loss": 0.98257,
+          "m3_scraped_full_plus_tm_values_log_loss": 0.98205,
+          "m4_ensemble_shot_forecast_log_loss": 0.81421,
+          "delta_m3_vs_m1_log_loss": -0.00279,
+          "m1_rps": 0.21065,
+          "m3_rps": 0.21077,
+          "m4_rps": 0.15977
+        }
+      }
+    },
+    "experiment_2_ligamx": {
+      "experiment_id": "exp2_ligamx_2023_2026_walk_forward",
+      "description": "Walk-forward evaluation on Liga MX (2023-2026) comparing MEX.csv goals-only baseline vs scraped FBref/Statiskicks xG, Transfermarkt 18-club valuations, Opta PPDA, and Open-Meteo altitude shock",
+      "total_ligamx_matches": 1160,
+      "exact_xg_matches_from_statiskicks": 480,
+      "historical_fbref_matches": 680,
+      "initial_training_matches": 680,
+      "out_of_sample_eval_matches": 480,
+      "altitude_effect_empirical": {
+        "high_altitude_shock_matches_count": 146,
+        "high_altitude_home_win_rate": 0.6164,
+        "normal_altitude_matches_count": 1014,
+        "normal_altitude_home_win_rate": 0.4389,
+        "home_win_rate_lift_from_altitude_shock": 0.1776
+      },
+      "models": {
+        "MX0_climatology": {
+          "n_matches": 480,
+          "log_loss": 1.0739,
+          "brier_score": 0.64972,
+          "rps": 0.22943,
+          "accuracy": 0.44167,
+          "ece": 0.03039
+        },
+        "MX1_baseline_mex_goals_only": {
+          "n_matches": 480,
+          "log_loss": 1.04749,
+          "brier_score": 0.63038,
+          "rps": 0.21965,
+          "accuracy": 0.48125,
+          "ece": 0.02025
+        },
+        "MX2_scraped_mex_xg": {
+          "n_matches": 480,
+          "log_loss": 1.0368,
+          "brier_score": 0.6209,
+          "rps": 0.2156,
+          "accuracy": 0.4875,
+          "ece": 0.05719,
+          "bootstrap_vs_MX1_log_loss": {
+            "delta_mean": -0.01069,
+            "ci95_low": -0.02849,
+            "ci95_high": 0.00776,
+            "p_value_improvement": 0.1,
+            "statistically_significant_95": false
+          }
+        },
+        "MX3_scraped_mex_full_tm_tactical_altitude": {
+          "n_matches": 480,
+          "log_loss": 1.03405,
+          "brier_score": 0.61806,
+          "rps": 0.21382,
+          "accuracy": 0.5,
+          "ece": 0.04869,
+          "bootstrap_vs_MX1_log_loss": {
+            "delta_mean": -0.01344,
+            "ci95_low": -0.03845,
+            "ci95_high": 0.01138,
+            "p_value_improvement": 0.138,
+            "statistically_significant_95": false
+          },
+          "bootstrap_vs_MX2_log_loss": {
+            "delta_mean": -0.00275,
+            "ci95_low": -0.01328,
+            "ci95_high": 0.01028,
+            "p_value_improvement": 0.374,
+            "statistically_significant_95": false
+          }
+        }
+      }
+    },
+    "experiment_3_microstructure_and_availability": {
+      "experiment_id": "exp3_market_microstructure_and_availability",
+      "bookmaker_overround_comparison": {
+        "pinnacle": {
+          "markets_analyzed": 2607,
+          "mean_overround_pct": 3.885,
+          "median_overround_pct": 3.85,
+          "main_moneyline_mean_overround_pct": 3.218,
+          "main_spread_mean_overround_pct": 3.06,
+          "main_total_mean_overround_pct": 3.702
+        },
+        "smarkets_exchange": {
+          "orderbook_quotes_analyzed": 152,
+          "mean_bid_ask_spread_bps": 824.39,
+          "median_bid_ask_spread_bps": 944.0,
+          "p25_bid_ask_spread_bps": 600.0
+        },
+        "caliente_mx": {
+          "markets_analyzed": 250,
+          "mean_overround_pct": 6.618,
+          "median_overround_pct": 5.99,
+          "p90_overround_pct": 10.28
+        },
+        "caliente_vs_pinnacle_vigorish_multiplier": 2.06
+      },
+      "action_network_sharp_money_analysis": {
+        "total_split_outcomes": 8147,
+        "active_outcomes_with_splits": 3160,
+        "sharp_money_flagged_outcomes_ge_15pct": 1060,
+        "sharp_money_flagged_rate_pct": 33.54,
+        "reverse_line_movement_outcomes": 736,
+        "rlm_rate_pct": 23.29,
+        "abs_divergence_quantiles_pct": {
+          "p50": 6.0,
+          "p75": 13.0,
+          "p90": 29.0,
+          "p95": 56.0,
+          "max": 87.0
+        },
+        "by_sport": {
+          "mlb": {
+            "active_outcomes_count": 48,
+            "mean_abs_divergence_pct": 4.0,
+            "p90_abs_divergence_pct": 5.0,
+            "sharp_money_flag_count": 0,
+            "rlm_signal_count": 0
+          },
+          "mls": {
+            "active_outcomes_count": 14,
+            "mean_abs_divergence_pct": 3.286,
+            "p90_abs_divergence_pct": 5.0,
+            "sharp_money_flag_count": 0,
+            "rlm_signal_count": 0
+          },
+          "nba": {
+            "active_outcomes_count": 336,
+            "mean_abs_divergence_pct": 7.292,
+            "p90_abs_divergence_pct": 15.0,
+            "sharp_money_flag_count": 70,
+            "rlm_signal_count": 42
+          },
+          "ncaaf": {
+            "active_outcomes_count": 1792,
+            "mean_abs_divergence_pct": 15.273,
+            "p90_abs_divergence_pct": 51.0,
+            "sharp_money_flag_count": 658,
+            "rlm_signal_count": 514
+          },
+          "nfl": {
+            "active_outcomes_count": 851,
+            "mean_abs_divergence_pct": 8.699,
+            "p90_abs_divergence_pct": 23.0,
+            "sharp_money_flag_count": 284,
+            "rlm_signal_count": 152
+          },
+          "nhl": {
+            "active_outcomes_count": 84,
+            "mean_abs_divergence_pct": 11.595,
+            "p90_abs_divergence_pct": 24.0,
+            "sharp_money_flag_count": 48,
+            "rlm_signal_count": 28
+          },
+          "soccer": {
+            "active_outcomes_count": 35,
+            "mean_abs_divergence_pct": 3.286,
+            "p90_abs_divergence_pct": 5.0,
+            "sharp_money_flag_count": 0,
+            "rlm_signal_count": 0
+          }
+        },
+        "top_10_sharp_divergence_games": [
+          {
+            "game_id": 289949,
+            "league": "ncaaf",
+            "matchup": "Memphis Tigers @ South Florida Bulls",
+            "num_bets": 2251,
+            "max_sharp_money_divergence_pct": 86.0
+          },
+          {
+            "game_id": 289997,
+            "league": "ncaaf",
+            "matchup": "Colorado State Rams @ Washington State Cougars",
+            "num_bets": 424,
+            "max_sharp_money_divergence_pct": 62.0
+          },
+          {
+            "game_id": 290040,
+            "league": "ncaaf",
+            "matchup": "Nevada Wolf Pack @ Northern Illinois Huskies",
+            "num_bets": 262,
+            "max_sharp_money_divergence_pct": 56.0
+          },
+          {
+            "game_id": 289977,
+            "league": "ncaaf",
+            "matchup": "Cincinnati Bearcats @ Iowa State Cyclones",
+            "num_bets": 605,
+            "max_sharp_money_divergence_pct": 50.0
+          },
+          {
+            "game_id": 289963,
+            "league": "ncaaf",
+            "matchup": "Auburn Tigers @ Mississippi State Bulldogs",
+            "num_bets": 651,
+            "max_sharp_money_divergence_pct": 36.0
+          },
+          {
+            "game_id": 295408,
+            "league": "nba",
+            "matchup": "Indiana Pacers @ Dallas Mavericks",
+            "num_bets": 5275,
+            "max_sharp_money_divergence_pct": 30.0
+          },
+          {
+            "game_id": 290962,
+            "league": "nfl",
+            "matchup": "Cleveland Browns @ New Orleans Saints",
+            "num_bets": 66870,
+            "max_sharp_money_divergence_pct": 28.0
+          },
+          {
+            "game_id": 290969,
+            "league": "nfl",
+            "matchup": "Tampa Bay Buccaneers @ Chicago Bears",
+            "num_bets": 148866,
+            "max_sharp_money_divergence_pct": 24.0
+          },
+          {
+            "game_id": 293581,
+            "league": "nhl",
+            "matchup": "New York Rangers @ Edmonton Oilers",
+            "num_bets": 4180,
+            "max_sharp_money_divergence_pct": 24.0
+          },
+          {
+            "game_id": 290958,
+            "league": "nfl",
+            "matchup": "New York Giants @ Philadelphia Eagles",
+            "num_bets": 67985,
+            "max_sharp_money_divergence_pct": 23.0
+          }
+        ]
+      },
+      "roster_availability_impact": {
+        "clubs_analyzed_count": 104,
+        "by_league": {
+          "bundesliga": {
+            "clubs_analyzed": 18,
+            "total_absent_players": 93,
+            "total_missing_market_value_eur": 914600000.0,
+            "mean_missing_market_value_ratio": 0.1679,
+            "max_missing_market_value_ratio": 0.3034
+          },
+          "epl": {
+            "clubs_analyzed": 16,
+            "total_absent_players": 48,
+            "total_missing_market_value_eur": 1289000000.0,
+            "mean_missing_market_value_ratio": 0.0999,
+            "max_missing_market_value_ratio": 0.2692
+          },
+          "laliga": {
+            "clubs_analyzed": 19,
+            "total_absent_players": 43,
+            "total_missing_market_value_eur": 470400000.0,
+            "mean_missing_market_value_ratio": 0.068,
+            "max_missing_market_value_ratio": 0.1605
+          },
+          "liga-mx": {
+            "clubs_analyzed": 13,
+            "total_absent_players": 21,
+            "total_missing_market_value_eur": 68050000.0,
+            "mean_missing_market_value_ratio": 0.0915,
+            "max_missing_market_value_ratio": 0.3956
+          },
+          "ligue-1": {
+            "clubs_analyzed": 18,
+            "total_absent_players": 50,
+            "total_missing_market_value_eur": 815750000.0,
+            "mean_missing_market_value_ratio": 0.1439,
+            "max_missing_market_value_ratio": 0.3167
+          },
+          "serie-a": {
+            "clubs_analyzed": 20,
+            "total_absent_players": 86,
+            "total_missing_market_value_eur": 1100600000.0,
+            "mean_missing_market_value_ratio": 0.1548,
+            "max_missing_market_value_ratio": 0.3512
+          }
+        },
+        "top_15_most_impacted_clubs": [
+          {
+            "league": "liga-mx",
+            "club": "Club Tijuana",
+            "absent_players_count": 1.0,
+            "injured_players_count": 1.0,
+            "suspended_players_count": 0.0,
+            "missing_market_value_eur": 25000000.0,
+            "total_squad_market_value_eur": 63200000.0,
+            "missing_market_value_ratio": 0.3956
+          },
+          {
+            "league": "serie-a",
+            "club": "Juventus de Turín",
+            "absent_players_count": 8.0,
+            "injured_players_count": 8.0,
+            "suspended_players_count": 0.0,
+            "missing_market_value_eur": 215500000.0,
+            "total_squad_market_value_eur": 613600000.0,
+            "missing_market_value_ratio": 0.3512
+          },
+          {
+            "league": "ligue-1",
+            "club": "Le Havre AC",
+            "absent_players_count": 6.0,
+            "injured_players_count": 6.0,
+            "suspended_players_count": 0.0,
+            "missing_market_value_eur": 20000000.0,
+            "total_squad_market_value_eur": 63150000.0,
+            "missing_market_value_ratio": 0.3167
+          },
+          {
+            "league": "bundesliga",
+            "club": "Hamburgo SV",
+            "absent_players_count": 5.0,
+            "injured_players_count": 5.0,
+            "suspended_players_count": 0.0,
+            "missing_market_value_eur": 44000000.0,
+            "total_squad_market_value_eur": 145000000.0,
+            "missing_market_value_ratio": 0.3034
+          },
+          {
+            "league": "bundesliga",
+            "club": "TSG 1899 Hoffenheim",
+            "absent_players_count": 6.0,
+            "injured_players_count": 6.0,
+            "suspended_players_count": 0.0,
+            "missing_market_value_eur": 87000000.0,
+            "total_squad_market_value_eur": 287550000.0,
+            "missing_market_value_ratio": 0.3026
+          },
+          {
+            "league": "bundesliga",
+            "club": "Borussia Mönchengladbach",
+            "absent_players_count": 8.0,
+            "injured_players_count": 8.0,
+            "suspended_players_count": 0.0,
+            "missing_market_value_eur": 40300000.0,
+            "total_squad_market_value_eur": 134950000.0,
+            "missing_market_value_ratio": 0.2986
+          },
+          {
+            "league": "ligue-1",
+            "club": "París Saint-Germain",
+            "absent_players_count": 5.0,
+            "injured_players_count": 5.0,
+            "suspended_players_count": 0.0,
+            "missing_market_value_eur": 398000000.0,
+            "total_squad_market_value_eur": 1362600000.0,
+            "missing_market_value_ratio": 0.2921
+          },
+          {
+            "league": "ligue-1",
+            "club": "Olympique de Lyon",
+            "absent_players_count": 4.0,
+            "injured_players_count": 4.0,
+            "suspended_players_count": 0.0,
+            "missing_market_value_eur": 77000000.0,
+            "total_squad_market_value_eur": 264450000.0,
+            "missing_market_value_ratio": 0.2912
+          },
+          {
+            "league": "ligue-1",
+            "club": "RC Lens",
+            "absent_players_count": 5.0,
+            "injured_players_count": 5.0,
+            "suspended_players_count": 0.0,
+            "missing_market_value_eur": 66500000.0,
+            "total_squad_market_value_eur": 243000000.0,
+            "missing_market_value_ratio": 0.2737
+          },
+          {
+            "league": "serie-a",
+            "club": "SSC Nápoles",
+            "absent_players_count": 8.0,
+            "injured_players_count": 8.0,
+            "suspended_players_count": 0.0,
+            "missing_market_value_eur": 115000000.0,
+            "total_squad_market_value_eur": 424500000.0,
+            "missing_market_value_ratio": 0.2709
+          },
+          {
+            "league": "epl",
+            "club": "Chelsea FC",
+            "absent_players_count": 7.0,
+            "injured_players_count": 7.0,
+            "suspended_players_count": 0.0,
+            "missing_market_value_eur": 310000000.0,
+            "total_squad_market_value_eur": 1151700000.0,
+            "missing_market_value_ratio": 0.2692
+          },
+          {
+            "league": "bundesliga",
+            "club": "SV Werder Bremen",
+            "absent_players_count": 10.0,
+            "injured_players_count": 10.0,
+            "suspended_players_count": 0.0,
+            "missing_market_value_eur": 33300000.0,
+            "total_squad_market_value_eur": 124250000.0,
+            "missing_market_value_ratio": 0.268
+          },
+          {
+            "league": "serie-a",
+            "club": "Como 1907",
+            "absent_players_count": 5.0,
+            "injured_players_count": 5.0,
+            "suspended_players_count": 0.0,
+            "missing_market_value_eur": 152000000.0,
+            "total_squad_market_value_eur": 568150000.0,
+            "missing_market_value_ratio": 0.2675
+          },
+          {
+            "league": "bundesliga",
+            "club": "Bayer 04 Leverkusen",
+            "absent_players_count": 6.0,
+            "injured_players_count": 6.0,
+            "suspended_players_count": 0.0,
+            "missing_market_value_eur": 138000000.0,
+            "total_squad_market_value_eur": 520450000.0,
+            "missing_market_value_ratio": 0.2652
+          },
+          {
+            "league": "serie-a",
+            "club": "US Sassuolo",
+            "absent_players_count": 5.0,
+            "injured_players_count": 5.0,
+            "suspended_players_count": 0.0,
+            "missing_market_value_eur": 53000000.0,
+            "total_squad_market_value_eur": 219100000.0,
+            "missing_market_value_ratio": 0.2419
+          }
+        ]
+      }
+    }
+  }
+}
