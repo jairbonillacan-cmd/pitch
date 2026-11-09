@@ -11,10 +11,15 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: snapshot-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   snapshot:
     name: Generar snapshots y publicar
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Checkout repositorio
         uses: actions/checkout@v4
@@ -22,7 +27,7 @@ jobs:
       - name: Configurar pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 9.15.4
+          version: 12.11.2
 
       - name: Configurar Node.js
         uses: actions/setup-node@v4
@@ -36,6 +41,7 @@ jobs:
       - name: Generar snapshots reales
         env:
           API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+          FOOTBALL_DATA_API_KEY: ${{ secrets.FOOTBALL_DATA_API_KEY }}
         run: pnpm snapshot
 
       - name: Guardar cambios en data/snapshots
@@ -50,8 +56,14 @@ jobs:
             git push
           fi
 
+      # `secrets` no está disponible en `if`: se evalúa dentro del shell.
       - name: Disparar deploy hook de Vercel (opcional)
-        if: ${{ secrets.VERCEL_DEPLOY_HOOK_URL != '' }}
         env:
           VERCEL_DEPLOY_HOOK_URL: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
-        run: curl -fsSL -X POST "$VERCEL_DEPLOY_HOOK_URL"
+        run: |
+          if [ -n "$VERCEL_DEPLOY_HOOK_URL" ]; then
+            curl -fsSL -X POST "$VERCEL_DEPLOY_HOOK_URL"
+            echo "Deploy hook disparado."
+          else
+            echo "Sin deploy hook configurado; se omite."
+          fi
