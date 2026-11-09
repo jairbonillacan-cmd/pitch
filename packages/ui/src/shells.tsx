@@ -17,6 +17,8 @@ import {
   WhyList,
   HeadToHead,
 } from "./sports.js";
+import { Button } from "./components/ui/button.js";
+import { Dialog, DialogOverlay, DialogPopup, DialogPortal } from "./components/ui/dialog.js";
 
 export function FloatingNav({
   links = [
@@ -229,7 +231,7 @@ export function PinPad({
   onClose: () => void;
   onSubmitPin: (code: string) => Promise<{ ok: boolean; error?: string }>;
 }): React.JSX.Element {
-  const dialogRef = useRef<HTMLDialogElement | null>(null);
+  const pinWinRef = useRef<HTMLDivElement | null>(null);
   const [digits, setDigits] = useState<string>("");
   const [status, setStatus] = useState<
     "idle" | "submitting" | "error" | "success"
@@ -240,17 +242,10 @@ export function PinPad({
   const [pressedKey, setPressedKey] = useState<string | null>(null);
 
   useEffect(() => {
-    const dialog = dialogRef.current;
-    if (!dialog) return;
     if (open) {
       setDigits("");
       setStatus("idle");
       setMsgText("Escribe el código de 4 dígitos.");
-      if (!dialog.open && typeof dialog.showModal === "function") {
-        dialog.showModal();
-      }
-    } else if (dialog.open && typeof dialog.close === "function") {
-      dialog.close();
     }
   }, [open]);
 
@@ -335,9 +330,6 @@ export function PinPad({
       } else if (e.key === "Backspace") {
         e.preventDefault();
         popDigit();
-      } else if (e.key === "Escape") {
-        e.preventDefault();
-        onClose();
       }
     };
     const onPaste = (e: ClipboardEvent) => {
@@ -358,12 +350,11 @@ export function PinPad({
       window.removeEventListener("keydown", onKeyDown);
       window.removeEventListener("paste", onPaste);
     };
-  }, [open, pushDigit, popDigit, onClose, verifyCode]);
+  }, [open, pushDigit, popDigit, verifyCode]);
 
   const dlgClasses = [
     "pin",
     "pin-dialog",
-    open ? "show" : "",
     status === "success" ? "ok" : "",
     status === "error" ? "err" : "",
   ]
@@ -371,35 +362,35 @@ export function PinPad({
     .join(" ");
 
   return (
-    <dialog
-      ref={dialogRef}
-      className={dlgClasses}
-      id="pin-dialog"
-      aria-labelledby="pin-title"
-      onCancel={(e) => {
-        e.preventDefault();
-        onClose();
-      }}
-      onClick={(e) => {
-        if (
-          e.target === dialogRef.current ||
-          (e.target as HTMLElement).classList?.contains("pin-frame")
-        ) {
-          onClose();
-        }
+    <Dialog
+      open={open}
+      onOpenChange={(next) => {
+        if (!next) onClose();
       }}
     >
+      <DialogPortal>
+        <DialogOverlay className="bg-[var(--backdrop-pin)] backdrop-blur-[6px]" />
+        <DialogPopup
+          className={dlgClasses}
+          id="pin-dialog"
+          aria-labelledby="pin-title"
+          initialFocus={pinWinRef}
+          onClick={(e) => {
+            if ((e.target as HTMLElement).classList?.contains("pin-frame")) onClose();
+          }}
+        >
       <div className="pin-frame">
-        <div className="pin-win" tabIndex={-1}>
-          <button
-            className="btn btn-ghost btn-icon pin-close"
-            type="button"
+        <div className="pin-win" tabIndex={-1} ref={pinWinRef}>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="pin-close"
             data-pin-close=""
             aria-label="Cerrar"
             onClick={onClose}
           >
             <Icon name="close" />
-          </button>
+          </Button>
 
           <div className="pin-avatar" aria-hidden="true">
             <img src={getMascotPath("radar")} alt="" />
@@ -487,7 +478,9 @@ export function PinPad({
           <span className="pin-progress" aria-hidden="true" />
         </div>
       </div>
-    </dialog>
+        </DialogPopup>
+      </DialogPortal>
+    </Dialog>
   );
 }
 
@@ -502,25 +495,16 @@ export function AnalysisDialog({
   onClose: () => void;
   skipTrace?: boolean;
 }): React.JSX.Element {
-  const dialogRef = useRef<HTMLDialogElement | null>(null);
+  const winRef = useRef<HTMLDivElement | null>(null);
   const seenRef = useRef<Set<string>>(new Set());
+  // Conserva el último partido para que la animación de salida no muestre una ventana vacía.
+  const lastMatchRef = useRef<MatchAnalysis | null>(null);
+  if (match) lastMatchRef.current = match;
   const [phase, setPhase] = useState<"calc" | "result">("result");
   const [stepCount, setStepCount] = useState<number>(0);
   const [selectedMarketKey, setSelectedMarketKey] = useState<string>("");
   const [selectedMarketLabel, setSelectedMarketLabel] = useState<string>("");
   const [selectedMarketProb, setSelectedMarketProb] = useState<number>(0.5);
-
-  useEffect(() => {
-    const dialog = dialogRef.current;
-    if (!dialog) return;
-    if (open && match) {
-      if (!dialog.open && typeof dialog.showModal === "function") {
-        dialog.showModal();
-      }
-    } else if (dialog.open && typeof dialog.close === "function") {
-      dialog.close();
-    }
-  }, [open, match]);
 
   useEffect(() => {
     if (!open || !match) return;
@@ -568,57 +552,58 @@ export function AnalysisDialog({
     return () => window.clearInterval(interval);
   }, [open, match, skipTrace]);
 
-  const isFinished = match?.status === "FT" && match.score !== undefined;
-  const nf = match?.league === "nfl";
+  const shown = match ?? lastMatchRef.current;
+  const isFinished = shown?.status === "FT" && shown.score !== undefined;
+  const nf = shown?.league === "nfl";
   const draw = !nf;
-  const x12 = match?.x12 ?? [0.45, draw ? 0.25 : 0, 0.3];
+  const x12 = shown?.x12 ?? [0.45, draw ? 0.25 : 0, 0.3];
   const [ph, pd, pa] = x12;
-  const proj = match?.projection ?? { home: 1.5, away: 1.2, total: 2.7 };
-  const steps = match?.steps ?? [];
+  const proj = shown?.projection ?? { home: 1.5, away: 1.2, total: 2.7 };
+  const steps = shown?.steps ?? [];
 
   return (
-    <dialog
-      ref={dialogRef}
-      className={`modal analysis-dialog ${open ? "show" : ""}`.trim()}
-      id="analysis-dialog"
-      aria-labelledby="dlg-title"
-      onCancel={(e) => {
-        e.preventDefault();
-        onClose();
-      }}
-      onClick={(e) => {
-        if (
-          e.target === dialogRef.current ||
-          (e.target as HTMLElement).classList?.contains("modal-frame")
-        ) {
-          onClose();
-        }
+    <Dialog
+      open={open && match !== null}
+      onOpenChange={(next) => {
+        if (!next) onClose();
       }}
     >
+      <DialogPortal>
+        <DialogOverlay />
+        <DialogPopup
+          className="modal analysis-dialog"
+          id="analysis-dialog"
+          aria-labelledby="dlg-title"
+          initialFocus={winRef}
+          onClick={(e) => {
+            if ((e.target as HTMLElement).classList?.contains("modal-frame")) onClose();
+          }}
+        >
       <div className="modal-frame">
-        <div className="modal-win" id="dlg-win" tabIndex={-1}>
-          {match ? (
+        <div className="modal-win" id="dlg-win" tabIndex={-1} ref={winRef}>
+          {shown ? (
             <>
               <div className="modal-bar">
-                <LeagueBadge league={match.league} size={24} />
+                <LeagueBadge league={shown.league} size={24} />
                 <div>
                   <p className="eyebrow" id="modal-league">
-                    {match.leagueLabel} · {match.round}
+                    {shown.leagueLabel} · {shown.round}
                   </p>
                   <p className="caption muted" id="modal-round" style={{ margin: 0 }}>
-                    {isFinished ? "Finalizado" : match.kickoffLocal} · {match.venue}
+                    {isFinished ? "Finalizado" : shown.kickoffLocal} · {shown.venue}
                   </p>
                 </div>
-                <button
-                  className="btn btn-ghost btn-icon close"
-                  type="button"
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="close"
                   data-close=""
                   data-modal-close=""
                   aria-label="Cerrar análisis"
                   onClick={onClose}
                 >
                   <Icon name="close" />
-                </button>
+                </Button>
               </div>
 
               {phase === "calc" ? (
@@ -633,7 +618,7 @@ export function AnalysisDialog({
                   </div>
                   <div>
                     <h2 className="h3" id="dlg-title">
-                      Calculando {match.home.name} vs {match.away.name}
+                      Calculando {shown.home.name} vs {shown.away.name}
                     </h2>
                     <div className="progress" aria-hidden="true">
                       <span
@@ -673,7 +658,7 @@ export function AnalysisDialog({
                         type="button"
                         data-skip=""
                         onClick={() => {
-                          seenRef.current.add(match.id);
+                          seenRef.current.add(shown.id);
                           setPhase("result");
                         }}
                       >
@@ -685,18 +670,18 @@ export function AnalysisDialog({
               ) : (
                 <div className="result">
                   <h2 className="sr-only" id="dlg-title">
-                    Análisis de {match.home.name} contra {match.away.name}
+                    Análisis de {shown.home.name} contra {shown.away.name}
                   </h2>
                   <div className="match">
                     <div className="mteam">
                       <TeamBadge
-                        league={match.league}
-                        slug={match.home.slug}
-                        name={match.home.name}
+                        league={shown.league}
+                        slug={shown.home.slug}
+                        name={shown.home.name}
                         size={56}
                       />
                       <div>
-                        <div className="n">{match.home.name}</div>
+                        <div className="n">{shown.home.name}</div>
                         <div className="c">LOCAL</div>
                       </div>
                     </div>
@@ -705,18 +690,18 @@ export function AnalysisDialog({
                       <div className="caption muted">
                         {isFinished
                           ? "Final"
-                          : !nf && match.projectedScore
+                          : !nf && shown.projectedScore
                             ? "Marcador proyectado"
                             : "Proyección"}
                       </div>
                       <div className="numeric-hl">
                         {isFinished
-                          ? `${match.score?.home} – ${match.score?.away}`
-                          : !nf && match.projectedScore
-                            ? `${match.projectedScore.home} – ${match.projectedScore.away}`
+                          ? `${shown.score?.home} – ${shown.score?.away}`
+                          : !nf && shown.projectedScore
+                            ? `${shown.projectedScore.home} – ${shown.projectedScore.away}`
                             : `${proj.home.toFixed(nf ? 0 : 1)} – ${proj.away.toFixed(nf ? 0 : 1)}`}
                       </div>
-                      {!isFinished && !nf && match.projectedScore ? (
+                      {!isFinished && !nf && shown.projectedScore ? (
                         <div className="caption muted xg-line" title="Promedio de goles; el marcador más probable suele ser más bajo">
                           Goles esperados {proj.home.toFixed(1)} – {proj.away.toFixed(1)}
                         </div>
@@ -726,8 +711,8 @@ export function AnalysisDialog({
                           probabilities={draw ? [ph, pd, pa] : [ph, pa]}
                           labels={
                             draw
-                              ? [match.home.name, "Empate", match.away.name]
-                              : [match.home.name, match.away.name]
+                              ? [shown.home.name, "Empate", shown.away.name]
+                              : [shown.home.name, shown.away.name]
                           }
                         />
                       </div>
@@ -740,13 +725,13 @@ export function AnalysisDialog({
 
                     <div className="mteam away">
                       <TeamBadge
-                        league={match.league}
-                        slug={match.away.slug}
-                        name={match.away.name}
+                        league={shown.league}
+                        slug={shown.away.slug}
+                        name={shown.away.name}
                         size={56}
                       />
                       <div>
-                        <div className="n">{match.away.name}</div>
+                        <div className="n">{shown.away.name}</div>
                         <div className="c">VISITANTE</div>
                       </div>
                     </div>
@@ -763,8 +748,8 @@ export function AnalysisDialog({
 
                   <div className="rbody">
                     <MarketTable
-                      groups={match.marketGroups}
-                      outcomes={match.outcomes}
+                      groups={shown.marketGroups}
+                      outcomes={shown.outcomes}
                       interactive
                       selectedKey={selectedMarketKey}
                       onSelectRow={(key, label, p) => {
@@ -775,36 +760,36 @@ export function AnalysisDialog({
                     />
 
                     <div className="side-col">
-                      {match.picks && match.picks.length > 0 ? (
+                      {shown.picks && shown.picks.length > 0 ? (
                         <PicksPanel
-                          picks={match.picks}
-                          confidence={isFinished ? undefined : match.confidence}
-                          score={isFinished ? match.score : undefined}
+                          picks={shown.picks}
+                          confidence={isFinished ? undefined : shown.confidence}
+                          score={isFinished ? shown.score : undefined}
                         />
                       ) : null}
-                      {!isFinished && !(match.picks && match.picks.length > 0) ? (
+                      {!isFinished && !(shown.picks && shown.picks.length > 0) ? (
                         <p className="caption muted no-picks" data-no-picks="">
                           Sin picks: este análisis se calculó con el partido ya iniciado. Los picks
                           solo se publican antes del inicio.
                         </p>
                       ) : null}
-                      {match.why && match.why.length > 0 ? (
+                      {shown.why && shown.why.length > 0 ? (
                         <WhyList
-                          why={match.why}
-                          title={match.picks && match.picks.length > 0 ? "Por qué este pick" : "Lectura del modelo"}
+                          why={shown.why}
+                          title={shown.picks && shown.picks.length > 0 ? "Por qué este pick" : "Lectura del modelo"}
                         />
                       ) : null}
-                      {!match.picks && match.mostLikelyScore ? (
+                      {!shown.picks && shown.mostLikelyScore ? (
                         <div className="panel likely">
                           <span className="small secondary">
                             Marcador más probable
                           </span>
                           <span>
                             <b className="num" style={{ fontSize: "1.25rem" }}>
-                              {match.mostLikelyScore.home}–{match.mostLikelyScore.away}
+                              {shown.mostLikelyScore.home}–{shown.mostLikelyScore.away}
                             </b>{" "}
                             <span className="caption muted">
-                              {formatPercent(match.mostLikelyScore.p, 1)}
+                              {formatPercent(shown.mostLikelyScore.p, 1)}
                             </span>
                           </span>
                         </div>
@@ -816,13 +801,13 @@ export function AnalysisDialog({
                       />
 
                       <HeadToHead
-                        rows={match.headToHead}
-                        restDays={match.restDays}
-                        homeName={match.home.shortName}
-                        awayName={match.away.shortName}
+                        rows={shown.headToHead}
+                        restDays={shown.restDays}
+                        homeName={shown.home.shortName}
+                        awayName={shown.away.shortName}
                       />
 
-                      <FactorsList factors={match.factors} />
+                      <FactorsList factors={shown.factors} />
                     </div>
                   </div>
 
@@ -830,7 +815,7 @@ export function AnalysisDialog({
                     <span className="tag tag-model">
                       Modelo PitchLab · en validación
                     </span>
-                    <span>Corte {match.updatedAt}</span>
+                    <span>Corte {shown.updatedAt}</span>
                     <span>No garantiza resultados.</span>
                     <a href="/metodologia">Metodología</a>
                   </div>
@@ -840,6 +825,8 @@ export function AnalysisDialog({
           ) : null}
         </div>
       </div>
-    </dialog>
+        </DialogPopup>
+      </DialogPortal>
+    </Dialog>
   );
 }

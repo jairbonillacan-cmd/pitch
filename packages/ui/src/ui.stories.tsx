@@ -1,7 +1,7 @@
 import React from "react";
 import { asLeagueId, asMarketKey, type MatchAnalysis } from "@pitchlab/contracts";
+import { Button } from "./components/ui/button.js";
 import {
-  Button,
   Tag,
   Panel,
   Notice,
@@ -166,7 +166,8 @@ export const Primitives = () => (
   <div style={{ display: "grid", gap: "16px", padding: "24px", maxWidth: "680px" }}>
     <BrandLogo variant="horizontal" />
     <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
-      <Button variant="primary">Acción primaria</Button>
+      <Button>Acción primaria</Button>
+      <Button variant="outline">Contorno</Button>
       <Button variant="secondary">Secundaria</Button>
       <Button variant="ghost">Fantasma</Button>
     </div>

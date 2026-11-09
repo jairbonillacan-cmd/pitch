@@ -28,6 +28,9 @@ import {
   hasTeamAsset,
 } from "@pitchlab/sports-assets";
 import { Icon } from "./icons.js";
+import { Badge } from "./components/ui/badge.js";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/ui/tabs.js";
+import { Tooltip, TooltipContent, TooltipTrigger } from "./components/ui/tooltip.js";
 
 /** Iniciales para equipos/ligas sin emblema registrado (ADR-017: fallback neutro). */
 function initialsFromName(name: string | undefined, fallback: string): string {
@@ -279,13 +282,9 @@ export function ConfidenceBadge({
   confidence: AnalysisConfidence;
   compact?: boolean;
 }): React.JSX.Element {
-  const title = confidence.reasons.length > 0 ? confidence.reasons.join(" · ") : undefined;
-  return (
-    <span
-      className={"conf conf-" + confidence.level + (compact ? " compact" : "")}
-      title={title}
-      data-confidence={confidence.level}
-    >
+  const reasons = confidence.reasons.join(" · ");
+  const content = (
+    <>
       <span className="bars" aria-hidden="true">
         <i />
         <i />
@@ -299,7 +298,31 @@ export function ConfidenceBadge({
       ) : (
         CONFIDENCE_LABELS[confidence.level]
       )}
-    </span>
+    </>
+  );
+  const className = "conf conf-" + confidence.level + (compact ? " compact" : "");
+  // Dentro de tarjetas (que ya son botones) no se anida otro control: basta el título.
+  if (compact || reasons.length === 0) {
+    return (
+      <span className={className} title={reasons || undefined} data-confidence={confidence.level}>
+        {content}
+      </span>
+    );
+  }
+  return (
+    <Tooltip>
+      <TooltipTrigger
+        render={<span tabIndex={0} />}
+        className={className + " cursor-help rounded-sm focus-visible:ring-2 focus-visible:ring-ring outline-none"}
+        data-confidence={confidence.level}
+      >
+        {content}
+      </TooltipTrigger>
+      <TooltipContent>
+        <p className="m-0 font-semibold">Qué tan claro está el favorito</p>
+        <p className="m-0 text-muted-foreground">{reasons}</p>
+      </TooltipContent>
+    </Tooltip>
   );
 }
 
@@ -341,12 +364,14 @@ export function MomentTag({
 }): React.JSX.Element | null {
   if (!moment) return null;
   return moment === "live" ? (
-    <span className="moment live">
+    <Badge variant="live" className="moment live">
       <span className="dot" />
       En juego
-    </span>
+    </Badge>
   ) : (
-    <span className="moment">Hoy</span>
+    <Badge variant="info" className="moment">
+      Hoy
+    </Badge>
   );
 }
 
@@ -384,14 +409,14 @@ export function PicksPanel({
                 <>
                   <span className="sel">
                     {pick.label}
-                    {pick === featured ? <span className="fav">Pick</span> : null}
+                    {pick === featured ? <Badge variant="fav" className="fav">Pick</Badge> : null}
                   </span>
                   <span className="num pp">{formatPercent(pick.p, 0)}</span>
                   <span className="num odds">{formatDecimal(pick.fairOdds)}</span>
                   {result ? (
-                    <span className={"res " + result}>
+                    <Badge variant={result === "hit" ? "success" : "danger"} className={"res " + result}>
                       {result === "hit" ? "Acertado" : "Fallado"}
-                    </span>
+                    </Badge>
                   ) : null}
                 </>
               ) : (
@@ -500,38 +525,40 @@ export function BestPicks({
   const [profile, setProfile] = useState<AnalysisPick["profile"]>("intermedia");
   const upcoming = matches.filter((m) => m.status !== "FT" && m.picks && m.picks.length > 0);
   if (upcoming.length === 0) return null;
-  const rows = upcoming
-    .map((m) => ({ match: m, pick: m.picks!.find((p) => p.profile === profile) }))
-    .filter((r): r is { match: MatchAnalysis; pick: AnalysisPick } => r.pick !== undefined)
-    .sort(
-      (a, b) =>
-        b.pick.p - a.pick.p || (b.match.confidence?.score ?? 0) - (a.match.confidence?.score ?? 0),
-    )
-    .slice(0, limit);
+  const rowsFor = (p: AnalysisPick["profile"]) =>
+    upcoming
+      .map((m) => ({ match: m, pick: m.picks!.find((x) => x.profile === p) }))
+      .filter((r): r is { match: MatchAnalysis; pick: AnalysisPick } => r.pick !== undefined)
+      .sort(
+        (a, b) =>
+          b.pick.p - a.pick.p || (b.match.confidence?.score ?? 0) - (a.match.confidence?.score ?? 0),
+      )
+      .slice(0, limit);
   const profiles: AnalysisPick["profile"][] = ["conservadora", "intermedia", "arriesgada"];
   return (
     <section className="best" aria-labelledby="best-title" data-best-picks="">
-      <div className="best-head">
-        <h2 id="best-title">Mejores selecciones</h2>
-        <div className="seg" role="tablist" aria-label="Perfil de riesgo">
-          {profiles.map((p) => (
-            <button
-              key={p}
-              type="button"
-              role="tab"
-              aria-selected={profile === p}
-              className="chip"
-              data-profile-tab={p}
-              onClick={() => setProfile(p)}
-            >
-              {PROFILE_LABELS[p]}
-            </button>
-          ))}
+      <Tabs
+        value={profile}
+        onValueChange={(value) => setProfile(value as AnalysisPick["profile"])}
+        className="gap-3"
+      >
+        <div className="best-head">
+          <h2 id="best-title">Mejores selecciones</h2>
+          <TabsList variant="chips" aria-label="Perfil de riesgo">
+            {profiles.map((p) => (
+              <TabsTrigger key={p} value={p} data-profile-tab={p}>
+                {PROFILE_LABELS[p]}
+              </TabsTrigger>
+            ))}
+          </TabsList>
         </div>
-      </div>
-      {rows.length === 0 ? (
-        <p className="small secondary">Sin selecciones en este perfil para esta jornada.</p>
-      ) : (
+        {profiles.map((p) => {
+          const rows = rowsFor(p);
+          return (
+            <TabsContent key={p} value={p}>
+              {rows.length === 0 ? (
+                <p className="small secondary">Sin selecciones en este perfil para esta jornada.</p>
+              ) : (
         <ol className="best-list">
           {rows.map(({ match, pick }) => (
             <li key={match.id}>
@@ -554,7 +581,11 @@ export function BestPicks({
             </li>
           ))}
         </ol>
-      )}
+              )}
+            </TabsContent>
+          );
+        })}
+      </Tabs>
       <p className="caption muted">
         Probabilidad del modelo y cuota justa (sin margen). Unidades de análisis, no recomendación de
         monto. +18.
@@ -612,7 +643,7 @@ export function MatchCard({
         <TeamBadge league={match.league} slug={match.home.slug} size={32} />
         <span>
           {match.home.name}
-          {hL && !isFinished ? <span className="fav">Favorito</span> : null}
+          {hL && !isFinished ? <Badge variant="fav" className="fav">Favorito</Badge> : null}
         </span>
         <span className={`p ${hL && !isFinished ? "lead-txt" : ""}`.trim()}>
           {isFinished ? match.score?.home : formatPercent(ph, 1)}
@@ -623,7 +654,7 @@ export function MatchCard({
         <TeamBadge league={match.league} slug={match.away.slug} size={32} />
         <span>
           {match.away.name}
-          {aL && !isFinished ? <span className="fav">Favorito</span> : null}
+          {aL && !isFinished ? <Badge variant="fav" className="fav">Favorito</Badge> : null}
         </span>
         <span className={`p ${aL && !isFinished ? "lead-txt" : ""}`.trim()}>
           {isFinished ? match.score?.away : formatPercent(pa, 1)}
@@ -641,9 +672,9 @@ export function MatchCard({
           <span className="sel">{featured.label}</span>
           <span className="num pp">{formatPercent(featured.p, 0)}</span>
           {isFinished && featuredResult ? (
-            <span className={"res " + featuredResult}>
+            <Badge variant={featuredResult === "hit" ? "success" : "danger"} className={"res " + featuredResult}>
               {featuredResult === "hit" ? "Acertado" : "Fallado"}
-            </span>
+            </Badge>
           ) : match.confidence ? (
             <ConfidenceBadge confidence={match.confidence} compact />
           ) : null}
@@ -764,7 +795,7 @@ export function MarketTable({
                   <td>
                     {r.label}
                     {isLead && gi === 0 ? (
-                      <span className="fav">Favorito</span>
+                      <Badge variant="fav" className="fav">Favorito</Badge>
                     ) : null}
                   </td>
                   <td className="bar">

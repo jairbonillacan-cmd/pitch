@@ -1,4 +1,137 @@
-@import "@pitchlab/tokens/tokens.css";
+/* ==========================================================================
+   Capas: Tailwind v4 (sin preflight) + shadcn/ui (Mira, Base UI) conviviendo con el
+   CSS aprobado en D1. El orden importa: «legacy» (D1) gana al tema de Tailwind, y las
+   utilidades de los componentes shadcn ganan a «legacy» solo en esos componentes.
+   ========================================================================== */
+@layer theme, base, legacy, components, utilities;
+
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+@import "tw-animate-css";
+@import "@pitchlab/tokens/tokens.css" layer(legacy);
+
+@source "../../../packages/ui/src";
+
+/* Tema oscuro de PitchLab = data-theme en <html> (no la clase .dark de shadcn). */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* Variantes de estado de Base UI (de shadcn/tailwind.css). */
+@custom-variant data-open {
+  &:where([data-state="open"]),
+  &:where([data-open]:not([data-open="false"])) {
+    @slot;
+  }
+}
+@custom-variant data-closed {
+  &:where([data-state="closed"]),
+  &:where([data-closed]:not([data-closed="false"])) {
+    @slot;
+  }
+}
+@custom-variant data-active {
+  &:where([data-state="active"]),
+  &:where([data-active]:not([data-active="false"])) {
+    @slot;
+  }
+}
+@custom-variant data-pressed {
+  &:where([data-pressed]:not([data-pressed="false"])) {
+    @slot;
+  }
+}
+@custom-variant data-disabled {
+  &:where([data-disabled="true"]),
+  &:where([data-disabled]:not([data-disabled="false"])) {
+    @slot;
+  }
+}
+@custom-variant data-horizontal {
+  &:where([data-orientation="horizontal"]) {
+    @slot;
+  }
+}
+@custom-variant data-vertical {
+  &:where([data-orientation="vertical"]) {
+    @slot;
+  }
+}
+
+/* Variables de shadcn → tokens de la marca (nunca la paleta neutra por defecto). */
+@theme inline {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-sans);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+}
+
+@layer legacy {
+  :root {
+    --background: var(--background-primary);
+    --foreground: var(--text-primary);
+    --card: var(--surface-default);
+    --card-foreground: var(--text-primary);
+    --popover: var(--background-elevated);
+    --popover-foreground: var(--text-primary);
+    --primary: var(--brand-primary);
+    --primary-foreground: var(--on-primary);
+    --secondary: var(--surface-hover);
+    --secondary-foreground: var(--text-primary);
+    --muted: var(--surface-hover);
+    --muted-foreground: var(--text-secondary);
+    --accent: var(--surface-active);
+    --accent-foreground: var(--text-primary);
+    --destructive: var(--danger);
+    --border: var(--border-default);
+    --input: var(--border-strong);
+    --ring: var(--brand-primary);
+    --chart-1: var(--chart-model);
+    --chart-2: var(--chart-observed);
+    --chart-3: var(--success);
+    --chart-4: var(--warning);
+    --chart-5: var(--info);
+    /* md = radio de control de la marca (8 px). */
+    --radius: calc(var(--radius-control) * 1.25);
+  }
+}
+
+/* Sin preflight: solo los componentes shadcn reciben su reinicio de bordes. */
+@layer base {
+  [data-slot],
+  [data-slot]::before,
+  [data-slot]::after {
+    border-width: 0;
+    border-style: solid;
+    border-color: var(--border);
+  }
+  [data-slot] {
+    font-family: inherit;
+  }
+}
 
 @font-face {
   font-family: "Inter";
@@ -8,6 +141,7 @@
   src: url("/fonts/InterVariable.woff2") format("woff2");
 }
 
+@layer legacy {
 /* ==========================================================================
    PitchLab · D1 · proto.css (temas, tipografía, componentes y movimiento)
    ========================================================================== */
@@ -1589,26 +1723,18 @@ fieldset[disabled] button {
   }
 }
 
-/* ---------- PIN ---------- */
-dialog.pin {
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: var(--text-primary);
-  width: 100%;
-  height: 100%;
-  max-width: none;
-  max-height: none;
+/* ---------- Diálogos (Base UI) ---------- */
+.pl-dialog {
+  transition: opacity var(--time-enter) var(--ease-out);
 }
-dialog.pin::backdrop {
-  background: var(--backdrop-pin);
-  backdrop-filter: blur(6px);
+.pl-dialog[data-ending-style] {
   opacity: 0;
-  transition: opacity var(--time-base) var(--ease-out);
 }
-dialog.pin.show::backdrop {
-  opacity: 1;
-}
+
+/* ---------- PIN ---------- */
+
+
+
 .pin-frame {
   width: 100%;
   height: 100%;
@@ -1632,7 +1758,7 @@ dialog.pin.show::backdrop {
     opacity var(--time-enter) var(--ease-out),
     transform var(--time-enter) var(--ease-out);
 }
-dialog.pin.show .pin-win {
+.pin-dialog:not([data-starting-style]):not([data-ending-style]) .pin-win {
   opacity: 1;
   transform: none;
 }
@@ -2158,26 +2284,9 @@ dialog.pin.show .pin-win {
 }
 
 /* ---------- Modal ---------- */
-dialog.modal {
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: var(--text-primary);
-  max-width: none;
-  max-height: none;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-dialog.modal::backdrop {
-  background: var(--backdrop-modal);
-  backdrop-filter: blur(4px);
-  opacity: 0;
-  transition: opacity var(--time-base) var(--ease-out);
-}
-dialog.modal.show::backdrop {
-  opacity: 1;
-}
+
+
+
 .modal-frame {
   display: grid;
   place-items: center;
@@ -2200,7 +2309,7 @@ dialog.modal.show::backdrop {
     opacity var(--time-enter) var(--ease-out),
     transform var(--time-enter) var(--ease-out);
 }
-dialog.modal.show .modal-win {
+.analysis-dialog:not([data-starting-style]):not([data-ending-style]) .modal-win {
   opacity: 1;
   transform: none;
 }
@@ -2919,4 +3028,5 @@ dialog.modal.show .modal-win {
 }
 .no-picks {
   margin: 0;
+}
 }

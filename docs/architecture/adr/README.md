@@ -22,3 +22,4 @@
 | [ADR-016](ADR-016-iconografia-iconos-de-marca-lucide-para-los-generi.md) | Iconografía: iconos de marca + Lucide para los genéricos | Propuesta (requiere el visto bueno del fundador) |
 | [ADR-017](ADR-017-registro-de-emblemas-deportivos-con-fallback.md) | Registro de emblemas deportivos con fallback | Aceptada |
 | [ADR-018](ADR-018-archivar-la-reconstruccion-de-touchiq-y-reutilizar.md) | Archivar la reconstrucción de TouchIQ y reutilizar su dominio como Baseline 0 | Aceptada |
+| [ADR-019](ADR-019-shadcn-ui-mira-base-ui-con-tokens-pitchlab.md) | Primitivas shadcn/ui (Mira, Base UI) con los tokens de PitchLab | Aceptada |

@@ -22,7 +22,7 @@ describe("@pitchlab/ui components", () => {
   it("renders primitives cleanly", () => {
     const html = renderToStaticMarkup(
       <div>
-        <Button variant="primary">Entrar</Button>
+        <Button>Entrar</Button>
         <Tag variant="info" dot>
           Beta
         </Tag>
@@ -33,7 +33,8 @@ describe("@pitchlab/ui components", () => {
         <BrandLogo variant="horizontal" />
       </div>,
     );
-    expect(html).toContain("btn-primary");
+    expect(html).toContain("data-slot=\"button\"");
+    expect(html).toContain("bg-primary");
     expect(html).toContain("tag-info");
     expect(html).toContain("/brand/mascot/r1/radar.webp");
   });

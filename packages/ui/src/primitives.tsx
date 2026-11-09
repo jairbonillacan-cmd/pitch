@@ -4,36 +4,7 @@ import React from "react";
 import { getLogoPath, getMascotPath } from "@pitchlab/sports-assets";
 import { Icon } from "./icons.js";
 
-export type ButtonVariant = "primary" | "secondary" | "ghost" | "icon";
-
-export function Button({
-  variant = "primary",
-  block = false,
-  beta = false,
-  className = "",
-  children,
-  ...props
-}: React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: ButtonVariant;
-  block?: boolean;
-  beta?: boolean;
-}): React.JSX.Element {
-  const classes = [
-    "btn",
-    variant === "icon" ? "btn-ghost btn-icon" : `btn-${variant}`,
-    block ? "btn-block" : "",
-    beta ? "btn-beta" : "",
-    className,
-  ]
-    .filter(Boolean)
-    .join(" ");
-
-  return (
-    <button className={classes} {...props}>
-      {children}
-    </button>
-  );
-}
+// El botón vive en `components/ui/button.tsx` (shadcn/ui, estilo Mira, Base UI).
 
 export type TagVariant = "default" | "ok" | "info" | "model" | "demo";
 

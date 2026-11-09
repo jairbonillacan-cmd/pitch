@@ -126,7 +126,7 @@ test.describe("PitchLab Pre-MVP E2E Suite", () => {
     const runIpSuffix = `${Math.floor(Math.random() * 200) + 10}.${Math.floor(Math.random() * 200) + 10}`;
     await page.setExtraHTTPHeaders({ "x-forwarded-for": `198.51.${runIpSuffix}` });
     await page.locator(".btn-beta").click();
-    await expect(page.locator("dialog.pin-dialog")).toBeVisible();
+    await expect(page.locator(".pin-dialog")).toBeVisible();
 
     for (const d of ["9", "9", "9", "9"]) {
       await page.locator(`button.pin-key[data-pin-digit='${d}']`).click();
@@ -166,7 +166,7 @@ test.describe("PitchLab Pre-MVP E2E Suite", () => {
 
     await page.goto("/login?next=%2Fapp%2Fpremier-league");
     await page.locator(".btn-beta").click();
-    await expect(page.locator("dialog.pin-dialog")).toBeVisible();
+    await expect(page.locator(".pin-dialog")).toBeVisible();
 
     for (const d of ["2", "0", "2", "6"]) {
       await page.locator(`button.pin-key[data-pin-digit='${d}']`).click();
@@ -214,14 +214,14 @@ test.describe("PitchLab Pre-MVP E2E Suite", () => {
     expect(gameId).toBeTruthy();
 
     await firstCard.click();
-    await expect(page.locator("dialog.analysis-dialog")).toBeVisible();
+    await expect(page.locator("[role=dialog].analysis-dialog")).toBeVisible();
     expect(page.url()).toContain(`/app/premier-league/games/${gameId}`);
 
-    const skipBtn = page.locator("dialog.analysis-dialog [data-skip]");
+    const skipBtn = page.locator("[role=dialog].analysis-dialog [data-skip]");
     if (await skipBtn.isVisible()) {
       await skipBtn.click();
     }
-    await expect(page.locator("dialog.analysis-dialog .result")).toBeVisible();
+    await expect(page.locator("[role=dialog].analysis-dialog .result")).toBeVisible();
 
     await page.screenshot({
       path: path.join(SCREENSHOT_DIR, `modal-pl-${testInfo.project.name}-dark.png`),
@@ -229,11 +229,11 @@ test.describe("PitchLab Pre-MVP E2E Suite", () => {
 
     // Reload directly on /app/premier-league/games/<gameId> -> modal opens automatically
     await page.reload();
-    await expect(page.locator("dialog.analysis-dialog")).toBeVisible();
+    await expect(page.locator("[role=dialog].analysis-dialog")).toBeVisible();
 
     // Close modal with Escape -> URL returns to /app/premier-league
     await page.keyboard.press("Escape");
-    await expect(page.locator("dialog.analysis-dialog")).toBeHidden();
+    await expect(page.locator("[role=dialog].analysis-dialog")).toBeHidden();
     expect(page.url()).toMatch(/\/app\/premier-league$/);
 
     // Switch to NFL tab
@@ -320,7 +320,7 @@ test.describe("PitchLab Pre-MVP E2E Suite", () => {
     // Panel de LaLiga con los mercados nuevos.
     await page.goto("/login?next=%2Fapp%2Flaliga");
     await page.locator(".btn-beta").click();
-    await expect(page.locator("dialog.pin-dialog")).toBeVisible();
+    await expect(page.locator(".pin-dialog")).toBeVisible();
     for (const d of ["2", "0", "2", "6"]) {
       await page.locator(`button.pin-key[data-pin-digit='${d}']`).click();
     }
@@ -329,7 +329,7 @@ test.describe("PitchLab Pre-MVP E2E Suite", () => {
 
     // Abre el primer análisis y comprueba los mercados nuevos del modelo.
     await page.locator("button:has-text('Analizar')").first().click();
-    const dialog = page.locator("dialog[open]");
+    const dialog = page.locator("[role=dialog].analysis-dialog");
     await expect(dialog).toBeVisible();
     await expect(dialog).toContainText("Goles por equipo");
     await expect(dialog).toContainText("Marcador exacto");

@@ -15,6 +15,9 @@ import {
   ErrorState,
   StandingsTable,
   BestPicks,
+  Button,
+  ToggleGroup,
+  ToggleGroupItem,
 } from "@pitchlab/ui";
 import type { SnapshotEnvelope } from "../server/snapshots.js";
 import type { ProductLeague } from "../server/snapshots.js";
@@ -139,18 +142,18 @@ export function PanelClient({
             <BrandLogo variant="horizontal" width={148} height={29} />
           </a>
           <div className="right">
-            <a className="btn btn-ghost method" href="/#como">
-              Cómo funciona
-            </a>
-            <ThemeToggle />
-            <button
-              className="btn btn-ghost"
-              type="button"
-              data-logout=""
-              onClick={handleLogout}
+            <Button
+              variant="ghost"
+              className="method"
+              render={<a href="/#como" />}
+              nativeButton={false}
             >
+              Cómo funciona
+            </Button>
+            <ThemeToggle />
+            <Button variant="ghost" data-logout="" onClick={handleLogout}>
               Salir
-            </button>
+            </Button>
           </div>
         </div>
       </header>
@@ -304,26 +307,28 @@ export function PanelClient({
         </section>
 
         <nav className="days" aria-label="Filtrar por día">
-          <div className="wrap" id="day-chips">
+          <ToggleGroup
+            className="wrap w-full"
+            id="day-chips"
+            aria-label="Día"
+            value={[activeDay]}
+            onValueChange={(value) => {
+              // Siempre hay un día elegido: volver a pulsar el activo no lo deselecciona.
+              if (value.length > 0) setActiveDay(String(value[value.length - 1]));
+            }}
+          >
             {days.map((d) => {
               const count =
                 d.id === "all"
                   ? games.length
                   : games.filter((g) => g.day === d.id).length;
               return (
-                <button
-                  key={d.id}
-                  type="button"
-                  className="chip day-chip"
-                  data-day={d.id}
-                  aria-pressed={activeDay === d.id}
-                  onClick={() => setActiveDay(d.id)}
-                >
+                <ToggleGroupItem key={d.id} value={d.id} className="day-chip" data-day={d.id}>
                   {d.label} <span className="count">{count}</span>
-                </button>
+                </ToggleGroupItem>
               );
             })}
-          </div>
+          </ToggleGroup>
         </nav>
 
         {envelope.state !== "error" && games.length > 0 ? (

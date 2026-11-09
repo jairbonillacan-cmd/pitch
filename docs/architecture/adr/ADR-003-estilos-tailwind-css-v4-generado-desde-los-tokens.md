@@ -1,6 +1,6 @@
 # ADR-003: Estilos: Tailwind CSS v4 generado desde los tokens de marca, Radix UI y componentes propios
 
-- **Estado:** Aceptada
+- **Estado:** Aceptada (modificada por ADR-019: shadcn/ui Mira + Base UI con tokens de marca)
 - **Fecha:** 2026-11-08
 
 ## Contexto
