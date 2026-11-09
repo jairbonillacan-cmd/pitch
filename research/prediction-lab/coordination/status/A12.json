@@ -1,0 +1,20 @@
+{
+  "task_id": "A12",
+  "agent": "EXPANSION RESEARCHER NFL",
+  "status": "completed",
+  "started_at": "2026-11-09T03:56:00-06:00",
+  "finished_at": "2026-11-09T04:35:00-06:00",
+  "summary": "NFL con nflverse (CC BY 4.0): 7.102 partidos, 7.015 con features causales (regla estricta por gameday), config K=20/HFA=55/C=0.003 elegida en VAL 2010-2019. Test 2020-2025 (1.615): logit 0,65906; logit_elo 0,66162; hgb 0,72144; blend 0,67270; mercado power 0,62655. El mercado gana por +0,0322 [0,0262; 0,0382]. HGB es peor que la logística. Informe consolidado por el orquestador porque A12 no llegó a redactarlo.",
+  "n_games": 7102,
+  "n_features_rows": 7015,
+  "test": {"logit": 0.65906, "hgb": 0.72144, "market_power": 0.62655},
+  "files_written": [
+    "data/nfl/raw/games.csv", "data/nfl/raw/manifest.json",
+    "data/nfl/processed/nfl_games.parquet", "data/nfl/processed/nfl_features.parquet",
+    "models/nfl/{download,build_dataset,features,sensitivity,models,wf,run_eval}.py",
+    "models/nfl/artifacts/{metrics.json,comparisons.json,predictions.csv,config_used.json,sensitivity.json,summary_tables.md}",
+    "reports/A12_nfl.md"
+  ],
+  "blockers": [],
+  "next": "Integrar NFL al contrato Prediction (sport=nfl), exportar logit a JSON y añadir EPA/DVOA en el ciclo 3."
+}

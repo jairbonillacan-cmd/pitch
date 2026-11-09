@@ -1,0 +1,55 @@
+{
+  "elo_k": 20.0,
+  "elo_hfa": 55.0,
+  "logit_c": 0.003,
+  "seasons_eval": [
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+  ],
+  "seasons_val": [
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019
+  ],
+  "seasons_test": [
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+  ],
+  "seed": 20261109,
+  "bootstrap_B": 2000,
+  "models": [
+    "base_freq",
+    "logit_elo",
+    "logit",
+    "hgb",
+    "blend",
+    "market_prop",
+    "market_power"
+  ],
+  "selection_source": "models/nfl/artifacts/sensitivity.json"
+}

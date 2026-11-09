@@ -185,3 +185,11 @@ Es la restricción que más condiciona el proyecto.
 **Lo que se puede afirmar hoy con evidencia:** existe un dataset canónico de 182.414 partidos × 88 columnas con invariantes verificadas (0 duplicados, 0 resultados incoherentes, 0 cuotas ≤1); hay features causales auditadas, con el leakage de priors corregido y verificado (99,63 % S−1; 100 % del cuádruple `(n,ppg,gf_pg,ga_pg)` con la temporada anterior observada); hay un marco de evaluación con 83 tests, walk-forward con corte por fecha y un cierre único de test; el Motor A desplegado tiene paridad TS 4,997×10⁻¹³; y **el mercado gana por 0,0188–0,0203**. Los motores legacy son paridad fiel, no predicción validada.
 
 **Lo que no se puede afirmar:** que el sistema tenga *edge*, que bata al mercado, que sea rentable, ni que sus probabilidades sean mejores que el precio de cierre. Cualquier afirmación de ese tipo requiere un test nuevo y cuotas con `captured_at`.
+
+## Anexo ciclo 2 — riesgos nuevos
+
+| ID | Severidad | Riesgo | Evidencia | Estado |
+|---|---|---|---|---|
+| R-21 | Medio | El feed de cuotas (`fixtures.csv`) es **semanal** y puede llegar con 70,8 h de staleness; una captura tardía es post-kickoff y no sirve para CLV | `data/snapshots/manifest.json`: Last-Modified 2026-11-06 vs captura 2026-11-09; 159/160 post-kickoff | **ABIERTO** (capturar antes del kickoff) |
+| R-22 | Bajo | Outliers de Betfair Exchange en el feed (overround 2,13 y 1,95) | 2 filas SP2 del snapshot | **MITIGADO** (regla 0,9–1,2 por casa) |
+| R-23 | Bajo | La licencia de nflverse exige atribución (CC BY 4.0) | `data/nfl/raw/manifest.json` | **MITIGADO** (atribución en docs y código) |

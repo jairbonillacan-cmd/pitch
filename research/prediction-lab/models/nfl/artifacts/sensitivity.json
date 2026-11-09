@@ -1,0 +1,711 @@
+{
+  "criterion": "log-loss medio del logit multinomial en walk-forward 2010-2019 (VAL)",
+  "seasons": [
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019
+  ],
+  "grid": {
+    "elo_k": [
+      15.0,
+      20.0,
+      25.0,
+      30.0
+    ],
+    "elo_hfa": [
+      40.0,
+      55.0,
+      70.0
+    ],
+    "logit_c": [
+      0.001,
+      0.003,
+      0.01,
+      0.03,
+      0.1,
+      0.3,
+      1.0,
+      3.0
+    ]
+  },
+  "n_configs": 96,
+  "best_argmin": {
+    "elo_k": 30.0,
+    "elo_hfa": 40.0,
+    "logit_c": 0.003,
+    "log_loss": 0.6447654903649949
+  },
+  "best": {
+    "elo_k": 20.0,
+    "elo_hfa": 55.0,
+    "logit_c": 0.003,
+    "log_loss": 0.6450256796538014
+  },
+  "tie_break": {
+    "tol": 0.001,
+    "preferred": {
+      "elo_k": 20.0,
+      "elo_hfa": 55.0
+    },
+    "n_configs_within_tol": 27,
+    "rule": "entre las configs a <= best+tol, elegir la de K/HFA preferidos; si no está, el mínimo"
+  },
+  "best_by_k": {
+    "15.0": 0.6453519118078839,
+    "20.0": 0.6449465217596668,
+    "25.0": 0.6447688926311168,
+    "30.0": 0.6447654903649949
+  },
+  "best_by_hfa": {
+    "40.0": 0.6447654903649949,
+    "55.0": 0.6448449900191686,
+    "70.0": 0.6449247294448527
+  },
+  "top10": [
+    {
+      "elo_k": 30.0,
+      "elo_hfa": 40.0,
+      "logit_c": 0.003,
+      "val_log_loss": 0.6447654903649949
+    },
+    {
+      "elo_k": 25.0,
+      "elo_hfa": 40.0,
+      "logit_c": 0.003,
+      "val_log_loss": 0.6447688926311168
+    },
+    {
+      "elo_k": 30.0,
+      "elo_hfa": 55.0,
+      "logit_c": 0.003,
+      "val_log_loss": 0.6448449900191686
+    },
+    {
+      "elo_k": 25.0,
+      "elo_hfa": 55.0,
+      "logit_c": 0.003,
+      "val_log_loss": 0.6448467422877433
+    },
+    {
+      "elo_k": 30.0,
+      "elo_hfa": 70.0,
+      "logit_c": 0.003,
+      "val_log_loss": 0.6449247294448527
+    },
+    {
+      "elo_k": 25.0,
+      "elo_hfa": 70.0,
+      "logit_c": 0.003,
+      "val_log_loss": 0.6449285498354114
+    },
+    {
+      "elo_k": 20.0,
+      "elo_hfa": 40.0,
+      "logit_c": 0.003,
+      "val_log_loss": 0.6449465217596668
+    },
+    {
+      "elo_k": 30.0,
+      "elo_hfa": 40.0,
+      "logit_c": 0.01,
+      "val_log_loss": 0.6449609883795043
+    },
+    {
+      "elo_k": 30.0,
+      "elo_hfa": 55.0,
+      "logit_c": 0.01,
+      "val_log_loss": 0.6450129984723585
+    },
+    {
+      "elo_k": 20.0,
+      "elo_hfa": 55.0,
+      "logit_c": 0.003,
+      "val_log_loss": 0.6450256796538014
+    }
+  ],
+  "full_table": [
+    {
+      "elo_k": 30.0,
+      "elo_hfa": 40.0,
+      "logit_c": 0.003,
+      "val_log_loss": 0.6447654903649949
+    },
+    {
+      "elo_k": 25.0,
+      "elo_hfa": 40.0,
+      "logit_c": 0.003,
+      "val_log_loss": 0.6447688926311168
+    },
+    {
+      "elo_k": 30.0,
+      "elo_hfa": 55.0,
+      "logit_c": 0.003,
+      "val_log_loss": 0.6448449900191686
+    },
+    {
+      "elo_k": 25.0,
+      "elo_hfa": 55.0,
+      "logit_c": 0.003,
+      "val_log_loss": 0.6448467422877433
+    },
+    {
+      "elo_k": 30.0,
+      "elo_hfa": 70.0,
+      "logit_c": 0.003,
+      "val_log_loss": 0.6449247294448527
+    },
+    {
+      "elo_k": 25.0,
+      "elo_hfa": 70.0,
+      "logit_c": 0.003,
+      "val_log_loss": 0.6449285498354114
+    },
+    {
+      "elo_k": 20.0,
+      "elo_hfa": 40.0,
+      "logit_c": 0.003,
+      "val_log_loss": 0.6449465217596668
+    },
+    {
+      "elo_k": 30.0,
+      "elo_hfa": 40.0,
+      "logit_c": 0.01,
+      "val_log_loss": 0.6449609883795043
+    },
+    {
+      "elo_k": 30.0,
+      "elo_hfa": 55.0,
+      "logit_c": 0.01,
+      "val_log_loss": 0.6450129984723585
+    },
+    {
+      "elo_k": 20.0,
+      "elo_hfa": 55.0,
+      "logit_c": 0.003,
+      "val_log_loss": 0.6450256796538014
+    },
+    {
+      "elo_k": 25.0,
+      "elo_hfa": 40.0,
+      "logit_c": 0.01,
+      "val_log_loss": 0.6450322769270012
+    },
+    {
+      "elo_k": 30.0,
+      "elo_hfa": 70.0,
+      "logit_c": 0.01,
+      "val_log_loss": 0.6450745490998714
+    },
+    {
+      "elo_k": 25.0,
+      "elo_hfa": 55.0,
+      "logit_c": 0.01,
+      "val_log_loss": 0.6450983051472621
+    },
+    {
+      "elo_k": 20.0,
+      "elo_hfa": 70.0,
+      "logit_c": 0.003,
+      "val_log_loss": 0.6450995203441454
+    },
+    {
+      "elo_k": 25.0,
+      "elo_hfa": 70.0,
+      "logit_c": 0.01,
+      "val_log_loss": 0.6451559109366134
+    },
+    {
+      "elo_k": 20.0,
+      "elo_hfa": 40.0,
+      "logit_c": 0.01,
+      "val_log_loss": 0.6452678054688123
+    },
+    {
+      "elo_k": 20.0,
+      "elo_hfa": 55.0,
+      "logit_c": 0.01,
+      "val_log_loss": 0.6453288478929584
+    },
+    {
+      "elo_k": 15.0,
+      "elo_hfa": 40.0,
+      "logit_c": 0.003,
+      "val_log_loss": 0.6453519118078839
+    },
+    {
+      "elo_k": 20.0,
+      "elo_hfa": 70.0,
+      "logit_c": 0.01,
+      "val_log_loss": 0.6453919933749722
+    },
+    {
+      "elo_k": 15.0,
+      "elo_hfa": 55.0,
+      "logit_c": 0.003,
+      "val_log_loss": 0.6454239691101605
+    },
+    {
+      "elo_k": 15.0,
+      "elo_hfa": 70.0,
+      "logit_c": 0.003,
+      "val_log_loss": 0.6455034460789596
+    },
+    {
+      "elo_k": 30.0,
+      "elo_hfa": 40.0,
+      "logit_c": 0.03,
+      "val_log_loss": 0.6455934984872356
+    },
+    {
+      "elo_k": 30.0,
+      "elo_hfa": 55.0,
+      "logit_c": 0.03,
+      "val_log_loss": 0.6456282525441415
+    },
+    {
+      "elo_k": 30.0,
+      "elo_hfa": 70.0,
+      "logit_c": 0.03,
+      "val_log_loss": 0.6456719142563891
+    },
+    {
+      "elo_k": 25.0,
+      "elo_hfa": 40.0,
+      "logit_c": 0.03,
+      "val_log_loss": 0.645718026069192
+    },
+    {
+      "elo_k": 15.0,
+      "elo_hfa": 40.0,
+      "logit_c": 0.01,
+      "val_log_loss": 0.6457269867414596
+    },
+    {
+      "elo_k": 25.0,
+      "elo_hfa": 55.0,
+      "logit_c": 0.03,
+      "val_log_loss": 0.6457622783102914
+    },
+    {
+      "elo_k": 15.0,
+      "elo_hfa": 55.0,
+      "logit_c": 0.01,
+      "val_log_loss": 0.6457778195153332
+    },
+    {
+      "elo_k": 25.0,
+      "elo_hfa": 70.0,
+      "logit_c": 0.03,
+      "val_log_loss": 0.6458342659921676
+    },
+    {
+      "elo_k": 15.0,
+      "elo_hfa": 70.0,
+      "logit_c": 0.01,
+      "val_log_loss": 0.6458586804451507
+    },
+    {
+      "elo_k": 25.0,
+      "elo_hfa": 40.0,
+      "logit_c": 0.001,
+      "val_log_loss": 0.6458911554132059
+    },
+    {
+      "elo_k": 20.0,
+      "elo_hfa": 40.0,
+      "logit_c": 0.001,
+      "val_log_loss": 0.6459363431830729
+    },
+    {
+      "elo_k": 25.0,
+      "elo_hfa": 55.0,
+      "logit_c": 0.001,
+      "val_log_loss": 0.6459619546051895
+    },
+    {
+      "elo_k": 30.0,
+      "elo_hfa": 40.0,
+      "logit_c": 0.001,
+      "val_log_loss": 0.6459895129069013
+    },
+    {
+      "elo_k": 20.0,
+      "elo_hfa": 55.0,
+      "logit_c": 0.001,
+      "val_log_loss": 0.6460080288944928
+    },
+    {
+      "elo_k": 20.0,
+      "elo_hfa": 40.0,
+      "logit_c": 0.03,
+      "val_log_loss": 0.6460140796688469
+    },
+    {
+      "elo_k": 25.0,
+      "elo_hfa": 70.0,
+      "logit_c": 0.001,
+      "val_log_loss": 0.6460285169137118
+    },
+    {
+      "elo_k": 30.0,
+      "elo_hfa": 55.0,
+      "logit_c": 0.001,
+      "val_log_loss": 0.6460607608487651
+    },
+    {
+      "elo_k": 20.0,
+      "elo_hfa": 70.0,
+      "logit_c": 0.001,
+      "val_log_loss": 0.6460725810269239
+    },
+    {
+      "elo_k": 20.0,
+      "elo_hfa": 55.0,
+      "logit_c": 0.03,
+      "val_log_loss": 0.6460751651142533
+    },
+    {
+      "elo_k": 20.0,
+      "elo_hfa": 70.0,
+      "logit_c": 0.03,
+      "val_log_loss": 0.6461037011417391
+    },
+    {
+      "elo_k": 30.0,
+      "elo_hfa": 70.0,
+      "logit_c": 0.001,
+      "val_log_loss": 0.6461253603669664
+    },
+    {
+      "elo_k": 15.0,
+      "elo_hfa": 40.0,
+      "logit_c": 0.001,
+      "val_log_loss": 0.6462013187271041
+    },
+    {
+      "elo_k": 15.0,
+      "elo_hfa": 55.0,
+      "logit_c": 0.001,
+      "val_log_loss": 0.6462679754680674
+    },
+    {
+      "elo_k": 15.0,
+      "elo_hfa": 70.0,
+      "logit_c": 0.001,
+      "val_log_loss": 0.6463431751801464
+    },
+    {
+      "elo_k": 15.0,
+      "elo_hfa": 40.0,
+      "logit_c": 0.03,
+      "val_log_loss": 0.6465222703150817
+    },
+    {
+      "elo_k": 30.0,
+      "elo_hfa": 40.0,
+      "logit_c": 0.1,
+      "val_log_loss": 0.6465293794004335
+    },
+    {
+      "elo_k": 15.0,
+      "elo_hfa": 55.0,
+      "logit_c": 0.03,
+      "val_log_loss": 0.6465528286188185
+    },
+    {
+      "elo_k": 30.0,
+      "elo_hfa": 55.0,
+      "logit_c": 0.1,
+      "val_log_loss": 0.6465821250384458
+    },
+    {
+      "elo_k": 15.0,
+      "elo_hfa": 70.0,
+      "logit_c": 0.03,
+      "val_log_loss": 0.6466108589063604
+    },
+    {
+      "elo_k": 30.0,
+      "elo_hfa": 70.0,
+      "logit_c": 0.1,
+      "val_log_loss": 0.6466289299934056
+    },
+    {
+      "elo_k": 25.0,
+      "elo_hfa": 55.0,
+      "logit_c": 0.1,
+      "val_log_loss": 0.6467671430792404
+    },
+    {
+      "elo_k": 25.0,
+      "elo_hfa": 40.0,
+      "logit_c": 0.1,
+      "val_log_loss": 0.6467783837323691
+    },
+    {
+      "elo_k": 25.0,
+      "elo_hfa": 70.0,
+      "logit_c": 0.1,
+      "val_log_loss": 0.6468093447263505
+    },
+    {
+      "elo_k": 20.0,
+      "elo_hfa": 40.0,
+      "logit_c": 0.1,
+      "val_log_loss": 0.6470587370093156
+    },
+    {
+      "elo_k": 20.0,
+      "elo_hfa": 55.0,
+      "logit_c": 0.1,
+      "val_log_loss": 0.6471018487438369
+    },
+    {
+      "elo_k": 20.0,
+      "elo_hfa": 70.0,
+      "logit_c": 0.1,
+      "val_log_loss": 0.6471905317198968
+    },
+    {
+      "elo_k": 15.0,
+      "elo_hfa": 40.0,
+      "logit_c": 0.1,
+      "val_log_loss": 0.6477087613338312
+    },
+    {
+      "elo_k": 15.0,
+      "elo_hfa": 55.0,
+      "logit_c": 0.1,
+      "val_log_loss": 0.6477247193652242
+    },
+    {
+      "elo_k": 15.0,
+      "elo_hfa": 70.0,
+      "logit_c": 0.1,
+      "val_log_loss": 0.6477478936836454
+    },
+    {
+      "elo_k": 30.0,
+      "elo_hfa": 40.0,
+      "logit_c": 0.3,
+      "val_log_loss": 0.6479463494866072
+    },
+    {
+      "elo_k": 30.0,
+      "elo_hfa": 55.0,
+      "logit_c": 0.3,
+      "val_log_loss": 0.648030634546357
+    },
+    {
+      "elo_k": 30.0,
+      "elo_hfa": 70.0,
+      "logit_c": 0.3,
+      "val_log_loss": 0.6480685635679636
+    },
+    {
+      "elo_k": 25.0,
+      "elo_hfa": 40.0,
+      "logit_c": 0.3,
+      "val_log_loss": 0.6481279274211899
+    },
+    {
+      "elo_k": 25.0,
+      "elo_hfa": 55.0,
+      "logit_c": 0.3,
+      "val_log_loss": 0.6481756736763723
+    },
+    {
+      "elo_k": 25.0,
+      "elo_hfa": 70.0,
+      "logit_c": 0.3,
+      "val_log_loss": 0.648321841979674
+    },
+    {
+      "elo_k": 20.0,
+      "elo_hfa": 55.0,
+      "logit_c": 0.3,
+      "val_log_loss": 0.6484744423896872
+    },
+    {
+      "elo_k": 20.0,
+      "elo_hfa": 40.0,
+      "logit_c": 0.3,
+      "val_log_loss": 0.6484843745511517
+    },
+    {
+      "elo_k": 20.0,
+      "elo_hfa": 70.0,
+      "logit_c": 0.3,
+      "val_log_loss": 0.6485700770167403
+    },
+    {
+      "elo_k": 15.0,
+      "elo_hfa": 40.0,
+      "logit_c": 0.3,
+      "val_log_loss": 0.6489799599575807
+    },
+    {
+      "elo_k": 15.0,
+      "elo_hfa": 55.0,
+      "logit_c": 0.3,
+      "val_log_loss": 0.6491212494698495
+    },
+    {
+      "elo_k": 15.0,
+      "elo_hfa": 70.0,
+      "logit_c": 0.3,
+      "val_log_loss": 0.6491334741800141
+    },
+    {
+      "elo_k": 30.0,
+      "elo_hfa": 40.0,
+      "logit_c": 1.0,
+      "val_log_loss": 0.6495432836352418
+    },
+    {
+      "elo_k": 30.0,
+      "elo_hfa": 55.0,
+      "logit_c": 1.0,
+      "val_log_loss": 0.6497240487197402
+    },
+    {
+      "elo_k": 25.0,
+      "elo_hfa": 55.0,
+      "logit_c": 1.0,
+      "val_log_loss": 0.6497870837531131
+    },
+    {
+      "elo_k": 25.0,
+      "elo_hfa": 40.0,
+      "logit_c": 1.0,
+      "val_log_loss": 0.6497939894677431
+    },
+    {
+      "elo_k": 30.0,
+      "elo_hfa": 70.0,
+      "logit_c": 1.0,
+      "val_log_loss": 0.6498361645722529
+    },
+    {
+      "elo_k": 25.0,
+      "elo_hfa": 70.0,
+      "logit_c": 1.0,
+      "val_log_loss": 0.6499392345744031
+    },
+    {
+      "elo_k": 20.0,
+      "elo_hfa": 40.0,
+      "logit_c": 1.0,
+      "val_log_loss": 0.6501917017269843
+    },
+    {
+      "elo_k": 20.0,
+      "elo_hfa": 70.0,
+      "logit_c": 1.0,
+      "val_log_loss": 0.650220994375351
+    },
+    {
+      "elo_k": 20.0,
+      "elo_hfa": 55.0,
+      "logit_c": 1.0,
+      "val_log_loss": 0.6502322266450201
+    },
+    {
+      "elo_k": 15.0,
+      "elo_hfa": 40.0,
+      "logit_c": 1.0,
+      "val_log_loss": 0.6506144358515471
+    },
+    {
+      "elo_k": 15.0,
+      "elo_hfa": 55.0,
+      "logit_c": 1.0,
+      "val_log_loss": 0.6506937908090746
+    },
+    {
+      "elo_k": 15.0,
+      "elo_hfa": 70.0,
+      "logit_c": 1.0,
+      "val_log_loss": 0.6509949203248928
+    },
+    {
+      "elo_k": 25.0,
+      "elo_hfa": 40.0,
+      "logit_c": 3.0,
+      "val_log_loss": 0.6510269777887586
+    },
+    {
+      "elo_k": 30.0,
+      "elo_hfa": 55.0,
+      "logit_c": 3.0,
+      "val_log_loss": 0.6510882470107129
+    },
+    {
+      "elo_k": 25.0,
+      "elo_hfa": 55.0,
+      "logit_c": 3.0,
+      "val_log_loss": 0.6511280425004036
+    },
+    {
+      "elo_k": 20.0,
+      "elo_hfa": 40.0,
+      "logit_c": 3.0,
+      "val_log_loss": 0.6511449957572419
+    },
+    {
+      "elo_k": 25.0,
+      "elo_hfa": 70.0,
+      "logit_c": 3.0,
+      "val_log_loss": 0.651262242705137
+    },
+    {
+      "elo_k": 30.0,
+      "elo_hfa": 40.0,
+      "logit_c": 3.0,
+      "val_log_loss": 0.6513281868200127
+    },
+    {
+      "elo_k": 30.0,
+      "elo_hfa": 70.0,
+      "logit_c": 3.0,
+      "val_log_loss": 0.6514218853047475
+    },
+    {
+      "elo_k": 20.0,
+      "elo_hfa": 55.0,
+      "logit_c": 3.0,
+      "val_log_loss": 0.6516344491416909
+    },
+    {
+      "elo_k": 20.0,
+      "elo_hfa": 70.0,
+      "logit_c": 3.0,
+      "val_log_loss": 0.6518446973239007
+    },
+    {
+      "elo_k": 15.0,
+      "elo_hfa": 40.0,
+      "logit_c": 3.0,
+      "val_log_loss": 0.6519225692901089
+    },
+    {
+      "elo_k": 15.0,
+      "elo_hfa": 70.0,
+      "logit_c": 3.0,
+      "val_log_loss": 0.6520190135534183
+    },
+    {
+      "elo_k": 15.0,
+      "elo_hfa": 55.0,
+      "logit_c": 3.0,
+      "val_log_loss": 0.6521298038726565
+    }
+  ]
+}

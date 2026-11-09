@@ -1,0 +1,543 @@
+{
+  "comparisons": {
+    "val_2010_2019": [
+      {
+        "n_matches": 2559,
+        "n_blocks": 10,
+        "B": 2000,
+        "seed": 20261109,
+        "delta_logloss": 0.015180845301711146,
+        "ci95_logloss": [
+          0.00455454264368178,
+          0.024652417414715532
+        ],
+        "frac_gt0_logloss": 0.998,
+        "delta_brier": 0.012952761026392338,
+        "ci95_brier": [
+          0.0032034731583144866,
+          0.02227739962419177
+        ],
+        "frac_gt0_brier": 0.993,
+        "definition": "delta = loss(a) - loss(b) por partido; >0 => a peor",
+        "a": "logit",
+        "b": "market_prop",
+        "period": "val_2010_2019",
+        "n": 2559,
+        "ll_a": 0.6451829118109431,
+        "ll_b": 0.630002066509232
+      },
+      {
+        "n_matches": 2559,
+        "n_blocks": 10,
+        "B": 2000,
+        "seed": 20261109,
+        "delta_logloss": 0.015389772554565893,
+        "ci95_logloss": [
+          0.0045110180293488475,
+          0.025207178937725956
+        ],
+        "frac_gt0_logloss": 0.9965,
+        "delta_brier": 0.013007672618842451,
+        "ci95_brier": [
+          0.0030321030213536168,
+          0.02259113639718067
+        ],
+        "frac_gt0_brier": 0.9925,
+        "definition": "delta = loss(a) - loss(b) por partido; >0 => a peor",
+        "a": "logit",
+        "b": "market_power",
+        "period": "val_2010_2019",
+        "n": 2559,
+        "ll_a": 0.6451829118109431,
+        "ll_b": 0.6297931392563773
+      },
+      {
+        "n_matches": 2559,
+        "n_blocks": 10,
+        "B": 2000,
+        "seed": 20261109,
+        "delta_logloss": 0.09701140560279077,
+        "ci95_logloss": [
+          0.07471526850061966,
+          0.11700210978394747
+        ],
+        "frac_gt0_logloss": 1.0,
+        "delta_brier": 0.06362732161334352,
+        "ci95_brier": [
+          0.04609686871906707,
+          0.07992761368466993
+        ],
+        "frac_gt0_brier": 1.0,
+        "definition": "delta = loss(a) - loss(b) por partido; >0 => a peor",
+        "a": "hgb",
+        "b": "market_prop",
+        "period": "val_2010_2019",
+        "n": 2559,
+        "ll_a": 0.7270134721120228,
+        "ll_b": 0.630002066509232
+      },
+      {
+        "n_matches": 2559,
+        "n_blocks": 10,
+        "B": 2000,
+        "seed": 20261109,
+        "delta_logloss": 0.02917626334052262,
+        "ci95_logloss": [
+          0.015243435634887989,
+          0.04155929212796017
+        ],
+        "frac_gt0_logloss": 1.0,
+        "delta_brier": 0.02448975183098851,
+        "ci95_brier": [
+          0.011931877426151987,
+          0.035744129873871065
+        ],
+        "frac_gt0_brier": 1.0,
+        "definition": "delta = loss(a) - loss(b) por partido; >0 => a peor",
+        "a": "blend",
+        "b": "market_prop",
+        "period": "val_2010_2019",
+        "n": 2559,
+        "ll_a": 0.6591783298497547,
+        "ll_b": 0.630002066509232
+      },
+      {
+        "n_matches": 2560,
+        "n_blocks": 10,
+        "B": 2000,
+        "seed": 20261109,
+        "delta_logloss": -0.05873733644683947,
+        "ci95_logloss": [
+          -0.06619524595219142,
+          -0.051751883343066685
+        ],
+        "frac_gt0_logloss": 0.0,
+        "delta_brier": -0.054978224746154256,
+        "ci95_brier": [
+          -0.06150067150090097,
+          -0.04865523083220467
+        ],
+        "frac_gt0_brier": 0.0,
+        "definition": "delta = loss(a) - loss(b) por partido; >0 => a peor",
+        "a": "logit",
+        "b": "base_freq",
+        "period": "val_2010_2019",
+        "n": 2560,
+        "ll_a": 0.6450256796538014,
+        "ll_b": 0.703763016100641
+      },
+      {
+        "n_matches": 2560,
+        "n_blocks": 10,
+        "B": 2000,
+        "seed": 20261109,
+        "delta_logloss": -0.08178842081887643,
+        "ci95_logloss": [
+          -0.09796236055191952,
+          -0.06604292876578893
+        ],
+        "frac_gt0_logloss": 0.0,
+        "delta_brier": -0.05064840231103964,
+        "ci95_brier": [
+          -0.0625315051282408,
+          -0.03922965140642825
+        ],
+        "frac_gt0_brier": 0.0,
+        "definition": "delta = loss(a) - loss(b) por partido; >0 => a peor",
+        "a": "logit",
+        "b": "hgb",
+        "period": "val_2010_2019",
+        "n": 2560,
+        "ll_a": 0.6450256796538014,
+        "ll_b": 0.7268141004726779
+      },
+      {
+        "n_matches": 2559,
+        "n_blocks": 10,
+        "B": 2000,
+        "seed": 20261109,
+        "delta_logloss": -0.0002089272528547514,
+        "ci95_logloss": [
+          -0.0006750917429490685,
+          0.0002970353446672596
+        ],
+        "frac_gt0_logloss": 0.2295,
+        "delta_brier": -5.491159245012236e-05,
+        "ci95_brier": [
+          -0.0003660013632417199,
+          0.00029298502312270856
+        ],
+        "frac_gt0_brier": 0.396,
+        "definition": "delta = loss(a) - loss(b) por partido; >0 => a peor",
+        "a": "market_power",
+        "b": "market_prop",
+        "period": "val_2010_2019",
+        "n": 2559,
+        "ll_a": 0.6297931392563773,
+        "ll_b": 0.630002066509232
+      }
+    ],
+    "test_2020_2025": [
+      {
+        "n_matches": 1615,
+        "n_blocks": 6,
+        "B": 2000,
+        "seed": 20261109,
+        "delta_logloss": 0.032194132594884725,
+        "ci95_logloss": [
+          0.026157853251735957,
+          0.03814742214501252
+        ],
+        "frac_gt0_logloss": 1.0,
+        "delta_brier": 0.02841119672179214,
+        "ci95_brier": [
+          0.02252564849867605,
+          0.033991457083331095
+        ],
+        "frac_gt0_brier": 1.0,
+        "definition": "delta = loss(a) - loss(b) por partido; >0 => a peor",
+        "a": "logit",
+        "b": "market_prop",
+        "period": "test_2020_2025",
+        "n": 1615,
+        "ll_a": 0.6590611725786003,
+        "ll_b": 0.6268670399837155
+      },
+      {
+        "n_matches": 1615,
+        "n_blocks": 6,
+        "B": 2000,
+        "seed": 20261109,
+        "delta_logloss": 0.032513353097485105,
+        "ci95_logloss": [
+          0.02571337597585667,
+          0.03921858029321593
+        ],
+        "frac_gt0_logloss": 1.0,
+        "delta_brier": 0.028561706090755746,
+        "ci95_brier": [
+          0.021977391363171485,
+          0.034789981515045205
+        ],
+        "frac_gt0_brier": 1.0,
+        "definition": "delta = loss(a) - loss(b) por partido; >0 => a peor",
+        "a": "logit",
+        "b": "market_power",
+        "period": "test_2020_2025",
+        "n": 1615,
+        "ll_a": 0.6590611725786003,
+        "ll_b": 0.6265478194811152
+      },
+      {
+        "n_matches": 1615,
+        "n_blocks": 6,
+        "B": 2000,
+        "seed": 20261109,
+        "delta_logloss": 0.09456915726458304,
+        "ci95_logloss": [
+          0.0697773094800559,
+          0.1214419618858434
+        ],
+        "frac_gt0_logloss": 1.0,
+        "delta_brier": 0.06509534186767259,
+        "ci95_brier": [
+          0.048735367559845665,
+          0.08016387049471453
+        ],
+        "frac_gt0_brier": 1.0,
+        "definition": "delta = loss(a) - loss(b) por partido; >0 => a peor",
+        "a": "hgb",
+        "b": "market_prop",
+        "period": "test_2020_2025",
+        "n": 1615,
+        "ll_a": 0.7214361972482984,
+        "ll_b": 0.6268670399837155
+      },
+      {
+        "n_matches": 1615,
+        "n_blocks": 6,
+        "B": 2000,
+        "seed": 20261109,
+        "delta_logloss": 0.04583723507534568,
+        "ci95_logloss": [
+          0.03370204443978861,
+          0.05754475292746547
+        ],
+        "frac_gt0_logloss": 1.0,
+        "delta_brier": 0.03851766605911034,
+        "ci95_brier": [
+          0.029018175237579588,
+          0.04716187778747798
+        ],
+        "frac_gt0_brier": 1.0,
+        "definition": "delta = loss(a) - loss(b) por partido; >0 => a peor",
+        "a": "blend",
+        "b": "market_prop",
+        "period": "test_2020_2025",
+        "n": 1615,
+        "ll_a": 0.6727042750590613,
+        "ll_b": 0.6268670399837155
+      },
+      {
+        "n_matches": 1615,
+        "n_blocks": 6,
+        "B": 2000,
+        "seed": 20261109,
+        "delta_logloss": -0.05284910173946366,
+        "ci95_logloss": [
+          -0.06516936421369413,
+          -0.042589063483693984
+        ],
+        "frac_gt0_logloss": 0.0,
+        "delta_brier": -0.050519361055893774,
+        "ci95_brier": [
+          -0.062339342089529085,
+          -0.04085026940003227
+        ],
+        "frac_gt0_brier": 0.0,
+        "definition": "delta = loss(a) - loss(b) por partido; >0 => a peor",
+        "a": "logit",
+        "b": "base_freq",
+        "period": "test_2020_2025",
+        "n": 1615,
+        "ll_a": 0.6590611725786003,
+        "ll_b": 0.711910274318064
+      },
+      {
+        "n_matches": 1615,
+        "n_blocks": 6,
+        "B": 2000,
+        "seed": 20261109,
+        "delta_logloss": -0.062375024669698305,
+        "ci95_logloss": [
+          -0.08592984051496917,
+          -0.03867684784105643
+        ],
+        "frac_gt0_logloss": 0.0,
+        "delta_brier": -0.036684145145880476,
+        "ci95_brier": [
+          -0.050382801798112276,
+          -0.021882163983275763
+        ],
+        "frac_gt0_brier": 0.0,
+        "definition": "delta = loss(a) - loss(b) por partido; >0 => a peor",
+        "a": "logit",
+        "b": "hgb",
+        "period": "test_2020_2025",
+        "n": 1615,
+        "ll_a": 0.6590611725786003,
+        "ll_b": 0.7214361972482984
+      },
+      {
+        "n_matches": 1615,
+        "n_blocks": 6,
+        "B": 2000,
+        "seed": 20261109,
+        "delta_logloss": -0.00031922050260038513,
+        "ci95_logloss": [
+          -0.0013716589906568734,
+          0.0006573893428165279
+        ],
+        "frac_gt0_logloss": 0.2875,
+        "delta_brier": -0.00015050936896361737,
+        "ci95_brier": [
+          -0.0009847585467166278,
+          0.0006369514008732827
+        ],
+        "frac_gt0_brier": 0.382,
+        "definition": "delta = loss(a) - loss(b) por partido; >0 => a peor",
+        "a": "market_power",
+        "b": "market_prop",
+        "period": "test_2020_2025",
+        "n": 1615,
+        "ll_a": 0.6265478194811152,
+        "ll_b": 0.6268670399837155
+      }
+    ],
+    "global_2010_2025": [
+      {
+        "n_matches": 4174,
+        "n_blocks": 16,
+        "B": 2000,
+        "seed": 20261109,
+        "delta_logloss": 0.021763609791044,
+        "ci95_logloss": [
+          0.013480113335510316,
+          0.029202435015427814
+        ],
+        "frac_gt0_logloss": 1.0,
+        "delta_brier": 0.018933923855350338,
+        "ci95_brier": [
+          0.011318609258306222,
+          0.025887490494651617
+        ],
+        "frac_gt0_brier": 1.0,
+        "definition": "delta = loss(a) - loss(b) por partido; >0 => a peor",
+        "a": "logit",
+        "b": "market_prop",
+        "period": "global_2010_2025",
+        "n": 4174,
+        "ll_a": 0.6505526749014477,
+        "ll_b": 0.6287890651104037
+      },
+      {
+        "n_matches": 4174,
+        "n_blocks": 16,
+        "B": 2000,
+        "seed": 20261109,
+        "delta_logloss": 0.02201521160028092,
+        "ci95_logloss": [
+          0.013369825512203629,
+          0.02975083475246821
+        ],
+        "frac_gt0_logloss": 1.0,
+        "delta_brier": 0.019025824046044172,
+        "ci95_brier": [
+          0.011201410363406165,
+          0.026266236591570576
+        ],
+        "frac_gt0_brier": 1.0,
+        "definition": "delta = loss(a) - loss(b) por partido; >0 => a peor",
+        "a": "logit",
+        "b": "market_power",
+        "period": "global_2010_2025",
+        "n": 4174,
+        "ll_a": 0.6505526749014477,
+        "ll_b": 0.6285374633011669
+      },
+      {
+        "n_matches": 4174,
+        "n_blocks": 16,
+        "B": 2000,
+        "seed": 20261109,
+        "delta_logloss": 0.09606645326301945,
+        "ci95_logloss": [
+          0.08014750199899426,
+          0.11227210527738195
+        ],
+        "frac_gt0_logloss": 1.0,
+        "delta_brier": 0.06419532657518862,
+        "ci95_brier": [
+          0.0519228763194424,
+          0.07580934576043298
+        ],
+        "frac_gt0_brier": 1.0,
+        "definition": "delta = loss(a) - loss(b) por partido; >0 => a peor",
+        "a": "hgb",
+        "b": "market_prop",
+        "period": "global_2010_2025",
+        "n": 4174,
+        "ll_a": 0.7248555183734232,
+        "ll_b": 0.6287890651104037
+      },
+      {
+        "n_matches": 4174,
+        "n_blocks": 16,
+        "B": 2000,
+        "seed": 20261109,
+        "delta_logloss": 0.03562271023839977,
+        "ci95_logloss": [
+          0.02493281601419498,
+          0.04541889206491475
+        ],
+        "frac_gt0_logloss": 1.0,
+        "delta_brier": 0.02991741869213292,
+        "ci95_brier": [
+          0.020548048752074936,
+          0.03831290705430866
+        ],
+        "frac_gt0_brier": 1.0,
+        "definition": "delta = loss(a) - loss(b) por partido; >0 => a peor",
+        "a": "blend",
+        "b": "market_prop",
+        "period": "global_2010_2025",
+        "n": 4174,
+        "ll_a": 0.6644117753488035,
+        "ll_b": 0.6287890651104037
+      },
+      {
+        "n_matches": 4175,
+        "n_blocks": 16,
+        "B": 2000,
+        "seed": 20261109,
+        "delta_logloss": -0.05645961212290847,
+        "ci95_logloss": [
+          -0.06264374537080097,
+          -0.05026701252757266
+        ],
+        "frac_gt0_logloss": 0.0,
+        "delta_brier": -0.05325341879171817,
+        "ci95_brier": [
+          -0.058884826922938206,
+          -0.04786007308155313
+        ],
+        "frac_gt0_brier": 0.0,
+        "definition": "delta = loss(a) - loss(b) por partido; >0 => a peor",
+        "a": "logit",
+        "b": "base_freq",
+        "period": "global_2010_2025",
+        "n": 4175,
+        "ll_a": 0.650454978114532,
+        "ll_b": 0.7069145902374405
+      },
+      {
+        "n_matches": 4175,
+        "n_blocks": 16,
+        "B": 2000,
+        "seed": 20261109,
+        "delta_logloss": -0.07427880769769735,
+        "ci95_logloss": [
+          -0.08790401804168672,
+          -0.059707973047994446
+        ],
+        "frac_gt0_logloss": 0.0,
+        "delta_brier": -0.04524665971900801,
+        "ci95_brier": [
+          -0.05471310297942083,
+          -0.035591091174023724
+        ],
+        "frac_gt0_brier": 0.0,
+        "definition": "delta = loss(a) - loss(b) por partido; >0 => a peor",
+        "a": "logit",
+        "b": "hgb",
+        "period": "global_2010_2025",
+        "n": 4175,
+        "ll_a": 0.650454978114532,
+        "ll_b": 0.7247337858122295
+      },
+      {
+        "n_matches": 4174,
+        "n_blocks": 16,
+        "B": 2000,
+        "seed": 20261109,
+        "delta_logloss": -0.0002516018092369264,
+        "ci95_logloss": [
+          -0.0008038412854220658,
+          0.00024569469540234017
+        ],
+        "frac_gt0_logloss": 0.1635,
+        "delta_brier": -9.19001906938441e-05,
+        "ci95_brier": [
+          -0.0005091007697150551,
+          0.0002804139092123823
+        ],
+        "frac_gt0_brier": 0.3265,
+        "definition": "delta = loss(a) - loss(b) por partido; >0 => a peor",
+        "a": "market_power",
+        "b": "market_prop",
+        "period": "global_2010_2025",
+        "n": 4174,
+        "ll_a": 0.6285374633011669,
+        "ll_b": 0.6287890651104037
+      }
+    ]
+  },
+  "market_diagnostics": {
+    "n_with_market": 4174,
+    "tie_prob_used_mean": 0.002146196692346576,
+    "home_prob_mean": 0.5589722248546329,
+    "observed_home_share": 0.5525748502994012,
+    "observed_tie_share": 0.0031137724550898203,
+    "observed_away_share": 0.444311377245509
+  }
+}

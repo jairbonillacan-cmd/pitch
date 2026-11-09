@@ -212,3 +212,19 @@ mientras el ensemble aguanta mejor. No se cambia el modelo con datos observados:
 2. **A12 — expansión NFL:** nflverse (`games.csv`, CC BY 4.0, 1999–2026) para dataset, features
    causales y benchmark contra el mercado. Primer deporte de la expansión.
 3. **A09c — tercera auditoría adversarial** del estado final (documentos, artefactos y cierre).
+
+### 9.1 Resultados del arranque del ciclo 2
+
+**A12 — NFL:** primer motor de otro deporte con datos propios. Test 2020–2025: `logit` 0,65906 vs
+mercado 0,62655 (Δ +0,0322 [0,0262; 0,0382]). HGB empeora (0,72144). Conclusión: extender el
+contrato de predicción y el pipeline de evaluación funciona; el modelo debe ser específico del
+deporte (empates 0,23 %, descanso semanal, mercado con 2,5 % de margen).
+
+**A13 — snapshots de cuotas:** primera captura real con `captured_at_utc` y sha256 (160 partidos,
+94 columnas). El feed tenía 70,79 h de staleness y 159/160 partidos ya habían empezado, así que
+**CLV todavía no es calculable** (0 observaciones, correctamente rechazadas). Se añadió regla de
+plausibilidad de overround (0,9–1,2) tras detectar 2 filas BFE con 2,13/1,95. Siguiente paso:
+capturar lunes/jueves/viernes antes del kickoff.
+
+**A09c:** verificación acotada del cierre (no independiente) — 5/5 comprobaciones correctas;
+veredicto "defendible" con la salvedad de exposición parcial a test ya documentada.

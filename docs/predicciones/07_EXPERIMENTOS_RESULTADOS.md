@@ -157,3 +157,22 @@ partidos, parcial). No se usa para elegir; sirve para detectar deriva:
 
 El logit desplegado se degrada 0,016 respecto a su val; el ensemble, 0,011. El pre-registro
 `PREREGISTRATION_CYCLE2.md` fija la decisión de promoción sobre la muestra prospectiva.
+
+---
+
+## Addendum ciclo 2 — expansión NFL (A12)
+
+nflverse (`games.csv`, CC BY 4.0): 7.102 partidos con resultado, 7.015 con features causales
+(regla estricta por `gameday`), config K=20/HFA=55/C=0,003 elegida en VAL 2010–2019.
+Walk-forward test 2020–2025 (1.615 partidos):
+
+| Sistema NFL | Log-loss test | Brier | Acc |
+|---|---:|---:|---:|
+| `base_freq` | 0,71191 | 0,50286 | 0,5325 |
+| `logit_elo` | 0,66162 | 0,45391 | 0,6316 |
+| **`logit` (Elo+forma+descanso+contexto)** | **0,65906** | 0,45234 | 0,6297 |
+| `hgb` | 0,72144 | 0,48902 | 0,6093 |
+| `market_power` (de-vig moneylines) | **0,62655** | 0,42377 | 0,6650 |
+
+El mercado gana por **+0,0322** [0,0262; 0,0382] y HGB es peor que la logística (−0,0624). Mismo
+patrón que en fútbol: la información manda. Detalle en `reports/A12_nfl.md`.

@@ -1,0 +1,21 @@
+{
+  "task_id": "A13",
+  "agent": "ODDS CAPTURE & CLV ENGINEER",
+  "status": "completed",
+  "started_at": "2026-11-09T03:56:00-06:00",
+  "finished_at": "2026-11-09T04:30:00-06:00",
+  "summary": "Primer snapshot real de cuotas pre-partido (fixtures.csv): 160 partidos, 94 columnas, 19 divisiones, captured_at_utc 2026-11-09T10:01:53Z, sha256 y metadatos HTTP en manifest. Hallazgo: el feed tenía Last-Modified 2026-11-06 (staleness 70,79 h) y 159/160 partidos ya habían empezado, así que CLV no es calculable todavía (0 observaciones); el monitor se niega correctamente a usar capturas post-kickoff. Segundo hallazgo: 2 filas BFE con overround 2,13/1,95 -> regla de plausibilidad 0,9-1,2. Informe consolidado por el orquestador.",
+  "snapshot_rows": 160,
+  "snapshot_columns": 94,
+  "captured_at_utc": "2026-11-09T10:01:53Z",
+  "source_staleness_hours": 70.79,
+  "pre_kickoff_rows": 1,
+  "clv_observations": 0,
+  "files_written": [
+    "etl/capture_odds.py", "etl/clv_monitor.py",
+    "data/snapshots/odds_20261109T100153Z.csv", "data/snapshots/manifest.json",
+    "data/snapshots/clv_report.json", "reports/A13_odds_snapshots.md"
+  ],
+  "blockers": [],
+  "next": "Capturar lunes/jueves/viernes antes del kickoff y cuando cambie Last-Modified; con partidos jugados, medir CLV real."
+}
