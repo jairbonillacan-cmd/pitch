@@ -102,3 +102,19 @@ Variables (ver `.env.example`):
 El build de producción incluye el gate `scripts/check-no-demo-prod.mjs`: datos demo no llegan a
 producción. Los snapshots se versionan en `data/snapshots/` y el workflow `.github/workflows/pre-mvp-snapshot.yml`
 los actualiza desde GitHub Actions.
+
+---
+
+## AZTECA VET (aztecavet.com) — motores reconstruidos con paridad exacta
+
+Segundo sitio del mismo autor analizado con REA. **362/362 tests** — paridad Δ=0 contra el
+oráculo verbatim en **242 partidos de fútbol (5 torneos) + 61 NHL + 17 MLB + simuladores**.
+
+- **Reporte completo:** `Reportes/20-REPORTE-COMPLETO-AZTECAVET.md`
+- **Informes por deporte:** `Reportes/docs/20-engine-futbol-aztecavet.md`, `21-engine-nhl-aztecavet.md`, `22-engine-mlb-aztecavet.md`
+- **Análisis crudo:** `Reportes/analisis-aztecavet/` (bundle decodificado, evidencia REA de sesión, herramientas)
+- **Motores:** `packages/engines-reference/src/domain/aztecavet/` · **Oráculos verbatim:** `packages/engines-reference/reference/aztecavet/` · **Datos:** `packages/engines-reference/src/data/aztecavet-*.json`
+- **Tests:** `packages/engines-reference/tests/domain/aztecavet-{parity,math,experiments}.test.ts`
+- **Fórmulas:** fútbol Pitágoras 1.7→Log5→localía .54→tilt→Poisson+Dixon-Coles (ρ −.14 MX); NHL 2.15 con forma
+  reciente 30%; MLB 1.83 con curvas normales σ=3√2 y regresión de ERA del abridor. Valor EV≥+4%, sizing 5%/10%.
+- **Estado:** motores 100% verificados. Son referencia de investigación (Baseline 0), no el modelo publicado.
