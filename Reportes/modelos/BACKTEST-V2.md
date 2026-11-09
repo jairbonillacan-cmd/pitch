@@ -1,6 +1,6 @@
 # Backtest walk-forward de los modelos v2
 
-Generado: 2026-11-09T01:56:39.457Z
+Generado: 2026-11-09T02:00:03.176Z
 
 ## Premier League
 
@@ -23,3 +23,12 @@ Generado: 2026-11-09T01:56:39.457Z
 Δ logLoss (v2 − Baseline 0): **0.0055**, IC 95% [-0.0079, 0.0202].
 
 > Menor es mejor. Un Δ negativo significa que v2 pierde menos que el Baseline 0.
+
+## Calibración por temperatura (holdout temporal)
+
+| Liga | T | n ajuste | n holdout | logLoss crudo | logLoss calibrado | ECE crudo | ECE calibrado |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Premier League | 1.15 | 196 | 131 | 1.0401 | 1.0354 | 7.8% | 11.6% |
+| NFL | 1.10 | 186 | 124 | 0.6511 | 0.6517 | 6.4% | 7.2% |
+
+> La temperatura mejora el log-loss de fútbol pero empeora su ECE, y en NFL no mejora: **no se aplica en producción**.

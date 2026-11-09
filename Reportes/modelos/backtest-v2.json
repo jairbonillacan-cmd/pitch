@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-09T01:56:39.457Z",
+  "generatedAt": "2026-11-09T02:00:03.176Z",
   "football": {
     "seasons": [
       "2025-26",
@@ -308,5 +308,26 @@
       "upper": 0.020161352482948636,
       "wins": 140
     }
+  },
+  "calibration": {
+    "football": {
+      "temperature": 1.15,
+      "fittedOn": 196,
+      "holdout": 131,
+      "rawLogLoss": 1.04011815262562,
+      "calibratedLogLoss": 1.03544769336324,
+      "rawEce": 0.07785122127881333,
+      "calibratedEce": 0.11552609670599465
+    },
+    "nfl": {
+      "temperature": 1.1,
+      "fittedOn": 186,
+      "holdout": 124,
+      "rawLogLoss": 0.6510877476170485,
+      "calibratedLogLoss": 0.6516599087975926,
+      "rawEce": 0.06352898744424687,
+      "calibratedEce": 0.07225481755490282
+    },
+    "note": "T se ajusta con el 60% inicial y se evalúa en el 40% final. En fútbol mejora log-loss pero empeora ECE; en NFL no mejora. No se aplica en producción."
   }
 }

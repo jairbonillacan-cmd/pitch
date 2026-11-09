@@ -23,12 +23,16 @@ import { analyzeFootballGame, analyzeNflGame } from "@pitchlab/engines-reference
 import {
   evaluateFootball,
   evaluateNfl,
+  expectedCalibrationError,
   fitDixonColes,
   fitNflRatings,
+  fitTemperature,
+  meanLogLoss,
   normalCdf,
   pairedBootstrap,
   predictFootball,
   predictNfl,
+  type CalibrationSample,
   type ModelMetrics,
 } from "@pitchlab/models";
 import { OpenFootballSeasonSchema } from "./adapters/openfootball.js";
@@ -463,8 +467,38 @@ async function backtestNfl(seasons: number[]) {
   return { rowsV2, rowsBase, rowsNaive, losses, evaluated };
 }
 
-function fmt(metrics: ModelMetrics): string {
-  return [
+/**
+ * Ajusta la temperatura con la primera parte del histórico y la evalúa en la parte final
+ * (holdout temporal). Nada del holdout se usa para elegir T.
+ */
+function holdoutCalibration(
+  samples: readonly CalibrationSample[],
+  fraction = 0.6,
+): {
+  temperature: number;
+  fittedOn: number;
+  holdout: number;
+  rawLogLoss: number;
+  calibratedLogLoss: number;
+  rawEce: number;
+  calibratedEce: number;
+} {
+  const cut = Math.max(1, Math.floor(samples.length * fraction));
+  const train = samples.slice(0, cut);
+  const holdout = samples.slice(cut);
+  const { temperature } = fitTemperature(train);
+  return {
+    temperature,
+    fittedOn: train.length,
+    holdout: holdout.length,
+    rawLogLoss: meanLogLoss(holdout),
+    calibratedLogLoss: meanLogLoss(holdout, temperature),
+    rawEce: expectedCalibrationError(holdout),
+    calibratedEce: expectedCalibrationError(holdout, temperature),
+  };
+}
+
+function fmt(metrics: ModelMetrics): string {  return [
     `n=${metrics.n}`,
     `logLoss=${metrics.logLoss1x2.toFixed(4)}`,
     `brier=${metrics.brier1x2.toFixed(4)}`,
@@ -501,12 +535,21 @@ async function main() {
   };
   const footballBoot = pairedBootstrap(football.losses.baseline, football.losses.v2);
 
+  const footballSamples = football.rowsV2.map((row) => ({
+    probs: row.prediction.p1x2,
+    outcome: row.outcome.result1x2,
+  }));
+  const footballCalibration = holdoutCalibration(footballSamples);
+
   console.log("\n=== FÚTBOL (Premier League, walk-forward) ===");
   console.log("v2      ", fmt(footballMetrics.v2));
   console.log("baseline", fmt(footballMetrics.baseline));
   console.log("naive   ", fmt(footballMetrics.naive));
   console.log(
     `Δ logLoss (v2 - baseline) = ${footballBoot.meanDiff.toFixed(4)} · IC95 [${footballBoot.lower.toFixed(4)}, ${footballBoot.upper.toFixed(4)}] · n=${football.evaluated}`,
+  );
+  console.log(
+    `calibración: T=${footballCalibration.temperature.toFixed(2)} · holdout logLoss ${footballCalibration.rawLogLoss.toFixed(4)} -> ${footballCalibration.calibratedLogLoss.toFixed(4)} · ECE ${(footballCalibration.rawEce * 100).toFixed(1)}% -> ${(footballCalibration.calibratedEce * 100).toFixed(1)}%`,
   );
 
   console.log("\n[backtest] NFL:", nflSeasons.join(", "));
@@ -518,12 +561,21 @@ async function main() {
   };
   const nflBoot = pairedBootstrap(nfl.losses.baseline, nfl.losses.v2);
 
+  const nflSamples = nfl.rowsV2.map((row) => ({
+    probs: [row.prediction.pHome, 1 - row.prediction.pHome],
+    outcome: row.outcome.homeScore > row.outcome.awayScore ? 0 : 1,
+  }));
+  const nflCalibration = holdoutCalibration(nflSamples);
+
   console.log("\n=== NFL (walk-forward) ===");
   console.log("v2      ", fmt(nflMetrics.v2));
   console.log("baseline", fmt(nflMetrics.baseline));
   console.log("naive   ", fmt(nflMetrics.naive));
   console.log(
     `Δ logLoss (v2 - baseline) = ${nflBoot.meanDiff.toFixed(4)} · IC95 [${nflBoot.lower.toFixed(4)}, ${nflBoot.upper.toFixed(4)}] · n=${nfl.evaluated}`,
+  );
+  console.log(
+    `calibración: T=${nflCalibration.temperature.toFixed(2)} · holdout logLoss ${nflCalibration.rawLogLoss.toFixed(4)} -> ${nflCalibration.calibratedLogLoss.toFixed(4)} · ECE ${(nflCalibration.rawEce * 100).toFixed(1)}% -> ${(nflCalibration.calibratedEce * 100).toFixed(1)}%`,
   );
 
   const report = {
@@ -535,6 +587,12 @@ async function main() {
     nfl: {
       seasons: nflSeasons,
       ...reportBlock("NFL", nflMetrics.v2, nflMetrics.baseline, nflMetrics.naive, nflBoot),
+    },
+    calibration: {
+      football: footballCalibration,
+      nfl: nflCalibration,
+      note:
+        "T se ajusta con el 60% inicial y se evalúa en el 40% final. En fútbol mejora log-loss pero empeora ECE; en NFL no mejora. No se aplica en producción.",
     },
   };
 
@@ -567,6 +625,15 @@ async function main() {
     `Δ logLoss (v2 − Baseline 0): **${nflBoot.meanDiff.toFixed(4)}**, IC 95% [${nflBoot.lower.toFixed(4)}, ${nflBoot.upper.toFixed(4)}].`,
     "",
     "> Menor es mejor. Un Δ negativo significa que v2 pierde menos que el Baseline 0.",
+    "",
+    "## Calibración por temperatura (holdout temporal)",
+    "",
+    "| Liga | T | n ajuste | n holdout | logLoss crudo | logLoss calibrado | ECE crudo | ECE calibrado |",
+    "|---|---:|---:|---:|---:|---:|---:|---:|",
+    `| Premier League | ${footballCalibration.temperature.toFixed(2)} | ${footballCalibration.fittedOn} | ${footballCalibration.holdout} | ${footballCalibration.rawLogLoss.toFixed(4)} | ${footballCalibration.calibratedLogLoss.toFixed(4)} | ${(footballCalibration.rawEce * 100).toFixed(1)}% | ${(footballCalibration.calibratedEce * 100).toFixed(1)}% |`,
+    `| NFL | ${nflCalibration.temperature.toFixed(2)} | ${nflCalibration.fittedOn} | ${nflCalibration.holdout} | ${nflCalibration.rawLogLoss.toFixed(4)} | ${nflCalibration.calibratedLogLoss.toFixed(4)} | ${(nflCalibration.rawEce * 100).toFixed(1)}% | ${(nflCalibration.calibratedEce * 100).toFixed(1)}% |`,
+    "",
+    "> La temperatura mejora el log-loss de fútbol pero empeora su ECE, y en NFL no mejora: **no se aplica en producción**.",
     "",
   ].join("\n");
 

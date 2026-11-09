@@ -110,8 +110,9 @@ export default function MetodologiaPage(): React.JSX.Element {
       <p>
         La columna <strong>ECE</strong> mide qué tan cerca está la probabilidad anunciada de la
         frecuencia real: 2 % es muy buena, 5 % aceptable y 10 % mala. Hoy estamos en 4,9 % (fútbol)
-        y 6,3 % (NFL): el modelo no está sobreconfiado de forma grave, pero todavía le falta una
-        capa de calibración explícita. Se publica tal cual para no vender precisión que no existe.
+        y 6,3 % (NFL). Probamos una capa de calibración por temperatura: en fútbol mejora el
+        log-loss pero empeora el ECE, y en NFL no mejora, así que <strong>no se aplica</strong>.
+        Preferimos publicar el error antes que esconderlo con un parche que no está probado.
       </p>
 
       <h2>5. Datos y frescura</h2>
