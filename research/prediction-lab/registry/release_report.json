@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-09T10:37:53+00:00",
+ "generated_at": "2026-11-09T10:45:42+00:00",
  "blocks": {
   "registry": {
    "ok": true,
@@ -19,7 +19,7 @@
    "ok": true,
    "cmd": "npx vitest run tests/prediction",
    "returncode": 0,
-   "stdout_tail": "ests/prediction/nfl.test.ts (11 tests) 29ms\nstdout | tests/prediction/engine.test.ts > A10 \u2014 paridad num\u00e9rica con Python > reproduce probs_python en los 200 partidos con |\u0394| <= 1e-9\n[A10] paridad Motor A: 200 partidos / 600 comparaciones; max|\u0394|=4.997e-13 (P1:20260919:sp_lisbon:arouca H); mean|\u0394|=2.502e-13; >1e-12=0\n\nstdout | tests/prediction/engine.test.ts > A10 \u2014 nulls e imputaci\u00f3n > hay al menos 10 filas con nulls y el imputer usa la mediana del artefacto\n[A10] nulls: 112/200 filas con al menos un null; todas igualan la imputaci\u00f3n expl\u00edcita por mediana\n\n \u2713 tests/prediction/engine.test.ts (21 tests) 65ms\n\n Test Files  3 passed (3)\n      Tests  46 passed (46)\n   Start at  04:37:54\n   Duration  571ms (transform 292ms, setup 0ms, collect 496ms, tests 100ms, environment 0ms, prepare 179ms)\n\n",
+   "stdout_tail": "ests/prediction/nfl.test.ts (11 tests) 32ms\nstdout | tests/prediction/engine.test.ts > A10 \u2014 paridad num\u00e9rica con Python > reproduce probs_python en los 200 partidos con |\u0394| <= 1e-9\n[A10] paridad Motor A: 200 partidos / 600 comparaciones; max|\u0394|=4.997e-13 (P1:20260919:sp_lisbon:arouca H); mean|\u0394|=2.502e-13; >1e-12=0\n\nstdout | tests/prediction/engine.test.ts > A10 \u2014 nulls e imputaci\u00f3n > hay al menos 10 filas con nulls y el imputer usa la mediana del artefacto\n[A10] nulls: 112/200 filas con al menos un null; todas igualan la imputaci\u00f3n expl\u00edcita por mediana\n\n \u2713 tests/prediction/engine.test.ts (21 tests) 68ms\n\n Test Files  3 passed (3)\n      Tests  46 passed (46)\n   Start at  04:45:43\n   Duration  573ms (transform 310ms, setup 0ms, collect 545ms, tests 106ms, environment 0ms, prepare 172ms)\n\n",
    "stderr_tail": ""
   },
   "eval_tests": {
@@ -27,21 +27,21 @@
    "cmd": "./.venv/bin/python -m unittest discover -s eval/tests -p test_*.py",
    "returncode": 0,
    "stdout_tail": "",
-   "stderr_tail": "...................................................................................\n----------------------------------------------------------------------\nRan 83 tests in 1.596s\n\nOK\n"
+   "stderr_tail": "...................................................................................\n----------------------------------------------------------------------\nRan 83 tests in 1.670s\n\nOK\n"
   },
   "etl_tests": {
    "ok": true,
    "cmd": "./.venv/bin/python -m unittest discover -s etl/tests -p test_*.py",
    "returncode": 0,
    "stdout_tail": "",
-   "stderr_tail": "...........\n----------------------------------------------------------------------\nRan 11 tests in 5.963s\n\nOK\n"
+   "stderr_tail": "...........\n----------------------------------------------------------------------\nRan 11 tests in 6.107s\n\nOK\n"
   },
   "registry_tests": {
    "ok": true,
    "cmd": "./.venv/bin/python -m unittest discover -s pipeline/tests -p test_*.py",
    "returncode": 0,
-   "stdout_tail": "h0000gn/T/tmpbgb669_p/model.json\",\n     \"artifact_sha256\": \"02a29d9e8309c425711de4cc4093d473c7eb6a806e7fd42512c8beb622e3c2fa\",\n     \"metrics\": {\n      \"metrics_path\": null,\n      \"test_log_loss\": 1.0,\n      \"val_log_loss\": 1.0\n     },\n     \"n_features\": 4,\n     \"notes\": \"\",\n     \"registered_at\": \"2026-11-09T10:38:04+00:00\",\n     \"version\": \"1.0.0\"\n    }\n   ]\n  }\n ],\n \"schema_version\": 1,\n \"updated_at\": \"2026-11-09T10:38:04+00:00\"\n}\nregistrado m1@1.0.0 sha=02a29d9e8309\u2026 status=candidate\nERROR: no se puede promover sin m\u00e9tricas val y test\nregistrado m1@1.0.0 sha=02a29d9e8309\u2026 status=candidate\nm1@1.0.0 promovido a deployed\nregistrado m1@1.0.0 sha=02a29d9e8309\u2026 status=candidate\nregistrado m1@1.0.0 sha=02a29d9e8309\u2026 status=candidate\nOK m1@1.0.0 sha=02a29d9e8309\u2026\nFALLO 1.0.0: sha256 no coincide\n",
-   "stderr_tail": ".......\n----------------------------------------------------------------------\nRan 7 tests in 0.019s\n\nOK\n"
+   "stdout_tail": "h0000gn/T/tmphpgbdllv/model.json\",\n     \"artifact_sha256\": \"02a29d9e8309c425711de4cc4093d473c7eb6a806e7fd42512c8beb622e3c2fa\",\n     \"metrics\": {\n      \"metrics_path\": null,\n      \"test_log_loss\": 1.0,\n      \"val_log_loss\": 1.0\n     },\n     \"n_features\": 4,\n     \"notes\": \"\",\n     \"registered_at\": \"2026-11-09T10:45:54+00:00\",\n     \"version\": \"1.0.0\"\n    }\n   ]\n  }\n ],\n \"schema_version\": 1,\n \"updated_at\": \"2026-11-09T10:45:54+00:00\"\n}\nregistrado m1@1.0.0 sha=02a29d9e8309\u2026 status=candidate\nERROR: no se puede promover sin m\u00e9tricas val y test\nregistrado m1@1.0.0 sha=02a29d9e8309\u2026 status=candidate\nm1@1.0.0 promovido a deployed\nregistrado m1@1.0.0 sha=02a29d9e8309\u2026 status=candidate\nregistrado m1@1.0.0 sha=02a29d9e8309\u2026 status=candidate\nOK m1@1.0.0 sha=02a29d9e8309\u2026\nFALLO 1.0.0: sha256 no coincide\n",
+   "stderr_tail": ".......\n----------------------------------------------------------------------\nRan 7 tests in 0.023s\n\nOK\n"
   },
   "data_hashes": {
    "ok": true,
