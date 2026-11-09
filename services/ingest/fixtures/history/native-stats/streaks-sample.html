@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+  <body>
+    <h3>Longest runs across all competitions</h3>
+    <div class="flex items-center">
+      <div class="px-1 hover:cursor-pointer" phx-click="[[&quot;navigate&quot;,{&quot;replace&quot;:false,&quot;href&quot;:&quot;/competition/PL&quot;}]]">
+        <img class="w-5 crest-img" src="https://crests.football-data.org/770.svg" alt="PL">
+      </div>
+      <div class="px-1 hover:cursor-pointer" phx-click="[[&quot;navigate&quot;,{&quot;replace&quot;:false,&quot;href&quot;:&quot;/competition/PD&quot;}]]">
+        <img class="w-5 crest-img" src="https://crests.football-data.org/760.svg" alt="PD">
+      </div>
+    </div>
+
+    <table class="table mb-24">
+      <thead>
+        <tr>
+          <th class="hidden lg:table-cell">Team</th>
+          <th class="hidden lg:table-cell">Days</th>
+          <th class="hidden lg:table-cell">Matches</th>
+          <th class="hidden lg:table-cell">Period</th>
+          <th class="hidden lg:table-cell">Buster</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="px-0">
+            <div class="flex items-center">
+              <span class="bg-gray-100 text-gray-700 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">#1</span>
+              <div class="content hover:cursor-pointer flex max-w-2 truncate">
+                <span phx-click="[[&quot;navigate&quot;,{&quot;replace&quot;:false,&quot;href&quot;:&quot;/team/57&quot;}]]">
+                  <img class="max-h-5 w-5 crest-img inline-block" src="https://crests.football-data.org/57.png">
+                  <span class="text-gray-200 align-middle md:inline-block">Arsenal</span>
+                  <span class="inline-block sm:hidden text-gray-200 ">ARS</span>
+                </span>
+              </div>
+            </div>
+            <dl class="font-normal lg:hidden flex flex-wrap">
+              <div class="flex w-full"><dt class="text-gray-400 w-1/2">Days:</dt><dd class="text-gray-300 w-1/2">483</dd></div>
+              <div class="flex w-full"><dt class="text-gray-400 w-1/2">Matches:</dt><dd class="text-gray-300 w-1/2">69</dd></div>
+              <div class="flex w-full"><dt class="text-gray-400 w-1/2">Period:</dt><dd class="text-gray-300 w-1/2">2024-08-26 - 2025-12-22</dd></div>
+            </dl>
+          </td>
+          <td class="hidden px-0 lg:table-cell">483</td>
+          <td class="hidden px-0 lg:table-cell">69</td>
+          <td class="hidden px-0 lg:table-cell">2024/08/26 - 2025/12/22</td>
+          <td class="hidden px-0 lg:table-cell">
+            <div class="content"><img class="max-h-4 w-4" src="https://crests.football-data.org/61.png"> Chelsea</div>
+          </td>
+        </tr>
+        <tr>
+          <td class="px-0">
+            <div class="flex items-center">
+              <span class="bg-gray-100 text-gray-700 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">#2</span>
+              <div class="content hover:cursor-pointer flex max-w-2 truncate">
+                <span phx-click="[[&quot;navigate&quot;,{&quot;replace&quot;:false,&quot;href&quot;:&quot;/team/86&quot;}]]">
+                  <img class="max-h-5 w-5 crest-img inline-block" src="https://crests.football-data.org/86.png">
+                  <span class="text-gray-200 align-middle md:inline-block">Real Madrid</span>
+                  <span class="inline-block sm:hidden text-gray-200 ">RMA</span>
+                </span>
+              </div>
+            </div>
+          </td>
+          <td class="hidden px-0 lg:table-cell">311</td>
+          <td class="hidden px-0 lg:table-cell">44</td>
+          <td class="hidden px-0 lg:table-cell">2015/10/24 - 2016/08/30</td>
+          <td class="hidden px-0 lg:table-cell">
+            <div class="content"><img class="max-h-4 w-4" src="https://crests.football-data.org/81.png"> Barcelona</div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>

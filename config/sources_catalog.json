@@ -1,0 +1,549 @@
+{
+  "schema_version": "1.0.0",
+  "engine": {
+    "library": "scrapling",
+    "min_version": "0.5.1",
+    "venv_path": ".worktrees/web-scraping/.venv",
+    "skill_path": "Scrapling/agent-skill/Scrapling-Skill/SKILL.md",
+    "strict_rules": {
+      "exclusive_scrapling_only": true,
+      "prohibited_libraries": [
+        "requests",
+        "urllib",
+        "httpx",
+        "curl",
+        "beautifulsoup4_standalone",
+        "playwright_standalone"
+      ],
+      "cli_require_ai_targeted": true,
+      "require_captured_at_utc": true,
+      "require_sha256_manifest": true,
+      "anti_leakage_rule": "captured_at_utc <= predicted_at_utc"
+    }
+  },
+  "categories": [
+    {
+      "id": "odds_casinos",
+      "name": "Casinos, Casas de Apuestas y Agregadores de Cuotas",
+      "description": "Líneas de apertura, movimientos intra-semana (steam moves), cierre real (T-60m y T-5m), dispersión entre casas y probabilidad justa sin vig."
+    },
+    {
+      "id": "advanced_stats_xg",
+      "name": "Sitios de Datos Estadísticos Avanzados (xG, Opta, Jugadores, Boxscores)",
+      "description": "Estadísticas granulares por partido y jugador (xG, xA, xP, xGOT, PSxG, PPDA, eventos Opta) para Liga MX, ligas europeas y NFL."
+    },
+    {
+      "id": "injuries_lineups",
+      "name": "Sitios de Lesiones, Suspensiones y Alineaciones",
+      "description": "Disponibilidad de plantilla, valor de mercado ausente (€), partes médicos oficiales y alineaciones probables (T-24h) y confirmadas (T-60m)."
+    },
+    {
+      "id": "news_press_sentiment",
+      "name": "Sitios de Noticias Deportivas, Ruedas de Prensa y Contexto de Vestuario",
+      "description": "Señales cualitativas entre semana: ruedas de prensa de entrenadores, rotaciones por copas, cambios de DT y reportes de campamento."
+    },
+    {
+      "id": "environment_referees",
+      "name": "Contexto Ambiental, Estadios y Arbitraje",
+      "description": "Variables exógenas previas al kickoff: viento/clima horario en estadios abiertos, altitud y estadísticas históricas del árbitro designado."
+    }
+  ],
+  "sources": [
+    {
+      "id": "pinnacle",
+      "name": "Pinnacle (Arcadia Guest API / Web)",
+      "category": "odds_casinos",
+      "base_url": "https://www.pinnacle.com/",
+      "leagues": ["liga-mx", "epl", "laliga", "bundesliga", "serie-a", "ligue-1", "nfl", "nhl", "mlb"],
+      "priority": "P0",
+      "scrapling_mode": "network_recorder",
+      "scrapling_config": {
+        "session_class": "AsyncStealthySession",
+        "headless": true,
+        "solve_cloudflare": true,
+        "network_idle": true,
+        "record_requests": true,
+        "api_url_pattern": "guest\\.api\\.arcadia\\.pinnacle\\.com/0\\.1/(leagues|matchups|markets)"
+      },
+      "capture_schedule": ["T-72h", "T-24h", "T-6h", "T-1h"],
+      "extracted_fields": ["matchup_id", "kickoff_utc", "moneyline_1x2", "spread_handicap", "totals_ou", "btts", "max_limit_usd"],
+      "unlocked_features": ["pinnacle_no_vig_prob", "steam_move_24h", "clv_vs_pinnacle_close"]
+    },
+    {
+      "id": "caliente_mx",
+      "name": "Caliente.mx Sportsbook",
+      "category": "odds_casinos",
+      "base_url": "https://sports.caliente.mx/",
+      "leagues": ["liga-mx", "epl", "laliga", "bundesliga", "serie-a", "ligue-1", "nfl", "mlb", "nhl"],
+      "priority": "P0",
+      "scrapling_mode": "network_recorder",
+      "scrapling_config": {
+        "session_class": "AsyncStealthySession",
+        "headless": true,
+        "solve_cloudflare": true,
+        "network_idle": true,
+        "record_requests": true,
+        "api_url_pattern": "(caliente\\.mx|kambicdn\\.com| Offering).*json"
+      },
+      "capture_schedule": ["T-48h", "T-24h", "T-1h"],
+      "extracted_fields": ["event_id", "home_team", "away_team", "odds_1x2", "odds_ou_25", "odds_btts", "asian_handicap", "player_props"],
+      "unlocked_features": ["local_book_bias_mx", "caliente_vs_pinnacle_divergence", "mx_recreational_overround"]
+    },
+    {
+      "id": "codere_bet365_mx",
+      "name": "Codere México / Playdoit / Bet365",
+      "category": "odds_casinos",
+      "base_url": "https://www.codere.mx/",
+      "leagues": ["liga-mx", "laliga", "epl", "nfl"],
+      "priority": "P1",
+      "scrapling_mode": "stealthy_session",
+      "scrapling_config": {
+        "session_class": "StealthySession",
+        "headless": true,
+        "solve_cloudflare": true,
+        "network_idle": true,
+        "record_requests": true
+      },
+      "capture_schedule": ["T-24h", "T-1h"],
+      "extracted_fields": ["odds_1x2", "odds_totals", "odds_btts"],
+      "unlocked_features": ["market_dispersion_std", "best_available_price_mx"]
+    },
+    {
+      "id": "oddsportal_oddschecker",
+      "name": "OddsPortal / Oddschecker",
+      "category": "odds_casinos",
+      "base_url": "https://www.oddsportal.com/",
+      "leagues": ["liga-mx", "epl", "laliga", "bundesliga", "serie-a", "ligue-1", "nfl", "nhl", "mlb"],
+      "priority": "P0",
+      "scrapling_mode": "network_recorder",
+      "scrapling_config": {
+        "session_class": "AsyncStealthySession",
+        "headless": true,
+        "solve_cloudflare": true,
+        "network_idle": true,
+        "record_requests": true,
+        "api_url_pattern": "oddsportal\\.com/feed/match-event"
+      },
+      "capture_schedule": ["T-48h", "T-24h", "T-1h", "post-match"],
+      "extracted_fields": ["opening_odds", "opening_timestamp_utc", "closing_odds", "closing_timestamp_utc", "bookmaker_count"],
+      "unlocked_features": ["opening_to_closing_drift", "bookmaker_consensus_no_vig", "market_dispersion_std"]
+    },
+    {
+      "id": "action_network_splits",
+      "name": "Action Network / VegasInsider / Covers (Public Betting Splits)",
+      "category": "odds_casinos",
+      "base_url": "https://www.actionnetwork.com/nfl/public-betting",
+      "leagues": ["nfl", "ncaaf", "nhl", "mlb", "epl"],
+      "priority": "P0",
+      "scrapling_mode": "fetcher_session",
+      "scrapling_config": {
+        "session_class": "FetcherSession",
+        "impersonate": "chrome",
+        "stealthy_headers": true,
+        "http3": true,
+        "css_selector": "script#__NEXT_DATA__",
+        "adaptive": true
+      },
+      "capture_schedule": ["T-24h", "T-2h"],
+      "extracted_fields": ["spread_tickets_pct", "spread_money_pct", "total_tickets_pct", "total_money_pct", "ml_tickets_pct", "ml_money_pct", "open_line", "current_line"],
+      "unlocked_features": ["sharp_money_divergence_spread", "sharp_money_divergence_total", "reverse_line_movement_flag"]
+    },
+    {
+      "id": "betfair_smarkets_exchange",
+      "name": "Betfair Exchange / Smarkets",
+      "category": "odds_casinos",
+      "base_url": "https://smarkets.com/",
+      "leagues": ["epl", "laliga", "bundesliga", "serie-a", "ligue-1", "nfl"],
+      "priority": "P1",
+      "scrapling_mode": "fetcher_session",
+      "scrapling_config": {
+        "session_class": "FetcherSession",
+        "impersonate": "chrome",
+        "stealthy_headers": true,
+        "http3": true
+      },
+      "capture_schedule": ["T-24h", "T-1h"],
+      "extracted_fields": ["back_price", "lay_price", "matched_volume_usd", "bid_ask_spread"],
+      "unlocked_features": ["exchange_mid_prob", "market_liquidity_log_vol"]
+    },
+    {
+      "id": "opta_player_stats",
+      "name": "Opta Player Stats — Stats Perform",
+      "category": "advanced_stats_xg",
+      "base_url": "https://optaplayerstats.statsperform.com/",
+      "leagues": ["liga-mx", "epl", "laliga", "bundesliga", "serie-a", "ligue-1", "champions-league"],
+      "priority": "P0",
+      "scrapling_mode": "network_recorder",
+      "scrapling_config": {
+        "session_class": "AsyncStealthySession",
+        "headless": true,
+        "solve_cloudflare": true,
+        "network_idle": true,
+        "record_requests": true,
+        "api_url_pattern": "(api\\.performfeeds\\.com/soccerdata|statsperform\\.com)"
+      },
+      "capture_schedule": ["post-match", "T-24h"],
+      "extracted_fields": [
+        "opta_match_id",
+        "opta_player_id",
+        "minutes_played",
+        "shots_total",
+        "shots_on_target",
+        "opta_xg",
+        "opta_xa",
+        "key_passes",
+        "tackles_won",
+        "interceptions",
+        "fouls_committed",
+        "fouls_won",
+        "duels_won",
+        "yellow_cards",
+        "red_cards"
+      ],
+      "unlocked_features": [
+        "opta_team_xg_r5",
+        "opta_shots_on_target_r5",
+        "opta_starter_player_rating_sum",
+        "opta_tackles_interceptions_r5",
+        "opta_prop_settlement_baseline"
+      ]
+    },
+    {
+      "id": "statiskicks",
+      "name": "Statiskicks (Analítica Avanzada Liga MX y Fútbol Internacional)",
+      "category": "advanced_stats_xg",
+      "base_url": "https://www.statiskicks.com/",
+      "leagues": ["liga-mx", "expansion-mx", "epl", "laliga", "bundesliga", "serie-a", "ligue-1"],
+      "priority": "P0",
+      "scrapling_mode": "network_recorder",
+      "scrapling_config": {
+        "session_class": "AsyncStealthySession",
+        "headless": true,
+        "solve_cloudflare": true,
+        "network_idle": true,
+        "record_requests": true,
+        "supports_remote_cdp": true,
+        "remote_cdp_url": "http://localhost:9222",
+        "api_url_pattern": "statiskicks\\.com/.*(api|json|data|plataforma)"
+      },
+      "capture_schedule": ["post-match", "T-24h"],
+      "extracted_fields": [
+        "statiskicks_xg_for",
+        "statiskicks_xg_against",
+        "statiskicks_xa",
+        "statiskicks_xp_expected_points",
+        "progressive_passes",
+        "line_breaking_passes",
+        "final_third_entries",
+        "player_percentiles_by_role",
+        "tactical_team_profile"
+      ],
+      "unlocked_features": [
+        "mx_statiskicks_xg_diff_r5",
+        "mx_statiskicks_xp_luck_gap",
+        "mx_progressive_threat_r5",
+        "mx_lineup_percentile_score"
+      ]
+    },
+    {
+      "id": "sofascore",
+      "name": "Sofascore",
+      "category": "advanced_stats_xg",
+      "base_url": "https://www.sofascore.com/",
+      "leagues": ["liga-mx", "epl", "laliga", "bundesliga", "serie-a", "ligue-1", "nfl"],
+      "priority": "P0",
+      "scrapling_mode": "network_recorder",
+      "scrapling_config": {
+        "session_class": "AsyncStealthySession",
+        "headless": true,
+        "solve_cloudflare": true,
+        "network_idle": true,
+        "record_requests": true,
+        "api_url_pattern": "api\\.sofascore\\.com/api/v1/event/[0-9]+/(statistics|lineups|shotmap|graph)"
+      },
+      "capture_schedule": ["post-match", "T-1h"],
+      "extracted_fields": ["xg_home", "xg_away", "big_chances_created", "big_chances_missed", "shots_inside_box", "corners", "possession", "player_ratings", "shotmap_coordinates"],
+      "unlocked_features": ["npxg_for_r5", "npxg_against_r5", "big_chances_created_r5", "inside_box_shot_share_r5"]
+    },
+    {
+      "id": "fotmob",
+      "name": "FotMob",
+      "category": "advanced_stats_xg",
+      "base_url": "https://www.fotmob.com/",
+      "leagues": ["liga-mx", "epl", "laliga", "bundesliga", "serie-a", "ligue-1"],
+      "priority": "P0",
+      "scrapling_mode": "network_recorder",
+      "scrapling_config": {
+        "session_class": "AsyncStealthySession",
+        "headless": true,
+        "solve_cloudflare": true,
+        "network_idle": true,
+        "record_requests": true,
+        "api_url_pattern": "fotmob\\.com/api/(matchDetails|leagues)"
+      },
+      "capture_schedule": ["post-match", "T-1h"],
+      "extracted_fields": ["xg", "xgot", "xg_open_play", "xg_set_piece", "ppda", "confirmed_lineups"],
+      "unlocked_features": ["xgot_diff_r5", "set_piece_xg_share", "ppda_pressing_intensity_r5"]
+    },
+    {
+      "id": "fbref",
+      "name": "FBref (Football Reference)",
+      "category": "advanced_stats_xg",
+      "base_url": "https://fbref.com/",
+      "leagues": ["liga-mx", "epl", "laliga", "bundesliga", "serie-a", "ligue-1"],
+      "priority": "P0",
+      "scrapling_mode": "stealthy_session",
+      "scrapling_config": {
+        "session_class": "StealthySession",
+        "headless": true,
+        "solve_cloudflare": true,
+        "network_idle": true,
+        "download_delay_seconds": 4,
+        "css_selector": "table.stats_table",
+        "adaptive": true
+      },
+      "capture_schedule": ["post-match"],
+      "extracted_fields": ["npxg", "psxg", "progressive_carries", "progressive_passes", "sca", "gca"],
+      "unlocked_features": ["psxg_minus_goals_gk_r10", "sca_per90_r5", "progressive_actions_ratio_r5"]
+    },
+    {
+      "id": "understat",
+      "name": "Understat",
+      "category": "advanced_stats_xg",
+      "base_url": "https://understat.com/",
+      "leagues": ["epl", "laliga", "bundesliga", "serie-a", "ligue-1"],
+      "priority": "P1",
+      "scrapling_mode": "fetcher_session",
+      "scrapling_config": {
+        "session_class": "FetcherSession",
+        "impersonate": "chrome",
+        "stealthy_headers": true,
+        "http3": true,
+        "adaptive": true
+      },
+      "capture_schedule": ["post-match"],
+      "extracted_fields": ["xg", "npxg", "xpts", "ppda", "deep_completions"],
+      "unlocked_features": ["understat_xpts_diff_r10", "deep_completions_r5"]
+    },
+    {
+      "id": "clubelo_transfermarkt_values",
+      "name": "ClubElo & Transfermarkt (Squad Market Values)",
+      "category": "advanced_stats_xg",
+      "base_url": "https://www.transfermarkt.mx/",
+      "leagues": ["liga-mx", "epl", "laliga", "bundesliga", "serie-a", "ligue-1"],
+      "priority": "P1",
+      "scrapling_mode": "fetcher_session",
+      "scrapling_config": {
+        "session_class": "FetcherSession",
+        "impersonate": "chrome",
+        "stealthy_headers": true,
+        "http3": true,
+        "adaptive": true
+      },
+      "capture_schedule": ["weekly"],
+      "extracted_fields": ["total_squad_market_value_eur", "average_player_value_eur", "squad_average_age", "club_elo_rating"],
+      "unlocked_features": ["log_squad_value_ratio", "promoted_team_squad_value_prior"]
+    },
+    {
+      "id": "pfr_rbsdm_sumersports",
+      "name": "Pro-Football-Reference / RBSDM / SumerSports",
+      "category": "advanced_stats_xg",
+      "base_url": "https://www.pro-football-reference.com/",
+      "leagues": ["nfl"],
+      "priority": "P1",
+      "scrapling_mode": "stealthy_session",
+      "scrapling_config": {
+        "session_class": "StealthySession",
+        "headless": true,
+        "solve_cloudflare": true,
+        "network_idle": true,
+        "adaptive": true
+      },
+      "capture_schedule": ["weekly"],
+      "extracted_fields": ["epa_per_play", "success_rate", "cpoe", "pressure_rate", "time_to_throw", "red_zone_td_pct"],
+      "unlocked_features": ["nfl_pressure_rate_mismatch", "nfl_redzone_efficiency_diff"]
+    },
+    {
+      "id": "transfermarkt_injuries",
+      "name": "Transfermarkt (Lesiones y Sanciones por Club)",
+      "category": "injuries_lineups",
+      "base_url": "https://www.transfermarkt.mx/",
+      "leagues": ["liga-mx", "epl", "laliga", "bundesliga", "serie-a", "ligue-1"],
+      "priority": "P0",
+      "scrapling_mode": "fetcher_session",
+      "scrapling_config": {
+        "session_class": "FetcherSession",
+        "impersonate": "chrome",
+        "stealthy_headers": true,
+        "http3": true,
+        "css_selector": "table.items tbody tr",
+        "adaptive": true
+      },
+      "capture_schedule": ["T-24h", "T-2h"],
+      "extracted_fields": ["player_name", "position", "injury_or_suspension_reason", "market_value_eur", "expected_return_date"],
+      "unlocked_features": ["missing_market_value_ratio", "missing_starters_count", "key_striker_or_gk_out_flag"]
+    },
+    {
+      "id": "premierinjuries_sportsgambler",
+      "name": "PremierInjuries & SportsGambler Football Injuries",
+      "category": "injuries_lineups",
+      "base_url": "https://www.sportsgambler.com/injuries/football/",
+      "leagues": ["liga-mx", "epl", "laliga", "bundesliga", "serie-a", "ligue-1"],
+      "priority": "P0",
+      "scrapling_mode": "fetcher_session",
+      "scrapling_config": {
+        "session_class": "FetcherSession",
+        "impersonate": "chrome",
+        "stealthy_headers": true,
+        "http3": true,
+        "adaptive": true
+      },
+      "capture_schedule": ["T-24h", "T-2h"],
+      "extracted_fields": ["player_name", "status_probability_pct", "matches_missed", "predicted_xi"],
+      "unlocked_features": ["unavailable_minutes_weighted_share", "defensive_line_disruption_index"]
+    },
+    {
+      "id": "rotowire_lineups_injuries",
+      "name": "RotoWire (Soccer & NFL Lineups / Injury Reports)",
+      "category": "injuries_lineups",
+      "base_url": "https://www.rotowire.com/soccer/lineups.php",
+      "leagues": ["liga-mx", "epl", "laliga", "bundesliga", "serie-a", "ligue-1", "nfl"],
+      "priority": "P0",
+      "scrapling_mode": "fetcher_session",
+      "scrapling_config": {
+        "session_class": "FetcherSession",
+        "impersonate": "chrome",
+        "stealthy_headers": true,
+        "http3": true,
+        "css_selector": ".lineup__box",
+        "adaptive": true
+      },
+      "capture_schedule": ["T-24h", "T-1h"],
+      "extracted_fields": ["confirmed_status", "starting_11_players", "formation", "injured_out_players", "questionable_players"],
+      "unlocked_features": ["lineup_rotation_index", "confirmed_xi_strength_delta"]
+    },
+    {
+      "id": "nfl_official_injuries_depth",
+      "name": "NFL Official Injury Report & Ourlads Depth Charts",
+      "category": "injuries_lineups",
+      "base_url": "https://www.nfl.com/injuries/",
+      "leagues": ["nfl"],
+      "priority": "P0",
+      "scrapling_mode": "stealthy_session",
+      "scrapling_config": {
+        "session_class": "StealthySession",
+        "headless": true,
+        "solve_cloudflare": true,
+        "network_idle": true,
+        "adaptive": true
+      },
+      "capture_schedule": ["T-48h", "T-24h", "T-90m"],
+      "extracted_fields": ["player_name", "position", "depth_chart_rank", "wed_practice", "thu_practice", "fri_practice", "game_status_designation"],
+      "unlocked_features": ["starting_qb_out_flag", "offensive_line_starters_out_count", "nfl_cluster_injury_flag"]
+    },
+    {
+      "id": "mediotiempo_record_mx",
+      "name": "Mediotiempo / Récord (Noticias y Campamento Liga MX)",
+      "category": "news_press_sentiment",
+      "base_url": "https://www.mediotiempo.com/futbol/liga-mx",
+      "leagues": ["liga-mx"],
+      "priority": "P1",
+      "scrapling_mode": "cli_ai_targeted",
+      "scrapling_config": {
+        "cli_command": "extract get",
+        "ai_targeted": true,
+        "output_format": "md"
+      },
+      "capture_schedule": ["T-24h", "T-3h"],
+      "extracted_fields": ["headline", "published_at_utc", "clubs_mentioned", "manager_change_signal", "rotation_announcement"],
+      "unlocked_features": ["new_manager_games_count", "cup_rotation_announced_flag"]
+    },
+    {
+      "id": "ffs_bbc_press_conferences",
+      "name": "Fantasy Football Scout / BBC Sport (Press Conferences)",
+      "category": "news_press_sentiment",
+      "base_url": "https://www.fantasyfootballscout.co.uk/team-news/",
+      "leagues": ["epl"],
+      "priority": "P1",
+      "scrapling_mode": "cli_ai_targeted",
+      "scrapling_config": {
+        "cli_command": "extract get",
+        "ai_targeted": true,
+        "output_format": "md"
+      },
+      "capture_schedule": ["T-24h"],
+      "extracted_fields": ["club", "manager_quotes", "late_fitness_test_players", "confirmed_absentees"],
+      "unlocked_features": ["press_conference_late_doubt_count"]
+    },
+    {
+      "id": "marca_as_laliga_news",
+      "name": "Marca / Diario AS (Partes Médicos y Onces Probables LaLiga)",
+      "category": "news_press_sentiment",
+      "base_url": "https://www.marca.com/futbol/primera-division.html",
+      "leagues": ["laliga"],
+      "priority": "P1",
+      "scrapling_mode": "cli_ai_targeted",
+      "scrapling_config": {
+        "cli_command": "extract get",
+        "ai_targeted": true,
+        "output_format": "md"
+      },
+      "capture_schedule": ["T-24h"],
+      "extracted_fields": ["club", "medical_report", "squad_callup_list", "predicted_lineup"],
+      "unlocked_features": ["squad_callup_missing_starters"]
+    },
+    {
+      "id": "profootballtalk_nfl_news",
+      "name": "ProFootballTalk (NBC) & NFL.com Beat Reports",
+      "category": "news_press_sentiment",
+      "base_url": "https://www.nbcsports.com/nfl/profootballtalk",
+      "leagues": ["nfl"],
+      "priority": "P1",
+      "scrapling_mode": "cli_ai_targeted",
+      "scrapling_config": {
+        "cli_command": "extract get",
+        "ai_targeted": true,
+        "output_format": "md"
+      },
+      "capture_schedule": ["T-24h", "T-2h"],
+      "extracted_fields": ["headline", "team", "snap_count_limit_notes", "coordinator_change", "locker_room_news"],
+      "unlocked_features": ["starter_snap_limit_flag", "interim_coach_bounce_flag"]
+    },
+    {
+      "id": "open_meteo_nflweather",
+      "name": "Open-Meteo API & NFLWeather (Clima y Altitud en Kickoff)",
+      "category": "environment_referees",
+      "base_url": "https://api.open-meteo.com/v1/forecast",
+      "leagues": ["nfl", "liga-mx", "epl", "laliga", "bundesliga", "serie-a", "ligue-1"],
+      "priority": "P0",
+      "scrapling_mode": "fetcher_session",
+      "scrapling_config": {
+        "session_class": "FetcherSession",
+        "impersonate": "chrome",
+        "stealthy_headers": true
+      },
+      "capture_schedule": ["T-24h", "T-2h"],
+      "extracted_fields": ["temperature_c", "wind_speed_mph", "wind_gusts_mph", "precipitation_mm", "humidity_pct", "stadium_elevation_m", "is_dome"],
+      "unlocked_features": ["wind_speed_mph_kickoff", "extreme_weather_ou_penalty", "altitude_diff_m_mx"]
+    },
+    {
+      "id": "worldfootball_nflpenalties_referees",
+      "name": "WorldFootball & NFLPenalties (Designaciones y Estadísticas Arbitrales)",
+      "category": "environment_referees",
+      "base_url": "https://www.worldfootball.net/",
+      "leagues": ["liga-mx", "epl", "laliga", "bundesliga", "serie-a", "ligue-1", "nfl"],
+      "priority": "P1",
+      "scrapling_mode": "fetcher_session",
+      "scrapling_config": {
+        "session_class": "FetcherSession",
+        "impersonate": "chrome",
+        "stealthy_headers": true,
+        "http3": true,
+        "adaptive": true
+      },
+      "capture_schedule": ["T-48h"],
+      "extracted_fields": ["referee_name", "games_officiated", "yellow_cards_per_game", "red_cards_per_game", "penalties_per_game", "home_win_pct", "nfl_penalties_per_game", "nfl_penalty_yards_per_game"],
+      "unlocked_features": ["referee_cards_per_game", "referee_penalties_per_game", "nfl_crew_holding_dpi_rate"]
+    }
+  ]
+}

@@ -1,0 +1,2265 @@
+{
+ "MX": [
+  [
+   "Hoy · Vie 6 nov",
+   [
+    {
+     "h": "NEC",
+     "a": "TIJ",
+     "t": "7:00 PM",
+     "ref": 0,
+     "s": "Jornada 16 · Estadio Victoria"
+    },
+    {
+     "h": "SLP",
+     "a": "JUA",
+     "t": "7:00 PM",
+     "ref": 0,
+     "s": "Jornada 16 · Estadio Libertad Financiera"
+    },
+    {
+     "h": "ATL",
+     "a": "SAN",
+     "t": "9:00 PM",
+     "ref": 0,
+     "s": "Jornada 16 · Estadio Banorte"
+    }
+   ]
+  ],
+  [
+   "Sáb 7 nov",
+   [
+    {
+     "h": "TIG",
+     "a": "CAZ",
+     "t": "7:00 PM",
+     "ref": 0,
+     "s": "Jornada 16 · Estadio Universitario"
+    },
+    {
+     "h": "ATS",
+     "a": "PAC",
+     "t": "5:00 PM",
+     "ref": 0,
+     "s": "Jornada 16 · Estadio Jalisco"
+    },
+    {
+     "h": "TOL",
+     "a": "MTY",
+     "t": "7:00 PM",
+     "ref": 0,
+     "s": "Jornada 16 · Nemesio Diez"
+    },
+    {
+     "h": "PUM",
+     "a": "AME",
+     "t": "9:10 PM",
+     "ref": 0,
+     "s": "Jornada 16 · Olímpico Universitario · Clásico capitalino"
+    }
+   ]
+  ],
+  [
+   "Dom 8 nov",
+   [
+    {
+     "h": "QRO",
+     "a": "PUE",
+     "t": "6:00 PM",
+     "ref": 0,
+     "s": "Jornada 16 · La Corregidora"
+    },
+    {
+     "h": "LEO",
+     "a": "CHI",
+     "t": "8:10 PM",
+     "ref": 0,
+     "s": "Jornada 16 · Estadio León · cierra la jornada"
+    }
+   ]
+  ],
+  [
+   "Auditoría 30 oct-1 nov (jornada 15)",
+   [
+    {
+     "h": "SAN",
+     "a": "NEC",
+     "t": "Final",
+     "sc": [
+      1,
+      0
+     ]
+    },
+    {
+     "h": "CAZ",
+     "a": "LEO",
+     "t": "Final",
+     "sc": [
+      2,
+      1
+     ]
+    },
+    {
+     "h": "SLP",
+     "a": "ATS",
+     "t": "Final",
+     "sc": [
+      0,
+      1
+     ]
+    },
+    {
+     "h": "JUA",
+     "a": "QRO",
+     "t": "Final",
+     "sc": [
+      3,
+      1
+     ]
+    },
+    {
+     "h": "PUE",
+     "a": "PUM",
+     "t": "Final",
+     "sc": [
+      1,
+      2
+     ]
+    },
+    {
+     "h": "PAC",
+     "a": "TIG",
+     "t": "Final",
+     "sc": [
+      3,
+      0
+     ]
+    },
+    {
+     "h": "MTY",
+     "a": "TIJ",
+     "t": "Final",
+     "sc": [
+      3,
+      3
+     ]
+    },
+    {
+     "h": "CHI",
+     "a": "ATL",
+     "t": "Final",
+     "sc": [
+      4,
+      2
+     ]
+    },
+    {
+     "h": "AME",
+     "a": "TOL",
+     "t": "Final",
+     "sc": [
+      2,
+      2
+     ]
+    }
+   ]
+  ],
+  [
+   "Auditoría 23-25 oct (jornada 14)",
+   [
+    {
+     "h": "NEC",
+     "a": "JUA",
+     "t": "Final",
+     "sc": [
+      1,
+      1
+     ]
+    },
+    {
+     "h": "ATL",
+     "a": "SLP",
+     "t": "Final",
+     "sc": [
+      0,
+      1
+     ]
+    },
+    {
+     "h": "LEO",
+     "a": "TOL",
+     "t": "Final",
+     "sc": [
+      1,
+      1
+     ]
+    },
+    {
+     "h": "MTY",
+     "a": "CHI",
+     "t": "Final",
+     "sc": [
+      0,
+      1
+     ]
+    },
+    {
+     "h": "PUM",
+     "a": "TIG",
+     "t": "Final",
+     "sc": [
+      1,
+      1
+     ]
+    },
+    {
+     "h": "ATS",
+     "a": "PUE",
+     "t": "Final",
+     "sc": [
+      4,
+      3
+     ]
+    },
+    {
+     "h": "QRO",
+     "a": "CAZ",
+     "t": "Final",
+     "sc": [
+      1,
+      3
+     ]
+    },
+    {
+     "h": "AME",
+     "a": "PAC",
+     "t": "Final",
+     "sc": [
+      1,
+      2
+     ]
+    },
+    {
+     "h": "TIJ",
+     "a": "SAN",
+     "t": "Final",
+     "sc": [
+      4,
+      1
+     ]
+    }
+   ]
+  ],
+  [
+   "Auditoría 20-21 oct (jornada 13)",
+   [
+    {
+     "h": "CHI",
+     "a": "NEC",
+     "t": "Final",
+     "sc": [
+      1,
+      0
+     ]
+    },
+    {
+     "h": "JUA",
+     "a": "ATL",
+     "t": "Final",
+     "sc": [
+      0,
+      1
+     ]
+    },
+    {
+     "h": "SLP",
+     "a": "QRO",
+     "t": "Final",
+     "sc": [
+      2,
+      1
+     ]
+    },
+    {
+     "h": "TIG",
+     "a": "LEO",
+     "t": "Final",
+     "sc": [
+      0,
+      2
+     ]
+    },
+    {
+     "h": "PUE",
+     "a": "MTY",
+     "t": "Final",
+     "sc": [
+      1,
+      4
+     ]
+    },
+    {
+     "h": "ATS",
+     "a": "AME",
+     "t": "Final",
+     "sc": [
+      2,
+      5
+     ]
+    },
+    {
+     "h": "TOL",
+     "a": "TIJ",
+     "t": "Final",
+     "sc": [
+      2,
+      2
+     ]
+    },
+    {
+     "h": "PAC",
+     "a": "CAZ",
+     "t": "Final",
+     "sc": [
+      1,
+      2
+     ]
+    },
+    {
+     "h": "SAN",
+     "a": "PUM",
+     "t": "Final",
+     "sc": [
+      2,
+      0
+     ]
+    }
+   ]
+  ]
+ ],
+ "LL": [
+  [
+   "Hoy · Vie 6 nov",
+   [
+    {
+     "h": "SEV",
+     "a": "ALA",
+     "t": "2:00 PM",
+     "ref": 0,
+     "s": "Jornada 12 · abre la jornada"
+    }
+   ]
+  ],
+  [
+   "Sáb 7 nov",
+   [
+    {
+     "h": "MCF",
+     "a": "RAC",
+     "t": "7:00 AM",
+     "ref": 0,
+     "s": "Jornada 12"
+    },
+    {
+     "h": "ESP",
+     "a": "DEP",
+     "t": "9:15 AM",
+     "ref": 0,
+     "s": "Jornada 12"
+    },
+    {
+     "h": "OSA",
+     "a": "ATH",
+     "t": "11:30 AM",
+     "ref": 0,
+     "s": "Jornada 12"
+    },
+    {
+     "h": "VCF",
+     "a": "RMA",
+     "t": "2:00 PM",
+     "ref": 0,
+     "s": "Jornada 12 · Mestalla"
+    }
+   ]
+  ],
+  [
+   "Dom 8 nov",
+   [
+    {
+     "h": "ELC",
+     "a": "RBB",
+     "t": "7:00 AM",
+     "ref": 0,
+     "s": "Jornada 12"
+    },
+    {
+     "h": "RSO",
+     "a": "RVC",
+     "t": "9:15 AM",
+     "ref": 0,
+     "s": "Jornada 12"
+    },
+    {
+     "h": "RCC",
+     "a": "LEV",
+     "t": "11:30 AM",
+     "ref": 0,
+     "s": "Jornada 12"
+    },
+    {
+     "h": "VIL",
+     "a": "GET",
+     "t": "11:30 AM",
+     "ref": 0,
+     "s": "Jornada 12"
+    },
+    {
+     "h": "ATM",
+     "a": "BAR",
+     "t": "2:00 PM",
+     "ref": 0,
+     "s": "Jornada 12 · Metropolitano"
+    }
+   ]
+  ],
+  [
+   "Auditoría 30 oct-2 nov (jornada 11)",
+   [
+    {
+     "h": "DEP",
+     "a": "OSA",
+     "t": "Final",
+     "sc": [
+      2,
+      1
+     ]
+    },
+    {
+     "h": "GET",
+     "a": "SEV",
+     "t": "Final",
+     "sc": [
+      3,
+      1
+     ]
+    },
+    {
+     "h": "RAC",
+     "a": "RMA",
+     "t": "Final",
+     "sc": [
+      0,
+      3
+     ]
+    },
+    {
+     "h": "ELC",
+     "a": "VCF",
+     "t": "Final",
+     "sc": [
+      0,
+      1
+     ]
+    },
+    {
+     "h": "ATH",
+     "a": "RSO",
+     "t": "Final",
+     "sc": [
+      2,
+      1
+     ]
+    },
+    {
+     "h": "VIL",
+     "a": "ESP",
+     "t": "Final",
+     "sc": [
+      0,
+      1
+     ]
+    },
+    {
+     "h": "LEV",
+     "a": "ATM",
+     "t": "Final",
+     "sc": [
+      0,
+      2
+     ]
+    },
+    {
+     "h": "RVC",
+     "a": "RCC",
+     "t": "Final",
+     "sc": [
+      3,
+      0
+     ]
+    },
+    {
+     "h": "RBB",
+     "a": "MCF",
+     "t": "Final",
+     "sc": [
+      2,
+      1
+     ]
+    },
+    {
+     "h": "BAR",
+     "a": "ALA",
+     "t": "Final",
+     "sc": [
+      6,
+      1
+     ]
+    }
+   ]
+  ],
+  [
+   "Auditoría 23-26 oct (jornada 10)",
+   [
+    {
+     "h": "ALA",
+     "a": "MCF",
+     "t": "Final",
+     "sc": [
+      1,
+      1
+     ]
+    },
+    {
+     "h": "RVC",
+     "a": "ELC",
+     "t": "Final",
+     "sc": [
+      0,
+      3
+     ]
+    },
+    {
+     "h": "RAC",
+     "a": "ESP",
+     "t": "Final",
+     "sc": [
+      2,
+      1
+     ]
+    },
+    {
+     "h": "VCF",
+     "a": "VIL",
+     "t": "Final",
+     "sc": [
+      1,
+      2
+     ]
+    },
+    {
+     "h": "ATM",
+     "a": "DEP",
+     "t": "Final",
+     "sc": [
+      1,
+      0
+     ]
+    },
+    {
+     "h": "ATH",
+     "a": "GET",
+     "t": "Final",
+     "sc": [
+      4,
+      0
+     ]
+    },
+    {
+     "h": "RCC",
+     "a": "RBB",
+     "t": "Final",
+     "sc": [
+      0,
+      0
+     ]
+    },
+    {
+     "h": "RSO",
+     "a": "LEV",
+     "t": "Final",
+     "sc": [
+      2,
+      1
+     ]
+    },
+    {
+     "h": "BAR",
+     "a": "RMA",
+     "t": "Final",
+     "sc": [
+      1,
+      2
+     ]
+    },
+    {
+     "h": "SEV",
+     "a": "OSA",
+     "t": "Final",
+     "sc": [
+      2,
+      0
+     ]
+    }
+   ]
+  ],
+  [
+   "Auditoría 16-19 oct (jornada 9)",
+   [
+    {
+     "h": "DEP",
+     "a": "LEV",
+     "t": "Final",
+     "sc": [
+      1,
+      1
+     ]
+    },
+    {
+     "h": "ESP",
+     "a": "ATM",
+     "t": "Final",
+     "sc": [
+      0,
+      1
+     ]
+    },
+    {
+     "h": "VIL",
+     "a": "ELC",
+     "t": "Final",
+     "sc": [
+      0,
+      0
+     ]
+    },
+    {
+     "h": "RBB",
+     "a": "BAR",
+     "t": "Final",
+     "sc": [
+      2,
+      5
+     ]
+    },
+    {
+     "h": "VCF",
+     "a": "ATH",
+     "t": "Final",
+     "sc": [
+      0,
+      0
+     ]
+    },
+    {
+     "h": "OSA",
+     "a": "RAC",
+     "t": "Final",
+     "sc": [
+      2,
+      0
+     ]
+    },
+    {
+     "h": "RCC",
+     "a": "ALA",
+     "t": "Final",
+     "sc": [
+      2,
+      1
+     ]
+    },
+    {
+     "h": "MCF",
+     "a": "RSO",
+     "t": "Final",
+     "sc": [
+      2,
+      5
+     ]
+    },
+    {
+     "h": "RMA",
+     "a": "SEV",
+     "t": "Final",
+     "sc": [
+      4,
+      1
+     ]
+    },
+    {
+     "h": "GET",
+     "a": "RVC",
+     "t": "Final",
+     "sc": [
+      1,
+      1
+     ]
+    }
+   ]
+  ]
+ ],
+ "PL": [
+  [
+   "Hoy · Vie 6 nov",
+   [
+    {
+     "h": "EVE",
+     "a": "COV",
+     "t": "2:00 PM",
+     "ref": 0,
+     "s": "Jornada 10 · abre la jornada"
+    }
+   ]
+  ],
+  [
+   "Sáb 7 nov",
+   [
+    {
+     "h": "LEE",
+     "a": "TOT",
+     "t": "6:30 AM",
+     "ref": 0,
+     "s": "Jornada 10"
+    },
+    {
+     "h": "ARS",
+     "a": "HUL",
+     "t": "9:00 AM",
+     "ref": 0,
+     "s": "Jornada 10"
+    },
+    {
+     "h": "FUL",
+     "a": "NEW",
+     "t": "9:00 AM",
+     "ref": 0,
+     "s": "Jornada 10"
+    },
+    {
+     "h": "NFO",
+     "a": "MCI",
+     "t": "11:30 AM",
+     "ref": 0,
+     "s": "Jornada 10"
+    }
+   ]
+  ],
+  [
+   "Dom 8 nov",
+   [
+    {
+     "h": "BRI",
+     "a": "BRE",
+     "t": "8:00 AM",
+     "ref": 0,
+     "s": "Jornada 10"
+    },
+    {
+     "h": "CRY",
+     "a": "LFC",
+     "t": "8:00 AM",
+     "ref": 0,
+     "s": "Jornada 10"
+    },
+    {
+     "h": "IPS",
+     "a": "BOU",
+     "t": "8:00 AM",
+     "ref": 0,
+     "s": "Jornada 10"
+    },
+    {
+     "h": "SUN",
+     "a": "CFC",
+     "t": "8:00 AM",
+     "ref": 0,
+     "s": "Jornada 10"
+    },
+    {
+     "h": "MUN",
+     "a": "AVL",
+     "t": "10:30 AM",
+     "ref": 0,
+     "s": "Jornada 10"
+    }
+   ]
+  ],
+  [
+   "Auditoría 31 oct-2 nov (jornada 9)",
+   [
+    {
+     "h": "NEW",
+     "a": "EVE",
+     "t": "Final",
+     "sc": [
+      0,
+      1
+     ]
+    },
+    {
+     "h": "LFC",
+     "a": "ARS",
+     "t": "Final",
+     "sc": [
+      0,
+      1
+     ]
+    },
+    {
+     "h": "CFC",
+     "a": "MUN",
+     "t": "Final",
+     "sc": [
+      2,
+      0
+     ]
+    },
+    {
+     "h": "BOU",
+     "a": "LEE",
+     "t": "Final",
+     "sc": [
+      2,
+      0
+     ]
+    },
+    {
+     "h": "BRE",
+     "a": "NFO",
+     "t": "Final",
+     "sc": [
+      2,
+      0
+     ]
+    },
+    {
+     "h": "COV",
+     "a": "SUN",
+     "t": "Final",
+     "sc": [
+      3,
+      1
+     ]
+    },
+    {
+     "h": "HUL",
+     "a": "IPS",
+     "t": "Final",
+     "sc": [
+      2,
+      2
+     ]
+    },
+    {
+     "h": "MCI",
+     "a": "BRI",
+     "t": "Final",
+     "sc": [
+      0,
+      1
+     ]
+    },
+    {
+     "h": "TOT",
+     "a": "CRY",
+     "t": "Final",
+     "sc": [
+      2,
+      0
+     ]
+    },
+    {
+     "h": "AVL",
+     "a": "FUL",
+     "t": "Final",
+     "sc": [
+      1,
+      1
+     ]
+    }
+   ]
+  ],
+  [
+   "Auditoría 23-25 oct (jornada 8)",
+   [
+    {
+     "h": "IPS",
+     "a": "NFO",
+     "t": "Final",
+     "sc": [
+      1,
+      1
+     ]
+    },
+    {
+     "h": "AVL",
+     "a": "MCI",
+     "t": "Final",
+     "sc": [
+      2,
+      1
+     ]
+    },
+    {
+     "h": "ARS",
+     "a": "EVE",
+     "t": "Final",
+     "sc": [
+      2,
+      0
+     ]
+    },
+    {
+     "h": "COV",
+     "a": "FUL",
+     "t": "Final",
+     "sc": [
+      0,
+      1
+     ]
+    },
+    {
+     "h": "CFC",
+     "a": "TOT",
+     "t": "Final",
+     "sc": [
+      0,
+      2
+     ]
+    },
+    {
+     "h": "CRY",
+     "a": "NEW",
+     "t": "Final",
+     "sc": [
+      0,
+      2
+     ]
+    },
+    {
+     "h": "HUL",
+     "a": "BRE",
+     "t": "Final",
+     "sc": [
+      1,
+      1
+     ]
+    },
+    {
+     "h": "LFC",
+     "a": "BRI",
+     "t": "Final",
+     "sc": [
+      2,
+      0
+     ]
+    },
+    {
+     "h": "MUN",
+     "a": "BOU",
+     "t": "Final",
+     "sc": [
+      0,
+      3
+     ]
+    },
+    {
+     "h": "SUN",
+     "a": "LEE",
+     "t": "Final",
+     "sc": [
+      0,
+      0
+     ]
+    }
+   ]
+  ],
+  [
+   "Auditoría 17-19 oct (jornada 7)",
+   [
+    {
+     "h": "EVE",
+     "a": "CFC",
+     "t": "Final",
+     "sc": [
+      0,
+      2
+     ]
+    },
+    {
+     "h": "BRE",
+     "a": "LFC",
+     "t": "Final",
+     "sc": [
+      1,
+      2
+     ]
+    },
+    {
+     "h": "FUL",
+     "a": "HUL",
+     "t": "Final",
+     "sc": [
+      1,
+      0
+     ]
+    },
+    {
+     "h": "MCI",
+     "a": "IPS",
+     "t": "Final",
+     "sc": [
+      3,
+      2
+     ]
+    },
+    {
+     "h": "NEW",
+     "a": "AVL",
+     "t": "Final",
+     "sc": [
+      0,
+      1
+     ]
+    },
+    {
+     "h": "BOU",
+     "a": "SUN",
+     "t": "Final",
+     "sc": [
+      2,
+      0
+     ]
+    },
+    {
+     "h": "BRI",
+     "a": "CRY",
+     "t": "Final",
+     "sc": [
+      5,
+      0
+     ]
+    },
+    {
+     "h": "LEE",
+     "a": "MUN",
+     "t": "Final",
+     "sc": [
+      1,
+      1
+     ]
+    },
+    {
+     "h": "NFO",
+     "a": "ARS",
+     "t": "Final",
+     "sc": [
+      0,
+      1
+     ]
+    },
+    {
+     "h": "TOT",
+     "a": "COV",
+     "t": "Final",
+     "sc": [
+      3,
+      1
+     ]
+    }
+   ]
+  ]
+ ],
+ "UCL": [
+  [
+   "Hoy · Vie 6 nov",
+   []
+  ],
+  [
+   "Auditoría 3-4 nov (jornada 4)",
+   [
+    {
+     "h": "AEK",
+     "a": "RMA",
+     "t": "Final",
+     "sc": [
+      2,
+      3
+     ]
+    },
+    {
+     "h": "FEN",
+     "a": "LFC",
+     "t": "Final",
+     "sc": [
+      3,
+      2
+     ]
+    },
+    {
+     "h": "BVB",
+     "a": "RBB",
+     "t": "Final",
+     "sc": [
+      2,
+      1
+     ]
+    },
+    {
+     "h": "FCP",
+     "a": "NAP",
+     "t": "Final",
+     "sc": [
+      4,
+      1
+     ]
+    },
+    {
+     "h": "PSV",
+     "a": "BRU",
+     "t": "Final",
+     "sc": [
+      1,
+      2
+     ]
+    },
+    {
+     "h": "RBL",
+     "a": "MCI",
+     "t": "Final",
+     "sc": [
+      2,
+      3
+     ]
+    },
+    {
+     "h": "RCL",
+     "a": "COM",
+     "t": "Final",
+     "sc": [
+      1,
+      9
+     ]
+    },
+    {
+     "h": "SLA",
+     "a": "ARS",
+     "t": "Final",
+     "sc": [
+      1,
+      2
+     ]
+    },
+    {
+     "h": "VIK",
+     "a": "SBH",
+     "t": "Final",
+     "sc": [
+      4,
+      1
+     ]
+    },
+    {
+     "h": "SHA",
+     "a": "SPO",
+     "t": "Final",
+     "sc": [
+      0,
+      1
+     ]
+    },
+    {
+     "h": "GAL",
+     "a": "VFB",
+     "t": "Final",
+     "sc": [
+      2,
+      0
+     ]
+    },
+    {
+     "h": "ATM",
+     "a": "BMU",
+     "t": "Final",
+     "sc": [
+      0,
+      2
+     ]
+    },
+    {
+     "h": "BAR",
+     "a": "AVL",
+     "t": "Final",
+     "sc": [
+      3,
+      0
+     ]
+    },
+    {
+     "h": "FEY",
+     "a": "INT",
+     "t": "Final",
+     "sc": [
+      0,
+      3
+     ]
+    },
+    {
+     "h": "BOG",
+     "a": "LIL",
+     "t": "Final",
+     "sc": [
+      0,
+      0
+     ]
+    },
+    {
+     "h": "ASK",
+     "a": "SLO",
+     "t": "Final",
+     "sc": [
+      4,
+      0
+     ]
+    },
+    {
+     "h": "MUN",
+     "a": "ROM",
+     "t": "Final",
+     "sc": [
+      3,
+      2
+     ]
+    },
+    {
+     "h": "VIL",
+     "a": "PSG",
+     "t": "Final",
+     "sc": [
+      0,
+      6
+     ]
+    }
+   ]
+  ],
+  [
+   "Auditoría 20-21 oct (jornada 3)",
+   [
+    {
+     "h": "FEN",
+     "a": "SLA",
+     "t": "Final",
+     "sc": [
+      2,
+      2
+     ]
+    },
+    {
+     "h": "SBH",
+     "a": "BVB",
+     "t": "Final",
+     "sc": [
+      1,
+      2
+     ]
+    },
+    {
+     "h": "ROM",
+     "a": "SLO",
+     "t": "Final",
+     "sc": [
+      4,
+      0
+     ]
+    },
+    {
+     "h": "FCP",
+     "a": "PSV",
+     "t": "Final",
+     "sc": [
+      0,
+      1
+     ]
+    },
+    {
+     "h": "LFC",
+     "a": "VIL",
+     "t": "Final",
+     "sc": [
+      4,
+      3
+     ]
+    },
+    {
+     "h": "MCI",
+     "a": "AEK",
+     "t": "Final",
+     "sc": [
+      5,
+      1
+     ]
+    },
+    {
+     "h": "PSG",
+     "a": "BAR",
+     "t": "Final",
+     "sc": [
+      4,
+      2
+     ]
+    },
+    {
+     "h": "NAP",
+     "a": "BOG",
+     "t": "Final",
+     "sc": [
+      4,
+      3
+     ]
+    },
+    {
+     "h": "VFB",
+     "a": "ATM",
+     "t": "Final",
+     "sc": [
+      1,
+      1
+     ]
+    },
+    {
+     "h": "LIL",
+     "a": "GAL",
+     "t": "Final",
+     "sc": [
+      2,
+      4
+     ]
+    },
+    {
+     "h": "COM",
+     "a": "MUN",
+     "t": "Final",
+     "sc": [
+      4,
+      1
+     ]
+    },
+    {
+     "h": "BMU",
+     "a": "ARS",
+     "t": "Final",
+     "sc": [
+      2,
+      2
+     ]
+    },
+    {
+     "h": "BRU",
+     "a": "RCL",
+     "t": "Final",
+     "sc": [
+      3,
+      0
+     ]
+    },
+    {
+     "h": "AVL",
+     "a": "VIK",
+     "t": "Final",
+     "sc": [
+      3,
+      1
+     ]
+    },
+    {
+     "h": "RMA",
+     "a": "RBL",
+     "t": "Final",
+     "sc": [
+      4,
+      1
+     ]
+    },
+    {
+     "h": "RBB",
+     "a": "FEY",
+     "t": "Final",
+     "sc": [
+      1,
+      0
+     ]
+    },
+    {
+     "h": "SPO",
+     "a": "ASK",
+     "t": "Final",
+     "sc": [
+      2,
+      3
+     ]
+    },
+    {
+     "h": "INT",
+     "a": "SHA",
+     "t": "Final",
+     "sc": [
+      1,
+      0
+     ]
+    }
+   ]
+  ],
+  [
+   "Auditoría 13-14 oct (jornada 2)",
+   [
+    {
+     "h": "RCL",
+     "a": "SPO",
+     "t": "Final",
+     "sc": [
+      0,
+      2
+     ]
+    },
+    {
+     "h": "SBH",
+     "a": "SLA",
+     "t": "Final",
+     "sc": [
+      2,
+      0
+     ]
+    },
+    {
+     "h": "ARS",
+     "a": "LIL",
+     "t": "Final",
+     "sc": [
+      3,
+      0
+     ]
+    },
+    {
+     "h": "ATM",
+     "a": "MUN",
+     "t": "Final",
+     "sc": [
+      2,
+      0
+     ]
+    },
+    {
+     "h": "INT",
+     "a": "BRU",
+     "t": "Final",
+     "sc": [
+      3,
+      4
+     ]
+    },
+    {
+     "h": "GAL",
+     "a": "BAR",
+     "t": "Final",
+     "sc": [
+      1,
+      4
+     ]
+    },
+    {
+     "h": "RBL",
+     "a": "PSV",
+     "t": "Final",
+     "sc": [
+      1,
+      0
+     ]
+    },
+    {
+     "h": "VIK",
+     "a": "BMU",
+     "t": "Final",
+     "sc": [
+      3,
+      3
+     ]
+    },
+    {
+     "h": "VIL",
+     "a": "NAP",
+     "t": "Final",
+     "sc": [
+      3,
+      1
+     ]
+    },
+    {
+     "h": "FEY",
+     "a": "COM",
+     "t": "Final",
+     "sc": [
+      3,
+      2
+     ]
+    },
+    {
+     "h": "ASK",
+     "a": "LFC",
+     "t": "Final",
+     "sc": [
+      3,
+      6
+     ]
+    },
+    {
+     "h": "ROM",
+     "a": "RMA",
+     "t": "Final",
+     "sc": [
+      3,
+      4
+     ]
+    },
+    {
+     "h": "AVL",
+     "a": "FEN",
+     "t": "Final",
+     "sc": [
+      6,
+      0
+     ]
+    },
+    {
+     "h": "SHA",
+     "a": "AEK",
+     "t": "Final",
+     "sc": [
+      3,
+      1
+     ]
+    },
+    {
+     "h": "BOG",
+     "a": "BVB",
+     "t": "Final",
+     "sc": [
+      1,
+      0
+     ]
+    },
+    {
+     "h": "MCI",
+     "a": "PSG",
+     "t": "Final",
+     "sc": [
+      2,
+      4
+     ]
+    },
+    {
+     "h": "RBB",
+     "a": "FCP",
+     "t": "Final",
+     "sc": [
+      3,
+      2
+     ]
+    },
+    {
+     "h": "SLO",
+     "a": "VFB",
+     "t": "Final",
+     "sc": [
+      0,
+      3
+     ]
+    }
+   ]
+  ]
+ ],
+ "UEL": [
+  [
+   "Hoy · Vie 6 nov",
+   []
+  ],
+  [
+   "Auditoría 4-5 nov (jornada 4)",
+   [
+    {
+     "h": "REN",
+     "a": "OLY",
+     "t": "Final",
+     "sc": [
+      0,
+      0
+     ]
+    },
+    {
+     "h": "MIL",
+     "a": "FTC",
+     "t": "Final",
+     "sc": [
+      0,
+      2
+     ]
+    },
+    {
+     "h": "SPA",
+     "a": "BOU",
+     "t": "Final",
+     "sc": [
+      1,
+      3
+     ]
+    },
+    {
+     "h": "CRY",
+     "a": "TSG",
+     "t": "Final",
+     "sc": [
+      1,
+      1
+     ]
+    },
+    {
+     "h": "LSK",
+     "a": "VPL",
+     "t": "Final",
+     "sc": [
+      0,
+      1
+     ]
+    },
+    {
+     "h": "NIJ",
+     "a": "OMO",
+     "t": "Final",
+     "sc": [
+      3,
+      1
+     ]
+    },
+    {
+     "h": "LSO",
+     "a": "JAG",
+     "t": "Final",
+     "sc": [
+      1,
+      0
+     ]
+    },
+    {
+     "h": "RSO",
+     "a": "LYO",
+     "t": "Final",
+     "sc": [
+      1,
+      1
+     ]
+    },
+    {
+     "h": "AND",
+     "a": "RBS",
+     "t": "Final",
+     "sc": [
+      2,
+      0
+     ]
+    },
+    {
+     "h": "AZA",
+     "a": "JUV",
+     "t": "Final",
+     "sc": [
+      1,
+      2
+     ]
+    },
+    {
+     "h": "B04",
+     "a": "MAR",
+     "t": "Final",
+     "sc": [
+      0,
+      1
+     ]
+    },
+    {
+     "h": "CEL",
+     "a": "BJK",
+     "t": "Final",
+     "sc": [
+      3,
+      2
+     ]
+    },
+    {
+     "h": "HBS",
+     "a": "OFI",
+     "t": "Final",
+     "sc": [
+      0,
+      2
+     ]
+    },
+    {
+     "h": "RCC",
+     "a": "USG",
+     "t": "Final",
+     "sc": [
+      1,
+      2
+     ]
+    },
+    {
+     "h": "TOR",
+     "a": "ARA",
+     "t": "Final",
+     "sc": [
+      3,
+      2
+     ]
+    },
+    {
+     "h": "STU",
+     "a": "CLJ",
+     "t": "Final",
+     "sc": [
+      2,
+      3
+     ]
+    },
+    {
+     "h": "SLB",
+     "a": "LPO",
+     "t": "Final",
+     "sc": [
+      3,
+      1
+     ]
+    },
+    {
+     "h": "SUN",
+     "a": "DZG",
+     "t": "Final",
+     "sc": [
+      0,
+      2
+     ]
+    }
+   ]
+  ],
+  [
+   "Auditoría 22 oct (jornada 3)",
+   [
+    {
+     "h": "ARA",
+     "a": "AZA",
+     "t": "Final",
+     "sc": [
+      0,
+      4
+     ]
+    },
+    {
+     "h": "FTC",
+     "a": "TOR",
+     "t": "Final",
+     "sc": [
+      4,
+      1
+     ]
+    },
+    {
+     "h": "DZG",
+     "a": "NIJ",
+     "t": "Final",
+     "sc": [
+      2,
+      4
+     ]
+    },
+    {
+     "h": "JUV",
+     "a": "REN",
+     "t": "Final",
+     "sc": [
+      2,
+      2
+     ]
+    },
+    {
+     "h": "LPO",
+     "a": "SUN",
+     "t": "Final",
+     "sc": [
+      1,
+      1
+     ]
+    },
+    {
+     "h": "OFI",
+     "a": "B04",
+     "t": "Final",
+     "sc": [
+      0,
+      2
+     ]
+    },
+    {
+     "h": "USG",
+     "a": "HBS",
+     "t": "Final",
+     "sc": [
+      4,
+      0
+     ]
+    },
+    {
+     "h": "STU",
+     "a": "MAR",
+     "t": "Final",
+     "sc": [
+      1,
+      0
+     ]
+    },
+    {
+     "h": "BOU",
+     "a": "MIL",
+     "t": "Final",
+     "sc": [
+      3,
+      0
+     ]
+    },
+    {
+     "h": "BJK",
+     "a": "CRY",
+     "t": "Final",
+     "sc": [
+      2,
+      2
+     ]
+    },
+    {
+     "h": "CEL",
+     "a": "RCC",
+     "t": "Final",
+     "sc": [
+      1,
+      2
+     ]
+    },
+    {
+     "h": "VPL",
+     "a": "LSO",
+     "t": "Final",
+     "sc": [
+      1,
+      2
+     ]
+    },
+    {
+     "h": "JAG",
+     "a": "AND",
+     "t": "Final",
+     "sc": [
+      0,
+      3
+     ]
+    },
+    {
+     "h": "LSK",
+     "a": "RSO",
+     "t": "Final",
+     "sc": [
+      0,
+      6
+     ]
+    },
+    {
+     "h": "CLJ",
+     "a": "RBS",
+     "t": "Final",
+     "sc": [
+      2,
+      2
+     ]
+    },
+    {
+     "h": "OLY",
+     "a": "SPA",
+     "t": "Final",
+     "sc": [
+      1,
+      0
+     ]
+    },
+    {
+     "h": "OMO",
+     "a": "SLB",
+     "t": "Final",
+     "sc": [
+      1,
+      4
+     ]
+    },
+    {
+     "h": "TSG",
+     "a": "LYO",
+     "t": "Final",
+     "sc": [
+      3,
+      0
+     ]
+    }
+   ]
+  ],
+  [
+   "Auditoría 15 oct (jornada 2)",
+   [
+    {
+     "h": "SPA",
+     "a": "LSK",
+     "t": "Final",
+     "sc": [
+      1,
+      1
+     ]
+    },
+    {
+     "h": "AZA",
+     "a": "HBS",
+     "t": "Final",
+     "sc": [
+      2,
+      1
+     ]
+    },
+    {
+     "h": "RBS",
+     "a": "MIL",
+     "t": "Final",
+     "sc": [
+      0,
+      4
+     ]
+    },
+    {
+     "h": "LPO",
+     "a": "B04",
+     "t": "Final",
+     "sc": [
+      0,
+      4
+     ]
+    },
+    {
+     "h": "CLJ",
+     "a": "OMO",
+     "t": "Final",
+     "sc": [
+      0,
+      3
+     ]
+    },
+    {
+     "h": "LYO",
+     "a": "CRY",
+     "t": "Final",
+     "sc": [
+      3,
+      2
+     ]
+    },
+    {
+     "h": "USG",
+     "a": "RSO",
+     "t": "Final",
+     "sc": [
+      1,
+      1
+     ]
+    },
+    {
+     "h": "TOR",
+     "a": "SUN",
+     "t": "Final",
+     "sc": [
+      1,
+      2
+     ]
+    },
+    {
+     "h": "BOU",
+     "a": "STU",
+     "t": "Final",
+     "sc": [
+      3,
+      0
+     ]
+    },
+    {
+     "h": "FTC",
+     "a": "VPL",
+     "t": "Final",
+     "sc": [
+      2,
+      1
+     ]
+    },
+    {
+     "h": "DZG",
+     "a": "AND",
+     "t": "Final",
+     "sc": [
+      1,
+      0
+     ]
+    },
+    {
+     "h": "JAG",
+     "a": "ARA",
+     "t": "Final",
+     "sc": [
+      3,
+      1
+     ]
+    },
+    {
+     "h": "NIJ",
+     "a": "LSO",
+     "t": "Final",
+     "sc": [
+      1,
+      1
+     ]
+    },
+    {
+     "h": "MAR",
+     "a": "OLY",
+     "t": "Final",
+     "sc": [
+      0,
+      1
+     ]
+    },
+    {
+     "h": "RCC",
+     "a": "JUV",
+     "t": "Final",
+     "sc": [
+      1,
+      2
+     ]
+    },
+    {
+     "h": "SLB",
+     "a": "CEL",
+     "t": "Final",
+     "sc": [
+      4,
+      1
+     ]
+    },
+    {
+     "h": "REN",
+     "a": "OFI",
+     "t": "Final",
+     "sc": [
+      2,
+      1
+     ]
+    },
+    {
+     "h": "TSG",
+     "a": "BJK",
+     "t": "Final",
+     "sc": [
+      2,
+      3
+     ]
+    }
+   ]
+  ],
+  [
+   "Auditoría 16-17 sep (jornada 1)",
+   [
+    {
+     "h": "ARA",
+     "a": "SPA",
+     "t": "Final",
+     "sc": [
+      1,
+      4
+     ]
+    },
+    {
+     "h": "OMO",
+     "a": "RCC",
+     "t": "Final",
+     "sc": [
+      1,
+      0
+     ]
+    },
+    {
+     "h": "MIL",
+     "a": "SLB",
+     "t": "Final",
+     "sc": [
+      0,
+      2
+     ]
+    },
+    {
+     "h": "B04",
+     "a": "CLJ",
+     "t": "Final",
+     "sc": [
+      2,
+      0
+     ]
+    },
+    {
+     "h": "HBS",
+     "a": "DZG",
+     "t": "Final",
+     "sc": [
+      0,
+      0
+     ]
+    },
+    {
+     "h": "OLY",
+     "a": "JAG",
+     "t": "Final",
+     "sc": [
+      2,
+      1
+     ]
+    },
+    {
+     "h": "AND",
+     "a": "LYO",
+     "t": "Final",
+     "sc": [
+      1,
+      2
+     ]
+    },
+    {
+     "h": "STU",
+     "a": "REN",
+     "t": "Final",
+     "sc": [
+      0,
+      0
+     ]
+    },
+    {
+     "h": "SUN",
+     "a": "AZA",
+     "t": "Final",
+     "sc": [
+      1,
+      0
+     ]
+    },
+    {
+     "h": "OFI",
+     "a": "TSG",
+     "t": "Final",
+     "sc": [
+      2,
+      0
+     ]
+    },
+    {
+     "h": "LSO",
+     "a": "RBS",
+     "t": "Final",
+     "sc": [
+      0,
+      1
+     ]
+    },
+    {
+     "h": "BJK",
+     "a": "MAR",
+     "t": "Final",
+     "sc": [
+      4,
+      1
+     ]
+    },
+    {
+     "h": "CEL",
+     "a": "FTC",
+     "t": "Final",
+     "sc": [
+      1,
+      3
+     ]
+    },
+    {
+     "h": "CRY",
+     "a": "LPO",
+     "t": "Final",
+     "sc": [
+      4,
+      0
+     ]
+    },
+    {
+     "h": "VPL",
+     "a": "USG",
+     "t": "Final",
+     "sc": [
+      0,
+      3
+     ]
+    },
+    {
+     "h": "JUV",
+     "a": "NIJ",
+     "t": "Final",
+     "sc": [
+      5,
+      0
+     ]
+    },
+    {
+     "h": "LSK",
+     "a": "TOR",
+     "t": "Final",
+     "sc": [
+      1,
+      2
+     ]
+    },
+    {
+     "h": "RSO",
+     "a": "BOU",
+     "t": "Final",
+     "sc": [
+      1,
+      2
+     ]
+    }
+   ]
+  ]
+ ]
+}

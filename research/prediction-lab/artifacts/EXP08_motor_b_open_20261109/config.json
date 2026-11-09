@@ -1,0 +1,19 @@
+{
+ "base_motor_a": "ensemble",
+ "market_phase": "open",
+ "ensemble_weights": {
+  "linear_pool": 0.0,
+  "logit_pool": 0.0,
+  "stack_logit": 0.1809,
+  "residual_logit": 0.3032,
+  "stack_hgb": 0.5159
+ },
+ "first_season": 2005,
+ "market_coverage": 0.7949529067879182,
+ "market_sources": {
+  "ps_power": 76159,
+  "b365_power": 46075,
+  "avg_power": 149
+ },
+ "generated_at": "2026-11-09T16:00:27+00:00"
+}

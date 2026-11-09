@@ -1,0 +1,214 @@
+{
+  "schemaVersion": 1,
+  "league": "ligue-1",
+  "observedAt": "2026-11-09T06:42:06.662Z",
+  "entries": [
+    {
+      "gameId": "ligue-1-2026-27-md11-es-troyes-le-havre",
+      "source": "polymarket",
+      "unit": "usd",
+      "observedAt": "2026-11-09T06:42:06.662Z",
+      "outcomes": [
+        {
+          "side": "home",
+          "volume": 0,
+          "price": 0.48
+        },
+        {
+          "side": "draw",
+          "volume": 28.571429,
+          "price": 0.265
+        },
+        {
+          "side": "away",
+          "volume": 10,
+          "price": 0.26
+        }
+      ]
+    },
+    {
+      "gameId": "ligue-1-2026-27-md11-lille-osc-olympique-lyonnais",
+      "source": "polymarket",
+      "unit": "usd",
+      "observedAt": "2026-11-09T06:42:06.662Z",
+      "outcomes": [
+        {
+          "side": "home",
+          "volume": 0,
+          "price": 0.405
+        },
+        {
+          "side": "draw",
+          "volume": 0,
+          "price": 0.285
+        },
+        {
+          "side": "away",
+          "volume": 3.030304,
+          "price": 0.305
+        }
+      ]
+    },
+    {
+      "gameId": "ligue-1-2026-27-md11-lorient-stade-rennais",
+      "source": "polymarket",
+      "unit": "usd",
+      "observedAt": "2026-11-09T06:42:06.662Z",
+      "outcomes": [
+        {
+          "side": "home",
+          "volume": 0,
+          "price": 0.31
+        },
+        {
+          "side": "draw",
+          "volume": 0,
+          "price": 0.275
+        },
+        {
+          "side": "away",
+          "volume": 0,
+          "price": 0.415
+        }
+      ]
+    },
+    {
+      "gameId": "ligue-1-2026-27-md11-monaco-aj-auxerre",
+      "source": "polymarket",
+      "unit": "usd",
+      "observedAt": "2026-11-09T06:42:06.662Z",
+      "outcomes": [
+        {
+          "side": "home",
+          "volume": 0,
+          "price": 0.695
+        },
+        {
+          "side": "draw",
+          "volume": 0,
+          "price": 0.175
+        },
+        {
+          "side": "away",
+          "volume": 0,
+          "price": 0.115
+        }
+      ]
+    },
+    {
+      "gameId": "ligue-1-2026-27-md11-ogc-nice-paris-saint-germain",
+      "source": "polymarket",
+      "unit": "usd",
+      "observedAt": "2026-11-09T06:42:06.662Z",
+      "outcomes": [
+        {
+          "side": "home",
+          "volume": 0,
+          "price": 0.155
+        },
+        {
+          "side": "draw",
+          "volume": 0,
+          "price": 0.185
+        },
+        {
+          "side": "away",
+          "volume": 93.906642,
+          "price": 0.67
+        }
+      ]
+    },
+    {
+      "gameId": "ligue-1-2026-27-md11-olympique-marseille-le-mans",
+      "source": "polymarket",
+      "unit": "usd",
+      "observedAt": "2026-11-09T06:42:06.662Z",
+      "outcomes": [
+        {
+          "side": "home",
+          "volume": 0,
+          "price": 0.665
+        },
+        {
+          "side": "draw",
+          "volume": 9.52381,
+          "price": 0.19
+        },
+        {
+          "side": "away",
+          "volume": 0,
+          "price": 0.13
+        }
+      ]
+    },
+    {
+      "gameId": "ligue-1-2026-27-md11-paris-angers-sco",
+      "source": "polymarket",
+      "unit": "usd",
+      "observedAt": "2026-11-09T06:42:06.662Z",
+      "outcomes": [
+        {
+          "side": "home",
+          "volume": 0,
+          "price": 0.695
+        },
+        {
+          "side": "draw",
+          "volume": 0,
+          "price": 0.185
+        },
+        {
+          "side": "away",
+          "volume": 0,
+          "price": 0.105
+        }
+      ]
+    },
+    {
+      "gameId": "ligue-1-2026-27-md11-racing-lens-toulouse",
+      "source": "polymarket",
+      "unit": "usd",
+      "observedAt": "2026-11-09T06:42:06.662Z",
+      "outcomes": [
+        {
+          "side": "home",
+          "volume": 0,
+          "price": 0.545
+        },
+        {
+          "side": "draw",
+          "volume": 32,
+          "price": 0.235
+        },
+        {
+          "side": "away",
+          "volume": 0,
+          "price": 0.23
+        }
+      ]
+    },
+    {
+      "gameId": "ligue-1-2026-27-md11-strasbourg-alsace-stade-brestois",
+      "source": "polymarket",
+      "unit": "usd",
+      "observedAt": "2026-11-09T06:42:06.662Z",
+      "outcomes": [
+        {
+          "side": "home",
+          "volume": 0,
+          "price": 0.44
+        },
+        {
+          "side": "draw",
+          "volume": 59.25926,
+          "price": 0.255
+        },
+        {
+          "side": "away",
+          "volume": 3.333334,
+          "price": 0.31
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "source_name": "nflverse/nfldata — games.csv",
+  "source_url": "https://github.com/nflverse/nfldata/raw/master/data/games.csv",
+  "license": "CC BY 4.0",
+  "attribution": "Datos: nflverse (https://github.com/nflverse/nfldata), licencia CC BY 4.0. Atribución requerida a nflverse en cualquier uso o redistribución.",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "file": "data\\nfl\\raw\\games.csv",
+  "sha256": "be87a6a7d80f977671979fcc9a33234fbba577b37ee8de544dda206bd36eb105",
+  "bytes": 2189033,
+  "rows": 7548,
+  "columns": 46,
+  "season_min": 1999,
+  "season_max": 2026,
+  "downloaded_at_utc": "2026-11-09T14:36:27+00:00",
+  "download_mode": "http_get",
+  "seed": 20261109,
+  "notes": "games.csv de nflverse/nfldata (rama master). Incluye temporada regular, playoffs y calendario futuro (2026) sin marcador. Uso no comercial con atribución a nflverse (CC BY 4.0)."
+}

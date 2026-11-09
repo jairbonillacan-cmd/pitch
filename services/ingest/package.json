@@ -1,0 +1,38 @@
+{
+  "name": "@pitchlab/ingest",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "tsc --noEmit",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "lint": "tsc --noEmit",
+    "snapshot": "tsx src/cli.ts",
+    "history": "tsx src/history/cli.ts",
+    "history:odds": "tsx src/history/odds-cli.ts",
+    "backtest": "tsx src/backtest.ts",
+    "backtest:history": "tsx src/history-backtest-cli.ts",
+    "backtest:blend": "tsx src/blend-backtest.ts",
+    "history:xg": "tsx src/history/xg-cli.ts",
+    "history:native-stats": "tsx src/history/native-stats/cli.ts",
+    "history:api-stats": "tsx src/history/api-stats-cli.ts",
+    "history:espn": "tsx src/history/espn-cli.ts"
+  },
+  "dependencies": {
+    "@pitchlab/contracts": "workspace:*",
+    "@pitchlab/engines-reference": "workspace:*",
+    "@pitchlab/models": "workspace:*",
+    "@pitchlab/sports-assets": "workspace:*",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.6",
+    "tsx": "4.23.15",
+    "typescript": "5.9.3",
+    "vitest": "5.1.0"
+  }
+}

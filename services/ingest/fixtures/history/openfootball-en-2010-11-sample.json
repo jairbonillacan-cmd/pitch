@@ -1,0 +1,45 @@
+{
+  "name": "English Premier League 2010/11",
+  "matches": [
+    {
+      "round": "Matchday 1",
+      "date": "2010-08-14",
+      "time": "12:45",
+      "team1": "Tottenham Hotspur",
+      "team2": "Manchester City",
+      "score": { "ft": [0, 0] }
+    },
+    {
+      "round": "Matchday 1",
+      "date": "2010-08-14",
+      "time": "15:00",
+      "team1": "Aston Villa",
+      "team2": "West Ham United",
+      "score": { "ft": [3, 0] }
+    },
+    {
+      "round": "Matchday 1",
+      "date": "2010-08-15",
+      "time": "16:00",
+      "team1": "Liverpool FC",
+      "team2": "Arsenal FC",
+      "score": { "ft": [1, 1] }
+    },
+    {
+      "round": "Matchday 2",
+      "date": "2010-08-21",
+      "time": "15:00",
+      "team1": "Arsenal FC",
+      "team2": "Blackpool FC",
+      "score": { "ft": [6, 0] }
+    },
+    {
+      "round": "Matchday 2",
+      "date": "2010-08-22",
+      "time": "15:00",
+      "team1": "Manchester City",
+      "team2": "Liverpool FC",
+      "score": []
+    }
+  ]
+}

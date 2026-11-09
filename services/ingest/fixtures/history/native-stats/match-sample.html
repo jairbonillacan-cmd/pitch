@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+  <body>
+    <nav class="flex mt-2" aria-label="Breadcrumb">
+      <ol role="list">
+        <li><a href="/competition/PL" class="ml-4 text-sm font-medium text-gray-500">PL</a></li>
+      </ol>
+    </nav>
+    <div class="is-flex">
+      <div class="w-full">
+        <div class="px-6 py-4">
+          <div class="w-full flex justify-center pb-2">
+            <div class="status text-gray-100">2026/11/08, 15h00</div>
+          </div>
+          <div class="flex justify-between items-start font-bold text-xl mb-2">
+            <div class="w-1/3 flex flex-col items-end">
+              <div class="content hover:cursor-pointer flex max-w-2 truncate">
+                <span phx-click="[[&quot;navigate&quot;,{&quot;replace&quot;:false,&quot;href&quot;:&quot;/team/57&quot;}]]">
+                  <img class="max-h-5 w-5 crest-img inline-block" src="https://crests.football-data.org/57.png">
+                  <span class="hidden text-gray-200 align-middle md:inline-block">Arsenal</span>
+                  <span class="hidden text-gray-200 align-middle sm:inline-block max-w-4 md:hidden">Arsenal</span>
+                  <span class="inline-block sm:hidden text-gray-200 ">ARS</span>
+                </span>
+              </div>
+            </div>
+            <div class="flex flex-col items-center">
+              <div id="score" class="w-1/3 text-center text-gray-100">3:1 (1:0)</div>
+              <div class="w-full flex justify-center pb-2">
+                <div class="timeline_goals mt-6">
+                  <ul class="list-none p-0">
+                    <li class="text-sm text-gray-100">12&#x27; Bukayo Saka</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="w-1/3 flex flex-col items-start">
+              <div class="content hover:cursor-pointer flex max-w-2 truncate">
+                <span phx-click="[[&quot;navigate&quot;,{&quot;replace&quot;:false,&quot;href&quot;:&quot;/team/61&quot;}]]">
+                  <img class="max-h-5 w-5 crest-img inline-block" src="https://crests.football-data.org/61.png">
+                  <span class="hidden text-gray-200 align-middle md:inline-block">Chelsea FC</span>
+                  <span class="hidden text-gray-200 align-middle sm:inline-block max-w-4 md:hidden">Chelsea FC</span>
+                  <span class="inline-block sm:hidden text-gray-200 ">CHE</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-gray-800 rounded-lg shadow p-4">
+      <h2 class="text-xl font-bold mb-2 text-white">Goals</h2>
+      <table class="w-full">
+        <thead>
+          <tr class="text-gray-400 text-xs uppercase">
+            <th class="py-2 text-center">Min</th>
+            <th class="py-2 text-center">Team</th>
+            <th class="py-2 text-center">Scorer</th>
+            <th class="py-2 text-center">Assist</th>
+            <th class="py-2 text-center">Score</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-700">
+          <tr class="text-gray-300">
+            <td class="py-2 whitespace-nowrap text-sm text-center font-medium">12</td>
+            <td class="py-2 whitespace-nowrap text-sm text-center font-medium">Arsenal</td>
+            <td class="py-2 whitespace-nowrap text-sm text-center font-medium">
+              <span class="cursor-pointer hover:text-white" phx-click="[[&quot;navigate&quot;,{&quot;replace&quot;:false,&quot;href&quot;:&quot;/person/151521&quot;}]]">Bukayo Saka</span>
+            </td>
+            <td class="py-2 whitespace-nowrap text-sm text-center font-medium">
+              <span class="text-gray-500">-</span>
+            </td>
+            <td class="py-2 whitespace-nowrap text-sm text-center font-medium">1:0</td>
+          </tr>
+          <tr class="text-gray-300">
+            <td class="py-2 whitespace-nowrap text-sm text-center font-medium">55</td>
+            <td class="py-2 whitespace-nowrap text-sm text-center font-medium">Chelsea FC</td>
+            <td class="py-2 whitespace-nowrap text-sm text-center font-medium">
+              <span class="text-gray-500">Unknown</span>
+            </td>
+            <td class="py-2 whitespace-nowrap text-sm text-center font-medium">
+              <span class="cursor-pointer hover:text-white" phx-click="[[&quot;navigate&quot;,{&quot;replace&quot;:false,&quot;href&quot;:&quot;/person/15782&quot;}]]">Cole Palmer</span>
+            </td>
+            <td class="py-2 whitespace-nowrap text-sm text-center font-medium">2:1</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="bg-gray-800 rounded-lg shadow p-4">
+      <h2 class="text-xl font-bold mb-2 text-white">Bookings</h2>
+      <table class="w-full">
+        <tbody class="divide-y divide-gray-700">
+          <tr class="text-gray-300">
+            <td class="py-2 text-sm text-center font-medium">34</td>
+            <td class="py-2 text-sm text-center font-medium">Chelsea FC</td>
+            <td class="py-2 text-sm text-center font-medium">Moisés Caicedo</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-span-1 md:col-span-2 bg-gray-800 rounded-lg shadow p-4">
+      <h2 class="text-xl font-bold mb-2 text-white">Substitutions</h2>
+      <table class="w-full">
+        <tbody class="divide-y divide-gray-700"></tbody>
+      </table>
+    </div>
+  </body>
+</html>

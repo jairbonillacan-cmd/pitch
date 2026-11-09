@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+  <body>
+    <nav class="flex mt-2"><a href="/competition/PL" class="ml-4">PL</a></nav>
+    <div class="ml-2">
+      <h4 class="text-lg font-bold">Premier League</h4>
+      <p class="text-xs">Season 2026/27</p>
+    </div>
+    <form phx-change="set_season">
+      <select id="form_season" name="form[season]">
+        <option selected value="2502">2026/27</option>
+        <option value="2403">2025/26</option>
+        <option value="2287">2024/25</option>
+      </select>
+    </form>
+
+    <h3>Recent matches:</h3>
+    <table class="w-full">
+      <tbody>
+        <tr id="last-381100">
+          <th>2026/11/08, 15h00</th>
+          <td>
+            <div class="flex">
+              <div style="width: 120px">
+                <div class="content hover:cursor-pointer flex max-w-2 truncate">
+                  <span phx-click="[[&quot;navigate&quot;,{&quot;replace&quot;:false,&quot;href&quot;:&quot;/team/57&quot;}]]">
+                    <img class="max-h-5 w-5 crest-img inline-block" src="https://crests.football-data.org/57.png">
+                    <span class="hidden text-gray-200 align-middle md:inline-block">Arsenal</span>
+                    <span class="hidden text-gray-200 align-middle sm:inline-block max-w-4 md:hidden">Arsenal</span>
+                    <span class="inline-block sm:hidden text-gray-200 ">ARS</span>
+                  </span>
+                </div>
+              </div>
+              <div class="mx-2">3:1</div>
+              <div style="width: 120px">
+                <div class="content hover:cursor-pointer flex max-w-2 truncate">
+                  <span phx-click="[[&quot;navigate&quot;,{&quot;replace&quot;:false,&quot;href&quot;:&quot;/team/61&quot;}]]">
+                    <img class="max-h-5 w-5 crest-img inline-block" src="https://crests.football-data.org/61.png">
+                    <span class="hidden text-gray-200 align-middle md:inline-block">Chelsea FC</span>
+                    <span class="hidden text-gray-200 align-middle sm:inline-block max-w-4 md:hidden">Chelsea FC</span>
+                    <span class="inline-block sm:hidden text-gray-200 ">CHE</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="whitespace-nowrap">
+            <span class="hover:cursor-pointer" phx-click="[[&quot;navigate&quot;,{&quot;replace&quot;:false,&quot;href&quot;:&quot;/match/560001&quot;}]]"></span>
+          </td>
+          <td class="whitespace-nowrap">/  /</td>
+        </tr>
+        <tr id="next-381150">
+          <th>2026/11/21, 16h00</th>
+          <td>
+            <div class="flex">
+              <div style="width: 120px">
+                <div class="content hover:cursor-pointer flex max-w-2 truncate">
+                  <span phx-click="[[&quot;navigate&quot;,{&quot;replace&quot;:false,&quot;href&quot;:&quot;/team/65&quot;}]]">
+                    <img class="max-h-5 w-5 crest-img inline-block" src="https://crests.football-data.org/65.png">
+                    <span class="hidden text-gray-200 align-middle md:inline-block">Man City</span>
+                    <span class="hidden text-gray-200 align-middle sm:inline-block max-w-4 md:hidden">Man City</span>
+                    <span class="inline-block sm:hidden text-gray-200 ">MCI</span>
+                  </span>
+                </div>
+              </div>
+              <div class="mx-2">-</div>
+              <div style="width: 120px">
+                <div class="content hover:cursor-pointer flex max-w-2 truncate">
+                  <span phx-click="[[&quot;navigate&quot;,{&quot;replace&quot;:false,&quot;href&quot;:&quot;/team/64&quot;}]]">
+                    <img class="max-h-5 w-5 crest-img inline-block" src="https://crests.football-data.org/64.png">
+                    <span class="hidden text-gray-200 align-middle md:inline-block">Liverpool</span>
+                    <span class="hidden text-gray-200 align-middle sm:inline-block max-w-4 md:hidden">Liverpool</span>
+                    <span class="inline-block sm:hidden text-gray-200 ">LIV</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="whitespace-nowrap">
+            <span class="hover:cursor-pointer" phx-click="[[&quot;navigate&quot;,{&quot;replace&quot;:false,&quot;href&quot;:&quot;/match/560002&quot;}]]"></span>
+          </td>
+          <td class="whitespace-nowrap">/  /</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Standings:</h3>
+    <table class="min-w-full text-center text-sm font-light">
+      <thead>
+        <tr>
+          <th scope="col" class="px-6 py-2">Pos</th>
+          <th scope="col" class="px-6 py-2">Team</th>
+          <th scope="col" class="px-6 py-2">Matches</th>
+          <th scope="col" class="px-6 py-2">Points</th>
+          <th scope="col" class="px-6 py-2">+/-</th>
+          <th scope="col" class="px-6 py-2">Goals</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1.</td>
+          <td>
+            <div class="content hover:cursor-pointer flex">
+              <span phx-click="[[&quot;navigate&quot;,{&quot;replace&quot;:false,&quot;href&quot;:&quot;/team/57&quot;}]]">
+                <img class="max-h-4 w-5 crest-img inline-block" src="https://crests.football-data.org/57.png">
+                <span class="hidden align-middle md:inline-block sm:inline-block">Arsenal</span>
+                <span class="inline-block sm:hidden">ARS</span>
+              </span>
+            </div>
+          </td>
+          <td>10</td>
+          <td>27</td>
+          <td>10</td>
+          <td>15:5</td>
+        </tr>
+        <tr>
+          <td>2.</td>
+          <td>
+            <div class="content hover:cursor-pointer flex">
+              <span phx-click="[[&quot;navigate&quot;,{&quot;replace&quot;:false,&quot;href&quot;:&quot;/team/397&quot;}]]">
+                <img class="max-h-4 w-5 crest-img inline-block" src="https://crests.football-data.org/397.png">
+                <span class="hidden align-middle md:inline-block sm:inline-block">Brighton Hove</span>
+                <span class="inline-block sm:hidden">BHA</span>
+              </span>
+            </div>
+          </td>
+          <td>10</td>
+          <td>22</td>
+          <td>19</td>
+          <td>26:7</td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>

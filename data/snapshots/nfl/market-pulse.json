@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "league": "nfl",
+  "observedAt": "2026-11-09T06:42:06.662Z",
+  "entries": [
+    {
+      "gameId": "nfl-2026-w9-buffalo-bills-minnesota-vikings",
+      "source": "kalshi",
+      "unit": "contracts",
+      "observedAt": "2026-11-09T06:42:06.662Z",
+      "outcomes": [
+        {
+          "side": "home",
+          "volume": 605681.47,
+          "price": 0.39
+        },
+        {
+          "side": "away",
+          "volume": 882067.61,
+          "price": 0.62
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "raw_rows": 7548,
+  "raw_columns": 46,
+  "by_game_type": {
+    "REG": 7239,
+    "WC": 120,
+    "DIV": 108,
+    "CON": 54,
+    "SB": 27
+  },
+  "missing_score_rows": 137,
+  "result_column_matches_margin": true,
+  "result_column_n_mismatch": 0,
+  "result_counts": {
+    "H": 3972,
+    "A": 3114,
+    "T": 16
+  },
+  "spread_line_sign": {
+    "corr_with_margin": 0.43085753260996995,
+    "home_win_rate_fav": 0.6749945211483673,
+    "home_win_rate_dog": 0.34914308489438023,
+    "interpretation": "positivo = local favorito"
+  },
+  "moneyline_overround_median": 0.024725274725274637,
+  "moneyline_coverage_by_season": {
+    "1999": 0.0,
+    "2000": 0.0,
+    "2001": 0.0,
+    "2002": 0.0,
+    "2003": 0.0,
+    "2004": 0.0,
+    "2005": 0.0,
+    "2006": 0.8164,
+    "2007": 0.9961,
+    "2008": 0.7227,
+    "2009": 0.9453,
+    "2010": 1.0,
+    "2011": 1.0,
+    "2012": 1.0,
+    "2013": 1.0,
+    "2014": 1.0,
+    "2015": 1.0,
+    "2016": 1.0,
+    "2017": 0.9961,
+    "2018": 1.0,
+    "2019": 1.0,
+    "2020": 1.0,
+    "2021": 1.0,
+    "2022": 1.0,
+    "2023": 1.0,
+    "2024": 1.0,
+    "2025": 1.0,
+    "2026": 1.0
+  },
+  "neutral_site_rows": 73,
+  "rest_anomalies": {
+    "min": 4,
+    "max": 16,
+    "n_rest_ne_7": 2289
+  },
+  "processed_rows": 7102,
+  "seasons": [
+    1999,
+    2026
+  ],
+  "duplicate_game_id": 0,
+  "n_teams": 35
+}
