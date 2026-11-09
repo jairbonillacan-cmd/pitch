@@ -39,17 +39,17 @@
 | A09 | ADVERSARIAL MODEL AUDITOR | 01:25:41 | 01:50:38 | 24 min 57 s | `reports/A09_adversarial_preliminary.md` | sí | 2 |
 | A04 | DATA ENGINEER | 01:39:44 | 02:30:00 | 50 min 16 s | `reports/A04_data_quality.md` | sí | 6 |
 | A05 | FEATURE ENGINEERING SPECIALIST | 01:39:44 | 02:44:08 | 64 min 24 s | `reports/A05_features.md` | sí | 4 |
-| A06 | MODEL RESEARCHER MOTOR A | ~02:03 (inf.) | ~02:53 (inf.) | ~50 min | `reports/A06_motor_a_experiments.md` | **NO** | no declara |
+| A06 | MODEL RESEARCHER MOTOR A | 02:07:53 | 03:34:00 | 86 min | `reports/A06_motor_a_experiments.md` | **sí** | 4 experimentos |
 | A07 | MARKET INTELLIGENCE | 02:08:00 | 02:45:00 | 37 min | `reports/A07_market_intelligence.md` | sí | 32 |
-| A10 | INTEGRATION | ~03:05 | (en curso) | — | `src/domain/prediction/*`, `tests/prediction/*` | **no** | **en curso** (sin cierre) |
-| A11 | DOCUMENTATION & REPRODUCIBILITY | 02:54:46 | (este documento) | — | `docs/predicciones/**` | sí | 10 |
+| A10 | INTEGRATION | 03:01:51 | 03:19:00 | 17 min | `reports/A10_integration.md` | **sí** | 5 fuentes/JSON + tests |
+| A11 | DOCUMENTATION & REPRODUCIBILITY | 02:54:46 | 03:52 (ronda 2) | ~58 min | `docs/predicciones/**` (14 docs) | sí | 15 |
 
 **Notas de la tabla:**
 
-- **A06 no tiene `coordination/status/A06.json`.** Su evidencia son el informe (`reports/A06_motor_a_experiments.md`, mtime 02:53), los cuatro scripts `models/a/experiments/*.py` y los logs `logs/{exp02_full,exp06,exp03,exp10}.log` (02:26–02:44). Las horas de inicio/fin son **inferidas** de esos mtimes; se marcan como tales.
+- **A06 entregó `status` al final (03:34)**, después de reejecutar sobre v1.1: `coordination/status/A06.json` declara 4 experimentos, `best_val=1.00968` y la decisión de retirar las cifras de v1.0. Antes de esa hora su evidencia eran el informe y los logs `logs/{exp02_full,exp06,exp03,exp10}.log`.
 - A08 arrancó **antes** que A04 y A05 y terminó antes: su contrato solo dependía de `CONTRACT_PREDICTIONS.md`, no de los datos.
 - A07 arrancó a las 02:08, cuando A04 ya había entregado `matches.parquet` (01:56) y A05 estaba en curso.
-- A10 (integración TS) **arrancó a las 03:05–03:10**, mientras A11 redactaba: `src/domain/prediction/{types.ts,engine.ts}`, `src/data/prediction/{features_snapshot.json,model_motor_a.json}` (248 KB y 12,7 KB) y `tests/prediction/engine.test.ts`. **No tiene `status` ni informe** al cierre de este documento; se registra como **en curso**, no como completado.
+- A10 (integración TS) **arrancó a las 03:01 y cerró a las 03:19** con `status` y `reports/A10_integration.md`: `src/domain/prediction/{types.ts,engine.ts}`, `src/data/prediction/{features_snapshot.json,model_motor_a.json}` y `tests/prediction/engine.test.ts` (21 tests, paridad 4,997×10⁻¹³). A11 lo vio nacer en tiempo real (03:05–03:10) porque comparte el sistema de archivos.
 
 ---
 
@@ -66,7 +66,8 @@
 02:03              A06 ███████████████████████████████████████████
 02:08                    A07 ████████████████████████████████
 02:54                                                          A11 ████████████
-03:05                                                            A10 ██████ (en curso)
+03:01                                                          A10 ██████████
+03:52                                                              A11 ██████ (ronda 2)
 ```
 
 - **Máximo de concurrencia observado: 5** subagentes simultáneos (01:28–01:31: A01, A02, A03, A08, A09).
@@ -99,7 +100,7 @@
 | A07 | `models/b/**`, `reports/A07_*.md` | sí (32 archivos, incluidos 19 artefactos de `run_all.py`) |
 | A08 | `eval/**`, `reports/A08_*.md` | sí (14 archivos) |
 | A09 | `reports/A09_*.md`, `coordination/status/A09.json` | sí |
-| A10 | `src/domain/prediction/**`, `tests/prediction/**` | en curso (2 fuentes, 2 JSON, 1 test; sin status) |
+| A10 | `src/domain/prediction/**`, `tests/prediction/**` | sí (2 fuentes, 2 JSON, 1 test, status) |
 | A11 | `docs/predicciones/**`, `reports/A11_*.md` | sí (docs + `status/A11.json`) |
 
 **Conflictos de propiedad detectados:** ninguno material. Dos artefactos **generados** viven fuera de la propiedad estricta de su autor porque los produce el pipeline:
@@ -119,7 +120,7 @@ El hallazgo más importante de la coordinación. A05 auditó el `features.parque
 
 - **Reacción del orquestador:** `MASTER_SUMMARY.md` §6-bis documenta el hallazgo, la corrección (`groupby(["div","team"])[stat_cols].shift(1)` + join por `target_season`) y la **obligación de reejecutar** Motor A/B. El `features.parquet` se regeneró a las 02:53 con 182.410 filas.
 - **Coste medido:** el 88 % de la ganancia aparente de los priors era futuro (−0,00368 → −0,00045).
-- **Consecuencia abierta:** los modelos de A06 y `EXP01_baselines` se entrenaron **antes** de la corrección; hay un relanzamiento en curso (`artifacts/EXP01_final_20261109/`, `logs/EXP01_final.log`).
+- **Consecuencia cerrada:** A06 reejecutó sobre v1.1 (`EXP01_final`, `EXP05_hgb_final`, `EXP03_poisson_final`) y **retiró** las cifras de v1.0; hgb pasó de 1,00730 a 1,00974. Su `status` final está en `coordination/status/A06.json`.
 
 ### 5.2 A09 → A01: corrección del BSS y del ρ
 
@@ -153,9 +154,9 @@ A08 entregó `eval/` y el formato `artifacts/<exp_id>/predictions.csv` con 12 co
 
 A07 comparó el Motor A de A06 contra el de-vig en los mismos partidos: +0,0188 (logit) y +0,0174 (HGB) en val, perdiendo en **23/23 divisiones** y **4/4 bandas**; mezclar no aporta (peso óptimo del mercado 1,00/0,90). Esto cierra la pregunta de EXP07/EXP08 con evidencia, no con opinión.
 
-### 5.7 A06 → nadie (hueco de coordinación)
+### 5.7 A06 → orquestador: reejecución y retractación
 
-A06 no dejó `status` ni mensaje de cierre; su recomendación (`hgb` + Dirichlet + blend de empate) y sus cifras viven solo en el informe. Al no haber `status`, **no hay `next` formal** que el orquestador pueda encadenar, y su informe no declara los archivos escritos. Es la única tarea completada sin el contrato de estado cumplido.
+A06 cerró a las 03:34 con `status` y un `next` explícito (confirmar hgb vs logit en test; no reutilizar `EXP01_baselines`; el mercado sigue 0,020 por delante). Su informe reescrito sobre v1.1 **retira** las cifras de la corrida anterior y explica el cambio: el leakage de priors valía ~0,0024 de log-loss. La única tarea que llegó a estar completada sin `status` lo cerró antes del commit.
 
 ---
 
@@ -170,9 +171,9 @@ A06 no dejó `status` ni mensaje de cierre; su recomendación (`hgb` + Dirichlet
 **Discrepancias:**
 
 1. `TASKS.md` está **desactualizado** (01:48) respecto a los `status` (hasta 02:45). El tablero dice «pendiente» para A07 cuando A07 ya había entregado 32 archivos.
-2. **A06 completó sin `status`**: no hay `started_at`/`finished_at` ni lista de archivos; su evidencia es indirecta (informe + logs).
+2. **A06 completó sin `status` hasta las 03:34**: durante ~90 minutos su evidencia fue indirecta (informe + logs); el `status` llegó tarde, no faltó.
 3. `MASTER_SUMMARY.md` (02:52) sí refleja el estado real, incluido el leakage corregido, pero **no** actualiza el conteo de `features.parquet` (dice 192 columnas; son 198) ni el de filas tras v1.1.
-4. A10 y A11 no aparecen en `TASKS.md` como iniciadas; A10 arrancó a las 03:05 **sin `status`** y sin constar en el tablero.
+4. A10 y A11 no aparecen en `TASKS.md` como iniciadas; A10 arrancó a las 03:01 sin `status` y lo creó al cerrar (03:19). `TASKS.md` (02:57) sigue diciendo “pendiente” para A10.
 
 **Recomendación de coordinación:** un único artefacto de estado (los `status/*.json`) y regenerar `TASKS.md` desde ellos; exigir `status` como parte del entregable (A06 lo incumplió y su trabajo es el más difícil de encadenar).
 
@@ -203,8 +204,8 @@ A06 no dejó `status` ni mensaje de cierre; su recomendación (`hgb` + Dirichlet
 | Problema | Consecuencia | Acción |
 |---|---|---|
 | `TASKS.md` no se regenera | estado contradictorio con los `status` | generar el tablero desde `status/*.json` |
-| A06 sin `status` | no hay `next` ni inventario de archivos | exigir `status` como puerta de entrega |
-| Sin `status` para A10/A11 al inicio | el orquestador no sabe qué falta | crear el `status` al arrancar, no al terminar |
+| A06 tardó 90 min en publicar `status` | el orquestador no podía encadenar su `next` | exigir `status` **al arrancar**, no al terminar (resuelto a las 03:34) |
+| Sin `status` para A10/A11 al inicio | el orquestador no sabe qué falta | A10 lo creó al cerrar; A11 en ambos cierres |
 | Cambios de datos (v1.1) posteriores a los informes | cifras de A04/A05/A08 y de A06/EXP01 quedan **pre-corrección** | reejecutar y anotar hash+fecha en cada informe |
 | Tests de aceptación con cifras hardcodeadas (`etl/tests/test_validators.py:52`) | la suite pasa a rojo con un cambio legítimo de datos | aserciones relativas (`rows > 180.000` o leer `coverage.json`) |
 | Un solo dueño de `data/processed/` es el orquestador | A04 no pudo corregir el ETL G1 ni regenerar el validador | declarar explícitamente quién puede escribir `data/processed/` tras el cierre |

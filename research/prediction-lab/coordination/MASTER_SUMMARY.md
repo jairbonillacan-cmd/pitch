@@ -101,3 +101,46 @@ en vez de 1,658 (el de 2017/18).
 4. Auditoría adversarial del laboratorio nuevo (A09 fase 2) antes de test.
 5. Cierre de test **una sola vez** con candidatos congelados.
 6. Documentación 01–14 e integración TS del modelo aprobado.
+
+---
+
+# CIERRE DEL CICLO 1 (2026-11-09 04:00) — resultados finales
+
+## Motor A (sin cuotas) — test 2024/25 + 2025/26 (16.126 partidos)
+
+| Sistema | Log-loss | Brier | RPS | Accuracy | ECE |
+|---|---:|---:|---:|---:|---:|
+| base_rate | 1,07506 | 0,65044 | 0,22784 | 0,4376 | 0,0154 |
+| **logit (desplegado)** | **1,01802** | 0,60983 | 0,20820 | 0,4890 | 0,0112 |
+| hgb | 1,01860 | 0,61043 | 0,20835 | 0,4904 | 0,0055 |
+| ensemble (logit+hgb+poisson) | 1,01652 | 0,60907 | 0,20789 | 0,4901 | 0,0047 |
+| mercado cierre (mejor precio) | 0,99770 | 0,59645 | 0,20203 | 0,5062 | 0,0063 |
+
+- `logit` vs mercado cierre: **+0,0203** de log-loss [0,0175; 0,0231] a favor del mercado.
+- `ensemble` vs `logit`: −0,00153 [−0,00250; −0,00050], p=0,001 → el ensemble es mejor en test.
+  No se cambia el modelo desplegado retroactivamente; pasa a candidato del ciclo 2.
+
+## Motor B (con cuotas)
+
+- `stack_logit` test: 1,00527 (mejor que Motor A, peor que el mercado).
+- `market_open` vs `stack_logit` en los mismos 11.295 partidos: Δ +0,0007 [−0,0000; +0,0015], p=0,97
+  → **sin diferencia significativa**. La mezcla con Motor A no aporta.
+- Cierre vs apertura: −0,0034 [−0,0047; −0,0021] → el cierre es más eficiente.
+- **Decisión:** Motor B = de-vig power sobre apertura; sin edge demostrable.
+
+## Entregables del ciclo
+
+- 11 subagentes reales (A01–A11, con A09b) + orquestador; informes y `status/*.json` en el repo.
+- Dataset v1.1 (182.414 partidos) + features causales (182.410 × 198) + features de mercado.
+- Laboratorio `eval/` (83 tests) y pipeline reproducible (`etl/`, `features/`, `models/`, `pipeline/`).
+- Integración TS (`src/domain/prediction/`) con paridad 4,997×10⁻¹³ y 20 tests.
+- Documentación 01–14 en `docs/predicciones/`.
+- Commit `345b930` en la rama `prediction-lab`; `main` intacto.
+
+## Pendientes para el ciclo 2 (ver 10_ROADMAP_PREDICCIONES.md)
+
+1. Promover el ensemble con validación pre-registrada en datos nuevos.
+2. Capturar snapshots propios de cuotas con timestamp (CLV real) y licencia de datos.
+3. Incorporar xG (HxG/AxG de football-data 2026/27) cuando haya cobertura.
+4. Calibración por liga y drift por temporada con las features ya construidas.
+5. Expandir a NFL/NHL/NCAAF con nflverse (CC BY 4.0) y validar contratos.
