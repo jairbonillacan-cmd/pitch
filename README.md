@@ -44,6 +44,18 @@ pnpm backtest   # backtest walk-forward v2 vs Baseline 0 vs ingenuo
 `MODEL_VERSION=v1` vuelve al Baseline 0 sin tocar código. El backtest es reproducible y escribe
 `Reportes/modelos/BACKTEST-V2.md` y `backtest-v2.json`.
 
+### Cómo verificar antes de empujar
+
+```bash
+pnpm install --frozen-lockfile
+pnpm --filter @pitchlab/web exec playwright install --with-deps chromium   # solo la primera vez
+pnpm build          # gate anti-demo + typecheck + linter
+pnpm test           # 472 pruebas unitarias
+pnpm --filter @pitchlab/web e2e   # 12 pruebas E2E (desktop y móvil), requiere el build
+```
+
+CI (`.github/workflows/ci.yml`) corre exactamente eso en cada push y PR.
+
 ## Modelos
 
 | Versión | Fútbol | NFL | Estado |
