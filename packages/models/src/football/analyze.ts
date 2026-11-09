@@ -19,7 +19,9 @@ import {
   baseLambdaHome,
   predictFootball,
   type DixonColesModel,
+  type FootballMatchRow,
 } from "./dixon-coles.js";
+import { formatForm, recentForm } from "./form.js";
 
 export interface FootballAnalysisInput {
   league: "premier-league" | "liga-mx" | "laliga" | "bundesliga" | "serie-a" | "ligue-1";
@@ -31,6 +33,8 @@ export interface FootballAnalysisInput {
   publishedAt: string;
   source: string;
   version?: string;
+  /** Partidos de la temporada (para mostrar la forma reciente de cada equipo). */
+  recentResults?: readonly FootballMatchRow[];
 }
 
 function pct(value: number): string {
@@ -281,6 +285,29 @@ export function analyzeFootballGameV2(input: FootballAnalysisInput): GameAnalysi
       detail: `local ${pct(prediction.intervals.homeWin[0])}–${pct(prediction.intervals.homeWin[1])} · ${model.matches} partidos`,
     },
   ];
+
+  // Forma reciente (informativa): últimos cinco resultados antes del partido.
+  if (input.recentResults && input.recentResults.length > 0) {
+    const matchDate = game.startTime.slice(0, 10);
+    const homeForm = recentForm(input.recentResults, game.home.id, matchDate);
+    const awayForm = recentForm(input.recentResults, game.away.id, matchDate);
+    if (homeForm.played > 0) {
+      factors.push({
+        key: "home_form",
+        label: "Forma local",
+        value: formatForm(homeForm),
+        detail: `${homeForm.goalsFor} goles a favor · ${homeForm.goalsAgainst} en contra`,
+      });
+    }
+    if (awayForm.played > 0) {
+      factors.push({
+        key: "away_form",
+        label: "Forma visitante",
+        value: formatForm(awayForm),
+        detail: `${awayForm.goalsFor} goles a favor · ${awayForm.goalsAgainst} en contra`,
+      });
+    }
+  }
 
   return {
     game: game.id,

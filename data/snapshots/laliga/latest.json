@@ -4,7 +4,7 @@
   "season": "laliga-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 12",
-  "updatedAt": "2026-11-09T02:14:17.385Z",
+  "updatedAt": "2026-11-09T02:25:18.190Z",
   "source": "openfootball",
   "provenance": "derived",
   "isDemo": false,
@@ -855,18 +855,30 @@
           "label": "Intervalo 90%",
           "value": "goles 2.6–4.6",
           "detail": "local 20%–56% · 613 partidos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "P-P-E-P-G · 4 pts",
+          "detail": "10 goles a favor · 11 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "P-G-G-G-E · 10 pts",
+          "detail": "7 goles a favor · 7 en contra"
         }
       ],
       "steps": [
-        "Sincronizando LaLiga · corte 8 nov 2026, 20:14",
+        "Sincronizando LaLiga · corte 8 nov 2026, 20:25",
         "Fuerza ajustada por rival · ELC 1.09 / 1.22 · BET 1.10 / 0.84",
         "Ponderando 193.6 partidos por antigüedad y calidad del rival",
         "Proyección de goles 1.60 – 1.79 · total 3.39",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador más probable 1–1"
       ],
-      "inputsAsOf": "2026-11-09T02:14:17.385Z",
-      "publishedAt": "2026-11-09T02:14:17.385Z",
+      "inputsAsOf": "2026-11-09T02:25:18.190Z",
+      "publishedAt": "2026-11-09T02:25:18.190Z",
       "source": "openfootball"
     },
     "laliga-2026-27-md12-osasuna-athletic-club": {
@@ -1241,18 +1253,30 @@
           "label": "Intervalo 90%",
           "value": "goles 1.9–4.2",
           "detail": "local 11%–54% · 613 partidos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "G-P-P-P-E · 4 pts",
+          "detail": "4 goles a favor · 12 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "P-P-G-G-E · 7 pts",
+          "detail": "7 goles a favor · 6 en contra"
         }
       ],
       "steps": [
-        "Sincronizando LaLiga · corte 8 nov 2026, 20:14",
+        "Sincronizando LaLiga · corte 8 nov 2026, 20:25",
         "Fuerza ajustada por rival · OSA 0.90 / 1.18 · ATH 1.03 / 0.77",
         "Ponderando 193.6 partidos por antigüedad y calidad del rival",
         "Proyección de goles 1.22 – 1.62 · total 2.84",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador más probable 1–1"
       ],
-      "inputsAsOf": "2026-11-09T02:14:17.385Z",
-      "publishedAt": "2026-11-09T02:14:17.385Z",
+      "inputsAsOf": "2026-11-09T02:25:18.190Z",
+      "publishedAt": "2026-11-09T02:25:18.190Z",
       "source": "openfootball"
     },
     "laliga-2026-27-md12-sevilla-alaves": {
@@ -1627,18 +1651,30 @@
           "label": "Intervalo 90%",
           "value": "goles 2.1–3.7",
           "detail": "local 25%–62% · 613 partidos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "P-E-G-G-P · 7 pts",
+          "detail": "5 goles a favor · 7 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "E-G-G-P-P · 7 pts",
+          "detail": "8 goles a favor · 6 en contra"
         }
       ],
       "steps": [
-        "Sincronizando LaLiga · corte 8 nov 2026, 20:14",
+        "Sincronizando LaLiga · corte 8 nov 2026, 20:25",
         "Fuerza ajustada por rival · SEV 0.95 / 0.94 · ALA 0.98 / 0.90",
         "Ponderando 193.6 partidos por antigüedad y calidad del rival",
         "Proyección de goles 1.50 – 1.23 · total 2.73",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador más probable 1–1"
       ],
-      "inputsAsOf": "2026-11-09T02:14:17.385Z",
-      "publishedAt": "2026-11-09T02:14:17.385Z",
+      "inputsAsOf": "2026-11-09T02:25:18.190Z",
+      "publishedAt": "2026-11-09T02:25:18.190Z",
       "source": "openfootball"
     },
     "laliga-2026-27-md12-valencia-real-madrid": {
@@ -2013,18 +2049,30 @@
           "label": "Intervalo 90%",
           "value": "goles 2.6–4.5",
           "detail": "local 8%–35% · 613 partidos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "P-P-P-G-P · 3 pts",
+          "detail": "4 goles a favor · 12 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-P-G-G-P · 9 pts",
+          "detail": "12 goles a favor · 6 en contra"
         }
       ],
       "steps": [
-        "Sincronizando LaLiga · corte 8 nov 2026, 20:14",
+        "Sincronizando LaLiga · corte 8 nov 2026, 20:25",
         "Fuerza ajustada por rival · VAL 0.83 / 1.09 · RMA 1.53 / 0.78",
         "Ponderando 193.6 partidos por antigüedad y calidad del rival",
         "Proyección de goles 1.13 – 2.23 · total 3.36",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador más probable 1–2"
       ],
-      "inputsAsOf": "2026-11-09T02:14:17.385Z",
-      "publishedAt": "2026-11-09T02:14:17.385Z",
+      "inputsAsOf": "2026-11-09T02:25:18.190Z",
+      "publishedAt": "2026-11-09T02:25:18.190Z",
       "source": "openfootball"
     },
     "laliga-2026-27-md12-celta-vigo-levante": {
@@ -2399,18 +2447,30 @@
           "label": "Intervalo 90%",
           "value": "goles 2.6–5.9",
           "detail": "local 24%–83% · 613 partidos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "P-P-E-E-G · 5 pts",
+          "detail": "8 goles a favor · 6 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "P-G-P-P · 3 pts",
+          "detail": "8 goles a favor · 12 en contra"
         }
       ],
       "steps": [
-        "Sincronizando LaLiga · corte 8 nov 2026, 20:14",
+        "Sincronizando LaLiga · corte 8 nov 2026, 20:25",
         "Fuerza ajustada por rival · CELV 0.99 / 0.96 · LEV 1.16 / 1.28",
         "Ponderando 193.6 partidos por antigüedad y calidad del rival",
         "Proyección de goles 2.21 – 1.50 · total 3.71",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador más probable 2–1"
       ],
-      "inputsAsOf": "2026-11-09T02:14:17.385Z",
-      "publishedAt": "2026-11-09T02:14:17.385Z",
+      "inputsAsOf": "2026-11-09T02:25:18.190Z",
+      "publishedAt": "2026-11-09T02:25:18.190Z",
       "source": "openfootball"
     },
     "laliga-2026-27-md12-real-sociedad-rayo-vallecano": {
@@ -2785,18 +2845,30 @@
           "label": "Intervalo 90%",
           "value": "goles 2.9–5.0",
           "detail": "local 31%–74% · 613 partidos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "P-G-G-P-G · 9 pts",
+          "detail": "9 goles a favor · 12 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "P-G-P-G-E · 7 pts",
+          "detail": "9 goles a favor · 13 en contra"
         }
       ],
       "steps": [
-        "Sincronizando LaLiga · corte 8 nov 2026, 19:53",
+        "Sincronizando LaLiga · corte 8 nov 2026, 20:25",
         "Fuerza ajustada por rival · RSO 1.13 / 1.21 · RAY 1.00 / 1.11",
         "Ponderando 193.6 partidos por antigüedad y calidad del rival",
         "Proyección de goles 2.19 – 1.61 · total 3.80",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador más probable 2–1"
       ],
-      "inputsAsOf": "2026-11-09T01:53:42.962Z",
-      "publishedAt": "2026-11-09T01:53:42.962Z",
+      "inputsAsOf": "2026-11-09T02:25:18.190Z",
+      "publishedAt": "2026-11-09T02:25:18.190Z",
       "source": "openfootball"
     },
     "laliga-2026-27-md12-malaga-racing-santander": {
@@ -3171,18 +3243,30 @@
           "label": "Intervalo 90%",
           "value": "goles 2.4–5.1",
           "detail": "local 10%–66% · 613 partidos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "E-P-E-P-P · 2 pts",
+          "detail": "3 goles a favor · 10 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-P-G-P-P · 6 pts",
+          "detail": "9 goles a favor · 18 en contra"
         }
       ],
       "steps": [
-        "Sincronizando LaLiga · corte 8 nov 2026, 19:53",
+        "Sincronizando LaLiga · corte 8 nov 2026, 20:25",
         "Fuerza ajustada por rival · MAL 0.63 / 1.19 · RAC 1.13 / 1.57",
         "Ponderando 193.6 partidos por antigüedad y calidad del rival",
         "Proyección de goles 1.74 – 1.78 · total 3.53",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador más probable 1–1"
       ],
-      "inputsAsOf": "2026-11-09T01:53:42.962Z",
-      "publishedAt": "2026-11-09T01:53:42.962Z",
+      "inputsAsOf": "2026-11-09T02:25:18.190Z",
+      "publishedAt": "2026-11-09T02:25:18.190Z",
       "source": "openfootball"
     },
     "laliga-2026-27-md12-espanyol-deportivo-la-coruna": {
@@ -3557,18 +3641,30 @@
           "label": "Intervalo 90%",
           "value": "goles 1.9–4.5",
           "detail": "local 19%–70% · 613 partidos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "P-E-G-P-P · 4 pts",
+          "detail": "6 goles a favor · 8 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-G-E-P-E · 8 pts",
+          "detail": "8 goles a favor · 6 en contra"
         }
       ],
       "steps": [
-        "Sincronizando LaLiga · corte 8 nov 2026, 19:53",
+        "Sincronizando LaLiga · corte 8 nov 2026, 20:25",
         "Fuerza ajustada por rival · ESP 0.95 / 0.94 · DEP 1.00 / 0.91",
         "Ponderando 193.6 partidos por antigüedad y calidad del rival",
         "Proyección de goles 1.52 – 1.26 · total 2.78",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador más probable 1–1"
       ],
-      "inputsAsOf": "2026-11-09T01:53:42.962Z",
-      "publishedAt": "2026-11-09T01:53:42.962Z",
+      "inputsAsOf": "2026-11-09T02:25:18.190Z",
+      "publishedAt": "2026-11-09T02:25:18.190Z",
       "source": "openfootball"
     },
     "laliga-2026-27-md12-atletico-madrid-barcelona": {
@@ -3943,18 +4039,30 @@
           "label": "Intervalo 90%",
           "value": "goles 3.1–5.5",
           "detail": "local 13%–49% · 613 partidos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "G-P-G-G-G · 12 pts",
+          "detail": "12 goles a favor · 5 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-G-G-G-G · 15 pts",
+          "detail": "24 goles a favor · 7 en contra"
         }
       ],
       "steps": [
-        "Sincronizando LaLiga · corte 8 nov 2026, 19:53",
+        "Sincronizando LaLiga · corte 8 nov 2026, 20:25",
         "Fuerza ajustada por rival · ATM 1.34 / 0.81 · BAR 2.11 / 0.75",
         "Ponderando 193.6 partidos por antigüedad y calidad del rival",
         "Proyección de goles 1.76 – 2.29 · total 4.05",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador más probable 1–2"
       ],
-      "inputsAsOf": "2026-11-09T01:53:42.962Z",
-      "publishedAt": "2026-11-09T01:53:42.962Z",
+      "inputsAsOf": "2026-11-09T02:25:18.190Z",
+      "publishedAt": "2026-11-09T02:25:18.190Z",
       "source": "openfootball"
     },
     "laliga-2026-27-md12-villarreal-getafe": {
@@ -4329,18 +4437,30 @@
           "label": "Intervalo 90%",
           "value": "goles 1.9–3.5",
           "detail": "local 42%–78% · 613 partidos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "P-P-P-G-G · 6 pts",
+          "detail": "9 goles a favor · 8 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "P-E-E-P-G · 5 pts",
+          "detail": "3 goles a favor · 4 en contra"
         }
       ],
       "steps": [
-        "Sincronizando LaLiga · corte 8 nov 2026, 19:53",
+        "Sincronizando LaLiga · corte 8 nov 2026, 20:25",
         "Fuerza ajustada por rival · VIL 1.29 / 1.00 · GET 0.59 / 0.77",
         "Ponderando 193.6 partidos por antigüedad y calidad del rival",
         "Proyección de goles 1.75 – 0.79 · total 2.54",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador más probable 1–0"
       ],
-      "inputsAsOf": "2026-11-09T01:53:42.962Z",
-      "publishedAt": "2026-11-09T01:53:42.962Z",
+      "inputsAsOf": "2026-11-09T02:25:18.190Z",
+      "publishedAt": "2026-11-09T02:25:18.190Z",
       "source": "openfootball"
     }
   }

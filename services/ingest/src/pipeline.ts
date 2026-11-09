@@ -294,6 +294,7 @@ export function buildFootballSnapshot(params: {
           inputsAsOf: publishedAt,
           publishedAt,
           source,
+          recentResults: toFootballMatchRows(seasonGames!),
         })
       : analyzeFootballGame({
           league,

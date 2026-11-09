@@ -4,7 +4,7 @@
   "season": "liga-mx-2026-apertura",
   "seasonLabel": "Apertura 2026",
   "periodLabel": "Jornada 16",
-  "updatedAt": "2026-11-09T02:14:17.385Z",
+  "updatedAt": "2026-11-09T02:25:18.190Z",
   "source": "api-football",
   "provenance": "derived",
   "isDemo": false,
@@ -850,6 +850,18 @@
           "label": "Intervalo 90%",
           "value": "goles 2.0–5.2",
           "detail": "local 21%–82% · 214 partidos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "G-G-P-G-G · 12 pts",
+          "detail": "10 goles a favor · 6 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-P-P-P-G · 6 pts",
+          "detail": "8 goles a favor · 12 en contra"
         }
       ],
       "steps": [
@@ -1236,6 +1248,18 @@
           "label": "Intervalo 90%",
           "value": "goles 2.0–4.8",
           "detail": "local 19%–79% · 214 partidos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "P-P-P-P-P · 0 pts",
+          "detail": "6 goles a favor · 17 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-G-E-E-P · 8 pts",
+          "detail": "6 goles a favor · 7 en contra"
         }
       ],
       "steps": [
@@ -1622,6 +1646,18 @@
           "label": "Intervalo 90%",
           "value": "goles 1.3–4.1",
           "detail": "local 13%–71% · 214 partidos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "E-E-G-E-P · 6 pts",
+          "detail": "4 goles a favor · 7 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "P-P-E-E-P · 2 pts",
+          "detail": "1 goles a favor · 8 en contra"
         }
       ],
       "steps": [
@@ -2008,6 +2044,18 @@
           "label": "Intervalo 90%",
           "value": "goles 2.3–5.6",
           "detail": "local 9%–67% · 214 partidos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "G-E-E-E-P · 6 pts",
+          "detail": "3 goles a favor · 6 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "P-P-E-P-G · 4 pts",
+          "detail": "9 goles a favor · 9 en contra"
         }
       ],
       "steps": [
@@ -2394,6 +2442,18 @@
           "label": "Intervalo 90%",
           "value": "goles 2.0–5.0",
           "detail": "local 9%–63% · 214 partidos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "G-P-P-G-G · 9 pts",
+          "detail": "8 goles a favor · 7 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-G-G-G-G · 15 pts",
+          "detail": "13 goles a favor · 1 en contra"
         }
       ],
       "steps": [
@@ -2780,6 +2840,18 @@
           "label": "Intervalo 90%",
           "value": "goles 2.3–6.4",
           "detail": "local 37%–94% · 214 partidos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "E-G-G-G-E · 11 pts",
+          "detail": "12 goles a favor · 4 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "P-G-E-P-G · 7 pts",
+          "detail": "9 goles a favor · 5 en contra"
         }
       ],
       "steps": [
@@ -3166,6 +3238,18 @@
           "label": "Intervalo 90%",
           "value": "goles 1.9–4.8",
           "detail": "local 14%–73% · 214 partidos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "E-G-E-P-E · 6 pts",
+          "detail": "4 goles a favor · 3 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "E-G-E-G-G · 11 pts",
+          "detail": "13 goles a favor · 4 en contra"
         }
       ],
       "steps": [
@@ -3552,18 +3636,30 @@
           "label": "Intervalo 90%",
           "value": "goles 1.4–4.5",
           "detail": "local 18%–76% · 214 partidos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "E-E-P-P-P · 2 pts",
+          "detail": "3 goles a favor · 9 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "P-P-P-G-P · 3 pts",
+          "detail": "2 goles a favor · 10 en contra"
         }
       ],
       "steps": [
-        "Sincronizando Liga MX · corte 8 nov 2026, 20:14",
+        "Sincronizando Liga MX · corte 8 nov 2026, 20:25",
         "Fuerza ajustada por rival · QRO 0.76 / 1.14 · PUE 0.76 / 1.18",
         "Ponderando 47.7 partidos por antigüedad y calidad del rival",
         "Proyección de goles 1.42 – 1.06 · total 2.48",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador más probable 1–0"
       ],
-      "inputsAsOf": "2026-11-09T02:14:17.385Z",
-      "publishedAt": "2026-11-09T02:14:17.385Z",
+      "inputsAsOf": "2026-11-09T02:25:18.190Z",
+      "publishedAt": "2026-11-09T02:25:18.190Z",
       "source": "api-football"
     },
     "mx-2026-ap-j16-leon-chivas": {
@@ -3938,18 +4034,30 @@
           "label": "Intervalo 90%",
           "value": "goles 1.6–4.6",
           "detail": "local 14%–73% · 214 partidos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "E-G-E-G-E · 9 pts",
+          "detail": "10 goles a favor · 5 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "P-G-G-P-E · 7 pts",
+          "detail": "7 goles a favor · 6 en contra"
         }
       ],
       "steps": [
-        "Sincronizando Liga MX · corte 8 nov 2026, 19:53",
+        "Sincronizando Liga MX · corte 8 nov 2026, 20:25",
         "Fuerza ajustada por rival · LEO 0.97 / 1.02 · GDL 1.03 / 0.84",
         "Ponderando 47.7 partidos por antigüedad y calidad del rival",
         "Proyección de goles 1.29 – 1.28 · total 2.57",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador más probable 1–1"
       ],
-      "inputsAsOf": "2026-11-09T01:53:42.962Z",
-      "publishedAt": "2026-11-09T01:53:42.962Z",
+      "inputsAsOf": "2026-11-09T02:25:18.190Z",
+      "publishedAt": "2026-11-09T02:25:18.190Z",
       "source": "api-football"
     }
   }

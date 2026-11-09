@@ -4,7 +4,7 @@
   "season": "premier-league-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 10",
-  "updatedAt": "2026-11-09T02:14:17.385Z",
+  "updatedAt": "2026-11-09T02:25:18.190Z",
   "source": "openfootball",
   "provenance": "derived",
   "isDemo": false,
@@ -915,6 +915,18 @@
           "label": "Intervalo 90%",
           "value": "goles 2.0–4.1",
           "detail": "local 40%–81% · 608 partidos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "G-E-P-P-G · 7 pts",
+          "detail": "4 goles a favor · 6 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-G-P-P-G · 9 pts",
+          "detail": "9 goles a favor · 6 en contra"
         }
       ],
       "steps": [
@@ -1301,6 +1313,18 @@
           "label": "Intervalo 90%",
           "value": "goles 1.9–3.5",
           "detail": "local 36%–75% · 608 partidos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "E-P-E-E-P · 3 pts",
+          "detail": "2 goles a favor · 5 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "P-E-G-G-G · 10 pts",
+          "detail": "10 goles a favor · 5 en contra"
         }
       ],
       "steps": [
@@ -1687,6 +1711,18 @@
           "label": "Intervalo 90%",
           "value": "goles 1.7–3.3",
           "detail": "local 44%–81% · 608 partidos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "P-G-G-G-G · 12 pts",
+          "detail": "6 goles a favor · 4 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "P-E-P-E-E · 3 pts",
+          "detail": "6 goles a favor · 8 en contra"
         }
       ],
       "steps": [
@@ -2073,6 +2109,18 @@
           "label": "Intervalo 90%",
           "value": "goles 2.2–4.0",
           "detail": "local 24%–60% · 608 partidos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "E-P-G-G-E · 8 pts",
+          "detail": "5 goles a favor · 4 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-P-P-G-P · 6 pts",
+          "detail": "5 goles a favor · 7 en contra"
         }
       ],
       "steps": [
@@ -2459,6 +2507,18 @@
           "label": "Intervalo 90%",
           "value": "goles 2.3–3.9",
           "detail": "local 15%–43% · 608 partidos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "P-P-P-E-P · 1 pts",
+          "detail": "2 goles a favor · 8 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-G-G-P-P · 9 pts",
+          "detail": "12 goles a favor · 8 en contra"
         }
       ],
       "steps": [
@@ -2845,6 +2905,18 @@
           "label": "Intervalo 90%",
           "value": "goles 2.7–4.6",
           "detail": "local 12%–38% · 608 partidos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "E-G-P-P-P · 4 pts",
+          "detail": "3 goles a favor · 10 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-P-G-G-P · 9 pts",
+          "detail": "5 goles a favor · 5 en contra"
         }
       ],
       "steps": [
@@ -3231,6 +3303,18 @@
           "label": "Intervalo 90%",
           "value": "goles 2.6–4.3",
           "detail": "local 17%–50% · 608 partidos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "P-P-P-E-P · 1 pts",
+          "detail": "4 goles a favor · 12 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "P-G-G-P-G · 9 pts",
+          "detail": "9 goles a favor · 6 en contra"
         }
       ],
       "steps": [
@@ -3617,6 +3701,18 @@
           "label": "Intervalo 90%",
           "value": "goles 2.8–5.3",
           "detail": "local 12%–55% · 608 partidos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "P-G-P-E-E · 5 pts",
+          "detail": "7 goles a favor · 8 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "P-P-G-G-G · 9 pts",
+          "detail": "8 goles a favor · 6 en contra"
         }
       ],
       "steps": [
@@ -4003,6 +4099,18 @@
           "label": "Intervalo 90%",
           "value": "goles 2.7–4.5",
           "detail": "local 39%–77% · 608 partidos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "G-G-G-P-G · 12 pts",
+          "detail": "11 goles a favor · 2 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-E-P-E-G · 8 pts",
+          "detail": "9 goles a favor · 5 en contra"
         }
       ],
       "steps": [
@@ -4389,6 +4497,18 @@
           "label": "Intervalo 90%",
           "value": "goles 3.0–4.9",
           "detail": "local 27%–67% · 608 partidos"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "E-E-E-P-P · 3 pts",
+          "detail": "3 goles a favor · 8 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-E-G-G-E · 11 pts",
+          "detail": "9 goles a favor · 6 en contra"
         }
       ],
       "steps": [

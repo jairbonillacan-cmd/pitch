@@ -4,7 +4,7 @@
   "season": "nfl-2026",
   "seasonLabel": "2026",
   "periodLabel": "Semana 9",
-  "updatedAt": "2026-11-09T02:14:17.385Z",
+  "updatedAt": "2026-11-09T02:25:18.190Z",
   "source": "nflverse",
   "provenance": "derived",
   "isDemo": false,
@@ -5133,15 +5133,15 @@
         }
       ],
       "steps": [
-        "Sincronizando NFL · corte 8 nov 2026, 19:53",
+        "Sincronizando NFL · corte 8 nov 2026, 20:25",
         "Ofensiva y defensa ajustadas por rival · CHI 22.8 / 21.8",
         "Fuerza de calendario incluida (134 partidos)",
         "Proyección 22.8 – 21.8 · margen +1.0",
         "Simulando escenarios de margen (σ 11.1) y total (σ 12.8)",
         "14 mercados listos"
       ],
-      "inputsAsOf": "2026-11-09T01:53:42.962Z",
-      "publishedAt": "2026-11-09T01:53:42.962Z",
+      "inputsAsOf": "2026-11-09T02:25:18.190Z",
+      "publishedAt": "2026-11-09T02:25:18.190Z",
       "source": "nflverse"
     },
     "nfl-2026-w9-buffalo-bills-minnesota-vikings": {
@@ -5442,15 +5442,15 @@
         }
       ],
       "steps": [
-        "Sincronizando NFL · corte 8 nov 2026, 19:53",
+        "Sincronizando NFL · corte 8 nov 2026, 20:25",
         "Ofensiva y defensa ajustadas por rival · MIN 22.8 / 23.0",
         "Fuerza de calendario incluida (134 partidos)",
         "Proyección 22.8 – 23.0 · margen -0.2",
         "Simulando escenarios de margen (σ 11.1) y total (σ 12.8)",
         "14 mercados listos"
       ],
-      "inputsAsOf": "2026-11-09T01:53:42.962Z",
-      "publishedAt": "2026-11-09T01:53:42.962Z",
+      "inputsAsOf": "2026-11-09T02:25:18.190Z",
+      "publishedAt": "2026-11-09T02:25:18.190Z",
       "source": "nflverse"
     }
   }
