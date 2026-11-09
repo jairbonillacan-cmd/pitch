@@ -1,5 +1,7 @@
 # Documentación del motor de predicciones — índice y estado
 
+> **Informe final del programa (ciclos 1–10):** [`research/prediction-lab/FINAL_REPORT.md`](../../research/prediction-lab/FINAL_REPORT.md) — resumen ejecutivo, evidencia de verificación y cómo continuar.
+
 Esta carpeta contiene los **14 documentos** exigidos por la misión. Cada uno se apoya en artefactos
 reproducibles del laboratorio (`research/prediction-lab/`), no en afirmaciones.
 

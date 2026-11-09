@@ -1,5 +1,7 @@
 # PitchLab Prediction Lab
 
+**Informe final del programa:** [`FINAL_REPORT.md`](FINAL_REPORT.md) — resultados, evidencia y próximos pasos.
+
 Laboratorio de investigación del motor de predicciones 1X2 de PitchLab. Vive en un worktree
 aislado (`prediction-lab`) para no tocar los motores reconstruidos de `main`.
 
