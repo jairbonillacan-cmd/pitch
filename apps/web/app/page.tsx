@@ -67,31 +67,31 @@ export default function HomePage(): React.JSX.Element {
   const plGames = snapshots["premier-league"].data?.games ?? [];
   const nflGames = snapshots.nfl.data?.games ?? [];
   const mxGames = snapshots["liga-mx"].data?.games ?? [];
+  const llGames = snapshots.laliga.data?.games ?? [];
+  const plAnalyses = plGames.filter((game) => game.publicationLabel);
+  const nflAnalyses = nflGames.filter((game) => game.publicationLabel);
+  const mxAnalyses = mxGames.filter((game) => game.publicationLabel);
+  const llAnalyses = llGames.filter((game) => game.publicationLabel);
 
-  const demoMatches: MatchAnalysis[] = [
-    ...(mxGames.length > 0 ? [mxGames[0]!] : []),
-    ...(plGames.length > 0 ? [plGames[0]!] : []),
-    ...(nflGames.length > 0 ? [nflGames[0]!] : []),
-    ...(plGames.length > 1 ? [plGames[1]!] : []),
-    ...(nflGames.length > 1 ? [nflGames[1]!] : []),
-  ].slice(0, 3);
-
-  if (demoMatches.length === 0) {
-    demoMatches.push(FALLBACK_MATCH);
-  }
-
-  const featuredMatch = plGames[0] ?? nflGames[0] ?? FALLBACK_MATCH;
-  const totalGames = plGames.length + nflGames.length + mxGames.length;
+  const demos = [
+    plAnalyses[0],
+    nflAnalyses[0],
+    mxAnalyses[0],
+    llAnalyses[0],
+    plAnalyses[1],
+    nflAnalyses[1],
+    mxAnalyses[1],
+  ]
+    .filter((game): game is MatchAnalysis => game !== undefined)
+    .slice(0, 3);
+  const [firstDemo = FALLBACK_MATCH, ...otherDemos] = demos;
 
   const leagues: LandingLeagueSummary[] = [
     {
       id: "liga-mx",
       name: "Liga MX",
       season: snapshots["liga-mx"].data?.season ?? "Apertura 2026",
-      roundLabel:
-        mxGames.length > 0
-          ? (snapshots["liga-mx"].data?.roundLabel ?? "Jornada 16")
-          : "Jornada 16",
+      roundLabel: snapshots["liga-mx"].data?.roundLabel ?? "Jornada 16",
       mascot: "liga-mx",
       gameCount: mxGames.length,
       active: mxGames.length > 0,
@@ -106,6 +106,15 @@ export default function HomePage(): React.JSX.Element {
       active: plGames.length > 0,
     },
     {
+      id: "laliga",
+      name: "LaLiga",
+      season: snapshots.laliga.data?.season ?? "2026/27",
+      roundLabel: snapshots.laliga.data?.roundLabel ?? "Jornada 11",
+      mascot: "laliga",
+      gameCount: llGames.length,
+      active: llGames.length > 0,
+    },
+    {
       id: "nfl",
       name: "NFL",
       season: snapshots.nfl.data?.season ?? "2026",
@@ -118,10 +127,8 @@ export default function HomePage(): React.JSX.Element {
 
   return (
     <LandingClient
-      featuredMatch={featuredMatch}
-      demoMatches={demoMatches}
+      demoMatches={[firstDemo, ...otherDemos]}
       leagues={leagues}
-      totalGames={totalGames}
     />
   );
 }

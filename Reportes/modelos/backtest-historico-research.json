@@ -1,0 +1,503 @@
+{
+  "generatedAt": "2026-11-09T01:47:24.129Z",
+  "windowDays": 1095,
+  "football": [
+    {
+      "league": "premier-league",
+      "seasons": 17,
+      "blocks": 613,
+      "predictions": 6098,
+      "model": {
+        "n": 6098,
+        "logLoss1x2": 0.9770695491321405,
+        "brier1x2": 0.5803465314783897,
+        "logLossOver": 0.6909660122723591,
+        "logLossBtts": 0.6931836738940704,
+        "accuracy": 0.5347654968842244
+      },
+      "naive": {
+        "n": 6098,
+        "logLoss1x2": 1.065564364676228,
+        "brier1x2": 0.6444023128801911,
+        "logLossOver": 0.6898062754373014,
+        "logLossBtts": 0.6915820254669093,
+        "accuracy": 0.4489996720236143
+      },
+      "deltaNaive": {
+        "meanDiff": -0.0884948155440887,
+        "lower": -0.09908548415133231,
+        "upper": -0.07866171639253361,
+        "wins": 2350
+      },
+      "brierNaive": 0.6444023128801911,
+      "market": {
+        "n": 6098,
+        "logLoss1x2": 0.9593710297077106,
+        "brier1x2": 0.5683292258210911,
+        "accuracy": 0.547228599540833,
+        "closingShare": 0.8753689734339127
+      },
+      "deltaMarket": {
+        "meanDiff": 0.017698519424424422,
+        "lower": 0.01312871128860443,
+        "upper": 0.0220546490416667,
+        "wins": 3518
+      },
+      "totalsMarket": {
+        "n": 2667,
+        "modelLogLoss": 0.68298509006371,
+        "marketLogLoss": 0.6732029848173003
+      },
+      "elo": {
+        "n": 6098,
+        "logLoss1x2": 0.9766104010001936,
+        "brier1x2": 0.5802615798855238,
+        "accuracy": 0.5373893079698262
+      },
+      "blend": {
+        "n": 6098,
+        "logLoss1x2": 0.9743808195206675,
+        "brier1x2": 0.5788021313454608,
+        "accuracy": 0.5354214496556248
+      },
+      "deltaElo": {
+        "meanDiff": -0.00045914813194473247,
+        "lower": -0.0040240548582215745,
+        "upper": 0.0029873539733087776,
+        "wins": 2879
+      },
+      "deltaBlend": {
+        "meanDiff": -0.002688729611472728,
+        "lower": -0.004469173948413404,
+        "upper": -0.0009894254225133836,
+        "wins": 2879
+      },
+      "deltaBlendMarket": {
+        "meanDiff": 0.01500978981295172,
+        "lower": 0.010840313438708839,
+        "upper": 0.018861526959614586,
+        "wins": 3504
+      },
+      "researchTrainingRows": 6696
+    },
+    {
+      "league": "la-liga",
+      "seasons": 15,
+      "blocks": 538,
+      "predictions": 5359,
+      "model": {
+        "n": 5359,
+        "logLoss1x2": 0.9728301694279989,
+        "brier1x2": 0.5788406080155678,
+        "logLossOver": 0.688598167910921,
+        "logLossBtts": 0.6941169396950605,
+        "accuracy": 0.5312558313118119
+      },
+      "naive": {
+        "n": 5359,
+        "logLoss1x2": 1.0623642359505585,
+        "brier1x2": 0.6414493668288775,
+        "logLossOver": 0.6929167465337918,
+        "logLossBtts": 0.6930972179672904,
+        "accuracy": 0.46239970143683523
+      },
+      "deltaNaive": {
+        "meanDiff": -0.0895340665225656,
+        "lower": -0.09977343437077162,
+        "upper": -0.07899633009974673,
+        "wins": 2151
+      },
+      "brierNaive": 0.6414493668288775,
+      "market": {
+        "n": 5359,
+        "logLoss1x2": 0.9524907694660082,
+        "brier1x2": 0.5645332689207019,
+        "accuracy": 0.5482366113080799,
+        "closingShare": 0.9998133980220191
+      },
+      "deltaMarket": {
+        "meanDiff": 0.020339399961987175,
+        "lower": 0.015163278572118511,
+        "upper": 0.025559931516694483,
+        "wins": 3015
+      },
+      "totalsMarket": {
+        "n": 2695,
+        "modelLogLoss": 0.6903521104693853,
+        "marketLogLoss": 0.6672366995364571
+      },
+      "elo": {
+        "n": 5359,
+        "logLoss1x2": 0.9721124693706634,
+        "brier1x2": 0.5779982306316045,
+        "accuracy": 0.5338682590035454
+      },
+      "blend": {
+        "n": 5359,
+        "logLoss1x2": 0.9703013954549334,
+        "brier1x2": 0.5770563427311532,
+        "accuracy": 0.5334950550475835
+      },
+      "deltaElo": {
+        "meanDiff": -0.0007177000573372628,
+        "lower": -0.004471325520557119,
+        "upper": 0.0026671733344128027,
+        "wins": 2607
+      },
+      "deltaBlend": {
+        "meanDiff": -0.002528773973063791,
+        "lower": -0.004424261335260195,
+        "upper": -0.0008400331681076467,
+        "wins": 2607
+      },
+      "deltaBlendMarket": {
+        "meanDiff": 0.017810625988923426,
+        "lower": 0.013195917489616146,
+        "upper": 0.02259702682139866,
+        "wins": 3085
+      },
+      "researchTrainingRows": 7454
+    },
+    {
+      "league": "bundesliga",
+      "seasons": 17,
+      "blocks": 548,
+      "predictions": 4917,
+      "model": {
+        "n": 4917,
+        "logLoss1x2": 0.9981719886567632,
+        "brier1x2": 0.595715116387202,
+        "logLossOver": 0.6777368606372417,
+        "logLossBtts": 0.681769616619583,
+        "accuracy": 0.5096603620093553
+      },
+      "naive": {
+        "n": 4917,
+        "logLoss1x2": 1.0673836181879475,
+        "brier1x2": 0.6453995952609937,
+        "logLossOver": 0.6774855723606564,
+        "logLossBtts": 0.6814207057815952,
+        "accuracy": 0.44885092536099247
+      },
+      "deltaNaive": {
+        "meanDiff": -0.06921162953119757,
+        "lower": -0.08008869016688955,
+        "upper": -0.05806110505186254,
+        "wins": 2035
+      },
+      "brierNaive": 0.6453995952609937,
+      "market": {
+        "n": 4917,
+        "logLoss1x2": 0.9812072123161888,
+        "brier1x2": 0.5840338516918924,
+        "accuracy": 0.5218629245474883,
+        "closingShare": 0.8753304860687411
+      },
+      "deltaMarket": {
+        "meanDiff": 0.016964776340572224,
+        "lower": 0.012168801340754007,
+        "upper": 0.021794993187208466,
+        "wins": 2791
+      },
+      "totalsMarket": {
+        "n": 2112,
+        "modelLogLoss": 0.6620698393375594,
+        "marketLogLoss": 0.643817889195852
+      },
+      "elo": {
+        "n": 4917,
+        "logLoss1x2": 0.9970331743842581,
+        "brier1x2": 0.5950151832160527,
+        "accuracy": 0.5086434817978442
+      },
+      "blend": {
+        "n": 4917,
+        "logLoss1x2": 0.9956538908262521,
+        "brier1x2": 0.5941560470679649,
+        "accuracy": 0.5088468578401464
+      },
+      "deltaElo": {
+        "meanDiff": -0.0011388142725065932,
+        "lower": -0.004713370187319295,
+        "upper": 0.0022889226715642878,
+        "wins": 2434
+      },
+      "deltaBlend": {
+        "meanDiff": -0.002518097830511125,
+        "lower": -0.0043280940646515465,
+        "upper": -0.0007661906925492941,
+        "wins": 2434
+      },
+      "deltaBlendMarket": {
+        "meanDiff": 0.014446678510061114,
+        "lower": 0.009917421382819662,
+        "upper": 0.01904158713811635,
+        "wins": 2814
+      },
+      "researchTrainingRows": 5253
+    },
+    {
+      "league": "serie-a",
+      "seasons": 14,
+      "blocks": 498,
+      "predictions": 4944,
+      "model": {
+        "n": 4944,
+        "logLoss1x2": 0.9734543082343243,
+        "brier1x2": 0.5787116167361451,
+        "logLossOver": 0.6977859098725696,
+        "logLossBtts": 0.6922414977814325,
+        "accuracy": 0.5428802588996764
+      },
+      "naive": {
+        "n": 4944,
+        "logLoss1x2": 1.0758636982714618,
+        "brier1x2": 0.6511814482296938,
+        "logLossOver": 0.6927148096221303,
+        "logLossBtts": 0.6906362689934115,
+        "accuracy": 0.4294093851132686
+      },
+      "deltaNaive": {
+        "meanDiff": -0.10240939003713348,
+        "lower": -0.11304287345305124,
+        "upper": -0.09183601038334725,
+        "wins": 1895
+      },
+      "brierNaive": 0.6511814482296938,
+      "market": {
+        "n": 4944,
+        "logLoss1x2": 0.9488928530535237,
+        "brier1x2": 0.5629376121332371,
+        "accuracy": 0.5578478964401294,
+        "closingShare": 1
+      },
+      "deltaMarket": {
+        "meanDiff": 0.02456145518080474,
+        "lower": 0.019917523727481744,
+        "upper": 0.029229617018157593,
+        "wins": 2971
+      },
+      "totalsMarket": {
+        "n": 2664,
+        "modelLogLoss": 0.6914593220069508,
+        "marketLogLoss": 0.6796149909610883
+      },
+      "elo": {
+        "n": 4944,
+        "logLoss1x2": 0.9729774662345468,
+        "brier1x2": 0.579113226418573,
+        "accuracy": 0.5420711974110033
+      },
+      "blend": {
+        "n": 4944,
+        "logLoss1x2": 0.9707427463191153,
+        "brier1x2": 0.5773073708291782,
+        "accuracy": 0.5436893203883495
+      },
+      "deltaElo": {
+        "meanDiff": -0.0004768419997806191,
+        "lower": -0.00427084028093094,
+        "upper": 0.0033062037267948085,
+        "wins": 2174
+      },
+      "deltaBlend": {
+        "meanDiff": -0.0027115619152085994,
+        "lower": -0.004606050753840309,
+        "upper": -0.0008572383448185962,
+        "wins": 2174
+      },
+      "deltaBlendMarket": {
+        "meanDiff": 0.02184989326559613,
+        "lower": 0.017368948846599376,
+        "upper": 0.026431653590957536,
+        "wins": 2888
+      },
+      "researchTrainingRows": 6882
+    },
+    {
+      "league": "ligue-1",
+      "seasons": 13,
+      "blocks": 439,
+      "predictions": 4254,
+      "model": {
+        "n": 4254,
+        "logLoss1x2": 1.0020670547554864,
+        "brier1x2": 0.5988825472310113,
+        "logLossOver": 0.689425007819246,
+        "logLossBtts": 0.6961453375845628,
+        "accuracy": 0.5169252468265162
+      },
+      "naive": {
+        "n": 4254,
+        "logLoss1x2": 1.0690509204230916,
+        "brier1x2": 0.6465572128358089,
+        "logLossOver": 0.6912479600115966,
+        "logLossBtts": 0.6909039055684484,
+        "accuracy": 0.44358251057827924
+      },
+      "deltaNaive": {
+        "meanDiff": -0.06698386566760609,
+        "lower": -0.0774225909324774,
+        "upper": -0.05577470887635457,
+        "wins": 1778
+      },
+      "brierNaive": 0.6465572128358089,
+      "market": {
+        "n": 4254,
+        "logLoss1x2": 0.981992549462532,
+        "brier1x2": 0.5852866865905831,
+        "accuracy": 0.5239774330042313,
+        "closingShare": 1
+      },
+      "deltaMarket": {
+        "meanDiff": 0.020074505292955153,
+        "lower": 0.014676075338153181,
+        "upper": 0.025911177408228857,
+        "wins": 2456
+      },
+      "totalsMarket": {
+        "n": 2348,
+        "modelLogLoss": 0.6916103773408232,
+        "marketLogLoss": 0.6706481858209907
+      },
+      "elo": {
+        "n": 4254,
+        "logLoss1x2": 1.0008864426127662,
+        "brier1x2": 0.5978471392448865,
+        "accuracy": 0.5162200282087447
+      },
+      "blend": {
+        "n": 4254,
+        "logLoss1x2": 0.9992643872929624,
+        "brier1x2": 0.596912785199612,
+        "accuracy": 0.5211565585331452
+      },
+      "deltaElo": {
+        "meanDiff": -0.0011806121427179253,
+        "lower": -0.005050111965316119,
+        "upper": 0.002746594865683795,
+        "wins": 1986
+      },
+      "deltaBlend": {
+        "meanDiff": -0.0028026674625237424,
+        "lower": -0.004736065818849851,
+        "upper": -0.000854174321589205,
+        "wins": 1986
+      },
+      "deltaBlendMarket": {
+        "meanDiff": 0.017271837830431416,
+        "lower": 0.012403619608196142,
+        "upper": 0.0226185290383227,
+        "wins": 2474
+      },
+      "researchTrainingRows": 7674
+    },
+    {
+      "league": "liga-mx",
+      "seasons": 4,
+      "blocks": 136,
+      "predictions": 982,
+      "model": {
+        "n": 982,
+        "logLoss1x2": 1.0049692791879752,
+        "brier1x2": 0.6004253249186351,
+        "logLossOver": 0.7056143792869383,
+        "logLossBtts": 0.6948214693909348,
+        "accuracy": 0.5162932790224033
+      },
+      "naive": {
+        "n": 982,
+        "logLoss1x2": 1.057149480274446,
+        "brier1x2": 0.6377286570511468,
+        "logLossOver": 0.6926683488779474,
+        "logLossBtts": 0.6906463312451248,
+        "accuracy": 0.4745417515274949
+      },
+      "deltaNaive": {
+        "meanDiff": -0.05218020108646995,
+        "lower": -0.07323199456805794,
+        "upper": -0.029933257552626935,
+        "wins": 451
+      },
+      "brierNaive": 0.6377286570511468,
+      "market": null,
+      "deltaMarket": null,
+      "totalsMarket": null,
+      "elo": {
+        "n": 982,
+        "logLoss1x2": 1.0029909772511016,
+        "brier1x2": 0.5990915658230994,
+        "accuracy": 0.5274949083503055
+      },
+      "blend": {
+        "n": 982,
+        "logLoss1x2": 1.0020095501719626,
+        "brier1x2": 0.5985082397630018,
+        "accuracy": 0.5183299389002036
+      },
+      "deltaElo": {
+        "meanDiff": -0.0019783019368726585,
+        "lower": -0.010114785961287953,
+        "upper": 0.005534564907530097,
+        "wins": 529
+      },
+      "deltaBlend": {
+        "meanDiff": -0.0029597290160109624,
+        "lower": -0.00712007351517983,
+        "upper": 0.0009508466652905956,
+        "wins": 529
+      },
+      "deltaBlendMarket": null,
+      "researchTrainingRows": 710
+    }
+  ],
+  "nfl": {
+    "seasons": 28,
+    "blocks": 581,
+    "predictions": 7204,
+    "model": {
+      "n": 7204,
+      "logLoss1x2": 0.654546103250758,
+      "brier1x2": 0.46237336333756607,
+      "logLossOver": 0.715546548468617,
+      "accuracy": 0.616046640755136
+    },
+    "naive": {
+      "n": 7204,
+      "logLoss1x2": 0.6860428212298904,
+      "brier1x2": 0.49290493079665465,
+      "logLossOver": 0.7229362362537811,
+      "accuracy": 0.5616324264297612
+    },
+    "deltaNaive": {
+      "meanDiff": -0.03149671797913108,
+      "lower": -0.03893074052346597,
+      "upper": -0.0237266961644301,
+      "wins": 2831
+    },
+    "market": {
+      "n": 5426,
+      "logLossMl": 0.6105691115022861,
+      "brierMl": 0.4231345338263516
+    },
+    "deltaMarket": {
+      "meanDiff": 0.04207241173951252,
+      "lower": 0.034388189966749576,
+      "upper": 0.04994571159948789,
+      "wins": 3165
+    },
+    "totals": {
+      "n": 7204,
+      "modelLogLoss": 0.715546548468617,
+      "naiveLogLoss": 0.7229362362537811
+    }
+  },
+  "notes": [
+    "Evaluación retro walk-forward: cada jornada se predice con datos anteriores a su fecha.",
+    "El modelo de fútbol es Dixon-Coles con decaimiento temporal; se compara con un Elo incremental y una mezcla 50/50. El de NFL, ratings ridge con localía.",
+    "La referencia ingenua usa las tasas base de la ventana de entrenamiento.",
+    "El benchmark público entrena solo con el corpus versionado; --include-research-history añade 1993-2010 (research-only) sin cambiar la evaluación.",
+    "El mercado de fútbol usa cuotas sin vig de football-data.co.uk (research-only); el de NFL, moneylines de cierre de nflverse.",
+    "Un Δ logLoss negativo significa que el modelo pierde menos que la referencia."
+  ]
+}

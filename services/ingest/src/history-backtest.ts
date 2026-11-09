@@ -11,6 +11,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import {
+  createEloTracker,
   evaluateFootball,
   evaluateNfl,
   fitDixonColes,
@@ -25,6 +26,7 @@ import {
   type Outcome,
 } from "@pitchlab/models";
 import { HistoricalGameSchema, type HistoricalGame } from "./history/schema.js";
+import { ResearchGameSchema, type ResearchGame } from "./history/research-schema.js";
 
 const DAY_MS = 86_400_000;
 
@@ -36,6 +38,12 @@ export interface HistoryBacktestOptions {
   /** Mínimo de partidos para ajustar el modelo en una jornada. */
   minTrainRows?: number;
   bootstrapIterations?: number;
+  /**
+   * Usa el histórico research (1993-94 en adelante, research-only) para **entrenar**.
+   * Desactivado por defecto: el benchmark público debe reproducirse solo con el corpus
+   * versionado. Actívalo con `--include-research-history` para experimentar.
+   */
+  includeHistoricalResearch?: boolean;
 }
 
 export interface PeriodBlock {
@@ -53,6 +61,26 @@ export interface FootballBacktestResult {
   naive: ModelMetrics;
   deltaNaive: { meanDiff: number; lower: number; upper: number };
   brierNaive: number;
+  /** Mercado sin vig sobre los partidos con cuotas (cierre o pre-partido). */
+  market: {
+    n: number;
+    logLoss1x2: number;
+    brier1x2: number;
+    accuracy: number;
+    closingShare: number;
+  } | null;
+  deltaMarket: { meanDiff: number; lower: number; upper: number } | null;
+  /** Totales (más/menos 2.5) frente a la cuota de mercado sin vig. */
+  totalsMarket: { n: number; modelLogLoss: number; marketLogLoss: number } | null;
+  /** Elo incremental evaluado en los mismos partidos que Dixon-Coles. */
+  elo: { n: number; logLoss1x2: number; brier1x2: number; accuracy: number } | null;
+  /** Mezcla 50/50 de Dixon-Coles y Elo. */
+  blend: { n: number; logLoss1x2: number; brier1x2: number; accuracy: number } | null;
+  deltaElo: { meanDiff: number; lower: number; upper: number } | null;
+  deltaBlend: { meanDiff: number; lower: number; upper: number } | null;
+  deltaBlendMarket: { meanDiff: number; lower: number; upper: number } | null;
+  /** Partidos research-only usados solo para entrenar (anteriores al corpus). */
+  researchTrainingRows: number;
 }
 
 export interface NflBacktestResult {
@@ -88,6 +116,62 @@ export function loadHistoryGames(rootDir: string, league: string): HistoricalGam
     .map((line) => line.trim())
     .filter((line) => line.length > 0);
   return lines.map((line) => HistoricalGameSchema.parse(JSON.parse(line)));
+}
+
+/** Fila mínima para entrenar (sirve para el corpus y para el histórico research). */
+export interface TrainingGame {
+  id: string;
+  date: string;
+  season: string;
+  homeTeam: string;
+  awayTeam: string;
+  homeScore: number;
+  awayScore: number;
+}
+
+/**
+ * Carga el histórico de investigación completo (resultados de 1993-94 en adelante).
+ * Estas filas solo se usan para **entrenar**; la evaluación se hace sobre el corpus
+ * publicable para que las métricas sigan siendo comparables.
+ */
+export function loadResearchHistory(rootDir: string, league: string): TrainingGame[] {
+  const path = join(rootDir, "data", "history", "research", `${league}.jsonl`);
+  if (!existsSync(path)) return [];
+  const lines = readFileSync(path, "utf8")
+    .split("\n")
+    .map((line) => line.trim())
+    .filter((line) => line.length > 0);
+  return lines.map((line) => {
+    const parsed = ResearchGameSchema.parse(JSON.parse(line)) as ResearchGame;
+    return {
+      id: parsed.id,
+      date: parsed.date,
+      season: parsed.season,
+      homeTeam: parsed.homeTeam,
+      awayTeam: parsed.awayTeam,
+      homeScore: parsed.homeScore,
+      awayScore: parsed.awayScore,
+    };
+  });
+}
+
+/**
+ * Carga el dataset de investigación (cuotas y stats) de una liga, indexado por `id`.
+ * Si no existe, devuelve un mapa vacío: el benchmark sigue funcionando sin mercado.
+ */
+export function loadResearchOdds(rootDir: string, league: string): Map<string, ResearchGame> {
+  const path = join(rootDir, "data", "history", "research", `${league}.jsonl`);
+  if (!existsSync(path)) return new Map();
+  const lines = readFileSync(path, "utf8")
+    .split("\n")
+    .map((line) => line.trim())
+    .filter((line) => line.length > 0);
+  const map = new Map<string, ResearchGame>();
+  for (const line of lines) {
+    const game = ResearchGameSchema.parse(JSON.parse(line));
+    if (game.odds) map.set(game.id, game);
+  }
+  return map;
 }
 
 /** Agrupa partidos por jornada (temporada + torneo + número) ordenados por fecha. */
@@ -128,6 +212,19 @@ export function noVigPair(
   return { home: home / sum, away: away / sum };
 }
 
+/** Terna 1X2 sin vig a partir de cuotas decimales. */
+export function noVigThree(
+  home: number,
+  draw: number,
+  away: number,
+): [number, number, number] | null {
+  if (!(home > 1 && draw > 1 && away > 1)) return null;
+  const inv = [1 / home, 1 / draw, 1 / away] as [number, number, number];
+  const sum = inv[0] + inv[1] + inv[2];
+  if (!(sum > 0)) return null;
+  return [inv[0] / sum, inv[1] / sum, inv[2] / sum];
+}
+
 function outcomeOf(game: HistoricalGame): Outcome {
   return {
     result1x2: game.homeScore > game.awayScore ? 0 : game.homeScore === game.awayScore ? 1 : 2,
@@ -142,7 +239,7 @@ interface NaiveFootball {
   pBtts: number;
 }
 
-function naiveFootball(train: readonly HistoricalGame[]): NaiveFootball {
+function naiveFootball(train: readonly TrainingGame[]): NaiveFootball {
   let home = 1;
   let draw = 1;
   let away = 1;
@@ -167,18 +264,61 @@ function runFootballLeague(
   league: string,
   games: readonly HistoricalGame[],
   options: Required<Pick<HistoryBacktestOptions, "windowDays" | "minTrainRows" | "bootstrapIterations">>,
+  oddsById: ReadonlyMap<string, ResearchGame>,
+  historicalGames: readonly TrainingGame[],
 ): FootballBacktestResult {
   const blocks = groupIntoPeriods(games);
-  const history: HistoricalGame[] = [];
+  const canonicalIds = new Set(games.map((game) => game.id));
+  const pending = historicalGames
+    .filter((game) => !canonicalIds.has(game.id))
+    .sort((a, b) => a.date.localeCompare(b.date) || a.id.localeCompare(b.id));
+  let pendingIndex = 0;
+  const history: TrainingGame[] = [];
   const modelRows: Array<{ prediction: FootballPredictionRow; outcome: Outcome }> = [];
   const naiveRows: Array<{ prediction: FootballPredictionRow; outcome: Outcome }> = [];
   const modelLosses: number[] = [];
   const naiveLosses: number[] = [];
+
+  const marketLosses: number[] = [];
+  const marketModelLosses: number[] = [];
+  const marketBlendLosses: number[] = [];
+  let marketBrier = 0;
+  let marketHits = 0;
+  let marketCount = 0;
+  let closingCount = 0;
+  const totalModelLosses: number[] = [];
+  const totalMarketLosses: number[] = [];
+
+  const elo = createEloTracker();
+  const eloLosses: number[] = [];
+  const blendLosses: number[] = [];
+  let eloBrier = 0;
+  let eloHits = 0;
+  let eloCount = 0;
+  let blendBrier = 0;
+  let blendHits = 0;
+
   const seasons = new Set<string>();
 
   for (const block of blocks) {
+    while (pendingIndex < pending.length && pending[pendingIndex]!.date < block.date) {
+      const extra = pending[pendingIndex]!;
+      elo.beginSeason(extra.season);
+      elo.update({
+        date: extra.date,
+        season: extra.season,
+        home: extra.homeTeam,
+        away: extra.awayTeam,
+        homeGoals: extra.homeScore,
+        awayGoals: extra.awayScore,
+      });
+      history.push(extra);
+      pendingIndex++;
+    }
+
     const cutoffMs = Date.parse(`${block.date}T00:00:00Z`) - options.windowDays * DAY_MS;
     const train = history.filter((game) => Date.parse(`${game.date}T00:00:00Z`) >= cutoffMs);
+    elo.beginSeason(block.games[0]!.season);
 
     if (train.length >= options.minTrainRows) {
       const model = fitDixonColes(
@@ -215,7 +355,100 @@ function runFootballLeague(
           -Math.log(Math.max(naive.p1x2[outcome.result1x2]!, 1e-12)),
         );
         seasons.add(game.season);
+
+        const observed = outcome.result1x2;
+        const eloPrediction = elo.predict(game.homeTeam, game.awayTeam);
+        const eloProbabilities: [number, number, number] = [
+          eloPrediction.home,
+          eloPrediction.draw,
+          eloPrediction.away,
+        ];
+        eloLosses.push(-Math.log(Math.max(eloProbabilities[observed], 1e-12)));
+        let eloGameBrier = 0;
+        for (let i = 0; i < 3; i++) {
+          const diff = eloProbabilities[i]! - (i === observed ? 1 : 0);
+          eloGameBrier += diff * diff;
+        }
+        eloBrier += eloGameBrier;
+        const eloBest =
+          eloProbabilities[0] >= eloProbabilities[1] && eloProbabilities[0] >= eloProbabilities[2]
+            ? 0
+            : eloProbabilities[1] >= eloProbabilities[2]
+              ? 1
+              : 2;
+        if (eloBest === observed) eloHits++;
+        eloCount++;
+
+        const blend: [number, number, number] = [
+          0.5 * modelRow.p1x2[0] + 0.5 * eloProbabilities[0],
+          0.5 * modelRow.p1x2[1] + 0.5 * eloProbabilities[1],
+          0.5 * modelRow.p1x2[2] + 0.5 * eloProbabilities[2],
+        ];
+        blendLosses.push(-Math.log(Math.max(blend[observed], 1e-12)));
+        let blendGameBrier = 0;
+        for (let i = 0; i < 3; i++) {
+          const diff = blend[i]! - (i === observed ? 1 : 0);
+          blendGameBrier += diff * diff;
+        }
+        blendBrier += blendGameBrier;
+        const blendBest =
+          blend[0] >= blend[1] && blend[0] >= blend[2] ? 0 : blend[1] >= blend[2] ? 1 : 2;
+        if (blendBest === observed) blendHits++;
+
+        const research = oddsById.get(game.id);
+        if (research?.odds) {
+          const marketProb = noVigThree(
+            research.odds.home,
+            research.odds.draw,
+            research.odds.away,
+          );
+          if (marketProb) {
+            marketLosses.push(-Math.log(Math.max(marketProb[observed], 1e-12)));
+            marketModelLosses.push(
+              -Math.log(Math.max(modelRow.p1x2[observed], 1e-12)),
+            );
+            marketBlendLosses.push(-Math.log(Math.max(blend[observed], 1e-12)));
+            let brier = 0;
+            for (let i = 0; i < 3; i++) {
+              const diff = marketProb[i]! - (i === observed ? 1 : 0);
+              brier += diff * diff;
+            }
+            marketBrier += brier;
+            const best = marketProb[0] >= marketProb[1] && marketProb[0] >= marketProb[2]
+              ? 0
+              : marketProb[1] >= marketProb[2]
+                ? 1
+                : 2;
+            if (best === observed) marketHits++;
+            marketCount++;
+            if (research.odds.timing === "closing") closingCount++;
+          }
+
+          if (research.odds.over25 && research.odds.under25) {
+            const pair = noVigPair(1 / research.odds.over25, 1 / research.odds.under25);
+            if (pair) {
+              const isOver = game.homeScore + game.awayScore > 2.5;
+              totalModelLosses.push(
+                -Math.log(Math.max(isOver ? modelRow.pOver25 : 1 - modelRow.pOver25, 1e-12)),
+              );
+              totalMarketLosses.push(
+                -Math.log(Math.max(isOver ? pair.home : pair.away, 1e-12)),
+              );
+            }
+          }
+        }
       }
+    }
+
+    for (const game of block.games) {
+      elo.update({
+        date: game.date,
+        season: game.season,
+        home: game.homeTeam,
+        away: game.awayTeam,
+        homeGoals: game.homeScore,
+        awayGoals: game.awayScore,
+      });
     }
 
     history.push(...block.games);
@@ -223,6 +456,9 @@ function runFootballLeague(
 
   const model = evaluateFootball(modelRows);
   const naive = evaluateFootball(naiveRows);
+  const mean = (values: readonly number[]): number =>
+    values.length === 0 ? 0 : values.reduce((sum, value) => sum + value, 0) / values.length;
+
   return {
     league,
     seasons: seasons.size,
@@ -232,6 +468,59 @@ function runFootballLeague(
     naive,
     deltaNaive: pairedBootstrap(naiveLosses, modelLosses, options.bootstrapIterations),
     brierNaive: naive.brier1x2,
+    market:
+      marketCount === 0
+        ? null
+        : {
+            n: marketCount,
+            logLoss1x2: mean(marketLosses),
+            brier1x2: marketBrier / marketCount,
+            accuracy: marketHits / marketCount,
+            closingShare: closingCount / marketCount,
+          },
+    deltaMarket:
+      marketLosses.length > 0
+        ? pairedBootstrap(marketLosses, marketModelLosses, options.bootstrapIterations)
+        : null,
+    totalsMarket:
+      totalMarketLosses.length === 0
+        ? null
+        : {
+            n: totalMarketLosses.length,
+            modelLogLoss: mean(totalModelLosses),
+            marketLogLoss: mean(totalMarketLosses),
+          },
+    elo:
+      eloCount === 0
+        ? null
+        : {
+            n: eloCount,
+            logLoss1x2: mean(eloLosses),
+            brier1x2: eloBrier / eloCount,
+            accuracy: eloHits / eloCount,
+          },
+    blend:
+      blendLosses.length === 0
+        ? null
+        : {
+            n: blendLosses.length,
+            logLoss1x2: mean(blendLosses),
+            brier1x2: blendBrier / blendLosses.length,
+            accuracy: blendHits / blendLosses.length,
+          },
+    deltaElo:
+      eloLosses.length > 0
+        ? pairedBootstrap(modelLosses, eloLosses, options.bootstrapIterations)
+        : null,
+    deltaBlend:
+      blendLosses.length > 0
+        ? pairedBootstrap(modelLosses, blendLosses, options.bootstrapIterations)
+        : null,
+    deltaBlendMarket:
+      marketBlendLosses.length > 0
+        ? pairedBootstrap(marketLosses, marketBlendLosses, options.bootstrapIterations)
+        : null,
+    researchTrainingRows: pending.length,
   };
 }
 
@@ -412,7 +701,19 @@ export function runHistoryBacktest(options: HistoryBacktestOptions): HistoryBack
     if (league === "nfl") {
       nfl = runNfl(games, resolved);
     } else {
-      football.push(runFootballLeague(league, games, resolved));
+      const extras =
+        options.includeHistoricalResearch === true
+          ? loadResearchHistory(options.rootDir, league)
+          : [];
+      football.push(
+        runFootballLeague(
+          league,
+          games,
+          resolved,
+          loadResearchOdds(options.rootDir, league),
+          extras,
+        ),
+      );
     }
   }
 
@@ -423,9 +724,10 @@ export function runHistoryBacktest(options: HistoryBacktestOptions): HistoryBack
     nfl,
     notes: [
       "Evaluación retro walk-forward: cada jornada se predice con datos anteriores a su fecha.",
-      "El modelo de fútbol es Dixon-Coles con decaimiento temporal; el de NFL, ratings ridge con localía.",
+      "El modelo de fútbol es Dixon-Coles con decaimiento temporal; se compara con un Elo incremental y una mezcla 50/50. El de NFL, ratings ridge con localía.",
       "La referencia ingenua usa las tasas base de la ventana de entrenamiento.",
-      "El mercado NFL se deriva de las moneylines de cierre de nflverse, sin vig; es solo investigación interna.",
+      "El benchmark público entrena solo con el corpus versionado; --include-research-history añade 1993-2010 (research-only) sin cambiar la evaluación.",
+      "El mercado de fútbol usa cuotas sin vig de football-data.co.uk (research-only); el de NFL, moneylines de cierre de nflverse.",
       "Un Δ logLoss negativo significa que el modelo pierde menos que la referencia.",
     ],
   };
@@ -449,15 +751,77 @@ export function renderHistoryBacktestReport(
     "",
     "> Evaluación retro: **no** cuenta como track record (PREDICTION_ARCHITECTURE.md §2).",
     "",
-    "## Fútbol (Dixon-Coles)",
+    "## Fútbol: Dixon-Coles, Elo y mezcla",
     "",
-    "| Liga | Temporadas | n | LogLoss 1X2 | Brier | Acierto | LogLoss ingenuo | Δ (IC 95%) |",
-    "|---|---:|---:|---:|---:|---:|---:|---:|",
+    "| Liga | Temporadas | n | Dixon-Coles | Elo | Mezcla 50/50 | Ingenuo | Mercado | Δ DC−mercado | Δ mezcla−mercado |",
+    "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
   ];
 
   for (const result of report.football) {
+    const market = result.market;
+    const deltaMarket = result.deltaMarket;
+    const deltaBlendMarket = result.deltaBlendMarket;
     lines.push(
-      `| ${result.league} | ${result.seasons} | ${result.predictions} | ${result.model.logLoss1x2.toFixed(4)} | ${result.model.brier1x2.toFixed(4)} | ${percent(result.model.accuracy)} | ${result.naive.logLoss1x2.toFixed(4)} | ${result.deltaNaive.meanDiff.toFixed(4)} [${result.deltaNaive.lower.toFixed(4)}, ${result.deltaNaive.upper.toFixed(4)}] |`,
+      `| ${result.league} | ${result.seasons} | ${result.predictions} | ${result.model.logLoss1x2.toFixed(4)} | ${result.elo ? result.elo.logLoss1x2.toFixed(4) : "—"} | ${result.blend ? result.blend.logLoss1x2.toFixed(4) : "—"} | ${result.naive.logLoss1x2.toFixed(4)} | ${market ? market.logLoss1x2.toFixed(4) : "—"} | ${deltaMarket ? `${deltaMarket.meanDiff.toFixed(4)} [${deltaMarket.lower.toFixed(4)}, ${deltaMarket.upper.toFixed(4)}]` : "—"} | ${deltaBlendMarket ? `${deltaBlendMarket.meanDiff.toFixed(4)} [${deltaBlendMarket.lower.toFixed(4)}, ${deltaBlendMarket.upper.toFixed(4)}]` : "—"} |`,
+    );
+  }
+
+  const withMarket = report.football.filter((result) => result.market !== null);
+  if (withMarket.length > 0) {
+    lines.push(
+      "",
+      `Mercado sin vig: ${withMarket.reduce((sum, result) => sum + (result.market?.n ?? 0), 0).toLocaleString("es-MX")} predicciones emparejadas. Cuota de cierre en ${percent(
+        withMarket.reduce((sum, result) => sum + (result.market?.n ?? 0) * (result.market?.closingShare ?? 0), 0) /
+          Math.max(1, withMarket.reduce((sum, result) => sum + (result.market?.n ?? 0), 0)),
+      )} de los casos; el resto es cuota pre-partido (temporadas antiguas).`,
+      "",
+      "> Las cuotas vienen de football-data.co.uk y son **research-only**; no se publican.",
+    );
+  }
+
+  const comparisons = report.football.filter((result) => result.elo !== null && result.deltaElo !== null);
+  if (comparisons.length > 0) {
+    const fmt = (delta: { meanDiff: number; lower: number; upper: number }): string =>
+      `${delta.meanDiff.toFixed(4)} [${delta.lower.toFixed(4)}, ${delta.upper.toFixed(4)}]`;
+    lines.push(
+      "",
+      "### Elo y mezcla frente a Dixon-Coles",
+      "",
+      "| Liga | Δ Elo−DC | Δ mezcla−DC |",
+      "|---|---:|---:|",
+    );
+    for (const result of comparisons) {
+      lines.push(
+        `| ${result.league} | ${fmt(result.deltaElo!)} | ${fmt(result.deltaBlend!)} |`,
+      );
+    }
+    lines.push("", "Δ negativo = Elo/mezcla pierden menos que Dixon-Coles.");
+  }
+
+  const withTotals = report.football.filter((result) => result.totalsMarket !== null);
+  if (withTotals.length > 0) {
+    lines.push(
+      "",
+      "### Totales (más/menos 2.5) frente al mercado",
+      "",
+      "| Liga | n | LogLoss modelo | LogLoss mercado |",
+      "|---|---:|---:|---:|",
+    );
+    for (const result of withTotals) {
+      const totals = result.totalsMarket!;
+      lines.push(
+        `| ${result.league} | ${totals.n} | ${totals.modelLogLoss.toFixed(4)} | ${totals.marketLogLoss.toFixed(4)} |`,
+      );
+    }
+  }
+
+  const researchRows = report.football.reduce((sum, result) => sum + result.researchTrainingRows, 0);
+  if (researchRows > 0) {
+    lines.push(
+      "",
+      `Entrenamiento ampliado: ${researchRows.toLocaleString("es-MX")} partidos research-only anteriores al corpus (1993-94 en adelante) se usan solo para ajustar; la evaluación sigue sobre el corpus publicable.`,
+      "",
+      "> Esos resultados vienen de football-data.co.uk y son research-only: no se publican.",
     );
   }
 

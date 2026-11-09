@@ -22,7 +22,7 @@ import {
 } from "./dixon-coles.js";
 
 export interface FootballAnalysisInput {
-  league: "premier-league" | "liga-mx";
+  league: "premier-league" | "liga-mx" | "laliga";
   leagueName: string;
   game: GameDTO;
   model: DixonColesModel;
@@ -166,6 +166,53 @@ export function analyzeFootballGameV2(input: FootballAnalysisInput): GameAnalysi
           fairOdds: 1 / prediction.btts.no,
         },
       ],
+    },
+    {
+      group: `Goles por equipo (${prediction.teamTotals.home.line.toFixed(1)})`,
+      rows: [
+        {
+          market: asMarketKey("team_totals"),
+          selection: "home_over",
+          label: `${game.home.shortName} más de ${prediction.teamTotals.home.line.toFixed(1)}`,
+          line: prediction.teamTotals.home.line,
+          p: prediction.teamTotals.home.over,
+          fairOdds: 1 / prediction.teamTotals.home.over,
+        },
+        {
+          market: asMarketKey("team_totals"),
+          selection: "home_under",
+          label: `${game.home.shortName} menos de ${prediction.teamTotals.home.line.toFixed(1)}`,
+          line: prediction.teamTotals.home.line,
+          p: prediction.teamTotals.home.under,
+          fairOdds: 1 / prediction.teamTotals.home.under,
+        },
+        {
+          market: asMarketKey("team_totals"),
+          selection: "away_over",
+          label: `${game.away.shortName} más de ${prediction.teamTotals.away.line.toFixed(1)}`,
+          line: prediction.teamTotals.away.line,
+          p: prediction.teamTotals.away.over,
+          fairOdds: 1 / prediction.teamTotals.away.over,
+        },
+        {
+          market: asMarketKey("team_totals"),
+          selection: "away_under",
+          label: `${game.away.shortName} menos de ${prediction.teamTotals.away.line.toFixed(1)}`,
+          line: prediction.teamTotals.away.line,
+          p: prediction.teamTotals.away.under,
+          fairOdds: 1 / prediction.teamTotals.away.under,
+        },
+      ],
+    },
+    {
+      group: "Marcador exacto (más probables)",
+      rows: prediction.topScores.map((score) => ({
+        market: asMarketKey("correct_score"),
+        selection: `${score.home}-${score.away}`,
+        label: `${score.home}–${score.away}`,
+        p: score.p,
+        fairOdds: 1 / score.p,
+      })),
     },
   ];
 

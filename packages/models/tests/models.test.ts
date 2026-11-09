@@ -199,6 +199,42 @@ describe("NFL v2 — ratings ridge", () => {
     expect(home.margin).toBeGreaterThan(neutral.margin);
   });
 
+  it("converge con una muestra grande de varias temporadas", () => {
+    const teams = Array.from({ length: 32 }, (_, i) => `T${String(i + 1).padStart(2, "0")}`);
+    const strength: Record<string, number> = {};
+    teams.forEach((team, i) => {
+      strength[team] = 8 - (i % 16) * 0.9;
+    });
+    const rng = makeRng("synthetic-nfl-large");
+    const jitter = () => (rng() - 0.5) * 8;
+
+    const rows = [];
+    for (let season = 0; season < 2; season++) {
+      for (let week = 1; week <= 10; week++) {
+        for (let i = 0; i < teams.length; i += 2) {
+          const home = teams[i]!;
+          const away = teams[i + 1]!;
+          rows.push({
+            week,
+            date: `2025-09-${String(7 + week).padStart(2, "0")}`,
+            home,
+            away,
+            homeScore: Math.round(23 + strength[home]! + 1.5 - strength[away]! * 0.5 + jitter()),
+            awayScore: Math.round(23 + strength[away]! - 1.5 - strength[home]! * 0.5 + jitter()),
+          });
+        }
+      }
+    }
+
+    const model = fitNflRatings(rows);
+    expect(rows.length).toBe(320);
+    expect(model.converged).toBe(true);
+    expect(model.intercept).toBeGreaterThan(15);
+    expect(model.intercept).toBeLessThan(32);
+    expect(model.sigmaMargin).toBeLessThan(40);
+    expect(model.sigmaTotal).toBeLessThan(40);
+  });
+
   it("sin datos devuelve un modelo neutro en vez de romperse", () => {
     const model = fitNflRatings([]);
     expect(model.games).toBe(0);

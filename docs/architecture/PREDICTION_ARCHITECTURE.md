@@ -43,7 +43,7 @@ La UI rotula cada métrica con su tipo («histórico simulado» frente a «regis
 | Etapa | NFL | Fútbol (Liga MX y Premier League) |
 |---|---|---|
 | **Baseline 0** (referencia) | `engines-reference` NFL (Pitágoras, Log5 y normal) | `engines-reference` de fútbol (Poisson con Dixon-Coles y parámetros fijos) |
-| Candidato 1 | Elo con margen y ajuste de localía estimado | Dixon-Coles con MLE y decaimiento temporal |
+| Candidato 1 | Elo con margen y ajuste de localía estimado | Dixon-Coles con MLE y decaimiento temporal; **Elo implementado y evaluado** (`packages/models/src/football/elo.ts`, mezcla 50/50 con Dixon-Coles) |
 | Candidato 2 | Regresión del margen o total con features de eficiencia (nflverse PBP) | Poisson bivariado con covariables |
 | Candidato 3 | GBM (LightGBM) sobre features más la línea de apertura | GBM con features de forma |
 | Props NFL (W5+) | Distribución empírica con shrinkage o binomial negativa por mercado | — |

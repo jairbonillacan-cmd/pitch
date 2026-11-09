@@ -95,17 +95,23 @@ export function FloatingNav({
 
         <div className="right">
           <ThemeToggle />
-          <a className="btn btn-ghost" href="/login">
-            Entrar
-          </a>
-          {onOpenBetaPin && activeAuthRoute === "landing" ? (
-            <a className="btn btn-primary signup" href="/signup">
-              Crear cuenta
-            </a>
+          {onOpenBetaPin ? (
+            <button
+              className="btn btn-primary beta-access"
+              type="button"
+              onClick={onOpenBetaPin}
+            >
+              Entrar con código
+            </button>
           ) : (
-            <a className="btn btn-primary signup" href="/signup">
-              Crear cuenta
-            </a>
+            <>
+              <a className="btn btn-ghost" href="/login">
+                Entrar
+              </a>
+              <a className="btn btn-primary signup" href="/signup">
+                Crear cuenta
+              </a>
+            </>
           )}
         </div>
       </div>
@@ -162,6 +168,9 @@ export function PublicFooter({
               </li>
               <li>
                 <a href="/#como">Cómo funciona</a>
+              </li>
+              <li>
+                <a href="/metodologia">Metodología y evaluación</a>
               </li>
               <li>
                 <a href="/#ligas">Ligas</a>
@@ -783,7 +792,7 @@ export function AnalysisDialog({
                     </span>
                     <span>Corte {match.updatedAt}</span>
                     <span>No garantiza resultados.</span>
-                    <a href="/#como">Cómo funciona</a>
+                    <a href="/metodologia">Metodología</a>
                   </div>
                 </div>
               )}

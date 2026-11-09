@@ -15,7 +15,13 @@ test-results/
 .env.*.local
 linemate-analysis/
 services/ingest/.cache/
+data/history/raw/
+data/history/research/
 pitchlab-champions-europa-league-2026-27.zip
 pitchlab-laliga-nfl-ncaa-2026.zip
 pitchlab-liga-mx-apertura-2026.zip
 pitchlab-premier-league-2026-27.zip
+
+# NFL data collection tooling
+tools/nfl-data/.venv/
+tools/nfl-data/wheels/

@@ -4,12 +4,17 @@ Plataforma de inteligencia deportiva con bankroll virtual. **No acepta apuestas 
 de apuestas**: publica probabilidades estimadas, cuota justa y comparación de datos con fuente y hora.
 
 Este repositorio contiene el pre-MVP para socios: landing, panel de partidos por liga, análisis por
-partido y las páginas legales.
+partido, metodología pública y las páginas legales.
+
+**Ligas en la beta:** Liga MX, Premier League, LaLiga y NFL. NHL y MLB aparecen como «Pronto».
+
+Cada partido publica hasta 20 mercados (resultado, doble oportunidad, totales, ambos anotan, goles
+por equipo y marcador exacto), su cuota justa y el intervalo del 90 % del modelo.
 
 ## Estructura
 
 ```
-apps/web                 Next.js 15 (App Router) — landing, panel y API de beta
+apps/web                 Next.js 15 (App Router) — landing, panel, metodología y API de beta
 packages/contracts       Tipos y esquemas Zod compartidos (GameDTO, GameAnalysis, snapshots)
 packages/engines-reference  Baseline 0: motores reconstruidos de referencia (paridad Δ=0)
 packages/models          Modelos v2: Dixon-Coles estimado (fútbol) y ratings por rival (NFL)
@@ -45,16 +50,16 @@ Backtest walk-forward (solo datos previos a cada jornada/semana; 2 temporadas):
 
 | Liga | Modelo | n | LogLoss | Brier | Acierto |
 |---|---|---:|---:|---:|---:|
-| Premier League | v2 | 327 | **1.0230** | **0.6139** | 51.1 % |
+| Premier League | v2 | 327 | **1.0217** | **0.6130** | 49.2 % |
 | Premier League | Baseline 0 | 327 | 1.0239 | 0.6145 | 48.3 % |
 | Premier League | Ingenuo | 327 | 1.0741 | 0.6493 | 45.0 % |
-| NFL | v2 | 307 | 0.6479 | 0.4579 | **63.8 %** |
-| NFL | Baseline 0 | 307 | **0.6419** | **0.4519** | 60.3 % |
-| NFL | Ingenuo | 307 | 0.6999 | 0.5066 | 48.5 % |
+| NFL | v2 | 310 | 0.6468 | 0.4568 | **63.9 %** |
+| NFL | Baseline 0 | 310 | **0.6413** | **0.4513** | 60.3 % |
+| NFL | Ingenuo | 310 | 0.6998 | 0.5066 | 48.4 % |
 
 Lectura honesta: **v2 le gana al ingenuo en las dos ligas, pero está estadísticamente empatado con
-el Baseline 0** (Δ log-loss −0.0009 en fútbol con IC95 % [−0.0225, +0.0207]; +0.0060 en NFL con
-IC95 % [−0.0074, +0.0206]). Por eso se publica como `candidate` y con la etiqueta «en validación»:
+el Baseline 0** (Δ log-loss −0.0022 en fútbol con IC95 % [−0.0190, +0.0150]; +0.0055 en NFL con
+IC95 % [−0.0079, +0.0202]). Por eso se publica como `candidate` y con la etiqueta «en validación»:
 el gate exige batir al Baseline 0 con un IC que excluya el 0 (`docs/architecture/PREDICTION_ARCHITECTURE.md` §5).
 
 ## Datos y licencias

@@ -3,7 +3,7 @@ import { z } from "zod";
 export type Brand<T, B extends string> = T & { readonly __brand: B };
 
 export const VALID_SPORTS = ["american-football", "soccer", "hockey", "baseball"] as const;
-export const VALID_LEAGUES = ["nfl", "liga-mx", "premier-league", "ncaaf", "nhl", "mlb"] as const;
+export const VALID_LEAGUES = ["nfl", "liga-mx", "premier-league", "laliga", "ncaaf", "nhl", "mlb"] as const;
 
 export type SportId = Brand<(typeof VALID_SPORTS)[number], "SportId">;
 export type LeagueId = Brand<(typeof VALID_LEAGUES)[number], "LeagueId">;
@@ -33,7 +33,7 @@ export const SeasonIdSchema = z
 export const TeamIdSchema = z
   .string()
   .regex(
-    /^(nfl|liga-mx|premier-league|ncaaf|nhl|mlb)\.[a-z0-9-]+$/,
+    /^(nfl|liga-mx|premier-league|laliga|ncaaf|nhl|mlb)\.[a-z0-9-]+$/,
     "TeamId debe seguir el formato canónico <league>.<slug>",
   )
   .transform((v) => v as TeamId);

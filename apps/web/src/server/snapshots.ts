@@ -46,7 +46,7 @@ function resolveSnapshotsRoot(): string {
 }
 
 export function loadLeagueSnapshotEnvelope(
-  leagueKey: "liga-mx" | "premier-league" | "nfl",
+  leagueKey: "liga-mx" | "premier-league" | "laliga" | "nfl",
 ): SnapshotEnvelope {
   const root = resolveSnapshotsRoot();
   const latestPath = path.join(root, leagueKey, "latest.json");
@@ -59,8 +59,8 @@ export function loadLeagueSnapshotEnvelope(
       leagueLabel:
         leagueKey === "liga-mx"
           ? "Liga MX"
-          : leagueKey === "premier-league"
-            ? "Premier League"
+          : leagueKey === "premier-league" || leagueKey === "laliga"
+            ? (leagueKey === "laliga" ? "LaLiga" : "Premier League")
             : "NFL",
       sport: leagueKey === "nfl" ? "american-football" : "football",
       season:
@@ -94,8 +94,8 @@ export function loadLeagueSnapshotEnvelope(
       leagueLabel:
         parsed.league === "liga-mx"
           ? "Liga MX"
-          : parsed.league === "premier-league"
-            ? "Premier League"
+          : parsed.league === "premier-league" || parsed.league === "laliga"
+            ? (parsed.league === "laliga" ? "LaLiga" : "Premier League")
             : "NFL",
       sport: parsed.league === "nfl" ? "american-football" : "football",
       season: parsed.seasonLabel,
@@ -124,12 +124,13 @@ export function loadLeagueSnapshotEnvelope(
 }
 
 export function loadAllActiveLeagueSnapshots(): Record<
-  "liga-mx" | "premier-league" | "nfl",
+  "liga-mx" | "premier-league" | "laliga" | "nfl",
   SnapshotEnvelope
 > {
   return {
     "liga-mx": loadLeagueSnapshotEnvelope("liga-mx"),
     "premier-league": loadLeagueSnapshotEnvelope("premier-league"),
+    laliga: loadLeagueSnapshotEnvelope("laliga"),
     nfl: loadLeagueSnapshotEnvelope("nfl"),
   };
 }

@@ -1,10 +1,15 @@
 import { describe, expect, it } from "vitest";
+import { resolve } from "node:path";
 import {
   americanToImplied,
   groupIntoPeriods,
+  loadResearchOdds,
   noVigPair,
+  noVigThree,
 } from "../src/index.js";
 import type { HistoricalGame } from "../src/history/schema.js";
+
+const ROOT = resolve(import.meta.dirname, "..", "..", "..");
 
 function game(overrides: Partial<HistoricalGame> & Pick<HistoricalGame, "id" | "date">): HistoricalGame {
   return {
@@ -44,6 +49,18 @@ describe("conversión de cuotas para el benchmark", () => {
     expect(pair.home + pair.away).toBeCloseTo(1, 10);
     expect(noVigPair(null, 0.5)).toBeNull();
     expect(noVigPair(0, 0)).toBeNull();
+  });
+
+  it("quita el vig de una terna 1X2 desde cuotas decimales", () => {
+    const probs = noVigThree(2, 3.5, 4)!;
+    expect(probs[0] + probs[1] + probs[2]).toBeCloseTo(1, 10);
+    expect(probs[0]).toBeGreaterThan(probs[1]);
+    expect(probs[1]).toBeGreaterThan(probs[2]);
+    expect(noVigThree(1, 3, 4)).toBeNull();
+  });
+
+  it("devuelve un mapa vacío si la liga no tiene dataset de cuotas", () => {
+    expect(loadResearchOdds(ROOT, "nfl").size).toBe(0);
   });
 });
 

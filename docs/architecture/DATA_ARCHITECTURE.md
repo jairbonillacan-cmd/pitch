@@ -100,6 +100,8 @@ r2://pitchlab-data/
 - **Retención:** `raw/` 24 meses. `curated/` y `odds/` para siempre (son activo histórico; los términos de The Odds API permiten conservarlo).
 - **Postgres** guarda la temporada actual más las 2 anteriores de stats que consulta la app, y todo `odds_snapshot`. El histórico profundo de NFL (desde 1999) vive en Parquet y lo consultan DuckDB (backtests) y el Archive bajo demanda.
 - Un export mensual de `odds_snapshot` a Parquet sirve como respaldo independiente de la DB.
+- **Corpus local de arranque:** mientras `packages/db` y R2 no existen, `data/history/` guarda el histórico normalizado (34,168 partidos: fútbol 2010-11–2026-27 y NFL 1999–2026) con `manifest.json` de digests, licencias, cobertura y calidad. Se regenera con `pnpm history`; contrato en `HISTORICAL_DATA.md`. Es la entrada de `services/models` y del futuro export a `curated/`.
+- **Dataset de investigación:** `data/history/research/` (fuera de git, `pnpm history:odds`) añade cuotas de cierre y estadísticas de partido de las cinco grandes ligas para backtests y features. Es **research-only** por licencia y nunca se publica ni se redistribuye.
 
 ## 5. Frescura (SLA por fuente)
 

@@ -33,6 +33,7 @@ import {
 } from "@pitchlab/models";
 import { OpenFootballSeasonSchema } from "./adapters/openfootball.js";
 import { parseCsv, NflverseCsvRowSchema } from "./adapters/nflverse.js";
+import { loadPriorMatches } from "./prior-season.js";
 
 const ROOT = resolve(import.meta.dirname, "..", "..", "..");
 const OUTPUT_DIR = resolve(ROOT, "Reportes", "modelos");
@@ -192,14 +193,25 @@ async function backtestFootball(seasons: string[]) {
       if (train.length < 30 || test.length === 0) continue;
 
       const referenceDate = test[0]!.date;
+      const seasonStart = seasonRows.reduce(
+        (min, r) => (r.date < min ? r.date : min),
+        seasonRows[0]!.date,
+      );
+      const priorRows =
+        process.env.BACKTEST_PRIOR === "1"
+          ? loadPriorMatches("premier-league", seasonStart, { weight: 0.45 })
+          : [];
       const dc = fitDixonColes(
-        train.map((r) => ({
-          date: r.date,
-          home: `premier-league.${r.home}`,
-          away: `premier-league.${r.away}`,
-          homeGoals: r.homeGoals,
-          awayGoals: r.awayGoals,
-        })),
+        [
+          ...priorRows,
+          ...train.map((r) => ({
+            date: r.date,
+            home: `premier-league.${r.home}`,
+            away: `premier-league.${r.away}`,
+            homeGoals: r.homeGoals,
+            awayGoals: r.awayGoals,
+          })),
+        ],
         { referenceDate },
       );
 

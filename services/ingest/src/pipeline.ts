@@ -11,7 +11,7 @@
  *    con incertidumbre. Es un candidato: no ha pasado el gate de publicación.
  *  - `v1`: Baseline 0 de `@pitchlab/engines-reference` (paridad con el motor de referencia).
  */
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import {
   GameAnalysisSchema,
@@ -222,7 +222,7 @@ export function buildNflSnapshot(params: {
 }
 
 export function buildFootballSnapshot(params: {
-  league: "premier-league" | "liga-mx";
+  league: "premier-league" | "liga-mx" | "laliga";
   leagueName: string;
   seasonId: string;
   seasonLabel: string;
@@ -234,6 +234,8 @@ export function buildFootballSnapshot(params: {
   previousSnapshot?: LeagueSnapshot | null;
   seasonGames?: readonly GameDTO[];
   modelVersion?: ModelVersion;
+  /** Partidos de la temporada anterior con peso reducido (opcional). */
+  priorMatches?: readonly FootballMatchRow[];
 }): LeagueSnapshot {
   const {
     league,
@@ -248,13 +250,17 @@ export function buildFootballSnapshot(params: {
     previousSnapshot,
     seasonGames,
     modelVersion = "v2",
+    priorMatches,
   } = params;
 
   const footballModel =
     modelVersion === "v2" && (seasonGames?.length ?? 0) > 0
-      ? fitDixonColes(toFootballMatchRows(seasonGames!), {
-          referenceDate: updatedAt.slice(0, 10),
-        })
+      ? fitDixonColes(
+          [...(priorMatches ?? []), ...toFootballMatchRows(seasonGames!)],
+          {
+            referenceDate: updatedAt.slice(0, 10),
+          },
+        )
       : null;
 
   const rates: Record<string, TeamSeasonRate> = footballModel
@@ -321,6 +327,28 @@ export function loadPreviousSnapshot(snapshotsRoot: string, league: string): Lea
   return LeagueSnapshotSchema.parse(raw);
 }
 
+/**
+ * Escritura atómica con reintentos: en Windows un lector concurrente (el servidor de
+ * desarrollo leyendo `latest.json`) puede bloquear el archivo un instante.
+ */
+function writeFileAtomic(path: string, contents: string): void {
+  const tmp = `${path}.tmp-${process.pid}-${Date.now()}`;
+  writeFileSync(tmp, contents, "utf8");
+  let lastError: unknown = null;
+  for (let attempt = 0; attempt < 5; attempt++) {
+    try {
+      renameSync(tmp, path);
+      return;
+    } catch (err) {
+      lastError = err;
+      Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, 60 * (attempt + 1));
+    }
+  }
+  // Último recurso: escritura directa (deja constancia del error si también falla).
+  writeFileSync(path, contents, "utf8");
+  void lastError;
+}
+
 export function writeSnapshotFiles(
   snapshotsRoot: string,
   snapshot: LeagueSnapshot,
@@ -334,8 +362,8 @@ export function writeSnapshotFiles(
   const latestPath = join(dir, "latest.json");
   const serialized = JSON.stringify(validated, null, 2) + "\n";
 
-  writeFileSync(datedPath, serialized, "utf8");
-  writeFileSync(latestPath, serialized, "utf8");
+  writeFileAtomic(datedPath, serialized);
+  writeFileAtomic(latestPath, serialized);
 
   return { datedPath, latestPath };
 }

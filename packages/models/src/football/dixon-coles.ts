@@ -18,6 +18,11 @@ export interface FootballMatchRow {
   away: string;
   homeGoals: number;
   awayGoals: number;
+  /**
+   * Peso relativo opcional (0..1). Se multiplica por el decaimiento temporal.
+   * Sirve para incorporar la temporada anterior con menos influencia que la actual.
+   */
+  weight?: number;
 }
 
 export interface DixonColesOptions {
@@ -110,7 +115,8 @@ export function fitDixonColes(
   const rows = valid.map((m) => {
     const ms = Date.parse(m.date);
     const days = Number.isFinite(ms) ? Math.max(0, (referenceMs - ms) / 86_400_000) : 0;
-    return { ...m, weight: Math.exp(-xi * days) };
+    const extra = m.weight ?? 1;
+    return { ...m, weight: Math.exp(-xi * days) * Math.max(0, extra) };
   });
 
   const weightSum = rows.reduce((s, r) => s + r.weight, 0);
@@ -341,6 +347,11 @@ export interface FootballPrediction {
   doubleChance: { homeOrDraw: number; drawOrAway: number; homeOrAway: number };
   totals: Array<{ line: number; over: number; under: number }>;
   btts: { yes: number; no: number };
+  teamTotals: {
+    home: { line: number; over: number; under: number };
+    away: { line: number; over: number; under: number };
+  };
+  topScores: Array<{ home: number; away: number; p: number }>;
   mostLikelyScore: { home: number; away: number; p: number };
   intervals: {
     homeWin: [number, number];
@@ -412,6 +423,19 @@ export function predictFootball(
       under: 1 - outcome.over(line),
     })),
     btts: { yes: outcome.btts, no: 1 - outcome.btts },
+    teamTotals: {
+      home: {
+        line: 1.5,
+        over: outcome.overHome(1.5),
+        under: 1 - outcome.overHome(1.5),
+      },
+      away: {
+        line: 1.5,
+        over: outcome.overAway(1.5),
+        under: 1 - outcome.overAway(1.5),
+      },
+    },
+    topScores: outcome.topScores,
     mostLikelyScore: outcome.mostLikely,
     intervals: {
       homeWin: [
@@ -479,7 +503,10 @@ function summarise(
   away: number;
   btts: number;
   over: (line: number) => number;
+  overHome: (line: number) => number;
+  overAway: (line: number) => number;
   mostLikely: { home: number; away: number; p: number };
+  topScores: Array<{ home: number; away: number; p: number }>;
 } {
   let home = 0;
   let draw = 0;
@@ -487,6 +514,9 @@ function summarise(
   let btts = 0;
   let best = { home: 0, away: 0, p: -1 };
   const totals = new Array<number>(2 * size).fill(0);
+  const homeGoals = new Array<number>(size).fill(0);
+  const awayGoals = new Array<number>(size).fill(0);
+  const cells: Array<{ home: number; away: number; p: number }> = [];
 
   for (let i = 0; i < size; i++) {
     for (let j = 0; j < size; j++) {
@@ -498,8 +528,19 @@ function summarise(
       if (p > best.p) best = { home: i, away: j, p };
       const idx = i + j;
       if (idx < totals.length) totals[idx]! += p;
+      homeGoals[i]! += p;
+      awayGoals[j]! += p;
+      if (p > 0) cells.push({ home: i, away: j, p });
     }
   }
+
+  const overFrom = (marginal: number[], line: number): number => {
+    let acc = 0;
+    for (let k = 0; k <= Math.floor(line); k++) acc += marginal[k] ?? 0;
+    return 1 - acc;
+  };
+
+  cells.sort((a, b) => b.p - a.p);
 
   return {
     home,
@@ -511,6 +552,9 @@ function summarise(
       for (let k = 0; k <= Math.floor(line); k++) acc += totals[k] ?? 0;
       return 1 - acc;
     },
+    overHome: (line: number) => overFrom(homeGoals, line),
+    overAway: (line: number) => overFrom(awayGoals, line),
     mostLikely: best,
+    topScores: cells.slice(0, 3),
   };
 }

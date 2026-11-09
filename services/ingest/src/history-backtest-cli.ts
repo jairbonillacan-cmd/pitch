@@ -21,6 +21,7 @@ interface CliOptions {
   windowDays?: number;
   minTrainRows?: number;
   bootstrapIterations?: number;
+  includeHistoricalResearch?: boolean;
 }
 
 function parsePositiveInt(raw: string, flag: string): number {
@@ -34,6 +35,10 @@ function parsePositiveInt(raw: string, flag: string): number {
 function parseArgs(argv: readonly string[]): CliOptions {
   const options: CliOptions = {};
   for (const arg of argv) {
+    if (arg === "--include-research-history") {
+      options.includeHistoricalResearch = true;
+      continue;
+    }
     const match = arg.match(/^--([a-z-]+)=(.+)$/);
     if (!match) throw new Error(`Argumento no reconocido: '${arg}'.`);
     const [, key, value] = match;
@@ -71,6 +76,9 @@ function main(): void {
     ...(options.minTrainRows ? { minTrainRows: options.minTrainRows } : {}),
     ...(options.bootstrapIterations
       ? { bootstrapIterations: options.bootstrapIterations }
+      : {}),
+    ...(options.includeHistoricalResearch
+      ? { includeHistoricalResearch: true }
       : {}),
   });
 

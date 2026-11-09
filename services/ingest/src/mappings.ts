@@ -242,14 +242,67 @@ export const LIGA_MX_TEAM_MAP: Record<string, string> = {
   "Deportivo Toluca": "toluca",
 };
 
+/** Mapeo openfootball (`2026-27/es.1.json`) → slug de `pitchlab-brand/football/laliga-2026-27/manifest.json` */
+export const LALIGA_TEAM_MAP: Record<string, string> = {
+  "Athletic Club": "athletic-club",
+  "Athletic Bilbao": "athletic-club",
+  "CA Osasuna": "osasuna",
+  Osasuna: "osasuna",
+  "Club Atlético de Madrid": "atletico-madrid",
+  "Atlético de Madrid": "atletico-madrid",
+  "Atletico Madrid": "atletico-madrid",
+  "Deportivo Alavés": "alaves",
+  Alavés: "alaves",
+  Alaves: "alaves",
+  "Elche CF": "elche",
+  Elche: "elche",
+  "FC Barcelona": "barcelona",
+  Barcelona: "barcelona",
+  "Getafe CF": "getafe",
+  Getafe: "getafe",
+  "Levante UD": "levante",
+  Levante: "levante",
+  "Málaga CF": "malaga",
+  Málaga: "malaga",
+  Malaga: "malaga",
+  "RC Celta de Vigo": "celta-vigo",
+  "Celta de Vigo": "celta-vigo",
+  Celta: "celta-vigo",
+  "RC Deportivo La Coruña": "deportivo-la-coruna",
+  "Deportivo de La Coruña": "deportivo-la-coruna",
+  "Deportivo La Coruña": "deportivo-la-coruna",
+  "RCD Espanyol de Barcelona": "espanyol",
+  Espanyol: "espanyol",
+  "Rayo Vallecano de Madrid": "rayo-vallecano",
+  "Rayo Vallecano": "rayo-vallecano",
+  "Real Betis Balompié": "real-betis",
+  "Real Betis": "real-betis",
+  "Real Madrid CF": "real-madrid",
+  "Real Madrid": "real-madrid",
+  "Real Racing Club de Santander": "racing-santander",
+  "Racing de Santander": "racing-santander",
+  Racing: "racing-santander",
+  "Real Sociedad de Fútbol": "real-sociedad",
+  "Real Sociedad": "real-sociedad",
+  "Sevilla FC": "sevilla",
+  Sevilla: "sevilla",
+  "Valencia CF": "valencia",
+  Valencia: "valencia",
+  "Villarreal CF": "villarreal",
+  Villarreal: "villarreal",
+};
+
 const LEAGUE_MAPS: Record<string, Record<string, string>> = {
   nfl: NFL_TEAM_MAP,
   "premier-league": PREMIER_LEAGUE_TEAM_MAP,
   "liga-mx": LIGA_MX_TEAM_MAP,
+  laliga: LALIGA_TEAM_MAP,
 };
 
+export type CanonicalLeague = "nfl" | "premier-league" | "liga-mx" | "laliga";
+
 export function resolveCanonicalTeam(
-  league: "nfl" | "premier-league" | "liga-mx",
+  league: CanonicalLeague,
   rawName: string,
 ): Team {
   const table = LEAGUE_MAPS[league];
@@ -282,7 +335,7 @@ export function resolveCanonicalTeam(
   };
 }
 
-export function listAllTeamsForLeague(league: "nfl" | "premier-league" | "liga-mx"): Team[] {
+export function listAllTeamsForLeague(league: CanonicalLeague): Team[] {
   return Object.values(TEAM_ASSETS)
     .filter((a) => a.league === league)
     .map((a) => ({

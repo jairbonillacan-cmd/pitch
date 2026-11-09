@@ -4,8 +4,11 @@ import {
   normalizeNflverseSchedule,
 } from "./adapters/nflverse.js";
 import { loadRootEnvFiles } from "./env.js";
+import { loadPriorMatches } from "./prior-season.js";
 import {
+  fetchOpenFootballLaliga,
   fetchOpenFootballPl,
+  normalizeOpenFootballLaliga,
   normalizeOpenFootballPremierLeague,
 } from "./adapters/openfootball.js";
 import {
@@ -75,6 +78,7 @@ async function main() {
     : normalizeOpenFootballPremierLeague(await fetchOpenFootballPl(), {
         referenceDate: dateStr,
       });
+  const priorPl = loadPriorMatches("premier-league", dateStr);
   const plSnapshot = buildFootballSnapshot({
     league: "premier-league",
     leagueName: "Premier League",
@@ -87,11 +91,38 @@ async function main() {
     source: "openfootball",
     previousSnapshot: prevPl,
     seasonGames: normPl.allGames,
+    priorMatches: priorPl,
     modelVersion,
   });
   const plFiles = writeSnapshotFiles(SNAPSHOTS_ROOT, plSnapshot, dateStr);
   console.log(
     `[snapshot] Premier League (${normPl.periodLabel}): ${plSnapshot.games.length} partidos -> ${plFiles.latestPath}`,
+  );
+
+  // 3. LaLiga (openfootball CC0)
+  const prevLl = loadPreviousSnapshot(SNAPSHOTS_ROOT, "laliga");
+  const normLl = normalizeOpenFootballLaliga(await fetchOpenFootballLaliga(), {
+    referenceDate: dateStr,
+  });
+  const priorLl = loadPriorMatches("laliga", dateStr);
+  const llSnapshot = buildFootballSnapshot({
+    league: "laliga",
+    leagueName: "LaLiga",
+    seasonId: normLl.seasonId,
+    seasonLabel: normLl.seasonLabel,
+    periodLabel: normLl.periodLabel,
+    games: normLl.activeRoundGames,
+    teamRateInputs: normLl.teamRateInputs,
+    updatedAt,
+    source: "openfootball",
+    previousSnapshot: prevLl,
+    seasonGames: normLl.allGames,
+    priorMatches: priorLl,
+    modelVersion,
+  });
+  const llFiles = writeSnapshotFiles(SNAPSHOTS_ROOT, llSnapshot, dateStr);
+  console.log(
+    `[snapshot] LaLiga (${normLl.periodLabel}): ${llSnapshot.games.length} partidos -> ${llFiles.latestPath}`,
   );
 
   // 3. Liga MX (API-Football Free — solo si existe API_FOOTBALL_KEY)
@@ -107,6 +138,7 @@ async function main() {
     const normMx = normalizeApiFootballLigaMx(mxPayload, {
       referenceDate: dateStr,
     });
+    const priorMx = loadPriorMatches("liga-mx", dateStr);
     const mxSnapshot = buildFootballSnapshot({
       league: "liga-mx",
       leagueName: "Liga MX",
@@ -119,6 +151,7 @@ async function main() {
       source: "api-football",
       previousSnapshot: prevMx,
       seasonGames: normMx.allGames,
+      priorMatches: priorMx,
       modelVersion,
     });
     const mxFiles = writeSnapshotFiles(SNAPSHOTS_ROOT, mxSnapshot, dateStr);

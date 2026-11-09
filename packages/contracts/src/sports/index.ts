@@ -136,6 +136,18 @@ export const LEAGUE_CATALOG: League[] = [
     defaultPeriod: "Jornada 10",
   },
   {
+    id: asLeagueId("laliga"),
+    sport: asSportId("soccer"),
+    name: "LaLiga",
+    shortName: "LaLiga",
+    country: "España",
+    enabled: true,
+    assetEdition: "football/laliga-2026-27",
+    mascot: "laliga",
+    defaultSeason: "2026/27",
+    defaultPeriod: "Jornada 11",
+  },
+  {
     id: asLeagueId("nfl"),
     sport: asSportId("american-football"),
     name: "NFL",

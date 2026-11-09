@@ -12,4 +12,8 @@ export * from "./history/normalize-openfootball.js";
 export * from "./history/normalize-nflverse.js";
 export * from "./history/quality.js";
 export * from "./history/builder.js";
+export * from "./history/research-schema.js";
+export * from "./history/football-data-co-uk.js";
+export * from "./history/api-football-history.js";
+export * from "./history/research.js";
 export * from "./history-backtest.js";

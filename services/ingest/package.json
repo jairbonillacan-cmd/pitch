@@ -13,6 +13,7 @@
     "lint": "tsc --noEmit",
     "snapshot": "tsx src/cli.ts",
     "history": "tsx src/history/cli.ts",
+    "history:odds": "tsx src/history/odds-cli.ts",
     "backtest": "tsx src/backtest.ts",
     "backtest:history": "tsx src/history-backtest-cli.ts"
   },

@@ -88,6 +88,9 @@ export const HISTORY_LEAGUES = {
     openFootballCode: "de.1",
     productLeague: true,
     expectedGamesPerSeason: 306,
+    teamAliases: {
+      "Bor. Mönchengladbach": "borussia-monchengladbach",
+    },
   },
   "serie-a": {
     id: "serie-a",
@@ -99,6 +102,7 @@ export const HISTORY_LEAGUES = {
     expectedGamesPerSeason: 380,
     teamAliases: {
       "Atalanta BC": "atalanta",
+      "FC Internazionale Milano": "inter",
       "Lazio Roma": "lazio",
       "UC Sampdoria": "sampdoria",
     },
@@ -112,6 +116,7 @@ export const HISTORY_LEAGUES = {
     productLeague: true,
     expectedGamesPerSeason: 306,
     teamAliases: {
+      "ES Troyes AC": "estac-troyes",
       "Racing Club de Lens": "lens",
       "RC Strasbourg Alsace": "strasbourg",
     },

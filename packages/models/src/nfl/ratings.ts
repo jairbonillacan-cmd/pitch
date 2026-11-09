@@ -164,13 +164,9 @@ export function fitNflRatings(
     intercept = nextIntercept;
     homeHalf = nextHalf;
 
-    // Centrado: las diferencias no cambian, la identificabilidad sí.
-    const meanOff = teams.reduce((s, t) => s + offense[t]!, 0) / teams.length;
-    const meanDef = teams.reduce((s, t) => s + defense[t]!, 0) / teams.length;
-    for (const t of teams) {
-      offense[t] = offense[t]! - meanOff;
-      defense[t] = defense[t]! - meanDef;
-    }
+    // Sin centrado: el ridge ya identifica el modelo (ofensiva + defensiva comparten un
+    // grado de libertad). Restar medias distintas a ofensiva y defensiva desplazaba las
+    // predicciones en cada iteración y hacía divergir el solver con muestras grandes.
 
     if (maxDelta < tolerance) {
       converged = true;

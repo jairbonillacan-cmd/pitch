@@ -14,6 +14,7 @@
     "typecheck": "pnpm -r typecheck",
     "snapshot": "pnpm --filter @pitchlab/ingest snapshot",
     "history": "pnpm --filter @pitchlab/ingest history",
+    "history:odds": "pnpm --filter @pitchlab/ingest history:odds",
     "backtest": "pnpm --filter @pitchlab/ingest backtest",
     "backtest:history": "pnpm --filter @pitchlab/ingest backtest:history",
     "e2e": "pnpm --filter @pitchlab/web e2e",

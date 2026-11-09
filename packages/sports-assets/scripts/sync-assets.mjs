@@ -20,6 +20,10 @@ const LEAGUE_SOURCES = [
     relDir: "football/premier-league-2026-27",
   },
   {
+    league: "laliga",
+    relDir: "football/laliga-2026-27",
+  },
+  {
     league: "nfl",
     relDir: "american-football/nfl-2026",
   },

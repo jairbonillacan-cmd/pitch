@@ -40,6 +40,15 @@ export const LEAGUE_ASSETS: Record<string, RegisteredLeagueAsset> = {
     "svgPath": "/brand/sports/premier-league/r2/svg/premier-league.svg",
     "pngPath": "/brand/sports/premier-league/r2/png/premier-league.png"
   },
+  "laliga": {
+    "id": "laliga",
+    "code": "LL",
+    "name": "LaLiga",
+    "shortName": "LaLiga",
+    "revision": 1,
+    "svgPath": "/brand/sports/laliga/r1/svg/laliga.svg",
+    "pngPath": "/brand/sports/laliga/r1/png/laliga.png"
+  },
   "nfl": {
     "id": "nfl",
     "code": "NFL",
@@ -469,6 +478,226 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "revision": 2,
     "svgPath": "/brand/sports/premier-league/r2/svg/tottenham-hotspur.svg",
     "pngPath": "/brand/sports/premier-league/r2/png/tottenham-hotspur.png"
+  },
+  "laliga.athletic-club": {
+    "id": "laliga.athletic-club",
+    "slug": "athletic-club",
+    "league": "laliga",
+    "code": "ATH",
+    "name": "Athletic Club",
+    "shortName": "Athletic Club",
+    "revision": 1,
+    "svgPath": "/brand/sports/laliga/r1/svg/athletic-club.svg",
+    "pngPath": "/brand/sports/laliga/r1/png/athletic-club.png"
+  },
+  "laliga.atletico-madrid": {
+    "id": "laliga.atletico-madrid",
+    "slug": "atletico-madrid",
+    "league": "laliga",
+    "code": "ATM",
+    "name": "Atlético de Madrid",
+    "shortName": "Atlético de Madrid",
+    "revision": 1,
+    "svgPath": "/brand/sports/laliga/r1/svg/atletico-madrid.svg",
+    "pngPath": "/brand/sports/laliga/r1/png/atletico-madrid.png"
+  },
+  "laliga.osasuna": {
+    "id": "laliga.osasuna",
+    "slug": "osasuna",
+    "league": "laliga",
+    "code": "OSA",
+    "name": "CA Osasuna",
+    "shortName": "CA Osasuna",
+    "revision": 1,
+    "svgPath": "/brand/sports/laliga/r1/svg/osasuna.svg",
+    "pngPath": "/brand/sports/laliga/r1/png/osasuna.png"
+  },
+  "laliga.celta-vigo": {
+    "id": "laliga.celta-vigo",
+    "slug": "celta-vigo",
+    "league": "laliga",
+    "code": "CELV",
+    "name": "Celta de Vigo",
+    "shortName": "Celta de Vigo",
+    "revision": 1,
+    "svgPath": "/brand/sports/laliga/r1/svg/celta-vigo.svg",
+    "pngPath": "/brand/sports/laliga/r1/png/celta-vigo.png"
+  },
+  "laliga.alaves": {
+    "id": "laliga.alaves",
+    "slug": "alaves",
+    "league": "laliga",
+    "code": "ALA",
+    "name": "Deportivo Alavés",
+    "shortName": "Deportivo Alavés",
+    "revision": 1,
+    "svgPath": "/brand/sports/laliga/r1/svg/alaves.svg",
+    "pngPath": "/brand/sports/laliga/r1/png/alaves.png"
+  },
+  "laliga.elche": {
+    "id": "laliga.elche",
+    "slug": "elche",
+    "league": "laliga",
+    "code": "ELC",
+    "name": "Elche CF",
+    "shortName": "Elche CF",
+    "revision": 1,
+    "svgPath": "/brand/sports/laliga/r1/svg/elche.svg",
+    "pngPath": "/brand/sports/laliga/r1/png/elche.png"
+  },
+  "laliga.barcelona": {
+    "id": "laliga.barcelona",
+    "slug": "barcelona",
+    "league": "laliga",
+    "code": "BAR",
+    "name": "FC Barcelona",
+    "shortName": "FC Barcelona",
+    "revision": 1,
+    "svgPath": "/brand/sports/laliga/r1/svg/barcelona.svg",
+    "pngPath": "/brand/sports/laliga/r1/png/barcelona.png"
+  },
+  "laliga.getafe": {
+    "id": "laliga.getafe",
+    "slug": "getafe",
+    "league": "laliga",
+    "code": "GET",
+    "name": "Getafe CF",
+    "shortName": "Getafe CF",
+    "revision": 1,
+    "svgPath": "/brand/sports/laliga/r1/svg/getafe.svg",
+    "pngPath": "/brand/sports/laliga/r1/png/getafe.png"
+  },
+  "laliga.levante": {
+    "id": "laliga.levante",
+    "slug": "levante",
+    "league": "laliga",
+    "code": "LEV",
+    "name": "Levante UD",
+    "shortName": "Levante UD",
+    "revision": 1,
+    "svgPath": "/brand/sports/laliga/r1/svg/levante.svg",
+    "pngPath": "/brand/sports/laliga/r1/png/levante.png"
+  },
+  "laliga.malaga": {
+    "id": "laliga.malaga",
+    "slug": "malaga",
+    "league": "laliga",
+    "code": "MAL",
+    "name": "Málaga CF",
+    "shortName": "Málaga CF",
+    "revision": 1,
+    "svgPath": "/brand/sports/laliga/r1/svg/malaga.svg",
+    "pngPath": "/brand/sports/laliga/r1/png/malaga.png"
+  },
+  "laliga.racing-santander": {
+    "id": "laliga.racing-santander",
+    "slug": "racing-santander",
+    "league": "laliga",
+    "code": "RAC",
+    "name": "Racing de Santander",
+    "shortName": "Racing de Santander",
+    "revision": 1,
+    "svgPath": "/brand/sports/laliga/r1/svg/racing-santander.svg",
+    "pngPath": "/brand/sports/laliga/r1/png/racing-santander.png"
+  },
+  "laliga.rayo-vallecano": {
+    "id": "laliga.rayo-vallecano",
+    "slug": "rayo-vallecano",
+    "league": "laliga",
+    "code": "RAY",
+    "name": "Rayo Vallecano",
+    "shortName": "Rayo Vallecano",
+    "revision": 1,
+    "svgPath": "/brand/sports/laliga/r1/svg/rayo-vallecano.svg",
+    "pngPath": "/brand/sports/laliga/r1/png/rayo-vallecano.png"
+  },
+  "laliga.deportivo-la-coruna": {
+    "id": "laliga.deportivo-la-coruna",
+    "slug": "deportivo-la-coruna",
+    "league": "laliga",
+    "code": "DEP",
+    "name": "Deportivo de La Coruña",
+    "shortName": "Deportivo de La Coruña",
+    "revision": 1,
+    "svgPath": "/brand/sports/laliga/r1/svg/deportivo-la-coruna.svg",
+    "pngPath": "/brand/sports/laliga/r1/png/deportivo-la-coruna.png"
+  },
+  "laliga.espanyol": {
+    "id": "laliga.espanyol",
+    "slug": "espanyol",
+    "league": "laliga",
+    "code": "ESP",
+    "name": "RCD Espanyol",
+    "shortName": "RCD Espanyol",
+    "revision": 1,
+    "svgPath": "/brand/sports/laliga/r1/svg/espanyol.svg",
+    "pngPath": "/brand/sports/laliga/r1/png/espanyol.png"
+  },
+  "laliga.real-betis": {
+    "id": "laliga.real-betis",
+    "slug": "real-betis",
+    "league": "laliga",
+    "code": "BET",
+    "name": "Real Betis",
+    "shortName": "Real Betis",
+    "revision": 1,
+    "svgPath": "/brand/sports/laliga/r1/svg/real-betis.svg",
+    "pngPath": "/brand/sports/laliga/r1/png/real-betis.png"
+  },
+  "laliga.real-madrid": {
+    "id": "laliga.real-madrid",
+    "slug": "real-madrid",
+    "league": "laliga",
+    "code": "RMA",
+    "name": "Real Madrid",
+    "shortName": "Real Madrid",
+    "revision": 1,
+    "svgPath": "/brand/sports/laliga/r1/svg/real-madrid.svg",
+    "pngPath": "/brand/sports/laliga/r1/png/real-madrid.png"
+  },
+  "laliga.real-sociedad": {
+    "id": "laliga.real-sociedad",
+    "slug": "real-sociedad",
+    "league": "laliga",
+    "code": "RSO",
+    "name": "Real Sociedad",
+    "shortName": "Real Sociedad",
+    "revision": 1,
+    "svgPath": "/brand/sports/laliga/r1/svg/real-sociedad.svg",
+    "pngPath": "/brand/sports/laliga/r1/png/real-sociedad.png"
+  },
+  "laliga.sevilla": {
+    "id": "laliga.sevilla",
+    "slug": "sevilla",
+    "league": "laliga",
+    "code": "SEV",
+    "name": "Sevilla FC",
+    "shortName": "Sevilla FC",
+    "revision": 1,
+    "svgPath": "/brand/sports/laliga/r1/svg/sevilla.svg",
+    "pngPath": "/brand/sports/laliga/r1/png/sevilla.png"
+  },
+  "laliga.valencia": {
+    "id": "laliga.valencia",
+    "slug": "valencia",
+    "league": "laliga",
+    "code": "VAL",
+    "name": "Valencia CF",
+    "shortName": "Valencia CF",
+    "revision": 1,
+    "svgPath": "/brand/sports/laliga/r1/svg/valencia.svg",
+    "pngPath": "/brand/sports/laliga/r1/png/valencia.png"
+  },
+  "laliga.villarreal": {
+    "id": "laliga.villarreal",
+    "slug": "villarreal",
+    "league": "laliga",
+    "code": "VIL",
+    "name": "Villarreal CF",
+    "shortName": "Villarreal CF",
+    "revision": 1,
+    "svgPath": "/brand/sports/laliga/r1/svg/villarreal.svg",
+    "pngPath": "/brand/sports/laliga/r1/png/villarreal.png"
   },
   "nfl.arizona-cardinals": {
     "id": "nfl.arizona-cardinals",

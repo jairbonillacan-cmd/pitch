@@ -1,10 +1,12 @@
 /**
- * Adaptador de datos de Premier League desde openfootball/football.json (CC0).
+ * Adaptador genérico de openfootball/football.json (CC0).
  *
- * Asset oficial documentado:
- * - URL: https://raw.githubusercontent.com/openfootball/football.json/master/2026-27/en.1.json
- * - Repositorio: https://github.com/openfootball/football.json (`2026-27/en.1.json`)
- * - Licencia: CC0 1.0 Universal (Dominio Público, atribuido en /legal/creditos).
+ * Ligas soportadas:
+ * - Premier League: `2026-27/en.1.json`
+ * - LaLiga: `2026-27/es.1.json`
+ *
+ * El histórico profundo vive en `services/ingest/src/history/`; este módulo solo alimenta
+ * el snapshot de la temporada en curso que consume la app.
  */
 import { z } from "zod";
 import {
@@ -14,10 +16,12 @@ import {
   type GameDTO,
 } from "@pitchlab/contracts";
 import type { FootballTeamRateInput } from "@pitchlab/engines-reference";
-import { listAllTeamsForLeague, resolveCanonicalTeam } from "../mappings.js";
+import { listAllTeamsForLeague, resolveCanonicalTeam, type CanonicalLeague } from "../mappings.js";
 
-export const OPENFOOTBALL_PL_URL =
-  "https://raw.githubusercontent.com/openfootball/football.json/master/2026-27/en.1.json";
+const OPENFOOTBALL_BASE = "https://raw.githubusercontent.com/openfootball/football.json/master";
+
+export const OPENFOOTBALL_PL_URL = `${OPENFOOTBALL_BASE}/2026-27/en.1.json`;
+export const OPENFOOTBALL_LALIGA_URL = `${OPENFOOTBALL_BASE}/2026-27/es.1.json`;
 
 export const OpenFootballMatchSchema = z.object({
   round: z.string().min(1),
@@ -66,12 +70,63 @@ const PL_STADIUMS: Record<string, string> = {
   "premier-league.tottenham-hotspur": "Tottenham Hotspur Stadium",
 };
 
+const LALIGA_STADIUMS: Record<string, string> = {
+  "laliga.athletic-club": "San Mamés",
+  "laliga.atletico-madrid": "Riyadh Air Metropolitano",
+  "laliga.barcelona": "Spotify Camp Nou",
+  "laliga.real-madrid": "Santiago Bernabéu",
+  "laliga.real-sociedad": "Reale Arena",
+  "laliga.real-betis": "Benito Villamarín",
+  "laliga.sevilla": "Ramón Sánchez-Pizjuán",
+  "laliga.valencia": "Mestalla",
+  "laliga.villarreal": "Estadio de la Cerámica",
+  "laliga.celta-vigo": "Balaídos",
+  "laliga.espanyol": "RCDE Stadium",
+  "laliga.osasuna": "El Sadar",
+  "laliga.rayo-vallecano": "Estadio de Vallecas",
+  "laliga.getafe": "Coliseum",
+  "laliga.alaves": "Mendizorroza",
+  "laliga.elche": "Martínez Valero",
+  "laliga.levante": "Ciutat de València",
+  "laliga.malaga": "La Rosaleda",
+  "laliga.racing-santander": "El Sardinero",
+  "laliga.deportivo-la-coruna": "Riazor",
+};
+
+export interface OpenFootballLeagueConfig {
+  league: Extract<CanonicalLeague, "premier-league" | "laliga">;
+  seasonId: string;
+  seasonLabel: string;
+  /** Prefijo de `GameId`: p. ej. `pl-2026-27`. */
+  idPrefix: string;
+  stadiums: Record<string, string>;
+  defaultVenue: string;
+}
+
+export const PREMIER_LEAGUE_CONFIG: OpenFootballLeagueConfig = {
+  league: "premier-league",
+  seasonId: "premier-league-2026-27",
+  seasonLabel: "2026/27",
+  idPrefix: "pl-2026-27",
+  stadiums: PL_STADIUMS,
+  defaultVenue: "Inglaterra",
+};
+
+export const LALIGA_CONFIG: OpenFootballLeagueConfig = {
+  league: "laliga",
+  seasonId: "laliga-2026-27",
+  seasonLabel: "2026/27",
+  idPrefix: "laliga-2026-27",
+  stadiums: LALIGA_STADIUMS,
+  defaultVenue: "España",
+};
+
 function parseMatchdayNumber(round: string): number {
   const m = round.match(/(\d+)/);
   return m && m[1] ? Number(m[1]) : 1;
 }
 
-export interface NormalizedPremierLeagueSeason {
+export interface NormalizedOpenFootballSeason {
   seasonId: string;
   seasonLabel: string;
   activeMatchday: number;
@@ -81,17 +136,21 @@ export interface NormalizedPremierLeagueSeason {
   teamRateInputs: FootballTeamRateInput[];
 }
 
-export function normalizeOpenFootballPremierLeague(
+/** Compatibilidad con el nombre anterior (solo Premier League). */
+export type NormalizedPremierLeagueSeason = NormalizedOpenFootballSeason;
+
+export function normalizeOpenFootballLeague(
   rawJson: unknown,
+  config: OpenFootballLeagueConfig,
   options: { referenceDate?: string; targetMatchday?: number } = {},
-): NormalizedPremierLeagueSeason {
+): NormalizedOpenFootballSeason {
   const parsed = OpenFootballSeasonSchema.parse(rawJson);
   const referenceDate = options.referenceDate ?? "2026-11-08";
   const observedAt = new Date(`${referenceDate}T12:00:00Z`).toISOString();
 
   const allGames: GameDTO[] = parsed.matches.map((m) => {
-    const home = resolveCanonicalTeam("premier-league", m.team1);
-    const away = resolveCanonicalTeam("premier-league", m.team2);
+    const home = resolveCanonicalTeam(config.league, m.team1);
+    const away = resolveCanonicalTeam(config.league, m.team2);
     const md = parseMatchdayNumber(m.round);
     const hasFt = Array.isArray(m.score?.ft) && m.score.ft.length === 2;
     const timeStr = m.time && /^\d{2}:\d{2}$/.test(m.time) ? m.time : "15:00";
@@ -100,16 +159,16 @@ export function normalizeOpenFootballPremierLeague(
     const awaySlug = away.id.split(".")[1]!;
 
     return {
-      id: asGameId(`pl-2026-27-md${md}-${homeSlug}-${awaySlug}`),
-      league: asLeagueId("premier-league"),
-      season: asSeasonId("premier-league-2026-27"),
+      id: asGameId(`${config.idPrefix}-md${md}-${homeSlug}-${awaySlug}`),
+      league: asLeagueId(config.league),
+      season: asSeasonId(config.seasonId),
       week: md,
       round: `Jornada ${md}`,
       startTime,
       status: hasFt ? "final" : "scheduled",
       home,
       away,
-      venue: PL_STADIUMS[home.id] ?? "Inglaterra",
+      venue: config.stadiums[home.id] ?? config.defaultVenue,
       neutralSite: false,
       result: hasFt
         ? {
@@ -122,7 +181,7 @@ export function normalizeOpenFootballPremierLeague(
     };
   });
 
-  // Elegir la jornada activa más cercana a referenceDate (o targetMatchday si se especifica)
+  // Jornada activa: la más cercana a referenceDate (o targetMatchday si se especifica).
   const matchdays = [...new Set(allGames.map((g) => g.week!))].sort((a, b) => a - b);
   let activeMatchday = options.targetMatchday;
   if (!activeMatchday) {
@@ -160,8 +219,8 @@ export function normalizeOpenFootballPremierLeague(
         })
       : rawRoundGames;
 
-  // Calcular tasas por equipo en la temporada en curso sobre todos los partidos finalizados previos
-  const allCatalogTeams = listAllTeamsForLeague("premier-league");
+  // Tasas por equipo: solo partidos finalizados de jornadas anteriores (sin fuga de futuro).
+  const allCatalogTeams = listAllTeamsForLeague(config.league);
   const statsMap = new Map<string, { gf: number; ga: number; gp: number }>();
   for (const t of allCatalogTeams) {
     statsMap.set(t.id, { gf: 0, ga: 0, gp: 0 });
@@ -198,8 +257,8 @@ export function normalizeOpenFootballPremierLeague(
   });
 
   return {
-    seasonId: "premier-league-2026-27",
-    seasonLabel: "2026/27",
+    seasonId: config.seasonId,
+    seasonLabel: config.seasonLabel,
     activeMatchday,
     periodLabel: `Jornada ${activeMatchday}`,
     allGames,
@@ -208,7 +267,21 @@ export function normalizeOpenFootballPremierLeague(
   };
 }
 
-export async function fetchOpenFootballPl(url: string = OPENFOOTBALL_PL_URL): Promise<unknown> {
+export function normalizeOpenFootballPremierLeague(
+  rawJson: unknown,
+  options: { referenceDate?: string; targetMatchday?: number } = {},
+): NormalizedOpenFootballSeason {
+  return normalizeOpenFootballLeague(rawJson, PREMIER_LEAGUE_CONFIG, options);
+}
+
+export function normalizeOpenFootballLaliga(
+  rawJson: unknown,
+  options: { referenceDate?: string; targetMatchday?: number } = {},
+): NormalizedOpenFootballSeason {
+  return normalizeOpenFootballLeague(rawJson, LALIGA_CONFIG, options);
+}
+
+export async function fetchOpenFootball(url: string): Promise<unknown> {
   const res = await fetch(url, {
     headers: {
       "User-Agent": "PitchLab-Ingest/0.1 (+https://pitchlab.mx)",
@@ -218,4 +291,14 @@ export async function fetchOpenFootballPl(url: string = OPENFOOTBALL_PL_URL): Pr
     throw new Error(`Error descargando openfootball (${res.status}): ${url}`);
   }
   return res.json();
+}
+
+export async function fetchOpenFootballPl(url: string = OPENFOOTBALL_PL_URL): Promise<unknown> {
+  return fetchOpenFootball(url);
+}
+
+export async function fetchOpenFootballLaliga(
+  url: string = OPENFOOTBALL_LALIGA_URL,
+): Promise<unknown> {
+  return fetchOpenFootball(url);
 }

@@ -22,9 +22,9 @@ export function PanelClient({
   leagueAvailability,
   initialGameId,
 }: {
-  league: "liga-mx" | "premier-league" | "nfl";
+  league: "liga-mx" | "premier-league" | "laliga" | "nfl";
   envelope: SnapshotEnvelope;
-  leagueAvailability: Record<"liga-mx" | "premier-league" | "nfl", boolean>;
+  leagueAvailability: Record<"liga-mx" | "premier-league" | "laliga" | "nfl", boolean>;
   initialGameId?: string;
 }): React.JSX.Element {
   const router = useRouter();
@@ -173,6 +173,19 @@ export function PanelClient({
           <button
             className="lchip league-tab"
             type="button"
+            data-league="laliga"
+            disabled={!leagueAvailability["laliga"]}
+            aria-current={league === "laliga" ? "page" : undefined}
+            onClick={() => router.push("/app/laliga")}
+          >
+            <LeagueBadge league="laliga" size={26} />
+            LaLiga
+            {!leagueAvailability["laliga"] ? <span className="tag">Pronto</span> : null}
+          </button>
+
+          <button
+            className="lchip league-tab"
+            type="button"
             data-league="nfl"
             aria-current={league === "nfl" ? "page" : undefined}
             onClick={() => router.push("/app/nfl")}
@@ -216,7 +229,9 @@ export function PanelClient({
                     ? "NFL"
                     : league === "liga-mx"
                       ? "Liga MX"
-                      : "Premier League")}
+                      : league === "laliga"
+                        ? "LaLiga"
+                        : "Premier League")}
               </h1>
               <div className="meta">
                 <span className="secondary" id="panel-league-round">
