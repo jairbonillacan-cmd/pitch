@@ -34,88 +34,102 @@
 | 19 | [26-player-rpc-full-capture.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/26-player-rpc-full-capture.json) / `26-player-rpc-full-request-{44,46,52,62,63,64,65,66}-response.json` | `ev_41b5aea353de3d177450dcde63cb0d0667428ca0f57851df7edfd18049e9319c` | `/player/1cyhpfi77dom7gmpuownxlcrt/luis-romo` (`loadSimilarPlayersData`, `ensureComparisonDataLoaded`, `loadMapGraphFilterOptions`, `loadMapGraphData`) |
 | 20 | [27-goalkeeper-rpc-capture.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/27-goalkeeper-rpc-capture.json) / [request-44](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/27-goalkeeper-rpc-request-44-response.json), [request-46](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/27-goalkeeper-rpc-request-46-response.json) y [request-52](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/27-goalkeeper-rpc-request-52-response.json) | `ev_fe42082ccfb04731fd689598d84d1596a35361d94ca19ba7707e87a1c1fc8ab0` | `/player/a1qs3b34p5u2s6mmlhdkgdp7t/luis-malagon` (Perfil de Portero `GK`, 176 traits, `goalmouth`, `loadSimilarPlayersData`) |
 | 21 | [28-match-alineaciones-rpc-full-capture.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/28-match-alineaciones-rpc-full-capture.json) / [request-69](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/28-match-alineaciones-rpc-full-request-69-response.json) y [request-105](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/28-match-alineaciones-rpc-full-request-105-response.json) | `ev_74a52e02fbfe3463262bfdc3648bc82b62958c735f8153d56f6c56cf21ab706d` | `/partido/pumas-unam-vs-club-america-9dy7dhz5f13b2ejz2a5tok2l0` (`setTab(['alineaciones'])` + `keeperGoalmouth(['9sme7jykdv8msgfu0nxx6h39x'])`) |
+| 22 | [29-league-tabs-and-team-subtabs-capture.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/29-league-tabs-and-team-subtabs-capture.json) / [rosetta-40-leagues-opta-apifootball.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/rosetta-40-leagues-opta-apifootball.json) | `ev_a1d8facdf931a87bf33ba5e703e23d73cd2ee0c4550557ba3b84cdb9a1c10088` | `/leagues`, `/league/{locked_opta_id}`, `/team/club-america-eu8c408f59yx7egaqossbv25e` (Matriz Rosetta 40 ligas y paywall en servidor) |
+| 23 | [30-player-tabs-compare-desempeno-modals-capture.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/30-player-tabs-compare-desempeno-modals-capture.json) / [request-62-request.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/30-player-tabs-compare-desempeno-modals-request-62-request.json) y [request-63-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/30-player-tabs-compare-desempeno-modals-request-63-response.json) | `ev_9435086f6ae02ff0707fefa83c7cf473eda660deed890524e621cb9825c97446` | `/player/c5ryhn04g9goikd0blmh83aol/lionel-messi` (RPC `ensureComparisonDataLoaded([])` + REST `GET /players/search?q=Luis` con 20 resultados multi-liga) |
+| 24 | [31-players-statranges-and-matches-hub-capture.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/31-players-statranges-and-matches-hub-capture.json) / [request-40](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/31-players-statranges-and-matches-hub-request-40-response.json) y [request-42](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/31-players-statranges-and-matches-hub-request-42-response.json) | `ev_04b1ede55ec1bd3f547cd81c48dc5a1fc2e4e8b8f9a9020481a3e35092a126e8` | `/players` y `/matches` (RPC `statRanges`, `periodCalendar`, [07-players-wire-script-0.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/inline-pages/07-players-wire-script-0.js) y [rosetta-177-opta-attributes-catalog.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/rosetta-177-opta-attributes-catalog.json)) |
+| 25 | [32-match-detail-tabs-and-player-modal-capture.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/32-match-detail-tabs-and-player-modal-capture.json) / [match-1535061-all-player-cards.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/match-1535061-all-player-cards.json) y [match-1535061-momentum-107pts.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/match-1535061-momentum-107pts.json) | `ev_6f32762bb5eaa2f8561fb62de9190b30fe0080d805e0bb03ad3377847062ea5f` | `/partido/pumas-unam-vs-club-america-9dy7dhz5f13b2ejz2a5tok2l0` (Pestañas de partido, 42 tarjetas `x-ref="cards"` y serie Momentum `n=107`) |
 
 ---
 
-## 1. Veredicto Forense sobre el Origen de los Datos (`Data Provenance`)
+## 1. Veredicto Forense sobre el Origen de los Datos (`Data Provenance`): La "Piedra Rosetta" de Tres Proveedores y Resolución Formal de `unk_c7104fcac7a6781cc23c6d1216a43d4cc6e1e384c408bca299be9c4270d61191` (`truthVerified: true`)
 
-La arquitectura de datos de Statiskicks opera sobre un **modelo híbrido de doble proveedor con reconciliación de entidades en el backend Laravel**:
+La arquitectura de datos de Statiskicks opera sobre una **"Piedra Rosetta" de tres proveedores externos de datos y media deportiva** reconciliados en el backend Laravel (con resolución formal verificada en [evidence/rea-unknowns.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/rea-unknowns.json) para `unk_c7104fcac7a6781cc23c6d1216a43d4cc6e1e384c408bca299be9c4270d61191`, `status: "resolved"`, `disposition: "verified"`, `truthVerified: true`):
 
-1. **Proveedor Primario de Estadísticas, Calendarios, Plantillas y Eventos On-Ball (`[OBSERVADO]`):** **Stats Perform / Opta Sports Data API (SDAPI)**.
-2. **Proveedor Secundario de Fotografías de Jugadores, Escudos de Clubes/Ligas y Cross-Reference (`[OBSERVADO]`):** **API-Football (`v3.football.api-sports.io` / `media.api-sports.io`)**.
-3. **Proveedor Terciario de Banderas Nacionales (`[OBSERVADO]`):** **FlagCDN (`https://flagcdn.com/w20/{iso}.png` y `w40`)**.
+1. **Proveedor 1 (Primario — Claves Primarias, Estadísticas, Calendarios, Plantillas y Eventos On-Ball) (`[OBSERVADO]`):** **Stats Perform / Opta Sports Data API (SDAPI)**. Todas las claves primarias en URLs y componentes Livewire (`leagueId`, `teamId`, `playerId`, `fixtureId`, `seasonId`, `stageId`) son **UUIDs alfanuméricos de 25 caracteres en base-36 (`[0-9a-z]{25}`)** de Opta SDAPI.
+2. **Proveedor 2 (Secundario — Logos de Ligas, Escudos de Clubes y Fotografías Primarias de Jugadores) (`[OBSERVADO]`):** **API-Football (`v3.football.api-sports.io` / `media.api-sports.io`)**. Sus IDs enteros canónicos indexan los 40 logos de competiciones (`/storage/media/leagues/{api_football_league_id}.png`), todos los escudos de clubes (`/storage/media/teams/{api_football_team_id}.png`) y las fotografías primarias de jugadores (`https://media.api-sports.io/football/players/{api_football_player_id}.png`).
+3. **Proveedor 3 (Terciario — Avatares Secundarios / Fallback de Jugadores y Banderas) (`[OBSERVADO]`):** **FotMob CDN (`https://images.fotmob.com/image_resources/playerimages/{fotmob_id}.png`)** para fotografías secundarias/fallback de jugadores (ej. `1069546` Rodrigo Dourado, `690073` Cristian Borja, `609892` Sebastián Cáceres), complementado por **FlagCDN (`https://flagcdn.com/w20/{iso}.png` y `w40`)** para banderas nacionales ISO 3166-1 alpha-2.
 
 ---
 
-### 1.1. Pruebas Irrefutables del Proveedor Primario: Stats Perform / Opta SDAPI
+### 1.1. Pruebas Irrefutables del Proveedor 1 (Primario): Stats Perform / Opta SDAPI
 
-#### A. Declaración Legal Explícita y Atribución en UI (`[OBSERVADO]`)
-En todas las capturas HTML (`01-home.html` a `14-league-tabs-wait-*.html`), el pie de página legal y los subtítulos de las visualizaciones declaran textualmente:
-- **Footer global:** `© 2026 Statiskicks. Todos los derechos reservados. Términos y Condiciones de uso · Aviso de privacidad integral · Datos de fútbol: Opta (Stats Perform).` (`03-team.html`, `09-match-detail.html`, `13-match-tabs-wait-estadisticas.html`).
-- **Subtítulo del Radar de Equipo:** `El xT se calcula con un modelo público de amenaza esperada sobre los pases de Opta.` (`03-team.html`, `ev_aa5f2d74196b21062c132e8b6ec8934f023380f93c40f78f99e333a43bfc9977`).
-- **Subtítulo de la Serie Histórica xG Rolling:** `54 partidos con xG · Fuente: Opta` (`03-team.html`).
-- **Etiqueta de Normalización en Payload JSON:** En `03-team-data-team-profile-payload.json`, la métrica `pressing_intensity` (`PPDA`) lleva el atributo explícito `"normalization_label": "Valor Opta"`.
+#### A. Declaración Legal Explícita, Comentarios de Desarrollador y Comandos Artisan (`[OBSERVADO]`)
+1. **Declaración legal en el DOM (`01-home.html` a `32-match-detail-tabs-and-player-modal-capture.json`):**
+   - **Footer global:** `© 2026 Statiskicks. Todos los derechos reservados. Términos y Condiciones de uso · Aviso de privacidad integral · Datos de fútbol: Opta (Stats Perform).`
+   - **Subtítulo del Radar de Equipo:** `El xT se calcula con un modelo público de amenaza esperada sobre los pases de Opta.` ([03-team.html](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/03-team.html), `ev_aa5f2d74196b21062c132e8b6ec8934f023380f93c40f78f99e333a43bfc9977`).
+   - **Subtítulo de la Serie Histórica xG Rolling:** `54 partidos con xG · Fuente: Opta` ([03-team.html](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/03-team.html)).
+   - **Etiqueta de Normalización en Payload JSON:** En [team-america-profile-percentiles.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/team-america-profile-percentiles.json), la métrica `pressing_intensity` (`PPDA`) lleva el atributo explícito `"normalization_label": "Valor Opta"`.
+2. **Comentarios internos de desarrollador en [07-players-wire-script-0.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/inline-pages/07-players-wire-script-0.js#L310-L388) (`ev_04b1ede55ec1bd3f547cd81c48dc5a1fc2e4e8b8f9a9020481a3e35092a126e8`):**
+   El script inline de Livewire `wire:effects.scripts` extraído de `/players` confirma tanto el comando Artisan de cobertura Opta en el backend como el uso directo de los nombres de país de Opta SDAPI:
+   - [Líneas 310–312](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/inline-pages/07-players-wire-script-0.js#L310-L312): `// False until php artisan opta:coverage has run, and on the team tab: the picker then hides the "Sin datos" marker instead of guessing.`
+   - [Líneas 386–387](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/inline-pages/07-players-wire-script-0.js#L386-L387): `// Accent-insensitive, on the league, its country in Spanish or as Opta names it, and the region: "mexico" finds México, "espana" España.`
 
 #### B. Filtración de Nombres de Clases PHP del Backend Laravel (`App\Services\Opta\*`) (`[OBSERVADO]`)
 Los módulos JavaScript servidos sin minificar desde `/custom_assets/js/named/*.js` contienen comentarios de documentación interna que revelan la arquitectura exacta del backend Laravel y el namespace `App\Services\Opta\`:
 
 | Archivo JS Frontend (`evidence/javascript/named/`) | Clase / Método Backend PHP Filtrado en Comentarios | Propósito del Servicio en Backend |
 |---|---|---|
-| `skore.js` (líneas 5–7) | `App\Services\Opta\OptaMatchRatingService::format()` y `::grade()` | Cálculo, formateo y clasificación por bandas (`low`, `mid`, `high`) del rating **SKORE**. |
-| `attribute-charts.js` (línea 6) | `OptaSeasonStatsService::buildTraitsData()` | Construcción del catálogo de 147 atributos/traits por 90 min y totales para jugadores. |
-| `attribute-charts.js` (línea 7) | `OptaTeamAttributeService::forTeam()` | Construcción del catálogo de 171 atributos/traits por partido y totales para equipos. |
-| `team-xg-rolling.js` (línea 4) | `OptaTeamXgTimelineService` | Serie histórica móvil de 5 partidos (`window: 5`) de `xG`, `xGA` y cambios de DT. |
-| `goalmouth-map.js` (línea 4) | `OptaKeeperGoalmouthService` | Mapa de portería (`goalmouthY` $\in [44.2, 55.8]$, `goalmouthZ` $\in [0, 38]$) para arqueros. |
-| `event-map.js` (línea 277) | `OptaZoneControl` | Grilla táctica de control territorial por zonas (6 zonas en jugador, 24 zonas en partido). |
-| `event-map.js` (línea 1743) | `OptaEventMapBuilder::summary()` | Agregación de eventos espaciales $(x, y)$, clusters K-means de pases y mapas de calor. |
-| `percentile-rows.js` (línea 5) | `App\Support\RankBands::gradient()` | Gradientes cromáticos semafóricos para barras de percentiles (`0–100`). |
-| `team-profile.js` (línea 4) | `App\Support\RankBands::third()` | Clasificación por tercios (`low`, `mid`, `high`) en el perfil táctico de equipo. |
-| `attribute-charts.js` (línea 1178) | `AttributeRanking::view()` | Renderizado de tablas de ranking posicional y de equipo. |
-| `event-map.js` (línea 522) | `PlanAccess::allowsMapEvent()` | Control de paywall por tipo de evento en mapas (`involvement`, `shot:*`, `pass:*`). |
+| [skore.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/named/skore.js) (líneas 5–7) | `App\Services\Opta\OptaMatchRatingService::format()` y `::grade()` | Cálculo, formateo y clasificación por bandas (`low`, `mid`, `high`) del rating **SKORE**. |
+| [attribute-charts.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/named/attribute-charts.js) (línea 6) | `OptaSeasonStatsService::buildTraitsData()` | Construcción del catálogo de 147 atributos/traits (jugador de campo) y 176 (portero) por 90 min y totales. |
+| [attribute-charts.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/named/attribute-charts.js) (línea 7) | `OptaTeamAttributeService::forTeam()` | Construcción del catálogo de 171 atributos/traits por partido y totales para equipos. |
+| [team-xg-rolling.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/named/team-xg-rolling.js) (línea 4) | `OptaTeamXgTimelineService` | Serie histórica móvil de 5 partidos (`window: 5`) de `xG`, `xGA` y cambios de DT. |
+| [goalmouth-map.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/named/goalmouth-map.js) (línea 4) | `OptaKeeperGoalmouthService` | Mapa de portería (`goalmouthY` $\in [44.2, 55.8]$, `goalmouthZ` $\in [0, 38]$) para arqueros. |
+| [event-map.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/named/event-map.js) (línea 277) | `OptaZoneControl` | Grilla táctica de control territorial por zonas (6 zonas en jugador, 24 zonas en partido). |
+| [event-map.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/named/event-map.js) (línea 1743) | `OptaEventMapBuilder::summary()` | Agregación de eventos espaciales $(x, y)$, clusters K-means de pases y mapas de calor. |
+| [percentile-rows.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/named/percentile-rows.js) (línea 5) | `App\Support\RankBands::gradient()` | Gradientes cromáticos semafóricos para barras de percentiles (`0–100`). |
+| [team-profile.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/named/team-profile.js) (línea 4) | `App\Support\RankBands::third()` | Clasificación por tercios (`low`, `mid`, `high`) en el perfil táctico de equipo. |
+| [attribute-charts.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/named/attribute-charts.js) (línea 1178) | `AttributeRanking::view()` | Renderizado de tablas de ranking posicional y de equipo. |
+| [event-map.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/named/event-map.js) (línea 522) | `PlanAccess::allowsMapEvent()` | Control de paywall por tipo de evento en mapas (`involvement`, `shot:*`, `pass:*`). |
+| [07-players-wire-script-0.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/inline-pages/07-players-wire-script-0.js) (líneas 31, 133, 301, 438, 477) | `Players::formatStatValue()`, `Players::defaultCompetitionId()`, `Players::selectedSeasons()`, `Players::periodCalendar()`, `MatchWindow::label()` | Formateo unificado de métricas en `/players`, resolución de temporada activa por liga y calendario de jornadas/fechas. |
 
 #### C. Identificadores Universales Alfanuméricos de 25 Caracteres en Base-36 (Opta SDAPI UUIDs) (`[OBSERVADO]`)
-Toda entidad de dominio en las URLs, atributos `wire:key`, llamadas Livewire y payloads JSON de Statiskicks utiliza como clave primaria el **UUID alfanumérico en base-36 (`[0-9a-z]{24,25}`) propio de Stats Perform / Opta Sports Data API (SDAPI)**:
+Toda entidad de dominio en las URLs, atributos `wire:key`, snapshots Livewire (`leagueId`, `teamId`, `playerId`, `fixtureId`, `seasonId`, `stageId`) y payloads JSON de Statiskicks utiliza como clave primaria el **UUID alfanumérico de 25 caracteres en base-36 (`[0-9a-z]{25}`, ocasionalmente 24 cuando el dígito inicial es cero omitido)** propio de **Stats Perform / Opta Sports Data API (SDAPI)**:
 
 | Tipo de Entidad Opta SDAPI | Campo en Statiskicks | Ejemplo Real Capturado | Entidad Representada | Evidencia Fuente |
 |---|---|---|---|---|
-| **Competición (`competition`)** | `competition_id` / `/league/{uuid}` | `2hsidwomhjsaaytdy9u5niyi4` | **Liga MX** (México) | `06-league.html`, `04-player-data-bootstrap.json` |
-| **Competición (`competition`)** | `competition_id` / `/league/{uuid}` | `2kwbbcootiqqgmrzs6o5inle5` | **Premier League** (Inglaterra) | `10-leagues.html`, `search-madrid.json` |
-| **Competición (`competition`)** | `competition_id` / `/league/{uuid}` | `34pl8szyvrbwcmfkuocjm3r6t` | **Primera División / LaLiga** (España) | `10-leagues.html`, `search-madrid.json` |
-| **Competición (`competition`)** | `competition_id` / `/league/{uuid}` | `6by3h89i2eykc341oz7lv1ddd` | **Bundesliga** (Alemania) | `10-leagues.html`, `01-home.html` |
-| **Competición (`competition`)** | `competition_id` / `/league/{uuid}` | `1r097lpxe0xn03ihb7wi98kao` | **Serie A** (Italia) | `10-leagues.html`, `01-home.html` |
-| **Competición (`competition`)** | `competition_id` / `/league/{uuid}` | `dm5ka0os1e3dxcp3vh05kmp33` | **Ligue 1** (Francia) | `10-leagues.html`, `01-home.html` |
-| **Competición (`competition`)** | `competition_id` / `/league/{uuid}` | `287tckirbfj9nb8ar2k9r60vn` | **MLS** (Estados Unidos) | `10-leagues.html`, `search-messi.json` |
-| **Competición (`competition`)** | `competition_id` / `/league/{uuid}` | `581t4mywybx21wcpmpykhyzr3` | **Liga Profesional Argentina** | `10-leagues.html`, `01-home.html` |
-| **Competición (`competition`)** | `competition_id` / `/league/{uuid}` | `scf9p4y91yjvqvg5jndxzhxj` | **Serie A / Brasileirão** (Brasil) | `10-leagues.html` (24 chars base-36) |
-| **Temporada (`tournamentCalendar`)** | `season` / `season_tmcl` | `9zum4nxferygj8bb0ldcavxn8` | **Liga MX 2026/2027** | `03-team.html`, `04-player-data-bootstrap.json` |
-| **Temporada (`tournamentCalendar`)** | `season` / `season_tmcl` | `aegyls91smdw9kipjgbsu8tn8` | **Liga MX 2025/2026** | `03-team.html`, `04-player-data-bootstrap.json` |
-| **Club (`contestant`)** | `/team/{uuid}/{slug}` | `eu8c408f59yx7egaqossbv25e` | **Club América** (México) | `search-america.json`, `03-team.html` |
-| **Club (`contestant`)** | `/team/{uuid}/{slug}` | `3kq9cckrnlogidldtdie2fkbl` | **Real Madrid** (España) | `search-madrid.json` |
-| **Club (`contestant`)** | `/team/{uuid}/{slug}` | `4ku8o6uf87yd8iecdalipo6wd` | **Atlético de Madrid** (España) | `search-madrid.json` |
-| **Club (`contestant`)** | `contestant_id` | `e603sojy77s4u0ypqds2v2a1g` | **Guadalajara / Chivas** (México) | `04-player-data-bootstrap.json` |
-| **Club (`contestant`)** | `teams[].id` | `1aw67co8uut64yckd3wbhy9t2` | **Cruz Azul** (México) | `14-league-tabs-wait-maps-data-bootstrap.json` |
-| **Jugador (`person` / `player`)** | `/player/{uuid}/{slug}` | `c5ryhn04g9goikd0blmh83aol` | **Lionel Messi** (Inter Miami) | `search-messi.json` |
-| **Jugador (`person` / `player`)** | `/player/{uuid}/{slug}` | `1cyhpfi77dom7gmpuownxlcrt` | **Luis Romo** (Guadalajara) | `04-player.html` |
-| **Jugador (`person` / `player`)** | `/player/{uuid}/{slug}` | `a1qs3b34p5u2s6mmlhdkgdp7t` | **Luis Ángel Malagón** (Club América) | `27-goalkeeper-rpc-request-44-response.json` |
-| **Jugador (`person` / `player`)** | `cards[uuid]` | `9sme7jykdv8msgfu0nxx6h39x` | **Keylor Navas** (Pumas UNAM) | `13-match-tabs-wait-alineaciones-json-0.json` |
-| **Jugador (`person` / `player`)** | `/player/{uuid}/{slug}` | `54kcu71vtiz8xlkke60k394a1` | **Érick Sánchez** (Club América) | `03-team-data-team-age-profile-payload.json` |
-| **Jugador (`person` / `player`)** | `/player/{uuid}/{slug}` | `5ysw10inm8syf7r9xvbpk9n11` | **Henry Martín** (Club América) | `03-team-data-team-age-profile-payload.json` |
-| **Partido (`fixture` / `match`)** | `/match/{uuid}` | `9dy7dhz5f13b2ejz2a5tok2l0` | **Pumas UNAM 2-2 Club América** (J16 Apertura 2026) | `09-match-detail.html`, `13-match-tabs-capture.json` |
+| **Competición (`competition`)** | `leagueId` / `competition_id` | `2hsidwomhjsaaytdy9u5niyi4` | **Liga MX** (México) | [rosetta-40-leagues-opta-apifootball.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/rosetta-40-leagues-opta-apifootball.json) |
+| **Competición (`competition`)** | `leagueId` / `competition_id` | `2kwbbcootiqqgmrzs6o5inle5` | **Premier League** (Inglaterra) | [rosetta-40-leagues-opta-apifootball.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/rosetta-40-leagues-opta-apifootball.json) |
+| **Competición (`competition`)** | `leagueId` / `competition_id` | `34pl8szyvrbwcmfkuocjm3r6t` | **Primera División / LaLiga** (España) | [rosetta-40-leagues-opta-apifootball.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/rosetta-40-leagues-opta-apifootball.json) |
+| **Competición (`competition`)** | `leagueId` / `competition_id` | `6by3h89i2eykc341oz7lv1ddd` | **Bundesliga** (Alemania) | [rosetta-40-leagues-opta-apifootball.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/rosetta-40-leagues-opta-apifootball.json) |
+| **Competición (`competition`)** | `leagueId` / `competition_id` | `1r097lpxe0xn03ihb7wi98kao` | **Serie A** (Italia) | [rosetta-40-leagues-opta-apifootball.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/rosetta-40-leagues-opta-apifootball.json) |
+| **Competición (`competition`)** | `leagueId` / `competition_id` | `dm5ka0os1e3dxcp3vh05kmp33` | **Ligue 1** (Francia) | [rosetta-40-leagues-opta-apifootball.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/rosetta-40-leagues-opta-apifootball.json) |
+| **Competición (`competition`)** | `leagueId` / `competition_id` | `287tckirbfj9nb8ar2k9r60vn` | **MLS** (Estados Unidos) | [rosetta-40-leagues-opta-apifootball.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/rosetta-40-leagues-opta-apifootball.json) |
+| **Competición (`competition`)** | `leagueId` / `competition_id` | `581t4mywybx21wcpmpykhyzr3` | **Liga Profesional Argentina** | [rosetta-40-leagues-opta-apifootball.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/rosetta-40-leagues-opta-apifootball.json) |
+| **Competición (`competition`)** | `leagueId` / `competition_id` | `scf9p4y91yjvqvg5jndxzhxj` | **Serie A / Brasileirão** (Brasil) | [rosetta-40-leagues-opta-apifootball.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/rosetta-40-leagues-opta-apifootball.json) |
+| **Temporada (`tournamentCalendar`)** | `seasonId` / `season_tmcl` | `9zum4nxferygj8bb0ldcavxn8` | **Liga MX 2026/2027** | [04-player-data-bootstrap.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/04-player-data-bootstrap.json) |
+| **Temporada (`tournamentCalendar`)** | `seasonId` / `season_tmcl` | `aegyls91smdw9kipjgbsu8tn8` | **Liga MX 2025/2026** | [04-player-data-bootstrap.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/04-player-data-bootstrap.json) |
+| **Temporada (`tournamentCalendar`)** | `selectedSeasonId` / `season_tmcl` | `6i6n0jkbh9zzij6s8htfjh2j8` | **MLS 2026** | [30-player-tabs-compare-desempeno-modals-request-62-request.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/30-player-tabs-compare-desempeno-modals-request-62-request.json) |
+| **Fase / Etapa (`stage`)** | `stageId` / `tournament_key` | `74623a6zmmk15vosebdok4kr8` | **MLS 2026 Regular Season** (`STAGE_74623a6zmmk15vosebdok4kr8`) | [30-player-tabs-compare-desempeno-modals-request-62-request.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/30-player-tabs-compare-desempeno-modals-request-62-request.json) |
+| **Club (`contestant`)** | `teamId` / `/team/{uuid}/{slug}` | `eu8c408f59yx7egaqossbv25e` | **Club América** (México) | [rosetta-teams-opta-apifootball.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/rosetta-teams-opta-apifootball.json) |
+| **Club (`contestant`)** | `teamId` / `/team/{uuid}/{slug}` | `ayabrorjqa1bj7jk1fdqu1t57` | **Pumas UNAM** (México) | [rosetta-teams-opta-apifootball.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/rosetta-teams-opta-apifootball.json) |
+| **Club (`contestant`)** | `teamId` / `/team/{uuid}/{slug}` | `7a7uyvix8axi28h7d3bwl4tbe` | **Inter Miami** (EE. UU.) | [rosetta-teams-opta-apifootball.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/rosetta-teams-opta-apifootball.json) |
+| **Club (`contestant`)** | `teamId` / `contestant_id` | `e603sojy77s4u0ypqds2v2a1g` | **Guadalajara / Chivas** (México) | [rosetta-teams-opta-apifootball.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/rosetta-teams-opta-apifootball.json) |
+| **Club (`contestant`)** | `teamId` / `teams[].id` | `1aw67co8uut64yckd3wbhy9t2` | **Cruz Azul** (México) | [rosetta-teams-opta-apifootball.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/rosetta-teams-opta-apifootball.json) |
+| **Jugador (`person` / `player`)** | `playerId` / `/player/{uuid}/{slug}` | `c5ryhn04g9goikd0blmh83aol` | **Lionel Messi** (Inter Miami) | [30-player-tabs-compare-desempeno-modals-request-62-request.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/30-player-tabs-compare-desempeno-modals-request-62-request.json) |
+| **Jugador (`person` / `player`)** | `playerId` / `/player/{uuid}/{slug}` | `1cyhpfi77dom7gmpuownxlcrt` | **Luis Romo** (Guadalajara) | [04-player.html](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/04-player.html) |
+| **Jugador (`person` / `player`)** | `playerId` / `/player/{uuid}/{slug}` | `a1qs3b34p5u2s6mmlhdkgdp7t` | **Luis Ángel Malagón** (Club América) | [27-goalkeeper-rpc-request-44-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/27-goalkeeper-rpc-request-44-response.json) |
+| **Jugador (`person` / `player`)** | `cards[uuid]` | `9sme7jykdv8msgfu0nxx6h39x` | **Keylor Navas** (Pumas UNAM) | [match-1535061-all-player-cards.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/match-1535061-all-player-cards.json) |
+| **Jugador (`person` / `player`)** | `players[].id` | `54kcu71vtiz8xlkke60k394a1` | **Érick Sánchez** (Club América) | [team-america-age-profile.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/team-america-age-profile.json) |
+| **Jugador (`person` / `player`)** | `players[].id` | `5ysw10inm8syf7r9xvbpk9n11` | **Henry Martín** (Club América) | [team-america-age-profile.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/team-america-age-profile.json) |
+| **Partido (`fixture` / `match`)** | `fixtureId` / `/match/{uuid}` | `9dy7dhz5f13b2ejz2a5tok2l0` | **Pumas UNAM 2-2 Club América** (J16 Apertura 2026) | [match-1535061-all-player-cards.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/match-1535061-all-player-cards.json) |
 
 > [!IMPORTANT]
-> En `04-player-data-bootstrap.json`, el campo `season_tmcl` expone explícitamente la nomenclatura oficial de Opta SDAPI (`tmcl` = **Tournament Calendar**), mapeando una clave compuesta `{competition_id}|{season_label}` a un arreglo de UUIDs de calendarios de torneo Opta (67 pares registrados para las ligas en las que ha participado el jugador o la base de datos activa).
+> En [04-player-data-bootstrap.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/04-player-data-bootstrap.json) y en [30-player-tabs-compare-desempeno-modals-request-62-request.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/30-player-tabs-compare-desempeno-modals-request-62-request.json), el campo `season_tmcl` (y `seasonOptions` con 80 UUIDs de calendarios de temporada entre `2025`, `2025/2026`, `2026`, `2026/2027` y `2027`) expone explícitamente la nomenclatura oficial de Opta SDAPI (`tmcl` = **Tournament Calendar**), mientras que `tournamentOptions` expone los UUIDs de etapa Opta bajo el prefijo `STAGE_{opta_stage_uuid}` (ej. `STAGE_74623a6zmmk15vosebdok4kr8`).
 
-#### D. Nombres Crudos de Métricas (`raw_name`) y Sistema de Coordenadas Opta $[0, 100] \times [0, 100]$ (`[OBSERVADO]`)
-1. **Nombres crudos de feeds Opta (`raw_name`):** Tanto `03-team-data-attribute-charts-payload.json` (171 traits) como `04-player-data-attribute-charts-payload.json` (147 traits) conservan el campo `"raw_name"` con la etiqueta original en inglés del feed `TM3`/`TM4`/`F9` de Opta, junto a su traducción `"label"` al español:
-   - `"raw_name": "Corners Taken (incl short corners)"` $\rightarrow$ `"label": "Córners cobrados (incl. cortos)"` (`key: "corners_taken_incl_short_corners"`).
-   - `"raw_name": "Shots Created"` $\rightarrow$ `"label": "Tiros generados"` (`key: "shots_created"`).
-   - `"raw_name": "Successful Open Play Passes"` $\rightarrow$ `"label": "Pases de juego abierto exitosos"` (`key: "successful_open_play_passes"`).
-   - `"raw_name": "Tackles Won"` $\rightarrow$ `"label": "Entradas ganadas"` (`key: "tackles_won"`).
-   - `"raw_name": "Duels won"` / `"Ground Duels won"` / `"Aerial Duels won"`.
+#### D. Catálogo Rosetta de 177 Atributos Opta SDAPI ([rosetta-177-opta-attributes-catalog.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/rosetta-177-opta-attributes-catalog.json)) y Sistema de Coordenadas Opta $[0, 100] \times [0, 100]$ (`[OBSERVADO]`)
+1. **Catálogo maestro de 13 categorías y 177 atributos con nombres exactos Opta SDAPI TM3/MA2:**
+   En [rosetta-177-opta-attributes-catalog.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/rosetta-177-opta-attributes-catalog.json) (extraído de `playersFilterDraft` en [players-filter-draft-config.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/players-filter-draft-config.json), `ev_04b1ede55ec1bd3f547cd81c48dc5a1fc2e4e8b8f9a9020481a3e35092a126e8`), el selector de filtros de `/players` utiliza como clave primaria `key` **exactamente el nombre en inglés de la métrica en los feeds `TM3`/`MA2` de Opta SDAPI** (176 métricas Opta + `skore` = **177 atributos** repartidos en **13 categorías**: `Balón Parado` [11], `Creación` [13], `Defensa` [15], `Disciplina` [6], `Duelos` [9], `Errores` [2], `Finalización` [27], `General` [14], `Juego Aéreo` [11], `Pase` [21], `Portero` [29], `Posesión` [16], `Progresión` [3]):
+   - `"key": "Corners Taken (incl short corners)"` $\rightarrow$ `"label": "Córners cobrados (incl. cortos)"` (`units: ["p90", "total"]`).
+   - `"key": "Time Played"` $\rightarrow$ `"label": "Minutos jugados"` (`units: ["total"]`).
+   - `"key": "Assists (Intentional)"` $\rightarrow$ `"label": "Asistencias intencionales"` (`units: ["p90", "total"]`).
+   - `"key": "Expected Assists Openplay"` $\rightarrow$ `"label": "xA en juego abierto"` (`units: ["p90", "total"]`).
+   - `"key": "Expected Threat"` / `"Expected Threat Passes"` / `"Expected Threat Carries"` $\rightarrow$ categoría `Progresión`.
+   - `"key": "PutThrough/Blocked Distribution"` y `"PutThrough/Blocked Distribution Won"` $\rightarrow$ categoría `Defensa`.
+   - `"key": "Total Successful Passes ( Excl Crosses & Corners )"` (conservando incluso los espacios internos de los feeds clásicos de Opta).
 2. **Coordenadas espaciales Opta $[0, 100] \times [0, 100]$ y Goalmouth $[44.2, 55.8] \times [0, 38]$ (`[OBSERVADO]`):**
-   - En `event-map.js` (líneas 16–20), `team-pass-network.js`, `team-formation-profile.js` y `heatmap.js` (líneas 95–103), todas las coordenadas $(x, y)$ de eventos están expresadas en el sistema estándar de Opta $[0, 100] \times [0, 100]$ (donde $x \in [0, 100]$ va de línea de fondo propia a línea de fondo rival, e $y \in [0, 100]$ va de banda derecha a banda izquierda), proyectándose al canvas/SVG de cancha de $105 \times 68$ metros mediante:
+   - En [event-map.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/named/event-map.js) (líneas 16–20), [team-pass-network.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/named/team-pass-network.js), [team-formation-profile.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/named/team-formation-profile.js) y [heatmap.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/named/heatmap.js) (líneas 95–103), todas las coordenadas $(x, y)$ de eventos están expresadas en el sistema estándar de Opta $[0, 100] \times [0, 100]$ (donde $x \in [0, 100]$ va de línea de fondo propia a línea de fondo rival, e $y \in [0, 100]$ va de banda derecha a banda izquierda), proyectándose al canvas/SVG de cancha de $105 \times 68$ metros mediante:
      $$X_{\text{svg}} = \frac{x}{100} \times 105, \qquad Y_{\text{svg}} = \frac{100 - y}{100} \times 68$$
-   - En `goalmouth-map.js` (líneas 15–17), el mapa de portería utiliza exactamente los calificadores de boca de portería de Opta (`Qualifier 102` = `Goalmouth Y`, `Qualifier 103` = `Goalmouth Z`):
+   - En [goalmouth-map.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/named/goalmouth-map.js) (líneas 15–17), el mapa de portería utiliza exactamente los calificadores de boca de portería de Opta (`Qualifier 102` = `Goalmouth Y`, `Qualifier 103` = `Goalmouth Z`):
      ```js
      // Opta goalmouth coordinates: y in ~[44.2, 55.8] (post to post, 55.8 = keeper's right / viewer's left),
      // z in [0, ~38] (ground to crossbar). Outside that = off-target.
@@ -126,99 +140,116 @@ Toda entidad de dominio en las URLs, atributos `wire:key`, llamadas Livewire y p
 
 ---
 
-### 1.2. Pruebas Irrefutables del Proveedor Secundario de Media y Cross-Reference: API-Football (`api-sports.io`)
+### 1.2. Pruebas Irrefutables del Proveedor 2 (Secundario de Media y Cross-Reference): API-Football (`api-sports.io`)
 
-Mientras que Opta SDAPI provee todos los UUIDs de entidades y las estadísticas/eventos, **Opta no incluye fotografías recortadas de jugadores ni escudos PNG listos para web en su paquete básico de feeds**. Para resolver esto, Statiskicks mantiene en su base de datos una tabla de mapeo cruzado (`opta_id` $\leftrightarrow$ `api_football_id`) contra **API-Football (`v3.football.api-sports.io`)** (`[OBSERVADO]`):
+Mientras que Opta SDAPI provee todos los UUIDs de 25 caracteres y las estadísticas/eventos, **Opta no incluye fotografías recortadas de jugadores ni escudos PNG listos para web en su paquete básico de feeds**. Para resolver esto, Statiskicks mantiene en su base de datos una tabla de mapeo cruzado (`opta_uuid` $\leftrightarrow$ `api_football_id`) contra **API-Football (`v3.football.api-sports.io`)** (`[OBSERVADO]` en [rosetta-40-leagues-opta-apifootball.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/rosetta-40-leagues-opta-apifootball.json), [rosetta-teams-opta-apifootball.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/rosetta-teams-opta-apifootball.json) y [30-player-tabs-compare-desempeno-modals-request-63-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/30-player-tabs-compare-desempeno-modals-request-63-response.json)):
 
-#### A. Fotografías de Jugadores Servidas Directamente desde el CDN de `media.api-sports.io` (`[OBSERVADO]`)
-Las fotografías de jugadores apuntan directamente al CDN oficial de API-Football (`https://media.api-sports.io/football/players/{api_football_player_id}.png`):
+#### A. Fotografías Primarias de Jugadores Servidas Directamente desde `media.api-sports.io` (`[OBSERVADO]`)
+Las fotografías primarias de jugadores apuntan directamente al CDN oficial de API-Football (`https://media.api-sports.io/football/players/{api_football_player_id}.png`), incluyendo las estrellas de portada, los planteles de Liga MX y los 20 resultados multi-liga de `GET /players/search?q=Luis` ([30-player-tabs-compare-desempeno-modals-request-63-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/30-player-tabs-compare-desempeno-modals-request-63-response.json)):
 
 | Jugador | UUID Opta en Statiskicks (`/player/{uuid}`) | URL de Fotografía (`image` / `photo`) | ID Entero API-Football | Evidencia Fuente |
 |---|---|---|---|---|
-| **Lionel Messi** | `c5ryhn04g9goikd0blmh83aol` | `https://media.api-sports.io/football/players/154.png` | `154` | `search-messi.json` (`ev_296f62...`) |
-| **Trent Alexander-Arnold** | `6694fff742be1902267920726` | `https://media.api-sports.io/football/players/283.png` | `283` | `01-home.html` (`ev_a57fa3...`) |
-| **Keylor Navas** | `9sme7jykdv8msgfu0nxx6h39x` | `https://media.api-sports.io/football/players/731.png` | `731` | `13-match-tabs-wait-alineaciones-json-0.json` |
-| **Brahim Díaz** | `66b14855c9530871580964446` | `https://media.api-sports.io/football/players/744.png` | `744` | `01-home.html` |
-| **Julián Álvarez** | `66b14850c9530871580954502` | `https://media.api-sports.io/football/players/6009.png` | `6009` | `01-home.html` |
-| **Henry Martín** | `5ysw10inm8syf7r9xvbpk9n11` | `https://media.api-sports.io/football/players/35603.png` | `35603` | `09-match-detail.html`, `13-match-tabs-wait-alineaciones-json-0.json` |
-| **Álex Zendejas** | `i5f7g3p3e0i6zwc2bc9eglw5` | `https://media.api-sports.io/football/players/35885.png` | `35885` | `09-match-detail.html`, `13-match-tabs-wait-alineaciones-json-0.json` |
-| **Pablo Bennevendo** | `2mcy76o0t3fqqdwtvc0v2n42y` | `https://media.api-sports.io/football/players/35904.png` | `35904` | `13-match-tabs-wait-alineaciones-json-0.json` |
-| **Luis Romo** | `1cyhpfi77dom7gmpuownxlcrt` | `https://media.api-sports.io/football/players/35970.png` | `35970` | `04-player.html` (`ev_59e57f...`) |
-| **César Huerta** | `48anl4qgpl4f13hkdkc2u9jhl` | `https://media.api-sports.io/football/players/36111.png` | `36111` | `09-match-detail.html`, `13-match-tabs-wait-alineaciones-json-0.json` |
+| **Lionel Messi** | `c5ryhn04g9goikd0blmh83aol` | `https://media.api-sports.io/football/players/154.png` | `154` | [search-messi.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/search-messi.json), [24-players-search-and-oauth-request-16-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/24-players-search-and-oauth-request-16-response.json) |
+| **Trent Alexander-Arnold** | `6694fff742be1902267920726` | `https://media.api-sports.io/football/players/283.png` | `283` | [01-home.html](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/01-home.html) |
+| **Keylor Navas** | `9sme7jykdv8msgfu0nxx6h39x` | `https://media.api-sports.io/football/players/731.png` | `731` | [match-1535061-all-player-cards.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/match-1535061-all-player-cards.json) |
+| **Brahim Díaz** | `66b14855c9530871580964446` | `https://media.api-sports.io/football/players/744.png` | `744` | [01-home.html](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/01-home.html) |
+| **Luís Maximiano** | `71p9z7bqvgzb5t115fmos6fop` | `https://media.api-sports.io/football/players/1470.png` | `1470` | [30-player-tabs-compare-desempeno-modals-request-63-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/30-player-tabs-compare-desempeno-modals-request-63-response.json) |
+| **Luis Abram** | `652d6i0jem2jymjfzd8w0ndn9` | `https://media.api-sports.io/football/players/2418.png` | `2418` | [30-player-tabs-compare-desempeno-modals-request-63-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/30-player-tabs-compare-desempeno-modals-request-63-response.json) |
+| **Luis Advíncula** | `ar47ws1sf2l4ulxx2afq2x2hh` | `https://media.api-sports.io/football/players/2419.png` | `2419` | [30-player-tabs-compare-desempeno-modals-request-63-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/30-player-tabs-compare-desempeno-modals-request-63-response.json) |
+| **Julián Álvarez** | `66b14850c9530871580954502` | `https://media.api-sports.io/football/players/6009.png` | `6009` | [01-home.html](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/01-home.html) |
+| **Henry Martín** | `5ysw10inm8syf7r9xvbpk9n11` | `https://media.api-sports.io/football/players/35603.png` | `35603` | [match-1535061-all-player-cards.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/match-1535061-all-player-cards.json) |
+| **Álex Zendejas** | `i5f7g3p3e0i6zwc2bc9eglw5` | `https://media.api-sports.io/football/players/35885.png` | `35885` | [match-1535061-all-player-cards.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/match-1535061-all-player-cards.json) |
+| **Pablo Bennevendo** | `2mcy76o0t3fqqdwtvc0v2n42y` | `https://media.api-sports.io/football/players/35904.png` | `35904` | [match-1535061-all-player-cards.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/match-1535061-all-player-cards.json) |
+| **Luis Ángel Malagón** | `a1qs3b34p5u2s6mmlhdkgdp7t` | `https://media.api-sports.io/football/players/35930.png` | `35930` | [24-players-search-and-oauth-request-17-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/24-players-search-and-oauth-request-17-response.json) |
+| **Luis Romo** | `1cyhpfi77dom7gmpuownxlcrt` | `https://media.api-sports.io/football/players/35970.png` | `35970` | [04-player.html](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/04-player.html) |
+| **Érick Sánchez** | `54kcu71vtiz8xlkke60k394a1` | `https://media.api-sports.io/football/players/36093.png` | `36093` | [03b-team-full.html](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/03b-team-full.html), [match-1535061-all-player-cards.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/match-1535061-all-player-cards.json) |
+| **César Huerta** | `48anl4qgpl4f13hkdkc2u9jhl` | `https://media.api-sports.io/football/players/36111.png` | `36111` | [match-1535061-all-player-cards.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/match-1535061-all-player-cards.json) |
 
-#### B. Escudos de Clubes y Logos de Ligas Espejados Localmente con IDs Canónicos de API-Football (`[OBSERVADO]`)
-Los logos de competiciones y escudos de equipos se sirven desde el almacenamiento público de Laravel (`/storage/media/leagues/{id}.png` y `/storage/media/teams/{id}.png`), pero **los nombres de archivo `{id}.png` corresponden 1:1 con los IDs enteros canónicos de `v3.football.api-sports.io`**:
+#### B. Escudos de Clubes (`/storage/media/teams/{id}.png`) y Logos de las 40 Ligas (`/storage/media/leagues/{id}.png`) con IDs Canónicos de API-Football (`[OBSERVADO]`)
+Los logos de las 40 competiciones ([rosetta-40-leagues-opta-apifootball.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/rosetta-40-leagues-opta-apifootball.json)) y los escudos de todos los clubes ([rosetta-teams-opta-apifootball.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/rosetta-teams-opta-apifootball.json)) se sirven desde el almacenamiento público de Laravel (`/storage/media/leagues/{api_football_league_id}.png` y `/storage/media/teams/{api_football_team_id}.png`), donde cada `{id}` numérico corresponde 1:1 con el ID entero canónico de `v3.football.api-sports.io`:
 
-| Tipo | Entidad | UUID Opta SDAPI | Ruta de Imagen en Statiskicks | ID Entero API-Football | Evidencia Fuente |
-|---|---|---|---|---|---|
-| **Liga** | Premier League (Inglaterra) | `2kwbbcootiqqgmrzs6o5inle5` | `/storage/media/leagues/39.png` | `39` | `10-leagues.html` |
-| **Liga** | Championship (Inglaterra) | `7ntvbsyq31jnzoqoa8850b9b8` | `/storage/media/leagues/40.png` | `40` | `10-leagues.html` |
-| **Liga** | Ligue 1 (Francia) | `dm5ka0os1e3dxcp3vh05kmp33` | `/storage/media/leagues/61.png` | `61` | `10-leagues.html` |
-| **Liga** | Serie A (Brasil) | `scf9p4y91yjvqvg5jndxzhxj` | `/storage/media/leagues/71.png` | `71` | `10-leagues.html` |
-| **Liga** | Bundesliga (Alemania) | `6by3h89i2eykc341oz7lv1ddd` | `/storage/media/leagues/78.png` | `78` | `10-leagues.html` |
-| **Liga** | Eredivisie (Países Bajos) | `akmkihra9ruad09ljapsm84b3` | `/storage/media/leagues/88.png` | `88` | `10-leagues.html` |
-| **Liga** | Primeira Liga (Portugal) | `8yi6ejjd1zudcqtbn07haahg6` | `/storage/media/leagues/94.png` | `94` | `10-leagues.html` |
-| **Liga** | Liga Profesional Argentina | `581t4mywybx21wcpmpykhyzr3` | `/storage/media/leagues/128.png` | `128` | `10-leagues.html` |
-| **Liga** | Serie A (Italia) | `1r097lpxe0xn03ihb7wi98kao` | `/storage/media/leagues/135.png` | `135` | `10-leagues.html` |
-| **Liga** | LaLiga / Primera División (España) | `34pl8szyvrbwcmfkuocjm3r6t` | `/storage/media/leagues/140.png` | `140` | `10-leagues.html` |
-| **Liga** | MLS (EE. UU.) | `287tckirbfj9nb8ar2k9r60vn` | `/storage/media/leagues/253.png` | `253` | `10-leagues.html` |
-| **Liga** | Liga MX (México) | `2hsidwomhjsaaytdy9u5niyi4` | `/storage/media/leagues/262.png` | `262` | `10-leagues.html` |
-| **Liga** | Liga MX Femenil (México) | `7ut48s80k421xixh6ev5i6h62` | `/storage/media/leagues/673.png` | `673` | `10-leagues.html` |
-| **Equipo** | América Mineiro (Brasil) | `6pt3ef592s2524322b18c982j` | `/storage/media/teams/125.png` | `125` | `search-america.json` |
-| **Equipo** | Atlético de Madrid (España) | `4ku8o6uf87yd8iecdalipo6wd` | `/storage/media/teams/530.png` | `530` | `search-madrid.json` |
-| **Equipo** | Real Madrid (España) | `3kq9cckrnlogidldtdie2fkbl` | `/storage/media/teams/541.png` | `541` | `search-madrid.json` |
-| **Equipo** | América de Cali (Colombia) | `d9b21e4k2r3l0n5821y67g171` | `/storage/media/teams/1138.png` | `1138` | `search-america.json` |
-| **Equipo** | Pumas UNAM (México) | `2ei66pjfsrr6uxqp1bywq31lo` | `/storage/media/teams/2286.png` | `2286` | `13-match-tabs-wait-alineaciones-json-0.json` |
-| **Equipo** | Club América (México) | `eu8c408f59yx7egaqossbv25e` | `/storage/media/teams/2287.png` | `2287` | `search-america.json`, `03-team.html` |
+| Slug del Club (`rosetta-teams-opta-apifootball.json`) | UUID Opta SDAPI (`opta_team_uuid`) | ID Entero API-Football (`api_football_team_id`) | URL del Escudo en Statiskicks |
+|---|---|---|---|
+| `guadalajara` (Chivas) | `e603sojy77s4u0ypqds2v2a1g` | `2278` | `/storage/media/teams/2278.png` |
+| `tigres-uanl` | `6hmo9mrlz73nwxkshwuu5vsfm` | `2279` | `/storage/media/teams/2279.png` |
+| `tijuana` | `c1wcescnsnfuyv06enhwaoqr6` | `2280` | `/storage/media/teams/2280.png` |
+| `toluca` | `3390h9hdgoxzzofnrpyktanuz` | `2281` | `/storage/media/teams/2281.png` |
+| `monterrey` | `233335xtoe3e3phg3hp91xguq` | `2282` | `/storage/media/teams/2282.png` |
+| `atlas` | `8jjxbd5vr23vhu1v5r21rzkrn` | `2283` | `/storage/media/teams/2283.png` |
+| `santos-laguna` | `8yn3l36qkq1fxbw4ufmwyfyt9` | `2285` | `/storage/media/teams/2285.png` |
+| `pumas-unam` | `ayabrorjqa1bj7jk1fdqu1t57` | `2286` | `/storage/media/teams/2286.png` |
+| `club-america` | `eu8c408f59yx7egaqossbv25e` | `2287` | `/storage/media/teams/2287.png` |
+| `necaxa` | `b7hn6knkuxbpj1i8rmzapns7b` | `2288` | `/storage/media/teams/2288.png` |
+| `leon` | `2ei66pjfsrr6uxqp1bywq31lo` | `2289` | `/storage/media/teams/2289.png` |
+| `queretaro` | `ccye1b5fvtq8tzlz0gosyw10b` | `2290` | `/storage/media/teams/2290.png` |
+| `puebla` | `4kw25nmgmacpbvo24ttr994k5` | `2291` | `/storage/media/teams/2291.png` |
+| `pachuca` | `cynfvfb31rml7xrlsnejf8r6j` | `2292` | `/storage/media/teams/2292.png` |
+| `cruz-azul` | `1aw67co8uut64yckd3wbhy9t2` | `2295` | `/storage/media/teams/2295.png` |
+| `juarez` | `ecphe4bqgmin2tzsohf50egvd` | `2298` | `/storage/media/teams/2298.png` |
+| `atlante` | `evyhlelybkbj2vry2xhct08pb` | `2312` | `/storage/media/teams/2312.png` |
+| `atletico-san-luis` | `54ph1k82y99hhjsf7m2usns8u` | `2314` | `/storage/media/teams/2314.png` |
+| `inter-miami` | `7a7uyvix8axi28h7d3bwl4tbe` | `9568` | `/storage/media/teams/9568.png` |
 
 ---
 
-## 2. Catálogo Completo de las 40 Ligas Cubiertas (`[OBSERVADO]`)
+### 1.3. Pruebas Irrefutables del Proveedor 3 (Terciario / Fallback de Avatares): FotMob CDN (`images.fotmob.com`) y FlagCDN (`[OBSERVADO]`)
 
-Extraído íntegramente de `10-leagues.html` (`ev_643a343e34fadc05f5e77db59a547ec794b7b026f0f8da2458052732d6c28445`) y verificado contra el menú global de `01-home.html` y `05-matches.html`. Statiskicks cubre exactamente **40 competiciones** divididas en **9 ligas abiertas en el plan gratuito (`Scout`)** y **31 ligas bloqueadas tras el paywall de pago (`Plus` · \$129 MXN/mes)**:
+Cuando un jugador registrado en Opta SDAPI carece de fotografía actualizada o mapeo en API-Football, Statiskicks recurre a un **tercer proveedor de imágenes en su tabla de reconciliación de jugadores**: el CDN oficial de **FotMob (`https://images.fotmob.com/image_resources/playerimages/{fotmob_id}.png`)** (`[OBSERVADO]` en [03b-team-full.html](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/03b-team-full.html) y [match-1535061-all-player-cards.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/match-1535061-all-player-cards.json)):
 
-| # | Nombre de la Liga | País (`country`) | Código Bandera (`flagcdn`) | UUID Opta SDAPI (`league/{uuid}`) | ID Imagen API-Football (`/storage/media/leagues/{id}.png`) | Región | Acceso en Plan Gratuito (`Scout`) |
+| Jugador | Club | UUID Opta SDAPI (`playerId`) | ID Entero FotMob (`fotmob_id`) | URL de Fotografía Fallback Servida | Evidencia Fuente |
+|---|---|---|---|---|---|
+| **Rodrigo Dourado** | Club América / Atlético San Luis | `6m3j7f1p9z2x8c4v5b6n7m8q9` | `1069546` | `https://images.fotmob.com/image_resources/playerimages/1069546.png` | [03b-team-full.html](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/03b-team-full.html) |
+| **Cristian Borja** | Club América | `csvbc0k1f54418nn8pjhg8ull` | `690073` | `https://images.fotmob.com/image_resources/playerimages/690073.png` | [03b-team-full.html](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/03b-team-full.html), [team-america-age-profile.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/team-america-age-profile.json) |
+| **Sebastián Cáceres** | Club América | `claujooxyw4dzynzmy752r3l5` | `609892` | `https://images.fotmob.com/image_resources/playerimages/609892.png` | [03b-team-full.html](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/03b-team-full.html), [team-america-age-profile.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/team-america-age-profile.json) |
+
+---
+
+## 2. Catálogo Completo de las 40 Competiciones y Matriz de Tiers ([rosetta-40-leagues-opta-apifootball.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/rosetta-40-leagues-opta-apifootball.json)) (`[OBSERVADO]`)
+
+Consolidado en [rosetta-40-leagues-opta-apifootball.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/rosetta-40-leagues-opta-apifootball.json) a partir de [10-leagues.html](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/10-leagues.html) (`ev_643a343e34fadc05f5e77db59a547ec794b7b026f0f8da2458052732d6c28445`), [29-league-tabs-and-team-subtabs-capture.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/29-league-tabs-and-team-subtabs-capture.json) (`ev_a1d8facdf931a87bf33ba5e703e23d73cd2ee0c4550557ba3b84cdb9a1c10088`) y [players-filter-draft-config.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/players-filter-draft-config.json) (`ev_04b1ede55ec1bd3f547cd81c48dc5a1fc2e4e8b8f9a9020481a3e35092a126e8`). Statiskicks cubre exactamente **40 competiciones** (`36` masculinas y `4` femeninas), divididas en **9 ligas abiertas en el plan gratuito (`Free / Fan` · datos `Scout`)** con `defaultLeagueId = "2hsidwomhjsaaytdy9u5niyi4"` (Liga MX) y **31 ligas bloqueadas tras el paywall de suscripción (`Locked / Plus` · \$129 MXN/mes)**:
+
+| # | UUID Opta Competición (`opta_competition_uuid`) | ID API-Football (`api_football_league_id`) | Nombre de la Competición (`name`) | País (`country` / `country_es`) | Género (`gender`) | Tier (`Free / Fan` vs `Locked / Plus`) | Cobertura de Temporadas (`default_season` y `season_coverage`) |
 |---|---|---|---|---|---|---|---|
-| 1 | **Premier League** | ENGLAND | `gb-eng` | `2kwbbcootiqqgmrzs6o5inle5` | `39` | Top Ligas / Europa | Abierta (`Scout`) |
-| 2 | **Primera División (LaLiga)** | SPAIN | `es` | `34pl8szyvrbwcmfkuocjm3r6t` | `140` | Top Ligas / Europa | Abierta (`Scout`) |
-| 3 | **Bundesliga** | GERMANY | `de` | `6by3h89i2eykc341oz7lv1ddd` | `78` | Top Ligas / Europa | Abierta (`Scout`) |
-| 4 | **Serie A** | ITALY | `it` | `1r097lpxe0xn03ihb7wi98kao` | `135` | Top Ligas / Europa | Abierta (`Scout`) |
-| 5 | **Ligue 1** | FRANCE | `fr` | `dm5ka0os1e3dxcp3vh05kmp33` | `61` | Top Ligas / Europa | Abierta (`Scout`) |
-| 6 | **Liga MX** | MEXICO | `mx` | `2hsidwomhjsaaytdy9u5niyi4` | `262` | América | Abierta (`Scout`) |
-| 7 | **Liga Profesional Argentina** | ARGENTINA | `ar` | `581t4mywybx21wcpmpykhyzr3` | `128` | América | Abierta (`Scout`) |
-| 8 | **MLS** | USA | `us` | `287tckirbfj9nb8ar2k9r60vn` | `253` | América | Abierta (`Scout`) |
-| 9 | **Serie A (Brasileirão)** | BRAZIL | `br` | `scf9p4y91yjvqvg5jndxzhxj` | `71` | América | Abierta (`Scout`) |
-| 10 | **2. Bundesliga** | GERMANY | `de` | `722fdbecxzcq9788l6jqclzlw` | `79` | Europa | Bloqueada (`Plus`) |
-| 11 | **Championship** | ENGLAND | `gb-eng` | `7ntvbsyq31jnzoqoa8850b9b8` | `40` | Europa | Bloqueada (`Plus`) |
-| 12 | **Eredivisie** | NETHERLANDS | `nl` | `akmkihra9ruad09ljapsm84b3` | `88` | Europa | Bloqueada (`Plus`) |
-| 13 | **First Division A (Pro League)** | BELGIUM | `be` | `4zwgbb66rif2spcoeeol2motx` | `144` | Europa | Bloqueada (`Plus`) |
-| 14 | **HNL** | CROATIA | `hr` | `1b70m6qtxrp75b4vtk8hxh8c3` | `210` | Europa | Bloqueada (`Plus`) |
-| 15 | **Premier League** | RUSSIA | `ru` | `3ab1uwtoyjopdj1y1fynyy9jg` | `235` | Europa | Bloqueada (`Plus`) |
-| 16 | **Premiership** | SCOTLAND | `gb-sct` | `e21cf135btr8t3upw0vl6n6x0` | `179` | Europa | Bloqueada (`Plus`) |
-| 17 | **Primeira Liga** | PORTUGAL | `pt` | `8yi6ejjd1zudcqtbn07haahg6` | `94` | Europa | Bloqueada (`Plus`) |
-| 18 | **Primera División Femenina (Liga F)** | SPAIN | `es` | `5k620c7y6dlbmcm88dt3eb7t` | `142` | Europa (Femenil) | Bloqueada (`Plus`) |
-| 19 | **Segunda División (LaLiga Hypermotion)** | SPAIN | `es` | `3is4bkgf3loxv9qfg3hm8zfqb` | `141` | Europa | Bloqueada (`Plus`) |
-| 20 | **Serie B** | ITALY | `it` | `8ey0ww2zsosdmwr8ehsorh6t7` | `136` | Europa | Bloqueada (`Plus`) |
-| 21 | **Super League** | SWITZERLAND | `ch` | `e0lck99w8meo9qoalfrxgo33o` | `207` | Europa | Bloqueada (`Plus`) |
-| 22 | **Super League 1** | GREECE | `gr` | `c0r21rtokgnbtc0o2rldjmkxu` | `197` | Europa | Bloqueada (`Plus`) |
-| 23 | **Superliga** | DENMARK | `dk` | `29actv1ohj8r10kd9hu0jnb0n` | `119` | Europa | Bloqueada (`Plus`) |
-| 24 | **Süper Lig** | TÜRKIYE | `tr` | `482ofyysbdbeoxauk19yg7tdt` | `203` | Europa | Bloqueada (`Plus`) |
-| 25 | **Women's Super League (WSL)** | ENGLAND | `gb-eng` | `6vq8j5p3av14nr3iuyi4okhjt` | `44` | Europa (Femenil) | Bloqueada (`Plus`) |
-| 26 | **Division Profesional** | PARAGUAY | `py` | `5y0z0l2epprzbscvzsgldw8vu` | `250` | América | Bloqueada (`Plus`) |
-| 27 | **Liga 1** | PERU | `pe` | `a9vrdkelbgif0gtu3wxsr75xo` | `281` | América | Bloqueada (`Plus`) |
-| 28 | **Liga MX Femenil** | MEXICO | `mx` | `7ut48s80k421xixh6ev5i6h62` | `673` | América (Femenil) | Bloqueada (`Plus`) |
-| 29 | **Liga de Expansión MX** | MEXICO | `mx` | `e1kxdivp5g4cpldgpwvnzl1vv` | `263` | América | Bloqueada (`Plus`) |
-| 30 | **Liga Pro** | ECUADOR | `ec` | `6lwpjhktjhl9g7x2w7njmzva6` | `242` | América | Bloqueada (`Plus`) |
-| 31 | **Primera A** | COLOMBIA | `co` | `2ty8ihceabty8yddmu31iuuej` | `239` | América | Bloqueada (`Plus`) |
-| 32 | **Primera División** | CHILE | `cl` | `2y8bntiif3a9y6gtmauv30gt` | `265` | América | Bloqueada (`Plus`) |
-| 33 | **Primera División** | VENEZUELA | `ve` | `46b141eaqq9q7o4gz5gtdpikk` | `299` | América | Bloqueada (`Plus`) |
-| 34 | **Serie B** | BRAZIL | `br` | `5zr0b05eyx25km7z1k03ca9jx` | `72` | América | Bloqueada (`Plus`) |
-| 35 | **NWSL** | USA | `us` | `djkvh1luqdkdixpoe653lzixg` | `254` | América (Femenil) | Bloqueada (`Plus`) |
-| 36 | **USL Championship** | USA | `us` | `c1d9p6b2e9zr5tqlzx3ktjplg` | `255` | América | Bloqueada (`Plus`) |
-| 37 | **USL League One** | USA | `us` | `jznihqxle06xych9ygwiwnsa` | `489` | América | Bloqueada (`Plus`) |
-| 38 | **MLS Next Pro** | USA | `us` | `5qmjkpvi92vrzdcb2knassjkk` | `909` | América | Bloqueada (`Plus`) |
-| 39 | **Saudi League (Roshn Saudi League)** | SAUDI ARABIA | `sa` | `ea0h6cf3bhl698hkxhpulh2zz` | `307` | Asia | Bloqueada (`Plus`) |
-| 40 | **Stars League** | QATAR | `qa` | `xaouuwuk8qyhv1libkeexwjh` | `305` | Asia | Bloqueada (`Plus`) |
+| 1 | `6by3h89i2eykc341oz7lv1ddd` | `78` | **Bundesliga** | `GERMANY` (Alemania · `de`) | `male` | `Free / Fan` (`Scout`) | Default: `2026/2027` · `{"2026/2027": true, "2025/2026": true}` |
+| 2 | `2hsidwomhjsaaytdy9u5niyi4` | `262` | **Liga MX** *(Default League)* | `MEXICO` (México · `mx`) | `male` | `Free / Fan` (`Scout`) | Default: `2026/2027` · `{"2026/2027": true, "2025/2026": true}` |
+| 3 | `581t4mywybx21wcpmpykhyzr3` | `128` | **Liga Profesional Argentina** | `ARGENTINA` (Argentina · `ar`) | `male` | `Free / Fan` (`Scout`) | Default: `2026` · `{"2026": true, "2025": true}` |
+| 4 | `dm5ka0os1e3dxcp3vh05kmp33` | `61` | **Ligue 1** | `FRANCE` (Francia · `fr`) | `male` | `Free / Fan` (`Scout`) | Default: `2026/2027` · `{"2026/2027": true, "2025/2026": true}` |
+| 5 | `287tckirbfj9nb8ar2k9r60vn` | `253` | **MLS** | `USA` (Estados Unidos · `us`) | `male` | `Free / Fan` (`Scout`) | Default: `2026` · `{"2027": false, "2026": true, "2025": true}` |
+| 6 | `2kwbbcootiqqgmrzs6o5inle5` | `39` | **Premier League** | `ENGLAND` (Inglaterra · `gb-eng`) | `male` | `Free / Fan` (`Scout`) | Default: `2026/2027` · `{"2026/2027": true, "2025/2026": true}` |
+| 7 | `34pl8szyvrbwcmfkuocjm3r6t` | `140` | **Primera División (LaLiga)** | `SPAIN` (España · `es`) | `male` | `Free / Fan` (`Scout`) | Default: `2026/2027` · `{"2026/2027": true, "2025/2026": true}` |
+| 8 | `1r097lpxe0xn03ihb7wi98kao` | `135` | **Serie A** | `ITALY` (Italia · `it`) | `male` | `Free / Fan` (`Scout`) | Default: `2026/2027` · `{"2026/2027": true, "2025/2026": true}` |
+| 9 | `scf9p4y91yjvqvg5jndxzhxj` | `71` | **Serie A (Brasileirão)** | `BRAZIL` (Brasil · `br`) | `male` | `Free / Fan` (`Scout`) | Default: `2026` · `{"2026": true, "2025": true}` |
+| 10 | `722fdbecxzcq9788l6jqclzlw` | `79` | **2. Bundesliga** | `GERMANY` | `male` | `Locked / Plus` | Bloqueada en Fan (`2026/2027`, `2025/2026` en `teamsFilterDraft`) |
+| 11 | `7ntvbsyq31jnzoqoa8850b9b8` | `40` | **Championship** | `ENGLAND` | `male` | `Locked / Plus` | Bloqueada en Fan (`2026/2027`, `2025/2026` en `teamsFilterDraft`) |
+| 12 | `5y0z0l2epprzbscvzsgldw8vu` | `250` | **Division Profesional** | `PARAGUAY` | `male` | `Locked / Plus` | Bloqueada en Fan (`2026`, `2025` en `teamsFilterDraft`) |
+| 13 | `akmkihra9ruad09ljapsm84b3` | `88` | **Eredivisie** | `NETHERLANDS` | `male` | `Locked / Plus` | Bloqueada en Fan (`2026/2027`, `2025/2026` en `teamsFilterDraft`) |
+| 14 | `4zwgbb66rif2spcoeeol2motx` | `144` | **First Division A** | `BELGIUM` | `male` | `Locked / Plus` | Bloqueada en Fan (`2026/2027`, `2025/2026` en `teamsFilterDraft`) |
+| 15 | `1b70m6qtxrp75b4vtk8hxh8c3` | `210` | **HNL** | `CROATIA` | `male` | `Locked / Plus` | Bloqueada en Fan (`2026/2027`, `2025/2026` en `teamsFilterDraft`) |
+| 16 | `a9vrdkelbgif0gtu3wxsr75xo` | `281` | **Liga 1** | `PERU` | `male` | `Locked / Plus` | Bloqueada en Fan (`2026`, `2025` en `teamsFilterDraft`) |
+| 17 | `7ut48s80k421xixh6ev5i6h62` | `673` | **Liga MX Femenil** | `MEXICO` | `female` | `Locked / Plus` | Bloqueada en Fan (`2026/2027`, `2025/2026` en `teamsFilterDraft`) |
+| 18 | `6lwpjhktjhl9g7x2w7njmzva6` | `242` | **Liga Pro** | `ECUADOR` | `male` | `Locked / Plus` | Bloqueada en Fan (`2026`, `2025` en `teamsFilterDraft`) |
+| 19 | `e1kxdivp5g4cpldgpwvnzl1vv` | `263` | **Liga de Expansión MX** | `MEXICO` | `male` | `Locked / Plus` | Bloqueada en Fan (`2026/2027`, `2025/2026` en `teamsFilterDraft`) |
+| 20 | `5qmjkpvi92vrzdcb2knassjkk` | `909` | **MLS Next Pro** | `USA` | `male` | `Locked / Plus` | Bloqueada en Fan (`2026`, `2025` en `teamsFilterDraft`) |
+| 21 | `djkvh1luqdkdixpoe653lzixg` | `254` | **NWSL** | `USA` | `female` | `Locked / Plus` | Bloqueada en Fan (`2026`, `2025` en `teamsFilterDraft`) |
+| 22 | `3ab1uwtoyjopdj1y1fynyy9jg` | `235` | **Premier League** | `RUSSIA` | `male` | `Locked / Plus` | Bloqueada en Fan (`2026/2027`, `2025/2026` en `teamsFilterDraft`) |
+| 23 | `e21cf135btr8t3upw0vl6n6x0` | `179` | **Premiership** | `SCOTLAND` | `male` | `Locked / Plus` | Bloqueada en Fan (`2026/2027`, `2025/2026` en `teamsFilterDraft`) |
+| 24 | `8yi6ejjd1zudcqtbn07haahg6` | `94` | **Primeira Liga** | `PORTUGAL` | `male` | `Locked / Plus` | Bloqueada en Fan (`2026/2027`, `2025/2026` en `teamsFilterDraft`) |
+| 25 | `2ty8ihceabty8yddmu31iuuej` | `239` | **Primera A** | `COLOMBIA` | `male` | `Locked / Plus` | Bloqueada en Fan (`2026`, `2025` en `teamsFilterDraft`) |
+| 26 | `2y8bntiif3a9y6gtmauv30gt` | `265` | **Primera División** | `CHILE` | `male` | `Locked / Plus` | Bloqueada en Fan (`2026`, `2025` en `teamsFilterDraft`) |
+| 27 | `46b141eaqq9q7o4gz5gtdpikk` | `299` | **Primera División** | `VENEZUELA` | `male` | `Locked / Plus` | Bloqueada en Fan (`2026`, `2025` en `teamsFilterDraft`) |
+| 28 | `5k620c7y6dlbmcm88dt3eb7t` | `142` | **Primera División Femenina** | `SPAIN` | `female` | `Locked / Plus` | Bloqueada en Fan (`2026/2027`, `2025/2026` en `teamsFilterDraft`) |
+| 29 | `ea0h6cf3bhl698hkxhpulh2zz` | `307` | **Saudi League** | `SAUDI ARABIA` | `male` | `Locked / Plus` | Bloqueada en Fan (`2026/2027`, `2025/2026` en `teamsFilterDraft`) |
+| 30 | `3is4bkgf3loxv9qfg3hm8zfqb` | `141` | **Segunda División** | `SPAIN` | `male` | `Locked / Plus` | Bloqueada en Fan (`2026/2027`, `2025/2026` en `teamsFilterDraft`) |
+| 31 | `8ey0ww2zsosdmwr8ehsorh6t7` | `136` | **Serie B** | `ITALY` | `male` | `Locked / Plus` | Bloqueada en Fan (`2026/2027`, `2025/2026` en `teamsFilterDraft`) |
+| 32 | `5zr0b05eyx25km7z1k03ca9jx` | `72` | **Serie B** | `BRAZIL` | `male` | `Locked / Plus` | Bloqueada en Fan (`2026`, `2025` en `teamsFilterDraft`) |
+| 33 | `xaouuwuk8qyhv1libkeexwjh` | `305` | **Stars League** | `QATAR` | `male` | `Locked / Plus` | Bloqueada en Fan (`2026/2027`, `2025/2026` en `teamsFilterDraft`) |
+| 34 | `e0lck99w8meo9qoalfrxgo33o` | `207` | **Super League** | `SWITZERLAND` | `male` | `Locked / Plus` | Bloqueada en Fan (`2026/2027`, `2025/2026` en `teamsFilterDraft`) |
+| 35 | `c0r21rtokgnbtc0o2rldjmkxu` | `197` | **Super League 1** | `GREECE` | `male` | `Locked / Plus` | Bloqueada en Fan (`2026/2027`, `2025/2026` en `teamsFilterDraft`) |
+| 36 | `29actv1ohj8r10kd9hu0jnb0n` | `119` | **Superliga** | `DENMARK` | `male` | `Locked / Plus` | Bloqueada en Fan (`2026/2027`, `2025/2026` en `teamsFilterDraft`) |
+| 37 | `482ofyysbdbeoxauk19yg7tdt` | `203` | **Süper Lig** | `TÜRKIYE` | `male` | `Locked / Plus` | Bloqueada en Fan (`2026/2027`, `2025/2026` en `teamsFilterDraft`) |
+| 38 | `c1d9p6b2e9zr5tqlzx3ktjplg` | `255` | **USL Championship** | `USA` | `male` | `Locked / Plus` | Bloqueada en Fan (`2026`, `2025` en `teamsFilterDraft`) |
+| 39 | `jznihqxle06xych9ygwiwnsa` | `489` | **USL League One** | `USA` | `male` | `Locked / Plus` | Bloqueada en Fan (`2026`, `2025` en `teamsFilterDraft`) |
+| 40 | `6vq8j5p3av14nr3iuyi4okhjt` | `44` | **Women's Super League** | `ENGLAND` | `female` | `Locked / Plus` | Bloqueada en Fan (`2026/2027`, `2025/2026` en `teamsFilterDraft`) |
 
 ---
 
@@ -312,13 +343,15 @@ interface SearchResultItem {
 ```
 
 #### B. Endpoint REST Dedicado de Búsqueda de Jugadores (`GET /players/search?q=...`) (`[OBSERVADO]`)
-- **Evidencia:** [24-players-search-and-oauth-capture.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/24-players-search-and-oauth-capture.json) (`ev_335de9032833d29fc76238a8c934e4cf676b276ceba699de0417f730b7bc9f66`), [24-players-search-and-oauth-request-16-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/24-players-search-and-oauth-request-16-response.json) (`3,577 B`, `GET /players/search?q=messi`) y [24-players-search-and-oauth-request-17-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/24-players-search-and-oauth-request-17-response.json) (`806 B`, `GET /players/search?q=malagon`).
-- **Propósito y Diferencia con `/search`:** Mientras que `/search` alimenta la omnibox de la barra de navegación superior con un arreglo plano de entidades heterogéneas, el selector de comparación de jugadores (`playerComparison` en [attribute-charts.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/named/attribute-charts.js)) y el buscador específico de `/players` consumen `GET https://www.statiskicks.com/players/search?q={query}`. Este endpoint devuelve un objeto envolvente `{ results: PlayerSearchResultItem[] }` (máximo 10 resultados) enriquecido con el UUID Opta explícito (`id`), el nombre completo de registro en Opta (`name`), el nombre corto (`short_name`), el código ISO-2 de bandera (`flag`) y el `competition_id` para validar bloqueos de paywall antes de cargar datos de comparación.
+- **Evidencia:**
+  - [24-players-search-and-oauth-capture.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/24-players-search-and-oauth-capture.json) (`ev_335de9032833d29fc76238a8c934e4cf676b276ceba699de0417f730b7bc9f66`), [24-players-search-and-oauth-request-16-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/24-players-search-and-oauth-request-16-response.json) (`3,577 B`, `GET /players/search?q=messi`) y [24-players-search-and-oauth-request-17-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/24-players-search-and-oauth-request-17-response.json) (`806 B`, `GET /players/search?q=malagon`).
+  - **Captura Wave 3 (`GET /players/search?q=Luis`):** [30-player-tabs-compare-desempeno-modals-request-63-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/30-player-tabs-compare-desempeno-modals-request-63-response.json) (`7,418 B`, `ev_9435086f6ae02ff0707fefa83c7cf473eda660deed890524e621cb9825c97446`).
+- **Propósito y Diferencia con `/search`:** Mientras que `/search` alimenta la omnibox de la barra de navegación superior con un arreglo plano de entidades heterogéneas, el selector de comparación de jugadores (`playerComparison` en [attribute-charts.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/named/attribute-charts.js)) y el buscador específico de `/players` consumen `GET https://www.statiskicks.com/players/search?q={query}`. Este endpoint devuelve un objeto envolvente `{ results: PlayerSearchResultItem[] }` con hasta **20 jugadores multi-liga** enriquecidos con el UUID Opta explícito (`id`), el nombre legal completo de registro en Opta (`name`), el nombre corto (`short_name`), el código ISO-2 de bandera (`flag`), la fotografía de API-Football (`image`), el `competition_id` Opta y el booleano `locked` (`false` para las 9 ligas abiertas del plan `Free / Fan` y `true` para las 31 ligas `Plus`).
 
 ##### Esquema JSON del Contrato `/players/search?q=` (`[OBSERVADO]`)
 ```typescript
 interface PlayersSearchResponse {
-  results: PlayerSearchResultItem[]; // Hasta 10 coincidencias de jugadores
+  results: PlayerSearchResultItem[]; // Hasta 20 coincidencias multi-liga ordenadas alfabéticamente
 }
 
 interface PlayerSearchResultItem {
@@ -328,14 +361,93 @@ interface PlayerSearchResultItem {
   role: "Portero" | "Defensa" | "Mediocampista" | "Delantero"; // Línea posicional en español
   team: string;           // Club actual (ej. "Inter Miami", "Club América")
   image: string | null;   // Fotografía API-Football ("https://media.api-sports.io/football/players/{id}.png") o null
-  flag: string;           // Código ISO 3166-1 alpha-2 para FlagCDN (ej. "ar", "mx", "co", "fr")
+  flag: string;           // Código ISO 3166-1 alpha-2 para FlagCDN (ej. "ar", "mx", "co", "pt", "gb-sct")
   competition_id: string; // UUID Opta SDAPI de la liga actual (ej. "287tckirbfj9nb8ar2k9r60vn")
   url: string;            // URL absoluta canónica ("https://www.statiskicks.com/player/{id}/{slug}")
   locked: boolean;        // false en las 9 ligas abiertas (Scout); true en las 31 ligas Plus
 }
 ```
 
-##### Payloads Reales Capturados (`24-players-search-and-oauth-request-16/17-response.json`) (`[OBSERVADO]`)
+##### Payloads Reales Capturados (`24-players-search-and-oauth-request-16/17-response.json` y `30-player-tabs-compare-desempeno-modals-request-63-response.json`) (`[OBSERVADO]`)
+```json
+// GET /players/search?q=Luis (extracto de los 20 resultados en 30-player-tabs-compare-desempeno-modals-request-63-response.json · 7,418 B)
+{
+  "results": [
+    {
+      "id": "945ich4c3i3w208odtwvqfluy",
+      "name": "Luis Ignacio Abraham",
+      "short_name": "Ignacio Abraham",
+      "role": "Defensa",
+      "team": "Banfield",
+      "image": "https://media.api-sports.io/football/players/58486.png",
+      "flag": "",
+      "competition_id": "581t4mywybx21wcpmpykhyzr3",
+      "url": "https://www.statiskicks.com/player/945ich4c3i3w208odtwvqfluy/luis-abraham",
+      "locked": false
+    },
+    {
+      "id": "652d6i0jem2jymjfzd8w0ndn9",
+      "name": "Luis Alfonso Abram Ugarelli",
+      "short_name": "L. Abram",
+      "role": "Defensa",
+      "team": "Sporting Cristal",
+      "image": "https://media.api-sports.io/football/players/2418.png",
+      "flag": "pe",
+      "competition_id": "a9vrdkelbgif0gtu3wxsr75xo",
+      "url": "https://www.statiskicks.com/player/652d6i0jem2jymjfzd8w0ndn9/luis-abram",
+      "locked": true
+    },
+    {
+      "id": "ar47ws1sf2l4ulxx2afq2x2hh",
+      "name": "Luis Jan Piers Advíncula Castrillón",
+      "short_name": "L. Advíncula",
+      "role": "Defensa",
+      "team": "Alianza Lima",
+      "image": "https://media.api-sports.io/football/players/2419.png",
+      "flag": "pe",
+      "competition_id": "a9vrdkelbgif0gtu3wxsr75xo",
+      "url": "https://www.statiskicks.com/player/ar47ws1sf2l4ulxx2afq2x2hh/luis-advincula",
+      "locked": true
+    },
+    {
+      "id": "z3jmigxgq8yvv6klslbg3axg",
+      "name": "Luisa Fernanda Agudelo Morelo",
+      "short_name": "L. Agudelo",
+      "role": "Portero",
+      "team": "San Diego Wave",
+      "image": null,
+      "flag": "co",
+      "competition_id": "djkvh1luqdkdixpoe653lzixg",
+      "url": "https://www.statiskicks.com/player/z3jmigxgq8yvv6klslbg3axg/luisa-agudelo",
+      "locked": true
+    },
+    {
+      "id": "71p9z7bqvgzb5t115fmos6fop",
+      "name": "Luís Manuel Arantes Maximiano",
+      "short_name": "Luís Maximiano",
+      "role": "Portero",
+      "team": "NEOM",
+      "image": "https://media.api-sports.io/football/players/1470.png",
+      "flag": "pt",
+      "competition_id": "ea0h6cf3bhl698hkxhpulh2zz",
+      "url": "https://www.statiskicks.com/player/71p9z7bqvgzb5t115fmos6fop/luis-arantes",
+      "locked": true
+    },
+    {
+      "id": "d7efidcaz053ml8l4h19i7fmx",
+      "name": "Luis Eduardo Barraza",
+      "short_name": "L. Barraza",
+      "role": "Portero",
+      "team": "Inter Miami",
+      "image": "https://media.api-sports.io/football/players/50847.png",
+      "flag": "us",
+      "competition_id": "287tckirbfj9nb8ar2k9r60vn",
+      "url": "https://www.statiskicks.com/player/d7efidcaz053ml8l4h19i7fmx/luis-barraza",
+      "locked": false
+    }
+  ]
+}
+```
 ```json
 // GET /players/search?q=messi (extracto de 24-players-search-and-oauth-request-16-response.json · 3,577 B)
 {
@@ -404,9 +516,9 @@ interface PlayerSearchResultItem {
 ### 3.2. Payloads de Atributos, Radares y Barras Comparativas (`data-attribute-charts-payload`) (`[OBSERVADO]`)
 
 - **Evidencia:**
-  - Equipo: `03-team-data-attribute-charts-payload.json` (`119.5 KB`, `ev_aa5f2d74196b21062c132e8b6ec8934f023380f93c40f78f99e333a43bfc9977`) generado por `OptaTeamAttributeService::forTeam()`.
-  - Jugador: `04-player-data-attribute-charts-payload.json` (`45.1 KB`, `ev_59e57f74d8e4894a8c290cd1f58354701d398bea6301f1cdfe07edeeef89f945`) generado por `OptaSeasonStatsService::buildTraitsData()`.
-  - Consumidor JS: `evidence/javascript/named/attribute-charts.js`.
+  - Equipo: [team-america-attribute-charts.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/team-america-attribute-charts.json) (`120,440 B`) y [03-team-data-attribute-charts-payload.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/03-team-data-attribute-charts-payload.json) (`119.5 KB`, `ev_aa5f2d74196b21062c132e8b6ec8934f023380f93c40f78f99e333a43bfc9977` / `ev_a1d8facdf931a87bf33ba5e703e23d73cd2ee0c4550557ba3b84cdb9a1c10088`) generado por `OptaTeamAttributeService::forTeam()`.
+  - Jugador: [04-player-data-attribute-charts-payload.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/04-player-data-attribute-charts-payload.json) (`45.1 KB`, `ev_59e57f74d8e4894a8c290cd1f58354701d398bea6301f1cdfe07edeeef89f945`) y [rosetta-177-opta-attributes-catalog.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/rosetta-177-opta-attributes-catalog.json) (`13` categorías, `177` atributos) generado por `OptaSeasonStatsService::buildTraitsData()`.
+  - Consumidor JS: [attribute-charts.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/named/attribute-charts.js).
 
 #### Esquema JSON de `data-attribute-charts-payload` (Equipo y Jugador)
 ```typescript
@@ -929,12 +1041,16 @@ interface PlayerTraitItem {
 
 ---
 
-### 3.3. Payloads Embebidos de Equipos (`03-team-*.json` y `03-team.html`) (`[OBSERVADO]`)
+### 3.3. Payloads Embebidos de Equipos (`team-america-*.json`, `03-team-*.json` y `03-team.html`) (`[OBSERVADO]`)
 
-- **Evidencia:** `03-team-capture.json` (`ev_aa5f2d74196b21062c132e8b6ec8934f023380f93c40f78f99e333a43bfc9977`), `03-team.html`, y los 4 archivos extraídos en `evidence/network-schemas/03-team-data-*.json`.
+- **Evidencia:** [03-team-capture.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/03-team-capture.json) (`ev_aa5f2d74196b21062c132e8b6ec8934f023380f93c40f78f99e333a43bfc9977`), [29-league-tabs-and-team-subtabs-capture.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/29-league-tabs-and-team-subtabs-capture.json) (`ev_a1d8facdf931a87bf33ba5e703e23d73cd2ee0c4550557ba3b84cdb9a1c10088`), y los datasets JSON extraídos en Wave 3:
+  - [team-america-profile-percentiles.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/team-america-profile-percentiles.json) (`12,688 B` · métricas de perfil táctico con ranking y percentil de liga).
+  - [team-america-54matches-xg-rolling.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/team-america-54matches-xg-rolling.json) (`54` partidos históricos entre `2025/2026` y `2026/2027` con `xg_for`/`xg`, `xg_against`/`xga`, `goals_for`/`goals_against` en `score`, `manager: "André Jardine"`).
+  - [team-america-age-profile.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/team-america-age-profile.json) (`4,347 B` · dispersión de edad de plantilla vs `minutes_share` indexada por Opta `personId`).
+  - [team-america-attribute-charts.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/team-america-attribute-charts.json) (`120,440 B` · distribución completa de los 171 atributos/traits de equipo).
 
-#### A. Perfil Táctico e Identidad de Juego (`03-team-data-team-profile-payload.json` · 12.6 KB)
-Consumido por `team-profile.js`, este payload contiene dos bloques:
+#### A. Perfil Táctico e Identidad de Juego ([team-america-profile-percentiles.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/team-america-profile-percentiles.json) · `12,688 B` / [03-team-data-team-profile-payload.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/03-team-data-team-profile-payload.json))
+Consumido por [team-profile.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/named/team-profile.js), este payload contiene dos bloques:
 1. `metrics` (31 métricas clave agrupadas en 9 dimensiones: `Finalización`, `Generación`, `Progresión`, `Circulación`, `Solidez defensiva`, `Duelos`, `Estilo`, `Recuperación`, `Balón parado`, `Disciplina`).
 2. `identity` (10 rasgos estilísticos bipolares agrupados en las **4 fases del juego**: `Ataque posicional`, `Transición ofensiva`, `Organización defensiva`, `Transición defensiva`).
 
@@ -974,7 +1090,7 @@ Consumido por `team-profile.js`, este payload contiene dos bloques:
 | 30 | `yellow_cards_per_match` | Tarjetas amarillas (`A/PJ`) | Disciplina | 29 | 1.81 | 1.86 | 8/18 | 55.9 | Por partido | Sí |
 | 31 | `red_cards_per_match` | Tarjetas rojas (`R/PJ`) | Disciplina | 3 | 0.19 | 0.17 | 9/18 | 41.2 | Por partido | Sí |
 
-##### Tabla de los 10 Rasgos de Identidad de Juego (`identity.phases` en `03-team-data-team-profile-payload.json`) (`[OBSERVADO]`)
+##### Tabla de los 10 Rasgos de Identidad de Juego (`identity.phases` en [team-america-profile-percentiles.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/team-america-profile-percentiles.json)) (`[OBSERVADO]`)
 
 | Fase del Juego (`phase.key`) | Rasgo (`trait.key`) | Etiqueta (`label`) | Polo Izquierdo (`low_label`) | Polo Derecho (`high_label`) | Invertido (`reversed`) | Unidad | Valor Club América | Media Liga | Ranking | Percentil |
 |---|---|---|---|---|---|---|---|---|---|---|
@@ -991,111 +1107,100 @@ Consumido por `team-profile.js`, este payload contiene dos bloques:
 
 ---
 
-#### B. Serie Histórica Móvil xG vs xGA (`03-team-data-team-xg-rolling-payload.json` · 10.9 KB) (`[OBSERVADO]`)
-Generado por `OptaTeamXgTimelineService` y renderizado por `team-xg-rolling.js`. Contiene 54 partidos consecutivos de Liga MX (desde `2025/2026` hasta la Jornada 16 del Apertura `2026/2027`) con ventana móvil de 5 partidos (`window: 5`).
+#### B. Serie Histórica Móvil xG vs xGA ([team-america-54matches-xg-rolling.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/team-america-54matches-xg-rolling.json) y [03-team-data-team-xg-rolling-payload.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/03-team-data-team-xg-rolling-payload.json) · `10.9 KB`) (`[OBSERVADO]`)
+Generado por `OptaTeamXgTimelineService` y renderizado por [team-xg-rolling.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/named/team-xg-rolling.js). Contiene **54 partidos históricos consecutivos** de Liga MX (cruzando `2025/2026` y `2026/2027` desde el `11/07/2025` hasta el `08/11/2026`) con `xg` (`xg_for` con 4 decimales en [team-america-54matches-xg-rolling.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/team-america-54matches-xg-rolling.json)), `xga` (`xg_against`), marcador (`score`: `goals_for`-`goals_against`), `manager: "André Jardine"` y media móvil de 5 partidos (`window: 5`, `rolling_xg`, `rolling_xga`):
 
 ```json
+// Extracto de team-america-54matches-xg-rolling.json (Wave 3 · 54 partidos con precisión de 4 decimales)
 {
-  "available": true,
+  "status": "ready",
   "window": 5,
-  "matches_count": 54,
+  "matches": 54,
+  "first_season": "2025/2026",
+  "last": {
+    "xg": 2.051,
+    "xga": 1.399,
+    "diff": 0.652
+  },
   "points": [
     {
-      "index": 1,
-      "date": "2025-07-12",
-      "date_label": "12 jul 2025",
+      "date": "11/07/2025",
       "season": "2025/2026",
       "opponent": "Juárez",
-      "venue": "V",
+      "home": false,
       "score": "1-1",
-      "raw_xg": 0.99,
-      "raw_xga": 0.91,
-      "xg": 0.99,
-      "xga": 0.91,
-      "diff": 0.08,
-      "manager": "André Jardine"
+      "manager": "André Jardine",
+      "xg": 1.0985,
+      "xga": 0.4416,
+      "rolling_xg": null,
+      "rolling_xga": null
     },
     {
-      "index": 54,
-      "date": "2026-11-08",
-      "date_label": "8 nov 2026",
+      "date": "07/11/2026",
       "season": "2026/2027",
       "opponent": "Pumas UNAM",
-      "venue": "V",
+      "home": false,
       "score": "2-2",
-      "raw_xg": 1.83,
-      "raw_xga": 1.57,
-      "xg": 2.05,
-      "xga": 1.4,
-      "diff": 0.65,
-      "manager": "Guillermo Almada"
+      "manager": "André Jardine",
+      "xg": 1.8295,
+      "xga": 1.5681,
+      "rolling_xg": 2.051,
+      "rolling_xga": 1.399
     }
-  ],
-  "coach_changes": [
-    {
-      "index": 36,
-      "date": "2026-04-19",
-      "date_label": "19 abr 2026",
-      "from": "André Jardine",
-      "to": "Guillermo Almada"
-    }
-  ],
-  "season_starts": [
-    { "index": 1, "season": "2025/2026" },
-    { "index": 39, "season": "2026/2027" }
-  ],
-  "month_ticks": [
-    { "index": 1, "label": "Jul 25" },
-    { "index": 51, "label": "Nov 26" }
-  ],
-  "summary": {
-    "latest_xg": 2.05,
-    "latest_xga": 1.4,
-    "latest_diff": 0.65,
-    "avg_xg": 1.75,
-    "avg_xga": 1.29,
-    "y_max": 3
-  }
+  ]
 }
 ```
 
 ---
 
-#### C. Perfil de Edad de la Plantilla (`03-team-data-team-age-profile-payload.json` · 4.3 KB) (`[OBSERVADO]`)
-Consumido por `team-age-profile.js`. Incluye los 36 jugadores registrados en la temporada con su edad exacta decimal/entera, minutos jugados, cuota de minutos (`minutes_share` sobre el total del equipo) y la banda de edad óptima de referencia (`reference: { from: 24, to: 29, label: "Edad pico (24–29)" }`):
+#### C. Perfil de Edad de la Plantilla ([team-america-age-profile.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/team-america-age-profile.json) · `4,347 B` / [03-team-data-team-age-profile-payload.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/03-team-data-team-age-profile-payload.json)) (`[OBSERVADO]`)
+Consumido por [team-age-profile.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/named/team-age-profile.js). Incluye los **36 jugadores registrados en la plantilla de Club América** indexados por su UUID Opta (`id` / `personId`), edad (`age`), minutos jugados (`minutes` sobre `max_minutes: 1440` de `played: 16` partidos), cuota de minutos (`minutes_share`), código de posición (`DMF`, `CF`, `RB`, `LB`, `LWF`, `GK`, `CB`, `RWF`, `AMF`, `CMF`) y la banda de edad pico (`prime_min: 24, prime_max: 29`):
 
 ```json
+// Extracto de team-america-age-profile.json (4,347 B)
 {
   "available": true,
-  "season": "2026/2027",
-  "total_minutes": 15795,
-  "average_age": 25.3,
-  "weighted_age": 26.8,
-  "reference": {
-    "from": 24,
-    "to": 29,
-    "label": "Edad pico (24–29)"
-  },
   "players": [
     {
       "id": "54kcu71vtiz8xlkke60k394a1",
       "name": "É. Sánchez",
       "age": 27,
       "minutes": 1113,
-      "minutes_share": 70.6,
-      "position": "MCD",
-      "position_group": "MED"
+      "minutes_share": 77.3,
+      "position": "DMF"
     },
     {
       "id": "5ysw10inm8syf7r9xvbpk9n11",
       "name": "H. Martín",
       "age": 33,
       "minutes": 1110,
-      "minutes_share": 70.4,
-      "position": "DC",
-      "position_group": "DEL"
+      "minutes_share": 77.1,
+      "position": "CF"
+    },
+    {
+      "id": "csvbc0k1f54418nn8pjhg8ull",
+      "name": "C. Borja",
+      "age": 33,
+      "minutes": 818,
+      "minutes_share": 56.8,
+      "position": "LB"
+    },
+    {
+      "id": "claujooxyw4dzynzmy752r3l5",
+      "name": "S. Cáceres",
+      "age": 27,
+      "minutes": 180,
+      "minutes_share": 12.5,
+      "position": "CB"
     }
-  ]
+  ],
+  "reference": {
+    "played": 16,
+    "max_minutes": 1440,
+    "prime_min": 24,
+    "prime_max": 29
+  },
+  "empty_message": null
 }
 ```
 
@@ -1677,11 +1782,14 @@ interface SimilarPlayersDataPayload {
 }
 ```
 
-#### D. Motor RPC de Comparación de Jugadores (`ensureComparisonDataLoaded([])`) ([26-player-rpc-full-request-62-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/26-player-rpc-full-request-62-response.json) · `333,205 B`) (`[OBSERVADO]`)
+#### D. Motor RPC de Comparación de Jugadores (`ensureComparisonDataLoaded([])`) ([26-player-rpc-full-request-62-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/26-player-rpc-full-request-62-response.json) · `333,205 B` & [30-player-tabs-compare-desempeno-modals-request-62-request.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/30-player-tabs-compare-desempeno-modals-request-62-request.json)) (`[OBSERVADO]`)
 
-- **Evidencia:** [26-player-rpc-full-request-62-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/26-player-rpc-full-request-62-response.json) (`333,205 B`, `ev_41b5aea353de3d177450dcde63cb0d0667428ca0f57851df7edfd18049e9319c`) sobre Luis Romo (`1cyhpfi77dom7gmpuownxlcrt`), consumido por la función `playerComparison()` en [attribute-charts.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/named/attribute-charts.js).
+- **Evidencia:**
+  1. [26-player-rpc-full-request-62-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/26-player-rpc-full-request-62-response.json) (`333,205 B`, `ev_41b5aea353de3d177450dcde63cb0d0667428ca0f57851df7edfd18049e9319c`) sobre Luis Romo (`1cyhpfi77dom7gmpuownxlcrt`, Liga MX `9zum4nxferygj8bb0ldcavxn8`).
+  2. **Wave 3 (`ev_9435086f6ae02ff0707fefa83c7cf473eda660deed890524e621cb9825c97446`):** [30-player-tabs-compare-desempeno-modals-request-62-request.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/30-player-tabs-compare-desempeno-modals-request-62-request.json) sobre Lionel Messi (`c5ryhn04g9goikd0blmh83aol`, Inter Miami CF `7329459`, MLS `selectedSeasonId: "6i6n0jkbh9zzij6s8htfjh2j8"`, `selectedStageFilter: "STAGE_74623a6zmmk15vosebdok4kr8"`), cuyo `snapshot` expone los **80 calendarios `seasonOptions` Opta `tmcl`** en los que el jugador tiene registros históricos, seguido de la búsqueda de segundo jugador vía `GET /players/search?q=Luis` ([30-player-tabs-compare-desempeno-modals-request-63-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/30-player-tabs-compare-desempeno-modals-request-63-response.json)).
+  3. **Consumidor JS:** `playerComparison()` en [attribute-charts.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/named/attribute-charts.js).
 - **Arquitectura del Paquete de Comparación (`333 KB`):**
-  Al abrir la pestaña `Comparar`, el cliente invoca `$wire.ensureComparisonDataLoaded()`, que retorna en `effects.returns[0]` (y hidrata en `snapshot.data.comparisonData`) el objeto `{ players: ComparisonPlayerBundle[], error: string | null }`. Cada paquete `ComparisonPlayerBundle` empaqueta en una sola estructura auto-contenida:
+  Al abrir la pestaña `Comparar`, el cliente invoca `\$wire.ensureComparisonDataLoaded()`, que retorna en `effects.returns[0]` (e hidrata en `snapshot.data.comparisonData`) el objeto `{ players: ComparisonPlayerBundle[], error: string | null }`. Cada paquete `ComparisonPlayerBundle` empaqueta en una sola estructura auto-contenida:
   1. **Metadatos completos del jugador y contexto competitivo:** `id`, `name`, `team_id`, `team_name`, `league_name`, `league_logo`, `season_label`, `tmcl` (`"9zum4nxferygj8bb0ldcavxn8"`), `position` (`"LCB"`), `needs_position` (`false`), `age` (`31`), `nationality` (`"Mexico"`), `flag`, `image`, `url`.
   2. **Catálogo íntegro de `traits` (147 objetos `TraitItem` para jugador de campo / 176 para portero):** Incluye tanto los valores por 90 minutos (`val`, `raw_value`, `benchmark`, `percentile`, `population_average`, `min_range`, `max_range`, `rank`, `rank_total`) como el sub-objeto `total` acumulado y los stops de `bar_gradient`.
   3. **Nube completa de coordenadas `heatmap` (`1,309` puntos `{x, y}` para Luis Romo):** Permite a `playerComparison()` renderizar lado a lado los radares superpuestos, las barras de percentiles comparativas y los mapas de calor KDE de ambos jugadores sin disparar peticiones adicionales al cambiar de métrica.
@@ -1737,23 +1845,72 @@ interface SimilarPlayersDataPayload {
 }
 ```
 
-#### E. Búsqueda Avanzada de Scouting (`/players`): Modo `Jugadores`, Modo `Equipos` y RPC `statRanges` (`[OBSERVADO]`)
+#### E. Búsqueda Avanzada de Scouting (`/players`): Modo `Jugadores`, Modo `Equipos` y RPCs `statRanges` + `periodCalendar` (`[OBSERVADO]`)
 
-- **Evidencia:** [07-players.html](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/07-players.html) (`ev_e97046d53210bf233f1dc576a689f77283053071ff3e34bcc5c159f70a48d467`), [19-players-explorer-and-teams-tab-capture.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/19-players-explorer-and-teams-tab-capture.json) (`ev_ee1b824445ea515e9b3e77beab6b26944bada18d1da9672c4e24e67a44959dfc`), [19b-players-teams-tab-wait-apply-teams.html](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/19b-players-teams-tab-wait-apply-teams.html) (`ev_6b549dd49e412ea51ee2493cc932cd8e19fdd6c66225d9b2e9486215bf236a16`), [19b-players-teams-tab-request-40-request.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/19b-players-teams-tab-request-40-request.json), [request-42-request.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/19b-players-teams-tab-request-42-request.json) y [request-43-request.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/19b-players-teams-tab-request-43-request.json).
+- **Evidencia:** [07-players.html](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/07-players.html) (`ev_e97046d53210bf233f1dc576a689f77283053071ff3e34bcc5c159f70a48d467`), [players-filter-draft-config.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/players-filter-draft-config.json) (`67,924 B`), [rosetta-177-opta-attributes-catalog.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/rosetta-177-opta-attributes-catalog.json) (`39,144 B`), [07-players-wire-script-0.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/inline-pages/07-players-wire-script-0.js), [31-players-statranges-and-matches-hub-capture.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/31-players-statranges-and-matches-hub-capture.json) (`ev_04b1ede55ec1bd3f547cd81c48dc5a1fc2e4e8b8f9a9020481a3e35092a126e8`), [31-players-statranges-and-matches-hub-request-40-request.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/31-players-statranges-and-matches-hub-request-40-request.json), [31-players-statranges-and-matches-hub-request-40-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/31-players-statranges-and-matches-hub-request-40-response.json), [31-players-statranges-and-matches-hub-request-42-request.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/31-players-statranges-and-matches-hub-request-42-request.json), [31-players-statranges-and-matches-hub-request-42-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/31-players-statranges-and-matches-hub-request-42-response.json), [19-players-explorer-and-teams-tab-capture.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/19-players-explorer-and-teams-tab-capture.json) (`ev_ee1b824445ea515e9b3e77beab6b26944bada18d1da9672c4e24e67a44959dfc`), [19b-players-teams-tab-wait-apply-teams.html](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/19b-players-teams-tab-wait-apply-teams.html) (`ev_6b549dd49e412ea51ee2493cc932cd8e19fdd6c66225d9b2e9486215bf236a16`) y [19b-players-teams-tab-request-43-request.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/19b-players-teams-tab-request-43-request.json).
 
-1. **Modo `Jugadores` (`tab = "players"` en `07-players.html`) (`[OBSERVADO]`):**
+1. **Modo `Jugadores` (`tab = "players"` en [07-players.html](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/07-players.html) y [players-filter-draft-config.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/players-filter-draft-config.json)) (`[OBSERVADO]`):**
+   - **Payload de inicialización `playersFilterDraft` ([players-filter-draft-config.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/players-filter-draft-config.json) · `67,924 B`):** Hidrata el estado reactivo de Alpine en `/players` con `defaultLeagueId: "2hsidwomhjsaaytdy9u5niyi4"`, `leagueSeasonCoverage` para las 9 ligas desbloqueadas, `leagueCatalog` de las 40 competiciones (31 bloqueadas), `nationalities` (`115` países con bandera FlagCDN), `positions` (`14` posiciones tácticas) y `statCatalog` (`177` atributos en `13` categorías, consolidados también en [rosetta-177-opta-attributes-catalog.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/rosetta-177-opta-attributes-catalog.json)).
    - **Taxonomía de 14 Posiciones Tácticas (y 20 sub-roles con lateralidad en `04-player.html`):**
      - En `07-players.html` (selector de cancha SVG): `POR` (Portero), `DFC` (Defensa central), `LI` (Lateral izquierdo), `LD` (Lateral derecho), `CAI` (Carrilero izquierdo), `CAD` (Carrilero derecho), `MCD` (Mediocentro defensivo), `MC` (Mediocentro), `MCO` (Mediocentro ofensivo), `VI` (Volante izquierdo), `VD` (Volante derecho), `EI` (Extremo izquierdo), `ED` (Extremo derecho), `DC` (Delantero centro).
      - En `04-player.html` (mapa de apariciones del jugador) se añaden los sub-roles con perfil izquierdo/derecho: `DFCI`, `DFCD`, `MCDI`, `MCDD`, `INI`, `IND` (Interiores), `MCOI`, `MCOD`.
-   - **RPC de Rangos Dinámicos (`Players::statRanges` en [19b-players-teams-tab-request-40-request.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/19b-players-teams-tab-request-40-request.json)) (`[OBSERVADO]`):**
-     Al inicializar o cambiar de liga/temporada, el cliente invoca:
+   - **RPC de Rangos Dinámicos (`Players::statRanges` en [31-players-statranges-and-matches-hub-request-40-request.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/31-players-statranges-and-matches-hub-request-40-request.json) y [31-players-statranges-and-matches-hub-request-40-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/31-players-statranges-and-matches-hub-request-40-response.json), `ev_04b1ede55ec1bd3f547cd81c48dc5a1fc2e4e8b8f9a9020481a3e35092a126e8`) (`[OBSERVADO]`):**
+     Al inicializar o cambiar de liga/temporada o añadir métricas al borrador de filtros, el cliente invoca `\$wire.statRanges(leagues, season, specs, period, tournament)`:
      ```json
+     // Request: 31-players-statranges-and-matches-hub-request-40-request.json
      {
        "method": "statRanges",
        "params": [[], "", [{ "key": "skore", "unit": "rating" }], null, ""]
      }
      ```
-     devolviendo los límites `min` y `max` reales del universo filtrado (ej. en Liga MX `2026/2027`, `skore` tiene rango **`6.07` a `7.75`**) para calibrar los sliders de doble extremo. Permite filtrar simultáneamente hasta **8 métricas** conmutables entre `p90` y `Total`.
+     ```json
+     // Response (effects.returns[0]): 31-players-statranges-and-matches-hub-request-40-response.json
+     {
+       "ranges": {
+         "skore|rating": {
+           "min": 6.07,
+           "max": 7.75
+         }
+       },
+       "pending": []
+     }
+     ```
+     devolviendo los límites `min` y `max` reales del universo filtrado indexados por `"{key}|{unit}"` (ej. `"skore|rating": {"min": 6.07, "max": 7.75}` en Liga MX `2026/2027`) para calibrar los sliders de doble extremo, junto con un arreglo `pending` para métricas cuyos rangos aún se estén precalculando en segundo plano. Permite filtrar simultáneamente hasta **8 métricas** conmutables entre `p90` y `Total`.
+   - **RPC de Calendario de Periodos y Fases (`Players::periodCalendar` en [31-players-statranges-and-matches-hub-request-42-request.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/31-players-statranges-and-matches-hub-request-42-request.json) y [31-players-statranges-and-matches-hub-request-42-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/31-players-statranges-and-matches-hub-request-42-response.json), `ev_04b1ede55ec1bd3f547cd81c48dc5a1fc2e4e8b8f9a9020481a3e35092a126e8`) (`[OBSERVADO]`):**
+     Cuando el usuario abre el filtro temporal (`Periodo` por jornadas, fases o rango de fechas) o cambia las ligas seleccionadas, el cliente invoca `\$wire.periodCalendar(leagues, season, tournament)`:
+     ```json
+     // Request: 31-players-statranges-and-matches-hub-request-42-request.json
+     {
+       "method": "periodCalendar",
+       "params": [["2hsidwomhjsaaytdy9u5niyi4"], "", ""]
+     }
+     ```
+     ```json
+     // Response (effects.returns[0]): 31-players-statranges-and-matches-hub-request-42-response.json
+     {
+       "first": "2025-07-11",
+       "last": "2026-11-08",
+       "stages": [
+         {
+           "key": "APERTURA",
+           "label": "Apertura",
+           "first": 1,
+           "last": 16
+         }
+       ],
+       "pending": [],
+       "tournaments": [
+         {
+           "key": "apertura",
+           "label": "Apertura"
+         }
+       ],
+       "tournamentCurrent": "apertura",
+       "tournamentLive": true,
+       "tournamentsMixed": false
+     }
+     ```
+     Este payload provee las fechas límite `first`/`last` del calendario para el *date-picker*, las etapas/fases con su rango de jornadas (`first: 1`, `last: 16`), los torneos cortos disponibles (`Apertura` / `Clausura` en ligas con formato partido) y las banderas `tournamentCurrent`, `tournamentLive` y `tournamentsMixed`.
 
 2. **Modo `Equipos` (`setTab("teams")` y `applyTeamFilters(...)` en [19b-players-teams-tab-wait-apply-teams.html](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/19b-players-teams-tab-wait-apply-teams.html)) (`[OBSERVADO]`):**
    - Al conmutar a la pestaña `Equipos` ([request-42](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/19b-players-teams-tab-request-42-request.json): `"method": "setTab", "params": ["teams"]`), Livewire hidrata el componente Alpine `teamsFilterDraft({...})` con tres diccionarios maestros embebidos en el HTML:
@@ -1783,13 +1940,13 @@ interface SimilarPlayersDataPayload {
 
 ---
 
-### 3.5. Payloads de Partidos (`13-match-tabs-*`, `28-match-alineaciones-rpc-full-*` y `09-match-detail.html`) (`[OBSERVADO]`)
+### 3.5. Payloads de Partidos (`13-match-tabs-*`, `28-match-alineaciones-rpc-full-*`, `32-match-detail-tabs-and-player-modal-capture.json` y `09-match-detail.html`) (`[OBSERVADO]`)
 
-- **Evidencia:** [09-match-detail.html](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/09-match-detail.html) (`ev_97e91618307b79c26283cb7092099714480742f83252e97a242081625f31cf52`), [13-match-tabs-capture.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/13-match-tabs-capture.json) (`ev_1318b6ef36cbf6e763ddae14da0f95b3088da1ea954e8c8993b2994b188569fd`), [13-match-tabs-wait-alineaciones-json-0.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/13-match-tabs-wait-alineaciones-json-0.json) (`85.3 KB`), [13-match-tabs-wait-estadisticas-data-momentum-data.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/13-match-tabs-wait-estadisticas-data-momentum-data.json) (`4.6 KB`), [28-match-alineaciones-rpc-full-request-69-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/28-match-alineaciones-rpc-full-request-69-response.json) (`211,254 B`) y [28-match-alineaciones-rpc-full-request-105-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/28-match-alineaciones-rpc-full-request-105-response.json) (`2,537 B`, `ev_74a52e02fbfe3463262bfdc3648bc82b62958c735f8153d56f6c56cf21ab706d`).
-- **Partido auditado:** `9dy7dhz5f13b2ejz2a5tok2l0` — **Pumas UNAM 2 - 2 Club América** (`1,57 xG – 1,83 xG`), Jornada 16 Liga MX Apertura 2026/2027, Sábado 7 de noviembre de 2026, Estadio Olímpico Universitario (asistencia: `40.530`, árbitro: `César Arturo Ramos Palazuelos`).
+- **Evidencia:** [09-match-detail.html](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/09-match-detail.html) (`ev_97e91618307b79c26283cb7092099714480742f83252e97a242081625f31cf52`), [13-match-tabs-capture.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/13-match-tabs-capture.json) (`ev_1318b6ef36cbf6e763ddae14da0f95b3088da1ea954e8c8993b2994b188569fd`), [32-match-detail-tabs-and-player-modal-capture.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/32-match-detail-tabs-and-player-modal-capture.json) (`ev_6f32762bb5eaa2f8561fb62de9190b30fe0080d805e0bb03ad3377847062ea5f`), [match-1535061-all-player-cards.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/match-1535061-all-player-cards.json) (`85,334 B`, `42` jugadores), [match-1535061-momentum-107pts.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/match-1535061-momentum-107pts.json) (`4,616 B`, `n = 107` puntos), [13-match-tabs-wait-alineaciones-json-0.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/13-match-tabs-wait-alineaciones-json-0.json) (`85.3 KB`), [13-match-tabs-wait-estadisticas-data-momentum-data.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/13-match-tabs-wait-estadisticas-data-momentum-data.json) (`4.6 KB`), [28-match-alineaciones-rpc-full-request-69-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/28-match-alineaciones-rpc-full-request-69-response.json) (`211,254 B`) y [28-match-alineaciones-rpc-full-request-105-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/28-match-alineaciones-rpc-full-request-105-response.json) (`2,537 B`, `ev_74a52e02fbfe3463262bfdc3648bc82b62958c735f8153d56f6c56cf21ab706d`).
+- **Partido auditado:** `9dy7dhz5f13b2ejz2a5tok2l0` (alias de dataset: `match-1535061`) — **Pumas UNAM 2 - 2 Club América** (`1,57 xG – 1,83 xG`), Jornada 16 Liga MX Apertura 2026/2027, Sábado 7 de noviembre de 2026, Estadio Olímpico Universitario (asistencia: `40.530`, árbitro: `César Arturo Ramos Palazuelos`).
 
-#### A. Pestaña `Alineaciones` (`setTab(['alineaciones'])` · `211,254 B`) y Tarjetas de Jugadores (`x-ref="cards"` · `85.3 KB`) (`[OBSERVADO]`)
-Al invocar `MatchDetail::setTab(['alineaciones'])` ([28-match-alineaciones-rpc-full-request-69-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/28-match-alineaciones-rpc-full-request-69-response.json) · `211,254 B`), el servidor devuelve en `effects.html` el campo táctico interactivo con los 22 titulares posicionados en sus formaciones Opta (`5-3-2` para Pumas UNAM y `4-2-3-1` para Club América) e inyecta dentro de `<script type="application/json" x-ref="cards">` ([13-match-tabs-wait-alineaciones-json-0.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/13-match-tabs-wait-alineaciones-json-0.json) · `85.3 KB`) un diccionario indexado por el **UUID Opta de cada uno de los 42 jugadores convocados** (22 titulares + 9 cambios que ingresaron + 11 suplentes en banca sin minutos):
+#### A. Pestaña `Alineaciones` (`setTab(['alineaciones'])` · `211,254 B`) y Tarjetas de Jugadores ([match-1535061-all-player-cards.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/match-1535061-all-player-cards.json) · `85,334 B`) (`[OBSERVADO]`)
+Al invocar `MatchDetail::setTab(['alineaciones'])` ([28-match-alineaciones-rpc-full-request-69-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/28-match-alineaciones-rpc-full-request-69-response.json) · `211,254 B`), el servidor devuelve en `effects.html` el campo táctico interactivo con los 22 titulares posicionados en sus formaciones Opta (`5-3-2` para Pumas UNAM y `4-2-3-1` para Club América) e inyecta dentro de `<script type="application/json" x-ref="cards">` ([match-1535061-all-player-cards.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/match-1535061-all-player-cards.json) / [13-match-tabs-wait-alineaciones-json-0.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/13-match-tabs-wait-alineaciones-json-0.json) · `85,334 B`) un diccionario indexado por el **UUID Opta (`personId`) de cada uno de los 42 jugadores convocados** (22 titulares + 9 cambios que ingresaron + 11 suplentes en banca sin minutos), donde además se observa el sistema híbrido de fotos `media.api-sports.io` + fallback CDN de FotMob (`images.fotmob.com/image_resources/playerimages/{fotmob_id}.png` para R. Dourado `1069546`, C. Borja `690073` y S. Cáceres `609892`):
 
 ```typescript
 type MatchPlayerCardsMap = Record<string, MatchPlayerCard>; // Clave = Opta Player UUID (25 chars)
@@ -1833,8 +1990,8 @@ interface MatchPlayerCard {
 - **Carga diferida de Mapas Individuales del Partido (`loadPlayerEvents` y `keeperGoalmouth`):**
   Al abrir la pestaña `Alineaciones`, el cliente dispara automáticamente la llamada RPC Livewire `POST /livewire-e3175f40/update` con `"method": "loadPlayerEvents", "params": []` (`13-match-tabs-post-request-104.json`), que hidrata en memoria los puntos de mapa de calor (`player-heat.js`). Cuando el usuario abre el modal de un portero, el cliente invoca bajo demanda `$wire.keeperGoalmouth([playerId])`, documentado en la subsección `3.5.C`.
 
-#### B. Serie Minuto a Minuto de Momentum (`13-match-tabs-wait-estadisticas-data-momentum-data.json` · 4.6 KB) (`[OBSERVADO]`)
-Inyectado en el atributo `data-momentum-data` (y `<script type="application/json">`) dentro de la pestaña `Estadísticas`, y renderizado por `momentum-chart.js`.
+#### B. Serie Minuto a Minuto de Momentum ([match-1535061-momentum-107pts.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/match-1535061-momentum-107pts.json) / [13-match-tabs-wait-estadisticas-data-momentum-data.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/13-match-tabs-wait-estadisticas-data-momentum-data.json) · `4,616 B`, `n = 107` puntos) (`[OBSERVADO]`)
+Inyectado en el atributo `data-momentum-data` (y `<script type="application/json">`) dentro de la pestaña `Estadísticas` ([32-match-detail-tabs-and-player-modal-capture.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/32-match-detail-tabs-and-player-modal-capture.json)), y renderizado por [momentum-chart.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/named/momentum-chart.js).
 ```json
 {
   "n": 107,
@@ -2260,19 +2417,27 @@ A continuación se documenta cómo calcula, transforma y sirve Statiskicks cada 
 
 ---
 
-## 5. Registro Formal de Incógnitas Residuales REA ([evidence/rea-unknowns.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/rea-unknowns.json)) y Fronteras de Caja Negra del Servidor
+## 5. Registro Formal de Incógnitas REA ([evidence/rea-unknowns.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/rea-unknowns.json)): Resolución de `unk_c7104fcac7a6781cc23c6d1216a43d4cc6e1e384c408bca299be9c4270d61191` y Fronteras de Caja Negra del Servidor
 
-Conforme al protocolo de auditoría forense REA, toda lógica que reside exclusivamente en el código PHP privado del servidor de origen (`https://www.statiskicks.com`) o detrás de controles de autorización de pago (`Plus` · \$129 MXN/mes) y que por definición no se transmite al navegador se encuentra registrada formalmente en [evidence/rea-unknowns.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/rea-unknowns.json) bajo tres identificadores `unk_*` de severidad `low`:
+Conforme al protocolo de auditoría forense REA, [evidence/rea-unknowns.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/rea-unknowns.json) registra **4 entradas (`revision: 2`)**: **1 incógnita de severidad `medium` resuelta y verificada al 100 % en Wave 3 (`status: "resolved"`, `disposition: "verified"`, `truthVerified: true`)** sobre la Piedra Rosetta de los tres proveedores de datos y el catálogo de las 40 ligas, y **3 incógnitas residuales de severidad `low` (`status: "open"`)** que delimitan la lógica que reside exclusivamente en el código PHP privado del servidor de origen (`https://www.statiskicks.com`) o detrás de controles de autorización de pago (`Plus` · \$129 MXN/mes):
 
-| # | `unknown_id` REA | Categoría | Severidad | Estado | Título y Alcance Técnico |
+| # | `unknown_id` REA | Categoría | Severidad | Estado (`revision: 2`) | Título y Alcance Técnico |
 |---|---|---|---|---|---|
-| 1 | `unk_3ffbf6b463b1f26fc643b3a6539eb1c20a8c6bbefb3efa86a2399337eeb22e23` | `backend-opta-ingestion-cron` | `low` | `open` | **Frecuencia exacta del scheduler/colas Laravel Artisan y nivel de credenciales del feed Stats Perform SDAPI en el servidor de origen.** |
-| 2 | `unk_6c968367f663c52fef00c7cd11c2fc40d38a709990f5c46d90d9f37fb4311a39` | `backend-rating-weights` | `low` | `open` | **Pesos posicionales exactos en servidor dentro de `App\Services\Opta\OptaMatchRatingService` para el cálculo escalar de `SKORE` (`0.00–10.00`).** |
-| 3 | `unk_c22a37c87f1d1dcb9bb68b65b2a5cc12247f0c94cab5c7cfabcd7bf45ede19f2` | `backend-paywall-gated-team-tabs` | `low` | `open` | **Instancias de datos en vivo dentro de las pestañas de equipo restringidas en servidor al plan `Plus` (`stats`, `maps`, `compare`) y filas truncadas de liga.** |
+| 1 | `unk_c7104fcac7a6781cc23c6d1216a43d4cc6e1e384c408bca299be9c4270d61191` | `data-provider-rosetta-and-locked-leagues` | `medium` | **`resolved` (`verified`, `truthVerified: true`)** | **Piedra Rosetta de 3 proveedores (Stats Perform / Opta SDAPI UUIDs de 25 chars + API-Football numeric IDs + FotMob CDN fallback) y catálogo íntegro de las 40 ligas (9 `Scout` + 31 `Plus`).** |
+| 2 | `unk_3ffbf6b463b1f26fc643b3a6539eb1c20a8c6bbefb3efa86a2399337eeb22e23` | `backend-opta-ingestion-cron` | `low` | `open` | **Frecuencia exacta del scheduler/colas Laravel Artisan y nivel de credenciales del feed Stats Perform SDAPI en el servidor de origen.** |
+| 3 | `unk_6c968367f663c52fef00c7cd11c2fc40d38a709990f5c46d90d9f37fb4311a39` | `backend-rating-weights` | `low` | `open` | **Pesos posicionales exactos en servidor dentro de `App\Services\Opta\OptaMatchRatingService` para el cálculo escalar de `SKORE` (`0.00–10.00`).** |
+| 4 | `unk_c22a37c87f1d1dcb9bb68b65b2a5cc12247f0c94cab5c7cfabcd7bf45ede19f2` | `backend-paywall-gated-team-tabs` | `low` | `open` | **Instancias de datos en vivo dentro de las pestañas de equipo restringidas en servidor al plan `Plus` (`stats`, `maps`, `compare`) y filas truncadas de liga.** |
 
 ---
 
-### 5.1. Detalle de las 3 Incógnitas Residuales y Qué Quedó Demostrado desde el Cliente (`[OBSERVADO]`)
+### 5.1. Detalle de la Incógnita Resuelta en Wave 3 y de las 3 Incógnitas Residuales de Servidor (`[OBSERVADO]`)
+
+#### 0. `unk_c7104fcac7a6781cc23c6d1216a43d4cc6e1e384c408bca299be9c4270d61191` · Piedra Rosetta de Proveedores y Catálogo de 40 Ligas (`RESOLVED` · `truthVerified: true`)
+- **Estado formal en [evidence/rea-unknowns.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/rea-unknowns.json):** `status: "resolved"`, `disposition: "verified"`, `revision: 2`, respaldado por `ev_04b1ede55ec1bd3f547cd81c48dc5a1fc2e4e8b8f9a9020481a3e35092a126e8` y `ev_a1d8facdf931a87bf33ba5e703e23d73cd2ee0c4550557ba3b84cdb9a1c10088`.
+- **Evidencia probatoria consolidada en Wave 3 (`[OBSERVADO]`):**
+  1. **Stats Perform / Opta SDAPI (`[0-9a-z]{25}`):** El comentario de desarrollador en [07-players-wire-script-0.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/inline-pages/07-players-wire-script-0.js) (`// Accent-insensitive, on the league, its country in Spanish or as Opta names it, and the region`) y el catálogo [rosetta-177-opta-attributes-catalog.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/rosetta-177-opta-attributes-catalog.json) (`13` categorías, `177` atributos con nombres crudos exactos de Opta SDAPI TM3/MA2) prueban que toda la identidad de negocio (`leagueId`, `teamId`, `playerId`, `fixtureId`, `seasonId`, `stageId`) pertenece a Opta SDAPI.
+  2. **API-Football (`api-sports.io`) (`\d+`):** Mapeado 1:1 para las **40 competiciones** en [rosetta-40-leagues-opta-apifootball.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/rosetta-40-leagues-opta-apifootball.json) (`/storage/media/leagues/{api_football_league_id}.png`), para los clubes en [rosetta-teams-opta-apifootball.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/rosetta-teams-opta-apifootball.json) (`/storage/media/teams/{api_football_team_id}.png`) y para los retratos primarios de jugadores (`https://media.api-sports.io/football/players/{api_football_player_id}.png`, verificado también en los 20 resultados de `GET /players/search?q=Luis` en [30-player-tabs-compare-desempeno-modals-request-63-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/30-player-tabs-compare-desempeno-modals-request-63-response.json)).
+  3. **FotMob CDN (`images.fotmob.com`) (`\d+`):** Identificado como proveedor secundario/fallback de retratos de jugadores (`https://images.fotmob.com/image_resources/playerimages/{fotmob_id}.png`, ej. `1069546` Rodrigo Dourado, `690073` Cristian Borja y `609892` Sebastián Cáceres en [03-team.html](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/03-team.html) y [match-1535061-all-player-cards.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/match-1535061-all-player-cards.json)).
 
 #### 1. `unk_3ffbf6b463b1f26fc643b3a6539eb1c20a8c6bbefb3efa86a2399337eeb22e23` · Pipeline de Ingesta Opta SDAPI (`backend-opta-ingestion-cron`)
 - **Por qué es estrictamente de servidor:** La programación del cron de Laravel (`app/Console/Kernel.php` o `routes/console.php`), los workers de cola (`Horizon` / `Redis` / `Database Queue`), las llaves de API hacia Stats Perform SDAPI (`TM3`/`TM4`/`F9`/`F24`/`MA1`) y el job de cruce de fotografías con `v3.football.api-sports.io` se ejecutan en el backend sin exponer endpoints públicos de administración.

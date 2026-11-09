@@ -1,0 +1,208 @@
+{
+  "evidence_id": "ev_9435086f6ae02ff0707fefa83c7cf473eda660deed890524e621cb9825c97446",
+  "scenario_prefix": "30-player-tabs-compare-desempeno-modals",
+  "steps": [
+    {
+      "step_id": "scenario_start",
+      "status": "completed",
+      "error": null,
+      "after_url": "https://www.statiskicks.com/player/c5ryhn04g9goikd0blmh83aol/lionel-messi",
+      "dom_bytes": 482108,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "wait-messi-tabs",
+      "status": "completed",
+      "error": null,
+      "after_url": "https://www.statiskicks.com/player/c5ryhn04g9goikd0blmh83aol/lionel-messi",
+      "dom_bytes": 482108,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "click-player-desempeno",
+      "status": "completed",
+      "error": null,
+      "after_url": "https://www.statiskicks.com/player/c5ryhn04g9goikd0blmh83aol/lionel-messi",
+      "dom_bytes": 482233,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "wait-player-desempeno",
+      "status": "completed",
+      "error": null,
+      "after_url": "https://www.statiskicks.com/player/c5ryhn04g9goikd0blmh83aol/lionel-messi",
+      "dom_bytes": 618012,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "click-player-ranking",
+      "status": "completed",
+      "error": null,
+      "after_url": "https://www.statiskicks.com/player/c5ryhn04g9goikd0blmh83aol/lionel-messi",
+      "dom_bytes": 618014,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "wait-player-ranking",
+      "status": "completed",
+      "error": null,
+      "after_url": "https://www.statiskicks.com/player/c5ryhn04g9goikd0blmh83aol/lionel-messi",
+      "dom_bytes": 618014,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "click-player-partidos",
+      "status": "completed",
+      "error": null,
+      "after_url": "https://www.statiskicks.com/player/c5ryhn04g9goikd0blmh83aol/lionel-messi",
+      "dom_bytes": 618016,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "wait-player-partidos",
+      "status": "completed",
+      "error": null,
+      "after_url": "https://www.statiskicks.com/player/c5ryhn04g9goikd0blmh83aol/lionel-messi",
+      "dom_bytes": 618016,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "click-player-autoreport",
+      "status": "completed",
+      "error": null,
+      "after_url": "https://www.statiskicks.com/player/c5ryhn04g9goikd0blmh83aol/lionel-messi",
+      "dom_bytes": 618018,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "wait-player-autoreport",
+      "status": "completed",
+      "error": null,
+      "after_url": "https://www.statiskicks.com/player/c5ryhn04g9goikd0blmh83aol/lionel-messi",
+      "dom_bytes": 618018,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "click-player-comparar",
+      "status": "completed",
+      "error": null,
+      "after_url": "https://www.statiskicks.com/player/c5ryhn04g9goikd0blmh83aol/lionel-messi",
+      "dom_bytes": 618020,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "wait-player-comparar-loaded",
+      "status": "completed",
+      "error": null,
+      "after_url": "https://www.statiskicks.com/player/c5ryhn04g9goikd0blmh83aol/lionel-messi",
+      "dom_bytes": 654738,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "fill-compare-search",
+      "status": "completed",
+      "error": null,
+      "after_url": "https://www.statiskicks.com/player/c5ryhn04g9goikd0blmh83aol/lionel-messi",
+      "dom_bytes": 654738,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "wait-compare-search-results",
+      "status": "completed",
+      "error": null,
+      "after_url": "https://www.statiskicks.com/player/c5ryhn04g9goikd0blmh83aol/lionel-messi",
+      "dom_bytes": 676394,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "click-chat-fab",
+      "status": "completed",
+      "error": null,
+      "after_url": "https://www.statiskicks.com/player/c5ryhn04g9goikd0blmh83aol/lionel-messi",
+      "dom_bytes": 676393,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "wait-chat-fab",
+      "status": "completed",
+      "error": null,
+      "after_url": "https://www.statiskicks.com/player/c5ryhn04g9goikd0blmh83aol/lionel-messi",
+      "dom_bytes": 676370,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "click-player-perfil-back",
+      "status": "completed",
+      "error": null,
+      "after_url": "https://www.statiskicks.com/player/c5ryhn04g9goikd0blmh83aol/lionel-messi",
+      "dom_bytes": 679270,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "wait-player-perfil-back",
+      "status": "completed",
+      "error": null,
+      "after_url": "https://www.statiskicks.com/player/c5ryhn04g9goikd0blmh83aol/lionel-messi",
+      "dom_bytes": 679270,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "click-paywall-trigger",
+      "status": "completed",
+      "error": null,
+      "after_url": "https://www.statiskicks.com/player/c5ryhn04g9goikd0blmh83aol/lionel-messi",
+      "dom_bytes": 679289,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "wait-paywall-modal",
+      "status": "completed",
+      "error": null,
+      "after_url": "https://www.statiskicks.com/player/c5ryhn04g9goikd0blmh83aol/lionel-messi",
+      "dom_bytes": 679370,
+      "screenshot_state": "captured"
+    }
+  ],
+  "interesting_transactions": [
+    {
+      "transaction_id": "request-45",
+      "method": "POST",
+      "url": "https://www.statiskicks.com/livewire-e3175f40/update",
+      "status": 200,
+      "calls": "loadTraitsData([]), loadRankingData([]), loadPerformanceSummaryData([])",
+      "req_bytes": 9117,
+      "resp_bytes": 127011,
+      "response_headers": null
+    },
+    {
+      "transaction_id": "request-47",
+      "method": "POST",
+      "url": "https://www.statiskicks.com/livewire-e3175f40/update",
+      "status": 200,
+      "calls": "loadHeatmapData([]), loadPerformanceLatestData([])",
+      "req_bytes": 14355,
+      "resp_bytes": 118656,
+      "response_headers": null
+    },
+    {
+      "transaction_id": "request-62",
+      "method": "POST",
+      "url": "https://www.statiskicks.com/livewire-e3175f40/update",
+      "status": 200,
+      "calls": "ensureComparisonDataLoaded([])",
+      "req_bytes": 46181,
+      "resp_bytes": 0,
+      "response_headers": null
+    },
+    {
+      "transaction_id": "request-63",
+      "method": "GET",
+      "url": "https://www.statiskicks.com/players/search?q=Luis",
+      "status": 200,
+      "calls": "",
+      "req_bytes": 0,
+      "resp_bytes": 7117,
+      "response_headers": null
+    }
+  ]
+}

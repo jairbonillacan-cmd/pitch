@@ -1,23 +1,48 @@
 {
   "generated_at": "2026-04-19T20:00:00Z",
-  "total_tracked_files": 355,
-  "total_tracked_bytes": 94620090,
-  "rea_evidence_bundle": {
-    "path": "evidence/rea-evidence-bundle.json",
-    "bytes": 340225476,
-    "sha256": "0cdb7192716adce2a80739dccb0d9e68496a34568d6fe3b28ee010a58977f950",
-    "gitignored": true
-  },
+  "total_tracked_files": 412,
+  "total_tracked_bytes": 106839906,
+  "rea_evidence_bundle": null,
   "files": [
     {
       "path": "evidence/rea-evidence-summary.json",
-      "bytes": 30385,
-      "sha256": "20566937af3dc488cb7622e0200408f123db71b0f2cfc5eeeb77265a7af77543"
+      "bytes": 46669,
+      "sha256": "ea1fc2ff8563c1b18892dc05585a1e0d65689e0760937d9ab11173aa262595b2"
     },
     {
       "path": "evidence/rea-unknowns.json",
-      "bytes": 4182,
-      "sha256": "aef38de31358722a72f74b47c459720cff084f185069e20858c7257577018631"
+      "bytes": 12633,
+      "sha256": "596c2799c0d83007328bdeb6163d08249ece784069b4d6af4e207ea23898bcea"
+    },
+    {
+      "path": "evidence/agentenv-statiskicks/README.md",
+      "bytes": 3254,
+      "sha256": "1cda47c4ea42ef5f7463f452dbcb0d1ff37c3774d6f58c0c6a854f20dc5d4797"
+    },
+    {
+      "path": "evidence/agentenv-statiskicks/artifacts/check_statiskicks-web-env/verify.py",
+      "bytes": 1594,
+      "sha256": "663e39e9d2451023f685bc2a007173a0d62c5a9dd0e3d607e83ff5b47212a42c"
+    },
+    {
+      "path": "evidence/agentenv-statiskicks/envs/statiskicks-web-env/Dockerfile",
+      "bytes": 404,
+      "sha256": "85058c6bc703e57c2a0cdf31de732adb488bb7feffe272fa586a992f7ae83b91"
+    },
+    {
+      "path": "evidence/agentenv-statiskicks/envs/statiskicks-web-env/env.toml",
+      "bytes": 41,
+      "sha256": "cdadb74946f066f7e51f171bcdaed6081a26dd31e0137c1135f499577604c867"
+    },
+    {
+      "path": "evidence/agentenv-statiskicks/envs/statiskicks-web-env/manifest.json",
+      "bytes": 75472,
+      "sha256": "530f97386531f8aed670a6b47da184b92ce9dc61e52be05cc5eb5da6a443b8bb"
+    },
+    {
+      "path": "evidence/agentenv-statiskicks/tasks/smoke.json",
+      "bytes": 301,
+      "sha256": "cab431ac2a40aed22a6769cfc2739435d10767b0d1142f7921d1a7fb2125c38e"
     },
     {
       "path": "evidence/captures/01-home-accessibility.txt",
@@ -655,6 +680,86 @@
       "sha256": "4923d79e6c701ff94b641c130d883b63b6c06ad90a02988ea2af85a60de81ddc"
     },
     {
+      "path": "evidence/captures/29-locked-league-and-team-tabs-goto-team-america.html",
+      "bytes": 1099188,
+      "sha256": "17e950d1d4969d82468610d39e00d6c9af914fc40dbf31f13f66307d7c5da018"
+    },
+    {
+      "path": "evidence/captures/29-locked-league-and-team-tabs-wait-locked-league-femenil.html",
+      "bytes": 78324,
+      "sha256": "66131186d47eff9ea3e3df13f1dc35489a90671c27406c3e9b7b667b36fb4b4c"
+    },
+    {
+      "path": "evidence/captures/29-locked-league-and-team-tabs-wait-team-squad.html",
+      "bytes": 1099287,
+      "sha256": "d10e482a9a1e24c1cc4db6cf5df55c70c8e6c2ad7e6595328a81a6743a6ca343"
+    },
+    {
+      "path": "evidence/captures/29-locked-league-and-team-tabs-wait-team-tabs.html",
+      "bytes": 1099188,
+      "sha256": "17e950d1d4969d82468610d39e00d6c9af914fc40dbf31f13f66307d7c5da018"
+    },
+    {
+      "path": "evidence/captures/30-player-tabs-compare-desempeno-modals-wait-chat-fab.html",
+      "bytes": 685728,
+      "sha256": "6ab257f3b32ffd582d48ae0e0937abddb7208ff05f2f85b4dd24ba328aed17f6"
+    },
+    {
+      "path": "evidence/captures/30-player-tabs-compare-desempeno-modals-wait-compare-search-results.html",
+      "bytes": 685752,
+      "sha256": "98d3c5808c7a2c50e505a43fa7d5dfa8716df4db4217dcfdd32cc8db660b1a28"
+    },
+    {
+      "path": "evidence/captures/30-player-tabs-compare-desempeno-modals-wait-messi-tabs.html",
+      "bytes": 490551,
+      "sha256": "76a4a7bafb622d701f6b32720a1bad579bdbd08fd990a32f99be4b27057f30dd"
+    },
+    {
+      "path": "evidence/captures/30-player-tabs-compare-desempeno-modals-wait-paywall-modal.html",
+      "bytes": 688769,
+      "sha256": "0aa5167946232a9d225444ed9a7067843c0230a7747b66f2ea816adb89026db1"
+    },
+    {
+      "path": "evidence/captures/30-player-tabs-compare-desempeno-modals-wait-player-autoreport.html",
+      "bytes": 626687,
+      "sha256": "9cdc8dba534825ab0bf066b034a7515bb8ac9b70270d65abc5352bfb090bbbf1"
+    },
+    {
+      "path": "evidence/captures/30-player-tabs-compare-desempeno-modals-wait-player-comparar-loaded.html",
+      "bytes": 663864,
+      "sha256": "0a923a9f4216fbe3ca27af7e0b6fe28378b292b4cbb69e26d238a110d10ebe5e"
+    },
+    {
+      "path": "evidence/captures/30-player-tabs-compare-desempeno-modals-wait-player-desempeno.html",
+      "bytes": 626681,
+      "sha256": "ba3c17ff9fa7598cb76e14fa2ba98649f8a0fd2507b4762e66d1d286497f0f68"
+    },
+    {
+      "path": "evidence/captures/30-player-tabs-compare-desempeno-modals-wait-player-partidos.html",
+      "bytes": 626685,
+      "sha256": "00313a98a376768b7dc3d13988dcc61e6dbb47929907dd5213b6b0d1222e193d"
+    },
+    {
+      "path": "evidence/captures/30-player-tabs-compare-desempeno-modals-wait-player-perfil-back.html",
+      "bytes": 688669,
+      "sha256": "ae202363d10d64ea03a466d729f341d79b64e018c473fadf47b85b3695b5864c"
+    },
+    {
+      "path": "evidence/captures/30-player-tabs-compare-desempeno-modals-wait-player-ranking.html",
+      "bytes": 626683,
+      "sha256": "0ddcd9b633d2f9802715508ade72beb14a3cb54828ff7715e6efa66f5c347062"
+    },
+    {
+      "path": "evidence/captures/31-players-statranges-and-matches-hub-wait-prev-day.html",
+      "bytes": 172035,
+      "sha256": "9c881f650da7d1830a962091ea70ad4180060107a2f14b485b8e657a68d77af8"
+    },
+    {
+      "path": "evidence/captures/32-dark-mode-and-mobile-match-pitch-wait-mobile-alineaciones.html",
+      "bytes": 264939,
+      "sha256": "c0034a903227ef1a799f2a13606d618712a03842731768cc6c4d8ea3edd363a4"
+    },
+    {
       "path": "evidence/captures/dom-summary.json",
       "bytes": 14426,
       "sha256": "20c2d906dbebde1d8005c54382812da8736ae7e2b7ab22fd61990f5d19a42633"
@@ -993,6 +1098,11 @@
       "path": "evidence/javascript/inline-pages/07-players-block-7.js",
       "bytes": 9115,
       "sha256": "92ef2f787f5ba415937e254124bbaf9a77c6f906e8b4b67dc2b3db80696b5648"
+    },
+    {
+      "path": "evidence/javascript/inline-pages/07-players-wire-script-0.js",
+      "bytes": 63346,
+      "sha256": "23ac4511a74b4f85d38c8049fed651ec46e47a4ef19db0d69edf782dbe1169fd"
     },
     {
       "path": "evidence/javascript/inline-pages/12-register-block-0.js",
@@ -1640,6 +1750,136 @@
       "sha256": "d58b40bdc7bb7988186a5f5e879d855317059152da098f3506836b9fc0e05e55"
     },
     {
+      "path": "evidence/network-schemas/29-locked-league-and-team-tabs-capture-summary.json",
+      "bytes": 5820,
+      "sha256": "911587182eaee38e7e9d62d0840a1fc23248ffe96f171dfd5b56a77c5889c00b"
+    },
+    {
+      "path": "evidence/network-schemas/29-locked-league-and-team-tabs-request-1-response.txt",
+      "bytes": 77431,
+      "sha256": "d1b75ff3993287e30c35c9ffe0d1d158d05e61bc78ce34cc7b728d094d25d2da"
+    },
+    {
+      "path": "evidence/network-schemas/30-player-tabs-compare-desempeno-modals-capture-summary.json",
+      "bytes": 7004,
+      "sha256": "8462bb453e01d148b0f5990ce797fe006a2a7c93bf158985c8780dff923dfe53"
+    },
+    {
+      "path": "evidence/network-schemas/30-player-tabs-compare-desempeno-modals-request-45-request.json",
+      "bytes": 9117,
+      "sha256": "0c4f48c0810ea415cf79827fd0906f2d1d63a83a46ae120778da9f99c1a52a5c"
+    },
+    {
+      "path": "evidence/network-schemas/30-player-tabs-compare-desempeno-modals-request-45-response.json",
+      "bytes": 127011,
+      "sha256": "af3b8d23ea64586f221a38e1945c75778eaf1128149451ab0e91fc4b8b296351"
+    },
+    {
+      "path": "evidence/network-schemas/30-player-tabs-compare-desempeno-modals-request-47-request.json",
+      "bytes": 14355,
+      "sha256": "7c2bc24ae31bb67b472ae50a11256164b10cfb4c1bf9e99fac3acdc60e1e4b1e"
+    },
+    {
+      "path": "evidence/network-schemas/30-player-tabs-compare-desempeno-modals-request-47-response.json",
+      "bytes": 118656,
+      "sha256": "867c2892c834f4c63c95e81cc4cc9cb154f2b73cadc1f7c2187639850262afc0"
+    },
+    {
+      "path": "evidence/network-schemas/30-player-tabs-compare-desempeno-modals-request-62-request.json",
+      "bytes": 46181,
+      "sha256": "db22bb10399de6c2a3c49be78de1c958ca632ead919fc241be1334dcd34cd03e"
+    },
+    {
+      "path": "evidence/network-schemas/30-player-tabs-compare-desempeno-modals-request-63-response.json",
+      "bytes": 7117,
+      "sha256": "84a889d219aef5949410fafea278009d4701f3cb0520e74d72605288979ffc89"
+    },
+    {
+      "path": "evidence/network-schemas/31-players-statranges-and-matches-hub-capture-summary.json",
+      "bytes": 4161,
+      "sha256": "0b35aec62553766ef1829702059e9c04cdea6a625685e191fc93d4cac5356fb0"
+    },
+    {
+      "path": "evidence/network-schemas/31-players-statranges-and-matches-hub-request-40-request.json",
+      "bytes": 1616,
+      "sha256": "38c0d753e2e336d01dacaaf508a9e7340bcd56243be7039a806b34c40b8576f2"
+    },
+    {
+      "path": "evidence/network-schemas/31-players-statranges-and-matches-hub-request-40-response.json",
+      "bytes": 1545,
+      "sha256": "f1d52d0537be26188a69f5a3a0b0e3676e84eb73b811e042cacaa492b30844e3"
+    },
+    {
+      "path": "evidence/network-schemas/31-players-statranges-and-matches-hub-request-42-request.json",
+      "bytes": 1578,
+      "sha256": "d11bae82f5812b9d71528d7c4806aef7274318a85ff4591072f2ff061c0c9dcd"
+    },
+    {
+      "path": "evidence/network-schemas/31-players-statranges-and-matches-hub-request-42-response.json",
+      "bytes": 1737,
+      "sha256": "db32dc0148411edad98895eb0c2392092e77dbfe7d13ab1de277fbe1d27a61bd"
+    },
+    {
+      "path": "evidence/network-schemas/31-players-statranges-and-matches-hub-request-43-response.txt",
+      "bytes": 28,
+      "sha256": "a8f31103361fca68bef71fc69cff844b7c23bd3d64d2b872d74690cbda656bfc"
+    },
+    {
+      "path": "evidence/network-schemas/31-players-statranges-and-matches-hub-request-44-response.txt",
+      "bytes": 6618,
+      "sha256": "ff2781de817ca742477369ba020ed030e9e5d83e624ba8455602e43e1c70c4fe"
+    },
+    {
+      "path": "evidence/network-schemas/31-players-statranges-and-matches-hub-request-45-response.txt",
+      "bytes": 1876,
+      "sha256": "7582f6759365de985ede1112fd2b7d482e98d8a4afca83f0d57026938b8a5690"
+    },
+    {
+      "path": "evidence/network-schemas/32-dark-mode-and-mobile-match-pitch-capture-summary.json",
+      "bytes": 1681,
+      "sha256": "af22b4fb841e479779123d909104a9d0efc4cc1ff3317485dc917fa122334cbc"
+    },
+    {
+      "path": "evidence/network-schemas/32-dark-mode-and-mobile-match-pitch-request-59-request.json",
+      "bytes": 736,
+      "sha256": "4dade8243169a7a1b95b09a184c14658226404d28e08395c38c6b6c7fcde3558"
+    },
+    {
+      "path": "evidence/network-schemas/32-dark-mode-and-mobile-match-pitch-request-59-response.json",
+      "bytes": 211254,
+      "sha256": "4341d5d86ff6cbc507a1bb338ab69c0ff4793ef7fb633982af0faed056d73b40"
+    },
+    {
+      "path": "evidence/network-schemas/match-1535061-all-player-cards.json",
+      "bytes": 176307,
+      "sha256": "ae3765be9167dc478f575f0ca02a311104e4c10f9cab17b5d06ff239181005a4"
+    },
+    {
+      "path": "evidence/network-schemas/match-1535061-momentum-107pts.json",
+      "bytes": 7742,
+      "sha256": "749cf2eccb678879f1c3a8c35d4e57d9e61be7ac0f7156f1ff3574662b58f00c"
+    },
+    {
+      "path": "evidence/network-schemas/players-filter-draft-config.json",
+      "bytes": 61991,
+      "sha256": "a478a04f125010f42ab9a839cb5254f280d171648caa488ebd02e55e21538d52"
+    },
+    {
+      "path": "evidence/network-schemas/rosetta-177-opta-attributes-catalog.json",
+      "bytes": 44494,
+      "sha256": "97c946a960801ca1ad8118f37124d8a43ed82c98c756f353627b043cbf663ce3"
+    },
+    {
+      "path": "evidence/network-schemas/rosetta-40-leagues-opta-apifootball.json",
+      "bytes": 23552,
+      "sha256": "aa8a07d94e2905b34dca82bdd225e21b8569920d0e3f8f2b91c1c4f1668640cc"
+    },
+    {
+      "path": "evidence/network-schemas/rosetta-teams-opta-apifootball.json",
+      "bytes": 2566,
+      "sha256": "be587d43721a9efc5b1041f4123cb5839d0339ad73e0ba18d811a9a2a026ff38"
+    },
+    {
       "path": "evidence/network-schemas/search-america.json",
       "bytes": 9334,
       "sha256": "52d1c28e1ff5b6bb984486fc4f54a817d31f91daeea5589bff44f79ab065cffb"
@@ -1653,6 +1893,26 @@
       "path": "evidence/network-schemas/search-messi.json",
       "bytes": 4293,
       "sha256": "e55ad2817bcdd74aef5c83033f27ff7952cb90d117df8afefe972d4fff2002b8"
+    },
+    {
+      "path": "evidence/network-schemas/team-america-54matches-xg-rolling.json",
+      "bytes": 16667,
+      "sha256": "24ba62d0c1c14c6b4fca4e63612d0e57f0d37db5524ad08ab49a8c998c67c5f3"
+    },
+    {
+      "path": "evidence/network-schemas/team-america-age-profile.json",
+      "bytes": 6701,
+      "sha256": "6f8bcb1d7c2f58298ec081483c357715e8755b571feda8db9c67617ae93cc304"
+    },
+    {
+      "path": "evidence/network-schemas/team-america-attribute-charts.json",
+      "bytes": 188323,
+      "sha256": "4fbad9e36830a771f2893ac17c38e5a8eb409fa6222f04487f6674c483ec28be"
+    },
+    {
+      "path": "evidence/network-schemas/team-america-profile-percentiles.json",
+      "bytes": 19841,
+      "sha256": "d917f8922b0fd675ed2e6da61568b374587d33e745a74325a698862b3930e83b"
     },
     {
       "path": "evidence/screenshots/01-home.png",
@@ -1783,6 +2043,26 @@
       "path": "evidence/screenshots/23-forgot-password.png",
       "bytes": 156941,
       "sha256": "48c9aafefa5bc97f3c6cf9d92a03185359cf846c44704f84b2125cce137f5031"
+    },
+    {
+      "path": "evidence/screenshots/29-locked-league-femenil.png",
+      "bytes": 39763,
+      "sha256": "3702919dfa2f867d227ec6efe004524726d94a6ba05a30e4278d0e52307822d1"
+    },
+    {
+      "path": "evidence/screenshots/30-player-tabs-compare-desempeno-modals.png",
+      "bytes": 161083,
+      "sha256": "1e98c7879e7969b7b17bf0702c4c1991542fc745462bc92644d324856f8e0cf4"
+    },
+    {
+      "path": "evidence/screenshots/31-players-statranges-and-matches-hub.png",
+      "bytes": 135496,
+      "sha256": "73c1d5002d2bb480257ba1e0ef2390ffcb9b9ff62bf786db3d5533d7a72fddfd"
+    },
+    {
+      "path": "evidence/screenshots/32-dark-mode-and-mobile-match-pitch.png",
+      "bytes": 297591,
+      "sha256": "362fd6fa33eabddbd152f01822374fbb69d96d1a2cbc2c04912890997e1f6912"
     }
   ]
 }

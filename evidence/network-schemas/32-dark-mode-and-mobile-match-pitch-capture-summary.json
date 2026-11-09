@@ -1,0 +1,50 @@
+{
+  "evidence_id": "ev_29b855423c405747f62b135a8e740ea6f51016bfd5f5e06d85762496b82e346e",
+  "scenario_prefix": "32-dark-mode-and-mobile-match-pitch",
+  "steps": [
+    {
+      "step_id": "scenario_start",
+      "status": "completed",
+      "error": null,
+      "after_url": "https://www.statiskicks.com/partido/pumas-unam-vs-club-america-9dy7dhz5f13b2ejz2a5tok2l0",
+      "dom_bytes": 0,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "wait-mobile-match-init",
+      "status": "completed",
+      "error": null,
+      "after_url": "https://www.statiskicks.com/partido/pumas-unam-vs-club-america-9dy7dhz5f13b2ejz2a5tok2l0",
+      "dom_bytes": 0,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "click-mobile-alineaciones",
+      "status": "completed",
+      "error": null,
+      "after_url": "https://www.statiskicks.com/partido/pumas-unam-vs-club-america-9dy7dhz5f13b2ejz2a5tok2l0",
+      "dom_bytes": 0,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "wait-mobile-alineaciones",
+      "status": "completed",
+      "error": null,
+      "after_url": "https://www.statiskicks.com/partido/pumas-unam-vs-club-america-9dy7dhz5f13b2ejz2a5tok2l0?tab=alineaciones",
+      "dom_bytes": 262104,
+      "screenshot_state": "captured"
+    }
+  ],
+  "interesting_transactions": [
+    {
+      "transaction_id": "request-59",
+      "method": "POST",
+      "url": "https://www.statiskicks.com/livewire-e3175f40/update",
+      "status": 200,
+      "calls": "setTab(['alineaciones'])",
+      "req_bytes": 736,
+      "resp_bytes": 211254,
+      "response_headers": null
+    }
+  ]
+}

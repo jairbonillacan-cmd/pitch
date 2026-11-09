@@ -1,0 +1,6717 @@
+{
+  "match_opta_fixture_uuid": "9dy7dhz5f13b2ejz2a5tok2l0",
+  "players_count": 42,
+  "players": {
+    "9sme7jykdv8msgfu0nxx6h39x": {
+      "name": "K. Navas",
+      "photo": "https://media.api-sports.io/football/players/731.png",
+      "team": "Pumas UNAM",
+      "crest": "https://www.statiskicks.com/storage/media/teams/2286.png",
+      "side": "home",
+      "country": "Costa Rica",
+      "flag": "https://flagcdn.com/w20/cr.png",
+      "age": 39,
+      "shirt": 1,
+      "position": "Portero",
+      "minutes": 90,
+      "rating": 5.97,
+      "grade": "low",
+      "events": [
+        "Amarilla"
+      ],
+      "played": true,
+      "keeper": true,
+      "groups": [
+        {
+          "label": "Portero",
+          "rows": [
+            {
+              "label": "Atajadas",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras atajadas",
+              "text": "0"
+            },
+            {
+              "label": "Goles prevenidos",
+              "text": "-0,50"
+            },
+            {
+              "label": "Pases progresivos precisos",
+              "text": "1 (10 %)"
+            },
+            {
+              "label": "Pases precisos",
+              "text": "16 (41 %)"
+            },
+            {
+              "label": "Toques",
+              "text": "41"
+            },
+            {
+              "label": "Acciones como líbero",
+              "text": "0"
+            },
+            {
+              "label": "Achiques",
+              "text": "1"
+            },
+            {
+              "label": "Penaltis atajados",
+              "text": "0"
+            },
+            {
+              "label": "Goles recibidos",
+              "text": "2"
+            }
+          ]
+        },
+        {
+          "label": "Pase",
+          "rows": [
+            {
+              "label": "Pases precisos",
+              "text": "16 (41 %)"
+            },
+            {
+              "label": "Pases largos precisos",
+              "text": "4 (15 %)"
+            },
+            {
+              "label": "Pases progresivos precisos",
+              "text": "1 (10 %)"
+            },
+            {
+              "label": "Pases cortos precisos",
+              "text": "12 (100 %)"
+            },
+            {
+              "label": "Pases hacia adelante precisos",
+              "text": "2 (18 %)"
+            },
+            {
+              "label": "Pases hacia atrás precisos",
+              "text": "0"
+            }
+          ]
+        },
+        {
+          "label": "Posesión",
+          "rows": [
+            {
+              "label": "Toques",
+              "text": "41"
+            },
+            {
+              "label": "Toques en el tercio rival",
+              "text": "0"
+            },
+            {
+              "label": "Toques en el área rival",
+              "text": "0"
+            },
+            {
+              "label": "Retención",
+              "text": "44 %"
+            },
+            {
+              "label": "Pérdidas de posesión",
+              "text": "23"
+            },
+            {
+              "label": "Mal control",
+              "text": "0"
+            },
+            {
+              "label": "Conducciones progresivas",
+              "text": "0"
+            },
+            {
+              "label": "Regates exitosos",
+              "text": "0"
+            },
+            {
+              "label": "Faltas recibidas",
+              "text": "0"
+            }
+          ]
+        }
+      ],
+      "note": "No jugó en este partido.",
+      "url": "https://www.statiskicks.com/player/9sme7jykdv8msgfu0nxx6h39x/keylor-navas"
+    },
+    "2mcy76o0t3fqqdwtvc0v2n42y": {
+      "name": "P. Bennevendo",
+      "photo": "https://media.api-sports.io/football/players/35904.png",
+      "team": "Pumas UNAM",
+      "crest": "https://www.statiskicks.com/storage/media/teams/2286.png",
+      "side": "home",
+      "country": "México",
+      "flag": "https://flagcdn.com/w20/mx.png",
+      "age": 26,
+      "shirt": 2,
+      "position": "Lateral izquierdo",
+      "minutes": 90,
+      "rating": 5.36,
+      "grade": "low",
+      "events": [
+        "Amarilla"
+      ],
+      "played": true,
+      "keeper": false,
+      "groups": [
+        {
+          "label": "Finalización",
+          "rows": [
+            {
+              "label": "Goles",
+              "text": "0"
+            },
+            {
+              "label": "Remates",
+              "text": "0"
+            },
+            {
+              "label": "Remates a puerta",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras convertidas",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras falladas",
+              "text": "0"
+            },
+            {
+              "label": "xG en jugada",
+              "text": "0,00"
+            },
+            {
+              "label": "xG en penales",
+              "text": "0,00"
+            },
+            {
+              "label": "xG a puerta (xGOT)",
+              "text": "0,00"
+            }
+          ]
+        },
+        {
+          "label": "Creación",
+          "rows": [
+            {
+              "label": "Asistencias",
+              "text": "0"
+            },
+            {
+              "label": "xA en jugada",
+              "text": "0,04"
+            },
+            {
+              "label": "xA en balón parado",
+              "text": "0,00"
+            },
+            {
+              "label": "Pases clave",
+              "text": "0"
+            },
+            {
+              "label": "Pases filtrados",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras creadas",
+              "text": "0"
+            },
+            {
+              "label": "Centros y córners precisos",
+              "text": "0"
+            }
+          ]
+        },
+        {
+          "label": "Pase",
+          "rows": [
+            {
+              "label": "Pases precisos",
+              "text": "17 (77 %)"
+            },
+            {
+              "label": "Pases largos precisos",
+              "text": "0 (0 %)"
+            },
+            {
+              "label": "Pases progresivos precisos",
+              "text": "2 (40 %)"
+            },
+            {
+              "label": "Pases cortos precisos",
+              "text": "17 (85 %)"
+            },
+            {
+              "label": "Pases hacia adelante precisos",
+              "text": "5 (56 %)"
+            },
+            {
+              "label": "Pases hacia atrás precisos",
+              "text": "5 (100 %)"
+            }
+          ]
+        },
+        {
+          "label": "Defensa",
+          "rows": [
+            {
+              "label": "Intercepciones",
+              "text": "3"
+            },
+            {
+              "label": "Bloqueos",
+              "text": "0"
+            },
+            {
+              "label": "Entradas ganadas",
+              "text": "0 (0 %)"
+            },
+            {
+              "label": "Rechaces por abajo",
+              "text": "0"
+            },
+            {
+              "label": "Rechaces de cabeza",
+              "text": "1"
+            },
+            {
+              "label": "Recuperaciones",
+              "text": "7"
+            }
+          ]
+        },
+        {
+          "label": "Juego aéreo",
+          "rows": [
+            {
+              "label": "Duelos aéreos ofensivos ganados",
+              "text": "0 (0 %)"
+            },
+            {
+              "label": "Duelos aéreos defensivos ganados",
+              "text": "0"
+            },
+            {
+              "label": "Duelos aéreos ganados",
+              "text": "0 (0 %)"
+            },
+            {
+              "label": "Remates de cabeza",
+              "text": "0 (xG 0,00)"
+            }
+          ]
+        },
+        {
+          "label": "Posesión",
+          "rows": [
+            {
+              "label": "Toques",
+              "text": "46"
+            },
+            {
+              "label": "Toques en el tercio rival",
+              "text": "12"
+            },
+            {
+              "label": "Toques en el área rival",
+              "text": "0"
+            },
+            {
+              "label": "Retención",
+              "text": "76 %"
+            },
+            {
+              "label": "Pérdidas de posesión",
+              "text": "11"
+            },
+            {
+              "label": "Mal control",
+              "text": "3"
+            },
+            {
+              "label": "Conducciones progresivas",
+              "text": "0"
+            },
+            {
+              "label": "Regates exitosos",
+              "text": "2 (50 %)"
+            },
+            {
+              "label": "Faltas recibidas",
+              "text": "2"
+            }
+          ]
+        }
+      ],
+      "note": "No jugó en este partido.",
+      "url": "https://www.statiskicks.com/player/2mcy76o0t3fqqdwtvc0v2n42y/pablo-bennevendo"
+    },
+    "8tgmgddqyivjt0eenqik5mwut": {
+      "name": "Rubén Duarte",
+      "photo": "https://media.api-sports.io/football/players/47355.png",
+      "team": "Pumas UNAM",
+      "crest": "https://www.statiskicks.com/storage/media/teams/2286.png",
+      "side": "home",
+      "country": "España",
+      "flag": "https://flagcdn.com/w20/es.png",
+      "age": 31,
+      "shirt": 5,
+      "position": "Defensa central izquierdo",
+      "minutes": 90,
+      "rating": 6.43,
+      "grade": "low",
+      "events": [],
+      "played": true,
+      "keeper": false,
+      "groups": [
+        {
+          "label": "Finalización",
+          "rows": [
+            {
+              "label": "Goles",
+              "text": "0"
+            },
+            {
+              "label": "Remates",
+              "text": "0"
+            },
+            {
+              "label": "Remates a puerta",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras convertidas",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras falladas",
+              "text": "0"
+            },
+            {
+              "label": "xG en jugada",
+              "text": "0,00"
+            },
+            {
+              "label": "xG en penales",
+              "text": "0,00"
+            },
+            {
+              "label": "xG a puerta (xGOT)",
+              "text": "0,00"
+            }
+          ]
+        },
+        {
+          "label": "Creación",
+          "rows": [
+            {
+              "label": "Asistencias",
+              "text": "0"
+            },
+            {
+              "label": "xA en jugada",
+              "text": "0,01"
+            },
+            {
+              "label": "xA en balón parado",
+              "text": "0,00"
+            },
+            {
+              "label": "Pases clave",
+              "text": "0"
+            },
+            {
+              "label": "Pases filtrados",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras creadas",
+              "text": "0"
+            },
+            {
+              "label": "Centros y córners precisos",
+              "text": "0"
+            }
+          ]
+        },
+        {
+          "label": "Pase",
+          "rows": [
+            {
+              "label": "Pases precisos",
+              "text": "24 (77 %)"
+            },
+            {
+              "label": "Pases largos precisos",
+              "text": "2 (22 %)"
+            },
+            {
+              "label": "Pases progresivos precisos",
+              "text": "2 (25 %)"
+            },
+            {
+              "label": "Pases cortos precisos",
+              "text": "22 (100 %)"
+            },
+            {
+              "label": "Pases hacia adelante precisos",
+              "text": "10 (59 %)"
+            },
+            {
+              "label": "Pases hacia atrás precisos",
+              "text": "4 (100 %)"
+            }
+          ]
+        },
+        {
+          "label": "Defensa",
+          "rows": [
+            {
+              "label": "Intercepciones",
+              "text": "1"
+            },
+            {
+              "label": "Bloqueos",
+              "text": "2"
+            },
+            {
+              "label": "Entradas ganadas",
+              "text": "1 (50 %)"
+            },
+            {
+              "label": "Rechaces por abajo",
+              "text": "5"
+            },
+            {
+              "label": "Rechaces de cabeza",
+              "text": "2"
+            },
+            {
+              "label": "Recuperaciones",
+              "text": "6"
+            }
+          ]
+        },
+        {
+          "label": "Juego aéreo",
+          "rows": [
+            {
+              "label": "Duelos aéreos ofensivos ganados",
+              "text": "0 (0 %)"
+            },
+            {
+              "label": "Duelos aéreos defensivos ganados",
+              "text": "2 (100 %)"
+            },
+            {
+              "label": "Duelos aéreos ganados",
+              "text": "2 (67 %)"
+            },
+            {
+              "label": "Remates de cabeza",
+              "text": "0 (xG 0,00)"
+            }
+          ]
+        },
+        {
+          "label": "Posesión",
+          "rows": [
+            {
+              "label": "Toques",
+              "text": "47"
+            },
+            {
+              "label": "Toques en el tercio rival",
+              "text": "2"
+            },
+            {
+              "label": "Toques en el área rival",
+              "text": "0"
+            },
+            {
+              "label": "Retención",
+              "text": "85 %"
+            },
+            {
+              "label": "Pérdidas de posesión",
+              "text": "7"
+            },
+            {
+              "label": "Mal control",
+              "text": "0"
+            },
+            {
+              "label": "Conducciones progresivas",
+              "text": "1"
+            },
+            {
+              "label": "Regates exitosos",
+              "text": "0"
+            },
+            {
+              "label": "Faltas recibidas",
+              "text": "2"
+            }
+          ]
+        }
+      ],
+      "note": "No jugó en este partido.",
+      "url": "https://www.statiskicks.com/player/8tgmgddqyivjt0eenqik5mwut/ruben-duarte"
+    },
+    "7savubkcw8392wm9qsxubss89": {
+      "name": "Nathan Silva",
+      "photo": "https://media.api-sports.io/football/players/9697.png",
+      "team": "Pumas UNAM",
+      "crest": "https://www.statiskicks.com/storage/media/teams/2286.png",
+      "side": "home",
+      "country": "Brasil",
+      "flag": "https://flagcdn.com/w20/br.png",
+      "age": 29,
+      "shirt": 6,
+      "position": "Defensa central derecho",
+      "minutes": 90,
+      "rating": 6.85,
+      "grade": "mid",
+      "events": [],
+      "played": true,
+      "keeper": false,
+      "groups": [
+        {
+          "label": "Finalización",
+          "rows": [
+            {
+              "label": "Goles",
+              "text": "0"
+            },
+            {
+              "label": "Remates",
+              "text": "0"
+            },
+            {
+              "label": "Remates a puerta",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras convertidas",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras falladas",
+              "text": "0"
+            },
+            {
+              "label": "xG en jugada",
+              "text": "0,00"
+            },
+            {
+              "label": "xG en penales",
+              "text": "0,00"
+            },
+            {
+              "label": "xG a puerta (xGOT)",
+              "text": "0,00"
+            }
+          ]
+        },
+        {
+          "label": "Creación",
+          "rows": [
+            {
+              "label": "Asistencias",
+              "text": "0"
+            },
+            {
+              "label": "xA en jugada",
+              "text": "0,00"
+            },
+            {
+              "label": "xA en balón parado",
+              "text": "0,00"
+            },
+            {
+              "label": "Pases clave",
+              "text": "0"
+            },
+            {
+              "label": "Pases filtrados",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras creadas",
+              "text": "0"
+            },
+            {
+              "label": "Centros y córners precisos",
+              "text": "0"
+            }
+          ]
+        },
+        {
+          "label": "Pase",
+          "rows": [
+            {
+              "label": "Pases precisos",
+              "text": "19 (79 %)"
+            },
+            {
+              "label": "Pases largos precisos",
+              "text": "3 (75 %)"
+            },
+            {
+              "label": "Pases progresivos precisos",
+              "text": "1 (33 %)"
+            },
+            {
+              "label": "Pases cortos precisos",
+              "text": "16 (80 %)"
+            },
+            {
+              "label": "Pases hacia adelante precisos",
+              "text": "3 (60 %)"
+            },
+            {
+              "label": "Pases hacia atrás precisos",
+              "text": "2 (100 %)"
+            }
+          ]
+        },
+        {
+          "label": "Defensa",
+          "rows": [
+            {
+              "label": "Intercepciones",
+              "text": "0"
+            },
+            {
+              "label": "Bloqueos",
+              "text": "0"
+            },
+            {
+              "label": "Entradas ganadas",
+              "text": "0 (0 %)"
+            },
+            {
+              "label": "Rechaces por abajo",
+              "text": "1"
+            },
+            {
+              "label": "Rechaces de cabeza",
+              "text": "2"
+            },
+            {
+              "label": "Recuperaciones",
+              "text": "3"
+            }
+          ]
+        },
+        {
+          "label": "Juego aéreo",
+          "rows": [
+            {
+              "label": "Duelos aéreos ofensivos ganados",
+              "text": "1 (33 %)"
+            },
+            {
+              "label": "Duelos aéreos defensivos ganados",
+              "text": "2 (100 %)"
+            },
+            {
+              "label": "Duelos aéreos ganados",
+              "text": "3 (60 %)"
+            },
+            {
+              "label": "Remates de cabeza",
+              "text": "0 (xG 0,00)"
+            }
+          ]
+        },
+        {
+          "label": "Posesión",
+          "rows": [
+            {
+              "label": "Toques",
+              "text": "33"
+            },
+            {
+              "label": "Toques en el tercio rival",
+              "text": "3"
+            },
+            {
+              "label": "Toques en el área rival",
+              "text": "2"
+            },
+            {
+              "label": "Retención",
+              "text": "82 %"
+            },
+            {
+              "label": "Pérdidas de posesión",
+              "text": "6"
+            },
+            {
+              "label": "Mal control",
+              "text": "1"
+            },
+            {
+              "label": "Conducciones progresivas",
+              "text": "0"
+            },
+            {
+              "label": "Regates exitosos",
+              "text": "0"
+            },
+            {
+              "label": "Faltas recibidas",
+              "text": "1"
+            }
+          ]
+        }
+      ],
+      "note": "No jugó en este partido.",
+      "url": "https://www.statiskicks.com/player/7savubkcw8392wm9qsxubss89/nathanael-da"
+    },
+    "5n0l2ft3lmh6nwy1ms0lhlo4q": {
+      "name": "R. López",
+      "photo": "https://media.api-sports.io/football/players/373294.png",
+      "team": "Pumas UNAM",
+      "crest": "https://www.statiskicks.com/storage/media/teams/2286.png",
+      "side": "home",
+      "country": "México",
+      "flag": "https://flagcdn.com/w20/mx.png",
+      "age": 24,
+      "shirt": 7,
+      "position": "Lateral derecho",
+      "minutes": 63,
+      "rating": 6.1,
+      "grade": "low",
+      "events": [
+        "Salió en el 63'"
+      ],
+      "played": true,
+      "keeper": false,
+      "groups": [
+        {
+          "label": "Finalización",
+          "rows": [
+            {
+              "label": "Goles",
+              "text": "0"
+            },
+            {
+              "label": "Remates",
+              "text": "0"
+            },
+            {
+              "label": "Remates a puerta",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras convertidas",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras falladas",
+              "text": "0"
+            },
+            {
+              "label": "xG en jugada",
+              "text": "0,00"
+            },
+            {
+              "label": "xG en penales",
+              "text": "0,00"
+            },
+            {
+              "label": "xG a puerta (xGOT)",
+              "text": "0,00"
+            }
+          ]
+        },
+        {
+          "label": "Creación",
+          "rows": [
+            {
+              "label": "Asistencias",
+              "text": "0"
+            },
+            {
+              "label": "xA en jugada",
+              "text": "0,01"
+            },
+            {
+              "label": "xA en balón parado",
+              "text": "0,00"
+            },
+            {
+              "label": "Pases clave",
+              "text": "0"
+            },
+            {
+              "label": "Pases filtrados",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras creadas",
+              "text": "0"
+            },
+            {
+              "label": "Centros y córners precisos",
+              "text": "0 (0 %)"
+            }
+          ]
+        },
+        {
+          "label": "Pase",
+          "rows": [
+            {
+              "label": "Pases precisos",
+              "text": "14 (70 %)"
+            },
+            {
+              "label": "Pases largos precisos",
+              "text": "2 (29 %)"
+            },
+            {
+              "label": "Pases progresivos precisos",
+              "text": "1 (14 %)"
+            },
+            {
+              "label": "Pases cortos precisos",
+              "text": "12 (92 %)"
+            },
+            {
+              "label": "Pases hacia adelante precisos",
+              "text": "4 (40 %)"
+            },
+            {
+              "label": "Pases hacia atrás precisos",
+              "text": "5 (100 %)"
+            }
+          ]
+        },
+        {
+          "label": "Defensa",
+          "rows": [
+            {
+              "label": "Intercepciones",
+              "text": "1"
+            },
+            {
+              "label": "Bloqueos",
+              "text": "0"
+            },
+            {
+              "label": "Entradas ganadas",
+              "text": "0"
+            },
+            {
+              "label": "Rechaces por abajo",
+              "text": "2"
+            },
+            {
+              "label": "Rechaces de cabeza",
+              "text": "1"
+            },
+            {
+              "label": "Recuperaciones",
+              "text": "3"
+            }
+          ]
+        },
+        {
+          "label": "Juego aéreo",
+          "rows": [
+            {
+              "label": "Duelos aéreos ofensivos ganados",
+              "text": "0"
+            },
+            {
+              "label": "Duelos aéreos defensivos ganados",
+              "text": "0 (0 %)"
+            },
+            {
+              "label": "Duelos aéreos ganados",
+              "text": "0 (0 %)"
+            },
+            {
+              "label": "Remates de cabeza",
+              "text": "0 (xG 0,00)"
+            }
+          ]
+        },
+        {
+          "label": "Posesión",
+          "rows": [
+            {
+              "label": "Toques",
+              "text": "35"
+            },
+            {
+              "label": "Toques en el tercio rival",
+              "text": "2"
+            },
+            {
+              "label": "Toques en el área rival",
+              "text": "1"
+            },
+            {
+              "label": "Retención",
+              "text": "71 %"
+            },
+            {
+              "label": "Pérdidas de posesión",
+              "text": "10"
+            },
+            {
+              "label": "Mal control",
+              "text": "1"
+            },
+            {
+              "label": "Conducciones progresivas",
+              "text": "0"
+            },
+            {
+              "label": "Regates exitosos",
+              "text": "1 (100 %)"
+            },
+            {
+              "label": "Faltas recibidas",
+              "text": "0"
+            }
+          ]
+        }
+      ],
+      "note": "No jugó en este partido.",
+      "url": "https://www.statiskicks.com/player/5n0l2ft3lmh6nwy1ms0lhlo4q/rodrigo-lopez"
+    },
+    "48anl4qgpl4f13hkdkc2u9jhl": {
+      "name": "C. Huerta",
+      "photo": "https://media.api-sports.io/football/players/36111.png",
+      "team": "Pumas UNAM",
+      "crest": "https://www.statiskicks.com/storage/media/teams/2286.png",
+      "side": "home",
+      "country": "México",
+      "flag": "https://flagcdn.com/w20/mx.png",
+      "age": 25,
+      "shirt": 10,
+      "position": "Volante izquierdo",
+      "minutes": 90,
+      "rating": 7.19,
+      "grade": "high",
+      "events": [
+        "1 gol",
+        "Amarilla"
+      ],
+      "played": true,
+      "keeper": false,
+      "groups": [
+        {
+          "label": "Finalización",
+          "rows": [
+            {
+              "label": "Goles",
+              "text": "1"
+            },
+            {
+              "label": "Remates",
+              "text": "5"
+            },
+            {
+              "label": "Remates a puerta",
+              "text": "2"
+            },
+            {
+              "label": "Ocasiones claras convertidas",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras falladas",
+              "text": "0"
+            },
+            {
+              "label": "xG en jugada",
+              "text": "0,13"
+            },
+            {
+              "label": "xG en penales",
+              "text": "0,00"
+            },
+            {
+              "label": "xG a puerta (xGOT)",
+              "text": "0,63"
+            }
+          ]
+        },
+        {
+          "label": "Creación",
+          "rows": [
+            {
+              "label": "Asistencias",
+              "text": "0"
+            },
+            {
+              "label": "xA en jugada",
+              "text": "0,06"
+            },
+            {
+              "label": "xA en balón parado",
+              "text": "0,01"
+            },
+            {
+              "label": "Pases clave",
+              "text": "1"
+            },
+            {
+              "label": "Pases filtrados",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras creadas",
+              "text": "0"
+            },
+            {
+              "label": "Centros y córners precisos",
+              "text": "0 (0 %)"
+            }
+          ]
+        },
+        {
+          "label": "Pase",
+          "rows": [
+            {
+              "label": "Pases precisos",
+              "text": "20 (83 %)"
+            },
+            {
+              "label": "Pases largos precisos",
+              "text": "0"
+            },
+            {
+              "label": "Pases progresivos precisos",
+              "text": "2 (40 %)"
+            },
+            {
+              "label": "Pases cortos precisos",
+              "text": "20 (83 %)"
+            },
+            {
+              "label": "Pases hacia adelante precisos",
+              "text": "1 (25 %)"
+            },
+            {
+              "label": "Pases hacia atrás precisos",
+              "text": "4 (80 %)"
+            }
+          ]
+        },
+        {
+          "label": "Defensa",
+          "rows": [
+            {
+              "label": "Intercepciones",
+              "text": "1"
+            },
+            {
+              "label": "Bloqueos",
+              "text": "0"
+            },
+            {
+              "label": "Entradas ganadas",
+              "text": "1 (25 %)"
+            },
+            {
+              "label": "Rechaces por abajo",
+              "text": "0"
+            },
+            {
+              "label": "Rechaces de cabeza",
+              "text": "0"
+            },
+            {
+              "label": "Recuperaciones",
+              "text": "3"
+            }
+          ]
+        },
+        {
+          "label": "Juego aéreo",
+          "rows": [
+            {
+              "label": "Duelos aéreos ofensivos ganados",
+              "text": "0 (0 %)"
+            },
+            {
+              "label": "Duelos aéreos defensivos ganados",
+              "text": "0"
+            },
+            {
+              "label": "Duelos aéreos ganados",
+              "text": "0 (0 %)"
+            },
+            {
+              "label": "Remates de cabeza",
+              "text": "0 (xG 0,00)"
+            }
+          ]
+        },
+        {
+          "label": "Posesión",
+          "rows": [
+            {
+              "label": "Toques",
+              "text": "51"
+            },
+            {
+              "label": "Toques en el tercio rival",
+              "text": "34"
+            },
+            {
+              "label": "Toques en el área rival",
+              "text": "4"
+            },
+            {
+              "label": "Retención",
+              "text": "69 %"
+            },
+            {
+              "label": "Pérdidas de posesión",
+              "text": "16"
+            },
+            {
+              "label": "Mal control",
+              "text": "8"
+            },
+            {
+              "label": "Conducciones progresivas",
+              "text": "3"
+            },
+            {
+              "label": "Regates exitosos",
+              "text": "1 (33 %)"
+            },
+            {
+              "label": "Faltas recibidas",
+              "text": "3"
+            }
+          ]
+        }
+      ],
+      "note": "No jugó en este partido.",
+      "url": "https://www.statiskicks.com/player/48anl4qgpl4f13hkdkc2u9jhl/cesar-huerta"
+    },
+    "3ofmkgwa01yv4wcsvgk208hgq": {
+      "name": "P. Vite",
+      "photo": "https://media.api-sports.io/football/players/237078.png",
+      "team": "Pumas UNAM",
+      "crest": "https://www.statiskicks.com/storage/media/teams/2286.png",
+      "side": "home",
+      "country": "Ecuador",
+      "flag": "https://flagcdn.com/w20/ec.png",
+      "age": 24,
+      "shirt": 45,
+      "position": "Interior izquierdo",
+      "minutes": 89,
+      "rating": 6.58,
+      "grade": "mid",
+      "events": [
+        "Amarilla",
+        "Salió en el 92'"
+      ],
+      "played": true,
+      "keeper": false,
+      "groups": [
+        {
+          "label": "Finalización",
+          "rows": [
+            {
+              "label": "Goles",
+              "text": "0"
+            },
+            {
+              "label": "Remates",
+              "text": "2"
+            },
+            {
+              "label": "Remates a puerta",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras convertidas",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras falladas",
+              "text": "0"
+            },
+            {
+              "label": "xG en jugada",
+              "text": "0,00"
+            },
+            {
+              "label": "xG en penales",
+              "text": "0,00"
+            },
+            {
+              "label": "xG a puerta (xGOT)",
+              "text": "0,00"
+            }
+          ]
+        },
+        {
+          "label": "Creación",
+          "rows": [
+            {
+              "label": "Asistencias",
+              "text": "0"
+            },
+            {
+              "label": "xA en jugada",
+              "text": "0,05"
+            },
+            {
+              "label": "xA en balón parado",
+              "text": "0,00"
+            },
+            {
+              "label": "Pases clave",
+              "text": "3"
+            },
+            {
+              "label": "Pases filtrados",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras creadas",
+              "text": "0"
+            },
+            {
+              "label": "Centros y córners precisos",
+              "text": "1 (20 %)"
+            }
+          ]
+        },
+        {
+          "label": "Pase",
+          "rows": [
+            {
+              "label": "Pases precisos",
+              "text": "31 (84 %)"
+            },
+            {
+              "label": "Pases largos precisos",
+              "text": "6 (75 %)"
+            },
+            {
+              "label": "Pases progresivos precisos",
+              "text": "9 (82 %)"
+            },
+            {
+              "label": "Pases cortos precisos",
+              "text": "25 (86 %)"
+            },
+            {
+              "label": "Pases hacia adelante precisos",
+              "text": "13 (72 %)"
+            },
+            {
+              "label": "Pases hacia atrás precisos",
+              "text": "4 (100 %)"
+            }
+          ]
+        },
+        {
+          "label": "Defensa",
+          "rows": [
+            {
+              "label": "Intercepciones",
+              "text": "2"
+            },
+            {
+              "label": "Bloqueos",
+              "text": "0"
+            },
+            {
+              "label": "Entradas ganadas",
+              "text": "2 (100 %)"
+            },
+            {
+              "label": "Rechaces por abajo",
+              "text": "0"
+            },
+            {
+              "label": "Rechaces de cabeza",
+              "text": "0"
+            },
+            {
+              "label": "Recuperaciones",
+              "text": "4"
+            }
+          ]
+        },
+        {
+          "label": "Juego aéreo",
+          "rows": [
+            {
+              "label": "Duelos aéreos ofensivos ganados",
+              "text": "1 (100 %)"
+            },
+            {
+              "label": "Duelos aéreos defensivos ganados",
+              "text": "1 (50 %)"
+            },
+            {
+              "label": "Duelos aéreos ganados",
+              "text": "2 (67 %)"
+            },
+            {
+              "label": "Remates de cabeza",
+              "text": "0 (xG 0,00)"
+            }
+          ]
+        },
+        {
+          "label": "Posesión",
+          "rows": [
+            {
+              "label": "Toques",
+              "text": "51"
+            },
+            {
+              "label": "Toques en el tercio rival",
+              "text": "10"
+            },
+            {
+              "label": "Toques en el área rival",
+              "text": "1"
+            },
+            {
+              "label": "Retención",
+              "text": "78 %"
+            },
+            {
+              "label": "Pérdidas de posesión",
+              "text": "11"
+            },
+            {
+              "label": "Mal control",
+              "text": "0"
+            },
+            {
+              "label": "Conducciones progresivas",
+              "text": "0"
+            },
+            {
+              "label": "Regates exitosos",
+              "text": "0"
+            },
+            {
+              "label": "Faltas recibidas",
+              "text": "1"
+            }
+          ]
+        }
+      ],
+      "note": "No jugó en este partido.",
+      "url": "https://www.statiskicks.com/player/3ofmkgwa01yv4wcsvgk208hgq/pedro-vite"
+    },
+    "6knzu4ywl5yag1h8ij16g2rqh": {
+      "name": "A. Carrasquilla",
+      "photo": "https://media.api-sports.io/football/players/57807.png",
+      "team": "Pumas UNAM",
+      "crest": "https://www.statiskicks.com/storage/media/teams/2286.png",
+      "side": "home",
+      "country": "Panamá",
+      "flag": "https://flagcdn.com/w20/pa.png",
+      "age": 27,
+      "shirt": 8,
+      "position": "Interior derecho",
+      "minutes": 90,
+      "rating": 5.98,
+      "grade": "low",
+      "events": [
+        "Amarilla"
+      ],
+      "played": true,
+      "keeper": false,
+      "groups": [
+        {
+          "label": "Finalización",
+          "rows": [
+            {
+              "label": "Goles",
+              "text": "0"
+            },
+            {
+              "label": "Remates",
+              "text": "2"
+            },
+            {
+              "label": "Remates a puerta",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras convertidas",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras falladas",
+              "text": "0"
+            },
+            {
+              "label": "xG en jugada",
+              "text": "0,00"
+            },
+            {
+              "label": "xG en penales",
+              "text": "0,00"
+            },
+            {
+              "label": "xG a puerta (xGOT)",
+              "text": "0,00"
+            }
+          ]
+        },
+        {
+          "label": "Creación",
+          "rows": [
+            {
+              "label": "Asistencias",
+              "text": "0"
+            },
+            {
+              "label": "xA en jugada",
+              "text": "0,11"
+            },
+            {
+              "label": "xA en balón parado",
+              "text": "0,00"
+            },
+            {
+              "label": "Pases clave",
+              "text": "1"
+            },
+            {
+              "label": "Pases filtrados",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras creadas",
+              "text": "0"
+            },
+            {
+              "label": "Centros y córners precisos",
+              "text": "0 (0 %)"
+            }
+          ]
+        },
+        {
+          "label": "Pase",
+          "rows": [
+            {
+              "label": "Pases precisos",
+              "text": "26 (72 %)"
+            },
+            {
+              "label": "Pases largos precisos",
+              "text": "6 (75 %)"
+            },
+            {
+              "label": "Pases progresivos precisos",
+              "text": "5 (71 %)"
+            },
+            {
+              "label": "Pases cortos precisos",
+              "text": "20 (71 %)"
+            },
+            {
+              "label": "Pases hacia adelante precisos",
+              "text": "9 (56 %)"
+            },
+            {
+              "label": "Pases hacia atrás precisos",
+              "text": "2 (100 %)"
+            }
+          ]
+        },
+        {
+          "label": "Defensa",
+          "rows": [
+            {
+              "label": "Intercepciones",
+              "text": "1"
+            },
+            {
+              "label": "Bloqueos",
+              "text": "0"
+            },
+            {
+              "label": "Entradas ganadas",
+              "text": "0"
+            },
+            {
+              "label": "Rechaces por abajo",
+              "text": "0"
+            },
+            {
+              "label": "Rechaces de cabeza",
+              "text": "0"
+            },
+            {
+              "label": "Recuperaciones",
+              "text": "7"
+            }
+          ]
+        },
+        {
+          "label": "Juego aéreo",
+          "rows": [
+            {
+              "label": "Duelos aéreos ofensivos ganados",
+              "text": "0"
+            },
+            {
+              "label": "Duelos aéreos defensivos ganados",
+              "text": "0"
+            },
+            {
+              "label": "Duelos aéreos ganados",
+              "text": "0"
+            },
+            {
+              "label": "Remates de cabeza",
+              "text": "0 (xG 0,00)"
+            }
+          ]
+        },
+        {
+          "label": "Posesión",
+          "rows": [
+            {
+              "label": "Toques",
+              "text": "50"
+            },
+            {
+              "label": "Toques en el tercio rival",
+              "text": "13"
+            },
+            {
+              "label": "Toques en el área rival",
+              "text": "1"
+            },
+            {
+              "label": "Retención",
+              "text": "68 %"
+            },
+            {
+              "label": "Pérdidas de posesión",
+              "text": "16"
+            },
+            {
+              "label": "Mal control",
+              "text": "1"
+            },
+            {
+              "label": "Conducciones progresivas",
+              "text": "3"
+            },
+            {
+              "label": "Regates exitosos",
+              "text": "0"
+            },
+            {
+              "label": "Faltas recibidas",
+              "text": "1"
+            }
+          ]
+        }
+      ],
+      "note": "No jugó en este partido.",
+      "url": "https://www.statiskicks.com/player/6knzu4ywl5yag1h8ij16g2rqh/adalberto-carrasquilla"
+    },
+    "4051hgvu9v8jnu9rbbd0pr9bd": {
+      "name": "U. Antuna",
+      "photo": "https://media.api-sports.io/football/players/51069.png",
+      "team": "Pumas UNAM",
+      "crest": "https://www.statiskicks.com/storage/media/teams/2286.png",
+      "side": "home",
+      "country": "México",
+      "flag": "https://flagcdn.com/w20/mx.png",
+      "age": 29,
+      "shirt": 21,
+      "position": "Volante derecho",
+      "minutes": 77,
+      "rating": 6.81,
+      "grade": "mid",
+      "events": [
+        "1 asistencia",
+        "Salió en el 77'"
+      ],
+      "played": true,
+      "keeper": false,
+      "groups": [
+        {
+          "label": "Finalización",
+          "rows": [
+            {
+              "label": "Goles",
+              "text": "0"
+            },
+            {
+              "label": "Remates",
+              "text": "1"
+            },
+            {
+              "label": "Remates a puerta",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras convertidas",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras falladas",
+              "text": "0"
+            },
+            {
+              "label": "xG en jugada",
+              "text": "0,05"
+            },
+            {
+              "label": "xG en penales",
+              "text": "0,00"
+            },
+            {
+              "label": "xG a puerta (xGOT)",
+              "text": "0,00"
+            }
+          ]
+        },
+        {
+          "label": "Creación",
+          "rows": [
+            {
+              "label": "Asistencias",
+              "text": "1"
+            },
+            {
+              "label": "xA en jugada",
+              "text": "0,09"
+            },
+            {
+              "label": "xA en balón parado",
+              "text": "0,00"
+            },
+            {
+              "label": "Pases clave",
+              "text": "1"
+            },
+            {
+              "label": "Pases filtrados",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras creadas",
+              "text": "0"
+            },
+            {
+              "label": "Centros y córners precisos",
+              "text": "1 (33 %)"
+            }
+          ]
+        },
+        {
+          "label": "Pase",
+          "rows": [
+            {
+              "label": "Pases precisos",
+              "text": "11 (92 %)"
+            },
+            {
+              "label": "Pases largos precisos",
+              "text": "0"
+            },
+            {
+              "label": "Pases progresivos precisos",
+              "text": "3 (60 %)"
+            },
+            {
+              "label": "Pases cortos precisos",
+              "text": "11 (92 %)"
+            },
+            {
+              "label": "Pases hacia adelante precisos",
+              "text": "4 (80 %)"
+            },
+            {
+              "label": "Pases hacia atrás precisos",
+              "text": "3 (100 %)"
+            }
+          ]
+        },
+        {
+          "label": "Defensa",
+          "rows": [
+            {
+              "label": "Intercepciones",
+              "text": "1"
+            },
+            {
+              "label": "Bloqueos",
+              "text": "0"
+            },
+            {
+              "label": "Entradas ganadas",
+              "text": "0 (0 %)"
+            },
+            {
+              "label": "Rechaces por abajo",
+              "text": "0"
+            },
+            {
+              "label": "Rechaces de cabeza",
+              "text": "1"
+            },
+            {
+              "label": "Recuperaciones",
+              "text": "3"
+            }
+          ]
+        },
+        {
+          "label": "Juego aéreo",
+          "rows": [
+            {
+              "label": "Duelos aéreos ofensivos ganados",
+              "text": "0 (0 %)"
+            },
+            {
+              "label": "Duelos aéreos defensivos ganados",
+              "text": "1 (100 %)"
+            },
+            {
+              "label": "Duelos aéreos ganados",
+              "text": "1 (50 %)"
+            },
+            {
+              "label": "Remates de cabeza",
+              "text": "0 (xG 0,00)"
+            }
+          ]
+        },
+        {
+          "label": "Posesión",
+          "rows": [
+            {
+              "label": "Toques",
+              "text": "30"
+            },
+            {
+              "label": "Toques en el tercio rival",
+              "text": "12"
+            },
+            {
+              "label": "Toques en el área rival",
+              "text": "4"
+            },
+            {
+              "label": "Retención",
+              "text": "73 %"
+            },
+            {
+              "label": "Pérdidas de posesión",
+              "text": "8"
+            },
+            {
+              "label": "Mal control",
+              "text": "3"
+            },
+            {
+              "label": "Conducciones progresivas",
+              "text": "1"
+            },
+            {
+              "label": "Regates exitosos",
+              "text": "1 (50 %)"
+            },
+            {
+              "label": "Faltas recibidas",
+              "text": "1"
+            }
+          ]
+        }
+      ],
+      "note": "No jugó en este partido.",
+      "url": "https://www.statiskicks.com/player/4051hgvu9v8jnu9rbbd0pr9bd/carlos-antuna"
+    },
+    "7r96u3b7t46s0kg5t5qew3tnt": {
+      "name": "Juninho",
+      "photo": "https://media.api-sports.io/football/players/9623.png",
+      "team": "Pumas UNAM",
+      "crest": "https://www.statiskicks.com/storage/media/teams/2286.png",
+      "side": "home",
+      "country": "Brasil",
+      "flag": "https://flagcdn.com/w20/br.png",
+      "age": 29,
+      "shirt": 23,
+      "position": "Delantero centro",
+      "minutes": 63,
+      "rating": 6.45,
+      "grade": "low",
+      "events": [
+        "Salió en el 63'"
+      ],
+      "played": true,
+      "keeper": false,
+      "groups": [
+        {
+          "label": "Finalización",
+          "rows": [
+            {
+              "label": "Goles",
+              "text": "0"
+            },
+            {
+              "label": "Remates",
+              "text": "2"
+            },
+            {
+              "label": "Remates a puerta",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras convertidas",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras falladas",
+              "text": "0"
+            },
+            {
+              "label": "xG en jugada",
+              "text": "0,26"
+            },
+            {
+              "label": "xG en penales",
+              "text": "0,00"
+            },
+            {
+              "label": "xG a puerta (xGOT)",
+              "text": "0,00"
+            }
+          ]
+        },
+        {
+          "label": "Creación",
+          "rows": [
+            {
+              "label": "Asistencias",
+              "text": "0"
+            },
+            {
+              "label": "xA en jugada",
+              "text": "0,01"
+            },
+            {
+              "label": "xA en balón parado",
+              "text": "0,00"
+            },
+            {
+              "label": "Pases clave",
+              "text": "2"
+            },
+            {
+              "label": "Pases filtrados",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras creadas",
+              "text": "0"
+            },
+            {
+              "label": "Centros y córners precisos",
+              "text": "0"
+            }
+          ]
+        },
+        {
+          "label": "Pase",
+          "rows": [
+            {
+              "label": "Pases precisos",
+              "text": "5 (71 %)"
+            },
+            {
+              "label": "Pases largos precisos",
+              "text": "0"
+            },
+            {
+              "label": "Pases progresivos precisos",
+              "text": "0"
+            },
+            {
+              "label": "Pases cortos precisos",
+              "text": "5 (71 %)"
+            },
+            {
+              "label": "Pases hacia adelante precisos",
+              "text": "0 (0 %)"
+            },
+            {
+              "label": "Pases hacia atrás precisos",
+              "text": "2 (100 %)"
+            }
+          ]
+        },
+        {
+          "label": "Defensa",
+          "rows": [
+            {
+              "label": "Intercepciones",
+              "text": "0"
+            },
+            {
+              "label": "Bloqueos",
+              "text": "0"
+            },
+            {
+              "label": "Entradas ganadas",
+              "text": "0 (0 %)"
+            },
+            {
+              "label": "Rechaces por abajo",
+              "text": "0"
+            },
+            {
+              "label": "Rechaces de cabeza",
+              "text": "0"
+            },
+            {
+              "label": "Recuperaciones",
+              "text": "1"
+            }
+          ]
+        },
+        {
+          "label": "Juego aéreo",
+          "rows": [
+            {
+              "label": "Duelos aéreos ofensivos ganados",
+              "text": "1 (20 %)"
+            },
+            {
+              "label": "Duelos aéreos defensivos ganados",
+              "text": "0"
+            },
+            {
+              "label": "Duelos aéreos ganados",
+              "text": "1 (20 %)"
+            },
+            {
+              "label": "Remates de cabeza",
+              "text": "0 (xG 0,00)"
+            }
+          ]
+        },
+        {
+          "label": "Posesión",
+          "rows": [
+            {
+              "label": "Toques",
+              "text": "17"
+            },
+            {
+              "label": "Toques en el tercio rival",
+              "text": "11"
+            },
+            {
+              "label": "Toques en el área rival",
+              "text": "5"
+            },
+            {
+              "label": "Retención",
+              "text": "59 %"
+            },
+            {
+              "label": "Pérdidas de posesión",
+              "text": "7"
+            },
+            {
+              "label": "Mal control",
+              "text": "4"
+            },
+            {
+              "label": "Conducciones progresivas",
+              "text": "1"
+            },
+            {
+              "label": "Regates exitosos",
+              "text": "0"
+            },
+            {
+              "label": "Faltas recibidas",
+              "text": "0"
+            }
+          ]
+        }
+      ],
+      "note": "No jugó en este partido.",
+      "url": "https://www.statiskicks.com/player/7r96u3b7t46s0kg5t5qew3tnt/olavio-vieira"
+    },
+    "e84l63g8g4unncwdg4snd9vjd": {
+      "name": "R. Morales",
+      "photo": "https://media.api-sports.io/football/players/95446.png",
+      "team": "Pumas UNAM",
+      "crest": "https://www.statiskicks.com/storage/media/teams/2286.png",
+      "side": "home",
+      "country": "Paraguay",
+      "flag": "https://flagcdn.com/w20/py.png",
+      "age": 27,
+      "shirt": 31,
+      "position": "Delantero centro",
+      "minutes": 90,
+      "rating": 6.68,
+      "grade": "mid",
+      "events": [
+        "1 gol",
+        "Amarilla"
+      ],
+      "played": true,
+      "keeper": false,
+      "groups": [
+        {
+          "label": "Finalización",
+          "rows": [
+            {
+              "label": "Goles",
+              "text": "1"
+            },
+            {
+              "label": "Remates",
+              "text": "3"
+            },
+            {
+              "label": "Remates a puerta",
+              "text": "1"
+            },
+            {
+              "label": "Ocasiones claras convertidas",
+              "text": "1"
+            },
+            {
+              "label": "Ocasiones claras falladas",
+              "text": "0"
+            },
+            {
+              "label": "xG en jugada",
+              "text": "0,09"
+            },
+            {
+              "label": "xG en penales",
+              "text": "0,79"
+            },
+            {
+              "label": "xG a puerta (xGOT)",
+              "text": "0,99"
+            }
+          ]
+        },
+        {
+          "label": "Creación",
+          "rows": [
+            {
+              "label": "Asistencias",
+              "text": "0"
+            },
+            {
+              "label": "xA en jugada",
+              "text": "0,18"
+            },
+            {
+              "label": "xA en balón parado",
+              "text": "0,00"
+            },
+            {
+              "label": "Pases clave",
+              "text": "1"
+            },
+            {
+              "label": "Pases filtrados",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras creadas",
+              "text": "0"
+            },
+            {
+              "label": "Centros y córners precisos",
+              "text": "0"
+            }
+          ]
+        },
+        {
+          "label": "Pase",
+          "rows": [
+            {
+              "label": "Pases precisos",
+              "text": "11 (85 %)"
+            },
+            {
+              "label": "Pases largos precisos",
+              "text": "0"
+            },
+            {
+              "label": "Pases progresivos precisos",
+              "text": "1 (100 %)"
+            },
+            {
+              "label": "Pases cortos precisos",
+              "text": "11 (85 %)"
+            },
+            {
+              "label": "Pases hacia adelante precisos",
+              "text": "2 (100 %)"
+            },
+            {
+              "label": "Pases hacia atrás precisos",
+              "text": "2 (100 %)"
+            }
+          ]
+        },
+        {
+          "label": "Defensa",
+          "rows": [
+            {
+              "label": "Intercepciones",
+              "text": "0"
+            },
+            {
+              "label": "Bloqueos",
+              "text": "0"
+            },
+            {
+              "label": "Entradas ganadas",
+              "text": "0"
+            },
+            {
+              "label": "Rechaces por abajo",
+              "text": "0"
+            },
+            {
+              "label": "Rechaces de cabeza",
+              "text": "2"
+            },
+            {
+              "label": "Recuperaciones",
+              "text": "0"
+            }
+          ]
+        },
+        {
+          "label": "Juego aéreo",
+          "rows": [
+            {
+              "label": "Duelos aéreos ofensivos ganados",
+              "text": "1 (20 %)"
+            },
+            {
+              "label": "Duelos aéreos defensivos ganados",
+              "text": "1 (100 %)"
+            },
+            {
+              "label": "Duelos aéreos ganados",
+              "text": "2 (33 %)"
+            },
+            {
+              "label": "Remates de cabeza",
+              "text": "0 (xG 0,00)"
+            }
+          ]
+        },
+        {
+          "label": "Posesión",
+          "rows": [
+            {
+              "label": "Toques",
+              "text": "21"
+            },
+            {
+              "label": "Toques en el tercio rival",
+              "text": "15"
+            },
+            {
+              "label": "Toques en el área rival",
+              "text": "6"
+            },
+            {
+              "label": "Retención",
+              "text": "86 %"
+            },
+            {
+              "label": "Pérdidas de posesión",
+              "text": "3"
+            },
+            {
+              "label": "Mal control",
+              "text": "1"
+            },
+            {
+              "label": "Conducciones progresivas",
+              "text": "2"
+            },
+            {
+              "label": "Regates exitosos",
+              "text": "1 (100 %)"
+            },
+            {
+              "label": "Faltas recibidas",
+              "text": "1"
+            }
+          ]
+        }
+      ],
+      "note": "No jugó en este partido.",
+      "url": "https://www.statiskicks.com/player/e84l63g8g4unncwdg4snd9vjd/robert-morales"
+    },
+    "3qdf5jrqk4oozfs4lr07e6j8p": {
+      "name": "Á. Angulo",
+      "photo": "https://media.api-sports.io/football/players/13729.png",
+      "team": "Pumas UNAM",
+      "crest": "https://www.statiskicks.com/storage/media/teams/2286.png",
+      "side": "home",
+      "country": "Colombia",
+      "flag": "https://flagcdn.com/w20/co.png",
+      "age": 29,
+      "shirt": 77,
+      "position": "Defensa",
+      "minutes": 27,
+      "rating": 6.31,
+      "grade": "low",
+      "events": [
+        "Entró en el 63'"
+      ],
+      "played": true,
+      "keeper": false,
+      "groups": [
+        {
+          "label": "Finalización",
+          "rows": [
+            {
+              "label": "Goles",
+              "text": "0"
+            },
+            {
+              "label": "Remates",
+              "text": "1"
+            },
+            {
+              "label": "Remates a puerta",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras convertidas",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras falladas",
+              "text": "0"
+            },
+            {
+              "label": "xG en jugada",
+              "text": "0,03"
+            },
+            {
+              "label": "xG en penales",
+              "text": "0,00"
+            },
+            {
+              "label": "xG a puerta (xGOT)",
+              "text": "0,00"
+            }
+          ]
+        },
+        {
+          "label": "Creación",
+          "rows": [
+            {
+              "label": "Asistencias",
+              "text": "0"
+            },
+            {
+              "label": "xA en jugada",
+              "text": "0,00"
+            },
+            {
+              "label": "xA en balón parado",
+              "text": "0,00"
+            },
+            {
+              "label": "Pases clave",
+              "text": "0"
+            },
+            {
+              "label": "Pases filtrados",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras creadas",
+              "text": "0"
+            },
+            {
+              "label": "Centros y córners precisos",
+              "text": "0"
+            }
+          ]
+        },
+        {
+          "label": "Pase",
+          "rows": [
+            {
+              "label": "Pases precisos",
+              "text": "3 (60 %)"
+            },
+            {
+              "label": "Pases largos precisos",
+              "text": "0 (0 %)"
+            },
+            {
+              "label": "Pases progresivos precisos",
+              "text": "0 (0 %)"
+            },
+            {
+              "label": "Pases cortos precisos",
+              "text": "3 (75 %)"
+            },
+            {
+              "label": "Pases hacia adelante precisos",
+              "text": "1 (33 %)"
+            },
+            {
+              "label": "Pases hacia atrás precisos",
+              "text": "0"
+            }
+          ]
+        },
+        {
+          "label": "Defensa",
+          "rows": [
+            {
+              "label": "Intercepciones",
+              "text": "0"
+            },
+            {
+              "label": "Bloqueos",
+              "text": "0"
+            },
+            {
+              "label": "Entradas ganadas",
+              "text": "0"
+            },
+            {
+              "label": "Rechaces por abajo",
+              "text": "0"
+            },
+            {
+              "label": "Rechaces de cabeza",
+              "text": "0"
+            },
+            {
+              "label": "Recuperaciones",
+              "text": "1"
+            }
+          ]
+        },
+        {
+          "label": "Juego aéreo",
+          "rows": [
+            {
+              "label": "Duelos aéreos ofensivos ganados",
+              "text": "0 (0 %)"
+            },
+            {
+              "label": "Duelos aéreos defensivos ganados",
+              "text": "0"
+            },
+            {
+              "label": "Duelos aéreos ganados",
+              "text": "0 (0 %)"
+            },
+            {
+              "label": "Remates de cabeza",
+              "text": "0 (xG 0,00)"
+            }
+          ]
+        },
+        {
+          "label": "Posesión",
+          "rows": [
+            {
+              "label": "Toques",
+              "text": "9"
+            },
+            {
+              "label": "Toques en el tercio rival",
+              "text": "6"
+            },
+            {
+              "label": "Toques en el área rival",
+              "text": "1"
+            },
+            {
+              "label": "Retención",
+              "text": "67 %"
+            },
+            {
+              "label": "Pérdidas de posesión",
+              "text": "3"
+            },
+            {
+              "label": "Mal control",
+              "text": "0"
+            },
+            {
+              "label": "Conducciones progresivas",
+              "text": "0"
+            },
+            {
+              "label": "Regates exitosos",
+              "text": "0"
+            },
+            {
+              "label": "Faltas recibidas",
+              "text": "0"
+            }
+          ]
+        }
+      ],
+      "note": "No jugó en este partido.",
+      "url": "https://www.statiskicks.com/player/3qdf5jrqk4oozfs4lr07e6j8p/alvaro-angulo"
+    },
+    "74un8dglud0r1v8166vs3byfo": {
+      "name": "V. Arteaga",
+      "photo": "https://media.api-sports.io/football/players/409886.png",
+      "team": "Pumas UNAM",
+      "crest": "https://www.statiskicks.com/storage/media/teams/2286.png",
+      "side": "home",
+      "country": "México",
+      "flag": "https://flagcdn.com/w20/mx.png",
+      "age": 22,
+      "shirt": 18,
+      "position": "Mediocampista",
+      "minutes": 27,
+      "rating": 6.43,
+      "grade": "low",
+      "events": [
+        "Entró en el 63'"
+      ],
+      "played": true,
+      "keeper": false,
+      "groups": [
+        {
+          "label": "Finalización",
+          "rows": [
+            {
+              "label": "Goles",
+              "text": "0"
+            },
+            {
+              "label": "Remates",
+              "text": "0"
+            },
+            {
+              "label": "Remates a puerta",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras convertidas",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras falladas",
+              "text": "0"
+            },
+            {
+              "label": "xG en jugada",
+              "text": "0,00"
+            },
+            {
+              "label": "xG en penales",
+              "text": "0,00"
+            },
+            {
+              "label": "xG a puerta (xGOT)",
+              "text": "0,00"
+            }
+          ]
+        },
+        {
+          "label": "Creación",
+          "rows": [
+            {
+              "label": "Asistencias",
+              "text": "0"
+            },
+            {
+              "label": "xA en jugada",
+              "text": "0,00"
+            },
+            {
+              "label": "xA en balón parado",
+              "text": "0,00"
+            },
+            {
+              "label": "Pases clave",
+              "text": "0"
+            },
+            {
+              "label": "Pases filtrados",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras creadas",
+              "text": "0"
+            },
+            {
+              "label": "Centros y córners precisos",
+              "text": "0 (0 %)"
+            }
+          ]
+        },
+        {
+          "label": "Pase",
+          "rows": [
+            {
+              "label": "Pases precisos",
+              "text": "8 (80 %)"
+            },
+            {
+              "label": "Pases largos precisos",
+              "text": "1 (100 %)"
+            },
+            {
+              "label": "Pases progresivos precisos",
+              "text": "3 (50 %)"
+            },
+            {
+              "label": "Pases cortos precisos",
+              "text": "7 (78 %)"
+            },
+            {
+              "label": "Pases hacia adelante precisos",
+              "text": "4 (67 %)"
+            },
+            {
+              "label": "Pases hacia atrás precisos",
+              "text": "1 (100 %)"
+            }
+          ]
+        },
+        {
+          "label": "Defensa",
+          "rows": [
+            {
+              "label": "Intercepciones",
+              "text": "0"
+            },
+            {
+              "label": "Bloqueos",
+              "text": "0"
+            },
+            {
+              "label": "Entradas ganadas",
+              "text": "0"
+            },
+            {
+              "label": "Rechaces por abajo",
+              "text": "0"
+            },
+            {
+              "label": "Rechaces de cabeza",
+              "text": "0"
+            },
+            {
+              "label": "Recuperaciones",
+              "text": "3"
+            }
+          ]
+        },
+        {
+          "label": "Juego aéreo",
+          "rows": [
+            {
+              "label": "Duelos aéreos ofensivos ganados",
+              "text": "0"
+            },
+            {
+              "label": "Duelos aéreos defensivos ganados",
+              "text": "0"
+            },
+            {
+              "label": "Duelos aéreos ganados",
+              "text": "0"
+            },
+            {
+              "label": "Remates de cabeza",
+              "text": "0 (xG 0,00)"
+            }
+          ]
+        },
+        {
+          "label": "Posesión",
+          "rows": [
+            {
+              "label": "Toques",
+              "text": "12"
+            },
+            {
+              "label": "Toques en el tercio rival",
+              "text": "3"
+            },
+            {
+              "label": "Toques en el área rival",
+              "text": "0"
+            },
+            {
+              "label": "Retención",
+              "text": "67 %"
+            },
+            {
+              "label": "Pérdidas de posesión",
+              "text": "4"
+            },
+            {
+              "label": "Mal control",
+              "text": "1"
+            },
+            {
+              "label": "Conducciones progresivas",
+              "text": "0"
+            },
+            {
+              "label": "Regates exitosos",
+              "text": "0"
+            },
+            {
+              "label": "Faltas recibidas",
+              "text": "0"
+            }
+          ]
+        }
+      ],
+      "note": "No jugó en este partido.",
+      "url": "https://www.statiskicks.com/player/74un8dglud0r1v8166vs3byfo/victor-arteaga"
+    },
+    "89hekdywmtzt4gftz196oxgmi": {
+      "name": "A. Medina",
+      "photo": "https://media.api-sports.io/football/players/35721.png",
+      "team": "Pumas UNAM",
+      "crest": "https://www.statiskicks.com/storage/media/teams/2286.png",
+      "side": "home",
+      "country": "México",
+      "flag": "https://flagcdn.com/w20/mx.png",
+      "age": 29,
+      "shirt": 22,
+      "position": "Delantero",
+      "minutes": 13,
+      "rating": 6.56,
+      "grade": "mid",
+      "events": [
+        "Entró en el 77'"
+      ],
+      "played": true,
+      "keeper": false,
+      "groups": [
+        {
+          "label": "Finalización",
+          "rows": [
+            {
+              "label": "Goles",
+              "text": "0"
+            },
+            {
+              "label": "Remates",
+              "text": "0"
+            },
+            {
+              "label": "Remates a puerta",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras convertidas",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras falladas",
+              "text": "0"
+            },
+            {
+              "label": "xG en jugada",
+              "text": "0,00"
+            },
+            {
+              "label": "xG en penales",
+              "text": "0,00"
+            },
+            {
+              "label": "xG a puerta (xGOT)",
+              "text": "0,00"
+            }
+          ]
+        },
+        {
+          "label": "Creación",
+          "rows": [
+            {
+              "label": "Asistencias",
+              "text": "0"
+            },
+            {
+              "label": "xA en jugada",
+              "text": "0,00"
+            },
+            {
+              "label": "xA en balón parado",
+              "text": "0,00"
+            },
+            {
+              "label": "Pases clave",
+              "text": "0"
+            },
+            {
+              "label": "Pases filtrados",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras creadas",
+              "text": "0"
+            },
+            {
+              "label": "Centros y córners precisos",
+              "text": "0 (0 %)"
+            }
+          ]
+        },
+        {
+          "label": "Pase",
+          "rows": [
+            {
+              "label": "Pases precisos",
+              "text": "4 (80 %)"
+            },
+            {
+              "label": "Pases largos precisos",
+              "text": "0"
+            },
+            {
+              "label": "Pases progresivos precisos",
+              "text": "0 (0 %)"
+            },
+            {
+              "label": "Pases cortos precisos",
+              "text": "4 (80 %)"
+            },
+            {
+              "label": "Pases hacia adelante precisos",
+              "text": "0"
+            },
+            {
+              "label": "Pases hacia atrás precisos",
+              "text": "0"
+            }
+          ]
+        },
+        {
+          "label": "Defensa",
+          "rows": [
+            {
+              "label": "Intercepciones",
+              "text": "0"
+            },
+            {
+              "label": "Bloqueos",
+              "text": "0"
+            },
+            {
+              "label": "Entradas ganadas",
+              "text": "0"
+            },
+            {
+              "label": "Rechaces por abajo",
+              "text": "0"
+            },
+            {
+              "label": "Rechaces de cabeza",
+              "text": "0"
+            },
+            {
+              "label": "Recuperaciones",
+              "text": "0"
+            }
+          ]
+        },
+        {
+          "label": "Juego aéreo",
+          "rows": [
+            {
+              "label": "Duelos aéreos ofensivos ganados",
+              "text": "0 (0 %)"
+            },
+            {
+              "label": "Duelos aéreos defensivos ganados",
+              "text": "0"
+            },
+            {
+              "label": "Duelos aéreos ganados",
+              "text": "0 (0 %)"
+            },
+            {
+              "label": "Remates de cabeza",
+              "text": "0 (xG 0,00)"
+            }
+          ]
+        },
+        {
+          "label": "Posesión",
+          "rows": [
+            {
+              "label": "Toques",
+              "text": "11"
+            },
+            {
+              "label": "Toques en el tercio rival",
+              "text": "7"
+            },
+            {
+              "label": "Toques en el área rival",
+              "text": "0"
+            },
+            {
+              "label": "Retención",
+              "text": "55 %"
+            },
+            {
+              "label": "Pérdidas de posesión",
+              "text": "5"
+            },
+            {
+              "label": "Mal control",
+              "text": "0"
+            },
+            {
+              "label": "Conducciones progresivas",
+              "text": "0"
+            },
+            {
+              "label": "Regates exitosos",
+              "text": "0"
+            },
+            {
+              "label": "Faltas recibidas",
+              "text": "1"
+            }
+          ]
+        }
+      ],
+      "note": "No jugó en este partido.",
+      "url": "https://www.statiskicks.com/player/89hekdywmtzt4gftz196oxgmi/alan-medina"
+    },
+    "dix3rqdnsmaijrbc15oyockfe": {
+      "name": "L. Herrera",
+      "photo": "https://media.api-sports.io/football/players/58668.png",
+      "team": "Pumas UNAM",
+      "crest": "https://www.statiskicks.com/storage/media/teams/2286.png",
+      "side": "home",
+      "country": "Argentina",
+      "flag": "https://flagcdn.com/w20/ar.png",
+      "age": 30,
+      "shirt": 14,
+      "position": "Delantero",
+      "minutes": 1,
+      "rating": 6.75,
+      "grade": "mid",
+      "events": [
+        "Entró en el 92'"
+      ],
+      "played": true,
+      "keeper": false,
+      "groups": [
+        {
+          "label": "Finalización",
+          "rows": [
+            {
+              "label": "Goles",
+              "text": "0"
+            },
+            {
+              "label": "Remates",
+              "text": "0"
+            },
+            {
+              "label": "Remates a puerta",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras convertidas",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras falladas",
+              "text": "0"
+            },
+            {
+              "label": "xG en jugada",
+              "text": "0,00"
+            },
+            {
+              "label": "xG en penales",
+              "text": "0,00"
+            },
+            {
+              "label": "xG a puerta (xGOT)",
+              "text": "0,00"
+            }
+          ]
+        },
+        {
+          "label": "Creación",
+          "rows": [
+            {
+              "label": "Asistencias",
+              "text": "0"
+            },
+            {
+              "label": "xA en jugada",
+              "text": "0,00"
+            },
+            {
+              "label": "xA en balón parado",
+              "text": "0,00"
+            },
+            {
+              "label": "Pases clave",
+              "text": "1"
+            },
+            {
+              "label": "Pases filtrados",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras creadas",
+              "text": "0"
+            },
+            {
+              "label": "Centros y córners precisos",
+              "text": "0"
+            }
+          ]
+        },
+        {
+          "label": "Pase",
+          "rows": [
+            {
+              "label": "Pases precisos",
+              "text": "1 (100 %)"
+            },
+            {
+              "label": "Pases largos precisos",
+              "text": "0"
+            },
+            {
+              "label": "Pases progresivos precisos",
+              "text": "0"
+            },
+            {
+              "label": "Pases cortos precisos",
+              "text": "1 (100 %)"
+            },
+            {
+              "label": "Pases hacia adelante precisos",
+              "text": "1 (100 %)"
+            },
+            {
+              "label": "Pases hacia atrás precisos",
+              "text": "0"
+            }
+          ]
+        },
+        {
+          "label": "Defensa",
+          "rows": [
+            {
+              "label": "Intercepciones",
+              "text": "0"
+            },
+            {
+              "label": "Bloqueos",
+              "text": "0"
+            },
+            {
+              "label": "Entradas ganadas",
+              "text": "0"
+            },
+            {
+              "label": "Rechaces por abajo",
+              "text": "0"
+            },
+            {
+              "label": "Rechaces de cabeza",
+              "text": "0"
+            },
+            {
+              "label": "Recuperaciones",
+              "text": "0"
+            }
+          ]
+        },
+        {
+          "label": "Juego aéreo",
+          "rows": [
+            {
+              "label": "Duelos aéreos ofensivos ganados",
+              "text": "0 (0 %)"
+            },
+            {
+              "label": "Duelos aéreos defensivos ganados",
+              "text": "0"
+            },
+            {
+              "label": "Duelos aéreos ganados",
+              "text": "0 (0 %)"
+            },
+            {
+              "label": "Remates de cabeza",
+              "text": "0 (xG 0,00)"
+            }
+          ]
+        },
+        {
+          "label": "Posesión",
+          "rows": [
+            {
+              "label": "Toques",
+              "text": "1"
+            },
+            {
+              "label": "Toques en el tercio rival",
+              "text": "1"
+            },
+            {
+              "label": "Toques en el área rival",
+              "text": "0"
+            },
+            {
+              "label": "Retención",
+              "text": "100 %"
+            },
+            {
+              "label": "Pérdidas de posesión",
+              "text": "0"
+            },
+            {
+              "label": "Mal control",
+              "text": "0"
+            },
+            {
+              "label": "Conducciones progresivas",
+              "text": "0"
+            },
+            {
+              "label": "Regates exitosos",
+              "text": "0"
+            },
+            {
+              "label": "Faltas recibidas",
+              "text": "0"
+            }
+          ]
+        }
+      ],
+      "note": "No jugó en este partido.",
+      "url": "https://www.statiskicks.com/player/dix3rqdnsmaijrbc15oyockfe/luciano-herrera"
+    },
+    "4srx8xy0kspwvk1faw7xsj310": {
+      "name": "Á. Azuaje",
+      "photo": "https://media.api-sports.io/football/players/511033.png",
+      "team": "Pumas UNAM",
+      "crest": "https://www.statiskicks.com/storage/media/teams/2286.png",
+      "side": "home",
+      "country": "Venezuela",
+      "flag": "https://flagcdn.com/w20/ve.png",
+      "age": 22,
+      "shirt": 34,
+      "position": "Defensa",
+      "minutes": 0,
+      "rating": null,
+      "grade": "none",
+      "events": [],
+      "played": false,
+      "keeper": false,
+      "groups": [],
+      "note": "No jugó en este partido.",
+      "url": "https://www.statiskicks.com/player/4srx8xy0kspwvk1faw7xsj310/angel-azuaje"
+    },
+    "4r1o4wqel7paoh1l100saq1w4": {
+      "name": "P. Lara",
+      "photo": "https://media.api-sports.io/football/players/455874.png",
+      "team": "Pumas UNAM",
+      "crest": "https://www.statiskicks.com/storage/media/teams/2286.png",
+      "side": "home",
+      "country": "México",
+      "flag": "https://flagcdn.com/w20/mx.png",
+      "age": 21,
+      "shirt": 35,
+      "position": "Portero",
+      "minutes": 0,
+      "rating": null,
+      "grade": "none",
+      "events": [],
+      "played": false,
+      "keeper": true,
+      "groups": [],
+      "note": "No jugó en este partido.",
+      "url": "https://www.statiskicks.com/player/4r1o4wqel7paoh1l100saq1w4/pablo-lara"
+    },
+    "97r1c6d1znrpxc65794q2h2sq": {
+      "name": "T. Leone",
+      "photo": "https://media.api-sports.io/football/players/265676.png",
+      "team": "Pumas UNAM",
+      "crest": "https://www.statiskicks.com/storage/media/teams/2286.png",
+      "side": "home",
+      "country": "México",
+      "flag": "https://flagcdn.com/w20/mx.png",
+      "age": 22,
+      "shirt": 24,
+      "position": "Defensa",
+      "minutes": 0,
+      "rating": null,
+      "grade": "none",
+      "events": [],
+      "played": false,
+      "keeper": false,
+      "groups": [],
+      "note": "No jugó en este partido.",
+      "url": "https://www.statiskicks.com/player/97r1c6d1znrpxc65794q2h2sq/antonio-leone"
+    },
+    "cn8jcpuxqpup7q3z28f994i96": {
+      "name": "I. Luna",
+      "photo": "https://media.api-sports.io/football/players/237062.png",
+      "team": "Pumas UNAM",
+      "crest": "https://www.statiskicks.com/storage/media/teams/2286.png",
+      "side": "home",
+      "country": "México",
+      "flag": "https://flagcdn.com/w20/mx.png",
+      "age": 24,
+      "shirt": 15,
+      "position": "Mediocampista",
+      "minutes": 0,
+      "rating": null,
+      "grade": "none",
+      "events": [],
+      "played": false,
+      "keeper": false,
+      "groups": [],
+      "note": "No jugó en este partido.",
+      "url": "https://www.statiskicks.com/player/cn8jcpuxqpup7q3z28f994i96/israel-luna"
+    },
+    "9v3ywsg5bxydb8p2spjq9mi38": {
+      "name": "S. López",
+      "photo": "https://media.api-sports.io/football/players/428074.png",
+      "team": "Pumas UNAM",
+      "crest": "https://www.statiskicks.com/storage/media/teams/2286.png",
+      "side": "home",
+      "country": "Canadá",
+      "flag": "https://flagcdn.com/w20/ca.png",
+      "age": 21,
+      "shirt": 30,
+      "position": "Delantero",
+      "minutes": 0,
+      "rating": null,
+      "grade": "none",
+      "events": [],
+      "played": false,
+      "keeper": false,
+      "groups": [],
+      "note": "No jugó en este partido.",
+      "url": "https://www.statiskicks.com/player/9v3ywsg5bxydb8p2spjq9mi38/santiago-lopez"
+    },
+    "2hs163bovr5bwupp1djxnq0yy": {
+      "name": "J. Rivas",
+      "photo": "https://media.api-sports.io/football/players/154852.png",
+      "team": "Pumas UNAM",
+      "crest": "https://www.statiskicks.com/storage/media/teams/2286.png",
+      "side": "home",
+      "country": "México",
+      "flag": "https://flagcdn.com/w20/mx.png",
+      "age": 24,
+      "shirt": 19,
+      "position": "Defensa",
+      "minutes": 0,
+      "rating": null,
+      "grade": "none",
+      "events": [],
+      "played": false,
+      "keeper": false,
+      "groups": [],
+      "note": "No jugó en este partido.",
+      "url": "https://www.statiskicks.com/player/2hs163bovr5bwupp1djxnq0yy/jesus-rivas"
+    },
+    "a1qs3b34p5u2s6mmlhdkgdp7t": {
+      "name": "L. Malagón",
+      "photo": "https://media.api-sports.io/football/players/35930.png",
+      "team": "Club América",
+      "crest": "https://www.statiskicks.com/storage/media/teams/2287.png",
+      "side": "away",
+      "country": "México",
+      "flag": "https://flagcdn.com/w20/mx.png",
+      "age": 29,
+      "shirt": 1,
+      "position": "Portero",
+      "minutes": 90,
+      "rating": 6.4,
+      "grade": "low",
+      "events": [],
+      "played": true,
+      "keeper": true,
+      "groups": [
+        {
+          "label": "Portero",
+          "rows": [
+            {
+              "label": "Atajadas",
+              "text": "1"
+            },
+            {
+              "label": "Ocasiones claras atajadas",
+              "text": "0"
+            },
+            {
+              "label": "Goles prevenidos",
+              "text": "-0,39"
+            },
+            {
+              "label": "Pases progresivos precisos",
+              "text": "1 (17 %)"
+            },
+            {
+              "label": "Pases precisos",
+              "text": "21 (72 %)"
+            },
+            {
+              "label": "Toques",
+              "text": "44"
+            },
+            {
+              "label": "Acciones como líbero",
+              "text": "0"
+            },
+            {
+              "label": "Achiques",
+              "text": "0"
+            },
+            {
+              "label": "Penaltis atajados",
+              "text": "0"
+            },
+            {
+              "label": "Goles recibidos",
+              "text": "2"
+            }
+          ]
+        },
+        {
+          "label": "Pase",
+          "rows": [
+            {
+              "label": "Pases precisos",
+              "text": "21 (72 %)"
+            },
+            {
+              "label": "Pases largos precisos",
+              "text": "7 (47 %)"
+            },
+            {
+              "label": "Pases progresivos precisos",
+              "text": "1 (17 %)"
+            },
+            {
+              "label": "Pases cortos precisos",
+              "text": "14 (100 %)"
+            },
+            {
+              "label": "Pases hacia adelante precisos",
+              "text": "5 (50 %)"
+            },
+            {
+              "label": "Pases hacia atrás precisos",
+              "text": "0"
+            }
+          ]
+        },
+        {
+          "label": "Posesión",
+          "rows": [
+            {
+              "label": "Toques",
+              "text": "44"
+            },
+            {
+              "label": "Toques en el tercio rival",
+              "text": "0"
+            },
+            {
+              "label": "Toques en el área rival",
+              "text": "0"
+            },
+            {
+              "label": "Retención",
+              "text": "80 %"
+            },
+            {
+              "label": "Pérdidas de posesión",
+              "text": "9"
+            },
+            {
+              "label": "Mal control",
+              "text": "0"
+            },
+            {
+              "label": "Conducciones progresivas",
+              "text": "0"
+            },
+            {
+              "label": "Regates exitosos",
+              "text": "0"
+            },
+            {
+              "label": "Faltas recibidas",
+              "text": "0"
+            }
+          ]
+        }
+      ],
+      "note": "No jugó en este partido.",
+      "url": "https://www.statiskicks.com/player/a1qs3b34p5u2s6mmlhdkgdp7t/luis-malagon"
+    },
+    "csvbc0k1f54418nn8pjhg8ull": {
+      "name": "C. Borja",
+      "photo": "https://media.api-sports.io/football/players/1476.png",
+      "team": "Club América",
+      "crest": "https://www.statiskicks.com/storage/media/teams/2287.png",
+      "side": "away",
+      "country": "Colombia",
+      "flag": "https://flagcdn.com/w20/co.png",
+      "age": 33,
+      "shirt": 26,
+      "position": "Lateral izquierdo",
+      "minutes": 90,
+      "rating": 6.24,
+      "grade": "low",
+      "events": [],
+      "played": true,
+      "keeper": false,
+      "groups": [
+        {
+          "label": "Finalización",
+          "rows": [
+            {
+              "label": "Goles",
+              "text": "0"
+            },
+            {
+              "label": "Remates",
+              "text": "0"
+            },
+            {
+              "label": "Remates a puerta",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras convertidas",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras falladas",
+              "text": "0"
+            },
+            {
+              "label": "xG en jugada",
+              "text": "0,00"
+            },
+            {
+              "label": "xG en penales",
+              "text": "0,00"
+            },
+            {
+              "label": "xG a puerta (xGOT)",
+              "text": "0,00"
+            }
+          ]
+        },
+        {
+          "label": "Creación",
+          "rows": [
+            {
+              "label": "Asistencias",
+              "text": "0"
+            },
+            {
+              "label": "xA en jugada",
+              "text": "0,05"
+            },
+            {
+              "label": "xA en balón parado",
+              "text": "0,00"
+            },
+            {
+              "label": "Pases clave",
+              "text": "0"
+            },
+            {
+              "label": "Pases filtrados",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras creadas",
+              "text": "0"
+            },
+            {
+              "label": "Centros y córners precisos",
+              "text": "0"
+            }
+          ]
+        },
+        {
+          "label": "Pase",
+          "rows": [
+            {
+              "label": "Pases precisos",
+              "text": "45 (87 %)"
+            },
+            {
+              "label": "Pases largos precisos",
+              "text": "8 (80 %)"
+            },
+            {
+              "label": "Pases progresivos precisos",
+              "text": "6 (100 %)"
+            },
+            {
+              "label": "Pases cortos precisos",
+              "text": "37 (88 %)"
+            },
+            {
+              "label": "Pases hacia adelante precisos",
+              "text": "17 (74 %)"
+            },
+            {
+              "label": "Pases hacia atrás precisos",
+              "text": "6 (100 %)"
+            }
+          ]
+        },
+        {
+          "label": "Defensa",
+          "rows": [
+            {
+              "label": "Intercepciones",
+              "text": "1"
+            },
+            {
+              "label": "Bloqueos",
+              "text": "0"
+            },
+            {
+              "label": "Entradas ganadas",
+              "text": "1 (100 %)"
+            },
+            {
+              "label": "Rechaces por abajo",
+              "text": "2"
+            },
+            {
+              "label": "Rechaces de cabeza",
+              "text": "0"
+            },
+            {
+              "label": "Recuperaciones",
+              "text": "3"
+            }
+          ]
+        },
+        {
+          "label": "Juego aéreo",
+          "rows": [
+            {
+              "label": "Duelos aéreos ofensivos ganados",
+              "text": "0 (0 %)"
+            },
+            {
+              "label": "Duelos aéreos defensivos ganados",
+              "text": "2 (100 %)"
+            },
+            {
+              "label": "Duelos aéreos ganados",
+              "text": "2 (67 %)"
+            },
+            {
+              "label": "Remates de cabeza",
+              "text": "0 (xG 0,00)"
+            }
+          ]
+        },
+        {
+          "label": "Posesión",
+          "rows": [
+            {
+              "label": "Toques",
+              "text": "67"
+            },
+            {
+              "label": "Toques en el tercio rival",
+              "text": "10"
+            },
+            {
+              "label": "Toques en el área rival",
+              "text": "0"
+            },
+            {
+              "label": "Retención",
+              "text": "87 %"
+            },
+            {
+              "label": "Pérdidas de posesión",
+              "text": "9"
+            },
+            {
+              "label": "Mal control",
+              "text": "0"
+            },
+            {
+              "label": "Conducciones progresivas",
+              "text": "0"
+            },
+            {
+              "label": "Regates exitosos",
+              "text": "0"
+            },
+            {
+              "label": "Faltas recibidas",
+              "text": "3"
+            }
+          ]
+        }
+      ],
+      "note": "No jugó en este partido.",
+      "url": "https://www.statiskicks.com/player/csvbc0k1f54418nn8pjhg8ull/cristian-borja"
+    },
+    "331ldsgfczdez72awl2h22vl6": {
+      "name": "S. Ramos Mingo",
+      "photo": "https://media.api-sports.io/football/players/129880.png",
+      "team": "Club América",
+      "crest": "https://www.statiskicks.com/storage/media/teams/2287.png",
+      "side": "away",
+      "country": "Argentina",
+      "flag": "https://flagcdn.com/w20/ar.png",
+      "age": 24,
+      "shirt": 15,
+      "position": "Defensa central izquierdo",
+      "minutes": 90,
+      "rating": 5.45,
+      "grade": "low",
+      "events": [],
+      "played": true,
+      "keeper": false,
+      "groups": [
+        {
+          "label": "Finalización",
+          "rows": [
+            {
+              "label": "Goles",
+              "text": "0"
+            },
+            {
+              "label": "Remates",
+              "text": "0"
+            },
+            {
+              "label": "Remates a puerta",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras convertidas",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras falladas",
+              "text": "0"
+            },
+            {
+              "label": "xG en jugada",
+              "text": "0,00"
+            },
+            {
+              "label": "xG en penales",
+              "text": "0,00"
+            },
+            {
+              "label": "xG a puerta (xGOT)",
+              "text": "0,00"
+            }
+          ]
+        },
+        {
+          "label": "Creación",
+          "rows": [
+            {
+              "label": "Asistencias",
+              "text": "0"
+            },
+            {
+              "label": "xA en jugada",
+              "text": "0,00"
+            },
+            {
+              "label": "xA en balón parado",
+              "text": "0,00"
+            },
+            {
+              "label": "Pases clave",
+              "text": "0"
+            },
+            {
+              "label": "Pases filtrados",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras creadas",
+              "text": "0"
+            },
+            {
+              "label": "Centros y córners precisos",
+              "text": "0"
+            }
+          ]
+        },
+        {
+          "label": "Pase",
+          "rows": [
+            {
+              "label": "Pases precisos",
+              "text": "52 (84 %)"
+            },
+            {
+              "label": "Pases largos precisos",
+              "text": "4 (36 %)"
+            },
+            {
+              "label": "Pases progresivos precisos",
+              "text": "5 (36 %)"
+            },
+            {
+              "label": "Pases cortos precisos",
+              "text": "48 (94 %)"
+            },
+            {
+              "label": "Pases hacia adelante precisos",
+              "text": "12 (57 %)"
+            },
+            {
+              "label": "Pases hacia atrás precisos",
+              "text": "5 (100 %)"
+            }
+          ]
+        },
+        {
+          "label": "Defensa",
+          "rows": [
+            {
+              "label": "Intercepciones",
+              "text": "1"
+            },
+            {
+              "label": "Bloqueos",
+              "text": "1"
+            },
+            {
+              "label": "Entradas ganadas",
+              "text": "0"
+            },
+            {
+              "label": "Rechaces por abajo",
+              "text": "0"
+            },
+            {
+              "label": "Rechaces de cabeza",
+              "text": "1"
+            },
+            {
+              "label": "Recuperaciones",
+              "text": "0"
+            }
+          ]
+        },
+        {
+          "label": "Juego aéreo",
+          "rows": [
+            {
+              "label": "Duelos aéreos ofensivos ganados",
+              "text": "0 (0 %)"
+            },
+            {
+              "label": "Duelos aéreos defensivos ganados",
+              "text": "5 (100 %)"
+            },
+            {
+              "label": "Duelos aéreos ganados",
+              "text": "6 (86 %)"
+            },
+            {
+              "label": "Remates de cabeza",
+              "text": "0 (xG 0,00)"
+            }
+          ]
+        },
+        {
+          "label": "Posesión",
+          "rows": [
+            {
+              "label": "Toques",
+              "text": "68"
+            },
+            {
+              "label": "Toques en el tercio rival",
+              "text": "1"
+            },
+            {
+              "label": "Toques en el área rival",
+              "text": "0"
+            },
+            {
+              "label": "Retención",
+              "text": "84 %"
+            },
+            {
+              "label": "Pérdidas de posesión",
+              "text": "11"
+            },
+            {
+              "label": "Mal control",
+              "text": "1"
+            },
+            {
+              "label": "Conducciones progresivas",
+              "text": "1"
+            },
+            {
+              "label": "Regates exitosos",
+              "text": "0"
+            },
+            {
+              "label": "Faltas recibidas",
+              "text": "2"
+            }
+          ]
+        }
+      ],
+      "note": "No jugó en este partido.",
+      "url": "https://www.statiskicks.com/player/331ldsgfczdez72awl2h22vl6/santiago-ramos"
+    },
+    "a1ootdgvyfcn6u2tdmnts68ve": {
+      "name": "I. Reyes",
+      "photo": "https://media.api-sports.io/football/players/127227.png",
+      "team": "Club América",
+      "crest": "https://www.statiskicks.com/storage/media/teams/2287.png",
+      "side": "away",
+      "country": "México",
+      "flag": "https://flagcdn.com/w20/mx.png",
+      "age": 26,
+      "shirt": 3,
+      "position": "Defensa central derecho",
+      "minutes": 90,
+      "rating": 6.64,
+      "grade": "mid",
+      "events": [],
+      "played": true,
+      "keeper": false,
+      "groups": [
+        {
+          "label": "Finalización",
+          "rows": [
+            {
+              "label": "Goles",
+              "text": "0"
+            },
+            {
+              "label": "Remates",
+              "text": "0"
+            },
+            {
+              "label": "Remates a puerta",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras convertidas",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras falladas",
+              "text": "0"
+            },
+            {
+              "label": "xG en jugada",
+              "text": "0,00"
+            },
+            {
+              "label": "xG en penales",
+              "text": "0,00"
+            },
+            {
+              "label": "xG a puerta (xGOT)",
+              "text": "0,00"
+            }
+          ]
+        },
+        {
+          "label": "Creación",
+          "rows": [
+            {
+              "label": "Asistencias",
+              "text": "0"
+            },
+            {
+              "label": "xA en jugada",
+              "text": "0,01"
+            },
+            {
+              "label": "xA en balón parado",
+              "text": "0,00"
+            },
+            {
+              "label": "Pases clave",
+              "text": "0"
+            },
+            {
+              "label": "Pases filtrados",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras creadas",
+              "text": "0"
+            },
+            {
+              "label": "Centros y córners precisos",
+              "text": "0"
+            }
+          ]
+        },
+        {
+          "label": "Pase",
+          "rows": [
+            {
+              "label": "Pases precisos",
+              "text": "67 (86 %)"
+            },
+            {
+              "label": "Pases largos precisos",
+              "text": "6 (46 %)"
+            },
+            {
+              "label": "Pases progresivos precisos",
+              "text": "5 (42 %)"
+            },
+            {
+              "label": "Pases cortos precisos",
+              "text": "61 (94 %)"
+            },
+            {
+              "label": "Pases hacia adelante precisos",
+              "text": "19 (73 %)"
+            },
+            {
+              "label": "Pases hacia atrás precisos",
+              "text": "3 (100 %)"
+            }
+          ]
+        },
+        {
+          "label": "Defensa",
+          "rows": [
+            {
+              "label": "Intercepciones",
+              "text": "3"
+            },
+            {
+              "label": "Bloqueos",
+              "text": "2"
+            },
+            {
+              "label": "Entradas ganadas",
+              "text": "1 (100 %)"
+            },
+            {
+              "label": "Rechaces por abajo",
+              "text": "0"
+            },
+            {
+              "label": "Rechaces de cabeza",
+              "text": "2"
+            },
+            {
+              "label": "Recuperaciones",
+              "text": "6"
+            }
+          ]
+        },
+        {
+          "label": "Juego aéreo",
+          "rows": [
+            {
+              "label": "Duelos aéreos ofensivos ganados",
+              "text": "0"
+            },
+            {
+              "label": "Duelos aéreos defensivos ganados",
+              "text": "2 (100 %)"
+            },
+            {
+              "label": "Duelos aéreos ganados",
+              "text": "2 (100 %)"
+            },
+            {
+              "label": "Remates de cabeza",
+              "text": "0 (xG 0,00)"
+            }
+          ]
+        },
+        {
+          "label": "Posesión",
+          "rows": [
+            {
+              "label": "Toques",
+              "text": "89"
+            },
+            {
+              "label": "Toques en el tercio rival",
+              "text": "2"
+            },
+            {
+              "label": "Toques en el área rival",
+              "text": "0"
+            },
+            {
+              "label": "Retención",
+              "text": "85 %"
+            },
+            {
+              "label": "Pérdidas de posesión",
+              "text": "13"
+            },
+            {
+              "label": "Mal control",
+              "text": "0"
+            },
+            {
+              "label": "Conducciones progresivas",
+              "text": "0"
+            },
+            {
+              "label": "Regates exitosos",
+              "text": "0"
+            },
+            {
+              "label": "Faltas recibidas",
+              "text": "1"
+            }
+          ]
+        }
+      ],
+      "note": "No jugó en este partido.",
+      "url": "https://www.statiskicks.com/player/a1ootdgvyfcn6u2tdmnts68ve/israel-reyes"
+    },
+    "5v79f3j9k15flsot7c4470iy": {
+      "name": "K. Álvarez",
+      "photo": "https://media.api-sports.io/football/players/126751.png",
+      "team": "Club América",
+      "crest": "https://www.statiskicks.com/storage/media/teams/2287.png",
+      "side": "away",
+      "country": "México",
+      "flag": "https://flagcdn.com/w20/mx.png",
+      "age": 27,
+      "shirt": 5,
+      "position": "Lateral derecho",
+      "minutes": 89,
+      "rating": 6.11,
+      "grade": "low",
+      "events": [
+        "Amarilla",
+        "Salió en el 89'"
+      ],
+      "played": true,
+      "keeper": false,
+      "groups": [
+        {
+          "label": "Finalización",
+          "rows": [
+            {
+              "label": "Goles",
+              "text": "0"
+            },
+            {
+              "label": "Remates",
+              "text": "0"
+            },
+            {
+              "label": "Remates a puerta",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras convertidas",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras falladas",
+              "text": "0"
+            },
+            {
+              "label": "xG en jugada",
+              "text": "0,00"
+            },
+            {
+              "label": "xG en penales",
+              "text": "0,00"
+            },
+            {
+              "label": "xG a puerta (xGOT)",
+              "text": "0,00"
+            }
+          ]
+        },
+        {
+          "label": "Creación",
+          "rows": [
+            {
+              "label": "Asistencias",
+              "text": "0"
+            },
+            {
+              "label": "xA en jugada",
+              "text": "0,05"
+            },
+            {
+              "label": "xA en balón parado",
+              "text": "0,00"
+            },
+            {
+              "label": "Pases clave",
+              "text": "0"
+            },
+            {
+              "label": "Pases filtrados",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras creadas",
+              "text": "0"
+            },
+            {
+              "label": "Centros y córners precisos",
+              "text": "2 (67 %)"
+            }
+          ]
+        },
+        {
+          "label": "Pase",
+          "rows": [
+            {
+              "label": "Pases precisos",
+              "text": "35 (83 %)"
+            },
+            {
+              "label": "Pases largos precisos",
+              "text": "0 (0 %)"
+            },
+            {
+              "label": "Pases progresivos precisos",
+              "text": "3 (38 %)"
+            },
+            {
+              "label": "Pases cortos precisos",
+              "text": "35 (88 %)"
+            },
+            {
+              "label": "Pases hacia adelante precisos",
+              "text": "8 (62 %)"
+            },
+            {
+              "label": "Pases hacia atrás precisos",
+              "text": "16 (100 %)"
+            }
+          ]
+        },
+        {
+          "label": "Defensa",
+          "rows": [
+            {
+              "label": "Intercepciones",
+              "text": "1"
+            },
+            {
+              "label": "Bloqueos",
+              "text": "1"
+            },
+            {
+              "label": "Entradas ganadas",
+              "text": "1 (100 %)"
+            },
+            {
+              "label": "Rechaces por abajo",
+              "text": "0"
+            },
+            {
+              "label": "Rechaces de cabeza",
+              "text": "1"
+            },
+            {
+              "label": "Recuperaciones",
+              "text": "4"
+            }
+          ]
+        },
+        {
+          "label": "Juego aéreo",
+          "rows": [
+            {
+              "label": "Duelos aéreos ofensivos ganados",
+              "text": "0"
+            },
+            {
+              "label": "Duelos aéreos defensivos ganados",
+              "text": "2 (100 %)"
+            },
+            {
+              "label": "Duelos aéreos ganados",
+              "text": "2 (100 %)"
+            },
+            {
+              "label": "Remates de cabeza",
+              "text": "0 (xG 0,00)"
+            }
+          ]
+        },
+        {
+          "label": "Posesión",
+          "rows": [
+            {
+              "label": "Toques",
+              "text": "62"
+            },
+            {
+              "label": "Toques en el tercio rival",
+              "text": "20"
+            },
+            {
+              "label": "Toques en el área rival",
+              "text": "0"
+            },
+            {
+              "label": "Retención",
+              "text": "82 %"
+            },
+            {
+              "label": "Pérdidas de posesión",
+              "text": "11"
+            },
+            {
+              "label": "Mal control",
+              "text": "1"
+            },
+            {
+              "label": "Conducciones progresivas",
+              "text": "0"
+            },
+            {
+              "label": "Regates exitosos",
+              "text": "1 (100 %)"
+            },
+            {
+              "label": "Faltas recibidas",
+              "text": "0"
+            }
+          ]
+        }
+      ],
+      "note": "No jugó en este partido.",
+      "url": "https://www.statiskicks.com/player/5v79f3j9k15flsot7c4470iy/kevin-alvarez"
+    },
+    "87gmnnxvwtr265s3efeziwrft": {
+      "name": "A. Cervantes",
+      "photo": "https://media.api-sports.io/football/players/35878.png",
+      "team": "Club América",
+      "crest": "https://www.statiskicks.com/storage/media/teams/2287.png",
+      "side": "away",
+      "country": "México",
+      "flag": "https://flagcdn.com/w20/mx.png",
+      "age": 28,
+      "shirt": 13,
+      "position": "Mediocentro defensivo izquierdo",
+      "minutes": 90,
+      "rating": 6.66,
+      "grade": "mid",
+      "events": [
+        "Amarilla"
+      ],
+      "played": true,
+      "keeper": false,
+      "groups": [
+        {
+          "label": "Finalización",
+          "rows": [
+            {
+              "label": "Goles",
+              "text": "0"
+            },
+            {
+              "label": "Remates",
+              "text": "0"
+            },
+            {
+              "label": "Remates a puerta",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras convertidas",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras falladas",
+              "text": "0"
+            },
+            {
+              "label": "xG en jugada",
+              "text": "0,00"
+            },
+            {
+              "label": "xG en penales",
+              "text": "0,00"
+            },
+            {
+              "label": "xG a puerta (xGOT)",
+              "text": "0,00"
+            }
+          ]
+        },
+        {
+          "label": "Creación",
+          "rows": [
+            {
+              "label": "Asistencias",
+              "text": "0"
+            },
+            {
+              "label": "xA en jugada",
+              "text": "0,03"
+            },
+            {
+              "label": "xA en balón parado",
+              "text": "0,00"
+            },
+            {
+              "label": "Pases clave",
+              "text": "1"
+            },
+            {
+              "label": "Pases filtrados",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras creadas",
+              "text": "0"
+            },
+            {
+              "label": "Centros y córners precisos",
+              "text": "1 (100 %)"
+            }
+          ]
+        },
+        {
+          "label": "Pase",
+          "rows": [
+            {
+              "label": "Pases precisos",
+              "text": "74 (93 %)"
+            },
+            {
+              "label": "Pases largos precisos",
+              "text": "8 (100 %)"
+            },
+            {
+              "label": "Pases progresivos precisos",
+              "text": "4 (80 %)"
+            },
+            {
+              "label": "Pases cortos precisos",
+              "text": "66 (92 %)"
+            },
+            {
+              "label": "Pases hacia adelante precisos",
+              "text": "14 (74 %)"
+            },
+            {
+              "label": "Pases hacia atrás precisos",
+              "text": "9 (100 %)"
+            }
+          ]
+        },
+        {
+          "label": "Defensa",
+          "rows": [
+            {
+              "label": "Intercepciones",
+              "text": "0"
+            },
+            {
+              "label": "Bloqueos",
+              "text": "2"
+            },
+            {
+              "label": "Entradas ganadas",
+              "text": "2 (100 %)"
+            },
+            {
+              "label": "Rechaces por abajo",
+              "text": "0"
+            },
+            {
+              "label": "Rechaces de cabeza",
+              "text": "1"
+            },
+            {
+              "label": "Recuperaciones",
+              "text": "4"
+            }
+          ]
+        },
+        {
+          "label": "Juego aéreo",
+          "rows": [
+            {
+              "label": "Duelos aéreos ofensivos ganados",
+              "text": "0"
+            },
+            {
+              "label": "Duelos aéreos defensivos ganados",
+              "text": "3 (75 %)"
+            },
+            {
+              "label": "Duelos aéreos ganados",
+              "text": "3 (75 %)"
+            },
+            {
+              "label": "Remates de cabeza",
+              "text": "0 (xG 0,00)"
+            }
+          ]
+        },
+        {
+          "label": "Posesión",
+          "rows": [
+            {
+              "label": "Toques",
+              "text": "96"
+            },
+            {
+              "label": "Toques en el tercio rival",
+              "text": "11"
+            },
+            {
+              "label": "Toques en el área rival",
+              "text": "0"
+            },
+            {
+              "label": "Retención",
+              "text": "92 %"
+            },
+            {
+              "label": "Pérdidas de posesión",
+              "text": "8"
+            },
+            {
+              "label": "Mal control",
+              "text": "1"
+            },
+            {
+              "label": "Conducciones progresivas",
+              "text": "0"
+            },
+            {
+              "label": "Regates exitosos",
+              "text": "1 (100 %)"
+            },
+            {
+              "label": "Faltas recibidas",
+              "text": "3"
+            }
+          ]
+        }
+      ],
+      "note": "No jugó en este partido.",
+      "url": "https://www.statiskicks.com/player/87gmnnxvwtr265s3efeziwrft/alan-cervantes"
+    },
+    "54kcu71vtiz8xlkke60k394a1": {
+      "name": "É. Sánchez",
+      "photo": "https://media.api-sports.io/football/players/36093.png",
+      "team": "Club América",
+      "crest": "https://www.statiskicks.com/storage/media/teams/2287.png",
+      "side": "away",
+      "country": "México",
+      "flag": "https://flagcdn.com/w20/mx.png",
+      "age": 27,
+      "shirt": 28,
+      "position": "Mediocentro defensivo derecho",
+      "minutes": 89,
+      "rating": 6.55,
+      "grade": "mid",
+      "events": [
+        "Amarilla",
+        "Salió en el 89'"
+      ],
+      "played": true,
+      "keeper": false,
+      "groups": [
+        {
+          "label": "Finalización",
+          "rows": [
+            {
+              "label": "Goles",
+              "text": "0"
+            },
+            {
+              "label": "Remates",
+              "text": "4"
+            },
+            {
+              "label": "Remates a puerta",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras convertidas",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras falladas",
+              "text": "0"
+            },
+            {
+              "label": "xG en jugada",
+              "text": "0,05"
+            },
+            {
+              "label": "xG en penales",
+              "text": "0,00"
+            },
+            {
+              "label": "xG a puerta (xGOT)",
+              "text": "0,00"
+            }
+          ]
+        },
+        {
+          "label": "Creación",
+          "rows": [
+            {
+              "label": "Asistencias",
+              "text": "0"
+            },
+            {
+              "label": "xA en jugada",
+              "text": "0,07"
+            },
+            {
+              "label": "xA en balón parado",
+              "text": "0,00"
+            },
+            {
+              "label": "Pases clave",
+              "text": "1"
+            },
+            {
+              "label": "Pases filtrados",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras creadas",
+              "text": "0"
+            },
+            {
+              "label": "Centros y córners precisos",
+              "text": "0 (0 %)"
+            }
+          ]
+        },
+        {
+          "label": "Pase",
+          "rows": [
+            {
+              "label": "Pases precisos",
+              "text": "67 (89 %)"
+            },
+            {
+              "label": "Pases largos precisos",
+              "text": "8 (80 %)"
+            },
+            {
+              "label": "Pases progresivos precisos",
+              "text": "10 (77 %)"
+            },
+            {
+              "label": "Pases cortos precisos",
+              "text": "59 (91 %)"
+            },
+            {
+              "label": "Pases hacia adelante precisos",
+              "text": "18 (78 %)"
+            },
+            {
+              "label": "Pases hacia atrás precisos",
+              "text": "6 (100 %)"
+            }
+          ]
+        },
+        {
+          "label": "Defensa",
+          "rows": [
+            {
+              "label": "Intercepciones",
+              "text": "1"
+            },
+            {
+              "label": "Bloqueos",
+              "text": "0"
+            },
+            {
+              "label": "Entradas ganadas",
+              "text": "0 (0 %)"
+            },
+            {
+              "label": "Rechaces por abajo",
+              "text": "0"
+            },
+            {
+              "label": "Rechaces de cabeza",
+              "text": "0"
+            },
+            {
+              "label": "Recuperaciones",
+              "text": "7"
+            }
+          ]
+        },
+        {
+          "label": "Juego aéreo",
+          "rows": [
+            {
+              "label": "Duelos aéreos ofensivos ganados",
+              "text": "0"
+            },
+            {
+              "label": "Duelos aéreos defensivos ganados",
+              "text": "0"
+            },
+            {
+              "label": "Duelos aéreos ganados",
+              "text": "0"
+            },
+            {
+              "label": "Remates de cabeza",
+              "text": "0 (xG 0,00)"
+            }
+          ]
+        },
+        {
+          "label": "Posesión",
+          "rows": [
+            {
+              "label": "Toques",
+              "text": "85"
+            },
+            {
+              "label": "Toques en el tercio rival",
+              "text": "16"
+            },
+            {
+              "label": "Toques en el área rival",
+              "text": "0"
+            },
+            {
+              "label": "Retención",
+              "text": "88 %"
+            },
+            {
+              "label": "Pérdidas de posesión",
+              "text": "10"
+            },
+            {
+              "label": "Mal control",
+              "text": "0"
+            },
+            {
+              "label": "Conducciones progresivas",
+              "text": "2"
+            },
+            {
+              "label": "Regates exitosos",
+              "text": "1 (100 %)"
+            },
+            {
+              "label": "Faltas recibidas",
+              "text": "0"
+            }
+          ]
+        }
+      ],
+      "note": "No jugó en este partido.",
+      "url": "https://www.statiskicks.com/player/54kcu71vtiz8xlkke60k394a1/erick-sanchez"
+    },
+    "7w4qf9ndzyzyo5etldya2owt0": {
+      "name": "Ó. Perea",
+      "photo": "https://media.api-sports.io/football/players/356520.png",
+      "team": "Club América",
+      "crest": "https://www.statiskicks.com/storage/media/teams/2287.png",
+      "side": "away",
+      "country": "Colombia",
+      "flag": "https://flagcdn.com/w20/co.png",
+      "age": 21,
+      "shirt": 22,
+      "position": "Extremo izquierdo",
+      "minutes": 72,
+      "rating": 7.44,
+      "grade": "high",
+      "events": [
+        "1 asistencia",
+        "Salió en el 72'"
+      ],
+      "played": true,
+      "keeper": false,
+      "groups": [
+        {
+          "label": "Finalización",
+          "rows": [
+            {
+              "label": "Goles",
+              "text": "0"
+            },
+            {
+              "label": "Remates",
+              "text": "2"
+            },
+            {
+              "label": "Remates a puerta",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras convertidas",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras falladas",
+              "text": "0"
+            },
+            {
+              "label": "xG en jugada",
+              "text": "0,06"
+            },
+            {
+              "label": "xG en penales",
+              "text": "0,00"
+            },
+            {
+              "label": "xG a puerta (xGOT)",
+              "text": "0,00"
+            }
+          ]
+        },
+        {
+          "label": "Creación",
+          "rows": [
+            {
+              "label": "Asistencias",
+              "text": "1"
+            },
+            {
+              "label": "xA en jugada",
+              "text": "0,41"
+            },
+            {
+              "label": "xA en balón parado",
+              "text": "0,00"
+            },
+            {
+              "label": "Pases clave",
+              "text": "1"
+            },
+            {
+              "label": "Pases filtrados",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras creadas",
+              "text": "1"
+            },
+            {
+              "label": "Centros y córners precisos",
+              "text": "3 (100 %)"
+            }
+          ]
+        },
+        {
+          "label": "Pase",
+          "rows": [
+            {
+              "label": "Pases precisos",
+              "text": "12 (75 %)"
+            },
+            {
+              "label": "Pases largos precisos",
+              "text": "0"
+            },
+            {
+              "label": "Pases progresivos precisos",
+              "text": "1 (100 %)"
+            },
+            {
+              "label": "Pases cortos precisos",
+              "text": "12 (75 %)"
+            },
+            {
+              "label": "Pases hacia adelante precisos",
+              "text": "0 (0 %)"
+            },
+            {
+              "label": "Pases hacia atrás precisos",
+              "text": "5 (100 %)"
+            }
+          ]
+        },
+        {
+          "label": "Defensa",
+          "rows": [
+            {
+              "label": "Intercepciones",
+              "text": "0"
+            },
+            {
+              "label": "Bloqueos",
+              "text": "0"
+            },
+            {
+              "label": "Entradas ganadas",
+              "text": "0"
+            },
+            {
+              "label": "Rechaces por abajo",
+              "text": "1"
+            },
+            {
+              "label": "Rechaces de cabeza",
+              "text": "0"
+            },
+            {
+              "label": "Recuperaciones",
+              "text": "2"
+            }
+          ]
+        },
+        {
+          "label": "Juego aéreo",
+          "rows": [
+            {
+              "label": "Duelos aéreos ofensivos ganados",
+              "text": "1 (100 %)"
+            },
+            {
+              "label": "Duelos aéreos defensivos ganados",
+              "text": "0"
+            },
+            {
+              "label": "Duelos aéreos ganados",
+              "text": "1 (100 %)"
+            },
+            {
+              "label": "Remates de cabeza",
+              "text": "1 (xG 0,01)"
+            }
+          ]
+        },
+        {
+          "label": "Posesión",
+          "rows": [
+            {
+              "label": "Toques",
+              "text": "40"
+            },
+            {
+              "label": "Toques en el tercio rival",
+              "text": "25"
+            },
+            {
+              "label": "Toques en el área rival",
+              "text": "7"
+            },
+            {
+              "label": "Retención",
+              "text": "57 %"
+            },
+            {
+              "label": "Pérdidas de posesión",
+              "text": "17"
+            },
+            {
+              "label": "Mal control",
+              "text": "9"
+            },
+            {
+              "label": "Conducciones progresivas",
+              "text": "3"
+            },
+            {
+              "label": "Regates exitosos",
+              "text": "2 (50 %)"
+            },
+            {
+              "label": "Faltas recibidas",
+              "text": "2"
+            }
+          ]
+        }
+      ],
+      "note": "No jugó en este partido.",
+      "url": "https://www.statiskicks.com/player/7w4qf9ndzyzyo5etldya2owt0/oscar-perea"
+    },
+    "i5f7g3p3e0i6zwc2bc9eglw5": {
+      "name": "Á. Zendejas",
+      "photo": "https://media.api-sports.io/football/players/35885.png",
+      "team": "Club América",
+      "crest": "https://www.statiskicks.com/storage/media/teams/2287.png",
+      "side": "away",
+      "country": "Estados Unidos",
+      "flag": "https://flagcdn.com/w20/us.png",
+      "age": 28,
+      "shirt": 10,
+      "position": "Mediapunta",
+      "minutes": 72,
+      "rating": 7.4,
+      "grade": "high",
+      "events": [
+        "1 gol",
+        "Salió en el 72'"
+      ],
+      "played": true,
+      "keeper": false,
+      "groups": [
+        {
+          "label": "Finalización",
+          "rows": [
+            {
+              "label": "Goles",
+              "text": "1"
+            },
+            {
+              "label": "Remates",
+              "text": "1"
+            },
+            {
+              "label": "Remates a puerta",
+              "text": "1"
+            },
+            {
+              "label": "Ocasiones claras convertidas",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras falladas",
+              "text": "0"
+            },
+            {
+              "label": "xG en jugada",
+              "text": "0,05"
+            },
+            {
+              "label": "xG en penales",
+              "text": "0,00"
+            },
+            {
+              "label": "xG a puerta (xGOT)",
+              "text": "0,51"
+            }
+          ]
+        },
+        {
+          "label": "Creación",
+          "rows": [
+            {
+              "label": "Asistencias",
+              "text": "0"
+            },
+            {
+              "label": "xA en jugada",
+              "text": "0,05"
+            },
+            {
+              "label": "xA en balón parado",
+              "text": "0,00"
+            },
+            {
+              "label": "Pases clave",
+              "text": "1"
+            },
+            {
+              "label": "Pases filtrados",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras creadas",
+              "text": "0"
+            },
+            {
+              "label": "Centros y córners precisos",
+              "text": "0 (0 %)"
+            }
+          ]
+        },
+        {
+          "label": "Pase",
+          "rows": [
+            {
+              "label": "Pases precisos",
+              "text": "36 (75 %)"
+            },
+            {
+              "label": "Pases largos precisos",
+              "text": "0 (0 %)"
+            },
+            {
+              "label": "Pases progresivos precisos",
+              "text": "2 (29 %)"
+            },
+            {
+              "label": "Pases cortos precisos",
+              "text": "36 (77 %)"
+            },
+            {
+              "label": "Pases hacia adelante precisos",
+              "text": "5 (42 %)"
+            },
+            {
+              "label": "Pases hacia atrás precisos",
+              "text": "9 (100 %)"
+            }
+          ]
+        },
+        {
+          "label": "Defensa",
+          "rows": [
+            {
+              "label": "Intercepciones",
+              "text": "0"
+            },
+            {
+              "label": "Bloqueos",
+              "text": "1"
+            },
+            {
+              "label": "Entradas ganadas",
+              "text": "2 (100 %)"
+            },
+            {
+              "label": "Rechaces por abajo",
+              "text": "0"
+            },
+            {
+              "label": "Rechaces de cabeza",
+              "text": "0"
+            },
+            {
+              "label": "Recuperaciones",
+              "text": "4"
+            }
+          ]
+        },
+        {
+          "label": "Juego aéreo",
+          "rows": [
+            {
+              "label": "Duelos aéreos ofensivos ganados",
+              "text": "0"
+            },
+            {
+              "label": "Duelos aéreos defensivos ganados",
+              "text": "0"
+            },
+            {
+              "label": "Duelos aéreos ganados",
+              "text": "0"
+            },
+            {
+              "label": "Remates de cabeza",
+              "text": "1 (xG 0,05)"
+            }
+          ]
+        },
+        {
+          "label": "Posesión",
+          "rows": [
+            {
+              "label": "Toques",
+              "text": "61"
+            },
+            {
+              "label": "Toques en el tercio rival",
+              "text": "25"
+            },
+            {
+              "label": "Toques en el área rival",
+              "text": "4"
+            },
+            {
+              "label": "Retención",
+              "text": "72 %"
+            },
+            {
+              "label": "Pérdidas de posesión",
+              "text": "17"
+            },
+            {
+              "label": "Mal control",
+              "text": "1"
+            },
+            {
+              "label": "Conducciones progresivas",
+              "text": "1"
+            },
+            {
+              "label": "Regates exitosos",
+              "text": "2 (50 %)"
+            },
+            {
+              "label": "Faltas recibidas",
+              "text": "0"
+            }
+          ]
+        }
+      ],
+      "note": "No jugó en este partido.",
+      "url": "https://www.statiskicks.com/player/i5f7g3p3e0i6zwc2bc9eglw5/alejandro-zendejas"
+    },
+    "6gtfe9aysdrcht4v2rluu0ley": {
+      "name": "Carlos Álvarez",
+      "photo": "https://media.api-sports.io/football/players/182770.png",
+      "team": "Club América",
+      "crest": "https://www.statiskicks.com/storage/media/teams/2287.png",
+      "side": "away",
+      "country": "España",
+      "flag": "https://flagcdn.com/w20/es.png",
+      "age": 23,
+      "shirt": 8,
+      "position": "Extremo derecho",
+      "minutes": 57,
+      "rating": 6.27,
+      "grade": "low",
+      "events": [
+        "Salió en el 57'"
+      ],
+      "played": true,
+      "keeper": false,
+      "groups": [
+        {
+          "label": "Finalización",
+          "rows": [
+            {
+              "label": "Goles",
+              "text": "0"
+            },
+            {
+              "label": "Remates",
+              "text": "0"
+            },
+            {
+              "label": "Remates a puerta",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras convertidas",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras falladas",
+              "text": "0"
+            },
+            {
+              "label": "xG en jugada",
+              "text": "0,00"
+            },
+            {
+              "label": "xG en penales",
+              "text": "0,00"
+            },
+            {
+              "label": "xG a puerta (xGOT)",
+              "text": "0,00"
+            }
+          ]
+        },
+        {
+          "label": "Creación",
+          "rows": [
+            {
+              "label": "Asistencias",
+              "text": "0"
+            },
+            {
+              "label": "xA en jugada",
+              "text": "0,14"
+            },
+            {
+              "label": "xA en balón parado",
+              "text": "0,00"
+            },
+            {
+              "label": "Pases clave",
+              "text": "1"
+            },
+            {
+              "label": "Pases filtrados",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras creadas",
+              "text": "0"
+            },
+            {
+              "label": "Centros y córners precisos",
+              "text": "0"
+            }
+          ]
+        },
+        {
+          "label": "Pase",
+          "rows": [
+            {
+              "label": "Pases precisos",
+              "text": "25 (93 %)"
+            },
+            {
+              "label": "Pases largos precisos",
+              "text": "0"
+            },
+            {
+              "label": "Pases progresivos precisos",
+              "text": "2 (50 %)"
+            },
+            {
+              "label": "Pases cortos precisos",
+              "text": "25 (93 %)"
+            },
+            {
+              "label": "Pases hacia adelante precisos",
+              "text": "2 (67 %)"
+            },
+            {
+              "label": "Pases hacia atrás precisos",
+              "text": "6 (100 %)"
+            }
+          ]
+        },
+        {
+          "label": "Defensa",
+          "rows": [
+            {
+              "label": "Intercepciones",
+              "text": "0"
+            },
+            {
+              "label": "Bloqueos",
+              "text": "0"
+            },
+            {
+              "label": "Entradas ganadas",
+              "text": "1 (100 %)"
+            },
+            {
+              "label": "Rechaces por abajo",
+              "text": "0"
+            },
+            {
+              "label": "Rechaces de cabeza",
+              "text": "0"
+            },
+            {
+              "label": "Recuperaciones",
+              "text": "3"
+            }
+          ]
+        },
+        {
+          "label": "Juego aéreo",
+          "rows": [
+            {
+              "label": "Duelos aéreos ofensivos ganados",
+              "text": "0"
+            },
+            {
+              "label": "Duelos aéreos defensivos ganados",
+              "text": "0"
+            },
+            {
+              "label": "Duelos aéreos ganados",
+              "text": "0"
+            },
+            {
+              "label": "Remates de cabeza",
+              "text": "0 (xG 0,00)"
+            }
+          ]
+        },
+        {
+          "label": "Posesión",
+          "rows": [
+            {
+              "label": "Toques",
+              "text": "35"
+            },
+            {
+              "label": "Toques en el tercio rival",
+              "text": "18"
+            },
+            {
+              "label": "Toques en el área rival",
+              "text": "0"
+            },
+            {
+              "label": "Retención",
+              "text": "80 %"
+            },
+            {
+              "label": "Pérdidas de posesión",
+              "text": "7"
+            },
+            {
+              "label": "Mal control",
+              "text": "1"
+            },
+            {
+              "label": "Conducciones progresivas",
+              "text": "1"
+            },
+            {
+              "label": "Regates exitosos",
+              "text": "0 (0 %)"
+            },
+            {
+              "label": "Faltas recibidas",
+              "text": "0"
+            }
+          ]
+        }
+      ],
+      "note": "No jugó en este partido.",
+      "url": "https://www.statiskicks.com/player/6gtfe9aysdrcht4v2rluu0ley/carlos-alvarez"
+    },
+    "5ysw10inm8syf7r9xvbpk9n11": {
+      "name": "H. Martín",
+      "photo": "https://media.api-sports.io/football/players/35603.png",
+      "team": "Club América",
+      "crest": "https://www.statiskicks.com/storage/media/teams/2287.png",
+      "side": "away",
+      "country": "México",
+      "flag": "https://flagcdn.com/w20/mx.png",
+      "age": 33,
+      "shirt": 9,
+      "position": "Delantero centro",
+      "minutes": 90,
+      "rating": 7,
+      "grade": "high",
+      "events": [
+        "1 gol"
+      ],
+      "played": true,
+      "keeper": false,
+      "groups": [
+        {
+          "label": "Finalización",
+          "rows": [
+            {
+              "label": "Goles",
+              "text": "1"
+            },
+            {
+              "label": "Remates",
+              "text": "2"
+            },
+            {
+              "label": "Remates a puerta",
+              "text": "1"
+            },
+            {
+              "label": "Ocasiones claras convertidas",
+              "text": "1"
+            },
+            {
+              "label": "Ocasiones claras falladas",
+              "text": "0"
+            },
+            {
+              "label": "xG en jugada",
+              "text": "0,07"
+            },
+            {
+              "label": "xG en penales",
+              "text": "0,78"
+            },
+            {
+              "label": "xG a puerta (xGOT)",
+              "text": "0,99"
+            }
+          ]
+        },
+        {
+          "label": "Creación",
+          "rows": [
+            {
+              "label": "Asistencias",
+              "text": "0"
+            },
+            {
+              "label": "xA en jugada",
+              "text": "0,05"
+            },
+            {
+              "label": "xA en balón parado",
+              "text": "0,00"
+            },
+            {
+              "label": "Pases clave",
+              "text": "1"
+            },
+            {
+              "label": "Pases filtrados",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras creadas",
+              "text": "0"
+            },
+            {
+              "label": "Centros y córners precisos",
+              "text": "0"
+            }
+          ]
+        },
+        {
+          "label": "Pase",
+          "rows": [
+            {
+              "label": "Pases precisos",
+              "text": "5 (42 %)"
+            },
+            {
+              "label": "Pases largos precisos",
+              "text": "0"
+            },
+            {
+              "label": "Pases progresivos precisos",
+              "text": "0 (0 %)"
+            },
+            {
+              "label": "Pases cortos precisos",
+              "text": "5 (42 %)"
+            },
+            {
+              "label": "Pases hacia adelante precisos",
+              "text": "0 (0 %)"
+            },
+            {
+              "label": "Pases hacia atrás precisos",
+              "text": "1 (25 %)"
+            }
+          ]
+        },
+        {
+          "label": "Defensa",
+          "rows": [
+            {
+              "label": "Intercepciones",
+              "text": "0"
+            },
+            {
+              "label": "Bloqueos",
+              "text": "1"
+            },
+            {
+              "label": "Entradas ganadas",
+              "text": "0"
+            },
+            {
+              "label": "Rechaces por abajo",
+              "text": "1"
+            },
+            {
+              "label": "Rechaces de cabeza",
+              "text": "0"
+            },
+            {
+              "label": "Recuperaciones",
+              "text": "0"
+            }
+          ]
+        },
+        {
+          "label": "Juego aéreo",
+          "rows": [
+            {
+              "label": "Duelos aéreos ofensivos ganados",
+              "text": "1 (25 %)"
+            },
+            {
+              "label": "Duelos aéreos defensivos ganados",
+              "text": "0 (0 %)"
+            },
+            {
+              "label": "Duelos aéreos ganados",
+              "text": "1 (17 %)"
+            },
+            {
+              "label": "Remates de cabeza",
+              "text": "1 (xG 0,07)"
+            }
+          ]
+        },
+        {
+          "label": "Posesión",
+          "rows": [
+            {
+              "label": "Toques",
+              "text": "25"
+            },
+            {
+              "label": "Toques en el tercio rival",
+              "text": "12"
+            },
+            {
+              "label": "Toques en el área rival",
+              "text": "7"
+            },
+            {
+              "label": "Retención",
+              "text": "52 %"
+            },
+            {
+              "label": "Pérdidas de posesión",
+              "text": "12"
+            },
+            {
+              "label": "Mal control",
+              "text": "4"
+            },
+            {
+              "label": "Conducciones progresivas",
+              "text": "1"
+            },
+            {
+              "label": "Regates exitosos",
+              "text": "0 (0 %)"
+            },
+            {
+              "label": "Faltas recibidas",
+              "text": "4"
+            }
+          ]
+        }
+      ],
+      "note": "No jugó en este partido.",
+      "url": "https://www.statiskicks.com/player/5ysw10inm8syf7r9xvbpk9n11/henry-martin"
+    },
+    "aqkesczefhflo2f7tyfjnkted": {
+      "name": "M. Borja",
+      "photo": "https://media.api-sports.io/football/players/9933.png",
+      "team": "Club América",
+      "crest": "https://www.statiskicks.com/storage/media/teams/2287.png",
+      "side": "away",
+      "country": "Colombia",
+      "flag": "https://flagcdn.com/w20/co.png",
+      "age": 33,
+      "shirt": 93,
+      "position": "Delantero",
+      "minutes": 33,
+      "rating": 7.41,
+      "grade": "high",
+      "events": [
+        "Entró en el 57'"
+      ],
+      "played": true,
+      "keeper": false,
+      "groups": [
+        {
+          "label": "Finalización",
+          "rows": [
+            {
+              "label": "Goles",
+              "text": "0"
+            },
+            {
+              "label": "Remates",
+              "text": "1"
+            },
+            {
+              "label": "Remates a puerta",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras convertidas",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras falladas",
+              "text": "1"
+            },
+            {
+              "label": "xG en jugada",
+              "text": "0,75"
+            },
+            {
+              "label": "xG en penales",
+              "text": "0,00"
+            },
+            {
+              "label": "xG a puerta (xGOT)",
+              "text": "0,00"
+            }
+          ]
+        },
+        {
+          "label": "Creación",
+          "rows": [
+            {
+              "label": "Asistencias",
+              "text": "0"
+            },
+            {
+              "label": "xA en jugada",
+              "text": "0,07"
+            },
+            {
+              "label": "xA en balón parado",
+              "text": "0,00"
+            },
+            {
+              "label": "Pases clave",
+              "text": "0"
+            },
+            {
+              "label": "Pases filtrados",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras creadas",
+              "text": "0"
+            },
+            {
+              "label": "Centros y córners precisos",
+              "text": "0"
+            }
+          ]
+        },
+        {
+          "label": "Pase",
+          "rows": [
+            {
+              "label": "Pases precisos",
+              "text": "5 (71 %)"
+            },
+            {
+              "label": "Pases largos precisos",
+              "text": "0"
+            },
+            {
+              "label": "Pases progresivos precisos",
+              "text": "0 (0 %)"
+            },
+            {
+              "label": "Pases cortos precisos",
+              "text": "5 (71 %)"
+            },
+            {
+              "label": "Pases hacia adelante precisos",
+              "text": "0 (0 %)"
+            },
+            {
+              "label": "Pases hacia atrás precisos",
+              "text": "1 (50 %)"
+            }
+          ]
+        },
+        {
+          "label": "Defensa",
+          "rows": [
+            {
+              "label": "Intercepciones",
+              "text": "0"
+            },
+            {
+              "label": "Bloqueos",
+              "text": "0"
+            },
+            {
+              "label": "Entradas ganadas",
+              "text": "0"
+            },
+            {
+              "label": "Rechaces por abajo",
+              "text": "0"
+            },
+            {
+              "label": "Rechaces de cabeza",
+              "text": "1"
+            },
+            {
+              "label": "Recuperaciones",
+              "text": "1"
+            }
+          ]
+        },
+        {
+          "label": "Juego aéreo",
+          "rows": [
+            {
+              "label": "Duelos aéreos ofensivos ganados",
+              "text": "0 (0 %)"
+            },
+            {
+              "label": "Duelos aéreos defensivos ganados",
+              "text": "1 (50 %)"
+            },
+            {
+              "label": "Duelos aéreos ganados",
+              "text": "1 (33 %)"
+            },
+            {
+              "label": "Remates de cabeza",
+              "text": "0 (xG 0,00)"
+            }
+          ]
+        },
+        {
+          "label": "Posesión",
+          "rows": [
+            {
+              "label": "Toques",
+              "text": "10"
+            },
+            {
+              "label": "Toques en el tercio rival",
+              "text": "3"
+            },
+            {
+              "label": "Toques en el área rival",
+              "text": "2"
+            },
+            {
+              "label": "Retención",
+              "text": "70 %"
+            },
+            {
+              "label": "Pérdidas de posesión",
+              "text": "3"
+            },
+            {
+              "label": "Mal control",
+              "text": "0"
+            },
+            {
+              "label": "Conducciones progresivas",
+              "text": "0"
+            },
+            {
+              "label": "Regates exitosos",
+              "text": "0"
+            },
+            {
+              "label": "Faltas recibidas",
+              "text": "0"
+            }
+          ]
+        }
+      ],
+      "note": "No jugó en este partido.",
+      "url": "https://www.statiskicks.com/player/aqkesczefhflo2f7tyfjnkted/miguel-borja"
+    },
+    "5z40zdnnvla25d56cw9hmu6fo": {
+      "name": "D. Jiménez",
+      "photo": null,
+      "team": "Club América",
+      "crest": "https://www.statiskicks.com/storage/media/teams/2287.png",
+      "side": "away",
+      "country": "México",
+      "flag": "https://flagcdn.com/w20/mx.png",
+      "age": 19,
+      "shirt": 206,
+      "position": "Mediocampista",
+      "minutes": 18,
+      "rating": 6.76,
+      "grade": "mid",
+      "events": [
+        "Entró en el 72'"
+      ],
+      "played": true,
+      "keeper": false,
+      "groups": [
+        {
+          "label": "Finalización",
+          "rows": [
+            {
+              "label": "Goles",
+              "text": "0"
+            },
+            {
+              "label": "Remates",
+              "text": "0"
+            },
+            {
+              "label": "Remates a puerta",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras convertidas",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras falladas",
+              "text": "0"
+            },
+            {
+              "label": "xG en jugada",
+              "text": "0,00"
+            },
+            {
+              "label": "xG en penales",
+              "text": "0,00"
+            },
+            {
+              "label": "xG a puerta (xGOT)",
+              "text": "0,00"
+            }
+          ]
+        },
+        {
+          "label": "Creación",
+          "rows": [
+            {
+              "label": "Asistencias",
+              "text": "0"
+            },
+            {
+              "label": "xA en jugada",
+              "text": "0,02"
+            },
+            {
+              "label": "xA en balón parado",
+              "text": "0,00"
+            },
+            {
+              "label": "Pases clave",
+              "text": "1"
+            },
+            {
+              "label": "Pases filtrados",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras creadas",
+              "text": "0"
+            },
+            {
+              "label": "Centros y córners precisos",
+              "text": "0"
+            }
+          ]
+        },
+        {
+          "label": "Pase",
+          "rows": [
+            {
+              "label": "Pases precisos",
+              "text": "8 (80 %)"
+            },
+            {
+              "label": "Pases largos precisos",
+              "text": "0"
+            },
+            {
+              "label": "Pases progresivos precisos",
+              "text": "0"
+            },
+            {
+              "label": "Pases cortos precisos",
+              "text": "8 (80 %)"
+            },
+            {
+              "label": "Pases hacia adelante precisos",
+              "text": "1 (100 %)"
+            },
+            {
+              "label": "Pases hacia atrás precisos",
+              "text": "3 (100 %)"
+            }
+          ]
+        },
+        {
+          "label": "Defensa",
+          "rows": [
+            {
+              "label": "Intercepciones",
+              "text": "0"
+            },
+            {
+              "label": "Bloqueos",
+              "text": "0"
+            },
+            {
+              "label": "Entradas ganadas",
+              "text": "0"
+            },
+            {
+              "label": "Rechaces por abajo",
+              "text": "0"
+            },
+            {
+              "label": "Rechaces de cabeza",
+              "text": "0"
+            },
+            {
+              "label": "Recuperaciones",
+              "text": "2"
+            }
+          ]
+        },
+        {
+          "label": "Juego aéreo",
+          "rows": [
+            {
+              "label": "Duelos aéreos ofensivos ganados",
+              "text": "0"
+            },
+            {
+              "label": "Duelos aéreos defensivos ganados",
+              "text": "0"
+            },
+            {
+              "label": "Duelos aéreos ganados",
+              "text": "0"
+            },
+            {
+              "label": "Remates de cabeza",
+              "text": "0 (xG 0,00)"
+            }
+          ]
+        },
+        {
+          "label": "Posesión",
+          "rows": [
+            {
+              "label": "Toques",
+              "text": "15"
+            },
+            {
+              "label": "Toques en el tercio rival",
+              "text": "8"
+            },
+            {
+              "label": "Toques en el área rival",
+              "text": "1"
+            },
+            {
+              "label": "Retención",
+              "text": "73 %"
+            },
+            {
+              "label": "Pérdidas de posesión",
+              "text": "4"
+            },
+            {
+              "label": "Mal control",
+              "text": "1"
+            },
+            {
+              "label": "Conducciones progresivas",
+              "text": "0"
+            },
+            {
+              "label": "Regates exitosos",
+              "text": "2 (67 %)"
+            },
+            {
+              "label": "Faltas recibidas",
+              "text": "0"
+            }
+          ]
+        }
+      ],
+      "note": "No jugó en este partido.",
+      "url": "https://www.statiskicks.com/player/5z40zdnnvla25d56cw9hmu6fo/derek-jimenez"
+    },
+    "40yigbbdtmmhjrubuykq5o6xg": {
+      "name": "I. Violante",
+      "photo": "https://media.api-sports.io/football/players/286663.png",
+      "team": "Club América",
+      "crest": "https://www.statiskicks.com/storage/media/teams/2287.png",
+      "side": "away",
+      "country": "México",
+      "flag": "https://flagcdn.com/w20/mx.png",
+      "age": 23,
+      "shirt": 12,
+      "position": "Delantero",
+      "minutes": 18,
+      "rating": 6.55,
+      "grade": "mid",
+      "events": [
+        "Entró en el 72'"
+      ],
+      "played": true,
+      "keeper": false,
+      "groups": [
+        {
+          "label": "Finalización",
+          "rows": [
+            {
+              "label": "Goles",
+              "text": "0"
+            },
+            {
+              "label": "Remates",
+              "text": "1"
+            },
+            {
+              "label": "Remates a puerta",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras convertidas",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras falladas",
+              "text": "0"
+            },
+            {
+              "label": "xG en jugada",
+              "text": "0,00"
+            },
+            {
+              "label": "xG en penales",
+              "text": "0,00"
+            },
+            {
+              "label": "xG a puerta (xGOT)",
+              "text": "0,00"
+            }
+          ]
+        },
+        {
+          "label": "Creación",
+          "rows": [
+            {
+              "label": "Asistencias",
+              "text": "0"
+            },
+            {
+              "label": "xA en jugada",
+              "text": "0,00"
+            },
+            {
+              "label": "xA en balón parado",
+              "text": "0,00"
+            },
+            {
+              "label": "Pases clave",
+              "text": "0"
+            },
+            {
+              "label": "Pases filtrados",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras creadas",
+              "text": "0"
+            },
+            {
+              "label": "Centros y córners precisos",
+              "text": "0 (0 %)"
+            }
+          ]
+        },
+        {
+          "label": "Pase",
+          "rows": [
+            {
+              "label": "Pases precisos",
+              "text": "4 (80 %)"
+            },
+            {
+              "label": "Pases largos precisos",
+              "text": "0"
+            },
+            {
+              "label": "Pases progresivos precisos",
+              "text": "1 (33 %)"
+            },
+            {
+              "label": "Pases cortos precisos",
+              "text": "4 (80 %)"
+            },
+            {
+              "label": "Pases hacia adelante precisos",
+              "text": "2 (100 %)"
+            },
+            {
+              "label": "Pases hacia atrás precisos",
+              "text": "1 (100 %)"
+            }
+          ]
+        },
+        {
+          "label": "Defensa",
+          "rows": [
+            {
+              "label": "Intercepciones",
+              "text": "0"
+            },
+            {
+              "label": "Bloqueos",
+              "text": "0"
+            },
+            {
+              "label": "Entradas ganadas",
+              "text": "0"
+            },
+            {
+              "label": "Rechaces por abajo",
+              "text": "0"
+            },
+            {
+              "label": "Rechaces de cabeza",
+              "text": "0"
+            },
+            {
+              "label": "Recuperaciones",
+              "text": "0"
+            }
+          ]
+        },
+        {
+          "label": "Juego aéreo",
+          "rows": [
+            {
+              "label": "Duelos aéreos ofensivos ganados",
+              "text": "0 (0 %)"
+            },
+            {
+              "label": "Duelos aéreos defensivos ganados",
+              "text": "0"
+            },
+            {
+              "label": "Duelos aéreos ganados",
+              "text": "0 (0 %)"
+            },
+            {
+              "label": "Remates de cabeza",
+              "text": "0 (xG 0,00)"
+            }
+          ]
+        },
+        {
+          "label": "Posesión",
+          "rows": [
+            {
+              "label": "Toques",
+              "text": "9"
+            },
+            {
+              "label": "Toques en el tercio rival",
+              "text": "6"
+            },
+            {
+              "label": "Toques en el área rival",
+              "text": "2"
+            },
+            {
+              "label": "Retención",
+              "text": "67 %"
+            },
+            {
+              "label": "Pérdidas de posesión",
+              "text": "3"
+            },
+            {
+              "label": "Mal control",
+              "text": "0"
+            },
+            {
+              "label": "Conducciones progresivas",
+              "text": "0"
+            },
+            {
+              "label": "Regates exitosos",
+              "text": "0"
+            },
+            {
+              "label": "Faltas recibidas",
+              "text": "1"
+            }
+          ]
+        }
+      ],
+      "note": "No jugó en este partido.",
+      "url": "https://www.statiskicks.com/player/40yigbbdtmmhjrubuykq5o6xg/isaias-violante"
+    },
+    "dtj5zjdur2d1of2ip3ar4r88a": {
+      "name": "E. Cerrillo",
+      "photo": "https://media.api-sports.io/football/players/51132.png",
+      "team": "Club América",
+      "crest": "https://www.statiskicks.com/storage/media/teams/2287.png",
+      "side": "away",
+      "country": "Estados Unidos",
+      "flag": "https://flagcdn.com/w20/us.png",
+      "age": 26,
+      "shirt": 6,
+      "position": "Mediocampista",
+      "minutes": 1,
+      "rating": 6.85,
+      "grade": "mid",
+      "events": [
+        "Entró en el 89'"
+      ],
+      "played": true,
+      "keeper": false,
+      "groups": [
+        {
+          "label": "Finalización",
+          "rows": [
+            {
+              "label": "Goles",
+              "text": "0"
+            },
+            {
+              "label": "Remates",
+              "text": "1"
+            },
+            {
+              "label": "Remates a puerta",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras convertidas",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras falladas",
+              "text": "0"
+            },
+            {
+              "label": "xG en jugada",
+              "text": "0,01"
+            },
+            {
+              "label": "xG en penales",
+              "text": "0,00"
+            },
+            {
+              "label": "xG a puerta (xGOT)",
+              "text": "0,00"
+            }
+          ]
+        },
+        {
+          "label": "Creación",
+          "rows": [
+            {
+              "label": "Asistencias",
+              "text": "0"
+            },
+            {
+              "label": "xA en jugada",
+              "text": "0,00"
+            },
+            {
+              "label": "xA en balón parado",
+              "text": "0,00"
+            },
+            {
+              "label": "Pases clave",
+              "text": "0"
+            },
+            {
+              "label": "Pases filtrados",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras creadas",
+              "text": "0"
+            },
+            {
+              "label": "Centros y córners precisos",
+              "text": "0"
+            }
+          ]
+        },
+        {
+          "label": "Pase",
+          "rows": [
+            {
+              "label": "Pases precisos",
+              "text": "2 (67 %)"
+            },
+            {
+              "label": "Pases largos precisos",
+              "text": "0"
+            },
+            {
+              "label": "Pases progresivos precisos",
+              "text": "0"
+            },
+            {
+              "label": "Pases cortos precisos",
+              "text": "2 (67 %)"
+            },
+            {
+              "label": "Pases hacia adelante precisos",
+              "text": "1 (100 %)"
+            },
+            {
+              "label": "Pases hacia atrás precisos",
+              "text": "0"
+            }
+          ]
+        },
+        {
+          "label": "Defensa",
+          "rows": [
+            {
+              "label": "Intercepciones",
+              "text": "0"
+            },
+            {
+              "label": "Bloqueos",
+              "text": "0"
+            },
+            {
+              "label": "Entradas ganadas",
+              "text": "0"
+            },
+            {
+              "label": "Rechaces por abajo",
+              "text": "2"
+            },
+            {
+              "label": "Rechaces de cabeza",
+              "text": "2"
+            },
+            {
+              "label": "Recuperaciones",
+              "text": "0"
+            }
+          ]
+        },
+        {
+          "label": "Juego aéreo",
+          "rows": [
+            {
+              "label": "Duelos aéreos ofensivos ganados",
+              "text": "0"
+            },
+            {
+              "label": "Duelos aéreos defensivos ganados",
+              "text": "1 (100 %)"
+            },
+            {
+              "label": "Duelos aéreos ganados",
+              "text": "1 (100 %)"
+            },
+            {
+              "label": "Remates de cabeza",
+              "text": "0 (xG 0,00)"
+            }
+          ]
+        },
+        {
+          "label": "Posesión",
+          "rows": [
+            {
+              "label": "Toques",
+              "text": "8"
+            },
+            {
+              "label": "Toques en el tercio rival",
+              "text": "2"
+            },
+            {
+              "label": "Toques en el área rival",
+              "text": "0"
+            },
+            {
+              "label": "Retención",
+              "text": "88 %"
+            },
+            {
+              "label": "Pérdidas de posesión",
+              "text": "1"
+            },
+            {
+              "label": "Mal control",
+              "text": "0"
+            },
+            {
+              "label": "Conducciones progresivas",
+              "text": "0"
+            },
+            {
+              "label": "Regates exitosos",
+              "text": "0"
+            },
+            {
+              "label": "Faltas recibidas",
+              "text": "0"
+            }
+          ]
+        }
+      ],
+      "note": "No jugó en este partido.",
+      "url": "https://www.statiskicks.com/player/dtj5zjdur2d1of2ip3ar4r88a/edwin-cerrillo"
+    },
+    "9vy0gclovljnladztpsu1usr8": {
+      "name": "D. Espinoza",
+      "photo": "https://media.api-sports.io/football/players/421130.png",
+      "team": "Club América",
+      "crest": "https://www.statiskicks.com/storage/media/teams/2287.png",
+      "side": "away",
+      "country": "México",
+      "flag": "https://flagcdn.com/w20/mx.png",
+      "age": 22,
+      "shirt": 34,
+      "position": "Mediocampista",
+      "minutes": 1,
+      "rating": 6.68,
+      "grade": "mid",
+      "events": [
+        "Entró en el 89'"
+      ],
+      "played": true,
+      "keeper": false,
+      "groups": [
+        {
+          "label": "Finalización",
+          "rows": [
+            {
+              "label": "Goles",
+              "text": "0"
+            },
+            {
+              "label": "Remates",
+              "text": "0"
+            },
+            {
+              "label": "Remates a puerta",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras convertidas",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras falladas",
+              "text": "0"
+            },
+            {
+              "label": "xG en jugada",
+              "text": "0,00"
+            },
+            {
+              "label": "xG en penales",
+              "text": "0,00"
+            },
+            {
+              "label": "xG a puerta (xGOT)",
+              "text": "0,00"
+            }
+          ]
+        },
+        {
+          "label": "Creación",
+          "rows": [
+            {
+              "label": "Asistencias",
+              "text": "0"
+            },
+            {
+              "label": "xA en jugada",
+              "text": "0,00"
+            },
+            {
+              "label": "xA en balón parado",
+              "text": "0,00"
+            },
+            {
+              "label": "Pases clave",
+              "text": "0"
+            },
+            {
+              "label": "Pases filtrados",
+              "text": "0"
+            },
+            {
+              "label": "Ocasiones claras creadas",
+              "text": "0"
+            },
+            {
+              "label": "Centros y córners precisos",
+              "text": "0"
+            }
+          ]
+        },
+        {
+          "label": "Pase",
+          "rows": [
+            {
+              "label": "Pases precisos",
+              "text": "0 (0 %)"
+            },
+            {
+              "label": "Pases largos precisos",
+              "text": "0 (0 %)"
+            },
+            {
+              "label": "Pases progresivos precisos",
+              "text": "0 (0 %)"
+            },
+            {
+              "label": "Pases cortos precisos",
+              "text": "0"
+            },
+            {
+              "label": "Pases hacia adelante precisos",
+              "text": "0 (0 %)"
+            },
+            {
+              "label": "Pases hacia atrás precisos",
+              "text": "0"
+            }
+          ]
+        },
+        {
+          "label": "Defensa",
+          "rows": [
+            {
+              "label": "Intercepciones",
+              "text": "0"
+            },
+            {
+              "label": "Bloqueos",
+              "text": "0"
+            },
+            {
+              "label": "Entradas ganadas",
+              "text": "0"
+            },
+            {
+              "label": "Rechaces por abajo",
+              "text": "1"
+            },
+            {
+              "label": "Rechaces de cabeza",
+              "text": "0"
+            },
+            {
+              "label": "Recuperaciones",
+              "text": "0"
+            }
+          ]
+        },
+        {
+          "label": "Juego aéreo",
+          "rows": [
+            {
+              "label": "Duelos aéreos ofensivos ganados",
+              "text": "0"
+            },
+            {
+              "label": "Duelos aéreos defensivos ganados",
+              "text": "0"
+            },
+            {
+              "label": "Duelos aéreos ganados",
+              "text": "0"
+            },
+            {
+              "label": "Remates de cabeza",
+              "text": "0 (xG 0,00)"
+            }
+          ]
+        },
+        {
+          "label": "Posesión",
+          "rows": [
+            {
+              "label": "Toques",
+              "text": "5"
+            },
+            {
+              "label": "Toques en el tercio rival",
+              "text": "0"
+            },
+            {
+              "label": "Toques en el área rival",
+              "text": "0"
+            },
+            {
+              "label": "Retención",
+              "text": "80 %"
+            },
+            {
+              "label": "Pérdidas de posesión",
+              "text": "1"
+            },
+            {
+              "label": "Mal control",
+              "text": "0"
+            },
+            {
+              "label": "Conducciones progresivas",
+              "text": "0"
+            },
+            {
+              "label": "Regates exitosos",
+              "text": "0"
+            },
+            {
+              "label": "Faltas recibidas",
+              "text": "1"
+            }
+          ]
+        }
+      ],
+      "note": "No jugó en este partido.",
+      "url": "https://www.statiskicks.com/player/9vy0gclovljnladztpsu1usr8/dagoberto-espinoza"
+    },
+    "5jj07az7i7svdgh5egd1s5dqt": {
+      "name": "R. Cota",
+      "photo": "https://media.api-sports.io/football/players/35473.png",
+      "team": "Club América",
+      "crest": "https://www.statiskicks.com/storage/media/teams/2287.png",
+      "side": "away",
+      "country": "México",
+      "flag": "https://flagcdn.com/w20/mx.png",
+      "age": 39,
+      "shirt": 30,
+      "position": "Portero",
+      "minutes": 0,
+      "rating": null,
+      "grade": "none",
+      "events": [],
+      "played": false,
+      "keeper": true,
+      "groups": [],
+      "note": "No jugó en este partido.",
+      "url": "https://www.statiskicks.com/player/5jj07az7i7svdgh5egd1s5dqt/rodolfo-cota"
+    },
+    "cqubv8avl4tqewhdyfw14qi38": {
+      "name": "A. Cárdenas",
+      "photo": null,
+      "team": "Club América",
+      "crest": "https://www.statiskicks.com/storage/media/teams/2287.png",
+      "side": "away",
+      "country": "México",
+      "flag": "https://flagcdn.com/w20/mx.png",
+      "age": 20,
+      "shirt": 189,
+      "position": "Delantero",
+      "minutes": 0,
+      "rating": null,
+      "grade": "none",
+      "events": [],
+      "played": false,
+      "keeper": false,
+      "groups": [],
+      "note": "No jugó en este partido.",
+      "url": "https://www.statiskicks.com/player/cqubv8avl4tqewhdyfw14qi38/alejandro-cardenas"
+    },
+    "1yaltijxes8x1ftlfs9aawwyx": {
+      "name": "A. Gutiérrez",
+      "photo": "https://media.api-sports.io/football/players/35573.png",
+      "team": "Club América",
+      "crest": "https://www.statiskicks.com/storage/media/teams/2287.png",
+      "side": "away",
+      "country": "México",
+      "flag": "https://flagcdn.com/w20/mx.png",
+      "age": 26,
+      "shirt": 20,
+      "position": "Mediocampista",
+      "minutes": 0,
+      "rating": null,
+      "grade": "none",
+      "events": [],
+      "played": false,
+      "keeper": false,
+      "groups": [],
+      "note": "No jugó en este partido.",
+      "url": "https://www.statiskicks.com/player/1yaltijxes8x1ftlfs9aawwyx/alexis-gutierrez"
+    },
+    "76a0p6bdffuxw4ogr6a1r86lm": {
+      "name": "R. Juárez",
+      "photo": "https://media.api-sports.io/football/players/180734.png",
+      "team": "Club América",
+      "crest": "https://www.statiskicks.com/storage/media/teams/2287.png",
+      "side": "away",
+      "country": "México",
+      "flag": "https://flagcdn.com/w20/mx.png",
+      "age": 25,
+      "shirt": 29,
+      "position": "Defensa",
+      "minutes": 0,
+      "rating": null,
+      "grade": "none",
+      "events": [],
+      "played": false,
+      "keeper": false,
+      "groups": [],
+      "note": "No jugó en este partido.",
+      "url": "https://www.statiskicks.com/player/76a0p6bdffuxw4ogr6a1r86lm/ramon-juarez"
+    },
+    "83aoeg6en5yadgaqu9mucisr8": {
+      "name": "Ícaro",
+      "photo": null,
+      "team": "Club América",
+      "crest": "https://www.statiskicks.com/storage/media/teams/2287.png",
+      "side": "away",
+      "country": "Brasil",
+      "flag": "https://flagcdn.com/w20/br.png",
+      "age": 19,
+      "shirt": 217,
+      "position": "Mediocampista",
+      "minutes": 0,
+      "rating": null,
+      "grade": "none",
+      "events": [],
+      "played": false,
+      "keeper": false,
+      "groups": [],
+      "note": "No jugó en este partido.",
+      "url": "https://www.statiskicks.com/player/83aoeg6en5yadgaqu9mucisr8/icaro-da"
+    }
+  }
+}

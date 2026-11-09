@@ -1,0 +1,146 @@
+{
+  "evidence_id": "ev_04b1ede55ec1bd3f547cd81c48dc5a1fc2e4e8b8f9a9020481a3e35092a126e8",
+  "scenario_prefix": "31-players-statranges-and-matches-hub",
+  "steps": [
+    {
+      "step_id": "scenario_start",
+      "status": "completed",
+      "error": null,
+      "after_url": "https://www.statiskicks.com/players",
+      "dom_bytes": 0,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "wait-players-init",
+      "status": "completed",
+      "error": null,
+      "after_url": "https://www.statiskicks.com/players",
+      "dom_bytes": 0,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "click-period-pill",
+      "status": "completed",
+      "error": null,
+      "after_url": "https://www.statiskicks.com/players",
+      "dom_bytes": 0,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "wait-period-pill",
+      "status": "completed",
+      "error": null,
+      "after_url": "https://www.statiskicks.com/players",
+      "dom_bytes": 0,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "req-robots-txt",
+      "status": "completed",
+      "error": null,
+      "after_url": "https://www.statiskicks.com/players",
+      "dom_bytes": 0,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "req-sitemap-xml",
+      "status": "completed",
+      "error": null,
+      "after_url": "https://www.statiskicks.com/players",
+      "dom_bytes": 0,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "req-laravel-up",
+      "status": "completed",
+      "error": null,
+      "after_url": "https://www.statiskicks.com/players",
+      "dom_bytes": 0,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "goto-partidos",
+      "status": "completed",
+      "error": null,
+      "after_url": "https://www.statiskicks.com/partidos",
+      "dom_bytes": 0,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "wait-partidos-init",
+      "status": "completed",
+      "error": null,
+      "after_url": "https://www.statiskicks.com/partidos",
+      "dom_bytes": 0,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "click-prev-day",
+      "status": "completed",
+      "error": null,
+      "after_url": "https://www.statiskicks.com/partidos",
+      "dom_bytes": 0,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "wait-prev-day",
+      "status": "completed",
+      "error": null,
+      "after_url": "https://www.statiskicks.com/partidos?fecha=2026-11-08",
+      "dom_bytes": 168891,
+      "screenshot_state": "captured"
+    }
+  ],
+  "interesting_transactions": [
+    {
+      "transaction_id": "request-40",
+      "method": "POST",
+      "url": "https://www.statiskicks.com/livewire-e3175f40/update",
+      "status": 200,
+      "calls": "statRanges([[], '', [{'key': 'skore', 'unit': 'rating'}], None, ''])",
+      "req_bytes": 1616,
+      "resp_bytes": 1545,
+      "response_headers": null
+    },
+    {
+      "transaction_id": "request-42",
+      "method": "POST",
+      "url": "https://www.statiskicks.com/livewire-e3175f40/update",
+      "status": 200,
+      "calls": "periodCalendar([[], ''])",
+      "req_bytes": 1578,
+      "resp_bytes": 1737,
+      "response_headers": null
+    },
+    {
+      "transaction_id": "request-43",
+      "method": "GET",
+      "url": "https://www.statiskicks.com/robots.txt",
+      "status": 200,
+      "calls": "",
+      "req_bytes": 0,
+      "resp_bytes": 26,
+      "response_headers": null
+    },
+    {
+      "transaction_id": "request-44",
+      "method": "GET",
+      "url": "https://www.statiskicks.com/sitemap.xml",
+      "status": 404,
+      "calls": "",
+      "req_bytes": 0,
+      "resp_bytes": 6586,
+      "response_headers": null
+    },
+    {
+      "transaction_id": "request-45",
+      "method": "GET",
+      "url": "https://www.statiskicks.com/up",
+      "status": 200,
+      "calls": "",
+      "req_bytes": 0,
+      "resp_bytes": 1832,
+      "response_headers": null
+    }
+  ]
+}

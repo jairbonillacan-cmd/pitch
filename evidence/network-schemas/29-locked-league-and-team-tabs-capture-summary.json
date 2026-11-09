@@ -1,0 +1,162 @@
+{
+  "evidence_id": "ev_a1d8facdf931a87bf33ba5e703e23d73cd2ee0c4550557ba3b84cdb9a1c10088",
+  "scenario_prefix": "29-locked-league-and-team-tabs",
+  "steps": [
+    {
+      "step_id": "scenario_start",
+      "status": "completed",
+      "error": null,
+      "after_url": "https://www.statiskicks.com/league/7ut48s80k421xixh6ev5i6h62",
+      "dom_bytes": 76679,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "wait-locked-league-femenil",
+      "status": "completed",
+      "error": null,
+      "after_url": "https://www.statiskicks.com/league/7ut48s80k421xixh6ev5i6h62",
+      "dom_bytes": 76679,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "goto-team-america",
+      "status": "completed",
+      "error": null,
+      "after_url": "https://www.statiskicks.com/team/club-america-eu8c408f59yx7egaqossbv25e",
+      "dom_bytes": 1089600,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "wait-team-tabs",
+      "status": "completed",
+      "error": null,
+      "after_url": "https://www.statiskicks.com/team/club-america-eu8c408f59yx7egaqossbv25e",
+      "dom_bytes": 1089600,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "click-team-squad",
+      "status": "completed",
+      "error": null,
+      "after_url": "https://www.statiskicks.com/team/club-america-eu8c408f59yx7egaqossbv25e",
+      "dom_bytes": 1089700,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "wait-team-squad",
+      "status": "completed",
+      "error": null,
+      "after_url": "https://www.statiskicks.com/team/club-america-eu8c408f59yx7egaqossbv25e",
+      "dom_bytes": 1089700,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "click-squad-p90",
+      "status": "failed",
+      "error": "Analysis operation timed out after 15000ms: capture_browser_scenario",
+      "after_url": "https://www.statiskicks.com/team/club-america-eu8c408f59yx7egaqossbv25e",
+      "dom_bytes": 1089700,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "wait-squad-p90",
+      "status": "cancelled",
+      "error": "not executed after an earlier action failure",
+      "after_url": "https://www.statiskicks.com/team/club-america-eu8c408f59yx7egaqossbv25e",
+      "dom_bytes": 0,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "click-team-stats",
+      "status": "cancelled",
+      "error": "not executed after an earlier action failure",
+      "after_url": "https://www.statiskicks.com/team/club-america-eu8c408f59yx7egaqossbv25e",
+      "dom_bytes": 0,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "wait-team-stats",
+      "status": "cancelled",
+      "error": "not executed after an earlier action failure",
+      "after_url": "https://www.statiskicks.com/team/club-america-eu8c408f59yx7egaqossbv25e",
+      "dom_bytes": 0,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "click-team-results",
+      "status": "cancelled",
+      "error": "not executed after an earlier action failure",
+      "after_url": "https://www.statiskicks.com/team/club-america-eu8c408f59yx7egaqossbv25e",
+      "dom_bytes": 0,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "wait-team-results",
+      "status": "cancelled",
+      "error": "not executed after an earlier action failure",
+      "after_url": "https://www.statiskicks.com/team/club-america-eu8c408f59yx7egaqossbv25e",
+      "dom_bytes": 0,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "click-team-maps",
+      "status": "cancelled",
+      "error": "not executed after an earlier action failure",
+      "after_url": "https://www.statiskicks.com/team/club-america-eu8c408f59yx7egaqossbv25e",
+      "dom_bytes": 0,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "wait-team-maps",
+      "status": "cancelled",
+      "error": "not executed after an earlier action failure",
+      "after_url": "https://www.statiskicks.com/team/club-america-eu8c408f59yx7egaqossbv25e",
+      "dom_bytes": 0,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "click-team-compare",
+      "status": "cancelled",
+      "error": "not executed after an earlier action failure",
+      "after_url": "https://www.statiskicks.com/team/club-america-eu8c408f59yx7egaqossbv25e",
+      "dom_bytes": 0,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "wait-team-compare",
+      "status": "cancelled",
+      "error": "not executed after an earlier action failure",
+      "after_url": "https://www.statiskicks.com/team/club-america-eu8c408f59yx7egaqossbv25e",
+      "dom_bytes": 0,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "click-team-setpieces",
+      "status": "cancelled",
+      "error": "not executed after an earlier action failure",
+      "after_url": "https://www.statiskicks.com/team/club-america-eu8c408f59yx7egaqossbv25e",
+      "dom_bytes": 0,
+      "screenshot_state": "not_requested"
+    },
+    {
+      "step_id": "wait-team-setpieces",
+      "status": "cancelled",
+      "error": "not executed after an earlier action failure",
+      "after_url": "https://www.statiskicks.com/team/club-america-eu8c408f59yx7egaqossbv25e",
+      "dom_bytes": 0,
+      "screenshot_state": "missing"
+    }
+  ],
+  "interesting_transactions": [
+    {
+      "transaction_id": "request-1",
+      "method": "GET",
+      "url": "https://www.statiskicks.com/league/7ut48s80k421xixh6ev5i6h62",
+      "status": 200,
+      "calls": "",
+      "req_bytes": 0,
+      "resp_bytes": 75779,
+      "response_headers": null
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+[
+  {
+    "id": "env",
+    "type": "deploy_env",
+    "env_id": "statiskicks-web-env",
+    "sandbox_type": "local"
+  },
+  {
+    "id": "serve",
+    "type": "env_outcome_verifier",
+    "env_id": "statiskicks-web-env",
+    "file_artifact_id": "check_statiskicks-web-env",
+    "verifier_id": "serve"
+  }
+]
