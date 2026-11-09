@@ -1,20 +1,15 @@
 #!/usr/bin/env python3
-"""Exporta el modelo de inferencia (Motor A) a JSON para consumirlo desde TypeScript.
+"""Exporta el modelo de inferencia (Motor A v2) a JSON para consumirlo desde TypeScript.
 
 Contenido de `model_motor_a.json`:
   - type: "multinomial_logistic"
-  - features: nombres en orden
+  - features: nombres en orden (79 features base + niveles de división)
   - imputer: mediana por feature
   - scaler: media y escala por feature
   - coef: matriz 3 x (n_features + n_divs)
   - intercept: 3
   - div_levels: niveles de división (one-hot al final, en orden)
   - metadata: fecha, n, temporadas, semilla, métricas de validación, versión
-
-Contenido de `features_snapshot.json`:
-  - match_id -> {features: [...], probs_python: [...], div, season, match_date}
-  para un conjunto de partidos (por defecto 2026/27) que permite verificar en TS que la
-  implementación reproduce las probabilidades de Python.
 
 Uso:
     ./.venv/bin/python pipeline/export_model.py --out artifacts/model_v1
@@ -55,26 +50,33 @@ def main():
     df = df[df.y.notna()].copy()
     df["y"] = df.y.astype(int)
     df["sstart"] = df.season.astype(str).str[:4].astype(int)
-    train = df[df.sstart <= 2026].copy()
-    div_levels = sorted(train["div"].unique().tolist())
+    div_levels = sorted(df[df.sstart <= 2026]["div"].unique().tolist())
+    train = df[(df.sstart >= 2014) & (df.sstart <= 2026)].copy()
 
     def design(d):
         X = d[FEATURES].to_numpy(dtype=float)
-        dummies = pd.get_dummies(d["div"], prefix="div").reindex(
-            columns=[f"div_{x}" for x in div_levels], fill_value=0).to_numpy(dtype=float)
+        dummies = (
+            pd.get_dummies(d["div"], prefix="div")
+            .reindex(columns=[f"div_{x}" for x in div_levels], fill_value=0)
+            .to_numpy(dtype=float)
+        )
         return np.hstack([X, dummies])
 
     X = design(train)
     y = train.y.to_numpy()
+    train["match_date"] = pd.to_datetime(train["match_date"])
+    days = (train.match_date.max() - train.match_date).dt.days.to_numpy(dtype=float)
+    sw = 0.5 ** (days / 1460.0)
     imp = SimpleImputer(strategy="median").fit(X)
     sc = StandardScaler().fit(imp.transform(X))
-    lr = LogisticRegression(max_iter=5000, C=1.0).fit(sc.transform(imp.transform(X)), y)
+    lr = LogisticRegression(max_iter=1000, tol=1e-4, C=0.25).fit(sc.transform(imp.transform(X)), y, sample_weight=sw)
     probs_train = lr.predict_proba(sc.transform(imp.transform(X)))
 
     cols = FEATURES + [f"div_{x}" for x in div_levels]
     model = {
         "type": "multinomial_logistic",
-        "version": "1.0.0",
+        "codename": "PitchLab Tachyon v2.0",
+        "version": "2.0.0",
         "created_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "seed": SEED,
         "features": cols,
@@ -86,20 +88,20 @@ def main():
         "intercept": lr.intercept_.tolist(),
         "classes": [int(c) for c in lr.classes_],
         "metadata": {
-            "trained_on": "features.parquet v1.1 (priors causales)",
+            "trained_on": "features.parquet v2.0 (Pi-Ratings + Dixon-Coles + xG proxy + Opponent-Adjusted Form)",
             "n_matches": int(len(train)),
             "seasons": [str(train.season.min()), str(train.season.max())],
             "target": "0=H, 1=D, 2=A",
             "train_log_loss": float(-np.mean(np.log(probs_train[np.arange(len(y)), y]))),
-            "notes": "Features precalculadas por el pipeline Python; TS solo aplica imputer+scaler+softmax.",
+            "notes": "Features de 2a gen precalculadas por Python; TS aplica imputer+scaler+softmax con paridad <=1e-12.",
         },
     }
     model["dataset_sha256"] = hashlib.sha256(
-        open(os.path.join(PROC, "features.parquet"), "rb").read(1 << 20)).hexdigest()
-    with open(os.path.join(outdir, "model_motor_a.json"), "w") as f:
+        open(os.path.join(PROC, "features.parquet"), "rb").read(1 << 20)
+    ).hexdigest()
+    with open(os.path.join(outdir, "model_motor_a.json"), "w", encoding="utf-8") as f:
         json.dump(model, f, indent=1)
 
-    # Snapshot verificable (partidos de la temporada en curso)
     snap = df[df.sstart == args.snapshot_season].copy()
     if len(snap) > args.snapshot_n:
         snap = snap.sample(n=args.snapshot_n, random_state=SEED)
@@ -108,15 +110,21 @@ def main():
     rows = {}
     for i, (_, r) in enumerate(snap.iterrows()):
         rows[r.match_id] = {
-            "div": r["div"], "season": str(r.season), "match_date": str(r.match_date)[:10],
+            "div": r["div"],
+            "season": str(r.season),
+            "match_date": str(r.match_date)[:10],
             "features": [None if pd.isna(v) else float(v) for v in r[FEATURES].tolist()],
             "div_onehot": [1.0 if r["div"] == d else 0.0 for d in div_levels],
             "probs_python": [round(float(x), 12) for x in ps[i]],
         }
-    with open(os.path.join(outdir, "features_snapshot.json"), "w") as f:
+    with open(os.path.join(outdir, "features_snapshot.json"), "w", encoding="utf-8") as f:
         json.dump({"generated_at": model["created_at"], "n": len(rows), "rows": rows}, f, indent=1)
-    print(f"modelo: {len(train):,} partidos, {len(cols)} columnas | train log-loss={model['metadata']['train_log_loss']:.5f}")
-    print(f"escrito -> {outdir}/model_motor_a.json ({os.path.getsize(os.path.join(outdir,'model_motor_a.json'))/1e6:.2f} MB)")
+    print(
+        f"modelo: {len(train):,} partidos, {len(cols)} columnas | train log-loss={model['metadata']['train_log_loss']:.5f}"
+    )
+    print(
+        f"escrito -> {outdir}/model_motor_a.json ({os.path.getsize(os.path.join(outdir,'model_motor_a.json'))/1e6:.2f} MB)"
+    )
     print(f"snapshot -> {outdir}/features_snapshot.json ({len(rows)} partidos)")
 
 

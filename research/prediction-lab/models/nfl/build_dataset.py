@@ -13,6 +13,9 @@ Decisiones (todas documentadas en reports/A12_nfl.md):
    proporcional y de-vig potencia (``k`` tal que ``Σ imp^k = 1``).
 5. ``spread_line`` se conserva con el signo de nflverse, verificado
    empíricamente: **positivo = el local es favorito** por esos puntos.
+6. **QB y Entrenadores (v2)**: preserva ``home_qb_id``, ``away_qb_id``,
+   ``home_qb_name``, ``away_qb_name``, ``home_coach``, ``away_coach`` para construir
+   features causales de valor de Quarterback y continuidad de titularidad.
 
 Uso::
 
@@ -75,6 +78,12 @@ OUTPUT_COLUMNS = [
     "home_ml_devig_power",
     "away_ml_devig_power",
     "has_moneyline",
+    "home_qb_id",
+    "away_qb_id",
+    "home_qb_name",
+    "away_qb_name",
+    "home_coach",
+    "away_coach",
 ]
 
 
@@ -96,7 +105,7 @@ def _power_k(imp: np.ndarray) -> float:
         return np.nan
     f = lambda k: float(np.sum(imp**k) - 1.0)
     lo, hi = 0.05, 20.0
-    if f(lo) < 0:  # mercado infravalorado (raro): no hay raíz en el rango
+    if f(lo) < 0:
         return np.nan
     if f(hi) > 0:
         return np.nan
@@ -135,7 +144,7 @@ def build(raw: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
     df = raw.copy()
     audit["by_game_type"] = df["game_type"].value_counts().to_dict()
     audit["missing_score_rows"] = int(df["home_score"].isna().sum())
-    given_margin = pd.to_numeric(df["result"], errors="coerce")  # margen local según nflverse
+    given_margin = pd.to_numeric(df["result"], errors="coerce")
     scored = df["home_score"].notna() & df["away_score"].notna()
     computed = df.loc[scored, "home_score"] - df.loc[scored, "away_score"]
     audit["result_column_matches_margin"] = bool(
@@ -145,15 +154,12 @@ def build(raw: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
         (computed.to_numpy() != given_margin.loc[scored].to_numpy()).sum()
     )
 
-    # 1) solo partidos con resultado
     df = df[df["home_score"].notna() & df["away_score"].notna()].copy()
-    # 2) solo temporada regular
     df = df[df["game_type"] == GAME_TYPE].copy()
     df["gameday"] = pd.to_datetime(df["gameday"], errors="coerce")
     df = df[df["gameday"].notna()].copy()
     df = df.sort_values(["gameday", "game_id"]).reset_index(drop=True)
 
-    # 3) resultado normalizado + verificación de la columna `result` del CSV
     df["home_score"] = df["home_score"].astype("int64")
     df["away_score"] = df["away_score"].astype("int64")
     df["home_margin"] = df["home_score"] - df["away_score"]
@@ -164,24 +170,27 @@ def build(raw: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
     df["tie"] = df["home_margin"] == 0
     audit["result_counts"] = df["result"].value_counts().to_dict()
 
-    # 4) contexto
-    df["neutral_site"] = (df["location"].astype(str).str.strip() != "Home")
+    df["neutral_site"] = df["location"].astype(str).str.strip() != "Home"
     df["roof"] = df["roof"].fillna("unknown").astype(str).str.strip().str.lower()
     df["is_indoor"] = df["roof"].isin(["dome", "closed"]).astype("int8")
     df["surface_raw"] = df["surface"]
     df["surface"] = df["surface"].map(normalize_surface)
-    # Continuidad de franquicia para Elo/forma: STL->LA, SD->LAC, OAK->LV.
     df["home_franchise"] = df["home_team"].replace(FRANCHISE_MAP)
     df["away_franchise"] = df["away_team"].replace(FRANCHISE_MAP)
     df["rest_diff"] = df["home_rest"] - df["away_rest"]
     df["div_game"] = df["div_game"].fillna(0).astype("int8")
 
-    # 5) moneylines
+    for col in ("home_qb_id", "away_qb_id", "home_qb_name", "away_qb_name", "home_coach", "away_coach"):
+        if col in df.columns:
+            df[col] = df[col].fillna("unknown").astype(str).str.strip()
+        else:
+            df[col] = "unknown"
+
     df["home_ml_dec"] = american_to_decimal(df["home_moneyline"])
     df["away_ml_dec"] = american_to_decimal(df["away_moneyline"])
     df["home_ml_imp"] = 1.0 / df["home_ml_dec"]
     df["away_ml_imp"] = 1.0 / df["away_ml_dec"]
-    df["has_moneyline"] = (df["home_ml_imp"].notna() & df["away_ml_imp"].notna())
+    df["has_moneyline"] = df["home_ml_imp"].notna() & df["away_ml_imp"].notna()
     df["ml_overround"] = np.where(
         df["has_moneyline"], df["home_ml_imp"] + df["away_ml_imp"] - 1.0, np.nan
     )
@@ -195,7 +204,6 @@ def build(raw: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
     prop.columns = ["home_ml_devig_prop", "away_ml_devig_prop", "home_ml_devig_power", "away_ml_devig_power"]
     df = pd.concat([df, prop], axis=1)
 
-    # Verificación empírica del signo de spread_line (positivo = local favorito)
     sub = df.dropna(subset=["spread_line"])
     if len(sub) > 100:
         audit["spread_line_sign"] = {
@@ -234,10 +242,14 @@ def main() -> int:
         json.dumps(audit, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
     )
     print(f"OK {DATASET.relative_to(DATASET.parents[2])} rows={len(out)} cols={out.shape[1]}")
-    print(f"seasons={audit['seasons']} ties={audit['result_counts'].get('T', 0)} "
-          f"moneyline_coverage={out['has_moneyline'].mean():.3f}")
-    print(f"overround_median={audit['moneyline_overround_median']:.4f} "
-          f"spread_sign_corr={audit.get('spread_line_sign', {}).get('corr_with_margin', float('nan')):.3f}")
+    print(
+        f"seasons={audit['seasons']} ties={audit['result_counts'].get('T', 0)} "
+        f"moneyline_coverage={out['has_moneyline'].mean():.3f}"
+    )
+    print(
+        f"overround_median={audit['moneyline_overround_median']:.4f} "
+        f"spread_sign_corr={audit.get('spread_line_sign', {}).get('corr_with_margin', float('nan')):.3f}"
+    )
     return 0
 
 

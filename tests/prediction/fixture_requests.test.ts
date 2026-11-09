@@ -1,8 +1,8 @@
 /**
- * Ciclo 9 — camino de producto completo: fixtures → features (Python) → servicio TS.
+ * Ciclo 9 / v2 — camino de producto completo: fixtures → features (Python) → servicio TS.
  *
  * `fixture_requests.json` lo genera `pipeline/export_fixture_requests.py`: 150 fixtures reales
- * con el vector de 54 features, el one-hot de división y `probsPython` como oráculo.
+ * con el vector de 79 features de 2a generación, el one-hot de división y `probsPython` como oráculo.
  */
 import { describe, expect, it } from "vitest";
 import requestsJson from "../../src/data/prediction/fixture_requests.json";
@@ -31,7 +31,7 @@ describe("Ciclo 9 — peticiones de fixtures reales", () => {
     expect(file.n).toBe(150);
     expect(entries).toHaveLength(150);
     for (const [, r] of entries.slice(0, 20)) {
-      expect(r.features).toHaveLength(54);
+      expect(r.features).toHaveLength(83);
       expect(r.divOnehot).toHaveLength(23);
       expect(r.probsPython).toHaveLength(3);
       expect(r.divOnehot.filter((x) => x === 1)).toHaveLength(1);

@@ -24,6 +24,7 @@ cierre de test ejecutado **una sola vez** sobre candidatos congelados (`artifact
 | `12_REPRODUCIBILIDAD.md` | Comandos, versiones, semilla 20261109, hashes y verificación del leakage | A11 | **completado** → [abrir](12_REPRODUCIBILIDAD.md) |
 | `13_COORDINACION_SUBAGENTES.md` | Contratos, reparto real, paralelismo, hallazgos cruzados y estados | A11 | **completado** → [abrir](13_COORDINACION_SUBAGENTES.md) |
 | `14_AUDITORIA_ADVERSARIAL.md` | A09 legacy + A09b lab, veredicto “no apto” y resolución | A09, A09b | **completado** → [abrir](14_AUDITORIA_ADVERSARIAL.md) |
+| `15_REPORTE_COMPARATIVO_V2_VS_V1_VS_MERCADO.md` | Comparativa `Spacetime Suite v2.0` (`Tachyon v2.0`, `Singularity v2.0`, `Minkowski v2.0`) vs `v1.0` vs Casas de Apuestas vs Resultado Real | A23 | **completado** → [abrir](15_REPORTE_COMPARATIVO_V2_VS_V1_VS_MERCADO.md) |
 
 ---
 

@@ -1,8 +1,8 @@
 /**
- * Motor A — inferencia determinista del artefacto `model_motor_a.json`.
+ * Motor A / Motor B / Motor C (Híbrido) — inferencia determinista del artefacto `model_motor_a.json`.
  *
  * Pipeline exacto que reproduce Python (sklearn):
- *   1. vector de diseño = [54 features base, 23 dummies de división]
+ *   1. vector de diseño = [79 features base, 23 dummies de división]
  *   2. imputer: `null`/`NaN` -> mediana de entrenamiento (`imputer.statistics[i]`)
  *   3. scaler: `(x - mean[i]) / scale[i]`, con `scale[i] === 0 -> 1`
  *   4. logits[k] = coef[k] · x + intercept[k]
@@ -15,18 +15,36 @@ import type {
   NFLModelArtifact,
   NFLSnapshotRow,
   Prediction,
+  PredictionMode,
   PredictionRequest,
   ModelArtifact,
   SnapshotRow,
 } from "./types.js";
 
-/** Identificador fijo del motor aprobado (A06/A09). */
+/** Identificador fijo del motor deportivo puro (PitchLab Tachyon). */
 export const MOTOR_A_MODEL_ID = "motor_a_logistic_v1";
-/** Identificador del camino de mercado (Motor B / de-vig). */
+export const TACHYON_MODEL_NAME = "PitchLab Tachyon v2.0";
+/** Identificador del camino geodésico de mercado (Motor B / de-vig). */
 export const MARKET_MODEL_ID = "market_devig";
 export const MARKET_MODEL_VERSION = "market_devig_v1";
-/** Identificador del prior global usado cuando las features son irrecuperables. */
+export const GEODESIC_MODEL_NAME = "PitchLab Geodesic v1.0";
+/** Identificador del motor híbrido log-lineal (PitchLab Singularity = Mercado + Tachyon). */
+export const HYBRID_MODEL_ID = "pitchlab_singularity_v2";
+export const SINGULARITY_MODEL_NAME = "PitchLab Singularity v2.0";
+/** Identificador del prior global usado cuando las features son irrecuperables (PitchLab Horizon). */
 export const BASE_RATES_MODEL_ID = "base_rates_v1";
+export const HORIZON_MODEL_NAME = "PitchLab Horizon v1.0";
+
+/** Peso por defecto del mercado en el pool log-lineal híbrido. */
+export const DEFAULT_HYBRID_ALPHA = 0.85;
+/** Umbral máximo de discrepancia |pModel - pMarket| para el filtro anti-Winner's Curse. */
+export const MAX_MODEL_MARKET_DISAGREEMENT = 0.12;
+/** Edge máximo plausible antes de sospechar información asimétrica no capturada. */
+export const MAX_PLAUSIBLE_EDGE = 0.12;
+/** Edge mínimo requerido para activar una apuesta de valor. */
+export const DEFAULT_MIN_EDGE = 0.02;
+/** Escala de Kelly fraccional por defecto (Quarter-Kelly). */
+export const DEFAULT_KELLY_SCALE = 0.25;
 
 /** Tolerancia contractual del simplex (suma de probabilidades). */
 export const PROBABILITY_SUM_TOLERANCE = 1e-9;
@@ -69,7 +87,7 @@ function assertFiniteArray(values: readonly number[], label: string): void {
 
 /**
  * Valida las invariantes dimensionales del artefacto. Se ejecuta en cada llamada
- * pública (coste O(77)) para que un JSON corrupto falle con un mensaje claro y no
+ * pública (coste O(102)) para que un JSON corrupto falle con un mensaje claro y no
  * con `undefined` propagándose por el cálculo.
  */
 export function assertValidModel(model: ModelArtifact): void {
@@ -276,6 +294,102 @@ export function softmax3(logits: readonly number[]): readonly [number, number, n
   return probs;
 }
 
+/**
+ * Pool log-lineal entre probabilidades de mercado y del modelo deportivo (Motor C):
+ *   log p_i ∝ alpha * log(pMarket_i) + (1 - alpha) * log(pModel_i)
+ */
+export function blendLogLinear3(
+  pMarket: readonly [number, number, number],
+  pModel: readonly [number, number, number],
+  alpha: number = DEFAULT_HYBRID_ALPHA,
+): readonly [number, number, number] {
+  const w = Number.isFinite(alpha) ? Math.min(Math.max(alpha, 0), 1) : DEFAULT_HYBRID_ALPHA;
+  const clip = (p: number): number => Math.min(Math.max(p, 1e-9), 1 - 1e-9);
+  const logits: [number, number, number] = [
+    w * Math.log(clip(pMarket[0])) + (1 - w) * Math.log(clip(pModel[0])),
+    w * Math.log(clip(pMarket[1])) + (1 - w) * Math.log(clip(pModel[1])),
+    w * Math.log(clip(pMarket[2])) + (1 - w) * Math.log(clip(pModel[2])),
+  ];
+  return softmax3(logits);
+}
+
+export interface ValueExecutionOptions {
+  minEdge?: number;
+  maxEdge?: number;
+  maxDisagreement?: number;
+  kellyScale?: number;
+  maxKellyStake?: number;
+}
+
+export interface ValueExecutionMetrics {
+  modelMarketDivergence: readonly [number, number, number];
+  expectedEdge: readonly [number, number, number];
+  kellyFraction: readonly [number, number, number];
+  uncertaintyGatePassed: boolean;
+}
+
+/**
+ * Calcula métricas de ejecución de apuestas de valor con filtro anti-Winner's Curse:
+ *   - `modelMarketDivergence`: pModel - pMarket
+ *   - `expectedEdge`: pEval * odds - 1
+ *   - `uncertaintyGatePassed`: max(|pModel - pMarket|) <= maxDisagreement && max(expectedEdge) <= maxEdge
+ *   - `kellyFraction`: Quarter-Kelly capado si pasa el gate y supera `minEdge`
+ */
+export function evaluateValueExecution(
+  probsEval: readonly [number, number, number],
+  pMarket: readonly [number, number, number],
+  pModel: readonly [number, number, number],
+  odds: readonly [number, number, number],
+  options?: ValueExecutionOptions,
+): ValueExecutionMetrics {
+  const minEdge = options?.minEdge ?? DEFAULT_MIN_EDGE;
+  const maxEdge = options?.maxEdge ?? MAX_PLAUSIBLE_EDGE;
+  const maxDisagreement = options?.maxDisagreement ?? MAX_MODEL_MARKET_DISAGREEMENT;
+  const kellyScale = options?.kellyScale ?? DEFAULT_KELLY_SCALE;
+  const maxKellyStake = options?.maxKellyStake ?? 0.1;
+
+  const divergence: readonly [number, number, number] = [
+    pModel[0] - pMarket[0],
+    pModel[1] - pMarket[1],
+    pModel[2] - pMarket[2],
+  ];
+  const maxDisagreementObs = Math.max(
+    Math.abs(divergence[0]),
+    Math.abs(divergence[1]),
+    Math.abs(divergence[2]),
+  );
+
+  const expectedEdge: readonly [number, number, number] = [
+    probsEval[0] * odds[0] - 1,
+    probsEval[1] * odds[1] - 1,
+    probsEval[2] * odds[2] - 1,
+  ];
+  const maxPositiveEdge = Math.max(0, expectedEdge[0], expectedEdge[1], expectedEdge[2]);
+  const uncertaintyGatePassed =
+    maxDisagreementObs <= maxDisagreement && maxPositiveEdge <= maxEdge;
+
+  const kellyFor = (edge: number, odd: number): number => {
+    if (!uncertaintyGatePassed || edge < minEdge || !(odd > 1)) {
+      return 0;
+    }
+    const rawKelly = edge / (odd - 1);
+    return Math.min(maxKellyStake, Math.max(0, kellyScale * rawKelly));
+  };
+
+  const kellyFraction: readonly [number, number, number] = [
+    kellyFor(expectedEdge[0], odds[0]),
+    kellyFor(expectedEdge[1], odds[1]),
+    kellyFor(expectedEdge[2], odds[2]),
+  ];
+
+  return {
+    modelMarketDivergence: divergence,
+    expectedEdge,
+    kellyFraction,
+    uncertaintyGatePassed,
+  };
+}
+
 /** Predicción Motor A sin validar el modelo (uso interno, modelo ya validado). */
 function predictMotorAUnchecked(row: SnapshotRow, model: ModelArtifact): Prediction {
   const design = buildStandardizedDesign(row, model);
@@ -294,6 +408,7 @@ function predictMotorAUnchecked(row: SnapshotRow, model: ModelArtifact): Predict
     pDraw,
     pAway,
     modelId: MOTOR_A_MODEL_ID,
+    modelName: model.codename ?? TACHYON_MODEL_NAME,
     modelVersion: model.version,
     // Determinista: la marca temporal es la del artefacto, no el reloj del proceso.
     generatedAt: model.created_at,
@@ -329,10 +444,9 @@ export function isValidMarketProbs(
   return sum > 0 && Math.abs(sum - 1) <= MARKET_SUM_TOLERANCE;
 }
 
-function marketPrediction(
+function normalizeMarketVector(
   marketProbs: readonly [number, number, number],
-  model: ModelArtifact,
-): Prediction {
+): readonly [number, number, number] {
   const sum = marketProbs[0] + marketProbs[1] + marketProbs[2];
   const probs = [
     marketProbs[0] / sum,
@@ -340,15 +454,65 @@ function marketPrediction(
     marketProbs[2] / sum,
   ] as const;
   assertSimplex(probs, "market_devig");
+  return probs;
+}
+
+function marketPrediction(
+  marketProbs: readonly [number, number, number],
+  model: ModelArtifact,
+): Prediction {
+  const probs = normalizeMarketVector(marketProbs);
   return {
     pHome: probs[0],
     pDraw: probs[1],
     pAway: probs[2],
     modelId: MARKET_MODEL_ID,
+    modelName: GEODESIC_MODEL_NAME,
     modelVersion: MARKET_MODEL_VERSION,
     generatedAt: model.created_at,
     dataQualityFlag: "ok",
     sport: "football",
+  };
+}
+
+function hybridPredictionUnchecked(
+  row: SnapshotRow,
+  model: ModelArtifact,
+  marketProbs: readonly [number, number, number],
+  alpha: number = DEFAULT_HYBRID_ALPHA,
+): Prediction {
+  const pMarket = normalizeMarketVector(marketProbs);
+  const motorA = predictMotorAUnchecked(row, model);
+  const pModel: readonly [number, number, number] = [
+    motorA.pHome,
+    motorA.pDraw,
+    motorA.pAway,
+  ];
+  const w = Number.isFinite(alpha) ? Math.min(Math.max(alpha, 0), 1) : DEFAULT_HYBRID_ALPHA;
+  const pHybrid = blendLogLinear3(pMarket, pModel, w);
+  const divergence: readonly [number, number, number] = [
+    pModel[0] - pMarket[0],
+    pModel[1] - pMarket[1],
+    pModel[2] - pMarket[2],
+  ];
+  const maxDisagreement = Math.max(
+    Math.abs(divergence[0]),
+    Math.abs(divergence[1]),
+    Math.abs(divergence[2]),
+  );
+  return {
+    pHome: pHybrid[0],
+    pDraw: pHybrid[1],
+    pAway: pHybrid[2],
+    modelId: HYBRID_MODEL_ID,
+    modelName: SINGULARITY_MODEL_NAME,
+    modelVersion: model.version,
+    generatedAt: model.created_at,
+    dataQualityFlag: "ok",
+    sport: "football",
+    modelMarketDivergence: divergence,
+    uncertaintyGatePassed: maxDisagreement <= MAX_MODEL_MARKET_DISAGREEMENT,
+    hybridAlpha: w,
   };
 }
 
@@ -375,9 +539,16 @@ export function normalizeBaseRates(rates: BaseRates): BaseRates {
   };
 }
 
+export interface FallbackOptions {
+  mode?: PredictionMode;
+  hybridAlpha?: number;
+}
+
 /**
  * Orquestador de inferencia:
- *   1. Si `marketProbs` es válido -> Motor B (`market_devig`, flag `ok`).
+ *   1. Si `marketProbs` es válido (y `mode !== "motor_a_only"`):
+ *      - `mode === "hybrid"` -> Motor C (`motor_c_hybrid_v2`, pool log-lineal de mercado + Motor A).
+ *      - por defecto (`"market_only"`) -> Motor B (`market_devig`, flag `ok`).
  *   2. Si no, Motor A. Si el mercado se pasó pero fue rechazado, flag
  *      `fallback_motor_a`; si no se pasó, Motor A es el camino primario (`ok`).
  *   3. Si las features son irrecuperables -> prior H/D/A normalizado y flag
@@ -391,14 +562,27 @@ export function predictWithFallback(
   model: ModelArtifact,
   marketProbs?: readonly number[] | null,
   baseRates: BaseRates = GLOBAL_HDA_RATES,
+  options?: FallbackOptions,
 ): Prediction {
   assertValidModel(model);
+  const mode: PredictionMode = options?.mode ?? "market_only";
 
-  if (isValidMarketProbs(marketProbs)) {
+  if (mode !== "motor_a_only" && isValidMarketProbs(marketProbs)) {
+    if (mode === "hybrid") {
+      try {
+        return hybridPredictionUnchecked(row, model, marketProbs, options?.hybridAlpha);
+      } catch (error) {
+        if (!(error instanceof InvalidFeaturesError)) {
+          throw error;
+        }
+        return marketPrediction(marketProbs, model);
+      }
+    }
     return marketPrediction(marketProbs, model);
   }
 
-  const marketSupplied = marketProbs !== undefined && marketProbs !== null;
+  const marketSupplied =
+    mode !== "motor_a_only" && marketProbs !== undefined && marketProbs !== null;
   try {
     const motorA = predictMotorAUnchecked(row, model);
     return marketSupplied ? { ...motorA, dataQualityFlag: "fallback_motor_a" } : motorA;
@@ -412,6 +596,7 @@ export function predictWithFallback(
       pDraw: rates.pDraw,
       pAway: rates.pAway,
       modelId: BASE_RATES_MODEL_ID,
+      modelName: HORIZON_MODEL_NAME,
       modelVersion: model.version,
       generatedAt: model.created_at,
       dataQualityFlag: "invalid_features",
@@ -425,8 +610,9 @@ export function predictWithFallback(
 // NFL (ciclo 3, A14)
 // ---------------------------------------------------------------------------
 
-/** Identificador del motor NFL exportado por `pipeline/export_model_nfl.py`. */
+/** Identificador del motor NFL exportado por `pipeline/export_model_nfl.py` (PitchLab Minkowski). */
 export const NFL_MODEL_ID = "nfl_logistic_v1";
+export const MINKOWSKI_MODEL_NAME = "PitchLab Minkowski v2.0";
 
 /**
  * Valida el artefacto NFL. A diferencia del de fútbol no hay dummies de división:
@@ -555,6 +741,7 @@ export function predictNFL(row: NFLSnapshotRow, model: NFLModelArtifact): Predic
     pDraw: probs[iT]!,
     pAway: probs[iA]!,
     modelId: NFL_MODEL_ID,
+    modelName: model.codename ?? MINKOWSKI_MODEL_NAME,
     modelVersion: model.version,
     generatedAt: model.created_at,
     dataQualityFlag: "ok",
@@ -572,5 +759,6 @@ export function predictForSport(request: PredictionRequest): Prediction {
     request.model,
     request.marketProbs,
     request.baseRates ?? GLOBAL_HDA_RATES,
+    { mode: request.mode, hybridAlpha: request.hybridAlpha },
   );
 }

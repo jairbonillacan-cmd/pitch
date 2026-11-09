@@ -37,8 +37,8 @@ SRC = os.path.join(ROOT, "..", "..", "src", "data", "prediction")
 OUT = os.path.join(SRC, "fixture_requests.json")
 
 
-def predict(model: dict, features: dict, div: str) -> list[float]:
-    x = np.array([np.nan if features.get(k) is None else features.get(k) for k in FEATURES], dtype=float)
+def predict(model: dict, feat_list: list[float | None], div: str) -> list[float]:
+    x = np.array([np.nan if v is None else v for v in feat_list], dtype=float)
     stats = np.array(model["imputer"]["statistics"][: len(FEATURES)], dtype=float)
     x = np.where(np.isnan(x), stats, x)
     onehot = np.zeros(len(model["div_levels"]))
@@ -56,9 +56,7 @@ def predict(model: dict, features: dict, div: str) -> list[float]:
 
 
 def main():
-    snap = sorted(glob.glob(os.path.join(ROOT, "data", "snapshots", "odds_*.csv")))[-1]
-    fixtures = pd.read_csv(snap)
-    fixtures["match_date"] = pd.to_datetime(fixtures["Date"], dayfirst=True)
+    snaps = sorted(glob.glob(os.path.join(ROOT, "data", "snapshots", "odds_*.csv")))
     matches = load_matches()
     state = build_state(matches)
     trained_divs = set(matches["div"].unique())
@@ -66,34 +64,68 @@ def main():
         model = json.load(f)
 
     rows = {}
-    for r in fixtures.itertuples(index=False):
-        div = r.Div
-        if div not in trained_divs:
-            continue
-        home = canonical_team(div, r.HomeTeam)
-        away = canonical_team(div, r.AwayTeam)
-        season = infer_season(div, r.match_date)
-        f = features_for_fixture(state, div, season, r.match_date, home, away)
-        known = all(
-            ((state["long"].team == t) & (state["long"].match_date < r.match_date)).any()
-            for t in (home, away)
-        )
-        if not known:
-            continue
-        odds = [getattr(r, c, np.nan) for c in ("B365H", "B365D", "B365A")]
-        pm = power_devig(np.array(odds, dtype=float)) if all(np.isfinite(odds)) else None
-        key = f"{div}:{r.match_date:%Y%m%d}:{home}:{away}"
-        rows[key] = {
-            "div": div, "season": season, "date": r.match_date.strftime("%Y-%m-%d"),
-            "home": home, "away": away,
-            "features": [None if pd.isna(f.get(k)) else round(float(f.get(k)), 12) for k in FEATURES],
-            "divOnehot": [1.0 if div == d else 0.0 for d in model["div_levels"]],
-            "marketProbs": None if pm is None else [round(float(x), 12) for x in pm],
-            "probsPython": [round(x, 12) for x in predict(model, f, div)],
-        }
+    if snaps:
+        snap = snaps[-1]
+        source_snapshot = os.path.basename(snap)
+        fixtures = pd.read_csv(snap)
+        fixtures["match_date"] = pd.to_datetime(fixtures["Date"], dayfirst=True)
+        for r in fixtures.itertuples(index=False):
+            div = r.Div
+            if div not in trained_divs:
+                continue
+            home = canonical_team(div, r.HomeTeam)
+            away = canonical_team(div, r.AwayTeam)
+            season = infer_season(div, r.match_date)
+            f = features_for_fixture(state, div, season, r.match_date, home, away)
+            known = all(
+                ((state["long"].team == t) & (state["long"].match_date < r.match_date)).any()
+                for t in (home, away)
+            )
+            if not known:
+                continue
+            odds = [getattr(r, c, np.nan) for c in ("B365H", "B365D", "B365A")]
+            pm = power_devig(np.array(odds, dtype=float)) if all(np.isfinite(odds)) else None
+            key = f"{div}:{r.match_date:%Y%m%d}:{home}:{away}"
+            feat_list = [None if pd.isna(f.get(k)) else round(float(f.get(k)), 12) for k in FEATURES]
+            rows[key] = {
+                "div": div, "season": season, "date": r.match_date.strftime("%Y-%m-%d"),
+                "home": home, "away": away,
+                "features": feat_list,
+                "divOnehot": [1.0 if div == d else 0.0 for d in model["div_levels"]],
+                "marketProbs": None if pm is None else [round(float(x), 12) for x in pm],
+                "probsPython": [round(x, 12) for x in predict(model, feat_list, div)],
+            }
+    else:
+        fix_csv = sorted(glob.glob(os.path.join(ROOT, "artifacts", "FIXTURES", "predictions_*.csv")))[-1]
+        df_fix = pd.read_csv(fix_csv)
+        source_snapshot = str(df_fix["snapshot"].iloc[0]) if "snapshot" in df_fix.columns else os.path.basename(fix_csv)
+        for r in df_fix.itertuples(index=False):
+            if not (getattr(r, "known_home", True) and getattr(r, "known_away", True)):
+                continue
+            div = str(r.div)
+            if div not in trained_divs:
+                continue
+            home = str(r.home)
+            away = str(r.away)
+            season = str(r.season)
+            mdate = pd.to_datetime(r.date)
+            f = features_for_fixture(state, div, season, mdate, home, away)
+            odds = [getattr(r, c, np.nan) for c in ("odds_h", "odds_d", "odds_a")]
+            pm = power_devig(np.array(odds, dtype=float)) if all(np.isfinite(odds)) and all(x > 1 for x in odds) else None
+            key = f"{div}:{mdate:%Y%m%d}:{home}:{away}"
+            feat_list = [None if pd.isna(f.get(k)) else round(float(f.get(k)), 12) for k in FEATURES]
+            rows[key] = {
+                "div": div, "season": season, "date": mdate.strftime("%Y-%m-%d"),
+                "home": home, "away": away,
+                "features": feat_list,
+                "divOnehot": [1.0 if div == d else 0.0 for d in model["div_levels"]],
+                "marketProbs": None if pm is None else [round(float(x), 12) for x in pm],
+                "probsPython": [round(x, 12) for x in predict(model, feat_list, div)],
+            }
+
     with open(OUT, "w") as f:
         json.dump({"generated_at": pd.Timestamp.utcnow().isoformat(),
-                   "source_snapshot": os.path.basename(snap),
+                   "source_snapshot": source_snapshot,
                    "n": len(rows), "requests": rows}, f, indent=1)
     print(f"peticiones: {len(rows)} -> {OUT} ({os.path.getsize(OUT)/1e6:.2f} MB)")
 

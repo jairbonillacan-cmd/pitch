@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
-"""Motor A: modelos de predicción 1X2 SIN información de cuotas.
+"""Motor A (v2): modelos de predicción 1X2 SIN información de cuotas.
 
 Diseño experimental:
   - Walk-forward expanding: para cada temporada S se entrena con temporadas < S y se predice S.
   - Fold canónico: dev <= 2022/23, val = 2023/24, test = 2024/25 + 2025/26, live = 2026/27.
   - Ninguna decisión de modelo usa test.
 
-Modelos:
-  base_rate     frecuencias H/D/A con shrinkage por división (baseline trivial)
-  elo_ordered   logit ordenado sobre Elo (2 umbrales, MLE)
-  logit         regresión logística multinomial (features deportivas + dummies de división)
-  poisson_dc    Poisson con ataque/defensa por equipo + corrección Dixon-Coles (ρ por perfil)
-  hgb           HistGradientBoosting multiclase
-  ensemble      mezcla convexa de los anteriores, pesos elegidos SOLO en val
+Mejoras de 2ª Generación (Motor A v2):
+  - Incorpora Pi-Ratings (Constantinou & Fenton, 2013), ClubElo inter-división,
+    Ataque/Defensa dinámico y probabilidades estructurales Dixon-Coles online (`dc_prob_*`),
+    Synthetic xG + regresión a la media (`xg_overperf_diff_r5`), forma ajustada por fuerza
+    del calendario (`form_pts_res_diff_r5`, `form_gd_res_diff_r5`), forma específica por
+    localía (`venue_*`) y geometría del empate (`elo_closeness`, `low_scoring_tight_match`).
+  - Pesos exponenciales de recencia (half-life 4 años) y regularización L2 calibrada en val.
 
 Uso:
     ./.venv/bin/python models/a/train_motor_a.py --tag EXP01_baselines
@@ -22,7 +22,6 @@ from __future__ import annotations
 import argparse
 import json
 import os
-import pickle
 import sys
 import time
 from datetime import datetime, timezone
@@ -44,6 +43,7 @@ sys.path.insert(0, ROOT)
 
 SEED = 20261109
 FEATURES = [
+    # Bloque 1ª generación (54 features base)
     "elo_diff", "elo_diff_no_hfa", "elo_prob_home_nodraw", "elo_diff_x_progress",
     "h_points_r5", "a_points_r5", "h_gd_r5", "a_gd_r5", "h_gf_r5", "a_gf_r5", "h_ga_r5", "a_ga_r5",
     "h_points_r10", "a_points_r10", "h_gd_r10", "a_gd_r10",
@@ -56,6 +56,16 @@ FEATURES = [
     "home_prev_ppg", "away_prev_ppg", "home_prev_gf_pg", "home_prev_ga_pg",
     "away_prev_gf_pg", "away_prev_ga_pg", "home_prev_sot_pg", "away_prev_sot_pg",
     "lg_avg_total_prev", "lg_home_win_prev",
+    # Bloque 2ª generación (25 features estructurales y ajustadas por oponente)
+    "clubelo_diff",
+    "pi_home_h", "pi_away_a", "pi_diff", "pi_exp_gd", "pi_overall_diff",
+    "att_strength_home", "def_strength_home", "att_strength_away", "def_strength_away",
+    "dc_lam_home", "dc_lam_away", "dc_exp_total", "dc_exp_diff",
+    "dc_prob_h", "dc_prob_d", "dc_prob_a",
+    "xgd_diff_r5", "xgd_diff_r10", "xg_overperf_diff_r5",
+    "form_pts_res_diff_r5", "form_gd_res_diff_r5", "sos_diff_r5",
+    "venue_pts_diff_r5", "venue_gd_diff_r5", "venue_xgd_diff_r5",
+    "elo_closeness", "low_scoring_tight_match", "draw_rate_sum_r10",
 ]
 TARGET = "y"
 DEV_END = 2022  # temporadas <= 2022/23
@@ -66,7 +76,6 @@ MIN_TRAIN_SEASONS = 3
 FIRST_EVAL_SEASON = 2005
 
 
-# ---------------------------------------------------------------- métricas provisionales
 def _log_loss(y, p):
     p = np.clip(p, 1e-15, 1)
     p = p / p.sum(axis=1, keepdims=True)
@@ -96,11 +105,16 @@ def _balanced_acc(y, p):
 
 
 def summarize(y, p) -> dict:
-    return {"n": int(len(y)), "log_loss": _log_loss(y, p), "brier": _brier(y, p),
-            "rps": _rps(y, p), "accuracy": _acc(y, p), "balanced_accuracy": _balanced_acc(y, p)}
+    return {
+        "n": int(len(y)),
+        "log_loss": _log_loss(y, p),
+        "brier": _brier(y, p),
+        "rps": _rps(y, p),
+        "accuracy": _acc(y, p),
+        "balanced_accuracy": _balanced_acc(y, p),
+    }
 
 
-# ---------------------------------------------------------------- modelos
 class BaseRateModel:
     """Frecuencias H/D/A con shrinkage hacia la frecuencia global (prior 50 partidos)."""
 
@@ -121,11 +135,19 @@ class BaseRateModel:
 
 
 class EloOrderedModel:
-    """Logit ordenado con 2 umbrales sobre x = elo_diff/100. p(H)=σ(c1-bx), etc."""
+    """Logit ordenado con 2 umbrales sobre índice compuesto Elo + Pi-Rating."""
+
+    def _score(self, df):
+        elo_x = df.elo_diff.to_numpy(dtype=float) / 100.0
+        if "pi_diff" in df.columns:
+            pi_x = np.nan_to_num(df.pi_diff.to_numpy(dtype=float), nan=0.0)
+            return 0.70 * elo_x + 0.30 * (pi_x * 2.5)
+        return elo_x
 
     def fit(self, df):
-        x = df.elo_diff.to_numpy(dtype=float) / 100.0
+        x = self._score(df)
         y = df[TARGET].to_numpy()
+
         def nll(params):
             b, c1, c2 = params
             if c1 >= c2:
@@ -134,13 +156,18 @@ class EloOrderedModel:
             s2 = 1 / (1 + np.exp(-(c2 - b * x)))
             p = np.where(y == 0, s1, np.where(y == 1, s2 - s1, 1 - s2))
             return -np.mean(np.log(np.clip(p, 1e-12, 1)))
-        res = minimize(nll, x0=[1.0, -0.5, 0.6], method="Nelder-Mead",
-                       options={"maxiter": 3000, "xatol": 1e-6, "fatol": 1e-9})
+
+        res = minimize(
+            nll,
+            x0=[1.0, -0.5, 0.6],
+            method="Nelder-Mead",
+            options={"maxiter": 3000, "xatol": 1e-6, "fatol": 1e-9},
+        )
         self.b, self.c1, self.c2 = res.x
         return self
 
     def predict_proba(self, df):
-        x = df.elo_diff.to_numpy(dtype=float) / 100.0
+        x = self._score(df)
         s1 = 1 / (1 + np.exp(-(self.c1 - self.b * x)))
         s2 = 1 / (1 + np.exp(-(self.c2 - self.b * x)))
         p = np.column_stack([s1, np.clip(s2 - s1, 1e-9, 1), 1 - s2])
@@ -148,11 +175,7 @@ class EloOrderedModel:
 
 
 class PoissonDC:
-    """Poisson ataque/defensa por división (sklearn, L2) + corrección Dixon-Coles.
-
-    Se ajusta un único modelo por división con pesos temporales exponenciales. Los goles de
-    local y visitante se apilan para compartir los parámetros de ataque/defensa.
-    """
+    """Poisson ataque/defensa por división (sklearn, L2) + corrección Dixon-Coles."""
 
     RHO_GRID = np.arange(-0.30, 0.301, 0.01)
 
@@ -216,7 +239,7 @@ class PoissonDC:
             model = PoissonRegressor(alpha=self.alpha, max_iter=500, tol=1e-6)
             model.fit(X, y, sample_weight=w2)
             lh = model.predict(X[: len(g)])
-            la = model.predict(X[len(g):])
+            la = model.predict(X[len(g) :])
             rho = self._fit_rho(g, lh, la)
             self.models[div] = {"model": model, "teams": teams, "n": n}
             self.rho[div] = rho
@@ -226,8 +249,6 @@ class PoissonDC:
         out = np.full((len(df), 3), np.nan)
         for div, g in df.groupby("div"):
             if div not in self.models:
-                # División sin historia en train (primera temporada de una liga):
-                # se usa la climatología global del entrenamiento, nunca NaN.
                 out[df.index.get_indexer(g.index)] = self.base_p
                 continue
             md = self.models[div]
@@ -239,7 +260,6 @@ class PoissonDC:
             ai = g.away_team.map(idx).to_numpy()
             hi_i = np.where(np.isfinite(hi.astype(float)), hi, -1).astype(int)
             ai_i = np.where(np.isfinite(ai.astype(float)), ai, -1).astype(int)
-            # Equipos no vistos en entrenamiento: sus coeficientes son 0 (media de liga).
             X[rows, -1] = 1.0
             known_h = hi_i >= 0
             known_a = ai_i >= 0
@@ -248,10 +268,8 @@ class PoissonDC:
             X[len(g) + rows[known_a], ai_i[known_a]] = 1.0
             X[len(g) + rows[known_h], n + hi_i[known_h]] = 1.0
             lh = md["model"].predict(X[: len(g)])
-            la = md["model"].predict(X[len(g):])
-            valid = np.isfinite(lh) & np.isfinite(la)
+            la = md["model"].predict(X[len(g) :])
             rho = self.rho[div]
-            # Matriz de marcadores con τ y normalización
             for k, pos in enumerate(g.index):
                 if not np.isfinite(lh[k]) or not np.isfinite(la[k]):
                     continue
@@ -269,16 +287,24 @@ class PoissonDC:
 
 class HGBModel:
     def __init__(self, **kw):
-        self.params = dict(max_iter=60, learning_rate=0.08, max_leaf_nodes=15,
-                           l2_regularization=2.0, min_samples_leaf=80,
-                           early_stopping=False, random_state=SEED)
+        self.params = dict(
+            max_iter=90,
+            learning_rate=0.05,
+            max_leaf_nodes=15,
+            l2_regularization=5.0,
+            min_samples_leaf=120,
+            early_stopping=False,
+            random_state=SEED,
+        )
         self.params.update(kw)
 
     def fit(self, df):
         self.divs = pd.Index(sorted(df["div"].unique()))
         self.cat = self.divs.get_indexer(df["div"])
         self.model = HistGradientBoostingClassifier(**self.params)
-        self.model.fit(self._X(df), df[TARGET].to_numpy())
+        days = (df.match_date.max() - df.match_date).dt.days.to_numpy(dtype=float)
+        sw = 0.5 ** (days / 1460.0)
+        self.model.fit(self._X(df), df[TARGET].to_numpy(), sample_weight=sw)
         return self
 
     def _X(self, df):
@@ -291,11 +317,16 @@ class HGBModel:
 
 
 def fit_logit(df):
-    model = make_pipeline(SimpleImputer(strategy="median"), StandardScaler(),
-                          LogisticRegression(max_iter=3000, C=1.0))
-    X = pd.concat([df[FEATURES], pd.get_dummies(df["div"], prefix="div").astype(float)], axis=1)
-    model.fit(X, df[TARGET].to_numpy())
-    return model, X.columns
+    imp = SimpleImputer(strategy="median")
+    sc = StandardScaler()
+    lr = LogisticRegression(max_iter=3000, C=0.25)
+    X_df = pd.concat([df[FEATURES], pd.get_dummies(df["div"], prefix="div").astype(float)], axis=1)
+    X_mat = sc.fit_transform(imp.fit_transform(X_df))
+    days = (df.match_date.max() - df.match_date).dt.days.to_numpy(dtype=float)
+    sw = 0.5 ** (days / 1460.0)
+    lr.fit(X_mat, df[TARGET].to_numpy(), sample_weight=sw)
+    pipe = make_pipeline(imp, sc, lr)
+    return pipe, X_df.columns
 
 
 def predict_logit(model, cols, df):
@@ -304,7 +335,6 @@ def predict_logit(model, cols, df):
     return model.predict_proba(X)
 
 
-# ---------------------------------------------------------------- utilidades
 def season_of(s):
     return int(str(s)[:4])
 
@@ -348,7 +378,7 @@ def apply_temperature(p, t):
 
 def ensemble_weights(preds: dict[str, np.ndarray], y, names):
     """Pesos convexos que minimizan log-loss (softmax reparam), ajustados SOLO en val."""
-    P = np.stack([preds[n] for n in names], axis=0)  # (M, N, 3)
+    P = np.stack([preds[n] for n in names], axis=0)
 
     def obj(z):
         w = np.exp(z - z.max())
@@ -362,9 +392,15 @@ def ensemble_weights(preds: dict[str, np.ndarray], y, names):
     return dict(zip(names, (w / w.sum()).round(4)))
 
 
-def run_walk_forward(df, fit_fn, predict_fn, folds_from=FIRST_EVAL_SEASON, use_rolling=False,
-                     rolling_seasons=10, verbose=True):
-    """Devuelve DataFrame con predicciones walk-forward (modelo reentrenado por temporada)."""
+def run_walk_forward(
+    df,
+    fit_fn,
+    predict_fn,
+    folds_from=FIRST_EVAL_SEASON,
+    use_rolling=False,
+    rolling_seasons=10,
+    verbose=True,
+):
     out = []
     seasons = sorted(df.sstart.unique())
     for s in seasons:
@@ -376,9 +412,6 @@ def run_walk_forward(df, fit_fn, predict_fn, folds_from=FIRST_EVAL_SEASON, use_r
         if use_rolling:
             train = train[train.sstart >= s - rolling_seasons]
         test = df[df.sstart == s]
-        # Corte estricto por fecha: ninguna fila de entrenamiento puede ser posterior al
-        # primer partido de la temporada evaluada (evita mezclar calendarios europeos y de
-        # año natural; decisión A08 §9.3).
         cut = test.match_date.min()
         n_before = len(train)
         train = train[train.match_date < cut]
@@ -386,18 +419,29 @@ def run_walk_forward(df, fit_fn, predict_fn, folds_from=FIRST_EVAL_SEASON, use_r
         t0 = time.time()
         model = fit_fn(train)
         p = predict_fn(model, test)
-        out.append(pd.DataFrame({
-            "match_id": test.match_id.values, "div": test["div"].values,
-            "season": test.season.values, "match_date": test.match_date.values,
-            "y": test[TARGET].values, "p_home": p[:, 0], "p_draw": p[:, 1], "p_away": p[:, 2],
-            "fold": f"wf_{s}",
-        }))
+        out.append(
+            pd.DataFrame(
+                {
+                    "match_id": test.match_id.values,
+                    "div": test["div"].values,
+                    "season": test.season.values,
+                    "match_date": test.match_date.values,
+                    "y": test[TARGET].values,
+                    "p_home": p[:, 0],
+                    "p_draw": p[:, 1],
+                    "p_away": p[:, 2],
+                    "fold": f"wf_{s}",
+                }
+            )
+        )
         if verbose:
             okp = np.all(np.isfinite(p), axis=1)
-            ll_txt = (f"{_log_loss(test[TARGET].values[okp], p[okp]):.4f}"
-                      if okp.any() else "n/a")
-            print(f"  season {s}: train={len(train):,} (drop_fut={dropped:,}) test={len(test):,} "
-                  f"ll={ll_txt} nan={int((~okp).sum())} ({time.time()-t0:.1f}s)", flush=True)
+            ll_txt = f"{_log_loss(test[TARGET].values[okp], p[okp]):.4f}" if okp.any() else "n/a"
+            print(
+                f"  season {s}: train={len(train):,} (drop_fut={dropped:,}) test={len(test):,} "
+                f"ll={ll_txt} nan={int((~okp).sum())} ({time.time()-t0:.1f}s)",
+                flush=True,
+            )
     return pd.concat(out, ignore_index=True)
 
 
@@ -412,88 +456,114 @@ def main():
     outdir = os.path.join(ART, tag)
     os.makedirs(outdir, exist_ok=True)
 
-    bad = [f for f in FEATURES if f == "y" or f.endswith("_post") or f.startswith("ht_")
-           or f in ("result", "home_goals", "away_goals", "goals_total")]
+    bad = [
+        f
+        for f in FEATURES
+        if f == "y"
+        or f.endswith("_post")
+        or f.startswith("ht_")
+        or f in ("result", "home_goals", "away_goals", "goals_total")
+    ]
     if bad:
         raise SystemExit(f"FEATURES contiene columnas post-partido/target: {bad}")
     df = load_features()
     masks = fold_masks(df)
-    print(f"partidos: {len(df):,} | dev={masks['dev'].sum():,} val={masks['val'].sum():,} "
-          f"test={masks['test'].sum():,} live={masks['live'].sum():,}")
+    print(
+        f"partidos: {len(df):,} | dev={masks['dev'].sum():,} val={masks['val'].sum():,} "
+        f"test={masks['test'].sum():,} live={masks['live'].sum():,}"
+    )
     print("temporadas:", sorted(df.sstart.unique()))
-    models = {m.strip() for m in args.models.split(",")} if args.models != "all" else {
-        "base_rate", "elo_ordered", "logit", "poisson_dc", "hgb"}
+    models = (
+        {m.strip() for m in args.models.split(",")}
+        if args.models != "all"
+        else {"base_rate", "elo_ordered", "logit", "poisson_dc", "hgb"}
+    )
 
     results = {}
-    fitted = {}
 
     if "base_rate" in models:
         print("\n[base_rate]")
-        pred = run_walk_forward(df, lambda tr: BaseRateModel().fit(tr),
-                                lambda m, te: m.predict_proba(te), args.folds_from)
+        pred = run_walk_forward(
+            df, lambda tr: BaseRateModel().fit(tr), lambda m, te: m.predict_proba(te), args.folds_from
+        )
         results["base_rate"] = pred
 
     if "elo_ordered" in models:
         print("\n[elo_ordered]")
-        pred = run_walk_forward(df, lambda tr: EloOrderedModel().fit(tr),
-                                lambda m, te: m.predict_proba(te), args.folds_from)
+        pred = run_walk_forward(
+            df, lambda tr: EloOrderedModel().fit(tr), lambda m, te: m.predict_proba(te), args.folds_from
+        )
         results["elo_ordered"] = pred
 
     if "logit" in models:
         print("\n[logit]")
+
         def fit_fn(tr):
             m, cols = fit_logit(tr)
             return (m, cols)
+
         def pred_fn(mc, te):
             return predict_logit(mc[0], mc[1], te)
-        pred = run_walk_forward(df, fit_fn, pred_fn, args.folds_from, use_rolling=True,
-                                rolling_seasons=12)
+
+        pred = run_walk_forward(df, fit_fn, pred_fn, args.folds_from, use_rolling=True, rolling_seasons=12)
         results["logit"] = pred
 
     if "poisson_dc" in models:
         print("\n[poisson_dc]")
-        pred = run_walk_forward(df, lambda tr: PoissonDC().fit(tr),
-                                lambda m, te: m.predict_proba(te), args.folds_from,
-                                use_rolling=True, rolling_seasons=12)
+        pred = run_walk_forward(
+            df,
+            lambda tr: PoissonDC().fit(tr),
+            lambda m, te: m.predict_proba(te),
+            args.folds_from,
+            use_rolling=True,
+            rolling_seasons=12,
+        )
         results["poisson_dc"] = pred
 
     if "hgb" in models:
         print("\n[hgb]")
-        pred = run_walk_forward(df, lambda tr: HGBModel().fit(tr),
-                                lambda m, te: m.predict_proba(te), args.folds_from,
-                                use_rolling=True, rolling_seasons=10)
+        pred = run_walk_forward(
+            df,
+            lambda tr: HGBModel().fit(tr),
+            lambda m, te: m.predict_proba(te),
+            args.folds_from,
+            use_rolling=True,
+            rolling_seasons=10,
+        )
         results["hgb"] = pred
 
-    # Guardar predicciones individuales
     for name, pred in results.items():
         pred.to_csv(os.path.join(outdir, f"pred_{name}.csv"), index=False)
 
-    # Evaluación por partición
     metrics = {}
-    common_ids = None
+    parts = (
+        [("dev", range(0, DEV_END + 1)), ("val", [VAL])]
+        if args.no_test
+        else [
+            ("dev", range(0, DEV_END + 1)),
+            ("val", [VAL]),
+            ("test", list(TEST)),
+            ("live", list(LIVE)),
+        ]
+    )
     for name, pred in results.items():
         p = pred[["p_home", "p_draw", "p_away"]].to_numpy()
         y = pred.y.to_numpy()
         m = {}
-        parts = ([("dev", range(0, DEV_END + 1)), ("val", [VAL])] if args.no_test else
-                 [("dev", range(0, DEV_END + 1)), ("val", [VAL]),
-                  ("test", list(TEST)), ("live", list(LIVE))])
         for part, sset in parts:
             sel = pred.season.map(season_of).isin(sset).to_numpy()
             m[part] = summarize(y[sel], p[sel]) if sel.any() else None
         m["all"] = summarize(y, p)
         metrics[name] = m
 
-    # Ensemble: pesos en val con los modelos disponibles
     names = [n for n in ("base_rate", "elo_ordered", "logit", "poisson_dc", "hgb") if n in results]
     if len(names) >= 2:
         base = results[names[0]].set_index("match_id")
         ids = base.index
         for n in names[1:]:
             ids = ids.intersection(results[n].set_index("match_id").index)
-        ids = base.index[base.index.isin(ids)]  # preserva orden temporal
-        pivot = {n: results[n].set_index("match_id").reindex(ids)[["p_home", "p_draw", "p_away"]]
-                 for n in names}
+        ids = base.index[base.index.isin(ids)]
+        pivot = {n: results[n].set_index("match_id").reindex(ids)[["p_home", "p_draw", "p_away"]] for n in names}
         seasons_by_id = base.reindex(ids)["season"].map(season_of)
         val_ids = ids[seasons_by_id == VAL]
         y_val = base.reindex(val_ids)["y"].to_numpy()
@@ -511,32 +581,43 @@ def main():
         y = ens.y.to_numpy()
         p = mix
         metrics["ensemble"] = {}
-        for part, sset in (("dev", range(0, DEV_END + 1)), ("val", [VAL]),
-                           ("test", list(TEST)), ("live", list(LIVE))):
+        for part, sset in (("dev", range(0, DEV_END + 1)), ("val", [VAL]), ("test", list(TEST)), ("live", list(LIVE))):
             sel = ens.season.map(season_of).isin(sset).to_numpy()
             metrics["ensemble"][part] = summarize(y[sel], p[sel]) if sel.any() else None
         metrics["ensemble"]["all"] = summarize(y, p)
     else:
         w = {}
 
-    # Guardar también el ensemble (y cualquier modelo añadido después del bucle inicial)
     for name, pred in results.items():
         pred.to_csv(os.path.join(outdir, f"pred_{name}.csv"), index=False)
 
-    # Mercado como referencia sobre los mismos partidos (cierre Pinnacle, power/proporcional/shin)
     print("\n[market] benchmark de cierre sobre los mismos partidos")
     mkt = pd.read_parquet(os.path.join(PROC, "features_market.parquet"))
-    mkt = mkt[["match_id", "mkt_close_ps_proportional_h", "mkt_close_ps_proportional_d",
-               "mkt_close_ps_proportional_a", "mkt_close_ps_power_h", "mkt_close_ps_power_d",
-               "mkt_close_ps_power_a", "mkt_close_ps_shin_h", "mkt_close_ps_shin_d",
-               "mkt_close_ps_shin_a", "mkt_close_bf_proportional_h", "mkt_close_bf_proportional_d",
-               "mkt_close_bf_proportional_a"]]
+    mkt = mkt[
+        [
+            "match_id",
+            "mkt_close_ps_proportional_h",
+            "mkt_close_ps_proportional_d",
+            "mkt_close_ps_proportional_a",
+            "mkt_close_ps_power_h",
+            "mkt_close_ps_power_d",
+            "mkt_close_ps_power_a",
+            "mkt_close_ps_shin_h",
+            "mkt_close_ps_shin_d",
+            "mkt_close_ps_shin_a",
+            "mkt_close_bf_proportional_h",
+            "mkt_close_bf_proportional_d",
+            "mkt_close_bf_proportional_a",
+        ]
+    ]
     ref = results[names[0]][["match_id", "season", "div", "y"]].merge(mkt, on="match_id", how="left")
     market_metrics = {}
-    for label, cols in (("market_ps_proportional", ["mkt_close_ps_proportional_" + k for k in "hda"]),
-                        ("market_ps_power", ["mkt_close_ps_power_" + k for k in "hda"]),
-                        ("market_ps_shin", ["mkt_close_ps_shin_" + k for k in "hda"]),
-                        ("market_bf_proportional", ["mkt_close_bf_proportional_" + k for k in "hda"])):
+    for label, cols in (
+        ("market_ps_proportional", ["mkt_close_ps_proportional_" + k for k in "hda"]),
+        ("market_ps_power", ["mkt_close_ps_power_" + k for k in "hda"]),
+        ("market_ps_shin", ["mkt_close_ps_shin_" + k for k in "hda"]),
+        ("market_bf_proportional", ["mkt_close_bf_proportional_" + k for k in "hda"]),
+    ):
         q = ref[cols].to_numpy(dtype=float)
         ok = np.all(np.isfinite(q), axis=1)
         market_metrics[label] = {}
@@ -545,10 +626,12 @@ def main():
             market_metrics[label][part] = summarize(ref.y.to_numpy()[sel], q[sel]) if sel.any() else None
         market_metrics[label]["all"] = summarize(ref.y.to_numpy()[ok], q[ok])
 
-    # Tabla resumen
     def fmt(m):
-        return (f"{m['n']:>6,} ll={m['log_loss']:.4f} br={m['brier']:.4f} "
-                f"rps={m['rps']:.4f} acc={m['accuracy']:.3f}") if m else "-"
+        return (
+            f"{m['n']:>6,} ll={m['log_loss']:.4f} br={m['brier']:.4f} rps={m['rps']:.4f} acc={m['accuracy']:.3f}"
+            if m
+            else "-"
+        )
 
     print("\n=== RESUMEN (partición) ===")
     for name, m in {**metrics, **market_metrics}.items():
@@ -557,7 +640,6 @@ def main():
         else:
             print(f"{name:28s} val: {fmt(m['val'])}\n{'':28s} test:{fmt(m['test'])}")
 
-    # Temperatura por modelo (ajustada en val, aplicada a test) — se reporta aparte
     temp = {}
     for name in list(metrics.keys()):
         pred = results[name]
@@ -575,18 +657,34 @@ def main():
     print("\ntemperaturas (val):", temp)
 
     payload = {
-        "tag": tag, "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "n_matches": int(len(df)), "folds_from": args.folds_from,
-        "features": FEATURES, "ensemble_weights": w, "temperatures": temp,
-        "metrics": metrics, "market": market_metrics,
+        "tag": tag,
+        "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "n_matches": int(len(df)),
+        "folds_from": args.folds_from,
+        "features": FEATURES,
+        "ensemble_weights": w,
+        "temperatures": temp,
+        "metrics": metrics,
+        "market": market_metrics,
         "partitions": {"dev_end": DEV_END, "val": VAL, "test": list(TEST), "live": list(LIVE)},
     }
-    with open(os.path.join(outdir, "metrics.json"), "w") as f:
+    with open(os.path.join(outdir, "metrics.json"), "w", encoding="utf-8") as f:
         json.dump(payload, f, indent=1, default=float)
-    with open(os.path.join(outdir, "config.json"), "w") as f:
-        json.dump({"FEATURES": FEATURES, "SEED": SEED, "DEV_END": DEV_END, "VAL": VAL,
-                   "TEST": list(TEST), "MIN_TRAIN_SEASONS": MIN_TRAIN_SEASONS,
-                   "FIRST_EVAL_SEASON": args.folds_from, "models": sorted(models)}, f, indent=1)
+    with open(os.path.join(outdir, "config.json"), "w", encoding="utf-8") as f:
+        json.dump(
+            {
+                "FEATURES": FEATURES,
+                "SEED": SEED,
+                "DEV_END": DEV_END,
+                "VAL": VAL,
+                "TEST": list(TEST),
+                "MIN_TRAIN_SEASONS": MIN_TRAIN_SEASONS,
+                "FIRST_EVAL_SEASON": args.folds_from,
+                "models": sorted(models),
+            },
+            f,
+            indent=1,
+        )
     print(f"\nartefactos -> {outdir}")
 
 

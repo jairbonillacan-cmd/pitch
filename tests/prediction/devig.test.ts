@@ -1,5 +1,5 @@
 /**
- * A17 — tests de de-vig y del servicio de predicción.
+ * A17 / v2 — tests de de-vig y del servicio de predicción (incluyendo Motor C híbrido y Line Shopping).
  */
 import { describe, expect, it } from "vitest";
 import footballModelJson from "../../src/data/prediction/model_motor_a.json";
@@ -15,7 +15,7 @@ import {
   impliedProbabilities,
   overround,
 } from "../../src/domain/prediction/devig.js";
-import { predictMatch, predictMatchBatch } from "../../src/domain/prediction/service.js";
+import { HYBRID_MODEL_ID, predictMatch, predictMatchBatch } from "../../src/domain/prediction/service.js";
 import type {
   ModelArtifact,
   NFLModelArtifact,
@@ -107,13 +107,41 @@ describe("A17 — de-vig", () => {
 });
 
 describe("A17 — predictMatch", () => {
-  it("con odds válidas usa el mercado y reporta el método", () => {
+  it("con odds válidas usa el mercado y reporta el método y métricas de valor", () => {
     const p = predictMatch({ sport: "football", row: footballRow, model: footballModel, odds: ODDS });
     expect(p.modelId).toBe("market_devig");
     expect(p.dataQualityFlag).toBe("ok");
     expect(p.sport).toBe("football");
     expect(p.marketMethod).toBe("power");
     expect(Math.abs(p.pHome + p.pDraw + p.pAway - 1)).toBeLessThanOrEqual(1e-9);
+    expect(p.modelMarketDivergence).toHaveLength(3);
+    expect(p.expectedEdge).toHaveLength(3);
+    expect(p.kellyFraction).toHaveLength(3);
+    expect(typeof p.uncertaintyGatePassed).toBe("boolean");
+  });
+
+  it("soporta modo hybrid (Motor C) y Line Shopping con bestOdds", () => {
+    const base = predictMatch({
+      sport: "football",
+      row: footballRow,
+      model: footballModel,
+      odds: ODDS,
+      mode: "hybrid",
+      hybridAlpha: 0.85,
+    });
+    expect(base.modelId).toBe(HYBRID_MODEL_ID);
+    expect(base.hybridAlpha).toBeCloseTo(0.85, 12);
+
+    const shopped = predictMatch({
+      sport: "football",
+      row: footballRow,
+      model: footballModel,
+      odds: ODDS,
+      bestOdds: [2.15, 3.7, 4.3],
+      mode: "hybrid",
+      hybridAlpha: 0.85,
+    });
+    expect(shopped.expectedEdge![0]).toBeGreaterThan(base.expectedEdge![0]);
   });
 
   it("respeta el método pedido", () => {

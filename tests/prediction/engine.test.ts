@@ -1,5 +1,6 @@
 /**
- * A10 — paridad numérica TS vs Python y contrato de fallback.
+ * A10 / v2 — paridad numérica TS vs Python, contrato de fallback, modo híbrido (Motor C)
+ * y evaluación de ejecución de valor.
  *
  * Los dos JSON son copias byte a byte de
  * `research/prediction-lab/artifacts/model_v1/` (verificado con sha256).
@@ -11,11 +12,18 @@ import modelJson from "../../src/data/prediction/model_motor_a.json";
 import snapshotJson from "../../src/data/prediction/features_snapshot.json";
 import {
   BASE_RATES_MODEL_ID,
+  GEODESIC_MODEL_NAME,
   GLOBAL_HDA_RATES,
+  HORIZON_MODEL_NAME,
+  HYBRID_MODEL_ID,
   InvalidFeaturesError,
   MARKET_MODEL_ID,
   MOTOR_A_MODEL_ID,
   PROBABILITY_SUM_TOLERANCE,
+  SINGULARITY_MODEL_NAME,
+  TACHYON_MODEL_NAME,
+  blendLogLinear3,
+  evaluateValueExecution,
   isValidMarketProbs,
   normalizeBaseRates,
   predictMotorA,
@@ -87,31 +95,31 @@ function cloneWithNaNsInImputer(source: ModelArtifact, index: number): ModelArti
 }
 
 describe("A10 — artefacto del modelo", () => {
-  it("tiene 77 columnas (54 features + 23 dummies) y 3 clases", () => {
+  it("tiene 106 columnas (83 features + 23 dummies) y 3 clases", () => {
     expect(model.type).toBe("multinomial_logistic");
-    expect(model.features).toHaveLength(77);
-    expect(model.n_features_base).toBe(54);
+    expect(model.features).toHaveLength(106);
+    expect(model.n_features_base).toBe(83);
     expect(model.div_levels).toHaveLength(23);
-    expect(model.features.slice(54)).toEqual(
+    expect(model.features.slice(83)).toEqual(
       model.div_levels.map((div) => `div_${div}`),
     );
-    expect(new Set(model.features).size).toBe(77);
+    expect(new Set(model.features).size).toBe(106);
     expect(model.coef).toHaveLength(3);
     for (let k = 0; k < 3; k += 1) {
-      expect(model.coef[k]).toHaveLength(77);
+      expect(model.coef[k]).toHaveLength(106);
     }
     expect(model.intercept).toHaveLength(3);
     expect(model.classes).toHaveLength(3);
-    expect(model.imputer.statistics).toHaveLength(77);
-    expect(model.scaler.mean).toHaveLength(77);
-    expect(model.scaler.scale).toHaveLength(77);
+    expect(model.imputer.statistics).toHaveLength(106);
+    expect(model.scaler.mean).toHaveLength(106);
+    expect(model.scaler.scale).toHaveLength(106);
   });
 
-  it("el snapshot tiene 200 filas con 54 features y 23 dummies cada una", () => {
+  it("el snapshot tiene 200 filas con 83 features y 23 dummies cada una", () => {
     expect(rows).toHaveLength(200);
     expect(snapshot.n).toBe(200);
     for (const [matchId, row] of rows) {
-      expect(row.features, `${matchId}: features`).toHaveLength(54);
+      expect(row.features, `${matchId}: features`).toHaveLength(83);
       expect(row.div_onehot, `${matchId}: div_onehot`).toHaveLength(23);
       expect(row.probs_python, `${matchId}: probs_python`).toHaveLength(3);
     }
@@ -136,7 +144,7 @@ describe("A10 — artefacto del modelo", () => {
     const firstRow = rows[0]![1];
     const broken: ModelArtifact = {
       ...model,
-      coef: [model.coef[0]!.slice(0, 76), model.coef[1]!, model.coef[2]!],
+      coef: [model.coef[0]!.slice(0, 101), model.coef[1]!, model.coef[2]!],
     };
     expect(() => predictMotorA(firstRow, broken)).toThrow(/ModelArtifact inválido/);
   });
@@ -203,6 +211,7 @@ describe("A10 — paridad numérica con Python", () => {
     expect(JSON.stringify(row)).toBe(rowBefore);
     expect(JSON.stringify(model)).toBe(modelBefore);
     expect(first.modelId).toBe(MOTOR_A_MODEL_ID);
+    expect(first.modelName).toBe(TACHYON_MODEL_NAME);
     expect(first.modelVersion).toBe(model.version);
     expect(first.generatedAt).toBe(model.created_at);
     expect(first.dataQualityFlag).toBe("ok");
@@ -347,9 +356,9 @@ describe("A10 — predictWithFallback", () => {
 
   it("devuelve invalid_features con features corruptas y nunca lanza", () => {
     const corruptRows: SnapshotRow[] = [
-      { ...row, features: row.features.slice(0, 53) },
-      { ...row, features: [...row.features.slice(0, 53), Number.POSITIVE_INFINITY] },
-      { ...row, features: [...row.features.slice(0, 53), Number.NEGATIVE_INFINITY] },
+      { ...row, features: row.features.slice(0, 82) },
+      { ...row, features: [...row.features.slice(0, 82), Number.POSITIVE_INFINITY] },
+      { ...row, features: [...row.features.slice(0, 82), Number.NEGATIVE_INFINITY] },
       { ...row, div_onehot: row.div_onehot.slice(0, 22) },
       { ...row, div_onehot: [...row.div_onehot.slice(0, 22), Number.NaN] },
     ];
@@ -383,6 +392,48 @@ describe("A10 — predictWithFallback", () => {
     const prediction = predictWithFallback(corrupt, model, [0.4, 0.3, 0.3]);
     expect(prediction.modelId).toBe(MARKET_MODEL_ID);
     expect(prediction.dataQualityFlag).toBe("ok");
+  });
+
+  it("combina mercado y Motor A en modo hybrid (Motor C)", () => {
+    const mkt: readonly [number, number, number] = [0.5, 0.28, 0.22];
+    const motorA = predictMotorA(row, model);
+    const hybrid = predictWithFallback(row, model, mkt, GLOBAL_HDA_RATES, {
+      mode: "hybrid",
+      hybridAlpha: 0.8,
+    });
+    expect(hybrid.modelId).toBe(HYBRID_MODEL_ID);
+    expect(hybrid.modelName).toBe(SINGULARITY_MODEL_NAME);
+    expect(hybrid.dataQualityFlag).toBe("ok");
+    expect(hybrid.hybridAlpha).toBeCloseTo(0.8, 12);
+    expect(hybrid.modelMarketDivergence).toBeDefined();
+    expect(hybrid.modelMarketDivergence![0]).toBeCloseTo(motorA.pHome - mkt[0], 12);
+    expectSimplex(hybrid, "hybrid");
+
+    const expectedProbs = blendLogLinear3(
+      mkt,
+      [motorA.pHome, motorA.pDraw, motorA.pAway],
+      0.8,
+    );
+    expect(hybrid.pHome).toBeCloseTo(expectedProbs[0], 12);
+    expect(hybrid.pDraw).toBeCloseTo(expectedProbs[1], 12);
+    expect(hybrid.pAway).toBeCloseTo(expectedProbs[2], 12);
+  });
+
+  it("evaluates value execution with anti-Winner's Curse gating and Quarter-Kelly", () => {
+    const pMkt: readonly [number, number, number] = [0.5, 0.28, 0.22];
+    const pMod: readonly [number, number, number] = [0.56, 0.26, 0.18];
+    const pEval = blendLogLinear3(pMkt, pMod, 0.5);
+    const odds: readonly [number, number, number] = [2.05, 3.6, 4.5];
+    const metrics = evaluateValueExecution(pEval, pMkt, pMod, odds);
+    expect(metrics.uncertaintyGatePassed).toBe(true);
+    expect(metrics.expectedEdge[0]).toBeGreaterThan(0.02);
+    expect(metrics.kellyFraction[0]).toBeGreaterThan(0);
+
+    // Discrepancia extrema (> 0.12) bloquea la apuesta por Winner's Curse gate
+    const pModExtreme: readonly [number, number, number] = [0.75, 0.15, 0.1];
+    const metricsBlocked = evaluateValueExecution(pModExtreme, pMkt, pModExtreme, odds);
+    expect(metricsBlocked.uncertaintyGatePassed).toBe(false);
+    expect(metricsBlocked.kellyFraction).toEqual([0, 0, 0]);
   });
 });
 

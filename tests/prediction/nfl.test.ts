@@ -1,5 +1,5 @@
 /**
- * A14 — paridad numérica del motor NFL y contrato de despacho por deporte.
+ * A14 / v2 — paridad numérica del motor NFL (con QB Elo y continuidad) y contrato de despacho por deporte.
  *
  * Los JSON son copias byte a byte de `research/prediction-lab/artifacts/model_nfl/`
  * (sha256 verificado por el orquestador). `probs_python` está redondeado a 12
@@ -43,17 +43,19 @@ function assertPredictionValid(p: { pHome: number; pDraw: number; pAway: number 
 }
 
 describe("A14 — artefacto NFL", () => {
-  it("tiene 24 features, 3 clases y el mapeo H/T/A documentado", () => {
+  it("tiene 37 features (incluyendo QB Elo y continuidad), 3 clases y el mapeo H/T/A documentado", () => {
     expect(nflModel.sport).toBe("nfl");
-    expect(nflModel.features).toHaveLength(24);
-    expect(nflModel.n_features).toBe(24);
+    expect(nflModel.features).toHaveLength(37);
+    expect(nflModel.n_features).toBe(37);
+    expect(nflModel.features).toContain("qb_elo_diff");
+    expect(nflModel.features).toContain("composite_elo_diff");
     expect(nflModel.coef).toHaveLength(3);
     expect(nflModel.intercept).toHaveLength(3);
     expect(nflModel.classes).toEqual([0, 1, 2]);
     expect(nflModel.class_map).toEqual({ "0": "H", "1": "T", "2": "A" });
-    for (const row of nflModel.coef) expect(row).toHaveLength(24);
-    expect(nflModel.scaler.mean).toHaveLength(24);
-    expect(nflModel.scaler.scale).toHaveLength(24);
+    for (const row of nflModel.coef) expect(row).toHaveLength(37);
+    expect(nflModel.scaler.mean).toHaveLength(37);
+    expect(nflModel.scaler.scale).toHaveLength(37);
   });
 
   it("assertValidNFLModel acepta el artefacto real", () => {

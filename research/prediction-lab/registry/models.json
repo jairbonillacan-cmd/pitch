@@ -4,20 +4,20 @@
    "model_id": "motor_a_logistic_v1",
    "sport": "football",
    "status": "deployed",
-   "updated_at": "2026-11-09T10:36:59+00:00",
+   "updated_at": "2026-11-09T16:48:19+00:00",
    "versions": [
     {
-     "artifact_path": "../../src/data/prediction/model_motor_a.json",
-     "artifact_sha256": "53fbde0f4eb7b47141115d3b7659d3a5229f25169d8a6cc9915522cd17f88ca0",
+     "artifact_path": "..\\..\\src\\data\\prediction\\model_motor_a.json",
+     "artifact_sha256": "cfb3334514348eee716c64d57a3bf5441a5162bd710492a74634aac260af2204",
      "metrics": {
-      "metrics_path": "artifacts/FINAL/eval_test/metrics.json",
-      "test_log_loss": 1.01802,
-      "val_log_loss": 1.01029
+      "metrics_path": "artifacts/EXP01_baselines_20261109/metrics.json",
+      "test_log_loss": 1.0143,
+      "val_log_loss": 1.0062
      },
-     "n_features": 77,
-     "notes": "Motor A desplegado; logit multinomial, 54 features + 23 dummies",
-     "registered_at": "2026-11-09T10:36:59+00:00",
-     "version": "1.0.0"
+     "n_features": 106,
+     "notes": "PitchLab Tachyon v2.0 desplegado; logit multinomial con 83 features de 2a gen + 23 dummies",
+     "registered_at": "2026-11-09T16:48:19+00:00",
+     "version": "2.0.0"
     }
    ]
   },
@@ -25,24 +25,24 @@
    "model_id": "nfl_logistic_v1",
    "sport": "nfl",
    "status": "deployed",
-   "updated_at": "2026-11-09T10:36:59+00:00",
+   "updated_at": "2026-11-09T16:48:19+00:00",
    "versions": [
     {
-     "artifact_path": "../../src/data/prediction/model_nfl.json",
-     "artifact_sha256": "2df66ee83be12e0e6e2a89ce3e7a74b3ce80f61bf2b8336f3350b3887a91ca6f",
+     "artifact_path": "..\\..\\src\\data\\prediction\\model_nfl.json",
+     "artifact_sha256": "a3ae1948fb63b9855d76c2cf1a53f3290ee4b6202b505bbb5d1e7512e4f22753",
      "metrics": {
       "metrics_path": "models/nfl/artifacts/metrics.json",
-      "test_log_loss": 0.65906,
-      "val_log_loss": 0.64503
+      "test_log_loss": 0.65269,
+      "val_log_loss": 0.64159
      },
-     "n_features": 24,
-     "notes": "NFL; logit multinomial, 24 features; CC BY 4.0",
-     "registered_at": "2026-11-09T10:36:59+00:00",
+     "n_features": 37,
+     "notes": "PitchLab Minkowski v2.0; logit multinomial con 37 features (QB Elo y continuidad); CC BY 4.0",
+     "registered_at": "2026-11-09T16:48:19+00:00",
      "version": "1.0.0"
     }
    ]
   }
  ],
  "schema_version": 1,
- "updated_at": "2026-11-09T10:36:59+00:00"
+ "updated_at": "2026-11-09T16:48:19+00:00"
 }

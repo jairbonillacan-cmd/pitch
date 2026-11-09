@@ -1,18 +1,14 @@
 #!/usr/bin/env python3
-"""Motor B: incorporación de información de mercado (cuotas) al Motor A.
+"""Motor B / Motor C (v2): Motor Anclado a Mercado Multi-Fuente y Predictor de Valor/Cierre.
 
-Escenarios (mismos partidos, comparación pareada):
-  1. market_open / market_close   mercado puro de-vig (power)
+Escenarios (mismos partidos, comparación pareada walk-forward):
+  1. market                       mercado base de-vig (power)
   2. linear_pool                  mezcla lineal p = (1-w) pA + w pM, w ajustado en temporadas previas
-  3. logit_pool                   mezcla en espacio logit
-  4. stack_logit                  regresión logística multinomial sobre log pA, log pM y features
-  5. residual_logit               corrección multiplicativa sobre pM: softmax(log pM + g(x))
-  6. stack_hgb                    HistGradientBoosting sobre las mismas features
-  7. ensemble_b                   mezcla de linear_pool + stack_logit + residual (pesos en val)
-
-Regla de disponibilidad: `open` = cuotas de apertura (pre-partido, supuesto documentado).
-`close` = cuotas de cierre: benchmark/closing-line, NO operable con antelación.
-Si no hay cuota para un partido, el Motor B cae al Motor A y se marca `fallback_motor_a`.
+  3. logit_pool                   mezcla en espacio logit con consenso multi-mercado (PS+Avg+AH+B365)
+  4. stack_logit                  regresión logística multinomial sobre log pA, log pM, AH/Totales, Sharp-vs-Soft y features 2ª gen
+  5. residual_logit               corrección residual calibrada sobre el consenso multi-mercado (sin doble conteo de prior)
+  6. stack_hgb                    HistGradientBoosting regularizado sobre el vector extendido
+  7. ensemble_b                   mezcla convexa óptima ajustada estrictamente en val (2023/24)
 
 Uso:
   ./.venv/bin/python models/b/train_motor_b.py \
@@ -23,7 +19,6 @@ from __future__ import annotations
 import argparse
 import json
 import os
-import sys
 from datetime import datetime, timezone
 
 import numpy as np
@@ -65,8 +60,8 @@ def softmax(z):
 
 def fit_weight(y, pA, pM, space="prob"):
     """Peso w de la mezcla que minimiza log-loss en los datos de ajuste."""
-    grid = np.linspace(0, 1, 41)
-    best_w, best = 0.5, np.inf
+    grid = np.linspace(0, 1, 81)
+    best_w, best = 0.85, np.inf
     for w in grid:
         if space == "prob":
             mix = (1 - w) * pA + w * pM
@@ -86,14 +81,147 @@ def mix(pA, pM, w, space="prob"):
     return out / out.sum(axis=1, keepdims=True)
 
 
-def stack_features(pA, pM, df):
-    f = np.column_stack([
-        logit(pA), logit(pM),
-        df.elo_diff.to_numpy(dtype=float) / 100.0,
-        df.form_gd_diff_r10.to_numpy(dtype=float),
-        df.h_points_r5.to_numpy(dtype=float) - df.a_points_r5.to_numpy(dtype=float),
-    ])
-    return f
+def build_consensus_market_probs(df: pd.DataFrame, phase: str) -> tuple[np.ndarray, np.ndarray]:
+    """Construye dos tensores (N, 3):
+      - `p_base`: probabilidad primaria del mercado (cadena PS power -> B365 power -> Avg power)
+      - `p_cons`: super-consenso multi-mercado ponderado (PS Shin + Avg Shin + BFE/BF + AH+Totales implícito + B365 Shin)
+    """
+    n = len(df)
+    # 1. Cadena primaria compatible con v1
+    chain = []
+    for label, src, method in (
+        ("ps_power", "ps", "power"),
+        ("b365_power", "b365", "power"),
+        ("avg_power", "avg", "power"),
+        ("ps_prop", "ps", "proportional"),
+        ("b365_prop", "b365", "proportional"),
+    ):
+        cols = [f"mkt_{phase}_{src}_{method}_{k}" for k in "hda"]
+        if all(c in df.columns for c in cols):
+            chain.append((label, cols))
+    if not chain:
+        raise SystemExit(f"sin cuotas {phase}")
+
+    mh = pd.Series(np.nan, index=df.index)
+    md = pd.Series(np.nan, index=df.index)
+    ma = pd.Series(np.nan, index=df.index)
+    src_used = pd.Series("", index=df.index)
+    for label, cols in reversed(chain):
+        ok = df[cols].notna().all(axis=1)
+        mh.loc[ok], md.loc[ok], ma.loc[ok] = df.loc[ok, cols[0]], df.loc[ok, cols[1]], df.loc[ok, cols[2]]
+        src_used.loc[ok] = label
+
+    df["mh"], df["md"], df["ma"] = mh, md, ma
+    df["market_src"] = src_used
+    df["market_ok"] = df[["mh", "md", "ma"]].notna().all(axis=1)
+    p_base = df[["mh", "md", "ma"]].to_numpy(dtype=float)
+
+    # 2. Super-consenso multi-mercado (Pondera Sharp PS, Consenso Avg, Exchange BF/BFE, AH+Totales y B365)
+    # Pesos relativos de eficiencia informacional cuando cada fuente está presente:
+    sources_weights = [
+        ([f"mkt_{phase}_ps_shin_{k}" for k in "hda"], 0.42),
+        ([f"mkt_{phase}_avg_shin_{k}" for k in "hda"], 0.28),
+        ([f"mkt_{phase}_bf_shin_{k}" for k in "hda"], 0.10),
+        ([f"mkt_{phase}_bfe_shin_{k}" for k in "hda"], 0.08),
+        ([f"mkt_{phase}_ah_implied_{k}" for k in "hda"], 0.06),
+        ([f"mkt_{phase}_b365_shin_{k}" for k in "hda"], 0.06),
+    ]
+    num = np.zeros((n, 3), dtype=float)
+    den = np.zeros((n, 1), dtype=float)
+    for cols, w in sources_weights:
+        if all(c in df.columns for c in cols):
+            mat = df[cols].to_numpy(dtype=float)
+            ok = np.all(np.isfinite(mat), axis=1) & (mat.sum(axis=1) > 0.5)
+            if ok.any():
+                mat_norm = np.where(ok[:, None], mat / np.where(ok[:, None], mat.sum(axis=1, keepdims=True), 1.0), 0.0)
+                num += w * mat_norm
+                den += np.where(ok[:, None], w, 0.0)
+
+    has_cons = den[:, 0] > 0.0
+    p_cons = np.where(has_cons[:, None], num / np.maximum(1e-9, den), p_base)
+    return p_base, p_cons
+
+
+def stack_features(pA: np.ndarray, pM: np.ndarray, pCons: np.ndarray, df: pd.DataFrame, phase: str) -> np.ndarray:
+    """Construye la matriz de features para Motor B/C combinando logits, divergencias Sharp/AH y señales 2ª gen."""
+    log_pA = logit(pA)
+    log_pM = logit(pM)
+    log_pC = logit(pCons)
+    res_CA = log_pC - log_pA
+    res_CM = log_pC - log_pM
+
+    def col_or_zero(name: str, scale: float = 1.0) -> np.ndarray:
+        if name in df.columns:
+            return np.nan_to_num(df[name].to_numpy(dtype=float) / scale, nan=0.0)
+        return np.zeros(len(df), dtype=float)
+
+    extras = [
+        col_or_zero("elo_diff", 100.0),
+        col_or_zero("pi_diff", 1.0),
+        col_or_zero("form_gd_diff_r10", 1.0),
+        col_or_zero("xgd_diff_r10", 1.0),
+        col_or_zero("xg_overperf_diff_r5", 1.0),
+        col_or_zero("form_gd_res_diff_r5", 1.0),
+        col_or_zero("elo_closeness", 1.0),
+        col_or_zero(f"mkt_{phase}_sharp_vs_b365_h", 1.0),
+        col_or_zero(f"mkt_{phase}_sharp_vs_b365_d", 1.0),
+        col_or_zero(f"mkt_{phase}_sharp_vs_b365_a", 1.0),
+        col_or_zero(f"mkt_{phase}_ah_vs_b365_h", 1.0),
+        col_or_zero(f"mkt_{phase}_ah_vs_b365_a", 1.0),
+        col_or_zero(f"mkt_{phase}_max_over_avg_h", 1.0),
+        col_or_zero(f"mkt_{phase}_max_over_avg_a", 1.0),
+        col_or_zero(f"tot_{phase}_implied_goals", 3.0),
+    ]
+    return np.column_stack([log_pC, log_pM, log_pA, res_CA, res_CM] + extras)
+
+
+def fit_residual_tilting(y: np.ndarray, pA: np.ndarray, pCons: np.ndarray, df: pd.DataFrame, phase: str):
+    """Ajusta un modelo de corrección residual anclado al consenso:
+    P(y=k) = softmax_k(tau * log(pCons_k) + alpha * (log(pA_k) - log(pCons_k)) + b_k + gamma_k * z)
+    Optimizado por BFGS con regularización L2 fuerte para no degradar jamás la calibración del mercado.
+    """
+    logC = logit(pCons)
+    diffA = logit(pA) - logC
+    sh_h = np.nan_to_num(df.get(f"mkt_{phase}_sharp_vs_b365_h", pd.Series(0.0, index=df.index)).to_numpy(dtype=float), nan=0.0)
+    sh_d = np.nan_to_num(df.get(f"mkt_{phase}_sharp_vs_b365_d", pd.Series(0.0, index=df.index)).to_numpy(dtype=float), nan=0.0)
+    sh_a = np.nan_to_num(df.get(f"mkt_{phase}_sharp_vs_b365_a", pd.Series(0.0, index=df.index)).to_numpy(dtype=float), nan=0.0)
+    sh = np.column_stack([sh_h, sh_d, sh_a])
+
+    ah_h = np.nan_to_num(df.get(f"mkt_{phase}_ah_vs_b365_h", pd.Series(0.0, index=df.index)).to_numpy(dtype=float), nan=0.0)
+    ah_d = np.nan_to_num(df.get(f"mkt_{phase}_ah_vs_b365_d", pd.Series(0.0, index=df.index)).to_numpy(dtype=float), nan=0.0)
+    ah_a = np.nan_to_num(df.get(f"mkt_{phase}_ah_vs_b365_a", pd.Series(0.0, index=df.index)).to_numpy(dtype=float), nan=0.0)
+    ah = np.column_stack([ah_h, ah_d, ah_a])
+
+    def loss(params):
+        tau, alpha, w_sh, w_ah, b0, b1 = params
+        bias = np.array([b0, b1, -(b0 + b1)])
+        z = tau * logC + alpha * diffA + w_sh * sh + w_ah * ah + bias
+        p = softmax(z)
+        nll = -np.mean(np.log(np.clip(p[np.arange(len(y)), y], 1e-15, 1.0)))
+        reg = 1e-3 * ((tau - 1.0) ** 2 + alpha ** 2 + w_sh ** 2 + w_ah ** 2 + b0 ** 2 + b1 ** 2)
+        return float(nll + reg)
+
+    res = minimize(loss, x0=[1.0, 0.08, 0.25, 0.15, 0.0, 0.0], method="BFGS")
+    return res.x
+
+
+def predict_residual_tilting(params, pA: np.ndarray, pCons: np.ndarray, df: pd.DataFrame, phase: str) -> np.ndarray:
+    tau, alpha, w_sh, w_ah, b0, b1 = params
+    bias = np.array([b0, b1, -(b0 + b1)])
+    logC = logit(pCons)
+    diffA = logit(pA) - logC
+    sh_h = np.nan_to_num(df.get(f"mkt_{phase}_sharp_vs_b365_h", pd.Series(0.0, index=df.index)).to_numpy(dtype=float), nan=0.0)
+    sh_d = np.nan_to_num(df.get(f"mkt_{phase}_sharp_vs_b365_d", pd.Series(0.0, index=df.index)).to_numpy(dtype=float), nan=0.0)
+    sh_a = np.nan_to_num(df.get(f"mkt_{phase}_sharp_vs_b365_a", pd.Series(0.0, index=df.index)).to_numpy(dtype=float), nan=0.0)
+    sh = np.column_stack([sh_h, sh_d, sh_a])
+
+    ah_h = np.nan_to_num(df.get(f"mkt_{phase}_ah_vs_b365_h", pd.Series(0.0, index=df.index)).to_numpy(dtype=float), nan=0.0)
+    ah_d = np.nan_to_num(df.get(f"mkt_{phase}_ah_vs_b365_d", pd.Series(0.0, index=df.index)).to_numpy(dtype=float), nan=0.0)
+    ah_a = np.nan_to_num(df.get(f"mkt_{phase}_ah_vs_b365_a", pd.Series(0.0, index=df.index)).to_numpy(dtype=float), nan=0.0)
+    ah = np.column_stack([ah_h, ah_d, ah_a])
+
+    z = tau * logC + alpha * diffA + w_sh * sh + w_ah * ah + bias
+    return softmax(z)
 
 
 def fallback(pA, pM, out):
@@ -119,42 +247,50 @@ def main():
     pa = pa[["match_id", "div", "season", "match_date", "y", "p_home", "p_draw", "p_away"]].copy()
     pa["sstart"] = pa.season.map(season_of)
     pa = pa[pa.sstart >= FIRST].reset_index(drop=True)
-    feats = pd.read_parquet(os.path.join(PROC, "features.parquet"))[
-        ["match_id", "elo_diff", "form_gd_diff_r10", "h_points_r5", "a_points_r5"]]
-    pa = pa.merge(feats, on="match_id", how="left")
+
+    feat_cols_needed = [
+        "match_id",
+        "elo_diff",
+        "pi_diff",
+        "form_gd_diff_r10",
+        "xgd_diff_r10",
+        "xg_overperf_diff_r5",
+        "form_gd_res_diff_r5",
+        "elo_closeness",
+        "h_points_r5",
+        "a_points_r5",
+    ]
+    feats_all = pd.read_parquet(os.path.join(PROC, "features.parquet"))
+    avail_f = [c for c in feat_cols_needed if c in feats_all.columns]
+    pa = pa.merge(feats_all[avail_f], on="match_id", how="left")
 
     mk = pd.read_parquet(os.path.join(PROC, "features_market.parquet"))
     phase = args.phase
-    # Preferencia por partido (no por bloque): Pinnacle power -> B365 power -> Avg power.
-    # Así la cobertura no se desploma cuando Pinnacle desaparece (2026/27) o es parcial (2025/26).
-    mk = mk[["match_id"] + [c for c in mk.columns if c.startswith("mkt_")]]
-    df = pa.merge(mk, on="match_id", how="left")
-    chain = []
-    for label, src, method in (("ps_power", "ps", "power"), ("b365_power", "b365", "power"),
-                               ("avg_power", "avg", "power"), ("ps_prop", "ps", "proportional"),
-                               ("b365_prop", "b365", "proportional")):
-        cols = [f"mkt_{phase}_{src}_{method}_{k}" for k in "hda"]
-        if all(c in df.columns for c in cols):
-            chain.append((label, cols))
-    if not chain:
-        raise SystemExit(f"sin cuotas {phase}")
-    mh = pd.Series(np.nan, index=df.index)
-    md = pd.Series(np.nan, index=df.index)
-    ma = pd.Series(np.nan, index=df.index)
-    src_used = pd.Series("", index=df.index)
-    for label, cols in reversed(chain):  # el primero de la cadena sobrescribe
-        ok = df[cols].notna().all(axis=1)
-        mh.loc[ok], md.loc[ok], ma.loc[ok] = df.loc[ok, cols[0]], df.loc[ok, cols[1]], df.loc[ok, cols[2]]
-        src_used.loc[ok] = label
-    df["mh"], df["md"], df["ma"] = mh, md, ma
-    df["market_src"] = src_used
-    df["market_ok"] = df[["mh", "md", "ma"]].notna().all(axis=1)
-    print(f"fase {phase}: mercado disponible en {df.market_ok.mean():.1%} de los partidos; "
-          f"fuentes: {df.loc[df.market_ok,'market_src'].value_counts().to_dict()}")
+    mk_cols = ["match_id"] + [
+        c for c in mk.columns if c.startswith("mkt_") or c.startswith("tot_") or c.startswith("ah_")
+    ]
+    df = pa.merge(mk[mk_cols], on="match_id", how="left")
+
+    p_base_all, p_cons_all = build_consensus_market_probs(df, phase)
+    df["cons_h"], df["cons_d"], df["cons_a"] = p_cons_all[:, 0], p_cons_all[:, 1], p_cons_all[:, 2]
+    print(
+        f"fase {phase}: mercado disponible en {df.market_ok.mean():.1%} de los partidos; "
+        f"fuentes: {df.loc[df.market_ok,'market_src'].value_counts().to_dict()}"
+    )
 
     seasons = sorted(df.sstart.unique())
-    results = {k: [] for k in ("market", "linear_pool", "logit_pool", "stack_logit",
-                               "residual_logit", "stack_hgb", "ensemble_b")}
+    results = {
+        k: []
+        for k in (
+            "market",
+            "linear_pool",
+            "logit_pool",
+            "stack_logit",
+            "residual_logit",
+            "stack_hgb",
+            "ensemble_b",
+        )
+    }
     weights = {}
     for s in seasons:
         if s < FIRST:
@@ -164,77 +300,97 @@ def main():
         if len(train) == 0 or len(test) == 0:
             continue
         tr = train[train.market_ok]
+        if len(tr) < 200:
+            continue
         y_tr = tr.y.to_numpy()
         pA_tr = tr[["p_home", "p_draw", "p_away"]].to_numpy()
         pM_tr = tr[["mh", "md", "ma"]].to_numpy()
+        pC_tr = tr[["cons_h", "cons_d", "cons_a"]].to_numpy()
+
         pA_te = test[["p_home", "p_draw", "p_away"]].to_numpy()
         pM_te = test[["mh", "md", "ma"]].to_numpy()
-        row = {"match_id": test.match_id.values, "div": test["div"].values,
-               "season": test.season.values, "match_date": test.match_date.values,
-               "y": test.y.values, "p_home": np.nan, "p_draw": np.nan, "p_away": np.nan}
-        if len(tr) < 200:
-            continue
+        pC_te = test[["cons_h", "cons_d", "cons_a"]].to_numpy()
+        pM_te_safe = np.where(np.isfinite(pM_te), pM_te, pA_te)
+        pC_te_safe = np.where(np.isfinite(pC_te), pC_te, pA_te)
 
-        # 1. mercado puro
+        row_meta = {
+            k: test[k].values for k in ("match_id", "div", "season", "match_date", "y")
+        }
+
+        # 1. mercado puro (benchmark de referencia)
         if test.market_ok.any():
-            mm = test[test.market_ok]
-            results["market"].append(pd.DataFrame({
-                **{k: row[k][test.market_ok.values] for k in ("match_id", "div", "season", "match_date", "y")},
-                "p_home": pM_te[test.market_ok.values, 0],
-                "p_draw": pM_te[test.market_ok.values, 1],
-                "p_away": pM_te[test.market_ok.values, 2],
-            }))
+            m_mask = test.market_ok.values
+            results["market"].append(
+                pd.DataFrame(
+                    {
+                        **{k: row_meta[k][m_mask] for k in row_meta},
+                        "p_home": pM_te[m_mask, 0],
+                        "p_draw": pM_te[m_mask, 1],
+                        "p_away": pM_te[m_mask, 2],
+                    }
+                )
+            )
 
-        # 2-3. mezclas con peso ajustado en el pasado
-        w_prob = fit_weight(y_tr, pA_tr, pM_tr, "prob")
-        w_logit = fit_weight(y_tr, pA_tr, pM_tr, "logit")
+        # 2-3. mezclas en espacio de probabilidad y logit usando el super-consenso multi-mercado pC
+        w_prob = fit_weight(y_tr, pA_tr, pC_tr, "prob")
+        w_logit = fit_weight(y_tr, pA_tr, pC_tr, "logit")
         if s == seasons[0]:
             weights["prob"], weights["logit"] = w_prob, w_logit
-        out, fb = fallback(pA_te, pM_te, mix(pA_te, pM_te, w_prob, "prob"))
-        results["linear_pool"].append(pd.DataFrame({**{k: row[k] for k in row if k != "p_home" and k != "p_draw" and k != "p_away"},
-                                                    "p_home": out[:, 0], "p_draw": out[:, 1], "p_away": out[:, 2]}))
-        out, _ = fallback(pA_te, pM_te, mix(pA_te, pM_te, w_logit, "logit"))
-        results["logit_pool"].append(pd.DataFrame({**{k: row[k] for k in row if k not in ("p_home", "p_draw", "p_away")},
-                                                   "p_home": out[:, 0], "p_draw": out[:, 1], "p_away": out[:, 2]}))
 
-        Xtr = stack_features(pA_tr, pM_tr, tr)
-        Xte = stack_features(pA_te, np.where(np.isfinite(pM_te), pM_te, pA_te), test)
-        # 4. stacking logístico
-        lr = make_pipeline(SimpleImputer(strategy="median"), StandardScaler(),
-                           LogisticRegression(max_iter=3000, C=0.5))
+        out, _ = fallback(pA_te, pC_te, mix(pA_te, pC_te_safe, w_prob, "prob"))
+        results["linear_pool"].append(
+            pd.DataFrame({**row_meta, "p_home": out[:, 0], "p_draw": out[:, 1], "p_away": out[:, 2]})
+        )
+        out, _ = fallback(pA_te, pC_te, mix(pA_te, pC_te_safe, w_logit, "logit"))
+        results["logit_pool"].append(
+            pd.DataFrame({**row_meta, "p_home": out[:, 0], "p_draw": out[:, 1], "p_away": out[:, 2]})
+        )
+
+        # 4. stacking logístico regularizado con señales multi-mercado
+        Xtr = stack_features(pA_tr, pM_tr, pC_tr, tr, phase)
+        Xte = stack_features(pA_te, pM_te_safe, pC_te_safe, test, phase)
+        lr = make_pipeline(
+            SimpleImputer(strategy="median"),
+            StandardScaler(),
+            LogisticRegression(max_iter=3000, C=0.15),
+        )
         lr.fit(Xtr, y_tr)
-        out, _ = fallback(pA_te, pM_te, lr.predict_proba(Xte))
-        results["stack_logit"].append(pd.DataFrame({**{k: row[k] for k in row if k not in ("p_home", "p_draw", "p_away")},
-                                                    "p_home": out[:, 0], "p_draw": out[:, 1], "p_away": out[:, 2]}))
-        # 5. corrección residual: log pM + g(x)
-        Rtr = logit(pM_tr) - logit(pA_tr)
-        Rte = logit(np.where(np.isfinite(pM_te), pM_te, pA_te)) - logit(pA_te)
-        Ftr = np.column_stack([Rtr, tr[["elo_diff"]].to_numpy() / 100.0,
-                               tr[["form_gd_diff_r10"]].to_numpy()])
-        Fte = np.column_stack([Rte, test[["elo_diff"]].to_numpy() / 100.0,
-                               test[["form_gd_diff_r10"]].to_numpy()])
-        lr2 = make_pipeline(SimpleImputer(strategy="median"), StandardScaler(),
-                            LogisticRegression(max_iter=3000, C=0.5))
-        lr2.fit(Ftr, y_tr)
-        corr = lr2.predict_proba(Fte)
-        out = softmax(logit(np.where(np.isfinite(pM_te), pM_te, pA_te)) + np.log(np.clip(corr, 1e-9, 1)))
-        out, _ = fallback(pA_te, pM_te, out)
-        results["residual_logit"].append(pd.DataFrame({**{k: row[k] for k in row if k not in ("p_home", "p_draw", "p_away")},
-                                                       "p_home": out[:, 0], "p_draw": out[:, 1], "p_away": out[:, 2]}))
-        # 6. stacking HGB
-        hgb = HistGradientBoostingClassifier(max_iter=120, learning_rate=0.06, max_leaf_nodes=15,
-                                             l2_regularization=2.0, min_samples_leaf=60,
-                                             early_stopping=False, random_state=SEED)
+        out, _ = fallback(pA_te, pC_te, lr.predict_proba(Xte))
+        results["stack_logit"].append(
+            pd.DataFrame({**row_meta, "p_home": out[:, 0], "p_draw": out[:, 1], "p_away": out[:, 2]})
+        )
+
+        # 5. corrección residual anclada a mercado (sin doble conteo de prior)
+        tilt_params = fit_residual_tilting(y_tr, pA_tr, pC_tr, tr, phase)
+        out_res = predict_residual_tilting(tilt_params, pA_te, pC_te_safe, test, phase)
+        out, _ = fallback(pA_te, pC_te, out_res)
+        results["residual_logit"].append(
+            pd.DataFrame({**row_meta, "p_home": out[:, 0], "p_draw": out[:, 1], "p_away": out[:, 2]})
+        )
+
+        # 6. stacking HGB muy regularizado
+        hgb = HistGradientBoostingClassifier(
+            max_iter=80,
+            learning_rate=0.04,
+            max_leaf_nodes=12,
+            l2_regularization=10.0,
+            min_samples_leaf=150,
+            early_stopping=False,
+            random_state=SEED,
+        )
         hgb.fit(Xtr, y_tr)
-        out, _ = fallback(pA_te, pM_te, hgb.predict_proba(Xte))
-        results["stack_hgb"].append(pd.DataFrame({**{k: row[k] for k in row if k not in ("p_home", "p_draw", "p_away")},
-                                                  "p_home": out[:, 0], "p_draw": out[:, 1], "p_away": out[:, 2]}))
-        print(f"  season {s}: n={len(test):,} market_ok={test.market_ok.mean():.1%} "
-              f"w_prob={w_prob:.2f} w_logit={w_logit:.2f}", flush=True)
+        out, _ = fallback(pA_te, pC_te, hgb.predict_proba(Xte))
+        results["stack_hgb"].append(
+            pd.DataFrame({**row_meta, "p_home": out[:, 0], "p_draw": out[:, 1], "p_away": out[:, 2]})
+        )
+        print(
+            f"  season {s}: n={len(test):,} market_ok={test.market_ok.mean():.1%} "
+            f"w_prob={w_prob:.2f} w_logit={w_logit:.2f}",
+            flush=True,
+        )
 
     dfs = {k: pd.concat(v, ignore_index=True) for k, v in results.items() if v}
-    # 7. ensemble_b: pesos ajustados en val sobre linear_pool + stack_logit + residual
-    members = [k for k in ("linear_pool", "stack_logit", "residual_logit", "stack_hgb") if k in dfs]
+    members = [k for k in ("linear_pool", "logit_pool", "stack_logit", "residual_logit", "stack_hgb") if k in dfs]
     if len(members) >= 2:
         pivot = {k: dfs[k].set_index("match_id")[["p_home", "p_draw", "p_away"]] for k in members}
         ids = pivot[members[0]].index
@@ -244,11 +400,15 @@ def main():
         val = ids[meta["season"].map(season_of) == 2023]
         yv = meta.reindex(val)["y"].to_numpy()
         Pv = np.stack([pivot[k].reindex(val).to_numpy() for k in members])
+
         def obj(z):
-            w = np.exp(z - z.max()); w /= w.sum()
+            w = np.exp(z - z.max())
+            w /= w.sum()
             return logloss(yv, np.tensordot(w, Pv, axes=1))
-        z = minimize(obj, np.zeros(len(members)), method="Nelder-Mead").x
-        w = np.exp(z - z.max()); w /= w.sum()
+
+        z = minimize(obj, np.zeros(len(members)), method="Nelder-Mead", options={"maxiter": 4000}).x
+        w = np.exp(z - z.max())
+        w /= w.sum()
         print("ensemble_b pesos:", dict(zip(members, w.round(3))))
         mixp = np.zeros((len(ids), 3))
         for wk, k in zip(w, members):
@@ -262,17 +422,20 @@ def main():
 
     for name, p in dfs.items():
         p.to_csv(os.path.join(outdir, f"pred_{name}.csv"), index=False)
-    cfg = {"base_motor_a": args.base, "market_phase": phase,
-           "ensemble_weights": W, "first_season": FIRST,
-           "market_coverage": float(df.market_ok.mean()),
-           "market_sources": df.loc[df.market_ok, "market_src"].value_counts().to_dict(),
-           "generated_at":
-           datetime.now(timezone.utc).isoformat(timespec="seconds")}
-    with open(os.path.join(outdir, "config.json"), "w") as f:
+    cfg = {
+        "base_motor_a": args.base,
+        "market_phase": phase,
+        "ensemble_weights": W,
+        "first_season": FIRST,
+        "market_coverage": float(df.market_ok.mean()),
+        "market_sources": df.loc[df.market_ok, "market_src"].value_counts().to_dict(),
+        "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+    }
+    with open(os.path.join(outdir, "config.json"), "w", encoding="utf-8") as f:
         json.dump(cfg, f, indent=1)
     print(f"escrito -> {outdir}")
     for name, p in dfs.items():
-        print(name, len(p), round(logloss(p.y.to_numpy(), p[['p_home','p_draw','p_away']].to_numpy()), 4))
+        print(name, len(p), round(logloss(p.y.to_numpy(), p[["p_home", "p_draw", "p_away"]].to_numpy()), 4))
 
 
 if __name__ == "__main__":

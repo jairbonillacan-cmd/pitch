@@ -1,6 +1,6 @@
 # PitchLab Prediction Lab
 
-**Informe final del programa:** [`FINAL_REPORT.md`](FINAL_REPORT.md) — resultados, evidencia y próximos pasos.
+**Informe final del programa:** [`FINAL_REPORT.md`](FINAL_REPORT.md) — resultados, evidencia y próximos pasos. · **Reporte Comparativo Gen 2 (`Spacetime Suite v2.0` vs `v1.0` vs Casas de Apuestas):** [`reports/A23_spacetime_v2_benchmark_report.md`](reports/A23_spacetime_v2_benchmark_report.md)
 
 Laboratorio de investigación del motor de predicciones 1X2 de PitchLab. Vive en un worktree
 aislado (`prediction-lab`) para no tocar los motores reconstruidos de `main`.

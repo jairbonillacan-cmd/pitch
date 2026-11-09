@@ -5,8 +5,10 @@ Un fold por temporada objetivo ``S``:
 barajado, no hay ``train_test_split`` aleatorio y ninguna decisión de un fold
 mira la temporada evaluada.
 
-La tasa de empate que se inyecta al mercado 2-vías se calcula **en el train del
-fold**, nunca en el test.
+Incluye ``market_hybrid`` (Motor C NFL): combina moneyline de-vig (Power),
+probabilidad implícita del point spread (``spread_line``), geometría condicional
+de empate en partidos cerrados y las predicciones del modelo deportivo ``logit``
+con valor de Quarterback.
 """
 
 from __future__ import annotations
@@ -14,7 +16,7 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
-from config import FIRST_TRAIN_SEASON
+from config import FIRST_TRAIN_SEASON, TIE_RATE_FLOOR
 from models import (
     class_frequencies,
     fit_hgb,
@@ -26,7 +28,71 @@ from models import (
     predict_proba_3,
 )
 
-MODELS = ("base_freq", "logit_elo", "logit", "hgb", "blend", "market_prop", "market_power")
+MODELS = ("base_freq", "logit_elo", "logit", "hgb", "blend", "market_prop", "market_power", "market_hybrid")
+
+
+def _build_market_hybrid(
+    train: pd.DataFrame,
+    test: pd.DataFrame,
+    p_logit: np.ndarray,
+    p_mkt_power: np.ndarray,
+    tie_rate: float,
+) -> np.ndarray:
+    """Construye el predictor híbrido NFL (Spread + Moneyline Power + QB-Logit)."""
+    n = len(test)
+    out = p_logit.copy()
+    has_mkt = np.isfinite(p_mkt_power).all(axis=1)
+    if not has_mkt.any():
+        return out
+
+    # Calibrar pendiente de spread_line -> P(Home win | no tie) en train
+    tr_sp = train["spread_line"].to_numpy(dtype=float)
+    tr_y = train["y"].to_numpy(dtype=int)
+    ok_tr = np.isfinite(tr_sp) & (tr_y != 1)
+    # En la NFL, 1 punto de spread equivale a ~0.148 en log-odds
+    beta_sp = 0.148
+    if ok_tr.sum() > 200:
+        # Ajuste fino de escala en train
+        sp_v = tr_sp[ok_tr]
+        hw_v = (tr_y[ok_tr] == 0).astype(float)
+        best_b, best_ll = 0.148, 1e9
+        for b in np.linspace(0.12, 0.18, 25):
+            ph = 1.0 / (1.0 + np.exp(-b * sp_v))
+            ll = -float(np.mean(hw_v * np.log(np.clip(ph, 1e-6, 1 - 1e-6)) + (1 - hw_v) * np.log(np.clip(1 - ph, 1e-6, 1 - 1e-6))))
+            if ll < best_ll:
+                best_ll, best_b = ll, float(b)
+        beta_sp = best_b
+
+    te_sp = test["spread_line"].to_numpy(dtype=float)
+    p_sp_h = np.where(np.isfinite(te_sp), 1.0 / (1.0 + np.exp(-beta_sp * te_sp)), np.nan)
+
+    # Tasa de empate condicional: los empates en NFL ocurren más en spreads cerrados (|spread| <= 3)
+    tau_base = max(tie_rate, TIE_RATE_FLOOR)
+    sp_abs = np.where(np.isfinite(te_sp), np.abs(te_sp), 5.0)
+    closeness = np.exp(-((sp_abs / 6.5) ** 2))
+    closeness_norm = closeness / max(1e-6, float(np.mean(closeness)))
+    tau_vec = np.clip(tau_base * (0.5 + 0.5 * closeness_norm), TIE_RATE_FLOOR, 0.012)
+
+    for i in np.where(has_mkt)[0]:
+        pm = p_mkt_power[i]
+        pm_2way_h = pm[0] / max(1e-9, pm[0] + pm[2])
+        pa_2way_h = p_logit[i, 0] / max(1e-9, p_logit[i, 0] + p_logit[i, 2])
+        if np.isfinite(p_sp_h[i]):
+            # Consenso en espacio logit: 58% Moneyline Power + 34% Point Spread + 8% QB-Logit
+            eps = 1e-6
+            lm = np.log(np.clip(pm_2way_h, eps, 1 - eps) / np.clip(1 - pm_2way_h, eps, 1 - eps))
+            ls = np.log(np.clip(p_sp_h[i], eps, 1 - eps) / np.clip(1 - p_sp_h[i], eps, 1 - eps))
+            la = np.log(np.clip(pa_2way_h, eps, 1 - eps) / np.clip(1 - pa_2way_h, eps, 1 - eps))
+            l_mix = 0.58 * lm + 0.34 * ls + 0.08 * la
+            p_h_2way = 1.0 / (1.0 + np.exp(-l_mix))
+        else:
+            p_h_2way = 0.90 * pm_2way_h + 0.10 * pa_2way_h
+        t_i = tau_vec[i]
+        out[i, 0] = (1.0 - t_i) * p_h_2way
+        out[i, 1] = t_i
+        out[i, 2] = (1.0 - t_i) * (1.0 - p_h_2way)
+
+    return normalize_probs(out)
 
 
 def run_fold(feats: pd.DataFrame, season: int, logit_c: float) -> pd.DataFrame:
@@ -59,6 +125,10 @@ def run_fold(feats: pd.DataFrame, season: int, logit_c: float) -> pd.DataFrame:
                 test[home_col].to_numpy()[mask], test[away_col].to_numpy()[mask], tie_rate
             )
         preds[name] = p
+
+    preds["market_hybrid"] = _build_market_hybrid(
+        train, test, preds["logit"], preds["market_power"], tie_rate
+    )
 
     frames = []
     base = test[["game_id", "season", "week", "gameday", "home_team", "away_team", "y", "result", "tie"]].copy()

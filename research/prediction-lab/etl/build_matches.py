@@ -18,7 +18,6 @@ import json
 import os
 import re
 import unicodedata
-from collections import Counter, defaultdict
 from datetime import datetime, timezone
 
 import numpy as np
@@ -43,24 +42,48 @@ LEAGUES = {
     "JPN": ("J1 League", "Japan", 1), "SWE": ("Allsvenskan", "Sweden", 1),
 }
 
-# Columnas de cuotas: origen -> nombre canónico
+# Columnas de cuotas 1X2: soporta tanto nomenclatura 2019+ (AvgH/MaxH) como histórica 2005-2019 (BbAvH/BbMxH)
 OPEN_COLS = {
-    "b365": ("B365H", "B365D", "B365A"), "ps": ("PSH", "PSD", "PSA"),
-    "avg": ("AvgH", "AvgD", "AvgA"), "max": ("MaxH", "MaxD", "MaxA"),
-    "bf": ("BFH", "BFD", "BFA"),
-    "bfe": ("BFEH", "BFED", "BFEA"),
+    "b365": (("B365H",), ("B365D",), ("B365A",)),
+    "ps": (("PSH", "PH"), ("PSD", "PD"), ("PSA", "PA")),
+    "avg": (("AvgH", "BbAvH"), ("AvgD", "BbAvD"), ("AvgA", "BbAvA")),
+    "max": (("MaxH", "BbMxH"), ("MaxD", "BbMxD"), ("MaxA", "BbMxA")),
+    "bf": (("BFH",), ("BFD",), ("BFA",)),
+    "bfe": (("BFEH",), ("BFED",), ("BFEA",)),
+    "bw": (("BWH",), ("BWD",), ("BWA",)),
+    "wh": (("WHH",), ("WHD",), ("WHA",)),
 }
 CLOSE_COLS = {
-    "b365": ("B365CH", "B365CD", "B365CA"), "ps": ("PSCH", "PSCD", "PSCA"),
-    "avg": ("AvgCH", "AvgCD", "AvgCA"), "max": ("MaxCH", "MaxCD", "MaxCA"),
-    "bf": ("BFCH", "BFCD", "BFCA"),
-    "bfe": ("BFECH", "BFECD", "BFECA"),
+    "b365": (("B365CH",), ("B365CD",), ("B365CA",)),
+    "ps": (("PSCH",), ("PSCD",), ("PSCA",)),
+    "avg": (("AvgCH",), ("AvgCD",), ("AvgCA",)),
+    "max": (("MaxCH",), ("MaxCD",), ("MaxCA",)),
+    "bf": (("BFCH",), ("BFCD",), ("BFCA",)),
+    "bfe": (("BFECH",), ("BFECD",), ("BFECA",)),
+    "bw": (("BWCH",), ("BWCD",), ("BWCA",)),
+    "wh": (("WHCH",), ("WHCD",), ("WHCA",)),
 }
 TOTALS = {
-    ("b365", "open"): ("B365>2.5", "B365<2.5"), ("b365", "close"): ("B365C>2.5", "B365C<2.5"),
-    ("p", "open"): ("P>2.5", "P<2.5"), ("p", "close"): ("PC>2.5", "PC<2.5"),
-    ("avg", "open"): ("Avg>2.5", "Avg<2.5"), ("avg", "close"): ("AvgC>2.5", "AvgC<2.5"),
-    ("max", "open"): ("Max>2.5", "Max<2.5"), ("max", "close"): ("MaxC>2.5", "MaxC<2.5"),
+    ("b365", "open"): (("B365>2.5", "GB>2.5"), ("B365<2.5", "GB<2.5")),
+    ("b365", "close"): (("B365C>2.5",), ("B365C<2.5",)),
+    ("p", "open"): (("P>2.5",), ("P<2.5",)),
+    ("p", "close"): (("PC>2.5",), ("PC<2.5",)),
+    ("avg", "open"): (("Avg>2.5", "BbAv>2.5"), ("Avg<2.5", "BbAv<2.5")),
+    ("avg", "close"): (("AvgC>2.5",), ("AvgC<2.5",)),
+    ("max", "open"): (("Max>2.5", "BbMx>2.5"), ("Max<2.5", "BbMx<2.5")),
+    ("max", "close"): (("MaxC>2.5",), ("MaxC<2.5",)),
+}
+AH_ODDS = {
+    ("b365", "open"): (("B365AHH",), ("B365AHA",)),
+    ("b365", "close"): (("B365CAHH",), ("B365CAHA",)),
+    ("p", "open"): (("PAHH",), ("PAHA",)),
+    ("p", "close"): (("PCAHH",), ("PCAHA",)),
+    ("avg", "open"): (("AvgAHH", "BbAvAHH"), ("AvgAHA", "BbAvAHA")),
+    ("avg", "close"): (("AvgCAHH",), ("AvgCAHA",)),
+    ("max", "open"): (("MaxAHH", "BbMxAHH"), ("MaxAHA", "BbMxAHA")),
+    ("max", "close"): (("MaxCAHH",), ("MaxCAHA",)),
+    ("bfe", "open"): (("BFEAHH",), ("BFEAHA",)),
+    ("bfe", "close"): (("BFECAHH",), ("BFECAHA",)),
 }
 
 DATE_PATTERNS = ("%d/%m/%Y", "%d/%m/%y", "%Y-%m-%d", "%Y-%m-%d %H:%M:%S")
@@ -205,6 +228,7 @@ def build_main() -> pd.DataFrame:
             away = canonical_team(div, team_name(r, "AwayTeam", "AT", "Away"))
             if not home or not away:
                 continue
+            ref = str(r.get("Referee", "")).strip() or None
             rec = {
                 "match_id": f"{div}:{d:%Y%m%d}:{slug(home)}:{slug(away)}",
                 "source": "football-data.co.uk",
@@ -222,17 +246,27 @@ def build_main() -> pd.DataFrame:
                 "fouls_home": num(r, "HF"), "fouls_away": num(r, "AF"),
                 "yellows_home": num(r, "HY"), "yellows_away": num(r, "AY"),
                 "reds_home": num(r, "HR"), "reds_away": num(r, "AR"),
+                "xg_home": num(r, "HxG", "xGH"), "xg_away": num(r, "AxG", "xGA"),
+                "referee": ref,
+                "n_books_1x2": num(r, "Bb1X2"),
+                "n_books_ou": num(r, "BbOU"),
+                "n_books_ah": num(r, "BbAH"),
+                "ah_open_line": num(r, "AHh", "BbAHh"),
+                "ah_close_line": num(r, "AHCh"),
                 "source_season_file": f"mmz4281/{season_code}/{div}.csv", "source_row": i,
             }
             for src, cols in OPEN_COLS.items():
-                for k, c in zip("hda", cols):
-                    rec[f"odds_open_{src}_{k}"] = num(r, c)
+                for k, c_tuple in zip("hda", cols):
+                    rec[f"odds_open_{src}_{k}"] = num(r, *c_tuple)
             for src, cols in CLOSE_COLS.items():
-                for k, c in zip("hda", cols):
-                    rec[f"odds_close_{src}_{k}"] = num(r, c)
-            for (src, phase), (ov, un) in TOTALS.items():
-                rec[f"totals_{phase}_{src}_over"] = num(r, ov)
-                rec[f"totals_{phase}_{src}_under"] = num(r, un)
+                for k, c_tuple in zip("hda", cols):
+                    rec[f"odds_close_{src}_{k}"] = num(r, *c_tuple)
+            for (src, phase), (ov_tuple, un_tuple) in TOTALS.items():
+                rec[f"totals_{phase}_{src}_over"] = num(r, *ov_tuple)
+                rec[f"totals_{phase}_{src}_under"] = num(r, *un_tuple)
+            for (src, phase), (h_tuple, a_tuple) in AH_ODDS.items():
+                rec[f"ah_{phase}_{src}_h"] = num(r, *h_tuple)
+                rec[f"ah_{phase}_{src}_a"] = num(r, *a_tuple)
             rows.append(rec)
     return pd.DataFrame(rows)
 
@@ -272,17 +306,24 @@ def build_extra() -> pd.DataFrame:
                 "corners_home": np.nan, "corners_away": np.nan, "fouls_home": np.nan,
                 "fouls_away": np.nan, "yellows_home": np.nan, "yellows_away": np.nan,
                 "reds_home": np.nan, "reds_away": np.nan,
+                "xg_home": np.nan, "xg_away": np.nan,
+                "referee": None,
+                "n_books_1x2": np.nan, "n_books_ou": np.nan, "n_books_ah": np.nan,
+                "ah_open_line": np.nan, "ah_close_line": np.nan,
                 "source_season_file": f"new/{code}.csv", "source_row": i,
             }
             for src, cols in OPEN_COLS.items():
                 for k in "hda":
                     rec[f"odds_open_{src}_{k}"] = np.nan
             for src, cols in CLOSE_COLS.items():
-                for k, c in zip("hda", cols):
-                    rec[f"odds_close_{src}_{k}"] = num(r, c)
-            for (src, phase), (ov, un) in TOTALS.items():
+                for k, c_tuple in zip("hda", cols):
+                    rec[f"odds_close_{src}_{k}"] = num(r, *c_tuple)
+            for (src, phase), (ov_tuple, un_tuple) in TOTALS.items():
                 rec[f"totals_{phase}_{src}_over"] = np.nan
                 rec[f"totals_{phase}_{src}_under"] = np.nan
+            for (src, phase), (h_tuple, a_tuple) in AH_ODDS.items():
+                rec[f"ah_{phase}_{src}_h"] = np.nan
+                rec[f"ah_{phase}_{src}_a"] = np.nan
             rows.append(rec)
     return pd.DataFrame(rows)
 
@@ -305,7 +346,12 @@ def validate(df: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
     bad_goals = ((df.home_goals < 0) | (df.home_goals > 15) | (df.away_goals < 0) | (df.away_goals > 15))
     report["checks"]["goals_out_of_range"] = int(bad_goals.sum())
     # Cuotas <= 1
-    odds_cols = [c for c in df.columns if c.startswith("odds_") or c.startswith("totals_")]
+    odds_cols = [
+        c for c in df.columns
+        if c.startswith("odds_")
+        or c.startswith("totals_")
+        or (c.startswith("ah_") and not c.endswith("_line"))
+    ]
     invalid = 0
     for c in odds_cols:
         s = df[c]
@@ -359,10 +405,26 @@ def main():
     extra_df = build_extra()
     df = pd.concat([main_df, extra_df], ignore_index=True)
     # Cuotas no válidas (<=1) se tratan como ausentes; se cuantifican antes.
-    odds_cols = [c for c in df.columns if c.startswith("odds_") or c.startswith("totals_")]
+    odds_cols = [
+        c for c in df.columns
+        if c.startswith("odds_")
+        or c.startswith("totals_")
+        or (c.startswith("ah_") and not c.endswith("_line"))
+    ]
     n_invalid = int(sum(((df[c].notna()) & (df[c] <= 1.0)).sum() for c in odds_cols))
     for c in odds_cols:
         df.loc[df[c] <= 1.0, c] = np.nan
+    # Limpiar pares de totales con margen corrupto (>100% o <-50% en columnas históricas BbAv/GB)
+    for phase in ("open", "close"):
+        for src in ("b365", "p", "avg", "max"):
+            ov_col, un_col = f"totals_{phase}_{src}_over", f"totals_{phase}_{src}_under"
+            if ov_col in df.columns and un_col in df.columns:
+                comp = df[ov_col].notna() & df[un_col].notna()
+                margin = (1.0 / df[ov_col]) + (1.0 / df[un_col]) - 1.0
+                bad_tot = comp & ((margin > 1.0) | (margin < -0.5))
+                if bad_tot.any():
+                    n_invalid += int(bad_tot.sum()) * 2
+                    df.loc[bad_tot, [ov_col, un_col]] = np.nan
     df, report = validate(df)
     report["checks"]["odds_le_1_set_to_nan"] = n_invalid
     df = df.sort_values(["div", "match_date", "kickoff_time"], kind="mergesort").reset_index(drop=True)

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Exporta el modelo NFL (A12) a JSON para inferencia TypeScript.
+"""Exporta el modelo NFL (PitchLab Minkowski v2.0) a JSON para inferencia TypeScript.
 
 Reutiliza el pipeline de A12 (`models/nfl/{config,features,models}.py`) sin modificarlo.
 Entrena con todas las temporadas <= 2025 y guarda:
@@ -58,6 +58,7 @@ def main():
     artifact = {
         "sport": "nfl",
         "type": "multinomial_logistic",
+        "codename": "PitchLab Minkowski v2.0",
         "version": "1.0.0",
         "created_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "seed": SEED,
@@ -74,10 +75,10 @@ def main():
             "seasons": [int(train.season.min()), int(train.season.max())],
             "train_log_loss": float(-np.mean(np.log(probs[np.arange(len(y)), y]))),
             "tie_rate": float((y == 1).mean()),
-            "notes": "Features precalculadas por models/nfl/features.py (regla estricta por gameday).",
+            "notes": "PitchLab Minkowski v2.0: Features precalculadas por models/nfl/features.py con QB Elo y continuidad.",
         },
     }
-    with open(os.path.join(out, "model_nfl.json"), "w") as f:
+    with open(os.path.join(out, "model_nfl.json"), "w", encoding="utf-8") as f:
         json.dump(artifact, f, indent=1)
 
     snap = df[df.season == 2025].sample(n=min(200, int((df.season == 2025).sum())), random_state=SEED)
@@ -91,7 +92,7 @@ def main():
             "features": [None if pd.isna(v) else float(v) for v in Xs.iloc[i].tolist()],
             "probs_python": [round(float(x), 12) for x in ps[i]],
         }
-    with open(os.path.join(out, "nfl_snapshot.json"), "w") as f:
+    with open(os.path.join(out, "nfl_snapshot.json"), "w", encoding="utf-8") as f:
         json.dump({"generated_at": artifact["created_at"], "n": len(rows), "rows": rows}, f, indent=1)
     print(f"NFL modelo: {len(train):,} partidos | train log-loss={artifact['metadata']['train_log_loss']:.5f} "
           f"| tie_rate={artifact['metadata']['tie_rate']:.4f}")

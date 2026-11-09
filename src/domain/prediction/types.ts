@@ -1,5 +1,5 @@
 /**
- * Contrato de inferencia del Prediction Lab (A10).
+ * Contrato de inferencia del Prediction Lab (A10 / v2).
  *
  * El artefacto `model_motor_a.json` lo genera el pipeline Python
  * (`research/prediction-lab/pipeline/export_model.py`) y se copia sin editar a
@@ -13,6 +13,9 @@ export type DataQualityFlag = "ok" | "fallback_motor_a" | "invalid_features";
 /** Deporte del contrato. El fútbol usa H/D/A; la NFL usa H/T/A (T = empate). */
 export type Sport = "football" | "nfl";
 
+/** Modo de combinación entre mercado y Motor A en fútbol. */
+export type PredictionMode = "market_only" | "hybrid" | "motor_a_only";
+
 /** Salida pública del motor. `pHome + pDraw + pAway = 1` (tolerancia 1e-9). */
 export interface Prediction {
   pHome: number;
@@ -20,12 +23,24 @@ export interface Prediction {
   pDraw: number;
   pAway: number;
   modelId: string;
+  /** Nombre en clave de la familia espacio-temporal de modelos (ej. "PitchLab Tachyon v2.0"). */
+  modelName: string;
   modelVersion: string;
   generatedAt: string;
   dataQualityFlag: DataQualityFlag;
   sport: Sport;
   /** Método de de-vig aplicado cuando la predicción viene del mercado (A17). */
   marketMethod?: string;
+  /** Divergencia (pModel - pMarket) para [H, D, A] cuando ambos están disponibles. */
+  modelMarketDivergence?: readonly [number, number, number];
+  /** Edge esperado (pEval * cuota - 1) para [H, D, A] cuando hay cuotas válidas. */
+  expectedEdge?: readonly [number, number, number];
+  /** Fracción de Kelly recomendada (Quarter-Kelly con filtro de incertidumbre) para [H, D, A]. */
+  kellyFraction?: readonly [number, number, number];
+  /** Indica si la discrepancia modelo-mercado pasa el filtro anti-Winner's Curse. */
+  uncertaintyGatePassed?: boolean;
+  /** Peso alpha del mercado cuando se usa el modo `hybrid`. */
+  hybridAlpha?: number;
 }
 
 /** Metadatos de entrenamiento incluidos en el artefacto. */
@@ -39,16 +54,17 @@ export interface ModelMetadata {
 }
 
 /**
- * Forma exacta de `model_motor_a.json` (v1.0.0).
+ * Forma exacta de `model_motor_a.json` (v2.0.0).
  *
  * Invariantes que valida `engine.ts`:
- *   features.length = n_features_base + div_levels.length = 77
+ *   features.length = n_features_base + div_levels.length = 102 (79 + 23)
  *   coef.length = intercept.length = classes.length = 3
  *   cada coef[k].length = imputer.statistics.length = scaler.mean.length =
  *   scaler.scale.length = features.length
  */
 export interface ModelArtifact {
   type: string;
+  codename?: string;
   version: string;
   created_at: string;
   seed: number;
@@ -73,7 +89,7 @@ export interface ModelArtifact {
 /**
  * Una fila de `features_snapshot.json`.
  *
- * `features` tiene las 54 features base (puede contener `null`; Python lo serializa
+ * `features` tiene las features base (puede contener `null`; Python lo serializa
  * desde `pd.isna`). `div_onehot` tiene 23 valores 0/1 en el mismo orden que
  * `div_levels`. El vector de diseño completo es `[...features, ...div_onehot]`.
  */
@@ -103,7 +119,7 @@ export interface BaseRates {
 
 
 // ---------------------------------------------------------------------------
-// NFL (ciclo 3)
+// NFL (ciclo 3 / v2)
 // ---------------------------------------------------------------------------
 
 /** Metadatos del artefacto NFL. */
@@ -117,7 +133,7 @@ export interface NFLModelMetadata {
 }
 
 /**
- * Forma de `model_nfl.json` (A14).
+ * Forma de `model_nfl.json` (A14 / v2).
  *
  * Invariantes: `features.length === n_features === scaler.mean.length ===
  * scaler.scale.length === coef[k].length`; `coef.length === intercept.length === 3`;
@@ -126,6 +142,7 @@ export interface NFLModelMetadata {
 export interface NFLModelArtifact {
   sport: "nfl";
   type: string;
+  codename?: string;
   version: string;
   created_at: string;
   seed: number;
@@ -142,7 +159,7 @@ export interface NFLModelArtifact {
   metadata: NFLModelMetadata;
 }
 
-/** Una fila de `nfl_snapshot.json` (24 features, sin dummies de división). */
+/** Una fila de `nfl_snapshot.json` (34 features con QB Elo, sin dummies de división). */
 export interface NFLSnapshotRow {
   season?: number;
   week?: number;
@@ -166,6 +183,8 @@ export interface FootballPredictionRequest {
   model: ModelArtifact;
   marketProbs?: readonly number[] | null;
   baseRates?: BaseRates;
+  mode?: PredictionMode;
+  hybridAlpha?: number;
 }
 
 /** Petición de inferencia NFL. */

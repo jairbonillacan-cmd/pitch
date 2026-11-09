@@ -5,6 +5,8 @@
 **Autor:** Orquestador (Principal AI Engineer / Lead Quantitative Researcher) con un equipo de
 subagentes reales.
 
+> **Actualización Generación 2 (`Spacetime Suite v2.0`):** Ver el reporte comparativo completo (`PitchLab Tachyon v2.0`, `PitchLab Singularity v2.0`, `PitchLab Minkowski v2.0` vs modelos `v1.0` vs Casas de Apuestas vs Resultado Real) en [`reports/A23_spacetime_v2_benchmark_report.md`](reports/A23_spacetime_v2_benchmark_report.md) y [`docs/predicciones/15_REPORTE_COMPARATIVO_V2_VS_V1_VS_MERCADO.md`](../../docs/predicciones/15_REPORTE_COMPARATIVO_V2_VS_V1_VS_MERCADO.md).
+
 ---
 
 ## 1. Resumen ejecutivo

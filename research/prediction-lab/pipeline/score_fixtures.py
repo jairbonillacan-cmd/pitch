@@ -2,7 +2,7 @@
 """Ciclo 6 — Puntuación prospectiva de los fixtures pre-registrados (A19).
 
 Toma las predicciones pre-registradas (`artifacts/FIXTURES/predictions_*.csv`), las une con los
-resultados publicados después (`data/raw/2627_update/*.csv`) y calcula métricas del modelo y del
+resultados publicados después (`data/raw/2627_update/*.csv` o `data/processed/matches.parquet`) y calcula métricas del modelo y del
 mercado del mismo snapshot, con bootstrap pareado.
 
 Advertencia de honestidad: las predicciones se generaron el 2026-11-09 10:43 UTC, cuando la fuente
@@ -36,7 +36,8 @@ UPD = os.path.join(ROOT, "data", "raw", "2627_update")
 
 def load_results() -> pd.DataFrame:
     rows = []
-    for path in sorted(glob.glob(os.path.join(UPD, "*.csv"))):
+    csv_paths = sorted(glob.glob(os.path.join(UPD, "*.csv")))
+    for path in csv_paths:
         div = os.path.splitext(os.path.basename(path))[0]
         df = read_csv(path)
         if df is None:
@@ -50,7 +51,14 @@ def load_results() -> pd.DataFrame:
                 continue
             rows.append({"div": div, "date": d.isoformat(), "home": home, "away": away,
                          "result": ftr})
-    return pd.DataFrame(rows)
+    if rows:
+        return pd.DataFrame(rows)
+    m = pd.read_parquet(os.path.join(ROOT, "data", "processed", "matches.parquet"))
+    m = m[m["result"].isin(["H", "D", "A"])].copy()
+    m["date"] = pd.to_datetime(m["match_date"]).dt.strftime("%Y-%m-%d")
+    return m[["div", "date", "home_team", "away_team", "result"]].rename(
+        columns={"home_team": "home", "away_team": "away"}
+    ).drop_duplicates(["div", "date", "home", "away"])
 
 
 def main():
@@ -88,7 +96,7 @@ def main():
                        "market_acc": float(summary_metrics(yy, g[["p_market_h", "p_market_d", "p_market_a"]].to_numpy(float), bins=5)["accuracy"])}
     out["by_division"] = by_div
     path = os.path.join(OUT, "SCORE_" + os.path.basename(pred_path).replace("predictions_", "").replace(".csv", "") + ".json")
-    with open(path, "w") as f:
+    with open(path, "w", encoding="utf-8") as f:
         json.dump(out, f, indent=1, default=float)
 
     md = [f"# Scoring prospectivo — {os.path.basename(pred_path)}", "",
@@ -115,7 +123,7 @@ def main():
            "del ciclo 1: el mercado es el listón y el motor deportivo no lo bate. Si por el contrario",
            "ganara, sería evidencia nueva que exigiría auditoría antes de cualquier conclusión."]
     md_path = path.replace("SCORE_", "REPORT_SCORE_").replace(".json", ".md")
-    with open(md_path, "w") as f:
+    with open(md_path, "w", encoding="utf-8") as f:
         f.write("\n".join(md) + "\n")
     print("\n".join(md[:14]))
     print("escrito ->", path, "y", md_path)

@@ -11,6 +11,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import shutil
 import subprocess
 import sys
 from datetime import datetime, timezone
@@ -23,16 +24,22 @@ import registry as reg  # noqa: E402
 
 def run(cmd, cwd):
     proc = subprocess.run(cmd, cwd=cwd, capture_output=True, text=True)
-    return {"cmd": " ".join(cmd), "returncode": proc.returncode,
-            "stdout_tail": (proc.stdout or "")[-800:], "stderr_tail": (proc.stderr or "")[-800:]}
+    return {
+        "cmd": " ".join(cmd),
+        "returncode": proc.returncode,
+        "stdout_tail": (proc.stdout or "")[-800:],
+        "stderr_tail": (proc.stderr or "")[-800:],
+    }
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--skip-tests", action="store_true")
     args = ap.parse_args()
-    report = {"generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-              "blocks": {}}
+    report = {
+        "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "blocks": {},
+    }
     ok = True
 
     # 1. Registro y artefactos
@@ -45,28 +52,32 @@ def main():
     ok = ok and reg_ok
 
     # 2. Snapshots de paridad
-    snaps = ["../../src/data/prediction/features_snapshot.json",
-             "../../src/data/prediction/nfl_snapshot.json",
-             "../../src/data/prediction/fixture_requests.json"]
+    snaps = [
+        "../../src/data/prediction/features_snapshot.json",
+        "../../src/data/prediction/nfl_snapshot.json",
+        "../../src/data/prediction/fixture_requests.json",
+    ]
     snap_ok = all(os.path.exists(os.path.join(ROOT, s)) for s in snaps)
     report["blocks"]["snapshots"] = {"ok": snap_ok, "files": snaps}
     ok = ok and snap_ok
 
     # 3. Paridad TS
     if not args.skip_tests:
-        ts = run(["npx", "vitest", "run", "tests/prediction"], REPO)
+        npx_bin = shutil.which("npx") or "npx"
+        py_bin = sys.executable
+        ts = run([npx_bin, "vitest", "run", "tests/prediction"], REPO)
         report["blocks"]["ts_parity"] = {"ok": ts["returncode"] == 0, **ts}
         ok = ok and ts["returncode"] == 0
 
-        ev = run(["./.venv/bin/python", "-m", "unittest", "discover", "-s", "eval/tests", "-p", "test_*.py"], ROOT)
+        ev = run([py_bin, "-m", "unittest", "discover", "-s", "eval/tests", "-p", "test_*.py"], ROOT)
         report["blocks"]["eval_tests"] = {"ok": ev["returncode"] == 0, **ev}
         ok = ok and ev["returncode"] == 0
 
-        etl = run(["./.venv/bin/python", "-m", "unittest", "discover", "-s", "etl/tests", "-p", "test_*.py"], ROOT)
+        etl = run([py_bin, "-m", "unittest", "discover", "-s", "etl/tests", "-p", "test_*.py"], ROOT)
         report["blocks"]["etl_tests"] = {"ok": etl["returncode"] == 0, **etl}
         ok = ok and etl["returncode"] == 0
 
-        pyp = run(["./.venv/bin/python", "-m", "unittest", "discover", "-s", "pipeline/tests", "-p", "test_*.py"], ROOT)
+        pyp = run([py_bin, "-m", "unittest", "discover", "-s", "pipeline/tests", "-p", "test_*.py"], ROOT)
         report["blocks"]["registry_tests"] = {"ok": pyp["returncode"] == 0, **pyp}
         ok = ok and pyp["returncode"] == 0
 
@@ -82,7 +93,7 @@ def main():
     report["ok"] = ok
     out = os.path.join(ROOT, "registry", "release_report.json")
     os.makedirs(os.path.dirname(out), exist_ok=True)
-    with open(out, "w") as f:
+    with open(out, "w", encoding="utf-8") as f:
         json.dump(report, f, indent=1)
     print(json.dumps({k: v.get("ok") for k, v in report["blocks"].items()}, indent=1))
     print("RELEASE:", "OK" if ok else "FALLO", "->", out)
