@@ -342,7 +342,7 @@ function naiveNfl(rows: readonly NflRow[], line: number) {
 }
 
 async function backtestNfl(seasons: number[]) {
-  const all = await loadNfl(seasons);
+  const all = await loadNfl([...seasons, ...seasons.map((s) => s - 1)]);
   const rowsV2: Array<{ prediction: { pHome: number; pOver: number; totalLine: number }; outcome: { result1x2: 0 | 1 | 2; homeScore: number; awayScore: number } }> = [];
   const rowsBase: typeof rowsV2 = [];
   const rowsNaive: typeof rowsV2 = [];
@@ -359,6 +359,17 @@ async function backtestNfl(seasons: number[]) {
       const test = seasonRows.filter((r) => r.week === week);
       if (train.length < 40 || test.length === 0) continue;
 
+      const priorRows = all
+        .filter((r) => r.season === String(Number(season) - 1))
+        .map((r) => ({
+          week: r.week,
+          date: r.date,
+          home: `nfl.${r.home.toLowerCase()}`,
+          away: `nfl.${r.away.toLowerCase()}`,
+          homeScore: r.homeScore,
+          awayScore: r.awayScore,
+        }));
+
       const model = fitNflRatings(
         train.map((r) => ({
           week: r.week,
@@ -368,6 +379,9 @@ async function backtestNfl(seasons: number[]) {
           homeScore: r.homeScore,
           awayScore: r.awayScore,
         })),
+        process.env.BACKTEST_NFL_PRIOR === "1"
+          ? { priorRows, priorWeight: 0.35 }
+          : {},
       );
 
       const stats = new Map<string, { pf: number; pa: number; gp: number }>();

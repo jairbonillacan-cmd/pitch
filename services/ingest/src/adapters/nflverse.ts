@@ -225,3 +225,48 @@ export async function fetchNflverseCsv(url: string = NFLVERSE_SCHEDULES_URL): Pr
   }
   return res.text();
 }
+
+/**
+ * Partidos de temporada regular de una temporada completa, en el formato del modelo
+ * (`NflMatchRow`). Se usa para incorporar la temporada anterior con peso reducido.
+ */
+export function extractNflSeasonRows(
+  csvText: string,
+  season: number,
+  mapTeamId: (abbreviation: string) => string = (abbr) =>
+    resolveCanonicalTeam("nfl", abbr).id,
+): Array<{
+  week: number;
+  date: string;
+  home: string;
+  away: string;
+  homeScore: number;
+  awayScore: number;
+}> {
+  const rows: Array<{
+    week: number;
+    date: string;
+    home: string;
+    away: string;
+    homeScore: number;
+    awayScore: number;
+  }> = [];
+
+  for (const raw of parseCsv(csvText)) {
+    if (String(raw.season) !== String(season)) continue;
+    if (raw.game_type !== "REG") continue;
+    if (!raw.home_score || !raw.away_score) continue;
+    const parsed = NflverseCsvRowSchema.safeParse(raw);
+    if (!parsed.success) continue;
+    rows.push({
+      week: parsed.data.week,
+      date: parsed.data.gameday,
+      home: mapTeamId(parsed.data.home_team),
+      away: mapTeamId(parsed.data.away_team),
+      homeScore: Number(parsed.data.home_score),
+      awayScore: Number(parsed.data.away_score),
+    });
+  }
+
+  return rows;
+}

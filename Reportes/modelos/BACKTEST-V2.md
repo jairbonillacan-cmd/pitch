@@ -1,6 +1,6 @@
 # Backtest walk-forward de los modelos v2
 
-Generado: 2026-11-09T01:44:40.118Z
+Generado: 2026-11-09T01:52:54.358Z
 
 ## Premier League
 

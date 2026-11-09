@@ -11,7 +11,8 @@ import {
   type MarketProbability,
   type TeamSeasonRate,
 } from "@pitchlab/contracts";
-import { predictNfl, type NflRatingsModel } from "./ratings.js";
+import { normalCdf } from "../math.js";
+import { predictNfl, type NflPrediction, type NflRatingsModel } from "./ratings.js";
 
 export interface NflAnalysisInput {
   game: GameDTO;
@@ -96,6 +97,8 @@ export function analyzeNflGameV2(input: NflAnalysisInput): GameAnalysis {
         },
       ],
     },
+    ...alternateSpreadGroups(game, prediction, model),
+    teamTotalsGroup(game, prediction, model),
   ];
 
   const probabilities: MarketProbability[] = marketGroups.flatMap((group) =>
@@ -183,5 +186,96 @@ export function analyzeNflGameV2(input: NflAnalysisInput): GameAnalysis {
     inputsAsOf,
     publishedAt,
     source,
+  };
+}
+
+/** Hándicaps alternativos (±3.5 y ±7.5) derivados de la normal del margen. */
+function alternateSpreadGroups(
+  game: GameDTO,
+  prediction: NflPrediction,
+  model: NflRatingsModel,
+): AnalysisMarketGroup[] {
+  const sigma = Math.max(1, model.sigmaMargin);
+  const coverAt = (line: number) => normalCdf((prediction.margin + line) / sigma);
+
+  return [3.5, 7.5].map((abs) => {
+    const homeLine = prediction.margin >= 0 ? -abs : abs;
+    const awayLine = -homeLine;
+    const pHome = coverAt(homeLine);
+    const pAway = 1 - pHome;
+    const fmt = (line: number) => `${line > 0 ? "+" : ""}${line.toFixed(1)}`;
+
+    return {
+      group: `Hándicap alternativo ${fmt(homeLine)}`,
+      rows: [
+        {
+          market: asMarketKey("spreads"),
+          selection: `home_${homeLine}`,
+          label: `${game.home.code} ${fmt(homeLine)}`,
+          line: homeLine,
+          p: pHome,
+          fairOdds: 1 / pHome,
+        },
+        {
+          market: asMarketKey("spreads"),
+          selection: `away_${awayLine}`,
+          label: `${game.away.code} ${fmt(awayLine)}`,
+          line: awayLine,
+          p: pAway,
+          fairOdds: 1 / pAway,
+        },
+      ],
+    };
+  });
+}
+
+/** Puntos por equipo con la mitad de la varianza del total. */
+function teamTotalsGroup(
+  game: GameDTO,
+  prediction: NflPrediction,
+  model: NflRatingsModel,
+): AnalysisMarketGroup {
+  const sigma = Math.max(1, model.sigmaTotal / Math.SQRT2);
+  const homeLine = Math.floor(prediction.homePoints) + 0.5;
+  const awayLine = Math.floor(prediction.awayPoints) + 0.5;
+  const homeOver = 1 - normalCdf((homeLine - prediction.homePoints) / sigma);
+  const awayOver = 1 - normalCdf((awayLine - prediction.awayPoints) / sigma);
+
+  return {
+    group: "Puntos por equipo",
+    rows: [
+      {
+        market: asMarketKey("team_totals"),
+        selection: "home_over",
+        label: `${game.home.code} más de ${homeLine.toFixed(1)}`,
+        line: homeLine,
+        p: homeOver,
+        fairOdds: 1 / homeOver,
+      },
+      {
+        market: asMarketKey("team_totals"),
+        selection: "home_under",
+        label: `${game.home.code} menos de ${homeLine.toFixed(1)}`,
+        line: homeLine,
+        p: 1 - homeOver,
+        fairOdds: 1 / (1 - homeOver),
+      },
+      {
+        market: asMarketKey("team_totals"),
+        selection: "away_over",
+        label: `${game.away.code} más de ${awayLine.toFixed(1)}`,
+        line: awayLine,
+        p: awayOver,
+        fairOdds: 1 / awayOver,
+      },
+      {
+        market: asMarketKey("team_totals"),
+        selection: "away_under",
+        label: `${game.away.code} menos de ${awayLine.toFixed(1)}`,
+        line: awayLine,
+        p: 1 - awayOver,
+        fairOdds: 1 / (1 - awayOver),
+      },
+    ],
   };
 }

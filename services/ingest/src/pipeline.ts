@@ -150,6 +150,8 @@ export function buildNflSnapshot(params: {
   previousSnapshot?: LeagueSnapshot | null;
   seasonGames?: readonly GameDTO[];
   modelVersion?: ModelVersion;
+  /** Partidos de la temporada anterior con peso reducido (opcional). */
+  priorRows?: readonly NflMatchRow[];
 }): LeagueSnapshot {
   const {
     seasonId,
@@ -161,11 +163,15 @@ export function buildNflSnapshot(params: {
     previousSnapshot,
     seasonGames,
     modelVersion = "v2",
+    priorRows,
   } = params;
 
   const nflModel =
     modelVersion === "v2" && (seasonGames?.length ?? 0) > 0
-      ? fitNflRatings(toNflMatchRows(seasonGames!), {})
+      ? fitNflRatings(toNflMatchRows(seasonGames!), {
+          priorRows,
+          priorWeight: 0.35,
+        })
       : null;
 
   const rates: Record<string, TeamSeasonRate> = nflModel

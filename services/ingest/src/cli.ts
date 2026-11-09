@@ -1,5 +1,6 @@
 import { resolve } from "node:path";
 import {
+  extractNflSeasonRows,
   fetchNflverseCsv,
   normalizeNflverseSchedule,
 } from "./adapters/nflverse.js";
@@ -48,6 +49,8 @@ async function main() {
     season: 2026,
     referenceDate: dateStr,
   });
+  // La temporada anterior en NFL empeoró el backtest (0.6515 vs 0.6468): apagada por defecto.
+  const priorNfl = process.env.MODEL_NFL_PRIOR === "1" ? extractNflSeasonRows(nflCsv, 2025) : [];
   const nflSnapshot = buildNflSnapshot({
     seasonId: normNfl.seasonId,
     seasonLabel: normNfl.seasonLabel,
@@ -57,6 +60,7 @@ async function main() {
     updatedAt,
     previousSnapshot: prevNfl,
     seasonGames: normNfl.allGames,
+    priorRows: priorNfl,
     modelVersion,
   });
   const nflFiles = writeSnapshotFiles(SNAPSHOTS_ROOT, nflSnapshot, dateStr);
