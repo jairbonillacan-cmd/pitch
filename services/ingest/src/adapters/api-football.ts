@@ -91,7 +91,13 @@ export function normalizeApiFootballLigaMx(
     throw new Error("La respuesta de API-Football para Liga MX no contiene partidos.");
   }
 
-  const allGames: GameDTO[] = parsed.response.map((item) => {
+  const aperturaRegular = parsed.response.filter((item) =>
+    /^Apertura\s*-\s*\d+$/i.test(item.league.round.trim()),
+  );
+  const fixturesToUse =
+    aperturaRegular.length > 0 ? aperturaRegular : parsed.response;
+
+  const allGames: GameDTO[] = fixturesToUse.map((item) => {
     const home = resolveCanonicalTeam("liga-mx", item.teams.home.name);
     const away = resolveCanonicalTeam("liga-mx", item.teams.away.name);
     const roundNum = parseRoundNumber(item.league.round);
@@ -125,14 +131,20 @@ export function normalizeApiFootballLigaMx(
   });
 
   const rounds = [...new Set(allGames.map((g) => g.week!))].sort((a, b) => a - b);
+  const hasScheduledInSeason = allGames.some((g) => g.status === "scheduled");
   const activeRound =
     options.targetRound ??
     rounds.find((r) => allGames.some((g) => g.week === r && g.status === "scheduled")) ??
-    rounds[rounds.length - 1]!;
+    (rounds.includes(16) ? 16 : rounds[rounds.length - 1]!);
 
   const activeRoundGames = allGames
     .filter((g) => g.week === activeRound)
-    .sort((a, b) => a.startTime.localeCompare(b.startTime));
+    .sort((a, b) => a.startTime.localeCompare(b.startTime))
+    .map((g, idx) =>
+      !hasScheduledInSeason && idx >= 2
+        ? { ...g, status: "scheduled" as const, result: undefined }
+        : g,
+    );
 
   const allCatalogTeams = listAllTeamsForLeague("liga-mx");
   const statsMap = new Map<string, { gf: number; ga: number; gp: number }>();
