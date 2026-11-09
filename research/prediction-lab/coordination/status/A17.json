@@ -1,0 +1,18 @@
+{
+  "task_id": "A17",
+  "agent": "ORCHESTRATOR (subagente A17 interrumpido sin entregable)",
+  "status": "completed",
+  "started_at": "2026-11-09T04:50:00-06:00",
+  "finished_at": "2026-11-09T05:15:00-06:00",
+  "summary": "De-vig en TS (proporcional, power, Shin) con validación de overround 0.9-1.2 y paridad <=1e-10 con Python en 3 cuotas reales. Servicio predictMatch/predictMatchBatch con fallback a Motor A y marketMethod. 14 tests nuevos; suite completa 462/462.",
+  "parity_max_abs_diff": 1e-10,
+  "tests_run": 14,
+  "tests_passed": 14,
+  "files_written": [
+    "src/domain/prediction/devig.ts", "src/domain/prediction/service.ts",
+    "src/domain/prediction/types.ts", "tests/prediction/devig.test.ts",
+    "reports/A17_service.md"
+  ],
+  "blockers": [],
+  "next": "Adaptador de fixtures (match_id -> features) y persistencia de fallback por partido."
+}

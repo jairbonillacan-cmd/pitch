@@ -92,3 +92,13 @@ El ensemble es estadísticamente mejor en test (−0,00153 [−0,00250, −0,000
 | Motor B mezcla fuentes (PS/B365/Avg) por época | comparaciones por liga sesgadas | P2 |
 
 **Verificación global del estado final (A11, esta sesión):** `eval/` **83/83 OK**; `etl/` **11/11 OK**; `tests/prediction` **21/21**; `matches` 182.414 × 88; `features` 182.410 × 198; `features_market` 182.410 × 192; `metrics.json` de FINAL con B=2000 y 10.000 permutaciones.
+
+## Ciclo 4 — servicio, de-vig y registro
+
+| ID | Cambio | Evidencia | Estado |
+|---|---|---|---|
+| M10 | **De-vig en TS** (proporcional/power/Shin) con validación de overround | `src/domain/prediction/devig.ts`; paridad ≤1e-10 con `mkt_open_b365_power_*` | **Aceptado** |
+| M11 | **Servicio `predictMatch`** con cuotas crudas y fallback | `service.ts`; 14 tests; `market_devig` vs `motor_a_logistic_v1` | **Aceptado** |
+| M12 | **Registro de modelos + release gate** | `registry/models.json`; `validate_release.py` 7/7 bloques OK | **Aceptado** |
+| M13 | Calibración por división | Δ −0,00069 [−0,00143; +0,00013] | **Rechazado** (no significativo) |
+| M14 | Expansión NHL/NCAAF | datos sin licencia clara | **No-go** documentado |

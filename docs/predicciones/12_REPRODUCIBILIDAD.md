@@ -300,3 +300,14 @@ PY
 ```
 
 **Regla de oro del laboratorio:** ninguna cifra se publica sin `(comando, hash del dataset, semilla, n)`. Si falta uno de los cuatro, la cifra es una observación, no un resultado.
+
+## Ciclo 4 — comandos nuevos
+
+```bash
+cd research/prediction-lab
+./.venv/bin/python pipeline/registry.py list
+./.venv/bin/python pipeline/registry.py verify --model-id motor_a_logistic_v1
+./.venv/bin/python pipeline/validate_release.py        # gate de release (7 bloques)
+./.venv/bin/python pipeline/experiment_calibration_division.py
+cd ../.. && npx vitest run tests/prediction             # 45 tests (fútbol+NFL+de-vig)
+```

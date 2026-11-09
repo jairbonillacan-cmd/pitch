@@ -1,0 +1,18 @@
+{
+  "task_id": "A16",
+  "agent": "ORCHESTRATOR (subagente A16 interrumpido sin entregable)",
+  "status": "completed",
+  "started_at": "2026-11-09T04:50:00-06:00",
+  "finished_at": "2026-11-09T05:20:00-06:00",
+  "summary": "Registro de modelos JSON con versionado y sha256; CLI register/verify/promote/list; validate_release con 7 bloques (registro, snapshots, paridad TS, eval 83, ETL 11, tests del registro 7, hashes de datos) en verde. Dos modelos registrados y desplegados.",
+  "models_registered": ["motor_a_logistic_v1@1.0.0", "nfl_logistic_v1@1.0.0"],
+  "release": "OK",
+  "tests_run": 7,
+  "tests_passed": 7,
+  "files_written": [
+    "pipeline/registry.py", "pipeline/validate_release.py", "pipeline/tests/test_registry.py",
+    "registry/models.json", "registry/release_report.json", "reports/A16_registry.md"
+  ],
+  "blockers": [],
+  "next": "Firma del registro y ejecución en CI; retraining automático en ciclo 5."
+}

@@ -24,6 +24,8 @@ export interface Prediction {
   generatedAt: string;
   dataQualityFlag: DataQualityFlag;
   sport: Sport;
+  /** Método de de-vig aplicado cuando la predicción viene del mercado (A17). */
+  marketMethod?: string;
 }
 
 /** Metadatos de entrenamiento incluidos en el artefacto. */

@@ -1,0 +1,48 @@
+{
+ "models": [
+  {
+   "model_id": "motor_a_logistic_v1",
+   "sport": "football",
+   "status": "deployed",
+   "updated_at": "2026-11-09T10:36:59+00:00",
+   "versions": [
+    {
+     "artifact_path": "../../src/data/prediction/model_motor_a.json",
+     "artifact_sha256": "53fbde0f4eb7b47141115d3b7659d3a5229f25169d8a6cc9915522cd17f88ca0",
+     "metrics": {
+      "metrics_path": "artifacts/FINAL/eval_test/metrics.json",
+      "test_log_loss": 1.01802,
+      "val_log_loss": 1.01029
+     },
+     "n_features": 77,
+     "notes": "Motor A desplegado; logit multinomial, 54 features + 23 dummies",
+     "registered_at": "2026-11-09T10:36:59+00:00",
+     "version": "1.0.0"
+    }
+   ]
+  },
+  {
+   "model_id": "nfl_logistic_v1",
+   "sport": "nfl",
+   "status": "deployed",
+   "updated_at": "2026-11-09T10:36:59+00:00",
+   "versions": [
+    {
+     "artifact_path": "../../src/data/prediction/model_nfl.json",
+     "artifact_sha256": "2df66ee83be12e0e6e2a89ce3e7a74b3ce80f61bf2b8336f3350b3887a91ca6f",
+     "metrics": {
+      "metrics_path": "models/nfl/artifacts/metrics.json",
+      "test_log_loss": 0.65906,
+      "val_log_loss": 0.64503
+     },
+     "n_features": 24,
+     "notes": "NFL; logit multinomial, 24 features; CC BY 4.0",
+     "registered_at": "2026-11-09T10:36:59+00:00",
+     "version": "1.0.0"
+    }
+   ]
+  }
+ ],
+ "schema_version": 1,
+ "updated_at": "2026-11-09T10:36:59+00:00"
+}

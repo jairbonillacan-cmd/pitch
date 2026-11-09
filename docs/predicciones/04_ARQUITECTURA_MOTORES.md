@@ -219,3 +219,14 @@ Comandos completos, hashes y verificación del leakage en [`12_REPRODUCIBILIDAD.
 3. **Motor B es un precio, no un pronóstico.** Su valor es la calibración del mercado (ECE 0,0055) y el *benchmark*; no genera *edge*.
 4. **Sin UI ni API.** La integración termina en el dominio; falta el adaptador `match_id → SnapshotRow` y un endpoint.
 5. **Deuda heredada:** 74 errores de `tsc` y la UI legacy rota siguen fuera del alcance de este ciclo.
+
+### 10. Capa de servicio y registro (ciclo 4)
+
+- **`src/domain/prediction/devig.ts`**: de-vig proporcional, power y Shin en TS puro, con
+  validación de overround `Σ(1/o) ∈ [0.9, 1.2]` y paridad ≤1e-10 con Python en 3 cuotas reales.
+- **`src/domain/prediction/service.ts`**: `predictMatch` / `predictMatchBatch`. Acepta cuotas
+  crudas y decide: mercado (Motor B) → Motor A → fallback con `dataQualityFlag="fallback_motor_a"`.
+  NFL se despacha a `predictNFL` (las cuotas se ignoran, documentado).
+- **Registro de modelos**: `research/prediction-lab/registry/models.json` con versiones, sha256,
+  métricas y estado (`deployed`); CLI `pipeline/registry.py` (`register`/`verify`/`promote`/`list`)
+  y gate de release `pipeline/validate_release.py` (7 bloques, exit code reproducible).
