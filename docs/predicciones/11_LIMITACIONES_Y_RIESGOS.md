@@ -23,7 +23,7 @@
 | R-08 | Alto | **Selección de modelo sobre una sola temporada de validación** | EXP02 elige 1 de **96** configuraciones; EXP06 1 de **5** métodos; val n = 8.152 | IC de val puede ser optimista; el «mejor» puede ser ruido | **ABIERTO** (documentado) |
 | R-09 | Alto | **Sobreajuste al añadir complejidad** | HGB con cuotas: 0,98168 en dev vs 0,99035 en val (A07); M2 gana en val pero en walk-forward de dev: +0,00026/+0,00017/−0,00006/−0,00006 | el clasificador «con cuotas» pierde contra el de-vig | `MITIGADO` (se prohíbe el clasificador como camino principal) |
 | R-10 | Alto | **Mercados no operables** | EXP13 usa cierre (no disponible antes del partido); margen 2,81 % (Pinnacle cierre) y 6,15 % (B365 cierre); el EV nunca se validó contra precio real | ninguna cifra de EXP13 es una estrategia; «batir al de-vig» ≠ batir al precio | **ABIERTO** |
-| R-11 | Alto | **Test reservado** | `test` (16.126) evaluado **una sola vez** el 03:36 tras `FREEZE.md` (03:40) | el test ya está usado: no puede volver a usarse para elegir | **CERRADO** (con ese coste) |
+| R-11 | Alto | **Test reservado** | `test` (16.126) evaluado **una sola vez** el 03:36 tras `FREEZE.md` (03:35, creado antes del test) | el test ya está usado: no puede volver a usarse para elegir | **CERRADO** (con ese coste) |
 | R-12 | Alto | **Deriva de artefactos** | `validation_report.json` (182.414, 73 checks/0 críticos) y `features_market.parquet` (182.410×192) **regenerados**; `matches` 182.414; `features` 182.410×198 | los informes de A04/A05/A08 conservan cifras de v1.0 | `MITIGADO`; quedan artefactos antiguos con test en disco |
 | R-13 | Medio | Suite ETL en rojo tras v1.1 | `etl/tests/test_validators.py:52` fijaba `rows == 181272` | falsa sensación de que la validación cubre el dataset actual | **CORREGIDO**: **11/11 OK** (7,5 s) |
 | R-14 | Medio | Calidad de datos de origen | 4 partidos sin resultado; 1 fila fuera de ventana (`ARG:20150129`); 693 filas fuera de ventana mensual (554 COVID); 13 filas SOT>tiros; 1 con 145 faltas; 1 con 9 rojas | sesgos si no se excluyen | `MITIGADO` (exclusiones documentadas) |
@@ -175,7 +175,7 @@ Es la restricción que más condiciona el proyecto.
 
 | # | Bloqueante | Estado al cierre |
 |---|---|---|
-| 1 | Cerrar `test` una sola vez con candidatos congelados y `metrics.json` reproducible (R-11) | **CERRADO** (03:36, `FREEZE.md` 03:40) |
+| 1 | Cerrar `test` una sola vez con candidatos congelados y `metrics.json` reproducible (R-11) | **CERRADO** (03:36; `FREEZE.md` creado a las 03:35:07, antes del test) |
 | 2 | Regenerar `features_market.parquet`, `validation_report.json` y arreglar `test_validators.py:52` (R-12, R-13) | **CERRADO** (182.410×192; 73 checks/0 críticos; 11/11) |
 | 3 | Re-medir el efecto de los priors y las métricas de A06 sobre v1.1 (R-05) | **CERRADO a nivel de modelo** (hgb 1,00730 → 1,00974); ablación por bloques pendiente |
 | 4 | Resolver la licencia de football-data (R-01) | **ABIERTO** — uso interno documentado |

@@ -13,12 +13,12 @@ Cada tarea tiene contrato explícito. El orquestador actualiza estados; el agent
 | A03 | Data Source Researcher | Inventario de fuentes gratuitas y licencias | completada | — |
 | A04 | Data Engineer | ETL canónico + calidad de datos | completada | A03, contrato |
 | A05 | Feature Engineering | Catálogo y generación de features | completada (halló leakage de priors) | A04 |
-| A06 | Motor A | Modelos sin cuotas | en progreso (reejecución v1.1) | A04, A05, A08 |
+| A06 | Motor A | Modelos sin cuotas | completada (v1.1, EXP02/03/06/10) | A04, A05, A08 |
 | A07 | Motor B | Modelos con mercado | completada | A04, A06, A08 |
 | A08 | Backtesting | Laboratorio de evaluación + test suite | completada | contrato |
-| A09 | Adversarial Auditor | Auditoría adversarial preliminar | completada (legacy) + A09b lab en progreso | — |
-| A10 | Integration | Integración TS del motor aprobado | pendiente | A06, A07, A09 |
-| A11 | Documentation | Consolidación documental | en progreso | todos |
+| A09 | Adversarial Auditor | Auditoría adversarial preliminar | completada (legacy) + A09b lab completada | — |
+| A10 | Integration | Integración TS del motor aprobado | completada (21 tests, paridad 4,997e-13) | A06, A07, A09 |
+| A11 | Documentation | Consolidación documental | completada (14/14 docs) | todos |
 
 ---
 

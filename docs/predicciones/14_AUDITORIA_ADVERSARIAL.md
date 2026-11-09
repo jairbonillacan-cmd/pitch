@@ -58,7 +58,7 @@
 | Alineación | `same_matches` con tabla barajada: 0 descartes; `validate="m:1"`; partición por `season_start` |
 | Temperatura | ajustada solo en val y aplicada a test (protocolo correcto) |
 | Features | `FEATURES` sin columnas post-partido ni target |
-| Apertura ≠ cierre | Pinnacle apertura 0,99366 vs cierre 0,99043; |Δp| medio 0,01879; idénticas 5,3 % (B365) / 0,3 % (PS) |
+| Apertura ≠ cierre | Pinnacle apertura 0,99366 vs cierre 0,99043; `abs(Δp)` medio 0,01879; idénticas 5,3 % (B365) / 0,3 % (PS) |
 
 ### 2.2 Los hallazgos que bloquearon el cierre
 
@@ -93,7 +93,7 @@ A09b listó seis condiciones para que el laboratorio fuera “defendible” para
 
 | Hallazgo | Corrección | Evidencia en el árbol |
 |---|---|---|
-| C1 `--no-test` inoperante | `--no-test` restringe las particiones a dev/val (`train_motor_a.py:478`); test se evalúa una vez tras `FREEZE.md` | `FREEZE.md` 03:40; `FINAL/eval_test/metrics.md` generado 03:36 sobre `predictions_test.csv` |
+| C1 `--no-test` inoperante | `--no-test` restringe las particiones a dev/val (`train_motor_a.py:478`); test se evalúa una vez tras `FREEZE.md` | `FREEZE.md` creado 03:35:07; `FINAL/eval_test/metrics.md` generado 03:36:17 sobre `predictions_test.csv` |
 | C2 ensemble inválido | `pipeline/make_ensemble.py` con pesos walk-forward (`years < S`, suavizado 50/50) y miembros logit/hgb/poisson; guardas de `NaN` | `EXP01_final/ensemble_weights.json` con pesos por temporada; log-loss del ensemble **1,01652** recomputado por A11 |
 | H1 sin corte por fecha | `cut = test.match_date.min(); train = train[train.match_date < cut]` | `train_motor_a.py:382-384`; `run_walk_forward` documentado |
 | H2 artefactos pre-v1.1 | reejecución completa sobre 182.410 | `EXP01_final`, `EXP05_hgb_final`, `EXP03_poisson_final`, `EXP08_motor_b_final`; FINAL con hash `4a43d4ed…` |
@@ -103,6 +103,8 @@ A09b listó seis condiciones para que el laboratorio fuera “defendible” para
 | M6 B=200 | FINAL con `B=2000`, `permutaciones=10000`, `seed=20261109` | `FINAL/eval_test/metrics.md` §1 |
 | M7 benchmarks como modelos | FINAL separa candidatos de benchmarks en el análisis; `market_*` se reporta como referencia | `FINAL/predictions_test.csv` (7 `model_id`) |
 | Test materializado | se conserva `FINAL` como cierre oficial; los `metrics.json` antiguos con test quedan como artefactos históricos, **no citables** | este documento §5 |
+
+> **Sellos de tiempo (corrección verificada).** La primera versión de `FREEZE.md` llevaba en el texto la hora **03:40**, pero el archivo se **creó a las 03:35:07** (mtime de `artifacts/FREEZE.md`) y `FINAL/eval_test/metrics.md` se generó a las **03:36:17**: la congelación es anterior a la evaluación. La hora del encabezado se corrigió a 03:35 y la adenda post-test es de las 03:52. Aun así, la transparencia exige decirlo: durante el desarrollo se inspeccionaron `metrics.json` intermedios que incluían la columna `test` (el pipeline la calcula por diseño), aunque ninguna decisión de selección usó esas cifras; la selección consta en FREEZE §1–2 con métricas de `val`. Que el archivo se creara antes del informe final de test está verificado por el sistema de archivos, no solo por el texto.
 
 **Verificación de A11 (comandos ejecutados en esta sesión):**
 

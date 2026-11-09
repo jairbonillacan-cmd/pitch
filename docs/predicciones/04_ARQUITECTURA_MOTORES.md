@@ -88,10 +88,12 @@ Regresión logística multinomial (L2, `C=1`, `lbfgs`, `max_iter` suficiente) so
 | Bloque de features | n | Ejemplos |
 |---|---:|---|
 | Elo | 4 | `elo_diff`, `elo_diff_no_hfa`, `elo_prob_home_nodraw`, `elo_diff_x_progress` |
-| Forma (r5/r10/ewm5) | 26 | puntos, goles, tiros, SOT, córners y diferenciales |
+| Forma (r5/r10/ewm5) | 27 | puntos, goles, tiros, SOT, córners y 3 diferenciales |
 | Descanso | 6 | `h_days_rest`, `rest_diff`, `congestion_diff` |
-| Contexto | 8 | `season_progress`, `round_no`, `div_change`, `season_break` |
-| Priors | 10 | `prev_ppg`, `prev_gf_pg`, `prev_ga_pg`, `prev_sot_pg` (S−1 causal) |
+| Contexto | 7 | `season_progress`, `*_season_match_no`, `div_change`, `season_break` |
+| Priors de equipo | 8 | `prev_ppg`, `prev_gf_pg`, `prev_ga_pg`, `prev_sot_pg` (S−1 causal) |
+| Priors de liga | 2 | `lg_avg_total_prev`, `lg_home_win_prev` |
+| **Total** | **54** | + 23 dummies de división = 77 columnas |
 
 La lista es **explícita** (`train_motor_a.py:46-60`) y el entrenador aborta si aparece una columna post-partido/target (`:418`).
 
@@ -113,7 +115,7 @@ La lista es **explícita** (`train_motor_a.py:46-60`) y el entrenador aborta si 
 | `poisson_dc` | 1,02621 | — | Solo diversidad/mercados de goles |
 | `base_rate` | 1,07365 | 1,07506 | Referencia trivial |
 
-Detalle y comparaciones en [`07_EXPERIMENTOS_RESULTADOS.md`](07_EXPERIMENTOS_RESULTADOS.md) y [`08_COMPARACION_CON_MERCADO.md`](08_COMPARACION_CON_MERCADO.md). **Decisión:** se despliega `logit` porque val está empatada (Δ vs hgb = 0,0006, IC cruza 0) y es el más simple; el ensemble se propone para el siguiente ciclo, no se cambia retroactivamente tras ver test.
+Detalle y comparaciones en [`07_EXPERIMENTOS_RESULTADOS.md`](07_EXPERIMENTOS_RESULTADOS.md) y [`08_COMPARACION_CON_MERCADO.md`](08_COMPARACION_CON_MERCADO.md). **Decisión:** se despliega `logit` porque en val está empatado con `hgb` (hgb mejor por 0,00055, IC95 % [−0,00289, +0,00196], cruza 0) y es el más simple y el único ya integrado en TS; el ensemble se propone para el siguiente ciclo y no se cambia retroactivamente tras ver test.
 
 ---
 

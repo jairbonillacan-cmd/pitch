@@ -133,7 +133,7 @@ en vez de 1,658 (el de 2017/18).
 - 11 subagentes reales (A01–A11, con A09b) + orquestador; informes y `status/*.json` en el repo.
 - Dataset v1.1 (182.414 partidos) + features causales (182.410 × 198) + features de mercado.
 - Laboratorio `eval/` (83 tests) y pipeline reproducible (`etl/`, `features/`, `models/`, `pipeline/`).
-- Integración TS (`src/domain/prediction/`) con paridad 4,997×10⁻¹³ y 20 tests.
+- Integración TS (`src/domain/prediction/`) con paridad 4,997×10⁻¹³ y 21 tests.
 - Documentación 01–14 en `docs/predicciones/`.
 - Commit `345b930` en la rama `prediction-lab`; `main` intacto.
 

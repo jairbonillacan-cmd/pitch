@@ -26,7 +26,7 @@
 |---|---|---|---|
 | **EXP01** | ¿Un baseline trivial basta? | `base_rate` val 1,07365 / test 1,07506; Brier 0,65044, RPS 0,22784, acc 0,4376 en test | **Referencia**, no modelo |
 | **EXP02** | ¿Qué parámetros del Elo importan? | 96 configuraciones: mejor K=20, HFA=90, reg=0, MOV=on → val **1,01453** vs 1,01666 por defecto; Δ −0,0021 [−0,0037, −0,0007], 99,7 % a favor; K 0,0047 de amplitud; HFA **no identificable** (0,00014); reg 0→0,5 cuesta +0,0041 | **Aceptado:** usar Elo con reg=0 y MOV=on; HFA irrelevante |
-| **EXP03** | ¿Poisson/DC bate al modelo de features? | Mejor Poisson/DC val **1,02622** vs 1,00974 de hgb; α pedida {0,1,1,10} degenerada (sd≈0,01); rejilla 0,003–0,03 necesaria. DC con ρ estimado (media **−0,043**, 87 % divisiones negativo) mejora **0,00084** [0,00022, 0,00141] sobre Poisson con los mismos λ | **Rechazado como Motor A**; DC se conserva para mercados de goles |
+| **EXP03** | ¿Poisson/DC bate al modelo de features? | Mejor Poisson/DC val **1,02621** vs 1,00974 de hgb; α pedida {0,1,1,10} degenerada (sd≈0,01); rejilla 0,003–0,03 necesaria. DC con ρ estimado (media **−0,043**, 87 % divisiones negativo) mejora **0,00084** [0,00022, 0,00141] sobre Poisson con los mismos λ | **Rechazado como Motor A**; DC se conserva para mercados de goles |
 | **EXP04** | ¿Tiros/xG aportan sobre Elo+goles? | Tiros: −0,00133 de log-loss al quitarlos (IC [0,0008, 0,0019]); xG **no evaluable** (sin datos históricos con licencia) | **Parcial:** tiros sí, xG pendiente |
 | **EXP05** | ¿Algún clasificador supera al aditivo? | val: hgb **1,00974**, logit 1,01029, elo 1,01666, poisson 1,02621; test: hgb 1,01860 vs logit 1,01802 → Δ +0,0006 [−0,0011, +0,0024], p=0,733 | **Empate**; se elige logit por simplicidad |
 | **EXP06** | ¿Calibrar mejora el log-loss? | Con v1.1: hgb empeora con todos los métodos (Δ ≥ 0); logit+Dirichlet **1,00968** (Δ −0,00061, 90 % a favor, IC cruza 0); ECE top de logit 0,0182 → 0,0104; walk-forward −0,0004 a −0,0010 | **No adoptado:** mejora fiabilidad, no pérdida |
@@ -60,7 +60,7 @@ Mejor configuración: **K=20, HFA=90, reg=0, MOV=on → 1,01453**; por continuid
 ### 2.2 EXP03 — Goles: Dixon-Coles sí, Poisson como Motor A no
 
 - La rejilla de `alpha` pedida {0,1, 1, 10} es **degenerada** en sklearn (la penalización se divide por `n_samples`): con α ≥ 0,1 el ataque/defensa se aplasta (sd ≈ 0,01) y el modelo cae a la frecuencia base. Hubo que extenderla a 0,003–0,03.
-- Mejor Poisson/DC: **val 1,02622**, 0,0165 por detrás de hgb.
+- Mejor Poisson/DC: **val 1,02621**, 0,0165 por detrás de hgb.
 - **Dixon-Coles aporta:** ρ estimado (media −0,043; 87 % de divisiones negativo) mejora **0,00084** [0,00022, 0,00141] sobre Poisson con los mismos λ, 99,6 % de remuestras. Es evidencia de que la correlación de marcadores bajos existe; no basta para ser el motor principal.
 
 ### 2.3 EXP06 — Calibración: el resultado cambió al limpiar los datos

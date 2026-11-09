@@ -26,7 +26,7 @@
 | **test cierre** | cierre | mejor precio PS→B365→Avg | 2024/25–2025/26 | **16.126** | — | listón final |
 | **test apertura** | apertura | mejor precio PS→B365→Avg | 2024/25–2025/26 | **11.295** | — | escenario operable |
 
-**Cobertura en test:** el cierre cubre 16.126/16.126 (100 %) porque la cadena cae a `Avg`; la apertura cubre **11.295/16.126 = 70,0 %**. Las seis ligas de año natural (ARG, BRA, JPN, MEX, SWE, USA) **no tienen apertura** en football-data: cuando falta, el Motor B cae al Motor A. Comparar sobre universos distintos es el error más fácil de cometer: todas las comparaciones de §5–§8 se hacen sobre la **intersección** de `match_id`.
+**Cobertura en test:** el cierre cubre **16.126/16.126 (100 %)** — Pinnacle 12.506, B365 3.619, Avg 1 —; la apertura cubre **11.295/16.126 = 70,0 %** — Pinnacle 7.988, B365 3.294, Avg 13; 4.831 sin ninguna. Las seis ligas de año natural (ARG, BRA, JPN, MEX, SWE, USA) **no tienen apertura** en football-data: cuando falta, el Motor B cae al Motor A. Comparar sobre universos distintos es el error más fácil de cometer: todas las comparaciones de §5–§8 se hacen sobre la **intersección** de `match_id`.
 
 ---
 
@@ -69,7 +69,7 @@ El *stack* adelanta a la apertura 0,00075 en esta muestra, pero **no** de forma 
 | mercado cierre PS (power) | 0,9898 | — | — | — | −0,0199 |
 | `ensemble` | **1,00821** | 0,60332 | 0,20460 | 0,4942 | −0,00153 [−0,00318, +0,00007] |
 | `hgb` | 1,00974 | 0,60443 | 0,20513 | 0,4909 | — |
-| `logit` | 1,01029 | 0,60454 | 0,20509 | 0,4937 | −0,00055 [−0,00289, +0,00196] |
+| `logit` | 1,01029 | 0,60454 | 0,20509 | 0,4937 | +0,00055 [−0,00196, +0,00289] |
 | `elo_ordered` | 1,01666 | 0,60920 | 0,20720 | 0,4883 | — |
 | `poisson_dc` | 1,02621 | 0,61555 | 0,21012 | 0,4812 | — |
 | `base_rate` | 1,07365 | 0,64942 | 0,22650 | 0,4390 | — |
@@ -160,6 +160,8 @@ Magnitud del movimiento: L1 medio **0,192** (mediana 0,153; p90 0,383); el 89 % 
 **Robustez:** por temporada (dev+val, 21), el Δ medio de `stack_logit` frente al mercado es **+0,00001** (mediana −0,00022; positiva en 7/21; máximos +0,00267 en 2006/07 y +0,00234 en 2026/27). La ganancia de val **no es estable** y en test no alcanza significación. **Decisión:** Motor B = de-vig *power* sobre apertura; el *stacking* se documenta como resultado negativo, no se despliega.
 
 **Clasificador con cuotas:** peor que el de-vig por sobreajuste (HGB 0,99035 vs 0,98984 en val; 0,98168 en dev). Confirma a Sallis et al. (2026): meter cuotas como *features* no bate usarlas como precio.
+
+> **Nota de lectura de los dos universos.** El `stack_logit` de `candidate_selection.json` vale **0,99668** sobre los 8.152 partidos de val (con *fallback* a Motor A donde no hay apertura); sobre los **5.782** con cuota de apertura vale **0,97888**, que es la cifra comparable con el mercado (0,98016). Mezclar ambas cifras es el error clásico: un modelo con *fallback* parece peor solo porque incluye partidos sin mercado.
 
 ---
 
