@@ -22,3 +22,8 @@ eval/artifacts/
 models/nfl/artifacts/predictions.csv
 !artifacts/experiment_priors_v12.json
 !artifacts/experiment_calibration_division.json
+!artifacts/FIXTURES
+artifacts/FIXTURES/*
+!artifacts/FIXTURES/predictions_*.csv
+!artifacts/FIXTURES/REPORT_*.md
+!artifacts/FIXTURES/summary_*.json

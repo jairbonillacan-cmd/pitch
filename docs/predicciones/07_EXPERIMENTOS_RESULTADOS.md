@@ -205,3 +205,12 @@ La calibración por división mejora el log-loss en 0,0007 pero **el IC cruza 0*
 la temperatura global reduce el ECE un 38 % sin empeorar la pérdida. **No se adopta** como cambio de
 modelo: no supera el criterio de significancia. Queda como opción de "release de calibración" si la
 fiabilidad pasa a ser requisito de producto. Script: `pipeline/experiment_calibration_division.py`.
+
+### Addendum ciclo 5 — adaptador de fixtures y predicción out-of-sample
+
+- **Paridad del adaptador:** 300/300 partidos históricos reproducen exactamente las 54 features
+  (≤1e-9) usando solo información anterior al partido.
+- **150 fixtures reales** del snapshot 2026-11-09 (6–9 nov), ninguno presente en `matches.parquet`:
+  predicciones con hash `0a28484d…` (pre-registro) y comparación con B365 del mismo snapshot.
+  Diferencia media abs. modelo−mercado: 5,0/2,6/4,8 pp. No son señales de valor (el mercado gana
+  ~0,020 en test); el conjunto queda para puntuarse cuando haya resultados.

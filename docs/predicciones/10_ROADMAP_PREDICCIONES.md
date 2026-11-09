@@ -249,3 +249,11 @@ veredicto "defendible" con la salvedad de exposición parcial a test ya document
 paridad) es extensible, pero **no se debe construir producto sobre datos sin licencia clara**. El
 siguiente paso no es código: es conseguir una fuente con derechos para NHL/NCAAF o limitar su uso a
 investigación interna documentada. NFL queda como el caso de referencia (CC BY 4.0 con atribución).
+
+### 9.4 Ciclo 5 — de laboratorio a fixtures
+
+El pipeline ya predice partidos no jugados: estado de equipos → 54 features (paridad 300/300) →
+artefacto → comparación con el mercado. Quedan dos pasos para producción: (a) servir el vector de
+features desde el backend o portar el adaptador a TS, y (b) puntuar las 150 predicciones
+pre-registradas cuando la fuente publique los resultados (test prospectivo independiente del `test`
+ya usado).

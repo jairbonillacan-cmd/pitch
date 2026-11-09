@@ -205,3 +205,14 @@ lista 90 archivos, todos del laboratorio (ninguno de ellos existía en `main`).
 - **NHL/NCAAF:** decisión documentada de **no-go** por licencias/datos (ver `docs/10` §9.3).
 - En curso: **A16** registro de modelos + validación de release; **A17** de-vig en TS + servicio
   `predictMatch` con fallback.
+
+---
+
+# CICLO 5 — adaptador de fixtures (2026-11-09 06:05)
+
+- `pipeline/fixture_features.py`: estado de equipos → 54 features; **paridad 300/300 exacta** con
+  `features.parquet` (incluye primer partido, cambios de división y arranque de temporada).
+- `pipeline/predict_fixtures.py`: **150 fixtures reales** del snapshot 2026-11-09 predichos y
+  comparados con B365; hash de pre-registro `0a28484d…`. 10 fixtures SC2/SC3 excluidos.
+- Con esto el pipeline va de fixture a predicción sin intervención manual; queda portar el
+  adaptador a TS o servir el vector desde el backend, y puntuar los 150 cuando haya resultados.

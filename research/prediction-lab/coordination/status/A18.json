@@ -1,0 +1,20 @@
+{
+  "task_id": "A18",
+  "agent": "ORCHESTRATOR (ciclo 5)",
+  "status": "completed",
+  "started_at": "2026-11-09T05:30:00-06:00",
+  "finished_at": "2026-11-09T06:05:00-06:00",
+  "summary": "Adaptador end-to-end fixture->features->prediccion. Paridad 300/300 exacta con features.parquet. Predichos 150 fixtures reales del snapshot (6-9 nov 2026, fuera de matches.parquet) con mercado; hash de pre-registro 0a28484d. 10 fixtures SC2/SC3 excluidos por division no entrenada.",
+  "parity": "300/300",
+  "n_fixtures_predicted": 150,
+  "predictions_sha256": "0a28484db77cd260e1fde687565951b423dd66e4a4e6fe11ef6f39badf2678e3",
+  "files_written": [
+    "pipeline/fixture_features.py", "pipeline/predict_fixtures.py",
+    "artifacts/FIXTURES/REPORT_20261109T100153Z.md",
+    "artifacts/FIXTURES/predictions_20261109T100153Z.csv",
+    "artifacts/FIXTURES/summary_20261109T100153Z.json",
+    "reports/A18_fixture_adapter.md"
+  ],
+  "blockers": [],
+  "next": "Puntuar las 150 predicciones cuando la fuente publique resultados; portar fixture_features a TS o exponer el vector desde backend."
+}

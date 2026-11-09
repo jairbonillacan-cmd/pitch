@@ -230,3 +230,10 @@ Comandos completos, hashes y verificación del leakage en [`12_REPRODUCIBILIDAD.
 - **Registro de modelos**: `research/prediction-lab/registry/models.json` con versiones, sha256,
   métricas y estado (`deployed`); CLI `pipeline/registry.py` (`register`/`verify`/`promote`/`list`)
   y gate de release `pipeline/validate_release.py` (7 bloques, exit code reproducible).
+
+### 11. Adaptador de fixtures (ciclo 5)
+
+`pipeline/fixture_features.py` reconstruye el estado de los equipos (Elo, forma, descanso, priors)
+y calcula las 54 features para un partido no jugado; `pipeline/predict_fixtures.py` aplica el
+artefacto y compara con el mercado. **Paridad 300/300 exacta** con `features.parquet`. Esto cierra
+el hueco "fixture → features → predicción" que quedaba entre el laboratorio y el motor servido.

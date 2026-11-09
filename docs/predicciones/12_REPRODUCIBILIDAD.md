@@ -311,3 +311,11 @@ cd research/prediction-lab
 ./.venv/bin/python pipeline/experiment_calibration_division.py
 cd ../.. && npx vitest run tests/prediction             # 45 tests (fútbol+NFL+de-vig)
 ```
+
+## Ciclo 5 — adaptador de fixtures
+
+```bash
+cd research/prediction-lab
+./.venv/bin/python pipeline/fixture_features.py --validate 300   # paridad 300/300
+./.venv/bin/python pipeline/predict_fixtures.py                 # 150 fixtures + mercado
+```

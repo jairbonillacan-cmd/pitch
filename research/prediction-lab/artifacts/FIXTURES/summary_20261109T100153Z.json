@@ -1,0 +1,84 @@
+{
+ "snapshot": "odds_20261109T100153Z.csv",
+ "n_excluded_division": 10,
+ "excluded": [
+  {
+   "div": "SC2",
+   "home": "Alloa",
+   "away": "Airdrie Utd",
+   "reason": "division_not_in_training"
+  },
+  {
+   "div": "SC2",
+   "home": "Cove Rangers",
+   "away": "Hamilton",
+   "reason": "division_not_in_training"
+  },
+  {
+   "div": "SC2",
+   "home": "Montrose",
+   "away": "East Fife",
+   "reason": "division_not_in_training"
+  },
+  {
+   "div": "SC2",
+   "home": "Queen of Sth",
+   "away": "East Kilbride",
+   "reason": "division_not_in_training"
+  },
+  {
+   "div": "SC2",
+   "home": "Ross County",
+   "away": "Peterhead",
+   "reason": "division_not_in_training"
+  },
+  {
+   "div": "SC3",
+   "home": "Annan Athletic",
+   "away": "Kelty Hearts",
+   "reason": "division_not_in_training"
+  },
+  {
+   "div": "SC3",
+   "home": "Clyde",
+   "away": "Spartans",
+   "reason": "division_not_in_training"
+  },
+  {
+   "div": "SC3",
+   "home": "Elgin",
+   "away": "Dumbarton",
+   "reason": "division_not_in_training"
+  },
+  {
+   "div": "SC3",
+   "home": "Forfar",
+   "away": "Edinburgh City",
+   "reason": "division_not_in_training"
+  },
+  {
+   "div": "SC3",
+   "home": "Stranraer",
+   "away": "Stirling",
+   "reason": "division_not_in_training"
+  }
+ ],
+ "n_fixtures": 150,
+ "n_known_both": 150,
+ "n_with_market": 150,
+ "n_known_and_market": 150,
+ "unknown_teams": [],
+ "mean_abs_edge": {
+  "h": 0.05000712129806886,
+  "d": 0.026197344894769246,
+  "a": 0.04788435399765658
+ },
+ "max_abs_edge": {
+  "h": 0.17205710616159936,
+  "d": 0.11421316444519602,
+  "a": 0.1998101195046843
+ },
+ "model_version": "1.0.0",
+ "generated_at": "2026-11-09T10:45:04.013886+00:00",
+ "predictions_sha256": "0a28484db77cd260e1fde687565951b423dd66e4a4e6fe11ef6f39badf2678e3"
+}
