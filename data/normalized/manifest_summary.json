@@ -1,17 +1,17 @@
 {
   "manifest_version": "1.0.0",
-  "generated_at_utc": "2026-11-09T19:52:09Z",
+  "generated_at_utc": "2026-11-09T20:59:10Z",
   "anti_leakage_contract": {
     "rule": "captured_at_utc <= predicted_at_utc",
     "all_sha256_verified": true,
-    "raw_snapshots_verified_count": 36
+    "raw_snapshots_verified_count": 45
   },
   "normalized_tables_summary": {
-    "market_microstructure": 10190,
-    "xg_and_team_ratings": 16118,
-    "roster_availability": 2549,
-    "news_and_environment": 829,
-    "total_normalized_records": 29686
+    "market_microstructure": 13318,
+    "xg_and_team_ratings": 42438,
+    "roster_availability": 4388,
+    "news_and_environment": 889,
+    "total_normalized_records": 61033
   },
   "raw_snapshots": [
     {
@@ -54,6 +54,19 @@
       "normalized_records_emitted": 114
     },
     {
+      "raw_snapshot_path": "data/raw/advanced_stats_xg/clubelo_transfermarkt_values/2026-11-09/20261109T200143Z_transfermarkt_all18_ligamx_full_player_rosters_110ae8e94d.json",
+      "source_id": "clubelo_transfermarkt_values",
+      "source_name": "ClubElo & Transfermarkt (Squad Market Values)",
+      "category": "advanced_stats_xg",
+      "scrapling_mode": "fetcher_session",
+      "url": "https://www.transfermarkt.mx/liga-mx-apertura/startseite/wettbewerb/MEXA",
+      "captured_at_utc": "2026-11-09T20:01:43Z",
+      "sha256": "110ae8e94da6d8efed37c3077a579574144c17a438bd353c74786bd4206cb31f",
+      "sha256_verified": true,
+      "target_normalized_table": "xg_and_team_ratings.json",
+      "normalized_records_emitted": 718
+    },
+    {
       "raw_snapshot_path": "data/raw/advanced_stats_xg/fbref/2026-11-09/20261109T191909Z_fbref_ligamx_epl_stats_tables_56774f0a04.json",
       "source_id": "fbref",
       "source_name": "FBref (Football Reference)",
@@ -78,6 +91,19 @@
       "sha256_verified": true,
       "target_normalized_table": "xg_and_team_ratings.json",
       "normalized_records_emitted": 1193
+    },
+    {
+      "raw_snapshot_path": "data/raw/advanced_stats_xg/fbref/2026-11-09/20261109T205753Z_fbref_ligamx_historical_seasons_and_fixtures_xg_01b2de4eca.json",
+      "source_id": "fbref",
+      "source_name": "FBref (Football Reference)",
+      "category": "advanced_stats_xg",
+      "scrapling_mode": "stealthy_session",
+      "url": "https://fbref.com/en/comps/31/2024-2025/2024-2025-Liga-MX-Stats",
+      "captured_at_utc": "2026-11-09T20:57:53Z",
+      "sha256": "01b2de4eca55c2ffe33509306d3d29b6aa2faff5a57b44c0833cd37412f7b3a1",
+      "sha256_verified": true,
+      "target_normalized_table": "xg_and_team_ratings.json",
+      "normalized_records_emitted": 1872
     },
     {
       "raw_snapshot_path": "data/raw/advanced_stats_xg/fotmob/2026-11-09/20261109T191810Z_fotmob_ligamx_epl_next_data_2043883407.json",
@@ -132,6 +158,19 @@
       "normalized_records_emitted": 4696
     },
     {
+      "raw_snapshot_path": "data/raw/advanced_stats_xg/opta_player_stats/2026-11-09/20261109T200651Z_opta_all18_ligamx_players_and_6leagues_7f6fd8eeb9.json",
+      "source_id": "opta_player_stats",
+      "source_name": "Opta Player Stats — Stats Perform",
+      "category": "advanced_stats_xg",
+      "scrapling_mode": "network_recorder",
+      "url": "https://optaplayerstats.statsperform.com/",
+      "captured_at_utc": "2026-11-09T20:06:51Z",
+      "sha256": "7f6fd8eeb97e37fc942e15740e0f95a198f376841f5b977c663927e170fd54d5",
+      "sha256_verified": true,
+      "target_normalized_table": "xg_and_team_ratings.json",
+      "normalized_records_emitted": 9568
+    },
+    {
       "raw_snapshot_path": "data/raw/advanced_stats_xg/pfr_rbsdm_sumersports/2026-11-09/20261109T191833Z_nfl_sumersports_pfr_epa_efficiency_30b865dad8.json",
       "source_id": "pfr_rbsdm_sumersports",
       "source_name": "Pro-Football-Reference / RBSDM / SumerSports",
@@ -156,6 +195,19 @@
       "sha256_verified": true,
       "target_normalized_table": "xg_and_team_ratings.json",
       "normalized_records_emitted": 92
+    },
+    {
+      "raw_snapshot_path": "data/raw/advanced_stats_xg/sofascore/2026-11-09/20261109T201813Z_sofascore_7leagues_standings_events_top_players_9dafc98c29.json",
+      "source_id": "sofascore",
+      "source_name": "Sofascore",
+      "category": "advanced_stats_xg",
+      "scrapling_mode": "network_recorder",
+      "url": "https://www.sofascore.com/tournament/football/mexico/liga-mx-apertura/11621",
+      "captured_at_utc": "2026-11-09T20:18:13Z",
+      "sha256": "9dafc98c29cc4196bedb172f649930082a6fd168e66b05ae92d6d75087dcba99",
+      "sha256_verified": true,
+      "target_normalized_table": "xg_and_team_ratings.json",
+      "normalized_records_emitted": 3531
     },
     {
       "raw_snapshot_path": "data/raw/advanced_stats_xg/statiskicks/2026-11-09/20261109T185048Z_statiskicks_portal_46f1425089.json",
@@ -184,6 +236,19 @@
       "normalized_records_emitted": 1481
     },
     {
+      "raw_snapshot_path": "data/raw/advanced_stats_xg/statiskicks/2026-11-09/20261109T200557Z_statiskicks_all18_ligamx_clubs_and_players_0d7bbdb805.json",
+      "source_id": "statiskicks",
+      "source_name": "Statiskicks (Analítica Avanzada Liga MX y Fútbol Internacional)",
+      "category": "advanced_stats_xg",
+      "scrapling_mode": "network_recorder",
+      "url": "https://www.statiskicks.com/league/2hsidwomhjsaaytdy9u5niyi4",
+      "captured_at_utc": "2026-11-09T20:05:57Z",
+      "sha256": "0d7bbdb8050d3362555f0d628a312b1eea76de64f89e4167e0dcfac772292da0",
+      "sha256_verified": true,
+      "target_normalized_table": "xg_and_team_ratings.json",
+      "normalized_records_emitted": 4161
+    },
+    {
       "raw_snapshot_path": "data/raw/advanced_stats_xg/understat/2026-11-09/20261109T185203Z_understat_epl_xg_94df55c12b.json",
       "source_id": "understat",
       "source_name": "Understat",
@@ -210,6 +275,19 @@
       "normalized_records_emitted": 5850
     },
     {
+      "raw_snapshot_path": "data/raw/advanced_stats_xg/understat/2026-11-09/20261109T200730Z_understat_5leagues_all_players_and_2023_2024_history_2746670bfc.json",
+      "source_id": "understat",
+      "source_name": "Understat",
+      "category": "advanced_stats_xg",
+      "scrapling_mode": "fetcher_session",
+      "url": "https://understat.com/league/EPL",
+      "captured_at_utc": "2026-11-09T20:07:30Z",
+      "sha256": "2746670bfccd8920c95eac00046056df8672f602569c6f79c36297f8050bdb3e",
+      "sha256_verified": true,
+      "target_normalized_table": "xg_and_team_ratings.json",
+      "normalized_records_emitted": 6470
+    },
+    {
       "raw_snapshot_path": "data/raw/environment_referees/open_meteo_nflweather/2026-11-09/20261109T184921Z_open_meteo_stadiums_forecast_6961b077fa.json",
       "source_id": "open_meteo_nflweather",
       "source_name": "Open-Meteo API & NFLWeather (Clima y Altitud en Kickoff)",
@@ -234,6 +312,19 @@
       "sha256_verified": true,
       "target_normalized_table": "news_and_environment.json",
       "normalized_records_emitted": 48
+    },
+    {
+      "raw_snapshot_path": "data/raw/environment_referees/open_meteo_nflweather/2026-11-09/20261109T200043Z_open_meteo_60_european_stadiums_7d_fbd86564c4.json",
+      "source_id": "open_meteo_nflweather",
+      "source_name": "Open-Meteo API & NFLWeather (Clima y Altitud en Kickoff)",
+      "category": "environment_referees",
+      "scrapling_mode": "fetcher_session",
+      "url": "https://api.open-meteo.com/v1/forecast",
+      "captured_at_utc": "2026-11-09T20:00:43Z",
+      "sha256": "fbd86564c419f143d9061b7c5dc0de2902197ab538d90b41982aa50a794ac42d",
+      "sha256_verified": true,
+      "target_normalized_table": "news_and_environment.json",
+      "normalized_records_emitted": 60
     },
     {
       "raw_snapshot_path": "data/raw/environment_referees/worldfootball_nflpenalties_referees/2026-11-09/20261109T192203Z_worldfootball_nflpenalties_referees_75322a95c8.json",
@@ -299,6 +390,19 @@
       "sha256_verified": true,
       "target_normalized_table": "roster_availability.json",
       "normalized_records_emitted": 27
+    },
+    {
+      "raw_snapshot_path": "data/raw/injuries_lineups/rotowire_lineups_injuries/2026-11-09/20261109T200053Z_rotowire_all_leagues_lineups_and_injuries_deep_300973eda4.json",
+      "source_id": "rotowire_lineups_injuries",
+      "source_name": "RotoWire (Soccer & NFL Lineups / Injury Reports)",
+      "category": "injuries_lineups",
+      "scrapling_mode": "fetcher_session",
+      "url": "https://www.rotowire.com/soccer/lineups.php?league=EPL",
+      "captured_at_utc": "2026-11-09T20:00:53Z",
+      "sha256": "300973eda4fca058fa249478e8540e2bcb0ec4767d6ebade7ddf664a963de6f1",
+      "sha256_verified": true,
+      "target_normalized_table": "roster_availability.json",
+      "normalized_records_emitted": 1839
     },
     {
       "raw_snapshot_path": "data/raw/injuries_lineups/transfermarkt_injuries/2026-11-09/20261109T184913Z_transfermarkt_injuries_mexa_gb1_f4d5994c1d.json",
@@ -481,6 +585,19 @@
       "sha256_verified": true,
       "target_normalized_table": "market_microstructure.json",
       "normalized_records_emitted": 650
+    },
+    {
+      "raw_snapshot_path": "data/raw/odds_casinos/pinnacle/2026-11-09/20261109T200500Z_pinnacle_multileague_europe_us_sports_deep_749b2bdd11.json",
+      "source_id": "pinnacle",
+      "source_name": "Pinnacle (Arcadia Guest API / Web)",
+      "category": "odds_casinos",
+      "scrapling_mode": "network_recorder",
+      "url": "https://www.pinnacle.com/es/soccer/england-premier-league/matchups/",
+      "captured_at_utc": "2026-11-09T20:05:00Z",
+      "sha256": "749b2bdd11c4b29e12bde69522bae51bf73d8c15ab79975a015e1341acdcb134",
+      "sha256_verified": true,
+      "target_normalized_table": "market_microstructure.json",
+      "normalized_records_emitted": 3128
     }
   ]
 }

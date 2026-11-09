@@ -956,6 +956,118 @@ def _normalize_understat(
                     }
                 )
 
+    # Wave-4 Understat: `all_players_uncapped_by_league` (2,774 jugadores completos en 5 ligas)
+    uncapped_players = payload.get("all_players_uncapped_by_league")
+    if isinstance(uncapped_players, dict):
+        for lg_key, pl_list in uncapped_players.items():
+            if not isinstance(pl_list, list):
+                continue
+            for pl in pl_list:
+                if not isinstance(pl, dict):
+                    continue
+                p_goals = int(pl.get("goals") or 0)
+                p_xg = float(pl.get("xG") or 0.0)
+                records.append(
+                    {
+                        **base,
+                        "record_type": "understat_player_season_xg",
+                        "league": lg_key,
+                        "season": pl.get("season"),
+                        "player_id": str(pl.get("player_id") or ""),
+                        "player_name": pl.get("player_name"),
+                        "team_name": pl.get("team_title"),
+                        "position": pl.get("position"),
+                        "games": pl.get("games"),
+                        "time_minutes": pl.get("time_minutes"),
+                        "G": p_goals,
+                        "npg": pl.get("npg"),
+                        "assists": pl.get("assists"),
+                        "shots": pl.get("shots"),
+                        "key_passes": pl.get("key_passes"),
+                        "yellow_cards": pl.get("yellow_cards"),
+                        "red_cards": pl.get("red_cards"),
+                        "xG": round(p_xg, 4),
+                        "npxG": pl.get("npxG"),
+                        "xA": pl.get("xA"),
+                        "xG_plus_xA": pl.get("xG_plus_xA"),
+                        "xGChain": pl.get("xGChain"),
+                        "xGBuildup": pl.get("xGBuildup"),
+                        "xg_overperformance": round(p_goals - p_xg, 4),
+                    }
+                )
+
+    # Wave-4 Understat: `historical_seasons_2023_2024` (192 team-seasons + 3,504 partidos históricos)
+    hist_seasons = payload.get("historical_seasons_2023_2024")
+    if isinstance(hist_seasons, dict):
+        for season_key, h_data in hist_seasons.items():
+            if not isinstance(h_data, dict):
+                continue
+            lg_key = str(h_data.get("league") or season_key)
+            season_val = h_data.get("season")
+            for tm in h_data.get("teams") or []:
+                if not isinstance(tm, dict):
+                    continue
+                sc = int(tm.get("scored") or 0)
+                ms = int(tm.get("missed") or 0)
+                t_xg = float(tm.get("xG") or 0.0)
+                t_xga = float(tm.get("xGA") or 0.0)
+                t_pts = int(tm.get("pts") or 0)
+                t_xpts = float(tm.get("xPTS") or 0.0)
+                records.append(
+                    {
+                        **base,
+                        "record_type": "understat_historical_team_season_xg",
+                        "league": lg_key,
+                        "season": season_val,
+                        "team_id": str(tm.get("team_id") or ""),
+                        "team_name": tm.get("team_title"),
+                        "matches_played": tm.get("matches_played"),
+                        "wins": tm.get("wins"),
+                        "draws": tm.get("draws"),
+                        "loses": tm.get("loses"),
+                        "G": sc,
+                        "GA": ms,
+                        "pts": t_pts,
+                        "xG": round(t_xg, 3),
+                        "xGA": round(t_xga, 3),
+                        "npxG": tm.get("npxG"),
+                        "npxGA": tm.get("npxGA"),
+                        "npxGD": tm.get("npxGD"),
+                        "xPTS": round(t_xpts, 3),
+                        "ppda_avg": tm.get("ppda_avg"),
+                        "ppda_allowed_avg": tm.get("ppda_allowed_avg"),
+                        "deep_completions": tm.get("deep_completions"),
+                        "deep_allowed": tm.get("deep_allowed"),
+                        "xg_overperformance": round(sc - t_xg, 3),
+                        "pts_overperformance": round(t_pts - t_xpts, 3),
+                    }
+                )
+            for dm in h_data.get("matches") or []:
+                if not isinstance(dm, dict):
+                    continue
+                records.append(
+                    {
+                        **base,
+                        "record_type": "understat_historical_match_fixture_xg",
+                        "league": lg_key,
+                        "season": season_val,
+                        "match_id": str(dm.get("match_id") or ""),
+                        "datetime": dm.get("datetime"),
+                        "is_result": bool(dm.get("is_result", False)),
+                        "home_team_id": str(dm.get("home_team_id") or ""),
+                        "home_team": dm.get("home_team"),
+                        "away_team_id": str(dm.get("away_team_id") or ""),
+                        "away_team": dm.get("away_team"),
+                        "home_goals": dm.get("home_goals"),
+                        "away_goals": dm.get("away_goals"),
+                        "home_xG": dm.get("home_xG"),
+                        "away_xG": dm.get("away_xG"),
+                        "forecast_win": dm.get("forecast_win"),
+                        "forecast_draw": dm.get("forecast_draw"),
+                        "forecast_loss": dm.get("forecast_loss"),
+                    }
+                )
+
     return records
 
 
@@ -1050,6 +1162,43 @@ def _normalize_clubelo_transfermarkt(
                     "table_points_or_metric": parsed_points,
                     "cells": cells,
                     "fetch_mode_used": payload.get("fetch_mode_used"),
+                }
+            )
+
+    # Wave-4 Transfermarkt: `players` (plantillas completas de jugadores con valor de mercado individual)
+    if "players" in payload and isinstance(payload.get("players"), list):
+        for pl in payload["players"]:
+            if not isinstance(pl, dict):
+                continue
+            mv_eur = pl.get("market_value_eur")
+            if mv_eur is None:
+                mv_eur = parse_eur_value(pl.get("market_value_raw"))
+            log_mv = round(math.log(mv_eur), 6) if (mv_eur and mv_eur > 0) else None
+            records.append(
+                {
+                    **base,
+                    "record_type": "transfermarkt_player_valuation",
+                    "league": pl.get("league", "liga-mx"),
+                    "competition_code": pl.get("competition_code"),
+                    "club_name": pl.get("club") or pl.get("club_name"),
+                    "club_id": pl.get("club_id"),
+                    "player_id": pl.get("player_id"),
+                    "player_name": pl.get("player_name"),
+                    "player_url": pl.get("player_url"),
+                    "shirt_number": pl.get("shirt_number"),
+                    "position": pl.get("position"),
+                    "age_or_dob": pl.get("age_or_dob"),
+                    "age": pl.get("age"),
+                    "nationality": pl.get("nationality"),
+                    "nationalities": pl.get("nationalities"),
+                    "height": pl.get("height"),
+                    "foot": pl.get("foot"),
+                    "joined": pl.get("joined"),
+                    "signed_from": pl.get("signed_from"),
+                    "contract_until": pl.get("contract_until"),
+                    "market_value_raw": pl.get("market_value_raw"),
+                    "market_value_eur": mv_eur,
+                    "log_player_value": log_mv,
                 }
             )
 
@@ -1219,8 +1368,8 @@ def _normalize_statiskicks(
                     }
                 )
 
-    # Wave-3 Statiskicks: `search_xhr_results` (134 entidades)
-    search_xhr = payload.get("search_xhr_results")
+    # Wave-3 & Wave-4 Statiskicks: `search_xhr_results` / `search_xhr_catalog`
+    search_xhr = payload.get("search_xhr_results") or payload.get("search_xhr_catalog")
     if isinstance(search_xhr, dict):
         for query_term, res_obj in search_xhr.items():
             if not isinstance(res_obj, dict):
@@ -1237,6 +1386,130 @@ def _normalize_statiskicks(
                                 **ent,
                             }
                         )
+
+    # Wave-4 Statiskicks: `league_standings_xp_tables` y `scouting_leaderboard_tables`
+    for tbl in payload.get("league_standings_xp_tables") or []:
+        if not isinstance(tbl, dict):
+            continue
+        for r in tbl.get("rows") or []:
+            if not isinstance(r, dict):
+                continue
+            records.append(
+                {
+                    **base,
+                    "record_type": "statiskicks_xp_standing_row",
+                    "league_key": "liga-mx",
+                    "rank": int(_parse_comma_float(r.get("#")) or 0) or None,
+                    "team_name": r.get("Equipo"),
+                    "matches_played": int(_parse_comma_float(r.get("PJ")) or 0) or None,
+                    "goal_diff": _parse_comma_float(r.get("DG")),
+                    "pts": _parse_comma_float(r.get("Pts")),
+                    "xPTS": _parse_comma_float(r.get("xP")),
+                    "xpts_overperformance": _parse_comma_float(r.get("±")),
+                }
+            )
+
+    for tbl in payload.get("scouting_leaderboard_tables") or []:
+        if not isinstance(tbl, dict):
+            continue
+        for r in tbl.get("rows") or []:
+            if isinstance(r, dict):
+                records.append(
+                    {
+                        **base,
+                        "record_type": "statiskicks_scouting_leaderboard_row",
+                        "league_key": "liga-mx",
+                        **r,
+                    }
+                )
+
+    # Wave-4 Statiskicks: `clubs` (19 clubes Liga MX con series rolling xG, percentiles, perfiles de edad y 1,657 filas de jugadores SKore/p90)
+    for cl in payload.get("clubs") or []:
+        if not isinstance(cl, dict):
+            continue
+        cl_name = cl.get("club_name")
+        cl_slug = cl.get("club_slug")
+        xg_roll = cl.get("xg_rolling_payload")
+        if isinstance(xg_roll, dict):
+            for pt in xg_roll.get("points") or []:
+                if isinstance(pt, dict):
+                    records.append(
+                        {
+                            **base,
+                            "record_type": "statiskicks_team_xg_rolling_point",
+                            "league": "liga-mx",
+                            "team_key": cl_slug,
+                            "club_name": cl_name,
+                            "date": pt.get("date"),
+                            "season": pt.get("season"),
+                            "opponent": pt.get("opponent"),
+                            "is_home": pt.get("home"),
+                            "score": pt.get("score"),
+                            "manager": pt.get("manager"),
+                            "xG": pt.get("xg"),
+                            "xGA": pt.get("xga"),
+                            "rolling_xG": pt.get("rolling_xg"),
+                            "rolling_xGA": pt.get("rolling_xga"),
+                        }
+                    )
+        t_prof = cl.get("team_profile_payload")
+        if isinstance(t_prof, dict):
+            for m in t_prof.get("metrics") or []:
+                if isinstance(m, dict):
+                    records.append(
+                        {
+                            **base,
+                            "record_type": "statiskicks_team_percentile_metric",
+                            "league": "liga-mx",
+                            "team_key": cl_slug,
+                            "club_name": cl_name,
+                            "metric_key": m.get("key"),
+                            "metric_label": m.get("label"),
+                            "metric_short": m.get("short"),
+                            "metric_group": m.get("group"),
+                            "raw_total": m.get("raw"),
+                            "value": m.get("value"),
+                            "league_average": m.get("average"),
+                            "rank": m.get("rank"),
+                            "rank_total": m.get("rank_total"),
+                            "percentile": m.get("percentile"),
+                            "unit": m.get("unit"),
+                            "normalization": m.get("normalization"),
+                        }
+                    )
+        age_prof = cl.get("age_profile_payload")
+        if isinstance(age_prof, dict):
+            for pl in age_prof.get("players") or []:
+                if isinstance(pl, dict):
+                    records.append(
+                        {
+                            **base,
+                            "record_type": "statiskicks_player_age_minutes_profile",
+                            "league": "liga-mx",
+                            "team_key": cl_slug,
+                            "club_name": cl_name,
+                            **pl,
+                        }
+                    )
+        for tbl in cl.get("squad_tables") or []:
+            if not isinstance(tbl, dict):
+                continue
+            headers = tbl.get("headers") or []
+            for r_idx, row in enumerate(tbl.get("rows") or []):
+                if isinstance(row, dict):
+                    records.append(
+                        {
+                            **base,
+                            "record_type": "statiskicks_club_player_stat_row",
+                            "league": "liga-mx",
+                            "team_key": cl_slug,
+                            "club_name": cl_name,
+                            "table_index": tbl.get("table_index"),
+                            "row_index": r_idx + 1,
+                            "headers": headers,
+                            **row,
+                        }
+                    )
 
     return records
 
@@ -1287,8 +1560,8 @@ def _normalize_opta_player_stats(
             }
         )
 
-    # Wave-3 Opta: `performfeeds_standings` (526 filas Liga MX & Premier League)
-    pf_standings = payload.get("performfeeds_standings")
+    # Wave-3 & Wave-4 Opta: `performfeeds_standings` / `standings_by_league`
+    pf_standings = payload.get("performfeeds_standings") or payload.get("standings_by_league")
     if isinstance(pf_standings, dict):
         for comp_name, rows in pf_standings.items():
             if not isinstance(rows, list):
@@ -1304,8 +1577,8 @@ def _normalize_opta_player_stats(
                         }
                     )
 
-    # Wave-3 Opta: `performfeeds_matches` (200 partidos Liga MX & Premier League)
-    pf_matches = payload.get("performfeeds_matches")
+    # Wave-3 & Wave-4 Opta: `performfeeds_matches` / `matches_by_league`
+    pf_matches = payload.get("performfeeds_matches") or payload.get("matches_by_league")
     if isinstance(pf_matches, dict):
         for comp_name, matches in pf_matches.items():
             if not isinstance(matches, list):
@@ -1321,8 +1594,8 @@ def _normalize_opta_player_stats(
                         }
                     )
 
-    # Wave-3 Opta: `performfeeds_squads` (1,467 jugadores/cuerpo técnico en Liga MX & Premier League)
-    pf_squads = payload.get("performfeeds_squads")
+    # Wave-3 & Wave-4 Opta: `performfeeds_squads` / `squads_by_league`
+    pf_squads = payload.get("performfeeds_squads") or payload.get("squads_by_league")
     if isinstance(pf_squads, dict):
         for comp_name, clubs in pf_squads.items():
             if not isinstance(clubs, list):
@@ -1349,11 +1622,14 @@ def _normalize_opta_player_stats(
                             }
                         )
 
-    # Wave-3 Opta: `performfeeds_seasonstats` (8 clubes + 246 jugadores con métricas detalladas Opta)
-    for ss in payload.get("performfeeds_seasonstats") or []:
+    # Wave-3 & Wave-4 Opta: `performfeeds_seasonstats` + `ligamx_all18_clubs_seasonstats`
+    seasonstats_entries = (payload.get("performfeeds_seasonstats") or []) + (
+        payload.get("ligamx_all18_clubs_seasonstats") or []
+    )
+    for ss in seasonstats_entries:
         if not isinstance(ss, dict):
             continue
-        comp_name = ss.get("competition")
+        comp_name = ss.get("competition") or "Liga MX"
         tmcl_id = ss.get("tmcl_id")
         c_id = ss.get("contestant_id")
         c_name = ss.get("club_name")
@@ -1445,7 +1721,9 @@ def _normalize_opta_player_stats(
                 }
             )
 
-    for tc in payload.get("performfeeds_tournament_calendars") or []:
+    for tc in (payload.get("performfeeds_tournament_calendars") or []) + (
+        payload.get("tournament_calendars") or []
+    ):
         if isinstance(tc, dict):
             records.append(
                 {
@@ -1629,17 +1907,25 @@ def _normalize_generic_stats_source(
             if not isinstance(comp, dict):
                 continue
             comp_slug = comp.get("competition")
+            season_label = comp.get("season_label")
             for tbl in comp.get("tables") or []:
                 if not isinstance(tbl, dict):
                     continue
-                table_id = tbl.get("table_id")
+                table_id = str(tbl.get("table_id") or "")
+                is_fixture_tbl = "sched" in table_id.lower()
                 for r in tbl.get("rows") or []:
                     if isinstance(r, dict):
+                        is_fixture_row = is_fixture_tbl or (
+                            r.get("home_team") is not None and r.get("away_team") is not None
+                        )
                         records.append(
                             {
                                 **base,
-                                "record_type": "fbref_squad_stat_row",
+                                "record_type": "fbref_match_fixture_xg"
+                                if is_fixture_row
+                                else "fbref_squad_stat_row",
                                 "competition": comp_slug,
+                                "season_label": season_label,
                                 "table_id": table_id,
                                 "team_name": r.get("team") or r.get("squad"),
                                 **r,
@@ -1648,8 +1934,17 @@ def _normalize_generic_stats_source(
         if records:
             return records
 
-    # 4. Sofascore (`scheduled_events`, `ligamx_seasons`, `recorded_api_calls`)
+    # 4. Sofascore (`tournaments_summary`, `standings_rows`, `top_players`, `scheduled_events`, `ligamx_seasons`, `recorded_api_calls`)
     if source_id == "sofascore":
+        for ts in payload.get("tournaments_summary") or []:
+            if isinstance(ts, dict):
+                records.append({**base, "record_type": "sofascore_tournament_summary", **ts})
+        for sr in payload.get("standings_rows") or []:
+            if isinstance(sr, dict):
+                records.append({**base, "record_type": "sofascore_standing_row", **sr})
+        for tp in payload.get("top_players") or []:
+            if isinstance(tp, dict):
+                records.append({**base, "record_type": "sofascore_top_player", **tp})
         for ev in payload.get("scheduled_events") or []:
             if isinstance(ev, dict):
                 records.append({**base, "record_type": "sofascore_scheduled_event", **ev})
@@ -1784,20 +2079,28 @@ def _normalize_rotowire(
     base = _lineage_fields(envelope, rel_path)
     records: list[dict[str, Any]] = []
 
-    for idx, match in enumerate(payload.get("soccer_matchups") or []):
+    matchups_list = (payload.get("soccer_matchups") or []) + (payload.get("lineup_matchups") or [])
+    is_deep_wave4 = bool(payload.get("lineup_matchups"))
+
+    for idx, match in enumerate(matchups_list):
         if not isinstance(match, dict):
             continue
         home_team = match.get("home_team")
         away_team = match.get("away_team")
+        sport = match.get("sport", "soccer")
+        league = match.get("league", "soccer")
+        game_day = match.get("game_day_or_status")
 
         for side_key, team_name, opp_name in (
             ("home_lineup", home_team, away_team),
             ("away_lineup", away_team, home_team),
         ):
             lineup = match.get(side_key) or {}
-            starters = lineup.get("starting_11_players") or []
+            starters = lineup.get("starting_11_players") or lineup.get("starters") or []
             injured_out = lineup.get("injured_out_players") or []
             questionable = lineup.get("questionable_players") or []
+            venue_side = "home" if side_key == "home_lineup" else "away"
+            conf_status = lineup.get("confirmed_status", "predicted")
 
             # Deduplicar jugadores dudosos por nombre
             dedup_q: dict[str, dict[str, Any]] = {}
@@ -1809,11 +2112,14 @@ def _normalize_rotowire(
                 {
                     **base,
                     "record_type": "rotowire_soccer_team_lineup",
+                    "sport": sport,
+                    "league": league,
+                    "game_day_or_status": game_day,
                     "matchup_index": idx + 1,
                     "team": team_name,
                     "opponent": opp_name,
-                    "venue_side": "home" if side_key == "home_lineup" else "away",
-                    "confirmed_status": lineup.get("confirmed_status", "predicted"),
+                    "venue_side": venue_side,
+                    "confirmed_status": conf_status,
                     "raw_status_label": lineup.get("raw_status_label"),
                     "starting_11_count": len(starters),
                     "injured_out_count": len(injured_out),
@@ -1824,20 +2130,83 @@ def _normalize_rotowire(
                 }
             )
 
-    for nfl_inj in payload.get("nfl_injuries") or []:
+            # En Wave 4 emitimos también cada jugador titular/baja/duda individualmente para modelado de disponibilidad
+            if is_deep_wave4:
+                for st_pl in starters:
+                    if isinstance(st_pl, dict):
+                        records.append(
+                            {
+                                **base,
+                                "record_type": "rotowire_lineup_player_slot",
+                                "sport": sport,
+                                "league": league,
+                                "team": team_name,
+                                "opponent": opp_name,
+                                "venue_side": venue_side,
+                                "confirmed_status": conf_status,
+                                "availability_role": "starter",
+                                "slot_order": st_pl.get("slot_order"),
+                                "player_id": st_pl.get("player_id"),
+                                "player_name": st_pl.get("player_name"),
+                                "position": st_pl.get("position"),
+                                "injury_tag": st_pl.get("injury_tag"),
+                            }
+                        )
+                for inj_pl in injured_out:
+                    if isinstance(inj_pl, dict):
+                        records.append(
+                            {
+                                **base,
+                                "record_type": "rotowire_lineup_player_slot",
+                                "sport": sport,
+                                "league": league,
+                                "team": team_name,
+                                "opponent": opp_name,
+                                "venue_side": venue_side,
+                                "confirmed_status": conf_status,
+                                "availability_role": "injured_out",
+                                "player_id": inj_pl.get("player_id"),
+                                "player_name": inj_pl.get("player_name"),
+                                "position": inj_pl.get("position"),
+                                "injury_tag": inj_pl.get("injury_status"),
+                            }
+                        )
+                for q_pl in dedup_q.values():
+                    if isinstance(q_pl, dict):
+                        records.append(
+                            {
+                                **base,
+                                "record_type": "rotowire_lineup_player_slot",
+                                "sport": sport,
+                                "league": league,
+                                "team": team_name,
+                                "opponent": opp_name,
+                                "venue_side": venue_side,
+                                "confirmed_status": conf_status,
+                                "availability_role": "questionable",
+                                "player_id": q_pl.get("player_id"),
+                                "player_name": q_pl.get("player_name"),
+                                "position": q_pl.get("position"),
+                                "injury_tag": q_pl.get("injury_status"),
+                            }
+                        )
+
+    for nfl_inj in (payload.get("nfl_injuries") or []) + (payload.get("injury_table_records") or []):
         if not isinstance(nfl_inj, dict):
             continue
         records.append(
             {
                 **base,
                 "record_type": "rotowire_nfl_injury_designation",
-                "league": "nfl",
+                "sport": nfl_inj.get("sport", "football"),
+                "league": nfl_inj.get("league", "nfl"),
                 "player_id": str(nfl_inj.get("player_id") or ""),
                 "player_name": nfl_inj.get("player_name"),
                 "team": nfl_inj.get("team"),
                 "position": nfl_inj.get("position"),
                 "injury": nfl_inj.get("injury"),
-                "game_status_designation": nfl_inj.get("game_status_designation"),
+                "game_status_designation": nfl_inj.get("game_status_designation")
+                or nfl_inj.get("status"),
                 "player_url": nfl_inj.get("player_url"),
             }
         )
