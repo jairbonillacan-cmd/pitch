@@ -337,6 +337,14 @@ test.describe("PitchLab Pre-MVP E2E Suite", () => {
     await expect(dialog).toContainText("Forma visitante");
     await expect(dialog).toContainText("Posición local");
     await expect(dialog).toContainText("Posición visitante");
+
+    // Fase A: la liga correcta en el modal y, según la hora, picks o el aviso de que no aplican.
+    await expect(dialog.locator("#modal-league")).toContainText("LaLiga");
+    const picksOrNote = dialog.locator("[data-picks], [data-no-picks], .tag-info");
+    await expect(picksOrNote.first()).toBeVisible();
+    if ((await dialog.locator("[data-picks]").count()) > 0) {
+      await expect(dialog.locator("[data-picks] li")).toHaveCount(3);
+    }
   });
 
   test("6. Liga sin emblema (Bundesliga): fallback neutro y sin scroll horizontal", async ({
