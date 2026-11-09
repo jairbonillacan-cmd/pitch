@@ -25,6 +25,7 @@ cierre de test ejecutado **una sola vez** sobre candidatos congelados (`artifact
 | `13_COORDINACION_SUBAGENTES.md` | Contratos, reparto real, paralelismo, hallazgos cruzados y estados | A11 | **completado** → [abrir](13_COORDINACION_SUBAGENTES.md) |
 | `14_AUDITORIA_ADVERSARIAL.md` | A09 legacy + A09b lab, veredicto “no apto” y resolución | A09, A09b | **completado** → [abrir](14_AUDITORIA_ADVERSARIAL.md) |
 | `15_REPORTE_COMPARATIVO_V2_VS_V1_VS_MERCADO.md` | Comparativa `Spacetime Suite v2.0` (`Tachyon v2.0`, `Singularity v2.0`, `Minkowski v2.0`) vs `v1.0` vs Casas de Apuestas vs Resultado Real | A23 | **completado** → [abrir](15_REPORTE_COMPARATIVO_V2_VS_V1_VS_MERCADO.md) |
+| `16_INTEGRACION_REA_STATISKICKS.md` | Integración forense y cuantitativa de `REA-stats` (`statiskicks.com`) en `PitchLab Spacetime Suite v2.1`: Piedra Rosetta 40 ligas + 177 traits Opta, `xGOT` / `gk_prevented`, Radar Táctico `RankBands`, `SKORE` y Monte Carlo de Temporada/Liguilla | A24 | **completado** → [abrir](16_INTEGRACION_REA_STATISKICKS.md) |
 
 ---
 

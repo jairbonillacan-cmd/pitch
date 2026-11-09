@@ -352,6 +352,16 @@ def features_for_fixture(
     h_has_sh = f.get("h_has_shots_r5", 0.0)
     f["has_shots_stats"] = 1.0 if (pd.notna(h_has_sh) and float(h_has_sh) > 0.0) else 0.0
 
+    # Opta-proxies tácticos y quiebre de régimen estructural
+    f["gk_prevented_diff_r5"] = f.get("h_gk_prevented_r5", np.nan) - f.get("a_gk_prevented_r5", np.nan)
+    f["gk_prevented_diff_r10"] = f.get("h_gk_prevented_r10", np.nan) - f.get("a_gk_prevented_r10", np.nan)
+    f["field_tilt_diff_r5"] = f.get("h_field_tilt_r5", np.nan) - f.get("a_field_tilt_r5", np.nan)
+    h_shift = f.get("h_xgd_r5", np.nan) - f.get("h_xgd_r10", np.nan)
+    a_shift = f.get("a_xgd_r5", np.nan) - f.get("a_xgd_r10", np.nan)
+    f["h_xgd_regime_shift"] = h_shift
+    f["a_xgd_regime_shift"] = a_shift
+    f["xgd_regime_shift_diff"] = h_shift - a_shift
+
     f["abs_elo_diff"] = abs(elo_diff)
     f["elo_closeness"] = math.exp(-((elo_diff / 150.0) ** 2))
     f["low_scoring_tight_match"] = f["elo_closeness"] / max(1.5, f["dc_exp_total"])

@@ -6,6 +6,8 @@
 subagentes reales.
 
 > **Actualización Generación 2 (`Spacetime Suite v2.0`):** Ver el reporte comparativo completo (`PitchLab Tachyon v2.0`, `PitchLab Singularity v2.0`, `PitchLab Minkowski v2.0` vs modelos `v1.0` vs Casas de Apuestas vs Resultado Real) en [`reports/A23_spacetime_v2_benchmark_report.md`](reports/A23_spacetime_v2_benchmark_report.md) y [`docs/predicciones/15_REPORTE_COMPARATIVO_V2_VS_V1_VS_MERCADO.md`](../../docs/predicciones/15_REPORTE_COMPARATIVO_V2_VS_V1_VS_MERCADO.md).
+>
+> **Integración Forense y Cuantitativa `REA-stats` (`Spacetime Suite v2.1`):** Ver la síntesis completa de las 5 capas integradas desde la ingeniería inversa de `statiskicks.com` (Piedra Rosetta 40 ligas + 177 traits Opta, `xGOT` / `gk_prevented`, Radar Táctico `RankBands`, `SKORE` y Monte Carlo de Temporada/Liguilla) en [`reports/A24_rea_stats_integration.md`](reports/A24_rea_stats_integration.md) y [`docs/predicciones/16_INTEGRACION_REA_STATISKICKS.md`](../../docs/predicciones/16_INTEGRACION_REA_STATISKICKS.md).
 
 ---
 

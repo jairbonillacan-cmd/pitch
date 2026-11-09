@@ -28,6 +28,10 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "features"))
 
 from ratings_advanced import compute_advanced_ratings  # noqa: E402
+from tactical_optaproxies import (  # noqa: E402
+    compute_match_xgot_and_tactical_proxies,
+    compute_regime_shift_features,
+)
 from xg_proxy import compute_match_synthetic_xg  # noqa: E402
 
 PROC = os.path.join(ROOT, "data", "processed")
@@ -160,6 +164,11 @@ ROLL_COLS = [
     "pts_res",
     "gd_res",
     "opp_elo",
+    # Opta-proxies tácticos: xGOT, Prevención de arquero, Field Tilt y Efectividad clínica
+    "xgot",
+    "gk_prevented",
+    "field_tilt",
+    "clinical_overperf",
 ]
 
 
@@ -167,6 +176,7 @@ def build_long(df: pd.DataFrame) -> pd.DataFrame:
     dc_h = df["dc_lam_home"].to_numpy(dtype=float) if "dc_lam_home" in df.columns else None
     dc_a = df["dc_lam_away"].to_numpy(dtype=float) if "dc_lam_away" in df.columns else None
     xg_h, xg_a, has_shot_stats = compute_match_synthetic_xg(df, dc_h, dc_a)
+    tactical = compute_match_xgot_and_tactical_proxies(df, xg_h, xg_a)
 
     home = pd.DataFrame(
         {
@@ -187,6 +197,10 @@ def build_long(df: pd.DataFrame) -> pd.DataFrame:
             "xgf": xg_h,
             "xga": xg_a,
             "has_shots": has_shot_stats,
+            "xgot": tactical["xgot_home"],
+            "gk_prevented": tactical["gk_prevented_home"],
+            "field_tilt": tactical["field_tilt_home"],
+            "clinical_overperf": tactical["clinical_overperf_home"],
         }
     )
     away = pd.DataFrame(
@@ -208,6 +222,10 @@ def build_long(df: pd.DataFrame) -> pd.DataFrame:
             "xgf": xg_a,
             "xga": xg_h,
             "has_shots": has_shot_stats,
+            "xgot": tactical["xgot_away"],
+            "gk_prevented": tactical["gk_prevented_away"],
+            "field_tilt": tactical["field_tilt_away"],
+            "clinical_overperf": tactical["clinical_overperf_away"],
         }
     )
     long = pd.concat([home, away], ignore_index=True)
@@ -418,6 +436,9 @@ def main():
     out["venue_gd_diff_r5"] = out["h_venue_gd_r5"] - out["a_venue_gd_r5"]
     out["venue_xgd_diff_r5"] = out["h_venue_xgd_r5"] - out["a_venue_xgd_r5"]
     out["has_shots_stats"] = (out["h_has_shots_r5"].fillna(0.0) > 0.0).astype(float)
+
+    # Opta-proxies tácticos y quiebre de régimen estructural
+    out = compute_regime_shift_features(out)
 
     # Geometría del empate y competitividad
     out["abs_elo_diff"] = np.abs(out["elo_diff"])
