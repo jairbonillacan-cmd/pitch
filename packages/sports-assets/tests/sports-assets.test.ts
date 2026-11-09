@@ -30,8 +30,14 @@ describe("@pitchlab/sports-assets", () => {
     expect(atlas?.code).toBe("ATS");
     expect(atlante?.svgPath).not.toBe(atlas?.svgPath);
 
-    // 18 Liga MX + 20 Premier League + 32 NFL = 70 equipos
-    expect(Object.keys(TEAM_ASSETS)).toHaveLength(70);
+    // 18 Liga MX + 20 Premier League + 20 LaLiga + 32 NFL = 90 equipos
+    expect(Object.keys(TEAM_ASSETS)).toHaveLength(90);
+
+    const laliga = getLeagueAsset("laliga");
+    expect(laliga?.svgPath).toBe("/brand/sports/laliga/r1/svg/laliga.svg");
+    const realMadrid = getTeamAsset("laliga.real-madrid");
+    expect(realMadrid?.code).toBe("RMA");
+    expect(realMadrid?.svgPath).not.toBe(getTeamAsset("laliga.barcelona")?.svgPath);
   });
 
   it("copia los archivos físicos a apps/web/public/brand", () => {
