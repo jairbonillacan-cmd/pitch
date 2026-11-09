@@ -1,6 +1,6 @@
 # Benchmark histórico walk-forward
 
-Generado: 2026-11-09T03:36:31.631Z
+Generado: 2026-11-09T05:37:05.036Z
 
 Ventana móvil de entrenamiento: 1095 días. Cada jornada se predice solo con partidos anteriores a su fecha.
 
@@ -15,7 +15,7 @@ Ventana móvil de entrenamiento: 1095 días. Cada jornada se predice solo con pa
 | bundesliga | 4917 | 0.9982 | 0.9970 | 1.0005 | 0.9957 | 0.9928 | — | 0.9812 | 0.0170 [0.0122, 0.0218] | 0.0144 [0.0099, 0.0190] | 0.0116 [0.0073, 0.0162] |
 | serie-a | 4944 | 0.9735 | 0.9730 | 0.9764 | 0.9707 | 0.9660 | — | 0.9489 | 0.0246 [0.0199, 0.0292] | 0.0218 [0.0174, 0.0264] | 0.0171 [0.0123, 0.0218] |
 | ligue-1 | 4254 | 1.0021 | 1.0009 | 1.0099 | 0.9993 | 0.9987 | — | 0.9820 | 0.0201 [0.0147, 0.0259] | 0.0173 [0.0124, 0.0226] | 0.0167 [0.0118, 0.0217] |
-| liga-mx | 982 | 1.0050 | 1.0030 | 1.0053 | 1.0020 | 1.0011 | — | — | — | — | — |
+| liga-mx | 982 | 1.0050 | 1.0030 | 1.0088 | 1.0020 | 1.0012 | — | — | — | — | — |
 
 Mercado sin vig: 25,572 predicciones emparejadas. Cuota de cierre en 94.6% de los casos; el resto es cuota pre-partido (temporadas antiguas).
 
@@ -30,9 +30,31 @@ Mercado sin vig: 25,572 predicciones emparejadas. Cuota de cierre en 94.6% de lo
 | bundesliga | -0.0011 [-0.0047, 0.0023] | 0.0024 [-0.0042, 0.0092] | -0.0025 [-0.0043, -0.0008] | -0.0054 [-0.0084, -0.0024] | — |
 | serie-a | -0.0005 [-0.0043, 0.0033] | 0.0029 [-0.0047, 0.0108] | -0.0027 [-0.0046, -0.0009] | -0.0075 [-0.0107, -0.0041] | — |
 | ligue-1 | -0.0012 [-0.0051, 0.0027] | 0.0079 [0.0008, 0.0154] | -0.0028 [-0.0047, -0.0009] | -0.0034 [-0.0068, 0.0002] | — |
-| liga-mx | -0.0020 [-0.0101, 0.0055] | 0.0003 [-0.0111, 0.0117] | -0.0030 [-0.0071, 0.0010] | -0.0039 [-0.0097, 0.0019] | — |
+| liga-mx | -0.0020 [-0.0101, 0.0055] | 0.0038 [-0.0095, 0.0173] | -0.0030 [-0.0071, 0.0010] | -0.0038 [-0.0107, 0.0030] | — |
 
 Δ negativo = el candidato pierde menos que Dixon-Coles.
+
+### Mezcla con DC-xG (goles + xG) y Elo-xG
+
+| Liga | Mezcla-xG | Mezcla DC-xG | Δ vs mezcla-xG | Mercado | Δ mezcla DC-xG − mercado |
+|---|---:|---:|---:|---:|---:|
+| premier-league | 0.9721 | 0.9722 | 0.0002 [0.0000, 0.0000] | 0.9594 | 0.0128 [0.0086, 0.0170] |
+| la-liga | 0.9670 | 0.9658 | -0.0012 [0.0000, 0.0000] | 0.9525 | 0.0133 [0.0090, 0.0175] |
+| bundesliga | 0.9928 | 0.9917 | -0.0011 [0.0000, 0.0000] | 0.9812 | 0.0105 [0.0062, 0.0149] |
+| serie-a | 0.9660 | 0.9655 | -0.0004 [0.0000, 0.0000] | 0.9489 | 0.0167 [0.0123, 0.0213] |
+| ligue-1 | 0.9987 | 0.9986 | -0.0001 [0.0000, 0.0000] | 0.9820 | 0.0166 [0.0120, 0.0213] |
+| liga-mx | 1.0012 | 1.0033 | 0.0022 [0.0000, 0.0000] | — | — |
+
+### Mezcla-xG con peso validado (0.7 DC / 0.3 Elo-xG)
+
+| Liga | 0.5/0.5 | 0.7/0.3 | Mercado | Δ 0.7−0.5 | Δ 0.7−mercado |
+|---|---:|---:|---:|---:|---:|
+| premier-league | 0.9721 | 0.9721 | 0.9594 | 0.0000 | 0.0127 [0.0087, 0.0165] |
+| la-liga | 0.9670 | 0.9678 | 0.9525 | 0.0008 | 0.0153 [0.0108, 0.0198] |
+| bundesliga | 0.9928 | 0.9936 | 0.9812 | 0.0008 | 0.0124 [0.0081, 0.0169] |
+| serie-a | 0.9660 | 0.9672 | 0.9489 | 0.0012 | 0.0183 [0.0138, 0.0227] |
+| ligue-1 | 0.9987 | 0.9984 | 0.9820 | -0.0002 | 0.0165 [0.0116, 0.0215] |
+| liga-mx | 1.0012 | 1.0013 | — | 0.0001 | — |
 
 ### Totales (más/menos 2.5) frente al mercado
 
@@ -56,8 +78,11 @@ Entrenamiento ampliado: 34,669 partidos research-only anteriores al corpus (1993
 | Brier moneyline | 7204 | 0.4623 | 0.4929 |
 | Acierto | 7204 | 61.7% | 56.2% |
 | LogLoss totales en la línea de cierre | 7204 | 0.7155 | 0.7229 |
+| LogLoss totales calibrados (Platt) | 7204 | 0.6949 | 0.7229 |
 
 Δ LogLoss moneyline frente al ingenuo: **-0.0315**, IC 95% [-0.0390, -0.0237].
+
+Calibración de totales: pendiente **0.047**, intercepto -0.052. Una pendiente cercana a 0 indica que la probabilidad de over del modelo apenas aporta información sobre la línea.
 
 Mercado sin vig (moneylines de cierre de nflverse), 5426 partidos: LogLoss 0.6106, Brier 0.4231.
 

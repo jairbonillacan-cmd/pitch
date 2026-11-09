@@ -1,0 +1,660 @@
+{
+  "schemaVersion": 1,
+  "designRevision": 1,
+  "season": "2026",
+  "edition": "Emblemas de club",
+  "source": "https://www.mlb.com/team",
+  "entries": [
+    {
+      "id": "mlb",
+      "code": "MLB",
+      "name": "Major League Baseball",
+      "shortName": "MLB",
+      "kind": "competition",
+      "motif": "Pelota y diamante",
+      "colors": {
+        "tile": "#223553",
+        "primary": "#FCF0DA",
+        "accent": "#C63A51"
+      },
+      "contrast": {
+        "primaryOnTile": 10.9364,
+        "accentOnTile": 2.4235
+      },
+      "source": "https://www.mlb.com/team",
+      "svg": "svg/mlb.svg",
+      "png": "png/mlb.png",
+      "symbolId": "pitchlab-mlb"
+    },
+    {
+      "id": "arizona-diamondbacks",
+      "code": "AZ",
+      "name": "Arizona Diamondbacks",
+      "shortName": "Diamondbacks",
+      "kind": "club",
+      "motif": "Serpiente del desierto",
+      "colors": {
+        "tile": "#7D2539",
+        "primary": "#F9DFB3",
+        "accent": "#6CB9B0"
+      },
+      "contrast": {
+        "primaryOnTile": 7.3935,
+        "accentOnTile": 4.1919
+      },
+      "source": "https://www.mlb.com/team",
+      "svg": "svg/arizona-diamondbacks.svg",
+      "png": "png/arizona-diamondbacks.png",
+      "symbolId": "pitchlab-arizona-diamondbacks"
+    },
+    {
+      "id": "athletics",
+      "code": "ATH",
+      "name": "Athletics",
+      "shortName": "Athletics",
+      "kind": "club",
+      "motif": "Elefante y oro",
+      "colors": {
+        "tile": "#1A523F",
+        "primary": "#FFE1A0",
+        "accent": "#CA9C3F"
+      },
+      "contrast": {
+        "primaryOnTile": 7.1168,
+        "accentOnTile": 3.5901
+      },
+      "source": "https://www.mlb.com/team",
+      "svg": "svg/athletics.svg",
+      "png": "png/athletics.png",
+      "symbolId": "pitchlab-athletics"
+    },
+    {
+      "id": "atlanta-braves",
+      "code": "ATL",
+      "name": "Atlanta Braves",
+      "shortName": "Braves",
+      "kind": "club",
+      "motif": "Bate y A",
+      "colors": {
+        "tile": "#273954",
+        "primary": "#F9EFDA",
+        "accent": "#C93E54"
+      },
+      "contrast": {
+        "primaryOnTile": 10.2176,
+        "accentOnTile": 2.3898
+      },
+      "source": "https://www.mlb.com/team",
+      "svg": "svg/atlanta-braves.svg",
+      "png": "png/atlanta-braves.png",
+      "symbolId": "pitchlab-atlanta-braves"
+    },
+    {
+      "id": "baltimore-orioles",
+      "code": "BAL",
+      "name": "Baltimore Orioles",
+      "shortName": "Orioles",
+      "kind": "club",
+      "motif": "Oriol naranja",
+      "colors": {
+        "tile": "#252429",
+        "primary": "#F5A157",
+        "accent": "#FDF0D5"
+      },
+      "contrast": {
+        "primaryOnTile": 7.4232,
+        "accentOnTile": 13.6471
+      },
+      "source": "https://www.mlb.com/team",
+      "svg": "svg/baltimore-orioles.svg",
+      "png": "png/baltimore-orioles.png",
+      "symbolId": "pitchlab-baltimore-orioles"
+    },
+    {
+      "id": "boston-red-sox",
+      "code": "BOS",
+      "name": "Boston Red Sox",
+      "shortName": "Red Sox",
+      "kind": "club",
+      "motif": "Medias de béisbol",
+      "colors": {
+        "tile": "#A02741",
+        "primary": "#F9EBDD",
+        "accent": "#263A58"
+      },
+      "contrast": {
+        "primaryOnTile": 6.2753,
+        "accentOnTile": 1.5648
+      },
+      "source": "https://www.mlb.com/team",
+      "svg": "svg/boston-red-sox.svg",
+      "png": "png/boston-red-sox.png",
+      "symbolId": "pitchlab-boston-red-sox"
+    },
+    {
+      "id": "chicago-cubs",
+      "code": "CHC",
+      "name": "Chicago Cubs",
+      "shortName": "Cubs",
+      "kind": "club",
+      "motif": "Osezno de frente",
+      "colors": {
+        "tile": "#234D91",
+        "primary": "#FDEED7",
+        "accent": "#CA4253"
+      },
+      "contrast": {
+        "primaryOnTile": 7.2339,
+        "accentOnTile": 1.7371
+      },
+      "source": "https://www.mlb.com/team",
+      "svg": "svg/chicago-cubs.svg",
+      "png": "png/chicago-cubs.png",
+      "symbolId": "pitchlab-chicago-cubs"
+    },
+    {
+      "id": "chicago-white-sox",
+      "code": "CWS",
+      "name": "Chicago White Sox",
+      "shortName": "White Sox",
+      "kind": "club",
+      "motif": "Bate y franjas",
+      "colors": {
+        "tile": "#25262D",
+        "primary": "#F5F1E5",
+        "accent": "#8F9BAB"
+      },
+      "contrast": {
+        "primaryOnTile": 13.342,
+        "accentOnTile": 5.3412
+      },
+      "source": "https://www.mlb.com/team",
+      "svg": "svg/chicago-white-sox.svg",
+      "png": "png/chicago-white-sox.png",
+      "symbolId": "pitchlab-chicago-white-sox"
+    },
+    {
+      "id": "cincinnati-reds",
+      "code": "CIN",
+      "name": "Cincinnati Reds",
+      "shortName": "Reds",
+      "kind": "club",
+      "motif": "C abierta y pelota",
+      "colors": {
+        "tile": "#A3233B",
+        "primary": "#FFF0E0",
+        "accent": "#DB766B"
+      },
+      "contrast": {
+        "primaryOnTile": 6.5688,
+        "accentOnTile": 2.3824
+      },
+      "source": "https://www.mlb.com/team",
+      "svg": "svg/cincinnati-reds.svg",
+      "png": "png/cincinnati-reds.png",
+      "symbolId": "pitchlab-cincinnati-reds"
+    },
+    {
+      "id": "cleveland-guardians",
+      "code": "CLE",
+      "name": "Cleveland Guardians",
+      "shortName": "Guardians",
+      "kind": "club",
+      "motif": "Pilono y alas",
+      "colors": {
+        "tile": "#243655",
+        "primary": "#F5ECDC",
+        "accent": "#D34957"
+      },
+      "contrast": {
+        "primaryOnTile": 10.332,
+        "accentOnTile": 2.8032
+      },
+      "source": "https://www.mlb.com/team",
+      "svg": "svg/cleveland-guardians.svg",
+      "png": "png/cleveland-guardians.png",
+      "symbolId": "pitchlab-cleveland-guardians"
+    },
+    {
+      "id": "colorado-rockies",
+      "code": "COL",
+      "name": "Colorado Rockies",
+      "shortName": "Rockies",
+      "kind": "club",
+      "motif": "Picos de las Rocosas",
+      "colors": {
+        "tile": "#3D2F60",
+        "primary": "#F4F1E7",
+        "accent": "#9E87C9"
+      },
+      "contrast": {
+        "primaryOnTile": 10.4754,
+        "accentOnTile": 3.8123
+      },
+      "source": "https://www.mlb.com/team",
+      "svg": "svg/colorado-rockies.svg",
+      "png": "png/colorado-rockies.png",
+      "symbolId": "pitchlab-colorado-rockies"
+    },
+    {
+      "id": "detroit-tigers",
+      "code": "DET",
+      "name": "Detroit Tigers",
+      "shortName": "Tigers",
+      "kind": "club",
+      "motif": "Tigre y rayas",
+      "colors": {
+        "tile": "#203551",
+        "primary": "#FFB06B",
+        "accent": "#FBEDD5"
+      },
+      "contrast": {
+        "primaryOnTile": 6.9101,
+        "accentOnTile": 10.7586
+      },
+      "source": "https://www.mlb.com/team",
+      "svg": "svg/detroit-tigers.svg",
+      "png": "png/detroit-tigers.png",
+      "symbolId": "pitchlab-detroit-tigers"
+    },
+    {
+      "id": "houston-astros",
+      "code": "HOU",
+      "name": "Houston Astros",
+      "shortName": "Astros",
+      "kind": "club",
+      "motif": "Estrella y órbita",
+      "colors": {
+        "tile": "#233757",
+        "primary": "#FEE9CC",
+        "accent": "#E97945"
+      },
+      "contrast": {
+        "primaryOnTile": 10.106,
+        "accentOnTile": 4.15
+      },
+      "source": "https://www.mlb.com/team",
+      "svg": "svg/houston-astros.svg",
+      "png": "png/houston-astros.png",
+      "symbolId": "pitchlab-houston-astros"
+    },
+    {
+      "id": "kansas-city-royals",
+      "code": "KC",
+      "name": "Kansas City Royals",
+      "shortName": "Royals",
+      "kind": "club",
+      "motif": "Corona azul",
+      "colors": {
+        "tile": "#254F89",
+        "primary": "#FBF0D7",
+        "accent": "#DEB052"
+      },
+      "contrast": {
+        "primaryOnTile": 7.2498,
+        "accentOnTile": 4.08
+      },
+      "source": "https://www.mlb.com/team",
+      "svg": "svg/kansas-city-royals.svg",
+      "png": "png/kansas-city-royals.png",
+      "symbolId": "pitchlab-kansas-city-royals"
+    },
+    {
+      "id": "los-angeles-angels",
+      "code": "LAA",
+      "name": "Los Angeles Angels",
+      "shortName": "Angels",
+      "kind": "club",
+      "motif": "A y halo",
+      "colors": {
+        "tile": "#8F2740",
+        "primary": "#FDF0DE",
+        "accent": "#B4CADC"
+      },
+      "contrast": {
+        "primaryOnTile": 7.3831,
+        "accentOnTile": 4.9058
+      },
+      "source": "https://www.mlb.com/team",
+      "svg": "svg/los-angeles-angels.svg",
+      "png": "png/los-angeles-angels.png",
+      "symbolId": "pitchlab-los-angeles-angels"
+    },
+    {
+      "id": "los-angeles-dodgers",
+      "code": "LAD",
+      "name": "Los Angeles Dodgers",
+      "shortName": "Dodgers",
+      "kind": "club",
+      "motif": "Pelota en ascenso",
+      "colors": {
+        "tile": "#1C4C8C",
+        "primary": "#F9F0DF",
+        "accent": "#CA3C55"
+      },
+      "contrast": {
+        "primaryOnTile": 7.5381,
+        "accentOnTile": 1.7421
+      },
+      "source": "https://www.mlb.com/team",
+      "svg": "svg/los-angeles-dodgers.svg",
+      "png": "png/los-angeles-dodgers.png",
+      "symbolId": "pitchlab-los-angeles-dodgers"
+    },
+    {
+      "id": "miami-marlins",
+      "code": "MIA",
+      "name": "Miami Marlins",
+      "shortName": "Marlins",
+      "kind": "club",
+      "motif": "Marlín de salto",
+      "colors": {
+        "tile": "#193940",
+        "primary": "#90E1DB",
+        "accent": "#F34E71"
+      },
+      "contrast": {
+        "primaryOnTile": 8.2199,
+        "accentOnTile": 3.6099
+      },
+      "source": "https://www.mlb.com/team",
+      "svg": "svg/miami-marlins.svg",
+      "png": "png/miami-marlins.png",
+      "symbolId": "pitchlab-miami-marlins"
+    },
+    {
+      "id": "milwaukee-brewers",
+      "code": "MIL",
+      "name": "Milwaukee Brewers",
+      "shortName": "Brewers",
+      "kind": "club",
+      "motif": "Espiga dorada",
+      "colors": {
+        "tile": "#243450",
+        "primary": "#FFE3A0",
+        "accent": "#CE9B39"
+      },
+      "contrast": {
+        "primaryOnTile": 9.9565,
+        "accentOnTile": 4.9773
+      },
+      "source": "https://www.mlb.com/team",
+      "svg": "svg/milwaukee-brewers.svg",
+      "png": "png/milwaukee-brewers.png",
+      "symbolId": "pitchlab-milwaukee-brewers"
+    },
+    {
+      "id": "minnesota-twins",
+      "code": "MIN",
+      "name": "Minnesota Twins",
+      "shortName": "Twins",
+      "kind": "club",
+      "motif": "Orillas gemelas",
+      "colors": {
+        "tile": "#24375B",
+        "primary": "#FCEBDD",
+        "accent": "#CF4559"
+      },
+      "contrast": {
+        "primaryOnTile": 10.1924,
+        "accentOnTile": 2.6225
+      },
+      "source": "https://www.mlb.com/team",
+      "svg": "svg/minnesota-twins.svg",
+      "png": "png/minnesota-twins.png",
+      "symbolId": "pitchlab-minnesota-twins"
+    },
+    {
+      "id": "new-york-mets",
+      "code": "NYM",
+      "name": "New York Mets",
+      "shortName": "Mets",
+      "kind": "club",
+      "motif": "Horizonte y puente",
+      "colors": {
+        "tile": "#234883",
+        "primary": "#FFF0D9",
+        "accent": "#F79B4F"
+      },
+      "contrast": {
+        "primaryOnTile": 8.0468,
+        "accentOnTile": 4.1942
+      },
+      "source": "https://www.mlb.com/team",
+      "svg": "svg/new-york-mets.svg",
+      "png": "png/new-york-mets.png",
+      "symbolId": "pitchlab-new-york-mets"
+    },
+    {
+      "id": "new-york-yankees",
+      "code": "NYY",
+      "name": "New York Yankees",
+      "shortName": "Yankees",
+      "kind": "club",
+      "motif": "Rayas y monograma",
+      "colors": {
+        "tile": "#22344E",
+        "primary": "#F5EFE3",
+        "accent": "#AC4C57"
+      },
+      "contrast": {
+        "primaryOnTile": 10.9861,
+        "accentOnTile": 2.3517
+      },
+      "source": "https://www.mlb.com/team",
+      "svg": "svg/new-york-yankees.svg",
+      "png": "png/new-york-yankees.png",
+      "symbolId": "pitchlab-new-york-yankees"
+    },
+    {
+      "id": "philadelphia-phillies",
+      "code": "PHI",
+      "name": "Philadelphia Phillies",
+      "shortName": "Phillies",
+      "kind": "club",
+      "motif": "Campana de Filadelfia",
+      "colors": {
+        "tile": "#982940",
+        "primary": "#FCEBDD",
+        "accent": "#E9A377"
+      },
+      "contrast": {
+        "primaryOnTile": 6.6268,
+        "accentOnTile": 3.657
+      },
+      "source": "https://www.mlb.com/team",
+      "svg": "svg/philadelphia-phillies.svg",
+      "png": "png/philadelphia-phillies.png",
+      "symbolId": "pitchlab-philadelphia-phillies"
+    },
+    {
+      "id": "pittsburgh-pirates",
+      "code": "PIT",
+      "name": "Pittsburgh Pirates",
+      "shortName": "Pirates",
+      "kind": "club",
+      "motif": "Vela y pabellón",
+      "colors": {
+        "tile": "#25262C",
+        "primary": "#FFDB74",
+        "accent": "#D99A39"
+      },
+      "contrast": {
+        "primaryOnTile": 11.2311,
+        "accentOnTile": 6.1997
+      },
+      "source": "https://www.mlb.com/team",
+      "svg": "svg/pittsburgh-pirates.svg",
+      "png": "png/pittsburgh-pirates.png",
+      "symbolId": "pitchlab-pittsburgh-pirates"
+    },
+    {
+      "id": "san-diego-padres",
+      "code": "SD",
+      "name": "San Diego Padres",
+      "shortName": "Padres",
+      "kind": "club",
+      "motif": "Campanas de misión",
+      "colors": {
+        "tile": "#4C342C",
+        "primary": "#FFE3A1",
+        "accent": "#CF9650"
+      },
+      "contrast": {
+        "primaryOnTile": 9.1311,
+        "accentOnTile": 4.4316
+      },
+      "source": "https://www.mlb.com/team",
+      "svg": "svg/san-diego-padres.svg",
+      "png": "png/san-diego-padres.png",
+      "symbolId": "pitchlab-san-diego-padres"
+    },
+    {
+      "id": "san-francisco-giants",
+      "code": "SF",
+      "name": "San Francisco Giants",
+      "shortName": "Giants",
+      "kind": "club",
+      "motif": "Puente de la bahía",
+      "colors": {
+        "tile": "#27252B",
+        "primary": "#FFA56B",
+        "accent": "#F8ECD7"
+      },
+      "contrast": {
+        "primaryOnTile": 7.8269,
+        "accentOnTile": 12.968
+      },
+      "source": "https://www.mlb.com/team",
+      "svg": "svg/san-francisco-giants.svg",
+      "png": "png/san-francisco-giants.png",
+      "symbolId": "pitchlab-san-francisco-giants"
+    },
+    {
+      "id": "seattle-mariners",
+      "code": "SEA",
+      "name": "Seattle Mariners",
+      "shortName": "Mariners",
+      "kind": "club",
+      "motif": "Brújula marina",
+      "colors": {
+        "tile": "#20394F",
+        "primary": "#F0F2E0",
+        "accent": "#59B8AA"
+      },
+      "contrast": {
+        "primaryOnTile": 10.5039,
+        "accentOnTile": 5.0361
+      },
+      "source": "https://www.mlb.com/team",
+      "svg": "svg/seattle-mariners.svg",
+      "png": "png/seattle-mariners.png",
+      "symbolId": "pitchlab-seattle-mariners"
+    },
+    {
+      "id": "st-louis-cardinals",
+      "code": "STL",
+      "name": "St. Louis Cardinals",
+      "shortName": "Cardinals",
+      "kind": "club",
+      "motif": "Cardenal y bate",
+      "colors": {
+        "tile": "#8C253A",
+        "primary": "#FFEEE1",
+        "accent": "#E0A044"
+      },
+      "contrast": {
+        "primaryOnTile": 7.6077,
+        "accentOnTile": 3.8025
+      },
+      "source": "https://www.mlb.com/team",
+      "svg": "svg/st-louis-cardinals.svg",
+      "png": "png/st-louis-cardinals.png",
+      "symbolId": "pitchlab-st-louis-cardinals"
+    },
+    {
+      "id": "tampa-bay-rays",
+      "code": "TB",
+      "name": "Tampa Bay Rays",
+      "shortName": "Rays",
+      "kind": "club",
+      "motif": "Destello costero",
+      "colors": {
+        "tile": "#1C375E",
+        "primary": "#FEF1D6",
+        "accent": "#F5C96A"
+      },
+      "contrast": {
+        "primaryOnTile": 10.6785,
+        "accentOnTile": 7.6503
+      },
+      "source": "https://www.mlb.com/team",
+      "svg": "svg/tampa-bay-rays.svg",
+      "png": "png/tampa-bay-rays.png",
+      "symbolId": "pitchlab-tampa-bay-rays"
+    },
+    {
+      "id": "texas-rangers",
+      "code": "TEX",
+      "name": "Texas Rangers",
+      "shortName": "Rangers",
+      "kind": "club",
+      "motif": "Estrella y gran T",
+      "colors": {
+        "tile": "#23477E",
+        "primary": "#FBECDD",
+        "accent": "#D44E56"
+      },
+      "contrast": {
+        "primaryOnTile": 7.9788,
+        "accentOnTile": 2.2091
+      },
+      "source": "https://www.mlb.com/team",
+      "svg": "svg/texas-rangers.svg",
+      "png": "png/texas-rangers.png",
+      "symbolId": "pitchlab-texas-rangers"
+    },
+    {
+      "id": "toronto-blue-jays",
+      "code": "TOR",
+      "name": "Toronto Blue Jays",
+      "shortName": "Blue Jays",
+      "kind": "club",
+      "motif": "Arrendajo y arce",
+      "colors": {
+        "tile": "#194681",
+        "primary": "#F6F0DF",
+        "accent": "#D54555"
+      },
+      "contrast": {
+        "primaryOnTile": 8.2564,
+        "accentOnTile": 2.1534
+      },
+      "source": "https://www.mlb.com/team",
+      "svg": "svg/toronto-blue-jays.svg",
+      "png": "png/toronto-blue-jays.png",
+      "symbolId": "pitchlab-toronto-blue-jays"
+    },
+    {
+      "id": "washington-nationals",
+      "code": "WSH",
+      "name": "Washington Nationals",
+      "shortName": "Nationals",
+      "kind": "club",
+      "motif": "Cúpula del Capitolio",
+      "colors": {
+        "tile": "#8F293D",
+        "primary": "#FCF0DE",
+        "accent": "#4B6993"
+      },
+      "contrast": {
+        "primaryOnTile": 7.3097,
+        "accentOnTile": 1.4657
+      },
+      "source": "https://www.mlb.com/team",
+      "svg": "svg/washington-nationals.svg",
+      "png": "png/washington-nationals.png",
+      "symbolId": "pitchlab-washington-nationals"
+    }
+  ]
+}

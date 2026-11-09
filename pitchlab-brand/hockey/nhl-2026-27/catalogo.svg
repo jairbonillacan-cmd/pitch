@@ -1,0 +1,532 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" aria-label="PitchLab · NHL 2026/27 · Colección de emblemas" viewBox="0 0 1810 1130" width="1810" height="1130">
+  <title>PitchLab · NHL 2026/27 · Colección de emblemas</title>
+  <defs>
+  <symbol id="pitchlab-nhl" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-nhl-field"><path d="M24 7H56L73 24V56L56 73H24L7 56V24Z"/></clipPath></defs>
+  <path d="M24 7H56L73 24V56L56 73H24L7 56V24Z" fill="#242D40"/>
+  <g clip-path="url(#pitchlab-nhl-field)">
+    <path d="M18 20 23 17 50 49 60 46 64 52 49 59 45 54Z" fill="#F7F3E5" fill-rule="evenodd"/>
+    <path d="M62 20 57 17 30 49 20 46 16 52 31 59 35 54Z" fill="#F7F3E5" fill-rule="evenodd"/>
+    <path d="M33 38Q40 34 47 38V44Q40 48 33 44Z" fill="#82A6C1" fill-rule="evenodd"/>
+  </g>
+  <path d="M24 7H56L73 24V56L56 73H24L7 56V24Z" fill="none" stroke="#F7F3E5" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-anaheim-ducks" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-anaheim-ducks-field"><path d="M24 7H56L73 24V56L56 73H24L7 56V24Z"/></clipPath></defs>
+  <path d="M24 7H56L73 24V56L56 73H24L7 56V24Z" fill="#312731"/>
+  <g clip-path="url(#pitchlab-anaheim-ducks-field)">
+    <path d="M19 47 28 40 27 32 36 22 45 21 54 27 55 35 64 42 58 47 46 43 44 51 33 60 20 57Z" fill="#FFE6C4" fill-rule="evenodd"/>
+    <path d="M45 38 55 35 64 42 58 47 49 45Z" fill="#F38645" fill-rule="evenodd"/>
+    <path d="M42 30 49 31 46 35Z" fill="#312731" fill-rule="evenodd"/>
+  </g>
+  <path d="M24 7H56L73 24V56L56 73H24L7 56V24Z" fill="none" stroke="#FFE6C4" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-boston-bruins" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-boston-bruins-field"><path d="M40 6A34 34 0 1 1 40 74 34 34 0 0 1 40 6Z"/></clipPath></defs>
+  <path d="M40 6A34 34 0 1 1 40 74 34 34 0 0 1 40 6Z" fill="#25272E"/>
+  <g clip-path="url(#pitchlab-boston-bruins-field)">
+    <path d="M25 24 33 25 36 29H44L47 25 55 24 59 32 55 38 59 45 54 55 40 62 26 55 21 45 25 38 21 32Z" fill="#FFCB60" fill-rule="evenodd"/>
+    <path d="M15 32 19 35 15 39ZM65 32V39L61 35ZM36 51H44L40 56Z" fill="#FFF0D4" fill-rule="evenodd"/>
+    <path d="M28 39 37 43 34 46 29 44ZM52 39 51 44 46 46 43 43Z" fill="#25272E" fill-rule="evenodd"/>
+  </g>
+  <path d="M40 6A34 34 0 1 1 40 74 34 34 0 0 1 40 6Z" fill="none" stroke="#FFCB60" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-buffalo-sabres" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-buffalo-sabres-field"><path d="M40 6A34 34 0 1 1 40 74 34 34 0 0 1 40 6Z"/></clipPath></defs>
+  <path d="M40 6A34 34 0 1 1 40 74 34 34 0 0 1 40 6Z" fill="#214580"/>
+  <g clip-path="url(#pitchlab-buffalo-sabres-field)">
+    <path d="M17 38 22 32 25 23 38 18 47 25 54 26 60 21 61 31 57 40 49 42 46 47H40V42H32L29 47H23L25 40Z" fill="#FFE291" fill-rule="evenodd"/>
+    <path d="M21 52 60 64" fill="none" stroke="#F3F0E5" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M59 52 20 64" fill="none" stroke="#F3F0E5" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M49 32 54 31 52 35Z" fill="#214580" fill-rule="evenodd"/>
+  </g>
+  <path d="M40 6A34 34 0 1 1 40 74 34 34 0 0 1 40 6Z" fill="none" stroke="#FFE291" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-calgary-flames" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-calgary-flames-field"><path d="M11 17Q25 15 40 8 55 15 69 17L66 46Q61 64 40 74 19 64 14 46Z"/></clipPath></defs>
+  <path d="M11 17Q25 15 40 8 55 15 69 17L66 46Q61 64 40 74 19 64 14 46Z" fill="#9C2335"/>
+  <g clip-path="url(#pitchlab-calgary-flames-field)">
+    <path d="M19 52 26 41 17 43 26 34 20 31 38 27 46 16 52 27 52 35 60 30 64 44 57 57 43 64 30 60Z" fill="#FFE08F" fill-rule="evenodd"/>
+    <path d="M30 52 37 45 43 34 46 46 54 43 52 53 43 59Z" fill="#E7713B" fill-rule="evenodd"/>
+  </g>
+  <path d="M11 17Q25 15 40 8 55 15 69 17L66 46Q61 64 40 74 19 64 14 46Z" fill="none" stroke="#FFE08F" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-carolina-hurricanes" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-carolina-hurricanes-field"><path d="M40 6C58 6 71 20 71 40S58 74 40 74 9 60 9 40 22 6 40 6Z"/></clipPath></defs>
+  <path d="M40 6C58 6 71 20 71 40S58 74 40 74 9 60 9 40 22 6 40 6Z" fill="#9D2138"/>
+  <g clip-path="url(#pitchlab-carolina-hurricanes-field)">
+    <path d="M13 41Q18 19 44 20 60 21 67 33 57 27 42 27 31 33 31 41 31 48 42 52 51 45L46 40 40 43 36 38 42 32 49 34 58 44 52 54 41 59 26 56 17 49Z" fill="#FCF0E3" fill-rule="evenodd"/>
+    <path d="M16 56Q36 67 51 60L63 53 58 62Q42 74 23 65Z" fill="#262935" fill-rule="evenodd"/>
+  </g>
+  <path d="M40 6C58 6 71 20 71 40S58 74 40 74 9 60 9 40 22 6 40 6Z" fill="none" stroke="#FCF0E3" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-chicago-blackhawks" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-chicago-blackhawks-field"><path d="M11 17Q25 15 40 8 55 15 69 17L66 46Q61 64 40 74 19 64 14 46Z"/></clipPath></defs>
+  <path d="M11 17Q25 15 40 8 55 15 69 17L66 46Q61 64 40 74 19 64 14 46Z" fill="#9D2339"/>
+  <g clip-path="url(#pitchlab-chicago-blackhawks-field)">
+    <path d="M18 28 30 28 38 36 39 29 46 22 55 24 64 30 55 34 53 42 47 49 52 56 40 63 31 56 34 48 26 46 20 39Z" fill="#FDE5BC" fill-rule="evenodd"/>
+    <path d="M20 48 28 50 25 57ZM53 49 62 44 59 55 54 59Z" fill="#639374" fill-rule="evenodd"/>
+    <path d="M46 29 52 29 49 33Z" fill="#9D2339" fill-rule="evenodd"/>
+  </g>
+  <path d="M11 17Q25 15 40 8 55 15 69 17L66 46Q61 64 40 74 19 64 14 46Z" fill="none" stroke="#FDE5BC" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-colorado-avalanche" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-colorado-avalanche-field"><path d="M40 7 66 16 73 33 64 58 40 74 16 58 7 33 14 16Z"/></clipPath></defs>
+  <path d="M40 7 66 16 73 33 64 58 40 74 16 58 7 33 14 16Z" fill="#66283D"/>
+  <g clip-path="url(#pitchlab-colorado-avalanche-field)">
+    <path d="M17 52 38 18 51 38 58 33 65 48 61 54 53 44 48 49 38 31 24 55Z" fill="#F8F1DD" fill-rule="evenodd"/>
+    <path d="M17 59Q27 52 38 57T61 55" fill="none" stroke="#80ACC7" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M26 64Q34 61 41 64T56 61" fill="none" stroke="#80ACC7" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <path d="M40 7 66 16 73 33 64 58 40 74 16 58 7 33 14 16Z" fill="none" stroke="#F8F1DD" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-columbus-blue-jackets" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-columbus-blue-jackets-field"><path d="M27 10H53L70 27 65 55 40 74 15 55 10 27Z"/></clipPath></defs>
+  <path d="M27 10H53L70 27 65 55 40 74 15 55 10 27Z" fill="#223654"/>
+  <g clip-path="url(#pitchlab-columbus-blue-jackets-field)">
+    <path d="M39 17 45 32 61 33 49 43 53 58 39 50 25 58 29 43 17 33 34 32Z" fill="#FCF0DB" fill-rule="evenodd"/>
+    <path d="M17 52Q29 52 37 59 45 65 57 57" fill="none" stroke="#CC3B55" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <path d="M27 10H53L70 27 65 55 40 74 15 55 10 27Z" fill="none" stroke="#FCF0DB" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-dallas-stars" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-dallas-stars-field"><path d="M11 17Q25 15 40 8 55 15 69 17L66 46Q61 64 40 74 19 64 14 46Z"/></clipPath></defs>
+  <path d="M11 17Q25 15 40 8 55 15 69 17L66 46Q61 64 40 74 19 64 14 46Z" fill="#18523E"/>
+  <g clip-path="url(#pitchlab-dallas-stars-field)">
+    <path d="M39 15 45 31 63 32 49 43 54 61 39 52 24 61 29 43 15 32 33 31Z" fill="#F6F1DF" fill-rule="evenodd"/>
+    <path d="M19 59 28 55 32 60 23 64ZM50 55 57 57 62 62 55 64Z" fill="#86AF9C" fill-rule="evenodd"/>
+    <path d="M39 29 44 39 39 45 34 39Z" fill="#18523E" fill-rule="evenodd"/>
+  </g>
+  <path d="M11 17Q25 15 40 8 55 15 69 17L66 46Q61 64 40 74 19 64 14 46Z" fill="none" stroke="#F6F1DF" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-detroit-red-wings" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-detroit-red-wings-field"><path d="M40 6C58 6 71 20 71 40S58 74 40 74 9 60 9 40 22 6 40 6Z"/></clipPath></defs>
+  <path d="M40 6C58 6 71 20 71 40S58 74 40 74 9 60 9 40 22 6 40 6Z" fill="#A22035"/>
+  <g clip-path="url(#pitchlab-detroit-red-wings-field)">
+    <path d="M27 32 41 31 60 20 61 26 53 35 63 30 60 39 53 44 61 42 57 49 47 53 42 60 32 64 23 59 18 51 20 39Z" fill="#FFEEDD" fill-rule="evenodd"/>
+    <path d="M30 41Q40 38 45 48 42 58 32 57 23 53 25 46Z" fill="#E39382" fill-rule="evenodd"/>
+    <path d="M31 46 38 45 41 50 37 54 31 53 28 50Z" fill="#A22035" fill-rule="evenodd"/>
+  </g>
+  <path d="M40 6C58 6 71 20 71 40S58 74 40 74 9 60 9 40 22 6 40 6Z" fill="none" stroke="#FFEEDD" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-edmonton-oilers" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-edmonton-oilers-field"><path d="M24 7H56L73 24V56L56 73H24L7 56V24Z"/></clipPath></defs>
+  <path d="M24 7H56L73 24V56L56 73H24L7 56V24Z" fill="#213650"/>
+  <g clip-path="url(#pitchlab-edmonton-oilers-field)">
+    <path d="M40 15C43 25 57 34 57 46 57 58 48 64 40 64 32 64 23 58 23 46 23 34 37 25 40 15Z" fill="#FFEBDD" fill-rule="evenodd"/>
+    <path d="M40 29C38 35 31 40 31 47 31 52 35 56 40 56 45 56 49 52 49 47 49 40 42 35 40 29Z" fill="#F48048" fill-rule="evenodd"/>
+  </g>
+  <path d="M24 7H56L73 24V56L56 73H24L7 56V24Z" fill="none" stroke="#FFEBDD" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-florida-panthers" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-florida-panthers-field"><path d="M11 20 23 11H57L69 20V46L60 63 40 73 20 63 11 46Z"/></clipPath></defs>
+  <path d="M11 20 23 11H57L69 20V46L60 63 40 73 20 63 11 46Z" fill="#782537"/>
+  <g clip-path="url(#pitchlab-florida-panthers-field)">
+    <path d="M17 23 29 27 37 22H43L51 27 63 23 61 36 55 43 57 50 49 59 40 64 31 59 23 50 25 43 19 36Z" fill="#FFE3AE" fill-rule="evenodd"/>
+    <path d="M25 49 33 47 40 51 47 47 55 49 49 58 40 61 31 58Z" fill="#353E5A" fill-rule="evenodd"/>
+    <path d="M25 36 36 41 33 45 28 42ZM55 36 52 42 47 45 44 41Z" fill="#782537" fill-rule="evenodd"/>
+  </g>
+  <path d="M11 20 23 11H57L69 20V46L60 63 40 73 20 63 11 46Z" fill="none" stroke="#FFE3AE" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-los-angeles-kings" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-los-angeles-kings-field"><path d="M40 7 66 16 73 33 64 58 40 74 16 58 7 33 14 16Z"/></clipPath></defs>
+  <path d="M40 7 66 16 73 33 64 58 40 74 16 58 7 33 14 16Z" fill="#25262D"/>
+  <g clip-path="url(#pitchlab-los-angeles-kings-field)">
+    <path d="M16 28 29 34 40 22 51 34 64 28 59 51H21ZM24 55H56V62H24Z" fill="#F3EEE1" fill-rule="evenodd"/>
+    <path d="M35 40 40 34 45 40 40 46Z" fill="#8C9BAC" fill-rule="evenodd"/>
+  </g>
+  <path d="M40 7 66 16 73 33 64 58 40 74 16 58 7 33 14 16Z" fill="none" stroke="#F3EEE1" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-minnesota-wild" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-minnesota-wild-field"><path d="M11 17Q25 15 40 8 55 15 69 17L66 46Q61 64 40 74 19 64 14 46Z"/></clipPath></defs>
+  <path d="M11 17Q25 15 40 8 55 15 69 17L66 46Q61 64 40 74 19 64 14 46Z" fill="#214B40"/>
+  <g clip-path="url(#pitchlab-minnesota-wild-field)">
+    <path d="M18 46 29 29 35 34 41 22 49 34 54 29 64 46 55 49 55 58 47 61 43 55 34 54 29 62 22 61 25 52Z" fill="#FAE9BE" fill-rule="evenodd"/>
+    <path d="M17 27 24 24 29 28 24 33Z" fill="#C9554D" fill-rule="evenodd"/>
+    <path d="M19 47 32 47 40 42 49 45 57 43 53 48 44 48 40 46 33 51 25 51Z" fill="#214B40" fill-rule="evenodd"/>
+  </g>
+  <path d="M11 17Q25 15 40 8 55 15 69 17L66 46Q61 64 40 74 19 64 14 46Z" fill="none" stroke="#FAE9BE" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-montreal-canadiens" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-montreal-canadiens-field"><path d="M40 6A34 34 0 1 1 40 74 34 34 0 0 1 40 6Z"/></clipPath></defs>
+  <path d="M40 6A34 34 0 1 1 40 74 34 34 0 0 1 40 6Z" fill="#8E263C"/>
+  <g clip-path="url(#pitchlab-montreal-canadiens-field)">
+    <path d="M55 22 61 29 53 35Q45 28 36 31 28 34 28 41 28 50 38 53 46 55 53 48L61 54Q53 62 41 62 19 62 18 42 18 22 38 20 49 20 55 22Z" fill="#FFF0D9" fill-rule="evenodd"/>
+    <path d="M38 34H45V40H52V34H58V51H52V46H45V51H38Z" fill="#5F88B8" fill-rule="evenodd"/>
+  </g>
+  <path d="M40 6A34 34 0 1 1 40 74 34 34 0 0 1 40 6Z" fill="none" stroke="#FFF0D9" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-nashville-predators" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-nashville-predators-field"><path d="M10 23Q17 8 40 8T70 23V49Q65 67 40 74 15 67 10 49Z"/></clipPath></defs>
+  <path d="M10 23Q17 8 40 8T70 23V49Q65 67 40 74 15 67 10 49Z" fill="#F6CB55"/>
+  <g clip-path="url(#pitchlab-nashville-predators-field)">
+    <path d="M23 22 35 23 41 28 55 25 63 35 60 43 50 46 51 60 44 65 40 52 36 55 28 53 24 43 16 36Z" fill="#243554" fill-rule="evenodd"/>
+    <path d="M44 47 49 45 49 56 46 60Z" fill="#FFF0D2" fill-rule="evenodd"/>
+    <path d="M43 35 52 32 51 37 47 40Z" fill="#F6CB55" fill-rule="evenodd"/>
+  </g>
+  <path d="M10 23Q17 8 40 8T70 23V49Q65 67 40 74 15 67 10 49Z" fill="none" stroke="#243554" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-new-jersey-devils" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-new-jersey-devils-field"><path d="M10 23Q17 8 40 8T70 23V49Q65 67 40 74 15 67 10 49Z"/></clipPath></defs>
+  <path d="M10 23Q17 8 40 8T70 23V49Q65 67 40 74 15 67 10 49Z" fill="#A02239"/>
+  <g clip-path="url(#pitchlab-new-jersey-devils-field)">
+    <path d="M17 20 30 28 36 22H44L50 28 63 20 59 38 53 44 55 50 46 58 40 61 34 58 25 50 27 44 21 38Z" fill="#F9EFE0" fill-rule="evenodd"/>
+    <path d="M54 54 61 51 65 45 66 53 61 61 50 65 46 62Z" fill="#302931" fill-rule="evenodd"/>
+    <path d="M25 38 36 42 33 46 28 44ZM55 38 52 44 47 46 44 42ZM36 51H44L40 55Z" fill="#A02239" fill-rule="evenodd"/>
+  </g>
+  <path d="M10 23Q17 8 40 8T70 23V49Q65 67 40 74 15 67 10 49Z" fill="none" stroke="#F9EFE0" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-new-york-islanders" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-new-york-islanders-field"><path d="M40 6A34 34 0 1 1 40 74 34 34 0 0 1 40 6Z"/></clipPath></defs>
+  <path d="M40 6A34 34 0 1 1 40 74 34 34 0 0 1 40 6Z" fill="#214982"/>
+  <g clip-path="url(#pitchlab-new-york-islanders-field)">
+    <path d="M35 28H45L49 54H31ZM30 26 40 18 50 26ZM23 55H57V61H23Z" fill="#F8F0DA" fill-rule="evenodd"/>
+    <path d="M16 47Q23 44 28 48M52 48Q57 44 64 47" fill="none" stroke="#F5A153" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M19 61Q25 57 32 62T53 62 61 59" fill="none" stroke="#F5A153" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M38 35H42V41H38Z" fill="#214982" fill-rule="evenodd"/>
+  </g>
+  <path d="M40 6A34 34 0 1 1 40 74 34 34 0 0 1 40 6Z" fill="none" stroke="#F8F0DA" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-new-york-rangers" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-new-york-rangers-field"><path d="M40 7 66 16 73 33 64 58 40 74 16 58 7 33 14 16Z"/></clipPath></defs>
+  <path d="M40 7 66 16 73 33 64 58 40 74 16 58 7 33 14 16Z" fill="#214C88"/>
+  <g clip-path="url(#pitchlab-new-york-rangers-field)">
+    <path d="M16 46 52 16 58 21 21 53ZM22 55 59 24 64 29 27 60Z" fill="#F9EDDA" fill-rule="evenodd"/>
+    <path d="M39 44 44 46 49 43 48 49 52 53 46 53 42 58 41 52 35 49Z" fill="#C9334D" fill-rule="evenodd"/>
+  </g>
+  <path d="M40 7 66 16 73 33 64 58 40 74 16 58 7 33 14 16Z" fill="none" stroke="#F9EDDA" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-ottawa-senators" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-ottawa-senators-field"><path d="M40 6C58 6 71 20 71 40S58 74 40 74 9 60 9 40 22 6 40 6Z"/></clipPath></defs>
+  <path d="M40 6C58 6 71 20 71 40S58 74 40 74 9 60 9 40 22 6 40 6Z" fill="#8C263A"/>
+  <g clip-path="url(#pitchlab-ottawa-senators-field)">
+    <path d="M22 28 27 20 42 17 53 20 59 26 56 30 45 27 33 29 27 37ZM34 34 45 30 55 35 55 43 62 48 53 52 48 61 36 61 28 54 26 44Z" fill="#FFE0A1" fill-rule="evenodd"/>
+    <path d="M31 20 40 16 53 19 51 24 38 23Z" fill="#CB554D" fill-rule="evenodd"/>
+    <path d="M43 39H53L47 43ZM37 47 42 49 38 55 34 50Z" fill="#8C263A" fill-rule="evenodd"/>
+  </g>
+  <path d="M40 6C58 6 71 20 71 40S58 74 40 74 9 60 9 40 22 6 40 6Z" fill="none" stroke="#FFE0A1" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-philadelphia-flyers" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-philadelphia-flyers-field"><path d="M24 7H56L73 24V56L56 73H24L7 56V24Z"/></clipPath></defs>
+  <path d="M24 7H56L73 24V56L56 73H24L7 56V24Z" fill="#27282D"/>
+  <g clip-path="url(#pitchlab-philadelphia-flyers-field)">
+    <path d="M16 23H40L48 29 56 28 63 35 64 44 60 52 51 58H39L31 53 28 48H23L20 43H27L24 38H20L17 33H30L26 28H20ZM45 37 39 43 43 50H52L57 43 52 37Z" fill="#FFF0DC" fill-rule="evenodd"/>
+    <path d="M43 41H52L54 44 50 47H45L42 44Z" fill="#EF813F" fill-rule="evenodd"/>
+  </g>
+  <path d="M24 7H56L73 24V56L56 73H24L7 56V24Z" fill="none" stroke="#FFF0DC" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-pittsburgh-penguins" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-pittsburgh-penguins-field"><path d="M40 7 66 16 73 33 64 58 40 74 16 58 7 33 14 16Z"/></clipPath></defs>
+  <path d="M40 7 66 16 73 33 64 58 40 74 16 58 7 33 14 16Z" fill="#25262E"/>
+  <g clip-path="url(#pitchlab-pittsburgh-penguins-field)">
+    <path d="M40 15 64 56 40 68 16 56Z" fill="#FFE3A3" fill-rule="evenodd"/>
+    <path d="M37 23 46 25 48 31 54 35 47 40 49 49 45 57H35L30 51 32 43 26 39 29 34 34 32Z" fill="#F9F2E0" fill-rule="evenodd"/>
+    <path d="M36 39 43 38 44 46 41 52H36L34 47Z M43 29H46L45 32Z" fill="#25262E" fill-rule="evenodd"/>
+  </g>
+  <path d="M40 7 66 16 73 33 64 58 40 74 16 58 7 33 14 16Z" fill="none" stroke="#FFE3A3" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-san-jose-sharks" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-san-jose-sharks-field"><path d="M11 17Q25 15 40 8 55 15 69 17L66 46Q61 64 40 74 19 64 14 46Z"/></clipPath></defs>
+  <path d="M11 17Q25 15 40 8 55 15 69 17L66 46Q61 64 40 74 19 64 14 46Z" fill="#154C53"/>
+  <g clip-path="url(#pitchlab-san-jose-sharks-field)">
+    <path d="M16 45 29 35 34 22 43 31 55 31 66 39 55 44 60 48 45 54 31 51 25 56 15 58 22 49Z" fill="#F6F0DC" fill-rule="evenodd"/>
+    <path d="M27 54 40 56 49 54 46 59 37 63 27 61Z" fill="#62C0B4" fill-rule="evenodd"/>
+    <path d="M49 37 55 37 52 40ZM44 44 55 43 49 47Z" fill="#154C53" fill-rule="evenodd"/>
+  </g>
+  <path d="M11 17Q25 15 40 8 55 15 69 17L66 46Q61 64 40 74 19 64 14 46Z" fill="none" stroke="#F6F0DC" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-seattle-kraken" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-seattle-kraken-field"><path d="M27 10H53L70 27 65 55 40 74 15 55 10 27Z"/></clipPath></defs>
+  <path d="M27 10H53L70 27 65 55 40 74 15 55 10 27Z" fill="#20384E"/>
+  <g clip-path="url(#pitchlab-seattle-kraken-field)">
+    <path d="M54 19C37 12 24 22 26 34 27 42 42 42 45 48 48 56 38 59 31 55 24 51 22 51 17 56 25 63 37 65 47 62 58 57 60 49 56 43 51 35 40 33 38 30 36 24 45 21 54 27Z" fill="#A1DBDC" fill-rule="evenodd"/>
+    <path d="M45 28 51 30 46 33 42 31Z" fill="#DE515F" fill-rule="evenodd"/>
+  </g>
+  <path d="M27 10H53L70 27 65 55 40 74 15 55 10 27Z" fill="none" stroke="#A1DBDC" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-st-louis-blues" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-st-louis-blues-field"><path d="M40 6C58 6 71 20 71 40S58 74 40 74 9 60 9 40 22 6 40 6Z"/></clipPath></defs>
+  <path d="M40 6C58 6 71 20 71 40S58 74 40 74 9 60 9 40 22 6 40 6Z" fill="#224782"/>
+  <g clip-path="url(#pitchlab-st-louis-blues-field)">
+    <path d="M19 50Q19 43 27 42H35V23L57 18 62 23 54 28 63 28 59 34 45 38V49Q45 57 33 61 22 61 19 54Z" fill="#FCF0D8" fill-rule="evenodd"/>
+    <path d="M46 26 55 24 50 28Z" fill="#F2C757" fill-rule="evenodd"/>
+    <path d="M26 50 33 47 36 50 31 54 26 53Z" fill="#224782" fill-rule="evenodd"/>
+  </g>
+  <path d="M40 6C58 6 71 20 71 40S58 74 40 74 9 60 9 40 22 6 40 6Z" fill="none" stroke="#FCF0D8" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-tampa-bay-lightning" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-tampa-bay-lightning-field"><path d="M40 6A34 34 0 1 1 40 74 34 34 0 0 1 40 6Z"/></clipPath></defs>
+  <path d="M40 6A34 34 0 1 1 40 74 34 34 0 0 1 40 6Z" fill="#204B91"/>
+  <g clip-path="url(#pitchlab-tampa-bay-lightning-field)">
+    <path d="M43 13 24 41H37L32 65 56 35H43L50 13Z" fill="#F7F3E2" fill-rule="evenodd"/>
+    <path d="M19 28Q13 42 21 52M60 29Q67 42 59 52" fill="none" stroke="#84BCDF" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <path d="M40 6A34 34 0 1 1 40 74 34 34 0 0 1 40 6Z" fill="none" stroke="#F7F3E2" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-toronto-maple-leafs" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-toronto-maple-leafs-field"><path d="M11 17Q25 15 40 8 55 15 69 17L66 46Q61 64 40 74 19 64 14 46Z"/></clipPath></defs>
+  <path d="M11 17Q25 15 40 8 55 15 69 17L66 46Q61 64 40 74 19 64 14 46Z" fill="#254989"/>
+  <g clip-path="url(#pitchlab-toronto-maple-leafs-field)">
+    <path d="M40 16 46 29 53 26 52 37 62 34 59 44 63 48 46 53 44 62H36L34 53 17 48 21 44 18 34 28 37 27 26 34 29Z" fill="#F4F2E2" fill-rule="evenodd"/>
+    <path d="M38 41 42 37V48L51 45 47 50 42 52V57H38Z" fill="#7EABDA" fill-rule="evenodd"/>
+  </g>
+  <path d="M11 17Q25 15 40 8 55 15 69 17L66 46Q61 64 40 74 19 64 14 46Z" fill="none" stroke="#F4F2E2" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-utah-mammoth" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-utah-mammoth-field"><path d="M40 7 66 16 73 33 64 58 40 74 16 58 7 33 14 16Z"/></clipPath></defs>
+  <path d="M40 7 66 16 73 33 64 58 40 74 16 58 7 33 14 16Z" fill="#243341"/>
+  <g clip-path="url(#pitchlab-utah-mammoth-field)">
+    <path d="M19 27 28 23 35 27 40 23 45 27 52 23 61 27 62 40 54 49 48 49 47 58 43 65 35 63 32 58 35 55 38 59 41 56V43L37 42 33 49H26L18 40Z" fill="#EBF1E7" fill-rule="evenodd"/>
+    <path d="M16 43 25 53 32 53 34 58 28 62 20 57ZM64 43 60 57 52 62 46 58 48 53H55Z" fill="#8CC5E2" fill-rule="evenodd"/>
+    <path d="M28 36 36 37 32 41ZM52 36 48 41 44 37Z" fill="#243341" fill-rule="evenodd"/>
+  </g>
+  <path d="M40 7 66 16 73 33 64 58 40 74 16 58 7 33 14 16Z" fill="none" stroke="#EBF1E7" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-vancouver-canucks" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-vancouver-canucks-field"><path d="M10 23Q17 8 40 8T70 23V49Q65 67 40 74 15 67 10 49Z"/></clipPath></defs>
+  <path d="M10 23Q17 8 40 8T70 23V49Q65 67 40 74 15 67 10 49Z" fill="#224C7B"/>
+  <g clip-path="url(#pitchlab-vancouver-canucks-field)">
+    <path d="M16 45 25 37 32 28 31 18 40 24 47 24 56 28 63 34 56 39 52 46 46 48 36 45 29 47 21 55Z" fill="#F3F1E2" fill-rule="evenodd"/>
+    <path d="M19 56Q29 51 39 57T60 55" fill="none" stroke="#58B58D" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M24 62Q32 58 40 63T55 62" fill="none" stroke="#58B58D" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M45 32 52 31 55 34 48 37 44 36Z" fill="#224C7B" fill-rule="evenodd"/>
+  </g>
+  <path d="M10 23Q17 8 40 8T70 23V49Q65 67 40 74 15 67 10 49Z" fill="none" stroke="#F3F1E2" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-vegas-golden-knights" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-vegas-golden-knights-field"><path d="M11 17Q25 15 40 8 55 15 69 17L66 46Q61 64 40 74 19 64 14 46Z"/></clipPath></defs>
+  <path d="M11 17Q25 15 40 8 55 15 69 17L66 46Q61 64 40 74 19 64 14 46Z" fill="#292C35"/>
+  <g clip-path="url(#pitchlab-vegas-golden-knights-field)">
+    <path d="M40 16 56 24 59 37 55 50 40 64 25 50 21 37 24 24Z" fill="#F5CF7E" fill-rule="evenodd"/>
+    <path d="M36 55 40 59 44 55 40 53Z" fill="#C45A48" fill-rule="evenodd"/>
+    <path d="M24 33 36 36 40 43 44 36 56 33 51 42 45 44 40 52 35 44 29 42Z" fill="#292C35" fill-rule="evenodd"/>
+  </g>
+  <path d="M11 17Q25 15 40 8 55 15 69 17L66 46Q61 64 40 74 19 64 14 46Z" fill="none" stroke="#F5CF7E" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-washington-capitals" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-washington-capitals-field"><path d="M10 23Q17 8 40 8T70 23V49Q65 67 40 74 15 67 10 49Z"/></clipPath></defs>
+  <path d="M10 23Q17 8 40 8T70 23V49Q65 67 40 74 15 67 10 49Z" fill="#283D5C"/>
+  <g clip-path="url(#pitchlab-washington-capitals-field)">
+    <path d="M36 29H44V33C52 35 56 40 56 45H24C24 40 28 35 36 33ZM19 48H61V54H19ZM24 57H56V63H24Z" fill="#FAEFE0" fill-rule="evenodd"/>
+    <path d="M40 14 44 19 50 20 46 24 47 29 40 26 33 29 34 24 30 20 36 19Z" fill="#D74755" fill-rule="evenodd"/>
+  </g>
+  <path d="M10 23Q17 8 40 8T70 23V49Q65 67 40 74 15 67 10 49Z" fill="none" stroke="#FAEFE0" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-winnipeg-jets" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-winnipeg-jets-field"><path d="M40 6A34 34 0 1 1 40 74 34 34 0 0 1 40 6Z"/></clipPath></defs>
+  <path d="M40 6A34 34 0 1 1 40 74 34 34 0 0 1 40 6Z" fill="#283A59"/>
+  <g clip-path="url(#pitchlab-winnipeg-jets-field)">
+    <path d="M40 16 47 25V35L63 47V53L46 48 45 57 52 62V65L40 61 28 65V62L35 57 34 48 17 53V47L33 35V25Z" fill="#F3F0E2" fill-rule="evenodd"/>
+    <path d="M26 30 30 30V35L25 39 21 36ZM54 30 59 36 55 39 50 35V30Z" fill="#CA4458" fill-rule="evenodd"/>
+  </g>
+  <path d="M40 6A34 34 0 1 1 40 74 34 34 0 0 1 40 6Z" fill="none" stroke="#F3F0E2" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  </defs>
+  <rect width="1810" height="1130" fill="#F4EFE3"/>
+    <rect x="30" y="25" width="1750" height="1080" rx="3" fill="none" stroke="#D6C8B2"/>
+  <g font-family="Segoe UI, Arial, sans-serif" fill="#725D5E">
+    <text x="59" y="61" font-size="14" font-weight="700" letter-spacing="2">PITCHLAB / HOCKEY</text>
+    <text x="1751" y="61" font-size="14" font-weight="700" letter-spacing="2" text-anchor="end">ESTADOS UNIDOS Y CANADÁ · TEMPORADA 2026/27</text>
+    <path d="M59 80H1751 M59 298H1751 M59 1054H1751" stroke="#D6C8B2" fill="none"/>
+    <text x="59" y="129" font-size="14" font-weight="700" letter-spacing="2" fill="#242D40">COLECCIÓN DE EMBLEMAS</text>
+    <text x="53" y="217" font-size="86" font-family="Georgia, serif" font-weight="700" letter-spacing="-3" fill="#271E24">NHL</text>
+    <text x="59" y="251" font-size="23">La liga y sus 32 equipos</text>
+    <rect x="1457" y="103" width="294" height="171" rx="3" fill="#EDE0CA" stroke="#D6C8B2"/>
+    <use xlink:href="#pitchlab-nhl" x="1533" y="116" width="142" height="142"/>
+    <text x="59" y="327" font-size="14" font-weight="700" letter-spacing="2">EQUIPOS DE LA TEMPORADA</text>
+    <rect x="59" y="346" width="200.125" height="158" rx="3" fill="#FCF8ED" stroke="#D6C8B2"/>
+    <text x="72" y="371" font-size="12" font-weight="700" letter-spacing="1.2">ANA</text>
+    <use xlink:href="#pitchlab-anaheim-ducks" x="111.06" y="355" width="96" height="96"/>
+    <use xlink:href="#pitchlab-anaheim-ducks" x="223.13" y="356" width="24" height="24"/>
+    <text x="72" y="469" font-size="17" font-weight="700" fill="#271E24">Anaheim Ducks</text>
+    <text x="72" y="489" font-size="12.5">Pato y pliegue</text>
+    <rect x="272.13" y="346" width="200.125" height="158" rx="3" fill="#FCF8ED" stroke="#D6C8B2"/>
+    <text x="285.13" y="371" font-size="12" font-weight="700" letter-spacing="1.2">BOS</text>
+    <use xlink:href="#pitchlab-boston-bruins" x="324.19" y="355" width="96" height="96"/>
+    <use xlink:href="#pitchlab-boston-bruins" x="436.25" y="356" width="24" height="24"/>
+    <text x="285.13" y="469" font-size="17" font-weight="700" fill="#271E24">Boston Bruins</text>
+    <text x="285.13" y="489" font-size="12.5">Oso y radios</text>
+    <rect x="485.25" y="346" width="200.125" height="158" rx="3" fill="#FCF8ED" stroke="#D6C8B2"/>
+    <text x="498.25" y="371" font-size="12" font-weight="700" letter-spacing="1.2">BUF</text>
+    <use xlink:href="#pitchlab-buffalo-sabres" x="537.31" y="355" width="96" height="96"/>
+    <use xlink:href="#pitchlab-buffalo-sabres" x="649.38" y="356" width="24" height="24"/>
+    <text x="498.25" y="469" font-size="17" font-weight="700" fill="#271E24">Buffalo Sabres</text>
+    <text x="498.25" y="489" font-size="12.5">Bisonte y sables</text>
+    <rect x="698.38" y="346" width="200.125" height="158" rx="3" fill="#FCF8ED" stroke="#D6C8B2"/>
+    <text x="711.38" y="371" font-size="12" font-weight="700" letter-spacing="1.2">CGY</text>
+    <use xlink:href="#pitchlab-calgary-flames" x="750.44" y="355" width="96" height="96"/>
+    <use xlink:href="#pitchlab-calgary-flames" x="862.5" y="356" width="24" height="24"/>
+    <text x="711.38" y="469" font-size="17" font-weight="700" fill="#271E24">Calgary Flames</text>
+    <text x="711.38" y="489" font-size="12.5">Llama en carrera</text>
+    <rect x="911.5" y="346" width="200.125" height="158" rx="3" fill="#FCF8ED" stroke="#D6C8B2"/>
+    <text x="924.5" y="371" font-size="12" font-weight="700" letter-spacing="1.2">CAR</text>
+    <use xlink:href="#pitchlab-carolina-hurricanes" x="963.56" y="355" width="96" height="96"/>
+    <use xlink:href="#pitchlab-carolina-hurricanes" x="1075.63" y="356" width="24" height="24"/>
+    <text x="924.5" y="469" font-size="16.5" font-weight="700" fill="#271E24">Carolina Hurricanes</text>
+    <text x="924.5" y="489" font-size="12.5">Ojo del huracán</text>
+    <rect x="1124.63" y="346" width="200.125" height="158" rx="3" fill="#FCF8ED" stroke="#D6C8B2"/>
+    <text x="1137.63" y="371" font-size="12" font-weight="700" letter-spacing="1.2">CHI</text>
+    <use xlink:href="#pitchlab-chicago-blackhawks" x="1176.69" y="355" width="96" height="96"/>
+    <use xlink:href="#pitchlab-chicago-blackhawks" x="1288.76" y="356" width="24" height="24"/>
+    <text x="1137.63" y="469" font-size="17" font-weight="700" fill="#271E24">Chicago Blackhawks</text>
+    <text x="1137.63" y="489" font-size="12.5">Halcón sobre el hielo</text>
+    <rect x="1337.75" y="346" width="200.125" height="158" rx="3" fill="#FCF8ED" stroke="#D6C8B2"/>
+    <text x="1350.75" y="371" font-size="12" font-weight="700" letter-spacing="1.2">COL</text>
+    <use xlink:href="#pitchlab-colorado-avalanche" x="1389.81" y="355" width="96" height="96"/>
+    <use xlink:href="#pitchlab-colorado-avalanche" x="1501.88" y="356" width="24" height="24"/>
+    <text x="1350.75" y="469" font-size="17" font-weight="700" fill="#271E24">Colorado Avalanche</text>
+    <text x="1350.75" y="489" font-size="12.5">Montaña y alud</text>
+    <rect x="1550.88" y="346" width="200.125" height="158" rx="3" fill="#FCF8ED" stroke="#D6C8B2"/>
+    <text x="1563.88" y="371" font-size="12" font-weight="700" letter-spacing="1.2">CBJ</text>
+    <use xlink:href="#pitchlab-columbus-blue-jackets" x="1602.94" y="355" width="96" height="96"/>
+    <use xlink:href="#pitchlab-columbus-blue-jackets" x="1715.01" y="356" width="24" height="24"/>
+    <text x="1563.88" y="469" font-size="15" font-weight="700" fill="#271E24">Columbus Blue Jackets</text>
+    <text x="1563.88" y="489" font-size="12.5">Estrella y pendón</text>
+    <rect x="59" y="520" width="200.125" height="158" rx="3" fill="#FCF8ED" stroke="#D6C8B2"/>
+    <text x="72" y="545" font-size="12" font-weight="700" letter-spacing="1.2">DAL</text>
+    <use xlink:href="#pitchlab-dallas-stars" x="111.06" y="529" width="96" height="96"/>
+    <use xlink:href="#pitchlab-dallas-stars" x="223.13" y="530" width="24" height="24"/>
+    <text x="72" y="643" font-size="17" font-weight="700" fill="#271E24">Dallas Stars</text>
+    <text x="72" y="663" font-size="12.5">Estrella y trayectoria</text>
+    <rect x="272.13" y="520" width="200.125" height="158" rx="3" fill="#FCF8ED" stroke="#D6C8B2"/>
+    <text x="285.13" y="545" font-size="12" font-weight="700" letter-spacing="1.2">DET</text>
+    <use xlink:href="#pitchlab-detroit-red-wings" x="324.19" y="529" width="96" height="96"/>
+    <use xlink:href="#pitchlab-detroit-red-wings" x="436.25" y="530" width="24" height="24"/>
+    <text x="285.13" y="643" font-size="17" font-weight="700" fill="#271E24">Detroit Red Wings</text>
+    <text x="285.13" y="663" font-size="12.5">Rueda y ala</text>
+    <rect x="485.25" y="520" width="200.125" height="158" rx="3" fill="#FCF8ED" stroke="#D6C8B2"/>
+    <text x="498.25" y="545" font-size="12" font-weight="700" letter-spacing="1.2">EDM</text>
+    <use xlink:href="#pitchlab-edmonton-oilers" x="537.31" y="529" width="96" height="96"/>
+    <use xlink:href="#pitchlab-edmonton-oilers" x="649.38" y="530" width="24" height="24"/>
+    <text x="498.25" y="643" font-size="17" font-weight="700" fill="#271E24">Edmonton Oilers</text>
+    <text x="498.25" y="663" font-size="12.5">Gota de petróleo</text>
+    <rect x="698.38" y="520" width="200.125" height="158" rx="3" fill="#FCF8ED" stroke="#D6C8B2"/>
+    <text x="711.38" y="545" font-size="12" font-weight="700" letter-spacing="1.2">FLA</text>
+    <use xlink:href="#pitchlab-florida-panthers" x="750.44" y="529" width="96" height="96"/>
+    <use xlink:href="#pitchlab-florida-panthers" x="862.5" y="530" width="24" height="24"/>
+    <text x="711.38" y="643" font-size="17" font-weight="700" fill="#271E24">Florida Panthers</text>
+    <text x="711.38" y="663" font-size="12.5">Pantera de frente</text>
+    <rect x="911.5" y="520" width="200.125" height="158" rx="3" fill="#FCF8ED" stroke="#D6C8B2"/>
+    <text x="924.5" y="545" font-size="12" font-weight="700" letter-spacing="1.2">LAK</text>
+    <use xlink:href="#pitchlab-los-angeles-kings" x="963.56" y="529" width="96" height="96"/>
+    <use xlink:href="#pitchlab-los-angeles-kings" x="1075.63" y="530" width="24" height="24"/>
+    <text x="924.5" y="643" font-size="17" font-weight="700" fill="#271E24">Los Angeles Kings</text>
+    <text x="924.5" y="663" font-size="12.5">Corona de plata</text>
+    <rect x="1124.63" y="520" width="200.125" height="158" rx="3" fill="#FCF8ED" stroke="#D6C8B2"/>
+    <text x="1137.63" y="545" font-size="12" font-weight="700" letter-spacing="1.2">MIN</text>
+    <use xlink:href="#pitchlab-minnesota-wild" x="1176.69" y="529" width="96" height="96"/>
+    <use xlink:href="#pitchlab-minnesota-wild" x="1288.76" y="530" width="24" height="24"/>
+    <text x="1137.63" y="643" font-size="17" font-weight="700" fill="#271E24">Minnesota Wild</text>
+    <text x="1137.63" y="663" font-size="12.5">Bosque y luna</text>
+    <rect x="1337.75" y="520" width="200.125" height="158" rx="3" fill="#FCF8ED" stroke="#D6C8B2"/>
+    <text x="1350.75" y="545" font-size="12" font-weight="700" letter-spacing="1.2">MTL</text>
+    <use xlink:href="#pitchlab-montreal-canadiens" x="1389.81" y="529" width="96" height="96"/>
+    <use xlink:href="#pitchlab-montreal-canadiens" x="1501.88" y="530" width="24" height="24"/>
+    <text x="1350.75" y="643" font-size="17" font-weight="700" fill="#271E24">Montréal Canadiens</text>
+    <text x="1350.75" y="663" font-size="12.5">C y travesaño</text>
+    <rect x="1550.88" y="520" width="200.125" height="158" rx="3" fill="#FCF8ED" stroke="#D6C8B2"/>
+    <text x="1563.88" y="545" font-size="12" font-weight="700" letter-spacing="1.2">NSH</text>
+    <use xlink:href="#pitchlab-nashville-predators" x="1602.94" y="529" width="96" height="96"/>
+    <use xlink:href="#pitchlab-nashville-predators" x="1715.01" y="530" width="24" height="24"/>
+    <text x="1563.88" y="643" font-size="16.5" font-weight="700" fill="#271E24">Nashville Predators</text>
+    <text x="1563.88" y="663" font-size="12.5">Colmillos y oro</text>
+    <rect x="59" y="694" width="200.125" height="158" rx="3" fill="#FCF8ED" stroke="#D6C8B2"/>
+    <text x="72" y="719" font-size="12" font-weight="700" letter-spacing="1.2">NJD</text>
+    <use xlink:href="#pitchlab-new-jersey-devils" x="111.06" y="703" width="96" height="96"/>
+    <use xlink:href="#pitchlab-new-jersey-devils" x="223.13" y="704" width="24" height="24"/>
+    <text x="72" y="817" font-size="17" font-weight="700" fill="#271E24">New Jersey Devils</text>
+    <text x="72" y="837" font-size="12.5">Cuernos y cola</text>
+    <rect x="272.13" y="694" width="200.125" height="158" rx="3" fill="#FCF8ED" stroke="#D6C8B2"/>
+    <text x="285.13" y="719" font-size="12" font-weight="700" letter-spacing="1.2">NYI</text>
+    <use xlink:href="#pitchlab-new-york-islanders" x="324.19" y="703" width="96" height="96"/>
+    <use xlink:href="#pitchlab-new-york-islanders" x="436.25" y="704" width="24" height="24"/>
+    <text x="285.13" y="817" font-size="17" font-weight="700" fill="#271E24">New York Islanders</text>
+    <text x="285.13" y="837" font-size="12.5">Costa y faro</text>
+    <rect x="485.25" y="694" width="200.125" height="158" rx="3" fill="#FCF8ED" stroke="#D6C8B2"/>
+    <text x="498.25" y="719" font-size="12" font-weight="700" letter-spacing="1.2">NYR</text>
+    <use xlink:href="#pitchlab-new-york-rangers" x="537.31" y="703" width="96" height="96"/>
+    <use xlink:href="#pitchlab-new-york-rangers" x="649.38" y="704" width="24" height="24"/>
+    <text x="498.25" y="817" font-size="17" font-weight="700" fill="#271E24">New York Rangers</text>
+    <text x="498.25" y="837" font-size="12.5">Diagonal y estrella</text>
+    <rect x="698.38" y="694" width="200.125" height="158" rx="3" fill="#FCF8ED" stroke="#D6C8B2"/>
+    <text x="711.38" y="719" font-size="12" font-weight="700" letter-spacing="1.2">OTT</text>
+    <use xlink:href="#pitchlab-ottawa-senators" x="750.44" y="703" width="96" height="96"/>
+    <use xlink:href="#pitchlab-ottawa-senators" x="862.5" y="704" width="24" height="24"/>
+    <text x="711.38" y="817" font-size="17" font-weight="700" fill="#271E24">Ottawa Senators</text>
+    <text x="711.38" y="837" font-size="12.5">Yelmo y penacho</text>
+    <rect x="911.5" y="694" width="200.125" height="158" rx="3" fill="#FCF8ED" stroke="#D6C8B2"/>
+    <text x="924.5" y="719" font-size="12" font-weight="700" letter-spacing="1.2">PHI</text>
+    <use xlink:href="#pitchlab-philadelphia-flyers" x="963.56" y="703" width="96" height="96"/>
+    <use xlink:href="#pitchlab-philadelphia-flyers" x="1075.63" y="704" width="24" height="24"/>
+    <text x="924.5" y="817" font-size="16.5" font-weight="700" fill="#271E24">Philadelphia Flyers</text>
+    <text x="924.5" y="837" font-size="12.5">Disco alado</text>
+    <rect x="1124.63" y="694" width="200.125" height="158" rx="3" fill="#FCF8ED" stroke="#D6C8B2"/>
+    <text x="1137.63" y="719" font-size="12" font-weight="700" letter-spacing="1.2">PIT</text>
+    <use xlink:href="#pitchlab-pittsburgh-penguins" x="1176.69" y="703" width="96" height="96"/>
+    <use xlink:href="#pitchlab-pittsburgh-penguins" x="1288.76" y="704" width="24" height="24"/>
+    <text x="1137.63" y="817" font-size="16.5" font-weight="700" fill="#271E24">Pittsburgh Penguins</text>
+    <text x="1137.63" y="837" font-size="12.5">Pingüino y pista</text>
+    <rect x="1337.75" y="694" width="200.125" height="158" rx="3" fill="#FCF8ED" stroke="#D6C8B2"/>
+    <text x="1350.75" y="719" font-size="12" font-weight="700" letter-spacing="1.2">SJS</text>
+    <use xlink:href="#pitchlab-san-jose-sharks" x="1389.81" y="703" width="96" height="96"/>
+    <use xlink:href="#pitchlab-san-jose-sharks" x="1501.88" y="704" width="24" height="24"/>
+    <text x="1350.75" y="817" font-size="17" font-weight="700" fill="#271E24">San Jose Sharks</text>
+    <text x="1350.75" y="837" font-size="12.5">Tiburón y aleta</text>
+    <rect x="1550.88" y="694" width="200.125" height="158" rx="3" fill="#FCF8ED" stroke="#D6C8B2"/>
+    <text x="1563.88" y="719" font-size="12" font-weight="700" letter-spacing="1.2">SEA</text>
+    <use xlink:href="#pitchlab-seattle-kraken" x="1602.94" y="703" width="96" height="96"/>
+    <use xlink:href="#pitchlab-seattle-kraken" x="1715.01" y="704" width="24" height="24"/>
+    <text x="1563.88" y="817" font-size="17" font-weight="700" fill="#271E24">Seattle Kraken</text>
+    <text x="1563.88" y="837" font-size="12.5">Tentáculo y ojo</text>
+    <rect x="59" y="868" width="200.125" height="158" rx="3" fill="#FCF8ED" stroke="#D6C8B2"/>
+    <text x="72" y="893" font-size="12" font-weight="700" letter-spacing="1.2">STL</text>
+    <use xlink:href="#pitchlab-st-louis-blues" x="111.06" y="877" width="96" height="96"/>
+    <use xlink:href="#pitchlab-st-louis-blues" x="223.13" y="878" width="24" height="24"/>
+    <text x="72" y="991" font-size="17" font-weight="700" fill="#271E24">St. Louis Blues</text>
+    <text x="72" y="1011" font-size="12.5">Nota y ala</text>
+    <rect x="272.13" y="868" width="200.125" height="158" rx="3" fill="#FCF8ED" stroke="#D6C8B2"/>
+    <text x="285.13" y="893" font-size="12" font-weight="700" letter-spacing="1.2">TBL</text>
+    <use xlink:href="#pitchlab-tampa-bay-lightning" x="324.19" y="877" width="96" height="96"/>
+    <use xlink:href="#pitchlab-tampa-bay-lightning" x="436.25" y="878" width="24" height="24"/>
+    <text x="285.13" y="991" font-size="16.5" font-weight="700" fill="#271E24">Tampa Bay Lightning</text>
+    <text x="285.13" y="1011" font-size="12.5">Rayo y arco</text>
+    <rect x="485.25" y="868" width="200.125" height="158" rx="3" fill="#FCF8ED" stroke="#D6C8B2"/>
+    <text x="498.25" y="893" font-size="12" font-weight="700" letter-spacing="1.2">TOR</text>
+    <use xlink:href="#pitchlab-toronto-maple-leafs" x="537.31" y="877" width="96" height="96"/>
+    <use xlink:href="#pitchlab-toronto-maple-leafs" x="649.38" y="878" width="24" height="24"/>
+    <text x="498.25" y="991" font-size="16.5" font-weight="700" fill="#271E24">Toronto Maple Leafs</text>
+    <text x="498.25" y="1011" font-size="12.5">Hoja de arce</text>
+    <rect x="698.38" y="868" width="200.125" height="158" rx="3" fill="#FCF8ED" stroke="#D6C8B2"/>
+    <text x="711.38" y="893" font-size="12" font-weight="700" letter-spacing="1.2">UTA</text>
+    <use xlink:href="#pitchlab-utah-mammoth" x="750.44" y="877" width="96" height="96"/>
+    <use xlink:href="#pitchlab-utah-mammoth" x="862.5" y="878" width="24" height="24"/>
+    <text x="711.38" y="991" font-size="17" font-weight="700" fill="#271E24">Utah Mammoth</text>
+    <text x="711.38" y="1011" font-size="12.5">Mamut de frente</text>
+    <rect x="911.5" y="868" width="200.125" height="158" rx="3" fill="#FCF8ED" stroke="#D6C8B2"/>
+    <text x="924.5" y="893" font-size="12" font-weight="700" letter-spacing="1.2">VAN</text>
+    <use xlink:href="#pitchlab-vancouver-canucks" x="963.56" y="877" width="96" height="96"/>
+    <use xlink:href="#pitchlab-vancouver-canucks" x="1075.63" y="878" width="24" height="24"/>
+    <text x="924.5" y="991" font-size="17" font-weight="700" fill="#271E24">Vancouver Canucks</text>
+    <text x="924.5" y="1011" font-size="12.5">Orca y ola</text>
+    <rect x="1124.63" y="868" width="200.125" height="158" rx="3" fill="#FCF8ED" stroke="#D6C8B2"/>
+    <text x="1137.63" y="893" font-size="12" font-weight="700" letter-spacing="1.2">VGK</text>
+    <use xlink:href="#pitchlab-vegas-golden-knights" x="1176.69" y="877" width="96" height="96"/>
+    <use xlink:href="#pitchlab-vegas-golden-knights" x="1288.76" y="878" width="24" height="24"/>
+    <text x="1137.63" y="991" font-size="16" font-weight="700" fill="#271E24">Vegas Golden Knights</text>
+    <text x="1137.63" y="1011" font-size="12.5">Yelmo dorado</text>
+    <rect x="1337.75" y="868" width="200.125" height="158" rx="3" fill="#FCF8ED" stroke="#D6C8B2"/>
+    <text x="1350.75" y="893" font-size="12" font-weight="700" letter-spacing="1.2">WSH</text>
+    <use xlink:href="#pitchlab-washington-capitals" x="1389.81" y="877" width="96" height="96"/>
+    <use xlink:href="#pitchlab-washington-capitals" x="1501.88" y="878" width="24" height="24"/>
+    <text x="1350.75" y="991" font-size="16.5" font-weight="700" fill="#271E24">Washington Capitals</text>
+    <text x="1350.75" y="1011" font-size="12.5">Cúpula y estrellas</text>
+    <rect x="1550.88" y="868" width="200.125" height="158" rx="3" fill="#FCF8ED" stroke="#D6C8B2"/>
+    <text x="1563.88" y="893" font-size="12" font-weight="700" letter-spacing="1.2">WPG</text>
+    <use xlink:href="#pitchlab-winnipeg-jets" x="1602.94" y="877" width="96" height="96"/>
+    <use xlink:href="#pitchlab-winnipeg-jets" x="1715.01" y="878" width="24" height="24"/>
+    <text x="1563.88" y="991" font-size="17" font-weight="700" fill="#271E24">Winnipeg Jets</text>
+    <text x="1563.88" y="1011" font-size="12.5">Avión y rastro</text>
+    <text x="59" y="1084" font-size="13">Ilustraciones editoriales de PitchLab</text>
+    <text x="1751" y="1084" font-size="13" font-weight="700" letter-spacing="2" text-anchor="end">EDICIÓN 01</text>
+  </g>
+</svg>

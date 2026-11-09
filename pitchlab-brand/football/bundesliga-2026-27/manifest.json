@@ -1,0 +1,427 @@
+{
+  "schemaVersion": 1,
+  "designRevision": 1,
+  "season": "2026/27",
+  "edition": "Emblemas de club",
+  "source": "https://www.bundesliga.com/en/bundesliga/clubs",
+  "entries": [
+    {
+      "id": "bundesliga",
+      "code": "BL",
+      "name": "Bundesliga",
+      "shortName": "Bundesliga",
+      "kind": "competition",
+      "motif": "Balón y tribunas",
+      "description": "Un balón de costuras angulares corona dos gradas escalonadas en rojo, carbón y oro.",
+      "colors": {
+        "tile": "#711B29",
+        "primary": "#FFF0D8",
+        "accent": "#F5BC57"
+      },
+      "contrast": {
+        "primaryOnTile": 9.8933,
+        "accentOnTile": 6.4589
+      },
+      "source": "https://www.bundesliga.com/en/bundesliga/clubs",
+      "svg": "svg/bundesliga.svg",
+      "png": "png/bundesliga.png",
+      "symbolId": "pitchlab-bundesliga"
+    },
+    {
+      "id": "augsburg",
+      "code": "FCA",
+      "name": "FC Augsburg",
+      "shortName": "Augsburg",
+      "kind": "club",
+      "motif": "Piña de Augsburgo",
+      "description": "Una piña de piedra verde, con escamas geométricas, sobre un escudo marfil con flancos rojos.",
+      "colors": {
+        "tile": "#FAF1DA",
+        "primary": "#1D513E",
+        "accent": "#A3293B"
+      },
+      "contrast": {
+        "primaryOnTile": 8.1171,
+        "accentOnTile": 6.3518
+      },
+      "source": "https://www.fcaugsburg.de/article/ausstellung-verbindet-roemische-vergangenheit-augsburgs-mit-dem-fca-22661",
+      "svg": "svg/augsburg.svg",
+      "png": "png/augsburg.png",
+      "symbolId": "pitchlab-augsburg"
+    },
+    {
+      "id": "bayer-leverkusen",
+      "code": "B04",
+      "name": "Bayer 04 Leverkusen",
+      "shortName": "Leverkusen",
+      "kind": "club",
+      "motif": "León de perfil",
+      "description": "Un león marfil, con melena dentada y una incisión roja, sobre un escudo negro de esquinas cortadas.",
+      "colors": {
+        "tile": "#25242B",
+        "primary": "#FFEDCE",
+        "accent": "#D4444C"
+      },
+      "contrast": {
+        "primaryOnTile": 13.3662,
+        "accentOnTile": 3.4634
+      },
+      "source": "https://www.bundesliga.com/en/bundesliga/news/clubs-with-animal-names-germany-eagles-wolves-goats-foals-lions-25000/",
+      "svg": "svg/bayer-leverkusen.svg",
+      "png": "png/bayer-leverkusen.png",
+      "symbolId": "pitchlab-bayer-leverkusen"
+    },
+    {
+      "id": "bayern-munchen",
+      "code": "FCB",
+      "name": "FC Bayern München",
+      "shortName": "Bayern München",
+      "kind": "club",
+      "motif": "Rombos bávaros",
+      "description": "Cuatro rombos marfil con cortes celestes forman una figura en aspa sobre una medalla octogonal roja.",
+      "colors": {
+        "tile": "#A81E37",
+        "primary": "#FFF1D8",
+        "accent": "#77BFE5"
+      },
+      "contrast": {
+        "primaryOnTile": 6.4786,
+        "accentOnTile": 3.568
+      },
+      "source": "https://www.bundesliga.com/de/bundesliga/news/neue-trikots-saison-2026-27-clubs-heim-auswarts-event-fanshop-37607",
+      "svg": "svg/bayern-munchen.svg",
+      "png": "png/bayern-munchen.png",
+      "symbolId": "pitchlab-bayern-munchen"
+    },
+    {
+      "id": "borussia-dortmund",
+      "code": "BVB",
+      "name": "Borussia Dortmund",
+      "shortName": "Dortmund",
+      "kind": "club",
+      "motif": "Grada amarilla",
+      "description": "Una tribuna de bloques negros y el número 09 recortado en su base sobre un campo amarillo.",
+      "colors": {
+        "tile": "#F9CF48",
+        "primary": "#232128",
+        "accent": "#9D6512"
+      },
+      "contrast": {
+        "primaryOnTile": 10.6442,
+        "accentOnTile": 3.2638
+      },
+      "source": "https://www.bundesliga.com/de/bundesliga/news/neue-trikots-saison-2026-27-clubs-heim-auswarts-event-fanshop-37607",
+      "svg": "svg/borussia-dortmund.svg",
+      "png": "png/borussia-dortmund.png",
+      "symbolId": "pitchlab-borussia-dortmund"
+    },
+    {
+      "id": "borussia-monchengladbach",
+      "code": "BMG",
+      "name": "Borussia Mönchengladbach",
+      "shortName": "M’gladbach",
+      "kind": "club",
+      "motif": "Potro de Gladbach",
+      "description": "Un potro de crin angulosa en un rombo de vértices cortados, con un acento verde en la base.",
+      "colors": {
+        "tile": "#F5F2E6",
+        "primary": "#21272A",
+        "accent": "#347753"
+      },
+      "contrast": {
+        "primaryOnTile": 13.4884,
+        "accentOnTile": 4.7897
+      },
+      "source": "https://www.bundesliga.com/en/bundesliga/news/clubs-with-animal-names-germany-eagles-wolves-goats-foals-lions-25000/",
+      "svg": "svg/borussia-monchengladbach.svg",
+      "png": "png/borussia-monchengladbach.png",
+      "symbolId": "pitchlab-borussia-monchengladbach"
+    },
+    {
+      "id": "eintracht-frankfurt",
+      "code": "SGE",
+      "name": "Eintracht Frankfurt",
+      "shortName": "Frankfurt",
+      "kind": "club",
+      "motif": "Águila del Meno",
+      "description": "Un águila marfil abre las alas en abanico sobre granate. Las plumas inferiores caen hacia la punta.",
+      "colors": {
+        "tile": "#801D33",
+        "primary": "#FFF1D8",
+        "accent": "#CA3C4D"
+      },
+      "contrast": {
+        "primaryOnTile": 8.7914,
+        "accentOnTile": 1.9916
+      },
+      "source": "https://www.bundesliga.com/en/bundesliga/news/eintracht-frankfurt-bundesliga-club-by-club-historical-guide-europa-24142",
+      "svg": "svg/eintracht-frankfurt.svg",
+      "png": "png/eintracht-frankfurt.png",
+      "symbolId": "pitchlab-eintracht-frankfurt"
+    },
+    {
+      "id": "elversberg",
+      "code": "ELV",
+      "name": "SV 07 Elversberg",
+      "shortName": "Elversberg",
+      "kind": "club",
+      "motif": "Ascenso en blanco y negro",
+      "description": "Tres gradas ascendentes atraviesan un escudo negro de remate ancho. Un filete arena acompaña al marfil.",
+      "colors": {
+        "tile": "#25262B",
+        "primary": "#F7F4E9",
+        "accent": "#C7AD76"
+      },
+      "contrast": {
+        "primaryOnTile": 13.7129,
+        "accentOnTile": 6.951
+      },
+      "source": "https://sv07elversberg.de/unsere-farben-unsere-zeit-das-neue-heimtrikot-fuer-die-bundesliga-saison-2026-2027/",
+      "svg": "svg/elversberg.svg",
+      "png": "png/elversberg.png",
+      "symbolId": "pitchlab-elversberg"
+    },
+    {
+      "id": "freiburg",
+      "code": "SCF",
+      "name": "SC Freiburg",
+      "shortName": "Freiburg",
+      "kind": "club",
+      "motif": "Grifo de perfil",
+      "description": "Un grifo blanco con pico y plumaje de cortes firmes sobre un óvalo negro de ribete carmín.",
+      "colors": {
+        "tile": "#22232A",
+        "primary": "#F9EDDB",
+        "accent": "#C03546"
+      },
+      "contrast": {
+        "primaryOnTile": 13.5368,
+        "accentOnTile": 2.8609
+      },
+      "source": "https://www.bundesliga.com/de/bundesliga/news/neue-trikots-saison-2026-27-clubs-heim-auswarts-event-fanshop-37607",
+      "svg": "svg/freiburg.svg",
+      "png": "png/freiburg.png",
+      "symbolId": "pitchlab-freiburg"
+    },
+    {
+      "id": "hamburger",
+      "code": "HSV",
+      "name": "Hamburger SV",
+      "shortName": "Hamburger SV",
+      "kind": "club",
+      "motif": "Ancla del puerto",
+      "description": "Un ancla clara con ojo romboidal sobre un escudo azul de punta redonda. El azul oscuro acentúa la línea de flotación.",
+      "colors": {
+        "tile": "#14539A",
+        "primary": "#F3F5EF",
+        "accent": "#0C3264"
+      },
+      "contrast": {
+        "primaryOnTile": 6.9936,
+        "accentOnTile": 1.6509
+      },
+      "source": "https://www.bundesliga.com/de/bundesliga/news/neue-trikots-saison-2026-27-clubs-heim-auswarts-event-fanshop-37607",
+      "svg": "svg/hamburger.svg",
+      "png": "png/hamburger.png",
+      "symbolId": "pitchlab-hamburger"
+    },
+    {
+      "id": "hoffenheim",
+      "code": "TSG",
+      "name": "TSG 1899 Hoffenheim",
+      "shortName": "Hoffenheim",
+      "kind": "club",
+      "motif": "Colinas del Kraichgau",
+      "description": "Dos cimas blancas y una curva celeste cruzan un escudo de hombros inclinados.",
+      "colors": {
+        "tile": "#184D91",
+        "primary": "#F5F2E5",
+        "accent": "#70BDE1"
+      },
+      "contrast": {
+        "primaryOnTile": 7.4583,
+        "accentOnTile": 4.0073
+      },
+      "source": "https://www.bundesliga.com/de/bundesliga/news/neue-trikots-saison-2026-27-clubs-heim-auswarts-event-fanshop-37607",
+      "svg": "svg/hoffenheim.svg",
+      "png": "png/hoffenheim.png",
+      "symbolId": "pitchlab-hoffenheim"
+    },
+    {
+      "id": "koln",
+      "code": "KOE",
+      "name": "1. FC Köln",
+      "shortName": "Köln",
+      "kind": "club",
+      "motif": "Cabra Hennes",
+      "description": "Una cabra roja con cuernos arqueados y barba se recorta ante dos agujas de la ciudad.",
+      "colors": {
+        "tile": "#FAF1E4",
+        "primary": "#9C2337",
+        "accent": "#DC9698"
+      },
+      "contrast": {
+        "primaryOnTile": 6.9273,
+        "accentOnTile": 2.1184
+      },
+      "source": "https://www.bundesliga.com/en/bundesliga/news/hennes-goat-cologne-living-mascot-25002/",
+      "svg": "svg/koln.svg",
+      "png": "png/koln.png",
+      "symbolId": "pitchlab-koln"
+    },
+    {
+      "id": "mainz",
+      "code": "M05",
+      "name": "1. FSV Mainz 05",
+      "shortName": "Mainz 05",
+      "kind": "club",
+      "motif": "Gorro de carnaval",
+      "description": "Un gorro granate de tres puntas y cascabeles sobre una medalla marfil de borde rojo.",
+      "colors": {
+        "tile": "#FCF0DE",
+        "primary": "#A6223A",
+        "accent": "#DA9354"
+      },
+      "contrast": {
+        "primaryOnTile": 6.4088,
+        "accentOnTile": 2.2527
+      },
+      "source": "https://www.bundesliga.com/de/bundesliga/news/neue-trikots-saison-2026-27-clubs-heim-auswarts-event-fanshop-37607",
+      "svg": "svg/mainz.svg",
+      "png": "png/mainz.png",
+      "symbolId": "pitchlab-mainz"
+    },
+    {
+      "id": "paderborn",
+      "code": "SCP",
+      "name": "SC Paderborn 07",
+      "shortName": "Paderborn",
+      "kind": "club",
+      "motif": "Franjas y 07",
+      "description": "El 07 en bloques claros descansa sobre tres franjas azules de distinto ancho.",
+      "colors": {
+        "tile": "#181F32",
+        "primary": "#F1F3ED",
+        "accent": "#3979C4"
+      },
+      "contrast": {
+        "primaryOnTile": 14.6642,
+        "accentOnTile": 3.674
+      },
+      "source": "https://www.scp07.de/Unser_Heimtrikot.html",
+      "svg": "svg/paderborn.svg",
+      "png": "png/paderborn.png",
+      "symbolId": "pitchlab-paderborn"
+    },
+    {
+      "id": "rb-leipzig",
+      "code": "RBL",
+      "name": "RB Leipzig",
+      "shortName": "RB Leipzig",
+      "kind": "club",
+      "motif": "Toro frontal",
+      "description": "Un toro rojo con cuernos anchos sobre marfil. Dos cuñas doradas enmarcan la frente.",
+      "colors": {
+        "tile": "#FAF0DB",
+        "primary": "#A42038",
+        "accent": "#DA9A38"
+      },
+      "contrast": {
+        "primaryOnTile": 6.5272,
+        "accentOnTile": 2.1421
+      },
+      "source": "https://www.bundesliga.com/de/bundesliga/news/neue-trikots-saison-2026-27-clubs-heim-auswarts-event-fanshop-37607",
+      "svg": "svg/rb-leipzig.svg",
+      "png": "png/rb-leipzig.png",
+      "symbolId": "pitchlab-rb-leipzig"
+    },
+    {
+      "id": "schalke",
+      "code": "S04",
+      "name": "FC Schalke 04",
+      "shortName": "Schalke 04",
+      "kind": "club",
+      "motif": "Herramientas mineras",
+      "description": "Dos herramientas mineras cruzadas enmarcan una lámpara en un escudo azul real.",
+      "colors": {
+        "tile": "#164A9A",
+        "primary": "#F3F4EC",
+        "accent": "#8CBCE6"
+      },
+      "contrast": {
+        "primaryOnTile": 7.6454,
+        "accentOnTile": 4.2137
+      },
+      "source": "https://www.bundesliga.com/en/bundesliga/news/all-clubs-that-have-played-in-germany-s-top-flight-bayern-munich-dortmund-24106",
+      "svg": "svg/schalke.svg",
+      "png": "png/schalke.png",
+      "symbolId": "pitchlab-schalke"
+    },
+    {
+      "id": "stuttgart",
+      "code": "VFB",
+      "name": "VfB Stuttgart",
+      "shortName": "Stuttgart",
+      "kind": "club",
+      "motif": "Franja y astas",
+      "description": "Un escudo marfil cruza una banda roja ancha con astas simplificadas en el campo superior.",
+      "colors": {
+        "tile": "#FAF1E2",
+        "primary": "#8B2234",
+        "accent": "#CD3A48"
+      },
+      "contrast": {
+        "primaryOnTile": 7.8887,
+        "accentOnTile": 4.3648
+      },
+      "source": "https://www.bundesliga.com/de/bundesliga/news/neue-trikots-saison-2026-27-clubs-heim-auswarts-event-fanshop-37607",
+      "svg": "svg/stuttgart.svg",
+      "png": "png/stuttgart.png",
+      "symbolId": "pitchlab-stuttgart"
+    },
+    {
+      "id": "union-berlin",
+      "code": "FCU",
+      "name": "1. FC Union Berlin",
+      "shortName": "Union Berlin",
+      "kind": "club",
+      "motif": "Yunque de hierro",
+      "description": "Un yunque marfil y tres destellos dorados sobre un escudo rojo de hombros marcados.",
+      "colors": {
+        "tile": "#A32135",
+        "primary": "#FFF2D9",
+        "accent": "#F2BA4B"
+      },
+      "contrast": {
+        "primaryOnTile": 6.7067,
+        "accentOnTile": 4.2107
+      },
+      "source": "https://www.bundesliga.com/de/bundesliga/news/neue-trikots-saison-2026-27-clubs-heim-auswarts-event-fanshop-37607",
+      "svg": "svg/union-berlin.svg",
+      "png": "png/union-berlin.png",
+      "symbolId": "pitchlab-union-berlin"
+    },
+    {
+      "id": "werder-bremen",
+      "code": "SVW",
+      "name": "SV Werder Bremen",
+      "shortName": "Werder Bremen",
+      "kind": "club",
+      "motif": "Meandro del Weser",
+      "description": "Un trazo marfil en zigzag se abre como un río dentro de un escudo de silueta romboidal.",
+      "colors": {
+        "tile": "#126348",
+        "primary": "#F6F2DF",
+        "accent": "#6ABC91"
+      },
+      "contrast": {
+        "primaryOnTile": 6.4341,
+        "accentOnTile": 3.1732
+      },
+      "source": "https://www.bundesliga.com/de/bundesliga/news/neue-trikots-saison-2026-27-clubs-heim-auswarts-event-fanshop-37607",
+      "svg": "svg/werder-bremen.svg",
+      "png": "png/werder-bremen.png",
+      "symbolId": "pitchlab-werder-bremen"
+    }
+  ]
+}

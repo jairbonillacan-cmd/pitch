@@ -1,0 +1,498 @@
+{
+  "generatedAt": "2026-11-09T05:57:59.326Z",
+  "model": {
+    "id": "deepseek/deepseek-v4.1-flash-1017",
+    "label": "DeepSeek V4.1 Flash 1017",
+    "contextTokens": 1048576,
+    "snapshot": "2026-10-17",
+    "endpoints": 50,
+    "providers": 40,
+    "reasoningDefault": "high",
+    "intelligenceIndex": 28.6
+  },
+  "routes": {
+    "barata": {
+      "label": "Ruta más barata (fp4)",
+      "provider": "Relace fp4",
+      "input": 0.006,
+      "output": 0.5,
+      "cacheRead": 0.005
+    },
+    "valor": {
+      "label": "Ruta económica flex",
+      "provider": "Particle AI flex",
+      "input": 0.025,
+      "output": 0.25,
+      "cacheRead": 0.0015
+    },
+    "oficial": {
+      "label": "DeepSeek oficial",
+      "provider": "DeepSeek",
+      "input": 0.15,
+      "output": 0.6,
+      "cacheRead": 0.003
+    },
+    "premium": {
+      "label": "Proveedor fp8 premium",
+      "provider": "Fireworks / Together fp8",
+      "input": 0.3,
+      "output": 1.2,
+      "cacheRead": 0.006
+    }
+  },
+  "config": {
+    "months": 2000,
+    "seed": 20261108,
+    "out": "Reportes/ai",
+    "route": "oficial",
+    "reasoning": "low",
+    "cache": true,
+    "retries": true,
+    "creditFee": 0.055
+  },
+  "assumptions": {
+    "tokens": {
+      "prefix": 3200,
+      "question": 35,
+      "cacheHitFirst": 0.65,
+      "cacheHitNext": 0.9,
+      "toolCallOutput": [
+        70,
+        160
+      ],
+      "answerJitter": 0.2,
+      "toolJitter": 0.15,
+      "groundingRetryRate": 0.12,
+      "providerRetryRate": 0.02,
+      "reasoningPerStep": {
+        "off": [
+          0,
+          0
+        ],
+        "low": [
+          40,
+          120
+        ],
+        "high": [
+          300,
+          900
+        ]
+      }
+    },
+    "plans": {
+      "free": {
+        "label": "Free",
+        "quota": 5,
+        "activation": 0.35,
+        "median": 2.2,
+        "sigma": 0.7
+      },
+      "pro": {
+        "label": "Pro",
+        "quota": 60,
+        "activation": 0.6,
+        "median": 15,
+        "sigma": 0.85
+      },
+      "elite": {
+        "label": "Elite",
+        "quota": 250,
+        "activation": 0.75,
+        "median": 35,
+        "sigma": 0.9
+      }
+    },
+    "intents": [
+      {
+        "key": "prop",
+        "label": "Analizar un prop",
+        "weight": 22,
+        "steps": [
+          2,
+          3,
+          3,
+          4
+        ],
+        "toolTokens": [
+          340,
+          260,
+          220
+        ],
+        "answer": 470
+      },
+      {
+        "key": "odds",
+        "label": "Comparar cuotas y valor",
+        "weight": 18,
+        "steps": [
+          2,
+          2,
+          3
+        ],
+        "toolTokens": [
+          300,
+          260
+        ],
+        "answer": 410
+      },
+      {
+        "key": "prediction",
+        "label": "Explicar una predicción",
+        "weight": 16,
+        "steps": [
+          2,
+          3
+        ],
+        "toolTokens": [
+          320,
+          240
+        ],
+        "answer": 500
+      },
+      {
+        "key": "team",
+        "label": "Stats de equipo",
+        "weight": 12,
+        "steps": [
+          1,
+          2
+        ],
+        "toolTokens": [
+          430
+        ],
+        "answer": 360
+      },
+      {
+        "key": "game",
+        "label": "Buscar y abrir un partido",
+        "weight": 10,
+        "steps": [
+          2,
+          3
+        ],
+        "toolTokens": [
+          110,
+          520
+        ],
+        "answer": 450
+      },
+      {
+        "key": "explain",
+        "label": "Glosario / métrica",
+        "weight": 10,
+        "steps": [
+          1
+        ],
+        "toolTokens": [],
+        "answer": 240
+      },
+      {
+        "key": "roundup",
+        "label": "Resumen de la jornada",
+        "weight": 7,
+        "steps": [
+          3,
+          4
+        ],
+        "toolTokens": [
+          480,
+          420,
+          300
+        ],
+        "answer": 560
+      },
+      {
+        "key": "oos",
+        "label": "Fuera de alcance (rechazo)",
+        "weight": 5,
+        "steps": [
+          1
+        ],
+        "toolTokens": [],
+        "answer": 130
+      }
+    ]
+  },
+  "results": [
+    {
+      "cohort": "beta-100",
+      "label": "100 registrados (mezcla de lanzamiento)",
+      "queries": {
+        "mean": 553.7595,
+        "p50": 539.5,
+        "p90": 730,
+        "p95": 789.05,
+        "p99": 914.06,
+        "max": 1232
+      },
+      "activeUsers": 43.1625,
+      "inputTokens": 4935248.470856127,
+      "cachedTokens": 3454448.88,
+      "outputTokens": 439650.2897545609,
+      "ceiling": 3100,
+      "routes": {
+        "barata": {
+          "mean": 0.2459821868224179,
+          "p50": 0.2397703974520764,
+          "p90": 0.3231766626065418,
+          "p95": 0.35006615147325654,
+          "p99": 0.40539572639399807,
+          "max": 0.5477458236916002
+        },
+        "valor": {
+          "mean": 0.15211423553004316,
+          "p50": 0.14842100634162836,
+          "p90": 0.1998691222401121,
+          "p95": 0.2162296260833448,
+          "p99": 0.25097052176440493,
+          "max": 0.338651924224324
+        },
+        "oficial": {
+          "mean": 0.4962734591211551,
+          "p50": 0.48391761499523733,
+          "p90": 0.6511720486481567,
+          "p95": 0.7051974405233818,
+          "p99": 0.8198092697775957,
+          "max": 1.1045306985959749
+        },
+        "premium": {
+          "mean": 0.9925469182423102,
+          "p50": 0.9678352299904747,
+          "p90": 1.3023440972963134,
+          "p95": 1.4103948810467637,
+          "p99": 1.6396185395551914,
+          "max": 2.2090613971919497
+        }
+      },
+      "perPlan": {
+        "free": {
+          "label": "Free",
+          "users": 70,
+          "active": 24.411,
+          "queries": 62.1945,
+          "queriesPerActive": 2.5478063168243823,
+          "utilization": 0.17769857142857143,
+          "cost": 0.05571602917903323
+        },
+        "pro": {
+          "label": "Pro",
+          "users": 25,
+          "active": 14.995,
+          "queries": 299.581,
+          "queriesPerActive": 19.978726242080693,
+          "utilization": 0.19972066666666666,
+          "cost": 0.26851601277277715
+        },
+        "elite": {
+          "label": "Elite",
+          "users": 5,
+          "active": 3.7565,
+          "queries": 191.984,
+          "queriesPerActive": 51.107147610807935,
+          "utilization": 0.1535872,
+          "cost": 0.17204141716934462
+        }
+      }
+    },
+    {
+      "cohort": "invites-100",
+      "label": "Beta cerrada con invitaciones Pro (100 cuentas)",
+      "queries": {
+        "mean": 1125.45,
+        "p50": 1115,
+        "p90": 1373.1000000000001,
+        "p95": 1444,
+        "p99": 1619.01,
+        "max": 1976
+      },
+      "activeUsers": 53.955,
+      "inputTokens": 10038002.560603578,
+      "cachedTokens": 7026510.24,
+      "outputTokens": 894143.0611435315,
+      "ceiling": 6250,
+      "routes": {
+        "barata": {
+          "mean": 0.5002730356953878,
+          "p50": 0.49491993148000546,
+          "p90": 0.6117246770232874,
+          "p95": 0.6438976649507411,
+          "p99": 0.7165267778432787,
+          "max": 0.8671892202133155
+        },
+        "valor": {
+          "mean": 0.3093628386609719,
+          "p50": 0.3061901283381267,
+          "p90": 0.3783254720189197,
+          "p95": 0.3984908386654234,
+          "p99": 0.44318799581757956,
+          "max": 0.535247789976801
+        },
+        "oficial": {
+          "mean": 1.0092892154966542,
+          "p50": 0.9985463040984538,
+          "p90": 1.2344830249943823,
+          "p95": 1.3010356325500916,
+          "p99": 1.4463846647764917,
+          "max": 1.7427561975949077
+        },
+        "premium": {
+          "mean": 2.0185784309933084,
+          "p50": 1.9970926081969076,
+          "p90": 2.4689660499887647,
+          "p95": 2.602071265100183,
+          "p99": 2.8927693295529835,
+          "max": 3.4855123951898155
+        }
+      },
+      "perPlan": {
+        "free": {
+          "label": "Free",
+          "users": 30,
+          "active": 10.424,
+          "queries": 26.3465,
+          "queriesPerActive": 2.5274846508058326,
+          "utilization": 0.17564333333333335,
+          "cost": 0.023635256810877508
+        },
+        "pro": {
+          "label": "Pro",
+          "users": 60,
+          "active": 36.0025,
+          "queries": 715.7925,
+          "queriesPerActive": 19.88174432331088,
+          "utilization": 0.19883125,
+          "cost": 0.6420272318055661
+        },
+        "elite": {
+          "label": "Elite",
+          "users": 10,
+          "active": 7.5285,
+          "queries": 383.311,
+          "queriesPerActive": 50.91465763432291,
+          "utilization": 0.1533244,
+          "cost": 0.34362672688021295
+        }
+      }
+    },
+    {
+      "cohort": "pro-100",
+      "label": "Estrés: 100 suscriptores Pro",
+      "queries": {
+        "mean": 1195.4555,
+        "p50": 1194.5,
+        "p90": 1390.1000000000001,
+        "p95": 1451.2999999999997,
+        "p99": 1578.01,
+        "max": 1698
+      },
+      "activeUsers": 59.99,
+      "inputTokens": 10655539.712678809,
+      "cachedTokens": 7458920.72,
+      "outputTokens": 949333.0292044411,
+      "ceiling": 6000,
+      "routes": {
+        "barata": {
+          "mean": 0.5311408321582934,
+          "p50": 0.531287759762479,
+          "p90": 0.6178549745688738,
+          "p95": 0.6453992253794568,
+          "p99": 0.6997552364779757,
+          "max": 0.7463439054233542
+        },
+        "valor": {
+          "mean": 0.3284371131980807,
+          "p50": 0.3284459089510775,
+          "p90": 0.381864382020852,
+          "p95": 0.399254420792144,
+          "p99": 0.4326089485258027,
+          "max": 0.46065863010220504
+        },
+        "oficial": {
+          "mean": 1.0714694285844897,
+          "p50": 1.0713375041745947,
+          "p90": 1.2445922543882937,
+          "p95": 1.3024862472426588,
+          "p99": 1.4134540119171222,
+          "max": 1.4998588215701787
+        },
+        "premium": {
+          "mean": 2.1429388571689794,
+          "p50": 2.1426750083491894,
+          "p90": 2.4891845087765874,
+          "p95": 2.6049724944853176,
+          "p99": 2.8269080238342443,
+          "max": 2.9997176431403574
+        }
+      },
+      "perPlan": {
+        "pro": {
+          "label": "Pro",
+          "users": 100,
+          "active": 59.99,
+          "queries": 1195.4555,
+          "queriesPerActive": 19.927579596599433,
+          "utilization": 0.19924258333333333,
+          "cost": 1.0714694285844897
+        }
+      }
+    }
+  ],
+  "sensitivity": {
+    "reasoningHigh": 0.8943065971163502,
+    "noCache": 1.004077444481155,
+    "noRetries": 0.458752424569985,
+    "prefixHigh": 0.5671595064411554,
+    "cheap": 0.2459821868224179,
+    "premium": 0.9925469182423102
+  },
+  "intentCosts": [
+    {
+      "label": "Analizar un prop",
+      "weight": 22,
+      "steps": 3,
+      "cost": 0.0011380686189119541
+    },
+    {
+      "label": "Comparar cuotas y valor",
+      "weight": 18,
+      "steps": 2.3333333333333335,
+      "cost": 0.0008749973540193312
+    },
+    {
+      "label": "Explicar una predicción",
+      "weight": 16,
+      "steps": 2.5,
+      "cost": 0.0009831581261265402
+    },
+    {
+      "label": "Stats de equipo",
+      "weight": 12,
+      "steps": 1.5,
+      "cost": 0.0006297457292764855
+    },
+    {
+      "label": "Buscar y abrir un partido",
+      "weight": 10,
+      "steps": 2.5,
+      "cost": 0.0009221970865572331
+    },
+    {
+      "label": "Glosario / métrica",
+      "weight": 10,
+      "steps": 1,
+      "cost": 0.0004192575821098858
+    },
+    {
+      "label": "Resumen de la jornada",
+      "weight": 7,
+      "steps": 3.5,
+      "cost": 0.0014667408347899947
+    },
+    {
+      "label": "Fuera de alcance (rechazo)",
+      "weight": 5,
+      "steps": 1,
+      "cost": 0.0003460257255821785
+    }
+  ]
+}

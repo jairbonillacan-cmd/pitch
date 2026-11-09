@@ -21,8 +21,12 @@
     "storybook": "pnpm --filter @pitchlab/ui storybook",
     "build-storybook": "pnpm --filter @pitchlab/ui build-storybook",
     "history:xg": "pnpm --filter @pitchlab/ingest history:xg",
+    "history:native-stats": "pnpm --filter @pitchlab/ingest history:native-stats",
     "history:api-stats": "pnpm --filter @pitchlab/ingest history:api-stats",
-    "history:espn": "pnpm --filter @pitchlab/ingest history:espn"
+    "history:espn": "pnpm --filter @pitchlab/ingest history:espn",
+    "data:catalog": "node scripts/data-catalog.mjs",
+    "verify:data": "node scripts/data-catalog.mjs --verify",
+    "ai:simulate": "node services/ai-eval/simulate-usage.mjs"
   },
   "devDependencies": {
     "@types/node": "26.6.6",

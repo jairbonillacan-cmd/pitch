@@ -16,6 +16,7 @@ import {
   API_FOOTBALL_LIGA_MX_SLUGS,
   apiFootballGameId,
 } from "./api-football-history.js";
+import { sha256 } from "./http.js";
 
 export interface LigaMxStatsRecord {
   id: string;
@@ -264,11 +265,13 @@ export function buildLigaMxStatsDataset(options: {
   records.sort((a, b) => a.date.localeCompare(b.date) || a.id.localeCompare(b.id));
   const filePath = join(outDir, "liga-mx-stats.jsonl");
   mkdirSync(outDir, { recursive: true });
-  writeFileSync(filePath, records.map((record) => JSON.stringify(record)).join("\n") + "\n", "utf8");
+  const body = records.map((record) => JSON.stringify(record)).join("\n") + "\n";
+  writeFileSync(filePath, body, "utf8");
   const withXg = records.filter((record) => record.homeXg !== null && record.awayXg !== null).length;
   const manifest = {
     schemaVersion: 1,
     generatedAt: new Date().toISOString(),
+    fileSha256: sha256(body),
     rows: records.length,
     withXg,
     seasons: [...new Set(records.map((record) => record.season))].sort(),

@@ -1,6 +1,6 @@
 # Benchmark histórico walk-forward
 
-Generado: 2026-11-09T02:49:23.344Z
+Generado: 2026-11-09T05:30:51.381Z
 
 Ventana móvil de entrenamiento: 1095 días. Cada jornada se predice solo con partidos anteriores a su fecha.
 
@@ -34,6 +34,17 @@ Mercado sin vig: 24,565 predicciones emparejadas. Cuota de cierre en 96.1% de lo
 
 Δ negativo = el candidato pierde menos que Dixon-Coles.
 
+### Mezcla con DC-xG (goles + xG) y Elo-xG
+
+| Liga | Mezcla-xG | Mezcla DC-xG | Δ vs mezcla-xG | Mercado | Δ mezcla DC-xG − mercado |
+|---|---:|---:|---:|---:|---:|
+| premier-league | 0.9726 | 0.9726 | 0.0000 [0.0000, 0.0000] | 0.9563 | 0.0163 [0.0122, 0.0206] |
+| la-liga | 0.9727 | 0.9727 | 0.0000 [0.0000, 0.0000] | 0.9527 | 0.0200 [0.0152, 0.0250] |
+| bundesliga | 0.9928 | 0.9928 | 0.0000 [0.0000, 0.0000] | 0.9776 | 0.0152 [0.0104, 0.0201] |
+| serie-a | 0.9725 | 0.9725 | 0.0000 [0.0000, 0.0000] | 0.9500 | 0.0225 [0.0181, 0.0276] |
+| ligue-1 | 1.0009 | 1.0009 | 0.0000 [0.0000, 0.0000] | 0.9813 | 0.0197 [0.0140, 0.0251] |
+| liga-mx | 1.0030 | 1.0030 | 0.0000 [0.0000, 0.0000] | — | — |
+
 ### Totales (más/menos 2.5) frente al mercado
 
 | Liga | n | LogLoss modelo | LogLoss xG | LogLoss mercado |
@@ -52,8 +63,11 @@ Mercado sin vig: 24,565 predicciones emparejadas. Cuota de cierre en 96.1% de lo
 | Brier moneyline | 7204 | 0.4623 | 0.4929 |
 | Acierto | 7204 | 61.7% | 56.2% |
 | LogLoss totales en la línea de cierre | 7204 | 0.7155 | 0.7229 |
+| LogLoss totales calibrados (Platt) | 7204 | 0.6949 | 0.7229 |
 
 Δ LogLoss moneyline frente al ingenuo: **-0.0315**, IC 95% [-0.0390, -0.0237].
+
+Calibración de totales: pendiente **0.047**, intercepto -0.052. Una pendiente cercana a 0 indica que la probabilidad de over del modelo apenas aporta información sobre la línea.
 
 Mercado sin vig (moneylines de cierre de nflverse), 5426 partidos: LogLoss 0.6106, Brier 0.4231.
 

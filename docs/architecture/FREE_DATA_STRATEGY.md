@@ -25,6 +25,15 @@
 - FBref y Sports-Reference (prohíben el scraping).
 - **Cualquier scraping de casas de apuestas.**
 
+**Fuentes evaluadas y descartadas en la investigación de xG/estadísticas (2026-11-09):**
+
+- **Understat en vivo**: caído («We will come back soon»); se usó su histórico vía snapshots de Wayback Machine.
+- **SofaScore API** (`api.sofascore.com`): 403; `api.sofascore.app` devuelve cuerpos vacíos.
+- **FotMob**: sin API pública accesible; el HTML se renderiza en cliente y no expone xG por partido.
+- **ESPN**: da tiros, córners, posesión y tarjetas de Liga MX, pero **no xG** (tampoco en su API core).
+- **API-Football**: `expected_goals` viene `null` para Liga MX; sí trae xG en otras competiciones.
+- **Open-Meteo (clima)**: señal de lluvia/viento no concluyente en 4,691 partidos de Premier League; no se integra.
+
 ## 2. Qué cambia en el producto (honestidad ante todo)
 
 | Funcionalidad del MVP | Con datos $0 | Cómo se comunica en la UI |

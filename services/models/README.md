@@ -47,3 +47,30 @@ Con las features actuales el GBM **no supera a la mezcla 50/50** de Dixon-Coles 
 (Δ +0.0015 a +0.0027 de log loss, IC 95 % incluye el 0). La señal ya está en los motores
 base; el siguiente salto requiere datos nuevos (xG, alineaciones, cuotas) más que otra
 clase de modelo. El detalle está en `Reportes/modelos/BACKTEST-GBM.md`.
+
+## NFL: blend ratings + GBM situacional
+
+services/models/nfl_blend.py mezcla las predicciones del motor NFL (ratings) con un LightGBM entrenado sobre las features pre-partido del pipeline situacional (descanso, bye, clima, EPA de QB). Requiere exportar las predicciones del benchmark:
+
+`ash
+pnpm backtest:history --leagues=nfl --export-nfl=Reportes/modelos/nfl-ratings-predictions.jsonl
+PYTHONPATH=services/models/.deps python services/models/nfl_blend.py
+`
+
+Resultado (test 2020-2026): moneyline ratings 0.6691 → **blend 0.6433** (sin empates 0.6682 → 0.6428); mercado 0.6091. El peso (0.4) se elige en validación (temporadas < 2020). Reporte: Reportes/modelos/NFL-BLEND.md. Es un experimento research-only: el GBM no está integrado en el producto.
+
+## Artefacto NFL y inferencia
+
+El GBM del blend se versiona en services/models/artifacts/nfl_blend/ (model.txt + metadata.json con features, parámetros, métricas y peso de mezcla). Se regenera con:
+
+`ash
+PYTHONPATH=services/models/.deps python services/models/nfl_blend.py --save-artifact
+`
+
+Para inferir sobre un JSONL de features pre-partido:
+
+`ash
+python services/models/nfl_predict.py --features partidos.jsonl --out predicciones.jsonl
+`
+
+Salida por partido: pHome, pDraw, pAway y pHomeBinary (para mezclar con el motor de ratings usando weightRatings).

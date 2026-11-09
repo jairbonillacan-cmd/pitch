@@ -1,8 +1,8 @@
 # Dataset de xG (Understat, research-only)
 
-Generado: 2026-11-09T03:32:48.068Z
+Generado: 2026-11-09T06:50:02.433Z
 
-- datasetId: `414e19c118c4f4c33cff0b05a71c94175915e193ef76a479dae7203c3ad3ecae`
+- datasetId: `c97269c33f085b6c068fce78c6b4f5a8c925d07aa281d97801a682604fe362a2`
 - Corpus emparejado: `35fea620f15ca0aff9f976ef59c2bd1bfde26e9dad1d250823b44d5bd400018d` (26761 partidos)
 
 | Liga | Filas | Emparejadas | Corpus | Cobertura | Nombres sin alias |
@@ -98,7 +98,7 @@ Generado: 2026-11-09T03:32:48.068Z
 | 2024-25 | 171 | 20250131173528 | cached |
 | 2025-26 | 0 | — | unavailable |
 
-| liga-mx | 1054 | 413 | 1189 | 34.7% | 0 |
+| liga-mx | 1492 | 851 | 1189 | 71.6% | 0 |
 
 | Temporada | Filas | Snapshot | Estado |
 |---|---:|---|---|

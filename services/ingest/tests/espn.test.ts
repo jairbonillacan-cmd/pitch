@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { parseEspnSummary } from "../src/index.js";
+import { compactEspnSummary, parseEspnSummary } from "../src/index.js";
 
 const payload = {
   boxscore: {
@@ -59,5 +59,15 @@ describe("ESPN — estadísticas de Liga MX", () => {
     expect(stats.get("1")?.possession).toBe(61);
     expect(stats.get("1")?.shots).toBeNull();
     expect(parseEspnSummary({}).size).toBe(0);
+  });
+
+  it("compacta el summary a nombres y estadísticas", () => {
+    const compact = compactEspnSummary(payload)!;
+    expect(compact.names["234"]).toBe("Pachuca");
+    expect(compact.names["227"]).toBe("América");
+    expect(compact.stats["234"]?.shots).toBe(13);
+    expect(compact.stats["227"]?.red).toBe(1);
+    expect(JSON.stringify(compact).length).toBeLessThan(JSON.stringify(payload).length);
+    expect(compactEspnSummary({ boxscore: { teams: [] } })).toBeNull();
   });
 });

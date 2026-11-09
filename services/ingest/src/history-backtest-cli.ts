@@ -7,10 +7,11 @@
  *   --bootstrap=2000               iteraciones del bootstrap pareado
  */
 import { mkdirSync, writeFileSync } from "node:fs";
-import { resolve } from "node:path";
+import { dirname, resolve } from "node:path";
 import {
   renderHistoryBacktestReport,
   runHistoryBacktest,
+  type NflPredictionExport,
 } from "./history-backtest.js";
 
 const ROOT_DIR = resolve(import.meta.dirname, "..", "..", "..");
@@ -24,6 +25,7 @@ interface CliOptions {
   includeHistoricalResearch?: boolean;
   includeStack?: boolean;
   exportFeaturesPath?: string;
+  exportNflPath?: string;
 }
 
 function parsePositiveInt(raw: string, flag: string): number {
@@ -67,6 +69,9 @@ function parseArgs(argv: readonly string[]): CliOptions {
       case "export-features":
         options.exportFeaturesPath = resolve(ROOT_DIR, value!);
         break;
+      case "export-nfl":
+        options.exportNflPath = resolve(ROOT_DIR, value!);
+        break;
       default:
         throw new Error(`Flag desconocida: '--${key}'.`);
     }
@@ -76,6 +81,7 @@ function parseArgs(argv: readonly string[]): CliOptions {
 
 function main(): void {
   const options = parseArgs(process.argv.slice(2));
+  const nflPredictions: NflPredictionExport[] = [];
   console.log("[backtest-histórico] Ejecutando walk-forward sobre data/history…");
 
   const report = runHistoryBacktest({
@@ -93,7 +99,21 @@ function main(): void {
     ...(options.exportFeaturesPath
       ? { exportFeaturesPath: options.exportFeaturesPath }
       : {}),
+    ...(options.exportNflPath
+      ? { onNflPrediction: (row: NflPredictionExport) => nflPredictions.push(row) }
+      : {}),
   });
+
+  if (options.exportNflPath) {
+    mkdirSync(dirname(options.exportNflPath), { recursive: true });
+    writeFileSync(
+      options.exportNflPath,
+      nflPredictions.map((row) => JSON.stringify(row)).join("\n") +
+        (nflPredictions.length > 0 ? "\n" : ""),
+      "utf8",
+    );
+    console.log(`[NFL] ${nflPredictions.length} predicciones exportadas a ${options.exportNflPath}`);
+  }
 
   mkdirSync(OUTPUT_DIR, { recursive: true });
   writeFileSync(

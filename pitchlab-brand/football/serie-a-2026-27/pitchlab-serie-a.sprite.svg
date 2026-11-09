@@ -1,0 +1,204 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+  <symbol id="pitchlab-serie-a" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-serie-a-field"><path d="M40 7 66 16 73 33 64 58 40 74 16 58 7 33 14 16Z"/></clipPath></defs>
+  <path d="M40 7 66 16 73 33 64 58 40 74 16 58 7 33 14 16Z" fill="#172E51"/>
+  <g clip-path="url(#pitchlab-serie-a-field)">
+    <path d="M40 14 61 49 53 49 40 27 27 49 19 49ZM40 38 47 43 45 51 35 51 33 43Z" fill="#FFF2DA" fill-rule="evenodd"/>
+    <path d="M18 53 39 61V68L18 59Z M41 61 53 56V63L41 68Z" fill="#60B38C" fill-rule="evenodd"/>
+    <path d="M55 55 62 52V59L55 62Z" fill="#CA4457" fill-rule="evenodd"/>
+  </g>
+  <path d="M40 7 66 16 73 33 64 58 40 74 16 58 7 33 14 16Z" fill="none" stroke="#FFF2DA" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-milan" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-milan-field"><path d="M40 6C58 6 71 20 71 40S58 74 40 74 9 60 9 40 22 6 40 6Z"/></clipPath></defs>
+  <path d="M40 6C58 6 71 20 71 40S58 74 40 74 9 60 9 40 22 6 40 6Z" fill="#222228"/>
+  <g clip-path="url(#pitchlab-milan-field)">
+    <path d="M24 26 34 33H46L56 26 53 40 59 48 48 57 40 64 32 57 21 48 27 40Z" fill="#FFE9CF" fill-rule="evenodd"/>
+    <path d="M25 19H31V26L25 22ZM38 13H43V29H38ZM49 19H55V23L49 27Z" fill="#C93549" fill-rule="evenodd"/>
+    <path d="M26 44 36 48 33 52ZM54 44 44 48 47 52ZM36 57H44L40 61Z" fill="#222228" fill-rule="evenodd"/>
+  </g>
+  <path d="M40 6C58 6 71 20 71 40S58 74 40 74 9 60 9 40 22 6 40 6Z" fill="none" stroke="#FFE9CF" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-monza" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-monza-field"><path d="M11 20 23 11H57L69 20V46L60 63 40 73 20 63 11 46Z"/></clipPath></defs>
+  <path d="M11 20 23 11H57L69 20V46L60 63 40 73 20 63 11 46Z" fill="#A32036"/>
+  <g clip-path="url(#pitchlab-monza-field)">
+    <path d="M38 16H42L44 39H53V44H43V60H37V44H27V39H36ZM21 54Q40 40 59 54V61Q40 50 21 61Z" fill="#FFEFD7" fill-rule="evenodd"/>
+    <path d="M38 48H42V56H38Z" fill="#A32036" fill-rule="evenodd"/>
+  </g>
+  <path d="M11 20 23 11H57L69 20V46L60 63 40 73 20 63 11 46Z" fill="none" stroke="#FFEFD7" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-fiorentina" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-fiorentina-field"><path d="M27 10H53L70 27 65 55 40 74 15 55 10 27Z"/></clipPath></defs>
+  <path d="M27 10H53L70 27 65 55 40 74 15 55 10 27Z" fill="#512C77"/>
+  <g clip-path="url(#pitchlab-fiorentina-field)">
+    <path d="M40 15C50 25 50 32 44 41 53 28 60 29 63 36 66 43 59 49 53 46 52 42 49 44 47 50H51V55H45L40 64 35 55H29V50H33C31 44 28 42 27 46 21 49 14 43 17 36 20 29 27 28 36 41 30 32 30 25 40 15Z" fill="#F8EADD" fill-rule="evenodd"/>
+    <path d="M22 52H28V57H22ZM52 52H58V57H52Z" fill="#C16587" fill-rule="evenodd"/>
+  </g>
+  <path d="M27 10H53L70 27 65 55 40 74 15 55 10 27Z" fill="none" stroke="#F8EADD" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-roma" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-roma-field"><path d="M11 17Q25 15 40 8 55 15 69 17L66 46Q61 64 40 74 19 64 14 46Z"/></clipPath></defs>
+  <path d="M11 17Q25 15 40 8 55 15 69 17L66 46Q61 64 40 74 19 64 14 46Z" fill="#7F2536"/>
+  <g clip-path="url(#pitchlab-roma-field)">
+    <path d="M20 26 29 27 36 20 40 31 50 33 62 28 60 40 52 47 48 60 42 60 41 50 35 50 31 60H24L27 46 19 40 15 33Z" fill="#FFD893" fill-rule="evenodd"/>
+    <path d="M36 55 39 59 37 64 33 61ZM50 52 54 57 50 62 47 59Z" fill="#D6533E" fill-rule="evenodd"/>
+    <path d="M24 33 30 34 26 37Z" fill="#7F2536" fill-rule="evenodd"/>
+  </g>
+  <path d="M11 17Q25 15 40 8 55 15 69 17L66 46Q61 64 40 74 19 64 14 46Z" fill="none" stroke="#FFD893" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-atalanta-bc" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-atalanta-bc-field"><path d="M40 6C58 6 71 20 71 40S58 74 40 74 9 60 9 40 22 6 40 6Z"/></clipPath></defs>
+  <path d="M40 6C58 6 71 20 71 40S58 74 40 74 9 60 9 40 22 6 40 6Z" fill="#193760"/>
+  <g clip-path="url(#pitchlab-atalanta-bc-field)">
+    <path d="M45 16 53 23 54 30 61 38 53 41 51 48 44 51 46 60 32 65 34 49 25 44 17 47 21 38 14 37 23 31 20 26 34 24Z" fill="#F2EFE6" fill-rule="evenodd"/>
+    <path d="M20 50 29 47 29 55 21 60 15 59Z" fill="#438DCD" fill-rule="evenodd"/>
+    <path d="M43 31 50 30 49 34Z" fill="#193760" fill-rule="evenodd"/>
+  </g>
+  <path d="M40 6C58 6 71 20 71 40S58 74 40 74 9 60 9 40 22 6 40 6Z" fill="none" stroke="#F2EFE6" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-bologna" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-bologna-field"><path d="M25 7H55Q67 7 67 22V54Q63 69 40 75 17 69 13 54V22Q13 7 25 7Z"/></clipPath></defs>
+  <path d="M25 7H55Q67 7 67 22V54Q63 69 40 75 17 69 13 54V22Q13 7 25 7Z" fill="#242D4D"/>
+  <g clip-path="url(#pitchlab-bologna-field)">
+    <path d="M24 53 28 26H35L36 53ZM42 53 45 18H53L56 53ZM19 56H61V62H19Z" fill="#FCF0DB" fill-rule="evenodd"/>
+    <path d="M22 19H27V25H22ZM34 19H39V25H34ZM40 13H45V18H40ZM53 13H58V18H53Z" fill="#BE3A51" fill-rule="evenodd"/>
+    <path d="M30 35H33V40H30ZM48 28H51V33H48Z" fill="#242D4D" fill-rule="evenodd"/>
+  </g>
+  <path d="M25 7H55Q67 7 67 22V54Q63 69 40 75 17 69 13 54V22Q13 7 25 7Z" fill="none" stroke="#FCF0DB" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-cagliari" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-cagliari-field"><path d="M10 23Q17 8 40 8T70 23V49Q65 67 40 74 15 67 10 49Z"/></clipPath></defs>
+  <path d="M10 23Q17 8 40 8T70 23V49Q65 67 40 74 15 67 10 49Z" fill="#20385C"/>
+  <g clip-path="url(#pitchlab-cagliari-field)">
+    <path d="M40 15H45V36H62V43H45V63H35V43H18V36H35V15Z" fill="#F7EFDE" fill-rule="evenodd"/>
+    <path d="M24 24 29 20 33 25 28 30ZM48 24 53 20 58 25 53 30ZM23 51 28 46 33 51 28 56ZM48 51 53 46 58 51 53 56Z" fill="#C33D51" fill-rule="evenodd"/>
+  </g>
+  <path d="M10 23Q17 8 40 8T70 23V49Q65 67 40 74 15 67 10 49Z" fill="none" stroke="#F7EFDE" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-como" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-como-field"><path d="M40 6A34 34 0 1 1 40 74 34 34 0 0 1 40 6Z"/></clipPath></defs>
+  <path d="M40 6A34 34 0 1 1 40 74 34 34 0 0 1 40 6Z" fill="#19437E"/>
+  <g clip-path="url(#pitchlab-como-field)">
+    <path d="M16 41 31 23 40 32 48 20 64 40 61 45 48 30 40 40 31 32 20 46Z" fill="#F4F1DE" fill-rule="evenodd"/>
+    <path d="M19 50Q27 44 36 50T53 50 62 49" fill="none" stroke="#77C4DD" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M27 59Q35 55 41 59T54 58" fill="none" stroke="#77C4DD" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <path d="M40 6A34 34 0 1 1 40 74 34 34 0 0 1 40 6Z" fill="none" stroke="#F4F1DE" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-internazionale-milano" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-internazionale-milano-field"><path d="M24 7H56L73 24V56L56 73H24L7 56V24Z"/></clipPath></defs>
+  <path d="M24 7H56L73 24V56L56 73H24L7 56V24Z" fill="#152743"/>
+  <g clip-path="url(#pitchlab-internazionale-milano-field)">
+    <path d="M24 22H31V57H24ZM36 22H42L51 35 58 22H64V57H57V35L51 46 43 35V57H36Z" fill="#F5E8C7" fill-rule="evenodd"/>
+    <path d="M16 34H20V52H16ZM20 59H61V63H20Z" fill="#3D88C5" fill-rule="evenodd"/>
+  </g>
+  <path d="M24 7H56L73 24V56L56 73H24L7 56V24Z" fill="none" stroke="#F5E8C7" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-frosinone" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-frosinone-field"><path d="M40 7 66 16 73 33 64 58 40 74 16 58 7 33 14 16Z"/></clipPath></defs>
+  <path d="M40 7 66 16 73 33 64 58 40 74 16 58 7 33 14 16Z" fill="#F4C940"/>
+  <g clip-path="url(#pitchlab-frosinone-field)">
+    <path d="M34 24 44 17 49 26 57 30 54 38 45 39 44 45 52 52 47 62 35 58 25 50 28 40 21 33 27 28Z" fill="#1A3768" fill-rule="evenodd"/>
+    <path d="M56 19 60 23 56 27 52 23Z" fill="#A76B18" fill-rule="evenodd"/>
+    <path d="M42 30 49 29 48 33ZM45 36H53L48 38Z" fill="#F4C940" fill-rule="evenodd"/>
+  </g>
+  <path d="M40 7 66 16 73 33 64 58 40 74 16 58 7 33 14 16Z" fill="none" stroke="#1A3768" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-genoa-cfc" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-genoa-cfc-field"><path d="M11 17Q25 15 40 8 55 15 69 17L66 46Q61 64 40 74 19 64 14 46Z"/></clipPath></defs>
+  <path d="M11 17Q25 15 40 8 55 15 69 17L66 46Q61 64 40 74 19 64 14 46Z" fill="#22345A"/>
+  <g clip-path="url(#pitchlab-genoa-cfc-field)">
+    <path d="M45 21 53 23 54 29 62 34 58 40 47 38 42 46 48 52 56 52 53 60 37 62 25 55 29 45 22 40 19 29 27 33 25 23 36 30Z" fill="#FDE7BA" fill-rule="evenodd"/>
+    <path d="M18 18 31 15 41 15 23 53 19 46Z" fill="#B93247" fill-rule="evenodd"/>
+    <path d="M49 29 55 30 51 33Z" fill="#22345A" fill-rule="evenodd"/>
+  </g>
+  <path d="M11 17Q25 15 40 8 55 15 69 17L66 46Q61 64 40 74 19 64 14 46Z" fill="none" stroke="#FDE7BA" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-juventus" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-juventus-field"><path d="M25 7H55Q67 7 67 22V54Q63 69 40 75 17 69 13 54V22Q13 7 25 7Z"/></clipPath></defs>
+  <path d="M25 7H55Q67 7 67 22V54Q63 69 40 75 17 69 13 54V22Q13 7 25 7Z" fill="#25262B"/>
+  <g clip-path="url(#pitchlab-juventus-field)">
+    <path d="M27 57 35 43 24 42 19 34 29 27 35 18 40 24 48 17 50 25 58 33 57 47 51 61 37 64Z" fill="#F7F1E1" fill-rule="evenodd"/>
+    <path d="M18 60H25L21 64Z M53 62 60 56 58 64Z" fill="#AD8D4E" fill-rule="evenodd"/>
+    <path d="M32 29 42 29 36 34ZM48 31 54 36 48 37ZM42 39 56 42 55 47 44 45ZM34 47 52 52 50 57 39 54Z" fill="#25262B" fill-rule="evenodd"/>
+  </g>
+  <path d="M25 7H55Q67 7 67 22V54Q63 69 40 75 17 69 13 54V22Q13 7 25 7Z" fill="none" stroke="#F7F1E1" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-lazio" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-lazio-field"><path d="M10 23Q17 8 40 8T70 23V49Q65 67 40 74 15 67 10 49Z"/></clipPath></defs>
+  <path d="M10 23Q17 8 40 8T70 23V49Q65 67 40 74 15 67 10 49Z" fill="#A1D8EA"/>
+  <g clip-path="url(#pitchlab-lazio-field)">
+    <path d="M15 24 29 29 39 38 42 31 38 25 48 19 55 23 49 28 49 35 56 31 65 24 62 43 51 47 46 45 44 52 51 60 40 64 29 60 36 51 34 46 28 47 18 42Z" fill="#173A64" fill-rule="evenodd"/>
+    <path d="M22 33 34 41 25 40ZM58 33 55 40 48 41Z" fill="#F9E7B9" fill-rule="evenodd"/>
+  </g>
+  <path d="M10 23Q17 8 40 8T70 23V49Q65 67 40 74 15 67 10 49Z" fill="none" stroke="#173A64" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-lecce" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-lecce-field"><path d="M11 20 23 11H57L69 20V46L60 63 40 73 20 63 11 46Z"/></clipPath></defs>
+  <path d="M11 20 23 11H57L69 20V46L60 63 40 73 20 63 11 46Z" fill="#9C263D"/>
+  <g clip-path="url(#pitchlab-lecce-field)">
+    <path d="M27 44C15 41 21 30 28 29 29 21 39 18 44 24 55 21 62 30 57 37 57 45 48 48 44 44V56H54V62H26V56H36V44Z" fill="#FFE38E" fill-rule="evenodd"/>
+    <path d="M18 19H24V27H18ZM55 19H62V27H55Z" fill="#416C51" fill-rule="evenodd"/>
+    <path d="M28 35 35 37 40 43 44 36 51 33 46 40 40 49 34 41Z" fill="#9C263D" fill-rule="evenodd"/>
+  </g>
+  <path d="M11 20 23 11H57L69 20V46L60 63 40 73 20 63 11 46Z" fill="none" stroke="#FFE38E" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-napoli" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-napoli-field"><path d="M40 6A34 34 0 1 1 40 74 34 34 0 0 1 40 6Z"/></clipPath></defs>
+  <path d="M40 6A34 34 0 1 1 40 74 34 34 0 0 1 40 6Z" fill="#12649A"/>
+  <g clip-path="url(#pitchlab-napoli-field)">
+    <path d="M22 57V23H29L51 44V23H58V54H51L29 33V52Z" fill="#F3F4E8" fill-rule="evenodd"/>
+    <path d="M21 60Q30 55 40 60T59 59" fill="none" stroke="#85CBEC" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <path d="M40 6A34 34 0 1 1 40 74 34 34 0 0 1 40 6Z" fill="none" stroke="#F3F4E8" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-parma" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-parma-field"><path d="M10 23Q17 8 40 8T70 23V49Q65 67 40 74 15 67 10 49Z"/></clipPath></defs>
+  <path d="M10 23Q17 8 40 8T70 23V49Q65 67 40 74 15 67 10 49Z" fill="#F5D968"/>
+  <g clip-path="url(#pitchlab-parma-field)">
+    <path d="M36 17H44V33H61V42H44V63H36V42H19V33H36Z" fill="#232F47" fill-rule="evenodd"/>
+    <path d="M17 46H23V54L17 48ZM26 47H32V61L26 57ZM48 47H54V57L48 61ZM57 46H63L57 54Z" fill="#28579A" fill-rule="evenodd"/>
+  </g>
+  <path d="M10 23Q17 8 40 8T70 23V49Q65 67 40 74 15 67 10 49Z" fill="none" stroke="#232F47" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-sassuolo" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-sassuolo-field"><path d="M11 20 23 11H57L69 20V46L60 63 40 73 20 63 11 46Z"/></clipPath></defs>
+  <path d="M11 20 23 11H57L69 20V46L60 63 40 73 20 63 11 46Z" fill="#19372F"/>
+  <g clip-path="url(#pitchlab-sassuolo-field)">
+    <path d="M40 25C45 16 55 24 53 31 64 30 64 43 55 46 53 55 45 55 41 48L38 56H32L37 46C25 49 19 39 25 34 30 29 34 32 35 32 32 25 36 21 40 25Z" fill="#EAF2D8" fill-rule="evenodd"/>
+    <path d="M17 17H23V53L17 45ZM58 17H63V45L58 53Z" fill="#4D9871" fill-rule="evenodd"/>
+    <path d="M39 36 45 39 40 44 35 40Z" fill="#19372F" fill-rule="evenodd"/>
+  </g>
+  <path d="M11 20 23 11H57L69 20V46L60 63 40 73 20 63 11 46Z" fill="none" stroke="#EAF2D8" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-torino" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-torino-field"><path d="M11 17Q25 15 40 8 55 15 69 17L66 46Q61 64 40 74 19 64 14 46Z"/></clipPath></defs>
+  <path d="M11 17Q25 15 40 8 55 15 69 17L66 46Q61 64 40 74 19 64 14 46Z" fill="#792338"/>
+  <g clip-path="url(#pitchlab-torino-field)">
+    <path d="M18 20 30 30 38 28 46 30 61 19 58 34 53 40 56 46 47 51 48 58 40 64 31 58 33 50 24 44 27 37 21 33Z" fill="#FFECD3" fill-rule="evenodd"/>
+    <path d="M16 46 25 50 22 57ZM57 49 64 45 60 57Z" fill="#C35C57" fill-rule="evenodd"/>
+    <path d="M30 41 37 44 33 47ZM50 41 46 47 42 44ZM35 55H45L41 59H38Z" fill="#792338" fill-rule="evenodd"/>
+  </g>
+  <path d="M11 17Q25 15 40 8 55 15 69 17L66 46Q61 64 40 74 19 64 14 46Z" fill="none" stroke="#FFECD3" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-udinese" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-udinese-field"><path d="M40 6A34 34 0 1 1 40 74 34 34 0 0 1 40 6Z"/></clipPath></defs>
+  <path d="M40 6A34 34 0 1 1 40 74 34 34 0 0 1 40 6Z" fill="#232630"/>
+  <g clip-path="url(#pitchlab-udinese-field)">
+    <path d="M26 22H34V52L26 44ZM38 20H46V55L38 58ZM50 22H56V43L50 50Z" fill="#F6EED8" fill-rule="evenodd"/>
+    <path d="M19 34C15 54 26 64 39 66 54 64 64 51 61 34" fill="none" stroke="#BA9854" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <path d="M40 6A34 34 0 1 1 40 74 34 34 0 0 1 40 6Z" fill="none" stroke="#F6EED8" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="pitchlab-venezia" viewBox="0 0 80 80">
+  <defs><clipPath id="pitchlab-venezia-field"><path d="M40 7 66 16 73 33 64 58 40 74 16 58 7 33 14 16Z"/></clipPath></defs>
+  <path d="M40 7 66 16 73 33 64 58 40 74 16 58 7 33 14 16Z" fill="#223532"/>
+  <g clip-path="url(#pitchlab-venezia-field)">
+    <path d="M18 25 33 29 41 36 43 26 52 22 57 29 62 31 58 38 51 39 46 48 58 49 56 57 44 55 39 61 30 58 33 51 25 46Z" fill="#FFE9C4" fill-rule="evenodd"/>
+    <path d="M21 60Q30 57 39 61T56 61" fill="none" stroke="#E69B55" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M48 30 53 29 52 33Z" fill="#223532" fill-rule="evenodd"/>
+  </g>
+  <path d="M40 7 66 16 73 33 64 58 40 74 16 58 7 33 14 16Z" fill="none" stroke="#FFE9C4" stroke-width="3.6" stroke-linejoin="round"/>
+  </symbol>
+</svg>

@@ -24,8 +24,28 @@ const LEAGUE_SOURCES = [
     relDir: "football/laliga-2026-27",
   },
   {
+    league: "bundesliga",
+    relDir: "football/bundesliga-2026-27",
+  },
+  {
+    league: "serie-a",
+    relDir: "football/serie-a-2026-27",
+  },
+  {
+    league: "ligue-1",
+    relDir: "football/ligue-1-2026-27",
+  },
+  {
     league: "nfl",
     relDir: "american-football/nfl-2026",
+  },
+  {
+    league: "mlb",
+    relDir: "baseball/mlb-2026",
+  },
+  {
+    league: "nhl",
+    relDir: "hockey/nhl-2026-27",
   },
 ];
 

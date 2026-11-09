@@ -117,17 +117,6 @@ export function LeagueBadge({
   label?: string;
   size?: number;
 }): React.JSX.Element {
-  if (league === "nhl" || league === "mlb") {
-    return (
-      <span
-        className="badge badge-fallback"
-        style={{ width: size, height: size }}
-        aria-hidden="true"
-      >
-        <Icon name={league === "nhl" ? "hockey" : "baseball"} />
-      </span>
-    );
-  }
   if (!hasLeagueAsset(league)) {
     return (
       <span

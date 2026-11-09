@@ -402,6 +402,393 @@ _(Cada sesión de agente agrega aquí su entrada con el formato de `AGENT_EXECUT
 - **Cómo probarlo:**
   - `pnpm history:xg --offline` (41,718 filas) y `pnpm backtest:history --include-research-history` (reporte con Elo-xG y mezcla-xG en Liga MX); `pnpm --filter @pitchlab/ingest exec vitest run --pool=threads` (50 tests).
 
+### MODEL-06 · GBM y DC-xG con cobertura completa de xG — 2026-11-09 — Rama `feat/pre-mvp`
+- **Hecho:**
+  - GBM reentrenado con el xG estimado (cobertura 100 % en las cinco grandes): empata con la mezcla en Bundesliga (0.9917 vs 0.9915) y Serie A (0.9708 vs 0.9707); pierde en Premier League (+0.0015), LaLiga (+0.0031), Ligue 1 (+0.0028) y Liga MX (+0.0030). No se adopta.
+  - Nueva evaluación **DC-xG** (promedio DC-goles + DC-xG) mezclada con Elo-xG: mejora LaLiga (0.9658 vs 0.9670), Bundesliga (0.9917 vs 0.9928) y Serie A (0.9655 vs 0.9660); neutral en PL/Ligue 1 y peor en Liga MX (1.0025 vs 1.0011). Se añade como columna/tabla de evaluación, no como candidato.
+  - Reporte research regenerado con la tabla "Mezcla con DC-xG".
+- **No hecho / fuera de alcance:**
+  - Elegir por liga el mejor candidato (sería selección sobre test).
+  - Poisson bivariado con xG y covariables.
+- **Decisiones tomadas (y por qué):**
+  - No se adopta DC-xG global: la ganancia aparece en tres ligas pero desaparece/negativa en las otras dos, sin un criterio previo que diga cuál usar.
+  - El GBM se mantiene como experimento documentado.
+- **Riesgos o deuda:**
+  - El xG estimado en Liga MX añade ruido al DC-xG; por eso empeora allí.
+  - La tabla DC-xG del reporte público repite la mezcla-xG porque no hay xG en ese benchmark.
+- **Cómo probarlo:**
+  - `pnpm backtest:history --include-research-history` (tabla "Mezcla con DC-xG") y `$env:PYTHONPATH="services/models/.deps"; python services/models/train_gbm.py` (reporte GBM).
+
+### MODEL-07 · Validación temporal del peso de mezcla — 2026-11-09 — Rama `feat/pre-mvp`
+- **Hecho:**
+  - Se evaluó el peso de la mezcla DC + Elo-xG (0.3–0.8) eligiendo en 2010-2019 y midiendo en 2020-2026. El peso óptimo por liga no generaliza: Ligue 1 −0.0029 y Serie A −0.0011 a favor; Bundesliga +0.0012 y Liga MX +0.0023 en contra; Premier League y LaLiga neutras.
+  - Decisión: mantener el peso fijo 0.5 y no introducir parámetros por liga elegidos sobre el test.
+  - Understat sigue caído (verificado dos veces); no se pudo completar 2025-26.
+- **No hecho / fuera de alcance:**
+  - Peso global único (se descartó por la mezcla de signos por liga).
+  - Recalibrar Elo-xG con el peso como parámetro del modelo.
+- **Decisiones tomadas (y por qué):**
+  - No adoptar pesos por liga: la validación temporal muestra que la ganancia en validación no se transfiere.
+- **Riesgos o deuda:**
+  - La mezcla con peso 0.5 puede ser subóptima en Ligue 1/Serie A, pero no hay evidencia estable para cambiarla.
+- **Cómo probarlo:**
+  - `pnpm backtest:history --include-research-history`; el experimento de pesos está documentado en este handoff (no se añadió CLI para no fijar parámetros sobre test).
+
+### MODEL-08 · Peso global de mezcla: Elo-xG 0.7/0.3, Elo de goles 0.5 — 2026-11-09 — Rama `feat/pre-mvp`
+- **Hecho:**
+  - Validación temporal (elección 2010-2019, test 2020-2026) del peso de la mezcla **DC + Elo-xG**: el óptimo global es **0.7/0.3**. En test mejora PL (−0.0009), LaLiga (−0.0004), Serie A (−0.0012), Ligue 1 (−0.0029) y Liga MX (−0.0006); empeora Bundesliga (+0.0012). Neto ≈ −0.0009 por partido.
+  - La misma validación para **DC + Elo de goles** (modelo público) da **0.5**, sin cambio.
+  - No se adopta el 0.7/0.3 todavía: implica cambiar el candidato research y regenerar reportes; queda como siguiente paso.
+  - Understat sigue caído.
+- **No hecho / fuera de alcance:**
+  - Implementar `blendXgTuned` (0.7/0.3) y regenerar el reporte research.
+  - Pesos por liga (no generalizan).
+- **Decisiones tomadas (y por qué):**
+  - No tocar el modelo público: su peso óptimo validado es 0.5.
+  - El 0.7/0.3 se documenta antes de adoptarlo para no romper comparabilidad del reporte.
+- **Riesgos o deuda:**
+  - Bundesliga empeora con 0.7; el peso global es una media, no el óptimo de cada liga.
+- **Cómo probarlo:**
+  - `pnpm backtest:history --include-research-history` (comparar columnas de mezcla); los experimentos de peso están descritos aquí.
+
+### MODEL-09 · Mezcla-xG ponderada 0.7/0.3: implementada y descartada — 2026-11-09 — Rama `feat/pre-mvp`
+- **Hecho:**
+  - Se implementó `blendXgTuned` (0.7 DC / 0.3 Elo-xG) en el benchmark research y se regeneró el reporte con la tabla "Mezcla-xG con peso validado".
+  - Resultado sobre toda la historia: **no mejora** el 0.5/0.5. LaLiga 0.9678 vs 0.9670, Bundesliga 0.9936 vs 0.9928, Serie A 0.9672 vs 0.9660, Liga MX 1.0017 vs 1.0011; solo Ligue 1 mejora (0.9984 vs 0.9987). El peso 0.7 solo funcionaba en la ventana 2020-2026, no en el benchmark completo.
+  - Se mantiene 0.5 como peso del candidato; `blendXgTuned` queda como columna de evaluación.
+- **No hecho / fuera de alcance:**
+  - Peso dependiente de la temporada (0.5 antes de 2020, 0.7 después); sería otro parámetro sobre test.
+- **Decisiones tomadas (y por qué):**
+  - No adoptar 0.7/0.3: la mejora no se sostiene al evaluar toda la historia.
+  - Documentar el resultado negativo para no repetir el experimento.
+- **Riesgos o deuda:**
+  - El reporte research incluye una columna que pierde; puede confundir si no se lee la nota.
+- **Cómo probarlo:**
+  - `pnpm backtest:history --include-research-history` (tabla "Mezcla-xG con peso validado").
+
+### DATA-09 · ESPN 2020-21 completo y prueba de clima — 2026-11-09 — Rama `feat/pre-mvp`
+- **Hecho:**
+  - ESPN Liga MX: se añadió la temporada 2020 (Apertura 2020) y la cobertura subió a **1,274 partidos**: 2019-20 (80), 2020-21 (275), 2022-23 (308), 2023-24 (305), 2024-25 (306).
+  - El xG estimado de Liga MX cubre ahora **633 partidos del corpus (53.2 %)** y el dataset xG total llega a **41,938 filas**. La mezcla-xG de Liga MX mejora de 1.0011 a **1.0003** (DC 1.0050; IC del Δ incluye 0).
+  - Prueba de señal de **clima** (Open-Meteo) en 4,691 partidos de Premier League: over 2.5 del 52.8 % en seco vs 55.7–56.1 % con lluvia, sin control de confusión; no se integra como feature.
+- **No hecho / fuera de alcance:**
+  - Dataset de clima: la API gratuita limita solicitudes/minuto y la señal no justifica el pipeline.
+  - ESPN 2025-26/2026-27: el corpus canónico de Liga MX no tiene esas temporadas.
+- **Decisiones tomadas (y por qué):**
+  - Priorizar cobertura de estadísticas ESPN (gratis, sin cuota) sobre clima (señal débil y API limitada).
+- **Riesgos o deuda:**
+  - La mejora de Liga MX sigue sin IC que excluya el 0; el xG es estimado, no observado.
+- **Cómo probarlo:**
+  - `pnpm history:espn --seasons=2024,2023,2022,2021,2020 --offline` (1,274 partidos) y `pnpm history:xg --offline` (41,938 filas); `pnpm backtest:history --include-research-history`.
+
+### DATA-10 · ESPN 2018-19 y 2019-20: más cobertura, sin mejora de modelo — 2026-11-09 — Rama `feat/pre-mvp`
+- **Hecho:**
+  - ESPN Liga MX suma 2018-19 (210 partidos) y completa 2019-20 (88). Total: **1,492 partidos** en seis temporadas.
+  - xG estimado de Liga MX: **851 partidos del corpus (71.6 %)**; dataset xG total **42,156 filas**.
+  - La mezcla-xG de Liga MX pasa a **1.0012** (DC 1.0050; mezcla 1.0020). Con 1,274 partidos había dado 1.0003: **más cobertura antigua no mejora el modelo**, porque el xG estimado de temporadas viejas añade ruido al Elo-xG.
+  - Probado sin éxito: Understat (caído), Wayback 2025-26 (solo snapshots de mantenimiento), SofaScore/FotMob/ESPN para xG real de Liga MX.
+- **No hecho / fuera de alcance:**
+  - xG real de Liga MX: ninguna fuente gratuita probada lo ofrece.
+  - Revertir la cobertura antigua: el dataset es más completo y la diferencia es pequeña; se documenta el efecto.
+- **Decisiones tomadas (y por qué):**
+  - Se conserva 2018-19/2019-20 pese al empeoramiento de 0.0009: la cobertura es un activo y el IC del Δ incluye 0.
+  - No se integra xG estimado de temporadas antiguas con más peso que el reciente (sería otro parámetro sobre test).
+- **Riesgos o deuda:**
+  - El xG estimado de Liga MX mezcla temporadas con y sin estadísticas; el Elo-xG puede estar sobreajustado a las recientes.
+- **Cómo probarlo:**
+  - `pnpm history:espn --seasons=2024,2023,2022,2021,2020,2019,2018 --offline` (1,492 partidos) y `pnpm history:xg --offline` (42,156 filas); reporte research regenerado.
+
+### DATA-11 · Auditoría del dataset xG y reproducibilidad offline — 2026-11-09 — Rama `feat/pre-mvp`
+- **Hecho:**
+  - Auditoría manual de todos los JSONL research: **0 duplicados** en xG (42,156 filas), 0 xG negativos o >10, fechas y temporadas válidas; ESPN (1,492) sin duplicados ni outliers; datasets research sin duplicados.
+  - `validateXgGames` en `services/ingest/src/history/xg.ts`: el constructor comprueba ids únicos, xG finito y en [0,10], fecha `YYYY-MM-DD`, temporada `YYYY-YY` y equipos no vacíos; lanza error con muestra de problemas.
+  - Nuevas pruebas: `tests/xg-validation.test.ts` (4 casos) y `tests/xg-offline.test.ts` (reconstruye dos veces desde caché y verifica `datasetId` estable; se omite si no hay caché).
+  - El 50 % de las filas de las cinco grandes es xG estimado por tiros (5,600 en Premier League), no xG observado; queda documentado para no sobreinterpretar el Elo-xG.
+- **No hecho / fuera de alcance:**
+  - Validación de los JSONL de fútbol research (cuotas/estadísticas) más allá de duplicados.
+  - Limpieza de la caché raw (crece con cada corrida).
+- **Decisiones tomadas (y por qué):**
+  - La validación vive en el constructor, no en un script aparte: cualquier regeneración falla rápido si el dataset se corrompe.
+  - La prueba offline se omite sin caché para no romper CI.
+- **Riesgos o deuda:**
+  - La proporción de xG estimado es alta; el Elo-xG de temporadas antiguas es más ruidoso.
+- **Cómo probarlo:**
+  - `pnpm --filter @pitchlab/ingest exec vitest run --pool=threads tests/xg-validation.test.ts tests/xg-offline.test.ts`; `pnpm history:xg --offline`.
+
+### DATA-12 · Validación de los datasets research y tamaño de caché — 2026-11-09 — Rama `feat/pre-mvp`
+- **Hecho:**
+  - Auditoría de los JSONL research (60,553 filas): sin duplicados, cuotas en rango y marcadores razonables. Se detectaron 6 casos de tiros a puerta > tiros (Premier League 5, Serie A 1) que la fuente publica mal.
+  - `validateResearchGames` en `services/ingest/src/history/research.ts`: bloquea ids duplicados, fechas/temporadas inválidas, marcadores >15, cuotas fuera de (1, 1000) y over/under incompletas; registra como **aviso** los tiros a puerta > tiros y valores atípicos. El constructor falla antes de escribir si hay errores.
+  - 4 pruebas nuevas en `tests/research-validation.test.ts`.
+  - Medición de caché raw: **~2.2 GB** (`data/history/raw/`), sobre todo ESPN (1.5 GB de summaries) y nflverse (605 MB). Documentado como borrable si no se reconstruyen datasets.
+- **No hecho / fuera de alcance:**
+  - Política automática de retención/limpieza de caché.
+  - Compactar los summaries de ESPN (se guardan completos, ~400 KB cada uno).
+- **Decisiones tomadas (y por qué):**
+  - Los avisos de estadísticas no bloquean la reconstrucción: son 6 de 60 mil filas y la fuente no es corregible.
+  - No se borra caché automáticamente para no romper `--offline`.
+- **Riesgos o deuda:**
+  - 2.2 GB de caché local; si el disco aprieta, borrar `data/history/raw/espn/summaries` y `nflverse`.
+- **Cómo probarlo:**
+  - `pnpm --filter @pitchlab/ingest exec vitest run --pool=threads tests/research-validation.test.ts`; `pnpm history:odds --offline` reconstruye y aplica la validación.
+
+### DATA-13 · Bug de pruning en research y restauración de datasets — 2026-11-09 — Rama `feat/pre-mvp`
+- **Hecho:**
+  - Detectado un bug destructivo: `pruneStaleFiles` borraba **cualquier** `.jsonl` del directorio research que no se hubiera construido en la corrida, incluidos `liga-mx-enriched.jsonl` (otro agente), `liga-mx-espn-stats.jsonl`, `liga-mx-stats.jsonl` y `liga-mx.jsonl`, y también ligas no pedidas en builds parciales.
+  - Corregido: la poda solo se ejecuta en construcciones completas y solo sobre los JSONL de ligas que el constructor posee; los datasets auxiliares quedan intactos.
+  - Restaurados los archivos perdidos: research de Liga MX (`liga-mx.jsonl`), estadísticas ESPN (1,492), stats de API-Football (10) y `liga-mx-enriched.jsonl` (1,671) regenerado con `tools/extract_espn_ligamx.py`.
+  - Prueba de regresión `tests/research-prune.test.ts`: la poda elimina ligas viejas y conserva datasets auxiliares.
+- **No hecho / fuera de alcance:**
+  - Mover los datasets auxiliares a un subdirectorio propio (`research/aux/`) para aislarlos por diseño.
+- **Decisiones tomadas (y por qué):**
+  - Se mantiene todo en `research/` por compatibilidad, pero con lista blanca de nombres podables.
+  - La poda no corre en builds parciales para no borrar ligas no solicitadas.
+- **Riesgos o deuda:**
+  - Cualquier nuevo dataset auxiliar en `research/` debe añadirse a la lista blanca si se quiere podar; por defecto se conserva.
+- **Cómo probarlo:**
+  - `pnpm --filter @pitchlab/ingest exec vitest run --pool=threads tests/research-prune.test.ts`; `pnpm history:odds --offline` (build completo) y comprobar que los auxiliares siguen.
+
+### DATA-14 · Caché de ESPN compactada (1.5 GB → 82 MB) — 2026-11-09 — Rama `feat/pre-mvp`
+- **Hecho:**
+  - Los summaries de ESPN se guardaban completos (~400 KB por partido, 1.5 GB en total). Ahora se cachea solo `{ names, stats }` (~0.2 KB) con `compactEspnSummary`; el constructor escribe compacto al descargar y lee ambos formatos.
+  - `compactEspnSummaries(rootDir)` convierte cachés antiguas in situ. Ejecutado sobre 1,492 summaries: **1.5 GB → 82 MB** (~1.4 GB ahorrados). La caché raw total baja de **2.2 GB a 823 MB**.
+  - Reconstrucción offline verificada tras compactar: 1,492 partidos, mismo dataset.
+  - Nueva prueba en `tests/espn.test.ts` para el formato compacto.
+- **No hecho / fuera de alcance:**
+  - Compactar nflverse (605 MB) o native-stats; no se usan tanto como ESPN.
+- **Decisiones tomadas (y por qué):**
+  - Se conservan nombres y estadísticas, no el payload completo: es todo lo que el constructor necesita y mantiene la reconstrucción offline.
+  - Formato retrocompatible: si el archivo no tiene `stats`/`names`, se parsea como summary completo.
+- **Riesgos o deuda:**
+  - Otros scripts que esperasen el JSON completo de ESPN en `raw/espn/.../summaries` ya no lo encontrarán; los nuestros leen compacto.
+- **Cómo probarlo:**
+  - `pnpm --filter @pitchlab/ingest exec vitest run --pool=threads tests/espn.test.ts`; `pnpm history:espn --seasons=2024,2023,2022,2021,2020,2019,2018 --offline` (1,492 partidos).
+
+### DATA-15 · Catálogo e integridad de datasets (`pnpm data:catalog`) — 2026-11-09 — Rama `feat/pre-mvp`
+- **Hecho:**
+  - `scripts/data-catalog.mjs` + `pnpm data:catalog`: recorre los 22 datasets (corpus, research, xG, auxiliares), cuenta filas, tamaño, duplicados y rango de fechas, y escribe `Reportes/datos/DATA-CATALOG.md` y `data-catalog.json`.
+  - Resultado: **140,050 filas, 65.3 MB, 0 duplicados** en 22 datasets. No se modifica ningún dataset; el script solo lee.
+  - El catálogo incluye licencia y builder de cada archivo, y avisa si hay duplicados o errores de parseo.
+- **No hecho / fuera de alcance:**
+  - Verificación de integridad de parquet NFL (otro pipeline) y de los manifests de corpus/research.
+  - Checksum por archivo en el catálogo (se puede añadir con sha256).
+- **Decisiones tomadas (y por qué):**
+  - Un script de solo lectura en vez de un builder: el catálogo debe poder correr en cualquier momento sin efectos.
+  - Incluir datasets auxiliares (ESPN, API, enriquecido) para detectar borrados accidentales como el de la ronda 20.
+- **Riesgos o deuda:**
+  - El catálogo crece con cada dataset nuevo; hay que añadirlo a las listas del script.
+- **Cómo probarlo:**
+  - `pnpm data:catalog` (0 duplicados, 140,050 filas) y abrir `Reportes/datos/DATA-CATALOG.md`.
+
+### DATA-16 · Checksums SHA-256 y verificación de manifiestos en el catálogo — 2026-11-09 — Rama `feat/pre-mvp`
+- **Hecho:**
+  - `pnpm data:catalog` ahora calcula **SHA-256** de cada archivo y lo compara con el hash y las filas declarados en los manifiestos de corpus, research y xG.
+  - El manifiesto de xG incluye `fileSha256` por liga (antes solo filas).
+  - Resultado: **22 datasets, 140,050 filas, 0 duplicados y 0 discrepancias** de manifiesto (hashes y filas coinciden).
+  - El catálogo avisa por consola y en el reporte si un hash o el número de filas no coincide.
+- **No hecho / fuera de alcance:**
+  - Checksums de los auxiliares sin manifiesto (ESPN, API stats, enriquecido): aparecen con `—` en la columna Manifiesto.
+  - Firma de los manifiestos (solo se comparan hashes de contenido).
+- **Decisiones tomadas (y por qué):**
+  - El hash se calcula al vuelo en el catálogo en vez de guardarse aparte: siempre refleja el archivo real.
+  - Se compara también el número de filas para detectar cambios de formato sin cambio de hash aparente.
+- **Riesgos o deuda:**
+  - Si se regenera un dataset sin actualizar su manifiesto, el catálogo lo marcará como discrepancia (comportamiento deseado).
+- **Cómo probarlo:**
+  - `pnpm data:catalog` (debe imprimir 0 discrepancias) y revisar la columna Manifiesto en `Reportes/datos/DATA-CATALOG.md`.
+
+### DATA-17 · Manifiestos con hash para datasets auxiliares — 2026-11-09 — Rama `feat/pre-mvp`
+- **Hecho:**
+  - Los manifiestos de **ESPN** (`liga-mx-espn-stats.manifest.json`) y **API-Football** (`liga-mx-stats.manifest.json`) incluyen ahora `fileSha256`.
+  - El catálogo lee ambos manifiestos y verifica hash y filas: las dos filas pasan de `—` a **ok**.
+  - `liga-mx-enriched.jsonl` sigue sin manifiesto porque lo genera un tool de otro agente; aparece con `—` y se documenta.
+- **No hecho / fuera de alcance:**
+  - Manifiesto para `liga-mx-enriched.jsonl`: habría que añadirlo al script Python que lo genera.
+- **Decisiones tomadas (y por qué):**
+  - No se toca el tool de otro agente; el catálogo marca el hueco en vez de inventar un hash.
+- **Riesgos o deuda:**
+  - Si se regenera ESPN/API sin pasar por el builder, el manifiesto quedará desactualizado y el catálogo lo detectará.
+- **Cómo probarlo:**
+  - `pnpm data:catalog` (0 discrepancias; ESPN y API en `ok`).
+
+### DATA-18 · Verificación offline del pipeline (`pnpm verify:data`) — 2026-11-09 — Rama `feat/pre-mvp`
+- **Hecho:**
+  - `scripts/data-catalog.mjs` acepta `--verify`: además del catálogo, comprueba umbrales mínimos (≥20 datasets, ≥130,000 filas, >10,000 research PL, >9,000 xG PL, >1,000 ESPN, >6,000 corpus PL) y falla con código 1 si algo no cuadra.
+  - Nuevo script `pnpm verify:data`. Resultado actual: OK con 22 datasets, 140,050 filas, 0 duplicados y 0 discrepancias.
+  - Es un chequeo **offline y de solo lectura**: no descarga ni reconstruye nada.
+- **No hecho / fuera de alcance:**
+  - Verificar la caché raw (solo datasets publicados/research).
+  - Integrarlo en CI (requiere los datos, que están gitignored).
+- **Decisiones tomadas (y por qué):**
+  - Umbrales mínimos en vez de igualdad exacta: detectan pérdidas grandes (como el borrado de la ronda 20) sin fallar por regeneraciones legítimas.
+- **Riesgos o deuda:**
+  - Los umbrales hay que actualizarlos si cambia el tamaño esperado de un dataset.
+- **Cómo probarlo:**
+  - `pnpm verify:data` (debe imprimir `[verify:data] OK`).
+
+### DATA-19 · Datasets situacionales en el catálogo + experimento NFL — 2026-11-09 — Rama `feat/pre-mvp`
+- **Hecho:**
+  - El catálogo incluye los dos datasets del pipeline situacional de otro agente: `nfl-situational-features.jsonl` (7,407 partidos) y `soccer-situational-features.jsonl` (41,581). Total: **24 datasets, 189,038 filas, 0 duplicados, 0 discrepancias**.
+  - `pnpm verify:data` sigue en OK con los umbrales actuales.
+  - Experimento NFL: LightGBM multiclass (local/empate/visita) walk-forward por temporada con las features situacionales (descanso, bye, techo, clima, puntos rolling, EPA de QB). Log loss 3 clases **0.6646** frente a **0.6545** del motor actual de ratings: no mejora. El mercado binario sin empates queda en 0.6099 como referencia.
+- **No hecho / fuera de alcance:**
+  - Ajuste fino del GBM NFL (rondas/hojas) y features propias; no se justifica con la diferencia actual.
+  - Manifiestos de los datasets situacionales (los genera otro pipeline).
+- **Decisiones tomadas (y por qué):**
+  - No se adopta el GBM NFL: pierde 0.010 frente al motor de ratings.
+  - Se documenta el experimento y el detalle de que `result` es el margen de puntos, no el signo (un error de interpretación inicial dio cifras imposibles).
+- **Riesgos o deuda:**
+  - Los datasets situacionales no tienen manifiesto propio; el catálogo los muestra con `—`.
+- **Cómo probarlo:**
+  - `pnpm verify:data` (24 datasets) y revisar la tabla del catálogo; el experimento NFL quedó como script temporal, no integrado.
+
+### MODEL-12 · GBM NFL tuneado: sin mejora — 2026-11-09 — Rama `feat/pre-mvp`
+- **Hecho:**
+  - Búsqueda de hiperparámetros del GBM NFL (learning rate 0.02–0.05, hojas 7–31, min_data 100–300, rondas 100–350) con walk-forward por temporada sobre las features situacionales.
+  - Mejor configuración: lr 0.03, 7 hojas, min_data 200, 100 rondas → **0.6610** de log loss 3 clases. El motor actual de ratings da **0.6545**: el GBM sigue perdiendo 0.0065 incluso tuneado.
+  - Se documenta el registro de fuentes descartadas (Understat caído, SofaScore/FotMob sin API, ESPN/API-Football sin xG de Liga MX, clima no concluyente) en `FREE_DATA_STRATEGY.md`.
+- **No hecho / fuera de alcance:**
+  - Blend ratings + GBM NFL: requeriría exportar probabilidades por partido del motor actual.
+  - Más features propias de NFL (injurias semanales, viajes).
+- **Decisiones tomadas (y por qué):**
+  - No se adopta el GBM NFL: la diferencia es consistente y no hay señal para integrarlo.
+  - Se cierra la exploración de xG/estadísticas con las fuentes actuales; Understat sigue caído.
+- **Riesgos o deuda:**
+  - La comparación 0.6610 vs 0.6545 no es exactamente el mismo conjunto de evaluación; aun así la diferencia es pequeña y no justifica integrar.
+- **Cómo probarlo:**
+  - Reproducir el script de tuning (temporal) o revisar los resultados en este handoff.
+
+### MODEL-13 · Blend NFL ratings + GBM situacional (mejora 0.024 en test) — 2026-11-09 — Rama `feat/pre-mvp`
+- **Hecho:**
+  - El benchmark NFL expone ahora `onNflPrediction` y el flag `--export-nfl=<ruta>`: exporta cada predicción del motor de ratings (7,204 filas).
+  - `services/models/nfl_blend.py` entrena un LightGBM walk-forward con las features situacionales y mezcla con los ratings; elige el peso en validación (<2020) y evalúa en test (2020-2026).
+  - Resultado (moneyline, empates = no local, comparable al reporte público): ratings **0.6691** → blend **0.6433** (peso 0.4); GBM solo 0.6452; mercado 0.6091. Sin empates: ratings 0.6682 → blend 0.6428. Mejora de **≈0.026** frente a ratings.
+  - Reportes: `Reportes/modelos/NFL-BLEND.md` y `nfl-blend.json`. Sección nueva en `services/models/README.md`.
+- **No hecho / fuera de alcance:**
+  - Integrar el GBM en el producto: requeriría un job batch (Python) que genere las predicciones NFL con las features situacionales.
+  - Reentrenar el GBM con datos posteriores a 2026 o añadir lesiones semanales.
+- **Decisiones tomadas (y por qué):**
+  - Se documenta como experimento research-only, no como candidato publicado: el blend depende de un pipeline externo y de features de otro agente.
+  - El peso se elige en validación temporal para no seleccionar sobre test.
+- **Riesgos o deuda:**
+  - La comparación es sobre no-empates y un subconjunto; no es directamente el 0.6545 del reporte público. En moneyline sobre el subconjunto el motor da 0.6691, así que la mejora relativa del blend es lo relevante.
+  - El GBM no está versionado como artefacto: se reentrena en cada corrida del script.
+- **Cómo probarlo:**
+  - `pnpm backtest:history --leagues=nfl --export-nfl=Reportes/modelos/nfl-ratings-predictions.jsonl`; `$env:PYTHONPATH="services/models/.deps"; python services/models/nfl_blend.py`.
+
+### MODEL-14 · Artefacto versionado e inferencia del GBM NFL — 2026-11-09 — Rama `feat/pre-mvp`
+- **Hecho:**
+  - `nfl_blend.py --save-artifact` entrena el GBM final sobre todos los partidos etiquetados y guarda `services/models/artifacts/nfl_blend/model.txt` (276 KB) + `metadata.json` (features, params, seed, 6,630 filas, temporada máxima 2026, peso de mezcla 0.4 y métricas).
+  - `services/models/nfl_predict.py` carga el artefacto y un JSONL de features pre-partido; emite por partido `pHome`, `pDraw`, `pAway` y `pHomeBinary`.
+  - Probado con los últimos 25 partidos: 25 predicciones válidas (suman 1, binaria en rango).
+- **No hecho / fuera de alcance:**
+  - Integración en la web/DB: el artefacto y el script son la base del job batch, pero no hay endpoint ni tabla todavía.
+  - Features de partidos futuros: el pipeline situacional solo cubre partidos jugados.
+- **Decisiones tomadas (y por qué):**
+  - Se versiona el modelo (texto + metadata) para reproducibilidad, en vez de reentrenar en cada inferencia.
+  - La inferencia depende del contrato de features del pipeline situacional; cualquier cambio de features exige regenerar el artefacto (la metadata guarda el orden).
+- **Riesgos o deuda:**
+  - `model.txt` está atado a LightGBM 4.7.0; otra versión puede cambiar el formato.
+  - Las features futuras deben construirse con el mismo pipeline (rest, EPA, clima) para que las predicciones sean válidas.
+- **Cómo probarlo:**
+  - `python services/models/nfl_predict.py --features <jsonl>` (sin `--out` imprime por stdout); validar que las probabilidades suman 1.
+
+### MODEL-15 · Totales NFL calibrados (Platt walk-forward) — 2026-11-09 — Rama `feat/pre-mvp`
+- **Hecho:**
+  - Diagnóstico: el modelo de totales NFL está sobreconfiado. En la línea de cierre da **0.7155** de log loss; la tasa base (over 48.8 %) da 0.693 y un GBM con features situacionales 0.6936.
+  - Implementada calibración Platt walk-forward en el benchmark (`fitPlatt` + `totalsCalibrated`): 0.7155 → **0.6949** (pendiente 0.047, intercepto −0.052). La pendiente casi nula confirma que el `pOver` del modelo apenas aporta sobre la línea.
+  - El reporte NFL muestra ahora dos filas: totales sin calibrar y calibrados. Reportes público y research regenerados.
+- **No hecho / fuera de alcance:**
+  - Sustituir el `pOver` del producto por el calibrado: requiere decidir si se aplica en la web o solo en research.
+  - Un modelo de totales nuevo (regresión de puntos con features); el GBM no superó la tasa base.
+- **Decisiones tomadas (y por qué):**
+  - Se mantiene el modelo de totales sin cambios y se añade la calibración como candidato medido, no como salida publicada.
+  - Platt en vez de isotónica: dos parámetros, estable con pocos datos y fácil de auditar.
+- **Riesgos o deuda:**
+  - La pendiente 0.047 implica que el total calibrado es casi la tasa base; la línea de cierre ya contiene la información.
+- **Cómo probarlo:**
+  - `pnpm backtest:history --leagues=nfl` y revisar la fila "LogLoss totales calibrados (Platt)" en `Reportes/modelos/BACKTEST-HISTORICO.md`.
+
+### MODEL-16 · Lesiones NFL como feature: sin mejora — 2026-11-09 — Rama `feat/pre-mvp`
+- **Hecho:**
+  - Agregadas las lesiones semanales de nflverse (parquet 2009-2026, leído con DuckDB): bajas, dudosos, cuestionables, QB fuera y skill players fuera por equipo-semana (9,358 combinaciones).
+  - Añadidas como features al GBM NFL: moneyline **0.6435 → 0.6431** (mejora 0.0004). El motor de ratings queda en 0.6545 en el mismo conjunto.
+  - No se integran: la señal ya está capturada por el EPA de QB y las líneas de mercado; el coste de mantener el pipeline de lesiones no se justifica.
+- **No hecho / fuera de alcance:**
+  - Lesiones a nivel de jugador individual (embeddings) o estado de práctica.
+  - Integrar lesiones en el artefacto NFL versionado.
+- **Decisiones tomadas (y por qué):**
+  - No adoptar: mejora dentro del ruido y añade dependencia de un parquet grande.
+  - Se documenta el experimento para no repetirlo.
+- **Riesgos o deuda:**
+  - El join por (season, week, team) asume que el reporte de lesiones es previo al partido; en semanas con jueves puede haber desfase.
+- **Cómo probarlo:**
+  - El script quedó como experimento temporal; los datos están en `data/history/raw/nflverse/injuries/`.
+
+### DATA-20 · Cierre formal de la línea de adquisición de datos — 2026-11-09 — Rama `feat/pre-mvp`
+- **Hecho:**
+  - Nuevo documento `docs/architecture/DATA_SOURCES_STATUS.md` con el estado de todas las fuentes (activas, caídas, bloqueadas, agotadas), datos aportados, mejoras de motor atribuibles y qué falta.
+  - Resumen: 24 datasets, **189,038 filas**, 0 duplicados, 0 discrepancias. Corpus 34,168; research 63,726; xG 42,156; situacional 48,988.
+  - Comprobación final: Understat sigue caído, ClubElo 502, SPI devuelve HTML, SofaScore 403, FotMob sin API, Wayback sin snapshots útiles para 2024-25/2025-26.
+  - Enlazado desde `HISTORICAL_DATA.md` §10.
+- **No hecho / fuera de alcance:**
+  - xG real de Liga MX y 2025-26 completo: dependen de fuentes que no están disponibles.
+  - Integración de producto del blend NFL y de los totales calibrados (siguiente fase).
+- **Decisiones tomadas (y por qué):**
+  - Se cierra la adquisición con las fuentes actuales para no repetir barridos ya agotados; si Understat vuelve, se retoma con `pnpm history:xg`.
+  - El trabajo pendiente es de producto, no de datos.
+- **Riesgos o deuda:**
+  - Los documentos de estado pueden quedar desactualizados si una fuente vuelve; la fecha de comprobación está en el título.
+- **Cómo probarlo:**
+  - Leer `docs/architecture/DATA_SOURCES_STATUS.md`; `pnpm verify:data` sigue en OK.
+
+### MODEL-17 · Pruebas de la calibración Platt — 2026-11-09 — Rama `feat/pre-pmv`
+- **Hecho:**
+  - `fitPlatt` exportado y cubierto con 3 pruebas: recupera parámetros conocidos de datos sintéticos, encoge un modelo sin información (pendiente ≈ 0) y no explota con datos cuasi-separables.
+  - Las pruebas usan un generador determinista (sin aleatoriedad real) para que no sean frágiles.
+- **No hecho / fuera de alcance:**
+  - Pruebas de integración del benchmark NFL completo (es lento, ~8 s por corrida).
+- **Decisiones tomadas (y por qué):**
+  - Exportar `fitPlatt` solo para pruebas: es una función pura y aislada, no forma parte del contrato público.
+- **Riesgos o deuda:**
+  - El caso de pendiente no identificable (todas las `p` iguales) no se prueba porque la solución no es única; el tercer test cubre estabilidad.
+- **Cómo probarlo:**
+  - `pnpm --filter @pitchlab/ingest exec vitest run --pool=threads tests/platt.test.ts`.
+
+
+
+
+
+
+
+
+
+### MODEL-10 · Calibración por temperatura del blend público — 2026-11-09 — Rama `feat/pre-mvp`
+- **Hecho:**
+  - Validación temporal (2010-2019 → 2020-2026) de una temperatura `T` sobre el blend DC+Elo de goles (0.8–1.2).
+  - El óptimo en validación es **T = 1** (sin cambio): el blend ya está calibrado. En test no hay diferencia (delta 0.0000 en las seis ligas).
+  - No se integra ningún parámetro de calibración.
+- **No hecho / fuera de alcance:**
+  - Calibración por liga o por temporada; no hay señal en validación.
+- **Decisiones tomadas (y por qué):**
+  - No añadir complejidad sin mejora medible.
+- **Riesgos o deuda:**
+  - La brecha frente al mercado no viene de mala calibración, sino de información que el modelo no tiene.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

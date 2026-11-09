@@ -14,6 +14,7 @@
 | **A** | Sede neutral | ✅ (NFL; fútbol casi siempre false) | |
 | **B** (enriquecidas) | Forma reciente, GF/GC rolling, splits local/visita, fuerza de calendario, descanso | ✅ **derivable** del corpus con ventana as-of | Sin costo de datos: se calculan de resultados anteriores |
 | **B** | Tiros, posesión, corners, tarjetas, alineaciones, lesiones | ⛔ ninguna fuente gratuita licenciada | Se declara ausente; no se imputa |
+| **B** | Marcador al descanso y goles por mitad | ◐ `research/native-stats` (research-only, sin licencia; el corpus todavía no lo ingiere) | Sin descanso no hay mercados de 1T ni HT/FT (`18-native-stats.md`) |
 | **C** (avanzadas) | xG, xA, event data, pressing | ⛔ | Bloqueado hasta fuente con licencia (`16-cost-comparison.md`) |
 | **C** | Cuotas de apertura/cierre (mercado) | ◐ NFL: cierre real (research-only). Fútbol: snapshots The Odds API hacia adelante | El cierre observado **nunca** es input de un modelo que corre antes del partido |
 

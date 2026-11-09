@@ -27,6 +27,11 @@
 |---|---|---:|---:|---|---|
 | Liga MX · Apertura 2026 | `pitchlab-brand/football/liga-mx-apertura-2026/` | 1 | 1 competición + 18 clubes | `apps/web/public/brand/sports/liga-mx/r1/` | `liga-mx` |
 | Premier League 2026/27 | `pitchlab-brand/football/premier-league-2026-27/` | 2 | 1 competición + 20 clubes | `apps/web/public/brand/sports/premier-league/r2/` | `premier-league` |
+| Bundesliga 2026/27 | `pitchlab-brand/football/bundesliga-2026-27/` | 1 | 1 competición + 18 clubes | `apps/web/public/brand/sports/bundesliga/r1/` | `bundesliga` |
+| Serie A 2026/27 | `pitchlab-brand/football/serie-a-2026-27/` | 1 | 1 competición + 20 clubes | `apps/web/public/brand/sports/serie-a/r1/` | `serie-a` |
+| Ligue 1 2026/27 | `pitchlab-brand/football/ligue-1-2026-27/` | 1 | 1 competición + 18 clubes | `apps/web/public/brand/sports/ligue-1/r1/` | `ligue-1` |
+| MLB 2026 | `pitchlab-brand/baseball/mlb-2026/` | 1 | 1 competición + 30 equipos | `apps/web/public/brand/sports/mlb/r1/` | `mlb` |
+| NHL 2026/27 | `pitchlab-brand/hockey/nhl-2026-27/` | 1 | 1 competición + 32 equipos | `apps/web/public/brand/sports/nhl/r1/` | `nhl` |
 
 **Cada entrada del manifiesto** trae `id` (slug estable), `code` (rótulo de UI de 3 letras, que **no** equivale al código del proveedor), `name`, `shortName`, `kind` (`competition` o `club`), `colors.tile/primary/accent`, `contrast`, `svg`, `png`, `symbolId` y `source`.
 
@@ -38,10 +43,13 @@
 |---|---:|---:|---|
 | Liga MX | 18 | 18 | — |
 | Premier League | 20 | 20 | — |
+| Bundesliga | 18 | 18 | — |
+| Serie A | 20 | 20 | — |
+| Ligue 1 | 18 | 18 | — |
 | NFL | 32 | 0 | `default-club` + código |
 | NCAA Football (FBS) | ~130+ | 0 | `default-club` + código |
-| NHL | 32 | 0 | `default-club` + código |
-| MLB | 30 | 0 | `default-club` + código |
+| NHL | 32 | 32 | — |
+| MLB | 30 | 30 | — |
 | Otras ligas de fútbol | — | 0 | `default-club` / `default-competition` |
 
 En F4 esta tabla se regenera automáticamente como `docs/design/SPORTS_ASSET_COVERAGE.md` a partir de la DB y el registro.

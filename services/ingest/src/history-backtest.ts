@@ -55,6 +55,8 @@ export interface HistoryBacktestOptions {
   includeStack?: boolean;
   /** Exporta las features as-of a JSONL para entrenar un GBM externo (Python). */
   exportFeaturesPath?: string;
+  /** Recibe cada predicción del modelo NFL (para compararlo o mezclarlo). */
+  onNflPrediction?: (row: NflPredictionExport) => void;
 }
 
 /** Fila de features as-of exportable para el GBM. */
@@ -107,6 +109,8 @@ export interface FootballBacktestResult {
   blend: { n: number; logLoss1x2: number; brier1x2: number; accuracy: number } | null;
   /** Mezcla 50/50 de Dixon-Coles y Elo-xG. */
   blendXg: { n: number; logLoss1x2: number; brier1x2: number; accuracy: number } | null;
+  /** Mezcla-xG con peso validado temporalmente (0.7 DC / 0.3 Elo-xG); solo research. */
+  blendXgTuned: { n: number; logLoss1x2: number; brier1x2: number; accuracy: number } | null;
   /** Mezcla 50/50 de DC (promedio goles+xG) y Elo-xG. */
   blendDcMix: { n: number; logLoss1x2: number; brier1x2: number; accuracy: number } | null;
   /** Mezcla 50% DC + 25% Elo + 25% Elo-xG. */
@@ -115,6 +119,8 @@ export interface FootballBacktestResult {
   deltaXgElo: { meanDiff: number; lower: number; upper: number } | null;
   deltaBlend: { meanDiff: number; lower: number; upper: number } | null;
   deltaBlendXg: { meanDiff: number; lower: number; upper: number } | null;
+  deltaBlendXgTuned: { meanDiff: number; lower: number; upper: number } | null;
+  deltaBlendXgTunedMarket: { meanDiff: number; lower: number; upper: number } | null;
   deltaBlendDcMix: { meanDiff: number; lower: number; upper: number } | null;
   deltaBlendDcMixMarket: { meanDiff: number; lower: number; upper: number } | null;
   deltaBlendMarket: { meanDiff: number; lower: number; upper: number } | null;
@@ -127,6 +133,20 @@ export interface FootballBacktestResult {
   researchTrainingRows: number;
 }
 
+/** Fila exportable del modelo NFL para comparar o mezclar con otros modelos. */
+export interface NflPredictionExport {
+  id: string;
+  date: string;
+  season: string;
+  home: string;
+  away: string;
+  pHome: number;
+  pOver: number;
+  totalLine: number | null;
+  homeScore: number;
+  awayScore: number;
+}
+
 export interface NflBacktestResult {
   seasons: number;
   blocks: number;
@@ -137,6 +157,13 @@ export interface NflBacktestResult {
   market: { n: number; logLossMl: number; brierMl: number } | null;
   deltaMarket: { meanDiff: number; lower: number; upper: number } | null;
   totals: { n: number; modelLogLoss: number; naiveLogLoss: number };
+  /** Totales con calibración Platt walk-forward (el modelo de totales está sobreconfiado). */
+  totalsCalibrated: {
+    n: number;
+    modelLogLoss: number;
+    naiveLogLoss: number;
+    platt: { a: number; b: number };
+  } | null;
 }
 
 export interface HistoryBacktestReport {
@@ -391,6 +418,8 @@ function runFootballLeague(
   const xgEloLosses: number[] = [];
   const blendLosses: number[] = [];
   const blendXgLosses: number[] = [];
+  const blendXgTunedLosses: number[] = [];
+  const blendXgTunedMarketLosses: number[] = [];
   const blendDcMixLosses: number[] = [];
   const blendDcMixMarketLosses: number[] = [];
   const blendBothLosses: number[] = [];
@@ -404,6 +433,8 @@ function runFootballLeague(
   let blendHits = 0;
   let blendXgBrier = 0;
   let blendXgHits = 0;
+  let blendXgTunedBrier = 0;
+  let blendXgTunedHits = 0;
   let blendDcMixBrier = 0;
   let blendDcMixHits = 0;
   let blendBothBrier = 0;
@@ -672,6 +703,30 @@ function runFootballLeague(
           blendXg[0] >= blendXg[1] && blendXg[0] >= blendXg[2] ? 0 : blendXg[1] >= blendXg[2] ? 1 : 2;
         if (blendXgBest === observed) blendXgHits++;
 
+        // Peso validado temporalmente para la mezcla con xG (0.7 DC / 0.3 Elo-xG).
+        let blendXgTuned: [number, number, number] | null = null;
+        if (xgById.size > 0) {
+          blendXgTuned = [
+            0.7 * modelRow.p1x2[0] + 0.3 * xgEloProbabilities[0],
+            0.7 * modelRow.p1x2[1] + 0.3 * xgEloProbabilities[1],
+            0.7 * modelRow.p1x2[2] + 0.3 * xgEloProbabilities[2],
+          ];
+          blendXgTunedLosses.push(-Math.log(Math.max(blendXgTuned[observed], 1e-12)));
+          let tunedBrier = 0;
+          for (let i = 0; i < 3; i++) {
+            const diff = blendXgTuned[i]! - (i === observed ? 1 : 0);
+            tunedBrier += diff * diff;
+          }
+          blendXgTunedBrier += tunedBrier;
+          const tunedBest =
+            blendXgTuned[0] >= blendXgTuned[1] && blendXgTuned[0] >= blendXgTuned[2]
+              ? 0
+              : blendXgTuned[1] >= blendXgTuned[2]
+                ? 1
+                : 2;
+          if (tunedBest === observed) blendXgTunedHits++;
+        }
+
         const blendBoth: [number, number, number] = [
           0.5 * modelRow.p1x2[0] + 0.25 * eloProbabilities[0] + 0.25 * xgEloProbabilities[0],
           0.5 * modelRow.p1x2[1] + 0.25 * eloProbabilities[1] + 0.25 * xgEloProbabilities[1],
@@ -789,6 +844,9 @@ function runFootballLeague(
             marketBlendLosses.push(-Math.log(Math.max(blend[observed], 1e-12)));
             blendXgMarketLosses.push(-Math.log(Math.max(blendXg[observed], 1e-12)));
             blendDcMixMarketLosses.push(-Math.log(Math.max(blendDcMix[observed], 1e-12)));
+            if (blendXgTuned) {
+              blendXgTunedMarketLosses.push(-Math.log(Math.max(blendXgTuned[observed], 1e-12)));
+            }
             if (stackProbabilities) {
               stackMarketLosses.push(
                 -Math.log(Math.max(stackProbabilities[observed], 1e-12)),
@@ -976,6 +1034,15 @@ function runFootballLeague(
             brier1x2: blendBothBrier / blendBothLosses.length,
             accuracy: blendBothHits / blendBothLosses.length,
           },
+    blendXgTuned:
+      blendXgTunedLosses.length === 0
+        ? null
+        : {
+            n: blendXgTunedLosses.length,
+            logLoss1x2: mean(blendXgTunedLosses),
+            brier1x2: blendXgTunedBrier / blendXgTunedLosses.length,
+            accuracy: blendXgTunedHits / blendXgTunedLosses.length,
+          },
     blendDcMix:
       blendDcMixLosses.length === 0
         ? null
@@ -1000,6 +1067,14 @@ function runFootballLeague(
     deltaBlendXg:
       blendXgLosses.length > 0
         ? pairedBootstrap(modelLosses, blendXgLosses, options.bootstrapIterations)
+        : null,
+    deltaBlendXgTuned:
+      blendXgTunedLosses.length > 0
+        ? pairedBootstrap(modelLosses, blendXgTunedLosses, options.bootstrapIterations)
+        : null,
+    deltaBlendXgTunedMarket:
+      blendXgTunedMarketLosses.length > 0
+        ? pairedBootstrap(marketLosses, blendXgTunedMarketLosses, options.bootstrapIterations)
         : null,
     deltaBlendDcMix:
       blendDcMixLosses.length > 0
@@ -1038,9 +1113,50 @@ function runFootballLeague(
   };
 }
 
+function logit(probability: number): number {
+  const p = Math.min(Math.max(probability, 1e-6), 1 - 1e-6);
+  return Math.log(p / (1 - p));
+}
+
+function sigmoid(value: number): number {
+  return 1 / (1 + Math.exp(-value));
+}
+
+/** Ajuste de Platt (regresión logística sobre el logit) por Newton. */
+export function fitPlatt(rows: readonly { p: number; y: number }[]): { a: number; b: number } {
+  let a = 1;
+  let b = 0;
+  for (let iteration = 0; iteration < 50; iteration += 1) {
+    let g0 = 0;
+    let g1 = 0;
+    let h00 = 0;
+    let h01 = 0;
+    let h11 = 0;
+    for (const row of rows) {
+      const x = logit(row.p);
+      const p = sigmoid(a * x + b);
+      const w = p * (1 - p) + 1e-12;
+      g0 += (p - row.y) * x;
+      g1 += p - row.y;
+      h00 += w * x * x;
+      h01 += w * x;
+      h11 += w;
+    }
+    const determinant = h00 * h11 - h01 * h01;
+    if (Math.abs(determinant) < 1e-12) break;
+    const da = (h11 * g0 - h01 * g1) / determinant;
+    const db = (h00 * g1 - h01 * g0) / determinant;
+    a -= da;
+    b -= db;
+    if (Math.abs(da) + Math.abs(db) < 1e-8) break;
+  }
+  return { a, b };
+}
+
 function runNfl(
   games: readonly HistoricalGame[],
   options: Required<Pick<HistoryBacktestOptions, "windowDays" | "minTrainRows" | "bootstrapIterations">>,
+  onPrediction?: (row: NflPredictionExport) => void,
 ): NflBacktestResult {
   const blocks = groupIntoPeriods(games);
   const history: HistoricalGame[] = [];
@@ -1054,6 +1170,8 @@ function runNfl(
   const marketModelLosses: number[] = [];
   const modelTotalLosses: number[] = [];
   const naiveTotalLosses: number[] = [];
+  const calibratedTotalLosses: number[] = [];
+  const totalHistory: Array<{ p: number; y: number }> = [];
   const seasons = new Set<string>();
 
   for (const block of blocks) {
@@ -1061,6 +1179,7 @@ function runNfl(
     const train = history.filter((game) => Date.parse(`${game.date}T00:00:00Z`) >= cutoffMs);
 
     if (train.length >= options.minTrainRows) {
+      const platt = totalHistory.length >= 200 ? fitPlatt(totalHistory) : { a: 1, b: 0 };
       const model = fitNflRatings(
         train.map((game) => ({
           date: game.date,
@@ -1114,6 +1233,19 @@ function runNfl(
         modelRows.push({ prediction: modelPrediction, outcome });
         naiveRows.push({ prediction: naivePrediction, outcome });
 
+        onPrediction?.({
+          id: game.id,
+          date: game.date,
+          season: game.season,
+          home: game.homeTeam,
+          away: game.awayTeam,
+          pHome: modelPrediction.pHome,
+          pOver: pOverModel,
+          totalLine: line,
+          homeScore: game.homeScore,
+          awayScore: game.awayScore,
+        });
+
         modelLosses.push(
           -Math.log(Math.max(homeWon ? modelPrediction.pHome : 1 - modelPrediction.pHome, 1e-12)),
         );
@@ -1138,6 +1270,14 @@ function runNfl(
               ),
             ),
           );
+          const overObserved = game.homeScore + game.awayScore > line;
+          const pOverCalibrated = sigmoid(platt.a * logit(pOverModel) + platt.b);
+          calibratedTotalLosses.push(
+            -Math.log(
+              Math.max(overObserved ? pOverCalibrated : 1 - pOverCalibrated, 1e-12),
+            ),
+          );
+          totalHistory.push({ p: pOverModel, y: overObserved ? 1 : 0 });
         }
 
         const impliedHome =
@@ -1195,6 +1335,15 @@ function runNfl(
       modelLogLoss: totalOf(modelTotalLosses),
       naiveLogLoss: totalOf(naiveTotalLosses),
     },
+    totalsCalibrated:
+      calibratedTotalLosses.length === 0
+        ? null
+        : {
+            n: calibratedTotalLosses.length,
+            modelLogLoss: totalOf(calibratedTotalLosses),
+            naiveLogLoss: totalOf(naiveTotalLosses),
+            platt: totalHistory.length >= 200 ? fitPlatt(totalHistory) : { a: 1, b: 0 },
+          },
   };
 }
 
@@ -1221,7 +1370,7 @@ export function runHistoryBacktest(options: HistoryBacktestOptions): HistoryBack
     const games = loadHistoryGames(options.rootDir, league);
     if (games.length === 0) continue;
     if (league === "nfl") {
-      nfl = runNfl(games, resolved);
+      nfl = runNfl(games, resolved, options.onNflPrediction);
     } else {
       const extras =
         options.includeHistoricalResearch === true
@@ -1354,6 +1503,28 @@ export function renderHistoryBacktestReport(
     }
   }
 
+  const withTuned = report.football.filter((result) => result.blendXgTuned !== null);
+  if (withTuned.length > 0) {
+    const fmt = (delta: { meanDiff: number; lower: number; upper: number }): string =>
+      `${delta.meanDiff.toFixed(4)} [${delta.lower.toFixed(4)}, ${delta.upper.toFixed(4)}]`;
+    lines.push(
+      "",
+      "### Mezcla-xG con peso validado (0.7 DC / 0.3 Elo-xG)",
+      "",
+      "| Liga | 0.5/0.5 | 0.7/0.3 | Mercado | Δ 0.7−0.5 | Δ 0.7−mercado |",
+      "|---|---:|---:|---:|---:|---:|",
+    );
+    for (const result of withTuned) {
+      const deltaVsHalf =
+        result.deltaBlendXgTuned && result.deltaBlendXg
+          ? result.deltaBlendXgTuned.meanDiff - result.deltaBlendXg.meanDiff
+          : null;
+      lines.push(
+        `| ${result.league} | ${result.blendXg ? result.blendXg.logLoss1x2.toFixed(4) : "—"} | ${result.blendXgTuned!.logLoss1x2.toFixed(4)} | ${result.market ? result.market.logLoss1x2.toFixed(4) : "—"} | ${deltaVsHalf !== null ? deltaVsHalf.toFixed(4) : "—"} | ${result.deltaBlendXgTunedMarket ? fmt(result.deltaBlendXgTunedMarket) : "—"} |`,
+      );
+    }
+  }
+
   const withTotals = report.football.filter((result) => result.totalsMarket !== null);
   if (withTotals.length > 0) {
     lines.push(
@@ -1394,9 +1565,21 @@ export function renderHistoryBacktestReport(
       `| Brier moneyline | ${nfl.model.n} | ${nfl.model.brier1x2.toFixed(4)} | ${nfl.naive.brier1x2.toFixed(4)} |`,
       `| Acierto | ${nfl.model.n} | ${percent(nfl.model.accuracy)} | ${percent(nfl.naive.accuracy)} |`,
       `| LogLoss totales en la línea de cierre | ${nfl.totals.n} | ${nfl.totals.modelLogLoss.toFixed(4)} | ${nfl.totals.naiveLogLoss.toFixed(4)} |`,
+      ...(nfl.totalsCalibrated
+        ? [
+            `| LogLoss totales calibrados (Platt) | ${nfl.totalsCalibrated.n} | ${nfl.totalsCalibrated.modelLogLoss.toFixed(4)} | ${nfl.totals.naiveLogLoss.toFixed(4)} |`,
+          ]
+        : []),
       "",
       `Δ LogLoss moneyline frente al ingenuo: **${nfl.deltaNaive.meanDiff.toFixed(4)}**, IC 95% [${nfl.deltaNaive.lower.toFixed(4)}, ${nfl.deltaNaive.upper.toFixed(4)}].`,
     );
+
+    if (nfl.totalsCalibrated) {
+      lines.push(
+        "",
+        `Calibración de totales: pendiente **${nfl.totalsCalibrated.platt.a.toFixed(3)}**, intercepto ${nfl.totalsCalibrated.platt.b.toFixed(3)}. Una pendiente cercana a 0 indica que la probabilidad de over del modelo apenas aporta información sobre la línea.`,
+      );
+    }
 
     if (nfl.market && nfl.deltaMarket) {
       lines.push(

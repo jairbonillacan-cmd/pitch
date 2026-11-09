@@ -3,7 +3,7 @@
 > Generado por `services/ingest/history/research`. **Research-only**: no se publica ni se redistribuye.
 
 - **datasetId:** `4b9d393161dca7433632aacb297d17ae54a07c49956b3124f7a83efa7642f57b`
-- **Generado:** 2026-11-09T01:32:05.335Z
+- **Generado:** 2026-11-09T04:55:41.454Z
 - **Corpus emparejado:** `35fea620f15ca0aff9f976ef59c2bd1bfde26e9dad1d250823b44d5bd400018d` (26,761 partidos)
 - **Cobertura de cuotas sobre el corpus:** 100.0%
 
@@ -236,7 +236,7 @@
 
 ## Fuentes
 
-Archivos descargados: 173. No publicados (HTTP 404): 3.
+Archivos descargados: 173. No publicados (HTTP 404): 0.
 Licencia registrada para todo el dataset: **research-only**.
 
 ## Reglas

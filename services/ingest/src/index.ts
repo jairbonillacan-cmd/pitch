@@ -21,4 +21,5 @@ export * from "./history/research.js";
 export * from "./history/understat.js";
 export * from "./history/xg-estimate.js";
 export * from "./history/xg.js";
+export * from "./history/native-stats/index.js";
 export * from "./history-backtest.js";

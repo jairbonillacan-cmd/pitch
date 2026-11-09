@@ -40,6 +40,7 @@ export interface XgManifest {
   corpus: { datasetId: string | null; rows: number };
   leagues: Array<{
     id: string;
+    fileSha256: string;
     rows: number;
     matchedCorpus: number;
     corpusRows: number;
@@ -52,6 +53,39 @@ export interface XgManifest {
 }
 
 const XG_LEAGUES = [...Object.keys(UNDERSTAT_LEAGUE_CODES), "liga-mx"];
+
+export interface XgValidationIssue {
+  league: string;
+  id: string;
+  reason: string;
+}
+
+/** Invariantes del dataset xG: ids únicos, xG finito y en rango, fecha y temporada válidas. */
+export function validateXgGames(games: readonly XgGame[]): XgValidationIssue[] {
+  const issues: XgValidationIssue[] = [];
+  const ids = new Set<string>();
+  for (const game of games) {
+    if (ids.has(game.id)) {
+      issues.push({ league: game.league, id: game.id, reason: "id duplicado" });
+    }
+    ids.add(game.id);
+    if (!Number.isFinite(game.homeXg) || !Number.isFinite(game.awayXg)) {
+      issues.push({ league: game.league, id: game.id, reason: "xG no finito" });
+    } else if (game.homeXg < 0 || game.awayXg < 0 || game.homeXg > 10 || game.awayXg > 10) {
+      issues.push({ league: game.league, id: game.id, reason: `xG fuera de rango (${game.homeXg}, ${game.awayXg})` });
+    }
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(game.date)) {
+      issues.push({ league: game.league, id: game.id, reason: `fecha inválida '${game.date}'` });
+    }
+    if (!/^\d{4}-\d{2}$/.test(game.season)) {
+      issues.push({ league: game.league, id: game.id, reason: `temporada inválida '${game.season}'` });
+    }
+    if (!game.homeTeam || !game.awayTeam) {
+      issues.push({ league: game.league, id: game.id, reason: "equipos vacíos" });
+    }
+  }
+  return issues;
+}
 
 function sortGames(games: readonly XgGame[]): XgGame[] {
   return [...games].sort((a, b) => a.date.localeCompare(b.date) || a.id.localeCompare(b.id));
@@ -298,6 +332,12 @@ export async function buildXgDataset(options: BuildXgOptions): Promise<{
   }
 
   const files: Array<{ league: string; rows: number; sha256: string }> = [];
+  const allGames = [...gamesByLeague.values()].flat();
+  const issues = validateXgGames(allGames);
+  if (issues.length > 0) {
+    const sample = issues.slice(0, 5).map((issue) => `${issue.league}/${issue.id}: ${issue.reason}`).join("; ");
+    throw new Error(`xG inválido (${issues.length} problemas): ${sample}`);
+  }
   for (const leagueId of leagues) {
     const games = sortGames(gamesByLeague.get(leagueId) ?? []);
     if (games.length === 0) continue;
@@ -319,6 +359,7 @@ export async function buildXgDataset(options: BuildXgOptions): Promise<{
     const matched = games.filter((game) => corpus.has(game.id)).length;
     return {
       id: file.league,
+      fileSha256: file.sha256,
       rows: file.rows,
       matchedCorpus: matched,
       corpusRows: corpus.size,

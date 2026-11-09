@@ -99,16 +99,74 @@ function sortGames(games: readonly ResearchGame[]): ResearchGame[] {
   });
 }
 
-function pruneStaleFiles(directory: string, keep: ReadonlySet<string>): string[] {
+const RESEARCH_FILE_NAMES: ReadonlySet<string> = new Set(
+  RESEARCH_LEAGUES.map((leagueId) => `${leagueId}.jsonl`),
+);
+
+export function pruneStaleFiles(directory: string, keep: ReadonlySet<string>): string[] {
   if (!existsSync(directory)) return [];
   const removed: string[] = [];
   for (const entry of readdirSync(directory)) {
-    if (!/^[a-z0-9-]+\.jsonl$/.test(entry)) continue;
+    // Solo se podan los JSONL de ligas que este constructor posee: hay otros datasets
+    // auxiliares en el mismo directorio (estadísticas ESPN, API-Football, etc.).
+    if (!RESEARCH_FILE_NAMES.has(entry)) continue;
     if (keep.has(entry)) continue;
     unlinkSync(join(directory, entry));
     removed.push(entry);
   }
   return removed;
+}
+
+export interface ResearchValidationIssue {
+  id: string;
+  reason: string;
+  severity: "error" | "warning";
+}
+
+/**
+ * Invariantes que el esquema Zod no cubre: unicidad, cuotas coherentes, marcadores
+ * razonables y estadísticas compatibles (tiros a puerta ≤ tiros). Los errores bloquean la
+ * escritura; los avisos se registran porque la fuente publica alguna inconsistencia aislada.
+ */
+export function validateResearchGames(games: readonly ResearchGame[]): ResearchValidationIssue[] {
+  const issues: ResearchValidationIssue[] = [];
+  const ids = new Set<string>();
+  for (const game of games) {
+    const push = (reason: string, severity: "error" | "warning" = "error"): void => {
+      issues.push({ id: game.id, reason, severity });
+    };
+    if (ids.has(game.id)) push("id duplicado");
+    ids.add(game.id);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(game.date)) push(`fecha inválida '${game.date}'`);
+    if (!/^\d{4}-\d{2}$/.test(game.season)) push(`temporada inválida '${game.season}'`);
+    if (game.homeScore > 15 || game.awayScore > 15) push(`marcador irreal ${game.homeScore}-${game.awayScore}`);
+    if (game.odds) {
+      for (const [label, value] of [["home", game.odds.home], ["draw", game.odds.draw], ["away", game.odds.away]] as const) {
+        if (!(value > 1 && value < 1000)) push(`cuota ${label} fuera de rango (${value})`);
+      }
+      const hasOver = game.odds.over25 !== null;
+      const hasUnder = game.odds.under25 !== null;
+      if (hasOver !== hasUnder) push("cuota over/under incompleta", "warning");
+    }
+    if (game.stats) {
+      const pairs: Array<[number | null, number | null, string]> = [
+        [game.stats.shotsOnTargetHome, game.stats.shotsHome, "local"],
+        [game.stats.shotsOnTargetAway, game.stats.shotsAway, "visita"],
+      ];
+      for (const [sot, shots, side] of pairs) {
+        if (sot !== null && shots !== null && sot > shots) {
+          push(`tiros a puerta > tiros (${side}: ${sot}>${shots})`, "warning");
+        }
+      }
+      if ((game.stats.shotsHome ?? 0) > 60 || (game.stats.shotsAway ?? 0) > 60) {
+        push("tiros fuera de rango", "warning");
+      }
+      if ((game.stats.shotsOnTargetHome ?? 0) > 30 || (game.stats.shotsOnTargetAway ?? 0) > 30) {
+        push("tiros a puerta fuera de rango", "warning");
+      }
+    }
+  }
+  return issues;
 }
 
 function writeJsonl(path: string, games: readonly ResearchGame[]): { sha256: string; rows: number } {
@@ -296,12 +354,24 @@ export async function buildResearchDataset(
   for (const leagueId of leagueIds) {
     const games = sortGames(gamesByLeague.get(leagueId) ?? []);
     if (games.length === 0) continue;
+    const issues = validateResearchGames(games);
+    const errors = issues.filter((issue) => issue.severity === "error");
+    if (errors.length > 0) {
+      const sample = errors.slice(0, 5).map((issue) => `${issue.id}: ${issue.reason}`).join("; ");
+      throw new Error(`Dataset research inválido en ${leagueId} (${errors.length} errores): ${sample}`);
+    }
+    const warnings = issues.filter((issue) => issue.severity === "warning").length;
+    if (warnings > 0) log(`[research] ${leagueId}: ${warnings} avisos de estadísticas (tiros a puerta > tiros)`);
     for (const game of games) ResearchGameSchema.parse(game);
     const written = writeJsonl(join(datasetDir, `${leagueId}.jsonl`), games);
     files.push({ league: leagueId, rows: written.rows, sha256: written.sha256 });
   }
 
-  pruneStaleFiles(datasetDir, new Set(files.map((file) => `${file.league}.jsonl`)));
+  // Solo se poda en una construcción completa: una corrida parcial no debe borrar ligas
+  // que no se pidieron (ni datasets auxiliares del mismo directorio).
+  if (options.leagues === undefined) {
+    pruneStaleFiles(datasetDir, new Set(files.map((file) => `${file.league}.jsonl`)));
+  }
 
   const leagues = files.map((file) => {
     const games = gamesByLeague.get(file.league) ?? [];

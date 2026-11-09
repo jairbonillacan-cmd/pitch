@@ -10,8 +10,9 @@
  * Licencia: ESPN no declara una licencia de reutilización para estos datos; el dataset es
  * **research-only** (igual que xG y cuotas).
  */
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
+import { sha256 } from "./http.js";
 
 export const ESPN_LIGA_MX_BASE = "https://site.api.espn.com/apis/site/v2/sports/soccer/mex.1";
 export const ESPN_LIGA_MX_SEASONS = [2024, 2023, 2022] as const;
@@ -82,24 +83,25 @@ function statNumber(team: EspnBoxTeam | undefined, name: string): number | null 
   return Number.isFinite(parsed) ? parsed : null;
 }
 
-/** Extrae estadísticas por id de equipo desde el `summary` de ESPN. */
-export function parseEspnSummary(payload: unknown): Map<string, {
+export interface EspnTeamStats {
   shots: number | null;
   shotsOnTarget: number | null;
   corners: number | null;
   possession: number | null;
   yellow: number | null;
   red: number | null;
-}> {
+}
+
+/** Caché compacta: solo nombres y estadísticas, en vez del summary completo (~400 KB). */
+export interface CompactEspnSummary {
+  names: Record<string, string>;
+  stats: Record<string, EspnTeamStats>;
+}
+
+/** Extrae estadísticas por id de equipo desde el `summary` de ESPN. */
+export function parseEspnSummary(payload: unknown): Map<string, EspnTeamStats> {
   const json = payload as { boxscore?: { teams?: EspnBoxTeam[] } };
-  const map = new Map<string, {
-    shots: number | null;
-    shotsOnTarget: number | null;
-    corners: number | null;
-    possession: number | null;
-    yellow: number | null;
-    red: number | null;
-  }>();
+  const map = new Map<string, EspnTeamStats>();
   for (const team of json.boxscore?.teams ?? []) {
     const id = team.team?.id;
     if (!id) continue;
@@ -113,6 +115,39 @@ export function parseEspnSummary(payload: unknown): Map<string, {
     });
   }
   return map;
+}
+
+/** Convierte un summary completo en la caché compacta (nombres + estadísticas). */
+export function compactEspnSummary(payload: unknown): CompactEspnSummary | null {
+  const stats = parseEspnSummary(payload);
+  if (stats.size === 0) return null;
+  const names: Record<string, string> = {};
+  for (const team of (payload as { boxscore?: { teams?: EspnBoxTeam[] } }).boxscore?.teams ?? []) {
+    const id = team.team?.id;
+    const name = team.team?.displayName;
+    if (id && name) names[id] = name;
+  }
+  return { names, stats: Object.fromEntries(stats) };
+}
+
+function statsFromSummary(summary: unknown): Map<string, EspnTeamStats> {
+  if (summary && typeof summary === "object" && "stats" in summary && "names" in summary) {
+    return new Map(Object.entries((summary as CompactEspnSummary).stats));
+  }
+  return parseEspnSummary(summary);
+}
+
+function namesFromSummary(summary: unknown): Record<string, string> {
+  if (summary && typeof summary === "object" && "names" in summary) {
+    return (summary as CompactEspnSummary).names;
+  }
+  const names: Record<string, string> = {};
+  for (const team of (summary as { boxscore?: { teams?: EspnBoxTeam[] } }).boxscore?.teams ?? []) {
+    const id = team.team?.id;
+    const name = team.team?.displayName;
+    if (id && name) names[id] = name;
+  }
+  return names;
 }
 
 function seasonLabel(year: number): string {
@@ -282,7 +317,14 @@ export async function buildEspnLigaMxStats(options: BuildEspnOptions): Promise<{
       { retries: 2 },
     );
     if (payload) {
-      summaries.set(event.id, payload);
+      const compact = compactEspnSummary(payload);
+      if (compact) {
+        // La caché completa pesa ~400 KB por partido; se guarda solo lo necesario.
+        writeFileSync(cachePath, JSON.stringify(compact), "utf8");
+        summaries.set(event.id, compact);
+      } else {
+        summaries.set(event.id, payload);
+      }
       fetched++;
     }
     if (fetched % 50 === 0 && fetched > 0) log(`[espn] summaries: ${fetched}`);
@@ -301,16 +343,15 @@ export async function buildEspnLigaMxStats(options: BuildEspnOptions): Promise<{
       .sort((a, b) => a.diff - b.diff)[0];
     if (!candidate || candidate.diff > 2) continue;
     const summary = summaries.get(event.id);
-    const stats = parseEspnSummary(summary);
-    const teamIds = [...stats.keys()];
-    if (teamIds.length < 2) continue;
+    const stats = statsFromSummary(summary);
+    if (stats.size < 2) continue;
     // El orden de los equipos en el boxscore no está garantizado: se usa el nombre.
-    const box = (summary as { boxscore?: { teams?: EspnBoxTeam[] } }).boxscore?.teams ?? [];
-    const homeTeam = box.find((team) => team.team?.displayName === event.homeName);
-    const awayTeam = box.find((team) => team.team?.displayName === event.awayName);
-    if (!homeTeam?.team?.id || !awayTeam?.team?.id) continue;
-    const homeStats = stats.get(homeTeam.team.id);
-    const awayStats = stats.get(awayTeam.team.id);
+    const names = namesFromSummary(summary);
+    const homeTeamId = Object.keys(names).find((id) => names[id] === event.homeName);
+    const awayTeamId = Object.keys(names).find((id) => names[id] === event.awayName);
+    if (!homeTeamId || !awayTeamId) continue;
+    const homeStats = stats.get(homeTeamId);
+    const awayStats = stats.get(awayTeamId);
     if (!homeStats || !awayStats) continue;
 
     rows.push({
@@ -350,7 +391,8 @@ export async function buildEspnLigaMxStats(options: BuildEspnOptions): Promise<{
   }
   for (const row of rows) merged.set(row.id, row);
   const allRows = [...merged.values()].sort((a, b) => a.date.localeCompare(b.date) || a.id.localeCompare(b.id));
-  writeFileSync(filePath, allRows.map((row) => JSON.stringify(row)).join("\n") + (allRows.length > 0 ? "\n" : ""), "utf8");
+  const body = allRows.map((row) => JSON.stringify(row)).join("\n") + (allRows.length > 0 ? "\n" : "");
+  writeFileSync(filePath, body, "utf8");
   const manifestPath = join(outDir, "liga-mx-espn-stats.manifest.json");
   const bySeason: Record<string, number> = {};
   for (const row of allRows) bySeason[row.season] = (bySeason[row.season] ?? 0) + 1;
@@ -360,6 +402,7 @@ export async function buildEspnLigaMxStats(options: BuildEspnOptions): Promise<{
       {
         schemaVersion: 1,
         generatedAt: new Date().toISOString(),
+        fileSha256: sha256(body),
         rows: allRows.length,
         bySeason,
         events: events.length,
@@ -375,4 +418,44 @@ export async function buildEspnLigaMxStats(options: BuildEspnOptions): Promise<{
   );
   log(`[espn] dataset: ${allRows.length} partidos (${rows.length} de esta corrida, ${events.length} eventos)`);
   return { rows: allRows, matched, total: events.length, filePath, manifestPath };
+}
+
+/**
+ * Convierte in situ los summaries completos ya cacheados a la caché compacta.
+ * Devuelve cuántos convirtió y el ahorro en bytes.
+ */
+export function compactEspnSummaries(rootDir: string): {
+  converted: number;
+  skipped: number;
+  beforeBytes: number;
+  afterBytes: number;
+} {
+  const directory = join(rootDir, "data", "history", "raw", "espn", "liga-mx", "summaries");
+  if (!existsSync(directory)) return { converted: 0, skipped: 0, beforeBytes: 0, afterBytes: 0 };
+  let converted = 0;
+  let skipped = 0;
+  let beforeBytes = 0;
+  let afterBytes = 0;
+  for (const name of readdirSync(directory)) {
+    if (!name.endsWith(".json")) continue;
+    const path = join(directory, name);
+    beforeBytes += statSync(path).size;
+    const payload = JSON.parse(readFileSync(path, "utf8")) as unknown;
+    if (payload && typeof payload === "object" && "stats" in payload && "names" in payload) {
+      skipped++;
+      afterBytes += statSync(path).size;
+      continue;
+    }
+    const compact = compactEspnSummary(payload);
+    if (!compact) {
+      skipped++;
+      afterBytes += statSync(path).size;
+      continue;
+    }
+    const body = JSON.stringify(compact);
+    writeFileSync(path, body, "utf8");
+    afterBytes += Buffer.byteLength(body);
+    converted++;
+  }
+  return { converted, skipped, beforeBytes, afterBytes };
 }
