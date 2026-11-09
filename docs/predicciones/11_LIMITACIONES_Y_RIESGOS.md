@@ -193,3 +193,5 @@ Es la restricción que más condiciona el proyecto.
 | R-21 | Medio | El feed de cuotas (`fixtures.csv`) es **semanal** y puede llegar con 70,8 h de staleness; una captura tardía es post-kickoff y no sirve para CLV | `data/snapshots/manifest.json`: Last-Modified 2026-11-06 vs captura 2026-11-09; 159/160 post-kickoff | **ABIERTO** (capturar antes del kickoff) |
 | R-22 | Bajo | Outliers de Betfair Exchange en el feed (overround 2,13 y 1,95) | 2 filas SP2 del snapshot | **MITIGADO** (regla 0,9–1,2 por casa) |
 | R-23 | Bajo | La licencia de nflverse exige atribución (CC BY 4.0) | `data/nfl/raw/manifest.json` | **MITIGADO** (atribución en docs y código) |
+
+| R-24 | Alto | **NHL/NCAAF sin licencia clara**: la API de NHL no declara derechos y los releases de NCAAF no traen licencia de datos | `docs/10` §9.3; A03 | bloquea producto multi-deporte | **ABIERTO** (decisión: no-go hasta licencia) |

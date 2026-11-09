@@ -195,3 +195,13 @@ lista 90 archivos, todos del laboratorio (ninguno de ellos existía en `main`).
   paridad).
 - **A15:** features EPA de nflverse `stats_team_week` (CC BY 4.0) y experimento de valor incremental
   contra el mercado.
+
+---
+
+# CICLO 4 — en curso (2026-11-09 04:50)
+
+- **Calibración por división (resultado débil):** Δ −0,00069 [−0,00143; +0,00013] en val; no se
+  adopta. La temperatura global reduce ECE 0,0182→0,0113 sin coste en log-loss (opción de release).
+- **NHL/NCAAF:** decisión documentada de **no-go** por licencias/datos (ver `docs/10` §9.3).
+- En curso: **A16** registro de modelos + validación de release; **A17** de-vig en TS + servicio
+  `predictMatch` con fallback.

@@ -236,3 +236,16 @@ veredicto "defendible" con la salvedad de exposición parcial a test ya document
 - EPA no aportó de forma concluyente (Δ −0,002, IC cruza 0). El ciclo 4 debe probar DVOA,
   lesiones/alineaciones y un feature store NFL, no acumular features sin significancia.
 - Priors v1.2 (fútbol) cerrado como resultado negativo: no mejora val.
+
+### 9.3 Expansión multi-deporte — estado y decisión (ciclo 4)
+
+| Deporte | Fuente candidata | Datos de partido | Licencia | Decisión |
+|---|---|---|---|---|
+| NFL | nflverse `games.csv` + `stats_team_week` | 1999–2026, 7.102 partidos, moneylines | **CC BY 4.0** | **Hecho** (motor + TS + EPA probado) |
+| NCAAF | sportsdataverse `cfb_paper_index_games` | métricas equipo-partido 2004+ (sin marcador ni cuotas) | repo MIT, **datos sin licencia propia** | **No-go** hasta aclarar derechos |
+| NHL | NHL API / hockeyR-data | API responde 200 pero sin SLA; releases sin partidos | **NO CONFIRMADO** | **No-go** para producción; solo investigación |
+
+**Conclusión:** la arquitectura (contrato `Prediction`, laboratorio `eval/`, export a JSON, tests de
+paridad) es extensible, pero **no se debe construir producto sobre datos sin licencia clara**. El
+siguiente paso no es código: es conseguir una fuente con derechos para NHL/NCAAF o limitar su uso a
+investigación interna documentada. NFL queda como el caso de referencia (CC BY 4.0 con atribución).

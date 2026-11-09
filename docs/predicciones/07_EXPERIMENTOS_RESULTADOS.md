@@ -190,3 +190,18 @@ no se modifica el dataset congelado. Detalle en `05_FEATURE_ENGINEERING.md` (add
 - **EPA (A15):** features causales de nflverse `stats_team_week` (CC BY 4.0). Test: base
   0,65917 vs +EPA 0,65717 (Δ −0,00199 [−0,00503; +0,00095], 91 % a favor); mercado 0,63000.
   **No significativo y no cierra la brecha** → no se adopta. Detalle en `reports/A15_nfl_epa.md`.
+
+### Addendum ciclo 4 — calibración por división (resultado débil)
+
+Temperatura por división ajustada con predicciones walk-forward ≤2022 y evaluada en val 2023/24:
+
+| Variante | Log-loss | ECE | Δ vs base (IC95 %) |
+|---|---:|---:|---|
+| `logit` sin calibrar | 1,01029 | 0,0182 | — |
+| Temperatura global (T=1,0766) | 1,01012 | **0,0113** | −0,00018 [−0,00075; +0,00048] |
+| Temperatura por división (23 T) | **1,00961** | 0,0142 | −0,00069 [−0,00143; +0,00013] |
+
+La calibración por división mejora el log-loss en 0,0007 pero **el IC cruza 0** (95,1 % a favor);
+la temperatura global reduce el ECE un 38 % sin empeorar la pérdida. **No se adopta** como cambio de
+modelo: no supera el criterio de significancia. Queda como opción de "release de calibración" si la
+fiabilidad pasa a ser requisito de producto. Script: `pipeline/experiment_calibration_division.py`.
