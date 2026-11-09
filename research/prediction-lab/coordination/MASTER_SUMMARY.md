@@ -227,3 +227,14 @@ lista 90 archivos, todos del laboratorio (ninguno de ellos existía en `main`).
   lectura errónea; el gap dominante es **infraconfianza** en el bin 0,6–0,8 (n=24).
 - Decisión: **no se aplica calibración**; repetir con ≈1.300 partidos (±0,02) o ≈5.000 (±0,01).
   R-25 reclasificado a riesgo bajo. Informe: `reports/A20_calibration_audit.md`.
+
+---
+
+# CICLO 8 — apuestas por valor (2026-11-09 07:20)
+
+- Simulación sobre **12.373 partidos** de test con cuota B365 de cierre: apostar al mayor edge da
+  **ROI −9,73 %** (τ=0) y entre **−8,9 % y −11,9 %** con τ=0,02–0,15; **todos los IC95 % negativos**.
+- El modelo cree edges de +15 % a +31 %: **sobreconfianza en los picks de mayor edge**, no
+  ineficiencia de mercado. Los 146 fixtures confirman el signo (IC amplio).
+- Conclusión de producto: el motor sirve como análisis probabilístico, **no como señal de apuesta**.
+  No hay estrategia rentable. Informe: `reports/A21_value_betting.md`.
