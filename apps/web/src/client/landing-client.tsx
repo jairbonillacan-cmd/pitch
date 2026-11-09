@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import type { MatchAnalysis } from "@pitchlab/contracts";
+import type { LeagueId, MatchAnalysis } from "@pitchlab/contracts";
 import { formatPercent } from "@pitchlab/contracts";
 import { getMascotPath } from "@pitchlab/sports-assets";
 import {
@@ -17,7 +17,7 @@ import {
 import { useBetaPin } from "./use-beta-pin.js";
 
 export interface LandingLeagueSummary {
-  id: "liga-mx" | "premier-league" | "laliga" | "nfl";
+  id: LeagueId;
   name: string;
   season: string;
   roundLabel: string;

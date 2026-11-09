@@ -301,6 +301,9 @@ test.describe("PitchLab Pre-MVP E2E Suite", () => {
     await expect(coverage).toContainText("NFL");
     await expect(coverage).toContainText("Premier League");
     await expect(coverage).toContainText("Liga MX");
+    await expect(coverage).toContainText("Bundesliga");
+    await expect(coverage).toContainText("Serie A");
+    await expect(coverage).toContainText("Ligue 1");
 
     await page.screenshot({
       path: path.join(SCREENSHOT_DIR, `metodologia-${testInfo.project.name}-dark.png`),
@@ -327,5 +330,34 @@ test.describe("PitchLab Pre-MVP E2E Suite", () => {
     await expect(dialog).toBeVisible();
     await expect(dialog).toContainText("Goles por equipo");
     await expect(dialog).toContainText("Marcador exacto");
+  });
+
+  test("6. Liga sin emblema (Bundesliga): fallback neutro y sin scroll horizontal", async ({
+    page,
+  }, testInfo) => {
+    const uniqueIp = `203.0.${Math.floor(Math.random() * 200) + 10}.${Math.floor(Math.random() * 200) + 10}`;
+    await page.setExtraHTTPHeaders({ "x-forwarded-for": uniqueIp });
+
+    await page.goto("/login?next=%2Fapp%2Fbundesliga");
+    await page.locator(".btn-beta").click();
+    for (const d of ["2", "0", "2", "6"]) {
+      await page.locator(`button.pin-key[data-pin-digit='${d}']`).click();
+    }
+    await page.waitForURL("**/app/bundesliga", { timeout: 15_000 });
+    await expect(page.locator("#panel-league-name")).toContainText("Bundesliga");
+
+    // Emblema de liga y de equipos con fallback (iniciales), sin imágenes rotas.
+    const fallback = page.locator(".badge-fallback").first();
+    await expect(fallback).toBeVisible();
+
+    // La fila de ligas hace scroll interno: nunca desborda la página.
+    const overflow = await page.evaluate(
+      () => document.documentElement.scrollWidth > window.innerWidth,
+    );
+    expect(overflow).toBe(false);
+
+    await page.screenshot({
+      path: path.join(SCREENSHOT_DIR, `panel-bundesliga-${testInfo.project.name}-dark.png`),
+    });
   });
 });

@@ -7,10 +7,16 @@ import {
 import { loadRootEnvFiles } from "./env.js";
 import { loadPriorMatches } from "./prior-season.js";
 import {
+  fetchOpenFootballBundesliga,
   fetchOpenFootballLaliga,
+  fetchOpenFootballLigue1,
   fetchOpenFootballPl,
+  fetchOpenFootballSerieA,
+  normalizeOpenFootballBundesliga,
   normalizeOpenFootballLaliga,
+  normalizeOpenFootballLigue1,
   normalizeOpenFootballPremierLeague,
+  normalizeOpenFootballSerieA,
 } from "./adapters/openfootball.js";
 import {
   fetchFootballDataPl,
@@ -49,7 +55,7 @@ async function main() {
     season: 2026,
     referenceDate: dateStr,
   });
-  // La temporada anterior en NFL empeor� el backtest (0.6515 vs 0.6468): apagada por defecto.
+  // La temporada anterior en NFL empeoró el backtest (0.6515 vs 0.6468): apagada por defecto.
   const priorNfl = process.env.MODEL_NFL_PRIOR === "1" ? extractNflSeasonRows(nflCsv, 2025) : [];
   const nflSnapshot = buildNflSnapshot({
     seasonId: normNfl.seasonId,
@@ -129,7 +135,55 @@ async function main() {
     `[snapshot] LaLiga (${normLl.periodLabel}): ${llSnapshot.games.length} partidos -> ${llFiles.latestPath}`,
   );
 
-  // 3. Liga MX (API-Football Free — solo si existe API_FOOTBALL_KEY)
+  // 4. Bundesliga, Serie A y Ligue 1 (openfootball CC0)
+  const extraLeagues = [
+    {
+      league: "bundesliga" as const,
+      name: "Bundesliga",
+      fetchSeason: fetchOpenFootballBundesliga,
+      normalize: normalizeOpenFootballBundesliga,
+    },
+    {
+      league: "serie-a" as const,
+      name: "Serie A",
+      fetchSeason: fetchOpenFootballSerieA,
+      normalize: normalizeOpenFootballSerieA,
+    },
+    {
+      league: "ligue-1" as const,
+      name: "Ligue 1",
+      fetchSeason: fetchOpenFootballLigue1,
+      normalize: normalizeOpenFootballLigue1,
+    },
+  ];
+
+  for (const entry of extraLeagues) {
+    const previous = loadPreviousSnapshot(SNAPSHOTS_ROOT, entry.league);
+    const normalized = entry.normalize(await entry.fetchSeason(), {
+      referenceDate: dateStr,
+    });
+    const snapshot = buildFootballSnapshot({
+      league: entry.league,
+      leagueName: entry.name,
+      seasonId: normalized.seasonId,
+      seasonLabel: normalized.seasonLabel,
+      periodLabel: normalized.periodLabel,
+      games: normalized.activeRoundGames,
+      teamRateInputs: normalized.teamRateInputs,
+      updatedAt,
+      source: "openfootball",
+      previousSnapshot: previous,
+      seasonGames: normalized.allGames,
+      priorMatches: loadPriorMatches(entry.league, dateStr),
+      modelVersion,
+    });
+    const files = writeSnapshotFiles(SNAPSHOTS_ROOT, snapshot, dateStr);
+    console.log(
+      `[snapshot] ${entry.name} (${normalized.periodLabel}): ${snapshot.games.length} partidos -> ${files.latestPath}`,
+    );
+  }
+
+  // 5. Liga MX (API-Football Free — solo si existe API_FOOTBALL_KEY)
   const apiFootballKey = process.env.API_FOOTBALL_KEY?.trim();
   if (apiFootballKey) {
     const prevMx = loadPreviousSnapshot(SNAPSHOTS_ROOT, "liga-mx");

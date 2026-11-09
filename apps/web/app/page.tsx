@@ -1,10 +1,20 @@
 import React from "react";
-import { loadAllActiveLeagueSnapshots } from "../src/server/snapshots.js";
+import {
+  PRODUCT_LEAGUES,
+  loadAllActiveLeagueSnapshots,
+} from "../src/server/snapshots.js";
 import {
   LandingClient,
   type LandingLeagueSummary,
 } from "../src/client/landing-client.js";
 import { asLeagueId, type MatchAnalysis } from "@pitchlab/contracts";
+
+const LEAGUE_MASCOTS: Record<string, string> = {
+  "liga-mx": "liga-mx",
+  "premier-league": "premier-league",
+  laliga: "laliga",
+  nfl: "nfl",
+};
 
 const FALLBACK_MATCH: MatchAnalysis = {
   id: "epl-ars-new",
@@ -64,66 +74,29 @@ const FALLBACK_MATCH: MatchAnalysis = {
 
 export default function HomePage(): React.JSX.Element {
   const snapshots = loadAllActiveLeagueSnapshots();
-  const plGames = snapshots["premier-league"].data?.games ?? [];
-  const nflGames = snapshots.nfl.data?.games ?? [];
-  const mxGames = snapshots["liga-mx"].data?.games ?? [];
-  const llGames = snapshots.laliga.data?.games ?? [];
-  const plAnalyses = plGames.filter((game) => game.publicationLabel);
-  const nflAnalyses = nflGames.filter((game) => game.publicationLabel);
-  const mxAnalyses = mxGames.filter((game) => game.publicationLabel);
-  const llAnalyses = llGames.filter((game) => game.publicationLabel);
+  const gamesFor = (key: (typeof PRODUCT_LEAGUES)[number]) =>
+    snapshots[key].data?.games ?? [];
 
-  const demos = [
-    plAnalyses[0],
-    nflAnalyses[0],
-    mxAnalyses[0],
-    llAnalyses[0],
-    plAnalyses[1],
-    nflAnalyses[1],
-    mxAnalyses[1],
-  ]
+  const demos = PRODUCT_LEAGUES.flatMap((key) =>
+    gamesFor(key).filter((game) => game.publicationLabel),
+  )
     .filter((game): game is MatchAnalysis => game !== undefined)
     .slice(0, 3);
   const [firstDemo = FALLBACK_MATCH, ...otherDemos] = demos;
 
-  const leagues: LandingLeagueSummary[] = [
-    {
-      id: "liga-mx",
-      name: "Liga MX",
-      season: snapshots["liga-mx"].data?.season ?? "Apertura 2026",
-      roundLabel: snapshots["liga-mx"].data?.roundLabel ?? "Jornada 16",
-      mascot: "liga-mx",
-      gameCount: mxGames.length,
-      active: mxGames.length > 0,
-    },
-    {
-      id: "premier-league",
-      name: "Premier League",
-      season: snapshots["premier-league"].data?.season ?? "2026/27",
-      roundLabel: snapshots["premier-league"].data?.roundLabel ?? "Jornada 11",
-      mascot: "premier-league",
-      gameCount: plGames.length,
-      active: plGames.length > 0,
-    },
-    {
-      id: "laliga",
-      name: "LaLiga",
-      season: snapshots.laliga.data?.season ?? "2026/27",
-      roundLabel: snapshots.laliga.data?.roundLabel ?? "Jornada 11",
-      mascot: "laliga",
-      gameCount: llGames.length,
-      active: llGames.length > 0,
-    },
-    {
-      id: "nfl",
-      name: "NFL",
-      season: snapshots.nfl.data?.season ?? "2026",
-      roundLabel: snapshots.nfl.data?.roundLabel ?? "Semana 10",
-      mascot: "nfl",
-      gameCount: nflGames.length,
-      active: nflGames.length > 0,
-    },
-  ];
+  const leagues: LandingLeagueSummary[] = PRODUCT_LEAGUES.map((key) => {
+    const games = gamesFor(key);
+    const data = snapshots[key].data;
+    return {
+      id: asLeagueId(key),
+      name: data?.leagueLabel ?? key,
+      season: data?.season ?? "2026/27",
+      roundLabel: data?.roundLabel ?? "Próxima jornada",
+      mascot: LEAGUE_MASCOTS[key] ?? "soccer",
+      gameCount: games.length,
+      active: games.length > 0,
+    };
+  });
 
   return (
     <LandingClient

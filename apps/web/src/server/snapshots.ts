@@ -45,9 +45,40 @@ function resolveSnapshotsRoot(): string {
   return candidates[1] ?? candidates[0]!;
 }
 
-export function loadLeagueSnapshotEnvelope(
-  leagueKey: "liga-mx" | "premier-league" | "laliga" | "nfl",
-): SnapshotEnvelope {
+/** Ligas con producto en la beta (las que tienen snapshot propio). */
+export const PRODUCT_LEAGUES = [
+  "liga-mx",
+  "premier-league",
+  "laliga",
+  "bundesliga",
+  "serie-a",
+  "ligue-1",
+  "nfl",
+] as const;
+
+export type ProductLeague = (typeof PRODUCT_LEAGUES)[number];
+
+const LEAGUE_LABELS: Record<ProductLeague, string> = {
+  "liga-mx": "Liga MX",
+  "premier-league": "Premier League",
+  laliga: "LaLiga",
+  bundesliga: "Bundesliga",
+  "serie-a": "Serie A",
+  "ligue-1": "Ligue 1",
+  nfl: "NFL",
+};
+
+const LEAGUE_SEASONS: Record<ProductLeague, string> = {
+  "liga-mx": "Apertura 2026",
+  "premier-league": "2026/27",
+  laliga: "2026/27",
+  bundesliga: "2026/27",
+  "serie-a": "2026/27",
+  "ligue-1": "2026/27",
+  nfl: "2026",
+};
+
+export function loadLeagueSnapshotEnvelope(leagueKey: ProductLeague): SnapshotEnvelope {
   const root = resolveSnapshotsRoot();
   const latestPath = path.join(root, leagueKey, "latest.json");
   const league = asLeagueId(leagueKey);
@@ -56,19 +87,9 @@ export function loadLeagueSnapshotEnvelope(
     const emptySnapshot: ClientLeagueSnapshot = {
       schemaVersion: 1,
       league,
-      leagueLabel:
-        leagueKey === "liga-mx"
-          ? "Liga MX"
-          : leagueKey === "premier-league" || leagueKey === "laliga"
-            ? (leagueKey === "laliga" ? "LaLiga" : "Premier League")
-            : "NFL",
+      leagueLabel: LEAGUE_LABELS[leagueKey],
       sport: leagueKey === "nfl" ? "american-football" : "football",
-      season:
-        leagueKey === "liga-mx"
-          ? "Apertura 2026"
-          : leagueKey === "nfl"
-            ? "2026"
-            : "2026/27",
+      season: LEAGUE_SEASONS[leagueKey],
       roundLabel: leagueKey === "nfl" ? "Semana 9" : "Jornada 16",
       generatedAt: new Date().toISOString(),
       days: [{ id: "all", label: `Toda la ${leagueKey === "nfl" ? "semana" : "jornada"}` }],
@@ -91,12 +112,7 @@ export function loadLeagueSnapshotEnvelope(
     const clientSafe: ClientLeagueSnapshot = {
       schemaVersion: 1,
       league: parsed.league,
-      leagueLabel:
-        parsed.league === "liga-mx"
-          ? "Liga MX"
-          : parsed.league === "premier-league" || parsed.league === "laliga"
-            ? (parsed.league === "laliga" ? "LaLiga" : "Premier League")
-            : "NFL",
+      leagueLabel: LEAGUE_LABELS[parsed.league as ProductLeague] ?? parsed.league,
       sport: parsed.league === "nfl" ? "american-football" : "football",
       season: parsed.seasonLabel,
       roundLabel: parsed.periodLabel,
@@ -123,14 +139,10 @@ export function loadLeagueSnapshotEnvelope(
   }
 }
 
-export function loadAllActiveLeagueSnapshots(): Record<
-  "liga-mx" | "premier-league" | "laliga" | "nfl",
-  SnapshotEnvelope
-> {
-  return {
-    "liga-mx": loadLeagueSnapshotEnvelope("liga-mx"),
-    "premier-league": loadLeagueSnapshotEnvelope("premier-league"),
-    laliga: loadLeagueSnapshotEnvelope("laliga"),
-    nfl: loadLeagueSnapshotEnvelope("nfl"),
-  };
+export function loadAllActiveLeagueSnapshots(): Record<ProductLeague, SnapshotEnvelope> {
+  const entries = PRODUCT_LEAGUES.map((league) => [
+    league,
+    loadLeagueSnapshotEnvelope(league),
+  ]) as Array<[ProductLeague, SnapshotEnvelope]>;
+  return Object.fromEntries(entries) as Record<ProductLeague, SnapshotEnvelope>;
 }

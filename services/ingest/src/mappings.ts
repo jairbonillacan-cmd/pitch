@@ -6,6 +6,7 @@
 //   falla de inmediato con UnmappedTeamError (nunca adivina).
 import { asLeagueId, asTeamId, type LeagueId, type Team } from "@pitchlab/contracts";
 import { getTeamAsset, TEAM_ASSETS } from "@pitchlab/sports-assets";
+import { slugifyTeamName, teamCodeFromSlug } from "./team-slug.js";
 
 export class UnmappedTeamError extends Error {
   readonly league: string;
@@ -299,17 +300,47 @@ const LEAGUE_MAPS: Record<string, Record<string, string>> = {
   laliga: LALIGA_TEAM_MAP,
 };
 
-export type CanonicalLeague = "nfl" | "premier-league" | "liga-mx" | "laliga";
+export type CanonicalLeague =
+  | "nfl"
+  | "premier-league"
+  | "liga-mx"
+  | "laliga"
+  | "bundesliga"
+  | "serie-a"
+  | "ligue-1";
+
+/**
+ * Ligas sin manifiesto de emblemas propio: el nombre de la fuente se confía y se
+ * convierte a slug con el mismo algoritmo del histórico (`team-slug.ts`), para que los
+ * ids de la temporada en curso y los del corpus pasado coincidan.
+ */
+export const GENERIC_LEAGUES: ReadonlySet<string> = new Set([
+  "bundesliga",
+  "serie-a",
+  "ligue-1",
+]);
 
 export function resolveCanonicalTeam(
   league: CanonicalLeague,
   rawName: string,
 ): Team {
-  const table = LEAGUE_MAPS[league];
-  if (!table) {
-    throw new UnmappedTeamError(league, rawName);
-  }
   const trimmed = rawName.trim();
+  const table = LEAGUE_MAPS[league];
+
+  if (!table) {
+    if (!GENERIC_LEAGUES.has(league)) {
+      throw new UnmappedTeamError(league, rawName);
+    }
+    const slug = slugifyTeamName(trimmed);
+    return {
+      id: asTeamId(`${league}.${slug}`),
+      league: asLeagueId(league as LeagueId),
+      name: trimmed,
+      shortName: trimmed,
+      code: teamCodeFromSlug(slug),
+    };
+  }
+
   const slug = table[trimmed];
   if (!slug) {
     throw new UnmappedTeamError(league, rawName);

@@ -35,7 +35,7 @@ export interface FootballTeamRateInput {
 }
 
 export interface FootballAdapterInput {
-  league: "premier-league" | "liga-mx" | "laliga";
+  league: "premier-league" | "liga-mx" | "laliga" | "bundesliga" | "serie-a" | "ligue-1";
   leagueName: string;
   game: GameDTO;
   teams: FootballTeamRateInput[];
@@ -44,14 +44,29 @@ export interface FootballAdapterInput {
   source: string;
 }
 
-function getCompCode(league: "premier-league" | "liga-mx" | "laliga"): "PL" | "MX" | "LL" {
-  return league === "liga-mx" ? "MX" : league === "laliga" ? "LL" : "PL";
+type FootballCompCode = "PL" | "MX" | "LL" | "BL" | "SA" | "L1";
+
+function getCompCode(league: "premier-league" | "liga-mx" | "laliga" | "bundesliga" | "serie-a" | "ligue-1"): FootballCompCode {
+  switch (league) {
+    case "liga-mx":
+      return "MX";
+    case "laliga":
+      return "LL";
+    case "bundesliga":
+      return "BL";
+    case "serie-a":
+      return "SA";
+    case "ligue-1":
+      return "L1";
+    default:
+      return "PL";
+  }
 }
 
 export function computeFootballTeamRates(
-  league: "premier-league" | "liga-mx" | "laliga",
+  league: "premier-league" | "liga-mx" | "laliga" | "bundesliga" | "serie-a" | "ligue-1",
   teams: FootballTeamRateInput[],
-): { engine: FootballEngine; rates: Record<string, TeamSeasonRate>; compCode: "PL" | "MX" | "LL" } {
+): { engine: FootballEngine; rates: Record<string, TeamSeasonRate>; compCode: FootballCompCode } {
   const compCode = getCompCode(league);
   const lgAvg = FB.LG0[compCode];
 
@@ -70,7 +85,18 @@ export function computeFootballTeamRates(
   const fallbackHome = teams[0]?.teamId ?? "home";
   const fallbackAway = teams[1]?.teamId ?? "away";
   const compMeta: FbComp = {
-    n: league === "liga-mx" ? "Liga MX" : league === "laliga" ? "LaLiga" : "Premier League",
+    n:
+      league === "liga-mx"
+        ? "Liga MX"
+        : league === "laliga"
+          ? "LaLiga"
+          : league === "bundesliga"
+            ? "Bundesliga"
+            : league === "serie-a"
+              ? "Serie A"
+              : league === "ligue-1"
+                ? "Ligue 1"
+                : "Premier League",
     sub: "",
     lg: compCode,
     em: compCode,

@@ -1,0 +1,3914 @@
+{
+  "schemaVersion": 1,
+  "league": "bundesliga",
+  "season": "bundesliga-2026-27",
+  "seasonLabel": "2026/27",
+  "periodLabel": "Jornada 9",
+  "updatedAt": "2026-11-09T02:14:17.385Z",
+  "source": "openfootball",
+  "provenance": "derived",
+  "isDemo": false,
+  "teamRates": {
+    "bundesliga.bayern-munchen": {
+      "teamId": "bundesliga.bayern-munchen",
+      "name": "FC Bayern München",
+      "shortName": "FC Bayern München",
+      "code": "BAY",
+      "forPerGame": 4.666666666666667,
+      "againstPerGame": 0.6666666666666666,
+      "gamesPlayed": 3,
+      "adjustedFor": 3.05548695361365,
+      "adjustedAgainst": 1.0678992603524864
+    },
+    "bundesliga.stuttgart": {
+      "teamId": "bundesliga.stuttgart",
+      "name": "VfB Stuttgart",
+      "shortName": "VfB Stuttgart",
+      "code": "STU",
+      "forPerGame": 1.5,
+      "againstPerGame": 2.25,
+      "gamesPlayed": 4,
+      "adjustedFor": 1.8737068083838797,
+      "adjustedAgainst": 1.5501297152885993
+    },
+    "bundesliga.rb-leipzig": {
+      "teamId": "bundesliga.rb-leipzig",
+      "name": "RB Leipzig",
+      "shortName": "RB Leipzig",
+      "code": "RBL",
+      "forPerGame": 2.25,
+      "againstPerGame": 1.25,
+      "gamesPlayed": 4,
+      "adjustedFor": 1.7829020809559124,
+      "adjustedAgainst": 1.380579595757074
+    },
+    "bundesliga.borussia-monchengladbach": {
+      "teamId": "bundesliga.borussia-monchengladbach",
+      "name": "Borussia Mönchengladbach",
+      "shortName": "Borussia Mönchengladbach",
+      "code": "BOR",
+      "forPerGame": 1.5,
+      "againstPerGame": 4,
+      "gamesPlayed": 4,
+      "adjustedFor": 1.525282427050485,
+      "adjustedAgainst": 2.1620999492202504
+    },
+    "bundesliga.mainz": {
+      "teamId": "bundesliga.mainz",
+      "name": "1. FSV Mainz 05",
+      "shortName": "1. FSV Mainz 05",
+      "code": "MAI",
+      "forPerGame": 3.3333333333333335,
+      "againstPerGame": 2,
+      "gamesPlayed": 3,
+      "adjustedFor": 1.734764117098491,
+      "adjustedAgainst": 1.6191520059181166
+    },
+    "bundesliga.paderborn": {
+      "teamId": "bundesliga.paderborn",
+      "name": "SC Paderborn 07",
+      "shortName": "SC Paderborn 07",
+      "code": "PAD",
+      "forPerGame": 1,
+      "againstPerGame": 1.6666666666666667,
+      "gamesPlayed": 3,
+      "adjustedFor": 1.3229427778301435,
+      "adjustedAgainst": 1.4359896691935874
+    },
+    "bundesliga.union-berlin": {
+      "teamId": "bundesliga.union-berlin",
+      "name": "1. FC Union Berlin",
+      "shortName": "1. FC Union Berlin",
+      "code": "UNI",
+      "forPerGame": 1,
+      "againstPerGame": 4.25,
+      "gamesPlayed": 4,
+      "adjustedFor": 1.2945456848935741,
+      "adjustedAgainst": 2.103219772767083
+    },
+    "bundesliga.eintracht-frankfurt": {
+      "teamId": "bundesliga.eintracht-frankfurt",
+      "name": "Eintracht Frankfurt",
+      "shortName": "Eintracht Frankfurt",
+      "code": "EIN",
+      "forPerGame": 2.25,
+      "againstPerGame": 2.5,
+      "gamesPlayed": 4,
+      "adjustedFor": 1.792559078168575,
+      "adjustedAgainst": 1.8681032700983187
+    },
+    "bundesliga.elversberg": {
+      "teamId": "bundesliga.elversberg",
+      "name": "SV 07 Elversberg",
+      "shortName": "SV 07 Elversberg",
+      "code": "ELV",
+      "forPerGame": 2.6666666666666665,
+      "againstPerGame": 2.3333333333333335,
+      "gamesPlayed": 3,
+      "adjustedFor": 2.1577424962547838,
+      "adjustedAgainst": 1.5849556050203857
+    },
+    "bundesliga.bayer-leverkusen": {
+      "teamId": "bundesliga.bayer-leverkusen",
+      "name": "Bayer 04 Leverkusen",
+      "shortName": "Bayer 04 Leverkusen",
+      "code": "BAY",
+      "forPerGame": 2.5,
+      "againstPerGame": 1.25,
+      "gamesPlayed": 4,
+      "adjustedFor": 1.9347348695035385,
+      "adjustedAgainst": 1.315752172746107
+    },
+    "bundesliga.koln": {
+      "teamId": "bundesliga.koln",
+      "name": "1. FC Köln",
+      "shortName": "1. FC Köln",
+      "code": "KOL",
+      "forPerGame": 1.5,
+      "againstPerGame": 2.25,
+      "gamesPlayed": 4,
+      "adjustedFor": 1.3878154775643348,
+      "adjustedAgainst": 1.8560655197986182
+    },
+    "bundesliga.hoffenheim": {
+      "teamId": "bundesliga.hoffenheim",
+      "name": "TSG 1899 Hoffenheim",
+      "shortName": "TSG 1899 Hoffenheim",
+      "code": "HOF",
+      "forPerGame": 1.75,
+      "againstPerGame": 2.5,
+      "gamesPlayed": 4,
+      "adjustedFor": 1.77004246957307,
+      "adjustedAgainst": 1.7964478696289725
+    },
+    "bundesliga.borussia-dortmund": {
+      "teamId": "bundesliga.borussia-dortmund",
+      "name": "Borussia Dortmund",
+      "shortName": "Borussia Dortmund",
+      "code": "BOR",
+      "forPerGame": 2.25,
+      "againstPerGame": 0.5,
+      "gamesPlayed": 4,
+      "adjustedFor": 1.9361968577570154,
+      "adjustedAgainst": 0.9616786384207456
+    },
+    "bundesliga.hamburger": {
+      "teamId": "bundesliga.hamburger",
+      "name": "Hamburger SV",
+      "shortName": "Hamburger SV",
+      "code": "HAM",
+      "forPerGame": 0.5,
+      "againstPerGame": 3.25,
+      "gamesPlayed": 4,
+      "adjustedFor": 1.138996183013708,
+      "adjustedAgainst": 2.0158841060908324
+    },
+    "bundesliga.freiburg": {
+      "teamId": "bundesliga.freiburg",
+      "name": "SC Freiburg",
+      "shortName": "SC Freiburg",
+      "code": "FRE",
+      "forPerGame": 3,
+      "againstPerGame": 0.75,
+      "gamesPlayed": 4,
+      "adjustedFor": 1.8123578823808018,
+      "adjustedAgainst": 1.3879656341041833
+    },
+    "bundesliga.werder-bremen": {
+      "teamId": "bundesliga.werder-bremen",
+      "name": "SV Werder Bremen",
+      "shortName": "SV Werder Bremen",
+      "code": "WER",
+      "forPerGame": 2,
+      "againstPerGame": 2,
+      "gamesPlayed": 4,
+      "adjustedFor": 1.438135643157112,
+      "adjustedAgainst": 1.642949490301904
+    },
+    "bundesliga.augsburg": {
+      "teamId": "bundesliga.augsburg",
+      "name": "FC Augsburg",
+      "shortName": "FC Augsburg",
+      "code": "AUG",
+      "forPerGame": 2.75,
+      "againstPerGame": 1.5,
+      "gamesPlayed": 4,
+      "adjustedFor": 1.658701167163042,
+      "adjustedAgainst": 1.562751989775249
+    },
+    "bundesliga.schalke": {
+      "teamId": "bundesliga.schalke",
+      "name": "FC Schalke 04",
+      "shortName": "FC Schalke 04",
+      "code": "SCH",
+      "forPerGame": 1.5,
+      "againstPerGame": 2,
+      "gamesPlayed": 2,
+      "adjustedFor": 1.5432574169976836,
+      "adjustedAgainst": 1.6972633066315002
+    }
+  },
+  "games": [
+    {
+      "id": "bundesliga-2026-27-md9-hamburger-borussia-monchengladbach",
+      "league": "bundesliga",
+      "season": "bundesliga-2026-27",
+      "week": 9,
+      "round": "Jornada 9",
+      "startTime": "2026-11-06T20:30:00",
+      "status": "scheduled",
+      "home": {
+        "id": "bundesliga.hamburger",
+        "league": "bundesliga",
+        "name": "Hamburger SV",
+        "shortName": "Hamburger SV",
+        "code": "HAM"
+      },
+      "away": {
+        "id": "bundesliga.borussia-monchengladbach",
+        "league": "bundesliga",
+        "name": "Borussia Mönchengladbach",
+        "shortName": "Borussia Mönchengladbach",
+        "code": "BOR"
+      },
+      "venue": "Alemania",
+      "neutralSite": false
+    },
+    {
+      "id": "bundesliga-2026-27-md9-rb-leipzig-augsburg",
+      "league": "bundesliga",
+      "season": "bundesliga-2026-27",
+      "week": 9,
+      "round": "Jornada 9",
+      "startTime": "2026-11-07T15:30:00",
+      "status": "scheduled",
+      "home": {
+        "id": "bundesliga.rb-leipzig",
+        "league": "bundesliga",
+        "name": "RB Leipzig",
+        "shortName": "RB Leipzig",
+        "code": "RBL"
+      },
+      "away": {
+        "id": "bundesliga.augsburg",
+        "league": "bundesliga",
+        "name": "FC Augsburg",
+        "shortName": "FC Augsburg",
+        "code": "AUG"
+      },
+      "venue": "Alemania",
+      "neutralSite": false
+    },
+    {
+      "id": "bundesliga-2026-27-md9-borussia-dortmund-elversberg",
+      "league": "bundesliga",
+      "season": "bundesliga-2026-27",
+      "week": 9,
+      "round": "Jornada 9",
+      "startTime": "2026-11-07T15:30:00",
+      "status": "scheduled",
+      "home": {
+        "id": "bundesliga.borussia-dortmund",
+        "league": "bundesliga",
+        "name": "Borussia Dortmund",
+        "shortName": "Borussia Dortmund",
+        "code": "BOR"
+      },
+      "away": {
+        "id": "bundesliga.elversberg",
+        "league": "bundesliga",
+        "name": "SV 07 Elversberg",
+        "shortName": "SV 07 Elversberg",
+        "code": "ELV"
+      },
+      "venue": "Alemania",
+      "neutralSite": false
+    },
+    {
+      "id": "bundesliga-2026-27-md9-mainz-bayern-munchen",
+      "league": "bundesliga",
+      "season": "bundesliga-2026-27",
+      "week": 9,
+      "round": "Jornada 9",
+      "startTime": "2026-11-07T15:30:00",
+      "status": "scheduled",
+      "home": {
+        "id": "bundesliga.mainz",
+        "league": "bundesliga",
+        "name": "1. FSV Mainz 05",
+        "shortName": "1. FSV Mainz 05",
+        "code": "MAI"
+      },
+      "away": {
+        "id": "bundesliga.bayern-munchen",
+        "league": "bundesliga",
+        "name": "FC Bayern München",
+        "shortName": "FC Bayern München",
+        "code": "BAY"
+      },
+      "venue": "Alemania",
+      "neutralSite": false
+    },
+    {
+      "id": "bundesliga-2026-27-md9-paderborn-eintracht-frankfurt",
+      "league": "bundesliga",
+      "season": "bundesliga-2026-27",
+      "week": 9,
+      "round": "Jornada 9",
+      "startTime": "2026-11-07T15:30:00",
+      "status": "scheduled",
+      "home": {
+        "id": "bundesliga.paderborn",
+        "league": "bundesliga",
+        "name": "SC Paderborn 07",
+        "shortName": "SC Paderborn 07",
+        "code": "PAD"
+      },
+      "away": {
+        "id": "bundesliga.eintracht-frankfurt",
+        "league": "bundesliga",
+        "name": "Eintracht Frankfurt",
+        "shortName": "Eintracht Frankfurt",
+        "code": "EIN"
+      },
+      "venue": "Alemania",
+      "neutralSite": false
+    },
+    {
+      "id": "bundesliga-2026-27-md9-stuttgart-werder-bremen",
+      "league": "bundesliga",
+      "season": "bundesliga-2026-27",
+      "week": 9,
+      "round": "Jornada 9",
+      "startTime": "2026-11-07T18:30:00",
+      "status": "scheduled",
+      "home": {
+        "id": "bundesliga.stuttgart",
+        "league": "bundesliga",
+        "name": "VfB Stuttgart",
+        "shortName": "VfB Stuttgart",
+        "code": "STU"
+      },
+      "away": {
+        "id": "bundesliga.werder-bremen",
+        "league": "bundesliga",
+        "name": "SV Werder Bremen",
+        "shortName": "SV Werder Bremen",
+        "code": "WER"
+      },
+      "venue": "Alemania",
+      "neutralSite": false
+    },
+    {
+      "id": "bundesliga-2026-27-md9-koln-bayer-leverkusen",
+      "league": "bundesliga",
+      "season": "bundesliga-2026-27",
+      "week": 9,
+      "round": "Jornada 9",
+      "startTime": "2026-11-08T15:30:00",
+      "status": "scheduled",
+      "home": {
+        "id": "bundesliga.koln",
+        "league": "bundesliga",
+        "name": "1. FC Köln",
+        "shortName": "1. FC Köln",
+        "code": "KOL"
+      },
+      "away": {
+        "id": "bundesliga.bayer-leverkusen",
+        "league": "bundesliga",
+        "name": "Bayer 04 Leverkusen",
+        "shortName": "Bayer 04 Leverkusen",
+        "code": "BAY"
+      },
+      "venue": "Alemania",
+      "neutralSite": false
+    },
+    {
+      "id": "bundesliga-2026-27-md9-freiburg-union-berlin",
+      "league": "bundesliga",
+      "season": "bundesliga-2026-27",
+      "week": 9,
+      "round": "Jornada 9",
+      "startTime": "2026-11-08T17:30:00",
+      "status": "scheduled",
+      "home": {
+        "id": "bundesliga.freiburg",
+        "league": "bundesliga",
+        "name": "SC Freiburg",
+        "shortName": "SC Freiburg",
+        "code": "FRE"
+      },
+      "away": {
+        "id": "bundesliga.union-berlin",
+        "league": "bundesliga",
+        "name": "1. FC Union Berlin",
+        "shortName": "1. FC Union Berlin",
+        "code": "UNI"
+      },
+      "venue": "Alemania",
+      "neutralSite": false
+    },
+    {
+      "id": "bundesliga-2026-27-md9-hoffenheim-schalke",
+      "league": "bundesliga",
+      "season": "bundesliga-2026-27",
+      "week": 9,
+      "round": "Jornada 9",
+      "startTime": "2026-11-08T19:30:00",
+      "status": "scheduled",
+      "home": {
+        "id": "bundesliga.hoffenheim",
+        "league": "bundesliga",
+        "name": "TSG 1899 Hoffenheim",
+        "shortName": "TSG 1899 Hoffenheim",
+        "code": "HOF"
+      },
+      "away": {
+        "id": "bundesliga.schalke",
+        "league": "bundesliga",
+        "name": "FC Schalke 04",
+        "shortName": "FC Schalke 04",
+        "code": "SCH"
+      },
+      "venue": "Alemania",
+      "neutralSite": false
+    }
+  ],
+  "analyses": {
+    "bundesliga-2026-27-md9-hamburger-borussia-monchengladbach": {
+      "game": "bundesliga-2026-27-md9-hamburger-borussia-monchengladbach",
+      "model": {
+        "id": "pitchlab-statistical-bundesliga",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 2.0086708920698375,
+        "away": 1.9289118391506241,
+        "total": 3.937582731220462,
+        "margin": 0.07975905291921337
+      },
+      "x12": [
+        0.4149453425672992,
+        0.20109283640944667,
+        0.38396182102325416
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Hamburger SV gana",
+          "p": 0.4149453425672992,
+          "fairOdds": 2.409955956639788
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.20109283640944667,
+          "fairOdds": 4.972827564895908
+        },
+        {
+          "market": "h2h",
+          "selection": "Borussia Mönchengladbach gana",
+          "p": 0.38396182102325416,
+          "fairOdds": 2.604425610168768
+        },
+        {
+          "market": "double_chance",
+          "selection": "Hamburger SV o empate",
+          "p": 0.6160381789767458,
+          "fairOdds": 1.6232760145824467
+        },
+        {
+          "market": "double_chance",
+          "selection": "Borussia Mönchengladbach o empate",
+          "p": 0.5850546574327008,
+          "fairOdds": 1.7092420123414378
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7989071635905534,
+          "fairOdds": 1.2517098926809829
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.8999621948471559,
+          "fairOdds": 1.1111577860999304
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.752603943650449,
+          "fairOdds": 1.3287201169177707
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.24739605634955097,
+          "fairOdds": 4.04210161938507
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.5542349860712237,
+          "fairOdds": 1.8042888398089902
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.4457650139287763,
+          "fairOdds": 2.243334422292232
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.7362436090420068,
+          "fairOdds": 1.3582460855601728
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.2637563909579932,
+          "fairOdds": 3.7913773249925296
+        },
+        {
+          "market": "team_totals",
+          "selection": "Hamburger SV más de 1.5",
+          "line": 1.5,
+          "p": 0.5963325282701105,
+          "fairOdds": 1.6769167412364383
+        },
+        {
+          "market": "team_totals",
+          "selection": "Hamburger SV menos de 1.5",
+          "line": 1.5,
+          "p": 0.4036674717298895,
+          "fairOdds": 2.4772865539910067
+        },
+        {
+          "market": "team_totals",
+          "selection": "Borussia Mönchengladbach más de 1.5",
+          "line": 1.5,
+          "p": 0.5744083332288917,
+          "fairOdds": 1.7409218184192279
+        },
+        {
+          "market": "team_totals",
+          "selection": "Borussia Mönchengladbach menos de 1.5",
+          "line": 1.5,
+          "p": 0.42559166677110827,
+          "fairOdds": 2.349670066584786
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.0758640182094463,
+          "fairOdds": 13.181479489251254
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–2",
+          "p": 0.07316750144486975,
+          "fairOdds": 13.66727003454505
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–2",
+          "p": 0.07285165701731676,
+          "fairOdds": 13.726523746224483
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Hamburger SV gana",
+              "p": 0.4149453425672992,
+              "fairOdds": 2.409955956639788
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.20109283640944667,
+              "fairOdds": 4.972827564895908
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Borussia Mönchengladbach gana",
+              "p": 0.38396182102325416,
+              "fairOdds": 2.604425610168768
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Hamburger SV o empate",
+              "p": 0.6160381789767458,
+              "fairOdds": 1.6232760145824467
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Borussia Mönchengladbach o empate",
+              "p": 0.5850546574327008,
+              "fairOdds": 1.7092420123414378
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7989071635905534,
+              "fairOdds": 1.2517098926809829
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.8999621948471559,
+              "fairOdds": 1.1111577860999304
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.752603943650449,
+              "fairOdds": 1.3287201169177707
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.24739605634955097,
+              "fairOdds": 4.04210161938507
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.5542349860712237,
+              "fairOdds": 1.8042888398089902
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.4457650139287763,
+              "fairOdds": 2.243334422292232
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.7362436090420068,
+              "fairOdds": 1.3582460855601728
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.2637563909579932,
+              "fairOdds": 3.7913773249925296
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Hamburger SV más de 1.5",
+              "line": 1.5,
+              "p": 0.5963325282701105,
+              "fairOdds": 1.6769167412364383
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Hamburger SV menos de 1.5",
+              "line": 1.5,
+              "p": 0.4036674717298895,
+              "fairOdds": 2.4772865539910067
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Borussia Mönchengladbach más de 1.5",
+              "line": 1.5,
+              "p": 0.5744083332288917,
+              "fairOdds": 1.7409218184192279
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Borussia Mönchengladbach menos de 1.5",
+              "line": 1.5,
+              "p": 0.42559166677110827,
+              "fairOdds": 2.349670066584786
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.0758640182094463,
+              "fairOdds": 13.181479489251254
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-2",
+              "label": "2–2",
+              "p": 0.07316750144486975,
+              "fairOdds": 13.66727003454505
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-2",
+              "label": "1–2",
+              "p": 0.07285165701731676,
+              "fairOdds": 13.726523746224483
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.0758640182094463
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.54 goles/partido",
+          "detail": "índice 0.71 · 4 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "2.16 concedidos/partido",
+          "detail": "índice 1.36 · 4 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.93 goles/partido",
+          "detail": "índice 0.96 · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "2.02 concedidos/partido",
+          "detail": "índice 1.26 · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.30",
+          "detail": "estimada de 459 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 3.1–5.5",
+          "detail": "local 23%–65% · 459 partidos"
+        }
+      ],
+      "steps": [
+        "Sincronizando Bundesliga · corte 8 nov 2026, 20:14",
+        "Fuerza ajustada por rival · HAM 0.71 / 1.26 · BOR 0.96 / 1.36",
+        "Ponderando 132.7 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 2.01 – 1.93 · total 3.94",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador más probable 2–1"
+      ],
+      "inputsAsOf": "2026-11-09T02:14:17.385Z",
+      "publishedAt": "2026-11-09T02:14:17.385Z",
+      "source": "openfootball"
+    },
+    "bundesliga-2026-27-md9-rb-leipzig-augsburg": {
+      "game": "bundesliga-2026-27-md9-rb-leipzig-augsburg",
+      "model": {
+        "id": "pitchlab-statistical-bundesliga",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 2.2726277395700882,
+        "away": 1.436567880107049,
+        "total": 3.7091956196771374,
+        "margin": 0.8360598594630393
+      },
+      "x12": [
+        0.5676033995006218,
+        0.19096435421507843,
+        0.2414322462842998
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "RB Leipzig gana",
+          "p": 0.5676033995006218,
+          "fairOdds": 1.7617935355563432
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.19096435421507843,
+          "fairOdds": 5.236579382106698
+        },
+        {
+          "market": "h2h",
+          "selection": "FC Augsburg gana",
+          "p": 0.2414322462842998,
+          "fairOdds": 4.141948788491347
+        },
+        {
+          "market": "double_chance",
+          "selection": "RB Leipzig o empate",
+          "p": 0.7585677537157002,
+          "fairOdds": 1.3182738062640942
+        },
+        {
+          "market": "double_chance",
+          "selection": "FC Augsburg o empate",
+          "p": 0.4323966004993782,
+          "fairOdds": 2.3126916327396936
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.8090356457849216,
+          "fairOdds": 1.2360394813380637
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.8806356843260977,
+          "fairOdds": 1.135543355553716
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.7161121743584135,
+          "fairOdds": 1.3964292687747282
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.28388782564158654,
+          "fairOdds": 3.522518085233137
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.5077511716785665,
+          "fairOdds": 1.9694686212030115
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.49224882832143346,
+          "fairOdds": 2.0314929004706745
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.6797126686961549,
+          "fairOdds": 1.4712098891995493
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.3202873313038451,
+          "fairOdds": 3.122196547484845
+        },
+        {
+          "market": "team_totals",
+          "selection": "RB Leipzig más de 1.5",
+          "line": 1.5,
+          "p": 0.6627760376378009,
+          "fairOdds": 1.5088053025635908
+        },
+        {
+          "market": "team_totals",
+          "selection": "RB Leipzig menos de 1.5",
+          "line": 1.5,
+          "p": 0.3372239623621991,
+          "fairOdds": 2.965388322333806
+        },
+        {
+          "market": "team_totals",
+          "selection": "FC Augsburg más de 1.5",
+          "line": 1.5,
+          "p": 0.42072448839855114,
+          "fairOdds": 2.376852376257934
+        },
+        {
+          "market": "team_totals",
+          "selection": "FC Augsburg menos de 1.5",
+          "line": 1.5,
+          "p": 0.5792755116014489,
+          "fairOdds": 1.72629427616477
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.09088270344417206,
+          "fairOdds": 11.00319381029731
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.07598126764772842,
+          "fairOdds": 13.161138672182927
+        },
+        {
+          "market": "correct_score",
+          "selection": "3–1",
+          "p": 0.06884751763144914,
+          "fairOdds": 14.524851939515766
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "RB Leipzig gana",
+              "p": 0.5676033995006218,
+              "fairOdds": 1.7617935355563432
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.19096435421507843,
+              "fairOdds": 5.236579382106698
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "FC Augsburg gana",
+              "p": 0.2414322462842998,
+              "fairOdds": 4.141948788491347
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "RB Leipzig o empate",
+              "p": 0.7585677537157002,
+              "fairOdds": 1.3182738062640942
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "FC Augsburg o empate",
+              "p": 0.4323966004993782,
+              "fairOdds": 2.3126916327396936
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.8090356457849216,
+              "fairOdds": 1.2360394813380637
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.8806356843260977,
+              "fairOdds": 1.135543355553716
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.7161121743584135,
+              "fairOdds": 1.3964292687747282
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.28388782564158654,
+              "fairOdds": 3.522518085233137
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.5077511716785665,
+              "fairOdds": 1.9694686212030115
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.49224882832143346,
+              "fairOdds": 2.0314929004706745
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.6797126686961549,
+              "fairOdds": 1.4712098891995493
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.3202873313038451,
+              "fairOdds": 3.122196547484845
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "RB Leipzig más de 1.5",
+              "line": 1.5,
+              "p": 0.6627760376378009,
+              "fairOdds": 1.5088053025635908
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "RB Leipzig menos de 1.5",
+              "line": 1.5,
+              "p": 0.3372239623621991,
+              "fairOdds": 2.965388322333806
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "FC Augsburg más de 1.5",
+              "line": 1.5,
+              "p": 0.42072448839855114,
+              "fairOdds": 2.376852376257934
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "FC Augsburg menos de 1.5",
+              "line": 1.5,
+              "p": 0.5792755116014489,
+              "fairOdds": 1.72629427616477
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.09088270344417206,
+              "fairOdds": 11.00319381029731
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.07598126764772842,
+              "fairOdds": 13.161138672182927
+            },
+            {
+              "market": "correct_score",
+              "selection": "3-1",
+              "label": "3–1",
+              "p": 0.06884751763144914,
+              "fairOdds": 14.524851939515766
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.09088270344417206
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.75 goles/partido",
+          "detail": "índice 1.12 · 4 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.56 concedidos/partido",
+          "detail": "índice 0.98 · 4 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.44 goles/partido",
+          "detail": "índice 1.04 · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.38 concedidos/partido",
+          "detail": "índice 0.87 · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.30",
+          "detail": "estimada de 459 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 2.8–5.2",
+          "detail": "local 36%–77% · 459 partidos"
+        }
+      ],
+      "steps": [
+        "Sincronizando Bundesliga · corte 8 nov 2026, 20:14",
+        "Fuerza ajustada por rival · RBL 1.12 / 0.87 · AUG 1.04 / 0.98",
+        "Ponderando 132.7 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 2.27 – 1.44 · total 3.71",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador más probable 2–1"
+      ],
+      "inputsAsOf": "2026-11-09T02:14:17.385Z",
+      "publishedAt": "2026-11-09T02:14:17.385Z",
+      "source": "openfootball"
+    },
+    "bundesliga-2026-27-md9-borussia-dortmund-elversberg": {
+      "game": "bundesliga-2026-27-md9-borussia-dortmund-elversberg",
+      "model": {
+        "id": "pitchlab-statistical-bundesliga",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 2.5030951800236254,
+        "away": 1.3017456510903371,
+        "total": 3.8048408311139625,
+        "margin": 1.2013495289332883
+      },
+      "x12": [
+        0.6396167401569031,
+        0.17302522060091258,
+        0.1873580392421844
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Borussia Dortmund gana",
+          "p": 0.6396167401569031,
+          "fairOdds": 1.5634362536457256
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.17302522060091258,
+          "fairOdds": 5.779504262598384
+        },
+        {
+          "market": "h2h",
+          "selection": "SV 07 Elversberg gana",
+          "p": 0.1873580392421844,
+          "fairOdds": 5.337374387801803
+        },
+        {
+          "market": "double_chance",
+          "selection": "Borussia Dortmund o empate",
+          "p": 0.8126419607578157,
+          "fairOdds": 1.2305542271869234
+        },
+        {
+          "market": "double_chance",
+          "selection": "SV 07 Elversberg o empate",
+          "p": 0.36038325984309694,
+          "fairOdds": 2.7748236708757736
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.8269747793990875,
+          "fairOdds": 1.2092267199812785
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.8893971319788473,
+          "fairOdds": 1.1243571224196203
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.7318675612271094,
+          "fairOdds": 1.3663674317294754
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.2681324387728906,
+          "fairOdds": 3.7295002595601816
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.5274755253821108,
+          "fairOdds": 1.8958225583558321
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.47252447461788916,
+          "fairOdds": 2.116292496401712
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.6647439436834525,
+          "fairOdds": 1.5043386397156777
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.33525605631654753,
+          "fairOdds": 2.982794736020529
+        },
+        {
+          "market": "team_totals",
+          "selection": "Borussia Dortmund más de 1.5",
+          "line": 1.5,
+          "p": 0.7133192252895538,
+          "fairOdds": 1.401896885078452
+        },
+        {
+          "market": "team_totals",
+          "selection": "Borussia Dortmund menos de 1.5",
+          "line": 1.5,
+          "p": 0.2866807747104462,
+          "fairOdds": 3.4882004243570983
+        },
+        {
+          "market": "team_totals",
+          "selection": "SV 07 Elversberg más de 1.5",
+          "line": 1.5,
+          "p": 0.3737951333523466,
+          "fairOdds": 2.675262224608421
+        },
+        {
+          "market": "team_totals",
+          "selection": "SV 07 Elversberg menos de 1.5",
+          "line": 1.5,
+          "p": 0.6262048666476534,
+          "fairOdds": 1.596921476119204
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.09079388652447931,
+          "fairOdds": 11.013957418051334
+        },
+        {
+          "market": "correct_score",
+          "selection": "3–1",
+          "p": 0.07575524657834538,
+          "fairOdds": 13.200405848666986
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–0",
+          "p": 0.06974779324089211,
+          "fairOdds": 14.33737117024248
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Borussia Dortmund gana",
+              "p": 0.6396167401569031,
+              "fairOdds": 1.5634362536457256
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.17302522060091258,
+              "fairOdds": 5.779504262598384
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "SV 07 Elversberg gana",
+              "p": 0.1873580392421844,
+              "fairOdds": 5.337374387801803
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "Borussia Dortmund o empate",
+              "p": 0.8126419607578157,
+              "fairOdds": 1.2305542271869234
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "SV 07 Elversberg o empate",
+              "p": 0.36038325984309694,
+              "fairOdds": 2.7748236708757736
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.8269747793990875,
+              "fairOdds": 1.2092267199812785
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.8893971319788473,
+              "fairOdds": 1.1243571224196203
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.7318675612271094,
+              "fairOdds": 1.3663674317294754
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.2681324387728906,
+              "fairOdds": 3.7295002595601816
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.5274755253821108,
+              "fairOdds": 1.8958225583558321
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.47252447461788916,
+              "fairOdds": 2.116292496401712
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.6647439436834525,
+              "fairOdds": 1.5043386397156777
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.33525605631654753,
+              "fairOdds": 2.982794736020529
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "Borussia Dortmund más de 1.5",
+              "line": 1.5,
+              "p": 0.7133192252895538,
+              "fairOdds": 1.401896885078452
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "Borussia Dortmund menos de 1.5",
+              "line": 1.5,
+              "p": 0.2866807747104462,
+              "fairOdds": 3.4882004243570983
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "SV 07 Elversberg más de 1.5",
+              "line": 1.5,
+              "p": 0.3737951333523466,
+              "fairOdds": 2.675262224608421
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "SV 07 Elversberg menos de 1.5",
+              "line": 1.5,
+              "p": 0.6262048666476534,
+              "fairOdds": 1.596921476119204
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.09079388652447931,
+              "fairOdds": 11.013957418051334
+            },
+            {
+              "market": "correct_score",
+              "selection": "3-1",
+              "label": "3–1",
+              "p": 0.07575524657834538,
+              "fairOdds": 13.200405848666986
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-0",
+              "label": "2–0",
+              "p": 0.06974779324089211,
+              "fairOdds": 14.33737117024248
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.09079388652447931
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.93 goles/partido",
+          "detail": "índice 1.21 · 4 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.58 concedidos/partido",
+          "detail": "índice 0.99 · 3 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.30 goles/partido",
+          "detail": "índice 1.35 · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "0.96 concedidos/partido",
+          "detail": "índice 0.60 · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.30",
+          "detail": "estimada de 459 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 2.7–5.5",
+          "detail": "local 38%–87% · 459 partidos"
+        }
+      ],
+      "steps": [
+        "Sincronizando Bundesliga · corte 8 nov 2026, 20:14",
+        "Fuerza ajustada por rival · BOR 1.21 / 0.60 · ELV 1.35 / 0.99",
+        "Ponderando 132.7 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 2.50 – 1.30 · total 3.80",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador más probable 2–1"
+      ],
+      "inputsAsOf": "2026-11-09T02:14:17.385Z",
+      "publishedAt": "2026-11-09T02:14:17.385Z",
+      "source": "openfootball"
+    },
+    "bundesliga-2026-27-md9-mainz-bayern-munchen": {
+      "game": "bundesliga-2026-27-md9-mainz-bayern-munchen",
+      "model": {
+        "id": "pitchlab-statistical-bundesliga",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.5110591569388059,
+        "away": 3.1035918812583145,
+        "total": 4.61465103819712,
+        "margin": -1.5925327243195087
+      },
+      "x12": [
+        0.1602707396936371,
+        0.14471908289735635,
+        0.6950101774090067
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "1. FSV Mainz 05 gana",
+          "p": 0.1602707396936371,
+          "fairOdds": 6.239442095990408
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.14471908289735635,
+          "fairOdds": 6.909938758451512
+        },
+        {
+          "market": "h2h",
+          "selection": "FC Bayern München gana",
+          "p": 0.6950101774090067,
+          "fairOdds": 1.4388278510222587
+        },
+        {
+          "market": "double_chance",
+          "selection": "1. FSV Mainz 05 o empate",
+          "p": 0.30498982259099344,
+          "fairOdds": 3.2787979333364508
+        },
+        {
+          "market": "double_chance",
+          "selection": "FC Bayern München o empate",
+          "p": 0.8397292603063631,
+          "fairOdds": 1.1908600155664035
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.8552809171026439,
+          "fairOdds": 1.169206491111257
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.9420380915656408,
+          "fairOdds": 1.0615282003491262
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.8388505008208125,
+          "fairOdds": 1.1921075317014216
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.16114949917918753,
+          "fairOdds": 6.205417982019705
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.6765513458956041,
+          "fairOdds": 1.4780844145335659
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.32344865410439594,
+          "fairOdds": 3.0916808195381797
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.7420045338165335,
+          "fairOdds": 1.3477006600707078
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.25799546618346647,
+          "fairOdds": 3.876037105585713
+        },
+        {
+          "market": "team_totals",
+          "selection": "1. FSV Mainz 05 más de 1.5",
+          "line": 1.5,
+          "p": 0.44586887122783303,
+          "fairOdds": 2.242811877057489
+        },
+        {
+          "market": "team_totals",
+          "selection": "1. FSV Mainz 05 menos de 1.5",
+          "line": 1.5,
+          "p": 0.554131128772167,
+          "fairOdds": 1.8046270062751766
+        },
+        {
+          "market": "team_totals",
+          "selection": "FC Bayern München más de 1.5",
+          "line": 1.5,
+          "p": 0.815727947992029,
+          "fairOdds": 1.2258989071804753
+        },
+        {
+          "market": "team_totals",
+          "selection": "FC Bayern München menos de 1.5",
+          "line": 1.5,
+          "p": 0.18427205200797103,
+          "fairOdds": 5.426758909466874
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–3",
+          "p": 0.07460620540872012,
+          "fairOdds": 13.403710784131611
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–2",
+          "p": 0.07211599488248943,
+          "fairOdds": 13.866549322788462
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–4",
+          "p": 0.05788680334949848,
+          "fairOdds": 17.275094531691114
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "1. FSV Mainz 05 gana",
+              "p": 0.1602707396936371,
+              "fairOdds": 6.239442095990408
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.14471908289735635,
+              "fairOdds": 6.909938758451512
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "FC Bayern München gana",
+              "p": 0.6950101774090067,
+              "fairOdds": 1.4388278510222587
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "1. FSV Mainz 05 o empate",
+              "p": 0.30498982259099344,
+              "fairOdds": 3.2787979333364508
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "FC Bayern München o empate",
+              "p": 0.8397292603063631,
+              "fairOdds": 1.1908600155664035
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.8552809171026439,
+              "fairOdds": 1.169206491111257
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.9420380915656408,
+              "fairOdds": 1.0615282003491262
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.8388505008208125,
+              "fairOdds": 1.1921075317014216
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.16114949917918753,
+              "fairOdds": 6.205417982019705
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.6765513458956041,
+              "fairOdds": 1.4780844145335659
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.32344865410439594,
+              "fairOdds": 3.0916808195381797
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.7420045338165335,
+              "fairOdds": 1.3477006600707078
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.25799546618346647,
+              "fairOdds": 3.876037105585713
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "1. FSV Mainz 05 más de 1.5",
+              "line": 1.5,
+              "p": 0.44586887122783303,
+              "fairOdds": 2.242811877057489
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "1. FSV Mainz 05 menos de 1.5",
+              "line": 1.5,
+              "p": 0.554131128772167,
+              "fairOdds": 1.8046270062751766
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "FC Bayern München más de 1.5",
+              "line": 1.5,
+              "p": 0.815727947992029,
+              "fairOdds": 1.2258989071804753
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "FC Bayern München menos de 1.5",
+              "line": 1.5,
+              "p": 0.18427205200797103,
+              "fairOdds": 5.426758909466874
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-3",
+              "label": "1–3",
+              "p": 0.07460620540872012,
+              "fairOdds": 13.403710784131611
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-2",
+              "label": "1–2",
+              "p": 0.07211599488248943,
+              "fairOdds": 13.866549322788462
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-4",
+              "label": "1–4",
+              "p": 0.05788680334949848,
+              "fairOdds": 17.275094531691114
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 3,
+        "p": 0.07460620540872012
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.16 goles/partido",
+          "detail": "índice 1.09 · 3 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.07 concedidos/partido",
+          "detail": "índice 0.67 · 3 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "3.10 goles/partido",
+          "detail": "índice 1.92 · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.62 concedidos/partido",
+          "detail": "índice 1.02 · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.30",
+          "detail": "estimada de 459 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 3.5–6.2",
+          "detail": "local 5%–35% · 459 partidos"
+        }
+      ],
+      "steps": [
+        "Sincronizando Bundesliga · corte 8 nov 2026, 20:14",
+        "Fuerza ajustada por rival · MAI 1.09 / 1.02 · BAY 1.92 / 0.67",
+        "Ponderando 132.7 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.51 – 3.10 · total 4.61",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador más probable 1–3"
+      ],
+      "inputsAsOf": "2026-11-09T02:14:17.385Z",
+      "publishedAt": "2026-11-09T02:14:17.385Z",
+      "source": "openfootball"
+    },
+    "bundesliga-2026-27-md9-paderborn-eintracht-frankfurt": {
+      "game": "bundesliga-2026-27-md9-paderborn-eintracht-frankfurt",
+      "model": {
+        "id": "pitchlab-statistical-bundesliga",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 2.015824370553258,
+        "away": 1.6148096814892856,
+        "total": 3.6306340520425437,
+        "margin": 0.40101468906397253
+      },
+      "x12": [
+        0.4776196855055685,
+        0.2056260059197022,
+        0.3167543085747291
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "SC Paderborn 07 gana",
+          "p": 0.4776196855055685,
+          "fairOdds": 2.0937160471965957
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.2056260059197022,
+          "fairOdds": 4.863198093681322
+        },
+        {
+          "market": "h2h",
+          "selection": "Eintracht Frankfurt gana",
+          "p": 0.3167543085747291,
+          "fairOdds": 3.1570209873375052
+        },
+        {
+          "market": "double_chance",
+          "selection": "SC Paderborn 07 o empate",
+          "p": 0.6832456914252707,
+          "fairOdds": 1.4636023505892448
+        },
+        {
+          "market": "double_chance",
+          "selection": "Eintracht Frankfurt o empate",
+          "p": 0.5223803144944312,
+          "fairOdds": 1.9143140969387742
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.7943739940802976,
+          "fairOdds": 1.2588528922800022
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.8729768028737621,
+          "fairOdds": 1.1455058103584068
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.7026372756643923,
+          "fairOdds": 1.4232094348459248
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.29736272433560773,
+          "fairOdds": 3.36289628175247
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.491270749372528,
+          "fairOdds": 2.035537432825469
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.508729250627472,
+          "fairOdds": 1.965682135962478
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.6900461153069094,
+          "fairOdds": 1.4491785082439506
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.3099538846930906,
+          "fairOdds": 3.2262863909261137
+        },
+        {
+          "market": "team_totals",
+          "selection": "SC Paderborn 07 más de 1.5",
+          "line": 1.5,
+          "p": 0.5982568089012295,
+          "fairOdds": 1.6715229732806889
+        },
+        {
+          "market": "team_totals",
+          "selection": "SC Paderborn 07 menos de 1.5",
+          "line": 1.5,
+          "p": 0.40174319109877055,
+          "fairOdds": 2.4891523295391584
+        },
+        {
+          "market": "team_totals",
+          "selection": "Eintracht Frankfurt más de 1.5",
+          "line": 1.5,
+          "p": 0.47983918055573405,
+          "fairOdds": 2.0840315683305244
+        },
+        {
+          "market": "team_totals",
+          "selection": "Eintracht Frankfurt menos de 1.5",
+          "line": 1.5,
+          "p": 0.520160819444266,
+          "fairOdds": 1.9224823604907206
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.08694342852124336,
+          "fairOdds": 11.501731838832013
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.08194787036185303,
+          "fairOdds": 12.20287965488732
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–2",
+          "p": 0.07019854505898773,
+          "fairOdds": 14.245309488390415
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "SC Paderborn 07 gana",
+              "p": 0.4776196855055685,
+              "fairOdds": 2.0937160471965957
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.2056260059197022,
+              "fairOdds": 4.863198093681322
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Eintracht Frankfurt gana",
+              "p": 0.3167543085747291,
+              "fairOdds": 3.1570209873375052
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "SC Paderborn 07 o empate",
+              "p": 0.6832456914252707,
+              "fairOdds": 1.4636023505892448
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Eintracht Frankfurt o empate",
+              "p": 0.5223803144944312,
+              "fairOdds": 1.9143140969387742
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.7943739940802976,
+              "fairOdds": 1.2588528922800022
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.8729768028737621,
+              "fairOdds": 1.1455058103584068
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.7026372756643923,
+              "fairOdds": 1.4232094348459248
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.29736272433560773,
+              "fairOdds": 3.36289628175247
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.491270749372528,
+              "fairOdds": 2.035537432825469
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.508729250627472,
+              "fairOdds": 1.965682135962478
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.6900461153069094,
+              "fairOdds": 1.4491785082439506
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.3099538846930906,
+              "fairOdds": 3.2262863909261137
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "SC Paderborn 07 más de 1.5",
+              "line": 1.5,
+              "p": 0.5982568089012295,
+              "fairOdds": 1.6715229732806889
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "SC Paderborn 07 menos de 1.5",
+              "line": 1.5,
+              "p": 0.40174319109877055,
+              "fairOdds": 2.4891523295391584
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Eintracht Frankfurt más de 1.5",
+              "line": 1.5,
+              "p": 0.47983918055573405,
+              "fairOdds": 2.0840315683305244
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Eintracht Frankfurt menos de 1.5",
+              "line": 1.5,
+              "p": 0.520160819444266,
+              "fairOdds": 1.9224823604907206
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.08694342852124336,
+              "fairOdds": 11.501731838832013
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.08194787036185303,
+              "fairOdds": 12.20287965488732
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-2",
+              "label": "2–2",
+              "p": 0.07019854505898773,
+              "fairOdds": 14.245309488390415
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.08694342852124336
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.55 goles/partido",
+          "detail": "índice 0.83 · 3 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.87 concedidos/partido",
+          "detail": "índice 1.17 · 4 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.61 goles/partido",
+          "detail": "índice 1.12 · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.44 concedidos/partido",
+          "detail": "índice 0.90 · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.30",
+          "detail": "estimada de 459 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 2.5–5.5",
+          "detail": "local 21%–77% · 459 partidos"
+        }
+      ],
+      "steps": [
+        "Sincronizando Bundesliga · corte 8 nov 2026, 20:14",
+        "Fuerza ajustada por rival · PAD 0.83 / 0.90 · EIN 1.12 / 1.17",
+        "Ponderando 132.7 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 2.02 – 1.61 · total 3.63",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador más probable 2–1"
+      ],
+      "inputsAsOf": "2026-11-09T02:14:17.385Z",
+      "publishedAt": "2026-11-09T02:14:17.385Z",
+      "source": "openfootball"
+    },
+    "bundesliga-2026-27-md9-stuttgart-werder-bremen": {
+      "game": "bundesliga-2026-27-md9-stuttgart-werder-bremen",
+      "model": {
+        "id": "pitchlab-statistical-bundesliga",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 2.5109415183044503,
+        "away": 1.398506350709254,
+        "total": 3.9094478690137047,
+        "margin": 1.1124351675951962
+      },
+      "x12": [
+        0.620597843572525,
+        0.17548187267365897,
+        0.20392028375381582
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "VfB Stuttgart gana",
+          "p": 0.620597843572525,
+          "fairOdds": 1.6113494598102593
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.17548187267365897,
+          "fairOdds": 5.698594303581915
+        },
+        {
+          "market": "h2h",
+          "selection": "SV Werder Bremen gana",
+          "p": 0.20392028375381582,
+          "fairOdds": 4.903877052305679
+        },
+        {
+          "market": "double_chance",
+          "selection": "VfB Stuttgart o empate",
+          "p": 0.796079716246184,
+          "fairOdds": 1.2561556080280214
+        },
+        {
+          "market": "double_chance",
+          "selection": "SV Werder Bremen o empate",
+          "p": 0.37940215642747477,
+          "fairOdds": 2.635725662226584
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.8245181273263409,
+          "fairOdds": 1.2128296114515917
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.8980306874742563,
+          "fairOdds": 1.1135476926880261
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.74830976970737,
+          "fairOdds": 1.3363449743427174
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.25169023029263005,
+          "fairOdds": 3.97313792767141
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.5486128708602179,
+          "fairOdds": 1.822778963300684
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.4513871291397821,
+          "fairOdds": 2.2153932521419497
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.6883694140022981,
+          "fairOdds": 1.4527083563835703
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.3116305859977019,
+          "fairOdds": 3.2089276371844146
+        },
+        {
+          "market": "team_totals",
+          "selection": "VfB Stuttgart más de 1.5",
+          "line": 1.5,
+          "p": 0.7149222273796313,
+          "fairOdds": 1.398753545074756
+        },
+        {
+          "market": "team_totals",
+          "selection": "VfB Stuttgart menos de 1.5",
+          "line": 1.5,
+          "p": 0.2850777726203687,
+          "fairOdds": 3.507814694945285
+        },
+        {
+          "market": "team_totals",
+          "selection": "SV Werder Bremen más de 1.5",
+          "line": 1.5,
+          "p": 0.407651349644671,
+          "fairOdds": 2.4530766324498847
+        },
+        {
+          "market": "team_totals",
+          "selection": "SV Werder Bremen menos de 1.5",
+          "line": 1.5,
+          "p": 0.592348650355329,
+          "fairOdds": 1.6881949497143875
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.08840644656139007,
+          "fairOdds": 11.311392312387454
+        },
+        {
+          "market": "correct_score",
+          "selection": "3–1",
+          "p": 0.07399447238558601,
+          "fairOdds": 13.514523014489365
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.0668961213322351,
+          "fairOdds": 14.94854978263339
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "VfB Stuttgart gana",
+              "p": 0.620597843572525,
+              "fairOdds": 1.6113494598102593
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.17548187267365897,
+              "fairOdds": 5.698594303581915
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "SV Werder Bremen gana",
+              "p": 0.20392028375381582,
+              "fairOdds": 4.903877052305679
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "VfB Stuttgart o empate",
+              "p": 0.796079716246184,
+              "fairOdds": 1.2561556080280214
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "SV Werder Bremen o empate",
+              "p": 0.37940215642747477,
+              "fairOdds": 2.635725662226584
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.8245181273263409,
+              "fairOdds": 1.2128296114515917
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.8980306874742563,
+              "fairOdds": 1.1135476926880261
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.74830976970737,
+              "fairOdds": 1.3363449743427174
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.25169023029263005,
+              "fairOdds": 3.97313792767141
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.5486128708602179,
+              "fairOdds": 1.822778963300684
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.4513871291397821,
+              "fairOdds": 2.2153932521419497
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.6883694140022981,
+              "fairOdds": 1.4527083563835703
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.3116305859977019,
+              "fairOdds": 3.2089276371844146
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "VfB Stuttgart más de 1.5",
+              "line": 1.5,
+              "p": 0.7149222273796313,
+              "fairOdds": 1.398753545074756
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "VfB Stuttgart menos de 1.5",
+              "line": 1.5,
+              "p": 0.2850777726203687,
+              "fairOdds": 3.507814694945285
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "SV Werder Bremen más de 1.5",
+              "line": 1.5,
+              "p": 0.407651349644671,
+              "fairOdds": 2.4530766324498847
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "SV Werder Bremen menos de 1.5",
+              "line": 1.5,
+              "p": 0.592348650355329,
+              "fairOdds": 1.6881949497143875
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.08840644656139007,
+              "fairOdds": 11.311392312387454
+            },
+            {
+              "market": "correct_score",
+              "selection": "3-1",
+              "label": "3–1",
+              "p": 0.07399447238558601,
+              "fairOdds": 13.514523014489365
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.0668961213322351,
+              "fairOdds": 14.94854978263339
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.08840644656139007
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.93 goles/partido",
+          "detail": "índice 1.18 · 4 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.64 concedidos/partido",
+          "detail": "índice 1.03 · 4 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.40 goles/partido",
+          "detail": "índice 0.90 · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.55 concedidos/partido",
+          "detail": "índice 0.97 · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.30",
+          "detail": "estimada de 459 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 2.9–5.5",
+          "detail": "local 40%–83% · 459 partidos"
+        }
+      ],
+      "steps": [
+        "Sincronizando Bundesliga · corte 8 nov 2026, 20:14",
+        "Fuerza ajustada por rival · STU 1.18 / 0.97 · WER 0.90 / 1.03",
+        "Ponderando 132.7 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 2.51 – 1.40 · total 3.91",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador más probable 2–1"
+      ],
+      "inputsAsOf": "2026-11-09T02:14:17.385Z",
+      "publishedAt": "2026-11-09T02:14:17.385Z",
+      "source": "openfootball"
+    },
+    "bundesliga-2026-27-md9-koln-bayer-leverkusen": {
+      "game": "bundesliga-2026-27-md9-koln-bayer-leverkusen",
+      "model": {
+        "id": "pitchlab-statistical-bundesliga",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 1.4894179153723204,
+        "away": 2.2527412582173967,
+        "total": 3.742159173589717,
+        "margin": -0.7633233428450763
+      },
+      "x12": [
+        0.2546851367803873,
+        0.1928509236493365,
+        0.5524639395702756
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "1. FC Köln gana",
+          "p": 0.2546851367803873,
+          "fairOdds": 3.9264168009234517
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.1928509236493365,
+          "fairOdds": 5.185352401102905
+        },
+        {
+          "market": "h2h",
+          "selection": "Bayer 04 Leverkusen gana",
+          "p": 0.5524639395702756,
+          "fairOdds": 1.8100728905090755
+        },
+        {
+          "market": "double_chance",
+          "selection": "1. FC Köln o empate",
+          "p": 0.4475360604297238,
+          "fairOdds": 2.234456814585624
+        },
+        {
+          "market": "double_chance",
+          "selection": "Bayer 04 Leverkusen o empate",
+          "p": 0.7453148632196122,
+          "fairOdds": 1.341714823289849
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.8071490763506629,
+          "fairOdds": 1.2389285068890468
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.8836178312343298,
+          "fairOdds": 1.131710978040241
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.7216256709241103,
+          "fairOdds": 1.3857600142181816
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.27837432907588966,
+          "fairOdds": 3.5922852632269215
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.5145985235104701,
+          "fairOdds": 1.9432624741676972
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.4854014764895299,
+          "fairOdds": 2.0601503053350725
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.6891096187695781,
+          "fairOdds": 1.4511479346138343
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.3108903812304219,
+          "fairOdds": 3.2165678334667818
+        },
+        {
+          "market": "team_totals",
+          "selection": "1. FC Köln más de 1.5",
+          "line": 1.5,
+          "p": 0.4386263126272024,
+          "fairOdds": 2.2798449869785187
+        },
+        {
+          "market": "team_totals",
+          "selection": "1. FC Köln menos de 1.5",
+          "line": 1.5,
+          "p": 0.5613736873727976,
+          "fairOdds": 1.7813446238991943
+        },
+        {
+          "market": "team_totals",
+          "selection": "Bayer 04 Leverkusen más de 1.5",
+          "line": 1.5,
+          "p": 0.6580937373084991,
+          "fairOdds": 1.5195403683521505
+        },
+        {
+          "market": "team_totals",
+          "selection": "Bayer 04 Leverkusen menos de 1.5",
+          "line": 1.5,
+          "p": 0.34190626269150093,
+          "fairOdds": 2.9247782480728977
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–2",
+          "p": 0.08958204724883032,
+          "fairOdds": 11.162950956259342
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–1",
+          "p": 0.07555501065731013,
+          "fairOdds": 13.235389569801452
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–3",
+          "p": 0.06726839127767344,
+          "fairOdds": 14.865823026332766
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "1. FC Köln gana",
+              "p": 0.2546851367803873,
+              "fairOdds": 3.9264168009234517
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.1928509236493365,
+              "fairOdds": 5.185352401102905
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Bayer 04 Leverkusen gana",
+              "p": 0.5524639395702756,
+              "fairOdds": 1.8100728905090755
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "1. FC Köln o empate",
+              "p": 0.4475360604297238,
+              "fairOdds": 2.234456814585624
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "Bayer 04 Leverkusen o empate",
+              "p": 0.7453148632196122,
+              "fairOdds": 1.341714823289849
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.8071490763506629,
+              "fairOdds": 1.2389285068890468
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.8836178312343298,
+              "fairOdds": 1.131710978040241
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.7216256709241103,
+              "fairOdds": 1.3857600142181816
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.27837432907588966,
+              "fairOdds": 3.5922852632269215
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.5145985235104701,
+              "fairOdds": 1.9432624741676972
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.4854014764895299,
+              "fairOdds": 2.0601503053350725
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.6891096187695781,
+              "fairOdds": 1.4511479346138343
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.3108903812304219,
+              "fairOdds": 3.2165678334667818
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "1. FC Köln más de 1.5",
+              "line": 1.5,
+              "p": 0.4386263126272024,
+              "fairOdds": 2.2798449869785187
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "1. FC Köln menos de 1.5",
+              "line": 1.5,
+              "p": 0.5613736873727976,
+              "fairOdds": 1.7813446238991943
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "Bayer 04 Leverkusen más de 1.5",
+              "line": 1.5,
+              "p": 0.6580937373084991,
+              "fairOdds": 1.5195403683521505
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "Bayer 04 Leverkusen menos de 1.5",
+              "line": 1.5,
+              "p": 0.34190626269150093,
+              "fairOdds": 2.9247782480728977
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "1-2",
+              "label": "1–2",
+              "p": 0.08958204724883032,
+              "fairOdds": 11.162950956259342
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.07555501065731013,
+              "fairOdds": 13.235389569801452
+            },
+            {
+              "market": "correct_score",
+              "selection": "1-3",
+              "label": "1–3",
+              "p": 0.06726839127767344,
+              "fairOdds": 14.865823026332766
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 1,
+        "away": 2,
+        "p": 0.08958204724883032
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.15 goles/partido",
+          "detail": "índice 0.87 · 4 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.32 concedidos/partido",
+          "detail": "índice 0.83 · 4 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "2.25 goles/partido",
+          "detail": "índice 1.21 · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.86 concedidos/partido",
+          "detail": "índice 1.16 · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.30",
+          "detail": "estimada de 459 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 2.8–5.1",
+          "detail": "local 11%–45% · 459 partidos"
+        }
+      ],
+      "steps": [
+        "Sincronizando Bundesliga · corte 8 nov 2026, 20:14",
+        "Fuerza ajustada por rival · KOL 0.87 / 1.16 · BAY 1.21 / 0.83",
+        "Ponderando 132.7 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.49 – 2.25 · total 3.74",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador más probable 1–2"
+      ],
+      "inputsAsOf": "2026-11-09T02:14:17.385Z",
+      "publishedAt": "2026-11-09T02:14:17.385Z",
+      "source": "openfootball"
+    },
+    "bundesliga-2026-27-md9-freiburg-union-berlin": {
+      "game": "bundesliga-2026-27-md9-freiburg-union-berlin",
+      "model": {
+        "id": "pitchlab-statistical-bundesliga",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 3.109133483892518,
+        "away": 1.127178368713507,
+        "total": 4.2363118526060255,
+        "margin": 1.981955115179011
+      },
+      "x12": [
+        0.7678404825373715,
+        0.1261858053809602,
+        0.1059737120816686
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "SC Freiburg gana",
+          "p": 0.7678404825373715,
+          "fairOdds": 1.3023538387757891
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.1261858053809602,
+          "fairOdds": 7.924821630935099
+        },
+        {
+          "market": "h2h",
+          "selection": "1. FC Union Berlin gana",
+          "p": 0.1059737120816686,
+          "fairOdds": 9.436302459890717
+        },
+        {
+          "market": "double_chance",
+          "selection": "SC Freiburg o empate",
+          "p": 0.8940262879183316,
+          "fairOdds": 1.1185353423202127
+        },
+        {
+          "market": "double_chance",
+          "selection": "1. FC Union Berlin o empate",
+          "p": 0.2321595174626288,
+          "fairOdds": 4.307383177435196
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.8738141946190401,
+          "fairOdds": 1.1444080516865185
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.9217139124376053,
+          "fairOdds": 1.0849353432838569
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.7944384001233771,
+          "fairOdds": 1.2587508356150696
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.20556159987662292,
+          "fairOdds": 4.864721818667471
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.6111325631250041,
+          "fairOdds": 1.6363061966237513
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.3888674368749959,
+          "fairOdds": 2.571570425222971
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.6433283853401895,
+          "fairOdds": 1.5544161003733792
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.35667161465981045,
+          "fairOdds": 2.8036994223770493
+        },
+        {
+          "market": "team_totals",
+          "selection": "SC Freiburg más de 1.5",
+          "line": 1.5,
+          "p": 0.8164977655828591,
+          "fairOdds": 1.2247430944114677
+        },
+        {
+          "market": "team_totals",
+          "selection": "SC Freiburg menos de 1.5",
+          "line": 1.5,
+          "p": 0.18350223441714086,
+          "fairOdds": 5.449524923640878
+        },
+        {
+          "market": "team_totals",
+          "selection": "1. FC Union Berlin más de 1.5",
+          "line": 1.5,
+          "p": 0.31090900144930234,
+          "fairOdds": 3.216375194473302
+        },
+        {
+          "market": "team_totals",
+          "selection": "1. FC Union Berlin menos de 1.5",
+          "line": 1.5,
+          "p": 0.6890909985506977,
+          "fairOdds": 1.4511871466950068
+        },
+        {
+          "market": "correct_score",
+          "selection": "3–1",
+          "p": 0.08168141929908979,
+          "fairOdds": 12.242686385484287
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.0788143253310833,
+          "fairOdds": 12.688048724634752
+        },
+        {
+          "market": "correct_score",
+          "selection": "3–0",
+          "p": 0.07246538929975742,
+          "fairOdds": 13.799691268661238
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "SC Freiburg gana",
+              "p": 0.7678404825373715,
+              "fairOdds": 1.3023538387757891
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.1261858053809602,
+              "fairOdds": 7.924821630935099
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "1. FC Union Berlin gana",
+              "p": 0.1059737120816686,
+              "fairOdds": 9.436302459890717
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "SC Freiburg o empate",
+              "p": 0.8940262879183316,
+              "fairOdds": 1.1185353423202127
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "1. FC Union Berlin o empate",
+              "p": 0.2321595174626288,
+              "fairOdds": 4.307383177435196
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.8738141946190401,
+              "fairOdds": 1.1444080516865185
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.9217139124376053,
+              "fairOdds": 1.0849353432838569
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.7944384001233771,
+              "fairOdds": 1.2587508356150696
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.20556159987662292,
+              "fairOdds": 4.864721818667471
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.6111325631250041,
+              "fairOdds": 1.6363061966237513
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.3888674368749959,
+              "fairOdds": 2.571570425222971
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.6433283853401895,
+              "fairOdds": 1.5544161003733792
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.35667161465981045,
+              "fairOdds": 2.8036994223770493
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "SC Freiburg más de 1.5",
+              "line": 1.5,
+              "p": 0.8164977655828591,
+              "fairOdds": 1.2247430944114677
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "SC Freiburg menos de 1.5",
+              "line": 1.5,
+              "p": 0.18350223441714086,
+              "fairOdds": 5.449524923640878
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "1. FC Union Berlin más de 1.5",
+              "line": 1.5,
+              "p": 0.31090900144930234,
+              "fairOdds": 3.216375194473302
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "1. FC Union Berlin menos de 1.5",
+              "line": 1.5,
+              "p": 0.6890909985506977,
+              "fairOdds": 1.4511871466950068
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "3-1",
+              "label": "3–1",
+              "p": 0.08168141929908979,
+              "fairOdds": 12.242686385484287
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.0788143253310833,
+              "fairOdds": 12.688048724634752
+            },
+            {
+              "market": "correct_score",
+              "selection": "3-0",
+              "label": "3–0",
+              "p": 0.07246538929975742,
+              "fairOdds": 13.799691268661238
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 3,
+        "away": 1,
+        "p": 0.08168141929908979
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "2.39 goles/partido",
+          "detail": "índice 1.14 · 4 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "2.10 concedidos/partido",
+          "detail": "índice 1.32 · 4 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.13 goles/partido",
+          "detail": "índice 0.81 · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.39 concedidos/partido",
+          "detail": "índice 0.87 · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.30",
+          "detail": "estimada de 459 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 3.3–5.9",
+          "detail": "local 58%–91% · 459 partidos"
+        }
+      ],
+      "steps": [
+        "Sincronizando Bundesliga · corte 8 nov 2026, 20:14",
+        "Fuerza ajustada por rival · FRE 1.14 / 0.87 · UNI 0.81 / 1.32",
+        "Ponderando 132.7 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 3.11 – 1.13 · total 4.24",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador más probable 3–1"
+      ],
+      "inputsAsOf": "2026-11-09T02:14:17.385Z",
+      "publishedAt": "2026-11-09T02:14:17.385Z",
+      "source": "openfootball"
+    },
+    "bundesliga-2026-27-md9-hoffenheim-schalke": {
+      "game": "bundesliga-2026-27-md9-hoffenheim-schalke",
+      "model": {
+        "id": "pitchlab-statistical-bundesliga",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 2.4504376687200065,
+        "away": 1.7392000659512152,
+        "total": 4.189637734671222,
+        "margin": 0.7112376027687912
+      },
+      "x12": [
+        0.5396626074772274,
+        0.18500630409180374,
+        0.27533108843096893
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "TSG 1899 Hoffenheim gana",
+          "p": 0.5396626074772274,
+          "fairOdds": 1.8530096140526058
+        },
+        {
+          "market": "h2h",
+          "selection": "Empate",
+          "p": 0.18500630409180374,
+          "fairOdds": 5.40522121615802
+        },
+        {
+          "market": "h2h",
+          "selection": "FC Schalke 04 gana",
+          "p": 0.27533108843096893,
+          "fairOdds": 3.631990872148534
+        },
+        {
+          "market": "double_chance",
+          "selection": "TSG 1899 Hoffenheim o empate",
+          "p": 0.7246689115690311,
+          "fairOdds": 1.3799405273710865
+        },
+        {
+          "market": "double_chance",
+          "selection": "FC Schalke 04 o empate",
+          "p": 0.46033739252277267,
+          "fairOdds": 2.1723197294917345
+        },
+        {
+          "market": "double_chance",
+          "selection": "Sin empate",
+          "p": 0.8149936959081963,
+          "fairOdds": 1.2270033560022082
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 1.5",
+          "line": 1.5,
+          "p": 0.9181346781669907,
+          "fairOdds": 1.0891648292780416
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 2.5",
+          "line": 2.5,
+          "p": 0.7883763468842517,
+          "fairOdds": 1.2684297340376938
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 2.5",
+          "line": 2.5,
+          "p": 0.21162365311574827,
+          "fairOdds": 4.725369708333344
+        },
+        {
+          "market": "totals",
+          "selection": "Más de 3.5",
+          "line": 3.5,
+          "p": 0.6026536194884007,
+          "fairOdds": 1.6593279583202554
+        },
+        {
+          "market": "totals",
+          "selection": "Menos de 3.5",
+          "line": 3.5,
+          "p": 0.3973463805115993,
+          "fairOdds": 2.5166958831044592
+        },
+        {
+          "market": "btts",
+          "selection": "Sí",
+          "p": 0.7500021788321544,
+          "fairOdds": 1.3333294598652006
+        },
+        {
+          "market": "btts",
+          "selection": "No",
+          "p": 0.24999782116784564,
+          "fairOdds": 4.000034861618301
+        },
+        {
+          "market": "team_totals",
+          "selection": "TSG 1899 Hoffenheim más de 1.5",
+          "line": 1.5,
+          "p": 0.7023642589438936,
+          "fairOdds": 1.423762652022819
+        },
+        {
+          "market": "team_totals",
+          "selection": "TSG 1899 Hoffenheim menos de 1.5",
+          "line": 1.5,
+          "p": 0.29763574105610635,
+          "fairOdds": 3.3598115483432256
+        },
+        {
+          "market": "team_totals",
+          "selection": "FC Schalke 04 más de 1.5",
+          "line": 1.5,
+          "p": 0.5188286681936318,
+          "fairOdds": 1.9274185512562896
+        },
+        {
+          "market": "team_totals",
+          "selection": "FC Schalke 04 menos de 1.5",
+          "line": 1.5,
+          "p": 0.4811713318063682,
+          "fairOdds": 2.0782618038483176
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.0791213617420395,
+          "fairOdds": 12.638811794725099
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–2",
+          "p": 0.06880393877995251,
+          "fairOdds": 14.534051650708276
+        },
+        {
+          "market": "correct_score",
+          "selection": "3–1",
+          "p": 0.06462732173770519,
+          "fairOdds": 15.473331914613059
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Resultado",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "TSG 1899 Hoffenheim gana",
+              "p": 0.5396626074772274,
+              "fairOdds": 1.8530096140526058
+            },
+            {
+              "market": "h2h",
+              "selection": "draw",
+              "label": "Empate",
+              "p": 0.18500630409180374,
+              "fairOdds": 5.40522121615802
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "FC Schalke 04 gana",
+              "p": 0.27533108843096893,
+              "fairOdds": 3.631990872148534
+            }
+          ]
+        },
+        {
+          "group": "Doble oportunidad",
+          "rows": [
+            {
+              "market": "double_chance",
+              "selection": "1x",
+              "label": "TSG 1899 Hoffenheim o empate",
+              "p": 0.7246689115690311,
+              "fairOdds": 1.3799405273710865
+            },
+            {
+              "market": "double_chance",
+              "selection": "x2",
+              "label": "FC Schalke 04 o empate",
+              "p": 0.46033739252277267,
+              "fairOdds": 2.1723197294917345
+            },
+            {
+              "market": "double_chance",
+              "selection": "12",
+              "label": "Sin empate",
+              "p": 0.8149936959081963,
+              "fairOdds": 1.2270033560022082
+            }
+          ]
+        },
+        {
+          "group": "Goles totales",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over_1.5",
+              "label": "Más de 1.5",
+              "line": 1.5,
+              "p": 0.9181346781669907,
+              "fairOdds": 1.0891648292780416
+            },
+            {
+              "market": "totals",
+              "selection": "over_2.5",
+              "label": "Más de 2.5",
+              "line": 2.5,
+              "p": 0.7883763468842517,
+              "fairOdds": 1.2684297340376938
+            },
+            {
+              "market": "totals",
+              "selection": "under_2.5",
+              "label": "Menos de 2.5",
+              "line": 2.5,
+              "p": 0.21162365311574827,
+              "fairOdds": 4.725369708333344
+            },
+            {
+              "market": "totals",
+              "selection": "over_3.5",
+              "label": "Más de 3.5",
+              "line": 3.5,
+              "p": 0.6026536194884007,
+              "fairOdds": 1.6593279583202554
+            },
+            {
+              "market": "totals",
+              "selection": "under_3.5",
+              "label": "Menos de 3.5",
+              "line": 3.5,
+              "p": 0.3973463805115993,
+              "fairOdds": 2.5166958831044592
+            }
+          ]
+        },
+        {
+          "group": "Ambos anotan",
+          "rows": [
+            {
+              "market": "btts",
+              "selection": "yes",
+              "label": "Sí",
+              "p": 0.7500021788321544,
+              "fairOdds": 1.3333294598652006
+            },
+            {
+              "market": "btts",
+              "selection": "no",
+              "label": "No",
+              "p": 0.24999782116784564,
+              "fairOdds": 4.000034861618301
+            }
+          ]
+        },
+        {
+          "group": "Goles por equipo (1.5)",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "TSG 1899 Hoffenheim más de 1.5",
+              "line": 1.5,
+              "p": 0.7023642589438936,
+              "fairOdds": 1.423762652022819
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "TSG 1899 Hoffenheim menos de 1.5",
+              "line": 1.5,
+              "p": 0.29763574105610635,
+              "fairOdds": 3.3598115483432256
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "FC Schalke 04 más de 1.5",
+              "line": 1.5,
+              "p": 0.5188286681936318,
+              "fairOdds": 1.9274185512562896
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "FC Schalke 04 menos de 1.5",
+              "line": 1.5,
+              "p": 0.4811713318063682,
+              "fairOdds": 2.0782618038483176
+            }
+          ]
+        },
+        {
+          "group": "Marcador exacto (más probables)",
+          "rows": [
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.0791213617420395,
+              "fairOdds": 12.638811794725099
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-2",
+              "label": "2–2",
+              "p": 0.06880393877995251,
+              "fairOdds": 14.534051650708276
+            },
+            {
+              "market": "correct_score",
+              "selection": "3-1",
+              "label": "3–1",
+              "p": 0.06462732173770519,
+              "fairOdds": 15.473331914613059
+            }
+          ]
+        }
+      ],
+      "mostLikelyScore": {
+        "home": 2,
+        "away": 1,
+        "p": 0.0791213617420395
+      },
+      "factors": [
+        {
+          "key": "home_attack",
+          "label": "Ataque local",
+          "value": "1.88 goles/partido",
+          "detail": "índice 1.11 · 4 partidos"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "1.70 concedidos/partido",
+          "detail": "índice 1.06 · 2 partidos"
+        },
+        {
+          "key": "away_attack",
+          "label": "Ataque visitante",
+          "value": "1.74 goles/partido",
+          "detail": "índice 0.97 · ajustado por rival"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "1.80 concedidos/partido",
+          "detail": "índice 1.13 · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "×1.30",
+          "detail": "estimada de 459 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Intervalo 90%",
+          "value": "goles 2.9–6.7",
+          "detail": "local 26%–83% · 459 partidos"
+        }
+      ],
+      "steps": [
+        "Sincronizando Bundesliga · corte 8 nov 2026, 20:14",
+        "Fuerza ajustada por rival · HOF 1.11 / 1.13 · SCH 0.97 / 1.06",
+        "Ponderando 132.7 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 2.45 – 1.74 · total 4.19",
+        "Simulando 121 marcadores con incertidumbre del ajuste",
+        "20 mercados listos · marcador más probable 2–1"
+      ],
+      "inputsAsOf": "2026-11-09T02:14:17.385Z",
+      "publishedAt": "2026-11-09T02:14:17.385Z",
+      "source": "openfootball"
+    }
+  }
+}

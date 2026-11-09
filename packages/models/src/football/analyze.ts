@@ -22,7 +22,7 @@ import {
 } from "./dixon-coles.js";
 
 export interface FootballAnalysisInput {
-  league: "premier-league" | "liga-mx" | "laliga";
+  league: "premier-league" | "liga-mx" | "laliga" | "bundesliga" | "serie-a" | "ligue-1";
   leagueName: string;
   game: GameDTO;
   model: DixonColesModel;

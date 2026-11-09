@@ -16,8 +16,31 @@ import {
   formatPercent,
   probabilityToFairOdds,
 } from "@pitchlab/contracts";
-import { getEmblemPath, getLeagueEmblemPath } from "@pitchlab/sports-assets";
+import {
+  getEmblemPath,
+  getLeagueEmblemPath,
+  hasLeagueAsset,
+  hasTeamAsset,
+} from "@pitchlab/sports-assets";
 import { Icon } from "./icons.js";
+
+/** Iniciales para equipos/ligas sin emblema registrado (ADR-017: fallback neutro). */
+function initialsFromName(name: string | undefined, fallback: string): string {
+  const source = (name ?? "").trim() || fallback;
+  const words = source.split(/[^\p{L}\p{N}]+/u).filter(Boolean);
+  if (words.length === 0) return source.slice(0, 3).toUpperCase();
+  if (words.length === 1) return words[0]!.slice(0, 3).toUpperCase();
+  return words
+    .slice(0, 3)
+    .map((word) => word[0]!.toUpperCase())
+    .join("");
+}
+
+const GENERIC_LEAGUE_CODES: Record<string, string> = {
+  bundesliga: "BL",
+  "serie-a": "SA",
+  "ligue-1": "L1",
+};
 
 export function leadIndex(ps: readonly number[]): number {
   return ps.reduce((bi, p, i) => (p > (ps[bi] ?? -1) ? i : bi), 0);
@@ -47,6 +70,18 @@ export function TeamBadge({
   size?: number;
   decorative?: boolean;
 }): React.JSX.Element {
+  if (!hasTeamAsset(league, slug)) {
+    return (
+      <span
+        className="badge badge-fallback"
+        style={{ width: size, height: size, fontSize: Math.max(8, size * 0.36), fontWeight: 700 }}
+        aria-hidden={decorative ? "true" : undefined}
+        title={name}
+      >
+        {initialsFromName(name, slug)}
+      </span>
+    );
+  }
   return (
     <span
       className="badge"
@@ -82,6 +117,18 @@ export function LeagueBadge({
         aria-hidden="true"
       >
         <Icon name={league === "nhl" ? "hockey" : "baseball"} />
+      </span>
+    );
+  }
+  if (!hasLeagueAsset(league)) {
+    return (
+      <span
+        className="badge badge-fallback"
+        style={{ width: size, height: size, fontSize: Math.max(8, size * 0.36), fontWeight: 700 }}
+        aria-hidden="true"
+        title={label}
+      >
+        {GENERIC_LEAGUE_CODES[league] ?? initialsFromName(label, league)}
       </span>
     );
   }

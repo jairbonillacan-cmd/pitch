@@ -1,11 +1,10 @@
 import React from "react";
 import { LegalShell } from "../../src/client/legal-shell.js";
 import { MODEL_EVALUATION, formatMetric, formatPercent } from "../../src/server/model-metrics.js";
-import { loadAllActiveLeagueSnapshots } from "../../src/server/snapshots.js";
+import { loadAllActiveLeagueSnapshots, PRODUCT_LEAGUES } from "../../src/server/snapshots.js";
 
 export const dynamic = "force-dynamic";
 
-const COVERAGE_LEAGUES = ["liga-mx", "premier-league", "laliga", "nfl"] as const;
 
 function formatCut(iso: string | undefined): string {
   if (!iso) return "—";
@@ -26,7 +25,7 @@ export const metadata = {
 
 export default function MetodologiaPage(): React.JSX.Element {
   const snapshots = loadAllActiveLeagueSnapshots();
-  const coverage = COVERAGE_LEAGUES.map((key) => {
+  const coverage = PRODUCT_LEAGUES.map((key) => {
     const envelope = snapshots[key];
     const data = envelope.data;
     return {
@@ -155,10 +154,13 @@ export default function MetodologiaPage(): React.JSX.Element {
         antes que mostrar una cifra vieja como si fuera nueva.
       </p>
       <table className="mtable">
+        <caption style={{ textAlign: "left", opacity: 0.75, paddingBottom: 8 }}>
+          Cobertura y hora de corte de cada liga en la beta.
+        </caption>
         <thead>
           <tr>
-            <th>Liga</th>
-            <th>Temporada</th>
+            <th scope="col">Liga</th>
+            <th scope="col">Temporada</th>
             <th>Jornada</th>
             <th className="r">Partidos</th>
             <th>Corte (CDMX)</th>

@@ -6,7 +6,11 @@ de apuestas**: publica probabilidades estimadas, cuota justa y comparación de d
 Este repositorio contiene el pre-MVP para socios: landing, panel de partidos por liga, análisis por
 partido, metodología pública y las páginas legales.
 
-**Ligas en la beta:** Liga MX, Premier League, LaLiga y NFL. NHL y MLB aparecen como «Pronto».
+**Ligas en la beta:** Liga MX, Premier League, LaLiga, Bundesliga, Serie A, Ligue 1 y NFL.
+NHL y MLB aparecen como «Pronto».
+
+Las ligas sin paquete de emblemas propio (Bundesliga, Serie A, Ligue 1) usan el **fallback
+neutro** del sistema de diseño: iniciales por equipo y código de liga, nunca una imagen rota.
 
 Cada partido publica hasta 20 mercados (resultado, doble oportunidad, totales, ambos anotan, goles
 por equipo y marcador exacto), su cuota justa y el intervalo del 90 % del modelo.

@@ -28,6 +28,18 @@ export function getLeagueAsset(leagueId: string): RegisteredLeagueAsset | null {
   return LEAGUE_ASSETS[leagueId] ?? null;
 }
 
+/** ¿La liga tiene emblema registrado? Si no, la UI usa el fallback neutro. */
+export function hasLeagueAsset(leagueId: string): boolean {
+  return Boolean(LEAGUE_ASSETS[leagueId]);
+}
+
+/** ¿El equipo tiene emblema registrado? Si no, la UI usa iniciales. */
+export function hasTeamAsset(league: string, slug?: string): boolean {
+  const cleanSlug = slug ? slug : league.split(".")[1] ?? "";
+  const leagueId = slug ? league : league.split(".")[0] ?? league;
+  return Boolean(TEAM_ASSETS[`${leagueId}.${cleanSlug}`]);
+}
+
 export function getTeamAsset(
   leagueOrCanonicalId: string,
   maybeSlug?: string,

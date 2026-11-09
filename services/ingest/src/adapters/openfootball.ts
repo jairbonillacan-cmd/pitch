@@ -14,6 +14,7 @@ import {
   asLeagueId,
   asSeasonId,
   type GameDTO,
+  type Team,
 } from "@pitchlab/contracts";
 import type { FootballTeamRateInput } from "@pitchlab/engines-reference";
 import { listAllTeamsForLeague, resolveCanonicalTeam, type CanonicalLeague } from "../mappings.js";
@@ -22,6 +23,9 @@ const OPENFOOTBALL_BASE = "https://raw.githubusercontent.com/openfootball/footba
 
 export const OPENFOOTBALL_PL_URL = `${OPENFOOTBALL_BASE}/2026-27/en.1.json`;
 export const OPENFOOTBALL_LALIGA_URL = `${OPENFOOTBALL_BASE}/2026-27/es.1.json`;
+export const OPENFOOTBALL_BUNDESLIGA_URL = `${OPENFOOTBALL_BASE}/2026-27/de.1.json`;
+export const OPENFOOTBALL_SERIE_A_URL = `${OPENFOOTBALL_BASE}/2026-27/it.1.json`;
+export const OPENFOOTBALL_LIGUE_1_URL = `${OPENFOOTBALL_BASE}/2026-27/fr.1.json`;
 
 export const OpenFootballMatchSchema = z.object({
   round: z.string().min(1),
@@ -93,8 +97,15 @@ const LALIGA_STADIUMS: Record<string, string> = {
   "laliga.deportivo-la-coruna": "Riazor",
 };
 
+export type OpenFootballLeague =
+  | "premier-league"
+  | "laliga"
+  | "bundesliga"
+  | "serie-a"
+  | "ligue-1";
+
 export interface OpenFootballLeagueConfig {
-  league: Extract<CanonicalLeague, "premier-league" | "laliga">;
+  league: OpenFootballLeague;
   seasonId: string;
   seasonLabel: string;
   /** Prefijo de `GameId`: p. ej. `pl-2026-27`. */
@@ -119,6 +130,33 @@ export const LALIGA_CONFIG: OpenFootballLeagueConfig = {
   idPrefix: "laliga-2026-27",
   stadiums: LALIGA_STADIUMS,
   defaultVenue: "España",
+};
+
+export const BUNDESLIGA_CONFIG: OpenFootballLeagueConfig = {
+  league: "bundesliga",
+  seasonId: "bundesliga-2026-27",
+  seasonLabel: "2026/27",
+  idPrefix: "bundesliga-2026-27",
+  stadiums: {},
+  defaultVenue: "Alemania",
+};
+
+export const SERIE_A_CONFIG: OpenFootballLeagueConfig = {
+  league: "serie-a",
+  seasonId: "serie-a-2026-27",
+  seasonLabel: "2026/27",
+  idPrefix: "serie-a-2026-27",
+  stadiums: {},
+  defaultVenue: "Italia",
+};
+
+export const LIGUE_1_CONFIG: OpenFootballLeagueConfig = {
+  league: "ligue-1",
+  seasonId: "ligue-1-2026-27",
+  seasonLabel: "2026/27",
+  idPrefix: "ligue-1-2026-27",
+  stadiums: {},
+  defaultVenue: "Francia",
 };
 
 function parseMatchdayNumber(round: string): number {
@@ -220,7 +258,19 @@ export function normalizeOpenFootballLeague(
       : rawRoundGames;
 
   // Tasas por equipo: solo partidos finalizados de jornadas anteriores (sin fuga de futuro).
-  const allCatalogTeams = listAllTeamsForLeague(config.league);
+  // Las ligas con manifiesto de emblemas usan ese registro; las demás derivan el catálogo
+  // del propio calendario (así entran también los ascendidos de la temporada).
+  const catalog = new Map<string, Team>();
+  for (const team of listAllTeamsForLeague(config.league)) {
+    catalog.set(team.id, team);
+  }
+  if (catalog.size === 0) {
+    for (const game of allGames) {
+      catalog.set(game.home.id, game.home);
+      catalog.set(game.away.id, game.away);
+    }
+  }
+  const allCatalogTeams: Team[] = [...catalog.values()];
   const statsMap = new Map<string, { gf: number; ga: number; gp: number }>();
   for (const t of allCatalogTeams) {
     statsMap.set(t.id, { gf: 0, ga: 0, gp: 0 });
@@ -281,6 +331,27 @@ export function normalizeOpenFootballLaliga(
   return normalizeOpenFootballLeague(rawJson, LALIGA_CONFIG, options);
 }
 
+export function normalizeOpenFootballBundesliga(
+  rawJson: unknown,
+  options: { referenceDate?: string; targetMatchday?: number } = {},
+): NormalizedOpenFootballSeason {
+  return normalizeOpenFootballLeague(rawJson, BUNDESLIGA_CONFIG, options);
+}
+
+export function normalizeOpenFootballSerieA(
+  rawJson: unknown,
+  options: { referenceDate?: string; targetMatchday?: number } = {},
+): NormalizedOpenFootballSeason {
+  return normalizeOpenFootballLeague(rawJson, SERIE_A_CONFIG, options);
+}
+
+export function normalizeOpenFootballLigue1(
+  rawJson: unknown,
+  options: { referenceDate?: string; targetMatchday?: number } = {},
+): NormalizedOpenFootballSeason {
+  return normalizeOpenFootballLeague(rawJson, LIGUE_1_CONFIG, options);
+}
+
 export async function fetchOpenFootball(url: string): Promise<unknown> {
   const res = await fetch(url, {
     headers: {
@@ -299,6 +370,24 @@ export async function fetchOpenFootballPl(url: string = OPENFOOTBALL_PL_URL): Pr
 
 export async function fetchOpenFootballLaliga(
   url: string = OPENFOOTBALL_LALIGA_URL,
+): Promise<unknown> {
+  return fetchOpenFootball(url);
+}
+
+export async function fetchOpenFootballBundesliga(
+  url: string = OPENFOOTBALL_BUNDESLIGA_URL,
+): Promise<unknown> {
+  return fetchOpenFootball(url);
+}
+
+export async function fetchOpenFootballSerieA(
+  url: string = OPENFOOTBALL_SERIE_A_URL,
+): Promise<unknown> {
+  return fetchOpenFootball(url);
+}
+
+export async function fetchOpenFootballLigue1(
+  url: string = OPENFOOTBALL_LIGUE_1_URL,
 ): Promise<unknown> {
   return fetchOpenFootball(url);
 }

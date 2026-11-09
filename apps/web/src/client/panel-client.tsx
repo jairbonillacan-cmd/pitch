@@ -15,6 +15,17 @@ import {
   ErrorState,
 } from "@pitchlab/ui";
 import type { SnapshotEnvelope } from "../server/snapshots.js";
+import type { ProductLeague } from "../server/snapshots.js";
+
+const PANEL_LEAGUE_LABELS: Record<string, string> = {
+  "liga-mx": "Liga MX",
+  "premier-league": "Premier League",
+  laliga: "LaLiga",
+  bundesliga: "Bundesliga",
+  "serie-a": "Serie A",
+  "ligue-1": "Ligue 1",
+  nfl: "NFL",
+};
 
 export function PanelClient({
   league,
@@ -22,9 +33,9 @@ export function PanelClient({
   leagueAvailability,
   initialGameId,
 }: {
-  league: "liga-mx" | "premier-league" | "laliga" | "nfl";
+  league: ProductLeague;
   envelope: SnapshotEnvelope;
-  leagueAvailability: Record<"liga-mx" | "premier-league" | "laliga" | "nfl", boolean>;
+  leagueAvailability: Record<ProductLeague, boolean>;
   initialGameId?: string;
 }): React.JSX.Element {
   const router = useRouter();
@@ -186,6 +197,45 @@ export function PanelClient({
           <button
             className="lchip league-tab"
             type="button"
+            data-league="bundesliga"
+            disabled={!leagueAvailability.bundesliga}
+            aria-current={league === "bundesliga" ? "page" : undefined}
+            onClick={() => router.push("/app/bundesliga")}
+          >
+            <LeagueBadge league="bundesliga" label="Bundesliga" size={26} />
+            Bundesliga
+            {!leagueAvailability.bundesliga ? <span className="tag">Pronto</span> : null}
+          </button>
+
+          <button
+            className="lchip league-tab"
+            type="button"
+            data-league="serie-a"
+            disabled={!leagueAvailability["serie-a"]}
+            aria-current={league === "serie-a" ? "page" : undefined}
+            onClick={() => router.push("/app/serie-a")}
+          >
+            <LeagueBadge league="serie-a" label="Serie A" size={26} />
+            Serie A
+            {!leagueAvailability["serie-a"] ? <span className="tag">Pronto</span> : null}
+          </button>
+
+          <button
+            className="lchip league-tab"
+            type="button"
+            data-league="ligue-1"
+            disabled={!leagueAvailability["ligue-1"]}
+            aria-current={league === "ligue-1" ? "page" : undefined}
+            onClick={() => router.push("/app/ligue-1")}
+          >
+            <LeagueBadge league="ligue-1" label="Ligue 1" size={26} />
+            Ligue 1
+            {!leagueAvailability["ligue-1"] ? <span className="tag">Pronto</span> : null}
+          </button>
+
+          <button
+            className="lchip league-tab"
+            type="button"
             data-league="nfl"
             aria-current={league === "nfl" ? "page" : undefined}
             onClick={() => router.push("/app/nfl")}
@@ -224,14 +274,7 @@ export function PanelClient({
             <LeagueBadge league={league} size={56} />
             <div>
               <h1 className="h1" id="panel-league-name">
-                {snapshot?.leagueLabel ??
-                  (league === "nfl"
-                    ? "NFL"
-                    : league === "liga-mx"
-                      ? "Liga MX"
-                      : league === "laliga"
-                        ? "LaLiga"
-                        : "Premier League")}
+                {snapshot?.leagueLabel ?? PANEL_LEAGUE_LABELS[league] ?? "Liga"}
               </h1>
               <div className="meta">
                 <span className="secondary" id="panel-league-round">

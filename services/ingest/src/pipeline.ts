@@ -228,7 +228,7 @@ export function buildNflSnapshot(params: {
 }
 
 export function buildFootballSnapshot(params: {
-  league: "premier-league" | "liga-mx" | "laliga";
+  league: "premier-league" | "liga-mx" | "laliga" | "bundesliga" | "serie-a" | "ligue-1";
   leagueName: string;
   seasonId: string;
   seasonLabel: string;
