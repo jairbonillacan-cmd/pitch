@@ -279,4 +279,53 @@ test.describe("PitchLab Pre-MVP E2E Suite", () => {
     expect(robotsRes.ok()).toBe(true);
     expect(await robotsRes.text()).toContain("Disallow: /");
   });
+
+  test("5. Metodología pública con cobertura de 4 ligas y LaLiga en el panel", async ({
+    page,
+  }, testInfo) => {
+    const uniqueIp = `198.51.${Math.floor(Math.random() * 200) + 10}.${Math.floor(Math.random() * 200) + 10}`;
+    await page.setExtraHTTPHeaders({ "x-forwarded-for": uniqueIp });
+
+    // La metodología es pública: no requiere PIN ni sesión.
+    await page.goto("/metodologia");
+    await expect(page.locator("h1")).toContainText("Metodología");
+
+    const bodyText = await page.locator("body").innerText();
+    for (const term of FORBIDDEN_FD16_TERMS) {
+      expect(bodyText.toLowerCase()).not.toContain(term.toLowerCase());
+    }
+
+    // Tabla de cobertura: las cuatro ligas de la beta con su corte.
+    const coverage = page.locator("table.mtable").last();
+    await expect(coverage).toContainText("LaLiga");
+    await expect(coverage).toContainText("NFL");
+    await expect(coverage).toContainText("Premier League");
+    await expect(coverage).toContainText("Liga MX");
+
+    await page.screenshot({
+      path: path.join(SCREENSHOT_DIR, `metodologia-${testInfo.project.name}-dark.png`),
+    });
+
+    const a11y = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa"])
+      .analyze();
+    expect(a11y.violations).toEqual([]);
+
+    // Panel de LaLiga con los mercados nuevos.
+    await page.goto("/login?next=%2Fapp%2Flaliga");
+    await page.locator(".btn-beta").click();
+    await expect(page.locator("dialog.pin-dialog")).toBeVisible();
+    for (const d of ["2", "0", "2", "6"]) {
+      await page.locator(`button.pin-key[data-pin-digit='${d}']`).click();
+    }
+    await page.waitForURL("**/app/laliga", { timeout: 15_000 });
+    await expect(page.locator("#panel-league-name")).toContainText("LaLiga");
+
+    // Abre el primer análisis y comprueba los mercados nuevos del modelo.
+    await page.locator("button:has-text('Analizar')").first().click();
+    const dialog = page.locator("dialog[open]");
+    await expect(dialog).toBeVisible();
+    await expect(dialog).toContainText("Goles por equipo");
+    await expect(dialog).toContainText("Marcador exacto");
+  });
 });
