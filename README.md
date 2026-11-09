@@ -48,14 +48,14 @@ pnpm backtest   # backtest walk-forward v2 vs Baseline 0 vs ingenuo
 
 Backtest walk-forward (solo datos previos a cada jornada/semana; 2 temporadas):
 
-| Liga | Modelo | n | LogLoss | Brier | Acierto |
-|---|---|---:|---:|---:|---:|
-| Premier League | v2 | 327 | **1.0217** | **0.6130** | 49.2 % |
-| Premier League | Baseline 0 | 327 | 1.0239 | 0.6145 | 48.3 % |
-| Premier League | Ingenuo | 327 | 1.0741 | 0.6493 | 45.0 % |
-| NFL | v2 | 310 | 0.6468 | 0.4568 | **63.9 %** |
-| NFL | Baseline 0 | 310 | **0.6413** | **0.4513** | 60.3 % |
-| NFL | Ingenuo | 310 | 0.6998 | 0.5066 | 48.4 % |
+| Liga | Modelo | n | LogLoss | Brier | Acierto | ECE |
+|---|---|---:|---:|---:|---:|---:|
+| Premier League | v2 | 327 | **1.0217** | **0.6130** | 49.2 % | 4.9 % |
+| Premier League | Baseline 0 | 327 | 1.0239 | 0.6145 | 48.3 % | 2.9 % |
+| Premier League | Ingenuo | 327 | 1.0741 | 0.6493 | 45.0 % | 4.8 % |
+| NFL | v2 | 310 | 0.6468 | 0.4568 | **63.9 %** | 6.3 % |
+| NFL | Baseline 0 | 310 | **0.6413** | **0.4513** | 60.3 % | 3.3 % |
+| NFL | Ingenuo | 310 | 0.6998 | 0.5066 | 48.4 % | 5.8 % |
 
 Lectura honesta: **v2 le gana al ingenuo en las dos ligas, pero está estadísticamente empatado con
 el Baseline 0** (Δ log-loss −0.0022 en fútbol con IC95 % [−0.0190, +0.0150]; +0.0055 en NFL con

@@ -31,6 +31,54 @@ export interface ModelMetrics {
   logLossOver: number;
   logLossBtts?: number;
   accuracy: number;
+  /** Error de calibración esperado (ECE) sobre la clase elegida. */
+  ece: number;
+  reliability: Array<{
+    bucket: [number, number];
+    n: number;
+    confidence: number;
+    accuracy: number;
+  }>;
+}
+
+interface CalibrationPair {
+  p: number;
+  hit: boolean;
+}
+
+/** ECE con 10 bins iguales sobre la probabilidad de la clase elegida. */
+export function calibration(
+  pairs: readonly CalibrationPair[],
+  bins = 10,
+): {
+  ece: number;
+  reliability: Array<{ bucket: [number, number]; n: number; confidence: number; accuracy: number }>;
+} {
+  const buckets = Array.from({ length: bins }, () => ({ n: 0, sumP: 0, hits: 0 }));
+  for (const { p, hit } of pairs) {
+    const idx = Math.min(bins - 1, Math.max(0, Math.floor(p * bins)));
+    const bucket = buckets[idx]!;
+    bucket.n += 1;
+    bucket.sumP += p;
+    if (hit) bucket.hits += 1;
+  }
+
+  const total = pairs.length || 1;
+  const reliability = buckets
+    .map((bucket, i) => ({
+      bucket: [i / bins, (i + 1) / bins] as [number, number],
+      n: bucket.n,
+      confidence: bucket.n > 0 ? bucket.sumP / bucket.n : 0,
+      accuracy: bucket.n > 0 ? bucket.hits / bucket.n : 0,
+    }))
+    .filter((bucket) => bucket.n > 0);
+
+  let ece = 0;
+  for (const bucket of reliability) {
+    ece += (bucket.n / total) * Math.abs(bucket.accuracy - bucket.confidence);
+  }
+
+  return { ece, reliability };
 }
 
 function safeLog(p: number): number {
@@ -45,6 +93,7 @@ export function evaluateFootball(
   let logOver = 0;
   let logBtts = 0;
   let hits = 0;
+  const calib: CalibrationPair[] = [];
 
   for (const { prediction, outcome } of rows) {
     const p = prediction.p1x2;
@@ -64,9 +113,11 @@ export function evaluateFootball(
 
     const best = p[0] >= p[1] && p[0] >= p[2] ? 0 : p[1] >= p[2] ? 1 : 2;
     if (best === outcome.result1x2) hits++;
+    calib.push({ p: p[best] ?? 0, hit: best === outcome.result1x2 });
   }
 
   const n = rows.length || 1;
+  const { ece, reliability } = calibration(calib);
   return {
     n: rows.length,
     logLoss1x2: log1 / n,
@@ -74,6 +125,8 @@ export function evaluateFootball(
     logLossOver: logOver / n,
     logLossBtts: logBtts / n,
     accuracy: hits / n,
+    ece,
+    reliability,
   };
 }
 
@@ -84,6 +137,7 @@ export function evaluateNfl(
   let brier = 0;
   let logOver = 0;
   let hits = 0;
+  const calib: CalibrationPair[] = [];
 
   for (const { prediction, outcome } of rows) {
     const homeWon = outcome.homeScore > outcome.awayScore;
@@ -99,15 +153,19 @@ export function evaluateNfl(
 
     const best = pHome >= 0.5 ? 0 : 2;
     if ((best === 0 && homeWon) || (best === 2 && !homeWon)) hits++;
+    calib.push({ p: Math.max(pHome, 1 - pHome), hit: best === 0 ? homeWon : !homeWon });
   }
 
   const n = rows.length || 1;
+  const { ece, reliability } = calibration(calib);
   return {
     n: rows.length,
     logLoss1x2: log1 / n,
     brier1x2: brier / n,
     logLossOver: logOver / n,
     accuracy: hits / n,
+    ece,
+    reliability,
   };
 }
 

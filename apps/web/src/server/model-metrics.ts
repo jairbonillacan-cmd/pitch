@@ -7,6 +7,7 @@
  * Regla editorial (PREDICTION_ARCHITECTURE.md §2): esto es evaluación retro,
  * **no** un track record. La referencia "ingenua" usa las frecuencias de la liga
  * en la ventana de entrenamiento y sirve para demostrar que el modelo aporta.
+ * ECE = error de calibración esperado sobre la clase elegida (menor es mejor).
  */
 
 export const MODEL_EVALUATION = {
@@ -19,9 +20,11 @@ export const MODEL_EVALUATION = {
       logLoss: 1.022,
       brier: 0.613,
       accuracy: 0.492,
+      ece: 0.049,
       naiveLogLoss: 1.074,
       naiveBrier: 0.649,
       naiveAccuracy: 0.45,
+      naiveEce: 0.048,
     },
     {
       league: "NFL",
@@ -29,9 +32,11 @@ export const MODEL_EVALUATION = {
       logLoss: 0.647,
       brier: 0.457,
       accuracy: 0.639,
+      ece: 0.063,
       naiveLogLoss: 0.7,
       naiveBrier: 0.507,
       naiveAccuracy: 0.484,
+      naiveEce: 0.058,
     },
   ],
   status: "en validación",
@@ -39,4 +44,8 @@ export const MODEL_EVALUATION = {
 
 export function formatMetric(value: number, digits = 3): string {
   return value.toFixed(digits).replace(".", ",");
+}
+
+export function formatPercent(value: number, digits = 1): string {
+  return `${(value * 100).toFixed(digits)} %`;
 }

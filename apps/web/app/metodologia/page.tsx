@@ -1,6 +1,6 @@
 import React from "react";
 import { LegalShell } from "../../src/client/legal-shell.js";
-import { MODEL_EVALUATION, formatMetric } from "../../src/server/model-metrics.js";
+import { MODEL_EVALUATION, formatMetric, formatPercent } from "../../src/server/model-metrics.js";
 
 export const metadata = {
   title: "Metodología · PitchLab",
@@ -79,6 +79,7 @@ export default function MetodologiaPage(): React.JSX.Element {
             <th className="r">Log-loss ingenuo</th>
             <th className="r">Brier</th>
             <th className="r">Acierto</th>
+            <th className="r">Calibración (ECE)</th>
           </tr>
         </thead>
         <tbody>
@@ -89,7 +90,8 @@ export default function MetodologiaPage(): React.JSX.Element {
               <td className="r">{formatMetric(row.logLoss)}</td>
               <td className="r">{formatMetric(row.naiveLogLoss)}</td>
               <td className="r">{formatMetric(row.brier)}</td>
-              <td className="r">{(row.accuracy * 100).toFixed(1)} %</td>
+              <td className="r">{formatPercent(row.accuracy)}</td>
+              <td className="r">{formatPercent(row.ece)}</td>
             </tr>
           ))}
         </tbody>
@@ -104,6 +106,12 @@ export default function MetodologiaPage(): React.JSX.Element {
         pero todavía no ha demostrado superar la referencia de mercado con significancia
         estadística. Por eso ninguna probabilidad se presenta como recomendación y la etiqueta
         &laquo;Modelo PitchLab · en validación&raquo; es visible en cada análisis.
+      </p>
+      <p>
+        La columna <strong>ECE</strong> mide qué tan cerca está la probabilidad anunciada de la
+        frecuencia real: 2 % es muy buena, 5 % aceptable y 10 % mala. Hoy estamos en 4,9 % (fútbol)
+        y 6,3 % (NFL): el modelo no está sobreconfiado de forma grave, pero todavía le falta una
+        capa de calibración explícita. Se publica tal cual para no vender precisión que no existe.
       </p>
 
       <h2>5. Datos y frescura</h2>
