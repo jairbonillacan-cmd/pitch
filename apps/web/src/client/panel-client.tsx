@@ -144,7 +144,7 @@ export function PanelClient({
           <div className="right">
             <Button
               variant="ghost"
-              className="method"
+              className="method hidden md:inline-flex"
               render={<a href="/#como" />}
               nativeButton={false}
             >

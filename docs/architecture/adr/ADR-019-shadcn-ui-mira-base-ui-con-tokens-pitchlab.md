@@ -38,3 +38,4 @@ Copiar el archivo a `packages/ui/src/components/ui/`, cambiar imports a rutas re
 - Accesibilidad de los controles complejos resuelta por una librería probada.
 - Los selectores de los E2E pasan de `dialog[open]` a `[role=dialog]`.
 - Conviven dos sistemas de clase (D1 y utilidades) hasta terminar la migración; la regla es usar shadcn en todo componente nuevo.
+- **Cuidado al migrar:** las utilidades ganan a `legacy`. Una regla D1 que ocultaba o reubicaba un elemento (por ejemplo `display: none` en móvil) deja de aplicar cuando ese elemento pasa a ser un componente shadcn; hay que expresarla con utilidades responsivas (`hidden md:inline-flex`).
