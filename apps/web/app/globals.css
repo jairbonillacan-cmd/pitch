@@ -2598,3 +2598,319 @@ dialog.modal.show .modal-win {
     display: table-cell;
   }
 }
+/* ---------- Picks, confianza y contexto (fase A) ---------- */
+.gcard .top {
+  justify-content: flex-start;
+  align-items: center;
+}
+.gcard .top .venue {
+  margin-left: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+.moment {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 18px;
+  padding: 0 6px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--info);
+  background: color-mix(in srgb, var(--info) 14%, transparent);
+}
+.moment.live {
+  color: var(--danger);
+  background: color-mix(in srgb, var(--danger) 14%, transparent);
+}
+.moment.live .dot {
+  animation: pulse 2.4s var(--ease-out) infinite;
+}
+
+.pickline {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-control);
+  background: color-mix(in srgb, var(--brand-primary) 8%, transparent);
+  border: var(--border-width) solid color-mix(in srgb, var(--brand-primary) 28%, transparent);
+  font-size: var(--type-small);
+  min-width: 0;
+}
+.pickline .lbl {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brand-primary);
+  flex: none;
+}
+.pickline .sel {
+  font-weight: 650;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pickline .pp {
+  margin-left: auto;
+  color: var(--brand-primary);
+  font-weight: 700;
+  flex: none;
+}
+.res {
+  font-size: var(--type-caption);
+  font-weight: 700;
+  padding: 0 6px;
+  border-radius: 4px;
+  flex: none;
+}
+.res.hit {
+  color: var(--success);
+  background: color-mix(in srgb, var(--success) 14%, transparent);
+}
+.res.miss {
+  color: var(--danger);
+  background: color-mix(in srgb, var(--danger) 12%, transparent);
+}
+
+.conf {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--type-caption);
+  font-weight: 600;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+.conf .bars {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 12px;
+}
+.conf .bars i {
+  width: 3px;
+  border-radius: 1px;
+  background: var(--border-strong);
+}
+.conf .bars i:nth-child(1) { height: 5px; }
+.conf .bars i:nth-child(2) { height: 8px; }
+.conf .bars i:nth-child(3) { height: 12px; }
+.conf-baja .bars i:nth-child(1),
+.conf-media .bars i:nth-child(-n + 2),
+.conf-alta .bars i {
+  background: var(--brand-primary);
+}
+.conf-alta {
+  color: var(--text-primary);
+}
+
+.picks {
+  padding: var(--space-4);
+}
+.picks-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+.picks ul {
+  list-style: none;
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-2);
+}
+.picks li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  grid-template-areas:
+    "prof prof prof"
+    "sel pp odds";
+  gap: 2px var(--space-3);
+  align-items: baseline;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-control);
+  border: var(--border-width) solid var(--border-default);
+}
+.picks li.featured {
+  border-color: color-mix(in srgb, var(--brand-primary) 55%, transparent);
+  background: color-mix(in srgb, var(--brand-primary) 7%, transparent);
+}
+.picks .prof {
+  grid-area: prof;
+  font-size: var(--type-caption);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+.picks .sel {
+  grid-area: sel;
+  font-weight: 650;
+  min-width: 0;
+}
+.picks .sel.muted {
+  grid-column: 1 / -1;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+.picks .pp {
+  grid-area: pp;
+  font-weight: 700;
+  color: var(--brand-primary);
+}
+.picks .odds {
+  grid-area: odds;
+  color: var(--text-secondary);
+  font-size: var(--type-small);
+}
+.picks .res {
+  grid-column: 1 / -1;
+  justify-self: start;
+}
+.picks-note {
+  margin: var(--space-3) 0 0;
+}
+
+.why ul {
+  margin: var(--space-2) 0 0;
+  padding-left: var(--space-5);
+  display: grid;
+  gap: var(--space-1);
+  font-size: var(--type-small);
+  color: var(--text-secondary);
+}
+.h2h .rest {
+  margin: var(--space-2) 0;
+}
+.h2h ol {
+  list-style: none;
+  margin: var(--space-2) 0 0;
+  padding: 0;
+}
+.h2h li {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  border-top: var(--border-width) solid var(--border-default);
+  padding: var(--space-2) 0;
+  font-size: var(--type-small);
+}
+.h2h li > span:last-child {
+  text-align: right;
+}
+.xg-line {
+  margin-top: 4px;
+}
+
+.best {
+  margin-top: var(--space-6);
+  padding: var(--space-4);
+  border: var(--border-width) solid var(--border-default);
+  border-radius: var(--radius-panel);
+  background: var(--surface-default);
+}
+.best-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+.best h2 {
+  margin: 0;
+  font-size: var(--type-h3, 1.125rem);
+}
+.best .seg {
+  display: flex;
+  gap: var(--space-1);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.best .seg .chip[aria-selected="true"] {
+  color: var(--text-primary);
+  border-color: var(--brand-primary);
+}
+.best-list {
+  list-style: none;
+  margin: var(--space-3) 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-2);
+}
+.best-list button {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) auto auto auto;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-control);
+  border: var(--border-width) solid var(--border-default);
+  background: transparent;
+  color: var(--text-primary);
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  min-height: var(--layout-touch);
+}
+.best-list button:hover {
+  background: var(--surface-hover);
+}
+.best-list .teams {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+}
+.best-list .names {
+  display: grid;
+  min-width: 0;
+  margin-left: var(--space-1);
+  font-size: var(--type-small);
+  font-weight: 600;
+}
+.best-list .names,
+.best-list .sel {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.best-list .names small {
+  font-weight: 400;
+  font-size: var(--type-caption);
+}
+.best-list .sel {
+  font-size: var(--type-small);
+  font-weight: 650;
+}
+.best-list .pp {
+  font-weight: 700;
+  color: var(--brand-primary);
+}
+.best-list .odds {
+  color: var(--text-secondary);
+  font-size: var(--type-small);
+}
+@media (max-width: 767px) {
+  .best-list button {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    grid-template-areas:
+      "teams teams conf"
+      "sel pp odds";
+  }
+  .best-list .teams { grid-area: teams; }
+  .best-list .sel { grid-area: sel; }
+  .best-list .pp { grid-area: pp; }
+  .best-list .odds { grid-area: odds; }
+  .best-list .conf { grid-area: conf; justify-self: end; }
+}

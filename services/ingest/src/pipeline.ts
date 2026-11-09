@@ -45,6 +45,13 @@ import {
   type NflMatchRow,
   type NflRatingsModel,
 } from "@pitchlab/models";
+import {
+  addMatchContext,
+  enrichPreservedAnalysis,
+  keepVerifiedPicks,
+  withPreKickoffPicksOnly,
+  type ContextRow,
+} from "./pick-context.js";
 
 export type ModelVersion = "v1" | "v2";
 
@@ -156,6 +163,8 @@ export function buildNflSnapshot(params: {
   modelVersion?: ModelVersion;
   /** Partidos de la temporada anterior con peso reducido (opcional). */
   priorRows?: readonly NflMatchRow[];
+  /** Historial de la liga para el cara a cara (opcional). */
+  history?: readonly EloMatch[];
 }): LeagueSnapshot {
   const {
     seasonId,
@@ -184,10 +193,26 @@ export function buildNflSnapshot(params: {
 
   const analyses: Record<string, GameAnalysis> = {};
 
+  const nflSeasonRows: ContextRow[] = (seasonGames ? toNflMatchRows(seasonGames) : [])
+    .filter((r): r is NflMatchRow & { date: string } => typeof r.date === "string")
+    .map((r) => ({ date: r.date, home: r.home, away: r.away, homeGoals: r.homeScore, awayGoals: r.awayScore }));
+  const nflSeasonStart = nflSeasonRows.map((r) => r.date).sort()[0] ?? updatedAt.slice(0, 10);
+  const nflContextRows: ContextRow[] = [
+    ...(params.history ?? [])
+      .filter((m) => m.date < nflSeasonStart)
+      .map((m) => ({ date: m.date, home: m.home, away: m.away, homeGoals: m.homeGoals, awayGoals: m.awayGoals })),
+    ...nflSeasonRows,
+  ];
+
   for (const game of games) {
     const prev = previousSnapshot?.analyses[game.id];
     if (shouldPreservePublishedAnalysis(prev, game)) {
-      analyses[game.id] = GameAnalysisSchema.parse(prev);
+      let kept = keepVerifiedPicks(GameAnalysisSchema.parse(prev), game);
+      if (!kept.picks && nflModel) {
+        kept = enrichPreservedAnalysis({ previous: kept, game, updatedAt, teamRates: rates, football: false });
+        if (kept.picksAt) kept = addMatchContext(kept, game, nflContextRows, nflSeasonRows);
+      }
+      analyses[game.id] = GameAnalysisSchema.parse(kept);
       continue;
     }
 
@@ -211,7 +236,11 @@ export function buildNflSnapshot(params: {
           source: "nflverse",
         });
 
-    analyses[game.id] = GameAnalysisSchema.parse(analysis);
+    analyses[game.id] = GameAnalysisSchema.parse(
+      nflModel
+        ? withPreKickoffPicksOnly(addMatchContext(analysis, game, nflContextRows, nflSeasonRows), game, updatedAt)
+        : analysis,
+    );
   }
 
   const snapshot: LeagueSnapshot = {
@@ -301,17 +330,15 @@ export function buildFootballSnapshot(params: {
     : [];
 
   const analyses: Record<string, GameAnalysis> = {};
+  const contextRows: ContextRow[] = [
+    ...(history ?? [])
+      .filter((m) => m.date < seasonStart)
+      .map((m) => ({ date: m.date, home: m.home, away: m.away, homeGoals: m.homeGoals, awayGoals: m.awayGoals })),
+    ...seasonRows,
+  ];
 
-  for (const game of games) {
-    const prev = previousSnapshot?.analyses[game.id];
-    if (shouldPreservePublishedAnalysis(prev, game)) {
-      analyses[game.id] = GameAnalysisSchema.parse(prev);
-      continue;
-    }
-
-    const publishedAt = publishedAtFor(game, updatedAt);
-
-    const analysis = footballModel
+  const analyze = (game: GameDTO, publishedAt: string): GameAnalysis =>
+    footballModel
       ? analyzeFootballGameV2({
           league,
           leagueName,
@@ -337,7 +364,32 @@ export function buildFootballSnapshot(params: {
           source,
         });
 
-    analyses[game.id] = GameAnalysisSchema.parse(analysis);
+  for (const game of games) {
+    const prev = previousSnapshot?.analyses[game.id];
+    if (shouldPreservePublishedAnalysis(prev, game)) {
+      let kept = keepVerifiedPicks(GameAnalysisSchema.parse(prev), game);
+      if (!kept.picks && footballModel) {
+        const fresh = analyze(game, updatedAt);
+        kept = enrichPreservedAnalysis({
+          previous: kept,
+          game,
+          updatedAt,
+          teamRates: rates,
+          football: true,
+          freshWhy: fresh.insights?.why,
+        });
+        if (kept.picksAt) kept = addMatchContext(kept, game, contextRows, seasonRows);
+      }
+      analyses[game.id] = GameAnalysisSchema.parse(kept);
+      continue;
+    }
+
+    const analysis = analyze(game, publishedAtFor(game, updatedAt));
+    analyses[game.id] = GameAnalysisSchema.parse(
+      footballModel
+        ? withPreKickoffPicksOnly(addMatchContext(analysis, game, contextRows, seasonRows), game, updatedAt)
+        : analysis,
+    );
   }
 
   const snapshot: LeagueSnapshot = {

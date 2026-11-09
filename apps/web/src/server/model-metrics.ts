@@ -54,6 +54,25 @@ export const BLEND_EVALUATION = {
   after: { logLoss: 0.9754, accuracy: 0.541, ece: 0.009 },
 } as const;
 
+/**
+ * Picks por perfil y confianza (fútbol, 6 ligas, temporadas de prueba 2023-24 a 2026-27).
+ * Fuente: `Reportes/modelos/BACKTEST-BLEND.md`. Un perfil está calibrado si su acierto
+ * real se parece a la probabilidad media anunciada.
+ */
+export const PICK_EVALUATION = {
+  window: "2023-24 a 2026-27, 6 ligas de fútbol, walk-forward semanal",
+  profiles: [
+    { profile: "Conservadora", range: "70 % o más", n: 5529, meanP: 0.837, hitRate: 0.824, fairOdds: 1.2 },
+    { profile: "Intermedia", range: "52 % a 70 %", n: 5516, meanP: 0.659, hitRate: 0.652, fairOdds: 1.52 },
+    { profile: "Arriesgada", range: "30 % a 52 %, cuota ≥ 1.9", n: 5505, meanP: 0.48, hitRate: 0.49, fairOdds: 2.09 },
+  ],
+  confidence: [
+    { level: "Alta", share: 0.395, favoriteAccuracy: 0.643 },
+    { level: "Media", share: 0.38, favoriteAccuracy: 0.481 },
+    { level: "Baja", share: 0.225, favoriteAccuracy: 0.462 },
+  ],
+} as const;
+
 export function formatMetric(value: number, digits = 3): string {
   return value.toFixed(digits).replace(".", ",");
 }

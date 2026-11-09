@@ -4,7 +4,7 @@
   "season": "liga-mx-2026-apertura",
   "seasonLabel": "Apertura 2026",
   "periodLabel": "Jornada 16",
-  "updatedAt": "2026-11-09T02:45:50.838Z",
+  "updatedAt": "2026-11-09T04:58:43.650Z",
   "source": "api-football",
   "provenance": "derived",
   "isDemo": false,
@@ -17,8 +17,8 @@
       "forPerGame": 1.6666666666666667,
       "againstPerGame": 1.0666666666666667,
       "gamesPlayed": 15,
-      "adjustedFor": 1.4955412086608775,
-      "adjustedAgainst": 1.0910848678326004
+      "adjustedFor": 1.5092736357723475,
+      "adjustedAgainst": 1.2196076074306474
     },
     "liga-mx.atlante": {
       "teamId": "liga-mx.atlante",
@@ -28,8 +28,8 @@
       "forPerGame": 0.6666666666666666,
       "againstPerGame": 1.2,
       "gamesPlayed": 15,
-      "adjustedFor": 0.7638542539735077,
-      "adjustedAgainst": 1.250850205510992
+      "adjustedFor": 0.7945587388786277,
+      "adjustedAgainst": 1.2553573642006093
     },
     "liga-mx.atlas": {
       "teamId": "liga-mx.atlas",
@@ -39,8 +39,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.4,
       "gamesPlayed": 15,
-      "adjustedFor": 0.9980127917435568,
-      "adjustedAgainst": 1.5193775715455156
+      "adjustedFor": 1.0183862269317359,
+      "adjustedAgainst": 1.529275433133501
     },
     "liga-mx.atletico-san-luis": {
       "teamId": "liga-mx.atletico-san-luis",
@@ -50,8 +50,8 @@
       "forPerGame": 1.6666666666666667,
       "againstPerGame": 1.2,
       "gamesPlayed": 15,
-      "adjustedFor": 1.1271670655489676,
-      "adjustedAgainst": 1.1657387335574692
+      "adjustedFor": 1.1461677127383412,
+      "adjustedAgainst": 1.1234714300005646
     },
     "liga-mx.chivas": {
       "teamId": "liga-mx.chivas",
@@ -61,8 +61,8 @@
       "forPerGame": 1.4666666666666666,
       "againstPerGame": 0.9333333333333333,
       "gamesPlayed": 15,
-      "adjustedFor": 1.2538164883586753,
-      "adjustedAgainst": 1.0183291715020308
+      "adjustedFor": 1.2730028304766658,
+      "adjustedAgainst": 1.0243742082755853
     },
     "liga-mx.cruz-azul": {
       "teamId": "liga-mx.cruz-azul",
@@ -72,8 +72,8 @@
       "forPerGame": 2.4,
       "againstPerGame": 0.6,
       "gamesPlayed": 15,
-      "adjustedFor": 1.820424473194769,
-      "adjustedAgainst": 0.987187365531322
+      "adjustedFor": 1.896116849518522,
+      "adjustedAgainst": 1.0125886418836947
     },
     "liga-mx.fc-juarez": {
       "teamId": "liga-mx.fc-juarez",
@@ -83,8 +83,8 @@
       "forPerGame": 1.3333333333333333,
       "againstPerGame": 2.3333333333333335,
       "gamesPlayed": 15,
-      "adjustedFor": 1.22359853731491,
-      "adjustedAgainst": 1.4805867166247928
+      "adjustedFor": 1.2516004975086128,
+      "adjustedAgainst": 1.4802501620498205
     },
     "liga-mx.leon": {
       "teamId": "liga-mx.leon",
@@ -94,8 +94,8 @@
       "forPerGame": 1.3333333333333333,
       "againstPerGame": 1.4,
       "gamesPlayed": 15,
-      "adjustedFor": 1.1734887170166104,
-      "adjustedAgainst": 1.2435560851039984
+      "adjustedFor": 1.2462693320992904,
+      "adjustedAgainst": 1.2139484739323876
     },
     "liga-mx.monterrey": {
       "teamId": "liga-mx.monterrey",
@@ -105,8 +105,8 @@
       "forPerGame": 1.4666666666666666,
       "againstPerGame": 1.1333333333333333,
       "gamesPlayed": 15,
-      "adjustedFor": 1.2731539303127999,
-      "adjustedAgainst": 1.3251122142972038
+      "adjustedFor": 1.1964619628073445,
+      "adjustedAgainst": 1.3697506126970211
     },
     "liga-mx.necaxa": {
       "teamId": "liga-mx.necaxa",
@@ -116,8 +116,8 @@
       "forPerGame": 1.2666666666666666,
       "againstPerGame": 1.6666666666666667,
       "gamesPlayed": 15,
-      "adjustedFor": 1.2087909467929634,
-      "adjustedAgainst": 1.3007426327295768
+      "adjustedFor": 1.1551245793128984,
+      "adjustedAgainst": 1.2236056445678387
     },
     "liga-mx.pachuca": {
       "teamId": "liga-mx.pachuca",
@@ -127,8 +127,8 @@
       "forPerGame": 1.2666666666666666,
       "againstPerGame": 1.7333333333333334,
       "gamesPlayed": 15,
-      "adjustedFor": 1.5731769792060624,
-      "adjustedAgainst": 1.403584000072076
+      "adjustedFor": 1.5570707555923307,
+      "adjustedAgainst": 1.3990091957652475
     },
     "liga-mx.puebla": {
       "teamId": "liga-mx.puebla",
@@ -138,8 +138,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.8,
       "gamesPlayed": 15,
-      "adjustedFor": 0.9282015012802367,
-      "adjustedAgainst": 1.4278483800285722
+      "adjustedFor": 1.0795951645363422,
+      "adjustedAgainst": 1.405626758731269
     },
     "liga-mx.pumas-unam": {
       "teamId": "liga-mx.pumas-unam",
@@ -149,8 +149,8 @@
       "forPerGame": 1.2,
       "againstPerGame": 0.8666666666666667,
       "gamesPlayed": 15,
-      "adjustedFor": 1.23689812385296,
-      "adjustedAgainst": 1.0939032870393994
+      "adjustedFor": 1.2334709590994697,
+      "adjustedAgainst": 1.0637950641676952
     },
     "liga-mx.queretaro": {
       "teamId": "liga-mx.queretaro",
@@ -160,8 +160,8 @@
       "forPerGame": 0.6666666666666666,
       "againstPerGame": 1.8,
       "gamesPlayed": 15,
-      "adjustedFor": 0.923230619249913,
-      "adjustedAgainst": 1.388892233281707
+      "adjustedFor": 0.939862940486906,
+      "adjustedAgainst": 1.3932071449317907
     },
     "liga-mx.santos-laguna": {
       "teamId": "liga-mx.santos-laguna",
@@ -171,8 +171,8 @@
       "forPerGame": 0.6666666666666666,
       "againstPerGame": 1.6666666666666667,
       "gamesPlayed": 15,
-      "adjustedFor": 1.0299610654238534,
-      "adjustedAgainst": 1.401156283405766
+      "adjustedFor": 1.0606340747058363,
+      "adjustedAgainst": 1.2338799813390795
     },
     "liga-mx.tigres-uanl": {
       "teamId": "liga-mx.tigres-uanl",
@@ -182,8 +182,8 @@
       "forPerGame": 1.4666666666666666,
       "againstPerGame": 0.8666666666666667,
       "gamesPlayed": 15,
-      "adjustedFor": 1.3511491241523228,
-      "adjustedAgainst": 1.2050497284926318
+      "adjustedFor": 1.3732307418211225,
+      "adjustedAgainst": 1.205324844634275
     },
     "liga-mx.tijuana": {
       "teamId": "liga-mx.tijuana",
@@ -193,8 +193,8 @@
       "forPerGame": 1.4,
       "againstPerGame": 1.5333333333333334,
       "gamesPlayed": 15,
-      "adjustedFor": 1.1851623785985317,
-      "adjustedAgainst": 1.2973454481029716
+      "adjustedFor": 1.1159880451913091,
+      "adjustedAgainst": 1.2601007480702666
     },
     "liga-mx.toluca": {
       "teamId": "liga-mx.toluca",
@@ -204,8 +204,8 @@
       "forPerGame": 2.2,
       "againstPerGame": 0.9333333333333333,
       "gamesPlayed": 15,
-      "adjustedFor": 1.7914250510225789,
-      "adjustedAgainst": 0.9218817804143792
+      "adjustedFor": 1.8200454097960828,
+      "adjustedAgainst": 0.9355699732200701
     }
   },
   "games": [
@@ -3357,145 +3357,145 @@
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 1.421031100902254,
-        "away": 1.0621203511231274,
-        "total": 2.4831514520253815,
-        "margin": 0.3589107497791266
+        "home": 1.4098960001618177,
+        "away": 1.222082762319916,
+        "total": 2.631978762481734,
+        "margin": 0.18781323784190174
       },
       "x12": [
-        0.4587080276122523,
-        0.2531906813022664,
-        0.2881012910854815
+        0.38827034753032563,
+        0.2731068673222941,
+        0.33862278514738037
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Querétaro gana",
-          "p": 0.4587080276122523,
-          "fairOdds": 2.180035970169033
+          "p": 0.38827034753032563,
+          "fairOdds": 2.5755250339375855
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.2531906813022664,
-          "fairOdds": 3.9495924370382767
+          "p": 0.2731068673222941,
+          "fairOdds": 3.661570321554373
         },
         {
           "market": "h2h",
           "selection": "Puebla gana",
-          "p": 0.2881012910854815,
-          "fairOdds": 3.47100145310801
+          "p": 0.33862278514738037,
+          "fairOdds": 2.9531385478527836
         },
         {
           "market": "double_chance",
           "selection": "Querétaro o empate",
-          "p": 0.7118987089145188,
-          "fairOdds": 1.4046942176995505
+          "p": 0.6613772148526198,
+          "fairOdds": 1.5119964485363142
         },
         {
           "market": "double_chance",
           "selection": "Puebla o empate",
-          "p": 0.5412919723877478,
-          "fairOdds": 1.8474317946907632
+          "p": 0.6117296524696745,
+          "fairOdds": 1.634709051560278
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.7468093186977338,
-          "fairOdds": 1.3390298901783568
+          "p": 0.7268931326777059,
+          "fairOdds": 1.3757180458098863
         },
         {
           "market": "totals",
           "selection": "Más de 1.5",
           "line": 1.5,
-          "p": 0.7029275377665773,
-          "fairOdds": 1.4226217444508087
+          "p": 0.7321538920280803,
+          "fairOdds": 1.3658330726481298
         },
         {
           "market": "totals",
           "selection": "Más de 2.5",
           "line": 2.5,
-          "p": 0.451857554887386,
-          "fairOdds": 2.2130868216848216
+          "p": 0.48170203575741966,
+          "fairOdds": 2.075972127515753
         },
         {
           "market": "totals",
           "selection": "Menos de 2.5",
           "line": 2.5,
-          "p": 0.548142445112614,
-          "fairOdds": 1.824343305132215
+          "p": 0.5182979642425803,
+          "fairOdds": 1.929392104523041
         },
         {
           "market": "totals",
           "selection": "Más de 3.5",
           "line": 3.5,
-          "p": 0.23882815073325503,
-          "fairOdds": 4.187111096115679
+          "p": 0.2702288722530506,
+          "fairOdds": 3.7005668256779365
         },
         {
           "market": "totals",
           "selection": "Menos de 3.5",
           "line": 3.5,
-          "p": 0.761171849266745,
-          "fairOdds": 1.3137637722195374
+          "p": 0.7297711277469494,
+          "fairOdds": 1.3702926328249496
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.48999295220601125,
-          "fairOdds": 2.0408456805304476
+          "p": 0.5339778022268261,
+          "fairOdds": 1.8727370235798946
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.5100070477939888,
-          "fairOdds": 1.9607572176217025
+          "p": 0.4660221977731739,
+          "fairOdds": 2.1458205312501617
         },
         {
           "market": "team_totals",
           "selection": "Querétaro más de 1.5",
           "line": 1.5,
-          "p": 0.4154057427655574,
-          "fairOdds": 2.4072849675657233
+          "p": 0.3954707817132853,
+          "fairOdds": 2.5286318136266153
         },
         {
           "market": "team_totals",
           "selection": "Querétaro menos de 1.5",
           "line": 1.5,
-          "p": 0.5845942572344426,
-          "fairOdds": 1.710588134633292
+          "p": 0.6045292182867147,
+          "fairOdds": 1.6541797646010923
         },
         {
           "market": "team_totals",
           "selection": "Puebla más de 1.5",
           "line": 1.5,
-          "p": 0.2870796547828929,
-          "fairOdds": 3.4833537777390076
+          "p": 0.35328122319866917,
+          "fairOdds": 2.8306061413222796
         },
         {
           "market": "team_totals",
           "selection": "Puebla menos de 1.5",
           "line": 1.5,
-          "p": 0.7129203452171071,
-          "fairOdds": 1.402681248625985
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–0",
-          "p": 0.12492715624202162,
-          "fairOdds": 8.004664718875839
+          "p": 0.6467187768013308,
+          "fairOdds": 1.546267150222539
         },
         {
           "market": "correct_score",
           "selection": "1–1",
-          "p": 0.11969667744609443,
-          "fairOdds": 8.354450777886893
+          "p": 0.1295236531596225,
+          "fairOdds": 7.720597555780943
+        },
+        {
+          "market": "correct_score",
+          "selection": "1–0",
+          "p": 0.09959320161628098,
+          "fairOdds": 10.04084599923661
         },
         {
           "market": "correct_score",
           "selection": "0–1",
-          "p": 0.09496537403533323,
-          "fairOdds": 10.530153860373737
+          "p": 0.09594055708992005,
+          "fairOdds": 10.423120631483851
         }
       ],
       "marketGroups": [
@@ -3506,22 +3506,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "Querétaro gana",
-              "p": 0.4587080276122523,
-              "fairOdds": 2.180035970169033
+              "p": 0.38827034753032563,
+              "fairOdds": 2.5755250339375855
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.2531906813022664,
-              "fairOdds": 3.9495924370382767
+              "p": 0.2731068673222941,
+              "fairOdds": 3.661570321554373
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Puebla gana",
-              "p": 0.2881012910854815,
-              "fairOdds": 3.47100145310801
+              "p": 0.33862278514738037,
+              "fairOdds": 2.9531385478527836
             }
           ]
         },
@@ -3532,22 +3532,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "Querétaro o empate",
-              "p": 0.7118987089145188,
-              "fairOdds": 1.4046942176995505
+              "p": 0.6613772148526198,
+              "fairOdds": 1.5119964485363142
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Puebla o empate",
-              "p": 0.5412919723877478,
-              "fairOdds": 1.8474317946907632
+              "p": 0.6117296524696745,
+              "fairOdds": 1.634709051560278
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.7468093186977338,
-              "fairOdds": 1.3390298901783568
+              "p": 0.7268931326777059,
+              "fairOdds": 1.3757180458098863
             }
           ]
         },
@@ -3559,40 +3559,40 @@
               "selection": "over_1.5",
               "label": "Más de 1.5",
               "line": 1.5,
-              "p": 0.7029275377665773,
-              "fairOdds": 1.4226217444508087
+              "p": 0.7321538920280803,
+              "fairOdds": 1.3658330726481298
             },
             {
               "market": "totals",
               "selection": "over_2.5",
               "label": "Más de 2.5",
               "line": 2.5,
-              "p": 0.451857554887386,
-              "fairOdds": 2.2130868216848216
+              "p": 0.48170203575741966,
+              "fairOdds": 2.075972127515753
             },
             {
               "market": "totals",
               "selection": "under_2.5",
               "label": "Menos de 2.5",
               "line": 2.5,
-              "p": 0.548142445112614,
-              "fairOdds": 1.824343305132215
+              "p": 0.5182979642425803,
+              "fairOdds": 1.929392104523041
             },
             {
               "market": "totals",
               "selection": "over_3.5",
               "label": "Más de 3.5",
               "line": 3.5,
-              "p": 0.23882815073325503,
-              "fairOdds": 4.187111096115679
+              "p": 0.2702288722530506,
+              "fairOdds": 3.7005668256779365
             },
             {
               "market": "totals",
               "selection": "under_3.5",
               "label": "Menos de 3.5",
               "line": 3.5,
-              "p": 0.761171849266745,
-              "fairOdds": 1.3137637722195374
+              "p": 0.7297711277469494,
+              "fairOdds": 1.3702926328249496
             }
           ]
         },
@@ -3603,15 +3603,15 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.48999295220601125,
-              "fairOdds": 2.0408456805304476
+              "p": 0.5339778022268261,
+              "fairOdds": 1.8727370235798946
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.5100070477939888,
-              "fairOdds": 1.9607572176217025
+              "p": 0.4660221977731739,
+              "fairOdds": 2.1458205312501617
             }
           ]
         },
@@ -3623,32 +3623,32 @@
               "selection": "home_over",
               "label": "Querétaro más de 1.5",
               "line": 1.5,
-              "p": 0.4154057427655574,
-              "fairOdds": 2.4072849675657233
+              "p": 0.3954707817132853,
+              "fairOdds": 2.5286318136266153
             },
             {
               "market": "team_totals",
               "selection": "home_under",
               "label": "Querétaro menos de 1.5",
               "line": 1.5,
-              "p": 0.5845942572344426,
-              "fairOdds": 1.710588134633292
+              "p": 0.6045292182867147,
+              "fairOdds": 1.6541797646010923
             },
             {
               "market": "team_totals",
               "selection": "away_over",
               "label": "Puebla más de 1.5",
               "line": 1.5,
-              "p": 0.2870796547828929,
-              "fairOdds": 3.4833537777390076
+              "p": 0.35328122319866917,
+              "fairOdds": 2.8306061413222796
             },
             {
               "market": "team_totals",
               "selection": "away_under",
               "label": "Puebla menos de 1.5",
               "line": 1.5,
-              "p": 0.7129203452171071,
-              "fairOdds": 1.402681248625985
+              "p": 0.6467187768013308,
+              "fairOdds": 1.546267150222539
             }
           ]
         },
@@ -3657,69 +3657,69 @@
           "rows": [
             {
               "market": "correct_score",
-              "selection": "1-0",
-              "label": "1–0",
-              "p": 0.12492715624202162,
-              "fairOdds": 8.004664718875839
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.1295236531596225,
+              "fairOdds": 7.720597555780943
             },
             {
               "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.11969667744609443,
-              "fairOdds": 8.354450777886893
+              "selection": "1-0",
+              "label": "1–0",
+              "p": 0.09959320161628098,
+              "fairOdds": 10.04084599923661
             },
             {
               "market": "correct_score",
               "selection": "0-1",
               "label": "0–1",
-              "p": 0.09496537403533323,
-              "fairOdds": 10.530153860373737
+              "p": 0.09594055708992005,
+              "fairOdds": 10.423120631483851
             }
           ]
         }
       ],
       "mostLikelyScore": {
         "home": 1,
-        "away": 0,
-        "p": 0.12492715624202162
+        "away": 1,
+        "p": 0.1295236531596225
       },
       "factors": [
         {
           "key": "home_attack",
           "label": "Ataque local",
-          "value": "1.09 goles/partido",
-          "detail": "índice 0.76 · 15 partidos"
+          "value": "1.07 goles/partido",
+          "detail": "24 % menos que la media · 15 partidos"
         },
         {
           "key": "away_defense",
           "label": "Defensa visitante",
-          "value": "1.43 concedidos/partido",
-          "detail": "índice 1.18 · 15 partidos"
+          "value": "1.41 concedidos/partido",
+          "detail": "14 % más que la media · 15 partidos"
         },
         {
           "key": "away_attack",
           "label": "Ataque visitante",
-          "value": "1.06 goles/partido",
-          "detail": "índice 0.76 · ajustado por rival"
+          "value": "1.22 goles/partido",
+          "detail": "12 % menos que la media · ajustado por rival"
         },
         {
           "key": "home_defense",
           "label": "Defensa local",
           "value": "1.39 concedidos/partido",
-          "detail": "índice 1.14 · ajustado por rival"
+          "detail": "13 % más que la media · ajustado por rival"
         },
         {
           "key": "home_advantage",
           "label": "Localía",
           "value": "×1.31",
-          "detail": "estimada de 214 partidos"
+          "detail": "estimada de 142 partidos"
         },
         {
           "key": "uncertainty",
           "label": "Intervalo 90%",
-          "value": "goles 1.4–4.5",
-          "detail": "local 18%–76% · 214 partidos"
+          "value": "goles 1.7–5.1",
+          "detail": "local 9%–78% · 142 partidos"
         },
         {
           "key": "home_position",
@@ -3744,19 +3744,74 @@
           "label": "Forma visitante",
           "value": "P-P-P-G-P · 3 pts",
           "detail": "2 goles a favor · 10 en contra"
+        },
+        {
+          "key": "long_memory",
+          "label": "Memoria larga",
+          "value": "−3 pts al local",
+          "detail": "historia 36% / 30% / 35% · temporada 42% / 25% / 33%"
         }
       ],
       "steps": [
-        "Sincronizando Liga MX · corte 8 nov 2026, 20:45",
-        "Fuerza ajustada por rival · QRO 0.76 / 1.14 · PUE 0.76 / 1.18",
-        "Ponderando 47.7 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.42 – 1.06 · total 2.48",
+        "Sincronizando Liga MX · corte 8 nov 2026, 22:58",
+        "Fuerza ajustada por rival · QRO 0.76 / 1.13 · PUE 0.88 / 1.14",
+        "Ponderando 37.1 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.41 – 1.22 · total 2.63",
         "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador más probable 1–0"
+        "20 mercados listos · marcador proyectado 1–0"
       ],
-      "inputsAsOf": "2026-11-09T02:45:50.838Z",
-      "publishedAt": "2026-11-09T02:45:50.838Z",
-      "source": "api-football"
+      "inputsAsOf": "2026-11-09T04:58:43.650Z",
+      "publishedAt": "2026-11-09T04:58:43.650Z",
+      "source": "api-football",
+      "projectedScore": {
+        "home": 1,
+        "away": 0,
+        "p": 0.09959320161628098
+      },
+      "insights": {
+        "why": [
+          "Querétaro gana en 39% de los escenarios; el empate, en 27%.",
+          "Querétaro anota 24 % menos que la media.",
+          "Puebla concede 14 % más que la media."
+        ],
+        "headToHead": [
+          {
+            "date": "2024-09-14",
+            "homeTeamId": "liga-mx.puebla",
+            "awayTeamId": "liga-mx.queretaro",
+            "homeGoals": 2,
+            "awayGoals": 1
+          },
+          {
+            "date": "2021-02-21",
+            "homeTeamId": "liga-mx.queretaro",
+            "awayTeamId": "liga-mx.puebla",
+            "homeGoals": 1,
+            "awayGoals": 1
+          },
+          {
+            "date": "2020-09-25",
+            "homeTeamId": "liga-mx.puebla",
+            "awayTeamId": "liga-mx.queretaro",
+            "homeGoals": 3,
+            "awayGoals": 3
+          },
+          {
+            "date": "2020-01-24",
+            "homeTeamId": "liga-mx.puebla",
+            "awayTeamId": "liga-mx.queretaro",
+            "homeGoals": 0,
+            "awayGoals": 1
+          },
+          {
+            "date": "2019-09-01",
+            "homeTeamId": "liga-mx.queretaro",
+            "awayTeamId": "liga-mx.puebla",
+            "homeGoals": 1,
+            "awayGoals": 1
+          }
+        ]
+      }
     },
     "mx-2026-ap-j16-leon-chivas": {
       "game": "mx-2026-ap-j16-leon-chivas",
@@ -3767,145 +3822,145 @@
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 1.2881854619515782,
-        "away": 1.2845832896558702,
-        "total": 2.5727687516074482,
-        "margin": 0.003602172295708028
+        "home": 1.3624578650470114,
+        "away": 1.2556066795955296,
+        "total": 2.6180645446425412,
+        "margin": 0.10685118545148176
       },
       "x12": [
-        0.37439167603052775,
-        0.2529122721772957,
-        0.3726960517921773
+        0.454096221251989,
+        0.25104723619280833,
+        0.29485654255520255
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "León gana",
-          "p": 0.37439167603052775,
-          "fairOdds": 2.6709995548043657
+          "p": 0.454096221251989,
+          "fairOdds": 2.202176440144997
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.2529122721772957,
-          "fairOdds": 3.9539401998610146
+          "p": 0.25104723619280833,
+          "fairOdds": 3.9833141171567563
         },
         {
           "market": "h2h",
           "selection": "Chivas gana",
-          "p": 0.3726960517921773,
-          "fairOdds": 2.6831515793937624
+          "p": 0.29485654255520255,
+          "fairOdds": 3.3914797729569854
         },
         {
           "market": "double_chance",
           "selection": "León o empate",
-          "p": 0.6273039482078235,
-          "fairOdds": 1.5941235550277513
+          "p": 0.7051434574447973,
+          "fairOdds": 1.4181511427811633
         },
         {
           "market": "double_chance",
           "selection": "Chivas o empate",
-          "p": 0.625608323969473,
-          "fairOdds": 1.5984442049220493
+          "p": 0.5459037787480109,
+          "fairOdds": 1.8318246528599318
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.747087727822705,
-          "fairOdds": 1.3385308883527998
+          "p": 0.7489527638071916,
+          "fairOdds": 1.3351976897937416
         },
         {
           "market": "totals",
           "selection": "Más de 1.5",
           "line": 1.5,
-          "p": 0.720997205289613,
-          "fairOdds": 1.3869679281188283
+          "p": 0.7306905824343144,
+          "fairOdds": 1.3685683434819624
         },
         {
           "market": "totals",
           "selection": "Más de 2.5",
           "line": 2.5,
-          "p": 0.4747127611789057,
-          "fairOdds": 2.1065370088568747
+          "p": 0.4863221294632434,
+          "fairOdds": 2.056250249405072
         },
         {
           "market": "totals",
           "selection": "Menos de 2.5",
           "line": 2.5,
-          "p": 0.5252872388210943,
-          "fairOdds": 1.903720338313009
+          "p": 0.5136778705367566,
+          "fairOdds": 1.9467453385816904
         },
         {
           "market": "totals",
           "selection": "Más de 3.5",
           "line": 3.5,
-          "p": 0.2580861321308068,
-          "fairOdds": 3.8746754494083633
+          "p": 0.2686566472680001,
+          "fairOdds": 3.722223180290208
         },
         {
           "market": "totals",
           "selection": "Menos de 3.5",
           "line": 3.5,
-          "p": 0.7419138678691932,
-          "fairOdds": 1.3478653564894811
+          "p": 0.7313433527319999,
+          "fairOdds": 1.3673468094902466
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.5174722914593693,
-          "fairOdds": 1.9324706201752593
+          "p": 0.5258220379504667,
+          "fairOdds": 1.9017841167284846
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.48252770854063065,
-          "fairOdds": 2.072419847192664
+          "p": 0.47417796204953333,
+          "fairOdds": 2.108912855582138
         },
         {
           "market": "team_totals",
           "selection": "León más de 1.5",
           "line": 1.5,
-          "p": 0.3689853552140856,
-          "fairOdds": 2.7101346594631086
+          "p": 0.4295561456968937,
+          "fairOdds": 2.3279843857841733
         },
         {
           "market": "team_totals",
           "selection": "León menos de 1.5",
           "line": 1.5,
-          "p": 0.6310146447859144,
-          "fairOdds": 1.5847492736706166
+          "p": 0.5704438543031063,
+          "fairOdds": 1.7530209019810885
         },
         {
           "market": "team_totals",
           "selection": "Chivas más de 1.5",
           "line": 1.5,
-          "p": 0.3677051936121353,
-          "fairOdds": 2.719569963580186
+          "p": 0.3233310990006095,
+          "fairOdds": 3.0928048773870493
         },
         {
           "market": "team_totals",
           "selection": "Chivas menos de 1.5",
           "line": 1.5,
-          "p": 0.6322948063878647,
-          "fairOdds": 1.581540746337518
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.11998448794242976,
-          "fairOdds": 8.33441069882145
+          "p": 0.6766689009993905,
+          "fairOdds": 1.477827632573439
         },
         {
           "market": "correct_score",
           "selection": "1–0",
-          "p": 0.104634375153817,
-          "fairOdds": 9.557088657814004
+          "p": 0.11991197603510761,
+          "fairOdds": 8.339450595887286
         },
         {
           "market": "correct_score",
-          "selection": "0–1",
-          "p": 0.10435944313754209,
-          "fairOdds": 9.582266538946888
+          "selection": "1–1",
+          "p": 0.11907844234617536,
+          "fairOdds": 8.397825671021794
+        },
+        {
+          "market": "correct_score",
+          "selection": "2–1",
+          "p": 0.09650854150266155,
+          "fairOdds": 10.361777148734774
         }
       ],
       "marketGroups": [
@@ -3916,22 +3971,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "León gana",
-              "p": 0.37439167603052775,
-              "fairOdds": 2.6709995548043657
+              "p": 0.454096221251989,
+              "fairOdds": 2.202176440144997
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.2529122721772957,
-              "fairOdds": 3.9539401998610146
+              "p": 0.25104723619280833,
+              "fairOdds": 3.9833141171567563
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Chivas gana",
-              "p": 0.3726960517921773,
-              "fairOdds": 2.6831515793937624
+              "p": 0.29485654255520255,
+              "fairOdds": 3.3914797729569854
             }
           ]
         },
@@ -3942,22 +3997,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "León o empate",
-              "p": 0.6273039482078235,
-              "fairOdds": 1.5941235550277513
+              "p": 0.7051434574447973,
+              "fairOdds": 1.4181511427811633
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Chivas o empate",
-              "p": 0.625608323969473,
-              "fairOdds": 1.5984442049220493
+              "p": 0.5459037787480109,
+              "fairOdds": 1.8318246528599318
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.747087727822705,
-              "fairOdds": 1.3385308883527998
+              "p": 0.7489527638071916,
+              "fairOdds": 1.3351976897937416
             }
           ]
         },
@@ -3969,40 +4024,40 @@
               "selection": "over_1.5",
               "label": "Más de 1.5",
               "line": 1.5,
-              "p": 0.720997205289613,
-              "fairOdds": 1.3869679281188283
+              "p": 0.7306905824343144,
+              "fairOdds": 1.3685683434819624
             },
             {
               "market": "totals",
               "selection": "over_2.5",
               "label": "Más de 2.5",
               "line": 2.5,
-              "p": 0.4747127611789057,
-              "fairOdds": 2.1065370088568747
+              "p": 0.4863221294632434,
+              "fairOdds": 2.056250249405072
             },
             {
               "market": "totals",
               "selection": "under_2.5",
               "label": "Menos de 2.5",
               "line": 2.5,
-              "p": 0.5252872388210943,
-              "fairOdds": 1.903720338313009
+              "p": 0.5136778705367566,
+              "fairOdds": 1.9467453385816904
             },
             {
               "market": "totals",
               "selection": "over_3.5",
               "label": "Más de 3.5",
               "line": 3.5,
-              "p": 0.2580861321308068,
-              "fairOdds": 3.8746754494083633
+              "p": 0.2686566472680001,
+              "fairOdds": 3.722223180290208
             },
             {
               "market": "totals",
               "selection": "under_3.5",
               "label": "Menos de 3.5",
               "line": 3.5,
-              "p": 0.7419138678691932,
-              "fairOdds": 1.3478653564894811
+              "p": 0.7313433527319999,
+              "fairOdds": 1.3673468094902466
             }
           ]
         },
@@ -4013,15 +4068,15 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.5174722914593693,
-              "fairOdds": 1.9324706201752593
+              "p": 0.5258220379504667,
+              "fairOdds": 1.9017841167284846
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.48252770854063065,
-              "fairOdds": 2.072419847192664
+              "p": 0.47417796204953333,
+              "fairOdds": 2.108912855582138
             }
           ]
         },
@@ -4033,32 +4088,32 @@
               "selection": "home_over",
               "label": "León más de 1.5",
               "line": 1.5,
-              "p": 0.3689853552140856,
-              "fairOdds": 2.7101346594631086
+              "p": 0.4295561456968937,
+              "fairOdds": 2.3279843857841733
             },
             {
               "market": "team_totals",
               "selection": "home_under",
               "label": "León menos de 1.5",
               "line": 1.5,
-              "p": 0.6310146447859144,
-              "fairOdds": 1.5847492736706166
+              "p": 0.5704438543031063,
+              "fairOdds": 1.7530209019810885
             },
             {
               "market": "team_totals",
               "selection": "away_over",
               "label": "Chivas más de 1.5",
               "line": 1.5,
-              "p": 0.3677051936121353,
-              "fairOdds": 2.719569963580186
+              "p": 0.3233310990006095,
+              "fairOdds": 3.0928048773870493
             },
             {
               "market": "team_totals",
               "selection": "away_under",
               "label": "Chivas menos de 1.5",
               "line": 1.5,
-              "p": 0.6322948063878647,
-              "fairOdds": 1.581540746337518
+              "p": 0.6766689009993905,
+              "fairOdds": 1.477827632573439
             }
           ]
         },
@@ -4067,69 +4122,69 @@
           "rows": [
             {
               "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.11998448794242976,
-              "fairOdds": 8.33441069882145
-            },
-            {
-              "market": "correct_score",
               "selection": "1-0",
               "label": "1–0",
-              "p": 0.104634375153817,
-              "fairOdds": 9.557088657814004
+              "p": 0.11991197603510761,
+              "fairOdds": 8.339450595887286
             },
             {
               "market": "correct_score",
-              "selection": "0-1",
-              "label": "0–1",
-              "p": 0.10435944313754209,
-              "fairOdds": 9.582266538946888
+              "selection": "1-1",
+              "label": "1–1",
+              "p": 0.11907844234617536,
+              "fairOdds": 8.397825671021794
+            },
+            {
+              "market": "correct_score",
+              "selection": "2-1",
+              "label": "2–1",
+              "p": 0.09650854150266155,
+              "fairOdds": 10.361777148734774
             }
           ]
         }
       ],
       "mostLikelyScore": {
         "home": 1,
-        "away": 1,
-        "p": 0.11998448794242976
+        "away": 0,
+        "p": 0.11991197603510761
       },
       "factors": [
         {
           "key": "home_attack",
           "label": "Ataque local",
-          "value": "0.98 goles/partido",
-          "detail": "índice 0.97 · 15 partidos"
+          "value": "1.04 goles/partido",
+          "detail": "en la media de la liga · 15 partidos"
         },
         {
           "key": "away_defense",
           "label": "Defensa visitante",
           "value": "1.02 concedidos/partido",
-          "detail": "índice 0.84 · 15 partidos"
+          "detail": "17 % menos que la media · 15 partidos"
         },
         {
           "key": "away_attack",
           "label": "Ataque visitante",
-          "value": "1.28 goles/partido",
-          "detail": "índice 1.03 · ajustado por rival"
+          "value": "1.26 goles/partido",
+          "detail": "3 % más que la media · ajustado por rival"
         },
         {
           "key": "home_defense",
           "label": "Defensa local",
-          "value": "1.24 concedidos/partido",
-          "detail": "índice 1.02 · ajustado por rival"
+          "value": "1.21 concedidos/partido",
+          "detail": "en la media de la liga · ajustado por rival"
         },
         {
           "key": "home_advantage",
           "label": "Localía",
           "value": "×1.31",
-          "detail": "estimada de 214 partidos"
+          "detail": "estimada de 142 partidos"
         },
         {
           "key": "uncertainty",
           "label": "Intervalo 90%",
-          "value": "goles 1.6–4.6",
-          "detail": "local 14%–73% · 214 partidos"
+          "value": "goles 1.6–5.0",
+          "detail": "local 18%–82% · 142 partidos"
         },
         {
           "key": "home_position",
@@ -4154,19 +4209,74 @@
           "label": "Forma visitante",
           "value": "P-G-G-P-E · 7 pts",
           "detail": "7 goles a favor · 6 en contra"
+        },
+        {
+          "key": "long_memory",
+          "label": "Memoria larga",
+          "value": "+5 pts al local",
+          "detail": "historia 51% / 25% / 24% · temporada 40% / 25% / 35%"
         }
       ],
       "steps": [
-        "Sincronizando Liga MX · corte 8 nov 2026, 20:45",
-        "Fuerza ajustada por rival · LEO 0.97 / 1.02 · GDL 1.03 / 0.84",
-        "Ponderando 47.7 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.29 – 1.28 · total 2.57",
+        "Sincronizando Liga MX · corte 8 nov 2026, 22:58",
+        "Fuerza ajustada por rival · LEO 1.01 / 0.99 · GDL 1.03 / 0.83",
+        "Ponderando 37.1 partidos por antigüedad y calidad del rival",
+        "Proyección de goles 1.36 – 1.26 · total 2.62",
         "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador más probable 1–1"
+        "20 mercados listos · marcador proyectado 1–0"
       ],
-      "inputsAsOf": "2026-11-09T02:45:50.838Z",
-      "publishedAt": "2026-11-09T02:45:50.838Z",
-      "source": "api-football"
+      "inputsAsOf": "2026-11-09T04:58:43.650Z",
+      "publishedAt": "2026-11-09T04:58:43.650Z",
+      "source": "api-football",
+      "projectedScore": {
+        "home": 1,
+        "away": 0,
+        "p": 0.11991197603510761
+      },
+      "insights": {
+        "why": [
+          "Se esperan 2.6 goles: 1.4 de León y 1.3 de Chivas.",
+          "Chivas concede 17 % menos que la media.",
+          "La historia larga favorece más a León que esta temporada."
+        ],
+        "headToHead": [
+          {
+            "date": "2024-09-19",
+            "homeTeamId": "liga-mx.chivas",
+            "awayTeamId": "liga-mx.leon",
+            "homeGoals": 2,
+            "awayGoals": 0
+          },
+          {
+            "date": "2021-02-08",
+            "homeTeamId": "liga-mx.leon",
+            "awayTeamId": "liga-mx.chivas",
+            "homeGoals": 1,
+            "awayGoals": 3
+          },
+          {
+            "date": "2020-07-25",
+            "homeTeamId": "liga-mx.chivas",
+            "awayTeamId": "liga-mx.leon",
+            "homeGoals": 0,
+            "awayGoals": 0
+          },
+          {
+            "date": "2020-03-01",
+            "homeTeamId": "liga-mx.chivas",
+            "awayTeamId": "liga-mx.leon",
+            "homeGoals": 2,
+            "awayGoals": 0
+          },
+          {
+            "date": "2019-08-17",
+            "homeTeamId": "liga-mx.leon",
+            "awayTeamId": "liga-mx.chivas",
+            "homeGoals": 4,
+            "awayGoals": 3
+          }
+        ]
+      }
     }
   },
   "standings": [

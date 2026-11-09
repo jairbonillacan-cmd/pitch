@@ -24,6 +24,14 @@ import {
   type FootballMatchRow,
 } from "./dixon-coles.js";
 import { formatForm, recentForm } from "./form.js";
+import { candidatesFromGroups, confidenceIndex, featuredPick, selectPicks } from "../picks.js";
+
+/** «10 % más que la media» a partir de un índice multiplicativo. */
+function vsAverage(index: number, more: string, less: string): string {
+  const diff = Math.round((index - 1) * 100);
+  if (Math.abs(diff) < 3) return "en la media de la liga";
+  return `${Math.abs(diff)} % ${diff > 0 ? more : less} que la media`;
+}
 
 export interface FootballAnalysisInput {
   league: "premier-league" | "liga-mx" | "laliga" | "bundesliga" | "serie-a" | "ligue-1";
@@ -252,7 +260,7 @@ export function analyzeFootballGameV2(input: FootballAnalysisInput): GameAnalysi
     `Ponderando ${model.weightedMatches.toFixed(1)} partidos por antigüedad y calidad del rival`,
     `Proyección de goles ${prediction.lambdaHome.toFixed(2)} – ${prediction.lambdaAway.toFixed(2)} · total ${prediction.total.toFixed(2)}`,
     `Simulando ${model.gridSize * model.gridSize} marcadores con incertidumbre del ajuste`,
-    `${probabilities.length} mercados listos · marcador más probable ${prediction.mostLikelyScore.home}–${prediction.mostLikelyScore.away}`,
+    `${probabilities.length} mercados listos · marcador proyectado ${prediction.projectedScore.home}–${prediction.projectedScore.away}`,
   ];
 
   const factors = [
@@ -260,25 +268,25 @@ export function analyzeFootballGameV2(input: FootballAnalysisInput): GameAnalysi
       key: "home_attack",
       label: "Ataque local",
       value: `${(baseLambdaHome(model, game.home.id, game.away.id) / model.homeAdvantage).toFixed(2)} goles/partido`,
-      detail: `índice ${attackHome.toFixed(2)} · ${homeRate?.gamesPlayed ?? 0} partidos`,
+      detail: `${vsAverage(attackHome, "más", "menos")} · ${homeRate?.gamesPlayed ?? 0} partidos`,
     },
     {
       key: "away_defense",
       label: "Defensa visitante",
       value: `${(model.baseRate * defenseAway).toFixed(2)} concedidos/partido`,
-      detail: `índice ${defenseAway.toFixed(2)} · ${awayRate?.gamesPlayed ?? 0} partidos`,
+      detail: `${vsAverage(defenseAway, "más", "menos")} · ${awayRate?.gamesPlayed ?? 0} partidos`,
     },
     {
       key: "away_attack",
       label: "Ataque visitante",
       value: `${baseLambdaAway(model, game.home.id, game.away.id).toFixed(2)} goles/partido`,
-      detail: `índice ${attackAway.toFixed(2)} · ajustado por rival`,
+      detail: `${vsAverage(attackAway, "más", "menos")} · ajustado por rival`,
     },
     {
       key: "home_defense",
       label: "Defensa local",
       value: `${(model.baseRate * defenseHome).toFixed(2)} concedidos/partido`,
-      detail: `índice ${defenseHome.toFixed(2)} · ajustado por rival`,
+      detail: `${vsAverage(defenseHome, "más", "menos")} · ajustado por rival`,
     },
     {
       key: "home_advantage",
@@ -342,8 +350,73 @@ export function analyzeFootballGameV2(input: FootballAnalysisInput): GameAnalysi
     }
   }
 
+  // Memoria larga: cuánto mueve la historia al 1X2 de la temporada.
+  const blend = input.outcomeBlend;
+  const season = prediction.seasonProbabilities;
+  if (blend && blend.weight > 0) {
+    const shift = home - season.home;
+    factors.push({
+      key: "long_memory",
+      label: "Memoria larga",
+      value:
+        Math.abs(shift) < 0.02
+          ? "coincide con la temporada"
+          : `${shift > 0 ? "+" : "−"}${Math.abs(shift * 100).toFixed(0)} pts al local`,
+      detail: `historia ${pct(blend.home)} / ${pct(blend.draw)} / ${pct(blend.away)} · temporada ${pct(season.home)} / ${pct(season.draw)} / ${pct(season.away)}`,
+    });
+  }
+
+  const picks = selectPicks(candidatesFromGroups(marketGroups), { maxScore: 10 });
+  const confidence = confidenceIndex({
+    favorite: Math.max(home, draw, away),
+    minGamesPlayed: Math.min(homeRate?.gamesPlayed ?? 0, awayRate?.gamesPlayed ?? 0),
+    intervalWidth: prediction.intervals.homeWin[1] - prediction.intervals.homeWin[0],
+    disagreement: blend
+      ? Math.max(
+          Math.abs(season.home - blend.home),
+          Math.abs(season.draw - blend.draw),
+          Math.abs(season.away - blend.away),
+        )
+      : undefined,
+    outcomes: 3,
+  });
+
+  // «Por qué»: el motivo del pick destacado y los factores más alejados de la media.
+  const why: string[] = [];
+  const featured = featuredPick(picks);
+  if (featured) {
+    if (featured.market === "totals" || featured.market === "btts" || featured.market === "team_totals") {
+      why.push(
+        `Se esperan ${prediction.total.toFixed(1)} goles: ${prediction.lambdaHome.toFixed(1)} de ${game.home.shortName} y ${prediction.lambdaAway.toFixed(1)} de ${game.away.shortName}.`,
+      );
+    } else {
+      const leader = home >= away ? game.home.shortName : game.away.shortName;
+      why.push(
+        `${leader} gana en ${pct(Math.max(home, away))} de los escenarios; el empate, en ${pct(draw)}.`,
+      );
+    }
+  }
+  const drivers = [
+    { v: attackHome, text: `${game.home.shortName} anota ${vsAverage(attackHome, "más", "menos")}.` },
+    { v: attackAway, text: `${game.away.shortName} anota ${vsAverage(attackAway, "más", "menos")}.` },
+    { v: defenseHome, text: `${game.home.shortName} concede ${vsAverage(defenseHome, "más", "menos")}.` },
+    { v: defenseAway, text: `${game.away.shortName} concede ${vsAverage(defenseAway, "más", "menos")}.` },
+  ]
+    .filter((d) => Math.abs(d.v - 1) >= 0.08)
+    .sort((a, b) => Math.abs(Math.log(b.v)) - Math.abs(Math.log(a.v)));
+  for (const d of drivers.slice(0, 2)) why.push(d.text);
+  if (blend && Math.abs(home - season.home) >= 0.04) {
+    why.push(
+      `La historia larga ${home > season.home ? "favorece más" : "favorece menos"} a ${game.home.shortName} que esta temporada.`,
+    );
+  }
+
   return {
     game: game.id,
+    picks: picks.map((pk) => ({ ...pk, market: asMarketKey(pk.market) })),
+    confidence,
+    projectedScore: prediction.projectedScore,
+    insights: { why: why.slice(0, 4) },
     model: {
       id: `pitchlab-statistical-${league}`,
       version: input.version ?? "2.0.0",

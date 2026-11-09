@@ -39,6 +39,43 @@ export interface MostLikelyScore {
   p: number;
 }
 
+export type PickProfile = "conservadora" | "intermedia" | "arriesgada";
+
+/** Selección sugerida por el modelo dentro de un perfil de riesgo. */
+export interface AnalysisPick {
+  profile: PickProfile;
+  market: MarketKey;
+  selection: string;
+  label: string;
+  line?: number;
+  p: number;
+  fairOdds: number;
+}
+
+/** Qué tan claro y estable es el pronóstico (0-100). */
+export interface AnalysisConfidence {
+  score: number;
+  level: "alta" | "media" | "baja";
+  reasons: string[];
+}
+
+export interface HeadToHeadRow {
+  date: string;
+  homeTeamId: string;
+  awayTeamId: string;
+  homeGoals: number;
+  awayGoals: number;
+}
+
+export interface AnalysisInsights {
+  /** Frases cortas con los factores que más mueven el pronóstico. */
+  why: string[];
+  /** Últimos cruces entre ambos equipos antes del partido. */
+  headToHead?: HeadToHeadRow[];
+  /** Días desde el último partido de cada equipo. */
+  restDays?: { home?: number; away?: number };
+}
+
 export interface GameAnalysis {
   game: GameId;
   model: {
@@ -67,6 +104,14 @@ export interface GameAnalysis {
   inputsAsOf: string;
   publishedAt: string;
   source: string;
+  /** Picks por perfil (0 a 3). Se congelan al iniciar el partido. */
+  picks?: AnalysisPick[];
+  confidence?: AnalysisConfidence;
+  /** Marcador más probable dentro del resultado y del lado de goles favoritos. */
+  projectedScore?: MostLikelyScore;
+  insights?: AnalysisInsights;
+  /** Hora en que se calcularon los picks (si fue después de publicar el análisis). */
+  picksAt?: string;
 }
 
 export interface TeamSeasonRate {
@@ -177,6 +222,49 @@ export const GameAnalysisSchema = z.object({
   inputsAsOf: z.string().min(10),
   publishedAt: z.string().min(10),
   source: z.string().min(1),
+  picks: z
+    .array(
+      z.object({
+        profile: z.enum(["conservadora", "intermedia", "arriesgada"]),
+        market: MarketKeySchema,
+        selection: z.string().min(1),
+        label: z.string().min(1),
+        line: z.number().optional(),
+        p: z.number().min(0).max(1),
+        fairOdds: z.number().positive(),
+      }),
+    )
+    .max(3)
+    .optional(),
+  confidence: z
+    .object({
+      score: z.number().min(0).max(100),
+      level: z.enum(["alta", "media", "baja"]),
+      reasons: z.array(z.string().min(1)).max(4),
+    })
+    .optional(),
+  projectedScore: MostLikelyScoreSchema.optional(),
+  insights: z
+    .object({
+      why: z.array(z.string().min(1)).max(4),
+      headToHead: z
+        .array(
+          z.object({
+            date: z.string().min(10),
+            homeTeamId: z.string().min(1),
+            awayTeamId: z.string().min(1),
+            homeGoals: z.number().int().nonnegative(),
+            awayGoals: z.number().int().nonnegative(),
+          }),
+        )
+        .max(5)
+        .optional(),
+      restDays: z
+        .object({ home: z.number().int().nonnegative().optional(), away: z.number().int().nonnegative().optional() })
+        .optional(),
+    })
+    .optional(),
+  picksAt: z.string().min(10).optional(),
 });
 
 export const TeamSeasonRateSchema = z.object({

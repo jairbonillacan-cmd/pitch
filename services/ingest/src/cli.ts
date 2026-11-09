@@ -67,6 +67,7 @@ async function main() {
     previousSnapshot: prevNfl,
     seasonGames: normNfl.allGames,
     priorRows: priorNfl,
+    history: loadLeagueHistory("nfl", dateStr),
     modelVersion,
   });
   const nflFiles = writeSnapshotFiles(SNAPSHOTS_ROOT, nflSnapshot, dateStr);

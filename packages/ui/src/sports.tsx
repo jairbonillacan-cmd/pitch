@@ -1,8 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import type {
+  AnalysisConfidence,
   AnalysisMarketGroup,
+  AnalysisPick,
+  HeadToHeadView,
   StandingRow,
   CalcStep,
   FactorItem,
@@ -16,6 +19,7 @@ import {
   formatFreshnessEs,
   formatPercent,
   probabilityToFairOdds,
+  selectionHolds,
 } from "@pitchlab/contracts";
 import {
   getEmblemPath,
@@ -234,6 +238,324 @@ export function Freshness({
   );
 }
 
+/* ---------- Picks, confianza y contexto ---------- */
+
+export const PROFILE_LABELS: Record<AnalysisPick["profile"], string> = {
+  conservadora: "Conservadora",
+  intermedia: "Intermedia",
+  arriesgada: "Arriesgada",
+};
+
+/** Pick destacado: el intermedio y, si no hay, el conservador. */
+export function featuredPickOf(
+  picks: readonly AnalysisPick[] | undefined,
+): AnalysisPick | undefined {
+  return (
+    picks?.find((p) => p.profile === "intermedia") ??
+    picks?.find((p) => p.profile === "conservadora")
+  );
+}
+
+/** Resultado de un pick con el marcador final (null si no se puede calificar). */
+export function pickResult(
+  pick: AnalysisPick,
+  score: { home: number; away: number } | undefined,
+): "hit" | "miss" | null {
+  if (!score) return null;
+  const holds = selectionHolds(pick, score.home, score.away);
+  return holds === null ? null : holds ? "hit" : "miss";
+}
+
+const CONFIDENCE_LABELS: Record<AnalysisConfidence["level"], string> = {
+  alta: "Confianza alta",
+  media: "Confianza media",
+  baja: "Confianza baja",
+};
+
+export function ConfidenceBadge({
+  confidence,
+  compact = false,
+}: {
+  confidence: AnalysisConfidence;
+  compact?: boolean;
+}): React.JSX.Element {
+  const title = confidence.reasons.length > 0 ? confidence.reasons.join(" · ") : undefined;
+  return (
+    <span
+      className={"conf conf-" + confidence.level + (compact ? " compact" : "")}
+      title={title}
+      data-confidence={confidence.level}
+    >
+      <span className="bars" aria-hidden="true">
+        <i />
+        <i />
+        <i />
+      </span>
+      {CONFIDENCE_LABELS[confidence.level]}
+    </span>
+  );
+}
+
+/** «Hoy» / «En juego», calculado en el navegador para no desajustar la hidratación. */
+export function useMatchMoment(
+  kickoffIso: string,
+  finished: boolean,
+): "live" | "today" | null {
+  const [moment, setMoment] = useState<"live" | "today" | null>(null);
+  useEffect(() => {
+    if (finished) {
+      setMoment(null);
+      return;
+    }
+    const compute = (): "live" | "today" | null => {
+      const start = Date.parse(kickoffIso);
+      if (!Number.isFinite(start)) return null;
+      const now = Date.now();
+      if (now >= start && now <= start + 2.5 * 3600 * 1000) return "live";
+      const a = new Date(start);
+      const b = new Date(now);
+      const sameDay =
+        a.getFullYear() === b.getFullYear() &&
+        a.getMonth() === b.getMonth() &&
+        a.getDate() === b.getDate();
+      return sameDay && now < start ? "today" : null;
+    };
+    setMoment(compute());
+    const id = window.setInterval(() => setMoment(compute()), 60_000);
+    return () => window.clearInterval(id);
+  }, [kickoffIso, finished]);
+  return moment;
+}
+
+export function MomentTag({
+  moment,
+}: {
+  moment: "live" | "today" | null;
+}): React.JSX.Element | null {
+  if (!moment) return null;
+  return moment === "live" ? (
+    <span className="moment live">
+      <span className="dot" />
+      En juego
+    </span>
+  ) : (
+    <span className="moment">Hoy</span>
+  );
+}
+
+export function PicksPanel({
+  picks,
+  confidence,
+  score,
+}: {
+  picks: readonly AnalysisPick[];
+  confidence?: AnalysisConfidence;
+  score?: { home: number; away: number };
+}): React.JSX.Element {
+  const order: AnalysisPick["profile"][] = ["conservadora", "intermedia", "arriesgada"];
+  const featured = featuredPickOf(picks);
+  return (
+    <section className="panel picks" aria-labelledby="picks-title" data-picks="">
+      <div className="picks-head">
+        <p className="eyebrow" id="picks-title">
+          Picks PitchLab
+        </p>
+        {confidence ? <ConfidenceBadge confidence={confidence} /> : null}
+      </div>
+      <ul>
+        {order.map((profile) => {
+          const pick = picks.find((p) => p.profile === profile);
+          const result = pick ? pickResult(pick, score) : null;
+          return (
+            <li
+              key={profile}
+              className={pick && pick === featured ? "featured" : undefined}
+              data-profile={profile}
+            >
+              <span className="prof">{PROFILE_LABELS[profile]}</span>
+              {pick ? (
+                <>
+                  <span className="sel">
+                    {pick.label}
+                    {pick === featured ? <span className="fav">Pick</span> : null}
+                  </span>
+                  <span className="num pp">{formatPercent(pick.p, 0)}</span>
+                  <span className="num odds">{formatDecimal(pick.fairOdds)}</span>
+                  {result ? (
+                    <span className={"res " + result}>
+                      {result === "hit" ? "Acertado" : "Fallado"}
+                    </span>
+                  ) : null}
+                </>
+              ) : (
+                <span className="sel muted">Sin pick en este perfil</span>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+      <p className="caption muted picks-note">
+        % = probabilidad del modelo · cuota justa sin margen · no garantiza resultados · +18
+      </p>
+    </section>
+  );
+}
+
+export function WhyList({
+  why,
+  title = "Por qué este pick",
+}: {
+  why: readonly string[];
+  title?: string;
+}): React.JSX.Element | null {
+  if (why.length === 0) return null;
+  return (
+    <section className="why" aria-labelledby="why-title">
+      <p className="eyebrow" id="why-title">
+        {title}
+      </p>
+      <ul>
+        {why.map((line, idx) => (
+          <li key={idx}>{line}</li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+const H2H_DATE = new Intl.DateTimeFormat("es-MX", {
+  day: "numeric",
+  month: "short",
+  year: "numeric",
+});
+
+export function HeadToHead({
+  rows,
+  restDays,
+  homeName,
+  awayName,
+}: {
+  rows?: readonly HeadToHeadView[];
+  restDays?: { home?: number; away?: number };
+  homeName: string;
+  awayName: string;
+}): React.JSX.Element | null {
+  const list = rows ?? [];
+  const hasRest =
+    restDays !== undefined && (restDays.home !== undefined || restDays.away !== undefined);
+  if (list.length === 0 && !hasRest) return null;
+  return (
+    <section className="h2h" aria-labelledby="h2h-title">
+      <p className="eyebrow" id="h2h-title">
+        Historial
+      </p>
+      {hasRest ? (
+        <p className="small secondary rest">
+          Descanso: {homeName} {restDays?.home ?? "–"} días · {awayName}{" "}
+          {restDays?.away ?? "–"} días
+        </p>
+      ) : null}
+      {list.length > 0 ? (
+        <ol>
+          {list.map((r, idx) => (
+            <li key={r.date + "-" + idx}>
+              <span className="caption muted">{H2H_DATE.format(Date.parse(r.date + "T12:00:00Z"))}</span>
+              <span>
+                {r.home}{" "}
+                <b className="num">
+                  {r.homeGoals}–{r.awayGoals}
+                </b>{" "}
+                {r.away}
+              </span>
+            </li>
+          ))}
+        </ol>
+      ) : (
+        <p className="caption muted">Sin cruces recientes en nuestro historial.</p>
+      )}
+    </section>
+  );
+}
+
+/**
+ * Mejores selecciones de la jornada por perfil: un pick por partido, solo partidos por
+ * jugar, ordenados por probabilidad y, a igualdad, por confianza.
+ */
+export function BestPicks({
+  matches,
+  onSelect,
+  limit = 5,
+}: {
+  matches: readonly MatchAnalysis[];
+  onSelect?: (match: MatchAnalysis) => void;
+  limit?: number;
+}): React.JSX.Element | null {
+  const [profile, setProfile] = useState<AnalysisPick["profile"]>("intermedia");
+  const upcoming = matches.filter((m) => m.status !== "FT" && m.picks && m.picks.length > 0);
+  if (upcoming.length === 0) return null;
+  const rows = upcoming
+    .map((m) => ({ match: m, pick: m.picks!.find((p) => p.profile === profile) }))
+    .filter((r): r is { match: MatchAnalysis; pick: AnalysisPick } => r.pick !== undefined)
+    .sort(
+      (a, b) =>
+        b.pick.p - a.pick.p || (b.match.confidence?.score ?? 0) - (a.match.confidence?.score ?? 0),
+    )
+    .slice(0, limit);
+  const profiles: AnalysisPick["profile"][] = ["conservadora", "intermedia", "arriesgada"];
+  return (
+    <section className="best" aria-labelledby="best-title" data-best-picks="">
+      <div className="best-head">
+        <h2 id="best-title">Mejores selecciones</h2>
+        <div className="seg" role="tablist" aria-label="Perfil de riesgo">
+          {profiles.map((p) => (
+            <button
+              key={p}
+              type="button"
+              role="tab"
+              aria-selected={profile === p}
+              className="chip"
+              data-profile-tab={p}
+              onClick={() => setProfile(p)}
+            >
+              {PROFILE_LABELS[p]}
+            </button>
+          ))}
+        </div>
+      </div>
+      {rows.length === 0 ? (
+        <p className="small secondary">Sin selecciones en este perfil para esta jornada.</p>
+      ) : (
+        <ol className="best-list">
+          {rows.map(({ match, pick }) => (
+            <li key={match.id}>
+              <button type="button" onClick={() => onSelect?.(match)} data-best-game={match.id}>
+                <span className="teams">
+                  <TeamBadge league={match.league} slug={match.home.slug} name={match.home.name} size={20} decorative />
+                  <TeamBadge league={match.league} slug={match.away.slug} name={match.away.name} size={20} decorative />
+                  <span className="names">
+                    {match.home.shortName} – {match.away.shortName}
+                    <small className="muted">
+                      {match.dayLabel} · {match.kickoffLocal}
+                    </small>
+                  </span>
+                </span>
+                <span className="sel">{pick.label}</span>
+                <span className="num pp">{formatPercent(pick.p, 0)}</span>
+                <span className="num odds">{formatDecimal(pick.fairOdds)}</span>
+                {match.confidence ? <ConfidenceBadge confidence={match.confidence} compact /> : null}
+              </button>
+            </li>
+          ))}
+        </ol>
+      )}
+      <p className="caption muted">
+        Probabilidad del modelo y cuota justa (sin margen). Unidades de análisis, no recomendación de
+        monto. +18.
+      </p>
+    </section>
+  );
+}
+
 export function MatchCard({
   match,
   onSelect,
@@ -256,6 +578,10 @@ export function MatchCard({
   const aL = li === ps.length - 1;
   const dL = draw && li === 1;
   const proj = match.projection ?? { home: nf ? 24 : 1.5, away: nf ? 21 : 1.2, total: nf ? 45 : 2.7 };
+  const featured = featuredPickOf(match.picks);
+  const featuredResult = featured ? pickResult(featured, match.score) : null;
+  const projected = match.projectedScore;
+  const moment = useMatchMoment(match.kickoffUtc, isFinished);
 
   return (
     <button
@@ -271,7 +597,8 @@ export function MatchCard({
     >
       <span className="top">
         <span className="when">{isFinished ? "Final" : match.kickoffLocal}</span>
-        <span>{match.venue}</span>
+        <MomentTag moment={moment} />
+        <span className="venue">{match.venue}</span>
       </span>
 
       <span className="tm">
@@ -301,6 +628,19 @@ export function MatchCard({
         labels={draw ? [match.home.name, "Empate", match.away.name] : [match.home.name, match.away.name]}
       />
 
+      {featured ? (
+        <span className="pickline" data-card-pick="">
+          <span className="lbl">Pick</span>
+          <span className="sel">{featured.label}</span>
+          <span className="num pp">{formatPercent(featured.p, 0)}</span>
+          {isFinished && featuredResult ? (
+            <span className={"res " + featuredResult}>
+              {featuredResult === "hit" ? "Acertado" : "Fallado"}
+            </span>
+          ) : null}
+        </span>
+      ) : null}
+
       <span className="foot">
         <span>
           {draw ? (
@@ -309,8 +649,13 @@ export function MatchCard({
               {" · "}
             </>
           ) : null}
-          Proy. {proj.home.toFixed(nf ? 0 : 1)}–{proj.away.toFixed(nf ? 0 : 1)}
+          {projected && !nf
+            ? "Marcador proyectado " + projected.home + "–" + projected.away
+            : "Proy. " + proj.home.toFixed(nf ? 0 : 1) + "–" + proj.away.toFixed(nf ? 0 : 1)}
         </span>
+        {match.confidence && !isFinished ? (
+          <ConfidenceBadge confidence={match.confidence} compact />
+        ) : null}
         <span className="open">
           Analizar <Icon name="arrow" />
         </span>

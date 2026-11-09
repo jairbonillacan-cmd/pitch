@@ -1,5 +1,6 @@
 export * from "./math.js";
 export * from "./calibration.js";
+export * from "./picks.js";
 export * from "./football/dixon-coles.js";
 export * from "./football/form.js";
 export * from "./football/elo.js";

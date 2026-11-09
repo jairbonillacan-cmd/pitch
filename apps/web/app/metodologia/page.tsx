@@ -1,6 +1,6 @@
 import React from "react";
 import { LegalShell } from "../../src/client/legal-shell.js";
-import { BLEND_EVALUATION, MODEL_EVALUATION, formatMetric, formatPercent } from "../../src/server/model-metrics.js";
+import { BLEND_EVALUATION, MODEL_EVALUATION, PICK_EVALUATION, formatMetric, formatPercent } from "../../src/server/model-metrics.js";
 import { loadAllActiveLeagueSnapshots, PRODUCT_LEAGUES } from "../../src/server/snapshots.js";
 
 export const dynamic = "force-dynamic";
@@ -160,6 +160,51 @@ export default function MetodologiaPage(): React.JSX.Element {
         y 5,0 % (NFL). Probamos una capa de calibración por temperatura: en fútbol mejora el
         log-loss pero empeora el ECE, y en NFL no mejora, así que <strong>no se aplica</strong>.
         Preferimos publicar el error antes que esconderlo con un parche que no está probado.
+      </p>
+
+      <h2 id="picks">Picks y confianza</h2>
+      <p>
+        Cada partido por jugar trae hasta tres <strong>picks</strong>: la selección más probable
+        del modelo dentro de cada perfil de riesgo. El pick destacado es el intermedio. Las tres
+        selecciones de un partido siempre pueden cumplirse a la vez. Un pick se calcula{" "}
+        <strong>antes del inicio</strong>, queda con su hora y no se cambia; si el análisis se
+        genera con el partido ya empezado, se publica sin picks.
+      </p>
+      <table className="mtable" data-picks-eval="">
+        <thead>
+          <tr>
+            <th>Perfil</th>
+            <th>Rango</th>
+            <th className="r">Probabilidad media</th>
+            <th className="r">Acierto real</th>
+            <th className="r">Cuota justa media</th>
+          </tr>
+        </thead>
+        <tbody>
+          {PICK_EVALUATION.profiles.map((row) => (
+            <tr key={row.profile}>
+              <td>{row.profile}</td>
+              <td>{row.range}</td>
+              <td className="r">{formatPercent(row.meanP)}</td>
+              <td className="r">{formatPercent(row.hitRate)}</td>
+              <td className="r">{formatMetric(row.fairOdds, 2)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <p style={{ fontSize: "0.85em", opacity: 0.8 }}>
+        {PICK_EVALUATION.window}. Un perfil está bien calibrado cuando su acierto real se parece a
+        la probabilidad que anuncia. Evaluación retro: no cuenta como historial de aciertos. En NFL
+        los picks siguen en validación.
+      </p>
+      <p>
+        La <strong>confianza</strong> (alta, media o baja) mide qué tan claro está el favorito y
+        qué tan estable es el cálculo: muestra de la temporada, rango de incertidumbre y si la
+        temporada coincide con la historia larga. En la misma prueba, el favorito acertó{" "}
+        {PICK_EVALUATION.confidence
+          .map((c) => `${formatPercent(c.favoriteAccuracy)} con confianza ${c.level.toLowerCase()}`)
+          .join(", ")}
+        . No mide el acierto de un pick concreto: para eso está su probabilidad.
       </p>
 
       <h2>5. Datos y frescura</h2>

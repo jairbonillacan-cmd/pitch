@@ -20,6 +20,7 @@ const HISTORY_FILES: Record<string, string> = {
   bundesliga: "bundesliga.jsonl",
   "serie-a": "serie-a.jsonl",
   "ligue-1": "ligue-1.jsonl",
+  nfl: "nfl.jsonl",
 };
 
 interface HistoryLine {

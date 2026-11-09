@@ -11,6 +11,7 @@
  * Todo el cálculo es determinista: mismos datos → mismos números.
  */
 import { clamp, gaussian, makeRng, mean, poissonPmf, quantileSorted } from "../math.js";
+import { coherentScore } from "../picks.js";
 
 export interface FootballMatchRow {
   date: string; // ISO (yyyy-mm-dd)
@@ -355,6 +356,10 @@ export interface FootballPrediction {
   };
   topScores: Array<{ home: number; away: number; p: number }>;
   mostLikelyScore: { home: number; away: number; p: number };
+  /** Marcador más probable dentro del resultado y del lado de 2.5 favoritos. */
+  projectedScore: { home: number; away: number; p: number };
+  /** 1X2 del modelo de temporada antes de mezclar con la memoria larga. */
+  seasonProbabilities: { home: number; draw: number; away: number };
   intervals: {
     homeWin: [number, number];
     total: [number, number];
@@ -399,6 +404,22 @@ export function rescaleMatrixToOutcome(
   return matrix.map((row, i) =>
     row.map((p, j) => p * (i > j ? fh : i === j ? fd : fa)),
   );
+}
+
+/**
+ * Marcador coherente a partir de una proyección ya publicada (goles esperados y 1X2).
+ * Se usa para análisis anteriores a esta función: reconstruye la rejilla con los goles
+ * esperados, la ajusta al 1X2 publicado y elige el marcador dentro de lo favorito.
+ */
+export function coherentScoreFromProjection(
+  lambdaHome: number,
+  lambdaAway: number,
+  x12: readonly [number, number, number],
+  rho = -0.05,
+  size = 10,
+): { home: number; away: number; p: number } {
+  const matrix = scoreMatrix(lambdaHome, lambdaAway, rho, size);
+  return coherentScore(rescaleMatrixToOutcome(matrix, { home: x12[0], draw: x12[1], away: x12[2] }));
 }
 
 function blendTarget(
@@ -499,6 +520,12 @@ export function predictFootball(
     },
     topScores: outcome.topScores,
     mostLikelyScore: outcome.mostLikely,
+    projectedScore: coherentScore(joint),
+    seasonProbabilities: {
+      home: rawOutcome.home,
+      draw: rawOutcome.draw,
+      away: rawOutcome.away,
+    },
     intervals: {
       homeWin: [
         clamp(quantileSorted(homeDraws, 0.05) + homeShift, 0, 1),

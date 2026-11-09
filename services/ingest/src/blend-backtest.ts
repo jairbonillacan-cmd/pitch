@@ -18,10 +18,18 @@ import {
   createEloTracker,
   expectedCalibrationError,
   fitDixonColes,
+  confidenceIndex,
+  CONFIDENCE_THRESHOLDS,
+  featuredPick,
   pairedBootstrap,
   predictFootball,
+  selectionHolds,
+  selectPicks,
   type EloMatch,
   type FootballMatchRow,
+  type FootballPrediction,
+  type Pick,
+  type PickCandidate,
 } from "@pitchlab/models";
 import { loadLeagueHistory } from "./prior-season.js";
 
@@ -43,6 +51,42 @@ interface Sample {
   /** 1X2 por peso, en el mismo orden que WEIGHTS. */
   probs: Array<[number, number, number]>;
   elo: [number, number, number];
+  /** Índice de confianza del pronóstico publicado (peso preset). */
+  confidence: number;
+  picks: Array<Pick & { hit: boolean }>;
+  featuredProfile?: string;
+}
+
+/** Candidatos con las mismas claves que publica `analyzeFootballGameV2`. */
+export function footballCandidates(pred: FootballPrediction): PickCandidate[] {
+  const c = (market: string, selection: string, p: number, line?: number): PickCandidate => ({
+    market,
+    selection,
+    line,
+    p,
+    fairOdds: 1 / Math.max(1e-6, p),
+    label: `${market}:${selection}`,
+  });
+  const t = (line: number) => pred.totals.find((x) => x.line === line)!;
+  return [
+    c("h2h", "home", pred.probabilities.home),
+    c("h2h", "draw", pred.probabilities.draw),
+    c("h2h", "away", pred.probabilities.away),
+    c("double_chance", "1x", pred.doubleChance.homeOrDraw),
+    c("double_chance", "x2", pred.doubleChance.drawOrAway),
+    c("double_chance", "12", pred.doubleChance.homeOrAway),
+    c("totals", "over_1.5", t(1.5).over, 1.5),
+    c("totals", "over_2.5", t(2.5).over, 2.5),
+    c("totals", "under_2.5", t(2.5).under, 2.5),
+    c("totals", "over_3.5", t(3.5).over, 3.5),
+    c("totals", "under_3.5", t(3.5).under, 3.5),
+    c("btts", "yes", pred.btts.yes),
+    c("btts", "no", pred.btts.no),
+    c("team_totals", "home_over", pred.teamTotals.home.over, 1.5),
+    c("team_totals", "home_under", pred.teamTotals.home.under, 1.5),
+    c("team_totals", "away_over", pred.teamTotals.away.over, 1.5),
+    c("team_totals", "away_under", pred.teamTotals.away.under, 1.5),
+  ];
 }
 
 function outcomeOf(m: EloMatch): 0 | 1 | 2 {
@@ -121,7 +165,39 @@ function runLeague(league: string): Sample[] {
           }).probabilities;
           return [p.home, p.draw, p.away] as [number, number, number];
         });
-        samples.push({ league, season, outcome: outcomeOf(g), probs, elo: [e.home, e.draw, e.away] });
+        const published = predictFootball(model, g.home, g.away, {
+          simulations: 60,
+          outcomeBlend: { home: e.home, draw: e.draw, away: e.away, weight: PRESET_WEIGHT },
+        });
+        const gamesOf = (team: string) =>
+          played.filter((r) => r.home === team || r.away === team).length;
+        const pr = published.probabilities;
+        const sp = published.seasonProbabilities;
+        const confidence = confidenceIndex({
+          favorite: Math.max(pr.home, pr.draw, pr.away),
+          minGamesPlayed: Math.min(gamesOf(g.home), gamesOf(g.away)),
+          intervalWidth: published.intervals.homeWin[1] - published.intervals.homeWin[0],
+          disagreement: Math.max(
+            Math.abs(sp.home - e.home),
+            Math.abs(sp.draw - e.draw),
+            Math.abs(sp.away - e.away),
+          ),
+          outcomes: 3,
+        }).score;
+        const picks = selectPicks(footballCandidates(published), { maxScore: 10 }).map((pk) => ({
+          ...pk,
+          hit: selectionHolds(pk, g.homeGoals, g.awayGoals) === true,
+        }));
+        samples.push({
+          league,
+          season,
+          outcome: outcomeOf(g),
+          probs,
+          elo: [e.home, e.draw, e.away],
+          confidence,
+          picks,
+          featuredProfile: featuredPick(picks)?.profile,
+        });
       }
     }
   }
@@ -176,6 +252,57 @@ function main(): void {
     test.map((s) => logLoss(s.probs[presetIndex]!, s.outcome)),
   );
 
+  const presetProbs = (x: Sample) => x.probs[presetIndex]!;
+  const byConfidence = (rows: Sample[]) =>
+    (["alta", "media", "baja"] as const).map((level) => {
+      const inLevel = rows.filter((r) =>
+        level === "alta"
+          ? r.confidence >= CONFIDENCE_THRESHOLDS.alta
+          : level === "media"
+            ? r.confidence >= CONFIDENCE_THRESHOLDS.media && r.confidence < CONFIDENCE_THRESHOLDS.alta
+            : r.confidence < CONFIDENCE_THRESHOLDS.media,
+      );
+      const n = inLevel.length;
+      const hits = inLevel.filter((r) => {
+        const p = presetProbs(r);
+        return p.indexOf(Math.max(...p)) === r.outcome;
+      }).length;
+      const featured = inLevel.flatMap((r) => r.picks.filter((pk) => pk.profile === r.featuredProfile));
+      return {
+        level,
+        n,
+        share: n / Math.max(1, rows.length),
+        favoriteAccuracy: hits / Math.max(1, n),
+        logLoss: inLevel.reduce((acc, r) => acc + logLoss(presetProbs(r), r.outcome), 0) / Math.max(1, n),
+        featuredHit: featured.filter((pk) => pk.hit).length / Math.max(1, featured.length),
+      };
+    });
+  const quantile = (xs: number[], q: number) => {
+    const sorted = [...xs].sort((a, b) => a - b);
+    return sorted[Math.floor((sorted.length - 1) * q)] ?? 0;
+  };
+  const byProfile = (rows: Sample[]) =>
+    (["conservadora", "intermedia", "arriesgada"] as const).map((profile) => {
+      const picks = rows.flatMap((r) => r.picks.filter((pk) => pk.profile === profile));
+      const n = picks.length;
+      return {
+        profile,
+        n,
+        coverage: n / Math.max(1, rows.length),
+        meanP: picks.reduce((acc, pk) => acc + pk.p, 0) / Math.max(1, n),
+        hitRate: picks.filter((pk) => pk.hit).length / Math.max(1, n),
+        meanFairOdds: picks.reduce((acc, pk) => acc + pk.fairOdds, 0) / Math.max(1, n),
+      };
+    });
+  const confidenceValidation = {
+    q30: quantile(validation.map((r) => r.confidence), 0.3),
+    q70: quantile(validation.map((r) => r.confidence), 0.7),
+    levels: byConfidence(validation),
+  };
+  const confidenceTest = byConfidence(test);
+  const profilesTest = byProfile(test);
+  const profilesValidation = byProfile(validation);
+
   const report = {
     generatedAt: new Date().toISOString(),
     method:
@@ -186,6 +313,8 @@ function main(): void {
     weightChosenOnValidation: chosen.weight,
     validation: valSummary,
     test: { ...testSummary, deltaPresetVsV2: testBoot, perLeague },
+    confidence: { thresholds: CONFIDENCE_THRESHOLDS, validation: confidenceValidation, test: confidenceTest },
+    picks: { validation: profilesValidation, test: profilesTest },
   };
   mkdirSync(OUTPUT_DIR, { recursive: true });
   writeFileSync(resolve(OUTPUT_DIR, "backtest-blend.json"), JSON.stringify(report, null, 2) + "\n", "utf8");
@@ -228,6 +357,32 @@ function main(): void {
     ),
     "",
     `Peso elegido en validación aplicado a prueba (${chosen.weight}): log loss ${testSummary.byWeight[chosenIndex]!.logLoss.toFixed(4)}.`,
+    "",
+    "## Índice de confianza",
+    "",
+    `Umbrales: Alta ≥ ${CONFIDENCE_THRESHOLDS.alta}, Media ≥ ${CONFIDENCE_THRESHOLDS.media}. Percentiles 30/70 del índice en validación: ${confidenceValidation.q30} / ${confidenceValidation.q70}.`,
+    "",
+    "| Nivel (prueba) | Partidos | % del total | Acierto del favorito | Log loss 1X2 | Acierto del pick destacado |",
+    "|---|---|---|---|---|---|",
+    ...confidenceTest.map(
+      (l) =>
+        `| ${l.level} | ${l.n} | ${pct(l.share)} | ${pct(l.favoriteAccuracy)} | ${l.logLoss.toFixed(4)} | ${pct(l.featuredHit)} |`,
+    ),
+    "",
+    "## Picks por perfil",
+    "",
+    "| Perfil | Muestra | Partidos con pick | Probabilidad media | Acierto real | Cuota justa media |",
+    "|---|---|---|---|---|---|",
+    ...profilesValidation.map(
+      (p) =>
+        `| ${p.profile} | validación (n=${p.n}) | ${pct(p.coverage)} | ${pct(p.meanP)} | ${pct(p.hitRate)} | ${p.meanFairOdds.toFixed(2)} |`,
+    ),
+    ...profilesTest.map(
+      (p) =>
+        `| ${p.profile} | prueba (n=${p.n}) | ${pct(p.coverage)} | ${pct(p.meanP)} | ${pct(p.hitRate)} | ${p.meanFairOdds.toFixed(2)} |`,
+    ),
+    "",
+    "Un perfil está bien calibrado si su acierto real se parece a su probabilidad media.",
     "",
   ];
   writeFileSync(resolve(OUTPUT_DIR, "BACKTEST-BLEND.md"), lines.join("\n"), "utf8");

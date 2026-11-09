@@ -14,6 +14,7 @@ import {
   EmptyState,
   ErrorState,
   StandingsTable,
+  BestPicks,
 } from "@pitchlab/ui";
 import type { SnapshotEnvelope } from "../server/snapshots.js";
 import type { ProductLeague } from "../server/snapshots.js";
@@ -324,6 +325,12 @@ export function PanelClient({
             })}
           </div>
         </nav>
+
+        {envelope.state !== "error" && games.length > 0 ? (
+          <div className="wrap">
+            <BestPicks matches={games} onSelect={handleSelectMatch} />
+          </div>
+        ) : null}
 
         <div className="wrap" id="games" tabIndex={-1}>
           {envelope.state === "error" ? (

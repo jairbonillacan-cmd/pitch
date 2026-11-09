@@ -1,9 +1,19 @@
 import { asMarketKey, type LeagueId } from "./ids.js";
 import type {
+  AnalysisConfidence,
   AnalysisMarketGroup,
+  AnalysisPick,
   LeagueSnapshot,
   MostLikelyScore,
 } from "./analysis.js";
+
+export interface HeadToHeadView {
+  date: string;
+  home: string;
+  away: string;
+  homeGoals: number;
+  awayGoals: number;
+}
 import { decimalToAmerican } from "./odds.js";
 
 export interface FairOdds {
@@ -76,6 +86,12 @@ export interface MatchAnalysis {
   outcomes: OutcomeMarket[];
   factors: FactorItem[];
   trace: CalcStep[];
+  picks?: AnalysisPick[];
+  confidence?: AnalysisConfidence;
+  projectedScore?: MostLikelyScore;
+  why?: string[];
+  headToHead?: HeadToHeadView[];
+  restDays?: { home?: number; away?: number };
 }
 
 export function probabilityToFairOdds(p: number): FairOdds {
@@ -210,12 +226,34 @@ export function snapshotToMatchAnalyses(snapshot: LeagueSnapshot): {
   const isNfl = snapshot.league === "nfl";
   dayMap.set("all", `Toda la ${isNfl ? "semana" : "jornada"}`);
 
-  const leagueLabel =
-    snapshot.league === "liga-mx"
-      ? "Liga MX"
-      : snapshot.league === "premier-league"
-        ? "Premier League"
-        : "NFL";
+  const LEAGUE_NAMES: Record<string, string> = {
+    "liga-mx": "Liga MX",
+    "premier-league": "Premier League",
+    laliga: "LaLiga",
+    bundesliga: "Bundesliga",
+    "serie-a": "Serie A",
+    "ligue-1": "Ligue 1",
+    nfl: "NFL",
+  };
+  const leagueLabel = LEAGUE_NAMES[snapshot.league] ?? snapshot.league;
+
+  const names = new Map<string, string>();
+  for (const g of snapshot.games) {
+    names.set(g.home.id, g.home.shortName);
+    names.set(g.away.id, g.away.shortName);
+  }
+  for (const [id, rate] of Object.entries(snapshot.teamRates)) {
+    if (!names.has(id)) names.set(id, rate.shortName);
+  }
+  const teamName = (id: string): string => {
+    const known = names.get(id);
+    if (known) return known;
+    const slug = id.includes(".") ? id.split(".")[1]! : id;
+    return slug
+      .split("-")
+      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+      .join(" ");
+  };
 
   const sortedGames = snapshot.games
     .slice()
@@ -360,6 +398,18 @@ export function snapshotToMatchAnalyses(snapshot: LeagueSnapshot): {
       outcomes,
       factors,
       trace,
+      picks: analysis?.picks,
+      confidence: analysis?.confidence,
+      projectedScore: analysis?.projectedScore,
+      why: analysis?.insights?.why,
+      headToHead: analysis?.insights?.headToHead?.map((h) => ({
+        date: h.date,
+        home: teamName(h.homeTeamId),
+        away: teamName(h.awayTeamId),
+        homeGoals: h.homeGoals,
+        awayGoals: h.awayGoals,
+      })),
+      restDays: analysis?.insights?.restDays,
     };
   });
 

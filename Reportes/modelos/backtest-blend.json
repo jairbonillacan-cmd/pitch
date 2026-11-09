@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-09T04:24:21.236Z",
+  "generatedAt": "2026-11-09T04:48:50.662Z",
   "method": "Walk-forward semanal. v2 = Dixon-Coles con temporada anterior a peso 0.45 (igual que producción). Mezcla = 1X2 de v2 y de ratings incrementales de todo el historial; la matriz de marcadores se reescala al 1X2 mezclado.",
   "validationSeasons": [
     "2019-20",
@@ -398,6 +398,122 @@
           "upper": 0.01059098772987233,
           "wins": 108
         }
+      }
+    ]
+  },
+  "confidence": {
+    "thresholds": {
+      "alta": 62,
+      "media": 45
+    },
+    "validation": {
+      "q30": 47,
+      "q70": 67,
+      "levels": [
+        {
+          "level": "alta",
+          "n": 2996,
+          "share": 0.3877815169557339,
+          "favoriteAccuracy": 0.6328437917222964,
+          "logLoss": 0.8940176372070772,
+          "featuredHit": 0.6328437917222964
+        },
+        {
+          "level": "media",
+          "n": 2963,
+          "share": 0.3835102252135646,
+          "favoriteAccuracy": 0.4741815727303409,
+          "logLoss": 1.048701849391677,
+          "featuredHit": 0.6625042186972663
+        },
+        {
+          "level": "baja",
+          "n": 1767,
+          "share": 0.22870825783070153,
+          "favoriteAccuracy": 0.4046406338426712,
+          "logLoss": 1.082394715757091,
+          "featuredHit": 0.6740237691001698
+        }
+      ]
+    },
+    "test": [
+      {
+        "level": "alta",
+        "n": 2184,
+        "share": 0.3950081389039609,
+        "favoriteAccuracy": 0.6428571428571429,
+        "logLoss": 0.8701183747535357,
+        "featuredHit": 0.6327838827838828
+      },
+      {
+        "level": "media",
+        "n": 2103,
+        "share": 0.3803581117742811,
+        "favoriteAccuracy": 0.48121730860675227,
+        "logLoss": 1.0353834162627698,
+        "featuredHit": 0.6633380884450785
+      },
+      {
+        "level": "baja",
+        "n": 1242,
+        "share": 0.224633749321758,
+        "favoriteAccuracy": 0.46215780998389694,
+        "logLoss": 1.058945193656874,
+        "featuredHit": 0.6698872785829307
+      }
+    ]
+  },
+  "picks": {
+    "validation": [
+      {
+        "profile": "conservadora",
+        "n": 7726,
+        "coverage": 1,
+        "meanP": 0.8334834125621687,
+        "hitRate": 0.8009319181982915,
+        "meanFairOdds": 1.204592460678466
+      },
+      {
+        "profile": "intermedia",
+        "n": 7700,
+        "coverage": 0.996634739839503,
+        "meanP": 0.6584373522855228,
+        "hitRate": 0.6527272727272727,
+        "meanFairOdds": 1.5251105524373918
+      },
+      {
+        "profile": "arriesgada",
+        "n": 7710,
+        "coverage": 0.9979290706704633,
+        "meanP": 0.4805470570799102,
+        "hitRate": 0.47613488975356677,
+        "meanFairOdds": 2.0909653072866106
+      }
+    ],
+    "test": [
+      {
+        "profile": "conservadora",
+        "n": 5529,
+        "coverage": 1,
+        "meanP": 0.8370721834561484,
+        "hitRate": 0.8240188099113763,
+        "meanFairOdds": 1.1995937847430773
+      },
+      {
+        "profile": "intermedia",
+        "n": 5516,
+        "coverage": 0.9976487610779526,
+        "meanP": 0.6587744989392951,
+        "hitRate": 0.6522842639593909,
+        "meanFairOdds": 1.5241979788908
+      },
+      {
+        "profile": "arriesgada",
+        "n": 5505,
+        "coverage": 0.9956592512208355,
+        "meanP": 0.48038628431495034,
+        "hitRate": 0.4899182561307902,
+        "meanFairOdds": 2.0925444926280634
       }
     ]
   }

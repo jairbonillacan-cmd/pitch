@@ -14,6 +14,7 @@ import {
 import { normalCdf } from "../math.js";
 import { predictNfl, type NflMatchRow, type NflPrediction, type NflRatingsModel } from "./ratings.js";
 import { formatNflForm, recentNflForm } from "./form.js";
+import { candidatesFromGroups, confidenceIndex, selectPicks } from "../picks.js";
 
 export interface NflAnalysisInput {
   game: GameDTO;
@@ -192,8 +193,25 @@ export function analyzeNflGameV2(input: NflAnalysisInput): GameAnalysis {
     }
   }
 
+  const picks = selectPicks(candidatesFromGroups(marketGroups), { maxScore: 70 });
+  const homeRateN = teamRates[game.home.id];
+  const awayRateN = teamRates[game.away.id];
+  const confidence = confidenceIndex({
+    favorite: Math.max(pHome, pAway),
+    minGamesPlayed: Math.min(homeRateN?.gamesPlayed ?? 0, awayRateN?.gamesPlayed ?? 0),
+    outcomes: 2,
+  });
+  const leaderName = pHome >= pAway ? game.home.shortName : game.away.shortName;
+  const why = [
+    `${leaderName} gana en ${(Math.max(pHome, pAway) * 100).toFixed(0)} % de los escenarios, por ${Math.abs(prediction.margin).toFixed(1)} puntos en promedio.`,
+    `Se esperan ${prediction.total.toFixed(1)} puntos: ${prediction.homePoints.toFixed(1)} de ${game.home.shortName} y ${prediction.awayPoints.toFixed(1)} de ${game.away.shortName}.`,
+  ];
+
   return {
     game: game.id,
+    picks: picks.map((pk) => ({ ...pk, market: asMarketKey(pk.market) })),
+    confidence,
+    insights: { why },
     model: {
       id: "pitchlab-statistical-nfl",
       version: input.version ?? "2.0.0",

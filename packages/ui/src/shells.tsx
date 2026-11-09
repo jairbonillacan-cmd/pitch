@@ -13,6 +13,9 @@ import {
   FactorsList,
   MarketTable,
   OddsCompare,
+  PicksPanel,
+  WhyList,
+  HeadToHead,
 } from "./sports.js";
 
 export function FloatingNav({
@@ -700,13 +703,24 @@ export function AnalysisDialog({
 
                     <div className="mscore">
                       <div className="caption muted">
-                        {isFinished ? "Final" : "Proyección"}
+                        {isFinished
+                          ? "Final"
+                          : !nf && match.projectedScore
+                            ? "Marcador proyectado"
+                            : "Proyección"}
                       </div>
                       <div className="numeric-hl">
                         {isFinished
                           ? `${match.score?.home} – ${match.score?.away}`
-                          : `${proj.home.toFixed(nf ? 0 : 1)} – ${proj.away.toFixed(nf ? 0 : 1)}`}
+                          : !nf && match.projectedScore
+                            ? `${match.projectedScore.home} – ${match.projectedScore.away}`
+                            : `${proj.home.toFixed(nf ? 0 : 1)} – ${proj.away.toFixed(nf ? 0 : 1)}`}
                       </div>
+                      {!isFinished && !nf && match.projectedScore ? (
+                        <div className="caption muted xg-line" title="Promedio de goles; el marcador más probable suele ser más bajo">
+                          Goles esperados {proj.home.toFixed(1)} – {proj.away.toFixed(1)}
+                        </div>
+                      ) : null}
                       <div className="split-big">
                         <ProbSplit
                           probabilities={draw ? [ph, pd, pa] : [ph, pa]}
@@ -761,7 +775,26 @@ export function AnalysisDialog({
                     />
 
                     <div className="side-col">
-                      {match.mostLikelyScore ? (
+                      {match.picks && match.picks.length > 0 ? (
+                        <PicksPanel
+                          picks={match.picks}
+                          confidence={isFinished ? undefined : match.confidence}
+                          score={isFinished ? match.score : undefined}
+                        />
+                      ) : null}
+                      {!isFinished && !(match.picks && match.picks.length > 0) ? (
+                        <p className="caption muted no-picks" data-no-picks="">
+                          Sin picks: este análisis se calculó con el partido ya iniciado. Los picks
+                          solo se publican antes del inicio.
+                        </p>
+                      ) : null}
+                      {match.why && match.why.length > 0 ? (
+                        <WhyList
+                          why={match.why}
+                          title={match.picks && match.picks.length > 0 ? "Por qué este pick" : "Lectura del modelo"}
+                        />
+                      ) : null}
+                      {!match.picks && match.mostLikelyScore ? (
                         <div className="panel likely">
                           <span className="small secondary">
                             Marcador más probable
@@ -780,6 +813,13 @@ export function AnalysisDialog({
                       <OddsCompare
                         marketLabel={selectedMarketLabel}
                         modelProb={selectedMarketProb}
+                      />
+
+                      <HeadToHead
+                        rows={match.headToHead}
+                        restDays={match.restDays}
+                        homeName={match.home.shortName}
+                        awayName={match.away.shortName}
                       />
 
                       <FactorsList factors={match.factors} />
