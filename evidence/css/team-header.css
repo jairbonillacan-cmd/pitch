@@ -1,0 +1,137 @@
+/*
+  The team page's hero (livewire/partials/team-detail-header.blade.php):
+  crest, name, competition, the season's figures and the cards beside them.
+  Moved out of the page's inline styles so its browser harness
+  (testing.team-header-harness) is drawn by the same rules.
+*/
+
+/*
+  Sized so "Paris Saint-Germain" (9.96em wide in Inter 800), the longest
+  name that must hold one line, does so beside all three cards from 1400px
+  up, where they share its row: 2.25rem, a 68px crest, 1.25rem gaps and 2rem
+  side padding leave it 382px at 1400px for its 358. A longer name takes two
+  lines. Below 1400px the cards drop to a row of their own (sk.css). Pinned
+  by tests/Browser/team-header.spec.js.
+*/
+.team-header { color: var(--text); box-shadow: none; padding-inline: 2rem; }
+/* As low as its content (owner, 7 Nov): half the page hero's 3rem above and
+   below, and cards as tall as the tallest one's content rather than the
+   player page's 13.25rem floor. They still stretch to one height together. */
+.team-header.sk-page-hero { padding-block: 1.5rem; }
+.team-header .sk-hero-side > .sk-hero-card { min-height: 0; }
+.team-header__inner { display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; position: relative; z-index: 1; }
+.team-crest {
+  width: 68px; height: 68px; border-radius: 16px; border: 1px solid var(--border-light);
+  display: inline-flex; align-items: center; justify-content: center; flex: 0 0 68px;
+  background: rgba(255,255,255,.05); color: var(--accent-ink); font-size: 1.4rem; font-weight: 800;
+  box-shadow: 0 8px 24px rgba(0,0,0,.18);
+}
+/* Crest and competition badge. Additive: .team-crest and .team-meta__item
+   keep their own rules, so a team or league with no mapping still shows the
+   initials and the trophy exactly as before. */
+.team-crest__img { width: 48px; height: 48px; object-fit: contain; }
+.team-meta__logo { width: 16px; height: 16px; object-fit: contain; }
+.team-title { margin: 0 0 .7rem; color: var(--text); font-size: clamp(1.6rem, 4vw, 2.25rem); line-height: 1.08; font-weight: 800; }
+.team-meta, .team-attrs { display: flex; flex-wrap: wrap; align-items: center; gap: .7rem; }
+/* The figure pills sit closer than the meta line (Fase 5): half its gap. A pill
+   never breaks across lines: one that does not fit beside the cards drops whole
+   to the next row. */
+.team-attrs { gap: .35rem; }
+.team-meta { margin-bottom: .8rem; color: var(--text-muted); font-size: .9rem; }
+.team-meta__item, .team-attr { display: inline-flex; align-items: center; gap: .35rem; }
+.team-meta__link, .team-summary__league { color: inherit; text-decoration: none; transition: color .15s ease; }
+.team-meta__link:hover, .team-summary__league:hover { color: var(--accent-ink); }
+.team-attr {
+  border: 1px solid var(--border-light); border-radius: 999px; padding: .35rem .7rem;
+  background: rgba(255,255,255,.04); color: var(--text-muted); font-size: .8rem; white-space: nowrap;
+}
+/*
+  The hero's cards (.sk-hero-card in sk.css, as on the player page). The
+  season summary is the widest: the table standing as three figures in the
+  ranking card's weight, then the same matches' xG in a second row of three.
+*/
+.team-hero-summary { flex: 0 0 280px; max-width: 280px; }
+/* Form above formation, never taller than the summary beside it; wide
+   enough for "FormaciÃ³n mÃ¡s utilizada" on one line. */
+.team-hero-play { flex: 0 0 240px; max-width: 250px; justify-content: space-between; }
+.team-hero-play__block { display: flex; flex-direction: column; align-items: center; width: 100%; }
+.team-hero-play__block + .team-hero-play__block { margin-top: .6rem; padding-top: .6rem; border-top: 1px solid var(--border-light); }
+.team-hero-play .sk-hero-card__sub { margin-bottom: .4rem; }
+.team-hero-standing { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .4rem; width: 100%; }
+.team-hero-standing__item { display: flex; flex-direction: column; align-items: center; gap: .15rem; }
+.team-hero-standing__value { color: var(--accent-ink); font-size: 1.5rem; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; }
+.team-hero-standing__label { color: var(--text-muted); font-size: .62rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; }
+/* The second row, the same matches' xG, in the first row's weight (owner, 7 Nov). */
+.team-hero-standing--xg { margin-top: .55rem; padding-top: .55rem; border-top: 1px solid var(--border-light); }
+/* "xG en contra" on one line in a third of the card. */
+.team-hero-standing--xg .team-hero-standing__label { white-space: nowrap; letter-spacing: .02em; }
+.team-hero-play .team-form { justify-content: center; flex-wrap: wrap; }
+.team-hero-empty { color: var(--text-muted); font-size: .75rem; }
+.team-hero-formation { position: relative; }
+.team-hero-formation__content { width: 100%; margin-top: .3rem; }
+.team-hero-formation .team-formation-mvp { gap: .4rem; }
+.team-hero-formation .team-formation-primary { flex-direction: column; align-items: center; gap: .2rem; }
+.team-hero-formation .team-formation-primary strong { font-size: 1.4rem; }
+.team-hero-formation .team-formation-primary span { font-size: .75rem; }
+.team-hero-formation .team-formation-note { margin: 0; color: var(--text-muted); font-size: .65rem; }
+.team-hero-formation .team-empty { padding: .5rem 0; font-size: .75rem; }
+/* As tall loading as loaded, so the card keeps its height and the loading box fits inside the block. */
+.team-hero-formation { min-height: 4rem; }
+.team-hero-formation .stats-loading-overlay { border-radius: .5rem; }
+.team-hero-formation .stats-loading-box { gap: .4rem; padding: .35rem .7rem; font-size: .72rem; white-space: nowrap; }
+.team-form { display: inline-flex; gap: .25rem; }
+.team-form__pill {
+  width: 24px; height: 24px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
+  color: #0e1e14; background: var(--accent); font-size: .7rem; font-weight: 800;
+}
+.team-form__pill--L { background: #FFAA60; color: #2a0000; }
+/* Neutral grey in both themes: a white wash vanished on the light theme's tinted cards. */
+.team-form__pill--D { background: color-mix(in srgb, var(--text-muted) 28%, transparent); color: var(--text); }
+.team-formation-mvp { display: grid; gap: .9rem; }
+.team-formation-primary { display: flex; align-items: baseline; gap: .8rem; flex-wrap: wrap; }
+.team-formation-primary strong { color: var(--accent-ink); font-size: clamp(2rem, 5vw, 3rem); line-height: 1; }
+.team-formation-primary span { color: var(--text-muted); font-size: .86rem; }
+/*
+  The hero's Partidos restantes (SK-02.3): this team's row of the league
+  page's Matriz de dificultad in a hero card. A box a round left in its
+  grade's colour (.sk-grade--*, sk.css), the rival's crest as the
+  standings draw it, its code and the venue and grade, so the colour is
+  never the only cue; the rounds scroll sideways inside the card.
+*/
+.team-hero-remaining { flex: 0 0 260px; max-width: 260px; min-width: 0; display: flex; flex-direction: column; align-items: center; }
+.team-remaining__rank { cursor: default; }
+.team-remaining__rank strong { color: var(--text); font-size: .9rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+.team-remaining__rounds { display: grid; grid-auto-flow: column; grid-auto-columns: 2.85rem; gap: 3px; width: 100%; margin: .2rem 0 0; padding: 0 0 .4rem; list-style: none; overflow-x: auto; scrollbar-width: thin; scrollbar-color: var(--border-light) transparent; }
+.team-remaining__round { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.team-remaining__round-head { overflow: hidden; color: var(--text-muted); font-size: .6rem; font-weight: 700; text-align: center; text-overflow: ellipsis; white-space: nowrap; }
+.team-remaining__fixture { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .1rem; min-height: 3rem; padding: .2rem .1rem; border-radius: 5px; color: var(--text); line-height: 1.1; text-decoration: none; }
+a.team-remaining__fixture:hover, a.team-remaining__fixture:focus-visible { box-shadow: inset 0 0 0 2px var(--text); color: inherit; }
+.team-remaining__fixture.sk-grade--1, .team-remaining__fixture.sk-grade--5 { color: var(--bg-card); }
+.team-remaining__fixture--open { border: 1px dashed var(--border-light); color: var(--text-muted); }
+.team-remaining__crest { width: 16px; height: 16px; background-color: var(--bg-card); }
+.team-remaining__crest.sk-player-table__avatar--placeholder { font-size: .55rem; line-height: 1; }
+.team-remaining__code { font-size: .66rem; font-weight: 800; letter-spacing: .02em; }
+.team-remaining__venue { font-size: .56rem; font-weight: 600; opacity: .85; white-space: nowrap; }
+.team-remaining__fixture--home .team-remaining__venue { font-weight: 800; opacity: 1; }
+.team-remaining__blank { display: flex; align-items: center; justify-content: center; min-height: 3rem; color: var(--text-muted); }
+.team-remaining__scale { display: flex; align-items: center; justify-content: center; gap: .2rem; margin: auto 0 0; padding-top: .3rem; color: var(--text-muted); font-size: .6rem; }
+.team-remaining__scale-chip { width: .7rem; height: .5rem; border-radius: 2px; }
+@media (max-width: 768px) {
+  .team-hero-summary { flex: 1 1 285px; max-width: 360px; }
+  .team-hero-play, .team-hero-remaining { flex: 0 1 240px; max-width: 260px; }
+}
+@media (max-width: 480px) {
+  .team-hero-summary, .team-hero-play, .team-hero-remaining { flex-basis: 100%; max-width: 300px; }
+}
+/*
+  A phone: the name takes 6vw, so the benchmark holds one line from 360px
+  (capped at the 1.6rem the wider range starts from, so 640 and 641 match)
+  (215px of name in 228px) with a smaller crest, gap and padding beside it.
+*/
+@media (max-width: 640px) {
+  .team-header { padding: 1.25rem; }
+  .team-header__inner { gap: .85rem; }
+  .team-crest { width: 52px; height: 52px; flex-basis: 52px; border-radius: 12px; font-size: 1.1rem; }
+  .team-crest__img { width: 38px; height: 38px; }
+  .team-title { font-size: clamp(1.25rem, 6vw, 1.6rem); }
+}

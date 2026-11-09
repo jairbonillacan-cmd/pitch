@@ -1,0 +1,118 @@
+/**
+ * The pass network and pass matrix (team-pass-network.js), shared by the
+ * team page's Mapas tab and the match page's Eventos tab. Moved out of
+ * team-detail.blade.php unchanged; the generic team-page rules its markup
+ * uses are repeated here inside the network's own container, so the match
+ * page has them and the team page reads the same values it always did.
+ */
+
+/* The team page's generic rules first, so the network's own override them as before. */
+.team-pass-network-panels .team-snapshot { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .6rem; }
+.team-pass-network-panels .team-snapshot__item { border: 1px solid var(--border-light); border-radius: 8px; padding: .75rem; background: rgba(255,255,255,.03); }
+.team-pass-network-panels .team-snapshot__label { display: block; color: var(--text-muted); font-size: .68rem; text-transform: uppercase; letter-spacing: .06em; }
+.team-pass-network-panels .team-snapshot__value { display: block; margin-top: .25rem; color: var(--text); font-size: 1.2rem; font-weight: 800; }
+.team-pass-network-panels .team-visual-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: .75rem; }
+.team-pass-network-panels .team-formation-note { color: var(--text-muted); font-size: .78rem; margin: 0; }
+.team-pass-network-panels .team-empty { color: var(--text-muted); text-align: center; padding: 2.5rem 1rem; }
+
+.team-pass-network-panels { position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; align-items: stretch; margin-top: 1rem; }
+.team-pass-network-card, .team-pass-matrix-card { min-width: 0; height: 100%; }
+.team-pass-network-card, .team-pass-matrix-card { display: grid; align-content: start; gap: .85rem; }
+.team-pass-network-card .team-visual-header, .team-pass-matrix-card .team-visual-header { margin-bottom: 0; }
+.team-pass-network-pitch { position: relative; min-height: 620px; border: 1px solid var(--border-light); border-radius: 8px; overflow: hidden; background: rgba(255,255,255,.02); }
+.team-pass-network-pitch svg { display: block; width: 100%; height: 620px; }
+.team-pass-network-card .team-snapshot { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.team-pass-matrix { min-width: 0; display: grid; gap: .65rem; padding-top: .2rem; }
+.team-pass-matrix__filter { justify-self: start; margin: 0; }
+.team-pass-matrix__scroll { width: 100%; overflow-x: auto; overflow-y: hidden; overscroll-behavior: contain; border: 1px solid var(--border-light); border-radius: 6px; background: rgba(255,255,255,.015); }
+.team-pass-matrix__table { border-collapse: separate; border-spacing: 1px; width: max-content; min-width: 100%; padding: 1px; color: var(--text); font-size: .66rem; }
+.team-pass-matrix__table th { background: var(--bg-card); color: var(--text-secondary); font-weight: 700; }
+.team-pass-matrix__corner { position: sticky; top: 0; left: 0; z-index: 4; width: 116px; min-width: 116px; padding: .4rem; text-align: left; vertical-align: bottom; }
+.team-pass-matrix__corner span { display: block; }
+.team-pass-matrix__corner span:last-child { color: var(--text-muted); text-align: right; }
+.team-pass-matrix__column { position: sticky; top: 0; z-index: 2; width: 30px; min-width: 30px; height: 104px; padding: .3rem .2rem; vertical-align: bottom; }
+.team-pass-matrix__column span { display: inline-block; max-height: 94px; overflow: hidden; writing-mode: vertical-rl; transform: rotate(180deg); white-space: nowrap; text-overflow: ellipsis; }
+.team-pass-matrix__row { position: sticky; left: 0; z-index: 1; width: 116px; min-width: 116px; max-width: 116px; padding: .35rem .45rem; overflow: hidden; text-align: left; text-overflow: ellipsis; white-space: nowrap; }
+.team-pass-matrix__cell { width: 30px; min-width: 30px; height: 30px; padding: 0; border: 0; background: rgba(255,255,255,.025); color: var(--text-muted); text-align: center; font: inherit; font-weight: 800; }
+.team-pass-matrix__cell[data-pass-matrix-cell] { cursor: default; }
+.team-pass-matrix__cell[data-pass-matrix-cell]:hover, .team-pass-matrix__cell[data-pass-matrix-cell]:focus-visible { outline: 2px solid var(--text); outline-offset: -2px; }
+.team-pass-matrix__cell--diagonal { background: rgba(255,255,255,.06); color: var(--text-muted); }
+.team-pass-matrix__legend { display: flex; align-items: center; gap: .45rem; color: var(--text-muted); font-size: .7rem; }
+.team-pass-matrix__gradient { width: min(150px, 35%); height: 8px; border-radius: 2px; background: linear-gradient(90deg, rgba(103,116,109,.2), #0d9488); }
+.team-pass-matrix__legend [data-team-pass-matrix-max] { margin-left: auto; }
+.team-pass-matrix__note, .team-pass-matrix__empty { margin: 0; color: var(--text-muted); font-size: .72rem; }
+.team-pass-network-legend { display: grid; gap: .65rem; margin: 0; padding: .85rem 0 0; border-top: 1px solid var(--border-light); color: var(--text-muted); font-size: .78rem; }
+.team-pass-network-legend__item { display: grid; grid-template-columns: 30px 1fr; gap: .55rem; align-items: center; }
+.team-pass-network-legend__node { width: 16px; aspect-ratio: 1; justify-self: center; border: 2px solid #fff; border-radius: 50%; background: #3e9b68; }
+.team-pass-network-legend__line { position: relative; width: 28px; height: 4px; border-radius: 2px; background: #3e9b68; }
+.team-pass-network-legend__line::after { position: absolute; right: -1px; top: -3px; content: ''; border-top: 5px solid transparent; border-bottom: 5px solid transparent; border-left: 7px solid #3e9b68; }
+.team-pass-network-legend__threat { width: 30px; height: 8px; border-radius: 2px; background: linear-gradient(90deg, #d97706, #67746d, #0d9488); }
+.team-pass-network-tooltip { position: absolute; z-index: 5; display: grid; gap: .2rem; max-width: min(300px, calc(100% - 16px)); padding: .65rem .75rem; border: 1px solid var(--border-light); border-radius: 6px; background: var(--bg-card); color: var(--text); box-shadow: 0 8px 24px rgba(0,0,0,.22); font-size: .75rem; line-height: 1.35; pointer-events: none; }
+.team-pass-network-tooltip[hidden] { display: none; }
+.team-pass-network-tooltip span { color: var(--text-secondary); }
+
+/*
+  Motion (team-pass-network.js sets the classes): the network's players pop
+  in and its passes draw from passer to receiver, the first time a root
+  draws; the matrix fills in a diagonal wave on its first drawing and on
+  each style picked. A live refresh redraws without either.
+*/
+.team-pass-network--enter [data-pass-network-node] {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pass-network-pop 0.45s cubic-bezier(0.34, 1.4, 0.64, 1) backwards;
+  animation-delay: calc(min(var(--i, 0), 12) * 35ms);
+}
+
+.team-pass-network--enter [data-pass-network-edge] {
+  animation: pass-network-fade 0.3s ease-out backwards;
+  animation-delay: calc(0.25s + min(var(--i, 0), 30) * 18ms);
+}
+
+.team-pass-network--enter [data-pass-network-edge-path] {
+  stroke-dasharray: 1;
+  animation: pass-network-draw 0.7s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation-delay: calc(0.25s + min(var(--i, 0), 30) * 18ms);
+}
+
+.team-pass-matrix__table--enter .team-pass-matrix__cell {
+  animation: pass-matrix-cell-in 0.35s ease-out backwards;
+  animation-delay: calc(min(var(--i, 0), 24) * 22ms);
+}
+
+@keyframes pass-network-pop {
+  from { opacity: 0; transform: scale(0.4); }
+}
+
+@keyframes pass-network-fade {
+  from { opacity: 0; }
+}
+
+@keyframes pass-network-draw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes pass-matrix-cell-in {
+  from { opacity: 0; transform: scale(0.6); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .team-pass-network--enter [data-pass-network-node],
+  .team-pass-network--enter [data-pass-network-edge],
+  .team-pass-network--enter [data-pass-network-edge-path],
+  .team-pass-matrix__table--enter .team-pass-matrix__cell {
+    animation: none;
+  }
+}
+
+@media (max-width: 992px) {
+  .team-pass-network-panels { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  .team-pass-network-pitch { min-height: 520px; }
+  .team-pass-network-pitch svg { height: 520px; }
+  .team-pass-network-card .team-snapshot { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .team-pass-network-panels .team-snapshot { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

@@ -27,6 +27,13 @@
 | 12 | `12-register-capture.json` / `12-register.html` | `ev_045ab7e234fb4d11eef578d40992f5c0ce080058997d3af2b9bd60cda4e9bfcc` | `https://www.statiskicks.com/register` |
 | 13 | `13-match-tabs-capture.json` / `13-match-tabs-wait-*.html` | `ev_1318b6ef36cbf6e763ddae14da0f95b3088da1ea954e8c8993b2994b188569fd` | Pestañas `alineaciones`, `estadisticas`, `eventos`, `datos` |
 | 14 | `14-league-tabs-capture.json` / `14-league-tabs-wait-*.html` | `ev_bd430f00f4cc3e0cb3e7d1c12ddd223536657c09ba63ee662b710fb3bdab574a` | Pestañas `projection`, `maps`, `scatter`, `scout-ratings` |
+| 15 | [03b-team-full.html](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/03b-team-full.html) / [03b-team-full-request-46-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/03b-team-full-request-46-response.json) | `ev_8b664e194ac67d05a98289a150adcb3f310fb2622bcc70a084ab5c7d978cb365` | `/team/club-america-eu8c408f59yx7egaqossbv25e` (RPC `loadTeamFormationProfile` · `111,086 B`) |
+| 16 | [04b-messi-full.html](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/04b-messi-full.html) / [04b-messi-full-request-45-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/04b-messi-full-request-45-response.json) y [request-47](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/04b-messi-full-request-47-response.json) | `ev_bba17f5b8205d109afaa59748445fa3e6b8b763f44c88cfbb1a22847a3d405b9` | `/player/c5ryhn04g9goikd0blmh83aol/lionel-messi` (MLS `2026`, `AMW`, SKORE `8.29`, rank `1/69` y `1/670`) |
+| 17 | [19-players-explorer-and-teams-tab-capture.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/19-players-explorer-and-teams-tab-capture.json) / [19b-players-teams-tab-wait-apply-teams.html](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/19b-players-teams-tab-wait-apply-teams.html) | `ev_ee1b824445ea515e9b3e77beab6b26944bada18d1da9672c4e24e67a44959dfc` / `ev_6b549dd49e412ea51ee2493cc932cd8e19fdd6c66225d9b2e9486215bf236a16` | `/players` modo `Equipos` (RPC `setTab('teams')`, `applyTeamFilters`, `statRanges`) |
+| 18 | [24-players-search-and-oauth-capture.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/24-players-search-and-oauth-capture.json) / [request-16](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/24-players-search-and-oauth-request-16-response.json) y [request-17](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/24-players-search-and-oauth-request-17-response.json) | `ev_335de9032833d29fc76238a8c934e4cf676b276ceba699de0417f730b7bc9f66` | `GET /players/search?q={messi,malagon}` (`3,577 B` / `806 B`) y flujo Google OAuth |
+| 19 | [26-player-rpc-full-capture.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/26-player-rpc-full-capture.json) / `26-player-rpc-full-request-{44,46,52,62,63,64,65,66}-response.json` | `ev_41b5aea353de3d177450dcde63cb0d0667428ca0f57851df7edfd18049e9319c` | `/player/1cyhpfi77dom7gmpuownxlcrt/luis-romo` (`loadSimilarPlayersData`, `ensureComparisonDataLoaded`, `loadMapGraphFilterOptions`, `loadMapGraphData`) |
+| 20 | [27-goalkeeper-rpc-capture.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/27-goalkeeper-rpc-capture.json) / [request-44](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/27-goalkeeper-rpc-request-44-response.json), [request-46](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/27-goalkeeper-rpc-request-46-response.json) y [request-52](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/27-goalkeeper-rpc-request-52-response.json) | `ev_fe42082ccfb04731fd689598d84d1596a35361d94ca19ba7707e87a1c1fc8ab0` | `/player/a1qs3b34p5u2s6mmlhdkgdp7t/luis-malagon` (Perfil de Portero `GK`, 176 traits, `goalmouth`, `loadSimilarPlayersData`) |
+| 21 | [28-match-alineaciones-rpc-full-capture.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/28-match-alineaciones-rpc-full-capture.json) / [request-69](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/28-match-alineaciones-rpc-full-request-69-response.json) y [request-105](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/28-match-alineaciones-rpc-full-request-105-response.json) | `ev_74a52e02fbfe3463262bfdc3648bc82b62958c735f8153d56f6c56cf21ab706d` | `/partido/pumas-unam-vs-club-america-9dy7dhz5f13b2ejz2a5tok2l0` (`setTab(['alineaciones'])` + `keeperGoalmouth(['9sme7jykdv8msgfu0nxx6h39x'])`) |
 
 ---
 
@@ -89,6 +96,7 @@ Toda entidad de dominio en las URLs, atributos `wire:key`, llamadas Livewire y p
 | **Club (`contestant`)** | `teams[].id` | `1aw67co8uut64yckd3wbhy9t2` | **Cruz Azul** (México) | `14-league-tabs-wait-maps-data-bootstrap.json` |
 | **Jugador (`person` / `player`)** | `/player/{uuid}/{slug}` | `c5ryhn04g9goikd0blmh83aol` | **Lionel Messi** (Inter Miami) | `search-messi.json` |
 | **Jugador (`person` / `player`)** | `/player/{uuid}/{slug}` | `1cyhpfi77dom7gmpuownxlcrt` | **Luis Romo** (Guadalajara) | `04-player.html` |
+| **Jugador (`person` / `player`)** | `/player/{uuid}/{slug}` | `a1qs3b34p5u2s6mmlhdkgdp7t` | **Luis Ángel Malagón** (Club América) | `27-goalkeeper-rpc-request-44-response.json` |
 | **Jugador (`person` / `player`)** | `cards[uuid]` | `9sme7jykdv8msgfu0nxx6h39x` | **Keylor Navas** (Pumas UNAM) | `13-match-tabs-wait-alineaciones-json-0.json` |
 | **Jugador (`person` / `player`)** | `/player/{uuid}/{slug}` | `54kcu71vtiz8xlkke60k394a1` | **Érick Sánchez** (Club América) | `03-team-data-team-age-profile-payload.json` |
 | **Jugador (`person` / `player`)** | `/player/{uuid}/{slug}` | `5ysw10inm8syf7r9xvbpk9n11` | **Henry Martín** (Club América) | `03-team-data-team-age-profile-payload.json` |
@@ -222,12 +230,13 @@ Statiskicks emplea dos mecanismos de transporte de datos hacia el cliente (`[OBS
 
 ---
 
-### 3.1. API de Búsqueda Global (`GET /search?q=...`) (`[OBSERVADO]`)
+### 3.1. APIs REST de Búsqueda (`GET /search?q=...` y `GET /players/search?q=...`) (`[OBSERVADO]`)
 
-- **Evidencia:** `02-search-api-capture.json` (`ev_296f62498cf90c3e87cd48ef454168c2d290f4a839a442208f9adfef04c8aeda`), `search-america.json`, `search-messi.json`, `search-madrid.json` y el script `search-results-image.js` (`search-1794084628.json`).
-- **Endpoint:** `GET https://www.statiskicks.com/search?q={query}` (requiere al menos 2 caracteres; devuelve un arreglo JSON plano de hasta ~10–15 coincidencias ordenadas por relevancia/popularidad).
+#### A. Búsqueda Global Omnibox (`GET /search?q=...`) (`[OBSERVADO]`)
+- **Evidencia:** [02-search-api-capture.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/02-search-api-capture.json) (`ev_296f62498cf90c3e87cd48ef454168c2d290f4a839a442208f9adfef04c8aeda`), [search-america.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/search-america.json), [search-messi.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/search-messi.json), [search-madrid.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/search-madrid.json) y el script [search-results-image.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/named/search-results-image.js).
+- **Endpoint:** `GET https://www.statiskicks.com/search?q={query}` (requiere al menos 2 caracteres; devuelve un arreglo JSON plano de hasta ~10–15 coincidencias mixtas de equipos, jugadores y ligas ordenadas por relevancia/popularidad).
 
-#### Esquema JSON del Contrato `/search?q=`
+##### Esquema JSON del Contrato `/search?q=`
 ```typescript
 type SearchResponse = SearchResultItem[];
 
@@ -241,7 +250,7 @@ interface SearchResultItem {
 }
 ```
 
-#### Ejemplos Reales Capturados (`search-america.json`, `search-messi.json`, `search-madrid.json`)
+##### Ejemplos Reales Capturados (`search-america.json`, `search-messi.json`, `search-madrid.json`)
 ```json
 // GET /search?q=america (extracto de search-america.json)
 [
@@ -300,6 +309,94 @@ interface SearchResultItem {
     "meta": "Primera División"
   }
 ]
+```
+
+#### B. Endpoint REST Dedicado de Búsqueda de Jugadores (`GET /players/search?q=...`) (`[OBSERVADO]`)
+- **Evidencia:** [24-players-search-and-oauth-capture.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/24-players-search-and-oauth-capture.json) (`ev_335de9032833d29fc76238a8c934e4cf676b276ceba699de0417f730b7bc9f66`), [24-players-search-and-oauth-request-16-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/24-players-search-and-oauth-request-16-response.json) (`3,577 B`, `GET /players/search?q=messi`) y [24-players-search-and-oauth-request-17-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/24-players-search-and-oauth-request-17-response.json) (`806 B`, `GET /players/search?q=malagon`).
+- **Propósito y Diferencia con `/search`:** Mientras que `/search` alimenta la omnibox de la barra de navegación superior con un arreglo plano de entidades heterogéneas, el selector de comparación de jugadores (`playerComparison` en [attribute-charts.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/named/attribute-charts.js)) y el buscador específico de `/players` consumen `GET https://www.statiskicks.com/players/search?q={query}`. Este endpoint devuelve un objeto envolvente `{ results: PlayerSearchResultItem[] }` (máximo 10 resultados) enriquecido con el UUID Opta explícito (`id`), el nombre completo de registro en Opta (`name`), el nombre corto (`short_name`), el código ISO-2 de bandera (`flag`) y el `competition_id` para validar bloqueos de paywall antes de cargar datos de comparación.
+
+##### Esquema JSON del Contrato `/players/search?q=` (`[OBSERVADO]`)
+```typescript
+interface PlayersSearchResponse {
+  results: PlayerSearchResultItem[]; // Hasta 10 coincidencias de jugadores
+}
+
+interface PlayerSearchResultItem {
+  id: string;             // UUID Opta SDAPI del jugador (25 chars base-36, ej. "c5ryhn04g9goikd0blmh83aol")
+  name: string;           // Nombre legal completo en Opta (ej. "Lionel Andrés Messi Cuccittini")
+  short_name: string;     // Nombre abreviado de camiseta/UI (ej. "L. Messi", "L. Malagón")
+  role: "Portero" | "Defensa" | "Mediocampista" | "Delantero"; // Línea posicional en español
+  team: string;           // Club actual (ej. "Inter Miami", "Club América")
+  image: string | null;   // Fotografía API-Football ("https://media.api-sports.io/football/players/{id}.png") o null
+  flag: string;           // Código ISO 3166-1 alpha-2 para FlagCDN (ej. "ar", "mx", "co", "fr")
+  competition_id: string; // UUID Opta SDAPI de la liga actual (ej. "287tckirbfj9nb8ar2k9r60vn")
+  url: string;            // URL absoluta canónica ("https://www.statiskicks.com/player/{id}/{slug}")
+  locked: boolean;        // false en las 9 ligas abiertas (Scout); true en las 31 ligas Plus
+}
+```
+
+##### Payloads Reales Capturados (`24-players-search-and-oauth-request-16/17-response.json`) (`[OBSERVADO]`)
+```json
+// GET /players/search?q=messi (extracto de 24-players-search-and-oauth-request-16-response.json · 3,577 B)
+{
+  "results": [
+    {
+      "id": "c5ryhn04g9goikd0blmh83aol",
+      "name": "Lionel Andrés Messi Cuccittini",
+      "short_name": "L. Messi",
+      "role": "Delantero",
+      "team": "Inter Miami",
+      "image": "https://media.api-sports.io/football/players/154.png",
+      "flag": "ar",
+      "competition_id": "287tckirbfj9nb8ar2k9r60vn",
+      "url": "https://www.statiskicks.com/player/c5ryhn04g9goikd0blmh83aol/lionel-messi",
+      "locked": false
+    },
+    {
+      "id": "5p0z19ntbb5q2fd4f8ba0159l",
+      "name": "Juniororo Messias",
+      "short_name": "Junior Messias",
+      "role": "Mediocampista",
+      "team": "Genoa",
+      "image": "https://media.api-sports.io/football/players/56474.png",
+      "flag": "br",
+      "competition_id": "1r097lpxe0xn03ihb7wi98kao",
+      "url": "https://www.statiskicks.com/player/5p0z19ntbb5q2fd4f8ba0159l/junior-messias",
+      "locked": false
+    }
+  ]
+}
+```
+```json
+// GET /players/search?q=malagon (íntegro de 24-players-search-and-oauth-request-17-response.json · 806 B)
+{
+  "results": [
+    {
+      "id": "ezxcokuvyr0f5v83o0bj8ti39",
+      "name": "Jerson Andrés Malagón Piracún",
+      "short_name": "J. Malagón",
+      "role": "Defensa",
+      "team": "Deportivo Pasto",
+      "image": null,
+      "flag": "co",
+      "competition_id": "2ty8ihceabty8yddmu31iuuej",
+      "url": "https://www.statiskicks.com/player/ezxcokuvyr0f5v83o0bj8ti39/j-malagon",
+      "locked": true
+    },
+    {
+      "id": "a1qs3b34p5u2s6mmlhdkgdp7t",
+      "name": "Luis Ángel Malagón Velázquez",
+      "short_name": "L. Malagón",
+      "role": "Portero",
+      "team": "Club América",
+      "image": "https://media.api-sports.io/football/players/35930.png",
+      "flag": "mx",
+      "competition_id": "2hsidwomhjsaaytdy9u5niyi4",
+      "url": "https://www.statiskicks.com/player/a1qs3b34p5u2s6mmlhdkgdp7t/luis-malagon",
+      "locked": false
+    }
+  ]
+}
 ```
 
 ---
@@ -709,6 +806,127 @@ interface PlayerTraitItem {
 | 146 | `expected_threat_passes` | xT por pases | `Expected Threat Passes` | Progresión | `per_90` | No | No | 0.26 | 0.08 | 1/76 |
 | 147 | `expected_threat_carries` | xT por conducciones | `Expected Threat Carries` | Progresión | `per_90` | No | No | 0.02 | 0.01 | 11/76 |
 
+#### C. Perfil de Portero (`role: "GK"`): Catálogo de 176 Traits en 13 Categorías, las 29 Métricas de `Portero` y los 11 Ejes del Radar (`27-goalkeeper-rpc-request-44-response.json` · `144,401 B`) (`[OBSERVADO]`)
+
+- **Evidencia:** [27-goalkeeper-rpc-capture.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/27-goalkeeper-rpc-capture.json) (`ev_fe42082ccfb04731fd689598d84d1596a35361d94ca19ba7707e87a1c1fc8ab0`) y [27-goalkeeper-rpc-request-44-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/27-goalkeeper-rpc-request-44-response.json) (`144,401 B`) para **Luis Ángel Malagón** (`/player/a1qs3b34p5u2s6mmlhdkgdp7t/luis-malagon`, Club América, Liga MX `2026/2027`).
+- **Diferencia estructural entre jugador de campo y portero (`[OBSERVADO]`):**
+  - Mientras un jugador de campo (`DFCI`, `AMW`, etc.) recibe **147 traits en 12 categorías**, el servicio `OptaSeasonStatsService::buildTraitsData()` para un portero (`player_role: "GK"`) devuelve **176 traits en 13 categorías**, incorporando la categoría exclusiva **`Portero` con 29 métricas específicas de arquero** y comparando contra una cohorte posicional de **$N = 24$ porteros** con $>270$ minutos en la Liga MX `2026/2027` (`same_position_same_league: { rank: 16, total: 24, rating: 6.46, min_rating: 6.13 }`, `all_positions_same_league: { rank: 334, total: 402, rating: 6.46, min_rating: 6.07 }`).
+  - El radar por defecto (`defaultVisible: true`) de un portero consta de **11 ejes** (9 de la categoría `Portero`, 1 de `Pase` y 1 de `Posesión`): `forward_passes`, `clean_sheets`, `drops`, `expected_goals_conceded`, `goals_prevented`, `save_percentage`, `goalkeeper_smother`, `punches`, `saves_made`, `successful_launches` y `touches`.
+
+##### Tabla de las 29 Métricas de la Categoría `Portero` + los 2 Ejes Adicionales del Radar de Arquero (`27-goalkeeper-rpc-request-44-response.json`) (`[OBSERVADO]`)
+
+| # | `key` | `label` (Español) | `raw_name` (Opta Inglés) | Categoría | Unidad | Menos es Mejor | Radar Default (`defaultVisible`) | Valor p90 (`val`) | Media Porteros (`population_average`) | Percentil | Ranking (`N=24`) | Total Temporada (`total.val`) |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | `catches` | Centros atrapados | `Catches` | Portero | `per_90` | No | No | 0.17 | 0.34 | 26.09 | 16/24 | 1 |
+| 2 | `clean_sheets` | Porterías invictas | `Clean Sheets` | Portero | `per_90` | No | **Sí** | 0 | 0.21 | 0 | 23/24 | 0 |
+| 3 | `drops` | Balones soltados | `Drops` | Portero | `per_90` | **Sí** | **Sí** | 0.5 | 0.09 | 0 | 24/24 | 3 |
+| 4 | `expected_goals_conceded` | xG concedidos | `Expected Goals Conceded` | Portero | `per_90` | **Sí** | **Sí** | 1.52 | 1.52 | 52.17 | 12/24 | 9.15 |
+| 5 | `non_penalty_expected_goals_conceded` | xG concedidos (excluyendo penales) | `Non-Penalty Expected Goals Conceded` | Portero | `per_90` | **Sí** | No | 1.07 | 1.3 | 78.26 | 6/24 | 6.44 |
+| 6 | `expected_goals_on_target_conceded` | xGOT concedidos | `Expected Goals On Target Conceded` | Portero | `per_90` | **Sí** | No | 1.77 | 1.43 | 21.74 | 19/24 | 10.63 |
+| 7 | `non_penalty_expected_goals_on_target_conceded` | xGOT concedidos (excluyendo penales) | `Non-Penalty Expected Goals On Target Conceded` | Portero | `per_90` | **Sí** | No | 1.31 | 1.21 | 30.43 | 17/24 | 7.86 |
+| 8 | `gk_successful_distribution` | Saques con la mano o de piso exitosos | `GK Successful Distribution` | Portero | `per_90` | No | No | 5.67 | 5.66 | 47.83 | 13/24 | 34 |
+| 9 | `gk_unsuccessful_distribution` | Saques con la mano o de piso fallados | `GK Unsuccessful Distribution` | Portero | `per_90` | **Sí** | No | 0.33 | 0.9 | 78.26 | 6/24 | 2 |
+| 10 | `goal_kicks` | Saques de meta | `Goal Kicks` | Portero | `per_90` | No | No | 5.83 | 8.21 | 21.74 | 19/24 | 35 |
+| 11 | `goals_conceded` | Goles concedidos | `Goals Conceded` | Portero | `per_90` | **Sí** | No | 2 | 1.52 | 13.04 | 21/24 | 12 |
+| 12 | `goals_conceded_inside_box` | Goles concedidos dentro del área | `Goals Conceded Inside Box` | Portero | `per_90` | **Sí** | No | 1.67 | 1.31 | 17.39 | 20/24 | 10 |
+| 13 | `goals_conceded_outside_box` | Goles concedidos fuera del área | `Goals Conceded Outside Box` | Portero | `per_90` | **Sí** | No | 0.33 | 0.21 | 21.74 | 19/24 | 2 |
+| 14 | `goals_prevented` | Goles prevenidos | `Goals Prevented` | Portero | `per_90` | No | **Sí** | -0.23 | -0.09 | 13.04 | 21/24 | -1.37 |
+| 15 | `save_percentage` | Efectividad de atajadas | `Save Percentage` | Portero | `percentage` | No | **Sí** | 57.14 | 69.61 | 4.35 | 23/24 | 57.14 |
+| 16 | `goalkeeper_smother` | Achiques | `Goalkeeper Smother` | Portero | `per_90` | No | **Sí** | 0 | 0.11 | 0 | 17/24 | 0 |
+| 17 | `penalties_faced` | Penales enfrentados | `Penalties Faced` | Portero | `per_90` | No | No | 0.5 | 0.27 | 86.96 | 3/24 | 3 |
+| 18 | `penalties_saved` | Penales atajados | `Penalties Saved` | Portero | `per_90` | No | No | 0.17 | 0.05 | 95.65 | 1/24 | 1 |
+| 19 | `penalty_goals_conceded` | Goles de penal concedidos | `Penalty Goals Conceded` | Portero | `per_90` | **Sí** | No | 0.33 | 0.22 | 17.39 | 19/24 | 2 |
+| 20 | `punches` | Despejes con el puño | `Punches` | Portero | `per_90` | No | **Sí** | 1.33 | 0.49 | 100 | 1/24 | 8 |
+| 21 | `saves_from_penalty` | Atajadas en penales | `Saves From Penalty` | Portero | `per_90` | No | No | 0.17 | 0.05 | 95.65 | 1/24 | 1 |
+| 22 | `saves_made` | Atajadas | `Saves Made` | Portero | `per_90` | No | **Sí** | 2.67 | 3.42 | 4.35 | 23/24 | 16 |
+| 23 | `saves_made_caught` | Atajadas con retención | `Saves Made - Caught` | Portero | `per_90` | No | No | 0 | 0.09 | 0 | 13/24 | 0 |
+| 24 | `saves_made_parried` | Atajadas con desvío | `Saves Made - Parried` | Portero | `per_90` | No | No | 1.5 | 0.7 | 100 | 1/24 | 9 |
+| 25 | `saves_made_from_inside_box` | Atajadas a remates dentro del área | `Saves Made from Inside Box` | Portero | `per_90` | No | No | 1 | 1.98 | 4.35 | 23/24 | 6 |
+| 26 | `saves_made_from_outside_box` | Atajadas a remates fuera del área | `Saves Made from Outside Box` | Portero | `per_90` | No | No | 1.67 | 1.43 | 69.57 | 7/24 | 10 |
+| 27 | `successful_launches` | Pases largos precisos | `Successful Launches` | Portero | `per_90` | No | **Sí** | 2 | 1.16 | 100 | 1/24 | 12 |
+| 28 | `total_big_chances_saved` | Ocasiones claras atajadas | `Total Big Chances Saved` | Portero | `per_90` | No | No | 1 | 0.65 | 86.96 | 4/24 | 6 |
+| 29 | `unsuccessful_launches` | Pases largos fallados | `Unsuccessful Launches` | Portero | `per_90` | **Sí** | No | 1.33 | 2.38 | 78.26 | 6/24 | 8 |
+| *(+1)* | `forward_passes` | Pases hacia adelante | `Forward Passes` | Pase | `per_90` | No | **Sí** | 17 | 16.21 | 69.57 | 8/24 | 102 |
+| *(+2)* | `touches` | Toques | `Touches` | Posesión | `per_90` | No | **Sí** | 37 | 39.65 | 17.39 | 19/24 | 222 |
+
+#### D. Perfil de Mediapunta/Extremo (`role: "AMW"`) y Eventos de Hidratación RPC Livewire (`04b-messi-full-request-45/47-response.json`) (`[OBSERVADO]`)
+
+- **Evidencia:** [04b-messi-full.html](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/04b-messi-full.html) (`ev_bba17f5b8205d109afaa59748445fa3e6b8b763f44c88cfbb1a22847a3d405b9`), [04b-messi-full-request-45-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/04b-messi-full-request-45-response.json) (`127,011 B`) y [04b-messi-full-request-47-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/04b-messi-full-request-47-response.json) (`53,530 B`) para **Lionel Messi** (`/player/c5ryhn04g9goikd0blmh83aol/lionel-messi`, Inter Miami, MLS `2026`), contrastados con [26-player-rpc-full-request-44-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/26-player-rpc-full-request-44-response.json) (`135,163 B`) y [request-46-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/26-player-rpc-full-request-46-response.json) (`27,484 B`) de Luis Romo.
+- **Secuencia de hidratación asíncrona de `/player/{id}/{slug}` (`wire:init`) (`[OBSERVADO]`):**
+  Al montar `PlayerDetail`, Livewire agrupa en dos peticiones `POST /livewire-e3175f40/update` cuatro llamadas RPC que despachan 4 eventos navegador/Alpine (`effects.dispatches`):
+  1. **Lote RPC 1 (`request-45` en Messi / `request-44` en Romo y Malagón):**
+     - `traits-data-updated`: Contiene `{ traitsData: PlayerTraitItem[], requestId: number }`. Para el rol táctico `AMW` (Mediapunta / Extremo ofensivo, cohorte de $N = 69$ jugadores en MLS `2026`), los **10 ejes por defecto del radar (`defaultVisible: true`)** son:
+       1. `key_passes_attempt_assists` ("Pases clave", Creación): `val: 2.06` p90 (`total: 61`), `pop_avg: 1.52`, `pct: 82.35`, `rank: 13/69`.
+       2. `successful_crosses_open_play` ("Centros exitosos de jugada", Creación): `val: 0.14` (`total: 4`), `pop_avg: 0.56`, `pct: 5.88`, `rank: 63/69`.
+       3. `through_balls` ("Pases filtrados", Creación): `val: 0.78` (`total: 23`), `pop_avg: 0.19`, `pct: 98.53`, `rank: 2/69`.
+       4. `non_penalty_goal_contributions` ("Goles producidos excluyendo penales", Finalización): `val: 1.28` (`total: 38`), `pop_avg: 0.43`, `pct: 100`, `rank: 1/69`.
+       5. `final_third_touches` ("Toques en último tercio", Posesión): `val: 36.82` (`total: 1090`), `pop_avg: 22.87`, `pct: 97.06`, `rank: 3/69`.
+       6. `overruns` ("Alargue de balón / pérdida", Posesión, `lowerIsBetter: true`): `val: 0.14` (`total: 4`), `pop_avg: 0.25`, `pct: 69.12`, `rank: 21/69`.
+       7. `progressive_carries` ("Conducciones progresivas", Posesión): `val: 10.57` (`total: 313`), `pop_avg: 7.45`, `pct: 92.65`, `rank: 6/69`.
+       8. `successful_dribbles` ("Regates exitosos", Posesión): `val: 2.09` (`total: 62`), `pop_avg: 1.38`, `pct: 88.24`, `rank: 9/69`.
+       9. `total_losses_of_possession` ("Pérdidas de balón", Posesión, `lowerIsBetter: true`): `val: 15.95` (`total: 472`), `pop_avg: 14.37`, `pct: 32.35`, `rank: 47/69`.
+       10. `total_touches_in_opposition_box` ("Toques en área rival", Posesión): `val: 6.86` (`total: 203`), `pop_avg: 4.19`, `pct: 92.65`, `rank: 6/69`.
+     - `ranking-data-updated`: Contiene la posición del jugador en la distribución de `SKORE` dentro de su liga y en el universo de Top Ligas:
+       ```json
+       // Extracto de ranking-data-updated en 04b-messi-full-request-45-response.json
+       {
+         "rankingData": {
+           "season_label": "2026",
+           "player_role": "AMW",
+           "league_name": "MLS",
+           "league_mean_rating": 6.78,
+           "top_leagues_mean_rating": null,
+           "same_position_same_league": {
+             "rank": 1,
+             "total": 69,
+             "rating": 8.29,
+             "min_rating": 6.47
+           },
+           "all_positions_same_league": {
+             "rank": 1,
+             "total": 670,
+             "rating": 8.29,
+             "min_rating": 5.96
+           },
+           "same_position_top_leagues": null,
+           "all_positions_top_leagues": null
+         },
+         "requestId": 1
+       }
+       ```
+     - `performance-data-updated`: Entrega el historial de partidos de la temporada (`summaryMatches`), los conteos por sub-rol en la cancha (`positionCounts`: ej. en Messi `[{ "code": "MO", "count": 19 }, { "code": "DC", "count": 9 }, { "code": "ED", "count": 3 }, { "code": "MCOD", "count": 3 }]`) y el resumen de calificaciones. **Hallazgo forense clave (`[OBSERVADO]`):** Cada elemento de `summaryMatches` expone las columnas de base de datos `raw_vaep: null`, `offensive_vaep: null`, `defensive_vaep: null` y `xt: null`, probando que la tabla de actuaciones por partido en el backend cuenta con columnas reservadas para modelos **VAEP (Valuing Actions by Estimating Probabilities)** que actualmente se sirven en `null` mientras `skore` lleva la valoración activa:
+       ```json
+       // Primer elemento de performanceData.summaryMatches en 04b-messi-full-request-45-response.json
+       {
+         "match_id": "7h0fbff1b3y8k8b9q0efr8s38",
+         "date": "2026-03-02Z",
+         "timestamp": 1772409600,
+         "competition_id": "287tckirbfj9nb8ar2k9r60vn",
+         "competition_name": "MLS",
+         "season_name": "2026",
+         "player_team_id": "7262564v91jr4f82fnx99950b",
+         "opponent_id": "9a72432292341242341241241",
+         "opponent": "Orlando City",
+         "home_team_id": "9a72432292341242341241241",
+         "away_team_id": "7262564v91jr4f82fnx99950b",
+         "home_score": 2,
+         "away_score": 4,
+         "minutes_played": 99,
+         "raw_vaep": null,
+         "offensive_vaep": null,
+         "defensive_vaep": null,
+         "xt": null,
+         "skore": 9.3,
+         "position": "Attacking Midfielder",
+         "formation_place": "10",
+         "side": "Central",
+         "role_code": "MO",
+         "formation_used": "4231"
+       }
+       ```
+  2. **Lote RPC 2 (`request-47` en Messi · `53,530 B` / `request-46` en Romo · `27,484 B`):**
+     - `heatmap-data-updated`: Entrega `{ heatmapPoints: Array<{ x: number, y: number }>, goalmouth: GoalmouthPayload | null, requestId: number }`. En el caso de Lionel Messi (`request-47`), `heatmapPoints` contiene exactamente **`2,000` pares `{x, y}`** en coordenadas Opta $[0, 100] \times [0, 100]$ (revelando el límite máximo `LIMIT 2000` aplicado en backend al muestrear toques de toda la temporada para el KDE de jugador), y `goalmouth: null` (solo poblado cuando el jugador es portero, como se documenta en la Sección 3.5.C y 4.6).
+
 ---
 
 ### 3.3. Payloads Embebidos de Equipos (`03-team-*.json` y `03-team.html`) (`[OBSERVADO]`)
@@ -883,28 +1101,122 @@ Consumido por `team-age-profile.js`. Incluye los 36 jugadores registrados en la 
 
 ---
 
-#### D. Perfil de Formación, Red de Pases y Matriz de Pases (`03-team-data-team-formation-profile-payload.json` y `team-pass-network.js`) (`[OBSERVADO]`)
+#### D. Perfil de Formación (`loadTeamFormationProfile`), Red de Pases y Matriz de Pases ([03b-team-full-request-46-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/03b-team-full-request-46-response.json), [team-formation-profile.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/named/team-formation-profile.js) y [team-pass-network.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/named/team-pass-network.js)) (`[OBSERVADO]`)
 
-1. **`03-team-data-team-formation-profile-payload.json` (`1.6 KB`, consumido por `team-formation-profile.js`):**
-   Contiene la formación más utilizada (`"formation": "4-2-3-1"`, `"formation_share": 87.5`, `"matches": 16`) y los 11 nodos posicionales con coordenadas tácticas $(x, y) \in [0, 100] \times [0, 100]$, el jugador titular más frecuente en cada puesto (`id`, `name`, `shirt`, `starts_in_slot`) y la lista completa de formaciones usadas en el torneo (`usage`).
-   ```json
-   {
-     "available": true,
-     "formation": "4-2-3-1",
-     "formation_share": 87.5,
-     "matches": 16,
-     "nodes": [
-       { "slot": 1, "role": "POR", "x": 8, "y": 50, "id": "3x90...", "name": "R. Cota", "shirt": 30, "starts": 8 },
-       { "slot": 9, "role": "DC", "x": 86, "y": 50, "id": "5ysw10inm8syf7r9xvbpk9n11", "name": "H. Martín", "shirt": 9, "starts": 13 }
-     ],
-     "usage": [
-       { "formation": "4-2-3-1", "matches": 14, "share": 87.5 },
-       { "formation": "4-4-2", "matches": 2, "share": 12.5 }
-     ]
-   }
-   ```
+1. **Contrato RPC `loadTeamFormationProfile(requestId)` $\rightarrow$ evento `team-formation-profile-updated` ([03b-team-full-request-46-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/03b-team-full-request-46-response.json) · `111,086 B`, `ev_8b664e194ac67d05a98289a150adcb3f310fb2622bcc70a084ab5c7d978cb365`) (`[OBSERVADO]`):**
+   - Al montar el perfil de equipo (`/team/club-america-eu8c408f59yx7egaqossbv25e`), el bloque estático `03-team-data-team-formation-profile-payload.json` arranca vacío (`{"available":false,"most_used":null,"formations":[]}`) y el cliente dispara inmediatamente la llamada Livewire `TeamDetail::loadTeamFormationProfile(1)`, que devuelve el perfil táctico completo tanto en `snapshot.data.formationProfile` como en el evento despachado `team-formation-profile-updated` (`params.payload`), consumido por [team-formation-profile.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/named/team-formation-profile.js) (líneas 1–93).
+   - **Esquema TypeScript `[OBSERVADO]` de `formationProfile`:**
+     ```typescript
+     interface TeamFormationProfilePayload {
+       available: boolean;
+       most_used: FormationEntry | null; // Formación principal (mayor cantidad de minutos/partidos)
+       formations: FormationEntry[];     // Todas las formaciones empleadas en el torneo (ordenadas por uso)
+       coverage: {
+         total_matches: number;          // Ej. 16 en Liga MX Apertura 2026/2027
+         analysed_matches: number;       // Ej. 16
+         complete: boolean;              // true si analysed_matches === total_matches
+       };
+       budget_truncated: boolean;        // Control de presupuesto de tiempo/memoria en servidor
+       empty_message: string | null;
+     }
 
-2. **Red de Pases (`data-team-pass-network-payload` / `team-pass-network.js`) y Matriz de Pases (`data-team-pass-matrix-table`):** (`[OBSERVADO]` en `team-pass-network.js` líneas 1–420)
+     interface FormationEntry {
+       formation: string;                // Etiqueta separada por guiones (ej. "4-2-3-1", "4-4-2")
+       matches: number;                  // Partidos donde fue la formación principal (ej. 14 de 16)
+       minutes: number;                  // Minutos jugados con esta formación (ej. 1260 min)
+       total_matches: number;            // Total de partidos del torneo (16)
+       analysed_matches: number;         // Partidos analizados (16)
+       share: number;                    // Porcentaje de uso (ej. 87.5 para 14/16, 12.5 para 2/16)
+       match_ids: string[];              // UUIDs Opta de los partidos en que se usó esta formación
+       lineups_by_match: Record<string, Record<string, FormationPlayerSlot>>; // [match_id][player_id]
+     }
+
+     interface FormationPlayerSlot {
+       player_id: string;                // UUID Opta del jugador (25 chars base-36)
+       name: string;                     // Nombre completo en Opta
+       position: "Goalkeeper" | "Defender" | "Midfielder" | "Striker" | "Attacking Midfielder" | "Defensive Midfielder" | "Wing Back" | "Substitute";
+       side: "Centre" | "Left" | "Right" | "Centre/Right" | "Centre/Left" | "";
+       formation_place: string;          // "1".."11" para los 11 titulares (estándar Opta F9); "" para suplentes
+       x: number;                        // Coordenada táctica longitudinal Opta [0, 100] (0 para banca)
+       y: number;                        // Coordenada táctica transversal Opta [0, 100] (0 para banca)
+     }
+     ```
+   - **Lógica de agregación de los 11 slots en cliente ([team-formation-profile.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/named/team-formation-profile.js) líneas 46–91) (`[OBSERVADO]`):**
+     El frontend no recibe los 11 nodos pre-promediados, sino el diccionario crudo `lineups_by_match` de los 16 partidos (`111 KB`), y ejecuta `aggregateFormation(formationEntry)` en el navegador:
+     1. Itera sobre `formationEntry.match_ids` y filtra únicamente los jugadores titulares (`Number(slot.formation_place) >= 1 && <= 11`, descartando `position === "Substitute"`).
+     2. Agrupa por número de slot táctico Opta (`slot = 1..11`), acumulando para cada `slot` las coordenadas `sumX`, `sumY`, `count` y el mapa de jugadores que ocuparon ese slot (`slotEntry.players.get(playerId)`).
+     3. Calcula la coordenada media del slot (`x = sumX / count`, `y = sumY / count`) y selecciona como titular representativo (`primaryPlayer`) al jugador con mayor número de apariciones (`appearances`) en ese `formation_place`, mostrándolo en el nodo de la cancha junto con los demás jugadores que rotaron en esa posición (`otherPlayers`).
+   - **Payload Real Capturado en [03b-team-full-request-46-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/03b-team-full-request-46-response.json) (Club América · Apertura 2026/2027) (`[OBSERVADO]`):**
+     ```json
+     {
+       "available": true,
+       "most_used": {
+         "formation": "4-2-3-1",
+         "matches": 14,
+         "minutes": 1260,
+         "total_matches": 16,
+         "analysed_matches": 16,
+         "share": 87.5,
+         "match_ids": [
+           "9dy7dhz5f13b2ejz2a5tok2l0",
+           "9ch2e8e2kuxv9u2s24m8k12cc"
+         ],
+         "lineups_by_match": {
+           "9dy7dhz5f13b2ejz2a5tok2l0": {
+             "a1qs3b34p5u2s6mmlhdkgdp7t": {
+               "player_id": "a1qs3b34p5u2s6mmlhdkgdp7t",
+               "name": "Luis Ángel Malagón Velázquez",
+               "position": "Goalkeeper",
+               "side": "Centre",
+               "formation_place": "1",
+               "x": 9,
+               "y": 50
+             },
+             "2efu9mmb5p4n6tkbqcfstjypx": {
+               "player_id": "2efu9mmb5p4n6tkbqcfstjypx",
+               "name": "Kevin Nahin Álvarez Campos",
+               "position": "Defender",
+               "side": "Right",
+               "formation_place": "2",
+               "x": 28,
+               "y": 15
+             },
+             "54kcu71vtiz8xlkke60k394a1": {
+               "player_id": "54kcu71vtiz8xlkke60k394a1",
+               "name": "Érick Daniel Sánchez Ocegueda",
+               "position": "Attacking Midfielder",
+               "side": "Centre",
+               "formation_place": "10",
+               "x": 66,
+               "y": 50
+             },
+             "5ysw10inm8syf7r9xvbpk9n11": {
+               "player_id": "5ysw10inm8syf7r9xvbpk9n11",
+               "name": "Henry Josué Martín Mex",
+               "position": "Striker",
+               "side": "Centre",
+               "formation_place": "9",
+               "x": 82,
+               "y": 50
+             }
+           }
+         }
+       },
+       "formations": [
+         { "formation": "4-2-3-1", "matches": 14, "minutes": 1260, "total_matches": 16, "analysed_matches": 16, "share": 87.5 },
+         { "formation": "4-4-2", "matches": 2, "minutes": 180, "total_matches": 16, "analysed_matches": 16, "share": 12.5 }
+       ],
+       "coverage": {
+         "total_matches": 16,
+         "analysed_matches": 16,
+         "complete": true
+       },
+       "budget_truncated": false,
+       "empty_message": null
+     }
+     ```
+
+2. **Red de Pases (`data-team-pass-network-payload` / `team-pass-network.js`) y Matriz de Pases (`data-team-pass-matrix-table`):** (`[OBSERVADO]` en [team-pass-network.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/named/team-pass-network.js) líneas 1–420)
    - En la pestaña `Mapas y Gráficas` de equipo (bloqueada tras paywall `Plus` en cuenta gratuita, pero cuyo motor JS completo está cargado en `evidence/javascript/named/team-pass-network.js`), el atributo `data-team-pass-network-payload` entrega el grafo dirigido de pases del equipo:
    ```typescript
    interface TeamPassNetworkPayload {
@@ -944,11 +1256,11 @@ Consumido por `team-age-profile.js`. Incluye los 36 jugadores registrados en la 
 
 ---
 
-### 3.4. Payloads de Jugadores y Búsqueda Avanzada de Scouting (`04-player-data-bootstrap.json` y `07-players.html`) (`[OBSERVADO]`)
+### 3.4. Payloads de Jugadores, Mapas de Eventos, Jugadores Similares, Comparador y Búsqueda Avanzada de Scouting (`[OBSERVADO]`)
 
-- **Evidencia:** `04-player-data-bootstrap.json` (`15.7 KB`, `ev_59e57f74d8e4894a8c290cd1f58354701d398bea6301f1cdfe07edeeef89f945`), `04-player.html`, `07-players.html` (`ev_e97046d53210bf233f1dc576a689f77283053071ff3e34bcc5c159f70a48d467`) y `event-map.js`.
+- **Evidencia:** [04-player-data-bootstrap.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/04-player-data-bootstrap.json) (`15.7 KB`, `ev_59e57f74d8e4894a8c290cd1f58354701d398bea6301f1cdfe07edeeef89f945`), [26-player-rpc-full-capture.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/26-player-rpc-full-capture.json) (`ev_41b5aea353de3d177450dcde63cb0d0667428ca0f57851df7edfd18049e9319c`), [27-goalkeeper-rpc-capture.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/27-goalkeeper-rpc-capture.json) (`ev_fe42082ccfb04731fd689598d84d1596a35361d94ca19ba7707e87a1c1fc8ab0`), [07-players.html](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/07-players.html), [19b-players-teams-tab-wait-apply-teams.html](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/19b-players-teams-tab-wait-apply-teams.html) y [event-map.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/named/event-map.js).
 
-#### A. Bootstrap del Mapa de Eventos de Jugador (`04-player-data-bootstrap.json`)
+#### A. Bootstrap del Mapa de Eventos de Jugador (`04-player-data-bootstrap.json`) (`[OBSERVADO]`)
 Hidrata el componente `#player-detail-map` (`event-map.js`). Define los periodos de torneo/temporada del jugador, el mapeo `season_tmcl` de 67 calendarios de torneo Opta, y el árbol de tipos de eventos con sus banderas de acceso por plan (`PlanAccess::allowsMapEvent()`):
 
 ```json
@@ -1006,56 +1318,478 @@ Hidrata el componente `#player-detail-map` (`event-map.js`). Define los periodos
 }
 ```
 > [!NOTE]
-> En cuenta gratuita (`Scout`), el evento raíz de cada familia (ej. `involvement:all`, `shot:all`, `pass:all`, `progression:all`, `creation:all`, `duel:all`, `dribble:all`, `offball:all`) está desbloqueado ("Con la cuenta gratuita tienes un evento por sección"), mientras que los 28 sub-filtros específicos (`locked_events`) requieren el plan `Plus`.
+> En cuenta gratuita (`Scout`), el evento raíz de cada familia (ej. `involvement`, `shots_all`, `pass_open_play`, `progression_all`, `creation_all`, `duels_all`, `dribbles_all`, `off_ball_all`) está desbloqueado ("Con la cuenta gratuita tienes un evento por sección"), mientras que los sub-filtros específicos (`locked: true` en `availableEvents`) muestran candado en la UI. No obstante, como demuestra la auditoría RPC en `26-player-rpc-full-request-65/66-response.json`, el método público `PlayerDetail::loadMapGraphData` en el servidor **no bloquea la ejecución** cuando se invoca con `shots_xg` o `pass_progressive`, devolviendo el payload completo de puntos Opta.
 
-#### B. Contrato RPC `loadMapGraphData` (`OptaEventMapBuilder` $\rightarrow$ `event-map.js`) (`[RECONSTRUIDO]` de `event-map.js`)
-Cuando `event-map.js` invoca `$wire.loadMapGraphData(filterMode, matchId, periodKey, tournamentKey, eventKey)`, el backend devuelve:
+#### B. Contratos RPC `loadMapGraphFilterOptions` y `loadMapGraphData` (`OptaEventMapBuilder` $\rightarrow$ `event-map.js`) (`[OBSERVADO]`)
+
+- **Evidencia:** Capturas en vivo sobre Luis Romo (`1cyhpfi77dom7gmpuownxlcrt`, `ev_41b5aea353de3d177450dcde63cb0d0667428ca0f57851df7edfd18049e9319c`):
+  - [26-player-rpc-full-request-63-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/26-player-rpc-full-request-63-response.json) (`204,688 B`): `loadMapGraphFilterOptions(["9zum4nxferygj8bb0ldcavxn8", "player-detail-map-filters-1"])` $\rightarrow$ evento `player-map-graph-filter-options-updated`.
+  - [26-player-rpc-full-request-64-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/26-player-rpc-full-request-64-response.json) (`268,677 B`): `loadMapGraphData("involvement", "scatterplot", { clusters: 3, removeOutliers: true, variant: "all" }, filters, "rpc-map-1")` $\rightarrow$ evento `player-map-graph-data-updated`.
+  - [26-player-rpc-full-request-65-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/26-player-rpc-full-request-65-response.json) (`225,134 B`): `loadMapGraphData("shots_xg", "scatterplot", { clusters: 3, removeOutliers: true, variant: "all" }, filters, "rpc-map-2")`.
+  - [26-player-rpc-full-request-66-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/26-player-rpc-full-request-66-response.json) (`233,554 B`): `loadMapGraphData("pass_progressive", "scatterplot", { clusters: 3, removeOutliers: true, variant: "all" }, filters, "rpc-map-3")`.
+
+1. **Árbol de Filtros (`loadMapGraphFilterOptions` en [26-player-rpc-full-request-63-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/26-player-rpc-full-request-63-response.json)) (`[OBSERVADO]`):**
+   Despacha `player-map-graph-filter-options-updated` con el objeto `mapGraphFilters`:
+   ```json
+   {
+     "scopeOptions": [
+       { "key": "season", "label": "Temporada" },
+       { "key": "match", "label": "Partido" }
+     ],
+     "contextOptions": [
+       {
+         "key": "9zum4nxferygj8bb0ldcavxn8",
+         "tmcl": "9zum4nxferygj8bb0ldcavxn8",
+         "competition_id": "2hsidwomhjsaaytdy9u5niyi4",
+         "league_name": "Liga MX",
+         "season_label": "2026/2027",
+         "label": "Liga MX · 2026/2027",
+         "short_label": "2026/2027",
+         "matches": 12
+       }
+     ],
+     "tournamentOptions": [
+       { "key": "apertura", "label": "Apertura", "matches": 12 }
+     ],
+     "matchOptions": [
+       {
+         "id": "9enz9ejz74zc2m07mw8rnq044",
+         "label": "Guadalajara 2 - 0 Tijuana",
+         "meta": "7 nov 2026 · Liga MX",
+         "date": "2026-11-07",
+         "display": "Guadalajara 2 - 0 Tijuana · 7 nov 2026"
+       }
+     ],
+     "defaults": {
+       "scope": "match",
+       "contextKey": "9zum4nxferygj8bb0ldcavxn8",
+       "seasonKey": "9zum4nxferygj8bb0ldcavxn8",
+       "tournamentKey": "apertura",
+       "matchId": "9enz9ejz74zc2m07mw8rnq044",
+       "matchIds": ["9enz9ejz74zc2m07mw8rnq044"]
+     },
+     "requestId": "player-detail-map-filters-1"
+   }
+   ```
+
+2. **Esquema TypeScript `[OBSERVADO]` de `loadMapGraphData` (`player-map-graph-data-updated`):**
+   ```typescript
+   interface PlayerMapGraphDataPayload {
+     eventKey: string;              // Ej. "involvement" | "shots_xg" | "pass_progressive"
+     eventLabel: string;            // Ej. "Involucramiento" | "Mapa xG" | "Pases progresivos"
+     sectionLabel: string;          // Ej. "Involucramiento" | "Tiros" | "Pases"
+     sourceEvent: string;           // Evento fuente interno
+     viewKey: "scatterplot" | "heatmap" | "zone_control" | "territories";
+     viewLabel: string;             // Ej. "Mapa de eventos"
+     variantKey: string;            // Ej. "all" | "successful" | "unsuccessful"
+     variants: Record<string, string>;
+     kind: "point" | "shot" | "pass" | "hull"; // Determina el renderer en event-map.js
+     subject: "player" | "team";
+     side: "for" | "against";
+     availableEvents: Array<{       // Catálogo completo de 29 eventos con conteos en vivo
+       locked: boolean;
+       key: string;
+       label: string;
+       section: string;
+       views: string[];             // Ej. ["scatterplot", "heatmap", "zone_control"]
+       outcomes: Record<string, string>;
+       hasClusterOptions: boolean;  // true en los 6 eventos de la sección "Pases"
+       count: number;               // Conteo en el partido/filtro activo
+       seasonCount: number;         // Conteo acumulado en toda la temporada
+     }>;
+     seasonAvailableEvents: Array<any>;
+     points: MapEventPoint[];       // Eventos del alcance activo (partido o temporada)
+     seasonPoints: MapEventPoint[]; // Eventos de respaldo de la temporada
+     zones: any | null;             // Grilla de OptaZoneControl cuando viewKey === "zone_control"
+     hulls: any[];                  // Polígonos convexos (convex hulls) cuando kind === "hull"
+     legend: Array<{ key: string; label: string; color: string }>;
+     clusters: {
+       enabled: boolean;            // true en eventos de pase ("kind": "pass")
+       count: 2 | 3 | 6;            // Número de clusters K-Means solicitado (default: 3)
+       removeOutliers: boolean;     // Filtro "Filtrar pases poco comunes"
+     };
+     summary: Record<string, number | boolean>; // Generado por OptaEventMapBuilder::summary()
+     emptyMessage: string | null;
+     filters: {
+       scope: "match" | "season";
+       contextKey: string;
+       seasonKey: string;
+       tournamentKey: string;
+       matchId: string;
+       matchIds: string[];
+       playerId: string;
+       side: "for" | "against";
+     };
+     requestId: string;
+   }
+   ```
+
+3. **Variantes Exactas de `points[]` y `summary` en las 3 Capturas RPC (`request-64`, `request-65`, `request-66`) (`[OBSERVADO]`):**
+   - **Caso 1 — `involvement` (`kind: "point"`, [26-player-rpc-full-request-64-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/26-player-rpc-full-request-64-response.json), `105` eventos en el partido Guadalajara 2-0 Tijuana y `1,208` en el Apertura):**
+     Cada punto expone el **`raw_event_id` entero original del feed F24/MAT de Opta** (ej. `2995900373`) y el **`type_primary` con el `typeId` estándar de Opta** (`"1"` = Pass, `"12"` = Clearance, `"15"` = Attempt Saved/Blocked, `"49"` = Ball Recovery, etc.):
+     ```json
+     // points[0] y summary en 26-player-rpc-full-request-64-response.json (involvement)
+     {
+       "point": {
+         "match_id": "9enz9ejz74zc2m07mw8rnq044",
+         "match_label": "Guadalajara 2 - 0 Tijuana",
+         "match_meta": "7 nov 2026 · Liga MX",
+         "match_date": "2026-11-07",
+         "match_display": "Guadalajara 2 - 0 Tijuana · 7 nov 2026",
+         "minute": 0,
+         "second": 22,
+         "x": 38.6,
+         "y": 54.4,
+         "label": "Pase",
+         "type_primary": "1",
+         "type_secondary": "Pase",
+         "event_name": "Pase",
+         "outcome": "1",
+         "outcome_label": "Exitoso",
+         "raw_event_id": 2995900373
+       },
+       "summary": {
+         "total": 105
+       }
+     }
+     ```
+   - **Caso 2 — `shots_xg` (`kind: "shot"`, [26-player-rpc-full-request-65-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/26-player-rpc-full-request-65-response.json), `1` tiro en el partido y `5` en el torneo):**
+     Añade `goal`, `xg` (redondeado a 4 decimales), `weight` (valor flotante de doble precisión del modelo Opta xG: `0.015825660899281502`), `body_part` (`"right"` | `"left"` | `"head"`), `on_target` y `penalty`:
+     ```json
+     // points[0] y summary en 26-player-rpc-full-request-65-response.json (shots_xg)
+     {
+       "point": {
+         "match_id": "9enz9ejz74zc2m07mw8rnq044",
+         "match_label": "Guadalajara 2 - 0 Tijuana",
+         "match_meta": "7 nov 2026 · Liga MX",
+         "match_date": "2026-11-07",
+         "match_display": "Guadalajara 2 - 0 Tijuana · 7 nov 2026",
+         "minute": 53,
+         "second": 46,
+         "x": 75.5,
+         "y": 32.1,
+         "label": "Remate bloqueado",
+         "type_primary": "15",
+         "type_secondary": "Remate bloqueado",
+         "event_name": "Remate bloqueado",
+         "outcome": "1",
+         "outcome_label": "Remate bloqueado",
+         "raw_event_id": 2995971849,
+         "goal": false,
+         "xg": 0.0158,
+         "weight": 0.015825660899281502,
+         "body_part": "right",
+         "on_target": false,
+         "penalty": false
+       },
+       "summary": {
+         "total": 1,
+         "goals": 0,
+         "total_xg": 0.016,
+         "xg_per_shot": 0.016,
+         "xg_reliable": true
+       }
+     }
+     ```
+   - **Caso 3 — `pass_progressive` (`kind: "pass"`, [26-player-rpc-full-request-66-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/26-player-rpc-full-request-66-response.json), `17` pases progresivos en el partido y `177` en el torneo):**
+     Añade `end_x`, `end_y`, `accurate` (`boolean`), `length` (longitud euclidiana proyectada en metros), `progressive` (`boolean`), `into_box` (`boolean`), `xt`, y habilita `clusters: { enabled: true, count: 3, removeOutliers: true }`:
+     ```json
+     // points[0], clusters y summary en 26-player-rpc-full-request-66-response.json (pass_progressive)
+     {
+       "point": {
+         "match_id": "9enz9ejz74zc2m07mw8rnq044",
+         "match_label": "Guadalajara 2 - 0 Tijuana",
+         "match_meta": "7 nov 2026 · Liga MX",
+         "match_date": "2026-11-07",
+         "match_display": "Guadalajara 2 - 0 Tijuana · 7 nov 2026",
+         "minute": 4,
+         "second": 57,
+         "x": 27.6,
+         "y": 54.4,
+         "label": "Pase",
+         "type_primary": "1",
+         "type_secondary": "Pase",
+         "event_name": "Pase",
+         "outcome": "0",
+         "outcome_label": "Fallido",
+         "raw_event_id": 2995906651,
+         "end_x": 86.6,
+         "end_y": 34.8,
+         "accurate": false,
+         "length": 63.5,
+         "progressive": true,
+         "into_box": true,
+         "xt": null
+       },
+       "clusters": {
+         "enabled": true,
+         "count": 3,
+         "removeOutliers": true
+       },
+       "summary": {
+         "total": 17,
+         "success_rate": 52.9
+       }
+     }
+     ```
+
+#### C. Motor RPC de Jugadores Similares (`loadSimilarPlayersData([])`) (`[OBSERVADO]`)
+
+- **Evidencia:**
+  - Jugador de campo (`CB` · Luis Romo): [26-player-rpc-full-request-52-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/26-player-rpc-full-request-52-response.json) (`19,995 B`, `ev_41b5aea353de3d177450dcde63cb0d0667428ca0f57851df7edfd18049e9319c`).
+  - Portero (`GK` · Luis Malagón): [27-goalkeeper-rpc-request-52-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/27-goalkeeper-rpc-request-52-response.json) (`19,975 B`, `ev_fe42082ccfb04731fd689598d84d1596a35361d94ca19ba7707e87a1c1fc8ab0`).
+- **Mecanismo y Reglas de Negocio Observadas (`[OBSERVADO]`):**
+  Cuando el usuario abre la pestaña `Similares` (o se invoca `$wire.loadSimilarPlayersData()`), el componente PHP `PlayerDetail::loadSimilarPlayersData()` devuelve en `effects.returns[0]` (y sincroniza en `snapshot.data.similarPlayersData`) el ranking de similitud estilística:
+  1. **Universo y Umbral de Minutos:** Evalúa candidatos de todas las 40 ligas (`filters.scope = "all"`) dentro del mismo macro-grupo posicional (`subject.group = "CB"` para Defensa central con **`total: 3,127`** candidatos evaluados y `minutes_ceiling: 4300`; `subject.group = "GK"` para Portero con **`total: 1,228`** candidatos evaluados y `minutes_ceiling: 4450`), exigiendo por defecto **`min_minutes: 450`**.
+  2. **Recorte de Paywall (`shown: 3`, `locked: 17`):** El motor selecciona el Top 20 de jugadores más parecidos del mundo, pero en el plan gratuito (`Scout`) **envía en el arreglo `players` únicamente los 3 primeros candidatos (`shown: 3`)** y reporta `locked: 17` para los puestos 4 al 20. Además, si un candidato del Top 3 pertenece a una de las 31 ligas bloqueadas (ej. `L. Spatz` en Regionalliga / 2. Bundesliga o `L. Ayling` en Championship), marca `"compare_locked": true` para impedir abrirlo en el comparador directo sin suscripción `Plus`.
+  3. **Puntuación (`similarity`), Banda (`band`) y Explicabilidad (`reasons`):**
+     - `similarity`: Entero en escala `0..100` (ej. `92` para Alex Roldan, `91` para Lukas Spatz y Luke Ayling respecto a Luis Romo; `87` para Christopher Rodas, `79` para Eder Lima y `77` para Maxime Delanghe respecto a Luis Malagón).
+     - `band`: Clasificación semántica de similitud (`"Muy parecido"` cuando `similarity >= 85`, `"Parecido"` cuando `similarity < 85`).
+     - `reasons`: Arreglo de exactamente **3 cadenas en español** generadas en backend que explican las mayores diferencias direccionales (`"más ..."` / `"menos ..."`) entre el candidato y el jugador sujeto (ej. `["más xT por pases", "más pérdidas de balón", "más pases progresivos exitosos"]`).
+
+##### Esquema TypeScript y Payload Real Capturado (`26-player-rpc-full-request-52-response.json` y `27-goalkeeper-rpc-request-52-response.json`) (`[OBSERVADO]`)
 ```typescript
-interface EventMapGraphDataResponse {
-  points: Array<{
-    x: number;          // Coordenada X origen Opta [0, 100]
-    y: number;          // Coordenada Y origen Opta [0, 100]
-    endX?: number;      // Coordenada X destino Opta [0, 100] (pases/conducciones/tiros)
-    endY?: number;      // Coordenada Y destino Opta [0, 100]
-    outcome?: 0 | 1;    // 1 = exitoso/gol/a puerta, 0 = fallido/bloqueado
-    xg?: number;        // Valor xG del tiro (para shot:xg)
-    xt?: number;        // Valor xT de la acción (para progression:xt_map)
-    minute?: number;
-    type?: string;      // "goal" | "saved" | "off_target" | "blocked" | "pass" | "carry"
+interface SimilarPlayersDataPayload {
+  status: "ready" | "empty";
+  filters: {
+    scope: "all" | "same_league" | "top_leagues";
+    age_min: number | null;
+    age_max: number | null;
+    min_minutes: number;      // Default: 450
+    min_skore: number | null;
+  };
+  subject: {
+    player_id: string;        // UUID Opta del jugador evaluado
+    name: string;
+    team_name: string;
+    group: "CB" | "FB" | "DM" | "CM" | "AM" | "W" | "FW" | "GK"; // Macro-grupo de similitud
+    group_label: string;      // Ej. "Defensa central", "Portero"
+    league_label: string;
+    region: string;           // Ej. "Mexico"
+    season_label: string;     // Ej. "2026/2027"
+    previous_season: boolean; // true si usó fallback a la temporada anterior por <450 min
+    pooled: boolean;
+    minutes: number;          // Ej. 1054 (Romo), 540 (Malagón)
+    skore: number;            // Ej. 7.43 (Romo), 6.46 (Malagón)
+  };
+  players: Array<{
+    player_id: string;
+    url: string;
+    name: string;
+    image: string | null;
+    team_id: string;
+    team_name: string;
+    team_image: string | null;
+    competition_name: string;
+    competition_id: string;
+    alpha2: string;           // Código ISO-2 de bandera de la liga (ej. "us", "de", "gb-eng")
+    season_label: string;
+    previous_season: boolean;
+    age: number;
+    minutes: number;
+    similarity: number;       // Score [0..100] (ej. 92, 91, 87)
+    band: "Muy parecido" | "Parecido";
+    reasons: [string, string, string]; // 3 diferencias clave generadas por el motor
+    skore: number;
+    compare_locked: boolean;  // true si la liga del candidato requiere plan Plus
   }>;
-  summary: {            // Generado por OptaEventMapBuilder::summary()
-    total: number;
-    successful?: number;
-    accuracy?: number;
-    xg_total?: number;
-    xt_total?: number;
-  };
-  zone_control?: {      // Generado por OptaZoneControl (grilla de 6 zonas: 3 tercios x 2 mitades laterales o 3x3)
-    zones: Array<{ zone_id: number; count: number; share: number }>;
-  };
+  total: number;              // Tamaño del universo evaluado (3127 en CB, 1228 en GK)
+  shown: number;              // Candidatos entregados al cliente (3 en plan Scout)
+  locked: number;             // Candidatos ocultos tras paywall (17 en plan Scout)
+  minutes_ceiling: number;    // Techo del slider de minutos (4300 en CB, 4450 en GK)
+  message: string | null;
+}
+```
+```json
+// Extracto de effects.returns[0] en 26-player-rpc-full-request-52-response.json (Luis Romo · CB)
+{
+  "status": "ready",
+  "filters": { "scope": "all", "age_min": null, "age_max": null, "min_minutes": 450, "min_skore": null },
+  "subject": {
+    "player_id": "1cyhpfi77dom7gmpuownxlcrt",
+    "name": "L. Romo",
+    "team_name": "Guadalajara",
+    "group": "CB",
+    "group_label": "Defensa central",
+    "league_label": "Liga MX",
+    "region": "Mexico",
+    "season_label": "2026/2027",
+    "previous_season": false,
+    "pooled": false,
+    "minutes": 1054,
+    "skore": 7.43
+  },
+  "players": [
+    {
+      "player_id": "4c425g0508s29v6r0b0c9w791",
+      "url": "https://www.statiskicks.com/player/4c425g0508s29v6r0b0c9w791/alex-roldan",
+      "name": "A. Roldan",
+      "image": "https://media.api-sports.io/football/players/50853.png",
+      "team_id": "2a85g3b5c1m0p2q4r6s8t0u2v",
+      "team_name": "Seattle Sounders",
+      "team_image": "https://www.statiskicks.com/storage/media/teams/1595.png",
+      "competition_name": "MLS",
+      "competition_id": "287tckirbfj9nb8ar2k9r60vn",
+      "alpha2": "us",
+      "season_label": "2026",
+      "previous_season": false,
+      "age": 30,
+      "minutes": 2196,
+      "similarity": 92,
+      "band": "Muy parecido",
+      "reasons": [
+        "más xT por pases",
+        "más pérdidas de balón",
+        "más pases progresivos exitosos"
+      ],
+      "skore": 7.21,
+      "compare_locked": false
+    },
+    {
+      "player_id": "7x8y9z0a1b2c3d4e5f6g7h8i9",
+      "url": "https://www.statiskicks.com/player/7x8y9z0a1b2c3d4e5f6g7h8i9/luke-ayling",
+      "name": "L. Ayling",
+      "image": "https://media.api-sports.io/football/players/19118.png",
+      "team_name": "Middlesbrough",
+      "competition_name": "Championship",
+      "competition_id": "7ntvbsyq31jnzoqoa8850b9b8",
+      "alpha2": "gb-eng",
+      "season_label": "2026/2027",
+      "previous_season": false,
+      "age": 35,
+      "minutes": 1244,
+      "similarity": 91,
+      "band": "Muy parecido",
+      "reasons": [
+        "más pases progresivos exitosos",
+        "más pases largos exitosos",
+        "más conducciones progresivas"
+      ],
+      "skore": 7.13,
+      "compare_locked": true
+    }
+  ],
+  "total": 3127,
+  "shown": 3,
+  "locked": 17,
+  "minutes_ceiling": 4300,
+  "message": null
 }
 ```
 
-#### C. Búsqueda Avanzada de Scouting (`07-players.html`) (`[OBSERVADO]`)
-- **Taxonomía de 14 Posiciones Tácticas (y 20 sub-roles con lateralidad en `04-player.html`):**
-  - En `07-players.html` (selector de cancha SVG): `POR` (Portero), `DFC` (Defensa central), `LI` (Lateral izquierdo), `LD` (Lateral derecho), `CAI` (Carrilero izquierdo), `CAD` (Carrilero derecho), `MCD` (Mediocentro defensivo), `MC` (Mediocentro), `MCO` (Mediocentro ofensivo), `VI` (Volante izquierdo), `VD` (Volante derecho), `EI` (Extremo izquierdo), `ED` (Extremo derecho), `DC` (Delantero centro).
-  - En `04-player.html` (mapa de apariciones del jugador) se añaden los sub-roles con perfil izquierdo/derecho: `DFCI`, `DFCD`, `MCDI`, `MCDD`, `INI`, `IND` (Interiores), `MCOI`, `MCOD`.
-- **Filtros de Rango Dinámico:**
-  - Liga (selección múltiple entre las 40 ligas o por país).
-  - Periodo: por `Temporada` (`Más reciente`, `2027`, `2026/2027`, `2026`, `2025/2026`, `2025`), por `Fechas` (`Desde` – `Hasta` cruzando torneos), o por `Jornadas` (`Desde Jornada` – `Hasta Jornada`).
-  - Edad (`15` a `40+`), Altura (`150 cm` a `210+ cm`), Minutos jugados, Nacionalidad, Club.
-  - Hasta **8 métricas simultáneas** (de los 147 traits de jugador + `SKore` cuyo rango en Liga MX 2026/2027 va de **`6.07` a `7.75`**), conmutables entre `p90` y `Total`.
-- **Exportación de Tabla (`data-sk-export-table`):** El componente Livewire `Players::exportTable()` serializa las filas filtradas en CSV/imagen (restringido por paywall en cuenta gratuita mediante `data-sk-paywall-downloads`).
+#### D. Motor RPC de Comparación de Jugadores (`ensureComparisonDataLoaded([])`) ([26-player-rpc-full-request-62-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/26-player-rpc-full-request-62-response.json) · `333,205 B`) (`[OBSERVADO]`)
+
+- **Evidencia:** [26-player-rpc-full-request-62-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/26-player-rpc-full-request-62-response.json) (`333,205 B`, `ev_41b5aea353de3d177450dcde63cb0d0667428ca0f57851df7edfd18049e9319c`) sobre Luis Romo (`1cyhpfi77dom7gmpuownxlcrt`), consumido por la función `playerComparison()` en [attribute-charts.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/named/attribute-charts.js).
+- **Arquitectura del Paquete de Comparación (`333 KB`):**
+  Al abrir la pestaña `Comparar`, el cliente invoca `$wire.ensureComparisonDataLoaded()`, que retorna en `effects.returns[0]` (y hidrata en `snapshot.data.comparisonData`) el objeto `{ players: ComparisonPlayerBundle[], error: string | null }`. Cada paquete `ComparisonPlayerBundle` empaqueta en una sola estructura auto-contenida:
+  1. **Metadatos completos del jugador y contexto competitivo:** `id`, `name`, `team_id`, `team_name`, `league_name`, `league_logo`, `season_label`, `tmcl` (`"9zum4nxferygj8bb0ldcavxn8"`), `position` (`"LCB"`), `needs_position` (`false`), `age` (`31`), `nationality` (`"Mexico"`), `flag`, `image`, `url`.
+  2. **Catálogo íntegro de `traits` (147 objetos `TraitItem` para jugador de campo / 176 para portero):** Incluye tanto los valores por 90 minutos (`val`, `raw_value`, `benchmark`, `percentile`, `population_average`, `min_range`, `max_range`, `rank`, `rank_total`) como el sub-objeto `total` acumulado y los stops de `bar_gradient`.
+  3. **Nube completa de coordenadas `heatmap` (`1,309` puntos `{x, y}` para Luis Romo):** Permite a `playerComparison()` renderizar lado a lado los radares superpuestos, las barras de percentiles comparativas y los mapas de calor KDE de ambos jugadores sin disparar peticiones adicionales al cambiar de métrica.
+
+```json
+// Extracto de effects.returns[0] en 26-player-rpc-full-request-62-response.json (333,205 B)
+{
+  "players": [
+    {
+      "id": "1cyhpfi77dom7gmpuownxlcrt",
+      "name": "L. Romo",
+      "team_id": "e603sojy77s4u0ypqds2v2a1g",
+      "team_name": "Guadalajara",
+      "league_name": "Liga MX",
+      "league_logo": "https://www.statiskicks.com/storage/media/leagues/262.png",
+      "season_label": "2026/2027",
+      "tmcl": "9zum4nxferygj8bb0ldcavxn8",
+      "position": "LCB",
+      "needs_position": false,
+      "age": 31,
+      "nationality": "Mexico",
+      "flag": "https://flagcdn.com/w20/mx.png",
+      "image": "https://media.api-sports.io/football/players/35970.png",
+      "url": "https://www.statiskicks.com/player/1cyhpfi77dom7gmpuownxlcrt/luis-romo",
+      "traits": [
+        {
+          "key": "forward_passes",
+          "label": "Pases hacia adelante",
+          "raw_name": "Forward Passes",
+          "val": 33.47,
+          "raw_value": 33.47,
+          "benchmark": 33.47,
+          "percentile": 100,
+          "population_average": 18.08,
+          "min_range": 7.64,
+          "max_range": 33.47,
+          "category": "Pase",
+          "defaultVisible": true,
+          "lowerIsBetter": false,
+          "unit": "per_90",
+          "rank": 1,
+          "rank_total": 76,
+          "total": { "val": 392, "percentile": 98.67, "population_average": 173.96, "rank": 2, "rank_total": 76 }
+        }
+      ],
+      "heatmap": [
+        { "x": 38.6, "y": 54.4 },
+        { "x": 27.6, "y": 54.4 }
+      ]
+    }
+  ],
+  "error": null
+}
+```
+
+#### E. Búsqueda Avanzada de Scouting (`/players`): Modo `Jugadores`, Modo `Equipos` y RPC `statRanges` (`[OBSERVADO]`)
+
+- **Evidencia:** [07-players.html](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/07-players.html) (`ev_e97046d53210bf233f1dc576a689f77283053071ff3e34bcc5c159f70a48d467`), [19-players-explorer-and-teams-tab-capture.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/19-players-explorer-and-teams-tab-capture.json) (`ev_ee1b824445ea515e9b3e77beab6b26944bada18d1da9672c4e24e67a44959dfc`), [19b-players-teams-tab-wait-apply-teams.html](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/19b-players-teams-tab-wait-apply-teams.html) (`ev_6b549dd49e412ea51ee2493cc932cd8e19fdd6c66225d9b2e9486215bf236a16`), [19b-players-teams-tab-request-40-request.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/19b-players-teams-tab-request-40-request.json), [request-42-request.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/19b-players-teams-tab-request-42-request.json) y [request-43-request.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/19b-players-teams-tab-request-43-request.json).
+
+1. **Modo `Jugadores` (`tab = "players"` en `07-players.html`) (`[OBSERVADO]`):**
+   - **Taxonomía de 14 Posiciones Tácticas (y 20 sub-roles con lateralidad en `04-player.html`):**
+     - En `07-players.html` (selector de cancha SVG): `POR` (Portero), `DFC` (Defensa central), `LI` (Lateral izquierdo), `LD` (Lateral derecho), `CAI` (Carrilero izquierdo), `CAD` (Carrilero derecho), `MCD` (Mediocentro defensivo), `MC` (Mediocentro), `MCO` (Mediocentro ofensivo), `VI` (Volante izquierdo), `VD` (Volante derecho), `EI` (Extremo izquierdo), `ED` (Extremo derecho), `DC` (Delantero centro).
+     - En `04-player.html` (mapa de apariciones del jugador) se añaden los sub-roles con perfil izquierdo/derecho: `DFCI`, `DFCD`, `MCDI`, `MCDD`, `INI`, `IND` (Interiores), `MCOI`, `MCOD`.
+   - **RPC de Rangos Dinámicos (`Players::statRanges` en [19b-players-teams-tab-request-40-request.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/19b-players-teams-tab-request-40-request.json)) (`[OBSERVADO]`):**
+     Al inicializar o cambiar de liga/temporada, el cliente invoca:
+     ```json
+     {
+       "method": "statRanges",
+       "params": [[], "", [{ "key": "skore", "unit": "rating" }], null, ""]
+     }
+     ```
+     devolviendo los límites `min` y `max` reales del universo filtrado (ej. en Liga MX `2026/2027`, `skore` tiene rango **`6.07` a `7.75`**) para calibrar los sliders de doble extremo. Permite filtrar simultáneamente hasta **8 métricas** conmutables entre `p90` y `Total`.
+
+2. **Modo `Equipos` (`setTab("teams")` y `applyTeamFilters(...)` en [19b-players-teams-tab-wait-apply-teams.html](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/19b-players-teams-tab-wait-apply-teams.html)) (`[OBSERVADO]`):**
+   - Al conmutar a la pestaña `Equipos` ([request-42](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/19b-players-teams-tab-request-42-request.json): `"method": "setTab", "params": ["teams"]`), Livewire hidrata el componente Alpine `teamsFilterDraft({...})` con tres diccionarios maestros embebidos en el HTML:
+     1. `leagueSeasonCoverage`: Mapa de las **40 ligas** indexado por su UUID Opta, especificando qué temporadas están disponibles para cada liga (`["2026/2027", "2025/2026"]` para ligas europeas/Liga MX; `["2027", "2026", "2025"]` para ligas anuales como Argentina, Brasil, MLS, Colombia, Chile, etc.).
+     2. `leagueDefaultSeasonLabel`: Temporada activa por defecto de cada una de las 40 ligas (`"2026/2027"` o `"2026"`).
+     3. `statCatalog`: Arreglo con los **171 atributos de equipo** agrupados en 12 categorías, donde la clave `key` en este explorador es directamente el **`raw_name` en inglés de Opta** (ej. `"key": "Shots Created"`, `"label": "Tiros generados"`, `"units": ["per_match", "total"]`, `"rangeable": true`; `"key": "Expected Threat"`, `"label": "xT (amenaza esperada)"`; `"key": "PPDA"`, `"units": ["ratio"]`).
+   - **Contrato RPC `applyTeamFilters` ([19b-players-teams-tab-request-43-request.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/19b-players-teams-tab-request-43-request.json)) (`[OBSERVADO]`):**
+     ```json
+     {
+       "method": "applyTeamFilters",
+       "params": [
+         {
+           "filterSeason": "",
+           "filterTournament": "",
+           "filterLeagues": [],
+           "statUnit": "per_match",
+           "statFilters": [],
+           "period": null
+         }
+       ]
+     }
+     ```
+   - **Regla Dual de Recorte por Paywall en Modo `Equipos` (`Scout` vs `Plus`) (`[OBSERVADO]`):**
+     - **Sin filtros estadísticos activos (`statFilters: []`):** Muestra los primeros **10 equipos** de la liga por defecto (`Liga MX` en orden alfabético: `Atlante`, `Atlas`, `Atlético San Luis`, `Club América`, `Cruz Azul`, `Guadalajara`, `Juárez`, `León`, `Monterrey`, `Necaxa` con sus partidos jugados `PJ = 15..16`) y enmascara las filas `11` a `18` como `"Equipo bloqueado"` (`wire:key="search-ghost-0"` a `search-ghost-7`, valor `88.8`).
+     - **Con filtros estadísticos aplicados:** El banner superior advierte explícitamente la regla de negocio del plan gratuito: **`"Con filtros, tu plan muestra los 3 primeros · Suscríbete para ver todos y desbloquear las 40+ ligas"`**.
+   - **Exportación de Tabla (`data-sk-export-table`):** El método `Players::exportTable()` serializa las filas filtradas en CSV/imagen (restringido por paywall en cuenta gratuita mediante `data-sk-paywall-downloads`).
 
 ---
 
-### 3.5. Payloads de Partidos (`13-match-tabs-*` y `09-match-detail.html`) (`[OBSERVADO]`)
+### 3.5. Payloads de Partidos (`13-match-tabs-*`, `28-match-alineaciones-rpc-full-*` y `09-match-detail.html`) (`[OBSERVADO]`)
 
-- **Evidencia:** `09-match-detail.html` (`ev_97e91618307b79c26283cb7092099714480742f83252e97a242081625f31cf52`), `13-match-tabs-capture.json` (`ev_1318b6ef36cbf6e763ddae14da0f95b3088da1ea954e8c8993b2994b188569fd`), `13-match-tabs-wait-alineaciones-json-0.json` (`85.3 KB`) y `13-match-tabs-wait-estadisticas-data-momentum-data.json` (`4.6 KB`).
+- **Evidencia:** [09-match-detail.html](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/09-match-detail.html) (`ev_97e91618307b79c26283cb7092099714480742f83252e97a242081625f31cf52`), [13-match-tabs-capture.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/13-match-tabs-capture.json) (`ev_1318b6ef36cbf6e763ddae14da0f95b3088da1ea954e8c8993b2994b188569fd`), [13-match-tabs-wait-alineaciones-json-0.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/13-match-tabs-wait-alineaciones-json-0.json) (`85.3 KB`), [13-match-tabs-wait-estadisticas-data-momentum-data.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/13-match-tabs-wait-estadisticas-data-momentum-data.json) (`4.6 KB`), [28-match-alineaciones-rpc-full-request-69-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/28-match-alineaciones-rpc-full-request-69-response.json) (`211,254 B`) y [28-match-alineaciones-rpc-full-request-105-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/28-match-alineaciones-rpc-full-request-105-response.json) (`2,537 B`, `ev_74a52e02fbfe3463262bfdc3648bc82b62958c735f8153d56f6c56cf21ab706d`).
 - **Partido auditado:** `9dy7dhz5f13b2ejz2a5tok2l0` — **Pumas UNAM 2 - 2 Club América** (`1,57 xG – 1,83 xG`), Jornada 16 Liga MX Apertura 2026/2027, Sábado 7 de noviembre de 2026, Estadio Olímpico Universitario (asistencia: `40.530`, árbitro: `César Arturo Ramos Palazuelos`).
 
-#### A. Tarjetas de Jugadores del Partido (`13-match-tabs-wait-alineaciones-json-0.json` · `x-ref="cards"`, 85.3 KB) (`[OBSERVADO]`)
-Inyectado dentro de `<script type="application/json" x-ref="cards">` en la pestaña `Alineaciones`. Es un diccionario indexado por el **UUID Opta de cada uno de los 42 jugadores convocados** (22 titulares + 9 cambios que ingresaron + 11 suplentes en banca sin minutos):
+#### A. Pestaña `Alineaciones` (`setTab(['alineaciones'])` · `211,254 B`) y Tarjetas de Jugadores (`x-ref="cards"` · `85.3 KB`) (`[OBSERVADO]`)
+Al invocar `MatchDetail::setTab(['alineaciones'])` ([28-match-alineaciones-rpc-full-request-69-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/28-match-alineaciones-rpc-full-request-69-response.json) · `211,254 B`), el servidor devuelve en `effects.html` el campo táctico interactivo con los 22 titulares posicionados en sus formaciones Opta (`5-3-2` para Pumas UNAM y `4-2-3-1` para Club América) e inyecta dentro de `<script type="application/json" x-ref="cards">` ([13-match-tabs-wait-alineaciones-json-0.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/13-match-tabs-wait-alineaciones-json-0.json) · `85.3 KB`) un diccionario indexado por el **UUID Opta de cada uno de los 42 jugadores convocados** (22 titulares + 9 cambios que ingresaron + 11 suplentes en banca sin minutos):
 
 ```typescript
 type MatchPlayerCardsMap = Record<string, MatchPlayerCard>; // Clave = Opta Player UUID (25 chars)
@@ -1096,8 +1830,8 @@ interface MatchPlayerCard {
   - **Porteros (`keeper: true`, 3 grupos, 25 filas):**
     1. `Portero` (10): `Atajadas`, `Ocasiones claras atajadas`, `Goles prevenidos`, `Pases progresivos precisos`, `Pases precisos`, `Toques`, `Acciones como líbero`, `Achiques`, `Penaltis atajados`, `Goles recibidos`.
     2. `Pase` (6) y `Posesión` (9) idénticos a jugador de campo.
-- **Carga diferida de Mapas Individuales del Partido (`loadPlayerEvents`):**
-  Al abrir la pestaña `Alineaciones`, el cliente dispara automáticamente la llamada RPC Livewire `POST /livewire-e3175f40/update` con `"method": "loadPlayerEvents", "params": []` (`13-match-tabs-post-request-104.json`), que hidrata en memoria los puntos de mapa de calor (`player-heat.js`) y de portería (`goalmouth-map.js` / `OptaKeeperGoalmouthService`) para el modal de detalle de cada jugador.
+- **Carga diferida de Mapas Individuales del Partido (`loadPlayerEvents` y `keeperGoalmouth`):**
+  Al abrir la pestaña `Alineaciones`, el cliente dispara automáticamente la llamada RPC Livewire `POST /livewire-e3175f40/update` con `"method": "loadPlayerEvents", "params": []` (`13-match-tabs-post-request-104.json`), que hidrata en memoria los puntos de mapa de calor (`player-heat.js`). Cuando el usuario abre el modal de un portero, el cliente invoca bajo demanda `$wire.keeperGoalmouth([playerId])`, documentado en la subsección `3.5.C`.
 
 #### B. Serie Minuto a Minuto de Momentum (`13-match-tabs-wait-estadisticas-data-momentum-data.json` · 4.6 KB) (`[OBSERVADO]`)
 Inyectado en el atributo `data-momentum-data` (y `<script type="application/json">`) dentro de la pestaña `Estadísticas`, y renderizado por `momentum-chart.js`.
@@ -1157,6 +1891,174 @@ Inyectado en el atributo `data-momentum-data` (y `<script type="application/json
       "crest": "https://www.statiskicks.com/storage/media/teams/2286.png"
     }
   ]
+}
+```
+
+#### C. Contrato RPC `keeperGoalmouth` (`OptaKeeperGoalmouthService`) en Modal de Partido y Perfil de Portero (`[OBSERVADO]`)
+
+- **Evidencia:**
+  1. **Modal de Partido (Keylor Navas `9sme7jykdv8msgfu0nxx6h39x` en Pumas UNAM 2-2 Club América):** [28-match-alineaciones-rpc-full-request-105-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/28-match-alineaciones-rpc-full-request-105-response.json) (`2,537 B`, `ev_74a52e02fbfe3463262bfdc3648bc82b62958c735f8153d56f6c56cf21ab706d`), invocado mediante `"method": "keeperGoalmouth", "params": ["9sme7jykdv8msgfu0nxx6h39x"]`.
+  2. **Perfil Estacional de Portero (Luis Ángel Malagón `a1qs3b34p5u2s6mmlhdkgdp7t` en Liga MX Apertura 2026/2027, 6 PJ / 28 tiros a puerta):** [27-goalkeeper-rpc-request-46-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/27-goalkeeper-rpc-request-46-response.json) (`18,937 B`, `ev_fe42082ccfb04731fd689598d84d1596a35361d94ca19ba7707e87a1c1fc8ab0`), recibido en `heatmap-data-updated.params.goalmouth`.
+  3. **Consumidor JS:** [goalmouth-map.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/named/goalmouth-map.js).
+- **Normalización Espacial de `OptaKeeperGoalmouthService` (`[OBSERVADO]`):**
+  - El objeto `frame` explicita el marco de referencia de los calificadores de boca de portería de Opta (`Qualifier 102` = `Goalmouth Y`, `Qualifier 103` = `Goalmouth Z`): `{"post_left": 45.2, "post_right": 54.8, "crossbar": 38}`.
+  - Para cada tiro a puerta en `shots[]`, el servicio PHP ya entrega las coordenadas proyectadas y normalizadas en el cuadrado unitario $[0, 1] \times [0, 1]$ dentro del arco (`x` de poste izquierdo a poste derecho, e `y` de travesaño a ras de césped o viceversa según el canvas de `goalmouth-map.js`), junto con `xgot` (`Expected Goals On Target` / `PSxG`), `goal`, `penalty`, `head`, `minute` y `rival`.
+  - Además, pre-calcula `summary` y la matriz de zonas de portería `zones` ($3 \times 3 = 9$ cuadrantes: 3 alturas $\times$ 3 columnas horizontales) desglosados en tres cortes: `"all"` (todos los tiros a puerta), `"open"` (sin penales) y `"penalties"` (solo penales). En `summary`, la métrica **Goles prevenidos (`prevented`)** se calcula exactamente como:
+    $$\text{prevented} = \text{round}\big(\text{xgot} - \text{goals},\ 2\big)$$
+    (verificado en Keylor Navas: $\text{xgot} = 1.50,\ \text{goals} = 2 \Rightarrow \text{prevented} = \mathbf{-0.50}$; y en Luis Malagón: $\text{xgot} = 10.45,\ \text{goals} = 12 \Rightarrow \text{prevented} = \mathbf{-1.55}$ en total, y en penales $\text{xgot} = 2.77,\ \text{goals} = 2 \Rightarrow \text{prevented} = \mathbf{+0.77}$).
+
+##### Esquema TypeScript `[OBSERVADO]` de `GoalmouthPayload`
+```typescript
+interface GoalmouthPayload {
+  frame: {
+    post_left: 45.2;   // Coordenada Opta Goalmouth Y del poste izquierdo
+    post_right: 54.8;  // Coordenada Opta Goalmouth Y del poste derecho
+    crossbar: 38;      // Coordenada Opta Goalmouth Z del travesaño
+  };
+  matches: number;     // 1 en modal de partido; N partidos jugados en perfil de temporada (ej. 6)
+  shots: Array<{
+    x: number;         // Posición horizontal normalizada en [0, 1] dentro de la portería
+    y: number;         // Posición vertical normalizada en [0, 1] dentro de la portería
+    goal: boolean;     // true = Gol concedido, false = Atajada
+    penalty: boolean;  // true = Tiro penal
+    head: boolean;     // true = Remate de cabeza
+    xgot: number;      // xGOT (PSxG) del remate a puerta (ej. 0.459, 0.9611)
+    minute: number;    // Minuto del partido
+    rival: string | null; // Nombre del club rival en perfil de temporada (ej. "Pumas UNAM"); null en partido único
+  }>;
+  summary: {
+    all: GoalmouthSummarySplit;
+    open: GoalmouthSummarySplit;
+    penalties: GoalmouthSummarySplit;
+  };
+  zones: {
+    all: [GoalmouthZoneRow, GoalmouthZoneRow, GoalmouthZoneRow];       // Matriz 3x3 (9 zonas de portería)
+    open: [GoalmouthZoneRow, GoalmouthZoneRow, GoalmouthZoneRow];
+    penalties: [GoalmouthZoneRow, GoalmouthZoneRow, GoalmouthZoneRow];
+  };
+}
+
+interface GoalmouthSummarySplit {
+  faced: number;       // Tiros a puerta recibidos (saves + goals)
+  saves: number;       // Atajadas
+  goals: number;       // Goles recibidos
+  save_pct: number | null; // Porcentaje de atajadas (saves / faced * 100) con 1 decimal
+  xgot: number;        // Suma de xGOT recibidos
+  prevented: number;   // Goles prevenidos = round(xgot - goals, 2)
+}
+
+type GoalmouthZoneRow = [GoalmouthZoneCell, GoalmouthZoneCell, GoalmouthZoneCell];
+
+interface GoalmouthZoneCell {
+  shots: number;
+  goals: number;
+  saves: number;
+  save_pct: number | null;
+}
+```
+
+##### Payload Íntegro Capturado en [28-match-alineaciones-rpc-full-request-105-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/28-match-alineaciones-rpc-full-request-105-response.json) (`keeperGoalmouth(['9sme7jykdv8msgfu0nxx6h39x'])` · Keylor Navas, `2,537 B`) (`[OBSERVADO]`)
+```json
+{
+  "frame": { "post_left": 45.2, "post_right": 54.8, "crossbar": 38 },
+  "matches": 1,
+  "shots": [
+    {
+      "x": 0.6771,
+      "y": 0.05,
+      "goal": true,
+      "penalty": false,
+      "head": false,
+      "xgot": 0.5426,
+      "minute": 3,
+      "rival": null
+    },
+    {
+      "x": 0.9062,
+      "y": 0.2,
+      "goal": true,
+      "penalty": true,
+      "head": false,
+      "xgot": 0.9611,
+      "minute": 72,
+      "rival": null
+    }
+  ],
+  "summary": {
+    "all": { "faced": 2, "saves": 0, "goals": 2, "save_pct": 0, "xgot": 1.5, "prevented": -0.5 },
+    "open": { "faced": 1, "saves": 0, "goals": 1, "save_pct": 0, "xgot": 0.54, "prevented": -0.46 },
+    "penalties": { "faced": 1, "saves": 0, "goals": 1, "save_pct": 0, "xgot": 0.96, "prevented": -0.04 }
+  },
+  "zones": {
+    "all": [
+      [
+        { "shots": 0, "goals": 0, "saves": 0, "save_pct": null },
+        { "shots": 0, "goals": 0, "saves": 0, "save_pct": null },
+        { "shots": 0, "goals": 0, "saves": 0, "save_pct": null }
+      ],
+      [
+        { "shots": 0, "goals": 0, "saves": 0, "save_pct": null },
+        { "shots": 0, "goals": 0, "saves": 0, "save_pct": null },
+        { "shots": 0, "goals": 0, "saves": 0, "save_pct": null }
+      ],
+      [
+        { "shots": 0, "goals": 0, "saves": 0, "save_pct": null },
+        { "shots": 0, "goals": 0, "saves": 0, "save_pct": null },
+        { "shots": 2, "goals": 2, "saves": 0, "save_pct": 0 }
+      ]
+    ],
+    "open": [
+      [
+        { "shots": 0, "goals": 0, "saves": 0, "save_pct": null },
+        { "shots": 0, "goals": 0, "saves": 0, "save_pct": null },
+        { "shots": 0, "goals": 0, "saves": 0, "save_pct": null }
+      ],
+      [
+        { "shots": 0, "goals": 0, "saves": 0, "save_pct": null },
+        { "shots": 0, "goals": 0, "saves": 0, "save_pct": null },
+        { "shots": 0, "goals": 0, "saves": 0, "save_pct": null }
+      ],
+      [
+        { "shots": 0, "goals": 0, "saves": 0, "save_pct": null },
+        { "shots": 0, "goals": 0, "saves": 0, "save_pct": null },
+        { "shots": 1, "goals": 1, "saves": 0, "save_pct": 0 }
+      ]
+    ],
+    "penalties": [
+      [
+        { "shots": 0, "goals": 0, "saves": 0, "save_pct": null },
+        { "shots": 0, "goals": 0, "saves": 0, "save_pct": null },
+        { "shots": 0, "goals": 0, "saves": 0, "save_pct": null }
+      ],
+      [
+        { "shots": 0, "goals": 0, "saves": 0, "save_pct": null },
+        { "shots": 0, "goals": 0, "saves": 0, "save_pct": null },
+        { "shots": 0, "goals": 0, "saves": 0, "save_pct": null }
+      ],
+      [
+        { "shots": 0, "goals": 0, "saves": 0, "save_pct": null },
+        { "shots": 0, "goals": 0, "saves": 0, "save_pct": null },
+        { "shots": 1, "goals": 1, "saves": 0, "save_pct": 0 }
+      ]
+    ]
+  }
+}
+```
+
+##### Extracto de `goalmouth` Estacional en [27-goalkeeper-rpc-request-46-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/27-goalkeeper-rpc-request-46-response.json) (Luis Malagón · 6 PJ, 28 Tiros Recibidos) (`[OBSERVADO]`)
+```json
+{
+  "frame": { "post_left": 45.2, "post_right": 54.8, "crossbar": 38 },
+  "matches": 6,
+  "shots": [
+    { "x": 0.9062, "y": 0.05, "goal": false, "penalty": false, "head": false, "xgot": 0.459, "minute": 8, "rival": "Pumas UNAM" },
+    { "x": 0.875, "y": 0.05, "goal": true, "penalty": true, "head": false, "xgot": 0.9522, "minute": 77, "rival": "Pumas UNAM" }
+  ],
+  "summary": {
+    "all": { "faced": 28, "saves": 16, "goals": 12, "save_pct": 57.1, "xgot": 10.45, "prevented": -1.55 },
+    "open": { "faced": 25, "saves": 15, "goals": 10, "save_pct": 60.0, "xgot": 7.67, "prevented": -2.33 },
+    "penalties": { "faced": 3, "saves": 1, "goals": 2, "save_pct": 33.3, "xgot": 2.77, "prevented": 0.77 }
+  }
 }
 ```
 
@@ -1335,8 +2237,8 @@ A continuación se documenta cómo calcula, transforma y sirve Statiskicks cada 
 3. **Zonas de Control (`OptaZoneControl`) (`[OBSERVADO]`):**
    - En **Partidos (`13-match-tabs-wait-estadisticas.html`):** Divide el campo en una **grilla de $6 \times 4 = 24$ zonas** y calcula el porcentaje de toques de cada equipo en cada celda (`% de toques por zona`), coloreando la celda con el color del equipo que supera el $55\%$ de dominio territorial.
    - En **Jugadores y Ligas (`event-map.js`, `league-maps.js`):** Permite dividir la cancha en **Tercios** ($3$ zonas longitudinales) o **Zonas** ($3 \times 3 = 9$ o $6$ zonas tácticas).
-4. **Mapa de Portería (`OptaKeeperGoalmouthService` / `goalmouth-map.js`) (`[OBSERVADO]`):**
-   - Proyecta los tiros a puerta recibidos por el arquero usando las coordenadas Opta `goalmouthY` $\in [44.2, 55.8]$ (poste derecho a poste izquierdo) y `goalmouthZ` $\in [0, 38.0]$ (césped a travesaño) en 3 vistas: `Mapa de calor` (`heat`: filtrable por `Atajadas`, `Goles`, `Ambos`), `Tiros` (`shots`: círculos escalados por `xGOT`) y `Zonas` (`zones`: grilla de $3 \times 2 = 6$ cuadrantes de la portería con porcentaje de atajadas por zona).
+4. **Mapa de Portería (`OptaKeeperGoalmouthService` / [goalmouth-map.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/named/goalmouth-map.js)) (`[OBSERVADO]`):**
+   - Verificado en vivo en [28-match-alineaciones-rpc-full-request-105-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/28-match-alineaciones-rpc-full-request-105-response.json) (Keylor Navas) y [27-goalkeeper-rpc-request-46-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/27-goalkeeper-rpc-request-46-response.json) (Luis Malagón). Proyecta los tiros a puerta recibidos por el arquero a partir del marco Opta `frame = { post_left: 45.2, post_right: 54.8, crossbar: 38 }` en coordenadas normalizadas $[0, 1] \times [0, 1]$ dentro de `shots[]`, y los renderiza en 3 vistas: `Mapa de calor` (`heat`: filtrable por `Atajadas`, `Goles`, `Ambos`), `Tiros` (`shots`: círculos escalados por `xgot`) y `Zonas` (`zones`: matriz `3x3` de 9 cuadrantes de la portería con `{ shots, goals, saves, save_pct }` desglosada en `all`, `open` y `penalties`).
 
 ---
 
@@ -1349,9 +2251,45 @@ A continuación se documenta cómo calcula, transforma y sirve Statiskicks cada 
      > *"La barra es la probabilidad que daba el modelo antes del partido, solo con los partidos anteriores; el resultado que se dio va marcado."*
 2. **Simulación Monte Carlo del Torneo y Liguilla (`14-league-tabs-wait-projection.html`) (`[OBSERVADO]` / `[INFERIDO]`):**
    - A partir de las probabilidades 1X2 de los partidos restantes del calendario (en J16 de Liga MX resta 1 jornada regular + la llave de Liguilla), el backend ejecuta miles de simulaciones Monte Carlo del cierre del torneo para producir:
-     - **`Pts proy.`:** Esperanza matemática de puntos al cierre de la fase regular ($\text{Pts}_{\text{actuales}} + \sum_{m \in \text{restantes}} (3 P_W(m) + 1 P_D(m))$). Por ejemplo, para Cruz Azul (32 pts con 1 partido restante): `Pts proy. = 33,1`.
+     - **`Pts proy.`:** Esperanza matemática de puntos al cierre de la fase regular ($\text{Pts}_{\text{actuales}} + \sum_{m \in \{ \text{restantes} \}} (3 P_W(m) + 1 P_D(m))$). Por ejemplo, para Cruz Azul (32 pts con 1 partido restante): `Pts proy. = 33,1`.
      - **`Pos. proy.`:** Esperanza matemática de la posición final ($\sum_{k=1}^{18} k \cdot P(\text{pos} = k)$). Verificación numérica exacta sobre la fila de **Cruz Azul** en `14-league-tabs-wait-projection.html`:
        $$E[\text{Pos}] = 1 \times 0.444 + 2 \times 0.385 + 3 \times 0.171 = 0.444 + 0.770 + 0.513 = \mathbf{1.727 \approx 1.7}$$
        Verificación numérica exacta sobre la fila de **Club América**:
        $$E[\text{Pos}] = 1 \times 0.258 + 2 \times 0.306 + 3 \times 0.318 + 4 \times 0.118 = 0.258 + 0.612 + 0.954 + 0.472 = \mathbf{2.296 \approx 2.3}$$
      - **Probabilidades de Hitos (`Superlíder`, `Liguilla`, `Campeón`) y Matriz $18 \times 18$ de Posiciones Finales:** Calculadas contabilizando la fracción de simulaciones Monte Carlo en que cada club termina en la posición $k \in \{1 \dots 18\}$ o gana la serie eliminatoria de Liguilla.
+
+---
+
+## 5. Registro Formal de Incógnitas Residuales REA ([evidence/rea-unknowns.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/rea-unknowns.json)) y Fronteras de Caja Negra del Servidor
+
+Conforme al protocolo de auditoría forense REA, toda lógica que reside exclusivamente en el código PHP privado del servidor de origen (`https://www.statiskicks.com`) o detrás de controles de autorización de pago (`Plus` · \$129 MXN/mes) y que por definición no se transmite al navegador se encuentra registrada formalmente en [evidence/rea-unknowns.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/rea-unknowns.json) bajo tres identificadores `unk_*` de severidad `low`:
+
+| # | `unknown_id` REA | Categoría | Severidad | Estado | Título y Alcance Técnico |
+|---|---|---|---|---|---|
+| 1 | `unk_3ffbf6b463b1f26fc643b3a6539eb1c20a8c6bbefb3efa86a2399337eeb22e23` | `backend-opta-ingestion-cron` | `low` | `open` | **Frecuencia exacta del scheduler/colas Laravel Artisan y nivel de credenciales del feed Stats Perform SDAPI en el servidor de origen.** |
+| 2 | `unk_6c968367f663c52fef00c7cd11c2fc40d38a709990f5c46d90d9f37fb4311a39` | `backend-rating-weights` | `low` | `open` | **Pesos posicionales exactos en servidor dentro de `App\Services\Opta\OptaMatchRatingService` para el cálculo escalar de `SKORE` (`0.00–10.00`).** |
+| 3 | `unk_c22a37c87f1d1dcb9bb68b65b2a5cc12247f0c94cab5c7cfabcd7bf45ede19f2` | `backend-paywall-gated-team-tabs` | `low` | `open` | **Instancias de datos en vivo dentro de las pestañas de equipo restringidas en servidor al plan `Plus` (`stats`, `maps`, `compare`) y filas truncadas de liga.** |
+
+---
+
+### 5.1. Detalle de las 3 Incógnitas Residuales y Qué Quedó Demostrado desde el Cliente (`[OBSERVADO]`)
+
+#### 1. `unk_3ffbf6b463b1f26fc643b3a6539eb1c20a8c6bbefb3efa86a2399337eeb22e23` · Pipeline de Ingesta Opta SDAPI (`backend-opta-ingestion-cron`)
+- **Por qué es estrictamente de servidor:** La programación del cron de Laravel (`app/Console/Kernel.php` o `routes/console.php`), los workers de cola (`Horizon` / `Redis` / `Database Queue`), las llaves de API hacia Stats Perform SDAPI (`TM3`/`TM4`/`F9`/`F24`/`MA1`) y el job de cruce de fotografías con `v3.football.api-sports.io` se ejecutan en el backend sin exponer endpoints públicos de administración.
+- **Frontera exacta probada desde el cliente (`[OBSERVADO]`):**
+  1. Se probaron los identificadores primarios de 25 caracteres en base-36 de Opta SDAPI para las 40 ligas (`competition_id`), los 67 calendarios de torneo (`season_tmcl`), clubes (`contestant_id`), jugadores (`person_id`) y partidos (`match_id`).
+  2. Se probaron los **`raw_event_id` enteros de eventos Opta** (ej. `2995900373`, `2995971849` en [26-player-rpc-full-request-64/65/66-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/26-player-rpc-full-request-64-response.json)) y los **`typeId` crudos de Opta** (`type_primary: "1"`, `"12"`, `"15"`, etc.), además de las 171 etiquetas `raw_name` en inglés de equipos y las 147/176 etiquetas `raw_name` de jugadores/porteros.
+  3. Se probó la reconciliación determinista 1:1 de media contra los IDs enteros de **API-Football (`media.api-sports.io`)** tanto en fotos de jugadores como en los archivos locales `/storage/media/leagues/{id}.png` y `/storage/media/teams/{id}.png`.
+
+#### 2. `unk_6c968367f663c52fef00c7cd11c2fc40d38a709990f5c46d90d9f37fb4311a39` · Pesos Internos de `OptaMatchRatingService` (`backend-rating-weights`)
+- **Por qué es estrictamente de servidor:** El método PHP `App\Services\Opta\OptaMatchRatingService` computa la nota escalar `skore` (`0.00–10.00`) en el servidor antes de almacenarla por partido y enviarla ya calculada en `performanceData.summaryMatches[].skore`, `cards[playerId].rating` y `rankingData`. Los coeficientes exactos por rol que ponderan las acciones de Opta no se transmiten al cliente.
+- **Frontera exacta probada desde el cliente (`[OBSERVADO]`):**
+  1. Se recuperó íntegro el módulo [skore.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/named/skore.js), que documenta la firma `App\Services\Opta\OptaMatchRatingService::format()` y `::grade()`, los umbrales exactos de clasificación (`low < 6.50`, `6.50 <= mid < 7.00`, `high >= 7.00`) y la rampa RGB continua por tramos en el dominio $[5.80, 7.80]$.
+  2. Se observaron las distribuciones empíricas completas de `SKORE` por liga y posición: en Liga MX `2026/2027` ($N = 402$ jugadores, media de liga **`6.77`**, mínimo **`6.07`**, máximo **`7.75`** para J. Brunetta; en porteros $N = 24$, mínimo **`6.13`**) y en MLS `2026` ($N = 670$ jugadores, media de liga **`6.78`**, mínimo **`5.96`**, máximo **`8.29`** para Lionel Messi en [04b-messi-full-request-45-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/04b-messi-full-request-45-response.json)).
+  3. Se descubrió en `performanceData.summaryMatches` ([04b-messi-full-request-45-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/04b-messi-full-request-45-response.json), [26-player-rpc-full-request-44-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/26-player-rpc-full-request-44-response.json) y [27-goalkeeper-rpc-request-44-response.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/27-goalkeeper-rpc-request-44-response.json)) que el esquema de base de datos por partido incluye las columnas `raw_vaep: null`, `offensive_vaep: null` y `defensive_vaep: null`, actualmente inactivas en favor de `skore`.
+
+#### 3. `unk_c22a37c87f1d1dcb9bb68b65b2a5cc12247f0c94cab5c7cfabcd7bf45ede19f2` · Pestañas y Filas Restringidas por Paywall en Servidor (`backend-paywall-gated-team-tabs`)
+- **Por qué es estrictamente de servidor / paywall:** Cuando un usuario anónimo o con plan gratuito (`Scout`) solicita en `/team/{slug}-{id}` las pestañas `stats`, `maps` o `compare`, el método `TeamDetail::setTab()` verifica la suscripción en sesión y devuelve la vista del modal de paywall sin serializar los datos de esa pestaña; del mismo modo, en `/league/{id}` trunca en servidor las filas `5..18` de `projection` y `9..18` de `maps`, y en `/players` trunca los candidatos `4..20` de `loadSimilarPlayersData`.
+- **Frontera exacta probada desde el cliente (`[OBSERVADO]`):**
+  1. **Recuperación del 100% de los esquemas de renderizado desde los bundles JS servidos sin minificar:** Aunque el servidor omite las instancias de datos en las pestañas bloqueadas de equipo, los consumidores [team-pass-network.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/named/team-pass-network.js), [attribute-charts.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/named/attribute-charts.js), [event-map.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/named/event-map.js) y [league-maps.js](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/javascript/named/league-maps.js) se descargan completos en el navegador y permitieron documentar cada campo de `data-team-pass-network-payload` y `data-team-pass-matrix-table`.
+  2. **Diferenciación forense entre *Server-Enforced Paywall* y *UI-Only Paywall*:** La auditoría de llamadas RPC Livewire en [26-player-rpc-full-capture.json](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/captures/26-player-rpc-full-capture.json) demostró que mientras `TeamDetail::setTab` aplica control de acceso en servidor, en `PlayerDetail` los métodos `loadSimilarPlayersData([])` ([request-52](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/26-player-rpc-full-request-52-response.json)), `ensureComparisonDataLoaded([])` ([request-62](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/26-player-rpc-full-request-62-response.json) · `333 KB`) y `loadMapGraphData` para sub-eventos con candado visual como `shots_xg` ([request-65](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/26-player-rpc-full-request-65-response.json)) y `pass_progressive` ([request-66](file:///c:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/REA-stats/evidence/network-schemas/26-player-rpc-full-request-66-response.json)) responden con el payload `[OBSERVADO]` completo sin requerir sesión `Plus`.

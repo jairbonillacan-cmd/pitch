@@ -1,0 +1,973 @@
+/**
+ * Partidos â€” the day's matches across every competition, live.
+ *
+ * The layout follows a broadcaster's "watch live" page: filters, the day with
+ * arrows either side, then one card per competition with a centred line a
+ * match. Colours read the shared tokens only, so both themes come for free;
+ * the few [data-theme="dark"] rules swap a border, as the league page does.
+ */
+
+.matches-page {
+  --matches-live: #D62D3B;
+  --matches-live-bg: rgba(214, 45, 59, 0.1);
+  --matches-radius: 14px;
+}
+
+[data-theme="dark"] .matches-page {
+  --matches-live: #FF5A66;
+  --matches-live-bg: rgba(255, 90, 102, 0.14);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .matches-page {
+    --matches-live: #FF5A66;
+    --matches-live-bg: rgba(255, 90, 102, 0.14);
+  }
+}
+
+/* â”€â”€ Live dot â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+
+.matches-live-dot {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-right: 0.35rem;
+  border-radius: 50%;
+  background: var(--matches-live);
+  vertical-align: middle;
+  animation: matches-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes matches-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 var(--matches-live-bg); opacity: 1; }
+  50% { box-shadow: 0 0 0 5px transparent; opacity: 0.55; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .matches-live-dot { animation: none; }
+}
+
+/* â”€â”€ Header: one line, so the matches start near the top â”€â”€â”€â”€â”€â”€â”€ */
+
+.matches-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 1.1rem;
+  margin-bottom: 0.75rem;
+}
+
+.matches-head__title {
+  margin: 0;
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.matches-head__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.9rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.matches-head__stat {
+  display: inline-flex;
+  align-items: center;
+}
+
+.matches-head__stat b {
+  margin-right: 0.25rem;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+.matches-head__stat--live,
+.matches-head__stat--live b {
+  color: var(--matches-live);
+}
+
+/* â”€â”€ Toolbar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+
+.matches-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.matches-filterbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.matches-filterbar__item {
+  position: relative;
+}
+
+/* The reference's leading control: folds the filters away, says how many are on. */
+.matches-filterbar__toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  min-height: 34px;
+  padding: 0;
+  border: 1px solid var(--border);
+}
+
+[data-theme="dark"] .matches-filterbar__toggle {
+  border-color: transparent;
+}
+
+.matches-filterbar__toggle-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  min-width: 1.05rem;
+  height: 1.05rem;
+  padding: 0 0.25rem;
+  border-radius: 999px;
+  background: var(--accent-ink);
+  color: var(--bg-card);
+  font-size: 0.62rem;
+  font-weight: 800;
+  line-height: 1.05rem;
+  text-align: center;
+}
+
+.matches-filterbar__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 34px;
+  max-width: 15rem;
+  padding: 0.25rem 0.7rem;
+  border: 1px solid var(--border);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+[data-theme="dark"] .matches-filterbar__pill,
+[data-theme="dark"] .matches-filterbar__reset {
+  border-color: transparent;
+}
+
+[data-theme="dark"] .matches-filterbar__pill.active {
+  border-color: var(--accent-ink);
+}
+
+.matches-filterbar__pill > .bi:first-child {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.matches-filterbar__pill.active > .bi:first-child {
+  color: inherit;
+}
+
+.matches-filterbar__pill-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.matches-filterbar__chevron {
+  font-size: 0.62rem;
+  opacity: 0.7;
+  transition: transform 0.15s;
+}
+
+.matches-filterbar__pill[aria-expanded="true"] .matches-filterbar__chevron {
+  transform: rotate(180deg);
+}
+
+.matches-filterbar__menu {
+  top: calc(100% + 6px);
+  min-width: 17rem;
+  max-height: 320px;
+  border-radius: 0.75rem;
+}
+
+.matches-filterbar__option {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.matches-filterbar__option small {
+  flex-shrink: 0;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.matches-filterbar__reset {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 34px;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid var(--border);
+  font-size: 0.8rem;
+}
+
+.matches-search {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1 1 14rem;
+  max-width: 18rem;
+  min-height: 34px;
+  margin: 0;
+  padding: 0 0.85rem;
+  border: 1px solid var(--border-light);
+  border-radius: 999px;
+  background: var(--bg-card);
+}
+
+.matches-search i {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.matches-search input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--text);
+  font-size: 0.85rem;
+}
+
+.matches-search input::placeholder {
+  color: var(--text-muted);
+}
+
+.matches-search__clear {
+  padding: 0.15rem;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  line-height: 1;
+  cursor: pointer;
+}
+
+.matches-status {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.matches-status__tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.28rem 0.7rem;
+  border: 1px solid var(--border-light);
+  border-radius: 999px;
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  font-size: 0.76rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+
+.matches-status__tab:hover {
+  border-color: var(--accent-dark);
+  color: var(--accent-ink);
+}
+
+.matches-status__tab--active {
+  border-color: var(--accent-ink);
+  background: var(--accent-wash);
+  color: var(--accent-ink);
+}
+
+.matches-status__tab--live:not(.matches-status__tab--active) {
+  color: var(--matches-live);
+}
+
+.matches-status__count {
+  min-width: 1.4rem;
+  padding: 0.05rem 0.35rem;
+  border-radius: 999px;
+  background: var(--bg-secondary);
+  color: var(--text-muted);
+  font-size: 0.68rem;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+/* â”€â”€ Day navigation â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+
+.matches-daynav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.matches-daynav__head {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.matches-daynav__arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  border-radius: 50%;
+  background: var(--accent-wash);
+  color: var(--accent-ink);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.15s;
+}
+
+.matches-daynav__arrow:hover:not(:disabled) {
+  background: var(--accent-ink-soft);
+  transform: scale(1.05);
+}
+
+.matches-daynav__arrow:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.matches-daynav__title {
+  min-width: 10.5rem;
+  text-align: center;
+  line-height: 1.15;
+}
+
+.matches-daynav__title h2 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.matches-daynav__title p {
+  margin: 0.05rem 0 0;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.matches-daynav__strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  max-width: 100%;
+}
+
+.matches-daynav__days {
+  display: flex;
+  gap: 0.3rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.matches-daynav__days::-webkit-scrollbar {
+  display: none;
+}
+
+.matches-daynav__day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 2.75rem;
+  padding: 0.2rem 0.35rem;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text-secondary);
+  line-height: 1.15;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.matches-daynav__day:hover {
+  background: var(--bg-secondary);
+}
+
+.matches-daynav__day--today .matches-daynav__weekday {
+  color: var(--accent-ink);
+}
+
+.matches-daynav__day--selected {
+  border-color: var(--accent-ink);
+  background: var(--accent-wash);
+  color: var(--text);
+}
+
+.matches-daynav__weekday {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.matches-daynav__num {
+  font-size: 0.88rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.matches-daynav__month {
+  display: none;
+}
+
+.matches-daynav__picker {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  margin: 0;
+  border: 1px solid var(--border-light);
+  border-radius: 10px;
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+/* The native control does the picking; the icon is what shows. */
+.matches-daynav__picker input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.matches-daynav__picker input::-webkit-calendar-picker-indicator {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.matches-daynav__today {
+  min-height: 2.1rem;
+  padding: 0.2rem 0.8rem;
+  border: 1px solid var(--border);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.matches-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin: 0 0 0 auto;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.matches-meta__live {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.matches-meta__stale {
+  color: var(--warn-ink);
+}
+
+/* â”€â”€ Stage (fade while a filter change is in flight) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+
+.matches-stage {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  transition: opacity 0.2s ease;
+}
+
+.matches-stage--loading {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.matches-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.matches-empty > i {
+  font-size: 1.8rem;
+}
+
+.matches-empty p {
+  margin: 0;
+  max-width: 32rem;
+}
+
+/* â”€â”€ Competition card â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+
+.matches-group {
+  /* .sk-card's own bottom margin would double the stage's gap. */
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border-radius: var(--matches-radius);
+}
+
+.matches-group__head {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.45rem 0.9rem;
+  border-bottom: 1px solid var(--border-light);
+  background: var(--bg-secondary);
+}
+
+.matches-group__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 8px;
+  background: #ffffff;
+  color: var(--clr-eucalyptus);
+}
+
+.matches-group__badge img {
+  width: 1.35rem;
+  height: 1.35rem;
+  object-fit: contain;
+}
+
+.matches-group__title {
+  flex: 1;
+  min-width: 0;
+}
+
+.matches-group__title h3 {
+  margin: 0;
+  font-size: 0.86rem;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.matches-group__title p {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
+.matches-group__flag {
+  width: 16px;
+  height: 12px;
+  border-radius: 2px;
+  object-fit: cover;
+}
+
+.matches-group__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-shrink: 0;
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  background: var(--accent-wash);
+  color: var(--accent-ink);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.matches-group__link:hover {
+  background: var(--accent-ink-soft);
+  color: var(--accent-ink);
+}
+
+.matches-badge {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.matches-badge--live {
+  background: var(--matches-live-bg);
+  color: var(--matches-live);
+}
+
+/* A matchweek's day inside its league's card, as the reference heads them. */
+.matches-group__day {
+  margin: 0;
+  padding: 0.5rem 0.9rem 0.15rem;
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: var(--text-secondary);
+}
+
+.matches-group__day + .matches-list {
+  border-bottom: 1px solid var(--border-light);
+}
+
+.matches-list:last-child {
+  border-bottom: none;
+}
+
+/* â”€â”€ Match row â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+
+.matches-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.matches-item + .matches-item {
+  border-top: 1px solid var(--border-light);
+}
+
+.matches-item--live {
+  box-shadow: inset 3px 0 0 var(--matches-live);
+}
+
+.matches-item--off .matches-row__name,
+.matches-item--off .matches-row__crest {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+.matches-row {
+  display: grid;
+  /* status | home | score + xG | away | fold */
+  grid-template-columns: 5rem minmax(0, 1fr) 5.4rem minmax(0, 1fr) 1rem;
+  align-items: center;
+  column-gap: 0.7rem;
+  max-width: 52rem;
+  margin: 0 auto;
+  padding: 0.32rem 0.9rem;
+}
+a.matches-row {
+  color: inherit;
+  text-decoration: none;
+  transition: background 0.12s;
+}
+
+a.matches-row:hover {
+  background: var(--accent-wash);
+}
+
+a.matches-row:hover .matches-row__toggle {
+  color: var(--accent-ink);
+}
+
+.matches-row__status {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.matches-row__status .matches-live-dot {
+  width: 0.4rem;
+  height: 0.4rem;
+  margin-right: 0.3rem;
+}
+
+.matches-row__status--live {
+  color: var(--matches-live);
+}
+
+.matches-row__status--final {
+  color: var(--accent-ink);
+}
+
+.matches-row__status--off {
+  color: var(--result-loss);
+}
+
+.matches-row__team {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.matches-row__team--home {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.matches-row__team--won .matches-row__name {
+  color: var(--accent-ink);
+}
+
+.matches-row__name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.matches-row__crest {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.matches-row__crest--blank {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--bg-secondary);
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+
+.matches-row__center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.05rem;
+}
+
+.matches-row__score,
+.matches-row__time {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  line-height: 1.1;
+}
+
+.matches-row__substatus {
+  display: none;
+}
+
+/* The xG, set under the score it qualifies. */
+.matches-row__xg {
+  font-size: 0.64rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.matches-row__dash {
+  margin: 0 0.3rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.matches-item--live .matches-row__score {
+  color: var(--matches-live);
+}
+
+.matches-row__pens {
+  font-size: 0.66rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.matches-row__toggle {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
+.matches-row__toggle i {
+  display: inline-block;
+  transition: transform 0.15s;
+}
+
+.matches-status-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.12rem 0.55rem;
+  border-radius: 6px;
+  background: var(--bg-secondary);
+  color: var(--text-muted);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.matches-status-pill .matches-live-dot {
+  width: 0.4rem;
+  height: 0.4rem;
+  margin-right: 0.3rem;
+}
+
+.matches-status-pill--live {
+  background: var(--matches-live-bg);
+  color: var(--matches-live);
+}
+
+.matches-status-pill--final {
+  background: var(--accent-wash);
+  color: var(--accent-ink);
+}
+
+.matches-status-pill--off {
+  background: var(--result-loss-bg);
+  color: var(--result-loss);
+}
+
+.matches-redcard {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 0.6rem;
+  height: 0.85rem;
+  border-radius: 2px;
+  background: #D62D3B;
+  color: #ffffff;
+  font-size: 0.55rem;
+  font-weight: 800;
+}
+
+.matches-note {
+  margin: 0;
+  font-size: 0.75rem;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.matches-note__reset {
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--accent-ink);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* â”€â”€ Phone â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+
+@media (max-width: 575.98px) {
+  .matches-search {
+    max-width: none;
+    flex-basis: 100%;
+  }
+
+  .matches-filterbar__menu {
+    min-width: min(17rem, calc(100vw - 2rem));
+  }
+
+  .matches-filterbar__item:nth-child(2) .matches-filterbar__menu {
+    right: 0;
+  }
+
+  .matches-daynav__head {
+    gap: 0.5rem;
+  }
+
+  .matches-meta {
+    margin-left: 0;
+  }
+
+  .matches-daynav__title {
+    min-width: 0;
+  }
+
+  .matches-group__head {
+    flex-wrap: wrap;
+    padding: 0.45rem 0.7rem;
+  }
+
+  .matches-row__status {
+    display: none;
+  }
+
+  .matches-row__substatus {
+    display: block;
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+
+  .matches-row__substatus--live {
+    color: var(--matches-live);
+  }
+
+  .matches-row {
+    grid-template-columns: minmax(0, 1fr) 4.6rem minmax(0, 1fr) 0.7rem;
+    column-gap: 0.4rem;
+    padding: 0.4rem 0.5rem;
+  }
+
+  .matches-row__team {
+    gap: 0.4rem;
+    font-size: 0.8rem;
+  }
+
+  /* Two lines rather than "Nottinghaâ€¦": a phone column is ~8 characters. */
+  .matches-row__name {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    white-space: normal;
+    line-height: 1.2;
+  }
+
+  .matches-row__crest {
+    width: 18px;
+    height: 18px;
+  }
+}

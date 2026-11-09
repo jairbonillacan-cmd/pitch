@@ -1,0 +1,92 @@
+[
+  {
+    "contradicting_evidence_ids": [],
+    "domain": "backend-opta-ingestion-cron",
+    "mutation_evidence_ids": [
+      "ev_515c62defcab6088320c2b5c046d749e96d8601ffd4af10fc6af6657f57d3a98"
+    ],
+    "previous_revision_digest": null,
+    "question": "What is the exact Laravel Artisan scheduler/queue frequency and Stats Perform SDAPI feed credential tier used to synchronize Opta competition, match, and event feeds into the Statiskicks database?",
+    "recommended_probes": [
+      {
+        "operation": "inspect_server_source",
+        "rationale": "Requires access to private Laravel console kernel, queue workers, and .env configuration on the origin server."
+      }
+    ],
+    "relationships": [],
+    "required_authority": "shipped-artifact",
+    "required_confidence": "observed",
+    "required_environment": null,
+    "resolution": null,
+    "revision": 1,
+    "revision_digest": "840194fdc14c25c83d1f5bd8da61716236d4d7a4df80791bdc6f795f4a1842ac",
+    "scope_digest": null,
+    "severity": "low",
+    "status": "open",
+    "supporting_evidence_ids": [
+      "ev_a57fa32050d099e784ee0a2f3d1e0f302a0c917dcc1a8c686b3c3b363666b0df",
+      "ev_bc7ebac834b73578fd1ad9b68b2e5d06774bea085283377a605b1989ed3114af"
+    ],
+    "unknown_id": "unk_3ffbf6b463b1f26fc643b3a6539eb1c20a8c6bbefb3efa86a2399337eeb22e23"
+  },
+  {
+    "contradicting_evidence_ids": [],
+    "domain": "backend-rating-weights",
+    "mutation_evidence_ids": [
+      "ev_1aca05e36ccaa985872bbd1b6aa022b7b62b044a82977aab6f452256598c36d0"
+    ],
+    "previous_revision_digest": null,
+    "question": "What are the exact server-side positional weights inside App\\\\Services\\\\Opta\\\\OptaMatchRatingService that combine raw Opta event counts into the scalar SKORE (0.00-10.00) before sending it to skore.js?",
+    "recommended_probes": [
+      {
+        "operation": "inspect_server_source",
+        "rationale": "Requires access to private PHP source code in app/Services/Opta/OptaMatchRatingService.php on the origin server."
+      }
+    ],
+    "relationships": [],
+    "required_authority": "shipped-artifact",
+    "required_confidence": "observed",
+    "required_environment": null,
+    "resolution": null,
+    "revision": 1,
+    "revision_digest": "0a951cf61b2990296fbdabbb8954d0b3d6f272e0549f62c5f6e9701a36729050",
+    "scope_digest": null,
+    "severity": "low",
+    "status": "open",
+    "supporting_evidence_ids": [
+      "ev_1318b6ef36cbf6e763ddae14da0f95b3088da1ea954e8c8993b2994b188569fd",
+      "ev_ae1b0493c16a440b51a7596afbe0c5af7cf297e66014c9e86aa9638018249441"
+    ],
+    "unknown_id": "unk_6c968367f663c52fef00c7cd11c2fc40d38a709990f5c46d90d9f37fb4311a39"
+  },
+  {
+    "contradicting_evidence_ids": [],
+    "domain": "backend-paywall-gated-team-tabs",
+    "mutation_evidence_ids": [
+      "ev_ce5f417f41b54deef97935e2ab1366360d7291cfe7885c5c8dfa84e81090b679"
+    ],
+    "previous_revision_digest": null,
+    "question": "What live data payloads are rendered inside the server-gated Plus subscriber tabs on /team/{slug}-{id} (stats, maps, compare) and /league/{id} (teams 5-18 in projection and 9-18 in maps) when authenticated with a paid Plus subscription?",
+    "recommended_probes": [
+      {
+        "operation": "capture_browser_scenario",
+        "rationale": "Requires authenticated session cookies for a paid Plus account ($129 MXN/month); client rendering schemas for all gated views are already 100% recovered from shipped JS bundles."
+      }
+    ],
+    "relationships": [],
+    "required_authority": "controlled-replay",
+    "required_confidence": "observed",
+    "required_environment": null,
+    "resolution": null,
+    "revision": 1,
+    "revision_digest": "5fc9add70cf0b71d939668b727c6ca06e9ada1a5b6f7fd2dfcc9c667c24107ba",
+    "scope_digest": null,
+    "severity": "low",
+    "status": "open",
+    "supporting_evidence_ids": [
+      "ev_8b664e194ac67d05a98289a150adcb3f310fb2622bcc70a084ab5c7d978cb365",
+      "ev_bd430f00f4cc3e0cb3e7d1c12ddd223536657c09ba63ee662b710fb3bdab574a"
+    ],
+    "unknown_id": "unk_c22a37c87f1d1dcb9bb68b65b2a5cc12247f0c94cab5c7cfabcd7bf45ede19f2"
+  }
+]

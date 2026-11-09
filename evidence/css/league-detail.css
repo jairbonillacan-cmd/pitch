@@ -1,0 +1,3150 @@
+/**
+ * League detail / overview page
+ */
+
+.league-detail__layout {
+  display: grid;
+  grid-template-columns: minmax(220px, 260px) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* â”€â”€ Tab loading â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+
+/*
+  Changing tab is a server round trip, so the panel is crossfaded rather than
+  swapped on the spot:
+
+    leaving    the old panel fades out and drifts down
+    waiting    the skeleton fades in over it, but only once the request is slow
+               enough to be worth acknowledging (wire:loading.delay on the
+               overlay decides that, not this file)
+    arriving   the new panel descends into place as it fades in
+
+  The motion runs one way throughout - downwards - so a tab change reads as one
+  sheet of content being replaced. Mirroring the two halves, out downwards and
+  back in upwards, reads as a bounce instead, and is what you get for free from
+  a transition alone.
+
+  Which is why arriving is an animation and leaving is a transition: the new
+  panel has no "before" state to transition from, it arrives already rendered.
+  The animation re-runs on every switch because .league-detail__tab-panel
+  carries a wire:key naming the tab and season, so Livewire's morph replaces the
+  element instead of patching it, and a fresh element restarts its animations.
+  Drop that key and the panel is patched in place, the animation never re-runs,
+  and the arrival collapses back into the bounce described above.
+
+  --------------------------------------------------------------------------
+  fill-mode is `backwards`, not `both`. Animated values outrank ordinary
+  declarations for as long as they apply, so holding the end state forwards
+  would let the entrance win over the exit rule below permanently, and the panel
+  would never fade out again after its first appearance.
+  --------------------------------------------------------------------------
+*/
+
+.league-detail__content {
+  position: relative;
+  min-height: min(52vh, 520px);
+}
+
+.league-detail__tab-panel {
+  width: 100%;
+  animation: league-detail-tab-in 0.36s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+/*
+  Short, and mostly opacity: a long exit slide runs into the height change that
+  lands with the new content, and the two read as a stutter.
+*/
+.league-detail__content--loading .league-detail__tab-panel {
+  pointer-events: none;
+  user-select: none;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.18s ease-in, transform 0.18s ease-in;
+}
+
+@keyframes league-detail-tab-in {
+  from { opacity: 0; transform: translateY(-14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/*
+  Kept in the layout rather than display:none, so it can fade out as well as in.
+  It is absolutely positioned and so costs no space either way, and `visibility`
+  is what keeps it off the hit-testing path and out of the accessibility tree
+  between switches - transitioned, because visibility holds `visible` for the
+  whole duration when moving to hidden, which is exactly long enough for the
+  opacity to finish.
+
+  It never takes pointer events: blocking clicks on the stale panel underneath is
+  the exit rule's job, above.
+*/
+.league-detail__tab-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 15;
+  width: 100%;
+  background: var(--bg);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.24s ease, visibility 0.24s;
+}
+
+.league-detail__tab-overlay--show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/*
+  Reduced motion keeps the crossfade and drops every displacement: the objection
+  is to things travelling across the screen, and without the fade a tab change
+  becomes an unexplained hard cut.
+*/
+@media (prefers-reduced-motion: reduce) {
+  .league-detail__tab-panel {
+    animation-name: league-detail-tab-in-fade;
+  }
+
+  .league-detail__content--loading .league-detail__tab-panel {
+    transform: none;
+  }
+
+  @keyframes league-detail-tab-in-fade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+}
+
+.league-detail__tab-overlay .league-detail-tab-skeleton {
+  min-height: 100%;
+  height: 100%;
+}
+
+.league-detail__tab-overlay .league-detail-tab-skeleton__body {
+  min-height: 100%;
+}
+
+.league-detail-tab-skeleton {
+  width: 100%;
+  min-height: min(48vh, 480px);
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+}
+
+.league-detail-tab-skeleton__body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  min-height: min(48vh, 480px);
+  padding: 2rem 1.75rem;
+  position: relative;
+}
+
+.league-detail-tab-skeleton__message {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  align-self: center;
+  text-align: center;
+}
+
+.league-detail-tab-skeleton__label {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 0.02em;
+}
+
+.league-detail-tab-skeleton__spinner {
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--border-light);
+  border-top-color: var(--accent-ink);
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: league-detail-spin 0.75s linear infinite;
+}
+
+.league-detail-tab-skeleton__preview {
+  position: absolute;
+  inset: 1.5rem 1.75rem 1.75rem;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  justify-content: flex-end;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.league-detail-tab-skeleton__row {
+  display: block;
+  width: 100%;
+  height: 14px;
+  border-radius: 8px;
+}
+
+.league-detail-tab-skeleton__row:nth-child(odd) {
+  width: 92%;
+}
+
+.league-detail-tab-skeleton__row:nth-child(3) {
+  width: 78%;
+}
+
+@keyframes league-detail-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .league-detail__content {
+    min-height: 360px;
+  }
+
+  .league-detail-tab-skeleton,
+  .league-detail-tab-skeleton__body {
+    min-height: 360px;
+  }
+
+  .league-detail-tab-skeleton__body {
+    padding: 1.5rem 1.1rem;
+  }
+}
+
+/* â”€â”€ Sidebar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+
+/*
+  Sticky makes the sidebar its own stack, so a menu opened in it (the
+  league switch, the season) could only rise within it, and the main column
+  after it painted over the overhang. Above the main column's own (its tab
+  overlay is 15), under the navbar (1000).
+*/
+.league-detail__sidebar {
+  position: sticky;
+  z-index: 20;
+  top: calc(var(--sk-navbar-total, 64px) + 1rem);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.league-detail__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.league-detail__back:hover {
+  color: var(--accent-dark);
+}
+
+/*
+  The league's logo, name and country: a button that opens every league
+  (league-detail.blade.php), the chosen one opening on the same tab.
+*/
+.league-detail__league-switch {
+  position: relative;
+}
+
+.league-detail__league-badge {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  width: 100%;
+  margin: 0;
+  padding: 0.4rem 0.5rem;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.league-detail__league-badge:hover,
+.league-detail__league-badge:focus-visible,
+.league-detail__league-badge[aria-expanded="true"] {
+  border-color: var(--border-light);
+  background: var(--bg-secondary);
+}
+
+.league-detail__league-text {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.league-detail__league-chevron {
+  flex: none;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  transition: transform 0.15s;
+}
+
+.league-detail__league-badge[aria-expanded="true"] .league-detail__league-chevron {
+  transform: rotate(180deg);
+}
+
+.league-detail__league-menu {
+  width: max(100%, 18rem);
+  max-height: 22rem;
+  padding: 0.5rem;
+}
+
+.league-detail__league-search {
+  display: flex;
+  margin-bottom: 0.4rem;
+}
+
+.league-detail__league-search input {
+  flex: 1 1 auto;
+  width: auto;
+  min-width: 0;
+}
+
+.league-detail__league-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.league-detail__league-option {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  text-decoration: none;
+}
+
+.league-detail__league-option-logo {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  color: var(--text-muted);
+}
+
+.league-detail__league-option-logo img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.league-detail__league-option-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: 1.2;
+}
+
+.league-detail__league-option-text small {
+  color: var(--text-muted);
+  font-size: 0.68rem;
+}
+
+/* A plan with some leagues: how many, and the way to the rest. */
+.league-detail__league-plan {
+  margin: 0.4rem 0 0;
+  padding: 0.5rem 0.5rem 0.15rem;
+  border-top: 1px solid var(--border-light);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.league-detail__league-plan a {
+  font-weight: 600;
+  color: var(--clr-eucalyptus, #1d665d);
+}
+
+[data-theme="dark"] .league-detail__league-plan a {
+  color: var(--accent-ink);
+}
+
+.league-detail__league-initials {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 12px;
+  background: rgba(29, 102, 93, 0.12);
+  border: 1px solid var(--border-light);
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--accent-dark);
+  flex-shrink: 0;
+}
+
+/* Competition crest inside the sidebar badge. Additive: the badge rule above
+   is untouched, so a league with no crest keeps its initials. */
+.league-detail__league-logo {
+  width: 1.9rem;
+  height: 1.9rem;
+  object-fit: contain;
+}
+
+/* The crest as the hero's watermark, in place of the trophy glyph. It mirrors
+   .sk-page-hero-icon's placement rather than extending it, because that class
+   is shared with the players hero and must keep its own look. */
+
+.league-detail-hero__crest {
+  position: absolute;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 7.5rem;
+  height: 7.5rem;
+  object-fit: contain;
+  opacity: 0.22;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Narrower, a crest this size starts crowding the title. */
+@media (max-width: 1200px) {
+  .league-detail-hero__crest {
+    width: 6.5rem;
+    height: 6.5rem;
+  }
+}
+
+/* Decorative only, and there is no room for it once the hero stacks. */
+@media (max-width: 768px) {
+  .league-detail-hero__crest {
+    display: none;
+  }
+}
+
+/* A full-colour crest reads fainter against the dark surface at the same
+   alpha, so it is lifted rather than matched. */
+[data-theme="dark"] .league-detail-hero__crest {
+  opacity: 0.3;
+}
+
+[data-theme="dark"] .league-detail__league-initials {
+  color: var(--accent-ink);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.league-detail__league-name {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text);
+}
+
+.league-detail__league-country {
+  margin: 0.2rem 0 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.league-detail__flag {
+  border-radius: 2px;
+}
+
+/* Temporada and Torneo: the site's pill dropdowns, as wide as the sidebar. */
+.league-detail__sidebar .sk-detail-control {
+  min-width: 0;
+}
+
+.league-detail__sidebar .sk-pill-dropdown {
+  max-width: none;
+}
+
+.league-detail__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 0.25rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border-light);
+}
+
+.league-detail__nav-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.5rem 0.65rem;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-decoration: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.league-detail__nav-item:hover {
+  background: var(--bg-secondary);
+  color: var(--text);
+}
+
+.league-detail__nav-item--active {
+  background: rgba(29, 102, 93, 0.12);
+  color: var(--accent-dark);
+}
+
+[data-theme="dark"] .league-detail__nav-item--active {
+  background: rgba(178, 217, 139, 0.1);
+  color: var(--accent-ink);
+}
+
+/* â”€â”€ Main hero â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+
+.league-detail-hero {
+  /* Slimmer than the shared hero (3rem): every tab of the league page opens
+     on it, so its height is paid on each one. */
+  padding: 1.5rem 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.league-detail-hero .sk-page-hero-title {
+  margin-bottom: 0.5rem;
+}
+
+.league-detail-hero .sk-page-hero-title span {
+  font-size: 0.55em;
+  font-weight: 700;
+  vertical-align: middle;
+}
+
+.league-detail-hero__cta {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.6rem 1.1rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--clr-black-glaze);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.league-detail-hero__cta:hover {
+  background: var(--accent-hover);
+  color: var(--clr-black-glaze);
+}
+
+/* â”€â”€ Sections â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+
+.league-detail-section {
+  margin-bottom: 1.75rem;
+}
+
+.league-detail-section__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.85rem;
+}
+
+.league-detail-section__title {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/*
+  --accent-dark is eucalyptus in both themes, which is a 2.9:1 link on the dark
+  page. --accent-ink is the per-theme ink, and the hover resolves to the page's
+  own text colour rather than to a second accent.
+*/
+.league-detail-section__link {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--accent-ink);
+  text-decoration: none;
+}
+
+.league-detail-section__link:hover {
+  color: var(--text);
+}
+
+.league-detail-section__hint {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* A section head's right side: its hint, then its download (the Best XI's). */
+.league-detail-section__tools {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+/* â”€â”€ Leaderboards â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+
+.league-detail-leaderboards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.league-detail-lb {
+  padding: 1rem;
+}
+
+.league-detail-lb__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.league-detail-lb__title {
+  margin: 0;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/*
+  The Resumen's leaders (beta-feature-2): each card's title on the Rankings'
+  category band (sk.css --category-band-*), edge to edge across the card's
+  top, its ink and weight; "Ver todos" stays on it. The LÃ­deres tab keeps
+  its plain titles.
+*/
+.league-detail-leaderboards--banded .league-detail-lb__head {
+  align-items: center;
+  margin: -1rem -1rem 0.75rem;
+  padding: 0.65rem 1rem;
+  border-bottom: 1px solid var(--border-light);
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+  background: var(--category-band-bg);
+}
+
+.league-detail-leaderboards--banded .league-detail-lb__title {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--category-band-text);
+}
+
+.league-detail-lb__more {
+  flex-shrink: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 0.68rem;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--accent-ink);
+  cursor: pointer;
+}
+
+.league-detail-lb__more:hover,
+.league-detail-lb__more:focus-visible {
+  color: var(--text);
+}
+
+.league-detail-lb__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.league-detail-lb__row {
+  display: grid;
+  grid-template-columns: auto auto 1fr auto;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 6px;
+  transition: background 0.15s;
+}
+
+.league-detail-lb__row:hover {
+  background: var(--bg-secondary);
+}
+
+.league-detail-lb__rank {
+  width: 1.1rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.league-detail-lb__photo {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--border-light);
+}
+
+.league-detail-lb__info {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.league-detail-lb__name {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.league-detail-lb__val {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--accent-dark);
+}
+
+[data-theme="dark"] .league-detail-lb__val {
+  color: var(--accent-ink);
+}
+
+.league-detail-lb__empty {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  padding: 0.5rem 0;
+}
+
+/* â”€â”€ LÃ­deres estadÃ­sticos â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+
+.league-leaders__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.league-leaders__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--accent-ink);
+  cursor: pointer;
+}
+
+.league-leaders__back:hover,
+.league-leaders__back:focus-visible {
+  color: var(--text);
+}
+
+.league-leaders__board-title {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.league-leaders__table-wrap {
+  padding: 0;
+  overflow: hidden;
+}
+
+/* â”€â”€ Category pills: LÃ­deres â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+
+.league-pills {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.league-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: 1px solid var(--border-light);
+  background: var(--bg-secondary);
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.league-pill:hover,
+.league-pill:focus-visible {
+  color: var(--text);
+  border-color: var(--accent-ink);
+}
+
+.league-pill--active {
+  background: rgba(29, 102, 93, 0.14);
+  border-color: var(--accent-ink);
+  color: var(--accent-dark);
+}
+
+[data-theme="dark"] .league-pill--active {
+  color: var(--accent-ink);
+}
+
+.league-pagination {
+  padding: 0.75rem 1rem;
+  border-top: 1px solid var(--border-light);
+}
+
+/* â”€â”€ EstadÃ­sticas â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+
+.league-stats__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.9rem;
+}
+
+/* The switch's own height, so the header row lines up. */
+.league-stats__search {
+  min-height: 0;
+  align-self: stretch;
+}
+
+.league-stats__count {
+  flex: 1 1 auto;
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.league-stats__table-wrap {
+  padding: 0;
+  overflow: hidden;
+  transition: opacity 0.15s ease;
+}
+
+.league-stats__table-wrap--loading {
+  opacity: 0.55;
+}
+
+/* Room for the CSV button in the corner (top 8px, 20px tall), as the search leaves it. */
+.league-stats__table-wrap--download {
+  position: relative;
+  padding-top: 2.25rem;
+}
+
+.league-stats__handoff {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-left: auto;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--accent-ink);
+  text-decoration: none;
+}
+
+.league-stats__handoff:hover,
+.league-stats__handoff:focus-visible {
+  color: var(--text);
+}
+
+.league-stats__panel-note {
+  margin: 0.6rem 0 0;
+  font-size: 0.72rem;
+  line-height: 1.35;
+  color: var(--text-muted);
+}
+
+/* â”€â”€ Best XI â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+
+.league-xi {
+  padding: 0.85rem;
+}
+
+/*
+  The event maps' pitch (event-map.js drawPitch(), .sk-event-map__canvas-wrap
+  in sk.css) drawn in markup: same 1.6 frame and minimum height, no fill, the
+  field inset 3.5 % at the ends and 7.5 % at the sides, and every mark at the
+  map's proportions in --pitch-line at its 1.5 px.
+*/
+.league-xi__pitch {
+  --league-xi-line: 1.5px solid var(--pitch-line);
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1.6;
+  min-height: 260px;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.league-xi__field {
+  position: absolute;
+  inset: 7.5% 3.5%;
+  border: var(--league-xi-line);
+}
+
+.league-xi__mark {
+  position: absolute;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.league-xi__mark--half {
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  border-left: var(--league-xi-line);
+  transform: translateX(-50%);
+}
+
+.league-xi__mark--circle {
+  top: 50%;
+  left: 50%;
+  width: 18%;
+  aspect-ratio: 1;
+  border: var(--league-xi-line);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.league-xi__mark--box,
+.league-xi__mark--six {
+  border: var(--league-xi-line);
+}
+
+.league-xi__mark--box {
+  top: 28%;
+  width: 12%;
+  height: 44%;
+}
+
+.league-xi__mark--six {
+  top: 39%;
+  width: 5%;
+  height: 22%;
+}
+
+/* The goal line is the field's own border; a box does not draw it twice. */
+.league-xi__mark--own {
+  left: 0;
+  border-left: 0;
+}
+
+.league-xi__mark--opp {
+  right: 0;
+  border-right: 0;
+}
+
+.league-xi__mark--spot {
+  top: 50%;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--pitch-line);
+  transform: translate(-50%, -50%);
+}
+
+.league-xi__mark--spot-centre { left: 50%; }
+.league-xi__mark--spot-own { left: 12%; }
+.league-xi__mark--spot-opp { left: 88%; }
+
+.league-xi__player {
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 5.4rem;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  text-decoration: none;
+  color: var(--text);
+}
+
+/* The player page's avatar (.player-avatar), at the size a pitch allows. */
+.league-xi__photo {
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--border-light);
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--bg-card);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .18);
+  transition: transform 0.15s;
+}
+
+.league-xi__player:hover .league-xi__photo {
+  transform: scale(1.08);
+}
+
+/* Name and meta sit on the card's surface so a pitch line never runs through them. */
+.league-xi__name,
+.league-xi__meta {
+  max-width: 100%;
+  padding: 0 0.3rem;
+  border-radius: 4px;
+  background: var(--bg-card);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.league-xi__name {
+  margin-top: 0.2rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.league-xi__player:hover .league-xi__name {
+  color: var(--accent-ink);
+}
+
+.league-xi__meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.6rem;
+  line-height: 1.3;
+  color: var(--text-muted);
+}
+
+.league-xi__meta .sk-position {
+  text-decoration: none;
+}
+
+/* The SKore's chip (.sk-skore-chip, sk.css), sized for the pitch's small cards. */
+.league-xi__rating.sk-skore-chip {
+  min-width: 0;
+  padding: 0 0.25rem;
+  border-radius: 4px;
+  font-size: 0.6rem;
+  line-height: 1.3;
+}
+
+/* â”€â”€ Teams in best form â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+
+.league-form {
+  display: flex;
+  flex-direction: column;
+  padding: 0.35rem 0;
+}
+
+.league-form__row {
+  display: grid;
+  flex: 1 1 auto;
+  grid-template-columns: 1.1rem minmax(0, 1fr) auto auto;
+  align-items: center;
+  align-content: center;
+  gap: 0.75rem;
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.league-form__row:last-child {
+  border-bottom: none;
+}
+
+.league-form__rank {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.league-form__team {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.league-form__team .league-standings__form {
+  justify-content: flex-start;
+}
+
+.league-form__name {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+a.league-form__name:hover { color: var(--accent-dark); }
+
+.league-form__xg {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.league-form__bars {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 2rem;
+}
+
+.league-form__bar {
+  width: 6px;
+  border-radius: 2px;
+  background: var(--result-win);
+}
+
+.league-form__bar--neg {
+  background: var(--result-loss);
+}
+
+.league-form__numbers {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  min-width: 3.6rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.league-form__diff {
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
+.league-form__trend {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
+/* â”€â”€ Standings + results columns â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+
+.league-detail-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+.league-detail-columns--xi {
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+}
+
+/*
+  Side-by-side cards share a height: the grid stretches each section to the
+  taller one, and the card fills its section, so the best-form card matches
+  the best XI and the results match the table.
+*/
+.league-detail-columns > .league-detail-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.league-detail-columns > .league-detail-section > .sk-card {
+  flex: 1 1 auto;
+}
+
+/* An empty stretched card keeps its message in the middle, not at the top. */
+.league-form > .league-detail-table__empty,
+.league-detail-results > .league-detail-table__empty {
+  margin: auto 0;
+}
+
+.league-detail-table-wrap {
+  padding: 0;
+  overflow: hidden;
+}
+
+.league-detail-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+.league-detail-table th {
+  padding: 0.65rem 0.75rem;
+  text-align: left;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.league-detail-table td {
+  padding: 0.55rem 0.75rem;
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text);
+}
+
+.league-detail-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.league-detail-table__team {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 600;
+  color: var(--text);
+  text-decoration: none;
+}
+
+a.league-detail-table__team:hover { color: var(--accent-dark); }
+
+.league-detail-table__team img {
+  object-fit: contain;
+}
+
+.league-detail-table__pts {
+  font-weight: 800;
+  color: var(--accent-dark);
+}
+
+[data-theme="dark"] .league-detail-table__pts {
+  color: var(--accent-ink);
+}
+
+.league-detail-table__xp,
+.league-detail-table__gap {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.league-detail-table__xp {
+  font-weight: 700;
+}
+
+.league-detail-table__gap {
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.league-detail-table abbr {
+  text-decoration: none;
+  cursor: help;
+}
+
+.league-detail-table__note {
+  margin: 0;
+  padding: 0.65rem 0.75rem;
+  border-top: 1px solid var(--border-light);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.league-detail-table__empty {
+  padding: 1.25rem;
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* â”€â”€ Results list â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+
+.league-detail-results {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 0;
+}
+
+/* Rows share the height the card is stretched to, content centred in each. */
+.league-detail-result {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0.65rem 1rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.league-detail-result:last-child {
+  border-bottom: none;
+}
+
+.league-detail-result__date {
+  display: block;
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  margin-bottom: 0.35rem;
+}
+
+.league-detail-result__teams {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.league-detail-result__side {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text);
+  text-decoration: none;
+  min-width: 0;
+}
+
+a.league-detail-result__side:hover { color: var(--accent-dark); }
+
+.league-detail-result__side--away {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.league-detail-result__side img {
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.league-detail-result__score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--text);
+  white-space: nowrap;
+  text-decoration: none;
+  border-radius: 6px;
+  padding: 0.1rem 0.4rem;
+  transition: color .15s ease, box-shadow .15s ease;
+}
+
+/* The score is the match page's link (Fase 5). */
+.league-detail-result__score:hover,
+.league-detail-result__score:focus-visible {
+  color: var(--accent-dark);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+.league-detail-result__xg {
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* â”€â”€ Empty states â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+
+.league-detail-empty {
+  text-align: center;
+  padding: 3rem 1.5rem;
+}
+
+.league-detail-empty i {
+  font-size: 2rem;
+  opacity: 0.4;
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.league-detail-empty__link {
+  display: inline-block;
+  margin-top: 1rem;
+  color: var(--accent-dark);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* â”€â”€ Responsive â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+
+@media (max-width: 1200px) {
+  .league-detail-leaderboards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 992px) {
+  /* minmax(0, â€¦) as above: a plain 1fr grows to its widest table (the
+     ProyecciÃ³n's places, the Calendario's rounds) and the page scrolls
+     sideways instead of the table. */
+  .league-detail__layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .league-detail__sidebar {
+    position: static;
+  }
+
+  .league-detail-columns,
+  .league-detail-columns--xi {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 576px) {
+  .league-detail-leaderboards {
+    grid-template-columns: 1fr;
+  }
+
+  .league-xi__player {
+    width: 4.2rem;
+  }
+
+  .league-xi__photo {
+    width: 24px;
+    height: 24px;
+  }
+
+  .league-xi__name {
+    font-size: 0.6rem;
+  }
+
+  .league-xi__meta {
+    font-size: 0.55rem;
+  }
+
+  .league-form__bars {
+    display: none;
+  }
+
+  .league-detail-result__teams {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .league-detail-result__side--away {
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+/* â”€â”€ Standings tab (full table) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+
+/*
+  The table is the shared .sk-player-table (sk.css), like the player stats and
+  the advanced search; what is below is only what the standings add to it:
+  the toolbar and its xP switch, the number cells, the group rows and the
+  xP block.
+*/
+.league-standings__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.85rem;
+}
+
+.league-standings__toolbar-label {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.league-standings__card {
+  padding: 0;
+  overflow: hidden;
+}
+
+/* The tab's xP switch, drawn like the other tabs' P90 and per-game toggles. */
+.league-standings__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.9rem;
+  border: 1px solid var(--border-light);
+  border-radius: 999px;
+  background: var(--bg-secondary);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.league-standings__toggle:hover {
+  color: var(--text);
+}
+
+.league-standings__toggle--active {
+  border-color: var(--accent-ink);
+  background: rgba(29, 102, 93, 0.14);
+  color: var(--accent-ink);
+}
+
+[data-theme="dark"] .league-standings__toggle--active {
+  background: rgba(178, 217, 139, 0.12);
+}
+
+.league-standings__table .sk-player-table__th-player {
+  min-width: 180px;
+}
+
+/* A column header is a sort button; the ordering column reads in the accent. */
+.league-standings__sort-head.is-sorted .sk-player-table__sort {
+  color: var(--accent-ink);
+}
+
+.league-standings__num {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* Conference and zone leagues: one ranking per group, each under its name. */
+.league-standings__group {
+  padding: 0.5rem 0.5rem 0.4rem;
+  background: var(--bg-secondary);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border-light);
+}
+
+/* The xP block opens with a rule, so it reads as a second table beside the first. */
+.league-standings__table .league-standings__xp-start {
+  border-left: 1px solid var(--border-light);
+  padding-left: 0.75rem;
+}
+
+.league-standings__xp {
+  font-weight: 800;
+}
+
+.league-standings__xp-rank {
+  white-space: nowrap;
+}
+
+.league-standings__shift {
+  margin-left: 0.3rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.league-standings__shift i {
+  font-size: 0.6rem;
+}
+
+.league-standings__note {
+  margin: 0;
+  padding: 0.75rem 1rem;
+  border-top: 1px solid var(--border-light);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+/* â”€â”€ Projection tab â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+
+/*
+  The standings' toolbar, card and number cells, plus the places matrix: one
+  narrow column per place, each probability a block washed in the advanced
+  search's green (.players-table__cell in sk.css) by its square root, so a
+  small chance still shows.
+*/
+.league-projection__notice {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0;
+  padding: 0.65rem 1rem;
+  border-bottom: 1px solid var(--border-light);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.league-projection__champion {
+  font-weight: 800;
+}
+
+/* A plan that shows only the first teams: the rest are stand-ins, blurred,
+   under the call to the plans (.sk-unlock). */
+.league-projection__row--locked td,
+.league-stats__row--locked td,
+.league-calendar__row--locked td,
+.league-calendar__row--locked th {
+  filter: blur(5px);
+  opacity: 0.55;
+  user-select: none;
+  pointer-events: none;
+}
+
+.league-stats__table .sk-unlock-anchor {
+  --sk-unlock-row: 3.2rem;
+}
+
+.league-calendar__table .sk-unlock-anchor {
+  --sk-unlock-row: 3.45rem;
+}
+
+.league-projection__ghost {
+  font-weight: 600;
+}
+
+.league-locked__cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  background: var(--clr-eucalyptus, #1d665d);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-decoration: none;
+}
+
+.league-locked__cta:hover {
+  color: #fff;
+  filter: brightness(1.1);
+}
+
+[data-theme="dark"] .league-locked__cta {
+  background: var(--accent-ink);
+  color: #0b1f1a;
+}
+
+/* A league outside the viewer's plan (league-detail-locked). */
+.league-locked {
+  max-width: 560px;
+  margin: 2rem auto;
+  padding: 2rem 1.5rem;
+  text-align: center;
+}
+
+.league-locked__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  margin-bottom: 0.75rem;
+  border-radius: 50%;
+  background: var(--bg-secondary);
+  font-weight: 700;
+}
+
+.league-locked__title {
+  margin: 0 0 0.35rem;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.league-locked__text {
+  margin: 0 auto 1.25rem;
+  max-width: 420px;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.league-locked__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+  font-size: 0.85rem;
+}
+
+.league-locked__actions a:not(.league-locked__cta) {
+  font-weight: 600;
+  color: var(--clr-eucalyptus, #1d665d);
+}
+
+[data-theme="dark"] .league-locked__actions a:not(.league-locked__cta) {
+  color: var(--accent-ink);
+}
+
+.league-projection__table thead th.league-projection__place-head {
+  min-width: 2.6rem;
+  text-align: center;
+}
+
+.league-projection__table tbody td.league-projection__place {
+  padding: 2px;
+}
+
+.league-projection__cell {
+  padding: 0.35rem 0.2rem;
+  font-size: 0.7rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.league-projection__cell--likeliest {
+  font-weight: 800;
+}
+
+/* The Liguilla band over the places it takes. */
+.league-projection__zones th {
+  padding: 0.4rem 0 0;
+  border-bottom: 0;
+}
+
+.league-projection__zone {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--accent-ink);
+  box-shadow: inset 0 -3px 0 var(--accent-ink);
+}
+
+.league-projection__place-head--zone {
+  color: var(--accent-ink);
+}
+
+.league-standings__gd {
+  font-weight: 700;
+}
+
+.league-standings__gd--pos {
+  color: var(--result-win);
+}
+
+[data-theme="dark"] .league-standings__gd--pos {
+  color: var(--accent-ink);
+}
+
+.league-standings__gd--neg {
+  color: var(--result-loss);
+}
+
+.league-standings__pts {
+  font-weight: 800;
+  color: var(--accent-dark);
+}
+
+[data-theme="dark"] .league-standings__pts {
+  color: var(--accent-ink);
+}
+
+.league-standings__form {
+  display: inline-flex;
+  gap: 0.2rem;
+}
+
+.league-standings__form-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.15rem;
+  height: 1.15rem;
+  border-radius: 3px;
+  font-size: 0.58rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.league-standings__form-pill--W {
+  background: var(--result-win-bg);
+  color: var(--result-win);
+}
+
+.league-standings__form-pill--D {
+  background: var(--result-draw-bg);
+  color: var(--result-draw);
+}
+
+.league-standings__form-pill--L {
+  background: var(--result-loss-bg);
+  color: var(--result-loss);
+}
+
+.league-standings__form-empty {
+  color: var(--text-muted);
+}
+
+/* â”€â”€ Partidos tab (SK-02.2) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+
+/*
+  One card, one line a match, the way the site's tables read: each day a
+  strip that heads the columns, then kick-off, the sides either side of the
+  score, the win / draw / loss bar with its shares printed inside, and the
+  likeliest score (upcoming) or the xG (played). The bar is home in the
+  eucalyptus, the draw neutral, away in the pistachio; a played match's bar
+  is the pre-match one, faded but for the outcome that happened. An upcoming
+  match is a <details>: its row unfolds in place to the score matrix.
+*/
+/*
+  The controls are the advanced search's: the mode its .chart-toggle, sized as
+  that page sizes it; each filter a .sk-pill-control drawn like its filter
+  bar's pills (players.blade.php, .players-filterbar__pill) â€” icon, what it is
+  set to, a chevron that turns while its .sk-dropdown-menu is open, the
+  accent ring while it narrows the list â€” and the round reset its icon button.
+*/
+.league-filterbar__modes.chart-toggle {
+  margin-bottom: 0;
+  align-items: stretch;
+}
+
+.league-filterbar__modes .chart-toggle-btn {
+  padding: 0.25rem 0.85rem;
+  font-size: 0.8rem;
+}
+
+.league-matches__count {
+  font-weight: 700;
+  color: var(--accent-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.league-matches__count-skel {
+  display: inline-block;
+  width: 9rem;
+  height: 0.8rem;
+  border-radius: 4px;
+  vertical-align: middle;
+}
+
+.league-filterbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  margin: -0.25rem 0 0.85rem;
+}
+
+.league-filterbar__item {
+  position: relative;
+}
+
+.league-filterbar__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 36px;
+  max-width: 15rem;
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--border);
+  font-size: 0.82rem;
+  font-weight: 500;
+}
+
+[data-theme="dark"] .league-filterbar__pill,
+[data-theme="dark"] .league-filterbar__reset {
+  border-color: transparent;
+}
+
+[data-theme="dark"] .league-filterbar__pill.active {
+  border-color: var(--accent-ink);
+}
+
+.league-filterbar__pill > .bi {
+  flex-shrink: 0;
+}
+
+.league-filterbar__pill > .bi:first-child {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.league-filterbar__pill.active > .bi:first-child {
+  color: inherit;
+}
+
+.league-filterbar__pill-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.league-filterbar__chevron {
+  font-size: 0.62rem;
+  opacity: 0.7;
+  transition: transform 0.15s;
+}
+
+.league-filterbar__pill[aria-expanded="true"] .league-filterbar__chevron {
+  transform: rotate(180deg);
+}
+
+.league-filterbar__menu {
+  top: calc(100% + 6px);
+  min-width: 15rem;
+  max-height: 280px;
+  border-radius: 0.75rem;
+  animation: league-filterbar-menu-in 0.15s ease-out;
+}
+
+@keyframes league-filterbar-menu-in {
+  from { opacity: 0; }
+}
+
+.league-filterbar__reset {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  min-height: 36px;
+  padding: 0;
+  border: 1px solid var(--border);
+}
+
+.league-matches__capped {
+  margin: 0 0 0.6rem;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+/*
+  A filter or mode change, the advanced search's way: the list fades out and
+  drops a little, a skeleton of rows fades in over the same space, and the
+  new list â€” keyed on what it shows â€” descends into place with the league
+  page's tab entrance.
+*/
+.league-matches__stage {
+  position: relative;
+}
+
+.league-matches__body {
+  animation: league-detail-tab-in 0.36s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  transition: opacity 0.24s ease, transform 0.24s ease;
+}
+
+.league-matches__stage--loading .league-matches__body {
+  pointer-events: none;
+  user-select: none;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.18s ease-in, transform 0.18s ease-in;
+}
+
+/* Kept in the layout so it can fade out as well as in. */
+.league-matches__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.24s ease, visibility 0.24s;
+}
+
+.league-matches__overlay--show {
+  opacity: 1;
+  visibility: visible;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .league-matches__body {
+    animation-name: league-matches-fade;
+  }
+
+  .league-matches__stage--loading .league-matches__body {
+    transform: none;
+  }
+
+  @keyframes league-matches-fade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+}
+
+@media (max-width: 575.98px) {
+  .league-matches__toolbar {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+  }
+
+  .league-filterbar__item {
+    position: static;
+  }
+
+  .league-filterbar {
+    position: relative;
+  }
+
+  /* A phone's menu hangs from the bar's width, as the search's popups do. */
+  .league-filterbar__menu {
+    right: 0;
+    min-width: 0;
+  }
+}
+
+/* The other tournament of the season, read match by match (SK-02.12). */
+.league-detail-scope {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0 0 0.85rem;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+/* â”€â”€ Calendario tab (SK-02.3) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+
+/*
+  The standings' toolbar, card and table, then the matrix: one column per
+  round, each fixture a block in its grade's colour (--sk-fdr-* in sk.css,
+  the team page's), the rival's code over the venue and the grade, so the
+  colour is never the only cue. The team column stays put while the rounds
+  scroll under it on a phone.
+*/
+.league-calendar__legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.3rem;
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid var(--border-light);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.league-calendar__legend-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.4rem;
+  height: 1.2rem;
+  border-radius: 4px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: var(--text);
+}
+
+/*
+  With every round left a column, a league with most of its season to play is
+  a wide table: the position, the team and its Dificultad stay put while the
+  rounds scroll under them, each sticky cell opaque, a shadow after the last.
+  On a phone only the team does, or the rounds would have no room.
+*/
+.league-calendar__table {
+  --cal-pos: 2.75rem;
+  --cal-team: 11.5rem;
+  --cal-value: 5rem;
+}
+
+.league-calendar__table--no-pos {
+  --cal-pos: 0rem;
+}
+
+.league-calendar__table .league-calendar__pos,
+.league-calendar__table .league-calendar__team,
+.league-calendar__table .league-calendar__team-head,
+.league-calendar__table .league-calendar__value,
+.league-calendar__table .league-calendar__value-head {
+  position: sticky;
+  z-index: 1;
+  background: var(--bg-card);
+}
+
+.league-calendar__table .league-calendar__pos {
+  left: 0;
+  width: var(--cal-pos);
+  min-width: var(--cal-pos);
+}
+
+.league-calendar__table th.league-calendar__team,
+.league-calendar__table .league-calendar__team-head {
+  left: var(--cal-pos);
+  width: var(--cal-team);
+  min-width: var(--cal-team);
+  max-width: var(--cal-team);
+  padding-left: 0.75rem;
+  text-align: left;
+  font-weight: 600;
+}
+
+.league-calendar__table .league-calendar__value,
+.league-calendar__table .league-calendar__value-head {
+  left: calc(var(--cal-pos) + var(--cal-team));
+  width: var(--cal-value);
+  min-width: var(--cal-value);
+  box-shadow: 6px 0 6px -4px rgba(0, 0, 0, 0.12);
+}
+
+@media (max-width: 768px) {
+  .league-calendar__table .league-calendar__pos,
+  .league-calendar__table .league-calendar__value,
+  .league-calendar__table .league-calendar__value-head {
+    position: static;
+    box-shadow: none;
+  }
+
+  .league-calendar__table th.league-calendar__team,
+  .league-calendar__table .league-calendar__team-head {
+    left: 0;
+    --cal-team: 9.5rem;
+    box-shadow: 6px 0 6px -4px rgba(0, 0, 0, 0.12);
+  }
+}
+
+.league-calendar__team-link {
+  display: inline-flex;
+  max-width: 100%;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.league-calendar__team-link:hover span,
+.league-calendar__team-link:focus-visible span {
+  color: var(--accent-ink);
+  text-decoration: underline;
+}
+
+.league-calendar__team-link span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.league-calendar__team-link img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.league-calendar__value {
+  white-space: nowrap;
+}
+
+.league-calendar__value small {
+  display: block;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
+.league-calendar__table thead th.league-calendar__round-head {
+  min-width: 4.2rem;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.league-calendar__round-head small {
+  display: block;
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.league-calendar__table tbody td.league-calendar__slot {
+  padding: 3px;
+  vertical-align: middle;
+}
+
+.league-calendar__fixture {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.5rem;
+  padding: 0.25rem 0.2rem;
+  border-radius: 6px;
+  line-height: 1.1;
+  color: var(--text);
+  cursor: default;
+}
+
+.league-calendar__fixture + .league-calendar__fixture {
+  margin-top: 3px;
+}
+
+/* No grade to show (no xG, or the rival still to be decided). */
+.league-calendar__fixture--open {
+  border: 1px dashed var(--border-light);
+  color: var(--text-muted);
+}
+
+.league-calendar__code {
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+}
+
+.league-calendar__venue {
+  font-size: 0.62rem;
+  font-weight: 600;
+  opacity: 0.85;
+}
+
+.league-calendar__fixture--home .league-calendar__venue {
+  font-weight: 800;
+  opacity: 1;
+}
+
+.league-calendar__blank {
+  display: block;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+/*
+  Under the matrix, the team page's line of the league's calendars (its
+  .team-calendar__league), each team's crest as the standings draw it
+  (.sk-player-table__avatar) at its place on one axis, hardest on the left.
+  Crests too close for one lane stack above and below the axis (--lane, from
+  the partial). Each travels in from the hardest end on the charts' 620ms
+  easeOutQuart.
+*/
+.league-calendar__league-section {
+  margin: 1.75rem 0 0;
+}
+
+.league-calendar__league {
+  --crest: 28px;
+  --lane-step: 32px;
+  margin: 0;
+  padding: 1.25rem 1.5rem 1rem;
+}
+
+.league-calendar__league-track {
+  position: relative;
+  height: calc((var(--lanes-above) + var(--lanes-below) + 1) * var(--lane-step));
+  /* Half a crest each side, so the ends' crests stay inside the card. */
+  margin: 0 calc(var(--crest) / 2);
+  padding: 0;
+  list-style: none;
+}
+
+.league-calendar__league-track::before {
+  content: "";
+  position: absolute;
+  left: calc(var(--crest) / -2);
+  right: calc(var(--crest) / -2);
+  top: calc((var(--lanes-above) + 0.5) * var(--lane-step));
+  height: 2px;
+  margin-top: -1px;
+  background: var(--border-light);
+}
+
+.league-calendar__league-team {
+  position: absolute;
+  top: calc((var(--lanes-above) + 0.5 + var(--lane)) * var(--lane-step));
+  transform: translate(-50%, -50%);
+  animation: league-calendar-slide 620ms cubic-bezier(0.25, 1, 0.5, 1) backwards;
+}
+
+.league-calendar__league-team:hover,
+.league-calendar__league-team:focus-within {
+  z-index: 1;
+}
+
+.league-calendar__league-link {
+  display: block;
+  line-height: 0;
+  border-radius: 50%;
+  text-decoration: none;
+}
+
+.league-calendar__league-link .sk-player-table__avatar {
+  width: var(--crest);
+  height: var(--crest);
+  background-color: var(--bg-card);
+  box-shadow: 0 0 0 2px var(--bg-card);
+  transition: transform 0.15s ease;
+}
+
+.league-calendar__league-link:hover .sk-player-table__avatar,
+.league-calendar__league-link:focus-visible .sk-player-table__avatar {
+  transform: scale(1.15);
+  box-shadow: 0 0 0 2px var(--accent-ink);
+}
+
+.league-calendar__league-link .sk-player-table__avatar--placeholder {
+  line-height: 1;
+}
+
+.league-calendar__league-ends {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.4rem;
+  color: var(--text-muted);
+  font-size: 0.68rem;
+}
+
+@keyframes league-calendar-slide {
+  from { left: 0; }
+}
+
+@media (max-width: 576px) {
+  .league-calendar__league {
+    --crest: 22px;
+    --lane-step: 26px;
+    padding: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .league-calendar__league-team { animation: none; }
+}
+
+/* â”€â”€ Mapas tab (SK-02.8) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+
+/*
+  One small pitch per team, in table order, as many to a row as fit. The
+  pitch is the event map's (event-map.js paints it), in the same 1.6 box; the
+  card carries the table place, the team, its matches and events per match,
+  and the button that hides it. The controls are the Partidos tab's pills.
+*/
+/* league-maps.js hides with the attribute: it wins over every display below. */
+.league-maps__root [hidden] {
+  display: none !important;
+}
+
+/* The download beside the teams pill, the size of the filter bar's icon buttons. */
+.league-maps__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.league-maps__download svg {
+  width: 14px;
+  height: 14px;
+}
+
+.league-maps__download:disabled {
+  opacity: 0.45;
+  cursor: progress;
+}
+
+.league-maps__count {
+  font-weight: 700;
+  color: var(--accent-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+/* The teams menu opens from the toolbar's right edge, and the event menu is long. */
+.league-filterbar__menu--end {
+  left: auto;
+  right: 0;
+}
+
+.league-filterbar__menu--tall {
+  max-height: min(60vh, 420px);
+}
+
+.league-maps__check {
+  display: inline-block;
+  width: 1.1rem;
+  visibility: hidden;
+}
+
+.league-maps__team-toggle.selected .league-maps__check {
+  visibility: visible;
+}
+
+/* A ticked team reads like any other row: the tick says it is on, not the ink. */
+.league-maps__team-toggle.selected {
+  color: var(--text) !important;
+  font-weight: 400;
+}
+
+.league-maps__legend {
+  margin: -0.25rem 0 0.85rem;
+}
+
+/* The failed result's legend item: a switch, faded while its events are off. */
+.league-maps__legend-toggle {
+  padding: 0.1rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  transition: opacity 0.15s ease, border-color 0.15s ease;
+}
+
+.league-maps__legend-toggle:hover,
+.league-maps__legend-toggle:focus-visible { opacity: 1; border-color: var(--text-muted); }
+
+.league-maps__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+  gap: 0.75rem;
+}
+
+.league-maps__group {
+  grid-column: 1 / -1;
+  margin: 0.4rem 0 0;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.league-maps__card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.6rem 0.65rem 0.65rem;
+  margin: 0;
+}
+
+.league-maps__head {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-width: 0;
+}
+
+.league-maps__rank {
+  flex: none;
+  min-width: 1.4rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.league-maps__team {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.league-maps__team:hover {
+  color: var(--accent-dark);
+}
+
+/* The team, and under it its matches and events per match: the name keeps the line. */
+.league-maps__title {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-width: 0;
+  line-height: 1.2;
+}
+
+.league-maps__meta {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.66rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.league-maps__hide {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.league-maps__hide:hover,
+.league-maps__hide:focus-visible {
+  background: var(--accent-ink-soft);
+  color: var(--accent-ink);
+  outline: none;
+}
+
+.league-maps__canvas-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1.6;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+/* While the pitch is divided, a click on any map focuses that cell on every map. */
+.league-maps__canvas-wrap canvas.league-maps__canvas--focusable {
+  cursor: pointer;
+}
+
+.league-maps__focus {
+  min-height: 0;
+}
+
+.league-maps__canvas-wrap canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* While its map is on the way: the pitch's box as a skeleton. */
+.league-maps__skeleton {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+}
+
+.league-maps__empty {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 1rem;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-align: center;
+  pointer-events: none;
+}
+
+.league-maps__card:not([hidden]) {
+  animation: league-detail-tab-in 0.36s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+/* A plan that draws only the first teams: the rest as blurred stand-ins,
+   a made-up heatmap on a green pitch, under the call to the plans. */
+.league-maps__locked {
+  margin-top: 0.75rem;
+}
+
+.league-maps__grid--locked {
+  filter: blur(5px);
+  opacity: 0.55;
+  user-select: none;
+  pointer-events: none;
+}
+
+.league-maps__ghost {
+  background:
+    radial-gradient(circle at var(--ghost-x) var(--ghost-y), rgba(220, 38, 38, 0.85), rgba(234, 179, 8, 0.6) 22%, transparent 45%),
+    radial-gradient(circle at calc(100% - var(--ghost-x)) calc(100% - var(--ghost-y)), rgba(234, 88, 12, 0.75), transparent 35%),
+    #4ade80;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .league-maps__card:not([hidden]) {
+    animation-name: league-matches-fade;
+  }
+}
+
+/* â”€â”€ Valoraciones scout â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  The EstadÃ­sticas tab's search row, the LÃ­deres tab's pills, the Partidos
+  tab's filter bar, then small cards: avatar, name, a flat flag beside the
+  club, and the SKore chip.
+*/
+
+.league-scout-ratings__pills {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.league-scout-ratings__filterbar {
+  margin: 0 0 1rem;
+}
+
+.league-scout-ratings__body {
+  transition: opacity 0.15s ease;
+}
+
+.league-scout-ratings__body--loading {
+  opacity: 0.55;
+}
+
+.league-scout-ratings__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 0.55rem;
+}
+
+.league-scout-ratings__card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.65rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-light);
+  background: var(--card-bg, var(--bg-secondary));
+  color: inherit;
+  transition: border-color 0.15s, transform 0.15s;
+}
+
+.league-scout-ratings__card:hover {
+  border-color: var(--accent-ink);
+  transform: translateY(-1px);
+}
+
+.league-scout-ratings__card-main {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-width: 0;
+}
+
+.league-scout-ratings__avatar-wrap {
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.league-scout-ratings__avatar {
+  display: block;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.league-scout-ratings__avatar--placeholder {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(29, 102, 93, 0.12);
+  font-weight: 700;
+  color: var(--accent-dark);
+}
+
+.league-scout-ratings__meta {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.league-scout-ratings__name {
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.league-scout-ratings__name:hover {
+  color: var(--accent-dark);
+}
+
+.league-scout-ratings__club {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  min-width: 0;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.league-scout-ratings__club a {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: inherit;
+  text-decoration: none;
+}
+
+.league-scout-ratings__club a:hover {
+  color: var(--accent-dark);
+}
+
+/* The player page's flag: flat, cut to the box, its corners barely round. */
+.league-scout-ratings__flag {
+  flex-shrink: 0;
+  width: 16px;
+  height: 12px;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+.league-scout-ratings__card .sk-skore-chip {
+  flex-shrink: 0;
+}
+
+.league-scout-ratings__empty {
+  padding: 2rem 1rem;
+  text-align: center;
+}
+
+.league-scout-ratings__pagination {
+  margin-top: 0.75rem;
+}
+
+/* â”€â”€â”€ DispersiÃ³n (SK-02.5) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/*
+  The controls are the Mapas and Partidos tabs' filter bar; the chart is an
+  SVG league-scatter.js draws. Every colour in it is a token here, so both
+  themes follow, and the page's chart download copies each computed colour
+  onto the PNG.
+*/
+.league-scatter [hidden] {
+  display: none !important;
+}
+
+.league-scatter__axis-tag {
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 1.15rem;
+  height: 1.15rem;
+  border-radius: 999px;
+  background: var(--accent-ink-soft);
+  color: var(--accent-ink);
+  font-size: 0.62rem;
+  font-weight: 800;
+}
+
+/* Both axes in one pill: X and its attribute, Y and its attribute. */
+.league-scatter__axes-pill {
+  max-width: min(30rem, 100%);
+}
+
+.league-scatter__axes-pill .league-filterbar__pill-label {
+  max-width: 11rem;
+}
+
+/* The players-only controls flow in the one bar with the rest. */
+.league-scatter__filters {
+  display: contents;
+}
+
+/* Inside "Seleccionar atributos": which axis the next chip goes to. */
+.league-scatter-axes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.league-scatter-axes__label {
+  color: var(--text-muted);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.league-scatter-axes__toggle.chart-toggle {
+  margin-bottom: 0;
+  max-width: 100%;
+}
+
+.league-scatter-axes__toggle .chart-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-width: 0;
+  padding: 0.3rem 0.85rem;
+}
+
+.league-scatter-axes__value {
+  max-width: 12rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.league-scatter-axes__done {
+  margin-left: auto;
+}
+
+.league-scatter__option {
+  white-space: normal;
+  font-size: 0.84rem;
+}
+
+.league-scatter__option-meta {
+  color: var(--text-muted);
+}
+
+.league-scatter__menu-none {
+  padding: 0.5rem 1rem;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
+/* A popup with a dual range in it: the advanced search's range panel, in the league bar's menu. */
+.league-scatter__panel {
+  width: 16rem;
+  max-height: none;
+  padding: 0.85rem 1rem;
+}
+
+.league-scatter__panel-label {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: var(--text-muted);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.league-scatter__card {
+  padding: 0.5rem;
+}
+
+/*
+  Dark: a neutral near-black behind the points instead of the card's green
+  gradient and the green chart surface â€” the card and the chart one colour,
+  so no green frame shows round the plot. Scoped here, so the other charts
+  keep theirs; the dots' rings, the names' halo and the download all read
+  --chart-surface, so they follow.
+*/
+[data-theme="dark"] .league-scatter__card.sk-card {
+  --chart-surface: #0D1318;
+  background: var(--chart-surface);
+}
+
+.league-scatter__chart {
+  position: relative;
+  min-height: 340px;
+}
+
+/* A plan without the tab: the bar and made-up points, blurred, under the
+   call to the plans. */
+.league-scatter__locked {
+  position: relative;
+}
+
+.league-scatter__locked-ghost {
+  filter: blur(5px);
+  opacity: 0.55;
+  user-select: none;
+  pointer-events: none;
+}
+
+.league-scatter__ghost-svg {
+  width: 100%;
+  height: auto;
+}
+
+.league-scatter__ghost-axis {
+  stroke: var(--border);
+  stroke-width: 1.5;
+}
+
+.league-scatter__ghost-dot {
+  fill: var(--text-muted);
+  opacity: 0.6;
+}
+
+.league-scatter__svg {
+  display: block;
+  max-width: 100%;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: opacity 0.24s ease;
+}
+
+/* While the next chart is asked for, the last one stays, dimmed, rather than blanking. */
+.league-scatter__chart--loading .league-scatter__svg {
+  opacity: 0.55;
+  transition: opacity 0.18s ease-in;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .league-scatter__svg {
+    transition: none;
+  }
+}
+
+.league-scatter__skeleton {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+}
+
+.league-scatter__empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 340px;
+  margin: 0;
+  padding: 1rem;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  text-align: center;
+}
+
+/* The chart's ink: tokens, so a theme change needs no redraw. */
+.league-scatter__surface { fill: var(--chart-surface); }
+.league-scatter__caption { fill: var(--chart-label); font: 700 12px Inter, system-ui, sans-serif; }
+.league-scatter__legend { fill: var(--chart-tick); font: 500 11px Inter, system-ui, sans-serif; }
+.league-scatter__grid { stroke: var(--chart-grid-soft); stroke-width: 1; }
+.league-scatter__axis-line { stroke: var(--chart-outline); stroke-width: 1; }
+.league-scatter__tick { fill: var(--chart-tick); font: 500 11px Inter, system-ui, sans-serif; }
+.league-scatter__axis-title { fill: var(--chart-label); font: 700 12px Inter, system-ui, sans-serif; }
+
+.league-scatter__mean {
+  stroke: var(--chart-tick);
+  stroke-width: 1.25;
+  stroke-dasharray: 5 4;
+  stroke-opacity: 0.8;
+}
+
+.league-scatter__trend {
+  stroke: var(--accent-ink);
+  stroke-width: 2;
+  stroke-opacity: 0.85;
+  stroke-linecap: round;
+}
+
+.league-scatter__line-label { fill: var(--chart-tick); font: 600 10px Inter, system-ui, sans-serif; }
+
+.league-scatter__dot {
+  fill: var(--text-muted);
+  fill-opacity: 0.42;
+  stroke: var(--chart-surface);
+  stroke-width: 1.25;
+}
+
+/* On the dark surface the muted ink at that opacity all but disappears. */
+/*
+  Dark: the points picked out are the radar's pistachio (--chart-series),
+  solid; the rest recede in the muted ink, softer but still legible, so the
+  eye goes to the names.
+*/
+[data-theme="dark"] .league-scatter__dot {
+  fill-opacity: 0.65;
+}
+
+[data-theme="dark"] .league-scatter__dot.league-scatter__dot--labelled {
+  fill: var(--chart-series);
+  fill-opacity: 1;
+}
+
+.league-scatter__dot--labelled {
+  fill: var(--accent-ink);
+  fill-opacity: 1;
+  stroke-width: 2;
+}
+
+.league-scatter__crest-ring {
+  fill: var(--accent-ink-soft);
+  stroke: var(--accent-ink);
+  stroke-width: 2;
+}
+
+.league-scatter__crest-fallback {
+  fill: var(--bg-secondary);
+  stroke: var(--chart-outline);
+  stroke-width: 1;
+}
+
+.league-scatter__crest-initials { fill: var(--text-secondary); font: 700 9px Inter, system-ui, sans-serif; }
+
+.league-scatter__label { fill: var(--chart-label); font: 600 11px Inter, system-ui, sans-serif; }
+
+.league-scatter__label-halo {
+  fill: var(--chart-surface);
+  stroke: var(--chart-surface);
+  stroke-width: 3;
+  stroke-linejoin: round;
+  font: 600 11px Inter, system-ui, sans-serif;
+}
+
+.league-scatter__leader { stroke: var(--chart-tick); stroke-width: 1; stroke-opacity: 0.7; }
+
+.league-scatter__hover {
+  fill: none;
+  stroke: var(--accent-ink);
+  stroke-width: 2;
+}
+
+.league-scatter__brush {
+  fill: var(--accent-ink-soft);
+  stroke: var(--accent-ink);
+  stroke-width: 1;
+  stroke-dasharray: 4 3;
+}
+
+.league-scatter__tooltip {
+  position: absolute;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 11rem;
+  max-width: 16rem;
+  padding: 0.5rem 0.65rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-card);
+  box-shadow: var(--shadow-hover);
+  color: var(--text);
+  font-size: 0.78rem;
+  pointer-events: none;
+}
+
+.league-scatter__tooltip-meta {
+  margin-bottom: 0.2rem;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+}
+
+.league-scatter__tooltip-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.league-scatter__tooltip-row b {
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+.league-scatter__labelled {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+}
+
+.league-scatter__labelled-title {
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.league-scatter__chips {
+  display: contents;
+}
+
+.league-scatter__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0.15rem 0.2rem 0.15rem 0.6rem;
+  border: 1px solid var(--accent-ink);
+  border-radius: 999px;
+  background: var(--accent-ink-soft);
+  font-size: 0.78rem;
+}
+
+.league-scatter__chip a {
+  color: var(--accent-ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.league-scatter__chip a:hover {
+  text-decoration: underline;
+}
+
+.league-scatter__chip button {
+  display: inline-grid;
+  place-items: center;
+  width: 1.3rem;
+  height: 1.3rem;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-muted);
+}
+
+.league-scatter__chip button:hover,
+.league-scatter__chip button:focus-visible {
+  background: var(--bg-hover);
+  color: var(--text);
+}
+
+/* Labelled, but outside the filters for now. */
+.league-scatter__chip--hidden {
+  border-style: dashed;
+  opacity: 0.6;
+}
+
+.league-scatter__clear {
+  padding: 0.15rem 0.4rem;
+  border: 0;
+  background: none;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  text-decoration: underline;
+}
+
+@media (max-width: 575.98px) {
+  .league-scatter__panel {
+    width: auto;
+  }
+}
+
+/*
+  LÃ­deres' team filter beside the unit switch (beta-final-changes fase 5,
+  L1): one group at the toolbar's end. The pill dropdown's own label is
+  kept for screen readers only; the pill reads the team.
+*/
+.league-leaders__controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.league-leaders__team .sk-detail-control {
+  min-width: 0;
+}
+
+.league-leaders__team .sk-pill-dropdown {
+  width: auto;
+  min-width: 13rem;
+}
+
+.league-leaders__team .sk-select-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

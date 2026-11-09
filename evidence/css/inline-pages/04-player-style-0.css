@@ -1,0 +1,1425 @@
+
+    .player-page {
+      min-height: calc(100vh - var(--sk-navbar-total, 64px));
+      transition: background-color 0.3s;
+    }
+
+    .player-header-card {
+      color: var(--text);
+      box-shadow: none;
+      transition: background-color 0.3s;
+    }
+
+    .player-header-card .d-flex {
+      position: relative;
+      z-index: 1;
+    }
+
+    .player-header-icon {
+      z-index: 0;
+    }
+
+    .player-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid var(--border-light);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, .18);
+      
+      flex-shrink: 0;
+    }
+
+    /* Competition badge beside the league name. Additive: .player-meta-item
+       keeps its own rule, and a league with no mapping still shows the trophy. */
+    .player-meta-logo { width: 16px; height: 16px; object-fit: contain; }
+    .team-avatar {
+      width: 20px;
+      height: 20px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    /*
+      The font size here is the surname's. Both names together stay inside the
+      height the one-line name used to take (~49px at desktop widths): the
+      surname's 1.05 line-height plus the given name's 1.25 at 0.4em come to
+      about 1.55 x this size, so the cap of 1.95rem keeps the pair under it.
+    */
+    .player-name {
+      font-size: clamp(1.5rem, 1rem + 1.2vw, 1.95rem);
+      font-weight: 800;
+      color: var(--text);
+      margin: 0 0 .75rem;
+      line-height: 1.1;
+      display: flex;
+      /* The badge sits on the surname's line, not centred on the two-line name. */
+      align-items: flex-end;
+      /* No room for the badge beside the name: it drops under it rather than
+         over it. */
+      flex-wrap: wrap;
+      gap: 0.35rem 0.65rem;
+      min-width: 0;
+    }
+
+    /*
+      Given name small above the surname. The block is only as wide as the
+      surname, which is what frees the horizontal room; a surname too long for
+      the column wraps at its spaces and hyphens instead of running under the
+      cards beside it.
+    */
+    .player-name-text {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    .player-name-first {
+      /* em, so it follows the surname's responsive size; the floor keeps it
+         legible on a phone, where the surname is at its smallest. */
+      font-size: max(0.78rem, 0.4em);
+      /* Inter's lightest loaded weight; the surname's 800 against it is what
+         sets the two apart. */
+      font-weight: 400;
+      line-height: 1.25;
+      letter-spacing: 0.01em;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .player-name-last {
+      line-height: 1.05;
+      overflow-wrap: break-word;
+    }
+
+    .badge-position {
+      display: inline-block;
+      flex-shrink: 0;
+      border: 1px solid var(--border-light);
+      color: var(--accent-ink);
+      font-size: 0.72rem;
+      font-weight: 700;
+      border-radius: 999px;
+      padding: 0.18rem 0.6rem;
+      margin-bottom: 0.4em;
+      background: rgba(255, 255, 255, .04);
+    }
+
+    .player-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      margin-top: 0.4rem;
+    }
+
+    .player-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    a.player-meta-item { text-decoration: none; transition: color .15s ease; }
+    a.player-meta-item:hover { color: var(--accent-ink); }
+
+    .player-meta-item img.flag {
+      width: 18px;
+      height: 13px;
+      object-fit: cover;
+      border-radius: 2px;
+    }
+
+    .player-meta-item img.team-logo {
+      width: 18px;
+      height: 18px;
+      object-fit: contain;
+    }
+
+    /* Half the meta line's gap (Fase 5). A pill never breaks across lines:
+       one that does not fit beside the cards drops whole to the next row. */
+    .player-attrs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.375rem;
+      margin-top: 0.6rem;
+    }
+
+    .player-attr {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid var(--border-light);
+      border-radius: 999px;
+      padding: .35rem .7rem;
+      white-space: nowrap;
+    }
+
+    .player-attr i { font-size: 0.85rem; }
+
+    /* Metric badges on the right */
+    .metric-badge {
+      text-align: center;
+      min-width: 72px;
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid var(--border-light);
+      border-radius: .75rem;
+      padding: .85rem 1.25rem;
+    }
+
+    .metric-badge .metric-label {
+      font-size: .65rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: .35rem;
+    }
+
+    .metric-badge .metric-value {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 800;
+      border-radius: .5rem;
+      padding: 0;
+      min-width: 0;
+      min-height: 0;
+      line-height: 1;
+    }
+
+    .metric-value.green {
+      background-color: transparent;
+      color: var(--accent-ink);
+    }
+
+    .metric-value.yellow {
+      background-color: transparent;
+      color: var(--accent-ink);
+    }
+
+    .metric-value.dark-field {
+      background-color: #1a2e20;
+      color: #fff;
+      font-size: 0;
+      padding: 0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .metric-value.dark-field canvas {
+      display: block;
+      width: 72px !important;
+      height: 44px !important;
+    }
+
+    .metric-sub {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-top: 0.35rem;
+      text-align: center;
+    }
+
+    .inline-metric {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+    .inline-metric-val {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.85rem;
+      border-radius: 999px;
+      padding: 0.22rem 0.5rem;
+      min-width: 42px;
+    }
+    .inline-metric-val.green  { background: var(--accent); color: var(--clr-black-glaze); }
+    .inline-metric-val.yellow { background: var(--accent); color: var(--clr-black-glaze); }
+    .inline-metric-val.red    { background: #FFAA60; color: #2a0000; }
+
+    .positions-field-wrap {
+      position: relative;
+      border-radius: .75rem;
+      overflow: hidden;
+      padding: 8px;
+    }
+    /* The whole pitch, stretched to the grid of slots: the box is wider than a
+       pitch, and "slice" cut its top and bottom lines off (the search page's
+       pitch draws the same way). Lines keep one hairline width however it
+       stretches: 1px, about what they drew at when the pitch was scaled down. */
+    .positions-field-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .positions-field-svg rect,
+    .positions-field-svg line,
+    .positions-field-svg circle {
+      vector-effect: non-scaling-stroke;
+      stroke-width: 1;
+    }
+    /* Pitch lines are white for dark mode; recolor on light so they show. */
+    [data-theme="light"] .positions-field-svg rect,
+    [data-theme="light"] .positions-field-svg line,
+    [data-theme="light"] .positions-field-svg circle {
+      stroke: rgba(14, 30, 20, 0.28);
+    }
+    .positions-grid {
+      display: grid;
+      grid-template-columns: repeat(6, auto);
+      gap: 2px;
+      margin: 2px;
+      position: relative;
+      z-index: 1;
+    }
+    .pos-badge {
+      font-size: 0.58rem;
+      font-weight: 600;
+      padding: 0.18rem 0.4rem;
+      border-radius: 999px;
+      border: 1px solid rgba(100,100,100,0.3);
+      color: #444;
+      text-align: center;
+      white-space: nowrap;
+      background: rgba(255,255,255,0.92);
+      line-height: 1.4;
+      opacity: 0.65;
+    }
+    [data-theme="dark"] .pos-badge { background: #120e1383; border-color: rgba(255,255,255,0.2); color: var(--text-secondary); }
+    .pos-badge[data-active="1"] { background: var(--accent); border-color: var(--accent-ink); color: var(--clr-black-glaze); font-weight: 700; opacity: var(--pos-opacity, 1); }
+    .pos-badge[data-active="2"] { background: rgba(255,255,255,0.92); border-color: #333; border-width: 1.5px; color: #0e1e14; font-weight: 700; }
+    [data-theme="dark"] .pos-badge[data-active="2"] { background: #120e1383; border-color: var(--text-secondary); color: var(--text); }
+
+    .player-content {
+      padding: 0;
+    }
+
+    /*
+      Ranking (beta-feature-2): the team page's Ranking table (team-detail's
+      .team-table / .team-ranking), with the title, then the unit and the
+      picker on the right; the place a chip in the SKore's colours. The
+      p90 / Total pill is as wide as its two words (Dario, 2 nov).
+    */
+    .player-ranking__head { display: flex; align-items: flex-end; justify-content: space-between; gap: .75rem 1rem; flex-wrap: wrap; margin-bottom: .75rem; }
+    .player-ranking__head .sk-card-subtitle { margin-bottom: 0; }
+    .player-ranking__controls { display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; }
+    .player-ranking__wrap { width: 100%; overflow-x: auto; }
+    .player-ranking__table { width: 100%; min-width: 620px; border-collapse: separate; border-spacing: 0; font-size: .82rem; }
+    .player-ranking__table th { color: var(--text-muted); font-size: .68rem; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; text-align: left; }
+    .player-ranking__table th, .player-ranking__table td { padding: .65rem .55rem; border-bottom: 1px solid var(--border-light); vertical-align: middle; }
+    .player-ranking__table td { color: var(--text-secondary); }
+    .player-ranking__table td strong { color: var(--text); font-weight: 800; white-space: nowrap; }
+
+    /*
+      Tab changes, matched to the league page.
+
+      Same motion, timing and curve as .league-detail__tab-panel -- the new
+      panel descends into place as it fades in -- so the two detail pages read
+      as one product rather than as two people's work.
+
+      Only the arrival is animated, which is where this deliberately differs
+      from the league page. There, changing tab is a server round trip, so the
+      outgoing panel fades out to cover a wait that exists anyway. These panels
+      are already in the document and switch on a display toggle, so there is
+      no wait to cover: playing an exit would mean holding the old content on
+      screen to do it, making an instant change feel slower than it is.
+
+      No class bookkeeping is needed in the tab JS either. A panel going from
+      display:none to display:block has no running animations to keep, so it
+      starts this one fresh on every switch -- the same effect the league page
+      gets from Livewire's morph replacing a wire:key'd element.
+    */
+    .player-content.tab-panel {
+      animation: player-tab-in 0.36s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+    }
+
+    @keyframes player-tab-in {
+      from { opacity: 0; transform: translateY(-14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /*
+      Reduced motion keeps the fade and drops the displacement: the objection is
+      to things travelling across the screen, and without the fade a tab change
+      becomes an unexplained hard cut.
+    */
+    @media (prefers-reduced-motion: reduce) {
+      .player-content.tab-panel {
+        animation-name: player-tab-in-fade;
+      }
+
+      @keyframes player-tab-in-fade {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+      }
+    }
+
+    .sk-select {
+      display: block;
+      width: 100%;
+      max-width: 300px;
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--text);
+      font-size: 0.85rem;
+      padding: 0.5rem 2rem 0.5rem 0.95rem;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 16 16'%3E%3Cpath fill='%236b7d70' d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.75rem center;
+      cursor: pointer;
+      transition: border-color 0.2s;
+      outline: none;
+    }
+
+    .sk-select:focus {
+      background-color: var(--bg-secondary);
+      border-color: var(--accent-ink);
+      box-shadow: none;
+    }
+
+    .ranking-filter-btn {
+      align-self: center;
+      width: auto;
+      padding-left: .5rem;
+      padding-right: .5rem;
+    }
+
+    .player-page {
+      --heatmap-pitch-max: 360px;
+    }
+
+    .heatmap-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: var(--heatmap-pitch-max);
+      aspect-ratio: 360 / 560;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-inline: auto;
+    }
+
+    /*
+      The heatmap card is as wide as its pitch (card padding 1.5rem a side, plus
+      the row gutter) instead of taking half the row, so the chart beside it gets
+      the rest. Below lg the columns stack and it goes back to full width.
+    */
+    .player-heatmap-col {
+      flex: 0 0 auto;
+    }
+
+    /* Lets the chart column shrink below its content width so the heatmap stays beside it. */
+    .player-chart-col {
+      min-width: 0;
+    }
+
+    @media (min-width: 992px) {
+      .player-heatmap-col {
+        width: calc(var(--heatmap-pitch-max) + 4.5rem);
+      }
+    }
+
+    /* Where the bars and radar stack, the heatmap keeps its own height instead of matching both. */
+    @media (min-width: 992px) and (max-width: 1399.98px) {
+      .player-heatmap-col {
+        align-self: flex-start;
+      }
+    }
+
+    .heatmap-legend-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .heatmap-attack-arrow { stroke: #9fcf82; }
+    .heatmap-attack-head  { fill: #9fcf82; }
+    .heatmap-attack-label { fill: rgba(244, 247, 243, 0.62); }
+
+    [data-theme="light"] .heatmap-attack-arrow { stroke: #2d7a22; }
+    [data-theme="light"] .heatmap-attack-head  { fill: #2d7a22; }
+    [data-theme="light"] .heatmap-attack-label { fill: rgba(22, 32, 25, 0.6); }
+
+    .heatmap-pitch-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      z-index: 1;
+    }
+
+    .heatmap-pitch-fill {
+      fill: var(--bg); 
+    }
+
+    .heatmap-pitch-accent {
+      fill: var(--bg-secondary);
+      opacity="0.5";
+    }    
+
+    .heatmap-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      z-index: 2;
+      pointer-events: none;
+      mix-blend-mode: screen;
+      opacity: 0.95;
+    }
+
+    /*
+      Comparar: each player's heatmap, horizontal as the event maps draw it.
+      Never wider than one of three columns at 1920 x 1080 (458.8px, measured), so
+      a lone player's does not fill the row.
+    */
+    .comparison-heatmap {
+      position: relative;
+      max-width: 459px;
+      margin: 0.5rem auto 0;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    /*
+      Comparar's downloads sit off the charts (sk.css placement="card" and
+      "inline"): the radar's and the grid's in their cards' corners, level
+      with the titles; each heatmap's under "Actual" or "Quitar", level with
+      its player's name.
+    */
+    /* The search pill, its matches hung under it. */
+    .comparison-search {
+      position: relative;
+      display: inline-block;
+      max-width: 100%;
+    }
+
+    .comparison-search__field input {
+      width: 16rem;
+      max-width: 100%;
+    }
+
+    @media (max-width: 575.98px) {
+      .comparison-search__field input {
+        width: 12rem;
+      }
+    }
+
+    .comparison-player-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.35rem;
+    }
+
+    /* Wider than tall on purpose (see the markup). */
+    .comparison-radar-box {
+      position: relative;
+      width: 100%;
+      max-width: 460px;
+      height: 340px;
+      margin: 0 auto;
+    }
+
+    /* The players' names in their colours, under the radar: far enough that
+       the 6 o'clock attribute label never reads as one of them. */
+    .comparison-radar-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem 1.25rem;
+      justify-content: center;
+      margin-top: 3.5rem;
+    }
+
+    /*
+      Switching charts: the one coming in fades and rises, at the site's
+      modal pace (240ms); a dot glides to its new place, at the rank bars'
+      620ms, and a cell's green settles when the unit or the players change.
+      (The one-attribute rank bars keep sk.css's own grow: their rules live
+      there only.)
+    */
+    .comparison-swap {
+      transition: opacity 240ms ease, transform 240ms cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .comparison-swap--from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+
+    .comparison-swap--to {
+      opacity: 1;
+      transform: none;
+    }
+
+    .comparison-spectrum__dot {
+      transition: left 620ms cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .comparison-grid .players-table__cell {
+      transition: background-color 240ms ease;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .comparison-swap,
+      .comparison-spectrum__dot,
+      .comparison-grid .players-table__cell {
+        transition: none;
+      }
+    }
+
+    .comparison-heatmap__canvas {
+      display: block;
+      width: 100%;
+      aspect-ratio: 1.6;
+    }
+
+    /*
+      Comparar: a compared player's name leads to his own page, wherever it
+      is written (card, legend, grid); the page's own player stays plain.
+      It keeps the colour of the text it replaces and underlines on hover.
+    */
+    .comparison-player-link {
+      color: inherit;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .comparison-player-link:hover,
+    .comparison-player-link:focus-visible {
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .comparison-chart-body {
+      position: relative;
+    }
+
+    /* Comparar's bars: a track a little thinner than Perfil's rank bars
+       (Dario, 30 Oct), a dot a player. */
+    .comparison-grid {
+      --spectrum-track-height: 10px;
+    }
+
+    .comparison-spectrum__track {
+      position: relative;
+      height: var(--spectrum-track-height);
+      margin: 0 11px;
+      border-radius: var(--rank-bar-radius);
+      background: var(--chart-grid);
+    }
+
+    .comparison-spectrum__dot {
+      position: absolute;
+      top: 50%;
+      box-sizing: border-box;
+      width: 22px;
+      height: 22px;
+      border: 3px solid var(--bg-card);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    /*
+      Barras: the grid with the track between each attribute's name and its
+      blocks, one line a row. The track takes the width the name and the
+      blocks leave.
+    */
+    .comparison-grid--bars .comparison-grid__table {
+      border-spacing: 0 2px;
+    }
+
+    .comparison-grid__track-head,
+    .comparison-grid__track-cell {
+      width: 100%;
+      min-width: 8rem;
+    }
+
+    .comparison-grid__track-cell {
+      position: relative;
+      padding: 3px 0.75rem;
+      vertical-align: middle;
+    }
+
+    .comparison-grid--bars .comparison-grid__trait {
+      vertical-align: middle;
+    }
+
+    /* Comparar's grid: the advanced search's results table in miniature. */
+    .comparison-grid {
+      position: relative;
+      margin-top: 0.75rem;
+      container: comparison-grid / inline-size;
+    }
+
+    .comparison-grid__table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+    }
+
+    .comparison-grid__corner {
+      padding: 0 0.6rem 0.45rem 0;
+      color: var(--text-muted);
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-align: left;
+      text-transform: uppercase;
+    }
+
+    .comparison-grid__player {
+      padding: 0 0.2rem 0.45rem;
+      color: var(--text);
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .comparison-grid__swatch {
+      display: inline-block;
+      flex: none;
+      width: 10px;
+      height: 10px;
+      margin-right: 0.3rem;
+      border-radius: 50%;
+      vertical-align: baseline;
+    }
+
+    .comparison-grid__trait {
+      padding: 3px 0.6rem 3px 0;
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 700;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    /*
+      Every player's column the same width, whatever the length of his name:
+      sized to the content, "Kane" came out narrower than "Martínez" and the
+      two rows of blocks did not line up as one grid.
+    */
+    .comparison-grid__player,
+    .comparison-grid__table td.players-table__stat {
+      width: 5.75rem;
+      min-width: 5.75rem;
+      max-width: 5.75rem;
+    }
+
+    .comparison-grid__player {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .comparison-grid__table td.players-table__stat {
+      padding: 3px;
+    }
+
+    .comparison-grid__bars {
+      display: grid;
+      gap: 0.65rem;
+    }
+
+    .comparison-grid__single {
+      margin: 0;
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .comparison-grid__bar-row {
+      display: grid;
+      grid-template-columns: minmax(0, 8.5rem) minmax(0, 1fr);
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .comparison-grid__bar-player {
+      display: flex;
+      align-items: center;
+      min-width: 0;
+      color: var(--text);
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .comparison-grid__bar-player > span:last-child {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /*
+      Barras on a phone: name, track and three blocks do not fit one line,
+      so each row stacks — the name, the track under it, then the blocks in
+      equal columns under the players' names in the header (--compare-count,
+      set on the table). The rows part with a hairline. Read off the grid's
+      own width, not the screen's, so a narrow download (Fase 6) stacks too.
+    */
+    @container comparison-grid (max-width: 540px) {
+      .comparison-grid--bars .comparison-grid__table,
+      .comparison-grid--bars .comparison-grid__table thead,
+      .comparison-grid--bars .comparison-grid__table tbody {
+        display: block;
+      }
+
+      .comparison-grid--bars .comparison-grid__table tr {
+        display: grid;
+        grid-template-columns: repeat(var(--compare-count, 3), minmax(0, 1fr));
+        column-gap: 6px;
+      }
+
+      .comparison-grid--bars .comparison-grid__table tbody tr {
+        padding: 0.6rem 0 0.45rem;
+        border-top: 1px solid var(--border-light);
+      }
+
+      .comparison-grid--bars :is(.comparison-grid__corner, .comparison-grid__track-head) {
+        display: none !important;
+      }
+
+      .comparison-grid--bars :is(.comparison-grid__trait, .comparison-grid__track-cell) {
+        grid-column: 1 / -1;
+      }
+
+      .comparison-grid--bars .comparison-grid__trait {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding: 0;
+      }
+
+      .comparison-grid--bars .comparison-grid__track-cell {
+        min-width: 0;
+        padding: 0.7rem 0 0.6rem;
+      }
+
+      /* One width a player still, now the phone's share of the row. */
+      .comparison-grid--bars :is(.comparison-grid__player, .comparison-grid__table td.players-table__stat) {
+        width: auto;
+        min-width: 0;
+        max-width: none;
+      }
+    }
+
+    [data-theme="light"] .heatmap-canvas {
+      mix-blend-mode: multiply;
+      opacity: 1;
+    }
+
+    [data-theme="light"] .heatmap-pitch-svg rect,
+    [data-theme="light"] .heatmap-pitch-svg line {
+      stroke: rgba(0,0,0,0.25);
+    }
+
+    [data-theme="light"] .heatmap-pitch-svg circle {
+      stroke: rgba(0,0,0,0.25);
+      fill: none;
+    }
+
+    [data-theme="light"] .heatmap-pitch-svg circle[r="3"] {
+      fill: rgba(0,0,0,0.25);
+    }
+
+
+    .stats-two-col {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    .stats-table {
+      width: 100%;
+      min-width: 620px;
+      font-size: 0.82rem;
+      border-collapse: separate;
+      border-spacing: 0;
+    }
+
+    /*
+      One shared grid for the whole table body.
+      This is what keeps every name/value column visually aligned.
+    */
+    .stats-table tbody {
+      display: grid;
+      grid-template-columns:
+        minmax(180px, 1fr)
+        max-content
+        2rem
+        minmax(180px, 1fr)
+        max-content;
+      align-items: center;
+    }
+
+    .stats-table tr {
+      display: contents;
+    }
+
+    .stats-table td {
+      min-width: 0;
+      padding: 0.35rem 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .stats-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .stats-table .stat-name {
+      color: var(--text-secondary);
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding-right: 0.7rem;
+    }
+
+    .stats-table .stat-rank-cell {
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .stats-table .stat-gap {
+      padding: 0;
+    }
+
+    .stats-table .stat-rank {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 2.9rem;
+      width: auto;
+      max-width: none;
+      min-height: 22px;
+      height: auto;
+      border-radius: 5px;
+      padding: 0.18rem 0.45rem;
+      box-sizing: border-box;
+      font-weight: 700;
+      font-size: 0.78rem;
+      line-height: 1.1;
+      white-space: nowrap;
+      overflow: visible;
+    }
+
+    .stat-rank.green   { background-color: var(--accent); color: var(--clr-black-glaze); }
+    .stat-rank.yellow  { background-color: var(--accent); color: var(--clr-black-glaze); }
+    .stat-rank.red     { background-color: #FFAA60; color: #2a0000; }
+
+    /* Jugadores Similares (SK-08.1): the results table, its similarity bar
+       and "por qué" line, then the style radar and its detail. */
+    .similar-note {
+      margin: 0.5rem 0 0;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* The table scrolls inside its card: positioned, so the visually-hidden
+       header text (absolute) is clipped by it rather than widening the page. */
+    .similar-results-card .sk-player-table-scroll {
+      position: relative;
+    }
+
+    /* The sortable headers read like the others. */
+    .similar-results-table .sk-player-table__sort {
+      text-transform: inherit;
+      letter-spacing: inherit;
+    }
+
+    .similar-results-card.is-loading .similar-results-table {
+      opacity: 0.45;
+    }
+
+    .similar-results-table td {
+      white-space: nowrap;
+    }
+
+    .similar-results-table td.similar-player-cell {
+      white-space: normal;
+      min-width: 240px;
+    }
+
+    .similar-player-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.15rem 0.5rem;
+      font-size: 0.74rem;
+      color: var(--text-muted);
+    }
+
+    .similar-season-badge {
+      padding: 0 0.4rem;
+      border-radius: 999px;
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+
+    /* The tab's own buttons, the size of the filter pills beside them. */
+    .similar-small-btn {
+      font-size: 0.8rem;
+      padding: 0.375rem 0.75rem;
+    }
+
+    .similar-range-panel {
+      min-width: 260px;
+      max-height: none;
+      padding: 0.75rem 1rem 0.6rem;
+      overflow: visible;
+    }
+
+    .similar-range-panel__label {
+      display: block;
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .similar-league {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-weight: 600;
+    }
+
+    .similar-league img {
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    .similar-reasons {
+      margin-top: 0.2rem;
+      font-size: 0.74rem;
+      color: var(--text-secondary);
+    }
+
+    .similar-score {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-width: 9rem;
+    }
+
+    .similar-score__track {
+      flex: 1;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--bg-secondary);
+      overflow: hidden;
+    }
+
+    .similar-score__fill {
+      display: block;
+      height: 100%;
+      border-radius: 999px;
+      background: var(--accent-dark, #1D665D);
+    }
+
+    [data-theme="dark"] .similar-score__fill {
+      background: var(--accent);
+    }
+
+    .similar-score__value {
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      min-width: 2.6rem;
+      text-align: right;
+    }
+
+    /* On a phone the row keeps what matters under the name, and the wide
+       columns give way (the sort headers with them). */
+    .similar-mobile-summary {
+      display: none;
+      flex-wrap: wrap;
+      gap: 0.2rem 0.6rem;
+      margin-top: 0.25rem;
+      font-size: 0.76rem;
+      color: var(--text-secondary);
+    }
+
+    @media (max-width: 575.98px) {
+      .similar-results-table .similar-col-wide {
+        display: none !important;
+      }
+
+      .similar-mobile-summary {
+        display: flex;
+      }
+
+      .similar-results-table td.similar-player-cell {
+        min-width: 0;
+      }
+    }
+
+    .similar-compare-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 575.98px) {
+      .similar-compare-btn__text {
+        display: none;
+      }
+    }
+
+    .similar-more {
+      display: flex;
+      justify-content: center;
+      margin-top: 0.75rem;
+    }
+
+    .player-page .sk-slider-wrap {
+      display: flex;
+      align-items: center;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.3rem 0.85rem;
+      gap: 0.75rem;
+    }
+
+    .player-page .sk-range {
+      flex: 1;
+      -webkit-appearance: none;
+      appearance: none;
+      height: 4px;
+      border-radius: 2px;
+      background: var(--border);
+      outline: none;
+      cursor: pointer;
+    }
+
+    .player-page .sk-range::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent-dark);
+      cursor: pointer;
+      border: 2px solid #fff;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+    }
+
+    .player-page .sk-range-val {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      min-width: 24px;
+      text-align: right;
+    }
+
+    .desemp-sep-vert {
+      width: 1px;
+      height: 52px;
+      background: var(--border);
+      flex-shrink: 0;
+    }
+
+    /* Desempeño's note when earlier seasons fill the matches asked for (fase 8, J2). */
+    .desemp-season-note {
+      margin: 0.35rem 0 0;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    /* Skore chart mean legend */
+    .skore-mean-legend {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      margin-top: 0.6rem;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+    }
+    .skore-mean-swatch {
+      display: inline-block;
+      width: 22px;
+      height: 0;
+      border-top: 2px dashed var(--chart-outline, rgba(16, 21, 17, 0.26));
+      flex-shrink: 0;
+    }
+    .player-page .stats-loading-wrap {
+      position: relative;
+    }
+    .player-page .stats-loading-overlay {
+      z-index: 30;
+      background: rgba(255,255,255,0.72);
+      border-radius: 12px;
+    }
+    .player-page .stats-loading-overlay--show {
+      display: flex !important;
+    }
+    .player-page .stats-loading-overlay--passive {
+      pointer-events: none;
+    }
+    [data-theme="dark"] .player-page .stats-loading-overlay {
+      background: rgba(12,26,16,0.72);
+    }
+    .player-page .stats-loading-box {
+      gap: 0.75rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      box-shadow: var(--shadow-card);
+      color: var(--text);
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .player-page .stats-loading-spinner {
+      width: 18px;
+      height: 18px;
+      border: 2px solid var(--border);
+      border-top-color: var(--accent-ink);
+      border-radius: 50%;
+      animation: sk-spin 0.8s linear infinite;
+    }
+
+    .season-ranking-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1rem 0 1.25rem;
+    }
+
+    .season-ranking-result {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .season-ranking-main {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .season-ranking-rank {
+      color: var(--text);
+      font-size: 1.5rem;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .season-ranking-meta {
+      color: var(--text-muted);
+      font-size: .65rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      line-height: 1.35;
+      text-transform: uppercase;
+    }
+
+    .season-ranking-score {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 4.5rem;
+      border-radius: 999px;
+      color: var(--text);
+      padding: 0.5rem 0.75rem;
+      font-size: 1.25rem;
+      font-weight: 800;
+    }
+
+    /* The header's identity block and its cards: .sk-hero-main, .sk-hero-side
+       and .sk-hero-card in sk.css, shared with the team page. */
+    .player-ranking-block {
+      text-align: center;
+      height: 100%;
+    }
+
+    .player-ranking-filters {
+      flex: 0 0 300px;
+      max-width: 300px;
+      height: 100%;
+      align-self: center;
+    }
+
+    .player-ranking-output {
+      flex: 0 0 235px;
+      max-width: 245px;
+      align-items: stretch;
+    }
+
+    .player-skore-block {
+      flex: 0 0 225px;
+      max-width: 235px;
+      align-items: stretch;
+    }
+
+    .header-skore-chart {
+      width: 100%;
+    }
+
+    /* Fixed height (not auto) so a wider card, when the cards stack, does not grow taller than its neighbours. */
+    .header-skore-chart svg {
+      display: block;
+      width: 100%;
+      height: 115px;
+      overflow: visible;
+    }
+
+    .header-skore-empty {
+      margin: 1.5rem 0;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    .header-skore-legend {
+      margin-top: 0.35rem;
+      font-size: 0.68rem;
+    }
+
+    .header-skore-area { fill: var(--chart-series-fill, rgba(33, 110, 78, 0.16)); stroke: none; }
+    .header-skore-line { fill: none; stroke: var(--chart-series, #2C7A55); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+    .header-skore-dot  { fill: var(--chart-series, #2C7A55); stroke: #fff; stroke-width: 1.2; }
+    .header-skore-mean { stroke: var(--chart-outline, rgba(16, 21, 17, 0.26)); stroke-width: 1; stroke-dasharray: 3 3; }
+    .header-skore-val  { fill: var(--chart-label, #141A15); font-size: 9.5px; font-weight: 700; text-anchor: middle; }
+    .header-skore-chip { fill: var(--accent-dark, #1D665D); }
+    .header-skore-chip-text { fill: #fff; font-size: 7px; font-weight: 700; text-anchor: middle; }
+
+    .player-ranking-block .season-ranking-controls {
+      flex-direction: column;
+      align-items: center;
+      gap: 0.45rem;
+      margin: 0.65rem 0 0.75rem;
+    }
+
+    .player-ranking-block .chart-toggle {
+      margin-bottom: 0;
+      max-width: 100%;
+    }
+
+    .player-ranking-block .chart-toggle-btn {
+      padding: 0.28rem 0.7rem;
+      font-size: 0.72rem;
+      white-space: nowrap;
+    }
+
+    .player-ranking-block .season-ranking-result {
+      justify-content: center;
+      gap: 0.55rem;
+    }
+
+    .player-ranking-output .season-ranking-result {
+      flex-direction: column;
+      min-height: 118px;
+    }
+
+    .player-ranking-block .season-ranking-main {
+      align-items: center;
+      min-width: 0;
+    }
+
+    .player-ranking-block .season-ranking-rank {
+      font-size: 1rem;
+    }
+
+    .player-ranking-block .season-ranking-meta {
+      font-size: 0.68rem;
+      line-height: 1.25;
+    }
+
+    .player-ranking-block .season-ranking-score {
+      min-width: 3.2rem;
+      border-radius: 999px;
+      padding: 0.35rem 0.9rem;
+      font-size: 1.125rem;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 1200px) {
+      .traits-category-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .player-header-card   { padding: 1.5rem; }
+    
+      .metric-badge         { min-width: 56px; }
+      .player-attrs         { gap: 0.3rem; }
+      .player-meta          { gap: 0.5rem; }
+      .player-ranking-filters { flex: 1 1 285px; max-width: 360px; }
+      .player-ranking-output  { flex: 0 1 190px; max-width: 220px; }
+      .player-skore-block     { flex: 0 1 210px; max-width: 235px; }
+
+      .heatmap-col          { margin-top: 1.25rem; }
+      .heatmap-wrapper      { max-width: 100%; }
+
+   
+      .traits-category-grid { grid-template-columns: repeat(2, 1fr); }
+
+      
+
+    
+      .stats-two-col        { grid-template-columns: 1fr; }
+
+      .desemp-sep-vert      { display: none; }
+      .desemp-filtros-inner { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+
+    }
+
+    @media (max-width: 480px) {
+      .traits-category-grid { grid-template-columns: 1fr; }
+      .metric-badge         { min-width: 48px; }
+      .player-ranking-block .chart-toggle-btn { padding: 0.28rem 0.55rem; font-size: 0.68rem; }
+      .player-ranking-output { flex-basis: 100%; max-width: 260px; }
+      .player-skore-block    { flex-basis: 100%; max-width: 260px; }
+    }
+
+    /* Partidos (SK-04.7): the advanced search's results table, a match a row. */
+    .player-matches__head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .5rem 1rem; margin-bottom: .5rem; }
+    .sk-card.player-matches .player-matches__head > .sk-card-title { margin-bottom: 0; padding-bottom: 0; border-bottom: 0; }
+    .player-matches__head + .sk-card-subtitle { margin-bottom: 1rem; padding-bottom: .75rem; border-bottom: 1px solid var(--border-light); }
+    .player-matches__controls { display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; }
+    .player-matches__table td { vertical-align: middle; }
+    .player-matches__date { white-space: nowrap; }
+    .player-matches__day { display: block; font-weight: 600; color: var(--text); }
+    .player-matches__round { display: block; font-size: .72rem; color: var(--text-muted); }
+    .player-matches__rival { display: inline-flex; align-items: center; gap: .55rem; min-width: 0; }
+    .player-matches__crest { width: 24px; height: 24px; flex: 0 0 24px; object-fit: contain; }
+    .player-matches__crest--placeholder { display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--border-light); color: var(--text-muted); font-size: .7rem; font-weight: 700; }
+    .player-matches__rival-text { display: flex; flex-direction: column; min-width: 0; }
+    .player-matches__rival-name { font-weight: 600; color: var(--text); text-decoration: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    a.player-matches__rival-name:hover, a.player-matches__rival-name:focus-visible { color: var(--accent-ink); }
+    .player-matches__venue { font-size: .72rem; color: var(--text-muted); white-space: nowrap; }
+    .player-matches__score { display: inline-flex; align-items: center; gap: .4rem; font-weight: 700; color: var(--text); text-decoration: none; white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .player-matches__score:hover, .player-matches__score:focus-visible { color: var(--accent-ink); }
+    .player-matches__score--upcoming, .player-matches__score--live { font-weight: 600; color: var(--text-muted); }
+    .player-matches__score--live { color: var(--result-loss); }
+    .player-matches__pill { display: inline-flex; align-items: center; justify-content: center; width: 1.15rem; height: 1.15rem; border-radius: 3px; font-size: .58rem; font-weight: 800; line-height: 1; }
+    .player-matches__pill--W { background: var(--result-win-bg); color: var(--result-win); }
+    .player-matches__pill--D { background: var(--result-draw-bg); color: var(--result-draw); }
+    .player-matches__pill--L { background: var(--result-loss-bg); color: var(--result-loss); }
+    .player-matches__minutes { white-space: nowrap; font-variant-numeric: tabular-nums; color: var(--text-muted); }
+    .player-matches__row--upcoming td { background: var(--accent-ink-soft); }
+    .player-matches__empty { padding: 2rem 1rem; text-align: center; color: var(--text-muted); }
+    .player-matches__pagination { margin-top: .75rem; }
+  
