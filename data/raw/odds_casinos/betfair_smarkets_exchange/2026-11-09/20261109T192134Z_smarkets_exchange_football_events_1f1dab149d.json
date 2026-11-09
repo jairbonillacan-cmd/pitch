@@ -1,0 +1,1482 @@
+{
+  "source_id": "betfair_smarkets_exchange",
+  "source_name": "Betfair Exchange / Smarkets",
+  "category": "odds_casinos",
+  "url": "https://api.smarkets.com/v3/events/?state=upcoming&type=football_match&limit=50",
+  "scrapling_mode": "fetcher_session",
+  "captured_at_utc": "2026-11-09T19:21:34Z",
+  "sha256": "1f1dab149dc95101dfb345f13143463d34757198eb5a8e814e85827d6243415e",
+  "meta": {
+    "fetcher_probes_count": 2,
+    "exchange_events_extracted": 50,
+    "dom_links_extracted": 82,
+    "network_calls_captured": 142,
+    "total_records": 276
+  },
+  "payload": {
+    "source": "betfair_smarkets_exchange",
+    "target_urls": [
+      "https://api.smarkets.com/v3/events/?state=upcoming&type=football_match&limit=50",
+      "https://smarkets.com/sport/football"
+    ],
+    "summary": {
+      "fetcher_probes_count": 2,
+      "exchange_events_extracted": 50,
+      "dom_links_extracted": 82,
+      "network_calls_captured": 142,
+      "total_records": 276
+    },
+    "fetcher_probes": [
+      {
+        "url": "https://api.smarkets.com/v3/events/?state=upcoming&type=football_match&limit=50",
+        "status": 403,
+        "title": "Smarkets - Security Check",
+        "body_bytes": 236955,
+        "has_json": false
+      },
+      {
+        "url": "https://smarkets.com/sport/football",
+        "status": 403,
+        "title": "Smarkets - Security Check",
+        "body_bytes": 236722,
+        "has_json": false
+      }
+    ],
+    "exchange_events": [
+      {
+        "event_id": "45363198",
+        "name": "England vs Croatia",
+        "short_name": "ENG vs. CRO",
+        "full_slug": "/sport/football/uefa-nations-league-a/2026/11/12/19-45/england-vs-croatia",
+        "start_datetime": "2026-11-12T19:45:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "41832364"
+      },
+      {
+        "event_id": "45363429",
+        "name": "Banfield vs Boca Juniors",
+        "short_name": "BAN vs. BOC",
+        "full_slug": "/sport/football/argentina-cup/2026/11/14/22-00/banfield-vs-boca-juniors",
+        "start_datetime": "2026-11-14T22:00:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "42981729"
+      },
+      {
+        "event_id": "45366058",
+        "name": "Slovakia vs Faroe Islands",
+        "short_name": "SLO vs. FAR",
+        "full_slug": "/sport/football/uefa-nations-league-c/2026/11/13/19-45/slovakia-vs-faroe-islands",
+        "start_datetime": "2026-11-13T19:45:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "41832430"
+      },
+      {
+        "event_id": "45367403",
+        "name": "Sweden vs Bosnia-Herzegovina",
+        "short_name": "SWE vs. BOS",
+        "full_slug": "/sport/football/uefa-nations-league-b/2026/11/14/19-45/sweden-vs-bosnia-herzegovina",
+        "start_datetime": "2026-11-14T19:45:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "41829018"
+      },
+      {
+        "event_id": "45367404",
+        "name": "Serbia vs Germany",
+        "short_name": "SER vs. GER",
+        "full_slug": "/sport/football/uefa-nations-league-a/2026/11/13/19-45/serbia-vs-germany",
+        "start_datetime": "2026-11-13T19:45:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "41832364"
+      },
+      {
+        "event_id": "45367875",
+        "name": "Austria vs Republic of Ireland",
+        "short_name": "AUS vs. REP",
+        "full_slug": "/sport/football/uefa-nations-league-b/2026/11/14/19-45/austria-vs-republic-of-ireland",
+        "start_datetime": "2026-11-14T19:45:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "41829018"
+      },
+      {
+        "event_id": "45377727",
+        "name": "Italy vs France",
+        "short_name": "ITA vs. FRA",
+        "full_slug": "/sport/football/uefa-nations-league-a/2026/11/12/19-45/italy-vs-france",
+        "start_datetime": "2026-11-12T19:45:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "41832364"
+      },
+      {
+        "event_id": "45377728",
+        "name": "Bulgaria vs Iceland",
+        "short_name": "BUL vs. ICE",
+        "full_slug": "/sport/football/uefa-nations-league-c/2026/11/13/19-45/bulgaria-vs-iceland",
+        "start_datetime": "2026-11-13T19:45:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "41832430"
+      },
+      {
+        "event_id": "45377729",
+        "name": "Kosovo vs Israel",
+        "short_name": "KOS vs. ISR",
+        "full_slug": "/sport/football/uefa-nations-league-b/2026/11/14/14-00/kosovo-vs-israel",
+        "start_datetime": "2026-11-14T14:00:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "41829018"
+      },
+      {
+        "event_id": "45377840",
+        "name": "Armenia vs Cyprus",
+        "short_name": "ARM vs. CYP",
+        "full_slug": "/sport/football/uefa-nations-league-c/2026/11/12/17-00/armenia-vs-cyprus",
+        "start_datetime": "2026-11-12T17:00:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "41832430"
+      },
+      {
+        "event_id": "45377860",
+        "name": "Moldova vs Kazakhstan",
+        "short_name": "MOL vs. KAZ",
+        "full_slug": "/sport/football/uefa-nations-league-c/2026/11/13/17-00/moldova-vs-kazakhstan",
+        "start_datetime": "2026-11-13T17:00:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "41832430"
+      },
+      {
+        "event_id": "45378393",
+        "name": "Turkey vs Belgium",
+        "short_name": "TUR vs. BEL",
+        "full_slug": "/sport/football/uefa-nations-league-a/2026/11/12/17-00/turkey-vs-belgium",
+        "start_datetime": "2026-11-12T17:00:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "41832364"
+      },
+      {
+        "event_id": "45379315",
+        "name": "Norway vs Wales",
+        "short_name": "NOR vs. WAL",
+        "full_slug": "/sport/football/uefa-nations-league-a/2026/11/14/17-00/norway-vs-wales",
+        "start_datetime": "2026-11-14T17:00:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "41832364"
+      },
+      {
+        "event_id": "45379316",
+        "name": "Luxembourg vs Estonia",
+        "short_name": "LUX vs. EST",
+        "full_slug": "/sport/football/uefa-nations-league-c/2026/11/13/19-45/luxembourg-vs-estonia",
+        "start_datetime": "2026-11-13T19:45:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "41832430"
+      },
+      {
+        "event_id": "45379320",
+        "name": "Portugal vs Denmark",
+        "short_name": "POR vs. DEN",
+        "full_slug": "/sport/football/uefa-nations-league-a/2026/11/14/19-45/portugal-vs-denmark",
+        "start_datetime": "2026-11-14T19:45:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "41832364"
+      },
+      {
+        "event_id": "45382281",
+        "name": "Romania vs Poland",
+        "short_name": "ROM vs. POL",
+        "full_slug": "/sport/football/uefa-nations-league-b/2026/11/14/19-45/romania-vs-poland",
+        "start_datetime": "2026-11-14T19:45:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "41829018"
+      },
+      {
+        "event_id": "45392765",
+        "name": "Netherlands vs Greece",
+        "short_name": "NET vs. GRE",
+        "full_slug": "/sport/football/uefa-nations-league-a/2026/11/13/19-45/netherlands-vs-greece",
+        "start_datetime": "2026-11-13T19:45:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "41832364"
+      },
+      {
+        "event_id": "45392795",
+        "name": "Czech Republic vs Spain",
+        "short_name": "CZE vs. SPA",
+        "full_slug": "/sport/football/uefa-nations-league-a/2026/11/12/19-45/czech-republic-vs-spain",
+        "start_datetime": "2026-11-12T19:45:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "41832364"
+      },
+      {
+        "event_id": "45393142",
+        "name": "Slovenia vs Switzerland",
+        "short_name": "SLO vs. SWI",
+        "full_slug": "/sport/football/uefa-nations-league-b/2026/11/13/19-45/slovenia-vs-switzerland",
+        "start_datetime": "2026-11-13T19:45:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "41829018"
+      },
+      {
+        "event_id": "45393150",
+        "name": "Georgia vs Hungary",
+        "short_name": "GEO vs. HUN",
+        "full_slug": "/sport/football/uefa-nations-league-b/2026/11/14/17-00/georgia-vs-hungary",
+        "start_datetime": "2026-11-14T17:00:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "41829018"
+      },
+      {
+        "event_id": "45393211",
+        "name": "Scotland vs North Macedonia",
+        "short_name": "SCO vs. NOR",
+        "full_slug": "/sport/football/uefa-nations-league-b/2026/11/13/19-45/scotland-vs-north-macedonia",
+        "start_datetime": "2026-11-13T19:45:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "41829018"
+      },
+      {
+        "event_id": "45393214",
+        "name": "Northern Ireland vs Ukraine",
+        "short_name": "NOR vs. UKR",
+        "full_slug": "/sport/football/uefa-nations-league-b/2026/11/14/19-45/northern-ireland-vs-ukraine",
+        "start_datetime": "2026-11-14T19:45:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "41829018"
+      },
+      {
+        "event_id": "45394260",
+        "name": "Atlético Mineiro vs Boca Juniors",
+        "short_name": "ATL vs. BOC",
+        "full_slug": "/sport/football/copa-sudamericana/2026/11/21/22-30/atletico-mineiro-vs-boca-juniors",
+        "start_datetime": "2026-11-21T22:30:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "41522586"
+      },
+      {
+        "event_id": "45395655",
+        "name": "Liverpool vs Man Utd",
+        "short_name": "LIV vs. MAN",
+        "full_slug": "/sport/football/england-premier-league/2026/11/22/16-30/liverpool-vs-manchester-united",
+        "start_datetime": "2026-11-22T16:30:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "25508311"
+      },
+      {
+        "event_id": "45409243",
+        "name": "Man City vs Bradford",
+        "short_name": "MAN vs. BRA",
+        "full_slug": "/sport/football/england-league-cup/2026/12/15/20-00/manchester-city-vs-bradford-city",
+        "start_datetime": "2026-12-15T20:00:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "33055504"
+      },
+      {
+        "event_id": "45409244",
+        "name": "Liverpool vs Bournemouth",
+        "short_name": "LIV vs. AFC",
+        "full_slug": "/sport/football/england-league-cup/2026/12/16/20-00/liverpool-vs-afc-bournemouth",
+        "start_datetime": "2026-12-16T20:00:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "33055504"
+      },
+      {
+        "event_id": "45409246",
+        "name": "Crystal Palace vs Sunderland",
+        "short_name": "CRY vs. SUN",
+        "full_slug": "/sport/football/england-league-cup/2026/12/16/19-30/crystal-palace-vs-sunderland",
+        "start_datetime": "2026-12-16T19:30:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "33055504"
+      },
+      {
+        "event_id": "45412618",
+        "name": "San Marino vs Belarus",
+        "short_name": "SAN vs. BEL",
+        "full_slug": "/sport/football/uefa-nations-league-c/2026/11/12/19-45/san-marino-vs-belarus",
+        "start_datetime": "2026-11-12T19:45:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "41832430"
+      },
+      {
+        "event_id": "45412631",
+        "name": "Albania vs Finland",
+        "short_name": "ALB vs. FIN",
+        "full_slug": "/sport/football/uefa-nations-league-c/2026/11/12/19-45/albania-vs-finland",
+        "start_datetime": "2026-11-12T19:45:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "41832430"
+      },
+      {
+        "event_id": "45414385",
+        "name": "Celtic vs St Mirren",
+        "short_name": "CEL vs. STM",
+        "full_slug": "/sport/football/scotland-premiership/2026/11/21/15-00/celtic-vs-st-mirren",
+        "start_datetime": "2026-11-21T15:00:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "28284370"
+      },
+      {
+        "event_id": "45414387",
+        "name": "Falkirk vs St Johnstone",
+        "short_name": "FAL vs. STJ",
+        "full_slug": "/sport/football/scotland-premiership/2026/11/21/15-00/falkirk-vs-st-johnstone",
+        "start_datetime": "2026-11-21T15:00:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "28284370"
+      },
+      {
+        "event_id": "45414399",
+        "name": "Dundee vs Hearts",
+        "short_name": "DUN vs. HEA",
+        "full_slug": "/sport/football/scotland-premiership/2026/11/21/17-45/dundee-vs-hearts",
+        "start_datetime": "2026-11-21T17:45:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "28284370"
+      },
+      {
+        "event_id": "45414401",
+        "name": "Hibernian vs Dundee Utd",
+        "short_name": "HIB vs. DUN",
+        "full_slug": "/sport/football/scotland-premiership/2026/11/21/15-00/hibernian-vs-dundee-united",
+        "start_datetime": "2026-11-21T15:00:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "28284370"
+      },
+      {
+        "event_id": "45414406",
+        "name": "Kilmarnock vs Aberdeen",
+        "short_name": "KIL vs. ABE",
+        "full_slug": "/sport/football/scotland-premiership/2026/11/21/15-00/kilmarnock-vs-aberdeen",
+        "start_datetime": "2026-11-21T15:00:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "28284370"
+      },
+      {
+        "event_id": "45414428",
+        "name": "Motherwell vs Rangers",
+        "short_name": "MOT vs. RAN",
+        "full_slug": "/sport/football/scotland-premiership/2026/11/21/20-00/motherwell-vs-rangers",
+        "start_datetime": "2026-11-21T20:00:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "28284370"
+      },
+      {
+        "event_id": "45414469",
+        "name": "Eastleigh vs AFC Fylde",
+        "short_name": "EAS vs. AFC",
+        "full_slug": "/sport/football/england-national-league/2026/11/14/15-00/eastleigh-vs-afc-fylde",
+        "start_datetime": "2026-11-14T15:00:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "27154230"
+      },
+      {
+        "event_id": "45414471",
+        "name": "Carlisle vs Boston United",
+        "short_name": "CAR vs. BOS",
+        "full_slug": "/sport/football/england-national-league/2026/11/14/15-00/carlisle-united-vs-boston-united",
+        "start_datetime": "2026-11-14T15:00:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "27154230"
+      },
+      {
+        "event_id": "45414478",
+        "name": "Harrogate Town vs Altrincham FC",
+        "short_name": "HAR vs. ALT",
+        "full_slug": "/sport/football/england-national-league/2026/11/14/15-00/harrogate-town-vs-altrincham-fc",
+        "start_datetime": "2026-11-14T15:00:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "27154230"
+      },
+      {
+        "event_id": "45414479",
+        "name": "Gateshead vs Barrow",
+        "short_name": "GAT vs. BAR",
+        "full_slug": "/sport/football/england-national-league/2026/11/14/15-00/gateshead-vs-barrow",
+        "start_datetime": "2026-11-14T15:00:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "27154230"
+      },
+      {
+        "event_id": "45414483",
+        "name": "Scunthorpe United vs Worthing",
+        "short_name": "SCU vs. WOR",
+        "full_slug": "/sport/football/england-national-league/2026/11/14/15-00/scunthorpe-united-vs-worthing",
+        "start_datetime": "2026-11-14T15:00:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "27154230"
+      },
+      {
+        "event_id": "45414484",
+        "name": "AFC Hornchurch vs Tamworth",
+        "short_name": "HOR vs. TAM",
+        "full_slug": "/sport/football/england-national-league/2026/11/14/15-00/hornchurch-fc-vs-tamworth",
+        "start_datetime": "2026-11-14T15:00:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "27154230"
+      },
+      {
+        "event_id": "45414488",
+        "name": "Kidderminster Harriers vs FC Halifax Town",
+        "short_name": "KID vs. HAL",
+        "full_slug": "/sport/football/england-national-league/2026/11/14/15-00/kidderminster-harriers-vs-fc-halifax-town",
+        "start_datetime": "2026-11-14T15:00:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "27154230"
+      },
+      {
+        "event_id": "45414491",
+        "name": "Hartlepool United vs Wealdstone",
+        "short_name": "HAR vs. WEA",
+        "full_slug": "/sport/football/england-national-league/2026/11/14/15-00/hartlepool-united-vs-wealdstone",
+        "start_datetime": "2026-11-14T15:00:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "27154230"
+      },
+      {
+        "event_id": "45414493",
+        "name": "Southend United vs Aldershot Town",
+        "short_name": "SOU vs. ALD",
+        "full_slug": "/sport/football/england-national-league/2026/11/14/15-00/southend-united-vs-aldershot-town",
+        "start_datetime": "2026-11-14T15:00:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "27154230"
+      },
+      {
+        "event_id": "45414527",
+        "name": "Yeovil Town vs Boreham Wood",
+        "short_name": "YEO vs. BOR",
+        "full_slug": "/sport/football/england-national-league/2026/11/14/15-00/yeovil-town-vs-boreham-wood",
+        "start_datetime": "2026-11-14T15:00:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "27154230"
+      },
+      {
+        "event_id": "45414555",
+        "name": "Sutton United vs Solihull Moors",
+        "short_name": "SUT vs. SOL",
+        "full_slug": "/sport/football/england-national-league/2026/11/14/15-00/sutton-united-vs-solihull-moors",
+        "start_datetime": "2026-11-14T15:00:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "27154230"
+      },
+      {
+        "event_id": "45414589",
+        "name": "AFC Wimbledon vs Blackpool",
+        "short_name": "AFC vs. BLA",
+        "full_slug": "/sport/football/england-league-1/2026/11/14/15-00/afc-wimbledon-vs-blackpool",
+        "start_datetime": "2026-11-14T15:00:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "27153991"
+      },
+      {
+        "event_id": "45414590",
+        "name": "Wycombe vs Huddersfield",
+        "short_name": "WYC vs. HUD",
+        "full_slug": "/sport/football/england-league-1/2026/11/14/15-00/wycombe-wanderers-vs-huddersfield-town",
+        "start_datetime": "2026-11-14T15:00:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "27153991"
+      },
+      {
+        "event_id": "45414592",
+        "name": "Stockport vs Reading",
+        "short_name": "STO vs. REA",
+        "full_slug": "/sport/football/england-league-1/2026/11/14/15-00/stockport-county-vs-reading",
+        "start_datetime": "2026-11-14T15:00:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "27153991"
+      },
+      {
+        "event_id": "45414607",
+        "name": "Wigan vs Barnsley",
+        "short_name": "WIG vs. BAR",
+        "full_slug": "/sport/football/england-league-1/2026/11/14/15-00/wigan-athletic-vs-barnsley",
+        "start_datetime": "2026-11-14T15:00:00Z",
+        "state": "upcoming",
+        "type": "football_match",
+        "bettable": true,
+        "parent_id": "27153991"
+      }
+    ],
+    "dom_links": [
+      {
+        "text": "Football",
+        "href": "/sport/football/"
+      },
+      {
+        "text": "Horse Racing",
+        "href": "/sport/horse-racing/"
+      },
+      {
+        "text": "Tennis",
+        "href": "/sport/tennis/"
+      },
+      {
+        "text": "American Football",
+        "href": "/sport/american-football/"
+      },
+      {
+        "text": "Australian Football",
+        "href": "/sport/australian-rules/"
+      },
+      {
+        "text": "Baseball",
+        "href": "/sport/baseball/"
+      },
+      {
+        "text": "Basketball",
+        "href": "/sport/basketball/"
+      },
+      {
+        "text": "Boxing",
+        "href": "/sport/boxing/"
+      },
+      {
+        "text": "Cricket",
+        "href": "/sport/cricket/"
+      },
+      {
+        "text": "Darts",
+        "href": "/sport/darts/"
+      },
+      {
+        "text": "Esports",
+        "href": "/sport/esports/"
+      },
+      {
+        "text": "Golf",
+        "href": "/sport/golf/"
+      },
+      {
+        "text": "Greyhound Racing",
+        "href": "/sport/greyhound-racing/"
+      },
+      {
+        "text": "Handball",
+        "href": "/sport/handball/"
+      },
+      {
+        "text": "Ice Hockey",
+        "href": "/sport/ice-hockey/"
+      },
+      {
+        "text": "MMA",
+        "href": "/sport/mma/"
+      },
+      {
+        "text": "Motorsports",
+        "href": "/sport/motorsports/"
+      },
+      {
+        "text": "Rugby League",
+        "href": "/sport/rugby-league/"
+      },
+      {
+        "text": "Rugby Union",
+        "href": "/sport/rugby/"
+      },
+      {
+        "text": "Sailing",
+        "href": "/sport/sailing/"
+      },
+      {
+        "text": "Snooker",
+        "href": "/sport/snooker/"
+      },
+      {
+        "text": "Table Tennis",
+        "href": "/sport/table-tennis/"
+      },
+      {
+        "text": "Volleyball",
+        "href": "/sport/volleyball/"
+      },
+      {
+        "text": "Football",
+        "href": "/sport/football/"
+      },
+      {
+        "text": "Horse Racing",
+        "href": "/sport/horse-racing/"
+      },
+      {
+        "text": "Tennis",
+        "href": "/sport/tennis/"
+      },
+      {
+        "text": "American Football",
+        "href": "/sport/american-football/"
+      },
+      {
+        "text": "Australian Football",
+        "href": "/sport/australian-rules/"
+      },
+      {
+        "text": "Baseball",
+        "href": "/sport/baseball/"
+      },
+      {
+        "text": "Basketball",
+        "href": "/sport/basketball/"
+      },
+      {
+        "text": "Boxing",
+        "href": "/sport/boxing/"
+      },
+      {
+        "text": "Cricket",
+        "href": "/sport/cricket/"
+      },
+      {
+        "text": "Darts",
+        "href": "/sport/darts/"
+      },
+      {
+        "text": "Esports",
+        "href": "/sport/esports/"
+      },
+      {
+        "text": "Golf",
+        "href": "/sport/golf/"
+      },
+      {
+        "text": "Greyhound Racing",
+        "href": "/sport/greyhound-racing/"
+      },
+      {
+        "text": "Handball",
+        "href": "/sport/handball/"
+      },
+      {
+        "text": "Ice Hockey",
+        "href": "/sport/ice-hockey/"
+      },
+      {
+        "text": "MMA",
+        "href": "/sport/mma/"
+      },
+      {
+        "text": "Motorsports",
+        "href": "/sport/motorsports/"
+      },
+      {
+        "text": "Rugby League",
+        "href": "/sport/rugby-league/"
+      },
+      {
+        "text": "Rugby Union",
+        "href": "/sport/rugby/"
+      },
+      {
+        "text": "Sailing",
+        "href": "/sport/sailing/"
+      },
+      {
+        "text": "Snooker",
+        "href": "/sport/snooker/"
+      },
+      {
+        "text": "Table Tennis",
+        "href": "/sport/table-tennis/"
+      },
+      {
+        "text": "Volleyball",
+        "href": "/sport/volleyball/"
+      },
+      {
+        "text": "Kristiansund BK Vålerenga 1 0",
+        "href": "/football/norway-premier-league/2026/11/09/18-00/kristiansund-bk-vs-valerenga/45426496/"
+      },
+      {
+        "text": "Norwegian Premier League",
+        "href": "/sport/football/norway-premier-league/"
+      },
+      {
+        "text": "Plymouth Parkway FC Berkhamsted",
+        "href": "/football/england-fa-cup/2026/11/09/19-30/plymouth-parkway-fc-vs-berkhamsted/45414712/"
+      },
+      {
+        "text": "English FA Cup",
+        "href": "/sport/football/england-fa-cup/"
+      },
+      {
+        "text": "FC Botosani Otelul Galati 0 0",
+        "href": "/football/romania-liga-1/2026/11/09/18-00/fc-botosani-vs-otelul-galati/45401830/"
+      },
+      {
+        "text": "Romanian Liga 1",
+        "href": "/sport/football/romania-liga-1/"
+      },
+      {
+        "text": "Hvidovre IF Aarhus Fremad 2 0",
+        "href": "/football/denmark-1-division/2026/11/09/18-00/hvidovre-if-vs-aarhus-fremad/45418580/"
+      },
+      {
+        "text": "Danish 1.Division",
+        "href": "/sport/football/denmark-1-division/"
+      },
+      {
+        "text": "Sabadell Real Sociedad B",
+        "href": "/football/spain-la-liga-2/2026/11/09/19-30/sabadell-vs-real-sociedad-b/45418442/"
+      },
+      {
+        "text": "Spanish La Liga 2",
+        "href": "/sport/football/spain-la-liga-2/"
+      },
+      {
+        "text": "Today",
+        "href": "/sport/football/"
+      },
+      {
+        "text": "Tomorrow",
+        "href": "/sport/football/?type=tomorrow"
+      },
+      {
+        "text": "This week",
+        "href": "/sport/football/?type=this_week"
+      },
+      {
+        "text": "Later",
+        "href": "/sport/football/?type=later"
+      },
+      {
+        "text": "See all",
+        "href": "/sport/football/england-fa-cup/"
+      },
+      {
+        "text": "Plymouth Parkway FC Berkhamsted",
+        "href": "/football/england-fa-cup/2026/11/09/19-30/plymouth-parkway-fc-vs-berkhamsted/45414712/"
+      },
+      {
+        "text": "See all",
+        "href": "/sport/football/spain-la-liga-2/"
+      },
+      {
+        "text": "Sabadell Real Sociedad B",
+        "href": "/football/spain-la-liga-2/2026/11/09/19-30/sabadell-vs-real-sociedad-b/45418442/"
+      },
+      {
+        "text": "Las Palmas CD Eldense",
+        "href": "/football/spain-la-liga-2/2026/11/09/19-30/ud-las-palmas-vs-cd-eldense/45430090/"
+      },
+      {
+        "text": "See all",
+        "href": "/sport/football/england-premier-league-2/"
+      },
+      {
+        "text": "Middlesbrough U21 Derby County U21",
+        "href": "/football/england-premier-league-2/2026/11/09/19-30/middlesbrough-u21-vs-derby-county-u21/45429934/"
+      },
+      {
+        "text": "See all",
+        "href": "/sport/football/uruguay-cup/"
+      },
+      {
+        "text": "Centro Atletico Lito Danubio",
+        "href": "/football/uruguay-cup/2026/11/09/19-30/centro-atletico-lito-vs-danubio/45428879/"
+      },
+      {
+        "text": "See all",
+        "href": "/sport/football/england-national-league-south/"
+      },
+      {
+        "text": "Chelmsford City Ebbsfleet United",
+        "href": "/football/england-national-league-south/2026/11/09/19-45/chelmsford-city-vs-ebbsfleet-united/45428552/"
+      },
+      {
+        "text": "See all",
+        "href": "/sport/football/paraguay-primera-division/"
+      },
+      {
+        "text": "Sportivo San Lorenzo Rubio Ñú",
+        "href": "/football/paraguay-primera-division/2026/11/09/20-00/sportivo-san-lorenzo-vs-rubio-nu/45424950/"
+      },
+      {
+        "text": "Club Sportivo Luqueño Club 2 de Mayo",
+        "href": "/football/paraguay-primera-division/2026/11/09/22-30/club-sportivo-luqueno-vs-club-2-de-mayo/45424949/"
+      },
+      {
+        "text": "See all",
+        "href": "/sport/football/spain-primera-division-women/"
+      },
+      {
+        "text": "Deportivo La Coruna Women Valencia CF Women",
+        "href": "/football/spain-primera-division-women/2026/11/09/20-00/deportivo-la-coruna-women-vs-valencia-cf-women/45425850/"
+      },
+      {
+        "text": "See all",
+        "href": "/sport/football/portugal-liga-2/"
+      },
+      {
+        "text": "SC União Torreense União de Leiria",
+        "href": "/football/portugal-liga-2/2026/11/09/20-15/sc-uniao-torreense-vs-uniao-de-leiria/45418711/"
+      },
+      {
+        "text": "See all",
+        "href": "/sport/football/colombia-categoria-primera-b/"
+      },
+      {
+        "text": "Independiente Valle del Cauca Unión Magdalena",
+        "href": "/football/colombia-categoria-primera-b/2026/11/09/20-30/independiente-valle-del-cauca-vs-union-magdalena/45429478/"
+      }
+    ],
+    "network_calls": [
+      {
+        "network_id": 1,
+        "url": "https://api.smarkets.com/v3/events/?state=upcoming&type=football_match&limit=50",
+        "status": 307,
+        "resource_type": "document",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 2,
+        "url": "https://api.smarkets.com/v3/events/?state=upcoming&type=football_match&limit=50",
+        "status": 403,
+        "resource_type": "document",
+        "body_bytes": 237084
+      },
+      {
+        "network_id": 3,
+        "url": "https://api.smarkets.com/cdn-cgi/challenge-platform/h/b/orchestrate/chl_page/v1?ray=a57f2d880b6eca13",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 620924
+      },
+      {
+        "network_id": 5,
+        "url": "https://api.smarkets.com/cdn-cgi/challenge-platform/h/b/fo/548620793:1794244535:npZgr76Uq5OmM1r_ZX8WLcR4Q6hjXrbSU3V4yUd8G-c/a57f2d880b6eca13/4Ot_5Ey75YTuCUx_mXByJ.Z_6sozecUEP7qHJTAbvCI-1794252058-1.2.1.1-1LYT213jSs7w3SC8Rm.suBxbzJKpMYp9RnCSu8vgRC5VaHUIlhuBD7syrwujfUng",
+        "status": 200,
+        "resource_type": "xhr",
+        "body_bytes": 223996
+      },
+      {
+        "network_id": 8,
+        "url": "https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/b/fo/2224589282:1794244537:9R37ZBFqj8_mze1bfbwAtFg4pDafzyVrPVjS5bdpylo/a57f2dac6d124a44/CuQYQdTBbVlCtJPJzudkmpyBQRy8T0dm7KQ0kCf6GntnhGFdK3_4qvdvpjgm7TPl6VxdqeLJFSCeBY75MJjb9ir-X6waXOpUqhPWeEGv67dSqExQvbelXy9BXshklJaoxw",
+        "status": 200,
+        "resource_type": "xhr",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 9,
+        "url": "https://hagen.challenges.cloudflare.com/cdn-cgi/challenge-platform/h/b/i/a57f2dac6d124a44/CuQYQdTBbVlCtJPJzudkmpyBQRy8T0dm7KQ0kCf6GntnhGFdK3_4qvdvpjgm7TPl6VxdqeLJFSCeBY75MJjb9ir-X6waXOpUqhPWeEGv67dSqExQvbelXy9BXshklJaoxw",
+        "status": 204,
+        "resource_type": "fetch",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 10,
+        "url": "https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/b/pat/a57f2dac6d124a44/1794252065424/17e44e72aa04a628f3466194c584c5fd49dbb7612d2614b8f12e7495e43c48d8/CgfZcxvkzjoz4LVctwUvSATdeCYT6DKehpTeGHwAmQncOBREtoosAkqTvhrbNshcZQVZMtKxWVYadKuZbbOmQIJwnbsnGAuIA_ESfKuJjupJ3iDzeIkN_wYjt7vutclkTvtjo8-4Ic_YvPHRIgux32czTyrlDECJNICWMskPlH-dWejwRT0KlYKmUSdwzGUC9ptmnzut82BXEc_s_4GGP9HAEgYO7lrNH3ehD6j_e9gLnm_st7nL0CA8YjuXSWksS7pxyZuGgbhXp4YJpS-d3rw3poE1cAE6ID2FdqRj0n0HlXwh2y8H2YoTDNF6tVxBODpCsSUtHZoYqABRWp_qiegc2Ire9jmkYJ8WVBaxNesguvA9oxvG2U9JIp_H6vm1hMbfgJhHM_5l0RJbN0T-2B4C4u2xLsDgvRg6RtSfRpvjFAs6gL-wbXsmbcls_GmR151WAsHgvYmA1xc_bbGJXiRF5by2ImV44CiS1zzy7Qqt1oa6yz7oMI1DXwqDQY5kfnj2i5m4g_tl_8dGN_hxYhb-u7bDf-CUe643TgT7mhhKapBrHiQkT6xXpDOF_M2u_lW4oCXH7KZH8QyiC1-rxGcde9D1ya48ncgw4TUUphcpMhyBvGkMEFBCtxXItFs-kBPccsEqgRZlWpgFg_P7TQNOpVolEjc0",
+        "status": 401,
+        "resource_type": "fetch",
+        "body_bytes": 1
+      },
+      {
+        "network_id": 12,
+        "url": "https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/b/fo/2224589282:1794244537:9R37ZBFqj8_mze1bfbwAtFg4pDafzyVrPVjS5bdpylo/a57f2dac6d124a44/CuQYQdTBbVlCtJPJzudkmpyBQRy8T0dm7KQ0kCf6GntnhGFdK3_4qvdvpjgm7TPl6VxdqeLJFSCeBY75MJjb9ir-X6waXOpUqhPWeEGv67dSqExQvbelXy9BXshklJaoxw",
+        "status": 200,
+        "resource_type": "xhr",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 13,
+        "url": "https://api.smarkets.com/cdn-cgi/challenge-platform/h/b/fo/548620793:1794244535:npZgr76Uq5OmM1r_ZX8WLcR4Q6hjXrbSU3V4yUd8G-c/a57f2d880b6eca13/4Ot_5Ey75YTuCUx_mXByJ.Z_6sozecUEP7qHJTAbvCI-1794252058-1.2.1.1-1LYT213jSs7w3SC8Rm.suBxbzJKpMYp9RnCSu8vgRC5VaHUIlhuBD7syrwujfUng",
+        "status": 200,
+        "resource_type": "xhr",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 14,
+        "url": "https://api.smarkets.com/v3/events/?state=upcoming&type=football_match&limit=50",
+        "status": 200,
+        "resource_type": "document",
+        "body_bytes": 113592
+      },
+      {
+        "network_id": 15,
+        "url": "https://smarkets.com/sport/football",
+        "status": 308,
+        "resource_type": "document",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 16,
+        "url": "https://smarkets.com/_next/static/media/e4af272ccee01ff0-s.p.woff2",
+        "status": 200,
+        "resource_type": "font",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 17,
+        "url": "https://smarkets.com/sport/football/",
+        "status": 200,
+        "resource_type": "document",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 18,
+        "url": "https://smarkets.com/_next/static/css/752ca937e6f9772a.css",
+        "status": 200,
+        "resource_type": "stylesheet",
+        "body_bytes": 6168
+      },
+      {
+        "network_id": 19,
+        "url": "https://smarkets.com/_next/static/css/d68bd68df210d96a.css",
+        "status": 200,
+        "resource_type": "stylesheet",
+        "body_bytes": 78702
+      },
+      {
+        "network_id": 20,
+        "url": "https://smarkets.com/_next/static/css/c408df7d323040ba.css",
+        "status": 200,
+        "resource_type": "stylesheet",
+        "body_bytes": 25714
+      },
+      {
+        "network_id": 21,
+        "url": "https://smarkets.com/_next/static/css/f666433b7487e464.css",
+        "status": 200,
+        "resource_type": "stylesheet",
+        "body_bytes": 4972
+      },
+      {
+        "network_id": 22,
+        "url": "https://smarkets.com/_next/static/css/43f546a2c6734315.css",
+        "status": 200,
+        "resource_type": "stylesheet",
+        "body_bytes": 81687
+      },
+      {
+        "network_id": 23,
+        "url": "https://smarkets.com/_next/static/css/2d8bc293b9189bc7.css",
+        "status": 200,
+        "resource_type": "stylesheet",
+        "body_bytes": 5734
+      },
+      {
+        "network_id": 24,
+        "url": "https://smarkets.com/_next/static/css/71be377ad66781ec.css",
+        "status": 200,
+        "resource_type": "stylesheet",
+        "body_bytes": 1314
+      },
+      {
+        "network_id": 25,
+        "url": "https://smarkets.com/_next/static/css/5586843e8c599609.css",
+        "status": 200,
+        "resource_type": "stylesheet",
+        "body_bytes": 1073
+      },
+      {
+        "network_id": 26,
+        "url": "https://smarkets.com/_next/static/css/f6be70e371b7e05d.css",
+        "status": 200,
+        "resource_type": "stylesheet",
+        "body_bytes": 11199
+      },
+      {
+        "network_id": 27,
+        "url": "https://smarkets.com/_next/static/css/cdda797c24dcdfa9.css",
+        "status": 200,
+        "resource_type": "stylesheet",
+        "body_bytes": 63
+      },
+      {
+        "network_id": 28,
+        "url": "https://smarkets.com/_next/static/css/f28d6f45c06cc701.css",
+        "status": 200,
+        "resource_type": "stylesheet",
+        "body_bytes": 47269
+      },
+      {
+        "network_id": 29,
+        "url": "https://smarkets.com/_next/static/css/11f7f5eaccf9bd1a.css",
+        "status": 200,
+        "resource_type": "stylesheet",
+        "body_bytes": 16890
+      },
+      {
+        "network_id": 30,
+        "url": "https://smarkets.com/_next/static/css/2609388a1a8ba31b.css",
+        "status": 200,
+        "resource_type": "stylesheet",
+        "body_bytes": 1655
+      },
+      {
+        "network_id": 31,
+        "url": "https://smarkets.com/_next/static/css/adc9476758872596.css",
+        "status": 200,
+        "resource_type": "stylesheet",
+        "body_bytes": 3853
+      },
+      {
+        "network_id": 32,
+        "url": "https://smarkets.com/_next/static/css/1d8d49b0ae2ff5de.css",
+        "status": 200,
+        "resource_type": "stylesheet",
+        "body_bytes": 3192
+      },
+      {
+        "network_id": 33,
+        "url": "https://smarkets.com/_next/static/css/f9a0423daf087858.css",
+        "status": 200,
+        "resource_type": "stylesheet",
+        "body_bytes": 1122
+      },
+      {
+        "network_id": 34,
+        "url": "https://smarkets.com/_next/static/css/430f1c28c59155eb.css",
+        "status": 200,
+        "resource_type": "stylesheet",
+        "body_bytes": 5872
+      },
+      {
+        "network_id": 35,
+        "url": "https://smarkets.com/_next/static/css/3097daa3484e5dab.css",
+        "status": 200,
+        "resource_type": "stylesheet",
+        "body_bytes": 12359
+      },
+      {
+        "network_id": 36,
+        "url": "https://smarkets.com/_next/static/css/54e5ef9f811b2076.css",
+        "status": 200,
+        "resource_type": "stylesheet",
+        "body_bytes": 1226
+      },
+      {
+        "network_id": 37,
+        "url": "https://smarkets.com/_next/static/css/919b7e25e5347910.css",
+        "status": 200,
+        "resource_type": "stylesheet",
+        "body_bytes": 2378
+      },
+      {
+        "network_id": 38,
+        "url": "https://smarkets.com/_next/static/css/92a0b0dbb4da0fb2.css",
+        "status": 200,
+        "resource_type": "stylesheet",
+        "body_bytes": 566
+      },
+      {
+        "network_id": 39,
+        "url": "https://smarkets.com/_next/static/css/a1f56cc5dede80ba.css",
+        "status": 200,
+        "resource_type": "stylesheet",
+        "body_bytes": 3276
+      },
+      {
+        "network_id": 40,
+        "url": "https://smarkets.com/_next/static/chunks/97e9ee5f-3a70f1fb665f961b.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 1086
+      },
+      {
+        "network_id": 41,
+        "url": "https://smarkets.com/_next/static/chunks/webpack-2561abca9d526972.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 7828
+      },
+      {
+        "network_id": 42,
+        "url": "https://smarkets.com/_next/static/chunks/3469-459db5d542742fd3.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 10738
+      },
+      {
+        "network_id": 43,
+        "url": "https://smarkets.com/_next/static/chunks/main-app-a8371534528174b8.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 67374
+      },
+      {
+        "network_id": 44,
+        "url": "https://smarkets.com/_next/static/media/8e9860b6e62d6359-s.woff2",
+        "status": 200,
+        "resource_type": "font",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 45,
+        "url": "https://smarkets.com/_next/static/media/HOME@3x.ae159346.png",
+        "status": 200,
+        "resource_type": "image",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 46,
+        "url": "https://smarkets.com/_next/static/media/AWAY@3x.6aa8fe98.png",
+        "status": 200,
+        "resource_type": "image",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 47,
+        "url": "https://smarkets.com/_next/static/chunks/app/global-error-18fb24efa37c4dc4.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 9307
+      },
+      {
+        "network_id": 48,
+        "url": "https://smarkets.com/_next/static/chunks/c7879cf7-eca78a83bc184f06.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 173745
+      },
+      {
+        "network_id": 49,
+        "url": "https://smarkets.com/_next/static/chunks/166-eca186577d9825e0.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 56453
+      },
+      {
+        "network_id": 50,
+        "url": "https://smarkets.com/_next/static/chunks/9523-adc01ad5cfbdad5c.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 364335
+      },
+      {
+        "network_id": 51,
+        "url": "https://smarkets.com/_next/static/media/plus-green-light.833cc16f.svg",
+        "status": 200,
+        "resource_type": "image",
+        "body_bytes": 305
+      },
+      {
+        "network_id": 52,
+        "url": "https://smarkets.com/_next/static/chunks/6211-324fd4fa43078c20.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 69006
+      },
+      {
+        "network_id": 53,
+        "url": "https://smarkets.com/_next/static/chunks/2190-dc8a2127be018872.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 15034
+      },
+      {
+        "network_id": 54,
+        "url": "https://smarkets.com/_next/static/chunks/3909-ca6e1556296759df.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 24548
+      },
+      {
+        "network_id": 55,
+        "url": "https://smarkets.com/_next/static/chunks/9183-543f2404feb37a5f.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 10175
+      },
+      {
+        "network_id": 56,
+        "url": "https://smarkets.com/_next/static/chunks/9401-fb416efeb4bd2d03.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 7791
+      },
+      {
+        "network_id": 57,
+        "url": "https://smarkets.com/_next/static/chunks/6046-7d6e97ca885dca1b.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 33817
+      },
+      {
+        "network_id": 58,
+        "url": "https://smarkets.com/_next/static/chunks/5804-a1984fbbde5528f4.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 11078
+      },
+      {
+        "network_id": 59,
+        "url": "https://smarkets.com/_next/static/chunks/1917-43f5df978a000af3.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 7659
+      },
+      {
+        "network_id": 60,
+        "url": "https://smarkets.com/_next/static/chunks/3862-d91ed43ecc89887e.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 17711
+      },
+      {
+        "network_id": 61,
+        "url": "https://smarkets.com/_next/static/chunks/9600-7429d977001596c6.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 13822
+      },
+      {
+        "network_id": 62,
+        "url": "https://smarkets.com/_next/static/chunks/2869-4f02c89e00982f52.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 15059
+      },
+      {
+        "network_id": 63,
+        "url": "https://smarkets.com/_next/static/chunks/7176-9b624b6a0fea8130.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 43169
+      },
+      {
+        "network_id": 64,
+        "url": "https://smarkets.com/_next/static/chunks/3479-618db1b54435d581.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 7682
+      },
+      {
+        "network_id": 65,
+        "url": "https://smarkets.com/_next/static/chunks/9450-cca75db98d4ce635.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 27719
+      },
+      {
+        "network_id": 66,
+        "url": "https://smarkets.com/_next/static/chunks/8432-1a8aa64aee71c3b7.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 77844
+      },
+      {
+        "network_id": 67,
+        "url": "https://smarkets.com/_next/static/chunks/8197-19894fb358858aa7.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 9283
+      },
+      {
+        "network_id": 68,
+        "url": "https://smarkets.com/_next/static/chunks/3421-d17c496e10c119e0.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 45188
+      },
+      {
+        "network_id": 69,
+        "url": "https://smarkets.com/_next/static/chunks/1363-18a073fa0e68a5b2.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 19355
+      },
+      {
+        "network_id": 70,
+        "url": "https://smarkets.com/_next/static/chunks/6354-ea58976988ad37f0.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 30754
+      },
+      {
+        "network_id": 71,
+        "url": "https://smarkets.com/_next/static/chunks/6808-3950e84227c74f3e.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 24423
+      },
+      {
+        "network_id": 72,
+        "url": "https://smarkets.com/_next/static/chunks/7393-84a0f0bd687c1c7a.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 19386
+      },
+      {
+        "network_id": 73,
+        "url": "https://smarkets.com/_next/static/chunks/5734-cda2999cb6f0a94e.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 28129
+      },
+      {
+        "network_id": 74,
+        "url": "https://smarkets.com/_next/static/chunks/7103-dcb4e3c33efcfe88.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 26931
+      },
+      {
+        "network_id": 75,
+        "url": "https://smarkets.com/_next/static/chunks/9089-da4de559055cede5.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 15340
+      },
+      {
+        "network_id": 76,
+        "url": "https://smarkets.com/_next/static/chunks/9676-f9accbebe4d765a0.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 46575
+      },
+      {
+        "network_id": 77,
+        "url": "https://smarkets.com/_next/static/chunks/8079-997d049d2fd1b774.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 98314
+      },
+      {
+        "network_id": 78,
+        "url": "https://smarkets.com/_next/static/chunks/2082-c69aeff66cf1858c.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 20781
+      },
+      {
+        "network_id": 79,
+        "url": "https://smarkets.com/_next/static/chunks/5406-bd6b619718fec4e7.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 112167
+      },
+      {
+        "network_id": 80,
+        "url": "https://smarkets.com/_next/static/chunks/3230-b62bf53a8aac555e.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 25770
+      },
+      {
+        "network_id": 81,
+        "url": "https://smarkets.com/_next/static/chunks/4493-a4e7547b2a63f906.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 31482
+      },
+      {
+        "network_id": 82,
+        "url": "https://smarkets.com/_next/static/chunks/4062-57de6132885b9148.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 34912
+      },
+      {
+        "network_id": 83,
+        "url": "https://smarkets.com/_next/static/chunks/9393-4b2f54d8d8f6a875.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 31516
+      },
+      {
+        "network_id": 84,
+        "url": "https://smarkets.com/_next/static/chunks/7205-9b75827b3c7ee818.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 33445
+      }
+    ]
+  }
+}

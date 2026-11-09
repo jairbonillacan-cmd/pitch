@@ -1,0 +1,1138 @@
+{
+  "source_id": "ffs_bbc_press_conferences",
+  "source_name": "Fantasy Football Scout / BBC Sport (Press Conferences)",
+  "category": "news_press_sentiment",
+  "url": "https://www.fantasyfootballscout.co.uk/team-news/",
+  "scrapling_mode": "cli_ai_targeted",
+  "captured_at_utc": "2026-11-09T19:19:47Z",
+  "sha256": "6f98d982f131144d2a4d12bdf525ca7506d4e387156bbb1120c026cc5fbd7cf4",
+  "meta": {
+    "record_count": 107,
+    "ffs_clubs_count": 20,
+    "bbc_headlines_count": 87,
+    "cli_markdown_path": "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\data\\raw\\news_press_sentiment\\ffs_bbc_press_conferences\\2026-11-09\\ffs_epl_team_news_ai_targeted.md"
+  },
+  "payload": {
+    "captured_at_utc": "2026-11-09T19:19:47Z",
+    "ffs_url": "https://www.fantasyfootballscout.co.uk/team-news/",
+    "bbc_url": "https://www.bbc.com/sport/football",
+    "cli_markdown_file": "ffs_epl_team_news_ai_targeted.md",
+    "cli_markdown_char_length": 76849,
+    "cli_markdown_excerpt": "Black Friday \n\nChief Scout Annual now £45, and FREE until 22 Nov\n\nSearch for:\nGo\n\nSign In\n[Join Scout](/register)\n\n[![Fantasy Football Scout logo](https://cdn.fantasyfootballscout.co.uk/wp-content/themes/football-fantastico/images/footer-logo-hd_2x.png)](https://www.fantasyfootballscout.co.uk/)\n\n* [FPL GW11 Tips](https://www.fantasyfootballscout.co.uk/fpl-gameweek-11-tips-best-players-predicted-line-ups-team-news-more-4)\n* [Nations League Fantasy](https://www.fantasyfootballscout.co.uk/category/fantasy-football/nations-league-fantasy)\n* Tools\n\n  + [FPL Toolkit](https://www.fantasyfootballscout.co.uk/fpl)\n  + [Free Team Rating](https://www.fantasyfootballscout.co.uk/fpl/rate-my-team)\n  + [Opta Stats Centre](https://www.fantasyfootballscout.co.uk/fpl/stats)\n  + [RMT Projected Points](https://www.fantasyfootballscout.co.uk/fpl/projected-points)\n  + [Fixture Ticker](https://www.fantasyfootballscout.co.uk/fpl/ticker)\n  + [Live Match Centre](https://www.fantasyfootballscout.co.uk/fpl/fixtures)\n  + [Draft Tool + Transfers](https://www.fantasyfootballscout.co.uk/fpl/draft)\n  + [Rob's Transfer Planner](https://www.fantasyfootballscout.co.uk/transfer-planner/)\n  + [Members Area](https://members.fantasyfootballscout.co.uk/)\n* Articles\n\n  + [All Articles](https://www.fantasyfootballscout.co.uk/articles)\n  + [FPL Team Reveals](https://www.fantasyfootballscout.co.uk/category/team-reveals/)\n  + [Captaincy Picks](https://www.fantasyfootballscout.co.uk/category/team-selection/fpl-captains)\n  + [Scout Notes (Matches)](https://www.fantasyfootballscout.co.uk/category/scout-notes)\n  + [Scout Reports (Players)](https://www.fantasyfootballscout.co.uk/category/scout-reports/)\n  + [Community Articles](https://www.fantasyfootballscout.co.uk/category/community-submissions/community)\n* Team News\n\n  + [Predicted Line-ups](https://www.fantasyfootballscout.co.uk/team-news/)\n  + [Injuries and Bans](https://www.fantasyfootballscout.co.uk/fantasy-football-injuries)\n  + [Set-Piece Takers](https://www.fantasyfootballscout.co.uk/fantasy-premier-league-set-piece-takers)\n  + [Latest Team News](https://www.fantasyfootballscout.co.uk/category/team-news)\n* Other Games\n\n  + [Deadline Tracker](https://www.fantasyfootballscout.co.uk/fantasy-football-deadlines)\n  + [Eliteserien Fantasy](https://www.fantasyfootballscout.co.uk/category/fantasy-football/eliteserien)\n  + [Fantasy Bundesliga](https://www.fantasyfootballscout.co.uk/bundesliga)\n  + [Fantasy EFL](https://www.fantasyfootballscout.co.uk/efl)\n  ",
+    "ffs_clubs_count": 20,
+    "bbc_headlines_count": 87,
+    "ffs_team_news": [
+      {
+        "club": "Arsenal",
+        "next_match": "Hull City (H)",
+        "predicted_xi": [
+          "Raya Martin",
+          "Jurriën Timber",
+          "Konsa Ngoyo",
+          "Gabriel Magalhães",
+          "Calafiori",
+          "Lewis-Skelly",
+          "Bruno Guimarães",
+          "Madueke",
+          "Odegaard",
+          "Tzolis",
+          "Havertz"
+        ],
+        "confirmed_absentees": [
+          "Saka"
+        ],
+        "late_fitness_test_players": [],
+        "suspended_players": [
+          "Dowman"
+        ],
+        "manager_quotes_and_notes": "News Mikel Arteta said on Friday that Ezri Konsa \"is fine\" and available for the visit of Hull, despite coming off with “issues” in midweek. The Arsenal boss added that the centre-half's withdrawal against Slavia Prague was \"a precaution\" and that he’s now \"feeling good\". Elsewhere, Bukayo Saka (quad) remains “weeks” away, while Max Dowman serves game two of a three-match ban. William Saliba is, of course, now fit and available, although the fact that Cristhian Mosquera came on for Konsa on Wednesday may hint at lingering reservations about when and where to introduce the Frenchman. There were welcome complete rests for Riccardo Calafiori and Kai Havertz in Czechia, while Jurrien Timber, Martin Odegaard and Christos Tzolis only contributed second-half cameos. With Noni Madueke omitted from"
+      },
+      {
+        "club": "Aston Villa",
+        "next_match": "Manchester United (A)",
+        "predicted_xi": [
+          "Suzuki",
+          "Wan-Bissaka",
+          "Lindelof",
+          "Torres",
+          "Maatsen",
+          "Kamara",
+          "João Gomes",
+          "Alysson Edward",
+          "McGinn",
+          "Manzambi",
+          "Jackson"
+        ],
+        "confirmed_absentees": [
+          "Mvom Onana",
+          "Ruggeri"
+        ],
+        "late_fitness_test_players": [
+          "Wan-Bissaka",
+          "75%"
+        ],
+        "suspended_players": [],
+        "manager_quotes_and_notes": "News Matty Cash is suspended for Aston Villa’s trip to Manchester United on Sunday, having picked up his fifth booking of the season last weekend. Matteo Ruggeri (hamstring) and long-term absentee Amadou Onana (knee) also remain out, but in a positive development, Aaron Wan-Bissaka (hamstring) has trained this week and could feature. With no known issues elsewhere, replacing Cash with Wan-Bissaka is the most likely alteration, provided Wan-Bissaka passes a late fitness test. If he isn’t ready to feature, Lamare Bogarde could step in, or Victor Lindelof could perhaps move to right-back. Leon Goretzka and Ross Barkley are alternatives to Joao Gomes in the pivot. Further forward, Alysson or Ibrahim Mbaye could be called upon to replace Emiliano Buendia, should Unai Emery want more pace in wid"
+      },
+      {
+        "club": "Bournemouth",
+        "next_match": "Ipswich Town (A)",
+        "predicted_xi": [
+          "Petrovic",
+          "Smith",
+          "Hill",
+          "António Silva",
+          "Truffert",
+          "Adams",
+          "Cook",
+          "Rayan",
+          "Kluivert",
+          "Tavernier",
+          "Evanilson"
+        ],
+        "confirmed_absentees": [
+          "Araujo",
+          "Sánchez",
+          "Tóth"
+        ],
+        "late_fitness_test_players": [
+          "Milosavljevic",
+          "25%"
+        ],
+        "suspended_players": [],
+        "manager_quotes_and_notes": "News It's not clear if we're going to hear much more from Marco Rose ahead of the deadline, what with Thursday's Europa League tie in Prague messing with the usual press conference schedule. Injury-wise, we know that Alex Toth (hamstring), Julian Araujo (thigh) and Juanlu Sanchez (ankle) are out, while Veljko Milosavljevic (knee) is with the under-21s as he builds fitness following his long spell on the sidelines. Alex Scott (tendon), however, had been earmarked for a potential return in Gameweek 10, and reports suggest he has now returned to full training. He's been out since September, so you'd imagine it'd be bench duty at first, but it was interesting that positional rivals Lewis Cook and Ryan Christie both got 90 minutes on Thursday night. That was Christie's third start in a week, so"
+      },
+      {
+        "club": "Brentford",
+        "next_match": "Brighton and Hove Albion (A)",
+        "predicted_xi": [
+          "Kelleher",
+          "Kayode",
+          "van den Berg",
+          "Ajer",
+          "Lewis-Potter",
+          "Janelt",
+          "Sangaré",
+          "Dango Ouattara",
+          "Yarmolyuk",
+          "Schade",
+          "Thiago"
+        ],
+        "confirmed_absentees": [
+          "Carvalho",
+          "Furo",
+          "Henry",
+          "Milambo"
+        ],
+        "late_fitness_test_players": [
+          "Dasilva",
+          "25%"
+        ],
+        "suspended_players": [
+          "Thiago"
+        ],
+        "manager_quotes_and_notes": "News Rico Henry (hip), Kaye Furo (knee) and Fabio Carvalho (knock) remain out, and while Antoni Milambo (knee) and Josh Dasilva (hamstring) are back in training, with the latter featuring for half an hour in a ‘B team’ game on Monday, Keith Andrews did seem to suggest that we won't see either player at Brighton this weekend. The Bees have no fresh concerns, at least, while Yehor Yarmoliuk is also available after serving a three-match suspension. Given Albion's free-scoring exploits this season, might Andrews consider bringing Yarmoliuk straight back in here and sacrificing the more creative Mathias Jensen? The Brentford boss could, of course, alternatively lay down the law to the young Ukrainian and make him work for his place back, as it was his ill-discipline that saw the Bees go down to"
+      },
+      {
+        "club": "Brighton and Hove Albion",
+        "next_match": "Brentford (H)",
+        "predicted_xi": [
+          "Verbruggen",
+          "Costinha",
+          "Vuskovic",
+          "Dunk",
+          "Boscagli",
+          "Chema Andrés",
+          "Groß",
+          "Gómez",
+          "Ayari",
+          "De Cuyper",
+          "Kostoulas"
+        ],
+        "confirmed_absentees": [
+          "Ferguson",
+          "Mitoma"
+        ],
+        "late_fitness_test_players": [
+          "Azeez",
+          "50%",
+          "Struijk",
+          "50%",
+          "Tzimas",
+          "25%",
+          "Yohanna",
+          "50%"
+        ],
+        "suspended_players": [],
+        "manager_quotes_and_notes": "News We've not heard much from Fabian Hurzeler in the aftermath of the win over Getafe, but the Albion boss did reveal that Chema Andres missed out with a minor issue. It did, however, sound very much like he was being preserved for the weekend. Ferdi Kadioglu (hip), Femi Azeez (hamstring), Pascal Struijk (hamstring) are not yet ruled out, while Zadok Yohanna (unspecified) and Stefan Tzimas (knee) are on the grass again, but it's hard to imagine four of them troubling the starting XI even if passed fit. The obvious exception is Kadioglu, but after a period without training, you'd imagine it's going to be one of Costinha or Mats Wieffer at right-back against Brentford. A side that has been mostly unchanged in the last five Gameweeks (Lewis Dunk for Struijk and Costinha for Kadioglu being th"
+      },
+      {
+        "club": "Chelsea",
+        "next_match": "Sunderland (A)",
+        "predicted_xi": [
+          "Martinez",
+          "Acheampong",
+          "Fofana",
+          "Colwill",
+          "Chavarría",
+          "Henderson",
+          "Lavia",
+          "Estêvão",
+          "Palmer",
+          "Rogers",
+          "Neto"
+        ],
+        "confirmed_absentees": [
+          "Gittens",
+          "Hato",
+          "James",
+          "João Pedro",
+          "Lacroix"
+        ],
+        "late_fitness_test_players": [
+          "Martinez",
+          "75%"
+        ],
+        "suspended_players": [],
+        "manager_quotes_and_notes": "News Emiliano Martinez (jaw) has returned to training this week and could feature, with a late assessment to come on him. The fact that he's had a mask fitted suggest he's gearing up for game duty. Aaron Anselmino and Jordan Henderson have also been back on the grass following injury and illness, respectively, with the latter potentially returning to the side given that Moises Caicedo is a concern with \"discomfort\". While Caicedo is not ruled out, an international break follows Gameweek 10, so Xabi Alonso may opt to tactically not risk his Ecuadorian midfielder and hope he gets the following fortnight off. Jorrel Hato (unknown), Maxence Lacroix (hamstring) Reece James (knee), Jamie Gittens (ankle) and, of course, Joao Pedro (quad) remain out. Aside from the possible enforced alteration in "
+      },
+      {
+        "club": "Coventry City",
+        "next_match": "Everton (A)",
+        "predicted_xi": [
+          "Rushworth",
+          "van Ewijk",
+          "Mfuni",
+          "Pinnock",
+          "Jay da Silva",
+          "Yirenkyi",
+          "Torp",
+          "Sakamoto",
+          "Rudoni",
+          "Gboho",
+          "Awoniyi"
+        ],
+        "confirmed_absentees": [
+          "Amenda",
+          "Eccles",
+          "Woolfenden",
+          "Wright"
+        ],
+        "late_fitness_test_players": [
+          "Onyeka",
+          "75%",
+          "Thomas",
+          "75%"
+        ],
+        "suspended_players": [],
+        "manager_quotes_and_notes": "News Frank Lampard was playing it cool with his team news on Wednesday, saying only \"we'll see\" when asked about Bobby Thomas (calf) and Frank Onyeka (groin). Luke Woolfenden (knee), Aurele Amenda (calf), Josh Eccles (ankle) and Haji Wright (quad) remain out, meanwhile. Lampard's unwillingness to share any more information on Thomas makes it very difficult to say whether he's going to return for Gameweek 10 but after Stephen Mfuni and Ethan Pinnock performed admirably at centre-half in the win over Sunderland, and earned their manager's gushing praise in the pre-match presser, perhaps Lampard may simply opt not to risk Thomas anyway, knowing that an extra two weeks of recovery time are upon us with the November international break. If Thomas is fit, then he could even join Mfuni and Pinnoc"
+      },
+      {
+        "club": "Crystal Palace",
+        "next_match": "Liverpool (H)",
+        "predicted_xi": [
+          "Henderson",
+          "Richards",
+          "Disasi",
+          "Canvot",
+          "Mingueza",
+          "Timber",
+          "Wharton",
+          "Mitchell",
+          "Kamada",
+          "Pino",
+          "Strand Larsen"
+        ],
+        "confirmed_absentees": [
+          "Riad",
+          "Ismaila Sarr",
+          "Tomiyasu"
+        ],
+        "late_fitness_test_players": [],
+        "suspended_players": [
+          "Mateta"
+        ],
+        "manager_quotes_and_notes": "News Jean-Philippe Mateta starts a three-match ban following his dismissal for serious foul play last weekend. Ismaila Sarr (groin), Takehiro Tomiyasu (calf) and Chadi Riad (knee) remain out, too. In better news, Quinten Timber (hamstring) and Jorgen Strand Larsen (ankle) both returned to the squad on Thursday. Strand Larsen didn’t get off the bench, but his manager said he is ready to play “60, 75 minutes”. Axel Disasi meanwhile was mysteriously omitted from the squad in the Europa League, with reports suggesting it was punishment for being late to a team meeting. But the centre-back is available for selection on Sunday and could replace Honest Ahanor in one potential alteration from Thursday’s XI. Anan Khalaili featured at right wing-back in Europe but was replaced by Oscar Mingueza afte"
+      },
+      {
+        "club": "Everton",
+        "next_match": "Coventry City (H)",
+        "predicted_xi": [
+          "Pickford",
+          "O'Brien",
+          "Tarkowski",
+          "Branthwaite",
+          "Mykolenko",
+          "Armstrong",
+          "Garner",
+          "Röhl",
+          "Dewsbury-Hall",
+          "George",
+          "Barry"
+        ],
+        "confirmed_absentees": [
+          "Grealish"
+        ],
+        "late_fitness_test_players": [],
+        "suspended_players": [],
+        "manager_quotes_and_notes": "News Jack Grealish's exclusion from the Everton side continues, with David Moyes confirming that the midfielder won’t be available for selection against Coventry City on Friday night. Grealish may, however, be back in contention after the November international break, which follows Gameweek 10. As for injuries, nothing much to report, although Jarrad Branthwaite will be assessed after coming off with cramp in the win over Newcastle United on Monday. He has been named in the England squad, suggesting there's nothing more serious going on, but it wouldn't be a massive shock to see the injury-prone Branthwaite rested and Jake O'Brien or Michael Keane fill in at centre-half. Other than that, Moyes will surely stick with a winning team, but maybe with one exception down the right flank. Merlin "
+      },
+      {
+        "club": "Fulham",
+        "next_match": "Newcastle United (H)",
+        "predicted_xi": [
+          "Leno",
+          "Castagne",
+          "Affengruber",
+          "Bassey",
+          "Robinson",
+          "Berge",
+          "Charles",
+          "Bobb",
+          "King",
+          "Iwobi",
+          "Gonzalo García"
+        ],
+        "confirmed_absentees": [
+          "Cairney"
+        ],
+        "late_fitness_test_players": [],
+        "suspended_players": [],
+        "manager_quotes_and_notes": "News Ryan Sessegnon returns this weekend after completing a three-match ban. That means that the Cottagers have only one absentee for the visit of Newcastle United: Tom Cairney misses out with knee issues. This is seemingly a settled side, with eight players ever-present starters over the last six Gameweeks. Sander Berge would have surely made it nine were he not ill in Gameweek 8, while the two full-backs had a solitary breather after the last international break. And there seems little reason to change it this week, off the back of two wins and a commendable performance at Aston Villa. Antonee Robinson has come under fire for his early-season performances but he turned in an excellent display last Saturday, so it'd be a surprise if the newly available Sessegnon ousts him now. And while G"
+      },
+      {
+        "club": "Hull City",
+        "next_match": "Arsenal (A)",
+        "predicted_xi": [
+          "Tzolakis",
+          "Ajayi",
+          "Egan",
+          "Mendy",
+          "Coyle",
+          "Iroegbunam",
+          "Slater",
+          "Giles",
+          "Belloumi",
+          "McBurnie",
+          "Stroud"
+        ],
+        "confirmed_absentees": [
+          "Ansah",
+          "Hughes",
+          "Matazo",
+          "Morita",
+          "Targett"
+        ],
+        "late_fitness_test_players": [],
+        "suspended_players": [],
+        "manager_quotes_and_notes": "News Matt Crooks serves a one-match ban this weekend after picking up his fifth booking of the season in Gameweek 9, while Hidemasa Morita (groin) has now joined Matt Targett (ankle), Charlie Hughes (groin), Elliot Matazo (knee) and Ilyas Ansah (back) on the sidelines. Jack Butland (shoulder) is at least injury-free and back in training now, getting a run-out for the under-21s on Monday as he builds match fitness. Sergej Jakirovic may make a tweak or two for this one, particularly as his in-game changes helped turn the tide against Ipswich. He pushed an extra body into midfield during that game, but with Morita and Crooks out (both came on against the Tractor Boys), and Jakirovic challenging Lucas Gourna-Douath to do better in training, that tactic may be more difficult to replicate this w"
+      },
+      {
+        "club": "Ipswich Town",
+        "next_match": "Bournemouth (H)",
+        "predicted_xi": [
+          "Walton",
+          "Ouattara",
+          "Diop",
+          "O'Shea",
+          "Davis",
+          "Florentino",
+          "Palacios",
+          "Fatawu",
+          "Enciso",
+          "Philogene-Bidace",
+          "Emersonn"
+        ],
+        "confirmed_absentees": [],
+        "late_fitness_test_players": [],
+        "suspended_players": [],
+        "manager_quotes_and_notes": "News Saka Lukic (groin) was involved in training this week, and Gary O'Neil said there was \"no reason\" why the midfielder couldn't start on Sunday - but he's said similar things in the last few weeks, and it wouldn't be a huge surprise to see Gameweek 9 goalscorer Luis Florentino keep his place. That's it for the Ipswich team news, with everyone else fit. Further forward, Jack Clarke and Daizen Maeda will be hoping to get a look-in on the flanks after Jaden Philogene and Abdul Fatawu flattered to deceive against Hull City (and before that). O'Neil could even sacrifice one of his wingers and reinstate Jacob Greaves, if he wishes to proceed with caution against an in-form Bournemouth. Zian Flemming still awaits his first Premier League start for the Tractor Boys, with O'Neil continuing to pr"
+      },
+      {
+        "club": "Leeds United",
+        "next_match": "Tottenham Hotspur (H)",
+        "predicted_xi": [
+          "Trafford",
+          "Justin",
+          "Elvedi",
+          "Muharemovic",
+          "Bogle",
+          "Ampadu",
+          "Longstaff (Sean)",
+          "Gudmundsson",
+          "Wilson",
+          "Calvert-Lewin",
+          "James (Daniel)"
+        ],
+        "confirmed_absentees": [
+          "Mateo Joseph"
+        ],
+        "late_fitness_test_players": [
+          "Stach",
+          "50%"
+        ],
+        "suspended_players": [],
+        "manager_quotes_and_notes": "News Dominic Calvert-Lewin (foot) missed training on Thursday but Daniel Farke is “carefully optimistic” about the striker’s availability for Saturday. The Leeds boss was less positive about Noah Okafor (adductor) and Anton Stach (broken toe), who have been plagued by recurring pain in recent weeks, describing them as “major doubts” yet again. In better news, Joe Rodon (hamstring) is back in full training, while James Justin and Gabriel Gudmundsson are also fine after picking up knocks last weekend. Doubts over Stach and Okafor means it's likely that Harry Wilson and Daniel James keep their places, then, and that pair actually had decent games against Bournemouth anyway. With Rodon likely not yet ready to start, and Justin and Gudmundsson fit, we can't see much else changing with the line-"
+      },
+      {
+        "club": "Liverpool",
+        "next_match": "Crystal Palace (A)",
+        "predicted_xi": [
+          "Alisson",
+          "Araújo",
+          "Jacquet",
+          "van Dijk",
+          "Kerkez",
+          "Nyoni",
+          "Mac Allister",
+          "Gakpo",
+          "Wirtz",
+          "Barcola",
+          "Isak"
+        ],
+        "confirmed_absentees": [
+          "Bradley",
+          "Ekitiké",
+          "Frimpong",
+          "Leoni"
+        ],
+        "late_fitness_test_players": [
+          "Gravenberch",
+          "75%"
+        ],
+        "suspended_players": [],
+        "manager_quotes_and_notes": "News Hugo Ekitike (Achilles), Conor Bradley (knee), Jeremie Frimpong (hamstring) and Giovanni Leoni (knee) are all still out but the Reds have no new concerns from the midweek loss in Turkey. Ryan Gravenberch (heel), who missed UEFA Champions League duty, could also yet feature if he can \"deal with the pain\" of his niggling issue. It's a mostly straightforward predicted XI this week, with Alexander Isak, Milos Kerkez, Florian Wirtz, Ronald Araujo and Cody Gakpo returning to the line-up after midweek breathers. You'd imagine that Bradley Barcola reverts to his usual duties out wide, too, after the ill-fated experiment of using him through the middle against Fenerbahce - although successive 90 minutes for the Frenchman does raise the outside possibility of Rio Ngumoha starting in his stead. "
+      },
+      {
+        "club": "Manchester City",
+        "next_match": "Nottingham Forest (A)",
+        "predicted_xi": [
+          "Donnarumma",
+          "Matheus Nunes",
+          "Rúben Dias",
+          "Marc Guehi",
+          "Gvardiol",
+          "Fernández",
+          "Anderson",
+          "Ndiaye",
+          "Cherki",
+          "Doku",
+          "Haaland"
+        ],
+        "confirmed_absentees": [
+          "Semenyo"
+        ],
+        "late_fitness_test_players": [],
+        "suspended_players": [],
+        "manager_quotes_and_notes": "News Enzo Maresca's presser was short on team news but, so far as we know, he appears to have an injury-free squad bar medium-term absentee Antoine Semenyo (knee). Maresca did say that Nico O'Reilly, while available for selection, was \"not 100%\" fit, adding that he wanted the left-back to use the international break \"to do the right things in terms of therapy\". After 90 minutes in Germany on Wednesday, the scene is set for Josko Gvardiol to return at full-back. Jeremy Doku and Ruben Dias will very likely come back in, too, following their own midweek breathers. Playing Ayyoub Bouaddi in a midfield three with Elliot Anderson and Enzo Fernandez seemed like a very game-specific tactic against a high-octane, free-scoring Brighton side, and you'd imagine Maresca would want the ingenuity of a '1"
+      },
+      {
+        "club": "Manchester United",
+        "next_match": "Aston Villa (H)",
+        "predicted_xi": [
+          "Lammens",
+          "Yoro",
+          "Maguire",
+          "Heaven",
+          "Dalot",
+          "Tielemans",
+          "Mainoo",
+          "Amad Diallo",
+          "Bruno Fernandes",
+          "Mbeumo",
+          "Matheus Cunha"
+        ],
+        "confirmed_absentees": [
+          "Baleba",
+          "Sesko",
+          "Shaw",
+          "Ugarte"
+        ],
+        "late_fitness_test_players": [
+          "Rashford",
+          "25%"
+        ],
+        "suspended_players": [],
+        "manager_quotes_and_notes": "News Carlos Baleba will be out \"for a number of weeks\" with the hamstring injury he sustained in midweek, so he joins longer-term absentees Manuel Ugarte (knee) and Benjamin Sesko (calf) on the sidelines. Luke Shaw (unspecified) and Marcus Rashford (hip) look set to miss out again, too, while Lisandro Martinez serves a one-match ban after his sending off in Gameweek 9. Patrick Dorgu (hamstring) has trained this week, however, and could be involved, albeit only as a substitute at best. Baleba's injury could allow Youri Tielemans a route back into the side, and the Belgian took his chance well when replacing the Cameroonian midfielder in midweek. Andrey Santos and Mason Mount are alternatives in the middle. Someone who else impressed in the Champions League is Shea Lacey, although a Premier "
+      },
+      {
+        "club": "Newcastle United",
+        "next_match": "Fulham (A)",
+        "predicted_xi": [
+          "Hornícek",
+          "Dedic",
+          "Thiaw",
+          "Burn",
+          "Lewis Hall",
+          "González",
+          "Steur",
+          "Elanga",
+          "Wissa",
+          "Barnes",
+          "Osula"
+        ],
+        "confirmed_absentees": [
+          "Joelinton",
+          "Jaouen",
+          "Livramento"
+        ],
+        "late_fitness_test_players": [],
+        "suspended_players": [],
+        "manager_quotes_and_notes": "News Joelinton has rejoined the injury list after limping off against Everton on Monday, while Jacob Ramsey was sent off for two bookable offences in that fixture and now has to serve a one-match ban. Ewen Jaouen (hamstring) and Tino Livramento (unspecified) also remain out. There are two possible returnees: Mathias Fernandez–Pardo (illness) will be assessed after a return to training, while Lewis Miley (muscle) is \"getting better and better\". Matthias Jaissle hinted that Sean Steur would be the one to step into midfield with Ramsey and Joelinton out, and to be fair there aren't too many alternatives if Miley isn't quite ready. Dropping Joe Willock deeper alongside Nico Gonzalez is about the only other play, given that Aladji Bamba is yet to be trusted. It wouldn't be a surprise to see Yoa"
+      },
+      {
+        "club": "Nottingham Forest",
+        "next_match": "Manchester City (H)",
+        "predicted_xi": [
+          "Sels",
+          "Diomande",
+          "Milenkovic",
+          "Murillo",
+          "Muñoz",
+          "Schlager",
+          "Yates",
+          "Williams",
+          "Gibbs-White",
+          "Mcatee",
+          "Delap"
+        ],
+        "confirmed_absentees": [
+          "Nicolás Domínguez",
+          "Savona"
+        ],
+        "late_fitness_test_players": [],
+        "suspended_players": [],
+        "manager_quotes_and_notes": "News Nicolo Savona (knee) and Igor Jesus (calf) have both trained this week, with the latter potentially set to be involved against Manchester City. Savona, out for much longer, will instead get minutes in a friendly over the international break. Nicolas Dominguez (muscle) has had a setback, however, and will be out for around eight weeks. Elsewhere, Daniel Munoz has been managing a foot issue of late, hence his substitute role last weekend, but he has trained since. Dan Ndoye missed a day of training this week due to illness, too. The big question is: how much will Glasner change things around on Saturday? It was no more Mr Nice Guy after the Brentford defeat, with the Forest boss rounding on his players. Glasner said after full-time he needed to \"change it\", adding that he may \"need diff"
+      },
+      {
+        "club": "Sunderland",
+        "next_match": "Chelsea (H)",
+        "predicted_xi": [
+          "Roefs",
+          "Hume",
+          "Mukiele",
+          "O'Nien",
+          "Reinildo",
+          "Xhaka",
+          "Sadiki",
+          "Meunier",
+          "Le Fée",
+          "Nilson Angulo",
+          "Brobbey"
+        ],
+        "confirmed_absentees": [
+          "Ballard",
+          "Diarra",
+          "Mundle"
+        ],
+        "late_fitness_test_players": [
+          "Juan Riquelme Angulo",
+          "75%",
+          "Xhaka",
+          "75%"
+        ],
+        "suspended_players": [],
+        "manager_quotes_and_notes": "News Regis Le Bris says that Nordi Mukiele (head) \"should be\" back this weekend, having observed the concussion protocol. Omar Alderete has to serve a one-match ban following his sending off last weekend, however, while Dan Ballard (hamstring), Habib Diarra (muscle) and Romaine Mundle (knee) are medium-term absentees. Don't be surprised that, even if Mukiele is needed at centre-half (which seems very likely), the under-fire Regis Le Bris goes back to two full-backs down the right flank, as he bids to stem the flow of goal concessions. It's Luke O'Nien or Kevin Danso in a 'who's less awful' battle at centre-half, with the latter doing little against Dinamo Zagreb to suggest his form has turned a corner. Messrs Hume, Brobbey, Sadiki, Le Fee and Mandava were all on the bench in Europe and sho"
+      },
+      {
+        "club": "Tottenham Hotspur",
+        "next_match": "Leeds United (A)",
+        "predicted_xi": [
+          "Kinsky",
+          "Porro",
+          "van Hecke",
+          "van de Ven",
+          "Robertson",
+          "Tonali",
+          "Mateus Fernandes",
+          "Kudus",
+          "Maddison",
+          "Tel",
+          "Solanke"
+        ],
+        "confirmed_absentees": [
+          "Bergvall",
+          "Savinho",
+          "Mudryk",
+          "Odobert",
+          "Simons"
+        ],
+        "late_fitness_test_players": [],
+        "suspended_players": [],
+        "manager_quotes_and_notes": "News Lucas Bergvall (knee), Savinho (muscle) and Mykhailo Mudryk (ankle) remain out, along with longer-term absentees Xavi Simons (knee) and Wilson Odobert (knee). Tosin Adarabioyo (calf) is back in training and available, however, while Rodrigo Bentancur returns from a three-match suspension. You can't imagine Roberto De Zerbi will want to change too much with his side on a three-match run, although Pedro Porro will be that bit fitter with a 45-minute run-out against Crystal Palace and an extra week of training under his belt. He could finally reclaim his place at right-back from Archie Gray. James Maddison, wisely not risked from the start against Palace after a Gameweek 8 scare, may also return at the expense of Omar Marmoush or Dominic Solanke (the survivor leads the line!), although t"
+      }
+    ],
+    "bbc_football_headlines": [
+      {
+        "headline": "Man Utd yet to make decision on Carrick's future",
+        "url": "https://www.bbc.com/sport/football/articles/cw4g1g7z2mdgo",
+        "clubs_mentioned": [
+          "Manchester United"
+        ],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Kane and Bellingham air strong views in England World Cup review",
+        "url": "https://www.bbc.com/sport/football/articles/cqr7y7813l04o",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "People don't know full story behind England exile - White",
+        "url": "https://www.bbc.com/sport/football/articles/c6rmym3p419no",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Incident-by-incident: Was it a bad weekend for VAR?",
+        "url": "https://www.bbc.com/sport/football/articles/c6n9r93dnr9do",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Aberdeen sack Robinson after league slump",
+        "url": "https://www.bbc.com/sport/football/articles/cwj34k2z5p00o",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Live\n.\nFA Cup: Plymouth Parkway v Berkhamsted to take place after draw made for second round",
+        "url": "https://www.bbc.com/sport/football/live/cqvgjy1jg143t",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": true
+      },
+      {
+        "headline": "Burn replaces injured Guehi in England squad",
+        "url": "https://www.bbc.com/sport/football/articles/cmwyq8x6nx5lo",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": true
+      },
+      {
+        "headline": "Alisson wants to sign new Liverpool contract",
+        "url": "https://www.bbc.com/sport/football/articles/cw62ypepq2m7o",
+        "clubs_mentioned": [
+          "Liverpool"
+        ],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Chelsea staff warned over Fantasy Premier League use",
+        "url": "https://www.bbc.com/sport/football/articles/c98rzr51rlvpo",
+        "clubs_mentioned": [
+          "Chelsea"
+        ],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Bronze named in World 11 for record ninth time",
+        "url": "https://www.bbc.com/sport/football/articles/cmkgeg2z4dlwo",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Wilson eyeing survival step as Wales tackle Norway",
+        "url": "https://www.bbc.com/sport/football/articles/ck3r5rwdpjj7o",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Arsenal monitor Leverkusen striker Kofane",
+        "url": "https://www.bbc.com/sport/football/teams/arsenal",
+        "clubs_mentioned": [
+          "Arsenal"
+        ],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Kettering Town 'cannot hide' from racism problem",
+        "url": "https://www.bbc.com/sport/football/articles/cr0j0jnln3j0o",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "'We have to front it' - Mount",
+        "url": "https://www.bbc.com/sport/football/teams/manchester-united",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Musiala may never return to his best - Hoeness",
+        "url": "https://www.bbc.com/sport/football/articles/cw78p8dp0keeo",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Dutch match postponed after fans block team bus",
+        "url": "https://www.bbc.com/sport/football/articles/cqy0r0lw4l5ro",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Real Madrid legend Raul named Real Oviedo manager",
+        "url": "https://www.bbc.com/sport/football/articles/cwnv0v1yj585o",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": true
+      },
+      {
+        "headline": "Fishlock retires after record-breaking career",
+        "url": "https://www.bbc.com/sport/football/articles/cq98z8401zz8o",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Bizarre & thrilling theatre as Carrick in limbo with Man Utd in drop zone",
+        "url": "https://www.bbc.com/sport/football/articles/cked3qjw1q4xo",
+        "clubs_mentioned": [
+          "Manchester United"
+        ],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "I had to play regularly for my mental wellbeing - Trafford on summer move. Video, 00:02:05\nI had to play regularly for my mental wellbeing - Trafford on summer move",
+        "url": "https://www.bbc.com/sport/football/videos/cq62yyveznrro",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Six tournaments, 11 goals - Ronaldo's World Cup legacy  Video, 00:03:21\nSix tournaments, 11 goals - Ronaldo's World Cup legacy",
+        "url": "https://www.bbc.com/sport/football/videos/cwr5y0yj716do",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Old Trafford crowd can change games - Carrick. Video, 00:01:56\nOld Trafford crowd can change games - Carrick",
+        "url": "https://www.bbc.com/sport/football/videos/cqkgkwrjn2x5o",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Rice relishing title race 'anxiety' after win at Liverpool. Video, 00:05:27\nRice relishing title race 'anxiety' after win at Liverpool",
+        "url": "https://www.bbc.com/sport/football/videos/cxly47pyy8j6o",
+        "clubs_mentioned": [
+          "Liverpool"
+        ],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Carrick says there are 'no issues' with captain Fernandes. Video, 00:00:58\nCarrick says there are 'no issues' with captain Fernandes",
+        "url": "https://www.bbc.com/sport/football/videos/cqj34pjxp7xdo",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Tuesday's Championship reports",
+        "url": "https://www.bbc.com/sport/football",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "What can you read into Premier League table after 10 games?",
+        "url": "https://www.bbc.com/sport/football/articles/c91463n3mlzlo",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Who has made Troy's Premier League team of the week?",
+        "url": "https://www.bbc.com/sport/football/articles/cw98z7vdg546o",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "When is the FA Cup second round draw?",
+        "url": "https://www.bbc.com/sport/football/articles/c6wydypkgdjlo",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Villa's Kamara on Chelsea watchlist - Monday's gossip",
+        "url": "https://www.bbc.com/sport/football/articles/c8qlnqggwge0o",
+        "clubs_mentioned": [
+          "Aston Villa",
+          "Chelsea"
+        ],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Newport round on 'unacceptable' fan behaviour",
+        "url": "https://www.bbc.com/sport/football/articles/cq4g1g0zkgy4o",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Are 'outstanding' Brighton now Arsenal's main title challengers?",
+        "url": "https://www.bbc.com/sport/football/articles/cjx23rwxdn64o",
+        "clubs_mentioned": [
+          "Arsenal",
+          "Brighton"
+        ],
+        "injury_or_press_signal": true
+      },
+      {
+        "headline": "Szoboszlai a doubt for Nations League conclusion",
+        "url": "https://www.bbc.com/sport/football/articles/cmp3g31gvxkgo",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": true
+      },
+      {
+        "headline": "UEFA Women's Champions League\nHäcken\nHäcken\nplays\nChelsea\nChelsea\nat\n17:45\n17:45\non\nTue\nthe\n10\nof\nNov",
+        "url": "https://www.bbc.com/sport/football/live/ck7vppd7y9yqt",
+        "clubs_mentioned": [
+          "Chelsea"
+        ],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "UEFA Women's Champions League\nReal Madrid\nReal Madrid\nplays\nParis FC\nParis FC\nat\n17:45\n17:45\non\nTue\nthe\n10\nof\nNov",
+        "url": "https://www.bbc.com/sport/football/live/cr89zz7p2894t",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "UEFA Women's Champions League\nInter Milan\nInter Milan\nplays\nMan City\nManchester City\nat\n20:00\n20:00\non\nTue\nthe\n10\nof\nNov",
+        "url": "https://www.bbc.com/sport/football/live/ckz7xxe055lyt",
+        "clubs_mentioned": [
+          "Manchester City"
+        ],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "UEFA Women's Champions League\nParis SG\nParis Saint-Germain\nplays\nBayern Munich\nBayern Munich\nat\n20:00\n20:00\non\nTue\nthe\n10\nof\nNov",
+        "url": "https://www.bbc.com/sport/football/live/cmzxjj8057r9t",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "UEFA Women's Champions League\nRoma\nRoma\nplays\nServette\nServette Chênois\nat\n20:00\n20:00\non\nTue\nthe\n10\nof\nNov",
+        "url": "https://www.bbc.com/sport/football/live/cj0400ney2y7t",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Palace consider replacing Sage, with Frank among contenders",
+        "url": "https://www.bbc.com/sport/football/articles/c623dpeey3e4o",
+        "clubs_mentioned": [
+          "Crystal Palace"
+        ],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Fan injured after falling through hole in stand",
+        "url": "https://www.bbc.com/sport/football/articles/ck0j0x2e49j7o",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": true
+      },
+      {
+        "headline": "Where does Man Utd 4-4 Villa rank among best Premier League games?",
+        "url": "https://www.bbc.com/sport/football/articles/cy47wj05xgqo",
+        "clubs_mentioned": [
+          "Aston Villa",
+          "Manchester United"
+        ],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Who am I? Plus today's other quizzes",
+        "url": "https://www.bbc.com/sport/football/articles/c6ly0w4n7d91o",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Friedel group completes Shrewsbury Town takeover",
+        "url": "https://www.bbc.com/sport/football/articles/c9p8grpdpp2go",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "'Tinkerman' Alonso's Chelsea side still searching for identity",
+        "url": "https://www.bbc.com/sport/football/articles/c5m2ddz437nzo",
+        "clubs_mentioned": [
+          "Chelsea"
+        ],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Fermin double seals Barcelona's comeback win at Atleti",
+        "url": "https://www.bbc.com/sport/football/live/cm4g1jlw7vqlt",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Football Extra newsletter",
+        "url": "https://www.bbc.com/sport/football",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Football in 10 Years - the box set",
+        "url": "https://www.bbc.com/sport/football/articles/c8r45kzeynko",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "How clubs are developing football stars of the future. Video, 00:09:14\nHow clubs are developing football stars of the future",
+        "url": "https://www.bbc.com/sport/football/videos/c87wg8nnwrjo",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "When Hugh met Jacqui met Nedum met Rory... Video, 00:09:57\nWhen Hugh met Jacqui met Nedum met Rory...",
+        "url": "https://www.bbc.com/sport/football/videos/c5y4yq570leo",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "How Wrexham are getting 'Premier League ready' Video, 00:05:20\nHow Wrexham are getting 'Premier League ready'",
+        "url": "https://www.bbc.com/sport/football/videos/c8xykl9974xo",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Inside the stadiums of the future. Video, 00:09:55\nInside the stadiums of the future",
+        "url": "https://www.bbc.com/sport/football/videos/clyve32e7l3o",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Is Newcastle the best away-day in the Premier League? Video, 00:05:08\nIs Newcastle the best away-day in the Premier League?",
+        "url": "https://www.bbc.com/sport/football/videos/cx2gz1zg3ylo",
+        "clubs_mentioned": [
+          "Newcastle United"
+        ],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Grief, love & the Gunners - inside the iconic Arsenal supporters' club. Video, 00:05:59\nGrief, love & the Gunners - inside the iconic Arsenal supporters' club",
+        "url": "https://www.bbc.com/sport/football/videos/cpwvw5xwjwyo",
+        "clubs_mentioned": [
+          "Arsenal"
+        ],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Football in Greenland: The 'toughest' championship in the world? Video, 00:05:59\nFootball in Greenland: The 'toughest' championship in the world?",
+        "url": "https://www.bbc.com/sport/football/videos/c87y0e5l8v2o",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "The stunning football pitches hiding in the Arctic Circle. Video, 00:04:56\nThe stunning football pitches hiding in the Arctic Circle",
+        "url": "https://www.bbc.com/sport/football/videos/c8612q6jdlyo",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Inside the $5bn World Cup stadium in California. Video, 00:02:49\nInside the $5bn World Cup stadium in California",
+        "url": "https://www.bbc.com/sport/football/videos/cpwd35e558eo",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Why time is running out for Milan's iconic San Siro. Video, 00:06:36\nWhy time is running out for Milan's iconic San Siro",
+        "url": "https://www.bbc.com/sport/football/videos/c0q4k74kvy5o",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": true
+      },
+      {
+        "headline": "'My heart was beating so fast' - Kane wins Ballon d'Or. Video, 00:01:34\n'My heart was beating so fast' - Kane wins Ballon d'Or",
+        "url": "https://www.bbc.com/sport/football/videos/cmlyd0008471o",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Ballon d'Or winner Kane explains how his game has evolved. Video, 00:03:31\nBallon d'Or winner Kane explains how his game has evolved",
+        "url": "https://www.bbc.com/sport/football/videos/cwg7xevnyrjpo",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Lawlor delighted after beating 'best team in the country' Video, 00:00:29\nLawlor delighted after beating 'best team in the country'",
+        "url": "https://www.bbc.com/sport/football/videos/cr93z7p02743o",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Squad rotation is a Champions League-winning blueprint. Video, 00:01:20\nSquad rotation is a Champions League-winning blueprint",
+        "url": "https://www.bbc.com/sport/football/videos/c8p3gn7evee6o",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Insight: Must-read football stories",
+        "url": "https://www.bbc.com/sport/football",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "The Unpromotables: Germany's league champions who can't go up",
+        "url": "https://www.bbc.com/sport/football/articles/cmj4jr2vgx0ko",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "The part-timers who won three Wembley finals in a row",
+        "url": "https://www.bbc.com/sport/football/articles/c6y4z21xelk4o",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "A team that offered hope... then, four months later, Hamas attacked Israel",
+        "url": "https://www.bbc.com/sport/football/articles/cp3rl709p7xo",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Arsenal had more than 20 players on shortlist to capitalise on title win",
+        "url": "https://www.bbc.com/sport/football/articles/cz7z09v9pp1o",
+        "clubs_mentioned": [
+          "Arsenal"
+        ],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Life as a Wag in the transfer window",
+        "url": "https://www.bbc.com/sport/football/articles/cx2jpgj24vlo",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "The summer that changed Welsh football",
+        "url": "https://www.bbc.com/sport/football/articles/ced4lq94ldvo",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "'I can't believe he is one of us' - inside Salah's life in Trabzon",
+        "url": "https://www.bbc.com/sport/football/articles/cmwyqzy934lxo",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "'The worst conditions in my 35-year career' - commentating in the FA Cup fog",
+        "url": "https://www.bbc.com/sport/football/articles/cqev3rdvyvm1o",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Tottenham set to complain to Pro Ref after Bogle escapes red card",
+        "url": "https://www.bbc.com/sport/football/articles/c39wz9llg255o",
+        "clubs_mentioned": [
+          "Tottenham Hotspur"
+        ],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "'A beautiful story' as Bellingham brothers called up",
+        "url": "https://www.bbc.com/sport/football/articles/c5x2vvjy2rpeo",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "What new Kane deal means for England and the Premier League record",
+        "url": "https://www.bbc.com/sport/football/articles/cm93zvzzl33zo",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Which game will Chelsea's Palmer miss after red card?",
+        "url": "https://www.bbc.com/sport/football/articles/cm4g1q54pj20o",
+        "clubs_mentioned": [
+          "Chelsea"
+        ],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Who is close to a yellow card suspension in Champions League?",
+        "url": "https://www.bbc.com/sport/football/articles/c54g1vpypgw3o",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Why are some football shin pads so small?",
+        "url": "https://www.bbc.com/sport/football/articles/c8d75jn2057o",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "More Scottish football news",
+        "url": "https://www.bbc.com/sport/football",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "'I believe in my ability' - Robinson's final interview as Aberdeen boss. Video, 00:02:28\n'I believe in my ability' - Robinson's final interview as Aberdeen boss",
+        "url": "https://www.bbc.com/sport/football/videos/cqzjxrwgnlr1o",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": true
+      },
+      {
+        "headline": "Falkirk add goals and grit to McGlynn's guile on rapid rise",
+        "url": "https://www.bbc.com/sport/football/articles/crwyd4q0k8ddo",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Narrow win over Kilmarnock restores Celtic's four-point lead",
+        "url": "https://www.bbc.com/sport/football/live/cw62yj80grvnt",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Watch: Morton stun Stenny, Cove humble Accies & Clyde keep pace. Video\nWatch: Morton stun Stenny, Cove humble Accies & Clyde keep pace",
+        "url": "https://www.bbc.com/sport/football/videos/c6x292y37g59o",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Is there something missing despite Rangers' impressive form?",
+        "url": "https://www.bbc.com/sport/football/articles/c6dxw1k2x4kno",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": true
+      },
+      {
+        "headline": "Every goal from the Women's Super League - matchweek nine. Video, 00:04:27\nEvery goal from the Women's Super League - matchweek nine",
+        "url": "https://www.bbc.com/sport/football/videos/cm4g1g3p2qngo",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Stunning strikes lift London City past Birmingham",
+        "url": "https://www.bbc.com/sport/football/live/cxdd8v7re169t",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Russo scores twice as Arsenal beat Liverpool",
+        "url": "https://www.bbc.com/sport/football/live/ck7vp458npvgt",
+        "clubs_mentioned": [
+          "Arsenal",
+          "Liverpool"
+        ],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Zigiotti Olme strike helps Man Utd to win at Villa",
+        "url": "https://www.bbc.com/sport/football/live/cr5ynedlpwyqt",
+        "clubs_mentioned": [
+          "Aston Villa",
+          "Manchester United"
+        ],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "Tottenham come from behind to beat Brighton",
+        "url": "https://www.bbc.com/sport/football/live/cq62yj80gp8nt",
+        "clubs_mentioned": [
+          "Brighton",
+          "Tottenham Hotspur"
+        ],
+        "injury_or_press_signal": false
+      },
+      {
+        "headline": "All the latest from the Premier League",
+        "url": "https://www.bbc.com/sport/football/premier-league",
+        "clubs_mentioned": [],
+        "injury_or_press_signal": false
+      }
+    ]
+  }
+}

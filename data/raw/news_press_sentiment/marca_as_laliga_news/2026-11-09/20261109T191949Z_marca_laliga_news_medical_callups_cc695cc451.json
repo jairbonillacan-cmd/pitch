@@ -1,0 +1,469 @@
+{
+  "source_id": "marca_as_laliga_news",
+  "source_name": "Marca / Diario AS (Partes Médicos y Onces Probables LaLiga)",
+  "category": "news_press_sentiment",
+  "url": "https://www.marca.com/futbol/primera-division.html",
+  "scrapling_mode": "cli_ai_targeted",
+  "captured_at_utc": "2026-11-09T19:19:49Z",
+  "sha256": "cc695cc451fa149bf83bb4f678e4369a553983478b55ea2bdc27a818c671de39",
+  "meta": {
+    "record_count": 49,
+    "cli_markdown_path": "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\data\\raw\\news_press_sentiment\\marca_as_laliga_news\\2026-11-09\\marca_laliga_ai_targeted.md",
+    "cli_markdown_chars": 54728
+  },
+  "payload": {
+    "captured_at_utc": "2026-11-09T19:19:49Z",
+    "source_url": "https://www.marca.com/futbol/primera-division.html",
+    "cli_markdown_file": "marca_laliga_ai_targeted.md",
+    "cli_markdown_char_length": 54728,
+    "cli_markdown_excerpt": "![]()\n\n* Es noticia:\n* [F1](https://www.marca.com/motor/formula1/2026/11/08/05_0501_20261108_20_1-directo.html)\n* [Atlético - Barcelona](https://www.marca.com/futbol/laliga-ea-sports/atletico-barcelona/2026/11/08/01_0101_20261108_175_178-directo.html)\n* [MotoGP](https://www.marca.com/motor/motogp/2026/11/08/05_0502_20261108_20_1-directo.html)\n* [Celta - Levante](https://www.marca.com/futbol/laliga-ea-sports/celta-levante/2026/11/08/01_0101_20261108_176_855-directo.html)\n* [Villarreal - Getafe](https://www.marca.com/futbol/laliga-ea-sports/villarreal-getafe/2026/11/08/01_0101_20261108_449_1450-directo.html)\n* [Real Madrid - UCAM Murcia](https://www.marca.com/baloncesto/liga-endesa/real-madrid-ucam-murcia/2026/11/08/02_0201_20261108_6210_6232-directo.html)\n* [Girona - Almería](https://www.marca.com/futbol/laliga-hypermotion/girona-almeria/2026/11/08/01_0102_20261108_2893_1564-directo.html)\n* [Falcons - Bengals](https://www.marca.com/nfl/atlanta-falcons-cincinnati-bengals/2026/11/08/08_0801_20261108_9956_9936-directo.html)\n* [Clasificación MotoGP](https://www.marca.com/motor/motogp/gp-qatar/2026/11/08/asi-queda-clasificacion-motogp-2026-qatar-marc-marquez-elimina-virtualmente-bezzecchi.html)\n* [Marc Márquez](https://www.marca.com/motor/motogp/gp-qatar/2026/11/08/bezzecchi-jorge-martin-aplazan-titulo-gran-marc-marquez.html)\n* [MotoGP hora](https://www.marca.com/motor/motogp/gp-qatar/2026/11/08/hora-carrera-motogp-qatar-horario-ver-hoy-tv-marc-marquez.html)\n* [Ranking ATP](https://www.marca.com/tenis/masters-1000-paris/2026/11/09/asi-queda-ranking-atp-alcaraz-queda-2-000-puntos-sinner.html?activate-overlay=true)\n* [Avion China](https://www.marca.com/tecnologia/2026/11/09/china-construye-primer-prototipo-avion-electrico-19-plazas-alcance-500-km-velocidad-402-km-h.html?activate-overlay=true)\n* [Precio luz hoy](https://www.marca.com/tiramillas/economia/2026/11/08/precio-luz-horas-manana-lunes-9-noviembre-cuando-mas-barata-mas-cara-dia.html)\n* [Fútbol hoy](https://www.marca.com/resultados/futbol.html)\n\n[Portada de Marca](https://www.marca.com)\n\nEdición seleccionada\nEspaña\n\n* [Hazte socio de CLUB MARCA](https://www.marca.com/club-marca.html)\n* [Iniciar sesión](# \"Login\")\n\n* [Fútbol](https://www.marca.com/futbol.html)\n* [Baloncesto](https://www.marca.com/baloncesto.html)\n* [Motor](https://www.marca.com/motor.html)\n* [Polideportivo](https://www.marca.com/polideportivo.html)\n* [Coches](https://www.marca.com/coches-y-motos.html)\n* + [Última hora](https://www.marca.com/u",
+    "articles_count": 49,
+    "articles": [
+      {
+        "headline": "Varapalo para el Málaga: Rafita estará al menos tres meses de baja",
+        "url": "https://www.marca.com/futbol/malaga/2026/11/09/varapalo-malaga-rafita-estara-tres-meses-baja.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [],
+        "medical_report_signal": true,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "El Athletic asegura su columna vertebral del futuro",
+        "url": "https://www.marca.com/futbol/athletic/2026/11/09/athletic-asegura-columna-vertebral-futuro.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [
+          "Athletic Club"
+        ],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "Carlos Romero y un gol para reencontrarse",
+        "url": "https://www.marca.com/futbol/villarreal/2026/11/09/carlos-romero-gol-reencontrarse.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "El Athletic blinda a Iker Monreal hasta 2029",
+        "url": "https://www.marca.com/futbol/athletic/2026/11/09/athletic-blinda-iker-monreal-2029.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [
+          "Athletic Club"
+        ],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "Adrián Niño, un sobresaliente premiado por LaLiga en un Málaga suspenso",
+        "url": "https://www.marca.com/futbol/malaga/2026/11/09/adrian-nino-sobresaliente-premiado-laliga-malaga-suspenso.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "El Elche se mira en el espejo del Levante",
+        "url": "https://www.marca.com/futbol/elche/2026/11/09/elche-mira-espejo-levante.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [
+          "Valencia"
+        ],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "Sivera se doctora bajo los once metros",
+        "url": "https://www.marca.com/futbol/alaves/2026/11/09/sivera-doctora-once-metros.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": true
+      },
+      {
+        "headline": "Bretos da cariño a Remiro mientras negocian",
+        "url": "https://www.marca.com/futbol/real-sociedad/2026/11/09/bretos-da-carino-remiro-negocian.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "\"No ha habido efecto Aguirre, se me agotan las palabras para justificar lo injustificable\"",
+        "url": "https://www.marca.com/futbol/valencia/2026/11/09/habido-efecto-aguirre-me-agotan-palabras-justificar-injustificable.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "El Málaga apuesta por Funes y un análisis profundo",
+        "url": "https://www.marca.com/futbol/malaga/2026/11/09/malaga-apuesta-funes-analisis-profundo.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "El Barça sufre daños con laterales",
+        "url": "https://www.marca.com/futbol/barcelona/2026/11/09/barca-sufre-danos-laterales.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [
+          "Barcelona"
+        ],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "El Levante estalla contra los horarios de LaLiga: \"Es un agravio que no podemos ni debemos normalizar\"",
+        "url": "https://www.marca.com/futbol/levante/2026/11/09/levante-estalla-horarios-laliga-agravio-debemos-normalizar.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "El Valencia sigue dependiendo de los traspasos en unas cuentas que aún no incluyen los 100 millones de Pitchwise",
+        "url": "https://www.marca.com/futbol/valencia/2026/11/09/valencia-sigue-dependiendo-traspasos-cuentas-aun-incluyen-100-millones-pitchwise.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [
+          "Valencia"
+        ],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "La Real gana por fin sin Oyarzabal",
+        "url": "https://www.marca.com/futbol/real-sociedad/2026/11/09/real-gana-oyarzabal.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "Óskarsson se hace importante en la Real",
+        "url": "https://www.marca.com/futbol/real-sociedad/2026/11/08/oskarsson-importante-real.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "El cambio de Jozhua y una enfermería que no para de llenarse",
+        "url": "https://www.marca.com/futbol/rayo/2026/11/09/cambio-jozhua-enfermeria-llenarse.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "El Real Madrid lleva su masa salarial a máximos históricos: 707 millones",
+        "url": "https://www.marca.com/sport-business/2playbook/2026/11/09/real-madrid-lleva-masa-salarial-maximos-historicos-707-millones.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [
+          "Real Madrid"
+        ],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "'Pichichi' Bartra firma los mejores registros goleadores de su carrera",
+        "url": "https://www.marca.com/futbol/betis/2026/11/09/pichichi-bartra-firma-mejores-registros-goleadores-carrera.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "El Sevilla afronta el parón con la necesidad de resetear",
+        "url": "https://www.marca.com/futbol/sevilla/2026/11/09/sevilla-afronta-paron-necesidad-resetear.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [
+          "Sevilla"
+        ],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "San Fermín en noviembre",
+        "url": "https://www.marca.com/futbol/primera-division/opinion/2026/11/09/san-fermin-noviembre.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "Baena: \"Julián ha hecho un gran partido\"",
+        "url": "https://www.marca.com/futbol/atletico/2026/11/09/baena-julian-hecho-gran-partido.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "Atlético - Barcelona: resumen, resultado y goles del partido de LaLiga EA Sports",
+        "url": "https://www.marca.com/futbol/laliga-ea-sports/atletico-barcelona/2026/11/08/01_0101_20261108_175_178-directo.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [
+          "Barcelona",
+          "Atlético de Madrid"
+        ],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "El emotivo mensaje de Iris Mel a su padre: \"Sé que vas a volver conmigo\"",
+        "url": "https://www.marca.com/futbol/2026/11/08/emotivo-mensaje-iris-mel-padre-vas-volver.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "Las verdades de Frenkie de Jong",
+        "url": "https://www.marca.com/futbol/barcelona/opinion/2026/11/08/verdades-frenkie-jong.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "Fermín deja las cosas en su sitio",
+        "url": "https://www.marca.com/futbol/primera-division/cronica/2026/11/08/fermin-deja-cosas-sitio.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "En blanco lejos de casa",
+        "url": "https://www.marca.com/futbol/getafe/2026/11/08/blanco-lejos-casa.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "Las mejores imágenes del Atlético - Barcelona en el Metropolitano",
+        "url": "https://www.marca.com/futbol/primera-division/album/2026/11/08/mejores-imagenes-atletico-barcelona-metropolitano.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [
+          "Barcelona",
+          "Atlético de Madrid"
+        ],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "Giráldez: \"Hemos hecho una burrada de partido, una exhibición\"",
+        "url": "https://www.marca.com/futbol/celta/2026/11/08/giraldez-hemos-hecho-burrada-partido-exhibicion.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "Iñigo Pérez: “Es para elogiara la paciencia que ha tenido el equipo”",
+        "url": "https://www.marca.com/futbol/villarreal/2026/11/08/inigo-perez-elogiara-paciencia-tenido-equipo.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "Luís Castro: \"Es bueno salir del descenso, aunque lo importante es al final\"",
+        "url": "https://www.marca.com/futbol/levante/2026/11/08/luis-castro-bueno-salir-descenso-importante-final.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "Bordalás: “Tenemos que hacer una reflexión profunda, no podemos seguir así”",
+        "url": "https://www.marca.com/futbol/getafe/2026/11/08/bordalas-reflexion-profunda-seguir-asi.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [
+          "Getafe"
+        ],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "Íñigo le debe un café a Buchanan",
+        "url": "https://www.marca.com/futbol/primera-division/cronica/2026/11/08/inigo-le-debe-cafe-buchanan.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "Carvajal: “Tenemos que espabilar lejos del Coliseum”",
+        "url": "https://www.marca.com/futbol/getafe/2026/11/08/carvajal-espabilar-lejos-coliseum.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [
+          "Getafe"
+        ],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "El Villarreal se hace milenario con una victoria",
+        "url": "https://www.marca.com/futbol/villarreal/2026/11/08/villarreal-milenario-victoria.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [
+          "Villarreal"
+        ],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "Villarreal - Getafe: resumen, resultado y goles",
+        "url": "https://www.marca.com/futbol/laliga-ea-sports/villarreal-getafe/2026/11/08/01_0101_20261108_449_1450-directo.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [
+          "Villarreal",
+          "Getafe"
+        ],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "Ryan impone la 'ley seca' en Balaídos",
+        "url": "https://www.marca.com/futbol/primera-division/cronica/2026/11/08/ryan-impone-ley-seca-balaidos.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [
+          "Celta de Vigo"
+        ],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "Uno a uno del Barcelona vs Atlético: Fermín siempre tiene hambre",
+        "url": "https://www.marca.com/futbol/barcelona/2026/11/08/barcelona-vs-atletico-valoracion-comentarios.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [
+          "Barcelona",
+          "Atlético de Madrid"
+        ],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "Matarazzo: \"Ganar sufriendo también forma parte del fútbol\"",
+        "url": "https://www.marca.com/futbol/real-sociedad/2026/11/08/matarazzo-ganar-sufriendo-tambien-forma-parte-futbol.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "Beñat San José: \"Nos duele irnos de vacío\"",
+        "url": "https://www.marca.com/futbol/rayo/2026/11/08/benat-san-jose-duele-irnos-vacio.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "De Frutos: \"Lo que tenemos que hacer es mejorar de cara a gol\"",
+        "url": "https://www.marca.com/futbol/rayo/2026/11/08/frutos-mejorar-cara-gol.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "Óskarsson no defrauda y derrota al Rayo",
+        "url": "https://www.marca.com/futbol/primera-division/cronica/2026/11/08/oskarsson-defrauda-derrota-rayo.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [
+          "Rayo Vallecano"
+        ],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "Real Sociedad 1-0 Rayo Vallecano | Resumen",
+        "url": "https://www.marca.com/futbol/primera-division/2026/11/08/real-sociedad-1-0-rayo-vallecano-resumen-video.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [
+          "Real Sociedad",
+          "Rayo Vallecano"
+        ],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "Maffeo se disculpa tras su polémica entrevista al descanso ante el Real Madrid: \"Estaba muy caliente\"",
+        "url": "https://www.marca.com/futbol/valencia/2026/11/08/maffeo-disculpa-polemica-entrevista-descanso-real-madrid-caliente.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [
+          "Real Madrid"
+        ],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "Real Sociedad - Rayo: resumen, resultado y goles del partido de LALIGA EA Sports",
+        "url": "https://www.marca.com/futbol/laliga-ea-sports/real-sociedad-rayo/2026/11/08/01_0101_20261108_188_184-directo.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [
+          "Real Sociedad",
+          "Rayo Vallecano"
+        ],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "A qué hora es el Celta - Levante: horario y dónde ver hoy en TV y online el partido de LaLiga EA Sports",
+        "url": "https://www.marca.com/futbol/primera-division/2026/11/08/hora-celta-levante-horario-ver-hoy-tv-online-partido-laliga-ea-sports.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [
+          "Celta de Vigo"
+        ],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "Pellegrini: \"Este era un partido para equipo grande\"",
+        "url": "https://www.marca.com/futbol/betis/2026/11/08/pellegrini-partido-equipo-grande.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [
+          "Real Betis"
+        ],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "A qué hora es el Villarreal - Getafe: horario, dónde ver hoy en TV y canal del partido de LaLiga EA Sports",
+        "url": "https://www.marca.com/futbol/primera-division/2026/11/06/villarreal-getafe-horario-donde-ver-hoy-en-tv-y-canal-del-partido-de-laliga-ea-sports.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [
+          "Villarreal",
+          "Getafe"
+        ],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "Isco, tras la victoria en Elche: \"No tenemos que jugar tan acelerados\"",
+        "url": "https://www.marca.com/futbol/betis/2026/11/08/isco-victoria-elche-jugar-acelerados.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [
+          "Valencia"
+        ],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      },
+      {
+        "headline": "Anselmi: “Siento mucha bronca por no ganar, hicimos todo para hacerlo”",
+        "url": "https://www.marca.com/futbol/elche/2026/11/08/anselmi-siento-bronca-ganar-hicimos-hacerlo.html",
+        "published_at_utc": "2026-11-09T19:19:49Z",
+        "clubs_mentioned": [],
+        "medical_report_signal": false,
+        "squad_callup_or_lineup_signal": false
+      }
+    ]
+  }
+}

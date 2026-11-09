@@ -1,0 +1,339 @@
+{
+  "source_id": "profootballtalk_nfl_news",
+  "source_name": "ProFootballTalk (NBC) & NFL.com Beat Reports",
+  "category": "news_press_sentiment",
+  "url": "https://www.nbcsports.com/nfl/profootballtalk",
+  "scrapling_mode": "cli_ai_targeted",
+  "captured_at_utc": "2026-11-09T19:19:55Z",
+  "sha256": "285972b6844b8229793e3380ad7c235b389c7e4aa82a04abd1f93637980bc346",
+  "meta": {
+    "record_count": 34,
+    "cli_markdown_path": "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\data\\raw\\news_press_sentiment\\profootballtalk_nfl_news\\2026-11-09\\profootballtalk_nfl_ai_targeted.md",
+    "cli_markdown_chars": 97529
+  },
+  "payload": {
+    "captured_at_utc": "2026-11-09T19:19:55Z",
+    "source_url": "https://www.nbcsports.com/nfl/profootballtalk",
+    "cli_markdown_file": "profootballtalk_nfl_ai_targeted.md",
+    "cli_markdown_char_length": 97529,
+    "cli_markdown_excerpt": "[Skip navigation](#Page-content)\n\n[![PFT-logo.png](https://nbcsports.brightspotcdn.com/dims4/default/f2fcd96/2147483647/strip/true/crop/1029x400+0+0/resize/400x155!/quality/90/?url=https%3A%2F%2Fnbc-sports-production-nbc-sports.s3.us-east-1.amazonaws.com%2Fbrightspot%2Fe9%2F91%2Ff66679574a648b889aa492dda9aa%2Fpft.png)](https://www.nbcsports.com/nfl/profootballtalk)\n\nSearch Query\n\nSubmit Search\n\n[Pro Football Talk](https://www.nbcsports.com/nfl/profootballtalk)\n\n[Rumor Mill](https://www.nbcsports.com/nfl/profootballtalk/rumor-mill)\n\n[PFT Video](https://www.nbcsports.com/watch/pft-videos)\n\n[PFT PM](https://www.nbcsports.com/nfl/profootballtalk/pft-pm)\n\n[PFT Live](https://www.nbcsports.com/nfl/profootballtalk/pft-live)\n\n### PFT Clips\n\n[![nbc_pft_bengalsV2_261109.jpg](https://nbcsports.brightspotcdn.com/dims4/default/990c6b1/2147483647/strip/true/crop/1080x1080+420+0/resize/64x64!/quality/90/?url=https%3A%2F%2Fhdliveextra-a.akamaihd.net%2FHD%2Fimage_sports%2FNBCU_Sports_Group_-_nbcsports%2F38%2F307%2Fnbc_pft_bengalsV2_261109.jpg)](https://www.nbcsports.com/watch/nfl/profootballtalk/joe-burrow-cincinnati-bengals-offense-unstoppable-again-to-beat-falcons)\n\n[Burrow, Bengals offense unstoppable once more](https://www.nbcsports.com/watch/nfl/profootballtalk/joe-burrow-cincinnati-bengals-offense-unstoppable-again-to-beat-falcons)\n\n[![bowles_new.jpg](https://nbcsports.brightspotcdn.com/dims4/default/e5c8fe0/2147483647/strip/true/crop/1080x1080+420+0/resize/64x64!/quality/90/?url=https%3A%2F%2Fhdliveextra-a.akamaihd.net%2FHD%2Fimage_sports%2FNBCU_Sports_Group_-_nbcsports%2F35%2F379%2Fbowles_new.jpg)](https://www.nbcsports.com/watch/nfl/profootballtalk/debating-todd-bowles-decision-to-kick-a-field-goal-at-end-of-first-half)\n\n[Debating Bowles’ decision to kick FG to end half](https://www.nbcsports.com/watch/nfl/profootballtalk/debating-todd-bowles-decision-to-kick-a-field-goal-at-end-of-first-half)\n\n[![nbc_pft_jessebatestrade_261109.jpg](https://nbcsports.brightspotcdn.com/dims4/default/cadf7ec/2147483647/strip/true/crop/1080x1080+420+0/resize/64x64!/quality/90/?url=https%3A%2F%2Fhdliveextra-a.akamaihd.net%2FHD%2Fimage_sports%2FNBCU_Sports_Group_-_nbcsports%2F35%2F379%2Fnbc_pft_jessebatestrade_261109.jpg)](https://www.nbcsports.com/watch/nfl/profootballtalk/how-jessie-bates-iii-trade-impacts-jacksonville-jaguars-title-chances)\n\n[What Bates III trade means for Jaguars](https://www.nbcsports.com/watch/nfl/profootballtalk/how-jessie-bates-iii-trade-impacts-jacksonville-jag",
+    "reports_count": 34,
+    "reports": [
+      {
+        "headline": "Burrow, Bengals offense unstoppable once more",
+        "url": "https://www.nbcsports.com/watch/nfl/profootballtalk/joe-burrow-cincinnati-bengals-offense-unstoppable-again-to-beat-falcons",
+        "published_at_utc": "2026-11-09T19:19:55Z",
+        "teams_mentioned": [
+          "Cincinnati Bengals"
+        ],
+        "injury_or_snap_limit_signal": false,
+        "coach_or_coordinator_signal": false
+      },
+      {
+        "headline": "Debating Bowles’ decision to kick FG to end half",
+        "url": "https://www.nbcsports.com/watch/nfl/profootballtalk/debating-todd-bowles-decision-to-kick-a-field-goal-at-end-of-first-half",
+        "published_at_utc": "2026-11-09T19:19:55Z",
+        "teams_mentioned": [
+          "Tampa Bay Buccaneers"
+        ],
+        "injury_or_snap_limit_signal": false,
+        "coach_or_coordinator_signal": false
+      },
+      {
+        "headline": "What Bates III trade means for Jaguars",
+        "url": "https://www.nbcsports.com/watch/nfl/profootballtalk/how-jessie-bates-iii-trade-impacts-jacksonville-jaguars-title-chances",
+        "published_at_utc": "2026-11-09T19:19:55Z",
+        "teams_mentioned": [
+          "Jacksonville Jaguars"
+        ],
+        "injury_or_snap_limit_signal": false,
+        "coach_or_coordinator_signal": false
+      },
+      {
+        "headline": "In Broncos-Panthers, replay was used to determine whether replay should be used",
+        "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/in-broncos-panthers-replay-was-used-to-determine-whether-replay-should-be-used",
+        "published_at_utc": "2026-11-09T19:19:55Z",
+        "teams_mentioned": [
+          "Carolina Panthers",
+          "Denver Broncos"
+        ],
+        "injury_or_snap_limit_signal": false,
+        "coach_or_coordinator_signal": false
+      },
+      {
+        "headline": "Brandon Aiyuk plans to meet with 49ers at team’s business offices, not team facility",
+        "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/brandon-aiyuk-plans-to-meet-with-49ers-at-teams-business-offices-not-team-facility",
+        "published_at_utc": "2026-11-09T19:19:55Z",
+        "teams_mentioned": [
+          "San Francisco 49ers"
+        ],
+        "injury_or_snap_limit_signal": false,
+        "coach_or_coordinator_signal": false
+      },
+      {
+        "headline": "Christian Watson, Matthew Golden are delivering for the Packers",
+        "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/christian-watson-matthew-golden-are-delivering-for-the-packers",
+        "published_at_utc": "2026-11-09T19:19:55Z",
+        "teams_mentioned": [
+          "Green Bay Packers"
+        ],
+        "injury_or_snap_limit_signal": false,
+        "coach_or_coordinator_signal": false
+      },
+      {
+        "headline": "Andy Reid: Patrick Mahomes day-to-day with elbow injury",
+        "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/andy-reid-patrick-mahomes-day-to-day-with-elbow-injury",
+        "published_at_utc": "2026-11-09T19:19:55Z",
+        "teams_mentioned": [
+          "Kansas City Chiefs"
+        ],
+        "injury_or_snap_limit_signal": true,
+        "coach_or_coordinator_signal": false
+      },
+      {
+        "headline": "Greg Olsen accuses media of putting “words in my mouth” about Malik Nabers",
+        "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/greg-olsen-accuses-media-of-putting-words-in-my-mouth-about-malik-nabers",
+        "published_at_utc": "2026-11-09T19:19:55Z",
+        "teams_mentioned": [],
+        "injury_or_snap_limit_signal": true,
+        "coach_or_coordinator_signal": false
+      },
+      {
+        "headline": "Lions agree to acquire S Andre Cisco from Jets",
+        "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/lions-agree-to-acquire-s-andre-cisco-from-jets",
+        "published_at_utc": "2026-11-09T19:19:55Z",
+        "teams_mentioned": [
+          "Detroit Lions",
+          "New York Jets"
+        ],
+        "injury_or_snap_limit_signal": true,
+        "coach_or_coordinator_signal": false
+      },
+      {
+        "headline": "Report: Saints agree to trade DT Davon Godchaux to Jaguars",
+        "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-saints-agree-to-trade-dt-davon-godchaux-to-jaguars",
+        "published_at_utc": "2026-11-09T19:19:55Z",
+        "teams_mentioned": [
+          "Jacksonville Jaguars",
+          "New Orleans Saints"
+        ],
+        "injury_or_snap_limit_signal": false,
+        "coach_or_coordinator_signal": false
+      },
+      {
+        "headline": "NFL moves Jaguars-Giants game in Week 11 to a 4:25 p.m. ET kickoff",
+        "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/nfl-moves-jaguars-giants-game-in-week-11-to-a-4-25-p-m-et-kickoff",
+        "published_at_utc": "2026-11-09T19:19:55Z",
+        "teams_mentioned": [
+          "Jacksonville Jaguars",
+          "New York Giants"
+        ],
+        "injury_or_snap_limit_signal": false,
+        "coach_or_coordinator_signal": false
+      },
+      {
+        "headline": "Tom Brady: “There was some deli meat given out by Drake Maye today”",
+        "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/tom-brady-there-was-some-deli-meat-given-out-by-drake-maye-today",
+        "published_at_utc": "2026-11-09T19:19:55Z",
+        "teams_mentioned": [
+          "New England Patriots"
+        ],
+        "injury_or_snap_limit_signal": true,
+        "coach_or_coordinator_signal": false
+      },
+      {
+        "headline": "Sam Darnold ruled out for Week 10, Drew Lock in line to start",
+        "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/sam-darnold-ruled-out-for-week-10-drew-lock-in-line-to-start",
+        "published_at_utc": "2026-11-09T19:19:55Z",
+        "teams_mentioned": [],
+        "injury_or_snap_limit_signal": true,
+        "coach_or_coordinator_signal": false
+      },
+      {
+        "headline": "BANG IT HERE\nFOR THE LATEST NEWS AND RUMORS!",
+        "url": "/nfl/profootballtalk/rumor-mill",
+        "published_at_utc": "2026-11-09T19:19:55Z",
+        "teams_mentioned": [],
+        "injury_or_snap_limit_signal": false,
+        "coach_or_coordinator_signal": false
+      },
+      {
+        "headline": "Quarterback of the Future",
+        "url": "https://www.nbcsports.com/nfl/profootballtalk/quarterback-of-the-future",
+        "published_at_utc": "2026-11-09T19:19:55Z",
+        "teams_mentioned": [],
+        "injury_or_snap_limit_signal": false,
+        "coach_or_coordinator_signal": false
+      },
+      {
+        "headline": "Lions win despite Goff’s ‘worst’ game of season",
+        "url": "https://www.nbcsports.com/watch/nfl/profootballtalk/pft-pm/lions-defeat-dolphins-in-week-9-despite-jared-goffs-worst-game-of-season",
+        "published_at_utc": "2026-11-09T19:19:55Z",
+        "teams_mentioned": [
+          "Detroit Lions"
+        ],
+        "injury_or_snap_limit_signal": false,
+        "coach_or_coordinator_signal": false
+      },
+      {
+        "headline": "2026 NFL Trade Deadline live updates: Tracker, deals, news, rumors, analysis",
+        "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/2026-nfl-trade-deadline-live-updates-tracker-deals-news-rumors-analysis",
+        "published_at_utc": "2026-11-09T19:19:55Z",
+        "teams_mentioned": [],
+        "injury_or_snap_limit_signal": false,
+        "coach_or_coordinator_signal": false
+      },
+      {
+        "headline": "PFT’s Week 9 2026 NFL picks",
+        "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/pfts-week-9-2026-nfl-picks",
+        "published_at_utc": "2026-11-09T19:19:55Z",
+        "teams_mentioned": [],
+        "injury_or_snap_limit_signal": false,
+        "coach_or_coordinator_signal": false
+      },
+      {
+        "headline": "2026 season could highlight the unfairness of the eight-division structure",
+        "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/2026-season-could-highlight-the-unfairness-of-the-eight-division-structure",
+        "published_at_utc": "2026-11-09T19:19:55Z",
+        "teams_mentioned": [],
+        "injury_or_snap_limit_signal": true,
+        "coach_or_coordinator_signal": false
+      },
+      {
+        "headline": "PFT’s Week 9 2026 NFL power rankings",
+        "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/pfts-week-9-2026-nfl-power-rankings",
+        "published_at_utc": "2026-11-09T19:19:55Z",
+        "teams_mentioned": [],
+        "injury_or_snap_limit_signal": false,
+        "coach_or_coordinator_signal": false
+      },
+      {
+        "headline": "PFT’s Week 8 2026 NFL picks",
+        "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/pfts-week-8-2026-nfl-picks",
+        "published_at_utc": "2026-11-09T19:19:55Z",
+        "teams_mentioned": [],
+        "injury_or_snap_limit_signal": false,
+        "coach_or_coordinator_signal": false
+      },
+      {
+        "headline": "PFT’s Week 8 NFL 2026 power rankings",
+        "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/pfts-week-8-nfl-2026-power-rankings",
+        "published_at_utc": "2026-11-09T19:19:55Z",
+        "teams_mentioned": [],
+        "injury_or_snap_limit_signal": false,
+        "coach_or_coordinator_signal": false
+      },
+      {
+        "headline": "Mike Vrabel’s clock management included an intentional offside penalty",
+        "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/mike-vrabels-clock-management-included-an-intentional-offside-penalty",
+        "published_at_utc": "2026-11-09T19:19:55Z",
+        "teams_mentioned": [],
+        "injury_or_snap_limit_signal": false,
+        "coach_or_coordinator_signal": false
+      },
+      {
+        "headline": "PFT’s Week 7 2026 NFL picks",
+        "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/pfts-week-7-2026-nfl-picks",
+        "published_at_utc": "2026-11-09T19:19:55Z",
+        "teams_mentioned": [],
+        "injury_or_snap_limit_signal": false,
+        "coach_or_coordinator_signal": false
+      },
+      {
+        "headline": "PFT’s Week 7 2026 NFL power rankings",
+        "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/pfts-week-7-2026-nfl-power-rankings",
+        "published_at_utc": "2026-11-09T19:19:55Z",
+        "teams_mentioned": [],
+        "injury_or_snap_limit_signal": false,
+        "coach_or_coordinator_signal": false
+      },
+      {
+        "headline": "Last time the Chargers were 0-6, their QBs were Ryan Leaf, Moses Moreno and Jim Harbaugh",
+        "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/last-time-the-chargers-were-0-6-their-qbs-were-ryan-leaf-moses-moreno-and-jim-harbaugh",
+        "published_at_utc": "2026-11-09T19:19:55Z",
+        "teams_mentioned": [
+          "Los Angeles Chargers"
+        ],
+        "injury_or_snap_limit_signal": true,
+        "coach_or_coordinator_signal": false
+      },
+      {
+        "headline": "John Harbaugh says it “looks like” QB J.J. McCarthy (hip) will be able to play on Thursday",
+        "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/john-harbaugh-says-it-looks-like-qb-j-j-mccarthy-hip-will-be-able-to-play-on-thursday",
+        "published_at_utc": "2026-11-09T19:19:55Z",
+        "teams_mentioned": [
+          "Los Angeles Chargers"
+        ],
+        "injury_or_snap_limit_signal": false,
+        "coach_or_coordinator_signal": false
+      },
+      {
+        "headline": "Giants expect Cam Skattebo to play on Thursday night",
+        "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/giants-expect-cam-skattebo-to-play-on-thursday-night",
+        "published_at_utc": "2026-11-09T19:19:55Z",
+        "teams_mentioned": [
+          "New York Giants"
+        ],
+        "injury_or_snap_limit_signal": false,
+        "coach_or_coordinator_signal": false
+      },
+      {
+        "headline": "Maxx Crosby on trade deadline: I expect to play for the Raiders",
+        "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/maxx-crosby-on-trade-deadline-i-expect-to-play-for-the-raiders",
+        "published_at_utc": "2026-11-09T19:19:55Z",
+        "teams_mentioned": [
+          "Las Vegas Raiders"
+        ],
+        "injury_or_snap_limit_signal": false,
+        "coach_or_coordinator_signal": false
+      },
+      {
+        "headline": "Report: Browns to start Deshaun Watson against Texans",
+        "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/report-browns-to-start-deshaun-watson-against-texans",
+        "published_at_utc": "2026-11-09T19:19:55Z",
+        "teams_mentioned": [
+          "Cleveland Browns",
+          "Houston Texans"
+        ],
+        "injury_or_snap_limit_signal": false,
+        "coach_or_coordinator_signal": false
+      },
+      {
+        "headline": "Patriots don’t expect Ben Brown to play in Week 10, waiting for Rhamondre Stevenson MRI results",
+        "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/patriots-dont-expect-ben-brown-to-play-in-week-10-waiting-for-rhamondre-stevenson-mri-results",
+        "published_at_utc": "2026-11-09T19:19:55Z",
+        "teams_mentioned": [
+          "New England Patriots"
+        ],
+        "injury_or_snap_limit_signal": false,
+        "coach_or_coordinator_signal": false
+      },
+      {
+        "headline": "Jaguars announce Jessie Bates trade",
+        "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/jaguars-announce-jessie-bates-trade",
+        "published_at_utc": "2026-11-09T19:19:55Z",
+        "teams_mentioned": [
+          "Jacksonville Jaguars"
+        ],
+        "injury_or_snap_limit_signal": false,
+        "coach_or_coordinator_signal": false
+      },
+      {
+        "headline": "Ben Johnson benched Zavion Thomas after 15-yard penalty",
+        "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/ben-johnson-benched-zavion-thomas-after-15-yard-penalty",
+        "published_at_utc": "2026-11-09T19:19:55Z",
+        "teams_mentioned": [],
+        "injury_or_snap_limit_signal": false,
+        "coach_or_coordinator_signal": true
+      },
+      {
+        "headline": "ESPN, CFP strike deal to expand college playoff to 24 teams",
+        "url": "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/espn-cfp-strike-deal-to-expand-college-playoff-to-24-teams",
+        "published_at_utc": "2026-11-09T19:19:55Z",
+        "teams_mentioned": [],
+        "injury_or_snap_limit_signal": false,
+        "coach_or_coordinator_signal": false
+      }
+    ]
+  }
+}

@@ -1,0 +1,905 @@
+{
+  "source_id": "oddsportal_oddschecker",
+  "source_name": "OddsPortal / Oddschecker",
+  "category": "odds_casinos",
+  "url": "https://www.oddsportal.com/football/mexico/liga-mx/",
+  "scrapling_mode": "network_recorder",
+  "captured_at_utc": "2026-11-09T19:20:54Z",
+  "sha256": "c47e00e029dace8ed72390a03e4a8f780455453c05483f7da442e43a3c373881",
+  "meta": {
+    "pages_visited": 2,
+    "matches_extracted": 79,
+    "odds_tokens_extracted": 153,
+    "network_xhr_captured": 35,
+    "total_records": 267
+  },
+  "payload": {
+    "source": "oddsportal_oddschecker",
+    "target_urls": [
+      "https://www.oddsportal.com/football/mexico/liga-mx/",
+      "https://www.oddschecker.com/football"
+    ],
+    "summary": {
+      "pages_visited": 2,
+      "matches_extracted": 79,
+      "odds_tokens_extracted": 153,
+      "network_xhr_captured": 35,
+      "total_records": 267
+    },
+    "pages": [
+      {
+        "url": "https://www.oddsportal.com/football/mexico/liga-mx/",
+        "status": 200,
+        "title": "Comparación de Cuotas y Cuotas de fútbol de Hoy | CuotasAhora",
+        "match_links_count": 190,
+        "odds_tokens_count": 150,
+        "odds_tokens_sample": [
+          "1.60",
+          "4.50",
+          "5.40",
+          "1.89",
+          "3.80",
+          "3.70",
+          "2.18",
+          "3.22",
+          "3.22",
+          "1.34",
+          "5.35",
+          "5.67",
+          "1.57",
+          "4.77",
+          "3.78",
+          "6.60",
+          "5.33",
+          "1.35",
+          "1.85",
+          "3.80",
+          "3.95",
+          "1.60",
+          "3.60",
+          "5.70",
+          "2.70",
+          "3.25",
+          "2.56",
+          "1.85",
+          "3.25",
+          "4.22",
+          "1.08",
+          "11.00",
+          "21.00",
+          "1.03",
+          "13.60",
+          "26.00",
+          "1.57",
+          "4.10",
+          "5.62",
+          "1.63",
+          "3.82",
+          "5.10",
+          "1.79",
+          "3.83",
+          "4.50",
+          "1.88",
+          "3.75",
+          "4.20",
+          "1.32",
+          "4.68"
+        ],
+        "vue_components_count": 0,
+        "vue_components_sample": []
+      },
+      {
+        "url": "https://www.oddschecker.com/football",
+        "status": 200,
+        "title": "Football Odds & Football Betting for Todays Matches",
+        "match_links_count": 19,
+        "odds_tokens_count": 3,
+        "odds_tokens_sample": [
+          "15/8",
+          "6/4",
+          "11/2"
+        ],
+        "vue_components_count": 0,
+        "vue_components_sample": []
+      }
+    ],
+    "matches": [
+      {
+        "label": "Resultados archivados",
+        "href": "/results/football/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Clasificación",
+        "href": "/standings/football/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Resultados archivados",
+        "href": "/results/football/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Clasificación",
+        "href": "/standings/football/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Resultados archivados",
+        "href": "/results/football/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Clasificación",
+        "href": "/standings/football/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "fútbol",
+        "href": "/football/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Partidos de hoy",
+        "href": "/matches/football/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "LaLiga EA Sports  (21)",
+        "href": "/football/spain/laliga-ea-sports/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Premier League  (20)",
+        "href": "/football/england/premier-league/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Bundesliga  (18)",
+        "href": "/football/germany/bundesliga/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Serie A  (20)",
+        "href": "/football/italy/serie-a/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Champions League  (18)",
+        "href": "/football/europe/champions-league/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Europa League  (18)",
+        "href": "/football/europe/europa-league/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Ligue 1  (18)",
+        "href": "/football/france/ligue-1/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Todos los partidos",
+        "href": "/football/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Fútbol",
+        "href": "/football/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Fútbol",
+        "href": "/football/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Inglaterra",
+        "href": "/football/england/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "FA Cup",
+        "href": "/football/england/fa-cup/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "13:30 Plymouth Parkway - Berkhamsted",
+        "href": "/football/h2h/berkhamsted-town-StIKjvbe/plymouth-parkway-KEoYvdkT/#YgLat9pB",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Fútbol",
+        "href": "/football/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Alemania",
+        "href": "/football/germany/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Bundesliga - Femenina",
+        "href": "/football/germany/bundesliga-femenina/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Finalizado FIN 3 Colonia F - RB Leipzig F 1",
+        "href": "/football/h2h/colonia-OAHe2v6S/rb-leipzig-nkmFAG4Q/#Sv7VGnHE",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Fútbol",
+        "href": "/football/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Arabia Saudí",
+        "href": "/football/saudi-arabia/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Division 2",
+        "href": "/football/saudi-arabia/division-2/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Finalizado FIN 0 Najran - Al Najoom 1",
+        "href": "/football/h2h/al-najoom-jZ5PwvUP/najran-2w8r3XIs/#4b1k9VIq",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Fútbol",
+        "href": "/football/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Armenia",
+        "href": "/football/armenia/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "First League",
+        "href": "/football/armenia/first-league/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Finalizado FIN 3 Mika - Shirak 2 0",
+        "href": "/football/h2h/mika-2cEGoVaP/shirak-OYQgFUUd/#Yoa1Gfxf",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Finalizado FIN 2 Bentonit - Avshar Ararat 2",
+        "href": "/football/h2h/avshar-ararat-nLdZLe8B/bentonit-Iqm6JgaJ/#U9dtTXLa",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Fútbol",
+        "href": "/football/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Aruba",
+        "href": "/football/aruba/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Division di Honor",
+        "href": "/football/aruba/division-di-honor/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "18:30 River Plate - Deportivo Nacional",
+        "href": "/football/h2h/deportivo-nacional-YRcRD9V7/river-plate-rgKoAHtH/#pj6OkH5t",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Fútbol",
+        "href": "/football/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Bolivia",
+        "href": "/football/bolivia/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "División Profesional",
+        "href": "/football/bolivia/division-profesional/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "18:30 Aurora - Universitario de Vinto",
+        "href": "/football/h2h/aurora-A3aRoJc3/club-universitario-de-vinto-Crksl26f/#vqx3dkIU",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Fútbol",
+        "href": "/football/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Brasil",
+        "href": "/football/brazil/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Carioca B1",
+        "href": "/football/brazil/carioca-b1/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Finalizado FIN 1 Nova Cidade - AA Carapebus 0",
+        "href": "/football/h2h/aa-carapebus-WIS8U2e5/nova-cidade-AcJHaaIn/#tAi08ym1",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "11:50 0 Campo Grande - Audax RJ 0",
+        "href": "/football/h2h/audax-rj-p0RpIohs/campo-grande-jHYGdMvd/inplay-odds/#hjMw5Nc6",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Fútbol",
+        "href": "/football/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Brasil",
+        "href": "/football/brazil/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Carioca B2",
+        "href": "/football/brazil/carioca-b2/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "15:30 Santa Cruz RJ - Serra Macaense",
+        "href": "/football/h2h/santa-cruz-rj-bPTBRRaD/serra-macaense-YNQeKbrK/#nXDupK63",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Fútbol",
+        "href": "/football/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Brasil",
+        "href": "/football/brazil/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Copa Fares Lopes",
+        "href": "/football/brazil/copa-fares-lopes/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "16:00 Vila Real - Ceará B",
+        "href": "/football/h2h/ceara-2mdJgVpF/vila-real-j7vKo2Ya/#x4BVp8pm",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Fútbol",
+        "href": "/football/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Brasil",
+        "href": "/football/brazil/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Paraense Sub-20",
+        "href": "/football/brazil/paraense-sub-20/",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Finalizado FIN 1 Paysandu Sub-20 - Pedreira Sub-20 1",
+        "href": "/football/h2h/paysandu-SQHlAzJO/pedreira-K432yWWj/#ETGjJns4",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Finalizado FIN 8 Tuna Luso Sub-20 - CRT-23 Benevides Sub-20 0",
+        "href": "/football/h2h/crt-23-benevides-pSMmUJI8/tuna-luso-xnc1HSLk/#n9uOERjB",
+        "source_url": "https://www.oddsportal.com/football/mexico/liga-mx/"
+      },
+      {
+        "label": "Bet Builders new",
+        "href": "/football/bet-builders",
+        "source_url": "https://www.oddschecker.com/football"
+      },
+      {
+        "label": "Best of the Boosts",
+        "href": "/football/best-of-the-boosts",
+        "source_url": "https://www.oddschecker.com/football"
+      },
+      {
+        "label": "League & Cups",
+        "href": "/football/leagues-cups",
+        "source_url": "https://www.oddschecker.com/football"
+      },
+      {
+        "label": "Specials",
+        "href": "/football/specials/football-specials",
+        "source_url": "https://www.oddschecker.com/football"
+      },
+      {
+        "label": "Accumulators",
+        "href": "/football/accumulator",
+        "source_url": "https://www.oddschecker.com/football"
+      },
+      {
+        "label": "UK Coupon",
+        "href": "/football/uk",
+        "source_url": "https://www.oddschecker.com/football"
+      },
+      {
+        "label": "English FA Cup",
+        "href": "/football/english/fa-cup",
+        "source_url": "https://www.oddschecker.com/football"
+      },
+      {
+        "label": "English National League South",
+        "href": "/football/english/non-league/national-league-south",
+        "source_url": "https://www.oddschecker.com/football"
+      },
+      {
+        "label": "Norwegian Eliteserien",
+        "href": "/football/norway/eliteserien",
+        "source_url": "https://www.oddschecker.com/football"
+      },
+      {
+        "label": "See all leagues & cups",
+        "href": "/football/accumulator",
+        "source_url": "https://www.oddschecker.com/football"
+      },
+      {
+        "label": "Best of the Boosts",
+        "href": "/football/best-of-the-boosts",
+        "source_url": "https://www.oddschecker.com/football"
+      },
+      {
+        "label": "Accumulators",
+        "href": "https://www.oddschecker.com/football/accumulator",
+        "source_url": "https://www.oddschecker.com/football"
+      },
+      {
+        "label": "Same Game Multis/Bet Builders",
+        "href": "https://www.oddschecker.com/football/bet-builders",
+        "source_url": "https://www.oddschecker.com/football"
+      },
+      {
+        "label": "Best of the Boosts",
+        "href": "https://www.oddschecker.com/football/best-of-the-boosts",
+        "source_url": "https://www.oddschecker.com/football"
+      },
+      {
+        "label": "League/Cup Outrights",
+        "href": "https://www.oddschecker.com/football/leagues-cups",
+        "source_url": "https://www.oddschecker.com/football"
+      },
+      {
+        "label": "Premier League Odds",
+        "href": "/football/english/premier-league",
+        "source_url": "https://www.oddschecker.com/football"
+      },
+      {
+        "label": "EFL Championship",
+        "href": "/football/english/championship",
+        "source_url": "https://www.oddschecker.com/football"
+      },
+      {
+        "label": "Next Man Utd Manager",
+        "href": "/football/football-specials/manchester-united/next-permanent-manager",
+        "source_url": "https://www.oddschecker.com/football"
+      },
+      {
+        "label": "Champions League",
+        "href": "/football/champions-league",
+        "source_url": "https://www.oddschecker.com/football"
+      }
+    ],
+    "network_xhr": [
+      {
+        "network_id": 10,
+        "url": "https://www.cuotasahora.com/ajax-esi/ab-proof-mint/?v=2",
+        "status": 204,
+        "resource_type": "fetch",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 74,
+        "url": "https://cdn.cookielaw.org/consent/5fdb38ad-528a-4fb9-a576-b8c42e07565d/5fdb38ad-528a-4fb9-a576-b8c42e07565d.json",
+        "status": 200,
+        "resource_type": "xhr",
+        "body_bytes": 4876,
+        "has_json": true,
+        "json_preview": {
+          "keys": [
+            "CookieSPAEnabled",
+            "CookieSameSiteNoneEnabled",
+            "CookieV2CSPEnabled",
+            "MultiVariantTestingEnabled",
+            "UseV2",
+            "MobileSDK",
+            "SkipGeolocation",
+            "ScriptType",
+            "Version",
+            "OptanonDataJSON",
+            "GeolocationUrl",
+            "BulkDomainCheckUrl",
+            "RuleSet",
+            "IabData",
+            "IabV2Data"
+          ]
+        }
+      },
+      {
+        "network_id": 83,
+        "url": "https://geolocation.onetrust.com/cookieconsentpub/v1/geo/location",
+        "status": 200,
+        "resource_type": "xhr",
+        "body_bytes": 68,
+        "has_json": true,
+        "json_preview": {
+          "keys": [
+            "country",
+            "state",
+            "stateName",
+            "continent"
+          ]
+        }
+      },
+      {
+        "network_id": 86,
+        "url": "https://www.cuotasahora.com/api/auth-token",
+        "status": 200,
+        "resource_type": "fetch",
+        "body_bytes": 22,
+        "has_json": true,
+        "json_preview": {
+          "keys": [
+            "hasAuthToken"
+          ]
+        }
+      },
+      {
+        "network_id": 87,
+        "url": "https://cdn.cookielaw.org/vendorlist/iab2V2Data.json",
+        "status": 200,
+        "resource_type": "fetch",
+        "body_bytes": 722817,
+        "has_json": true,
+        "json_preview": {
+          "keys": [
+            "features",
+            "lastUpdated",
+            "specialFeatures",
+            "gvlSpecificationVersion",
+            "specialPurposes",
+            "vendorListVersion",
+            "purposes",
+            "stacks",
+            "tcfPolicyVersion",
+            "vendors",
+            "dataCategories"
+          ]
+        }
+      },
+      {
+        "network_id": 88,
+        "url": "https://cdn.cookielaw.org/consent/5fdb38ad-528a-4fb9-a576-b8c42e07565d/01a0d396-4f06-7e91-90b1-eb09bed67b20/es.json",
+        "status": 200,
+        "resource_type": "fetch",
+        "body_bytes": 188050,
+        "has_json": true,
+        "json_preview": {
+          "keys": [
+            "DomainData",
+            "CommonData",
+            "NtfyConfig",
+            "OTTData",
+            "MobileData"
+          ]
+        }
+      },
+      {
+        "network_id": 90,
+        "url": "https://www.cuotasahora.com/proxy/ajax-gift-bonus/?geo=MX",
+        "status": 200,
+        "resource_type": "fetch",
+        "body_bytes": 472
+      },
+      {
+        "network_id": 91,
+        "url": "https://www.cuotasahora.com/proxy/ajax-getSportsMenuDataBySport/1/2/",
+        "status": 200,
+        "resource_type": "fetch",
+        "body_bytes": 13132
+      },
+      {
+        "network_id": 92,
+        "url": "https://www.cuotasahora.com/proxy/api/home-data",
+        "status": 200,
+        "resource_type": "fetch",
+        "body_bytes": 3372
+      },
+      {
+        "network_id": 98,
+        "url": "https://www.cuotasahora.com/proxy/ajax-nextgames-popular-leagues/1/2/20261109/?bHash=X67125248X0X0X0X0X0X0X0X0X0X0X0X0X134217728X0X0X0X0X0X0X0X524290X0X0X0X0X0X0X0X0X0X32768X0X0X0X0X128X8&usePremium=1&hideFinished=0&_=1794252026087",
+        "status": 200,
+        "resource_type": "fetch",
+        "body_bytes": 5564
+      },
+      {
+        "network_id": 99,
+        "url": "https://www.cuotasahora.com/proxy/ajax-bonus-offers-banner/?geo=MX&logged=0",
+        "status": 200,
+        "resource_type": "fetch",
+        "body_bytes": 1128
+      },
+      {
+        "network_id": 100,
+        "url": "https://www.cuotasahora.com/proxy/ajax-nextgames-popular-leagues/1/-6/20261109/?bHash=X67125248X0X0X0X0X0X0X0X0X0X0X0X0X134217728X0X0X0X0X0X0X0X524290X0X0X0X0X0X0X0X0X0X32768X0X0X0X0X128X8&usePremium=1&hideFinished=0&_=1794252026166",
+        "status": 200,
+        "resource_type": "fetch",
+        "body_bytes": 3032
+      },
+      {
+        "network_id": 101,
+        "url": "https://www.cuotasahora.com/proxy/ajax-bookmarksTournament/show/",
+        "status": 200,
+        "resource_type": "fetch",
+        "body_bytes": 360
+      },
+      {
+        "network_id": 102,
+        "url": "https://cdn.cookielaw.org/scripttemplates/202609.2.0/assets/otFlat.json",
+        "status": 200,
+        "resource_type": "fetch",
+        "body_bytes": 20721,
+        "has_json": true,
+        "json_preview": {
+          "keys": [
+            "name",
+            "html",
+            "css"
+          ]
+        }
+      },
+      {
+        "network_id": 103,
+        "url": "https://cdn.cookielaw.org/scripttemplates/202609.2.0/assets/v2/otPcTab.json",
+        "status": 200,
+        "resource_type": "fetch",
+        "body_bytes": 76628,
+        "has_json": true,
+        "json_preview": {
+          "keys": [
+            "name",
+            "html",
+            "css"
+          ]
+        }
+      },
+      {
+        "network_id": 104,
+        "url": "https://cdn.cookielaw.org/scripttemplates/202609.2.0/assets/otCookieSettingsButton.json",
+        "status": 200,
+        "resource_type": "fetch",
+        "body_bytes": 6011,
+        "has_json": true,
+        "json_preview": {
+          "keys": [
+            "name",
+            "html",
+            "css"
+          ]
+        }
+      },
+      {
+        "network_id": 105,
+        "url": "https://cdn.cookielaw.org/scripttemplates/202609.2.0/assets/otCommonStyles.css",
+        "status": 200,
+        "resource_type": "fetch",
+        "body_bytes": 27926
+      },
+      {
+        "network_id": 110,
+        "url": "https://www.cuotasahora.com/proxy/ajax-nextgames/1/2/2/20261109/yj7e2.dat?page=1&_=/1794252026628&hideFinished=0",
+        "status": 200,
+        "resource_type": "fetch",
+        "body_bytes": 20584
+      },
+      {
+        "network_id": 111,
+        "url": "https://www.cuotasahora.com/proxy/ajax-nextgames/1/-6/2/20261109/yj7e2.dat?page=1&_=/1794252026634&hideFinished=0",
+        "status": 200,
+        "resource_type": "fetch",
+        "body_bytes": 20328
+      },
+      {
+        "network_id": 112,
+        "url": "https://cdn.cookielaw.org/logos/static/ot_guard_logo.svg",
+        "status": 200,
+        "resource_type": "fetch",
+        "body_bytes": 497
+      },
+      {
+        "network_id": 136,
+        "url": "https://www.cuotasahora.com/proxy/ajax-my-coupon/",
+        "status": 200,
+        "resource_type": "fetch",
+        "body_bytes": 1016
+      },
+      {
+        "network_id": 137,
+        "url": "https://www.cuotasahora.com/proxy/ajax-nextgames-odds/1/-6/X67125248X0X0X0X0X0X0X0X0X0X0X0X0X134217728X0X0X0X0X0X0X0X524290X0X0X0X0X0X0X0X0X0X32768X0X0X0X0X128X8/20261109/1/yj7e2.dat?_=/",
+        "status": 200,
+        "resource_type": "fetch",
+        "body_bytes": 23144
+      },
+      {
+        "network_id": 183,
+        "url": "https://content.livesportmedia.eu/api/v1/banners?zone-ids=3978%2C3979%2C3982%2C3983%2C3981%2C3980%2C3988%2C3984%2C5953&client-type=PC&programmatic=false&betting=false",
+        "status": 200,
+        "resource_type": "fetch",
+        "body_bytes": 2,
+        "has_json": true,
+        "json_preview": "list[0]"
+      },
+      {
+        "network_id": 257,
+        "url": "https://cdn.tagdeliver.com/cidf/19208-dch20261109.json",
+        "status": 200,
+        "resource_type": "fetch",
+        "body_bytes": 7809,
+        "has_json": true,
+        "json_preview": {
+          "keys": [
+            "allocation",
+            "SI",
+            "MX",
+            "BG",
+            "TR",
+            "IE",
+            "IN",
+            "HU",
+            "IT",
+            "HR",
+            "SK",
+            "GB",
+            "DE",
+            "NL",
+            "AR"
+          ]
+        }
+      },
+      {
+        "network_id": 258,
+        "url": "https://uc.tagdeliver.com/?uid=19208&page=https%3A%2F%2Fwww.oddschecker.com%2Ffootball",
+        "status": 200,
+        "resource_type": "fetch",
+        "body_bytes": 158,
+        "has_json": true,
+        "json_preview": {
+          "keys": [
+            "success",
+            "consentRequired",
+            "optedOut",
+            "cookieOO",
+            "gpcOO",
+            "country",
+            "region",
+            "browser",
+            "hash",
+            "dmr"
+          ]
+        }
+      },
+      {
+        "network_id": 274,
+        "url": "https://www.oddschecker.com/cdn-cgi/challenge-platform/h/b/jsd/oneshot/8340802ab0bb/0.2774740265783744:1794244543:uV40zzFxa7N_0kwvjwlPUQxfQIYXZLLCcXk9Q56HhIE/a57f2cf71c936a08",
+        "status": 200,
+        "resource_type": "xhr",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 276,
+        "url": "https://tracking.oddschecker.com/uk-offer-impressions-pixel.png?bookmaker=UN&offer_location=football_home&offer_position=0&offer_title=Bet%20%C2%A320%20Get%20%C2%A340%20in%20Free%20Bets%20&referrer=%252Ffootball",
+        "status": 200,
+        "resource_type": "fetch",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 277,
+        "url": "https://tracking.oddschecker.com/uk-offer-impressions-pixel.png?bookmaker=KN&offer_location=football_home_offers&offer_position=0&offer_title=Bet%20%C2%A310%2C%20Get%20%C2%A340%20in%20Free%20Bets%20&referrer=%252Ffootball",
+        "status": 200,
+        "resource_type": "fetch",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 278,
+        "url": "https://tracking.oddschecker.com/uk-offer-impressions-pixel.png?bookmaker=QN&offer_location=football_home&offer_position=1&offer_title=Get%2050%25%20back%20up%20to%20%C2%A350%20in%20Free%20Bets%20&referrer=%252Ffootball",
+        "status": 200,
+        "resource_type": "fetch",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 279,
+        "url": "https://tracking.oddschecker.com/uk-offer-impressions-pixel.png?bookmaker=FB&offer_location=football_home&offer_position=2&offer_title=Bet%20%C2%A320%20Get%20%C2%A360%20in%20Free%20Bets%20&referrer=%252Ffootball",
+        "status": 200,
+        "resource_type": "fetch",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 280,
+        "url": "https://tracking.oddschecker.com/uk-offer-impressions-pixel.png?bookmaker=QN&offer_location=football_home_offers&offer_position=1&offer_title=50%25%20back%20up%20to%20%C2%A350&referrer=%252Ffootball",
+        "status": 200,
+        "resource_type": "fetch",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 293,
+        "url": "https://pluggedlabs.com/g3nwdnpxyk9tc6gicsp_rncxpjy0j0zg",
+        "status": 200,
+        "resource_type": "fetch",
+        "body_bytes": 301,
+        "has_json": true,
+        "json_preview": {
+          "keys": [
+            "newSession",
+            "sessionID",
+            "now",
+            "ids",
+            "localData",
+            "visitorStatus"
+          ]
+        }
+      },
+      {
+        "network_id": 300,
+        "url": "https://pluggedlabs.com/g3nwdnpxyk9tc6gicsp_rncxpjy0j0zg",
+        "status": 200,
+        "resource_type": "fetch",
+        "body_bytes": 16,
+        "has_json": true,
+        "json_preview": {
+          "keys": [
+            "segments"
+          ]
+        }
+      },
+      {
+        "network_id": 306,
+        "url": "https://pluggedlabs.com/g3nwdnpxyk9tc6gicsp_rncxpjy0j0zg",
+        "status": 200,
+        "resource_type": "fetch",
+        "body_bytes": 213,
+        "has_json": true,
+        "json_preview": {
+          "keys": [
+            "sessionID",
+            "now",
+            "localData",
+            "visitorStatus"
+          ]
+        }
+      },
+      {
+        "network_id": 310,
+        "url": "https://widgets.oddschecker.com/v2/widget?json&host=eyJyZWZlcmVyIjoiaHR0cHM6Ly91ay5vZGRzY2hlY2tlci5jb20vZm9vdGJhbGwiLCJzbG90IjoiMFRyTTZ6VEhrWmFfWkROZlRYQXVZIn0=",
+        "status": 404,
+        "resource_type": "fetch",
+        "body_bytes": 119,
+        "has_json": true,
+        "json_preview": {
+          "keys": [
+            "error"
+          ]
+        }
+      }
+    ]
+  }
+}

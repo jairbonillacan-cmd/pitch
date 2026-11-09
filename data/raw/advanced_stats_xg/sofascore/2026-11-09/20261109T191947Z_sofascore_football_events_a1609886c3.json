@@ -1,0 +1,2041 @@
+{
+  "source_id": "sofascore",
+  "source_name": "Sofascore",
+  "category": "advanced_stats_xg",
+  "url": "https://www.sofascore.com/football",
+  "scrapling_mode": "network_recorder",
+  "captured_at_utc": "2026-11-09T19:19:47Z",
+  "sha256": "a1609886c322c622e1a4d86cfd111be46be842e1aac1b9b8fabdc0a2d4b2ce86",
+  "meta": {
+    "scheduled_events_extracted": 52,
+    "ligamx_seasons_extracted": 0,
+    "football_dom_links_count": 186,
+    "network_api_calls_captured": 79,
+    "total_records": 317
+  },
+  "payload": {
+    "source": "sofascore",
+    "target_urls": [
+      "https://www.sofascore.com/football",
+      "https://api.sofascore.com/api/v1/sport/football/scheduled-events/2026-11-09",
+      "https://api.sofascore.com/api/v1/unique-tournament/11621/seasons"
+    ],
+    "summary": {
+      "scheduled_events_extracted": 52,
+      "ligamx_seasons_extracted": 0,
+      "football_dom_links_count": 186,
+      "network_api_calls_captured": 79,
+      "total_records": 317
+    },
+    "dom_summary": {
+      "url": "https://www.sofascore.com/football",
+      "status": 200,
+      "title": "Football Live Scores, Fixtures & Odds | Sofascore | Championship League, Premier League",
+      "has_next_data": true,
+      "next_data_keys": [
+        "props",
+        "page",
+        "query",
+        "buildId",
+        "isFallback",
+        "isExperimentalCompile",
+        "dynamicIds",
+        "gip",
+        "appGip",
+        "scriptLoader"
+      ],
+      "football_links_count": 186,
+      "football_links_sample": [
+        {
+          "text": "13:30 -",
+          "href": "/football/match/real-sociedad-ce-sabadell/KLjskMj#id:16418312"
+        },
+        {
+          "text": "14:00 -",
+          "href": "/tennis/match/aryna-sabalenka-karolina-muchova/CbJsefnb#id:17489258"
+        },
+        {
+          "text": "15:00 @",
+          "href": "/baseball/match/gigantes-del-cibao-estrellas-orientales/zOwcsAOwc#id:16396349"
+        },
+        {
+          "text": "15:00 @",
+          "href": "/baseball/match/aguilas-cibaenas-tigres-del-licey/npAbsyOwc#id:16396361"
+        },
+        {
+          "text": "15:00 @",
+          "href": "/baseball/match/toros-del-este-leones-del-escogido/etAbsxOwc#id:16396370"
+        },
+        {
+          "text": "15:10 -",
+          "href": "/tennis/match/mirra-andreeva-elina-svitolina/TAvsBKmd#id:17489256"
+        },
+        {
+          "text": "19:00 @",
+          "href": "/ice-hockey/match/new-york-rangers-edmonton-oilers/Lybsbzb#id:16550723"
+        },
+        {
+          "text": "19:15 @",
+          "href": "/american-football/match/minnesota-vikings-buffalo-bills/oNbsyNb#id:16184631"
+        },
+        {
+          "text": "21:00 @",
+          "href": "/ice-hockey/match/new-york-islanders-san-jose-sharks/Wybsdzb#id:16550725"
+        },
+        {
+          "text": "FT 91 - 80",
+          "href": "/basketball/match/kk-crvena-zvezda-bc-slovan-bratislava/pLwsITx#id:16943111"
+        },
+        {
+          "text": "04:00 -",
+          "href": "/tennis/match/dino-prizmic-otto-virtanen/tJQbsOGOc#id:17514484"
+        },
+        {
+          "text": "07:40 -",
+          "href": "/tennis/match/sebastian-baez-daniil-glinka/IaJbsgLNb#id:17514489"
+        },
+        {
+          "text": "08:20 -",
+          "href": "/tennis/match/miomir-kecmanovic-arthur-rinderknech/gxAsRwEb#id:17511575"
+        },
+        {
+          "text": "11:00 -",
+          "href": "/futsal/match/lithuania-croatia/YOnsmPn#id:16868430"
+        },
+        {
+          "text": "11:00 -",
+          "href": "/tennis/match/holger-rune-zizou-bergs/Wttbsvlnc#id:17511574"
+        },
+        {
+          "text": "12:00 -",
+          "href": "/handball/match/bm-caserio-ciudad-real-fc-barcelona-hb/zEbsYiUi#id:16574570"
+        },
+        {
+          "text": "12:00 -",
+          "href": "/football/match/cd-anaitasuna-ft-deportivo-alaves/KhbsyAfc#id:17499645"
+        },
+        {
+          "text": "14:00 -",
+          "href": "/football/match/ue-tavernes-valencia/DgbsCNnk#id:17431946"
+        },
+        {
+          "text": "18:00 -",
+          "href": "/volleyball/match/norde-volei-sada-cruzeiro-volei/IoHsVKAh#id:17276058"
+        },
+        {
+          "text": "20:00 -",
+          "href": "/esports/match/legacy-furia/cKVcsFaXd#id:17378318"
+        },
+        {
+          "text": "",
+          "href": "/football/tournament/england/fa-cup/19#id:102079"
+        },
+        {
+          "text": "FA Cup",
+          "href": "/football/tournament/england/fa-cup/19#id:102079"
+        },
+        {
+          "text": "England",
+          "href": "/football/england"
+        },
+        {
+          "text": "13:30 - Parkway Berkhamsted",
+          "href": "/football/match/plymouth-parkway-berkhamsted-town/GeslaH#id:17364669"
+        },
+        {
+          "text": "",
+          "href": "/football/tournament/spain/laliga-2/54#id:97280"
+        },
+        {
+          "text": "LaLiga 2",
+          "href": "/football/tournament/spain/laliga-2/54#id:97280"
+        },
+        {
+          "text": "Spain",
+          "href": "/football/spain"
+        },
+        {
+          "text": "13:30 - Sabadell Real Sociedad B",
+          "href": "/football/match/real-sociedad-ce-sabadell/KLjskMj#id:16418312"
+        },
+        {
+          "text": "13:30 Postponed Las Palmas Eldense",
+          "href": "/football/match/cd-eldense-las-palmas/CGcswWt#id:16418311"
+        },
+        {
+          "text": "",
+          "href": "/football/tournament/bolivia/division-profesional/16736#id:92509"
+        },
+        {
+          "text": "División Profesional",
+          "href": "/football/tournament/bolivia/division-profesional/16736#id:92509"
+        },
+        {
+          "text": "Bolivia",
+          "href": "/football/bolivia"
+        },
+        {
+          "text": "18:30 - Club Aurora Univ. de Vinto",
+          "href": "/football/match/club-fc-universitario-club-aurora/oznsHlhc#id:17296343"
+        },
+        {
+          "text": "",
+          "href": "/football/tournament/paraguay/primera-division-clausura/11541#id:87613"
+        },
+        {
+          "text": "Primera División, Clausura",
+          "href": "/football/tournament/paraguay/primera-division-clausura/11541#id:87613"
+        },
+        {
+          "text": "Paraguay",
+          "href": "/football/paraguay"
+        },
+        {
+          "text": "14:00 - San Lorenzo Rubio Ñu",
+          "href": "/football/match/sportivo-san-lorenzo-rubio-nu/NDosxuL#id:16588994"
+        },
+        {
+          "text": "16:30 - Sportivo Luqueño 2 de Mayo",
+          "href": "/football/match/sportivo-luqueno-cs-2-de-mayo/RucsYuc#id:16588988"
+        },
+        {
+          "text": "",
+          "href": "/football/tournament/norway/eliteserien/20#id:87809"
+        },
+        {
+          "text": "Eliteserien",
+          "href": "/football/tournament/norway/eliteserien/20#id:87809"
+        },
+        {
+          "text": "Norway",
+          "href": "/football/norway"
+        },
+        {
+          "text": "12:00 62 ' Kristiansund Vålerenga 1 0",
+          "href": "/football/match/valerenga-if-kristiansund-bk/huspy#id:17505158"
+        },
+        {
+          "text": "",
+          "href": "/football/tournament/romania/superliga/152#id:97124"
+        },
+        {
+          "text": "Superliga",
+          "href": "/football/tournament/romania/superliga/152#id:97124"
+        },
+        {
+          "text": "Romania",
+          "href": "/football/romania"
+        },
+        {
+          "text": "12:00 62 ' FC Botoșani Oțelul Galați 0 0",
+          "href": "/football/match/fc-botosani-sc-otelul-galati/QpbsYVj#id:16403934"
+        },
+        {
+          "text": "",
+          "href": "/football/tournament/germany/frauen-bundesliga/232#id:98692"
+        },
+        {
+          "text": "Frauen-Bundesliga",
+          "href": "/football/tournament/germany/frauen-bundesliga/232#id:98692"
+        },
+        {
+          "text": "Germany",
+          "href": "/football/germany"
+        },
+        {
+          "text": "11:00 FT Köln Leipzig 3 1",
+          "href": "/football/match/rb-leipzig-1-fc-koln/UVQbsycEc#id:16567750"
+        }
+      ]
+    },
+    "scheduled_events": [
+      {
+        "event_id": 16363917,
+        "slug": "leeds-united-tottenham-hotspur",
+        "start_timestamp": 1794054600,
+        "tournament_name": "Premier League",
+        "unique_tournament_id": 17,
+        "unique_tournament_name": "Premier League",
+        "country": "England",
+        "home_team": "Leeds United",
+        "home_team_id": 34,
+        "away_team": "Tottenham Hotspur",
+        "away_team_id": 33,
+        "home_score": 1,
+        "away_score": 0,
+        "status_type": "finished",
+        "status_description": "Ended",
+        "has_xg": true,
+        "has_event_player_statistics": true
+      },
+      {
+        "event_id": 16434091,
+        "slug": "fc-bayern-munchen-1-fsv-mainz-05",
+        "start_timestamp": 1794061800,
+        "tournament_name": "Bundesliga",
+        "unique_tournament_id": 35,
+        "unique_tournament_name": "Bundesliga",
+        "country": "Germany",
+        "home_team": "1. FSV Mainz 05",
+        "home_team_id": 2556,
+        "away_team": "FC Bayern München",
+        "away_team_id": 2672,
+        "home_score": 1,
+        "away_score": 2,
+        "status_type": "finished",
+        "status_description": "Ended",
+        "has_xg": true,
+        "has_event_player_statistics": true
+      },
+      {
+        "event_id": 16363911,
+        "slug": "hull-city-arsenal",
+        "start_timestamp": 1794063600,
+        "tournament_name": "Premier League",
+        "unique_tournament_id": 17,
+        "unique_tournament_name": "Premier League",
+        "country": "England",
+        "home_team": "Arsenal",
+        "home_team_id": 42,
+        "away_team": "Hull City",
+        "away_team_id": 96,
+        "home_score": 1,
+        "away_score": 0,
+        "status_type": "finished",
+        "status_description": "Ended",
+        "has_xg": true,
+        "has_event_player_statistics": true
+      },
+      {
+        "event_id": 16363915,
+        "slug": "fulham-newcastle-united",
+        "start_timestamp": 1794063600,
+        "tournament_name": "Premier League",
+        "unique_tournament_id": 17,
+        "unique_tournament_name": "Premier League",
+        "country": "England",
+        "home_team": "Fulham",
+        "home_team_id": 43,
+        "away_team": "Newcastle United",
+        "away_team_id": 39,
+        "home_score": 1,
+        "away_score": 1,
+        "status_type": "finished",
+        "status_description": "Ended",
+        "has_xg": true,
+        "has_event_player_statistics": true
+      },
+      {
+        "event_id": 16363919,
+        "slug": "manchester-city-nottingham-forest",
+        "start_timestamp": 1794072600,
+        "tournament_name": "Premier League",
+        "unique_tournament_id": 17,
+        "unique_tournament_name": "Premier League",
+        "country": "England",
+        "home_team": "Nottingham Forest",
+        "home_team_id": 14,
+        "away_team": "Manchester City",
+        "away_team_id": 17,
+        "home_score": 3,
+        "away_score": 1,
+        "status_type": "finished",
+        "status_description": "Ended",
+        "has_xg": true,
+        "has_event_player_statistics": true
+      },
+      {
+        "event_id": 16421105,
+        "slug": "real-madrid-valencia",
+        "start_timestamp": 1794081600,
+        "tournament_name": "LaLiga",
+        "unique_tournament_id": 8,
+        "unique_tournament_name": "LaLiga",
+        "country": "Spain",
+        "home_team": "Valencia",
+        "home_team_id": 2828,
+        "away_team": "Real Madrid",
+        "away_team_id": 2829,
+        "home_score": 0,
+        "away_score": 3,
+        "status_type": "finished",
+        "status_description": "Ended",
+        "has_xg": true,
+        "has_event_player_statistics": true
+      },
+      {
+        "event_id": 16311008,
+        "slug": "troyes-paris-saint-germain",
+        "start_timestamp": 1794081900,
+        "tournament_name": "Ligue 1",
+        "unique_tournament_id": 34,
+        "unique_tournament_name": "Ligue 1",
+        "country": "France",
+        "home_team": "Paris Saint-Germain",
+        "home_team_id": 1644,
+        "away_team": "Troyes",
+        "away_team_id": 1652,
+        "home_score": 1,
+        "away_score": 0,
+        "status_type": "finished",
+        "status_description": "Ended",
+        "has_xg": true,
+        "has_event_player_statistics": true
+      },
+      {
+        "event_id": 17008798,
+        "slug": "gremio-atletico-mineiro",
+        "start_timestamp": 1794085200,
+        "tournament_name": "Copa do Brasil",
+        "unique_tournament_id": 373,
+        "unique_tournament_name": "Copa do Brasil",
+        "country": "Brazil",
+        "home_team": "Atlético Mineiro",
+        "home_team_id": 1977,
+        "away_team": "Grêmio",
+        "away_team_id": 5926,
+        "home_score": 1,
+        "away_score": 1,
+        "status_type": "finished",
+        "status_description": "Ended",
+        "has_xg": true,
+        "has_event_player_statistics": true
+      },
+      {
+        "event_id": 16824824,
+        "slug": "cleveland-cavaliers-new-york-knicks",
+        "start_timestamp": 1794099600,
+        "tournament_name": "NBA",
+        "unique_tournament_id": 132,
+        "unique_tournament_name": "NBA",
+        "country": "USA",
+        "home_team": "Cleveland Cavaliers",
+        "home_team_id": 3432,
+        "away_team": "New York Knicks",
+        "away_team_id": 3421,
+        "home_score": 97,
+        "away_score": 109,
+        "status_type": "finished",
+        "status_description": "Ended",
+        "has_xg": null,
+        "has_event_player_statistics": true
+      },
+      {
+        "event_id": 16824828,
+        "slug": "orlando-magic-golden-state-warriors",
+        "start_timestamp": 1794101400,
+        "tournament_name": "NBA",
+        "unique_tournament_id": 132,
+        "unique_tournament_name": "NBA",
+        "country": "USA",
+        "home_team": "Golden State Warriors",
+        "home_team_id": 3428,
+        "away_team": "Orlando Magic",
+        "away_team_id": 3437,
+        "home_score": 126,
+        "away_score": 119,
+        "status_type": "finished",
+        "status_description": "AET",
+        "has_xg": null,
+        "has_event_player_statistics": true
+      },
+      {
+        "event_id": 16285080,
+        "slug": "genoa-ac-milan",
+        "start_timestamp": 1794146400,
+        "tournament_name": "Serie A",
+        "unique_tournament_id": 23,
+        "unique_tournament_name": "Serie A",
+        "country": "Italy",
+        "home_team": "Genoa",
+        "home_team_id": 2713,
+        "away_team": "AC Milan",
+        "away_team_id": 2692,
+        "home_score": 1,
+        "away_score": 2,
+        "status_type": "finished",
+        "status_description": "Ended",
+        "has_xg": true,
+        "has_event_player_statistics": true
+      },
+      {
+        "event_id": 16363913,
+        "slug": "liverpool-fc-crystal-palace",
+        "start_timestamp": 1794146400,
+        "tournament_name": "Premier League",
+        "unique_tournament_id": 17,
+        "unique_tournament_name": "Premier League",
+        "country": "England",
+        "home_team": "Crystal Palace",
+        "home_team_id": 7,
+        "away_team": "Liverpool FC",
+        "away_team_id": 44,
+        "home_score": 1,
+        "away_score": 3,
+        "status_type": "finished",
+        "status_description": "Ended",
+        "has_xg": true,
+        "has_event_player_statistics": true
+      },
+      {
+        "event_id": 16363920,
+        "slug": "sunderland-chelsea",
+        "start_timestamp": 1794146400,
+        "tournament_name": "Premier League",
+        "unique_tournament_id": 17,
+        "unique_tournament_name": "Premier League",
+        "country": "England",
+        "home_team": "Sunderland",
+        "home_team_id": 41,
+        "away_team": "Chelsea",
+        "away_team_id": 38,
+        "home_score": 1,
+        "away_score": 0,
+        "status_type": "finished",
+        "status_description": "Ended",
+        "has_xg": true,
+        "has_event_player_statistics": true
+      },
+      {
+        "event_id": 16363918,
+        "slug": "aston-villa-manchester-united",
+        "start_timestamp": 1794155400,
+        "tournament_name": "Premier League",
+        "unique_tournament_id": 17,
+        "unique_tournament_name": "Premier League",
+        "country": "England",
+        "home_team": "Manchester United",
+        "home_team_id": 35,
+        "away_team": "Aston Villa",
+        "away_team_id": 40,
+        "home_score": 4,
+        "away_score": 4,
+        "status_type": "finished",
+        "status_description": "Ended",
+        "has_xg": true,
+        "has_event_player_statistics": true
+      },
+      {
+        "event_id": 16285081,
+        "slug": "como-inter",
+        "start_timestamp": 1794157200,
+        "tournament_name": "Serie A",
+        "unique_tournament_id": 23,
+        "unique_tournament_name": "Serie A",
+        "country": "Italy",
+        "home_team": "Inter",
+        "home_team_id": 2697,
+        "away_team": "Como",
+        "away_team_id": 2704,
+        "home_score": 2,
+        "away_score": 0,
+        "status_type": "finished",
+        "status_description": "Ended",
+        "has_xg": true,
+        "has_event_player_statistics": true
+      },
+      {
+        "event_id": 16421101,
+        "slug": "atletico-madrid-fc-barcelona",
+        "start_timestamp": 1794168000,
+        "tournament_name": "LaLiga",
+        "unique_tournament_id": 8,
+        "unique_tournament_name": "LaLiga",
+        "country": "Spain",
+        "home_team": "Atlético Madrid",
+        "home_team_id": 2836,
+        "away_team": "FC Barcelona",
+        "away_team_id": 2817,
+        "home_score": 1,
+        "away_score": 2,
+        "status_type": "finished",
+        "status_description": "Ended",
+        "has_xg": true,
+        "has_event_player_statistics": true
+      },
+      {
+        "event_id": 17166359,
+        "slug": "vasco-da-gama-palmeiras",
+        "start_timestamp": 1794168000,
+        "tournament_name": "Copa do Brasil",
+        "unique_tournament_id": 373,
+        "unique_tournament_name": "Copa do Brasil",
+        "country": "Brazil",
+        "home_team": "Vasco da Gama",
+        "home_team_id": 1974,
+        "away_team": "Palmeiras",
+        "away_team_id": 1963,
+        "home_score": 6,
+        "away_score": 6,
+        "status_type": "finished",
+        "status_description": "AP",
+        "has_xg": true,
+        "has_event_player_statistics": true
+      },
+      {
+        "event_id": 16824832,
+        "slug": "philadelphia-76ers-chicago-bulls",
+        "start_timestamp": 1794169800,
+        "tournament_name": "NBA",
+        "unique_tournament_id": 132,
+        "unique_tournament_name": "NBA",
+        "country": "USA",
+        "home_team": "Chicago Bulls",
+        "home_team_id": 3409,
+        "away_team": "Philadelphia 76ers",
+        "away_team_id": 3420,
+        "home_score": 121,
+        "away_score": 127,
+        "status_type": "finished",
+        "status_description": "Ended",
+        "has_xg": null,
+        "has_event_player_statistics": true
+      },
+      {
+        "event_id": 16824833,
+        "slug": "los-angeles-lakers-detroit-pistons",
+        "start_timestamp": 1794178800,
+        "tournament_name": "NBA",
+        "unique_tournament_id": 132,
+        "unique_tournament_name": "NBA",
+        "country": "USA",
+        "home_team": "Detroit Pistons",
+        "home_team_id": 3424,
+        "away_team": "Los Angeles Lakers",
+        "away_team_id": 3427,
+        "home_score": 116,
+        "away_score": 121,
+        "status_type": "finished",
+        "status_description": "Ended",
+        "has_xg": null,
+        "has_event_player_statistics": true
+      },
+      {
+        "event_id": 16824834,
+        "slug": "boston-celtics-milwaukee-bucks",
+        "start_timestamp": 1794186000,
+        "tournament_name": "NBA",
+        "unique_tournament_id": 132,
+        "unique_tournament_name": "NBA",
+        "country": "USA",
+        "home_team": "Milwaukee Bucks",
+        "home_team_id": 3410,
+        "away_team": "Boston Celtics",
+        "away_team_id": 3422,
+        "home_score": 97,
+        "away_score": 117,
+        "status_type": "finished",
+        "status_description": "Ended",
+        "has_xg": null,
+        "has_event_player_statistics": true
+      },
+      {
+        "event_id": 16943111,
+        "slug": "kk-crvena-zvezda-bc-slovan-bratislava",
+        "start_timestamp": 1794243600,
+        "tournament_name": "AdmiralBet ABA League, Group A",
+        "unique_tournament_id": 235,
+        "unique_tournament_name": "AdmiralBet ABA League",
+        "country": "International",
+        "home_team": "KK Crvena zvezda",
+        "home_team_id": 57183,
+        "away_team": "BC Slovan Bratislava",
+        "away_team_id": 54315,
+        "home_score": 91,
+        "away_score": 80,
+        "status_type": "finished",
+        "status_description": "Ended",
+        "has_xg": null,
+        "has_event_player_statistics": true
+      },
+      {
+        "event_id": 16418312,
+        "slug": "real-sociedad-ce-sabadell",
+        "start_timestamp": 1794252600,
+        "tournament_name": "LaLiga 2",
+        "unique_tournament_id": 54,
+        "unique_tournament_name": "LaLiga 2",
+        "country": "Spain",
+        "home_team": "CE Sabadell",
+        "home_team_id": 24335,
+        "away_team": "Real Sociedad B",
+        "away_team_id": 24360,
+        "home_score": null,
+        "away_score": null,
+        "status_type": "notstarted",
+        "status_description": "Not started",
+        "has_xg": null,
+        "has_event_player_statistics": true
+      },
+      {
+        "event_id": 17489258,
+        "slug": "aryna-sabalenka-karolina-muchova",
+        "start_timestamp": 1794254400,
+        "tournament_name": "WTA Tour Finals, Group B",
+        "unique_tournament_id": 11864,
+        "unique_tournament_name": "WTA Finals",
+        "country": "WTA",
+        "home_team": "Aryna Sabalenka",
+        "home_team_id": 157754,
+        "away_team": "Karolina Muchova",
+        "away_team_id": 85077,
+        "home_score": null,
+        "away_score": null,
+        "status_type": "notstarted",
+        "status_description": "Not started",
+        "has_xg": null,
+        "has_event_player_statistics": null
+      },
+      {
+        "event_id": 16396349,
+        "slug": "gigantes-del-cibao-estrellas-orientales",
+        "start_timestamp": 1794258000,
+        "tournament_name": "LIDOM",
+        "unique_tournament_id": 11616,
+        "unique_tournament_name": "LIDOM",
+        "country": "Dominican Republic",
+        "home_team": "Gigantes Del Cibao",
+        "home_team_id": 304475,
+        "away_team": "Estrellas Orientales",
+        "away_team_id": 304474,
+        "home_score": null,
+        "away_score": null,
+        "status_type": "notstarted",
+        "status_description": "Not started",
+        "has_xg": null,
+        "has_event_player_statistics": null
+      },
+      {
+        "event_id": 16396361,
+        "slug": "aguilas-cibaenas-tigres-del-licey",
+        "start_timestamp": 1794258000,
+        "tournament_name": "LIDOM",
+        "unique_tournament_id": 11616,
+        "unique_tournament_name": "LIDOM",
+        "country": "Dominican Republic",
+        "home_team": "Tigres del Licey",
+        "home_team_id": 188263,
+        "away_team": "Águilas Cibaeñas",
+        "away_team_id": 304473,
+        "home_score": null,
+        "away_score": null,
+        "status_type": "notstarted",
+        "status_description": "Not started",
+        "has_xg": null,
+        "has_event_player_statistics": null
+      },
+      {
+        "event_id": 16396370,
+        "slug": "toros-del-este-leones-del-escogido",
+        "start_timestamp": 1794258000,
+        "tournament_name": "LIDOM",
+        "unique_tournament_id": 11616,
+        "unique_tournament_name": "LIDOM",
+        "country": "Dominican Republic",
+        "home_team": "Toros Del Este",
+        "home_team_id": 304472,
+        "away_team": "Leones del Escogido",
+        "away_team_id": 188404,
+        "home_score": null,
+        "away_score": null,
+        "status_type": "notstarted",
+        "status_description": "Not started",
+        "has_xg": null,
+        "has_event_player_statistics": null
+      },
+      {
+        "event_id": 17489256,
+        "slug": "mirra-andreeva-elina-svitolina",
+        "start_timestamp": 1794258600,
+        "tournament_name": "WTA Tour Finals, Group B",
+        "unique_tournament_id": 11864,
+        "unique_tournament_name": "WTA Finals",
+        "country": "WTA",
+        "home_team": "Mirra Andreeva",
+        "home_team_id": 406776,
+        "away_team": "Elina Svitolina",
+        "away_team_id": 51293,
+        "home_score": null,
+        "away_score": null,
+        "status_type": "notstarted",
+        "status_description": "Not started",
+        "has_xg": null,
+        "has_event_player_statistics": null
+      },
+      {
+        "event_id": 16550723,
+        "slug": "new-york-rangers-edmonton-oilers",
+        "start_timestamp": 1794272400,
+        "tournament_name": "NHL",
+        "unique_tournament_id": 234,
+        "unique_tournament_name": "NHL",
+        "country": "North America",
+        "home_team": "Edmonton Oilers",
+        "home_team_id": 3686,
+        "away_team": "New York Rangers",
+        "away_team_id": 3701,
+        "home_score": null,
+        "away_score": null,
+        "status_type": "notstarted",
+        "status_description": "Not started",
+        "has_xg": null,
+        "has_event_player_statistics": null
+      },
+      {
+        "event_id": 16184631,
+        "slug": "minnesota-vikings-buffalo-bills",
+        "start_timestamp": 1794273300,
+        "tournament_name": "NFL",
+        "unique_tournament_id": 9464,
+        "unique_tournament_name": "NFL",
+        "country": "USA",
+        "home_team": "Minnesota Vikings",
+        "home_team_id": 4423,
+        "away_team": "Buffalo Bills",
+        "away_team_id": 4414,
+        "home_score": null,
+        "away_score": null,
+        "status_type": "notstarted",
+        "status_description": "Not started",
+        "has_xg": null,
+        "has_event_player_statistics": null
+      },
+      {
+        "event_id": 16550725,
+        "slug": "new-york-islanders-san-jose-sharks",
+        "start_timestamp": 1794279600,
+        "tournament_name": "NHL",
+        "unique_tournament_id": 234,
+        "unique_tournament_name": "NHL",
+        "country": "North America",
+        "home_team": "San Jose Sharks",
+        "home_team_id": 3696,
+        "away_team": "New York Islanders",
+        "away_team_id": 3703,
+        "home_score": null,
+        "away_score": null,
+        "status_type": "notstarted",
+        "status_description": "Not started",
+        "has_xg": null,
+        "has_event_player_statistics": null
+      },
+      {
+        "event_id": 17514484,
+        "slug": "dino-prizmic-otto-virtanen",
+        "start_timestamp": 1794304800,
+        "tournament_name": "Orleans, France",
+        "unique_tournament_id": 3524,
+        "unique_tournament_name": "Orleans, France",
+        "country": "Challenger",
+        "home_team": "Otto Virtanen",
+        "home_team_id": 229218,
+        "away_team": "Dino Prižmić",
+        "away_team_id": 349089,
+        "home_score": null,
+        "away_score": null,
+        "status_type": "notstarted",
+        "status_description": "Not started",
+        "has_xg": null,
+        "has_event_player_statistics": null
+      },
+      {
+        "event_id": 17514489,
+        "slug": "sebastian-baez-daniil-glinka",
+        "start_timestamp": 1794318000,
+        "tournament_name": "Orleans, France",
+        "unique_tournament_id": 3524,
+        "unique_tournament_name": "Orleans, France",
+        "country": "Challenger",
+        "home_team": "Sebastián Báez",
+        "home_team_id": 221806,
+        "away_team": "Daniil Glinka",
+        "away_team_id": 210033,
+        "home_score": null,
+        "away_score": null,
+        "status_type": "notstarted",
+        "status_description": "Not started",
+        "has_xg": null,
+        "has_event_player_statistics": null
+      },
+      {
+        "event_id": 17511575,
+        "slug": "miomir-kecmanovic-arthur-rinderknech",
+        "start_timestamp": 1794320400,
+        "tournament_name": "Stockholm, Sweden",
+        "unique_tournament_id": 2382,
+        "unique_tournament_name": "Stockholm",
+        "country": "ATP",
+        "home_team": "Arthur Rinderknech",
+        "home_team_id": 63606,
+        "away_team": "Miomir Kecmanović",
+        "away_team_id": 198592,
+        "home_score": null,
+        "away_score": null,
+        "status_type": "notstarted",
+        "status_description": "Not started",
+        "has_xg": null,
+        "has_event_player_statistics": null
+      },
+      {
+        "event_id": 16868430,
+        "slug": "lithuania-croatia",
+        "start_timestamp": 1794330000,
+        "tournament_name": "Futsal World Cup Quali., UEFA, Main round, Gr. 3",
+        "unique_tournament_id": 2346,
+        "unique_tournament_name": "Futsal World Championship Qualification, UEFA",
+        "country": "International",
+        "home_team": "Lithuania",
+        "home_team_id": 34512,
+        "away_team": "Croatia",
+        "away_team_id": 34498,
+        "home_score": null,
+        "away_score": null,
+        "status_type": "notstarted",
+        "status_description": "Not started",
+        "has_xg": null,
+        "has_event_player_statistics": null
+      },
+      {
+        "event_id": 17511574,
+        "slug": "holger-rune-zizou-bergs",
+        "start_timestamp": 1794330000,
+        "tournament_name": "Stockholm, Sweden",
+        "unique_tournament_id": 2382,
+        "unique_tournament_name": "Stockholm",
+        "country": "ATP",
+        "home_team": "Holger Rune",
+        "home_team_id": 283070,
+        "away_team": "Zizou Bergs",
+        "away_team_id": 170946,
+        "home_score": null,
+        "away_score": null,
+        "status_type": "notstarted",
+        "status_description": "Not started",
+        "has_xg": null,
+        "has_event_player_statistics": null
+      },
+      {
+        "event_id": 16574570,
+        "slug": "bm-caserio-ciudad-real-fc-barcelona-hb",
+        "start_timestamp": 1794333600,
+        "tournament_name": "Asobal",
+        "unique_tournament_id": 248,
+        "unique_tournament_name": "ASOBAL",
+        "country": "Spain",
+        "home_team": "FC Barcelona HB",
+        "home_team_id": 3974,
+        "away_team": "BM Caserio Ciudad Real",
+        "away_team_id": 1110448,
+        "home_score": null,
+        "away_score": null,
+        "status_type": "notstarted",
+        "status_description": "Not started",
+        "has_xg": null,
+        "has_event_player_statistics": null
+      },
+      {
+        "event_id": 17499645,
+        "slug": "cd-anaitasuna-ft-deportivo-alaves",
+        "start_timestamp": 1794333600,
+        "tournament_name": "Copa del Rey",
+        "unique_tournament_id": 329,
+        "unique_tournament_name": "Copa del Rey",
+        "country": "Spain",
+        "home_team": "CD Anaitasuna FT",
+        "home_team_id": 263773,
+        "away_team": "Deportivo Alavés",
+        "away_team_id": 2885,
+        "home_score": null,
+        "away_score": null,
+        "status_type": "notstarted",
+        "status_description": "Not started",
+        "has_xg": null,
+        "has_event_player_statistics": null
+      },
+      {
+        "event_id": 17431946,
+        "slug": "ue-tavernes-valencia",
+        "start_timestamp": 1794340800,
+        "tournament_name": "Copa del Rey",
+        "unique_tournament_id": 329,
+        "unique_tournament_name": "Copa del Rey",
+        "country": "Spain",
+        "home_team": "UE Tavernes",
+        "home_team_id": 1284427,
+        "away_team": "Valencia",
+        "away_team_id": 2828,
+        "home_score": null,
+        "away_score": null,
+        "status_type": "notstarted",
+        "status_description": "Not started",
+        "has_xg": null,
+        "has_event_player_statistics": null
+      },
+      {
+        "event_id": 17276058,
+        "slug": "norde-volei-sada-cruzeiro-volei",
+        "start_timestamp": 1794355200,
+        "tournament_name": "Superliga",
+        "unique_tournament_id": 1452,
+        "unique_tournament_name": "Superliga",
+        "country": "Brazil",
+        "home_team": "Norde Vôlei",
+        "home_team_id": 939295,
+        "away_team": "Sada Cruzeiro Vôlei",
+        "away_team_id": 80733,
+        "home_score": null,
+        "away_score": null,
+        "status_type": "notstarted",
+        "status_description": "Not started",
+        "has_xg": null,
+        "has_event_player_statistics": null
+      },
+      {
+        "event_id": 17378318,
+        "slug": "legacy-furia",
+        "start_timestamp": 1794362400,
+        "tournament_name": "BLAST Rivals Group A",
+        "unique_tournament_id": 26126,
+        "unique_tournament_name": "BLAST Rivals",
+        "country": "Counter Strike",
+        "home_team": "Legacy",
+        "home_team_id": 492530,
+        "away_team": "FURIA",
+        "away_team_id": 364252,
+        "home_score": null,
+        "away_score": null,
+        "status_type": "notstarted",
+        "status_description": "Not started",
+        "has_xg": null,
+        "has_event_player_statistics": null
+      },
+      {
+        "event_id": 17488435,
+        "slug": "osullivan-murphy",
+        "start_timestamp": 1794402000,
+        "tournament_name": "Champion of Champions 2026",
+        "unique_tournament_id": 1574,
+        "unique_tournament_name": "Champion of Champions",
+        "country": "International",
+        "home_team": "Murphy S.",
+        "home_team_id": 22455,
+        "away_team": "O'Sullivan R.",
+        "away_team_id": 22456,
+        "home_score": null,
+        "away_score": null,
+        "status_type": "notstarted",
+        "status_description": "Not started",
+        "has_xg": null,
+        "has_event_player_statistics": null
+      },
+      {
+        "event_id": 16347736,
+        "slug": "torpedo-nizhny-novgorod-cska-moscow",
+        "start_timestamp": 1794414600,
+        "tournament_name": "KHL",
+        "unique_tournament_id": 268,
+        "unique_tournament_name": "KHL",
+        "country": "Russia",
+        "home_team": "CSKA Moscow",
+        "home_team_id": 3946,
+        "away_team": "Torpedo Nizhny Novgorod",
+        "away_team_id": 7857,
+        "home_score": null,
+        "away_score": null,
+        "status_type": "notstarted",
+        "status_description": "Not started",
+        "has_xg": null,
+        "has_event_player_statistics": null
+      },
+      {
+        "event_id": 17220359,
+        "slug": "handball-club-hamburg-sc-magdeburg",
+        "start_timestamp": 1794420000,
+        "tournament_name": "DHB Pokal",
+        "unique_tournament_id": 57,
+        "unique_tournament_name": "DHB Pokal",
+        "country": "Germany",
+        "home_team": "SC Magdeburg",
+        "home_team_id": 3982,
+        "away_team": "Handball Club Hamburg",
+        "away_team_id": 3997,
+        "home_score": null,
+        "away_score": null,
+        "status_type": "notstarted",
+        "status_description": "Not started",
+        "has_xg": null,
+        "has_event_player_statistics": null
+      },
+      {
+        "event_id": 16868437,
+        "slug": "andorra-netherlands",
+        "start_timestamp": 1794421800,
+        "tournament_name": "Futsal World Cup Quali., UEFA, Main round, Gr. 8",
+        "unique_tournament_id": 2346,
+        "unique_tournament_name": "Futsal World Championship Qualification, UEFA",
+        "country": "International",
+        "home_team": "Netherlands",
+        "home_team_id": 34495,
+        "away_team": "Andorra",
+        "away_team_id": 34496,
+        "home_score": null,
+        "away_score": null,
+        "status_type": "notstarted",
+        "status_description": "Not started",
+        "has_xg": null,
+        "has_event_player_statistics": null
+      },
+      {
+        "event_id": 16605505,
+        "slug": "igor-gorgonzola-novara-imoco-volley-conegliano",
+        "start_timestamp": 1794425400,
+        "tournament_name": "Serie A1, Women",
+        "unique_tournament_id": 567,
+        "unique_tournament_name": "Serie A1, Women",
+        "country": "Italy",
+        "home_team": "Igor Gorgonzola Novara",
+        "home_team_id": 115129,
+        "away_team": "Imoco Volley Conegliano",
+        "away_team_id": 78591,
+        "home_score": null,
+        "away_score": null,
+        "status_type": "notstarted",
+        "status_description": "Not started",
+        "has_xg": null,
+        "has_event_player_statistics": null
+      },
+      {
+        "event_id": 17266781,
+        "slug": "khilasedichi-baku-sporting-cp",
+        "start_timestamp": 1794425400,
+        "tournament_name": "CEV Champions League, Qualification",
+        "unique_tournament_id": 586,
+        "unique_tournament_name": "Champions League",
+        "country": "International",
+        "home_team": "Sporting CP",
+        "home_team_id": 267522,
+        "away_team": "Khilasedichi Baku",
+        "away_team_id": 1139811,
+        "home_score": null,
+        "away_score": null,
+        "status_type": "notstarted",
+        "status_description": "Not started",
+        "has_xg": null,
+        "has_event_player_statistics": null
+      },
+      {
+        "event_id": 16665352,
+        "slug": "kk-partizan-mozzart-bet-kosner-baskonia",
+        "start_timestamp": 1794426300,
+        "tournament_name": "Euroleague",
+        "unique_tournament_id": 138,
+        "unique_tournament_name": "Euroleague",
+        "country": "International",
+        "home_team": "KK Partizan Mozzart Bet",
+        "home_team_id": 6637,
+        "away_team": "Kosner Baskonia",
+        "away_team_id": 3553,
+        "home_score": null,
+        "away_score": null,
+        "status_type": "notstarted",
+        "status_description": "Not started",
+        "has_xg": null,
+        "has_event_player_statistics": null
+      },
+      {
+        "event_id": 16230799,
+        "slug": "malmo-redhawks-frolunda-hc",
+        "start_timestamp": 1794506400,
+        "tournament_name": "SHL",
+        "unique_tournament_id": 261,
+        "unique_tournament_name": "SHL",
+        "country": "Sweden",
+        "home_team": "Frölunda HC",
+        "home_team_id": 3734,
+        "away_team": "Malmö Redhawks",
+        "away_team_id": 3736,
+        "home_score": null,
+        "away_score": null,
+        "status_type": "notstarted",
+        "status_description": "Not started",
+        "has_xg": null,
+        "has_event_player_statistics": null
+      },
+      {
+        "event_id": 16665354,
+        "slug": "bc-dubai-olympiacos-bc",
+        "start_timestamp": 1794510900,
+        "tournament_name": "Euroleague",
+        "unique_tournament_id": 138,
+        "unique_tournament_name": "Euroleague",
+        "country": "International",
+        "home_team": "Olympiacos BC",
+        "home_team_id": 3501,
+        "away_team": "BC Dubai",
+        "away_team_id": 526165,
+        "home_score": null,
+        "away_score": null,
+        "status_type": "notstarted",
+        "status_description": "Not started",
+        "has_xg": null,
+        "has_event_player_statistics": null
+      },
+      {
+        "event_id": 17239845,
+        "slug": "sporting-maritimo-da-madeira-andebol-sad",
+        "start_timestamp": 1794511800,
+        "tournament_name": "1a Divisao",
+        "unique_tournament_id": 1404,
+        "unique_tournament_name": "1a Divisao",
+        "country": "Portugal",
+        "home_team": "Marítimo Da Madeira Andebol SAD",
+        "home_team_id": 6740,
+        "away_team": "Sporting",
+        "away_team_id": 6795,
+        "home_score": null,
+        "away_score": null,
+        "status_type": "notstarted",
+        "status_description": "Not started",
+        "has_xg": null,
+        "has_event_player_statistics": null
+      },
+      {
+        "event_id": 16665357,
+        "slug": "kk-crvena-zvezda-real-madrid",
+        "start_timestamp": 1794513600,
+        "tournament_name": "Euroleague",
+        "unique_tournament_id": 138,
+        "unique_tournament_name": "Euroleague",
+        "country": "International",
+        "home_team": "Real Madrid",
+        "home_team_id": 3540,
+        "away_team": "KK Crvena zvezda",
+        "away_team_id": 57183,
+        "home_score": null,
+        "away_score": null,
+        "status_type": "notstarted",
+        "status_description": "Not started",
+        "has_xg": null,
+        "has_event_player_statistics": null
+      },
+      {
+        "event_id": 17267807,
+        "slug": "sancor-seguros-volei-londrina-gerdauminas",
+        "start_timestamp": 1794519000,
+        "tournament_name": "Superliga, Women",
+        "unique_tournament_id": 1468,
+        "unique_tournament_name": "Superliga, Women",
+        "country": "Brazil",
+        "home_team": "Gerdau/Minas",
+        "home_team_id": 121038,
+        "away_team": "Sancor Seguros Vôlei Londrina",
+        "away_team_id": 390651,
+        "home_score": null,
+        "away_score": null,
+        "status_type": "notstarted",
+        "status_description": "Not started",
+        "has_xg": null,
+        "has_event_player_statistics": null
+      }
+    ],
+    "ligamx_seasons": [],
+    "recorded_api_calls": [
+      {
+        "network_id": 46,
+        "url": "https://www.sofascore.com/static/manifest.json",
+        "status": 200,
+        "resource_type": "manifest",
+        "json_keys": [
+          "short_name",
+          "name",
+          "description",
+          "icons",
+          "start_url",
+          "display",
+          "theme_color",
+          "background_color",
+          "orientation",
+          "related_applications"
+        ]
+      },
+      {
+        "network_id": 97,
+        "url": "https://www.sofascore.com/api/v1/country/alpha2",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "alpha2",
+          "continent_code",
+          "country",
+          "city",
+          "ip",
+          "f",
+          "region_code"
+        ]
+      },
+      {
+        "network_id": 115,
+        "url": "https://www.sofascore.com/api/v1/config/country-sport-priorities/country",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "countrySportPriorities"
+        ]
+      },
+      {
+        "network_id": 116,
+        "url": "https://www.sofascore.com/api/v1/sport/football/trending-top-players",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "topPlayers"
+        ]
+      },
+      {
+        "network_id": 117,
+        "url": "https://www.sofascore.com/api/v1/sofascore-news/en/posts?page=1&per_page=12&categories=sport",
+        "status": 200,
+        "resource_type": "fetch"
+      },
+      {
+        "network_id": 118,
+        "url": "https://www.sofascore.com/api/v1/sport/-21600/event-count",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "snooker",
+          "badminton",
+          "futsal",
+          "ice-hockey",
+          "minifootball",
+          "darts",
+          "table-tennis",
+          "american-football",
+          "floorball",
+          "football",
+          "tennis",
+          "baseball",
+          "basketball",
+          "padel",
+          "handball"
+        ]
+      },
+      {
+        "network_id": 119,
+        "url": "https://www.sofascore.com/api/v1/sport/football/categories/all",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "categories"
+        ]
+      },
+      {
+        "network_id": 120,
+        "url": "https://www.sofascore.com/api/v1/transfer?page=1&sort=-transferFee",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "transfers"
+        ]
+      },
+      {
+        "network_id": 121,
+        "url": "https://www.sofascore.com/api/v1/sport/football/live-tournaments",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "liveTournaments"
+        ]
+      },
+      {
+        "network_id": 122,
+        "url": "https://www.sofascore.com/api/v1/config/top-unique-tournaments/00/football",
+        "status": 404,
+        "resource_type": "fetch",
+        "json_keys": [
+          "error"
+        ]
+      },
+      {
+        "network_id": 143,
+        "url": "https://www.sofascore.com/api/v1/odds/providers/MX/web",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "providers"
+        ]
+      },
+      {
+        "network_id": 144,
+        "url": "https://www.sofascore.com/api/v1/odds/providers/MX/web-dropping",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "providers"
+        ]
+      },
+      {
+        "network_id": 145,
+        "url": "https://www.sofascore.com/api/v1/branding/providers/MX/web",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "config"
+        ]
+      },
+      {
+        "network_id": 146,
+        "url": "https://www.sofascore.com/api/v1/config/country-sport-priorities/country/MX",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "countrySportPriorities"
+        ]
+      },
+      {
+        "network_id": 147,
+        "url": "https://www.sofascore.com/api/v1/trending/events/MX/all",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "events"
+        ]
+      },
+      {
+        "network_id": 148,
+        "url": "https://www.sofascore.com/api/v1/config/default-unique-tournaments/MX/football",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "uniqueTournaments"
+        ]
+      },
+      {
+        "network_id": 149,
+        "url": "https://www.sofascore.com/api/v1/sport/football/scheduled-tournaments/2026-11-09/page/1",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "scheduled",
+          "hasNextPage"
+        ]
+      },
+      {
+        "network_id": 151,
+        "url": "https://www.sofascore.com/api/v1/sport/football/2026-11-09/-21600/categories",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "categories"
+        ]
+      },
+      {
+        "network_id": 152,
+        "url": "https://www.sofascore.com/api/v1/config/top-unique-tournaments/MX/football",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "uniqueTournaments"
+        ]
+      },
+      {
+        "network_id": 153,
+        "url": "https://www.sofascore.com/api/v1/event/newly-added-events",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "events"
+        ]
+      },
+      {
+        "network_id": 240,
+        "url": "https://www.sofascore.com/api/v1/odds/providers/MX/web-odds",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "providers"
+        ]
+      },
+      {
+        "network_id": 241,
+        "url": "https://www.sofascore.com/api/v1/odds/1/featured-events/football",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "featuredEvents"
+        ]
+      },
+      {
+        "network_id": 242,
+        "url": "https://www.sofascore.com/api/v1/odds/1/featured-events-by-popularity/football",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "featuredEvents"
+        ]
+      },
+      {
+        "network_id": 248,
+        "url": "https://www.sofascore.com/api/v1/unique-tournament/16736/scheduled-events/2026-11-09",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "events"
+        ]
+      },
+      {
+        "network_id": 249,
+        "url": "https://www.sofascore.com/api/v1/unique-tournament/19/scheduled-events/2026-11-09",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "events"
+        ]
+      },
+      {
+        "network_id": 250,
+        "url": "https://www.sofascore.com/api/v1/unique-tournament/20/scheduled-events/2026-11-09",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "events"
+        ]
+      },
+      {
+        "network_id": 251,
+        "url": "https://www.sofascore.com/api/v1/unique-tournament/11541/scheduled-events/2026-11-09",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "events"
+        ]
+      },
+      {
+        "network_id": 252,
+        "url": "https://www.sofascore.com/api/v1/unique-tournament/54/scheduled-events/2026-11-09",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "events"
+        ]
+      },
+      {
+        "network_id": 253,
+        "url": "https://www.sofascore.com/api/v1/unique-tournament/152/scheduled-events/2026-11-09",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "events"
+        ]
+      },
+      {
+        "network_id": 254,
+        "url": "https://www.sofascore.com/api/v1/unique-tournament/232/scheduled-events/2026-11-09",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "events"
+        ]
+      },
+      {
+        "network_id": 255,
+        "url": "https://www.sofascore.com/api/v1/unique-tournament/37958/scheduled-events/2026-11-09",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "events"
+        ]
+      },
+      {
+        "network_id": 256,
+        "url": "https://www.sofascore.com/api/v1/unique-tournament/1127/scheduled-events/2026-11-09",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "events"
+        ]
+      },
+      {
+        "network_id": 257,
+        "url": "https://www.sofascore.com/api/v1/unique-tournament/24194/scheduled-events/2026-11-09",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "events"
+        ]
+      },
+      {
+        "network_id": 289,
+        "url": "https://www.sofascore.com/api/v1/unique-tournament/679/seasons",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "seasons"
+        ]
+      },
+      {
+        "network_id": 290,
+        "url": "https://www.sofascore.com/api/v1/unique-tournament/7/seasons",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "seasons"
+        ]
+      },
+      {
+        "network_id": 291,
+        "url": "https://www.sofascore.com/api/v1/unique-tournament/8/seasons",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "seasons"
+        ]
+      },
+      {
+        "network_id": 292,
+        "url": "https://www.sofascore.com/api/v1/unique-tournament/17/seasons",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "seasons"
+        ]
+      },
+      {
+        "network_id": 293,
+        "url": "https://www.sofascore.com/api/v1/unique-tournament/35/seasons",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "seasons"
+        ]
+      },
+      {
+        "network_id": 294,
+        "url": "https://www.sofascore.com/api/v1/unique-tournament/17015/seasons",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "seasons"
+        ]
+      },
+      {
+        "network_id": 295,
+        "url": "https://www.sofascore.com/api/v1/unique-tournament/34/seasons",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "seasons"
+        ]
+      },
+      {
+        "network_id": 296,
+        "url": "https://www.sofascore.com/api/v1/unique-tournament/23/seasons",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "seasons"
+        ]
+      },
+      {
+        "network_id": 297,
+        "url": "https://www.sofascore.com/api/v1/odds/providers/MX/web-featured",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "providers"
+        ]
+      },
+      {
+        "network_id": 298,
+        "url": "https://www.sofascore.com/api/v1/event/16418312/odds/1/featured",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "featured",
+          "hasMoreOdds",
+          "liveStreamUrl"
+        ]
+      },
+      {
+        "network_id": 299,
+        "url": "https://www.sofascore.com/api/v1/event/16425761/odds/1/all",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "markets",
+          "eventId",
+          "liveStreamUrl"
+        ]
+      },
+      {
+        "network_id": 300,
+        "url": "https://www.sofascore.com/api/v1/event/16403934/odds/1/all",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "markets",
+          "eventId",
+          "liveStreamUrl"
+        ]
+      },
+      {
+        "network_id": 301,
+        "url": "https://www.sofascore.com/api/v1/event/17487921/odds/1/all",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "markets",
+          "eventId",
+          "liveStreamUrl"
+        ]
+      },
+      {
+        "network_id": 302,
+        "url": "https://www.sofascore.com/api/v1/event/16317286/odds/1/all",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "markets",
+          "eventId",
+          "liveStreamUrl"
+        ]
+      },
+      {
+        "network_id": 303,
+        "url": "https://www.sofascore.com/api/v1/event/16418312/votes",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "vote",
+          "bothTeamsToScoreVote",
+          "firstTeamToScoreVote",
+          "whoShouldHaveWonVote"
+        ]
+      },
+      {
+        "network_id": 304,
+        "url": "https://www.sofascore.com/api/v1/event/17102451/odds/1/all",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "markets",
+          "eventId",
+          "liveStreamUrl"
+        ]
+      },
+      {
+        "network_id": 305,
+        "url": "https://www.sofascore.com/api/v1/event/15534041/odds/1/featured",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "featured",
+          "hasMoreOdds",
+          "liveStreamUrl"
+        ]
+      },
+      {
+        "network_id": 306,
+        "url": "https://www.sofascore.com/api/v1/event/16472612/odds/1/featured",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "featured",
+          "hasMoreOdds",
+          "liveStreamUrl"
+        ]
+      },
+      {
+        "network_id": 307,
+        "url": "https://www.sofascore.com/api/v1/event/16675380/odds/1/featured",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "featured",
+          "hasMoreOdds",
+          "liveStreamUrl"
+        ]
+      },
+      {
+        "network_id": 308,
+        "url": "https://www.sofascore.com/api/v1/event/16418312/odds/1/featured",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "featured",
+          "hasMoreOdds",
+          "liveStreamUrl"
+        ]
+      },
+      {
+        "network_id": 309,
+        "url": "https://www.sofascore.com/api/v1/event/16472612",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "event"
+        ]
+      },
+      {
+        "network_id": 310,
+        "url": "https://www.sofascore.com/api/v1/event/16675392/odds/1/featured",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "featured",
+          "hasMoreOdds",
+          "liveStreamUrl"
+        ]
+      },
+      {
+        "network_id": 311,
+        "url": "https://www.sofascore.com/api/v1/event/15534041",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "event"
+        ]
+      },
+      {
+        "network_id": 312,
+        "url": "https://www.sofascore.com/api/v1/event/16418312",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "event"
+        ]
+      },
+      {
+        "network_id": 313,
+        "url": "https://www.sofascore.com/api/v1/event/16675380/votes",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "vote",
+          "bothTeamsToScoreVote",
+          "firstTeamToScoreVote",
+          "whoShouldHaveWonVote"
+        ]
+      },
+      {
+        "network_id": 314,
+        "url": "https://www.sofascore.com/api/v1/event/16675380/odds/1/featured",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "featured",
+          "hasMoreOdds",
+          "liveStreamUrl"
+        ]
+      },
+      {
+        "network_id": 316,
+        "url": "https://www.sofascore.com/api/v1/event/16675380",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "event"
+        ]
+      },
+      {
+        "network_id": 317,
+        "url": "https://www.sofascore.com/api/v1/event/16675392",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "event"
+        ]
+      },
+      {
+        "network_id": 318,
+        "url": "https://www.sofascore.com/api/v1/event/16472612/odds/1/featured",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "featured",
+          "hasMoreOdds",
+          "liveStreamUrl"
+        ]
+      },
+      {
+        "network_id": 319,
+        "url": "https://www.sofascore.com/api/v1/event/16675392/odds/1/featured",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "featured",
+          "hasMoreOdds",
+          "liveStreamUrl"
+        ]
+      },
+      {
+        "network_id": 320,
+        "url": "https://www.sofascore.com/api/v1/event/15534041/votes",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "vote",
+          "bothTeamsToScoreVote",
+          "firstTeamToScoreVote",
+          "whoShouldHaveWonVote"
+        ]
+      },
+      {
+        "network_id": 321,
+        "url": "https://www.sofascore.com/api/v1/event/15534041/odds/1/featured",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "featured",
+          "hasMoreOdds",
+          "liveStreamUrl"
+        ]
+      },
+      {
+        "network_id": 322,
+        "url": "https://www.sofascore.com/api/v1/event/16472612/votes",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "vote",
+          "bothTeamsToScoreVote",
+          "firstTeamToScoreVote",
+          "whoShouldHaveWonVote"
+        ]
+      },
+      {
+        "network_id": 323,
+        "url": "https://www.sofascore.com/api/v1/event/16675392/votes",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "vote",
+          "bothTeamsToScoreVote",
+          "firstTeamToScoreVote",
+          "whoShouldHaveWonVote"
+        ]
+      },
+      {
+        "network_id": 336,
+        "url": "https://www.sofascore.com/api/v1/unique-tournament/679/season/96522/player-of-the-season-race",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "topPlayers",
+          "statisticsType",
+          "playerOfTheTournament"
+        ]
+      },
+      {
+        "network_id": 337,
+        "url": "https://www.sofascore.com/api/v1/unique-tournament/7/season/96518/player-of-the-season-race",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "topPlayers",
+          "statisticsType",
+          "playerOfTheTournament"
+        ]
+      },
+      {
+        "network_id": 338,
+        "url": "https://www.sofascore.com/api/v1/unique-tournament/35/season/97464/player-of-the-season-race",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "topPlayers",
+          "statisticsType",
+          "playerOfTheTournament"
+        ]
+      },
+      {
+        "network_id": 339,
+        "url": "https://www.sofascore.com/api/v1/unique-tournament/8/season/97268/player-of-the-season-race",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "topPlayers",
+          "statisticsType",
+          "playerOfTheTournament"
+        ]
+      },
+      {
+        "network_id": 340,
+        "url": "https://www.sofascore.com/api/v1/unique-tournament/34/season/96127/player-of-the-season-race",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "topPlayers",
+          "statisticsType",
+          "playerOfTheTournament"
+        ]
+      },
+      {
+        "network_id": 341,
+        "url": "https://www.sofascore.com/api/v1/unique-tournament/17015/season/96529/player-of-the-season-race",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "topPlayers",
+          "statisticsType",
+          "playerOfTheTournament"
+        ]
+      },
+      {
+        "network_id": 342,
+        "url": "https://www.sofascore.com/api/v1/unique-tournament/17/season/96668/player-of-the-season-race",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "topPlayers",
+          "statisticsType",
+          "playerOfTheTournament"
+        ]
+      },
+      {
+        "network_id": 343,
+        "url": "https://www.sofascore.com/api/v1/unique-tournament/23/season/95836/player-of-the-season-race",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "topPlayers",
+          "statisticsType",
+          "playerOfTheTournament"
+        ]
+      },
+      {
+        "network_id": 358,
+        "url": "https://id.a-mx.com/sync/?tagId=&ref=null&u=https://www.sofascore.com/&tl=https://www.sofascore.com/&nf=0&rt=true&v=11.42.0&av=2.0&vg=adv&us_privacy=null&am=null&gdpr=0&gdpr_consent=",
+        "status": 302,
+        "resource_type": "fetch"
+      },
+      {
+        "network_id": 361,
+        "url": "https://www.sofascore.com/api/v1/sport/football/live-tournaments",
+        "status": 200,
+        "resource_type": "fetch",
+        "json_keys": [
+          "liveTournaments"
+        ]
+      },
+      {
+        "network_id": 362,
+        "url": "https://api.sofascore.com/api/v1/sport/football/scheduled-events/2026-11-09",
+        "status": 403,
+        "resource_type": "document",
+        "json_keys": [
+          "error"
+        ]
+      },
+      {
+        "network_id": 363,
+        "url": "https://api.sofascore.com/api/v1/unique-tournament/11621/seasons",
+        "status": 403,
+        "resource_type": "document",
+        "json_keys": [
+          "error"
+        ]
+      }
+    ]
+  }
+}

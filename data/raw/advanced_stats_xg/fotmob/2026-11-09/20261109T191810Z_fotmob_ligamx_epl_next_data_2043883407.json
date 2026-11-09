@@ -1,0 +1,4120 @@
+{
+  "source_id": "fotmob",
+  "source_name": "FotMob",
+  "category": "advanced_stats_xg",
+  "url": "https://www.fotmob.com/leagues/230/overview/liga-mx",
+  "scrapling_mode": "network_recorder",
+  "captured_at_utc": "2026-11-09T19:18:10Z",
+  "sha256": "2043883407ae34f5587eb089b109998f56ca21cf43434c69a28b271a9dd63ae1",
+  "meta": {
+    "leagues_scraped": 2,
+    "total_standings_rows": 38,
+    "total_matches_extracted": 160,
+    "total_stat_categories": 40,
+    "total_records": 238
+  },
+  "payload": {
+    "source": "fotmob",
+    "target_urls": [
+      "https://www.fotmob.com/leagues/230/overview/liga-mx",
+      "https://www.fotmob.com/leagues/47/overview/premier-league"
+    ],
+    "summary": {
+      "leagues_scraped": 2,
+      "total_standings_rows": 38,
+      "total_matches_extracted": 160,
+      "total_stat_categories": 40,
+      "total_records": 238
+    },
+    "leagues": [
+      {
+        "league_slug": "liga-mx",
+        "league_id": 230,
+        "league_name": "Liga MX",
+        "country": "MEX",
+        "selected_season": "2026/2027 - Apertura",
+        "url": "https://www.fotmob.com/leagues/230/overview/liga-mx",
+        "status": 200,
+        "standings_count": 18,
+        "standings_rows": [
+          {
+            "idx": 1,
+            "team_id": 6578,
+            "team_name": "Cruz Azul",
+            "played": 16,
+            "wins": 10,
+            "draws": 2,
+            "losses": 4,
+            "scores_str": "37-26",
+            "goal_conceded": 11,
+            "pts": 32,
+            "xg": null,
+            "xg_conceded": null
+          },
+          {
+            "idx": 2,
+            "team_id": 6576,
+            "team_name": "CF América",
+            "played": 16,
+            "wins": 8,
+            "draws": 6,
+            "losses": 2,
+            "scores_str": "38-23",
+            "goal_conceded": 15,
+            "pts": 30,
+            "xg": null,
+            "xg_conceded": null
+          },
+          {
+            "idx": 3,
+            "team_id": 7807,
+            "team_name": "Chivas",
+            "played": 16,
+            "wins": 8,
+            "draws": 6,
+            "losses": 2,
+            "scores_str": "26-15",
+            "goal_conceded": 11,
+            "pts": 30,
+            "xg": null,
+            "xg_conceded": null
+          },
+          {
+            "idx": 4,
+            "team_id": 6618,
+            "team_name": "Toluca",
+            "played": 16,
+            "wins": 7,
+            "draws": 6,
+            "losses": 3,
+            "scores_str": "35-21",
+            "goal_conceded": 14,
+            "pts": 27,
+            "xg": null,
+            "xg_conceded": null
+          },
+          {
+            "idx": 5,
+            "team_id": 6577,
+            "team_name": "Atlas",
+            "played": 16,
+            "wins": 8,
+            "draws": 3,
+            "losses": 5,
+            "scores_str": "27-30",
+            "goal_conceded": -3,
+            "pts": 27,
+            "xg": null,
+            "xg_conceded": null
+          },
+          {
+            "idx": 6,
+            "team_id": 7857,
+            "team_name": "Santos Laguna",
+            "played": 16,
+            "wins": 8,
+            "draws": 1,
+            "losses": 7,
+            "scores_str": "23-20",
+            "goal_conceded": 3,
+            "pts": 25,
+            "xg": null,
+            "xg_conceded": null
+          },
+          {
+            "idx": 7,
+            "team_id": 1841,
+            "team_name": "León",
+            "played": 16,
+            "wins": 6,
+            "draws": 5,
+            "losses": 5,
+            "scores_str": "23-21",
+            "goal_conceded": 2,
+            "pts": 23,
+            "xg": null,
+            "xg_conceded": null
+          },
+          {
+            "idx": 8,
+            "team_id": 7848,
+            "team_name": "Pachuca",
+            "played": 16,
+            "wins": 6,
+            "draws": 4,
+            "losses": 6,
+            "scores_str": "29-20",
+            "goal_conceded": 9,
+            "pts": 22,
+            "xg": null,
+            "xg_conceded": null
+          },
+          {
+            "idx": 9,
+            "team_id": 162418,
+            "team_name": "Tijuana",
+            "played": 16,
+            "wins": 5,
+            "draws": 7,
+            "losses": 4,
+            "scores_str": "25-22",
+            "goal_conceded": 3,
+            "pts": 22,
+            "xg": null,
+            "xg_conceded": null
+          },
+          {
+            "idx": 10,
+            "team_id": 7849,
+            "team_name": "Monterrey",
+            "played": 15,
+            "wins": 6,
+            "draws": 3,
+            "losses": 6,
+            "scores_str": "26-25",
+            "goal_conceded": 1,
+            "pts": 21,
+            "xg": null,
+            "xg_conceded": null
+          },
+          {
+            "idx": 11,
+            "team_id": 1946,
+            "team_name": "Pumas",
+            "played": 16,
+            "wins": 5,
+            "draws": 6,
+            "losses": 5,
+            "scores_str": "24-26",
+            "goal_conceded": -2,
+            "pts": 21,
+            "xg": null,
+            "xg_conceded": null
+          },
+          {
+            "idx": 12,
+            "team_id": 1943,
+            "team_name": "Querétaro FC",
+            "played": 15,
+            "wins": 6,
+            "draws": 2,
+            "losses": 7,
+            "scores_str": "18-23",
+            "goal_conceded": -5,
+            "pts": 20,
+            "xg": null,
+            "xg_conceded": null
+          },
+          {
+            "idx": 13,
+            "team_id": 7847,
+            "team_name": "Puebla",
+            "played": 16,
+            "wins": 5,
+            "draws": 4,
+            "losses": 7,
+            "scores_str": "19-23",
+            "goal_conceded": -4,
+            "pts": 19,
+            "xg": null,
+            "xg_conceded": null
+          },
+          {
+            "idx": 14,
+            "team_id": 6358,
+            "team_name": "Atlético de San Luis",
+            "played": 16,
+            "wins": 5,
+            "draws": 4,
+            "losses": 7,
+            "scores_str": "19-24",
+            "goal_conceded": -5,
+            "pts": 19,
+            "xg": null,
+            "xg_conceded": null
+          },
+          {
+            "idx": 15,
+            "team_id": 8561,
+            "team_name": "Tigres",
+            "played": 16,
+            "wins": 3,
+            "draws": 6,
+            "losses": 7,
+            "scores_str": "17-25",
+            "goal_conceded": -8,
+            "pts": 15,
+            "xg": null,
+            "xg_conceded": null
+          },
+          {
+            "idx": 16,
+            "team_id": 1942,
+            "team_name": "Atlante",
+            "played": 16,
+            "wins": 3,
+            "draws": 5,
+            "losses": 8,
+            "scores_str": "16-26",
+            "goal_conceded": -10,
+            "pts": 14,
+            "xg": null,
+            "xg_conceded": null
+          },
+          {
+            "idx": 17,
+            "team_id": 1842,
+            "team_name": "Necaxa",
+            "played": 16,
+            "wins": 3,
+            "draws": 4,
+            "losses": 9,
+            "scores_str": "17-28",
+            "goal_conceded": -11,
+            "pts": 13,
+            "xg": null,
+            "xg_conceded": null
+          },
+          {
+            "idx": 18,
+            "team_id": 649424,
+            "team_name": "FC Juárez",
+            "played": 16,
+            "wins": 3,
+            "draws": 2,
+            "losses": 11,
+            "scores_str": "13-34",
+            "goal_conceded": -21,
+            "pts": 11,
+            "xg": null,
+            "xg_conceded": null
+          }
+        ],
+        "matches_count": 80,
+        "matches": [
+          {
+            "match_id": "1000014499",
+            "round": "1",
+            "page_url": "/matches/necaxa-vs-atlante/49j4q#1000014499",
+            "home_team": "Necaxa",
+            "home_id": "1842",
+            "home_score": null,
+            "away_team": "Atlante",
+            "away_id": "1942",
+            "away_score": null,
+            "utc_time": "2026-07-17T01:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "2 - 1"
+          },
+          {
+            "match_id": "1000014500",
+            "round": "1",
+            "page_url": "/matches/tigres-vs-tijuana/6pql3wn#1000014500",
+            "home_team": "Tijuana",
+            "home_id": "162418",
+            "home_score": null,
+            "away_team": "Tigres",
+            "away_id": "8561",
+            "away_score": null,
+            "utc_time": "2026-07-17T03:10:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "3 - 1"
+          },
+          {
+            "match_id": "1000014501",
+            "round": "1",
+            "page_url": "/matches/atletico-de-san-luis-vs-cruz-azul/1dtmae#1000014501",
+            "home_team": "Atlético de San Luis",
+            "home_id": "6358",
+            "home_score": null,
+            "away_team": "Cruz Azul",
+            "away_id": "6578",
+            "away_score": null,
+            "utc_time": "2026-07-18T01:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "2 - 3"
+          },
+          {
+            "match_id": "1000014502",
+            "round": "1",
+            "page_url": "/matches/leon-vs-atlas/l3nc4#1000014502",
+            "home_team": "León",
+            "home_id": "1841",
+            "home_score": null,
+            "away_team": "Atlas",
+            "away_id": "6577",
+            "away_score": null,
+            "utc_time": "2026-07-18T01:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "2 - 3"
+          },
+          {
+            "match_id": "1000014503",
+            "round": "1",
+            "page_url": "/matches/puebla-vs-fc-juarez/2r8ak7wr#1000014503",
+            "home_team": "FC Juárez",
+            "home_id": "649424",
+            "home_score": null,
+            "away_team": "Puebla",
+            "away_id": "7847",
+            "away_score": null,
+            "utc_time": "2026-07-18T03:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "0 - 1"
+          },
+          {
+            "match_id": "1000014504",
+            "round": "1",
+            "page_url": "/matches/pumas-vs-pachuca/sk8y3#1000014504",
+            "home_team": "Pumas",
+            "home_id": "1946",
+            "home_score": null,
+            "away_team": "Pachuca",
+            "away_id": "7848",
+            "away_score": null,
+            "utc_time": "2026-07-18T23:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "0 - 3"
+          },
+          {
+            "match_id": "1000014506",
+            "round": "1",
+            "page_url": "/matches/monterrey-vs-santos-laguna/21fx9s#1000014506",
+            "home_team": "Monterrey",
+            "home_id": "7849",
+            "home_score": null,
+            "away_team": "Santos Laguna",
+            "away_id": "7857",
+            "away_score": null,
+            "utc_time": "2026-07-19T01:05:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "3 - 2"
+          },
+          {
+            "match_id": "1000014505",
+            "round": "1",
+            "page_url": "/matches/toluca-vs-chivas/1py9lw#1000014505",
+            "home_team": "Chivas",
+            "home_id": "7807",
+            "home_score": null,
+            "away_team": "Toluca",
+            "away_id": "6618",
+            "away_score": null,
+            "utc_time": "2026-07-19T01:07:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "0 - 2"
+          },
+          {
+            "match_id": "1000014507",
+            "round": "1",
+            "page_url": "/matches/queretaro-fc-vs-cf-america/llzcc#1000014507",
+            "home_team": "Querétaro FC",
+            "home_id": "1943",
+            "home_score": null,
+            "away_team": "CF América",
+            "away_id": "6576",
+            "away_score": null,
+            "utc_time": "2026-07-19T03:10:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "0 - 1"
+          },
+          {
+            "match_id": "1000014508",
+            "round": "2",
+            "page_url": "/matches/cruz-azul-vs-puebla/1py9n0#1000014508",
+            "home_team": "Cruz Azul",
+            "home_id": "6578",
+            "home_score": null,
+            "away_team": "Puebla",
+            "away_id": "7847",
+            "away_score": null,
+            "utc_time": "2026-07-22T01:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "2 - 1"
+          },
+          {
+            "match_id": "1000014509",
+            "round": "2",
+            "page_url": "/matches/pumas-vs-toluca/lu7z0#1000014509",
+            "home_team": "Toluca",
+            "home_id": "6618",
+            "home_score": null,
+            "away_team": "Pumas",
+            "away_id": "1946",
+            "away_score": null,
+            "utc_time": "2026-07-22T03:05:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "1 - 2"
+          },
+          {
+            "match_id": "1000014511",
+            "round": "2",
+            "page_url": "/matches/atlante-vs-cf-america/llsrp#1000014511",
+            "home_team": "Atlante",
+            "home_id": "1942",
+            "home_score": null,
+            "away_team": "CF América",
+            "away_id": "6576",
+            "away_score": null,
+            "utc_time": "2026-07-25T03:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "1 - 1"
+          },
+          {
+            "match_id": "1000014512",
+            "round": "2",
+            "page_url": "/matches/leon-vs-tijuana/673y8kn#1000014512",
+            "home_team": "Tijuana",
+            "home_id": "162418",
+            "home_score": null,
+            "away_team": "León",
+            "away_id": "1841",
+            "away_score": null,
+            "utc_time": "2026-07-25T03:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "1 - 0"
+          },
+          {
+            "match_id": "1000014513",
+            "round": "2",
+            "page_url": "/matches/chivas-vs-fc-juarez/2r7uwqc7#1000014513",
+            "home_team": "Chivas",
+            "home_id": "7807",
+            "home_score": null,
+            "away_team": "FC Juárez",
+            "away_id": "649424",
+            "away_score": null,
+            "utc_time": "2026-07-25T23:07:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "1 - 0"
+          },
+          {
+            "match_id": "1000014514",
+            "round": "2",
+            "page_url": "/matches/atlas-vs-santos-laguna/1q11us#1000014514",
+            "home_team": "Santos Laguna",
+            "home_id": "7857",
+            "home_score": null,
+            "away_team": "Atlas",
+            "away_id": "6577",
+            "away_score": null,
+            "utc_time": "2026-07-26T03:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "0 - 1"
+          },
+          {
+            "match_id": "1000014510",
+            "round": "2",
+            "page_url": "/matches/atletico-de-san-luis-vs-tigres/1u9my5#1000014510",
+            "home_team": "Tigres",
+            "home_id": "8561",
+            "home_score": null,
+            "away_team": "Atlético de San Luis",
+            "away_id": "6358",
+            "away_score": null,
+            "utc_time": "2026-07-26T03:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "2 - 2"
+          },
+          {
+            "match_id": "1000014515",
+            "round": "2",
+            "page_url": "/matches/necaxa-vs-monterrey/ryqmb#1000014515",
+            "home_team": "Necaxa",
+            "home_id": "1842",
+            "home_score": null,
+            "away_team": "Monterrey",
+            "away_id": "7849",
+            "away_score": null,
+            "utc_time": "2026-07-26T23:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "2 - 1"
+          },
+          {
+            "match_id": "1000014516",
+            "round": "2",
+            "page_url": "/matches/queretaro-fc-vs-pachuca/sjma0#1000014516",
+            "home_team": "Pachuca",
+            "home_id": "7848",
+            "home_score": null,
+            "away_team": "Querétaro FC",
+            "away_id": "1943",
+            "away_score": null,
+            "utc_time": "2026-07-27T01:06:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "1 - 2"
+          },
+          {
+            "match_id": "1000014517",
+            "round": "3",
+            "page_url": "/matches/chivas-vs-puebla/20yg3w#1000014517",
+            "home_team": "Puebla",
+            "home_id": "7847",
+            "home_score": null,
+            "away_team": "Chivas",
+            "away_id": "7807",
+            "away_score": null,
+            "utc_time": "2026-08-01T01:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "1 - 1"
+          },
+          {
+            "match_id": "1000014518",
+            "round": "3",
+            "page_url": "/matches/atletico-de-san-luis-vs-tijuana/6jjrrtm#1000014518",
+            "home_team": "Atlético de San Luis",
+            "home_id": "6358",
+            "home_score": null,
+            "away_team": "Tijuana",
+            "away_id": "162418",
+            "away_score": null,
+            "utc_time": "2026-08-01T03:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "0 - 0"
+          },
+          {
+            "match_id": "1000014519",
+            "round": "3",
+            "page_url": "/matches/pumas-vs-fc-juarez/2pgg45x3#1000014519",
+            "home_team": "FC Juárez",
+            "home_id": "649424",
+            "home_score": null,
+            "away_team": "Pumas",
+            "away_id": "1946",
+            "away_score": null,
+            "utc_time": "2026-08-01T03:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "1 - 5"
+          },
+          {
+            "match_id": "1000014520",
+            "round": "3",
+            "page_url": "/matches/queretaro-fc-vs-tigres/wupsl#1000014520",
+            "home_team": "Querétaro FC",
+            "home_id": "1943",
+            "home_score": null,
+            "away_team": "Tigres",
+            "away_id": "8561",
+            "away_score": null,
+            "utc_time": "2026-08-01T23:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "3 - 2"
+          },
+          {
+            "match_id": "1000014522",
+            "round": "3",
+            "page_url": "/matches/atlas-vs-monterrey/1pykrs#1000014522",
+            "home_team": "Atlas",
+            "home_id": "6577",
+            "home_score": null,
+            "away_team": "Monterrey",
+            "away_id": "7849",
+            "away_score": null,
+            "utc_time": "2026-08-02T01:05:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "0 - 2"
+          },
+          {
+            "match_id": "1000014521",
+            "round": "3",
+            "page_url": "/matches/leon-vs-pachuca/rybnx#1000014521",
+            "home_team": "León",
+            "home_id": "1841",
+            "home_score": null,
+            "away_team": "Pachuca",
+            "away_id": "7848",
+            "away_score": null,
+            "utc_time": "2026-08-02T01:06:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "1 - 0"
+          },
+          {
+            "match_id": "1000014523",
+            "round": "3",
+            "page_url": "/matches/atlante-vs-cruz-azul/lm5x2#1000014523",
+            "home_team": "Cruz Azul",
+            "home_id": "6578",
+            "home_score": null,
+            "away_team": "Atlante",
+            "away_id": "1942",
+            "away_score": null,
+            "utc_time": "2026-08-02T03:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "2 - 3"
+          },
+          {
+            "match_id": "1000014524",
+            "round": "3",
+            "page_url": "/matches/cf-america-vs-santos-laguna/1q0qpu#1000014524",
+            "home_team": "CF América",
+            "home_id": "6576",
+            "home_score": null,
+            "away_team": "Santos Laguna",
+            "away_id": "7857",
+            "away_score": null,
+            "utc_time": "2026-08-02T23:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "3 - 0"
+          },
+          {
+            "match_id": "1000014525",
+            "round": "3",
+            "page_url": "/matches/necaxa-vs-toluca/lb8vc#1000014525",
+            "home_team": "Toluca",
+            "home_id": "6618",
+            "home_score": null,
+            "away_team": "Necaxa",
+            "away_id": "1842",
+            "away_score": null,
+            "utc_time": "2026-08-03T01:05:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "3 - 1"
+          },
+          {
+            "match_id": "1000014526",
+            "round": "4",
+            "page_url": "/matches/atlante-vs-toluca/lthjm#1000014526",
+            "home_team": "Atlante",
+            "home_id": "1942",
+            "home_score": null,
+            "away_team": "Toluca",
+            "away_id": "6618",
+            "away_score": null,
+            "utc_time": "2026-08-15T23:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "0 - 0"
+          },
+          {
+            "match_id": "1000014527",
+            "round": "4",
+            "page_url": "/matches/monterrey-vs-fc-juarez/2r8bce7y#1000014527",
+            "home_team": "Monterrey",
+            "home_id": "7849",
+            "home_score": null,
+            "away_team": "FC Juárez",
+            "away_id": "649424",
+            "away_score": null,
+            "utc_time": "2026-08-16T01:10:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "6 - 1"
+          },
+          {
+            "match_id": "1000014528",
+            "round": "4",
+            "page_url": "/matches/atlas-vs-tigres/1w86kk#1000014528",
+            "home_team": "Atlas",
+            "home_id": "6577",
+            "home_score": null,
+            "away_team": "Tigres",
+            "away_id": "8561",
+            "away_score": null,
+            "utc_time": "2026-08-16T03:10:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "2 - 1"
+          },
+          {
+            "match_id": "1000014529",
+            "round": "4",
+            "page_url": "/matches/queretaro-fc-vs-pumas/4i603#1000014529",
+            "home_team": "Pumas",
+            "home_id": "1946",
+            "home_score": null,
+            "away_team": "Querétaro FC",
+            "away_id": "1943",
+            "away_score": null,
+            "utc_time": "2026-08-16T18:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "0 - 0"
+          },
+          {
+            "match_id": "1000014530",
+            "round": "4",
+            "page_url": "/matches/atletico-de-san-luis-vs-cf-america/1dt2bp#1000014530",
+            "home_team": "CF América",
+            "home_id": "6576",
+            "home_score": null,
+            "away_team": "Atlético de San Luis",
+            "away_id": "6358",
+            "away_score": null,
+            "utc_time": "2026-08-16T23:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "3 - 0"
+          },
+          {
+            "match_id": "1000014531",
+            "round": "4",
+            "page_url": "/matches/chivas-vs-santos-laguna/211sy1#1000014531",
+            "home_team": "Santos Laguna",
+            "home_id": "7857",
+            "home_score": null,
+            "away_team": "Chivas",
+            "away_id": "7807",
+            "away_score": null,
+            "utc_time": "2026-08-17T01:10:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "0 - 1"
+          },
+          {
+            "match_id": "1000014532",
+            "round": "4",
+            "page_url": "/matches/cruz-azul-vs-tijuana/6k5w4zw#1000014532",
+            "home_team": "Tijuana",
+            "home_id": "162418",
+            "home_score": null,
+            "away_team": "Cruz Azul",
+            "away_id": "6578",
+            "away_score": null,
+            "utc_time": "2026-08-17T03:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "2 - 1"
+          },
+          {
+            "match_id": "1000014533",
+            "round": "4",
+            "page_url": "/matches/leon-vs-necaxa/41g20#1000014533",
+            "home_team": "Necaxa",
+            "home_id": "1842",
+            "home_score": null,
+            "away_team": "León",
+            "away_id": "1841",
+            "away_score": null,
+            "utc_time": "2026-08-18T01:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "1 - 2"
+          },
+          {
+            "match_id": "1000014534",
+            "round": "4",
+            "page_url": "/matches/puebla-vs-pachuca/21c800#1000014534",
+            "home_team": "Pachuca",
+            "home_id": "7848",
+            "home_score": null,
+            "away_team": "Puebla",
+            "away_id": "7847",
+            "away_score": null,
+            "utc_time": "2026-08-18T03:06:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "2 - 3"
+          },
+          {
+            "match_id": "1000014539",
+            "round": "5",
+            "page_url": "/matches/leon-vs-monterrey/ryj54#1000014539",
+            "home_team": "León",
+            "home_id": "1841",
+            "home_score": null,
+            "away_team": "Monterrey",
+            "away_id": "7849",
+            "away_score": null,
+            "utc_time": "2026-08-22T01:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "2 - 0"
+          },
+          {
+            "match_id": "1000014540",
+            "round": "5",
+            "page_url": "/matches/atlante-vs-tigres/wuhot#1000014540",
+            "home_team": "Tigres",
+            "home_id": "8561",
+            "home_score": null,
+            "away_team": "Atlante",
+            "away_id": "1942",
+            "away_score": null,
+            "utc_time": "2026-08-22T01:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "2 - 0"
+          },
+          {
+            "match_id": "1000014536",
+            "round": "5",
+            "page_url": "/matches/cf-america-vs-fc-juarez/2quho5io#1000014536",
+            "home_team": "FC Juárez",
+            "home_id": "649424",
+            "home_score": null,
+            "away_team": "CF América",
+            "away_id": "6576",
+            "away_score": null,
+            "utc_time": "2026-08-22T03:10:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "1 - 2"
+          },
+          {
+            "match_id": "1000014537",
+            "round": "5",
+            "page_url": "/matches/queretaro-fc-vs-toluca/lto5f#1000014537",
+            "home_team": "Querétaro FC",
+            "home_id": "1943",
+            "home_score": null,
+            "away_team": "Toluca",
+            "away_id": "6618",
+            "away_score": null,
+            "utc_time": "2026-08-22T03:10:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "1 - 2"
+          },
+          {
+            "match_id": "1000014538",
+            "round": "5",
+            "page_url": "/matches/chivas-vs-tijuana/6nm00h4#1000014538",
+            "home_team": "Chivas",
+            "home_id": "7807",
+            "home_score": null,
+            "away_team": "Tijuana",
+            "away_id": "162418",
+            "away_score": null,
+            "utc_time": "2026-08-22T23:07:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "5 - 2"
+          },
+          {
+            "match_id": "1000014535",
+            "round": "5",
+            "page_url": "/matches/puebla-vs-santos-laguna/21f919#1000014535",
+            "home_team": "Puebla",
+            "home_id": "7847",
+            "home_score": null,
+            "away_team": "Santos Laguna",
+            "away_id": "7857",
+            "away_score": null,
+            "utc_time": "2026-08-23T01:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "3 - 2"
+          },
+          {
+            "match_id": "1000014541",
+            "round": "5",
+            "page_url": "/matches/atlas-vs-cruz-azul/1fiutk#1000014541",
+            "home_team": "Cruz Azul",
+            "home_id": "6578",
+            "home_score": null,
+            "away_team": "Atlas",
+            "away_id": "6577",
+            "away_score": null,
+            "utc_time": "2026-08-23T03:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "0 - 2"
+          },
+          {
+            "match_id": "1000014542",
+            "round": "5",
+            "page_url": "/matches/atletico-de-san-luis-vs-pachuca/1o32i1#1000014542",
+            "home_team": "Atlético de San Luis",
+            "home_id": "6358",
+            "home_score": null,
+            "away_team": "Pachuca",
+            "away_id": "7848",
+            "away_score": null,
+            "utc_time": "2026-08-23T23:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "1 - 1"
+          },
+          {
+            "match_id": "1000014543",
+            "round": "5",
+            "page_url": "/matches/necaxa-vs-pumas/49utk#1000014543",
+            "home_team": "Pumas",
+            "home_id": "1946",
+            "home_score": null,
+            "away_team": "Necaxa",
+            "away_id": "1842",
+            "away_score": null,
+            "utc_time": "2026-08-24T01:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "1 - 1"
+          },
+          {
+            "match_id": "1000014544",
+            "round": "6",
+            "page_url": "/matches/necaxa-vs-cruz-azul/l40bw#1000014544",
+            "home_team": "Necaxa",
+            "home_id": "1842",
+            "home_score": null,
+            "away_team": "Cruz Azul",
+            "away_id": "6578",
+            "away_score": null,
+            "utc_time": "2026-08-29T01:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "1 - 3"
+          },
+          {
+            "match_id": "1000014545",
+            "round": "6",
+            "page_url": "/matches/leon-vs-atlante/49g7m#1000014545",
+            "home_team": "Atlante",
+            "home_id": "1942",
+            "home_score": null,
+            "away_team": "León",
+            "away_id": "1841",
+            "away_score": null,
+            "utc_time": "2026-08-29T02:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "1 - 1"
+          },
+          {
+            "match_id": "1000014546",
+            "round": "6",
+            "page_url": "/matches/pumas-vs-tijuana/67e80yw#1000014546",
+            "home_team": "Tijuana",
+            "home_id": "162418",
+            "home_score": null,
+            "away_team": "Pumas",
+            "away_id": "1946",
+            "away_score": null,
+            "utc_time": "2026-08-29T03:10:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "2 - 0"
+          },
+          {
+            "match_id": "1000014547",
+            "round": "6",
+            "page_url": "/matches/queretaro-fc-vs-atlas/lm5x1#1000014547",
+            "home_team": "Atlas",
+            "home_id": "6577",
+            "home_score": null,
+            "away_team": "Querétaro FC",
+            "away_id": "1943",
+            "away_score": null,
+            "utc_time": "2026-08-29T23:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "1 - 3"
+          },
+          {
+            "match_id": "1000014548",
+            "round": "6",
+            "page_url": "/matches/chivas-vs-pachuca/20ys6s#1000014548",
+            "home_team": "Pachuca",
+            "home_id": "7848",
+            "home_score": null,
+            "away_team": "Chivas",
+            "away_id": "7807",
+            "away_score": null,
+            "utc_time": "2026-08-29T23:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "1 - 1"
+          },
+          {
+            "match_id": "1000014549",
+            "round": "6",
+            "page_url": "/matches/cf-america-vs-puebla/1pxndn#1000014549",
+            "home_team": "CF América",
+            "home_id": "6576",
+            "home_score": null,
+            "away_team": "Puebla",
+            "away_id": "7847",
+            "away_score": null,
+            "utc_time": "2026-08-30T01:05:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "2 - 0"
+          },
+          {
+            "match_id": "1000014550",
+            "round": "6",
+            "page_url": "/matches/santos-laguna-vs-tigres/28929w#1000014550",
+            "home_team": "Santos Laguna",
+            "home_id": "7857",
+            "home_score": null,
+            "away_team": "Tigres",
+            "away_id": "8561",
+            "away_score": null,
+            "utc_time": "2026-08-30T03:10:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "0 - 0"
+          },
+          {
+            "match_id": "1000014551",
+            "round": "6",
+            "page_url": "/matches/toluca-vs-fc-juarez/2quy2pi9#1000014551",
+            "home_team": "Toluca",
+            "home_id": "6618",
+            "home_score": null,
+            "away_team": "FC Juárez",
+            "away_id": "649424",
+            "away_score": null,
+            "utc_time": "2026-08-31T00:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "4 - 0"
+          },
+          {
+            "match_id": "1000014552",
+            "round": "6",
+            "page_url": "/matches/atletico-de-san-luis-vs-monterrey/1o3dgp#1000014552",
+            "home_team": "Monterrey",
+            "home_id": "7849",
+            "home_score": null,
+            "away_team": "Atlético de San Luis",
+            "away_id": "6358",
+            "away_score": null,
+            "utc_time": "2026-08-31T02:10:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "1 - 3"
+          },
+          {
+            "match_id": "1000014554",
+            "round": "7",
+            "page_url": "/matches/pachuca-vs-fc-juarez/2r8ayb2c#1000014554",
+            "home_team": "FC Juárez",
+            "home_id": "649424",
+            "home_score": null,
+            "away_team": "Pachuca",
+            "away_id": "7848",
+            "away_score": null,
+            "utc_time": "2026-09-05T03:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "0 - 2"
+          },
+          {
+            "match_id": "1000014555",
+            "round": "7",
+            "page_url": "/matches/atletico-de-san-luis-vs-chivas/1nqlom#1000014555",
+            "home_team": "Atlético de San Luis",
+            "home_id": "6358",
+            "home_score": null,
+            "away_team": "Chivas",
+            "away_id": "7807",
+            "away_score": null,
+            "utc_time": "2026-09-05T23:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "0 - 3"
+          },
+          {
+            "match_id": "1000014557",
+            "round": "7",
+            "page_url": "/matches/necaxa-vs-tigres/w833b#1000014557",
+            "home_team": "Tigres",
+            "home_id": "8561",
+            "home_score": null,
+            "away_team": "Necaxa",
+            "away_id": "1842",
+            "away_score": null,
+            "utc_time": "2026-09-06T01:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "1 - 1"
+          },
+          {
+            "match_id": "1000014559",
+            "round": "7",
+            "page_url": "/matches/atlante-vs-atlas/llzcd#1000014559",
+            "home_team": "Atlas",
+            "home_id": "6577",
+            "home_score": null,
+            "away_team": "Atlante",
+            "away_id": "1942",
+            "away_score": null,
+            "utc_time": "2026-09-06T03:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "1 - 1"
+          },
+          {
+            "match_id": "1000014561",
+            "round": "7",
+            "page_url": "/matches/cruz-azul-vs-santos-laguna/1q1czr#1000014561",
+            "home_team": "Cruz Azul",
+            "home_id": "6578",
+            "home_score": null,
+            "away_team": "Santos Laguna",
+            "away_id": "7857",
+            "away_score": null,
+            "utc_time": "2026-09-06T23:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "1 - 0"
+          },
+          {
+            "match_id": "1000014560",
+            "round": "7",
+            "page_url": "/matches/leon-vs-pumas/49rwc#1000014560",
+            "home_team": "Pumas",
+            "home_id": "1946",
+            "home_score": null,
+            "away_team": "León",
+            "away_id": "1841",
+            "away_score": null,
+            "utc_time": "2026-09-11T03:05:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "3 - 1"
+          },
+          {
+            "match_id": "1000014562",
+            "round": "8",
+            "page_url": "/matches/necaxa-vs-puebla/rybnw#1000014562",
+            "home_team": "Necaxa",
+            "home_id": "1842",
+            "home_score": null,
+            "away_team": "Puebla",
+            "away_id": "7847",
+            "away_score": null,
+            "utc_time": "2026-09-12T01:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "0 - 1"
+          },
+          {
+            "match_id": "1000014563",
+            "round": "8",
+            "page_url": "/matches/atlante-vs-pachuca/sjeq1#1000014563",
+            "home_team": "Atlante",
+            "home_id": "1942",
+            "home_score": null,
+            "away_team": "Pachuca",
+            "away_id": "7848",
+            "away_score": null,
+            "utc_time": "2026-09-12T03:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "0 - 3"
+          },
+          {
+            "match_id": "1000014564",
+            "round": "8",
+            "page_url": "/matches/queretaro-fc-vs-tijuana/67dxghw#1000014564",
+            "home_team": "Tijuana",
+            "home_id": "162418",
+            "home_score": null,
+            "away_team": "Querétaro FC",
+            "away_id": "1943",
+            "away_score": null,
+            "utc_time": "2026-09-12T03:10:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "0 - 1"
+          },
+          {
+            "match_id": "1000014566",
+            "round": "8",
+            "page_url": "/matches/atlas-vs-toluca/1fu5i4#1000014566",
+            "home_team": "Toluca",
+            "home_id": "6618",
+            "home_score": null,
+            "away_team": "Atlas",
+            "away_id": "6577",
+            "away_score": null,
+            "utc_time": "2026-09-12T23:05:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "5 - 2"
+          },
+          {
+            "match_id": "1000014570",
+            "round": "8",
+            "page_url": "/matches/monterrey-vs-tigres/2868y8#1000014570",
+            "home_team": "Monterrey",
+            "home_id": "7849",
+            "home_score": null,
+            "away_team": "Tigres",
+            "away_id": "8561",
+            "away_score": null,
+            "utc_time": "2026-09-13T01:10:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "0 - 0"
+          },
+          {
+            "match_id": "1000014567",
+            "round": "8",
+            "page_url": "/matches/cf-america-vs-cruz-azul/1fiko5#1000014567",
+            "home_team": "Cruz Azul",
+            "home_id": "6578",
+            "home_score": null,
+            "away_team": "CF América",
+            "away_id": "6576",
+            "away_score": null,
+            "utc_time": "2026-09-13T03:15:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "4 - 3"
+          },
+          {
+            "match_id": "1000014568",
+            "round": "8",
+            "page_url": "/matches/santos-laguna-vs-fc-juarez/2r8eh3hu#1000014568",
+            "home_team": "Santos Laguna",
+            "home_id": "7857",
+            "home_score": null,
+            "away_team": "FC Juárez",
+            "away_id": "649424",
+            "away_score": null,
+            "utc_time": "2026-09-14T01:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "2 - 1"
+          },
+          {
+            "match_id": "1000014569",
+            "round": "8",
+            "page_url": "/matches/pumas-vs-chivas/sbnpg#1000014569",
+            "home_team": "Chivas",
+            "home_id": "7807",
+            "home_score": null,
+            "away_team": "Pumas",
+            "away_id": "1946",
+            "away_score": null,
+            "utc_time": "2026-09-14T01:07:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "3 - 0"
+          },
+          {
+            "match_id": "1000014565",
+            "round": "8",
+            "page_url": "/matches/leon-vs-atletico-de-san-luis/k0n3m#1000014565",
+            "home_team": "León",
+            "home_id": "1841",
+            "home_score": null,
+            "away_team": "Atlético de San Luis",
+            "away_id": "6358",
+            "away_score": null,
+            "utc_time": "2026-09-15T01:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "2 - 0"
+          },
+          {
+            "match_id": "1000014553",
+            "round": "7",
+            "page_url": "/matches/toluca-vs-puebla/1qanhk#1000014553",
+            "home_team": "Puebla",
+            "home_id": "7847",
+            "home_score": null,
+            "away_team": "Toluca",
+            "away_id": "6618",
+            "away_score": null,
+            "utc_time": "2026-09-16T01:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "0 - 1"
+          },
+          {
+            "match_id": "1000014571",
+            "round": "9",
+            "page_url": "/matches/atlante-vs-puebla/sj762#1000014571",
+            "home_team": "Puebla",
+            "home_id": "7847",
+            "home_score": null,
+            "away_team": "Atlante",
+            "away_id": "1942",
+            "away_score": null,
+            "utc_time": "2026-09-19T01:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "1 - 1"
+          },
+          {
+            "match_id": "1000014572",
+            "round": "9",
+            "page_url": "/matches/tigres-vs-fc-juarez/2rg2491u#1000014572",
+            "home_team": "FC Juárez",
+            "home_id": "649424",
+            "home_score": null,
+            "away_team": "Tigres",
+            "away_id": "8561",
+            "away_score": null,
+            "utc_time": "2026-09-19T03:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "2 - 0"
+          },
+          {
+            "match_id": "1000014573",
+            "round": "9",
+            "page_url": "/matches/pumas-vs-atlas/lmpn7#1000014573",
+            "home_team": "Atlas",
+            "home_id": "6577",
+            "home_score": null,
+            "away_team": "Pumas",
+            "away_id": "1946",
+            "away_score": null,
+            "utc_time": "2026-09-19T23:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "1 - 1"
+          },
+          {
+            "match_id": "1000014574",
+            "round": "9",
+            "page_url": "/matches/necaxa-vs-atletico-de-san-luis/k0tfe#1000014574",
+            "home_team": "Atlético de San Luis",
+            "home_id": "6358",
+            "home_score": null,
+            "away_team": "Necaxa",
+            "away_id": "1842",
+            "away_score": null,
+            "utc_time": "2026-09-19T23:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "3 - 1"
+          },
+          {
+            "match_id": "1000014575",
+            "round": "9",
+            "page_url": "/matches/cruz-azul-vs-monterrey/1pyvwj#1000014575",
+            "home_team": "Monterrey",
+            "home_id": "7849",
+            "home_score": null,
+            "away_team": "Cruz Azul",
+            "away_id": "6578",
+            "away_score": null,
+            "utc_time": "2026-09-20T01:10:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "1 - 0"
+          },
+          {
+            "match_id": "1000014576",
+            "round": "9",
+            "page_url": "/matches/cf-america-vs-chivas/1plasn#1000014576",
+            "home_team": "CF América",
+            "home_id": "6576",
+            "home_score": null,
+            "away_team": "Chivas",
+            "away_id": "7807",
+            "away_score": null,
+            "utc_time": "2026-09-20T03:15:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "2 - 2"
+          },
+          {
+            "match_id": "1000014577",
+            "round": "9",
+            "page_url": "/matches/pachuca-vs-tijuana/6nq5mdj#1000014577",
+            "home_team": "Pachuca",
+            "home_id": "7848",
+            "home_score": null,
+            "away_team": "Tijuana",
+            "away_id": "162418",
+            "away_score": null,
+            "utc_time": "2026-09-21T00:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "2 - 2"
+          },
+          {
+            "match_id": "1000014578",
+            "round": "9",
+            "page_url": "/matches/toluca-vs-santos-laguna/1qdr5f#1000014578",
+            "home_team": "Toluca",
+            "home_id": "6618",
+            "home_score": null,
+            "away_team": "Santos Laguna",
+            "away_id": "7857",
+            "away_score": null,
+            "utc_time": "2026-09-21T00:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "2 - 3"
+          },
+          {
+            "match_id": "1000014579",
+            "round": "9",
+            "page_url": "/matches/leon-vs-queretaro-fc/49j4r#1000014579",
+            "home_team": "Querétaro FC",
+            "home_id": "1943",
+            "home_score": null,
+            "away_team": "León",
+            "away_id": "1841",
+            "away_score": null,
+            "utc_time": "2026-09-21T02:10:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "1 - 1"
+          },
+          {
+            "match_id": "1000014580",
+            "round": "10",
+            "page_url": "/matches/atlante-vs-monterrey/sjma1#1000014580",
+            "home_team": "Atlante",
+            "home_id": "1942",
+            "home_score": null,
+            "away_team": "Monterrey",
+            "away_id": "7849",
+            "away_score": null,
+            "utc_time": "2026-09-26T01:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "4 - 2"
+          }
+        ],
+        "top_stat_lists_count": 20,
+        "top_stat_lists": [
+          {
+            "header": "Top scorer",
+            "category": "Top Stat",
+            "fetch_all_url": "https://data.fotmob.com/stats/230/season/1000000459/Apertura/goals.json",
+            "leaders": [
+              {
+                "id": 51545,
+                "name": "José Salomon Rondon",
+                "team_id": 7848,
+                "team_name": "Pachuca",
+                "value": 16
+              },
+              {
+                "id": 558452,
+                "name": "Henry Martín",
+                "team_id": 6576,
+                "team_name": "CF América",
+                "value": 11
+              },
+              {
+                "id": 793586,
+                "name": "Juan Brunetta",
+                "team_id": 8561,
+                "team_name": "Tigres",
+                "value": 9
+              }
+            ]
+          },
+          {
+            "header": "Assists",
+            "category": "Top Stat",
+            "fetch_all_url": "https://data.fotmob.com/stats/230/season/1000000459/Apertura/goal_assist.json",
+            "leaders": [
+              {
+                "id": 935183,
+                "name": "Helinho",
+                "team_id": 6618,
+                "team_name": "Toluca",
+                "value": 8
+              },
+              {
+                "id": 690188,
+                "name": "Oussama Idrissi",
+                "team_id": 7848,
+                "team_name": "Pachuca",
+                "value": 5
+              },
+              {
+                "id": 769593,
+                "name": "Carlos Rodríguez",
+                "team_id": 6578,
+                "team_name": "Cruz Azul",
+                "value": 5
+              }
+            ]
+          },
+          {
+            "header": "Goals + Assists",
+            "category": "Top Stat",
+            "fetch_all_url": "https://data.fotmob.com/stats/230/season/1000000459/Apertura/_goals_and_goal_assist.json",
+            "leaders": [
+              {
+                "id": 51545,
+                "name": "José Salomon Rondon",
+                "team_id": 7848,
+                "team_name": "Pachuca",
+                "value": 18
+              },
+              {
+                "id": 558452,
+                "name": "Henry Martín",
+                "team_id": 6576,
+                "team_name": "CF América",
+                "value": 14
+              },
+              {
+                "id": 793586,
+                "name": "Juan Brunetta",
+                "team_id": 8561,
+                "team_name": "Tigres",
+                "value": 13
+              }
+            ]
+          },
+          {
+            "header": "FotMob rating",
+            "category": "Top Stat",
+            "fetch_all_url": "https://data.fotmob.com/stats/230/season/1000000459/Apertura/rating.json",
+            "leaders": [
+              {
+                "id": 941660,
+                "name": "Brian Rodríguez",
+                "team_id": 6576,
+                "team_name": "CF América",
+                "value": 7.95
+              },
+              {
+                "id": 720737,
+                "name": "Roberto Alvarado",
+                "team_id": 7807,
+                "team_name": "Chivas",
+                "value": 7.94
+              },
+              {
+                "id": 1436165,
+                "name": "Santiago Homenchenko",
+                "team_id": 1943,
+                "team_name": "Querétaro FC",
+                "value": 7.87
+              }
+            ]
+          },
+          {
+            "header": "Minutes played",
+            "category": "Top Stat",
+            "fetch_all_url": "https://data.fotmob.com/stats/230/season/1000000459/Apertura/mins_played.json",
+            "leaders": [
+              {
+                "id": 751164,
+                "name": "Carlos Acevedo",
+                "team_id": 7857,
+                "team_name": "Santos Laguna",
+                "value": 1440
+              },
+              {
+                "id": 991005,
+                "name": "Carlos Moreno",
+                "team_id": 7848,
+                "team_name": "Pachuca",
+                "value": 1440
+              },
+              {
+                "id": 1428481,
+                "name": "Eduardo Águila",
+                "team_id": 6358,
+                "team_name": "Atlético de San Luis",
+                "value": 1440
+              }
+            ]
+          },
+          {
+            "header": "Goals per 90",
+            "category": "Attacking",
+            "fetch_all_url": "https://data.fotmob.com/stats/230/season/1000000459/Apertura/goals_per_90.json",
+            "leaders": [
+              {
+                "id": 281995,
+                "name": "Miguel Borja",
+                "team_id": 6576,
+                "team_name": "CF América",
+                "value": 1.36
+              },
+              {
+                "id": 51545,
+                "name": "José Salomon Rondon",
+                "team_id": 7848,
+                "team_name": "Pachuca",
+                "value": 1.07
+              },
+              {
+                "id": 1341356,
+                "name": "Andrés Montaño",
+                "team_id": 6578,
+                "team_name": "Cruz Azul",
+                "value": 1.03
+              }
+            ]
+          },
+          {
+            "header": "Expected goals (xG)",
+            "category": "Attacking",
+            "fetch_all_url": "https://data.fotmob.com/stats/230/season/1000000459/Apertura/expected_goals.json",
+            "leaders": [
+              {
+                "id": 51545,
+                "name": "José Salomon Rondon",
+                "team_id": 7848,
+                "team_name": "Pachuca",
+                "value": 10
+              },
+              {
+                "id": 558452,
+                "name": "Henry Martín",
+                "team_id": 6576,
+                "team_name": "CF América",
+                "value": 10
+              },
+              {
+                "id": 874618,
+                "name": "Julián Carranza",
+                "team_id": 1842,
+                "team_name": "Necaxa",
+                "value": 8.9
+              }
+            ]
+          },
+          {
+            "header": "Expected goals (xG) per 90",
+            "category": "Attacking",
+            "fetch_all_url": "https://data.fotmob.com/stats/230/season/1000000459/Apertura/expected_goals_per_90.json",
+            "leaders": [
+              {
+                "id": 1524299,
+                "name": "Juan Valencia",
+                "team_id": 1842,
+                "team_name": "Necaxa",
+                "value": 1.09
+              },
+              {
+                "id": 281995,
+                "name": "Miguel Borja",
+                "team_id": 6576,
+                "team_name": "CF América",
+                "value": 0.88
+              },
+              {
+                "id": 1341356,
+                "name": "Andrés Montaño",
+                "team_id": 6578,
+                "team_name": "Cruz Azul",
+                "value": 0.85
+              }
+            ]
+          },
+          {
+            "header": "Expected goals on target (xGOT)",
+            "category": "Attacking",
+            "fetch_all_url": "https://data.fotmob.com/stats/230/season/1000000459/Apertura/expected_goalsontarget.json",
+            "leaders": [
+              {
+                "id": 558452,
+                "name": "Henry Martín",
+                "team_id": 6576,
+                "team_name": "CF América",
+                "value": 10.4
+              },
+              {
+                "id": 51545,
+                "name": "José Salomon Rondon",
+                "team_id": 7848,
+                "team_name": "Pachuca",
+                "value": 10.3
+              },
+              {
+                "id": 793586,
+                "name": "Juan Brunetta",
+                "team_id": 8561,
+                "team_name": "Tigres",
+                "value": 8.3
+              }
+            ]
+          },
+          {
+            "header": "Shots on target per 90",
+            "category": "Attacking",
+            "fetch_all_url": "https://data.fotmob.com/stats/230/season/1000000459/Apertura/ontarget_scoring_att.json",
+            "leaders": [
+              {
+                "id": 793586,
+                "name": "Juan Brunetta",
+                "team_id": 8561,
+                "team_name": "Tigres",
+                "value": 2.4
+              },
+              {
+                "id": 941660,
+                "name": "Brian Rodríguez",
+                "team_id": 6576,
+                "team_name": "CF América",
+                "value": 2.4
+              },
+              {
+                "id": 1433034,
+                "name": "Óscar Perea",
+                "team_id": 6576,
+                "team_name": "CF América",
+                "value": 2.1
+              }
+            ]
+          },
+          {
+            "header": "Shots per 90",
+            "category": "Attacking",
+            "fetch_all_url": "https://data.fotmob.com/stats/230/season/1000000459/Apertura/total_scoring_att.json",
+            "leaders": [
+              {
+                "id": 281995,
+                "name": "Miguel Borja",
+                "team_id": 6576,
+                "team_name": "CF América",
+                "value": 5.2
+              },
+              {
+                "id": 434180,
+                "name": "Gabriel Fernández",
+                "team_id": 6578,
+                "team_name": "Cruz Azul",
+                "value": 5.2
+              },
+              {
+                "id": 1433034,
+                "name": "Óscar Perea",
+                "team_id": 6576,
+                "team_name": "CF América",
+                "value": 4.9
+              }
+            ]
+          },
+          {
+            "header": "Accurate passes per 90",
+            "category": "Attacking",
+            "fetch_all_url": "https://data.fotmob.com/stats/230/season/1000000459/Apertura/accurate_pass.json",
+            "leaders": [
+              {
+                "id": 921174,
+                "name": "Luis Romo",
+                "team_id": 7807,
+                "team_name": "Chivas",
+                "value": 67.2
+              },
+              {
+                "id": 1200721,
+                "name": "Facundo Cáseres",
+                "team_id": 7857,
+                "team_name": "Santos Laguna",
+                "value": 67
+              },
+              {
+                "id": 643749,
+                "name": "Víctor Guzmán",
+                "team_id": 6618,
+                "team_name": "Toluca",
+                "value": 66.7
+              }
+            ]
+          },
+          {
+            "header": "Big chances created",
+            "category": "Attacking",
+            "fetch_all_url": "https://data.fotmob.com/stats/230/season/1000000459/Apertura/big_chance_created.json",
+            "leaders": [
+              {
+                "id": 690188,
+                "name": "Oussama Idrissi",
+                "team_id": 7848,
+                "team_name": "Pachuca",
+                "value": 9
+              },
+              {
+                "id": 793586,
+                "name": "Juan Brunetta",
+                "team_id": 8561,
+                "team_name": "Tigres",
+                "value": 9
+              },
+              {
+                "id": 935183,
+                "name": "Helinho",
+                "team_id": 6618,
+                "team_name": "Toluca",
+                "value": 8
+              }
+            ]
+          },
+          {
+            "header": "Chances created",
+            "category": "Attacking",
+            "fetch_all_url": "https://data.fotmob.com/stats/230/season/1000000459/Apertura/total_att_assist.json",
+            "leaders": [
+              {
+                "id": 793586,
+                "name": "Juan Brunetta",
+                "team_id": 8561,
+                "team_name": "Tigres",
+                "value": 50
+              },
+              {
+                "id": 769593,
+                "name": "Carlos Rodríguez",
+                "team_id": 6578,
+                "team_name": "Cruz Azul",
+                "value": 47
+              },
+              {
+                "id": 935183,
+                "name": "Helinho",
+                "team_id": 6618,
+                "team_name": "Toluca",
+                "value": 39
+              }
+            ]
+          },
+          {
+            "header": "Accurate long balls per 90",
+            "category": "Attacking",
+            "fetch_all_url": "https://data.fotmob.com/stats/230/season/1000000459/Apertura/accurate_long_balls.json",
+            "leaders": [
+              {
+                "id": 479220,
+                "name": "Gonzalo Piovi",
+                "team_id": 6578,
+                "team_name": "Cruz Azul",
+                "value": 8.7
+              },
+              {
+                "id": 1071276,
+                "name": "Iván Tona",
+                "team_id": 162418,
+                "team_name": "Tijuana",
+                "value": 7.4
+              },
+              {
+                "id": 1074586,
+                "name": "Israel Reyes",
+                "team_id": 6576,
+                "team_name": "CF América",
+                "value": 7.2
+              }
+            ]
+          },
+          {
+            "header": "Line-breaking passes per 90",
+            "category": "Attacking",
+            "fetch_all_url": "https://data.fotmob.com/stats/230/season/1000000459/Apertura/lbp_total.json",
+            "leaders": [
+              {
+                "id": 921174,
+                "name": "Luis Romo",
+                "team_id": 7807,
+                "team_name": "Chivas",
+                "value": 18.2
+              },
+              {
+                "id": 479220,
+                "name": "Gonzalo Piovi",
+                "team_id": 6578,
+                "team_name": "Cruz Azul",
+                "value": 16.5
+              },
+              {
+                "id": 951049,
+                "name": "Kevin Castañeda",
+                "team_id": 7807,
+                "team_name": "Chivas",
+                "value": 13.6
+              }
+            ]
+          },
+          {
+            "header": "Expected assist (xA)",
+            "category": "Attacking",
+            "fetch_all_url": "https://data.fotmob.com/stats/230/season/1000000459/Apertura/expected_assists.json",
+            "leaders": [
+              {
+                "id": 793586,
+                "name": "Juan Brunetta",
+                "team_id": 8561,
+                "team_name": "Tigres",
+                "value": 5.1
+              },
+              {
+                "id": 690188,
+                "name": "Oussama Idrissi",
+                "team_id": 7848,
+                "team_name": "Pachuca",
+                "value": 4.1
+              },
+              {
+                "id": 1072829,
+                "name": "Adonis Preciado",
+                "team_id": 162418,
+                "team_name": "Tijuana",
+                "value": 4
+              }
+            ]
+          },
+          {
+            "header": "Expected assist (xA) per 90",
+            "category": "Attacking",
+            "fetch_all_url": "https://data.fotmob.com/stats/230/season/1000000459/Apertura/expected_assists_per_90.json",
+            "leaders": [
+              {
+                "id": 793586,
+                "name": "Juan Brunetta",
+                "team_id": 8561,
+                "team_name": "Tigres",
+                "value": 0.35
+              },
+              {
+                "id": 1042571,
+                "name": "Francisco González",
+                "team_id": 162418,
+                "team_name": "Tijuana",
+                "value": 0.33
+              },
+              {
+                "id": 994917,
+                "name": "José Paradela",
+                "team_id": 6578,
+                "team_name": "Cruz Azul",
+                "value": 0.31
+              }
+            ]
+          },
+          {
+            "header": "xG + xA per 90",
+            "category": "Attacking",
+            "fetch_all_url": "https://data.fotmob.com/stats/230/season/1000000459/Apertura/_expected_goals_and_expected_assists_per_90.json",
+            "leaders": [
+              {
+                "id": 1341356,
+                "name": "Andrés Montaño",
+                "team_id": 6578,
+                "team_name": "Cruz Azul",
+                "value": 1.14
+              },
+              {
+                "id": 1524299,
+                "name": "Juan Valencia",
+                "team_id": 1842,
+                "team_name": "Necaxa",
+                "value": 1.11
+              },
+              {
+                "id": 281995,
+                "name": "Miguel Borja",
+                "team_id": 6576,
+                "team_name": "CF América",
+                "value": 0.94
+              }
+            ]
+          },
+          {
+            "header": "Successful dribbles per 90",
+            "category": "Attacking",
+            "fetch_all_url": "https://data.fotmob.com/stats/230/season/1000000459/Apertura/won_contest.json",
+            "leaders": [
+              {
+                "id": 941660,
+                "name": "Brian Rodríguez",
+                "team_id": 6576,
+                "team_name": "CF América",
+                "value": 3.6
+              },
+              {
+                "id": 1171126,
+                "name": "Jordán Carrillo",
+                "team_id": 7807,
+                "team_name": "Chivas",
+                "value": 3.5
+              },
+              {
+                "id": 1513420,
+                "name": "Javier Ruiz",
+                "team_id": 1842,
+                "team_name": "Necaxa",
+                "value": 3.3
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "league_slug": "premier-league",
+        "league_id": 47,
+        "league_name": "Premier League",
+        "country": "ENG",
+        "selected_season": "2026/2027",
+        "url": "https://www.fotmob.com/leagues/47/overview/premier-league",
+        "status": 200,
+        "standings_count": 20,
+        "standings_rows": [
+          {
+            "idx": 1,
+            "team_id": 9825,
+            "team_name": "Arsenal",
+            "played": 10,
+            "wins": 9,
+            "draws": 0,
+            "losses": 1,
+            "scores_str": "15-5",
+            "goal_conceded": 10,
+            "pts": 27,
+            "xg": null,
+            "xg_conceded": null
+          },
+          {
+            "idx": 2,
+            "team_id": 10204,
+            "team_name": "Brighton & Hove Albion",
+            "played": 10,
+            "wins": 7,
+            "draws": 1,
+            "losses": 2,
+            "scores_str": "26-7",
+            "goal_conceded": 19,
+            "pts": 22,
+            "xg": null,
+            "xg_conceded": null
+          },
+          {
+            "idx": 3,
+            "team_id": 8456,
+            "team_name": "Manchester City",
+            "played": 10,
+            "wins": 7,
+            "draws": 0,
+            "losses": 3,
+            "scores_str": "21-13",
+            "goal_conceded": 8,
+            "pts": 21,
+            "xg": null,
+            "xg_conceded": null
+          },
+          {
+            "idx": 4,
+            "team_id": 8650,
+            "team_name": "Liverpool",
+            "played": 10,
+            "wins": 5,
+            "draws": 3,
+            "losses": 2,
+            "scores_str": "14-10",
+            "goal_conceded": 4,
+            "pts": 18,
+            "xg": null,
+            "xg_conceded": null
+          },
+          {
+            "idx": 5,
+            "team_id": 8455,
+            "team_name": "Chelsea",
+            "played": 10,
+            "wins": 5,
+            "draws": 1,
+            "losses": 4,
+            "scores_str": "19-16",
+            "goal_conceded": 3,
+            "pts": 16,
+            "xg": null,
+            "xg_conceded": null
+          },
+          {
+            "idx": 6,
+            "team_id": 8668,
+            "team_name": "Everton",
+            "played": 10,
+            "wins": 4,
+            "draws": 4,
+            "losses": 2,
+            "scores_str": "12-10",
+            "goal_conceded": 2,
+            "pts": 16,
+            "xg": null,
+            "xg_conceded": null
+          },
+          {
+            "idx": 7,
+            "team_id": 8678,
+            "team_name": "AFC Bournemouth",
+            "played": 10,
+            "wins": 4,
+            "draws": 3,
+            "losses": 3,
+            "scores_str": "16-14",
+            "goal_conceded": 2,
+            "pts": 15,
+            "xg": null,
+            "xg_conceded": null
+          },
+          {
+            "idx": 8,
+            "team_id": 9937,
+            "team_name": "Brentford",
+            "played": 10,
+            "wins": 3,
+            "draws": 5,
+            "losses": 2,
+            "scores_str": "16-11",
+            "goal_conceded": 5,
+            "pts": 14,
+            "xg": null,
+            "xg_conceded": null
+          },
+          {
+            "idx": 9,
+            "team_id": 8463,
+            "team_name": "Leeds United",
+            "played": 10,
+            "wins": 3,
+            "draws": 5,
+            "losses": 2,
+            "scores_str": "10-8",
+            "goal_conceded": 2,
+            "pts": 14,
+            "xg": null,
+            "xg_conceded": null
+          },
+          {
+            "idx": 10,
+            "team_id": 10252,
+            "team_name": "Aston Villa",
+            "played": 10,
+            "wins": 3,
+            "draws": 4,
+            "losses": 3,
+            "scores_str": "14-17",
+            "goal_conceded": -3,
+            "pts": 13,
+            "xg": null,
+            "xg_conceded": null
+          },
+          {
+            "idx": 11,
+            "team_id": 8586,
+            "team_name": "Tottenham Hotspur",
+            "played": 10,
+            "wins": 3,
+            "draws": 3,
+            "losses": 4,
+            "scores_str": "10-11",
+            "goal_conceded": -1,
+            "pts": 12,
+            "xg": null,
+            "xg_conceded": null
+          },
+          {
+            "idx": 12,
+            "team_id": 10261,
+            "team_name": "Newcastle United",
+            "played": 10,
+            "wins": 3,
+            "draws": 3,
+            "losses": 4,
+            "scores_str": "13-16",
+            "goal_conceded": -3,
+            "pts": 12,
+            "xg": null,
+            "xg_conceded": null
+          },
+          {
+            "idx": 13,
+            "team_id": 8667,
+            "team_name": "Hull City",
+            "played": 10,
+            "wins": 2,
+            "draws": 5,
+            "losses": 3,
+            "scores_str": "11-11",
+            "goal_conceded": 0,
+            "pts": 11,
+            "xg": null,
+            "xg_conceded": null
+          },
+          {
+            "idx": 14,
+            "team_id": 9902,
+            "team_name": "Ipswich Town",
+            "played": 10,
+            "wins": 3,
+            "draws": 2,
+            "losses": 5,
+            "scores_str": "15-20",
+            "goal_conceded": -5,
+            "pts": 11,
+            "xg": null,
+            "xg_conceded": null
+          },
+          {
+            "idx": 15,
+            "team_id": 9879,
+            "team_name": "Fulham",
+            "played": 10,
+            "wins": 2,
+            "draws": 4,
+            "losses": 4,
+            "scores_str": "10-12",
+            "goal_conceded": -2,
+            "pts": 10,
+            "xg": null,
+            "xg_conceded": null
+          },
+          {
+            "idx": 16,
+            "team_id": 10203,
+            "team_name": "Nottingham Forest",
+            "played": 10,
+            "wins": 2,
+            "draws": 3,
+            "losses": 5,
+            "scores_str": "9-13",
+            "goal_conceded": -4,
+            "pts": 9,
+            "xg": null,
+            "xg_conceded": null
+          },
+          {
+            "idx": 17,
+            "team_id": 8669,
+            "team_name": "Coventry City",
+            "played": 10,
+            "wins": 3,
+            "draws": 0,
+            "losses": 7,
+            "scores_str": "10-19",
+            "goal_conceded": -9,
+            "pts": 9,
+            "xg": null,
+            "xg_conceded": null
+          },
+          {
+            "idx": 18,
+            "team_id": 10260,
+            "team_name": "Manchester United",
+            "played": 10,
+            "wins": 1,
+            "draws": 5,
+            "losses": 4,
+            "scores_str": "14-19",
+            "goal_conceded": -5,
+            "pts": 8,
+            "xg": null,
+            "xg_conceded": null
+          },
+          {
+            "idx": 19,
+            "team_id": 8472,
+            "team_name": "Sunderland",
+            "played": 10,
+            "wins": 2,
+            "draws": 2,
+            "losses": 6,
+            "scores_str": "8-17",
+            "goal_conceded": -9,
+            "pts": 8,
+            "xg": null,
+            "xg_conceded": null
+          },
+          {
+            "idx": 20,
+            "team_id": 9826,
+            "team_name": "Crystal Palace",
+            "played": 10,
+            "wins": 2,
+            "draws": 1,
+            "losses": 7,
+            "scores_str": "10-24",
+            "goal_conceded": -14,
+            "pts": 7,
+            "xg": null,
+            "xg_conceded": null
+          }
+        ],
+        "matches_count": 80,
+        "matches": [
+          {
+            "match_id": "5795363",
+            "round": "1",
+            "page_url": "/matches/coventry-city-vs-arsenal/2tttz6#5795363",
+            "home_team": "Arsenal",
+            "home_id": "9825",
+            "home_score": null,
+            "away_team": "Coventry City",
+            "away_id": "8669",
+            "away_score": null,
+            "utc_time": "2026-08-21T19:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "3 - 0"
+          },
+          {
+            "match_id": "5795364",
+            "round": "1",
+            "page_url": "/matches/hull-city-vs-manchester-united/2yngir#5795364",
+            "home_team": "Hull City",
+            "home_id": "8667",
+            "home_score": null,
+            "away_team": "Manchester United",
+            "away_id": "10260",
+            "away_score": null,
+            "utc_time": "2026-08-22T11:30:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "2 - 0"
+          },
+          {
+            "match_id": "5795365",
+            "round": "1",
+            "page_url": "/matches/everton-vs-crystal-palace/2tttz7#5795365",
+            "home_team": "Everton",
+            "home_id": "8668",
+            "home_score": null,
+            "away_team": "Crystal Palace",
+            "away_id": "9826",
+            "away_score": null,
+            "utc_time": "2026-08-22T14:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "2 - 0"
+          },
+          {
+            "match_id": "5795366",
+            "round": "1",
+            "page_url": "/matches/sunderland-vs-ipswich-town/2sif4z#5795366",
+            "home_team": "Ipswich Town",
+            "home_id": "9902",
+            "home_score": null,
+            "away_team": "Sunderland",
+            "away_id": "8472",
+            "away_score": null,
+            "utc_time": "2026-08-22T14:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "2 - 1"
+          },
+          {
+            "match_id": "5795367",
+            "round": "1",
+            "page_url": "/matches/leeds-united-vs-nottingham-forest/2vqauu#5795367",
+            "home_team": "Nottingham Forest",
+            "home_id": "10203",
+            "home_score": null,
+            "away_team": "Leeds United",
+            "away_id": "8463",
+            "away_score": null,
+            "utc_time": "2026-08-22T14:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "0 - 1"
+          },
+          {
+            "match_id": "5795368",
+            "round": "1",
+            "page_url": "/matches/tottenham-hotspur-vs-brentford/2u5c8b#5795368",
+            "home_team": "Brentford",
+            "home_id": "9937",
+            "home_score": null,
+            "away_team": "Tottenham Hotspur",
+            "away_id": "8586",
+            "away_score": null,
+            "utc_time": "2026-08-22T16:30:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "3 - 0"
+          },
+          {
+            "match_id": "5795369",
+            "round": "1",
+            "page_url": "/matches/brighton-hove-albion-vs-aston-villa/3gku1s#5795369",
+            "home_team": "Brighton & Hove Albion",
+            "home_id": "10204",
+            "home_score": null,
+            "away_team": "Aston Villa",
+            "away_id": "10252",
+            "away_score": null,
+            "utc_time": "2026-08-23T13:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "4 - 0"
+          },
+          {
+            "match_id": "5795370",
+            "round": "1",
+            "page_url": "/matches/manchester-city-vs-afc-bournemouth/2feiv3#5795370",
+            "home_team": "Manchester City",
+            "home_id": "8456",
+            "home_score": null,
+            "away_team": "AFC Bournemouth",
+            "away_id": "8678",
+            "away_score": null,
+            "utc_time": "2026-08-23T13:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "2 - 1"
+          },
+          {
+            "match_id": "5795371",
+            "round": "1",
+            "page_url": "/matches/liverpool-vs-newcastle-united/2ygyxm#5795371",
+            "home_team": "Newcastle United",
+            "home_id": "10261",
+            "home_score": null,
+            "away_team": "Liverpool",
+            "away_id": "8650",
+            "away_score": null,
+            "utc_time": "2026-08-23T15:30:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "2 - 2"
+          },
+          {
+            "match_id": "5795372",
+            "round": "1",
+            "page_url": "/matches/chelsea-vs-fulham/2s2omg#5795372",
+            "home_team": "Fulham",
+            "home_id": "9879",
+            "home_score": null,
+            "away_team": "Chelsea",
+            "away_id": "8455",
+            "away_score": null,
+            "utc_time": "2026-08-24T19:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "2 - 3"
+          },
+          {
+            "match_id": "5795429",
+            "round": "2",
+            "page_url": "/matches/manchester-city-vs-crystal-palace/2ri9zd#5795429",
+            "home_team": "Crystal Palace",
+            "home_id": "9826",
+            "home_score": null,
+            "away_team": "Manchester City",
+            "away_id": "8456",
+            "away_score": null,
+            "utc_time": "2026-08-28T19:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "1 - 4"
+          },
+          {
+            "match_id": "5795431",
+            "round": "2",
+            "page_url": "/matches/liverpool-vs-nottingham-forest/2xthvt#5795431",
+            "home_team": "Liverpool",
+            "home_id": "8650",
+            "home_score": null,
+            "away_team": "Nottingham Forest",
+            "away_id": "10203",
+            "away_score": null,
+            "utc_time": "2026-08-29T11:30:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "2 - 2"
+          },
+          {
+            "match_id": "5795425",
+            "round": "2",
+            "page_url": "/matches/everton-vs-afc-bournemouth/2hkv2h#5795425",
+            "home_team": "AFC Bournemouth",
+            "home_id": "8678",
+            "home_score": null,
+            "away_team": "Everton",
+            "away_id": "8668",
+            "away_score": null,
+            "utc_time": "2026-08-29T14:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "1 - 1"
+          },
+          {
+            "match_id": "5795428",
+            "round": "2",
+            "page_url": "/matches/hull-city-vs-coventry-city/2hh595#5795428",
+            "home_team": "Coventry City",
+            "home_id": "8669",
+            "home_score": null,
+            "away_team": "Hull City",
+            "away_id": "8667",
+            "away_score": null,
+            "utc_time": "2026-08-29T14:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "0 - 1"
+          },
+          {
+            "match_id": "5795434",
+            "round": "2",
+            "page_url": "/matches/tottenham-hotspur-vs-newcastle-united/2xr2ka#5795434",
+            "home_team": "Tottenham Hotspur",
+            "home_id": "8586",
+            "home_score": null,
+            "away_team": "Newcastle United",
+            "away_id": "10261",
+            "away_score": null,
+            "utc_time": "2026-08-29T16:30:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "0 - 2"
+          },
+          {
+            "match_id": "5795427",
+            "round": "2",
+            "page_url": "/matches/chelsea-vs-brighton-hove-albion/2vni1p#5795427",
+            "home_team": "Chelsea",
+            "home_id": "8455",
+            "home_score": null,
+            "away_team": "Brighton & Hove Albion",
+            "away_id": "10204",
+            "away_score": null,
+            "utc_time": "2026-08-30T13:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "4 - 3"
+          },
+          {
+            "match_id": "5795430",
+            "round": "2",
+            "page_url": "/matches/leeds-united-vs-brentford/2sso1t#5795430",
+            "home_team": "Leeds United",
+            "home_id": "8463",
+            "home_score": null,
+            "away_team": "Brentford",
+            "away_id": "9937",
+            "away_score": null,
+            "utc_time": "2026-08-30T13:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "1 - 1"
+          },
+          {
+            "match_id": "5795433",
+            "round": "2",
+            "page_url": "/matches/sunderland-vs-fulham/2s9d8f#5795433",
+            "home_team": "Sunderland",
+            "home_id": "8472",
+            "home_score": null,
+            "away_team": "Fulham",
+            "away_id": "9879",
+            "away_score": null,
+            "utc_time": "2026-08-30T13:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "1 - 0"
+          },
+          {
+            "match_id": "5795432",
+            "round": "2",
+            "page_url": "/matches/ipswich-town-vs-manchester-united/3d0uj5#5795432",
+            "home_team": "Manchester United",
+            "home_id": "10260",
+            "home_score": null,
+            "away_team": "Ipswich Town",
+            "away_id": "9902",
+            "away_score": null,
+            "utc_time": "2026-08-30T15:30:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "5 - 2"
+          },
+          {
+            "match_id": "5795426",
+            "round": "2",
+            "page_url": "/matches/arsenal-vs-aston-villa/3c06vg#5795426",
+            "home_team": "Aston Villa",
+            "home_id": "10252",
+            "home_score": null,
+            "away_team": "Arsenal",
+            "away_id": "9825",
+            "away_score": null,
+            "utc_time": "2026-08-31T19:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "0 - 1"
+          },
+          {
+            "match_id": "5795441",
+            "round": "3",
+            "page_url": "/matches/liverpool-vs-ipswich-town/2ugv0q#5795441",
+            "home_team": "Ipswich Town",
+            "home_id": "9902",
+            "home_score": null,
+            "away_team": "Liverpool",
+            "away_id": "8650",
+            "away_score": null,
+            "utc_time": "2026-09-04T19:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "0 - 2"
+          },
+          {
+            "match_id": "5795443",
+            "round": "3",
+            "page_url": "/matches/afc-bournemouth-vs-newcastle-united/2ysbu8#5795443",
+            "home_team": "Newcastle United",
+            "home_id": "10261",
+            "home_score": null,
+            "away_team": "AFC Bournemouth",
+            "away_id": "8678",
+            "away_score": null,
+            "utc_time": "2026-09-05T11:30:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "2 - 2"
+          },
+          {
+            "match_id": "5795436",
+            "round": "3",
+            "page_url": "/matches/sunderland-vs-brentford/2sw7v2#5795436",
+            "home_team": "Brentford",
+            "home_id": "9937",
+            "home_score": null,
+            "away_team": "Sunderland",
+            "away_id": "8472",
+            "away_score": null,
+            "utc_time": "2026-09-05T14:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "1 - 1"
+          },
+          {
+            "match_id": "5795437",
+            "round": "3",
+            "page_url": "/matches/leeds-united-vs-brighton-hove-albion/2vqp9d#5795437",
+            "home_team": "Brighton & Hove Albion",
+            "home_id": "10204",
+            "home_score": null,
+            "away_team": "Leeds United",
+            "away_id": "8463",
+            "away_score": null,
+            "utc_time": "2026-09-05T14:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "1 - 1"
+          },
+          {
+            "match_id": "5795439",
+            "round": "3",
+            "page_url": "/matches/crystal-palace-vs-fulham/37llbg#5795439",
+            "home_team": "Fulham",
+            "home_id": "9879",
+            "home_score": null,
+            "away_team": "Crystal Palace",
+            "away_id": "9826",
+            "away_score": null,
+            "utc_time": "2026-09-05T14:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "2 - 3"
+          },
+          {
+            "match_id": "5795442",
+            "round": "3",
+            "page_url": "/matches/manchester-city-vs-coventry-city/2fb7wc#5795442",
+            "home_team": "Manchester City",
+            "home_id": "8456",
+            "home_score": null,
+            "away_team": "Coventry City",
+            "away_id": "8669",
+            "away_score": null,
+            "utc_time": "2026-09-05T14:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "1 - 0"
+          },
+          {
+            "match_id": "5795444",
+            "round": "3",
+            "page_url": "/matches/tottenham-hotspur-vs-nottingham-forest/2x3odl#5795444",
+            "home_team": "Nottingham Forest",
+            "home_id": "10203",
+            "home_score": null,
+            "away_team": "Tottenham Hotspur",
+            "away_id": "8586",
+            "away_score": null,
+            "utc_time": "2026-09-05T14:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "0 - 0"
+          },
+          {
+            "match_id": "5795440",
+            "round": "3",
+            "page_url": "/matches/hull-city-vs-aston-villa/2yk7pj#5795440",
+            "home_team": "Hull City",
+            "home_id": "8667",
+            "home_score": null,
+            "away_team": "Aston Villa",
+            "away_id": "10252",
+            "away_score": null,
+            "utc_time": "2026-09-05T16:30:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "0 - 0"
+          },
+          {
+            "match_id": "5795438",
+            "round": "3",
+            "page_url": "/matches/everton-vs-manchester-united/2ynv4k#5795438",
+            "home_team": "Everton",
+            "home_id": "8668",
+            "home_score": null,
+            "away_team": "Manchester United",
+            "away_id": "10260",
+            "away_score": null,
+            "utc_time": "2026-09-06T13:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "2 - 2"
+          },
+          {
+            "match_id": "5795435",
+            "round": "3",
+            "page_url": "/matches/chelsea-vs-arsenal/2rhhrp#5795435",
+            "home_team": "Arsenal",
+            "home_id": "9825",
+            "home_score": null,
+            "away_team": "Chelsea",
+            "away_id": "8455",
+            "away_score": null,
+            "utc_time": "2026-09-06T15:30:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "2 - 1"
+          },
+          {
+            "match_id": "5795445",
+            "round": "4",
+            "page_url": "/matches/afc-bournemouth-vs-brentford/2v5yfp#5795445",
+            "home_team": "AFC Bournemouth",
+            "home_id": "8678",
+            "home_score": null,
+            "away_team": "Brentford",
+            "away_id": "9937",
+            "away_score": null,
+            "utc_time": "2026-09-12T14:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "2 - 2"
+          },
+          {
+            "match_id": "5795446",
+            "round": "4",
+            "page_url": "/matches/nottingham-forest-vs-aston-villa/3gke9k#5795446",
+            "home_team": "Aston Villa",
+            "home_id": "10252",
+            "home_score": null,
+            "away_team": "Nottingham Forest",
+            "away_id": "10203",
+            "away_score": null,
+            "utc_time": "2026-09-12T14:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "1 - 2"
+          },
+          {
+            "match_id": "5795447",
+            "round": "4",
+            "page_url": "/matches/chelsea-vs-hull-city/2fa49a#5795447",
+            "home_team": "Chelsea",
+            "home_id": "8455",
+            "home_score": null,
+            "away_team": "Hull City",
+            "away_id": "8667",
+            "away_score": null,
+            "utc_time": "2026-09-12T14:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "2 - 2"
+          },
+          {
+            "match_id": "5795449",
+            "round": "4",
+            "page_url": "/matches/crystal-palace-vs-ipswich-town/37vb92#5795449",
+            "home_team": "Crystal Palace",
+            "home_id": "9826",
+            "home_score": null,
+            "away_team": "Ipswich Town",
+            "away_id": "9902",
+            "away_score": null,
+            "utc_time": "2026-09-12T14:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "2 - 3"
+          },
+          {
+            "match_id": "5795451",
+            "round": "4",
+            "page_url": "/matches/liverpool-vs-fulham/2u7pyg#5795451",
+            "home_team": "Liverpool",
+            "home_id": "8650",
+            "home_score": null,
+            "away_team": "Fulham",
+            "away_id": "9879",
+            "away_score": null,
+            "utc_time": "2026-09-12T14:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "0 - 0"
+          },
+          {
+            "match_id": "5795454",
+            "round": "4",
+            "page_url": "/matches/tottenham-hotspur-vs-everton/2gmqxt#5795454",
+            "home_team": "Tottenham Hotspur",
+            "home_id": "8586",
+            "home_score": null,
+            "away_team": "Everton",
+            "away_id": "8668",
+            "away_score": null,
+            "utc_time": "2026-09-12T16:30:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "0 - 0"
+          },
+          {
+            "match_id": "5795453",
+            "round": "4",
+            "page_url": "/matches/sunderland-vs-arsenal/2ro5o6#5795453",
+            "home_team": "Sunderland",
+            "home_id": "8472",
+            "home_score": null,
+            "away_team": "Arsenal",
+            "away_id": "9825",
+            "away_score": null,
+            "utc_time": "2026-09-12T19:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "0 - 2"
+          },
+          {
+            "match_id": "5795448",
+            "round": "4",
+            "page_url": "/matches/coventry-city-vs-brighton-hove-albion/2y1l02#5795448",
+            "home_team": "Coventry City",
+            "home_id": "8669",
+            "home_score": null,
+            "away_team": "Brighton & Hove Albion",
+            "away_id": "10204",
+            "away_score": null,
+            "utc_time": "2026-09-13T13:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "0 - 5"
+          },
+          {
+            "match_id": "5795452",
+            "round": "4",
+            "page_url": "/matches/manchester-city-vs-manchester-united/2wabz2#5795452",
+            "home_team": "Manchester United",
+            "home_id": "10260",
+            "home_score": null,
+            "away_team": "Manchester City",
+            "away_id": "8456",
+            "away_score": null,
+            "utc_time": "2026-09-13T15:30:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "0 - 1"
+          },
+          {
+            "match_id": "5795450",
+            "round": "4",
+            "page_url": "/matches/leeds-united-vs-newcastle-united/2wdjjd#5795450",
+            "home_team": "Leeds United",
+            "home_id": "8463",
+            "home_score": null,
+            "away_team": "Newcastle United",
+            "away_id": "10261",
+            "away_score": null,
+            "utc_time": "2026-09-14T19:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "4 - 1"
+          },
+          {
+            "match_id": "5795456",
+            "round": "5",
+            "page_url": "/matches/chelsea-vs-brentford/2spihp#5795456",
+            "home_team": "Brentford",
+            "home_id": "9937",
+            "home_score": null,
+            "away_team": "Chelsea",
+            "away_id": "8455",
+            "away_score": null,
+            "utc_time": "2026-09-18T19:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "3 - 0"
+          },
+          {
+            "match_id": "5795464",
+            "round": "5",
+            "page_url": "/matches/tottenham-hotspur-vs-aston-villa/2xnfpj#5795464",
+            "home_team": "Tottenham Hotspur",
+            "home_id": "8586",
+            "home_score": null,
+            "away_team": "Aston Villa",
+            "away_id": "10252",
+            "away_score": null,
+            "utc_time": "2026-09-19T11:30:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "2 - 3"
+          },
+          {
+            "match_id": "5795457",
+            "round": "5",
+            "page_url": "/matches/arsenal-vs-brighton-hove-albion/3bfk5g#5795457",
+            "home_team": "Brighton & Hove Albion",
+            "home_id": "10204",
+            "home_score": null,
+            "away_team": "Arsenal",
+            "away_id": "9825",
+            "away_score": null,
+            "utc_time": "2026-09-19T14:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "3 - 0"
+          },
+          {
+            "match_id": "5795458",
+            "round": "5",
+            "page_url": "/matches/everton-vs-ipswich-town/2uo0th#5795458",
+            "home_team": "Everton",
+            "home_id": "8668",
+            "home_score": null,
+            "away_team": "Ipswich Town",
+            "away_id": "9902",
+            "away_score": null,
+            "utc_time": "2026-09-19T14:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "1 - 0"
+          },
+          {
+            "match_id": "5795462",
+            "round": "5",
+            "page_url": "/matches/hull-city-vs-newcastle-united/2ynv4j#5795462",
+            "home_team": "Newcastle United",
+            "home_id": "10261",
+            "home_score": null,
+            "away_team": "Hull City",
+            "away_id": "8667",
+            "away_score": null,
+            "utc_time": "2026-09-19T14:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "2 - 1"
+          },
+          {
+            "match_id": "5795463",
+            "round": "5",
+            "page_url": "/matches/coventry-city-vs-nottingham-forest/2y16ft#5795463",
+            "home_team": "Nottingham Forest",
+            "home_id": "10203",
+            "home_score": null,
+            "away_team": "Coventry City",
+            "away_id": "8669",
+            "away_score": null,
+            "utc_time": "2026-09-19T16:30:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "0 - 1"
+          },
+          {
+            "match_id": "5795455",
+            "round": "5",
+            "page_url": "/matches/liverpool-vs-afc-bournemouth/2he69q#5795455",
+            "home_team": "AFC Bournemouth",
+            "home_id": "8678",
+            "home_score": null,
+            "away_team": "Liverpool",
+            "away_id": "8650",
+            "away_score": null,
+            "utc_time": "2026-09-20T13:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "0 - 1"
+          },
+          {
+            "match_id": "5795460",
+            "round": "5",
+            "page_url": "/matches/leeds-united-vs-crystal-palace/2rl0qz#5795460",
+            "home_team": "Leeds United",
+            "home_id": "8463",
+            "home_score": null,
+            "away_team": "Crystal Palace",
+            "away_id": "9826",
+            "away_score": null,
+            "utc_time": "2026-09-20T13:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "0 - 0"
+          },
+          {
+            "match_id": "5795461",
+            "round": "5",
+            "page_url": "/matches/manchester-city-vs-sunderland/2dbbjc#5795461",
+            "home_team": "Manchester City",
+            "home_id": "8456",
+            "home_score": null,
+            "away_team": "Sunderland",
+            "away_id": "8472",
+            "away_score": null,
+            "utc_time": "2026-09-20T13:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "5 - 3"
+          },
+          {
+            "match_id": "5795459",
+            "round": "5",
+            "page_url": "/matches/fulham-vs-manchester-united/3cqww9#5795459",
+            "home_team": "Fulham",
+            "home_id": "9879",
+            "home_score": null,
+            "away_team": "Manchester United",
+            "away_id": "10260",
+            "away_score": null,
+            "utc_time": "2026-09-20T15:30:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "1 - 1"
+          },
+          {
+            "match_id": "5795465",
+            "round": "6",
+            "page_url": "/matches/leeds-united-vs-arsenal/2rkmmx#5795465",
+            "home_team": "Arsenal",
+            "home_id": "9825",
+            "home_score": null,
+            "away_team": "Leeds United",
+            "away_id": "8463",
+            "away_score": null,
+            "utc_time": "2026-10-10T11:30:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "2 - 1"
+          },
+          {
+            "match_id": "5795466",
+            "round": "6",
+            "page_url": "/matches/brentford-vs-aston-villa/3dciw4#5795466",
+            "home_team": "Aston Villa",
+            "home_id": "10252",
+            "home_score": null,
+            "away_team": "Brentford",
+            "away_id": "9937",
+            "away_score": null,
+            "utc_time": "2026-10-10T14:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "2 - 2"
+          },
+          {
+            "match_id": "5795467",
+            "round": "6",
+            "page_url": "/matches/chelsea-vs-afc-bournemouth/2fe5n5#5795467",
+            "home_team": "Chelsea",
+            "home_id": "8455",
+            "home_score": null,
+            "away_team": "AFC Bournemouth",
+            "away_id": "8678",
+            "away_score": null,
+            "utc_time": "2026-10-10T14:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "5 - 1"
+          },
+          {
+            "match_id": "5795471",
+            "round": "6",
+            "page_url": "/matches/fulham-vs-ipswich-town/38hr4t#5795471",
+            "home_team": "Ipswich Town",
+            "home_id": "9902",
+            "home_score": null,
+            "away_team": "Fulham",
+            "away_id": "9879",
+            "away_score": null,
+            "utc_time": "2026-10-10T14:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "2 - 1"
+          },
+          {
+            "match_id": "5795474",
+            "round": "6",
+            "page_url": "/matches/sunderland-vs-brighton-hove-albion/2vuaxm#5795474",
+            "home_team": "Sunderland",
+            "home_id": "8472",
+            "home_score": null,
+            "away_team": "Brighton & Hove Albion",
+            "away_id": "10204",
+            "away_score": null,
+            "utc_time": "2026-10-10T14:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "0 - 2"
+          },
+          {
+            "match_id": "5795473",
+            "round": "6",
+            "page_url": "/matches/tottenham-hotspur-vs-manchester-united/2xqo0r#5795473",
+            "home_team": "Manchester United",
+            "home_id": "10260",
+            "home_score": null,
+            "away_team": "Tottenham Hotspur",
+            "away_id": "8586",
+            "away_score": null,
+            "utc_time": "2026-10-10T16:30:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "1 - 1"
+          },
+          {
+            "match_id": "5795469",
+            "round": "6",
+            "page_url": "/matches/crystal-palace-vs-nottingham-forest/3bfk5h#5795469",
+            "home_team": "Crystal Palace",
+            "home_id": "9826",
+            "home_score": null,
+            "away_team": "Nottingham Forest",
+            "away_id": "10203",
+            "away_score": null,
+            "utc_time": "2026-10-11T13:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "3 - 1"
+          },
+          {
+            "match_id": "5795470",
+            "round": "6",
+            "page_url": "/matches/hull-city-vs-everton/2hgrvk#5795470",
+            "home_team": "Hull City",
+            "home_id": "8667",
+            "home_score": null,
+            "away_team": "Everton",
+            "away_id": "8668",
+            "away_score": null,
+            "utc_time": "2026-10-11T13:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "2 - 2"
+          },
+          {
+            "match_id": "5795472",
+            "round": "6",
+            "page_url": "/matches/manchester-city-vs-liverpool/2f48yd#5795472",
+            "home_team": "Liverpool",
+            "home_id": "8650",
+            "home_score": null,
+            "away_team": "Manchester City",
+            "away_id": "8456",
+            "away_score": null,
+            "utc_time": "2026-10-11T15:30:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "0 - 3"
+          },
+          {
+            "match_id": "5795468",
+            "round": "6",
+            "page_url": "/matches/coventry-city-vs-newcastle-united/2yooc8#5795468",
+            "home_team": "Coventry City",
+            "home_id": "8669",
+            "home_score": null,
+            "away_team": "Newcastle United",
+            "away_id": "10261",
+            "away_score": null,
+            "utc_time": "2026-10-12T19:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "4 - 1"
+          },
+          {
+            "match_id": "5795478",
+            "round": "7",
+            "page_url": "/matches/chelsea-vs-everton/2fahgy#5795478",
+            "home_team": "Everton",
+            "home_id": "8668",
+            "home_score": null,
+            "away_team": "Chelsea",
+            "away_id": "8455",
+            "away_score": null,
+            "utc_time": "2026-10-17T11:30:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "0 - 2"
+          },
+          {
+            "match_id": "5795476",
+            "round": "7",
+            "page_url": "/matches/liverpool-vs-brentford/2uusjv#5795476",
+            "home_team": "Brentford",
+            "home_id": "9937",
+            "home_score": null,
+            "away_team": "Liverpool",
+            "away_id": "8650",
+            "away_score": null,
+            "utc_time": "2026-10-17T14:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "1 - 2"
+          },
+          {
+            "match_id": "5795479",
+            "round": "7",
+            "page_url": "/matches/hull-city-vs-fulham/2ueh4i#5795479",
+            "home_team": "Fulham",
+            "home_id": "9879",
+            "home_score": null,
+            "away_team": "Hull City",
+            "away_id": "8667",
+            "away_score": null,
+            "utc_time": "2026-10-17T14:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "1 - 0"
+          },
+          {
+            "match_id": "5795481",
+            "round": "7",
+            "page_url": "/matches/manchester-city-vs-ipswich-town/2sc4e3#5795481",
+            "home_team": "Manchester City",
+            "home_id": "8456",
+            "home_score": null,
+            "away_team": "Ipswich Town",
+            "away_id": "9902",
+            "away_score": null,
+            "utc_time": "2026-10-17T14:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "3 - 2"
+          },
+          {
+            "match_id": "5795482",
+            "round": "7",
+            "page_url": "/matches/aston-villa-vs-newcastle-united/3h9v0m#5795482",
+            "home_team": "Newcastle United",
+            "home_id": "10261",
+            "home_score": null,
+            "away_team": "Aston Villa",
+            "away_id": "10252",
+            "away_score": null,
+            "utc_time": "2026-10-17T16:30:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "0 - 1"
+          },
+          {
+            "match_id": "5795475",
+            "round": "7",
+            "page_url": "/matches/sunderland-vs-afc-bournemouth/2fkehz#5795475",
+            "home_team": "AFC Bournemouth",
+            "home_id": "8678",
+            "home_score": null,
+            "away_team": "Sunderland",
+            "away_id": "8472",
+            "away_score": null,
+            "utc_time": "2026-10-18T13:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "2 - 0"
+          },
+          {
+            "match_id": "5795477",
+            "round": "7",
+            "page_url": "/matches/crystal-palace-vs-brighton-hove-albion/3bfzlv#5795477",
+            "home_team": "Brighton & Hove Albion",
+            "home_id": "10204",
+            "home_score": null,
+            "away_team": "Crystal Palace",
+            "away_id": "9826",
+            "away_score": null,
+            "utc_time": "2026-10-18T13:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "5 - 0"
+          },
+          {
+            "match_id": "5795480",
+            "round": "7",
+            "page_url": "/matches/leeds-united-vs-manchester-united/2wd539#5795480",
+            "home_team": "Leeds United",
+            "home_id": "8463",
+            "home_score": null,
+            "away_team": "Manchester United",
+            "away_id": "10260",
+            "away_score": null,
+            "utc_time": "2026-10-18T13:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "1 - 1"
+          },
+          {
+            "match_id": "5795483",
+            "round": "7",
+            "page_url": "/matches/arsenal-vs-nottingham-forest/3bf4p3#5795483",
+            "home_team": "Nottingham Forest",
+            "home_id": "10203",
+            "home_score": null,
+            "away_team": "Arsenal",
+            "away_id": "9825",
+            "away_score": null,
+            "utc_time": "2026-10-18T15:30:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "0 - 1"
+          },
+          {
+            "match_id": "5795484",
+            "round": "7",
+            "page_url": "/matches/tottenham-hotspur-vs-coventry-city/2gn495#5795484",
+            "home_team": "Tottenham Hotspur",
+            "home_id": "8586",
+            "home_score": null,
+            "away_team": "Coventry City",
+            "away_id": "8669",
+            "away_score": null,
+            "utc_time": "2026-10-19T19:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "3 - 1"
+          },
+          {
+            "match_id": "5795491",
+            "round": "8",
+            "page_url": "/matches/ipswich-town-vs-nottingham-forest/3cc90b#5795491",
+            "home_team": "Ipswich Town",
+            "home_id": "9902",
+            "home_score": null,
+            "away_team": "Nottingham Forest",
+            "away_id": "10203",
+            "away_score": null,
+            "utc_time": "2026-10-23T19:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "1 - 1"
+          },
+          {
+            "match_id": "5795486",
+            "round": "8",
+            "page_url": "/matches/manchester-city-vs-aston-villa/2w74gq#5795486",
+            "home_team": "Aston Villa",
+            "home_id": "10252",
+            "home_score": null,
+            "away_team": "Manchester City",
+            "away_id": "8456",
+            "away_score": null,
+            "utc_time": "2026-10-24T11:30:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "2 - 1"
+          },
+          {
+            "match_id": "5795485",
+            "round": "8",
+            "page_url": "/matches/everton-vs-arsenal/2ttfpg#5795485",
+            "home_team": "Arsenal",
+            "home_id": "9825",
+            "home_score": null,
+            "away_team": "Everton",
+            "away_id": "8668",
+            "away_score": null,
+            "utc_time": "2026-10-24T14:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "2 - 0"
+          },
+          {
+            "match_id": "5795488",
+            "round": "8",
+            "page_url": "/matches/coventry-city-vs-fulham/2uf9qx#5795488",
+            "home_team": "Coventry City",
+            "home_id": "8669",
+            "home_score": null,
+            "away_team": "Fulham",
+            "away_id": "9879",
+            "away_score": null,
+            "utc_time": "2026-10-24T14:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "0 - 1"
+          },
+          {
+            "match_id": "5795487",
+            "round": "8",
+            "page_url": "/matches/chelsea-vs-tottenham-hotspur/2eggkj#5795487",
+            "home_team": "Chelsea",
+            "home_id": "8455",
+            "home_score": null,
+            "away_team": "Tottenham Hotspur",
+            "away_id": "8586",
+            "away_score": null,
+            "utc_time": "2026-10-24T16:30:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "0 - 2"
+          },
+          {
+            "match_id": "5795489",
+            "round": "8",
+            "page_url": "/matches/crystal-palace-vs-newcastle-united/3c4hty#5795489",
+            "home_team": "Crystal Palace",
+            "home_id": "9826",
+            "home_score": null,
+            "away_team": "Newcastle United",
+            "away_id": "10261",
+            "away_score": null,
+            "utc_time": "2026-10-25T14:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "0 - 2"
+          },
+          {
+            "match_id": "5795490",
+            "round": "8",
+            "page_url": "/matches/hull-city-vs-brentford/2v1khb#5795490",
+            "home_team": "Hull City",
+            "home_id": "8667",
+            "home_score": null,
+            "away_team": "Brentford",
+            "away_id": "9937",
+            "away_score": null,
+            "utc_time": "2026-10-25T14:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "1 - 1"
+          },
+          {
+            "match_id": "5795492",
+            "round": "8",
+            "page_url": "/matches/liverpool-vs-brighton-hove-albion/2xtwfj#5795492",
+            "home_team": "Liverpool",
+            "home_id": "8650",
+            "home_score": null,
+            "away_team": "Brighton & Hove Albion",
+            "away_id": "10204",
+            "away_score": null,
+            "utc_time": "2026-10-25T14:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "2 - 0"
+          },
+          {
+            "match_id": "5795493",
+            "round": "8",
+            "page_url": "/matches/afc-bournemouth-vs-manchester-united/2yrx85#5795493",
+            "home_team": "Manchester United",
+            "home_id": "10260",
+            "home_score": null,
+            "away_team": "AFC Bournemouth",
+            "away_id": "8678",
+            "away_score": null,
+            "utc_time": "2026-10-25T14:00:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "0 - 3"
+          },
+          {
+            "match_id": "5795494",
+            "round": "8",
+            "page_url": "/matches/leeds-united-vs-sunderland/2dduzo#5795494",
+            "home_team": "Sunderland",
+            "home_id": "8472",
+            "home_score": null,
+            "away_team": "Leeds United",
+            "away_id": "8463",
+            "away_score": null,
+            "utc_time": "2026-10-25T16:30:00Z",
+            "finished": true,
+            "started": true,
+            "score_str": "0 - 0"
+          }
+        ],
+        "top_stat_lists_count": 20,
+        "top_stat_lists": [
+          {
+            "header": "Top scorer",
+            "category": "Top Stat",
+            "fetch_all_url": "https://data.fotmob.com/stats/47/season/36781/goals.json",
+            "leaders": [
+              {
+                "id": 737066,
+                "name": "Erling Haaland",
+                "team_id": 8456,
+                "team_name": "Manchester City",
+                "value": 9
+              },
+              {
+                "id": 690107,
+                "name": "Alexander Isak",
+                "team_id": 8650,
+                "team_name": "Liverpool",
+                "value": 7
+              },
+              {
+                "id": 1197347,
+                "name": "Nicolas Jackson",
+                "team_id": 10252,
+                "team_name": "Aston Villa",
+                "value": 6
+              }
+            ]
+          },
+          {
+            "header": "Assists",
+            "category": "Top Stat",
+            "fetch_all_url": "https://data.fotmob.com/stats/47/season/36781/goal_assist.json",
+            "leaders": [
+              {
+                "id": 654096,
+                "name": "Declan Rice",
+                "team_id": 9825,
+                "team_name": "Arsenal",
+                "value": 5
+              },
+              {
+                "id": 167008,
+                "name": "Pascal Groß",
+                "team_id": 10204,
+                "team_name": "Brighton and Hove Albion",
+                "value": 4
+              },
+              {
+                "id": 1098096,
+                "name": "Evanilson",
+                "team_id": 8678,
+                "team_name": "Bournemouth",
+                "value": 4
+              }
+            ]
+          },
+          {
+            "header": "Goals + Assists",
+            "category": "Top Stat",
+            "fetch_all_url": "https://data.fotmob.com/stats/47/season/36781/_goals_and_goal_assist.json",
+            "leaders": [
+              {
+                "id": 737066,
+                "name": "Erling Haaland",
+                "team_id": 8456,
+                "team_name": "Manchester City",
+                "value": 9
+              },
+              {
+                "id": 1098096,
+                "name": "Evanilson",
+                "team_id": 8678,
+                "team_name": "Bournemouth",
+                "value": 9
+              },
+              {
+                "id": 167008,
+                "name": "Pascal Groß",
+                "team_id": 10204,
+                "team_name": "Brighton and Hove Albion",
+                "value": 8
+              }
+            ]
+          },
+          {
+            "header": "FotMob rating",
+            "category": "Top Stat",
+            "fetch_all_url": "https://data.fotmob.com/stats/47/season/36781/rating.json",
+            "leaders": [
+              {
+                "id": 654096,
+                "name": "Declan Rice",
+                "team_id": 9825,
+                "team_name": "Arsenal",
+                "value": 7.76
+              },
+              {
+                "id": 1021382,
+                "name": "João Pedro",
+                "team_id": 8455,
+                "team_name": "Chelsea",
+                "value": 7.74
+              },
+              {
+                "id": 961995,
+                "name": "Bukayo Saka",
+                "team_id": 9825,
+                "team_name": "Arsenal",
+                "value": 7.72
+              }
+            ]
+          },
+          {
+            "header": "Minutes played",
+            "category": "Top Stat",
+            "fetch_all_url": "https://data.fotmob.com/stats/47/season/36781/mins_played.json",
+            "leaders": [
+              {
+                "id": 319784,
+                "name": "Alisson Becker",
+                "team_id": 8650,
+                "team_name": "Liverpool",
+                "value": 900
+              },
+              {
+                "id": 1341475,
+                "name": "Antonín Kinský",
+                "team_id": 8586,
+                "team_name": "Tottenham Hotspur",
+                "value": 900
+              },
+              {
+                "id": 1292092,
+                "name": "António Silva",
+                "team_id": 8678,
+                "team_name": "Bournemouth",
+                "value": 900
+              }
+            ]
+          },
+          {
+            "header": "Top speed",
+            "category": "Physical Metrics",
+            "fetch_all_url": "https://data.fotmob.com/stats/47/season/36781/phys_ts.json",
+            "leaders": [
+              {
+                "id": 760359,
+                "name": "Harvey Barnes",
+                "team_id": 10261,
+                "team_name": "Newcastle United",
+                "value": 36.2
+              },
+              {
+                "id": 1297165,
+                "name": "Bradley Barcola",
+                "team_id": 8650,
+                "team_name": "Liverpool",
+                "value": 35.9
+              },
+              {
+                "id": 933576,
+                "name": "Antoine Semenyo",
+                "team_id": 8456,
+                "team_name": "Manchester City",
+                "value": 35.7
+              }
+            ]
+          },
+          {
+            "header": "Total distance",
+            "category": "Physical Metrics",
+            "fetch_all_url": "https://data.fotmob.com/stats/47/season/36781/phys_tdc.json",
+            "leaders": [
+              {
+                "id": 167008,
+                "name": "Pascal Groß",
+                "team_id": 10204,
+                "team_name": "Brighton and Hove Albion",
+                "value": 119519.4
+              },
+              {
+                "id": 780432,
+                "name": "Ethan Ampadu",
+                "team_id": 8463,
+                "team_name": "Leeds United",
+                "value": 116320.3
+              },
+              {
+                "id": 1559637,
+                "name": "Harrison Armstrong",
+                "team_id": 8668,
+                "team_name": "Everton",
+                "value": 114990.3
+              }
+            ]
+          },
+          {
+            "header": "Total sprints",
+            "category": "Physical Metrics",
+            "fetch_all_url": "https://data.fotmob.com/stats/47/season/36781/phys_sprints.json",
+            "leaders": [
+              {
+                "id": 1177358,
+                "name": "Adrien Truffert",
+                "team_id": 8678,
+                "team_name": "Bournemouth",
+                "value": 213
+              },
+              {
+                "id": 1195281,
+                "name": "Miloš Kerkez",
+                "team_id": 8650,
+                "team_name": "Liverpool",
+                "value": 188
+              },
+              {
+                "id": 980381,
+                "name": "Leif Davis",
+                "team_id": 9902,
+                "team_name": "Ipswich Town",
+                "value": 185
+              }
+            ]
+          },
+          {
+            "header": "Distance per 90",
+            "category": "Physical Metrics",
+            "fetch_all_url": "https://data.fotmob.com/stats/47/season/36781/phys_tdc_per_90.json",
+            "leaders": [
+              {
+                "id": 277771,
+                "name": "Thomas Meunier",
+                "team_id": 8472,
+                "team_name": "Sunderland",
+                "value": 12438.5
+              },
+              {
+                "id": 1586552,
+                "name": "Chema Andrés",
+                "team_id": 10204,
+                "team_name": "Brighton and Hove Albion",
+                "value": 12315.7
+              },
+              {
+                "id": 167008,
+                "name": "Pascal Groß",
+                "team_id": 10204,
+                "team_name": "Brighton and Hove Albion",
+                "value": 12209.7
+              }
+            ]
+          },
+          {
+            "header": "Sprints per 90",
+            "category": "Physical Metrics",
+            "fetch_all_url": "https://data.fotmob.com/stats/47/season/36781/phys_sprints_per_90.json",
+            "leaders": [
+              {
+                "id": 1624586,
+                "name": "Bazoumana Touré",
+                "team_id": 10261,
+                "team_name": "Newcastle United",
+                "value": 28.5
+              },
+              {
+                "id": 1444231,
+                "name": "Matias Fernandez-Pardo",
+                "team_id": 10261,
+                "team_name": "Newcastle United",
+                "value": 26.9
+              },
+              {
+                "id": 966018,
+                "name": "Jeremie Frimpong",
+                "team_id": 8650,
+                "team_name": "Liverpool",
+                "value": 26
+              }
+            ]
+          },
+          {
+            "header": "Goals per 90",
+            "category": "Attacking",
+            "fetch_all_url": "https://data.fotmob.com/stats/47/season/36781/goals_per_90.json",
+            "leaders": [
+              {
+                "id": 1251334,
+                "name": "Jack Hinshelwood",
+                "team_id": 10204,
+                "team_name": "Brighton and Hove Albion",
+                "value": 1.71
+              },
+              {
+                "id": 873559,
+                "name": "Zian Flemming",
+                "team_id": 9902,
+                "team_name": "Ipswich Town",
+                "value": 1.06
+              },
+              {
+                "id": 1128945,
+                "name": "Rodrigo Muniz",
+                "team_id": 9879,
+                "team_name": "Fulham",
+                "value": 0.94
+              }
+            ]
+          },
+          {
+            "header": "Expected goals (xG)",
+            "category": "Attacking",
+            "fetch_all_url": "https://data.fotmob.com/stats/47/season/36781/expected_goals.json",
+            "leaders": [
+              {
+                "id": 1398392,
+                "name": "Thierno Barry",
+                "team_id": 8668,
+                "team_name": "Everton",
+                "value": 7.3
+              },
+              {
+                "id": 737066,
+                "name": "Erling Haaland",
+                "team_id": 8456,
+                "team_name": "Manchester City",
+                "value": 7.1
+              },
+              {
+                "id": 690107,
+                "name": "Alexander Isak",
+                "team_id": 8650,
+                "team_name": "Liverpool",
+                "value": 4.9
+              }
+            ]
+          },
+          {
+            "header": "Expected goals (xG) per 90",
+            "category": "Attacking",
+            "fetch_all_url": "https://data.fotmob.com/stats/47/season/36781/expected_goals_per_90.json",
+            "leaders": [
+              {
+                "id": 1251334,
+                "name": "Jack Hinshelwood",
+                "team_id": 10204,
+                "team_name": "Brighton and Hove Albion",
+                "value": 1.44
+              },
+              {
+                "id": 413158,
+                "name": "Chuba Akpom",
+                "team_id": 9902,
+                "team_name": "Ipswich Town",
+                "value": 0.98
+              },
+              {
+                "id": 873559,
+                "name": "Zian Flemming",
+                "team_id": 9902,
+                "team_name": "Ipswich Town",
+                "value": 0.91
+              }
+            ]
+          },
+          {
+            "header": "Expected goals on target (xGOT)",
+            "category": "Attacking",
+            "fetch_all_url": "https://data.fotmob.com/stats/47/season/36781/expected_goalsontarget.json",
+            "leaders": [
+              {
+                "id": 737066,
+                "name": "Erling Haaland",
+                "team_id": 8456,
+                "team_name": "Manchester City",
+                "value": 8.5
+              },
+              {
+                "id": 1398392,
+                "name": "Thierno Barry",
+                "team_id": 8668,
+                "team_name": "Everton",
+                "value": 6.7
+              },
+              {
+                "id": 789630,
+                "name": "Marcus Tavernier",
+                "team_id": 8678,
+                "team_name": "Bournemouth",
+                "value": 6
+              }
+            ]
+          },
+          {
+            "header": "Shots on target per 90",
+            "category": "Attacking",
+            "fetch_all_url": "https://data.fotmob.com/stats/47/season/36781/ontarget_scoring_att.json",
+            "leaders": [
+              {
+                "id": 1128945,
+                "name": "Rodrigo Muniz",
+                "team_id": 9879,
+                "team_name": "Fulham",
+                "value": 2.8
+              },
+              {
+                "id": 956161,
+                "name": "Joe Gelhardt",
+                "team_id": 8667,
+                "team_name": "Hull City",
+                "value": 2.8
+              },
+              {
+                "id": 1364069,
+                "name": "Malick Fofana",
+                "team_id": 8472,
+                "team_name": "Sunderland",
+                "value": 2.7
+              }
+            ]
+          },
+          {
+            "header": "Shots per 90",
+            "category": "Attacking",
+            "fetch_all_url": "https://data.fotmob.com/stats/47/season/36781/total_scoring_att.json",
+            "leaders": [
+              {
+                "id": 956161,
+                "name": "Joe Gelhardt",
+                "team_id": 8667,
+                "team_name": "Hull City",
+                "value": 6.3
+              },
+              {
+                "id": 1128945,
+                "name": "Rodrigo Muniz",
+                "team_id": 9879,
+                "team_name": "Fulham",
+                "value": 5.6
+              },
+              {
+                "id": 1580774,
+                "name": "Estêvão",
+                "team_id": 8455,
+                "team_name": "Chelsea",
+                "value": 4.5
+              }
+            ]
+          },
+          {
+            "header": "Accurate passes per 90",
+            "category": "Attacking",
+            "fetch_all_url": "https://data.fotmob.com/stats/47/season/36781/accurate_pass.json",
+            "leaders": [
+              {
+                "id": 614006,
+                "name": "Rúben Dias",
+                "team_id": 8456,
+                "team_name": "Manchester City",
+                "value": 86.5
+              },
+              {
+                "id": 1089691,
+                "name": "Elliot Anderson",
+                "team_id": 8456,
+                "team_name": "Manchester City",
+                "value": 81.5
+              },
+              {
+                "id": 844425,
+                "name": "Marc Guéhi",
+                "team_id": 8456,
+                "team_name": "Manchester City",
+                "value": 81.3
+              }
+            ]
+          },
+          {
+            "header": "Big chances created",
+            "category": "Attacking",
+            "fetch_all_url": "https://data.fotmob.com/stats/47/season/36781/big_chance_created.json",
+            "leaders": [
+              {
+                "id": 167008,
+                "name": "Pascal Groß",
+                "team_id": 10204,
+                "team_name": "Brighton and Hove Albion",
+                "value": 8
+              },
+              {
+                "id": 789502,
+                "name": "Morgan Gibbs-White",
+                "team_id": 10203,
+                "team_name": "Nottingham Forest",
+                "value": 8
+              },
+              {
+                "id": 886016,
+                "name": "Kiernan Dewsbury-Hall",
+                "team_id": 8668,
+                "team_name": "Everton",
+                "value": 7
+              }
+            ]
+          },
+          {
+            "header": "Chances created",
+            "category": "Attacking",
+            "fetch_all_url": "https://data.fotmob.com/stats/47/season/36781/total_att_assist.json",
+            "leaders": [
+              {
+                "id": 167008,
+                "name": "Pascal Groß",
+                "team_id": 10204,
+                "team_name": "Brighton and Hove Albion",
+                "value": 29
+              },
+              {
+                "id": 789502,
+                "name": "Morgan Gibbs-White",
+                "team_id": 10203,
+                "team_name": "Nottingham Forest",
+                "value": 24
+              },
+              {
+                "id": 604785,
+                "name": "Alex Iwobi",
+                "team_id": 9879,
+                "team_name": "Fulham",
+                "value": 24
+              }
+            ]
+          },
+          {
+            "header": "Accurate long balls per 90",
+            "category": "Attacking",
+            "fetch_all_url": "https://data.fotmob.com/stats/47/season/36781/accurate_long_balls.json",
+            "leaders": [
+              {
+                "id": 207236,
+                "name": "Granit Xhaka",
+                "team_id": 8472,
+                "team_name": "Sunderland",
+                "value": 6.7
+              },
+              {
+                "id": 915102,
+                "name": "Hidemasa Morita",
+                "team_id": 8667,
+                "team_name": "Hull City",
+                "value": 5.1
+              },
+              {
+                "id": 613715,
+                "name": "Olivier Boscagli",
+                "team_id": 10204,
+                "team_name": "Brighton and Hove Albion",
+                "value": 4.8
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

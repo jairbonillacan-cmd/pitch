@@ -1,0 +1,713 @@
+{
+  "source_id": "codere_bet365_mx",
+  "source_name": "Codere México / Playdoit / Bet365",
+  "category": "odds_casinos",
+  "url": "https://www.codere.mx/",
+  "scrapling_mode": "stealthy_session",
+  "captured_at_utc": "2026-11-09T19:20:18Z",
+  "sha256": "15cbd0d680cc3dbd00994cd2904541ad8beb020a1491c5462dce089f611f6ec2",
+  "meta": {
+    "pages_visited": 2,
+    "odds_tokens_detected": 30,
+    "dom_links_extracted": 67,
+    "network_requests_recorded": 38,
+    "total_records": 267
+  },
+  "payload": {
+    "source": "codere_bet365_mx",
+    "target_urls": [
+      "https://www.codere.mx/",
+      "https://m.codere.mx/deportes/#/HomePage"
+    ],
+    "summary": {
+      "pages_visited": 2,
+      "odds_tokens_detected": 30,
+      "dom_links_extracted": 67,
+      "network_requests_recorded": 38,
+      "total_records": 267
+    },
+    "dom_pages": [
+      {
+        "url": "https://www.codere.mx/",
+        "status": 200,
+        "title": "Codere México: Casa de Apuestas y Casino ⋆ Bono de 7,000",
+        "links_count": 67,
+        "links_sample": [
+          {
+            "text": "",
+            "href": "https://apuestas.codere.mx/es_MX"
+          },
+          {
+            "text": "Deportes",
+            "href": "https://apuestas.codere.mx/es_MX"
+          },
+          {
+            "text": "Deportes En vivo",
+            "href": "https://apuestas.codere.mx/es_MX/overview"
+          },
+          {
+            "text": "Casino Codere",
+            "href": "/casino"
+          },
+          {
+            "text": "Slots",
+            "href": "/slots"
+          },
+          {
+            "text": "Casino En vivo",
+            "href": "/casino-en-vivo"
+          },
+          {
+            "text": "Poker",
+            "href": "/poker"
+          },
+          {
+            "text": "Bingo",
+            "href": "/bingo"
+          },
+          {
+            "text": "Codere Club",
+            "href": "/casino/codere-club"
+          },
+          {
+            "text": "Promociones",
+            "href": "/promociones"
+          },
+          {
+            "text": "Regístrate",
+            "href": "https://www.codere.mx/registro-deportes?clientType=sportsbook"
+          },
+          {
+            "text": "Regístrate Iconos-app-codere-Expand_icon-arrow-right",
+            "href": "https://www.codere.mx/registro-deportes?clientType=sportsbook"
+          },
+          {
+            "text": "Apuestas Deportivas",
+            "href": "https://www.codere.mx/deportes"
+          },
+          {
+            "text": "Casino Online",
+            "href": "https://www.codere.mx/casino"
+          },
+          {
+            "text": "Poker Online",
+            "href": "https://www.codere.mx/poker"
+          },
+          {
+            "text": "Fútbol",
+            "href": "https://www.codere.mx/deportes/apuestas-futbol"
+          },
+          {
+            "text": "Fútbol Americano",
+            "href": "https://www.codere.mx/deportes/apuestas-nfl-futbol-americano"
+          },
+          {
+            "text": "Basquetbol",
+            "href": "https://www.codere.mx/deportes/apuestas-baloncesto"
+          },
+          {
+            "text": "Tenis",
+            "href": "https://www.codere.mx/deportes/apuestas-tenis"
+          },
+          {
+            "text": "Automovilismo",
+            "href": "https://www.codere.mx/deportes/apuestas-formula-1"
+          },
+          {
+            "text": "UFC",
+            "href": "https://www.codere.mx/deportes/apuestas-ufc"
+          },
+          {
+            "text": "Béisbol",
+            "href": "https://www.codere.mx/deportes/apuestas-beisbol-grandes-ligas"
+          },
+          {
+            "text": "Slots Online",
+            "href": "https://www.codere.mx/slots"
+          },
+          {
+            "text": "Ruleta Online",
+            "href": "https://www.codere.mx/casino/ruleta"
+          },
+          {
+            "text": "Blackjack",
+            "href": "https://www.codere.mx/casino/blackjack"
+          },
+          {
+            "text": "Casino en vivo",
+            "href": "https://www.codere.mx/casino-en-vivo"
+          },
+          {
+            "text": "Poker",
+            "href": "https://www.codere.mx/poker"
+          },
+          {
+            "text": "Baccarat",
+            "href": "https://www.codere.mx/casino/baccarat"
+          },
+          {
+            "text": "Rasca y Gana",
+            "href": "https://www.codere.mx/casino/rasca-y-gana"
+          },
+          {
+            "text": "Jackpots",
+            "href": "https://www.codere.mx/casino/jackpots"
+          },
+          {
+            "text": "Bingo",
+            "href": "https://www.codere.mx/bingo"
+          },
+          {
+            "text": "blog de  Codere",
+            "href": "https://blog.codere.mx/"
+          },
+          {
+            "text": "Juego Responsable",
+            "href": "https://www.codere.mx/ayuda/responsabilidad-social"
+          },
+          {
+            "text": "Términos y Condiciones",
+            "href": "https://www.codere.mx/ayuda/terminos-y-condiciones"
+          },
+          {
+            "text": "Política de Privacidad y Cookies",
+            "href": "https://www.codere.mx/ayuda/privacidad"
+          },
+          {
+            "text": "Condiciones Club de Lealtad",
+            "href": "https://www.codere.mx/ayuda/tyc-clubcodere"
+          },
+          {
+            "text": "Afiliados de Codere",
+            "href": "https://www.codere-partners.com/es"
+          },
+          {
+            "text": "Casino",
+            "href": "https://www.codere.mx/casino"
+          },
+          {
+            "text": "Casino en Vivo",
+            "href": "https://www.codere.mx/casino-en-vivo"
+          },
+          {
+            "text": "Slots",
+            "href": "https://www.codere.mx/slots"
+          }
+        ],
+        "text_tokens_count": 129,
+        "text_tokens_sample": [
+          "Acceder",
+          "Términos y condiciones",
+          "Juego Responsable. Permiso no. DGG/SP/442/97, DGJS/234/2019 y DGJS/1680/2025",
+          "Próximos partidos Liga MX",
+          "Liga MX",
+          "14 nov, 05:00 p.m.",
+          "Querétaro",
+          "Monterrey",
+          "+240",
+          "+275",
+          "-106",
+          "Liga MX",
+          "20 nov, 07:00 p.m.",
+          "Puebla",
+          "Atlético San Luis",
+          "+170",
+          "+245",
+          "+145",
+          "Liga MX",
+          "20 nov, 09:00 p.m.",
+          "Tijuana",
+          "Atlante",
+          "-134",
+          "+280",
+          "+320",
+          "Liga MX",
+          "20 nov, 09:00 p.m.",
+          "FC Juárez",
+          "Atlas",
+          "+190",
+          "+245",
+          "+130",
+          "Liga MX",
+          "21 nov, 05:00 p.m.",
+          "Santos Laguna",
+          "León",
+          "+145",
+          "+260",
+          "+160",
+          "Liga MX",
+          "21 nov, 05:00 p.m.",
+          "Pachuca",
+          "Toluca",
+          "+170",
+          "+280",
+          "+130",
+          "Liga MX",
+          "21 nov, 07:00 p.m.",
+          "Pumas UNAM",
+          "Monterrey",
+          "+155",
+          "+250",
+          "+155",
+          "Liga MX",
+          "21 nov, 09:00 p.m.",
+          "Tigres UANL",
+          "America",
+          "+190",
+          "+245",
+          "+130"
+        ]
+      },
+      {
+        "url": "https://m.codere.mx/deportes/#/HomePage",
+        "status": 404,
+        "title": "404 - File or directory not found.",
+        "links_count": 0,
+        "links_sample": [],
+        "text_tokens_count": 3,
+        "text_tokens_sample": [
+          "Server Error",
+          "404 - File or directory not found.",
+          "The resource you are looking for might have been removed, had its name changed, or is temporarily unavailable."
+        ]
+      }
+    ],
+    "odds_selections_sample": [
+      {
+        "raw_odds": "+240",
+        "source_url": "https://www.codere.mx/"
+      },
+      {
+        "raw_odds": "+275",
+        "source_url": "https://www.codere.mx/"
+      },
+      {
+        "raw_odds": "-106",
+        "source_url": "https://www.codere.mx/"
+      },
+      {
+        "raw_odds": "+170",
+        "source_url": "https://www.codere.mx/"
+      },
+      {
+        "raw_odds": "+245",
+        "source_url": "https://www.codere.mx/"
+      },
+      {
+        "raw_odds": "+145",
+        "source_url": "https://www.codere.mx/"
+      },
+      {
+        "raw_odds": "-134",
+        "source_url": "https://www.codere.mx/"
+      },
+      {
+        "raw_odds": "+280",
+        "source_url": "https://www.codere.mx/"
+      },
+      {
+        "raw_odds": "+320",
+        "source_url": "https://www.codere.mx/"
+      },
+      {
+        "raw_odds": "+190",
+        "source_url": "https://www.codere.mx/"
+      },
+      {
+        "raw_odds": "+245",
+        "source_url": "https://www.codere.mx/"
+      },
+      {
+        "raw_odds": "+130",
+        "source_url": "https://www.codere.mx/"
+      },
+      {
+        "raw_odds": "+145",
+        "source_url": "https://www.codere.mx/"
+      },
+      {
+        "raw_odds": "+260",
+        "source_url": "https://www.codere.mx/"
+      },
+      {
+        "raw_odds": "+160",
+        "source_url": "https://www.codere.mx/"
+      },
+      {
+        "raw_odds": "+170",
+        "source_url": "https://www.codere.mx/"
+      },
+      {
+        "raw_odds": "+280",
+        "source_url": "https://www.codere.mx/"
+      },
+      {
+        "raw_odds": "+130",
+        "source_url": "https://www.codere.mx/"
+      },
+      {
+        "raw_odds": "+155",
+        "source_url": "https://www.codere.mx/"
+      },
+      {
+        "raw_odds": "+250",
+        "source_url": "https://www.codere.mx/"
+      },
+      {
+        "raw_odds": "+155",
+        "source_url": "https://www.codere.mx/"
+      },
+      {
+        "raw_odds": "+190",
+        "source_url": "https://www.codere.mx/"
+      },
+      {
+        "raw_odds": "+245",
+        "source_url": "https://www.codere.mx/"
+      },
+      {
+        "raw_odds": "+130",
+        "source_url": "https://www.codere.mx/"
+      },
+      {
+        "raw_odds": "+105",
+        "source_url": "https://www.codere.mx/"
+      },
+      {
+        "raw_odds": "+260",
+        "source_url": "https://www.codere.mx/"
+      },
+      {
+        "raw_odds": "+235",
+        "source_url": "https://www.codere.mx/"
+      },
+      {
+        "raw_odds": "-223",
+        "source_url": "https://www.codere.mx/"
+      },
+      {
+        "raw_odds": "+340",
+        "source_url": "https://www.codere.mx/"
+      },
+      {
+        "raw_odds": "+550",
+        "source_url": "https://www.codere.mx/"
+      }
+    ],
+    "network_requests": [
+      {
+        "network_id": 1,
+        "url": "https://www.codere.mx/",
+        "status": 200,
+        "resource_type": "document",
+        "body_bytes": 5774
+      },
+      {
+        "network_id": 2,
+        "url": "https://www.codere.mx/manifest.json",
+        "status": 200,
+        "resource_type": "manifest",
+        "body_bytes": 187,
+        "has_json": true,
+        "json_preview": {
+          "keys": [
+            "//",
+            "gcm_sender_id"
+          ]
+        }
+      },
+      {
+        "network_id": 7,
+        "url": "https://www.codere.mx/td8qns7script/?id=GTM-TD8QNS7",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 796422
+      },
+      {
+        "network_id": 8,
+        "url": "https://www.codere.mx/library/splash/static/js/main.js",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 469528
+      },
+      {
+        "network_id": 11,
+        "url": "https://www.codere.mx/td8qns7script/RWnzD1dJadm79teXfqTSH63PWjAmWD7WnC_YkouJgYnHsrfr",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 625127
+      },
+      {
+        "network_id": 12,
+        "url": "https://www.codere.mx/td8qns7script/RWnzD1dJadmy89yFbtK7Fs7NWjAmWD7WnC_YkouJgYnHsrfr",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 582880
+      },
+      {
+        "network_id": 13,
+        "url": "https://j.clarity.ms/collect",
+        "status": 204,
+        "resource_type": "xhr",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 14,
+        "url": "https://www.codere.mx/library/splash/static/css/main.css",
+        "status": 200,
+        "resource_type": "stylesheet",
+        "body_bytes": 246427
+      },
+      {
+        "network_id": 15,
+        "url": "https://www.codere.mx/td8qns7script/td?id=G-0K8ZD211VD&v=3&t=t&pid=220056379&gtm=45g92e6b50v880217273za20kzb831663831zd831663831xf4&seq=1&exp=115938465~115938469~118897920~118897930~120213116~120385423~120412528~120420414~120469145~120469153~121246026~121246034~123814185&dl=www.codere.mx%2F&tdp=G-0K8ZD211VD;80217273;1;6;0&frm=0&rtg=31663831&slo=4&hlo=6&lst=1&pcid=31663831&bt=2&ct=0&z=0",
+        "status": 204,
+        "resource_type": "image",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 16,
+        "url": "https://t.contentsquare.net/settings/719784.json?r=1993613",
+        "status": 200,
+        "resource_type": "xhr",
+        "body_bytes": 2447,
+        "has_json": true,
+        "json_preview": {
+          "keys": [
+            "projectId",
+            "status",
+            "hostnames",
+            "collectionEnabled",
+            "useLambdaBuild",
+            "useBootstrapFile",
+            "isLegacyHJ",
+            "useHotjarDNS",
+            "trackerDomain",
+            "ed",
+            "uxaDomain",
+            "tagDomain",
+            "dynamicConfDomain",
+            "settingsFileUri",
+            "tagVerificationDomain"
+          ]
+        }
+      },
+      {
+        "network_id": 18,
+        "url": "https://www.codere.mx/library/splash/static/media/roboto-latin-400-normal.b009a76ad6afe4ebd301.woff2",
+        "status": 200,
+        "resource_type": "font",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 19,
+        "url": "https://www.codere.mx/library/Game%20tiles/ruletacoderista/codere_mx_ruleta_coderista_300x300.webp",
+        "status": 200,
+        "resource_type": "image",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 20,
+        "url": "https://www.codere.mx/library/Game%20tiles/PTOinkOinkOink_Square.webp",
+        "status": 200,
+        "resource_type": "image",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 21,
+        "url": "https://www.codere.mx/library/Game%20tiles/baccarat_coderista/codere_mx_baccarat_coderista_300x300.webp",
+        "status": 200,
+        "resource_type": "image",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 22,
+        "url": "https://www.codere.mx/library/Logos/whatsapp-transparent.png",
+        "status": 200,
+        "resource_type": "image",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 23,
+        "url": "https://www.codere.mx/td8qns7script/ag/g/c?v=2&tid=G-0K8ZD211VD&gtm=45g92e6b50v880217273za20szb831663831zd831663831xf4&_p=1794251988935&_gaz=1&gcs=G1--&gcd=13l3l3R3l5l1&npa=0&dma=0&ecid=220383257&_eu=AAAAAGAC&_uip=%3A%3A&cid=1768840473.1794251990&fp=1&frm=0&pscdl=noapi&rcb=11&sr=1920x1080&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B8.0.0.0%7CChromium%3B156.0.8078.4&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=es-es&ur=MX-PUE&_gsid=dGDIT44Co9yIsUDZU1x2c7ghGbgzldmBJg&gaf=2&_s=1&tag_exp=115938465~115938469~118897920~118897930~120213116~120385423~120412528~120420414~120469145~120469153~121246026~121246034~123814185&sid=1794251990&sct=1&seg=0&dl=https%3A%2F%2Fwww.codere.mx%2F&dt=Codere%20M%C3%A9xico%3A%20Casa%20de%20Apuestas%20y%20Casino%20%E2%8B%86%20Bono%20de%207%2C000&gtb=3&en=page_view&_fv=1&_ss=1&gap.gtb=3&ep.pageUrl=https%3A%2F%2Fwww.codere.mx%2F&tfd=1688",
+        "status": 204,
+        "resource_type": "fetch",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 24,
+        "url": "https://aicdn.speedsize.com/d1928fec-41f1-4078-8fe1-3b4868da9016/https://www.codere.mx/library/Logos/logo-white.png",
+        "status": 200,
+        "resource_type": "image",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 25,
+        "url": "https://www.codere.mx/library/Game%20tiles/PT_codere_mx_mp_bj1_vzn_eng_300x300.webp",
+        "status": 200,
+        "resource_type": "image",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 27,
+        "url": "https://www.codere.mx/metrics/g/collect?v=2&tid=G-9N3HTDX85F&gtm=45g92e6b50v9252404417za20szb831663831zd831663831xf4&_p=1794251988935&gcd=13l3l3l3l1l1&npa=0&dma=0&ecid=1607560255&_eu=AAAAAGA&_fplc=0&cid=1768840473.1794251990&frm=0&pscdl=noapi&rcb=19&sr=1920x1080&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B8.0.0.0%7CChromium%3B156.0.8078.4&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=es-es&ur=MX-PUE&sst.gch=0&sst.etld=google.com.mx&sst.tft=1794251988935&sst.lpc=134977379&sst.navt=n&sst.ude=0&sst.sw_exp=1&gaf=2&_s=1&tag_exp=115616986~115938465~115938468~118897920~118897930~120213116~120385423~120412526~120420416~120469145~120469153~121246026~121246034~123814183&sid=1794251989&sct=1&seg=0&dl=https%3A%2F%2Fwww.codere.mx%2F&dt=Codere%20M%C3%A9xico%3A%20Casa%20de%20Apuestas%20y%20Casino%20%E2%8B%86%20Bono%20de%207%2C000&gtb=3&_tu=BA&en=page_view&_fv=1&_nsi=1&_ss=1&gap.sstd=1&gap.gtb=3&ep.pageUrl=https%3A%2F%2Fwww.codere.mx%2F&tfd=1554&richsstsse",
+        "status": 200,
+        "resource_type": "fetch",
+        "body_bytes": 1590
+      },
+      {
+        "network_id": 29,
+        "url": "https://www.codere.mx/metrics/g/collect?v=2&tid=G-9N3HTDX85F&gtm=45g92e6b50v9252404417za20kzb831663831zd831663831xf4&_p=1794251988935&gcs=G1--&gcd=13l3l3R3l5l1&npa=0&dma=0&gdid=dNzQzZD&ecid=1607560255&_eu=AEAAAGQ&_fplc=0&ae=a&cid=1768840473.1794251990&frm=0&pscdl=noapi&rcb=19&sr=1920x1080&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B8.0.0.0%7CChromium%3B156.0.8078.4&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=es-es&ur=MX-PUE&sst.rnd=121991777.1794251989&sst.gch=0&sst.etld=google.com.mx&sst.tft=1794251988935&sst.sp=1&sst.em_event=1&sst.lpc=134977379&sst.navt=n&sst.ude=0&sst.sw_exp=1&gaf=2&_s=2&tag_exp=115616986~115938465~115938468~118897920~118897930~120213116~120385423~120412526~120420416~120469145~120469153~121246026~121246034~123814183&sid=1794251989&sct=1&seg=0&dl=https%3A%2F%2Fwww.codere.mx%2F&dt=Codere%20M%C3%A9xico%3A%20Casa%20de%20Apuestas%20y%20Casino%20%E2%8B%86%20Bono%20de%207%2C000&gtb=3&_tu=BA&en=scroll&gap.sstd=1&gap.gtb=3&ep.pageUrl=https%3A%2F%2Fwww.codere.mx%2F&epn.percent_scrolled=90&_et=189&tfd=1750&richsstsse",
+        "status": 200,
+        "resource_type": "fetch",
+        "body_bytes": 621
+      },
+      {
+        "network_id": 31,
+        "url": "https://www.codere.mx/metrics/_/service_worker/6al0/sw_iframe.html?origin=https%3A%2F%2Fwww.codere.mx&1p=1&path=%2Fmetrics",
+        "status": 200,
+        "resource_type": "document",
+        "body_bytes": 3890
+      },
+      {
+        "network_id": 32,
+        "url": "https://j.clarity.ms/collect",
+        "status": 204,
+        "resource_type": "xhr",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 33,
+        "url": "https://aicdn.speedsize.com/d1928fec-41f1-4078-8fe1-3b4868da9016/https://www.codere.mx/library/Logos/Logo-NFL-green-short.svg",
+        "status": 200,
+        "resource_type": "image",
+        "body_bytes": 347087
+      },
+      {
+        "network_id": 34,
+        "url": "https://www.codere.mx/metrics/_/service_worker/6al0/sw.js?origin=https%3A%2F%2Fwww.codere.mx&path=%2Fmetrics",
+        "status": 200,
+        "resource_type": "script",
+        "body_bytes": 7761
+      },
+      {
+        "network_id": 35,
+        "url": "https://inicio-master-f0bfea23cf49.herokuapp.com/prd/mexico/fetch-banners",
+        "status": 200,
+        "resource_type": "xhr",
+        "body_bytes": 2364,
+        "has_json": true,
+        "json_preview": "list[5]"
+      },
+      {
+        "network_id": 36,
+        "url": "https://inicio-master-f0bfea23cf49.herokuapp.com/prd/mexico/fetch-banners",
+        "status": 200,
+        "resource_type": "xhr",
+        "body_bytes": 2364,
+        "has_json": true,
+        "json_preview": "list[5]"
+      },
+      {
+        "network_id": 37,
+        "url": "https://aicdn.speedsize.com/d1928fec-41f1-4078-8fe1-3b4868da9016/http://lp.codere.mx/assets/inicio/InOnFinal-desktop.jpg",
+        "status": 200,
+        "resource_type": "image",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 38,
+        "url": "https://aicdn.speedsize.com/d1928fec-41f1-4078-8fe1-3b4868da9016/http://lp.codere.mx/assets/inicio/NFL-desktop.jpg",
+        "status": 200,
+        "resource_type": "image",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 39,
+        "url": "https://aicdn.speedsize.com/d1928fec-41f1-4078-8fe1-3b4868da9016/http://lp.codere.mx/assets/inicio/SlotsEpico-desktop.jpg",
+        "status": 200,
+        "resource_type": "image",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 40,
+        "url": "https://aicdn.speedsize.com/d1928fec-41f1-4078-8fe1-3b4868da9016/http://lp.codere.mx/assets/inicio/FutGenEpico-desktop.jpg",
+        "status": 200,
+        "resource_type": "image",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 41,
+        "url": "https://www.codere.mx/library/favicons/favicon-codere-apuestas.ico",
+        "status": 200,
+        "resource_type": "other",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 43,
+        "url": "https://codere-sbs-es.azurewebsites.net/getMatchMarketsForType/45349/MRES",
+        "status": 200,
+        "resource_type": "xhr",
+        "body_bytes": 16123,
+        "has_json": true,
+        "json_preview": {
+          "keys": [
+            "ContentAPI"
+          ]
+        }
+      },
+      {
+        "network_id": 44,
+        "url": "https://inicio-master-f0bfea23cf49.herokuapp.com/prd/mexico/fetch-promos",
+        "status": 200,
+        "resource_type": "xhr",
+        "body_bytes": 38384,
+        "has_json": true,
+        "json_preview": "list[4]"
+      },
+      {
+        "network_id": 45,
+        "url": "https://inicio-master-f0bfea23cf49.herokuapp.com/prd/mexico/fetch-promos",
+        "status": 200,
+        "resource_type": "xhr",
+        "body_bytes": 38384,
+        "has_json": true,
+        "json_preview": "list[4]"
+      },
+      {
+        "network_id": 46,
+        "url": "https://www.codere.mx/library/soccer.svg",
+        "status": 200,
+        "resource_type": "image",
+        "body_bytes": 7850
+      },
+      {
+        "network_id": 49,
+        "url": "https://j.clarity.ms/collect",
+        "status": 204,
+        "resource_type": "xhr",
+        "body_bytes": 0
+      },
+      {
+        "network_id": 50,
+        "url": "https://codere-sbs-es.azurewebsites.net/getMatchMarketsForType/45349/MRES",
+        "status": 200,
+        "resource_type": "xhr",
+        "body_bytes": 16123,
+        "has_json": true,
+        "json_preview": {
+          "keys": [
+            "ContentAPI"
+          ]
+        }
+      },
+      {
+        "network_id": 51,
+        "url": "https://m.codere.mx/deportes/",
+        "status": 404,
+        "resource_type": "document",
+        "body_bytes": 1245
+      }
+    ]
+  }
+}
