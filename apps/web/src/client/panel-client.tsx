@@ -13,6 +13,7 @@ import {
   AnalysisDialog,
   EmptyState,
   ErrorState,
+  StandingsTable,
 } from "@pitchlab/ui";
 import type { SnapshotEnvelope } from "../server/snapshots.js";
 import type { ProductLeague } from "../server/snapshots.js";
@@ -376,6 +377,11 @@ export function PanelClient({
             ))
           )}
         </div>
+        {snapshot?.standings && snapshot.standings.length > 0 ? (
+          <div className="wrap">
+            <StandingsTable rows={snapshot.standings} league={league} />
+          </div>
+        ) : null}
       </main>
 
       <AnalysisDialog

@@ -2572,3 +2572,29 @@ dialog.modal.show .modal-win {
   color: var(--brand-primary);
   text-decoration: underline;
 }
+
+/* Tabla de posiciones (snapshot) */
+.standings-block {
+  margin-top: var(--space-6);
+}
+.standings-block h2 {
+  margin-bottom: var(--space-3);
+}
+.standings .team-cell {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.standings td,
+.standings th {
+  white-space: nowrap;
+}
+/* Columnas de detalle: ocultas en móvil para no forzar scroll horizontal. */
+.standings .optional {
+  display: none;
+}
+@media (min-width: 720px) {
+  .standings .optional {
+    display: table-cell;
+  }
+}

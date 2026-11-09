@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import type {
   AnalysisMarketGroup,
+  StandingRow,
   CalcStep,
   FactorItem,
   LeagueId,
@@ -533,5 +534,89 @@ export function FactorsList({
         ))}
       </dl>
     </div>
+  );
+}
+
+/** Tabla de posiciones calculada en el snapshot (solo partidos ya jugados). */
+export function StandingsTable({
+  rows,
+  league,
+  limit,
+}: {
+  rows: readonly StandingRow[];
+  league: LeagueId | string;
+  limit?: number;
+}): React.JSX.Element | null {
+  if (rows.length === 0) return null;
+  const visible = typeof limit === "number" ? rows.slice(0, limit) : rows;
+
+  return (
+    <section className="standings-block" aria-labelledby="standings-title">
+      <h2 id="standings-title" className="h3">
+        Tabla de posiciones
+      </h2>
+      <table className="mtable standings">
+        <thead>
+          <tr>
+            <th scope="col" className="r">
+              #
+            </th>
+            <th scope="col">Equipo</th>
+            <th scope="col" className="r">
+              PJ
+            </th>
+            <th scope="col" className="r optional">
+              G
+            </th>
+            <th scope="col" className="r optional">
+              E
+            </th>
+            <th scope="col" className="r optional">
+              P
+            </th>
+            <th scope="col" className="r optional">
+              GF
+            </th>
+            <th scope="col" className="r optional">
+              GC
+            </th>
+            <th scope="col" className="r optional">
+              DG
+            </th>
+            <th scope="col" className="r">
+              Pts
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {visible.map((row, index) => (
+            <tr key={row.teamId}>
+              <td className="r">{index + 1}</td>
+              <td>
+                <span className="team-cell">
+                  <TeamBadge
+                    league={league}
+                    slug={row.teamId.split(".")[1] ?? row.code.toLowerCase()}
+                    name={row.name}
+                    size={20}
+                  />
+                  <span>{row.shortName}</span>
+                </span>
+              </td>
+              <td className="r">{row.played}</td>
+              <td className="r optional">{row.won}</td>
+              <td className="r optional">{row.drawn}</td>
+              <td className="r optional">{row.lost}</td>
+              <td className="r optional">{row.goalsFor}</td>
+              <td className="r optional">{row.goalsAgainst}</td>
+              <td className="r optional">{row.goalsFor - row.goalsAgainst}</td>
+              <td className="r">
+                <strong>{row.points}</strong>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </section>
   );
 }

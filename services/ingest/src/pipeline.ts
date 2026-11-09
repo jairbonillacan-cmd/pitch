@@ -20,6 +20,7 @@ import {
   asSeasonId,
   type GameAnalysis,
   type GameDTO,
+  type StandingRow,
   type LeagueSnapshot,
   type TeamSeasonRate,
 } from "@pitchlab/contracts";
@@ -310,6 +311,10 @@ export function buildFootballSnapshot(params: {
     analyses[game.id] = GameAnalysisSchema.parse(analysis);
   }
 
+  const standings = seasonGames
+    ? computeStandings(toFootballMatchRows(seasonGames), teamRateInputs)
+    : [];
+
   const snapshot: LeagueSnapshot = {
     schemaVersion: 1,
     league: asLeagueId(league),
@@ -323,9 +328,72 @@ export function buildFootballSnapshot(params: {
     teamRates: rates,
     games,
     analyses,
+    standings: standings.length > 0 ? standings : undefined,
   };
 
   return LeagueSnapshotSchema.parse(snapshot);
+}
+
+/**
+ * Tabla de posiciones con los partidos ya jugados de la temporada.
+ * Se ordena por puntos, diferencia de goles y goles a favor.
+ */
+export function computeStandings(
+  matches: readonly FootballMatchRow[],
+  teamInputs: readonly FootballTeamRateInput[],
+): StandingRow[] {
+  const table = new Map<string, StandingRow>();
+  for (const team of teamInputs) {
+    table.set(team.teamId, {
+      teamId: team.teamId,
+      name: team.name,
+      shortName: team.shortName,
+      code: team.code,
+      played: 0,
+      won: 0,
+      drawn: 0,
+      lost: 0,
+      goalsFor: 0,
+      goalsAgainst: 0,
+      points: 0,
+    });
+  }
+
+  for (const match of matches) {
+    const home = table.get(match.home);
+    const away = table.get(match.away);
+    if (!home || !away) continue;
+    home.played += 1;
+    away.played += 1;
+    home.goalsFor += match.homeGoals;
+    home.goalsAgainst += match.awayGoals;
+    away.goalsFor += match.awayGoals;
+    away.goalsAgainst += match.homeGoals;
+    if (match.homeGoals > match.awayGoals) {
+      home.won += 1;
+      home.points += 3;
+      away.lost += 1;
+    } else if (match.homeGoals < match.awayGoals) {
+      away.won += 1;
+      away.points += 3;
+      home.lost += 1;
+    } else {
+      home.drawn += 1;
+      away.drawn += 1;
+      home.points += 1;
+      away.points += 1;
+    }
+  }
+
+  return [...table.values()]
+    .filter((row) => row.played > 0)
+    .sort(
+      (a, b) =>
+        b.points - a.points ||
+        b.goalsFor - b.goalsAgainst - (a.goalsFor - a.goalsAgainst) ||
+        b.goalsFor - a.goalsFor ||
+        a.name.localeCompare(b.name),
+    );
 }
 
 export function loadPreviousSnapshot(snapshotsRoot: string, league: string): LeagueSnapshot | null {

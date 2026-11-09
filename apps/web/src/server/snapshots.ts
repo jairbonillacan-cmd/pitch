@@ -6,6 +6,7 @@ import {
   snapshotToMatchAnalyses,
   asLeagueId,
   type LeagueId,
+  type StandingRow,
   type MatchAnalysis,
 } from "@pitchlab/contracts";
 
@@ -19,6 +20,7 @@ export interface ClientLeagueSnapshot {
   generatedAt: string;
   days: Array<{ id: string; label: string }>;
   games: MatchAnalysis[];
+  standings?: StandingRow[];
 }
 
 export interface SnapshotEnvelope {
@@ -119,6 +121,7 @@ export function loadLeagueSnapshotEnvelope(leagueKey: ProductLeague): SnapshotEn
       generatedAt: parsed.updatedAt,
       days,
       games: matches,
+      standings: parsed.standings,
     };
 
     return {

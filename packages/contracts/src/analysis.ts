@@ -81,6 +81,21 @@ export interface TeamSeasonRate {
   adjustedAgainst: number;
 }
 
+/** Fila de la tabla de posiciones calculada con los partidos ya jugados. */
+export interface StandingRow {
+  teamId: string;
+  name: string;
+  shortName: string;
+  code: string;
+  played: number;
+  won: number;
+  drawn: number;
+  lost: number;
+  goalsFor: number;
+  goalsAgainst: number;
+  points: number;
+}
+
 export interface LeagueSnapshot {
   schemaVersion: 1;
   league: LeagueId;
@@ -94,6 +109,8 @@ export interface LeagueSnapshot {
   teamRates: Record<string, TeamSeasonRate>;
   games: GameDTO[];
   analyses: Record<string, GameAnalysis>;
+  /** Tabla de posiciones (solo fútbol; se omite si no hay partidos jugados). */
+  standings?: StandingRow[];
 }
 
 export const MarketProbabilitySchema = z.object({
@@ -174,6 +191,20 @@ export const TeamSeasonRateSchema = z.object({
   adjustedAgainst: z.number().nonnegative(),
 });
 
+export const StandingRowSchema = z.object({
+  teamId: z.string().min(3),
+  name: z.string().min(1),
+  shortName: z.string().min(1),
+  code: z.string().min(2).max(5),
+  played: z.number().int().nonnegative(),
+  won: z.number().int().nonnegative(),
+  drawn: z.number().int().nonnegative(),
+  lost: z.number().int().nonnegative(),
+  goalsFor: z.number().int().nonnegative(),
+  goalsAgainst: z.number().int().nonnegative(),
+  points: z.number().int().nonnegative(),
+});
+
 export const LeagueSnapshotSchema = z.object({
   schemaVersion: z.literal(1),
   league: LeagueIdSchema,
@@ -187,4 +218,5 @@ export const LeagueSnapshotSchema = z.object({
   teamRates: z.record(z.string(), TeamSeasonRateSchema),
   games: z.array(GameDTOSchema),
   analyses: z.record(z.string(), GameAnalysisSchema),
+  standings: z.array(StandingRowSchema).optional(),
 });

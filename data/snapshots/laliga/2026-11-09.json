@@ -4,7 +4,7 @@
   "season": "laliga-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 12",
-  "updatedAt": "2026-11-09T02:25:18.190Z",
+  "updatedAt": "2026-11-09T02:36:41.085Z",
   "source": "openfootball",
   "provenance": "derived",
   "isDemo": false,
@@ -870,15 +870,15 @@
         }
       ],
       "steps": [
-        "Sincronizando LaLiga · corte 8 nov 2026, 20:25",
+        "Sincronizando LaLiga · corte 8 nov 2026, 20:36",
         "Fuerza ajustada por rival · ELC 1.09 / 1.22 · BET 1.10 / 0.84",
         "Ponderando 193.6 partidos por antigüedad y calidad del rival",
         "Proyección de goles 1.60 – 1.79 · total 3.39",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador más probable 1–1"
       ],
-      "inputsAsOf": "2026-11-09T02:25:18.190Z",
-      "publishedAt": "2026-11-09T02:25:18.190Z",
+      "inputsAsOf": "2026-11-09T02:36:41.085Z",
+      "publishedAt": "2026-11-09T02:36:41.085Z",
       "source": "openfootball"
     },
     "laliga-2026-27-md12-osasuna-athletic-club": {
@@ -1268,15 +1268,15 @@
         }
       ],
       "steps": [
-        "Sincronizando LaLiga · corte 8 nov 2026, 20:25",
+        "Sincronizando LaLiga · corte 8 nov 2026, 20:36",
         "Fuerza ajustada por rival · OSA 0.90 / 1.18 · ATH 1.03 / 0.77",
         "Ponderando 193.6 partidos por antigüedad y calidad del rival",
         "Proyección de goles 1.22 – 1.62 · total 2.84",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador más probable 1–1"
       ],
-      "inputsAsOf": "2026-11-09T02:25:18.190Z",
-      "publishedAt": "2026-11-09T02:25:18.190Z",
+      "inputsAsOf": "2026-11-09T02:36:41.085Z",
+      "publishedAt": "2026-11-09T02:36:41.085Z",
       "source": "openfootball"
     },
     "laliga-2026-27-md12-sevilla-alaves": {
@@ -1666,15 +1666,15 @@
         }
       ],
       "steps": [
-        "Sincronizando LaLiga · corte 8 nov 2026, 20:25",
+        "Sincronizando LaLiga · corte 8 nov 2026, 20:36",
         "Fuerza ajustada por rival · SEV 0.95 / 0.94 · ALA 0.98 / 0.90",
         "Ponderando 193.6 partidos por antigüedad y calidad del rival",
         "Proyección de goles 1.50 – 1.23 · total 2.73",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador más probable 1–1"
       ],
-      "inputsAsOf": "2026-11-09T02:25:18.190Z",
-      "publishedAt": "2026-11-09T02:25:18.190Z",
+      "inputsAsOf": "2026-11-09T02:36:41.085Z",
+      "publishedAt": "2026-11-09T02:36:41.085Z",
       "source": "openfootball"
     },
     "laliga-2026-27-md12-valencia-real-madrid": {
@@ -2064,15 +2064,15 @@
         }
       ],
       "steps": [
-        "Sincronizando LaLiga · corte 8 nov 2026, 20:25",
+        "Sincronizando LaLiga · corte 8 nov 2026, 20:36",
         "Fuerza ajustada por rival · VAL 0.83 / 1.09 · RMA 1.53 / 0.78",
         "Ponderando 193.6 partidos por antigüedad y calidad del rival",
         "Proyección de goles 1.13 – 2.23 · total 3.36",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador más probable 1–2"
       ],
-      "inputsAsOf": "2026-11-09T02:25:18.190Z",
-      "publishedAt": "2026-11-09T02:25:18.190Z",
+      "inputsAsOf": "2026-11-09T02:36:41.085Z",
+      "publishedAt": "2026-11-09T02:36:41.085Z",
       "source": "openfootball"
     },
     "laliga-2026-27-md12-celta-vigo-levante": {
@@ -2462,15 +2462,15 @@
         }
       ],
       "steps": [
-        "Sincronizando LaLiga · corte 8 nov 2026, 20:25",
+        "Sincronizando LaLiga · corte 8 nov 2026, 20:36",
         "Fuerza ajustada por rival · CELV 0.99 / 0.96 · LEV 1.16 / 1.28",
         "Ponderando 193.6 partidos por antigüedad y calidad del rival",
         "Proyección de goles 2.21 – 1.50 · total 3.71",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador más probable 2–1"
       ],
-      "inputsAsOf": "2026-11-09T02:25:18.190Z",
-      "publishedAt": "2026-11-09T02:25:18.190Z",
+      "inputsAsOf": "2026-11-09T02:36:41.085Z",
+      "publishedAt": "2026-11-09T02:36:41.085Z",
       "source": "openfootball"
     },
     "laliga-2026-27-md12-real-sociedad-rayo-vallecano": {
@@ -4463,5 +4463,267 @@
       "publishedAt": "2026-11-09T02:25:18.190Z",
       "source": "openfootball"
     }
-  }
+  },
+  "standings": [
+    {
+      "teamId": "laliga.barcelona",
+      "name": "FC Barcelona",
+      "shortName": "FC Barcelona",
+      "code": "BAR",
+      "played": 7,
+      "won": 7,
+      "drawn": 0,
+      "lost": 0,
+      "goalsFor": 31,
+      "goalsAgainst": 7,
+      "points": 21
+    },
+    {
+      "teamId": "laliga.atletico-madrid",
+      "name": "Atlético de Madrid",
+      "shortName": "Atlético de Madrid",
+      "code": "ATM",
+      "played": 7,
+      "won": 5,
+      "drawn": 1,
+      "lost": 1,
+      "goalsFor": 16,
+      "goalsAgainst": 7,
+      "points": 16
+    },
+    {
+      "teamId": "laliga.real-betis",
+      "name": "Real Betis",
+      "shortName": "Real Betis",
+      "code": "BET",
+      "played": 7,
+      "won": 5,
+      "drawn": 1,
+      "lost": 1,
+      "goalsFor": 9,
+      "goalsAgainst": 7,
+      "points": 16
+    },
+    {
+      "teamId": "laliga.real-madrid",
+      "name": "Real Madrid",
+      "shortName": "Real Madrid",
+      "code": "RMA",
+      "played": 7,
+      "won": 5,
+      "drawn": 0,
+      "lost": 2,
+      "goalsFor": 18,
+      "goalsAgainst": 8,
+      "points": 15
+    },
+    {
+      "teamId": "laliga.sevilla",
+      "name": "Sevilla FC",
+      "shortName": "Sevilla FC",
+      "code": "SEV",
+      "played": 7,
+      "won": 4,
+      "drawn": 1,
+      "lost": 2,
+      "goalsFor": 10,
+      "goalsAgainst": 9,
+      "points": 13
+    },
+    {
+      "teamId": "laliga.alaves",
+      "name": "Deportivo Alavés",
+      "shortName": "Deportivo Alavés",
+      "code": "ALA",
+      "played": 6,
+      "won": 3,
+      "drawn": 1,
+      "lost": 2,
+      "goalsFor": 11,
+      "goalsAgainst": 6,
+      "points": 10
+    },
+    {
+      "teamId": "laliga.deportivo-la-coruna",
+      "name": "Deportivo de La Coruña",
+      "shortName": "Deportivo de La Coruña",
+      "code": "DEP",
+      "played": 7,
+      "won": 2,
+      "drawn": 4,
+      "lost": 1,
+      "goalsFor": 10,
+      "goalsAgainst": 8,
+      "points": 10
+    },
+    {
+      "teamId": "laliga.real-sociedad",
+      "name": "Real Sociedad",
+      "shortName": "Real Sociedad",
+      "code": "RSO",
+      "played": 6,
+      "won": 3,
+      "drawn": 0,
+      "lost": 3,
+      "goalsFor": 9,
+      "goalsAgainst": 13,
+      "points": 9
+    },
+    {
+      "teamId": "laliga.villarreal",
+      "name": "Villarreal CF",
+      "shortName": "Villarreal CF",
+      "code": "VIL",
+      "played": 7,
+      "won": 2,
+      "drawn": 2,
+      "lost": 3,
+      "goalsFor": 13,
+      "goalsAgainst": 12,
+      "points": 8
+    },
+    {
+      "teamId": "laliga.getafe",
+      "name": "Getafe CF",
+      "shortName": "Getafe CF",
+      "code": "GET",
+      "played": 7,
+      "won": 2,
+      "drawn": 2,
+      "lost": 3,
+      "goalsFor": 4,
+      "goalsAgainst": 7,
+      "points": 8
+    },
+    {
+      "teamId": "laliga.rayo-vallecano",
+      "name": "Rayo Vallecano",
+      "shortName": "Rayo Vallecano",
+      "code": "RAY",
+      "played": 7,
+      "won": 2,
+      "drawn": 2,
+      "lost": 3,
+      "goalsFor": 11,
+      "goalsAgainst": 16,
+      "points": 8
+    },
+    {
+      "teamId": "laliga.athletic-club",
+      "name": "Athletic Club",
+      "shortName": "Athletic Club",
+      "code": "ATH",
+      "played": 5,
+      "won": 2,
+      "drawn": 1,
+      "lost": 2,
+      "goalsFor": 7,
+      "goalsAgainst": 6,
+      "points": 7
+    },
+    {
+      "teamId": "laliga.espanyol",
+      "name": "RCD Espanyol",
+      "shortName": "RCD Espanyol",
+      "code": "ESP",
+      "played": 7,
+      "won": 2,
+      "drawn": 1,
+      "lost": 4,
+      "goalsFor": 10,
+      "goalsAgainst": 10,
+      "points": 7
+    },
+    {
+      "teamId": "laliga.osasuna",
+      "name": "CA Osasuna",
+      "shortName": "CA Osasuna",
+      "code": "OSA",
+      "played": 6,
+      "won": 2,
+      "drawn": 1,
+      "lost": 3,
+      "goalsFor": 6,
+      "goalsAgainst": 13,
+      "points": 7
+    },
+    {
+      "teamId": "laliga.racing-santander",
+      "name": "Racing de Santander",
+      "shortName": "Racing de Santander",
+      "code": "RAC",
+      "played": 7,
+      "won": 2,
+      "drawn": 1,
+      "lost": 4,
+      "goalsFor": 11,
+      "goalsAgainst": 21,
+      "points": 7
+    },
+    {
+      "teamId": "laliga.celta-vigo",
+      "name": "Celta de Vigo",
+      "shortName": "Celta de Vigo",
+      "code": "CELV",
+      "played": 5,
+      "won": 1,
+      "drawn": 2,
+      "lost": 2,
+      "goalsFor": 8,
+      "goalsAgainst": 6,
+      "points": 5
+    },
+    {
+      "teamId": "laliga.elche",
+      "name": "Elche CF",
+      "shortName": "Elche CF",
+      "code": "ELC",
+      "played": 7,
+      "won": 1,
+      "drawn": 2,
+      "lost": 4,
+      "goalsFor": 11,
+      "goalsAgainst": 17,
+      "points": 5
+    },
+    {
+      "teamId": "laliga.levante",
+      "name": "Levante UD",
+      "shortName": "Levante UD",
+      "code": "LEV",
+      "played": 4,
+      "won": 1,
+      "drawn": 0,
+      "lost": 3,
+      "goalsFor": 8,
+      "goalsAgainst": 12,
+      "points": 3
+    },
+    {
+      "teamId": "laliga.valencia",
+      "name": "Valencia CF",
+      "shortName": "Valencia CF",
+      "code": "VAL",
+      "played": 6,
+      "won": 1,
+      "drawn": 0,
+      "lost": 5,
+      "goalsFor": 4,
+      "goalsAgainst": 13,
+      "points": 3
+    },
+    {
+      "teamId": "laliga.malaga",
+      "name": "Málaga CF",
+      "shortName": "Málaga CF",
+      "code": "MAL",
+      "played": 6,
+      "won": 0,
+      "drawn": 2,
+      "lost": 4,
+      "goalsFor": 3,
+      "goalsAgainst": 12,
+      "points": 2
+    }
+  ]
 }
