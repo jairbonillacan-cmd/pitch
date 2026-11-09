@@ -20,7 +20,7 @@ export function LegalShell({
       <a className="skip-link" href="#main">
         Saltar al contenido
       </a>
-      <FloatingNav onOpenBetaPin={openPin} activeAuthRoute="landing" />
+      <FloatingNav onOpenBetaPin={openPin} activeAuthRoute="legal" />
       <main id="main" className="legal-page">
         <div className="container">
           <article className="panel legal-doc">

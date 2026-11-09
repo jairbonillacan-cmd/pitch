@@ -1,11 +1,12 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { useRouter } from "next/navigation";
+import type { PinSubmission } from "@pitchlab/ui";
+import { useDashboardEntry } from "./dashboard-entry.js";
 
 export function useBetaPin(nextPath?: string) {
   const [pinOpen, setPinOpen] = useState(false);
-  const router = useRouter();
+  const enterDashboard = useDashboardEntry();
 
   const openPin = useCallback(() => {
     setPinOpen(true);
@@ -16,7 +17,7 @@ export function useBetaPin(nextPath?: string) {
   }, []);
 
   const submitPin = useCallback(
-    async (code: string): Promise<{ ok: boolean; error?: string }> => {
+    async (code: string): Promise<PinSubmission> => {
       try {
         const res = await fetch("/api/beta/unlock", {
           method: "POST",
@@ -30,10 +31,13 @@ export function useBetaPin(nextPath?: string) {
         };
         if (res.ok && data.ok) {
           const dest = data.redirectTo ?? "/app";
-          setTimeout(() => {
-            router.push(dest);
-          }, 300);
-          return { ok: true };
+          return {
+            ok: true,
+            continueToApp: () => {
+              setPinOpen(false);
+              enterDashboard(dest);
+            },
+          };
         }
         return {
           ok: false,
@@ -48,7 +52,7 @@ export function useBetaPin(nextPath?: string) {
         };
       }
     },
-    [nextPath, router],
+    [enterDashboard, nextPath],
   );
 
   return { pinOpen, openPin, closePin, submitPin };

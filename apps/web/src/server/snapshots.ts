@@ -63,6 +63,22 @@ export type ProductLeague = (typeof PRODUCT_LEAGUES)[number];
 /** Caché en memoria por archivo y fecha de modificación (se invalida al reescribir el snapshot). */
 const snapshotCache = new Map<string, { mtimeMs: number; envelope: SnapshotEnvelope }>();
 
+const matchContext = new Set([
+  "Forma local",
+  "Forma visitante",
+  "Posición local",
+  "Posición visitante",
+]);
+
+function matchForClient({ steps: _steps, why: _why, ...match }: MatchAnalysis): MatchAnalysis {
+  return {
+    ...match,
+    factors: match.factors.filter(({ label }) => matchContext.has(label)),
+    trace: [],
+    confidence: match.confidence ? { ...match.confidence, reasons: [] } : undefined,
+  };
+}
+
 const LEAGUE_LABELS: Record<ProductLeague, string> = {
   "liga-mx": "Liga MX",
   "premier-league": "Premier League",
@@ -137,7 +153,7 @@ export function loadLeagueSnapshotEnvelope(leagueKey: ProductLeague): SnapshotEn
       roundLabel: parsed.periodLabel,
       generatedAt: parsed.updatedAt,
       days,
-      games: matches,
+      games: matches.map(matchForClient),
       standings: parsed.standings,
     };
 

@@ -898,12 +898,14 @@ export function CalcTrace({
 
 export function FactorsList({
   factors,
+  title = "Factores del modelo",
 }: {
   factors: readonly FactorItem[];
+  title?: string;
 }): React.JSX.Element {
   return (
     <div className="factors">
-      <p className="eyebrow">Factores del modelo</p>
+      <p className="eyebrow">{title}</p>
       <dl>
         {factors.map((f, idx) => (
           <React.Fragment key={`${f.label}-${idx}`}>

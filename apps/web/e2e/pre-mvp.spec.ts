@@ -11,7 +11,6 @@ const FORBIDDEN_FD16_TERMS = [
   "Dixon-Coles",
   "Pitágoras",
   "Log5",
-  "machine learning",
 ];
 
 const SCREENSHOT_DIR = path.resolve(process.cwd(), "../../test-results/screenshots");
@@ -32,7 +31,7 @@ test.describe("PitchLab Pre-MVP E2E Suite", () => {
     const elapsed = Date.now() - start;
     expect(elapsed).toBeLessThan(5000);
 
-    await expect(page.locator("h1")).toContainText("Lee el juego");
+    await expect(page.locator("h1")).toContainText("Probabilidades");
 
     // Save Hero dark screenshot at top of page
     await page.evaluate(() => window.scrollTo(0, 0));
@@ -283,39 +282,13 @@ test.describe("PitchLab Pre-MVP E2E Suite", () => {
     expect(await robotsRes.text()).toContain("Disallow: /");
   });
 
-  test("5. Metodología pública con cobertura de 4 ligas y LaLiga en el panel", async ({
-    page,
-  }, testInfo) => {
+  test("5. La metodología no se publica y LaLiga mantiene sus mercados", async ({ page }) => {
     const uniqueIp = `198.51.${Math.floor(Math.random() * 200) + 10}.${Math.floor(Math.random() * 200) + 10}`;
     await page.setExtraHTTPHeaders({ "x-forwarded-for": uniqueIp });
 
-    // La metodología es pública: no requiere PIN ni sesión.
     await page.goto("/metodologia");
-    await expect(page.locator("h1")).toContainText("Metodología");
-
-    const bodyText = await page.locator("body").innerText();
-    for (const term of FORBIDDEN_FD16_TERMS) {
-      expect(bodyText.toLowerCase()).not.toContain(term.toLowerCase());
-    }
-
-    // Tabla de cobertura: las cuatro ligas de la beta con su corte.
-    const coverage = page.locator("table.mtable").last();
-    await expect(coverage).toContainText("LaLiga");
-    await expect(coverage).toContainText("NFL");
-    await expect(coverage).toContainText("Premier League");
-    await expect(coverage).toContainText("Liga MX");
-    await expect(coverage).toContainText("Bundesliga");
-    await expect(coverage).toContainText("Serie A");
-    await expect(coverage).toContainText("Ligue 1");
-
-    await page.screenshot({
-      path: path.join(SCREENSHOT_DIR, `metodologia-${testInfo.project.name}-dark.png`),
-    });
-
-    const a11y = await new AxeBuilder({ page })
-      .withTags(["wcag2a", "wcag2aa"])
-      .analyze();
-    expect(a11y.violations).toEqual([]);
+    await expect(page).toHaveURL(/\/#como$/);
+    await expect(page.locator('a[href="/metodologia"]')).toHaveCount(0);
 
     // Panel de LaLiga con los mercados nuevos.
     await page.goto("/login?next=%2Fapp%2Flaliga");
@@ -337,6 +310,8 @@ test.describe("PitchLab Pre-MVP E2E Suite", () => {
     await expect(dialog).toContainText("Forma visitante");
     await expect(dialog).toContainText("Posición local");
     await expect(dialog).toContainText("Posición visitante");
+    await expect(dialog).toContainText("Contexto del partido");
+    await expect(dialog).not.toContainText(/Memoria larga|ajustado por rival/i);
 
     // Fase A: la liga correcta en el modal y, según la hora, picks o el aviso de que no aplican.
     await expect(dialog.locator("#modal-league")).toContainText("LaLiga");

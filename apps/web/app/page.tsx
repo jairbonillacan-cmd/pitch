@@ -6,6 +6,7 @@ import {
 import {
   LandingClient,
   type LandingLeagueSummary,
+  type LandingMatch,
 } from "../src/client/landing-client.js";
 import { asLeagueId, type MatchAnalysis } from "@pitchlab/contracts";
 
@@ -16,18 +17,10 @@ const LEAGUE_MASCOTS: Record<string, string> = {
   nfl: "nfl",
 };
 
-const FALLBACK_MATCH: MatchAnalysis = {
+const FALLBACK_MATCH: LandingMatch = {
   id: "epl-ars-new",
   league: asLeagueId("premier-league"),
-  leagueLabel: "Premier League",
   sport: "football",
-  round: "Jornada 10",
-  day: "sab",
-  dayLabel: "Sáb 7 nov",
-  kickoffUtc: "2026-11-07T15:00:00Z",
-  kickoffLocal: "09:00 CDMX",
-  venue: "Emirates Stadium",
-  status: "NS",
   home: {
     slug: "arsenal",
     name: "Arsenal",
@@ -60,17 +53,12 @@ const FALLBACK_MATCH: MatchAnalysis = {
       fairOdds: { decimal: 3.85, american: 285 },
     },
   ],
-  factors: [
-    {
-      label: "Goles esperados",
-      detail: "El modelo proyecta 1.62 goles de Arsenal por 1.18 de Newcastle.",
-      impact: "1.62 vs 1.18",
-    },
-  ],
-  trace: [
-    { step: "Datos de entrada", value: "45 partidos evaluados" },
-  ],
 };
+
+function toLandingMatch(match: MatchAnalysis): LandingMatch {
+  const { id, league, sport, home, away, projection, outcomes, marketGroups, publicationLabel, updatedAt } = match;
+  return { id, league, sport, home, away, projection, outcomes, marketGroups, publicationLabel, updatedAt };
+}
 
 export default function HomePage(): React.JSX.Element {
   const snapshots = loadAllActiveLeagueSnapshots();
@@ -81,7 +69,8 @@ export default function HomePage(): React.JSX.Element {
     gamesFor(key).filter((game) => game.publicationLabel),
   )
     .filter((game): game is MatchAnalysis => game !== undefined)
-    .slice(0, 3);
+    .slice(0, 3)
+    .map(toLandingMatch);
   const [firstDemo = FALLBACK_MATCH, ...otherDemos] = demos;
 
   const leagues: LandingLeagueSummary[] = PRODUCT_LEAGUES.map((key) => {

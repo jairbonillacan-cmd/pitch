@@ -1,11 +1,12 @@
 import React from "react";
 import type { Metadata } from "next";
+import { DashboardEntryProvider } from "../src/client/dashboard-entry.js";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "PitchLab — Probabilidades deportivas con datos abiertos",
+  title: "PitchLab — Probabilidades deportivas",
   description:
-    "Analítica pre-partido para Liga MX, Premier League y NFL. Probabilidades calculadas con modelos estadísticos transparentes.",
+    "Consulta probabilidades por partido y compáralas con tus cuotas.",
   robots: {
     index: false,
     follow: false,
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/brand/favicon.svg",
+    icon: { url: "/brand/app-icons/favicon.svg", type: "image/svg+xml" },
   },
 };
 
@@ -39,7 +40,9 @@ export default function RootLayout({
         />
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
       </head>
-      <body>{children}</body>
+      <body>
+        <DashboardEntryProvider>{children}</DashboardEntryProvider>
+      </body>
     </html>
   );
 }

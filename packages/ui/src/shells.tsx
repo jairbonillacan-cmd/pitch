@@ -17,22 +17,23 @@ import {
   WhyList,
   HeadToHead,
 } from "./sports.js";
+import { usePinSound } from "./pin-sounds.js";
+import { FooterSocial } from "./footer-social.js";
 import { Button } from "./components/ui/button.js";
 import { Dialog, DialogOverlay, DialogPopup, DialogPortal } from "./components/ui/dialog.js";
 
 export function FloatingNav({
   links = [
+    { href: "#modelos", label: "Modelos", sec: "modelos" },
     { href: "#como", label: "Cómo funciona", sec: "como" },
     { href: "#ligas", label: "Ligas", sec: "ligas" },
-    { href: "#modelo", label: "El modelo", sec: "modelo" },
-    { href: "#reglas", label: "Compromiso", sec: "reglas" },
   ],
   onOpenBetaPin,
   activeAuthRoute = "landing",
 }: {
   links?: ReadonlyArray<{ href: string; label: string; sec?: string }>;
   onOpenBetaPin?: () => void;
-  activeAuthRoute?: "login" | "signup" | "landing";
+  activeAuthRoute?: "login" | "signup" | "landing" | "legal";
 }): React.JSX.Element {
   const [scrolled, setScrolled] = useState(false);
   const [activeSec, setActiveSec] = useState<string>("");
@@ -49,7 +50,7 @@ export function FloatingNav({
 
   useEffect(() => {
     if (!onLanding || typeof IntersectionObserver === "undefined") return;
-    const ids = ["como", "ligas", "modelo", "reglas"];
+    const ids = ["modelos", "como", "ligas"];
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -138,16 +139,6 @@ export function FloatingNav({
   );
 }
 
-const D1_SOCIAL: ReadonlyArray<readonly [string, string]> = [
-  ["X", "https://x.com/pitchlabmx"],
-  ["Instagram", "https://instagram.com/pitchlab.mx"],
-  ["TikTok", "https://tiktok.com/@pitchlabmx"],
-  ["YouTube", "https://youtube.com/@pitchlabmx"],
-  ["Threads", "https://threads.net/@pitchlab.mx"],
-  ["Facebook", "https://facebook.com/pitchlabmx"],
-  ["LinkedIn", "https://linkedin.com/company/pitchlabmx"],
-];
-
 export function PublicFooter({
   onOpenBetaPin,
 }: {
@@ -155,75 +146,51 @@ export function PublicFooter({
 }): React.JSX.Element {
   return (
     <footer className="site-foot">
+      <div className="footer-field fieldgrid" aria-hidden="true" />
       <div className="wrap">
         <div className="fgrid">
-          <div>
-            <BrandLogo variant="horizontal" width={148} height={29} alt="PitchLab" />
-            <p
-              className="small secondary"
-              style={{ margin: "var(--space-4) 0 0" }}
-            >
-              Lee el juego con datos.
-            </p>
+          <div className="footer-brand">
+            <a href="/" aria-label="PitchLab · Inicio">
+              <BrandLogo variant="horizontal" width={210} height={41} />
+            </a>
+            <p>Probabilidades deportivas</p>
           </div>
-          <div>
-            <h3>Producto</h3>
-            <ul>
+          <nav aria-labelledby="footer-product">
+            <h2 id="footer-product">PitchLab</h2>
+            <ul className="footer-links">
+              <li><a href="/">Inicio</a></li>
+              <li><a href="/#modelos">Modelos</a></li>
+              <li><a href="/#como">Cómo funciona</a></li>
+              <li><a href="/#ligas">Ligas</a></li>
               <li>
-                {onOpenBetaPin ? (
-                  <a
-                    href="/login#beta"
-                    data-open-pin=""
-                    onClick={(e) => {
-                      e.preventDefault();
-                      onOpenBetaPin();
-                    }}
-                  >
-                    Entrar a la beta
-                  </a>
-                ) : (
-                  <a href="/login#beta">Entrar a la beta</a>
-                )}
-              </li>
-              <li>
-                <a href="/#como">Cómo funciona</a>
-              </li>
-              <li>
-                <a href="/metodologia">Metodología y evaluación</a>
-              </li>
-              <li>
-                <a href="/#ligas">Ligas</a>
+                <a
+                  href="/login#beta"
+                  data-open-pin={onOpenBetaPin ? "" : undefined}
+                  onClick={onOpenBetaPin ? (event) => {
+                    event.preventDefault();
+                    onOpenBetaPin();
+                  } : undefined}
+                >
+                  Entrar a la beta
+                </a>
               </li>
             </ul>
-          </div>
-          <div>
-            <h3>Legal</h3>
-            <ul>
-              <li>
-                <a href="/legal/privacidad">Aviso de privacidad</a>
-              </li>
-              <li>
-                <a href="/legal/terminos">Términos</a>
-              </li>
-              <li>
-                <a href="/legal/juego-responsable">Juego responsable</a>
-              </li>
-              <li>
-                <a href="/legal/creditos">Créditos y licencias</a>
-              </li>
+          </nav>
+          <nav aria-labelledby="footer-legal">
+            <h2 id="footer-legal">Legal</h2>
+            <ul className="footer-links">
+              <li><a href="/legal/privacidad">Aviso de privacidad</a></li>
+              <li><a href="/legal/terminos">Términos</a></li>
+              <li><a href="/legal/juego-responsable">Juego responsable</a></li>
+              <li><a href="/legal/creditos">Créditos y licencias</a></li>
             </ul>
-          </div>
-          <div>
-            <h3>Redes</h3>
-            <ul>
-              {D1_SOCIAL.map(([name, url]) => (
-                <li key={name}>
-                  <a href={url} rel="noopener">
-                    {name}
-                  </a>
-                </li>
-              ))}
-            </ul>
+          </nav>
+        </div>
+        <div className="footer-meta">
+          <p>© PitchLab</p>
+          <div className="footer-networks">
+            <span>Redes</span>
+            <FooterSocial />
           </div>
         </div>
         <p className="legal">
@@ -236,6 +203,14 @@ export function PublicFooter({
   );
 }
 
+const PIN_PROMPT = "Escribe el código de 4 dígitos.";
+
+export type PinSubmission = {
+  ok: boolean;
+  error?: string;
+  continueToApp?: () => void;
+};
+
 export function PinPad({
   open,
   onClose,
@@ -243,101 +218,110 @@ export function PinPad({
 }: {
   open: boolean;
   onClose: () => void;
-  onSubmitPin: (code: string) => Promise<{ ok: boolean; error?: string }>;
+  onSubmitPin: (code: string) => Promise<PinSubmission>;
 }): React.JSX.Element {
   const pinWinRef = useRef<HTMLDivElement | null>(null);
-  const [digits, setDigits] = useState<string>("");
-  const [status, setStatus] = useState<
-    "idle" | "submitting" | "error" | "success"
-  >("idle");
-  const [msgText, setMsgText] = useState<string>(
-    "Escribe el código de 4 dígitos.",
-  );
+  const digitsRef = useRef("");
+  const busyRef = useRef(false);
+  const attemptRef = useRef(0);
+  const pressTimer = useRef<number>(undefined);
+  const playSound = usePinSound();
+
+  const [digits, setDigits] = useState("");
+  const [status, setStatus] = useState<"idle" | "submitting" | "error" | "success">("idle");
+  const [msgText, setMsgText] = useState(PIN_PROMPT);
   const [pressedKey, setPressedKey] = useState<string | null>(null);
+  const busy = status === "submitting" || status === "success";
+
+  const cancelPending = useCallback(() => {
+    attemptRef.current += 1;
+    window.clearTimeout(pressTimer.current);
+  }, []);
 
   useEffect(() => {
-    if (open) {
-      setDigits("");
-      setStatus("idle");
-      setMsgText("Escribe el código de 4 dígitos.");
-    }
-  }, [open]);
+    if (!open) return;
+    digitsRef.current = "";
+    busyRef.current = false;
+    setDigits("");
+    setStatus("idle");
+    setMsgText(PIN_PROMPT);
+    setPressedKey(null);
+    return cancelPending;
+  }, [open, cancelPending]);
+
+  const dismiss = () => {
+    cancelPending();
+    onClose();
+  };
 
   const verifyCode = useCallback(
     async (code: string) => {
+      busyRef.current = true;
+      const attempt = ++attemptRef.current;
       setStatus("submitting");
+      setMsgText("Verificando código…");
+      let result: PinSubmission;
       try {
-        const res = await onSubmitPin(code);
-        if (res.ok) {
+        result = await onSubmitPin(code);
+      } catch {
+        result = { ok: false, error: "No pudimos verificar el código. Intenta de nuevo." };
+      }
+      if (attempt !== attemptRef.current) return;
+
+      if (result.ok) {
+        playSound("success");
+        if (result.continueToApp) {
+          setStatus("success");
+          result.continueToApp();
+        } else {
           setStatus("success");
           setMsgText("Listo. Bienvenido a PitchLab.");
-        } else {
-          setStatus("error");
-          setMsgText(
-            res.error ?? "Ese código no es. Revisa con quien te invitó.",
-          );
-          setTimeout(() => {
-            setDigits("");
-            setStatus("idle");
-          }, 550);
         }
-      } catch (err) {
-        void err;
+      } else {
+        playSound("error");
+        busyRef.current = false;
+        digitsRef.current = "";
+        setDigits("");
         setStatus("error");
-        setMsgText("No pudimos verificar el código. Intenta de nuevo.");
-        setTimeout(() => {
-          setDigits("");
-          setStatus("idle");
-        }, 550);
+        setMsgText(result.error ?? "Ese código no es. Revisa con quien te invitó.");
       }
     },
-    [onSubmitPin],
+    [onSubmitPin, playSound],
   );
 
-  const pushDigit = useCallback(
-    (d: string) => {
-      if (status === "submitting" || status === "success") return;
-      setPressedKey(d);
-      setTimeout(() => setPressedKey(null), 120);
-      setStatus("idle");
-      setDigits((prev) => {
-        if (prev.length >= 4) return prev;
-        const next = prev + d;
-        setMsgText(`${next.length} de 4 dígitos`);
-        if (next.length === 4) {
-          void verifyCode(next);
-        }
-        return next;
-      });
-    },
-    [status, verifyCode],
-  );
+  const editDigits = useCallback((next: string) => {
+    digitsRef.current = next;
+    setDigits(next);
+    setStatus("idle");
+    setMsgText(next ? next.length + " de 4 dígitos" : PIN_PROMPT);
+    if (next.length === 4) void verifyCode(next);
+  }, [verifyCode]);
+
+  const pushDigit = useCallback((digit: string) => {
+    if (busyRef.current) return;
+    playSound("key");
+    setPressedKey(digit);
+    window.clearTimeout(pressTimer.current);
+    pressTimer.current = window.setTimeout(() => setPressedKey(null), 120);
+    editDigits(digitsRef.current + digit);
+  }, [editDigits, playSound]);
 
   const popDigit = useCallback(() => {
-    if (status === "submitting" || status === "success") return;
-    setStatus("idle");
-    setDigits((prev) => {
-      if (!prev) return prev;
-      const next = prev.slice(0, -1);
-      setMsgText(
-        next.length > 0
-          ? `${next.length} de 4 dígitos`
-          : "Escribe el código de 4 dígitos.",
-      );
-      return next;
-    });
-  }, [status]);
+    if (busyRef.current) return;
+    playSound("key");
+    editDigits(digitsRef.current.slice(0, -1));
+  }, [editDigits, playSound]);
 
-  const clearDigits = useCallback(() => {
-    if (status === "submitting" || status === "success") return;
-    setStatus("idle");
-    setDigits("");
-    setMsgText("Escribe el código de 4 dígitos.");
-  }, [status]);
+  const clearDigits = () => {
+    if (busyRef.current) return;
+    playSound("key");
+    editDigits("");
+  };
 
   useEffect(() => {
     if (!open) return;
     const onKeyDown = (e: KeyboardEvent) => {
+      if (e.ctrlKey || e.metaKey || e.altKey || e.repeat) return;
       if (e.key >= "0" && e.key <= "9") {
         e.preventDefault();
         pushDigit(e.key);
@@ -347,16 +331,11 @@ export function PinPad({
       }
     };
     const onPaste = (e: ClipboardEvent) => {
-      const text = e.clipboardData?.getData("text") ?? "";
-      const cleaned = text.replace(/\D/g, "").slice(0, 4);
-      if (cleaned.length > 0) {
-        e.preventDefault();
-        setDigits(cleaned);
-        setMsgText(`${cleaned.length} de 4 dígitos`);
-        if (cleaned.length === 4) {
-          void verifyCode(cleaned);
-        }
-      }
+      const cleaned = (e.clipboardData?.getData("text") ?? "").replace(/\D/g, "").slice(0, 4);
+      if (!cleaned || busyRef.current) return;
+      e.preventDefault();
+      playSound("key");
+      editDigits(cleaned);
     };
     window.addEventListener("keydown", onKeyDown);
     window.addEventListener("paste", onPaste);
@@ -364,7 +343,7 @@ export function PinPad({
       window.removeEventListener("keydown", onKeyDown);
       window.removeEventListener("paste", onPaste);
     };
-  }, [open, pushDigit, popDigit, verifyCode]);
+  }, [open, pushDigit, popDigit, editDigits, playSound]);
 
   const dlgClasses = [
     "pin",
@@ -379,7 +358,7 @@ export function PinPad({
     <Dialog
       open={open}
       onOpenChange={(next) => {
-        if (!next) onClose();
+        if (!next) dismiss();
       }}
     >
       <DialogPortal>
@@ -387,10 +366,11 @@ export function PinPad({
         <DialogPopup
           className={dlgClasses}
           id="pin-dialog"
+          data-pin-state={status}
           aria-labelledby="pin-title"
           initialFocus={pinWinRef}
           onClick={(e) => {
-            if ((e.target as HTMLElement).classList?.contains("pin-frame")) onClose();
+            if ((e.target as HTMLElement).classList?.contains("pin-frame")) dismiss();
           }}
         >
       <div className="pin-frame">
@@ -401,7 +381,7 @@ export function PinPad({
             className="pin-close"
             data-pin-close=""
             aria-label="Cerrar"
-            onClick={onClose}
+            onClick={dismiss}
           >
             <Icon name="close" />
           </Button>
@@ -420,13 +400,14 @@ export function PinPad({
             role="status"
             aria-live="polite"
           >
+            {status === "success" && <Icon name="check" />}
             {msgText}
           </p>
 
           <div className="slots pin-slots" id="slots" aria-hidden="true">
             {[0, 1, 2, 3].map((idx) => {
               const isOn = idx < digits.length;
-              const isCur = idx === digits.length && status !== "submitting";
+              const isCur = idx === digits.length && status === "idle";
               const slotCls = [
                 "slot",
                 "pin-slot",
@@ -450,6 +431,7 @@ export function PinPad({
                 key={n}
                 className={`key pin-key ${pressedKey === n ? "press" : ""}`.trim()}
                 type="button"
+                disabled={busy}
                 data-k={n}
                 data-pin-digit={n}
                 onClick={() => pushDigit(n)}
@@ -460,6 +442,7 @@ export function PinPad({
             <button
               className="key ghost pin-key aux"
               type="button"
+              disabled={busy}
               data-clear=""
               data-pin-clear=""
               aria-label="Borrar todo"
@@ -470,6 +453,7 @@ export function PinPad({
             <button
               className={`key pin-key ${pressedKey === "0" ? "press" : ""}`.trim()}
               type="button"
+              disabled={busy}
               data-k="0"
               data-pin-digit="0"
               onClick={() => pushDigit("0")}
@@ -479,6 +463,7 @@ export function PinPad({
             <button
               className="key ghost pin-key aux"
               type="button"
+              disabled={busy}
               data-del=""
               data-pin-back=""
               aria-label="Borrar un dígito"
@@ -489,7 +474,6 @@ export function PinPad({
           </div>
 
           <p className="pin-foot">TAMBIÉN PUEDES USAR TU TECLADO</p>
-          <span className="pin-progress" aria-hidden="true" />
         </div>
       </div>
         </DialogPopup>
@@ -821,7 +805,9 @@ export function AnalysisDialog({
                         awayName={shown.away.shortName}
                       />
 
-                      <FactorsList factors={shown.factors} />
+                      {shown.factors.length > 0 ? (
+                        <FactorsList title="Contexto del partido" factors={shown.factors} />
+                      ) : null}
                     </div>
                   </div>
 
@@ -831,7 +817,6 @@ export function AnalysisDialog({
                     </span>
                     <span>Corte {shown.updatedAt}</span>
                     <span>No garantiza resultados.</span>
-                    <a href="/metodologia">Metodología</a>
                   </div>
                 </div>
               )}

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import type { LeagueId, MatchAnalysis } from "@pitchlab/contracts";
 import { formatPercent } from "@pitchlab/contracts";
 import { getMascotPath } from "@pitchlab/sports-assets";
@@ -15,7 +15,6 @@ import {
   LeagueBadge,
   ProbSplit,
   MarketTable,
-  Tag,
   ToggleGroup,
   ToggleGroupItem,
 } from "@pitchlab/ui";
@@ -33,15 +32,41 @@ export interface LandingLeagueSummary {
   leader?: string;
 }
 
+export type LandingMatch = Pick<
+  MatchAnalysis,
+  "id" | "league" | "sport" | "home" | "away" | "projection" | "outcomes" |
+  "marketGroups" | "publicationLabel" | "updatedAt"
+>;
+
 export function LandingClient({
   demoMatches,
   leagues,
 }: {
-  demoMatches: readonly [MatchAnalysis, ...MatchAnalysis[]];
+  demoMatches: readonly [LandingMatch, ...LandingMatch[]];
   leagues: readonly LandingLeagueSummary[];
 }): React.JSX.Element {
   const { pinOpen, openPin, closePin, submitPin } = useBetaPin("/app");
   const [selectedDemoIdx, setSelectedDemoIdx] = useState(0);
+  const mainRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (!mainRef.current || !("IntersectionObserver" in window)) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const { target, isIntersecting } of entries) {
+          if (!isIntersecting) continue;
+          target.setAttribute("data-revealed", "");
+          observer.unobserve(target);
+        }
+      },
+      { rootMargin: "0px 0px -32px 0px" },
+    );
+
+    for (const section of mainRef.current.querySelectorAll("[data-landing-reveal]")) {
+      observer.observe(section);
+    }
+    return () => observer.disconnect();
+  }, []);
   const [firstDemo] = demoMatches;
   const currentDemo = demoMatches[selectedDemoIdx] ?? firstDemo;
   const demoMarketGroups = currentDemo.marketGroups ?? [];
@@ -51,13 +76,6 @@ export function LandingClient({
       : demoMarketGroups;
   const decimals = currentDemo.sport === "american-football" ? 0 : 1;
   const activeLeagues = leagues.filter((league) => league.active);
-  const leagueNames = new Intl.ListFormat("es-MX").format(
-    activeLeagues.map((league) => league.name),
-  );
-  const totalGames = activeLeagues.reduce(
-    (sum, league) => sum + league.gameCount,
-    0,
-  );
   const featuredLeague = activeLeagues.find(
     (league) => league.id === firstDemo.league,
   );
@@ -75,7 +93,12 @@ export function LandingClient({
 
       <FloatingNav onOpenBetaPin={openPin} activeAuthRoute="landing" />
 
-      <main id="main">
+      <main id="main" className="landing-main" ref={mainRef}>
+        <div className="landing-strip">
+          <span>Beta privada</span>
+          <span className="landing-strip-diamond" aria-hidden="true" />
+          <span>Acceso con código</span>
+        </div>
         <section className="hero">
           <div className="bg fieldgrid" aria-hidden="true" />
           <svg
@@ -92,29 +115,23 @@ export function LandingClient({
               strokeDasharray="6 8"
             />
           </svg>
-          <div className="wrap">
-            <div>
-              <Tag className="status" variant="ok" dot>
-                Beta cerrada · acceso con código
-              </Tag>
+          <div className="wrap hero-stage">
+            <div className="hero-copy">
               <h1 className="h-display">
-                Lee el juego
+                Probabilidades
                 <br />
-                <span className="accent">con datos.</span>
+                <span className="accent">deportivas</span>
               </h1>
-              <p className="lead">
-                {leagueNames
-                  ? `Consulta probabilidades para ${leagueNames} y compáralas con tus cuotas.`
-                  : "Explora las probabilidades de un partido y aprende a compararlas con tus cuotas."}
-              </p>
+              <p className="lead">Consulta un partido y compara sus probabilidades con tus cuotas.</p>
               <div className="ctas">
                 <Button
                   appearance="d1"
-                  className="max-[600px]:flex-auto"
-                  render={<a href="#demo" />}
+                  size="lg"
+                  shape="pill"
+                  render={<a href="#demo" role="link" />}
                   nativeButton={false}
                 >
-                  Probar un partido{" "}
+                  Ver un partido{" "}
                   <span data-icon="arrow">
                     <Icon name="arrow" className="icon size-5" />
                   </span>
@@ -122,44 +139,83 @@ export function LandingClient({
                 <Button
                   variant="ghost"
                   appearance="d1"
-                  className="max-[600px]:flex-auto"
-                  render={<a href="#como" />}
+                  size="lg"
+                  shape="pill"
+                  render={<a href="#como" role="link" />}
                   nativeButton={false}
                 >
                   Cómo funciona
                 </Button>
               </div>
-              {totalGames > 0 && (
+              {activeLeagues.length > 0 && (
                 <div className="week">
                   <span className="stack" aria-hidden="true">
                     {activeLeagues.map((league) => (
                       <LeagueBadge key={league.id} league={league.id} size={28} />
                     ))}
                   </span>
-                  <span className="small secondary">
-                    <b className="num">{totalGames}</b>{" "}
-                    {totalGames === 1 ? "partido" : "partidos"} en {leagueNames}
-                  </span>
                 </div>
               )}
+              <p className="hero-proof">
+                <a href="#modelos">
+                  <strong>Modelos propios</strong> · Más de 69 mil partidos en el historial
+                </a>
+              </p>
             </div>
 
-            <section id="demo" tabIndex={-1} aria-labelledby="demo-title">
-              <header className="demo-head">
-                <div>
-                  <p className="eyebrow">Demo sin código</p>
-                  <h2 className="h3" id="demo-title">
-                    Análisis de partido
-                  </h2>
+            {demoMatches.slice(0, 2).map((match, idx) => (
+              <div
+                key={match.id}
+                className={idx === 0 ? "hero-preview hero-preview-left" : "hero-preview hero-preview-right"}
+                aria-hidden="true"
+              >
+                <div className="hero-preview-card panel">
+                  <header>
+                    <LeagueBadge league={match.league} size={24} />
+                    <span className="caption secondary">Radar de partido</span>
+                    <span className="hero-preview-signal" />
+                  </header>
+                  <div className="hero-preview-match">
+                    <div>
+                      <TeamBadge league={match.league} slug={match.home.slug} size={40} />
+                      <b>{match.home.code ?? match.home.shortName}</b>
+                    </div>
+                    <span className="caption muted">vs</span>
+                    <div>
+                      <TeamBadge league={match.league} slug={match.away.slug} size={40} />
+                      <b>{match.away.code ?? match.away.shortName}</b>
+                    </div>
+                  </div>
+                  <ProbSplit outcomes={match.outcomes} />
+                  <div className="hero-preview-metrics">
+                    {match.outcomes.map((outcome) => (
+                      <span key={outcome.key}>
+                        <small className="muted">{outcome.label}</small>
+                        <b className="num">{formatPercent(outcome.probability, 1)}</b>
+                      </span>
+                    ))}
+                  </div>
                 </div>
-                <img
-                  className="demo-mascot"
-                  src={getMascotPath("radar")}
-                  alt=""
-                  width={72}
-                  height={72}
-                />
-              </header>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id="demo" className="demo-band" tabIndex={-1} aria-labelledby="demo-title">
+          <div className="wrap demo-band-grid">
+            <header className="demo-head" data-landing-reveal>
+              <div>
+                <h2 className="h1" id="demo-title">Análisis de partido</h2>
+              </div>
+              <img
+                className="demo-mascot"
+                src={getMascotPath("radar")}
+                alt=""
+                width={144}
+                height={144}
+              />
+            </header>
+            <div className="demo-stage" data-landing-reveal>
               {demoMatches.length > 1 && (
                 <ToggleGroup
                   className="picks w-full flex-wrap items-stretch"
@@ -190,81 +246,167 @@ export function LandingClient({
                 </ToggleGroup>
               )}
               <article className="panel dcard" id="dcard" aria-live="polite">
-                <div className="dmatch">
-                  <div className="t">
-                    <TeamBadge
-                      league={currentDemo.league}
-                      slug={currentDemo.home.slug}
-                      size={36}
-                    />
-                    <span>{currentDemo.home.name}</span>
+                <div className="demo-result" key={currentDemo.id}>
+                  <div className="dmatch">
+                    <div className="t">
+                      <TeamBadge
+                        league={currentDemo.league}
+                        slug={currentDemo.home.slug}
+                        size={36}
+                      />
+                      <span>{currentDemo.home.name}</span>
+                    </div>
+                    <div className="s">
+                      {currentDemo.projection ? (
+                        <>
+                          <div className="caption muted">Proyección</div>
+                          <div className="numeric-hl">
+                            {currentDemo.projection.home.toFixed(decimals)} –{" "}
+                            {currentDemo.projection.away.toFixed(decimals)}
+                          </div>
+                        </>
+                      ) : (
+                        <span className="caption muted">vs</span>
+                      )}
+                    </div>
+                    <div className="t away">
+                      <span>{currentDemo.away.name}</span>
+                      <TeamBadge
+                        league={currentDemo.league}
+                        slug={currentDemo.away.slug}
+                        size={36}
+                      />
+                    </div>
                   </div>
-                  <div className="s">
-                    {currentDemo.projection ? (
+                  <MarketTable
+                    groups={demoGroups}
+                    outcomes={currentDemo.outcomes}
+                    maxRowsPerGroup={3}
+                  />
+                  <p className="caption secondary demo-note">
+                    <b>Cuota justa</b> · Cuota equivalente a la probabilidad.
+                  </p>
+                  <div className="demo-dates caption secondary">
+                    {currentDemo.publicationLabel ? (
                       <>
-                        <div className="caption muted">Proyección</div>
-                        <div className="numeric-hl">
-                          {currentDemo.projection.home.toFixed(decimals)} –{" "}
-                          {currentDemo.projection.away.toFixed(decimals)}
-                        </div>
+                        <span>
+                          <b>Publicación registrada</b> {currentDemo.publicationLabel} CDMX
+                        </span>
+                        {currentDemo.updatedAt && (
+                          <span>
+                            <b>Datos de la liga actualizados</b> {currentDemo.updatedAt} CDMX
+                          </span>
+                        )}
                       </>
                     ) : (
-                      <span className="caption muted">vs</span>
+                      <span>Ejemplo ilustrativo</span>
                     )}
                   </div>
-                  <div className="t away">
-                    <span>{currentDemo.away.name}</span>
-                    <TeamBadge
-                      league={currentDemo.league}
-                      slug={currentDemo.away.slug}
-                      size={36}
-                    />
-                  </div>
-                </div>
-                <MarketTable
-                  groups={demoGroups}
-                  outcomes={currentDemo.outcomes}
-                  maxRowsPerGroup={3}
-                />
-                <p className="caption secondary demo-note">
-                  <b>Cuota justa</b> · Cuota equivalente a la probabilidad del modelo.
-                </p>
-                <div className="demo-dates caption secondary">
-                  {currentDemo.publicationLabel ? (
-                    <>
-                      <span>
-                        <b>Publicación registrada</b> {currentDemo.publicationLabel} CDMX
-                      </span>
-                      {currentDemo.updatedAt && (
-                        <span>
-                          <b>Datos de la liga actualizados</b> {currentDemo.updatedAt} CDMX
-                        </span>
-                      )}
-                    </>
-                  ) : (
-                    <span>Ejemplo ilustrativo</span>
-                  )}
                 </div>
               </article>
-            </section>
+            </div>
+          </div>
+        </section>
+
+        <section className="block model-section" id="modelos" aria-labelledby="modelos-title">
+          <div className="wrap">
+            <div className="model-stage">
+              <div className="model-field fieldgrid" aria-hidden="true" />
+              <div className="model-copy" data-landing-reveal>
+                <h2 className="h1" id="modelos-title">Modelos propios</h2>
+                <p>
+                  Calculamos probabilidades antes de cada partido. Al comparar las
+                  estimaciones con los resultados, sabemos qué ajustes mejoran el modelo.
+                </p>
+                <ul className="model-research">
+                  <li>
+                    <Icon name="trend" />
+                    <div>
+                      <strong>Machine learning</strong>
+                      <span>Entrenamos modelos con partidos históricos y los ponemos a prueba con partidos posteriores.</span>
+                    </div>
+                  </li>
+                  <li>
+                    <Icon name="radar" />
+                    <div>
+                      <strong>IA para el análisis</strong>
+                      <span>Desarrollamos un asistente que explica las probabilidades y las compara con tus cuotas.</span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div className="model-stat" data-landing-reveal>
+                <svg
+                  className="model-stat-art"
+                  viewBox="0 0 560 340"
+                  preserveAspectRatio="xMidYMid slice"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <defs>
+                    <radialGradient id="model-art-aura">
+                      <stop stopColor="currentColor" stopOpacity=".34" />
+                      <stop offset="1" stopColor="currentColor" stopOpacity="0" />
+                    </radialGradient>
+                    <pattern id="model-art-grid" width="22" height="22" patternUnits="userSpaceOnUse">
+                      <path d="M22 0H0V22" stroke="currentColor" opacity=".17" />
+                    </pattern>
+                    <linearGradient id="model-art-track" x1="0" y1="1" x2="1" y2="0" gradientUnits="objectBoundingBox">
+                      <stop stopColor="currentColor" stopOpacity=".05" />
+                      <stop offset=".58" stopColor="currentColor" stopOpacity=".85" />
+                      <stop offset="1" stopColor="currentColor" stopOpacity=".25" />
+                    </linearGradient>
+                  </defs>
+                  <path d="M0 0h560v340H0z" fill="url(#model-art-grid)" />
+                  <ellipse cx="397" cy="146" rx="205" ry="172" fill="url(#model-art-aura)" />
+                  <g stroke="currentColor">
+                    <circle cx="397" cy="146" r="62" opacity=".22" />
+                    <circle cx="397" cy="146" r="102" opacity=".24" />
+                    <circle cx="397" cy="146" r="147" strokeDasharray="2 8" opacity=".5" />
+                    <circle cx="397" cy="146" r="172" opacity=".14" />
+                    <path d="M226 146h323M397 6v288" strokeDasharray="3 7" opacity=".25" />
+                  </g>
+                  <g transform="translate(397 146) rotate(-21) skewX(-21)" stroke="currentColor" opacity=".62">
+                    <rect x="-114" y="-66" width="228" height="132" rx="5" fill="currentColor" fillOpacity=".06" />
+                    <path d="M0-66V66M-114-31h34v62h-34m228-62H80v62h34M-114-14h14v28h-14m228-28h-14v28h14" />
+                    <circle r="21" />
+                    <circle r="2" fill="currentColor" />
+                  </g>
+                  <path
+                    className="model-art-track"
+                    d="M86 249c61 27 168 10 255-29 92-41 164-108 170-145 6-38-83-34-161 5"
+                    pathLength={1}
+                    stroke="url(#model-art-track)"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                  <g fill="currentColor" opacity=".86">
+                    <circle cx="341" cy="220" r="4" />
+                    <circle cx="511" cy="75" r="5" />
+                    <circle cx="397" cy="146" r="3" />
+                    <circle cx="459" cy="227" r="2.5" />
+                  </g>
+                </svg>
+                <dl>
+                  <dt>Partidos en el historial de investigación</dt>
+                  <dd className="num">+69 mil</dd>
+                </dl>
+              </div>
+            </div>
           </div>
         </section>
 
         <section className="block" id="como">
           <div className="wrap">
-            <div className="shead">
-              <p className="eyebrow">Un sábado cualquiera</p>
-              <h2 className="h1">Así se usa PitchLab.</h2>
-              <p>
-                De la jornada al silbatazo final, con lo que ya está en la beta.
-              </p>
+            <div className="shead" data-landing-reveal>
+              <h2 className="h1">Cómo funciona</h2>
             </div>
             <ol className="timeline" id="timeline">
-              <li className="tl">
-                <time>10:00</time>
+              <li className="tl" data-landing-reveal>
+                <span className="step-number" aria-hidden="true">01</span>
                 <span className="rail" aria-hidden="true" />
                 <div>
-                  <b>Abres la jornada</b>
+                  <b>Abre la jornada</b>
                   <p>Todos los partidos del día, ordenados por hora.</p>
                 </div>
                 <div className="panel mini">
@@ -284,11 +426,11 @@ export function LandingClient({
                 </div>
               </li>
 
-              <li className="tl">
-                <time>12:30</time>
+              <li className="tl" data-landing-reveal>
+                <span className="step-number" aria-hidden="true">02</span>
                 <span className="rail" aria-hidden="true" />
                 <div>
-                  <b>Comparas probabilidades</b>
+                  <b>Consulta probabilidades</b>
                   <p>Ves quién llega como favorito en cada encuentro.</p>
                 </div>
                 <div className="panel mini">
@@ -320,22 +462,19 @@ export function LandingClient({
                 </div>
               </li>
 
-              <li className="tl">
-                <time>17:55</time>
+              <li className="tl" data-landing-reveal>
+                <span className="step-number" aria-hidden="true">03</span>
                 <span className="rail" aria-hidden="true" />
                 <div>
-                  <b>Revisas tu cuota</b>
-                  <p>
-                    Escribes la cuota de tu casa y ves la diferencia contra el
-                    modelo.
-                  </p>
+                  <b>Compara tu cuota</b>
+                  <p>Introduce tu cuota para comparar las probabilidades.</p>
                 </div>
                 <div className="panel mini">
                   <span className="caption muted">
                     {exampleLabel} · tu cuota 2.10
                   </span>
                   <span className="num">
-                    Implica <b>{formatPercent(1 / 2.1, 1)}</b> · modelo{" "}
+                    Implica <b>{formatPercent(1 / 2.1, 1)}</b> · PitchLab{" "}
                     <b className="lead-txt">
                       {exampleProbability === undefined
                         ? "—"
@@ -345,41 +484,14 @@ export function LandingClient({
                 </div>
               </li>
 
-              <li className="tl">
-                <time>20:10</time>
-                <span className="rail" aria-hidden="true" />
-                <div>
-                  <b>Vuelves al análisis</b>
-                  <p>
-                    Revisas la fecha de publicación registrada y la última
-                    actualización de los datos de la liga.
-                  </p>
-                </div>
-                <div className="panel mini">
-                  <span className="caption muted">
-                    {firstDemo.home.shortName} vs {firstDemo.away.shortName}
-                  </span>
-                  <b>
-                    {firstDemo.publicationLabel
-                      ? `Publicación registrada · ${firstDemo.publicationLabel} CDMX`
-                      : "Ejemplo ilustrativo"}
-                  </b>
-                </div>
-              </li>
             </ol>
           </div>
         </section>
 
         <section className="block" id="ligas">
           <div className="wrap">
-            <div className="shead">
-              <p className="eyebrow">Ligas</p>
-              <h2 className="h1">Escoge tu liga.</h2>
-              <p>
-                {leagueNames
-                  ? `${leagueNames} en la beta privada.`
-                  : "Las ligas aparecerán aquí cuando estén disponibles en la beta."}
-              </p>
+            <div className="shead" data-landing-reveal>
+              <h2 className="h1">Ligas</h2>
             </div>
             <div className="leagues" id="leagues">
               {leagues.map((league) => {
@@ -388,6 +500,7 @@ export function LandingClient({
                   <Tile
                     key={league.id}
                     className="panel ltile"
+                    data-landing-reveal
                     href={league.active ? `/app/${league.id}` : undefined}
                   >
                     <div className="top-row">
@@ -430,7 +543,7 @@ export function LandingClient({
                 );
               })}
 
-              <div className="soon">
+              <div className="soon" data-landing-reveal>
                 <div className="panel">
                   <img
                     src={getMascotPath("nhl")}
@@ -460,75 +573,15 @@ export function LandingClient({
           </div>
         </section>
 
-        <section className="block" id="modelo">
-          <div className="wrap">
-            <div className="shead">
-              <p className="eyebrow">El modelo</p>
-              <h2 className="h1">Modelo propio. Números revisables.</h2>
-              <p>
-                Un modelo estadístico de PitchLab estima cada mercado con el
-                rendimiento reciente de los equipos. Puedes consultar cuándo se
-                publicó el análisis y cuándo se actualizaron los datos de la liga.
-              </p>
-            </div>
-            <div className="model">
-              <div className="panel">
-                <div className="k">13</div>
-                <p>mercados por partido de fútbol</p>
-              </div>
-              <div className="panel">
-                <div className="k">Pronto</div>
-                <p>calibración pública por liga y temporada</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="block" id="reglas">
-          <div className="wrap">
-            <div className="shead">
-              <p className="eyebrow">Nuestro compromiso</p>
-              <h2 className="h1">Claros desde el inicio.</h2>
-            </div>
-            <ul className="rules">
-              <li>
-                <b>Información para decidir</b>
-                <span>
-                  Te damos probabilidades y contexto. La decisión siempre es
-                  tuya.
-                </span>
-              </li>
-              <li>
-                <b>No somos casa de apuestas</b>
-                <span>No recibimos apuestas ni manejamos tu dinero.</span>
-              </li>
-              <li>
-                <b>Fechas visibles</b>
-                <span>
-                  Mostramos por separado la fecha del análisis y la actualización de los datos.
-                </span>
-              </li>
-              <li>
-                <b>Solo mayores de 18</b>
-                <span>Si apuestas, hazlo con moderación y por diversión.</span>
-              </li>
-            </ul>
-          </div>
-        </section>
-
         <section>
           <div className="wrap">
-            <div className="panel closing">
+            <div className="panel closing" data-landing-reveal>
               <div className="copy">
-                <h2 className="h2">La jornada ya está calculada.</h2>
-                <p
-                  className="secondary"
-                  style={{ margin: "var(--space-2) 0 var(--space-6)" }}
-                >
-                  Si tienes código de socio, entra ya.
-                </p>
+                <h2 className="h2">Acceso a la beta</h2>
                 <Button
                   appearance="d1"
+                  shape="pill"
+                  className="bg-background text-foreground hover:bg-card"
                   type="button"
                   data-open-pin=""
                   onClick={openPin}
