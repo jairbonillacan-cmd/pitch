@@ -28,6 +28,7 @@ cierre de test ejecutado **una sola vez** sobre candidatos congelados (`artifact
 | `16_INTEGRACION_REA_STATISKICKS.md` | Integración forense y cuantitativa de `REA-stats` (`statiskicks.com`) en `PitchLab Spacetime Suite v2.1`: Piedra Rosetta 40 ligas + 177 traits Opta, `xGOT` / `gk_prevented`, Radar Táctico `RankBands`, `SKORE` y Monte Carlo de Temporada/Liguilla | A24 | **completado** → [abrir](16_INTEGRACION_REA_STATISKICKS.md) |
 | `17_MEJORA_MODELOS_SPACETIME_V21.md` | Mejora cuantitativa integral `PitchLab Spacetime Suite v2.1` (`Tachyon v2.1`, `Singularity v2.1`, `Minkowski v2.1`) sobre los datasets históricos locales | A25 | **completado** → [abrir](17_MEJORA_MODELOS_SPACETIME_V21.md) |
 | `18_INTEGRACION_WEB_SCRAPING_FEATURE_STORE.md` | Evolución a `PitchLab Spacetime Suite v3.0`: integración del Feature Store v2.0 y las 28 fuentes de `web-scraping` (`376` equipos, `11` ligas, `6` deportes, `Tachyon v3.0`, `Singularity v3.0` + `Geodesic v2.0`, `Minkowski v3.0`, `Multi-Sport v3.0` y motor `< 1 ms` sobre `242` enfrentamientos vivos) | A26 | **completado** → [abrir](18_INTEGRACION_WEB_SCRAPING_FEATURE_STORE.md) |
+| `19_HOJA_DE_RUTA_MOTORES_Y_PICKS_V4.md` | Hoja de ruta estratégica (`v3.1 → v4.0`): mejora intrínseca de los 6 motores deportivos + arquitectura `Geodesic v3.0` para predicción de apuestas y picks ganadores (`AH`/`O/U`/`BTTS`, *Player Props*, *Stale Lines*, gatillo `T-60m`, *Meta-Labeling*, Kelly con incertidumbre y `CLV`) | A27 | **completado** → [abrir](19_HOJA_DE_RUTA_MOTORES_Y_PICKS_V4.md) |
 
 ---
 
