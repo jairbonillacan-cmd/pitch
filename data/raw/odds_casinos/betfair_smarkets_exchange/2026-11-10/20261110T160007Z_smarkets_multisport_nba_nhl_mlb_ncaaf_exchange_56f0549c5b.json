@@ -1,0 +1,64 @@
+{
+  "source_id": "betfair_smarkets_exchange",
+  "source_name": "Betfair Exchange / Smarkets",
+  "category": "odds_casinos",
+  "url": "https://api.smarkets.com/v3/events/?state=new&state=upcoming&state=live&type=basketball_match&limit=50",
+  "scrapling_mode": "fetcher_session",
+  "captured_at_utc": "2026-11-10T16:00:07Z",
+  "sha256": "56f0549c5b364f9afa6589fcc0cf869f2146773749357381e15130fe7d6b4232",
+  "meta": {
+    "events_extracted_count": 0,
+    "events_by_league": {},
+    "markets_extracted_count": 0,
+    "active_contract_quotes_count": 0,
+    "fetcher_probes_count": 1,
+    "blocked_by_anti_bot_gate": true,
+    "anti_bot_gate_detail": "HTTP 403 en https://api.smarkets.com/v3/events/?state=new&state=upcoming&state=live&type=basketball_match&limit=50 bloqueado por 'Smarkets - Security Check' (anti-bot browser challenge; no se evade ni resuelve por política estricta).",
+    "total_records": 1
+  },
+  "payload": {
+    "captured_at_utc": "2026-11-10T16:00:07Z",
+    "source_id": "betfair_smarkets_exchange",
+    "target_urls": [
+      "https://api.smarkets.com/v3/events/?state=new&state=upcoming&state=live&type=basketball_match&limit=50",
+      "https://api.smarkets.com/v3/events/?state=new&state=upcoming&state=live&type=ice_hockey_match&limit=50",
+      "https://api.smarkets.com/v3/events/?state=new&state=upcoming&state=live&type=baseball_match&limit=50",
+      "https://api.smarkets.com/v3/events/?state=new&state=upcoming&state=live&type=american_football_match&limit=50"
+    ],
+    "summary": {
+      "events_extracted_count": 0,
+      "events_by_league": {},
+      "markets_extracted_count": 0,
+      "active_contract_quotes_count": 0,
+      "fetcher_probes_count": 1,
+      "blocked_by_anti_bot_gate": true,
+      "anti_bot_gate_detail": "HTTP 403 en https://api.smarkets.com/v3/events/?state=new&state=upcoming&state=live&type=basketball_match&limit=50 bloqueado por 'Smarkets - Security Check' (anti-bot browser challenge; no se evade ni resuelve por política estricta).",
+      "total_records": 1
+    },
+    "http_trace": [
+      {
+        "category": "basketball",
+        "league_hint": "nba",
+        "url": "https://api.smarkets.com/v3/events/?state=new&state=upcoming&state=live&type=basketball_match&limit=50",
+        "status": 403,
+        "title": "Smarkets - Security Check",
+        "has_json": false,
+        "blocked_by_anti_bot_gate": true
+      }
+    ],
+    "fetcher_probes": [
+      {
+        "category": "basketball",
+        "league_hint": "nba",
+        "url": "https://api.smarkets.com/v3/events/?state=new&state=upcoming&state=live&type=basketball_match&limit=50",
+        "status": 403,
+        "title": "Smarkets - Security Check",
+        "has_json": false,
+        "blocked_by_anti_bot_gate": true
+      }
+    ],
+    "exchange_events": [],
+    "exchange_markets": [],
+    "exchange_quotes": []
+  }
+}

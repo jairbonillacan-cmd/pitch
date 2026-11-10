@@ -1,0 +1,1203 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at_utc": "2026-11-10T17:09:02Z",
+  "started_at_utc": "2026-11-10T17:08:37Z",
+  "mode": "execute_refresh",
+  "parameters": {
+    "window": "all",
+    "sla_max_age_hours": 48.0,
+    "leagues": "all",
+    "categories": "all",
+    "sources": null,
+    "force_refresh": false,
+    "verify_only": false,
+    "dry_run": false,
+    "skip_build": false,
+    "timeout_sec": 300
+  },
+  "summary": {
+    "catalog_sources_total": 28,
+    "mapped_sources_total": 28,
+    "sources_in_filter_scope": 28,
+    "sources_in_window": 28,
+    "sources_with_snapshots": 28,
+    "sources_missing_snapshots": 0,
+    "sources_within_sla": 28,
+    "total_json_snapshots_in_raw": 55,
+    "total_markdown_artifacts_in_raw": 4,
+    "json_snapshots_audited_count": 28,
+    "json_snapshots_sha256_valid_count": 28,
+    "json_snapshots_anti_leakage_valid_count": 28,
+    "decisions_breakdown": {
+      "SKIP_FRESH": 28
+    },
+    "scraper_subprocesses_executed": 0,
+    "pipeline_build_steps_executed": 2,
+    "exit_code": 0
+  },
+  "sources_plan": [
+    {
+      "source_id": "pinnacle",
+      "priority": "P0",
+      "category": "odds_casinos",
+      "leagues": [
+        "liga-mx",
+        "epl",
+        "laliga",
+        "bundesliga",
+        "serie-a",
+        "ligue-1",
+        "nfl",
+        "nba",
+        "nhl",
+        "mlb",
+        "ncaaf"
+      ],
+      "capture_schedule": [
+        "T-72h",
+        "T-24h",
+        "T-6h",
+        "T-1h"
+      ],
+      "in_filter_scope": true,
+      "in_window": true,
+      "assigned_scraper": "wave4_european_stadiums_and_deep_odds.py",
+      "assigned_scraper_args": [
+        "--source",
+        "pinnacle"
+      ],
+      "assigned_scraper_exists": true,
+      "coverage_note": "Wave 4 Arcadia Multi-League (Europa Top-5, UCL, Liga MX, NFL, NBA, NHL)",
+      "command": [
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\.venv\\Scripts\\python.exe",
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\scrapers\\wave4_european_stadiums_and_deep_odds.py",
+        "--source",
+        "pinnacle"
+      ],
+      "snapshots_count": 2,
+      "markdown_artifacts_count": 0,
+      "latest_snapshot_path": "data/raw/odds_casinos/pinnacle/2026-11-09/20261109T200500Z_pinnacle_multileague_europe_us_sports_deep_749b2bdd11.json",
+      "latest_captured_at_utc": "2026-11-09T20:05:00Z",
+      "latest_sha256": "749b2bdd11c4b29e",
+      "sha256_valid": true,
+      "anti_leakage_valid": true,
+      "age_hours": 21.0606,
+      "sla_max_age_hours": 48.0,
+      "within_sla": true,
+      "decision": "SKIP_FRESH",
+      "reason": "Snapshot fresco e íntegro (21.06h <= SLA 48.00h)"
+    },
+    {
+      "source_id": "caliente_mx",
+      "priority": "P0",
+      "category": "odds_casinos",
+      "leagues": [
+        "liga-mx",
+        "epl",
+        "laliga",
+        "bundesliga",
+        "serie-a",
+        "ligue-1",
+        "nfl",
+        "mlb",
+        "nhl"
+      ],
+      "capture_schedule": [
+        "T-48h",
+        "T-24h",
+        "T-1h"
+      ],
+      "in_filter_scope": true,
+      "in_window": true,
+      "assigned_scraper": "odds_scraper.py",
+      "assigned_scraper_args": [
+        "--source",
+        "caliente_mx"
+      ],
+      "assigned_scraper_exists": true,
+      "coverage_note": "Wave 1 Caliente.mx Sportsbook (Liga MX, Fútbol Europeo, US Sports)",
+      "command": [
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\.venv\\Scripts\\python.exe",
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\scrapers\\odds_scraper.py",
+        "--source",
+        "caliente_mx"
+      ],
+      "snapshots_count": 1,
+      "markdown_artifacts_count": 0,
+      "latest_snapshot_path": "data/raw/odds_casinos/caliente_mx/2026-11-09/20261109T184652Z_caliente_mx_sportsbook_53637d96c9.json",
+      "latest_captured_at_utc": "2026-11-09T18:46:52Z",
+      "latest_sha256": "53637d96c9ab1c03",
+      "sha256_valid": true,
+      "anti_leakage_valid": true,
+      "age_hours": 22.3628,
+      "sla_max_age_hours": 48.0,
+      "within_sla": true,
+      "decision": "SKIP_FRESH",
+      "reason": "Snapshot fresco e íntegro (22.36h <= SLA 48.00h)"
+    },
+    {
+      "source_id": "codere_bet365_mx",
+      "priority": "P1",
+      "category": "odds_casinos",
+      "leagues": [
+        "liga-mx",
+        "laliga",
+        "epl",
+        "nfl"
+      ],
+      "capture_schedule": [
+        "T-24h",
+        "T-1h"
+      ],
+      "in_filter_scope": true,
+      "in_window": true,
+      "assigned_scraper": "wave2_stats_odds_scraper.py",
+      "assigned_scraper_args": [
+        "--source",
+        "codere_bet365_mx"
+      ],
+      "assigned_scraper_exists": true,
+      "coverage_note": "Wave 2 Codere.mx / Bet365 MX Markets",
+      "command": [
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\.venv\\Scripts\\python.exe",
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\scrapers\\wave2_stats_odds_scraper.py",
+        "--source",
+        "codere_bet365_mx"
+      ],
+      "snapshots_count": 1,
+      "markdown_artifacts_count": 0,
+      "latest_snapshot_path": "data/raw/odds_casinos/codere_bet365_mx/2026-11-09/20261109T192018Z_codere_mx_sportsbook_snapshot_15cbd0d680.json",
+      "latest_captured_at_utc": "2026-11-09T19:20:18Z",
+      "latest_sha256": "15cbd0d680cc3dbd",
+      "sha256_valid": true,
+      "anti_leakage_valid": true,
+      "age_hours": 21.8056,
+      "sla_max_age_hours": 48.0,
+      "within_sla": true,
+      "decision": "SKIP_FRESH",
+      "reason": "Snapshot fresco e íntegro (21.81h <= SLA 48.00h)"
+    },
+    {
+      "source_id": "oddsportal_oddschecker",
+      "priority": "P0",
+      "category": "odds_casinos",
+      "leagues": [
+        "liga-mx",
+        "epl",
+        "laliga",
+        "bundesliga",
+        "serie-a",
+        "ligue-1",
+        "nfl",
+        "nhl",
+        "mlb"
+      ],
+      "capture_schedule": [
+        "T-48h",
+        "T-24h",
+        "T-1h",
+        "post-match"
+      ],
+      "in_filter_scope": true,
+      "in_window": true,
+      "assigned_scraper": "wave2_stats_odds_scraper.py",
+      "assigned_scraper_args": [
+        "--source",
+        "oddsportal_oddschecker"
+      ],
+      "assigned_scraper_exists": true,
+      "coverage_note": "Wave 2 OddsPortal / Oddschecker Opening vs Closing Consensus",
+      "command": [
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\.venv\\Scripts\\python.exe",
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\scrapers\\wave2_stats_odds_scraper.py",
+        "--source",
+        "oddsportal_oddschecker"
+      ],
+      "snapshots_count": 1,
+      "markdown_artifacts_count": 0,
+      "latest_snapshot_path": "data/raw/odds_casinos/oddsportal_oddschecker/2026-11-09/20261109T192054Z_oddsportal_oddschecker_liga_mx_c47e00e029.json",
+      "latest_captured_at_utc": "2026-11-09T19:20:54Z",
+      "latest_sha256": "c47e00e029dace8e",
+      "sha256_valid": true,
+      "anti_leakage_valid": true,
+      "age_hours": 21.7956,
+      "sla_max_age_hours": 48.0,
+      "within_sla": true,
+      "decision": "SKIP_FRESH",
+      "reason": "Snapshot fresco e íntegro (21.80h <= SLA 48.00h)"
+    },
+    {
+      "source_id": "action_network_splits",
+      "priority": "P0",
+      "category": "odds_casinos",
+      "leagues": [
+        "nfl",
+        "ncaaf",
+        "nba",
+        "nhl",
+        "mlb",
+        "epl",
+        "laliga",
+        "champions-league"
+      ],
+      "capture_schedule": [
+        "T-24h",
+        "T-2h"
+      ],
+      "in_filter_scope": true,
+      "in_window": true,
+      "assigned_scraper": "wave5_multisport_odds_injuries_weather.py",
+      "assigned_scraper_args": [
+        "--source",
+        "action_network_splits"
+      ],
+      "assigned_scraper_exists": true,
+      "coverage_note": "Wave 5 Multi-Sport Splits & Open/Current RLM (NBA, NHL, MLB, NCAAF, NFL)",
+      "command": [
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\.venv\\Scripts\\python.exe",
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\scrapers\\wave5_multisport_odds_injuries_weather.py",
+        "--source",
+        "action_network_splits"
+      ],
+      "snapshots_count": 3,
+      "markdown_artifacts_count": 0,
+      "latest_snapshot_path": "data/raw/odds_casinos/action_network_splits/2026-11-10/20261110T160006Z_action_network_multisport_nba_nhl_mlb_ncaaf_splits_6ee7890faa.json",
+      "latest_captured_at_utc": "2026-11-10T16:00:06Z",
+      "latest_sha256": "6ee7890faa5e3765",
+      "sha256_valid": true,
+      "anti_leakage_valid": true,
+      "age_hours": 1.1422,
+      "sla_max_age_hours": 48.0,
+      "within_sla": true,
+      "decision": "SKIP_FRESH",
+      "reason": "Snapshot fresco e íntegro (1.14h <= SLA 48.00h)"
+    },
+    {
+      "source_id": "betfair_smarkets_exchange",
+      "priority": "P1",
+      "category": "odds_casinos",
+      "leagues": [
+        "epl",
+        "laliga",
+        "bundesliga",
+        "serie-a",
+        "ligue-1",
+        "nfl"
+      ],
+      "capture_schedule": [
+        "T-24h",
+        "T-1h"
+      ],
+      "in_filter_scope": true,
+      "in_window": true,
+      "assigned_scraper": "wave5_multisport_odds_injuries_weather.py",
+      "assigned_scraper_args": [
+        "--source",
+        "betfair_smarkets_exchange"
+      ],
+      "assigned_scraper_exists": true,
+      "coverage_note": "Wave 5 Smarkets P2P Exchange Multi-Sport (NBA, NHL, MLB, NCAAF, NFL)",
+      "command": [
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\.venv\\Scripts\\python.exe",
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\scrapers\\wave5_multisport_odds_injuries_weather.py",
+        "--source",
+        "betfair_smarkets_exchange"
+      ],
+      "snapshots_count": 3,
+      "markdown_artifacts_count": 0,
+      "latest_snapshot_path": "data/raw/odds_casinos/betfair_smarkets_exchange/2026-11-10/20261110T160007Z_smarkets_multisport_nba_nhl_mlb_ncaaf_exchange_56f0549c5b.json",
+      "latest_captured_at_utc": "2026-11-10T16:00:07Z",
+      "latest_sha256": "56f0549c5b364f9a",
+      "sha256_valid": true,
+      "anti_leakage_valid": true,
+      "age_hours": 1.1419,
+      "sla_max_age_hours": 48.0,
+      "within_sla": true,
+      "decision": "SKIP_FRESH",
+      "reason": "Snapshot fresco e íntegro (1.14h <= SLA 48.00h)"
+    },
+    {
+      "source_id": "opta_player_stats",
+      "priority": "P0",
+      "category": "advanced_stats_xg",
+      "leagues": [
+        "liga-mx",
+        "epl",
+        "laliga",
+        "bundesliga",
+        "serie-a",
+        "ligue-1",
+        "champions-league"
+      ],
+      "capture_schedule": [
+        "post-match",
+        "T-24h"
+      ],
+      "in_filter_scope": true,
+      "in_window": true,
+      "assigned_scraper": "wave4_full_opta_statiskicks_understat.py",
+      "assigned_scraper_args": [
+        "--source",
+        "opta_player_stats"
+      ],
+      "assigned_scraper_exists": true,
+      "coverage_note": "Wave 4 Opta PerformFeeds (18 clubes Liga MX detailed + 7 competiciones)",
+      "command": [
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\.venv\\Scripts\\python.exe",
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\scrapers\\wave4_full_opta_statiskicks_understat.py",
+        "--source",
+        "opta_player_stats"
+      ],
+      "snapshots_count": 3,
+      "markdown_artifacts_count": 0,
+      "latest_snapshot_path": "data/raw/advanced_stats_xg/opta_player_stats/2026-11-09/20261109T200651Z_opta_all18_ligamx_players_and_6leagues_7f6fd8eeb9.json",
+      "latest_captured_at_utc": "2026-11-09T20:06:51Z",
+      "latest_sha256": "7f6fd8eeb97e37fc",
+      "sha256_valid": true,
+      "anti_leakage_valid": true,
+      "age_hours": 21.0297,
+      "sla_max_age_hours": 48.0,
+      "within_sla": true,
+      "decision": "SKIP_FRESH",
+      "reason": "Snapshot fresco e íntegro (21.03h <= SLA 48.00h)"
+    },
+    {
+      "source_id": "statiskicks",
+      "priority": "P0",
+      "category": "advanced_stats_xg",
+      "leagues": [
+        "liga-mx",
+        "expansion-mx",
+        "epl",
+        "laliga",
+        "bundesliga",
+        "serie-a",
+        "ligue-1"
+      ],
+      "capture_schedule": [
+        "post-match",
+        "T-24h"
+      ],
+      "in_filter_scope": true,
+      "in_window": true,
+      "assigned_scraper": "wave4_full_opta_statiskicks_understat.py",
+      "assigned_scraper_args": [
+        "--source",
+        "statiskicks"
+      ],
+      "assigned_scraper_exists": true,
+      "coverage_note": "Wave 4 Statiskicks (18+ clubes Liga MX series xG rolling, xP y SKore)",
+      "command": [
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\.venv\\Scripts\\python.exe",
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\scrapers\\wave4_full_opta_statiskicks_understat.py",
+        "--source",
+        "statiskicks"
+      ],
+      "snapshots_count": 3,
+      "markdown_artifacts_count": 0,
+      "latest_snapshot_path": "data/raw/advanced_stats_xg/statiskicks/2026-11-09/20261109T200557Z_statiskicks_all18_ligamx_clubs_and_players_0d7bbdb805.json",
+      "latest_captured_at_utc": "2026-11-09T20:05:57Z",
+      "latest_sha256": "0d7bbdb8050d3362",
+      "sha256_valid": true,
+      "anti_leakage_valid": true,
+      "age_hours": 21.0447,
+      "sla_max_age_hours": 48.0,
+      "within_sla": true,
+      "decision": "SKIP_FRESH",
+      "reason": "Snapshot fresco e íntegro (21.04h <= SLA 48.00h)"
+    },
+    {
+      "source_id": "sofascore",
+      "priority": "P0",
+      "category": "advanced_stats_xg",
+      "leagues": [
+        "liga-mx",
+        "epl",
+        "laliga",
+        "bundesliga",
+        "serie-a",
+        "ligue-1",
+        "nfl"
+      ],
+      "capture_schedule": [
+        "post-match",
+        "T-1h"
+      ],
+      "in_filter_scope": true,
+      "in_window": true,
+      "assigned_scraper": "wave4_full_rosters_and_history.py",
+      "assigned_scraper_args": [],
+      "assigned_scraper_exists": true,
+      "coverage_note": "Wave 4 Sofascore 7 Ligas (tablas, eventos y top players)",
+      "command": [
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\.venv\\Scripts\\python.exe",
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\scrapers\\wave4_full_rosters_and_history.py"
+      ],
+      "snapshots_count": 2,
+      "markdown_artifacts_count": 0,
+      "latest_snapshot_path": "data/raw/advanced_stats_xg/sofascore/2026-11-09/20261109T201813Z_sofascore_7leagues_standings_events_top_players_9dafc98c29.json",
+      "latest_captured_at_utc": "2026-11-09T20:18:13Z",
+      "latest_sha256": "9dafc98c29cc4196",
+      "sha256_valid": true,
+      "anti_leakage_valid": true,
+      "age_hours": 20.8403,
+      "sla_max_age_hours": 48.0,
+      "within_sla": true,
+      "decision": "SKIP_FRESH",
+      "reason": "Snapshot fresco e íntegro (20.84h <= SLA 48.00h)"
+    },
+    {
+      "source_id": "fotmob",
+      "priority": "P0",
+      "category": "advanced_stats_xg",
+      "leagues": [
+        "liga-mx",
+        "epl",
+        "laliga",
+        "bundesliga",
+        "serie-a",
+        "ligue-1"
+      ],
+      "capture_schedule": [
+        "post-match",
+        "T-1h"
+      ],
+      "in_filter_scope": true,
+      "in_window": true,
+      "assigned_scraper": "wave3_deep_six_leagues.py",
+      "assigned_scraper_args": [],
+      "assigned_scraper_exists": true,
+      "coverage_note": "Wave 3 FotMob 7 Competiciones (__NEXT_DATA__ xG, tablas y líderes)",
+      "command": [
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\.venv\\Scripts\\python.exe",
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\scrapers\\wave3_deep_six_leagues.py"
+      ],
+      "snapshots_count": 2,
+      "markdown_artifacts_count": 0,
+      "latest_snapshot_path": "data/raw/advanced_stats_xg/fotmob/2026-11-09/20261109T193712Z_fotmob_7competitions_full_overview_be4c54f29f.json",
+      "latest_captured_at_utc": "2026-11-09T19:37:12Z",
+      "latest_sha256": "be4c54f29fc00b34",
+      "sha256_valid": true,
+      "anti_leakage_valid": true,
+      "age_hours": 21.5239,
+      "sla_max_age_hours": 48.0,
+      "within_sla": true,
+      "decision": "SKIP_FRESH",
+      "reason": "Snapshot fresco e íntegro (21.52h <= SLA 48.00h)"
+    },
+    {
+      "source_id": "fbref",
+      "priority": "P0",
+      "category": "advanced_stats_xg",
+      "leagues": [
+        "liga-mx",
+        "epl",
+        "laliga",
+        "bundesliga",
+        "serie-a",
+        "ligue-1"
+      ],
+      "capture_schedule": [
+        "post-match"
+      ],
+      "in_filter_scope": true,
+      "in_window": true,
+      "assigned_scraper": "wave4_full_rosters_and_history.py",
+      "assigned_scraper_args": [],
+      "assigned_scraper_exists": true,
+      "coverage_note": "Wave 4 FBref Histórico Multi-Temporada + 6 Ligas",
+      "command": [
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\.venv\\Scripts\\python.exe",
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\scrapers\\wave4_full_rosters_and_history.py"
+      ],
+      "snapshots_count": 4,
+      "markdown_artifacts_count": 0,
+      "latest_snapshot_path": "data/raw/advanced_stats_xg/fbref/2026-11-10/20261110T160453Z_fbref_ligamx_2018_2023_historical_fixtures_xg_9d588b74a8.json",
+      "latest_captured_at_utc": "2026-11-10T16:04:53Z",
+      "latest_sha256": "9d588b74a8d3f2dd",
+      "sha256_valid": true,
+      "anti_leakage_valid": true,
+      "age_hours": 1.0625,
+      "sla_max_age_hours": 48.0,
+      "within_sla": true,
+      "decision": "SKIP_FRESH",
+      "reason": "Snapshot fresco e íntegro (1.06h <= SLA 48.00h)"
+    },
+    {
+      "source_id": "understat",
+      "priority": "P1",
+      "category": "advanced_stats_xg",
+      "leagues": [
+        "epl",
+        "laliga",
+        "bundesliga",
+        "serie-a",
+        "ligue-1"
+      ],
+      "capture_schedule": [
+        "post-match"
+      ],
+      "in_filter_scope": true,
+      "in_window": true,
+      "assigned_scraper": "wave4_full_opta_statiskicks_understat.py",
+      "assigned_scraper_args": [
+        "--source",
+        "understat"
+      ],
+      "assigned_scraper_exists": true,
+      "coverage_note": "Wave 4 Understat 5 Ligas Europeas (~2,774 jugadores + histórico 2023-2024)",
+      "command": [
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\.venv\\Scripts\\python.exe",
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\scrapers\\wave4_full_opta_statiskicks_understat.py",
+        "--source",
+        "understat"
+      ],
+      "snapshots_count": 4,
+      "markdown_artifacts_count": 0,
+      "latest_snapshot_path": "data/raw/advanced_stats_xg/understat/2026-11-10/20261110T160108Z_understat_5leagues_2018_2022_history_26028a6cd7.json",
+      "latest_captured_at_utc": "2026-11-10T16:01:08Z",
+      "latest_sha256": "26028a6cd7c269df",
+      "sha256_valid": true,
+      "anti_leakage_valid": true,
+      "age_hours": 1.125,
+      "sla_max_age_hours": 48.0,
+      "within_sla": true,
+      "decision": "SKIP_FRESH",
+      "reason": "Snapshot fresco e íntegro (1.12h <= SLA 48.00h)"
+    },
+    {
+      "source_id": "clubelo_transfermarkt_values",
+      "priority": "P1",
+      "category": "advanced_stats_xg",
+      "leagues": [
+        "liga-mx",
+        "epl",
+        "laliga",
+        "bundesliga",
+        "serie-a",
+        "ligue-1"
+      ],
+      "capture_schedule": [
+        "weekly"
+      ],
+      "in_filter_scope": true,
+      "in_window": true,
+      "assigned_scraper": "wave4_full_rosters_and_history.py",
+      "assigned_scraper_args": [],
+      "assigned_scraper_exists": true,
+      "coverage_note": "Wave 4 Plantillas Completas Transfermarkt + Valores 6 Ligas",
+      "command": [
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\.venv\\Scripts\\python.exe",
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\scrapers\\wave4_full_rosters_and_history.py"
+      ],
+      "snapshots_count": 4,
+      "markdown_artifacts_count": 0,
+      "latest_snapshot_path": "data/raw/advanced_stats_xg/clubelo_transfermarkt_values/2026-11-09/20261109T200143Z_transfermarkt_all18_ligamx_full_player_rosters_110ae8e94d.json",
+      "latest_captured_at_utc": "2026-11-09T20:01:43Z",
+      "latest_sha256": "110ae8e94da6d8ef",
+      "sha256_valid": true,
+      "anti_leakage_valid": true,
+      "age_hours": 21.1153,
+      "sla_max_age_hours": 48.0,
+      "within_sla": true,
+      "decision": "SKIP_FRESH",
+      "reason": "Snapshot fresco e íntegro (21.12h <= SLA 48.00h)"
+    },
+    {
+      "source_id": "pfr_rbsdm_sumersports",
+      "priority": "P1",
+      "category": "advanced_stats_xg",
+      "leagues": [
+        "nfl"
+      ],
+      "capture_schedule": [
+        "weekly"
+      ],
+      "in_filter_scope": true,
+      "in_window": true,
+      "assigned_scraper": "wave2_stats_odds_scraper.py",
+      "assigned_scraper_args": [
+        "--source",
+        "pfr_rbsdm_sumersports"
+      ],
+      "assigned_scraper_exists": true,
+      "coverage_note": "Wave 2 Pro-Football-Reference / RBSDM / SumerSports NFL EPA",
+      "command": [
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\.venv\\Scripts\\python.exe",
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\scrapers\\wave2_stats_odds_scraper.py",
+        "--source",
+        "pfr_rbsdm_sumersports"
+      ],
+      "snapshots_count": 1,
+      "markdown_artifacts_count": 0,
+      "latest_snapshot_path": "data/raw/advanced_stats_xg/pfr_rbsdm_sumersports/2026-11-09/20261109T191833Z_nfl_sumersports_pfr_epa_efficiency_30b865dad8.json",
+      "latest_captured_at_utc": "2026-11-09T19:18:33Z",
+      "latest_sha256": "30b865dad860da85",
+      "sha256_valid": true,
+      "anti_leakage_valid": true,
+      "age_hours": 21.8347,
+      "sla_max_age_hours": 48.0,
+      "within_sla": true,
+      "decision": "SKIP_FRESH",
+      "reason": "Snapshot fresco e íntegro (21.83h <= SLA 48.00h)"
+    },
+    {
+      "source_id": "nhl_moneypuck_hockeyref",
+      "priority": "P0",
+      "category": "advanced_stats_xg",
+      "leagues": [
+        "nhl"
+      ],
+      "capture_schedule": [
+        "post-match",
+        "T-24h"
+      ],
+      "in_filter_scope": true,
+      "in_window": true,
+      "assigned_scraper": "wave5_multisport_advanced_stats.py",
+      "assigned_scraper_args": [
+        "--source",
+        "nhl_moneypuck_hockeyref"
+      ],
+      "assigned_scraper_exists": true,
+      "coverage_note": "Wave 5 MoneyPuck & Hockey-Reference (NHL xG, Corsi, Fenwick, GSAx)",
+      "command": [
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\.venv\\Scripts\\python.exe",
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\scrapers\\wave5_multisport_advanced_stats.py",
+        "--source",
+        "nhl_moneypuck_hockeyref"
+      ],
+      "snapshots_count": 1,
+      "markdown_artifacts_count": 0,
+      "latest_snapshot_path": "data/raw/advanced_stats_xg/nhl_moneypuck_hockeyref/2026-11-10/20261110T160012Z_nhl_32teams_xg_corsi_fenwick_moneypuck_6aa9d135f3.json",
+      "latest_captured_at_utc": "2026-11-10T16:00:12Z",
+      "latest_sha256": "6aa9d135f38caf50",
+      "sha256_valid": true,
+      "anti_leakage_valid": true,
+      "age_hours": 1.1406,
+      "sla_max_age_hours": 48.0,
+      "within_sla": true,
+      "decision": "SKIP_FRESH",
+      "reason": "Snapshot fresco e íntegro (1.14h <= SLA 48.00h)"
+    },
+    {
+      "source_id": "mlb_fangraphs_baseballref",
+      "priority": "P0",
+      "category": "advanced_stats_xg",
+      "leagues": [
+        "mlb"
+      ],
+      "capture_schedule": [
+        "post-match",
+        "T-24h"
+      ],
+      "in_filter_scope": true,
+      "in_window": true,
+      "assigned_scraper": "wave5_multisport_advanced_stats.py",
+      "assigned_scraper_args": [
+        "--source",
+        "mlb_fangraphs_baseballref"
+      ],
+      "assigned_scraper_exists": true,
+      "coverage_note": "Wave 5 Baseball-Reference & MLB StatsAPI (OPS+, wOBA, FIP, WHIP)",
+      "command": [
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\.venv\\Scripts\\python.exe",
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\scrapers\\wave5_multisport_advanced_stats.py",
+        "--source",
+        "mlb_fangraphs_baseballref"
+      ],
+      "snapshots_count": 1,
+      "markdown_artifacts_count": 0,
+      "latest_snapshot_path": "data/raw/advanced_stats_xg/mlb_fangraphs_baseballref/2026-11-10/20261110T160015Z_mlb_30teams_batting_pitching_fip_woba_ebfdab1fd5.json",
+      "latest_captured_at_utc": "2026-11-10T16:00:15Z",
+      "latest_sha256": "ebfdab1fd55b5900",
+      "sha256_valid": true,
+      "anti_leakage_valid": true,
+      "age_hours": 1.1397,
+      "sla_max_age_hours": 48.0,
+      "within_sla": true,
+      "decision": "SKIP_FRESH",
+      "reason": "Snapshot fresco e íntegro (1.14h <= SLA 48.00h)"
+    },
+    {
+      "source_id": "nba_bballref_fourfactors",
+      "priority": "P0",
+      "category": "advanced_stats_xg",
+      "leagues": [
+        "nba"
+      ],
+      "capture_schedule": [
+        "post-match",
+        "T-24h"
+      ],
+      "in_filter_scope": true,
+      "in_window": true,
+      "assigned_scraper": "wave5_multisport_advanced_stats.py",
+      "assigned_scraper_args": [
+        "--source",
+        "nba_bballref_fourfactors"
+      ],
+      "assigned_scraper_exists": true,
+      "coverage_note": "Wave 5 Basketball-Reference & ESPN NBA (ORTG, DRTG, NetRTG, Four Factors)",
+      "command": [
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\.venv\\Scripts\\python.exe",
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\scrapers\\wave5_multisport_advanced_stats.py",
+        "--source",
+        "nba_bballref_fourfactors"
+      ],
+      "snapshots_count": 1,
+      "markdown_artifacts_count": 0,
+      "latest_snapshot_path": "data/raw/advanced_stats_xg/nba_bballref_fourfactors/2026-11-10/20261110T160017Z_nba_30teams_four_factors_ortg_drtg_cf43f31334.json",
+      "latest_captured_at_utc": "2026-11-10T16:00:17Z",
+      "latest_sha256": "cf43f31334703cbd",
+      "sha256_valid": true,
+      "anti_leakage_valid": true,
+      "age_hours": 1.1392,
+      "sla_max_age_hours": 48.0,
+      "within_sla": true,
+      "decision": "SKIP_FRESH",
+      "reason": "Snapshot fresco e íntegro (1.14h <= SLA 48.00h)"
+    },
+    {
+      "source_id": "ncaaf_cfb_sp_plus_srs",
+      "priority": "P1",
+      "category": "advanced_stats_xg",
+      "leagues": [
+        "ncaaf"
+      ],
+      "capture_schedule": [
+        "weekly",
+        "T-24h"
+      ],
+      "in_filter_scope": true,
+      "in_window": true,
+      "assigned_scraper": "wave5_multisport_advanced_stats.py",
+      "assigned_scraper_args": [
+        "--source",
+        "ncaaf_cfb_sp_plus_srs"
+      ],
+      "assigned_scraper_exists": true,
+      "coverage_note": "Wave 5 Sports-Reference CFB & ESPN NCAAF (SRS, SOS, Off/Def YPP)",
+      "command": [
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\.venv\\Scripts\\python.exe",
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\scrapers\\wave5_multisport_advanced_stats.py",
+        "--source",
+        "ncaaf_cfb_sp_plus_srs"
+      ],
+      "snapshots_count": 1,
+      "markdown_artifacts_count": 0,
+      "latest_snapshot_path": "data/raw/advanced_stats_xg/ncaaf_cfb_sp_plus_srs/2026-11-10/20261110T160031Z_ncaaf_fbs_teams_srs_ypp_conferences_e862f014a0.json",
+      "latest_captured_at_utc": "2026-11-10T16:00:31Z",
+      "latest_sha256": "e862f014a042e1af",
+      "sha256_valid": true,
+      "anti_leakage_valid": true,
+      "age_hours": 1.1353,
+      "sla_max_age_hours": 48.0,
+      "within_sla": true,
+      "decision": "SKIP_FRESH",
+      "reason": "Snapshot fresco e íntegro (1.14h <= SLA 48.00h)"
+    },
+    {
+      "source_id": "transfermarkt_injuries",
+      "priority": "P0",
+      "category": "injuries_lineups",
+      "leagues": [
+        "liga-mx",
+        "epl",
+        "laliga",
+        "bundesliga",
+        "serie-a",
+        "ligue-1"
+      ],
+      "capture_schedule": [
+        "T-24h",
+        "T-2h"
+      ],
+      "in_filter_scope": true,
+      "in_window": true,
+      "assigned_scraper": "wave3_deep_six_leagues.py",
+      "assigned_scraper_args": [],
+      "assigned_scraper_exists": true,
+      "coverage_note": "Wave 3 Transfermarkt Lesiones y Sanciones 6 Ligas",
+      "command": [
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\.venv\\Scripts\\python.exe",
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\scrapers\\wave3_deep_six_leagues.py"
+      ],
+      "snapshots_count": 2,
+      "markdown_artifacts_count": 0,
+      "latest_snapshot_path": "data/raw/injuries_lineups/transfermarkt_injuries/2026-11-09/20261109T193709Z_transfermarkt_6leagues_all_injuries_68d48d65c2.json",
+      "latest_captured_at_utc": "2026-11-09T19:37:09Z",
+      "latest_sha256": "68d48d65c29c8778",
+      "sha256_valid": true,
+      "anti_leakage_valid": true,
+      "age_hours": 21.5247,
+      "sla_max_age_hours": 48.0,
+      "within_sla": true,
+      "decision": "SKIP_FRESH",
+      "reason": "Snapshot fresco e íntegro (21.52h <= SLA 48.00h)"
+    },
+    {
+      "source_id": "premierinjuries_sportsgambler",
+      "priority": "P0",
+      "category": "injuries_lineups",
+      "leagues": [
+        "liga-mx",
+        "epl",
+        "laliga",
+        "bundesliga",
+        "serie-a",
+        "ligue-1"
+      ],
+      "capture_schedule": [
+        "T-24h",
+        "T-2h"
+      ],
+      "in_filter_scope": true,
+      "in_window": true,
+      "assigned_scraper": "wave2_context_scraper.py",
+      "assigned_scraper_args": [],
+      "assigned_scraper_exists": true,
+      "coverage_note": "Wave 2 PremierInjuries & SportsGambler Football Availability",
+      "command": [
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\.venv\\Scripts\\python.exe",
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\scrapers\\wave2_context_scraper.py"
+      ],
+      "snapshots_count": 1,
+      "markdown_artifacts_count": 0,
+      "latest_snapshot_path": "data/raw/injuries_lineups/premierinjuries_sportsgambler/2026-11-09/20261109T191938Z_premierinjuries_sportsgambler_injuries_8451a2e2cb.json",
+      "latest_captured_at_utc": "2026-11-09T19:19:38Z",
+      "latest_sha256": "8451a2e2cb4a5d1b",
+      "sha256_valid": true,
+      "anti_leakage_valid": true,
+      "age_hours": 21.8167,
+      "sla_max_age_hours": 48.0,
+      "within_sla": true,
+      "decision": "SKIP_FRESH",
+      "reason": "Snapshot fresco e íntegro (21.82h <= SLA 48.00h)"
+    },
+    {
+      "source_id": "rotowire_lineups_injuries",
+      "priority": "P0",
+      "category": "injuries_lineups",
+      "leagues": [
+        "liga-mx",
+        "epl",
+        "laliga",
+        "bundesliga",
+        "serie-a",
+        "ligue-1",
+        "nfl"
+      ],
+      "capture_schedule": [
+        "T-24h",
+        "T-1h"
+      ],
+      "in_filter_scope": true,
+      "in_window": true,
+      "assigned_scraper": "wave5_multisport_odds_injuries_weather.py",
+      "assigned_scraper_args": [
+        "--source",
+        "rotowire_lineups_injuries"
+      ],
+      "assigned_scraper_exists": true,
+      "coverage_note": "Wave 5 CBS + ESPN + RotoWire + Covers Multi-Sport Injuries & Starters",
+      "command": [
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\.venv\\Scripts\\python.exe",
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\scrapers\\wave5_multisport_odds_injuries_weather.py",
+        "--source",
+        "rotowire_lineups_injuries"
+      ],
+      "snapshots_count": 3,
+      "markdown_artifacts_count": 0,
+      "latest_snapshot_path": "data/raw/injuries_lineups/rotowire_lineups_injuries/2026-11-10/20261110T160015Z_espn_cbs_rotowire_multisport_injuries_starters_f6edcde46c.json",
+      "latest_captured_at_utc": "2026-11-10T16:00:15Z",
+      "latest_sha256": "f6edcde46c8c6892",
+      "sha256_valid": true,
+      "anti_leakage_valid": true,
+      "age_hours": 1.1397,
+      "sla_max_age_hours": 48.0,
+      "within_sla": true,
+      "decision": "SKIP_FRESH",
+      "reason": "Snapshot fresco e íntegro (1.14h <= SLA 48.00h)"
+    },
+    {
+      "source_id": "nfl_official_injuries_depth",
+      "priority": "P0",
+      "category": "injuries_lineups",
+      "leagues": [
+        "nfl"
+      ],
+      "capture_schedule": [
+        "T-48h",
+        "T-24h",
+        "T-90m"
+      ],
+      "in_filter_scope": true,
+      "in_window": true,
+      "assigned_scraper": "wave2_context_scraper.py",
+      "assigned_scraper_args": [],
+      "assigned_scraper_exists": true,
+      "coverage_note": "Wave 2 NFL Official Injury Report & Ourlads Depth Charts",
+      "command": [
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\.venv\\Scripts\\python.exe",
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\scrapers\\wave2_context_scraper.py"
+      ],
+      "snapshots_count": 1,
+      "markdown_artifacts_count": 0,
+      "latest_snapshot_path": "data/raw/injuries_lineups/nfl_official_injuries_depth/2026-11-09/20261109T191941Z_nfl_official_injuries_and_ourlads_depth_e7c5e4befa.json",
+      "latest_captured_at_utc": "2026-11-09T19:19:41Z",
+      "latest_sha256": "e7c5e4befa07b770",
+      "sha256_valid": true,
+      "anti_leakage_valid": true,
+      "age_hours": 21.8158,
+      "sla_max_age_hours": 48.0,
+      "within_sla": true,
+      "decision": "SKIP_FRESH",
+      "reason": "Snapshot fresco e íntegro (21.82h <= SLA 48.00h)"
+    },
+    {
+      "source_id": "mediotiempo_record_mx",
+      "priority": "P1",
+      "category": "news_press_sentiment",
+      "leagues": [
+        "liga-mx"
+      ],
+      "capture_schedule": [
+        "T-24h",
+        "T-3h"
+      ],
+      "in_filter_scope": true,
+      "in_window": true,
+      "assigned_scraper": "context_scraper.py",
+      "assigned_scraper_args": [],
+      "assigned_scraper_exists": true,
+      "coverage_note": "Wave 1 Mediotiempo / Récord Liga MX AI-Targeted Markdown",
+      "command": [
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\.venv\\Scripts\\python.exe",
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\scrapers\\context_scraper.py"
+      ],
+      "snapshots_count": 1,
+      "markdown_artifacts_count": 1,
+      "latest_snapshot_path": "data/raw/news_press_sentiment/mediotiempo_record_mx/2026-11-09/20261109T184919Z_mediotiempo_liga_mx_headlines_1563a0549a.json",
+      "latest_captured_at_utc": "2026-11-09T18:49:19Z",
+      "latest_sha256": "1563a0549a4e15b3",
+      "sha256_valid": true,
+      "anti_leakage_valid": true,
+      "age_hours": 22.3219,
+      "sla_max_age_hours": 48.0,
+      "within_sla": true,
+      "decision": "SKIP_FRESH",
+      "reason": "Snapshot fresco e íntegro (22.32h <= SLA 48.00h)"
+    },
+    {
+      "source_id": "ffs_bbc_press_conferences",
+      "priority": "P1",
+      "category": "news_press_sentiment",
+      "leagues": [
+        "epl"
+      ],
+      "capture_schedule": [
+        "T-24h"
+      ],
+      "in_filter_scope": true,
+      "in_window": true,
+      "assigned_scraper": "wave2_context_scraper.py",
+      "assigned_scraper_args": [],
+      "assigned_scraper_exists": true,
+      "coverage_note": "Wave 2 Fantasy Football Scout & BBC Sport EPL Press Conferences",
+      "command": [
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\.venv\\Scripts\\python.exe",
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\scrapers\\wave2_context_scraper.py"
+      ],
+      "snapshots_count": 1,
+      "markdown_artifacts_count": 1,
+      "latest_snapshot_path": "data/raw/news_press_sentiment/ffs_bbc_press_conferences/2026-11-09/20261109T191947Z_ffs_bbc_epl_press_conferences_6f98d982f1.json",
+      "latest_captured_at_utc": "2026-11-09T19:19:47Z",
+      "latest_sha256": "6f98d982f131144d",
+      "sha256_valid": true,
+      "anti_leakage_valid": true,
+      "age_hours": 21.8142,
+      "sla_max_age_hours": 48.0,
+      "within_sla": true,
+      "decision": "SKIP_FRESH",
+      "reason": "Snapshot fresco e íntegro (21.81h <= SLA 48.00h)"
+    },
+    {
+      "source_id": "marca_as_laliga_news",
+      "priority": "P1",
+      "category": "news_press_sentiment",
+      "leagues": [
+        "laliga"
+      ],
+      "capture_schedule": [
+        "T-24h"
+      ],
+      "in_filter_scope": true,
+      "in_window": true,
+      "assigned_scraper": "wave2_context_scraper.py",
+      "assigned_scraper_args": [],
+      "assigned_scraper_exists": true,
+      "coverage_note": "Wave 2 Marca / Diario AS LaLiga Medical & Lineup News",
+      "command": [
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\.venv\\Scripts\\python.exe",
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\scrapers\\wave2_context_scraper.py"
+      ],
+      "snapshots_count": 1,
+      "markdown_artifacts_count": 1,
+      "latest_snapshot_path": "data/raw/news_press_sentiment/marca_as_laliga_news/2026-11-09/20261109T191949Z_marca_laliga_news_medical_callups_cc695cc451.json",
+      "latest_captured_at_utc": "2026-11-09T19:19:49Z",
+      "latest_sha256": "cc695cc451fa149b",
+      "sha256_valid": true,
+      "anti_leakage_valid": true,
+      "age_hours": 21.8136,
+      "sla_max_age_hours": 48.0,
+      "within_sla": true,
+      "decision": "SKIP_FRESH",
+      "reason": "Snapshot fresco e íntegro (21.81h <= SLA 48.00h)"
+    },
+    {
+      "source_id": "profootballtalk_nfl_news",
+      "priority": "P1",
+      "category": "news_press_sentiment",
+      "leagues": [
+        "nfl"
+      ],
+      "capture_schedule": [
+        "T-24h",
+        "T-2h"
+      ],
+      "in_filter_scope": true,
+      "in_window": true,
+      "assigned_scraper": "wave2_context_scraper.py",
+      "assigned_scraper_args": [],
+      "assigned_scraper_exists": true,
+      "coverage_note": "Wave 2 ProFootballTalk / NBC Sports NFL Beat Reports",
+      "command": [
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\.venv\\Scripts\\python.exe",
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\scrapers\\wave2_context_scraper.py"
+      ],
+      "snapshots_count": 1,
+      "markdown_artifacts_count": 1,
+      "latest_snapshot_path": "data/raw/news_press_sentiment/profootballtalk_nfl_news/2026-11-09/20261109T191955Z_profootballtalk_nfl_beat_reports_285972b684.json",
+      "latest_captured_at_utc": "2026-11-09T19:19:55Z",
+      "latest_sha256": "285972b6844b8229",
+      "sha256_valid": true,
+      "anti_leakage_valid": true,
+      "age_hours": 21.8119,
+      "sla_max_age_hours": 48.0,
+      "within_sla": true,
+      "decision": "SKIP_FRESH",
+      "reason": "Snapshot fresco e íntegro (21.81h <= SLA 48.00h)"
+    },
+    {
+      "source_id": "open_meteo_nflweather",
+      "priority": "P0",
+      "category": "environment_referees",
+      "leagues": [
+        "nfl",
+        "mlb",
+        "ncaaf",
+        "liga-mx",
+        "epl",
+        "laliga",
+        "bundesliga",
+        "serie-a",
+        "ligue-1"
+      ],
+      "capture_schedule": [
+        "T-24h",
+        "T-2h"
+      ],
+      "in_filter_scope": true,
+      "in_window": true,
+      "assigned_scraper": "wave5_multisport_odds_injuries_weather.py",
+      "assigned_scraper_args": [
+        "--source",
+        "open_meteo_nflweather"
+      ],
+      "assigned_scraper_exists": true,
+      "coverage_note": "Wave 5 Open-Meteo 30 MLB Ballparks + 30 NCAAF Stadiums (plus Wave 3/4 108 Stadiums)",
+      "command": [
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\.venv\\Scripts\\python.exe",
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\scrapers\\wave5_multisport_odds_injuries_weather.py",
+        "--source",
+        "open_meteo_nflweather"
+      ],
+      "snapshots_count": 4,
+      "markdown_artifacts_count": 0,
+      "latest_snapshot_path": "data/raw/environment_referees/open_meteo_nflweather/2026-11-10/20261110T160019Z_open_meteo_30_mlb_ballparks_and_30_ncaaf_stadiums_7d_2804a69f87.json",
+      "latest_captured_at_utc": "2026-11-10T16:00:19Z",
+      "latest_sha256": "2804a69f874a233e",
+      "sha256_valid": true,
+      "anti_leakage_valid": true,
+      "age_hours": 1.1386,
+      "sla_max_age_hours": 48.0,
+      "within_sla": true,
+      "decision": "SKIP_FRESH",
+      "reason": "Snapshot fresco e íntegro (1.14h <= SLA 48.00h)"
+    },
+    {
+      "source_id": "worldfootball_nflpenalties_referees",
+      "priority": "P1",
+      "category": "environment_referees",
+      "leagues": [
+        "liga-mx",
+        "epl",
+        "laliga",
+        "bundesliga",
+        "serie-a",
+        "ligue-1",
+        "nfl"
+      ],
+      "capture_schedule": [
+        "T-48h"
+      ],
+      "in_filter_scope": true,
+      "in_window": true,
+      "assigned_scraper": "wave3_deep_odds_env_referees.py",
+      "assigned_scraper_args": [
+        "--source",
+        "worldfootball_nflpenalties_referees"
+      ],
+      "assigned_scraper_exists": true,
+      "coverage_note": "Wave 3 WorldFootball 6 Ligas + NFLPenalties Crews & All-Penalties",
+      "command": [
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\.venv\\Scripts\\python.exe",
+        "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\scrapers\\wave3_deep_odds_env_referees.py",
+        "--source",
+        "worldfootball_nflpenalties_referees"
+      ],
+      "snapshots_count": 2,
+      "markdown_artifacts_count": 0,
+      "latest_snapshot_path": "data/raw/environment_referees/worldfootball_nflpenalties_referees/2026-11-09/20261109T193730Z_referees_6leagues_and_nfl_penalties_deep_9ef7102cf1.json",
+      "latest_captured_at_utc": "2026-11-09T19:37:30Z",
+      "latest_sha256": "9ef7102cf19c0360",
+      "sha256_valid": true,
+      "anti_leakage_valid": true,
+      "age_hours": 21.5189,
+      "sla_max_age_hours": 48.0,
+      "within_sla": true,
+      "decision": "SKIP_FRESH",
+      "reason": "Snapshot fresco e íntegro (21.52h <= SLA 48.00h)"
+    }
+  ],
+  "execution_runs": [],
+  "pipeline_build_runs": [
+    {
+      "step": "normalize_datasets.py",
+      "status": "SUCCESS",
+      "returncode": 0,
+      "elapsed_sec": 7.19,
+      "stdout_tail": "=== NORMALIZACIÓN COMPLETADA ===\nSnapshots crudos verificados (SHA-256 OK): 55\n  - market_microstructure: 22412\n  - xg_and_team_ratings: 78898\n  - roster_availability: 5908\n  - news_and_environment: 949\n  - total_normalized_records: 108167\n",
+      "stderr_tail": ""
+    },
+    {
+      "step": "build_feature_store.py",
+      "status": "SUCCESS",
+      "returncode": 0,
+      "elapsed_sec": 13.27,
+      "stdout_tail": "=== FEATURE STORE MULTI-DEPORTE CONSTRUIDO EXITOSAMENTE ===\n  - team_master_features: 376 equipos en 11 ligas (114 fútbol + 32 NFL + 32 NHL + 30 MLB + 30 NBA + 138 NCAAF)\n  - historical_matches_xg: 15344 partidos históricos con xG\n  - live_matchups_edge_matrix: 242 cruces activos enriquecidos\n",
+      "stderr_tail": ""
+    }
+  ]
+}

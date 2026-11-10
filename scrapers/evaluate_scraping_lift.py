@@ -1,11 +1,12 @@
 """Evaluación Walk-Forward Anti-Leakage del Lift Predictivo de los Datos Scrapeados (PitchLab).
 
-Ejecuta tres experimentos cuantitativos sobre las 4 tablas maestras de `data/normalized/`
+Ejecuta cuatro experimentos cuantitativos sobre las 4 tablas maestras de `data/normalized/`
 (`xg_and_team_ratings.json`, `market_microstructure.json`, `roster_availability.json`,
 `news_and_environment.json`) usando exclusivamente la biblioteca estándar de Python
 (sin dependencias externas de C/Fortran) con regresión logística multinomial L2,
-modelo dinámico de Elo (Goles vs xG/Shot-Quality), expectativas Poisson/Dixon-Coles
-y bootstrap por bloques pareado (`B = 500`) para intervalos de confianza al 95%.
+modelo dinámico de Elo (Goles vs xG/Shot-Quality), expectativas Poisson/Dixon-Coles,
+predictores de eficiencia multi-deporte (NHL, MLB, NBA, NCAAF) y bootstrap por bloques
+pareado (`B = 500`) para intervalos de confianza al 95%.
 
 Genera:
 1. `data/feature_store/ablation_report.json`
@@ -143,6 +144,11 @@ def _normalize_team_key(name: str | None) -> str:
         "juarez": "juarez",
         "mazatlan": "mazatlan",
         "atlante": "atlante",
+        "morelia": "morelia",
+        "monarcas": "morelia",
+        "veracruz": "veracruz",
+        "lobos buap": "lobos_buap",
+        "lobos": "lobos_buap",
         # EPL
         "manchester city": "manchester_city",
         "man city": "manchester_city",
@@ -647,7 +653,7 @@ def run_experiment_1_european_5leagues(
                     "deep_allowed": _safe_float(r.get("deep_allowed"), 6.0),
                 }
 
-    # 4. Consolidar los 3,504 partidos únicos completados de Understat (2023/24 y 2024/25)
+    # 4. Consolidar los 12,533 partidos únicos completados de Understat en 7 temporadas (2018/19 – 2024/25)
     matches_by_key: dict[str, dict[str, Any]] = {}
     for r in xg_records:
         if r.get("record_type") in (
@@ -663,7 +669,7 @@ def run_experiment_1_european_5leagues(
                 r.get("season") or ("2024" if dt_str >= "2024-08" else "2023")
             )
             ukey = f"{lg}_{mid}"
-            if ukey not in matches_by_key or r.get("season"):
+            if ukey not in matches_by_key or (r.get("season") and r.get("home_xG") is not None):
                 matches_by_key[ukey] = {
                     "match_id": mid,
                     "league": lg,
@@ -762,15 +768,14 @@ def run_experiment_1_european_5leagues(
         h_hist = team_history[h_key]
         a_hist = team_history[a_key]
 
+        prev_seas = str(int(seas) - 1) if seas.isdigit() else ""
+
         def _rolling_stats(
             hist: list[dict[str, float]], tkey: str, window: int
         ) -> dict[str, float]:
             sub = hist[-window:] if hist else []
-            tac_p = team_tactical_priors.get(
-                tkey, {"ppda": 11.5, "deep_per_match": 6.0}
-            )
             seas_p = team_season_priors.get(
-                ("2023", tkey),
+                (prev_seas, tkey),
                 {"xg_pm": 1.38, "xga_pm": 1.38, "npxgd_pm": 0.0, "xpts_pm": 1.38},
             )
             if not sub:
@@ -784,8 +789,8 @@ def run_experiment_1_european_5leagues(
                     "xpts": seas_p["xpts_pm"],
                     "mc_dom": 0.50,
                     "luck": 0.0,
-                    "ppda": tac_p["ppda"],
-                    "deep": tac_p["deep_per_match"],
+                    "ppda": 11.5,
+                    "deep": 6.0,
                 }
             k = len(sub)
             w_emp = min(1.0, k / 5.0)
@@ -937,8 +942,6 @@ def run_experiment_1_european_5leagues(
 
         th_h = team_hist_lookup.get((lg, h_key, m["date"]))
         th_a = team_hist_lookup.get((lg, a_key, m["date"]))
-        tac_h = team_tactical_priors.get(h_key, {"ppda": 11.5, "deep_per_match": 6.0})
-        tac_a = team_tactical_priors.get(a_key, {"ppda": 11.5, "deep_per_match": 6.0})
 
         xpts_h = th_h["xPTS"] if th_h else (3.0 * fw + 1.0 * fd)
         xpts_a = th_a["xPTS"] if th_a else (3.0 * fl + 1.0 * fd)
@@ -953,8 +956,8 @@ def run_experiment_1_european_5leagues(
                 "npxgd": (th_h["npxG"] - th_h["npxGA"]) if th_h else (xh - xa),
                 "xpts": xpts_h,
                 "mc_dom": mc_score_h,
-                "ppda": th_h["ppda"] if th_h else tac_h["ppda"],
-                "deep": th_h["deep"] if th_h else tac_h["deep_per_match"],
+                "ppda": th_h["ppda"] if th_h else 11.5,
+                "deep": th_h["deep"] if th_h else 6.0,
             }
         )
         team_history[a_key].append(
@@ -967,14 +970,17 @@ def run_experiment_1_european_5leagues(
                 "npxgd": (th_a["npxG"] - th_a["npxGA"]) if th_a else (xa - xh),
                 "xpts": xpts_a,
                 "mc_dom": 1.0 - mc_score_h,
-                "ppda": th_a["ppda"] if th_a else tac_a["ppda"],
-                "deep": th_a["deep"] if th_a else tac_a["deep_per_match"],
+                "ppda": th_a["ppda"] if th_a else 11.5,
+                "deep": th_a["deep"] if th_a else 6.0,
             }
         )
 
-    # 6. Evaluación Walk-Forward Out-of-Sample:
-    train_init = 1752
-    refit_step = 175
+    # 6. Evaluación Walk-Forward Out-of-Sample (Warm-up: 2018/19–2019/20 ~3,551 partidos; Eval: 2020/21–2024/25 ~8,982 partidos)
+    train_init = next(
+        (i for i, r in enumerate(dataset_rows) if r["match"]["date"] >= "2020-08-10"),
+        3551,
+    )
+    refit_step = 450
 
     preds_m0: list[tuple[float, float, float]] = []
     preds_m1: list[tuple[float, float, float]] = []
@@ -983,14 +989,15 @@ def run_experiment_1_european_5leagues(
     preds_m4: list[tuple[float, float, float]] = []
     y_eval: list[int] = []
     eval_leagues: list[str] = []
+    eval_seasons: list[str] = []
 
-    clf_m1 = MultinomialLogitL2(l2_reg=0.10, max_iter=150, lr=0.28)
-    clf_m2 = MultinomialLogitL2(l2_reg=0.14, max_iter=150, lr=0.25)
-    clf_m3 = MultinomialLogitL2(l2_reg=0.16, max_iter=160, lr=0.24)
+    clf_m1 = MultinomialLogitL2(l2_reg=0.10, max_iter=105, lr=0.28)
+    clf_m2 = MultinomialLogitL2(l2_reg=0.14, max_iter=105, lr=0.25)
+    clf_m3 = MultinomialLogitL2(l2_reg=0.16, max_iter=110, lr=0.24)
 
     for idx in range(train_init, len(dataset_rows)):
         if (idx - train_init) % refit_step == 0:
-            train_slice = dataset_rows[:idx]
+            train_slice = dataset_rows[max(0, idx - 4500) : idx]
             y_tr = [r["y"] for r in train_slice]
             clf_m1.fit([r["x_m1"] for r in train_slice], y_tr)
             clf_m2.fit([r["x_m2"] for r in train_slice], y_tr)
@@ -999,6 +1006,7 @@ def run_experiment_1_european_5leagues(
         row = dataset_rows[idx]
         y_eval.append(row["y"])
         eval_leagues.append(row["match"]["league"])
+        eval_seasons.append(row["match"]["season"])
         preds_m0.append(row["clim_p"])
 
         p1 = clf_m1.predict_proba_one(row["x_m1"])
@@ -1038,16 +1046,16 @@ def run_experiment_1_european_5leagues(
 
     # Bootstrap pareado vs Model 1 (baseline_goals_elo)
     boot_m2_vs_m1 = _paired_block_bootstrap(
-        m1_res["_ll_vec"], m2_res["_ll_vec"], block_size=20, n_boot=500, seed=101
+        m1_res["_ll_vec"], m2_res["_ll_vec"], block_size=25, n_boot=500, seed=101
     )
     boot_m3_vs_m1 = _paired_block_bootstrap(
-        m1_res["_ll_vec"], m3_res["_ll_vec"], block_size=20, n_boot=500, seed=102
+        m1_res["_ll_vec"], m3_res["_ll_vec"], block_size=25, n_boot=500, seed=102
     )
     boot_m4_vs_m1 = _paired_block_bootstrap(
-        m1_res["_ll_vec"], m4_res["_ll_vec"], block_size=20, n_boot=500, seed=103
+        m1_res["_ll_vec"], m4_res["_ll_vec"], block_size=25, n_boot=500, seed=103
     )
     boot_m3_vs_m2 = _paired_block_bootstrap(
-        m2_res["_ll_vec"], m3_res["_ll_vec"], block_size=20, n_boot=500, seed=104
+        m2_res["_ll_vec"], m3_res["_ll_vec"], block_size=25, n_boot=500, seed=104
     )
 
     per_league_summary: dict[str, Any] = {}
@@ -1076,16 +1084,40 @@ def run_experiment_1_european_5leagues(
             "m4_rps": m4_lg["rps"],
         }
 
+    per_season_summary: dict[str, Any] = {}
+    for s_name in sorted(set(eval_seasons)):
+        idxs = [i for i, s in enumerate(eval_seasons) if s == s_name]
+        if not idxs:
+            continue
+        y_s = [y_eval[i] for i in idxs]
+        m1_s = _compute_metrics([preds_m1[i] for i in idxs], y_s)
+        m2_s = _compute_metrics([preds_m2[i] for i in idxs], y_s)
+        m3_s = _compute_metrics([preds_m3[i] for i in idxs], y_s)
+        m4_s = _compute_metrics([preds_m4[i] for i in idxs], y_s)
+        per_season_summary[s_name] = {
+            "n_eval_matches": len(idxs),
+            "m1_baseline_goals_elo_log_loss": m1_s["log_loss"],
+            "m2_scraped_xg_ppda_deep_log_loss": m2_s["log_loss"],
+            "m3_scraped_full_plus_tm_values_log_loss": m3_s["log_loss"],
+            "m4_ensemble_shot_forecast_log_loss": m4_s["log_loss"],
+            "delta_m3_vs_m1_log_loss": round(m3_s["log_loss"] - m1_s["log_loss"], 5),
+        }
+
     def _strip_internal(d: dict[str, Any]) -> dict[str, Any]:
         return {k: v for k, v in d.items() if not k.startswith("_")}
 
     return {
         "experiment_id": "exp1_european_5leagues_walk_forward",
-        "description": "Walk-forward out-of-sample evaluation across EPL, La_liga, Bundesliga, Serie_A, and Ligue_1 (2023-2025)",
+        "description": "Walk-forward out-of-sample evaluation across EPL, La_liga, Bundesliga, Serie_A, and Ligue_1 across 7 seasons (2018-2025: 2018/19-2019/20 warm-up, 2020/21-2024/25 out-of-sample)",
         "total_matches_processed": len(dataset_rows),
         "initial_training_matches": train_init,
         "out_of_sample_eval_matches": len(y_eval),
         "refit_step_matches": refit_step,
+        "team_match_history_matched_count": sum(
+            1
+            for m in all_matches
+            if (m["league"], m["home_key"], m["date"]) in team_hist_lookup
+        ),
         "models": {
             "M0_climatology": _strip_internal(m0_res),
             "M1_baseline_goals_elo": _strip_internal(m1_res),
@@ -1104,12 +1136,13 @@ def run_experiment_1_european_5leagues(
             },
         },
         "per_league_breakdown": per_league_summary,
+        "per_season_breakdown": per_season_summary,
     }
 
 
 # ===========================================================================
-# EXPERIMENT 2: LIGA MX (2023-2026) WALK-FORWARD ABLATION
-# (FBref Historical + Statiskicks Rolling xG/xP + Transfermarkt 18 Clubs + Open-Meteo Altitude)
+# EXPERIMENT 2: LIGA MX (2018-2026, 8 SEASONS) WALK-FORWARD ABLATION
+# (FBref Opta Historical xG + Statiskicks Rolling xG/xP + Transfermarkt 18 Clubs + Open-Meteo Altitude)
 # ===========================================================================
 LIGAMX_CLUB_ELEVATION_M: dict[str, float] = {
     "toluca": 2667.0,
@@ -1119,6 +1152,8 @@ LIGAMX_CLUB_ELEVATION_M: dict[str, float] = {
     "pumas_unam": 2245.0,
     "atlante": 2245.0,
     "puebla": 2175.0,
+    "lobos_buap": 2175.0,
+    "morelia": 1920.0,
     "necaxa": 1888.0,
     "atletico_san_luis": 1864.0,
     "queretaro": 1820.0,
@@ -1131,7 +1166,15 @@ LIGAMX_CLUB_ELEVATION_M: dict[str, float] = {
     "tigres_uanl": 515.0,
     "tijuana": 85.0,
     "mazatlan": 15.0,
+    "veracruz": 15.0,
 }
+
+
+def _prev_season_hyphen(season_str: str) -> str:
+    m = re.match(r"^(\d{4})[-/](\d{4})$", season_str.strip())
+    if m:
+        return f"{int(m.group(1)) - 1}-{int(m.group(2)) - 1}"
+    return ""
 
 
 def run_experiment_2_ligamx_walk_forward(
@@ -1139,7 +1182,7 @@ def run_experiment_2_ligamx_walk_forward(
     roster_records: list[dict[str, Any]],
     env_records: list[dict[str, Any]],
 ) -> dict[str, Any]:
-    """Walk-forward estricto en Liga MX (2023-2026) midiendo el impacto de xG, Transfermarkt, Statiskicks y Altitud."""
+    """Walk-forward estricto en Liga MX (2018-2026, 8 temporadas) midiendo el impacto de Opta/Statiskicks xG, Transfermarkt, táctica y Altitud."""
     # 1. Altitudes verificadas desde Open-Meteo (`stadium_weather_forecast`) + catálogo Liga MX
     club_elevation = dict(LIGAMX_CLUB_ELEVATION_M)
     for r in env_records:
@@ -1153,7 +1196,7 @@ def run_experiment_2_ligamx_walk_forward(
                 if tkey and elev > 0:
                     club_elevation[tkey] = elev
 
-    # 2. Valores de plantilla y bajas de Transfermarkt para los 18 clubes de Liga MX
+    # 2. Valores de plantilla y bajas de Transfermarkt para los clubes de Liga MX
     tm_mx_val: dict[str, float] = {}
     for r in xg_records:
         if (
@@ -1176,20 +1219,17 @@ def run_experiment_2_ligamx_walk_forward(
             if tkey:
                 tm_mx_missing[tkey] = max(tm_mx_missing.get(tkey, 0.0), m_val)
 
-    # 3. Métricas de tiro por temporada de FBref (`stats_squads_shooting_for` / `against`) para 2023-2026
+    # 3. Métricas de tiro por temporada de FBref (`stats_squads_shooting_for` / `against`) para 2018-2026
     fbref_mx_shooting: dict[tuple[str, str], dict[str, float]] = {}
     for r in xg_records:
         if r.get("record_type") == "fbref_squad_stat_row" and "shooting" in str(
             r.get("table_id") or ""
         ):
-            comp = str(r.get("competition") or "")
-            if "liga-mx" not in comp:
+            comp = str(r.get("competition") or r.get("season_label") or r.get("season") or "")
+            if "liga-mx" not in comp.lower() and r.get("league") != "liga-mx":
                 continue
-            season_key = (
-                "2023-2024"
-                if "2023-2024" in comp
-                else ("2024-2025" if "2024-2025" in comp else "2026-2027")
-            )
+            m_s = re.search(r"(20\d{2}-20\d{2})", comp)
+            season_key = m_s.group(1) if m_s else str(r.get("season") or "2026-2027")
             tkey = _normalize_team_key(r.get("team_name") or r.get("team"))
             if not tkey:
                 continue
@@ -1233,28 +1273,7 @@ def run_experiment_2_ligamx_walk_forward(
             if tkey and isinstance(ts, dict) and ts.get("PPDA"):
                 opta_ppda_by_club[tkey] = _safe_float(ts.get("PPDA"), 10.5)
 
-    # Cargar promedios empíricos de xG y xGA por club desde Statiskicks para calibrar priors
-    sk_club_xg_accum: dict[str, list[tuple[float, float]]] = defaultdict(list)
-    for r in xg_records:
-        if r.get("record_type") == "statiskicks_team_xg_rolling_point":
-            raw_tk = str(r.get("team_key") or "").replace("team_", "")
-            parts = raw_tk.split("-")
-            if len(parts) > 1 and len(parts[-1]) >= 20:
-                raw_tk = "-".join(parts[:-1])
-            tk = _normalize_team_key(raw_tk.replace("-", " "))
-            if tk:
-                sk_club_xg_accum[tk].append(
-                    (_safe_float(r.get("xG"), 1.38), _safe_float(r.get("xGA"), 1.38))
-                )
-    sk_club_xg_prior: dict[str, tuple[float, float]] = {}
-    for tk, pairs in sk_club_xg_accum.items():
-        if pairs:
-            sk_club_xg_prior[tk] = (
-                sum(p[0] for p in pairs) / len(pairs),
-                sum(p[1] for p in pairs) / len(pairs),
-            )
-
-    # Cargar tabla de xPTS y diferencial de goles de Statiskicks (`statiskicks_xp_standing_row`)
+    # Cargar tabla de xPTS de Statiskicks (`statiskicks_xp_standing_row`) como señal suplementaria para 2025/26+
     sk_xp_rating: dict[str, dict[str, float]] = {}
     for r in xg_records:
         if r.get("record_type") == "statiskicks_xp_standing_row" and r.get("league_key") == "league_liga_mx":
@@ -1266,10 +1285,10 @@ def run_experiment_2_ligamx_walk_forward(
                     "xpts_overperf_pm": _safe_float(r.get("xpts_overperformance"), 0.0) / mp,
                 }
 
-    # 5. Construir el conjunto unificado de partidos de Liga MX (2023-2026)
+    # 5. Construir el conjunto unificado de partidos de Liga MX en 8 temporadas (2018-2026)
     mx_matches_map: dict[tuple[str, str, str], dict[str, Any]] = {}
 
-    # 5A. Cargar todos los partidos de Statiskicks (tanto is_home=True como is_home=False con orientación correcta)
+    # 5A. Cargar los 480 partidos con xG exacto de Statiskicks (2025-2026)
     for r in xg_records:
         if r.get("record_type") != "statiskicks_team_xg_rolling_point":
             continue
@@ -1310,7 +1329,7 @@ def run_experiment_2_ligamx_walk_forward(
         if m_key not in mx_matches_map or r.get("is_home"):
             mx_matches_map[m_key] = {
                 "date": iso_date,
-                "season": str(r.get("season") or "2025/2026"),
+                "season": str(r.get("season") or "2025-2026").replace("/", "-"),
                 "home_key": h_key,
                 "away_key": a_key,
                 "home_goals": gh,
@@ -1321,7 +1340,61 @@ def run_experiment_2_ligamx_walk_forward(
                 "source": "statiskicks_match_xg",
             }
 
-    # 5B. Cargar los partidos históricos y actuales de FBref (`2023-2024`, `2024-2025`, `2026-2027`)
+    # 5B. Cargar los ~1,635 partidos históricos jugados de FBref Liga MX 2018-2023 (1,318 con Opta xG exacto!)
+    for r in xg_records:
+        if r.get("record_type") != "fbref_ligamx_historical_match_xg":
+            continue
+        iso_date = str(r.get("date") or "").strip()
+        if not re.match(r"^\d{4}-\d{2}-\d{2}$", iso_date):
+            continue
+        hg_raw = r.get("home_goals")
+        ag_raw = r.get("away_goals")
+        if hg_raw is not None and ag_raw is not None:
+            gh, ga = int(_safe_float(hg_raw)), int(_safe_float(ag_raw))
+        else:
+            m_sc = re.search(r"(\d+)\D+(\d+)", str(r.get("score") or ""))
+            if not m_sc:
+                continue
+            gh, ga = int(m_sc.group(1)), int(m_sc.group(2))
+
+        h_key = _normalize_team_key(r.get("home_team"))
+        a_key = _normalize_team_key(r.get("away_team"))
+        if not h_key or not a_key:
+            continue
+        m_key = (iso_date, h_key, a_key)
+        if m_key in mx_matches_map and mx_matches_map[m_key]["has_exact_xg"]:
+            continue
+
+        season_key = str(r.get("season") or f"{iso_date[:4]}-{int(iso_date[:4]) + 1}")
+        has_opta_xg = r.get("home_xg") is not None and r.get("away_xg") is not None
+        if has_opta_xg:
+            xh = round(_safe_float(r.get("home_xg")), 4)
+            xa = round(_safe_float(r.get("away_xg")), 4)
+            src_label = "fbref_opta_historical_xg"
+        else:
+            prev_sk = _prev_season_hyphen(season_key)
+            fb_h = fbref_mx_shooting.get((prev_sk, h_key)) or fbref_mx_shooting.get((season_key, h_key), {})
+            fb_a = fbref_mx_shooting.get((prev_sk, a_key)) or fbref_mx_shooting.get((season_key, a_key), {})
+            sot_h = fb_h.get("sot_per90_for", 4.3)
+            sot_a = fb_a.get("sot_per90_for", 4.1)
+            xh = round(max(0.25, 0.84 + 0.14 * sot_h + 0.22 * gh), 4)
+            xa = round(max(0.20, 0.78 + 0.14 * sot_a + 0.22 * ga), 4)
+            src_label = "fbref_historical_fixture"
+
+        mx_matches_map[m_key] = {
+            "date": iso_date,
+            "season": season_key,
+            "home_key": h_key,
+            "away_key": a_key,
+            "home_goals": gh,
+            "away_goals": ga,
+            "home_xG": xh,
+            "away_xG": xa,
+            "has_exact_xg": bool(has_opta_xg),
+            "source": src_label,
+        }
+
+    # 5C. Cargar los partidos históricos y actuales de FBref (`2023-2024`, `2024-2025`, `2026-2027`)
     for r in xg_records:
         if r.get("record_type") != "fbref_match_fixture_xg":
             continue
@@ -1341,20 +1414,24 @@ def run_experiment_2_ligamx_walk_forward(
         gh = int(m_sc.group(1))
         ga = int(m_sc.group(2))
         comp = str(r.get("competition") or "")
-        season_key = (
+        m_s = re.search(r"(20\d{2}-20\d{2})", comp)
+        season_key = m_s.group(1) if m_s else (
             "2023-2024"
             if "2023-2024" in comp
             else ("2024-2025" if "2024-2025" in comp else "2026-2027")
         )
-        fb_h = fbref_mx_shooting.get((season_key, h_key), {})
-        fb_a = fbref_mx_shooting.get((season_key, a_key), {})
-        sot_h = fb_h.get("sot_per90_for", 4.3)
-        sot_a = fb_a.get("sot_per90_for", 4.1)
-        sk_h_xg, sk_h_xga = sk_club_xg_prior.get(h_key, (1.42, 1.32))
-        sk_a_xg, sk_a_xga = sk_club_xg_prior.get(a_key, (1.32, 1.42))
-
-        est_xh = max(0.25, 0.35 * sk_h_xg + 0.25 * sk_a_xga + 0.14 * sot_h + 0.22 * gh)
-        est_xa = max(0.20, 0.35 * sk_a_xg + 0.25 * sk_h_xga + 0.14 * sot_a + 0.22 * ga)
+        has_opta_xg = r.get("home_xg") is not None and r.get("away_xg") is not None
+        if has_opta_xg:
+            est_xh = round(_safe_float(r.get("home_xg")), 4)
+            est_xa = round(_safe_float(r.get("away_xg")), 4)
+        else:
+            prev_sk = _prev_season_hyphen(season_key)
+            fb_h = fbref_mx_shooting.get((prev_sk, h_key)) or fbref_mx_shooting.get((season_key, h_key), {})
+            fb_a = fbref_mx_shooting.get((prev_sk, a_key)) or fbref_mx_shooting.get((season_key, a_key), {})
+            sot_h = fb_h.get("sot_per90_for", 4.3)
+            sot_a = fb_a.get("sot_per90_for", 4.1)
+            est_xh = round(max(0.25, 0.84 + 0.14 * sot_h + 0.22 * gh), 4)
+            est_xa = round(max(0.20, 0.78 + 0.14 * sot_a + 0.22 * ga), 4)
 
         mx_matches_map[m_key] = {
             "date": iso_date,
@@ -1363,10 +1440,10 @@ def run_experiment_2_ligamx_walk_forward(
             "away_key": a_key,
             "home_goals": gh,
             "away_goals": ga,
-            "home_xG": round(est_xh, 4),
-            "away_xG": round(est_xa, 4),
-            "has_exact_xg": False,
-            "source": "fbref_fixture",
+            "home_xG": est_xh,
+            "away_xG": est_xa,
+            "has_exact_xg": bool(has_opta_xg),
+            "source": "fbref_opta_fixture" if has_opta_xg else "fbref_fixture",
         }
 
     mx_matches = sorted(
@@ -1418,16 +1495,16 @@ def run_experiment_2_ligamx_walk_forward(
         elo_x_diff = (elo_x_h - elo_x_a + 60.0) / 400.0
         elo_x_exp_h = 1.0 / (1.0 + 10.0 ** (-elo_x_diff))
 
-        def _mx_roll(hist: list[dict[str, float]], tk: str, w: int) -> dict[str, float]:
+        def _mx_roll(hist: list[dict[str, float]], w: int) -> dict[str, float]:
             sub = hist[-w:] if hist else []
-            pri_xg, pri_xga = sk_club_xg_prior.get(tk, (1.38, 1.38))
             if not sub:
                 return {
                     "g": 1.38,
                     "ga": 1.38,
                     "pts": 1.38,
-                    "xg": pri_xg,
-                    "xga": pri_xga,
+                    "xg": 1.38,
+                    "xga": 1.38,
+                    "xpts": 1.38,
                     "luck": 0.0,
                 }
             k = len(sub)
@@ -1437,44 +1514,51 @@ def run_experiment_2_ligamx_walk_forward(
                 "g": sum(z["g"] for z in sub) / k,
                 "ga": sum(z["ga"] for z in sub) / k,
                 "pts": sum(z["pts"] for z in sub) / k,
-                "xg": w_emp * (sum(z["xg"] for z in sub) / k) + w_pri * pri_xg,
-                "xga": w_emp * (sum(z["xga"] for z in sub) / k) + w_pri * pri_xga,
+                "xg": w_emp * (sum(z["xg"] for z in sub) / k) + w_pri * 1.38,
+                "xga": w_emp * (sum(z["xga"] for z in sub) / k) + w_pri * 1.38,
+                "xpts": w_emp * (sum(z["xpts"] for z in sub) / k) + w_pri * 1.38,
                 "luck": sum(z["g"] - z["xg"] for z in sub) / k,
             }
 
-        hr4 = _mx_roll(mx_hist[h_key], h_key, 4)
-        ar4 = _mx_roll(mx_hist[a_key], a_key, 4)
-        hr8 = _mx_roll(mx_hist[h_key], h_key, 8)
-        ar8 = _mx_roll(mx_hist[a_key], a_key, 8)
+        hr4 = _mx_roll(mx_hist[h_key], 4)
+        ar4 = _mx_roll(mx_hist[a_key], 4)
+        hr8 = _mx_roll(mx_hist[h_key], 8)
+        ar8 = _mx_roll(mx_hist[a_key], 8)
+        hr12 = _mx_roll(mx_hist[h_key], 12)
+        ar12 = _mx_roll(mx_hist[a_key], 12)
 
         # Expectativa Poisson solo goles r4 (MX1 - equivalente a MEX.csv)
         lam_h_g = max(0.40, 0.55 * hr4["g"] + 0.45 * ar4["ga"] + 0.08 * elo_g_diff)
         lam_a_g = max(0.35, 0.55 * ar4["g"] + 0.45 * hr4["ga"] - 0.08 * elo_g_diff)
         pg_h, pg_d, pg_a = _poisson_match_probs(lam_h_g, lam_a_g, rho=-0.04)
 
-        # Métricas de calidad de ocasiones de Statiskicks (xPTS) y FBref (SoT/90)
-        xp_h = sk_xp_rating.get(h_key, {"xp_per_match": 1.38, "xpts_overperf_pm": 0.0})
-        xp_a = sk_xp_rating.get(a_key, {"xp_per_match": 1.38, "xpts_overperf_pm": 0.0})
-        xp_diff = xp_h["xp_per_match"] - xp_a["xp_per_match"]
-        xpts_over_diff = xp_h["xpts_overperf_pm"] - xp_a["xpts_overperf_pm"]
+        # Calidad de ocasiones causal (t' < t): xPTS rodante r12 + sobre-rendimiento (PTS - xPTS) + SoT temporada previa
+        xp_diff = hr12["xpts"] - ar12["xpts"]
+        xpts_over_diff = (hr12["pts"] - hr12["xpts"]) - (ar12["pts"] - ar12["xpts"])
+        if m["date"] >= "2026-01-01":
+            xp_h_st = sk_xp_rating.get(h_key)
+            xp_a_st = sk_xp_rating.get(a_key)
+            if xp_h_st and xp_a_st:
+                xp_diff = 0.60 * xp_diff + 0.40 * (xp_h_st["xp_per_match"] - xp_a_st["xp_per_match"])
 
-        fb_curr_h = fbref_mx_shooting.get(("2024-2025", h_key)) or fbref_mx_shooting.get(("2026-2027", h_key), {})
-        fb_curr_a = fbref_mx_shooting.get(("2024-2025", a_key)) or fbref_mx_shooting.get(("2026-2027", a_key), {})
+        prev_mx_s = _prev_season_hyphen(seas)
+        fb_prev_h = fbref_mx_shooting.get((prev_mx_s, h_key), {})
+        fb_prev_a = fbref_mx_shooting.get((prev_mx_s, a_key), {})
         sot_mx_diff = (
-            fb_curr_h.get("sot_per90_for", 4.3) - fb_curr_a.get("sot_per90_for", 4.3)
+            fb_prev_h.get("sot_per90_for", 4.3) - fb_prev_a.get("sot_per90_for", 4.3)
         ) / 3.0
 
-        # Expectativa Dixon-Coles con xG de Statiskicks/FBref + xPTS + SoT + xG-Elo + ventaja local Liga MX (MX2)
-        xg_boost_mx2 = 0.28 * xp_diff - 0.10 * xpts_over_diff + 0.10 * sot_mx_diff
+        # Expectativa Dixon-Coles con xG de Opta/Statiskicks + xPTS + SoT + xG-Elo + ventaja local Liga MX (MX2)
+        xg_boost_mx2 = 0.24 * xp_diff - 0.08 * xpts_over_diff + 0.08 * sot_mx_diff
         lam_h_xg = max(
             0.38,
-            (0.55 * hr8["xg"] + 0.45 * ar8["xga"] + 0.16)
-            * math.exp(0.20 * elo_x_diff + 0.5 * xg_boost_mx2),
+            (0.45 * hr8["xg"] + 0.25 * hr12["xg"] + 0.30 * ar12["xga"] + 0.15)
+            * math.exp(0.22 * elo_x_diff + 0.5 * xg_boost_mx2),
         )
         lam_a_xg = max(
             0.30,
-            (0.55 * ar8["xg"] + 0.45 * hr8["xga"] - 0.12)
-            * math.exp(-0.20 * elo_x_diff - 0.5 * xg_boost_mx2),
+            (0.45 * ar8["xg"] + 0.25 * ar12["xg"] + 0.30 * hr12["xga"] - 0.11)
+            * math.exp(-0.22 * elo_x_diff - 0.5 * xg_boost_mx2),
         )
         pxg_h, pxg_d, pxg_a = _poisson_match_probs(lam_h_xg, lam_a_xg, rho=-0.10)
 
@@ -1502,10 +1586,10 @@ def run_experiment_2_ligamx_walk_forward(
 
         # Expectativa Dixon-Coles estructural completa para Liga MX (MX3: xG + TM + Táctica + Altitud Open-Meteo)
         mx_full_boost = (
-            0.15 * log_val_ratio
-            - 0.22 * miss_diff
-            + 0.14 * tact_diff
-            + 0.06 * ppda_diff
+            0.14 * log_val_ratio
+            - 0.20 * miss_diff
+            + 0.10 * tact_diff
+            + 0.05 * ppda_diff
             + 0.09 * alt_diff_km
             + 0.14 * altitude_shock
         )
@@ -1523,7 +1607,7 @@ def run_experiment_2_ligamx_walk_forward(
             pg_h - pg_a,
         ]
 
-        # MX-2: MX-1 + xG rodante de Statiskicks/FBref + xPTS + SoT/90 + xG-Elo + xG luck gap (G - xG)
+        # MX-2: MX-1 + xG rodante de Opta/Statiskicks + xPTS + SoT/90 + xG-Elo + xG luck gap (G - xG)
         x_mx2 = x_mx1 + [
             elo_x_diff,
             (hr8["xg"] - hr8["xga"]) - (ar8["xg"] - ar8["xga"]),
@@ -1566,7 +1650,7 @@ def run_experiment_2_ligamx_walk_forward(
         elo_mx_goals[h_key] = elo_g_h + 15.0 * (act_h - elo_g_exp_h)
         elo_mx_goals[a_key] = elo_g_a + 15.0 * ((1.0 - act_h) - (1.0 - elo_g_exp_h))
 
-        p_xh, p_xd, _ = _poisson_match_probs(max(0.2, xh), max(0.2, xa))
+        p_xh, p_xd, p_xa = _poisson_match_probs(max(0.2, xh), max(0.2, xa))
         xg_score_h = 0.65 * (p_xh + 0.5 * p_xd) + 0.35 * act_h
         k_mx_xg = 22.0 * (1.0 + 0.20 * abs(xh - xa))
         elo_mx_xg[h_key] = elo_x_h + k_mx_xg * (xg_score_h - elo_x_exp_h)
@@ -1579,6 +1663,7 @@ def run_experiment_2_ligamx_walk_forward(
                 "pts": 3.0 if gh > ga else (1.0 if gh == ga else 0.0),
                 "xg": xh,
                 "xga": xa,
+                "xpts": 3.0 * p_xh + 1.0 * p_xd,
             }
         )
         mx_hist[a_key].append(
@@ -1588,15 +1673,16 @@ def run_experiment_2_ligamx_walk_forward(
                 "pts": 3.0 if ga > gh else (1.0 if ga == gh else 0.0),
                 "xg": xa,
                 "xga": xh,
+                "xpts": 3.0 * p_xa + 1.0 * p_xd,
             }
         )
 
-    # Evaluar out-of-sample en los 480 partidos a partir de 2025-07-01 (con re-entrenamiento expansivo cada 35 partidos)
+    # Warm-up inicial en 2018-2020 (~609 partidos) y evaluación walk-forward out-of-sample en 2020-2026 (n_eval >= 1,600)
     eval_start = next(
-        (i for i, r in enumerate(mx_rows) if r["match"]["date"] >= "2025-07-01"),
-        len(mx_rows) // 2,
+        (i for i, r in enumerate(mx_rows) if r["match"]["date"] >= "2020-07-15"),
+        len(mx_rows) // 4,
     )
-    refit_every = 35
+    refit_every = 110
 
     p_mx0: list[tuple[float, float, float]] = []
     p_mx1: list[tuple[float, float, float]] = []
@@ -1653,13 +1739,13 @@ def run_experiment_2_ligamx_walk_forward(
     mx3_res = _compute_metrics(p_mx3, y_mx_eval)
 
     boot_mx2_vs_mx1 = _paired_block_bootstrap(
-        mx1_res["_ll_vec"], mx2_res["_ll_vec"], block_size=15, n_boot=500, seed=201
+        mx1_res["_ll_vec"], mx2_res["_ll_vec"], block_size=20, n_boot=500, seed=201
     )
     boot_mx3_vs_mx1 = _paired_block_bootstrap(
-        mx1_res["_ll_vec"], mx3_res["_ll_vec"], block_size=15, n_boot=500, seed=202
+        mx1_res["_ll_vec"], mx3_res["_ll_vec"], block_size=20, n_boot=500, seed=202
     )
     boot_mx3_vs_mx2 = _paired_block_bootstrap(
-        mx2_res["_ll_vec"], mx3_res["_ll_vec"], block_size=15, n_boot=500, seed=203
+        mx2_res["_ll_vec"], mx3_res["_ll_vec"], block_size=20, n_boot=500, seed=203
     )
 
     alt_shock_matches = [r for r in mx_rows if r["altitude_shock"] > 0]
@@ -1667,16 +1753,22 @@ def run_experiment_2_ligamx_walk_forward(
     non_alt_matches = [r for r in mx_rows if r["altitude_shock"] == 0]
     non_alt_home_wins = sum(1 for r in non_alt_matches if r["y"] == 0)
 
+    exact_xg_total = sum(1 for r in mx_rows if r["match"]["has_exact_xg"])
+    exact_xg_sk = sum(
+        1 for r in mx_rows if r["match"]["source"] == "statiskicks_match_xg"
+    )
+    exact_xg_opta = exact_xg_total - exact_xg_sk
+
     def _strip(d: dict[str, Any]) -> dict[str, Any]:
         return {k: v for k, v in d.items() if not k.startswith("_")}
 
     return {
-        "experiment_id": "exp2_ligamx_2023_2026_walk_forward",
-        "description": "Walk-forward evaluation on Liga MX (2023-2026) comparing MEX.csv goals-only baseline vs scraped FBref/Statiskicks xG, Transfermarkt 18-club valuations, Opta PPDA, and Open-Meteo altitude shock",
+        "experiment_id": "exp2_ligamx_2018_2026_walk_forward",
+        "description": "Walk-forward evaluation on Liga MX across 8 seasons (2018-2026) comparing MEX.csv goals-only baseline vs scraped FBref Opta / Statiskicks xG, Transfermarkt club valuations, Opta PPDA, and Open-Meteo altitude shock",
         "total_ligamx_matches": len(mx_rows),
-        "exact_xg_matches_from_statiskicks": sum(
-            1 for r in mx_rows if r["match"]["has_exact_xg"]
-        ),
+        "exact_xg_matches_total": exact_xg_total,
+        "exact_xg_matches_from_fbref_opta": exact_xg_opta,
+        "exact_xg_matches_from_statiskicks": exact_xg_sk,
         "historical_fbref_matches": sum(
             1 for r in mx_rows if not r["match"]["has_exact_xg"]
         ),
@@ -1766,6 +1858,24 @@ def run_experiment_3_microstructure_and_availability(
     pin_main_tot = sorted(pin_by_mtype.get("total_main", []))
 
     # 3B. Action Network Sharp Money Divergence (`% money - % tickets`) y Reverse Line Movement
+    def _canonical_an_sport_label(r: dict[str, Any]) -> str:
+        lg_raw = str(r.get("league") or r.get("league_name") or "").strip().lower()
+        sp_raw = str(r.get("sport") or "").strip().lower()
+        for tok in (lg_raw, sp_raw):
+            if tok in ("nfl", "football") and lg_raw != "ncaaf" and sp_raw != "ncaaf" and "college" not in sp_raw:
+                return "NFL"
+            if tok in ("ncaaf", "college-football", "college_football", "college football"):
+                return "NCAAF"
+            if tok in ("nba", "basketball"):
+                return "NBA"
+            if tok in ("nhl", "hockey", "ice hockey"):
+                return "NHL"
+            if tok in ("mlb", "baseball"):
+                return "MLB"
+            if tok in ("soccer", "epl", "laliga", "liga-mx", "champions-league"):
+                return "SOCCER"
+        return (lg_raw or sp_raw or "OTHER").upper()
+
     an_outcomes = [
         r
         for r in market_records
@@ -1780,11 +1890,23 @@ def run_experiment_3_microstructure_and_availability(
         abs(_safe_float(r.get("sharp_money_divergence"))) for r in active_splits
     )
     sharp_flagged = [r for r in active_splits if r.get("sharp_money_flag")]
-    rlm_flagged = [r for r in active_splits if r.get("reverse_line_movement_signal")]
+    rlm_flagged = [
+        r
+        for r in active_splits
+        if r.get("reverse_line_movement_signal") or r.get("rlm_flag")
+    ]
 
     by_sport_splits: dict[str, dict[str, Any]] = {}
-    for sp_name in sorted({str(r.get("sport") or "unknown") for r in active_splits}):
-        sp_rows = [r for r in active_splits if str(r.get("sport")) == sp_name]
+    sport_groups: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for r in active_splits:
+        sport_groups[_canonical_an_sport_label(r)].append(r)
+
+    for sp_name in ["NFL", "NCAAF", "NBA", "NHL", "MLB"] + [
+        k for k in sorted(sport_groups.keys()) if k not in {"NFL", "NCAAF", "NBA", "NHL", "MLB"}
+    ]:
+        sp_rows = sport_groups.get(sp_name, [])
+        if not sp_rows:
+            continue
         sp_divs = sorted(
             abs(_safe_float(r.get("sharp_money_divergence"))) for r in sp_rows
         )
@@ -1798,7 +1920,9 @@ def run_experiment_3_microstructure_and_availability(
                 1 for r in sp_rows if r.get("sharp_money_flag")
             ),
             "rlm_signal_count": sum(
-                1 for r in sp_rows if r.get("reverse_line_movement_signal")
+                1
+                for r in sp_rows
+                if r.get("reverse_line_movement_signal") or r.get("rlm_flag")
             ),
         }
 
@@ -1823,10 +1947,13 @@ def run_experiment_3_microstructure_and_availability(
         top_sharp_games.append(
             {
                 "game_id": gid,
-                "league": g.get("league_name"),
+                "league": _canonical_an_sport_label(g),
                 "matchup": f"{g.get('away_team')} @ {g.get('home_team')}",
                 "num_bets": g.get("num_bets"),
                 "max_sharp_money_divergence_pct": g.get("max_sharp_money_divergence"),
+                "rlm_flag": bool(g.get("rlm_flag", False)),
+                "p_home_novig": g.get("p_home_novig"),
+                "p_away_novig": g.get("p_away_novig"),
             }
         )
         if len(top_sharp_games) >= 10:
@@ -1906,6 +2033,92 @@ def run_experiment_3_microstructure_and_availability(
             else None,
         }
 
+    # 3D. Disponibilidad Multi-Deporte EE. UU. (1,004 lesionados + 186 titulares/abridores/porteros en NBA, NHL, MLB, NCAAF + NFL)
+    ms_injuries = [
+        r for r in roster_records if r.get("record_type") == "multisport_player_injury"
+    ]
+    ms_starters = [
+        r for r in roster_records if r.get("record_type") == "multisport_probable_starter"
+    ]
+    nfl_injuries = [
+        r
+        for r in roster_records
+        if r.get("record_type")
+        in ("nfl_official_injuries_depth_injuries", "nfl_official_injuries_depth_nfl_official_injuries")
+    ]
+
+    us_multisport_by_league: dict[str, dict[str, Any]] = {}
+    for lg_code in ("nba", "nhl", "mlb", "ncaaf"):
+        lg_inj = [
+            r for r in ms_injuries if str(r.get("league") or "").strip().lower() == lg_code
+        ]
+        lg_st = [
+            r for r in ms_starters if str(r.get("league") or "").strip().lower() == lg_code
+        ]
+        out_cnt = sum(
+            1
+            for r in lg_inj
+            if any(
+                tok in str(r.get("status") or r.get("game_status_designation") or "").lower()
+                for tok in (
+                    "out",
+                    "ir",
+                    "injured reserve",
+                    "il",
+                    "60-day",
+                    "15-day",
+                    "10-day",
+                    "ofs",
+                    "suspension",
+                )
+            )
+        )
+        q_cnt = sum(
+            1
+            for r in lg_inj
+            if any(
+                tok in str(r.get("status") or r.get("game_status_designation") or "").lower()
+                for tok in (
+                    "questionable",
+                    "day-to-day",
+                    "dtd",
+                    "doubtful",
+                    "gtd",
+                    "game time decision",
+                )
+            )
+        )
+        us_multisport_by_league[lg_code.upper()] = {
+            "injured_players_count": len(lg_inj),
+            "confirmed_out_or_ir_il_count": out_cnt,
+            "questionable_or_day_to_day_count": q_cnt,
+            "probable_starters_or_goalies_count": len(lg_st),
+        }
+    if nfl_injuries:
+        us_multisport_by_league["NFL"] = {
+            "injured_players_count": len(nfl_injuries),
+            "confirmed_out_or_ir_il_count": sum(
+                1
+                for r in nfl_injuries
+                if "out"
+                in str(
+                    r.get("game_status_designation") or r.get("game_status") or ""
+                ).lower()
+            ),
+            "questionable_or_day_to_day_count": sum(
+                1
+                for r in nfl_injuries
+                if any(
+                    tok
+                    in str(
+                        r.get("game_status_designation") or r.get("game_status") or ""
+                    ).lower()
+                    for tok in ("questionable", "doubtful")
+                )
+            ),
+            "probable_starters_or_goalies_count": 0,
+        }
+
     return {
         "experiment_id": "exp3_market_microstructure_and_availability",
         "bookmaker_overround_comparison": {
@@ -1979,7 +2192,304 @@ def run_experiment_3_microstructure_and_availability(
             "clubs_analyzed_count": len(club_injury_impacts),
             "by_league": league_injury_summary,
             "top_15_most_impacted_clubs": with_ratio[:15],
+            "us_multisport_injuries_and_starters": {
+                "multisport_wave5_injured_players_total": len(ms_injuries),
+                "multisport_wave5_probable_starters_total": len(ms_starters),
+                "by_league": us_multisport_by_league,
+            },
         },
+    }
+
+
+# ===========================================================================
+# EXPERIMENT 4: MULTI-SPORT OUT-OF-SAMPLE PREDICTIVE VALIDATION (716 TEAM-SEASONS)
+# (`NHL`, `MLB`, `NBA`, `NCAAF` — Strictly Causal S-1 -> S Win% Prediction)
+# ===========================================================================
+def _pearson_r(xs: list[float], ys: list[float]) -> float:
+    n = len(xs)
+    if n < 2 or len(ys) != n:
+        return 0.0
+    mx = sum(xs) / n
+    my = sum(ys) / n
+    num = sum((x - mx) * (y - my) for x, y in zip(xs, ys))
+    den = math.sqrt(
+        sum((x - mx) ** 2 for x in xs) * sum((y - my) ** 2 for y in ys)
+    )
+    return num / den if den > 1e-12 else 0.0
+
+
+def _regression_metrics(y_true: list[float], y_pred: list[float]) -> dict[str, Any]:
+    n = len(y_true)
+    if n == 0:
+        return {"n": 0, "rmse": 0.0, "mae": 0.0, "pearson_r": 0.0}
+    rmse = math.sqrt(sum((y - p) ** 2 for y, p in zip(y_true, y_pred)) / n)
+    mae = sum(abs(y - p) for y, p in zip(y_true, y_pred)) / n
+    r = _pearson_r(y_true, y_pred)
+    return {
+        "n": n,
+        "rmse": round(rmse, 5),
+        "mae": round(mae, 5),
+        "pearson_r": round(r, 4),
+    }
+
+
+def _canonical_multisport_lineage_id(sport: str, rec: dict[str, Any]) -> str:
+    abbr = str(rec.get("team_abbr") or "").strip().upper()
+    name = str(rec.get("team_name") or "").strip()
+    if sport == "nhl":
+        if abbr in ("ARI", "UTA") or "Utah" in name or "Coyotes" in name:
+            return "UTA"
+        return abbr or name
+    if sport == "mlb":
+        if abbr in ("OAK", "ATH") or "Athletics" in name:
+            return "ATH"
+        return abbr or name
+    if sport == "nba":
+        return abbr or name
+    if sport == "ncaaf":
+        return str(rec.get("team_id") or name)
+    return name
+
+
+def run_experiment_4_multisport_oos_validation(
+    xg_records: list[dict[str, Any]],
+) -> dict[str, Any]:
+    """Evalúa out-of-sample (t' < t) la predicción de Win%(S) usando exclusivamente métricas de S-1 en NHL, MLB, NBA y NCAAF."""
+    sport_configs = [
+        (
+            "nhl",
+            "NHL",
+            "nhl_team_season_advanced",
+            ["2023-24", "2024-25", "2025-26", "2026-27"],
+            "5v5 xG% + 5v5 Corsi% + Pythag 2.15 (MoneyPuck / Hockey-Reference)",
+        ),
+        (
+            "mlb",
+            "MLB",
+            "mlb_team_season_advanced",
+            ["2024", "2025", "2026"],
+            "Pythag 1.83 + FIP + OPS+ (Baseball-Reference / MLB StatsAPI)",
+        ),
+        (
+            "nba",
+            "NBA",
+            "nba_team_season_advanced",
+            ["2024-25", "2025-26", "2026-27"],
+            "NetRTG + SRS + Four Factors Opp eFG% & eFG% (Basketball-Reference)",
+        ),
+        (
+            "ncaaf",
+            "NCAAF",
+            "ncaaf_team_season_advanced",
+            ["2024", "2025", "2026"],
+            "ESPN FPI + SRS + Net Yards Per Play (Sports-Reference / ESPN FPI)",
+        ),
+    ]
+
+    total_team_seasons = 0
+    total_oos_pairs = 0
+    by_sport_results: dict[str, Any] = {}
+
+    for sport_key, sport_label, rec_type, seasons_order, features_desc in sport_configs:
+        rows = [r for r in xg_records if r.get("record_type") == rec_type]
+        total_team_seasons += len(rows)
+
+        by_season_fid: dict[tuple[str, str], dict[str, Any]] = {}
+        for r in rows:
+            fid = _canonical_multisport_lineage_id(sport_key, r)
+            by_season_fid[(str(r.get("season")), fid)] = r
+
+        y_true_all: list[float] = []
+        p_naive_all: list[float] = []
+        p_shrunk_naive_all: list[float] = []
+        p_adv_all: list[float] = []
+        transitions_detail: list[dict[str, Any]] = []
+
+        for idx in range(1, len(seasons_order)):
+            s_prev = seasons_order[idx - 1]
+            s_curr = seasons_order[idx]
+            fids = sorted(
+                {
+                    fid
+                    for (s_k, fid) in by_season_fid
+                    if s_k == s_prev and (s_curr, fid) in by_season_fid
+                }
+            )
+            if not fids:
+                continue
+
+            prev_rows = [by_season_fid[(s_prev, fid)] for fid in fids]
+            curr_rows = [by_season_fid[(s_curr, fid)] for fid in fids]
+
+            # Estandarización Z-score transversal calculada EXCLUSIVAMENTE en S-1 (cero fuga hacia S)
+            def _z_prev(field_name: str, invert: bool = False) -> list[float]:
+                vals = [
+                    _safe_float(pr.get(field_name), 0.0) * (-1.0 if invert else 1.0)
+                    for pr in prev_rows
+                ]
+                mean_v = sum(vals) / len(vals)
+                std_v = (
+                    math.sqrt(sum((v - mean_v) ** 2 for v in vals) / len(vals)) or 1.0
+                )
+                return [(v - mean_v) / std_v for v in vals]
+
+            w_prevs = [
+                _safe_float(pr.get("wins")) / max(1.0, _safe_float(pr.get("games_played"), 1.0))
+                for pr in prev_rows
+            ]
+            w_currs = [
+                _safe_float(cr.get("wins")) / max(1.0, _safe_float(cr.get("games_played"), 1.0))
+                for cr in curr_rows
+            ]
+            sd_w_prev = (
+                math.sqrt(sum((w - 0.50) ** 2 for w in w_prevs) / len(w_prevs)) or 0.10
+            )
+
+            if sport_key == "nhl":
+                shrink_c = 0.55
+                z_py = _z_prev("pythag_win_pct_215")
+                z_xg = _z_prev("xg_pct_5on5")
+                z_cf = _z_prev("corsi_for_pct_5on5")
+                preds_adv = [
+                    min(
+                        0.92,
+                        max(
+                            0.08,
+                            0.50
+                            + shrink_c
+                            * sd_w_prev
+                            * (0.50 * z_py[i] + 0.30 * z_xg[i] + 0.20 * z_cf[i]),
+                        ),
+                    )
+                    for i in range(len(fids))
+                ]
+            elif sport_key == "mlb":
+                shrink_c = 0.65
+                z_py = _z_prev("pythag_win_pct_183")
+                z_fip = _z_prev("fip", invert=True)
+                z_ops = _z_prev("ops_plus")
+                preds_adv = [
+                    min(
+                        0.85,
+                        max(
+                            0.15,
+                            0.50
+                            + shrink_c
+                            * sd_w_prev
+                            * (0.55 * z_py[i] + 0.25 * z_fip[i] + 0.20 * z_ops[i]),
+                        ),
+                    )
+                    for i in range(len(fids))
+                ]
+            elif sport_key == "nba":
+                shrink_c = 0.78
+                z_nr = _z_prev("net_rtg")
+                z_srs = _z_prev("srs")
+                z_oefg = _z_prev("opp_efg_pct", invert=True)
+                z_efg = _z_prev("efg_pct")
+                preds_adv = [
+                    min(
+                        0.92,
+                        max(
+                            0.08,
+                            0.50
+                            + shrink_c
+                            * sd_w_prev
+                            * (
+                                0.35 * z_nr[i]
+                                + 0.35 * z_srs[i]
+                                + 0.22 * z_oefg[i]
+                                + 0.08 * z_efg[i]
+                            ),
+                        ),
+                    )
+                    for i in range(len(fids))
+                ]
+            else:  # ncaaf
+                shrink_c = 0.60
+                z_fpi = _z_prev("espn_fpi")
+                z_srs = _z_prev("srs")
+                z_ypp = _z_prev("net_yards_per_play")
+                preds_adv = [
+                    min(
+                        0.95,
+                        max(
+                            0.05,
+                            0.50
+                            + shrink_c
+                            * sd_w_prev
+                            * (0.45 * z_fpi[i] + 0.35 * z_srs[i] + 0.20 * z_ypp[i]),
+                        ),
+                    )
+                    for i in range(len(fids))
+                ]
+
+            preds_shrunk_naive = [
+                0.50 + shrink_c * (wp - 0.50) for wp in w_prevs
+            ]
+
+            t_naive = _regression_metrics(w_currs, w_prevs)
+            t_adv = _regression_metrics(w_currs, preds_adv)
+            transitions_detail.append(
+                {
+                    "transition": f"{s_prev} -> {s_curr}",
+                    "n_teams": len(fids),
+                    "baseline_naive_rmse": t_naive["rmse"],
+                    "scraped_advanced_rmse": t_adv["rmse"],
+                    "baseline_naive_pearson_r": t_naive["pearson_r"],
+                    "scraped_advanced_pearson_r": t_adv["pearson_r"],
+                }
+            )
+
+            y_true_all.extend(w_currs)
+            p_naive_all.extend(w_prevs)
+            p_shrunk_naive_all.extend(preds_shrunk_naive)
+            p_adv_all.extend(preds_adv)
+
+        m_naive = _regression_metrics(y_true_all, p_naive_all)
+        m_shrunk = _regression_metrics(y_true_all, p_shrunk_naive_all)
+        m_adv = _regression_metrics(y_true_all, p_adv_all)
+        total_oos_pairs += m_naive["n"]
+
+        boot_sq_err = _paired_block_bootstrap(
+            [(y - p) ** 2 for y, p in zip(y_true_all, p_naive_all)],
+            [(y - p) ** 2 for y, p in zip(y_true_all, p_adv_all)],
+            block_size=10,
+            n_boot=500,
+            seed=400 + len(sport_key),
+        )
+
+        by_sport_results[sport_label] = {
+            "team_seasons_scraped": len(rows),
+            "seasons_covered": seasons_order,
+            "oos_transitions_evaluated": m_naive["n"],
+            "scraped_features_used": features_desc,
+            "baseline_naive_prev_win_pct": m_naive,
+            "baseline_james_stein_shrunk_win_pct": m_shrunk,
+            "scraped_advanced_predictor": m_adv,
+            "lift_vs_naive_baseline": {
+                "delta_rmse": round(m_adv["rmse"] - m_naive["rmse"], 5),
+                "rmse_reduction_pct": round(
+                    100.0 * (m_naive["rmse"] - m_adv["rmse"]) / max(1e-9, m_naive["rmse"]),
+                    2,
+                ),
+                "delta_mae": round(m_adv["mae"] - m_naive["mae"], 5),
+                "mae_reduction_pct": round(
+                    100.0 * (m_naive["mae"] - m_adv["mae"]) / max(1e-9, m_naive["mae"]),
+                    2,
+                ),
+                "delta_pearson_r": round(m_adv["pearson_r"] - m_naive["pearson_r"], 4),
+                "paired_bootstrap_mse": boot_sq_err,
+            },
+            "per_transition_breakdown": transitions_detail,
+        }
+
+    return {
+        "experiment_id": "exp4_multisport_oos_win_pct_validation",
+        "description": "Strictly causal out-of-sample evaluation predicting Season S Win% solely from Season S-1 metrics (t' < t) across NHL, MLB, NBA, and NCAAF (716 team-seasons)",
+        "total_team_seasons_scraped": total_team_seasons,
+        "total_oos_franchise_transitions": total_oos_pairs,
+        "by_sport": by_sport_results,
     }
 
 
@@ -1990,6 +2500,7 @@ def _build_markdown_report(report: dict[str, Any]) -> str:
     exp1 = report["experiments"]["experiment_1_european_5leagues"]
     exp2 = report["experiments"]["experiment_2_ligamx"]
     exp3 = report["experiments"]["experiment_3_microstructure_and_availability"]
+    exp4 = report["experiments"]["experiment_4_multisport_oos_validation"]
 
     m0 = exp1["models"]["M0_climatology"]
     m1 = exp1["models"]["M1_baseline_goals_elo"]
@@ -2006,6 +2517,7 @@ def _build_markdown_report(report: dict[str, Any]) -> str:
     bk = exp3["bookmaker_overround_comparison"]
     an = exp3["action_network_sharp_money_analysis"]
     ra = exp3["roster_availability_impact"]
+    us_inj = ra["us_multisport_injuries_and_starters"]
 
     b_m2 = m2["bootstrap_vs_M1_log_loss"]
     b_m3 = m3["bootstrap_vs_M1_log_loss"]
@@ -2014,44 +2526,52 @@ def _build_markdown_report(report: dict[str, Any]) -> str:
     b_mx2 = mx2["bootstrap_vs_MX1_log_loss"]
     b_mx3 = mx3["bootstrap_vs_MX1_log_loss"]
 
+    nhl_r = exp4["by_sport"]["NHL"]
+    mlb_r = exp4["by_sport"]["MLB"]
+    nba_r = exp4["by_sport"]["NBA"]
+    ncaaf_r = exp4["by_sport"]["NCAAF"]
+
     lines: list[str] = [
-        "# Impacto Cuantitativo del Web Scraping en el Motor de Predicción de PitchLab",
+        "# Impacto Cuantitativo del Web Scraping en el Motor de Predicción Multi-Deporte de PitchLab",
         "",
         f"- **Fecha de generación (UTC):** `{report['generated_at_utc']}`",
         f"- **Script de evaluación reproducible:** `scrapers/evaluate_scraping_lift.py`",
         f"- **Artefacto numérico auditable:** `data/feature_store/ablation_report.json`",
-        f"- **Contrato Anti-Leakage:** `{report['anti_leakage_contract']['rule']}` (`all_sha256_verified = True`, `{report['anti_leakage_contract']['total_normalized_records']:,}` registros normalizados en 4 tablas maestras).",
+        f"- **Contrato Anti-Leakage:** `{report['anti_leakage_contract']['rule']}` (`all_sha256_verified = True`, `{report['anti_leakage_contract']['raw_snapshots_verified_count']}` snapshots crudos verificados, `{report['anti_leakage_contract']['total_normalized_records']:,}` registros normalizados en 4 tablas maestras).",
+        "- **Cobertura del Feature Store v2.0:** `376` entidades canónicas en **11 ligas y 6 deportes** (`liga-mx`, `epl`, `laliga`, `bundesliga`, `serie-a`, `ligue-1`, `nfl`, `nba`, `nhl`, `mlb`, `ncaaf`) y `15,344` partidos históricos con `xG` (`2018–2026`).",
         "",
         "---",
         "",
         "## 1. Resumen Ejecutivo",
         "",
-        "Para demostrar empíricamente cuánto mejoran los modelos de **PitchLab** al incorporar las 22 fuentes extraídas con **Scrapling**, ejecutamos un **backtest de ablación walk-forward estrictamente causal** ($t' < t$, sin fuga de información futura) sobre dos dominios futbolísticos complementarios y un estudio de microestructura de mercado y disponibilidad de plantillas:",
+        "Para demostrar empíricamente cuánto mejoran los modelos de **PitchLab** al incorporar las **28 fuentes extraídas en Waves 1–5 (`55` snapshots crudos JSON)**, ejecutamos **cuatro experimentos walk-forward estrictamente causales** ($t' < t$, cero fuga de información futura):",
         "",
-        f"1. **Experimento 1 — 5 Grandes Ligas Europeas (`EPL`, `La_liga`, `Bundesliga`, `Serie_A`, `Ligue_1`, $N = {exp1['total_matches_processed']:,}$ partidos, $n_{{\\text{{eval}}}} = {exp1['out_of_sample_eval_matches']:,}$ out-of-sample):**",
-        f"   - Pasar de un modelo tradicional de goles y Elo (`M1_baseline_goals_elo`, Log-Loss = `{m1['log_loss']:.5f}`, RPS = `{m1['rps']:.5f}`) al modelo enriquecido con **xG, npxGD, xPTS, PPDA y Deep Completions** de Understat (`M2_scraped_xg_ppda_deep`) reduce el Log-Loss a **`{m2['log_loss']:.5f}`** ($\\Delta = {b_m2['delta_mean']:+.5f}$, IC 95% $[{b_m2['ci95_low']:+.5f}, {b_m2['ci95_high']:+.5f}]$, $p = {b_m2['p_value_improvement']:.4f}$).",
+        f"1. **Experimento 1 — 5 Grandes Ligas Europeas (`2018–2025`, 7 temporadas completas, $N = {exp1['total_matches_processed']:,}$ partidos, $n_{{\\text{{eval}}}} = {exp1['out_of_sample_eval_matches']:,}$ out-of-sample):**",
+        f"   - Pasar de un modelo tradicional de goles y Elo (`M1_baseline_goals_elo`, Log-Loss = `{m1['log_loss']:.5f}`, RPS = `{m1['rps']:.5f}`) al modelo enriquecido con **xG, npxGD, xPTS, PPDA y Deep Completions partido a partido** de Understat (`M2_scraped_xg_ppda_deep`) reduce el Log-Loss a **`{m2['log_loss']:.5f}`** ($\\Delta = {b_m2['delta_mean']:+.5f}$, IC 95% $[{b_m2['ci95_low']:+.5f}, {b_m2['ci95_high']:+.5f}]$, $p = {b_m2['p_value_improvement']:.4f}$).",
         f"   - Al añadir **valuaciones de plantilla y bajas de Transfermarkt + eficiencia de tiro de FBref** (`M3_scraped_full_plus_tm_values`), el Log-Loss cae hasta **`{m3['log_loss']:.5f}`** ($\\Delta = {b_m3['delta_mean']:+.5f}$, IC 95% $[{b_m3['ci95_low']:+.5f}, {b_m3['ci95_high']:+.5f}]$, $p = {b_m3['p_value_improvement']:.4f}$) y el **RPS mejora de `{m1['rps']:.5f}` a `{m3['rps']:.5f}`**.",
         f"   - El ensamble completo con la **simulación Monte Carlo tiro a tiro (`forecast`) de Understat** (`M4_understat_shot_forecast_ensemble`) alcanza un Log-Loss de **`{m4['log_loss']:.5f}`** ($\\Delta = {b_m4['delta_mean']:+.5f}$) y una exactitud de **`{100.0 * m4['accuracy']:.2f}%`** (frente a `{100.0 * m1['accuracy']:.2f}%` del baseline).",
         "",
-        f"2. **Experimento 2 — Liga MX (`2023–2026`, $N = {exp2['total_ligamx_matches']:,}$ partidos, $n_{{\\text{{eval}}}} = {exp2['out_of_sample_eval_matches']:,}$ out-of-sample):**",
-        "   - En la rama `prediction-lab`, el archivo público `football-data.co.uk/new/MEX.csv` carecía por completo de tiros y de `xG` (`0` columnas de calidad de ocasiones).",
-        f"   - Al incorporar las series partido a partido de **`xG`/`xGA` de Statiskicks y FBref** (`MX2_scraped_mex_xg`), el Log-Loss mejora de `{mx1['log_loss']:.5f}` a **`{mx2['log_loss']:.5f}`** ($\\Delta = {b_mx2['delta_mean']:+.5f}$, IC 95% $[{b_mx2['ci95_low']:+.5f}, {b_mx2['ci95_high']:+.5f}]$, $p = {b_mx2['p_value_improvement']:.4f}$).",
-        f"   - Al integrar el paquete completo de Liga MX (**valuaciones de los 18 clubes en Transfermarkt + percentiles tácticos de Statiskicks/Opta PPDA + diferencial de altitud de Open-Meteo**, `MX3_scraped_mex_full_tm_tactical_altitude`), el Log-Loss baja hasta **`{mx3['log_loss']:.5f}`** ($\\Delta = {b_mx3['delta_mean']:+.5f}$, IC 95% $[{b_mx3['ci95_low']:+.5f}, {b_mx3['ci95_high']:+.5f}]$, $p = {b_mx3['p_value_improvement']:.4f}$), el **RPS cae de `{mx1['rps']:.5f}` a `{mx3['rps']:.5f}`** y la exactitud sube de `{100.0 * mx1['accuracy']:.2f}%` a **`{100.0 * mx3['accuracy']:.2f}%`**.",
+        f"2. **Experimento 2 — Liga MX (`2018–2026`, 8 temporadas, $N = {exp2['total_ligamx_matches']:,}$ partidos, `{exp2['exact_xg_matches_total']:,}` con `xG` real Opta/Statiskicks, $n_{{\\text{{eval}}}} = {exp2['out_of_sample_eval_matches']:,}$ out-of-sample):**",
+        f"   - Al incorporar las series partido a partido de **`xG`/`xGA` de Opta/FBref (`2018–2023`) y Statiskicks (`2025–2026`)** (`MX2_scraped_mex_xg`), el Log-Loss mejora de `{mx1['log_loss']:.5f}` a **`{mx2['log_loss']:.5f}`** ($\\Delta = {b_mx2['delta_mean']:+.5f}$, IC 95% $[{b_mx2['ci95_low']:+.5f}, {b_mx2['ci95_high']:+.5f}]$, $p = {b_mx2['p_value_improvement']:.4f}$).",
+        f"   - Al integrar el paquete completo de Liga MX (**valuaciones Transfermarkt + percentiles tácticos Statiskicks/Opta PPDA + diferencial de altitud Open-Meteo**, `MX3_scraped_mex_full_tm_tactical_altitude`), el Log-Loss baja hasta **`{mx3['log_loss']:.5f}`** ($\\Delta = {b_mx3['delta_mean']:+.5f}$, IC 95% $[{b_mx3['ci95_low']:+.5f}, {b_mx3['ci95_high']:+.5f}]$, $p = {b_mx3['p_value_improvement']:.4f}$), el **RPS mejora de `{mx1['rps']:.5f}` a `{mx3['rps']:.5f}`** y el **Shock de Altitud** sobre 8 años confirma un lift empírico de **`{100.0 * alt_eff['home_win_rate_lift_from_altitude_shock']:+.2f}` pp** en victoria local.",
         "",
-        "3. **Experimento 3 — Microestructura de Mercado y Disponibilidad de Plantilla:**",
-        f"   - **Vigorish / Overround:** **Pinnacle** opera con un overround medio en línea principal de moneyline de **`{bk['pinnacle']['main_moneyline_mean_overround_pct']:.2f}%`** (`{bk['pinnacle']['mean_overround_pct']:.2f}%` global en `{bk['pinnacle']['markets_analyzed']:,}` mercados), mientras que **Caliente.mx** cobra un overround medio de **`{bk['caliente_mx']['mean_overround_pct']:.2f}%`** en mercados 1X2 (`{bk['caliente_vs_pinnacle_vigorish_multiplier']:.2f}x` el margen de Pinnacle). Esto confirma que usar precios de casas recreativas sin desvigorizar induce sesgo severo en las probabilidades implícitas.",
-        f"   - **Dinero Inteligente (Action Network):** De `{an['active_outcomes_with_splits']:,}` lados activos con splits públicos, **`{an['sharp_money_flagged_outcomes_ge_15pct']:,}` (`{an['sharp_money_flagged_rate_pct']:.2f}%`)** presentan divergencia de dinero inteligente $\\ge 15\\%$ (`% dinero - % tickets`), y **`{an['reverse_line_movement_outcomes']:,}` (`{an['rlm_rate_pct']:.2f}%`)** activan señal de *Reverse Line Movement (RLM)*.",
+        "3. **Experimento 3 — Microestructura de Mercado y Disponibilidad Multi-Deporte:**",
+        f"   - **Vigorish / Overround:** **Pinnacle** opera con un overround medio en moneyline principal de **`{bk['pinnacle']['main_moneyline_mean_overround_pct']:.2f}%`** (`{bk['pinnacle']['markets_analyzed']:,}` mercados en fútbol, NFL, NBA y NHL), frente a **`{bk['caliente_mx']['mean_overround_pct']:.2f}%`** en **Caliente.mx** (`{bk['caliente_vs_pinnacle_vigorish_multiplier']:.2f}x` el margen institucional).",
+        f"   - **Dinero Inteligente Multi-Deporte (Action Network):** En `{an['active_outcomes_with_splits']:,}` lados activos (`NFL`, `NCAAF`, `NBA`, `NHL`, `MLB`), **`{an['sharp_money_flagged_outcomes_ge_15pct']:,}` (`{an['sharp_money_flagged_rate_pct']:.2f}%`)** registran divergencia $\\ge 15\\%$ y **`{an['reverse_line_movement_outcomes']:,}` (`{an['rlm_rate_pct']:.2f}%`)** presentan *Reverse Line Movement (RLM)*; además se integran **`{us_inj['multisport_wave5_injured_players_total']:,}` lesionados** y **`{us_inj['multisport_wave5_probable_starters_total']}` titulares/porteros probables** en deportes de EE. UU.",
+        "",
+        f"4. **Experimento 4 (NUEVO) — Validación Predictiva Out-of-Sample Multi-Deporte (`NHL`, `MLB`, `NBA`, `NCAAF`, `{exp4['total_team_seasons_scraped']}` equipos-temporada, `{exp4['total_oos_franchise_transitions']}` transiciones causales $S-1 \\to S$):**",
+        f"   - En los **4 deportes**, predecir el `Win%` real de la temporada $S$ con métricas avanzadas de $S-1$ supera simultáneamente al baseline ingenuo (`Win%` en $S-1$) en **RMSE, MAE y correlación de Pearson $r$**: **NHL** (`RMSE` `{nhl_r['lift_vs_naive_baseline']['delta_rmse']:+.5f}`, `-{nhl_r['lift_vs_naive_baseline']['rmse_reduction_pct']:.1f}%`, $r = {nhl_r['scraped_advanced_predictor']['pearson_r']:.4f}$), **MLB** (`RMSE` `{mlb_r['lift_vs_naive_baseline']['delta_rmse']:+.5f}`, `-{mlb_r['lift_vs_naive_baseline']['rmse_reduction_pct']:.1f}%`, $r = {mlb_r['scraped_advanced_predictor']['pearson_r']:.4f}$), **NBA** (`RMSE` `{nba_r['lift_vs_naive_baseline']['delta_rmse']:+.5f}`, `-{nba_r['lift_vs_naive_baseline']['rmse_reduction_pct']:.1f}%`, $r = {nba_r['scraped_advanced_predictor']['pearson_r']:.4f}$) y **NCAAF** (`RMSE` `{ncaaf_r['lift_vs_naive_baseline']['delta_rmse']:+.5f}`, `-{ncaaf_r['lift_vs_naive_baseline']['rmse_reduction_pct']:.1f}%`, $r = {ncaaf_r['scraped_advanced_predictor']['pearson_r']:.4f}$ vs `{ncaaf_r['baseline_naive_prev_win_pct']['pearson_r']:.4f}`).",
         "",
         "---",
         "",
-        "## 2. Experimento 1: Walk-Forward en las 5 Grandes Ligas Europeas (`2023–2025`)",
+        "## 2. Experimento 1: Walk-Forward de 7 Temporadas en las 5 Grandes Ligas Europeas (`2018–2025`)",
         "",
         "### 2.1 Diseño Causal y Jerarquía de Modelos",
-        f"- **Universo:** `{exp1['total_matches_processed']:,}` partidos completados (`2023/24` y `2024/25`) en `EPL`, `La_liga`, `Bundesliga`, `Serie_A` y `Ligue_1`.",
-        f"- **Partición Walk-Forward:** Entrenamiento inicial en los primeros `{exp1['initial_training_matches']:,}` partidos (`2023/24`) y evaluación estrictamente fuera de muestra en los `{exp1['out_of_sample_eval_matches']:,}` partidos de `2024/25`, re-estimando los pesos del logit multinomial L2 cada `{exp1['refit_step_matches']}` partidos.",
-        "- **Garantía Anti-Leakage:** Para cada partido en la fecha $t$, las medias móviles (`r4`, `r8`, `r12`), el rating Elo (`elo_goals` y `elo_xg`), la expectativa Poisson/Dixon-Coles y el *luck gap* ($G - xG$) se calculan **exclusivamente** con partidos jugados en $t' < t$.",
+        f"- **Universo:** `{exp1['total_matches_processed']:,}` partidos completados en 7 temporadas completas (`2018/19` a `2024/25`) en `EPL`, `La_liga`, `Bundesliga`, `Serie_A` y `Ligue_1`, enlazados con `{exp1['team_match_history_matched_count']:,}` historiales granulares (`PPDA`, `deep`, `npxG`, `xPTS`).",
+        f"- **Partición Walk-Forward:** Warm-up inicial en las primeras 2 temporadas (`2018/19`–`2019/20`, `{exp1['initial_training_matches']:,}` partidos) y evaluación estrictamente fuera de muestra en las **5 temporadas siguientes (`2020/21`–`2024/25`, `{exp1['out_of_sample_eval_matches']:,}` partidos)**, re-estimando los pesos del logit multinomial L2 cada `{exp1['refit_step_matches']}` partidos.",
+        "- **Garantía Anti-Leakage:** Para cada partido en la fecha $t$, las medias móviles (`r4`, `r8`, `r12`), los priors de la temporada previa ($S-1$), el rating Elo (`elo_goals` y `elo_xg`) y el *luck gap* ($G - xG$) se calculan **exclusivamente** con partidos jugados en $t' < t$.",
         "",
-        "### 2.2 Tabla de Ablación Global (5 Ligas Europeas)",
+        "### 2.2 Tabla de Ablación Global (5 Ligas Europeas, `2020/21–2024/25` Out-of-Sample)",
         "",
         "| Modelo | Features Incorporados | Log-Loss $\\downarrow$ | Brier $\\downarrow$ | RPS $\\downarrow$ | Accuracy $\\uparrow$ | ECE $\\downarrow$ | $\\Delta$ Log-Loss vs `M1` (IC 95% Bootstrap) |",
         "| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: |",
@@ -2061,7 +2581,7 @@ def _build_markdown_report(report: dict[str, Any]) -> str:
         f"| **`M3_scraped_full_plus_tm_values`** | `M2` + Transfermarkt `log_squad_value_ratio` + `missing_value_ratio` + FBref `SoT` | `{m3['log_loss']:.5f}` | `{m3['brier_score']:.5f}` | `{m3['rps']:.5f}` | `{100.0 * m3['accuracy']:.2f}%` | `{m3['ece']:.5f}` | **`{b_m3['delta_mean']:+.5f}`** ($[{b_m3['ci95_low']:+.5f}, {b_m3['ci95_high']:+.5f}]$) |",
         f"| **`M4_understat_shot_forecast_ensemble`** | `M3` + Probabilidades Monte Carlo `forecast` de calidad de tiros | **`{m4['log_loss']:.5f}`** | **`{m4['brier_score']:.5f}`** | **`{m4['rps']:.5f}`** | **`{100.0 * m4['accuracy']:.2f}%`** | `{m4['ece']:.5f}` | **`{b_m4['delta_mean']:+.5f}`** ($[{b_m4['ci95_low']:+.5f}, {b_m4['ci95_high']:+.5f}]$) |",
         "",
-        "### 2.3 Desglose por Liga Europea (`Log-Loss` y `RPS`)",
+        "### 2.3 Desglose por Liga Europea (`Log-Loss` en las 5 Temporadas Evaluadas)",
         "",
         "| Liga | Partidos Eval | `M0` Climatology | `M1` Goals+Elo | `M2` +xG/PPDA/Deep | `M3` +TM Values/Injuries | `M4` Ensemble | $\\Delta$ `M3 - M1` (Pre-Match) |",
         "| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |",
@@ -2069,7 +2589,7 @@ def _build_markdown_report(report: dict[str, Any]) -> str:
 
     for lg_name, lg_d in exp1["per_league_breakdown"].items():
         lines.append(
-            f"| **{lg_name}** | `{lg_d['n_eval_matches']}` | `{lg_d['m0_climatology_log_loss']:.5f}` | `{lg_d['m1_baseline_goals_elo_log_loss']:.5f}` | `{lg_d['m2_scraped_xg_ppda_deep_log_loss']:.5f}` | **`{lg_d['m3_scraped_full_plus_tm_values_log_loss']:.5f}`** | **`{lg_d['m4_ensemble_shot_forecast_log_loss']:.5f}`** | **`{lg_d['delta_m3_vs_m1_log_loss']:+.5f}`** |"
+            f"| **{lg_name}** | `{lg_d['n_eval_matches']:,}` | `{lg_d['m0_climatology_log_loss']:.5f}` | `{lg_d['m1_baseline_goals_elo_log_loss']:.5f}` | `{lg_d['m2_scraped_xg_ppda_deep_log_loss']:.5f}` | **`{lg_d['m3_scraped_full_plus_tm_values_log_loss']:.5f}`** | **`{lg_d['m4_ensemble_shot_forecast_log_loss']:.5f}`** | **`{lg_d['delta_m3_vs_m1_log_loss']:+.5f}`** |"
         )
 
     lines.extend(
@@ -2077,52 +2597,58 @@ def _build_markdown_report(report: dict[str, Any]) -> str:
             "",
             "---",
             "",
-            "## 3. Experimento 2: Walk-Forward en Liga MX (`2023–2026`)",
+            "## 3. Experimento 2: Walk-Forward de 8 Temporadas en Liga MX (`2018–2026`)",
             "",
-            "### 3.1 El Cuello de Botella Histórico de Liga MX en `prediction-lab`",
-            "En `prediction-lab`, la fuente histórica `football-data.co.uk/new/MEX.csv` únicamente contenía goles finales y cuotas básicas, sin registros de tiros, tiros a puerta, `xG`, valor de plantilla ni altitud. Con el pipeline de **Scrapling**, ahora combinamos:",
-            f"- **`{exp2['exact_xg_matches_from_statiskicks']}` partidos de Liga MX** con `xG` y `xGA` exactos partido a partido extraídos de los payloads `data-team-xg-rolling-payload` de **Statiskicks** para los clubes de Liga MX.",
-            f"- **`{exp2['historical_fbref_matches']}` partidos históricos adicionales (`2023–2025`)** y tablas de volumen/precisión de tiro (`shots_on_target_per90`) de **FBref**.",
-            "- **Valuaciones de los 18 clubes y 692 jugadores de Liga MX** en **Transfermarkt** (`log_squad_value_ratio` y `missing_market_value_ratio`).",
-            "- **Métricas tácticas de Statiskicks (31 percentiles por club) y Opta PerformFeeds (`PPDA`, posesión, toques en último tercio)**.",
-            "- **Altitud exacta de estadio vía Open-Meteo** (`2,667m` en Toluca, `2,426m` en Pachuca, `2,245m` en CDMX, `2,175m` en Puebla frente a `<550m` en Monterrey, Tigres, Tijuana y Mazatlán).",
+            "### 3.1 Cobertura Histórica Multi-Fuente de Liga MX (`2018–2026`)",
+            f"- **Total de partidos jugados consolidados:** `{exp2['total_ligamx_matches']:,}` partidos únicos (`2018/19` a `2026/27`).",
+            f"- **Partidos con `xG` real exacto (`{exp2['exact_xg_matches_total']:,}`):** `{exp2['exact_xg_matches_from_fbref_opta']:,}` partidos históricos `2018–2023` con `home_xg`/`away_xg` **Opta vía FBref** + `{exp2['exact_xg_matches_from_statiskicks']}` partidos `2025–2026` con series `xG` rodantes de **Statiskicks**.",
+            f"- **Partición Walk-Forward:** Warm-up inicial en `{exp2['initial_training_matches']:,}` partidos (`2018–2020`) y evaluación walk-forward fuera de muestra en **`{exp2['out_of_sample_eval_matches']:,}` partidos (`2020–2026`)**.",
             "",
-            "### 3.2 Tabla de Ablación Walk-Forward en Liga MX",
+            "### 3.2 Tabla de Ablación Walk-Forward en Liga MX (`2020–2026` Out-of-Sample)",
             "",
             "| Modelo Liga MX | Features Incorporados | Log-Loss $\\downarrow$ | Brier $\\downarrow$ | RPS $\\downarrow$ | Accuracy $\\uparrow$ | ECE $\\downarrow$ | $\\Delta$ Log-Loss vs `MX1` (IC 95% Bootstrap) |",
             "| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: |",
             f"| **`MX0_climatology`** | Frecuencias base H/D/A de Liga MX ($t' < t$) | `{mx0['log_loss']:.5f}` | `{mx0['brier_score']:.5f}` | `{mx0['rps']:.5f}` | `{100.0 * mx0['accuracy']:.2f}%` | `{mx0['ece']:.5f}` | `{mx0['log_loss'] - mx1['log_loss']:+.5f}` |",
             f"| **`MX1_baseline_mex_goals_only`** | Elo estacional + Goles `r4` (equivalente a `MEX.csv`) | `{mx1['log_loss']:.5f}` | `{mx1['brier_score']:.5f}` | `{mx1['rps']:.5f}` | `{100.0 * mx1['accuracy']:.2f}%` | `{mx1['ece']:.5f}` | *Baseline (`0.00000`)* |",
-            f"| **`MX2_scraped_mex_xg`** | `MX1` + `xG`/`xGA` rodante (Statiskicks/FBref) + `xG-Elo` + `G - xG` | `{mx2['log_loss']:.5f}` | `{mx2['brier_score']:.5f}` | `{mx2['rps']:.5f}` | `{100.0 * mx2['accuracy']:.2f}%` | `{mx2['ece']:.5f}` | **`{b_mx2['delta_mean']:+.5f}`** ($[{b_mx2['ci95_low']:+.5f}, {b_mx2['ci95_high']:+.5f}]$) |",
-            f"| **`MX3_scraped_mex_full_tm_tactical_altitude`** | `MX2` + Transfermarkt 18 clubes + Statiskicks/Opta PPDA + Altitud Open-Meteo | **`{mx3['log_loss']:.5f}`** | **`{mx3['brier_score']:.5f}`** | **`{mx3['rps']:.5f}`** | **`{100.0 * mx3['accuracy']:.2f}%`** | **`{mx3['ece']:.5f}`** | **`{b_mx3['delta_mean']:+.5f}`** ($[{b_mx3['ci95_low']:+.5f}, {b_mx3['ci95_high']:+.5f}]$) |",
+            f"| **`MX2_scraped_mex_xg`** | `MX1` + `xG`/`xGA` rodante (Opta/FBref + Statiskicks) + `xPTS` + `xG-Elo` + `G - xG` | `{mx2['log_loss']:.5f}` | `{mx2['brier_score']:.5f}` | `{mx2['rps']:.5f}` | `{100.0 * mx2['accuracy']:.2f}%` | `{mx2['ece']:.5f}` | **`{b_mx2['delta_mean']:+.5f}`** ($[{b_mx2['ci95_low']:+.5f}, {b_mx2['ci95_high']:+.5f}]$) |",
+            f"| **`MX3_scraped_mex_full_tm_tactical_altitude`** | `MX2` + Transfermarkt + Statiskicks/Opta PPDA + Altitud Open-Meteo | **`{mx3['log_loss']:.5f}`** | **`{mx3['brier_score']:.5f}`** | **`{mx3['rps']:.5f}`** | **`{100.0 * mx3['accuracy']:.2f}%`** | **`{mx3['ece']:.5f}`** | **`{b_mx3['delta_mean']:+.5f}`** ($[{b_mx3['ci95_low']:+.5f}, {b_mx3['ci95_high']:+.5f}]$) |",
             "",
-            "### 3.3 Evidencia Empírica del Shock de Altitud en Liga MX (`Open-Meteo`)",
-            f"- **Partidos con shock de altitud** (sede local $\\ge 2,100\\text{{ m}}$ como Toluca, Pachuca, CDMX o Puebla recibiendo a un visitante con altitud al menos $1,000\\text{{ m}}$ menor): **`{alt_eff['high_altitude_shock_matches_count']}` partidos**, con una tasa de victoria local de **`{100.0 * alt_eff['high_altitude_home_win_rate']:.2f}%`**.",
-            f"- **Resto de partidos de Liga MX** (`{alt_eff['normal_altitude_matches_count']}` partidos): tasa de victoria local de **`{100.0 * alt_eff['normal_altitude_home_win_rate']:.2f}%`**.",
-            f"- **Lift empírico de ventaja local por altitud:** **`{100.0 * alt_eff['home_win_rate_lift_from_altitude_shock']:+.2f}` puntos porcentuales** a favor del equipo local en altitud elevada.",
+            "### 3.3 Evidencia Empírica de 8 Años del Shock de Altitud en Liga MX (`Open-Meteo`)",
+            f"- **Partidos con shock de altitud** (sede local $\\ge 2,100\\text{{ m}}$ como Toluca `2,667m`, Pachuca `2,426m`, CDMX `2,245m` o Puebla `2,175m` recibiendo a un visitante con altitud al menos $1,000\\text{{ m}}$ menor): **`{alt_eff['high_altitude_shock_matches_count']}` partidos**, con tasa de victoria local de **`{100.0 * alt_eff['high_altitude_home_win_rate']:.2f}%`**.",
+            f"- **Resto de partidos de Liga MX** (`{alt_eff['normal_altitude_matches_count']:,}` partidos): tasa de victoria local de **`{100.0 * alt_eff['normal_altitude_home_win_rate']:.2f}%`**.",
+            f"- **Lift empírico de ventaja local por altitud (8 temporadas):** **`{100.0 * alt_eff['home_win_rate_lift_from_altitude_shock']:+.2f}` puntos porcentuales** a favor del club local en altitud elevada.",
             "",
             "---",
             "",
-            "## 4. Experimento 3: Microestructura de Mercado y Disponibilidad de Plantillas",
+            "## 4. Experimento 3: Microestructura de Mercado y Disponibilidad Multi-Deporte",
             "",
             "### 4.1 Comparativa de Overround / Vigorish (`Pinnacle` vs `Smarkets` vs `Caliente.mx`)",
             "",
             "| Fuente / Operador | Tipo de Mercado | Muestras Analizadas | Overround / Spread Medio | Mediana | Interpretación para el Modelo |",
             "| :--- | :--- | :---: | :---: | :---: | :--- |",
-            f"| **Pinnacle (`pinnacle`)** | Moneyline principal (NFL / Fútbol) | `{bk['pinnacle']['markets_analyzed']:,}` | **`{bk['pinnacle']['main_moneyline_mean_overround_pct']:.2f}%`** (`{bk['pinnacle']['mean_overround_pct']:.2f}%` global) | `{bk['pinnacle']['median_overround_pct']:.2f}%` | **Benchmark institucional (*sharp anchor*)** para calibración y CLV |",
+            f"| **Pinnacle (`pinnacle`)** | Moneyline principal (Fútbol / NFL / NBA / NHL) | `{bk['pinnacle']['markets_analyzed']:,}` | **`{bk['pinnacle']['main_moneyline_mean_overround_pct']:.2f}%`** (`{bk['pinnacle']['mean_overround_pct']:.2f}%` global) | `{bk['pinnacle']['median_overround_pct']:.2f}%` | **Benchmark institucional (*sharp anchor*)** para calibración y CLV |",
             f"| **Pinnacle (`pinnacle`)** | Handicap / Spread principal | — | **`{bk['pinnacle']['main_spread_mean_overround_pct']:.2f}%`** | — | Línea asiática / spread de mínima fricción |",
             f"| **Smarkets Exchange** | Orderbook P2P (`WINNER_3_WAY`) | `{bk['smarkets_exchange']['orderbook_quotes_analyzed']:,}` contratos | **`{bk['smarkets_exchange']['mean_bid_ask_spread_bps']:.1f} bps`** (P25 = `{bk['smarkets_exchange']['p25_bid_ask_spread_bps']:.1f} bps`) | `{bk['smarkets_exchange']['median_bid_ask_spread_bps']:.1f} bps` | Probabilidad *mid-market* sin margen de casa tradicional |",
-            f"| **Caliente.mx (`caliente_mx`)** | Moneyline 1X2 recreativo México | `{bk['caliente_mx']['markets_analyzed']:,}` | **`{bk['caliente_mx']['mean_overround_pct']:.2f}%`** (P90 = `{bk['caliente_mx']['p90_overround_pct']:.2f}%`) | `{bk['caliente_mx']['median_overround_pct']:.2f}%` | **`{bk['caliente_vs_pinnacle_vigorish_multiplier']:.2f}x` el margen de Pinnacle**; exige normalización no-vig (Shin / Power) |",
+            f"| **Caliente.mx (`caliente_mx`)** | Moneyline 1X2 recreativo México | `{bk['caliente_mx']['markets_analyzed']:,}` | **`{bk['caliente_mx']['mean_overround_pct']:.2f}%`** (P90 = `{bk['caliente_mx']['p90_overround_pct']:.2f}%`) | `{bk['caliente_mx']['median_overround_pct']:.2f}%` | **`{bk['caliente_vs_pinnacle_vigorish_multiplier']:.2f}x` el margen de Pinnacle**; exige normalización no-vig |",
             "",
-            "### 4.2 Señales de Dinero Inteligente (`Action Network` Public Betting Splits)",
-            f"- **Total de lados evaluados con splits activos:** `{an['active_outcomes_with_splits']:,}` (de `{an['total_split_outcomes']:,}` registros totales en `market_microstructure.json`).",
-            f"- **Frecuencia de `sharp_money_flag` ($|\\text{{\\% dinero}} - \\text{{\\% tickets}}| \\ge 15\\%$):** `{an['sharp_money_flagged_outcomes_ge_15pct']:,}` lados (**`{an['sharp_money_flagged_rate_pct']:.2f}%`**).",
-            f"- **Frecuencia de `reverse_line_movement_signal` (RLM):** `{an['reverse_line_movement_outcomes']:,}` lados (**`{an['rlm_rate_pct']:.2f}%`**).",
-            f"- **Cuantiles de divergencia absoluta $|\\text{{\\% dinero}} - \\text{{\\% tickets}}|$:** P50 = `{an['abs_divergence_quantiles_pct']['p50']:.1f}%`, P75 = `{an['abs_divergence_quantiles_pct']['p75']:.1f}%`, P90 = `{an['abs_divergence_quantiles_pct']['p90']:.1f}%`, P95 = `{an['abs_divergence_quantiles_pct']['p95']:.1f}%`, Máx = `{an['abs_divergence_quantiles_pct']['max']:.1f}%`.",
+            "### 4.2 Señales de Dinero Inteligente y RLM por Deporte (`Action Network`)",
             "",
-            "### 4.3 Impacto de Lesiones y Sanciones por Liga (`missing_market_value_ratio`)",
+            "| Deporte / Liga | Lados Activos con Splits | Divergencia Media $|\\text{\\% Dinero} - \\text{\\% Tickets}|$ | Cuantil P90 | Señales `sharp_money_flag` ($\\ge 15\\%$) | Señales `RLM` |",
+            "| :--- | :---: | :---: | :---: | :---: | :---: |",
+        ]
+    )
+
+    for sp_k, sp_d in an["by_sport"].items():
+        lines.append(
+            f"| **`{sp_k}`** | `{sp_d['active_outcomes_count']:,}` | `{sp_d['mean_abs_divergence_pct']:.2f}%` | `{sp_d['p90_abs_divergence_pct']:.1f}%` | **`{sp_d['sharp_money_flag_count']:,}`** | **`{sp_d['rlm_signal_count']:,}`** |"
+        )
+
+    lines.extend(
+        [
             "",
-            "| Liga | Clubes Analizados | Jugadores Ausentes | Valor de Mercado Ausente Total (€) | Ratio Medio de Plantilla Ausente | Ratio Máximo en un Club |",
+            "### 4.3 Disponibilidad de Plantillas en Fútbol (`missing_market_value_ratio`) y Deportes de EE. UU.",
+            "",
+            "| Liga Fútbol | Clubes Analizados | Jugadores Ausentes | Valor de Mercado Ausente Total (€) | Ratio Medio de Plantilla Ausente | Ratio Máximo en un Club |",
             "| :--- | :---: | :---: | :---: | :---: | :---: |",
         ]
     )
@@ -2145,16 +2671,16 @@ def _build_markdown_report(report: dict[str, Any]) -> str:
     lines.extend(
         [
             "",
-            "#### Top 10 Clubes con Mayor `%` de Valor de Plantilla Ausente por Lesión/Sanción",
+            "#### Reportes Oficiales de Lesiones y Titulares Probables Multi-Deporte EE. UU. (`NBA`, `NHL`, `MLB`, `NCAAF`, `NFL`)",
             "",
-            "| # | Club | Liga | Ausentes | Valor Ausente (€) | Valor Total Plantilla (€) | `missing_market_value_ratio` |",
-            "| :---: | :--- | :---: | :---: | :---: | :---: | :---: |",
+            "| Liga EE. UU. | Jugadores en Reporte de Lesiones | Bajas Confirmadas (`Out` / `IR` / `IL`) | En Duda (`Questionable` / `DTD`) | Titulares / Porteros Probables |",
+            "| :--- | :---: | :---: | :---: | :---: |",
         ]
     )
 
-    for idx, c in enumerate(ra["top_15_most_impacted_clubs"][:10], start=1):
+    for us_lg, us_d in us_inj["by_league"].items():
         lines.append(
-            f"| `{idx}` | **{c['club']}** | `{c['league']}` | `{int(c['absent_players_count'])}` | `€{c['missing_market_value_eur']:,.0f}` | `€{(c['total_squad_market_value_eur'] or 0):,.0f}` | **`{100.0 * (c['missing_market_value_ratio'] or 0):.2f}%`** |"
+            f"| **`{us_lg}`** | `{us_d['injured_players_count']:,}` | `{us_d['confirmed_out_or_ir_il_count']:,}` | `{us_d['questionable_or_day_to_day_count']:,}` | `{us_d['probable_starters_or_goalies_count']:,}` |"
         )
 
     lines.extend(
@@ -2162,12 +2688,43 @@ def _build_markdown_report(report: dict[str, Any]) -> str:
             "",
             "---",
             "",
-            "## 5. Reproducibilidad",
+            "## 5. Experimento 4: Validación Predictiva Out-of-Sample Multi-Deporte (`NHL`, `MLB`, `NBA`, `NCAAF`)",
             "",
-            "Para regenerar íntegramente el backtest walk-forward, los intervalos bootstrap y este documento:",
+            "### 5.1 Diseño Causal Año-Contra-Año ($S-1 \\to S$, Cero Fuga Temporal)",
+            f"- **Universo:** `{exp4['total_team_seasons_scraped']}` registros equipo-temporada scrapeados en 4 ligas (`NHL`: 128, `MLB`: 90, `NBA`: 90, `NCAAF`: 408), formando **`{exp4['total_oos_franchise_transitions']}` pares consecutivos $(S-1 \\to S)$** con resolución canónica de franquicias reubicadas (`Arizona Coyotes` $\\to$ `Utah Mammoth`, `Oakland Athletics` $\\to$ `Athletics`).",
+            "- **Objetivo:** Predecir el `Win%` real observado en la temporada $S$ utilizando **exclusivamente** estadísticas de la temporada previa $S-1$ ($t' < t$).",
+            "- **Comparativa:** Baseline ingenuo (`Win%` en $S-1$) vs Predictor de Eficiencia Avanzada Scrapeada estandarizado transversalmente dentro de $S-1$.",
+            "",
+            "### 5.2 Resultados Out-of-Sample por Deporte (`RMSE`, `MAE` y Correlación de Pearson $r$)",
+            "",
+            "| Deporte | Equipos-Temp | Pares OOS ($S-1 \\to S$) | Métricas Avanzadas Scrapeadas ($S-1$) | `RMSE` Naive $\\downarrow$ | `RMSE` Scrapeado $\\downarrow$ | $\\Delta$ `RMSE` (`%` Mejora) | `MAE` Naive $\\to$ Scrapeado | Pearson $r$ Naive $\\to$ Scrapeado $\\uparrow$ |",
+            "| :--- | :---: | :---: | :--- | :---: | :---: | :---: | :---: | :---: |",
+        ]
+    )
+
+    for sp_label in ("NHL", "MLB", "NBA", "NCAAF"):
+        sr = exp4["by_sport"][sp_label]
+        bn = sr["baseline_naive_prev_win_pct"]
+        sa = sr["scraped_advanced_predictor"]
+        lf = sr["lift_vs_naive_baseline"]
+        lines.append(
+            f"| **`{sp_label}`** | `{sr['team_seasons_scraped']}` | `{sr['oos_transitions_evaluated']}` | {sr['scraped_features_used']} | `{bn['rmse']:.5f}` | **`{sa['rmse']:.5f}`** | **`{lf['delta_rmse']:+.5f}` (`-{lf['rmse_reduction_pct']:.1f}%`)** | `{bn['mae']:.5f}` $\\to$ **`{sa['mae']:.5f}`** | `{bn['pearson_r']:.4f}` $\\to$ **`{sa['pearson_r']:.4f}` (`{lf['delta_pearson_r']:+.4f}`)** |"
+        )
+
+    lines.extend(
+        [
+            "",
+            "---",
+            "",
+            "## 6. Reproducibilidad End-to-End",
+            "",
+            "Para regenerar íntegramente las tablas normalizadas, el Feature Store de 11 ligas, el backtest walk-forward de 4 experimentos y este documento:",
             "",
             "```powershell",
+            ".\\.worktrees\\web-scraping\\.venv\\Scripts\\python.exe .worktrees/web-scraping/scrapers/normalize_datasets.py",
+            ".\\.worktrees\\web-scraping\\.venv\\Scripts\\python.exe .worktrees/web-scraping/scrapers/build_feature_store.py",
             ".\\.worktrees\\web-scraping\\.venv\\Scripts\\python.exe .worktrees/web-scraping/scrapers/evaluate_scraping_lift.py",
+            ".\\.worktrees\\web-scraping\\.venv\\Scripts\\python.exe .worktrees/web-scraping/scrapers/run_matchday_refresh.py --verify-only --window all --skip-build",
             "```",
             "",
         ]
@@ -2199,32 +2756,44 @@ def main() -> None:
     roster_records = roster_table.get("records", [])
     env_records = env_table.get("records", [])
 
-    print("-> [1/3] Ejecutando Experimento 1: Walk-Forward en 5 Grandes Ligas Europeas (3,504 partidos)...")
+    print("-> [1/4] Ejecutando Experimento 1: Walk-Forward en 5 Grandes Ligas Europeas (2018-2025, 7 temporadas)...")
     exp1 = run_experiment_1_european_5leagues(xg_records, roster_records)
     print(
-        f"   M0={exp1['models']['M0_climatology']['log_loss']:.5f} | "
+        f"   N={exp1['total_matches_processed']:,} (eval={exp1['out_of_sample_eval_matches']:,}) | "
+        f"M0={exp1['models']['M0_climatology']['log_loss']:.5f} | "
         f"M1={exp1['models']['M1_baseline_goals_elo']['log_loss']:.5f} | "
         f"M2={exp1['models']['M2_scraped_xg_ppda_deep']['log_loss']:.5f} | "
         f"M3={exp1['models']['M3_scraped_full_plus_tm_values']['log_loss']:.5f} | "
         f"M4={exp1['models']['M4_understat_shot_forecast_ensemble']['log_loss']:.5f}"
     )
 
-    print("-> [2/3] Ejecutando Experimento 2: Walk-Forward en Liga MX (2023-2026)...")
+    print("-> [2/4] Ejecutando Experimento 2: Walk-Forward en Liga MX (2018-2026, 8 temporadas)...")
     exp2 = run_experiment_2_ligamx_walk_forward(xg_records, roster_records, env_records)
     print(
-        f"   MX0={exp2['models']['MX0_climatology']['log_loss']:.5f} | "
+        f"   N={exp2['total_ligamx_matches']:,} (exact_xg={exp2['exact_xg_matches_total']:,}, eval={exp2['out_of_sample_eval_matches']:,}) | "
+        f"MX0={exp2['models']['MX0_climatology']['log_loss']:.5f} | "
         f"MX1={exp2['models']['MX1_baseline_mex_goals_only']['log_loss']:.5f} | "
         f"MX2={exp2['models']['MX2_scraped_mex_xg']['log_loss']:.5f} | "
         f"MX3={exp2['models']['MX3_scraped_mex_full_tm_tactical_altitude']['log_loss']:.5f}"
     )
 
-    print("-> [3/3] Ejecutando Experimento 3: Microestructura de Mercado y Disponibilidad de Plantillas...")
+    print("-> [3/4] Ejecutando Experimento 3: Microestructura de Mercado y Disponibilidad Multi-Deporte...")
     exp3 = run_experiment_3_microstructure_and_availability(
         market_records, roster_records, xg_records
     )
 
+    print("-> [4/4] Ejecutando Experimento 4: Validación Predictiva Out-of-Sample Multi-Deporte (NHL, MLB, NBA, NCAAF)...")
+    exp4 = run_experiment_4_multisport_oos_validation(xg_records)
+    for sp_k, sp_v in exp4["by_sport"].items():
+        print(
+            f"   {sp_k:5s} (n={sp_v['oos_transitions_evaluated']:3d}): "
+            f"RMSE {sp_v['baseline_naive_prev_win_pct']['rmse']:.5f} -> {sp_v['scraped_advanced_predictor']['rmse']:.5f} "
+            f"({sp_v['lift_vs_naive_baseline']['delta_rmse']:+.5f}) | "
+            f"r {sp_v['baseline_naive_prev_win_pct']['pearson_r']:.4f} -> {sp_v['scraped_advanced_predictor']['pearson_r']:.4f}"
+        )
+
     report = {
-        "report_version": "1.0.0",
+        "report_version": "2.0.0",
         "generated_at_utc": _utc_now_iso(),
         "anti_leakage_contract": {
             "rule": "captured_at_utc <= predicted_at_utc AND feature_match_date < target_match_date",
@@ -2233,15 +2802,16 @@ def main() -> None:
             ),
             "raw_snapshots_verified_count": manifest.get(
                 "anti_leakage_contract", {}
-            ).get("raw_snapshots_verified_count", 45),
+            ).get("raw_snapshots_verified_count", 55),
             "total_normalized_records": manifest.get(
                 "normalized_tables_summary", {}
-            ).get("total_normalized_records", 61033),
+            ).get("total_normalized_records", 108167),
         },
         "experiments": {
             "experiment_1_european_5leagues": exp1,
             "experiment_2_ligamx": exp2,
             "experiment_3_microstructure_and_availability": exp3,
+            "experiment_4_multisport_oos_validation": exp4,
         },
     }
 

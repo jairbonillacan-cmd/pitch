@@ -1,85 +1,86 @@
 {
-  "report_version": "1.0.0",
-  "generated_at_utc": "2026-11-09T22:44:43Z",
+  "report_version": "2.0.0",
+  "generated_at_utc": "2026-11-10T17:05:44Z",
   "anti_leakage_contract": {
     "rule": "captured_at_utc <= predicted_at_utc AND feature_match_date < target_match_date",
     "all_sha256_verified": true,
-    "raw_snapshots_verified_count": 45,
-    "total_normalized_records": 61033
+    "raw_snapshots_verified_count": 55,
+    "total_normalized_records": 108167
   },
   "experiments": {
     "experiment_1_european_5leagues": {
       "experiment_id": "exp1_european_5leagues_walk_forward",
-      "description": "Walk-forward out-of-sample evaluation across EPL, La_liga, Bundesliga, Serie_A, and Ligue_1 (2023-2025)",
-      "total_matches_processed": 3504,
-      "initial_training_matches": 1752,
-      "out_of_sample_eval_matches": 1752,
-      "refit_step_matches": 175,
+      "description": "Walk-forward out-of-sample evaluation across EPL, La_liga, Bundesliga, Serie_A, and Ligue_1 across 7 seasons (2018-2025: 2018/19-2019/20 warm-up, 2020/21-2024/25 out-of-sample)",
+      "total_matches_processed": 12533,
+      "initial_training_matches": 3551,
+      "out_of_sample_eval_matches": 8982,
+      "refit_step_matches": 450,
+      "team_match_history_matched_count": 10780,
       "models": {
         "M0_climatology": {
-          "n_matches": 1752,
-          "log_loss": 1.07893,
-          "brier_score": 0.65366,
-          "rps": 0.23296,
-          "accuracy": 0.42009,
-          "ece": 0.01253
+          "n_matches": 8982,
+          "log_loss": 1.07615,
+          "brier_score": 0.65159,
+          "rps": 0.23108,
+          "accuracy": 0.42697,
+          "ece": 0.00488
         },
         "M1_baseline_goals_elo": {
-          "n_matches": 1752,
-          "log_loss": 0.99955,
-          "brier_score": 0.59733,
-          "rps": 0.20506,
-          "accuracy": 0.52683,
-          "ece": 0.0259
+          "n_matches": 8982,
+          "log_loss": 1.00117,
+          "brier_score": 0.59785,
+          "rps": 0.20461,
+          "accuracy": 0.52104,
+          "ece": 0.02178
         },
         "M2_scraped_xg_ppda_deep": {
-          "n_matches": 1752,
-          "log_loss": 0.98042,
-          "brier_score": 0.5839,
-          "rps": 0.19927,
-          "accuracy": 0.53196,
-          "ece": 0.02977,
+          "n_matches": 8982,
+          "log_loss": 0.99008,
+          "brier_score": 0.59,
+          "rps": 0.20128,
+          "accuracy": 0.52449,
+          "ece": 0.02021,
           "bootstrap_vs_M1_log_loss": {
-            "delta_mean": -0.01913,
-            "ci95_low": -0.02833,
-            "ci95_high": -0.0092,
+            "delta_mean": -0.01109,
+            "ci95_low": -0.01476,
+            "ci95_high": -0.00744,
             "p_value_improvement": 0.0,
             "statistically_significant_95": true
           }
         },
         "M3_scraped_full_plus_tm_values": {
-          "n_matches": 1752,
-          "log_loss": 0.97787,
-          "brier_score": 0.58232,
-          "rps": 0.19856,
-          "accuracy": 0.53025,
-          "ece": 0.01689,
+          "n_matches": 8982,
+          "log_loss": 0.98572,
+          "brier_score": 0.58703,
+          "rps": 0.1999,
+          "accuracy": 0.52583,
+          "ece": 0.01441,
           "bootstrap_vs_M1_log_loss": {
-            "delta_mean": -0.02168,
-            "ci95_low": -0.02957,
-            "ci95_high": -0.01088,
+            "delta_mean": -0.01545,
+            "ci95_low": -0.01978,
+            "ci95_high": -0.01102,
             "p_value_improvement": 0.0,
             "statistically_significant_95": true
           },
           "bootstrap_vs_M2_log_loss": {
-            "delta_mean": -0.00254,
-            "ci95_low": -0.00594,
-            "ci95_high": 0.00128,
-            "p_value_improvement": 0.126,
-            "statistically_significant_95": false
+            "delta_mean": -0.00436,
+            "ci95_low": -0.0058,
+            "ci95_high": -0.00272,
+            "p_value_improvement": 0.0,
+            "statistically_significant_95": true
           }
         },
         "M4_understat_shot_forecast_ensemble": {
-          "n_matches": 1752,
-          "log_loss": 0.8587,
-          "brier_score": 0.5018,
-          "rps": 0.16239,
-          "accuracy": 0.61016,
-          "ece": 0.03939,
+          "n_matches": 8982,
+          "log_loss": 0.86785,
+          "brier_score": 0.50801,
+          "rps": 0.16406,
+          "accuracy": 0.60254,
+          "ece": 0.03911,
           "bootstrap_vs_M1_log_loss": {
-            "delta_mean": -0.14085,
-            "ci95_low": -0.15695,
-            "ci95_high": -0.12234,
+            "delta_mean": -0.13332,
+            "ci95_low": -0.14067,
+            "ci95_high": -0.12566,
             "p_value_improvement": 0.0,
             "statistically_significant_95": true
           }
@@ -87,134 +88,178 @@
       },
       "per_league_breakdown": {
         "EPL": {
-          "n_eval_matches": 380,
-          "m0_climatology_log_loss": 1.08224,
-          "m1_baseline_goals_elo_log_loss": 1.00802,
-          "m2_scraped_xg_ppda_deep_log_loss": 0.98095,
-          "m3_scraped_full_plus_tm_values_log_loss": 0.97642,
-          "m4_ensemble_shot_forecast_log_loss": 0.86044,
-          "delta_m3_vs_m1_log_loss": -0.0316,
-          "m1_rps": 0.20929,
-          "m3_rps": 0.19908,
-          "m4_rps": 0.16325
+          "n_eval_matches": 1900,
+          "m0_climatology_log_loss": 1.06765,
+          "m1_baseline_goals_elo_log_loss": 0.98719,
+          "m2_scraped_xg_ppda_deep_log_loss": 0.97601,
+          "m3_scraped_full_plus_tm_values_log_loss": 0.97097,
+          "m4_ensemble_shot_forecast_log_loss": 0.84809,
+          "delta_m3_vs_m1_log_loss": -0.01622,
+          "m1_rps": 0.2061,
+          "m3_rps": 0.20068,
+          "m4_rps": 0.16265
         },
         "La_liga": {
-          "n_eval_matches": 380,
-          "m0_climatology_log_loss": 1.07297,
-          "m1_baseline_goals_elo_log_loss": 0.98715,
-          "m2_scraped_xg_ppda_deep_log_loss": 0.97223,
-          "m3_scraped_full_plus_tm_values_log_loss": 0.97206,
-          "m4_ensemble_shot_forecast_log_loss": 0.87917,
-          "delta_m3_vs_m1_log_loss": -0.01509,
-          "m1_rps": 0.19996,
-          "m3_rps": 0.19473,
-          "m4_rps": 0.1675
+          "n_eval_matches": 1900,
+          "m0_climatology_log_loss": 1.07359,
+          "m1_baseline_goals_elo_log_loss": 1.00117,
+          "m2_scraped_xg_ppda_deep_log_loss": 0.99176,
+          "m3_scraped_full_plus_tm_values_log_loss": 0.98588,
+          "m4_ensemble_shot_forecast_log_loss": 0.88148,
+          "delta_m3_vs_m1_log_loss": -0.01529,
+          "m1_rps": 0.20072,
+          "m3_rps": 0.19642,
+          "m4_rps": 0.16539
         },
         "Bundesliga": {
-          "n_eval_matches": 306,
-          "m0_climatology_log_loss": 1.09058,
-          "m1_baseline_goals_elo_log_loss": 1.03289,
-          "m2_scraped_xg_ppda_deep_log_loss": 0.99556,
-          "m3_scraped_full_plus_tm_values_log_loss": 0.99538,
-          "m4_ensemble_shot_forecast_log_loss": 0.8666,
-          "delta_m3_vs_m1_log_loss": -0.03751,
-          "m1_rps": 0.21469,
-          "m3_rps": 0.20342,
-          "m4_rps": 0.16283
+          "n_eval_matches": 1530,
+          "m0_climatology_log_loss": 1.07425,
+          "m1_baseline_goals_elo_log_loss": 1.01173,
+          "m2_scraped_xg_ppda_deep_log_loss": 0.99599,
+          "m3_scraped_full_plus_tm_values_log_loss": 0.9952,
+          "m4_ensemble_shot_forecast_log_loss": 0.86697,
+          "delta_m3_vs_m1_log_loss": -0.01653,
+          "m1_rps": 0.20827,
+          "m3_rps": 0.20304,
+          "m4_rps": 0.16385
         },
         "Serie_A": {
-          "n_eval_matches": 380,
-          "m0_climatology_log_loss": 1.09167,
-          "m1_baseline_goals_elo_log_loss": 0.98849,
-          "m2_scraped_xg_ppda_deep_log_loss": 0.97416,
-          "m3_scraped_full_plus_tm_values_log_loss": 0.96768,
-          "m4_ensemble_shot_forecast_log_loss": 0.86596,
-          "delta_m3_vs_m1_log_loss": -0.02081,
-          "m1_rps": 0.19367,
-          "m3_rps": 0.18813,
-          "m4_rps": 0.15817
+          "n_eval_matches": 1900,
+          "m0_climatology_log_loss": 1.08545,
+          "m1_baseline_goals_elo_log_loss": 0.99324,
+          "m2_scraped_xg_ppda_deep_log_loss": 0.98249,
+          "m3_scraped_full_plus_tm_values_log_loss": 0.97708,
+          "m4_ensemble_shot_forecast_log_loss": 0.86978,
+          "delta_m3_vs_m1_log_loss": -0.01616,
+          "m1_rps": 0.19797,
+          "m3_rps": 0.19322,
+          "m4_rps": 0.16158
         },
         "Ligue_1": {
-          "n_eval_matches": 306,
-          "m0_climatology_log_loss": 1.05473,
-          "m1_baseline_goals_elo_log_loss": 0.98484,
-          "m2_scraped_xg_ppda_deep_log_loss": 0.98257,
-          "m3_scraped_full_plus_tm_values_log_loss": 0.98205,
-          "m4_ensemble_shot_forecast_log_loss": 0.81421,
-          "delta_m3_vs_m1_log_loss": -0.00279,
-          "m1_rps": 0.21065,
-          "m3_rps": 0.21077,
-          "m4_rps": 0.15977
+          "n_eval_matches": 1752,
+          "m0_climatology_log_loss": 1.07974,
+          "m1_baseline_goals_elo_log_loss": 1.01571,
+          "m2_scraped_xg_ppda_deep_log_loss": 1.0066,
+          "m3_scraped_full_plus_tm_values_log_loss": 1.00266,
+          "m4_ensemble_shot_forecast_log_loss": 0.87318,
+          "delta_m3_vs_m1_log_loss": -0.01305,
+          "m1_rps": 0.2112,
+          "m3_rps": 0.20733,
+          "m4_rps": 0.16704
+        }
+      },
+      "per_season_breakdown": {
+        "2020": {
+          "n_eval_matches": 1826,
+          "m1_baseline_goals_elo_log_loss": 1.01229,
+          "m2_scraped_xg_ppda_deep_log_loss": 0.99613,
+          "m3_scraped_full_plus_tm_values_log_loss": 0.99206,
+          "m4_ensemble_shot_forecast_log_loss": 0.87488,
+          "delta_m3_vs_m1_log_loss": -0.02023
+        },
+        "2021": {
+          "n_eval_matches": 1826,
+          "m1_baseline_goals_elo_log_loss": 1.00764,
+          "m2_scraped_xg_ppda_deep_log_loss": 0.99672,
+          "m3_scraped_full_plus_tm_values_log_loss": 0.99338,
+          "m4_ensemble_shot_forecast_log_loss": 0.86552,
+          "delta_m3_vs_m1_log_loss": -0.01426
+        },
+        "2022": {
+          "n_eval_matches": 1826,
+          "m1_baseline_goals_elo_log_loss": 0.99663,
+          "m2_scraped_xg_ppda_deep_log_loss": 0.99083,
+          "m3_scraped_full_plus_tm_values_log_loss": 0.98835,
+          "m4_ensemble_shot_forecast_log_loss": 0.86232,
+          "delta_m3_vs_m1_log_loss": -0.00828
+        },
+        "2023": {
+          "n_eval_matches": 1752,
+          "m1_baseline_goals_elo_log_loss": 0.9914,
+          "m2_scraped_xg_ppda_deep_log_loss": 0.98663,
+          "m3_scraped_full_plus_tm_values_log_loss": 0.97775,
+          "m4_ensemble_shot_forecast_log_loss": 0.87734,
+          "delta_m3_vs_m1_log_loss": -0.01365
+        },
+        "2024": {
+          "n_eval_matches": 1752,
+          "m1_baseline_goals_elo_log_loss": 0.99735,
+          "m2_scraped_xg_ppda_deep_log_loss": 0.97954,
+          "m3_scraped_full_plus_tm_values_log_loss": 0.97639,
+          "m4_ensemble_shot_forecast_log_loss": 0.85923,
+          "delta_m3_vs_m1_log_loss": -0.02096
         }
       }
     },
     "experiment_2_ligamx": {
-      "experiment_id": "exp2_ligamx_2023_2026_walk_forward",
-      "description": "Walk-forward evaluation on Liga MX (2023-2026) comparing MEX.csv goals-only baseline vs scraped FBref/Statiskicks xG, Transfermarkt 18-club valuations, Opta PPDA, and Open-Meteo altitude shock",
-      "total_ligamx_matches": 1160,
+      "experiment_id": "exp2_ligamx_2018_2026_walk_forward",
+      "description": "Walk-forward evaluation on Liga MX across 8 seasons (2018-2026) comparing MEX.csv goals-only baseline vs scraped FBref Opta / Statiskicks xG, Transfermarkt club valuations, Opta PPDA, and Open-Meteo altitude shock",
+      "total_ligamx_matches": 2795,
+      "exact_xg_matches_total": 1798,
+      "exact_xg_matches_from_fbref_opta": 1318,
       "exact_xg_matches_from_statiskicks": 480,
-      "historical_fbref_matches": 680,
-      "initial_training_matches": 680,
-      "out_of_sample_eval_matches": 480,
+      "historical_fbref_matches": 997,
+      "initial_training_matches": 609,
+      "out_of_sample_eval_matches": 2186,
       "altitude_effect_empirical": {
-        "high_altitude_shock_matches_count": 146,
-        "high_altitude_home_win_rate": 0.6164,
-        "normal_altitude_matches_count": 1014,
-        "normal_altitude_home_win_rate": 0.4389,
-        "home_win_rate_lift_from_altitude_shock": 0.1776
+        "high_altitude_shock_matches_count": 344,
+        "high_altitude_home_win_rate": 0.5756,
+        "normal_altitude_matches_count": 2451,
+        "normal_altitude_home_win_rate": 0.4361,
+        "home_win_rate_lift_from_altitude_shock": 0.1394
       },
       "models": {
         "MX0_climatology": {
-          "n_matches": 480,
-          "log_loss": 1.0739,
-          "brier_score": 0.64972,
-          "rps": 0.22943,
-          "accuracy": 0.44167,
-          "ece": 0.03039
+          "n_matches": 2186,
+          "log_loss": 1.06945,
+          "brier_score": 0.64632,
+          "rps": 0.22624,
+          "accuracy": 0.45059,
+          "ece": 0.00479
         },
         "MX1_baseline_mex_goals_only": {
-          "n_matches": 480,
-          "log_loss": 1.04749,
-          "brier_score": 0.63038,
-          "rps": 0.21965,
-          "accuracy": 0.48125,
-          "ece": 0.02025
+          "n_matches": 2186,
+          "log_loss": 1.0437,
+          "brier_score": 0.62837,
+          "rps": 0.21769,
+          "accuracy": 0.46798,
+          "ece": 0.00503
         },
         "MX2_scraped_mex_xg": {
-          "n_matches": 480,
-          "log_loss": 1.0368,
-          "brier_score": 0.6209,
-          "rps": 0.2156,
-          "accuracy": 0.4875,
-          "ece": 0.05719,
+          "n_matches": 2186,
+          "log_loss": 1.03101,
+          "brier_score": 0.61876,
+          "rps": 0.21305,
+          "accuracy": 0.48719,
+          "ece": 0.00928,
           "bootstrap_vs_MX1_log_loss": {
-            "delta_mean": -0.01069,
-            "ci95_low": -0.02849,
-            "ci95_high": 0.00776,
-            "p_value_improvement": 0.1,
-            "statistically_significant_95": false
+            "delta_mean": -0.01269,
+            "ci95_low": -0.02125,
+            "ci95_high": -0.00423,
+            "p_value_improvement": 0.0,
+            "statistically_significant_95": true
           }
         },
         "MX3_scraped_mex_full_tm_tactical_altitude": {
-          "n_matches": 480,
-          "log_loss": 1.03405,
-          "brier_score": 0.61806,
-          "rps": 0.21382,
-          "accuracy": 0.5,
-          "ece": 0.04869,
+          "n_matches": 2186,
+          "log_loss": 1.02268,
+          "brier_score": 0.61277,
+          "rps": 0.21019,
+          "accuracy": 0.48856,
+          "ece": 0.02405,
           "bootstrap_vs_MX1_log_loss": {
-            "delta_mean": -0.01344,
-            "ci95_low": -0.03845,
-            "ci95_high": 0.01138,
-            "p_value_improvement": 0.138,
-            "statistically_significant_95": false
+            "delta_mean": -0.02102,
+            "ci95_low": -0.03199,
+            "ci95_high": -0.01063,
+            "p_value_improvement": 0.0,
+            "statistically_significant_95": true
           },
           "bootstrap_vs_MX2_log_loss": {
-            "delta_mean": -0.00275,
-            "ci95_low": -0.01328,
-            "ci95_high": 0.01028,
-            "p_value_improvement": 0.374,
-            "statistically_significant_95": false
+            "delta_mean": -0.00833,
+            "ci95_low": -0.01349,
+            "ci95_high": -0.00197,
+            "p_value_improvement": 0.004,
+            "statistically_significant_95": true
           }
         }
       }
@@ -245,63 +290,63 @@
         "caliente_vs_pinnacle_vigorish_multiplier": 2.06
       },
       "action_network_sharp_money_analysis": {
-        "total_split_outcomes": 8147,
-        "active_outcomes_with_splits": 3160,
-        "sharp_money_flagged_outcomes_ge_15pct": 1060,
-        "sharp_money_flagged_rate_pct": 33.54,
-        "reverse_line_movement_outcomes": 736,
-        "rlm_rate_pct": 23.29,
+        "total_split_outcomes": 17145,
+        "active_outcomes_with_splits": 7046,
+        "sharp_money_flagged_outcomes_ge_15pct": 2628,
+        "sharp_money_flagged_rate_pct": 37.3,
+        "reverse_line_movement_outcomes": 3844,
+        "rlm_rate_pct": 54.56,
         "abs_divergence_quantiles_pct": {
           "p50": 6.0,
-          "p75": 13.0,
-          "p90": 29.0,
-          "p95": 56.0,
+          "p75": 14.0,
+          "p90": 32.0,
+          "p95": 51.0,
           "max": 87.0
         },
         "by_sport": {
-          "mlb": {
-            "active_outcomes_count": 48,
-            "mean_abs_divergence_pct": 4.0,
+          "NFL": {
+            "active_outcomes_count": 1687,
+            "mean_abs_divergence_pct": 8.508,
+            "p90_abs_divergence_pct": 23.0,
+            "sharp_money_flag_count": 602,
+            "rlm_signal_count": 870
+          },
+          "NCAAF": {
+            "active_outcomes_count": 4226,
+            "mean_abs_divergence_pct": 15.571,
+            "p90_abs_divergence_pct": 46.0,
+            "sharp_money_flag_count": 1818,
+            "rlm_signal_count": 2552
+          },
+          "NBA": {
+            "active_outcomes_count": 648,
+            "mean_abs_divergence_pct": 6.432,
+            "p90_abs_divergence_pct": 12.0,
+            "sharp_money_flag_count": 122,
+            "rlm_signal_count": 250
+          },
+          "NHL": {
+            "active_outcomes_count": 336,
+            "mean_abs_divergence_pct": 10.208,
+            "p90_abs_divergence_pct": 31.0,
+            "sharp_money_flag_count": 86,
+            "rlm_signal_count": 172
+          },
+          "MLB": {
+            "active_outcomes_count": 100,
+            "mean_abs_divergence_pct": 3.98,
             "p90_abs_divergence_pct": 5.0,
             "sharp_money_flag_count": 0,
             "rlm_signal_count": 0
           },
-          "mls": {
+          "MLS": {
             "active_outcomes_count": 14,
             "mean_abs_divergence_pct": 3.286,
             "p90_abs_divergence_pct": 5.0,
             "sharp_money_flag_count": 0,
             "rlm_signal_count": 0
           },
-          "nba": {
-            "active_outcomes_count": 336,
-            "mean_abs_divergence_pct": 7.292,
-            "p90_abs_divergence_pct": 15.0,
-            "sharp_money_flag_count": 70,
-            "rlm_signal_count": 42
-          },
-          "ncaaf": {
-            "active_outcomes_count": 1792,
-            "mean_abs_divergence_pct": 15.273,
-            "p90_abs_divergence_pct": 51.0,
-            "sharp_money_flag_count": 658,
-            "rlm_signal_count": 514
-          },
-          "nfl": {
-            "active_outcomes_count": 851,
-            "mean_abs_divergence_pct": 8.699,
-            "p90_abs_divergence_pct": 23.0,
-            "sharp_money_flag_count": 284,
-            "rlm_signal_count": 152
-          },
-          "nhl": {
-            "active_outcomes_count": 84,
-            "mean_abs_divergence_pct": 11.595,
-            "p90_abs_divergence_pct": 24.0,
-            "sharp_money_flag_count": 48,
-            "rlm_signal_count": 28
-          },
-          "soccer": {
+          "SOCCER": {
             "active_outcomes_count": 35,
             "mean_abs_divergence_pct": 3.286,
             "p90_abs_divergence_pct": 5.0,
@@ -312,73 +357,103 @@
         "top_10_sharp_divergence_games": [
           {
             "game_id": 289949,
-            "league": "ncaaf",
+            "league": "NCAAF",
             "matchup": "Memphis Tigers @ South Florida Bulls",
             "num_bets": 2251,
-            "max_sharp_money_divergence_pct": 86.0
+            "max_sharp_money_divergence_pct": 86.0,
+            "rlm_flag": false,
+            "p_home_novig": 0.361446,
+            "p_away_novig": 0.638554
+          },
+          {
+            "game_id": 289957,
+            "league": "NCAAF",
+            "matchup": "Washington Huskies @ Michigan State Spartans",
+            "num_bets": 928,
+            "max_sharp_money_divergence_pct": 76.0,
+            "rlm_flag": true,
+            "p_home_novig": 0.398225,
+            "p_away_novig": 0.601775
           },
           {
             "game_id": 289997,
-            "league": "ncaaf",
+            "league": "NCAAF",
             "matchup": "Colorado State Rams @ Washington State Cougars",
             "num_bets": 424,
-            "max_sharp_money_divergence_pct": 62.0
+            "max_sharp_money_divergence_pct": 62.0,
+            "rlm_flag": false,
+            "p_home_novig": 0.748356,
+            "p_away_novig": 0.251644
+          },
+          {
+            "game_id": 290022,
+            "league": "NCAAF",
+            "matchup": "Louisville Cardinals @ North Carolina Tar Heels",
+            "num_bets": 1095,
+            "max_sharp_money_divergence_pct": 60.0,
+            "rlm_flag": true,
+            "p_home_novig": 0.398225,
+            "p_away_novig": 0.601775
           },
           {
             "game_id": 290040,
-            "league": "ncaaf",
+            "league": "NCAAF",
             "matchup": "Nevada Wolf Pack @ Northern Illinois Huskies",
-            "num_bets": 262,
-            "max_sharp_money_divergence_pct": 56.0
+            "num_bets": 363,
+            "max_sharp_money_divergence_pct": 59.0,
+            "rlm_flag": true,
+            "p_home_novig": 0.295561,
+            "p_away_novig": 0.704439
           },
           {
             "game_id": 289977,
-            "league": "ncaaf",
+            "league": "NCAAF",
             "matchup": "Cincinnati Bearcats @ Iowa State Cyclones",
             "num_bets": 605,
-            "max_sharp_money_divergence_pct": 50.0
+            "max_sharp_money_divergence_pct": 50.0,
+            "rlm_flag": false,
+            "p_home_novig": 0.566295,
+            "p_away_novig": 0.433705
           },
           {
-            "game_id": 289963,
-            "league": "ncaaf",
-            "matchup": "Auburn Tigers @ Mississippi State Bulldogs",
-            "num_bets": 651,
-            "max_sharp_money_divergence_pct": 36.0
+            "game_id": 289943,
+            "league": "NCAAF",
+            "matchup": "Western Michigan Broncos @ Akron Zips",
+            "num_bets": 5558,
+            "max_sharp_money_divergence_pct": 46.0,
+            "rlm_flag": true,
+            "p_home_novig": 0.160005,
+            "p_away_novig": 0.839995
           },
           {
-            "game_id": 295408,
-            "league": "nba",
-            "matchup": "Indiana Pacers @ Dallas Mavericks",
-            "num_bets": 5275,
-            "max_sharp_money_divergence_pct": 30.0
+            "game_id": 293584,
+            "league": "NHL",
+            "matchup": "Minnesota Wild @ Montreal Canadiens",
+            "num_bets": 2120,
+            "max_sharp_money_divergence_pct": 43.0,
+            "rlm_flag": true,
+            "p_home_novig": 0.467532,
+            "p_away_novig": 0.532468
           },
           {
-            "game_id": 290962,
-            "league": "nfl",
-            "matchup": "Cleveland Browns @ New Orleans Saints",
-            "num_bets": 66870,
-            "max_sharp_money_divergence_pct": 28.0
+            "game_id": 290016,
+            "league": "NCAAF",
+            "matchup": "Florida International Panthers @ Delaware Fightin Blue Hens",
+            "num_bets": 474,
+            "max_sharp_money_divergence_pct": 42.0,
+            "rlm_flag": true,
+            "p_home_novig": 0.653408,
+            "p_away_novig": 0.346592
           },
           {
-            "game_id": 290969,
-            "league": "nfl",
-            "matchup": "Tampa Bay Buccaneers @ Chicago Bears",
-            "num_bets": 148866,
-            "max_sharp_money_divergence_pct": 24.0
-          },
-          {
-            "game_id": 293581,
-            "league": "nhl",
-            "matchup": "New York Rangers @ Edmonton Oilers",
-            "num_bets": 4180,
-            "max_sharp_money_divergence_pct": 24.0
-          },
-          {
-            "game_id": 290958,
-            "league": "nfl",
-            "matchup": "New York Giants @ Philadelphia Eagles",
-            "num_bets": 67985,
-            "max_sharp_money_divergence_pct": 23.0
+            "game_id": 289964,
+            "league": "NCAAF",
+            "matchup": "Wake Forest Demon Deacons @ SMU Mustangs",
+            "num_bets": 3963,
+            "max_sharp_money_divergence_pct": 40.0,
+            "rlm_flag": true,
+            "p_home_novig": 0.495679,
+            "p_away_novig": 0.504321
           }
         ]
       },
@@ -579,7 +654,300 @@
             "total_squad_market_value_eur": 219100000.0,
             "missing_market_value_ratio": 0.2419
           }
-        ]
+        ],
+        "us_multisport_injuries_and_starters": {
+          "multisport_wave5_injured_players_total": 1004,
+          "multisport_wave5_probable_starters_total": 186,
+          "by_league": {
+            "NBA": {
+              "injured_players_count": 97,
+              "confirmed_out_or_ir_il_count": 56,
+              "questionable_or_day_to_day_count": 41,
+              "probable_starters_or_goalies_count": 92
+            },
+            "NHL": {
+              "injured_players_count": 133,
+              "confirmed_out_or_ir_il_count": 117,
+              "questionable_or_day_to_day_count": 16,
+              "probable_starters_or_goalies_count": 14
+            },
+            "MLB": {
+              "injured_players_count": 187,
+              "confirmed_out_or_ir_il_count": 185,
+              "questionable_or_day_to_day_count": 2,
+              "probable_starters_or_goalies_count": 0
+            },
+            "NCAAF": {
+              "injured_players_count": 587,
+              "confirmed_out_or_ir_il_count": 255,
+              "questionable_or_day_to_day_count": 329,
+              "probable_starters_or_goalies_count": 80
+            },
+            "NFL": {
+              "injured_players_count": 362,
+              "confirmed_out_or_ir_il_count": 75,
+              "questionable_or_day_to_day_count": 79,
+              "probable_starters_or_goalies_count": 0
+            }
+          }
+        }
+      }
+    },
+    "experiment_4_multisport_oos_validation": {
+      "experiment_id": "exp4_multisport_oos_win_pct_validation",
+      "description": "Strictly causal out-of-sample evaluation predicting Season S Win% solely from Season S-1 metrics (t' < t) across NHL, MLB, NBA, and NCAAF (716 team-seasons)",
+      "total_team_seasons_scraped": 716,
+      "total_oos_franchise_transitions": 486,
+      "by_sport": {
+        "NHL": {
+          "team_seasons_scraped": 128,
+          "seasons_covered": [
+            "2023-24",
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "oos_transitions_evaluated": 96,
+          "scraped_features_used": "5v5 xG% + 5v5 Corsi% + Pythag 2.15 (MoneyPuck / Hockey-Reference)",
+          "baseline_naive_prev_win_pct": {
+            "n": 96,
+            "rmse": 0.10669,
+            "mae": 0.08543,
+            "pearson_r": 0.4875
+          },
+          "baseline_james_stein_shrunk_win_pct": {
+            "n": 96,
+            "rmse": 0.09818,
+            "mae": 0.08021,
+            "pearson_r": 0.4875
+          },
+          "scraped_advanced_predictor": {
+            "n": 96,
+            "rmse": 0.09816,
+            "mae": 0.07904,
+            "pearson_r": 0.4911
+          },
+          "lift_vs_naive_baseline": {
+            "delta_rmse": -0.00853,
+            "rmse_reduction_pct": 8.0,
+            "delta_mae": -0.00639,
+            "mae_reduction_pct": 7.48,
+            "delta_pearson_r": 0.0036,
+            "paired_bootstrap_mse": {
+              "delta_mean": -0.00175,
+              "ci95_low": -0.0053,
+              "ci95_high": 0.0011,
+              "p_value_improvement": 0.114,
+              "statistically_significant_95": false
+            }
+          },
+          "per_transition_breakdown": [
+            {
+              "transition": "2023-24 -> 2024-25",
+              "n_teams": 32,
+              "baseline_naive_rmse": 0.08883,
+              "scraped_advanced_rmse": 0.07797,
+              "baseline_naive_pearson_r": 0.6324,
+              "scraped_advanced_pearson_r": 0.6099
+            },
+            {
+              "transition": "2024-25 -> 2025-26",
+              "n_teams": 32,
+              "baseline_naive_rmse": 0.11448,
+              "scraped_advanced_rmse": 0.08269,
+              "baseline_naive_pearson_r": 0.2008,
+              "scraped_advanced_pearson_r": 0.2736
+            },
+            {
+              "transition": "2025-26 -> 2026-27",
+              "n_teams": 32,
+              "baseline_naive_rmse": 0.11467,
+              "scraped_advanced_rmse": 0.12646,
+              "baseline_naive_pearson_r": 0.6295,
+              "scraped_advanced_pearson_r": 0.6025
+            }
+          ]
+        },
+        "MLB": {
+          "team_seasons_scraped": 90,
+          "seasons_covered": [
+            "2024",
+            "2025",
+            "2026"
+          ],
+          "oos_transitions_evaluated": 60,
+          "scraped_features_used": "Pythag 1.83 + FIP + OPS+ (Baseball-Reference / MLB StatsAPI)",
+          "baseline_naive_prev_win_pct": {
+            "n": 60,
+            "rmse": 0.06204,
+            "mae": 0.0499,
+            "pearson_r": 0.6223
+          },
+          "baseline_james_stein_shrunk_win_pct": {
+            "n": 60,
+            "rmse": 0.05423,
+            "mae": 0.04239,
+            "pearson_r": 0.6223
+          },
+          "scraped_advanced_predictor": {
+            "n": 60,
+            "rmse": 0.05245,
+            "mae": 0.04156,
+            "pearson_r": 0.6504
+          },
+          "lift_vs_naive_baseline": {
+            "delta_rmse": -0.00959,
+            "rmse_reduction_pct": 15.46,
+            "delta_mae": -0.00834,
+            "mae_reduction_pct": 16.71,
+            "delta_pearson_r": 0.0281,
+            "paired_bootstrap_mse": {
+              "delta_mean": -0.0011,
+              "ci95_low": -0.00183,
+              "ci95_high": -0.0001,
+              "p_value_improvement": 0.012,
+              "statistically_significant_95": true
+            }
+          },
+          "per_transition_breakdown": [
+            {
+              "transition": "2024 -> 2025",
+              "n_teams": 30,
+              "baseline_naive_rmse": 0.05726,
+              "scraped_advanced_rmse": 0.05151,
+              "baseline_naive_pearson_r": 0.6978,
+              "scraped_advanced_pearson_r": 0.6915
+            },
+            {
+              "transition": "2025 -> 2026",
+              "n_teams": 30,
+              "baseline_naive_rmse": 0.06649,
+              "scraped_advanced_rmse": 0.05339,
+              "baseline_naive_pearson_r": 0.5368,
+              "scraped_advanced_pearson_r": 0.6041
+            }
+          ]
+        },
+        "NBA": {
+          "team_seasons_scraped": 90,
+          "seasons_covered": [
+            "2024-25",
+            "2025-26",
+            "2026-27"
+          ],
+          "oos_transitions_evaluated": 60,
+          "scraped_features_used": "NetRTG + SRS + Four Factors Opp eFG% & eFG% (Basketball-Reference)",
+          "baseline_naive_prev_win_pct": {
+            "n": 60,
+            "rmse": 0.17734,
+            "mae": 0.14378,
+            "pearson_r": 0.572
+          },
+          "baseline_james_stein_shrunk_win_pct": {
+            "n": 60,
+            "rmse": 0.17215,
+            "mae": 0.14038,
+            "pearson_r": 0.572
+          },
+          "scraped_advanced_predictor": {
+            "n": 60,
+            "rmse": 0.17063,
+            "mae": 0.142,
+            "pearson_r": 0.5813
+          },
+          "lift_vs_naive_baseline": {
+            "delta_rmse": -0.00671,
+            "rmse_reduction_pct": 3.78,
+            "delta_mae": -0.00178,
+            "mae_reduction_pct": 1.24,
+            "delta_pearson_r": 0.0093,
+            "paired_bootstrap_mse": {
+              "delta_mean": -0.00233,
+              "ci95_low": -0.00548,
+              "ci95_high": 0.00037,
+              "p_value_improvement": 0.05,
+              "statistically_significant_95": false
+            }
+          },
+          "per_transition_breakdown": [
+            {
+              "transition": "2024-25 -> 2025-26",
+              "n_teams": 30,
+              "baseline_naive_rmse": 0.16295,
+              "scraped_advanced_rmse": 0.14609,
+              "baseline_naive_pearson_r": 0.5012,
+              "scraped_advanced_pearson_r": 0.5124
+            },
+            {
+              "transition": "2025-26 -> 2026-27",
+              "n_teams": 30,
+              "baseline_naive_rmse": 0.19064,
+              "scraped_advanced_rmse": 0.19205,
+              "baseline_naive_pearson_r": 0.6326,
+              "scraped_advanced_pearson_r": 0.639
+            }
+          ]
+        },
+        "NCAAF": {
+          "team_seasons_scraped": 408,
+          "seasons_covered": [
+            "2024",
+            "2025",
+            "2026"
+          ],
+          "oos_transitions_evaluated": 270,
+          "scraped_features_used": "ESPN FPI + SRS + Net Yards Per Play (Sports-Reference / ESPN FPI)",
+          "baseline_naive_prev_win_pct": {
+            "n": 270,
+            "rmse": 0.22399,
+            "mae": 0.17573,
+            "pearson_r": 0.44
+          },
+          "baseline_james_stein_shrunk_win_pct": {
+            "n": 270,
+            "rmse": 0.19521,
+            "mae": 0.15882,
+            "pearson_r": 0.44
+          },
+          "scraped_advanced_predictor": {
+            "n": 270,
+            "rmse": 0.18825,
+            "mae": 0.1542,
+            "pearson_r": 0.5011
+          },
+          "lift_vs_naive_baseline": {
+            "delta_rmse": -0.03574,
+            "rmse_reduction_pct": 15.96,
+            "delta_mae": -0.02153,
+            "mae_reduction_pct": 12.25,
+            "delta_pearson_r": 0.0611,
+            "paired_bootstrap_mse": {
+              "delta_mean": -0.01473,
+              "ci95_low": -0.02104,
+              "ci95_high": -0.00789,
+              "p_value_improvement": 0.0,
+              "statistically_significant_95": true
+            }
+          },
+          "per_transition_breakdown": [
+            {
+              "transition": "2024 -> 2025",
+              "n_teams": 134,
+              "baseline_naive_rmse": 0.21926,
+              "scraped_advanced_rmse": 0.19192,
+              "baseline_naive_pearson_r": 0.4567,
+              "scraped_advanced_pearson_r": 0.4757
+            },
+            {
+              "transition": "2025 -> 2026",
+              "n_teams": 136,
+              "baseline_naive_rmse": 0.22855,
+              "scraped_advanced_rmse": 0.18457,
+              "baseline_naive_pearson_r": 0.4252,
+              "scraped_advanced_pearson_r": 0.5278
+            }
+          ]
+        }
       }
     }
   }

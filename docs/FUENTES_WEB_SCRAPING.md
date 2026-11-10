@@ -71,6 +71,10 @@ Las 5 brechas de información que explican esa diferencia son:
 | `understat` | **Understat** (`https://understat.com/`) | EPL, LaLiga, Bundesliga, Serie A, Ligue 1 | Histórico de `xG`, `NPxG`, `xPTS`, `PPDA` y `Deep Completions` desde 2014/15. | `fetcher_session` (`impersonate="chrome"`) | **P1** |
 | `clubelo_transfermarkt_values` | **ClubElo & Transfermarkt** (`https://www.transfermarkt.mx/`) | Fútbol Europeo y Liga MX | Valor de mercado (€) de cada plantilla y edad media; resuelve los priors `S-1` de equipos recién ascendidos. | `fetcher_session` (`adaptive=True`) | **P1** |
 | `pfr_rbsdm_sumersports` | **Pro-Football-Reference / RBSDM / SumerSports** (`https://www.pro-football-reference.com/`) | **NFL** | EPA/play ajustado, Success Rate, CPOE, *Pressure Rate*, *Time to Throw* y eficiencia en Red Zone. | `stealthy_session` (`solve_cloudflare=True`) | **P1 (NFL)** |
+| `nhl_moneypuck_hockeyref` | **MoneyPuck & Hockey-Reference** (`https://moneypuck.com/`) | **NHL (32 franquicias)** | `xGF`, `xGA`, `xGF%`, Corsi (`CF%`), Fenwick (`FF%`), `High-Danger xG`, GSAx de porteros y Pitágoras `2.15`. | `fetcher_session` (`impersonate="chrome"`) | **P0 (NHL)** |
+| `mlb_fangraphs_baseballref` | **Baseball-Reference & MLB StatsAPI** (`https://www.baseball-reference.com/`) | **MLB (30 franquicias)** | Bateo (`OPS+`, `wOBA`, `ISO`), pitcheo (`FIP`, `xFIP`, `ERA`, `WHIP`, `SO/9`, `HR/9`), Pitágoras `1.83` y factores de parque. | `stealthy_session` (`solve_cloudflare=True`) | **P0 (MLB)** |
+| `nba_bballref_fourfactors` | **Basketball-Reference & ESPN NBA** (`https://www.basketball-reference.com/`) | **NBA (30 franquicias)** | *Four Factors* ofensivos y defensivos (`eFG%`, `TOV%`, `ORB%`, `FT/FGA`), `ORTG`, `DRTG`, `NetRTG`, `Pace` y `SRS`. | `stealthy_session` (`solve_cloudflare=True`) | **P0 (NBA)** |
+| `ncaaf_cfb_sp_plus_srs` | **Sports-Reference CFB & ESPN CFB** (`https://www.sports-reference.com/cfb/`) | **NCAAF FBS (134 programas)** | `SRS`, `SOS`, yardas por jugada ofensivas/defensivas (`YPP`), ajuste por conferencia y diferencial de puntos. | `stealthy_session` (`solve_cloudflare=True`) | **P1 (NCAAF)** |
 
 ---
 

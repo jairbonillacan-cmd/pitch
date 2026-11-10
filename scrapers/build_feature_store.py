@@ -1,10 +1,10 @@
 """
-Construcción del Feature Store unificado de PitchLab (`data/feature_store/`).
+Construcción del Feature Store unificado Multi-Deporte de PitchLab (`data/feature_store/`).
 
-Une y resuelve entidades canónicas de clubes/equipos a través de las 24 fuentes
-normalizadas en `data/normalized/` para los 114 clubes de las 6 ligas de fútbol
-(`liga-mx`, `epl`, `laliga`, `bundesliga`, `serie-a`, `ligue-1`) y las 32
-franquicias de la NFL (`nfl`), generando:
+Une y resuelve entidades canónicas de clubes/equipos/programas a través de las 28 fuentes
+normalizadas en `data/normalized/` para las 11 ligas y 6 deportes (~376 equipos canónicos:
+114 clubes de las 6 ligas de fútbol, 32 franquicias NFL, 32 franquicias NHL, 30 franquicias MLB,
+30 franquicias NBA y 138 programas NCAAF FBS), generando:
 
 1. `data/feature_store/team_master_features.json` y `.csv`
 2. `data/feature_store/historical_matches_xg.json` y `.csv`
@@ -508,6 +508,46 @@ LEAGUE_DEFAULT_WEATHER: dict[str, dict[str, Any]] = {
         "max_wind_gusts_mph_7d": 25.2,
         "total_precipitation_mm_7d": 7.0,
     },
+    "nfl": {
+        "stadium_elevation_m": 180.0,
+        "high_altitude_flag": False,
+        "roof_type": "open",
+        "max_wind_speed_mph_7d": 12.8,
+        "max_wind_gusts_mph_7d": 21.5,
+        "total_precipitation_mm_7d": 3.4,
+    },
+    "nhl": {
+        "stadium_elevation_m": 165.0,
+        "high_altitude_flag": False,
+        "roof_type": "indoor_arena",
+        "max_wind_speed_mph_7d": 0.0,
+        "max_wind_gusts_mph_7d": 0.0,
+        "total_precipitation_mm_7d": 0.0,
+    },
+    "mlb": {
+        "stadium_elevation_m": 145.0,
+        "high_altitude_flag": False,
+        "roof_type": "open",
+        "max_wind_speed_mph_7d": 11.8,
+        "max_wind_gusts_mph_7d": 19.6,
+        "total_precipitation_mm_7d": 2.9,
+    },
+    "nba": {
+        "stadium_elevation_m": 175.0,
+        "high_altitude_flag": False,
+        "roof_type": "indoor_arena",
+        "max_wind_speed_mph_7d": 0.0,
+        "max_wind_gusts_mph_7d": 0.0,
+        "total_precipitation_mm_7d": 0.0,
+    },
+    "ncaaf": {
+        "stadium_elevation_m": 240.0,
+        "high_altitude_flag": False,
+        "roof_type": "open",
+        "max_wind_speed_mph_7d": 12.4,
+        "max_wind_gusts_mph_7d": 20.8,
+        "total_precipitation_mm_7d": 3.1,
+    },
 }
 
 SPECIFIC_STADIUM_ELEVATION_M: dict[str, float] = {
@@ -555,57 +595,576 @@ SPECIFIC_STADIUM_ELEVATION_M: dict[str, float] = {
     "Le Havre AC": 8.0,
     "ESTAC Troyes": 110.0,
     "Le Mans FC": 52.0,
+    # High-altitude indoor NBA / NHL arenas (Denver & Salt Lake City)
+    "Denver Nuggets": 1598.0,
+    "Colorado Avalanche": 1598.0,
+    "Utah Jazz": 1300.0,
+    "Utah Mammoth": 1300.0,
+    "Calgary Flames": 1045.0,
+}
+
+SPORT_TO_LEAGUE_HINT: dict[str, str] = {
+    "football": "nfl",
+    "nfl": "nfl",
+    "basketball": "nba",
+    "nba": "nba",
+    "hockey": "nhl",
+    "ice hockey": "nhl",
+    "nhl": "nhl",
+    "baseball": "mlb",
+    "mlb": "mlb",
+    "college-football": "ncaaf",
+    "college football": "ncaaf",
+    "ncaaf": "ncaaf",
+}
+
+LEAGUE_SCOPED_ALIASES: dict[str, dict[str, str]] = {
+    "nfl": {
+        "ari": "Arizona Cardinals",
+        "arizona": "Arizona Cardinals",
+        "atl": "Atlanta Falcons",
+        "atlanta": "Atlanta Falcons",
+        "bal": "Baltimore Ravens",
+        "baltimore": "Baltimore Ravens",
+        "buf": "Buffalo Bills",
+        "buffalo": "Buffalo Bills",
+        "car": "Carolina Panthers",
+        "carolina": "Carolina Panthers",
+        "chi": "Chicago Bears",
+        "chicago": "Chicago Bears",
+        "cin": "Cincinnati Bengals",
+        "cincinnati": "Cincinnati Bengals",
+        "cle": "Cleveland Browns",
+        "cleveland": "Cleveland Browns",
+        "dal": "Dallas Cowboys",
+        "dallas": "Dallas Cowboys",
+        "den": "Denver Broncos",
+        "denver": "Denver Broncos",
+        "det": "Detroit Lions",
+        "detroit": "Detroit Lions",
+        "gb": "Green Bay Packers",
+        "green bay": "Green Bay Packers",
+        "hou": "Houston Texans",
+        "houston": "Houston Texans",
+        "ind": "Indianapolis Colts",
+        "indianapolis": "Indianapolis Colts",
+        "jax": "Jacksonville Jaguars",
+        "jac": "Jacksonville Jaguars",
+        "jacksonville": "Jacksonville Jaguars",
+        "kc": "Kansas City Chiefs",
+        "kansas city": "Kansas City Chiefs",
+        "lv": "Las Vegas Raiders",
+        "las vegas": "Las Vegas Raiders",
+        "lac": "Los Angeles Chargers",
+        "la chargers": "Los Angeles Chargers",
+        "l.a. chargers": "Los Angeles Chargers",
+        "lar": "Los Angeles Rams",
+        "la": "Los Angeles Rams",
+        "la rams": "Los Angeles Rams",
+        "l.a. rams": "Los Angeles Rams",
+        "mia": "Miami Dolphins",
+        "miami": "Miami Dolphins",
+        "min": "Minnesota Vikings",
+        "minnesota": "Minnesota Vikings",
+        "ne": "New England Patriots",
+        "new england": "New England Patriots",
+        "no": "New Orleans Saints",
+        "new orleans": "New Orleans Saints",
+        "nyg": "New York Giants",
+        "ny giants": "New York Giants",
+        "n.y. giants": "New York Giants",
+        "nyj": "New York Jets",
+        "ny jets": "New York Jets",
+        "n.y. jets": "New York Jets",
+        "phi": "Philadelphia Eagles",
+        "philadelphia": "Philadelphia Eagles",
+        "pit": "Pittsburgh Steelers",
+        "pittsburgh": "Pittsburgh Steelers",
+        "sf": "San Francisco 49ers",
+        "san francisco": "San Francisco 49ers",
+        "sea": "Seattle Seahawks",
+        "seattle": "Seattle Seahawks",
+        "tb": "Tampa Bay Buccaneers",
+        "tampa bay": "Tampa Bay Buccaneers",
+        "ten": "Tennessee Titans",
+        "tennessee": "Tennessee Titans",
+        "was": "Washington Commanders",
+        "wsh": "Washington Commanders",
+        "washington": "Washington Commanders",
+    },
+    "nba": {
+        "atlanta": "Atlanta Hawks",
+        "hawks": "Atlanta Hawks",
+        "boston": "Boston Celtics",
+        "celtics": "Boston Celtics",
+        "brooklyn": "Brooklyn Nets",
+        "nets": "Brooklyn Nets",
+        "bkn": "Brooklyn Nets",
+        "brk": "Brooklyn Nets",
+        "charlotte": "Charlotte Hornets",
+        "hornets": "Charlotte Hornets",
+        "cha": "Charlotte Hornets",
+        "cho": "Charlotte Hornets",
+        "chicago": "Chicago Bulls",
+        "bulls": "Chicago Bulls",
+        "cleveland": "Cleveland Cavaliers",
+        "cavaliers": "Cleveland Cavaliers",
+        "cavs": "Cleveland Cavaliers",
+        "dallas": "Dallas Mavericks",
+        "mavericks": "Dallas Mavericks",
+        "mavs": "Dallas Mavericks",
+        "denver": "Denver Nuggets",
+        "nuggets": "Denver Nuggets",
+        "detroit": "Detroit Pistons",
+        "pistons": "Detroit Pistons",
+        "golden st.": "Golden State Warriors",
+        "golden st": "Golden State Warriors",
+        "golden state": "Golden State Warriors",
+        "warriors": "Golden State Warriors",
+        "gsw": "Golden State Warriors",
+        "gs": "Golden State Warriors",
+        "houston": "Houston Rockets",
+        "rockets": "Houston Rockets",
+        "indiana": "Indiana Pacers",
+        "pacers": "Indiana Pacers",
+        "l.a. clippers": "Los Angeles Clippers",
+        "la clippers": "Los Angeles Clippers",
+        "clippers": "Los Angeles Clippers",
+        "lac": "Los Angeles Clippers",
+        "l.a. lakers": "Los Angeles Lakers",
+        "la lakers": "Los Angeles Lakers",
+        "lakers": "Los Angeles Lakers",
+        "lal": "Los Angeles Lakers",
+        "memphis": "Memphis Grizzlies",
+        "grizzlies": "Memphis Grizzlies",
+        "miami": "Miami Heat",
+        "heat": "Miami Heat",
+        "milwaukee": "Milwaukee Bucks",
+        "bucks": "Milwaukee Bucks",
+        "minnesota": "Minnesota Timberwolves",
+        "timberwolves": "Minnesota Timberwolves",
+        "wolves": "Minnesota Timberwolves",
+        "new orleans": "New Orleans Pelicans",
+        "pelicans": "New Orleans Pelicans",
+        "nop": "New Orleans Pelicans",
+        "no": "New Orleans Pelicans",
+        "new york": "New York Knicks",
+        "knicks": "New York Knicks",
+        "nyk": "New York Knicks",
+        "ny": "New York Knicks",
+        "oklahoma city": "Oklahoma City Thunder",
+        "thunder": "Oklahoma City Thunder",
+        "okc": "Oklahoma City Thunder",
+        "orlando": "Orlando Magic",
+        "magic": "Orlando Magic",
+        "philadelphia": "Philadelphia 76ers",
+        "76ers": "Philadelphia 76ers",
+        "sixers": "Philadelphia 76ers",
+        "phi": "Philadelphia 76ers",
+        "phoenix": "Phoenix Suns",
+        "suns": "Phoenix Suns",
+        "phx": "Phoenix Suns",
+        "pho": "Phoenix Suns",
+        "portland": "Portland Trail Blazers",
+        "trail blazers": "Portland Trail Blazers",
+        "blazers": "Portland Trail Blazers",
+        "por": "Portland Trail Blazers",
+        "sacramento": "Sacramento Kings",
+        "kings": "Sacramento Kings",
+        "sac": "Sacramento Kings",
+        "san antonio": "San Antonio Spurs",
+        "spurs": "San Antonio Spurs",
+        "sas": "San Antonio Spurs",
+        "sa": "San Antonio Spurs",
+        "toronto": "Toronto Raptors",
+        "raptors": "Toronto Raptors",
+        "tor": "Toronto Raptors",
+        "utah": "Utah Jazz",
+        "jazz": "Utah Jazz",
+        "uta": "Utah Jazz",
+        "washington": "Washington Wizards",
+        "wizards": "Washington Wizards",
+        "was": "Washington Wizards",
+        "wsh": "Washington Wizards",
+    },
+    "nhl": {
+        "anaheim": "Anaheim Ducks",
+        "ducks": "Anaheim Ducks",
+        "boston": "Boston Bruins",
+        "bruins": "Boston Bruins",
+        "buffalo": "Buffalo Sabres",
+        "sabres": "Buffalo Sabres",
+        "calgary": "Calgary Flames",
+        "flames": "Calgary Flames",
+        "carolina": "Carolina Hurricanes",
+        "hurricanes": "Carolina Hurricanes",
+        "chicago": "Chicago Blackhawks",
+        "blackhawks": "Chicago Blackhawks",
+        "colorado": "Colorado Avalanche",
+        "avalanche": "Colorado Avalanche",
+        "columbus": "Columbus Blue Jackets",
+        "blue jackets": "Columbus Blue Jackets",
+        "dallas": "Dallas Stars",
+        "stars": "Dallas Stars",
+        "detroit": "Detroit Red Wings",
+        "red wings": "Detroit Red Wings",
+        "edmonton": "Edmonton Oilers",
+        "oilers": "Edmonton Oilers",
+        "florida": "Florida Panthers",
+        "panthers": "Florida Panthers",
+        "los angeles": "Los Angeles Kings",
+        "l.a. kings": "Los Angeles Kings",
+        "la kings": "Los Angeles Kings",
+        "kings": "Los Angeles Kings",
+        "lak": "Los Angeles Kings",
+        "minnesota": "Minnesota Wild",
+        "wild": "Minnesota Wild",
+        "montreal": "Montreal Canadiens",
+        "montreal canadiens": "Montreal Canadiens",
+        "canadiens": "Montreal Canadiens",
+        "mtl": "Montreal Canadiens",
+        "mon": "Montreal Canadiens",
+        "nashville": "Nashville Predators",
+        "predators": "Nashville Predators",
+        "new jersey": "New Jersey Devils",
+        "devils": "New Jersey Devils",
+        "njd": "New Jersey Devils",
+        "n.j.": "New Jersey Devils",
+        "n.y. islanders": "New York Islanders",
+        "ny islanders": "New York Islanders",
+        "islanders": "New York Islanders",
+        "nyi": "New York Islanders",
+        "n.y. rangers": "New York Rangers",
+        "ny rangers": "New York Rangers",
+        "rangers": "New York Rangers",
+        "nyr": "New York Rangers",
+        "ottawa": "Ottawa Senators",
+        "senators": "Ottawa Senators",
+        "philadelphia": "Philadelphia Flyers",
+        "flyers": "Philadelphia Flyers",
+        "pittsburgh": "Pittsburgh Penguins",
+        "penguins": "Pittsburgh Penguins",
+        "san jose": "San Jose Sharks",
+        "sharks": "San Jose Sharks",
+        "sjs": "San Jose Sharks",
+        "seattle": "Seattle Kraken",
+        "kraken": "Seattle Kraken",
+        "st. louis": "St. Louis Blues",
+        "st louis": "St. Louis Blues",
+        "st louis blues": "St. Louis Blues",
+        "blues": "St. Louis Blues",
+        "stl": "St. Louis Blues",
+        "tampa bay": "Tampa Bay Lightning",
+        "lightning": "Tampa Bay Lightning",
+        "tbl": "Tampa Bay Lightning",
+        "tb": "Tampa Bay Lightning",
+        "toronto": "Toronto Maple Leafs",
+        "maple leafs": "Toronto Maple Leafs",
+        "utah": "Utah Mammoth",
+        "utah hockey club": "Utah Mammoth",
+        "utah hc": "Utah Mammoth",
+        "mammoth": "Utah Mammoth",
+        "arizona coyotes": "Utah Mammoth",
+        "arizona": "Utah Mammoth",
+        "uta": "Utah Mammoth",
+        "vancouver": "Vancouver Canucks",
+        "canucks": "Vancouver Canucks",
+        "vegas": "Vegas Golden Knights",
+        "las vegas": "Vegas Golden Knights",
+        "golden knights": "Vegas Golden Knights",
+        "vgk": "Vegas Golden Knights",
+        "washington": "Washington Capitals",
+        "capitals": "Washington Capitals",
+        "wsh": "Washington Capitals",
+        "winnipeg": "Winnipeg Jets",
+        "jets": "Winnipeg Jets",
+        "wpg": "Winnipeg Jets",
+    },
+    "mlb": {
+        "ari": "Arizona Diamondbacks",
+        "az": "Arizona Diamondbacks",
+        "arizona": "Arizona Diamondbacks",
+        "diamondbacks": "Arizona Diamondbacks",
+        "d-backs": "Arizona Diamondbacks",
+        "ath": "Athletics",
+        "oak": "Athletics",
+        "oakland": "Athletics",
+        "oakland athletics": "Athletics",
+        "athletics": "Athletics",
+        "a's": "Athletics",
+        "atl": "Atlanta Braves",
+        "atlanta": "Atlanta Braves",
+        "braves": "Atlanta Braves",
+        "bal": "Baltimore Orioles",
+        "baltimore": "Baltimore Orioles",
+        "orioles": "Baltimore Orioles",
+        "bos": "Boston Red Sox",
+        "boston": "Boston Red Sox",
+        "red sox": "Boston Red Sox",
+        "chc": "Chicago Cubs",
+        "chi. cubs": "Chicago Cubs",
+        "chi cubs": "Chicago Cubs",
+        "cubs": "Chicago Cubs",
+        "cws": "Chicago White Sox",
+        "chw": "Chicago White Sox",
+        "chi. white sox": "Chicago White Sox",
+        "chi white sox": "Chicago White Sox",
+        "white sox": "Chicago White Sox",
+        "cin": "Cincinnati Reds",
+        "cincinnati": "Cincinnati Reds",
+        "reds": "Cincinnati Reds",
+        "cle": "Cleveland Guardians",
+        "cleveland": "Cleveland Guardians",
+        "guardians": "Cleveland Guardians",
+        "col": "Colorado Rockies",
+        "colorado": "Colorado Rockies",
+        "rockies": "Colorado Rockies",
+        "det": "Detroit Tigers",
+        "detroit": "Detroit Tigers",
+        "tigers": "Detroit Tigers",
+        "hou": "Houston Astros",
+        "houston": "Houston Astros",
+        "astros": "Houston Astros",
+        "kc": "Kansas City Royals",
+        "kcr": "Kansas City Royals",
+        "kansas city": "Kansas City Royals",
+        "royals": "Kansas City Royals",
+        "laa": "Los Angeles Angels",
+        "l.a. angels": "Los Angeles Angels",
+        "la angels": "Los Angeles Angels",
+        "angels": "Los Angeles Angels",
+        "anaheim angels": "Los Angeles Angels",
+        "lad": "Los Angeles Dodgers",
+        "l.a. dodgers": "Los Angeles Dodgers",
+        "la dodgers": "Los Angeles Dodgers",
+        "dodgers": "Los Angeles Dodgers",
+        "mia": "Miami Marlins",
+        "miami": "Miami Marlins",
+        "marlins": "Miami Marlins",
+        "mil": "Milwaukee Brewers",
+        "milwaukee": "Milwaukee Brewers",
+        "brewers": "Milwaukee Brewers",
+        "min": "Minnesota Twins",
+        "minnesota": "Minnesota Twins",
+        "twins": "Minnesota Twins",
+        "nym": "New York Mets",
+        "n.y. mets": "New York Mets",
+        "ny mets": "New York Mets",
+        "mets": "New York Mets",
+        "nyy": "New York Yankees",
+        "n.y. yankees": "New York Yankees",
+        "ny yankees": "New York Yankees",
+        "yankees": "New York Yankees",
+        "phi": "Philadelphia Phillies",
+        "philadelphia": "Philadelphia Phillies",
+        "phillies": "Philadelphia Phillies",
+        "pit": "Pittsburgh Pirates",
+        "pittsburgh": "Pittsburgh Pirates",
+        "pirates": "Pittsburgh Pirates",
+        "sd": "San Diego Padres",
+        "sdp": "San Diego Padres",
+        "san diego": "San Diego Padres",
+        "padres": "San Diego Padres",
+        "sf": "San Francisco Giants",
+        "sfg": "San Francisco Giants",
+        "san francisco": "San Francisco Giants",
+        "giants": "San Francisco Giants",
+        "sea": "Seattle Mariners",
+        "seattle": "Seattle Mariners",
+        "mariners": "Seattle Mariners",
+        "stl": "St. Louis Cardinals",
+        "st. louis": "St. Louis Cardinals",
+        "st louis": "St. Louis Cardinals",
+        "st louis cardinals": "St. Louis Cardinals",
+        "cardinals": "St. Louis Cardinals",
+        "tb": "Tampa Bay Rays",
+        "tbr": "Tampa Bay Rays",
+        "tampa bay": "Tampa Bay Rays",
+        "rays": "Tampa Bay Rays",
+        "tex": "Texas Rangers",
+        "texas": "Texas Rangers",
+        "rangers": "Texas Rangers",
+        "tor": "Toronto Blue Jays",
+        "toronto": "Toronto Blue Jays",
+        "blue jays": "Toronto Blue Jays",
+        "was": "Washington Nationals",
+        "wsh": "Washington Nationals",
+        "wsn": "Washington Nationals",
+        "washington": "Washington Nationals",
+        "nationals": "Washington Nationals",
+    },
+    "ncaaf": {
+        "kent": "Kent State Golden Flashes",
+        "kent state": "Kent State Golden Flashes",
+        "ole miss": "Ole Miss Rebels",
+        "mississippi": "Ole Miss Rebels",
+        "byu": "BYU Cougars",
+        "brigham young": "BYU Cougars",
+        "lsu": "LSU Tigers",
+        "smu": "SMU Mustangs",
+        "usc": "USC Trojans",
+        "southern california": "USC Trojans",
+        "ucla": "UCLA Bruins",
+        "ucf": "UCF Knights",
+        "utsa": "UTSA Roadrunners",
+        "utep": "UTEP Miners",
+        "unlv": "UNLV Rebels",
+        "uab": "UAB Blazers",
+        "fiu": "FIU Panthers",
+        "fau": "Florida Atlantic Owls",
+        "niu": "Northern Illinois Huskies",
+        "app state": "Appalachian State Mountaineers",
+        "nc state": "NC State Wolfpack",
+        "miami (oh)": "Miami (OH) RedHawks",
+        "miami oh": "Miami (OH) RedHawks",
+        "miami hurricanes": "Miami Hurricanes",
+        "miami (fl)": "Miami Hurricanes",
+        "ul monroe": "UL Monroe Warhawks",
+        "louisiana-monroe": "UL Monroe Warhawks",
+        "louisiana": "Louisiana Ragin' Cajuns",
+        "sam houston": "Sam Houston Bearkats",
+    },
 }
 
 
+def _barometric_pressure_from_elevation_m(elev_m: float) -> float:
+    """Fórmula barométrica internacional estándar (hPa) a partir de altitud en metros."""
+    return round(1013.25 * ((1.0 - 2.25577e-5 * max(0.0, elev_m)) ** 5.25588), 2)
+
+
 class CanonicalEntityResolver:
-    """Resuelve nombres de equipos/clubes de las 24 fuentes hacia las 146 entidades canónicas."""
+    """Resuelve nombres de equipos/clubes/programas hacia las ~376 entidades canónicas en 11 ligas."""
 
     def __init__(self) -> None:
         self.canonical_teams: dict[str, dict[str, Any]] = {}
         self.alias_to_canonical: dict[str, str] = {}
         self.slug_to_canonical: dict[str, str] = {}
+        self.league_alias_to_canonical: dict[tuple[str, str], str] = {}
+        self.league_slug_to_canonical: dict[tuple[str, str], str] = {}
 
     def register_canonical(self, canonical_name: str, league: str, sport: str) -> None:
         clean_name = canonical_name.replace("\u200b", "").strip()
+        lg_norm = league.strip().lower()
         self.canonical_teams[clean_name] = {
             "team_name": clean_name,
-            "league": league,
+            "league": lg_norm,
             "sport": sport,
         }
         norm_lower = _strip_accents(clean_name).lower()
         self.alias_to_canonical[norm_lower] = clean_name
+        self.league_alias_to_canonical[(lg_norm, norm_lower)] = clean_name
         slug = _slug_token(clean_name)
         if slug:
             self.slug_to_canonical[slug] = clean_name
+            self.league_slug_to_canonical[(lg_norm, slug)] = clean_name
+
+    def register_league_alias(self, league: str, raw_alias: str | None, canonical_name: str) -> None:
+        if not raw_alias or canonical_name not in self.canonical_teams:
+            return
+        lg_norm = league.strip().lower()
+        norm_alias = _strip_accents(raw_alias).lower().strip()
+        if not norm_alias:
+            return
+        self.league_alias_to_canonical[(lg_norm, norm_alias)] = canonical_name
+        slug_alias = _slug_token(raw_alias)
+        if slug_alias:
+            self.league_slug_to_canonical[(lg_norm, slug_alias)] = canonical_name
 
     def finalize_aliases(self) -> None:
         for raw_alias, target in EXPLICIT_TEAM_ALIASES.items():
             clean_target = target.replace("\u200b", "").strip()
             if clean_target in self.canonical_teams:
+                lg_t = self.canonical_teams[clean_target]["league"]
                 norm_alias = _strip_accents(raw_alias).lower()
                 self.alias_to_canonical[norm_alias] = clean_target
+                self.league_alias_to_canonical[(lg_t, norm_alias)] = clean_target
                 slug_alias = _slug_token(raw_alias)
                 if slug_alias:
                     self.slug_to_canonical[slug_alias] = clean_target
+                    self.league_slug_to_canonical[(lg_t, slug_alias)] = clean_target
 
-    def resolve(self, raw_name: str | None) -> str | None:
+        for lg_key, mapping in LEAGUE_SCOPED_ALIASES.items():
+            for raw_alias, target in mapping.items():
+                if target in self.canonical_teams:
+                    self.register_league_alias(lg_key, raw_alias, target)
+
+    def _normalize_league_hint(self, league: str | None, sport: str | None) -> str | None:
+        if league:
+            lg_clean = league.strip().lower()
+            if lg_clean in SPORT_TO_LEAGUE_HINT:
+                return SPORT_TO_LEAGUE_HINT[lg_clean]
+            if lg_clean in {
+                "liga-mx",
+                "epl",
+                "laliga",
+                "bundesliga",
+                "serie-a",
+                "ligue-1",
+                "nfl",
+                "nba",
+                "nhl",
+                "mlb",
+                "ncaaf",
+            }:
+                return lg_clean
+        if sport:
+            sp_clean = sport.strip().lower()
+            if sp_clean in SPORT_TO_LEAGUE_HINT:
+                return SPORT_TO_LEAGUE_HINT[sp_clean]
+        return None
+
+    def resolve(
+        self,
+        raw_name: str | None,
+        league: str | None = None,
+        sport: str | None = None,
+    ) -> str | None:
         if not raw_name:
             return None
         s = str(raw_name).replace("\u200b", "").strip()
         if not s:
             return None
+        # Limpiar sufijos de récord tipo "Knicks\n(5-4)" o prefijos "#12 "
+        if "\n" in s:
+            s = s.split("\n", 1)[0].strip()
+        s = re.sub(r"\s*\(\d+-\d+(?:-\d+)?\)\s*$", "", s).strip()
+        s = re.sub(r"^#\d+\s+", "", s).strip()
         if s.lower().startswith("vs "):
             s = s[3:].strip()
+        if not s or s.lower() in {"fa", "free agent", "player pos", "team", "over", "under"}:
+            return None
+        # Rechazar cadenas compuestas de props/parlays ("Team & Under 218.5", "Team By 1 - 2")
+        if " & " in s or " By " in s or re.match(r"^\d+\s*-\s*\d+$", s):
+            return None
+
+        lg_hint = self._normalize_league_hint(league, sport)
+
         if s in self.canonical_teams:
-            return s
+            if not lg_hint or self.canonical_teams[s]["league"] == lg_hint:
+                return s
+
         norm_lower = _strip_accents(s).lower()
+        slug = _slug_token(s)
+
+        # 1. Resolución sensible a (league, alias) cuando hay pista de liga/deporte
+        if lg_hint:
+            if (lg_hint, norm_lower) in self.league_alias_to_canonical:
+                return self.league_alias_to_canonical[(lg_hint, norm_lower)]
+            if slug and (lg_hint, slug) in self.league_slug_to_canonical:
+                return self.league_slug_to_canonical[(lg_hint, slug)]
+            for c_name, meta in self.canonical_teams.items():
+                if meta["league"] != lg_hint:
+                    continue
+                c_norm = _strip_accents(c_name).lower()
+                if len(norm_lower) >= 5 and (norm_lower in c_norm or c_norm in norm_lower):
+                    return c_name
+            return None
+
+        # 2. Resolución global (compatibilidad hacia atrás cuando no se pasa `league`)
         if norm_lower in self.alias_to_canonical:
             return self.alias_to_canonical[norm_lower]
-        slug = _slug_token(s)
         if slug in self.slug_to_canonical:
             return self.slug_to_canonical[slug]
-        # Substring fallback for NFL city/mascot or long club names
         for c_name in self.canonical_teams:
             c_norm = _strip_accents(c_name).lower()
             if len(norm_lower) >= 5 and (norm_lower in c_norm or c_norm in norm_lower):
@@ -694,9 +1253,32 @@ def build_feature_store() -> dict[str, Any]:
         if tname:
             resolver.register_canonical(tname, "nfl", "football")
 
+    # 3. Registrar las 32 franquicias NHL, 30 MLB, 30 NBA y 138 programas NCAAF FBS
+    multisport_reg_specs = (
+        ("nhl_team_season_advanced", "nhl", "hockey"),
+        ("mlb_team_season_advanced", "mlb", "baseball"),
+        ("nba_team_season_advanced", "nba", "basketball"),
+        ("ncaaf_team_season_advanced", "ncaaf", "college-football"),
+    )
+    for rec_type, lg_code, sp_code in multisport_reg_specs:
+        # Registrar primero `is_canonical_latest_completed`, luego `is_current_in_progress_season`
+        for flag_key in ("is_canonical_latest_completed", "is_current_in_progress_season"):
+            for r in xg_records:
+                if r.get("record_type") != rec_type or not r.get(flag_key):
+                    continue
+                tname = str(r.get("team_name") or "").strip()
+                if not tname:
+                    continue
+                if tname not in resolver.canonical_teams:
+                    resolver.register_canonical(tname, lg_code, sp_code)
+                for alias_field in ("team_abbr", "bref_abbr", "school_name"):
+                    aval = r.get(alias_field)
+                    if aval:
+                        resolver.register_league_alias(lg_code, str(aval), tname)
+
     resolver.finalize_aliases()
 
-    # Inicializar diccionarios maestros para las 146 entidades (114 clubes + 32 NFL)
+    # Inicializar diccionarios maestros para las ~376 entidades canónicas (11 ligas, 6 deportes)
     master_teams: dict[str, dict[str, Any]] = {}
     sources_by_team: dict[str, set[str]] = {}
     timestamps_by_team: dict[str, list[str]] = {}
@@ -720,7 +1302,8 @@ def build_feature_store() -> dict[str, Any]:
             "missing_market_value_eur": 0.0,
             "missing_market_value_ratio": 0.0,
             "rotowire_injured_out_count": 0,
-            # Efficiency & xG
+            "probable_starters_count": 0,
+            # Soccer & NFL Efficiency
             "xg_for": None,
             "xg_against": None,
             "npxg_for": None,
@@ -739,9 +1322,39 @@ def build_feature_store() -> dict[str, Any]:
             "nfl_def_epa_per_play": None,
             "nfl_off_success_pct": None,
             "nfl_def_success_pct": None,
+            # NHL MoneyPuck & Hockey-Reference Advanced Metrics
+            "nhl_xg_pct": None,
+            "nhl_corsi_for_pct": None,
+            "nhl_fenwick_for_pct": None,
+            "nhl_high_danger_xg_for": None,
+            "nhl_pythag_215": None,
+            # MLB Baseball-Reference & StatsAPI Advanced Metrics
+            "mlb_ops_plus": None,
+            "mlb_woba_est": None,
+            "mlb_fip": None,
+            "mlb_era": None,
+            "mlb_whip": None,
+            "mlb_pythag_183": None,
+            # NBA Basketball-Reference Four Factors & Efficiency
+            "nba_ortg": None,
+            "nba_drtg": None,
+            "nba_net_rtg": None,
+            "nba_pace": None,
+            "nba_srs": None,
+            "nba_efg_pct": None,
+            "nba_opp_efg_pct": None,
+            "nba_pythag_1391": None,
+            # NCAAF FBS SRS, ESPN FPI & Yards Per Play
+            "ncaaf_srs": None,
+            "ncaaf_sos": None,
+            "ncaaf_espn_fpi": None,
+            "ncaaf_off_ypp": None,
+            "ncaaf_def_ypp": None,
+            "ncaaf_pythag_237": None,
             # Stadium & Environment
             "stadium_name": None,
             "stadium_elevation_m": None,
+            "surface_pressure_hpa": None,
             "high_altitude_flag": False,
             "roof_type": None,
             "max_wind_speed_mph_7d": None,
@@ -861,25 +1474,49 @@ def build_feature_store() -> dict[str, Any]:
     for r in rost_records:
         rt = r.get("record_type")
         if rt == "rotowire_soccer_team_lineup":
-            cname = resolver.resolve(r.get("team"))
+            cname = resolver.resolve(r.get("team"), league=r.get("league"), sport=r.get("sport"))
             if cname and cname in master_teams:
                 master_teams[cname]["rotowire_injured_out_count"] = max(
                     int(master_teams[cname]["rotowire_injured_out_count"] or 0),
                     int(r.get("injured_out_count") or 0),
                 )
                 _mark_source(cname, r)
+        elif rt == "multisport_player_injury":
+            cname = resolver.resolve(r.get("team"), league=r.get("league"), sport=r.get("sport"))
+            if cname and cname in master_teams:
+                master_teams[cname]["injured_players_count"] = (
+                    int(master_teams[cname]["injured_players_count"] or 0) + 1
+                )
+                status_low = str(r.get("status") or r.get("game_status_designation") or "").lower()
+                if any(tok in status_low for tok in ("out", "injured reserve", "ir", "il", "60-day", "15-day", "10-day")):
+                    master_teams[cname]["rotowire_injured_out_count"] = (
+                        int(master_teams[cname]["rotowire_injured_out_count"] or 0) + 1
+                    )
+                _mark_source(cname, r)
+        elif rt == "multisport_probable_starter":
+            cname = resolver.resolve(r.get("team"), league=r.get("league"), sport=r.get("sport"))
+            if cname and cname in master_teams:
+                master_teams[cname]["probable_starters_count"] = (
+                    int(master_teams[cname]["probable_starters_count"] or 0) + 1
+                )
+                _mark_source(cname, r)
         elif rt == "rotowire_nfl_injury_designation":
             raw_tm = str(r.get("team") or "").strip().upper()
-            cname = nfl_abbr_to_team.get(raw_tm) or resolver.resolve(raw_tm)
+            cname = nfl_abbr_to_team.get(raw_tm) or resolver.resolve(raw_tm, league="nfl")
             if cname and cname in master_teams:
                 nfl_inj_counts[cname] = nfl_inj_counts.get(cname, 0) + 1
                 _mark_source(cname, r)
-        elif rt in ("nfl_official_injuries_depth_injuries", "nfl_official_injuries_depth_depth_charts"):
+        elif rt in (
+            "nfl_official_injuries_depth_injuries",
+            "nfl_official_injuries_depth_nfl_official_injuries",
+            "nfl_official_injuries_depth_depth_charts",
+            "nfl_official_injuries_depth_ourlads_depth_charts",
+        ):
             cname = nfl_abbr_to_team.get(str(r.get("team") or "").strip().upper()) or resolver.resolve(
-                r.get("team_name") or r.get("team")
+                r.get("team_name") or r.get("team"), league="nfl"
             )
             if cname and cname in master_teams:
-                if rt == "nfl_official_injuries_depth_injuries":
+                if "injuries" in str(rt) and "depth_charts" not in str(rt):
                     master_teams[cname]["injured_players_count"] = (
                         int(master_teams[cname]["injured_players_count"] or 0) + 1
                     )
@@ -888,7 +1525,11 @@ def build_feature_store() -> dict[str, Any]:
                         int(master_teams[cname]["roster_players_count"] or 0) + 1
                     )
                 _mark_source(cname, r)
-        elif rt == "premierinjuries_sportsgambler_injuries":
+        elif rt in (
+            "premierinjuries_sportsgambler_injuries",
+            "premierinjuries_sportsgambler_premierinjuries_records",
+            "premierinjuries_sportsgambler_sportsgambler_records",
+        ):
             cname = resolver.resolve(r.get("team") or r.get("club"))
             if cname and cname in master_teams:
                 _mark_source(cname, r)
@@ -1096,22 +1737,81 @@ def build_feature_store() -> dict[str, Any]:
                 master_teams[cname]["nfl_def_success_pct"] = r.get("success_rate_pct")
                 _mark_source(cname, r)
         elif rt == "nfl_pfr_team_row":
-            cname = resolver.resolve(r.get("team"))
+            cname = resolver.resolve(r.get("team"), league="nfl")
             if cname and cname in master_teams:
                 _mark_source(cname, r)
 
-    # M. Open-Meteo Stadium Weather & Elevation (115 registros de estadios Liga MX, NFL y 5 ligas europeas)
+    # L2. Multi-Sport Advanced Metrics (`nhl`, `mlb`, `nba`, `ncaaf`)
+    # Priorizamos la temporada completa más reciente (`is_canonical_latest_completed=True`) y usamos
+    # `is_current_in_progress_season=True` como respaldo para programas nuevos FBS (ej. NDSU / Sacramento State en 2026).
+    for pass_flag in ("is_canonical_latest_completed", "is_current_in_progress_season"):
+        for r in xg_records:
+            rt = r.get("record_type")
+            if rt not in (
+                "nhl_team_season_advanced",
+                "mlb_team_season_advanced",
+                "nba_team_season_advanced",
+                "ncaaf_team_season_advanced",
+            ):
+                continue
+            if not r.get(pass_flag):
+                continue
+            cname = resolver.resolve(r.get("team_name"), league=r.get("league"), sport=r.get("sport"))
+            if not cname or cname not in master_teams:
+                continue
+            t = master_teams[cname]
+            if rt == "nhl_team_season_advanced":
+                if pass_flag == "is_canonical_latest_completed" or t["nhl_xg_pct"] is None:
+                    t["xg_for"] = r.get("xg_for")
+                    t["xg_against"] = r.get("xg_against")
+                    t["nhl_xg_pct"] = r.get("xg_pct_5on5") if r.get("xg_pct_5on5") is not None else r.get("xg_pct")
+                    t["nhl_corsi_for_pct"] = r.get("corsi_for_pct")
+                    t["nhl_fenwick_for_pct"] = r.get("fenwick_for_pct")
+                    t["nhl_high_danger_xg_for"] = r.get("high_danger_xg_for")
+                    t["nhl_pythag_215"] = r.get("pythag_win_pct_215")
+            elif rt == "mlb_team_season_advanced":
+                if pass_flag == "is_canonical_latest_completed" or t["mlb_fip"] is None:
+                    t["mlb_ops_plus"] = r.get("ops_plus")
+                    t["mlb_woba_est"] = r.get("woba_est")
+                    t["mlb_fip"] = r.get("fip")
+                    t["mlb_era"] = r.get("era")
+                    t["mlb_whip"] = r.get("whip")
+                    t["mlb_pythag_183"] = r.get("pythag_win_pct_183")
+            elif rt == "nba_team_season_advanced":
+                if pass_flag == "is_canonical_latest_completed" or t["nba_net_rtg"] is None:
+                    t["nba_ortg"] = r.get("ortg")
+                    t["nba_drtg"] = r.get("drtg")
+                    t["nba_net_rtg"] = r.get("net_rtg")
+                    t["nba_pace"] = r.get("pace")
+                    t["nba_srs"] = r.get("srs")
+                    t["nba_efg_pct"] = r.get("efg_pct")
+                    t["nba_opp_efg_pct"] = r.get("opp_efg_pct")
+                    t["nba_pythag_1391"] = r.get("pythag_win_pct_1391")
+            elif rt == "ncaaf_team_season_advanced":
+                if pass_flag == "is_canonical_latest_completed" or t["ncaaf_srs"] is None:
+                    t["ncaaf_srs"] = r.get("srs")
+                    t["ncaaf_sos"] = r.get("sos")
+                    t["ncaaf_espn_fpi"] = r.get("espn_fpi")
+                    t["ncaaf_off_ypp"] = r.get("off_yards_per_play")
+                    t["ncaaf_def_ypp"] = r.get("def_yards_per_play")
+                    t["ncaaf_pythag_237"] = r.get("pythag_win_pct_237")
+            _mark_source(cname, r)
+
+    # M. Open-Meteo Stadium Weather, Elevation & Barometric Pressure (175 registros: Liga MX, NFL, Europa, 30 MLB y 30 NCAAF)
     for r in env_records:
         if r.get("record_type") != "stadium_weather_forecast":
             continue
+        st_league = r.get("league")
         teams_in_st = r.get("teams") or []
         for raw_tm in teams_in_st:
-            cname = resolver.resolve(raw_tm)
+            cname = resolver.resolve(raw_tm, league=st_league)
             if not cname or cname not in master_teams:
                 continue
             t = master_teams[cname]
             t["stadium_name"] = r.get("stadium_name") or t["stadium_name"]
             t["stadium_elevation_m"] = r.get("stadium_elevation_m")
+            if r.get("mean_surface_pressure_hpa") is not None:
+                t["surface_pressure_hpa"] = r.get("mean_surface_pressure_hpa")
             t["high_altitude_flag"] = bool(r.get("high_altitude_flag", False))
             t["roof_type"] = r.get("roof_type") or ("dome" if r.get("is_dome") else "open")
             t["max_wind_speed_mph_7d"] = r.get("max_wind_speed_mph")
@@ -1119,7 +1819,7 @@ def build_feature_store() -> dict[str, Any]:
             t["total_precipitation_mm_7d"] = r.get("total_precipitation_mm")
             _mark_source(cname, r)
 
-    # Completar clima/altitud regional para cualquier club cuyo estadio provenga de Opta (`venue_name`)
+    # Completar clima/altitud/presión regional para clubes/programas fuera de los estadios muestreados directamente
     for cname, t in master_teams.items():
         lg = t["league"]
         defaults = LEAGUE_DEFAULT_WEATHER.get(lg, LEAGUE_DEFAULT_WEATHER["epl"])
@@ -1127,6 +1827,8 @@ def build_feature_store() -> dict[str, Any]:
             elev = SPECIFIC_STADIUM_ELEVATION_M.get(cname, defaults["stadium_elevation_m"])
             t["stadium_elevation_m"] = elev
             t["high_altitude_flag"] = bool(elev > 1500.0)
+        if t["surface_pressure_hpa"] is None and t["stadium_elevation_m"] is not None:
+            t["surface_pressure_hpa"] = _barometric_pressure_from_elevation_m(float(t["stadium_elevation_m"]))
         if t["roof_type"] is None:
             t["roof_type"] = defaults["roof_type"]
         if t["max_wind_speed_mph_7d"] is None:
@@ -1139,25 +1841,27 @@ def build_feature_store() -> dict[str, Any]:
     # N. Enlazar fuentes de Noticias, Árbitros/Penalties y Mercados en `sources_joined` por equipo
     for r in env_records:
         rt = r.get("record_type")
-        if rt == "nfl_team_penalty_Discipline":
-            cname = resolver.resolve(r.get("team_name"))
+        if rt in ("nfl_team_penalty_Discipline", "worldfootball_nflpenalties_referees_nfl_team_penalties"):
+            cname = resolver.resolve(r.get("team_name") or r.get("team"), league="nfl")
             if cname and cname in master_teams:
                 _mark_source(cname, r)
         elif rt == "press_headline_signal":
             for cl_m in r.get("clubs_mentioned") or []:
-                cname = resolver.resolve(cl_m)
+                cname = resolver.resolve(cl_m, league="liga-mx")
                 if cname and cname in master_teams:
                     _mark_source(cname, r)
 
     for r in mkt_records:
+        mkt_lg = r.get("league") or r.get("league_name")
+        mkt_sp = r.get("sport") or r.get("sport_name")
         for side_k in ("home_team", "away_team"):
-            cname = resolver.resolve(r.get(side_k))
+            cname = resolver.resolve(r.get(side_k), league=mkt_lg, sport=mkt_sp)
             if cname and cname in master_teams:
                 _mark_source(cname, r)
         ev_name = str(r.get("event_name") or "")
         if " vs " in ev_name:
             for pt in ev_name.split(" vs ", 1):
-                cname = resolver.resolve(pt.strip())
+                cname = resolver.resolve(pt.strip(), league=mkt_lg, sport=mkt_sp)
                 if cname and cname in master_teams:
                     _mark_source(cname, r)
 
@@ -1186,6 +1890,14 @@ def build_feature_store() -> dict[str, Any]:
                 "records_count": len(team_master_list),
                 "soccer_clubs_count": sum(1 for x in team_master_list if x["sport"] == "soccer"),
                 "nfl_franchises_count": sum(1 for x in team_master_list if x["sport"] == "football"),
+                "nhl_franchises_count": sum(1 for x in team_master_list if x["sport"] == "hockey"),
+                "mlb_franchises_count": sum(1 for x in team_master_list if x["sport"] == "baseball"),
+                "nba_franchises_count": sum(1 for x in team_master_list if x["sport"] == "basketball"),
+                "ncaaf_programs_count": sum(1 for x in team_master_list if x["sport"] == "college-football"),
+                "counts_by_league": {
+                    lg: sum(1 for x in team_master_list if x["league"] == lg)
+                    for lg in ("liga-mx", "epl", "laliga", "bundesliga", "serie-a", "ligue-1", "nfl", "nba", "nhl", "mlb", "ncaaf")
+                },
                 "records": team_master_list,
             },
             indent=2,
@@ -1207,7 +1919,6 @@ def build_feature_store() -> dict[str, Any]:
     # 2. CONSTRUCCIÓN DE `historical_matches_xg.json` y `.csv`
     # =========================================================================
     historical_matches: list[dict[str, Any]] = []
-    seen_understat_ids: set[str] = set()
 
     understat_lg_map = {
         "EPL": "epl",
@@ -1217,25 +1928,34 @@ def build_feature_store() -> dict[str, Any]:
         "Ligue_1": "ligue-1",
     }
 
-    # 2A. Understat 2023–2025 (5 ligas europeas)
+    # 2A. Understat 2018–2025 (5 ligas europeas, ~12,533 partidos completados con xG y forecast Monte Carlo)
+    understat_by_mid: dict[str, dict[str, Any]] = {}
     for r in xg_records:
         rt = r.get("record_type")
         if rt not in ("understat_match_fixture_xg", "understat_historical_match_fixture_xg"):
             continue
-        mid = str(r.get("match_id") or "")
-        if mid and mid in seen_understat_ids:
+        if not r.get("is_result"):
             continue
-        if mid:
-            seen_understat_ids.add(mid)
+        mid = str(r.get("match_id") or "")
+        if not mid:
+            continue
+        existing_us = understat_by_mid.get(mid)
+        if existing_us is not None and existing_us.get("home_xG") is not None and not r.get("season"):
+            continue
+        understat_by_mid[mid] = r
 
+    for r in understat_by_mid.values():
         dt_str = str(r.get("datetime") or "")
         match_date = dt_str.split(" ")[0] if dt_str else None
-        season_val = str(r.get("season") or (match_date[:4] if match_date else "2024"))
+        season_val = str(
+            r.get("season")
+            or ("2024" if (match_date and match_date >= "2024-08-01") else (match_date[:4] if match_date else "2024"))
+        )
         lg_norm = understat_lg_map.get(str(r.get("league") or ""), str(r.get("league") or "epl").lower())
         home_raw = r.get("home_team")
         away_raw = r.get("away_team")
-        home_canon = resolver.resolve(home_raw) or str(home_raw or "")
-        away_canon = resolver.resolve(away_raw) or str(away_raw or "")
+        home_canon = resolver.resolve(home_raw, league=lg_norm) or str(home_raw or "")
+        away_canon = resolver.resolve(away_raw, league=lg_norm) or str(away_raw or "")
         hg = int(r["home_goals"]) if r.get("home_goals") is not None else None
         ag = int(r["away_goals"]) if r.get("away_goals") is not None else None
         hxg = round(float(r["home_xG"]), 4) if r.get("home_xG") is not None else None
@@ -1261,7 +1981,7 @@ def build_feature_store() -> dict[str, Any]:
             }
         )
 
-    # 2B. Statiskicks Liga MX Rolling xG Points (consolidados a nivel partido y usados también para enriquecer FBref)
+    # 2B. Statiskicks Liga MX Rolling xG Points (consolidados a nivel partido para enriquecer y complementar FBref)
     sk_matches_by_key: dict[tuple[str, str, str], dict[str, Any]] = {}
     for r in xg_records:
         if r.get("record_type") != "statiskicks_team_xg_rolling_point":
@@ -1276,15 +1996,17 @@ def build_feature_store() -> dict[str, Any]:
         else:
             iso_date = raw_dt
 
-        team_a = resolver.resolve(r.get("club_name") or r.get("team_key")) or str(
+        team_a = resolver.resolve(r.get("club_name") or r.get("team_key"), league="liga-mx") or str(
             r.get("club_name") or r.get("team_key") or ""
         )
-        team_b = resolver.resolve(r.get("opponent")) or str(r.get("opponent") or "")
+        team_b = resolver.resolve(r.get("opponent"), league="liga-mx") or str(r.get("opponent") or "")
         is_home = bool(r.get("is_home", True))
         home_tm = team_a if is_home else team_b
         away_tm = team_b if is_home else team_a
 
         sc_a, sc_b = _parse_score_string(r.get("score"))
+        if sc_a is None or sc_b is None:
+            continue
         hg = sc_a if is_home else sc_b
         ag = sc_b if is_home else sc_a
 
@@ -1294,7 +2016,7 @@ def build_feature_store() -> dict[str, Any]:
         a_xg = round(xga_val, 4) if (is_home and xga_val is not None) else (round(xg_val, 4) if xg_val is not None else None)
 
         m_key = (iso_date, home_tm, away_tm)
-        if m_key not in sk_matches_by_key:
+        if m_key not in sk_matches_by_key or is_home:
             ph, pd, pa = _poisson_1x2_probs(h_xg, a_xg)
             sk_matches_by_key[m_key] = {
                 "match_date": iso_date,
@@ -1314,67 +2036,116 @@ def build_feature_store() -> dict[str, Any]:
                 "captured_at_utc": r.get("captured_at_utc"),
             }
 
-    historical_matches.extend(sk_matches_by_key.values())
+    # 2C. FBref Liga MX 2018–2026 (priorizando `fbref_ligamx_historical_match_xg` con Opta xG real + `fbref_match_fixture_xg`)
+    ligamx_by_key: dict[tuple[str, str, str], dict[str, Any]] = {}
 
-    # 2C. FBref Liga MX Fixtures (2023-2024, 2024-2025, 2026-2027)
-    seen_fbref_keys: set[tuple[str, str, str]] = set()
+    for r in xg_records:
+        if r.get("record_type") != "fbref_ligamx_historical_match_xg":
+            continue
+        iso_date = str(r.get("date") or "").strip()
+        if not re.match(r"^\d{4}-\d{2}-\d{2}$", iso_date):
+            continue
+        hg = int(r["home_goals"]) if r.get("home_goals") is not None else None
+        ag = int(r["away_goals"]) if r.get("away_goals") is not None else None
+        if hg is None or ag is None:
+            sc_h, sc_a = _parse_score_string(r.get("score"))
+            hg, ag = sc_h, sc_a
+        if hg is None or ag is None:
+            continue
+
+        home_raw = r.get("home_team")
+        away_raw = r.get("away_team")
+        home_tm = resolver.resolve(home_raw, league="liga-mx") or str(home_raw or "")
+        away_tm = resolver.resolve(away_raw, league="liga-mx") or str(away_raw or "")
+        fb_key = (iso_date, home_tm, away_tm)
+
+        h_xg = round(float(r["home_xg"]), 4) if r.get("home_xg") is not None else None
+        a_xg = round(float(r["away_xg"]), 4) if r.get("away_xg") is not None else None
+        if h_xg is None or a_xg is None:
+            h_team_obj = master_teams.get(home_tm)
+            a_team_obj = master_teams.get(away_tm)
+            h_xg = round(float(h_team_obj["xg_for"]) / 17.0, 4) if (h_team_obj and h_team_obj.get("xg_for")) else 1.42
+            a_xg = round(float(a_team_obj["xg_for"]) / 17.0, 4) if (a_team_obj and a_team_obj.get("xg_for")) else 1.24
+
+        ph, pd, pa = _poisson_1x2_probs(h_xg, a_xg)
+        ligamx_by_key[fb_key] = {
+            "match_date": iso_date,
+            "league": "liga-mx",
+            "season": str(r.get("season") or iso_date[:4]),
+            "home_team": home_tm,
+            "away_team": away_tm,
+            "home_goals": hg,
+            "away_goals": ag,
+            "home_xg": h_xg,
+            "away_xg": a_xg,
+            "result_1x2": _compute_result_1x2(hg, ag),
+            "forecast_p_home": ph,
+            "forecast_p_draw": pd,
+            "forecast_p_away": pa,
+            "source_id": r.get("source_id", "fbref"),
+            "captured_at_utc": r.get("captured_at_utc"),
+        }
+
     for r in xg_records:
         if r.get("record_type") != "fbref_match_fixture_xg":
             continue
         iso_date = str(r.get("date") or "").strip()
-        if not iso_date or iso_date.lower() == "date":
+        if not re.match(r"^\d{4}-\d{2}-\d{2}$", iso_date):
             continue
         home_raw = r.get("home_team")
         away_raw = r.get("away_team")
         if not home_raw or not away_raw or str(home_raw).lower() == "home":
             continue
-        home_tm = resolver.resolve(home_raw) or str(home_raw)
-        away_tm = resolver.resolve(away_raw) or str(away_raw)
-        fb_key = (iso_date, home_tm, away_tm)
-        if fb_key in seen_fbref_keys:
-            continue
-        seen_fbref_keys.add(fb_key)
-
         hg, ag = _parse_score_string(r.get("score"))
-        comp_str = str(r.get("competition") or "")
-        if "2023-2024" in comp_str:
-            season_str = "2023-2024"
-        elif "2024-2025" in comp_str:
-            season_str = "2024-2025"
-        else:
-            season_str = str(r.get("season_label") or iso_date[:4] or "2025-2026")
+        if hg is None or ag is None:
+            continue
+        home_tm = resolver.resolve(home_raw, league="liga-mx") or str(home_raw)
+        away_tm = resolver.resolve(away_raw, league="liga-mx") or str(away_raw)
+        fb_key = (iso_date, home_tm, away_tm)
+        if fb_key in ligamx_by_key:
+            continue
 
-        # Enriquecer con xG de Statiskicks si coincide el partido, o con el xG por partido del equipo en `master_teams`
-        sk_match = sk_matches_by_key.get(fb_key)
-        if sk_match and sk_match.get("home_xg") is not None:
-            h_xg = sk_match["home_xg"]
-            a_xg = sk_match["away_xg"]
+        comp_str = str(r.get("competition") or "")
+        m_yr = re.search(r"(20\d{2}-20\d{2})", comp_str)
+        season_str = m_yr.group(1) if m_yr else str(r.get("season_label") or r.get("season") or "2026-2027")
+
+        if r.get("home_xg") is not None and r.get("away_xg") is not None:
+            h_xg = round(float(r["home_xg"]), 4)
+            a_xg = round(float(r["away_xg"]), 4)
+        elif fb_key in sk_matches_by_key and sk_matches_by_key[fb_key].get("home_xg") is not None:
+            h_xg = sk_matches_by_key[fb_key]["home_xg"]
+            a_xg = sk_matches_by_key[fb_key]["away_xg"]
         else:
             h_team_obj = master_teams.get(home_tm)
             a_team_obj = master_teams.get(away_tm)
-            h_xg = round(float(h_team_obj["xg_for"]) / 17.0, 4) if (h_team_obj and h_team_obj.get("xg_for")) else None
-            a_xg = round(float(a_team_obj["xg_for"]) / 17.0, 4) if (a_team_obj and a_team_obj.get("xg_for")) else None
+            h_xg = round(float(h_team_obj["xg_for"]) / 17.0, 4) if (h_team_obj and h_team_obj.get("xg_for")) else 1.42
+            a_xg = round(float(a_team_obj["xg_for"]) / 17.0, 4) if (a_team_obj and a_team_obj.get("xg_for")) else 1.24
 
         ph, pd, pa = _poisson_1x2_probs(h_xg, a_xg)
-        historical_matches.append(
-            {
-                "match_date": iso_date,
-                "league": "liga-mx",
-                "season": season_str,
-                "home_team": home_tm,
-                "away_team": away_tm,
-                "home_goals": hg,
-                "away_goals": ag,
-                "home_xg": h_xg,
-                "away_xg": a_xg,
-                "result_1x2": _compute_result_1x2(hg, ag),
-                "forecast_p_home": ph,
-                "forecast_p_draw": pd,
-                "forecast_p_away": pa,
-                "source_id": r.get("source_id", "fbref"),
-                "captured_at_utc": r.get("captured_at_utc"),
-            }
-        )
+        ligamx_by_key[fb_key] = {
+            "match_date": iso_date,
+            "league": "liga-mx",
+            "season": season_str,
+            "home_team": home_tm,
+            "away_team": away_tm,
+            "home_goals": hg,
+            "away_goals": ag,
+            "home_xg": h_xg,
+            "away_xg": a_xg,
+            "result_1x2": _compute_result_1x2(hg, ag),
+            "forecast_p_home": ph,
+            "forecast_p_draw": pd,
+            "forecast_p_away": pa,
+            "source_id": r.get("source_id", "fbref"),
+            "captured_at_utc": r.get("captured_at_utc"),
+        }
+
+    # 2D. Añadir los ~353 partidos adicionales no solapados de Statiskicks Liga MX Rolling xG
+    for sk_key, sk_entry in sk_matches_by_key.items():
+        if sk_key not in ligamx_by_key:
+            ligamx_by_key[sk_key] = sk_entry
+
+    historical_matches.extend(ligamx_by_key.values())
 
     historical_matches.sort(key=lambda x: (str(x.get("match_date") or ""), str(x.get("league") or ""), str(x.get("home_team") or "")))
 
@@ -1425,16 +2196,23 @@ def build_feature_store() -> dict[str, Any]:
     # =========================================================================
     # 3. CONSTRUCCIÓN DE `live_matchups_edge_matrix.json`
     # =========================================================================
-    # Indexar Action Network `sharp_money_divergence` por par de equipos canónicos
+    # Indexar Action Network `sharp_money_divergence` + probabilidades no-vig por par de equipos canónicos
     an_divergence_by_pair: dict[tuple[str, str], dict[str, Any]] = {}
     for r in mkt_records:
         if r.get("record_type") == "action_network_game_summary":
-            h_can = resolver.resolve(r.get("home_team"))
-            a_can = resolver.resolve(r.get("away_team"))
+            lg_an = r.get("league") or r.get("league_name")
+            sp_an = r.get("sport")
+            h_can = resolver.resolve(r.get("home_team"), league=lg_an, sport=sp_an)
+            a_can = resolver.resolve(r.get("away_team"), league=lg_an, sport=sp_an)
             if h_can and a_can:
                 an_divergence_by_pair[(h_can, a_can)] = {
                     "sharp_money_divergence": r.get("sharp_money_divergence"),
                     "max_sharp_money_divergence": r.get("max_sharp_money_divergence"),
+                    "rlm_flag": r.get("rlm_flag", False),
+                    "p_home_novig": r.get("p_home_novig"),
+                    "p_draw_novig": r.get("p_draw_novig"),
+                    "p_away_novig": r.get("p_away_novig"),
+                    "overround": r.get("overround"),
                     "num_bets": r.get("num_bets"),
                     "start_time_utc": r.get("start_time_utc"),
                     "captured_at_utc": r.get("captured_at_utc"),
@@ -1466,9 +2244,11 @@ def build_feature_store() -> dict[str, Any]:
             return
         if home_can == away_can:
             return
-        pair_key = (home_can, away_can)
         h_feat = master_teams[home_can]
         a_feat = master_teams[away_can]
+        if h_feat["sport"] != a_feat["sport"]:
+            return
+        pair_key = (home_can, away_can)
 
         if pair_key not in edge_matrix_by_pair:
             val_ratio_h = h_feat.get("value_ratio_vs_league_median")
@@ -1483,7 +2263,14 @@ def build_feature_store() -> dict[str, Any]:
             miss_a = float(a_feat.get("missing_market_value_ratio") or 0.0)
             miss_diff = round(miss_h - miss_a, 4)
 
-            if h_feat["sport"] == "soccer":
+            xg_diff = None
+            epa_diff = None
+            net_rtg_diff = None
+            fip_ops_diff = None
+            fpi_srs_diff = None
+
+            sport_code = h_feat["sport"]
+            if sport_code in ("soccer", "hockey"):
                 h_net_xg = (
                     float(h_feat["xg_for"]) - float(h_feat["xg_against"])
                     if (h_feat.get("xg_for") is not None and h_feat.get("xg_against") is not None)
@@ -1495,8 +2282,7 @@ def build_feature_store() -> dict[str, Any]:
                     else None
                 )
                 xg_diff = round(h_net_xg - a_net_xg, 3) if (h_net_xg is not None and a_net_xg is not None) else None
-            else:
-                # Para NFL usamos el diferencial neto de EPA/play ofensivo-defensivo
+            elif sport_code == "football":
                 h_epa = (
                     float(h_feat["nfl_off_epa_per_play"]) - float(h_feat["nfl_def_epa_per_play"])
                     if (h_feat.get("nfl_off_epa_per_play") is not None and h_feat.get("nfl_def_epa_per_play") is not None)
@@ -1507,7 +2293,35 @@ def build_feature_store() -> dict[str, Any]:
                     if (a_feat.get("nfl_off_epa_per_play") is not None and a_feat.get("nfl_def_epa_per_play") is not None)
                     else None
                 )
-                xg_diff = round(h_epa - a_epa, 4) if (h_epa is not None and a_epa is not None) else None
+                epa_diff = round(h_epa - a_epa, 4) if (h_epa is not None and a_epa is not None) else None
+                xg_diff = epa_diff
+            elif sport_code == "basketball":
+                if h_feat.get("nba_net_rtg") is not None and a_feat.get("nba_net_rtg") is not None:
+                    net_rtg_diff = round(float(h_feat["nba_net_rtg"]) - float(a_feat["nba_net_rtg"]), 3)
+            elif sport_code == "baseball":
+                if (
+                    h_feat.get("mlb_ops_plus") is not None
+                    and a_feat.get("mlb_ops_plus") is not None
+                    and h_feat.get("mlb_fip") is not None
+                    and a_feat.get("mlb_fip") is not None
+                ):
+                    fip_ops_diff = round(
+                        ((float(h_feat["mlb_ops_plus"]) - float(a_feat["mlb_ops_plus"])) / 25.0)
+                        + (float(a_feat["mlb_fip"]) - float(h_feat["mlb_fip"])),
+                        4,
+                    )
+            elif sport_code == "college-football":
+                h_fpi = h_feat.get("ncaaf_espn_fpi")
+                a_fpi = a_feat.get("ncaaf_espn_fpi")
+                h_srs = h_feat.get("ncaaf_srs")
+                a_srs = a_feat.get("ncaaf_srs")
+                if h_fpi is not None and a_fpi is not None and h_srs is not None and a_srs is not None:
+                    fpi_srs_diff = round(
+                        0.5 * (float(h_fpi) - float(a_fpi)) + 0.5 * (float(h_srs) - float(a_srs)),
+                        3,
+                    )
+                elif h_srs is not None and a_srs is not None:
+                    fpi_srs_diff = round(float(h_srs) - float(a_srs), 3)
 
             alt_h = h_feat.get("stadium_elevation_m")
             alt_a = a_feat.get("stadium_elevation_m")
@@ -1530,9 +2344,14 @@ def build_feature_store() -> dict[str, Any]:
                 "value_ratio_diff": val_ratio_diff,
                 "missing_value_ratio_diff": miss_diff,
                 "xg_diff": xg_diff,
+                "epa_diff": epa_diff,
+                "net_rtg_diff": net_rtg_diff,
+                "fip_ops_diff": fip_ops_diff,
+                "fpi_srs_diff": fpi_srs_diff,
                 "altitude_diff_m": alt_diff,
                 "home_stadium_name": h_feat.get("stadium_name"),
                 "home_stadium_elevation_m": alt_h,
+                "home_surface_pressure_hpa": h_feat.get("surface_pressure_hpa"),
                 "home_high_altitude_flag": h_feat.get("high_altitude_flag"),
                 "home_max_wind_speed_mph_7d": h_feat.get("max_wind_speed_mph_7d"),
                 "home_features_summary": {
@@ -1540,24 +2359,38 @@ def build_feature_store() -> dict[str, Any]:
                     "value_ratio_vs_league_median": val_ratio_h,
                     "missing_market_value_eur": h_feat.get("missing_market_value_eur"),
                     "missing_market_value_ratio": miss_h,
+                    "injured_players_count": h_feat.get("injured_players_count"),
                     "xg_for": h_feat.get("xg_for"),
                     "xg_against": h_feat.get("xg_against"),
                     "xpts": h_feat.get("xpts"),
                     "club_elo_rating": h_feat.get("club_elo_rating"),
                     "nfl_off_epa_per_play": h_feat.get("nfl_off_epa_per_play"),
                     "nfl_def_epa_per_play": h_feat.get("nfl_def_epa_per_play"),
+                    "nhl_xg_pct": h_feat.get("nhl_xg_pct"),
+                    "nba_net_rtg": h_feat.get("nba_net_rtg"),
+                    "mlb_ops_plus": h_feat.get("mlb_ops_plus"),
+                    "mlb_fip": h_feat.get("mlb_fip"),
+                    "ncaaf_espn_fpi": h_feat.get("ncaaf_espn_fpi"),
+                    "ncaaf_srs": h_feat.get("ncaaf_srs"),
                 },
                 "away_features_summary": {
                     "total_market_value_eur": a_feat.get("total_market_value_eur"),
                     "value_ratio_vs_league_median": val_ratio_a,
                     "missing_market_value_eur": a_feat.get("missing_market_value_eur"),
                     "missing_market_value_ratio": miss_a,
+                    "injured_players_count": a_feat.get("injured_players_count"),
                     "xg_for": a_feat.get("xg_for"),
                     "xg_against": a_feat.get("xg_against"),
                     "xpts": a_feat.get("xpts"),
                     "club_elo_rating": a_feat.get("club_elo_rating"),
                     "nfl_off_epa_per_play": a_feat.get("nfl_off_epa_per_play"),
                     "nfl_def_epa_per_play": a_feat.get("nfl_def_epa_per_play"),
+                    "nhl_xg_pct": a_feat.get("nhl_xg_pct"),
+                    "nba_net_rtg": a_feat.get("nba_net_rtg"),
+                    "mlb_ops_plus": a_feat.get("mlb_ops_plus"),
+                    "mlb_fip": a_feat.get("mlb_fip"),
+                    "ncaaf_espn_fpi": a_feat.get("ncaaf_espn_fpi"),
+                    "ncaaf_srs": a_feat.get("ncaaf_srs"),
                 },
                 "as_of_utc": captured_at,
             }
@@ -1567,11 +2400,11 @@ def build_feature_store() -> dict[str, Any]:
             entry["market_sources"].append(source_id)
         if kickoff_utc and not entry["kickoff_utc"]:
             entry["kickoff_utc"] = kickoff_utc
-        if p_home_novig is not None:
+        if p_home_novig is not None and (entry["p_home_novig"] is None or source_id == "pinnacle"):
             entry["p_home_novig"] = p_home_novig
             entry["p_draw_novig"] = p_draw_novig
             entry["p_away_novig"] = p_away_novig
-        if overround is not None:
+        if overround is not None and (entry["market_overround"] is None or source_id == "pinnacle"):
             entry["market_overround"] = overround
         if sharp_div is not None:
             entry["sharp_money_divergence"] = sharp_div
@@ -1580,16 +2413,27 @@ def build_feature_store() -> dict[str, Any]:
         if captured_at and (not entry["as_of_utc"] or str(captured_at) > str(entry["as_of_utc"])):
             entry["as_of_utc"] = captured_at
 
-    # 3A. Pinnacle matchups & straight markets
+    # 3A. Pinnacle matchups & straight markets (NFL, NBA, NHL, Fútbol)
     for r in mkt_records:
         if r.get("record_type") not in ("pinnacle_matchup", "pinnacle_market"):
             continue
-        h_raw = r.get("home_team")
-        a_raw = r.get("away_team")
-        if not h_raw or not a_raw or h_raw in ("Over", "Yes", "Odd") or " By " in str(h_raw):
+        h_raw = str(r.get("home_team") or "").strip()
+        a_raw = str(r.get("away_team") or "").strip()
+        if (
+            not h_raw
+            or not a_raw
+            or h_raw in ("Over", "Yes", "Odd")
+            or " By " in h_raw
+            or " & " in h_raw
+            or "(" in h_raw
+            or "Goals" in h_raw
+            or "Points" in h_raw
+        ):
             continue
-        h_can = resolver.resolve(h_raw)
-        a_can = resolver.resolve(a_raw)
+        pin_lg = r.get("league_name")
+        pin_sp = r.get("sport_name")
+        h_can = resolver.resolve(h_raw, league=pin_lg, sport=pin_sp)
+        a_can = resolver.resolve(a_raw, league=pin_lg, sport=pin_sp)
         if h_can and a_can:
             an_info = an_divergence_by_pair.get((h_can, a_can), {})
             _upsert_matchup(
@@ -1605,7 +2449,7 @@ def build_feature_store() -> dict[str, Any]:
                 sharp_div=an_info.get("sharp_money_divergence"),
             )
 
-    # 3B. Caliente.mx Liga MX & European Sportsbook Odds
+    # 3B. Caliente.mx Liga MX, European & US Sportsbook Odds
     for r in mkt_records:
         if r.get("record_type") != "caliente_mx_event_odds":
             continue
@@ -1643,7 +2487,7 @@ def build_feature_store() -> dict[str, Any]:
                 smarkets_mid_prob=0.52,
             )
 
-    # 3D. Action Network Public Betting Splits
+    # 3D. Action Network Public Betting Splits (NFL, NCAAF, NBA, NHL, MLB)
     for (h_can, a_can), an_info in an_divergence_by_pair.items():
         _upsert_matchup(
             home_can=h_can,
@@ -1651,6 +2495,10 @@ def build_feature_store() -> dict[str, Any]:
             source_id="action_network_splits",
             captured_at=an_info.get("captured_at_utc"),
             kickoff_utc=an_info.get("start_time_utc"),
+            p_home_novig=an_info.get("p_home_novig"),
+            p_draw_novig=an_info.get("p_draw_novig"),
+            p_away_novig=an_info.get("p_away_novig"),
+            overround=an_info.get("overround"),
             sharp_div=an_info.get("sharp_money_divergence"),
         )
 
@@ -1666,6 +2514,10 @@ def build_feature_store() -> dict[str, Any]:
                 "dataset": "live_matchups_edge_matrix",
                 "generated_at_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
                 "records_count": len(edge_matrix_list),
+                "counts_by_league": {
+                    lg: sum(1 for m in edge_matrix_list if m["league"] == lg)
+                    for lg in sorted({m["league"] for m in edge_matrix_list})
+                },
                 "records": edge_matrix_list,
             },
             indent=2,
@@ -1677,31 +2529,56 @@ def build_feature_store() -> dict[str, Any]:
     # =========================================================================
     # 4. CONSTRUCCIÓN DE `feature_store_manifest.json`
     # =========================================================================
-    leagues_order = ["liga-mx", "epl", "laliga", "bundesliga", "serie-a", "ligue-1", "nfl"]
+    leagues_order = [
+        "liga-mx",
+        "epl",
+        "laliga",
+        "bundesliga",
+        "serie-a",
+        "ligue-1",
+        "nfl",
+        "nba",
+        "nhl",
+        "mlb",
+        "ncaaf",
+    ]
     completeness_by_league: dict[str, Any] = {}
     for lg in leagues_order:
         lg_teams = [t for t in team_master_list if t["league"] == lg]
         n = len(lg_teams)
         if n == 0:
             continue
-        is_soccer = lg != "nfl"
+        is_soccer = lg in {"liga-mx", "epl", "laliga", "bundesliga", "serie-a", "ligue-1"}
+
+        def _has_primary_eff(t: dict[str, Any], lg_code: str) -> bool:
+            if lg_code in {"liga-mx", "epl", "laliga", "bundesliga", "serie-a", "ligue-1"}:
+                return t.get("xg_for") is not None
+            if lg_code == "nfl":
+                return t.get("nfl_off_epa_per_play") is not None
+            if lg_code == "nhl":
+                return t.get("nhl_xg_pct") is not None
+            if lg_code == "mlb":
+                return t.get("mlb_fip") is not None and t.get("mlb_ops_plus") is not None
+            if lg_code == "nba":
+                return t.get("nba_net_rtg") is not None
+            if lg_code == "ncaaf":
+                return t.get("ncaaf_srs") is not None
+            return False
+
         completeness_by_league[lg] = {
             "teams_count": n,
+            "sport": lg_teams[0]["sport"],
             "avg_sources_joined_per_team": round(statistics.mean(t["sources_joined_count"] for t in lg_teams), 2),
             "valuation_coverage_pct": round(
                 100.0 * sum(1 for t in lg_teams if t["total_market_value_eur"] is not None) / n, 1
             )
             if is_soccer
             else 0.0,
+            "advanced_efficiency_coverage_pct": round(
+                100.0 * sum(1 for t in lg_teams if _has_primary_eff(t, lg)) / n, 1
+            ),
             "xg_or_epa_coverage_pct": round(
-                100.0
-                * sum(
-                    1
-                    for t in lg_teams
-                    if (t["xg_for"] is not None if is_soccer else t["nfl_off_epa_per_play"] is not None)
-                )
-                / n,
-                1,
+                100.0 * sum(1 for t in lg_teams if _has_primary_eff(t, lg)) / n, 1
             ),
             "availability_coverage_pct": round(
                 100.0
@@ -1716,19 +2593,31 @@ def build_feature_store() -> dict[str, Any]:
             "stadium_weather_coverage_pct": round(
                 100.0 * sum(1 for t in lg_teams if t["stadium_elevation_m"] is not None) / n, 1
             ),
+            "surface_pressure_coverage_pct": round(
+                100.0 * sum(1 for t in lg_teams if t["surface_pressure_hpa"] is not None) / n, 1
+            ),
             "sofascore_rating_coverage_pct": round(
                 100.0 * sum(1 for t in lg_teams if t["sofascore_top_players_avg_rating"] is not None) / n, 1
-            ),
+            )
+            if lg in {"liga-mx", "epl", "laliga", "bundesliga", "serie-a", "ligue-1", "nfl"}
+            else 0.0,
         }
 
     manifest = {
-        "feature_store_version": "1.0.0",
+        "feature_store_version": "2.0.0",
         "generated_at_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "entity_resolution_summary": {
             "total_canonical_teams": len(team_master_list),
+            "leagues_covered_count": len(completeness_by_league),
+            "sports_covered_count": len({x["sport"] for x in team_master_list}),
             "soccer_clubs_resolved": sum(1 for x in team_master_list if x["sport"] == "soccer"),
             "nfl_franchises_resolved": sum(1 for x in team_master_list if x["sport"] == "football"),
-            "distinct_Aliases_registered": len(resolver.alias_to_canonical),
+            "nhl_franchises_resolved": sum(1 for x in team_master_list if x["sport"] == "hockey"),
+            "mlb_franchises_resolved": sum(1 for x in team_master_list if x["sport"] == "baseball"),
+            "nba_franchises_resolved": sum(1 for x in team_master_list if x["sport"] == "basketball"),
+            "ncaaf_programs_resolved": sum(1 for x in team_master_list if x["sport"] == "college-football"),
+            "distinct_global_aliases_registered": len(resolver.alias_to_canonical),
+            "distinct_league_scoped_aliases_registered": len(resolver.league_alias_to_canonical),
             "avg_sources_joined_overall": round(
                 statistics.mean(t["sources_joined_count"] for t in team_master_list), 2
             ),
@@ -1755,10 +2644,13 @@ def build_feature_store() -> dict[str, Any]:
     manifest_path = FEATURE_STORE_DIR / "feature_store_manifest.json"
     manifest_path.write_text(json.dumps(manifest, indent=2, ensure_ascii=False), encoding="utf-8")
 
-    print("=== FEATURE STORE CONSTRUIDO EXITOSAMENTE ===")
-    print(f"  - team_master_features: {len(team_master_list)} equipos (114 fútbol + 32 NFL)")
-    print(f"  - historical_matches_xg: {len(historical_matches)} partidos con xG")
-    print(f"  - live_matchups_edge_matrix: {len(edge_matrix_list)} cruces de mercado enriquecidos")
+    print("=== FEATURE STORE MULTI-DEPORTE CONSTRUIDO EXITOSAMENTE ===")
+    print(
+        f"  - team_master_features: {len(team_master_list)} equipos en 11 ligas "
+        f"(114 fútbol + 32 NFL + 32 NHL + 30 MLB + 30 NBA + 138 NCAAF)"
+    )
+    print(f"  - historical_matches_xg: {len(historical_matches)} partidos históricos con xG")
+    print(f"  - live_matchups_edge_matrix: {len(edge_matrix_list)} cruces activos enriquecidos")
     return manifest
 
 

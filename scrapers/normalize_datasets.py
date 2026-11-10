@@ -463,12 +463,28 @@ def _normalize_action_network(
         game_id = g.get("game_id")
         home_team = g.get("home_team")
         away_team = g.get("away_team")
-        league_name = g.get("league_name")
+        league_val = g.get("league") or g.get("league_name")
+        league_name = g.get("league_name") or league_val
+        sport_val = g.get("sport") or league_val
         start_time = g.get("start_time")
         num_bets = g.get("num_bets")
+        rlm_flag = bool(g.get("rlm_flag", False))
+        rlm_signals = g.get("rlm_signals")
+        open_lines = g.get("open_lines") or (g.get("lines") or {}).get("open")
+        current_lines = g.get("current_lines") or (g.get("lines") or {}).get("current")
+        splits_obj = g.get("splits")
 
         markets_sample = g.get("markets") or g.get("markets_sample") or []
         max_div = None
+        if g.get("sharp_divergence") is not None:
+            try:
+                max_div = round(float(g["sharp_divergence"]), 2)
+            except (TypeError, ValueError):
+                max_div = None
+
+        fallback_ml_home_am = None
+        fallback_ml_away_am = None
+
         for mkt in markets_sample:
             if not isinstance(mkt, dict):
                 continue
@@ -490,14 +506,22 @@ def _normalize_action_network(
 
             am_odds = mkt.get("odds")
             dec_odds = american_to_decimal(am_odds)
+            mtype = mkt.get("market_type") or mkt.get("type")
+            side = str(mkt.get("side") or "").lower()
+            if mtype == "moneyline" and str(mkt.get("book_id") or "") in ("15", ""):
+                if side == "home" and fallback_ml_home_am is None:
+                    fallback_ml_home_am = am_odds
+                elif side == "away" and fallback_ml_away_am is None:
+                    fallback_ml_away_am = am_odds
 
             records.append(
                 {
                     **base,
                     "record_type": "action_network_split_outcome",
                     "game_id": game_id,
+                    "league": league_val,
                     "league_name": league_name,
-                    "sport": g.get("sport") or league_name,
+                    "sport": sport_val,
                     "season": g.get("season"),
                     "week": g.get("week"),
                     "start_time_utc": start_time,
@@ -508,7 +532,8 @@ def _normalize_action_network(
                     "home_abbr": g.get("home_abbr"),
                     "away_abbr": g.get("away_abbr"),
                     "book_id": str(mkt.get("book_id") or ""),
-                    "market_type": mkt.get("market_type") or mkt.get("type"),
+                    "book_name": mkt.get("book_name"),
+                    "market_type": mtype,
                     "side": mkt.get("side"),
                     "line_value": mkt.get("value"),
                     "american_odds": am_odds,
@@ -520,12 +545,28 @@ def _normalize_action_network(
                     "money_value": mkt.get("money_value"),
                     "sharp_money_divergence": divergence,
                     "sharp_money_flag": bool(divergence is not None and abs(divergence) >= 10.0),
+                    "rlm_flag": rlm_flag,
                     "reverse_line_movement_signal": bool(
                         mkt.get("reverse_line_movement_signal")
+                        or rlm_flag
                         or (divergence is not None and abs(divergence) >= 15.0)
                     ),
                 }
             )
+
+        # Calcular cuotas decimales y probabilidades sin vig desde `current_lines.moneyline` (o fallback Consensus)
+        ml_curr = (current_lines or {}).get("moneyline") if isinstance(current_lines, dict) else None
+        am_home = (ml_curr or {}).get("home_odds") if isinstance(ml_curr, dict) else None
+        am_away = (ml_curr or {}).get("away_odds") if isinstance(ml_curr, dict) else None
+        am_draw = (ml_curr or {}).get("draw_odds") if isinstance(ml_curr, dict) else None
+        if am_home is None:
+            am_home = fallback_ml_home_am
+        if am_away is None:
+            am_away = fallback_ml_away_am
+        dec_home = american_to_decimal(am_home)
+        dec_draw = american_to_decimal(am_draw)
+        dec_away = american_to_decimal(am_away)
+        novig = compute_novig_probs_1x2(dec_home, dec_draw, dec_away)
 
         # Resumen por partido
         records.append(
@@ -533,7 +574,9 @@ def _normalize_action_network(
                 **base,
                 "record_type": "action_network_game_summary",
                 "game_id": game_id,
+                "league": league_val,
                 "league_name": league_name,
+                "sport": sport_val,
                 "season": g.get("season"),
                 "week": g.get("week"),
                 "start_time_utc": start_time,
@@ -544,6 +587,18 @@ def _normalize_action_network(
                 "home_abbr": g.get("home_abbr"),
                 "away_abbr": g.get("away_abbr"),
                 "markets_count": g.get("markets_count", len(markets_sample)),
+                "open_lines": open_lines,
+                "current_lines": current_lines,
+                "splits": splits_obj,
+                "rlm_flag": rlm_flag,
+                "rlm_signals": rlm_signals,
+                "decimal_odds_home": dec_home,
+                "decimal_odds_draw": dec_draw,
+                "decimal_odds_away": dec_away,
+                "p_home_novig": novig["p_home_novig"],
+                "p_draw_novig": novig["p_draw_novig"],
+                "p_away_novig": novig["p_away_novig"],
+                "overround": novig["overround"],
                 "max_sharp_money_divergence": max_div,
                 "sharp_money_divergence": max_div,
             }
@@ -996,9 +1051,11 @@ def _normalize_understat(
                     }
                 )
 
-    # Wave-4 Understat: `historical_seasons_2023_2024` (192 team-seasons + 3,504 partidos históricos)
-    hist_seasons = payload.get("historical_seasons_2023_2024")
-    if isinstance(hist_seasons, dict):
+    # Wave-4 & Wave-5 Understat: `historical_seasons_2023_2024` y `historical_seasons_2018_2022`
+    for hist_dict_key in ("historical_seasons_2023_2024", "historical_seasons_2018_2022"):
+        hist_seasons = payload.get(hist_dict_key)
+        if not isinstance(hist_seasons, dict):
+            continue
         for season_key, h_data in hist_seasons.items():
             if not isinstance(h_data, dict):
                 continue
@@ -1007,6 +1064,8 @@ def _normalize_understat(
             for tm in h_data.get("teams") or []:
                 if not isinstance(tm, dict):
                     continue
+                tm_id = str(tm.get("team_id") or "")
+                tm_title = tm.get("team_title")
                 sc = int(tm.get("scored") or 0)
                 ms = int(tm.get("missed") or 0)
                 t_xg = float(tm.get("xG") or 0.0)
@@ -1019,8 +1078,8 @@ def _normalize_understat(
                         "record_type": "understat_historical_team_season_xg",
                         "league": lg_key,
                         "season": season_val,
-                        "team_id": str(tm.get("team_id") or ""),
-                        "team_name": tm.get("team_title"),
+                        "team_id": tm_id,
+                        "team_name": tm_title,
                         "matches_played": tm.get("matches_played"),
                         "wins": tm.get("wins"),
                         "draws": tm.get("draws"),
@@ -1042,6 +1101,40 @@ def _normalize_understat(
                         "pts_overperformance": round(t_pts - t_xpts, 3),
                     }
                 )
+                for h in tm.get("history") or []:
+                    if not isinstance(h, dict):
+                        continue
+                    h_sc = int(h.get("scored") or 0)
+                    h_ms = int(h.get("missed") or 0)
+                    m_xg = float(h.get("xG") or 0.0)
+                    m_xga = float(h.get("xGA") or 0.0)
+                    records.append(
+                        {
+                            **base,
+                            "record_type": "understat_team_match_history",
+                            "league": lg_key,
+                            "season": season_val,
+                            "team_id": tm_id,
+                            "team_name": tm_title,
+                            "date": h.get("date"),
+                            "h_a": h.get("h_a"),
+                            "result": h.get("result"),
+                            "G": h_sc,
+                            "GA": h_ms,
+                            "pts": h.get("pts"),
+                            "xG": round(m_xg, 4),
+                            "xGA": round(m_xga, 4),
+                            "npxG": h.get("npxG"),
+                            "npxGA": h.get("npxGA"),
+                            "npxGD": h.get("npxGD"),
+                            "xPTS": h.get("xpts") if h.get("xpts") is not None else h.get("xPTS"),
+                            "deep_completions": h.get("deep"),
+                            "deep_allowed": h.get("deep_allowed"),
+                            "ppda_avg": h.get("ppda_ratio"),
+                            "ppda_allowed_avg": h.get("ppda_allowed_ratio"),
+                            "xg_overperformance": round(h_sc - m_xg, 4),
+                        }
+                    )
             for dm in h_data.get("matches") or []:
                 if not isinstance(dm, dict):
                     continue
@@ -1065,6 +1158,39 @@ def _normalize_understat(
                         "forecast_win": dm.get("forecast_win"),
                         "forecast_draw": dm.get("forecast_draw"),
                         "forecast_loss": dm.get("forecast_loss"),
+                    }
+                )
+            for pl in h_data.get("top_25_players") or []:
+                if not isinstance(pl, dict):
+                    continue
+                p_goals = int(pl.get("goals") or 0)
+                p_xg = float(pl.get("xG") or 0.0)
+                records.append(
+                    {
+                        **base,
+                        "record_type": "understat_player_season_xg",
+                        "league": lg_key,
+                        "season": pl.get("season") or season_val,
+                        "player_id": str(pl.get("player_id") or ""),
+                        "player_name": pl.get("player_name"),
+                        "team_name": pl.get("team_title"),
+                        "position": pl.get("position"),
+                        "games": pl.get("games"),
+                        "time_minutes": pl.get("time_minutes"),
+                        "G": p_goals,
+                        "npg": pl.get("npg"),
+                        "assists": pl.get("assists"),
+                        "shots": pl.get("shots"),
+                        "key_passes": pl.get("key_passes"),
+                        "yellow_cards": pl.get("yellow_cards"),
+                        "red_cards": pl.get("red_cards"),
+                        "xG": round(p_xg, 4),
+                        "npxG": pl.get("npxG"),
+                        "xA": pl.get("xA"),
+                        "xG_plus_xA": pl.get("xG_plus_xA"),
+                        "xGChain": pl.get("xGChain"),
+                        "xGBuildup": pl.get("xGBuildup"),
+                        "xg_overperformance": round(p_goals - p_xg, 4),
                     }
                 )
 
@@ -1901,36 +2027,127 @@ def _normalize_generic_stats_source(
         if records:
             return records
 
-    # 3. FBref (`competitions` -> `tables` -> `rows`)
-    if source_id == "fbref" and isinstance(payload.get("competitions"), list):
-        for comp in payload["competitions"]:
-            if not isinstance(comp, dict):
-                continue
-            comp_slug = comp.get("competition")
-            season_label = comp.get("season_label")
-            for tbl in comp.get("tables") or []:
-                if not isinstance(tbl, dict):
+    # 3. FBref (`competitions` -> `tables` -> `rows` + Wave 5 `unique_historical_matches`)
+    if source_id == "fbref":
+        if isinstance(payload.get("competitions"), list):
+            for comp in payload["competitions"]:
+                if not isinstance(comp, dict):
                     continue
-                table_id = str(tbl.get("table_id") or "")
-                is_fixture_tbl = "sched" in table_id.lower()
-                for r in tbl.get("rows") or []:
-                    if isinstance(r, dict):
-                        is_fixture_row = is_fixture_tbl or (
-                            r.get("home_team") is not None and r.get("away_team") is not None
-                        )
-                        records.append(
-                            {
-                                **base,
-                                "record_type": "fbref_match_fixture_xg"
-                                if is_fixture_row
-                                else "fbref_squad_stat_row",
-                                "competition": comp_slug,
-                                "season_label": season_label,
-                                "table_id": table_id,
-                                "team_name": r.get("team") or r.get("squad"),
-                                **r,
-                            }
-                        )
+                comp_slug = comp.get("competition")
+                season_label = comp.get("season_label")
+                for tbl in comp.get("tables") or []:
+                    if not isinstance(tbl, dict):
+                        continue
+                    table_id = str(tbl.get("table_id") or "")
+                    is_fixture_tbl = "sched" in table_id.lower()
+                    for r in tbl.get("rows") or []:
+                        if isinstance(r, dict):
+                            is_fixture_row = is_fixture_tbl or (
+                                r.get("home_team") is not None and r.get("away_team") is not None
+                            )
+                            records.append(
+                                {
+                                    **base,
+                                    "record_type": "fbref_match_fixture_xg"
+                                    if is_fixture_row
+                                    else "fbref_squad_stat_row",
+                                    "competition": comp_slug,
+                                    "season_label": season_label,
+                                    "table_id": table_id,
+                                    "team_name": r.get("team") or r.get("squad"),
+                                    **r,
+                                }
+                            )
+        for hm in payload.get("unique_historical_matches") or []:
+            if not isinstance(hm, dict):
+                continue
+            records.append(
+                {
+                    **base,
+                    "record_type": "fbref_ligamx_historical_match_xg",
+                    "league": "liga-mx",
+                    "season": hm.get("season"),
+                    "round": hm.get("round"),
+                    "gameweek": hm.get("gameweek"),
+                    "dayofweek": hm.get("dayofweek"),
+                    "date": hm.get("date"),
+                    "start_time": hm.get("start_time"),
+                    "home_team": hm.get("home_team"),
+                    "away_team": hm.get("away_team"),
+                    "score": hm.get("score"),
+                    "home_goals": hm.get("home_goals"),
+                    "away_goals": hm.get("away_goals"),
+                    "home_xg": hm.get("home_xg"),
+                    "away_xg": hm.get("away_xg"),
+                    "venue": hm.get("venue"),
+                    "referee": hm.get("referee"),
+                    "attendance": hm.get("attendance"),
+                }
+            )
+        if records:
+            return records
+
+    # 3B. Wave 5 Multi-Sport Advanced Stats (`nhl`, `mlb`, `nba`, `ncaaf`)
+    multisport_meta: dict[str, tuple[str, str, str]] = {
+        "nhl_moneypuck_hockeyref": ("nhl_team_season_advanced", "nhl", "hockey"),
+        "mlb_fangraphs_baseballref": ("mlb_team_season_advanced", "mlb", "baseball"),
+        "nba_bballref_fourfactors": ("nba_team_season_advanced", "nba", "basketball"),
+        "ncaaf_cfb_sp_plus_srs": ("ncaaf_team_season_advanced", "ncaaf", "college-football"),
+    }
+    if source_id in multisport_meta:
+        rec_type, lg_slug, sport_slug = multisport_meta[source_id]
+        canonical_keys = {
+            (str(t.get("team_name") or ""), str(t.get("season") or ""))
+            for t in (payload.get("teams") or [])
+            if isinstance(t, dict)
+        }
+        current_keys = {
+            (str(t.get("team_name") or ""), str(t.get("season") or ""))
+            for t in (payload.get("current_season_teams") or [])
+            if isinstance(t, dict)
+        }
+        seen_ts_keys: set[tuple[str, str]] = set()
+
+        for row in payload.get("team_seasons") or []:
+            if not isinstance(row, dict):
+                continue
+            rk = (str(row.get("team_name") or ""), str(row.get("season") or ""))
+            seen_ts_keys.add(rk)
+            sub_lg = row.get("league") if lg_slug == "mlb" else None
+            records.append(
+                {
+                    **base,
+                    "record_type": rec_type,
+                    **row,
+                    "league": lg_slug,
+                    "sport": sport_slug,
+                    **({"al_nl_league": sub_lg} if sub_lg else {}),
+                    "is_canonical_latest_completed": rk in canonical_keys,
+                    "is_current_in_progress_season": rk in current_keys,
+                }
+            )
+
+        for row in payload.get("current_season_teams") or []:
+            if not isinstance(row, dict):
+                continue
+            rk = (str(row.get("team_name") or ""), str(row.get("season") or ""))
+            if rk in seen_ts_keys:
+                continue
+            seen_ts_keys.add(rk)
+            sub_lg = row.get("league") if lg_slug == "mlb" else None
+            records.append(
+                {
+                    **base,
+                    "record_type": rec_type,
+                    **row,
+                    "league": lg_slug,
+                    "sport": sport_slug,
+                    **({"al_nl_league": sub_lg} if sub_lg else {}),
+                    "is_canonical_latest_completed": rk in canonical_keys,
+                    "is_current_in_progress_season": True,
+                }
+            )
+
         if records:
             return records
 
@@ -2191,7 +2408,60 @@ def _normalize_rotowire(
                             }
                         )
 
-    for nfl_inj in (payload.get("nfl_injuries") or []) + (payload.get("injury_table_records") or []):
+    has_multisport_injuries = bool(payload.get("injuries"))
+    if has_multisport_injuries:
+        for ms_inj in payload.get("injuries") or []:
+            if not isinstance(ms_inj, dict):
+                continue
+            records.append(
+                {
+                    **base,
+                    "record_type": "multisport_player_injury",
+                    "sport": ms_inj.get("sport"),
+                    "league": ms_inj.get("league"),
+                    "team": ms_inj.get("team"),
+                    "player_id": str(ms_inj.get("player_id") or ""),
+                    "player_name": ms_inj.get("player_name"),
+                    "position": ms_inj.get("position"),
+                    "status": ms_inj.get("status"),
+                    "game_status_designation": ms_inj.get("game_status_designation")
+                    or ms_inj.get("status"),
+                    "injury_type": ms_inj.get("injury_type") or ms_inj.get("injury"),
+                    "injury": ms_inj.get("injury") or ms_inj.get("injury_type"),
+                    "expected_return": ms_inj.get("expected_return"),
+                    "notes": ms_inj.get("notes"),
+                    "sources": ms_inj.get("sources") or [],
+                }
+            )
+
+    for st_prob in payload.get("starters_and_probables") or []:
+        if not isinstance(st_prob, dict):
+            continue
+        records.append(
+            {
+                **base,
+                "record_type": "multisport_probable_starter",
+                "sport": st_prob.get("sport"),
+                "league": st_prob.get("league"),
+                "event_name": st_prob.get("event_name"),
+                "kickoff_utc": st_prob.get("kickoff_utc"),
+                "team": st_prob.get("team"),
+                "home_away": st_prob.get("home_away"),
+                "player_name": st_prob.get("player_name"),
+                "position": st_prob.get("position"),
+                "role": st_prob.get("role"),
+                "status": st_prob.get("status"),
+                "notes": st_prob.get("notes"),
+                "source_provider": st_prob.get("source_provider"),
+            }
+        )
+
+    nfl_source_list = (
+        (payload.get("nfl_injuries") or [])
+        if has_multisport_injuries
+        else ((payload.get("nfl_injuries") or []) + (payload.get("injury_table_records") or []))
+    )
+    for nfl_inj in nfl_source_list:
         if not isinstance(nfl_inj, dict):
             continue
         records.append(
@@ -2308,11 +2578,39 @@ def _normalize_open_meteo(
             if st.get("is_dome") is not None
             else st.get("is_dome_or_retractable", False)
         )
+        hourly_series = st.get("hourly_forecast_24h") or st.get("hourly_forecast_7d") or []
         hourly_count = (
             st.get("hourly_points_count")
             if st.get("hourly_points_count") is not None
-            else len(st.get("hourly_forecast_24h") or st.get("hourly_forecast_7d") or [])
+            else len(hourly_series)
         )
+        hourly_pressures = [
+            float(hp["surface_pressure"])
+            for hp in hourly_series
+            if isinstance(hp, dict) and hp.get("surface_pressure") is not None
+        ]
+        mean_pressure = (
+            st.get("mean_surface_pressure_hpa")
+            if st.get("mean_surface_pressure_hpa") is not None
+            else (
+                st.get("mean_surface_pressure_hpa_7d")
+                if st.get("mean_surface_pressure_hpa_7d") is not None
+                else summary.get("mean_surface_pressure_hpa")
+            )
+        )
+        if mean_pressure is None and hourly_pressures:
+            mean_pressure = round(sum(hourly_pressures) / len(hourly_pressures), 2)
+        min_pressure = (
+            st.get("min_surface_pressure_hpa")
+            if st.get("min_surface_pressure_hpa") is not None
+            else (
+                st.get("min_surface_pressure_hpa_7d")
+                if st.get("min_surface_pressure_hpa_7d") is not None
+                else summary.get("min_surface_pressure_hpa")
+            )
+        )
+        if min_pressure is None and hourly_pressures:
+            min_pressure = round(min(hourly_pressures), 2)
 
         records.append(
             {
@@ -2329,6 +2627,9 @@ def _normalize_open_meteo(
                 "is_dome": is_dome,
                 "stadium_elevation_m": elev_float,
                 "high_altitude_flag": high_alt,
+                "mean_surface_pressure_hpa": float(mean_pressure) if mean_pressure is not None else None,
+                "min_surface_pressure_hpa": float(min_pressure) if min_pressure is not None else None,
+                "mean_wind_direction_deg": st.get("mean_wind_direction_deg_7d"),
                 "max_wind_speed_mph": max_wind,
                 "max_wind_gusts_mph": max_gusts,
                 "total_precipitation_mm": total_precip,
@@ -2555,7 +2856,7 @@ def normalize_all_datasets() -> dict[str, Any]:
         "records": market_records,
     }
     (DATA_NORM_DIR / "market_microstructure.json").write_text(
-        json.dumps(market_doc, ensure_ascii=False, indent=2), encoding="utf-8"
+        json.dumps(market_doc, ensure_ascii=False, separators=(",", ":")), encoding="utf-8"
     )
 
     # 2. Guardar `xg_and_team_ratings.json`
@@ -2569,7 +2870,7 @@ def normalize_all_datasets() -> dict[str, Any]:
         "records": xg_ratings_records,
     }
     (DATA_NORM_DIR / "xg_and_team_ratings.json").write_text(
-        json.dumps(xg_doc, ensure_ascii=False, indent=2), encoding="utf-8"
+        json.dumps(xg_doc, ensure_ascii=False, separators=(",", ":")), encoding="utf-8"
     )
 
     # 3. Guardar `roster_availability.json`

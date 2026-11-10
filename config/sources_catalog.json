@@ -54,7 +54,7 @@
       "name": "Pinnacle (Arcadia Guest API / Web)",
       "category": "odds_casinos",
       "base_url": "https://www.pinnacle.com/",
-      "leagues": ["liga-mx", "epl", "laliga", "bundesliga", "serie-a", "ligue-1", "nfl", "nhl", "mlb"],
+      "leagues": ["liga-mx", "epl", "laliga", "bundesliga", "serie-a", "ligue-1", "nfl", "nba", "nhl", "mlb", "ncaaf"],
       "priority": "P0",
       "scrapling_mode": "network_recorder",
       "scrapling_config": {
@@ -133,7 +133,7 @@
       "name": "Action Network / VegasInsider / Covers (Public Betting Splits)",
       "category": "odds_casinos",
       "base_url": "https://www.actionnetwork.com/nfl/public-betting",
-      "leagues": ["nfl", "ncaaf", "nhl", "mlb", "epl"],
+      "leagues": ["nfl", "ncaaf", "nba", "nhl", "mlb", "epl", "laliga", "champions-league"],
       "priority": "P0",
       "scrapling_mode": "fetcher_session",
       "scrapling_config": {
@@ -364,6 +364,82 @@
       "unlocked_features": ["nfl_pressure_rate_mismatch", "nfl_redzone_efficiency_diff"]
     },
     {
+      "id": "nhl_moneypuck_hockeyref",
+      "name": "MoneyPuck & Hockey-Reference (NHL xG, Corsi, Fenwick & Goalie GSAx)",
+      "category": "advanced_stats_xg",
+      "base_url": "https://moneypuck.com/",
+      "leagues": ["nhl"],
+      "priority": "P0",
+      "scrapling_mode": "fetcher_session",
+      "scrapling_config": {
+        "session_class": "FetcherSession",
+        "impersonate": "chrome",
+        "stealthy_headers": true,
+        "http3": true,
+        "adaptive": true
+      },
+      "capture_schedule": ["post-match", "T-24h"],
+      "extracted_fields": ["xg_for", "xg_against", "xg_pct", "corsi_for_pct", "fenwick_for_pct", "high_danger_xg_for", "high_danger_xg_against", "save_pct_on_unblocked", "pythag_win_pct_215"],
+      "unlocked_features": ["nhl_5v5_xg_share_diff", "nhl_high_danger_xg_diff", "nhl_corsi_fenwick_control"]
+    },
+    {
+      "id": "mlb_fangraphs_baseballref",
+      "name": "Baseball-Reference & MLB StatsAPI (Batting wOBA/OPS+, Pitching FIP/WHIP & Park Factors)",
+      "category": "advanced_stats_xg",
+      "base_url": "https://www.baseball-reference.com/",
+      "leagues": ["mlb"],
+      "priority": "P0",
+      "scrapling_mode": "stealthy_session",
+      "scrapling_config": {
+        "session_class": "StealthySession",
+        "headless": true,
+        "solve_cloudflare": true,
+        "network_idle": true,
+        "adaptive": true
+      },
+      "capture_schedule": ["post-match", "T-24h"],
+      "extracted_fields": ["runs_per_game", "runs_allowed_per_game", "ops", "ops_plus", "woba_est", "era", "fip", "whip", "hr_per_9", "so_per_9", "bb_per_9", "pythag_win_pct_183"],
+      "unlocked_features": ["mlb_fip_minus_era_luck", "mlb_pythag_183_diff", "mlb_offense_ops_plus_diff"]
+    },
+    {
+      "id": "nba_bballref_fourfactors",
+      "name": "Basketball-Reference & ESPN NBA (Four Factors, ORTG, DRTG, NetRTG & Pace)",
+      "category": "advanced_stats_xg",
+      "base_url": "https://www.basketball-reference.com/",
+      "leagues": ["nba"],
+      "priority": "P0",
+      "scrapling_mode": "stealthy_session",
+      "scrapling_config": {
+        "session_class": "StealthySession",
+        "headless": true,
+        "solve_cloudflare": true,
+        "network_idle": true,
+        "adaptive": true
+      },
+      "capture_schedule": ["post-match", "T-24h"],
+      "extracted_fields": ["ortg", "drtg", "net_rtg", "pace", "srs", "efg_pct", "tov_pct", "orb_pct", "ft_per_fga", "opp_efg_pct", "opp_tov_pct", "drb_pct"],
+      "unlocked_features": ["nba_net_rtg_srs_diff", "nba_four_factors_composite", "nba_pace_interaction_total"]
+    },
+    {
+      "id": "ncaaf_cfb_sp_plus_srs",
+      "name": "Sports-Reference CFB & ESPN College Football (SRS, SOS, Off/Def YPP & Conferences)",
+      "category": "advanced_stats_xg",
+      "base_url": "https://www.sports-reference.com/cfb/",
+      "leagues": ["ncaaf"],
+      "priority": "P1",
+      "scrapling_mode": "stealthy_session",
+      "scrapling_config": {
+        "session_class": "StealthySession",
+        "headless": true,
+        "solve_cloudflare": true,
+        "network_idle": true,
+        "adaptive": true
+      },
+      "capture_schedule": ["weekly", "T-24h"],
+      "extracted_fields": ["conference", "wins", "losses", "srs", "sos", "points_per_game", "opp_points_per_game", "off_yards_per_play", "def_yards_per_play", "pythag_win_pct"],
+      "unlocked_features": ["ncaaf_srs_sos_adjusted_diff", "ncaaf_net_ypp_mismatch", "ncaaf_conference_tier_prior"]
+    },
+    {
       "id": "transfermarkt_injuries",
       "name": "Transfermarkt (Lesiones y Sanciones por Club)",
       "category": "injuries_lineups",
@@ -514,7 +590,7 @@
       "name": "Open-Meteo API & NFLWeather (Clima y Altitud en Kickoff)",
       "category": "environment_referees",
       "base_url": "https://api.open-meteo.com/v1/forecast",
-      "leagues": ["nfl", "liga-mx", "epl", "laliga", "bundesliga", "serie-a", "ligue-1"],
+      "leagues": ["nfl", "mlb", "ncaaf", "liga-mx", "epl", "laliga", "bundesliga", "serie-a", "ligue-1"],
       "priority": "P0",
       "scrapling_mode": "fetcher_session",
       "scrapling_config": {

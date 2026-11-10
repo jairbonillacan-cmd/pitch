@@ -1,17 +1,17 @@
 {
   "manifest_version": "1.0.0",
-  "generated_at_utc": "2026-11-09T21:49:05Z",
+  "generated_at_utc": "2026-11-10T17:08:46Z",
   "anti_leakage_contract": {
     "rule": "captured_at_utc <= predicted_at_utc",
     "all_sha256_verified": true,
-    "raw_snapshots_verified_count": 45
+    "raw_snapshots_verified_count": 55
   },
   "normalized_tables_summary": {
-    "market_microstructure": 13318,
-    "xg_and_team_ratings": 42438,
-    "roster_availability": 4388,
-    "news_and_environment": 889,
-    "total_normalized_records": 61033
+    "market_microstructure": 22412,
+    "xg_and_team_ratings": 78898,
+    "roster_availability": 5908,
+    "news_and_environment": 949,
+    "total_normalized_records": 108167
   },
   "raw_snapshots": [
     {
@@ -106,6 +106,19 @@
       "normalized_records_emitted": 1872
     },
     {
+      "raw_snapshot_path": "data/raw/advanced_stats_xg/fbref/2026-11-10/20261110T160453Z_fbref_ligamx_2018_2023_historical_fixtures_xg_9d588b74a8.json",
+      "source_id": "fbref",
+      "source_name": "FBref (Football Reference)",
+      "category": "advanced_stats_xg",
+      "scrapling_mode": "stealthy_session",
+      "url": "https://fbref.com/en/comps/31/2022-2023/schedule/2022-2023-Liga-MX-Scores-and-Fixtures",
+      "captured_at_utc": "2026-11-10T16:04:53Z",
+      "sha256": "9d588b74a8d3f2dd4c6e6fbb80a3236e0e9c0ad6464d7c2ef1df102b974305da",
+      "sha256_verified": true,
+      "target_normalized_table": "xg_and_team_ratings.json",
+      "normalized_records_emitted": 7516
+    },
+    {
       "raw_snapshot_path": "data/raw/advanced_stats_xg/fotmob/2026-11-09/20261109T191810Z_fotmob_ligamx_epl_next_data_2043883407.json",
       "source_id": "fotmob",
       "source_name": "FotMob",
@@ -130,6 +143,58 @@
       "sha256_verified": true,
       "target_normalized_table": "xg_and_team_ratings.json",
       "normalized_records_emitted": 1700
+    },
+    {
+      "raw_snapshot_path": "data/raw/advanced_stats_xg/mlb_fangraphs_baseballref/2026-11-10/20261110T160015Z_mlb_30teams_batting_pitching_fip_woba_ebfdab1fd5.json",
+      "source_id": "mlb_fangraphs_baseballref",
+      "source_name": "Baseball-Reference & MLB StatsAPI (Batting wOBA/OPS+, Pitching FIP/WHIP & Park Factors)",
+      "category": "advanced_stats_xg",
+      "scrapling_mode": "stealthy_session",
+      "url": "https://statsapi.mlb.com/api/v1/teams/stats?stats=season&group=hitting,pitching&sportId=1&season=2026",
+      "captured_at_utc": "2026-11-10T16:00:15Z",
+      "sha256": "ebfdab1fd55b59001b3a9c2128fd2a4e748cb21ea972d668e2efb9a76239d388",
+      "sha256_verified": true,
+      "target_normalized_table": "xg_and_team_ratings.json",
+      "normalized_records_emitted": 90
+    },
+    {
+      "raw_snapshot_path": "data/raw/advanced_stats_xg/nba_bballref_fourfactors/2026-11-10/20261110T160017Z_nba_30teams_four_factors_ortg_drtg_cf43f31334.json",
+      "source_id": "nba_bballref_fourfactors",
+      "source_name": "Basketball-Reference & ESPN NBA (Four Factors, ORTG, DRTG, NetRTG & Pace)",
+      "category": "advanced_stats_xg",
+      "scrapling_mode": "stealthy_session",
+      "url": "https://www.basketball-reference.com/leagues/NBA_2026.html",
+      "captured_at_utc": "2026-11-10T16:00:17Z",
+      "sha256": "cf43f31334703cbd364cf30945cb4845f3154477ec30a6699b901fecc9562b26",
+      "sha256_verified": true,
+      "target_normalized_table": "xg_and_team_ratings.json",
+      "normalized_records_emitted": 90
+    },
+    {
+      "raw_snapshot_path": "data/raw/advanced_stats_xg/ncaaf_cfb_sp_plus_srs/2026-11-10/20261110T160031Z_ncaaf_fbs_teams_srs_ypp_conferences_e862f014a0.json",
+      "source_id": "ncaaf_cfb_sp_plus_srs",
+      "source_name": "Sports-Reference CFB & ESPN College Football (SRS, SOS, Off/Def YPP & Conferences)",
+      "category": "advanced_stats_xg",
+      "scrapling_mode": "stealthy_session",
+      "url": "https://site.api.espn.com/apis/v2/sports/football/college-football/standings?group=80&season=2025",
+      "captured_at_utc": "2026-11-10T16:00:31Z",
+      "sha256": "e862f014a042e1af3d89174641ba3cf192008643f8246a402a8c3977dce4d80b",
+      "sha256_verified": true,
+      "target_normalized_table": "xg_and_team_ratings.json",
+      "normalized_records_emitted": 408
+    },
+    {
+      "raw_snapshot_path": "data/raw/advanced_stats_xg/nhl_moneypuck_hockeyref/2026-11-10/20261110T160012Z_nhl_32teams_xg_corsi_fenwick_moneypuck_6aa9d135f3.json",
+      "source_id": "nhl_moneypuck_hockeyref",
+      "source_name": "MoneyPuck & Hockey-Reference (NHL xG, Corsi, Fenwick & Goalie GSAx)",
+      "category": "advanced_stats_xg",
+      "scrapling_mode": "fetcher_session",
+      "url": "https://moneypuck.com/moneypuck/playerData/seasonSummary/2025/regular/teams.csv",
+      "captured_at_utc": "2026-11-10T16:00:12Z",
+      "sha256": "6aa9d135f38caf5025e15637c1e9055e8618e9726854768849da70361df6b3db",
+      "sha256_verified": true,
+      "target_normalized_table": "xg_and_team_ratings.json",
+      "normalized_records_emitted": 128
     },
     {
       "raw_snapshot_path": "data/raw/advanced_stats_xg/opta_player_stats/2026-11-09/20261109T185102Z_opta_player_stats_portal_0e805573b5.json",
@@ -288,6 +353,19 @@
       "normalized_records_emitted": 6470
     },
     {
+      "raw_snapshot_path": "data/raw/advanced_stats_xg/understat/2026-11-10/20261110T160108Z_understat_5leagues_2018_2022_history_26028a6cd7.json",
+      "source_id": "understat",
+      "source_name": "Understat",
+      "category": "advanced_stats_xg",
+      "scrapling_mode": "fetcher_session",
+      "url": "https://understat.com/league/EPL/2022",
+      "captured_at_utc": "2026-11-10T16:01:08Z",
+      "sha256": "26028a6cd7c269dfc7e32b6a538477921fe695f728525c0914f416192e8c2b4d",
+      "sha256_verified": true,
+      "target_normalized_table": "xg_and_team_ratings.json",
+      "normalized_records_emitted": 28228
+    },
+    {
       "raw_snapshot_path": "data/raw/environment_referees/open_meteo_nflweather/2026-11-09/20261109T184921Z_open_meteo_stadiums_forecast_6961b077fa.json",
       "source_id": "open_meteo_nflweather",
       "source_name": "Open-Meteo API & NFLWeather (Clima y Altitud en Kickoff)",
@@ -322,6 +400,19 @@
       "url": "https://api.open-meteo.com/v1/forecast",
       "captured_at_utc": "2026-11-09T20:00:43Z",
       "sha256": "fbd86564c419f143d9061b7c5dc0de2902197ab538d90b41982aa50a794ac42d",
+      "sha256_verified": true,
+      "target_normalized_table": "news_and_environment.json",
+      "normalized_records_emitted": 60
+    },
+    {
+      "raw_snapshot_path": "data/raw/environment_referees/open_meteo_nflweather/2026-11-10/20261110T160019Z_open_meteo_30_mlb_ballparks_and_30_ncaaf_stadiums_7d_2804a69f87.json",
+      "source_id": "open_meteo_nflweather",
+      "source_name": "Open-Meteo API & NFLWeather (Clima y Altitud en Kickoff)",
+      "category": "environment_referees",
+      "scrapling_mode": "fetcher_session",
+      "url": "https://api.open-meteo.com/v1/forecast",
+      "captured_at_utc": "2026-11-10T16:00:19Z",
+      "sha256": "2804a69f874a233ecba3f1caaa6a386003a0b1b6f14e2a72a96eac1f8e6e9683",
       "sha256_verified": true,
       "target_normalized_table": "news_and_environment.json",
       "normalized_records_emitted": 60
@@ -403,6 +494,19 @@
       "sha256_verified": true,
       "target_normalized_table": "roster_availability.json",
       "normalized_records_emitted": 1839
+    },
+    {
+      "raw_snapshot_path": "data/raw/injuries_lineups/rotowire_lineups_injuries/2026-11-10/20261110T160015Z_espn_cbs_rotowire_multisport_injuries_starters_f6edcde46c.json",
+      "source_id": "rotowire_lineups_injuries",
+      "source_name": "RotoWire (Soccer & NFL Lineups / Injury Reports)",
+      "category": "injuries_lineups",
+      "scrapling_mode": "fetcher_session",
+      "url": "https://www.cbssports.com/nba/injuries/",
+      "captured_at_utc": "2026-11-10T16:00:15Z",
+      "sha256": "f6edcde46c8c6892fb980dabf4693785c5df180ae2ff93369e72fa8b8b8aa76d",
+      "sha256_verified": true,
+      "target_normalized_table": "roster_availability.json",
+      "normalized_records_emitted": 1520
     },
     {
       "raw_snapshot_path": "data/raw/injuries_lineups/transfermarkt_injuries/2026-11-09/20261109T184913Z_transfermarkt_injuries_mexa_gb1_f4d5994c1d.json",
@@ -509,6 +613,19 @@
       "normalized_records_emitted": 7733
     },
     {
+      "raw_snapshot_path": "data/raw/odds_casinos/action_network_splits/2026-11-10/20261110T160006Z_action_network_multisport_nba_nhl_mlb_ncaaf_splits_6ee7890faa.json",
+      "source_id": "action_network_splits",
+      "source_name": "Action Network / VegasInsider / Covers (Public Betting Splits)",
+      "category": "odds_casinos",
+      "scrapling_mode": "fetcher_session",
+      "url": "https://www.actionnetwork.com/nba/public-betting",
+      "captured_at_utc": "2026-11-10T16:00:06Z",
+      "sha256": "6ee7890faa5e376525ba23d5709f4d671eaf913cf39dc438c884d9fd783bf8c6",
+      "sha256_verified": true,
+      "target_normalized_table": "market_microstructure.json",
+      "normalized_records_emitted": 9093
+    },
+    {
       "raw_snapshot_path": "data/raw/odds_casinos/betfair_smarkets_exchange/2026-11-09/20261109T192134Z_smarkets_exchange_football_events_1f1dab149d.json",
       "source_id": "betfair_smarkets_exchange",
       "source_name": "Betfair Exchange / Smarkets",
@@ -533,6 +650,19 @@
       "sha256_verified": true,
       "target_normalized_table": "market_microstructure.json",
       "normalized_records_emitted": 708
+    },
+    {
+      "raw_snapshot_path": "data/raw/odds_casinos/betfair_smarkets_exchange/2026-11-10/20261110T160007Z_smarkets_multisport_nba_nhl_mlb_ncaaf_exchange_56f0549c5b.json",
+      "source_id": "betfair_smarkets_exchange",
+      "source_name": "Betfair Exchange / Smarkets",
+      "category": "odds_casinos",
+      "scrapling_mode": "fetcher_session",
+      "url": "https://api.smarkets.com/v3/events/?state=new&state=upcoming&state=live&type=basketball_match&limit=50",
+      "captured_at_utc": "2026-11-10T16:00:07Z",
+      "sha256": "56f0549c5b364f9afa6589fcc0cf869f2146773749357381e15130fe7d6b4232",
+      "sha256_verified": true,
+      "target_normalized_table": "market_microstructure.json",
+      "normalized_records_emitted": 1
     },
     {
       "raw_snapshot_path": "data/raw/odds_casinos/caliente_mx/2026-11-09/20261109T184652Z_caliente_mx_sportsbook_53637d96c9.json",
