@@ -9,11 +9,12 @@
 - **F1 (spikes y decisiones):** ✅ completa como investigación de escritorio. Las cotizaciones y la confirmación de términos dependen de que el fundador haga los contactos (FD-14).
 - **F2 (product blueprint):** ✅ completa, pendiente de revisión del fundador.
 - **Decisión 2026-11-08:** datos a US$0 por ahora → `docs/architecture/FREE_DATA_STRATEGY.md` (FD-02 decidida).
-- **F3 (arquitectura y ADRs):** ✅ completa: 18 ADRs y 8 documentos de arquitectura, con revisión cruzada.
+- **F3 (arquitectura y ADRs):** ✅ completa: 24 ADRs aceptadas (`ADR-001`…`ADR-015`, `ADR-017`…`ADR-025`), 1 propuesta (`ADR-016`) y 8 documentos base de arquitectura, con revisión cruzada.
 - **F3b (preparación de ejecución):** ✅ completa: frontend, contratos, ownership, integración, plan multiagente, quality gates y plantilla de prompts.
 - **Pre-MVP para socios:** ✅ implementado en `feat/pre-mvp` (`docs/product/PRE_MVP.md` y `docs/product/PRE_MVP_DEPLOY.md`).
 - **D1 diseño base:** ✅ aprobado (2026-11-08, iteración 4). Contrato en `docs/design/DESIGN_SYSTEM.md`, `INTERACTION_PATTERNS.md` y `RESPONSIVE_RULES.md`. Prototipos en `design/d1/`.
-- **Siguiente:** publicar el pre-MVP en Vercel (`docs/product/PRE_MVP_DEPLOY.md`) y/o iniciar F4 completo. Bloqueo para publicar en dominio final: cuentas, DNS y secretos (`DEPLOYMENT.md` §6).
+- **UI-MAESTRO-V4.1 (paridad 1:1 con `Prototipo Maestro PitchLab`):** ✅ implementada en `gemini-reestructura` (2026-11-10) sobre `PitchLab Spacetime Suite v2.1`: física *Smoked Glass* real sobre obsidiana (`--pl-glass-lens`, `--pl-glass-card`, `.glass-ring` de bisel único), orbes radiales internos por club/motor (`<LensGlowOrbs>`), primitivas compartidas (`MaestroPrimitives.tsx` + `<TopLayerModalDialog>` sobre `<dialog>` nativo), 7 superficies públicas con redacción `Cero-Fuga` SSR + 11 vistas del club con barra flotante rápida colapsable, artefacto canónico archivado en `design/prototipo-maestro/prototipo-maestro-pitchlab.html`, ADRs `ADR-023`…`ADR-025`, documentos de visión `docs/product/VISION_REESTRUCTURA_CLAUDE_{DS_UX,QUANT,GROWTH}.md` y guías de handoff en `docs/execution/`.
+- **Siguiente (sesión en casa con Claude → `docs/execution/CLAUDE_HOME_SESSION_BRIEF.md`):** (1) ejecutar `pnpm e2e` + auditoría visual y `@axe-core/playwright` WCAG 2.1 AA lado a lado contra `design/prototipo-maestro/prototipo-maestro-pitchlab.html` (`1440×900` y `390×844`, oscuro y claro), (2) pulir micro-detalles visuales/responsive y descarga raster 4:5 / 9:16, (3) revisar `ADR-023`…`ADR-025` y `VISION_REESTRUCTURA_CLAUDE_*.md` con el fundador, y (4) publicar en Vercel y/o arrancar **F4** (Postgres/Drizzle, Auth.js OAuth + Turnstile, Stripe MX Checkout/Connect y Facturapi CFDI 4.0). Bloqueo externo para dominio final y cobro real: cuentas, DNS y secretos (`DEPLOYMENT.md` §6).
 
 El clon previo de TouchIQ (Vite + `src/domain` con 24 tests dorados) quedó archivado en la rama `archive/touchiq-reconstruction` (ADR-018) y sus motores matemáticos viven ahora en `packages/engines-reference` con adaptadores limpios para snapshots reales.
 
@@ -41,8 +42,8 @@ El clon previo de TouchIQ (Vite + `src/domain` con 24 tests dorados) quedó arch
 | `docs/product/MVP_DEFINITION.md` | F2 | Completo (Lean+ con ecosistema) |
 | `docs/execution/ROADMAP.md` | F2 | Completo (waves W0–W8 con dependencias) |
 | `docs/architecture/FREE_DATA_STRATEGY.md` | F2→F3 | Vigente: nflverse, openfootball, The Odds API Free y API-Football Free |
-| `docs/architecture/adr/` (ADR-001…022) | F3 / UI-V4 | 21 aceptadas (incluye ADR-020, ADR-021 y ADR-022), 1 propuesta (ADR-016, iconografía) |
-| `GLOSSARY.md` | UI-V4 | Glosario canónico del dominio de PitchLab (Spacetime Suite, Pase Total, Cero-Fuga, SGP, Tipstar) |
+| `docs/architecture/adr/` (ADR-001…025) | F3 / UI-V4 / UI-MAESTRO-V4.1 | 24 aceptadas (incluye ADR-020…025), 1 propuesta (ADR-016, cubierta en v4 por `MaestroIcon` según ADR-023) |
+| `GLOSSARY.md` | UI-V4 / UI-MAESTRO-V4.1 | Glosario canónico del dominio de PitchLab (Spacetime Suite, Radiografía Previa, Multi-Picks, Momio Justo, Boleto Combinado, SGP, Props Lab, Bitácora, Pase Total, Cero-Fuga, Tipstar Oficial, Referido Doble Vía) |
 | `docs/architecture/SYSTEM_ARCHITECTURE.md` | F3 | Módulos, límites, flujo y API `/api/v1` |
 | `docs/architecture/DATA_ARCHITECTURE.md` | F3 | Modelo canónico, ingesta, R2, frescura y as-of (incluye HISTORICAL_STORAGE) |
 | `docs/architecture/PREDICTION_ARCHITECTURE.md` | F3 | Live frente a retro, tablas, gate de publicación |
@@ -60,6 +61,16 @@ El clon previo de TouchIQ (Vite + `src/domain` con 24 tests dorados) quedó arch
 | `docs/execution/QUALITY_GATES.md` | F3b | Gates de CI, checklist de PR, criterios de aceptación y linter de prompts |
 | `prompts/_TEMPLATE.md` | F3b | Plantilla A–R para los prompts de F5 |
 | `docs/product/PRE_MVP_DEPLOY.md` | Pre-MVP | Guía paso a paso de despliegue en Vercel Free + GitHub Actions |
+| `design/prototipo-maestro/prototipo-maestro-pitchlab.html` | UI-MAESTRO-V4.1 | Artefacto HTML maestro canónico (6,960 líneas; referencia visual y funcional 1:1 de las 11 vistas) |
+| `docs/architecture/adr/ADR-023-smoked-glass-maestro-ui-physics.md` | UI-MAESTRO-V4.1 | Física *Smoked Glass* sobre obsidiana, `<LensGlowOrbs>`, `MaestroPrimitives` y `<dialog>` nativo (`accepted`) |
+| `docs/architecture/adr/ADR-024-hybrid-snapshot-spacetime-quant-engine.md` | UI-MAESTRO-V4.1 | Motor cuantitativo híbrido sobre snapshots reales + `Spacetime Suite` determinística auditable (`accepted`) |
+| `docs/architecture/adr/ADR-025-zero-leak-subscription-tipstar-referrals.md` | UI-MAESTRO-V4.1 | Membresía única `Pase Total`, frontera `Cero-Fuga` SSR, Mes 1 sin tarjeta, Tipstars y Referidos Doble Vía (`accepted`) |
+| `docs/product/VISION_REESTRUCTURA_CLAUDE_DS_UX.md` | UI-MAESTRO-V4.1 | Visión ejecutiva de Design System, jerarquía de las 11 superficies y evolución UX para Claude |
+| `docs/product/VISION_REESTRUCTURA_CLAUDE_QUANT.md` | UI-MAESTRO-V4.1 | Visión cuantitativa y hoja de ruta hacia pipelines de producción en F4 (`Spacetime Suite`, líneas, Props, `Cortex IA`) |
+| `docs/product/VISION_REESTRUCTURA_CLAUDE_GROWTH.md` | UI-MAESTRO-V4.1 | Visión de crecimiento, tablas y máquinas de estado F4, Stripe MX, Facturapi CFDI 4.0 y embudos virales 4:5 / 9:16 |
+| `docs/execution/CLAUDE_HOME_SESSION_BRIEF.md` | UI-MAESTRO-V4.1 | Guía ejecutiva de incorporación en 60 segundos para Claude y el fundador en la sesión desde casa |
+| `docs/execution/HANDOFF_MAESTRO_UI_TOKENS_PUBLIC.md` | UI-MAESTRO-V4.1 | Handoff técnico de tokens *Smoked Glass*, `MaestroPrimitives` y superficies públicas (`/`…`/p/[pickId]`) |
+| `docs/execution/HANDOFF_MAESTRO_CLUB_QUANT_SOCIAL.md` | UI-MAESTRO-V4.1 | Handoff técnico de shell `/app`, partidos, quant/parlays SGP, Comunidad VIP, Portal Tipstar, Cuenta y Admin |
 
 ## Hallazgos de F3
 
@@ -87,9 +98,10 @@ El clon previo de TouchIQ (Vite + `src/domain` con 24 tests dorados) quedó arch
 
 ## Pendiente (en orden)
 
-1. **Gate del fundador:** ✅ FD-01 y FD-03…FD-06 confirmadas (2026-11-08). Pendiente: ADR-016 (iconografía) y las acciones de `DEPLOYMENT.md` §6 (cuentas, DNS y secretos), que solo bloquean F4 y el deploy, no el diseño.
-2. **Pre-MVP:** ✅ construido y verificado en `feat/pre-mvp`. Pendiente de despliegue en Vercel (`docs/product/PRE_MVP_DEPLOY.md`) y **F4:** walking skeleton completo (`SPORTS_ASSET_COVERAGE.md` se autogenera ahí).
-3. **F5:** prompts (`prompts/INDEX.md`). **F6:** ejecución multiagente (`AGENT_EXECUTION_PLAN.md`).
+1. **Auditoría visual 1:1 y cierre UI-MAESTRO-V4.1 en casa con Claude (`docs/execution/CLAUDE_HOME_SESSION_BRIEF.md`):** correr `pnpm e2e` + auditoría visual lado a lado contra `design/prototipo-maestro/prototipo-maestro-pitchlab.html` (`1440×900` y `390×844`, oscuro y claro), pulir micro-detalles visuales/responsive y revisar `ADR-023`…`ADR-025` + `VISION_REESTRUCTURA_CLAUDE_*.md` con el fundador.
+2. **Gate del fundador:** ✅ FD-01 y FD-03…FD-06 confirmadas (2026-11-08). Pendiente: ADR-016 (iconografía) y las acciones de `DEPLOYMENT.md` §6 (cuentas, DNS y secretos), que solo bloquean F4 y el deploy productivo, no el diseño ni la validación local.
+3. **Despliegue y F4:** publicar en Vercel (`docs/product/PRE_MVP_DEPLOY.md`) e iniciar **F4** completo (persistencia Postgres/Drizzle, Auth.js OAuth + Turnstile, Stripe MX, Facturapi CFDI 4.0; `SPORTS_ASSET_COVERAGE.md` se autogenera ahí).
+4. **F5:** prompts (`prompts/INDEX.md`). **F6:** ejecución multiagente (`AGENT_EXECUTION_PLAN.md`).
 
 ## Bloqueos
 
@@ -791,30 +803,31 @@ _(Cada sesión de agente agrega aquí su entrada con el formato de `AGENT_EXECUT
 - **Cómo probarlo:**
   - `pnpm typecheck`, `pnpm test`, `pnpm build`, `pnpm build-storybook` y `pnpm e2e` (`10 passed`).
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+### UI-MAESTRO-V4.1 · Paridad 1:1 con Prototipo Maestro PitchLab (Smoked Glass + Orbes + 11 Vistas) — 2026-11-10 — Rama `gemini-reestructura`
+- **Hecho:**
+  - **Tokens y física *Smoked Glass* (`packages/tokens/scripts/generate.mjs` + `apps/web/app/pitchlab-v4.css`):** sustitución de superficies carbón opacas por cristal blanco translúcido real sobre obsidiana `#000000` (`--pl-glass-lens: rgba(255,255,255,0.068)`, `--pl-glass-card: rgba(255,255,255,0.052)`, `--pl-glass-rail: rgba(10,10,13,0.72)`, `backdrop-filter: blur(18px)`), atmósfera global saturada (`.pl-atmo-canvas` con `opacity: 0.62; blur(92px) saturate(185%)` + `.pl-atmo-scrim`), aislamiento del bisel óptico `.glass-ring` (eliminando bordes dobles en `.pl-btn-glass` y `.seg-well`), CTAs primarios nítidos (`#FFFFFF` en oscuro / `#09090B` en claro), tokens de píldora AA/AAA para ambos temas, física de orbes `.pl-lens-orb`, `.crest-pedestal`, `.sq-box`, `.avatar-stack`, `.pl-quick-jump-bar`, `.pl-modal-dialog` sobre `<dialog>` nativo y `.share-ticket-card` con aislamiento de tokens oscuros. **0 literales hexadecimales fuera de `packages/tokens`**.
+  - **Catálogo y primitivas compartidas (`packages/ui/src/platform/spacetime-catalog.ts` + `components/MaestroPrimitives.tsx`):** expansión de `PRECISION_BUCKETS` a los 4 cubos auditados de calibración (*Confianza Máxima · Escudo* `82 %`, *Confianza Alta · Principal* `72 %`, *Confianza Media · Balanceado* `60 %`, *Alto Valor Arriesgado* `41 %`) con cero fugas internas (FD-16); creación de `MaestroIcon` (33 iconos vectoriales `strokeWidth={1.8}`), `LensGlowOrbs`, `CrestPedestal`, `CalendarSquare`, `StackedAvatars`, `NoticeCard`, `GlassActionRow` y `RoleSwitcherPill` (desbloqueo automático con PIN `2026` cuando `isServerRedactedForVisitor` está activo).
+  - **Superficies públicas 1:1 (`packages/ui/src/platform/public/`):**
+    - `LandingSurface.tsx` (`/`): barra superior de lanzamiento (`MES 1 LANZAMIENTO · PRUEBA SIN TARJETA`), indicador en vivo de visitante Cero-Fuga frente a socio `@socio_pl · PL-8842` y `<RoleSwitcherPill compact />`; Hero `6+6` con chip hacia `#motores`, `<NoticeCard>` *Suscripción Cero Fuga*, boleto multi-liga interactivo de 5 ligas con `<LensGlowOrbs>` por club, marcador `<CrestPedestal>` (`X.X – Y.Y` desbloqueado vs `🔒 – 🔒` visitante), 4 ranuras de pick y calculadora Geodesic v1.0 en vivo (`#landing-user-odds`, `[data-odds-comparator]`); bloque completo `<TechPrecisionSection />` (`#motores`), pick semanal abierto de `@sofia_nfl` (`SOFIA5` + `/p/sofia-sem`) + fila de auditoría pública `FT` (`CUMPLIDO / NO CUMPLIDO`) y `<PlansAndReferralsSection />` (`#pase-total`).
+    - `TechAndPricingSurfaces.tsx` (`/tecnologia`, `/pricing`): caja SHA-256 de reentrenamiento, 4 KPIs (`+358,400`, `+12.4M`, `69.6 %`, `5 Motores`), cuadrícula `3×2` (5 motores `Spacetime Suite` + tarjeta comparativa *PitchLab vs Tipster Tradicional*), los 4 cubos `PRECISION_BUCKETS` (`Desviación media < 1.2 %`), selector `$299` / `$2,390 (Ahorras 4 meses)`, Referidos Doble Vía en 3 pasos (`+15 días gratis`), tarjeta Portal Tipstar Oficial (`25 %`) y acordeón accesible de preguntas frecuentes.
+    - `AuthAndOnboardingSurfaces.tsx` (`/signup`, `/login`, `/onboarding`, `/p/[pickId]`): pestañas `Prueba / Código` y `PIN Socio`, reconocedor en vivo de códigos (`SOFIA5`/`CARLOS5`/`DIEGO5` 5d; `JAIR`/`SOCIO-8842` 7d + 30 % dto.; vacío Mes 1 sin tarjeta), canonicalización Gmail + bloqueo de correos desechables con `role="alert"`, aviso Turnstile `$0`, teclado interactivo de 4 dígitos (`2026`), probador rápido de 4 roles, personalizador 18+ de ligas/riesgo/unidad simulada `$100–$1,000 MXN` y boleto público semanal `.share-ticket-card` con 1 pick abierto y 4 picks bloqueados `[data-locked-pick]`.
+  - **Shell, Partidos, Quant, Parlays SGP, Comunidad VIP, Tipstar, Cuenta y Admin (`packages/ui/src/platform/components/` + `club/`):**
+    - `ShellChrome.tsx` y `MatchTicketCard.tsx`: Topbar del club con búsqueda `⌘K`, `<RoleSwitcherPill compact />`, campana con badge `2`, `Momio/Decimal`, `<ThemeToggle />` y chip `@jair +6.1u` / `@sofia_nfl +18.4u`; riel izquierdo en 4 grupos exactos (*Spacetime Club*, *Motores & Labs*, *Crecimiento*, *7 Ligas*); dock móvil de 5 ítems; barra flotante colapsable `.pl-quick-jump-bar` de **11 vistas** dentro de `AtmosphereStage`; tarjetas de partido con `<LensGlowOrbs>`, `<CrestPedestal>`, marcador proyectado y cálculo EV en vivo.
+    - `CoreMatchViews.tsx` y `ParlayAndQuantViews.tsx`: `JornadaClubView` (`/app`) con spotlight asimétrico `7/5`, `<CalendarSquare>`, `<NoticeCard tone="cortex">`, Auto-Parlay a 1 clic y Top 3 Picks; `MultiPicksClubView` (`/app/picks`) con barra en vivo *"Probar tu momio"*; `LeagueHubClubView` (`/app/[league]`) con chips de jornada y tabla; `MatchStudioClubView` (`/app/[league]/games/[gameId]`) con 3 tarjetas de inteligencia previa (*Cortex IA*, *Alineaciones y Bajas 60m*, *¿Dónde está el dinero?*), 5 picks, *Debate de Suscriptores* anti-enlaces y tabla filtrable de mercados; constructor de Parlays en 4 pasos con bloqueo explícito de contradicciones/SGP y boleto perforado sticky en `/app/parlays`; `Props Lab` (`/app/props`) con stepper de línea, gráfica L10 y calculadora por tarjeta; explorador `/app/momios` con badges `↓ dinero entra` / `↑ valor`.
+    - `SocialAndTipstarViews.tsx`, `LedgerAccountAdminViews.tsx` y `PlatformOverlays.tsx`: `SocialVipClubView` (`/app/social`) con 3 pestañas (*Boletos & Debate*, *Consenso vs. Suite*, *Ranking CLV IC 95 %*), compositor anti-spam y sidebar sticky; `TipstarPortalClubView` (`/app/tipstar`) con 4 KPIs, configurador 4:5 / 9:16 y simulador modal `/p/sofia-sem` sobre `<TopLayerModalDialog>`; `HistorialClubView` (`/app/historial`) con franja de auditoría pública `FT` (`ECE 0.009`, `0 picks editados o borrados`); `BitacoraClubView` (`/app/lab`) con exportación CSV y *Vigilancia 60m*; `AnalystProfileClubView` (`/app/u/[handle]`); `AccountReferralsClubView` (`/app/account`) con 4 pestañas (*Referidos +15d* activa por defecto conservando todos los selectores E2E, barra Embajador de 5 amigos, *Pase Total*, *Preferencias* y *CFDI 4.0* regímenes SAT `601`/`612`/`626`/`605`); `FounderAdminClubView` (`/app/admin`) con switch Mes 1 sin tarjeta vs Mes 2 `$0 MXN`, emisor de códigos Tipstar y telemetría interactiva de los 5 motores.
+  - **Artefacto canónico, ADRs, Visión y Handoffs para Claude:** archivo maestro preservado en `design/prototipo-maestro/prototipo-maestro-pitchlab.html` (+ `README.md`), ADRs aceptadas `ADR-023` (física *Smoked Glass* y `MaestroPrimitives`), `ADR-024` (motor híbrido `Spacetime Suite` sobre snapshots reales) y `ADR-025` (membresía única `Pase Total`, `Cero-Fuga`, Tipstars y Referidos Doble Vía), documentos de visión `docs/product/VISION_REESTRUCTURA_CLAUDE_{DS_UX,QUANT,GROWTH}.md` y guías operativas `docs/execution/{CLAUDE_HOME_SESSION_BRIEF,HANDOFF_MAESTRO_UI_TOKENS_PUBLIC,HANDOFF_MAESTRO_CLUB_QUANT_SOCIAL}.md`.
+- **Dónde nos quedamos:**
+  - Todo el código de `@pitchlab/tokens`, `@pitchlab/ui` y `@pitchlab/web` compila sin errores (`pnpm typecheck`, `pnpm lint`, `node scripts/lint-codebase.mjs` y `pnpm test` en verde) y las rutas públicas y del club responden `HTTP 200` en el servidor de desarrollo con todos los selectores `data-*` y roles de Playwright preservados.
+  - La frontera `Cero-Fuga` opera en servidor (`apps/web/src/server/platform-data.ts` → `redactDatasetForVisitor`), mientras el estado interactivo de cliente (boletos sellados, parlays, posts VIP, preferencias y switches de demo) hidrata desde snapshots reales y persiste en `localStorage` dentro de `PlatformProvider`.
+  - Las 3 corridas simultáneas en vivo de auditoría visual en Chromium (`visual-auditor-*`) se detuvieron intencionalmente justo antes de concluir por indicación del fundador para cerrar sesión, subir la rama `gemini-reestructura` a GitHub y continuar inmediatamente desde casa con Claude.
+- **Qué falta para la siguiente sesión (Claude):**
+  1. **Auditoría E2E, contraste AA y comparación visual 1:1:** ejecutar `pnpm build && pnpm e2e` (`desktop` `1440×900` y `mobile` `390×844`, `@axe-core/playwright` WCAG 2.1 AA en oscuro y claro) y contrastar visualmente todas las rutas públicas, `/app/*` y modales `<dialog>` contra `design/prototipo-maestro/prototipo-maestro-pitchlab.html`.
+  2. **Pulido micro-visual y exportación raster:** afinar cualquier detalle tipográfico, de espaciado o responsive detectado en la comparación lado a lado, e implementar la descarga real a PNG/WebP en cliente (canvas/SVG raster) para los boletos 4:5 y 9:16 de `ShareTicketModal` y Portal Tipstar.
+  3. **Alineación arquitectónica con el fundador:** revisar y validar `ADR-023`…`ADR-025` y los 3 documentos `docs/product/VISION_REESTRUCTURA_CLAUDE_{DS_UX,QUANT,GROWTH}.md` antes de congelar contratos de base de datos.
+  4. **Arranque de F4 (infraestructura productiva):** esquemas PostgreSQL/Neon con Drizzle (`subscriptions`, `trial_fingerprints`, `sealed_picks`, `parlays`, `social_posts`, `referral_grants`, `tipstar_attributions`, `cfdi_invoices`), autenticación real OAuth Google/Apple + verificación servidor Cloudflare Turnstile, Stripe MX Billing + Promotion Codes + Connect (`25 %`), automatización CFDI 4.0 con Facturapi y ocultación en producción (`NODE_ENV === "production"` sin flag de preview) de `<RoleSwitcherPill>` y `.pl-quick-jump-bar`.
+- **Cómo probarlo:**
+  - Leer primero `docs/execution/CLAUDE_HOME_SESSION_BRIEF.md` (onboarding ejecutivo de 60 segundos).
+  - Verificación rápida sin tocar `.next`: `node scripts/lint-codebase.mjs`, `pnpm lint`, `pnpm typecheck` y `pnpm test`.
+  - Desarrollo local: `PREVIEW_ACCESS_CODE=2026 pnpm dev` (abre `http://localhost:3000`; PIN de socio `2026`; códigos demo `SOFIA5`, `CARLOS5`, `DIEGO5`, `JAIR`, `SOCIO-8842`; referencia canónica en `design/prototipo-maestro/prototipo-maestro-pitchlab.html`).
+  - Suite E2E completa + auditoría Axe AA: `pnpm build && pnpm e2e`.
 

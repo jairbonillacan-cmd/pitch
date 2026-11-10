@@ -1,46 +1,205 @@
 "use client";
 
 import React, { useMemo, useState } from "react";
-import { formatOddsValue } from "../access-guard.js";
+import { getLogoPath, getTeamColors } from "@pitchlab/sports-assets";
+import { LeagueBadge, TeamBadge } from "../../sports.js";
+import { formatOddsValue, getSessionWatermark } from "../access-guard.js";
+import {
+  CrestPedestal,
+  GlassActionRow,
+  LensGlowOrbs,
+  MaestroIcon,
+  NoticeCard,
+  StackedAvatars,
+} from "../components/MaestroPrimitives.js";
+import { TopLayerModalDialog } from "../components/PlatformOverlays.js";
 import {
   AtmosphereStage,
   ClubWorkspaceShell,
 } from "../components/ShellChrome.js";
 import { usePlatform } from "../platform-provider.js";
 import { TIPSTAR_CREATORS } from "../spacetime-catalog.js";
+import type { MatchPick } from "../types.js";
+
+const ACTIVE_MEMBER_AVATARS = [
+  { initials: "SM", gradVar: "var(--avatar-grad-1)", label: "Sofía Méndez" },
+  { initials: "CV", gradVar: "var(--avatar-grad-2)", label: "Carlos Vega" },
+  { initials: "DA", gradVar: "var(--avatar-grad-3)", label: "Diego Aranda" },
+  { initials: "JR", gradVar: "var(--avatar-grad-4)", label: "Jair R." },
+] as const;
+
+interface LeaderboardRow {
+  handle: string;
+  name: string;
+  roleLabel: string;
+  specialty: string;
+  avatarInitials: string;
+  avatarGradVar: string;
+  settledCount: number;
+  clvNum: number;
+  roiLabel: string;
+  unitsNum: number;
+  isTipstar: boolean;
+}
+
+const BASE_LEADERBOARD_ROWS: readonly LeaderboardRow[] = [
+  ...TIPSTAR_CREATORS.map((c) => ({
+    handle: c.handle,
+    name: c.name,
+    roleLabel: "Tipstar Oficial",
+    specialty: c.specialty,
+    avatarInitials: c.avatarInitials,
+    avatarGradVar: c.avatarGradVar,
+    settledCount: c.settledCount,
+    clvNum: Number.parseFloat(c.clvAvg.replace(/[^0-9.-]/g, "")) || 3.5,
+    roiLabel: c.roi95Ci,
+    unitsNum: Number.parseFloat(c.verifiedUnits.replace(/[^0-9.-]/g, "")) || 12.0,
+    isTipstar: true,
+  })),
+  {
+    handle: "jair_founder",
+    name: "Jair R.",
+    roleLabel: "Socio Pase Total",
+    specialty: "NFL & Liga MX · Valor Geodesic",
+    avatarInitials: "JR",
+    avatarGradVar: "var(--avatar-grad-4)",
+    settledCount: 112,
+    clvNum: 2.8,
+    roiLabel: "+4.6 % (±2.8 %)",
+    unitsNum: 9.2,
+    isTipstar: false,
+  },
+  {
+    handle: "socio_pl",
+    name: "Socio Pase Total",
+    roleLabel: "Socio Pase Total",
+    specialty: "Multi-Liga · Bitácora Auditada",
+    avatarInitials: "SP",
+    avatarGradVar: "var(--avatar-grad-5)",
+    settledCount: 64,
+    clvNum: 2.6,
+    roiLabel: "+4.1 % (±3.1 %)",
+    unitsNum: 6.4,
+    isTipstar: false,
+  },
+];
 
 export function SocialVipClubView(): React.JSX.Element {
   const {
     dataset,
     viewerRole,
+    oddsFormat,
+    journal,
     socialPosts,
     publishSocialPost,
     addSocialComment,
     toggleSocialLike,
     blockedSpamAttempts,
+    sealPickToJournal,
+    openShareTicket,
+    pushToast,
     navigateTo,
   } = usePlatform();
 
   const [tab, setTab] = useState<"feed" | "consenso" | "ranking">("feed");
+  const [feedFilter, setFeedFilter] = useState<"all" | "following">("all");
+  const [followedHandles, setFollowedHandles] = useState<string[]>([
+    "sofia_nfl",
+    "carlos_quant",
+  ]);
+  const [copiedCounts, setCopiedCounts] = useState<Record<string, number>>({
+    "sp-1": 14,
+    "sp-2": 9,
+    "sp-3": 7,
+  });
+
+  const upcomingGames = useMemo(
+    () => dataset.games.filter((g) => g.status !== "FT"),
+    [dataset.games],
+  );
+
+  const [selectedGameId, setSelectedGameId] = useState<string>(
+    () => upcomingGames[0]?.id ?? dataset.games[0]?.id ?? "",
+  );
   const [draftBody, setDraftBody] = useState<string>("");
   const [draftOrigin, setDraftOrigin] = useState<"Spacetime Suite" | "Bitácora Propia">(
     "Spacetime Suite",
   );
   const [composerErr, setComposerErr] = useState<string>("");
   const [replyDrafts, setReplyDrafts] = useState<Record<string, string>>({});
+  const [replyErrors, setReplyErrors] = useState<Record<string, string>>({});
 
-  const featuredMatch =
-    dataset.games.find((g) => g.status !== "FT") ?? dataset.games[0];
+  // Controles de Ranking CLV (Temporada / 30 días + CLV Medio / Unidades)
+  const [lbWindow, setLbWindow] = useState<"season" | "30d">("season");
+  const [lbSort, setLbSort] = useState<"clv" | "units">("clv");
+
+  const selectedMatch = useMemo(
+    () =>
+      upcomingGames.find((g) => g.id === selectedGameId) ??
+      upcomingGames[0] ??
+      dataset.games[0],
+    [dataset.games, selectedGameId, upcomingGames],
+  );
+
+  const visiblePosts = useMemo(() => {
+    if (feedFilter === "all") return socialPosts;
+    return socialPosts.filter(
+      (p) =>
+        followedHandles.includes(p.authorHandle) ||
+        p.authorHandle === "socio_pl" ||
+        p.authorHandle === "sofia_nfl",
+    );
+  }, [feedFilter, followedHandles, socialPosts]);
+
+  const rankedAnalysts = useMemo(() => {
+    const windowFactor = lbWindow === "30d" ? 0.58 : 1;
+    const clvBoost = lbWindow === "30d" ? 1.06 : 1;
+    return BASE_LEADERBOARD_ROWS.map((row) => ({
+      ...row,
+      displayCount: Math.max(30, Math.round(row.settledCount * windowFactor)),
+      displayClv: Math.round(row.clvNum * clvBoost * 10) / 10,
+      displayUnits: Math.round(row.unitsNum * windowFactor * 10) / 10,
+    })).sort((a, b) =>
+      lbSort === "clv"
+        ? b.displayClv - a.displayClv
+        : b.displayUnits - a.displayUnits,
+    );
+  }, [lbSort, lbWindow]);
+
+  const toggleFollow = (handle: string) => {
+    setFollowedHandles((prev) => {
+      const exists = prev.includes(handle);
+      pushToast(
+        exists
+          ? `Dejaste de seguir a @${handle}.`
+          : `Ahora sigues los boletos verificados de @${handle}.`,
+        "default",
+      );
+      return exists ? prev.filter((h) => h !== handle) : [...prev, handle];
+    });
+  };
 
   const handlePublish = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setComposerErr("");
+
+    const journalEntry = journal[0];
+    const useBitacora = draftOrigin === "Bitácora Propia" && Boolean(journalEntry);
+
     const res = publishSocialPost({
-      leagueLabel: featuredMatch?.leagueLabel ?? "Liga MX",
-      matchLabel: featuredMatch
-        ? `${featuredMatch.home.shortName} vs ${featuredMatch.away.shortName}`
-        : "Análisis de jornada",
-      pickBadge: featuredMatch?.picks[0]?.label ?? "Pick Principal · 1.5u",
+      leagueLabel: useBitacora
+        ? journalEntry!.leagueLabel
+        : selectedMatch?.leagueLabel ?? "Liga MX",
+      matchLabel: useBitacora
+        ? journalEntry!.matchLabel
+        : selectedMatch
+          ? `${selectedMatch.home.shortName} vs ${selectedMatch.away.shortName}`
+          : "Análisis de jornada",
+      pickBadge: useBitacora
+        ? `${journalEntry!.pickLabel} · ${journalEntry!.units.toFixed(1)}u`
+        : selectedMatch?.picks[0]
+          ? `${selectedMatch.picks[0].label} · ${selectedMatch.picks[0].suggestedUnits.toFixed(1)}u`
+          : "Pick Principal · 1.5u",
       originType: draftOrigin,
       body: draftBody,
     });
@@ -51,336 +210,1061 @@ export function SocialVipClubView(): React.JSX.Element {
     setDraftBody("");
   };
 
+  const handleCopyPostToJournal = (post: (typeof socialPosts)[number]) => {
+    const matchedGame =
+      dataset.games.find(
+        (g) =>
+          g.id === post.gameId ||
+          post.matchLabel.toLowerCase().includes(g.home.shortName.toLowerCase()) ||
+          g.leagueLabel.toLowerCase() === post.leagueLabel.toLowerCase(),
+      ) ??
+      selectedMatch ??
+      dataset.games[0];
+
+    const basePick = matchedGame?.picks[0];
+    const syntheticPick: MatchPick = basePick
+      ? {
+          ...basePick,
+          id: `soc-copy-${post.id}-${Date.now()}`,
+          matchLabel: post.matchLabel,
+          leagueLabel: post.leagueLabel,
+          label: post.pickBadge,
+        }
+      : {
+          id: `soc-copy-${post.id}-${Date.now()}`,
+          gameId: matchedGame?.id ?? "soc-game",
+          league: matchedGame?.league ?? "nfl",
+          leagueLabel: post.leagueLabel,
+          matchLabel: post.matchLabel,
+          kickoffLocal: matchedGame?.kickoffLocal ?? "Hoy",
+          gameStatus: "NS",
+          slotIndex: 0,
+          category: "principal",
+          categoryLabel: "Comunidad VIP",
+          risk: "medio",
+          engineKey: "tachyon",
+          engineName: "PitchLab Spacetime Suite v2.1",
+          marketGroup: "Principal",
+          selectionKey: "community_copy",
+          conflictGroup: "independent",
+          label: post.pickBadge,
+          rationale: post.body,
+          p: 0.61,
+          fairDecimal: 1.64,
+          fairAmerican: -156,
+          marketDecimal: 1.85,
+          marketAmerican: -118,
+          edgePts: 3.4,
+          confidenceScore: 76,
+          suggestedUnits: 1.0,
+        };
+
+    sealPickToJournal(
+      syntheticPick,
+      1.0,
+      syntheticPick.marketDecimal,
+      `Copiado de @${post.authorHandle} en Comunidad VIP`,
+    );
+    setCopiedCounts((prev) => ({
+      ...prev,
+      [post.id]: (prev[post.id] ?? 4) + 1,
+    }));
+  };
+
+  const watermark = getSessionWatermark(viewerRole);
+
   return (
     <AtmosphereStage>
       <ClubWorkspaceShell activePath="/app/social">
-        <section className="flex flex-wrap items-end justify-between gap-4">
-          <div className="space-y-1">
-            <span className="pl-pill pl-pill--brand">
-              Exclusivo Socios Pase Total · Récords Auditados
-            </span>
-            <h1 className="m-0 text-2xl sm:text-3xl font-extrabold">
+        {/* Cabecera estilo Prototipo Maestro */}
+        <section className="glass-card glass-ring rounded-2xl p-5 flex flex-wrap items-center justify-between gap-4">
+          <div className="space-y-1.5">
+            <div className="flex flex-wrap items-center gap-2.5">
+              <span className="pl-pill pl-pill--brand">
+                <MaestroIcon name="shield" size={13} />
+                Solo Suscriptores · Récords Auditados
+              </span>
+              <StackedAvatars items={ACTIVE_MEMBER_AVATARS} extraCount={38} />
+            </div>
+            <h1 className="m-0 text-2xl sm:text-3xl font-extrabold tracking-tight">
               Comunidad VIP PitchLab
             </h1>
             <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
-              Debate táctico sin spam: cada socio comenta con su historial verificado en unidades
-              y CLV. Enlaces externos bloqueados automáticamente ({blockedSpamAttempts}{" "}
-              interceptados).
+              Debate táctico verificado entre miembros con Pase Total y Tipstars Oficiales.
+              Enlaces externos y grupos de reventa bloqueados ({blockedSpamAttempts} interceptados).
             </p>
           </div>
 
           <div className="seg-well" role="tablist" aria-label="Vistas de comunidad">
             <button
+              id="social-tab-feed"
               type="button"
               role="tab"
               aria-selected={tab === "feed"}
               className="seg-btn"
               onClick={() => setTab("feed")}
             >
-              Muro Verificado
+              <MaestroIcon name="users" size={14} />
+              <span>Boletos & Debate ({socialPosts.length})</span>
             </button>
             <button
+              id="social-tab-consenso"
               type="button"
               role="tab"
               aria-selected={tab === "consenso"}
               className="seg-btn"
               onClick={() => setTab("consenso")}
             >
-              Consenso vs. Suite
+              <MaestroIcon name="flame" size={14} />
+              <span>Consenso vs. Suite</span>
             </button>
             <button
+              id="social-tab-ranking"
               type="button"
               role="tab"
               aria-selected={tab === "ranking"}
               className="seg-btn"
               onClick={() => setTab("ranking")}
             >
-              Ranking CLV (IC 95 %)
+              <MaestroIcon name="trophy" size={14} />
+              <span>Ranking CLV (IC 95 %)</span>
             </button>
           </div>
         </section>
 
         {viewerRole === "visitor" ? (
-          <section className="glass-lens glass-ring rounded-3xl p-6 space-y-3">
-            <h2 className="m-0 text-xl font-extrabold">
-              🔒 Comunidad reservada para suscriptores activos
-            </h2>
-            <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
-              Para evitar ruido, bots y venta clandestina de grupos, solo socios con Pase Total
-              pueden leer y opinar en los hilos de partido.
-            </p>
-            <a
-              href="/signup"
-              onClick={(e) => {
-                e.preventDefault();
-                navigateTo("/signup");
-              }}
-              className="pl-btn-primary text-xs"
-            >
-              Activar 7 días gratis →
-            </a>
+          <section className="glass-lens glass-ring glass-ring--featured relative overflow-hidden rounded-3xl p-6 space-y-3">
+            <LensGlowOrbs subtle />
+            <div className="relative z-10 space-y-3">
+              <span className="pl-pill pl-pill--brand">
+                <MaestroIcon name="lock" size={13} />
+                Acceso Exclusivo Pase Total
+              </span>
+              <h2 className="m-0 text-xl font-extrabold">
+                Solo suscriptores activos pueden ver boletos pre-partido y opinar
+              </h2>
+              <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
+                Para garantizar cero ruido, cero bots y cero reventa en canales externos, los
+                hilos verificados de la Comunidad VIP están reservados para miembros con Pase
+                Total.
+              </p>
+              <a
+                href="/signup"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigateTo("/signup");
+                }}
+                className="pl-btn-primary text-xs"
+              >
+                Activar 7 días gratis
+                <MaestroIcon name="arrowRight" size={14} />
+              </a>
+            </div>
           </section>
         ) : null}
 
+        {/* TAB 1: BOLETOS & DEBATE (2 COLUMNAS ASIMÉTRICAS lg:grid-cols-12) */}
         {viewerRole !== "visitor" && tab === "feed" ? (
-          <div className="space-y-5">
-            {/* Compositor anti-spam */}
-            <form
-              onSubmit={handlePublish}
-              className="glass-lens glass-ring rounded-3xl p-5 space-y-3"
-            >
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <strong className="text-sm">
-                  Compartir lectura con tu insignia auditada
-                </strong>
-                <div className="seg-well" role="group" aria-label="Origen del pick comentado">
-                  {(["Spacetime Suite", "Bitácora Propia"] as const).map((orig) => (
-                    <button
-                      key={orig}
-                      type="button"
-                      className="seg-btn text-xs"
-                      aria-pressed={draftOrigin === orig}
-                      onClick={() => setDraftOrigin(orig)}
+          <div
+            role="tabpanel"
+            aria-labelledby="social-tab-feed"
+            className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start"
+          >
+            {/* Columna principal (8 cols) */}
+            <div className="lg:col-span-8 space-y-4">
+              {/* Compositor con LensGlowOrbs subtle + selector de partido + origen */}
+              <form
+                onSubmit={handlePublish}
+                className="glass-lens glass-ring relative overflow-hidden rounded-3xl p-5 space-y-3.5"
+              >
+                <LensGlowOrbs subtle />
+                <div className="relative z-10 space-y-3.5">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <strong className="text-sm flex items-center gap-2">
+                      <MaestroIcon
+                        name="sparkles"
+                        size={15}
+                        style={{ color: "var(--pl-brand)" }}
+                      />
+                      <span>Compartir lectura con tu insignia auditada</span>
+                    </strong>
+                    <div
+                      className="seg-well"
+                      role="group"
+                      aria-label="Origen del pick comentado"
                     >
-                      {orig}
+                      {(["Spacetime Suite", "Bitácora Propia"] as const).map((orig) => (
+                        <button
+                          key={orig}
+                          type="button"
+                          className="seg-btn text-xs"
+                          aria-pressed={draftOrigin === orig}
+                          onClick={() => setDraftOrigin(orig)}
+                        >
+                          <MaestroIcon
+                            name={orig === "Spacetime Suite" ? "cpu" : "ticket"}
+                            size={13}
+                          />
+                          <span>{orig}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-12 gap-2.5 items-center">
+                    <label
+                      htmlFor="social-match-select"
+                      className="sm:col-span-4 text-xs font-bold"
+                      style={{ color: "var(--pl-text-secondary)" }}
+                    >
+                      Partido o boleto vinculado
+                    </label>
+                    <select
+                      id="social-match-select"
+                      value={selectedGameId}
+                      onChange={(e) => setSelectedGameId(e.target.value)}
+                      className="sm:col-span-8 glass-input w-full px-3 py-2 text-xs font-semibold"
+                    >
+                      {(upcomingGames.length > 0 ? upcomingGames : dataset.games)
+                        .slice(0, 12)
+                        .map((g) => (
+                          <option key={g.id} value={g.id}>
+                            {g.leagueLabel} · {g.home.shortName} vs {g.away.shortName} —{" "}
+                            {g.picks[0]?.label ?? "Pick Principal"}
+                          </option>
+                        ))}
+                    </select>
+                  </div>
+
+                  <textarea
+                    rows={3}
+                    aria-label="Escribe tu lectura táctica para la comunidad"
+                    value={draftBody}
+                    onChange={(e) => setDraftBody(e.target.value)}
+                    placeholder="Comparte tu lectura sobre el partido o cómo armaste tu parlay (enlaces externos bloqueados)..."
+                    className="glass-input w-full p-3 text-sm"
+                  />
+
+                  {composerErr ? (
+                    <p
+                      className="m-0 text-xs font-semibold flex items-center gap-1.5"
+                      role="alert"
+                      style={{ color: "var(--pl-danger)" }}
+                    >
+                      <MaestroIcon name="shield" size={14} />
+                      <span>{composerErr}</span>
+                    </p>
+                  ) : null}
+
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <span className="text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                      Filtro anti-links activo · Tu récord verificado acompaña cada comentario
+                    </span>
+                    <button type="submit" className="pl-btn-primary text-xs">
+                      <MaestroIcon name="check" size={14} />
+                      <span>Publicar en Comunidad VIP</span>
                     </button>
-                  ))}
+                  </div>
                 </div>
-              </div>
+              </form>
 
-              <textarea
-                rows={3}
-                aria-label="Escribe tu lectura táctica para la comunidad"
-                value={draftBody}
-                onChange={(e) => setDraftBody(e.target.value)}
-                placeholder="Comparte tu lectura sobre el partido o cómo armaste tu parlay (enlaces externos bloqueados)..."
-                className="glass-input w-full p-3 text-sm"
-              />
+              {/* Barra de filtro Todos / Siguiendo */}
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <div className="seg-well" role="group" aria-label="Filtrar publicaciones">
+                  <button
+                    type="button"
+                    className="seg-btn text-xs"
+                    aria-pressed={feedFilter === "all"}
+                    onClick={() => setFeedFilter("all")}
+                  >
+                    Todos los socios ({socialPosts.length})
+                  </button>
+                  <button
+                    type="button"
+                    className="seg-btn text-xs"
+                    aria-pressed={feedFilter === "following"}
+                    onClick={() => setFeedFilter("following")}
+                  >
+                    Siguiendo ({followedHandles.length})
+                  </button>
+                </div>
 
-              {composerErr ? (
-                <p className="m-0 text-xs font-semibold" role="alert" style={{ color: "var(--pl-danger)" }}>
-                  {composerErr}
-                </p>
-              ) : null}
-
-              <div className="flex justify-end">
-                <button type="submit" className="pl-btn-primary text-xs">
-                  Publicar en Comunidad VIP
+                <button
+                  type="button"
+                  className="pl-btn-glass text-xs min-h-8 px-3"
+                  onClick={() => navigateTo("/app/picks")}
+                >
+                  <MaestroIcon name="plus" size={13} />
+                  <span>Sellar nuevo pick</span>
                 </button>
               </div>
-            </form>
 
-            {/* Hilos de socios y Tipstars */}
-            <div className="space-y-4">
-              {socialPosts.map((post) => (
-                <article
-                  key={post.id}
-                  className="glass-card glass-ring rounded-2xl p-5 space-y-3"
-                >
-                  <div className="flex flex-wrap items-start justify-between gap-2">
-                    <div className="flex items-center gap-3">
-                      <a
-                        href={`/app/u/${post.authorHandle}`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          navigateTo(`/app/u/${post.authorHandle}`);
-                        }}
-                        className="w-10 h-10 rounded-full inline-flex items-center justify-center text-xs font-extrabold no-underline"
-                        style={{
-                          background: post.avatarGradVar,
-                          color: "var(--share-card-fg)",
-                        }}
-                      >
-                        {post.authorName.slice(0, 2).toUpperCase()}
-                      </a>
-                      <div>
-                        <div className="flex flex-wrap items-center gap-2">
+              {/* Hilos verificados */}
+              <div className="space-y-4">
+                {visiblePosts.map((post) => {
+                  const isFollowing = followedHandles.includes(post.authorHandle);
+                  const matchedGame = dataset.games.find(
+                    (g) =>
+                      g.id === post.gameId ||
+                      post.matchLabel
+                        .toLowerCase()
+                        .includes(g.home.shortName.toLowerCase()),
+                  );
+                  const copies = copiedCounts[post.id] ?? 5;
+
+                  return (
+                    <article
+                      key={post.id}
+                      className="glass-card glass-ring relative overflow-hidden rounded-2xl p-5 space-y-3.5"
+                    >
+                      <span className="pl-watermark num">{watermark}</span>
+
+                      {/* Cabecera de autor con insignia auditada */}
+                      <div className="flex flex-wrap items-start justify-between gap-3 relative z-10">
+                        <div className="flex items-center gap-3 min-w-0">
                           <a
                             href={`/app/u/${post.authorHandle}`}
                             onClick={(e) => {
                               e.preventDefault();
                               navigateTo(`/app/u/${post.authorHandle}`);
                             }}
-                            className="font-extrabold text-sm no-underline hover:underline"
+                            className="w-10 h-10 rounded-full avatar-ring inline-flex items-center justify-center text-xs font-extrabold no-underline shrink-0"
+                            style={{
+                              background: post.avatarGradVar,
+                              color: "var(--share-card-fg)",
+                            }}
                           >
-                            {post.authorName} (@{post.authorHandle})
+                            {post.authorName.slice(0, 2).toUpperCase()}
                           </a>
-                          <span className="pl-pill pl-pill--brand">{post.roleBadge}</span>
+                          <div className="min-w-0">
+                            <div className="flex flex-wrap items-center gap-2">
+                              <a
+                                href={`/app/u/${post.authorHandle}`}
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  navigateTo(`/app/u/${post.authorHandle}`);
+                                }}
+                                className="font-extrabold text-sm no-underline hover:underline truncate"
+                              >
+                                {post.authorName}
+                              </a>
+                              <span
+                                className={
+                                  post.roleBadge === "Tipstar Oficial"
+                                    ? "pl-pill pl-pill--success"
+                                    : "pl-pill pl-pill--brand"
+                                }
+                              >
+                                {post.roleBadge}
+                              </span>
+                            </div>
+                            <div
+                              className="text-xs num flex flex-wrap items-center gap-1.5 mt-0.5"
+                              style={{ color: "var(--pl-text-muted)" }}
+                            >
+                              <span>@{post.authorHandle}</span>
+                              <span>·</span>
+                              <span
+                                className="font-semibold"
+                                style={{ color: "var(--pl-success)" }}
+                              >
+                                {post.verifiedRecord}
+                              </span>
+                              <span>·</span>
+                              <span
+                                className="font-semibold"
+                                style={{ color: "var(--pl-brand)" }}
+                              >
+                                {post.clvBadge}
+                              </span>
+                              <span>·</span>
+                              <span>{post.createdAt}</span>
+                            </div>
+                          </div>
                         </div>
-                        <span className="text-xs num" style={{ color: "var(--pl-success)" }}>
-                          {post.verifiedRecord} · {post.clvBadge} · {post.createdAt}
+
+                        {post.authorHandle !== "socio_pl" ? (
+                          <button
+                            type="button"
+                            className="pl-btn-glass text-xs min-h-8 px-3"
+                            onClick={() => toggleFollow(post.authorHandle)}
+                          >
+                            {isFollowing ? "Siguiendo" : "+ Seguir"}
+                          </button>
+                        ) : (
+                          <span className="pl-pill pl-pill--brand">Tu boleto</span>
+                        )}
+                      </div>
+
+                      {/* Tesis táctica */}
+                      <p
+                        className="m-0 text-sm leading-relaxed relative z-10"
+                        style={{ color: "var(--pl-text-secondary)" }}
+                      >
+                        {post.body}
+                      </p>
+
+                      {/* Caja perforada de boleto con + Llevar a mi bitácora */}
+                      <div
+                        className="glass-ring rounded-xl p-3.5 space-y-2.5 relative z-10"
+                        style={{ background: "var(--pl-surface)" }}
+                      >
+                        <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
+                          <span className="flex items-center gap-2 font-semibold">
+                            {matchedGame ? (
+                              <>
+                                <TeamBadge
+                                  league={matchedGame.league}
+                                  slug={matchedGame.home.slug}
+                                  name={matchedGame.home.name}
+                                  size={18}
+                                />
+                                <span>{post.matchLabel}</span>
+                                <TeamBadge
+                                  league={matchedGame.league}
+                                  slug={matchedGame.away.slug}
+                                  name={matchedGame.away.name}
+                                  size={18}
+                                />
+                              </>
+                            ) : (
+                              <>
+                                <MaestroIcon
+                                  name="ticket"
+                                  size={14}
+                                  style={{ color: "var(--pl-brand)" }}
+                                />
+                                <span>{post.matchLabel}</span>
+                              </>
+                            )}
+                          </span>
+                          <span className="num" style={{ color: "var(--pl-text-muted)" }}>
+                            {post.leagueLabel} · {post.originType}
+                          </span>
+                        </div>
+
+                        <div className="ticket-perf" />
+
+                        <div className="flex flex-wrap items-center justify-between gap-3">
+                          <div>
+                            <div className="font-extrabold text-sm uppercase tracking-wide">
+                              {post.pickBadge}
+                            </div>
+                            <span
+                              className="text-xs num"
+                              style={{ color: "var(--pl-text-muted)" }}
+                            >
+                              {post.originType === "Spacetime Suite"
+                                ? "Calibrado por PitchLab Spacetime Suite v2.1"
+                                : "Tesis propia sellada pre-partido"}
+                            </span>
+                          </div>
+
+                          <button
+                            type="button"
+                            className="pl-btn-glass text-xs min-h-8 px-3 num"
+                            onClick={() => handleCopyPostToJournal(post)}
+                          >
+                            <MaestroIcon name="plus" size={13} />
+                            <span>Llevar a mi bitácora ({copies})</span>
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Barra de reacciones + compartir */}
+                      <div className="flex flex-wrap items-center justify-between gap-2 pt-0.5 relative z-10">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <button
+                            type="button"
+                            onClick={() => toggleSocialLike(post.id)}
+                            className="pl-btn-glass text-xs min-h-8 px-3 num"
+                            style={{
+                              color: post.likedByMe
+                                ? "var(--pl-warning)"
+                                : "var(--pl-text-secondary)",
+                            }}
+                          >
+                            <MaestroIcon name="flame" size={14} />
+                            <span>Útil ({post.likes})</span>
+                          </button>
+
+                          <button
+                            type="button"
+                            className="pl-btn-glass text-xs min-h-8 px-3"
+                            onClick={() =>
+                              openShareTicket({
+                                kind: "pick",
+                                title: post.matchLabel,
+                                subtitle: `Debate Comunidad VIP · @${post.authorHandle}`,
+                                leagueLabel: post.leagueLabel,
+                                pickLabel: post.pickBadge,
+                                probability: 0.62,
+                                fairDecimal: 1.61,
+                                marketDecimal: 1.85,
+                                units: 1.5,
+                                gameStatus: "NS",
+                              })
+                            }
+                          >
+                            <MaestroIcon name="share" size={13} />
+                            <span>Compartir</span>
+                          </button>
+                        </div>
+
+                        <span className="text-xs num" style={{ color: "var(--pl-text-muted)" }}>
+                          {post.comments.length}{" "}
+                          {post.comments.length === 1 ? "opinión" : "opiniones"}
                         </span>
                       </div>
-                    </div>
 
-                    <span className="pl-pill">
-                      {post.leagueLabel} · {post.originType}
-                    </span>
-                  </div>
-
-                  <p className="m-0 text-sm leading-relaxed">{post.body}</p>
-
-                  <div className="flex items-center justify-between text-xs pt-1">
-                    <span className="pl-pill pl-pill--info">{post.pickBadge}</span>
-                    <button
-                      type="button"
-                      onClick={() => toggleSocialLike(post.id)}
-                      className="pl-btn-glass text-xs min-h-7 px-2.5 num"
-                    >
-                      {post.likedByMe ? "★" : "☆"} Útil ({post.likes})
-                    </button>
-                  </div>
-
-                  {/* Hilo de respuestas */}
-                  {post.comments.length > 0 ? (
-                    <div className="space-y-2 pt-2 hairline-t">
-                      {post.comments.map((c) => (
-                        <div
-                          key={c.id}
-                          className="rounded-xl p-2.5 text-xs"
-                          style={{ background: "var(--pl-surface)" }}
-                        >
-                          <div className="flex items-center justify-between font-bold">
-                            <span>
-                              @{c.authorHandle} ·{" "}
-                              <span style={{ color: "var(--pl-success)" }}>{c.verifiedBadge}</span>
+                      {/* Hilo de respuestas en línea */}
+                      <div className="space-y-2 pt-2.5 hairline-t relative z-10">
+                        {post.comments.map((c) => (
+                          <div
+                            key={c.id}
+                            className="rounded-xl px-3 py-2 text-xs flex items-start justify-between gap-2"
+                            style={{ background: "var(--pl-surface)" }}
+                          >
+                            <div className="space-y-0.5">
+                              <div>
+                                <strong style={{ color: "var(--pl-brand)" }}>
+                                  @{c.authorHandle}
+                                </strong>{" "}
+                                <span
+                                  className="num font-semibold"
+                                  style={{ color: "var(--pl-success)" }}
+                                >
+                                  ({c.verifiedBadge})
+                                </span>
+                                <span style={{ color: "var(--pl-text-secondary)" }}>
+                                  : {c.body}
+                                </span>
+                              </div>
+                            </div>
+                            <span
+                              className="shrink-0 num"
+                              style={{ color: "var(--pl-text-muted)" }}
+                            >
+                              {c.createdAt}
                             </span>
-                            <span style={{ color: "var(--pl-text-muted)" }}>{c.createdAt}</span>
                           </div>
-                          <p className="m-0 mt-1" style={{ color: "var(--pl-text-secondary)" }}>
-                            {c.body}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  ) : null}
+                        ))}
 
-                  <div className="flex items-center gap-2 pt-1">
-                    <input
-                      type="text"
-                      aria-label={`Responder a ${post.authorName}`}
-                      value={replyDrafts[post.id] ?? ""}
-                      onChange={(e) =>
-                        setReplyDrafts((prev) => ({ ...prev, [post.id]: e.target.value }))
-                      }
-                      placeholder="Responder con argumento táctico..."
-                      className="glass-input flex-1 px-3 py-1.5 text-xs"
-                    />
-                    <button
-                      type="button"
-                      className="pl-btn-glass text-xs min-h-8 px-3"
-                      onClick={() => {
-                        const res = addSocialComment(post.id, replyDrafts[post.id] ?? "");
-                        if (res.ok) {
-                          setReplyDrafts((prev) => ({ ...prev, [post.id]: "" }));
-                        }
-                      }}
-                    >
-                      Responder
-                    </button>
-                  </div>
-                </article>
-              ))}
+                        <div className="flex items-center gap-2 pt-0.5">
+                          <input
+                            type="text"
+                            aria-label={`Responder a ${post.authorName}`}
+                            value={replyDrafts[post.id] ?? ""}
+                            onChange={(e) => {
+                              setReplyDrafts((prev) => ({
+                                ...prev,
+                                [post.id]: e.target.value,
+                              }));
+                              if (replyErrors[post.id]) {
+                                setReplyErrors((prev) => ({ ...prev, [post.id]: "" }));
+                              }
+                            }}
+                            placeholder="Opina como suscriptor verificado (sin links)..."
+                            className="glass-input flex-1 px-3 py-1.5 text-xs min-w-0"
+                          />
+                          <button
+                            type="button"
+                            className="pl-btn-glass text-xs min-h-8 px-3"
+                            onClick={() => {
+                              const res = addSocialComment(
+                                post.id,
+                                replyDrafts[post.id] ?? "",
+                              );
+                              if (res.ok) {
+                                setReplyDrafts((prev) => ({ ...prev, [post.id]: "" }));
+                                setReplyErrors((prev) => ({ ...prev, [post.id]: "" }));
+                              } else if (res.error) {
+                                setReplyErrors((prev) => ({
+                                  ...prev,
+                                  [post.id]: res.error ?? "",
+                                }));
+                              }
+                            }}
+                          >
+                            Responder
+                          </button>
+                        </div>
+
+                        {replyErrors[post.id] ? (
+                          <p
+                            className="m-0 text-xs font-semibold"
+                            style={{ color: "var(--pl-danger)" }}
+                          >
+                            {replyErrors[post.id]}
+                          </p>
+                        ) : null}
+                      </div>
+                    </article>
+                  );
+                })}
+              </div>
             </div>
+
+            {/* Columna derecha sticky (4 cols) */}
+            <aside className="lg:col-span-4 lg:sticky lg:top-20 space-y-4">
+              {/* Escudo Anti-Spam Zero-Noise */}
+              <NoticeCard
+                icon="shield"
+                tone="success"
+                badgeText="Escudo Zero-Noise Activo"
+                title="Cero Fuga · Cero Spam"
+              >
+                <span>
+                  Solo socios con Pase Total pueden opinar. Enlaces externos, invitaciones a
+                  grupos y bots son bloqueados al vuelo ({" "}
+                  <strong className="num">{blockedSpamAttempts} links interceptados</strong>
+                  ). Al compartir antes del kickoff, la selección viaja sellada.
+                </span>
+              </NoticeCard>
+
+              {/* Tipstars y Socios Top CLV */}
+              <div className="glass-card glass-ring rounded-2xl p-4 space-y-3">
+                <div className="flex items-center justify-between gap-2">
+                  <h2 className="m-0 text-sm font-extrabold flex items-center gap-1.5">
+                    <MaestroIcon
+                      name="trophy"
+                      size={15}
+                      style={{ color: "var(--pl-brand)" }}
+                    />
+                    <span>Tipstars y Socios Top CLV</span>
+                  </h2>
+                  <button
+                    type="button"
+                    className="text-xs font-bold bg-transparent border-0 p-0 cursor-pointer"
+                    style={{ color: "var(--pl-brand)" }}
+                    onClick={() => setTab("ranking")}
+                  >
+                    Ver tabla →
+                  </button>
+                </div>
+
+                <div className="space-y-1">
+                  {BASE_LEADERBOARD_ROWS.slice(0, 4).map((a) => {
+                    const following = followedHandles.includes(a.handle);
+                    return (
+                      <div
+                        key={a.handle}
+                        className="py-2 flex items-center justify-between gap-2 hairline-b last:border-b-0"
+                      >
+                        <a
+                          href={`/app/u/${a.handle}`}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            navigateTo(`/app/u/${a.handle}`);
+                          }}
+                          className="flex items-center gap-2.5 min-w-0 no-underline"
+                        >
+                          <span
+                            className="w-8 h-8 rounded-full avatar-ring inline-flex items-center justify-center text-xs font-extrabold shrink-0"
+                            style={{
+                              background: a.avatarGradVar,
+                              color: "var(--share-card-fg)",
+                            }}
+                          >
+                            {a.avatarInitials}
+                          </span>
+                          <span className="min-w-0 block">
+                            <strong className="block text-xs font-bold truncate">
+                              {a.name}
+                            </strong>
+                            <span
+                              className="block text-xs num truncate"
+                              style={{ color: "var(--pl-success)" }}
+                            >
+                              {a.isTipstar ? "Tipstar · " : ""}CLV +{a.clvNum.toFixed(1)} % · +
+                              {a.unitsNum.toFixed(1)}u
+                            </span>
+                          </span>
+                        </a>
+
+                        <button
+                          type="button"
+                          className="pl-btn-glass text-xs min-h-7 px-2.5 shrink-0"
+                          onClick={() => toggleFollow(a.handle)}
+                        >
+                          {following ? "Siguiendo" : "Seguir"}
+                        </button>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Tarjeta rápida Referidos Doble Vía (+15d ambos) */}
+              <GlassActionRow
+                href="/app/account"
+                onClick={() => navigateTo("/app/account")}
+                leading={
+                  <span
+                    className="sq-box"
+                    style={{ color: "var(--pl-brand)" }}
+                  >
+                    <MaestroIcon name="gift" size={18} />
+                  </span>
+                }
+                title="Referidos Doble Vía (+15 días ambos)"
+                subtitle="7 días gratis a tu amigo y +15 días al pagar su 1.er mes"
+                trailingBadge="+15d"
+              />
+            </aside>
           </div>
         ) : null}
 
+        {/* TAB 2: CONSENSO VS. SPACETIME SUITE */}
         {viewerRole !== "visitor" && tab === "consenso" ? (
-          <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {dataset.games
-              .filter((g) => g.status !== "FT")
-              .slice(0, 4)
-              .map((g, idx) => {
+          <div
+            role="tabpanel"
+            aria-labelledby="social-tab-consenso"
+            className="space-y-4"
+          >
+            <NoticeCard
+              icon="chart"
+              tone="brand"
+              badgeText="Radar Contrarian"
+              title="Consenso Socios VIP vs. Spacetime Suite v2.1"
+            >
+              <span>
+                Detecta cuándo el sentimiento general sobrepaga a un favorito frente a la
+                probabilidad fría de{" "}
+                <strong>Tachyon v2.1, Singularity v2.1 y Minkowski v2.1</strong>.
+              </span>
+            </NoticeCard>
+
+            <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {upcomingGames.slice(0, 4).map((g, idx) => {
                 const suitePct = Math.round((g.picks[0]?.p ?? 0.58) * 100);
-                const communityPct = Math.min(89, suitePct + (idx % 2 === 0 ? 5 : -6));
+                const communityPct = Math.min(
+                  88,
+                  Math.max(22, suitePct + (idx % 2 === 0 ? 11 : -3)),
+                );
+                const diff = communityPct - suitePct;
+                const isDivergent = Math.abs(diff) >= 8;
+                const ticketsCount = 26 + idx * 14;
+
                 return (
-                  <div
+                  <article
                     key={g.id}
-                    className="glass-card glass-ring rounded-2xl p-5 space-y-2.5"
+                    className="glass-card glass-ring rounded-2xl p-5 space-y-3.5"
                   >
-                    <span className="text-xs font-bold" style={{ color: "var(--pl-brand)" }}>
-                      {g.leagueLabel} · {g.kickoffLocal}
-                    </span>
-                    <h2 className="m-0 text-base font-extrabold">
-                      {g.home.name} vs {g.away.name}
-                    </h2>
-                    <p className="m-0 text-xs font-semibold">
-                      Pick evaluado: {g.picks[0]?.label}
-                    </p>
-                    <div className="grid grid-cols-2 gap-2.5 text-xs num pt-1">
-                      <div className="rounded-xl p-3" style={{ background: "var(--pl-surface)" }}>
-                        <span className="block" style={{ color: "var(--pl-text-muted)" }}>
-                          Spacetime Suite v2.1
+                    <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
+                      <span className="flex items-center gap-2 font-bold">
+                        <LeagueBadge league={g.league} label={g.leagueLabel} size={17} />
+                        <span>
+                          {g.leagueLabel} · {g.kickoffLocal}
                         </span>
-                        <strong className="text-base font-extrabold">{suitePct} %</strong>
+                      </span>
+                      <span
+                        className={
+                          isDivergent
+                            ? "pl-pill pl-pill--warning"
+                            : "pl-pill pl-pill--success"
+                        }
+                      >
+                        <MaestroIcon
+                          name={isDivergent ? "bolt" : "check"}
+                          size={12}
+                        />
+                        <span>
+                          {isDivergent
+                            ? `Divergencia Contrarian (${diff > 0 ? `+${diff}` : diff} pts)`
+                            : "Convergencia Suite + VIP"}
+                        </span>
+                      </span>
+                    </div>
+
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <CrestPedestal size="sm">
+                          <TeamBadge
+                            league={g.league}
+                            slug={g.home.slug}
+                            name={g.home.name}
+                            size={24}
+                          />
+                        </CrestPedestal>
+                        <div className="min-w-0">
+                          <h2 className="m-0 text-base font-extrabold truncate">
+                            {g.home.shortName} vs {g.away.shortName}
+                          </h2>
+                          <p
+                            className="m-0 text-xs truncate"
+                            style={{ color: "var(--pl-text-muted)" }}
+                          >
+                            Pick evaluado: {g.picks[0]?.label} ·{" "}
+                            <span className="num">{ticketsCount} boletos sellados</span>
+                          </p>
+                        </div>
                       </div>
-                      <div className="rounded-xl p-3" style={{ background: "var(--pl-surface)" }}>
-                        <span className="block" style={{ color: "var(--pl-text-muted)" }}>
-                          Consenso Socios VIP
-                        </span>
-                        <strong className="text-base font-extrabold" style={{ color: "var(--pl-success)" }}>
-                          {communityPct} %
-                        </strong>
+                      <CrestPedestal size="sm">
+                        <TeamBadge
+                          league={g.league}
+                          slug={g.away.slug}
+                          name={g.away.name}
+                          size={24}
+                        />
+                      </CrestPedestal>
+                    </div>
+
+                    <div className="ticket-perf" />
+
+                    {/* Barras duales de probabilidad */}
+                    <div className="space-y-2.5 text-xs num">
+                      <div className="space-y-1">
+                        <div className="flex items-center justify-between">
+                          <span style={{ color: "var(--pl-text-secondary)" }}>
+                            Spacetime Suite v2.1
+                          </span>
+                          <strong
+                            className="font-extrabold"
+                            style={{ color: "var(--pl-brand)" }}
+                          >
+                            {suitePct} %
+                          </strong>
+                        </div>
+                        <div
+                          className="pbar lead"
+                          style={{ "--w": `${suitePct}%` } as React.CSSProperties}
+                        >
+                          <span />
+                        </div>
+                      </div>
+
+                      <div className="space-y-1">
+                        <div className="flex items-center justify-between">
+                          <span style={{ color: "var(--pl-text-secondary)" }}>
+                            Consenso Socios VIP
+                          </span>
+                          <strong
+                            className="font-extrabold"
+                            style={{ color: "var(--pl-success)" }}
+                          >
+                            {communityPct} %
+                          </strong>
+                        </div>
+                        <div
+                          className="pbar pos"
+                          style={{ "--w": `${communityPct}%` } as React.CSSProperties}
+                        >
+                          <span />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
-          </section>
-        ) : null}
 
-        {viewerRole !== "visitor" && tab === "ranking" ? (
-          <section className="glass-card glass-ring rounded-2xl p-5">
-            <h2 className="m-0 mb-3 text-lg font-extrabold">
-              Leaderboard Verificado (Mínimo 100 picks sellados · IC 95 %)
-            </h2>
-            <div
-              className="pl-table-region"
-              tabIndex={0}
-              role="region"
-              aria-label="Leaderboard verificado de analistas y Tipstars"
-            >
-              <table className="w-full text-left border-collapse text-sm">
-              <thead>
-                <tr className="hairline-b text-xs uppercase" style={{ color: "var(--pl-text-muted)" }}>
-                  <th scope="col" className="py-2 pr-3">#</th>
-                  <th scope="col" className="py-2 pr-3">Analista / Tipstar</th>
-                  <th scope="col" className="py-2 px-2 text-right">Muestra</th>
-                  <th scope="col" className="py-2 px-2 text-right">CLV Medio</th>
-                  <th scope="col" className="py-2 px-2 text-right">ROI (IC 95 %)</th>
-                  <th scope="col" className="py-2 pl-2 text-right">Unidades</th>
-                </tr>
-              </thead>
-              <tbody>
-                {TIPSTAR_CREATORS.map((c, idx) => (
-                  <tr key={c.handle} className="hairline-b">
-                    <td className="py-2.5 pr-3 num font-bold">{idx + 1}</td>
-                    <td className="py-2.5 pr-3">
+                    <div className="flex items-center justify-between gap-3 pt-1">
+                      <span
+                        className="text-xs"
+                        style={{ color: "var(--pl-text-secondary)" }}
+                      >
+                        {isDivergent
+                          ? `El consenso carga +${Math.abs(diff)} pts extra; revisa el Escudo Conservador.`
+                          : "Modelo cuantitativo y boletos verificados alineados."}
+                      </span>
                       <a
-                        href={`/app/u/${c.handle}`}
+                        href={`/app/${g.league}/games/${g.id}`}
                         onClick={(e) => {
                           e.preventDefault();
-                          navigateTo(`/app/u/${c.handle}`);
+                          navigateTo(`/app/${g.league}/games/${g.id}`);
                         }}
-                        className="font-bold no-underline hover:underline"
+                        className="pl-btn-glass text-xs min-h-8 px-3 shrink-0"
                       >
-                        {c.name} (@{c.handle})
+                        <span>Radiografía</span>
+                        <MaestroIcon name="chevronRight" size={14} />
                       </a>
-                    </td>
-                    <td className="py-2.5 px-2 text-right num">{c.settledCount}</td>
-                    <td className="py-2.5 px-2 text-right num font-bold" style={{ color: "var(--pl-brand)" }}>
-                      {c.clvAvg}
-                    </td>
-                    <td className="py-2.5 px-2 text-right num">{c.roi95Ci}</td>
-                    <td className="py-2.5 pl-2 text-right num font-extrabold" style={{ color: "var(--pl-success)" }}>
-                      {c.verifiedUnits}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                    </div>
+                  </article>
+                );
+              })}
+            </section>
+          </div>
+        ) : null}
+
+        {/* TAB 3: RANKING CLV (IC 95 %) */}
+        {viewerRole !== "visitor" && tab === "ranking" ? (
+          <div
+            role="tabpanel"
+            aria-labelledby="social-tab-ranking"
+            className="space-y-4"
+          >
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div className="flex flex-wrap items-center gap-2">
+                <div className="seg-well" role="group" aria-label="Ventana del ranking">
+                  <button
+                    type="button"
+                    className="seg-btn text-xs"
+                    aria-pressed={lbWindow === "season"}
+                    onClick={() => setLbWindow("season")}
+                  >
+                    Temporada
+                  </button>
+                  <button
+                    type="button"
+                    className="seg-btn text-xs"
+                    aria-pressed={lbWindow === "30d"}
+                    onClick={() => setLbWindow("30d")}
+                  >
+                    30 días
+                  </button>
+                </div>
+
+                <div className="seg-well" role="group" aria-label="Criterio de ordenamiento">
+                  <button
+                    type="button"
+                    className="seg-btn text-xs"
+                    aria-pressed={lbSort === "clv"}
+                    onClick={() => setLbSort("clv")}
+                  >
+                    CLV Medio
+                  </button>
+                  <button
+                    type="button"
+                    className="seg-btn text-xs"
+                    aria-pressed={lbSort === "units"}
+                    onClick={() => setLbSort("units")}
+                  >
+                    Unidades
+                  </button>
+                </div>
+              </div>
+
+              <span className="text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                Elegibilidad: ≥ 30 picks sellados con cuota observada Geodesic v1.0 · IC 95 %
+              </span>
             </div>
-          </section>
+
+            <section className="glass-card glass-ring rounded-2xl p-5 space-y-3">
+              <h2 className="m-0 text-lg font-extrabold">
+                Leaderboard Verificado ({lbWindow === "season" ? "Temporada completa" : "Últimos 30 días"} · IC 95 %)
+              </h2>
+
+              <div
+                className="pl-table-region"
+                tabIndex={0}
+                role="region"
+                aria-label="Leaderboard verificado de analistas y Tipstars"
+              >
+                <table className="w-full text-left border-collapse text-sm">
+                  <thead>
+                    <tr
+                      className="hairline-b text-xs uppercase"
+                      style={{ color: "var(--pl-text-muted)" }}
+                    >
+                      <th scope="col" className="py-2.5 pr-3">
+                        Pos.
+                      </th>
+                      <th scope="col" className="py-2.5 pr-3">
+                        Analista / Tipstar
+                      </th>
+                      <th scope="col" className="py-2.5 px-2">
+                        Especialidad
+                      </th>
+                      <th scope="col" className="py-2.5 px-2 text-right">
+                        Muestra
+                      </th>
+                      <th scope="col" className="py-2.5 px-2 text-right">
+                        CLV Medio
+                      </th>
+                      <th scope="col" className="py-2.5 px-2 text-right">
+                        ROI (IC 95 %)
+                      </th>
+                      <th scope="col" className="py-2.5 px-2 text-right">
+                        Unidades
+                      </th>
+                      <th scope="col" className="py-2.5 pl-2 text-right">
+                        Acción
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {rankedAnalysts.map((c, idx) => {
+                      const following = followedHandles.includes(c.handle);
+                      return (
+                        <tr key={c.handle} className="hairline-b row-hover">
+                          <td
+                            className="py-3 pr-3 num font-extrabold"
+                            style={{
+                              color:
+                                idx === 0 ? "var(--pl-brand)" : "var(--pl-text-muted)",
+                            }}
+                          >
+                            {idx + 1}
+                          </td>
+                          <th scope="row" className="py-3 pr-3 font-normal">
+                            <a
+                              href={`/app/u/${c.handle}`}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                navigateTo(`/app/u/${c.handle}`);
+                              }}
+                              className="inline-flex items-center gap-2.5 no-underline hover:underline"
+                            >
+                              <span
+                                className="w-8 h-8 rounded-full avatar-ring inline-flex items-center justify-center text-xs font-extrabold shrink-0"
+                                style={{
+                                  background: c.avatarGradVar,
+                                  color: "var(--share-card-fg)",
+                                }}
+                              >
+                                {c.avatarInitials}
+                              </span>
+                              <span>
+                                <strong className="block font-bold">{c.name}</strong>
+                                <span
+                                  className="block text-xs"
+                                  style={{ color: "var(--pl-text-muted)" }}
+                                >
+                                  @{c.handle} · {c.roleLabel}
+                                </span>
+                              </span>
+                            </a>
+                          </th>
+                          <td
+                            className="py-3 px-2 text-xs"
+                            style={{ color: "var(--pl-text-secondary)" }}
+                          >
+                            {c.specialty}
+                          </td>
+                          <td className="py-3 px-2 text-right num">
+                            {c.displayCount} picks
+                          </td>
+                          <td className="py-3 px-2 text-right num">
+                            <span className="pl-pill pl-pill--brand">
+                              +{c.displayClv.toFixed(1)} %
+                            </span>
+                          </td>
+                          <td className="py-3 px-2 text-right num">{c.roiLabel}</td>
+                          <td
+                            className="py-3 px-2 text-right num font-extrabold"
+                            style={{ color: "var(--pl-success)" }}
+                          >
+                            +{c.displayUnits.toFixed(1)}u
+                          </td>
+                          <td className="py-3 pl-2 text-right">
+                            <button
+                              type="button"
+                              className="pl-btn-glass text-xs min-h-7 px-2.5"
+                              onClick={() => toggleFollow(c.handle)}
+                            >
+                              {following ? "Siguiendo" : "+ Seguir"}
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+
+              <p className="m-0 pt-2 hairline-t text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                Unidades simuladas de análisis. Rendimiento pasado no garantiza resultados futuros.
+                PitchLab no acepta apuestas ni entrega premios monetarios.
+              </p>
+            </section>
+          </div>
         ) : null}
       </ClubWorkspaceShell>
     </AtmosphereStage>
@@ -405,245 +1289,792 @@ export function TipstarPortalClubView(): React.JSX.Element {
 
   const sofia = TIPSTAR_CREATORS[0]!;
   const [thesis, setThesis] = useState<string>(sofia.weeklyPickThesis);
+  const [previewRatio, setPreviewRatio] = useState<"4:5" | "9:16">("4:5");
+  const [visitorPreviewOpen, setVisitorPreviewOpen] = useState<boolean>(false);
 
-  const spacetimeCandidatePicks = useMemo(() => {
-    const out = [];
-    for (const g of dataset.games) {
-      if (g.status === "FT") continue;
-      for (const pk of g.picks.slice(0, 2)) {
-        if (!pk.isRedacted) out.push(pk);
-      }
+  const upcomingGames = useMemo(
+    () => dataset.games.filter((g) => g.status !== "FT"),
+    [dataset.games],
+  );
+
+  const [selectedMatchId, setSelectedMatchId] = useState<string>(
+    () => upcomingGames[0]?.id ?? dataset.games[0]?.id ?? "",
+  );
+
+  const selectedMatch = useMemo(
+    () =>
+      upcomingGames.find((g) => g.id === selectedMatchId) ??
+      upcomingGames[0] ??
+      dataset.games[0],
+    [dataset.games, selectedMatchId, upcomingGames],
+  );
+
+  const matchPicks = useMemo(
+    () => (selectedMatch?.picks ?? []).filter((p) => !p.isRedacted),
+    [selectedMatch],
+  );
+
+  const activePick = useMemo(() => {
+    const inMatch = matchPicks.find((p) => p.id === selectedTipstarPickId);
+    if (inMatch) return inMatch;
+    if (matchPicks[0]) return matchPicks[0];
+    for (const g of upcomingGames) {
+      const firstOpen = g.picks.find((p) => !p.isRedacted);
+      if (firstOpen) return firstOpen;
     }
-    return out.slice(0, 8);
-  }, [dataset.games]);
+    return dataset.games[0]?.picks[0];
+  }, [dataset.games, matchPicks, selectedTipstarPickId, upcomingGames]);
 
-  const activePick =
-    spacetimeCandidatePicks.find((p) => p.id === selectedTipstarPickId) ??
-    spacetimeCandidatePicks[0];
+  const lockedSiblingPicks = useMemo(() => {
+    if (!selectedMatch) return [];
+    const allSlots = selectedMatch.picks;
+    return allSlots.filter((p) => p.id !== activePick?.id);
+  }, [activePick?.id, selectedMatch]);
+
+  const matchColors = useMemo(() => {
+    if (!selectedMatch) {
+      return ["var(--pl-aura-default-home)", "var(--pl-aura-default-away)"] as const;
+    }
+    const home = getTeamColors(selectedMatch.league, selectedMatch.home.slug)?.[0];
+    const away = getTeamColors(selectedMatch.league, selectedMatch.away.slug)?.[0];
+    return [
+      home ?? "var(--pl-aura-default-home)",
+      away ?? "var(--pl-aura-default-away)",
+    ] as const;
+  }, [selectedMatch]);
+
+  const personalJournalEntry = journal[0];
+  const isSpacetimeOrigin = tipstarWeeklyPickOrigin === "spacetime";
+
+  const previewMatchTitle = isSpacetimeOrigin
+    ? activePick?.matchLabel ?? "Partido Estelar"
+    : personalJournalEntry?.matchLabel ?? activePick?.matchLabel ?? "Partido Estelar";
+
+  const previewSelectionLabel = isSpacetimeOrigin
+    ? activePick?.label ?? "Pick Principal"
+    : personalJournalEntry?.pickLabel ?? activePick?.label ?? "Pick Principal";
+
+  const previewProb = isSpacetimeOrigin ? activePick?.p ?? 0.62 : 0.61;
+  const previewFair = isSpacetimeOrigin
+    ? activePick?.fairDecimal ?? 1.62
+    : personalJournalEntry?.fairDecimal ?? 1.64;
+  const previewBook = isSpacetimeOrigin
+    ? activePick?.marketDecimal ?? 1.85
+    : personalJournalEntry?.userDecimal ?? 1.88;
+
+  const handleCopyPublicUrl = () => {
+    const url = "https://pitchlab.mx/p/sofia-sem?code=SOFIA5";
+    try {
+      void navigator.clipboard?.writeText(url);
+    } catch (err) {
+      void err;
+    }
+    pushToast("Enlace público /p/sofia-sem?code=SOFIA5 copiado.", "success");
+  };
 
   return (
     <AtmosphereStage>
       <ClubWorkspaceShell activePath="/app/tipstar">
-        <section className="space-y-2">
-          <span className="pl-pill pl-pill--info">
-            Programa Creadores Oficiales · 25 % Comisión Recurrente
-          </span>
-          <h1 className="m-0 text-2xl sm:text-3xl font-extrabold">
-            Portal Tipstar Oficial (@{sofia.handle})
-          </h1>
-          <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
-            Tienes derecho a liberar <strong>1 Pick Abierto a la semana</strong> (del motor
-            Spacetime Suite o de tu propia Bitácora sellada) con tu boleto oficial y código de 5
-            días gratis, manteniendo los otros 4 picks del partido protegidos.
-          </p>
-        </section>
+        {viewerRole !== "tipstar" && viewerRole !== "admin" ? (
+          <NoticeCard
+            icon="crown"
+            tone="success"
+            badgeText="Vista Previa · Programa de Creadores"
+            title="Activa el rol Tipstar para publicar tu Pick Abierto Semanal sin sellado"
+            action={
+              <button
+                type="button"
+                className="pl-btn-primary text-xs min-h-8 px-3"
+                onClick={() => {
+                  setViewerRole("tipstar");
+                  pushToast("Modo Tipstar Oficial (@sofia_nfl) activado.", "success");
+                }}
+              >
+                Activar modo @sofia_nfl
+              </button>
+            }
+          >
+            <span>
+              Como Tipstar Oficial liberas 1 Pick Abierto a la semana con tu código de 5 días
+              gratis mientras los otros 4 picks del partido siguen protegidos.
+            </span>
+          </NoticeCard>
+        ) : null}
 
-        {/* KPIs del creador */}
-        <section className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 num">
-          <div className="glass-card glass-ring rounded-2xl p-4">
-            <span className="block text-xs" style={{ color: "var(--pl-text-muted)" }}>
-              Código Personal
-            </span>
-            <strong className="text-xl font-extrabold" style={{ color: "var(--pl-brand)" }}>
-              {sofia.promoCode}
-            </strong>
-            <span className="block text-xs" style={{ color: "var(--pl-text-muted)" }}>
-              Otorga {sofia.freeDays} días gratis
-            </span>
+        {/* Encabezado Hero + 4 KPIs */}
+        <section className="glass-lens glass-ring glass-ring--featured relative overflow-hidden rounded-3xl p-5 sm:p-6 space-y-5">
+          <LensGlowOrbs
+            primaryColor={matchColors[0]}
+            secondaryColor={matchColors[1]}
+            subtle
+          />
+          <div className="relative z-10 flex flex-wrap items-center justify-between gap-4">
+            <div className="flex items-center gap-3.5">
+              <span
+                className="w-12 h-12 rounded-full avatar-ring inline-flex items-center justify-center text-sm font-extrabold shrink-0"
+                style={{
+                  background: sofia.avatarGradVar,
+                  color: "var(--share-card-fg)",
+                }}
+              >
+                {sofia.avatarInitials}
+              </span>
+              <div className="space-y-0.5">
+                <div className="flex flex-wrap items-center gap-2">
+                  <h1 className="m-0 text-xl sm:text-2xl font-extrabold tracking-tight">
+                    Portal Tipstar Oficial (@{sofia.handle})
+                  </h1>
+                  <span className="pl-pill pl-pill--success">
+                    <MaestroIcon name="check" size={12} />
+                    <span>Verificada · {sofia.verifiedUnits}</span>
+                  </span>
+                </div>
+                <p className="m-0 text-xs sm:text-sm" style={{ color: "var(--pl-text-secondary)" }}>
+                  Libera <strong>1 Pick Abierto a la semana</strong> con branding oficial de
+                  PitchLab y tu código promocional. Los otros 4 picks del partido permanecen
+                  blindados bajo suscripción.
+                </p>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              className="pl-btn-glass text-xs"
+              onClick={() => setVisitorPreviewOpen(true)}
+            >
+              <MaestroIcon name="eye" size={14} />
+              <span>Simular vista visitante (/p/sofia-sem)</span>
+            </button>
           </div>
-          <div className="glass-card glass-ring rounded-2xl p-4">
-            <span className="block text-xs" style={{ color: "var(--pl-text-muted)" }}>
-              Referidos Activos Pagados
-            </span>
-            <strong className="text-xl font-extrabold">{sofia.activeReferrals}</strong>
-            <span className="block text-xs" style={{ color: "var(--pl-success)" }}>
-              Pase Total bonificado
-            </span>
-          </div>
-          <div className="glass-card glass-ring rounded-2xl p-4">
-            <span className="block text-xs" style={{ color: "var(--pl-text-muted)" }}>
-              Comisión Mensual (25 %)
-            </span>
-            <strong className="text-xl font-extrabold" style={{ color: "var(--pl-success)" }}>
-              ${sofia.monthlyCommissionMxn.toLocaleString("es-MX")} MXN
-            </strong>
-            <span className="block text-xs" style={{ color: "var(--pl-text-muted)" }}>
-              Recurrente mes a mes
-            </span>
-          </div>
-          <div className="glass-card glass-ring rounded-2xl p-4">
-            <span className="block text-xs" style={{ color: "var(--pl-text-muted)" }}>
-              Cupo Semanal Abierto
-            </span>
-            <strong className="text-xl font-extrabold">1 / 1 disp.</strong>
-            <span className="block text-xs" style={{ color: "var(--pl-text-muted)" }}>
-              Cero fuga en los otros 4
-            </span>
+
+          <div className="relative z-10 grid grid-cols-2 lg:grid-cols-4 gap-3.5 num">
+            <div
+              className="glass-ring rounded-2xl p-4 space-y-1"
+              style={{ background: "var(--pl-surface)" }}
+            >
+              <div
+                className="flex items-center justify-between text-xs"
+                style={{ color: "var(--pl-text-muted)" }}
+              >
+                <span>Código Personal</span>
+                <MaestroIcon
+                  name="ticket"
+                  size={15}
+                  style={{ color: "var(--pl-brand)" }}
+                />
+              </div>
+              <strong
+                className="block text-xl font-extrabold"
+                style={{ color: "var(--pl-brand)" }}
+              >
+                {sofia.promoCode}
+              </strong>
+              <span className="block text-xs" style={{ color: "var(--pl-success)" }}>
+                Otorga {sofia.freeDays} días Pase Total gratis
+              </span>
+            </div>
+
+            <div
+              className="glass-ring rounded-2xl p-4 space-y-1"
+              style={{ background: "var(--pl-surface)" }}
+            >
+              <div
+                className="flex items-center justify-between text-xs"
+                style={{ color: "var(--pl-text-muted)" }}
+              >
+                <span>Referidos Activos</span>
+                <MaestroIcon
+                  name="users"
+                  size={15}
+                  style={{ color: "var(--pl-info)" }}
+                />
+              </div>
+              <strong className="block text-xl font-extrabold">
+                {sofia.activeReferrals} socios
+              </strong>
+              <span className="block text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                de 64 pruebas iniciadas
+              </span>
+            </div>
+
+            <div
+              className="glass-ring rounded-2xl p-4 space-y-1"
+              style={{ background: "var(--pl-surface)" }}
+            >
+              <div
+                className="flex items-center justify-between text-xs"
+                style={{ color: "var(--pl-text-muted)" }}
+              >
+                <span>Comisión 25 %</span>
+                <MaestroIcon
+                  name="crown"
+                  size={15}
+                  style={{ color: "var(--pl-success)" }}
+                />
+              </div>
+              <strong
+                className="block text-xl font-extrabold"
+                style={{ color: "var(--pl-success)" }}
+              >
+                ${sofia.monthlyCommissionMxn.toLocaleString("es-MX")} MXN
+              </strong>
+              <span className="block text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                Recurrente + Pase Total $0
+              </span>
+            </div>
+
+            <div
+              className="glass-ring rounded-2xl p-4 space-y-1"
+              style={{ background: "var(--pl-surface)" }}
+            >
+              <div
+                className="flex items-center justify-between text-xs"
+                style={{ color: "var(--pl-text-muted)" }}
+              >
+                <span>Pick Abierto Semanal</span>
+                <MaestroIcon
+                  name="unlock"
+                  size={15}
+                  style={{ color: "var(--pl-accent)" }}
+                />
+              </div>
+              <strong className="block text-xl font-extrabold">1 / 1 disp.</strong>
+              <span className="block text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                Cero fuga en los otros 4
+              </span>
+            </div>
           </div>
         </section>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-          {/* Configurador del Pick Abierto de la Semana (Q11: Spacetime vs Bitácora) */}
-          <section className="lg:col-span-7 glass-lens glass-ring rounded-3xl p-6 space-y-4">
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <h2 className="m-0 text-lg font-extrabold">
-                Configurar Pick Abierto de la Semana
-              </h2>
-              <div className="seg-well" role="group" aria-label="Origen del pick semanal">
-                <button
-                  type="button"
-                  className="seg-btn text-xs"
-                  aria-pressed={tipstarWeeklyPickOrigin === "spacetime"}
-                  onClick={() => setTipstarWeeklyPickOrigin("spacetime")}
-                >
-                  Pick Oficial Spacetime Suite
-                </button>
-                <button
-                  type="button"
-                  className="seg-btn text-xs"
-                  aria-pressed={tipstarWeeklyPickOrigin === "bitacora"}
-                  onClick={() => setTipstarWeeklyPickOrigin("bitacora")}
-                >
-                  Pick de mi Bitácora ({journal.length})
-                </button>
-              </div>
-            </div>
-
-            {tipstarWeeklyPickOrigin === "spacetime" ? (
+          {/* Izquierda (lg:col-span-7): Configurador con LensGlowOrbs */}
+          <section className="lg:col-span-7 glass-lens glass-ring relative overflow-hidden rounded-3xl p-6 space-y-4">
+            <LensGlowOrbs
+              primaryColor={matchColors[0]}
+              secondaryColor={matchColors[1]}
+              subtle
+            />
+            <div className="relative z-10 space-y-4">
               <div className="space-y-2">
-                <label htmlFor="tipstar-pick-select" className="block text-xs font-bold">
-                  Elige el pick de Spacetime Suite que abrirás al público esta semana
-                </label>
-                <select
-                  id="tipstar-pick-select"
-                  value={activePick?.id ?? ""}
-                  onChange={(e) => setSelectedTipstarPickId(e.target.value)}
-                  className="glass-input w-full px-3 py-2.5 text-sm font-semibold"
+                <h2 className="m-0 text-lg font-extrabold">
+                  1. Origen de tu Pick Abierto de la Semana
+                </h2>
+                <div
+                  className="seg-well w-full"
+                  role="group"
+                  aria-label="Origen del pick semanal"
                 >
-                  {spacetimeCandidatePicks.map((pk) => (
-                    <option key={pk.id} value={pk.id}>
-                      {pk.leagueLabel} · {pk.matchLabel} — {pk.label} ({(pk.p * 100).toFixed(0)} %)
-                    </option>
-                  ))}
-                </select>
+                  <button
+                    type="button"
+                    className="seg-btn flex-1 justify-center text-xs"
+                    aria-pressed={isSpacetimeOrigin}
+                    onClick={() => setTipstarWeeklyPickOrigin("spacetime")}
+                  >
+                    <MaestroIcon name="cpu" size={14} />
+                    <span>Pick Oficial Spacetime Suite</span>
+                  </button>
+                  <button
+                    type="button"
+                    className="seg-btn flex-1 justify-center text-xs"
+                    aria-pressed={!isSpacetimeOrigin}
+                    onClick={() => setTipstarWeeklyPickOrigin("bitacora")}
+                  >
+                    <MaestroIcon name="ticket" size={14} />
+                    <span>Pick Propio de mi Bitácora ({journal.length})</span>
+                  </button>
+                </div>
               </div>
-            ) : (
-              <div
-                className="rounded-2xl p-3.5 text-xs space-y-1"
-                style={{ background: "var(--pl-surface)" }}
-              >
-                <strong>Última entrada sellada en tu Bitácora:</strong>
-                <p className="m-0 font-bold text-sm">
-                  {journal[0]?.matchLabel} — {journal[0]?.pickLabel} ({journal[0]?.units}u)
-                </p>
+
+              {isSpacetimeOrigin ? (
+                <>
+                  <div className="space-y-2">
+                    <label
+                      htmlFor="tipstar-match-select"
+                      className="block text-xs font-bold"
+                      style={{ color: "var(--pl-text-secondary)" }}
+                    >
+                      2. Selecciona el partido de la jornada
+                    </label>
+                    <select
+                      id="tipstar-match-select"
+                      value={selectedMatch?.id ?? ""}
+                      onChange={(e) => {
+                        const nextGameId = e.target.value;
+                        setSelectedMatchId(nextGameId);
+                        const nextGame = upcomingGames.find((g) => g.id === nextGameId);
+                        const firstPk = nextGame?.picks.find((p) => !p.isRedacted);
+                        if (firstPk) {
+                          setSelectedTipstarPickId(firstPk.id);
+                        }
+                      }}
+                      className="glass-input w-full px-3.5 py-2.5 text-sm font-semibold"
+                    >
+                      {(upcomingGames.length > 0 ? upcomingGames : dataset.games)
+                        .slice(0, 12)
+                        .map((g) => (
+                          <option key={g.id} value={g.id}>
+                            {g.leagueLabel} · {g.home.shortName} vs {g.away.shortName} ({g.kickoffLocal})
+                          </option>
+                        ))}
+                    </select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <span
+                      className="block text-xs font-bold"
+                      style={{ color: "var(--pl-text-secondary)" }}
+                    >
+                      3. Elige cuál de los {matchPicks.length || 5} picks liberarás gratis (los otros permanecen cerrados)
+                    </span>
+                    <div className="space-y-2">
+                      {matchPicks.map((pk) => {
+                        const isSelected = pk.id === activePick?.id;
+                        return (
+                          <button
+                            key={pk.id}
+                            type="button"
+                            aria-pressed={isSelected}
+                            onClick={() => setSelectedTipstarPickId(pk.id)}
+                            className="w-full glass-ring rounded-xl p-3 text-left flex items-center justify-between gap-3 cursor-pointer border-0"
+                            style={{
+                              background: isSelected
+                                ? "var(--pl-surface-active)"
+                                : "var(--pl-surface)",
+                              color: "var(--pl-text)",
+                            }}
+                          >
+                            <div className="min-w-0">
+                              <span
+                                className="block text-xs font-bold"
+                                style={{ color: "var(--pl-brand)" }}
+                              >
+                                {pk.categoryLabel} · {pk.engineName}
+                              </span>
+                              <strong className="block text-sm font-extrabold uppercase truncate">
+                                {pk.label}
+                              </strong>
+                            </div>
+                            <div className="text-right num text-xs shrink-0">
+                              <div className="font-extrabold">
+                                {(pk.p * 100).toFixed(1)} %
+                              </div>
+                              <div style={{ color: "var(--pl-text-muted)" }}>
+                                Justa {formatOddsValue(pk.fairDecimal, oddsFormat)}
+                              </div>
+                            </div>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <div
+                  className="glass-ring rounded-2xl p-4 space-y-1.5"
+                  style={{ background: "var(--pl-surface)" }}
+                >
+                  <span
+                    className="block text-xs font-bold"
+                    style={{ color: "var(--pl-accent)" }}
+                  >
+                    Tomado de tu Bitácora verificada pre-partido
+                  </span>
+                  <strong className="block text-base font-extrabold uppercase">
+                    {previewSelectionLabel}
+                  </strong>
+                  <span
+                    className="block text-xs num"
+                    style={{ color: "var(--pl-text-muted)" }}
+                  >
+                    {previewMatchTitle} · Cuota sellada{" "}
+                    {formatOddsValue(previewBook, oddsFormat)}
+                  </span>
+                </div>
+              )}
+
+              <div>
+                <label
+                  htmlFor="tipstar-thesis-input"
+                  className="block text-xs font-bold mb-1.5"
+                  style={{ color: "var(--pl-text-secondary)" }}
+                >
+                  4. Tu tesis para redes sociales (/p/sofia-sem · Instagram / X / TikTok)
+                </label>
+                <textarea
+                  id="tipstar-thesis-input"
+                  rows={3}
+                  maxLength={220}
+                  value={thesis}
+                  onChange={(e) => setThesis(e.target.value)}
+                  className="glass-input w-full p-3 text-sm"
+                />
               </div>
-            )}
 
-            <div>
-              <label htmlFor="tipstar-thesis-input" className="block text-xs font-bold mb-1">
-                Tu tesis para la tarjeta pública (/p/sofia-sem)
-              </label>
-              <textarea
-                id="tipstar-thesis-input"
-                rows={3}
-                value={thesis}
-                onChange={(e) => setThesis(e.target.value)}
-                className="glass-input w-full p-3 text-sm"
-              />
-            </div>
-
-            <div className="flex flex-wrap items-center gap-2.5">
-              <button
-                type="button"
-                className="pl-btn-primary text-xs"
-                onClick={() => {
-                  if (!activePick) return;
-                  if (viewerRole === "member") {
-                    setViewerRole("tipstar");
-                  }
-                  openShareTicket({
-                    kind: "tipstar",
-                    title: activePick.matchLabel,
-                    subtitle: `Tipstar Oficial @${sofia.handle} · ${activePick.leagueLabel}`,
-                    leagueLabel: activePick.leagueLabel,
-                    pickLabel:
-                      tipstarWeeklyPickOrigin === "spacetime"
-                        ? activePick.label
-                        : journal[0]?.pickLabel ?? activePick.label,
-                    probability: activePick.p,
-                    fairDecimal: activePick.fairDecimal,
-                    marketDecimal: activePick.marketDecimal,
-                    units: activePick.suggestedUnits,
-                    gameStatus: "NS",
-                    promoCode: sofia.promoCode,
-                    tipstarHandle: sofia.handle,
-                    originBadge:
-                      tipstarWeeklyPickOrigin === "spacetime"
+              <div className="flex flex-wrap items-center gap-2.5 pt-1">
+                <button
+                  type="button"
+                  className="pl-btn-primary text-xs"
+                  onClick={() => {
+                    if (!activePick) return;
+                    if (viewerRole === "member") {
+                      setViewerRole("tipstar");
+                    }
+                    openShareTicket({
+                      kind: "tipstar",
+                      title: previewMatchTitle,
+                      subtitle: `Tipstar Oficial @${sofia.handle} · ${activePick.leagueLabel}`,
+                      leagueLabel: activePick.leagueLabel,
+                      pickLabel: previewSelectionLabel,
+                      probability: previewProb,
+                      fairDecimal: previewFair,
+                      marketDecimal: previewBook,
+                      units: activePick.suggestedUnits,
+                      gameStatus: "NS",
+                      promoCode: sofia.promoCode,
+                      tipstarHandle: sofia.handle,
+                      originBadge: isSpacetimeOrigin
                         ? "PICK OFICIAL SPACETIME SUITE"
                         : "PICK SELLADO BITÁCORA TIPSTAR",
-                  });
-                }}
-              >
-                Generar Boleto 4:5 / 9:16 con mi Código →
-              </button>
+                    });
+                  }}
+                >
+                  <MaestroIcon name="share" size={14} />
+                  <span>Generar Boleto 4:5 / 9:16 con mi Código →</span>
+                </button>
 
-              <a
-                href="/p/sofia-sem"
-                onClick={(e) => {
-                  e.preventDefault();
-                  pushToast("Abriendo vista pública /p/sofia-sem...", "default");
-                  navigateTo("/p/sofia-sem");
-                }}
-                className="pl-btn-glass text-xs"
-              >
-                Ver página pública /p/sofia-sem
-              </a>
+                <button
+                  type="button"
+                  className="pl-btn-glass text-xs"
+                  onClick={() => setVisitorPreviewOpen(true)}
+                >
+                  <MaestroIcon name="eye" size={14} />
+                  <span>Simular vista visitante (/p/sofia-sem)</span>
+                </button>
+
+                <a
+                  href="/p/sofia-sem"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    pushToast("Abriendo vista pública /p/sofia-sem...", "default");
+                    navigateTo("/p/sofia-sem");
+                  }}
+                  className="pl-btn-glass text-xs"
+                >
+                  <span>Abrir /p/sofia-sem</span>
+                  <MaestroIcon name="arrowRight" size={13} />
+                </a>
+              </div>
             </div>
           </section>
 
-          {/* Vista previa rápida del boleto del creador */}
-          <aside className="lg:col-span-5 share-ticket-card p-6 space-y-4">
-            <div className="flex items-center justify-between text-xs">
-              <span className="font-extrabold uppercase tracking-wider" style={{ color: "var(--share-card-accent)" }}>
-                VISTA PREVIA BOLETO TIPSTAR
-              </span>
-              <span className="num" style={{ color: "var(--share-card-success)" }}>
-                {sofia.verifiedUnits}
-              </span>
-            </div>
-            <div>
-              <h3 className="m-0 text-lg font-extrabold">
-                {activePick?.matchLabel ?? "Partido Estelar"}
-              </h3>
-              <p className="m-0 text-xs" style={{ color: "var(--share-card-muted)" }}>
-                {tipstarWeeklyPickOrigin === "spacetime"
-                  ? "Respaldado por PitchLab Spacetime Suite v2.1"
-                  : "Selección propia auditada en Bitácora PitchLab"}
-              </p>
-            </div>
-            <div className="ticket-perf" />
-            {activePick ? (
-              <div
-                className="rounded-xl p-3.5 space-y-1"
-                style={{ background: "var(--share-card-surface)" }}
+          {/* Derecha (lg:col-span-5): Boleto en vivo estilo shows.link */}
+          <aside className="lg:col-span-5 space-y-3">
+            <div className="flex items-center justify-between gap-2">
+              <span
+                className="text-xs font-extrabold uppercase tracking-wider"
+                style={{ color: "var(--pl-text-muted)" }}
               >
-                <p className="m-0 text-base font-extrabold">{activePick.label}</p>
-                <p className="m-0 text-xs num" style={{ color: "var(--share-card-secondary)" }}>
-                  Prob. {(activePick.p * 100).toFixed(1)} % · Momio{" "}
-                  {formatOddsValue(activePick.marketDecimal, oddsFormat)}
-                </p>
+                Boleto Oficial para Redes
+              </span>
+              <div
+                className="seg-well"
+                role="group"
+                aria-label="Relación de aspecto de vista previa"
+              >
+                <button
+                  type="button"
+                  className="seg-btn text-xs min-h-7 px-2.5"
+                  aria-pressed={previewRatio === "4:5"}
+                  onClick={() => setPreviewRatio("4:5")}
+                >
+                  Post 4:5
+                </button>
+                <button
+                  type="button"
+                  className="seg-btn text-xs min-h-7 px-2.5"
+                  aria-pressed={previewRatio === "9:16"}
+                  onClick={() => setPreviewRatio("9:16")}
+                >
+                  Story 9:16
+                </button>
               </div>
-            ) : null}
-            <p className="m-0 text-xs" style={{ color: "var(--share-card-secondary)" }}>
-              “{thesis}”
-            </p>
-            <div className="ticket-perf" />
-            <div className="flex items-center justify-between text-xs font-bold">
-              <span>CÓDIGO: {sofia.promoCode} (5 días gratis)</span>
-              <span style={{ color: "var(--share-card-muted)" }}>pitchlab.mx</span>
+            </div>
+
+            <div
+              className={`share-ticket-card glass-ring p-6 flex flex-col justify-between transition-all ${
+                previewRatio === "9:16" ? "min-h-[468px]" : "min-h-[382px]"
+              }`}
+            >
+              <LensGlowOrbs
+                primaryColor="var(--pl-aura-default-away)"
+                secondaryColor="var(--pl-aura-default-home)"
+              />
+
+              <div className="relative z-10 flex items-center justify-between gap-2">
+                <img
+                  src={getLogoPath("horizontal", "dark")}
+                  alt="PitchLab"
+                  width={108}
+                  height={21}
+                />
+                <span
+                  className="text-xs font-extrabold px-2.5 py-0.5 rounded-md"
+                  style={{
+                    background: "var(--share-card-surface)",
+                    color: "var(--share-card-success)",
+                    border: "1px solid var(--share-card-border)",
+                  }}
+                >
+                  PICK GRATIS SEMANAL
+                </span>
+              </div>
+
+              <div className="relative z-10 space-y-3 my-4">
+                <div className="flex items-center gap-2.5">
+                  <span
+                    className="w-9 h-9 rounded-full inline-flex items-center justify-center text-xs font-extrabold shrink-0"
+                    style={{
+                      background: sofia.avatarGradVar,
+                      color: "var(--share-card-fg)",
+                    }}
+                  >
+                    {sofia.avatarInitials}
+                  </span>
+                  <div className="min-w-0">
+                    <div className="text-xs font-extrabold truncate">
+                      {sofia.name} · @{sofia.handle}
+                    </div>
+                    <div
+                      className="text-xs truncate"
+                      style={{ color: "var(--share-card-accent)" }}
+                    >
+                      {isSpacetimeOrigin
+                        ? `Respaldado por ${activePick?.engineName ?? "PitchLab Spacetime Suite v2.1"}`
+                        : "Tesis propia auditada en Bitácora PitchLab"}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="text-xs" style={{ color: "var(--share-card-muted)" }}>
+                  {previewMatchTitle}
+                </div>
+
+                <div
+                  className="rounded-xl p-3.5 space-y-1"
+                  style={{
+                    background: "var(--share-card-surface)",
+                    border: "1px solid var(--share-card-border)",
+                  }}
+                >
+                  <div className="text-lg sm:text-xl font-extrabold uppercase tracking-tight">
+                    {previewSelectionLabel}
+                  </div>
+                  <div
+                    className="text-xs num flex items-center justify-between pt-0.5"
+                    style={{ color: "var(--share-card-secondary)" }}
+                  >
+                    <span>
+                      Prob.{" "}
+                      <strong style={{ color: "var(--share-card-success)" }}>
+                        {(previewProb * 100).toFixed(1)} %
+                      </strong>{" "}
+                      · Justa {formatOddsValue(previewFair, oddsFormat)}
+                    </span>
+                    <strong style={{ color: "var(--share-card-accent)" }}>
+                      Momio {formatOddsValue(previewBook, oddsFormat)}
+                    </strong>
+                  </div>
+                </div>
+
+                <p
+                  className="m-0 text-xs leading-relaxed"
+                  style={{ color: "var(--share-card-secondary)" }}
+                >
+                  “{thesis}”
+                </p>
+
+                <div className="ticket-perf" />
+              </div>
+
+              <div
+                className="relative z-10 rounded-xl p-3 flex items-center justify-between gap-2"
+                style={{
+                  background: "var(--share-card-surface)",
+                  border: "1px solid var(--share-card-border)",
+                }}
+              >
+                <div className="text-xs">
+                  <div className="font-extrabold tracking-wide">
+                    CÓDIGO: {sofia.promoCode} · {sofia.freeDays} DÍAS GRATIS
+                  </div>
+                  <div style={{ color: "var(--share-card-muted)" }}>
+                    Desbloquea los otros 4 picks en pitchlab.mx
+                  </div>
+                </div>
+                <span
+                  className="num text-xs font-extrabold px-2 py-1 rounded"
+                  style={{
+                    background: "var(--share-card-fg)",
+                    color: "var(--share-card-bg)",
+                  }}
+                >
+                  18+
+                </span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                className="pl-btn-glass text-xs"
+                onClick={handleCopyPublicUrl}
+              >
+                <MaestroIcon name="copy" size={13} />
+                <span>Copiar link /p/sofia-sem</span>
+              </button>
+              <button
+                type="button"
+                className="pl-btn-primary text-xs"
+                onClick={() =>
+                  pushToast(
+                    `Boleto PNG (${previewRatio === "9:16" ? "1080×1920" : "1080×1350"}) con código ${sofia.promoCode} listo.`,
+                    "success",
+                  )
+                }
+              >
+                <MaestroIcon name="download" size={13} />
+                <span>Descargar PNG</span>
+              </button>
             </div>
           </aside>
         </div>
+
+        {/* Modal inline: Simulación exacta de cómo ve un visitante externo /p/sofia-sem */}
+        <TopLayerModalDialog
+          open={visitorPreviewOpen}
+          onClose={() => setVisitorPreviewOpen(false)}
+          ariaLabelledBy="tipstar-visitor-sim-title"
+          maxWidth="34rem"
+        >
+          <div className="glass-lens glass-ring glass-ring--featured relative overflow-hidden w-full rounded-2xl p-6 space-y-4">
+            <LensGlowOrbs subtle />
+            <div className="relative z-10 space-y-4">
+              <div className="flex items-center justify-between gap-2">
+                <span className="pl-pill pl-pill--success">
+                  <MaestroIcon name="eye" size={13} />
+                  <span>Simulación de visitante externo · pitchlab.mx/p/sofia-sem</span>
+                </span>
+                <button
+                  type="button"
+                  className="pl-btn-glass px-2.5 min-h-8"
+                  aria-label="Cerrar simulación de visitante"
+                  onClick={() => setVisitorPreviewOpen(false)}
+                >
+                  <MaestroIcon name="x" size={15} />
+                </button>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <span
+                  className="w-11 h-11 rounded-full avatar-ring inline-flex items-center justify-center text-xs font-extrabold shrink-0"
+                  style={{
+                    background: sofia.avatarGradVar,
+                    color: "var(--share-card-fg)",
+                  }}
+                >
+                  {sofia.avatarInitials}
+                </span>
+                <div>
+                  <h2 id="tipstar-visitor-sim-title" className="m-0 text-base font-extrabold">
+                    @{sofia.handle} liberó 1 Pick Gratis de este partido
+                  </h2>
+                  <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                    {previewMatchTitle} ·{" "}
+                    {activePick?.engineName ?? "PitchLab Spacetime Suite v2.1"}
+                  </p>
+                </div>
+              </div>
+
+              <div
+                className="glass-ring rounded-xl p-4 space-y-2"
+                style={{ background: "var(--pl-surface)" }}
+              >
+                <span
+                  className="inline-flex items-center gap-1.5 text-xs font-extrabold"
+                  style={{ color: "var(--pl-success)" }}
+                >
+                  <MaestroIcon name="unlock" size={13} />
+                  <span>PICK ABIERTO DE LA SEMANA</span>
+                </span>
+                <div className="text-xl font-extrabold uppercase">
+                  {previewSelectionLabel}
+                </div>
+                <div className="num text-xs" style={{ color: "var(--pl-text-secondary)" }}>
+                  Probabilidad Spacetime Suite:{" "}
+                  <strong style={{ color: "var(--pl-brand)" }}>
+                    {(previewProb * 100).toFixed(1)} %
+                  </strong>{" "}
+                  · Cuota justa{" "}
+                  <strong>{formatOddsValue(previewFair, oddsFormat)}</strong>
+                </div>
+                <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                  “{thesis}”
+                </p>
+              </div>
+
+              <div className="space-y-2">
+                <div
+                  className="text-xs font-bold uppercase tracking-wide"
+                  style={{ color: "var(--pl-text-muted)" }}
+                >
+                  Otros {Math.max(4, lockedSiblingPicks.length)} picks de este mismo partido (Cero fuga sin suscripción):
+                </div>
+                {(lockedSiblingPicks.length > 0
+                  ? lockedSiblingPicks.slice(0, 4)
+                  : [
+                      { id: "lk-1", categoryLabel: "Escudo Conservador", engineName: "Tachyon v2.1" },
+                      { id: "lk-2", categoryLabel: "Línea de Totales", engineName: "Singularity v2.1" },
+                      { id: "lk-3", categoryLabel: "Ángulo Táctico", engineName: "Cortex IA" },
+                      { id: "lk-4", categoryLabel: "Valor Geodesic", engineName: "Geodesic v1.0" },
+                    ]
+                ).map((lp) => (
+                  <div
+                    key={lp.id}
+                    className="glass-ring rounded-xl px-3.5 py-2.5 flex items-center justify-between gap-2 text-xs"
+                    style={{ background: "var(--pl-surface)" }}
+                  >
+                    <span
+                      className="inline-flex items-center gap-1.5 font-bold"
+                      style={{ color: "var(--pl-brand)" }}
+                    >
+                      <MaestroIcon name="lock" size={12} />
+                      <span>
+                        {lp.categoryLabel} ({lp.engineName})
+                      </span>
+                    </span>
+                    <span className="locked-redact font-extrabold">
+                      RESERVADO PASE TOTAL
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              <button
+                type="button"
+                className="pl-btn-primary w-full text-xs"
+                onClick={() => {
+                  setVisitorPreviewOpen(false);
+                  navigateTo(`/signup?code=${sofia.promoCode}`);
+                }}
+              >
+                <span>
+                  Canjear código {sofia.promoCode} · {sofia.freeDays} días de Pase Total gratis
+                </span>
+                <MaestroIcon name="arrowRight" size={14} />
+              </button>
+            </div>
+          </div>
+        </TopLayerModalDialog>
       </ClubWorkspaceShell>
     </AtmosphereStage>
   );

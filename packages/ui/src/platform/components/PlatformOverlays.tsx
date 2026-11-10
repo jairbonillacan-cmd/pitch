@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { Icon } from "../../icons.js";
+import { getLogoPath } from "@pitchlab/sports-assets";
 import { LeagueBadge, TeamBadge } from "../../sports.js";
 import {
   canRevealPickOnShare,
@@ -9,7 +9,13 @@ import {
   getSessionWatermark,
 } from "../access-guard.js";
 import { usePlatform } from "../platform-provider.js";
+import { TIPSTAR_CREATORS } from "../spacetime-catalog.js";
 import type { ViewerRole } from "../types.js";
+import {
+  LensGlowOrbs,
+  MaestroIcon,
+  type MaestroIconName,
+} from "./MaestroPrimitives.js";
 
 export function TopLayerModalDialog({
   open,
@@ -53,6 +59,7 @@ export function TopLayerModalDialog({
       !("closedBy" in HTMLDialogElement.prototype)
     ) {
       const isOutside = (e: PointerEvent) => {
+        if (e.target !== dialog) return false;
         const r = dialog.getBoundingClientRect();
         return (
           e.clientX < r.left ||
@@ -129,8 +136,10 @@ export function ParlayFloatingDock(): React.JSX.Element | null {
     >
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-3 min-w-0">
-          <span className="pl-pill pl-pill--brand num">
-            {parlaySummary.legs.length} {parlaySummary.legs.length === 1 ? "pick" : "picks"}
+          <span className="pl-pill pl-pill--brand num inline-flex items-center gap-1.5">
+            <MaestroIcon name="layers" size={13} />
+            {parlaySummary.legs.length}{" "}
+            {parlaySummary.legs.length === 1 ? "pick" : "picks"}
           </span>
           {parlaySummary.hasSgpCorrelation ? (
             <span className="pl-pill pl-pill--info">SGP correlacionado</span>
@@ -146,13 +155,19 @@ export function ParlayFloatingDock(): React.JSX.Element | null {
                 {formatOddsValue(parlaySummary.bookDecimal, oddsFormat)}
               </span>
             </p>
-            <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+            <p
+              className="m-0 text-xs"
+              style={{ color: "var(--pl-text-muted)" }}
+            >
               Justa Geodesic:{" "}
               <span className="num">
                 {formatOddsValue(parlaySummary.fairDecimal, oddsFormat)}
               </span>{" "}
               · Retorno est.{" "}
-              <span className="num font-semibold" style={{ color: "var(--pl-success)" }}>
+              <span
+                className="num font-semibold"
+                style={{ color: "var(--pl-success)" }}
+              >
                 {parlaySummary.projectedReturnUnits.toFixed(2)}u
               </span>
             </p>
@@ -169,7 +184,7 @@ export function ParlayFloatingDock(): React.JSX.Element | null {
           </button>
           <button
             type="button"
-            className="pl-btn-glass text-xs"
+            className="pl-btn-glass text-xs inline-flex items-center gap-1.5"
             onClick={() =>
               openShareTicket({
                 kind: "parlay",
@@ -178,7 +193,9 @@ export function ParlayFloatingDock(): React.JSX.Element | null {
                   ? "Mismo partido (SGP) calibrado con Geodesic v1.0"
                   : "Multi-liga calibrada con Spacetime Suite v2.1",
                 leagueLabel: "Parlay Inteligente",
-                pickLabel: parlaySummary.legs.map((l) => l.pick.label).join(" + "),
+                pickLabel: parlaySummary.legs
+                  .map((l) => l.pick.label)
+                  .join(" + "),
                 probability: parlaySummary.combinedProbability,
                 fairDecimal: parlaySummary.fairDecimal,
                 marketDecimal: parlaySummary.bookDecimal,
@@ -187,14 +204,16 @@ export function ParlayFloatingDock(): React.JSX.Element | null {
               })
             }
           >
+            <MaestroIcon name="share" size={13} />
             Compartir
           </button>
           <button
             type="button"
-            className="pl-btn-primary text-xs"
+            className="pl-btn-primary text-xs inline-flex items-center gap-1.5"
             disabled={parlaySummary.legs.length < 2}
             onClick={() => sealParlayToJournal()}
           >
+            <MaestroIcon name="check" size={13} />
             Sellar {parlaySummary.stakeUnits.toFixed(1)}u
           </button>
           <button
@@ -203,7 +222,7 @@ export function ParlayFloatingDock(): React.JSX.Element | null {
             aria-label="Vaciar boleto combinado"
             onClick={clearParlay}
           >
-            ✕
+            <MaestroIcon name="x" size={14} />
           </button>
         </div>
       </div>
@@ -212,148 +231,342 @@ export function ParlayFloatingDock(): React.JSX.Element | null {
 }
 
 export function PickComposerModal(): React.JSX.Element | null {
-  const { composerPick, closeComposer, sealPickToJournal, oddsFormat } = usePlatform();
+  const { composerPick, closeComposer, sealPickToJournal, oddsFormat } =
+    usePlatform();
   const [units, setUnits] = useState<number>(1.5);
   const [userDec, setUserDec] = useState<string>("1.95");
+  const [oddsMode, setOddsMode] = useState<"observed" | "manual">("observed");
   const [note, setNote] = useState<string>("");
 
   useEffect(() => {
     if (composerPick) {
       setUnits(composerPick.suggestedUnits);
       setUserDec(composerPick.marketDecimal.toFixed(2));
+      setOddsMode("observed");
       setNote("");
     }
   }, [composerPick]);
 
   if (!composerPick) return null;
 
-  const parsedDec = Math.max(1.05, Number(userDec.replace(",", ".")) || composerPick.marketDecimal);
+  const parsedDec = Math.max(
+    1.05,
+    Number(userDec.replace(",", ".")) || composerPick.marketDecimal,
+  );
+  const clvLivePct =
+    Math.round((parsedDec / composerPick.fairDecimal - 1) * 1000) / 10;
+  const evLivePct = Math.round((composerPick.p * parsedDec - 1) * 1000) / 10;
   const edgeLive = Math.round((composerPick.p - 1 / parsedDec) * 1000) / 10;
+
+  const valuePresetDec = Number((composerPick.fairDecimal * 1.05).toFixed(2));
+  const quickPresets = [
+    {
+      id: "fair",
+      label: "Justa",
+      dec: Number(composerPick.fairDecimal.toFixed(2)),
+      mode: "manual" as const,
+    },
+    {
+      id: "market",
+      label: "Mercado",
+      dec: Number(composerPick.marketDecimal.toFixed(2)),
+      mode: "observed" as const,
+    },
+    {
+      id: "value",
+      label: "Valor +5%",
+      dec: valuePresetDec,
+      mode: "manual" as const,
+    },
+  ];
+
+  const stepUnits = (delta: number) => {
+    setUnits((u) => {
+      const next = Math.round((u + delta) * 100) / 100;
+      return Math.min(5, Math.max(0.25, next));
+    });
+  };
 
   return (
     <TopLayerModalDialog
       open={Boolean(composerPick)}
       onClose={closeComposer}
       ariaLabelledBy="composer-modal-title"
-      maxWidth="28rem"
+      maxWidth="30rem"
     >
-      <div className="glass-lens glass-ring w-full rounded-2xl p-6 space-y-4">
-        <div className="flex items-start justify-between gap-3">
-          <div>
-            <p className="m-0 text-xs font-bold uppercase tracking-wider" style={{ color: "var(--pl-brand)" }}>
-              Sellar en Bitácora Auditada
-            </p>
-            <h2 id="composer-modal-title" className="m-0 mt-1 text-lg font-bold">
-              {composerPick.label}
-            </h2>
-            <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-              {composerPick.leagueLabel} · {composerPick.matchLabel} · {composerPick.engineName}
-            </p>
-          </div>
-          <button
-            type="button"
-            className="pl-btn-glass px-2.5"
-            aria-label="Cerrar ventana de sellado"
-            onClick={closeComposer}
-          >
-            ✕
-          </button>
-        </div>
-
-        <div className="ticket-perf" />
-
-        <div className="grid grid-cols-2 gap-3 text-sm">
-          <div className="rounded-xl p-3" style={{ background: "var(--pl-surface)" }}>
-            <span className="block text-xs" style={{ color: "var(--pl-text-muted)" }}>
-              Prob. Spacetime Suite
-            </span>
-            <strong className="num text-base">
-              {(composerPick.p * 100).toFixed(1)} %
-            </strong>
-          </div>
-          <div className="rounded-xl p-3" style={{ background: "var(--pl-surface)" }}>
-            <span className="block text-xs" style={{ color: "var(--pl-text-muted)" }}>
-              Momio Justo Geodesic
-            </span>
-            <strong className="num text-base">
-              {formatOddsValue(composerPick.fairDecimal, oddsFormat)}
-            </strong>
-          </div>
-        </div>
-
-        <div className="space-y-3">
-          <div className="flex items-center justify-between">
-            <span className="text-sm font-semibold">Unidades simuladas (0.5u – 5.0u)</span>
-            <div className="sl-stepper" role="group" aria-label="Ajustar unidades">
-              <button
-                type="button"
-                aria-label="Restar media unidad"
-                onClick={() => setUnits((u) => Math.max(0.5, Math.round((u - 0.5) * 100) / 100))}
+      <div className="glass-lens glass-ring glass-ring--featured relative overflow-hidden w-full rounded-2xl p-6">
+        <LensGlowOrbs subtle />
+        <div className="relative z-10 space-y-4">
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="pl-pill pl-pill--brand inline-flex items-center gap-1">
+                  <MaestroIcon name="shield" size={12} />
+                  Bitácora Inmutable SHA-256
+                </span>
+                <span className="pl-pill pl-pill--neutral">
+                  {composerPick.engineName}
+                </span>
+              </div>
+              <h2
+                id="composer-modal-title"
+                className="m-0 mt-2 text-lg font-extrabold leading-snug"
               >
-                −
-              </button>
-              <span className="num">{units.toFixed(2)}u</span>
-              <button
-                type="button"
-                aria-label="Sumar media unidad"
-                onClick={() => setUnits((u) => Math.min(5, Math.round((u + 0.5) * 100) / 100))}
+                {composerPick.label}
+              </h2>
+              <p
+                className="m-0 mt-0.5 text-xs"
+                style={{ color: "var(--pl-text-muted)" }}
               >
-                +
-              </button>
+                {composerPick.leagueLabel} · {composerPick.matchLabel}
+              </p>
+            </div>
+            <button
+              type="button"
+              className="pl-btn-glass px-2.5 shrink-0"
+              aria-label="Cerrar ventana de sellado"
+              onClick={closeComposer}
+            >
+              <MaestroIcon name="x" size={15} />
+            </button>
+          </div>
+
+          <div className="ticket-perf" />
+
+          <div className="grid grid-cols-3 gap-2.5 text-sm">
+            <div
+              className="glass-card glass-ring rounded-xl p-3"
+              style={{ background: "var(--pl-surface)" }}
+            >
+              <span
+                className="block text-[11px]"
+                style={{ color: "var(--pl-text-muted)" }}
+              >
+                Prob. Suite
+              </span>
+              <strong className="num text-base font-extrabold">
+                {(composerPick.p * 100).toFixed(1)} %
+              </strong>
+            </div>
+            <div
+              className="glass-card glass-ring rounded-xl p-3"
+              style={{ background: "var(--pl-surface)" }}
+            >
+              <span
+                className="block text-[11px]"
+                style={{ color: "var(--pl-text-muted)" }}
+              >
+                Momio Justo
+              </span>
+              <strong className="num text-base font-extrabold">
+                {formatOddsValue(composerPick.fairDecimal, oddsFormat)}
+              </strong>
+            </div>
+            <div
+              className="glass-card glass-ring rounded-xl p-3"
+              style={{ background: "var(--pl-surface)" }}
+            >
+              <span
+                className="block text-[11px]"
+                style={{ color: "var(--pl-text-muted)" }}
+              >
+                Retorno est.
+              </span>
+              <strong
+                className="num text-base font-extrabold"
+                style={{ color: "var(--pl-success)" }}
+              >
+                {(units * parsedDec).toFixed(2)}u
+              </strong>
             </div>
           </div>
 
-          <div>
-            <label htmlFor="composer-odds-input" className="block text-xs font-semibold mb-1">
-              Tu cuota decimal conseguida (calcula CLV en vivo)
-            </label>
-            <input
-              id="composer-odds-input"
-              type="text"
-              autoFocus
-              inputMode="decimal"
-              value={userDec}
-              onChange={(e) => setUserDec(e.target.value)}
-              className="glass-input w-full px-3 py-2 text-sm num"
-            />
-            <p
-              className="m-0 mt-1 text-xs num font-semibold"
-              style={{
-                color: edgeLive >= 0 ? "var(--pl-success)" : "var(--pl-warning)",
-              }}
+          <div className="space-y-3.5">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div>
+                <span className="block text-sm font-semibold">
+                  Unidades simuladas (0.25u – 5.0u)
+                </span>
+                <span
+                  className="block text-xs"
+                  style={{ color: "var(--pl-text-muted)" }}
+                >
+                  Paso fino de 0.25u para gestión disciplinada
+                </span>
+              </div>
+              <div
+                className="sl-stepper glass-ring"
+                role="group"
+                aria-label="Ajustar unidades"
+              >
+                <button
+                  type="button"
+                  aria-label="Restar un cuarto de unidad"
+                  disabled={units <= 0.25}
+                  onClick={() => stepUnits(-0.25)}
+                >
+                  <MaestroIcon name="minus" size={14} />
+                </button>
+                <span className="num font-extrabold">{units.toFixed(2)}u</span>
+                <button
+                  type="button"
+                  aria-label="Sumar un cuarto de unidad"
+                  disabled={units >= 5}
+                  onClick={() => stepUnits(0.25)}
+                >
+                  <MaestroIcon name="plus" size={14} />
+                </button>
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <label
+                  htmlFor="composer-odds-input"
+                  className="text-xs font-semibold"
+                >
+                  Cuota decimal para auditoría CLV
+                </label>
+                <div
+                  className="seg-well glass-ring"
+                  role="group"
+                  aria-label="Modo de captura de cuota"
+                >
+                  <button
+                    type="button"
+                    className="seg-btn !min-h-[26px] !px-2.5 !text-[11px]"
+                    aria-pressed={oddsMode === "observed"}
+                    onClick={() => {
+                      setOddsMode("observed");
+                      setUserDec(composerPick.marketDecimal.toFixed(2));
+                    }}
+                  >
+                    Cuota observada
+                  </button>
+                  <button
+                    type="button"
+                    className="seg-btn !min-h-[26px] !px-2.5 !text-[11px]"
+                    aria-pressed={oddsMode === "manual"}
+                    onClick={() => setOddsMode("manual")}
+                  >
+                    Manual
+                  </button>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-1.5">
+                {quickPresets.map((preset) => {
+                  const isActive =
+                    Math.abs(parsedDec - preset.dec) < 0.005 &&
+                    oddsMode === preset.mode;
+                  return (
+                    <button
+                      key={preset.id}
+                      type="button"
+                      aria-pressed={isActive}
+                      onClick={() => {
+                        setOddsMode(preset.mode);
+                        setUserDec(preset.dec.toFixed(2));
+                      }}
+                      className="pl-btn-glass !min-h-[28px] !px-2.5 text-xs num inline-flex items-center gap-1"
+                      style={
+                        isActive
+                          ? {
+                              borderColor: "var(--pl-pill-brand-border)",
+                              background: "var(--pl-pill-brand-bg)",
+                              color: "var(--pl-pill-brand-fg)",
+                            }
+                          : undefined
+                      }
+                    >
+                      <span>{preset.label}</span>
+                      <span className="font-extrabold">
+                        {preset.dec.toFixed(2)}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div className="flex items-center gap-2">
+                <input
+                  id="composer-odds-input"
+                  type="text"
+                  autoFocus
+                  inputMode="decimal"
+                  value={userDec}
+                  onChange={(e) => {
+                    setOddsMode("manual");
+                    setUserDec(e.target.value);
+                  }}
+                  className="glass-input w-full px-3 py-2 text-sm num font-bold"
+                />
+                <span
+                  className={`pl-pill num shrink-0 ${
+                    evLivePct >= 0 ? "pl-pill--success" : "pl-pill--warning"
+                  }`}
+                >
+                  CLV {clvLivePct >= 0 ? "+" : ""}
+                  {clvLivePct.toFixed(1)} % · EV {evLivePct >= 0 ? "+" : ""}
+                  {evLivePct.toFixed(1)} %
+                </span>
+              </div>
+
+              <p
+                className="m-0 text-xs num font-semibold"
+                style={{
+                  color:
+                    edgeLive >= 0 ? "var(--pl-success)" : "var(--pl-warning)",
+                }}
+              >
+                {edgeLive >= 0
+                  ? `Ventaja positiva +${edgeLive.toFixed(1)} pts sobre la cuota (${oddsMode === "observed" ? "Cuota observada" : "Captura manual"})`
+                  : `Margen en contra ${edgeLive.toFixed(1)} pts frente al momio justo Geodesic`}
+              </p>
+            </div>
+
+            <div>
+              <label
+                htmlFor="composer-note-input"
+                className="block text-xs font-semibold mb-1"
+              >
+                Nota táctica opcional
+              </label>
+              <input
+                id="composer-note-input"
+                type="text"
+                value={note}
+                onChange={(e) => setNote(e.target.value)}
+                placeholder="Ej. Tomada antes del reporte de bajas 60m"
+                className="glass-input w-full px-3 py-2 text-sm"
+              />
+            </div>
+          </div>
+
+          <div className="flex items-center justify-end gap-2 pt-2">
+            <button
+              type="button"
+              className="pl-btn-glass"
+              onClick={closeComposer}
             >
-              {edgeLive >= 0
-                ? `Ventaja positiva +${edgeLive.toFixed(1)} pts sobre la cuota ingresada`
-                : `Margen en contra ${edgeLive.toFixed(1)} pts frente al momio justo`}
-            </p>
+              Cancelar
+            </button>
+            <button
+              type="button"
+              className="pl-btn-primary inline-flex items-center gap-1.5 num"
+              onClick={() =>
+                sealPickToJournal(
+                  composerPick,
+                  units,
+                  parsedDec,
+                  note || undefined,
+                )
+              }
+            >
+              <MaestroIcon name="check" size={15} />
+              Sellar en Bitácora ({units.toFixed(2)}u)
+            </button>
           </div>
-
-          <div>
-            <label htmlFor="composer-note-input" className="block text-xs font-semibold mb-1">
-              Nota táctica opcional
-            </label>
-            <input
-              id="composer-note-input"
-              type="text"
-              value={note}
-              onChange={(e) => setNote(e.target.value)}
-              placeholder="Ej. Tomada antes del reporte de bajas 60m"
-              className="glass-input w-full px-3 py-2 text-sm"
-            />
-          </div>
-        </div>
-
-        <div className="flex items-center justify-end gap-2 pt-2">
-          <button type="button" className="pl-btn-glass" onClick={closeComposer}>
-            Cancelar
-          </button>
-          <button
-            type="button"
-            className="pl-btn-primary"
-            onClick={() => sealPickToJournal(composerPick, units, parsedDec, note || undefined)}
-          >
-            Confirmar y sellar {units.toFixed(1)}u
-          </button>
         </div>
       </div>
     </TopLayerModalDialog>
@@ -361,7 +574,8 @@ export function PickComposerModal(): React.JSX.Element | null {
 }
 
 export function ShareTicketModal(): React.JSX.Element | null {
-  const { shareTicket, closeShareTicket, viewerRole, oddsFormat, pushToast } = usePlatform();
+  const { shareTicket, closeShareTicket, viewerRole, oddsFormat, pushToast } =
+    usePlatform();
   const [aspect, setAspect] = useState<"4:5" | "9:16">("4:5");
 
   if (!shareTicket) return null;
@@ -387,154 +601,255 @@ export function ShareTicketModal(): React.JSX.Element | null {
     pushToast("Enlace del boleto copiado con tu código de referido.", "success");
   };
 
+  const handleDownloadTicket = () => {
+    pushToast(
+      `Boleto ${aspect === "9:16" ? "Stories 9:16" : "Feed 4:5"} preparado con sello criptográfico.`,
+      "success",
+    );
+  };
+
   return (
     <TopLayerModalDialog
       open={Boolean(shareTicket)}
       onClose={closeShareTicket}
       ariaLabelledBy="share-modal-title"
-      maxWidth="32rem"
+      maxWidth="34rem"
     >
-      <div className="glass-lens glass-ring w-full rounded-2xl p-5 space-y-4">
-        <div className="flex items-center justify-between gap-2">
-          <div>
-            <h2 id="share-modal-title" className="m-0 text-base font-bold">
-              Boleto Oficial para Redes Sociales
-            </h2>
-            <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-              Protección anti-fuga activa antes del inicio (Q12)
-            </p>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="seg-well" role="group" aria-label="Formato de historia">
-              <button
-                type="button"
-                className="seg-btn"
-                aria-pressed={aspect === "4:5"}
-                onClick={() => setAspect("4:5")}
-              >
-                Post 4:5
-              </button>
-              <button
-                type="button"
-                className="seg-btn"
-                aria-pressed={aspect === "9:16"}
-                onClick={() => setAspect("9:16")}
-              >
-                Story 9:16
-              </button>
-            </div>
-            <button
-              type="button"
-              className="pl-btn-glass px-2.5"
-              aria-label="Cerrar vista de boleto"
-              onClick={closeShareTicket}
-            >
-              ✕
-            </button>
-          </div>
-        </div>
-
-        <div
-          className="share-ticket-card mx-auto p-5 flex flex-col justify-between"
-          style={{
-            maxWidth: aspect === "9:16" ? 310 : 370,
-            minHeight: aspect === "9:16" ? 430 : 350,
-          }}
-          data-share-ticket=""
-        >
-          <div className="space-y-3">
-            <div className="flex items-center justify-between gap-2">
-              <span className="text-xs font-extrabold tracking-widest uppercase" style={{ color: "var(--share-card-accent)" }}>
-                PITCHLAB · SPACETIME SUITE v2.1
-              </span>
-              <span className="text-xs font-bold num" style={{ color: "var(--share-card-muted)" }}>
-                {shareTicket.leagueLabel}
-              </span>
-            </div>
-
+      <div className="glass-lens glass-ring glass-ring--featured relative overflow-hidden w-full rounded-2xl p-5">
+        <LensGlowOrbs subtle />
+        <div className="relative z-10 space-y-4">
+          <div className="flex flex-wrap items-center justify-between gap-2">
             <div>
-              <h3 className="m-0 text-lg font-extrabold">{shareTicket.title}</h3>
-              <p className="m-0 text-xs mt-0.5" style={{ color: "var(--share-card-muted)" }}>
-                {shareTicket.subtitle}
+              <h2 id="share-modal-title" className="m-0 text-base font-bold">
+                Boleto Oficial para Redes Sociales
+              </h2>
+              <p
+                className="m-0 text-xs"
+                style={{ color: "var(--pl-text-muted)" }}
+              >
+                Protección anti-fuga activa antes del inicio (Q12)
               </p>
             </div>
-
-            <div className="ticket-perf" />
-
-            {revealSelection ? (
+            <div className="flex items-center gap-2">
               <div
-                className="rounded-xl p-3.5 space-y-1.5"
-                style={{ background: "var(--share-card-surface)" }}
+                className="seg-well glass-ring"
+                role="group"
+                aria-label="Formato de historia"
               >
-                <div className="flex items-center justify-between text-xs">
-                  <span style={{ color: "var(--share-card-success)" }} className="font-bold">
-                    {isTipstarPromo
-                      ? shareTicket.originBadge ?? "PICK ABIERTO DE LA SEMANA"
-                      : "RESULTADO AUDITADO FT"}
-                  </span>
-                  <span className="num font-bold">{shareTicket.units.toFixed(1)}u</span>
-                </div>
-                <p className="m-0 text-base font-extrabold">{shareTicket.pickLabel}</p>
-                <p className="m-0 text-xs num" style={{ color: "var(--share-card-secondary)" }}>
-                  Prob. {(shareTicket.probability * 100).toFixed(1)} % · Momio{" "}
-                  {formatOddsValue(shareTicket.marketDecimal, oddsFormat)} (Justa{" "}
-                  {formatOddsValue(shareTicket.fairDecimal, oddsFormat)})
-                </p>
+                <button
+                  type="button"
+                  className="seg-btn !min-h-[30px] !px-2.5 text-xs"
+                  aria-pressed={aspect === "4:5"}
+                  onClick={() => setAspect("4:5")}
+                >
+                  4:5 Feed
+                </button>
+                <button
+                  type="button"
+                  className="seg-btn !min-h-[30px] !px-2.5 text-xs"
+                  aria-pressed={aspect === "9:16"}
+                  onClick={() => setAspect("9:16")}
+                >
+                  9:16 Stories
+                </button>
               </div>
-            ) : (
-              <div
-                className="rounded-xl p-3.5 space-y-1.5"
-                style={{ background: "var(--share-card-surface)" }}
-                data-sealed-prekickoff=""
+              <button
+                type="button"
+                className="pl-btn-glass px-2.5"
+                aria-label="Cerrar vista de boleto"
+                onClick={closeShareTicket}
               >
-                <div className="flex items-center justify-between text-xs">
-                  <span style={{ color: "var(--share-card-warning)" }} className="font-bold">
-                    🔒 SELECCIÓN SELLADA HASTA EL INICIO
-                  </span>
-                  <span className="num font-bold">{shareTicket.units.toFixed(1)}u</span>
-                </div>
-                <p className="m-0 text-sm font-bold">
-                  Pick registrado en Bitácora PitchLab ({(shareTicket.probability * 100).toFixed(0)} % conf.)
-                </p>
-                <p className="m-0 text-xs" style={{ color: "var(--share-card-muted)" }}>
-                  La selección exacta permanece encriptada antes del kickoff para proteger la ventaja de los socios.
-                </p>
-              </div>
-            )}
-          </div>
-
-          <div className="space-y-2 pt-4">
-            <div className="ticket-perf" />
-            <div className="flex items-center justify-between gap-2 text-xs">
-              <div>
-                <span className="block font-bold" style={{ color: "var(--share-card-fg)" }}>
-                  {shareTicket.promoCode
-                    ? `CÓDIGO: ${shareTicket.promoCode} · 5 días gratis`
-                    : "7 días gratis + 15d ambos al suscribirse"}
-                </span>
-                <span style={{ color: "var(--share-card-muted)" }}>
-                  pitchlab.mx · +18 Unidades simuladas
-                </span>
-              </div>
-              <span className="num font-bold opacity-60">{watermark}</span>
+                <MaestroIcon name="x" size={15} />
+              </button>
             </div>
           </div>
-        </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <span className="text-xs" style={{ color: "var(--pl-text-muted)" }}>
-            {revealSelection
-              ? "Selección visible (Partido cerrado FT o Pick Abierto Semanal de Tipstar)."
-              : "Selección sellada automáticamente porque el encuentro aún no inicia."}
-          </span>
-          <button
-            type="button"
-            autoFocus
-            className="pl-btn-primary text-xs"
-            onClick={handleCopyShareLink}
+          <div
+            className={`share-ticket-card relative overflow-hidden mx-auto flex flex-col justify-between transition-all duration-200 ${
+              aspect === "9:16" ? "px-5 py-7" : "p-5"
+            }`}
+            style={{
+              maxWidth: aspect === "9:16" ? 306 : 382,
+              minHeight: aspect === "9:16" ? 476 : 368,
+            }}
+            data-share-ticket=""
+            data-share-aspect={aspect}
           >
-            Copiar enlace con código
-          </button>
+            <LensGlowOrbs
+              primaryColor="var(--pl-aura-default-home)"
+              secondaryColor="var(--pl-aura-default-away)"
+            />
+
+            <div className="relative z-10 space-y-3.5">
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex items-center gap-2">
+                  <img
+                    src={getLogoPath("horizontal", "dark")}
+                    alt="PitchLab"
+                    className="h-5 w-auto object-contain"
+                  />
+                  <span
+                    className="text-[10px] font-extrabold tracking-widest uppercase"
+                    style={{ color: "var(--share-card-accent)" }}
+                  >
+                    SUITE v2.1
+                  </span>
+                </div>
+                <span
+                  className="rounded-full px-2.5 py-0.5 text-[11px] font-bold num"
+                  style={{
+                    background: "var(--share-card-surface)",
+                    color: "var(--share-card-fg)",
+                  }}
+                >
+                  {shareTicket.leagueLabel}
+                </span>
+              </div>
+
+              {shareTicket.tipstarHandle ? (
+                <div className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-bold"
+                  style={{
+                    background: "var(--share-card-surface)",
+                    color: "var(--share-card-accent)",
+                  }}
+                >
+                  <MaestroIcon name="crown" size={12} />
+                  <span>@{shareTicket.tipstarHandle} · Récord Verificado</span>
+                </div>
+              ) : null}
+
+              <div>
+                <h3 className="m-0 text-lg font-extrabold leading-snug">
+                  {shareTicket.title}
+                </h3>
+                <p
+                  className="m-0 text-xs mt-1 leading-relaxed"
+                  style={{ color: "var(--share-card-muted)" }}
+                >
+                  {shareTicket.subtitle}
+                </p>
+              </div>
+
+              <div className="ticket-perf" />
+
+              {revealSelection ? (
+                <div
+                  className="rounded-xl p-3.5 space-y-1.5"
+                  style={{ background: "var(--share-card-surface)" }}
+                >
+                  <div className="flex items-center justify-between text-xs">
+                    <span
+                      style={{ color: "var(--share-card-success)" }}
+                      className="font-bold inline-flex items-center gap-1.5"
+                    >
+                      <MaestroIcon name="shield" size={13} />
+                      {isTipstarPromo
+                        ? shareTicket.originBadge ?? "PICK ABIERTO DE LA SEMANA"
+                        : "RESULTADO AUDITADO FT"}
+                    </span>
+                    <span className="num font-extrabold">
+                      {shareTicket.units.toFixed(1)}u
+                    </span>
+                  </div>
+                  <p className="m-0 text-base font-extrabold">
+                    {shareTicket.pickLabel}
+                  </p>
+                  <p
+                    className="m-0 text-xs num"
+                    style={{ color: "var(--share-card-secondary)" }}
+                  >
+                    Prob. {(shareTicket.probability * 100).toFixed(1)} % · Momio{" "}
+                    {formatOddsValue(shareTicket.marketDecimal, oddsFormat)}{" "}
+                    (Justa {formatOddsValue(shareTicket.fairDecimal, oddsFormat)}
+                    )
+                  </p>
+                </div>
+              ) : (
+                <div
+                  className="rounded-xl p-3.5 space-y-1.5"
+                  style={{ background: "var(--share-card-surface)" }}
+                  data-sealed-prekickoff=""
+                >
+                  <div className="flex items-center justify-between text-xs">
+                    <span
+                      style={{ color: "var(--share-card-warning)" }}
+                      className="font-bold inline-flex items-center gap-1.5"
+                    >
+                      <MaestroIcon name="lock" size={13} />
+                      SELECCIÓN SELLADA HASTA EL INICIO
+                    </span>
+                    <span className="num font-extrabold">
+                      {shareTicket.units.toFixed(1)}u
+                    </span>
+                  </div>
+                  <p className="m-0 text-sm font-bold">
+                    Pick registrado en Bitácora PitchLab (
+                    {(shareTicket.probability * 100).toFixed(0)} % conf.)
+                  </p>
+                  <p
+                    className="m-0 text-xs leading-relaxed"
+                    style={{ color: "var(--share-card-muted)" }}
+                  >
+                    La selección exacta permanece encriptada antes del kickoff
+                    para proteger la ventaja de los socios.
+                  </p>
+                </div>
+              )}
+            </div>
+
+            <div className="relative z-10 space-y-2.5 pt-4">
+              <div className="ticket-perf" />
+              <div
+                className="rounded-xl px-3 py-2 flex items-center justify-between gap-2 text-xs"
+                style={{ background: "var(--share-card-surface)" }}
+              >
+                <div>
+                  <span
+                    className="block font-extrabold tracking-wide"
+                    style={{ color: "var(--share-card-fg)" }}
+                  >
+                    {shareTicket.promoCode
+                      ? `CÓDIGO: ${shareTicket.promoCode} · 5 días gratis`
+                      : "7 días gratis + 15d ambos al suscribirse"}
+                  </span>
+                  <span style={{ color: "var(--share-card-muted)" }}>
+                    pitchlab.mx · +18 Unidades simuladas
+                  </span>
+                </div>
+                <span className="num font-bold opacity-70">{watermark}</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <span
+              className="text-xs"
+              style={{ color: "var(--pl-text-muted)" }}
+            >
+              {revealSelection
+                ? "Selección visible (Partido cerrado FT o Pick Abierto Semanal de Tipstar)."
+                : "Selección sellada automáticamente porque el encuentro aún no inicia."}
+            </span>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                className="pl-btn-glass text-xs inline-flex items-center gap-1.5"
+                onClick={handleDownloadTicket}
+              >
+                <MaestroIcon name="download" size={14} />
+                Descargar PNG
+              </button>
+              <button
+                type="button"
+                autoFocus
+                className="pl-btn-primary text-xs inline-flex items-center gap-1.5"
+                onClick={handleCopyShareLink}
+              >
+                <MaestroIcon name="copy" size={14} />
+                Copiar enlace con código
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </TopLayerModalDialog>
@@ -542,10 +857,19 @@ export function ShareTicketModal(): React.JSX.Element | null {
 }
 
 export function AlertsDrawer(): React.JSX.Element | null {
-  const { alertsOpen, setAlertsOpen, dataset, watchlistGameIds, navigateTo } = usePlatform();
+  const {
+    alertsOpen,
+    setAlertsOpen,
+    dataset,
+    watchlistGameIds,
+    navigateTo,
+    pushToast,
+  } = usePlatform();
+  const [allRead, setAllRead] = useState<boolean>(false);
+
   if (!alertsOpen) return null;
 
-  const upcoming = dataset.games.filter((g) => g.status !== "FT").slice(0, 4);
+  const upcoming = dataset.games.filter((g) => g.status !== "FT").slice(0, 5);
 
   return (
     <TopLayerModalDialog
@@ -554,74 +878,212 @@ export function AlertsDrawer(): React.JSX.Element | null {
       ariaLabelledBy="alerts-drawer-title"
       variant="drawer"
     >
-      <div className="glass-lens glass-ring h-full w-full p-5 overflow-y-auto space-y-4">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="m-0 text-xs font-bold uppercase tracking-wider" style={{ color: "var(--pl-brand)" }}>
-              Centro de Alertas en Tiempo Real
-            </p>
-            <h2 id="alerts-drawer-title" className="m-0 text-lg font-bold">
-              Cortex IA 60m & Geodesic
-            </h2>
-          </div>
-          <button
-            type="button"
-            autoFocus
-            className="pl-btn-glass px-2.5"
-            aria-label="Cerrar panel de alertas"
-            onClick={() => setAlertsOpen(false)}
-          >
-            ✕
-          </button>
-        </div>
-
-        <div className="ticket-perf" />
-
-        <div className="space-y-3">
-          {upcoming.map((g, idx) => (
-            <div
-              key={g.id}
-              className="glass-card glass-ring rounded-xl p-3.5 space-y-2"
-            >
-              <div className="flex items-center justify-between text-xs">
-                <span className="pl-pill pl-pill--info">
-                  {idx % 2 === 0 ? "Alineación 60m" : "Movimiento Geodesic"}
-                </span>
-                <span className="num" style={{ color: "var(--pl-text-muted)" }}>
-                  {g.leagueLabel} · {g.kickoffLocal}
-                </span>
-              </div>
-              <div className="flex items-center gap-2 font-bold text-sm">
-                <TeamBadge league={g.league} slug={g.home.slug} name={g.home.name} size={20} />
-                <span>
-                  {g.home.shortName} vs {g.away.shortName}
-                </span>
-                {watchlistGameIds.includes(g.id) ? (
-                  <span className="pl-pill pl-pill--success">Siguiendo</span>
-                ) : null}
-              </div>
-              <p className="m-0 text-xs" style={{ color: "var(--pl-text-secondary)" }}>
-                {idx % 2 === 0
-                  ? "Convocatoria titular verificada por Cortex IA sin bajas de última hora en el eje ofensivo."
-                  : "Geodesic v1.0 detecta +3.1 pts de ventaja neta antes del ajuste de línea de cierre."}
-              </p>
+      <div className="glass-lens glass-ring relative h-full w-full p-5 overflow-y-auto">
+        <LensGlowOrbs subtle />
+        <div className="relative z-10 space-y-4">
+          <div className="flex items-start justify-between gap-2">
+            <div>
+              <span className="pl-pill pl-pill--cortex inline-flex items-center gap-1.5">
+                <MaestroIcon name="bell" size={12} />
+                Tiempo Real · 60m Pre-Kickoff
+              </span>
+              <h2
+                id="alerts-drawer-title"
+                className="m-0 mt-2 text-lg font-extrabold"
+              >
+                Cortex IA 60m & Geodesic
+              </h2>
+            </div>
+            <div className="flex items-center gap-1.5">
               <button
                 type="button"
-                className="pl-btn-glass text-xs py-1 min-h-8"
+                className="pl-btn-glass !min-h-[32px] !px-2.5 text-xs inline-flex items-center gap-1"
                 onClick={() => {
-                  setAlertsOpen(false);
-                  navigateTo(`/app/${g.league}/games/${g.id}`);
+                  setAllRead(true);
+                  pushToast(
+                    "Alertas de jornada marcadas como revisadas.",
+                    "default",
+                  );
                 }}
               >
-                Abrir radiografía →
+                <MaestroIcon name="check" size={13} />
+                {allRead ? "Leídas" : "Marcar leídas"}
+              </button>
+              <button
+                type="button"
+                autoFocus
+                className="pl-btn-glass px-2.5"
+                aria-label="Cerrar panel de alertas"
+                onClick={() => setAlertsOpen(false)}
+              >
+                <MaestroIcon name="x" size={15} />
               </button>
             </div>
-          ))}
+          </div>
+
+          <div className="ticket-perf" />
+
+          <div className="space-y-3">
+            {upcoming.map((g, idx) => {
+              const isLineupAlert = idx % 2 === 0;
+              const isWatching = watchlistGameIds.includes(g.id);
+              return (
+                <div
+                  key={g.id}
+                  className="glass-card glass-ring rounded-xl p-3.5 space-y-2.5"
+                  style={{ opacity: allRead ? 0.84 : 1 }}
+                >
+                  <div className="flex items-center justify-between gap-2 text-xs">
+                    <span
+                      className={`pl-pill inline-flex items-center gap-1 ${
+                        isLineupAlert ? "pl-pill--cortex" : "pl-pill--brand"
+                      }`}
+                    >
+                      <MaestroIcon
+                        name={isLineupAlert ? "cpu" : "activity"}
+                        size={12}
+                      />
+                      {isLineupAlert ? "Alineación 60m" : "Valor Geodesic"}
+                    </span>
+                    <span
+                      className="num font-medium"
+                      style={{ color: "var(--pl-text-muted)" }}
+                    >
+                      {g.leagueLabel} · {g.kickoffLocal}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2 font-bold text-sm min-w-0">
+                      <TeamBadge
+                        league={g.league}
+                        slug={g.home.slug}
+                        name={g.home.name}
+                        size={20}
+                      />
+                      <span className="truncate">
+                        {g.home.shortName} vs {g.away.shortName}
+                      </span>
+                    </div>
+                    {isWatching ? (
+                      <span className="pl-pill pl-pill--success inline-flex items-center gap-1 shrink-0">
+                        <MaestroIcon name="eye" size={11} />
+                        60m activo
+                      </span>
+                    ) : null}
+                  </div>
+
+                  <p
+                    className="m-0 text-xs leading-relaxed"
+                    style={{ color: "var(--pl-text-secondary)" }}
+                  >
+                    {isLineupAlert
+                      ? "Convocatoria titular verificada por Cortex IA sin bajas de última hora en el eje ofensivo."
+                      : "Geodesic v1.0 detecta ventaja neta frente al consenso antes del ajuste de línea de cierre."}
+                  </p>
+
+                  <button
+                    type="button"
+                    className="pl-btn-glass text-xs py-1 min-h-8 inline-flex items-center gap-1.5"
+                    onClick={() => {
+                      setAlertsOpen(false);
+                      navigateTo(`/app/${g.league}/games/${g.id}`);
+                    }}
+                  >
+                    <span>Abrir Match Studio</span>
+                    <MaestroIcon name="arrowRight" size={13} />
+                  </button>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </TopLayerModalDialog>
   );
 }
+
+export const AlertsModal = AlertsDrawer;
+
+const CLUB_COMMAND_VIEWS: ReadonlyArray<{
+  label: string;
+  subtitle: string;
+  href: string;
+  icon: MaestroIconName;
+}> = [
+  {
+    label: "Jornada y Partidos de Hoy",
+    subtitle: "Cartelera en vivo de las 7 ligas",
+    href: "/app",
+    icon: "calendar",
+  },
+  {
+    label: "Multi-Picks del Día (4–5 por partido)",
+    subtitle: "Escudo, Principal, Totales, Táctico y Valor",
+    href: "/app/picks",
+    icon: "sparkles",
+  },
+  {
+    label: "Armador Inteligente de Parlays & SGP",
+    subtitle: "Correlación Geodesic v1.0 sin selecciones opuestas",
+    href: "/app/parlays",
+    icon: "layers",
+  },
+  {
+    label: "Explorador de Momios & Geodesic v1.0",
+    subtitle: "Comparativa de probabilidad real vs momio justo",
+    href: "/app/momios",
+    icon: "sliders",
+  },
+  {
+    label: "Player Props Lab (NFL y Fútbol)",
+    subtitle: "Simulador interactivo de líneas individuales",
+    href: "/app/props",
+    icon: "activity",
+  },
+  {
+    label: "Comunidad VIP Verificada",
+    subtitle: "Boletos, consenso vs Suite y ranking CLV (IC 95 %)",
+    href: "/app/social",
+    icon: "users",
+  },
+  {
+    label: "Portal Tipstar Oficial (SOFIA5)",
+    subtitle: "1 pick abierto semanal y comisiones del 25 %",
+    href: "/app/tipstar",
+    icon: "crown",
+  },
+  {
+    label: "Historial & Auditoría Pública FT",
+    subtitle: "Registro inmutable sin picks editados ni borrados",
+    href: "/app/historial",
+    icon: "shield",
+  },
+  {
+    label: "Mi Bitácora & Vigilancia 60m",
+    subtitle: "Unidades simuladas, CLV promedio y alertas de alineación",
+    href: "/app/lab",
+    icon: "chart",
+  },
+  {
+    label: "Tecnología & Precisión · Spacetime Suite v2.1",
+    subtitle: "Arquitectura de los 5 motores propietarios y calibración ECE",
+    href: "/app/tech",
+    icon: "cpu",
+  },
+  {
+    label: "Cuenta, Referidos (+15 días) y CFDI 4.0",
+    subtitle: "Embajador 5 amigos, unidad base y facturación SAT",
+    href: "/app/account",
+    icon: "gift",
+  },
+  {
+    label: "Consola Founder Admin",
+    subtitle: "Interruptor Mes 1 Sin Tarjeta, códigos y telemetría",
+    href: "/app/admin",
+    icon: "bolt",
+  },
+];
 
 export function CommandPaletteModal(): React.JSX.Element | null {
   const { cmdkOpen, setCmdkOpen, dataset, navigateTo } = usePlatform();
@@ -630,115 +1092,286 @@ export function CommandPaletteModal(): React.JSX.Element | null {
   if (!cmdkOpen) return null;
 
   const q = query.trim().toLowerCase();
+
   const matchingGames = dataset.games
     .filter((g) => {
       if (!q) return true;
       return (
         g.home.name.toLowerCase().includes(q) ||
         g.away.name.toLowerCase().includes(q) ||
-        g.leagueLabel.toLowerCase().includes(q)
+        g.home.shortName.toLowerCase().includes(q) ||
+        g.away.shortName.toLowerCase().includes(q) ||
+        g.leagueLabel.toLowerCase().includes(q) ||
+        g.league.toLowerCase().includes(q)
       );
     })
     .slice(0, 6);
 
-  const quickRoutes = [
-    { label: "Jornada y Partidos de Hoy", href: "/app" },
-    { label: "Multi-Picks del Día (4–5 por partido)", href: "/app/picks" },
-    { label: "Armador Inteligente de Parlays & SGP", href: "/app/parlays" },
-    { label: "Explorador de Momios & Geodesic v1.0", href: "/app/momios" },
-    { label: "Player Props Lab (NFL y Fútbol)", href: "/app/props" },
-    { label: "Comunidad VIP Verificada", href: "/app/social" },
-    { label: "Portal Tipstar Oficial (SOFIA5)", href: "/app/tipstar" },
-    { label: "Tecnología & Precisión · Spacetime Suite v2.1", href: "/app/tech" },
-  ].filter((r) => !q || r.label.toLowerCase().includes(q));
+  const matchingLeagues = dataset.leagues.filter((lg) => {
+    if (!q) return true;
+    return (
+      lg.label.toLowerCase().includes(q) ||
+      lg.league.toLowerCase().includes(q) ||
+      lg.roundLabel.toLowerCase().includes(q)
+    );
+  });
+
+  const matchingTipstars = TIPSTAR_CREATORS.filter((c) => {
+    if (!q) return true;
+    return (
+      c.handle.toLowerCase().includes(q) ||
+      c.name.toLowerCase().includes(q) ||
+      c.specialty.toLowerCase().includes(q) ||
+      c.promoCode.toLowerCase().includes(q)
+    );
+  });
+
+  const quickRoutes = CLUB_COMMAND_VIEWS.filter(
+    (r) =>
+      !q ||
+      r.label.toLowerCase().includes(q) ||
+      r.subtitle.toLowerCase().includes(q),
+  );
+
+  const hasResults =
+    matchingGames.length > 0 ||
+    matchingLeagues.length > 0 ||
+    matchingTipstars.length > 0 ||
+    quickRoutes.length > 0;
 
   return (
     <TopLayerModalDialog
       open={cmdkOpen}
       onClose={() => setCmdkOpen(false)}
       ariaLabel="Buscar en PitchLab"
-      maxWidth="36rem"
+      maxWidth="38rem"
     >
-      <div className="glass-lens glass-ring w-full rounded-2xl p-4 space-y-3">
-        <div className="flex items-center gap-2">
-          <Icon name="search" className="icon" />
-          <input
-            type="search"
-            autoFocus
-            aria-label="Buscar equipo, liga, partido o módulo"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Buscar equipo, liga, partido o herramienta..."
-            className="glass-input w-full px-3 py-2.5 text-sm"
-          />
-          <button
-            type="button"
-            className="pl-btn-glass px-3 text-xs"
-            onClick={() => setCmdkOpen(false)}
-          >
-            Cerrar
-          </button>
-        </div>
+      <div className="glass-lens glass-ring glass-ring--featured relative overflow-hidden w-full rounded-2xl p-4">
+        <LensGlowOrbs subtle />
+        <div className="relative z-10 space-y-3">
+          <div className="flex items-center gap-2">
+            <MaestroIcon
+              name="search"
+              size={18}
+              style={{ color: "var(--pl-brand)" }}
+            />
+            <input
+              type="search"
+              autoFocus
+              aria-label="Buscar equipo, liga, partido o módulo"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Buscar partido, liga, @tipstar o módulo (⌘K)..."
+              className="glass-input w-full px-3 py-2.5 text-sm"
+            />
+            <button
+              type="button"
+              className="pl-btn-glass px-3 text-xs shrink-0"
+              onClick={() => setCmdkOpen(false)}
+            >
+              Cerrar
+            </button>
+          </div>
 
-        <div className="max-h-80 overflow-y-auto space-y-3">
-          {matchingGames.length > 0 ? (
-            <div>
-              <p className="m-0 mb-1.5 text-xs font-bold uppercase tracking-wider" style={{ color: "var(--pl-text-muted)" }}>
-                Partidos y Radiografías
-              </p>
-              <div className="space-y-1">
-                {matchingGames.map((g) => (
-                  <a
-                    key={g.id}
-                    href={`/app/${g.league}/games/${g.id}`}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setCmdkOpen(false);
-                      navigateTo(`/app/${g.league}/games/${g.id}`);
-                    }}
-                    className="flex items-center justify-between rounded-xl px-3 py-2 text-sm no-underline row-hover"
-                  >
-                    <span className="flex items-center gap-2 font-semibold">
-                      <LeagueBadge league={g.league} label={g.leagueLabel} size={18} />
-                      <span>
-                        {g.home.shortName} vs {g.away.shortName}
+          <div className="max-h-96 overflow-y-auto space-y-4 pr-1">
+            {!hasResults ? (
+              <div
+                className="rounded-xl p-6 text-center text-sm"
+                style={{ color: "var(--pl-text-muted)" }}
+              >
+                Sin coincidencias para «{query}». Prueba con NFL, Liga MX,
+                @sofia_nfl o Parlays.
+              </div>
+            ) : null}
+
+            {matchingGames.length > 0 ? (
+              <div>
+                <p
+                  className="m-0 mb-1.5 text-[11px] font-bold uppercase tracking-wider"
+                  style={{ color: "var(--pl-text-muted)" }}
+                >
+                  Partidos y Match Studio
+                </p>
+                <div className="space-y-1">
+                  {matchingGames.map((g) => (
+                    <a
+                      key={g.id}
+                      href={`/app/${g.league}/games/${g.id}`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setCmdkOpen(false);
+                        navigateTo(`/app/${g.league}/games/${g.id}`);
+                      }}
+                      className="flex items-center justify-between rounded-xl px-3 py-2 text-sm no-underline row-hover"
+                    >
+                      <span className="flex items-center gap-2 font-semibold min-w-0">
+                        <LeagueBadge
+                          league={g.league}
+                          label={g.leagueLabel}
+                          size={18}
+                        />
+                        <span className="truncate">
+                          {g.home.shortName} vs {g.away.shortName}
+                        </span>
                       </span>
-                    </span>
-                    <span className="text-xs num" style={{ color: "var(--pl-text-muted)" }}>
-                      {g.leagueLabel} · {g.status === "FT" ? "Final" : g.kickoffLocal}
-                    </span>
-                  </a>
-                ))}
+                      <span
+                        className="text-xs num shrink-0 inline-flex items-center gap-1.5"
+                        style={{ color: "var(--pl-text-muted)" }}
+                      >
+                        <span>
+                          {g.leagueLabel} ·{" "}
+                          {g.status === "FT" ? "Final" : g.kickoffLocal}
+                        </span>
+                        <MaestroIcon name="chevronRight" size={14} />
+                      </span>
+                    </a>
+                  ))}
+                </div>
               </div>
-            </div>
-          ) : null}
+            ) : null}
 
-          {quickRoutes.length > 0 ? (
-            <div>
-              <p className="m-0 mb-1.5 text-xs font-bold uppercase tracking-wider" style={{ color: "var(--pl-text-muted)" }}>
-                Módulos del Club
-              </p>
-              <div className="space-y-1">
-                {quickRoutes.map((item) => (
-                  <a
-                    key={item.href}
-                    href={item.href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setCmdkOpen(false);
-                      navigateTo(item.href);
-                    }}
-                    className="flex items-center justify-between rounded-xl px-3 py-2 text-sm font-medium no-underline row-hover"
-                  >
-                    <span>{item.label}</span>
-                    <span className="text-xs" style={{ color: "var(--pl-brand)" }}>
-                      Ir →
-                    </span>
-                  </a>
-                ))}
+            {matchingLeagues.length > 0 ? (
+              <div>
+                <p
+                  className="m-0 mb-1.5 text-[11px] font-bold uppercase tracking-wider"
+                  style={{ color: "var(--pl-text-muted)" }}
+                >
+                  7 Ligas Oficiales
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+                  {matchingLeagues.map((lg) => (
+                    <a
+                      key={lg.league}
+                      href={`/app/${lg.league}`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setCmdkOpen(false);
+                        navigateTo(`/app/${lg.league}`);
+                      }}
+                      className="flex items-center justify-between rounded-xl px-3 py-2 text-xs font-semibold no-underline row-hover"
+                    >
+                      <span className="flex items-center gap-2 min-w-0">
+                        <LeagueBadge
+                          league={lg.league}
+                          label={lg.label}
+                          size={18}
+                        />
+                        <span className="truncate">{lg.label}</span>
+                      </span>
+                      <span
+                        className="num shrink-0"
+                        style={{ color: "var(--pl-text-muted)" }}
+                      >
+                        {lg.totalGames} juegos
+                      </span>
+                    </a>
+                  ))}
+                </div>
               </div>
-            </div>
-          ) : null}
+            ) : null}
+
+            {matchingTipstars.length > 0 ? (
+              <div>
+                <p
+                  className="m-0 mb-1.5 text-[11px] font-bold uppercase tracking-wider"
+                  style={{ color: "var(--pl-text-muted)" }}
+                >
+                  Tipstars Verificados (CLV Auditado)
+                </p>
+                <div className="space-y-1">
+                  {matchingTipstars.map((creator) => (
+                    <a
+                      key={creator.handle}
+                      href={`/app/u/${creator.handle}`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setCmdkOpen(false);
+                        navigateTo(`/app/u/${creator.handle}`);
+                      }}
+                      className="flex items-center justify-between rounded-xl px-3 py-2 text-sm no-underline row-hover"
+                    >
+                      <span className="flex items-center gap-2.5 min-w-0">
+                        <span
+                          className="avatar-ring inline-flex h-7 w-7 items-center justify-center rounded-full text-[11px] font-extrabold shrink-0"
+                          style={{
+                            background: creator.avatarGradVar,
+                            color: "var(--pl-on-solid)",
+                          }}
+                        >
+                          {creator.avatarInitials}
+                        </span>
+                        <span className="min-w-0 truncate">
+                          <strong className="font-semibold">
+                            {creator.name}
+                          </strong>{" "}
+                          <span
+                            className="text-xs"
+                            style={{ color: "var(--pl-text-muted)" }}
+                          >
+                            @{creator.handle} · {creator.specialty}
+                          </span>
+                        </span>
+                      </span>
+                      <span className="pl-pill pl-pill--success num shrink-0">
+                        {creator.verifiedUnits} · CLV {creator.clvAvg}
+                      </span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+
+            {quickRoutes.length > 0 ? (
+              <div>
+                <p
+                  className="m-0 mb-1.5 text-[11px] font-bold uppercase tracking-wider"
+                  style={{ color: "var(--pl-text-muted)" }}
+                >
+                  Vistas y Herramientas del Club
+                </p>
+                <div className="space-y-1">
+                  {quickRoutes.map((item) => (
+                    <a
+                      key={item.href}
+                      href={item.href}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setCmdkOpen(false);
+                        navigateTo(item.href);
+                      }}
+                      className="flex items-center justify-between rounded-xl px-3 py-2 text-sm no-underline row-hover"
+                    >
+                      <span className="flex items-center gap-2.5 min-w-0">
+                        <MaestroIcon
+                          name={item.icon}
+                          size={15}
+                          style={{ color: "var(--pl-brand)" }}
+                        />
+                        <span className="min-w-0">
+                          <span className="block font-semibold truncate">
+                            {item.label}
+                          </span>
+                          <span
+                            className="block text-xs truncate"
+                            style={{ color: "var(--pl-text-muted)" }}
+                          >
+                            {item.subtitle}
+                          </span>
+                        </span>
+                      </span>
+                      <span
+                        className="text-xs font-semibold shrink-0 inline-flex items-center gap-1"
+                        style={{ color: "var(--pl-brand)" }}
+                      >
+                        <span>Ir</span>
+                        <MaestroIcon name="chevronRight" size={13} />
+                      </span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+          </div>
         </div>
       </div>
     </TopLayerModalDialog>
@@ -789,100 +1422,110 @@ export function BetaPinModal(): React.JSX.Element | null {
       ariaLabelledBy="beta-pin-modal-title"
       maxWidth="24rem"
     >
-      <div className="pin-dialog glass-lens glass-ring w-full rounded-2xl p-6 space-y-4">
-        <div className="flex items-start justify-between gap-2">
-          <div>
-            <p className="m-0 text-xs font-bold uppercase tracking-wider" style={{ color: "var(--pl-brand)" }}>
-              Acceso Inmediato de Socio
-            </p>
-            <h2 id="beta-pin-modal-title" className="m-0 mt-1 text-lg font-bold">
-              Ingresa tu PIN de 4 dígitos
-            </h2>
-          </div>
-          <button
-            type="button"
-            className="pl-btn-glass px-2.5"
-            aria-label="Cerrar acceso con PIN"
-            onClick={closeBetaPin}
-          >
-            ✕
-          </button>
-        </div>
-
-        <div className="grid grid-cols-4 gap-2.5 py-1" aria-live="polite">
-          {[0, 1, 2, 3].map((idx) => {
-            const char = digits[idx] ?? "";
-            return (
-              <div
-                key={idx}
-                className="h-12 rounded-xl flex items-center justify-center text-xl font-extrabold num"
-                style={{
-                  background: "var(--pl-surface-elevated)",
-                  border: char
-                    ? "1.5px solid var(--pl-brand)"
-                    : "1px solid var(--pl-border)",
-                }}
+      <div className="pin-dialog glass-lens glass-ring glass-ring--featured relative overflow-hidden w-full rounded-2xl p-6">
+        <LensGlowOrbs subtle />
+        <div className="relative z-10 space-y-4">
+          <div className="flex items-start justify-between gap-2">
+            <div>
+              <span className="pl-pill pl-pill--brand inline-flex items-center gap-1">
+                <MaestroIcon name="shield" size={12} />
+                Acceso Inmediato de Socio
+              </span>
+              <h2
+                id="beta-pin-modal-title"
+                className="m-0 mt-2 text-lg font-extrabold"
               >
-                {char ? "•" : ""}
-              </div>
-            );
-          })}
-        </div>
-
-        {error ? (
-          <p
-            className="pin-feedback error m-0 text-xs font-semibold text-center"
-            role="alert"
-            style={{ color: "var(--pl-danger)" }}
-          >
-            {error}
-          </p>
-        ) : (
-          <p className="m-0 text-xs text-center" style={{ color: "var(--pl-text-muted)" }}>
-            Sesión encriptada por 30 días en este dispositivo.
-          </p>
-        )}
-
-        <div className="grid grid-cols-3 gap-2">
-          {["1", "2", "3", "4", "5", "6", "7", "8", "9"].map((d) => (
+                Ingresa tu PIN de 4 dígitos
+              </h2>
+            </div>
             <button
-              key={d}
               type="button"
-              autoFocus={d === "1"}
-              data-pin-digit={d}
+              className="pl-btn-glass px-2.5"
+              aria-label="Cerrar acceso con PIN"
+              onClick={closeBetaPin}
+            >
+              <MaestroIcon name="x" size={15} />
+            </button>
+          </div>
+
+          <div className="grid grid-cols-4 gap-2.5 py-1" aria-live="polite">
+            {[0, 1, 2, 3].map((idx) => {
+              const char = digits[idx] ?? "";
+              return (
+                <div
+                  key={idx}
+                  className="h-12 rounded-xl flex items-center justify-center text-xl font-extrabold num"
+                  style={{
+                    background: "var(--pl-surface-elevated)",
+                    border: char
+                      ? "1.5px solid var(--pl-brand)"
+                      : "1px solid var(--pl-border)",
+                  }}
+                >
+                  {char ? "•" : ""}
+                </div>
+              );
+            })}
+          </div>
+
+          {error ? (
+            <p
+              className="pin-feedback error m-0 text-xs font-semibold text-center"
+              role="alert"
+              style={{ color: "var(--pl-danger)" }}
+            >
+              {error}
+            </p>
+          ) : (
+            <p
+              className="m-0 text-xs text-center"
+              style={{ color: "var(--pl-text-muted)" }}
+            >
+              Sesión encriptada por 30 días en este dispositivo.
+            </p>
+          )}
+
+          <div className="grid grid-cols-3 gap-2">
+            {["1", "2", "3", "4", "5", "6", "7", "8", "9"].map((d) => (
+              <button
+                key={d}
+                type="button"
+                autoFocus={d === "1"}
+                data-pin-digit={d}
+                disabled={busy}
+                className="pin-key pl-btn-glass h-11 text-base font-bold num"
+                onClick={() => handleDigit(d)}
+              >
+                {d}
+              </button>
+            ))}
+            <button
+              type="button"
+              disabled={busy || digits.length === 0}
+              className="pl-btn-glass h-11 text-xs font-semibold"
+              onClick={() => setDigits("")}
+            >
+              Limpiar
+            </button>
+            <button
+              type="button"
+              data-pin-digit="0"
               disabled={busy}
               className="pin-key pl-btn-glass h-11 text-base font-bold num"
-              onClick={() => handleDigit(d)}
+              onClick={() => handleDigit("0")}
             >
-              {d}
+              0
             </button>
-          ))}
-          <button
-            type="button"
-            disabled={busy || digits.length === 0}
-            className="pl-btn-glass h-11 text-xs font-semibold"
-            onClick={() => setDigits("")}
-          >
-            Limpiar
-          </button>
-          <button
-            type="button"
-            data-pin-digit="0"
-            disabled={busy}
-            className="pin-key pl-btn-glass h-11 text-base font-bold num"
-            onClick={() => handleDigit("0")}
-          >
-            0
-          </button>
-          <button
-            type="button"
-            disabled={busy || digits.length === 0}
-            aria-label="Borrar último dígito"
-            className="pl-btn-glass h-11 text-sm font-bold"
-            onClick={() => setDigits((prev) => prev.slice(0, -1))}
-          >
-            ⌫
-          </button>
+            <button
+              type="button"
+              disabled={busy || digits.length === 0}
+              aria-label="Borrar último dígito"
+              className="pl-btn-glass h-11 text-sm font-bold"
+              onClick={() => setDigits((prev) => prev.slice(0, -1))}
+            >
+              ⌫
+            </button>
+          </div>
         </div>
       </div>
     </TopLayerModalDialog>
@@ -912,10 +1555,15 @@ export function RoleSimulatorBar(): React.JSX.Element | null {
     >
       <button
         type="button"
-        className="seg-btn text-xs min-h-7 px-2.5"
+        className="seg-btn text-xs min-h-7 px-2.5 inline-flex items-center gap-1.5"
         aria-expanded={expanded}
         onClick={() => setExpanded((prev) => !prev)}
       >
+        <MaestroIcon
+          name="eye"
+          size={13}
+          style={{ color: "var(--pl-brand)" }}
+        />
         <span style={{ color: "var(--pl-brand)" }} className="font-extrabold">
           Rol:
         </span>

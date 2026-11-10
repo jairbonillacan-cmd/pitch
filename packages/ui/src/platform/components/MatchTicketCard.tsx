@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import { ProbSplit, TeamBadge } from "../../sports.js";
+import { getTeamColors } from "@pitchlab/sports-assets";
+import { LeagueBadge, ProbSplit, TeamBadge } from "../../sports.js";
 import {
   formatOddsValue,
   getSessionWatermark,
@@ -9,19 +10,28 @@ import {
 } from "../access-guard.js";
 import { usePlatform } from "../platform-provider.js";
 import type { MatchPick, PlatformGame } from "../types.js";
+import {
+  CrestPedestal,
+  LensGlowOrbs,
+  MaestroIcon,
+} from "./MaestroPrimitives.js";
 
 export function MultiPickRow({
   pick,
   gameStatus,
   compact = false,
+  userDecimalOverride = null,
 }: {
   pick: MatchPick;
   gameStatus: "NS" | "FT" | "LIVE";
   compact?: boolean;
+  userDecimalOverride?: number | null;
 }): React.JSX.Element {
   const {
     viewerRole,
     oddsFormat,
+    parlayLegs,
+    journal,
     addPickToParlay,
     openComposer,
     openShareTicket,
@@ -33,25 +43,32 @@ export function MultiPickRow({
   if (!unlocked) {
     return (
       <div
-        className="rounded-xl p-3 flex flex-wrap items-center justify-between gap-3"
+        className="rounded-2xl p-3.5 flex flex-wrap items-center justify-between gap-3 hairline-t"
         style={{
           background: "var(--pl-surface)",
-          border: "1px solid var(--pl-border)",
         }}
         data-locked-pick=""
       >
         <div className="space-y-1 min-w-0">
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <span className="pl-pill">{pick.categoryLabel}</span>
-            <span className="text-xs font-semibold" style={{ color: "var(--pl-text-muted)" }}>
-              {pick.engineName}
+            <span
+              className="inline-flex items-center gap-1 text-xs font-semibold"
+              style={{ color: "var(--pl-text-muted)" }}
+            >
+              <MaestroIcon name="cpu" size={12} />
+              <span>{pick.engineName}</span>
             </span>
           </div>
           <div className="locked-redact text-sm font-bold" aria-hidden="true">
             Selección oculta · Línea calibrada Spacetime
           </div>
-          <p className="m-0 text-xs font-semibold" style={{ color: "var(--pl-brand)" }}>
-            🔒 Exclusivo Pase Total · Cero fuga pre-partido
+          <p
+            className="m-0 text-xs font-semibold inline-flex items-center gap-1.5"
+            style={{ color: "var(--pl-brand)" }}
+          >
+            <MaestroIcon name="lock" size={12} />
+            <span>Exclusivo Pase Total · Cero fuga pre-partido</span>
           </p>
         </div>
 
@@ -61,9 +78,10 @@ export function MultiPickRow({
             e.preventDefault();
             navigateTo("/signup");
           }}
-          className="pl-btn-accent text-xs min-h-8 px-3"
+          className="pl-btn-accent text-xs min-h-8 px-3 inline-flex items-center gap-1.5"
         >
-          Desbloquear 7d gratis
+          <MaestroIcon name="unlock" size={13} />
+          <span>Desbloquear 7d gratis</span>
         </a>
       </div>
     );
@@ -76,12 +94,25 @@ export function MultiPickRow({
         ? "pl-pill pl-pill--warning"
         : "pl-pill pl-pill--brand";
 
+  const inParlay = parlayLegs.some((l) => l.pick.id === pick.id);
+  const isSealed = journal.some((j) => j.pickId === pick.id);
+
+  const hasLiveUserOdds =
+    typeof userDecimalOverride === "number" &&
+    Number.isFinite(userDecimalOverride) &&
+    userDecimalOverride > 1;
+  const effectiveMarketDecimal = hasLiveUserOdds
+    ? userDecimalOverride
+    : pick.marketDecimal;
+  const effectiveEdgePts = hasLiveUserOdds
+    ? (pick.p - 1 / userDecimalOverride) * 100
+    : pick.edgePts;
+
   return (
     <div
-      className="rounded-xl p-3.5 space-y-2.5 relative overflow-hidden"
+      className="rounded-2xl p-3.5 space-y-2.5 relative overflow-hidden"
       style={{
         background: "var(--pl-surface)",
-        border: "1px solid var(--pl-border)",
       }}
       data-unlocked-pick={pick.id}
     >
@@ -89,41 +120,55 @@ export function MultiPickRow({
         <div className="flex flex-wrap items-center gap-1.5">
           <span className={riskBadgeClass}>{pick.categoryLabel}</span>
           {pick.isDailyOpenPromo ? (
-            <span className="pl-pill pl-pill--info">Pick Abierto del Día</span>
+            <span className="pl-pill pl-pill--info inline-flex items-center gap-1">
+              <MaestroIcon name="sparkles" size={11} />
+              <span>Pick Abierto del Día</span>
+            </span>
           ) : null}
           {pick.isTipstarWeeklyOpen ? (
-            <span className="pl-pill pl-pill--info">Pick Semanal @sofia_nfl</span>
+            <span className="pl-pill pl-pill--info inline-flex items-center gap-1">
+              <MaestroIcon name="crown" size={11} />
+              <span>Pick Semanal @sofia_nfl</span>
+            </span>
           ) : null}
           {gameStatus === "FT" && pick.result ? (
             <span
-              className={
+              className={`inline-flex items-center gap-1 ${
                 pick.result === "hit"
                   ? "pl-pill pl-pill--success"
                   : "pl-pill pl-pill--danger"
-              }
+              }`}
             >
-              {pick.result === "hit" ? "✓ Acertado" : "✕ Fallado"}
+              <MaestroIcon name={pick.result === "hit" ? "check" : "x"} size={11} />
+              <span>{pick.result === "hit" ? "Acertado" : "Fallado"}</span>
             </span>
           ) : null}
         </div>
-        <span className="text-xs font-semibold" style={{ color: "var(--pl-text-muted)" }}>
-          {pick.engineName}
+        <span
+          className="inline-flex items-center gap-1 text-xs font-semibold"
+          style={{ color: "var(--pl-text-muted)" }}
+        >
+          <MaestroIcon name="cpu" size={12} />
+          <span>{pick.engineName}</span>
         </span>
       </div>
 
       <div className="flex flex-wrap items-baseline justify-between gap-3">
-        <div className="min-w-0">
+        <div className="min-w-0 flex-1">
           <p className="m-0 text-base font-extrabold">{pick.label}</p>
           {!compact ? (
-            <p className="m-0 mt-0.5 text-xs" style={{ color: "var(--pl-text-secondary)" }}>
+            <p
+              className="m-0 mt-0.5 text-xs leading-relaxed"
+              style={{ color: "var(--pl-text-secondary)" }}
+            >
               {pick.rationale}
             </p>
           ) : null}
         </div>
 
-        <div className="flex items-center gap-3 shrink-0 num">
+        <div className="flex items-center gap-3.5 shrink-0 num">
           <div className="text-right">
-            <span className="block text-xs" style={{ color: "var(--pl-text-muted)" }}>
+            <span className="block text-[11px]" style={{ color: "var(--pl-text-muted)" }}>
               Probabilidad
             </span>
             <strong className="text-sm font-extrabold" style={{ color: "var(--pl-brand)" }}>
@@ -131,54 +176,60 @@ export function MultiPickRow({
             </strong>
           </div>
           <div className="text-right">
-            <span className="block text-xs" style={{ color: "var(--pl-text-muted)" }}>
-              Justa / Casa
+            <span className="block text-[11px]" style={{ color: "var(--pl-text-muted)" }}>
+              {hasLiveUserOdds ? "Justa / Tu momio" : "Justa / Casa"}
             </span>
             <strong className="text-sm font-bold">
               {formatOddsValue(pick.fairDecimal, oddsFormat)} /{" "}
-              {formatOddsValue(pick.marketDecimal, oddsFormat)}
+              {formatOddsValue(effectiveMarketDecimal, oddsFormat)}
             </strong>
           </div>
           <div className="text-right">
-            <span className="block text-xs" style={{ color: "var(--pl-text-muted)" }}>
-              Ventaja
+            <span className="block text-[11px]" style={{ color: "var(--pl-text-muted)" }}>
+              {hasLiveUserOdds ? "Tu ventaja" : "Ventaja"}
             </span>
             <strong
               className="text-sm font-extrabold"
               style={{
-                color: pick.edgePts >= 0 ? "var(--pl-success)" : "var(--pl-warning)",
+                color:
+                  effectiveEdgePts >= 0 ? "var(--pl-success)" : "var(--pl-warning)",
               }}
             >
-              {pick.edgePts >= 0 ? `+${pick.edgePts.toFixed(1)}` : pick.edgePts.toFixed(1)} pts
+              {effectiveEdgePts >= 0
+                ? `+${effectiveEdgePts.toFixed(1)}`
+                : effectiveEdgePts.toFixed(1)}{" "}
+              pts
             </strong>
           </div>
         </div>
       </div>
 
       {gameStatus !== "FT" ? (
-        <div className="flex flex-wrap items-center justify-between gap-2 pt-1">
+        <div className="flex flex-wrap items-center justify-between gap-2 pt-1.5 hairline-t">
           <span className="text-xs num" style={{ color: "var(--pl-text-muted)" }}>
             Sugerencia calibrada: <strong>{pick.suggestedUnits.toFixed(2)}u</strong>
           </span>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5">
             <button
               type="button"
-              className="pl-btn-glass text-xs min-h-8 px-2.5"
+              className="pl-btn-glass text-xs min-h-8 px-2.5 inline-flex items-center gap-1"
               onClick={() => addPickToParlay(pick)}
               data-add-parlay={pick.id}
             >
-              + Parlay
+              <MaestroIcon name={inParlay ? "check" : "plus"} size={12} />
+              <span>{inParlay ? "En Parlay" : "+ Parlay"}</span>
             </button>
             <button
               type="button"
-              className="pl-btn-glass text-xs min-h-8 px-2.5"
+              className="pl-btn-glass text-xs min-h-8 px-2.5 inline-flex items-center gap-1"
               onClick={() => openComposer(pick)}
             >
-              Sellar
+              <MaestroIcon name={isSealed ? "check" : "ticket"} size={12} />
+              <span>{isSealed ? "Sellado" : "Sellar"}</span>
             </button>
             <button
               type="button"
-              className="pl-btn-glass text-xs min-h-8 px-2.5"
+              className="pl-btn-glass text-xs min-h-8 px-2.5 inline-flex items-center gap-1"
               aria-label={`Compartir boleto de ${pick.label}`}
               onClick={() =>
                 openShareTicket({
@@ -189,14 +240,15 @@ export function MultiPickRow({
                   pickLabel: pick.label,
                   probability: pick.p,
                   fairDecimal: pick.fairDecimal,
-                  marketDecimal: pick.marketDecimal,
+                  marketDecimal: effectiveMarketDecimal,
                   units: pick.suggestedUnits,
                   gameStatus,
                   promoCode: pick.isTipstarWeeklyOpen ? "SOFIA5" : undefined,
                 })
               }
             >
-              Boleto
+              <MaestroIcon name="share" size={12} />
+              <span>Boleto</span>
             </button>
           </div>
         </div>
@@ -217,6 +269,7 @@ export function MatchTicketCard({
   const {
     viewerRole,
     oddsFormat,
+    parlayLegs,
     setAuraFromGame,
     addPickToParlay,
     openComposer,
@@ -232,11 +285,26 @@ export function MatchTicketCard({
   const watermark = getSessionWatermark(viewerRole);
   const studioHref = `/app/${game.league}/games/${game.id}`;
 
+  const homeColors = getTeamColors(game.league, game.home.slug);
+  const awayColors = getTeamColors(game.league, game.away.slug);
+  const homePrimary = homeColors?.[0] ?? "var(--pl-aura-default-home)";
+  const awayPrimary = awayColors?.[0] ?? "var(--pl-aura-default-away)";
+
   const [ph, pd, pa] = game.x12;
   const splitProbs = isNfl ? [ph, pa] : [ph, pd, pa];
   const splitLabels = isNfl
     ? [game.home.shortName, game.away.shortName]
     : [game.home.shortName, "Empate", game.away.shortName];
+
+  const inParlay = mainPick
+    ? parlayLegs.some((l) => l.pick.id === mainPick.id)
+    : false;
+
+  const shortEngineLabel = mainPick
+    ? mainPick.engineName.replace("PitchLab ", "")
+    : isNfl
+      ? "Minkowski v2.1"
+      : "Tachyon v2.1";
 
   const handleOpenStudio = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -250,45 +318,73 @@ export function MatchTicketCard({
 
   return (
     <article
-      className={`glass-card glass-ring ${featured ? "glass-ring--featured" : ""} rounded-2xl p-4 flex flex-col justify-between gap-3 relative overflow-hidden hover-lift`}
+      className={`${
+        featured ? "glass-lens glass-ring glass-ring--featured" : "glass-card glass-ring"
+      } rounded-2xl p-4 flex flex-col justify-between gap-3.5 relative overflow-hidden hover-lift`}
       data-game-card={game.id}
       onMouseEnter={() => setAuraFromGame(game)}
     >
+      {featured ? (
+        <LensGlowOrbs
+          primaryColor={homePrimary}
+          secondaryColor={awayPrimary}
+          subtle
+        />
+      ) : null}
+
       <span className="pl-watermark num" aria-hidden="true">
         {watermark}
       </span>
 
-      <div className="space-y-3">
-        <div className="flex items-center justify-between gap-2 text-xs">
-          <span className="font-bold" style={{ color: "var(--pl-text-secondary)" }}>
-            {game.leagueLabel} · {isFinished ? "Finalizado FT" : game.kickoffLocal}
+      <div className="space-y-3 relative z-10">
+        {/* Meta de liga, motor y nivel de confianza */}
+        <div className="flex flex-wrap items-center justify-between gap-1.5 text-xs">
+          <span
+            className="inline-flex items-center gap-1.5 font-bold min-w-0 truncate"
+            style={{ color: "var(--pl-text-secondary)" }}
+          >
+            <LeagueBadge league={game.league} label={game.leagueLabel} size={15} />
+            <span className="truncate">
+              {game.leagueLabel} · {isFinished ? "Finalizado FT" : game.kickoffLocal}
+            </span>
           </span>
-          {isFinished && mainPick?.result ? (
-            <span
-              className={
-                mainPick.result === "hit"
-                  ? "pl-pill pl-pill--success"
-                  : "pl-pill pl-pill--danger"
-              }
-            >
-              {mainPick.result === "hit" ? "Ganado" : "Perdido"}
+
+          <div className="flex items-center gap-1 shrink-0">
+            <span className="pl-pill text-[10px] inline-flex items-center gap-1">
+              <MaestroIcon name="cpu" size={11} />
+              <span>{shortEngineLabel}</span>
             </span>
-          ) : (
-            <span className="pl-pill pl-pill--brand num">
-              {game.picks.length} picks · Conf. {game.confidenceScore}
-            </span>
-          )}
+            {isFinished && mainPick?.result ? (
+              <span
+                className={`inline-flex items-center gap-1 ${
+                  mainPick.result === "hit"
+                    ? "pl-pill pl-pill--success"
+                    : "pl-pill pl-pill--danger"
+                }`}
+              >
+                <MaestroIcon name={mainPick.result === "hit" ? "check" : "x"} size={11} />
+                <span>{mainPick.result === "hit" ? "Ganado" : "Perdido"}</span>
+              </span>
+            ) : (
+              <span className="pl-pill pl-pill--brand num text-[10px]">
+                Conf. {game.confidenceScore}
+              </span>
+            )}
+          </div>
         </div>
 
+        {/* Equipos con CrestPedestal y marcador proyectado */}
         <div className="space-y-2">
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-2.5 min-w-0">
-              <TeamBadge
-                league={game.league}
-                slug={game.home.slug}
-                name={game.home.name}
-                size={28}
-              />
+              <CrestPedestal size="sm" glowColor={homePrimary}>
+                <TeamBadge
+                  league={game.league}
+                  slug={game.home.slug}
+                  name={game.home.name}
+                  size={24}
+                />
+              </CrestPedestal>
               <div className="min-w-0">
                 <p className="m-0 text-sm font-bold truncate">{game.home.name}</p>
                 <span className="block text-xs" style={{ color: "var(--pl-text-muted)" }}>
@@ -296,19 +392,21 @@ export function MatchTicketCard({
                 </span>
               </div>
             </div>
-            <strong className="num text-base font-extrabold">
+            <strong className="num text-base font-extrabold shrink-0">
               {isFinished ? game.score?.home : `${(ph * 100).toFixed(1)} %`}
             </strong>
           </div>
 
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-2.5 min-w-0">
-              <TeamBadge
-                league={game.league}
-                slug={game.away.slug}
-                name={game.away.name}
-                size={28}
-              />
+              <CrestPedestal size="sm" glowColor={awayPrimary}>
+                <TeamBadge
+                  league={game.league}
+                  slug={game.away.slug}
+                  name={game.away.name}
+                  size={24}
+                />
+              </CrestPedestal>
               <div className="min-w-0">
                 <p className="m-0 text-sm font-bold truncate">{game.away.name}</p>
                 <span className="block text-xs" style={{ color: "var(--pl-text-muted)" }}>
@@ -316,20 +414,48 @@ export function MatchTicketCard({
                 </span>
               </div>
             </div>
-            <strong className="num text-base font-extrabold">
+            <strong className="num text-base font-extrabold shrink-0">
               {isFinished ? game.score?.away : `${(pa * 100).toFixed(1)} %`}
             </strong>
           </div>
         </div>
 
-        <ProbSplit probabilities={splitProbs} labels={splitLabels} />
+        {/* Pill de marcador proyectado + barra de probabilidad */}
+        <div className="space-y-2">
+          {!isFinished ? (
+            <div className="flex items-center justify-between gap-2 text-xs num">
+              {unlockedMain ? (
+                <span className="pl-pill pl-pill--info inline-flex items-center gap-1">
+                  <MaestroIcon name="sparkles" size={11} />
+                  <span>
+                    Proy. {game.projection.home.toFixed(isNfl ? 1 : 2)} –{" "}
+                    {game.projection.away.toFixed(isNfl ? 1 : 2)}
+                  </span>
+                </span>
+              ) : (
+                <span className="pl-pill inline-flex items-center gap-1">
+                  <MaestroIcon name="lock" size={11} />
+                  <span>Proy. reservada</span>
+                </span>
+              )}
+              <span style={{ color: "var(--pl-text-muted)" }}>
+                {game.picks.length} picks calibrados
+              </span>
+            </div>
+          ) : null}
+
+          <ProbSplit probabilities={splitProbs} labels={splitLabels} />
+        </div>
 
         <div className="ticket-perf" />
 
         {mainPick && unlockedMain ? (
           <div className="flex items-center justify-between gap-2 text-xs">
             <div className="min-w-0">
-              <span className="block font-bold uppercase tracking-wider" style={{ color: "var(--pl-brand)" }}>
+              <span
+                className="block font-bold uppercase tracking-wider text-[10px]"
+                style={{ color: "var(--pl-brand)" }}
+              >
                 {mainPick.isDailyOpenPromo
                   ? "Pick Abierto del Día"
                   : mainPick.isTipstarWeeklyOpen
@@ -349,45 +475,64 @@ export function MatchTicketCard({
           </div>
         ) : (
           <div className="flex items-center justify-between gap-2 text-xs" data-card-locked="">
-            <div>
-              <span className="block font-bold" style={{ color: "var(--pl-brand)" }}>
-                🔒 5 picks listos en Spacetime Suite
+            <div className="min-w-0">
+              <span
+                className="inline-flex items-center gap-1.5 font-bold"
+                style={{ color: "var(--pl-brand)" }}
+              >
+                <MaestroIcon name="lock" size={12} />
+                <span>5 picks listos en Spacetime Suite</span>
               </span>
-              <span className="locked-redact block" aria-hidden="true">
+              <span className="locked-redact block mt-0.5" aria-hidden="true">
                 Pick Principal oculto
               </span>
             </div>
-            <span className="pl-pill">Pase Total</span>
+            <span className="pl-pill shrink-0">Pase Total</span>
           </div>
         )}
       </div>
 
-      <div className="flex items-center justify-between gap-2 pt-1 relative z-10">
+      <div className="flex items-center justify-between gap-2 pt-1.5 hairline-t relative z-10">
         <a
           href={studioHref}
           onClick={handleOpenStudio}
-          className="pl-btn-glass text-xs min-h-8 px-3"
+          className="pl-btn-glass text-xs min-h-8 px-3 inline-flex items-center gap-1.5"
         >
-          Radiografía ({game.picks.length}) →
+          <span>Radiografía ({game.picks.length})</span>
+          <MaestroIcon name="arrowRight" size={13} />
         </a>
 
         {!isFinished && mainPick && unlockedMain ? (
           <div className="flex items-center gap-1.5">
             <button
               type="button"
-              className="pl-btn-glass text-xs min-h-8 px-2.5"
+              className="pl-btn-glass text-xs min-h-8 px-2.5 inline-flex items-center gap-1"
               onClick={() => addPickToParlay(mainPick)}
             >
-              + Parlay
+              <MaestroIcon name={inParlay ? "check" : "plus"} size={12} />
+              <span>{inParlay ? "En Parlay" : "+ Parlay"}</span>
             </button>
             <button
               type="button"
-              className="pl-btn-primary text-xs min-h-8 px-2.5"
+              className="pl-btn-primary text-xs min-h-8 px-2.5 inline-flex items-center gap-1"
               onClick={() => openComposer(mainPick)}
             >
-              Sellar
+              <MaestroIcon name="ticket" size={12} />
+              <span>Sellar</span>
             </button>
           </div>
+        ) : !isFinished && !unlockedMain ? (
+          <a
+            href="/signup"
+            onClick={(e) => {
+              e.preventDefault();
+              navigateTo("/signup");
+            }}
+            className="pl-btn-accent text-xs min-h-8 px-2.5 inline-flex items-center gap-1"
+          >
+            <MaestroIcon name="unlock" size={12} />
+            <span>7d gratis</span>
+          </a>
         ) : null}
       </div>
     </article>
