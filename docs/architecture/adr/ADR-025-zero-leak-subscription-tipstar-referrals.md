@@ -7,7 +7,7 @@ date: 2026-11-10
 
 - **Estado:** Aceptada (`accepted`)
 - **Fecha:** 2026-11-10
-- **Relación arquitectónica:** Consolida y detalla para producción (Fase 4) los contratos de [ADR-010](ADR-010-autenticacion-con-better-auth.md) (Better Auth), [ADR-011](ADR-011-billing-desacoplado-y-entitlements-por-concesiones.md) (`BillingProvider` + `entitlement_grants`), [ADR-021](ADR-021-arquitectura-cero-fuga-pase-total-unico-y-crecimiento-tipstar.md) (fundamentos Cero-Fuga) y [ADR-023](ADR-023-paridad-prototipo-maestro-cristal-ahumado-y-primitivas-maestro.md) (`UI-MAESTRO-V4.1`).
+- **Relación arquitectónica:** Consolida y detalla para producción (Fase 4) los contratos de [ADR-010](ADR-010-autenticacion-con-better-auth.md) (Better Auth), [ADR-011](ADR-011-billing-desacoplado-y-entitlements-por-concesiones.md) (`BillingProvider` + `entitlement_grants`), [ADR-021](ADR-021-arquitectura-cero-fuga-pase-total-unico-y-crecimiento-tipstar.md) (fundamentos Cero-Fuga), [ADR-023](ADR-023-smoked-glass-maestro-ui-physics.md) y [ADR-026](ADR-026-contrato-ejecutable-prototipo-maestro-y-simulacion-roles.md) (`UI-MAESTRO-V4.1`).
 
 ## Contexto
 

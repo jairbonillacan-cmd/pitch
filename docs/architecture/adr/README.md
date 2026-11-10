@@ -26,3 +26,7 @@
 | [ADR-020](ADR-020-sistema-visual-liquid-glass-v4-y-aislamiento-de-tokens.md) | Sistema visual Liquid Glass v4, aislamiento de tokens duales y diálogos nativos Top Layer | Aceptada |
 | [ADR-021](ADR-021-arquitectura-cero-fuga-pase-total-unico-y-crecimiento-tipstar.md) | Arquitectura Cero-Fuga en servidor, Pase Total único y motor de crecimiento Tipstar + Referidos | Aceptada |
 | [ADR-022](ADR-022-spacetime-suite-multipicks-por-partido-y-parlays-correlacionados.md) | Abstracción propietaria Spacetime Suite v2.1, derivación de 5 picks por partido y parlays correlacionados | Aceptada |
+| [ADR-023](ADR-023-smoked-glass-maestro-ui-physics.md) | Física Smoked-Glass del Prototipo Maestro, Primitivas Ópticas y Gobernanza Cero-Hex AA | Aceptada |
+| [ADR-024](ADR-024-hybrid-snapshot-spacetime-quant-engine.md) | Puente híbrido entre snapshots reales por liga y el motor cuantitativo determinista Spacetime Suite v2.1 | Aceptada |
+| [ADR-025](ADR-025-zero-leak-subscription-tipstar-referrals.md) | Suscripción única Pase Total, frontera Cero-Fuga en servidor, lanzamiento Mes 1 sin tarjeta y motores duales de crecimiento | Aceptada |
+| [ADR-026](ADR-026-contrato-ejecutable-prototipo-maestro-y-simulacion-roles.md) | Contrato ejecutable del Prototipo Maestro, simulación de roles sin romper Cero-Fuga y paridad 1:1 | Aceptada |
