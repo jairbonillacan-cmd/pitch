@@ -23,3 +23,6 @@
 | [ADR-017](ADR-017-registro-de-emblemas-deportivos-con-fallback.md) | Registro de emblemas deportivos con fallback | Aceptada |
 | [ADR-018](ADR-018-archivar-la-reconstruccion-de-touchiq-y-reutilizar.md) | Archivar la reconstrucción de TouchIQ y reutilizar su dominio como Baseline 0 | Aceptada |
 | [ADR-019](ADR-019-shadcn-ui-mira-base-ui-con-tokens-pitchlab.md) | Primitivas shadcn/ui (Mira, Base UI) con los tokens de PitchLab | Aceptada |
+| [ADR-020](ADR-020-sistema-visual-liquid-glass-v4-y-aislamiento-de-tokens.md) | Sistema visual Liquid Glass v4, aislamiento de tokens duales y diálogos nativos Top Layer | Aceptada |
+| [ADR-021](ADR-021-arquitectura-cero-fuga-pase-total-unico-y-crecimiento-tipstar.md) | Arquitectura Cero-Fuga en servidor, Pase Total único y motor de crecimiento Tipstar + Referidos | Aceptada |
+| [ADR-022](ADR-022-spacetime-suite-multipicks-por-partido-y-parlays-correlacionados.md) | Abstracción propietaria Spacetime Suite v2.1, derivación de 5 picks por partido y parlays correlacionados | Aceptada |

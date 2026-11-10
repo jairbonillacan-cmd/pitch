@@ -151,9 +151,13 @@ export function BrandLogo({
 export function ThemeToggle({ shape }: { shape?: "pill" } = {}): React.JSX.Element {
   const handleToggle = () => {
     if (typeof document === "undefined") return;
-    const current = document.documentElement.dataset.theme === "light" ? "light" : "dark";
+    const root = document.documentElement;
+    const current = root.dataset.theme === "light" ? "light" : "dark";
     const next = current === "light" ? "dark" : "light";
-    document.documentElement.dataset.theme = next;
+    root.dataset.themeSwitching = "true";
+    root.dataset.theme = next;
+    void root.offsetHeight;
+    delete root.dataset.themeSwitching;
     try {
       window.localStorage.setItem("pl-theme", next);
     } catch (err) {

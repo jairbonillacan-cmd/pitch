@@ -34,6 +34,8 @@
 |---|---|---|---|
 | `--on-primary` | `var(--background-primary)` | `#FFFFFF` | Texto sobre botón primario |
 | `--glow` | `#B49AFF26` | `#5940B21f` | Halo detrás de Radar, anillo de hover del CTA y casilla activa del PIN |
+| `--glass-lens-bg` / `--glass-card-matte` / `--glass-well-bg` / `--glass-nav` | `rgba(10..13, 14..19, 27..35, 0.86..0.90)` | `rgba(240..251, 244..252, 252..255, 0.90..0.93)` | Rellenos neutros de alta lectura que aíslan el texto del alumbrado cromático exterior |
+| `--glass-corner-hi` / `-lo` · `--glass-rim-top` / `-bot` | Blanco óptico `0.22–0.94` | Blanco óptico `0.78–1.0` + sombra ancla `--glass-ring-shadow` | Bisel Liquid Glass blanco (`.glass-ring`) en contenedores y controles con borde de la landing |
 
 **Regla:** fuera de `packages/tokens` no existe ningún hex (lint).
 

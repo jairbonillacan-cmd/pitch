@@ -5,9 +5,7 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
-    "./app": "./src/app/index.ts",
-    "./auth": "./src/auth/index.ts",
-    "./pricing": "./src/pricing/pricing.tsx"
+    "./platform": "./src/platform/index.ts"
   },
   "scripts": {
     "build": "tsc --noEmit",

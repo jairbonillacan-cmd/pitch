@@ -2,74 +2,129 @@ import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import path from "node:path";
 
-test("Inicio carga con la sesión de beta y funciona en los dos temas", async ({ page }, testInfo) => {
-  const width = testInfo.project.name === "mobile" ? 375 : 1440;
+test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad VIP, Tipstar y Referidos (+15d)", async ({
+  page,
+}, testInfo) => {
+  const width = testInfo.project.name === "mobile" ? 390 : 1440;
   await page.setViewportSize({ width, height: 900 });
+
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));
+
+  const uniqueIp = `198.51.${Math.floor(Math.random() * 200) + 10}.${Math.floor(Math.random() * 200) + 10}`;
   const unlock = await page.request.post("/api/beta/unlock", {
+    headers: { "x-forwarded-for": uniqueIp },
     data: { code: "2026", next: "/app" },
   });
   expect(unlock.ok()).toBe(true);
+
   await page.goto("/app");
   await expect(page).toHaveURL(/\/app$/);
-  await expect(page.getByRole("heading", { name: width === 375 ? "Lo más probable hoy" : "Hoy", exact: true })).toBeVisible();
-  await expect(page.getByRole("heading", { name: /Lo más probable/ })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Esta noche" })).toBeVisible();
-  await expect(page.getByRole("region", { name: "Mis picks abiertos" })).toContainText("Ejemplo");
-  await expect(page.getByRole("region", { name: "Movimientos de cuota" })).toContainText("Ejemplo");
-  await expect(page.locator(".ph-standings tbody tr")).toHaveCount(3);
+  await expect(
+    page.getByRole("heading", { name: /Centro de Mando/i }),
+  ).toBeVisible();
 
+  // Verificar cero overflow y WCAG AA tanto en tema oscuro como en tema claro
   for (const theme of ["dark", "light"]) {
     await expect(page.locator("html")).toHaveAttribute("data-theme", theme);
-    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
+    const hasOverflow = await page.evaluate(
+      () => document.documentElement.scrollWidth > window.innerWidth,
+    );
+    expect(hasOverflow).toBe(false);
+
     await page.screenshot({
-      path: path.resolve(process.cwd(), `../../test-results/screenshots/inicio-${width}-${theme}.png`),
-      fullPage: true,
+      path: path.resolve(
+        process.cwd(),
+        `../../test-results/screenshots/club-jornada-${width}-${theme}.png`,
+      ),
+      fullPage: false,
     });
-    const { violations } = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze();
+
+    const { violations } = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa"])
+      .analyze();
     expect(violations).toEqual([]);
-    if (theme === "dark") await page.locator("[data-theme-toggle]").click();
-  }
-  expect(await page.locator(".ph-content").innerText()).not.toMatch(/nflverse|openfootball|api-football|poisson|dixon-coles|pitágoras|log5/i);
 
-  if (width === 375) {
-    const more = page.getByRole("button", { name: "Más", exact: true });
-    await more.click();
-    const sheet = page.getByRole("dialog", { name: "Más" });
-    await expect(sheet).toBeVisible();
-    await expect(sheet).toContainText("Prueba Pro");
-    await expect(sheet).toContainText("Ejemplo");
-    await expect(sheet.getByRole("link", { name: "Ayuda y juego responsable" })).toHaveAttribute("href", "/legal/juego-responsable");
-    await page.keyboard.press("Escape");
-    await expect(sheet).toBeHidden();
-    await expect(more).toBeFocused();
-    await page.getByRole("button", { name: "Buscar", exact: true }).click();
-  } else {
-    await page.keyboard.press("Control+k");
-  }
-  const search = page.getByRole("searchbox", { name: "Buscar equipo, jugador o partido" });
-  await expect(search).toBeFocused();
-  await search.fill("Liga MX");
-  await expect(page.locator(".ph-search-results a").first()).toHaveAttribute("href", /\/app\/liga-mx\/games\//);
-  if (width === 375) {
-    await page.getByRole("dialog", { name: "Buscar" }).getByRole("button", { name: "Cerrar" }).click();
-  } else {
-    await page.keyboard.press("Escape");
+    if (theme === "dark") {
+      await page.locator("[data-theme-toggle]").click();
+      await page.waitForTimeout(150);
+    }
   }
 
-  const upcoming = page.getByRole("region", { name: "Próximos en tus ligas" });
-  const nfl = upcoming.getByRole("radio", { name: "NFL" });
-  await nfl.click();
-  await expect(nfl).toHaveAttribute("aria-checked", "true");
-  const matches = await upcoming.locator("tbody a").all();
-  if (matches.length === 0) await expect(upcoming.getByRole("status")).toBeVisible();
-  for (const match of matches) await expect(match).toHaveAttribute("href", /\/app\/nfl\/games\//);
-  const gameCenter = page.getByRole("link", { name: "Abrir Game Center" });
-  if (await gameCenter.isVisible()) {
-    await gameCenter.click();
-    await expect(page).toHaveURL(/\/app\/[^/]+\/games\/[^/]+$/);
-    await expect(page.locator(".analysis-dialog")).toBeVisible();
+  // Regresar a oscuro
+  await page.locator("[data-theme-toggle]").click();
+
+  // Buscador global (⌘K / botón Buscar)
+  await page.getByRole("button", { name: "Buscar" }).click();
+  const searchInput = page.getByRole("searchbox", {
+    name: /Buscar equipo, liga, partido o módulo/i,
+  });
+  await expect(searchInput).toBeVisible();
+  await searchInput.fill("NFL");
+  await expect(
+    page.getByRole("dialog", { name: "Buscar en PitchLab" }).locator('a[href^="/app/nfl/games/"]').first(),
+  ).toBeVisible();
+  await page
+    .getByRole("dialog", { name: "Buscar en PitchLab" })
+    .getByRole("button", { name: "Cerrar" })
+    .click();
+
+  // 1) Armador Inteligente de Parlays & SGP
+  await page.goto("/app/parlays");
+  await expect(
+    page.getByRole("heading", { name: /Armador Inteligente de Parlays/i }),
+  ).toBeVisible();
+  await page.locator("[data-generate-parlay]").click();
+  await expect(page.getByRole("button", { name: /Sellar Parlay/i })).toBeEnabled();
+  await page.getByRole("button", { name: /Sellar Parlay/i }).click();
+
+  // 2) Player Props Lab interactivo
+  await page.goto("/app/props");
+  await expect(
+    page.getByRole("heading", { name: /Player Props Lab Interactivo/i }),
+  ).toBeVisible();
+  const plusButtons = page.getByRole("button", { name: /Subir línea/i });
+  if ((await plusButtons.count()) > 0) {
+    await plusButtons.first().click();
   }
+
+  // 3) Comunidad VIP exclusiva: bloqueo automático de enlaces externos (Telegram/WhatsApp)
+  await page.goto("/app/social");
+  await expect(
+    page.getByRole("heading", { name: /Comunidad VIP/i }),
+  ).toBeVisible();
+  const socialTextarea = page.locator("textarea").first();
+  await socialTextarea.fill("Únanse a mi grupo externo https://t.me/spam_picks");
+  await page.getByRole("button", { name: /Publicar en Comunidad VIP/i }).click();
+  await expect(page.locator("p[role='alert']")).toContainText(/enlaces externos/i);
+
+  // Publicación limpia permitida
+  await socialTextarea.fill(
+    "Excelente lectura previa de Cortex IA en el cruce estelar; entré con 1.5u.",
+  );
+  await page.getByRole("button", { name: /Publicar en Comunidad VIP/i }).click();
+  await expect(page.locator("body")).toContainText(
+    "Excelente lectura previa de Cortex IA",
+  );
+
+  // 4) Portal Tipstar Creadores Oficiales: generar boleto 4:5 / 9:16 con código SOFIA5
+  await page.goto("/app/tipstar");
+  await expect(
+    page.getByRole("heading", { name: /Portal Tipstar/i }),
+  ).toBeVisible();
+  await page
+    .getByRole("button", { name: /Generar Boleto 4:5 \/ 9:16 con mi Código/i })
+    .click();
+  const shareDialog = page.getByRole("dialog");
+  await expect(shareDialog).toBeVisible();
+  await expect(shareDialog).toContainText("SOFIA5");
+  await page.getByRole("button", { name: "Cerrar vista de boleto" }).click();
+
+  // 5) Cuenta & Referidos Doble Vía: simular primer pago de amigo (+15 días gratis para ambos)
+  await page.goto("/app/account");
+  await expect(page.locator("[data-referral-days]:visible")).toContainText("+30 días");
+  await page.locator("[data-simulate-referral]:visible").click();
+  await expect(page.locator("[data-referral-days]:visible")).toContainText("+45 días");
+
   expect(errors).toEqual([]);
 });

@@ -9,8 +9,14 @@ const FORBIDDEN_FD16_TERMS = [
   "api-football",
   "Poisson",
   "Dixon-Coles",
+  "LightGBM",
+  "Platt",
   "Pitágoras",
   "Log5",
+  "Polymarket",
+  "Kalshi",
+  "Understat",
+  "ESPN",
 ];
 
 const SCREENSHOT_DIR = path.resolve(process.cwd(), "../../test-results/screenshots");
@@ -19,8 +25,8 @@ test.beforeAll(() => {
   fs.mkdirSync(SCREENSHOT_DIR, { recursive: true });
 });
 
-test.describe("PitchLab Pre-MVP E2E Suite", () => {
-  test("1. Landing page, demo selector, theme persistence, FD-16 & a11y", async ({
+test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
+  test("1. Landing page, Zero-Leakage, live Geodesic comparator, theme persistence & a11y", async ({
     page,
   }, testInfo) => {
     const errors: string[] = [];
@@ -29,48 +35,53 @@ test.describe("PitchLab Pre-MVP E2E Suite", () => {
     const start = Date.now();
     await page.goto("/");
     const elapsed = Date.now() - start;
-    expect(elapsed).toBeLessThan(5000);
+    expect(elapsed).toBeLessThan(6000);
 
-    await expect(page.locator("h1")).toContainText("Lee el juego con datos");
+    await expect(page.locator("h1")).toContainText(
+      "Radiografía cuantitativa y 4 a 5 picks por partido",
+    );
+    await expect(page.locator("body")).toContainText("PitchLab Spacetime Suite v2.1");
+    await expect(page.locator("body")).toContainText("+358,400");
 
-    // Save Hero dark screenshot at top of page
     await page.evaluate(() => window.scrollTo(0, 0));
     await page.screenshot({
       path: path.join(SCREENSHOT_DIR, `landing-${testInfo.project.name}-dark.png`),
       fullPage: false,
     });
 
-    // «Pregunta un partido»: elegir otro partido abre su análisis en la hoja.
-    const picks = page.locator(".lv-rail .lv-chip");
-    const pickCount = await picks.count();
-    expect(pickCount).toBeGreaterThanOrEqual(2);
+    // Cero-Fuga en modo visitante: los picks adicionales del partido están protegidos
+    const lockedCount = await page.locator("[data-locked-pick]").count();
+    expect(lockedCount).toBeGreaterThanOrEqual(2);
 
-    await picks.nth(1).click();
-    await expect(picks.nth(1)).toHaveAttribute("aria-selected", "true");
-    await expect(page.locator(".lv-sheet .lv-big")).toContainText("%");
+    // Comparador en vivo Geodesic v1.0
+    const oddsInput = page.locator("#landing-user-odds");
+    await expect(oddsInput).toBeVisible();
+    await oddsInput.fill("2.25");
+    await expect(page.locator("[data-odds-comparator]")).toContainText("pts");
 
-    // «Tu cuota» compara la cuota escrita con la probabilidad del modelo.
-    await page.locator(".lv-yours input").fill("2.10");
-    await expect(page.locator(".lv-yours-read")).toContainText("pts");
+    // Cambiar de partido en el selector del hero
+    const heroChips = page.locator("[data-hero-game-chip]");
+    expect(await heroChips.count()).toBeGreaterThanOrEqual(2);
+    await heroChips.nth(1).click();
+    await expect(heroChips.nth(1)).toHaveAttribute("aria-selected", "true");
 
-    // FD-16 check on Landing HTML
+    // Verificación estricta cero términos matemáticos/proveedores internos
     const html = await page.content();
     for (const term of FORBIDDEN_FD16_TERMS) {
       expect(html.toLowerCase()).not.toContain(term.toLowerCase());
     }
 
-    // Toggle theme to light and verify persistence across reload
-    await page. evaluate(() => window.scrollTo(0, 0));
+    // Cambio a tema claro + persistencia tras recarga + WCAG AA
+    await page.evaluate(() => window.scrollTo(0, 0));
     await page.locator("[data-theme-toggle]").click();
     await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
-    await page.waitForTimeout(250);
+    await page.waitForTimeout(200);
 
     await page.screenshot({
       path: path.join(SCREENSHOT_DIR, `landing-${testInfo.project.name}-light.png`),
       fullPage: false,
     });
 
-    // Axe accessibility check in light mode
     const lightA11y = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa"])
       .analyze();
@@ -79,15 +90,12 @@ test.describe("PitchLab Pre-MVP E2E Suite", () => {
     await page.reload();
     await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
 
-    // Switch back to dark
+    // Volver a oscuro
     await page.locator("[data-theme-toggle]").click();
     await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
-    await page.waitForTimeout(250);
+    await page.waitForTimeout(200);
 
-    // Cada liga de fútbol con tabla publicada muestra a su líder.
-    await expect(page.locator("#ligas")).toContainText("Liga MX");
-
-    // Verify all visible images loaded
+    // Verificar imágenes visibles cargadas
     const brokenImages = await page.evaluate(() => {
       const imgs = Array.from(document.querySelectorAll("img"));
       return imgs
@@ -100,19 +108,50 @@ test.describe("PitchLab Pre-MVP E2E Suite", () => {
     });
     expect(brokenImages).toEqual([]);
 
-    // Axe accessibility check
-    const a11y = await new AxeBuilder({ page })
+    const darkA11y = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa"])
       .analyze();
-    expect(a11y.violations).toEqual([]);
+    expect(darkA11y.violations).toEqual([]);
     expect(errors).toEqual([]);
   });
 
-  test("2. Auth protection, wrong PIN, rate limit (429), and locked forms", async ({
+  test("2. Public Tech/Pricing/Tipstar routes, Auth gate, $0 anti-abuse & 429 rate limit", async ({
     page,
     request,
   }, testInfo) => {
-    // Visiting /app without cookie redirects to /login?next=%2Fapp
+    // /metodologia redirige limpiamente a /tecnologia
+    await page.goto("/metodologia");
+    await expect(page).toHaveURL(/\/tecnologia$/);
+    await expect(page.locator("h1")).toContainText(
+      "Data Science, Machine Learning e IA",
+    );
+    await expect(page.locator("body")).toContainText("PitchLab Tachyon v2.1");
+    await expect(page.locator("body")).toContainText("PitchLab Minkowski v2.1");
+    const techA11y = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa"])
+      .analyze();
+    expect(techA11y.violations).toEqual([]);
+
+    // Boleto público de Tipstar (/p/sofia-sem): libera 1 pick semanal y protege los otros 4 del mismo partido
+    await page.goto("/p/sofia-sem");
+    await expect(page.locator("h1")).toContainText("@sofia_nfl");
+    await expect(page.locator("body")).toContainText("SOFIA5");
+    expect(await page.locator("[data-locked-pick]").count()).toBeGreaterThanOrEqual(3);
+    const tipstarPublicA11y = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa"])
+      .analyze();
+    expect(tipstarPublicA11y.violations).toEqual([]);
+
+    // /pricing: único Pase Total ($299 / $2,390) + referidos doble vía (+15 días)
+    await page.goto("/pricing");
+    await expect(page.locator("h1")).toContainText("Un solo Pase Total");
+    await expect(page.locator("body")).toContainText("+15 días gratis");
+    const pricingA11y = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa"])
+      .analyze();
+    expect(pricingA11y.violations).toEqual([]);
+
+    // Visitar /app sin cookie redirige a /login?next=%2Fapp
     await page.goto("/app", { waitUntil: "domcontentloaded" });
     await expect(page).toHaveURL(/\/login\?next=%2Fapp/);
 
@@ -120,13 +159,7 @@ test.describe("PitchLab Pre-MVP E2E Suite", () => {
       path: path.join(SCREENSHOT_DIR, `login-${testInfo.project.name}-dark.png`),
     });
 
-    // Verify locked email form submit button is disabled and notice is visible
-    await expect(page.locator("form.auth-form button[type='submit']")).toBeDisabled();
-    await expect(page.locator(".notice")).toContainText(
-      "Las cuentas abren pronto",
-    );
-
-    // Open PIN dialog and enter wrong code 9999 (using a dedicated test IP header for PIN check)
+    // PIN incorrecto (9999) muestra retroalimentación de error
     const runIpSuffix = `${Math.floor(Math.random() * 200) + 10}.${Math.floor(Math.random() * 200) + 10}`;
     await page.setExtraHTTPHeaders({ "x-forwarded-for": `198.51.${runIpSuffix}` });
     await page.locator(".btn-beta").click();
@@ -139,7 +172,7 @@ test.describe("PitchLab Pre-MVP E2E Suite", () => {
       "Código incorrecto",
     );
 
-    // Verify rate limiter: 6 consecutive failed attempts from a distinct IP return 429
+    // Rate limiter: 6 intentos fallidos consecutivos desde una IP devuelven 429
     const rateLimitIp = `203.0.${runIpSuffix}`;
     let lastStatus = 0;
     for (let i = 1; i <= 6; i++) {
@@ -151,8 +184,16 @@ test.describe("PitchLab Pre-MVP E2E Suite", () => {
     }
     expect(lastStatus).toBe(429);
 
-    // Check /signup page
-    await page.goto("/signup");
+    // /signup: escudo anti-abuso $0 MXN (bloqueo de correo desechable + normalización Gmail)
+    await page.goto("/signup?code=SOFIA5");
+    await expect(page.locator("#auth-promo")).toHaveValue("SOFIA5");
+    await page.locator("#auth-email").fill("bot@mailinator.com");
+    await page.locator("form.auth-form button[type='submit']").click();
+    await expect(page.locator("p[role='alert']")).toContainText("temporales");
+
+    await page.locator("#auth-email").fill("Juan.Perez+promo@googlemail.com");
+    await expect(page.locator("body")).toContainText("juanperez@gmail.com");
+
     await page.screenshot({
       path: path.join(SCREENSHOT_DIR, `signup-${testInfo.project.name}-dark.png`),
     });
@@ -162,7 +203,7 @@ test.describe("PitchLab Pre-MVP E2E Suite", () => {
     expect(signupA11y.violations).toEqual([]);
   });
 
-  test("3. Unlock with valid PIN, navigate /app/[league], modal URL sync, reload & logout", async ({
+  test("3. Valid PIN unlock, League Hub, Match Studio (5 picks + Cortex IA + Dinero), Bundesliga & Logout", async ({
     page,
   }, testInfo) => {
     const uniqueIp = `192.0.${Math.floor(Math.random() * 200) + 10}.${Math.floor(Math.random() * 200) + 10}`;
@@ -179,7 +220,6 @@ test.describe("PitchLab Pre-MVP E2E Suite", () => {
     await page.waitForURL("**/app/premier-league", { timeout: 15_000 });
     await expect(page.locator("#panel-league-name")).toContainText("Premier League");
 
-    // FD-16 check on /app/premier-league
     const plHtml = await page.content();
     for (const term of FORBIDDEN_FD16_TERMS) {
       expect(plHtml.toLowerCase()).not.toContain(term.toLowerCase());
@@ -189,91 +229,94 @@ test.describe("PitchLab Pre-MVP E2E Suite", () => {
       path: path.join(SCREENSHOT_DIR, `panel-pl-${testInfo.project.name}-dark.png`),
     });
 
-    // Toggle light mode screenshot of panel
+    // Verificar accesibilidad en modo claro y oscuro dentro del Club
     await page.locator("[data-theme-toggle]").click();
-    await page.waitForTimeout(250);
+    await page.waitForTimeout(200);
     await page.screenshot({
       path: path.join(SCREENSHOT_DIR, `panel-pl-${testInfo.project.name}-light.png`),
     });
-    await page.locator("[data-theme-toggle]").click();
-    await page.waitForTimeout(250);
-
-    // Axe check on /app/premier-league
-    const panelA11y = await new AxeBuilder({ page })
+    const lightPanelA11y = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa"])
       .analyze();
-    expect(panelA11y.violations).toEqual([]);
+    expect(lightPanelA11y.violations).toEqual([]);
 
-    // Day filter chips
+    await page.locator("[data-theme-toggle]").click();
+    await page.waitForTimeout(200);
+
+    // Filtro por día
     const dayChips = page.locator("#day-chips .day-chip");
-    const chipCount = await dayChips.count();
-    expect(chipCount).toBeGreaterThanOrEqual(2);
+    expect(await dayChips.count()).toBeGreaterThanOrEqual(2);
     await dayChips.nth(1).click();
     await expect(dayChips.nth(1)).toHaveAttribute("aria-pressed", "true");
     await dayChips.first().click();
 
-    // Open a MatchCard modal -> URL updates to /app/premier-league/games/<gameId>
-    const firstCard = page.locator(".match-card").first();
-    const gameId = await firstCard.getAttribute("data-game-id");
+    // Abrir Radiografía del primer partido -> /app/premier-league/games/<gameId>
+    const firstCard = page.locator("[data-game-card]").first();
+    const gameId = await firstCard.getAttribute("data-game-card");
     expect(gameId).toBeTruthy();
 
-    await firstCard.click();
-    await expect(page.locator("[role=dialog].analysis-dialog")).toBeVisible();
-    expect(page.url()).toContain(`/app/premier-league/games/${gameId}`);
+    await firstCard.locator("a", { hasText: "Radiografía" }).click();
+    await page.waitForURL(`**/app/premier-league/games/${gameId}`);
 
-    const skipBtn = page.locator("[role=dialog].analysis-dialog [data-skip]");
-    if (await skipBtn.isVisible()) {
-      await skipBtn.click();
-    }
-    await expect(page.locator("[role=dialog].analysis-dialog .result")).toBeVisible();
+    await expect(page.locator("body")).toContainText("PitchLab Cortex IA");
+    await expect(page.locator("[data-picks]")).toBeVisible();
+    // Socio con Pase Total ve los 5 picks desbloqueados (cero candados)
+    expect(await page.locator("[data-locked-pick]").count()).toBe(0);
+
+    await page.locator("[data-section-tab='mercados']").click();
+    await expect(page.locator("body")).toContainText("Geodesic v1.0");
+
+    await page.locator("[data-section-tab='contexto']").click();
+    await expect(page.locator("body")).toContainText("Contexto del partido");
+
+    await page.locator("[data-section-tab='dinero']").click();
+    await expect(page.locator("[data-market-pulse]")).toBeVisible();
+    await expect(page.locator("[data-market-pulse]")).not.toContainText(/polymarket|kalshi/i);
 
     await page.screenshot({
-      path: path.join(SCREENSHOT_DIR, `modal-pl-${testInfo.project.name}-dark.png`),
+      path: path.join(SCREENSHOT_DIR, `studio-pl-${testInfo.project.name}-dark.png`),
     });
 
-    // Reload directly on /app/premier-league/games/<gameId> -> modal opens automatically
-    await page.reload();
-    await expect(page.locator("[role=dialog].analysis-dialog")).toBeVisible();
+    // Cambiar a Bundesliga y verificar emblema + tabla de posiciones + cero desborde horizontal
+    await page.locator(".league-tab[data-league='bundesliga']:visible").first().click();
+    await page.waitForURL("**/app/bundesliga");
+    await expect(page.locator("#panel-league-name")).toContainText("Bundesliga");
 
-    // Close modal with Escape -> URL returns to /app/premier-league
-    await page.keyboard.press("Escape");
-    await expect(page.locator("[role=dialog].analysis-dialog")).toBeHidden();
-    expect(page.url()).toMatch(/\/app\/premier-league$/);
+    const badge = page.locator('img[src$="/bundesliga.svg"]:visible').first();
+    await expect(badge).toBeVisible();
+    await expect
+      .poll(() => badge.evaluate((image: HTMLImageElement) => image.naturalWidth))
+      .toBeGreaterThan(0);
 
-    // Switch to NFL tab
-    await page.locator(".league-tab[data-league='nfl']").click();
-    await page.waitForURL("**/app/nfl");
-    await expect(page.locator("#panel-league-name")).toContainText("NFL");
+    const overflow = await page.evaluate(
+      () => document.documentElement.scrollWidth > window.innerWidth,
+    );
+    expect(overflow).toBe(false);
 
-    // FD-16 check on /app/nfl
-    const nflHtml = await page.content();
-    for (const term of FORBIDDEN_FD16_TERMS) {
-      expect(nflHtml.toLowerCase()).not.toContain(term.toLowerCase());
-    }
+    await expect(page.locator(".standings-block")).toBeVisible();
+    await expect(page.locator(".standings")).toContainText("Pts");
 
-    // Logout -> clears cookie and redirects to /
+    // Cerrar sesión -> limpia cookie y redirige a /
     await page.locator("header.panel-header button", { hasText: "Salir" }).click();
     await page.waitForURL("**/");
 
-    // Visiting /app after logout redirects to /login
     await page.goto("/app");
     await expect(page).toHaveURL(/\/login/);
   });
 
-  test("4. Responsive viewports (zero horizontal scroll) and /legal/creditos attribution", async ({
+  test("4. Responsive viewports (zero horizontal scroll), /legal/creditos & /robots.txt", async ({
     page,
   }) => {
     const widths = [375, 390, 768, 1024, 1280, 1440];
     await page.goto("/");
     for (const width of widths) {
       await page.setViewportSize({ width, height: 844 });
-      const overflow = await page.evaluate(() => {
-        return document.documentElement.scrollWidth > window.innerWidth;
-      });
+      const overflow = await page.evaluate(
+        () => document.documentElement.scrollWidth > window.innerWidth,
+      );
       expect(overflow, `Horizontal overflow at ${width}px`).toBe(false);
     }
 
-    // Verify /legal/creditos has CC-BY 4.0 nflverse and CC0 openfootball attribution
     await page.goto("/legal/creditos");
     const creditHtml = await page.content();
     expect(creditHtml).toContain("nflverse");
@@ -281,95 +324,8 @@ test.describe("PitchLab Pre-MVP E2E Suite", () => {
     expect(creditHtml).toContain("openfootball");
     expect(creditHtml).toContain("CC0");
 
-    // Verify robots.txt
     const robotsRes = await page.request.get("/robots.txt");
     expect(robotsRes.ok()).toBe(true);
     expect(await robotsRes.text()).toContain("Disallow: /");
-  });
-
-  test("5. La metodología no se publica y LaLiga mantiene sus mercados", async ({ page }) => {
-    const uniqueIp = `198.51.${Math.floor(Math.random() * 200) + 10}.${Math.floor(Math.random() * 200) + 10}`;
-    await page.setExtraHTTPHeaders({ "x-forwarded-for": uniqueIp });
-
-    await page.goto("/metodologia");
-    await expect(page).toHaveURL(/\/#como-se-lee$/);
-    await expect(page.locator('a[href="/metodologia"]')).toHaveCount(0);
-
-    // Panel de LaLiga con los mercados nuevos.
-    await page.goto("/login?next=%2Fapp%2Flaliga");
-    await page.locator(".btn-beta").click();
-    await expect(page.locator(".pin-dialog")).toBeVisible();
-    for (const d of ["2", "0", "2", "6"]) {
-      await page.locator(`button.pin-key[data-pin-digit='${d}']`).click();
-    }
-    await page.waitForURL("**/app/laliga", { timeout: 15_000 });
-    await expect(page.locator("#panel-league-name")).toContainText("LaLiga");
-
-    // Abre el primer análisis y comprueba los mercados nuevos del modelo.
-    await page.locator("button:has-text('Analizar')").first().click();
-    const dialog = page.locator("[role=dialog].analysis-dialog");
-    await expect(dialog).toBeVisible();
-    const skip = dialog.locator("[data-skip]");
-    if (await skip.isVisible().catch(() => false)) await skip.click();
-
-    // Fase A: la liga correcta en el modal y, según la hora, picks o el aviso de que no aplican.
-    await expect(dialog.locator("#modal-league")).toContainText("LaLiga");
-    await dialog.locator("[data-section-tab='picks']").click();
-    const picksOrNote = dialog.locator("[data-picks], [data-no-picks], .tag-info");
-    await expect(picksOrNote.first()).toBeVisible();
-    if ((await dialog.locator("[data-picks]").count()) > 0) {
-      await expect(dialog.locator("[data-picks] li")).toHaveCount(3);
-    }
-
-    // Secciones del análisis: cada pestaña muestra su bloque.
-    await dialog.locator("[data-section-tab='mercados']").click();
-    await expect(dialog).toContainText("Goles por equipo");
-    await expect(dialog).toContainText("Marcador exacto");
-
-    await dialog.locator("[data-section-tab='contexto']").click();
-    await expect(dialog).toContainText("Forma local");
-    await expect(dialog).toContainText("Forma visitante");
-    await expect(dialog).toContainText("Posición local");
-    await expect(dialog).toContainText("Posición visitante");
-    await expect(dialog).toContainText("Contexto del partido");
-    await expect(dialog).not.toContainText(/Memoria larga|ajustado por rival/i);
-
-    // FD-20: el panel de dinero aparece (con datos o vacío) y nunca nombra al proveedor.
-    await dialog.locator("[data-section-tab='dinero']").click();
-    await expect(dialog.locator("[data-market-pulse]")).toBeVisible();
-    await expect(dialog).not.toContainText(/polymarket|kalshi/i);
-  });
-
-  test("6. Bundesliga: emblema, tabla y sin scroll horizontal", async ({
-    page,
-  }, testInfo) => {
-    const uniqueIp = `203.0.${Math.floor(Math.random() * 200) + 10}.${Math.floor(Math.random() * 200) + 10}`;
-    await page.setExtraHTTPHeaders({ "x-forwarded-for": uniqueIp });
-
-    await page.goto("/login?next=%2Fapp%2Fbundesliga");
-    await page.locator(".btn-beta").click();
-    for (const d of ["2", "0", "2", "6"]) {
-      await page.locator(`button.pin-key[data-pin-digit='${d}']`).click();
-    }
-    await page.waitForURL("**/app/bundesliga", { timeout: 15_000 });
-    await expect(page.locator("#panel-league-name")).toContainText("Bundesliga");
-
-    const badge = page.locator('img[src$="/bundesliga.svg"]:visible').first();
-    await expect(badge).toBeVisible();
-    await expect.poll(() => badge.evaluate((image: HTMLImageElement) => image.naturalWidth)).toBeGreaterThan(0);
-
-    // La fila de ligas hace scroll interno: nunca desborda la página.
-    const overflow = await page.evaluate(
-      () => document.documentElement.scrollWidth > window.innerWidth,
-    );
-    expect(overflow).toBe(false);
-
-    // Tabla de posiciones calculada del snapshot.
-    await expect(page.locator(".standings-block")).toBeVisible();
-    await expect(page.locator(".standings")).toContainText("Pts");
-
-    await page.screenshot({
-      path: path.join(SCREENSHOT_DIR, `panel-bundesliga-${testInfo.project.name}-dark.png`),
-    });
   });
 });

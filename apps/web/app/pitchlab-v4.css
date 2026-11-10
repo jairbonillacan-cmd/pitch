@@ -1,0 +1,822 @@
+/* ==========================================================================
+   PitchLab v4 · Liquid Glass Design System (shows.link + Spacetime Suite v2.1)
+   Cero literales hexadecimales fuera de @pitchlab/tokens.
+   Soporte dual Dark (#000000 obsidian) y Light (#F4F4F7 alabaster) con AA/AAA.
+   ========================================================================== */
+
+.pl-stage {
+  --background-primary: var(--pl-stage-bg);
+  --background-secondary: var(--pl-stage-subtle);
+  --background-elevated: var(--pl-stage-elevated);
+  --brand-primary: var(--pl-brand);
+  --brand-primary-solid: var(--pl-brand-solid);
+  --brand-primary-hover: var(--pl-brand-hover);
+  --brand-accent: var(--pl-accent);
+  --surface-default: var(--pl-surface);
+  --surface-elevated: var(--pl-surface-elevated);
+  --surface-hover: var(--pl-surface-hover);
+  --surface-active: var(--pl-surface-active);
+  --text-primary: var(--pl-text);
+  --text-secondary: var(--pl-text-secondary);
+  --text-muted: var(--pl-text-muted);
+  --border-default: var(--pl-border);
+  --border-strong: var(--pl-border-strong);
+  --success: var(--pl-success);
+  --warning: var(--pl-warning);
+  --danger: var(--pl-danger);
+  --info: var(--pl-info);
+  --on-primary: var(--pl-on-primary);
+  --glow: var(--pl-glow);
+  --home-color: var(--pl-aura-default-home);
+  --away-color: var(--pl-aura-default-away);
+
+  font-family: "Host Grotesk", "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  background-color: var(--pl-stage-bg);
+  color: var(--pl-text);
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: -0.011em;
+  caret-color: var(--pl-brand);
+  position: relative;
+  min-height: 100vh;
+  overflow-x: clip;
+  padding-bottom: 120px;
+}
+
+body:has(.pl-stage) {
+  transition: none;
+}
+
+html[data-theme-switching="true"],
+html[data-theme-switching="true"] *,
+html[data-theme-switching="true"] *::before,
+html[data-theme-switching="true"] *::after {
+  transition: none !important;
+}
+
+/* Neutralizar colisión de .block, .league-tab y .day-chip de @layer legacy dentro de .pl-stage */
+.pl-stage .block {
+  padding: 0;
+}
+.pl-stage .league-tab:not(.rail-item),
+.pl-stage .day-chip {
+  width: auto;
+  flex: 0 0 auto;
+}
+
+.pl-stage ::selection {
+  background: color-mix(in srgb, var(--pl-brand) 30%, transparent);
+  color: var(--pl-text);
+}
+
+.pl-stage ::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+.pl-stage ::-webkit-scrollbar-track {
+  background: transparent;
+}
+.pl-stage ::-webkit-scrollbar-thumb {
+  background: var(--pl-scrollbar-thumb);
+  border-radius: 999px;
+}
+
+.pl-stage :focus-visible {
+  outline: 2px solid var(--pl-brand);
+  outline-offset: 2px;
+}
+
+/* ---------- Atmósfera shows.link (auras saturadas + scrim óptico) ---------- */
+.pl-atmo {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.pl-atmo-canvas {
+  position: absolute;
+  inset: -18%;
+  opacity: var(--pl-atmo-opacity);
+  filter: blur(88px) saturate(190%);
+  transform: scale(1.16) translateZ(0);
+}
+
+.pl-aura {
+  position: absolute;
+  border-radius: 50%;
+  transition: background 620ms ease;
+}
+
+.pl-aura--home {
+  width: min(720px, 64vw);
+  height: min(560px, 50vw);
+  top: -8%;
+  left: 4%;
+  background: radial-gradient(circle at 45% 45%, var(--home-color) 0%, transparent 70%);
+}
+
+.pl-aura--away {
+  width: min(680px, 60vw);
+  height: min(540px, 48vw);
+  top: 6%;
+  right: 4%;
+  background: radial-gradient(circle at 55% 45%, var(--away-color) 0%, transparent 70%);
+}
+
+.pl-atmo-scrim {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    110% 72% at 50% 0%,
+    var(--pl-glass-scrim-top) 0%,
+    var(--pl-glass-scrim) 68%,
+    var(--pl-stage-bg) 100%
+  );
+}
+
+/* ---------- Bisel óptico .glass-ring de shows.link ---------- */
+.glass-ring {
+  position: relative;
+  border: 0;
+}
+
+.glass-ring::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  pointer-events: none;
+  z-index: 2;
+  background:
+    radial-gradient(44px circle at 0% 0%, var(--pl-ring-corner), transparent 100%),
+    radial-gradient(44px circle at 100% 0%, var(--pl-ring-corner), transparent 100%),
+    linear-gradient(
+      180deg,
+      var(--pl-ring-top) 0%,
+      var(--pl-ring-fade) 26%,
+      var(--pl-ring-fade) 68%,
+      var(--pl-ring-bot) 100%
+    );
+  -webkit-mask-image: linear-gradient(rgb(0, 0, 0), rgb(0, 0, 0)), linear-gradient(rgb(0, 0, 0), rgb(0, 0, 0));
+  mask-image: linear-gradient(rgb(0, 0, 0), rgb(0, 0, 0)), linear-gradient(rgb(0, 0, 0), rgb(0, 0, 0));
+  -webkit-mask-clip: content-box, border-box;
+  mask-clip: content-box, border-box;
+  -webkit-mask-origin: content-box, border-box;
+  mask-origin: content-box, border-box;
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.glass-ring--featured::before {
+  padding: 1.25px;
+  background:
+    radial-gradient(56px circle at 0% 0%, var(--pl-ring-feat-corner), transparent 100%),
+    radial-gradient(56px circle at 100% 0%, var(--pl-ring-feat-corner), transparent 100%),
+    linear-gradient(
+      180deg,
+      var(--pl-ring-feat-top) 0%,
+      color-mix(in srgb, var(--pl-brand) 36%, transparent) 40%,
+      var(--pl-ring-feat-bot) 100%
+    );
+}
+
+/* ---------- Superficies Liquid Glass ---------- */
+.glass-lens {
+  background: var(--pl-glass-lens);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: var(--pl-lens-shadow);
+}
+
+.glass-card {
+  background: var(--pl-glass-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: var(--pl-card-shadow);
+  transition:
+    background-color var(--time-fast) ease,
+    transform var(--time-fast) var(--ease-out);
+}
+
+.glass-action-row {
+  background: var(--pl-glass-card);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: background-color var(--time-fast) ease;
+}
+.glass-action-row:hover {
+  background: var(--pl-surface-hover);
+}
+
+.glass-input {
+  background: var(--pl-glass-input);
+  border: 1px solid var(--pl-border);
+  color: var(--pl-text);
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition:
+    border-color var(--time-fast) ease,
+    box-shadow var(--time-fast) ease;
+}
+.glass-input::placeholder {
+  color: var(--pl-text-muted);
+}
+.glass-input:focus,
+.glass-input:focus-within {
+  outline: none;
+  border-color: var(--pl-brand);
+  box-shadow: 0 0 0 3px var(--pl-glow);
+}
+
+.glass-nav-surface {
+  background: var(--pl-glass-nav);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  border-bottom: 1px solid var(--pl-border);
+}
+
+.glass-pill-bar {
+  background: var(--pl-glass-pill);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+}
+
+.hairline-t {
+  border-top: 1px solid var(--pl-row-rule);
+}
+.hairline-b {
+  border-bottom: 1px solid var(--pl-row-rule);
+}
+
+.ticket-perf {
+  width: 100%;
+  border-top: 1px dashed var(--pl-perf-rule);
+}
+
+.row-hover {
+  transition: background-color var(--time-fast) ease;
+}
+.row-hover:hover {
+  background: var(--pl-surface-hover);
+}
+
+.hover-lift {
+  transition:
+    transform var(--time-fast) var(--ease-out),
+    background-color var(--time-fast) ease;
+}
+.hover-lift:hover {
+  transform: translateY(-2px);
+}
+
+/* ---------- Candado Cero-Fuga y Marca de Agua por sesión ---------- */
+.locked-redact {
+  filter: blur(7px);
+  opacity: 0.42;
+  user-select: none;
+  pointer-events: none;
+}
+
+.pl-watermark {
+  position: absolute;
+  right: 12px;
+  bottom: 8px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--pl-text-muted);
+  opacity: 0.22;
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+}
+
+/* ---------- Controles y Primitivas shows.link ---------- */
+.sq-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: var(--pl-surface);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.sl-stepper {
+  display: inline-grid;
+  grid-auto-flow: column;
+  gap: 1px;
+  border-radius: 9px;
+  overflow: hidden;
+}
+.sl-stepper > button,
+.sl-stepper > span {
+  height: 32px;
+  min-width: 34px;
+  padding: 0 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--pl-surface-hover);
+  color: var(--pl-text);
+  font-size: 0.78rem;
+  font-weight: 700;
+  border: 0;
+  user-select: none;
+}
+.sl-stepper > button {
+  cursor: pointer;
+  transition:
+    background-color 120ms ease,
+    transform 80ms ease;
+}
+.sl-stepper > button:hover {
+  background: var(--pl-surface-active);
+}
+.sl-stepper > button:active {
+  transform: scale(0.95);
+}
+
+.avatar-stack {
+  display: inline-flex;
+  align-items: center;
+}
+.avatar-stack > * + * {
+  margin-left: -7px;
+}
+.avatar-ring {
+  box-shadow: 0 0 0 2px var(--pl-avatar-ring);
+}
+
+.pl-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 16px;
+  border-radius: 10px;
+  background: var(--pl-text);
+  color: var(--pl-stage-bg);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-decoration: none;
+  border: 0;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    opacity var(--time-fast) ease,
+    transform 100ms ease;
+}
+.pl-btn-primary:hover {
+  opacity: 0.9;
+}
+.pl-btn-primary:active {
+  transform: scale(0.98);
+}
+.pl-btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pl-btn-accent {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 16px;
+  border-radius: 10px;
+  background: var(--pl-brand-solid);
+  color: var(--pl-on-solid);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-decoration: none;
+  border: 0;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    filter var(--time-fast) ease,
+    transform 100ms ease;
+}
+.pl-btn-accent:hover {
+  filter: brightness(1.08);
+}
+.pl-btn-accent:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pl-btn-glass {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 38px;
+  padding: 0 13px;
+  border-radius: 10px;
+  background: var(--pl-surface);
+  color: var(--pl-text);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid var(--pl-border);
+  cursor: pointer;
+  white-space: nowrap;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: background-color var(--time-fast) ease;
+}
+.pl-btn-glass:hover {
+  background: var(--pl-surface-hover);
+}
+.pl-btn-glass:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.seg-well {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 11px;
+  background: var(--pl-surface);
+  border: 1px solid var(--pl-border);
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.seg-well::-webkit-scrollbar {
+  display: none;
+}
+.seg-btn {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 6px;
+  min-height: 32px;
+  padding: 0 11px;
+  border-radius: 8px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--pl-text-secondary);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  white-space: nowrap;
+  text-decoration: none;
+  transition:
+    background-color var(--time-fast) ease,
+    color var(--time-fast) ease;
+}
+.seg-btn:hover {
+  color: var(--pl-text);
+}
+.seg-btn[aria-selected="true"],
+.seg-btn[aria-pressed="true"],
+.seg-btn[data-active="true"] {
+  background: var(--pl-surface-active);
+  color: var(--pl-text);
+}
+
+/* ---------- Barras de Probabilidad dentro de .pl-stage ---------- */
+.pl-stage .psplit {
+  display: flex;
+  gap: 3px;
+  height: 7px;
+  width: 100%;
+}
+.pl-stage .psplit > span {
+  display: block;
+  min-width: 6px;
+  background: var(--pl-psplit-track);
+  border-radius: 999px;
+  clip-path: none;
+  transition:
+    flex 360ms var(--ease-out),
+    background-color 180ms ease;
+}
+.pl-stage .psplit > span.lead {
+  background: var(--pl-brand);
+  box-shadow: 0 0 12px var(--pl-glow);
+}
+
+.pl-stage .pbar {
+  position: relative;
+  height: 7px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--pl-surface-hover);
+}
+.pl-stage .pbar > span {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--w, 0%);
+  border-radius: 999px;
+  clip-path: none;
+  background: var(--pl-text-muted);
+  transform-origin: left center;
+  transition: transform 320ms var(--ease-out), opacity 220ms var(--ease-out);
+}
+.pl-stage .pbar.lead > span {
+  background: var(--pl-brand);
+}
+.pl-stage .pbar.pos > span {
+  background: var(--pl-success);
+}
+
+/* ---------- Layout del Club (Sidebar colapsable + Mobile Dock + Parlay Slip) ---------- */
+.app-frame {
+  position: relative;
+  z-index: 2;
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 16px 16px 56px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 20px;
+}
+@media (min-width: 1024px) {
+  .app-frame {
+    padding: 20px 24px 64px;
+    grid-template-columns: var(--rail-w, 244px) minmax(0, 1fr);
+    align-items: start;
+  }
+  .app-frame[data-collapsed="true"] {
+    --rail-w: 72px;
+  }
+}
+
+.app-rail {
+  display: none;
+}
+@media (min-width: 1024px) {
+  .app-rail {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: sticky;
+    top: 76px;
+    padding: 14px 10px;
+    border-radius: 16px;
+    background: var(--pl-glass-rail);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    max-height: calc(100vh - 96px);
+    overflow-y: auto;
+  }
+}
+
+.rail-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 36px;
+  padding: 0 10px;
+  border-radius: 10px;
+  border: 0;
+  background: transparent;
+  color: var(--pl-text-secondary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  text-align: left;
+  transition:
+    background-color var(--time-fast) ease,
+    color var(--time-fast) ease;
+}
+.rail-item:hover {
+  background: var(--pl-surface-hover);
+  color: var(--pl-text);
+}
+.rail-item[aria-current="page"],
+.rail-item[data-active="true"] {
+  background: var(--pl-surface-active);
+  color: var(--pl-text);
+}
+.app-frame[data-collapsed="true"] .rail-hide-collapsed {
+  display: none;
+}
+.app-frame[data-collapsed="true"] .rail-item {
+  justify-content: center;
+  padding: 0;
+}
+
+.mobile-dock {
+  position: fixed;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  z-index: 38;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 4px;
+  padding: 6px;
+  border-radius: 16px;
+}
+@media (min-width: 1024px) {
+  .mobile-dock {
+    display: none;
+  }
+}
+
+/* Carrito flotante de Boleto Combinado / Parlay estilo shows.link */
+.parlay-dock {
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  z-index: 44;
+  width: min(700px, calc(100vw - 24px));
+  border-radius: 16px;
+  padding: 10px 14px;
+}
+@media (max-width: 1023px) {
+  .parlay-dock {
+    bottom: 84px;
+  }
+}
+
+/* Simulador de Rol (Visitante / Suscriptor / Tipstar / Admin) en dev/preview */
+.role-sim-pill {
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+  z-index: 48;
+  border-radius: 999px;
+  padding: 4px 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  max-width: calc(100vw - 28px);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.role-sim-pill::-webkit-scrollbar {
+  display: none;
+}
+@media (max-width: 1023px) {
+  .role-sim-pill {
+    bottom: 78px;
+    right: 12px;
+  }
+}
+
+/* Boleto oscuro de compartir 4:5 / 9:16 (consistente aún en tema claro) */
+.share-ticket-card {
+  color-scheme: only dark;
+  --text-primary: var(--share-card-fg);
+  --text-secondary: var(--share-card-secondary);
+  --text-muted: var(--share-card-muted);
+  --foreground: var(--share-card-fg);
+  --pl-text: var(--share-card-fg);
+  --pl-text-secondary: var(--share-card-secondary);
+  --pl-text-muted: var(--share-card-muted);
+  --pl-surface: var(--share-card-surface);
+  --pl-surface-elevated: var(--share-card-surface);
+  --pl-surface-hover: var(--share-card-border);
+  --pl-border: var(--share-card-border);
+  --pl-perf-rule: var(--share-card-border);
+  --pl-brand: var(--share-card-accent);
+  --pl-info: var(--share-card-accent);
+  --pl-success: var(--share-card-success);
+  --pl-warning: var(--share-card-warning);
+  background: var(--share-card-bg);
+  color: var(--share-card-fg);
+  caret-color: var(--share-card-accent);
+  accent-color: var(--share-card-accent);
+  border: 1px solid var(--share-card-border);
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.share-ticket-card h1,
+.share-ticket-card h2,
+.share-ticket-card h3,
+.share-ticket-card h4,
+.share-ticket-card p,
+.share-ticket-card strong {
+  color: inherit;
+}
+
+/* Native Top-Layer Modal & Drawer (<dialog> + showModal() + scroll containment) */
+dialog.pl-native-dialog,
+dialog.pl-native-drawer {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--pl-text);
+  overflow: auto;
+}
+
+dialog.pl-native-dialog:modal,
+dialog.pl-native-drawer:modal {
+  overscroll-behavior: contain;
+}
+
+dialog.pl-native-dialog::backdrop,
+dialog.pl-native-drawer::backdrop {
+  overflow: hidden;
+  overscroll-behavior: contain;
+  background: var(--pl-modal-backdrop);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+dialog.pl-native-dialog[open] {
+  margin: auto;
+  width: min(calc(100vw - 32px), var(--pl-dialog-max-w, 32rem));
+  max-width: calc(100vw - 32px);
+  max-height: calc(100dvh - 32px);
+  border-radius: 16px;
+}
+
+dialog.pl-native-drawer[open] {
+  margin: 0 0 0 auto;
+  width: min(100vw, 28rem);
+  max-width: 100vw;
+  height: 100dvh;
+  max-height: 100dvh;
+  border-radius: 0;
+}
+
+/* Contenedor accesible y responsivo para tablas de datos (@container + sticky thead) */
+.pl-table-region {
+  overflow: auto;
+  max-inline-size: 100%;
+  container-type: inline-size;
+}
+
+.pl-table-region thead {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 1;
+  background: var(--pl-glass-lens);
+}
+
+/* Secciones pesadas estrictamente debajo del pliegue inicial */
+.pl-deferred-section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto none auto 420px;
+}
+
+/* Etiquetas semánticas de Píldora */
+.pl-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 24px;
+  padding: 2px 9px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  border: 1px solid var(--pl-border);
+  background: var(--pl-surface);
+  color: var(--pl-text-secondary);
+  white-space: nowrap;
+}
+.pl-pill--brand {
+  color: var(--pl-brand);
+  border-color: color-mix(in srgb, var(--pl-brand) 36%, transparent);
+  background: color-mix(in srgb, var(--pl-brand) 12%, transparent);
+}
+.pl-pill--success {
+  color: var(--pl-success);
+  border-color: color-mix(in srgb, var(--pl-success) 36%, transparent);
+  background: color-mix(in srgb, var(--pl-success) 12%, transparent);
+}
+.pl-pill--warning {
+  color: var(--pl-warning);
+  border-color: color-mix(in srgb, var(--pl-warning) 36%, transparent);
+  background: color-mix(in srgb, var(--pl-warning) 12%, transparent);
+}
+.pl-pill--danger {
+  color: var(--pl-danger);
+  border-color: color-mix(in srgb, var(--pl-danger) 36%, transparent);
+  background: color-mix(in srgb, var(--pl-danger) 12%, transparent);
+}
+.pl-pill--info {
+  color: var(--pl-info);
+  border-color: color-mix(in srgb, var(--pl-info) 36%, transparent);
+  background: color-mix(in srgb, var(--pl-info) 12%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pl-aura,
+  .glass-card,
+  .hover-lift {
+    transition: none !important;
+  }
+}

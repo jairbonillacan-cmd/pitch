@@ -6,6 +6,4 @@ export * from "./market-pulse.js";
 export * from "./dashboard-loading.js";
 export * from "./components/ui/index.js";
 export * from "./astryx.js";
-export * from "./landing/data.js";
-export * from "./landing/landing-v2.js";
-export * from "./landing/content.js";
+export * from "./platform/index.js";

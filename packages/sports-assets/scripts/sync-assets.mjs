@@ -73,6 +73,35 @@ function validateManifest(manifest, sourcePath) {
   }
 }
 
+function extractClubColors(svgRaw) {
+  const fills = [...svgRaw.matchAll(/fill="(#[0-9a-fA-F]{6})"/g)].map((m) =>
+    m[1].toUpperCase(),
+  );
+  const counts = new Map();
+  for (const hex of fills) {
+    counts.set(hex, (counts.get(hex) ?? 0) + 1);
+  }
+  const scored = [];
+  for (const [hex, count] of counts.entries()) {
+    const r = parseInt(hex.slice(1, 3), 16) / 255;
+    const g = parseInt(hex.slice(3, 5), 16) / 255;
+    const b = parseInt(hex.slice(5, 7), 16) / 255;
+    const max = Math.max(r, g, b);
+    const min = Math.min(r, g, b);
+    const l = (max + min) / 2;
+    const d = max - min;
+    const s = d === 0 ? 0 : d / (1 - Math.abs(2 * l - 1));
+    if (l < 0.14 || l > 0.86 || s < 0.16) continue;
+    const midWeight = l >= 0.23 && l <= 0.77 ? 1.35 : 0.65;
+    const score = s * midWeight * (1 + Math.min(count, 6) * 0.12);
+    scored.push({ hex, score });
+  }
+  scored.sort((a, b) => b.score - a.score);
+  const primary = scored[0]?.hex ?? "#5940B2";
+  const secondary = scored[1]?.hex ?? scored[0]?.hex ?? "#1F6F99";
+  return [primary, secondary];
+}
+
 const registryLeagues = {};
 const registryTeams = {};
 
@@ -114,6 +143,7 @@ for (const { league, relDir } of LEAGUE_SOURCES) {
       };
     } else {
       const canonicalId = `${league}.${entry.id}`;
+      const svgRaw = readFileSync(svgSrc, "utf8");
       registryTeams[canonicalId] = {
         id: canonicalId,
         slug: entry.id,
@@ -124,6 +154,7 @@ for (const { league, relDir } of LEAGUE_SOURCES) {
         revision: rev,
         svgPath: webSvg,
         pngPath: webPng,
+        colors: extractClubColors(svgRaw),
       };
     }
   }
@@ -177,6 +208,7 @@ export interface RegisteredTeamAsset {
   revision: number;
   svgPath: string;
   pngPath: string;
+  colors: readonly [string, string];
 }
 
 export const LEAGUE_ASSETS: Record<string, RegisteredLeagueAsset> = ${JSON.stringify(registryLeagues, null, 2)};
@@ -187,7 +219,13 @@ export const MASCOT_EDITIONS = ${JSON.stringify(mascots)} as const;
 export type MascotEdition = (typeof MASCOT_EDITIONS)[number];
 `;
 
-writeFileSync(join(SRC_DIR, "registry.generated.ts"), generatedTs, "utf8");
+const registryOutPath = join(SRC_DIR, "registry.generated.ts");
+const existingRegistry = existsSync(registryOutPath)
+  ? readFileSync(registryOutPath, "utf8")
+  : "";
+if (existingRegistry !== generatedTs) {
+  writeFileSync(registryOutPath, generatedTs, "utf8");
+}
 console.log(
   `OK [@pitchlab/sports-assets]: ${Object.keys(registryTeams).length} equipos y ${Object.keys(registryLeagues).length} ligas sincronizados a apps/web/public/brand/`,
 );

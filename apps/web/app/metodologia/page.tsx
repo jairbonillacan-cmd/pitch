@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
 
-export default function MetodologiaPage(): never {
-  redirect("/#como-se-lee");
+export default function MetodologiaRedirectPage(): never {
+  redirect("/tecnologia");
 }

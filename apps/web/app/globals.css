@@ -30,10 +30,8 @@
 @import "@astryxdesign/theme-neutral/theme.css";
 @import "./astryx-pitchlab.css" layer(astryx-pitchlab);
 
-/* Landing definitiva («Pregunta un partido»), después de HeroUI en «components». */
-@import "./landing-v2.css" layer(components);
-@import "./app-home.css" layer(components);
-@import "./account-previews.css" layer(components);
+/* Sistema visual Liquid Glass v4 (shows.link + Spacetime Suite v2.1) */
+@import "./pitchlab-v4.css" layer(components);
 
 @source "../../../packages/ui/src";
 @source "../../../packages/ui/node_modules/@heroui/react/dist";

@@ -50,6 +50,14 @@ export function getTeamAsset(
   return TEAM_ASSETS[key] ?? null;
 }
 
+export function getTeamColors(
+  league: string,
+  slug: string,
+): readonly [string, string] | null {
+  const cleanSlug = slug.includes(".") ? slug.split(".")[1]! : slug;
+  return getTeamAsset(league, cleanSlug)?.colors ?? null;
+}
+
 export function getEmblemPath(league: string, slug: string): string {
   const cleanSlug = slug.includes(".") ? slug.split(".")[1]! : slug;
   const asset = getTeamAsset(league, cleanSlug);

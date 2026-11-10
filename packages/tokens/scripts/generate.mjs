@@ -53,6 +53,105 @@ const derivedAndLightCss = `
   --info-subtle: #182544;
   --warning-subtle: #2B2624;
   --danger-subtle: #2D1E30;
+
+  /* Superficies neutras y biseles ópticos blancos Liquid Glass (landing y cabeceras) */
+  --glass-scrim: rgba(11, 16, 32, 0.58);
+  --glass-nav: rgba(12, 17, 32, 0.88);
+  --glass-lens-bg: rgba(13, 18, 34, 0.90);
+  --glass-well-bg: rgba(10, 14, 27, 0.86);
+  --glass-card-matte: rgba(13, 19, 35, 0.89);
+  --glass-sheen: rgba(255, 255, 255, 0.03);
+  --glass-hover-boost: rgba(255, 255, 255, 0.08);
+  --glass-corner-hi: rgba(255, 255, 255, 0.76);
+  --glass-corner-lo: rgba(255, 255, 255, 0.38);
+  --glass-rim-top: rgba(255, 255, 255, 0.44);
+  --glass-rim-bot: rgba(255, 255, 255, 0.22);
+  --glass-rim-clear: rgba(255, 255, 255, 0);
+  --glass-hover-corner-hi: rgba(255, 255, 255, 0.88);
+  --glass-hover-corner-lo: rgba(255, 255, 255, 0.50);
+  --glass-hover-rim-top: rgba(255, 255, 255, 0.56);
+  --glass-hover-rim-bot: rgba(255, 255, 255, 0.30);
+  --glass-feat-corner-hi: rgba(255, 255, 255, 0.94);
+  --glass-feat-corner-lo: rgba(255, 255, 255, 0.58);
+  --glass-feat-rim-top: rgba(255, 255, 255, 0.64);
+  --glass-feat-rim-bot: rgba(255, 255, 255, 0.34);
+  --glass-ring-shadow: none;
+
+  /* PitchLab v4 · Liquid Glass (estética shows.link + Spacetime Suite v2.1, contraste AA/AAA) */
+  --pl-stage-bg: #000000;
+  --pl-stage-subtle: #09090B;
+  --pl-stage-elevated: #121217;
+  --pl-brand: #C4B5FD;
+  --pl-brand-solid: #6D28D9;
+  --pl-brand-hover: #DDD6FE;
+  --pl-accent: #7DD3FC;
+  --pl-surface: rgba(255, 255, 255, 0.056);
+  --pl-surface-elevated: rgba(255, 255, 255, 0.082);
+  --pl-surface-hover: rgba(255, 255, 255, 0.105);
+  --pl-surface-active: rgba(255, 255, 255, 0.15);
+  --pl-text: #FFFFFF;
+  --pl-text-secondary: #E4E4E7;
+  --pl-text-muted: #B4B4BE;
+  --pl-border: rgba(255, 255, 255, 0.11);
+  --pl-border-strong: rgba(255, 255, 255, 0.22);
+  --pl-row-rule: rgba(255, 255, 255, 0.085);
+  --pl-perf-rule: rgba(180, 180, 190, 0.32);
+  --pl-success: #6EE7B7;
+  --pl-warning: #FCD34D;
+  --pl-danger: #FDA4AF;
+  --pl-info: #93C5FD;
+  --pl-on-primary: #09090B;
+  --pl-on-solid: #FFFFFF;
+  --pl-glow: rgba(196, 181, 253, 0.24);
+  --pl-glass-scrim: rgba(0, 0, 0, 0.64);
+  --pl-glass-scrim-top: rgba(0, 0, 0, 0.32);
+  --pl-glass-nav: rgba(6, 6, 9, 0.72);
+  --pl-glass-rail: rgba(9, 9, 12, 0.68);
+  --pl-glass-lens: rgba(16, 16, 22, 0.78);
+  --pl-glass-card: rgba(14, 14, 20, 0.74);
+  --pl-glass-pill: rgba(12, 12, 16, 0.86);
+  --pl-glass-input: rgba(255, 255, 255, 0.06);
+  --pl-ring-top: rgba(255, 255, 255, 0.42);
+  --pl-ring-fade: rgba(255, 255, 255, 0.04);
+  --pl-ring-bot: rgba(255, 255, 255, 0.20);
+  --pl-ring-corner: rgba(255, 255, 255, 0.74);
+  --pl-ring-feat-corner: #FFFFFF;
+  --pl-ring-feat-top: rgba(255, 255, 255, 0.58);
+  --pl-ring-feat-bot: rgba(255, 255, 255, 0.28);
+  --pl-card-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.62);
+  --pl-lens-shadow: 0 22px 54px -12px rgba(0, 0, 0, 0.76);
+  --pl-atmo-opacity: 0.70;
+  --pl-avatar-ring: #000000;
+  --pl-psplit-track: rgba(255, 255, 255, 0.14);
+  --pl-scrollbar-thumb: rgba(255, 255, 255, 0.18);
+  --pl-modal-backdrop: rgba(0, 0, 0, 0.76);
+  --pl-aura-default-home: #E5B53A;
+  --pl-aura-default-away: #6366F1;
+
+  /* Motores PitchLab Spacetime Suite v2.1 */
+  --engine-tachyon: #7DD3FC;
+  --engine-singularity: #C4B5FD;
+  --engine-minkowski: #6EE7B7;
+  --engine-geodesic: #FCD34D;
+  --engine-cortex: #F9A8D4;
+
+  /* Boleto exportable 4:5 / 9:16 (siempre estética nocturna editorial) */
+  --share-card-bg: #07070A;
+  --share-card-surface: rgba(255, 255, 255, 0.06);
+  --share-card-fg: #FFFFFF;
+  --share-card-secondary: #E4E4E7;
+  --share-card-muted: #B4B4BE;
+  --share-card-border: rgba(255, 255, 255, 0.16);
+  --share-card-accent: #C4B5FD;
+  --share-card-success: #6EE7B7;
+  --share-card-warning: #FCD34D;
+
+  /* Gradientes de avatar verificados */
+  --avatar-grad-1: linear-gradient(135deg, #6D28D9, #2563EB);
+  --avatar-grad-2: linear-gradient(135deg, #047857, #0284C7);
+  --avatar-grad-3: linear-gradient(135deg, #B45309, #BE123C);
+  --avatar-grad-4: linear-gradient(135deg, #4338CA, #7C3AED);
+  --avatar-grad-5: linear-gradient(135deg, #0F766E, #4F46E5);
 }
 
 :root[data-theme="light"] {
@@ -87,6 +186,86 @@ const derivedAndLightCss = `
   --info-subtle: #EBF0FC;
   --warning-subtle: #FDF3E6;
   --danger-subtle: #FCEBEC;
+
+  /* Superficies neutras claras y biseles ópticos blancos Liquid Glass */
+  --glass-scrim: rgba(243, 245, 253, 0.58);
+  --glass-nav: rgba(248, 250, 255, 0.90);
+  --glass-lens-bg: rgba(251, 252, 255, 0.93);
+  --glass-well-bg: rgba(240, 244, 252, 0.90);
+  --glass-card-matte: rgba(250, 251, 255, 0.92);
+  --glass-sheen: rgba(255, 255, 255, 0.92);
+  --glass-hover-boost: rgba(11, 16, 32, 0.045);
+  --glass-corner-hi: rgba(255, 255, 255, 1);
+  --glass-corner-lo: rgba(255, 255, 255, 0.88);
+  --glass-rim-top: rgba(255, 255, 255, 0.96);
+  --glass-rim-bot: rgba(255, 255, 255, 0.78);
+  --glass-rim-clear: rgba(255, 255, 255, 0);
+  --glass-hover-corner-hi: rgba(255, 255, 255, 1);
+  --glass-hover-corner-lo: rgba(255, 255, 255, 0.94);
+  --glass-hover-rim-top: rgba(255, 255, 255, 1);
+  --glass-hover-rim-bot: rgba(255, 255, 255, 0.88);
+  --glass-feat-corner-hi: rgba(255, 255, 255, 1);
+  --glass-feat-corner-lo: rgba(255, 255, 255, 0.96);
+  --glass-feat-rim-top: rgba(255, 255, 255, 1);
+  --glass-feat-rim-bot: rgba(255, 255, 255, 0.90);
+  --glass-ring-shadow: 0 0 0 1px rgba(11, 16, 32, 0.065), 0 8px 24px rgba(18, 25, 54, 0.05);
+
+  /* PitchLab v4 · Liquid Glass Modo Claro (contraste AA/AAA verificado) */
+  --pl-stage-bg: #F4F4F7;
+  --pl-stage-subtle: #E6E7EE;
+  --pl-stage-elevated: #FFFFFF;
+  --pl-brand: #5B21B6;
+  --pl-brand-solid: #5B21B6;
+  --pl-brand-hover: #4C1D95;
+  --pl-accent: #0369A1;
+  --pl-surface: rgba(255, 255, 255, 0.88);
+  --pl-surface-elevated: rgba(255, 255, 255, 0.96);
+  --pl-surface-hover: rgba(24, 24, 27, 0.06);
+  --pl-surface-active: rgba(91, 33, 182, 0.11);
+  --pl-text: #09090B;
+  --pl-text-secondary: #27272A;
+  --pl-text-muted: #52525B;
+  --pl-border: rgba(24, 24, 27, 0.11);
+  --pl-border-strong: rgba(24, 24, 27, 0.22);
+  --pl-row-rule: rgba(24, 24, 27, 0.085);
+  --pl-perf-rule: rgba(82, 82, 91, 0.34);
+  --pl-success: #065F46;
+  --pl-warning: #92400E;
+  --pl-danger: #9F1239;
+  --pl-info: #1E40AF;
+  --pl-on-primary: #FFFFFF;
+  --pl-on-solid: #FFFFFF;
+  --pl-glow: rgba(91, 33, 182, 0.15);
+  --pl-glass-scrim: rgba(244, 244, 247, 0.78);
+  --pl-glass-scrim-top: rgba(244, 244, 247, 0.42);
+  --pl-glass-nav: rgba(255, 255, 255, 0.88);
+  --pl-glass-rail: rgba(255, 255, 255, 0.90);
+  --pl-glass-lens: rgba(255, 255, 255, 0.94);
+  --pl-glass-card: rgba(255, 255, 255, 0.90);
+  --pl-glass-pill: rgba(255, 255, 255, 0.94);
+  --pl-glass-input: rgba(24, 24, 27, 0.045);
+  --pl-ring-top: rgba(24, 24, 27, 0.15);
+  --pl-ring-fade: rgba(24, 24, 27, 0.06);
+  --pl-ring-bot: rgba(24, 24, 27, 0.13);
+  --pl-ring-corner: rgba(91, 33, 182, 0.28);
+  --pl-ring-feat-corner: rgba(91, 33, 182, 0.52);
+  --pl-ring-feat-top: rgba(91, 33, 182, 0.32);
+  --pl-ring-feat-bot: rgba(24, 24, 27, 0.16);
+  --pl-card-shadow: 0 8px 24px -8px rgba(9, 9, 11, 0.08);
+  --pl-lens-shadow: 0 18px 42px -10px rgba(9, 9, 11, 0.12);
+  --pl-atmo-opacity: 0.28;
+  --pl-avatar-ring: #FFFFFF;
+  --pl-psplit-track: rgba(24, 24, 27, 0.13);
+  --pl-scrollbar-thumb: rgba(24, 24, 27, 0.22);
+  --pl-modal-backdrop: rgba(9, 9, 11, 0.56);
+  --pl-aura-default-home: #D97706;
+  --pl-aura-default-away: #4F46E5;
+
+  --engine-tachyon: #0369A1;
+  --engine-singularity: #5B21B6;
+  --engine-minkowski: #065F46;
+  --engine-geodesic: #92400E;
+  --engine-cortex: #9D174D;
 }
 `;
 

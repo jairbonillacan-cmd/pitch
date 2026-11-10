@@ -24,6 +24,7 @@ export type IconName =
   | "simulation"
   | "radar"
   | "shield"
+  | "lock"
   | "arrow"
   | "check"
   | "sun"
@@ -141,6 +142,13 @@ function renderIconPaths(name: IconName): React.ReactNode {
       );
     case "shield":
       return <path d="M12 3.5 19 6v6c0 4.2-3 7-7 8.5C8 19 5 16.2 5 12V6l7-2.5Z" />;
+    case "lock":
+      return (
+        <>
+          <rect width="18" height="11" x="3" y="11" rx="2" />
+          <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+        </>
+      );
     case "arrow":
       return <path d="M5 12h14M13 6l6 6-6 6" />;
     case "check":

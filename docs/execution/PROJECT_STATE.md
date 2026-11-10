@@ -1,7 +1,7 @@
 # Estado del proyecto PitchLab
 
 > **Propósito:** que cualquier sesión retome el trabajo sin reconstruir el contexto. Se actualiza al cerrar cada fase.
-> **Última actualización:** 2026-11-08 · **Rama:** `feat/pre-mvp`
+> **Última actualización:** 2026-11-10 · **Rama:** `gemini-reestructura`
 
 ## Estado actual
 
@@ -41,7 +41,8 @@ El clon previo de TouchIQ (Vite + `src/domain` con 24 tests dorados) quedó arch
 | `docs/product/MVP_DEFINITION.md` | F2 | Completo (Lean+ con ecosistema) |
 | `docs/execution/ROADMAP.md` | F2 | Completo (waves W0–W8 con dependencias) |
 | `docs/architecture/FREE_DATA_STRATEGY.md` | F2→F3 | Vigente: nflverse, openfootball, The Odds API Free y API-Football Free |
-| `docs/architecture/adr/` (ADR-001…018) | F3 | 17 aceptadas, 1 propuesta (ADR-016, iconografía) |
+| `docs/architecture/adr/` (ADR-001…022) | F3 / UI-V4 | 21 aceptadas (incluye ADR-020, ADR-021 y ADR-022), 1 propuesta (ADR-016, iconografía) |
+| `GLOSSARY.md` | UI-V4 | Glosario canónico del dominio de PitchLab (Spacetime Suite, Pase Total, Cero-Fuga, SGP, Tipstar) |
 | `docs/architecture/SYSTEM_ARCHITECTURE.md` | F3 | Módulos, límites, flujo y API `/api/v1` |
 | `docs/architecture/DATA_ARCHITECTURE.md` | F3 | Modelo canónico, ingesta, R2, frescura y as-of (incluye HISTORICAL_STORAGE) |
 | `docs/architecture/PREDICTION_ARCHITECTURE.md` | F3 | Live frente a retro, tablas, gate de publicación |
@@ -774,6 +775,22 @@ _(Cada sesión de agente agrega aquí su entrada con el formato de `AGENT_EXECUT
   - No añadir complejidad sin mejora medible.
 - **Riesgos o deuda:**
   - La brecha frente al mercado no viene de mala calibración, sino de información que el modelo no tiene.
+
+### UI-V4 · Plataforma completa Liquid Glass + PitchLab Spacetime Suite v2.1 — 2026-11-10 — Rama `gemini-reestructura`
+- **Hecho:**
+  - Tokens duales (`data-theme="dark"` y `data-theme="light"`) en `packages/tokens/scripts/generate.mjs` y sistema visual `apps/web/app/pitchlab-v4.css` con estética *Liquid Glass* (`shows.link`: negro obsidiana / alabastro, auras dinámicas por club, bisel óptico `.glass-ring` y cero literales hex fuera de `packages/tokens`).
+  - Arquitectura completa en `packages/ui/src/platform/`:
+    - Catálogo propietario **`PitchLab Spacetime Suite v2.1`** (`Tachyon v2.1`, `Singularity v2.1`, `Minkowski v2.1`, `Geodesic v1.0`, `Cortex IA` y calibración `Horizon` sobre +358,400 partidos y +12.4M puntos tácticos) con cero jerga interna o proveedores en UI (FD-16).
+    - Motor determinístico `match-picks-engine.ts` que genera **5 picks estructurados por partido** (*Pick Principal*, *Escudo Conservador*, *Línea de Totales*, *Lectura Táctica* y *Cuota Alta · Valor*) más síntesis pre-partido y corte 60m de `Cortex IA` desde los snapshots reales de las 7 ligas (`liga-mx`, `premier-league`, `laliga`, `serie-a`, `bundesliga`, `ligue-1`, `nfl`).
+    - Guardia de **Cero-Fuga (`access-guard.ts` + `apps/web/src/server/platform-data.ts`)**: visitante público solo ve resultados `FT`, `Tecnología & Precisión`, **1 pick abierto del día** y **1 pick semanal abierto de Tipstar** (`/p/sofia-sem`).
+    - **Armador Inteligente de Parlays & SGP** (`parlay-engine.ts` + `ParlayFloatingDock`): Auto-Armador por riesgo (*Conservador*, *Medio*, *Arriesgado*), bloqueo de contradicciones e interruptor **Mismo Partido (SGP)** con ajuste de correlación.
+    - **Comunidad VIP Exclusiva (`/app/social`)**, **Portal Tipstar (`/app/tipstar` + `/p/[pickId]` con código `SOFIA5`)**, **Referidos Doble Vía (`/app/account`, +15 días gratis al primer pago de ambos)**, **Escudo Anti-Abuso \$0 MXN** en `/signup` (OAuth Google/Apple, normalización Gmail `+tag`/puntos y bloqueo de dominios desechables), **Player Props Lab (`/app/props`)**, **Momios & Geodesic (`/app/momios`)**, **Mi Bitácora (`/app/lab`)** y **Consola Admin Founder (`/app/admin`)**.
+    - Stories duales en `packages/ui/src/platform/platform-v4.stories.tsx` y pruebas unitarias + E2E (`10/10` en `desktop` y `mobile` con `@axe-core/playwright` WCAG 2.1 AA).
+- **No hecho / fuera de alcance:**
+  - Cobro real con Stripe MX y persistencia transaccional multiusuario en Postgres/Supabase (reservados para F4 tras activar cuentas y llaves en `DEPLOYMENT.md` §6).
+- **Cómo probarlo:**
+  - `pnpm typecheck`, `pnpm test`, `pnpm build`, `pnpm build-storybook` y `pnpm e2e` (`10 passed`).
+
 
 
 

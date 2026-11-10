@@ -19,6 +19,7 @@ export interface RegisteredTeamAsset {
   revision: number;
   svgPath: string;
   pngPath: string;
+  colors: readonly [string, string];
 }
 
 export const LEAGUE_ASSETS: Record<string, RegisteredLeagueAsset> = {
@@ -115,7 +116,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "América",
     "revision": 1,
     "svgPath": "/brand/sports/liga-mx/r1/svg/america.svg",
-    "pngPath": "/brand/sports/liga-mx/r1/png/america.png"
+    "pngPath": "/brand/sports/liga-mx/r1/png/america.png",
+    "colors": [
+      "#F9E08B",
+      "#B52D3B"
+    ]
   },
   "liga-mx.atlante": {
     "id": "liga-mx.atlante",
@@ -126,7 +131,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Atlante",
     "revision": 1,
     "svgPath": "/brand/sports/liga-mx/r1/svg/atlante.svg",
-    "pngPath": "/brand/sports/liga-mx/r1/png/atlante.png"
+    "pngPath": "/brand/sports/liga-mx/r1/png/atlante.png",
+    "colors": [
+      "#AB263E",
+      "#122746"
+    ]
   },
   "liga-mx.atlas": {
     "id": "liga-mx.atlas",
@@ -137,7 +146,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Atlas",
     "revision": 1,
     "svgPath": "/brand/sports/liga-mx/r1/svg/atlas.svg",
-    "pngPath": "/brand/sports/liga-mx/r1/png/atlas.png"
+    "pngPath": "/brand/sports/liga-mx/r1/png/atlas.png",
+    "colors": [
+      "#B4283B",
+      "#B4283B"
+    ]
   },
   "liga-mx.atletico-san-luis": {
     "id": "liga-mx.atletico-san-luis",
@@ -148,7 +161,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Atl. San Luis",
     "revision": 1,
     "svgPath": "/brand/sports/liga-mx/r1/svg/atletico-san-luis.svg",
-    "pngPath": "/brand/sports/liga-mx/r1/png/atletico-san-luis.png"
+    "pngPath": "/brand/sports/liga-mx/r1/png/atletico-san-luis.png",
+    "colors": [
+      "#B42B42",
+      "#19385C"
+    ]
   },
   "liga-mx.chivas": {
     "id": "liga-mx.chivas",
@@ -159,7 +176,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Chivas",
     "revision": 1,
     "svgPath": "/brand/sports/liga-mx/r1/svg/chivas.svg",
-    "pngPath": "/brand/sports/liga-mx/r1/png/chivas.png"
+    "pngPath": "/brand/sports/liga-mx/r1/png/chivas.png",
+    "colors": [
+      "#BC2D42",
+      "#173456"
+    ]
   },
   "liga-mx.cruz-azul": {
     "id": "liga-mx.cruz-azul",
@@ -170,7 +191,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Cruz Azul",
     "revision": 1,
     "svgPath": "/brand/sports/liga-mx/r1/svg/cruz-azul.svg",
-    "pngPath": "/brand/sports/liga-mx/r1/png/cruz-azul.png"
+    "pngPath": "/brand/sports/liga-mx/r1/png/cruz-azul.png",
+    "colors": [
+      "#11376F",
+      "#17468C"
+    ]
   },
   "liga-mx.fc-juarez": {
     "id": "liga-mx.fc-juarez",
@@ -181,7 +206,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Juárez",
     "revision": 1,
     "svgPath": "/brand/sports/liga-mx/r1/svg/fc-juarez.svg",
-    "pngPath": "/brand/sports/liga-mx/r1/png/fc-juarez.png"
+    "pngPath": "/brand/sports/liga-mx/r1/png/fc-juarez.png",
+    "colors": [
+      "#A6DB63",
+      "#C93444"
+    ]
   },
   "liga-mx.leon": {
     "id": "liga-mx.leon",
@@ -192,7 +221,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "León",
     "revision": 1,
     "svgPath": "/brand/sports/liga-mx/r1/svg/leon.svg",
-    "pngPath": "/brand/sports/liga-mx/r1/png/leon.png"
+    "pngPath": "/brand/sports/liga-mx/r1/png/leon.png",
+    "colors": [
+      "#FFDB80",
+      "#075840"
+    ]
   },
   "liga-mx.monterrey": {
     "id": "liga-mx.monterrey",
@@ -203,7 +236,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Monterrey",
     "revision": 1,
     "svgPath": "/brand/sports/liga-mx/r1/svg/monterrey.svg",
-    "pngPath": "/brand/sports/liga-mx/r1/png/monterrey.png"
+    "pngPath": "/brand/sports/liga-mx/r1/png/monterrey.png",
+    "colors": [
+      "#163252",
+      "#163252"
+    ]
   },
   "liga-mx.necaxa": {
     "id": "liga-mx.necaxa",
@@ -214,7 +251,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Necaxa",
     "revision": 1,
     "svgPath": "/brand/sports/liga-mx/r1/svg/necaxa.svg",
-    "pngPath": "/brand/sports/liga-mx/r1/png/necaxa.png"
+    "pngPath": "/brand/sports/liga-mx/r1/png/necaxa.png",
+    "colors": [
+      "#A72539",
+      "#D54451"
+    ]
   },
   "liga-mx.pachuca": {
     "id": "liga-mx.pachuca",
@@ -225,7 +266,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Pachuca",
     "revision": 1,
     "svgPath": "/brand/sports/liga-mx/r1/svg/pachuca.svg",
-    "pngPath": "/brand/sports/liga-mx/r1/png/pachuca.png"
+    "pngPath": "/brand/sports/liga-mx/r1/png/pachuca.png",
+    "colors": [
+      "#204275",
+      "#96B8D7"
+    ]
   },
   "liga-mx.puebla": {
     "id": "liga-mx.puebla",
@@ -236,7 +281,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Puebla",
     "revision": 1,
     "svgPath": "/brand/sports/liga-mx/r1/svg/puebla.svg",
-    "pngPath": "/brand/sports/liga-mx/r1/png/puebla.png"
+    "pngPath": "/brand/sports/liga-mx/r1/png/puebla.png",
+    "colors": [
+      "#1D609C",
+      "#9FC9E5"
+    ]
   },
   "liga-mx.pumas-unam": {
     "id": "liga-mx.pumas-unam",
@@ -247,7 +296,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Pumas",
     "revision": 1,
     "svgPath": "/brand/sports/liga-mx/r1/svg/pumas-unam.svg",
-    "pngPath": "/brand/sports/liga-mx/r1/png/pumas-unam.png"
+    "pngPath": "/brand/sports/liga-mx/r1/png/pumas-unam.png",
+    "colors": [
+      "#F2CD78",
+      "#172D4A"
+    ]
   },
   "liga-mx.queretaro": {
     "id": "liga-mx.queretaro",
@@ -258,7 +311,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Querétaro",
     "revision": 1,
     "svgPath": "/brand/sports/liga-mx/r1/svg/queretaro.svg",
-    "pngPath": "/brand/sports/liga-mx/r1/png/queretaro.png"
+    "pngPath": "/brand/sports/liga-mx/r1/png/queretaro.png",
+    "colors": [
+      "#D34B55",
+      "#3180C1"
+    ]
   },
   "liga-mx.santos-laguna": {
     "id": "liga-mx.santos-laguna",
@@ -269,7 +326,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Santos Laguna",
     "revision": 1,
     "svgPath": "/brand/sports/liga-mx/r1/svg/santos-laguna.svg",
-    "pngPath": "/brand/sports/liga-mx/r1/png/santos-laguna.png"
+    "pngPath": "/brand/sports/liga-mx/r1/png/santos-laguna.png",
+    "colors": [
+      "#E9B95F",
+      "#0D6046"
+    ]
   },
   "liga-mx.tigres-uanl": {
     "id": "liga-mx.tigres-uanl",
@@ -280,7 +341,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Tigres",
     "revision": 1,
     "svgPath": "/brand/sports/liga-mx/r1/svg/tigres-uanl.svg",
-    "pngPath": "/brand/sports/liga-mx/r1/png/tigres-uanl.png"
+    "pngPath": "/brand/sports/liga-mx/r1/png/tigres-uanl.png",
+    "colors": [
+      "#FFC445",
+      "#17448B"
+    ]
   },
   "liga-mx.tijuana": {
     "id": "liga-mx.tijuana",
@@ -291,7 +356,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Tijuana",
     "revision": 1,
     "svgPath": "/brand/sports/liga-mx/r1/svg/tijuana.svg",
-    "pngPath": "/brand/sports/liga-mx/r1/png/tijuana.png"
+    "pngPath": "/brand/sports/liga-mx/r1/png/tijuana.png",
+    "colors": [
+      "#9A243A",
+      "#242833"
+    ]
   },
   "liga-mx.toluca": {
     "id": "liga-mx.toluca",
@@ -302,7 +371,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Toluca",
     "revision": 1,
     "svgPath": "/brand/sports/liga-mx/r1/svg/toluca.svg",
-    "pngPath": "/brand/sports/liga-mx/r1/png/toluca.png"
+    "pngPath": "/brand/sports/liga-mx/r1/png/toluca.png",
+    "colors": [
+      "#B5233A",
+      "#731C32"
+    ]
   },
   "premier-league.afc-bournemouth": {
     "id": "premier-league.afc-bournemouth",
@@ -313,7 +386,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Bournemouth",
     "revision": 2,
     "svgPath": "/brand/sports/premier-league/r2/svg/afc-bournemouth.svg",
-    "pngPath": "/brand/sports/premier-league/r2/png/afc-bournemouth.png"
+    "pngPath": "/brand/sports/premier-league/r2/png/afc-bournemouth.png",
+    "colors": [
+      "#D33647",
+      "#D33647"
+    ]
   },
   "premier-league.arsenal": {
     "id": "premier-league.arsenal",
@@ -324,7 +401,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Arsenal",
     "revision": 2,
     "svgPath": "/brand/sports/premier-league/r2/svg/arsenal.svg",
-    "pngPath": "/brand/sports/premier-league/r2/png/arsenal.png"
+    "pngPath": "/brand/sports/premier-league/r2/png/arsenal.png",
+    "colors": [
+      "#9F1A2D",
+      "#C32236"
+    ]
   },
   "premier-league.aston-villa": {
     "id": "premier-league.aston-villa",
@@ -335,7 +416,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Aston Villa",
     "revision": 2,
     "svgPath": "/brand/sports/premier-league/r2/svg/aston-villa.svg",
-    "pngPath": "/brand/sports/premier-league/r2/png/aston-villa.png"
+    "pngPath": "/brand/sports/premier-league/r2/png/aston-villa.png",
+    "colors": [
+      "#FFD482",
+      "#641E40"
+    ]
   },
   "premier-league.brentford": {
     "id": "premier-league.brentford",
@@ -346,7 +431,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Brentford",
     "revision": 2,
     "svgPath": "/brand/sports/premier-league/r2/svg/brentford.svg",
-    "pngPath": "/brand/sports/premier-league/r2/png/brentford.png"
+    "pngPath": "/brand/sports/premier-league/r2/png/brentford.png",
+    "colors": [
+      "#F6BE68",
+      "#AA172C"
+    ]
   },
   "premier-league.brighton-hove-albion": {
     "id": "premier-league.brighton-hove-albion",
@@ -357,7 +446,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Brighton",
     "revision": 2,
     "svgPath": "/brand/sports/premier-league/r2/svg/brighton-hove-albion.svg",
-    "pngPath": "/brand/sports/premier-league/r2/png/brighton-hove-albion.png"
+    "pngPath": "/brand/sports/premier-league/r2/png/brighton-hove-albion.png",
+    "colors": [
+      "#0F487F",
+      "#1763A7"
+    ]
   },
   "premier-league.chelsea": {
     "id": "premier-league.chelsea",
@@ -368,7 +461,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Chelsea",
     "revision": 2,
     "svgPath": "/brand/sports/premier-league/r2/svg/chelsea.svg",
-    "pngPath": "/brand/sports/premier-league/r2/png/chelsea.png"
+    "pngPath": "/brand/sports/premier-league/r2/png/chelsea.png",
+    "colors": [
+      "#183F88",
+      "#9EC0F6"
+    ]
   },
   "premier-league.coventry-city": {
     "id": "premier-league.coventry-city",
@@ -379,7 +476,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Coventry City",
     "revision": 2,
     "svgPath": "/brand/sports/premier-league/r2/svg/coventry-city.svg",
-    "pngPath": "/brand/sports/premier-league/r2/png/coventry-city.png"
+    "pngPath": "/brand/sports/premier-league/r2/png/coventry-city.png",
+    "colors": [
+      "#8AC8EC",
+      "#173757"
+    ]
   },
   "premier-league.crystal-palace": {
     "id": "premier-league.crystal-palace",
@@ -390,7 +491,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Crystal Palace",
     "revision": 2,
     "svgPath": "/brand/sports/premier-league/r2/svg/crystal-palace.svg",
-    "pngPath": "/brand/sports/premier-league/r2/png/crystal-palace.png"
+    "pngPath": "/brand/sports/premier-league/r2/png/crystal-palace.png",
+    "colors": [
+      "#18468F",
+      "#C53043"
+    ]
   },
   "premier-league.everton": {
     "id": "premier-league.everton",
@@ -401,7 +506,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Everton",
     "revision": 2,
     "svgPath": "/brand/sports/premier-league/r2/svg/everton.svg",
-    "pngPath": "/brand/sports/premier-league/r2/png/everton.png"
+    "pngPath": "/brand/sports/premier-league/r2/png/everton.png",
+    "colors": [
+      "#13468F",
+      "#13468F"
+    ]
   },
   "premier-league.fulham": {
     "id": "premier-league.fulham",
@@ -412,7 +521,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Fulham",
     "revision": 2,
     "svgPath": "/brand/sports/premier-league/r2/svg/fulham.svg",
-    "pngPath": "/brand/sports/premier-league/r2/png/fulham.png"
+    "pngPath": "/brand/sports/premier-league/r2/png/fulham.png",
+    "colors": [
+      "#BB2636",
+      "#BB2636"
+    ]
   },
   "premier-league.hull-city": {
     "id": "premier-league.hull-city",
@@ -423,7 +536,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Hull City",
     "revision": 2,
     "svgPath": "/brand/sports/premier-league/r2/svg/hull-city.svg",
-    "pngPath": "/brand/sports/premier-league/r2/png/hull-city.png"
+    "pngPath": "/brand/sports/premier-league/r2/png/hull-city.png",
+    "colors": [
+      "#F6AF42",
+      "#74411F"
+    ]
   },
   "premier-league.ipswich-town": {
     "id": "premier-league.ipswich-town",
@@ -434,7 +551,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Ipswich Town",
     "revision": 2,
     "svgPath": "/brand/sports/premier-league/r2/svg/ipswich-town.svg",
-    "pngPath": "/brand/sports/premier-league/r2/png/ipswich-town.png"
+    "pngPath": "/brand/sports/premier-league/r2/png/ipswich-town.png",
+    "colors": [
+      "#214A8D",
+      "#C52D43"
+    ]
   },
   "premier-league.leeds-united": {
     "id": "premier-league.leeds-united",
@@ -445,7 +566,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Leeds United",
     "revision": 2,
     "svgPath": "/brand/sports/premier-league/r2/svg/leeds-united.svg",
-    "pngPath": "/brand/sports/premier-league/r2/png/leeds-united.png"
+    "pngPath": "/brand/sports/premier-league/r2/png/leeds-united.png",
+    "colors": [
+      "#F9D35F",
+      "#1E4581"
+    ]
   },
   "premier-league.liverpool": {
     "id": "premier-league.liverpool",
@@ -456,7 +581,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Liverpool",
     "revision": 2,
     "svgPath": "/brand/sports/premier-league/r2/svg/liverpool.svg",
-    "pngPath": "/brand/sports/premier-league/r2/png/liverpool.png"
+    "pngPath": "/brand/sports/premier-league/r2/png/liverpool.png",
+    "colors": [
+      "#A31C32",
+      "#DF4453"
+    ]
   },
   "premier-league.manchester-city": {
     "id": "premier-league.manchester-city",
@@ -467,7 +596,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Manchester City",
     "revision": 2,
     "svgPath": "/brand/sports/premier-league/r2/svg/manchester-city.svg",
-    "pngPath": "/brand/sports/premier-league/r2/png/manchester-city.png"
+    "pngPath": "/brand/sports/premier-league/r2/png/manchester-city.png",
+    "colors": [
+      "#F6C562",
+      "#9DD6F5"
+    ]
   },
   "premier-league.manchester-united": {
     "id": "premier-league.manchester-united",
@@ -478,7 +611,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Man. United",
     "revision": 2,
     "svgPath": "/brand/sports/premier-league/r2/svg/manchester-united.svg",
-    "pngPath": "/brand/sports/premier-league/r2/png/manchester-united.png"
+    "pngPath": "/brand/sports/premier-league/r2/png/manchester-united.png",
+    "colors": [
+      "#FFD16E",
+      "#A1182B"
+    ]
   },
   "premier-league.newcastle-united": {
     "id": "premier-league.newcastle-united",
@@ -489,7 +626,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Newcastle",
     "revision": 2,
     "svgPath": "/brand/sports/premier-league/r2/svg/newcastle-united.svg",
-    "pngPath": "/brand/sports/premier-league/r2/png/newcastle-united.png"
+    "pngPath": "/brand/sports/premier-league/r2/png/newcastle-united.png",
+    "colors": [
+      "#B9CBD9",
+      "#B9CBD9"
+    ]
   },
   "premier-league.nottingham-forest": {
     "id": "premier-league.nottingham-forest",
@@ -500,7 +641,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Nottingham Forest",
     "revision": 2,
     "svgPath": "/brand/sports/premier-league/r2/svg/nottingham-forest.svg",
-    "pngPath": "/brand/sports/premier-league/r2/png/nottingham-forest.png"
+    "pngPath": "/brand/sports/premier-league/r2/png/nottingham-forest.png",
+    "colors": [
+      "#AA2338",
+      "#AA2338"
+    ]
   },
   "premier-league.sunderland": {
     "id": "premier-league.sunderland",
@@ -511,7 +656,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Sunderland",
     "revision": 2,
     "svgPath": "/brand/sports/premier-league/r2/svg/sunderland.svg",
-    "pngPath": "/brand/sports/premier-league/r2/png/sunderland.png"
+    "pngPath": "/brand/sports/premier-league/r2/png/sunderland.png",
+    "colors": [
+      "#C22C43",
+      "#C22C43"
+    ]
   },
   "premier-league.tottenham-hotspur": {
     "id": "premier-league.tottenham-hotspur",
@@ -522,7 +671,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Tottenham",
     "revision": 2,
     "svgPath": "/brand/sports/premier-league/r2/svg/tottenham-hotspur.svg",
-    "pngPath": "/brand/sports/premier-league/r2/png/tottenham-hotspur.png"
+    "pngPath": "/brand/sports/premier-league/r2/png/tottenham-hotspur.png",
+    "colors": [
+      "#8199B7",
+      "#192F51"
+    ]
   },
   "laliga.athletic-club": {
     "id": "laliga.athletic-club",
@@ -533,7 +686,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Athletic Club",
     "revision": 1,
     "svgPath": "/brand/sports/laliga/r1/svg/athletic-club.svg",
-    "pngPath": "/brand/sports/laliga/r1/png/athletic-club.png"
+    "pngPath": "/brand/sports/laliga/r1/png/athletic-club.png",
+    "colors": [
+      "#B42D44",
+      "#263D56"
+    ]
   },
   "laliga.atletico-madrid": {
     "id": "laliga.atletico-madrid",
@@ -544,7 +701,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Atlético de Madrid",
     "revision": 1,
     "svgPath": "/brand/sports/laliga/r1/svg/atletico-madrid.svg",
-    "pngPath": "/brand/sports/laliga/r1/png/atletico-madrid.png"
+    "pngPath": "/brand/sports/laliga/r1/png/atletico-madrid.png",
+    "colors": [
+      "#B9293F",
+      "#233A64"
+    ]
   },
   "laliga.osasuna": {
     "id": "laliga.osasuna",
@@ -555,7 +716,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "CA Osasuna",
     "revision": 1,
     "svgPath": "/brand/sports/laliga/r1/svg/osasuna.svg",
-    "pngPath": "/brand/sports/laliga/r1/png/osasuna.png"
+    "pngPath": "/brand/sports/laliga/r1/png/osasuna.png",
+    "colors": [
+      "#F0C771",
+      "#8E243D"
+    ]
   },
   "laliga.celta-vigo": {
     "id": "laliga.celta-vigo",
@@ -566,7 +731,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Celta de Vigo",
     "revision": 1,
     "svgPath": "/brand/sports/laliga/r1/svg/celta-vigo.svg",
-    "pngPath": "/brand/sports/laliga/r1/png/celta-vigo.png"
+    "pngPath": "/brand/sports/laliga/r1/png/celta-vigo.png",
+    "colors": [
+      "#8B213F",
+      "#A7D5EA"
+    ]
   },
   "laliga.alaves": {
     "id": "laliga.alaves",
@@ -577,7 +746,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Deportivo Alavés",
     "revision": 1,
     "svgPath": "/brand/sports/laliga/r1/svg/alaves.svg",
-    "pngPath": "/brand/sports/laliga/r1/png/alaves.png"
+    "pngPath": "/brand/sports/laliga/r1/png/alaves.png",
+    "colors": [
+      "#235B94",
+      "#397DB4"
+    ]
   },
   "laliga.elche": {
     "id": "laliga.elche",
@@ -588,7 +761,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Elche CF",
     "revision": 1,
     "svgPath": "/brand/sports/laliga/r1/svg/elche.svg",
-    "pngPath": "/brand/sports/laliga/r1/png/elche.png"
+    "pngPath": "/brand/sports/laliga/r1/png/elche.png",
+    "colors": [
+      "#12694D",
+      "#228369"
+    ]
   },
   "laliga.barcelona": {
     "id": "laliga.barcelona",
@@ -599,7 +776,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "FC Barcelona",
     "revision": 1,
     "svgPath": "/brand/sports/laliga/r1/svg/barcelona.svg",
-    "pngPath": "/brand/sports/laliga/r1/png/barcelona.png"
+    "pngPath": "/brand/sports/laliga/r1/png/barcelona.png",
+    "colors": [
+      "#A32149",
+      "#F5C767"
+    ]
   },
   "laliga.getafe": {
     "id": "laliga.getafe",
@@ -610,7 +791,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Getafe CF",
     "revision": 1,
     "svgPath": "/brand/sports/laliga/r1/svg/getafe.svg",
-    "pngPath": "/brand/sports/laliga/r1/png/getafe.png"
+    "pngPath": "/brand/sports/laliga/r1/png/getafe.png",
+    "colors": [
+      "#1D56A0",
+      "#A72A3C"
+    ]
   },
   "laliga.levante": {
     "id": "laliga.levante",
@@ -621,7 +806,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Levante UD",
     "revision": 1,
     "svgPath": "/brand/sports/laliga/r1/svg/levante.svg",
-    "pngPath": "/brand/sports/laliga/r1/png/levante.png"
+    "pngPath": "/brand/sports/laliga/r1/png/levante.png",
+    "colors": [
+      "#A02444",
+      "#F0CC84"
+    ]
   },
   "laliga.malaga": {
     "id": "laliga.malaga",
@@ -632,7 +821,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Málaga CF",
     "revision": 1,
     "svgPath": "/brand/sports/laliga/r1/svg/malaga.svg",
-    "pngPath": "/brand/sports/laliga/r1/png/malaga.png"
+    "pngPath": "/brand/sports/laliga/r1/png/malaga.png",
+    "colors": [
+      "#184673",
+      "#68A8D7"
+    ]
   },
   "laliga.racing-santander": {
     "id": "laliga.racing-santander",
@@ -643,7 +836,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Racing de Santander",
     "revision": 1,
     "svgPath": "/brand/sports/laliga/r1/svg/racing-santander.svg",
-    "pngPath": "/brand/sports/laliga/r1/png/racing-santander.png"
+    "pngPath": "/brand/sports/laliga/r1/png/racing-santander.png",
+    "colors": [
+      "#127451",
+      "#E6C774"
+    ]
   },
   "laliga.rayo-vallecano": {
     "id": "laliga.rayo-vallecano",
@@ -654,7 +851,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Rayo Vallecano",
     "revision": 1,
     "svgPath": "/brand/sports/laliga/r1/svg/rayo-vallecano.svg",
-    "pngPath": "/brand/sports/laliga/r1/png/rayo-vallecano.png"
+    "pngPath": "/brand/sports/laliga/r1/png/rayo-vallecano.png",
+    "colors": [
+      "#BD3049",
+      "#BD3049"
+    ]
   },
   "laliga.deportivo-la-coruna": {
     "id": "laliga.deportivo-la-coruna",
@@ -665,7 +866,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Deportivo de La Coruña",
     "revision": 1,
     "svgPath": "/brand/sports/laliga/r1/svg/deportivo-la-coruna.svg",
-    "pngPath": "/brand/sports/laliga/r1/png/deportivo-la-coruna.png"
+    "pngPath": "/brand/sports/laliga/r1/png/deportivo-la-coruna.png",
+    "colors": [
+      "#795B9F",
+      "#795B9F"
+    ]
   },
   "laliga.espanyol": {
     "id": "laliga.espanyol",
@@ -676,7 +881,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "RCD Espanyol",
     "revision": 1,
     "svgPath": "/brand/sports/laliga/r1/svg/espanyol.svg",
-    "pngPath": "/brand/sports/laliga/r1/png/espanyol.png"
+    "pngPath": "/brand/sports/laliga/r1/png/espanyol.png",
+    "colors": [
+      "#E3AE4D",
+      "#235B94"
+    ]
   },
   "laliga.real-betis": {
     "id": "laliga.real-betis",
@@ -687,7 +896,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Real Betis",
     "revision": 1,
     "svgPath": "/brand/sports/laliga/r1/svg/real-betis.svg",
-    "pngPath": "/brand/sports/laliga/r1/png/real-betis.png"
+    "pngPath": "/brand/sports/laliga/r1/png/real-betis.png",
+    "colors": [
+      "#08774F",
+      "#F8D27C"
+    ]
   },
   "laliga.real-madrid": {
     "id": "laliga.real-madrid",
@@ -698,7 +911,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Real Madrid",
     "revision": 1,
     "svgPath": "/brand/sports/laliga/r1/svg/real-madrid.svg",
-    "pngPath": "/brand/sports/laliga/r1/png/real-madrid.png"
+    "pngPath": "/brand/sports/laliga/r1/png/real-madrid.png",
+    "colors": [
+      "#B72A45",
+      "#876021"
+    ]
   },
   "laliga.real-sociedad": {
     "id": "laliga.real-sociedad",
@@ -709,7 +926,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Real Sociedad",
     "revision": 1,
     "svgPath": "/brand/sports/laliga/r1/svg/real-sociedad.svg",
-    "pngPath": "/brand/sports/laliga/r1/png/real-sociedad.png"
+    "pngPath": "/brand/sports/laliga/r1/png/real-sociedad.png",
+    "colors": [
+      "#EAC782",
+      "#225990"
+    ]
   },
   "laliga.sevilla": {
     "id": "laliga.sevilla",
@@ -720,7 +941,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Sevilla FC",
     "revision": 1,
     "svgPath": "/brand/sports/laliga/r1/svg/sevilla.svg",
-    "pngPath": "/brand/sports/laliga/r1/png/sevilla.png"
+    "pngPath": "/brand/sports/laliga/r1/png/sevilla.png",
+    "colors": [
+      "#C64152",
+      "#C64152"
+    ]
   },
   "laliga.valencia": {
     "id": "laliga.valencia",
@@ -731,7 +956,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Valencia CF",
     "revision": 1,
     "svgPath": "/brand/sports/laliga/r1/svg/valencia.svg",
-    "pngPath": "/brand/sports/laliga/r1/png/valencia.png"
+    "pngPath": "/brand/sports/laliga/r1/png/valencia.png",
+    "colors": [
+      "#F3C358",
+      "#C54043"
+    ]
   },
   "laliga.villarreal": {
     "id": "laliga.villarreal",
@@ -742,7 +971,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Villarreal CF",
     "revision": 1,
     "svgPath": "/brand/sports/laliga/r1/svg/villarreal.svg",
-    "pngPath": "/brand/sports/laliga/r1/png/villarreal.png"
+    "pngPath": "/brand/sports/laliga/r1/png/villarreal.png",
+    "colors": [
+      "#F8D052",
+      "#1B4A78"
+    ]
   },
   "bundesliga.augsburg": {
     "id": "bundesliga.augsburg",
@@ -753,7 +986,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Augsburg",
     "revision": 1,
     "svgPath": "/brand/sports/bundesliga/r1/svg/augsburg.svg",
-    "pngPath": "/brand/sports/bundesliga/r1/png/augsburg.png"
+    "pngPath": "/brand/sports/bundesliga/r1/png/augsburg.png",
+    "colors": [
+      "#A3293B",
+      "#1D513E"
+    ]
   },
   "bundesliga.bayer-leverkusen": {
     "id": "bundesliga.bayer-leverkusen",
@@ -764,7 +1001,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Leverkusen",
     "revision": 1,
     "svgPath": "/brand/sports/bundesliga/r1/svg/bayer-leverkusen.svg",
-    "pngPath": "/brand/sports/bundesliga/r1/png/bayer-leverkusen.png"
+    "pngPath": "/brand/sports/bundesliga/r1/png/bayer-leverkusen.png",
+    "colors": [
+      "#D4444C",
+      "#D4444C"
+    ]
   },
   "bundesliga.bayern-munchen": {
     "id": "bundesliga.bayern-munchen",
@@ -775,7 +1016,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Bayern München",
     "revision": 1,
     "svgPath": "/brand/sports/bundesliga/r1/svg/bayern-munchen.svg",
-    "pngPath": "/brand/sports/bundesliga/r1/png/bayern-munchen.png"
+    "pngPath": "/brand/sports/bundesliga/r1/png/bayern-munchen.png",
+    "colors": [
+      "#A81E37",
+      "#77BFE5"
+    ]
   },
   "bundesliga.borussia-dortmund": {
     "id": "bundesliga.borussia-dortmund",
@@ -786,7 +1031,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Dortmund",
     "revision": 1,
     "svgPath": "/brand/sports/bundesliga/r1/svg/borussia-dortmund.svg",
-    "pngPath": "/brand/sports/bundesliga/r1/png/borussia-dortmund.png"
+    "pngPath": "/brand/sports/bundesliga/r1/png/borussia-dortmund.png",
+    "colors": [
+      "#F9CF48",
+      "#9D6512"
+    ]
   },
   "bundesliga.borussia-monchengladbach": {
     "id": "bundesliga.borussia-monchengladbach",
@@ -797,7 +1046,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "M’gladbach",
     "revision": 1,
     "svgPath": "/brand/sports/bundesliga/r1/svg/borussia-monchengladbach.svg",
-    "pngPath": "/brand/sports/bundesliga/r1/png/borussia-monchengladbach.png"
+    "pngPath": "/brand/sports/bundesliga/r1/png/borussia-monchengladbach.png",
+    "colors": [
+      "#347753",
+      "#347753"
+    ]
   },
   "bundesliga.eintracht-frankfurt": {
     "id": "bundesliga.eintracht-frankfurt",
@@ -808,7 +1061,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Frankfurt",
     "revision": 1,
     "svgPath": "/brand/sports/bundesliga/r1/svg/eintracht-frankfurt.svg",
-    "pngPath": "/brand/sports/bundesliga/r1/png/eintracht-frankfurt.png"
+    "pngPath": "/brand/sports/bundesliga/r1/png/eintracht-frankfurt.png",
+    "colors": [
+      "#801D33",
+      "#CA3C4D"
+    ]
   },
   "bundesliga.elversberg": {
     "id": "bundesliga.elversberg",
@@ -819,7 +1076,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Elversberg",
     "revision": 1,
     "svgPath": "/brand/sports/bundesliga/r1/svg/elversberg.svg",
-    "pngPath": "/brand/sports/bundesliga/r1/png/elversberg.png"
+    "pngPath": "/brand/sports/bundesliga/r1/png/elversberg.png",
+    "colors": [
+      "#C7AD76",
+      "#C7AD76"
+    ]
   },
   "bundesliga.freiburg": {
     "id": "bundesliga.freiburg",
@@ -830,7 +1091,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Freiburg",
     "revision": 1,
     "svgPath": "/brand/sports/bundesliga/r1/svg/freiburg.svg",
-    "pngPath": "/brand/sports/bundesliga/r1/png/freiburg.png"
+    "pngPath": "/brand/sports/bundesliga/r1/png/freiburg.png",
+    "colors": [
+      "#C03546",
+      "#C03546"
+    ]
   },
   "bundesliga.hamburger": {
     "id": "bundesliga.hamburger",
@@ -841,7 +1106,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Hamburger SV",
     "revision": 1,
     "svgPath": "/brand/sports/bundesliga/r1/svg/hamburger.svg",
-    "pngPath": "/brand/sports/bundesliga/r1/png/hamburger.png"
+    "pngPath": "/brand/sports/bundesliga/r1/png/hamburger.png",
+    "colors": [
+      "#14539A",
+      "#0C3264"
+    ]
   },
   "bundesliga.hoffenheim": {
     "id": "bundesliga.hoffenheim",
@@ -852,7 +1121,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Hoffenheim",
     "revision": 1,
     "svgPath": "/brand/sports/bundesliga/r1/svg/hoffenheim.svg",
-    "pngPath": "/brand/sports/bundesliga/r1/png/hoffenheim.png"
+    "pngPath": "/brand/sports/bundesliga/r1/png/hoffenheim.png",
+    "colors": [
+      "#184D91",
+      "#70BDE1"
+    ]
   },
   "bundesliga.koln": {
     "id": "bundesliga.koln",
@@ -863,7 +1136,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Köln",
     "revision": 1,
     "svgPath": "/brand/sports/bundesliga/r1/svg/koln.svg",
-    "pngPath": "/brand/sports/bundesliga/r1/png/koln.png"
+    "pngPath": "/brand/sports/bundesliga/r1/png/koln.png",
+    "colors": [
+      "#9C2337",
+      "#DC9698"
+    ]
   },
   "bundesliga.mainz": {
     "id": "bundesliga.mainz",
@@ -874,7 +1151,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Mainz 05",
     "revision": 1,
     "svgPath": "/brand/sports/bundesliga/r1/svg/mainz.svg",
-    "pngPath": "/brand/sports/bundesliga/r1/png/mainz.png"
+    "pngPath": "/brand/sports/bundesliga/r1/png/mainz.png",
+    "colors": [
+      "#A6223A",
+      "#DA9354"
+    ]
   },
   "bundesliga.paderborn": {
     "id": "bundesliga.paderborn",
@@ -885,7 +1166,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Paderborn",
     "revision": 1,
     "svgPath": "/brand/sports/bundesliga/r1/svg/paderborn.svg",
-    "pngPath": "/brand/sports/bundesliga/r1/png/paderborn.png"
+    "pngPath": "/brand/sports/bundesliga/r1/png/paderborn.png",
+    "colors": [
+      "#3979C4",
+      "#181F32"
+    ]
   },
   "bundesliga.rb-leipzig": {
     "id": "bundesliga.rb-leipzig",
@@ -896,7 +1181,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "RB Leipzig",
     "revision": 1,
     "svgPath": "/brand/sports/bundesliga/r1/svg/rb-leipzig.svg",
-    "pngPath": "/brand/sports/bundesliga/r1/png/rb-leipzig.png"
+    "pngPath": "/brand/sports/bundesliga/r1/png/rb-leipzig.png",
+    "colors": [
+      "#DA9A38",
+      "#A42038"
+    ]
   },
   "bundesliga.schalke": {
     "id": "bundesliga.schalke",
@@ -907,7 +1196,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Schalke 04",
     "revision": 1,
     "svgPath": "/brand/sports/bundesliga/r1/svg/schalke.svg",
-    "pngPath": "/brand/sports/bundesliga/r1/png/schalke.png"
+    "pngPath": "/brand/sports/bundesliga/r1/png/schalke.png",
+    "colors": [
+      "#164A9A",
+      "#8CBCE6"
+    ]
   },
   "bundesliga.stuttgart": {
     "id": "bundesliga.stuttgart",
@@ -918,7 +1211,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Stuttgart",
     "revision": 1,
     "svgPath": "/brand/sports/bundesliga/r1/svg/stuttgart.svg",
-    "pngPath": "/brand/sports/bundesliga/r1/png/stuttgart.png"
+    "pngPath": "/brand/sports/bundesliga/r1/png/stuttgart.png",
+    "colors": [
+      "#8B2234",
+      "#CD3A48"
+    ]
   },
   "bundesliga.union-berlin": {
     "id": "bundesliga.union-berlin",
@@ -929,7 +1226,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Union Berlin",
     "revision": 1,
     "svgPath": "/brand/sports/bundesliga/r1/svg/union-berlin.svg",
-    "pngPath": "/brand/sports/bundesliga/r1/png/union-berlin.png"
+    "pngPath": "/brand/sports/bundesliga/r1/png/union-berlin.png",
+    "colors": [
+      "#F2BA4B",
+      "#A32135"
+    ]
   },
   "bundesliga.werder-bremen": {
     "id": "bundesliga.werder-bremen",
@@ -940,7 +1241,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Werder Bremen",
     "revision": 1,
     "svgPath": "/brand/sports/bundesliga/r1/svg/werder-bremen.svg",
-    "pngPath": "/brand/sports/bundesliga/r1/png/werder-bremen.png"
+    "pngPath": "/brand/sports/bundesliga/r1/png/werder-bremen.png",
+    "colors": [
+      "#6ABC91",
+      "#126348"
+    ]
   },
   "serie-a.milan": {
     "id": "serie-a.milan",
@@ -951,7 +1256,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Milan",
     "revision": 1,
     "svgPath": "/brand/sports/serie-a/r1/svg/milan.svg",
-    "pngPath": "/brand/sports/serie-a/r1/png/milan.png"
+    "pngPath": "/brand/sports/serie-a/r1/png/milan.png",
+    "colors": [
+      "#C93549",
+      "#C93549"
+    ]
   },
   "serie-a.monza": {
     "id": "serie-a.monza",
@@ -962,7 +1271,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Monza",
     "revision": 1,
     "svgPath": "/brand/sports/serie-a/r1/svg/monza.svg",
-    "pngPath": "/brand/sports/serie-a/r1/png/monza.png"
+    "pngPath": "/brand/sports/serie-a/r1/png/monza.png",
+    "colors": [
+      "#A32036",
+      "#A32036"
+    ]
   },
   "serie-a.fiorentina": {
     "id": "serie-a.fiorentina",
@@ -973,7 +1286,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Fiorentina",
     "revision": 1,
     "svgPath": "/brand/sports/serie-a/r1/svg/fiorentina.svg",
-    "pngPath": "/brand/sports/serie-a/r1/png/fiorentina.png"
+    "pngPath": "/brand/sports/serie-a/r1/png/fiorentina.png",
+    "colors": [
+      "#512C77",
+      "#C16587"
+    ]
   },
   "serie-a.roma": {
     "id": "serie-a.roma",
@@ -984,7 +1301,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Roma",
     "revision": 1,
     "svgPath": "/brand/sports/serie-a/r1/svg/roma.svg",
-    "pngPath": "/brand/sports/serie-a/r1/png/roma.png"
+    "pngPath": "/brand/sports/serie-a/r1/png/roma.png",
+    "colors": [
+      "#D6533E",
+      "#7F2536"
+    ]
   },
   "serie-a.atalanta-bc": {
     "id": "serie-a.atalanta-bc",
@@ -995,7 +1316,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Atalanta",
     "revision": 1,
     "svgPath": "/brand/sports/serie-a/r1/svg/atalanta-bc.svg",
-    "pngPath": "/brand/sports/serie-a/r1/png/atalanta-bc.png"
+    "pngPath": "/brand/sports/serie-a/r1/png/atalanta-bc.png",
+    "colors": [
+      "#193760",
+      "#438DCD"
+    ]
   },
   "serie-a.bologna": {
     "id": "serie-a.bologna",
@@ -1006,7 +1331,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Bologna",
     "revision": 1,
     "svgPath": "/brand/sports/serie-a/r1/svg/bologna.svg",
-    "pngPath": "/brand/sports/serie-a/r1/png/bologna.png"
+    "pngPath": "/brand/sports/serie-a/r1/png/bologna.png",
+    "colors": [
+      "#BE3A51",
+      "#242D4D"
+    ]
   },
   "serie-a.cagliari": {
     "id": "serie-a.cagliari",
@@ -1017,7 +1346,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Cagliari",
     "revision": 1,
     "svgPath": "/brand/sports/serie-a/r1/svg/cagliari.svg",
-    "pngPath": "/brand/sports/serie-a/r1/png/cagliari.png"
+    "pngPath": "/brand/sports/serie-a/r1/png/cagliari.png",
+    "colors": [
+      "#C33D51",
+      "#20385C"
+    ]
   },
   "serie-a.como": {
     "id": "serie-a.como",
@@ -1028,7 +1361,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Como",
     "revision": 1,
     "svgPath": "/brand/sports/serie-a/r1/svg/como.svg",
-    "pngPath": "/brand/sports/serie-a/r1/png/como.png"
+    "pngPath": "/brand/sports/serie-a/r1/png/como.png",
+    "colors": [
+      "#19437E",
+      "#19437E"
+    ]
   },
   "serie-a.internazionale-milano": {
     "id": "serie-a.internazionale-milano",
@@ -1039,7 +1376,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Inter",
     "revision": 1,
     "svgPath": "/brand/sports/serie-a/r1/svg/internazionale-milano.svg",
-    "pngPath": "/brand/sports/serie-a/r1/png/internazionale-milano.png"
+    "pngPath": "/brand/sports/serie-a/r1/png/internazionale-milano.png",
+    "colors": [
+      "#3D88C5",
+      "#152743"
+    ]
   },
   "serie-a.frosinone": {
     "id": "serie-a.frosinone",
@@ -1050,7 +1391,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Frosinone",
     "revision": 1,
     "svgPath": "/brand/sports/serie-a/r1/svg/frosinone.svg",
-    "pngPath": "/brand/sports/serie-a/r1/png/frosinone.png"
+    "pngPath": "/brand/sports/serie-a/r1/png/frosinone.png",
+    "colors": [
+      "#F4C940",
+      "#A76B18"
+    ]
   },
   "serie-a.genoa-cfc": {
     "id": "serie-a.genoa-cfc",
@@ -1061,7 +1406,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Genoa",
     "revision": 1,
     "svgPath": "/brand/sports/serie-a/r1/svg/genoa-cfc.svg",
-    "pngPath": "/brand/sports/serie-a/r1/png/genoa-cfc.png"
+    "pngPath": "/brand/sports/serie-a/r1/png/genoa-cfc.png",
+    "colors": [
+      "#B93247",
+      "#22345A"
+    ]
   },
   "serie-a.juventus": {
     "id": "serie-a.juventus",
@@ -1072,7 +1421,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Juventus",
     "revision": 1,
     "svgPath": "/brand/sports/serie-a/r1/svg/juventus.svg",
-    "pngPath": "/brand/sports/serie-a/r1/png/juventus.png"
+    "pngPath": "/brand/sports/serie-a/r1/png/juventus.png",
+    "colors": [
+      "#AD8D4E",
+      "#AD8D4E"
+    ]
   },
   "serie-a.lazio": {
     "id": "serie-a.lazio",
@@ -1083,7 +1436,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Lazio",
     "revision": 1,
     "svgPath": "/brand/sports/serie-a/r1/svg/lazio.svg",
-    "pngPath": "/brand/sports/serie-a/r1/png/lazio.png"
+    "pngPath": "/brand/sports/serie-a/r1/png/lazio.png",
+    "colors": [
+      "#173A64",
+      "#F9E7B9"
+    ]
   },
   "serie-a.lecce": {
     "id": "serie-a.lecce",
@@ -1094,7 +1451,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Lecce",
     "revision": 1,
     "svgPath": "/brand/sports/serie-a/r1/svg/lecce.svg",
-    "pngPath": "/brand/sports/serie-a/r1/png/lecce.png"
+    "pngPath": "/brand/sports/serie-a/r1/png/lecce.png",
+    "colors": [
+      "#9C263D",
+      "#FFE38E"
+    ]
   },
   "serie-a.napoli": {
     "id": "serie-a.napoli",
@@ -1105,7 +1466,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Napoli",
     "revision": 1,
     "svgPath": "/brand/sports/serie-a/r1/svg/napoli.svg",
-    "pngPath": "/brand/sports/serie-a/r1/png/napoli.png"
+    "pngPath": "/brand/sports/serie-a/r1/png/napoli.png",
+    "colors": [
+      "#12649A",
+      "#12649A"
+    ]
   },
   "serie-a.parma": {
     "id": "serie-a.parma",
@@ -1116,7 +1481,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Parma",
     "revision": 1,
     "svgPath": "/brand/sports/serie-a/r1/svg/parma.svg",
-    "pngPath": "/brand/sports/serie-a/r1/png/parma.png"
+    "pngPath": "/brand/sports/serie-a/r1/png/parma.png",
+    "colors": [
+      "#F5D968",
+      "#28579A"
+    ]
   },
   "serie-a.sassuolo": {
     "id": "serie-a.sassuolo",
@@ -1127,7 +1496,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Sassuolo",
     "revision": 1,
     "svgPath": "/brand/sports/serie-a/r1/svg/sassuolo.svg",
-    "pngPath": "/brand/sports/serie-a/r1/png/sassuolo.png"
+    "pngPath": "/brand/sports/serie-a/r1/png/sassuolo.png",
+    "colors": [
+      "#4D9871",
+      "#19372F"
+    ]
   },
   "serie-a.torino": {
     "id": "serie-a.torino",
@@ -1138,7 +1511,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Torino",
     "revision": 1,
     "svgPath": "/brand/sports/serie-a/r1/svg/torino.svg",
-    "pngPath": "/brand/sports/serie-a/r1/png/torino.png"
+    "pngPath": "/brand/sports/serie-a/r1/png/torino.png",
+    "colors": [
+      "#792338",
+      "#C35C57"
+    ]
   },
   "serie-a.udinese": {
     "id": "serie-a.udinese",
@@ -1149,7 +1526,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Udinese",
     "revision": 1,
     "svgPath": "/brand/sports/serie-a/r1/svg/udinese.svg",
-    "pngPath": "/brand/sports/serie-a/r1/png/udinese.png"
+    "pngPath": "/brand/sports/serie-a/r1/png/udinese.png",
+    "colors": [
+      "#5940B2",
+      "#1F6F99"
+    ]
   },
   "serie-a.venezia": {
     "id": "serie-a.venezia",
@@ -1160,7 +1541,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Venezia",
     "revision": 1,
     "svgPath": "/brand/sports/serie-a/r1/svg/venezia.svg",
-    "pngPath": "/brand/sports/serie-a/r1/png/venezia.png"
+    "pngPath": "/brand/sports/serie-a/r1/png/venezia.png",
+    "colors": [
+      "#223532",
+      "#223532"
+    ]
   },
   "ligue-1.angers-sco": {
     "id": "ligue-1.angers-sco",
@@ -1171,7 +1556,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Angers",
     "revision": 1,
     "svgPath": "/brand/sports/ligue-1/r1/svg/angers-sco.svg",
-    "pngPath": "/brand/sports/ligue-1/r1/png/angers-sco.png"
+    "pngPath": "/brand/sports/ligue-1/r1/png/angers-sco.png",
+    "colors": [
+      "#B69A65",
+      "#B69A65"
+    ]
   },
   "ligue-1.aj-auxerre": {
     "id": "ligue-1.aj-auxerre",
@@ -1182,7 +1571,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Auxerre",
     "revision": 1,
     "svgPath": "/brand/sports/ligue-1/r1/svg/aj-auxerre.svg",
-    "pngPath": "/brand/sports/ligue-1/r1/png/aj-auxerre.png"
+    "pngPath": "/brand/sports/ligue-1/r1/png/aj-auxerre.png",
+    "colors": [
+      "#77BFE5",
+      "#1C4D83"
+    ]
   },
   "ligue-1.stade-brestois": {
     "id": "ligue-1.stade-brestois",
@@ -1193,7 +1586,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Brest",
     "revision": 1,
     "svgPath": "/brand/sports/ligue-1/r1/svg/stade-brestois.svg",
-    "pngPath": "/brand/sports/ligue-1/r1/png/stade-brestois.png"
+    "pngPath": "/brand/sports/ligue-1/r1/png/stade-brestois.png",
+    "colors": [
+      "#E8A271",
+      "#AD2943"
+    ]
   },
   "ligue-1.le-havre": {
     "id": "ligue-1.le-havre",
@@ -1204,7 +1601,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Le Havre",
     "revision": 1,
     "svgPath": "/brand/sports/ligue-1/r1/svg/le-havre.svg",
-    "pngPath": "/brand/sports/ligue-1/r1/png/le-havre.png"
+    "pngPath": "/brand/sports/ligue-1/r1/png/le-havre.png",
+    "colors": [
+      "#18395E",
+      "#18395E"
+    ]
   },
   "ligue-1.le-mans": {
     "id": "ligue-1.le-mans",
@@ -1215,7 +1616,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Le Mans",
     "revision": 1,
     "svgPath": "/brand/sports/ligue-1/r1/svg/le-mans.svg",
-    "pngPath": "/brand/sports/ligue-1/r1/png/le-mans.png"
+    "pngPath": "/brand/sports/ligue-1/r1/png/le-mans.png",
+    "colors": [
+      "#FFE389",
+      "#982437"
+    ]
   },
   "ligue-1.racing-lens": {
     "id": "ligue-1.racing-lens",
@@ -1226,7 +1631,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Lens",
     "revision": 1,
     "svgPath": "/brand/sports/ligue-1/r1/svg/racing-lens.svg",
-    "pngPath": "/brand/sports/ligue-1/r1/png/racing-lens.png"
+    "pngPath": "/brand/sports/ligue-1/r1/png/racing-lens.png",
+    "colors": [
+      "#FFDC6F",
+      "#EC864F"
+    ]
   },
   "ligue-1.lorient": {
     "id": "ligue-1.lorient",
@@ -1237,7 +1646,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Lorient",
     "revision": 1,
     "svgPath": "/brand/sports/ligue-1/r1/svg/lorient.svg",
-    "pngPath": "/brand/sports/ligue-1/r1/png/lorient.png"
+    "pngPath": "/brand/sports/ligue-1/r1/png/lorient.png",
+    "colors": [
+      "#5940B2",
+      "#1F6F99"
+    ]
   },
   "ligue-1.lille-osc": {
     "id": "ligue-1.lille-osc",
@@ -1248,7 +1661,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Lille",
     "revision": 1,
     "svgPath": "/brand/sports/ligue-1/r1/svg/lille-osc.svg",
-    "pngPath": "/brand/sports/ligue-1/r1/png/lille-osc.png"
+    "pngPath": "/brand/sports/ligue-1/r1/png/lille-osc.png",
+    "colors": [
+      "#C93950",
+      "#233658"
+    ]
   },
   "ligue-1.olympique-lyonnais": {
     "id": "ligue-1.olympique-lyonnais",
@@ -1259,7 +1676,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Lyon",
     "revision": 1,
     "svgPath": "/brand/sports/ligue-1/r1/svg/olympique-lyonnais.svg",
-    "pngPath": "/brand/sports/ligue-1/r1/png/olympique-lyonnais.png"
+    "pngPath": "/brand/sports/ligue-1/r1/png/olympique-lyonnais.png",
+    "colors": [
+      "#C73A4F",
+      "#243B68"
+    ]
   },
   "ligue-1.olympique-marseille": {
     "id": "ligue-1.olympique-marseille",
@@ -1270,7 +1691,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Marseille",
     "revision": 1,
     "svgPath": "/brand/sports/ligue-1/r1/svg/olympique-marseille.svg",
-    "pngPath": "/brand/sports/ligue-1/r1/png/olympique-marseille.png"
+    "pngPath": "/brand/sports/ligue-1/r1/png/olympique-marseille.png",
+    "colors": [
+      "#156487",
+      "#156487"
+    ]
   },
   "ligue-1.monaco": {
     "id": "ligue-1.monaco",
@@ -1281,7 +1706,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Monaco",
     "revision": 1,
     "svgPath": "/brand/sports/ligue-1/r1/svg/monaco.svg",
-    "pngPath": "/brand/sports/ligue-1/r1/png/monaco.png"
+    "pngPath": "/brand/sports/ligue-1/r1/png/monaco.png",
+    "colors": [
+      "#DCA459",
+      "#A2273D"
+    ]
   },
   "ligue-1.ogc-nice": {
     "id": "ligue-1.ogc-nice",
@@ -1292,7 +1721,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Nice",
     "revision": 1,
     "svgPath": "/brand/sports/ligue-1/r1/svg/ogc-nice.svg",
-    "pngPath": "/brand/sports/ligue-1/r1/png/ogc-nice.png"
+    "pngPath": "/brand/sports/ligue-1/r1/png/ogc-nice.png",
+    "colors": [
+      "#CE3D49",
+      "#CE3D49"
+    ]
   },
   "ligue-1.paris": {
     "id": "ligue-1.paris",
@@ -1303,7 +1736,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Paris FC",
     "revision": 1,
     "svgPath": "/brand/sports/ligue-1/r1/svg/paris.svg",
-    "pngPath": "/brand/sports/ligue-1/r1/png/paris.png"
+    "pngPath": "/brand/sports/ligue-1/r1/png/paris.png",
+    "colors": [
+      "#263B63",
+      "#263B63"
+    ]
   },
   "ligue-1.paris-saint-germain": {
     "id": "ligue-1.paris-saint-germain",
@@ -1314,7 +1751,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Paris SG",
     "revision": 1,
     "svgPath": "/brand/sports/ligue-1/r1/svg/paris-saint-germain.svg",
-    "pngPath": "/brand/sports/ligue-1/r1/png/paris-saint-germain.png"
+    "pngPath": "/brand/sports/ligue-1/r1/png/paris-saint-germain.png",
+    "colors": [
+      "#CC3A53",
+      "#1E365E"
+    ]
   },
   "ligue-1.stade-rennais": {
     "id": "ligue-1.stade-rennais",
@@ -1325,7 +1766,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Rennes",
     "revision": 1,
     "svgPath": "/brand/sports/ligue-1/r1/svg/stade-rennais.svg",
-    "pngPath": "/brand/sports/ligue-1/r1/png/stade-rennais.png"
+    "pngPath": "/brand/sports/ligue-1/r1/png/stade-rennais.png",
+    "colors": [
+      "#90253B",
+      "#90253B"
+    ]
   },
   "ligue-1.strasbourg-alsace": {
     "id": "ligue-1.strasbourg-alsace",
@@ -1336,7 +1781,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Strasbourg",
     "revision": 1,
     "svgPath": "/brand/sports/ligue-1/r1/svg/strasbourg-alsace.svg",
-    "pngPath": "/brand/sports/ligue-1/r1/png/strasbourg-alsace.png"
+    "pngPath": "/brand/sports/ligue-1/r1/png/strasbourg-alsace.png",
+    "colors": [
+      "#195288",
+      "#D24D5D"
+    ]
   },
   "ligue-1.toulouse": {
     "id": "ligue-1.toulouse",
@@ -1347,7 +1796,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Toulouse",
     "revision": 1,
     "svgPath": "/brand/sports/ligue-1/r1/svg/toulouse.svg",
-    "pngPath": "/brand/sports/ligue-1/r1/png/toulouse.png"
+    "pngPath": "/brand/sports/ligue-1/r1/png/toulouse.png",
+    "colors": [
+      "#512D76",
+      "#AF80C4"
+    ]
   },
   "ligue-1.es-troyes": {
     "id": "ligue-1.es-troyes",
@@ -1358,7 +1811,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Troyes",
     "revision": 1,
     "svgPath": "/brand/sports/ligue-1/r1/svg/es-troyes.svg",
-    "pngPath": "/brand/sports/ligue-1/r1/png/es-troyes.png"
+    "pngPath": "/brand/sports/ligue-1/r1/png/es-troyes.png",
+    "colors": [
+      "#72B4D7",
+      "#253F75"
+    ]
   },
   "nfl.arizona-cardinals": {
     "id": "nfl.arizona-cardinals",
@@ -1369,7 +1826,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Arizona Cardinals",
     "revision": 1,
     "svgPath": "/brand/sports/nfl/r1/svg/arizona-cardinals.svg",
-    "pngPath": "/brand/sports/nfl/r1/png/arizona-cardinals.png"
+    "pngPath": "/brand/sports/nfl/r1/png/arizona-cardinals.png",
+    "colors": [
+      "#8D2139",
+      "#3B2430"
+    ]
   },
   "nfl.atlanta-falcons": {
     "id": "nfl.atlanta-falcons",
@@ -1380,7 +1841,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Atlanta Falcons",
     "revision": 1,
     "svgPath": "/brand/sports/nfl/r1/svg/atlanta-falcons.svg",
-    "pngPath": "/brand/sports/nfl/r1/png/atlanta-falcons.png"
+    "pngPath": "/brand/sports/nfl/r1/png/atlanta-falcons.png",
+    "colors": [
+      "#A3243F",
+      "#B82A46"
+    ]
   },
   "nfl.baltimore-ravens": {
     "id": "nfl.baltimore-ravens",
@@ -1391,7 +1856,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Baltimore Ravens",
     "revision": 1,
     "svgPath": "/brand/sports/nfl/r1/svg/baltimore-ravens.svg",
-    "pngPath": "/brand/sports/nfl/r1/png/baltimore-ravens.png"
+    "pngPath": "/brand/sports/nfl/r1/png/baltimore-ravens.png",
+    "colors": [
+      "#F6D378",
+      "#402C73"
+    ]
   },
   "nfl.buffalo-bills": {
     "id": "nfl.buffalo-bills",
@@ -1402,7 +1871,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Buffalo Bills",
     "revision": 1,
     "svgPath": "/brand/sports/nfl/r1/svg/buffalo-bills.svg",
-    "pngPath": "/brand/sports/nfl/r1/png/buffalo-bills.png"
+    "pngPath": "/brand/sports/nfl/r1/png/buffalo-bills.png",
+    "colors": [
+      "#245498",
+      "#CC3952"
+    ]
   },
   "nfl.carolina-panthers": {
     "id": "nfl.carolina-panthers",
@@ -1413,7 +1886,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Carolina Panthers",
     "revision": 1,
     "svgPath": "/brand/sports/nfl/r1/svg/carolina-panthers.svg",
-    "pngPath": "/brand/sports/nfl/r1/png/carolina-panthers.png"
+    "pngPath": "/brand/sports/nfl/r1/png/carolina-panthers.png",
+    "colors": [
+      "#6ECAF1",
+      "#2E4766"
+    ]
   },
   "nfl.chicago-bears": {
     "id": "nfl.chicago-bears",
@@ -1424,7 +1901,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Chicago Bears",
     "revision": 1,
     "svgPath": "/brand/sports/nfl/r1/svg/chicago-bears.svg",
-    "pngPath": "/brand/sports/nfl/r1/png/chicago-bears.png"
+    "pngPath": "/brand/sports/nfl/r1/png/chicago-bears.png",
+    "colors": [
+      "#FFAA61",
+      "#172E4B"
+    ]
   },
   "nfl.cincinnati-bengals": {
     "id": "nfl.cincinnati-bengals",
@@ -1435,7 +1916,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Cincinnati Bengals",
     "revision": 1,
     "svgPath": "/brand/sports/nfl/r1/svg/cincinnati-bengals.svg",
-    "pngPath": "/brand/sports/nfl/r1/png/cincinnati-bengals.png"
+    "pngPath": "/brand/sports/nfl/r1/png/cincinnati-bengals.png",
+    "colors": [
+      "#FFB071",
+      "#F58542"
+    ]
   },
   "nfl.cleveland-browns": {
     "id": "nfl.cleveland-browns",
@@ -1446,7 +1931,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Cleveland Browns",
     "revision": 1,
     "svgPath": "/brand/sports/nfl/r1/svg/cleveland-browns.svg",
-    "pngPath": "/brand/sports/nfl/r1/png/cleveland-browns.png"
+    "pngPath": "/brand/sports/nfl/r1/png/cleveland-browns.png",
+    "colors": [
+      "#FF984B",
+      "#654034"
+    ]
   },
   "nfl.dallas-cowboys": {
     "id": "nfl.dallas-cowboys",
@@ -1457,7 +1946,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Dallas Cowboys",
     "revision": 1,
     "svgPath": "/brand/sports/nfl/r1/svg/dallas-cowboys.svg",
-    "pngPath": "/brand/sports/nfl/r1/png/dallas-cowboys.png"
+    "pngPath": "/brand/sports/nfl/r1/png/dallas-cowboys.png",
+    "colors": [
+      "#213A57",
+      "#294361"
+    ]
   },
   "nfl.denver-broncos": {
     "id": "nfl.denver-broncos",
@@ -1468,7 +1961,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Denver Broncos",
     "revision": 1,
     "svgPath": "/brand/sports/nfl/r1/svg/denver-broncos.svg",
-    "pngPath": "/brand/sports/nfl/r1/png/denver-broncos.png"
+    "pngPath": "/brand/sports/nfl/r1/png/denver-broncos.png",
+    "colors": [
+      "#D7613F",
+      "#224461"
+    ]
   },
   "nfl.detroit-lions": {
     "id": "nfl.detroit-lions",
@@ -1479,7 +1976,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Detroit Lions",
     "revision": 1,
     "svgPath": "/brand/sports/nfl/r1/svg/detroit-lions.svg",
-    "pngPath": "/brand/sports/nfl/r1/png/detroit-lions.png"
+    "pngPath": "/brand/sports/nfl/r1/png/detroit-lions.png",
+    "colors": [
+      "#17638F",
+      "#17638F"
+    ]
   },
   "nfl.green-bay-packers": {
     "id": "nfl.green-bay-packers",
@@ -1490,7 +1991,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Green Bay Packers",
     "revision": 1,
     "svgPath": "/brand/sports/nfl/r1/svg/green-bay-packers.svg",
-    "pngPath": "/brand/sports/nfl/r1/png/green-bay-packers.png"
+    "pngPath": "/brand/sports/nfl/r1/png/green-bay-packers.png",
+    "colors": [
+      "#244737",
+      "#244737"
+    ]
   },
   "nfl.houston-texans": {
     "id": "nfl.houston-texans",
@@ -1501,7 +2006,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Houston Texans",
     "revision": 1,
     "svgPath": "/brand/sports/nfl/r1/svg/houston-texans.svg",
-    "pngPath": "/brand/sports/nfl/r1/png/houston-texans.png"
+    "pngPath": "/brand/sports/nfl/r1/png/houston-texans.png",
+    "colors": [
+      "#A7253E",
+      "#333F61"
+    ]
   },
   "nfl.indianapolis-colts": {
     "id": "nfl.indianapolis-colts",
@@ -1512,7 +2021,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Indianapolis Colts",
     "revision": 1,
     "svgPath": "/brand/sports/nfl/r1/svg/indianapolis-colts.svg",
-    "pngPath": "/brand/sports/nfl/r1/png/indianapolis-colts.png"
+    "pngPath": "/brand/sports/nfl/r1/png/indianapolis-colts.png",
+    "colors": [
+      "#244F90",
+      "#244F90"
+    ]
   },
   "nfl.jacksonville-jaguars": {
     "id": "nfl.jacksonville-jaguars",
@@ -1523,7 +2036,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Jacksonville Jaguars",
     "revision": 1,
     "svgPath": "/brand/sports/nfl/r1/svg/jacksonville-jaguars.svg",
-    "pngPath": "/brand/sports/nfl/r1/png/jacksonville-jaguars.png"
+    "pngPath": "/brand/sports/nfl/r1/png/jacksonville-jaguars.png",
+    "colors": [
+      "#F4CE78",
+      "#286068"
+    ]
   },
   "nfl.kansas-city-chiefs": {
     "id": "nfl.kansas-city-chiefs",
@@ -1534,7 +2051,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Kansas City Chiefs",
     "revision": 1,
     "svgPath": "/brand/sports/nfl/r1/svg/kansas-city-chiefs.svg",
-    "pngPath": "/brand/sports/nfl/r1/png/kansas-city-chiefs.png"
+    "pngPath": "/brand/sports/nfl/r1/png/kansas-city-chiefs.png",
+    "colors": [
+      "#AA2743",
+      "#BE3D51"
+    ]
   },
   "nfl.las-vegas-raiders": {
     "id": "nfl.las-vegas-raiders",
@@ -1545,7 +2066,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Las Vegas Raiders",
     "revision": 1,
     "svgPath": "/brand/sports/nfl/r1/svg/las-vegas-raiders.svg",
-    "pngPath": "/brand/sports/nfl/r1/png/las-vegas-raiders.png"
+    "pngPath": "/brand/sports/nfl/r1/png/las-vegas-raiders.png",
+    "colors": [
+      "#5940B2",
+      "#1F6F99"
+    ]
   },
   "nfl.los-angeles-chargers": {
     "id": "nfl.los-angeles-chargers",
@@ -1556,7 +2081,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Los Angeles Chargers",
     "revision": 1,
     "svgPath": "/brand/sports/nfl/r1/svg/los-angeles-chargers.svg",
-    "pngPath": "/brand/sports/nfl/r1/png/los-angeles-chargers.png"
+    "pngPath": "/brand/sports/nfl/r1/png/los-angeles-chargers.png",
+    "colors": [
+      "#FFD16C",
+      "#145A8F"
+    ]
   },
   "nfl.los-angeles-rams": {
     "id": "nfl.los-angeles-rams",
@@ -1567,7 +2096,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Los Angeles Rams",
     "revision": 1,
     "svgPath": "/brand/sports/nfl/r1/svg/los-angeles-rams.svg",
-    "pngPath": "/brand/sports/nfl/r1/png/los-angeles-rams.png"
+    "pngPath": "/brand/sports/nfl/r1/png/los-angeles-rams.png",
+    "colors": [
+      "#FFCB58",
+      "#123A72"
+    ]
   },
   "nfl.miami-dolphins": {
     "id": "nfl.miami-dolphins",
@@ -1578,7 +2111,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Miami Dolphins",
     "revision": 1,
     "svgPath": "/brand/sports/nfl/r1/svg/miami-dolphins.svg",
-    "pngPath": "/brand/sports/nfl/r1/png/miami-dolphins.png"
+    "pngPath": "/brand/sports/nfl/r1/png/miami-dolphins.png",
+    "colors": [
+      "#176B70",
+      "#C94F3B"
+    ]
   },
   "nfl.minnesota-vikings": {
     "id": "nfl.minnesota-vikings",
@@ -1589,7 +2126,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Minnesota Vikings",
     "revision": 1,
     "svgPath": "/brand/sports/nfl/r1/svg/minnesota-vikings.svg",
-    "pngPath": "/brand/sports/nfl/r1/png/minnesota-vikings.png"
+    "pngPath": "/brand/sports/nfl/r1/png/minnesota-vikings.png",
+    "colors": [
+      "#F8CD68",
+      "#4A347D"
+    ]
   },
   "nfl.new-england-patriots": {
     "id": "nfl.new-england-patriots",
@@ -1600,7 +2141,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "New England Patriots",
     "revision": 1,
     "svgPath": "/brand/sports/nfl/r1/svg/new-england-patriots.svg",
-    "pngPath": "/brand/sports/nfl/r1/png/new-england-patriots.png"
+    "pngPath": "/brand/sports/nfl/r1/png/new-england-patriots.png",
+    "colors": [
+      "#B83149",
+      "#1E3A5C"
+    ]
   },
   "nfl.new-orleans-saints": {
     "id": "nfl.new-orleans-saints",
@@ -1611,7 +2156,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "New Orleans Saints",
     "revision": 1,
     "svgPath": "/brand/sports/nfl/r1/svg/new-orleans-saints.svg",
-    "pngPath": "/brand/sports/nfl/r1/png/new-orleans-saints.png"
+    "pngPath": "/brand/sports/nfl/r1/png/new-orleans-saints.png",
+    "colors": [
+      "#F0CE85",
+      "#F0CE85"
+    ]
   },
   "nfl.new-york-giants": {
     "id": "nfl.new-york-giants",
@@ -1622,7 +2171,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "New York Giants",
     "revision": 1,
     "svgPath": "/brand/sports/nfl/r1/svg/new-york-giants.svg",
-    "pngPath": "/brand/sports/nfl/r1/png/new-york-giants.png"
+    "pngPath": "/brand/sports/nfl/r1/png/new-york-giants.png",
+    "colors": [
+      "#B42B46",
+      "#244C91"
+    ]
   },
   "nfl.new-york-jets": {
     "id": "nfl.new-york-jets",
@@ -1633,7 +2186,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "New York Jets",
     "revision": 1,
     "svgPath": "/brand/sports/nfl/r1/svg/new-york-jets.svg",
-    "pngPath": "/brand/sports/nfl/r1/png/new-york-jets.png"
+    "pngPath": "/brand/sports/nfl/r1/png/new-york-jets.png",
+    "colors": [
+      "#155746",
+      "#155746"
+    ]
   },
   "nfl.philadelphia-eagles": {
     "id": "nfl.philadelphia-eagles",
@@ -1644,7 +2201,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Philadelphia Eagles",
     "revision": 1,
     "svgPath": "/brand/sports/nfl/r1/svg/philadelphia-eagles.svg",
-    "pngPath": "/brand/sports/nfl/r1/png/philadelphia-eagles.png"
+    "pngPath": "/brand/sports/nfl/r1/png/philadelphia-eagles.png",
+    "colors": [
+      "#2A5D5E",
+      "#135152"
+    ]
   },
   "nfl.pittsburgh-steelers": {
     "id": "nfl.pittsburgh-steelers",
@@ -1655,7 +2216,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Pittsburgh Steelers",
     "revision": 1,
     "svgPath": "/brand/sports/nfl/r1/svg/pittsburgh-steelers.svg",
-    "pngPath": "/brand/sports/nfl/r1/png/pittsburgh-steelers.png"
+    "pngPath": "/brand/sports/nfl/r1/png/pittsburgh-steelers.png",
+    "colors": [
+      "#F8CB55",
+      "#E45363"
+    ]
   },
   "nfl.san-francisco-49ers": {
     "id": "nfl.san-francisco-49ers",
@@ -1666,7 +2231,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "San Francisco 49ers",
     "revision": 1,
     "svgPath": "/brand/sports/nfl/r1/svg/san-francisco-49ers.svg",
-    "pngPath": "/brand/sports/nfl/r1/png/san-francisco-49ers.png"
+    "pngPath": "/brand/sports/nfl/r1/png/san-francisco-49ers.png",
+    "colors": [
+      "#F1C977",
+      "#932A42"
+    ]
   },
   "nfl.seattle-seahawks": {
     "id": "nfl.seattle-seahawks",
@@ -1677,7 +2246,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Seattle Seahawks",
     "revision": 1,
     "svgPath": "/brand/sports/nfl/r1/svg/seattle-seahawks.svg",
-    "pngPath": "/brand/sports/nfl/r1/png/seattle-seahawks.png"
+    "pngPath": "/brand/sports/nfl/r1/png/seattle-seahawks.png",
+    "colors": [
+      "#70AD4B",
+      "#34556C"
+    ]
   },
   "nfl.tampa-bay-buccaneers": {
     "id": "nfl.tampa-bay-buccaneers",
@@ -1688,7 +2261,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Tampa Bay Buccaneers",
     "revision": 1,
     "svgPath": "/brand/sports/nfl/r1/svg/tampa-bay-buccaneers.svg",
-    "pngPath": "/brand/sports/nfl/r1/png/tampa-bay-buccaneers.png"
+    "pngPath": "/brand/sports/nfl/r1/png/tampa-bay-buccaneers.png",
+    "colors": [
+      "#7C2E42",
+      "#702A3A"
+    ]
   },
   "nfl.tennessee-titans": {
     "id": "nfl.tennessee-titans",
@@ -1699,7 +2276,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Tennessee Titans",
     "revision": 1,
     "svgPath": "/brand/sports/nfl/r1/svg/tennessee-titans.svg",
-    "pngPath": "/brand/sports/nfl/r1/png/tennessee-titans.png"
+    "pngPath": "/brand/sports/nfl/r1/png/tennessee-titans.png",
+    "colors": [
+      "#C63E54",
+      "#1D3A5E"
+    ]
   },
   "nfl.washington-commanders": {
     "id": "nfl.washington-commanders",
@@ -1710,7 +2291,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Washington Commanders",
     "revision": 1,
     "svgPath": "/brand/sports/nfl/r1/svg/washington-commanders.svg",
-    "pngPath": "/brand/sports/nfl/r1/png/washington-commanders.png"
+    "pngPath": "/brand/sports/nfl/r1/png/washington-commanders.png",
+    "colors": [
+      "#69233C",
+      "#B26455"
+    ]
   },
   "mlb.arizona-diamondbacks": {
     "id": "mlb.arizona-diamondbacks",
@@ -1721,7 +2306,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Diamondbacks",
     "revision": 1,
     "svgPath": "/brand/sports/mlb/r1/svg/arizona-diamondbacks.svg",
-    "pngPath": "/brand/sports/mlb/r1/png/arizona-diamondbacks.png"
+    "pngPath": "/brand/sports/mlb/r1/png/arizona-diamondbacks.png",
+    "colors": [
+      "#7D2539",
+      "#F9DFB3"
+    ]
   },
   "mlb.athletics": {
     "id": "mlb.athletics",
@@ -1732,7 +2321,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Athletics",
     "revision": 1,
     "svgPath": "/brand/sports/mlb/r1/svg/athletics.svg",
-    "pngPath": "/brand/sports/mlb/r1/png/athletics.png"
+    "pngPath": "/brand/sports/mlb/r1/png/athletics.png",
+    "colors": [
+      "#CA9C3F",
+      "#FFE1A0"
+    ]
   },
   "mlb.atlanta-braves": {
     "id": "mlb.atlanta-braves",
@@ -1743,7 +2336,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Braves",
     "revision": 1,
     "svgPath": "/brand/sports/mlb/r1/svg/atlanta-braves.svg",
-    "pngPath": "/brand/sports/mlb/r1/png/atlanta-braves.png"
+    "pngPath": "/brand/sports/mlb/r1/png/atlanta-braves.png",
+    "colors": [
+      "#C93E54",
+      "#273954"
+    ]
   },
   "mlb.baltimore-orioles": {
     "id": "mlb.baltimore-orioles",
@@ -1754,7 +2351,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Orioles",
     "revision": 1,
     "svgPath": "/brand/sports/mlb/r1/svg/baltimore-orioles.svg",
-    "pngPath": "/brand/sports/mlb/r1/png/baltimore-orioles.png"
+    "pngPath": "/brand/sports/mlb/r1/png/baltimore-orioles.png",
+    "colors": [
+      "#F5A157",
+      "#F5A157"
+    ]
   },
   "mlb.boston-red-sox": {
     "id": "mlb.boston-red-sox",
@@ -1765,7 +2366,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Red Sox",
     "revision": 1,
     "svgPath": "/brand/sports/mlb/r1/svg/boston-red-sox.svg",
-    "pngPath": "/brand/sports/mlb/r1/png/boston-red-sox.png"
+    "pngPath": "/brand/sports/mlb/r1/png/boston-red-sox.png",
+    "colors": [
+      "#A02741",
+      "#263A58"
+    ]
   },
   "mlb.chicago-cubs": {
     "id": "mlb.chicago-cubs",
@@ -1776,7 +2381,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Cubs",
     "revision": 1,
     "svgPath": "/brand/sports/mlb/r1/svg/chicago-cubs.svg",
-    "pngPath": "/brand/sports/mlb/r1/png/chicago-cubs.png"
+    "pngPath": "/brand/sports/mlb/r1/png/chicago-cubs.png",
+    "colors": [
+      "#234D91",
+      "#CA4253"
+    ]
   },
   "mlb.chicago-white-sox": {
     "id": "mlb.chicago-white-sox",
@@ -1787,7 +2396,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "White Sox",
     "revision": 1,
     "svgPath": "/brand/sports/mlb/r1/svg/chicago-white-sox.svg",
-    "pngPath": "/brand/sports/mlb/r1/png/chicago-white-sox.png"
+    "pngPath": "/brand/sports/mlb/r1/png/chicago-white-sox.png",
+    "colors": [
+      "#5940B2",
+      "#1F6F99"
+    ]
   },
   "mlb.cincinnati-reds": {
     "id": "mlb.cincinnati-reds",
@@ -1798,7 +2411,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Reds",
     "revision": 1,
     "svgPath": "/brand/sports/mlb/r1/svg/cincinnati-reds.svg",
-    "pngPath": "/brand/sports/mlb/r1/png/cincinnati-reds.png"
+    "pngPath": "/brand/sports/mlb/r1/png/cincinnati-reds.png",
+    "colors": [
+      "#A3233B",
+      "#DB766B"
+    ]
   },
   "mlb.cleveland-guardians": {
     "id": "mlb.cleveland-guardians",
@@ -1809,7 +2426,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Guardians",
     "revision": 1,
     "svgPath": "/brand/sports/mlb/r1/svg/cleveland-guardians.svg",
-    "pngPath": "/brand/sports/mlb/r1/png/cleveland-guardians.png"
+    "pngPath": "/brand/sports/mlb/r1/png/cleveland-guardians.png",
+    "colors": [
+      "#D34957",
+      "#243655"
+    ]
   },
   "mlb.colorado-rockies": {
     "id": "mlb.colorado-rockies",
@@ -1820,7 +2441,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Rockies",
     "revision": 1,
     "svgPath": "/brand/sports/mlb/r1/svg/colorado-rockies.svg",
-    "pngPath": "/brand/sports/mlb/r1/png/colorado-rockies.png"
+    "pngPath": "/brand/sports/mlb/r1/png/colorado-rockies.png",
+    "colors": [
+      "#9E87C9",
+      "#3D2F60"
+    ]
   },
   "mlb.detroit-tigers": {
     "id": "mlb.detroit-tigers",
@@ -1831,7 +2456,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Tigers",
     "revision": 1,
     "svgPath": "/brand/sports/mlb/r1/svg/detroit-tigers.svg",
-    "pngPath": "/brand/sports/mlb/r1/png/detroit-tigers.png"
+    "pngPath": "/brand/sports/mlb/r1/png/detroit-tigers.png",
+    "colors": [
+      "#FFB06B",
+      "#203551"
+    ]
   },
   "mlb.houston-astros": {
     "id": "mlb.houston-astros",
@@ -1842,7 +2471,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Astros",
     "revision": 1,
     "svgPath": "/brand/sports/mlb/r1/svg/houston-astros.svg",
-    "pngPath": "/brand/sports/mlb/r1/png/houston-astros.png"
+    "pngPath": "/brand/sports/mlb/r1/png/houston-astros.png",
+    "colors": [
+      "#233757",
+      "#233757"
+    ]
   },
   "mlb.kansas-city-royals": {
     "id": "mlb.kansas-city-royals",
@@ -1853,7 +2486,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Royals",
     "revision": 1,
     "svgPath": "/brand/sports/mlb/r1/svg/kansas-city-royals.svg",
-    "pngPath": "/brand/sports/mlb/r1/png/kansas-city-royals.png"
+    "pngPath": "/brand/sports/mlb/r1/png/kansas-city-royals.png",
+    "colors": [
+      "#DEB052",
+      "#254F89"
+    ]
   },
   "mlb.los-angeles-angels": {
     "id": "mlb.los-angeles-angels",
@@ -1864,7 +2501,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Angels",
     "revision": 1,
     "svgPath": "/brand/sports/mlb/r1/svg/los-angeles-angels.svg",
-    "pngPath": "/brand/sports/mlb/r1/png/los-angeles-angels.png"
+    "pngPath": "/brand/sports/mlb/r1/png/los-angeles-angels.png",
+    "colors": [
+      "#8F2740",
+      "#8F2740"
+    ]
   },
   "mlb.los-angeles-dodgers": {
     "id": "mlb.los-angeles-dodgers",
@@ -1875,7 +2516,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Dodgers",
     "revision": 1,
     "svgPath": "/brand/sports/mlb/r1/svg/los-angeles-dodgers.svg",
-    "pngPath": "/brand/sports/mlb/r1/png/los-angeles-dodgers.png"
+    "pngPath": "/brand/sports/mlb/r1/png/los-angeles-dodgers.png",
+    "colors": [
+      "#1C4C8C",
+      "#CA3C55"
+    ]
   },
   "mlb.miami-marlins": {
     "id": "mlb.miami-marlins",
@@ -1886,7 +2531,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Marlins",
     "revision": 1,
     "svgPath": "/brand/sports/mlb/r1/svg/miami-marlins.svg",
-    "pngPath": "/brand/sports/mlb/r1/png/miami-marlins.png"
+    "pngPath": "/brand/sports/mlb/r1/png/miami-marlins.png",
+    "colors": [
+      "#90E1DB",
+      "#193940"
+    ]
   },
   "mlb.milwaukee-brewers": {
     "id": "mlb.milwaukee-brewers",
@@ -1897,7 +2546,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Brewers",
     "revision": 1,
     "svgPath": "/brand/sports/mlb/r1/svg/milwaukee-brewers.svg",
-    "pngPath": "/brand/sports/mlb/r1/png/milwaukee-brewers.png"
+    "pngPath": "/brand/sports/mlb/r1/png/milwaukee-brewers.png",
+    "colors": [
+      "#CE9B39",
+      "#FFE3A0"
+    ]
   },
   "mlb.minnesota-twins": {
     "id": "mlb.minnesota-twins",
@@ -1908,7 +2561,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Twins",
     "revision": 1,
     "svgPath": "/brand/sports/mlb/r1/svg/minnesota-twins.svg",
-    "pngPath": "/brand/sports/mlb/r1/png/minnesota-twins.png"
+    "pngPath": "/brand/sports/mlb/r1/png/minnesota-twins.png",
+    "colors": [
+      "#24375B",
+      "#24375B"
+    ]
   },
   "mlb.new-york-mets": {
     "id": "mlb.new-york-mets",
@@ -1919,7 +2576,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Mets",
     "revision": 1,
     "svgPath": "/brand/sports/mlb/r1/svg/new-york-mets.svg",
-    "pngPath": "/brand/sports/mlb/r1/png/new-york-mets.png"
+    "pngPath": "/brand/sports/mlb/r1/png/new-york-mets.png",
+    "colors": [
+      "#234883",
+      "#234883"
+    ]
   },
   "mlb.new-york-yankees": {
     "id": "mlb.new-york-yankees",
@@ -1930,7 +2591,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Yankees",
     "revision": 1,
     "svgPath": "/brand/sports/mlb/r1/svg/new-york-yankees.svg",
-    "pngPath": "/brand/sports/mlb/r1/png/new-york-yankees.png"
+    "pngPath": "/brand/sports/mlb/r1/png/new-york-yankees.png",
+    "colors": [
+      "#AC4C57",
+      "#22344E"
+    ]
   },
   "mlb.philadelphia-phillies": {
     "id": "mlb.philadelphia-phillies",
@@ -1941,7 +2606,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Phillies",
     "revision": 1,
     "svgPath": "/brand/sports/mlb/r1/svg/philadelphia-phillies.svg",
-    "pngPath": "/brand/sports/mlb/r1/png/philadelphia-phillies.png"
+    "pngPath": "/brand/sports/mlb/r1/png/philadelphia-phillies.png",
+    "colors": [
+      "#E9A377",
+      "#982940"
+    ]
   },
   "mlb.pittsburgh-pirates": {
     "id": "mlb.pittsburgh-pirates",
@@ -1952,7 +2621,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Pirates",
     "revision": 1,
     "svgPath": "/brand/sports/mlb/r1/svg/pittsburgh-pirates.svg",
-    "pngPath": "/brand/sports/mlb/r1/png/pittsburgh-pirates.png"
+    "pngPath": "/brand/sports/mlb/r1/png/pittsburgh-pirates.png",
+    "colors": [
+      "#FFDB74",
+      "#FFDB74"
+    ]
   },
   "mlb.san-diego-padres": {
     "id": "mlb.san-diego-padres",
@@ -1963,7 +2636,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Padres",
     "revision": 1,
     "svgPath": "/brand/sports/mlb/r1/svg/san-diego-padres.svg",
-    "pngPath": "/brand/sports/mlb/r1/png/san-diego-padres.png"
+    "pngPath": "/brand/sports/mlb/r1/png/san-diego-padres.png",
+    "colors": [
+      "#CF9650",
+      "#FFE3A1"
+    ]
   },
   "mlb.san-francisco-giants": {
     "id": "mlb.san-francisco-giants",
@@ -1974,7 +2651,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Giants",
     "revision": 1,
     "svgPath": "/brand/sports/mlb/r1/svg/san-francisco-giants.svg",
-    "pngPath": "/brand/sports/mlb/r1/png/san-francisco-giants.png"
+    "pngPath": "/brand/sports/mlb/r1/png/san-francisco-giants.png",
+    "colors": [
+      "#FFA56B",
+      "#FFA56B"
+    ]
   },
   "mlb.seattle-mariners": {
     "id": "mlb.seattle-mariners",
@@ -1985,7 +2666,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Mariners",
     "revision": 1,
     "svgPath": "/brand/sports/mlb/r1/svg/seattle-mariners.svg",
-    "pngPath": "/brand/sports/mlb/r1/png/seattle-mariners.png"
+    "pngPath": "/brand/sports/mlb/r1/png/seattle-mariners.png",
+    "colors": [
+      "#59B8AA",
+      "#20394F"
+    ]
   },
   "mlb.st-louis-cardinals": {
     "id": "mlb.st-louis-cardinals",
@@ -1996,7 +2681,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Cardinals",
     "revision": 1,
     "svgPath": "/brand/sports/mlb/r1/svg/st-louis-cardinals.svg",
-    "pngPath": "/brand/sports/mlb/r1/png/st-louis-cardinals.png"
+    "pngPath": "/brand/sports/mlb/r1/png/st-louis-cardinals.png",
+    "colors": [
+      "#E0A044",
+      "#8C253A"
+    ]
   },
   "mlb.tampa-bay-rays": {
     "id": "mlb.tampa-bay-rays",
@@ -2007,7 +2696,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Rays",
     "revision": 1,
     "svgPath": "/brand/sports/mlb/r1/svg/tampa-bay-rays.svg",
-    "pngPath": "/brand/sports/mlb/r1/png/tampa-bay-rays.png"
+    "pngPath": "/brand/sports/mlb/r1/png/tampa-bay-rays.png",
+    "colors": [
+      "#1C375E",
+      "#1C375E"
+    ]
   },
   "mlb.texas-rangers": {
     "id": "mlb.texas-rangers",
@@ -2018,7 +2711,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Rangers",
     "revision": 1,
     "svgPath": "/brand/sports/mlb/r1/svg/texas-rangers.svg",
-    "pngPath": "/brand/sports/mlb/r1/png/texas-rangers.png"
+    "pngPath": "/brand/sports/mlb/r1/png/texas-rangers.png",
+    "colors": [
+      "#D44E56",
+      "#23477E"
+    ]
   },
   "mlb.toronto-blue-jays": {
     "id": "mlb.toronto-blue-jays",
@@ -2029,7 +2726,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Blue Jays",
     "revision": 1,
     "svgPath": "/brand/sports/mlb/r1/svg/toronto-blue-jays.svg",
-    "pngPath": "/brand/sports/mlb/r1/png/toronto-blue-jays.png"
+    "pngPath": "/brand/sports/mlb/r1/png/toronto-blue-jays.png",
+    "colors": [
+      "#194681",
+      "#D54555"
+    ]
   },
   "mlb.washington-nationals": {
     "id": "mlb.washington-nationals",
@@ -2040,7 +2741,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Nationals",
     "revision": 1,
     "svgPath": "/brand/sports/mlb/r1/svg/washington-nationals.svg",
-    "pngPath": "/brand/sports/mlb/r1/png/washington-nationals.png"
+    "pngPath": "/brand/sports/mlb/r1/png/washington-nationals.png",
+    "colors": [
+      "#8F293D",
+      "#4B6993"
+    ]
   },
   "nhl.anaheim-ducks": {
     "id": "nhl.anaheim-ducks",
@@ -2051,7 +2756,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Ducks",
     "revision": 1,
     "svgPath": "/brand/sports/nhl/r1/svg/anaheim-ducks.svg",
-    "pngPath": "/brand/sports/nhl/r1/png/anaheim-ducks.png"
+    "pngPath": "/brand/sports/nhl/r1/png/anaheim-ducks.png",
+    "colors": [
+      "#F38645",
+      "#F38645"
+    ]
   },
   "nhl.boston-bruins": {
     "id": "nhl.boston-bruins",
@@ -2062,7 +2771,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Bruins",
     "revision": 1,
     "svgPath": "/brand/sports/nhl/r1/svg/boston-bruins.svg",
-    "pngPath": "/brand/sports/nhl/r1/png/boston-bruins.png"
+    "pngPath": "/brand/sports/nhl/r1/png/boston-bruins.png",
+    "colors": [
+      "#FFCB60",
+      "#FFCB60"
+    ]
   },
   "nhl.buffalo-sabres": {
     "id": "nhl.buffalo-sabres",
@@ -2073,7 +2786,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Sabres",
     "revision": 1,
     "svgPath": "/brand/sports/nhl/r1/svg/buffalo-sabres.svg",
-    "pngPath": "/brand/sports/nhl/r1/png/buffalo-sabres.png"
+    "pngPath": "/brand/sports/nhl/r1/png/buffalo-sabres.png",
+    "colors": [
+      "#214580",
+      "#FFE291"
+    ]
   },
   "nhl.calgary-flames": {
     "id": "nhl.calgary-flames",
@@ -2084,7 +2801,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Flames",
     "revision": 1,
     "svgPath": "/brand/sports/nhl/r1/svg/calgary-flames.svg",
-    "pngPath": "/brand/sports/nhl/r1/png/calgary-flames.png"
+    "pngPath": "/brand/sports/nhl/r1/png/calgary-flames.png",
+    "colors": [
+      "#E7713B",
+      "#9C2335"
+    ]
   },
   "nhl.carolina-hurricanes": {
     "id": "nhl.carolina-hurricanes",
@@ -2095,7 +2816,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Hurricanes",
     "revision": 1,
     "svgPath": "/brand/sports/nhl/r1/svg/carolina-hurricanes.svg",
-    "pngPath": "/brand/sports/nhl/r1/png/carolina-hurricanes.png"
+    "pngPath": "/brand/sports/nhl/r1/png/carolina-hurricanes.png",
+    "colors": [
+      "#9D2138",
+      "#262935"
+    ]
   },
   "nhl.chicago-blackhawks": {
     "id": "nhl.chicago-blackhawks",
@@ -2106,7 +2831,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Blackhawks",
     "revision": 1,
     "svgPath": "/brand/sports/nhl/r1/svg/chicago-blackhawks.svg",
-    "pngPath": "/brand/sports/nhl/r1/png/chicago-blackhawks.png"
+    "pngPath": "/brand/sports/nhl/r1/png/chicago-blackhawks.png",
+    "colors": [
+      "#9D2339",
+      "#639374"
+    ]
   },
   "nhl.colorado-avalanche": {
     "id": "nhl.colorado-avalanche",
@@ -2117,7 +2846,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Avalanche",
     "revision": 1,
     "svgPath": "/brand/sports/nhl/r1/svg/colorado-avalanche.svg",
-    "pngPath": "/brand/sports/nhl/r1/png/colorado-avalanche.png"
+    "pngPath": "/brand/sports/nhl/r1/png/colorado-avalanche.png",
+    "colors": [
+      "#66283D",
+      "#66283D"
+    ]
   },
   "nhl.columbus-blue-jackets": {
     "id": "nhl.columbus-blue-jackets",
@@ -2128,7 +2861,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Blue Jackets",
     "revision": 1,
     "svgPath": "/brand/sports/nhl/r1/svg/columbus-blue-jackets.svg",
-    "pngPath": "/brand/sports/nhl/r1/png/columbus-blue-jackets.png"
+    "pngPath": "/brand/sports/nhl/r1/png/columbus-blue-jackets.png",
+    "colors": [
+      "#223654",
+      "#223654"
+    ]
   },
   "nhl.dallas-stars": {
     "id": "nhl.dallas-stars",
@@ -2139,7 +2876,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Stars",
     "revision": 1,
     "svgPath": "/brand/sports/nhl/r1/svg/dallas-stars.svg",
-    "pngPath": "/brand/sports/nhl/r1/png/dallas-stars.png"
+    "pngPath": "/brand/sports/nhl/r1/png/dallas-stars.png",
+    "colors": [
+      "#18523E",
+      "#86AF9C"
+    ]
   },
   "nhl.detroit-red-wings": {
     "id": "nhl.detroit-red-wings",
@@ -2150,7 +2891,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Red Wings",
     "revision": 1,
     "svgPath": "/brand/sports/nhl/r1/svg/detroit-red-wings.svg",
-    "pngPath": "/brand/sports/nhl/r1/png/detroit-red-wings.png"
+    "pngPath": "/brand/sports/nhl/r1/png/detroit-red-wings.png",
+    "colors": [
+      "#A22035",
+      "#E39382"
+    ]
   },
   "nhl.edmonton-oilers": {
     "id": "nhl.edmonton-oilers",
@@ -2161,7 +2906,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Oilers",
     "revision": 1,
     "svgPath": "/brand/sports/nhl/r1/svg/edmonton-oilers.svg",
-    "pngPath": "/brand/sports/nhl/r1/png/edmonton-oilers.png"
+    "pngPath": "/brand/sports/nhl/r1/png/edmonton-oilers.png",
+    "colors": [
+      "#F48048",
+      "#213650"
+    ]
   },
   "nhl.florida-panthers": {
     "id": "nhl.florida-panthers",
@@ -2172,7 +2921,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Panthers",
     "revision": 1,
     "svgPath": "/brand/sports/nhl/r1/svg/florida-panthers.svg",
-    "pngPath": "/brand/sports/nhl/r1/png/florida-panthers.png"
+    "pngPath": "/brand/sports/nhl/r1/png/florida-panthers.png",
+    "colors": [
+      "#782537",
+      "#FFE3AE"
+    ]
   },
   "nhl.los-angeles-kings": {
     "id": "nhl.los-angeles-kings",
@@ -2183,7 +2936,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Kings",
     "revision": 1,
     "svgPath": "/brand/sports/nhl/r1/svg/los-angeles-kings.svg",
-    "pngPath": "/brand/sports/nhl/r1/png/los-angeles-kings.png"
+    "pngPath": "/brand/sports/nhl/r1/png/los-angeles-kings.png",
+    "colors": [
+      "#8C9BAC",
+      "#8C9BAC"
+    ]
   },
   "nhl.minnesota-wild": {
     "id": "nhl.minnesota-wild",
@@ -2194,7 +2951,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Wild",
     "revision": 1,
     "svgPath": "/brand/sports/nhl/r1/svg/minnesota-wild.svg",
-    "pngPath": "/brand/sports/nhl/r1/png/minnesota-wild.png"
+    "pngPath": "/brand/sports/nhl/r1/png/minnesota-wild.png",
+    "colors": [
+      "#C9554D",
+      "#214B40"
+    ]
   },
   "nhl.montreal-canadiens": {
     "id": "nhl.montreal-canadiens",
@@ -2205,7 +2966,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Canadiens",
     "revision": 1,
     "svgPath": "/brand/sports/nhl/r1/svg/montreal-canadiens.svg",
-    "pngPath": "/brand/sports/nhl/r1/png/montreal-canadiens.png"
+    "pngPath": "/brand/sports/nhl/r1/png/montreal-canadiens.png",
+    "colors": [
+      "#8E263C",
+      "#5F88B8"
+    ]
   },
   "nhl.nashville-predators": {
     "id": "nhl.nashville-predators",
@@ -2216,7 +2981,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Predators",
     "revision": 1,
     "svgPath": "/brand/sports/nhl/r1/svg/nashville-predators.svg",
-    "pngPath": "/brand/sports/nhl/r1/png/nashville-predators.png"
+    "pngPath": "/brand/sports/nhl/r1/png/nashville-predators.png",
+    "colors": [
+      "#F6CB55",
+      "#243554"
+    ]
   },
   "nhl.new-jersey-devils": {
     "id": "nhl.new-jersey-devils",
@@ -2227,7 +2996,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Devils",
     "revision": 1,
     "svgPath": "/brand/sports/nhl/r1/svg/new-jersey-devils.svg",
-    "pngPath": "/brand/sports/nhl/r1/png/new-jersey-devils.png"
+    "pngPath": "/brand/sports/nhl/r1/png/new-jersey-devils.png",
+    "colors": [
+      "#A02239",
+      "#A02239"
+    ]
   },
   "nhl.new-york-islanders": {
     "id": "nhl.new-york-islanders",
@@ -2238,7 +3011,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Islanders",
     "revision": 1,
     "svgPath": "/brand/sports/nhl/r1/svg/new-york-islanders.svg",
-    "pngPath": "/brand/sports/nhl/r1/png/new-york-islanders.png"
+    "pngPath": "/brand/sports/nhl/r1/png/new-york-islanders.png",
+    "colors": [
+      "#214982",
+      "#214982"
+    ]
   },
   "nhl.new-york-rangers": {
     "id": "nhl.new-york-rangers",
@@ -2249,7 +3026,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Rangers",
     "revision": 1,
     "svgPath": "/brand/sports/nhl/r1/svg/new-york-rangers.svg",
-    "pngPath": "/brand/sports/nhl/r1/png/new-york-rangers.png"
+    "pngPath": "/brand/sports/nhl/r1/png/new-york-rangers.png",
+    "colors": [
+      "#214C88",
+      "#C9334D"
+    ]
   },
   "nhl.ottawa-senators": {
     "id": "nhl.ottawa-senators",
@@ -2260,7 +3041,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Senators",
     "revision": 1,
     "svgPath": "/brand/sports/nhl/r1/svg/ottawa-senators.svg",
-    "pngPath": "/brand/sports/nhl/r1/png/ottawa-senators.png"
+    "pngPath": "/brand/sports/nhl/r1/png/ottawa-senators.png",
+    "colors": [
+      "#8C263A",
+      "#CB554D"
+    ]
   },
   "nhl.philadelphia-flyers": {
     "id": "nhl.philadelphia-flyers",
@@ -2271,7 +3056,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Flyers",
     "revision": 1,
     "svgPath": "/brand/sports/nhl/r1/svg/philadelphia-flyers.svg",
-    "pngPath": "/brand/sports/nhl/r1/png/philadelphia-flyers.png"
+    "pngPath": "/brand/sports/nhl/r1/png/philadelphia-flyers.png",
+    "colors": [
+      "#EF813F",
+      "#EF813F"
+    ]
   },
   "nhl.pittsburgh-penguins": {
     "id": "nhl.pittsburgh-penguins",
@@ -2282,7 +3071,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Penguins",
     "revision": 1,
     "svgPath": "/brand/sports/nhl/r1/svg/pittsburgh-penguins.svg",
-    "pngPath": "/brand/sports/nhl/r1/png/pittsburgh-penguins.png"
+    "pngPath": "/brand/sports/nhl/r1/png/pittsburgh-penguins.png",
+    "colors": [
+      "#FFE3A3",
+      "#FFE3A3"
+    ]
   },
   "nhl.san-jose-sharks": {
     "id": "nhl.san-jose-sharks",
@@ -2293,7 +3086,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Sharks",
     "revision": 1,
     "svgPath": "/brand/sports/nhl/r1/svg/san-jose-sharks.svg",
-    "pngPath": "/brand/sports/nhl/r1/png/san-jose-sharks.png"
+    "pngPath": "/brand/sports/nhl/r1/png/san-jose-sharks.png",
+    "colors": [
+      "#62C0B4",
+      "#154C53"
+    ]
   },
   "nhl.seattle-kraken": {
     "id": "nhl.seattle-kraken",
@@ -2304,7 +3101,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Kraken",
     "revision": 1,
     "svgPath": "/brand/sports/nhl/r1/svg/seattle-kraken.svg",
-    "pngPath": "/brand/sports/nhl/r1/png/seattle-kraken.png"
+    "pngPath": "/brand/sports/nhl/r1/png/seattle-kraken.png",
+    "colors": [
+      "#DE515F",
+      "#A1DBDC"
+    ]
   },
   "nhl.st-louis-blues": {
     "id": "nhl.st-louis-blues",
@@ -2315,7 +3116,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Blues",
     "revision": 1,
     "svgPath": "/brand/sports/nhl/r1/svg/st-louis-blues.svg",
-    "pngPath": "/brand/sports/nhl/r1/png/st-louis-blues.png"
+    "pngPath": "/brand/sports/nhl/r1/png/st-louis-blues.png",
+    "colors": [
+      "#F2C757",
+      "#224782"
+    ]
   },
   "nhl.tampa-bay-lightning": {
     "id": "nhl.tampa-bay-lightning",
@@ -2326,7 +3131,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Lightning",
     "revision": 1,
     "svgPath": "/brand/sports/nhl/r1/svg/tampa-bay-lightning.svg",
-    "pngPath": "/brand/sports/nhl/r1/png/tampa-bay-lightning.png"
+    "pngPath": "/brand/sports/nhl/r1/png/tampa-bay-lightning.png",
+    "colors": [
+      "#204B91",
+      "#204B91"
+    ]
   },
   "nhl.toronto-maple-leafs": {
     "id": "nhl.toronto-maple-leafs",
@@ -2337,7 +3146,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Maple Leafs",
     "revision": 1,
     "svgPath": "/brand/sports/nhl/r1/svg/toronto-maple-leafs.svg",
-    "pngPath": "/brand/sports/nhl/r1/png/toronto-maple-leafs.png"
+    "pngPath": "/brand/sports/nhl/r1/png/toronto-maple-leafs.png",
+    "colors": [
+      "#254989",
+      "#7EABDA"
+    ]
   },
   "nhl.utah-mammoth": {
     "id": "nhl.utah-mammoth",
@@ -2348,7 +3161,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Mammoth",
     "revision": 1,
     "svgPath": "/brand/sports/nhl/r1/svg/utah-mammoth.svg",
-    "pngPath": "/brand/sports/nhl/r1/png/utah-mammoth.png"
+    "pngPath": "/brand/sports/nhl/r1/png/utah-mammoth.png",
+    "colors": [
+      "#8CC5E2",
+      "#243341"
+    ]
   },
   "nhl.vancouver-canucks": {
     "id": "nhl.vancouver-canucks",
@@ -2359,7 +3176,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Canucks",
     "revision": 1,
     "svgPath": "/brand/sports/nhl/r1/svg/vancouver-canucks.svg",
-    "pngPath": "/brand/sports/nhl/r1/png/vancouver-canucks.png"
+    "pngPath": "/brand/sports/nhl/r1/png/vancouver-canucks.png",
+    "colors": [
+      "#224C7B",
+      "#224C7B"
+    ]
   },
   "nhl.vegas-golden-knights": {
     "id": "nhl.vegas-golden-knights",
@@ -2370,7 +3191,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Golden Knights",
     "revision": 1,
     "svgPath": "/brand/sports/nhl/r1/svg/vegas-golden-knights.svg",
-    "pngPath": "/brand/sports/nhl/r1/png/vegas-golden-knights.png"
+    "pngPath": "/brand/sports/nhl/r1/png/vegas-golden-knights.png",
+    "colors": [
+      "#F5CF7E",
+      "#C45A48"
+    ]
   },
   "nhl.washington-capitals": {
     "id": "nhl.washington-capitals",
@@ -2381,7 +3206,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Capitals",
     "revision": 1,
     "svgPath": "/brand/sports/nhl/r1/svg/washington-capitals.svg",
-    "pngPath": "/brand/sports/nhl/r1/png/washington-capitals.png"
+    "pngPath": "/brand/sports/nhl/r1/png/washington-capitals.png",
+    "colors": [
+      "#D74755",
+      "#283D5C"
+    ]
   },
   "nhl.winnipeg-jets": {
     "id": "nhl.winnipeg-jets",
@@ -2392,7 +3221,11 @@ export const TEAM_ASSETS: Record<string, RegisteredTeamAsset> = {
     "shortName": "Jets",
     "revision": 1,
     "svgPath": "/brand/sports/nhl/r1/svg/winnipeg-jets.svg",
-    "pngPath": "/brand/sports/nhl/r1/png/winnipeg-jets.png"
+    "pngPath": "/brand/sports/nhl/r1/png/winnipeg-jets.png",
+    "colors": [
+      "#CA4458",
+      "#283A59"
+    ]
   }
 };
 
