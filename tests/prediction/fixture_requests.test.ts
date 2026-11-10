@@ -31,7 +31,7 @@ describe("Ciclo 9 — peticiones de fixtures reales", () => {
     expect(file.n).toBe(150);
     expect(entries).toHaveLength(150);
     for (const [, r] of entries.slice(0, 20)) {
-      expect(r.features).toHaveLength(83);
+      expect(r.features).toHaveLength(103);
       expect(r.divOnehot).toHaveLength(23);
       expect(r.probsPython).toHaveLength(3);
       expect(r.divOnehot.filter((x) => x === 1)).toHaveLength(1);

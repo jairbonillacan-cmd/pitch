@@ -69,14 +69,14 @@ def main():
     sw = 0.5 ** (days / 1460.0)
     imp = SimpleImputer(strategy="median").fit(X)
     sc = StandardScaler().fit(imp.transform(X))
-    lr = LogisticRegression(max_iter=1000, tol=1e-4, C=0.25).fit(sc.transform(imp.transform(X)), y, sample_weight=sw)
+    lr = LogisticRegression(max_iter=2000, tol=1e-4, C=0.05).fit(sc.transform(imp.transform(X)), y, sample_weight=sw)
     probs_train = lr.predict_proba(sc.transform(imp.transform(X)))
 
     cols = FEATURES + [f"div_{x}" for x in div_levels]
     model = {
         "type": "multinomial_logistic",
-        "codename": "PitchLab Tachyon v2.0",
-        "version": "2.0.0",
+        "codename": "PitchLab Tachyon v2.1",
+        "version": "2.1.0",
         "created_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "seed": SEED,
         "features": cols,
@@ -88,7 +88,7 @@ def main():
         "intercept": lr.intercept_.tolist(),
         "classes": [int(c) for c in lr.classes_],
         "metadata": {
-            "trained_on": "features.parquet v2.0 (Pi-Ratings + Dixon-Coles + xG proxy + Opponent-Adjusted Form)",
+            "trained_on": "features.parquet v2.1 (Pi-Ratings + Log-Dixon-Coles + xGOT/GK-Prevention + Field-Tilt + Regime-Shift + EWMA)",
             "n_matches": int(len(train)),
             "seasons": [str(train.season.min()), str(train.season.max())],
             "target": "0=H, 1=D, 2=A",

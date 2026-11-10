@@ -4,20 +4,20 @@
    "model_id": "motor_a_logistic_v1",
    "sport": "football",
    "status": "deployed",
-   "updated_at": "2026-11-09T16:48:19+00:00",
+   "updated_at": "2026-11-10T19:00:19+00:00",
    "versions": [
     {
      "artifact_path": "..\\..\\src\\data\\prediction\\model_motor_a.json",
-     "artifact_sha256": "cfb3334514348eee716c64d57a3bf5441a5162bd710492a74634aac260af2204",
+     "artifact_sha256": "7430d3da54ddda4a9ec3daeca943085b61b749b3ad18000da8ceb35aa8a0c509",
      "metrics": {
       "metrics_path": "artifacts/EXP01_baselines_20261109/metrics.json",
-      "test_log_loss": 1.0143,
-      "val_log_loss": 1.0062
+      "test_log_loss": 1.01358,
+      "val_log_loss": 1.00568
      },
-     "n_features": 106,
-     "notes": "PitchLab Tachyon v2.0 desplegado; logit multinomial con 83 features de 2a gen + 23 dummies",
-     "registered_at": "2026-11-09T16:48:19+00:00",
-     "version": "2.0.0"
+     "n_features": 126,
+     "notes": "PitchLab Tachyon v2.1 desplegado; logit multinomial con 103 features causales (Opta-proxies REA-stats, log-priors DC/Elo, EWMA/r10) + 23 dummies",
+     "registered_at": "2026-11-10T19:00:19+00:00",
+     "version": "2.1.0"
     }
    ]
   },
@@ -25,24 +25,24 @@
    "model_id": "nfl_logistic_v1",
    "sport": "nfl",
    "status": "deployed",
-   "updated_at": "2026-11-09T16:48:19+00:00",
+   "updated_at": "2026-11-10T19:00:20+00:00",
    "versions": [
     {
      "artifact_path": "..\\..\\src\\data\\prediction\\model_nfl.json",
-     "artifact_sha256": "a3ae1948fb63b9855d76c2cf1a53f3290ee4b6202b505bbb5d1e7512e4f22753",
+     "artifact_sha256": "e386e4e59737f302701858f2842f1545ce399e87ee28b9c5869007b35f758f1e",
      "metrics": {
       "metrics_path": "models/nfl/artifacts/metrics.json",
-      "test_log_loss": 0.65269,
-      "val_log_loss": 0.64159
+      "test_log_loss": 0.65017,
+      "val_log_loss": 0.64105
      },
-     "n_features": 37,
-     "notes": "PitchLab Minkowski v2.0; logit multinomial con 37 features (QB Elo y continuidad); CC BY 4.0",
-     "registered_at": "2026-11-09T16:48:19+00:00",
-     "version": "1.0.0"
+     "n_features": 29,
+     "notes": "PitchLab Minkowski v2.1 desplegado; logit softmax exacto 2-vias+cosh con 29 features (QB Elo, Head Coach Elo, Dynamic HFA, EWMA SoS, Weather); CC BY 4.0",
+     "registered_at": "2026-11-10T19:00:20+00:00",
+     "version": "2.1.0"
     }
    ]
   }
  ],
  "schema_version": 1,
- "updated_at": "2026-11-09T16:48:19+00:00"
+ "updated_at": "2026-11-10T19:00:20+00:00"
 }

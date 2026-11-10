@@ -1,22 +1,11 @@
-"""Features causales pre-partido de 2ª generación para la NFL (Elo, QB Value/Continuity,
-descanso, forma ajustada por oponente, expectativa pitagórica y contexto).
+"""Features causales pre-partido de 2ª generación (v2.1) para la NFL (Elo multi-velocidad,
+QB Value/Continuity, Head Coach Dynamic Elo, forma EWMA/10-partidos ajustada por calendario,
+clima exterior y fatiga de tiempo extra).
 
 Principio único: **cada fila usa solo información estrictamente anterior al
 ``gameday`` de ese partido**. Se implementa recorriendo los partidos en orden
 cronológico y actualizando el estado *después* de emitir las features de todos
 los partidos de una misma fecha.
-
-Nuevas señales de 2ª generación (NFL v2):
------------------------------------------
-1. **Quarterback Dynamic Elo & Continuity (`qb_elo_diff`, `qb_val_over_team_*`, `qb_change_*`)**:
-   - Un QB debutante o suplente arranca en `QB_ELO_ROOKIE = 1445.0` (nivel reemplazo, -55 pts Elo ≈ -2.2 pts de spread respecto a un titular medio).
-   - Se actualiza partido a partido según el resultado y el margen ajustado por la fuerza del rival.
-   - `qb_change_home` / `qb_change_away`: indica si el QB titular cambió respecto al partido previo de la franquicia (captura lesiones/bajas de QB).
-   - `qb_elo_Composite`: combina 65% Elo de franquicia + 35% valor del QB titular sobre su equipo.
-2. **Forma Ajustada por Oponente (`f5_adj_margin_home`, `f5_adj_margin_away`, `f5_adj_margin_diff`)**:
-   - Margen de puntos observado menos el margen esperado por el diferencial Elo pre-partido (`gap / 25.0`).
-3. **Expectativa Pitagórica (`pyth_win_diff`)**:
-   - `PF^2.37 / (PF^2.37 + PA^2.37)` sobre la ventana reciente.
 
 Uso::
 
@@ -51,42 +40,40 @@ QB_ELO_ROOKIE = 1445.0
 QB_ELO_K = 22.0
 QB_SEASON_REGRESSION = 0.85
 
+COACH_ELO_START = 1500.0
+COACH_ELO_K = 12.0
+COACH_SEASON_REGRESSION = 0.85
+
 NUMERIC_FEATURES = [
     "elo_diff",
-    "elo_home_win_prob",
-    "elo_home_pre",
-    "elo_away_pre",
-    "qb_elo_home",
-    "qb_elo_away",
+    "elo_fast_diff",
+    "elo_momentum_diff",
     "qb_elo_diff",
     "qb_val_over_team_home",
     "qb_val_over_team_away",
     "qb_change_home",
     "qb_change_away",
     "qb_starts_diff",
+    "coach_elo_diff",
+    "coach_change_home",
+    "coach_change_away",
     "composite_elo_diff",
-    "rest_home",
-    "rest_away",
+    "comp_elo_logit",
+    "elo_closeness",
     "rest_diff",
-    "f5_win_home",
-    "f5_win_away",
-    "f5_pf_home",
-    "f5_pa_home",
-    "f5_pf_away",
-    "f5_pa_away",
-    "f5_diff_home",
-    "f5_diff_away",
-    "f5_diff_delta",
-    "f5_adj_margin_home",
-    "f5_adj_margin_away",
     "f5_adj_margin_diff",
+    "f10_adj_margin_diff",
+    "ewm_adj_margin_diff",
+    "ewm_off_diff",
+    "ewm_def_diff",
+    "sos_elo_diff",
     "pyth_win_diff",
-    "week",
     "div_game",
     "is_indoor",
     "neutral_site",
-    "n_prior_home",
-    "n_prior_away",
+    "wind_outdoor",
+    "cold_outdoor",
+    "prev_ot_diff",
 ]
 CATEGORICAL_FEATURES = ["surface"]
 FEATURES_ALL = NUMERIC_FEATURES + CATEGORICAL_FEATURES
@@ -112,12 +99,18 @@ def build_features(
     elo_hfa: float = ELO_HFA,
     window: int = FORM_WINDOW,
 ) -> pd.DataFrame:
-    """Devuelve una copia de ``games`` con las columnas de features causales (1ª + 2ª gen)."""
+    """Devuelve una copia de ``games`` con las columnas de features causales (v2.1)."""
     df = games.sort_values(["gameday", "game_id"]).reset_index(drop=True).copy()
 
     elo: dict[str, float] = defaultdict(lambda: ELO_START)
+    elo_fast: dict[str, float] = defaultdict(lambda: ELO_START)
     last_season: dict[str, int] = {}
     hist: dict[str, deque] = defaultdict(lambda: deque(maxlen=window))
+    hist10: dict[str, deque] = defaultdict(lambda: deque(maxlen=10))
+    ewm_margin: dict[str, float] = defaultdict(float)
+    ewm_off: dict[str, float] = defaultdict(float)
+    ewm_def: dict[str, float] = defaultdict(float)
+    last_ot: dict[str, float] = defaultdict(float)
 
     # Estado causal de Quarterbacks
     qb_elo: dict[str, float] = defaultdict(lambda: QB_ELO_ROOKIE)
@@ -125,11 +118,19 @@ def build_features(
     qb_last_season: dict[str, int] = {}
     team_last_qb: dict[str, str] = {}
 
+    # Estado causal de Head Coaches
+    coach_elo: dict[str, float] = defaultdict(lambda: COACH_ELO_START)
+    coach_last_season: dict[str, int] = {}
+    team_last_coach: dict[str, str] = {}
+    recent_margins: deque = deque([2.2] * 250, maxlen=500)
+
     n_rows = len(df)
     out = {
         "elo_home_pre": np.full(n_rows, np.nan),
         "elo_away_pre": np.full(n_rows, np.nan),
         "elo_diff": np.full(n_rows, np.nan),
+        "elo_fast_diff": np.full(n_rows, np.nan),
+        "elo_momentum_diff": np.zeros(n_rows, dtype=float),
         "elo_home_win_prob": np.full(n_rows, np.nan),
         "qb_elo_home": np.full(n_rows, np.nan),
         "qb_elo_away": np.full(n_rows, np.nan),
@@ -139,7 +140,12 @@ def build_features(
         "qb_change_home": np.zeros(n_rows, dtype=float),
         "qb_change_away": np.zeros(n_rows, dtype=float),
         "qb_starts_diff": np.zeros(n_rows, dtype=float),
+        "coach_elo_diff": np.zeros(n_rows, dtype=float),
+        "coach_change_home": np.zeros(n_rows, dtype=float),
+        "coach_change_away": np.zeros(n_rows, dtype=float),
         "composite_elo_diff": np.full(n_rows, np.nan),
+        "comp_elo_logit": np.zeros(n_rows, dtype=float),
+        "elo_closeness": np.zeros(n_rows, dtype=float),
         "f5_win_home": np.full(n_rows, np.nan),
         "f5_win_away": np.full(n_rows, np.nan),
         "f5_pf_home": np.full(n_rows, np.nan),
@@ -150,7 +156,15 @@ def build_features(
         "f5_diff_away": np.full(n_rows, np.nan),
         "f5_adj_margin_home": np.full(n_rows, np.nan),
         "f5_adj_margin_away": np.full(n_rows, np.nan),
+        "f10_adj_margin_diff": np.zeros(n_rows, dtype=float),
+        "ewm_adj_margin_diff": np.zeros(n_rows, dtype=float),
+        "ewm_off_diff": np.zeros(n_rows, dtype=float),
+        "ewm_def_diff": np.zeros(n_rows, dtype=float),
+        "sos_elo_diff": np.zeros(n_rows, dtype=float),
         "pyth_win_diff": np.zeros(n_rows, dtype=float),
+        "wind_outdoor": np.zeros(n_rows, dtype=float),
+        "cold_outdoor": np.zeros(n_rows, dtype=float),
+        "prev_ot_diff": np.zeros(n_rows, dtype=float),
         "n_prior_home": np.zeros(n_rows, dtype=int),
         "n_prior_away": np.zeros(n_rows, dtype=int),
     }
@@ -159,6 +173,10 @@ def build_features(
         prev = last_season.get(team)
         if prev is not None and season > prev:
             elo[team] = ELO_START + ELO_SEASON_REGRESSION * (elo[team] - ELO_START)
+            elo_fast[team] = ELO_START + 0.65 * (elo_fast[team] - ELO_START)
+            ewm_margin[team] *= 0.65
+            ewm_off[team] *= 0.65
+            ewm_def[team] *= 0.65
         last_season[team] = season
 
     def _regress_qb(qbid: str, season: int) -> None:
@@ -169,10 +187,21 @@ def build_features(
             qb_elo[qbid] = ELO_START + QB_SEASON_REGRESSION * (qb_elo[qbid] - ELO_START)
         qb_last_season[qbid] = season
 
+    def _regress_coach(cid: str, season: int) -> None:
+        if not cid or cid == "unknown":
+            return
+        prev = coach_last_season.get(cid)
+        if prev is not None and season > prev:
+            coach_elo[cid] = COACH_ELO_START + COACH_SEASON_REGRESSION * (coach_elo[cid] - COACH_ELO_START)
+        coach_last_season[cid] = season
+
     has_qb_cols = "home_qb_id" in df.columns and "away_qb_id" in df.columns
+    has_coach_cols = "home_coach" in df.columns and "away_coach" in df.columns
 
     for gameday, day in df.groupby("gameday", sort=True):
         idx = day.index.to_numpy()
+        dyn_hfa_base = float(np.clip(np.mean(recent_margins) * 24.0, 28.0, 65.0))
+        eff_hfa_base = 0.55 * elo_hfa + 0.45 * dyn_hfa_base
         # --- 1) emitir features con el estado ANTERIOR a la jornada ---
         for i in idx:
             row = df.loc[i]
@@ -181,16 +210,24 @@ def build_features(
             _regress(h, s_yr)
             _regress(a, s_yr)
 
-            qbh = str(row["home_qb_id"]) if has_qb_cols else "unknown"
-            qba = str(row["away_qb_id"]) if has_qb_cols else "unknown"
+            qbh = str(row["home_qb_id"]) if (has_qb_cols and pd.notna(row["home_qb_id"])) else "unknown"
+            qba = str(row["away_qb_id"]) if (has_qb_cols and pd.notna(row["away_qb_id"])) else "unknown"
             _regress_qb(qbh, s_yr)
             _regress_qb(qba, s_yr)
 
-            hfa = 0.0 if bool(row["neutral_site"]) else elo_hfa
+            ch_h = str(row["home_coach"]) if (has_coach_cols and pd.notna(row["home_coach"])) else "unknown"
+            ch_a = str(row["away_coach"]) if (has_coach_cols and pd.notna(row["away_coach"])) else "unknown"
+            _regress_coach(ch_h, s_yr)
+            _regress_coach(ch_a, s_yr)
+
+            hfa = 0.0 if bool(row["neutral_site"]) else eff_hfa_base
             gap = (elo[h] + hfa) - elo[a]
+            gap_fast = (elo_fast[h] + hfa) - elo_fast[a]
             out["elo_home_pre"][i] = elo[h]
             out["elo_away_pre"][i] = elo[a]
             out["elo_diff"][i] = gap
+            out["elo_fast_diff"][i] = gap_fast
+            out["elo_momentum_diff"][i] = gap_fast - gap
 
             # QB features
             qeh = qb_elo[qbh] if (qbh and qbh != "unknown") else elo[h]
@@ -198,6 +235,7 @@ def build_features(
             out["qb_elo_home"][i] = qeh
             out["qb_elo_away"][i] = qea
             out["qb_elo_diff"][i] = (qeh + hfa) - qea
+
             val_h = qeh - elo[h]
             val_a = qea - elo[a]
             out["qb_val_over_team_home"][i] = val_h
@@ -212,10 +250,22 @@ def build_features(
             st_a = math.log1p(qb_starts[qba]) if (qba and qba != "unknown") else 2.5
             out["qb_starts_diff"][i] = st_h - st_a
 
-            # Elo compuesto (equipo + ajuste de QB titular)
-            comp_gap = gap + 0.35 * (val_h - val_a)
+            # Head Coach features
+            ceh = coach_elo[ch_h] if (ch_h and ch_h != "unknown") else COACH_ELO_START
+            cea = coach_elo[ch_a] if (ch_a and ch_a != "unknown") else COACH_ELO_START
+            out["coach_elo_diff"][i] = ceh - cea
+            prev_ch_h = team_last_coach.get(h)
+            prev_ch_a = team_last_coach.get(a)
+            out["coach_change_home"][i] = 1.0 if (prev_ch_h is not None and ch_h != prev_ch_h) else 0.0
+            out["coach_change_away"][i] = 1.0 if (prev_ch_a is not None and ch_a != prev_ch_a) else 0.0
+
+            # Elo compuesto (equipo + QB titular + Head Coach)
+            comp_gap = gap + 0.38 * (val_h - val_a) + 0.12 * (ceh - cea)
             out["composite_elo_diff"][i] = comp_gap
-            out["elo_home_win_prob"][i] = 1.0 / (1.0 + 10.0 ** (-comp_gap / 400.0))
+            p_elo = 1.0 / (1.0 + 10.0 ** (-comp_gap / 400.0))
+            out["elo_home_win_prob"][i] = p_elo
+            out["comp_elo_logit"][i] = math.log(max(1e-6, p_elo) / max(1e-6, 1.0 - p_elo))
+            out["elo_closeness"][i] = math.exp(-((comp_gap / 135.0) ** 2))
 
             out["n_prior_home"][i] = len(hist[h])
             out["n_prior_away"][i] = len(hist[a])
@@ -228,27 +278,55 @@ def build_features(
                     out[f"f5_pa_{side}"][i] = float(np.mean([g[2] for g in games_]))
                     out[f"f5_diff_{side}"][i] = float(np.mean([g[1] - g[2] for g in games_]))
                     out[f"f5_adj_margin_{side}"][i] = float(np.mean([g[3] for g in games_]))
+                g10_t = list(hist10[team])
+                if g10_t:
+                    pyth_v = _pyth_expectation([g[1] for g in g10_t], [g[2] for g in g10_t])
                     if side == "home":
-                        pyth_h = _pyth_expectation([g[1] for g in games_], [g[2] for g in games_])
+                        pyth_h = pyth_v
                     else:
-                        pyth_a = _pyth_expectation([g[1] for g in games_], [g[2] for g in games_])
+                        pyth_a = pyth_v
             out["pyth_win_diff"][i] = pyth_h - pyth_a
+
+            g10_h = list(hist10[h])
+            g10_a = list(hist10[a])
+            f10_h = float(np.mean([g[3] for g in g10_h])) if g10_h else 0.0
+            f10_a = float(np.mean([g[3] for g in g10_a])) if g10_a else 0.0
+            out["f10_adj_margin_diff"][i] = f10_h - f10_a
+            out["ewm_adj_margin_diff"][i] = ewm_margin[h] - ewm_margin[a]
+            out["ewm_off_diff"][i] = ewm_off[h] - ewm_off[a]
+            out["ewm_def_diff"][i] = ewm_def[h] - ewm_def[a]
+            sos_h = float(np.mean([g[4] for g in g10_h])) if g10_h else ELO_START
+            sos_a = float(np.mean([g[4] for g in g10_a])) if g10_a else ELO_START
+            out["sos_elo_diff"][i] = (sos_h - sos_a) / 100.0
+
+            is_ind = float(row["is_indoor"])
+            wind_v = float(row["wind"]) if (is_ind == 0 and "wind" in row and pd.notna(row["wind"])) else 0.0
+            temp_v = float(row["temp"]) if (is_ind == 0 and "temp" in row and pd.notna(row["temp"])) else 70.0
+            out["wind_outdoor"][i] = max(0.0, wind_v - 10.0) if is_ind == 0 else 0.0
+            out["cold_outdoor"][i] = max(0.0, 40.0 - temp_v) if is_ind == 0 else 0.0
+            out["prev_ot_diff"][i] = last_ot[h] - last_ot[a]
 
         # --- 2) actualizar el estado con los resultados de la jornada ---
         for i in idx:
             row = df.loc[i]
             h, a = row["home_franchise"], row["away_franchise"]
-            qbh = str(row["home_qb_id"]) if has_qb_cols else "unknown"
-            qba = str(row["away_qb_id"]) if has_qb_cols else "unknown"
+            qbh = str(row["home_qb_id"]) if (has_qb_cols and pd.notna(row["home_qb_id"])) else "unknown"
+            qba = str(row["away_qb_id"]) if (has_qb_cols and pd.notna(row["away_qb_id"])) else "unknown"
+            ch_h = str(row["home_coach"]) if (has_coach_cols and pd.notna(row["home_coach"])) else "unknown"
+            ch_a = str(row["away_coach"]) if (has_coach_cols and pd.notna(row["away_coach"])) else "unknown"
 
             margin = int(row["home_margin"])
             hs, as_ = int(row["home_score"]), int(row["away_score"])
+            if not bool(row["neutral_site"]):
+                recent_margins.append(float(margin))
             s_home = 1.0 if margin > 0 else (0.5 if margin == 0 else 0.0)
-            hfa = 0.0 if bool(row["neutral_site"]) else elo_hfa
+            hfa = 0.0 if bool(row["neutral_site"]) else eff_hfa_base
             gap = (elo[h] + hfa) - elo[a]
             e_home = 1.0 / (1.0 + 10.0 ** (-gap / 400.0))
             mov = _mov_multiplier(margin, gap)
             delta = elo_k * mov * (s_home - e_home)
+
+            elo_h_pre, elo_a_pre = elo[h], elo[a]
 
             # Margen esperado por Elo (~25 puntos Elo por punto de spread)
             exp_margin_h = gap / 25.0
@@ -256,13 +334,29 @@ def build_features(
 
             elo[h] += delta
             elo[a] -= delta
-            hist[h].append((1.0 if margin > 0 else 0.0, hs, as_, adj_margin_h))
-            hist[a].append((1.0 if margin < 0 else 0.0, as_, hs, -adj_margin_h))
+
+            gap_fast = (elo_fast[h] + hfa) - elo_fast[a]
+            e_fast = 1.0 / (1.0 + 10.0 ** (-gap_fast / 400.0))
+            elo_fast[h] += 32.0 * mov * (s_home - e_fast)
+            elo_fast[a] -= 32.0 * mov * (s_home - e_fast)
+
+            hist[h].append((1.0 if margin > 0 else 0.0, hs, as_, adj_margin_h, elo_a_pre))
+            hist[a].append((1.0 if margin < 0 else 0.0, as_, hs, -adj_margin_h, elo_h_pre))
+            hist10[h].append((1.0 if margin > 0 else 0.0, hs, as_, adj_margin_h, elo_a_pre))
+            hist10[a].append((1.0 if margin < 0 else 0.0, as_, hs, -adj_margin_h, elo_h_pre))
+
+            alpha_ewm = 0.20
+            ewm_margin[h] = (1.0 - alpha_ewm) * ewm_margin[h] + alpha_ewm * adj_margin_h
+            ewm_margin[a] = (1.0 - alpha_ewm) * ewm_margin[a] + alpha_ewm * (-adj_margin_h)
+            ewm_off[h] = (1.0 - alpha_ewm) * ewm_off[h] + alpha_ewm * (hs - 22.0)
+            ewm_off[a] = (1.0 - alpha_ewm) * ewm_off[a] + alpha_ewm * (as_ - 21.0)
+            ewm_def[h] = (1.0 - alpha_ewm) * ewm_def[h] + alpha_ewm * (21.0 - as_)
+            ewm_def[a] = (1.0 - alpha_ewm) * ewm_def[a] + alpha_ewm * (22.0 - hs)
 
             # Actualizar Elo individual del QB titular
-            qeh = qb_elo[qbh] if (qbh and qbh != "unknown") else elo[h]
-            qea = qb_elo[qba] if (qba and qba != "unknown") else elo[a]
-            qb_gap = (0.5 * (qeh + elo[h]) + hfa) - 0.5 * (qea + elo[a])
+            qeh = qb_elo[qbh] if (qbh and qbh != "unknown") else elo_h_pre
+            qea = qb_elo[qba] if (qba and qba != "unknown") else elo_a_pre
+            qb_gap = (0.5 * (qeh + elo_h_pre) + hfa) - 0.5 * (qea + elo_a_pre)
             e_qb_home = 1.0 / (1.0 + 10.0 ** (-qb_gap / 400.0))
             delta_qb = QB_ELO_K * mov * (s_home - e_qb_home)
             if qbh and qbh != "unknown":
@@ -274,15 +368,32 @@ def build_features(
                 qb_starts[qba] += 1
                 team_last_qb[a] = qba
 
+            # Actualizar Elo individual del Head Coach
+            ceh = coach_elo[ch_h] if (ch_h and ch_h != "unknown") else COACH_ELO_START
+            cea = coach_elo[ch_a] if (ch_a and ch_a != "unknown") else COACH_ELO_START
+            c_gap = (0.5 * (ceh + elo_h_pre) + hfa) - 0.5 * (cea + elo_a_pre)
+            e_c_home = 1.0 / (1.0 + 10.0 ** (-c_gap / 400.0))
+            delta_c = COACH_ELO_K * mov * (s_home - e_c_home)
+            if ch_h and ch_h != "unknown":
+                coach_elo[ch_h] = ceh + delta_c
+                team_last_coach[h] = ch_h
+            if ch_a and ch_a != "unknown":
+                coach_elo[ch_a] = cea - delta_c
+                team_last_coach[a] = ch_a
+
+            ot = 1.0 if ("overtime" in row and pd.notna(row["overtime"]) and float(row["overtime"]) > 0) else 0.0
+            last_ot[h] = ot
+            last_ot[a] = ot
+
     feats = pd.DataFrame(out, index=df.index)
     for col in feats.columns:
         df[col] = feats[col]
 
     df["f5_diff_delta"] = df["f5_diff_home"] - df["f5_diff_away"]
     df["f5_adj_margin_diff"] = df["f5_adj_margin_home"] - df["f5_adj_margin_away"]
-    df["rest_diff"] = df["home_rest"].astype(int) - df["away_rest"].astype(int)
-    df["rest_home"] = df["home_rest"].astype(float)
-    df["rest_away"] = df["away_rest"].astype(float)
+    df["rest_diff"] = np.clip(df["home_rest"].astype(float) - df["away_rest"].astype(float), -7.0, 7.0)
+    df["rest_home"] = np.clip(df["home_rest"].astype(float), 4.0, 14.0)
+    df["rest_away"] = np.clip(df["away_rest"].astype(float), 4.0, 14.0)
     df["week"] = df["week"].astype(float)
     df["div_game"] = df["div_game"].astype(float)
     df["is_indoor"] = df["is_indoor"].astype(float)
@@ -329,7 +440,7 @@ def check_causality(df: pd.DataFrame, elo_k: float = ELO_K, elo_hfa: float = ELO
 
 
 def main(argv=None) -> int:
-    ap = argparse.ArgumentParser(description="Construye features causales NFL (v2 con QB Value)")
+    ap = argparse.ArgumentParser(description="Construye features causales NFL (v2.1 con QB/Coach/EWMA/Weather)")
     ap.add_argument("--verify", action="store_true", help="solo ejecuta el test de causalidad")
     ap.add_argument("--k", type=float, default=ELO_K)
     ap.add_argument("--hfa", type=float, default=ELO_HFA)
@@ -353,7 +464,7 @@ def main(argv=None) -> int:
     )
     print(
         f"Elo K={args.k} HFA={args.hfa} -> elo_diff mean={trimmed['elo_diff'].mean():.1f} "
-        f"qb_elo_diff sd={trimmed['qb_elo_diff'].std():.1f}"
+        f"qb_elo_diff sd={trimmed['qb_elo_diff'].std():.1f} coach_elo_diff sd={trimmed['coach_elo_diff'].std():.1f}"
     )
     return 0
 

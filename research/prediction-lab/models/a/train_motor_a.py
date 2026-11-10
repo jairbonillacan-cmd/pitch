@@ -66,6 +66,15 @@ FEATURES = [
     "form_pts_res_diff_r5", "form_gd_res_diff_r5", "sos_diff_r5",
     "venue_pts_diff_r5", "venue_gd_diff_r5", "venue_xgd_diff_r5",
     "elo_closeness", "low_scoring_tight_match", "draw_rate_sum_r10",
+    # Bloque v2.1 (20 features: Opta-proxies tácticos xGOT/GK-Prevention/Field-Tilt + Log-Dixon-Coles + EWMA/r10)
+    "dc_logit_h", "dc_logit_d", "dc_logit_a", "elo_logit_h",
+    "xgot_diff_r5", "xgot_diff_r10",
+    "gk_prevented_diff_r5", "gk_prevented_diff_r10",
+    "field_tilt_diff_r5", "field_tilt_diff_r10",
+    "xgd_regime_shift_diff", "clinical_overperf_diff_r10",
+    "pts_res_diff_r10", "gd_res_diff_r10", "sos_diff_r10",
+    "xgd_ewm5_diff", "pts_res_ewm5_diff", "gd_res_ewm5_diff",
+    "sot_diff_r10", "corners_diff_r10",
 ]
 TARGET = "y"
 DEV_END = 2022  # temporadas <= 2022/23
@@ -135,13 +144,15 @@ class BaseRateModel:
 
 
 class EloOrderedModel:
-    """Logit ordenado con 2 umbrales sobre índice compuesto Elo + Pi-Rating."""
+    """Logit ordenado con 2 umbrales sobre índice compuesto Elo + Pi-Rating + Dixon-Coles + xGD."""
 
     def _score(self, df):
         elo_x = df.elo_diff.to_numpy(dtype=float) / 100.0
         if "pi_diff" in df.columns:
             pi_x = np.nan_to_num(df.pi_diff.to_numpy(dtype=float), nan=0.0)
-            return 0.70 * elo_x + 0.30 * (pi_x * 2.5)
+            dc_x = np.nan_to_num(df.get("dc_exp_diff", pd.Series(0.0, index=df.index)).to_numpy(dtype=float), nan=0.0)
+            xg_x = np.nan_to_num(df.get("xgd_diff_r10", pd.Series(0.0, index=df.index)).to_numpy(dtype=float), nan=0.0)
+            return 0.52 * elo_x + 0.23 * (pi_x * 2.5) + 0.15 * (dc_x * 1.8) + 0.10 * xg_x
         return elo_x
 
     def fit(self, df):
@@ -288,11 +299,11 @@ class PoissonDC:
 class HGBModel:
     def __init__(self, **kw):
         self.params = dict(
-            max_iter=90,
-            learning_rate=0.05,
+            max_iter=105,
+            learning_rate=0.045,
             max_leaf_nodes=15,
-            l2_regularization=5.0,
-            min_samples_leaf=120,
+            l2_regularization=8.0,
+            min_samples_leaf=140,
             early_stopping=False,
             random_state=SEED,
         )
@@ -319,7 +330,7 @@ class HGBModel:
 def fit_logit(df):
     imp = SimpleImputer(strategy="median")
     sc = StandardScaler()
-    lr = LogisticRegression(max_iter=3000, C=0.25)
+    lr = LogisticRegression(max_iter=3000, C=0.05)
     X_df = pd.concat([df[FEATURES], pd.get_dummies(df["div"], prefix="div").astype(float)], axis=1)
     X_mat = sc.fit_transform(imp.fit_transform(X_df))
     days = (df.match_date.max() - df.match_date).dt.days.to_numpy(dtype=float)

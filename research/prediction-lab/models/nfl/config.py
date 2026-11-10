@@ -75,14 +75,14 @@ TEST_SEASONS = tuple(range(2020, 2026))   # 2020..2025 -> informe final, no se t
 # Elo
 # ---------------------------------------------------------------------------
 ELO_START = 1500.0
-ELO_K = 20.0                 # valor base (sensibilidad 15/20/25)
-ELO_HFA = 55.0               # puntos Elo; ~2.5 pts de spread (sensibilidad 40/55/70)
+ELO_K = 22.0                 # valor base (sensibilidad 15/20/22/25/30)
+ELO_HFA = 52.0               # puntos Elo; ~2.2 pts de spread
 ELO_SEASON_REGRESSION = 0.75  # elo = 1500 + 0.75*(elo-1500) al empezar temporada
 ELO_MOV_SCALE = 2.2          # multiplicador por margen de victoria (estilo 538)
 
 # Rejilla de sensibilidad (se evalúa SOLO en VAL_SEASONS).
-ELO_K_GRID = (15.0, 20.0, 25.0, 30.0)
-ELO_HFA_GRID = (40.0, 55.0, 70.0)
+ELO_K_GRID = (15.0, 20.0, 22.0, 25.0)
+ELO_HFA_GRID = (40.0, 52.0, 55.0, 70.0)
 
 # Continuidad de franquicia (mismo club, código distinto por ciudad):
 #   STL (1999-2015) -> LA ; SD (1999-2016) -> LAC ; OAK (1999-2019) -> LV
@@ -98,13 +98,13 @@ MIN_PRIOR_GAMES = FORM_WINDOW  # filas con menos historia se descartan (solo 199
 # ---------------------------------------------------------------------------
 # Modelos
 # ---------------------------------------------------------------------------
-LOGIT_C_GRID = (0.001, 0.003, 0.01, 0.03, 0.1, 0.3, 1.0, 3.0)  # seleccionado en VAL
+LOGIT_C_GRID = (0.001, 0.003, 0.005, 0.008, 0.01, 0.03, 0.1, 0.3)  # seleccionado en VAL
 HGB_PARAMS = dict(
-    max_iter=300,
-    learning_rate=0.05,
-    max_leaf_nodes=15,
-    min_samples_leaf=40,
-    l2_regularization=1.0,
+    max_iter=60,
+    learning_rate=0.035,
+    max_leaf_nodes=7,
+    min_samples_leaf=80,
+    l2_regularization=15.0,
     early_stopping=False,
     random_state=SEED,
 )

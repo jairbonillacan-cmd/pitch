@@ -104,14 +104,15 @@ def run_fold(feats: pd.DataFrame, season: int, logit_c: float) -> pd.DataFrame:
 
     X_train, X_test = make_design(train), make_design(test)
     y_train = train["y"].to_numpy(dtype=int)
+    sw = 0.5 ** ((season - 1 - train["season"].to_numpy(dtype=float)) / 10.0)
 
     preds: dict[str, np.ndarray] = {}
     preds["base_freq"] = np.tile(class_frequencies(y_train), (len(test), 1))
 
     preds["logit_elo"] = predict_proba_3(fit_logit_elo(X_train, y_train), X_test, ["elo_diff"])
-    preds["logit"] = predict_proba_3(fit_logit(X_train, y_train, logit_c), X_test)
-    preds["hgb"] = predict_proba_3(fit_hgb(X_train, y_train), X_test)
-    preds["blend"] = normalize_probs(0.5 * preds["logit"] + 0.5 * preds["hgb"])
+    preds["logit"] = predict_proba_3(fit_logit(X_train, y_train, logit_c, sample_weight=sw), X_test)
+    preds["hgb"] = predict_proba_3(fit_hgb(X_train, y_train, sample_weight=sw), X_test)
+    preds["blend"] = normalize_probs(0.75 * preds["logit"] + 0.25 * preds["hgb"])
 
     tie_rate = float(train["tie"].mean())
     for name, home_col, away_col in (

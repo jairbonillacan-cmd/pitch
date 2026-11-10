@@ -47,10 +47,11 @@ def main():
     df = df[df["y"].notna()].copy()
     df["y"] = df["y"].astype(int)
     df["season"] = df["season"].astype(int)
-    train = df[df.season <= 2025].copy()
+    train = df[(df.season >= 2002) & (df.season <= 2025)].copy()
     X = make_design(train)
     y = train["y"].to_numpy()
-    model = fit_logit(X, y, C=chosen_c())
+    sw = 0.5 ** ((2025 - train["season"].to_numpy(dtype=float)) / 10.0)
+    model = fit_logit(X, y, C=chosen_c(), sample_weight=sw)
     probs = predict_proba_3(model, X, design_columns())
 
     scaler = model.named_steps["scale"]
@@ -58,8 +59,8 @@ def main():
     artifact = {
         "sport": "nfl",
         "type": "multinomial_logistic",
-        "codename": "PitchLab Minkowski v2.0",
-        "version": "1.0.0",
+        "codename": "PitchLab Minkowski v2.1",
+        "version": "2.1.0",
         "created_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "seed": SEED,
         "features": design_columns(),
@@ -75,7 +76,7 @@ def main():
             "seasons": [int(train.season.min()), int(train.season.max())],
             "train_log_loss": float(-np.mean(np.log(probs[np.arange(len(y)), y]))),
             "tie_rate": float((y == 1).mean()),
-            "notes": "PitchLab Minkowski v2.0: Features precalculadas por models/nfl/features.py con QB Elo y continuidad.",
+            "notes": "PitchLab Minkowski v2.1: Features con QB Elo, Head Coach Elo, EWMA ajustada por calendario, clima y parametrización exacta de empate.",
         },
     }
     with open(os.path.join(out, "model_nfl.json"), "w", encoding="utf-8") as f:

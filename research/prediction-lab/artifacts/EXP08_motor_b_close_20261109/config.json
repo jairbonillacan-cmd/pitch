@@ -4,8 +4,8 @@
  "ensemble_weights": {
   "linear_pool": 0.0,
   "logit_pool": 0.0,
-  "stack_logit": 1.0,
-  "residual_logit": 0.0,
+  "stack_logit": 0.4371,
+  "residual_logit": 0.5629,
   "stack_hgb": 0.0
  },
  "first_season": 2005,
@@ -15,5 +15,5 @@
   "b365_power": 7172,
   "avg_power": 42
  },
- "generated_at": "2026-11-09T16:02:34+00:00"
+ "generated_at": "2026-11-10T17:57:59+00:00"
 }

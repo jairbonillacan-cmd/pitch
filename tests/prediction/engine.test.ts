@@ -95,31 +95,31 @@ function cloneWithNaNsInImputer(source: ModelArtifact, index: number): ModelArti
 }
 
 describe("A10 — artefacto del modelo", () => {
-  it("tiene 106 columnas (83 features + 23 dummies) y 3 clases", () => {
+  it("tiene 126 columnas (103 features + 23 dummies) y 3 clases", () => {
     expect(model.type).toBe("multinomial_logistic");
-    expect(model.features).toHaveLength(106);
-    expect(model.n_features_base).toBe(83);
+    expect(model.features).toHaveLength(126);
+    expect(model.n_features_base).toBe(103);
     expect(model.div_levels).toHaveLength(23);
-    expect(model.features.slice(83)).toEqual(
+    expect(model.features.slice(103)).toEqual(
       model.div_levels.map((div) => `div_${div}`),
     );
-    expect(new Set(model.features).size).toBe(106);
+    expect(new Set(model.features).size).toBe(126);
     expect(model.coef).toHaveLength(3);
     for (let k = 0; k < 3; k += 1) {
-      expect(model.coef[k]).toHaveLength(106);
+      expect(model.coef[k]).toHaveLength(126);
     }
     expect(model.intercept).toHaveLength(3);
     expect(model.classes).toHaveLength(3);
-    expect(model.imputer.statistics).toHaveLength(106);
-    expect(model.scaler.mean).toHaveLength(106);
-    expect(model.scaler.scale).toHaveLength(106);
+    expect(model.imputer.statistics).toHaveLength(126);
+    expect(model.scaler.mean).toHaveLength(126);
+    expect(model.scaler.scale).toHaveLength(126);
   });
 
-  it("el snapshot tiene 200 filas con 83 features y 23 dummies cada una", () => {
+  it("el snapshot tiene 200 filas con 103 features y 23 dummies cada una", () => {
     expect(rows).toHaveLength(200);
     expect(snapshot.n).toBe(200);
     for (const [matchId, row] of rows) {
-      expect(row.features, `${matchId}: features`).toHaveLength(83);
+      expect(row.features, `${matchId}: features`).toHaveLength(103);
       expect(row.div_onehot, `${matchId}: div_onehot`).toHaveLength(23);
       expect(row.probs_python, `${matchId}: probs_python`).toHaveLength(3);
     }
@@ -356,9 +356,9 @@ describe("A10 — predictWithFallback", () => {
 
   it("devuelve invalid_features con features corruptas y nunca lanza", () => {
     const corruptRows: SnapshotRow[] = [
-      { ...row, features: row.features.slice(0, 82) },
-      { ...row, features: [...row.features.slice(0, 82), Number.POSITIVE_INFINITY] },
-      { ...row, features: [...row.features.slice(0, 82), Number.NEGATIVE_INFINITY] },
+      { ...row, features: row.features.slice(0, 102) },
+      { ...row, features: [...row.features.slice(0, 102), Number.POSITIVE_INFINITY] },
+      { ...row, features: [...row.features.slice(0, 102), Number.NEGATIVE_INFINITY] },
       { ...row, div_onehot: row.div_onehot.slice(0, 22) },
       { ...row, div_onehot: [...row.div_onehot.slice(0, 22), Number.NaN] },
     ];

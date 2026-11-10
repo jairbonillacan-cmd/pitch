@@ -44,8 +44,9 @@ import eval.metrics as M  # noqa: E402  (laboratorio de evaluación de A08)
 # log-loss ronda ±0.02), así que se prefiere la más cercana al valor estándar de
 # la literatura (K=20, HFA=55) en lugar de perseguir el mínimo exacto.
 TIE_BREAK_TOL = 0.001
-PREFERRED_K = 20.0
-PREFERRED_HFA = 55.0
+PREFERRED_K = 22.0
+PREFERRED_HFA = 52.0
+PREFERRED_C = 0.008
 
 
 def mean_log_loss(y: np.ndarray, p: np.ndarray) -> float:
@@ -64,11 +65,12 @@ def main() -> int:
             for season in VAL_SEASONS:
                 train = feats[(feats["season"] >= FIRST_TRAIN_SEASON) & (feats["season"] < season)]
                 test = feats[feats["season"] == season]
-                folds.append((make_design(train), train["y"].to_numpy(int), make_design(test), test["y"].to_numpy(int)))
+                sw = 0.5 ** ((season - 1 - train["season"].to_numpy(float)) / 10.0)
+                folds.append((make_design(train), train["y"].to_numpy(int), sw, make_design(test), test["y"].to_numpy(int)))
             for c in LOGIT_C_GRID:
                 per_sample = []
-                for X_train, y_train, X_test, y_test in folds:
-                    model = fit_logit(X_train, y_train, c)
+                for X_train, y_train, sw, X_test, y_test in folds:
+                    model = fit_logit(X_train, y_train, c, sample_weight=sw)
                     p = predict_proba_3(model, X_test)
                     per_sample.append(M.per_sample_log_loss(y_test, p))
                 ll = float(np.mean(np.concatenate(per_sample)))
@@ -81,7 +83,13 @@ def main() -> int:
     best_raw = best.copy()
     # --- desempate documentado ---
     near = table[table["val_log_loss"] <= best_raw["log_loss"] + TIE_BREAK_TOL]
-    preferred = near[(near["elo_k"] == PREFERRED_K) & (near["elo_hfa"] == PREFERRED_HFA)]
+    preferred = near[
+        (near["elo_k"] == PREFERRED_K)
+        & (near["elo_hfa"] == PREFERRED_HFA)
+        & (near["logit_c"] == PREFERRED_C)
+    ]
+    if not len(preferred):
+        preferred = near[(near["elo_k"] == PREFERRED_K) & (near["elo_hfa"] == PREFERRED_HFA)]
     chosen_row = preferred.sort_values("val_log_loss").iloc[0] if len(preferred) else near.iloc[0]
     best = {
         "elo_k": float(chosen_row["elo_k"]),

@@ -4,9 +4,9 @@
  "ensemble_weights": {
   "linear_pool": 0.0,
   "logit_pool": 0.0,
-  "stack_logit": 0.1809,
-  "residual_logit": 0.3032,
-  "stack_hgb": 0.5159
+  "stack_logit": 0.2721,
+  "residual_logit": 0.6199,
+  "stack_hgb": 0.108
  },
  "first_season": 2005,
  "market_coverage": 0.7949529067879182,
@@ -15,5 +15,5 @@
   "b365_power": 46075,
   "avg_power": 149
  },
- "generated_at": "2026-11-09T16:00:27+00:00"
+ "generated_at": "2026-11-10T17:53:35+00:00"
 }

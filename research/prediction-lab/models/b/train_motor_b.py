@@ -116,15 +116,16 @@ def build_consensus_market_probs(df: pd.DataFrame, phase: str) -> tuple[np.ndarr
     df["market_ok"] = df[["mh", "md", "ma"]].notna().all(axis=1)
     p_base = df[["mh", "md", "ma"]].to_numpy(dtype=float)
 
-    # 2. Super-consenso multi-mercado (Pondera Sharp PS, Consenso Avg, Exchange BF/BFE, AH+Totales y B365)
+    # 2. Super-consenso multi-mercado v2.1 (Pondera Sharp PS Power, Max Power, Avg Power, Exchange BF/BFE, AH y B365)
     # Pesos relativos de eficiencia informacional cuando cada fuente está presente:
     sources_weights = [
-        ([f"mkt_{phase}_ps_shin_{k}" for k in "hda"], 0.42),
-        ([f"mkt_{phase}_avg_shin_{k}" for k in "hda"], 0.28),
-        ([f"mkt_{phase}_bf_shin_{k}" for k in "hda"], 0.10),
-        ([f"mkt_{phase}_bfe_shin_{k}" for k in "hda"], 0.08),
-        ([f"mkt_{phase}_ah_implied_{k}" for k in "hda"], 0.06),
-        ([f"mkt_{phase}_b365_shin_{k}" for k in "hda"], 0.06),
+        ([f"mkt_{phase}_ps_power_{k}" for k in "hda"], 0.56),
+        ([f"mkt_{phase}_max_power_{k}" for k in "hda"], 0.22),
+        ([f"mkt_{phase}_avg_power_{k}" for k in "hda"], 0.10),
+        ([f"mkt_{phase}_bfe_power_{k}" for k in "hda"], 0.05),
+        ([f"mkt_{phase}_bf_power_{k}" for k in "hda"], 0.03),
+        ([f"mkt_{phase}_ah_implied_{k}" for k in "hda"], 0.02),
+        ([f"mkt_{phase}_b365_power_{k}" for k in "hda"], 0.02),
     ]
     num = np.zeros((n, 3), dtype=float)
     den = np.zeros((n, 1), dtype=float)
@@ -143,7 +144,7 @@ def build_consensus_market_probs(df: pd.DataFrame, phase: str) -> tuple[np.ndarr
 
 
 def stack_features(pA: np.ndarray, pM: np.ndarray, pCons: np.ndarray, df: pd.DataFrame, phase: str) -> np.ndarray:
-    """Construye la matriz de features para Motor B/C combinando logits, divergencias Sharp/AH y señales 2ª gen."""
+    """Construye la matriz de features para Motor B/C combinando logits, divergencias Sharp/AH y señales v2.1."""
     log_pA = logit(pA)
     log_pM = logit(pM)
     log_pC = logit(pCons)
@@ -163,6 +164,9 @@ def stack_features(pA: np.ndarray, pM: np.ndarray, pCons: np.ndarray, df: pd.Dat
         col_or_zero("xg_overperf_diff_r5", 1.0),
         col_or_zero("form_gd_res_diff_r5", 1.0),
         col_or_zero("elo_closeness", 1.0),
+        col_or_zero("gk_prevented_diff_r10", 1.0),
+        col_or_zero("field_tilt_diff_r5", 1.0),
+        col_or_zero("xgd_regime_shift_diff", 1.0),
         col_or_zero(f"mkt_{phase}_sharp_vs_b365_h", 1.0),
         col_or_zero(f"mkt_{phase}_sharp_vs_b365_d", 1.0),
         col_or_zero(f"mkt_{phase}_sharp_vs_b365_a", 1.0),
@@ -175,52 +179,88 @@ def stack_features(pA: np.ndarray, pM: np.ndarray, pCons: np.ndarray, df: pd.Dat
     return np.column_stack([log_pC, log_pM, log_pA, res_CA, res_CM] + extras)
 
 
-def fit_residual_tilting(y: np.ndarray, pA: np.ndarray, pCons: np.ndarray, df: pd.DataFrame, phase: str):
-    """Ajusta un modelo de corrección residual anclado al consenso:
-    P(y=k) = softmax_k(tau * log(pCons_k) + alpha * (log(pA_k) - log(pCons_k)) + b_k + gamma_k * z)
-    Optimizado por BFGS con regularización L2 fuerte para no degradar jamás la calibración del mercado.
-    """
+def _residual_components(pA: np.ndarray, pCons: np.ndarray, df: pd.DataFrame, phase: str):
     logC = logit(pCons)
+    pBase = df[["mh", "md", "ma"]].fillna(1.0 / 3.0).to_numpy(dtype=float)
+    diffBase = logit(pBase) - logC
     diffA = logit(pA) - logC
-    sh_h = np.nan_to_num(df.get(f"mkt_{phase}_sharp_vs_b365_h", pd.Series(0.0, index=df.index)).to_numpy(dtype=float), nan=0.0)
-    sh_d = np.nan_to_num(df.get(f"mkt_{phase}_sharp_vs_b365_d", pd.Series(0.0, index=df.index)).to_numpy(dtype=float), nan=0.0)
-    sh_a = np.nan_to_num(df.get(f"mkt_{phase}_sharp_vs_b365_a", pd.Series(0.0, index=df.index)).to_numpy(dtype=float), nan=0.0)
-    sh = np.column_stack([sh_h, sh_d, sh_a])
+    if all(c in df.columns for c in ("dc_prob_h", "dc_prob_d", "dc_prob_a")):
+        dc_p = df[["dc_prob_h", "dc_prob_d", "dc_prob_a"]].fillna(1.0 / 3.0).to_numpy(dtype=float)
+    else:
+        dc_p = pA
+    diffDC = logit(dc_p) - logC
 
-    ah_h = np.nan_to_num(df.get(f"mkt_{phase}_ah_vs_b365_h", pd.Series(0.0, index=df.index)).to_numpy(dtype=float), nan=0.0)
-    ah_d = np.nan_to_num(df.get(f"mkt_{phase}_ah_vs_b365_d", pd.Series(0.0, index=df.index)).to_numpy(dtype=float), nan=0.0)
-    ah_a = np.nan_to_num(df.get(f"mkt_{phase}_ah_vs_b365_a", pd.Series(0.0, index=df.index)).to_numpy(dtype=float), nan=0.0)
-    ah = np.column_stack([ah_h, ah_d, ah_a])
+    sh = np.column_stack([
+        np.nan_to_num(df.get(f"mkt_{phase}_sharp_vs_b365_{k}", pd.Series(0.0, index=df.index)).to_numpy(dtype=float), nan=0.0)
+        for k in "hda"
+    ])
+    ah = np.column_stack([
+        np.nan_to_num(df.get(f"mkt_{phase}_ah_vs_b365_{k}", pd.Series(0.0, index=df.index)).to_numpy(dtype=float), nan=0.0)
+        for k in "hda"
+    ])
+    tot_goals = np.nan_to_num(df.get(f"tot_{phase}_implied_goals", pd.Series(2.65, index=df.index)).to_numpy(dtype=float), nan=2.65)
+    elo_cl = np.nan_to_num(df.get("elo_closeness", pd.Series(0.5, index=df.index)).to_numpy(dtype=float), nan=0.5)
+    low_tot_draw = (2.65 - np.clip(tot_goals, 1.6, 3.8)) * elo_cl
+    draw_vec = np.column_stack([np.zeros(len(df)), low_tot_draw, np.zeros(len(df))])
+
+    tact = (
+        0.35 * np.nan_to_num(df.get("xgd_diff_r10", pd.Series(0.0, index=df.index)).to_numpy(dtype=float), nan=0.0)
+        + 0.25 * np.nan_to_num(df.get("gk_prevented_diff_r10", pd.Series(0.0, index=df.index)).to_numpy(dtype=float), nan=0.0)
+        + 0.25 * np.nan_to_num(df.get("pi_diff", pd.Series(0.0, index=df.index)).to_numpy(dtype=float), nan=0.0)
+        + 0.15 * np.nan_to_num(df.get("xgd_regime_shift_diff", pd.Series(0.0, index=df.index)).to_numpy(dtype=float), nan=0.0)
+    )
+    tact_vec = np.column_stack([tact, np.zeros(len(df)), -tact])
+    return logC, diffBase, diffA, diffDC, sh, ah, draw_vec, tact_vec
+
+
+def fit_residual_tilting(y: np.ndarray, pA: np.ndarray, pCons: np.ndarray, df: pd.DataFrame, phase: str):
+    """Ajusta un modelo de corrección residual v2.1 anclado al super-consenso:
+    Combina temperatura, diferencial PS-vs-Consenso, Motor A (Tachyon), Dixon-Coles,
+    Sharp-vs-Soft, Handicap Asiático, Totales implícitos (geometría del empate) y Opta-proxies tácticos.
+    """
+    logC, diffBase, diffA, diffDC, sh, ah, draw_vec, tact_vec = _residual_components(pA, pCons, df, phase)
 
     def loss(params):
-        tau, alpha, w_sh, w_ah, b0, b1 = params
+        tau, w_base, alpha_a, alpha_dc, w_sh, w_ah, w_tot, w_tact, b0, b1 = params
         bias = np.array([b0, b1, -(b0 + b1)])
-        z = tau * logC + alpha * diffA + w_sh * sh + w_ah * ah + bias
+        z = (
+            tau * logC
+            + w_base * diffBase
+            + alpha_a * diffA
+            + alpha_dc * diffDC
+            + w_sh * sh
+            + w_ah * ah
+            + w_tot * draw_vec
+            + w_tact * tact_vec
+            + bias
+        )
         p = softmax(z)
         nll = -np.mean(np.log(np.clip(p[np.arange(len(y)), y], 1e-15, 1.0)))
-        reg = 1e-3 * ((tau - 1.0) ** 2 + alpha ** 2 + w_sh ** 2 + w_ah ** 2 + b0 ** 2 + b1 ** 2)
+        reg = 2e-3 * (
+            (tau - 1.0) ** 2 + w_base ** 2 + alpha_a ** 2 + alpha_dc ** 2
+            + w_sh ** 2 + w_ah ** 2 + w_tot ** 2 + w_tact ** 2 + b0 ** 2 + b1 ** 2
+        )
         return float(nll + reg)
 
-    res = minimize(loss, x0=[1.0, 0.08, 0.25, 0.15, 0.0, 0.0], method="BFGS")
+    res = minimize(loss, x0=[1.0, 0.20, 0.06, 0.02, 0.20, 0.10, 0.05, 0.01, 0.0, 0.0], method="BFGS")
     return res.x
 
 
 def predict_residual_tilting(params, pA: np.ndarray, pCons: np.ndarray, df: pd.DataFrame, phase: str) -> np.ndarray:
-    tau, alpha, w_sh, w_ah, b0, b1 = params
+    tau, w_base, alpha_a, alpha_dc, w_sh, w_ah, w_tot, w_tact, b0, b1 = params
     bias = np.array([b0, b1, -(b0 + b1)])
-    logC = logit(pCons)
-    diffA = logit(pA) - logC
-    sh_h = np.nan_to_num(df.get(f"mkt_{phase}_sharp_vs_b365_h", pd.Series(0.0, index=df.index)).to_numpy(dtype=float), nan=0.0)
-    sh_d = np.nan_to_num(df.get(f"mkt_{phase}_sharp_vs_b365_d", pd.Series(0.0, index=df.index)).to_numpy(dtype=float), nan=0.0)
-    sh_a = np.nan_to_num(df.get(f"mkt_{phase}_sharp_vs_b365_a", pd.Series(0.0, index=df.index)).to_numpy(dtype=float), nan=0.0)
-    sh = np.column_stack([sh_h, sh_d, sh_a])
-
-    ah_h = np.nan_to_num(df.get(f"mkt_{phase}_ah_vs_b365_h", pd.Series(0.0, index=df.index)).to_numpy(dtype=float), nan=0.0)
-    ah_d = np.nan_to_num(df.get(f"mkt_{phase}_ah_vs_b365_d", pd.Series(0.0, index=df.index)).to_numpy(dtype=float), nan=0.0)
-    ah_a = np.nan_to_num(df.get(f"mkt_{phase}_ah_vs_b365_a", pd.Series(0.0, index=df.index)).to_numpy(dtype=float), nan=0.0)
-    ah = np.column_stack([ah_h, ah_d, ah_a])
-
-    z = tau * logC + alpha * diffA + w_sh * sh + w_ah * ah + bias
+    logC, diffBase, diffA, diffDC, sh, ah, draw_vec, tact_vec = _residual_components(pA, pCons, df, phase)
+    z = (
+        tau * logC
+        + w_base * diffBase
+        + alpha_a * diffA
+        + alpha_dc * diffDC
+        + w_sh * sh
+        + w_ah * ah
+        + w_tot * draw_vec
+        + w_tact * tact_vec
+        + bias
+    )
     return softmax(z)
 
 
@@ -252,11 +292,19 @@ def main():
         "match_id",
         "elo_diff",
         "pi_diff",
+        "clubelo_diff",
+        "dc_prob_h",
+        "dc_prob_d",
+        "dc_prob_a",
         "form_gd_diff_r10",
         "xgd_diff_r10",
         "xg_overperf_diff_r5",
         "form_gd_res_diff_r5",
         "elo_closeness",
+        "low_scoring_tight_match",
+        "gk_prevented_diff_r10",
+        "field_tilt_diff_r5",
+        "xgd_regime_shift_diff",
         "h_points_r5",
         "a_points_r5",
     ]

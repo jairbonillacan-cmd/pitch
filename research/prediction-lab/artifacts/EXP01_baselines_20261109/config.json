@@ -82,7 +82,27 @@
   "venue_xgd_diff_r5",
   "elo_closeness",
   "low_scoring_tight_match",
-  "draw_rate_sum_r10"
+  "draw_rate_sum_r10",
+  "dc_logit_h",
+  "dc_logit_d",
+  "dc_logit_a",
+  "elo_logit_h",
+  "xgot_diff_r5",
+  "xgot_diff_r10",
+  "gk_prevented_diff_r5",
+  "gk_prevented_diff_r10",
+  "field_tilt_diff_r5",
+  "field_tilt_diff_r10",
+  "xgd_regime_shift_diff",
+  "clinical_overperf_diff_r10",
+  "pts_res_diff_r10",
+  "gd_res_diff_r10",
+  "sos_diff_r10",
+  "xgd_ewm5_diff",
+  "pts_res_ewm5_diff",
+  "gd_res_ewm5_diff",
+  "sot_diff_r10",
+  "corners_diff_r10"
  ],
  "SEED": 20261109,
  "DEV_END": 2022,
@@ -97,6 +117,7 @@
   "base_rate",
   "elo_ordered",
   "hgb",
-  "logit"
+  "logit",
+  "poisson_dc"
  ]
 }

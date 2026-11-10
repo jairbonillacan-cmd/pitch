@@ -356,11 +356,31 @@ def features_for_fixture(
     f["gk_prevented_diff_r5"] = f.get("h_gk_prevented_r5", np.nan) - f.get("a_gk_prevented_r5", np.nan)
     f["gk_prevented_diff_r10"] = f.get("h_gk_prevented_r10", np.nan) - f.get("a_gk_prevented_r10", np.nan)
     f["field_tilt_diff_r5"] = f.get("h_field_tilt_r5", np.nan) - f.get("a_field_tilt_r5", np.nan)
+    f["field_tilt_diff_r10"] = f.get("h_field_tilt_r10", np.nan) - f.get("a_field_tilt_r10", np.nan)
+    f["xgot_diff_r5"] = f.get("h_xgot_r5", np.nan) - f.get("a_xgot_r5", np.nan)
+    f["xgot_diff_r10"] = f.get("h_xgot_r10", np.nan) - f.get("a_xgot_r10", np.nan)
+    f["clinical_overperf_diff_r10"] = f.get("h_clinical_overperf_r10", np.nan) - f.get("a_clinical_overperf_r10", np.nan)
     h_shift = f.get("h_xgd_r5", np.nan) - f.get("h_xgd_r10", np.nan)
     a_shift = f.get("a_xgd_r5", np.nan) - f.get("a_xgd_r10", np.nan)
     f["h_xgd_regime_shift"] = h_shift
     f["a_xgd_regime_shift"] = a_shift
     f["xgd_regime_shift_diff"] = h_shift - a_shift
+
+    # Diferenciales de 10 partidos, EWMA y probabilidades estructurales en espacio logit (v2.1)
+    _eps = 1e-4
+    f["dc_logit_h"] = math.log(max(_eps, min(1.0 - _eps, float(f["dc_prob_h"]))))
+    f["dc_logit_d"] = math.log(max(_eps, min(1.0 - _eps, float(f["dc_prob_d"]))))
+    f["dc_logit_a"] = math.log(max(_eps, min(1.0 - _eps, float(f["dc_prob_a"]))))
+    p_elo_nd = max(_eps, min(1.0 - _eps, float(f["elo_prob_home_nodraw"])))
+    f["elo_logit_h"] = math.log(p_elo_nd / (1.0 - p_elo_nd))
+    f["pts_res_diff_r10"] = f.get("h_pts_res_r10", np.nan) - f.get("a_pts_res_r10", np.nan)
+    f["gd_res_diff_r10"] = f.get("h_gd_res_r10", np.nan) - f.get("a_gd_res_r10", np.nan)
+    f["sos_diff_r10"] = f.get("h_opp_elo_r10", np.nan) - f.get("a_opp_elo_r10", np.nan)
+    f["xgd_ewm5_diff"] = f.get("h_xgd_ewm5", np.nan) - f.get("a_xgd_ewm5", np.nan)
+    f["pts_res_ewm5_diff"] = f.get("h_pts_res_ewm5", np.nan) - f.get("a_pts_res_ewm5", np.nan)
+    f["gd_res_ewm5_diff"] = f.get("h_gd_res_ewm5", np.nan) - f.get("a_gd_res_ewm5", np.nan)
+    f["sot_diff_r10"] = f.get("h_sot_r10", np.nan) - f.get("a_sot_r10", np.nan)
+    f["corners_diff_r10"] = f.get("h_corners_r10", np.nan) - f.get("a_corners_r10", np.nan)
 
     f["abs_elo_diff"] = abs(elo_diff)
     f["elo_closeness"] = math.exp(-((elo_diff / 150.0) ** 2))

@@ -439,6 +439,28 @@ def main():
 
     # Opta-proxies tácticos y quiebre de régimen estructural
     out = compute_regime_shift_features(out)
+    out["xgot_diff_r5"] = out["h_xgot_r5"] - out["a_xgot_r5"]
+    out["xgot_diff_r10"] = out["h_xgot_r10"] - out["a_xgot_r10"]
+    out["field_tilt_diff_r10"] = out["h_field_tilt_r10"] - out["a_field_tilt_r10"]
+    out["clinical_overperf_diff_r10"] = out["h_clinical_overperf_r10"] - out["a_clinical_overperf_r10"]
+
+    # Diferenciales de 10 partidos, EWMA y probabilidades estructurales en espacio logit (v2.1)
+    _eps = 1e-4
+    out["dc_logit_h"] = np.log(np.clip(out["dc_prob_h"], _eps, 1.0 - _eps))
+    out["dc_logit_d"] = np.log(np.clip(out["dc_prob_d"], _eps, 1.0 - _eps))
+    out["dc_logit_a"] = np.log(np.clip(out["dc_prob_a"], _eps, 1.0 - _eps))
+    out["elo_logit_h"] = np.log(
+        np.clip(out["elo_prob_home_nodraw"], _eps, 1.0 - _eps)
+        / np.clip(1.0 - out["elo_prob_home_nodraw"], _eps, 1.0 - _eps)
+    )
+    out["pts_res_diff_r10"] = out["h_pts_res_r10"] - out["a_pts_res_r10"]
+    out["gd_res_diff_r10"] = out["h_gd_res_r10"] - out["a_gd_res_r10"]
+    out["sos_diff_r10"] = out["h_opp_elo_r10"] - out["a_opp_elo_r10"]
+    out["xgd_ewm5_diff"] = out["h_xgd_ewm5"] - out["a_xgd_ewm5"]
+    out["pts_res_ewm5_diff"] = out["h_pts_res_ewm5"] - out["a_pts_res_ewm5"]
+    out["gd_res_ewm5_diff"] = out["h_gd_res_ewm5"] - out["a_gd_res_ewm5"]
+    out["sot_diff_r10"] = out["h_sot_r10"] - out["a_sot_r10"]
+    out["corners_diff_r10"] = out["h_corners_r10"] - out["a_corners_r10"]
 
     # Geometría del empate y competitividad
     out["abs_elo_diff"] = np.abs(out["elo_diff"])

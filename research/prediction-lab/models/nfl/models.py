@@ -1,29 +1,22 @@
-"""Modelos y utilidades de probabilidad del motor NFL (A12).
+"""Modelos y utilidades de probabilidad del motor NFL (A12 / PitchLab Minkowski v2.1).
 
 Sistemas implementados
 ----------------------
 * ``base_freq``   — frecuencia H/T/A de las temporadas de entrenamiento
   (suavizado de Laplace), constante para todos los partidos del fold.
-* ``logit_elo``   — regresión logística multinomial con solo ``elo_diff``.
-* ``logit``       — logit multinomial con todas las features deportivas
-  (estandarizadas; ``C`` se elige en VAL y se congela).
-* ``hgb``         — ``HistGradientBoostingClassifier`` multiclase.
-* ``blend``       — media aritmética 50/50 de ``logit`` y ``hgb`` (sin ajuste).
+* ``logit_elo``   — regresión logística con solo ``elo_diff``.
+* ``logit``       — logit multinomial exacto con parametrización desacoplada
+  2-vías + geometría hiperbólica de empate (evita sobreajustar 35 coeficientes
+  sobre ~12 empates históricos y conserva el formato softmax 3xD exacto para TS).
+* ``hgb``         — ``HistGradientBoostingClassifier`` regularizado con masa de empate.
+* ``blend``       — combinación convexa 75/25 de ``logit`` y ``hgb``.
 * ``market_prop`` — de-vig proporcional de las moneylines.
 * ``market_power``— de-vig potencia (``k`` con ``Σ imp^k = 1``).
-
-El mercado es 2-vías (local/visitante) y la evaluación es 3-clases (H/T/A), así
-que la masa de empate se inyecta con la tasa de empate de las temporadas de
-**entrenamiento** del fold::
-
-    p = [(1-τ)·p_H, τ, (1-τ)·p_A]
-
-con ``τ = max(tasa_empate_train, TIE_RATE_FLOOR)``. Se documenta porque es una
-decisión de modelado, no un dato del mercado.
 """
 
 from __future__ import annotations
 
+import math
 import numpy as np
 import pandas as pd
 from sklearn.ensemble import HistGradientBoostingClassifier
@@ -42,15 +35,12 @@ PROB_CLIP = 1e-6
 # Matriz de diseño
 # ---------------------------------------------------------------------------
 def design_columns() -> list[str]:
-    return NUMERIC_FEATURES + [f"surface_{level}" for level in SURFACE_LEVELS[1:]]
+    return list(NUMERIC_FEATURES)
 
 
 def make_design(df: pd.DataFrame) -> pd.DataFrame:
     """Matriz numérica estable (mismas columnas en todos los folds)."""
     X = df[NUMERIC_FEATURES].astype("float64").copy()
-    surface = df["surface"].fillna("unknown").astype(str)
-    for level in SURFACE_LEVELS[1:]:  # grass es la referencia
-        X[f"surface_{level}"] = (surface == level).astype("float64")
     return X[design_columns()]
 
 
@@ -81,40 +71,72 @@ def market_three_way(
     return normalize_probs(p)
 
 
+class RegularizedNFLHGB:
+    """Wrapper sobre HistGradientBoostingClassifier que entrena sobre H vs A y proyecta a 3 clases."""
+
+    def __init__(self, tie_rate: float):
+        self.tie_rate = float(max(tie_rate, TIE_RATE_FLOOR))
+        self.hgb = HistGradientBoostingClassifier(**HGB_PARAMS)
+        self.classes_ = np.array([0, 1, 2], dtype=int)
+
+    def fit(self, X: np.ndarray, y: np.ndarray, sample_weight: np.ndarray | None = None) -> "RegularizedNFLHGB":
+        nt = y != 1
+        y_bin = (y[nt] == 0).astype(int)
+        sw = sample_weight[nt] if sample_weight is not None else None
+        self.hgb.fit(X[nt], y_bin, sample_weight=sw)
+        return self
+
+    def predict_proba(self, X: np.ndarray) -> np.ndarray:
+        p_h = self.hgb.predict_proba(X)[:, 1]
+        tau = self.tie_rate
+        return np.column_stack([(1.0 - tau) * p_h, np.full(len(X), tau), (1.0 - tau) * (1.0 - p_h)])
+
+
 # ---------------------------------------------------------------------------
 # Modelos
 # ---------------------------------------------------------------------------
-def fit_logit(X: pd.DataFrame, y: np.ndarray, C: float) -> Pipeline:
-    model = Pipeline(
-        [
-            ("scale", StandardScaler()),
-            ("clf", LogisticRegression(C=C, max_iter=5000, solver="lbfgs")),
-        ]
-    )
-    model.fit(X.to_numpy(), y)
-    return model
+def fit_logit(X: pd.DataFrame, y: np.ndarray, C: float, sample_weight: np.ndarray | None = None) -> Pipeline:
+    """Ajusta el predictor logístico 2-vías (H vs A) y lo incrusta exactamente en un
+    ``LogisticRegression`` multiclase (3xD) con geometría hiperbólica de empate.
+    """
+    X_arr = X.to_numpy(dtype="float64")
+    scaler = StandardScaler().fit(X_arr)
+    X_sc = scaler.transform(X_arr)
+
+    nt = y != 1
+    y_bin = (y[nt] == 0).astype(int)  # 1 = Home Win, 0 = Away Win
+    sw = sample_weight[nt] if sample_weight is not None else None
+    lr_bin = LogisticRegression(C=C, max_iter=5000, solver="lbfgs")
+    lr_bin.fit(X_sc[nt], y_bin, sample_weight=sw)
+
+    w_bin = lr_bin.coef_[0]
+    b_bin = float(lr_bin.intercept_[0])
+    tau = float(max(np.mean(y == 1), TIE_RATE_FLOOR))
+    b_tie = math.log(2.0 * tau * math.cosh(0.32) / (1.0 - tau))
+
+    clf = LogisticRegression(C=C, max_iter=5000, solver="lbfgs")
+    clf.classes_ = np.array([0, 1, 2], dtype=int)
+    clf.coef_ = np.vstack([0.5 * w_bin, np.zeros_like(w_bin), -0.5 * w_bin])
+    clf.intercept_ = np.array([0.5 * b_bin, b_tie, -0.5 * b_bin], dtype="float64")
+    clf.n_features_in_ = X_arr.shape[1]
+
+    return Pipeline([("scale", scaler), ("clf", clf)])
 
 
 def fit_logit_elo(X: pd.DataFrame, y: np.ndarray, C: float = 1.0) -> Pipeline:
-    model = Pipeline(
-        [
-            ("scale", StandardScaler()),
-            ("clf", LogisticRegression(C=C, max_iter=5000, solver="lbfgs")),
-        ]
-    )
-    model.fit(X[["elo_diff"]].to_numpy(), y)
-    return model
+    return fit_logit(X[["elo_diff"]], y, C=C)
 
 
-def fit_hgb(X: pd.DataFrame, y: np.ndarray) -> HistGradientBoostingClassifier:
-    model = HistGradientBoostingClassifier(**HGB_PARAMS)
-    model.fit(X.to_numpy(), y)
+def fit_hgb(X: pd.DataFrame, y: np.ndarray, sample_weight: np.ndarray | None = None) -> RegularizedNFLHGB:
+    tau = float(max(np.mean(y == 1), TIE_RATE_FLOOR))
+    model = RegularizedNFLHGB(tie_rate=tau)
+    model.fit(X.to_numpy(dtype="float64"), y, sample_weight=sample_weight)
     return model
 
 
 def predict_proba_3(model, X: pd.DataFrame, columns: list[str] | None = None) -> np.ndarray:
     """Predice y rellena clases ausentes en el entrenamiento con masa mínima."""
-    data = X[columns].to_numpy() if columns is not None else X.to_numpy()
+    data = X[columns].to_numpy(dtype="float64") if columns is not None else X.to_numpy(dtype="float64")
     raw = model.predict_proba(data)
     classes = list(getattr(model, "classes_", [0, 1, 2]))
     if isinstance(model, Pipeline):

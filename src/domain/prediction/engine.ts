@@ -23,14 +23,14 @@ import type {
 
 /** Identificador fijo del motor deportivo puro (PitchLab Tachyon). */
 export const MOTOR_A_MODEL_ID = "motor_a_logistic_v1";
-export const TACHYON_MODEL_NAME = "PitchLab Tachyon v2.0";
+export const TACHYON_MODEL_NAME = "PitchLab Tachyon v2.1";
 /** Identificador del camino geodésico de mercado (Motor B / de-vig). */
 export const MARKET_MODEL_ID = "market_devig";
 export const MARKET_MODEL_VERSION = "market_devig_v1";
 export const GEODESIC_MODEL_NAME = "PitchLab Geodesic v1.0";
 /** Identificador del motor híbrido log-lineal (PitchLab Singularity = Mercado + Tachyon). */
 export const HYBRID_MODEL_ID = "pitchlab_singularity_v2";
-export const SINGULARITY_MODEL_NAME = "PitchLab Singularity v2.0";
+export const SINGULARITY_MODEL_NAME = "PitchLab Singularity v2.1";
 /** Identificador del prior global usado cuando las features son irrecuperables (PitchLab Horizon). */
 export const BASE_RATES_MODEL_ID = "base_rates_v1";
 export const HORIZON_MODEL_NAME = "PitchLab Horizon v1.0";
@@ -612,7 +612,7 @@ export function predictWithFallback(
 
 /** Identificador del motor NFL exportado por `pipeline/export_model_nfl.py` (PitchLab Minkowski). */
 export const NFL_MODEL_ID = "nfl_logistic_v1";
-export const MINKOWSKI_MODEL_NAME = "PitchLab Minkowski v2.0";
+export const MINKOWSKI_MODEL_NAME = "PitchLab Minkowski v2.1";
 
 /**
  * Valida el artefacto NFL. A diferencia del de fútbol no hay dummies de división:
