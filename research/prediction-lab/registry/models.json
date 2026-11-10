@@ -1,48 +1,72 @@
 {
  "models": [
   {
+   "deployed_version": "3.0.0",
    "model_id": "motor_a_logistic_v1",
    "sport": "football",
    "status": "deployed",
-   "updated_at": "2026-11-10T19:00:19+00:00",
+   "updated_at": "2026-11-10T21:59:13+00:00",
    "versions": [
     {
      "artifact_path": "..\\..\\src\\data\\prediction\\model_motor_a.json",
-     "artifact_sha256": "7430d3da54ddda4a9ec3daeca943085b61b749b3ad18000da8ceb35aa8a0c509",
+     "artifact_sha256": "3c72967eddc79bb71ca7fcae40bf21aae760269dc62b43cf2b2db7eeacfceec9",
      "metrics": {
       "metrics_path": "artifacts/EXP01_baselines_20261109/metrics.json",
-      "test_log_loss": 1.01358,
-      "val_log_loss": 1.00568
+      "test_log_loss": 1.01311,
+      "val_log_loss": 1.00485
      },
-     "n_features": 126,
-     "notes": "PitchLab Tachyon v2.1 desplegado; logit multinomial con 103 features causales (Opta-proxies REA-stats, log-priors DC/Elo, EWMA/r10) + 23 dummies",
-     "registered_at": "2026-11-10T19:00:19+00:00",
-     "version": "2.1.0"
+     "n_features": 136,
+     "notes": "PitchLab Tachyon v3.0 desplegado; logit multinomial C=0.02 con 113 features causales (Real xG 2018-2026, xG-Elo, PPDA/Deep Understat, Fisica Altitud Open-Meteo) + 23 dummies + prior prospectivo disponibilidad",
+     "registered_at": "2026-11-10T21:59:13+00:00",
+     "version": "3.0.0"
     }
    ]
   },
   {
+   "deployed_version": "3.0.0",
    "model_id": "nfl_logistic_v1",
    "sport": "nfl",
    "status": "deployed",
-   "updated_at": "2026-11-10T19:00:20+00:00",
+   "updated_at": "2026-11-10T21:59:13+00:00",
    "versions": [
     {
      "artifact_path": "..\\..\\src\\data\\prediction\\model_nfl.json",
-     "artifact_sha256": "e386e4e59737f302701858f2842f1545ce399e87ee28b9c5869007b35f758f1e",
+     "artifact_sha256": "e74ae241875739d2dc18564f85133d4e20c1d0cef41d64b6f705852601597225",
      "metrics": {
-      "metrics_path": "models/nfl/artifacts/metrics.json",
-      "test_log_loss": 0.65017,
-      "val_log_loss": 0.64105
+      "metrics_path": "experiments/EXP_A26_minkowski_multisport_v30_summary.json",
+      "test_log_loss": 0.65015,
+      "val_log_loss": 0.64087
      },
      "n_features": 29,
-     "notes": "PitchLab Minkowski v2.1 desplegado; logit softmax exacto 2-vias+cosh con 29 features (QB Elo, Head Coach Elo, Dynamic HFA, EWMA SoS, Weather); CC BY 4.0",
-     "registered_at": "2026-11-10T19:00:20+00:00",
-     "version": "2.1.0"
+     "notes": "PitchLab Minkowski v3.0 desplegado; 29 features historicas + capa prospectiva live_v3 (SumerSports EPA/play, Ourlads/NFL Injuries, NFLPenalties 54 crews, Open-Meteo 32 estadios)",
+     "registered_at": "2026-11-10T21:59:13+00:00",
+     "version": "3.0.0"
+    }
+   ]
+  },
+  {
+   "deployed_version": "3.0.0",
+   "model_id": "multisport_spacetime_v3",
+   "sport": "multisport",
+   "status": "deployed",
+   "updated_at": "2026-11-10T21:59:14+00:00",
+   "versions": [
+    {
+     "artifact_path": "..\\..\\src\\data\\prediction\\model_multisport.json",
+     "artifact_sha256": "89df27a2864e8c22d54f747ad3ceeddf884fbd11c5982b7c9d8327789d5eed06",
+     "metrics": {
+      "metrics_path": "experiments/EXP_A26_minkowski_multisport_v30_summary.json",
+      "test_log_loss": 0.68324,
+      "val_log_loss": 0.68324
+     },
+     "n_features": 230,
+     "notes": "PitchLab Spacetime Multi-Sport v3.0 desplegado (Curvature NHL 32, Kepler MLB 30, Tensor NBA 30, Horizon NCAAF 138 FBS; causal S-1 -> S)",
+     "registered_at": "2026-11-10T21:59:14+00:00",
+     "version": "3.0.0"
     }
    ]
   }
  ],
  "schema_version": 1,
- "updated_at": "2026-11-10T19:00:20+00:00"
+ "updated_at": "2026-11-10T21:59:14+00:00"
 }

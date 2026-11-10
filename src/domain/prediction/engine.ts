@@ -12,25 +12,28 @@
  */
 import type {
   BaseRates,
+  LineupAvailabilityDeltaResult,
   NFLModelArtifact,
   NFLSnapshotRow,
   Prediction,
   PredictionMode,
   PredictionRequest,
+  ProspectiveAvailabilityPriorConfig,
   ModelArtifact,
   SnapshotRow,
+  TeamAvailabilityContext,
 } from "./types.js";
 
 /** Identificador fijo del motor deportivo puro (PitchLab Tachyon). */
 export const MOTOR_A_MODEL_ID = "motor_a_logistic_v1";
-export const TACHYON_MODEL_NAME = "PitchLab Tachyon v2.1";
+export const TACHYON_MODEL_NAME = "PitchLab Tachyon v3.0";
 /** Identificador del camino geodésico de mercado (Motor B / de-vig). */
 export const MARKET_MODEL_ID = "market_devig";
-export const MARKET_MODEL_VERSION = "market_devig_v1";
-export const GEODESIC_MODEL_NAME = "PitchLab Geodesic v1.0";
+export const MARKET_MODEL_VERSION = "market_devig_v2";
+export const GEODESIC_MODEL_NAME = "PitchLab Geodesic v2.0";
 /** Identificador del motor híbrido log-lineal (PitchLab Singularity = Mercado + Tachyon). */
-export const HYBRID_MODEL_ID = "pitchlab_singularity_v2";
-export const SINGULARITY_MODEL_NAME = "PitchLab Singularity v2.1";
+export const HYBRID_MODEL_ID = "pitchlab_singularity_v3";
+export const SINGULARITY_MODEL_NAME = "PitchLab Singularity v3.0";
 /** Identificador del prior global usado cuando las features son irrecuperables (PitchLab Horizon). */
 export const BASE_RATES_MODEL_ID = "base_rates_v1";
 export const HORIZON_MODEL_NAME = "PitchLab Horizon v1.0";
@@ -390,8 +393,164 @@ export function evaluateValueExecution(
   };
 }
 
-/** Predicción Motor A sin validar el modelo (uso interno, modelo ya validado). */
-function predictMotorAUnchecked(row: SnapshotRow, model: ModelArtifact): Prediction {
+export const DEFAULT_PROSPECTIVE_AVAILABILITY_PRIOR: Readonly<ProspectiveAvailabilityPriorConfig> =
+  Object.freeze({
+    enabled: true,
+    schema_version: "3.0.0",
+    clip_abs: 0.35,
+    weights: {
+      missing_market_value_diff: 0.85,
+      shrunk_log_squad_value_ratio: 0.06,
+      effective_absences_diff: 0.025,
+    },
+    bounds: {
+      missing_market_value_ratio_max: 0.6,
+      log_squad_value_ratio_clip: 2.0,
+      max_effective_absences_per_team: 8.0,
+      effective_absences_diff_clip: 6.0,
+    },
+    absence_weights: {
+      rotowire_injured_out: 0.65,
+      transfermarkt_injured_with_rotowire: 0.35,
+      transfermarkt_injured_without_rotowire: 0.55,
+      suspended_players: 0.8,
+    },
+    logit_shift: {
+      home_multiplier: 0.5,
+      draw_multiplier: 0.0,
+      away_multiplier: -0.5,
+    },
+  });
+
+function safeNonNegFloat(
+  ctx: TeamAvailabilityContext | null | undefined,
+  key: keyof TeamAvailabilityContext,
+  fallback = 0,
+): number {
+  if (!ctx) return fallback;
+  const raw = ctx[key];
+  if (raw === null || raw === undefined) return fallback;
+  const val = Number(raw);
+  if (!Number.isFinite(val)) return fallback;
+  return Math.max(0, val);
+}
+
+function teamEffectiveAbsences(
+  ctx: TeamAvailabilityContext | null | undefined,
+  cfg: ProspectiveAvailabilityPriorConfig,
+): number {
+  if (!ctx) return 0;
+  const aw = cfg.absence_weights;
+  const maxAbs = cfg.bounds.max_effective_absences_per_team;
+  const rwRaw = ctx.rotowire_injured_out_count;
+  const hasRw = rwRaw !== null && rwRaw !== undefined && Number.isFinite(Number(rwRaw)) && Number(rwRaw) > 0;
+  const rwOut = safeNonNegFloat(ctx, "rotowire_injured_out_count", 0);
+  const tmInj = safeNonNegFloat(ctx, "injured_players_count", 0);
+  const susp = safeNonNegFloat(ctx, "suspended_players_count", 0);
+
+  let eff = hasRw
+    ? aw.rotowire_injured_out * rwOut + aw.transfermarkt_injured_with_rotowire * tmInj
+    : aw.transfermarkt_injured_without_rotowire * tmInj;
+  eff += aw.suspended_players * susp;
+  return Math.min(maxAbs, Math.max(0, eff));
+}
+
+function teamSquadValueRatio(ctx: TeamAvailabilityContext | null | undefined): number {
+  if (!ctx) return 1.0;
+  const vr = ctx.value_ratio_vs_league_median;
+  if (vr !== null && vr !== undefined) {
+    const val = Number(vr);
+    if (Number.isFinite(val) && val > 0) return val;
+  }
+  return 1.0;
+}
+
+/**
+ * Espejo 1:1 de `fixture_features.py::compute_lineup_availability_delta` (paridad IEEE-754 `< 1e-12`).
+ * Prior bayesiano prospectivo en log-odds para inferencia live (`[-0.35, +0.35]`),
+ * jamás inyectado en el entrenamiento histórico `2000–2025`.
+ */
+export function computeLineupAvailabilityDelta(
+  homeTeamCtx?: TeamAvailabilityContext | null,
+  awayTeamCtx?: TeamAvailabilityContext | null,
+  config?: ProspectiveAvailabilityPriorConfig | null,
+): LineupAvailabilityDeltaResult {
+  const cfg = config ?? DEFAULT_PROSPECTIVE_AVAILABILITY_PRIOR;
+  if (!cfg.enabled || (!homeTeamCtx && !awayTeamCtx)) {
+    return {
+      lineup_availability_delta: 0,
+      missing_value_term: 0,
+      squad_value_term: 0,
+      starter_absence_term: 0,
+      home_missing_market_value_ratio: 0,
+      away_missing_market_value_ratio: 0,
+      home_effective_absences: 0,
+      away_effective_absences: 0,
+    };
+  }
+  const { bounds, weights, clip_abs: clipAbs } = cfg;
+  const hMiss = Math.min(
+    bounds.missing_market_value_ratio_max,
+    safeNonNegFloat(homeTeamCtx, "missing_market_value_ratio", 0),
+  );
+  const aMiss = Math.min(
+    bounds.missing_market_value_ratio_max,
+    safeNonNegFloat(awayTeamCtx, "missing_market_value_ratio", 0),
+  );
+  const missingTerm = weights.missing_market_value_diff * (aMiss - hMiss);
+
+  const hVr = teamSquadValueRatio(homeTeamCtx);
+  const aVr = teamSquadValueRatio(awayTeamCtx);
+  const logVr =
+    !homeTeamCtx || !awayTeamCtx
+      ? 0
+      : Math.max(
+          -bounds.log_squad_value_ratio_clip,
+          Math.min(bounds.log_squad_value_ratio_clip, Math.log(hVr / aVr)),
+        );
+  const squadTerm = weights.shrunk_log_squad_value_ratio * logVr;
+
+  const hAbs = teamEffectiveAbsences(homeTeamCtx, cfg);
+  const aAbs = teamEffectiveAbsences(awayTeamCtx, cfg);
+  const absDiff = Math.max(
+    -bounds.effective_absences_diff_clip,
+    Math.min(bounds.effective_absences_diff_clip, aAbs - hAbs),
+  );
+  const absenceTerm = weights.effective_absences_diff * absDiff;
+
+  const rawDelta = missingTerm + squadTerm + absenceTerm;
+  const delta = Math.max(-clipAbs, Math.min(clipAbs, rawDelta));
+  return {
+    lineup_availability_delta: delta,
+    missing_value_term: missingTerm,
+    squad_value_term: squadTerm,
+    starter_absence_term: absenceTerm,
+    home_missing_market_value_ratio: hMiss,
+    away_missing_market_value_ratio: aMiss,
+    home_effective_absences: hAbs,
+    away_effective_absences: aAbs,
+  };
+}
+
+/** Aplica `lineupAvailabilityDelta` en espacio logit sobre un vector 1X2 válido. */
+export function applyAvailabilityDeltaToProbs(
+  probs: readonly [number, number, number],
+  availabilityDelta: number,
+  priorConfig?: ProspectiveAvailabilityPriorConfig | null,
+): readonly [number, number, number] {
+  if (!Number.isFinite(availabilityDelta) || availabilityDelta === 0) {
+    return probs;
+  }
+  const ls = priorConfig?.logit_shift ?? DEFAULT_PROSPECTIVE_AVAILABILITY_PRIOR.logit_shift!;
+  const clip = (p: number): number => Math.min(Math.max(p, 1e-15), 1 - 1e-15);
+  return softmax3([
+    Math.log(clip(probs[0])) + ls.home_multiplier * availabilityDelta,
+    Math.log(clip(probs[1])) + ls.draw_multiplier * availabilityDelta,
+    Math.log(clip(probs[2])) + ls.away_multiplier * availabilityDelta,
+  ]);
+}
+
+function computeMotorALogitsUnchecked(row: SnapshotRow, model: ModelArtifact): [number, number, number] {
   const design = buildStandardizedDesign(row, model);
   const logits = new Array<number>(3);
   for (let k = 0; k < 3; k += 1) {
@@ -402,7 +561,28 @@ function predictMotorAUnchecked(row: SnapshotRow, model: ModelArtifact): Predict
     }
     logits[k] = dot(coef, design) + intercept;
   }
-  const [pHome, pDraw, pAway] = softmax3(logits);
+  return [logits[0]!, logits[1]!, logits[2]!];
+}
+
+/** Predicción Motor A sin validar el modelo (uso interno, modelo ya validado). */
+function predictMotorAUnchecked(
+  row: SnapshotRow,
+  model: ModelArtifact,
+  availabilityDelta = 0,
+): Prediction {
+  const baseLogits = computeMotorALogitsUnchecked(row, model);
+  const ls =
+    model.prospective_availability_prior?.logit_shift ??
+    DEFAULT_PROSPECTIVE_AVAILABILITY_PRIOR.logit_shift!;
+  const adjLogits =
+    Number.isFinite(availabilityDelta) && availabilityDelta !== 0
+      ? ([
+          baseLogits[0] + ls.home_multiplier * availabilityDelta,
+          baseLogits[1] + ls.draw_multiplier * availabilityDelta,
+          baseLogits[2] + ls.away_multiplier * availabilityDelta,
+        ] as const)
+      : baseLogits;
+  const [pHome, pDraw, pAway] = softmax3(adjLogits);
   return {
     pHome,
     pDraw,
@@ -418,12 +598,39 @@ function predictMotorAUnchecked(row: SnapshotRow, model: ModelArtifact): Predict
 }
 
 /**
- * Predice con Motor A. Lanza `InvalidFeaturesError` si la fila es irrecuperable
+ * Predice con Motor A (`PitchLab Tachyon v3.0`). Lanza `InvalidFeaturesError` si la fila es irrecuperable
  * (longitud incorrecta, `Infinity`, o `null` sin mediana finita).
  */
 export function predictMotorA(row: SnapshotRow, model: ModelArtifact): Prediction {
   assertValidModel(model);
-  return predictMotorAUnchecked(row, model);
+  return predictMotorAUnchecked(row, model, 0);
+}
+
+/**
+ * Predice con Motor A (`PitchLab Tachyon v3.0`) aplicando el prior bayesiano prospectivo
+ * `lineupAvailabilityDelta` directamente sobre los logits pre-softmax (`|Δ| < 1e-12` vs Python).
+ */
+export function predictMotorAWithAvailability(
+  row: SnapshotRow,
+  model: ModelArtifact,
+  availability:
+    | number
+    | {
+        homeTeamCtx?: TeamAvailabilityContext | null;
+        awayTeamCtx?: TeamAvailabilityContext | null;
+      },
+): Prediction & { lineupAvailabilityDelta: number } {
+  assertValidModel(model);
+  const delta =
+    typeof availability === "number"
+      ? availability
+      : computeLineupAvailabilityDelta(
+          availability.homeTeamCtx,
+          availability.awayTeamCtx,
+          model.prospective_availability_prior,
+        ).lineup_availability_delta;
+  const base = predictMotorAUnchecked(row, model, delta);
+  return { ...base, lineupAvailabilityDelta: delta };
 }
 
 /** `true` si el vector es de longitud 3, finito, en [0,1] y suma 1 ± 1e-6. */
@@ -612,7 +819,7 @@ export function predictWithFallback(
 
 /** Identificador del motor NFL exportado por `pipeline/export_model_nfl.py` (PitchLab Minkowski). */
 export const NFL_MODEL_ID = "nfl_logistic_v1";
-export const MINKOWSKI_MODEL_NAME = "PitchLab Minkowski v2.1";
+export const MINKOWSKI_MODEL_NAME = "PitchLab Minkowski v3.0";
 
 /**
  * Valida el artefacto NFL. A diferencia del de fútbol no hay dummies de división:

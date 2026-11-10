@@ -26,6 +26,8 @@ cierre de test ejecutado **una sola vez** sobre candidatos congelados (`artifact
 | `14_AUDITORIA_ADVERSARIAL.md` | A09 legacy + A09b lab, veredicto “no apto” y resolución | A09, A09b | **completado** → [abrir](14_AUDITORIA_ADVERSARIAL.md) |
 | `15_REPORTE_COMPARATIVO_V2_VS_V1_VS_MERCADO.md` | Comparativa `Spacetime Suite v2.0` (`Tachyon v2.0`, `Singularity v2.0`, `Minkowski v2.0`) vs `v1.0` vs Casas de Apuestas vs Resultado Real | A23 | **completado** → [abrir](15_REPORTE_COMPARATIVO_V2_VS_V1_VS_MERCADO.md) |
 | `16_INTEGRACION_REA_STATISKICKS.md` | Integración forense y cuantitativa de `REA-stats` (`statiskicks.com`) en `PitchLab Spacetime Suite v2.1`: Piedra Rosetta 40 ligas + 177 traits Opta, `xGOT` / `gk_prevented`, Radar Táctico `RankBands`, `SKORE` y Monte Carlo de Temporada/Liguilla | A24 | **completado** → [abrir](16_INTEGRACION_REA_STATISKICKS.md) |
+| `17_MEJORA_MODELOS_SPACETIME_V21.md` | Mejora cuantitativa integral `PitchLab Spacetime Suite v2.1` (`Tachyon v2.1`, `Singularity v2.1`, `Minkowski v2.1`) sobre los datasets históricos locales | A25 | **completado** → [abrir](17_MEJORA_MODELOS_SPACETIME_V21.md) |
+| `18_INTEGRACION_WEB_SCRAPING_FEATURE_STORE.md` | Evolución a `PitchLab Spacetime Suite v3.0`: integración del Feature Store v2.0 y las 28 fuentes de `web-scraping` (`376` equipos, `11` ligas, `6` deportes, `Tachyon v3.0`, `Singularity v3.0` + `Geodesic v2.0`, `Minkowski v3.0`, `Multi-Sport v3.0` y motor `< 1 ms` sobre `242` enfrentamientos vivos) | A26 | **completado** → [abrir](18_INTEGRACION_WEB_SCRAPING_FEATURE_STORE.md) |
 
 ---
 

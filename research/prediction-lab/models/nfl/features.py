@@ -44,6 +44,46 @@ COACH_ELO_START = 1500.0
 COACH_ELO_K = 12.0
 COACH_SEASON_REGRESSION = 0.85
 
+# Elevaciones físicas verificadas de las 32 sedes NFL + franquicias históricas (ws_stadium_physics.parquet)
+NFL_STADIUM_ELEVATION_M: dict[str, float] = {
+    "ARI": 328.0, "ATL": 305.0, "BAL": 10.0, "BUF": 222.0, "CAR": 215.0, "CHI": 182.0,
+    "CIN": 149.0, "CLE": 178.0, "DAL": 163.0, "DEN": 1588.0, "DET": 183.0, "GB": 195.0,
+    "HOU": 15.0, "IND": 215.0, "JAX": 4.0, "KC": 250.0, "LA": 34.0, "LAC": 34.0,
+    "LV": 615.0, "MIA": 3.0, "MIN": 254.0, "NE": 78.0, "NO": 1.0, "NYG": 2.0,
+    "NYJ": 2.0, "PHI": 5.0, "PIT": 223.0, "SEA": 4.0, "SF": 14.0, "TB": 13.0,
+    "TEN": 122.0, "WAS": 61.0, "STL": 142.0, "SD": 20.0, "OAK": 8.0,
+}
+VENUE_ALTITUDE_HFA_ELO = 18.0
+
+
+def apply_venue_physics_hfa(
+    df: pd.DataFrame,
+    alt_elo: float = VENUE_ALTITUDE_HFA_ELO,
+    dome_elo: float = 0.0,
+) -> pd.DataFrame:
+    """Incorpora invariantes físicos de sede (shock de altitud Mile High) preservando las 29 features."""
+    if df.attrs.get("venue_physics_applied"):
+        return df
+    required = {"home_team", "away_team", "neutral_site", "elo_diff", "elo_fast_diff", "qb_elo_diff", "composite_elo_diff"}
+    if not required.issubset(df.columns):
+        return df
+    d = df.copy()
+    eh = d["home_team"].map(lambda x: NFL_STADIUM_ELEVATION_M.get(str(x), 100.0)).to_numpy(dtype=float)
+    ea = d["away_team"].map(lambda x: NFL_STADIUM_ELEVATION_M.get(str(x), 100.0)).to_numpy(dtype=float)
+    neut = d["neutral_site"].to_numpy(dtype=float) > 0.5
+    alt_diff_km = np.where(neut, 0.0, np.maximum(0.0, eh - ea) / 1000.0)
+    indoor = d["is_indoor"].to_numpy(dtype=float) if "is_indoor" in d.columns else np.zeros(len(d))
+    bonus = np.where(neut, 0.0, alt_elo * alt_diff_km + dome_elo * indoor)
+
+    for col in ("elo_diff", "elo_fast_diff", "qb_elo_diff", "composite_elo_diff"):
+        d[col] = d[col].to_numpy(dtype=float) + bonus
+    p_elo = 1.0 / (1.0 + 10.0 ** (-d["composite_elo_diff"].to_numpy(dtype=float) / 400.0))
+    d["comp_elo_logit"] = np.log(np.clip(p_elo, 1e-6, 1.0 - 1e-6) / np.clip(1.0 - p_elo, 1e-6, 1.0 - 1e-6))
+    d["elo_closeness"] = np.exp(-((d["composite_elo_diff"].to_numpy(dtype=float) / 135.0) ** 2))
+    d["altitude_diff_m"] = np.where(neut, 0.0, eh - ea)
+    d.attrs["venue_physics_applied"] = True
+    return d
+
 NUMERIC_FEATURES = [
     "elo_diff",
     "elo_fast_diff",

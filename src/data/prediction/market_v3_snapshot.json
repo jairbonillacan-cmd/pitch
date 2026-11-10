@@ -1,0 +1,2099 @@
+{
+  "schema_version": "3.0.0",
+  "codename_singularity": "PitchLab Singularity v3.0",
+  "codename_geodesic": "PitchLab Geodesic v2.0",
+  "generated_at_utc": "2026-11-10T19:51:00Z",
+  "parity_tolerance": 1e-12,
+  "total_cases": 64,
+  "counts_by_function": {
+    "devigAdaptive1X2": 14,
+    "devig2Way": 14,
+    "debiaseRecreationalLigaMx": 12,
+    "applySingularitySharpTilt3Way": 6,
+    "applySingularitySharpTilt2Way": 6,
+    "evaluateGeodesicV2ValueGate": 12
+  },
+  "cases": [
+    {
+      "id": "adaptive_1x2_01",
+      "fn": "devigAdaptive1X2",
+      "source": "caliente_mx",
+      "match": "Querétaro FC vs Monterrey",
+      "input": {
+        "odds": {
+          "oddsHome": 3.45,
+          "oddsDraw": 3.75,
+          "oddsAway": 1.98
+        }
+      },
+      "expected": {
+        "pHome": 0.27004899205667976,
+        "pDraw": 0.24723735074615277,
+        "pAway": 0.4827136571971675,
+        "overround": 0.06157224418093987,
+        "wShin": 0.8131094534224161
+      }
+    },
+    {
+      "id": "adaptive_1x2_02",
+      "fn": "devigAdaptive1X2",
+      "source": "caliente_mx",
+      "match": "Pumas UNAM vs Monterrey",
+      "input": {
+        "odds": [
+          2.55,
+          3.65,
+          2.55
+        ]
+      },
+      "expected": {
+        "pHome": 0.37222907078909817,
+        "pDraw": 0.2555418584218036,
+        "pAway": 0.37222907078909817,
+        "overround": 0.05828632822992219,
+        "wShin": 0.749766785854583
+      }
+    },
+    {
+      "id": "adaptive_1x2_03",
+      "fn": "devigAdaptive1X2",
+      "source": "caliente_mx",
+      "match": "Tigres UANL vs América",
+      "input": {
+        "odds": [
+          2.88,
+          3.55,
+          2.32
+        ]
+      },
+      "expected": {
+        "pHome": 0.3272438119304434,
+        "pDraw": 0.2626324643719503,
+        "pAway": 0.4101237236976063,
+        "overround": 0.059946845825913364,
+        "wShin": 0.7850054703350142
+      }
+    },
+    {
+      "id": "adaptive_1x2_04",
+      "fn": "devigAdaptive1X2",
+      "source": "caliente_mx",
+      "match": "Chivas Guadalajara vs Cruz Azul",
+      "input": {
+        "odds": {
+          "oddsHome": 2.1,
+          "oddsDraw": 3.75,
+          "oddsAway": 3.2
+        }
+      },
+      "expected": {
+        "pHome": 0.4566004991952027,
+        "pDraw": 0.24910488742839956,
+        "pAway": 0.29429461337639773,
+        "overround": 0.05535714285714288,
+        "wShin": 0.6746255257767969
+      }
+    },
+    {
+      "id": "adaptive_1x2_05",
+      "fn": "devigAdaptive1X2",
+      "source": "caliente_mx",
+      "match": "UNAM Pumas (M) vs UANL Tigres (M)",
+      "input": {
+        "odds": [
+          4.55,
+          4.2,
+          1.64
+        ]
+      },
+      "expected": {
+        "pHome": 0.19911015160641876,
+        "pDraw": 0.21704187411745282,
+        "pAway": 0.5838479742761284,
+        "overround": 0.06763155543643351,
+        "wShin": 0.850247397115722
+      }
+    },
+    {
+      "id": "adaptive_1x2_06",
+      "fn": "devigAdaptive1X2",
+      "source": "caliente_mx",
+      "match": "Juárez (M) vs Chivas Guadalajara (M)",
+      "input": {
+        "odds": [
+          2.54,
+          3.3,
+          2.7
+        ]
+      },
+      "expected": {
+        "pHome": 0.37077562135716535,
+        "pDraw": 0.28145687123030577,
+        "pAway": 0.3477675074125288,
+        "overround": 0.06710146080224799,
+        "wShin": 0.8500987825096156
+      }
+    },
+    {
+      "id": "adaptive_1x2_07",
+      "fn": "devigAdaptive1X2",
+      "source": "caliente_mx",
+      "match": "Hvidovre IF vs Aarhus Fremad",
+      "input": {
+        "odds": {
+          "oddsHome": 1.071,
+          "oddsDraw": 8.25,
+          "oddsAway": 26.0
+        }
+      },
+      "expected": {
+        "pHome": 0.8921387971371091,
+        "pDraw": 0.09012951346264314,
+        "pAway": 0.01773168940024774,
+        "overround": 0.09338047573341712,
+        "wShin": 0.9090754123133037
+      }
+    },
+    {
+      "id": "adaptive_1x2_08",
+      "fn": "devigAdaptive1X2",
+      "source": "caliente_mx",
+      "match": "Kristiansund BK vs Valerenga IF",
+      "input": {
+        "odds": [
+          1.6,
+          3.7,
+          5.5
+        ]
+      },
+      "expected": {
+        "pHome": 0.5952127113198645,
+        "pDraw": 0.24553889946324095,
+        "pAway": 0.1592483892168945,
+        "overround": 0.07708845208845205,
+        "wShin": 0.8625376812459802
+      }
+    },
+    {
+      "id": "adaptive_1x2_09",
+      "fn": "devigAdaptive1X2",
+      "source": "caliente_mx",
+      "match": "Ironi Modiin vs Hapoel Acre",
+      "input": {
+        "odds": [
+          7.25,
+          1.125,
+          14.0
+        ]
+      },
+      "expected": {
+        "pHome": 0.10796711685179967,
+        "pDraw": 0.845683661568466,
+        "pAway": 0.04634922157973446,
+        "overround": 0.09824849480021891,
+        "wShin": 0.9242170652758784
+      }
+    },
+    {
+      "id": "adaptive_1x2_10",
+      "fn": "devigAdaptive1X2",
+      "source": "caliente_mx",
+      "match": "FC Kafr Qasim vs Hapoel Afula",
+      "input": {
+        "odds": {
+          "oddsHome": 46.0,
+          "oddsDraw": 5.75,
+          "oddsAway": 1.1
+        }
+      },
+      "expected": {
+        "pHome": 0.005331913571717684,
+        "pDraw": 0.13367521769624174,
+        "pAway": 0.8609928687320406,
+        "overround": 0.10474308300395263,
+        "wShin": 0.9420735297390572
+      }
+    },
+    {
+      "id": "adaptive_1x2_11",
+      "fn": "devigAdaptive1X2",
+      "source": "caliente_mx",
+      "match": "Hvidovre IF vs Aarhus Fremad",
+      "input": {
+        "odds": [
+          1.071,
+          8.25,
+          26.0
+        ]
+      },
+      "expected": {
+        "pHome": 0.8921387971371091,
+        "pDraw": 0.09012951346264314,
+        "pAway": 0.01773168940024774,
+        "overround": 0.09338047573341712,
+        "wShin": 0.9090754123133037
+      }
+    },
+    {
+      "id": "adaptive_1x2_12",
+      "fn": "devigAdaptive1X2",
+      "source": "caliente_mx",
+      "match": "Kristiansund BK vs Valerenga IF",
+      "input": {
+        "odds": [
+          1.6,
+          3.7,
+          5.5
+        ]
+      },
+      "expected": {
+        "pHome": 0.5952127113198645,
+        "pDraw": 0.24553889946324095,
+        "pAway": 0.1592483892168945,
+        "overround": 0.07708845208845205,
+        "wShin": 0.8625376812459802
+      }
+    },
+    {
+      "id": "adaptive_1x2_13",
+      "fn": "devigAdaptive1X2",
+      "source": "pinnacle_smarkets_sharp",
+      "match": "smarkets_england_vs_croatia_back",
+      "input": {
+        "odds": [
+          1.29,
+          6.2,
+          11.5
+        ]
+      },
+      "expected": {
+        "pHome": 0.7680410205072619,
+        "pDraw": 0.15188904792024954,
+        "pAway": 0.08006993157248869,
+        "overround": 0.023440642769387843,
+        "wShin": 0.12
+      }
+    },
+    {
+      "id": "adaptive_1x2_14",
+      "fn": "devigAdaptive1X2",
+      "source": "pinnacle_smarkets_sharp",
+      "match": "pinnacle_sharp_epl_benchmark",
+      "input": {
+        "odds": {
+          "oddsHome": 1.72,
+          "oddsDraw": 3.95,
+          "oddsAway": 4.95
+        }
+      },
+      "expected": {
+        "pHome": 0.5691789371424644,
+        "pDraw": 0.24053806275872536,
+        "pAway": 0.19028300009881013,
+        "overround": 0.03658010781943655,
+        "wShin": 0.1532243866030704
+      }
+    },
+    {
+      "id": "devig_2way_01_adaptive",
+      "fn": "devig2Way",
+      "source": "pinnacle",
+      "match": "New Orleans Saints vs Carolina Panthers (NFL)",
+      "input": {
+        "oddsHome": 1.8547,
+        "oddsAway": 2.04,
+        "method": "adaptive"
+      },
+      "expected": {
+        "pHome": 0.5247849667653727,
+        "pAway": 0.47521503323462727,
+        "overround": 0.0293668338096007
+      }
+    },
+    {
+      "id": "devig_2way_02_power",
+      "fn": "devig2Way",
+      "source": "pinnacle",
+      "match": "New Orleans Saints vs Carolina Panthers (NFL)",
+      "input": {
+        "oddsHome": 1.9091,
+        "oddsAway": 1.9804,
+        "method": "power"
+      },
+      "expected": {
+        "pHome": 0.5095565776193851,
+        "pAway": 0.4904434223806149,
+        "overround": 0.028755524743819816
+      }
+    },
+    {
+      "id": "devig_2way_03_shin",
+      "fn": "devig2Way",
+      "source": "pinnacle",
+      "match": "New Orleans Saints vs Carolina Panthers (NFL)",
+      "input": {
+        "oddsHome": 1.4762,
+        "oddsAway": 2.76,
+        "method": "shin"
+      },
+      "expected": {
+        "pHome": 0.6575480719199254,
+        "pAway": 0.34245192808007463,
+        "overround": 0.039733824999165446
+      }
+    },
+    {
+      "id": "devig_2way_04_proportional",
+      "fn": "devig2Way",
+      "source": "pinnacle",
+      "match": "New Orleans Saints vs Carolina Panthers (NFL)",
+      "input": {
+        "oddsHome": 1.5376,
+        "oddsAway": 2.57,
+        "method": "proportional"
+      },
+      "expected": {
+        "pHome": 0.6256694907001655,
+        "pAway": 0.37433050929983447,
+        "overround": 0.03946926231997305
+      }
+    },
+    {
+      "id": "devig_2way_05_adaptive",
+      "fn": "devig2Way",
+      "source": "pinnacle",
+      "match": "New Orleans Saints vs Carolina Panthers (NFL)",
+      "input": {
+        "oddsHome": 1.6711,
+        "oddsAway": 2.28,
+        "method": "adaptive"
+      },
+      "expected": {
+        "pHome": 0.5810989995965145,
+        "pAway": 0.4189010004034855,
+        "overround": 0.03700472532537136
+      }
+    },
+    {
+      "id": "devig_2way_06_power",
+      "fn": "devig2Way",
+      "source": "pinnacle",
+      "match": "New Orleans Saints vs Carolina Panthers (NFL)",
+      "input": {
+        "oddsHome": 1.7042,
+        "oddsAway": 2.22,
+        "method": "power"
+      },
+      "expected": {
+        "pHome": 0.5693849347526032,
+        "pAway": 0.4306150652473967,
+        "overround": 0.037236038996395715
+      }
+    },
+    {
+      "id": "devig_2way_07_shin",
+      "fn": "devig2Way",
+      "source": "pinnacle",
+      "match": "New Orleans Saints vs Carolina Panthers (NFL)",
+      "input": {
+        "oddsHome": 1.7463,
+        "oddsAway": 2.17,
+        "method": "shin"
+      },
+      "expected": {
+        "pHome": 0.5559049007104697,
+        "pAway": 0.4440950992895303,
+        "overround": 0.033468787595946736
+      }
+    },
+    {
+      "id": "devig_2way_08_proportional",
+      "fn": "devig2Way",
+      "source": "action_network",
+      "match": "Baltimore Ravens vs Jacksonville Jaguars (nfl)",
+      "input": {
+        "oddsHome": 4.5,
+        "oddsAway": 1.2198,
+        "method": "proportional"
+      },
+      "expected": {
+        "pHome": 0.21325920486730301,
+        "pAway": 0.7867407951326969,
+        "overround": 0.042028747882166595
+      }
+    },
+    {
+      "id": "devig_2way_09_adaptive",
+      "fn": "devig2Way",
+      "source": "action_network",
+      "match": "Atlanta Falcons vs Cincinnati Bengals (nfl)",
+      "input": {
+        "oddsHome": 2.5,
+        "oddsAway": 1.5525,
+        "method": "adaptive"
+      },
+      "expected": {
+        "pHome": 0.37615661815649826,
+        "pAway": 0.6238433818435019,
+        "overround": 0.04412238325281814
+      }
+    },
+    {
+      "id": "devig_2way_10_power",
+      "fn": "devig2Way",
+      "source": "action_network",
+      "match": "Philadelphia Eagles vs New York Giants (nfl)",
+      "input": {
+        "oddsHome": 2.3,
+        "oddsAway": 1.6452,
+        "method": "power"
+      },
+      "expected": {
+        "pHome": 0.411684476957305,
+        "pAway": 0.5883155230426952,
+        "overround": 0.04261144409560358
+      }
+    },
+    {
+      "id": "devig_2way_11_shin",
+      "fn": "devig2Way",
+      "source": "action_network",
+      "match": "Carolina Panthers vs Denver Broncos (nfl)",
+      "input": {
+        "oddsHome": 2.39,
+        "oddsAway": 1.6098,
+        "method": "shin"
+      },
+      "expected": {
+        "pHome": 0.39860743115791203,
+        "pAway": 0.601392568842088,
+        "overround": 0.03960522136641109
+      }
+    },
+    {
+      "id": "devig_2way_12_proportional",
+      "fn": "devig2Way",
+      "source": "action_network",
+      "match": "Miami Dolphins vs Detroit Lions (nfl)",
+      "input": {
+        "oddsHome": 3.6,
+        "oddsAway": 1.3077,
+        "method": "proportional"
+      },
+      "expected": {
+        "pHome": 0.2664588300018339,
+        "pAway": 0.7335411699981662,
+        "overround": 0.042479161887282846
+      }
+    },
+    {
+      "id": "devig_2way_13_adaptive",
+      "fn": "devig2Way",
+      "source": "action_network",
+      "match": "Kansas City Chiefs vs New York Jets (nfl)",
+      "input": {
+        "oddsHome": 1.2,
+        "oddsAway": 5.0,
+        "method": "adaptive"
+      },
+      "expected": {
+        "pHome": 0.8215803281432611,
+        "pAway": 0.17841967185673901,
+        "overround": 0.03333333333333344
+      }
+    },
+    {
+      "id": "devig_2way_14_power",
+      "fn": "devig2Way",
+      "source": "action_network",
+      "match": "New Orleans Saints vs Cleveland Browns (nfl)",
+      "input": {
+        "oddsHome": 1.4049,
+        "oddsAway": 3.0,
+        "method": "power"
+      },
+      "expected": {
+        "pHome": 0.6935274135381255,
+        "pAway": 0.30647258646187453,
+        "overround": 0.045127767100861194
+      }
+    },
+    {
+      "id": "ligamx_debias_01",
+      "fn": "debiaseRecreationalLigaMx",
+      "source": "caliente_mx",
+      "match": "Querétaro FC vs CF Monterrey",
+      "input": {
+        "probs": {
+          "pHome": 0.27004899205667976,
+          "pDraw": 0.24723735074615277,
+          "pAway": 0.4827136571971675
+        },
+        "params": {
+          "homeTeam": "Querétaro FC",
+          "awayTeam": "CF Monterrey",
+          "overround": 0.06157224418093987,
+          "bookmaker": "caliente_mx"
+        }
+      },
+      "expected": {
+        "pHome": 0.2823905665907261,
+        "pDraw": 0.2570132168593865,
+        "pAway": 0.4605962165498874,
+        "biasDetected": true,
+        "biasedSide": "away",
+        "logitAdjustment": 0.05909004417577317
+      }
+    },
+    {
+      "id": "ligamx_debias_02",
+      "fn": "debiaseRecreationalLigaMx",
+      "source": "caliente_mx",
+      "match": "Tigres UANL vs CF América",
+      "input": {
+        "probs": {
+          "pHome": 0.3272438119304434,
+          "pDraw": 0.2626324643719503,
+          "pAway": 0.4101237236976063
+        },
+        "params": {
+          "homeTeam": "Tigres UANL",
+          "awayTeam": "CF América",
+          "overround": 0.059946845825913364,
+          "bookmaker": "caliente_mx"
+        }
+      },
+      "expected": {
+        "pHome": 0.3319461819621432,
+        "pDraw": 0.265827605140554,
+        "pAway": 0.4022262128973027,
+        "biasDetected": true,
+        "biasedSide": "away",
+        "logitAdjustment": 0.021749411764705885
+      }
+    },
+    {
+      "id": "ligamx_debias_03",
+      "fn": "debiaseRecreationalLigaMx",
+      "source": "caliente_mx",
+      "match": "CD Guadalajara vs CD Cruz Azul",
+      "input": {
+        "probs": {
+          "pHome": 0.4566004991952027,
+          "pDraw": 0.24910488742839956,
+          "pAway": 0.29429461337639773
+        },
+        "params": {
+          "homeTeam": "CD Guadalajara",
+          "awayTeam": "CD Cruz Azul",
+          "overround": 0.05535714285714288,
+          "bookmaker": "caliente_mx"
+        }
+      },
+      "expected": {
+        "pHome": 0.45225546999895944,
+        "pDraw": 0.2509382935990274,
+        "pAway": 0.2968062364020132,
+        "biasDetected": true,
+        "biasedSide": "home",
+        "logitAdjustment": -0.01165147058823529
+      }
+    },
+    {
+      "id": "ligamx_debias_04",
+      "fn": "debiaseRecreationalLigaMx",
+      "source": "caliente_mx",
+      "match": "Pumas UNAM vs CF Monterrey",
+      "input": {
+        "probs": {
+          "pHome": 0.37222907078909817,
+          "pDraw": 0.2555418584218036,
+          "pAway": 0.37222907078909817
+        },
+        "params": {
+          "homeTeam": "Pumas UNAM",
+          "awayTeam": "CF Monterrey",
+          "overround": 0.05828632822992219,
+          "bookmaker": "caliente_mx"
+        }
+      },
+      "expected": {
+        "pHome": 0.37140758274228375,
+        "pDraw": 0.25584090105912405,
+        "pAway": 0.3727515161985922,
+        "biasDetected": true,
+        "biasedSide": "home",
+        "logitAdjustment": -0.0023302941176470615
+      }
+    },
+    {
+      "id": "ligamx_debias_05",
+      "fn": "debiaseRecreationalLigaMx",
+      "source": "caliente_mx",
+      "match": "CF América vs Deportivo Toluca FC",
+      "input": {
+        "probs": {
+          "pHome": 0.5789842051801337,
+          "pDraw": 0.23402373184613467,
+          "pAway": 0.18699206297373164
+        },
+        "params": {
+          "homeTeam": "CF América",
+          "awayTeam": "Deportivo Toluca FC",
+          "overround": 0.07080419580419584,
+          "bookmaker": "caliente_mx"
+        }
+      },
+      "expected": {
+        "pHome": 0.5392679565681852,
+        "pDraw": 0.2548725658274577,
+        "pAway": 0.20585947760435722,
+        "biasDetected": true,
+        "biasedSide": "home",
+        "logitAdjustment": -0.10786466474701778
+      }
+    },
+    {
+      "id": "ligamx_debias_06",
+      "fn": "debiaseRecreationalLigaMx",
+      "source": "caliente_mx",
+      "match": "FC Juárez vs Chivas Guadalajara",
+      "input": {
+        "probs": {
+          "pHome": 0.37077562135716535,
+          "pDraw": 0.28145687123030577,
+          "pAway": 0.3477675074125288
+        },
+        "params": {
+          "homeTeam": "FC Juárez",
+          "awayTeam": "Chivas Guadalajara",
+          "overround": 0.06710146080224799,
+          "bookmaker": "caliente_mx"
+        }
+      },
+      "expected": {
+        "pHome": 0.38992638138167,
+        "pDraw": 0.2932647576203554,
+        "pAway": 0.31680886099797456,
+        "biasDetected": true,
+        "biasedSide": "away",
+        "logitAdjustment": 0.09264284815890828
+      }
+    },
+    {
+      "id": "ligamx_debias_07",
+      "fn": "debiaseRecreationalLigaMx",
+      "source": "caliente_mx",
+      "match": "Club Puebla vs CD Cruz Azul",
+      "input": {
+        "probs": {
+          "pHome": 0.2536236766606854,
+          "pDraw": 0.2614012327657288,
+          "pAway": 0.4849750905735858
+        },
+        "params": {
+          "homeTeam": "Club Puebla",
+          "awayTeam": "CD Cruz Azul",
+          "overround": 0.07631257631257649,
+          "bookmaker": "caliente_mx"
+        }
+      },
+      "expected": {
+        "pHome": 0.27309555995251167,
+        "pDraw": 0.2787084487597192,
+        "pAway": 0.4481959912877693,
+        "biasDetected": true,
+        "biasedSide": "away",
+        "logitAdjustment": 0.09860458234575924
+      }
+    },
+    {
+      "id": "ligamx_debias_08",
+      "fn": "debiaseRecreationalLigaMx",
+      "source": "b365",
+      "match": "Pumas UNAM vs Club Necaxa",
+      "input": {
+        "probs": {
+          "pHome": 0.5152342877490675,
+          "pDraw": 0.25601060740633386,
+          "pAway": 0.22875510484459857
+        },
+        "params": {
+          "homeTeam": "Pumas UNAM",
+          "awayTeam": "Club Necaxa",
+          "overround": 0.06831831831831825,
+          "bookmaker": "b365"
+        }
+      },
+      "expected": {
+        "pHome": 0.4869099848086442,
+        "pDraw": 0.2700009971304588,
+        "pAway": 0.2430890180608969,
+        "biasDetected": true,
+        "biasedSide": "home",
+        "logitAdjustment": -0.07568912294647576
+      }
+    },
+    {
+      "id": "ligamx_debias_09",
+      "fn": "debiaseRecreationalLigaMx",
+      "source": "codere_mx",
+      "match": "Tigres UANL vs Santos Laguna",
+      "input": {
+        "probs": {
+          "pHome": 0.5898512298863439,
+          "pDraw": 0.2275201447962383,
+          "pAway": 0.1826286253174178
+        },
+        "params": {
+          "homeTeam": "Tigres UANL",
+          "awayTeam": "Santos Laguna",
+          "overround": 0.07136558327034503,
+          "bookmaker": "codere_mx"
+        }
+      },
+      "expected": {
+        "pHome": 0.561089774447316,
+        "pDraw": 0.2426202974630246,
+        "pAway": 0.19628992808965934,
+        "biasDetected": true,
+        "biasedSide": "home",
+        "logitAdjustment": -0.07879193810857649
+      }
+    },
+    {
+      "id": "ligamx_debias_10",
+      "fn": "debiaseRecreationalLigaMx",
+      "source": "caliente_mx",
+      "match": "FC Juárez vs Atlas Guadalajara",
+      "input": {
+        "probs": {
+          "pHome": 0.3476912363816047,
+          "pDraw": 0.2628809201635132,
+          "pAway": 0.38942784345488207
+        },
+        "params": {
+          "homeTeam": "FC Juárez",
+          "awayTeam": "Atlas Guadalajara",
+          "overround": 0.05917326524237021,
+          "bookmaker": "caliente_mx"
+        }
+      },
+      "expected": {
+        "pHome": 0.3476912363816047,
+        "pDraw": 0.2628809201635132,
+        "pAway": 0.38942784345488207,
+        "biasDetected": false,
+        "biasedSide": "none",
+        "logitAdjustment": 0.0
+      }
+    },
+    {
+      "id": "ligamx_debias_11",
+      "fn": "debiaseRecreationalLigaMx",
+      "source": "caliente_mx",
+      "match": "Tijuana Xolos de Caliente vs CF Atlante",
+      "input": {
+        "probs": {
+          "pHome": 0.5364509586336412,
+          "pDraw": 0.24408482813488536,
+          "pAway": 0.21946421323147342
+        },
+        "params": {
+          "homeTeam": "Tijuana Xolos de Caliente",
+          "awayTeam": "CF Atlante",
+          "overround": 0.05991235070917522,
+          "bookmaker": "caliente_mx"
+        }
+      },
+      "expected": {
+        "pHome": 0.5364509586336412,
+        "pDraw": 0.24408482813488536,
+        "pAway": 0.21946421323147342,
+        "biasDetected": false,
+        "biasedSide": "none",
+        "logitAdjustment": 0.0
+      }
+    },
+    {
+      "id": "ligamx_debias_12",
+      "fn": "debiaseRecreationalLigaMx",
+      "source": "pinnacle",
+      "match": "CF América vs CF Pachuca",
+      "input": {
+        "probs": {
+          "pHome": 0.5087850395020763,
+          "pDraw": 0.26190511787148363,
+          "pAway": 0.2293098426264401
+        },
+        "params": {
+          "homeTeam": "CF América",
+          "awayTeam": "CF Pachuca",
+          "overround": 0.031,
+          "bookmaker": "pinnacle"
+        }
+      },
+      "expected": {
+        "pHome": 0.5087850395020763,
+        "pDraw": 0.26190511787148363,
+        "pAway": 0.2293098426264401,
+        "biasDetected": false,
+        "biasedSide": "none",
+        "logitAdjustment": 0.0
+      }
+    },
+    {
+      "id": "singularity_3way_01",
+      "fn": "applySingularitySharpTilt3Way",
+      "source": "caliente_mx,betfair_smarkets_exchange",
+      "match": "Liverpool FC vs Manchester United (epl)",
+      "input": {
+        "modelProbs": [
+          0.6632176758050241,
+          0.1895102204360891,
+          0.1472721037588868
+        ],
+        "marketProbs": [
+          0.5723719802901807,
+          0.2191220315271814,
+          0.20850598818263785
+        ],
+        "marketOverround": 0.06060606060606055,
+        "smarketsExchangeMidProbHome": 0.52,
+        "smarketsSpreadBps": 85.0,
+        "sharpMoneyDivergenceHomePct": 0.0,
+        "reverseLineMovementSide": "none"
+      },
+      "expected": {
+        "pHome": 0.5901991128348358,
+        "pDraw": 0.21559243974213751,
+        "pAway": 0.19420844742302662,
+        "effectiveMarketAlpha": 0.7293990927441204,
+        "exchangeWeight": 0.209,
+        "sharpLogitTilt": 0.0
+      }
+    },
+    {
+      "id": "singularity_3way_02",
+      "fn": "applySingularitySharpTilt3Way",
+      "source": "caliente_mx",
+      "match": "1.FC Unión Berlín vs RB Leipzig (bundesliga)",
+      "input": {
+        "modelProbs": [
+          0.14487154786422385,
+          0.18452911725791352,
+          0.6705993348778627
+        ],
+        "marketProbs": [
+          0.1819370426377969,
+          0.20369017773542608,
+          0.614372779626777
+        ],
+        "marketOverround": 0.059164897381457804,
+        "smarketsExchangeMidProbHome": null,
+        "smarketsSpreadBps": null,
+        "sharpMoneyDivergenceHomePct": 0.0,
+        "reverseLineMovementSide": "none"
+      },
+      "expected": {
+        "pHome": 0.17151207267527105,
+        "pDraw": 0.19871301288758011,
+        "pAway": 0.6297749144371488,
+        "effectiveMarketAlpha": 0.7343940674712882,
+        "exchangeWeight": 0.0,
+        "sharpLogitTilt": 0.0
+      }
+    },
+    {
+      "id": "singularity_3way_03",
+      "fn": "applySingularitySharpTilt3Way",
+      "source": "caliente_mx",
+      "match": "1.FSV Mainz 05 vs 1.FC Unión Berlín (bundesliga)",
+      "input": {
+        "modelProbs": [
+          0.6801361845036581,
+          0.18321599956722737,
+          0.1366478159291146
+        ],
+        "marketProbs": [
+          0.6171508203809205,
+          0.20544175607872694,
+          0.17740742354035266
+        ],
+        "marketOverround": 0.06182317352178557,
+        "smarketsExchangeMidProbHome": null,
+        "smarketsSpreadBps": null,
+        "sharpMoneyDivergenceHomePct": 12.0,
+        "reverseLineMovementSide": "home"
+      },
+      "expected": {
+        "pHome": 0.6517482534881849,
+        "pDraw": 0.19468135387855418,
+        "pAway": 0.15357039263326105,
+        "effectiveMarketAlpha": 0.7259082258242993,
+        "exchangeWeight": 0.0,
+        "sharpLogitTilt": 0.100649213194833
+      }
+    },
+    {
+      "id": "singularity_3way_04",
+      "fn": "applySingularitySharpTilt3Way",
+      "source": "caliente_mx",
+      "match": "Bayer 04 Leverkusen vs SC Paderborn 07 (bundesliga)",
+      "input": {
+        "modelProbs": [
+          0.8327741349409551,
+          0.11819914733517775,
+          0.04902671772386734
+        ],
+        "marketProbs": [
+          0.777158805735447,
+          0.14778420641639745,
+          0.07505698784815554
+        ],
+        "marketOverround": 0.05757575757575761,
+        "smarketsExchangeMidProbHome": null,
+        "smarketsSpreadBps": null,
+        "sharpMoneyDivergenceHomePct": 0.0,
+        "reverseLineMovementSide": "none"
+      },
+      "expected": {
+        "pHome": 0.7928772145165363,
+        "pDraw": 0.1397667957146427,
+        "pAway": 0.067355989768821,
+        "effectiveMarketAlpha": 0.7408495163009471,
+        "exchangeWeight": 0.0,
+        "sharpLogitTilt": 0.0
+      }
+    },
+    {
+      "id": "singularity_3way_05",
+      "fn": "applySingularitySharpTilt3Way",
+      "source": "caliente_mx",
+      "match": "Borussia Dortmund vs Bayer 04 Leverkusen (bundesliga)",
+      "input": {
+        "modelProbs": [
+          0.4822145731694028,
+          0.23207342570901626,
+          0.2857120011215808
+        ],
+        "marketProbs": [
+          0.46687996017247896,
+          0.23489874623433898,
+          0.29822129359318217
+        ],
+        "marketOverround": 0.05842975247112325,
+        "smarketsExchangeMidProbHome": null,
+        "smarketsSpreadBps": null,
+        "sharpMoneyDivergenceHomePct": 0.0,
+        "reverseLineMovementSide": "away"
+      },
+      "expected": {
+        "pHome": 0.4602305472019554,
+        "pDraw": 0.23524790424815692,
+        "pAway": 0.3045215485498876,
+        "effectiveMarketAlpha": 0.7372658933292358,
+        "exchangeWeight": 0.0,
+        "sharpLogitTilt": -0.055
+      }
+    },
+    {
+      "id": "singularity_3way_06",
+      "fn": "applySingularitySharpTilt3Way",
+      "source": "caliente_mx",
+      "match": "Borussia Mönchengladbach vs Borussia Dortmund (bundesliga)",
+      "input": {
+        "modelProbs": [
+          0.12414347686543503,
+          0.18712203888467063,
+          0.6887344842498945
+        ],
+        "marketProbs": [
+          0.1781632975959615,
+          0.21931818657461902,
+          0.6025185158294195
+        ],
+        "marketOverround": 0.05917366946778713,
+        "smarketsExchangeMidProbHome": null,
+        "smarketsSpreadBps": null,
+        "sharpMoneyDivergenceHomePct": 0.0,
+        "reverseLineMovementSide": "none"
+      },
+      "expected": {
+        "pHome": 0.1624404718446321,
+        "pDraw": 0.21101443496795458,
+        "pAway": 0.6265450931874134,
+        "effectiveMarketAlpha": 0.7343610586716003,
+        "exchangeWeight": 0.0,
+        "sharpLogitTilt": 0.0
+      }
+    },
+    {
+      "id": "singularity_2way_01",
+      "fn": "applySingularitySharpTilt2Way",
+      "source": "action_network_splits",
+      "match": "Tampa Bay Rays vs Milwaukee Brewers (mlb)",
+      "input": {
+        "modelProbs": [
+          0.4201014180748784,
+          0.5798985819251217
+        ],
+        "marketProbs": [
+          0.43183775357714604,
+          0.568162246422854
+        ],
+        "marketOverround": 0.0392742763287508,
+        "smarketsExchangeMidProbHome": null,
+        "sharpMoneyDivergenceHomePct": 5.0,
+        "reverseLineMovementSide": "none"
+      },
+      "expected": {
+        "pHome": 0.4350104951020283,
+        "pAway": 0.5649895048979716,
+        "effectiveMarketAlpha": 0.8354581533118509,
+        "exchangeWeight": 0.0,
+        "sharpLogitTilt": 0.020818086304315277
+      }
+    },
+    {
+      "id": "singularity_2way_02",
+      "fn": "applySingularitySharpTilt2Way",
+      "source": "action_network_splits",
+      "match": "Atlanta Hawks vs Los Angeles Lakers (nba)",
+      "input": {
+        "modelProbs": [
+          0.5422936144444155,
+          0.45770638555558446
+        ],
+        "marketProbs": [
+          0.5355846571103567,
+          0.46441534288964337
+        ],
+        "marketOverround": 0.04099244875943908,
+        "smarketsExchangeMidProbHome": null,
+        "sharpMoneyDivergenceHomePct": 15.0,
+        "reverseLineMovementSide": "home"
+      },
+      "expected": {
+        "pHome": 0.5637019708171802,
+        "pAway": 0.43629802918281974,
+        "effectiveMarketAlpha": 0.8284152787096359,
+        "exchangeWeight": 0.0,
+        "sharpLogitTilt": 0.10898766095291942
+      }
+    },
+    {
+      "id": "singularity_2way_03",
+      "fn": "applySingularitySharpTilt2Way",
+      "source": "action_network_splits",
+      "match": "Charlotte Hornets vs Cleveland Cavaliers (nba)",
+      "input": {
+        "modelProbs": [
+          0.24598453779703827,
+          0.7540154622029618
+        ],
+        "marketProbs": [
+          0.2385502512337207,
+          0.7614497487662792
+        ],
+        "marketOverround": 0.04094431458595138,
+        "smarketsExchangeMidProbHome": null,
+        "sharpMoneyDivergenceHomePct": 8.0,
+        "reverseLineMovementSide": "none"
+      },
+      "expected": {
+        "pHome": 0.24575022384496917,
+        "pAway": 0.7542497761550307,
+        "effectiveMarketAlpha": 0.8286266157123314,
+        "exchangeWeight": 0.0,
+        "sharpLogitTilt": 0.032295661791694116
+      }
+    },
+    {
+      "id": "singularity_2way_04",
+      "fn": "applySingularitySharpTilt2Way",
+      "source": "action_network_splits",
+      "match": "Detroit Pistons vs Washington Wizards (nba)",
+      "input": {
+        "modelProbs": [
+          0.8763864524382697,
+          0.1236135475617303
+        ],
+        "marketProbs": [
+          0.8188606060927025,
+          0.18113939390729744
+        ],
+        "marketOverround": 0.03951890034364269,
+        "smarketsExchangeMidProbHome": null,
+        "sharpMoneyDivergenceHomePct": -12.0,
+        "reverseLineMovementSide": "none"
+      },
+      "expected": {
+        "pHome": 0.8230956175402673,
+        "pAway": 0.17690438245973275,
+        "effectiveMarketAlpha": 0.8345217510569498,
+        "exchangeWeight": 0.0,
+        "sharpLogitTilt": -0.045649213194833005
+      }
+    },
+    {
+      "id": "singularity_2way_05",
+      "fn": "applySingularitySharpTilt2Way",
+      "source": "action_network_splits",
+      "match": "Toronto Raptors vs Memphis Grizzlies (nba)",
+      "input": {
+        "modelProbs": [
+          0.6628753299116084,
+          0.3371246700883916
+        ],
+        "marketProbs": [
+          0.5695791074622257,
+          0.43042089253777427
+        ],
+        "marketOverround": 0.04636648786497877,
+        "smarketsExchangeMidProbHome": null,
+        "sharpMoneyDivergenceHomePct": -6.0,
+        "reverseLineMovementSide": "none"
+      },
+      "expected": {
+        "pHome": 0.5827655693062666,
+        "pAway": 0.41723443069373345,
+        "effectiveMarketAlpha": 0.8011005340299452,
+        "exchangeWeight": 0.0,
+        "sharpLogitTilt": -0.02476157205838523
+      }
+    },
+    {
+      "id": "singularity_2way_06",
+      "fn": "applySingularitySharpTilt2Way",
+      "source": "action_network_splits",
+      "match": "Dallas Mavericks vs Indiana Pacers (nba)",
+      "input": {
+        "modelProbs": [
+          0.636879438183074,
+          0.3631205618169259
+        ],
+        "marketProbs": [
+          0.6094130010179093,
+          0.3905869989820907
+        ],
+        "marketOverround": 0.03222716944990678,
+        "smarketsExchangeMidProbHome": null,
+        "sharpMoneyDivergenceHomePct": -30.0,
+        "reverseLineMovementSide": "away"
+      },
+      "expected": {
+        "pHome": 0.5818707855426027,
+        "pAway": 0.4181292144573973,
+        "effectiveMarketAlpha": 0.8499997510930412,
+        "exchangeWeight": 0.0,
+        "sharpLogitTilt": -0.13193760155981366
+      }
+    },
+    {
+      "id": "geodesic_v2_gate_01",
+      "fn": "evaluateGeodesicV2ValueGate",
+      "source": "action_network_splits",
+      "match": "Philadelphia 76ers vs Boston Celtics (NBA RLM Away Confirmed)",
+      "input": {
+        "probs": {
+          "pHome": 0.41,
+          "pAway": 0.59
+        },
+        "odds": {
+          "oddsHome": 2.0,
+          "oddsAway": 1.8333
+        },
+        "marketProbs": {
+          "pHome": 0.47,
+          "pAway": 0.53
+        },
+        "reverseLineMovementSide": "away",
+        "sharpMoneyDivergenceHomePct": -16.0,
+        "sharpMoneyDivergenceAwayPct": 16.0
+      },
+      "expected": {
+        "marketType": "2way",
+        "outcomes": [
+          {
+            "side": "home",
+            "prob": 0.41,
+            "decimalOdds": 2.0,
+            "impliedProbRaw": 0.5,
+            "edge": -0.09000000000000002,
+            "ev": -0.18000000000000005,
+            "kellyFraction": 0.0,
+            "sharpMoneyDivergenceOnSide": -16.0,
+            "vetoedByRlm": true,
+            "vetoReason": "adverse_rlm_and_sharp_divergence",
+            "institutionalConfirmation": false,
+            "recommendedStake": 0.0
+          },
+          {
+            "side": "away",
+            "prob": 0.59,
+            "decimalOdds": 1.8333,
+            "impliedProbRaw": 0.5454644629902362,
+            "edge": 0.04453553700976376,
+            "ev": 0.0816469999999998,
+            "kellyFraction": 0.02449507980319207,
+            "sharpMoneyDivergenceOnSide": 16.0,
+            "vetoedByRlm": false,
+            "vetoReason": null,
+            "institutionalConfirmation": true,
+            "recommendedStake": 0.02449507980319207
+          }
+        ],
+        "bestBet": {
+          "side": "away",
+          "prob": 0.59,
+          "decimalOdds": 1.8333,
+          "impliedProbRaw": 0.5454644629902362,
+          "edge": 0.04453553700976376,
+          "ev": 0.0816469999999998,
+          "kellyFraction": 0.02449507980319207,
+          "sharpMoneyDivergenceOnSide": 16.0,
+          "vetoedByRlm": false,
+          "vetoReason": null,
+          "institutionalConfirmation": true,
+          "recommendedStake": 0.02449507980319207
+        },
+        "topRawValueSide": "away",
+        "vetoedByRlm": false,
+        "institutionalConfirmation": true,
+        "recommendedStake": 0.02449507980319207,
+        "edge": 0.04453553700976376,
+        "ev": 0.0816469999999998,
+        "kellyFraction": 0.02449507980319207,
+        "uncertaintyGatePassed": true
+      }
+    },
+    {
+      "id": "geodesic_v2_gate_02",
+      "fn": "evaluateGeodesicV2ValueGate",
+      "source": "action_network_splits",
+      "match": "Philadelphia 76ers vs Boston Celtics (NBA Public Trap Vetoed)",
+      "input": {
+        "probs": {
+          "pHome": 0.53,
+          "pAway": 0.47
+        },
+        "odds": {
+          "oddsHome": 2.0,
+          "oddsAway": 1.8333
+        },
+        "marketProbs": {
+          "pHome": 0.47,
+          "pAway": 0.53
+        },
+        "reverseLineMovementSide": "away",
+        "sharpMoneyDivergenceHomePct": -16.0,
+        "sharpMoneyDivergenceAwayPct": 16.0
+      },
+      "expected": {
+        "marketType": "2way",
+        "outcomes": [
+          {
+            "side": "home",
+            "prob": 0.53,
+            "decimalOdds": 2.0,
+            "impliedProbRaw": 0.5,
+            "edge": 0.030000000000000027,
+            "ev": 0.06000000000000005,
+            "kellyFraction": 0.015000000000000013,
+            "sharpMoneyDivergenceOnSide": -16.0,
+            "vetoedByRlm": true,
+            "vetoReason": "adverse_rlm_and_sharp_divergence",
+            "institutionalConfirmation": false,
+            "recommendedStake": 0.0
+          },
+          {
+            "side": "away",
+            "prob": 0.47,
+            "decimalOdds": 1.8333,
+            "impliedProbRaw": 0.5454644629902362,
+            "edge": -0.07546446299023624,
+            "ev": -0.13834900000000006,
+            "kellyFraction": 0.0,
+            "sharpMoneyDivergenceOnSide": 16.0,
+            "vetoedByRlm": false,
+            "vetoReason": null,
+            "institutionalConfirmation": false,
+            "recommendedStake": 0.0
+          }
+        ],
+        "bestBet": null,
+        "topRawValueSide": "home",
+        "vetoedByRlm": true,
+        "institutionalConfirmation": false,
+        "recommendedStake": 0.0,
+        "edge": 0.030000000000000027,
+        "ev": 0.06000000000000005,
+        "kellyFraction": 0.015000000000000013,
+        "uncertaintyGatePassed": true
+      }
+    },
+    {
+      "id": "geodesic_v2_gate_03",
+      "fn": "evaluateGeodesicV2ValueGate",
+      "source": "action_network_splits",
+      "match": "Baltimore Ravens vs Jacksonville Jaguars (NFL Sharp Divergence -14pp Veto)",
+      "input": {
+        "probs": [
+          0.46,
+          0.54
+        ],
+        "odds": [
+          1.9091,
+          1.95
+        ],
+        "marketProbs": [
+          0.5,
+          0.5
+        ],
+        "reverseLineMovementSide": "none",
+        "sharpMoneyDivergenceHomePct": 14.0,
+        "sharpMoneyDivergenceAwayPct": -14.0
+      },
+      "expected": {
+        "marketType": "2way",
+        "outcomes": [
+          {
+            "side": "home",
+            "prob": 0.46,
+            "decimalOdds": 1.9091,
+            "impliedProbRaw": 0.5238070294903358,
+            "edge": -0.06380702949033573,
+            "ev": -0.12181399999999998,
+            "kellyFraction": 0.0,
+            "sharpMoneyDivergenceOnSide": 14.0,
+            "vetoedByRlm": false,
+            "vetoReason": null,
+            "institutionalConfirmation": false,
+            "recommendedStake": 0.0
+          },
+          {
+            "side": "away",
+            "prob": 0.54,
+            "decimalOdds": 1.95,
+            "impliedProbRaw": 0.5128205128205129,
+            "edge": 0.02717948717948715,
+            "ev": 0.052999999999999936,
+            "kellyFraction": 0.013947368421052615,
+            "sharpMoneyDivergenceOnSide": -14.0,
+            "vetoedByRlm": true,
+            "vetoReason": "adverse_sharp_divergence",
+            "institutionalConfirmation": false,
+            "recommendedStake": 0.0
+          }
+        ],
+        "bestBet": null,
+        "topRawValueSide": "away",
+        "vetoedByRlm": true,
+        "institutionalConfirmation": false,
+        "recommendedStake": 0.0,
+        "edge": 0.02717948717948715,
+        "ev": 0.052999999999999936,
+        "kellyFraction": 0.013947368421052615,
+        "uncertaintyGatePassed": true
+      }
+    },
+    {
+      "id": "geodesic_v2_gate_04",
+      "fn": "evaluateGeodesicV2ValueGate",
+      "source": "action_network_splits",
+      "match": "Baltimore Ravens vs Jacksonville Jaguars (NFL Sharp +22pp Confirmed)",
+      "input": {
+        "probs": [
+          0.27,
+          0.73
+        ],
+        "odds": [
+          4.1,
+          1.25
+        ],
+        "marketProbs": [
+          0.22,
+          0.78
+        ],
+        "reverseLineMovementSide": "none",
+        "sharpMoneyDivergenceHomePct": 22.0,
+        "sharpMoneyDivergenceAwayPct": -22.0
+      },
+      "expected": {
+        "marketType": "2way",
+        "outcomes": [
+          {
+            "side": "home",
+            "prob": 0.27,
+            "decimalOdds": 4.1,
+            "impliedProbRaw": 0.24390243902439027,
+            "edge": 0.02609756097560975,
+            "ev": 0.10699999999999998,
+            "kellyFraction": 0.008629032258064516,
+            "sharpMoneyDivergenceOnSide": 22.0,
+            "vetoedByRlm": false,
+            "vetoReason": null,
+            "institutionalConfirmation": true,
+            "recommendedStake": 0.008629032258064516
+          },
+          {
+            "side": "away",
+            "prob": 0.73,
+            "decimalOdds": 1.25,
+            "impliedProbRaw": 0.8,
+            "edge": -0.07000000000000006,
+            "ev": -0.08750000000000002,
+            "kellyFraction": 0.0,
+            "sharpMoneyDivergenceOnSide": -22.0,
+            "vetoedByRlm": true,
+            "vetoReason": "adverse_sharp_divergence",
+            "institutionalConfirmation": false,
+            "recommendedStake": 0.0
+          }
+        ],
+        "bestBet": {
+          "side": "home",
+          "prob": 0.27,
+          "decimalOdds": 4.1,
+          "impliedProbRaw": 0.24390243902439027,
+          "edge": 0.02609756097560975,
+          "ev": 0.10699999999999998,
+          "kellyFraction": 0.008629032258064516,
+          "sharpMoneyDivergenceOnSide": 22.0,
+          "vetoedByRlm": false,
+          "vetoReason": null,
+          "institutionalConfirmation": true,
+          "recommendedStake": 0.008629032258064516
+        },
+        "topRawValueSide": "home",
+        "vetoedByRlm": false,
+        "institutionalConfirmation": true,
+        "recommendedStake": 0.008629032258064516,
+        "edge": 0.02609756097560975,
+        "ev": 0.10699999999999998,
+        "kellyFraction": 0.008629032258064516,
+        "uncertaintyGatePassed": true
+      }
+    },
+    {
+      "id": "geodesic_v2_gate_05",
+      "fn": "evaluateGeodesicV2ValueGate",
+      "source": "action_network_splits",
+      "match": "Utah Jazz vs Miami Heat (NBA RLM Home Confirmed)",
+      "input": {
+        "probs": [
+          0.31,
+          0.69
+        ],
+        "odds": [
+          3.55,
+          1.32
+        ],
+        "marketProbs": [
+          0.26,
+          0.74
+        ],
+        "reverseLineMovementSide": "home",
+        "sharpMoneyDivergenceHomePct": 11.0,
+        "sharpMoneyDivergenceAwayPct": -11.0
+      },
+      "expected": {
+        "marketType": "2way",
+        "outcomes": [
+          {
+            "side": "home",
+            "prob": 0.31,
+            "decimalOdds": 3.55,
+            "impliedProbRaw": 0.28169014084507044,
+            "edge": 0.028309859154929562,
+            "ev": 0.10050000000000003,
+            "kellyFraction": 0.009852941176470592,
+            "sharpMoneyDivergenceOnSide": 11.0,
+            "vetoedByRlm": false,
+            "vetoReason": null,
+            "institutionalConfirmation": true,
+            "recommendedStake": 0.009852941176470592
+          },
+          {
+            "side": "away",
+            "prob": 0.69,
+            "decimalOdds": 1.32,
+            "impliedProbRaw": 0.7575757575757576,
+            "edge": -0.06757575757575762,
+            "ev": -0.08920000000000006,
+            "kellyFraction": 0.0,
+            "sharpMoneyDivergenceOnSide": -11.0,
+            "vetoedByRlm": true,
+            "vetoReason": "adverse_rlm",
+            "institutionalConfirmation": false,
+            "recommendedStake": 0.0
+          }
+        ],
+        "bestBet": {
+          "side": "home",
+          "prob": 0.31,
+          "decimalOdds": 3.55,
+          "impliedProbRaw": 0.28169014084507044,
+          "edge": 0.028309859154929562,
+          "ev": 0.10050000000000003,
+          "kellyFraction": 0.009852941176470592,
+          "sharpMoneyDivergenceOnSide": 11.0,
+          "vetoedByRlm": false,
+          "vetoReason": null,
+          "institutionalConfirmation": true,
+          "recommendedStake": 0.009852941176470592
+        },
+        "topRawValueSide": "home",
+        "vetoedByRlm": false,
+        "institutionalConfirmation": true,
+        "recommendedStake": 0.009852941176470592,
+        "edge": 0.028309859154929562,
+        "ev": 0.10050000000000003,
+        "kellyFraction": 0.009852941176470592,
+        "uncertaintyGatePassed": true
+      }
+    },
+    {
+      "id": "geodesic_v2_gate_06",
+      "fn": "evaluateGeodesicV2ValueGate",
+      "source": "action_network_splits",
+      "match": "Phoenix Suns vs Los Angeles Clippers (NBA Pure RLM Veto)",
+      "input": {
+        "probs": [
+          0.64,
+          0.36
+        ],
+        "odds": [
+          1.62,
+          2.4
+        ],
+        "marketProbs": [
+          0.6,
+          0.4
+        ],
+        "reverseLineMovementSide": "away",
+        "sharpMoneyDivergenceHomePct": -8.0,
+        "sharpMoneyDivergenceAwayPct": 8.0
+      },
+      "expected": {
+        "marketType": "2way",
+        "outcomes": [
+          {
+            "side": "home",
+            "prob": 0.64,
+            "decimalOdds": 1.62,
+            "impliedProbRaw": 0.6172839506172839,
+            "edge": 0.022716049382716097,
+            "ev": 0.036800000000000166,
+            "kellyFraction": 0.01483870967741942,
+            "sharpMoneyDivergenceOnSide": -8.0,
+            "vetoedByRlm": true,
+            "vetoReason": "adverse_rlm",
+            "institutionalConfirmation": false,
+            "recommendedStake": 0.0
+          },
+          {
+            "side": "away",
+            "prob": 0.36,
+            "decimalOdds": 2.4,
+            "impliedProbRaw": 0.4166666666666667,
+            "edge": -0.0566666666666667,
+            "ev": -0.136,
+            "kellyFraction": 0.0,
+            "sharpMoneyDivergenceOnSide": 8.0,
+            "vetoedByRlm": false,
+            "vetoReason": null,
+            "institutionalConfirmation": false,
+            "recommendedStake": 0.0
+          }
+        ],
+        "bestBet": null,
+        "topRawValueSide": "home",
+        "vetoedByRlm": true,
+        "institutionalConfirmation": false,
+        "recommendedStake": 0.0,
+        "edge": 0.022716049382716097,
+        "ev": 0.036800000000000166,
+        "kellyFraction": 0.01483870967741942,
+        "uncertaintyGatePassed": true
+      }
+    },
+    {
+      "id": "geodesic_v2_gate_07",
+      "fn": "evaluateGeodesicV2ValueGate",
+      "source": "caliente_mx",
+      "match": "Querétaro FC vs CF Monterrey (Liga MX Value on Home Underdog)",
+      "input": {
+        "probs": {
+          "pHome": 0.305,
+          "pDraw": 0.255,
+          "pAway": 0.44
+        },
+        "odds": {
+          "oddsHome": 3.45,
+          "oddsDraw": 3.75,
+          "oddsAway": 1.98
+        },
+        "marketProbs": {
+          "pHome": 0.281,
+          "pDraw": 0.254,
+          "pAway": 0.465
+        },
+        "reverseLineMovementSide": "none",
+        "sharpMoneyDivergenceHomePct": 4.0
+      },
+      "expected": {
+        "marketType": "3way",
+        "outcomes": [
+          {
+            "side": "home",
+            "prob": 0.305,
+            "decimalOdds": 3.45,
+            "impliedProbRaw": 0.2898550724637681,
+            "edge": 0.015144927536231867,
+            "ev": 0.05225000000000013,
+            "kellyFraction": 0.005331632653061237,
+            "sharpMoneyDivergenceOnSide": 4.0,
+            "vetoedByRlm": false,
+            "vetoReason": null,
+            "institutionalConfirmation": false,
+            "recommendedStake": 0.005331632653061237
+          },
+          {
+            "side": "draw",
+            "prob": 0.255,
+            "decimalOdds": 3.75,
+            "impliedProbRaw": 0.26666666666666666,
+            "edge": -0.011666666666666659,
+            "ev": -0.043749999999999956,
+            "kellyFraction": 0.0,
+            "sharpMoneyDivergenceOnSide": 0.0,
+            "vetoedByRlm": false,
+            "vetoReason": null,
+            "institutionalConfirmation": false,
+            "recommendedStake": 0.0
+          },
+          {
+            "side": "away",
+            "prob": 0.44,
+            "decimalOdds": 1.98,
+            "impliedProbRaw": 0.5050505050505051,
+            "edge": -0.06505050505050508,
+            "ev": -0.12880000000000003,
+            "kellyFraction": 0.0,
+            "sharpMoneyDivergenceOnSide": -4.0,
+            "vetoedByRlm": false,
+            "vetoReason": null,
+            "institutionalConfirmation": false,
+            "recommendedStake": 0.0
+          }
+        ],
+        "bestBet": {
+          "side": "home",
+          "prob": 0.305,
+          "decimalOdds": 3.45,
+          "impliedProbRaw": 0.2898550724637681,
+          "edge": 0.015144927536231867,
+          "ev": 0.05225000000000013,
+          "kellyFraction": 0.005331632653061237,
+          "sharpMoneyDivergenceOnSide": 4.0,
+          "vetoedByRlm": false,
+          "vetoReason": null,
+          "institutionalConfirmation": false,
+          "recommendedStake": 0.005331632653061237
+        },
+        "topRawValueSide": "home",
+        "vetoedByRlm": false,
+        "institutionalConfirmation": false,
+        "recommendedStake": 0.005331632653061237,
+        "edge": 0.015144927536231867,
+        "ev": 0.05225000000000013,
+        "kellyFraction": 0.005331632653061237,
+        "uncertaintyGatePassed": true
+      }
+    },
+    {
+      "id": "geodesic_v2_gate_08",
+      "fn": "evaluateGeodesicV2ValueGate",
+      "source": "caliente_mx+smarkets",
+      "match": "Liverpool FC vs Manchester United (EPL Smarkets Anchor Value Away)",
+      "input": {
+        "probs": [
+          0.525,
+          0.23,
+          0.245
+        ],
+        "odds": [
+          1.68,
+          4.2,
+          4.4
+        ],
+        "marketProbs": [
+          0.545,
+          0.23,
+          0.225
+        ],
+        "reverseLineMovementSide": "away",
+        "sharpMoneyDivergenceHomePct": -10.5,
+        "sharpMoneyDivergenceAwayPct": 10.5
+      },
+      "expected": {
+        "marketType": "3way",
+        "outcomes": [
+          {
+            "side": "home",
+            "prob": 0.525,
+            "decimalOdds": 1.68,
+            "impliedProbRaw": 0.5952380952380952,
+            "edge": -0.07023809523809521,
+            "ev": -0.118,
+            "kellyFraction": 0.0,
+            "sharpMoneyDivergenceOnSide": -10.5,
+            "vetoedByRlm": true,
+            "vetoReason": "adverse_rlm",
+            "institutionalConfirmation": false,
+            "recommendedStake": 0.0
+          },
+          {
+            "side": "draw",
+            "prob": 0.23,
+            "decimalOdds": 4.2,
+            "impliedProbRaw": 0.23809523809523808,
+            "edge": -0.008095238095238072,
+            "ev": -0.03399999999999992,
+            "kellyFraction": 0.0,
+            "sharpMoneyDivergenceOnSide": 0.0,
+            "vetoedByRlm": false,
+            "vetoReason": null,
+            "institutionalConfirmation": false,
+            "recommendedStake": 0.0
+          },
+          {
+            "side": "away",
+            "prob": 0.245,
+            "decimalOdds": 4.4,
+            "impliedProbRaw": 0.22727272727272727,
+            "edge": 0.01772727272727273,
+            "ev": 0.07800000000000007,
+            "kellyFraction": 0.005735294117647063,
+            "sharpMoneyDivergenceOnSide": 10.5,
+            "vetoedByRlm": false,
+            "vetoReason": null,
+            "institutionalConfirmation": true,
+            "recommendedStake": 0.005735294117647063
+          }
+        ],
+        "bestBet": {
+          "side": "away",
+          "prob": 0.245,
+          "decimalOdds": 4.4,
+          "impliedProbRaw": 0.22727272727272727,
+          "edge": 0.01772727272727273,
+          "ev": 0.07800000000000007,
+          "kellyFraction": 0.005735294117647063,
+          "sharpMoneyDivergenceOnSide": 10.5,
+          "vetoedByRlm": false,
+          "vetoReason": null,
+          "institutionalConfirmation": true,
+          "recommendedStake": 0.005735294117647063
+        },
+        "topRawValueSide": "away",
+        "vetoedByRlm": false,
+        "institutionalConfirmation": true,
+        "recommendedStake": 0.005735294117647063,
+        "edge": 0.01772727272727273,
+        "ev": 0.07800000000000007,
+        "kellyFraction": 0.005735294117647063,
+        "uncertaintyGatePassed": true
+      }
+    },
+    {
+      "id": "geodesic_v2_gate_09",
+      "fn": "evaluateGeodesicV2ValueGate",
+      "source": "caliente_mx",
+      "match": "Tigres UANL vs CF América (3-Way Adverse RLM Veto on Home)",
+      "input": {
+        "probs": [
+          0.365,
+          0.265,
+          0.37
+        ],
+        "odds": [
+          2.88,
+          3.55,
+          2.32
+        ],
+        "marketProbs": [
+          0.325,
+          0.265,
+          0.41
+        ],
+        "reverseLineMovementSide": "away",
+        "sharpMoneyDivergenceHomePct": -13.0,
+        "sharpMoneyDivergenceAwayPct": 13.0
+      },
+      "expected": {
+        "marketType": "3way",
+        "outcomes": [
+          {
+            "side": "home",
+            "prob": 0.365,
+            "decimalOdds": 2.88,
+            "impliedProbRaw": 0.3472222222222222,
+            "edge": 0.01777777777777778,
+            "ev": 0.05119999999999991,
+            "kellyFraction": 0.006808510638297861,
+            "sharpMoneyDivergenceOnSide": -13.0,
+            "vetoedByRlm": true,
+            "vetoReason": "adverse_rlm_and_sharp_divergence",
+            "institutionalConfirmation": false,
+            "recommendedStake": 0.0
+          },
+          {
+            "side": "draw",
+            "prob": 0.265,
+            "decimalOdds": 3.55,
+            "impliedProbRaw": 0.28169014084507044,
+            "edge": -0.016690140845070423,
+            "ev": -0.059250000000000025,
+            "kellyFraction": 0.0,
+            "sharpMoneyDivergenceOnSide": 0.0,
+            "vetoedByRlm": false,
+            "vetoReason": null,
+            "institutionalConfirmation": false,
+            "recommendedStake": 0.0
+          },
+          {
+            "side": "away",
+            "prob": 0.37,
+            "decimalOdds": 2.32,
+            "impliedProbRaw": 0.4310344827586207,
+            "edge": -0.06103448275862072,
+            "ev": -0.14160000000000006,
+            "kellyFraction": 0.0,
+            "sharpMoneyDivergenceOnSide": 13.0,
+            "vetoedByRlm": false,
+            "vetoReason": null,
+            "institutionalConfirmation": false,
+            "recommendedStake": 0.0
+          }
+        ],
+        "bestBet": null,
+        "topRawValueSide": "home",
+        "vetoedByRlm": true,
+        "institutionalConfirmation": false,
+        "recommendedStake": 0.0,
+        "edge": 0.01777777777777778,
+        "ev": 0.05119999999999991,
+        "kellyFraction": 0.006808510638297861,
+        "uncertaintyGatePassed": true
+      }
+    },
+    {
+      "id": "geodesic_v2_gate_10",
+      "fn": "evaluateGeodesicV2ValueGate",
+      "source": "pinnacle",
+      "match": "New Orleans Saints vs Carolina Panthers (Pinnacle Efficient Market No Bet)",
+      "input": {
+        "probs": [
+          0.524,
+          0.476
+        ],
+        "odds": [
+          1.8547,
+          2.04
+        ],
+        "marketProbs": [
+          0.5238,
+          0.4762
+        ],
+        "reverseLineMovementSide": "none",
+        "sharpMoneyDivergenceHomePct": 2.0
+      },
+      "expected": {
+        "marketType": "2way",
+        "outcomes": [
+          {
+            "side": "home",
+            "prob": 0.524,
+            "decimalOdds": 1.8547,
+            "impliedProbRaw": 0.5391707553782282,
+            "edge": -0.015170755378228207,
+            "ev": -0.028137199999999973,
+            "kellyFraction": 0.0,
+            "sharpMoneyDivergenceOnSide": 2.0,
+            "vetoedByRlm": false,
+            "vetoReason": null,
+            "institutionalConfirmation": false,
+            "recommendedStake": 0.0
+          },
+          {
+            "side": "away",
+            "prob": 0.476,
+            "decimalOdds": 2.04,
+            "impliedProbRaw": 0.49019607843137253,
+            "edge": -0.01419607843137255,
+            "ev": -0.028959999999999986,
+            "kellyFraction": 0.0,
+            "sharpMoneyDivergenceOnSide": -2.0,
+            "vetoedByRlm": false,
+            "vetoReason": null,
+            "institutionalConfirmation": false,
+            "recommendedStake": 0.0
+          }
+        ],
+        "bestBet": null,
+        "topRawValueSide": null,
+        "vetoedByRlm": false,
+        "institutionalConfirmation": false,
+        "recommendedStake": 0.0,
+        "edge": -0.015170755378228207,
+        "ev": -0.028137199999999973,
+        "kellyFraction": 0.0,
+        "uncertaintyGatePassed": true
+      }
+    },
+    {
+      "id": "geodesic_v2_gate_11",
+      "fn": "evaluateGeodesicV2ValueGate",
+      "source": "action_network_splits",
+      "match": "Montreal Canadiens vs Minnesota Wild (NHL Winner's Curse Disagreement Gate)",
+      "input": {
+        "probs": [
+          0.64,
+          0.36
+        ],
+        "odds": [
+          2.05,
+          1.8
+        ],
+        "marketProbs": [
+          0.47,
+          0.53
+        ],
+        "reverseLineMovementSide": "home",
+        "sharpMoneyDivergenceHomePct": 43.0
+      },
+      "expected": {
+        "marketType": "2way",
+        "outcomes": [
+          {
+            "side": "home",
+            "prob": 0.64,
+            "decimalOdds": 2.05,
+            "impliedProbRaw": 0.48780487804878053,
+            "edge": 0.15219512195121948,
+            "ev": 0.31199999999999983,
+            "kellyFraction": 0.07428571428571426,
+            "sharpMoneyDivergenceOnSide": 43.0,
+            "vetoedByRlm": false,
+            "vetoReason": null,
+            "institutionalConfirmation": false,
+            "recommendedStake": 0.0
+          },
+          {
+            "side": "away",
+            "prob": 0.36,
+            "decimalOdds": 1.8,
+            "impliedProbRaw": 0.5555555555555556,
+            "edge": -0.1955555555555556,
+            "ev": -0.352,
+            "kellyFraction": 0.0,
+            "sharpMoneyDivergenceOnSide": -43.0,
+            "vetoedByRlm": true,
+            "vetoReason": "adverse_rlm_and_sharp_divergence",
+            "institutionalConfirmation": false,
+            "recommendedStake": 0.0
+          }
+        ],
+        "bestBet": null,
+        "topRawValueSide": "home",
+        "vetoedByRlm": false,
+        "institutionalConfirmation": false,
+        "recommendedStake": 0.0,
+        "edge": 0.15219512195121948,
+        "ev": 0.31199999999999983,
+        "kellyFraction": 0.07428571428571426,
+        "uncertaintyGatePassed": false
+      }
+    },
+    {
+      "id": "geodesic_v2_gate_12",
+      "fn": "evaluateGeodesicV2ValueGate",
+      "source": "action_network_splits",
+      "match": "Tampa Bay Rays vs Milwaukee Brewers (MLB Clean Quarter-Kelly)",
+      "input": {
+        "probs": [
+          0.468,
+          0.532
+        ],
+        "odds": [
+          2.21,
+          1.7042
+        ],
+        "marketProbs": [
+          0.4354,
+          0.5646
+        ],
+        "reverseLineMovementSide": "none",
+        "sharpMoneyDivergenceHomePct": 5.0
+      },
+      "expected": {
+        "marketType": "2way",
+        "outcomes": [
+          {
+            "side": "home",
+            "prob": 0.468,
+            "decimalOdds": 2.21,
+            "impliedProbRaw": 0.45248868778280543,
+            "edge": 0.015511312217194595,
+            "ev": 0.03428000000000009,
+            "kellyFraction": 0.007082644628099192,
+            "sharpMoneyDivergenceOnSide": 5.0,
+            "vetoedByRlm": false,
+            "vetoReason": null,
+            "institutionalConfirmation": false,
+            "recommendedStake": 0.007082644628099192
+          },
+          {
+            "side": "away",
+            "prob": 0.532,
+            "decimalOdds": 1.7042,
+            "impliedProbRaw": 0.5867855885459453,
+            "edge": -0.054785588545945285,
+            "ev": -0.09336559999999994,
+            "kellyFraction": 0.0,
+            "sharpMoneyDivergenceOnSide": -5.0,
+            "vetoedByRlm": false,
+            "vetoReason": null,
+            "institutionalConfirmation": false,
+            "recommendedStake": 0.0
+          }
+        ],
+        "bestBet": {
+          "side": "home",
+          "prob": 0.468,
+          "decimalOdds": 2.21,
+          "impliedProbRaw": 0.45248868778280543,
+          "edge": 0.015511312217194595,
+          "ev": 0.03428000000000009,
+          "kellyFraction": 0.007082644628099192,
+          "sharpMoneyDivergenceOnSide": 5.0,
+          "vetoedByRlm": false,
+          "vetoReason": null,
+          "institutionalConfirmation": false,
+          "recommendedStake": 0.007082644628099192
+        },
+        "topRawValueSide": "home",
+        "vetoedByRlm": false,
+        "institutionalConfirmation": false,
+        "recommendedStake": 0.007082644628099192,
+        "edge": 0.015511312217194595,
+        "ev": 0.03428000000000009,
+        "kellyFraction": 0.007082644628099192,
+        "uncertaintyGatePassed": true
+      }
+    }
+  ]
+}

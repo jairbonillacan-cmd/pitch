@@ -1,0 +1,76 @@
+{
+  "codename_singularity": "PitchLab Singularity v3.0",
+  "codename_geodesic": "PitchLab Geodesic v2.0",
+  "version": "3.0.0",
+  "base_motor_a": "ensemble",
+  "market_phase": "close",
+  "ensemble_weights": {
+    "linear_pool": 0.0,
+    "logit_pool": 0.0,
+    "stack_logit": 0.3213,
+    "residual_logit": 0.6787,
+    "stack_hgb": 0.0
+  },
+  "first_season": 2005,
+  "market_coverage": 0.9991896393895283,
+  "market_sources": {
+    "ps_adaptive": 59385,
+    "b365_mx_debiased": 7172,
+    "avg_mx_debiased": 26
+  },
+  "scenario_metrics": {
+    "market": {
+      "n": 58935,
+      "logloss": 0.99787,
+      "brier": 0.596328
+    },
+    "linear_pool": {
+      "n": 58967,
+      "logloss": 0.99775,
+      "brier": 0.596245
+    },
+    "logit_pool": {
+      "n": 58967,
+      "logloss": 0.997751,
+      "brier": 0.596246
+    },
+    "stack_logit": {
+      "n": 58967,
+      "logloss": 0.999426,
+      "brier": 0.597225
+    },
+    "residual_logit": {
+      "n": 58967,
+      "logloss": 0.997502,
+      "brier": 0.596106
+    },
+    "stack_hgb": {
+      "n": 58967,
+      "logloss": 1.001871,
+      "brier": 0.598682
+    },
+    "ensemble_b": {
+      "n": 58967,
+      "logloss": 0.997699,
+      "brier": 0.596226
+    },
+    "singularity_v3": {
+      "n": 58967,
+      "logloss": 0.997699,
+      "brier": 0.596226
+    }
+  },
+  "geodesic_v2_oos_evaluation": {
+    "codename": "PitchLab Geodesic v2.0",
+    "odds_source": "b365",
+    "evaluated_matches": 44508,
+    "actionable_candidates_after_uncertainty_gate": 3804,
+    "vetoed_by_anti_rlm_or_adverse_sharp": 0,
+    "executable_bets": 3804,
+    "institutionally_confirmed_bets": 518,
+    "mean_quarter_kelly_stake": 0.006029,
+    "realized_roi_executable": -0.003828,
+    "realized_flat_roi_vetoed_bets": 0.0
+  },
+  "generated_at": "2026-11-10T21:43:59+00:00"
+}

@@ -1,17 +1,19 @@
 #!/usr/bin/env python3
-"""Motor B / Motor C (v2): Motor Anclado a Mercado Multi-Fuente y Predictor de Valor/Cierre.
+"""Motor B / Motor C v3.0 (`PitchLab Singularity v3.0` & `PitchLab Geodesic v2.0`):
+Motor Anclado a Microestructura de Mercado Multi-Fuente, De-Vig Adaptativo MX y Ejecución Anti-RLM.
 
-Escenarios (mismos partidos, comparación pareada walk-forward):
-  1. market                       mercado base de-vig (power)
-  2. linear_pool                  mezcla lineal p = (1-w) pA + w pM, w ajustado en temporadas previas
-  3. logit_pool                   mezcla en espacio logit con consenso multi-mercado (PS+Avg+AH+B365)
-  4. stack_logit                  regresión logística multinomial sobre log pA, log pM, AH/Totales, Sharp-vs-Soft y features 2ª gen
-  5. residual_logit               corrección residual calibrada sobre el consenso multi-mercado (sin doble conteo de prior)
-  6. stack_hgb                    HistGradientBoosting regularizado sobre el vector extendido
-  7. ensemble_b                   mezcla convexa óptima ajustada estrictamente en val (2023/24)
+Escenarios (mismos partidos, comparación pareada walk-forward estrictamente out-of-sample):
+  1. market                       mercado base con de-vig adaptativo Power/Shin (y corrección MX)
+  2. linear_pool                  mezcla lineal p = (1-w) pA + w pC, w ajustado en temporadas previas
+  3. logit_pool                   mezcla en espacio logit con super-consenso multi-mercado v3.0
+  4. stack_logit                  regresión logística multinomial regularizada con microestructura v3.0
+  5. residual_logit               corrección residual calibrada (`Singularity v3.0`) sobre consenso + Exchange + MX
+  6. stack_hgb                    HistGradientBoosting fuertemente regularizado sobre el vector extendido v3.0
+  7. ensemble_b / singularity_v3  combinación convexa óptima ajustada estrictamente en validación (2023/24)
+                                  + evaluación de ejecución Quarter-Kelly / Gate Anti-RLM (`Geodesic v2.0`)
 
 Uso:
-  ./.venv/bin/python models/b/train_motor_b.py \
+  ./.venv/Scripts/python.exe models/b/train_motor_b.py \
       --motor-a artifacts/EXP01_baselines_20261109 --base ensemble --tag EXP08_motor_b
 """
 from __future__ import annotations
@@ -19,6 +21,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import sys
 from datetime import datetime, timezone
 
 import numpy as np
@@ -30,7 +33,18 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 
-ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+HERE = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.dirname(os.path.dirname(HERE))
+if HERE not in sys.path:
+    sys.path.insert(0, HERE)
+
+from market_microstructure_v3 import (  # noqa: E402
+    CODENAME_GEODESIC_V2,
+    CODENAME_SINGULARITY_V3,
+    MODEL_VERSION_V3,
+    evaluate_geodesic_v2_value_gate,
+)
+
 PROC = os.path.join(ROOT, "data", "processed")
 ART = os.path.join(ROOT, "artifacts")
 SEED = 20261109
@@ -41,6 +55,14 @@ def logloss(y, p):
     p = np.clip(p, 1e-15, 1)
     p = p / p.sum(axis=1, keepdims=True)
     return float(-np.mean(np.log(p[np.arange(len(y)), y])))
+
+
+def brier_multi(y, p):
+    p = np.clip(p, 1e-15, 1)
+    p = p / p.sum(axis=1, keepdims=True)
+    oh = np.zeros_like(p)
+    oh[np.arange(len(y)), y] = 1.0
+    return float(np.mean(np.sum((p - oh) ** 2, axis=1)))
 
 
 def season_of(s):
@@ -59,15 +81,15 @@ def softmax(z):
 
 
 def fit_weight(y, pA, pM, space="prob"):
-    """Peso w de la mezcla que minimiza log-loss en los datos de ajuste."""
+    """Peso w de la mezcla que minimiza log-loss en los datos históricos de ajuste."""
     grid = np.linspace(0, 1, 81)
     best_w, best = 0.85, np.inf
     for w in grid:
         if space == "prob":
-            mix = (1 - w) * pA + w * pM
+            mix_p = (1 - w) * pA + w * pM
         else:
-            mix = softmax((1 - w) * logit(pA) + w * logit(pM))
-        ll = logloss(y, mix)
+            mix_p = softmax((1 - w) * logit(pA) + w * logit(pM))
+        ll = logloss(y, mix_p)
         if ll < best:
             best, best_w = ll, float(w)
     return best_w
@@ -81,22 +103,36 @@ def mix(pA, pM, w, space="prob"):
     return out / out.sum(axis=1, keepdims=True)
 
 
+def _first_available_triple(df: pd.DataFrame, candidates: list[list[str]]) -> list[str] | None:
+    for cols in candidates:
+        if all(c in df.columns for c in cols):
+            return cols
+    return None
+
+
 def build_consensus_market_probs(df: pd.DataFrame, phase: str) -> tuple[np.ndarray, np.ndarray]:
-    """Construye dos tensores (N, 3):
-      - `p_base`: probabilidad primaria del mercado (cadena PS power -> B365 power -> Avg power)
-      - `p_cons`: super-consenso multi-mercado ponderado (PS Shin + Avg Shin + BFE/BF + AH+Totales implícito + B365 Shin)
+    """Construye dos tensores `(N, 3)` para `PitchLab Singularity v3.0`:
+      - `p_base`: probabilidad primaria del mercado (prioriza `ps_adaptive` -> `b365_mx_debiased`/`b365_adaptive`
+                  -> `avg_mx_debiased`/`avg_adaptive`, con fallback retrocompatible a `*_power` / `*_proportional`).
+      - `p_cons`: super-consenso multi-mercado v3.0 ponderando Pinnacle Adaptativo, Best-Line Max Adaptativo,
+                  Consenso Avg des-sesgado MX, Liquidez Exchange (`BFE`/`BF`), Handicap Asiático+Totales
+                  implícito (Dixon-Coles) y B365 des-sesgado MX.
     """
     n = len(df)
-    # 1. Cadena primaria compatible con v1
     chain = []
-    for label, src, method in (
-        ("ps_power", "ps", "power"),
-        ("b365_power", "b365", "power"),
-        ("avg_power", "avg", "power"),
-        ("ps_prop", "ps", "proportional"),
-        ("b365_prop", "b365", "proportional"),
-    ):
-        cols = [f"mkt_{phase}_{src}_{method}_{k}" for k in "hda"]
+    candidate_chain = (
+        ("ps_adaptive", [f"mkt_{phase}_ps_adaptive_{k}" for k in "hda"]),
+        ("ps_power", [f"mkt_{phase}_ps_power_{k}" for k in "hda"]),
+        ("b365_mx_debiased", [f"mkt_{phase}_b365_mx_debiased_{k}" for k in "hda"]),
+        ("b365_adaptive", [f"mkt_{phase}_b365_adaptive_{k}" for k in "hda"]),
+        ("b365_power", [f"mkt_{phase}_b365_power_{k}" for k in "hda"]),
+        ("avg_mx_debiased", [f"mkt_{phase}_avg_mx_debiased_{k}" for k in "hda"]),
+        ("avg_adaptive", [f"mkt_{phase}_avg_adaptive_{k}" for k in "hda"]),
+        ("avg_power", [f"mkt_{phase}_avg_power_{k}" for k in "hda"]),
+        ("ps_prop", [f"mkt_{phase}_ps_proportional_{k}" for k in "hda"]),
+        ("b365_prop", [f"mkt_{phase}_b365_proportional_{k}" for k in "hda"]),
+    )
+    for label, cols in candidate_chain:
         if all(c in df.columns for c in cols):
             chain.append((label, cols))
     if not chain:
@@ -116,25 +152,74 @@ def build_consensus_market_probs(df: pd.DataFrame, phase: str) -> tuple[np.ndarr
     df["market_ok"] = df[["mh", "md", "ma"]].notna().all(axis=1)
     p_base = df[["mh", "md", "ma"]].to_numpy(dtype=float)
 
-    # 2. Super-consenso multi-mercado v2.1 (Pondera Sharp PS Power, Max Power, Avg Power, Exchange BF/BFE, AH y B365)
-    # Pesos relativos de eficiencia informacional cuando cada fuente está presente:
-    sources_weights = [
-        ([f"mkt_{phase}_ps_power_{k}" for k in "hda"], 0.56),
-        ([f"mkt_{phase}_max_power_{k}" for k in "hda"], 0.22),
-        ([f"mkt_{phase}_avg_power_{k}" for k in "hda"], 0.10),
-        ([f"mkt_{phase}_bfe_power_{k}" for k in "hda"], 0.05),
-        ([f"mkt_{phase}_bf_power_{k}" for k in "hda"], 0.03),
-        ([f"mkt_{phase}_ah_implied_{k}" for k in "hda"], 0.02),
-        ([f"mkt_{phase}_b365_power_{k}" for k in "hda"], 0.02),
+    # 2. Super-consenso multi-mercado v3.0 (`Singularity v3.0`):
+    #    Prioriza de-vig adaptativo Power/Shin, corrección recreativa MX y ancla Exchange (BFE/BF).
+    source_specs = [
+        (
+            [
+                [f"mkt_{phase}_ps_adaptive_{k}" for k in "hda"],
+                [f"mkt_{phase}_ps_power_{k}" for k in "hda"],
+            ],
+            0.54,
+        ),
+        (
+            [
+                [f"mkt_{phase}_max_adaptive_{k}" for k in "hda"],
+                [f"mkt_{phase}_max_power_{k}" for k in "hda"],
+            ],
+            0.20,
+        ),
+        (
+            [
+                [f"mkt_{phase}_avg_mx_debiased_{k}" for k in "hda"],
+                [f"mkt_{phase}_avg_adaptive_{k}" for k in "hda"],
+                [f"mkt_{phase}_avg_power_{k}" for k in "hda"],
+            ],
+            0.10,
+        ),
+        (
+            [
+                [f"mkt_{phase}_bfe_adaptive_{k}" for k in "hda"],
+                [f"mkt_{phase}_bfe_power_{k}" for k in "hda"],
+            ],
+            0.07,
+        ),
+        (
+            [
+                [f"mkt_{phase}_bf_adaptive_{k}" for k in "hda"],
+                [f"mkt_{phase}_bf_power_{k}" for k in "hda"],
+            ],
+            0.04,
+        ),
+        (
+            [
+                [f"mkt_{phase}_ah_implied_{k}" for k in "hda"],
+            ],
+            0.03,
+        ),
+        (
+            [
+                [f"mkt_{phase}_b365_mx_debiased_{k}" for k in "hda"],
+                [f"mkt_{phase}_b365_adaptive_{k}" for k in "hda"],
+                [f"mkt_{phase}_b365_power_{k}" for k in "hda"],
+            ],
+            0.02,
+        ),
     ]
+
     num = np.zeros((n, 3), dtype=float)
     den = np.zeros((n, 1), dtype=float)
-    for cols, w in sources_weights:
-        if all(c in df.columns for c in cols):
+    for candidates, w in source_specs:
+        cols = _first_available_triple(df, candidates)
+        if cols is not None:
             mat = df[cols].to_numpy(dtype=float)
             ok = np.all(np.isfinite(mat), axis=1) & (mat.sum(axis=1) > 0.5)
             if ok.any():
-                mat_norm = np.where(ok[:, None], mat / np.where(ok[:, None], mat.sum(axis=1, keepdims=True), 1.0), 0.0)
+                mat_norm = np.where(
+                    ok[:, None],
+                    mat / np.where(ok[:, None], mat.sum(axis=1, keepdims=True), 1.0),
+                    0.0,
+                )
                 num += w * mat_norm
                 den += np.where(ok[:, None], w, 0.0)
 
@@ -144,17 +229,18 @@ def build_consensus_market_probs(df: pd.DataFrame, phase: str) -> tuple[np.ndarr
 
 
 def stack_features(pA: np.ndarray, pM: np.ndarray, pCons: np.ndarray, df: pd.DataFrame, phase: str) -> np.ndarray:
-    """Construye la matriz de features para Motor B/C combinando logits, divergencias Sharp/AH y señales v2.1."""
+    """Construye la matriz de features para `PitchLab Singularity v3.0` combinando logits,
+    divergencias Sharp/Exchange/AH, régimen de overround (`w_shin`), sesgo MX y señales tácticas."""
     log_pA = logit(pA)
     log_pM = logit(pM)
     log_pC = logit(pCons)
     res_CA = log_pC - log_pA
     res_CM = log_pC - log_pM
 
-    def col_or_zero(name: str, scale: float = 1.0) -> np.ndarray:
+    def col_or_zero(name: str, scale: float = 1.0, fill: float = 0.0) -> np.ndarray:
         if name in df.columns:
-            return np.nan_to_num(df[name].to_numpy(dtype=float) / scale, nan=0.0)
-        return np.zeros(len(df), dtype=float)
+            return np.nan_to_num(df[name].to_numpy(dtype=float) / scale, nan=fill)
+        return np.full(len(df), fill, dtype=float)
 
     extras = [
         col_or_zero("elo_diff", 100.0),
@@ -170,11 +256,17 @@ def stack_features(pA: np.ndarray, pM: np.ndarray, pCons: np.ndarray, df: pd.Dat
         col_or_zero(f"mkt_{phase}_sharp_vs_b365_h", 1.0),
         col_or_zero(f"mkt_{phase}_sharp_vs_b365_d", 1.0),
         col_or_zero(f"mkt_{phase}_sharp_vs_b365_a", 1.0),
+        col_or_zero(f"mkt_{phase}_exchange_vs_b365_h", 1.0),
+        col_or_zero(f"mkt_{phase}_exchange_vs_b365_d", 1.0),
+        col_or_zero(f"mkt_{phase}_exchange_vs_b365_a", 1.0),
         col_or_zero(f"mkt_{phase}_ah_vs_b365_h", 1.0),
         col_or_zero(f"mkt_{phase}_ah_vs_b365_a", 1.0),
         col_or_zero(f"mkt_{phase}_max_over_avg_h", 1.0),
         col_or_zero(f"mkt_{phase}_max_over_avg_a", 1.0),
-        col_or_zero(f"tot_{phase}_implied_goals", 3.0),
+        col_or_zero(f"mkt_{phase}_b365_w_shin", 1.0, fill=0.5),
+        col_or_zero(f"mkt_{phase}_best_overround", 1.0, fill=0.0),
+        col_or_zero("mkt_mx_popular_diff", 1.0),
+        col_or_zero(f"tot_{phase}_implied_goals", 3.0, fill=2.65 / 3.0),
     ]
     return np.column_stack([log_pC, log_pM, log_pA, res_CA, res_CM] + extras)
 
@@ -191,15 +283,34 @@ def _residual_components(pA: np.ndarray, pCons: np.ndarray, df: pd.DataFrame, ph
     diffDC = logit(dc_p) - logC
 
     sh = np.column_stack([
-        np.nan_to_num(df.get(f"mkt_{phase}_sharp_vs_b365_{k}", pd.Series(0.0, index=df.index)).to_numpy(dtype=float), nan=0.0)
+        np.nan_to_num(
+            df.get(f"mkt_{phase}_sharp_vs_b365_{k}", pd.Series(0.0, index=df.index)).to_numpy(dtype=float),
+            nan=0.0,
+        )
+        for k in "hda"
+    ])
+    exch = np.column_stack([
+        np.nan_to_num(
+            df.get(f"mkt_{phase}_exchange_vs_b365_{k}", pd.Series(0.0, index=df.index)).to_numpy(dtype=float),
+            nan=0.0,
+        )
         for k in "hda"
     ])
     ah = np.column_stack([
-        np.nan_to_num(df.get(f"mkt_{phase}_ah_vs_b365_{k}", pd.Series(0.0, index=df.index)).to_numpy(dtype=float), nan=0.0)
+        np.nan_to_num(
+            df.get(f"mkt_{phase}_ah_vs_b365_{k}", pd.Series(0.0, index=df.index)).to_numpy(dtype=float),
+            nan=0.0,
+        )
         for k in "hda"
     ])
-    tot_goals = np.nan_to_num(df.get(f"tot_{phase}_implied_goals", pd.Series(2.65, index=df.index)).to_numpy(dtype=float), nan=2.65)
-    elo_cl = np.nan_to_num(df.get("elo_closeness", pd.Series(0.5, index=df.index)).to_numpy(dtype=float), nan=0.5)
+    tot_goals = np.nan_to_num(
+        df.get(f"tot_{phase}_implied_goals", pd.Series(2.65, index=df.index)).to_numpy(dtype=float),
+        nan=2.65,
+    )
+    elo_cl = np.nan_to_num(
+        df.get("elo_closeness", pd.Series(0.5, index=df.index)).to_numpy(dtype=float),
+        nan=0.5,
+    )
     low_tot_draw = (2.65 - np.clip(tot_goals, 1.6, 3.8)) * elo_cl
     draw_vec = np.column_stack([np.zeros(len(df)), low_tot_draw, np.zeros(len(df))])
 
@@ -210,18 +321,26 @@ def _residual_components(pA: np.ndarray, pCons: np.ndarray, df: pd.DataFrame, ph
         + 0.15 * np.nan_to_num(df.get("xgd_regime_shift_diff", pd.Series(0.0, index=df.index)).to_numpy(dtype=float), nan=0.0)
     )
     tact_vec = np.column_stack([tact, np.zeros(len(df)), -tact])
-    return logC, diffBase, diffA, diffDC, sh, ah, draw_vec, tact_vec
+
+    mx_pop = np.nan_to_num(
+        df.get("mkt_mx_popular_diff", pd.Series(0.0, index=df.index)).to_numpy(dtype=float),
+        nan=0.0,
+    )
+    mx_vec = np.column_stack([-mx_pop, 0.45 * np.abs(mx_pop), mx_pop])
+    return logC, diffBase, diffA, diffDC, sh, exch, ah, draw_vec, tact_vec, mx_vec
 
 
 def fit_residual_tilting(y: np.ndarray, pA: np.ndarray, pCons: np.ndarray, df: pd.DataFrame, phase: str):
-    """Ajusta un modelo de corrección residual v2.1 anclado al super-consenso:
-    Combina temperatura, diferencial PS-vs-Consenso, Motor A (Tachyon), Dixon-Coles,
-    Sharp-vs-Soft, Handicap Asiático, Totales implícitos (geometría del empate) y Opta-proxies tácticos.
+    """Ajusta el modelo de corrección residual `PitchLab Singularity v3.0` anclado al super-consenso:
+    Combina temperatura, diferencial Base-vs-Consenso, Motor A (`Tachyon v3.0`), Dixon-Coles,
+    Sharp-vs-Soft, Ancla Exchange, Handicap Asiático, Geometría del Empate, proxies tácticos y residual MX.
     """
-    logC, diffBase, diffA, diffDC, sh, ah, draw_vec, tact_vec = _residual_components(pA, pCons, df, phase)
+    logC, diffBase, diffA, diffDC, sh, exch, ah, draw_vec, tact_vec, mx_vec = _residual_components(
+        pA, pCons, df, phase
+    )
 
     def loss(params):
-        tau, w_base, alpha_a, alpha_dc, w_sh, w_ah, w_tot, w_tact, b0, b1 = params
+        tau, w_base, alpha_a, alpha_dc, w_sh, w_exch, w_ah, w_tot, w_tact, w_mx, b0, b1 = params
         bias = np.array([b0, b1, -(b0 + b1)])
         z = (
             tau * logC
@@ -229,36 +348,53 @@ def fit_residual_tilting(y: np.ndarray, pA: np.ndarray, pCons: np.ndarray, df: p
             + alpha_a * diffA
             + alpha_dc * diffDC
             + w_sh * sh
+            + w_exch * exch
             + w_ah * ah
             + w_tot * draw_vec
             + w_tact * tact_vec
+            + w_mx * mx_vec
             + bias
         )
         p = softmax(z)
         nll = -np.mean(np.log(np.clip(p[np.arange(len(y)), y], 1e-15, 1.0)))
         reg = 2e-3 * (
-            (tau - 1.0) ** 2 + w_base ** 2 + alpha_a ** 2 + alpha_dc ** 2
-            + w_sh ** 2 + w_ah ** 2 + w_tot ** 2 + w_tact ** 2 + b0 ** 2 + b1 ** 2
+            (tau - 1.0) ** 2
+            + w_base ** 2
+            + alpha_a ** 2
+            + alpha_dc ** 2
+            + w_sh ** 2
+            + w_exch ** 2
+            + w_ah ** 2
+            + w_tot ** 2
+            + w_tact ** 2
+            + w_mx ** 2
+            + b0 ** 2
+            + b1 ** 2
         )
         return float(nll + reg)
 
-    res = minimize(loss, x0=[1.0, 0.20, 0.06, 0.02, 0.20, 0.10, 0.05, 0.01, 0.0, 0.0], method="BFGS")
+    x0 = [1.0, 0.20, 0.06, 0.02, 0.20, 0.06, 0.10, 0.05, 0.01, 0.02, 0.0, 0.0]
+    res = minimize(loss, x0=x0, method="BFGS")
     return res.x
 
 
 def predict_residual_tilting(params, pA: np.ndarray, pCons: np.ndarray, df: pd.DataFrame, phase: str) -> np.ndarray:
-    tau, w_base, alpha_a, alpha_dc, w_sh, w_ah, w_tot, w_tact, b0, b1 = params
+    tau, w_base, alpha_a, alpha_dc, w_sh, w_exch, w_ah, w_tot, w_tact, w_mx, b0, b1 = params
     bias = np.array([b0, b1, -(b0 + b1)])
-    logC, diffBase, diffA, diffDC, sh, ah, draw_vec, tact_vec = _residual_components(pA, pCons, df, phase)
+    logC, diffBase, diffA, diffDC, sh, exch, ah, draw_vec, tact_vec, mx_vec = _residual_components(
+        pA, pCons, df, phase
+    )
     z = (
         tau * logC
         + w_base * diffBase
         + alpha_a * diffA
         + alpha_dc * diffDC
         + w_sh * sh
+        + w_exch * exch
         + w_ah * ah
         + w_tot * draw_vec
         + w_tact * tact_vec
+        + w_mx * mx_vec
         + bias
     )
     return softmax(z)
@@ -270,6 +406,135 @@ def fallback(pA, pM, out):
     out = out.copy()
     out[fb] = pA[fb]
     return out, fb
+
+
+def evaluate_geodesic_v2_oos(pred_df: pd.DataFrame, full_df: pd.DataFrame, phase: str) -> dict:
+    """Evalúa out-of-sample el selector `PitchLab Geodesic v2.0` (Quarter-Kelly + Gate Anti-RLM/Sharp)
+    sobre las cuotas históricas de ejecución (`b365` -> `avg` -> `ps`)."""
+    odds_triples = [
+        ("b365", [f"odds_{phase}_b365_{k}" for k in "hda"]),
+        ("avg", [f"odds_{phase}_avg_{k}" for k in "hda"]),
+        ("ps", [f"odds_{phase}_ps_{k}" for k in "hda"]),
+    ]
+    chosen_src, chosen_odds_cols = None, None
+    for src, cols in odds_triples:
+        if all(c in full_df.columns for c in cols):
+            chosen_src, chosen_odds_cols = src, cols
+            break
+    if chosen_odds_cols is None or pred_df.empty:
+        return {
+            "codename": CODENAME_GEODESIC_V2,
+            "evaluated_matches": 0,
+            "odds_source": None,
+        }
+
+    keep_cols = ["match_id", "mh", "md", "ma"] + chosen_odds_cols
+    for k in "hda":
+        sh_col = f"mkt_{phase}_sharp_vs_b365_{k}"
+        if sh_col in full_df.columns:
+            keep_cols.append(sh_col)
+    if "ah_supremacy_move" in full_df.columns and phase == "close":
+        keep_cols.append("ah_supremacy_move")
+
+    merged = pred_df.merge(full_df[keep_cols].drop_duplicates("match_id"), on="match_id", how="inner")
+    odds_mat = merged[chosen_odds_cols].to_numpy(dtype=float)
+    probs_mat = merged[["p_home", "p_draw", "p_away"]].to_numpy(dtype=float)
+    mkt_mat = merged[["mh", "md", "ma"]].to_numpy(dtype=float)
+    y_arr = merged["y"].to_numpy(dtype=int)
+
+    valid = (
+        np.all(np.isfinite(odds_mat), axis=1)
+        & np.all(odds_mat > 1.0, axis=1)
+        & np.all(np.isfinite(probs_mat), axis=1)
+    )
+    if not np.any(valid):
+        return {
+            "codename": CODENAME_GEODESIC_V2,
+            "evaluated_matches": 0,
+            "odds_source": chosen_src,
+        }
+
+    # Proxy histórico de divergencia Sharp-vs-Soft (puntos porcentuales escalados: 1 pp prob ≈ 3.0 pp split gap)
+    sh_h = (
+        np.nan_to_num(merged[f"mkt_{phase}_sharp_vs_b365_h"].to_numpy(dtype=float), nan=0.0) * 300.0
+        if f"mkt_{phase}_sharp_vs_b365_h" in merged.columns
+        else np.zeros(len(merged), dtype=float)
+    )
+    sh_d = (
+        np.nan_to_num(merged[f"mkt_{phase}_sharp_vs_b365_d"].to_numpy(dtype=float), nan=0.0) * 300.0
+        if f"mkt_{phase}_sharp_vs_b365_d" in merged.columns
+        else np.zeros(len(merged), dtype=float)
+    )
+    sh_a = (
+        np.nan_to_num(merged[f"mkt_{phase}_sharp_vs_b365_a"].to_numpy(dtype=float), nan=0.0) * 300.0
+        if f"mkt_{phase}_sharp_vs_b365_a" in merged.columns
+        else np.zeros(len(merged), dtype=float)
+    )
+
+    # Pre-filtro rápido sobre candidatos con EV bruto positivo para evaluar `evaluate_geodesic_v2_value_gate`
+    raw_ev_mat = probs_mat * odds_mat - 1.0
+    max_raw_ev = np.where(valid, raw_ev_mat.max(axis=1), -1.0)
+    cand_indices = np.where(valid & (max_raw_ev >= 0.02))[0]
+
+    side_to_idx = {"home": 0, "draw": 1, "away": 2}
+    raw_value_count = 0
+    vetoed_count = 0
+    exec_count = 0
+    confirmed_count = 0
+    total_staked = 0.0
+    total_pnl = 0.0
+    vetoed_unit_pnl = 0.0
+
+    for idx in cand_indices:
+        mkt_p = mkt_mat[idx].tolist() if np.all(np.isfinite(mkt_mat[idx])) else None
+        rlm_side = "none"
+        if sh_h[idx] >= 12.0:
+            rlm_side = "home"
+        elif sh_a[idx] >= 12.0:
+            rlm_side = "away"
+
+        gate = evaluate_geodesic_v2_value_gate(
+            {
+                "probs": probs_mat[idx].tolist(),
+                "odds": odds_mat[idx].tolist(),
+                "marketProbs": mkt_p,
+                "reverseLineMovementSide": rlm_side,
+                "sharpMoneyDivergenceHomePct": float(sh_h[idx]),
+                "sharpMoneyDivergenceDrawPct": float(sh_d[idx]),
+                "sharpMoneyDivergenceAwayPct": float(sh_a[idx]),
+            }
+        )
+        if not gate["uncertaintyGatePassed"]:
+            continue
+        raw_value_count += 1
+        best_bet = gate["bestBet"]
+        if best_bet is not None and best_bet["recommendedStake"] > 0.0:
+            exec_count += 1
+            if best_bet["institutionalConfirmation"]:
+                confirmed_count += 1
+            stake = float(best_bet["recommendedStake"])
+            s_idx = side_to_idx[best_bet["side"]]
+            won = 1.0 if y_arr[idx] == s_idx else 0.0
+            total_staked += stake
+            total_pnl += stake * (odds_mat[idx, s_idx] * won - 1.0)
+        elif gate["vetoedByRlm"] and gate["topRawValueSide"] in side_to_idx:
+            vetoed_count += 1
+            v_idx = side_to_idx[gate["topRawValueSide"]]
+            won_v = 1.0 if y_arr[idx] == v_idx else 0.0
+            vetoed_unit_pnl += odds_mat[idx, v_idx] * won_v - 1.0
+
+    return {
+        "codename": CODENAME_GEODESIC_V2,
+        "odds_source": chosen_src,
+        "evaluated_matches": int(valid.sum()),
+        "actionable_candidates_after_uncertainty_gate": raw_value_count,
+        "vetoed_by_anti_rlm_or_adverse_sharp": vetoed_count,
+        "executable_bets": exec_count,
+        "institutionally_confirmed_bets": confirmed_count,
+        "mean_quarter_kelly_stake": round(float(total_staked / exec_count), 6) if exec_count > 0 else 0.0,
+        "realized_roi_executable": round(float(total_pnl / total_staked), 6) if total_staked > 0 else 0.0,
+        "realized_flat_roi_vetoed_bets": round(float(vetoed_unit_pnl / vetoed_count), 6) if vetoed_count > 0 else 0.0,
+    }
 
 
 def main():
@@ -315,15 +580,23 @@ def main():
     mk = pd.read_parquet(os.path.join(PROC, "features_market.parquet"))
     phase = args.phase
     mk_cols = ["match_id"] + [
-        c for c in mk.columns if c.startswith("mkt_") or c.startswith("tot_") or c.startswith("ah_")
+        c
+        for c in mk.columns
+        if (
+            c.startswith("mkt_")
+            or c.startswith("tot_")
+            or c.startswith("ah_")
+            or c.startswith(f"odds_{phase}_")
+        )
+        and c not in pa.columns
     ]
     df = pa.merge(mk[mk_cols], on="match_id", how="left")
 
     p_base_all, p_cons_all = build_consensus_market_probs(df, phase)
     df["cons_h"], df["cons_d"], df["cons_a"] = p_cons_all[:, 0], p_cons_all[:, 1], p_cons_all[:, 2]
     print(
-        f"fase {phase}: mercado disponible en {df.market_ok.mean():.1%} de los partidos; "
-        f"fuentes: {df.loc[df.market_ok,'market_src'].value_counts().to_dict()}"
+        f"[{CODENAME_SINGULARITY_V3}] fase {phase}: mercado disponible en {df.market_ok.mean():.1%} de los partidos; "
+        f"fuentes primarias: {df.loc[df.market_ok,'market_src'].value_counts().to_dict()}"
     )
 
     seasons = sorted(df.sstart.unique())
@@ -337,6 +610,7 @@ def main():
             "residual_logit",
             "stack_hgb",
             "ensemble_b",
+            "singularity_v3",
         )
     }
     weights = {}
@@ -365,7 +639,7 @@ def main():
             k: test[k].values for k in ("match_id", "div", "season", "match_date", "y")
         }
 
-        # 1. mercado puro (benchmark de referencia)
+        # 1. mercado puro (benchmark de referencia con de-vig adaptativo v3.0)
         if test.market_ok.any():
             m_mask = test.market_ok.values
             results["market"].append(
@@ -394,7 +668,7 @@ def main():
             pd.DataFrame({**row_meta, "p_home": out[:, 0], "p_draw": out[:, 1], "p_away": out[:, 2]})
         )
 
-        # 4. stacking logístico regularizado con señales multi-mercado
+        # 4. stacking logístico regularizado con señales multi-mercado v3.0
         Xtr = stack_features(pA_tr, pM_tr, pC_tr, tr, phase)
         Xte = stack_features(pA_te, pM_te_safe, pC_te_safe, test, phase)
         lr = make_pipeline(
@@ -408,7 +682,7 @@ def main():
             pd.DataFrame({**row_meta, "p_home": out[:, 0], "p_draw": out[:, 1], "p_away": out[:, 2]})
         )
 
-        # 5. corrección residual anclada a mercado (sin doble conteo de prior)
+        # 5. corrección residual anclada a mercado (`Singularity v3.0`, sin doble conteo de prior)
         tilt_params = fit_residual_tilting(y_tr, pA_tr, pC_tr, tr, phase)
         out_res = predict_residual_tilting(tilt_params, pA_te, pC_te_safe, test, phase)
         out, _ = fallback(pA_te, pC_te, out_res)
@@ -446,6 +720,10 @@ def main():
             ids = ids.intersection(pivot[k].index)
         meta = dfs[members[0]].set_index("match_id").reindex(ids)
         val = ids[meta["season"].map(season_of) == 2023]
+        if len(val) == 0:
+            # Fallback seguro para particiones sintéticas o ventanas sin temporada 2023
+            latest_val_s = int(meta["season"].map(season_of).max())
+            val = ids[meta["season"].map(season_of) == latest_val_s]
         yv = meta.reindex(val)["y"].to_numpy()
         Pv = np.stack([pivot[k].reindex(val).to_numpy() for k in members])
 
@@ -457,33 +735,55 @@ def main():
         z = minimize(obj, np.zeros(len(members)), method="Nelder-Mead", options={"maxiter": 4000}).x
         w = np.exp(z - z.max())
         w /= w.sum()
-        print("ensemble_b pesos:", dict(zip(members, w.round(3))))
+        print(f"[{CODENAME_SINGULARITY_V3}] pesos óptimos en val:", dict(zip(members, w.round(3))))
         mixp = np.zeros((len(ids), 3))
         for wk, k in zip(w, members):
             mixp += wk * pivot[k].reindex(ids).to_numpy()
         ens = meta[["div", "season", "match_date", "y"]].copy()
         ens["p_home"], ens["p_draw"], ens["p_away"] = mixp[:, 0], mixp[:, 1], mixp[:, 2]
-        dfs["ensemble_b"] = ens.reset_index()
+        ens_reset = ens.reset_index()
+        dfs["ensemble_b"] = ens_reset
+        dfs["singularity_v3"] = ens_reset.copy()
         W = dict(zip(members, w.round(4).tolist()))
     else:
         W = {}
 
+    geodesic_target = dfs.get("singularity_v3", dfs.get("residual_logit", pd.DataFrame()))
+    geodesic_summary = evaluate_geodesic_v2_oos(geodesic_target, df, phase)
+
     for name, p in dfs.items():
         p.to_csv(os.path.join(outdir, f"pred_{name}.csv"), index=False)
+
+    scenario_metrics = {}
+    for name, p in dfs.items():
+        probs_arr = p[["p_home", "p_draw", "p_away"]].to_numpy()
+        y_vec = p.y.to_numpy()
+        scenario_metrics[name] = {
+            "n": int(len(p)),
+            "logloss": round(logloss(y_vec, probs_arr), 6),
+            "brier": round(brier_multi(y_vec, probs_arr), 6),
+        }
+
     cfg = {
+        "codename_singularity": CODENAME_SINGULARITY_V3,
+        "codename_geodesic": CODENAME_GEODESIC_V2,
+        "version": MODEL_VERSION_V3,
         "base_motor_a": args.base,
         "market_phase": phase,
         "ensemble_weights": W,
         "first_season": FIRST,
         "market_coverage": float(df.market_ok.mean()),
         "market_sources": df.loc[df.market_ok, "market_src"].value_counts().to_dict(),
+        "scenario_metrics": scenario_metrics,
+        "geodesic_v2_oos_evaluation": geodesic_summary,
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
     }
     with open(os.path.join(outdir, "config.json"), "w", encoding="utf-8") as f:
-        json.dump(cfg, f, indent=1)
+        json.dump(cfg, f, indent=2)
     print(f"escrito -> {outdir}")
-    for name, p in dfs.items():
-        print(name, len(p), round(logloss(p.y.to_numpy(), p[["p_home", "p_draw", "p_away"]].to_numpy()), 4))
+    for name, m in scenario_metrics.items():
+        print(f"  {name:<16s} n={m['n']:,}  logloss={m['logloss']:.4f}  brier={m['brier']:.4f}")
+    print(f"  [{CODENAME_GEODESIC_V2}] {geodesic_summary}")
 
 
 if __name__ == "__main__":

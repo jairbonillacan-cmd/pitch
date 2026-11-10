@@ -102,7 +102,17 @@
   "pts_res_ewm5_diff",
   "gd_res_ewm5_diff",
   "sot_diff_r10",
-  "corners_diff_r10"
+  "corners_diff_r10",
+  "has_real_xg_history",
+  "xg_elo_diff",
+  "xg_elo_vs_elo_diff",
+  "pts_minus_xpts_diff_r10",
+  "xpts_diff_r10",
+  "ppda_diff_r10",
+  "deep_completions_diff_r10",
+  "altitude_diff_m",
+  "altitude_shock_flag",
+  "surface_pressure_diff"
  ],
  "SEED": 20261109,
  "DEV_END": 2022,
@@ -112,12 +122,11 @@
   2025
  ],
  "MIN_TRAIN_SEASONS": 3,
- "FIRST_EVAL_SEASON": 2005,
+ "FIRST_EVAL_SEASON": 2018,
  "models": [
   "base_rate",
   "elo_ordered",
   "hgb",
-  "logit",
-  "poisson_dc"
+  "logit"
  ]
 }

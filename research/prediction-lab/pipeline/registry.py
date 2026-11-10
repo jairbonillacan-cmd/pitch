@@ -39,7 +39,7 @@ def sha256_file(path: str) -> str:
 def load_registry(path: str) -> dict:
     if not os.path.exists(path):
         return {"schema_version": SCHEMA_VERSION, "updated_at": None, "models": []}
-    with open(path) as f:
+    with open(path, encoding="utf-8") as f:
         data = json.load(f)
     if data.get("schema_version") != SCHEMA_VERSION:
         raise SystemExit(f"schema_version no soportada: {data.get('schema_version')}")
@@ -50,15 +50,28 @@ def save_registry(path: str, data: dict) -> None:
     os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
     data["updated_at"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
     tmp = path + ".tmp"
-    with open(tmp, "w") as f:
+    with open(tmp, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=1, sort_keys=True)
     os.replace(tmp, path)
 
 
 def validate_artifact(path: str, sport: str) -> dict:
     """Valida esquema mínimo del artefacto y devuelve un resumen."""
-    with open(path) as f:
+    with open(path, encoding="utf-8") as f:
         art = json.load(f)
+    if sport == "multisport":
+        sports = art.get("sports")
+        if not isinstance(sports, dict):
+            raise SystemExit("artefacto multisport inválido: falta `sports`")
+        for req_s in ("nhl", "mlb", "nba", "ncaaf"):
+            if req_s not in sports or not isinstance(sports[req_s].get("teams"), dict):
+                raise SystemExit(f"artefacto multisport inválido: falta {req_s}.teams")
+        total_teams = sum(len(sports[s]["teams"]) for s in ("nhl", "mlb", "nba", "ncaaf"))
+        return {
+            "n_features": total_teams,
+            "version": art.get("version"),
+            "created_at": art.get("created_at"),
+        }
     if sport == "football":
         needed = ["features", "coef", "intercept", "scaler", "classes", "n_features_base", "div_levels"]
     elif sport == "nfl":
@@ -194,7 +207,7 @@ def main(argv=None) -> int:
     sub = ap.add_subparsers(dest="cmd", required=True)
     r = sub.add_parser("register")
     r.add_argument("--model-id", required=True)
-    r.add_argument("--sport", required=True, choices=["football", "nfl"])
+    r.add_argument("--sport", required=True, choices=["football", "nfl", "multisport"])
     r.add_argument("--version", required=True)
     r.add_argument("--artifact", required=True)
     r.add_argument("--val-log-loss", type=float)

@@ -56,6 +56,9 @@ def main():
         "../../src/data/prediction/features_snapshot.json",
         "../../src/data/prediction/nfl_snapshot.json",
         "../../src/data/prediction/fixture_requests.json",
+        "../../src/data/prediction/multisport_snapshot.json",
+        "../../src/data/prediction/market_v3_snapshot.json",
+        "../../src/data/prediction/live_matchday_v3_snapshot.json",
     ]
     snap_ok = all(os.path.exists(os.path.join(ROOT, s)) for s in snaps)
     report["blocks"]["snapshots"] = {"ok": snap_ok, "files": snaps}

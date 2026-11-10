@@ -1,11 +1,12 @@
 {
- "generated_at": "2026-11-10T19:00:34+00:00",
+ "generated_at": "2026-11-10T22:09:47+00:00",
  "blocks": {
   "registry": {
    "ok": true,
    "models": [
     "motor_a_logistic_v1",
-    "nfl_logistic_v1"
+    "nfl_logistic_v1",
+    "multisport_spacetime_v3"
    ]
   },
   "snapshots": {
@@ -13,14 +14,17 @@
    "files": [
     "../../src/data/prediction/features_snapshot.json",
     "../../src/data/prediction/nfl_snapshot.json",
-    "../../src/data/prediction/fixture_requests.json"
+    "../../src/data/prediction/fixture_requests.json",
+    "../../src/data/prediction/multisport_snapshot.json",
+    "../../src/data/prediction/market_v3_snapshot.json",
+    "../../src/data/prediction/live_matchday_v3_snapshot.json"
    ]
   },
   "ts_parity": {
    "ok": true,
    "cmd": "C:\\Program Files\\nodejs\\npx.CMD vitest run tests/prediction",
    "returncode": 0,
-   "stdout_tail": "0 partidos / 600 comparaciones; max|\u0394|=4.991e-13 (SP1:20260915:alaves:valencia A); mean|\u0394|=2.531e-13; >1e-12=0\n\n\u001b[90mstdout\u001b[2m | tests/prediction/engine.test.ts\u001b[2m > \u001b[22m\u001b[2mA10 \u2014 nulls e imputaci\u00f3n\u001b[2m > \u001b[22m\u001b[2mhay al menos 10 filas con nulls y el imputer usa la mediana del artefacto\n\u001b[22m\u001b[39m[A10] nulls: 104/200 filas con al menos un null; todas igualan la imputaci\u00f3n expl\u00edcita por mediana\n\n \u001b[32m\u2713\u001b[39m tests/prediction/engine.test.ts \u001b[2m(\u001b[22m\u001b[2m23 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[33m 723\u001b[2mms\u001b[22m\u001b[39m\n\n\u001b[2m Test Files \u001b[22m \u001b[1m\u001b[32m6 passed\u001b[39m\u001b[22m\u001b[90m (6)\u001b[39m\n\u001b[2m      Tests \u001b[22m \u001b[1m\u001b[32m89 passed\u001b[39m\u001b[22m\u001b[90m (89)\u001b[39m\n\u001b[2m   Start at \u001b[22m 13:00:41\n\u001b[2m   Duration \u001b[22m 7.30s\u001b[2m (transform 7.52s, setup 0ms, collect 13.34s, tests 2.09s, environment 3ms, prepare 10.06s)\u001b[22m\n\n",
+   "stdout_tail": "16\n\n\u001b[90mstdout\u001b[2m | tests/prediction/multisport_and_v3.test.ts\u001b[2m > \u001b[22m\u001b[2mA26.4 \u2014 Puente unificado < 1 ms sobre los 242 enfrentamientos activos en 11 ligas\u001b[2m > \u001b[22m\u001b[2mejecuta predictLiveEdgeMatrix en < 1 ms/matchup con paridad < 1e-12 en las 11 ligas (242 matchups)\n\u001b[22m\u001b[39m[A26.4] Live Edge Matrix 242 matchups / 11 leagues: total=32.58 ms (0.1346 ms/matchup), max|\u0394|=4.441e-16\n\n \u001b[32m\u2713\u001b[39m tests/prediction/multisport_and_v3.test.ts \u001b[2m(\u001b[22m\u001b[2m7 tests\u001b[22m\u001b[2m)\u001b[22m\u001b[90m 261\u001b[2mms\u001b[22m\u001b[39m\n\n\u001b[2m Test Files \u001b[22m \u001b[1m\u001b[32m7 passed\u001b[39m\u001b[22m\u001b[90m (7)\u001b[39m\n\u001b[2m      Tests \u001b[22m \u001b[1m\u001b[32m97 passed\u001b[39m\u001b[22m\u001b[90m (97)\u001b[39m\n\u001b[2m   Start at \u001b[22m 16:09:50\n\u001b[2m   Duration \u001b[22m 7.87s\u001b[2m (transform 8.76s, setup 0ms, collect 16.68s, tests 1.70s, environment 4ms, prepare 7.76s)\u001b[22m\n\n",
    "stderr_tail": ""
   },
   "eval_tests": {
@@ -28,21 +32,21 @@
    "cmd": "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\prediction-lab\\research\\prediction-lab\\.venv\\Scripts\\python.exe -m unittest discover -s eval/tests -p test_*.py",
    "returncode": 0,
    "stdout_tail": "",
-   "stderr_tail": "..........................................................................................................\n----------------------------------------------------------------------\nRan 106 tests in 27.046s\n\nOK\n"
+   "stderr_tail": "ly the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`\n  long[f\"venue_{col}_r5\"] = v_df[col]\nC:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\prediction-lab\\research\\prediction-lab\\features\\build_features.py:422: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`\n  long[f\"venue_{col}_r5\"] = v_df[col]\n...........\n----------------------------------------------------------------------\nRan 111 tests in 24.122s\n\nOK\n"
   },
   "etl_tests": {
    "ok": true,
    "cmd": "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\prediction-lab\\research\\prediction-lab\\.venv\\Scripts\\python.exe -m unittest discover -s etl/tests -p test_*.py",
    "returncode": 0,
    "stdout_tail": "",
-   "stderr_tail": "...........\n----------------------------------------------------------------------\nRan 11 tests in 83.014s\n\nOK\n"
+   "stderr_tail": "...........\n----------------------------------------------------------------------\nRan 11 tests in 45.664s\n\nOK\n"
   },
   "registry_tests": {
    "ok": true,
    "cmd": "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\prediction-lab\\research\\prediction-lab\\.venv\\Scripts\\python.exe -m unittest discover -s pipeline/tests -p test_*.py",
    "returncode": 0,
-   "stdout_tail": "l\\\\Temp\\\\tmpm62gu99f\\\\model.json\",\n     \"artifact_sha256\": \"02a29d9e8309c425711de4cc4093d473c7eb6a806e7fd42512c8beb622e3c2fa\",\n     \"metrics\": {\n      \"metrics_path\": null,\n      \"test_log_loss\": 1.0,\n      \"val_log_loss\": 1.0\n     },\n     \"n_features\": 4,\n     \"notes\": \"\",\n     \"registered_at\": \"2026-11-10T19:03:00+00:00\",\n     \"version\": \"1.0.0\"\n    }\n   ]\n  }\n ],\n \"schema_version\": 1,\n \"updated_at\": \"2026-11-10T19:03:00+00:00\"\n}\nregistrado m1@1.0.0 sha=02a29d9e8309\u2026 status=candidate\nERROR: no se puede promover sin m\u00e9tricas val y test\nregistrado m1@1.0.0 sha=02a29d9e8309\u2026 status=candidate\nm1@1.0.0 promovido a deployed\nregistrado m1@1.0.0 sha=02a29d9e8309\u2026 status=candidate\nregistrado m1@1.0.0 sha=02a29d9e8309\u2026 status=candidate\nOK m1@1.0.0 sha=02a29d9e8309\u2026\nFALLO 1.0.0: sha256 no coincide\n",
-   "stderr_tail": ".......\n----------------------------------------------------------------------\nRan 7 tests in 1.104s\n\nOK\n"
+   "stdout_tail": "l\\\\Temp\\\\tmp7gyrv8xl\\\\model.json\",\n     \"artifact_sha256\": \"02a29d9e8309c425711de4cc4093d473c7eb6a806e7fd42512c8beb622e3c2fa\",\n     \"metrics\": {\n      \"metrics_path\": null,\n      \"test_log_loss\": 1.0,\n      \"val_log_loss\": 1.0\n     },\n     \"n_features\": 4,\n     \"notes\": \"\",\n     \"registered_at\": \"2026-11-10T22:11:21+00:00\",\n     \"version\": \"1.0.0\"\n    }\n   ]\n  }\n ],\n \"schema_version\": 1,\n \"updated_at\": \"2026-11-10T22:11:21+00:00\"\n}\nregistrado m1@1.0.0 sha=02a29d9e8309\u2026 status=candidate\nERROR: no se puede promover sin m\u00e9tricas val y test\nregistrado m1@1.0.0 sha=02a29d9e8309\u2026 status=candidate\nm1@1.0.0 promovido a deployed\nregistrado m1@1.0.0 sha=02a29d9e8309\u2026 status=candidate\nregistrado m1@1.0.0 sha=02a29d9e8309\u2026 status=candidate\nOK m1@1.0.0 sha=02a29d9e8309\u2026\nFALLO 1.0.0: sha256 no coincide\n",
+   "stderr_tail": ".......\n----------------------------------------------------------------------\nRan 7 tests in 0.318s\n\nOK\n"
   },
   "data_hashes": {
    "ok": true,
@@ -51,8 +55,8 @@
     "bytes": 10350697
    },
    "data/processed/features.parquet": {
-    "sha256": "43afe3208a6c32cc2864146a9436d5b7ba33931580b006a1e16736d2c2ecb29c",
-    "bytes": 264795516
+    "sha256": "c478e8c7b0286a837c122bcb71a1fd826913235687878726e4d359be4de1a667",
+    "bytes": 309131137
    }
   }
  },

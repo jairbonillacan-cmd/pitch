@@ -26,6 +26,10 @@ import sys
 import time
 from datetime import datetime, timezone
 
+os.environ.setdefault("OMP_NUM_THREADS", "1")
+os.environ.setdefault("OPENBLAS_NUM_THREADS", "1")
+os.environ.setdefault("MKL_NUM_THREADS", "1")
+
 import numpy as np
 import pandas as pd
 from scipy.optimize import minimize
@@ -38,10 +42,12 @@ from sklearn.preprocessing import StandardScaler
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 PROC = os.path.join(ROOT, "data", "processed")
+EXP_ROOT = os.path.join(ROOT, "experiments")
 ART = os.path.join(ROOT, "artifacts")
 sys.path.insert(0, ROOT)
 
 SEED = 20261109
+LOGIT_C = 0.02
 FEATURES = [
     # Bloque 1ª generación (54 features base)
     "elo_diff", "elo_diff_no_hfa", "elo_prob_home_nodraw", "elo_diff_x_progress",
@@ -56,7 +62,7 @@ FEATURES = [
     "home_prev_ppg", "away_prev_ppg", "home_prev_gf_pg", "home_prev_ga_pg",
     "away_prev_gf_pg", "away_prev_ga_pg", "home_prev_sot_pg", "away_prev_sot_pg",
     "lg_avg_total_prev", "lg_home_win_prev",
-    # Bloque 2ª generación (25 features estructurales y ajustadas por oponente)
+    # Bloque 2ª generación (29 features estructurales y ajustadas por oponente)
     "clubelo_diff",
     "pi_home_h", "pi_away_a", "pi_diff", "pi_exp_gd", "pi_overall_diff",
     "att_strength_home", "def_strength_home", "att_strength_away", "def_strength_away",
@@ -75,6 +81,17 @@ FEATURES = [
     "pts_res_diff_r10", "gd_res_diff_r10", "sos_diff_r10",
     "xgd_ewm5_diff", "pts_res_ewm5_diff", "gd_res_ewm5_diff",
     "sot_diff_r10", "corners_diff_r10",
+    # Bloque v3.0 (10 features podadas en VAL 2023: Real xG History + xG-Elo + xPTS Luck Gap + PPDA/Deep r10 + Altitud)
+    "has_real_xg_history",
+    "xg_elo_diff",
+    "xg_elo_vs_elo_diff",
+    "pts_minus_xpts_diff_r10",
+    "xpts_diff_r10",
+    "ppda_diff_r10",
+    "deep_completions_diff_r10",
+    "altitude_diff_m",
+    "altitude_shock_flag",
+    "surface_pressure_diff",
 ]
 TARGET = "y"
 DEV_END = 2022  # temporadas <= 2022/23
@@ -330,7 +347,7 @@ class HGBModel:
 def fit_logit(df):
     imp = SimpleImputer(strategy="median")
     sc = StandardScaler()
-    lr = LogisticRegression(max_iter=3000, C=0.05)
+    lr = LogisticRegression(max_iter=2000, tol=1e-4, C=LOGIT_C)
     X_df = pd.concat([df[FEATURES], pd.get_dummies(df["div"], prefix="div").astype(float)], axis=1)
     X_mat = sc.fit_transform(imp.fit_transform(X_df))
     days = (df.match_date.max() - df.match_date).dt.days.to_numpy(dtype=float)
@@ -458,13 +475,14 @@ def run_walk_forward(
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--tag", default="EXP01_baselines")
+    ap.add_argument("--tag", default="EXP01_baselines_20261109")
+    ap.add_argument("--outdir", default=os.path.join(EXP_ROOT, "EXP01_baselines_20261109"))
     ap.add_argument("--models", default="all")
     ap.add_argument("--folds-from", type=int, default=FIRST_EVAL_SEASON)
     ap.add_argument("--no-test", action="store_true", help="no mostrar métricas de test/live (evita snooping)")
     args = ap.parse_args()
-    tag = f"{args.tag}_{datetime.now().strftime('%Y%m%d')}"
-    outdir = os.path.join(ART, tag)
+    tag = args.tag
+    outdir = args.outdir if os.path.isabs(args.outdir) else os.path.join(ROOT, args.outdir)
     os.makedirs(outdir, exist_ok=True)
 
     bad = [

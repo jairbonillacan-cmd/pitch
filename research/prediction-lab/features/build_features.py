@@ -1,22 +1,33 @@
 #!/usr/bin/env python3
-"""Genera features causales (pre-partido) de 2ª generación para el Motor A.
+"""Genera features causales (pre-partido) de 3ª generación (`PitchLab Tachyon v3.0`) para el Motor A.
 
 Regla de oro: para predecir el partido m solo se usa información de partidos con
 `match_date < m.match_date` (estrictamente anterior). Todas las ventanas se construyen con
 `.shift(1)` dentro de la historia de cada equipo, y todos los sistemas de rating dinámicos
-(Elo, ClubElo inter-división, Pi-Ratings y Ataque/Defensa Dixon-Coles) se actualizan
+(Elo, xG-Elo, ClubElo inter-división, Pi-Ratings y Ataque/Defensa Dixon-Coles) se actualizan
 estrictamente después de emitir las features pre-partido.
+
+Novedades `Tachyon v3.0`:
+  1. Reemplazo jerárquico `Real xG > Proxy xG` (`ws_soccer_match_xg_2018_2026.parquet`, `0` leakage
+     de `post_shot_forecast_p_*`) + indicador causal `has_real_xg_history`.
+  2. Tracker dinámico causal `xG-Elo` (`elo_xg_home`, `elo_xg_away`, `xg_elo_diff`) y luck gap
+     clínico `pts_minus_xpts_diff_r5/r10` + `xpts_diff_r5/r10` (Understat real o Poisson `0..10` exacto).
+  3. Presión e invasión de área real Understat (`ppda_diff_r5/r10`, `deep_completions_diff_r5/r10`,
+     `npxgd_diff_r5/r10`) con `min_periods=2` y tratamiento neutro `0.0` idéntico a inferencia online.
+  4. Física invariante de altitud (`altitude_diff_m`, `altitude_shock_flag`, `surface_pressure_diff`).
+  5. Cero inyección de `ws_live_inference_context.json` en el histórico `2000–2026`.
 
 Uso:
     ./.venv/bin/python features/build_features.py
 
 Salida:
-    data/processed/features.parquet   (una fila por partido, features pre-partido + target)
-    data/processed/features.csv
-    reports/A05_feature_dictionary.md (catálogo generado)
+    data/processed/features.parquet
+    data/processed/feature_manifest.json
 """
 from __future__ import annotations
 
+import hashlib
+import json
 import os
 import sys
 from datetime import datetime, timezone
@@ -29,10 +40,17 @@ sys.path.insert(0, os.path.join(ROOT, "features"))
 
 from ratings_advanced import compute_advanced_ratings  # noqa: E402
 from tactical_optaproxies import (  # noqa: E402
+    UNDERSTAT_ROLL_COLS,
+    compute_altitude_physics_features,
     compute_match_xgot_and_tactical_proxies,
     compute_regime_shift_features,
+    compute_understat_diff_features,
+    load_understat_tactical_df,
 )
-from xg_proxy import compute_match_synthetic_xg  # noqa: E402
+from xg_proxy import (  # noqa: E402
+    compute_match_xg_hierarchical,
+    compute_poisson_xpts_and_score,
+)
 
 PROC = os.path.join(ROOT, "data", "processed")
 
@@ -42,6 +60,10 @@ ELO_K = 20.0
 ELO_HFA = 65.0
 ELO_SEASON_REGRESSION = 0.0
 ELO_MOV = True
+
+# Parámetros del tracker dinámico causal xG-Elo
+ELO_XG_K = 22.0
+ELO_XG_HFA = 65.0
 
 # Límite físico de días de descanso (evita outliers de hasta 8,477 días por reapariciones tras años)
 DAYS_REST_MIN = 1.0
@@ -118,6 +140,72 @@ def elo_block(
     return out
 
 
+def xg_elo_block(
+    df: pd.DataFrame,
+    k: float = ELO_XG_K,
+    hfa: float = ELO_XG_HFA,
+    season_reg: float = ELO_SEASON_REGRESSION,
+) -> pd.DataFrame:
+    """Tracker dinámico causal `xG-Elo` por `(div, equipo)`.
+
+    Antes del partido `t` emite `elo_xg_home`, `elo_xg_away` y `xg_elo_diff = elo_xg_home - elo_xg_away`.
+    Después del partido actualiza usando el score continuo Poisson `P(G_h > G_a) + 0.5 * P(G_h == G_a)`
+    derivado de `(xg_home, xg_away)` jerárquico (`Real xG > Shot Proxy > DC Shrinkage`).
+    """
+    dc_h = df["dc_lam_home"].to_numpy(dtype=float) if "dc_lam_home" in df.columns else None
+    dc_a = df["dc_lam_away"].to_numpy(dtype=float) if "dc_lam_away" in df.columns else None
+    xg_h, xg_a, has_shots_or_xg, has_real_xg = compute_match_xg_hierarchical(df, dc_h, dc_a)
+    _, score_xg_h = compute_poisson_xpts_and_score(xg_h, xg_a)
+
+    ratings: dict[tuple[str, str], float] = {}
+    last_season: dict[tuple[str, str], str] = {}
+
+    n = len(df)
+    elo_xg_h = np.empty(n, dtype=float)
+    elo_xg_a = np.empty(n, dtype=float)
+    elo_xg_h_post = np.empty(n, dtype=float)
+    elo_xg_a_post = np.empty(n, dtype=float)
+
+    divs = df["div"].tolist()
+    seasons = df["season"].tolist()
+    homes = df["home_team"].tolist()
+    aways = df["away_team"].tolist()
+
+    for i in range(n):
+        div, season = divs[i], seasons[i]
+        hk, ak = (div, homes[i]), (div, aways[i])
+        for key in (hk, ak):
+            if key not in ratings:
+                ratings[key] = ELO_START
+                last_season[key] = season
+            elif last_season[key] != season:
+                ratings[key] = ELO_START + (ratings[key] - ELO_START) * (1.0 - season_reg)
+                last_season[key] = season
+
+        rh, ra = ratings[hk], ratings[ak]
+        elo_xg_h[i] = rh
+        elo_xg_a[i] = ra
+
+        exp_home = 1.0 / (1.0 + 10.0 ** (-((rh + hfa) - ra) / 400.0))
+        s_obs = float(score_xg_h[i]) if np.isfinite(score_xg_h[i]) else exp_home
+        xg_gd = abs(float(xg_h[i]) - float(xg_a[i])) if (np.isfinite(xg_h[i]) and np.isfinite(xg_a[i])) else 0.0
+        mov_xg = 1.0 + 0.35 * max(0.0, min(4.0, xg_gd - 0.75))
+        w_src = 1.0 if has_real_xg[i] > 0.5 else (0.80 if has_shots_or_xg[i] > 0.5 else 0.55)
+        delta = k * w_src * mov_xg * (s_obs - exp_home)
+
+        elo_xg_h_post[i] = rh + delta
+        elo_xg_a_post[i] = ra - delta
+        ratings[hk], ratings[ak] = rh + delta, ra - delta
+
+    out = df.copy()
+    out["elo_xg_home"] = elo_xg_h
+    out["elo_xg_away"] = elo_xg_a
+    out["elo_xg_home_post"] = elo_xg_h_post
+    out["elo_xg_away_post"] = elo_xg_a_post
+    out["xg_elo_diff"] = elo_xg_h - elo_xg_a
+    return out
+
+
 def rest_and_congestion(long: pd.DataFrame, lookback_days: int = 14) -> pd.DataFrame:
     """Días de descanso (acotado a [1, 35]) y partidos en los últimos N días, estrictamente previos."""
     long = long.sort_values(["team", "match_date", "match_id"], kind="mergesort").copy()
@@ -155,12 +243,15 @@ ROLL_COLS = [
     "loss",
     "goals_per_shot",
     "sot_rate",
-    # 2ª generación: xG sintético + sobre-rendimiento + ajuste por oponente
+    # 2ª y 3ª generación: xG jerárquico (Real > Proxy) + sobre-rendimiento + ajuste por oponente
     "xgf",
     "xga",
     "xgd",
     "xg_overperf",
     "has_shots",
+    "has_real_xg",
+    "xpts",
+    "pts_minus_xpts",
     "pts_res",
     "gd_res",
     "opp_elo",
@@ -171,16 +262,30 @@ ROLL_COLS = [
     "clinical_overperf",
 ]
 
+EWM_COLS = [
+    "points",
+    "gf",
+    "ga",
+    "gd",
+    "xgd",
+    "pts_res",
+    "gd_res",
+    "xpts",
+    "pts_minus_xpts",
+]
+
 
 def build_long(df: pd.DataFrame) -> pd.DataFrame:
     dc_h = df["dc_lam_home"].to_numpy(dtype=float) if "dc_lam_home" in df.columns else None
     dc_a = df["dc_lam_away"].to_numpy(dtype=float) if "dc_lam_away" in df.columns else None
-    xg_h, xg_a, has_shot_stats = compute_match_synthetic_xg(df, dc_h, dc_a)
+    xg_h, xg_a, has_shot_stats, has_real_xg = compute_match_xg_hierarchical(df, dc_h, dc_a)
+    xpts_h_pois, _ = compute_poisson_xpts_and_score(xg_h, xg_a)
+    xpts_a_pois, _ = compute_poisson_xpts_and_score(xg_a, xg_h)
     tactical = compute_match_xgot_and_tactical_proxies(df, xg_h, xg_a)
 
     home = pd.DataFrame(
         {
-            "match_id": df.match_id,
+            "match_id": df.match_id.astype(str),
             "div": df["div"],
             "season": df.season,
             "match_date": df.match_date,
@@ -197,6 +302,8 @@ def build_long(df: pd.DataFrame) -> pd.DataFrame:
             "xgf": xg_h,
             "xga": xg_a,
             "has_shots": has_shot_stats,
+            "has_real_xg": has_real_xg,
+            "xpts_pois": xpts_h_pois,
             "xgot": tactical["xgot_home"],
             "gk_prevented": tactical["gk_prevented_home"],
             "field_tilt": tactical["field_tilt_home"],
@@ -205,7 +312,7 @@ def build_long(df: pd.DataFrame) -> pd.DataFrame:
     )
     away = pd.DataFrame(
         {
-            "match_id": df.match_id,
+            "match_id": df.match_id.astype(str),
             "div": df["div"],
             "season": df.season,
             "match_date": df.match_date,
@@ -222,6 +329,8 @@ def build_long(df: pd.DataFrame) -> pd.DataFrame:
             "xgf": xg_a,
             "xga": xg_h,
             "has_shots": has_shot_stats,
+            "has_real_xg": has_real_xg,
+            "xpts_pois": xpts_a_pois,
             "xgot": tactical["xgot_away"],
             "gk_prevented": tactical["gk_prevented_away"],
             "field_tilt": tactical["field_tilt_away"],
@@ -229,13 +338,31 @@ def build_long(df: pd.DataFrame) -> pd.DataFrame:
         }
     )
     long = pd.concat([home, away], ignore_index=True)
-    long["points"] = np.where(long.gf > long.ga, 3, np.where(long.gf == long.ga, 1, 0))
-    long["gd"] = long.gf - long.ga
+
+    # Cruce causal con métricas tácticas Understat (PPDA, Deep Completions, npxGD, xPTS real)
+    u = load_understat_tactical_df()
+    if not u.empty:
+        u_ren = u.rename(columns={"xpts": "u_xpts"})
+        long = long.merge(u_ren, on=["match_id", "is_home"], how="left")
+    else:
+        long["u_xpts"] = np.nan
+        for c in UNDERSTAT_ROLL_COLS:
+            long[c] = np.nan
+
+    long["points"] = np.where(long.gf > long.ga, 3, np.where(long.gf == long.ga, 1, 0)).astype(float)
+    long["gd"] = (long.gf - long.ga).astype(float)
     long["win"] = (long.gf > long.ga).astype(float)
     long["draw"] = (long.gf == long.ga).astype(float)
     long["loss"] = (long.gf < long.ga).astype(float)
     long["goals_per_shot"] = long.gf / long.shots.replace(0, np.nan)
     long["sot_rate"] = long.sot / long.shots.replace(0, np.nan)
+
+    # xPTS jerárquico: Understat exacto cuando está disponible, si no Poisson exacto (0..10 goles)
+    u_xpts = long["u_xpts"].to_numpy(dtype=float)
+    p_xpts = long["xpts_pois"].to_numpy(dtype=float)
+    long["xpts"] = np.where(np.isfinite(u_xpts), u_xpts, p_xpts)
+    long["pts_minus_xpts"] = long["points"] - long["xpts"]
+    long = long.drop(columns=["u_xpts", "xpts_pois"])
 
     # xG diferencial y sobre-rendimiento finalizador (regresión a la media)
     long["xgd"] = long["xgf"] - long["xga"]
@@ -262,26 +389,42 @@ def rolling_features(long: pd.DataFrame, windows=(5, 10)) -> pd.DataFrame:
         r_df = g_shift.rolling(w, min_periods=1).mean().reset_index(level=0, drop=True)
         for col in ROLL_COLS:
             long[f"{col}_r{w}"] = r_df[col]
-    # Forma ponderada exponencial (halflife 5 partidos) sobre puntos, goles, xG y residuales
-    ewm_cols = ["points", "gf", "ga", "gd", "xgd", "pts_res", "gd_res"]
-    ewm_df = shifted[ewm_cols].groupby(long["team"], sort=False).ewm(halflife=5, min_periods=1).mean().reset_index(level=0, drop=True)
-    for col in ewm_cols:
+
+    # Ventanas tácticas Understat (PPDA, Deep Completions, npxGD) con min_periods=2 estricto
+    u_shifted = long.groupby("team", sort=False)[UNDERSTAT_ROLL_COLS].shift(1)
+    u_g = u_shifted.groupby(long["team"], sort=False)
+    for w in windows:
+        u_df = u_g.rolling(w, min_periods=2).mean().reset_index(level=0, drop=True)
+        for col in UNDERSTAT_ROLL_COLS:
+            long[f"{col}_r{w}"] = u_df[col]
+
+    # Forma ponderada exponencial (halflife 5 partidos)
+    ewm_df = (
+        shifted[EWM_COLS]
+        .groupby(long["team"], sort=False)
+        .ewm(halflife=5, min_periods=1)
+        .mean()
+        .reset_index(level=0, drop=True)
+    )
+    for col in EWM_COLS:
         long[f"{col}_ewm5"] = ewm_df[col]
+
     # Forma específica por condición de localía (casa cuando juega en casa, fuera cuando juega fuera)
     v_cols = ["points", "gd", "xgd"]
     v_shifted = long.groupby(["team", "is_home"], sort=False)[v_cols].shift(1)
-    v_df = v_shifted.groupby([long["team"], long["is_home"]], sort=False).rolling(5, min_periods=1).mean().reset_index(level=[0, 1], drop=True)
+    v_df = (
+        v_shifted.groupby([long["team"], long["is_home"]], sort=False)
+        .rolling(5, min_periods=1)
+        .mean()
+        .reset_index(level=[0, 1], drop=True)
+    )
     for col in v_cols:
         long[f"venue_{col}_r5"] = v_df[col]
     return long
 
 
 def team_season_priors(long: pd.DataFrame) -> pd.DataFrame:
-    """Agregados de la temporada ANTERIOR por equipo (causales: la temporada ya terminó).
-
-    Corrige el bug detectado en A05: `sum(min_count=1)` evita convertir temporadas sin datos
-    de tiros en falsos ceros `0.0`.
-    """
+    """Agregados de la temporada ANTERIOR por equipo (causales: la temporada ya terminó)."""
     agg = long.groupby(["div", "team", "season"], as_index=False).agg(
         n=("match_id", "size"),
         gf=("gf", "sum"),
@@ -356,8 +499,6 @@ def add_advanced_ratings_chronological(df: pd.DataFrame) -> pd.DataFrame:
     """Ejecuta compute_advanced_ratings en orden cronológico global para preservar ascensos/descensos."""
     chrono = df.sort_values(["match_date", "kickoff_time", "match_id"], kind="mergesort")
     adv = compute_advanced_ratings(chrono)
-    # No sobrescribir elo_home/elo_away/elo_diff de elo_block para mantener paridad exacta en las columnas base,
-    # pero exponer todas las nuevas columnas (pi_*, dc_*, clubelo_*, att_*, def_*, promoted_*, relegated_*)
     keep_adv = [
         c
         for c in adv.columns
@@ -369,9 +510,70 @@ def add_advanced_ratings_chronological(df: pd.DataFrame) -> pd.DataFrame:
     return out
 
 
+def write_feature_manifest(out: pd.DataFrame, parquet_path: str) -> None:
+    """Genera `data/processed/feature_manifest.json` con auditoría causal y estadísticas."""
+    sha = hashlib.sha256(open(parquet_path, "rb").read(1 << 20)).hexdigest()
+    v3_cols = [
+        "has_real_xg_history",
+        "elo_xg_home",
+        "elo_xg_away",
+        "xg_elo_diff",
+        "xg_elo_vs_elo_diff",
+        "pts_minus_xpts_diff_r5",
+        "pts_minus_xpts_diff_r10",
+        "xpts_diff_r5",
+        "xpts_diff_r10",
+        "ppda_diff_r5",
+        "ppda_diff_r10",
+        "deep_completions_diff_r5",
+        "deep_completions_diff_r10",
+        "npxgd_diff_r5",
+        "npxgd_diff_r10",
+        "altitude_diff_m",
+        "altitude_shock_flag",
+        "surface_pressure_diff",
+    ]
+    stats = {}
+    for c in v3_cols:
+        if c in out.columns:
+            s = pd.to_numeric(out[c], errors="coerce")
+            stats[c] = {
+                "non_null": int(s.notna().sum()),
+                "null_rate": round(float(s.isna().mean()), 6),
+                "nonzero_rate": round(float((s.fillna(0.0) != 0.0).mean()), 6),
+                "mean": round(float(s.mean()), 6) if s.notna().any() else 0.0,
+                "std": round(float(s.std()), 6) if s.notna().any() else 0.0,
+                "min": round(float(s.min()), 6) if s.notna().any() else 0.0,
+                "max": round(float(s.max()), 6) if s.notna().any() else 0.0,
+            }
+
+    manifest = {
+        "codename": "PitchLab Tachyon v3.0",
+        "version": "3.0.0",
+        "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "parquet_path": "data/processed/features.parquet",
+        "parquet_head_sha256": sha,
+        "n_rows": int(len(out)),
+        "n_columns": int(len(out.columns)),
+        "seasons": [str(out["season"].min()), str(out["season"].max())],
+        "anti_leakage_guarantees": {
+            "post_shot_forecast_p_used": False,
+            "ws_live_inference_context_injected_in_history": False,
+            "all_rolling_windows_shifted_by_1": True,
+            "understat_min_periods": 2,
+            "xg_elo_updated_strictly_post_match": True,
+        },
+        "tachyon_v30_new_features": stats,
+    }
+    manifest_path = os.path.join(PROC, "feature_manifest.json")
+    with open(manifest_path, "w", encoding="utf-8") as f:
+        json.dump(manifest, f, indent=2)
+    print(f"manifest -> {manifest_path}")
+
+
 def main():
     df = load_matches()
-    print(f"partidos con resultado: {len(df):,}")
+    print(f"partidos con resultado: {len(df):,}", flush=True)
     # 1. Elo principal (con season_reg=0.0 de EXP02) + variantes
     df = elo_block(df, k=ELO_K, hfa=ELO_HFA, season_reg=ELO_SEASON_REGRESSION, mov=ELO_MOV, prefix="elo")
     df = elo_block(df, k=10, hfa=ELO_HFA, season_reg=ELO_SEASON_REGRESSION, mov=False, prefix="elo_k10")
@@ -380,7 +582,10 @@ def main():
     # 2. Sistemas de rating de 2ª generación (Pi-Ratings, ClubElo inter-división, Ataque/Defensa Dixon-Coles)
     df = add_advanced_ratings_chronological(df)
 
-    # 3. Historial en formato largo + xG sintético + forma ajustada por oponente + forma por localía
+    # 2b. Tracker dinámico causal xG-Elo (usa Real xG > Proxy xG > DC Shrinkage)
+    df = xg_elo_block(df)
+
+    # 3. Historial en formato largo + xG jerárquico + Understat táctico + forma ajustada por oponente
     long = build_long(df)
     long = rest_and_congestion(long)
     long = rolling_features(long)
@@ -399,6 +604,7 @@ def main():
     home_feats = home_feats.drop(columns=["h_team", "h_is_home"])
     away_feats = away_feats.drop(columns=["a_team", "a_is_home"])
 
+    df["match_id"] = df["match_id"].astype(str)
     out = df.merge(home_feats, on="match_id", how="left").merge(away_feats, on="match_id", how="left")
     out = context_features(out)
 
@@ -415,7 +621,7 @@ def main():
     out = out.merge(lp, on=["div", "season"], how="left")
 
     # Diferenciales clave (1ª y 2ª generación)
-    for c in ("elo_diff", "elo_diff_no_hfa"):
+    for c in ("elo_diff", "elo_diff_no_hfa", "xg_elo_diff"):
         out[c] = out[c].astype(float)
     out["elo_prob_home_nodraw"] = 1.0 / (1.0 + 10.0 ** (-out.elo_diff / 400.0))
     out["elo_diff_x_progress"] = out.elo_diff * out.season_progress
@@ -462,6 +668,21 @@ def main():
     out["sot_diff_r10"] = out["h_sot_r10"] - out["a_sot_r10"]
     out["corners_diff_r10"] = out["h_corners_r10"] - out["a_corners_r10"]
 
+    # Bloque Tachyon v3.0: Real xG History, xG-Elo, Clinical xPTS Luck Gap, Understat PPDA/Deep & Altitud
+    out["has_real_xg_history"] = 0.5 * (
+        out["h_has_real_xg_r10"].fillna(0.0) + out["a_has_real_xg_r10"].fillna(0.0)
+    )
+    out["xg_elo_vs_elo_diff"] = out["xg_elo_diff"] - out["elo_diff_no_hfa"]
+    out["pts_minus_xpts_diff_r5"] = out["h_pts_minus_xpts_r5"] - out["a_pts_minus_xpts_r5"]
+    out["pts_minus_xpts_diff_r10"] = out["h_pts_minus_xpts_r10"] - out["a_pts_minus_xpts_r10"]
+    out["pts_minus_xpts_ewm5_diff"] = out["h_pts_minus_xpts_ewm5"] - out["a_pts_minus_xpts_ewm5"]
+    out["xpts_diff_r5"] = out["h_xpts_r5"] - out["a_xpts_r5"]
+    out["xpts_diff_r10"] = out["h_xpts_r10"] - out["a_xpts_r10"]
+    out["xpts_ewm5_diff"] = out["h_xpts_ewm5"] - out["a_xpts_ewm5"]
+
+    out = compute_understat_diff_features(out)
+    out = compute_altitude_physics_features(out)
+
     # Geometría del empate y competitividad
     out["abs_elo_diff"] = np.abs(out["elo_diff"])
     out["elo_closeness"] = np.exp(-((out["elo_diff"] / 150.0) ** 2))
@@ -474,45 +695,37 @@ def main():
     out["goals_total"] = out.home_goals + out.away_goals
     out = out.sort_values(["div", "match_date", "match_id"], kind="mergesort").reset_index(drop=True)
 
-    # Comprobación de leakage básica
+    # Comprobaciones de causalidad / integridad
     assert not np.allclose(out.elo_home, out.elo_home_post), "Elo sin actualización"
+    assert not np.allclose(out.elo_xg_home, out.elo_xg_home_post), "xG-Elo sin actualización"
     assert out[["h_points_r5", "a_points_r5"]].notna().any().all(), "rolling vacío"
 
     os.makedirs(PROC, exist_ok=True)
-    out.to_parquet(os.path.join(PROC, "features.parquet"), index=False)
-    out.to_csv(os.path.join(PROC, "features.csv"), index=False)
-    # Diccionario generado
-    num = out.select_dtypes(include=[np.number]).columns
-    desc = out[num].describe().T
-    lines = [
-        "# Diccionario de features (generado)",
-        "",
-        f"Generado: {datetime.now(timezone.utc).isoformat(timespec='seconds')}",
-        f"Filas: {len(out):,} · Columnas: {len(out.columns)}",
-        "",
-        "Todas las ventanas usan `.shift(1)` por equipo: solo partidos estrictamente anteriores.",
-        "",
-        "| Feature | n | media | std | min | max |",
-        "|---|---|---|---|---|---|",
-    ]
-    for c in num:
-        r = desc.loc[c]
-        lines.append(
-            f"| `{c}` | {int(r['count']):,} | {r['mean']:.4f} | {r['std']:.4f} | "
-            f"{r['min']:.4f} | {r['max']:.4f} |"
-        )
-    with open(os.path.join(ROOT, "reports", "A05_feature_dictionary.md"), "w", encoding="utf-8") as f:
-        f.write("\n".join(lines) + "\n")
-    print(f"features: {len(out):,} filas x {len(out.columns)} columnas")
-    print("nulls por bloque:")
+    parquet_path = os.path.join(PROC, "features.parquet")
+    out.to_parquet(parquet_path, index=False)
+    write_feature_manifest(out, parquet_path)
+
+    print(f"features: {len(out):,} filas x {len(out.columns)} columnas", flush=True)
+    print("cobertura bloque v3.0:", flush=True)
     print(
-        out[["elo_diff", "pi_diff", "dc_prob_h", "h_points_r5", "h_xgd_r5", "h_days_rest", "home_prev_sot_pg"]]
-        .isna()
-        .mean()
+        out[
+            [
+                "has_real_xg_history",
+                "xg_elo_diff",
+                "pts_minus_xpts_diff_r10",
+                "ppda_diff_r10",
+                "deep_completions_diff_r10",
+                "altitude_diff_m",
+                "altitude_shock_flag",
+            ]
+        ]
+        .describe()
+        .T[["count", "mean", "std", "min", "max"]]
         .round(4)
-        .to_string()
+        .to_string(),
+        flush=True,
     )
-    print(f"escrito -> {os.path.join(PROC, 'features.parquet')}")
+    print(f"escrito -> {parquet_path}", flush=True)
 
 
 if __name__ == "__main__":

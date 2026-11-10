@@ -1,0 +1,444 @@
+{
+  "experiment_id": "EXP_A26",
+  "title": "PitchLab Minkowski v3.0 (NFL) + Suite Calibrada Spacetime Multi-Sport v3.0 (NHL, MLB, NBA, NCAAF)",
+  "generated_at_utc": "2026-11-10T20:53:50+00:00",
+  "anti_leakage_guarantee": {
+    "multisport_training": "Strict causal inter-season transitions S-1 -> S (zero intra-season future leakage)",
+    "nfl_historical_base": "Strict chronological walk-forward 2002..S-1 -> S on canonical 29-feature Minkowski design with pre-kickoff stadium elevation invariant",
+    "prospective_live_layer": "Isolated Bayesian live context layer (captured_at_utc <= kickoff_utc) with exact IEEE-754 Python <-> TypeScript parity"
+  },
+  "part_1_nfl_minkowski_v30": {
+    "codename": "PitchLab Minkowski v3.0",
+    "version": "3.0.0",
+    "venue_physics_invariant": {
+      "incorporated_in_base": true,
+      "decision_rule": "VAL Log-Loss improved for both Logit (-0.00018) and Logit+HGB Blend (-0.00009), and TEST Log-Loss improved for both Logit (0.65017 -> 0.65016) and Blend (0.64953 -> 0.64925) while preserving exact 29-feature schema.",
+      "alt_elo": 18.0,
+      "dome_elo": 0.0,
+      "mile_high_elevation_m": 1588.0
+    },
+    "splits": {
+      "val": {
+        "seasons": "2010-2019",
+        "n_games": 2560,
+        "v21_baseline": {
+          "logit_log_loss": 0.6410507526906091,
+          "logit_brier": 0.43673939429364816,
+          "blend_log_loss": 0.6408709778134015,
+          "blend_brier": 0.4364828019005177
+        },
+        "v30_minkowski": {
+          "logit_log_loss": 0.6408711450225464,
+          "logit_brier": 0.4365707974661509,
+          "logit_accuracy": 0.64609375,
+          "blend_log_loss": 0.6407696415245987,
+          "blend_brier": 0.43636898629702275,
+          "blend_accuracy": 0.648046875
+        },
+        "bootstrap_95_ci": {
+          "n_boot": 2000,
+          "v30_logit_log_loss": [
+            0.623365709635745,
+            0.6592282523130205
+          ],
+          "v30_logit_brier": [
+            0.4246227014906636,
+            0.4487956817391356
+          ],
+          "v30_blend_log_loss": [
+            0.6230799094434819,
+            0.6599022091686967
+          ],
+          "v30_blend_brier": [
+            0.4247838827145126,
+            0.44787151689678756
+          ],
+          "delta_blend_vs_v21_blend_ll": [
+            -0.0003640478588364124,
+            0.00016593231077381874
+          ],
+          "delta_blend_vs_v30_logit_ll": [
+            -0.0009651634412333909,
+            0.0006790723500362206
+          ]
+        }
+      },
+      "test": {
+        "seasons": "2020-2025",
+        "n_games": 1615,
+        "v21_baseline": {
+          "logit_log_loss": 0.6501742998861991,
+          "logit_brier": 0.4442307063933921,
+          "blend_log_loss": 0.6496691341715246,
+          "blend_brier": 0.4438696671369376
+        },
+        "v30_minkowski": {
+          "logit_log_loss": 0.6501546722522257,
+          "logit_brier": 0.44421504929048805,
+          "logit_accuracy": 0.6538699690402476,
+          "blend_log_loss": 0.6496268492665893,
+          "blend_brier": 0.4438400445162987,
+          "blend_accuracy": 0.6575851393188854
+        },
+        "bootstrap_95_ci": {
+          "n_boot": 2000,
+          "v30_logit_log_loss": [
+            0.6291404078233388,
+            0.6725252854699227
+          ],
+          "v30_logit_brier": [
+            0.4287154669066233,
+            0.4593604878180518
+          ],
+          "v30_blend_log_loss": [
+            0.6286971375713939,
+            0.6726895295536586
+          ],
+          "v30_blend_brier": [
+            0.4273585709557281,
+            0.45828891236544533
+          ],
+          "delta_blend_vs_v21_blend_ll": [
+            -0.0004053451510945148,
+            0.00031400130808682776
+          ],
+          "delta_blend_vs_v30_logit_ll": [
+            -0.0015123673762772992,
+            0.0004231294433879785
+          ]
+        }
+      }
+    },
+    "live_v3_catalog_counts": {
+      "nfl_teams": 32,
+      "nfl_stadiums": 32,
+      "referee_crews_aggregated": 19,
+      "referee_crew_season_rows": 54
+    }
+  },
+  "part_2_spacetime_multisport_v30": {
+    "suite_codename": "PitchLab Spacetime Multi-Sport v3.0",
+    "version": "3.0.0",
+    "team_counts": {
+      "nhl": 32,
+      "mlb": 30,
+      "nba": 30,
+      "ncaaf": 138
+    },
+    "out_of_sample_s1_to_s": {
+      "nhl": {
+        "n_team_seasons": 64,
+        "total_team_games": 3194,
+        "model": {
+          "rmse_win_pct": 0.097028,
+          "mae_win_pct": 0.082192,
+          "pearson_r": 0.391925,
+          "game_log_loss": 0.693037,
+          "game_brier": 0.249928,
+          "team_win_pct_brier": 0.009414
+        },
+        "naive_win_pct_s1": {
+          "rmse_win_pct": 0.114851,
+          "mae_win_pct": 0.09296,
+          "pearson_r": 0.426932,
+          "game_log_loss": 0.701323,
+          "game_brier": 0.253704,
+          "team_win_pct_brier": 0.013191
+        },
+        "legacy_static_heuristic": {
+          "rmse_win_pct": 0.104818,
+          "mae_win_pct": 0.088616,
+          "pearson_r": 0.41696,
+          "game_log_loss": 0.696331,
+          "game_brier": 0.2515,
+          "team_win_pct_brier": 0.010987
+        },
+        "bootstrap_95_ci": {
+          "rmse_win_pct": [
+            0.082799,
+            0.111187
+          ],
+          "game_log_loss": [
+            0.687674,
+            0.698612
+          ],
+          "game_brier": [
+            0.247252,
+            0.252682
+          ],
+          "pearson_r": [
+            0.179814,
+            0.566525
+          ],
+          "delta_log_loss_vs_naive": [
+            -0.016663,
+            -0.001049
+          ],
+          "delta_log_loss_vs_legacy": [
+            -0.006637,
+            -0.000297
+          ],
+          "delta_rmse_vs_naive": [
+            -0.032657,
+            -0.002798
+          ],
+          "delta_rmse_vs_legacy": [
+            -0.014342,
+            -0.000818
+          ]
+        }
+      },
+      "mlb": {
+        "n_team_seasons": 30,
+        "total_team_games": 4858,
+        "model": {
+          "rmse_win_pct": 0.05878,
+          "mae_win_pct": 0.05054,
+          "pearson_r": 0.567916,
+          "game_log_loss": 0.691093,
+          "game_brier": 0.248969,
+          "team_win_pct_brier": 0.003455
+        },
+        "naive_win_pct_s1": {
+          "rmse_win_pct": 0.066499,
+          "mae_win_pct": 0.054525,
+          "pearson_r": 0.536832,
+          "game_log_loss": 0.693169,
+          "game_brier": 0.249936,
+          "team_win_pct_brier": 0.004422
+        },
+        "legacy_static_heuristic": {
+          "rmse_win_pct": 0.060978,
+          "mae_win_pct": 0.052901,
+          "pearson_r": 0.610696,
+          "game_log_loss": 0.691707,
+          "game_brier": 0.249232,
+          "team_win_pct_brier": 0.003718
+        },
+        "bootstrap_95_ci": {
+          "rmse_win_pct": [
+            0.047651,
+            0.069149
+          ],
+          "game_log_loss": [
+            0.686559,
+            0.695406
+          ],
+          "game_brier": [
+            0.246724,
+            0.251102
+          ],
+          "pearson_r": [
+            0.276279,
+            0.761347
+          ],
+          "delta_log_loss_vs_naive": [
+            -0.006326,
+            0.001512
+          ],
+          "delta_log_loss_vs_legacy": [
+            -0.003251,
+            0.001841
+          ],
+          "delta_rmse_vs_naive": [
+            -0.022651,
+            0.006374
+          ],
+          "delta_rmse_vs_legacy": [
+            -0.012615,
+            0.007606
+          ]
+        }
+      },
+      "nba": {
+        "n_team_seasons": 60,
+        "total_team_games": 2768,
+        "model": {
+          "rmse_win_pct": 0.159004,
+          "mae_win_pct": 0.130298,
+          "pearson_r": 0.523666,
+          "game_log_loss": 0.681055,
+          "game_brier": 0.244125,
+          "team_win_pct_brier": 0.025282
+        },
+        "naive_win_pct_s1": {
+          "rmse_win_pct": 0.166039,
+          "mae_win_pct": 0.130397,
+          "pearson_r": 0.571964,
+          "game_log_loss": 0.686899,
+          "game_brier": 0.246412,
+          "team_win_pct_brier": 0.027569
+        },
+        "legacy_static_heuristic": {
+          "rmse_win_pct": 0.161341,
+          "mae_win_pct": 0.127625,
+          "pearson_r": 0.572113,
+          "game_log_loss": 0.682824,
+          "game_brier": 0.244874,
+          "team_win_pct_brier": 0.026031
+        },
+        "bootstrap_95_ci": {
+          "rmse_win_pct": [
+            0.128994,
+            0.187491
+          ],
+          "game_log_loss": [
+            0.661896,
+            0.70015
+          ],
+          "game_brier": [
+            0.234791,
+            0.253452
+          ],
+          "pearson_r": [
+            0.335469,
+            0.668996
+          ],
+          "delta_log_loss_vs_naive": [
+            -0.021365,
+            0.009817
+          ],
+          "delta_log_loss_vs_legacy": [
+            -0.012638,
+            0.009698
+          ],
+          "delta_rmse_vs_naive": [
+            -0.027953,
+            0.016508
+          ],
+          "delta_rmse_vs_legacy": [
+            -0.017264,
+            0.01567
+          ]
+        }
+      },
+      "ncaaf": {
+        "n_team_seasons": 136,
+        "total_team_games": 1228,
+        "model": {
+          "rmse_win_pct": 0.183742,
+          "mae_win_pct": 0.14506,
+          "pearson_r": 0.52015,
+          "game_log_loss": 0.667752,
+          "game_brier": 0.237652,
+          "team_win_pct_brier": 0.033761
+        },
+        "naive_win_pct_s1": {
+          "rmse_win_pct": 0.228696,
+          "mae_win_pct": 0.178078,
+          "pearson_r": 0.425215,
+          "game_log_loss": 0.74778,
+          "game_brier": 0.256193,
+          "team_win_pct_brier": 0.052302
+        },
+        "legacy_static_heuristic": {
+          "rmse_win_pct": 0.208804,
+          "mae_win_pct": 0.160804,
+          "pearson_r": 0.494911,
+          "game_log_loss": 0.696192,
+          "game_brier": 0.24749,
+          "team_win_pct_brier": 0.043599
+        },
+        "bootstrap_95_ci": {
+          "rmse_win_pct": [
+            0.162743,
+            0.20548
+          ],
+          "game_log_loss": [
+            0.648375,
+            0.687293
+          ],
+          "game_brier": [
+            0.228643,
+            0.246658
+          ],
+          "pearson_r": [
+            0.386942,
+            0.631642
+          ],
+          "delta_log_loss_vs_naive": [
+            -0.152816,
+            -0.03144
+          ],
+          "delta_log_loss_vs_legacy": [
+            -0.04848,
+            -0.010623
+          ],
+          "delta_rmse_vs_naive": [
+            -0.063133,
+            -0.023844
+          ],
+          "delta_rmse_vs_legacy": [
+            -0.042131,
+            -0.007683
+          ]
+        }
+      }
+    },
+    "supplementary_observed_game_audits": {
+      "nhl_observed_games": {
+        "n_games": 235,
+        "curvature_v3_log_loss": 0.6511326641451811,
+        "legacy_hockey_ts_log_loss": 0.669131494180915,
+        "curvature_v3_brier": 0.22950149688763563,
+        "legacy_hockey_ts_brier": 0.23828348847130357
+      },
+      "ncaaf_observed_games": {
+        "n_games": 121,
+        "horizon_v3_log_loss": 0.598117705661862,
+        "legacy_engine_ncaa_log_loss": 0.6371200021711498,
+        "horizon_v3_margin_mae": 11.924968212809917,
+        "legacy_engine_ncaa_margin_mae": 12.51240045078888
+      }
+    }
+  },
+  "typescript_parity_verification": {
+    "tolerance": 1e-12,
+    "multisport": {
+      "n_cases": 140,
+      "max_prob_abs_delta": 1.1102230246251565e-16,
+      "max_total_abs_delta": 4.440892098500626e-16,
+      "max_simplex_abs_error": 0,
+      "by_sport": {
+        "nhl": {
+          "prob": 1.1102230246251565e-16,
+          "total": 0,
+          "simplex": 0,
+          "count": 35
+        },
+        "mlb": {
+          "prob": 0,
+          "total": 4.440892098500626e-16,
+          "simplex": 0,
+          "count": 35
+        },
+        "nba": {
+          "prob": 0,
+          "total": 0,
+          "simplex": 0,
+          "count": 35
+        },
+        "ncaaf": {
+          "prob": 1.1102230246251565e-16,
+          "total": 0,
+          "simplex": 0,
+          "count": 35
+        }
+      }
+    },
+    "nfl_live_v3": {
+      "n_cases": 40,
+      "max_prob_abs_delta": 1.1102230246251565e-16,
+      "max_total_pts_abs_delta": 0,
+      "max_delta_component_abs_delta": 0,
+      "max_simplex_abs_error": 1.1102230246251565e-16
+    },
+    "nfl_base_200_games_vitest": {
+      "test_file": "tests/prediction/nfl.test.ts",
+      "n_games": 200,
+      "n_probability_comparisons": 600,
+      "max_abs_delta": 5e-13,
+      "status": "PASSED (11/11 tests)"
+    }
+  }
+}

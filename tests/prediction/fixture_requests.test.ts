@@ -7,6 +7,7 @@
 import { describe, expect, it } from "vitest";
 import requestsJson from "../../src/data/prediction/fixture_requests.json";
 import modelJson from "../../src/data/prediction/model_motor_a.json";
+import { predictMotorAWithAvailability } from "../../src/domain/prediction/engine.js";
 import { predictMatch } from "../../src/domain/prediction/service.js";
 import type { ModelArtifact } from "../../src/domain/prediction/types.js";
 
@@ -20,6 +21,8 @@ interface FixtureRequest {
   divOnehot: readonly number[];
   marketProbs: readonly number[] | null;
   probsPython: readonly number[];
+  lineupAvailabilityDelta?: number;
+  probsPythonWithAvailability?: readonly number[];
 }
 
 const model = modelJson as unknown as ModelArtifact;
@@ -31,7 +34,7 @@ describe("Ciclo 9 — peticiones de fixtures reales", () => {
     expect(file.n).toBe(150);
     expect(entries).toHaveLength(150);
     for (const [, r] of entries.slice(0, 20)) {
-      expect(r.features).toHaveLength(103);
+      expect(r.features).toHaveLength(113);
       expect(r.divOnehot).toHaveLength(23);
       expect(r.probsPython).toHaveLength(3);
       expect(r.divOnehot.filter((x) => x === 1)).toHaveLength(1);
@@ -60,6 +63,29 @@ describe("Ciclo 9 — peticiones de fixtures reales", () => {
     }
     console.log(`[Ciclo 9] paridad fixture→servicio: 150 fixtures; max|Δ|=${maxDiff.toExponential(3)}`);
     expect(maxDiff).toBeLessThanOrEqual(1e-11);
+  });
+
+  it("reproduce probsPythonWithAvailability con |Δ| <= 1e-11 en los 150 fixtures", () => {
+    let maxDiffAvail = 0;
+    for (const [matchId, r] of entries) {
+      if (!r.probsPythonWithAvailability) continue;
+      const delta = r.lineupAvailabilityDelta ?? 0;
+      const predAvail = predictMotorAWithAvailability(
+        { features: r.features, div_onehot: r.divOnehot },
+        model,
+        delta,
+      );
+      const deltas = [
+        Math.abs(predAvail.pHome - r.probsPythonWithAvailability[0]!),
+        Math.abs(predAvail.pDraw - r.probsPythonWithAvailability[1]!),
+        Math.abs(predAvail.pAway - r.probsPythonWithAvailability[2]!),
+      ];
+      for (const d of deltas) {
+        maxDiffAvail = Math.max(maxDiffAvail, d);
+        expect(d, `${matchId} avail: |Δ| fuera de tolerancia`).toBeLessThanOrEqual(1e-11);
+      }
+    }
+    expect(maxDiffAvail).toBeLessThanOrEqual(1e-11);
   });
 
   it("las peticiones incluyen mercado de-vigado y una división entrenada", () => {

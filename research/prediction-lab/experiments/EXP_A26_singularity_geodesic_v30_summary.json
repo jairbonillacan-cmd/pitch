@@ -1,0 +1,546 @@
+{
+  "experiment_id": "EXP_A26_singularity_geodesic_v30",
+  "codename_singularity": "PitchLab Singularity v3.0",
+  "codename_geodesic": "PitchLab Geodesic v2.0",
+  "version": "3.0.0",
+  "generated_at_utc": "2026-11-10T19:51:00Z",
+  "anti_leakage_contract": "captured_at_utc <= predicted_at_utc",
+  "datasets_inspected": {
+    "market_microstructure_total_records": 22412,
+    "counts_by_record_type": {
+      "action_network_split_outcome": 17145,
+      "action_network_game_summary": 208,
+      "smarkets_exchange_event": 200,
+      "smarkets_exchange_route": 80,
+      "smarkets_api_probe": 3,
+      "smarkets_exchange_market": 400,
+      "smarkets_exchange_quote": 158,
+      "caliente_mx_event_odds": 250,
+      "codere_mx_odds_selection": 30,
+      "codere_mx_network_endpoint": 38,
+      "oddsportal_match_link": 79,
+      "oddsportal_oddschecker_price_sample": 43,
+      "pinnacle_market": 2900,
+      "pinnacle_matchup": 878
+    },
+    "live_matchups_edge_matrix_records": 242,
+    "ws_live_inference_context_matchups": 242
+  },
+  "overround_empirical_distributions": {
+    "pinnacle_moneyline_sharp": {
+      "n": 134,
+      "mean": 0.03218,
+      "std": 0.002603,
+      "median": 0.031793,
+      "ci95_mean": [
+        0.031737,
+        0.032631
+      ],
+      "p5": 0.028687,
+      "p25": 0.029774,
+      "p75": 0.034087,
+      "p95": 0.035968,
+      "min": 0.026926,
+      "max": 0.037909
+    },
+    "pinnacle_spread": {
+      "n": 1110,
+      "mean": 0.036436,
+      "std": 0.00422,
+      "median": 0.036908,
+      "ci95_mean": [
+        0.036186,
+        0.036678
+      ],
+      "p5": 0.028756,
+      "p25": 0.033883,
+      "p75": 0.038572,
+      "p95": 0.044122,
+      "min": 0.02327,
+      "max": 0.047158
+    },
+    "pinnacle_total": {
+      "n": 1096,
+      "mean": 0.042457,
+      "std": 0.003858,
+      "median": 0.042917,
+      "ci95_mean": [
+        0.042235,
+        0.042683
+      ],
+      "p5": 0.034664,
+      "p25": 0.04048,
+      "p75": 0.04431,
+      "p95": 0.049872,
+      "min": 0.029124,
+      "max": 0.051843
+    },
+    "pinnacle_market_all": {
+      "n": 2607,
+      "mean": 0.03885,
+      "std": 0.005026,
+      "median": 0.038503,
+      "ci95_mean": [
+        0.038651,
+        0.039044
+      ],
+      "p5": 0.029639,
+      "p25": 0.035166,
+      "p75": 0.042824,
+      "p95": 0.046561,
+      "min": 0.02327,
+      "max": 0.051843
+    },
+    "pinnacle_matchup_summary": {
+      "n": 31,
+      "mean": 0.031174,
+      "std": 0.002127,
+      "median": 0.03102,
+      "ci95_mean": [
+        0.030461,
+        0.031912
+      ],
+      "p5": 0.029367,
+      "p25": 0.029513,
+      "p75": 0.032025,
+      "p95": 0.034496,
+      "min": 0.026926,
+      "max": 0.037693
+    },
+    "caliente_mx_all": {
+      "n": 250,
+      "mean": 0.066179,
+      "std": 0.021372,
+      "median": 0.059969,
+      "ci95_mean": [
+        0.063559,
+        0.068808
+      ],
+      "p5": 0.041611,
+      "p25": 0.058171,
+      "p75": 0.062754,
+      "p95": 0.117952,
+      "min": 0.023834,
+      "max": 0.139101
+    },
+    "caliente_mx_3way_soccer": {
+      "n": 202,
+      "mean": 0.070548,
+      "std": 0.020759,
+      "median": 0.060604,
+      "ci95_mean": [
+        0.0677,
+        0.073487
+      ],
+      "p5": 0.057057,
+      "p25": 0.059173,
+      "p75": 0.067328,
+      "p95": 0.118589,
+      "min": 0.054904,
+      "max": 0.139101
+    },
+    "caliente_mx_2way": {
+      "n": 48,
+      "mean": 0.04779,
+      "std": 0.012231,
+      "median": 0.047669,
+      "ci95_mean": [
+        0.044362,
+        0.051401
+      ],
+      "p5": 0.025641,
+      "p25": 0.036655,
+      "p75": 0.058594,
+      "p95": 0.06561,
+      "min": 0.023834,
+      "max": 0.089855
+    },
+    "caliente_mx_ligamx_subset": {
+      "n": 14,
+      "mean": 0.064284,
+      "std": 0.010923,
+      "median": 0.060571,
+      "ci95_mean": [
+        0.06019,
+        0.070843
+      ],
+      "p5": 0.057261,
+      "p25": 0.059427,
+      "p75": 0.065981,
+      "p95": 0.079177,
+      "min": 0.055357,
+      "max": 0.1
+    },
+    "smarkets_bid_offer_spread_bps_all": {
+      "n": 155,
+      "mean": 891.890323,
+      "std": 784.965303,
+      "median": 949.0,
+      "ci95_mean": [
+        795.16371,
+        1030.124032
+      ],
+      "p5": 264.7,
+      "p25": 617.5,
+      "p75": 1012.0,
+      "p95": 1156.5,
+      "min": 62.0,
+      "max": 9874.0
+    },
+    "smarkets_bid_offer_spread_bps_liquid_le_500bps": {
+      "n": 29,
+      "mean": 319.482759,
+      "std": 122.345419,
+      "median": 357.0,
+      "ci95_mean": [
+        274.964655,
+        361.628448
+      ],
+      "p5": 80.6,
+      "p25": 257.0,
+      "p75": 384.0,
+      "p95": 478.4,
+      "min": 62.0,
+      "max": 492.0
+    },
+    "smarkets_bid_offer_spread_bps_tight_le_200bps": {
+      "n": 4,
+      "mean": 82.75,
+      "std": 18.82153,
+      "median": 82.5,
+      "ci95_mean": [
+        67.5,
+        98.0
+      ],
+      "p5": 63.65,
+      "p25": 70.25,
+      "p75": 95.0,
+      "p95": 102.2,
+      "min": 62.0,
+      "max": 104.0
+    }
+  },
+  "adaptive_devig_calibration": {
+    "sharp_overround_anchor": 0.0322,
+    "recreational_overround_anchor": 0.0662,
+    "extreme_soft_overround_anchor": 0.118,
+    "min_shin_weight": 0.12,
+    "recreational_shin_weight": 0.85,
+    "max_shin_weight": 0.96,
+    "historical_cross_validation": {
+      "high_vig_paired_b365_vs_pinnacle_n": 11158,
+      "rmse_vs_pinnacle_sharp_gt": {
+        "proportional": 0.015656,
+        "power_pure": 0.014093,
+        "shin_pure": 0.013669,
+        "adaptive_v3": 0.013657,
+        "w_shin_grid": {
+          "w_shin_0.00": 0.014093,
+          "w_shin_0.20": 0.013915,
+          "w_shin_0.50": 0.013734,
+          "w_shin_0.85": 0.013657,
+          "w_shin_0.92": 0.013659,
+          "w_shin_1.00": 0.013669
+        }
+      },
+      "historical_mex_matches_count": 4789
+    },
+    "paired_caliente_vs_smarkets": [
+      {
+        "matchup_id": "epl_liverpool_vs_manchester_united",
+        "home_team": "Liverpool FC",
+        "away_team": "Manchester United",
+        "caliente_overround": 0.060606,
+        "caliente_w_shin": 0.79722,
+        "smarkets_mid_prob_home": 0.52,
+        "caliente_adaptive_prob_home": 0.572372,
+        "caliente_prop_prob_home": 0.561224
+      }
+    ],
+    "paired_pinnacle_vs_action_network_count": 13,
+    "paired_pinnacle_vs_action_network_samples": [
+      {
+        "home_team": "Minnesota Vikings",
+        "away_team": "Buffalo Bills",
+        "league": "nfl",
+        "pinnacle_overround": 0.030523,
+        "action_network_overround": 0.047336,
+        "abs_prob_diff_home": 0.044254
+      },
+      {
+        "home_team": "New York Giants",
+        "away_team": "Washington Commanders",
+        "league": "nfl",
+        "pinnacle_overround": 0.029787,
+        "action_network_overround": 0.044337,
+        "abs_prob_diff_home": 0.003537
+      },
+      {
+        "home_team": "Detroit Lions",
+        "away_team": "New England Patriots",
+        "league": "nfl",
+        "pinnacle_overround": 0.034024,
+        "action_network_overround": 0.04527,
+        "abs_prob_diff_home": 0.044179
+      },
+      {
+        "home_team": "Cleveland Browns",
+        "away_team": "Houston Texans",
+        "league": "nfl",
+        "pinnacle_overround": 0.030592,
+        "action_network_overround": 0.043974,
+        "abs_prob_diff_home": 0.045387
+      },
+      {
+        "home_team": "Tennessee Titans",
+        "away_team": "Jacksonville Jaguars",
+        "league": "nfl",
+        "pinnacle_overround": 0.037909,
+        "action_network_overround": 0.043141,
+        "abs_prob_diff_home": 0.174388
+      },
+      {
+        "home_team": "Indianapolis Colts",
+        "away_team": "Miami Dolphins",
+        "league": "nfl",
+        "pinnacle_overround": 0.029513,
+        "action_network_overround": 0.041386,
+        "abs_prob_diff_home": 0.014766
+      },
+      {
+        "home_team": "New Orleans Saints",
+        "away_team": "Carolina Panthers",
+        "league": "nfl",
+        "pinnacle_overround": 0.03373,
+        "action_network_overround": 0.043759,
+        "abs_prob_diff_home": 0.014933
+      },
+      {
+        "home_team": "Atlanta Falcons",
+        "away_team": "Kansas City Chiefs",
+        "league": "nfl",
+        "pinnacle_overround": 0.0335,
+        "action_network_overround": 0.045369,
+        "abs_prob_diff_home": 0.055155
+      },
+      {
+        "home_team": "Arizona Cardinals",
+        "away_team": "Los Angeles Rams",
+        "league": "nfl",
+        "pinnacle_overround": 0.035926,
+        "action_network_overround": 0.042701,
+        "abs_prob_diff_home": 0.167183
+      },
+      {
+        "home_team": "Las Vegas Raiders",
+        "away_team": "Seattle Seahawks",
+        "league": "nfl",
+        "pinnacle_overround": 0.02977,
+        "action_network_overround": 0.045369,
+        "abs_prob_diff_home": 0.030331
+      }
+    ]
+  },
+  "recreational_ligamx_debiasing": {
+    "overround_threshold": 0.05,
+    "base_mx_logit_shade": 0.095,
+    "popular_club_weights": {
+      "CF América": 1.0,
+      "CD Guadalajara (Chivas)": 0.95,
+      "CD Cruz Azul": 0.8,
+      "Pumas UNAM": 0.75,
+      "Tigres UANL": 0.72,
+      "CF Monterrey": 0.72
+    },
+    "live_ligamx_matchups_evaluated": 10,
+    "live_matchups_with_mx_bias_corrected": 4
+  },
+  "action_network_sharp_money_and_rlm": {
+    "split_outcomes_total": 17145,
+    "game_summaries_total": 208,
+    "splits_with_finite_divergence": 15061,
+    "splits_with_nonzero_divergence": 6605,
+    "abs_nonzero_divergence_pct_stats": {
+      "n": 6605,
+      "mean": 13.370477,
+      "std": 16.801674,
+      "median": 7.0,
+      "ci95_mean": [
+        12.976075,
+        13.73944
+      ],
+      "p5": 1.0,
+      "p25": 3.0,
+      "p75": 15.0,
+      "p95": 51.0,
+      "min": 1.0,
+      "max": 87.0
+    },
+    "splits_with_sharp_divergence_ge_10pct": 1314,
+    "splits_with_adverse_divergence_le_minus12pct": 1074,
+    "splits_with_rlm_signal_true": 7382,
+    "games_with_rlm_flag_true": 70,
+    "directional_rlm_side_208_games": {
+      "home": 77,
+      "none": 79,
+      "away": 52
+    },
+    "directional_rlm_by_league": {
+      "mlb": {
+        "none": 2
+      },
+      "mls": {
+        "none": 4
+      },
+      "nba": {
+        "home": 2,
+        "none": 8,
+        "away": 4
+      },
+      "ncaaf": {
+        "home": 57,
+        "away": 38,
+        "none": 39
+      },
+      "nfl": {
+        "home": 14,
+        "none": 21,
+        "away": 9
+      },
+      "nhl": {
+        "none": 5,
+        "home": 4,
+        "away": 1
+      }
+    }
+  },
+  "geodesic_v2_live_242_evaluation": {
+    "active_matchups_evaluated": 242,
+    "smarkets_exchange_anchored_matchups": 3,
+    "matchups_with_active_anti_rlm_guard_on_any_side": 84,
+    "anti_rlm_guard_coverage_rate": 0.347107,
+    "pre_tilt_sport_model_raw_value_candidates": 157,
+    "pre_tilt_sport_model_vetoed_by_rlm_gate": 46,
+    "pre_tilt_sport_model_rlm_veto_rate": 0.292994,
+    "raw_positive_value_candidates_ev_ge_2pct": 13,
+    "vetoed_top_value_bets_by_rlm_gate": 1,
+    "rlm_veto_rate_among_raw_value_bets": 0.076923,
+    "executable_value_bets_after_gate": 13,
+    "institutionally_confirmed_value_bets": 12,
+    "by_league": {
+      "bundesliga": {
+        "total": 17,
+        "pre_tilt_raw_value": 10,
+        "pre_tilt_vetoed_by_rlm": 0,
+        "raw_value": 0,
+        "vetoed_by_rlm": 0,
+        "executable": 0,
+        "confirmed": 0
+      },
+      "epl": {
+        "total": 24,
+        "pre_tilt_raw_value": 21,
+        "pre_tilt_vetoed_by_rlm": 0,
+        "raw_value": 1,
+        "vetoed_by_rlm": 0,
+        "executable": 1,
+        "confirmed": 0
+      },
+      "laliga": {
+        "total": 5,
+        "pre_tilt_raw_value": 4,
+        "pre_tilt_vetoed_by_rlm": 0,
+        "raw_value": 0,
+        "vetoed_by_rlm": 0,
+        "executable": 0,
+        "confirmed": 0
+      },
+      "liga-mx": {
+        "total": 10,
+        "pre_tilt_raw_value": 5,
+        "pre_tilt_vetoed_by_rlm": 0,
+        "raw_value": 0,
+        "vetoed_by_rlm": 0,
+        "executable": 0,
+        "confirmed": 0
+      },
+      "ligue-1": {
+        "total": 11,
+        "pre_tilt_raw_value": 8,
+        "pre_tilt_vetoed_by_rlm": 0,
+        "raw_value": 0,
+        "vetoed_by_rlm": 0,
+        "executable": 0,
+        "confirmed": 0
+      },
+      "mlb": {
+        "total": 1,
+        "pre_tilt_raw_value": 0,
+        "pre_tilt_vetoed_by_rlm": 0,
+        "raw_value": 0,
+        "vetoed_by_rlm": 0,
+        "executable": 0,
+        "confirmed": 0
+      },
+      "nba": {
+        "total": 30,
+        "pre_tilt_raw_value": 19,
+        "pre_tilt_vetoed_by_rlm": 5,
+        "raw_value": 1,
+        "vetoed_by_rlm": 0,
+        "executable": 1,
+        "confirmed": 1
+      },
+      "ncaaf": {
+        "total": 68,
+        "pre_tilt_raw_value": 38,
+        "pre_tilt_vetoed_by_rlm": 28,
+        "raw_value": 6,
+        "vetoed_by_rlm": 1,
+        "executable": 6,
+        "confirmed": 6
+      },
+      "nfl": {
+        "total": 46,
+        "pre_tilt_raw_value": 29,
+        "pre_tilt_vetoed_by_rlm": 10,
+        "raw_value": 5,
+        "vetoed_by_rlm": 0,
+        "executable": 5,
+        "confirmed": 5
+      },
+      "nhl": {
+        "total": 13,
+        "pre_tilt_raw_value": 7,
+        "pre_tilt_vetoed_by_rlm": 3,
+        "raw_value": 0,
+        "vetoed_by_rlm": 0,
+        "executable": 0,
+        "confirmed": 0
+      },
+      "serie-a": {
+        "total": 17,
+        "pre_tilt_raw_value": 16,
+        "pre_tilt_vetoed_by_rlm": 0,
+        "raw_value": 0,
+        "vetoed_by_rlm": 0,
+        "executable": 0,
+        "confirmed": 0
+      }
+    }
+  },
+  "parity_snapshot": {
+    "path": "src/data/prediction/market_v3_snapshot.json",
+    "total_golden_vectors": 64,
+    "counts_by_function": {
+      "devigAdaptive1X2": 14,
+      "devig2Way": 14,
+      "debiaseRecreationalLigaMx": 12,
+      "applySingularitySharpTilt3Way": 6,
+      "applySingularitySharpTilt2Way": 6,
+      "evaluateGeodesicV2ValueGate": 12
+    },
+    "contract_tolerance": 1e-12,
+    "max_observed_python_ts_abs_diff": 1.1102230246251565e-16
+  }
+}

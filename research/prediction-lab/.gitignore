@@ -10,6 +10,8 @@ data/processed/*
 !data/processed/coverage.json
 !data/processed/data_quality_report.md
 !data/processed/team_names.csv
+!data/processed/web_scraping
+!data/processed/web_scraping/*
 !data/nfl
 data/nfl/*
 !data/nfl/raw
@@ -75,3 +77,10 @@ artifacts/FIXTURES/*
 artifacts/VALUE_BETTING/*
 !artifacts/VALUE_BETTING/value_betting.json
 !artifacts/VALUE_BETTING/value_betting.md
+!artifacts/EXP_A26_singularity_v3_open_20261110
+artifacts/EXP_A26_singularity_v3_open_20261110/*
+!artifacts/EXP_A26_singularity_v3_open_20261110/config.json
+!artifacts/EXP_A26_singularity_v3_close_20261110
+artifacts/EXP_A26_singularity_v3_close_20261110/*
+!artifacts/EXP_A26_singularity_v3_close_20261110/config.json
+experiments/*/*.csv

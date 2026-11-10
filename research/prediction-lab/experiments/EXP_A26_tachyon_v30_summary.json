@@ -1,0 +1,5902 @@
+{
+  "experiment_id": "EXP_A26_tachyon_v30",
+  "codename": "PitchLab Tachyon v3.0",
+  "version": "3.0.0",
+  "generated_at": "2026-11-10T20:56:54+00:00",
+  "elapsed_seconds": 2206.49,
+  "model_specification": {
+    "n_features_base": 113,
+    "n_div_dummies": 23,
+    "n_total_design_columns": 136,
+    "regularization_C": 0.02,
+    "calibrated_strictly_on": "VAL 2023 (FREEZE.md compliant; zero TEST 2024-25 snooping)",
+    "v30_added_features": [
+      "has_real_xg_history",
+      "xg_elo_diff",
+      "xg_elo_vs_elo_diff",
+      "pts_minus_xpts_diff_r10",
+      "xpts_diff_r10",
+      "ppda_diff_r10",
+      "deep_completions_diff_r10",
+      "altitude_diff_m",
+      "altitude_shock_flag",
+      "surface_pressure_diff"
+    ],
+    "anti_leakage_audit": {
+      "post_shot_forecast_p_excluded": true,
+      "ws_live_inference_context_excluded_from_historical_backtest": true,
+      "understat_rolling_min_periods": 2,
+      "xg_elo_strictly_pre_match": true
+    }
+  },
+  "historical_published_baselines_reference": {
+    "note": "Published global references from A23 / A25 reports (season_split protocol)",
+    "v1_0": {
+      "val_2023_log_loss": 1.00673,
+      "test_2024_25_log_loss": 1.01566
+    },
+    "v2_0": {
+      "val_2023_log_loss": 1.00561,
+      "test_2024_25_log_loss": 1.0144
+    },
+    "v2_1": {
+      "val_2023_log_loss": 1.00495,
+      "test_2024_25_log_loss": 1.01337
+    }
+  },
+  "strict_walk_forward_protocol": {
+    "global": {
+      "val_2023": {
+        "n_matches": 8152,
+        "models": {
+          "tachyon_v30": {
+            "n": 8152,
+            "log_loss": 1.004854,
+            "brier": 0.601006,
+            "ece": 0.012433,
+            "rps": 0.20349,
+            "accuracy": 0.499141
+          },
+          "tachyon_v21_with_real_xg": {
+            "n": 8152,
+            "log_loss": 1.005335,
+            "brier": 0.601353,
+            "ece": 0.012417,
+            "rps": 0.203682,
+            "accuracy": 0.499632
+          },
+          "tachyon_v20": {
+            "n": 8152,
+            "log_loss": 1.005962,
+            "brier": 0.601776,
+            "ece": 0.012868,
+            "rps": 0.203886,
+            "accuracy": 0.500491
+          },
+          "tachyon_v10": {
+            "n": 8152,
+            "log_loss": 1.009033,
+            "brier": 0.603732,
+            "ece": 0.016872,
+            "rps": 0.204712,
+            "accuracy": 0.494112
+          },
+          "tachyon_v21_pre_ws": {
+            "n": 8152,
+            "log_loss": 1.005685,
+            "brier": 0.601563,
+            "ece": 0.01316,
+            "rps": 0.203764,
+            "accuracy": 0.5
+          }
+        },
+        "paired_bootstrap_95ci": {
+          "v30_vs_v21_with_real_xg": {
+            "n": 8152,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.000482,
+            "ci95_log_loss": [
+              -0.001075,
+              9.4e-05
+            ],
+            "prob_v30_better_log_loss": 0.943,
+            "delta_brier": -0.000346,
+            "ci95_brier": [
+              -0.000739,
+              4.3e-05
+            ],
+            "delta_accuracy": -0.000491,
+            "ci95_accuracy": [
+              -0.002699,
+              0.001598
+            ],
+            "block_ci95_log_loss": [
+              -0.001035,
+              1e-06
+            ],
+            "n_blocks": 23
+          },
+          "v30_vs_v20": {
+            "n": 8152,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.001108,
+            "ci95_log_loss": [
+              -0.002081,
+              -7.8e-05
+            ],
+            "prob_v30_better_log_loss": 0.9825,
+            "delta_brier": -0.000769,
+            "ci95_brier": [
+              -0.001438,
+              -0.000101
+            ],
+            "delta_accuracy": -0.001349,
+            "ci95_accuracy": [
+              -0.004539,
+              0.002085
+            ],
+            "block_ci95_log_loss": [
+              -0.001853,
+              -0.000357
+            ],
+            "n_blocks": 23
+          },
+          "v30_vs_v10": {
+            "n": 8152,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.004179,
+            "ci95_log_loss": [
+              -0.005878,
+              -0.002421
+            ],
+            "prob_v30_better_log_loss": 1.0,
+            "delta_brier": -0.002725,
+            "ci95_brier": [
+              -0.003907,
+              -0.001571
+            ],
+            "delta_accuracy": 0.005029,
+            "ci95_accuracy": [
+              0.000613,
+              0.009449
+            ],
+            "block_ci95_log_loss": [
+              -0.00605,
+              -0.002242
+            ],
+            "n_blocks": 23
+          },
+          "v30_vs_v21_pre_ws": {
+            "n": 8152,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.000831,
+            "ci95_log_loss": [
+              -0.001586,
+              1e-06
+            ],
+            "prob_v30_better_log_loss": 0.9745,
+            "delta_brier": -0.000557,
+            "ci95_brier": [
+              -0.001088,
+              -7e-06
+            ],
+            "delta_accuracy": -0.000859,
+            "ci95_accuracy": [
+              -0.003557,
+              0.00184
+            ],
+            "block_ci95_log_loss": [
+              -0.001899,
+              7.3e-05
+            ],
+            "n_blocks": 23
+          }
+        },
+        "bookmaker_intersections": {
+          "pinnacle_close_power": {
+            "n_intersection": 8148,
+            "bookmaker": {
+              "n": 8148,
+              "log_loss": 0.989836,
+              "brier": 0.590958,
+              "ece": 0.007918,
+              "rps": 0.198904,
+              "accuracy": 0.5108
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 8148,
+              "log_loss": 1.004752,
+              "brier": 0.600936,
+              "ece": 0.012439,
+              "rps": 0.203452,
+              "accuracy": 0.499264
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 8148,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.014915,
+              "ci95_log_loss": [
+                0.011387,
+                0.018399
+              ],
+              "prob_v30_better_log_loss": 0.0,
+              "delta_brier": 0.009978,
+              "ci95_brier": [
+                0.007622,
+                0.012373
+              ],
+              "delta_accuracy": -0.011537,
+              "ci95_accuracy": [
+                -0.017676,
+                -0.005523
+              ],
+              "block_ci95_log_loss": [
+                0.011081,
+                0.019231
+              ],
+              "n_blocks": 23
+            },
+            "tachyon_v21_pre_ws_on_intersection": {
+              "n": 8148,
+              "log_loss": 1.005565,
+              "brier": 0.601482,
+              "ece": 0.013069,
+              "rps": 0.203724,
+              "accuracy": 0.500123
+            }
+          },
+          "avg_close_power": {
+            "n_intersection": 8152,
+            "bookmaker": {
+              "n": 8152,
+              "log_loss": 0.990622,
+              "brier": 0.591449,
+              "ece": 0.010227,
+              "rps": 0.199059,
+              "accuracy": 0.510182
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 8152,
+              "log_loss": 1.004854,
+              "brier": 0.601006,
+              "ece": 0.012433,
+              "rps": 0.20349,
+              "accuracy": 0.499141
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 8152,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.014232,
+              "ci95_log_loss": [
+                0.010786,
+                0.017436
+              ],
+              "prob_v30_better_log_loss": 0.0,
+              "delta_brier": 0.009557,
+              "ci95_brier": [
+                0.007236,
+                0.011728
+              ],
+              "delta_accuracy": -0.01104,
+              "ci95_accuracy": [
+                -0.016928,
+                -0.004784
+              ],
+              "block_ci95_log_loss": [
+                0.010521,
+                0.018307
+              ],
+              "n_blocks": 23
+            },
+            "tachyon_v21_pre_ws_on_intersection": {
+              "n": 8152,
+              "log_loss": 1.005685,
+              "brier": 0.601563,
+              "ece": 0.01316,
+              "rps": 0.203764,
+              "accuracy": 0.5
+            }
+          },
+          "avg_close_proportional": {
+            "n_intersection": 8152,
+            "bookmaker": {
+              "n": 8152,
+              "log_loss": 0.991528,
+              "brier": 0.591904,
+              "ece": 0.016075,
+              "rps": 0.199295,
+              "accuracy": 0.510182
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 8152,
+              "log_loss": 1.004854,
+              "brier": 0.601006,
+              "ece": 0.012433,
+              "rps": 0.20349,
+              "accuracy": 0.499141
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 8152,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.013326,
+              "ci95_log_loss": [
+                0.010021,
+                0.016516
+              ],
+              "prob_v30_better_log_loss": 0.0,
+              "delta_brier": 0.009102,
+              "ci95_brier": [
+                0.006865,
+                0.011214
+              ],
+              "delta_accuracy": -0.01104,
+              "ci95_accuracy": [
+                -0.016928,
+                -0.004784
+              ],
+              "block_ci95_log_loss": [
+                0.009621,
+                0.017385
+              ],
+              "n_blocks": 23
+            },
+            "tachyon_v21_pre_ws_on_intersection": {
+              "n": 8152,
+              "log_loss": 1.005685,
+              "brier": 0.601563,
+              "ece": 0.01316,
+              "rps": 0.203764,
+              "accuracy": 0.5
+            }
+          }
+        }
+      },
+      "test_2024_2025": {
+        "n_matches": 16126,
+        "models": {
+          "tachyon_v30": {
+            "n": 16126,
+            "log_loss": 1.013106,
+            "brier": 0.606873,
+            "ece": 0.009748,
+            "rps": 0.20672,
+            "accuracy": 0.493055
+          },
+          "tachyon_v21_with_real_xg": {
+            "n": 16126,
+            "log_loss": 1.013351,
+            "brier": 0.607037,
+            "ece": 0.007279,
+            "rps": 0.206784,
+            "accuracy": 0.493799
+          },
+          "tachyon_v20": {
+            "n": 16126,
+            "log_loss": 1.014077,
+            "brier": 0.607398,
+            "ece": 0.006393,
+            "rps": 0.207007,
+            "accuracy": 0.493613
+          },
+          "tachyon_v10": {
+            "n": 16126,
+            "log_loss": 1.016583,
+            "brier": 0.609011,
+            "ece": 0.010359,
+            "rps": 0.20781,
+            "accuracy": 0.489644
+          },
+          "tachyon_v21_pre_ws": {
+            "n": 16126,
+            "log_loss": 1.013778,
+            "brier": 0.607323,
+            "ece": 0.007369,
+            "rps": 0.206931,
+            "accuracy": 0.493551
+          }
+        },
+        "paired_bootstrap_95ci": {
+          "v30_vs_v21_with_real_xg": {
+            "n": 16126,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.000245,
+            "ci95_log_loss": [
+              -0.000745,
+              0.00021
+            ],
+            "prob_v30_better_log_loss": 0.848,
+            "delta_brier": -0.000164,
+            "ci95_brier": [
+              -0.000492,
+              0.000151
+            ],
+            "delta_accuracy": -0.000744,
+            "ci95_accuracy": [
+              -0.002729,
+              0.00124
+            ],
+            "block_ci95_log_loss": [
+              -0.000717,
+              0.00022
+            ],
+            "n_blocks": 46
+          },
+          "v30_vs_v20": {
+            "n": 16126,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.000971,
+            "ci95_log_loss": [
+              -0.001742,
+              -0.000188
+            ],
+            "prob_v30_better_log_loss": 0.9935,
+            "delta_brier": -0.000525,
+            "ci95_brier": [
+              -0.001023,
+              -7e-06
+            ],
+            "delta_accuracy": -0.000558,
+            "ci95_accuracy": [
+              -0.003411,
+              0.001984
+            ],
+            "block_ci95_log_loss": [
+              -0.001627,
+              -0.00032
+            ],
+            "n_blocks": 46
+          },
+          "v30_vs_v10": {
+            "n": 16126,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.003477,
+            "ci95_log_loss": [
+              -0.004862,
+              -0.002098
+            ],
+            "prob_v30_better_log_loss": 1.0,
+            "delta_brier": -0.002138,
+            "ci95_brier": [
+              -0.003045,
+              -0.001249
+            ],
+            "delta_accuracy": 0.003411,
+            "ci95_accuracy": [
+              0.000184,
+              0.006697
+            ],
+            "block_ci95_log_loss": [
+              -0.005013,
+              -0.001966
+            ],
+            "n_blocks": 46
+          },
+          "v30_vs_v21_pre_ws": {
+            "n": 16126,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.000672,
+            "ci95_log_loss": [
+              -0.00128,
+              -9.3e-05
+            ],
+            "prob_v30_better_log_loss": 0.9855,
+            "delta_brier": -0.00045,
+            "ci95_brier": [
+              -0.000864,
+              -7e-05
+            ],
+            "delta_accuracy": -0.000496,
+            "ci95_accuracy": [
+              -0.002729,
+              0.001488
+            ],
+            "block_ci95_log_loss": [
+              -0.001516,
+              4.4e-05
+            ],
+            "n_blocks": 46
+          }
+        },
+        "bookmaker_intersections": {
+          "pinnacle_close_power": {
+            "n_intersection": 12506,
+            "bookmaker": {
+              "n": 12506,
+              "log_loss": 0.998305,
+              "brier": 0.596792,
+              "ece": 0.007528,
+              "rps": 0.202268,
+              "accuracy": 0.503758
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 12506,
+              "log_loss": 1.013186,
+              "brier": 0.606929,
+              "ece": 0.009054,
+              "rps": 0.206879,
+              "accuracy": 0.492564
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 12506,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.014882,
+              "ci95_log_loss": [
+                0.011923,
+                0.018049
+              ],
+              "prob_v30_better_log_loss": 0.0,
+              "delta_brier": 0.010137,
+              "ci95_brier": [
+                0.008091,
+                0.012203
+              ],
+              "delta_accuracy": -0.011195,
+              "ci95_accuracy": [
+                -0.016712,
+                -0.005837
+              ],
+              "block_ci95_log_loss": [
+                0.011388,
+                0.018338
+              ],
+              "n_blocks": 46
+            },
+            "tachyon_v21_pre_ws_on_intersection": {
+              "n": 12506,
+              "log_loss": 1.01404,
+              "brier": 0.607473,
+              "ece": 0.007981,
+              "rps": 0.207133,
+              "accuracy": 0.492164
+            }
+          },
+          "avg_close_power": {
+            "n_intersection": 16125,
+            "bookmaker": {
+              "n": 16125,
+              "log_loss": 0.99765,
+              "brier": 0.596411,
+              "ece": 0.006297,
+              "rps": 0.202008,
+              "accuracy": 0.506233
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 16125,
+              "log_loss": 1.013057,
+              "brier": 0.60684,
+              "ece": 0.009709,
+              "rps": 0.206699,
+              "accuracy": 0.493085
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 16125,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.015406,
+              "ci95_log_loss": [
+                0.012923,
+                0.017953
+              ],
+              "prob_v30_better_log_loss": 0.0,
+              "delta_brier": 0.010429,
+              "ci95_brier": [
+                0.008729,
+                0.01219
+              ],
+              "delta_accuracy": -0.013147,
+              "ci95_accuracy": [
+                -0.017674,
+                -0.008682
+              ],
+              "block_ci95_log_loss": [
+                0.012587,
+                0.018184
+              ],
+              "n_blocks": 46
+            },
+            "tachyon_v21_pre_ws_on_intersection": {
+              "n": 16125,
+              "log_loss": 1.013725,
+              "brier": 0.607288,
+              "ece": 0.00733,
+              "rps": 0.206909,
+              "accuracy": 0.493581
+            }
+          },
+          "avg_close_proportional": {
+            "n_intersection": 16125,
+            "bookmaker": {
+              "n": 16125,
+              "log_loss": 0.998259,
+              "brier": 0.596704,
+              "ece": 0.008485,
+              "rps": 0.202176,
+              "accuracy": 0.506233
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 16125,
+              "log_loss": 1.013057,
+              "brier": 0.60684,
+              "ece": 0.009709,
+              "rps": 0.206699,
+              "accuracy": 0.493085
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 16125,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.014798,
+              "ci95_log_loss": [
+                0.012405,
+                0.0172
+              ],
+              "prob_v30_better_log_loss": 0.0,
+              "delta_brier": 0.010135,
+              "ci95_brier": [
+                0.008506,
+                0.011801
+              ],
+              "delta_accuracy": -0.013147,
+              "ci95_accuracy": [
+                -0.017674,
+                -0.008682
+              ],
+              "block_ci95_log_loss": [
+                0.012047,
+                0.017538
+              ],
+              "n_blocks": 46
+            },
+            "tachyon_v21_pre_ws_on_intersection": {
+              "n": 16125,
+              "log_loss": 1.013725,
+              "brier": 0.607288,
+              "ece": 0.00733,
+              "rps": 0.206909,
+              "accuracy": 0.493581
+            }
+          }
+        }
+      }
+    },
+    "top5_europe_E0_SP1_D1_I1_F1": {
+      "val_2023": {
+        "n_matches": 1752,
+        "models": {
+          "tachyon_v30": {
+            "n": 1752,
+            "log_loss": 0.967599,
+            "brier": 0.57587,
+            "ece": 0.019763,
+            "rps": 0.191793,
+            "accuracy": 0.535959
+          },
+          "tachyon_v21_with_real_xg": {
+            "n": 1752,
+            "log_loss": 0.968369,
+            "brier": 0.576593,
+            "ece": 0.025945,
+            "rps": 0.192243,
+            "accuracy": 0.534247
+          },
+          "tachyon_v20": {
+            "n": 1752,
+            "log_loss": 0.968917,
+            "brier": 0.576901,
+            "ece": 0.012477,
+            "rps": 0.192413,
+            "accuracy": 0.540525
+          },
+          "tachyon_v10": {
+            "n": 1752,
+            "log_loss": 0.972125,
+            "brier": 0.579354,
+            "ece": 0.015517,
+            "rps": 0.193523,
+            "accuracy": 0.52911
+          },
+          "tachyon_v21_pre_ws": {
+            "n": 1752,
+            "log_loss": 0.970134,
+            "brier": 0.577667,
+            "ece": 0.018894,
+            "rps": 0.192729,
+            "accuracy": 0.538813
+          }
+        },
+        "paired_bootstrap_95ci": {
+          "v30_vs_v21_with_real_xg": {
+            "n": 1752,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.00077,
+            "ci95_log_loss": [
+              -0.002278,
+              0.000669
+            ],
+            "prob_v30_better_log_loss": 0.842,
+            "delta_brier": -0.000723,
+            "ci95_brier": [
+              -0.001693,
+              0.00025
+            ],
+            "delta_accuracy": 0.001712,
+            "ci95_accuracy": [
+              -0.003995,
+              0.00742
+            ],
+            "block_ci95_log_loss": [
+              -0.002066,
+              0.000443
+            ],
+            "n_blocks": 5
+          },
+          "v30_vs_v20": {
+            "n": 1752,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.001318,
+            "ci95_log_loss": [
+              -0.004128,
+              0.001505
+            ],
+            "prob_v30_better_log_loss": 0.8225,
+            "delta_brier": -0.001031,
+            "ci95_brier": [
+              -0.002877,
+              0.000816
+            ],
+            "delta_accuracy": -0.004566,
+            "ci95_accuracy": [
+              -0.013128,
+              0.003995
+            ],
+            "block_ci95_log_loss": [
+              -0.002859,
+              8.1e-05
+            ],
+            "n_blocks": 5
+          },
+          "v30_vs_v10": {
+            "n": 1752,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.004526,
+            "ci95_log_loss": [
+              -0.009383,
+              0.00037
+            ],
+            "prob_v30_better_log_loss": 0.958,
+            "delta_brier": -0.003484,
+            "ci95_brier": [
+              -0.006646,
+              -0.000277
+            ],
+            "delta_accuracy": 0.006849,
+            "ci95_accuracy": [
+              -0.002854,
+              0.017123
+            ],
+            "block_ci95_log_loss": [
+              -0.006836,
+              -0.002012
+            ],
+            "n_blocks": 5
+          },
+          "v30_vs_v21_pre_ws": {
+            "n": 1752,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.002535,
+            "ci95_log_loss": [
+              -0.005353,
+              0.000384
+            ],
+            "prob_v30_better_log_loss": 0.9555,
+            "delta_brier": -0.001797,
+            "ci95_brier": [
+              -0.003703,
+              0.000161
+            ],
+            "delta_accuracy": -0.002854,
+            "ci95_accuracy": [
+              -0.010845,
+              0.005708
+            ],
+            "block_ci95_log_loss": [
+              -0.006338,
+              0.001411
+            ],
+            "n_blocks": 5
+          }
+        },
+        "bookmaker_intersections": {
+          "pinnacle_close_power": {
+            "n_intersection": 1752,
+            "bookmaker": {
+              "n": 1752,
+              "log_loss": 0.951694,
+              "brier": 0.56529,
+              "ece": 0.02358,
+              "rps": 0.186817,
+              "accuracy": 0.55879
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 1752,
+              "log_loss": 0.967599,
+              "brier": 0.57587,
+              "ece": 0.019763,
+              "rps": 0.191793,
+              "accuracy": 0.535959
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 1752,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.015905,
+              "ci95_log_loss": [
+                0.00934,
+                0.023015
+              ],
+              "prob_v30_better_log_loss": 0.0,
+              "delta_brier": 0.01058,
+              "ci95_brier": [
+                0.006038,
+                0.01545
+              ],
+              "delta_accuracy": -0.022831,
+              "ci95_accuracy": [
+                -0.034817,
+                -0.010845
+              ],
+              "block_ci95_log_loss": [
+                0.007506,
+                0.024879
+              ],
+              "n_blocks": 5
+            },
+            "tachyon_v21_pre_ws_on_intersection": {
+              "n": 1752,
+              "log_loss": 0.970134,
+              "brier": 0.577667,
+              "ece": 0.018894,
+              "rps": 0.192729,
+              "accuracy": 0.538813
+            }
+          },
+          "avg_close_power": {
+            "n_intersection": 1752,
+            "bookmaker": {
+              "n": 1752,
+              "log_loss": 0.952137,
+              "brier": 0.565541,
+              "ece": 0.021739,
+              "rps": 0.186839,
+              "accuracy": 0.558219
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 1752,
+              "log_loss": 0.967599,
+              "brier": 0.57587,
+              "ece": 0.019763,
+              "rps": 0.191793,
+              "accuracy": 0.535959
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 1752,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.015462,
+              "ci95_log_loss": [
+                0.008907,
+                0.022789
+              ],
+              "prob_v30_better_log_loss": 0.0,
+              "delta_brier": 0.010329,
+              "ci95_brier": [
+                0.005979,
+                0.015111
+              ],
+              "delta_accuracy": -0.02226,
+              "ci95_accuracy": [
+                -0.034247,
+                -0.010274
+              ],
+              "block_ci95_log_loss": [
+                0.008017,
+                0.024167
+              ],
+              "n_blocks": 5
+            },
+            "tachyon_v21_pre_ws_on_intersection": {
+              "n": 1752,
+              "log_loss": 0.970134,
+              "brier": 0.577667,
+              "ece": 0.018894,
+              "rps": 0.192729,
+              "accuracy": 0.538813
+            }
+          },
+          "avg_close_proportional": {
+            "n_intersection": 1752,
+            "bookmaker": {
+              "n": 1752,
+              "log_loss": 0.953313,
+              "brier": 0.566129,
+              "ece": 0.030406,
+              "rps": 0.187219,
+              "accuracy": 0.558219
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 1752,
+              "log_loss": 0.967599,
+              "brier": 0.57587,
+              "ece": 0.019763,
+              "rps": 0.191793,
+              "accuracy": 0.535959
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 1752,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.014286,
+              "ci95_log_loss": [
+                0.007686,
+                0.021502
+              ],
+              "prob_v30_better_log_loss": 0.0,
+              "delta_brier": 0.009741,
+              "ci95_brier": [
+                0.005413,
+                0.014561
+              ],
+              "delta_accuracy": -0.02226,
+              "ci95_accuracy": [
+                -0.034247,
+                -0.010274
+              ],
+              "block_ci95_log_loss": [
+                0.006555,
+                0.022629
+              ],
+              "n_blocks": 5
+            },
+            "tachyon_v21_pre_ws_on_intersection": {
+              "n": 1752,
+              "log_loss": 0.970134,
+              "brier": 0.577667,
+              "ece": 0.018894,
+              "rps": 0.192729,
+              "accuracy": 0.538813
+            }
+          }
+        }
+      },
+      "test_2024_2025": {
+        "n_matches": 3504,
+        "models": {
+          "tachyon_v30": {
+            "n": 3504,
+            "log_loss": 0.980844,
+            "brier": 0.584033,
+            "ece": 0.012908,
+            "rps": 0.19866,
+            "accuracy": 0.526541
+          },
+          "tachyon_v21_with_real_xg": {
+            "n": 3504,
+            "log_loss": 0.981279,
+            "brier": 0.584385,
+            "ece": 0.009288,
+            "rps": 0.198818,
+            "accuracy": 0.528824
+          },
+          "tachyon_v20": {
+            "n": 3504,
+            "log_loss": 0.9821,
+            "brier": 0.584739,
+            "ece": 0.017383,
+            "rps": 0.199042,
+            "accuracy": 0.52911
+          },
+          "tachyon_v10": {
+            "n": 3504,
+            "log_loss": 0.986225,
+            "brier": 0.58748,
+            "ece": 0.009118,
+            "rps": 0.200461,
+            "accuracy": 0.5254
+          },
+          "tachyon_v21_pre_ws": {
+            "n": 3504,
+            "log_loss": 0.982778,
+            "brier": 0.58537,
+            "ece": 0.012429,
+            "rps": 0.199331,
+            "accuracy": 0.52911
+          }
+        },
+        "paired_bootstrap_95ci": {
+          "v30_vs_v21_with_real_xg": {
+            "n": 3504,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.000434,
+            "ci95_log_loss": [
+              -0.001958,
+              0.001067
+            ],
+            "prob_v30_better_log_loss": 0.723,
+            "delta_brier": -0.000351,
+            "ci95_brier": [
+              -0.001342,
+              0.000615
+            ],
+            "delta_accuracy": -0.002283,
+            "ci95_accuracy": [
+              -0.007135,
+              0.002568
+            ],
+            "block_ci95_log_loss": [
+              -0.002132,
+              0.001354
+            ],
+            "n_blocks": 10
+          },
+          "v30_vs_v20": {
+            "n": 3504,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.001255,
+            "ci95_log_loss": [
+              -0.003356,
+              0.00095
+            ],
+            "prob_v30_better_log_loss": 0.87,
+            "delta_brier": -0.000706,
+            "ci95_brier": [
+              -0.002103,
+              0.000732
+            ],
+            "delta_accuracy": -0.002568,
+            "ci95_accuracy": [
+              -0.007991,
+              0.003139
+            ],
+            "block_ci95_log_loss": [
+              -0.002767,
+              0.000348
+            ],
+            "n_blocks": 10
+          },
+          "v30_vs_v10": {
+            "n": 3504,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.00538,
+            "ci95_log_loss": [
+              -0.008925,
+              -0.001769
+            ],
+            "prob_v30_better_log_loss": 0.997,
+            "delta_brier": -0.003447,
+            "ci95_brier": [
+              -0.005795,
+              -0.001121
+            ],
+            "delta_accuracy": 0.001142,
+            "ci95_accuracy": [
+              -0.00543,
+              0.007705
+            ],
+            "block_ci95_log_loss": [
+              -0.009121,
+              -0.001868
+            ],
+            "n_blocks": 10
+          },
+          "v30_vs_v21_pre_ws": {
+            "n": 3504,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.001934,
+            "ci95_log_loss": [
+              -0.003948,
+              0.000222
+            ],
+            "prob_v30_better_log_loss": 0.9615,
+            "delta_brier": -0.001337,
+            "ci95_brier": [
+              -0.002659,
+              5.3e-05
+            ],
+            "delta_accuracy": -0.002568,
+            "ci95_accuracy": [
+              -0.008276,
+              0.003425
+            ],
+            "block_ci95_log_loss": [
+              -0.005346,
+              0.00096
+            ],
+            "n_blocks": 10
+          }
+        },
+        "bookmaker_intersections": {
+          "pinnacle_close_power": {
+            "n_intersection": 2650,
+            "bookmaker": {
+              "n": 2650,
+              "log_loss": 0.961109,
+              "brier": 0.57131,
+              "ece": 0.01356,
+              "rps": 0.193341,
+              "accuracy": 0.544151
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 2650,
+              "log_loss": 0.972744,
+              "brier": 0.57916,
+              "ece": 0.010589,
+              "rps": 0.196532,
+              "accuracy": 0.530943
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 2650,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.011635,
+              "ci95_log_loss": [
+                0.006055,
+                0.017586
+              ],
+              "prob_v30_better_log_loss": 0.0,
+              "delta_brier": 0.007849,
+              "ci95_brier": [
+                0.004118,
+                0.011836
+              ],
+              "delta_accuracy": -0.013208,
+              "ci95_accuracy": [
+                -0.022642,
+                -0.003774
+              ],
+              "block_ci95_log_loss": [
+                0.008749,
+                0.014803
+              ],
+              "n_blocks": 10
+            },
+            "tachyon_v21_pre_ws_on_intersection": {
+              "n": 2650,
+              "log_loss": 0.975589,
+              "brier": 0.58104,
+              "ece": 0.011045,
+              "rps": 0.197477,
+              "accuracy": 0.533962
+            }
+          },
+          "avg_close_power": {
+            "n_intersection": 3504,
+            "bookmaker": {
+              "n": 3504,
+              "log_loss": 0.96828,
+              "brier": 0.575996,
+              "ece": 0.014473,
+              "rps": 0.195329,
+              "accuracy": 0.541096
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 3504,
+              "log_loss": 0.980844,
+              "brier": 0.584033,
+              "ece": 0.012908,
+              "rps": 0.19866,
+              "accuracy": 0.526541
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 3504,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.012564,
+              "ci95_log_loss": [
+                0.007326,
+                0.017502
+              ],
+              "prob_v30_better_log_loss": 0.0,
+              "delta_brier": 0.008038,
+              "ci95_brier": [
+                0.004697,
+                0.011268
+              ],
+              "delta_accuracy": -0.014555,
+              "ci95_accuracy": [
+                -0.023116,
+                -0.005993
+              ],
+              "block_ci95_log_loss": [
+                0.009587,
+                0.015838
+              ],
+              "n_blocks": 10
+            },
+            "tachyon_v21_pre_ws_on_intersection": {
+              "n": 3504,
+              "log_loss": 0.982778,
+              "brier": 0.58537,
+              "ece": 0.012429,
+              "rps": 0.199331,
+              "accuracy": 0.52911
+            }
+          },
+          "avg_close_proportional": {
+            "n_intersection": 3504,
+            "bookmaker": {
+              "n": 3504,
+              "log_loss": 0.969101,
+              "brier": 0.576377,
+              "ece": 0.018044,
+              "rps": 0.19552,
+              "accuracy": 0.541096
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 3504,
+              "log_loss": 0.980844,
+              "brier": 0.584033,
+              "ece": 0.012908,
+              "rps": 0.19866,
+              "accuracy": 0.526541
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 3504,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.011744,
+              "ci95_log_loss": [
+                0.006579,
+                0.016822
+              ],
+              "prob_v30_better_log_loss": 0.0,
+              "delta_brier": 0.007656,
+              "ci95_brier": [
+                0.004222,
+                0.010907
+              ],
+              "delta_accuracy": -0.014555,
+              "ci95_accuracy": [
+                -0.023116,
+                -0.005993
+              ],
+              "block_ci95_log_loss": [
+                0.008387,
+                0.015425
+              ],
+              "n_blocks": 10
+            },
+            "tachyon_v21_pre_ws_on_intersection": {
+              "n": 3504,
+              "log_loss": 0.982778,
+              "brier": 0.58537,
+              "ece": 0.012429,
+              "rps": 0.199331,
+              "accuracy": 0.52911
+            }
+          }
+        }
+      },
+      "oos_2018_2025": {
+        "n_matches": 14285,
+        "models": {
+          "tachyon_v30": {
+            "n": 14285,
+            "log_loss": 0.982264,
+            "brier": 0.584468,
+            "ece": 0.016106,
+            "rps": 0.198896,
+            "accuracy": 0.526986
+          },
+          "tachyon_v21_with_real_xg": {
+            "n": 14285,
+            "log_loss": 0.982705,
+            "brier": 0.58481,
+            "ece": 0.015888,
+            "rps": 0.199033,
+            "accuracy": 0.527336
+          },
+          "tachyon_v20": {
+            "n": 14285,
+            "log_loss": 0.982793,
+            "brier": 0.584933,
+            "ece": 0.013672,
+            "rps": 0.1992,
+            "accuracy": 0.527546
+          },
+          "tachyon_v10": {
+            "n": 14285,
+            "log_loss": 0.986945,
+            "brier": 0.587579,
+            "ece": 0.009321,
+            "rps": 0.200476,
+            "accuracy": 0.524606
+          },
+          "tachyon_v21_pre_ws": {
+            "n": 14285,
+            "log_loss": 0.983028,
+            "brier": 0.585001,
+            "ece": 0.015993,
+            "rps": 0.199247,
+            "accuracy": 0.526566
+          }
+        },
+        "paired_bootstrap_95ci": {
+          "v30_vs_v21_with_real_xg": {
+            "n": 14285,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.00044,
+            "ci95_log_loss": [
+              -0.001238,
+              0.000434
+            ],
+            "prob_v30_better_log_loss": 0.868,
+            "delta_brier": -0.000342,
+            "ci95_brier": [
+              -0.000874,
+              0.000213
+            ],
+            "delta_accuracy": -0.00035,
+            "ci95_accuracy": [
+              -0.00273,
+              0.00196
+            ],
+            "block_ci95_log_loss": [
+              -0.001258,
+              0.000455
+            ],
+            "n_blocks": 40
+          },
+          "v30_vs_v20": {
+            "n": 14285,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.000529,
+            "ci95_log_loss": [
+              -0.001718,
+              0.000718
+            ],
+            "prob_v30_better_log_loss": 0.8005,
+            "delta_brier": -0.000465,
+            "ci95_brier": [
+              -0.001206,
+              0.00035
+            ],
+            "delta_accuracy": -0.00056,
+            "ci95_accuracy": [
+              -0.00357,
+              0.002242
+            ],
+            "block_ci95_log_loss": [
+              -0.001631,
+              0.000677
+            ],
+            "n_blocks": 40
+          },
+          "v30_vs_v10": {
+            "n": 14285,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.004681,
+            "ci95_log_loss": [
+              -0.006594,
+              -0.002684
+            ],
+            "prob_v30_better_log_loss": 1.0,
+            "delta_brier": -0.003111,
+            "ci95_brier": [
+              -0.004373,
+              -0.001828
+            ],
+            "delta_accuracy": 0.00238,
+            "ci95_accuracy": [
+              -0.0014,
+              0.00588
+            ],
+            "block_ci95_log_loss": [
+              -0.006666,
+              -0.002622
+            ],
+            "n_blocks": 40
+          },
+          "v30_vs_v21_pre_ws": {
+            "n": 14285,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.000763,
+            "ci95_log_loss": [
+              -0.001949,
+              0.000537
+            ],
+            "prob_v30_better_log_loss": 0.8825,
+            "delta_brier": -0.000533,
+            "ci95_brier": [
+              -0.001331,
+              0.000341
+            ],
+            "delta_accuracy": 0.00042,
+            "ci95_accuracy": [
+              -0.00259,
+              0.0035
+            ],
+            "block_ci95_log_loss": [
+              -0.002353,
+              0.000757
+            ],
+            "n_blocks": 40
+          }
+        },
+        "bookmaker_intersections": {
+          "pinnacle_close_power": {
+            "n_intersection": 13430,
+            "bookmaker": {
+              "n": 13430,
+              "log_loss": 0.967506,
+              "brier": 0.574782,
+              "ece": 0.005742,
+              "rps": 0.194613,
+              "accuracy": 0.537677
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 13430,
+              "log_loss": 0.980826,
+              "brier": 0.583577,
+              "ece": 0.015903,
+              "rps": 0.198506,
+              "accuracy": 0.527848
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 13430,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.013321,
+              "ci95_log_loss": [
+                0.010594,
+                0.015938
+              ],
+              "prob_v30_better_log_loss": 0.0,
+              "delta_brier": 0.008795,
+              "ci95_brier": [
+                0.00702,
+                0.010567
+              ],
+              "delta_accuracy": -0.009829,
+              "ci95_accuracy": [
+                -0.014371,
+                -0.00551
+              ],
+              "block_ci95_log_loss": [
+                0.010906,
+                0.016017
+              ],
+              "n_blocks": 40
+            },
+            "tachyon_v21_pre_ws_on_intersection": {
+              "n": 13430,
+              "log_loss": 0.981695,
+              "brier": 0.584166,
+              "ece": 0.015684,
+              "rps": 0.19889,
+              "accuracy": 0.527327
+            }
+          },
+          "avg_close_power": {
+            "n_intersection": 12459,
+            "bookmaker": {
+              "n": 12459,
+              "log_loss": 0.970196,
+              "brier": 0.576644,
+              "ece": 0.00665,
+              "rps": 0.195504,
+              "accuracy": 0.53953
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 12459,
+              "log_loss": 0.983488,
+              "brier": 0.585384,
+              "ece": 0.016036,
+              "rps": 0.19942,
+              "accuracy": 0.526848
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 12459,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.013291,
+              "ci95_log_loss": [
+                0.010399,
+                0.016192
+              ],
+              "prob_v30_better_log_loss": 0.0,
+              "delta_brier": 0.00874,
+              "ci95_brier": [
+                0.006879,
+                0.010652
+              ],
+              "delta_accuracy": -0.012682,
+              "ci95_accuracy": [
+                -0.017419,
+                -0.008026
+              ],
+              "block_ci95_log_loss": [
+                0.010826,
+                0.015925
+              ],
+              "n_blocks": 35
+            },
+            "tachyon_v21_pre_ws_on_intersection": {
+              "n": 12459,
+              "log_loss": 0.984731,
+              "brier": 0.586224,
+              "ece": 0.016622,
+              "rps": 0.19989,
+              "accuracy": 0.526607
+            }
+          },
+          "avg_close_proportional": {
+            "n_intersection": 12459,
+            "bookmaker": {
+              "n": 12459,
+              "log_loss": 0.970525,
+              "brier": 0.576858,
+              "ece": 0.014185,
+              "rps": 0.195621,
+              "accuracy": 0.53953
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 12459,
+              "log_loss": 0.983488,
+              "brier": 0.585384,
+              "ece": 0.016036,
+              "rps": 0.19942,
+              "accuracy": 0.526848
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 12459,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.012963,
+              "ci95_log_loss": [
+                0.01005,
+                0.015871
+              ],
+              "prob_v30_better_log_loss": 0.0,
+              "delta_brier": 0.008526,
+              "ci95_brier": [
+                0.006655,
+                0.010386
+              ],
+              "delta_accuracy": -0.012682,
+              "ci95_accuracy": [
+                -0.017419,
+                -0.008026
+              ],
+              "block_ci95_log_loss": [
+                0.010428,
+                0.015713
+              ],
+              "n_blocks": 35
+            },
+            "tachyon_v21_pre_ws_on_intersection": {
+              "n": 12459,
+              "log_loss": 0.984731,
+              "brier": 0.586224,
+              "ece": 0.016622,
+              "rps": 0.19989,
+              "accuracy": 0.526607
+            }
+          }
+        }
+      }
+    },
+    "liga_mx_MEX": {
+      "val_2023": {
+        "n_matches": 340,
+        "models": {
+          "tachyon_v30": {
+            "n": 340,
+            "log_loss": 1.019573,
+            "brier": 0.611139,
+            "ece": 0.049352,
+            "rps": 0.209229,
+            "accuracy": 0.494118
+          },
+          "tachyon_v21_with_real_xg": {
+            "n": 340,
+            "log_loss": 1.023566,
+            "brier": 0.613331,
+            "ece": 0.039034,
+            "rps": 0.210205,
+            "accuracy": 0.494118
+          },
+          "tachyon_v20": {
+            "n": 340,
+            "log_loss": 1.022214,
+            "brier": 0.612623,
+            "ece": 0.019964,
+            "rps": 0.209919,
+            "accuracy": 0.482353
+          },
+          "tachyon_v10": {
+            "n": 340,
+            "log_loss": 1.022112,
+            "brier": 0.612122,
+            "ece": 0.031902,
+            "rps": 0.209949,
+            "accuracy": 0.485294
+          },
+          "tachyon_v21_pre_ws": {
+            "n": 340,
+            "log_loss": 1.023641,
+            "brier": 0.613069,
+            "ece": 0.022017,
+            "rps": 0.209983,
+            "accuracy": 0.491176
+          }
+        },
+        "paired_bootstrap_95ci": {
+          "v30_vs_v21_with_real_xg": {
+            "n": 340,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.003993,
+            "ci95_log_loss": [
+              -0.011942,
+              0.003633
+            ],
+            "prob_v30_better_log_loss": 0.8375,
+            "delta_brier": -0.002192,
+            "ci95_brier": [
+              -0.007372,
+              0.003151
+            ],
+            "delta_accuracy": 0.0,
+            "ci95_accuracy": [
+              -0.014706,
+              0.014706
+            ]
+          },
+          "v30_vs_v20": {
+            "n": 340,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.002642,
+            "ci95_log_loss": [
+              -0.011166,
+              0.006007
+            ],
+            "prob_v30_better_log_loss": 0.731,
+            "delta_brier": -0.001485,
+            "ci95_brier": [
+              -0.007042,
+              0.004283
+            ],
+            "delta_accuracy": 0.011765,
+            "ci95_accuracy": [
+              -0.008824,
+              0.032353
+            ]
+          },
+          "v30_vs_v10": {
+            "n": 340,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.00254,
+            "ci95_log_loss": [
+              -0.012927,
+              0.007872
+            ],
+            "prob_v30_better_log_loss": 0.674,
+            "delta_brier": -0.000983,
+            "ci95_brier": [
+              -0.007908,
+              0.006287
+            ],
+            "delta_accuracy": 0.008824,
+            "ci95_accuracy": [
+              -0.014706,
+              0.032353
+            ]
+          },
+          "v30_vs_v21_pre_ws": {
+            "n": 340,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.004069,
+            "ci95_log_loss": [
+              -0.012008,
+              0.004066
+            ],
+            "prob_v30_better_log_loss": 0.838,
+            "delta_brier": -0.001931,
+            "ci95_brier": [
+              -0.007319,
+              0.003802
+            ],
+            "delta_accuracy": 0.002941,
+            "ci95_accuracy": [
+              -0.014706,
+              0.020588
+            ]
+          }
+        },
+        "bookmaker_intersections": {
+          "pinnacle_close_power": {
+            "n_intersection": 336,
+            "bookmaker": {
+              "n": 336,
+              "log_loss": 1.000547,
+              "brier": 0.598372,
+              "ece": 0.048069,
+              "rps": 0.203391,
+              "accuracy": 0.517857
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 336,
+              "log_loss": 1.017269,
+              "brier": 0.609548,
+              "ece": 0.049949,
+              "rps": 0.208378,
+              "accuracy": 0.497024
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 336,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.016722,
+              "ci95_log_loss": [
+                -0.002744,
+                0.035864
+              ],
+              "prob_v30_better_log_loss": 0.0425,
+              "delta_brier": 0.011176,
+              "ci95_brier": [
+                -0.001949,
+                0.024454
+              ],
+              "delta_accuracy": -0.020833,
+              "ci95_accuracy": [
+                -0.053571,
+                0.011979
+              ]
+            },
+            "tachyon_v21_pre_ws_on_intersection": {
+              "n": 336,
+              "log_loss": 1.020953,
+              "brier": 0.611251,
+              "ece": 0.024644,
+              "rps": 0.209085,
+              "accuracy": 0.494048
+            }
+          },
+          "avg_close_power": {
+            "n_intersection": 340,
+            "bookmaker": {
+              "n": 340,
+              "log_loss": 1.002939,
+              "brier": 0.599737,
+              "ece": 0.028707,
+              "rps": 0.203917,
+              "accuracy": 0.511765
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 340,
+              "log_loss": 1.019573,
+              "brier": 0.611139,
+              "ece": 0.049352,
+              "rps": 0.209229,
+              "accuracy": 0.494118
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 340,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.016633,
+              "ci95_log_loss": [
+                -0.002634,
+                0.035482
+              ],
+              "prob_v30_better_log_loss": 0.048,
+              "delta_brier": 0.011402,
+              "ci95_brier": [
+                -0.001918,
+                0.024457
+              ],
+              "delta_accuracy": -0.017647,
+              "ci95_accuracy": [
+                -0.05,
+                0.017647
+              ]
+            },
+            "tachyon_v21_pre_ws_on_intersection": {
+              "n": 340,
+              "log_loss": 1.023641,
+              "brier": 0.613069,
+              "ece": 0.022017,
+              "rps": 0.209983,
+              "accuracy": 0.491176
+            }
+          },
+          "avg_close_proportional": {
+            "n_intersection": 340,
+            "bookmaker": {
+              "n": 340,
+              "log_loss": 1.003998,
+              "brier": 0.60043,
+              "ece": 0.018382,
+              "rps": 0.204325,
+              "accuracy": 0.511765
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 340,
+              "log_loss": 1.019573,
+              "brier": 0.611139,
+              "ece": 0.049352,
+              "rps": 0.209229,
+              "accuracy": 0.494118
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 340,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.015575,
+              "ci95_log_loss": [
+                -0.002945,
+                0.033902
+              ],
+              "prob_v30_better_log_loss": 0.057,
+              "delta_brier": 0.010709,
+              "ci95_brier": [
+                -0.002166,
+                0.023442
+              ],
+              "delta_accuracy": -0.017647,
+              "ci95_accuracy": [
+                -0.05,
+                0.017647
+              ]
+            },
+            "tachyon_v21_pre_ws_on_intersection": {
+              "n": 340,
+              "log_loss": 1.023641,
+              "brier": 0.613069,
+              "ece": 0.022017,
+              "rps": 0.209983,
+              "accuracy": 0.491176
+            }
+          }
+        }
+      },
+      "test_2024_2025": {
+        "n_matches": 676,
+        "models": {
+          "tachyon_v30": {
+            "n": 676,
+            "log_loss": 0.984772,
+            "brier": 0.586285,
+            "ece": 0.034948,
+            "rps": 0.201484,
+            "accuracy": 0.538462
+          },
+          "tachyon_v21_with_real_xg": {
+            "n": 676,
+            "log_loss": 0.987143,
+            "brier": 0.587992,
+            "ece": 0.054093,
+            "rps": 0.202056,
+            "accuracy": 0.551775
+          },
+          "tachyon_v20": {
+            "n": 676,
+            "log_loss": 0.986919,
+            "brier": 0.587916,
+            "ece": 0.054144,
+            "rps": 0.202075,
+            "accuracy": 0.556213
+          },
+          "tachyon_v10": {
+            "n": 676,
+            "log_loss": 0.987844,
+            "brier": 0.58799,
+            "ece": 0.059132,
+            "rps": 0.202338,
+            "accuracy": 0.554734
+          },
+          "tachyon_v21_pre_ws": {
+            "n": 676,
+            "log_loss": 0.987151,
+            "brier": 0.587949,
+            "ece": 0.053816,
+            "rps": 0.202132,
+            "accuracy": 0.551775
+          }
+        },
+        "paired_bootstrap_95ci": {
+          "v30_vs_v21_with_real_xg": {
+            "n": 676,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.002371,
+            "ci95_log_loss": [
+              -0.007839,
+              0.003387
+            ],
+            "prob_v30_better_log_loss": 0.7915,
+            "delta_brier": -0.001707,
+            "ci95_brier": [
+              -0.005302,
+              0.001991
+            ],
+            "delta_accuracy": -0.013314,
+            "ci95_accuracy": [
+              -0.029586,
+              0.001479
+            ],
+            "block_ci95_log_loss": [
+              -0.003337,
+              -0.001416
+            ],
+            "n_blocks": 2
+          },
+          "v30_vs_v20": {
+            "n": 676,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.002147,
+            "ci95_log_loss": [
+              -0.007679,
+              0.003869
+            ],
+            "prob_v30_better_log_loss": 0.7465,
+            "delta_brier": -0.001631,
+            "ci95_brier": [
+              -0.005307,
+              0.002342
+            ],
+            "delta_accuracy": -0.017751,
+            "ci95_accuracy": [
+              -0.032544,
+              -0.002959
+            ],
+            "block_ci95_log_loss": [
+              -0.002851,
+              -0.001452
+            ],
+            "n_blocks": 2
+          },
+          "v30_vs_v10": {
+            "n": 676,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.003072,
+            "ci95_log_loss": [
+              -0.011739,
+              0.005619
+            ],
+            "prob_v30_better_log_loss": 0.7575,
+            "delta_brier": -0.001704,
+            "ci95_brier": [
+              -0.007477,
+              0.004188
+            ],
+            "delta_accuracy": -0.016272,
+            "ci95_accuracy": [
+              -0.035503,
+              0.001479
+            ],
+            "block_ci95_log_loss": [
+              -0.00364,
+              -0.002498
+            ],
+            "n_blocks": 2
+          },
+          "v30_vs_v21_pre_ws": {
+            "n": 676,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.002379,
+            "ci95_log_loss": [
+              -0.009339,
+              0.00463
+            ],
+            "prob_v30_better_log_loss": 0.74,
+            "delta_brier": -0.001664,
+            "ci95_brier": [
+              -0.006318,
+              0.003007
+            ],
+            "delta_accuracy": -0.013314,
+            "ci95_accuracy": [
+              -0.029586,
+              0.001479
+            ],
+            "block_ci95_log_loss": [
+              -0.002684,
+              -0.002078
+            ],
+            "n_blocks": 2
+          }
+        },
+        "bookmaker_intersections": {
+          "pinnacle_close_power": {
+            "n_intersection": 475,
+            "bookmaker": {
+              "n": 475,
+              "log_loss": 0.958538,
+              "brier": 0.568357,
+              "ece": 0.033781,
+              "rps": 0.193431,
+              "accuracy": 0.536842
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 475,
+              "log_loss": 0.970912,
+              "brier": 0.576334,
+              "ece": 0.043234,
+              "rps": 0.197488,
+              "accuracy": 0.549474
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 475,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.012374,
+              "ci95_log_loss": [
+                -0.002925,
+                0.027566
+              ],
+              "prob_v30_better_log_loss": 0.0625,
+              "delta_brier": 0.007978,
+              "ci95_brier": [
+                -0.002876,
+                0.018853
+              ],
+              "delta_accuracy": 0.012632,
+              "ci95_accuracy": [
+                -0.016842,
+                0.042105
+              ],
+              "block_ci95_log_loss": [
+                0.001876,
+                0.016542
+              ],
+              "n_blocks": 2
+            },
+            "tachyon_v21_pre_ws_on_intersection": {
+              "n": 475,
+              "log_loss": 0.972441,
+              "brier": 0.577572,
+              "ece": 0.062289,
+              "rps": 0.197638,
+              "accuracy": 0.56
+            }
+          },
+          "avg_close_power": {
+            "n_intersection": 676,
+            "bookmaker": {
+              "n": 676,
+              "log_loss": 0.966949,
+              "brier": 0.574672,
+              "ece": 0.010702,
+              "rps": 0.196332,
+              "accuracy": 0.536982
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 676,
+              "log_loss": 0.984772,
+              "brier": 0.586285,
+              "ece": 0.034948,
+              "rps": 0.201484,
+              "accuracy": 0.538462
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 676,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.017823,
+              "ci95_log_loss": [
+                0.005016,
+                0.030919
+              ],
+              "prob_v30_better_log_loss": 0.004,
+              "delta_brier": 0.011614,
+              "ci95_brier": [
+                0.002684,
+                0.020487
+              ],
+              "delta_accuracy": 0.001479,
+              "ci95_accuracy": [
+                -0.022189,
+                0.025148
+              ],
+              "block_ci95_log_loss": [
+                0.017158,
+                0.018495
+              ],
+              "n_blocks": 2
+            },
+            "tachyon_v21_pre_ws_on_intersection": {
+              "n": 676,
+              "log_loss": 0.987151,
+              "brier": 0.587949,
+              "ece": 0.053816,
+              "rps": 0.202132,
+              "accuracy": 0.551775
+            }
+          },
+          "avg_close_proportional": {
+            "n_intersection": 676,
+            "bookmaker": {
+              "n": 676,
+              "log_loss": 0.96934,
+              "brier": 0.575969,
+              "ece": 0.028341,
+              "rps": 0.196919,
+              "accuracy": 0.536982
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 676,
+              "log_loss": 0.984772,
+              "brier": 0.586285,
+              "ece": 0.034948,
+              "rps": 0.201484,
+              "accuracy": 0.538462
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 676,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.015432,
+              "ci95_log_loss": [
+                0.003343,
+                0.027844
+              ],
+              "prob_v30_better_log_loss": 0.007,
+              "delta_brier": 0.010316,
+              "ci95_brier": [
+                0.001849,
+                0.018722
+              ],
+              "delta_accuracy": 0.001479,
+              "ci95_accuracy": [
+                -0.022189,
+                0.025148
+              ],
+              "block_ci95_log_loss": [
+                0.013932,
+                0.01695
+              ],
+              "n_blocks": 2
+            },
+            "tachyon_v21_pre_ws_on_intersection": {
+              "n": 676,
+              "log_loss": 0.987151,
+              "brier": 0.587949,
+              "ece": 0.053816,
+              "rps": 0.202132,
+              "accuracy": 0.551775
+            }
+          }
+        }
+      },
+      "oos_2018_2025": {
+        "n_matches": 2651,
+        "models": {
+          "tachyon_v30": {
+            "n": 2651,
+            "log_loss": 1.014633,
+            "brier": 0.607901,
+            "ece": 0.028815,
+            "rps": 0.208254,
+            "accuracy": 0.51226
+          },
+          "tachyon_v21_with_real_xg": {
+            "n": 2651,
+            "log_loss": 1.016864,
+            "brier": 0.609438,
+            "ece": 0.022087,
+            "rps": 0.209026,
+            "accuracy": 0.504715
+          },
+          "tachyon_v20": {
+            "n": 2651,
+            "log_loss": 1.017147,
+            "brier": 0.609752,
+            "ece": 0.020265,
+            "rps": 0.209265,
+            "accuracy": 0.502829
+          },
+          "tachyon_v10": {
+            "n": 2651,
+            "log_loss": 1.019412,
+            "brier": 0.611241,
+            "ece": 0.022402,
+            "rps": 0.209992,
+            "accuracy": 0.502075
+          },
+          "tachyon_v21_pre_ws": {
+            "n": 2651,
+            "log_loss": 1.017592,
+            "brier": 0.610105,
+            "ece": 0.023563,
+            "rps": 0.20934,
+            "accuracy": 0.507356
+          }
+        },
+        "paired_bootstrap_95ci": {
+          "v30_vs_v21_with_real_xg": {
+            "n": 2651,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.002232,
+            "ci95_log_loss": [
+              -0.005377,
+              0.000785
+            ],
+            "prob_v30_better_log_loss": 0.923,
+            "delta_brier": -0.001537,
+            "ci95_brier": [
+              -0.003691,
+              0.000495
+            ],
+            "delta_accuracy": 0.007544,
+            "ci95_accuracy": [
+              0.0,
+              0.015843
+            ],
+            "block_ci95_log_loss": [
+              -0.00462,
+              0.000311
+            ],
+            "n_blocks": 8
+          },
+          "v30_vs_v20": {
+            "n": 2651,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.002514,
+            "ci95_log_loss": [
+              -0.005881,
+              0.000743
+            ],
+            "prob_v30_better_log_loss": 0.9345,
+            "delta_brier": -0.00185,
+            "ci95_brier": [
+              -0.004195,
+              0.000277
+            ],
+            "delta_accuracy": 0.00943,
+            "ci95_accuracy": [
+              0.001509,
+              0.017739
+            ],
+            "block_ci95_log_loss": [
+              -0.004818,
+              -0.000192
+            ],
+            "n_blocks": 8
+          },
+          "v30_vs_v10": {
+            "n": 2651,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.004779,
+            "ci95_log_loss": [
+              -0.008885,
+              -0.000639
+            ],
+            "prob_v30_better_log_loss": 0.988,
+            "delta_brier": -0.00334,
+            "ci95_brier": [
+              -0.006156,
+              -0.000487
+            ],
+            "delta_accuracy": 0.010185,
+            "ci95_accuracy": [
+              0.000754,
+              0.019992
+            ],
+            "block_ci95_log_loss": [
+              -0.009308,
+              -0.000304
+            ],
+            "n_blocks": 8
+          },
+          "v30_vs_v21_pre_ws": {
+            "n": 2651,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.002959,
+            "ci95_log_loss": [
+              -0.006542,
+              0.000683
+            ],
+            "prob_v30_better_log_loss": 0.943,
+            "delta_brier": -0.002204,
+            "ci95_brier": [
+              -0.004736,
+              0.000267
+            ],
+            "delta_accuracy": 0.004904,
+            "ci95_accuracy": [
+              -0.004149,
+              0.013203
+            ],
+            "block_ci95_log_loss": [
+              -0.006724,
+              0.001345
+            ],
+            "n_blocks": 8
+          }
+        },
+        "bookmaker_intersections": {
+          "pinnacle_close_power": {
+            "n_intersection": 2438,
+            "bookmaker": {
+              "n": 2438,
+              "log_loss": 1.003317,
+              "brier": 0.600105,
+              "ece": 0.016659,
+              "rps": 0.204541,
+              "accuracy": 0.507793
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 2438,
+              "log_loss": 1.014399,
+              "brier": 0.607771,
+              "ece": 0.029594,
+              "rps": 0.208029,
+              "accuracy": 0.512715
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 2438,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.011082,
+              "ci95_log_loss": [
+                0.004091,
+                0.017759
+              ],
+              "prob_v30_better_log_loss": 0.001,
+              "delta_brier": 0.007666,
+              "ci95_brier": [
+                0.002738,
+                0.012335
+              ],
+              "delta_accuracy": 0.004922,
+              "ci95_accuracy": [
+                -0.008203,
+                0.017637
+              ],
+              "block_ci95_log_loss": [
+                0.007003,
+                0.014216
+              ],
+              "n_blocks": 8
+            },
+            "tachyon_v21_pre_ws_on_intersection": {
+              "n": 2438,
+              "log_loss": 1.017127,
+              "brier": 0.609873,
+              "ece": 0.023499,
+              "rps": 0.209031,
+              "accuracy": 0.505742
+            }
+          },
+          "avg_close_power": {
+            "n_intersection": 2651,
+            "bookmaker": {
+              "n": 2651,
+              "log_loss": 1.002276,
+              "brier": 0.599332,
+              "ece": 0.011783,
+              "rps": 0.204432,
+              "accuracy": 0.508865
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 2651,
+              "log_loss": 1.014633,
+              "brier": 0.607901,
+              "ece": 0.028815,
+              "rps": 0.208254,
+              "accuracy": 0.51226
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 2651,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.012357,
+              "ci95_log_loss": [
+                0.006222,
+                0.019043
+              ],
+              "prob_v30_better_log_loss": 0.0,
+              "delta_brier": 0.008569,
+              "ci95_brier": [
+                0.004386,
+                0.013056
+              ],
+              "delta_accuracy": 0.003395,
+              "ci95_accuracy": [
+                -0.008676,
+                0.014721
+              ],
+              "block_ci95_log_loss": [
+                0.008529,
+                0.015674
+              ],
+              "n_blocks": 8
+            },
+            "tachyon_v21_pre_ws_on_intersection": {
+              "n": 2651,
+              "log_loss": 1.017592,
+              "brier": 0.610105,
+              "ece": 0.023563,
+              "rps": 0.20934,
+              "accuracy": 0.507356
+            }
+          },
+          "avg_close_proportional": {
+            "n_intersection": 2651,
+            "bookmaker": {
+              "n": 2651,
+              "log_loss": 1.003703,
+              "brier": 0.600205,
+              "ece": 0.022991,
+              "rps": 0.204855,
+              "accuracy": 0.508865
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 2651,
+              "log_loss": 1.014633,
+              "brier": 0.607901,
+              "ece": 0.028815,
+              "rps": 0.208254,
+              "accuracy": 0.51226
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 2651,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.010929,
+              "ci95_log_loss": [
+                0.004905,
+                0.017363
+              ],
+              "prob_v30_better_log_loss": 0.0005,
+              "delta_brier": 0.007697,
+              "ci95_brier": [
+                0.003552,
+                0.012057
+              ],
+              "delta_accuracy": 0.003395,
+              "ci95_accuracy": [
+                -0.008676,
+                0.014721
+              ],
+              "block_ci95_log_loss": [
+                0.007308,
+                0.01407
+              ],
+              "n_blocks": 8
+            },
+            "tachyon_v21_pre_ws_on_intersection": {
+              "n": 2651,
+              "log_loss": 1.017592,
+              "brier": 0.610105,
+              "ece": 0.023563,
+              "rps": 0.20934,
+              "accuracy": 0.507356
+            }
+          }
+        }
+      }
+    },
+    "enriched_top5_plus_liga_mx": {
+      "val_2023": {
+        "n_matches": 2092,
+        "models": {
+          "tachyon_v30": {
+            "n": 2092,
+            "log_loss": 0.976046,
+            "brier": 0.581602,
+            "ece": 0.014224,
+            "rps": 0.194627,
+            "accuracy": 0.529159
+          },
+          "tachyon_v21_with_real_xg": {
+            "n": 2092,
+            "log_loss": 0.97734,
+            "brier": 0.582564,
+            "ece": 0.019593,
+            "rps": 0.195162,
+            "accuracy": 0.527725
+          },
+          "tachyon_v20": {
+            "n": 2092,
+            "log_loss": 0.977579,
+            "brier": 0.582707,
+            "ece": 0.010287,
+            "rps": 0.195258,
+            "accuracy": 0.531071
+          },
+          "tachyon_v10": {
+            "n": 2092,
+            "log_loss": 0.980249,
+            "brier": 0.58468,
+            "ece": 0.017815,
+            "rps": 0.196193,
+            "accuracy": 0.521989
+          },
+          "tachyon_v21_pre_ws": {
+            "n": 2092,
+            "log_loss": 0.97883,
+            "brier": 0.583421,
+            "ece": 0.016958,
+            "rps": 0.195533,
+            "accuracy": 0.531071
+          }
+        },
+        "paired_bootstrap_95ci": {
+          "v30_vs_v21_with_real_xg": {
+            "n": 2092,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.001294,
+            "ci95_log_loss": [
+              -0.00301,
+              0.000636
+            ],
+            "prob_v30_better_log_loss": 0.9085,
+            "delta_brier": -0.000962,
+            "ci95_brier": [
+              -0.002078,
+              0.000277
+            ],
+            "delta_accuracy": 0.001434,
+            "ci95_accuracy": [
+              -0.003824,
+              0.006692
+            ],
+            "block_ci95_log_loss": [
+              -0.002732,
+              0.000102
+            ],
+            "n_blocks": 6
+          },
+          "v30_vs_v20": {
+            "n": 2092,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.001533,
+            "ci95_log_loss": [
+              -0.00415,
+              0.00118
+            ],
+            "prob_v30_better_log_loss": 0.863,
+            "delta_brier": -0.001105,
+            "ci95_brier": [
+              -0.002816,
+              0.000707
+            ],
+            "delta_accuracy": -0.001912,
+            "ci95_accuracy": [
+              -0.00956,
+              0.00527
+            ],
+            "block_ci95_log_loss": [
+              -0.002976,
+              -0.000234
+            ],
+            "n_blocks": 6
+          },
+          "v30_vs_v10": {
+            "n": 2092,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.004203,
+            "ci95_log_loss": [
+              -0.008516,
+              0.000175
+            ],
+            "prob_v30_better_log_loss": 0.9695,
+            "delta_brier": -0.003078,
+            "ci95_brier": [
+              -0.005936,
+              -0.000172
+            ],
+            "delta_accuracy": 0.00717,
+            "ci95_accuracy": [
+              -0.001912,
+              0.016252
+            ],
+            "block_ci95_log_loss": [
+              -0.006215,
+              -0.002101
+            ],
+            "n_blocks": 6
+          },
+          "v30_vs_v21_pre_ws": {
+            "n": 2092,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.002784,
+            "ci95_log_loss": [
+              -0.005488,
+              -2.5e-05
+            ],
+            "prob_v30_better_log_loss": 0.976,
+            "delta_brier": -0.001819,
+            "ci95_brier": [
+              -0.003586,
+              7e-06
+            ],
+            "delta_accuracy": -0.001912,
+            "ci95_accuracy": [
+              -0.009082,
+              0.005258
+            ],
+            "block_ci95_log_loss": [
+              -0.006038,
+              0.000564
+            ],
+            "n_blocks": 6
+          }
+        },
+        "bookmaker_intersections": {
+          "pinnacle_close_power": {
+            "n_intersection": 2088,
+            "bookmaker": {
+              "n": 2088,
+              "log_loss": 0.959555,
+              "brier": 0.570614,
+              "ece": 0.023198,
+              "rps": 0.189484,
+              "accuracy": 0.552203
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 2088,
+              "log_loss": 0.975592,
+              "brier": 0.58129,
+              "ece": 0.01425,
+              "rps": 0.194462,
+              "accuracy": 0.529693
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 2088,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.016036,
+              "ci95_log_loss": [
+                0.00948,
+                0.022788
+              ],
+              "prob_v30_better_log_loss": 0.0,
+              "delta_brier": 0.010676,
+              "ci95_brier": [
+                0.006124,
+                0.015096
+              ],
+              "delta_accuracy": -0.02251,
+              "ci95_accuracy": [
+                -0.033525,
+                -0.011015
+              ],
+              "block_ci95_log_loss": [
+                0.008989,
+                0.02363
+              ],
+              "n_blocks": 6
+            },
+            "tachyon_v21_pre_ws_on_intersection": {
+              "n": 2088,
+              "log_loss": 0.978312,
+              "brier": 0.583071,
+              "ece": 0.017371,
+              "rps": 0.195361,
+              "accuracy": 0.531609
+            }
+          },
+          "avg_close_power": {
+            "n_intersection": 2092,
+            "bookmaker": {
+              "n": 2092,
+              "log_loss": 0.960394,
+              "brier": 0.571099,
+              "ece": 0.019605,
+              "rps": 0.189614,
+              "accuracy": 0.550669
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 2092,
+              "log_loss": 0.976046,
+              "brier": 0.581602,
+              "ece": 0.014224,
+              "rps": 0.194627,
+              "accuracy": 0.529159
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 2092,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.015652,
+              "ci95_log_loss": [
+                0.009092,
+                0.022141
+              ],
+              "prob_v30_better_log_loss": 0.0,
+              "delta_brier": 0.010504,
+              "ci95_brier": [
+                0.005988,
+                0.014865
+              ],
+              "delta_accuracy": -0.021511,
+              "ci95_accuracy": [
+                -0.032505,
+                -0.010516
+              ],
+              "block_ci95_log_loss": [
+                0.009334,
+                0.022984
+              ],
+              "n_blocks": 6
+            },
+            "tachyon_v21_pre_ws_on_intersection": {
+              "n": 2092,
+              "log_loss": 0.97883,
+              "brier": 0.583421,
+              "ece": 0.016958,
+              "rps": 0.195533,
+              "accuracy": 0.531071
+            }
+          },
+          "avg_close_proportional": {
+            "n_intersection": 2092,
+            "bookmaker": {
+              "n": 2092,
+              "log_loss": 0.961551,
+              "brier": 0.571704,
+              "ece": 0.028452,
+              "rps": 0.189999,
+              "accuracy": 0.550669
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 2092,
+              "log_loss": 0.976046,
+              "brier": 0.581602,
+              "ece": 0.014224,
+              "rps": 0.194627,
+              "accuracy": 0.529159
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 2092,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.014495,
+              "ci95_log_loss": [
+                0.008083,
+                0.020706
+              ],
+              "prob_v30_better_log_loss": 0.0,
+              "delta_brier": 0.009898,
+              "ci95_brier": [
+                0.005509,
+                0.014055
+              ],
+              "delta_accuracy": -0.021511,
+              "ci95_accuracy": [
+                -0.032505,
+                -0.010516
+              ],
+              "block_ci95_log_loss": [
+                0.007971,
+                0.021522
+              ],
+              "n_blocks": 6
+            },
+            "tachyon_v21_pre_ws_on_intersection": {
+              "n": 2092,
+              "log_loss": 0.97883,
+              "brier": 0.583421,
+              "ece": 0.016958,
+              "rps": 0.195533,
+              "accuracy": 0.531071
+            }
+          }
+        }
+      },
+      "test_2024_2025": {
+        "n_matches": 4180,
+        "models": {
+          "tachyon_v30": {
+            "n": 4180,
+            "log_loss": 0.98148,
+            "brier": 0.584397,
+            "ece": 0.011408,
+            "rps": 0.199117,
+            "accuracy": 0.528469
+          },
+          "tachyon_v21_with_real_xg": {
+            "n": 4180,
+            "log_loss": 0.982227,
+            "brier": 0.584968,
+            "ece": 0.010807,
+            "rps": 0.199342,
+            "accuracy": 0.532536
+          },
+          "tachyon_v20": {
+            "n": 4180,
+            "log_loss": 0.982879,
+            "brier": 0.585253,
+            "ece": 0.015356,
+            "rps": 0.199533,
+            "accuracy": 0.533493
+          },
+          "tachyon_v10": {
+            "n": 4180,
+            "log_loss": 0.986487,
+            "brier": 0.587562,
+            "ece": 0.012113,
+            "rps": 0.200765,
+            "accuracy": 0.530144
+          },
+          "tachyon_v21_pre_ws": {
+            "n": 4180,
+            "log_loss": 0.983485,
+            "brier": 0.585787,
+            "ece": 0.013935,
+            "rps": 0.199784,
+            "accuracy": 0.532775
+          }
+        },
+        "paired_bootstrap_95ci": {
+          "v30_vs_v21_with_real_xg": {
+            "n": 4180,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.000747,
+            "ci95_log_loss": [
+              -0.002312,
+              0.000908
+            ],
+            "prob_v30_better_log_loss": 0.8195,
+            "delta_brier": -0.000571,
+            "ci95_brier": [
+              -0.001614,
+              0.000499
+            ],
+            "delta_accuracy": -0.004067,
+            "ci95_accuracy": [
+              -0.009091,
+              0.000718
+            ],
+            "block_ci95_log_loss": [
+              -0.002174,
+              0.000727
+            ],
+            "n_blocks": 12
+          },
+          "v30_vs_v20": {
+            "n": 4180,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.001399,
+            "ci95_log_loss": [
+              -0.003429,
+              0.000714
+            ],
+            "prob_v30_better_log_loss": 0.9095,
+            "delta_brier": -0.000856,
+            "ci95_brier": [
+              -0.002244,
+              0.000517
+            ],
+            "delta_accuracy": -0.005024,
+            "ci95_accuracy": [
+              -0.010287,
+              0.0
+            ],
+            "block_ci95_log_loss": [
+              -0.002684,
+              -5.7e-05
+            ],
+            "n_blocks": 12
+          },
+          "v30_vs_v10": {
+            "n": 4180,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.005007,
+            "ci95_log_loss": [
+              -0.008276,
+              -0.001702
+            ],
+            "prob_v30_better_log_loss": 0.999,
+            "delta_brier": -0.003165,
+            "ci95_brier": [
+              -0.00528,
+              -0.000977
+            ],
+            "delta_accuracy": -0.001675,
+            "ci95_accuracy": [
+              -0.007895,
+              0.004785
+            ],
+            "block_ci95_log_loss": [
+              -0.008136,
+              -0.00205
+            ],
+            "n_blocks": 12
+          },
+          "v30_vs_v21_pre_ws": {
+            "n": 4180,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.002006,
+            "ci95_log_loss": [
+              -0.004074,
+              2.4e-05
+            ],
+            "prob_v30_better_log_loss": 0.9745,
+            "delta_brier": -0.00139,
+            "ci95_brier": [
+              -0.002764,
+              -1.1e-05
+            ],
+            "delta_accuracy": -0.004306,
+            "ci95_accuracy": [
+              -0.010048,
+              0.000957
+            ],
+            "block_ci95_log_loss": [
+              -0.004735,
+              0.000374
+            ],
+            "n_blocks": 12
+          }
+        },
+        "bookmaker_intersections": {
+          "pinnacle_close_power": {
+            "n_intersection": 3125,
+            "bookmaker": {
+              "n": 3125,
+              "log_loss": 0.960718,
+              "brier": 0.570861,
+              "ece": 0.010545,
+              "rps": 0.193355,
+              "accuracy": 0.54304
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 3125,
+              "log_loss": 0.972465,
+              "brier": 0.57873,
+              "ece": 0.010106,
+              "rps": 0.196677,
+              "accuracy": 0.53376
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 3125,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.011747,
+              "ci95_log_loss": [
+                0.006841,
+                0.017364
+              ],
+              "prob_v30_better_log_loss": 0.0,
+              "delta_brier": 0.007869,
+              "ci95_brier": [
+                0.00451,
+                0.011561
+              ],
+              "delta_accuracy": -0.00928,
+              "ci95_accuracy": [
+                -0.01856,
+                -0.00032
+              ],
+              "block_ci95_log_loss": [
+                0.008917,
+                0.014608
+              ],
+              "n_blocks": 12
+            },
+            "tachyon_v21_pre_ws_on_intersection": {
+              "n": 3125,
+              "log_loss": 0.97511,
+              "brier": 0.580513,
+              "ece": 0.014473,
+              "rps": 0.197502,
+              "accuracy": 0.53792
+            }
+          },
+          "avg_close_power": {
+            "n_intersection": 4180,
+            "bookmaker": {
+              "n": 4180,
+              "log_loss": 0.968065,
+              "brier": 0.575781,
+              "ece": 0.01184,
+              "rps": 0.195491,
+              "accuracy": 0.540431
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 4180,
+              "log_loss": 0.98148,
+              "brier": 0.584397,
+              "ece": 0.011408,
+              "rps": 0.199117,
+              "accuracy": 0.528469
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 4180,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.013415,
+              "ci95_log_loss": [
+                0.008885,
+                0.018224
+              ],
+              "prob_v30_better_log_loss": 0.0,
+              "delta_brier": 0.008616,
+              "ci95_brier": [
+                0.005661,
+                0.011788
+              ],
+              "delta_accuracy": -0.011962,
+              "ci95_accuracy": [
+                -0.020335,
+                -0.003349
+              ],
+              "block_ci95_log_loss": [
+                0.010593,
+                0.01638
+              ],
+              "n_blocks": 12
+            },
+            "tachyon_v21_pre_ws_on_intersection": {
+              "n": 4180,
+              "log_loss": 0.983485,
+              "brier": 0.585787,
+              "ece": 0.013935,
+              "rps": 0.199784,
+              "accuracy": 0.532775
+            }
+          },
+          "avg_close_proportional": {
+            "n_intersection": 4180,
+            "bookmaker": {
+              "n": 4180,
+              "log_loss": 0.969139,
+              "brier": 0.576311,
+              "ece": 0.01912,
+              "rps": 0.195746,
+              "accuracy": 0.540431
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 4180,
+              "log_loss": 0.98148,
+              "brier": 0.584397,
+              "ece": 0.011408,
+              "rps": 0.199117,
+              "accuracy": 0.528469
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 4180,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.01234,
+              "ci95_log_loss": [
+                0.007852,
+                0.017156
+              ],
+              "prob_v30_better_log_loss": 0.0,
+              "delta_brier": 0.008086,
+              "ci95_brier": [
+                0.005091,
+                0.011239
+              ],
+              "delta_accuracy": -0.011962,
+              "ci95_accuracy": [
+                -0.020335,
+                -0.003349
+              ],
+              "block_ci95_log_loss": [
+                0.009346,
+                0.015465
+              ],
+              "n_blocks": 12
+            },
+            "tachyon_v21_pre_ws_on_intersection": {
+              "n": 4180,
+              "log_loss": 0.983485,
+              "brier": 0.585787,
+              "ece": 0.013935,
+              "rps": 0.199784,
+              "accuracy": 0.532775
+            }
+          }
+        }
+      },
+      "oos_2018_2025": {
+        "n_matches": 16936,
+        "models": {
+          "tachyon_v30": {
+            "n": 16936,
+            "log_loss": 0.987331,
+            "brier": 0.588136,
+            "ece": 0.011952,
+            "rps": 0.200361,
+            "accuracy": 0.524681
+          },
+          "tachyon_v21_with_real_xg": {
+            "n": 16936,
+            "log_loss": 0.988052,
+            "brier": 0.588665,
+            "ece": 0.013897,
+            "rps": 0.200597,
+            "accuracy": 0.523795
+          },
+          "tachyon_v20": {
+            "n": 16936,
+            "log_loss": 0.98817,
+            "brier": 0.588818,
+            "ece": 0.01289,
+            "rps": 0.200776,
+            "accuracy": 0.523677
+          },
+          "tachyon_v10": {
+            "n": 16936,
+            "log_loss": 0.992027,
+            "brier": 0.591283,
+            "ece": 0.004832,
+            "rps": 0.201966,
+            "accuracy": 0.521079
+          },
+          "tachyon_v21_pre_ws": {
+            "n": 16936,
+            "log_loss": 0.988438,
+            "brier": 0.588931,
+            "ece": 0.013125,
+            "rps": 0.200827,
+            "accuracy": 0.523559
+          }
+        },
+        "paired_bootstrap_95ci": {
+          "v30_vs_v21_with_real_xg": {
+            "n": 16936,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.000721,
+            "ci95_log_loss": [
+              -0.001585,
+              0.000134
+            ],
+            "prob_v30_better_log_loss": 0.951,
+            "delta_brier": -0.000529,
+            "ci95_brier": [
+              -0.001097,
+              5.2e-05
+            ],
+            "delta_accuracy": 0.000886,
+            "ci95_accuracy": [
+              -0.001535,
+              0.003248
+            ],
+            "block_ci95_log_loss": [
+              -0.001555,
+              0.000134
+            ],
+            "n_blocks": 48
+          },
+          "v30_vs_v20": {
+            "n": 16936,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.00084,
+            "ci95_log_loss": [
+              -0.001919,
+              0.00025
+            ],
+            "prob_v30_better_log_loss": 0.938,
+            "delta_brier": -0.000682,
+            "ci95_brier": [
+              -0.001379,
+              4.1e-05
+            ],
+            "delta_accuracy": 0.001004,
+            "ci95_accuracy": [
+              -0.001596,
+              0.003897
+            ],
+            "block_ci95_log_loss": [
+              -0.001884,
+              0.000272
+            ],
+            "n_blocks": 48
+          },
+          "v30_vs_v10": {
+            "n": 16936,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.004697,
+            "ci95_log_loss": [
+              -0.006388,
+              -0.002977
+            ],
+            "prob_v30_better_log_loss": 1.0,
+            "delta_brier": -0.003147,
+            "ci95_brier": [
+              -0.004221,
+              -0.002015
+            ],
+            "delta_accuracy": 0.003602,
+            "ci95_accuracy": [
+              5.9e-05,
+              0.007026
+            ],
+            "block_ci95_log_loss": [
+              -0.00655,
+              -0.002884
+            ],
+            "n_blocks": 48
+          },
+          "v30_vs_v21_pre_ws": {
+            "n": 16936,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.001107,
+            "ci95_log_loss": [
+              -0.002313,
+              8e-05
+            ],
+            "prob_v30_better_log_loss": 0.966,
+            "delta_brier": -0.000795,
+            "ci95_brier": [
+              -0.001582,
+              1.1e-05
+            ],
+            "delta_accuracy": 0.001122,
+            "ci95_accuracy": [
+              -0.00195,
+              0.004133
+            ],
+            "block_ci95_log_loss": [
+              -0.002605,
+              0.000353
+            ],
+            "n_blocks": 48
+          }
+        },
+        "bookmaker_intersections": {
+          "pinnacle_close_power": {
+            "n_intersection": 15868,
+            "bookmaker": {
+              "n": 15868,
+              "log_loss": 0.973008,
+              "brier": 0.578673,
+              "ece": 0.005698,
+              "rps": 0.196139,
+              "accuracy": 0.533085
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 15868,
+              "log_loss": 0.985985,
+              "brier": 0.587294,
+              "ece": 0.011374,
+              "rps": 0.199969,
+              "accuracy": 0.525523
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 15868,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.012977,
+              "ci95_log_loss": [
+                0.010491,
+                0.015559
+              ],
+              "prob_v30_better_log_loss": 0.0,
+              "delta_brier": 0.008621,
+              "ci95_brier": [
+                0.006972,
+                0.010302
+              ],
+              "delta_accuracy": -0.007562,
+              "ci95_accuracy": [
+                -0.011596,
+                -0.003277
+              ],
+              "block_ci95_log_loss": [
+                0.010771,
+                0.015239
+              ],
+              "n_blocks": 48
+            },
+            "tachyon_v21_pre_ws_on_intersection": {
+              "n": 15868,
+              "log_loss": 0.987139,
+              "brier": 0.588116,
+              "ece": 0.013981,
+              "rps": 0.200448,
+              "accuracy": 0.524011
+            }
+          },
+          "avg_close_power": {
+            "n_intersection": 15110,
+            "bookmaker": {
+              "n": 15110,
+              "log_loss": 0.975824,
+              "brier": 0.580625,
+              "ece": 0.007051,
+              "rps": 0.19707,
+              "accuracy": 0.53415
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 15110,
+              "log_loss": 0.988952,
+              "brier": 0.589335,
+              "ece": 0.011804,
+              "rps": 0.20097,
+              "accuracy": 0.524289
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 15110,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.013127,
+              "ci95_log_loss": [
+                0.01063,
+                0.015821
+              ],
+              "prob_v30_better_log_loss": 0.0,
+              "delta_brier": 0.00871,
+              "ci95_brier": [
+                0.007069,
+                0.010457
+              ],
+              "delta_accuracy": -0.009861,
+              "ci95_accuracy": [
+                -0.014231,
+                -0.005493
+              ],
+              "block_ci95_log_loss": [
+                0.010997,
+                0.015501
+              ],
+              "n_blocks": 43
+            },
+            "tachyon_v21_pre_ws_on_intersection": {
+              "n": 15110,
+              "log_loss": 0.990497,
+              "brier": 0.590414,
+              "ece": 0.01404,
+              "rps": 0.201548,
+              "accuracy": 0.52323
+            }
+          },
+          "avg_close_proportional": {
+            "n_intersection": 15110,
+            "bookmaker": {
+              "n": 15110,
+              "log_loss": 0.976346,
+              "brier": 0.580954,
+              "ece": 0.015683,
+              "rps": 0.197241,
+              "accuracy": 0.53415
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 15110,
+              "log_loss": 0.988952,
+              "brier": 0.589335,
+              "ece": 0.011804,
+              "rps": 0.20097,
+              "accuracy": 0.524289
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 15110,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.012606,
+              "ci95_log_loss": [
+                0.010154,
+                0.015288
+              ],
+              "prob_v30_better_log_loss": 0.0,
+              "delta_brier": 0.00838,
+              "ci95_brier": [
+                0.006787,
+                0.010108
+              ],
+              "delta_accuracy": -0.009861,
+              "ci95_accuracy": [
+                -0.014231,
+                -0.005493
+              ],
+              "block_ci95_log_loss": [
+                0.010428,
+                0.015099
+              ],
+              "n_blocks": 43
+            },
+            "tachyon_v21_pre_ws_on_intersection": {
+              "n": 15110,
+              "log_loss": 0.990497,
+              "brier": 0.590414,
+              "ece": 0.01404,
+              "rps": 0.201548,
+              "accuracy": 0.52323
+            }
+          }
+        }
+      }
+    }
+  },
+  "season_split_a25_protocol": {
+    "global": {
+      "val_2023": {
+        "n_matches": 8152,
+        "models": {
+          "tachyon_v30": {
+            "n": 8152,
+            "log_loss": 1.004547,
+            "brier": 0.600804,
+            "ece": 0.011194,
+            "rps": 0.203432,
+            "accuracy": 0.499877
+          },
+          "tachyon_v21_with_real_xg": {
+            "n": 8152,
+            "log_loss": 1.005177,
+            "brier": 0.60125,
+            "ece": 0.012814,
+            "rps": 0.203673,
+            "accuracy": 0.498528
+          },
+          "tachyon_v20": {
+            "n": 8152,
+            "log_loss": 1.006043,
+            "brier": 0.601844,
+            "ece": 0.010829,
+            "rps": 0.203924,
+            "accuracy": 0.499141
+          },
+          "tachyon_v10": {
+            "n": 8152,
+            "log_loss": 1.009163,
+            "brier": 0.603814,
+            "ece": 0.016553,
+            "rps": 0.204718,
+            "accuracy": 0.494357
+          }
+        },
+        "paired_bootstrap_95ci": {
+          "v30_vs_v21_with_real_xg": {
+            "n": 8152,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.00063,
+            "ci95_log_loss": [
+              -0.001191,
+              -7.8e-05
+            ],
+            "prob_v30_better_log_loss": 0.988,
+            "delta_brier": -0.000446,
+            "ci95_brier": [
+              -0.000824,
+              -6.6e-05
+            ],
+            "delta_accuracy": 0.001349,
+            "ci95_accuracy": [
+              -0.000859,
+              0.003803
+            ],
+            "block_ci95_log_loss": [
+              -0.001109,
+              -0.000182
+            ],
+            "n_blocks": 23
+          },
+          "v30_vs_v20": {
+            "n": 8152,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.001496,
+            "ci95_log_loss": [
+              -0.002499,
+              -0.000488
+            ],
+            "prob_v30_better_log_loss": 0.9975,
+            "delta_brier": -0.00104,
+            "ci95_brier": [
+              -0.001713,
+              -0.000364
+            ],
+            "delta_accuracy": 0.000736,
+            "ci95_accuracy": [
+              -0.002699,
+              0.004539
+            ],
+            "block_ci95_log_loss": [
+              -0.002224,
+              -0.000722
+            ],
+            "n_blocks": 23
+          },
+          "v30_vs_v10": {
+            "n": 8152,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.004616,
+            "ci95_log_loss": [
+              -0.006397,
+              -0.002847
+            ],
+            "prob_v30_better_log_loss": 1.0,
+            "delta_brier": -0.00301,
+            "ci95_brier": [
+              -0.004221,
+              -0.001816
+            ],
+            "delta_accuracy": 0.00552,
+            "ci95_accuracy": [
+              0.001104,
+              0.010182
+            ],
+            "block_ci95_log_loss": [
+              -0.006561,
+              -0.002639
+            ],
+            "n_blocks": 23
+          }
+        },
+        "bookmaker_intersections": {
+          "pinnacle_close_power": {
+            "n_intersection": 8148,
+            "bookmaker": {
+              "n": 8148,
+              "log_loss": 0.989836,
+              "brier": 0.590958,
+              "ece": 0.007918,
+              "rps": 0.198904,
+              "accuracy": 0.5108
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 8148,
+              "log_loss": 1.004443,
+              "brier": 0.600732,
+              "ece": 0.011107,
+              "rps": 0.203394,
+              "accuracy": 0.5
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 8148,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.014606,
+              "ci95_log_loss": [
+                0.011019,
+                0.01809
+              ],
+              "prob_v30_better_log_loss": 0.0,
+              "delta_brier": 0.009775,
+              "ci95_brier": [
+                0.007409,
+                0.012143
+              ],
+              "delta_accuracy": -0.0108,
+              "ci95_accuracy": [
+                -0.016937,
+                -0.004541
+              ],
+              "block_ci95_log_loss": [
+                0.010773,
+                0.018932
+              ],
+              "n_blocks": 23
+            }
+          },
+          "avg_close_power": {
+            "n_intersection": 8152,
+            "bookmaker": {
+              "n": 8152,
+              "log_loss": 0.990622,
+              "brier": 0.591449,
+              "ece": 0.010227,
+              "rps": 0.199059,
+              "accuracy": 0.510182
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 8152,
+              "log_loss": 1.004547,
+              "brier": 0.600804,
+              "ece": 0.011194,
+              "rps": 0.203432,
+              "accuracy": 0.499877
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 8152,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.013925,
+              "ci95_log_loss": [
+                0.010549,
+                0.01716
+              ],
+              "prob_v30_better_log_loss": 0.0,
+              "delta_brier": 0.009355,
+              "ci95_brier": [
+                0.007027,
+                0.01151
+              ],
+              "delta_accuracy": -0.010304,
+              "ci95_accuracy": [
+                -0.016315,
+                -0.003557
+              ],
+              "block_ci95_log_loss": [
+                0.010247,
+                0.018041
+              ],
+              "n_blocks": 23
+            }
+          },
+          "avg_close_proportional": {
+            "n_intersection": 8152,
+            "bookmaker": {
+              "n": 8152,
+              "log_loss": 0.991528,
+              "brier": 0.591904,
+              "ece": 0.016075,
+              "rps": 0.199295,
+              "accuracy": 0.510182
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 8152,
+              "log_loss": 1.004547,
+              "brier": 0.600804,
+              "ece": 0.011194,
+              "rps": 0.203432,
+              "accuracy": 0.499877
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 8152,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.013019,
+              "ci95_log_loss": [
+                0.009726,
+                0.016237
+              ],
+              "prob_v30_better_log_loss": 0.0,
+              "delta_brier": 0.0089,
+              "ci95_brier": [
+                0.006722,
+                0.011068
+              ],
+              "delta_accuracy": -0.010304,
+              "ci95_accuracy": [
+                -0.016315,
+                -0.003557
+              ],
+              "block_ci95_log_loss": [
+                0.009403,
+                0.017111
+              ],
+              "n_blocks": 23
+            }
+          }
+        }
+      },
+      "test_2024_2025": {
+        "n_matches": 16126,
+        "models": {
+          "tachyon_v30": {
+            "n": 16126,
+            "log_loss": 1.013098,
+            "brier": 0.606844,
+            "ece": 0.009345,
+            "rps": 0.206701,
+            "accuracy": 0.493303
+          },
+          "tachyon_v21_with_real_xg": {
+            "n": 16126,
+            "log_loss": 1.013368,
+            "brier": 0.607032,
+            "ece": 0.006928,
+            "rps": 0.206773,
+            "accuracy": 0.494047
+          },
+          "tachyon_v20": {
+            "n": 16126,
+            "log_loss": 1.013956,
+            "brier": 0.607323,
+            "ece": 0.006674,
+            "rps": 0.206979,
+            "accuracy": 0.493303
+          },
+          "tachyon_v10": {
+            "n": 16126,
+            "log_loss": 1.016407,
+            "brier": 0.608916,
+            "ece": 0.009652,
+            "rps": 0.207787,
+            "accuracy": 0.489892
+          }
+        },
+        "paired_bootstrap_95ci": {
+          "v30_vs_v21_with_real_xg": {
+            "n": 16126,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.000271,
+            "ci95_log_loss": [
+              -0.000798,
+              0.000226
+            ],
+            "prob_v30_better_log_loss": 0.846,
+            "delta_brier": -0.000188,
+            "ci95_brier": [
+              -0.000531,
+              0.000149
+            ],
+            "delta_accuracy": -0.000744,
+            "ci95_accuracy": [
+              -0.002791,
+              0.001302
+            ],
+            "block_ci95_log_loss": [
+              -0.00077,
+              0.000208
+            ],
+            "n_blocks": 46
+          },
+          "v30_vs_v20": {
+            "n": 16126,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.000858,
+            "ci95_log_loss": [
+              -0.001628,
+              -4.9e-05
+            ],
+            "prob_v30_better_log_loss": 0.98,
+            "delta_brier": -0.000479,
+            "ci95_brier": [
+              -0.000998,
+              5.7e-05
+            ],
+            "delta_accuracy": 0.0,
+            "ci95_accuracy": [
+              -0.002791,
+              0.002729
+            ],
+            "block_ci95_log_loss": [
+              -0.001501,
+              -0.000233
+            ],
+            "n_blocks": 46
+          },
+          "v30_vs_v10": {
+            "n": 16126,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.003309,
+            "ci95_log_loss": [
+              -0.004753,
+              -0.00191
+            ],
+            "prob_v30_better_log_loss": 1.0,
+            "delta_brier": -0.002072,
+            "ci95_brier": [
+              -0.002992,
+              -0.001155
+            ],
+            "delta_accuracy": 0.003411,
+            "ci95_accuracy": [
+              -6.2e-05,
+              0.006759
+            ],
+            "block_ci95_log_loss": [
+              -0.004858,
+              -0.001808
+            ],
+            "n_blocks": 46
+          }
+        },
+        "bookmaker_intersections": {
+          "pinnacle_close_power": {
+            "n_intersection": 12506,
+            "bookmaker": {
+              "n": 12506,
+              "log_loss": 0.998305,
+              "brier": 0.596792,
+              "ece": 0.007528,
+              "rps": 0.202268,
+              "accuracy": 0.503758
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 12506,
+              "log_loss": 1.013249,
+              "brier": 0.606941,
+              "ece": 0.007948,
+              "rps": 0.206872,
+              "accuracy": 0.493203
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 12506,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.014944,
+              "ci95_log_loss": [
+                0.011983,
+                0.018105
+              ],
+              "prob_v30_better_log_loss": 0.0,
+              "delta_brier": 0.010149,
+              "ci95_brier": [
+                0.008138,
+                0.012236
+              ],
+              "delta_accuracy": -0.010555,
+              "ci95_accuracy": [
+                -0.016232,
+                -0.005198
+              ],
+              "block_ci95_log_loss": [
+                0.011458,
+                0.018441
+              ],
+              "n_blocks": 46
+            }
+          },
+          "avg_close_power": {
+            "n_intersection": 16125,
+            "bookmaker": {
+              "n": 16125,
+              "log_loss": 0.99765,
+              "brier": 0.596411,
+              "ece": 0.006297,
+              "rps": 0.202008,
+              "accuracy": 0.506233
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 16125,
+              "log_loss": 1.013049,
+              "brier": 0.606811,
+              "ece": 0.009306,
+              "rps": 0.20668,
+              "accuracy": 0.493333
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 16125,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.015399,
+              "ci95_log_loss": [
+                0.01287,
+                0.01797
+              ],
+              "prob_v30_better_log_loss": 0.0,
+              "delta_brier": 0.010401,
+              "ci95_brier": [
+                0.008702,
+                0.012163
+              ],
+              "delta_accuracy": -0.012899,
+              "ci95_accuracy": [
+                -0.017426,
+                -0.008371
+              ],
+              "block_ci95_log_loss": [
+                0.012608,
+                0.01818
+              ],
+              "n_blocks": 46
+            }
+          },
+          "avg_close_proportional": {
+            "n_intersection": 16125,
+            "bookmaker": {
+              "n": 16125,
+              "log_loss": 0.998259,
+              "brier": 0.596704,
+              "ece": 0.008485,
+              "rps": 0.202176,
+              "accuracy": 0.506233
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 16125,
+              "log_loss": 1.013049,
+              "brier": 0.606811,
+              "ece": 0.009306,
+              "rps": 0.20668,
+              "accuracy": 0.493333
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 16125,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.01479,
+              "ci95_log_loss": [
+                0.012287,
+                0.017213
+              ],
+              "prob_v30_better_log_loss": 0.0,
+              "delta_brier": 0.010107,
+              "ci95_brier": [
+                0.008443,
+                0.011794
+              ],
+              "delta_accuracy": -0.012899,
+              "ci95_accuracy": [
+                -0.017426,
+                -0.008371
+              ],
+              "block_ci95_log_loss": [
+                0.01204,
+                0.017487
+              ],
+              "n_blocks": 46
+            }
+          }
+        }
+      }
+    },
+    "top5_europe_E0_SP1_D1_I1_F1": {
+      "val_2023": {
+        "n_matches": 1752,
+        "models": {
+          "tachyon_v30": {
+            "n": 1752,
+            "log_loss": 0.966826,
+            "brier": 0.575403,
+            "ece": 0.024295,
+            "rps": 0.191596,
+            "accuracy": 0.538813
+          },
+          "tachyon_v21_with_real_xg": {
+            "n": 1752,
+            "log_loss": 0.968071,
+            "brier": 0.576456,
+            "ece": 0.014489,
+            "rps": 0.192217,
+            "accuracy": 0.534247
+          },
+          "tachyon_v20": {
+            "n": 1752,
+            "log_loss": 0.969387,
+            "brier": 0.57729,
+            "ece": 0.011123,
+            "rps": 0.192549,
+            "accuracy": 0.5371
+          },
+          "tachyon_v10": {
+            "n": 1752,
+            "log_loss": 0.972003,
+            "brier": 0.579366,
+            "ece": 0.01478,
+            "rps": 0.193501,
+            "accuracy": 0.530251
+          }
+        },
+        "paired_bootstrap_95ci": {
+          "v30_vs_v21_with_real_xg": {
+            "n": 1752,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.001245,
+            "ci95_log_loss": [
+              -0.002553,
+              5.9e-05
+            ],
+            "prob_v30_better_log_loss": 0.967,
+            "delta_brier": -0.001053,
+            "ci95_brier": [
+              -0.001913,
+              -0.000211
+            ],
+            "delta_accuracy": 0.004566,
+            "ci95_accuracy": [
+              -0.001142,
+              0.010845
+            ],
+            "block_ci95_log_loss": [
+              -0.002342,
+              -9.3e-05
+            ],
+            "n_blocks": 5
+          },
+          "v30_vs_v20": {
+            "n": 1752,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.002561,
+            "ci95_log_loss": [
+              -0.005289,
+              0.000105
+            ],
+            "prob_v30_better_log_loss": 0.971,
+            "delta_brier": -0.001888,
+            "ci95_brier": [
+              -0.003655,
+              -5.2e-05
+            ],
+            "delta_accuracy": 0.001712,
+            "ci95_accuracy": [
+              -0.006279,
+              0.010274
+            ],
+            "block_ci95_log_loss": [
+              -0.004164,
+              -0.001624
+            ],
+            "n_blocks": 5
+          },
+          "v30_vs_v10": {
+            "n": 1752,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.005177,
+            "ci95_log_loss": [
+              -0.009991,
+              -0.000258
+            ],
+            "prob_v30_better_log_loss": 0.979,
+            "delta_brier": -0.003963,
+            "ci95_brier": [
+              -0.007119,
+              -0.000726
+            ],
+            "delta_accuracy": 0.008562,
+            "ci95_accuracy": [
+              -0.001156,
+              0.018265
+            ],
+            "block_ci95_log_loss": [
+              -0.006889,
+              -0.003391
+            ],
+            "n_blocks": 5
+          }
+        },
+        "bookmaker_intersections": {
+          "pinnacle_close_power": {
+            "n_intersection": 1752,
+            "bookmaker": {
+              "n": 1752,
+              "log_loss": 0.951694,
+              "brier": 0.56529,
+              "ece": 0.02358,
+              "rps": 0.186817,
+              "accuracy": 0.55879
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 1752,
+              "log_loss": 0.966826,
+              "brier": 0.575403,
+              "ece": 0.024295,
+              "rps": 0.191596,
+              "accuracy": 0.538813
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 1752,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.015132,
+              "ci95_log_loss": [
+                0.008588,
+                0.022193
+              ],
+              "prob_v30_better_log_loss": 0.0,
+              "delta_brier": 0.010112,
+              "ci95_brier": [
+                0.005659,
+                0.014827
+              ],
+              "delta_accuracy": -0.019977,
+              "ci95_accuracy": [
+                -0.032534,
+                -0.007991
+              ],
+              "block_ci95_log_loss": [
+                0.007439,
+                0.02307
+              ],
+              "n_blocks": 5
+            }
+          },
+          "avg_close_power": {
+            "n_intersection": 1752,
+            "bookmaker": {
+              "n": 1752,
+              "log_loss": 0.952137,
+              "brier": 0.565541,
+              "ece": 0.021739,
+              "rps": 0.186839,
+              "accuracy": 0.558219
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 1752,
+              "log_loss": 0.966826,
+              "brier": 0.575403,
+              "ece": 0.024295,
+              "rps": 0.191596,
+              "accuracy": 0.538813
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 1752,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.014689,
+              "ci95_log_loss": [
+                0.008262,
+                0.021861
+              ],
+              "prob_v30_better_log_loss": 0.0,
+              "delta_brier": 0.009862,
+              "ci95_brier": [
+                0.005485,
+                0.014674
+              ],
+              "delta_accuracy": -0.019406,
+              "ci95_accuracy": [
+                -0.031963,
+                -0.00742
+              ],
+              "block_ci95_log_loss": [
+                0.008186,
+                0.022358
+              ],
+              "n_blocks": 5
+            }
+          },
+          "avg_close_proportional": {
+            "n_intersection": 1752,
+            "bookmaker": {
+              "n": 1752,
+              "log_loss": 0.953313,
+              "brier": 0.566129,
+              "ece": 0.030406,
+              "rps": 0.187219,
+              "accuracy": 0.558219
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 1752,
+              "log_loss": 0.966826,
+              "brier": 0.575403,
+              "ece": 0.024295,
+              "rps": 0.191596,
+              "accuracy": 0.538813
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 1752,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.013513,
+              "ci95_log_loss": [
+                0.00709,
+                0.020646
+              ],
+              "prob_v30_better_log_loss": 0.0,
+              "delta_brier": 0.009273,
+              "ci95_brier": [
+                0.005003,
+                0.014087
+              ],
+              "delta_accuracy": -0.019406,
+              "ci95_accuracy": [
+                -0.031963,
+                -0.00742
+              ],
+              "block_ci95_log_loss": [
+                0.006815,
+                0.02082
+              ],
+              "n_blocks": 5
+            }
+          }
+        }
+      },
+      "test_2024_2025": {
+        "n_matches": 3504,
+        "models": {
+          "tachyon_v30": {
+            "n": 3504,
+            "log_loss": 0.980662,
+            "brier": 0.583907,
+            "ece": 0.011237,
+            "rps": 0.198517,
+            "accuracy": 0.530537
+          },
+          "tachyon_v21_with_real_xg": {
+            "n": 3504,
+            "log_loss": 0.981275,
+            "brier": 0.584382,
+            "ece": 0.009867,
+            "rps": 0.198746,
+            "accuracy": 0.528253
+          },
+          "tachyon_v20": {
+            "n": 3504,
+            "log_loss": 0.981969,
+            "brier": 0.584668,
+            "ece": 0.019388,
+            "rps": 0.198958,
+            "accuracy": 0.528539
+          },
+          "tachyon_v10": {
+            "n": 3504,
+            "log_loss": 0.985964,
+            "brier": 0.587326,
+            "ece": 0.012677,
+            "rps": 0.200376,
+            "accuracy": 0.526826
+          }
+        },
+        "paired_bootstrap_95ci": {
+          "v30_vs_v21_with_real_xg": {
+            "n": 3504,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.000612,
+            "ci95_log_loss": [
+              -0.002292,
+              0.001058
+            ],
+            "prob_v30_better_log_loss": 0.768,
+            "delta_brier": -0.000475,
+            "ci95_brier": [
+              -0.001523,
+              0.000637
+            ],
+            "delta_accuracy": 0.002283,
+            "ci95_accuracy": [
+              -0.002568,
+              0.00742
+            ],
+            "block_ci95_log_loss": [
+              -0.002342,
+              0.001213
+            ],
+            "n_blocks": 10
+          },
+          "v30_vs_v20": {
+            "n": 3504,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.001307,
+            "ci95_log_loss": [
+              -0.003503,
+              0.001033
+            ],
+            "prob_v30_better_log_loss": 0.874,
+            "delta_brier": -0.000761,
+            "ci95_brier": [
+              -0.002211,
+              0.000752
+            ],
+            "delta_accuracy": 0.001998,
+            "ci95_accuracy": [
+              -0.003432,
+              0.007991
+            ],
+            "block_ci95_log_loss": [
+              -0.002834,
+              0.00037
+            ],
+            "n_blocks": 10
+          },
+          "v30_vs_v10": {
+            "n": 3504,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.005302,
+            "ci95_log_loss": [
+              -0.008946,
+              -0.001659
+            ],
+            "prob_v30_better_log_loss": 0.9965,
+            "delta_brier": -0.003419,
+            "ci95_brier": [
+              -0.0058,
+              -0.001059
+            ],
+            "delta_accuracy": 0.00371,
+            "ci95_accuracy": [
+              -0.003425,
+              0.010559
+            ],
+            "block_ci95_log_loss": [
+              -0.009178,
+              -0.001567
+            ],
+            "n_blocks": 10
+          }
+        },
+        "bookmaker_intersections": {
+          "pinnacle_close_power": {
+            "n_intersection": 2650,
+            "bookmaker": {
+              "n": 2650,
+              "log_loss": 0.961109,
+              "brier": 0.57131,
+              "ece": 0.01356,
+              "rps": 0.193341,
+              "accuracy": 0.544151
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 2650,
+              "log_loss": 0.972472,
+              "brier": 0.578971,
+              "ece": 0.009913,
+              "rps": 0.196369,
+              "accuracy": 0.534717
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 2650,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.011363,
+              "ci95_log_loss": [
+                0.005668,
+                0.017478
+              ],
+              "prob_v30_better_log_loss": 0.0,
+              "delta_brier": 0.00766,
+              "ci95_brier": [
+                0.003829,
+                0.011622
+              ],
+              "delta_accuracy": -0.009434,
+              "ci95_accuracy": [
+                -0.019623,
+                0.000387
+              ],
+              "block_ci95_log_loss": [
+                0.008112,
+                0.015055
+              ],
+              "n_blocks": 10
+            }
+          },
+          "avg_close_power": {
+            "n_intersection": 3504,
+            "bookmaker": {
+              "n": 3504,
+              "log_loss": 0.96828,
+              "brier": 0.575996,
+              "ece": 0.014473,
+              "rps": 0.195329,
+              "accuracy": 0.541096
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 3504,
+              "log_loss": 0.980662,
+              "brier": 0.583907,
+              "ece": 0.011237,
+              "rps": 0.198517,
+              "accuracy": 0.530537
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 3504,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.012382,
+              "ci95_log_loss": [
+                0.007193,
+                0.017278
+              ],
+              "prob_v30_better_log_loss": 0.0,
+              "delta_brier": 0.007911,
+              "ci95_brier": [
+                0.004546,
+                0.011147
+              ],
+              "delta_accuracy": -0.010559,
+              "ci95_accuracy": [
+                -0.019406,
+                -0.001998
+              ],
+              "block_ci95_log_loss": [
+                0.009218,
+                0.015861
+              ],
+              "n_blocks": 10
+            }
+          },
+          "avg_close_proportional": {
+            "n_intersection": 3504,
+            "bookmaker": {
+              "n": 3504,
+              "log_loss": 0.969101,
+              "brier": 0.576377,
+              "ece": 0.018044,
+              "rps": 0.19552,
+              "accuracy": 0.541096
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 3504,
+              "log_loss": 0.980662,
+              "brier": 0.583907,
+              "ece": 0.011237,
+              "rps": 0.198517,
+              "accuracy": 0.530537
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 3504,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.011562,
+              "ci95_log_loss": [
+                0.006343,
+                0.01666
+              ],
+              "prob_v30_better_log_loss": 0.0,
+              "delta_brier": 0.00753,
+              "ci95_brier": [
+                0.004141,
+                0.010863
+              ],
+              "delta_accuracy": -0.010559,
+              "ci95_accuracy": [
+                -0.019406,
+                -0.001998
+              ],
+              "block_ci95_log_loss": [
+                0.008178,
+                0.015391
+              ],
+              "n_blocks": 10
+            }
+          }
+        }
+      }
+    },
+    "liga_mx_MEX": {
+      "val_2023": {
+        "n_matches": 340,
+        "models": {
+          "tachyon_v30": {
+            "n": 340,
+            "log_loss": 1.020869,
+            "brier": 0.612148,
+            "ece": 0.028452,
+            "rps": 0.20949,
+            "accuracy": 0.497059
+          },
+          "tachyon_v21_with_real_xg": {
+            "n": 340,
+            "log_loss": 1.024215,
+            "brier": 0.613854,
+            "ece": 0.028325,
+            "rps": 0.210327,
+            "accuracy": 0.488235
+          },
+          "tachyon_v20": {
+            "n": 340,
+            "log_loss": 1.02241,
+            "brier": 0.612862,
+            "ece": 0.01594,
+            "rps": 0.209905,
+            "accuracy": 0.482353
+          },
+          "tachyon_v10": {
+            "n": 340,
+            "log_loss": 1.022192,
+            "brier": 0.612267,
+            "ece": 0.034766,
+            "rps": 0.209986,
+            "accuracy": 0.482353
+          }
+        },
+        "paired_bootstrap_95ci": {
+          "v30_vs_v21_with_real_xg": {
+            "n": 340,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.003346,
+            "ci95_log_loss": [
+              -0.011564,
+              0.004779
+            ],
+            "prob_v30_better_log_loss": 0.787,
+            "delta_brier": -0.001705,
+            "ci95_brier": [
+              -0.007244,
+              0.003896
+            ],
+            "delta_accuracy": 0.008824,
+            "ci95_accuracy": [
+              -0.008824,
+              0.026471
+            ]
+          },
+          "v30_vs_v20": {
+            "n": 340,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.001541,
+            "ci95_log_loss": [
+              -0.010556,
+              0.007307
+            ],
+            "prob_v30_better_log_loss": 0.642,
+            "delta_brier": -0.000714,
+            "ci95_brier": [
+              -0.006647,
+              0.005329
+            ],
+            "delta_accuracy": 0.014706,
+            "ci95_accuracy": [
+              -0.005882,
+              0.035294
+            ]
+          },
+          "v30_vs_v10": {
+            "n": 340,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.001323,
+            "ci95_log_loss": [
+              -0.011632,
+              0.009434
+            ],
+            "prob_v30_better_log_loss": 0.5915,
+            "delta_brier": -0.000119,
+            "ci95_brier": [
+              -0.007259,
+              0.007201
+            ],
+            "delta_accuracy": 0.014706,
+            "ci95_accuracy": [
+              -0.008824,
+              0.038235
+            ]
+          }
+        },
+        "bookmaker_intersections": {
+          "pinnacle_close_power": {
+            "n_intersection": 336,
+            "bookmaker": {
+              "n": 336,
+              "log_loss": 1.000547,
+              "brier": 0.598372,
+              "ece": 0.048069,
+              "rps": 0.203391,
+              "accuracy": 0.517857
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 336,
+              "log_loss": 1.018539,
+              "brier": 0.610546,
+              "ece": 0.028864,
+              "rps": 0.208641,
+              "accuracy": 0.5
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 336,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.017992,
+              "ci95_log_loss": [
+                -0.001625,
+                0.036777
+              ],
+              "prob_v30_better_log_loss": 0.0365,
+              "delta_brier": 0.012174,
+              "ci95_brier": [
+                -0.001318,
+                0.025352
+              ],
+              "delta_accuracy": -0.017857,
+              "ci95_accuracy": [
+                -0.050595,
+                0.014881
+              ]
+            }
+          },
+          "avg_close_power": {
+            "n_intersection": 340,
+            "bookmaker": {
+              "n": 340,
+              "log_loss": 1.002939,
+              "brier": 0.599737,
+              "ece": 0.028707,
+              "rps": 0.203917,
+              "accuracy": 0.511765
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 340,
+              "log_loss": 1.020869,
+              "brier": 0.612148,
+              "ece": 0.028452,
+              "rps": 0.20949,
+              "accuracy": 0.497059
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 340,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.01793,
+              "ci95_log_loss": [
+                -0.001678,
+                0.036937
+              ],
+              "prob_v30_better_log_loss": 0.0395,
+              "delta_brier": 0.012411,
+              "ci95_brier": [
+                -0.001157,
+                0.025444
+              ],
+              "delta_accuracy": -0.014706,
+              "ci95_accuracy": [
+                -0.047059,
+                0.017647
+              ]
+            }
+          },
+          "avg_close_proportional": {
+            "n_intersection": 340,
+            "bookmaker": {
+              "n": 340,
+              "log_loss": 1.003998,
+              "brier": 0.60043,
+              "ece": 0.018382,
+              "rps": 0.204325,
+              "accuracy": 0.511765
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 340,
+              "log_loss": 1.020869,
+              "brier": 0.612148,
+              "ece": 0.028452,
+              "rps": 0.20949,
+              "accuracy": 0.497059
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 340,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.016872,
+              "ci95_log_loss": [
+                -0.001851,
+                0.035082
+              ],
+              "prob_v30_better_log_loss": 0.0425,
+              "delta_brier": 0.011719,
+              "ci95_brier": [
+                -0.001217,
+                0.024416
+              ],
+              "delta_accuracy": -0.014706,
+              "ci95_accuracy": [
+                -0.047059,
+                0.017647
+              ]
+            }
+          }
+        }
+      },
+      "test_2024_2025": {
+        "n_matches": 676,
+        "models": {
+          "tachyon_v30": {
+            "n": 676,
+            "log_loss": 0.985691,
+            "brier": 0.58683,
+            "ece": 0.032005,
+            "rps": 0.201707,
+            "accuracy": 0.536982
+          },
+          "tachyon_v21_with_real_xg": {
+            "n": 676,
+            "log_loss": 0.987483,
+            "brier": 0.588242,
+            "ece": 0.050733,
+            "rps": 0.202152,
+            "accuracy": 0.550296
+          },
+          "tachyon_v20": {
+            "n": 676,
+            "log_loss": 0.987373,
+            "brier": 0.588256,
+            "ece": 0.05345,
+            "rps": 0.202199,
+            "accuracy": 0.554734
+          },
+          "tachyon_v10": {
+            "n": 676,
+            "log_loss": 0.987721,
+            "brier": 0.588016,
+            "ece": 0.058396,
+            "rps": 0.202341,
+            "accuracy": 0.554734
+          }
+        },
+        "paired_bootstrap_95ci": {
+          "v30_vs_v21_with_real_xg": {
+            "n": 676,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.001792,
+            "ci95_log_loss": [
+              -0.007619,
+              0.004317
+            ],
+            "prob_v30_better_log_loss": 0.696,
+            "delta_brier": -0.001412,
+            "ci95_brier": [
+              -0.005293,
+              0.002705
+            ],
+            "delta_accuracy": -0.013314,
+            "ci95_accuracy": [
+              -0.029586,
+              0.002959
+            ],
+            "block_ci95_log_loss": [
+              -0.002681,
+              -0.000913
+            ],
+            "n_blocks": 2
+          },
+          "v30_vs_v20": {
+            "n": 676,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.001682,
+            "ci95_log_loss": [
+              -0.007629,
+              0.004771
+            ],
+            "prob_v30_better_log_loss": 0.6755,
+            "delta_brier": -0.001425,
+            "ci95_brier": [
+              -0.005324,
+              0.002753
+            ],
+            "delta_accuracy": -0.017751,
+            "ci95_accuracy": [
+              -0.032581,
+              -0.002922
+            ],
+            "block_ci95_log_loss": [
+              -0.002395,
+              -0.000977
+            ],
+            "n_blocks": 2
+          },
+          "v30_vs_v10": {
+            "n": 676,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.00203,
+            "ci95_log_loss": [
+              -0.011235,
+              0.007189
+            ],
+            "prob_v30_better_log_loss": 0.6595,
+            "delta_brier": -0.001186,
+            "ci95_brier": [
+              -0.007204,
+              0.005087
+            ],
+            "delta_accuracy": -0.017751,
+            "ci95_accuracy": [
+              -0.036982,
+              0.001479
+            ],
+            "block_ci95_log_loss": [
+              -0.002288,
+              -0.001769
+            ],
+            "n_blocks": 2
+          }
+        },
+        "bookmaker_intersections": {
+          "pinnacle_close_power": {
+            "n_intersection": 475,
+            "bookmaker": {
+              "n": 475,
+              "log_loss": 0.958538,
+              "brier": 0.568357,
+              "ece": 0.033781,
+              "rps": 0.193431,
+              "accuracy": 0.536842
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 475,
+              "log_loss": 0.972391,
+              "brier": 0.577178,
+              "ece": 0.0409,
+              "rps": 0.197834,
+              "accuracy": 0.547368
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 475,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.013853,
+              "ci95_log_loss": [
+                -0.001908,
+                0.029292
+              ],
+              "prob_v30_better_log_loss": 0.039,
+              "delta_brier": 0.008822,
+              "ci95_brier": [
+                -0.002141,
+                0.019539
+              ],
+              "delta_accuracy": 0.010526,
+              "ci95_accuracy": [
+                -0.018947,
+                0.04
+              ],
+              "block_ci95_log_loss": [
+                0.002942,
+                0.018186
+              ],
+              "n_blocks": 2
+            }
+          },
+          "avg_close_power": {
+            "n_intersection": 676,
+            "bookmaker": {
+              "n": 676,
+              "log_loss": 0.966949,
+              "brier": 0.574672,
+              "ece": 0.010702,
+              "rps": 0.196332,
+              "accuracy": 0.536982
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 676,
+              "log_loss": 0.985691,
+              "brier": 0.58683,
+              "ece": 0.032005,
+              "rps": 0.201707,
+              "accuracy": 0.536982
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 676,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.018742,
+              "ci95_log_loss": [
+                0.005724,
+                0.032072
+              ],
+              "prob_v30_better_log_loss": 0.002,
+              "delta_brier": 0.012159,
+              "ci95_brier": [
+                0.003267,
+                0.021112
+              ],
+              "delta_accuracy": 0.0,
+              "ci95_accuracy": [
+                -0.023669,
+                0.022189
+              ],
+              "block_ci95_log_loss": [
+                0.018682,
+                0.018801
+              ],
+              "n_blocks": 2
+            }
+          },
+          "avg_close_proportional": {
+            "n_intersection": 676,
+            "bookmaker": {
+              "n": 676,
+              "log_loss": 0.96934,
+              "brier": 0.575969,
+              "ece": 0.028341,
+              "rps": 0.196919,
+              "accuracy": 0.536982
+            },
+            "tachyon_v30_on_intersection": {
+              "n": 676,
+              "log_loss": 0.985691,
+              "brier": 0.58683,
+              "ece": 0.032005,
+              "rps": 0.201707,
+              "accuracy": 0.536982
+            },
+            "paired_v30_vs_bookmaker": {
+              "n": 676,
+              "n_boot": 2000,
+              "seed": 42,
+              "delta_log_loss": 0.016351,
+              "ci95_log_loss": [
+                0.004105,
+                0.028532
+              ],
+              "prob_v30_better_log_loss": 0.0055,
+              "delta_brier": 0.010861,
+              "ci95_brier": [
+                0.002375,
+                0.019201
+              ],
+              "delta_accuracy": 0.0,
+              "ci95_accuracy": [
+                -0.023669,
+                0.022189
+              ],
+              "block_ci95_log_loss": [
+                0.015575,
+                0.017137
+              ],
+              "n_blocks": 2
+            }
+          }
+        }
+      }
+    }
+  },
+  "gbm_and_ensemble_evaluation": {
+    "strict_walk_forward": {
+      "codename": "PitchLab Tachyon v3.0 \u2014 GBM & Ensemble Benchmark",
+      "generated_at": "2026-11-10T20:45:19+00:00",
+      "gbm_backend": "sklearn.HistGradientBoostingClassifier",
+      "protocol": "walk_forward_global_cut",
+      "n_logit_features": 113,
+      "n_gbm_features": 117,
+      "tachyon_v30_new_features_in_gbm": [
+        "has_real_xg_history",
+        "xg_elo_diff",
+        "xg_elo_vs_elo_diff",
+        "pts_minus_xpts_diff_r5",
+        "pts_minus_xpts_diff_r10",
+        "xpts_diff_r10",
+        "ppda_diff_r5",
+        "ppda_diff_r10",
+        "deep_completions_diff_r5",
+        "deep_completions_diff_r10",
+        "npxgd_diff_r10",
+        "altitude_diff_m",
+        "altitude_shock_flag",
+        "surface_pressure_diff"
+      ],
+      "ensemble_weights_calibrated_on_val_2023": {
+        "w_logit": 0.6251,
+        "w_gbm": 0.3749
+      },
+      "val_2023": {
+        "global": {
+          "logit_v30": {
+            "n": 8152,
+            "log_loss": 1.0048538498585537,
+            "brier": 0.601006233053339,
+            "ece": 0.01243259016565195,
+            "accuracy": 0.4991413150147203
+          },
+          "gbm_v30": {
+            "n": 8152,
+            "log_loss": 1.0058111188790861,
+            "brier": 0.6016745307975676,
+            "ece": 0.010510700450124,
+            "accuracy": 0.4949705593719333
+          },
+          "ensemble_logit_gbm": {
+            "n": 8152,
+            "log_loss": 1.0043069243996234,
+            "brier": 0.6006812181001832,
+            "ece": 0.012756679742327774,
+            "accuracy": 0.4977919528949951
+          },
+          "paired_bootstrap_ensemble_vs_logit": {
+            "n": 8152,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.000546925458930157,
+            "ci95_log_loss": [
+              -0.001247846341151849,
+              0.00014591226431386493
+            ],
+            "prob_candidate_better_ll": 0.933,
+            "delta_brier": -0.0003250149531559172,
+            "ci95_brier": [
+              -0.0007540650595740474,
+              0.00012094803437705511
+            ]
+          },
+          "paired_bootstrap_gbm_vs_logit": {
+            "n": 8152,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": 0.0009572690205323824,
+            "ci95_log_loss": [
+              -0.0009180832312065391,
+              0.0027905154083353043
+            ],
+            "prob_candidate_better_ll": 0.1545,
+            "delta_brier": 0.0006682977442285,
+            "ci95_brier": [
+              -0.0004777395245248949,
+              0.0018589346755064871
+            ]
+          }
+        },
+        "top5_europe": {
+          "logit_v30": {
+            "n": 1752,
+            "log_loss": 0.9675989069161247,
+            "brier": 0.5758701388902586,
+            "ece": 0.0197631846045035,
+            "accuracy": 0.535958904109589
+          },
+          "gbm_v30": {
+            "n": 1752,
+            "log_loss": 0.9695030138482598,
+            "brier": 0.5766634831454294,
+            "ece": 0.009925489510422965,
+            "accuracy": 0.5376712328767124
+          },
+          "ensemble_logit_gbm": {
+            "n": 1752,
+            "log_loss": 0.9672841916791005,
+            "brier": 0.5755414455009514,
+            "ece": 0.0184404056644417,
+            "accuracy": 0.5371004566210046
+          },
+          "paired_bootstrap_ensemble_vs_logit": {
+            "n": 1752,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.00031471523702414654,
+            "ci95_log_loss": [
+              -0.0019855626227088616,
+              0.0013422117157188408
+            ],
+            "prob_candidate_better_ll": 0.6375,
+            "delta_brier": -0.0003286933893073578,
+            "ci95_brier": [
+              -0.0013549623108468918,
+              0.0006715989510317888
+            ]
+          },
+          "paired_bootstrap_gbm_vs_logit": {
+            "n": 1752,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": 0.001904106932134993,
+            "ci95_log_loss": [
+              -0.0025113549832768093,
+              0.006369050071181928
+            ],
+            "prob_candidate_better_ll": 0.204,
+            "delta_brier": 0.0007933442551705866,
+            "ci95_brier": [
+              -0.0019359745627336453,
+              0.003508413110174797
+            ]
+          }
+        },
+        "liga_mx": {
+          "logit_v30": {
+            "n": 340,
+            "log_loss": 1.0195725661126886,
+            "brier": 0.6111386813918188,
+            "ece": 0.0493523339960159,
+            "accuracy": 0.49411764705882355
+          },
+          "gbm_v30": {
+            "n": 340,
+            "log_loss": 1.019889137006874,
+            "brier": 0.6116714657905902,
+            "ece": 0.03814399576055328,
+            "accuracy": 0.49411764705882355
+          },
+          "ensemble_logit_gbm": {
+            "n": 340,
+            "log_loss": 1.018769821732814,
+            "brier": 0.6107177727990007,
+            "ece": 0.06083012431690143,
+            "accuracy": 0.49411764705882355
+          },
+          "paired_bootstrap_ensemble_vs_logit": {
+            "n": 340,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.000802744379874634,
+            "ci95_log_loss": [
+              -0.004378044978412249,
+              0.002727989519277396
+            ],
+            "prob_candidate_better_ll": 0.653,
+            "delta_brier": -0.000420908592818091,
+            "ci95_brier": [
+              -0.002658716378801921,
+              0.001912757438568296
+            ]
+          },
+          "paired_bootstrap_gbm_vs_logit": {
+            "n": 340,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": 0.0003165708941852128,
+            "ci95_log_loss": [
+              -0.00899440956796273,
+              0.009671666494674155
+            ],
+            "prob_candidate_better_ll": 0.4625,
+            "delta_brier": 0.0005327843987714141,
+            "ci95_brier": [
+              -0.005394874754885468,
+              0.006752069241841533
+            ]
+          }
+        },
+        "top5_plus_mex": {
+          "logit_v30": {
+            "n": 2092,
+            "log_loss": 0.9760458687358339,
+            "brier": 0.5816021199851586,
+            "ece": 0.014224161025787,
+            "accuracy": 0.5291586998087954
+          },
+          "gbm_v30": {
+            "n": 2092,
+            "log_loss": 0.97769196311878,
+            "brier": 0.5823531170361342,
+            "ece": 0.011287250943851815,
+            "accuracy": 0.5305927342256214
+          },
+          "ensemble_logit_gbm": {
+            "n": 2092,
+            "log_loss": 0.9756518370989201,
+            "brier": 0.5812584394212843,
+            "ece": 0.01235647823449744,
+            "accuracy": 0.530114722753346
+          },
+          "paired_bootstrap_ensemble_vs_logit": {
+            "n": 2092,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.00039403163691380515,
+            "ci95_log_loss": [
+              -0.0018989190793891183,
+              0.0011108497157162709
+            ],
+            "prob_candidate_better_ll": 0.692,
+            "delta_brier": -0.0003436805638741118,
+            "ci95_brier": [
+              -0.0012805190362201071,
+              0.0005756036473186215
+            ]
+          },
+          "paired_bootstrap_gbm_vs_logit": {
+            "n": 2092,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": 0.0016460943829462143,
+            "ci95_log_loss": [
+              -0.0023659122253618624,
+              0.005667933126143315
+            ],
+            "prob_candidate_better_ll": 0.2115,
+            "delta_brier": 0.0007509970509756917,
+            "ci95_brier": [
+              -0.001710083826003118,
+              0.0032212981081526713
+            ]
+          }
+        }
+      },
+      "test_2024_2025": {
+        "global": {
+          "logit_v30": {
+            "n": 16126,
+            "log_loss": 1.0131060888628975,
+            "brier": 0.6068728331068224,
+            "ece": 0.009747640035080943,
+            "accuracy": 0.49305469428252513
+          },
+          "gbm_v30": {
+            "n": 16126,
+            "log_loss": 1.0135035770350755,
+            "brier": 0.6070165151858584,
+            "ece": 0.007999503723431091,
+            "accuracy": 0.49355078754805903
+          },
+          "ensemble_logit_gbm": {
+            "n": 16126,
+            "log_loss": 1.012277543620637,
+            "brier": 0.6063268235734824,
+            "ece": 0.006268795298883056,
+            "accuracy": 0.49448096242093514
+          },
+          "paired_bootstrap_ensemble_vs_logit": {
+            "n": 16126,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.0008285452422603051,
+            "ci95_log_loss": [
+              -0.0013635906499055311,
+              -0.00029081114706075683
+            ],
+            "prob_candidate_better_ll": 0.9985,
+            "delta_brier": -0.0005460095333400576,
+            "ci95_brier": [
+              -0.0008803073140381699,
+              -0.00020730638703561822
+            ]
+          },
+          "paired_bootstrap_gbm_vs_logit": {
+            "n": 16126,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": 0.0003974881721781078,
+            "ci95_log_loss": [
+              -0.0009977474898854209,
+              0.0018278676207026483
+            ],
+            "prob_candidate_better_ll": 0.2945,
+            "delta_brier": 0.00014368207903603394,
+            "ci95_brier": [
+              -0.0007462653854161658,
+              0.0010485983612374132
+            ]
+          }
+        },
+        "top5_europe": {
+          "logit_v30": {
+            "n": 3504,
+            "log_loss": 0.9808444530709262,
+            "brier": 0.5840331703411885,
+            "ece": 0.012908257589909341,
+            "accuracy": 0.526541095890411
+          },
+          "gbm_v30": {
+            "n": 3504,
+            "log_loss": 0.9808861725297813,
+            "brier": 0.5839027315428439,
+            "ece": 0.01532227711154163,
+            "accuracy": 0.5302511415525114
+          },
+          "ensemble_logit_gbm": {
+            "n": 3504,
+            "log_loss": 0.9796648636269308,
+            "brier": 0.5832370314273156,
+            "ece": 0.011347420780429033,
+            "accuracy": 0.5285388127853882
+          },
+          "paired_bootstrap_ensemble_vs_logit": {
+            "n": 3504,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.0011795894439953548,
+            "ci95_log_loss": [
+              -0.0024479542055508867,
+              0.00011654128002059372
+            ],
+            "prob_candidate_better_ll": 0.961,
+            "delta_brier": -0.0007961389138730181,
+            "ci95_brier": [
+              -0.0015879738655511233,
+              1.9504046417489096e-05
+            ]
+          },
+          "paired_bootstrap_gbm_vs_logit": {
+            "n": 3504,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": 4.171945885517829e-05,
+            "ci95_log_loss": [
+              -0.003267943575877442,
+              0.003478298082416085
+            ],
+            "prob_candidate_better_ll": 0.496,
+            "delta_brier": -0.0001304387983448401,
+            "ci95_brier": [
+              -0.002233275339662944,
+              0.0020476474213258276
+            ]
+          }
+        },
+        "liga_mx": {
+          "logit_v30": {
+            "n": 676,
+            "log_loss": 0.9847719070661617,
+            "brier": 0.5862854539845722,
+            "ece": 0.0349476363486259,
+            "accuracy": 0.5384615384615384
+          },
+          "gbm_v30": {
+            "n": 676,
+            "log_loss": 0.9840574861909315,
+            "brier": 0.5860827512325524,
+            "ece": 0.04148360609525589,
+            "accuracy": 0.5428994082840237
+          },
+          "ensemble_logit_gbm": {
+            "n": 676,
+            "log_loss": 0.9834617282897162,
+            "brier": 0.5855196300560103,
+            "ece": 0.046293563354170654,
+            "accuracy": 0.5473372781065089
+          },
+          "paired_bootstrap_ensemble_vs_logit": {
+            "n": 676,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.001310178776445493,
+            "ci95_log_loss": [
+              -0.00397427251215927,
+              0.0012536066592819086
+            ],
+            "prob_candidate_better_ll": 0.846,
+            "delta_brier": -0.0007658239285619008,
+            "ci95_brier": [
+              -0.002536032651466217,
+              0.0009643348368086645
+            ]
+          },
+          "paired_bootstrap_gbm_vs_logit": {
+            "n": 676,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.0007144208752305121,
+            "ci95_log_loss": [
+              -0.0077929028382381325,
+              0.0061749106873190416
+            ],
+            "prob_candidate_better_ll": 0.598,
+            "delta_brier": -0.0002027027520198056,
+            "ci95_brier": [
+              -0.004958587357569186,
+              0.004427406614785605
+            ]
+          }
+        },
+        "top5_plus_mex": {
+          "logit_v30": {
+            "n": 4180,
+            "log_loss": 0.9814796107026916,
+            "brier": 0.5843974152557645,
+            "ece": 0.01140831564419096,
+            "accuracy": 0.5284688995215311
+          },
+          "gbm_v30": {
+            "n": 4180,
+            "log_loss": 0.9813990452654124,
+            "brier": 0.5842552897510359,
+            "ece": 0.014404028326054455,
+            "accuracy": 0.5322966507177034
+          },
+          "ensemble_logit_gbm": {
+            "n": 4180,
+            "log_loss": 0.980278902026941,
+            "brier": 0.5836061789567408,
+            "ece": 0.009732813707896441,
+            "accuracy": 0.531578947368421
+          },
+          "paired_bootstrap_ensemble_vs_logit": {
+            "n": 4180,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.001200708675750449,
+            "ci95_log_loss": [
+              -0.002343960818559022,
+              -4.7487953061765346e-05
+            ],
+            "prob_candidate_better_ll": 0.978,
+            "delta_brier": -0.0007912362990236603,
+            "ci95_brier": [
+              -0.0015321879151454253,
+              -6.118584087318871e-05
+            ]
+          },
+          "paired_bootstrap_gbm_vs_logit": {
+            "n": 4180,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -8.056543727925423e-05,
+            "ci95_log_loss": [
+              -0.00311032877729681,
+              0.0030454902399312594
+            ],
+            "prob_candidate_better_ll": 0.5165,
+            "delta_brier": -0.00014212550472863833,
+            "ci95_brier": [
+              -0.00210605042610657,
+              0.001818206615548516
+            ]
+          }
+        }
+      }
+    },
+    "season_split_a25": {
+      "codename": "PitchLab Tachyon v3.0 \u2014 GBM & Ensemble Benchmark",
+      "generated_at": "2026-11-10T20:56:49+00:00",
+      "gbm_backend": "sklearn.HistGradientBoostingClassifier",
+      "protocol": "walk_forward_season_split",
+      "n_logit_features": 113,
+      "n_gbm_features": 117,
+      "tachyon_v30_new_features_in_gbm": [
+        "has_real_xg_history",
+        "xg_elo_diff",
+        "xg_elo_vs_elo_diff",
+        "pts_minus_xpts_diff_r5",
+        "pts_minus_xpts_diff_r10",
+        "xpts_diff_r10",
+        "ppda_diff_r5",
+        "ppda_diff_r10",
+        "deep_completions_diff_r5",
+        "deep_completions_diff_r10",
+        "npxgd_diff_r10",
+        "altitude_diff_m",
+        "altitude_shock_flag",
+        "surface_pressure_diff"
+      ],
+      "ensemble_weights_calibrated_on_val_2023": {
+        "w_logit": 0.6332,
+        "w_gbm": 0.3668
+      },
+      "val_2023": {
+        "global": {
+          "logit_v30": {
+            "n": 8152,
+            "log_loss": 1.0045466240701544,
+            "brier": 0.6008041025710833,
+            "ece": 0.011193646205894666,
+            "accuracy": 0.4998773307163886
+          },
+          "gbm_v30": {
+            "n": 8152,
+            "log_loss": 1.0055476622412718,
+            "brier": 0.6013700845791269,
+            "ece": 0.010985552860166949,
+            "accuracy": 0.4970559371933268
+          },
+          "ensemble_logit_gbm": {
+            "n": 8152,
+            "log_loss": 1.0040273630725485,
+            "brier": 0.6004574550582147,
+            "ece": 0.01146996457114782,
+            "accuracy": 0.5
+          },
+          "paired_bootstrap_ensemble_vs_logit": {
+            "n": 8152,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.0005192609976058633,
+            "ci95_log_loss": [
+              -0.0011787614476814058,
+              0.00019444305918323688
+            ],
+            "prob_candidate_better_ll": 0.926,
+            "delta_brier": -0.0003466475128686798,
+            "ci95_brier": [
+              -0.0007691409272233367,
+              0.00010878013633566208
+            ]
+          },
+          "paired_bootstrap_gbm_vs_logit": {
+            "n": 8152,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": 0.0010010381711173728,
+            "ci95_log_loss": [
+              -0.0007628625457079744,
+              0.002929475301274977
+            ],
+            "prob_candidate_better_ll": 0.1405,
+            "delta_brier": 0.0005659820080435679,
+            "ci95_brier": [
+              -0.0005872179979794995,
+              0.001803796004217486
+            ]
+          }
+        },
+        "top5_europe": {
+          "logit_v30": {
+            "n": 1752,
+            "log_loss": 0.9668257580264679,
+            "brier": 0.5754026530614922,
+            "ece": 0.024294763436966085,
+            "accuracy": 0.5388127853881278
+          },
+          "gbm_v30": {
+            "n": 1752,
+            "log_loss": 0.9681370770372759,
+            "brier": 0.5756727507888307,
+            "ece": 0.00945072215415802,
+            "accuracy": 0.5405251141552512
+          },
+          "ensemble_logit_gbm": {
+            "n": 1752,
+            "log_loss": 0.9662678064904756,
+            "brier": 0.5748687230042867,
+            "ece": 0.014735724285710025,
+            "accuracy": 0.5428082191780822
+          },
+          "paired_bootstrap_ensemble_vs_logit": {
+            "n": 1752,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.0005579515359922885,
+            "ci95_log_loss": [
+              -0.0022261398457020516,
+              0.0011209062535164046
+            ],
+            "prob_candidate_better_ll": 0.7575,
+            "delta_brier": -0.0005339300572053873,
+            "ci95_brier": [
+              -0.0015159176030777315,
+              0.0005047989161812258
+            ]
+          },
+          "paired_bootstrap_gbm_vs_logit": {
+            "n": 1752,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": 0.0013113190108078332,
+            "ci95_log_loss": [
+              -0.0031224243940518553,
+              0.0058473751244517164
+            ],
+            "prob_candidate_better_ll": 0.283,
+            "delta_brier": 0.000270097727338609,
+            "ci95_brier": [
+              -0.0023928574334578898,
+              0.0030941771424302933
+            ]
+          }
+        },
+        "liga_mx": {
+          "logit_v30": {
+            "n": 340,
+            "log_loss": 1.020869198029312,
+            "brier": 0.6121481435109403,
+            "ece": 0.0284520946581698,
+            "accuracy": 0.4970588235294118
+          },
+          "gbm_v30": {
+            "n": 340,
+            "log_loss": 1.0190913065558722,
+            "brier": 0.6111983377891658,
+            "ece": 0.06576504152377671,
+            "accuracy": 0.4852941176470588
+          },
+          "ensemble_logit_gbm": {
+            "n": 340,
+            "log_loss": 1.0192899623839886,
+            "brier": 0.6111639434245534,
+            "ece": 0.055971415127506585,
+            "accuracy": 0.49411764705882355
+          },
+          "paired_bootstrap_ensemble_vs_logit": {
+            "n": 340,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.0015792356453235244,
+            "ci95_log_loss": [
+              -0.005199522238395145,
+              0.0021193242857984124
+            ],
+            "prob_candidate_better_ll": 0.8115,
+            "delta_brier": -0.0009842000863868872,
+            "ci95_brier": [
+              -0.0033314388847744407,
+              0.0014287803135583923
+            ]
+          },
+          "paired_bootstrap_gbm_vs_logit": {
+            "n": 340,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.0017778914734399513,
+            "ci95_log_loss": [
+              -0.011443585433984315,
+              0.008203506939646613
+            ],
+            "prob_candidate_better_ll": 0.647,
+            "delta_brier": -0.0009498057217744431,
+            "ci95_brier": [
+              -0.007349984891427541,
+              0.005623692411325499
+            ]
+          }
+        },
+        "top5_plus_mex": {
+          "logit_v30": {
+            "n": 2092,
+            "log_loss": 0.9756091086961463,
+            "brier": 0.5813746734978269,
+            "ece": 0.019361320275589924,
+            "accuracy": 0.5320267686424475
+          },
+          "gbm_v30": {
+            "n": 2092,
+            "log_loss": 0.9764183571693612,
+            "brier": 0.5814465077582925,
+            "ece": 0.014882382727691915,
+            "accuracy": 0.5315487571701721
+          },
+          "ensemble_logit_gbm": {
+            "n": 2092,
+            "log_loss": 0.9748851740831115,
+            "brier": 0.5807675637991676,
+            "ece": 0.01829913388019722,
+            "accuracy": 0.5348948374760994
+          },
+          "paired_bootstrap_ensemble_vs_logit": {
+            "n": 2092,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.00072393461303465,
+            "ci95_log_loss": [
+              -0.0021805218932712802,
+              0.0008057809685454165
+            ],
+            "prob_candidate_better_ll": 0.836,
+            "delta_brier": -0.0006071096986593597,
+            "ci95_brier": [
+              -0.0015220622732557555,
+              0.0003352201560753421
+            ]
+          },
+          "paired_bootstrap_gbm_vs_logit": {
+            "n": 2092,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": 0.0008092484732149803,
+            "ci95_log_loss": [
+              -0.0031360616037830464,
+              0.004853237793496696
+            ],
+            "prob_candidate_better_ll": 0.336,
+            "delta_brier": 7.183426046555104e-05,
+            "ci95_brier": [
+              -0.002415907268641484,
+              0.002637733736333086
+            ]
+          }
+        }
+      },
+      "test_2024_2025": {
+        "global": {
+          "logit_v30": {
+            "n": 16126,
+            "log_loss": 1.013097602007197,
+            "brier": 0.6068442506805983,
+            "ece": 0.009344895695559649,
+            "accuracy": 0.4933027409152921
+          },
+          "gbm_v30": {
+            "n": 16126,
+            "log_loss": 1.0139862996159266,
+            "brier": 0.6072623469448435,
+            "ece": 0.008479600818240512,
+            "accuracy": 0.49206250775145727
+          },
+          "ensemble_logit_gbm": {
+            "n": 16126,
+            "log_loss": 1.0124790446096694,
+            "brier": 0.6064212790213311,
+            "ece": 0.007938017121202685,
+            "accuracy": 0.4929306709661416
+          },
+          "paired_bootstrap_ensemble_vs_logit": {
+            "n": 16126,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.0006185573975272223,
+            "ci95_log_loss": [
+              -0.0011379485296796983,
+              -0.00011538464301504038
+            ],
+            "prob_candidate_better_ll": 0.99,
+            "delta_brier": -0.0004229716592671209,
+            "ci95_brier": [
+              -0.0007469660380449407,
+              -0.0001024353405787862
+            ]
+          },
+          "paired_bootstrap_gbm_vs_logit": {
+            "n": 16126,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": 0.0008886976087298819,
+            "ci95_log_loss": [
+              -0.0005264600679356641,
+              0.0022639847163231698
+            ],
+            "prob_candidate_better_ll": 0.1085,
+            "delta_brier": 0.0004180962642452371,
+            "ci95_brier": [
+              -0.00047120863487019453,
+              0.0012881830601712697
+            ]
+          }
+        },
+        "top5_europe": {
+          "logit_v30": {
+            "n": 3504,
+            "log_loss": 0.980662389630371,
+            "brier": 0.5839067320347007,
+            "ece": 0.011236563975104492,
+            "accuracy": 0.5305365296803652
+          },
+          "gbm_v30": {
+            "n": 3504,
+            "log_loss": 0.9806632801247516,
+            "brier": 0.5835880617659125,
+            "ece": 0.007235073937160202,
+            "accuracy": 0.5316780821917808
+          },
+          "ensemble_logit_gbm": {
+            "n": 3504,
+            "log_loss": 0.9795305840438637,
+            "brier": 0.5830807271477416,
+            "ece": 0.013386397164030563,
+            "accuracy": 0.5299657534246576
+          },
+          "paired_bootstrap_ensemble_vs_logit": {
+            "n": 3504,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.0011318055865071818,
+            "ci95_log_loss": [
+              -0.002332404782140405,
+              9.655090593553593e-05
+            ],
+            "prob_candidate_better_ll": 0.965,
+            "delta_brier": -0.0008260048869590615,
+            "ci95_brier": [
+              -0.0015750115791084637,
+              -7.751728545879295e-05
+            ]
+          },
+          "paired_bootstrap_gbm_vs_logit": {
+            "n": 3504,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": 8.904943804424354e-07,
+            "ci95_log_loss": [
+              -0.0032007682067277483,
+              0.0032922097509974326
+            ],
+            "prob_candidate_better_ll": 0.503,
+            "delta_brier": -0.00031867026878826,
+            "ci95_brier": [
+              -0.0023493751974977797,
+              0.001736828389195415
+            ]
+          }
+        },
+        "liga_mx": {
+          "logit_v30": {
+            "n": 676,
+            "log_loss": 0.9856912122644625,
+            "brier": 0.5868301653377396,
+            "ece": 0.03200486933827627,
+            "accuracy": 0.5369822485207101
+          },
+          "gbm_v30": {
+            "n": 676,
+            "log_loss": 0.9833647483853919,
+            "brier": 0.5853624564407298,
+            "ece": 0.0354671256985947,
+            "accuracy": 0.5384615384615384
+          },
+          "ensemble_logit_gbm": {
+            "n": 676,
+            "log_loss": 0.9838009785912396,
+            "brier": 0.5856288099625231,
+            "ece": 0.03756993288826724,
+            "accuracy": 0.5399408284023669
+          },
+          "paired_bootstrap_ensemble_vs_logit": {
+            "n": 676,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.0018902336732229913,
+            "ci95_log_loss": [
+              -0.0044792797849276455,
+              0.000645824417503359
+            ],
+            "prob_candidate_better_ll": 0.9315,
+            "delta_brier": -0.0012013553752165335,
+            "ci95_brier": [
+              -0.002916745140328056,
+              0.0005057102438718958
+            ]
+          },
+          "paired_bootstrap_gbm_vs_logit": {
+            "n": 676,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.002326463879070881,
+            "ci95_log_loss": [
+              -0.009518211372577705,
+              0.004570377930404397
+            ],
+            "prob_candidate_better_ll": 0.7505,
+            "delta_brier": -0.0014677088970097376,
+            "ci95_brier": [
+              -0.006226409785497908,
+              0.003181323208613938
+            ]
+          }
+        },
+        "top5_plus_mex": {
+          "logit_v30": {
+            "n": 4180,
+            "log_loss": 0.9814756633386595,
+            "brier": 0.5843795169420821,
+            "ece": 0.008869390927197377,
+            "accuracy": 0.531578947368421
+          },
+          "gbm_v30": {
+            "n": 4180,
+            "log_loss": 0.9811001682932184,
+            "brier": 0.5838750212874859,
+            "ece": 0.008164748632508463,
+            "accuracy": 0.5327751196172249
+          },
+          "ensemble_logit_gbm": {
+            "n": 4180,
+            "log_loss": 0.9802212028749706,
+            "brier": 0.5834928094402757,
+            "ece": 0.009965943157179255,
+            "accuracy": 0.531578947368421
+          },
+          "paired_bootstrap_ensemble_vs_logit": {
+            "n": 4180,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.0012544604636889733,
+            "ci95_log_loss": [
+              -0.0023709783537304127,
+              -9.604188569674278e-05
+            ],
+            "prob_candidate_better_ll": 0.9825,
+            "delta_brier": -0.000886707501806442,
+            "ci95_brier": [
+              -0.00160643239841469,
+              -0.0001477575628423106
+            ]
+          },
+          "paired_bootstrap_gbm_vs_logit": {
+            "n": 4180,
+            "n_boot": 2000,
+            "seed": 42,
+            "delta_log_loss": -0.0003754950454408723,
+            "ci95_log_loss": [
+              -0.0034392481611482317,
+              0.0028064367753433883
+            ],
+            "prob_candidate_better_ll": 0.584,
+            "delta_brier": -0.0005044956545963267,
+            "ci95_brier": [
+              -0.00246508031285382,
+              0.0015175334980623509
+            ]
+          }
+        }
+      }
+    }
+  }
+}

@@ -10,8 +10,8 @@
 /** Marca de calidad de una predicción. */
 export type DataQualityFlag = "ok" | "fallback_motor_a" | "invalid_features";
 
-/** Deporte del contrato. El fútbol usa H/D/A; la NFL usa H/T/A (T = empate). */
-export type Sport = "football" | "nfl";
+/** Deporte del contrato (6 deportes / 11 ligas en Spacetime Suite v3.0). */
+export type Sport = "football" | "nfl" | "nhl" | "mlb" | "nba" | "ncaaf";
 
 /** Modo de combinación entre mercado y Motor A en fútbol. */
 export type PredictionMode = "market_only" | "hybrid" | "motor_a_only";
@@ -62,12 +62,61 @@ export interface ModelMetadata {
  *   cada coef[k].length = imputer.statistics.length = scaler.mean.length =
  *   scaler.scale.length = features.length
  */
+export interface ProspectiveAvailabilityPriorConfig {
+  enabled: boolean;
+  schema_version?: string;
+  clip_abs: number;
+  weights: {
+    missing_market_value_diff: number;
+    shrunk_log_squad_value_ratio: number;
+    effective_absences_diff: number;
+  };
+  bounds: {
+    missing_market_value_ratio_max: number;
+    log_squad_value_ratio_clip: number;
+    max_effective_absences_per_team: number;
+    effective_absences_diff_clip: number;
+  };
+  absence_weights: {
+    rotowire_injured_out: number;
+    transfermarkt_injured_with_rotowire: number;
+    transfermarkt_injured_without_rotowire: number;
+    suspended_players: number;
+  };
+  logit_shift?: {
+    home_multiplier: number;
+    draw_multiplier: number;
+    away_multiplier: number;
+    description?: string;
+  };
+}
+
+export interface TeamAvailabilityContext {
+  missing_market_value_ratio?: number | null;
+  value_ratio_vs_league_median?: number | null;
+  rotowire_injured_out_count?: number | null;
+  injured_players_count?: number | null;
+  suspended_players_count?: number | null;
+}
+
+export interface LineupAvailabilityDeltaResult {
+  lineup_availability_delta: number;
+  missing_value_term: number;
+  squad_value_term: number;
+  starter_absence_term: number;
+  home_missing_market_value_ratio: number;
+  away_missing_market_value_ratio: number;
+  home_effective_absences: number;
+  away_effective_absences: number;
+}
+
 export interface ModelArtifact {
   type: string;
   codename?: string;
   version: string;
   created_at: string;
   seed: number;
+  regularization_C?: number;
   features: readonly string[];
   n_features_base: number;
   div_levels: readonly string[];
@@ -82,6 +131,7 @@ export interface ModelArtifact {
   coef: ReadonlyArray<readonly number[]>;
   intercept: readonly number[];
   classes: readonly number[];
+  prospective_availability_prior?: ProspectiveAvailabilityPriorConfig;
   metadata: ModelMetadata;
   dataset_sha256?: string;
 }

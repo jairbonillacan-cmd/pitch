@@ -1,0 +1,88 @@
+{
+  "schema_version": "3.0.0",
+  "generated_at_utc": "2026-11-10T19:23:25Z",
+  "web_scraping_manifest_verification": {
+    "manifest_version": "1.0.0",
+    "generated_at_utc": "2026-11-10T17:08:46Z",
+    "snapshots_total": 55,
+    "snapshots_verified": 55,
+    "all_sha256_verified": true,
+    "normalized_tables_summary": {
+      "market_microstructure": 22412,
+      "xg_and_team_ratings": 78898,
+      "roster_availability": 5908,
+      "news_and_environment": 949,
+      "total_normalized_records": 108167
+    }
+  },
+  "outputs": {
+    "ws_soccer_match_xg_2018_2026": {
+      "path": "data\\processed\\web_scraping\\ws_soccer_match_xg_2018_2026.parquet",
+      "rows": 15329,
+      "matched_to_matches_parquet": 15317,
+      "match_rate_pct": 99.92,
+      "exact_real_xg_rows": 14332,
+      "by_div": {
+        "D1": {
+          "ws_rows": 2142,
+          "matched_to_matches_parquet": 2142,
+          "match_rate_pct": 100.0,
+          "exact_real_xg_rows": 2142
+        },
+        "E0": {
+          "ws_rows": 2660,
+          "matched_to_matches_parquet": 2660,
+          "match_rate_pct": 100.0,
+          "exact_real_xg_rows": 2660
+        },
+        "F1": {
+          "ws_rows": 2411,
+          "matched_to_matches_parquet": 2411,
+          "match_rate_pct": 100.0,
+          "exact_real_xg_rows": 2411
+        },
+        "I1": {
+          "ws_rows": 2660,
+          "matched_to_matches_parquet": 2659,
+          "match_rate_pct": 99.96,
+          "exact_real_xg_rows": 2660
+        },
+        "MEX": {
+          "ws_rows": 2796,
+          "matched_to_matches_parquet": 2785,
+          "match_rate_pct": 99.61,
+          "exact_real_xg_rows": 1799
+        },
+        "SP1": {
+          "ws_rows": 2660,
+          "matched_to_matches_parquet": 2660,
+          "match_rate_pct": 100.0,
+          "exact_real_xg_rows": 2660
+        }
+      }
+    },
+    "ws_understat_team_match_tactical": {
+      "path": "data\\processed\\web_scraping\\ws_understat_team_match_tactical.parquet",
+      "rows": 21560,
+      "matched_to_matches_parquet": 21560,
+      "match_rate_pct": 100.0
+    },
+    "ws_stadium_physics": {
+      "path": "data\\processed\\web_scraping\\ws_stadium_physics.parquet",
+      "rows": 398,
+      "open_meteo_primary_stadiums": 175
+    },
+    "ws_multisport_team_seasons": {
+      "path": "data\\processed\\web_scraping\\ws_multisport_team_seasons.parquet",
+      "rows": 748,
+      "nhl_mlb_nba_ncaaf_rows": 716,
+      "nfl_sumersports_rows": 32
+    },
+    "ws_live_inference_context": {
+      "parquet_path": "data\\processed\\web_scraping\\ws_live_inference_context.parquet",
+      "json_path": "data\\processed\\web_scraping\\ws_live_inference_context.json",
+      "canonical_teams": 376,
+      "active_matchups": 242
+    }
+  }
+}

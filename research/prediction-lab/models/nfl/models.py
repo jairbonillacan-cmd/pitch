@@ -25,7 +25,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 
 from config import HGB_PARAMS, TIE_RATE_FLOOR
-from features import CATEGORICAL_FEATURES, NUMERIC_FEATURES
+from features import CATEGORICAL_FEATURES, NUMERIC_FEATURES, apply_venue_physics_hfa
 
 SURFACE_LEVELS = ["grass", "turf", "unknown"]
 PROB_CLIP = 1e-6
@@ -39,8 +39,9 @@ def design_columns() -> list[str]:
 
 
 def make_design(df: pd.DataFrame) -> pd.DataFrame:
-    """Matriz numérica estable (mismas columnas en todos los folds)."""
-    X = df[NUMERIC_FEATURES].astype("float64").copy()
+    """Matriz numérica estable (mismas 29 columnas en todos los folds, con física de sede v3.0)."""
+    df_v3 = apply_venue_physics_hfa(df)
+    X = df_v3[NUMERIC_FEATURES].astype("float64").copy()
     return X[design_columns()]
 
 
