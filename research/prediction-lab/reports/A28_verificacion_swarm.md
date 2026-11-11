@@ -163,3 +163,82 @@
    - Worktree raíz (`PitchLab` / `gemini-reestructura`): intacto por el swarm (`HEAD` en `c63806fafd29f04213a11396147cecce632af7ff`).
 
 **Conclusión de Puerta 2:** La calibración de mezcla logit modelo-mercado (`A4`) y el motor de decisión de picks `v3.1` (`A5`) cumplen al 100% sus contratos matemáticos, paridad cruzada `< 10^{-12}`, topes duros de portafolio (`0` violaciones), apagado de segmentos sin ventaja (Regla Rectora #4) y aislamiento estricto del holdout sellado (`9/9` corridas en `walk_forward_dev`). **Puerta 2 queda formalmente APROBADA para abrir Ola 3.**
+
+---
+
+## Ola 3 — Puerta 3 (Mercados 2-Vías Dixon-Coles, Exportación GBM a TS y Detector de Líneas Rezagadas)
+
+- **Fecha de auditoría:** `2026-11-11`
+- **Veredicto de Puerta 3:** **APROBADA (`PASS` — 0 defectos vigentes tras remediación `dfbf2e4`, 0 fugas temporales, `24/24` corridas acumuladas en los 4 registros con `unlock_holdout=false`, holdout `14,163` eventos 100% sellado y listo para su única apertura)**
+- **Commits auditados:**
+  - `732a403` (`a6-markets2w`): `feat(prediction): implementar mercados 2-vias Dixon-Coles y liquidacion asiatica`
+  - `6583954` + `dfbf2e4` (`a7-gbm-ts`): `feat(prediction): exportar HistGradientBoosting a TypeScript con paridad <1e-6 y evaluar ensamble v3.1` + `fix(prediction): eliminar tuplas efímeras en gbm.ts y corregir tipo/benchmark en gbm.test.ts`
+  - `700dd24` (`a8-stalelines`): `feat(prediction): implementar detector de lineas rezagadas con doble confirmacion y cadencia optima`
+
+---
+
+### 1. Auditoría Red Team de `a6-markets2w` (`732a403`)
+
+**Archivos auditados (100% inspeccionados en lectura):**
+`src/domain/prediction/markets_2way.ts`, `tests/prediction/markets_2way.test.ts`, `services/models/markets_2way.py`, `services/models/test_markets_2way.py`, `services/models/artifacts/markets_2way_eval.json`, `src/data/prediction/markets_2way_config.json`, `services/models/artifacts/holdout_registry_a6.jsonl`.
+
+| Control Red Team | Estado | Evidencia Verificada por `a9-verifier` |
+|---|---|---|
+| Matriz exacta Dixon-Coles y derivación de los 4 mercados de 2 vías | **PASS** | Matriz bivariada `0..max_goals` (`max_goals >= 10` obligatorio, `12` por defecto; rechaza `< 10`) con corrección exacta `PoissonDC._tau_matrix` en `(0,0),(0,1),(1,0),(1,1)` renormalizada a `1.0` (`\|\sum P - 1\| < 10^{-14}`). Deriva `ah` (`-1.0..+1.0`), `dnb` (`=== ah(0.0)` con `p_push` explícito), `totals`/`ou` (`1.5..3.5`) y `btts` (`yes`/`no`). Puente en vivo `markets_2way.test.ts` $\leftrightarrow$ `markets_2way.py` confirma paridad numérica `< 10^{-12}`. |
+| Liquidación asiática de 5 estados, EV exacto `.25`/`.75` y Kelly ¼ | **PASS** | Descompone líneas de cuarto (`.25`, `.75`) exactamente 50/50 entre sus dos medias líneas adyacentes (`{p_full_win, p_half_win, p_push, p_half_loss, p_full_loss, p_effective_win}`), calcula `EV = p_fw \cdot (O - 1) + 0.5 \cdot p_hw \cdot (O - 1) - 0.5 \cdot p_hl - p_fl`, resuelve Kelly ¼ exacto de 5 estados por Newton-bisección salvaguardado (`\|G'(f^*)\| < 10^{-14}`) y liquida con `settleAsianLine` 100% compatible con `clv.ts`/`clv_report.py` y `PickLedger`. |
+| Causalidad estricta en `dc_rho`, higiene de datos y veredicto honesto (`0/92`) | **PASS** | `dc_rho` se estima por MLE estrictamente con `all_ts_start < cut_ts` en cada `(league, fold_key)` y `_sealed_unused` se elimina inmediatamente sin leerse. Filtra y documenta `256` filas corruptas fuera de rejilla de cuarto en `historical_fd`. Veredicto honesto bajo Regla Rectora #4: **`0 / 92` segmentos habilitados** (`enabled: false` en los `92` segmentos de `markets_2way_config.json`): `23 dnb` + `23 btts` carecen de histórico liquidado (`scraped_ws` solo tiene `112` filas prospectivas en `3` eventos), `12` segmentos Extra en `ah`/`totals` tienen `0` filas, `31` están apagados en `A4` (`w_effective <= 0.05`), `2` (`D2::ah`, `G1::ah`) pierden en log-loss OOS causal frente a `open_novig`, y el único segmento que pasa `A4` (`G1::totals`, `w_eff = 0.10`, `\Delta\text{LL} = -0.000516`) emite **`0` picks OOS ejecutables** (`< 5`) bajo `A3+A5` (`delay = 2 min`, `alpha = 0.05 / 0.00 / 0.10`). |
+| Registro aislado de pruebas y sello de holdout | **PASS** | `holdout_registry_a6.jsonl` registra sus `4` corridas (`eval_split = "walk_forward_dev"`, `unlock_holdout = false`) sin contaminar `holdout_trial_registry.jsonl` ni leer el holdout sellado. |
+
+---
+
+### 2. Auditoría Red Team de `a7-gbm-ts` (`6583954` + `dfbf2e4`)
+
+**Archivos auditados (100% inspeccionados en lectura):**
+`src/domain/prediction/gbm.ts`, `tests/prediction/gbm.test.ts`, `services/models/export_gbm_ts.py`, `services/models/test_gbm_export.py`, `services/models/train_gbm.py`, `src/data/prediction/gbm_trees_v3_1.json`, `src/data/prediction/gbm_validation_parity.json`, `services/models/artifacts/gbm_eval_v3_1.json`, `services/models/artifacts/holdout_registry_a7.jsonl`. (`src/domain/prediction/engine.ts` verificado **intacto**).
+
+| Control Red Team | Estado | Evidencia Verificada por `a9-verifier` |
+|---|---|---|
+| Partición temporal causal y bloqueo duro del holdout | **PASS** | `load_dev_soccer_features_strict(unlock_holdout=True)` lanza `HoldoutLeakageGuardError`. Todos los cortes son estrictamente `< 2025-02-02T17:30:00Z`: entrenamiento `< 2023-07-01T00:00:00Z` (`n = 78,575` GBM con `120 \times 3 = 360` árboles, `max_leaf_nodes = 31`, `min_samples_leaf = 80`, `lr = 0.05`; `n = 92,446` Logit compañero), calibración de temperatura (`T = 1.042517`) y peso convexo (`w_logit = 0.707673`, `w_gbm = 0.292327`) en `[2023-07-01, 2024-07-01)` (`n = 8,194`), y validación OOS en `[2024-07-01, 2025-02-02T17:30:00Z)` (`n = 4,785`, cobertura `100%`). |
+| Paridad numérica `< 10^{-6}` sobre el 100% de validación (`4,785` partidos) | **PASS** | Verificado sobre el `100%` de los `4,785` partidos de `gbm_validation_parity.json`: `max\|\Delta\| = 9.791 \times 10^{-13}` en GBM crudo, `9.796 \times 10^{-13}` en GBM calibrado, `5.774 \times 10^{-8}` en Logit compañero y **`4.086 \times 10^{-8}` en ensamble `Logit+GBM`** (`\ll 10^{-6}`), soportando `missing_go_to_left` (`NaN`/`null`), `x <= num_threshold` exacto y particiones categóricas `bitset_idx` / `known_cat_bitsets` de 256 bits. |
+| Latencia `< 0.1 ms` por partido y ronda Red Team (`#49` $\rightarrow$ `dfbf2e4`) | **PASS** | En la primera revisión sobre `6583954` (`#49`), `a9-verifier` bloqueó Puerta 3 por dos defectos reproducibles: `TS2353` (`y` en literal `SnapshotRow` en `gbm.test.ts:228`) y un pico de `0.1131 ms > 0.1 ms` bajo contención de `58` archivos paralelos en `npx vitest run`. En `dfbf2e4`, `a7-gbm-ts` eliminó toda asignación efímera en el camino caliente de `gbm.ts` (recorrido y mezcla en registros sobre `Float64Array` reutilizable) y midió el mejor de `K = 5` pases completos de los `4,785` partidos tras `2,000` iteraciones de warmup. Re-verificación independiente: **`0` errores `tsc --noEmit`**, **`0.0446 ms` ensamble (`p99 = 0.0636 ms`)** en suite `prediction/` y **`0.0650 ms` ensamble (`p99 = 0.0618 ms`) / `0.0594 ms` GBM (`p99 = 0.0585 ms`)** bajo carga paralela completa del repositorio (`< 0.1 ms`). |
+| Honestidad empírica (`production_activated: false`, `engine.ts` intacto) | **PASS** | Aunque en walk-forward global (`n = 52,746`) `Logit+GBM` reduce levemente log-loss (`\Delta\text{LL} = -0.000764`, IC 95% `[-0.001119, -0.000398]`), en OOS 2024–2025 (`n = 4,785`) `\Delta\text{LL} = -0.000221` cruza cero (`[-0.001031, +0.000527]`) y, al aislar picks guiados por modelo (`allow_pure_market_arb = False`), se demuestra una paradoja de composición en el portafolio mixto: **`Logit+GBM` degrada `CLV%` de `+0.61%` (`n = 271`, 4 segmentos) a `-0.85%` (`n = 180`, 1 segmento), `\Delta\text{CLV\%} = -1.46\text{ pp}` (`[-2.70\%, -0.29\%]`)**. Se mantiene apagado en producción (`production_activated: false`) y `engine.ts` no se modifica. |
+| Registro aislado de pruebas y sello de holdout | **PASS** | `holdout_registry_a7.jsonl` registra sus `4` corridas (`eval_split = "walk_forward_dev"`, `unlock_holdout = false`) con `0` lecturas del holdout sellado. |
+
+---
+
+### 3. Auditoría Red Team de `a8-stalelines` (`700dd24`)
+
+**Archivos auditados (100% inspeccionados en lectura):**
+`src/domain/prediction/stale_lines.ts`, `tests/prediction/stale_lines.test.ts`, `services/models/stale_lines.py`, `services/models/test_stale_lines.py`, `src/data/prediction/stale_lines_config.json`, `services/models/artifacts/stale_lines_report.json`, `services/models/artifacts/holdout_registry_a8.jsonl`.
+
+| Control Red Team | Estado | Evidencia Verificada por `a9-verifier` |
+|---|---|---|
+| Medición empírica directa sobre `odds_snapshots.parquet` (cero constantes mágicas) | **PASS** | Cero uso de reglas inventadas de `15–20 min`. Audita directamente `scraped_ws` (`11,028` filas válidas pre-kickoff, `109` eventos: `pinnacle` tiene `1,028` filas en `13` eventos NFL con `2` olas `2026-11-09T18:46:13Z` y `20:05:00Z`, brecha mediana intra-serie exacta `78.7833 min = 4727/60` y `68 / 326 = 20.86%` de pares con movimiento; `draftkings`/`fanduel` tienen olas intradía de `49.32 min` y rezago causal de `1,195.10 min` frente a Pinnacle en `244` mercados pareados; `caliente` tiene `3` filas / `0` pares con Pinnacle; `codere` y `smarkets` tienen `0` filas válidas; bajo `delay = 2 min`, `scraped_ws` produce `0` fills ejecutables). En `historical_fd` (`walk_forward_dev < 2025-02-02T17:30:00Z`, `2,502,668` filas), mide convergencia recreativa hacia apertura de Pinnacle **`\beta_{\text{conv}} = 0.5656`** (`n = 114,037` selecciones con brecha significativa; `b365 1x2`: `0.5227 [0.5040, 0.5417]`, confirmación de cierre Pinnacle `0.8888 [0.8773, 0.9006]`). |
+| Causalidad UTC al microsegundo, paridad `< 10^{-12}` y topes de portafolio | **PASS** | Verifica `ts_sharp_captured <= ts_decision`, `ts_recreational_captured <= ts_decision`, `ts_decision <= ts_event_start` y `sharp_quotes_1h <= ts_decision` (`StaleLineCausalityError`), frescura máxima del ancla sharp (`<= 180 min`), separación estricta libros sharp (`pinnacle`, `smarkets`) vs recreativos, niveles válidos `["solido", "valor"]`, Kelly ¼ encogido por `sigma_p` y los 4 topes duros (`2.0u / 2.0u / 3.0u / 5.0u`). Puente JSON en vivo `stale_lines.test.ts` $\leftrightarrow$ `stale_lines.py` verifica paridad `< 10^{-12}`. |
+| Backtest walk-forward: Doble Confirmación vs señal simple solo-sharp | **PASS** | Evaluado en `run_backtest` (`walk_forward_dev`, `unlock_holdout = False`): **Doble Confirmación** (`stale_prob_margin = 0.02`, `stale_ev_threshold = 0.035`, `tol = 0.06`, `delay = 2 min`, `alpha = 0.05`) ejecuta **`n = 129` picks** (`146` en decisión, `17` no llenados; `13` `"solido"`, `133` `"valor"`), logrando **`CLV% = +10.93%` (`[+8.25%, +13.70%]`, `"significativa_positiva"`)**, **`CLV prob = +3.53 pp` (`[+2.67, +4.37 pp]`, `"significativa_positiva"`)**, `%CLV > 0 = 83.72%`, **`ROI% = +5.30%` (`[-17.89%, +29.51%]`, etiquetado honestamente `"no significativa"`)** y `MaxDD = 19.06u`. Frente al comparador **solo-sharp** (`n = 256`, `CLV% = +7.88% [+6.06%, +9.80%]`, `%CLV > 0 = 75.39%`), la doble confirmación filtra `127` aperturas ruidosas y eleva **`CLV%` en `+3.05 pp`** y **`%CLV > 0` en `+8.33 pp`**. Sensibilidad a fricción: `alpha = 0.00` $\rightarrow$ `CLV% = +11.26% [8.60%, 14.32%]`, `ROI% = +5.62%`; `alpha = 0.10` $\rightarrow$ `CLV% = +10.61% [8.11%, 13.48%]`, `ROI% = +4.98%`. |
+| Derivación matemática cerrada de cadencia óptima de scraping | **PASS** | Modelo explícito `exponential_stale_window_nyquist_v1` calibrado con parámetros empíricos del Parquet (`\lambda_{\text{eff}}(H) = [-\ln(1 - p_{\text{move}})/G_{\text{sharp}}](H_{\text{ref}}/H)^\gamma + [-\ln(1 - \beta_{\text{conv}})/H]`, `(1 - e^{-x^*})/x^* = 1 - \alpha_{\text{poll}}` con `\alpha_{\text{poll}} = 0.05 \Rightarrow x^* = 0.103479`, `\Delta t^*(H) = \min(x^*/\lambda_{\text{eff}}(H), 0.5/\lambda_{\text{eff}}(H), 0.25 H)`): en **`T - 60\text{ min}`** recomienda **`\Delta t^* = 3.69\text{ min}` (`221.2\text{ s}`)** elevando la supervivencia esperada del edge de `38.06%` (brecha actual `78.78 min`) a **`89.81%` (`+51.75 pp`)**; `H = 262.4\text{ min}` (`q00_ws`) $\rightarrow$ `8.57 min` (`92.73%`); `H = 509.9\text{ min}` (`q10_ws`) $\rightarrow$ `11.69 min` (`93.33%`); `H = 6269.9\text{ min}` (`q50_ws`) $\rightarrow$ `30.40 min` (`94.36%`). |
+| Registro aislado de pruebas y sello de holdout | **PASS** | `holdout_registry_a8.jsonl` registra sus `7` corridas (`eval_split = "walk_forward_dev"`, `unlock_holdout = false`) con `0` accesos al holdout sellado. |
+
+---
+
+### 4. Verificación Consolidada del Sello de Holdout, Suites de Tests y Aislamiento Git (Puerta 3)
+
+1. **Auditoría de los 4 registros de pruebas múltiples (`24 / 24` corridas con holdout intacto):**
+   - `services/models/artifacts/holdout_trial_registry.jsonl`: `9` corridas (`Ola 1` `1..3`, `Ola 2` `4..9`) — `100%` `eval_split = "walk_forward_dev"`, `unlock_holdout = false`.
+   - `services/models/artifacts/holdout_registry_a6.jsonl`: `4` corridas (`Ola 3 · A6`) — `100%` `eval_split = "walk_forward_dev"`, `unlock_holdout = false`.
+   - `services/models/artifacts/holdout_registry_a7.jsonl`: `4` corridas (`Ola 3 · A7`) — `100%` `eval_split = "walk_forward_dev"`, `unlock_holdout = false`.
+   - `services/models/artifacts/holdout_registry_a8.jsonl`: `7` corridas (`Ola 3 · A8`) — `100%` `eval_split = "walk_forward_dev"`, `unlock_holdout = false`.
+   - **Estado del Holdout Sellado (`14,163` eventos `\ge 2025-02-02T17:30:00Z`):** **`0` evaluaciones consumidas en Olas 1–3 (`100%` virgen y habilitado para su única apertura final).**
+2. **Suite Python (`pytest`):**
+   - Comando ejecutado por `a9-verifier`:
+     `research\prediction-lab\.venv\Scripts\python.exe -m pytest services/models -v`
+   - Resultado: **`80 passed in 51.44s`** (`10` `test_backtest.py`, `10` `test_blend_calibration.py`, `11` `test_clv_report.py`, `5` `test_gbm_export.py`, `18` `test_markets_2way.py`, `10` `test_odds_snapshots.py`, `11` `test_picks_parity.py`, `5` `test_stale_lines.py`; `0` fallos).
+3. **Suite TypeScript (`vitest` + `tsc`):**
+   - `npx vitest run tests/prediction/`: **`14 passed (14)` archivos, `160 passed (160)` tests** (`markets_2way.test.ts` `7/7`, `gbm.test.ts` `9/9`, `stale_lines.test.ts` `7/7`, `blend.test.ts` `13/13`, `picks.test.ts` `9/9`, `odds.test.ts` `10/10`, `ledger_clv.test.ts` `8/8`, `engine.test.ts` `23/23`, `montecarlo.test.ts` `11/11`, `devig.test.ts` `15/15`, `tactical_skore.test.ts` `26/26`, `nfl.test.ts` `11/11`, `multisport_and_v3.test.ts` `7/7`, `fixture_requests.test.ts` `4/4`).
+   - `npx vitest run` (suite paralela completa del repositorio): **`57 passed | 1 skipped (58)` archivos, `1,126 passed | 1 skipped (1,127)` tests** (`0` fallos) y **`0` errores `tsc --noEmit` en `prediction/`**.
+4. **Verificación de `git status` y fronteras de worktrees:**
+   - `.worktrees/prediction-lab`: `git diff --name-only 263857ad..dfbf2e4` contiene exclusivamente los `53` archivos de dominio/modelos/reportes autorizados de `A1`–`A9` (`0` cambios en `packages/ui`, `apps/web` ni `engine.ts`).
+   - `.worktrees/web-scraping`: intacto y limpio en `3a8b3c091671ea707e3cf9856757e19047b0e346`.
+   - Worktree raíz (`PitchLab`): intacto por el swarm (`1ca61bc`).
+
+**Conclusión de Puerta 3:** Los tres entregables paralelos de Ola 3 (`A6` mercados 2-vías Dixon-Coles, `A7` exportación GBM a TypeScript y `A8` detector de líneas rezagadas con cadencia matemática) cumplen al 100% sus contratos matemáticos, paridad numérica cruzada (`< 10^{-12}` en `A6`/`A8` y `< 10^{-6}` en el `100%` de los `4,785` partidos OOS de `A7` con latencia `< 0.1 ms`), honestidad empírica de veredictos (`0/92` en `A6`, `production_activated: false` en `A7`, etiquetado honesto de significancia y límites de resolución en `A8`) y preservación absoluta del holdout sellado (`24/24` corridas con `unlock_holdout = false`). **Puerta 3 queda formalmente APROBADA para proceder a la única apertura final del Holdout Sellado.**
