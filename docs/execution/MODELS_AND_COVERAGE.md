@@ -2,7 +2,7 @@
 
 > **Propósito:** que cualquier sesión (o persona) entienda qué publica hoy el producto, con qué
 > modelo, cómo se evalúa y qué falta, sin leer todo el código.
-> **Última actualización:** 2026-11-09 · **Rama:** `feat/pre-mvp`
+> **Última actualización:** 2026-11-09 · **Rama:** `gemini-reestructura` (escrito originalmente en `feat/pre-mvp`, ya fusionada y eliminada)
 
 ## 1. Ligas en la beta
 
