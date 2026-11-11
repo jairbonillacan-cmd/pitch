@@ -36,7 +36,7 @@ describe("esquema PitchLab (Postgres)", () => {
     const res = await client.query<{ n: number }>(
       "select count(*)::int as n from information_schema.tables where table_schema = 'public'",
     );
-    expect(res.rows[0]!.n).toBe(18);
+    expect(res.rows[0]!.n).toBe(23);
   });
 
   it("bitácora: sella antes del inicio y no repite el mismo pick", async () => {

@@ -117,6 +117,8 @@ export interface PlatformContextValue {
   viewerRole: ViewerRole;
   setViewerRole: (role: ViewerRole) => void;
   allowRoleSimulation: boolean;
+  /** Cuentas reales (Better Auth) activas en el servidor. */
+  accountsEnabled: boolean;
   oddsFormat: OddsFormat;
   setOddsFormat: (fmt: OddsFormat) => void;
   auraColors: readonly [string, string];
@@ -207,6 +209,7 @@ export function PlatformProvider({
   dataset: rawDataset,
   initialRole = "visitor",
   allowRoleSimulation = false,
+  accountsEnabled = false,
   onNavigate,
   onSubmitPinOverride,
   onLogoutOverride,
@@ -215,6 +218,7 @@ export function PlatformProvider({
   dataset: PlatformDataset;
   initialRole?: ViewerRole;
   allowRoleSimulation?: boolean;
+  accountsEnabled?: boolean;
   onNavigate?: (href: string) => void;
   onSubmitPinOverride?: (code: string, nextPath: string) => Promise<PinUnlockResult>;
   onLogoutOverride?: () => Promise<void>;
@@ -824,6 +828,7 @@ export function PlatformProvider({
       viewerRole,
       setViewerRole,
       allowRoleSimulation,
+      accountsEnabled,
       oddsFormat,
       setOddsFormat,
       auraColors,
@@ -887,6 +892,7 @@ export function PlatformProvider({
       viewerRole,
       setViewerRole,
       allowRoleSimulation,
+      accountsEnabled,
       oddsFormat,
       setOddsFormat,
       auraColors,

@@ -18,6 +18,7 @@ export default async function PublicTipstarPickPage({
       dataset={state.dataset}
       initialRole={state.initialRole}
       allowRoleSimulation={state.allowRoleSimulation}
+      accountsEnabled={state.accountsEnabled}
     >
       <PublicTipstarPickSurface pickSlug={pickId} />
     </PlatformClientBridge>

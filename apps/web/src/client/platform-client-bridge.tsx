@@ -12,11 +12,13 @@ export function PlatformClientBridge({
   dataset,
   initialRole,
   allowRoleSimulation = false,
+  accountsEnabled = false,
   children,
 }: {
   dataset: PlatformDataset;
   initialRole: ViewerRole;
   allowRoleSimulation?: boolean;
+  accountsEnabled?: boolean;
   children: React.ReactNode;
 }): React.JSX.Element {
   const router = useRouter();
@@ -33,6 +35,7 @@ export function PlatformClientBridge({
       dataset={dataset}
       initialRole={initialRole}
       allowRoleSimulation={allowRoleSimulation}
+      accountsEnabled={accountsEnabled}
       onNavigate={handleNavigate}
     >
       {children}

@@ -5,6 +5,7 @@ const nextConfig = {
   transpilePackages: [
     "@pitchlab/tokens",
     "@pitchlab/contracts",
+    "@pitchlab/db",
     "@pitchlab/sports-assets",
     "@pitchlab/spacetime",
     "@pitchlab/ui",

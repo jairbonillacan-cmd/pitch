@@ -13,6 +13,7 @@ export default async function PricingPage(): Promise<React.JSX.Element> {
       dataset={state.dataset}
       initialRole={state.initialRole}
       allowRoleSimulation={state.allowRoleSimulation}
+      accountsEnabled={state.accountsEnabled}
     >
       <PricingSurface />
     </PlatformClientBridge>

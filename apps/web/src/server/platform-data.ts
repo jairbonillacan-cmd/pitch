@@ -22,6 +22,12 @@ export interface LoadedPlatformState {
   hasActiveSession: boolean;
   /** Selector de rol y barra de 11 vistas: solo con sesión y herramientas de preview activas. */
   allowRoleSimulation: boolean;
+  /** Cuentas reales activas (DATABASE_URL + BETTER_AUTH_SECRET). */
+  accountsEnabled: boolean;
+}
+
+export function accountsEnabled(): boolean {
+  return Boolean(process.env.DATABASE_URL && process.env.BETTER_AUTH_SECRET);
 }
 
 /**
@@ -83,6 +89,7 @@ export async function loadPublicPlatformState(
       initialRole: "member",
       hasActiveSession: true,
       allowRoleSimulation: previewToolsEnabled(),
+      accountsEnabled: accountsEnabled(),
     };
   }
 
@@ -111,6 +118,7 @@ export async function loadPublicPlatformState(
     initialRole: "visitor",
     hasActiveSession: false,
     allowRoleSimulation: false,
+    accountsEnabled: accountsEnabled(),
   };
 }
 
@@ -129,6 +137,7 @@ export async function loadClubPlatformState(
       initialRole: "visitor",
       hasActiveSession: false,
       allowRoleSimulation: false,
+      accountsEnabled: accountsEnabled(),
     };
   }
 
@@ -137,5 +146,6 @@ export async function loadClubPlatformState(
     initialRole: preferredRole,
     hasActiveSession: true,
     allowRoleSimulation: previewToolsEnabled(),
+    accountsEnabled: accountsEnabled(),
   };
 }

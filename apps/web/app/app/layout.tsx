@@ -16,6 +16,7 @@ export default async function ClubAppLayout({
       dataset={state.dataset}
       initialRole={state.initialRole}
       allowRoleSimulation={state.allowRoleSimulation}
+      accountsEnabled={state.accountsEnabled}
     >
       {children}
     </PlatformClientBridge>

@@ -92,6 +92,7 @@ export function AuthSurfaceV4({
     navigateTo,
     pushToast,
     allowRoleSimulation,
+    accountsEnabled,
   } = usePlatform();
 
   const [activeTab, setActiveTab] = useState<"trial" | "pin">("trial");
@@ -132,22 +133,38 @@ export function AuthSurfaceV4({
     }
 
     const normalized = normalizeTrialEmail(clean);
+    const callbackURL = mode === "signup" ? "/onboarding" : nextPath;
+    if (accountsEnabled) {
+      void requestMagicLink(clean, callbackURL).then((ok) => {
+        if (ok) {
+          setVerifiedEmailNotice(`Te enviamos un enlace de acceso a ${clean}. Vence en 15 minutos.`);
+          pushToast("Revisa tu correo para entrar.", "success");
+        } else {
+          setFormError("No pudimos enviar el enlace. Intenta de nuevo en un momento.");
+        }
+      });
+      return;
+    }
+    // Sin cuentas activas (beta): acceso con el código de 4 dígitos.
     setVerifiedEmailNotice(
-      `Identidad normalizada (${normalized}) · Huella de dispositivo verificada ($0 MXN). Ingresa tu PIN de activación para abrir el Club.`,
+      `Correo normalizado (${normalized}). Durante la beta el acceso es con tu código de 4 dígitos.`,
     );
-    pushToast(
-      `Cuenta pre-validada (${normalized}). Confirma tu PIN de acceso de 4 dígitos.`,
-      "success",
-    );
-    openBetaPin(mode === "signup" ? "/onboarding" : nextPath);
+    openBetaPin(callbackURL);
   };
 
   const handleOAuthClick = (provider: "Google" | "Apple") => {
     setFormError("");
+    const callbackURL = mode === "signup" ? "/onboarding" : nextPath;
+    if (accountsEnabled) {
+      void startSocialSignIn(provider === "Google" ? "google" : "apple", callbackURL).then((ok) => {
+        if (!ok) setFormError(`El acceso con ${provider} todavía no está disponible.`);
+      });
+      return;
+    }
     setVerifiedEmailNotice(
-      `${provider} OAuth listo ($0 MXN anti-abuso). Confirma tu PIN de 4 dígitos para entrar.`,
+      `El acceso con ${provider} llega con las cuentas. Durante la beta entra con tu código de 4 dígitos.`,
     );
-    openBetaPin(mode === "signup" ? "/onboarding" : nextPath);
+    openBetaPin(callbackURL);
   };
 
   const verifyInlinePin = async (code: string) => {
@@ -1358,4 +1375,38 @@ export function PublicSharedPickSurface({
       <PublicFooterV4 />
     </AtmosphereStage>
   );
+}
+
+/** Pide a Better Auth el enlace mágico de acceso. */
+async function requestMagicLink(email: string, callbackURL: string): Promise<boolean> {
+  try {
+    const res = await fetch("/api/auth/sign-in/magic-link", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ email, callbackURL }),
+    });
+    return res.ok;
+  } catch (err) {
+    void err;
+    return false;
+  }
+}
+
+/** Inicia el acceso con Google o Apple y redirige al proveedor. */
+async function startSocialSignIn(provider: "google" | "apple", callbackURL: string): Promise<boolean> {
+  try {
+    const res = await fetch("/api/auth/sign-in/social", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ provider, callbackURL }),
+    });
+    if (!res.ok) return false;
+    const json = (await res.json()) as { url?: string };
+    if (!json.url) return false;
+    window.location.assign(json.url);
+    return true;
+  } catch (err) {
+    void err;
+    return false;
+  }
 }

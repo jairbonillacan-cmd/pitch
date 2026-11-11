@@ -8,6 +8,20 @@
       "when": 1794366416000,
       "tag": "0000_inicial",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1794367088726,
+      "tag": "0001_eventos_de_pago",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1794367418452,
+      "tag": "0002_autenticacion",
+      "breakpoints": true
     }
   ]
 }
