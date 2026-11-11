@@ -1157,9 +1157,12 @@ export function LeagueHubClubView({
 export function MatchStudioClubView({
   leagueId,
   gameId,
+  cortexSynthesisOverride,
 }: {
   leagueId: LeagueId;
   gameId: string;
+  /** Resumen de Cortex IA redactado en servidor (LLM validado); si falta, se usa la plantilla. */
+  cortexSynthesisOverride?: string | null;
 }): React.JSX.Element {
   const {
     dataset,
@@ -1496,7 +1499,7 @@ export function MatchStudioClubView({
                 className="m-0 text-xs leading-relaxed"
                 style={{ color: "var(--pl-text-secondary)" }}
               >
-                {game.preGame.cortexSynthesis}
+                {cortexSynthesisOverride ?? game.preGame.cortexSynthesis}
               </p>
             </div>
 

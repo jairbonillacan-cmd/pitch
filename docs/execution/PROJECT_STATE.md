@@ -102,11 +102,11 @@ El clon previo de TouchIQ (Vite + `src/domain` con 24 tests dorados) quedó arch
 ## Pendiente (en orden)
 
 1. **Acciones del fundador (bloquean F4 y publicar):** crear cuentas y cargar secretos según `docs/architecture/DEPLOYMENT.md` §6: Vercel, Neon (`DATABASE_URL`), proveedores de login (Google, Apple, correo), Stripe MX, Facturapi, Cloudflare Turnstile y DNS de pitchlab.mx. Ningún agente debe crear cuentas ni manejar claves.
-2. **Revisión de decisiones con el fundador:** ADR-023…ADR-027 y las decisiones abiertas de `VISION_REESTRUCTURA_CLAUDE_GROWTH.md` (prueba Mes 1 sin tarjeta vs Mes 2, comisión de tipstars 25 %, campos CFDI) antes de activar llaves productivas.
+2. **Revisión de decisiones con el fundador:** todo en una sola hoja: [`docs/product/DECISIONES_FUNDADOR_F4.md`](../product/DECISIONES_FUNDADOR_F4.md) (precios, prueba, hosting comercial al cobrar, comisión, fuente de momios con permiso, props, Cortex, legal) con recomendación en cada punto.
 3. **Momios del día:** regenerar `live_matchday_v3_snapshot.json` en `prediction-lab` (scrapers de `web-scraping`) de forma recurrente; el workflow diario de esta rama ya sincroniza lo que se publique allá. Sin eso, a las 72 h la app deja de mostrar momios.
-4. **F4 en código:** ✅ base lista y probada sin servicios externos: Better Auth con enlace mágico, Google y Apple (`/api/auth/*`); webhook de Stripe con firma, idempotencia, referidos, embajador y comisiones (`/api/webhooks/stripe`); CFDI 4.0 con Facturapi; Turnstile; rutas `/api/me/watchlist` y `/api/me/journal` sobre `packages/db`. Se activan al cargar las variables de `.env.example`. `/signup` y `/login` usan el enlace mágico y Google/Apple cuando las cuentas están activas (si no, el código de beta). **Falta:** Stripe Checkout con los precios reales (requiere que el fundador cree los productos en Stripe). Con sesión, la Bitácora y la vigilancia ya se leen y escriben en la base.
+4. **F4 en código:** ✅ listo y probado sin servicios externos: Better Auth (enlace mágico, Google, Apple), Stripe Checkout + webhook (suscripción, gracia, referidos, embajador, comisiones, reembolsos), CFDI 4.0 con Facturapi, Turnstile, consola del fundador con datos reales (`PITCHLAB_ADMIN_EMAILS`), Bitácora/vigilancia/referidos en la base y Cortex IA con LLM validado. Se enciende con las variables de `.env.example`.
 5. **Publicar en Vercel y llevar `gemini-reestructura` a `main`** con PR (el workflow diario de snapshots solo corre en la rama por defecto).
-6. **Motores:** props de jugadores (requiere motor por jugador en `prediction-lab`); síntesis Cortex con LLM (ADR-013, hoy plantilla determinista).
+6. **Motores:** props de jugadores bloqueados por datos (faltan registros partido a partido para validarlos; ver decisión 3.2).
 7. **F5:** prompts (`prompts/INDEX.md`). **F6:** ejecución multiagente (`AGENT_EXECUTION_PLAN.md`).
 
 ## Bloqueos
