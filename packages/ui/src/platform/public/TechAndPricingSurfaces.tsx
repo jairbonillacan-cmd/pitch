@@ -394,7 +394,7 @@ export function PlansAndReferralsSection({
   const checklistItems = [
     "hasta 5 picks por partido (Conservador, Medio, Arriesgado y Totales)",
     "Armador Inteligente de Parlays (2 a 6 patas + modo SGP)",
-    "Spacetime Suite v3.0 completa + Cortex IA y alineaciones 60 min antes",
+    "Spacetime Suite v3.0 completa + resumen Cortex IA y bajas reportadas",
     "Player Prop Lab, comparador Geodesic v2.0 y debate exclusivo de pago",
   ];
 
@@ -610,7 +610,7 @@ export function PricingSurface(): React.JSX.Element {
   const faqs = [
     {
       q: "¿Por qué solo existe un Pase Total PitchLab?",
-      a: "Eliminamos escalones artificiales. Con una sola suscripción ($299 MXN/mes o $2,390 MXN/año) tienes acceso absoluto a los 4–5 picks por partido, radiografía Cortex IA 60m, Armador de Parlays & SGP, Player Props Lab y la Comunidad VIP.",
+      a: "Eliminamos escalones artificiales. Con una sola suscripción ($299 MXN/mes o $2,390 MXN/año) tienes acceso a todos los picks de cada partido (hasta 5), la radiografía de Cortex IA, el Armador de Parlays & SGP y la Comunidad VIP; Player Props Lab llega cuando su motor pase validación.",
     },
     {
       q: "¿Cómo funciona la prueba gratis del primer mes sin tarjeta?",

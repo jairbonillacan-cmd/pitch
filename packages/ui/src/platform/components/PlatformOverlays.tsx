@@ -5,6 +5,7 @@ import { getLogoPath } from "@pitchlab/sports-assets";
 import { LeagueBadge, TeamBadge } from "../../sports.js";
 import {
   canRevealPickOnShare,
+  formatEdgePts,
   formatOddsValue,
   getSessionWatermark,
   pickReferenceDecimal,
@@ -12,7 +13,7 @@ import {
 import { usePlatform } from "../platform-provider.js";
 import { downloadTicketPng, type TicketRasterContent } from "./share-ticket-raster.js";
 import { TIPSTAR_CREATORS } from "../spacetime-catalog.js";
-import type { ViewerRole } from "../types.js";
+import type { MatchPick, PlatformGame, ViewerRole } from "../types.js";
 import {
   ExampleBadge,
   LensGlowOrbs,
@@ -540,7 +541,7 @@ export function PickComposerModal(): React.JSX.Element | null {
                 type="text"
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
-                placeholder="Ej. Tomada antes del reporte de bajas 60m"
+                placeholder="Ej. Tomada antes del reporte de bajas"
                 className="glass-input w-full px-3 py-2 text-sm"
               />
             </div>
@@ -895,6 +896,21 @@ export function ShareTicketModal(): React.JSX.Element | null {
   );
 }
 
+/** Picks de valor (Geodesic v2.0 contra momio real) de partidos próximos. */
+export function valueAlertsFrom(
+  games: readonly PlatformGame[],
+): Array<{ game: PlatformGame; pick: MatchPick }> {
+  const out: Array<{ game: PlatformGame; pick: MatchPick }> = [];
+  for (const game of games) {
+    if (game.status === "FT") continue;
+    const pick = game.picks.find(
+      (p) => p.category === "valor" && p.marketDecimal !== null && (p.edgePts ?? 0) > 0,
+    );
+    if (pick) out.push({ game, pick });
+  }
+  return out.slice(0, 8);
+}
+
 export function AlertsDrawer(): React.JSX.Element | null {
   const {
     alertsOpen,
@@ -908,7 +924,8 @@ export function AlertsDrawer(): React.JSX.Element | null {
 
   if (!alertsOpen) return null;
 
-  const upcoming = dataset.games.filter((g) => g.status !== "FT").slice(0, 5);
+  // Solo avisos con datos detrás: picks de valor de Geodesic contra un momio real.
+  const valueAlerts = valueAlertsFrom(dataset.games);
 
   return (
     <TopLayerModalDialog
@@ -924,13 +941,13 @@ export function AlertsDrawer(): React.JSX.Element | null {
             <div>
               <span className="pl-pill pl-pill--cortex inline-flex items-center gap-1.5">
                 <MaestroIcon name="bell" size={12} />
-                Tiempo Real · 60m Pre-Kickoff
+                Spacetime Suite v3.0
               </span>
               <h2
                 id="alerts-drawer-title"
                 className="m-0 mt-2 text-lg font-extrabold"
               >
-                Cortex IA 60m & Geodesic
+                Alertas de valor
               </h2>
             </div>
             <div className="flex items-center gap-1.5">
@@ -962,44 +979,41 @@ export function AlertsDrawer(): React.JSX.Element | null {
 
           <div className="ticket-perf" />
 
+          <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+            Las alertas de alineaciones llegarán cuando conectemos la fuente oficial de convocatorias.
+            {watchlistGameIds.length > 0
+              ? ` Vigilando ${watchlistGameIds.length} ${watchlistGameIds.length === 1 ? "partido" : "partidos"}.`
+              : ""}
+          </p>
+
           <div className="space-y-3">
-            {upcoming.map((g, idx) => {
-              const isLineupAlert = idx % 2 === 0;
+            {valueAlerts.length === 0 ? (
+              <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }} data-no-alerts="">
+                Sin alertas de valor por ahora: ningún partido próximo tiene ventaja ejecutable contra un
+                momio vigente.
+              </p>
+            ) : null}
+            {valueAlerts.map(({ game: g, pick }) => {
               const isWatching = watchlistGameIds.includes(g.id);
               return (
                 <div
-                  key={g.id}
+                  key={pick.id}
                   className="glass-card glass-ring rounded-xl p-3.5 space-y-2.5"
                   style={{ opacity: allRead ? 0.84 : 1 }}
                 >
                   <div className="flex items-center justify-between gap-2 text-xs">
-                    <span
-                      className={`pl-pill inline-flex items-center gap-1 ${
-                        isLineupAlert ? "pl-pill--cortex" : "pl-pill--brand"
-                      }`}
-                    >
-                      <MaestroIcon
-                        name={isLineupAlert ? "cpu" : "activity"}
-                        size={12}
-                      />
-                      {isLineupAlert ? "Alineación 60m" : "Valor Geodesic"}
+                    <span className="pl-pill pl-pill--brand inline-flex items-center gap-1">
+                      <MaestroIcon name="activity" size={12} />
+                      Valor Geodesic
                     </span>
-                    <span
-                      className="num font-medium"
-                      style={{ color: "var(--pl-text-muted)" }}
-                    >
+                    <span className="num font-medium" style={{ color: "var(--pl-text-muted)" }}>
                       {g.leagueLabel} · {g.kickoffLocal}
                     </span>
                   </div>
 
                   <div className="flex items-center justify-between gap-2">
                     <div className="flex items-center gap-2 font-bold text-sm min-w-0">
-                      <TeamBadge
-                        league={g.league}
-                        slug={g.home.slug}
-                        name={g.home.name}
-                        size={20}
-                      />
+                      <TeamBadge league={g.league} slug={g.home.slug} name={g.home.name} size={20} />
                       <span className="truncate">
                         {g.home.shortName} vs {g.away.shortName}
                       </span>
@@ -1007,18 +1021,14 @@ export function AlertsDrawer(): React.JSX.Element | null {
                     {isWatching ? (
                       <span className="pl-pill pl-pill--success inline-flex items-center gap-1 shrink-0">
                         <MaestroIcon name="eye" size={11} />
-                        60m activo
+                        En vigilancia
                       </span>
                     ) : null}
                   </div>
 
-                  <p
-                    className="m-0 text-xs leading-relaxed"
-                    style={{ color: "var(--pl-text-secondary)" }}
-                  >
-                    {isLineupAlert
-                      ? "Convocatoria titular verificada por Cortex IA sin bajas de última hora en el eje ofensivo."
-                      : "Geodesic v2.0 detecta ventaja neta frente al consenso antes del ajuste de línea de cierre."}
+                  <p className="m-0 text-xs leading-relaxed" style={{ color: "var(--pl-text-secondary)" }}>
+                    {pick.isRedacted ? "Selección protegida para socios" : pick.label} ·{" "}
+                    {formatEdgePts(pick.edgePts)} contra {g.spacetime?.market?.bookLabel ?? "la casa"}.
                   </p>
 
                   <button
@@ -1057,7 +1067,7 @@ const CLUB_COMMAND_VIEWS: ReadonlyArray<{
     icon: "calendar",
   },
   {
-    label: "Multi-Picks del Día (4–5 por partido)",
+    label: "Multi-Picks del Día (hasta 5 por partido)",
     subtitle: "Escudo, Principal, Totales, Táctico y Valor",
     href: "/app/picks",
     icon: "sparkles",
@@ -1099,7 +1109,7 @@ const CLUB_COMMAND_VIEWS: ReadonlyArray<{
     icon: "shield",
   },
   {
-    label: "Mi Bitácora & Vigilancia 60m",
+    label: "Mi Bitácora & Vigilancia",
     subtitle: "Unidades simuladas, CLV promedio y alertas de alineación",
     href: "/app/lab",
     icon: "chart",

@@ -122,7 +122,7 @@ export function redactDatasetForVisitor(
           ...pick,
           selectionKey: "locked",
           label: "Selección reservada Pase Total",
-          rationale: "Activa tu prueba gratis de Pase Total para desbloquear los 5 picks del partido.",
+          rationale: "Activa tu prueba gratis de Pase Total para desbloquear todos los picks del partido.",
           isRedacted: true,
         };
       }),
@@ -246,4 +246,24 @@ export function hasBookOdds(pick: { marketDecimal: number | null }): boolean {
 export function formatEdgePts(edgePts: number | null): string {
   if (edgePts === null) return "Sin momio";
   return `${edgePts >= 0 ? "+" : ""}${edgePts.toFixed(1)} pts`;
+}
+
+/** Récord real de la Bitácora: unidades netas y picks liquidados. */
+export function journalRecord(
+  journal: ReadonlyArray<{ status: "pending" | "won" | "lost"; units: number; userDecimal: number; clvPct: number }>,
+): { settled: number; netUnits: number; avgClvPct: number | null; label: string } {
+  const settled = journal.filter((j) => j.status !== "pending");
+  const netUnits = settled.reduce(
+    (sum, j) => sum + (j.status === "won" ? j.units * (j.userDecimal - 1) : -j.units),
+    0,
+  );
+  const avgClvPct =
+    journal.length > 0 ? journal.reduce((s, j) => s + j.clvPct, 0) / journal.length : null;
+  const units = `${netUnits >= 0 ? "+" : ""}${netUnits.toFixed(1)}u`;
+  return {
+    settled: settled.length,
+    netUnits,
+    avgClvPct,
+    label: settled.length === 0 ? "Sin picks liquidados" : `${units} · ${settled.length} picks`,
+  };
 }

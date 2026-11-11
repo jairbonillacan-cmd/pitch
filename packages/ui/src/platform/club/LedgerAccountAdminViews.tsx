@@ -459,7 +459,7 @@ export function BitacoraClubView(): React.JSX.Element {
                 className="flex items-center justify-between text-xs"
                 style={{ color: "var(--pl-text-muted)" }}
               >
-                <span>En vigilancia 60m</span>
+                <span>En vigilancia</span>
                 <MaestroIcon
                   name="bell"
                   size={15}
@@ -627,11 +627,11 @@ export function BitacoraClubView(): React.JSX.Element {
                   size={16}
                   style={{ color: "var(--pl-brand)" }}
                 />
-                <span>Partidos en Vigilancia 60m ({watchedGames.length})</span>
+                <span>Partidos en vigilancia ({watchedGames.length})</span>
               </h2>
               <p className="m-0 text-xs" style={{ color: "var(--pl-text-secondary)" }}>
-                Cortex IA verifica convocatorias titulares 60 minutos antes del inicio y te avisa si
-                hay bajas clave.
+                Te avisaremos de valor nuevo en estos partidos. Las alertas de alineaciones llegan
+                cuando conectemos la fuente oficial de convocatorias.
               </p>
             </div>
             <button
@@ -659,8 +659,8 @@ export function BitacoraClubView(): React.JSX.Element {
                 style={{ color: "var(--pl-text-muted)" }}
               >
                 {watchedGames.length === 0
-                  ? "Activa alertas 60m en partidos próximos:"
-                  : "Agregar más encuentros a vigilancia 60m:"}
+                  ? "Vigila partidos próximos:"
+                  : "Agregar más partidos a vigilancia:"}
               </span>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
                 {suggestedUpcoming.map((g) => (
@@ -694,7 +694,7 @@ export function BitacoraClubView(): React.JSX.Element {
                       onClick={() => toggleWatchlistGame(g.id)}
                     >
                       <MaestroIcon name="bell" size={13} />
-                      <span>+ 60m</span>
+                      <span>+ Vigilar</span>
                     </button>
                   </div>
                 ))}
@@ -1640,7 +1640,7 @@ export function AccountReferralsClubView(): React.JSX.Element {
                   {[
                     "hasta 5 picks por partido en las 7 ligas activas",
                     "Armador Inteligente de Parlays & SGP con Geodesic v2.0",
-                    "Player Props Lab interactivo + alertas 60m Cortex IA",
+                    "Alertas de valor de Geodesic en tus partidos",
                     "Comunidad VIP verificada + Factura CFDI 4.0 automática",
                   ].map((feat) => (
                     <div
@@ -1744,7 +1744,7 @@ export function AccountReferralsClubView(): React.JSX.Element {
               {/* Ligas prioritarias */}
               <div className="space-y-2">
                 <span className="block text-xs font-extrabold uppercase tracking-wider" style={{ color: "var(--pl-text-muted)" }}>
-                  Ligas prioritarias en tu Jornada y Alertas 60m
+                  Ligas prioritarias en tu Jornada y alertas de valor
                 </span>
                 <div className="flex flex-wrap gap-2">
                   {dataset.leagues.map((lg) => {

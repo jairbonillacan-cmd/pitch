@@ -399,7 +399,7 @@ export function LandingSurface(): React.JSX.Element {
               title="Suscripción Cero Fuga"
               tone="brand"
             >
-              Pase Total ${MEMBERSHIP_SPEC.monthlyMxn} MXN/mes · 4–5 picks/juego · Comunidad
+              Pase Total ${MEMBERSHIP_SPEC.monthlyMxn} MXN/mes · hasta 5 picks/juego · Comunidad
               exclusiva socios · Referidos doble vía +15d.
             </NoticeCard>
 

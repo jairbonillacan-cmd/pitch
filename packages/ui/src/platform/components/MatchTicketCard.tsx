@@ -494,7 +494,7 @@ export function MatchTicketCard({
                 style={{ color: "var(--pl-brand)" }}
               >
                 <MaestroIcon name="lock" size={12} />
-                <span>5 picks listos en Spacetime Suite</span>
+                <span>Picks listos en Spacetime Suite</span>
               </span>
               <span className="locked-redact block mt-0.5" aria-hidden="true">
                 Pick Principal oculto

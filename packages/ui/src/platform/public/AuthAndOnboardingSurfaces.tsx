@@ -769,7 +769,7 @@ export function OnboardingSurfaceV4(): React.JSX.Element {
                 Personaliza tu radar cuantitativo
               </h1>
               <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
-                Ordenaremos tu Jornada, alertas Cortex IA 60m y el Armador de Parlays alrededor de
+                Ordenaremos tu Jornada, alertas de valor y el Armador de Parlays alrededor de
                 tus ligas, perfil de varianza y unidad simulada.
               </p>
             </div>
@@ -1329,8 +1329,8 @@ export function PublicSharedPickSurface({
                 </strong>
                 <span style={{ color: "var(--share-card-secondary)" }}>
                   {month1NoCardMode
-                    ? "Desbloquea los 5 picks de cada juego y el Armador de Parlays sin pedir tarjeta."
-                    : "Desbloquea los 5 picks de cada juego y el Armador de Parlays hoy."}
+                    ? "Desbloquea todos los picks de cada juego y el Armador de Parlays sin pedir tarjeta."
+                    : "Desbloquea todos los picks de cada juego y el Armador de Parlays hoy."}
                 </span>
               </div>
 

@@ -12,8 +12,14 @@ import type { LeagueId } from "@pitchlab/contracts";
 import { getTeamColors } from "@pitchlab/sports-assets";
 import {
   containsExternalLink,
+  journalRecord,
   redactDatasetForVisitor,
 } from "./access-guard.js";
+
+function formatClvBadge(avgClvPct: number | null): string {
+  if (avgClvPct === null) return "CLV —";
+  return `CLV ${avgClvPct >= 0 ? "+" : ""}${avgClvPct.toFixed(1)} %`;
+}
 import {
   buildSmartAutoParlay,
   checkParlayCompatibility,
@@ -554,8 +560,13 @@ export function PlatformProvider({
         avatarGradVar:
           viewerRole === "tipstar" ? "var(--avatar-grad-1)" : "var(--avatar-grad-4)",
         verifiedRecord:
-          viewerRole === "tipstar" ? "+18.4u · 142 picks" : "+6.4u · 34 picks",
-        clvBadge: viewerRole === "tipstar" ? "CLV +4.2 %" : "CLV +2.6 %",
+          viewerRole === "tipstar" ? "+18.4u · 142 picks" : journalRecord(journal).label,
+        clvBadge:
+          viewerRole === "tipstar"
+            ? "CLV +4.2 %"
+            : formatClvBadge(journalRecord(journal).avgClvPct),
+        // Publicar como tipstar usa el perfil de ejemplo @sofia_nfl.
+        isExample: viewerRole === "tipstar",
         leagueLabel: payload.leagueLabel,
         matchLabel: payload.matchLabel,
         pickBadge: payload.pickBadge,
@@ -570,7 +581,7 @@ export function PlatformProvider({
       pushToast("Análisis publicado en la Comunidad VIP.", "success");
       return { ok: true };
     },
-    [viewerRole, pushToast],
+    [viewerRole, pushToast, journal],
   );
 
   const addSocialComment = useCallback(
@@ -601,8 +612,8 @@ export function PlatformProvider({
                       viewerRole === "tipstar" ? "Sofía Méndez" : "Socio Pase Total",
                     verifiedBadge:
                       viewerRole === "tipstar"
-                        ? "+18.4u · CLV +4.2 %"
-                        : "+6.4u · CLV +2.6 %",
+                        ? "Perfil de ejemplo"
+                        : journalRecord(journal).label,
                     createdAt: "Ahora",
                     body: trimmed,
                   },
@@ -614,7 +625,7 @@ export function PlatformProvider({
       pushToast("Respuesta agregada al hilo.", "success");
       return { ok: true };
     },
-    [viewerRole, pushToast],
+    [viewerRole, pushToast, journal],
   );
 
   const toggleSocialLike = useCallback((postId: string) => {
@@ -637,8 +648,8 @@ export function PlatformProvider({
         const exists = prev.includes(gameId);
         pushToast(
           exists
-            ? "Partido retirado de tus alertas 60m."
-            : "Alerta activada: te avisaremos al confirmar alineaciones 60m antes.",
+            ? "Partido retirado de tu vigilancia."
+            : "Partido en vigilancia: te avisaremos si aparece valor nuevo.",
           "default",
         );
         return exists ? prev.filter((id) => id !== gameId) : [...prev, gameId];

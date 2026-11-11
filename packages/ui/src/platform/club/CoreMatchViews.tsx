@@ -231,7 +231,7 @@ export function JornadaClubView(): React.JSX.Element {
               }}
               className="pl-btn-glass text-xs inline-flex items-center gap-1.5"
             >
-              <span>Ver todos los picks (4–5/juego)</span>
+              <span>Ver todos los picks (hasta 5/juego)</span>
               <MaestroIcon name="chevronRight" size={13} />
             </a>
           </div>
@@ -731,7 +731,7 @@ export function MultiPicksClubView(): React.JSX.Element {
         <section className="space-y-2">
           <span className="pl-pill pl-pill--brand inline-flex items-center gap-1.5">
             <MaestroIcon name="sparkles" size={12} />
-            <span>4 a 5 Picks por Partido · Spacetime Suite v3.0</span>
+            <span>Hasta 5 Picks por Partido · Spacetime Suite v3.0</span>
           </span>
           <h1 className="m-0 text-2xl sm:text-3xl font-extrabold">
             Explorador Multi-Picks del Día
@@ -1250,7 +1250,7 @@ export function MatchStudioClubView({
         record: "+18.4u · CLV +4.2 %",
         createdAt: "Hace 18 min",
         isExample: true,
-        body: `La proyección de ${mainEngineName} favorece claramente el ángulo principal en ${matchLabelShort}. Sellé 1.5u antes del corte de alineaciones 60m.`,
+        body: `La proyección de ${mainEngineName} favorece claramente el ángulo principal en ${matchLabelShort}. Sellé 1.5u antes del inicio.`,
       },
       {
         id: `seed-${game.id}-2`,
@@ -1352,7 +1352,7 @@ export function MatchStudioClubView({
               size={13}
               style={{ color: watched ? "var(--pl-brand)" : undefined }}
             />
-            <span>{watched ? "Alerta 60m activa" : "Activar alerta 60m"}</span>
+            <span>{watched ? "En vigilancia" : "Vigilar partido"}</span>
           </button>
         </div>
 
@@ -1514,7 +1514,7 @@ export function MatchStudioClubView({
           {/* 2) Alineaciones y Bajas 60m */}
           <div className="glass-card glass-ring rounded-2xl p-4 space-y-2.5">
             <div className="flex items-center justify-between gap-2">
-              <h2 className="m-0 text-sm font-extrabold">Alineaciones y Bajas 60m</h2>
+              <h2 className="m-0 text-sm font-extrabold">Alineaciones y bajas</h2>
               <span className="pl-pill pl-pill--info text-[10px]">
                 {game.preGame.lineupStatusLabel}
               </span>
@@ -1553,7 +1553,7 @@ export function MatchStudioClubView({
               </div>
             ) : (
               <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                Reporte 60m de bajas y cuadro titular confirmado disponible con Pase Total.
+                Bajas reportadas y estado de alineaciones disponibles con Pase Total.
               </p>
             )}
           </div>
@@ -1659,7 +1659,7 @@ export function MatchStudioClubView({
             <div className="lg:col-span-7 space-y-3.5">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <h2 className="m-0 text-lg font-extrabold">
-                  5 Ángulos Cuantitativos de Este Partido
+                  {game.picks.length} {game.picks.length === 1 ? "Ángulo Cuantitativo" : "Ángulos Cuantitativos"} de Este Partido
                 </h2>
                 {viewerRole === "tipstar" || viewerRole === "admin" ? (
                   <span

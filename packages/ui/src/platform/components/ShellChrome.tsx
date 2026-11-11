@@ -5,6 +5,7 @@ import { SegmentedControl, SegmentedControlItem } from "@astryxdesign/core/Segme
 import { AstryxScope } from "../../astryx.js";
 import { BrandLogo, ThemeToggle } from "../../primitives.js";
 import { LeagueBadge } from "../../sports.js";
+import { journalRecord } from "../access-guard.js";
 import { usePlatform } from "../platform-provider.js";
 import type { OddsFormat } from "../types.js";
 import {
@@ -22,6 +23,7 @@ import {
   ShareTicketModal,
   ToastViewport,
   TopLayerModalDialog,
+  valueAlertsFrom,
 } from "./PlatformOverlays.js";
 
 export function OddsFormatSegment(): React.JSX.Element {
@@ -75,7 +77,7 @@ function FloatingQuickJumpBar({
       { id: "signup", label: "2. Acceso $0", href: "/signup" },
       { id: "jornada", label: "3. Jornada", href: "/app" },
       { id: "picks", label: "4. Multi-Picks", href: "/app/picks" },
-      { id: "studio", label: "5. Estudio 5 Picks", href: firstStudioHref },
+      { id: "studio", label: "5. Estudio de Partido", href: firstStudioHref },
       { id: "parlays", label: "6. Parlays SGP", href: "/app/parlays" },
       { id: "props", label: "7. Props Lab", href: "/app/props" },
       { id: "social", label: "8. Comunidad VIP", href: "/app/social" },
@@ -434,6 +436,7 @@ export function ClubWorkspaceShell({
 
   const [collapsed, setCollapsed] = useState<boolean>(false);
   const [mobileMoreOpen, setMobileMoreOpen] = useState<boolean>(false);
+  const valueAlertCount = useMemo(() => valueAlertsFrom(dataset.games).length, [dataset.games]);
 
   const railGroups: RailNavGroup[] = useMemo(
     () => [
@@ -528,7 +531,14 @@ export function ClubWorkspaceShell({
   );
 
   const profileHandle = viewerRole === "tipstar" ? "@sofia_nfl" : "@jair";
-  const profileUnits = viewerRole === "tipstar" ? "+18.4u" : "+6.1u";
+  // Tipstar: perfil de ejemplo. Socio: récord real de su Bitácora.
+  const myRecord = journalRecord(journal);
+  const profileUnits =
+    viewerRole === "tipstar"
+      ? "Ejemplo"
+      : myRecord.settled > 0
+        ? `${myRecord.netUnits >= 0 ? "+" : ""}${myRecord.netUnits.toFixed(1)}u`
+        : "0 picks";
   const profileInitials = viewerRole === "tipstar" ? "SM" : "JR";
   const profileGrad =
     viewerRole === "tipstar" ? "var(--avatar-grad-1)" : "var(--avatar-grad-2)";
@@ -562,7 +572,6 @@ export function ClubWorkspaceShell({
                 <span className="hidden sm:inline truncate">
                   Buscar partido, liga o @socio...
                 </span>
-                <span className="sm:hidden">Buscar</span>
               </span>
               <kbd
                 className="hidden md:inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-bold num shrink-0"
@@ -586,13 +595,15 @@ export function ClubWorkspaceShell({
             <button
               type="button"
               className="pl-btn-glass px-2.5 min-h-9 relative inline-flex items-center gap-1.5"
-              aria-label="Abrir centro de alertas 60m (2 sin leer)"
+              aria-label={`Abrir alertas de valor (${valueAlertCount})`}
               onClick={() => setAlertsOpen(true)}
             >
               <MaestroIcon name="bell" size={15} />
-              <span className="pl-pill pl-pill--brand text-[10px] px-1.5 py-0 num">
-                2
-              </span>
+              {valueAlertCount > 0 ? (
+                <span className="pl-pill pl-pill--brand text-[10px] px-1.5 py-0 num">
+                  {valueAlertCount}
+                </span>
+              ) : null}
             </button>
 
             <div className="hidden md:block">
