@@ -1,0 +1,327 @@
+{
+  "total_entries": 46,
+  "entries": [
+    {
+      "method": "GET",
+      "url": "https://www.pickbot.mx/api/auth/me?uid=REDACTED_FIREBASE_UID",
+      "status": 200,
+      "body_bytes": 693,
+      "response_preview": "{\"mongoId\":\"000000000000000000000000\",\"role\":\"user\",\"displayName\":null,\"handle\":\"redacted_user\",\"bio\":null,\"avatarKind\":null,\"avatarEmoji\":null,\"photoURL\":null,\"subscriptionPlan\":\"gratis\",\"subscriptionProvider\":\"none\",\"limits\":{\"messagesPerConversation\":10,\"picksPerMonth\":5,\"allowedModels\":[\"fast\"]},\"stripeCustomerId\":null,\"mobileSubscription\":null,\"invitation\":{\"access\":true,\"inviteCode\":\"XXXX-XXXX\",\"inviteCodeRaw\":\"XXXXXXXX\",\"inviteLimit\":null,\"inviteUsed\":0,\"inviteRemaining\":null,\"unlimited\":true,\"invitationAcceptedAt\":null,\"invitedByCode\":null},\"pickEnergy\":{\"energy\":4,\"maxEnergy\":5,\"unlim"
+    },
+    {
+      "method": "POST",
+      "url": "https://www.pickbot.mx/api/auth/sync",
+      "status": 200,
+      "body_bytes": 34,
+      "response_preview": "{\"success\":true,\"isNewUser\":false}"
+    },
+    {
+      "method": "GET",
+      "url": "https://www.pickbot.mx/api/feed/saved?uid=REDACTED_FIREBASE_UID&limit=20",
+      "status": 200,
+      "body_bytes": 30,
+      "response_preview": "{\"items\":[],\"nextCursor\":null}"
+    },
+    {
+      "method": "GET",
+      "url": "https://www.pickbot.mx/api/bets?uid=REDACTED_FIREBASE_UID&limit=20",
+      "status": 200,
+      "body_bytes": 30,
+      "response_preview": "{\"items\":[],\"nextCursor\":null}"
+    },
+    {
+      "method": "GET",
+      "url": "https://www.pickbot.mx/api/auth/me?uid=REDACTED_FIREBASE_UID",
+      "status": 200,
+      "body_bytes": 499,
+      "response_preview": "{\"mongoId\":\"000000000000000000000000\",\"role\":\"user\",\"displayName\":null,\"handle\":\"redacted_user\",\"bio\":null,\"avatarKind\":null,\"avatarEmoji\":null,\"photoURL\":null,\"subscriptionPlan\":\"gratis\",\"subscriptionProvider\":\"none\",\"limits\":{\"messagesPerConversation\":10,\"picksPerMonth\":5,\"allowedModels\":[\"fast\"]},\"stripeCustomerId\":null,\"mobileSubscription\":null,\"invitation\":{\"access\":true,\"inviteCode\":\"XXXX-XXXX\",\"inviteCodeRaw\":\"XXXXXXXX\",\"inviteLimit\":null,\"inviteUsed\":0,\"inviteRemaining\":null,\"unlimited\""
+    },
+    {
+      "method": "GET",
+      "url": "https://www.pickbot.mx/api/pick-energy?mongoUserId=000000000000000000000000",
+      "status": 200,
+      "body_bytes": 124,
+      "response_preview": "{\"energy\":4,\"maxEnergy\":5,\"unlimited\":false,\"nextRegenAt\":\"2026-11-12T01:25:41.009Z\",\"updatedAt\":\"2026-11-11T21:25:41.009Z\"}"
+    },
+    {
+      "method": "GET",
+      "url": "https://www.pickbot.mx/api/pick-energy/unlocks?mongoUserId=000000000000000000000000",
+      "status": 200,
+      "body_bytes": 240,
+      "response_preview": "{\"unlimited\":false,\"unlocks\":[{\"eventId\":\"37f4c00ff7ec01d5aa7c33dd1ac84bbc\",\"sportKey\":\"basketball_nba\"}],\"energy\":{\"energy\":4,\"maxEnergy\":5,\"unlimited\":false,\"nextRegenAt\":\"2026-11-12T01:25:41.009Z\",\"updatedAt\":\"2026-11-11T21:25:41.009Z\"}}"
+    },
+    {
+      "method": "GET",
+      "url": "https://www.pickbot.mx/api/feed/saved?mongoUserId=000000000000000000000000&limit=20",
+      "status": 200,
+      "body_bytes": 30,
+      "response_preview": "{\"items\":[],\"nextCursor\":null}"
+    },
+    {
+      "method": "GET",
+      "url": "https://www.pickbot.mx/api/bets?mongoUserId=000000000000000000000000&limit=20",
+      "status": 200,
+      "body_bytes": 30,
+      "response_preview": "{\"items\":[],\"nextCursor\":null}"
+    },
+    {
+      "method": "GET",
+      "url": "https://www.pickbot.mx/api/markets/matches?sportKey=all&limit=48&scope=upcoming",
+      "status": 200,
+      "body_bytes": 501,
+      "response_preview": "{\"items\":[{\"_id\":\"6aefb46842e126816894032c\",\"event_id\":\"0380db9fc7de24aed0c27138c02467e5\",\"sport_key\":\"soccer_mexico_ligamx\",\"away_score\":null,\"away_team\":\"Monterrey\",\"cached_at\":\"2026-11-11T20:20:24.368Z\",\"commence_time\":\"2026-11-14T23:00:00Z\",\"completed\":false,\"home_score\":null,\"home_team\":\"Querétaro\",\"live\":false,\"score_last_update\":\"2026-11-11T20:20:24.368Z\",\"scores\":[],\"source_last_update\":\"2026-11-11T20:20:24.368Z\",\"sport_title\":\"Liga MX\",\"pick_status\":\"no_bet\",\"generated_pick_count\":0,\"pi"
+    },
+    {
+      "method": "GET",
+      "url": "https://www.pickbot.mx/api/users/search?q=america",
+      "status": 200,
+      "body_bytes": 0,
+      "response_preview": ""
+    },
+    {
+      "method": "GET",
+      "url": "https://www.pickbot.mx/api/feed?mongoUserId=000000000000000000000000&mode=global",
+      "status": 200,
+      "body_bytes": 300,
+      "response_preview": "{\"items\":[{\"kind\":\"pick_save\",\"id\":\"6af4dd8a4b85bf21832189ca\",\"createdAt\":\"2026-11-11T21:26:34.831Z\",\"user\":{\"id\":\"6a6ca5c552803f7c0594846d\",\"displayName\":\"ips1784\",\"handle\":\"ips1784\",\"bio\":null,\"avatarKind\":\"emoji\",\"avatarEmoji\":null,\"photoURL\":null,\"roi\":null,\"decided\":0},\"match\":{\"eventId\":\"e75aa"
+    },
+    {
+      "method": "GET",
+      "url": "https://www.pickbot.mx/api/feed?mongoUserId=000000000000000000000000&mode=friends",
+      "status": 200,
+      "body_bytes": 47,
+      "response_preview": "{\"items\":[],\"nextCursor\":null,\"mode\":\"friends\"}"
+    },
+    {
+      "method": "GET",
+      "url": "https://www.pickbot.mx/api/friends?period=30d&mongoUserId=000000000000000000000000",
+      "status": 200,
+      "body_bytes": 228,
+      "response_preview": "{\"period\":\"30d\",\"items\":[{\"user\":{\"id\":\"000000000000000000000000\",\"displayName\":\"redacted_user\",\"handle\":\"redacted_user\",\"bio\":null,\"avatarKind\":\"emoji\",\"avatarEmoji\":null,\"photoURL\":null},\"roi\":null,\"decided\":0,\"isSelf\":true}]}"
+    },
+    {
+      "method": "GET",
+      "url": "https://www.pickbot.mx/api/leaderboard?period=30d",
+      "status": 200,
+      "body_bytes": 300,
+      "response_preview": "{\"period\":\"30d\",\"items\":[{\"rank\":1,\"user\":{\"id\":\"6ac65ae98c9b95b86171133a\",\"displayName\":\"zh7brw6dcs\",\"handle\":\"zh7brw6dcs\",\"bio\":null,\"avatarKind\":\"emoji\",\"avatarEmoji\":null,\"photoURL\":null},\"roi\":96.9,\"decided\":7,\"profitUnits\":6.785},{\"rank\":2,\"user\":{\"id\":\"6a5818fe1b7b793dd0d3a792\",\"displayName\":"
+    },
+    {
+      "method": "GET",
+      "url": "https://www.pickbot.mx/api/strategies?",
+      "status": 200,
+      "body_bytes": 300,
+      "response_preview": "{\"strategies\":[{\"id\":\"none\",\"name\":\"Sin estrategia\",\"system\":true},{\"id\":\"pickbot\",\"name\":\"PickBot\",\"system\":true}],\"userStrategies\":[],\"selectedId\":\"none\",\"canEditPickbot\":false,\"pickbot\":{\"id\":\"pickbot\",\"name\":\"PickBot\",\"system\":true,\"sportKeys\":null,\"marketFamilies\":null,\"rules\":[{\"id\":\"rule-1\",\""
+    },
+    {
+      "method": "GET",
+      "url": "https://www.pickbot.mx/api/rendimiento?sportKey=all&strategyId=none&from=2026-10-13&to=2026-11-11",
+      "status": 200,
+      "body_bytes": 0,
+      "response_preview": ""
+    },
+    {
+      "method": "GET",
+      "url": "https://www.pickbot.mx/api/strategies?",
+      "status": 200,
+      "body_bytes": 0,
+      "response_preview": ""
+    },
+    {
+      "method": "GET",
+      "url": "https://www.pickbot.mx/api/strategies?",
+      "status": 200,
+      "body_bytes": 200,
+      "response_preview": "{\"strategies\":[{\"id\":\"none\",\"name\":\"Sin estrategia\",\"system\":true},{\"id\":\"pickbot\",\"name\":\"PickBot\",\"system\":true}],\"userStrategies\":[],\"selectedId\":\"none\",\"canEditPickbot\":false,\"pickbot\":{\"id\":\"pick"
+    },
+    {
+      "method": "GET",
+      "url": "https://www.pickbot.mx/api/rendimiento?sportKey=all&strategyId=none&from=2026-10-13&to=2026-11-11",
+      "status": 200,
+      "body_bytes": 200,
+      "response_preview": "{\"period\":{\"allTime\":false,\"from\":\"2026-10-13T06:00:00.000Z\",\"to\":\"2026-11-12T06:00:00.000Z\",\"days\":30,\"timezone\":\"America/Mexico_City\"},\"sportKey\":\"all\",\"strategyId\":\"none\",\"strategyName\":\"Sin estrat"
+    },
+    {
+      "method": "GET",
+      "url": "https://www.pickbot.mx/api/strategies?uid=REDACTED_FIREBASE_UID",
+      "status": 200,
+      "body_bytes": 200,
+      "response_preview": "{\"strategies\":[{\"id\":\"none\",\"name\":\"Sin estrategia\",\"system\":true},{\"id\":\"pickbot\",\"name\":\"PickBot\",\"system\":true}],\"userStrategies\":[],\"selectedId\":\"none\",\"canEditPickbot\":false,\"pickbot\":{\"id\":\"pick"
+    },
+    {
+      "method": "GET",
+      "url": "https://www.pickbot.mx/api/auth/me?uid=REDACTED_FIREBASE_UID",
+      "status": 200,
+      "body_bytes": 199,
+      "response_preview": "{\"mongoId\":\"000000000000000000000000\",\"role\":\"user\",\"displayName\":null,\"handle\":\"redacted_user\",\"bio\":null,\"avatarKind\":null,\"avatarEmoji\":null,\"photoURL\":null,\"subscriptionPlan\":\"gratis\",\"subscripti"
+    },
+    {
+      "method": "GET",
+      "url": "https://www.pickbot.mx/api/rendimiento?sportKey=all&strategyId=none&uid=REDACTED_FIREBASE_UID&from=2026-10-13&to=2026-11-11",
+      "status": 200,
+      "body_bytes": 200,
+      "response_preview": "{\"period\":{\"allTime\":false,\"from\":\"2026-10-13T06:00:00.000Z\",\"to\":\"2026-11-12T06:00:00.000Z\",\"days\":30,\"timezone\":\"America/Mexico_City\"},\"sportKey\":\"all\",\"strategyId\":\"none\",\"strategyName\":\"Sin estrat"
+    },
+    {
+      "method": "GET",
+      "url": "https://www.pickbot.mx/api/strategies?uid=REDACTED_FIREBASE_UID&mongoUserId=000000000000000000000000",
+      "status": 200,
+      "body_bytes": 200,
+      "response_preview": "{\"strategies\":[{\"id\":\"none\",\"name\":\"Sin estrategia\",\"system\":true},{\"id\":\"pickbot\",\"name\":\"PickBot\",\"system\":true}],\"userStrategies\":[],\"selectedId\":\"none\",\"canEditPickbot\":false,\"pickbot\":{\"id\":\"pick"
+    },
+    {
+      "method": "GET",
+      "url": "https://www.pickbot.mx/api/pick-energy/unlocks?mongoUserId=000000000000000000000000",
+      "status": 200,
+      "body_bytes": 200,
+      "response_preview": "{\"unlimited\":false,\"unlocks\":[{\"eventId\":\"37f4c00ff7ec01d5aa7c33dd1ac84bbc\",\"sportKey\":\"basketball_nba\"}],\"energy\":{\"energy\":4,\"maxEnergy\":5,\"unlimited\":false,\"nextRegenAt\":\"2026-11-12T01:25:41.009Z\","
+    },
+    {
+      "method": "GET",
+      "url": "https://www.pickbot.mx/api/rendimiento?sportKey=all&strategyId=none&uid=REDACTED_FIREBASE_UID&mongoUserId=000000000000000000000000&from=2026-10-13&to=2026-11-11",
+      "status": 200,
+      "body_bytes": 200,
+      "response_preview": "{\"period\":{\"allTime\":false,\"from\":\"2026-10-13T06:00:00.000Z\",\"to\":\"2026-11-12T06:00:00.000Z\",\"days\":30,\"timezone\":\"America/Mexico_City\"},\"sportKey\":\"all\",\"strategyId\":\"none\",\"strategyName\":\"Sin estrat"
+    },
+    {
+      "method": "GET",
+      "url": "https://www.pickbot.mx/api/markets/matches?sportKey=all&from=2026-11-11T06%3A00%3A00.000Z&to=2026-11-12T06%3A00%3A00.000Z&limit=250",
+      "status": 200,
+      "body_bytes": 200,
+      "response_preview": "{\"items\":[{\"_id\":\"6af3948c42e126816894f754\",\"event_id\":\"e9545a3084389f5f3429e19fea891124\",\"sport_key\":\"basketball_nba\",\"away_score\":null,\"away_team\":\"Washington Wizards\",\"cached_at\":\"2026-11-11T21:32:"
+    },
+    {
+      "method": "GET",
+      "url": "https://www.pickbot.mx/api/markets/matches?sportKey=basketball_nba&from=2026-11-11T06%3A00%3A00.000Z&to=2026-11-12T06%3A00%3A00.000Z&limit=250",
+      "status": 200,
+      "body_bytes": 200,
+      "response_preview": "{\"items\":[{\"_id\":\"6af3948c42e126816894f754\",\"event_id\":\"e9545a3084389f5f3429e19fea891124\",\"sport_key\":\"basketball_nba\",\"away_score\":null,\"away_team\":\"Washington Wizards\",\"cached_at\":\"2026-11-11T21:32:"
+    },
+    {
+      "method": "GET",
+      "url": "https://www.pickbot.mx/api/leaderboard?period=7d&limit=20",
+      "status": 200,
+      "body_bytes": 201,
+      "response_preview": "{\"period\":\"7d\",\"items\":[{\"rank\":1,\"user\":{\"id\":\"69bc0dc65e0191c236abecca\",\"displayName\":\"chocomv\",\"handle\":\"choco\",\"bio\":\"El más salado del condado\",\"avatarKind\":\"photo\",\"avatarEmoji\":null,\"photoURL\":"
+    },
+    {
+      "method": "GET",
+      "url": "https://www.pickbot.mx/api/markets/matches/37f4c00ff7ec01d5aa7c33dd1ac84bbc?sportKey=basketball_nba",
+      "status": 200,
+      "body_bytes": 0,
+      "response_preview": ""
+    },
+    {
+      "method": "POST",
+      "url": "https://www.pickbot.mx/api/markets/matches/37f4c00ff7ec01d5aa7c33dd1ac84bbc/unlock",
+      "status": 200,
+      "body_bytes": 200,
+      "response_preview": "{\"pick_set\":{\"_id\":\"6af409d09c4365b14b05cbac\",\"event_id\":\"37f4c00ff7ec01d5aa7c33dd1ac84bbc\",\"sport_key\":\"basketball_nba\",\"odds_snapshot_hash\":\"426cf67820b3755f03483ab78b64201c1c4c2da8fd967b022e0fd8921"
+    },
+    {
+      "method": "GET",
+      "url": "https://www.pickbot.mx/api/markets/matches/37f4c00ff7ec01d5aa7c33dd1ac84bbc/comments?mongoUserId=000000000000000000000000",
+      "status": 200,
+      "body_bytes": 200,
+      "response_preview": "[{\"_id\":\"6af4cee0609e6f69581b5da7\",\"event_id\":\"37f4c00ff7ec01d5aa7c33dd1ac84bbc\",\"sport_key\":\"basketball_nba\",\"user_id\":\"6af4cdf342e126816895517d\",\"username\":\"Jair Bonilla\",\"content\":\"Bien\",\"created_a"
+    },
+    {
+      "method": "GET",
+      "url": "https://www.pickbot.mx/api/markets/matches/37f4c00ff7ec01d5aa7c33dd1ac84bbc/pulse?sportKey=basketball_nba&matchBetId=generated-37f4c00ff7ec01d5aa7c33dd1ac84bbc-0&mongoUserId=000000000000000000000000",
+      "status": 200,
+      "body_bytes": 200,
+      "response_preview": "{\"total_votes\":6,\"yes_count\":1,\"no_count\":5,\"yes_percent\":17,\"no_percent\":83,\"user_vote\":null,\"user_saved_pick\":false,\"recent_voters\":[{\"id\":\"6af4cdf342e126816895517d\",\"displayName\":\"bichokeke\",\"photo"
+    },
+    {
+      "method": "POST",
+      "url": "https://www.pickbot.mx/api/markets/matches/37f4c00ff7ec01d5aa7c33dd1ac84bbc/refresh",
+      "status": 200,
+      "body_bytes": 0,
+      "response_preview": ""
+    },
+    {
+      "method": "POST",
+      "url": "https://www.pickbot.mx/api/auth/sync",
+      "status": 200,
+      "body_bytes": 0,
+      "response_preview": ""
+    },
+    {
+      "method": "GET",
+      "url": "https://www.pickbot.mx/api/strategies/pickbot",
+      "status": 200,
+      "body_bytes": 290,
+      "response_preview": "{\"strategy\":{\"id\":\"pickbot\",\"name\":\"PickBot\",\"system\":true,\"sportKeys\":null,\"marketFamilies\":null,\"rules\":[{\"id\":\"rule-1\",\"sportKeys\":null,\"marketFamilies\":null,\"conditions\":[{\"field\":\"edge_pp\",\"op\":\"gte\",\"value\":1.25},{\"field\":\"edge_pp\",\"op\":\"lte\",\"value\":1.75,\"join\":\"and\"}],\"units\":1}]}}"
+    },
+    {
+      "method": "GET",
+      "url": "https://www.pickbot.mx/api/strategies/shared/691d418b0b53b755e4",
+      "status": 200,
+      "body_bytes": 526,
+      "response_preview": "{\"strategy\":{\"token\":\"691d418b0b53b755e4\",\"name\":\"FUT DC\",\"source\":\"user\",\"sportKeys\":[\"soccer_uefa_champs_league\",\"soccer_spain_la_liga\",\"soccer_epl\",\"soccer_italy_serie_a\",\"soccer_germany_bundesliga\",\"soccer_usa_mls\",\"soccer_france_ligue_one\",\"soccer_brazil_campeonato\",\"soccer_mexico_ligamx\"],\"marketFamilies\":[\"double_chance\",\"total\"],\"rules\":[{\"id\":\"rule-1\",\"sportKeys\":null,\"marketFamilies\":null,\"conditions\":[{\"field\":\"edge_pp\",\"op\":\"gte\",\"value\":2},{\"field\":\"est_prob\",\"op\":\"gt\",\"value\":55,\"join\":\"and\"}],\"units\":1}]}}"
+    },
+    {
+      "method": "POST",
+      "url": "https://www.pickbot.mx/api/rendimiento/preview",
+      "status": 200,
+      "body_bytes": 72,
+      "response_preview": "{\"days\":30,\"roi\":-4.8,\"picks\":17,\"won\":10,\"decided\":17,\"win_ratio\":58.8}"
+    },
+    {
+      "method": "GET",
+      "url": "https://www.pickbot.mx/api/leaderboard?period=all&limit=50",
+      "status": 200,
+      "body_bytes": 12510,
+      "response_preview": "{\"period\":\"all\",\"items\":[{\"rank\":1,\"user\":{\"id\":\"6a58f3ef1b7b793dd0d3ea5d\",\"displayName\":\"2ydfrwhnzc\",\"handle\":\"2ydfrwhnzc\",\"bio\":null,\"avatarKind\":\"emoji\",\"avatarEmoji\":null,\"photoURL\":null},\"roi\":76.5,\"decided\":10,\"profitUnits\":7.654},{\"rank\":2,\"user\":{\"id\":\"69adaa4d26278bc2f5f95e3e\",\"displayName\":\"isinhoss1910\",\"handle\":\"isinhoss1910\",\"bio\":\"Únete a mi canal de Discord donde mando mis picks. 👇🏾\\nhttps://discord.gg/djGcFdaHv\",\"avatarKind\":\"photo\",\"avatarEmoji\":null,\"photoURL\":\"https://lh3.googleusercontent.com/a/ACg8ocI-0fM-j1jprVLm9p83uEMMHV7NKqs8iwqqJj4CfPd42qmLT9op=s96-c\"},\"roi\":58.1,\"dec"
+    },
+    {
+      "method": "GET",
+      "url": "https://www.pickbot.mx/api/users/6ac65ae98c9b95b86171133a",
+      "status": 200,
+      "body_bytes": 356,
+      "response_preview": "{\"id\":\"6ac65ae98c9b95b86171133a\",\"displayName\":\"zh7brw6dcs\",\"handle\":\"zh7brw6dcs\",\"bio\":null,\"avatarKind\":\"emoji\",\"avatarEmoji\":null,\"photoURL\":null,\"_id\":\"6ac65ae98c9b95b86171133a\",\"followersCount\":0,\"followingCount\":0,\"roi\":-100,\"decided\":1,\"won\":0,\"lost\":1,\"winRatio\":0,\"profitUnits\":-1,\"rank\":1,\"rankPeriod\":\"30d\",\"joinedAt\":\"2026-10-07T14:44:57.267Z\"}"
+    },
+    {
+      "method": "GET",
+      "url": "https://www.pickbot.mx/api/users/6ac65ae98c9b95b86171133a/follow",
+      "status": 200,
+      "body_bytes": 80,
+      "response_preview": "{\"following\":false,\"notifyNewPicks\":false,\"followersCount\":0,\"followingCount\":0}"
+    },
+    {
+      "method": "GET",
+      "url": "https://www.pickbot.mx/api/users/search?q=america",
+      "status": 200,
+      "body_bytes": 438,
+      "response_preview": "{\"items\":[{\"id\":\"69b076687250751ee8d08735\",\"displayName\":\"Archivo Americanista\",\"handle\":\"archivoamericanista8\",\"bio\":null,\"avatarKind\":\"photo\",\"avatarEmoji\":null,\"photoURL\":\"https://lh3.googleusercontent.com/a/ACg8ocJLHGly3vH-mPahgqGuKWsJJMcCGXkWa4ZsrCEheSbjAS2W8xb2=s96-c\"},{\"id\":\"6a68b47652803f7c059349c7\",\"displayName\":\"Hector Delgado\",\"handle\":\"hectordelgado49c7\",\"bio\":null,\"avatarKind\":\"emoji\",\"avatarEmoji\":null,\"photoURL\":null}]}"
+    },
+    {
+      "method": "GET",
+      "url": "https://www.pickbot.mx/api/rendimiento?sportKey=all&strategyId=pickbot&from=2026-10-13&to=2026-11-11",
+      "status": 200,
+      "body_bytes": 13296,
+      "response_preview": "{\"period\":{\"allTime\":false,\"from\":\"2026-10-13T06:00:00.000Z\",\"to\":\"2026-11-12T06:00:00.000Z\",\"days\":30,\"timezone\":\"America/Mexico_City\"},\"sportKey\":\"all\",\"strategyId\":\"pickbot\",\"strategyName\":\"PickBot\",\"summary\":{\"total\":100,\"won\":50,\"lost\":42,\"push\":2,\"void\":0,\"pending\":6,\"manual\":0,\"win_ratio\":54.3,\"decided\":92,\"roi\":-8,\"avg_odds\":1.76,\"profit_units\":-7.39,\"stake_units\":92,\"odds_sum\":162.22200000000004,\"odds_count\":92},\"previous\":{\"total\":80,\"won\":31,\"lost\":39,\"push\":2,\"void\":0,\"pending\":8,\"manual\":0,\"win_ratio\":44.3,\"decided\":70,\"roi\":-24.9,\"avg_odds\":1.78,\"profit_units\":-17.41,\"stake_units"
+    },
+    {
+      "method": "GET",
+      "url": "https://www.pickbot.mx/api/markets/matches/e422af92d1fc06c0a330838c1c2f2e08?sportKey=soccer_uefa_champs_league",
+      "status": 200,
+      "body_bytes": 88653,
+      "response_preview": "{\"match\":{\"_id\":\"6aeccb0027559009d461ef99\",\"sport_key\":\"soccer_uefa_champs_league\",\"event_id\":\"e422af92d1fc06c0a330838c1c2f2e08\",\"away_team\":\"Aston Villa\",\"cached_at\":\"2026-11-11T21:43:09.450Z\",\"commence_time\":\"2026-11-24T17:45:00Z\",\"home_team\":\"Galatasaray\",\"source_last_update\":null,\"sport_title\":\"UEFA Champions League\",\"away_score\":null,\"completed\":false,\"home_score\":null,\"live\":false,\"score_last_update\":\"2026-11-11T18:59:10.306Z\",\"scores\":[]},\"odds\":{\"_id\":\"6af3f59742e1268168950027\",\"cache_key\":\"soccer_uefa_champs_league:e422af92d1fc06c0a330838c1c2f2e08:us:h2h_3_way,spreads,alternate_spread"
+    },
+    {
+      "method": "GET",
+      "url": "https://www.pickbot.mx/api/markets/matches/0380db9fc7de24aed0c27138c02467e5?sportKey=soccer_mexico_ligamx",
+      "status": 200,
+      "body_bytes": 33540,
+      "response_preview": "{\"match\":{\"_id\":\"6aefb46842e126816894032c\",\"event_id\":\"0380db9fc7de24aed0c27138c02467e5\",\"sport_key\":\"soccer_mexico_ligamx\",\"away_score\":null,\"away_team\":\"Monterrey\",\"cached_at\":\"2026-11-11T21:57:29.475Z\",\"commence_time\":\"2026-11-14T23:00:00Z\",\"completed\":false,\"home_score\":null,\"home_team\":\"Querétaro\",\"live\":false,\"score_last_update\":\"2026-11-11T21:57:29.475Z\",\"scores\":[],\"source_last_update\":\"2026-11-11T21:57:29.475Z\",\"sport_title\":\"Liga MX\"},\"odds\":{\"_id\":\"6af07b7242e1268168941642\",\"cache_key\":\"soccer_mexico_ligamx:0380db9fc7de24aed0c27138c02467e5:us:h2h_3_way,spreads,alternate_spreads,team"
+    },
+    {
+      "method": "GET",
+      "url": "https://www.pickbot.mx/api/rendimiento/export?dataset=daily&sportKey=all&strategyId=none&from=2026-10-13&to=2026-11-11",
+      "status": 200,
+      "body_bytes": 2855,
+      "response_preview": "month,day,timezone,stake_model,total_bets,won,lost,push,void,pending,decided,win_ratio_pct,roi_pct,profit_units,stake_units,avg_decimal_odds,manual_overrides\n2026-10,2026-10-13,America/Mexico_City,flat_1u,52,22,21,3,0,6,43,51.2,-10.1,-4.36,43,1.84,0\n2026-10,2026-10-14,America/Mexico_City,flat_1u,46,16,24,1,0,5,40,40,-31.7,-12.66,40,1.81,0\n2026-10,2026-10-15,America/Mexico_City,flat_1u,39,24,14,0,0,1,38,63.2,3.9,1.48,38,1.67,0\n2026-10,2026-10-16,America/Mexico_City,flat_1u,21,7,8,0,0,6,15,46.7,-14.3,-2.15,15,1.79,0\n2026-10,2026-10-17,America/Mexico_City,flat_1u,88,42,23,2,0,21,65,64.6,6.4,4.14,"
+    }
+  ]
+}

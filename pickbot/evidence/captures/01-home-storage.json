@@ -1,0 +1,23 @@
+{
+  "fingerprint_version": 2,
+  "cookies": [
+    {
+      "name": "_gcl_au",
+      "domain": ".pickbot.mx",
+      "path": "/",
+      "secure": false,
+      "http_only": false,
+      "same_site": "Lax",
+      "value_state": "hashed",
+      "value_sha256": "30c86f24d210b832a654e56119ef5d7dca28d6b42bb96da4eb8e8d1a495383d5"
+    }
+  ],
+  "local_storage": [
+    {
+      "name": "_gcl_ls",
+      "value_state": "hashed",
+      "value_sha256": "4d97618f9199d8c8e9525c13ca0cc9dc7050b6c0033d4909f2bd4be2546abb5f"
+    }
+  ],
+  "session_storage": []
+}

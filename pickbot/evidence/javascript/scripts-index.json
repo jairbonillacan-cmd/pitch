@@ -1,0 +1,465 @@
+{
+  "deployment_id": "dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+  "total_js_chunks": 51,
+  "first_party_js_count": 32,
+  "vendor_or_runtime_js_count": 19,
+  "total_css_files": 2,
+  "first_party_source_paths": [
+    "01e832ac972c5620.js",
+    "05d2295083ef64ec.js",
+    "066560ba39974a4f.js",
+    "17103e43d84cc7f5.js",
+    "1e2ca6f8d312a2a8.js",
+    "25a9d165fa657b38.js",
+    "30f459f5ca7d514d.js",
+    "460a38ce63931d07.js",
+    "46d33aee8f2857f7.js",
+    "5281a79d8fbe5d0e.js",
+    "5d3ff053c1cadced.js",
+    "66c68b8fed519b4e.js",
+    "6d05e03f6d9857e7.js",
+    "702ff714edc3e029.js",
+    "968c97a841ab948b.js",
+    "9f3bf131c0c314ee.js",
+    "a5f8094c4c08cf24.js",
+    "ac282bd7cb74dc3b.js",
+    "b1a4fab04b669688.js",
+    "b297d412266b6464.js",
+    "cb5b69c89a2e494c.js",
+    "d2bd7b725bbeda1b.js",
+    "dae971cea01c1720.js",
+    "dbfeeb57e0254ad3.js",
+    "e28be9743872cf14.js",
+    "e62978f1d163b3ba.js",
+    "e730e2375a473fd6.js",
+    "ec11f1e503e95a75.js",
+    "edabb558bc566d6c.js",
+    "f97f9e3beeabf139.js",
+    "f9c2a762374fe321.js",
+    "fb543dd1c9c685b7.js"
+  ],
+  "javascript_chunks": [
+    {
+      "filename": "01e832ac972c5620.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/01e832ac972c5620.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 127081,
+      "sha256": "7270c2cf2aa6402ef9534ae8bb70325982ff0db7f8b9ddd70df6385cc61e889e",
+      "category": "first-party",
+      "contains_pickbot_domain_markers": true
+    },
+    {
+      "filename": "05d2295083ef64ec.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/05d2295083ef64ec.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 24267,
+      "sha256": "e1532c410f2327c2685fe62e338883a4418c0dbbba0d1c7eac55717a8872aed2",
+      "category": "first-party",
+      "contains_pickbot_domain_markers": true
+    },
+    {
+      "filename": "066560ba39974a4f.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/066560ba39974a4f.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 5533,
+      "sha256": "058c4e29620d591610e01afbdf09e9f1760ce08eb77a8e7c089d20cd35c245b0",
+      "category": "first-party",
+      "contains_pickbot_domain_markers": true
+    },
+    {
+      "filename": "17103e43d84cc7f5.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/17103e43d84cc7f5.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 5229,
+      "sha256": "32f01483810b7143c2236448d8a3d64fbf25f3c605a0ed6051f82a08dce91b23",
+      "category": "first-party",
+      "contains_pickbot_domain_markers": true
+    },
+    {
+      "filename": "1e2ca6f8d312a2a8.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/1e2ca6f8d312a2a8.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 24267,
+      "sha256": "5546bfbc9bb0c1a6fe4fb3b67ebf641530dc0c767d890b111b7aae4d79105425",
+      "category": "first-party",
+      "contains_pickbot_domain_markers": true
+    },
+    {
+      "filename": "1e758b07176114e4.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/1e758b07176114e4.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 48031,
+      "sha256": "67f27eab159a2a8ce32746e7ddacc4e2ad3b2cbcb5e106a0fad048d65685f5ac",
+      "category": "vendor-or-runtime",
+      "contains_pickbot_domain_markers": false
+    },
+    {
+      "filename": "25874d3d0d15f70b.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/25874d3d0d15f70b.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 20583,
+      "sha256": "58f4ca7e939f8beb4fb8d027c70a549c870109841f5d24f671b45dafd429b4a2",
+      "category": "vendor-or-runtime",
+      "contains_pickbot_domain_markers": false
+    },
+    {
+      "filename": "25a9d165fa657b38.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/25a9d165fa657b38.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 21635,
+      "sha256": "24d488b007a493b42eaac1f7d1c32a620a06ab7523f9e77c482216afc3a4a2ba",
+      "category": "first-party",
+      "contains_pickbot_domain_markers": true
+    },
+    {
+      "filename": "30f459f5ca7d514d.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/30f459f5ca7d514d.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 9485,
+      "sha256": "c21cf4696c89c75f97a1eda31f46bccc91d435015b0aee1a667e0de2517c1e4a",
+      "category": "first-party",
+      "contains_pickbot_domain_markers": true
+    },
+    {
+      "filename": "3881a6acda7bc619.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/3881a6acda7bc619.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 29406,
+      "sha256": "21c19c705f456d0d1419f89ca3aa09dc5fa7db9c1db1f49ede163abf7102f8c2",
+      "category": "vendor-or-runtime",
+      "contains_pickbot_domain_markers": false
+    },
+    {
+      "filename": "460a38ce63931d07.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/460a38ce63931d07.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 24267,
+      "sha256": "6abdd5520a7c11d77245ecf9ca38ae67e046d8d31c01c3affa2e25cfbf7c9d27",
+      "category": "first-party",
+      "contains_pickbot_domain_markers": true
+    },
+    {
+      "filename": "46d33aee8f2857f7.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/46d33aee8f2857f7.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 35077,
+      "sha256": "0aa99e83842e0bfb09407aec07294d7544daa7e8c0e2259449ec2c18c54a00a1",
+      "category": "first-party",
+      "contains_pickbot_domain_markers": true
+    },
+    {
+      "filename": "496e8db270f37fdc.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/496e8db270f37fdc.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 111416,
+      "sha256": "47a631732868f311dafbcbfb0f8603ef1458086b20e31eedad0785d0f74f9c67",
+      "category": "vendor-or-runtime",
+      "contains_pickbot_domain_markers": false
+    },
+    {
+      "filename": "5281a79d8fbe5d0e.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/5281a79d8fbe5d0e.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 8060,
+      "sha256": "ce7b5bd1398e5104755930538d6cc2d5c4800830b899b981eaf57a8ff6f9bed8",
+      "category": "first-party",
+      "contains_pickbot_domain_markers": true
+    },
+    {
+      "filename": "5642d5e1403c7165.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/5642d5e1403c7165.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 27431,
+      "sha256": "557a041d3393ed48a78cac78c7fceff00bc60e6c82d9bf682a46e8fca284aa70",
+      "category": "vendor-or-runtime",
+      "contains_pickbot_domain_markers": false
+    },
+    {
+      "filename": "56b62c9578f2eb22.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/56b62c9578f2eb22.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 27461,
+      "sha256": "241f41b557f440fedd3b991f9b35b17c0a8a201f706094ab138332d1248a0ada",
+      "category": "vendor-or-runtime",
+      "contains_pickbot_domain_markers": false
+    },
+    {
+      "filename": "5d3ff053c1cadced.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/5d3ff053c1cadced.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 36823,
+      "sha256": "b788cba43fb3d83b5a9b2ede8211db8bb3ccfe2d0f38affaae297bf76841a9fb",
+      "category": "first-party",
+      "contains_pickbot_domain_markers": true
+    },
+    {
+      "filename": "61cc43b3d7ad2990.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/61cc43b3d7ad2990.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 30679,
+      "sha256": "4540cc88930476434885ab7c6b6c0d33aab472d9ce9287d0c77d3f4d4f9923fa",
+      "category": "vendor-or-runtime",
+      "contains_pickbot_domain_markers": false
+    },
+    {
+      "filename": "66a8c16702b8a250.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/66a8c16702b8a250.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 2529,
+      "sha256": "fae4747d48f3747ef49cc9e20eee391418c880044107cf872a95a116ec3cf273",
+      "category": "vendor-or-runtime",
+      "contains_pickbot_domain_markers": false
+    },
+    {
+      "filename": "66c68b8fed519b4e.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/66c68b8fed519b4e.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 15943,
+      "sha256": "79460bdde64098552d2f90d07fa1baf249eee56c1eb93b652dcb83dd49d9c12d",
+      "category": "first-party",
+      "contains_pickbot_domain_markers": true
+    },
+    {
+      "filename": "6d05e03f6d9857e7.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/6d05e03f6d9857e7.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 65500,
+      "sha256": "01f481aeb863d11d25f8ca676b5b6af04ec216b14b5423d2a9f57645abfa30fc",
+      "category": "first-party",
+      "contains_pickbot_domain_markers": true
+    },
+    {
+      "filename": "702ff714edc3e029.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/702ff714edc3e029.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 24267,
+      "sha256": "a78ad9ded6f5b342667dedfaa7fe2041c1ce6b5e34572244b9029e050e023890",
+      "category": "first-party",
+      "contains_pickbot_domain_markers": true
+    },
+    {
+      "filename": "727ad43a47a73d31.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/727ad43a47a73d31.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 3337,
+      "sha256": "d542e4b86aa8f9302025f45f0c4952a4640296004e042fc178ba92341bcbd3fd",
+      "category": "vendor-or-runtime",
+      "contains_pickbot_domain_markers": false
+    },
+    {
+      "filename": "7645c162474af3a6.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/7645c162474af3a6.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 24499,
+      "sha256": "002cc2269c922fc9ea613dea877046a2ffe5a496bbceac794a40261bcf54b290",
+      "category": "vendor-or-runtime",
+      "contains_pickbot_domain_markers": false
+    },
+    {
+      "filename": "7f90b2a81d9b45d7.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/7f90b2a81d9b45d7.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 27461,
+      "sha256": "6c1515e417b288a832282941515a0c2a8abe53b08c238088a3ccf2b6b7ead9b7",
+      "category": "vendor-or-runtime",
+      "contains_pickbot_domain_markers": false
+    },
+    {
+      "filename": "82abf2d65f5428ae.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/82abf2d65f5428ae.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 33299,
+      "sha256": "bbc0826384faf59b3d35a439a95f7787cd19280ee35469c84cd0b213bc306f11",
+      "category": "vendor-or-runtime",
+      "contains_pickbot_domain_markers": false
+    },
+    {
+      "filename": "968c97a841ab948b.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/968c97a841ab948b.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 24267,
+      "sha256": "9ec64e53ce3765839854311abdcce2c427e7e59a9696153f082a2c1b7333b13b",
+      "category": "first-party",
+      "contains_pickbot_domain_markers": true
+    },
+    {
+      "filename": "9f3bf131c0c314ee.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/9f3bf131c0c314ee.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 7957,
+      "sha256": "da034d28e7f89c5813a923f5586b295ce4aacf4147011c4ae014865f8df98b8f",
+      "category": "first-party",
+      "contains_pickbot_domain_markers": true
+    },
+    {
+      "filename": "a130cbc376d20297.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/a130cbc376d20297.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 223454,
+      "sha256": "a46162cb5e269b33e41354cc4dede5004b55eb0806053986ba6c58e01df5050c",
+      "category": "vendor-or-runtime",
+      "contains_pickbot_domain_markers": false
+    },
+    {
+      "filename": "a40dc55a2daccad8.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/a40dc55a2daccad8.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 27472,
+      "sha256": "ae5bafe05fe76edf8a31afc58cb50726c2569bfe2ca22aa39dd29805ecfbb9aa",
+      "category": "vendor-or-runtime",
+      "contains_pickbot_domain_markers": false
+    },
+    {
+      "filename": "a5f8094c4c08cf24.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/a5f8094c4c08cf24.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 44882,
+      "sha256": "f94744aa8a39bdacf17f090a8fcd83a8818a88e9927e9883c8f00a72ff79d054",
+      "category": "first-party",
+      "contains_pickbot_domain_markers": true
+    },
+    {
+      "filename": "a6dad97d9634a72d.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/a6dad97d9634a72d.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 112594,
+      "sha256": "0973c1d64c88adc8e3c950410cb58b288f72118d5965b78049438deb8f2f9683",
+      "category": "vendor-or-runtime",
+      "contains_pickbot_domain_markers": false
+    },
+    {
+      "filename": "ac282bd7cb74dc3b.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/ac282bd7cb74dc3b.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 5210,
+      "sha256": "2ba0b7d7fb2aae52af3e3e7fce649e22b292327b60eaf03b7dde696c005d36c3",
+      "category": "first-party",
+      "contains_pickbot_domain_markers": true
+    },
+    {
+      "filename": "b1a4fab04b669688.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/b1a4fab04b669688.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 34533,
+      "sha256": "8740546adc3d94adccf8525c097bb10eb817af6462b0724b040a41f15c79f6f2",
+      "category": "first-party",
+      "contains_pickbot_domain_markers": true
+    },
+    {
+      "filename": "b297d412266b6464.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/b297d412266b6464.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 3171,
+      "sha256": "8eb789f99e53cfbacde482a9a24aaa511d2b3944490c78bf36664e4fbe3b8c09",
+      "category": "first-party",
+      "contains_pickbot_domain_markers": true
+    },
+    {
+      "filename": "c6ec7bbda9a9685a.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/c6ec7bbda9a9685a.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 41644,
+      "sha256": "3a07891e54e11e87f9b955c3402a38b7c736aa5cc3613b8146a9a05009fef8a3",
+      "category": "vendor-or-runtime",
+      "contains_pickbot_domain_markers": false
+    },
+    {
+      "filename": "cb5b69c89a2e494c.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/cb5b69c89a2e494c.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 47565,
+      "sha256": "8f2c913788ac789e71127ab41d54948daa4a3aba16c71e530b153c65ea3c46a8",
+      "category": "first-party",
+      "contains_pickbot_domain_markers": true
+    },
+    {
+      "filename": "ccce59f1fd59f1da.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/ccce59f1fd59f1da.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 394570,
+      "sha256": "2ce57043231179537840e74c221354c5f6955fea029f4398eb941e9111a460fe",
+      "category": "vendor-or-runtime",
+      "contains_pickbot_domain_markers": false
+    },
+    {
+      "filename": "d2bd7b725bbeda1b.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/d2bd7b725bbeda1b.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 47565,
+      "sha256": "d5a4987929e2410267d65bbd886cdd011243a15446156fa1ddc64e7a30e4c619",
+      "category": "first-party",
+      "contains_pickbot_domain_markers": true
+    },
+    {
+      "filename": "dae971cea01c1720.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/dae971cea01c1720.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 36618,
+      "sha256": "90fd7e07154bf9267abc4c6ed6edb9b19a3c946de66a06df43fa95b80f56cb80",
+      "category": "first-party",
+      "contains_pickbot_domain_markers": true
+    },
+    {
+      "filename": "dbfeeb57e0254ad3.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/dbfeeb57e0254ad3.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 26070,
+      "sha256": "d6464b6dd1295c39e5977cbe05df8a56661e1efbebb81f51f6d5c716d081c9f4",
+      "category": "first-party",
+      "contains_pickbot_domain_markers": true
+    },
+    {
+      "filename": "e28be9743872cf14.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/e28be9743872cf14.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 37048,
+      "sha256": "57813b6f44ca5bc4c740127f82cb6392cc3ecfe8142cc8ad239848fcb677d24c",
+      "category": "first-party",
+      "contains_pickbot_domain_markers": true
+    },
+    {
+      "filename": "e62978f1d163b3ba.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/e62978f1d163b3ba.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 78018,
+      "sha256": "10a1a3d5364dffd2261d4eeb80e7828fe0e45155722a42cd7ccbd357d6b23106",
+      "category": "first-party",
+      "contains_pickbot_domain_markers": true
+    },
+    {
+      "filename": "e730e2375a473fd6.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/e730e2375a473fd6.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 29257,
+      "sha256": "7ad06498b7f5c8ff39ca1969057ca25203c2e63a2a09610cfbc1ff0e54f8b817",
+      "category": "first-party",
+      "contains_pickbot_domain_markers": true
+    },
+    {
+      "filename": "ec11f1e503e95a75.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/ec11f1e503e95a75.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 26070,
+      "sha256": "3af4261216d3d94ad33a7d9766f13352e9803b583b409255828086d5f6a31351",
+      "category": "first-party",
+      "contains_pickbot_domain_markers": true
+    },
+    {
+      "filename": "edabb558bc566d6c.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/edabb558bc566d6c.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 50306,
+      "sha256": "04fc7353558d690fe0f7f76d11d5e666bf4c617eebd287a4e2d271b9095825ca",
+      "category": "first-party",
+      "contains_pickbot_domain_markers": true
+    },
+    {
+      "filename": "f97f9e3beeabf139.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/f97f9e3beeabf139.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 24365,
+      "sha256": "6c7b5c3ece68d4df0b5413254b232550df681f4babe84275bc25fc422965cfb4",
+      "category": "first-party",
+      "contains_pickbot_domain_markers": true
+    },
+    {
+      "filename": "f9c2a762374fe321.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/f9c2a762374fe321.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 130722,
+      "sha256": "640493f52d0a0ce9aaffbec91d131ebdae0a4fc29e38fdf3d40cc385b11778ea",
+      "category": "first-party",
+      "contains_pickbot_domain_markers": true
+    },
+    {
+      "filename": "fb543dd1c9c685b7.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/fb543dd1c9c685b7.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 24267,
+      "sha256": "d1ae2acf20fe02fc87af046e57553f17a21377e570974849d45d73beb22ea8d8",
+      "category": "first-party",
+      "contains_pickbot_domain_markers": true
+    },
+    {
+      "filename": "ff1a16fafef87110.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/ff1a16fafef87110.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 282,
+      "sha256": "e9786b1305894e4119bb9811a816dac9cf576755596dd989ee15b455749fc35e",
+      "category": "vendor-or-runtime",
+      "contains_pickbot_domain_markers": false
+    },
+    {
+      "filename": "turbopack-53868f62491e71f2.js",
+      "url": "https://www.pickbot.mx/_next/static/chunks/turbopack-53868f62491e71f2.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 10729,
+      "sha256": "1637cb8a4c61626332daa152425cbf462a9f507b585dcee9f03d16f80bcb8e56",
+      "category": "vendor-or-runtime",
+      "contains_pickbot_domain_markers": false
+    }
+  ],
+  "css_stylesheets": [
+    {
+      "filename": "27888b6ffcce4db7.css",
+      "url": "https://www.pickbot.mx/_next/static/chunks/27888b6ffcce4db7.css?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 1996,
+      "sha256": "23af787cc6392cc5824f421461f661caf83de71c44a83ae37bf1114adbc78354"
+    },
+    {
+      "filename": "ba18d09ff3b83e99.css",
+      "url": "https://www.pickbot.mx/_next/static/chunks/ba18d09ff3b83e99.css?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 212947,
+      "sha256": "b2d0a9927696f8ec43b641582ef7bf729974f337f264c1e29df6c9316f02aeee"
+    }
+  ]
+}

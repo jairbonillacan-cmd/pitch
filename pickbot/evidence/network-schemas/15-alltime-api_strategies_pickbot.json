@@ -1,0 +1,1 @@
+{"strategy":{"id":"pickbot","name":"PickBot","system":true,"sportKeys":null,"marketFamilies":null,"rules":[{"id":"rule-1","sportKeys":null,"marketFamilies":null,"conditions":[{"field":"edge_pp","op":"gte","value":1.25},{"field":"edge_pp","op":"lte","value":1.75,"join":"and"}],"units":1}]}}

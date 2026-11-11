@@ -1,0 +1,15 @@
+[
+  {
+    "id": "env",
+    "type": "deploy_env",
+    "env_id": "pickbot-web-env",
+    "sandbox_type": "local"
+  },
+  {
+    "id": "serve",
+    "type": "env_outcome_verifier",
+    "env_id": "pickbot-web-env",
+    "file_artifact_id": "check_pickbot-web-env",
+    "verifier_id": "serve"
+  }
+]

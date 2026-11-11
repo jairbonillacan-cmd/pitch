@@ -1,0 +1,214 @@
+import glob
+import json
+import os
+import shutil
+
+ROOT = r"C:\Users\T490s\.gemini\antigravity\worktrees\PitchLab\explore_pickbot_architecture\pickbot"
+SANDBOX_SHOTS = r"C:\Users\T490s\.gemini\antigravity\brain\85fd27fa-2fc6-403d-84ae-0739e5126307\browser_sandbox\screenshots"
+
+# Copy the 5 verified zero-PII high-value UI screenshots
+copies = [
+    ("step_24.png", "16-match-detail-summary.png"),
+    ("step_28.png", "17-match-detail-ai-thesis.png"),
+    ("step_30.png", "18-match-detail-simulation-20000.png"),
+    ("step_32.png", "19-match-detail-fanduel-odds.png"),
+    ("step_45.png", "20-pick-energy-regen-modal.png"),
+]
+for src, dst in copies:
+    shutil.copyfile(os.path.join(SANDBOX_SHOTS, src), os.path.join(ROOT, "evidence", "screenshots", dst))
+    print(f"Copied {dst}")
+
+# Write canonical rea-unknowns.json with all 5 unknown heads + revision history (6 revisions total)
+unknown_revisions = [
+    {
+        "unknown_id": "unk_315beef430cc6da0ba17689a5a2c3c106d12e60b3ffdf1da25db0e1da72e8ab3",
+        "revision": 1,
+        "previous_revision_digest": None,
+        "scope_digest": None,
+        "question": "Which S3-compatible object storage vendor (AWS S3, Cloudflare R2, or Google Cloud Storage) backs POST /api/uploads/presign and /api/media/[...path]?",
+        "status": "open",
+        "severity": "low",
+        "domain": "backend-object-storage-provider",
+        "supporting_evidence_ids": [
+            "ev_8f52fd0ee16729c87eaffdb3560aa5762b53dcabcea4d44682e446c28a5bc731",
+            "ev_c770ce4eb3f39efe2d868537bc603e49b71cb61eda163351ab10970793a30d98",
+        ],
+        "contradicting_evidence_ids": [],
+        "required_authority": "controlled-replay",
+        "required_confidence": "observed",
+        "required_environment": None,
+        "recommended_probes": [
+            {
+                "operation": "capture_browser_scenario",
+                "rationale": "Invoke POST /api/uploads/presign on a disposable test account to inspect the hostname of uploadUrl without mutating production user state.",
+            }
+        ],
+        "relationships": [],
+        "resolution": None,
+        "mutation_evidence_ids": [
+            "ev_f3a37f2441678e491245c5ef90a6d72ac126fd0771cc53f710a0b9e0fc85eeff"
+        ],
+        "revision_digest": "0e4e870e8d5cef9763e017803f19a71b467b4192f2a2b6ad53fb2893c2bd8a60",
+    },
+    {
+        "unknown_id": "unk_3c9b39a9352dda731d4f16f01b336135e7ee9528232b9ba0aae51deb232cd6e1",
+        "revision": 1,
+        "previous_revision_digest": None,
+        "scope_digest": None,
+        "question": "Which upstream odds provider supplies PickBot's 33 sports markets and bookmaker lines, and does GET /api/markets/matches/[eventId] enforce Pick Energy unlock state on the server before returning pick_set?",
+        "status": "open",
+        "severity": "medium",
+        "domain": "data-provenance-and-authorization",
+        "supporting_evidence_ids": [
+            "ev_018e9bd7cb7e609f47967a27e53a2e74712ce72fb8935b89633083379633dd1b",
+            "ev_2448975c3fd211fca4630da6c338fb279ec6831e6102faaba9cfc4e1e5a0ddd4",
+        ],
+        "contradicting_evidence_ids": [],
+        "required_authority": "controlled-replay",
+        "required_confidence": "observed",
+        "required_environment": None,
+        "recommended_probes": [
+            {
+                "operation": "capture_browser_scenario",
+                "rationale": "Issue unauthenticated GET /api/markets/matches/[eventId]?sportKey=... requests for locked and no_bet matches and inspect odds.quota, normalized bookmakers, and pick_set.",
+            }
+        ],
+        "relationships": [],
+        "resolution": None,
+        "mutation_evidence_ids": [
+            "ev_19950cad590744809697dc96c2f473bfbf739b02f2db24df96e4db27e2caa7d0"
+        ],
+        "revision_digest": "51baf924230356daa0bfd5c451ec744161718ef68bc80b5a1e633c74cf4fd21f",
+    },
+    {
+        "unknown_id": "unk_3c9b39a9352dda731d4f16f01b336135e7ee9528232b9ba0aae51deb232cd6e1",
+        "revision": 2,
+        "previous_revision_digest": "51baf924230356daa0bfd5c451ec744161718ef68bc80b5a1e633c74cf4fd21f",
+        "scope_digest": None,
+        "question": "Which upstream odds provider supplies PickBot's 33 sports markets and bookmaker lines, and does GET /api/markets/matches/[eventId] enforce Pick Energy unlock state on the server before returning pick_set?",
+        "status": "resolved",
+        "severity": "medium",
+        "domain": "data-provenance-and-authorization",
+        "supporting_evidence_ids": [
+            "ev_018e9bd7cb7e609f47967a27e53a2e74712ce72fb8935b89633083379633dd1b",
+            "ev_2448975c3fd211fca4630da6c338fb279ec6831e6102faaba9cfc4e1e5a0ddd4",
+            "ev_cbc3003215c32d1934f73b2a1bd3650554bea0953a1ae810f13217f4336a600a",
+        ],
+        "contradicting_evidence_ids": [],
+        "required_authority": "controlled-replay",
+        "required_confidence": "observed",
+        "required_environment": None,
+        "recommended_probes": [],
+        "relationships": [],
+        "resolution": {
+            "disposition": "verified",
+            "rationale": "Unauthenticated controlled replay of GET /api/markets/matches/[eventId]?sportKey=... (ev_cbc3003215c32d1934f73b2a1bd3650554bea0953a1ae810f13217f4336a600a) proves that PickBot ingests odds and fixtures from The Odds API v4 (100,000 monthly credits tier exposed in odds.quota, regions='us', odds_format='american', 6 US bookmakers: BetMGM, BetRivers, Bovada, DraftKings, Fanatics, FanDuel), uses FlagCDN + deterministic FNV-1a gradients in TeamAvatar because The Odds API omits team logos, and returns the complete unredacted pick_set (including OpenAI-generated pick notes with audit.created_from='openai_match_selection' and 20,000-iteration simulation) without server-side Pick Energy enforcement.",
+            "evidence_ids": [
+                "ev_cbc3003215c32d1934f73b2a1bd3650554bea0953a1ae810f13217f4336a600a",
+                "ev_2448975c3fd211fca4630da6c338fb279ec6831e6102faaba9cfc4e1e5a0ddd4",
+            ],
+            "verification": {"valid": True, "truthVerified": True},
+        },
+        "mutation_evidence_ids": [
+            "ev_19950cad590744809697dc96c2f473bfbf739b02f2db24df96e4db27e2caa7d0",
+            "ev_2b6b7b9035ef155091579983bcf212f31ce3ce59c713cae8e7e3331eb9ff6da1",
+        ],
+        "revision_digest": "b3884c3d3a89ec88c58dda4c9af177b5cf12d483fb5bfb60e660e6ecfa138a60",
+    },
+    {
+        "unknown_id": "unk_846375a8625c1ca4e01936f94d4617433bbec928d2962659cd05ab016d848d04",
+        "revision": 1,
+        "previous_revision_digest": None,
+        "scope_digest": None,
+        "question": "What exact supervised ML estimator hyperparameters train model_version 'core_game_v1' and which upstream sports statistics feed populates the historical team box-score, Elo, xG, pitcher, and injury features?",
+        "status": "open",
+        "severity": "low",
+        "domain": "backend-ml-champion-and-historical-feed",
+        "supporting_evidence_ids": [
+            "ev_8f52fd0ee16729c87eaffdb3560aa5762b53dcabcea4d44682e446c28a5bc731",
+            "ev_cbc3003215c32d1934f73b2a1bd3650554bea0953a1ae810f13217f4336a600a",
+            "ev_d30074fd32063037c7ab7e575d982f6dff1b4b30aa5e4fa0cf17c59ae012ff29",
+        ],
+        "contradicting_evidence_ids": [],
+        "required_authority": "external-service",
+        "required_confidence": "observed",
+        "required_environment": None,
+        "recommended_probes": [
+            {
+                "operation": "inspect_ml_pipeline",
+                "rationale": "Inspect private Python/Node ML training pipeline and ETL ingestion scripts feeding MongoDB historical match/feature collections.",
+            }
+        ],
+        "relationships": [],
+        "resolution": None,
+        "mutation_evidence_ids": [
+            "ev_0794190890eb6af04457f0b692a1507290931304b5919d4404f4c5b9cab2518d"
+        ],
+        "revision_digest": "a8a339c788b16cb424c22c14bb95f828957378cf8bea8e553de1492eb7dca8de",
+    },
+    {
+        "unknown_id": "unk_ad7a1c65e74c8bb168270284c2fc25128c2f44d4fd65af79159b600df5cdbff8",
+        "revision": 1,
+        "previous_revision_digest": None,
+        "scope_digest": None,
+        "question": "What background scheduler (Vercel Cron vs external worker) triggers batch pick generation (user_id='system') and grades settled bets (won/lost/push/void) against final scores?",
+        "status": "open",
+        "severity": "low",
+        "domain": "backend-odds-cron-and-settlement-worker",
+        "supporting_evidence_ids": [
+            "ev_cbc3003215c32d1934f73b2a1bd3650554bea0953a1ae810f13217f4336a600a",
+            "ev_d30074fd32063037c7ab7e575d982f6dff1b4b30aa5e4fa0cf17c59ae012ff29",
+        ],
+        "contradicting_evidence_ids": [],
+        "required_authority": "external-service",
+        "required_confidence": "observed",
+        "required_environment": None,
+        "recommended_probes": [
+            {
+                "operation": "inspect_vercel_config",
+                "rationale": "Inspect private vercel.json crons configuration or external worker scheduler logs.",
+            }
+        ],
+        "relationships": [],
+        "resolution": None,
+        "mutation_evidence_ids": [
+            "ev_054f49d3235a0224630b8419ab7d5f83af012f259120dd007aa6758e992cb7e0"
+        ],
+        "revision_digest": "65b8efbeff85c564c233ae3c8ef5dfb1d171992167ec9ecac88126bd313004ec",
+    },
+    {
+        "unknown_id": "unk_e3b9e39876e117ec426ca0101a73aba7fc36e8f9595ba4da9b9a3cd85916f501",
+        "revision": 1,
+        "previous_revision_digest": None,
+        "scope_digest": None,
+        "question": "What exact OpenAI model identifiers back allowedModels ['fast', 'enhanced'] and what is the verbatim server-side system prompt text for prompt_version 'pickbot-structured-selection-v9'?",
+        "status": "open",
+        "severity": "low",
+        "domain": "backend-llm-provider-and-prompts",
+        "supporting_evidence_ids": [
+            "ev_8f52fd0ee16729c87eaffdb3560aa5762b53dcabcea4d44682e446c28a5bc731",
+            "ev_cbc3003215c32d1934f73b2a1bd3650554bea0953a1ae810f13217f4336a600a",
+        ],
+        "contradicting_evidence_ids": [],
+        "required_authority": "external-service",
+        "required_confidence": "observed",
+        "required_environment": None,
+        "recommended_probes": [
+            {
+                "operation": "inspect_server_source",
+                "rationale": "Inspect private Next.js server route handlers for /api/bets/build, chat completions, and match selection prompt templates.",
+            }
+        ],
+        "relationships": [],
+        "resolution": None,
+        "mutation_evidence_ids": [
+            "ev_1f677563bb7629676bba115a58b24c492a417c3276fb2b3d25a105fafda00272"
+        ],
+        "revision_digest": "4bee69bf71cbca1504b9419596aedc2e8a7090b3e728f9b1e73e7784d0d8a88c",
+    },
+]
+
+unk_path = os.path.join(ROOT, "evidence", "rea-unknowns.json")
+with open(unk_path, "w", encoding="utf-8") as f:
+    json.dump(unknown_revisions, f, ensure_ascii=False, indent=2)
+print(f"Saved {unk_path} ({len(unknown_revisions)} revisions, {os.path.getsize(unk_path)} B)")

@@ -1,0 +1,741 @@
+{
+  "scenarios": [
+    {
+      "label": "02-picks",
+      "step_num": 157,
+      "evidence_id": "ev_018e9bd7cb7e609f47967a27e53a2e74712ce72fb8935b89633083379633dd1b",
+      "final_url": "https://www.pickbot.mx/picks",
+      "tx_count": 42,
+      "new_chunks": [
+        "968c97a841ab948b.js",
+        "56b62c9578f2eb22.js",
+        "b1a4fab04b669688.js",
+        "cb5b69c89a2e494c.js"
+      ],
+      "apis": []
+    },
+    {
+      "label": "03-rendimiento",
+      "step_num": 158,
+      "evidence_id": "ev_8afab9bf76e22fe1042e9740e52ab53a3bc598582a8e454d3ac8360fa0fb0627",
+      "final_url": "https://www.pickbot.mx/rendimiento",
+      "tx_count": 53,
+      "new_chunks": [
+        "f97f9e3beeabf139.js",
+        "5642d5e1403c7165.js",
+        "c6ec7bbda9a9685a.js",
+        "e28be9743872cf14.js",
+        "1e758b07176114e4.js",
+        "46d33aee8f2857f7.js"
+      ],
+      "apis": [
+        {
+          "method": "GET",
+          "url": "https://www.pickbot.mx/api/rendimiento?sportKey=all&strategyId=none&from=2026-10-13&to=2026-11-11",
+          "status": 200,
+          "bytes": 17092,
+          "saved_file": "03-rendimiento-api_rendimiento_sportKey_all_strategyId_none_from_2026-10-13_to_2026-11-11.json"
+        },
+        {
+          "method": "GET",
+          "url": "https://www.pickbot.mx/api/strategies?",
+          "status": 200,
+          "bytes": 467,
+          "saved_file": "03-rendimiento-api_strategies.json"
+        }
+      ]
+    },
+    {
+      "label": "04-estrategias",
+      "step_num": 159,
+      "evidence_id": "ev_7dd0530131afdbbfd7e2aa3f3c7634423ec9ffca0b8f44957853b07d084ffebe",
+      "final_url": "https://www.pickbot.mx/estrategias",
+      "tx_count": 45,
+      "new_chunks": [
+        "5d3ff053c1cadced.js"
+      ],
+      "apis": [
+        {
+          "method": "GET",
+          "url": "https://www.pickbot.mx/api/strategies?",
+          "status": 200,
+          "bytes": 467,
+          "saved_file": "04-estrategias-api_strategies.json"
+        },
+        {
+          "method": "GET",
+          "url": "https://www.pickbot.mx/api/strategies/public?limit=50",
+          "status": 200,
+          "bytes": 8467,
+          "saved_file": "04-estrategias-api_strategies_public_limit_50.json"
+        },
+        {
+          "method": "GET",
+          "url": "https://www.pickbot.mx/api/rendimiento?strategyId=pickbot&sportKey=all&from=2026-11-04&to=2026-11-11",
+          "status": 200,
+          "bytes": 6800,
+          "saved_file": "04-estrategias-api_rendimiento_strategyId_pickbot_sportKey_all_from_2026-11-04_to_2026-11-.json"
+        }
+      ]
+    },
+    {
+      "label": "05-clasificacion",
+      "step_num": 160,
+      "evidence_id": "ev_7855ba5496eca6471b165181deb470485b78a4f0ef73d559a0504345106a3063",
+      "final_url": "https://www.pickbot.mx/clasificacion",
+      "tx_count": 47,
+      "new_chunks": [
+        "fb543dd1c9c685b7.js",
+        "17103e43d84cc7f5.js"
+      ],
+      "apis": [
+        {
+          "method": "GET",
+          "url": "https://www.pickbot.mx/api/leaderboard?period=30d",
+          "status": 200,
+          "bytes": 17890,
+          "saved_file": "05-clasificacion-api_leaderboard_period_30d.json"
+        }
+      ]
+    },
+    {
+      "label": "06-feed",
+      "step_num": 162,
+      "evidence_id": "ev_cdd4d1071375aaa0a54b7816682892ca97b6e601278bf4eeb585eb5643534fd5",
+      "final_url": "https://www.pickbot.mx/feed",
+      "tx_count": 41,
+      "new_chunks": [
+        "ec11f1e503e95a75.js",
+        "30f459f5ca7d514d.js"
+      ],
+      "apis": [
+        {
+          "method": "GET",
+          "url": "https://www.pickbot.mx/api/feed?mode=global",
+          "status": 200,
+          "bytes": 6489,
+          "saved_file": "06-feed-api_feed_mode_global.json"
+        }
+      ]
+    },
+    {
+      "label": "07-buscar",
+      "step_num": 163,
+      "evidence_id": "ev_5700b24e589b5888511048aa9d8a46adb418df9d3215b165da6193145bebd523",
+      "final_url": "https://www.pickbot.mx/buscar",
+      "tx_count": 48,
+      "new_chunks": [
+        "05d2295083ef64ec.js",
+        "25a9d165fa657b38.js"
+      ],
+      "apis": [
+        {
+          "method": "GET",
+          "url": "https://www.pickbot.mx/api/markets/matches?scope=upcoming&limit=24",
+          "status": 200,
+          "bytes": 15211,
+          "saved_file": "07-buscar-api_markets_matches_scope_upcoming_limit_24.json"
+        }
+      ]
+    },
+    {
+      "label": "08-plan",
+      "step_num": 164,
+      "evidence_id": "ev_380ef265e75d1b94e10cd38c040437c10a819c31a3c0c352ee354608a0d6f35a",
+      "final_url": "https://www.pickbot.mx/plan",
+      "tx_count": 40,
+      "new_chunks": [
+        "1e2ca6f8d312a2a8.js",
+        "66c68b8fed519b4e.js"
+      ],
+      "apis": []
+    },
+    {
+      "label": "09-privacidad",
+      "step_num": 165,
+      "evidence_id": "ev_d3d993827cbf7c1c606854b315bc87c8e2507cc4fe4d62e0edfec64710c122a5",
+      "final_url": "https://www.pickbot.mx/privacidad",
+      "tx_count": 53,
+      "new_chunks": [],
+      "apis": []
+    },
+    {
+      "label": "10-terminos",
+      "step_num": 167,
+      "evidence_id": "ev_fe9e6f9e720bd82c7f47d5e4f9288c75953434a75c90ffc0558ec384105dae10",
+      "final_url": "https://www.pickbot.mx/terminos",
+      "tx_count": 53,
+      "new_chunks": [],
+      "apis": []
+    },
+    {
+      "label": "11-amigos",
+      "step_num": 168,
+      "evidence_id": "ev_2eb5ad3799af1a2a9b91d3db3a1283b129d2474d240604a791d02fbb86bd8f2e",
+      "final_url": "https://www.pickbot.mx/amigos",
+      "tx_count": 42,
+      "new_chunks": [
+        "702ff714edc3e029.js",
+        "5281a79d8fbe5d0e.js"
+      ],
+      "apis": []
+    },
+    {
+      "label": "12-public-profile",
+      "step_num": 169,
+      "evidence_id": "ev_3983797110014c6459773d4235e90d720372be026d1d50a63ef9326978405508",
+      "final_url": "https://www.pickbot.mx/profile/6ac65ae98c9b95b86171133a",
+      "tx_count": 45,
+      "new_chunks": [
+        "dbfeeb57e0254ad3.js",
+        "edabb558bc566d6c.js",
+        "d2bd7b725bbeda1b.js"
+      ],
+      "apis": [
+        {
+          "method": "GET",
+          "url": "https://www.pickbot.mx/api/users/6ac65ae98c9b95b86171133a",
+          "status": 200,
+          "bytes": 356,
+          "saved_file": "12-public-profile-api_users_6ac65ae98c9b95b86171133a.json"
+        },
+        {
+          "method": "GET",
+          "url": "https://www.pickbot.mx/api/users/6ac65ae98c9b95b86171133a/follow?",
+          "status": 200,
+          "bytes": 80,
+          "saved_file": "12-public-profile-api_users_6ac65ae98c9b95b86171133a_follow.json"
+        }
+      ]
+    },
+    {
+      "label": "13-settings",
+      "step_num": 170,
+      "evidence_id": "ev_be4ec904fe29383607ccc7d5bf00962fbf0de01f6c5675b7176df463c3377376",
+      "final_url": "https://www.pickbot.mx/settings",
+      "tx_count": 40,
+      "new_chunks": [
+        "460a38ce63931d07.js",
+        "066560ba39974a4f.js"
+      ],
+      "apis": []
+    }
+  ],
+  "chunks": {
+    "66a8c16702b8a250.js": {
+      "url": "https://www.pickbot.mx/_next/static/chunks/66a8c16702b8a250.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 2529,
+      "sha256": "fae4747d48f3747ef49cc9e20eee391418c880044107cf872a95a116ec3cf273",
+      "routes": [
+        "01-home",
+        "02-picks",
+        "03-rendimiento",
+        "04-estrategias",
+        "05-clasificacion",
+        "06-feed",
+        "07-buscar",
+        "08-plan",
+        "09-privacidad",
+        "10-terminos",
+        "11-amigos",
+        "12-public-profile",
+        "13-settings"
+      ]
+    },
+    "3881a6acda7bc619.js": {
+      "url": "https://www.pickbot.mx/_next/static/chunks/3881a6acda7bc619.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 29406,
+      "sha256": "21c19c705f456d0d1419f89ca3aa09dc5fa7db9c1db1f49ede163abf7102f8c2",
+      "routes": [
+        "01-home",
+        "02-picks",
+        "03-rendimiento",
+        "04-estrategias",
+        "05-clasificacion",
+        "06-feed",
+        "07-buscar",
+        "08-plan",
+        "09-privacidad",
+        "10-terminos",
+        "11-amigos",
+        "12-public-profile",
+        "13-settings"
+      ]
+    },
+    "496e8db270f37fdc.js": {
+      "url": "https://www.pickbot.mx/_next/static/chunks/496e8db270f37fdc.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 111416,
+      "sha256": "47a631732868f311dafbcbfb0f8603ef1458086b20e31eedad0785d0f74f9c67",
+      "routes": [
+        "01-home"
+      ]
+    },
+    "a130cbc376d20297.js": {
+      "url": "https://www.pickbot.mx/_next/static/chunks/a130cbc376d20297.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 223454,
+      "sha256": "a46162cb5e269b33e41354cc4dede5004b55eb0806053986ba6c58e01df5050c",
+      "routes": [
+        "01-home"
+      ]
+    },
+    "82abf2d65f5428ae.js": {
+      "url": "https://www.pickbot.mx/_next/static/chunks/82abf2d65f5428ae.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 33299,
+      "sha256": "bbc0826384faf59b3d35a439a95f7787cd19280ee35469c84cd0b213bc306f11",
+      "routes": [
+        "01-home",
+        "02-picks",
+        "03-rendimiento",
+        "04-estrategias",
+        "05-clasificacion",
+        "06-feed",
+        "07-buscar",
+        "08-plan",
+        "09-privacidad",
+        "10-terminos",
+        "11-amigos",
+        "12-public-profile",
+        "13-settings"
+      ]
+    },
+    "turbopack-53868f62491e71f2.js": {
+      "url": "https://www.pickbot.mx/_next/static/chunks/turbopack-53868f62491e71f2.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 10729,
+      "sha256": "1637cb8a4c61626332daa152425cbf462a9f507b585dcee9f03d16f80bcb8e56",
+      "routes": [
+        "01-home",
+        "02-picks",
+        "03-rendimiento",
+        "04-estrategias",
+        "05-clasificacion",
+        "06-feed",
+        "07-buscar",
+        "08-plan",
+        "09-privacidad",
+        "10-terminos",
+        "11-amigos",
+        "12-public-profile",
+        "13-settings"
+      ]
+    },
+    "e730e2375a473fd6.js": {
+      "url": "https://www.pickbot.mx/_next/static/chunks/e730e2375a473fd6.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 29257,
+      "sha256": "7ad06498b7f5c8ff39ca1969057ca25203c2e63a2a09610cfbc1ff0e54f8b817",
+      "routes": [
+        "01-home",
+        "02-picks",
+        "03-rendimiento",
+        "04-estrategias",
+        "05-clasificacion",
+        "06-feed",
+        "07-buscar",
+        "08-plan",
+        "09-privacidad",
+        "10-terminos",
+        "11-amigos",
+        "12-public-profile",
+        "13-settings"
+      ]
+    },
+    "a5f8094c4c08cf24.js": {
+      "url": "https://www.pickbot.mx/_next/static/chunks/a5f8094c4c08cf24.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 44882,
+      "sha256": "f94744aa8a39bdacf17f090a8fcd83a8818a88e9927e9883c8f00a72ff79d054",
+      "routes": [
+        "01-home",
+        "02-picks",
+        "03-rendimiento",
+        "04-estrategias",
+        "05-clasificacion",
+        "06-feed",
+        "07-buscar",
+        "08-plan",
+        "09-privacidad",
+        "10-terminos",
+        "11-amigos",
+        "12-public-profile",
+        "13-settings"
+      ]
+    },
+    "25874d3d0d15f70b.js": {
+      "url": "https://www.pickbot.mx/_next/static/chunks/25874d3d0d15f70b.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 20583,
+      "sha256": "58f4ca7e939f8beb4fb8d027c70a549c870109841f5d24f671b45dafd429b4a2",
+      "routes": [
+        "01-home",
+        "02-picks",
+        "03-rendimiento",
+        "04-estrategias",
+        "05-clasificacion",
+        "06-feed",
+        "07-buscar",
+        "08-plan",
+        "09-privacidad",
+        "10-terminos",
+        "11-amigos",
+        "12-public-profile",
+        "13-settings"
+      ]
+    },
+    "f9c2a762374fe321.js": {
+      "url": "https://www.pickbot.mx/_next/static/chunks/f9c2a762374fe321.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 130722,
+      "sha256": "640493f52d0a0ce9aaffbec91d131ebdae0a4fc29e38fdf3d40cc385b11778ea",
+      "routes": [
+        "01-home"
+      ]
+    },
+    "dae971cea01c1720.js": {
+      "url": "https://www.pickbot.mx/_next/static/chunks/dae971cea01c1720.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 36618,
+      "sha256": "90fd7e07154bf9267abc4c6ed6edb9b19a3c946de66a06df43fa95b80f56cb80",
+      "routes": [
+        "01-home",
+        "02-picks",
+        "03-rendimiento",
+        "04-estrategias",
+        "05-clasificacion",
+        "06-feed",
+        "07-buscar",
+        "08-plan",
+        "09-privacidad",
+        "10-terminos",
+        "11-amigos",
+        "12-public-profile",
+        "13-settings"
+      ]
+    },
+    "a40dc55a2daccad8.js": {
+      "url": "https://www.pickbot.mx/_next/static/chunks/a40dc55a2daccad8.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 27472,
+      "sha256": "ae5bafe05fe76edf8a31afc58cb50726c2569bfe2ca22aa39dd29805ecfbb9aa",
+      "routes": [
+        "01-home",
+        "02-picks",
+        "03-rendimiento",
+        "04-estrategias",
+        "05-clasificacion",
+        "06-feed",
+        "07-buscar",
+        "08-plan",
+        "09-privacidad",
+        "10-terminos",
+        "11-amigos",
+        "12-public-profile",
+        "13-settings"
+      ]
+    },
+    "ff1a16fafef87110.js": {
+      "url": "https://www.pickbot.mx/_next/static/chunks/ff1a16fafef87110.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 282,
+      "sha256": "e9786b1305894e4119bb9811a816dac9cf576755596dd989ee15b455749fc35e",
+      "routes": [
+        "01-home",
+        "02-picks",
+        "03-rendimiento",
+        "04-estrategias",
+        "05-clasificacion",
+        "06-feed",
+        "07-buscar",
+        "08-plan",
+        "09-privacidad",
+        "10-terminos",
+        "11-amigos",
+        "12-public-profile",
+        "13-settings"
+      ]
+    },
+    "61cc43b3d7ad2990.js": {
+      "url": "https://www.pickbot.mx/_next/static/chunks/61cc43b3d7ad2990.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 30679,
+      "sha256": "4540cc88930476434885ab7c6b6c0d33aab472d9ce9287d0c77d3f4d4f9923fa",
+      "routes": [
+        "01-home",
+        "02-picks",
+        "03-rendimiento",
+        "04-estrategias",
+        "05-clasificacion",
+        "06-feed",
+        "07-buscar",
+        "08-plan",
+        "09-privacidad",
+        "10-terminos",
+        "11-amigos",
+        "12-public-profile",
+        "13-settings"
+      ]
+    },
+    "7645c162474af3a6.js": {
+      "url": "https://www.pickbot.mx/_next/static/chunks/7645c162474af3a6.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 24499,
+      "sha256": "002cc2269c922fc9ea613dea877046a2ffe5a496bbceac794a40261bcf54b290",
+      "routes": [
+        "01-home",
+        "02-picks",
+        "03-rendimiento",
+        "04-estrategias",
+        "05-clasificacion",
+        "06-feed",
+        "07-buscar",
+        "08-plan",
+        "09-privacidad",
+        "10-terminos",
+        "11-amigos",
+        "12-public-profile",
+        "13-settings"
+      ]
+    },
+    "6d05e03f6d9857e7.js": {
+      "url": "https://www.pickbot.mx/_next/static/chunks/6d05e03f6d9857e7.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 65500,
+      "sha256": "01f481aeb863d11d25f8ca676b5b6af04ec216b14b5423d2a9f57645abfa30fc",
+      "routes": [
+        "01-home",
+        "03-rendimiento",
+        "07-buscar",
+        "09-privacidad",
+        "10-terminos"
+      ]
+    },
+    "7f90b2a81d9b45d7.js": {
+      "url": "https://www.pickbot.mx/_next/static/chunks/7f90b2a81d9b45d7.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 27461,
+      "sha256": "6c1515e417b288a832282941515a0c2a8abe53b08c238088a3ccf2b6b7ead9b7",
+      "routes": [
+        "01-home",
+        "03-rendimiento",
+        "07-buscar",
+        "09-privacidad",
+        "10-terminos"
+      ]
+    },
+    "01e832ac972c5620.js": {
+      "url": "https://www.pickbot.mx/_next/static/chunks/01e832ac972c5620.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 127081,
+      "sha256": "7270c2cf2aa6402ef9534ae8bb70325982ff0db7f8b9ddd70df6385cc61e889e",
+      "routes": [
+        "01-home"
+      ]
+    },
+    "968c97a841ab948b.js": {
+      "url": "https://www.pickbot.mx/_next/static/chunks/968c97a841ab948b.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 24267,
+      "sha256": "9ec64e53ce3765839854311abdcce2c427e7e59a9696153f082a2c1b7333b13b",
+      "routes": [
+        "02-picks"
+      ]
+    },
+    "56b62c9578f2eb22.js": {
+      "url": "https://www.pickbot.mx/_next/static/chunks/56b62c9578f2eb22.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 27461,
+      "sha256": "241f41b557f440fedd3b991f9b35b17c0a8a201f706094ab138332d1248a0ada",
+      "routes": [
+        "02-picks",
+        "03-rendimiento",
+        "04-estrategias",
+        "05-clasificacion",
+        "06-feed",
+        "07-buscar",
+        "08-plan",
+        "11-amigos",
+        "12-public-profile",
+        "13-settings"
+      ]
+    },
+    "b1a4fab04b669688.js": {
+      "url": "https://www.pickbot.mx/_next/static/chunks/b1a4fab04b669688.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 34533,
+      "sha256": "8740546adc3d94adccf8525c097bb10eb817af6462b0724b040a41f15c79f6f2",
+      "routes": [
+        "02-picks"
+      ]
+    },
+    "cb5b69c89a2e494c.js": {
+      "url": "https://www.pickbot.mx/_next/static/chunks/cb5b69c89a2e494c.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 47565,
+      "sha256": "8f2c913788ac789e71127ab41d54948daa4a3aba16c71e530b153c65ea3c46a8",
+      "routes": [
+        "02-picks"
+      ]
+    },
+    "f97f9e3beeabf139.js": {
+      "url": "https://www.pickbot.mx/_next/static/chunks/f97f9e3beeabf139.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 24365,
+      "sha256": "6c7b5c3ece68d4df0b5413254b232550df681f4babe84275bc25fc422965cfb4",
+      "routes": [
+        "03-rendimiento"
+      ]
+    },
+    "5642d5e1403c7165.js": {
+      "url": "https://www.pickbot.mx/_next/static/chunks/5642d5e1403c7165.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 27431,
+      "sha256": "557a041d3393ed48a78cac78c7fceff00bc60e6c82d9bf682a46e8fca284aa70",
+      "routes": [
+        "03-rendimiento"
+      ]
+    },
+    "c6ec7bbda9a9685a.js": {
+      "url": "https://www.pickbot.mx/_next/static/chunks/c6ec7bbda9a9685a.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 41644,
+      "sha256": "3a07891e54e11e87f9b955c3402a38b7c736aa5cc3613b8146a9a05009fef8a3",
+      "routes": [
+        "03-rendimiento",
+        "12-public-profile"
+      ]
+    },
+    "e28be9743872cf14.js": {
+      "url": "https://www.pickbot.mx/_next/static/chunks/e28be9743872cf14.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 37048,
+      "sha256": "57813b6f44ca5bc4c740127f82cb6392cc3ecfe8142cc8ad239848fcb677d24c",
+      "routes": [
+        "03-rendimiento",
+        "04-estrategias"
+      ]
+    },
+    "1e758b07176114e4.js": {
+      "url": "https://www.pickbot.mx/_next/static/chunks/1e758b07176114e4.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 48031,
+      "sha256": "67f27eab159a2a8ce32746e7ddacc4e2ad3b2cbcb5e106a0fad048d65685f5ac",
+      "routes": [
+        "03-rendimiento"
+      ]
+    },
+    "46d33aee8f2857f7.js": {
+      "url": "https://www.pickbot.mx/_next/static/chunks/46d33aee8f2857f7.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 35077,
+      "sha256": "0aa99e83842e0bfb09407aec07294d7544daa7e8c0e2259449ec2c18c54a00a1",
+      "routes": [
+        "03-rendimiento"
+      ]
+    },
+    "5d3ff053c1cadced.js": {
+      "url": "https://www.pickbot.mx/_next/static/chunks/5d3ff053c1cadced.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 36823,
+      "sha256": "b788cba43fb3d83b5a9b2ede8211db8bb3ccfe2d0f38affaae297bf76841a9fb",
+      "routes": [
+        "04-estrategias"
+      ]
+    },
+    "fb543dd1c9c685b7.js": {
+      "url": "https://www.pickbot.mx/_next/static/chunks/fb543dd1c9c685b7.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 24267,
+      "sha256": "d1ae2acf20fe02fc87af046e57553f17a21377e570974849d45d73beb22ea8d8",
+      "routes": [
+        "05-clasificacion"
+      ]
+    },
+    "17103e43d84cc7f5.js": {
+      "url": "https://www.pickbot.mx/_next/static/chunks/17103e43d84cc7f5.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 5229,
+      "sha256": "32f01483810b7143c2236448d8a3d64fbf25f3c605a0ed6051f82a08dce91b23",
+      "routes": [
+        "05-clasificacion"
+      ]
+    },
+    "ec11f1e503e95a75.js": {
+      "url": "https://www.pickbot.mx/_next/static/chunks/ec11f1e503e95a75.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 26070,
+      "sha256": "3af4261216d3d94ad33a7d9766f13352e9803b583b409255828086d5f6a31351",
+      "routes": [
+        "06-feed"
+      ]
+    },
+    "30f459f5ca7d514d.js": {
+      "url": "https://www.pickbot.mx/_next/static/chunks/30f459f5ca7d514d.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 9485,
+      "sha256": "c21cf4696c89c75f97a1eda31f46bccc91d435015b0aee1a667e0de2517c1e4a",
+      "routes": [
+        "06-feed"
+      ]
+    },
+    "05d2295083ef64ec.js": {
+      "url": "https://www.pickbot.mx/_next/static/chunks/05d2295083ef64ec.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 24267,
+      "sha256": "e1532c410f2327c2685fe62e338883a4418c0dbbba0d1c7eac55717a8872aed2",
+      "routes": [
+        "07-buscar"
+      ]
+    },
+    "25a9d165fa657b38.js": {
+      "url": "https://www.pickbot.mx/_next/static/chunks/25a9d165fa657b38.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 21635,
+      "sha256": "24d488b007a493b42eaac1f7d1c32a620a06ab7523f9e77c482216afc3a4a2ba",
+      "routes": [
+        "07-buscar"
+      ]
+    },
+    "1e2ca6f8d312a2a8.js": {
+      "url": "https://www.pickbot.mx/_next/static/chunks/1e2ca6f8d312a2a8.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 24267,
+      "sha256": "5546bfbc9bb0c1a6fe4fb3b67ebf641530dc0c767d890b111b7aae4d79105425",
+      "routes": [
+        "08-plan"
+      ]
+    },
+    "66c68b8fed519b4e.js": {
+      "url": "https://www.pickbot.mx/_next/static/chunks/66c68b8fed519b4e.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 15943,
+      "sha256": "79460bdde64098552d2f90d07fa1baf249eee56c1eb93b652dcb83dd49d9c12d",
+      "routes": [
+        "08-plan"
+      ]
+    },
+    "702ff714edc3e029.js": {
+      "url": "https://www.pickbot.mx/_next/static/chunks/702ff714edc3e029.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 24267,
+      "sha256": "a78ad9ded6f5b342667dedfaa7fe2041c1ce6b5e34572244b9029e050e023890",
+      "routes": [
+        "11-amigos"
+      ]
+    },
+    "5281a79d8fbe5d0e.js": {
+      "url": "https://www.pickbot.mx/_next/static/chunks/5281a79d8fbe5d0e.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 8060,
+      "sha256": "ce7b5bd1398e5104755930538d6cc2d5c4800830b899b981eaf57a8ff6f9bed8",
+      "routes": [
+        "11-amigos"
+      ]
+    },
+    "dbfeeb57e0254ad3.js": {
+      "url": "https://www.pickbot.mx/_next/static/chunks/dbfeeb57e0254ad3.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 26070,
+      "sha256": "d6464b6dd1295c39e5977cbe05df8a56661e1efbebb81f51f6d5c716d081c9f4",
+      "routes": [
+        "12-public-profile"
+      ]
+    },
+    "edabb558bc566d6c.js": {
+      "url": "https://www.pickbot.mx/_next/static/chunks/edabb558bc566d6c.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 50306,
+      "sha256": "04fc7353558d690fe0f7f76d11d5e666bf4c617eebd287a4e2d271b9095825ca",
+      "routes": [
+        "12-public-profile"
+      ]
+    },
+    "d2bd7b725bbeda1b.js": {
+      "url": "https://www.pickbot.mx/_next/static/chunks/d2bd7b725bbeda1b.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 47565,
+      "sha256": "d5a4987929e2410267d65bbd886cdd011243a15446156fa1ddc64e7a30e4c619",
+      "routes": [
+        "12-public-profile"
+      ]
+    },
+    "460a38ce63931d07.js": {
+      "url": "https://www.pickbot.mx/_next/static/chunks/460a38ce63931d07.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 24267,
+      "sha256": "6abdd5520a7c11d77245ecf9ca38ae67e046d8d31c01c3affa2e25cfbf7c9d27",
+      "routes": [
+        "13-settings"
+      ]
+    },
+    "066560ba39974a4f.js": {
+      "url": "https://www.pickbot.mx/_next/static/chunks/066560ba39974a4f.js?dpl=dpl_7NUCdW69BaU9CMQePVhfQtRBwC3n",
+      "bytes": 5533,
+      "sha256": "058c4e29620d591610e01afbdf09e9f1760ce08eb77a8e7c089d20cd35c245b0",
+      "routes": [
+        "13-settings"
+      ]
+    }
+  }
+}

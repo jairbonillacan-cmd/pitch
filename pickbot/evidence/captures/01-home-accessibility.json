@@ -1,0 +1,5 @@
+{
+  "sha256": "4885abbfcb133cddddc633d84a88153f87f823351f39f738d392beb386707660",
+  "bytes": 474,
+  "text": "- document:\n  - main:\n    - img \"PickBot\"\n    - text: PickBot\n    - paragraph: Tu ventaja\n    - heading \"Tu ventaja antes del pick.\" [level=1]\n    - paragraph: Pregunta por momios, riesgo y valor antes de jugar. Crea tu cuenta y empieza.\n    - paragraph: “¿Qué te late para el América hoy?”\n    - button \"Entrar a PickBot\":\n      - text: Entrar a PickBot\n      - img\n    - paragraph: Inicia sesión o crea una cuenta gratis.\n  - region \"Notifications alt+T\"\n  - alert"
+}

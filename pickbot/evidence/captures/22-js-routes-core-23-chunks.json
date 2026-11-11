@@ -1,0 +1,590 @@
+{
+  "evidence_id": "ev_7c9334c3066ed409814c2e91851554c1d48cef96ee261141b40d2d3957afa408",
+  "subject": {
+    "name": "route-chunks",
+    "digest": {
+      "sha256": "b904c905aa54f4aa658ac457cc7d962e731ee27df0fb154f6a53740e156939fe"
+    },
+    "local_path": "C:\\Users\\T490s\\.gemini\\antigravity\\worktrees\\PitchLab\\explore_pickbot_architecture\\pickbot\\evidence\\javascript\\route-chunks",
+    "format": "directory",
+    "architecture": null
+  },
+  "provider": {
+    "id": "rea-analysis-view",
+    "name": "REA analysis view projection",
+    "version": "1"
+  },
+  "analysis_profile": null,
+  "predicate_type": "rea.analysis-view",
+  "operation": "inspect_analysis_view",
+  "parameters": {
+    "parent_evidence_id": "ev_c770ce4eb3f39efe2d868537bc603e49b71cb61eda163351ab10970793a30d98",
+    "view": {
+      "kind": "javascript-routes",
+      "collection": "routes",
+      "where": {},
+      "offset": 0,
+      "limit": 64
+    }
+  },
+  "raw_result": null,
+  "normalized_result": {
+    "parent_evidence_id": "ev_c770ce4eb3f39efe2d868537bc603e49b71cb61eda163351ab10970793a30d98",
+    "parent_operation": "analyze_javascript_application",
+    "parent_digest": "c770ce4eb3f39efe2d868537bc603e49b71cb61eda163351ab10970793a30d98",
+    "view_digest": "fdc078619ac6097961689926beee3854f07b75eb55fd0f582af3d1dfe4240c8f",
+    "artifact": {
+      "path": "C:\\Users\\T490s\\.gemini\\antigravity\\worktrees\\PitchLab\\explore_pickbot_architecture\\pickbot\\evidence\\javascript\\route-chunks",
+      "sha256": "b904c905aa54f4aa658ac457cc7d962e731ee27df0fb154f6a53740e156939fe"
+    },
+    "coverage": {
+      "status": "page",
+      "examined": 13,
+      "total": 13,
+      "next_offset": null,
+      "exhausted": true
+    },
+    "limitations": [
+      "Alias selection expansion was conservatively bounded (maximum 512 additional selector states); selected paths remain unknown.",
+      "Caller-selected source analysis leaves 28 inventoried files outside analysis scope. Inventory identity covers the complete artifact; relationships through unselected sources remain unknown.",
+      "CommonJS and ESM binding relationships were recovered from inert syntax and resolved only within the inventoried artifact container.",
+      "Graph coverage is incomplete; unavailable facts remain explicit and must not be read as absence.",
+      "JavaScript and HTML were parsed as inert text; bundle bootstrap code was never executed.",
+      "Pattern IDs are exact path identities within this inventory. Occurrence and source IDs retain source/content identity and precise syntax ranges; metadata-only discoveries have no AST range.",
+      "Routes are static candidates from the provided code sources. Reachability, permissions, server-only routes and the complete application route set are unverified.",
+      "Static imports, entrypoints, workers, endpoints, and storage relationships do not prove runtime execution.",
+      "Static paths and relationships may remain unresolved when expressions are dynamic or obfuscated.",
+      "System classification is a path-name heuristic. Asset URL prefixes can differ from routing bases; inferred prefixes retain the original unprefixed path.",
+      "Unbound path strings require a top-level segment supported by structural routes or navigation candidates. Unknown or missing source facts do not establish route absence.",
+      "Webpack/Rspack factories were recovered from AST literals; REA did not invoke push handlers or bundle bootstrap code."
+    ],
+    "unknowns": [
+      "The complete application route set, reachability and runtime permissions remain unknown.",
+      "Some source/routing facts are incomplete; inspect sources and unknowns without reanalyzing."
+    ],
+    "kind": "javascript-routes",
+    "view": {
+      "kind": "javascript-routes",
+      "collection": "routes",
+      "where": {},
+      "offset": 0,
+      "limit": 64
+    },
+    "inventory_id": "jsri:fc221a65a16472dd1eb222557b35e0e065ccaf4496a533d9a4ee40ca6aafc9e4",
+    "source_manifest_sha256": "3510a3ede3c930322429b43baf4b00cc14836244262c75116747a5ce084a525a",
+    "source_coverage": {
+      "scope": "provided-code-sources",
+      "source_parsing": "partial",
+      "candidate_enumeration": "partial",
+      "application_routes": "unknown"
+    },
+    "inventory_capacity": null,
+    "capture_url": null,
+    "items": [
+      {
+        "id": "jsr:df7e940f72aa93cbcb6d70cc35124b07",
+        "path": "/",
+        "classification": "unknown",
+        "classification_basis": "unknown",
+        "confidence": "low",
+        "mechanisms": [
+          "navigation-target"
+        ],
+        "occurrence_count": 11,
+        "source_count": 6,
+        "provenance": {
+          "source_id": "jss:943ce5a076ceedc8ef59dc971d4d63d8",
+          "occurrence_id": "jso:3cb7ea56011ae8027a9df2b31405eb1f",
+          "source_range": {
+            "start": {
+              "line": 1,
+              "column": 386
+            },
+            "end": {
+              "line": 1,
+              "column": 389
+            }
+          },
+          "mechanism": "navigation-target",
+          "derivation": "inferred",
+          "inferred_base_path": null
+        }
+      },
+      {
+        "id": "jsr:56e9601f62bb163c47a524f89b57e65b",
+        "path": "/amigos",
+        "classification": "unknown",
+        "classification_basis": "unknown",
+        "confidence": "low",
+        "mechanisms": [
+          "navigation-target",
+          "route-string-constant"
+        ],
+        "occurrence_count": 21,
+        "source_count": 7,
+        "provenance": {
+          "source_id": "jss:906d3a705974ab76a02e084ebad17539",
+          "occurrence_id": "jso:2fafa97908f9f0e4ddad68439a0c217b",
+          "source_range": {
+            "start": {
+              "line": 1,
+              "column": 1864
+            },
+            "end": {
+              "line": 1,
+              "column": 1873
+            }
+          },
+          "mechanism": "navigation-target",
+          "derivation": "inferred",
+          "inferred_base_path": null
+        }
+      },
+      {
+        "id": "jsr:2147a2ff35d308d8753f456965d8d922",
+        "path": "/buscar",
+        "classification": "unknown",
+        "classification_basis": "unknown",
+        "confidence": "low",
+        "mechanisms": [
+          "navigation-target",
+          "route-string-constant"
+        ],
+        "occurrence_count": 10,
+        "source_count": 5,
+        "provenance": {
+          "source_id": "jss:4add83dafc1e1a11d2287f99de2ed344",
+          "occurrence_id": "jso:11032608cd05a5dc75164796cc4a1a27",
+          "source_range": {
+            "start": {
+              "line": 1,
+              "column": 431
+            },
+            "end": {
+              "line": 1,
+              "column": 440
+            }
+          },
+          "mechanism": "navigation-target",
+          "derivation": "inferred",
+          "inferred_base_path": null
+        }
+      },
+      {
+        "id": "jsr:35151541b471bcd9ce49271d0c4100ca",
+        "path": "/clasificacion",
+        "classification": "unknown",
+        "classification_basis": "unknown",
+        "confidence": "low",
+        "mechanisms": [
+          "navigation-target",
+          "route-string-constant"
+        ],
+        "occurrence_count": 6,
+        "source_count": 2,
+        "provenance": {
+          "source_id": "jss:906d3a705974ab76a02e084ebad17539",
+          "occurrence_id": "jso:0519836361cdb103f14506fafb257ca0",
+          "source_range": {
+            "start": {
+              "line": 1,
+              "column": 1919
+            },
+            "end": {
+              "line": 1,
+              "column": 1935
+            }
+          },
+          "mechanism": "navigation-target",
+          "derivation": "inferred",
+          "inferred_base_path": null
+        }
+      },
+      {
+        "id": "jsr:6576c659d62c3957de8704700ae78bb6",
+        "path": "/feed",
+        "classification": "unknown",
+        "classification_basis": "unknown",
+        "confidence": "low",
+        "mechanisms": [
+          "navigation-target",
+          "route-string-constant"
+        ],
+        "occurrence_count": 10,
+        "source_count": 5,
+        "provenance": {
+          "source_id": "jss:1f9fd65e23713f89d7b88afefe6b7374",
+          "occurrence_id": "jso:35ffc330735cff1d4669c8dc6031a432",
+          "source_range": {
+            "start": {
+              "line": 1,
+              "column": 496
+            },
+            "end": {
+              "line": 1,
+              "column": 503
+            }
+          },
+          "mechanism": "navigation-target",
+          "derivation": "inferred",
+          "inferred_base_path": null
+        }
+      },
+      {
+        "id": "jsr:72f98b66d7ddd3a19fc5fc529d16706b",
+        "path": "/perfil",
+        "classification": "unknown",
+        "classification_basis": "unknown",
+        "confidence": "low",
+        "mechanisms": [
+          "navigation-target",
+          "route-string-constant"
+        ],
+        "occurrence_count": 15,
+        "source_count": 5,
+        "provenance": {
+          "source_id": "jss:4add83dafc1e1a11d2287f99de2ed344",
+          "occurrence_id": "jso:2e03bb9eb3cd36b299e6aa05ba7d0470",
+          "source_range": {
+            "start": {
+              "line": 1,
+              "column": 657
+            },
+            "end": {
+              "line": 1,
+              "column": 666
+            }
+          },
+          "mechanism": "route-string-constant",
+          "derivation": "inferred",
+          "inferred_base_path": null
+        }
+      },
+      {
+        "id": "jsr:1c27d0f8800c06cae92c6f60d515208a",
+        "path": "/plan",
+        "classification": "unknown",
+        "classification_basis": "unknown",
+        "confidence": "low",
+        "mechanisms": [
+          "navigation-target",
+          "route-string-constant"
+        ],
+        "occurrence_count": 2,
+        "source_count": 1,
+        "provenance": {
+          "source_id": "jss:1656f03754f96c1e7e643db7a3b5c600",
+          "occurrence_id": "jso:98375e78d8b3f0fc427572436e45b497",
+          "source_range": {
+            "start": {
+              "line": 1,
+              "column": 4839
+            },
+            "end": {
+              "line": 1,
+              "column": 4846
+            }
+          },
+          "mechanism": "navigation-target",
+          "derivation": "inferred",
+          "inferred_base_path": null
+        }
+      },
+      {
+        "id": "jsr:d63a3c35f6ee562c8f5f36bdbd7f832b",
+        "path": "/privacidad",
+        "classification": "unknown",
+        "classification_basis": "unknown",
+        "confidence": "low",
+        "mechanisms": [
+          "navigation-target",
+          "route-string-constant"
+        ],
+        "occurrence_count": 3,
+        "source_count": 2,
+        "provenance": {
+          "source_id": "jss:deeccb760f603314b8ac02c6de321a4c",
+          "occurrence_id": "jso:7838cc2f6ba1886ab51f163da34f2b0c",
+          "source_range": {
+            "start": {
+              "line": 1,
+              "column": 11323
+            },
+            "end": {
+              "line": 1,
+              "column": 11336
+            }
+          },
+          "mechanism": "navigation-target",
+          "derivation": "inferred",
+          "inferred_base_path": null
+        }
+      },
+      {
+        "id": "jsr:1adb507e14e1e9f0bc98a08442c4e435",
+        "path": "/settings/account",
+        "classification": "unknown",
+        "classification_basis": "unknown",
+        "confidence": "low",
+        "mechanisms": [
+          "navigation-target",
+          "route-string-constant"
+        ],
+        "occurrence_count": 2,
+        "source_count": 1,
+        "provenance": {
+          "source_id": "jss:1656f03754f96c1e7e643db7a3b5c600",
+          "occurrence_id": "jso:0ff07fbfd09269dcb1bd9b90de3c50d2",
+          "source_range": {
+            "start": {
+              "line": 1,
+              "column": 4323
+            },
+            "end": {
+              "line": 1,
+              "column": 4342
+            }
+          },
+          "mechanism": "navigation-target",
+          "derivation": "inferred",
+          "inferred_base_path": null
+        }
+      },
+      {
+        "id": "jsr:4568014a44c0d65ea389d39e6526f64f",
+        "path": "/settings/legal",
+        "classification": "unknown",
+        "classification_basis": "unknown",
+        "confidence": "low",
+        "mechanisms": [
+          "navigation-target",
+          "route-string-constant"
+        ],
+        "occurrence_count": 2,
+        "source_count": 1,
+        "provenance": {
+          "source_id": "jss:1656f03754f96c1e7e643db7a3b5c600",
+          "occurrence_id": "jso:08c8b32e97c540292bedebc840ed7d01",
+          "source_range": {
+            "start": {
+              "line": 1,
+              "column": 4710
+            },
+            "end": {
+              "line": 1,
+              "column": 4727
+            }
+          },
+          "mechanism": "route-string-constant",
+          "derivation": "inferred",
+          "inferred_base_path": null
+        }
+      },
+      {
+        "id": "jsr:fa9363af8a3d5228b3c407ce73c3b258",
+        "path": "/settings/notifications",
+        "classification": "unknown",
+        "classification_basis": "unknown",
+        "confidence": "low",
+        "mechanisms": [
+          "navigation-target",
+          "route-string-constant"
+        ],
+        "occurrence_count": 2,
+        "source_count": 1,
+        "provenance": {
+          "source_id": "jss:1656f03754f96c1e7e643db7a3b5c600",
+          "occurrence_id": "jso:1d8b03b9cca647f9cd42f041afc754bc",
+          "source_range": {
+            "start": {
+              "line": 1,
+              "column": 4456
+            },
+            "end": {
+              "line": 1,
+              "column": 4481
+            }
+          },
+          "mechanism": "route-string-constant",
+          "derivation": "inferred",
+          "inferred_base_path": null
+        }
+      },
+      {
+        "id": "jsr:20ac223616cb607f0f15aca503820863",
+        "path": "/settings/security",
+        "classification": "unknown",
+        "classification_basis": "unknown",
+        "confidence": "low",
+        "mechanisms": [
+          "navigation-target",
+          "route-string-constant"
+        ],
+        "occurrence_count": 2,
+        "source_count": 1,
+        "provenance": {
+          "source_id": "jss:1656f03754f96c1e7e643db7a3b5c600",
+          "occurrence_id": "jso:96220ff3ef8720aad0c522ae10d09736",
+          "source_range": {
+            "start": {
+              "line": 1,
+              "column": 4591
+            },
+            "end": {
+              "line": 1,
+              "column": 4611
+            }
+          },
+          "mechanism": "route-string-constant",
+          "derivation": "inferred",
+          "inferred_base_path": null
+        }
+      },
+      {
+        "id": "jsr:0cfec31fd59828d696268898eaee9d8e",
+        "path": "/terminos",
+        "classification": "unknown",
+        "classification_basis": "unknown",
+        "confidence": "low",
+        "mechanisms": [
+          "navigation-target",
+          "route-string-constant"
+        ],
+        "occurrence_count": 3,
+        "source_count": 2,
+        "provenance": {
+          "source_id": "jss:ca2e9ae5f8bdbeee9592d56e9c7009e1",
+          "occurrence_id": "jso:2c2982a50a20fe87e001812b92ed2ea0",
+          "source_range": {
+            "start": {
+              "line": 5,
+              "column": 16852
+            },
+            "end": {
+              "line": 5,
+              "column": 16863
+            }
+          },
+          "mechanism": "route-string-constant",
+          "derivation": "inferred",
+          "inferred_base_path": null
+        }
+      }
+    ],
+    "sources": [
+      {
+        "id": "jss:943ce5a076ceedc8ef59dc971d4d63d8",
+        "key": "05d2295083ef64ec.js",
+        "path": "05d2295083ef64ec.js",
+        "url": null,
+        "sha256": "e1532c410f2327c2685fe62e338883a4418c0dbbba0d1c7eac55717a8872aed2",
+        "container_sha256": "b904c905aa54f4aa658ac457cc7d962e731ee27df0fb154f6a53740e156939fe",
+        "status": "complete",
+        "reported_route_capacity": null,
+        "reason": null,
+        "base_path": null
+      },
+      {
+        "id": "jss:906d3a705974ab76a02e084ebad17539",
+        "key": "5281a79d8fbe5d0e.js",
+        "path": "5281a79d8fbe5d0e.js",
+        "url": null,
+        "sha256": "ce7b5bd1398e5104755930538d6cc2d5c4800830b899b981eaf57a8ff6f9bed8",
+        "container_sha256": "b904c905aa54f4aa658ac457cc7d962e731ee27df0fb154f6a53740e156939fe",
+        "status": "complete",
+        "reported_route_capacity": null,
+        "reason": null,
+        "base_path": null
+      },
+      {
+        "id": "jss:4add83dafc1e1a11d2287f99de2ed344",
+        "key": "dbfeeb57e0254ad3.js",
+        "path": "dbfeeb57e0254ad3.js",
+        "url": null,
+        "sha256": "d6464b6dd1295c39e5977cbe05df8a56661e1efbebb81f51f6d5c716d081c9f4",
+        "container_sha256": "b904c905aa54f4aa658ac457cc7d962e731ee27df0fb154f6a53740e156939fe",
+        "status": "complete",
+        "reported_route_capacity": null,
+        "reason": null,
+        "base_path": null
+      },
+      {
+        "id": "jss:1f9fd65e23713f89d7b88afefe6b7374",
+        "key": "f97f9e3beeabf139.js",
+        "path": "f97f9e3beeabf139.js",
+        "url": null,
+        "sha256": "6c7b5c3ece68d4df0b5413254b232550df681f4babe84275bc25fc422965cfb4",
+        "container_sha256": "b904c905aa54f4aa658ac457cc7d962e731ee27df0fb154f6a53740e156939fe",
+        "status": "complete",
+        "reported_route_capacity": null,
+        "reason": null,
+        "base_path": null
+      },
+      {
+        "id": "jss:1656f03754f96c1e7e643db7a3b5c600",
+        "key": "066560ba39974a4f.js",
+        "path": "066560ba39974a4f.js",
+        "url": null,
+        "sha256": "058c4e29620d591610e01afbdf09e9f1760ce08eb77a8e7c089d20cd35c245b0",
+        "container_sha256": "b904c905aa54f4aa658ac457cc7d962e731ee27df0fb154f6a53740e156939fe",
+        "status": "complete",
+        "reported_route_capacity": null,
+        "reason": null,
+        "base_path": null
+      },
+      {
+        "id": "jss:deeccb760f603314b8ac02c6de321a4c",
+        "key": "dae971cea01c1720.js",
+        "path": "dae971cea01c1720.js",
+        "url": null,
+        "sha256": "90fd7e07154bf9267abc4c6ed6edb9b19a3c946de66a06df43fa95b80f56cb80",
+        "container_sha256": "b904c905aa54f4aa658ac457cc7d962e731ee27df0fb154f6a53740e156939fe",
+        "status": "complete",
+        "reported_route_capacity": null,
+        "reason": null,
+        "base_path": null
+      },
+      {
+        "id": "jss:ca2e9ae5f8bdbeee9592d56e9c7009e1",
+        "key": "e730e2375a473fd6.js",
+        "path": "e730e2375a473fd6.js",
+        "url": null,
+        "sha256": "7ad06498b7f5c8ff39ca1969057ca25203c2e63a2a09610cfbc1ff0e54f8b817",
+        "container_sha256": "b904c905aa54f4aa658ac457cc7d962e731ee27df0fb154f6a53740e156939fe",
+        "status": "complete",
+        "reported_route_capacity": null,
+        "reason": null,
+        "base_path": null
+      }
+    ],
+    "summary": null,
+    "byte_limited": false
+  },
+  "confidence": "derived",
+  "authority": "shipped-artifact",
+  "environment": null,
+  "limitations": [
+    "Alias selection expansion was conservatively bounded (maximum 512 additional selector states); selected paths remain unknown.",
+    "Caller-selected source analysis leaves 28 inventoried files outside analysis scope. Inventory identity covers the complete artifact; relationships through unselected sources remain unknown.",
+    "CommonJS and ESM binding relationships were recovered from inert syntax and resolved only within the inventoried artifact container.",
+    "Graph coverage is incomplete; unavailable facts remain explicit and must not be read as absence.",
+    "JavaScript and HTML were parsed as inert text; bundle bootstrap code was never executed.",
+    "Pattern IDs are exact path identities within this inventory. Occurrence and source IDs retain source/content identity and precise syntax ranges; metadata-only discoveries have no AST range.",
+    "Routes are static candidates from the provided code sources. Reachability, permissions, server-only routes and the complete application route set are unverified.",
+    "Static imports, entrypoints, workers, endpoints, and storage relationships do not prove runtime execution.",
+    "Static paths and relationships may remain unresolved when expressions are dynamic or obfuscated.",
+    "System classification is a path-name heuristic. Asset URL prefixes can differ from routing bases; inferred prefixes retain the original unprefixed path.",
+    "Unbound path strings require a top-level segment supported by structural routes or navigation candidates. Unknown or missing source facts do not establish route absence.",
+    "Webpack/Rspack factories were recovered from AST literals; REA did not invoke push handlers or bundle bootstrap code."
+  ],
+  "relationship_coverage": null,
+  "locations": [
+    {
+      "kind": "artifact-path",
+      "path": "C:\\Users\\T490s\\.gemini\\antigravity\\worktrees\\PitchLab\\explore_pickbot_architecture\\pickbot\\evidence\\javascript\\route-chunks"
+    }
+  ],
+  "evidence_links": [
+    "ev_c770ce4eb3f39efe2d868537bc603e49b71cb61eda163351ab10970793a30d98"
+  ]
+}
