@@ -13,7 +13,8 @@ import { MEMBERSHIP_SPEC } from "../spacetime-catalog";
 import type { RiskBand } from "../types";
 
 const REFERRAL_CODE = "SOCIO-8842";
-const REFERRAL_URL = `https://pitchlab.mx/signup?ref=${REFERRAL_CODE}`;
+const REFERRAL_PATH = `/pricing/referral?sku=ultra&interval=MONTHLY&code=${REFERRAL_CODE}#subscribe`;
+const REFERRAL_URL = `https://pitchlab.mx${REFERRAL_PATH}`;
 
 const SAT_REGIMENS = [
   "601 · General de Ley Personas Morales",
@@ -235,6 +236,13 @@ export function AccountReferralsClubView(): React.JSX.Element {
                     >
                       <MaestroIcon name="share" size={14} />
                       <span>Publicar en X</span>
+                    </a>
+                    <a
+                      className="pl-btn-glass text-xs !min-h-9"
+                      href={REFERRAL_PATH}
+                    >
+                      <MaestroIcon name="eye" size={14} />
+                      <span>Ver invitación</span>
                     </a>
                     {/* Con cuentas, el conteo es real; simular queda solo como herramienta de preview. */}
                     {!accountsEnabled || allowRoleSimulation ? (

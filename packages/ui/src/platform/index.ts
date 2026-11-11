@@ -12,6 +12,8 @@ export * from "./components/ShellChrome";
 export * from "./public/LandingSurface";
 export * from "./public/TechAndPricingSurfaces";
 export * from "./public/AuthAndOnboardingSurfaces";
+export * from "./public/ReferralCard3D";
+export * from "./public/ReferralInviteSurface";
 
 export * from "./club/CoreMatchViews";
 export * from "./club/ParlayAndQuantViews";

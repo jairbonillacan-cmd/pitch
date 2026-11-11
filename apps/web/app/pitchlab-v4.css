@@ -1818,3 +1818,401 @@ html[data-theme="light"] .pl-tipstar-badge {
   content-visibility: auto;
   contain-intrinsic-size: auto 420px;
 }
+
+/* ---------- Invitación Pase PitchLab Ultra · Tarjeta 3D de platino + Liquid Glass ---------- */
+.pl-referral-stage {
+  --pl-referral-bg: var(--pl-stage-bg, rgb(0 0 0));
+  --pl-referral-fg: rgb(246 248 252);
+  --pl-referral-muted: rgb(164 172 190);
+  --pl-referral-sep: rgb(132 141 162);
+  --pl-referral-cta-bg: rgb(246 248 252);
+  --pl-referral-cta-fg: rgb(6 7 11);
+  --pl-referral-cta-ring: rgb(255 255 255 / 0.65);
+  --pl-referral-cta-shadow: 0 14px 34px -8px rgb(0 0 0 / 0.72);
+  --pl-referral-aura-home: var(--pl-aura-default-home, oklch(0.63 0.24 293));
+  --pl-referral-aura-away: var(--pl-aura-default-away, oklch(0.66 0.24 354));
+  --pl-referral-aura-gleam: var(--pl-orb-sky, oklch(0.75 0.14 232));
+  --pl-referral-atmo-opacity: var(--pl-atmo-opacity, 0.62);
+  --pl-referral-scrim-top: var(--pl-glass-scrim-top, rgb(0 0 0 / 0.28));
+  --pl-referral-scrim-mid: var(--pl-glass-scrim, rgb(0 0 0 / 0.72));
+  --pl-referral-horizon-line: color-mix(in oklab, white 22%, transparent);
+  --pl-referral-horizon-glow: color-mix(in oklab, var(--pl-brand, oklch(0.79 0.12 293)) 18%, transparent);
+
+  position: relative;
+  isolation: isolate;
+  min-height: 100dvh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 20px 28px;
+  background-color: var(--pl-referral-bg);
+  color: var(--pl-referral-fg);
+  font-family: "Host Grotesk", "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  overflow-x: clip;
+}
+
+html[data-theme="light"] .pl-referral-stage:not([data-referral-theme="dark"]),
+.pl-referral-stage[data-referral-theme="light"] {
+  --pl-referral-bg: var(--pl-stage-bg, rgb(244 244 245));
+  --pl-referral-fg: rgb(9 9 11);
+  --pl-referral-muted: rgb(76 82 96);
+  --pl-referral-sep: rgb(92 99 114);
+  --pl-referral-cta-bg: rgb(9 9 11);
+  --pl-referral-cta-fg: rgb(255 255 255);
+  --pl-referral-cta-ring: rgb(255 255 255 / 0.22);
+  --pl-referral-cta-shadow: 0 14px 30px -10px rgb(9 9 11 / 0.24);
+  --pl-referral-aura-home: oklch(0.54 0.25 293);
+  --pl-referral-aura-away: oklch(0.59 0.23 354);
+  --pl-referral-aura-gleam: oklch(0.6 0.15 232);
+  --pl-referral-atmo-opacity: 0.32;
+  --pl-referral-scrim-top: rgb(244 244 245 / 0.34);
+  --pl-referral-scrim-mid: rgb(244 244 245 / 0.78);
+  --pl-referral-horizon-line: color-mix(in oklab, rgb(9 9 11) 12%, transparent);
+  --pl-referral-horizon-glow: color-mix(in oklab, oklch(0.54 0.25 293) 10%, transparent);
+}
+
+.pl-referral-atmo {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.pl-referral-atmo-canvas {
+  position: absolute;
+  inset: 0;
+  opacity: var(--pl-referral-atmo-opacity);
+}
+
+.pl-referral-aura {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.pl-referral-aura--home {
+  width: min(760px, 68vw);
+  height: min(580px, 52vw);
+  top: -10%;
+  left: 2%;
+  background: radial-gradient(
+    closest-side,
+    var(--pl-referral-aura-home) 0%,
+    color-mix(in oklab, var(--pl-referral-aura-home) 56%, transparent) 38%,
+    color-mix(in oklab, var(--pl-referral-aura-home) 18%, transparent) 72%,
+    transparent 100%
+  );
+}
+
+.pl-referral-aura--away {
+  width: min(720px, 64vw);
+  height: min(560px, 50vw);
+  top: 2%;
+  right: 2%;
+  background: radial-gradient(
+    closest-side,
+    var(--pl-referral-aura-away) 0%,
+    color-mix(in oklab, var(--pl-referral-aura-away) 54%, transparent) 38%,
+    color-mix(in oklab, var(--pl-referral-aura-away) 18%, transparent) 72%,
+    transparent 100%
+  );
+}
+
+.pl-referral-aura--gleam {
+  width: min(640px, 78vw);
+  height: min(430px, 46vw);
+  top: 7%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    closest-side,
+    color-mix(in oklab, var(--pl-referral-aura-gleam) 68%, transparent) 0%,
+    color-mix(in oklab, var(--pl-orb-emerald, oklch(0.72 0.17 162)) 28%, transparent) 44%,
+    transparent 100%
+  );
+}
+
+.pl-referral-atmo-scrim {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    114% 74% at 50% 4%,
+    var(--pl-referral-scrim-top) 0%,
+    var(--pl-referral-scrim-mid) 62%,
+    var(--pl-referral-bg) 100%
+  );
+}
+
+.pl-referral-card-stage {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  justify-content: center;
+}
+
+.pl-referral-glass-horizon {
+  position: absolute;
+  bottom: 7%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(720px, 94vw);
+  height: 112px;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(
+      46% 1px at 50% 34%,
+      var(--pl-referral-horizon-line) 0%,
+      var(--pl-referral-horizon-glow) 52%,
+      transparent 100%
+    ),
+    radial-gradient(
+      closest-side,
+      var(--pl-referral-horizon-glow) 0%,
+      transparent 100%
+    );
+}
+
+.pl-referral-card-canvas {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  max-width: 600px;
+  aspect-ratio: 1.42 / 1;
+  touch-action: none;
+  cursor: grab;
+  user-select: none;
+}
+
+.pl-referral-card-canvas:active {
+  cursor: grabbing;
+}
+
+.pl-referral-card-canvas:focus-visible {
+  outline: 2px solid var(--pl-brand, oklch(0.76 0.19 152));
+  outline-offset: 4px;
+  border-radius: 16px;
+}
+
+.pl-referral-card-fallback {
+  width: 100%;
+  max-width: 440px;
+  aspect-ratio: 1.586 / 1;
+  margin: 18px auto 26px;
+  padding: 1.5px;
+  border-radius: 20px;
+  background: conic-gradient(
+    from 25deg,
+    oklch(0.72 0.21 25),
+    oklch(0.84 0.17 85),
+    oklch(0.8 0.2 150),
+    oklch(0.74 0.15 230),
+    oklch(0.68 0.22 300),
+    oklch(0.72 0.21 25)
+  );
+  box-shadow: 0 22px 44px -18px rgb(0 0 0 / 0.72);
+}
+
+.pl-referral-card-fallback-inner {
+  height: 100%;
+  border-radius: 18.5px;
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: linear-gradient(
+    148deg,
+    rgb(66 72 86) 0%,
+    rgb(38 42 52) 54%,
+    rgb(52 57 70) 100%
+  );
+  color: rgb(242 245 251);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.22);
+}
+
+.pl-referral-headline {
+  margin: 0;
+  font-size: clamp(1.65rem, 3.3vw, 2.25rem);
+  line-height: 1.15;
+  letter-spacing: -0.036em;
+  font-weight: 650;
+  text-wrap: balance;
+}
+
+.pl-referral-headline-sub {
+  display: block;
+  margin-top: 2px;
+}
+
+@media (min-width: 640px) {
+  .pl-referral-headline-sub {
+    display: inline;
+    margin-top: 0;
+  }
+}
+
+@keyframes pl-referral-ultra-spectrum {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+.pl-referral-ultra-word {
+  --pl-in-oklab: ;
+  color: var(--pl-referral-fg);
+  background-image: linear-gradient(
+    90deg var(--pl-in-oklab),
+    oklch(0.82 0.16 230) 0%,
+    oklch(0.75 0.19 292) 18%,
+    oklch(0.78 0.19 348) 36%,
+    oklch(0.81 0.17 38) 54%,
+    oklch(0.87 0.15 84) 72%,
+    oklch(0.85 0.15 174) 88%,
+    oklch(0.82 0.16 230) 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@supports (background-image: linear-gradient(90deg in oklab, white, black)) {
+  .pl-referral-ultra-word {
+    --pl-in-oklab: in oklab;
+  }
+}
+
+html[data-theme="light"] .pl-referral-stage:not([data-referral-theme="dark"]) .pl-referral-ultra-word,
+.pl-referral-stage[data-referral-theme="light"] .pl-referral-ultra-word {
+  background-image: linear-gradient(
+    90deg var(--pl-in-oklab),
+    oklch(0.54 0.18 234) 0%,
+    oklch(0.5 0.22 294) 18%,
+    oklch(0.55 0.21 350) 36%,
+    oklch(0.58 0.19 36) 54%,
+    oklch(0.62 0.16 80) 72%,
+    oklch(0.57 0.16 174) 88%,
+    oklch(0.54 0.18 234) 100%
+  );
+}
+
+.pl-referral-ultra-word.is-muted {
+  opacity: 0.58;
+}
+
+.pl-referral-cta-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 0 30px;
+  border-radius: 999px;
+  border: 0;
+  background: var(--pl-referral-cta-bg);
+  color: var(--pl-referral-cta-fg);
+  font-size: 0.875rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  box-shadow: inset 0 1px 0 0 var(--pl-referral-cta-ring), var(--pl-referral-cta-shadow);
+  cursor: pointer;
+  transition: transform 160ms cubic-bezier(0.2, 0.8, 0.2, 1), opacity 160ms ease;
+}
+
+.pl-referral-cta-pill:focus-visible {
+  outline: 2px solid var(--pl-brand, oklch(0.76 0.19 152));
+  outline-offset: 3px;
+}
+
+.pl-referral-code-btn {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: var(--pl-referral-muted);
+  cursor: pointer;
+  text-underline-offset: 4px;
+}
+
+.pl-referral-code-btn:hover,
+.pl-referral-login-link:hover {
+  text-decoration: underline;
+}
+
+.pl-referral-login-link {
+  color: var(--pl-referral-fg);
+  text-decoration: none;
+  text-underline-offset: 4px;
+}
+
+@keyframes pl-referral-canvas-in {
+  from {
+    opacity: 0;
+    transform: scale(0.965);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pl-referral-rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (forced-colors: active) {
+  .pl-referral-ultra-word {
+    -webkit-text-fill-color: CanvasText;
+    color: CanvasText;
+  }
+
+  .pl-referral-cta-pill {
+    outline: 1px solid ButtonText;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pl-referral-ultra-word:not(.is-muted) {
+    animation: pl-referral-ultra-spectrum 2.5s linear infinite;
+  }
+
+  .pl-referral-cta-pill:hover {
+    transform: translateY(-1px);
+    opacity: 0.94;
+  }
+
+  .pl-referral-cta-pill:active {
+    transform: translateY(0) scale(0.985);
+  }
+
+  .pl-referral-stage.is-entering .pl-referral-card-canvas {
+    animation: pl-referral-canvas-in 1050ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .pl-referral-stage.is-entering .pl-referral-enter-1 {
+    animation: pl-referral-rise-in 880ms cubic-bezier(0.22, 1, 0.36, 1) 220ms both;
+  }
+
+  .pl-referral-stage.is-entering .pl-referral-enter-2 {
+    animation: pl-referral-rise-in 940ms cubic-bezier(0.22, 1, 0.36, 1) 340ms both;
+  }
+
+  .pl-referral-stage.is-entering .pl-referral-enter-3 {
+    animation: pl-referral-rise-in 980ms cubic-bezier(0.22, 1, 0.36, 1) 460ms both;
+  }
+}
