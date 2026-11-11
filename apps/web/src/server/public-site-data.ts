@@ -20,7 +20,7 @@ const HERO_MAIN_LEAGUE_ORDER: readonly LeagueId[] = [
   asLeagueId("laliga"),
 ];
 
-function selectHeroMainCards(
+export function selectHeroMainCards(
   allCards: readonly LandingHeroLeagueCard[],
 ): LandingHeroLeagueCard[] {
   const picked: LandingHeroLeagueCard[] = [];
@@ -108,5 +108,31 @@ export async function loadComunidadViewProps(): Promise<{
       dataset.games,
       dataset.tipstarWeeklyPickId,
     ),
+  };
+}
+
+export interface LoginPreviewData {
+  primaryCard: LandingHeroLeagueCard | null;
+  secondaryCard: LandingHeroLeagueCard | null;
+}
+
+export async function loadLoginPreviewData(): Promise<LoginPreviewData> {
+  const dataset = buildServerRawPlatformDataset();
+  if (dataset.games.length === 0) {
+    return { primaryCard: null, secondaryCard: null };
+  }
+
+  const allHeroCards = buildHeroLeagueCards(dataset.games, dataset.leagues);
+  const mainCards = selectHeroMainCards(allHeroCards);
+  const primaryCard = mainCards[0] ?? null;
+  const secondaryCard = primaryCard
+    ? (mainCards.find((card) => card.league !== primaryCard.league) ??
+      allHeroCards.find((card) => card.league !== primaryCard.league) ??
+      null)
+    : null;
+
+  return {
+    primaryCard,
+    secondaryCard,
   };
 }

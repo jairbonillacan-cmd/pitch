@@ -141,10 +141,20 @@ const derivedAndLightCss = `
   --pl-orb-violet: #8B5CF6;
   --pl-orb-emerald: #10B981;
   --pl-orb-pink: #EC4899;
+  --pl-orb-rose: #EC4899;
   --pl-orb-sky: #38BDF8;
   --pl-orb-amber: #F59E0B;
   --pl-orb-opacity: 0.28;
   --pl-orb-opacity-subtle: 0.16;
+  --pl-auth-beam: rgba(255, 255, 255, 0.045);
+  --pl-auth-lens: rgba(16, 16, 22, 0.72);
+  --pl-auth-pane: rgba(255, 255, 255, 0.028);
+  --pl-auth-field: rgba(255, 255, 255, 0.038);
+  --pl-auth-field-hover: rgba(255, 255, 255, 0.065);
+  --pl-google-blue: #4285F4;
+  --pl-google-green: #34A853;
+  --pl-google-yellow: #FBBC05;
+  --pl-google-red: #EA4335;
   --pl-locked-surface: rgba(139, 92, 246, 0.09);
   --pl-compare-surface: rgba(139, 92, 246, 0.09);
 
@@ -314,10 +324,16 @@ const derivedAndLightCss = `
   --pl-orb-violet: #7C3AED;
   --pl-orb-emerald: #059669;
   --pl-orb-pink: #DB2777;
+  --pl-orb-rose: #DB2777;
   --pl-orb-sky: #0284C7;
   --pl-orb-amber: #D97706;
   --pl-orb-opacity: 0.14;
   --pl-orb-opacity-subtle: 0.08;
+  --pl-auth-beam: rgba(255, 255, 255, 0.60);
+  --pl-auth-lens: rgba(255, 255, 255, 0.72);
+  --pl-auth-pane: rgba(11, 16, 32, 0.025);
+  --pl-auth-field: rgba(255, 255, 255, 0.72);
+  --pl-auth-field-hover: #FFFFFF;
   --pl-locked-surface: rgba(109, 40, 217, 0.07);
   --pl-compare-surface: rgba(109, 40, 217, 0.07);
 

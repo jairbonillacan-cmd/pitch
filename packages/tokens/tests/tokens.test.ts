@@ -23,5 +23,7 @@ describe("@pitchlab/tokens", () => {
     expect(css).toContain("@theme");
     expect(css).toContain("--color-brand-primary: var(--brand-primary)");
     expect(css).toContain(':root[data-theme="light"]');
+    expect(css).toContain("--pl-orb-rose: #EC4899;");
+    expect(css).toContain("--pl-orb-rose: #DB2777;");
   });
 });

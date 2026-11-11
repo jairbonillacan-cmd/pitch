@@ -13,6 +13,8 @@ export * from "./public/LandingClientIslands";
 export * from "./public/PublicSiteSections";
 export * from "./public/LandingSurface";
 export * from "./public/TechAndPricingSurfaces";
+export * from "./public/LoginPreviewPanel";
+export * from "./public/LoginSurfaceV4";
 export * from "./public/AuthAndOnboardingSurfaces";
 export * from "./public/ReferralCard3D";
 export * from "./public/ReferralInviteSurface";

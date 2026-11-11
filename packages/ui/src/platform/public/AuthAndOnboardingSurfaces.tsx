@@ -28,6 +28,7 @@ import {
   TIPSTAR_CREATORS,
 } from "../spacetime-catalog";
 import type { RiskBand } from "../types";
+import { LoginSurfaceV4 } from "./LoginSurfaceV4";
 
 function describePromoBenefit(codeRaw: string, month1NoCardMode: boolean): {
   badge: string;
@@ -73,6 +74,38 @@ function describePromoBenefit(codeRaw: string, month1NoCardMode: boolean): {
 }
 
 export function AuthSurfaceV4({
+  mode,
+  nextPath = "/app",
+  initialPromoCode = "",
+  previewSlot = null,
+  passwordSignInEnabled = false,
+}: {
+  mode: "login" | "signup";
+  nextPath?: string;
+  initialPromoCode?: string;
+  previewSlot?: React.ReactNode;
+  passwordSignInEnabled?: boolean;
+}): React.JSX.Element {
+  if (mode === "login") {
+    return (
+      <LoginSurfaceV4
+        nextPath={nextPath}
+        initialPromoCode={initialPromoCode}
+        previewSlot={previewSlot}
+        passwordSignInEnabled={passwordSignInEnabled}
+      />
+    );
+  }
+  return (
+    <SignupSurfaceV4Internal
+      mode={mode}
+      nextPath={nextPath}
+      initialPromoCode={initialPromoCode}
+    />
+  );
+}
+
+function SignupSurfaceV4Internal({
   mode,
   nextPath = "/app",
   initialPromoCode = "",
