@@ -8,7 +8,7 @@ import {
   type LandingFinishedResultItem,
   type LandingHeroLeagueCard,
   type LandingParlayDemoData,
-} from "@pitchlab/ui";
+} from "@pitchlab/ui/platform";
 import { buildServerRawPlatformDataset, loadFinishedGames } from "./platform-data";
 
 export type { LandingFeaturedCommunityPick };

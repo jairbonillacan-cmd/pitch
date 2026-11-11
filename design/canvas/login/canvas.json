@@ -1,0 +1,61 @@
+{
+  "v": 3,
+  "createdOnFiles": {
+    "v": 1,
+    "at": "2026-11-11T21:30:00Z"
+  },
+  "title": "PitchLab · Login",
+  "launch": {
+    "view": "canvas"
+  },
+  "pages": [],
+  "boards": {
+    "Main.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 900,
+      "title": "Login · escritorio (tema en Tweaks)",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "Mobile.dc.html": {
+      "x": 1520,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "Login · móvil",
+      "is_interactive": true
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "Mobile.dc.html"
+  ],
+  "notes": {
+    "title": {
+      "x": 0,
+      "y": -300,
+      "text": "Login · PitchLab",
+      "kind": "title1",
+      "maxW": 1910
+    },
+    "decisiones": {
+      "x": 1990,
+      "y": 0,
+      "w": 480,
+      "fill": "purple",
+      "size": "s",
+      "text": "QUÉ CAMBIA Y POR QUÉ\n\n1. Una sola tarea por pantalla: entrar. Fuera las pestañas «Prueba / Código» y «PIN Socio», el campo de código de referido, las fichas de nombres y la casilla de edad (la edad se pide al crear cuenta, no al entrar).\n2. Orden de menor a mayor esfuerzo: Google, Apple, correo.\n3. El correo entra con contraseña o con un enlace (sin contraseña). Es el mismo campo: solo cambia lo de abajo.\n4. El PIN de socio sigue vivo para el pre-MVP, pero como enlace discreto al pie. Al tocarlo, el formulario se vuelve 4 casillas.\n5. Un solo botón primario (blanco). El morado se queda para la marca, no para acciones.\n6. Todo vive en una sola hoja de vidrio centrada: a la izquierda el formulario, a la derecha lo que verás al entrar (lo más probable de hoy, con su momio justo). Datos reales del 11 nov. Sin mascota.\n7. Atmósfera con luces falsas (degradados radiales violeta, verde, azul y rosa, más un haz diagonal), sin filtros ni backdrop-filter. Vidrio falso refinado: brillo superior, luz interior y bisel de 1 px con esquinas encendidas.\n8. Móvil: logo centrado, título centrado, formulario en una hoja de vidrio de ancho completo, crear cuenta debajo y PIN y aviso legal al pie. Sin vista previa del partido para no empujar el formulario.\n9. Pie legal en una línea: mayores de 18 y «PitchLab no acepta apuestas»."
+    },
+    "brief": {
+      "x": 1990,
+      "y": 720,
+      "w": 480,
+      "fill": "blue",
+      "size": "s",
+      "text": "PARA IMPLEMENTAR\n\n• Componente: AuthSurfaceV4 mode=\"login\" (packages/ui/src/platform/public/AuthAndOnboardingSurfaces.tsx). La ruta apps/web/app/login/page.tsx no cambia.\n• Estados: contraseña · enlace · enlace enviado · PIN. El PIN sigue usando el flujo actual (E2E 2 y 3 dependen de él).\n• Si se llega con ?ref= o ?invite=, se muestra un aviso arriba del título; no un campo vacío.\n• Tokens --pl-* y clases .glass-card/.glass-lens/.glass-ring de pitchlab-v4.css. Barra 1X2 = ProbSplit.\n• Panel derecho: 3 resultados más probables del dataset (mayor p de cada partido; momio justo = 1/p, americano).\n• Mostrar/ocultar contraseña: botón de 44 px con aria-label que cambia. Errores con aria-live debajo del campo.\n• Luces: radial-gradient sobre --pl-orb-violet / -emerald / -sky (nada de filter: blur). A 899 px o menos la vista previa se oculta y la hoja queda de 460 px.\n• Google y Apple solo cuando existan cuentas reales (Better Auth); hasta entonces, deshabilitados con «Pronto»."
+    }
+  },
+  "designSystems": []
+}
