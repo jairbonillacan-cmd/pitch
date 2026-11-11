@@ -5,3 +5,4 @@ export * from "./billing.js";
 export { createDb } from "./client.js";
 export { and, eq, sql } from "drizzle-orm";
 export * from "./admin.js";
+export * from "./payouts.js";

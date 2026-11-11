@@ -25,13 +25,24 @@ export async function POST(request: Request): Promise<NextResponse> {
   }
 
   const payload = await request.text();
-  try {
-    verifyStripeSignature(payload, request.headers.get("stripe-signature"), secret);
-  } catch (err) {
-    if (err instanceof StripeSignatureError) {
-      return NextResponse.json({ error: err.message }, { status: 400 });
+  // Stripe firma los eventos de cuentas conectadas con otro secreto (endpoint de Connect).
+  const secrets = [secret, process.env.STRIPE_CONNECT_WEBHOOK_SECRET].filter((s): s is string => Boolean(s));
+  let lastError: unknown = null;
+  let verified = false;
+  for (const s of secrets) {
+    try {
+      verifyStripeSignature(payload, request.headers.get("stripe-signature"), s);
+      verified = true;
+      break;
+    } catch (err) {
+      lastError = err;
     }
-    throw err;
+  }
+  if (!verified) {
+    if (lastError instanceof StripeSignatureError) {
+      return NextResponse.json({ error: lastError.message }, { status: 400 });
+    }
+    throw lastError;
   }
 
   db ??= createDb(url) as unknown as Db;

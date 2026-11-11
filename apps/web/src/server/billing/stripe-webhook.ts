@@ -11,6 +11,7 @@ import {
   handleInvoicePaid,
   handleInvoiceRefunded,
   processedPaymentEvents,
+  setConnectPayoutsEnabled,
   subscriptions,
   type Db,
 } from "@pitchlab/db";
@@ -160,6 +161,14 @@ export async function processStripeEvent(db: Db, event: StripeEvent, deps: Webho
           paidAt: seconds((obj.status_transitions as Record<string, unknown> | undefined)?.paid_at) ?? now,
         });
         return `factura pagada: referido=${res.referralRewarded}, embajador=${res.ambassadorBonus}, comisión=${res.commissionCentavos ?? "—"}`;
+      }
+
+      case "account.updated": {
+        // Evento de Connect: la cuenta del tipstar ya puede (o ya no puede) recibir pagos.
+        const accountId = str(obj.id);
+        if (!accountId) return "cuenta sin id: ignorada";
+        const known = await setConnectPayoutsEnabled(db, accountId, obj.payouts_enabled === true);
+        return known ? `cuenta conectada: pagos ${obj.payouts_enabled === true ? "habilitados" : "pendientes"}` : "cuenta conectada desconocida";
       }
 
       case "checkout.session.completed": {

@@ -290,7 +290,9 @@ export const tipstarProfiles = pgTable(
     commissionBps: integer("commission_bps").notNull().default(2500),
     defaultWeeklySlug: text("default_weekly_slug").notNull().unique(),
     payoutMethod: text("payout_method").notNull().default("spei_manual"),
-    stripeConnectAccountId: text("stripe_connect_account_id"),
+    stripeConnectAccountId: text("stripe_connect_account_id").unique(),
+    /** Stripe confirmó que la cuenta conectada puede recibir transferencias. */
+    connectPayoutsEnabled: boolean("connect_payouts_enabled").notNull().default(false),
     clabeEncrypted: text("clabe_encrypted"),
     isActive: boolean("is_active").notNull().default(true),
     createdAt: createdAt(),
@@ -352,6 +354,8 @@ export const tipstarCommissionLedger = pgTable(
     status: text("status").notNull(),
     clearsAt: ts("clears_at").notNull(),
     payoutBatchId: uuid("payout_batch_id"),
+    /** Transferencia de Stripe Connect que pagó este asiento. */
+    stripeTransferId: text("stripe_transfer_id").unique(),
     paidOutAt: ts("paid_out_at"),
     createdAt: createdAt(),
   },

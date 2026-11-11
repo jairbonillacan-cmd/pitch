@@ -12,7 +12,7 @@
 | 1.3 | Hosting al cobrar | **Vercel Pro** desde que haya cobros. | Cambiar de plan antes de pasar Stripe a modo real (primer costo fijo). |
 | 1.4 | Persona que factura | **Pendiente: con el contador.** | Configurar Facturapi cuando se defina. |
 | 2.1 | Base de la comisión | **25 % sobre el neto** (sin IVA ni comisión de Stripe). | Ya implementado en `computeCommission`. |
-| 2.2 | Pago a tipstars | **Stripe Connect desde el inicio** (no SPEI manual). | Programar el alta de creadores en Connect Express y las transferencias automáticas al liquidarse cada comisión. |
+| 2.2 | Pago a tipstars | **Stripe Connect desde el inicio** (no SPEI manual). | ✅ Hecho: alta en Connect Express desde el Portal Tipstar, `account.updated` en el webhook y pago diario (`/api/cron/tipstar-payouts`, Vercel Cron) al liberarse cada comisión. Falta: activar Connect en la cuenta de Stripe y cargar `STRIPE_CONNECT_WEBHOOK_SECRET` y `CRON_SECRET`. |
 | 2.4 | Descuento del referido | **Solo plan mensual, $90 fijos** (primer mes de $209). | Crear el cupón `amount_off: 9000` MXN, `duration: once`, limitado al precio mensual. |
 | 3.1 | Fuente de momios | **API con licencia antes de cobrar.** | Integrar el proveedor elegido como fuente de la matriz de momios y dejar de usar scraping en producción. |
 | 3.2 | Props de jugadores | **Esperar datos con permiso.** Siguen en «próximamente». | Conseguir registros partido a partido y validar en `prediction-lab`. |

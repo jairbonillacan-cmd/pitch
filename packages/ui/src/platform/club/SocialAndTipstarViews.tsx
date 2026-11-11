@@ -1296,9 +1296,30 @@ export function TipstarPortalClubView(): React.JSX.Element {
     openShareTicket,
     navigateTo,
     pushToast,
+    accountsEnabled,
   } = usePlatform();
 
   const sofia = TIPSTAR_CREATORS[0]!;
+  const [connectBusy, setConnectBusy] = useState<boolean>(false);
+
+  // Alta de pagos con Stripe Connect (solo tipstars oficiales con cuenta real).
+  const handleSetupPayouts = async () => {
+    setConnectBusy(true);
+    try {
+      const res = await fetch("/api/tipstar/connect", { method: "POST", credentials: "same-origin" });
+      const json = (await res.json().catch(() => ({}))) as { url?: string; error?: string };
+      if (res.ok && json.url) {
+        window.location.assign(json.url);
+        return;
+      }
+      pushToast(json.error ?? "No se pudo abrir el alta de pagos.", "warning");
+    } catch (err) {
+      void err;
+      pushToast("Sin conexión. Intenta de nuevo.", "warning");
+    } finally {
+      setConnectBusy(false);
+    }
+  };
   const [thesis, setThesis] = useState<string>(sofia.weeklyPickThesis);
   const [previewRatio, setPreviewRatio] = useState<"4:5" | "9:16">("4:5");
   const previewCardRef = useRef<HTMLDivElement>(null);
@@ -1396,6 +1417,28 @@ export function TipstarPortalClubView(): React.JSX.Element {
           Así funcionará el Portal Tipstar. @{sofia.handle} es un perfil de ejemplo: sus unidades,
           CLV y referidos son ficticios. El pick que muestra sí sale de Spacetime Suite v3.0.
         </ExampleNotice>
+        {accountsEnabled && (viewerRole === "tipstar" || viewerRole === "admin") ? (
+          <NoticeCard
+            icon="gift"
+            tone="success"
+            badgeText="Pagos"
+            title="Recibe tus comisiones con Stripe"
+            action={
+              <button
+                type="button"
+                className="pl-btn-primary text-xs min-h-8 px-3"
+                disabled={connectBusy}
+                onClick={() => void handleSetupPayouts()}
+                data-connect-payouts=""
+              >
+                {connectBusy ? "Abriendo…" : "Configurar pagos"}
+              </button>
+            }
+          >
+            Tu 25 % sobre el neto se libera 14 días después de cada cobro y se deposita
+            automáticamente en tu cuenta. Stripe te pide tus datos y tu cuenta bancaria una sola vez.
+          </NoticeCard>
+        ) : null}
         {viewerRole !== "tipstar" && viewerRole !== "admin" ? (
           <NoticeCard
             icon="crown"
