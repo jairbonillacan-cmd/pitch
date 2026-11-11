@@ -1,0 +1,61 @@
+{
+  "v": 3,
+  "createdOnFiles": {
+    "v": 1,
+    "at": "2026-11-12T00:00:00Z"
+  },
+  "title": "PitchLab · Comunidad",
+  "launch": {
+    "view": "canvas"
+  },
+  "pages": [],
+  "boards": {
+    "Main.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 1500,
+      "title": "Comunidad · escritorio (tema y pestaña en Tweaks)",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "Mobile.dc.html": {
+      "x": 1520,
+      "y": 0,
+      "w": 390,
+      "h": 1500,
+      "title": "Comunidad · móvil (pestañas interactivas)",
+      "is_interactive": true
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "Mobile.dc.html"
+  ],
+  "notes": {
+    "title": {
+      "x": 0,
+      "y": -300,
+      "text": "Comunidad (/app/social) · PitchLab",
+      "kind": "title1",
+      "maxW": 1910
+    },
+    "decisiones": {
+      "x": 1990,
+      "y": 0,
+      "w": 500,
+      "fill": "purple",
+      "size": "s",
+      "text": "QUÉ CAMBIA Y POR QUÉ\n\n1. Solo el contenido: la barra superior y el sidebar del club no cambian.\n2. Cuatro pestañas subrayadas: Para ti · Siguiendo · Consenso · Ranking. El filtro Todos/Siguiendo se vuelve pestaña; antes había pestañas y además un filtro.\n3. Publicar arriba del feed en una sola tarjeta: texto + «Adjuntar pick» (partido y mercado) + origen Modelo/Propio. Regla visible: sin enlaces externos, se guarda en tu bitácora.\n4. Cada publicación muestra el pick adjunto con su momio contra el justo y la probabilidad del modelo, y su estado (Abierto, Cumplido, No se cumplió). Acciones: Me gusta, Comentar, Copiar a mi bitácora, Compartir.\n5. Columna derecha: Tu mes (puesto y saldo), Top de noviembre, el partido más comentado con socios contra modelo, e invitar amigos.\n6. Consenso en lenguaje claro: «Los socios ven a Monterrey 17 pts más probable que el modelo». Fuera «Radar Contrarian», «sobrepaga» y «Socios VIP».\n7. Ranking: Saldo, Cumplidos, Contra el cierre y Picks; ventana 30 días / temporada y orden por saldo o por cierre. Fuera ROI e «IC 95 %». Tu fila se resalta.\n8. Sello de tipstar verificado igual que en el perfil.\n9. Móvil: una columna, «Comparte un pick» como fila que abre el editor, top de tipstars en carrusel horizontal y sin columna derecha.\n10. Sin texto de relleno: ni subtítulos que repiten el título, ni frases de ánimo, ni explicaciones obvias. Las publicaciones de ejemplo hablan con datos (momio, momio justo, probabilidad)."
+    },
+    "brief": {
+      "x": 1990,
+      "y": 760,
+      "w": 500,
+      "fill": "blue",
+      "size": "s",
+      "text": "PARA IMPLEMENTAR\n\n• SocialVipClubView (packages/ui/src/platform/club/SocialAndTipstarViews.tsx), ruta /app/social, dentro de ClubWorkspaceShell sin cambios.\n• Publicar: publishSocialPost; «Adjuntar pick» usa los partidos próximos del dataset y sus picks; al publicar se registra en el journal (sealPickToJournal) — renombrar a «registrar» en la UI.\n• Me gusta: toggleSocialLike. Comentar: addSocialComment con el hilo plegado. Copiar a mi bitácora: el handler actual, sin contadores inventados (copiedCounts sale fuera hasta tener datos).\n• Ranking y Top: rankAnalysts() de profile-stats.ts (ver prompts/antigravity/PROFILE.md), el mismo cálculo del perfil.\n• Consenso: % de socios = picks publicados por resultado en ese partido; modelo = p del dataset. Mostrar solo partidos con al menos 10 picks de socios.\n• Visitante: aviso «La comunidad es para socios» + «Probar 7 días gratis».\n• Perfiles de ejemplo marcados «Ejemplo» hasta que haya cuentas."
+    }
+  },
+  "designSystems": []
+}
