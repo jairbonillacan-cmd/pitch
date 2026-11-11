@@ -1,6 +1,6 @@
 # ADR-026: Contrato ejecutable del Prototipo Maestro, simulación de roles sin romper Cero-Fuga y paridad 1:1
 
-- **Estado:** Aceptada (2026-11-10). Extiende ADR-020..025; resuelve en la práctica ADR-016 en las superficies v4.1.
+- **Estado:** Aceptada (2026-11-10). Extiende ADR-020..025; resuelve en la práctica ADR-016 en las superficies v4.1. **Reemplazada en parte por [ADR-027](ADR-027-spacetime-v3-datos-verificables-y-herramientas-de-preview.md):** la simulación de roles ya no usa el PIN desde el cliente y queda detrás de `previewToolsEnabled()`.
 - **Decisión del fundador:** elevar `apps/web` y `packages/ui` a paridad visual e interactiva 1:1 con el *Prototipo Maestro PitchLab* (`shows.link`), sustituyendo superficies carbón opacas por cristal ahumado translúcido real, aislando el bisel óptico `.glass-ring`, centralizando el módulo profundo `MaestroPrimitives.tsx`, habilitando simulación de roles y salto rápido de 11 vistas sin romper Cero-Fuga en servidor, y preservando el artefacto HTML maestro versionado en el repositorio.
 
 ## Contexto

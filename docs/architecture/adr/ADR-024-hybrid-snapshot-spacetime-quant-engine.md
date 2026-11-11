@@ -5,7 +5,7 @@ date: 2026-11-10
 
 # ADR-024: Puente híbrido entre snapshots reales por liga y el motor cuantitativo determinista Spacetime Suite v2.1
 
-- **Estado:** Aceptada (`Status: accepted`)
+- **Estado:** Aceptada (`Status: accepted`). **Reemplazada en parte por [ADR-027](ADR-027-spacetime-v3-datos-verificables-y-herramientas-de-preview.md):** el motor es Spacetime v3.0 real y las cifras «+358,400», «+12.4M» y «0.009 ECE» se retiraron por no tener fuente.
 - **Fecha:** `2026-11-10`
 - **Relación:** Extiende [ADR-007](ADR-007-base-de-datos-postgresql-en-neon-drizzle-historico.md), [ADR-009](ADR-009-modelos-en-python-por-lotes-la-tabla-de-prediccion.md), [ADR-013](ADR-013-pitchlab-ai-openrouter-modelo-barato-w5.md) y [ADR-014](ADR-014-fuentes-de-datos-gratuitas-en-la-fase-inicial.md); opera en conjunto con [ADR-023](ADR-023-smoked-glass-maestro-ui-physics.md) y [ADR-025](ADR-025-zero-leak-subscription-tipstar-referrals.md).
 

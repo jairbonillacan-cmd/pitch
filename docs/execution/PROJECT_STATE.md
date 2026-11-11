@@ -1,7 +1,7 @@
 # Estado del proyecto PitchLab
 
 > **Propósito:** que cualquier sesión retome el trabajo sin reconstruir el contexto. Se actualiza al cerrar cada fase.
-> **Última actualización:** 2026-11-10 · **Rama:** `gemini-reestructura`
+> **Última actualización:** 2026-11-11 · **Rama:** `gemini-reestructura`
 
 ## Estado actual
 
@@ -9,12 +9,13 @@
 - **F1 (spikes y decisiones):** ✅ completa como investigación de escritorio. Las cotizaciones y la confirmación de términos dependen de que el fundador haga los contactos (FD-14).
 - **F2 (product blueprint):** ✅ completa, pendiente de revisión del fundador.
 - **Decisión 2026-11-08:** datos a US$0 por ahora → `docs/architecture/FREE_DATA_STRATEGY.md` (FD-02 decidida).
-- **F3 (arquitectura y ADRs):** ✅ completa: 25 ADRs aceptadas (`ADR-001`…`ADR-015`, `ADR-017`…`ADR-026`), 1 propuesta (`ADR-016`) y 8 documentos base de arquitectura, con revisión cruzada.
+- **F3 (arquitectura y ADRs):** ✅ completa: 26 ADRs aceptadas (`ADR-001`…`ADR-015`, `ADR-017`…`ADR-027`), 1 propuesta (`ADR-016`) y 8 documentos base de arquitectura, con revisión cruzada.
 - **F3b (preparación de ejecución):** ✅ completa: frontend, contratos, ownership, integración, plan multiagente, quality gates y plantilla de prompts.
 - **Pre-MVP para socios:** ✅ implementado en `feat/pre-mvp` (`docs/product/PRE_MVP.md` y `docs/product/PRE_MVP_DEPLOY.md`).
 - **D1 diseño base:** ✅ aprobado (2026-11-08, iteración 4). Contrato en `docs/design/DESIGN_SYSTEM.md`, `INTERACTION_PATTERNS.md` y `RESPONSIVE_RULES.md`. Prototipos en `design/d1/`.
 - **UI-MAESTRO-V4.1 (paridad 1:1 con `Prototipo Maestro PitchLab`):** ✅ implementada en `gemini-reestructura` (2026-11-10) sobre `PitchLab Spacetime Suite v2.1`: física *Smoked Glass* real sobre obsidiana (`--pl-glass-lens`, `--pl-glass-card`, `.glass-ring` de bisel único), orbes radiales internos por club/motor (`<LensGlowOrbs>`), primitivas compartidas (`MaestroPrimitives.tsx` + `<TopLayerModalDialog>` sobre `<dialog>` nativo), 7 superficies públicas con redacción `Cero-Fuga` SSR + 11 vistas del club con barra flotante rápida colapsable, artefacto canónico archivado en `design/prototipo-maestro/prototipo-maestro-pitchlab.html`, ADRs `ADR-023`…`ADR-026`, visión rectora `docs/product/PLATFORM_VISION_GEMINI_REESTRUCTURA.md` + `docs/product/VISION_REESTRUCTURA_CLAUDE_{DS_UX,QUANT,GROWTH}.md` y guías de handoff en `docs/execution/`.
-- **Siguiente (sesión en casa con Claude → `docs/execution/CLAUDE_HOME_SESSION_BRIEF.md` y `docs/product/PLATFORM_VISION_GEMINI_REESTRUCTURA.md`):** (1) ejecutar `pnpm e2e` + auditoría visual y `@axe-core/playwright` WCAG 2.1 AA lado a lado contra `design/prototipo-maestro/prototipo-maestro-pitchlab.html` (`1440×900` y `390×844`, oscuro y claro), (2) pulir micro-detalles visuales/responsive y descarga raster 4:5 / 9:16, (3) revisar `ADR-023`…`ADR-026`, `PLATFORM_VISION_GEMINI_REESTRUCTURA.md` y `VISION_REESTRUCTURA_CLAUDE_*.md` con el fundador, y (4) publicar en Vercel y/o arrancar **F4** (Postgres/Drizzle, Auth.js OAuth + Turnstile, Stripe MX Checkout/Connect y Facturapi CFDI 4.0). Bloqueo externo para dominio final y cobro real: cuentas, DNS y secretos (`DEPLOYMENT.md` §6).
+- **SPACETIME-V3 + datos verificables (ADR-027):** ✅ 2026-11-11 en `gemini-reestructura`: motores Spacetime Suite v3.0 desde `prediction-lab` (`packages/spacetime`), inferencia en servidor con momios reales y vigencia de 72 h, mercados derivados (totales, ambos anotan, hándicaps), cero datos inventados en la UI, contenido de demostración marcado «Ejemplo», herramientas de preview fuera de producción, descarga real de boletos PNG y Liga MX real desde ESPN.
+- **Siguiente:** ver «Pendiente (en orden)».
 
 El clon previo de TouchIQ (Vite + `src/domain` con 24 tests dorados) quedó archivado en la rama `archive/touchiq-reconstruction` (ADR-018) y sus motores matemáticos viven ahora en `packages/engines-reference` con adaptadores limpios para snapshots reales.
 

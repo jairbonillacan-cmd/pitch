@@ -1,5 +1,7 @@
 # Prototipo Maestro PitchLab · Referencia Canónica (`gemini-reestructura`)
 
+> **Actualización 2026-11-11 (ADR-027):** este documento es de la entrega de Gemini del 10 nov. Desde entonces los motores son **Spacetime Suite v3.0** (`packages/spacetime`), la UI ya no muestra momios, bajas ni cifras sin fuente (`+358,400`, `+12.4M`, `69.6 %`, `0.009 ECE` quedaron retiradas), el contenido de demostración lleva la etiqueta «Ejemplo» y las herramientas de preview no usan el PIN en el cliente. El estado vigente está en [`docs/execution/PROJECT_STATE.md`](../../docs/execution/PROJECT_STATE.md) y [ADR-027](../../docs/architecture/adr/ADR-027-spacetime-v3-datos-verificables-y-herramientas-de-preview.md).
+
 Este directorio archiva dentro del repositorio los artefactos HTML interactivos que definen el norte visual, físico y funcional de la reestructura de **PitchLab** en la rama `gemini-reestructura`.
 
 Al estar versionados aquí en Git, tanto el fundador como **Claude** (o cualquier agente/auditor Playwright) pueden abrirlos directamente en cualquier navegador y en cualquier computadora tras ejecutar `git pull`, sin depender de carpetas locales fuera del repositorio.

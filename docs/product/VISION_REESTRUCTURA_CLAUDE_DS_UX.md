@@ -1,5 +1,7 @@
 # Visión de Producto, Sistema de Diseño y Arquitectura UX (`gemini-reestructura`)
 
+> **Actualización 2026-11-11 (ADR-027):** este documento es de la entrega de Gemini del 10 nov. Desde entonces los motores son **Spacetime Suite v3.0** (`packages/spacetime`), la UI ya no muestra momios, bajas ni cifras sin fuente (`+358,400`, `+12.4M`, `69.6 %`, `0.009 ECE` quedaron retiradas), el contenido de demostración lleva la etiqueta «Ejemplo» y las herramientas de preview no usan el PIN en el cliente. El estado vigente está en [`docs/execution/PROJECT_STATE.md`](../execution/PROJECT_STATE.md) y [ADR-027](../architecture/adr/ADR-027-spacetime-v3-datos-verificables-y-herramientas-de-preview.md).
+
 > **Audiencia:** Fundador de PitchLab y Claude (sesión de continuación en casa sobre la rama `gemini-reestructura` rumbo a F4).
 > **Estrella polar visual y funcional:** [`design/prototipo-maestro/prototipo-maestro-pitchlab.html`](../../design/prototipo-maestro/prototipo-maestro-pitchlab.html) (`6,960` líneas autocontenidas).
 > **Decisiones rectoras:** [ADR-020](../architecture/adr/ADR-020-sistema-visual-liquid-glass-v4-y-aislamiento-de-tokens.md) · [ADR-023](../architecture/adr/ADR-023-smoked-glass-maestro-ui-physics.md) · [ADR-024](../architecture/adr/ADR-024-hybrid-snapshot-spacetime-quant-engine.md) · [ADR-025](../architecture/adr/ADR-025-zero-leak-subscription-tipstar-referrals.md) · [`GLOSSARY.md`](../../GLOSSARY.md).

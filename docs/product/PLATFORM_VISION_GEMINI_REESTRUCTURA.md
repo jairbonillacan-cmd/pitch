@@ -1,5 +1,7 @@
 # PitchLab · Visión de Producto, Arquitectura y Handoff (`gemini-reestructura`)
 
+> **Actualización 2026-11-11 (ADR-027):** este documento es de la entrega de Gemini del 10 nov. Desde entonces los motores son **Spacetime Suite v3.0** (`packages/spacetime`), la UI ya no muestra momios, bajas ni cifras sin fuente (`+358,400`, `+12.4M`, `69.6 %`, `0.009 ECE` quedaron retiradas), el contenido de demostración lleva la etiqueta «Ejemplo» y las herramientas de preview no usan el PIN en el cliente. El estado vigente está en [`docs/execution/PROJECT_STATE.md`](../execution/PROJECT_STATE.md) y [ADR-027](../architecture/adr/ADR-027-spacetime-v3-datos-verificables-y-herramientas-de-preview.md).
+
 > **Documento maestro para el Fundador y Claude (sesión de continuación en casa)**
 > - **Rama activa:** `gemini-reestructura`
 > - **Versión visual y funcional:** `v4.1` — Paridad 1:1 con `Prototipo Maestro PitchLab` ([`design/prototipo-maestro/prototipo-maestro-pitchlab.html`](../../design/prototipo-maestro/prototipo-maestro-pitchlab.html))
@@ -25,17 +27,19 @@ En la re-versión `gemini-reestructura`, **PitchLab** deja atrás el enfoque de 
 
 ## §2. Identidad Tecnológica: `PitchLab Spacetime Suite v2.1` y Regla `FD-16`
 
-Toda la comunicación pública y privada del producto presenta la tubería cuantitativa bajo el paraguas propietario **`PitchLab Spacetime Suite v2.1`** (definido canónicamente en [`packages/ui/src/platform/spacetime-catalog.ts`](../../packages/ui/src/platform/spacetime-catalog.ts)).
+Toda la comunicación pública y privada del producto presenta la tubería cuantitativa bajo el paraguas propietario **`PitchLab Spacetime Suite v3.0`** (definido canónicamente en [`packages/ui/src/platform/spacetime-catalog.ts`](../../packages/ui/src/platform/spacetime-catalog.ts)).
 
 ### 2.1 Los 5 Motores Propietarios
 
 | Clave (`EngineKey`) | Nombre Público | Pilar | Dominio y Vectores | Token de Color | Función Específica y Cadencia |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| `tachyon` | **`PitchLab Tachyon v2.1`** | Data Science | Fútbol Puro · 23 Ligas · 126 vectores | `var(--engine-tachyon)` | Entrenado **sin tocar cuotas de casas**. Modela ritmo ofensivo, peligro real generado, desgaste de calendario y fortaleza de plantel sobre `+358,400` partidos (`57.5 %` exactitud directa en `+294,000` juegos de liga). Recalibración automática post-jornada. |
-| `singularity` | **`PitchLab Singularity v2.1`** | Machine Learning | Ensamble y Valor Institucional · Multi-mercado | `var(--engine-singularity)` | Cruza las proyecciones puras de `Tachyon` con el flujo mundial de liquidez y filtro anti-sesgo para detectar momios colgados fuera de precio real. Supera la línea de cierre en el **`69.6 %`** de las oportunidades (`+8.6M` vectores tácticos; corrida cada 45 min). |
-| `minkowski` | **`PitchLab Minkowski v2.1`** | Data Science | Especialista NFL · 37 indicadores de emparrillado | `var(--engine-minkowski)` | Modela impacto individual de Quarterback titular vs. suplente, ajustes de Head Coach, ventaja de localía dinámica, semanas cortas y clima en estadios abiertos sobre `+64,400` juegos. Corte martes post-MNF y jueves pre-kickoff. |
-| `geodesic` | **`PitchLab Geodesic v1.0`** | Machine Learning | De-vigging, Valor Esperado (`EV`) y Correlación `SGP` | `var(--engine-geodesic)` | Elimina la comisión oculta (*vig* / *overround*) de las casas para revelar la **cuota justa exacta**, calcular `+Edge` instantáneo frente al momio del usuario y aplicar el factor de correlación en parlays `SGP` sobre `+3.8M` instantáneas apertura → cierre. |
-| `cortex` | **`PitchLab Cortex IA`** | Inteligencia Artificial | Síntesis Ejecutiva + Corte de Alineaciones `60m` + Calibración Horizon | `var(--engine-cortex)` | Agente de IA conectado **exclusivamente** a las matrices numéricas de `Spacetime Suite` (`0` alucinaciones). Redacta la radiografía ejecutiva previa y audita convocatorias y alineaciones confirmadas **60 min antes** del kickoff. |
+| `tachyon` | **`PitchLab Tachyon v3.0`** | Data Science | Fútbol · 23 ligas de entrenamiento · 136 variables | `var(--engine-tachyon)` | Motor deportivo puro (no usa momios): fuerza estructural, xG real, presión táctica, altitud y disponibilidad de plantilla. Prueba 2024–25 (16,126 partidos); Liga MX 54.7 % de acierto contra 53.7 % del mercado (676 partidos). |
+| `singularity` | **`PitchLab Singularity v3.0`** | Machine Learning | Modelo + mercado sin margen | `var(--engine-singularity)` | Mezcla Tachyon con el mercado sin margen y corrige el sesgo del público en Liga MX. Mejor log-loss que el cierre en 2024–25 (IC 95 % sin cruzar cero). |
+| `minkowski` | **`PitchLab Minkowski v3.0`** | Data Science | NFL · 29 variables + contexto en vivo | `var(--engine-minkowski)` | Eficiencia por jugada, lesiones de QB y titulares, disciplina, clima y altitud. Prueba 2020–25: 65.8 % de acierto en 1,615 juegos. |
+| `geodesic` | **`PitchLab Geodesic v2.0`** | Machine Learning | Momio justo, ventaja y stake | `var(--engine-geodesic)` | Quita el margen de la casa, calcula la ventaja contra el momio real y veta valor cuando el dinero institucional va en contra. ROI fuera de muestra +1.35 % en 3,670 apuestas (Kelly 0.25x). |
+| `cortex` | **`PitchLab Cortex IA`** | Inteligencia Artificial | Resumen previo del partido | `var(--engine-cortex)` | Resume lo que dicen los motores (probabilidad, factores, mercado y bajas reportadas). Hoy es una plantilla determinista; la síntesis con LLM es trabajo futuro (ADR-013). |
+
+> Cifras del reporte A26 de `prediction-lab`. Las cifras anteriores (`+358,400`, `+12.4M`, `69.6 %`, `0.009 ECE`) se retiraron por no tener fuente (ADR-027).
 
 ### 2.2 Narrativa Cuantitativa y Termómetro de Calibración (`0.009 ECE`)
 

@@ -1,6 +1,6 @@
 # ADR-022: Abstracción propietaria Spacetime Suite v2.1, derivación de 5 picks por partido y parlays correlacionados
 
-- **Estado:** Aceptada (2026-11-10). Extiende ADR-009 y ADR-013.
+- **Estado:** Aceptada (2026-11-10). Extiende ADR-009 y ADR-013. **Reemplazada en parte por [ADR-027](ADR-027-spacetime-v3-datos-verificables-y-herramientas-de-preview.md)** (v3.0, «hasta 5 picks», cifras sin fuente retiradas).
 - **Decisión del fundador:** bautizar públicamente los motores cuantitativos bajo la arquitectura propietaria *PitchLab Spacetime Suite v2.1* sin revelar fórmulas ni proveedores internos en la UI, generar de 4 a 5 picks estructurados por partido y habilitar parlays multi-liga y *Mismo Partido (SGP)* con ajuste de correlación y bloqueo de contradicciones.
 
 ## Contexto

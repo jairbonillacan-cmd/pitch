@@ -1,5 +1,7 @@
 # Handoff Maestro · Club `/app`, Motores Quant, Parlays SGP, Comunidad VIP, Portal Tipstar y Admin
 
+> **Actualización 2026-11-11 (ADR-027):** este documento es de la entrega de Gemini del 10 nov. Desde entonces los motores son **Spacetime Suite v3.0** (`packages/spacetime`), la UI ya no muestra momios, bajas ni cifras sin fuente (`+358,400`, `+12.4M`, `69.6 %`, `0.009 ECE` quedaron retiradas), el contenido de demostración lleva la etiqueta «Ejemplo» y las herramientas de preview no usan el PIN en el cliente. El estado vigente está en [`docs/execution/PROJECT_STATE.md`](./PROJECT_STATE.md) y [ADR-027](../architecture/adr/ADR-027-spacetime-v3-datos-verificables-y-herramientas-de-preview.md).
+
 - **Fecha:** 2026-11-10
 - **Rama activa:** `gemini-reestructura`
 - **Referencia visual y funcional canónica:** `design/prototipo-maestro/prototipo-maestro-pitchlab.html`
