@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { toNextJsHandler } from "better-auth/next-js";
-import { getAuth } from "../../../../src/server/auth.js";
+import { getAuth } from "../../../../src/server/auth";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";

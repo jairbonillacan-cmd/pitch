@@ -2,7 +2,7 @@
  * Consultas de la consola del fundador (/app/admin) y de banderas operativas.
  */
 import { and, count, eq, sql } from "drizzle-orm";
-import type { Db } from "./billing.js";
+import type { Db } from "./billing";
 import {
   entitlementGrants,
   platformRuntimeFlags,
@@ -13,7 +13,7 @@ import {
   tipstarCommissionLedger,
   tipstarProfiles,
   users,
-} from "./schema.js";
+} from "./schema";
 
 export const FLAG_MONTH1_NO_CARD = "month1_no_card_mode";
 

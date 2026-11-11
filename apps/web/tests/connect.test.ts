@@ -18,8 +18,8 @@ import {
   createOnboardingLink,
   runTipstarPayouts,
   stripeTransferCreator,
-} from "../src/server/billing/connect.js";
-import { processStripeEvent } from "../src/server/billing/stripe-webhook.js";
+} from "../src/server/billing/connect";
+import { processStripeEvent } from "../src/server/billing/stripe-webhook";
 
 const DAY = 86_400_000;
 const paidAt = new Date("2026-11-11T12:00:00Z");

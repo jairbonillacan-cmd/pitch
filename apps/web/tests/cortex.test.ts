@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { PlatformGame } from "@pitchlab/ui";
-import { cortexFactsFor, cortexSummary, validateCortexText } from "../src/server/cortex.js";
+import { cortexFactsFor, cortexSummary, validateCortexText } from "../src/server/cortex";
 
 const game = {
   id: "pl-1",

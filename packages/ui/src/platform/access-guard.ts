@@ -4,7 +4,7 @@ import type {
   PlatformDataset,
   PlatformGame,
   ViewerRole,
-} from "./types.js";
+} from "./types";
 
 const DISPOSABLE_DOMAINS = new Set([
   "mailinator.com",
@@ -121,8 +121,8 @@ export function redactDatasetForVisitor(
         return {
           ...pick,
           selectionKey: "locked",
-          label: "Selección reservada Pase Total",
-          rationale: "Activa tu prueba gratis de Pase Total para desbloquear todos los picks del partido.",
+          label: "Selección reservada Pase PitchLab Ultra",
+          rationale: "Activa tu prueba gratis de Pase PitchLab Ultra para desbloquear todos los picks del partido.",
           isRedacted: true,
         };
       }),
@@ -131,7 +131,7 @@ export function redactDatasetForVisitor(
         : {
             ...game.preGame,
             cortexSynthesis:
-              "Radiografía ejecutiva de PitchLab Cortex IA y reporte de bajas 60m reservados para socios con Pase Total activo.",
+              "Radiografía ejecutiva de PitchLab Cortex IA y reporte de bajas 60m reservados para socios con Pase PitchLab Ultra activo.",
             tacticalKeys: [
               "Síntesis cuantitativa bloqueada en vista visitante",
               "Reporte de convocatoria 60m protegido",

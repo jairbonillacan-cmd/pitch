@@ -9,7 +9,7 @@ import {
   sealHashOf,
   sealPick,
   setWatched,
-} from "../src/server/member-data.js";
+} from "../src/server/member-data";
 
 let db: Db;
 let userId: string;

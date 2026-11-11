@@ -214,6 +214,12 @@ export interface PlatformGame {
   spacetime: SpacetimeSignal | null;
 }
 
+/**
+ * Detalle pesado de un partido (mercados, enfrentamientos previos y factores). Solo lo usa la
+ * ficha del partido: el layout manda los partidos sin él y la ficha lo pide para su partido.
+ */
+export type PlatformGameDetail = Pick<PlatformGame, "markets" | "headToHead" | "factors">;
+
 export interface PlatformLeagueSummary {
   league: LeagueId;
   label: string;
@@ -265,7 +271,7 @@ export interface SocialPost {
   id: string;
   authorHandle: string;
   authorName: string;
-  roleBadge: "Tipstar Oficial" | "Analista Verificado" | "Socio Pase Total";
+  roleBadge: "Tipstar Oficial" | "Analista Verificado" | "Socio Pase PitchLab Ultra";
   avatarGradVar: string;
   verifiedRecord: string;
   clvBadge: string;

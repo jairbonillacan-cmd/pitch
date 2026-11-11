@@ -2,23 +2,29 @@
 
 import React from "react";
 import { getTeamColors } from "@pitchlab/sports-assets";
-import { LeagueBadge, ProbSplit, TeamBadge } from "../../sports.js";
+import { LeagueBadge, ProbSplit, TeamBadge } from "../../sports";
 import {
   formatEdgePts,
   formatOddsValue,
   getSessionWatermark,
   isPickUnlocked,
   pickReferenceDecimal,
-} from "../access-guard.js";
-import { usePlatform } from "../platform-provider.js";
-import type { MatchPick, PlatformGame } from "../types.js";
+} from "../access-guard";
+import {
+  useIsPickInParlay,
+  useJournalEntries,
+  usePlatformActions,
+  usePlatformCore,
+} from "../platform-provider";
+import type { MatchPick, PlatformGame } from "../types";
 import {
   CrestPedestal,
   LensGlowOrbs,
   MaestroIcon,
-} from "./MaestroPrimitives.js";
+} from "./MaestroPrimitives";
 
-export function MultiPickRow({
+/** Memorizada: solo se redibuja si cambian sus props, su estado en el parlay o la bitácora. */
+export const MultiPickRow = React.memo(function MultiPickRow({
   pick,
   gameStatus,
   compact = false,
@@ -29,16 +35,10 @@ export function MultiPickRow({
   compact?: boolean;
   userDecimalOverride?: number | null;
 }): React.JSX.Element {
-  const {
-    viewerRole,
-    oddsFormat,
-    parlayLegs,
-    journal,
-    addPickToParlay,
-    openComposer,
-    openShareTicket,
-    navigateTo,
-  } = usePlatform();
+  const { viewerRole, oddsFormat } = usePlatformCore();
+  const { addPickToParlay, openComposer, openShareTicket, navigateTo } = usePlatformActions();
+  const journal = useJournalEntries();
+  const inParlay = useIsPickInParlay(pick.id);
 
   const unlocked = isPickUnlocked(pick, gameStatus, viewerRole);
 
@@ -63,7 +63,7 @@ export function MultiPickRow({
             style={{ color: "var(--pl-brand)" }}
           >
             <MaestroIcon name="lock" size={12} />
-            <span>Exclusivo Pase Total · Cero fuga pre-partido</span>
+            <span>Exclusivo Pase PitchLab Ultra · Cero fuga pre-partido</span>
           </p>
         </div>
 
@@ -89,7 +89,6 @@ export function MultiPickRow({
         ? "pl-pill pl-pill--warning"
         : "pl-pill pl-pill--brand";
 
-  const inParlay = parlayLegs.some((l) => l.pick.id === pick.id);
   const isSealed = journal.some((j) => j.pickId === pick.id);
 
   const hasLiveUserOdds =
@@ -174,24 +173,22 @@ export function MultiPickRow({
               )}
             </strong>
           </div>
-          <div className="text-right">
-            <span className="block text-[11px]" style={{ color: "var(--pl-text-muted)" }}>
-              {hasLiveUserOdds ? "Tu ventaja" : "Ventaja"}
-            </span>
-            <strong
-              className="text-sm font-extrabold"
-              style={{
-                color:
-                  effectiveEdgePts === null
-                    ? "var(--pl-text-muted)"
-                    : effectiveEdgePts >= 0
-                      ? "var(--pl-success)"
-                      : "var(--pl-warning)",
-              }}
-            >
-              {formatEdgePts(effectiveEdgePts)}
-            </strong>
-          </div>
+          {/* Sin momio de casa no hay ventaja que mostrar: la columna no aparece. */}
+          {effectiveEdgePts !== null ? (
+            <div className="text-right">
+              <span className="block text-[11px]" style={{ color: "var(--pl-text-muted)" }}>
+                {hasLiveUserOdds ? "Tu ventaja" : "Ventaja"}
+              </span>
+              <strong
+                className="text-sm font-extrabold"
+                style={{
+                  color: effectiveEdgePts >= 0 ? "var(--pl-success)" : "var(--pl-warning)",
+                }}
+              >
+                {formatEdgePts(effectiveEdgePts)}
+              </strong>
+            </div>
+          ) : null}
         </div>
       </div>
 
@@ -200,7 +197,7 @@ export function MultiPickRow({
           <span className="text-xs num" style={{ color: "var(--pl-text-muted)" }}>
             Sugerencia calibrada: <strong>{pick.suggestedUnits.toFixed(2)}u</strong>
           </span>
-          <div className="flex items-center gap-1.5">
+          <div className="flex flex-wrap items-center gap-1.5">
             <button
               type="button"
               className="pl-btn-glass text-xs min-h-8 px-2.5 inline-flex items-center gap-1"
@@ -208,7 +205,7 @@ export function MultiPickRow({
               data-add-parlay={pick.id}
             >
               <MaestroIcon name={inParlay ? "check" : "plus"} size={12} />
-              <span>{inParlay ? "En Parlay" : "+ Parlay"}</span>
+              <span>{inParlay ? "En Parlay" : "Parlay"}</span>
             </button>
             <button
               type="button"
@@ -246,9 +243,9 @@ export function MultiPickRow({
       ) : null}
     </div>
   );
-}
+});
 
-export function MatchTicketCard({
+export const MatchTicketCard = React.memo(function MatchTicketCard({
   game,
   featured = false,
   onSelectGame,
@@ -257,15 +254,8 @@ export function MatchTicketCard({
   featured?: boolean;
   onSelectGame?: (game: PlatformGame) => void;
 }): React.JSX.Element {
-  const {
-    viewerRole,
-    oddsFormat,
-    parlayLegs,
-    setAuraFromGame,
-    addPickToParlay,
-    openComposer,
-    navigateTo,
-  } = usePlatform();
+  const { viewerRole, oddsFormat } = usePlatformCore();
+  const { setAuraFromGame, addPickToParlay, openComposer, navigateTo } = usePlatformActions();
 
   const isNfl = game.sport === "american-football" || game.league === "nfl";
   const isFinished = game.status === "FT" && game.score !== undefined;
@@ -287,9 +277,7 @@ export function MatchTicketCard({
     ? [game.home.shortName, game.away.shortName]
     : [game.home.shortName, "Empate", game.away.shortName];
 
-  const inParlay = mainPick
-    ? parlayLegs.some((l) => l.pick.id === mainPick.id)
-    : false;
+  const inParlay = useIsPickInParlay(mainPick?.id);
 
   const shortEngineLabel = mainPick
     ? mainPick.engineName.replace("PitchLab ", "")
@@ -426,16 +414,16 @@ export function MatchTicketCard({
               ) : (
                 <span className="pl-pill inline-flex items-center gap-1">
                   <MaestroIcon name="lock" size={11} />
-                  <span>Proy. reservada</span>
+                  <span>Solo socios</span>
                 </span>
               )}
               <span style={{ color: "var(--pl-text-muted)" }}>
-                {game.picks.length} picks calibrados
+                {game.picks.length} picks
               </span>
             </div>
           ) : null}
 
-          <ProbSplit probabilities={splitProbs} labels={splitLabels} />
+          <ProbSplit probabilities={splitProbs} labels={splitLabels} showLabels />
         </div>
 
         <div className="ticket-perf" />
@@ -444,14 +432,14 @@ export function MatchTicketCard({
           <div className="flex items-center justify-between gap-2 text-xs">
             <div className="min-w-0">
               <span
-                className="block font-bold uppercase tracking-wider text-[10px]"
+                className="block font-bold text-[10px]"
                 style={{ color: "var(--pl-brand)" }}
               >
                 {mainPick.isDailyOpenPromo
-                  ? "Pick Abierto del Día"
+                  ? "Pick abierto del día"
                   : mainPick.isTipstarWeeklyOpen
                     ? "Pick Semanal @sofia_nfl"
-                    : "Pick Principal"}
+                    : "Pick principal"}
               </span>
               <strong className="block text-sm truncate">{mainPick.label}</strong>
             </div>
@@ -460,12 +448,16 @@ export function MatchTicketCard({
                 className="block text-sm"
                 style={{
                   color:
-                    mainPick.edgePts !== null && mainPick.edgePts >= 0
-                      ? "var(--pl-success)"
-                      : "var(--pl-text-muted)",
+                    mainPick.edgePts === null
+                      ? "var(--pl-brand)"
+                      : mainPick.edgePts >= 0
+                        ? "var(--pl-success)"
+                        : "var(--pl-text-muted)",
                 }}
               >
-                {formatEdgePts(mainPick.edgePts)}
+                {mainPick.edgePts === null
+                  ? `${(mainPick.p * 100).toFixed(0)} %`
+                  : formatEdgePts(mainPick.edgePts)}
               </strong>
               <span style={{ color: "var(--pl-text-muted)" }}>
                 {formatOddsValue(pickReferenceDecimal(mainPick), oddsFormat)}
@@ -483,15 +475,15 @@ export function MatchTicketCard({
                 <span>Picks listos en Spacetime Suite</span>
               </span>
               <span className="locked-redact block mt-0.5" aria-hidden="true">
-                Pick Principal oculto
+                Pick principal oculto
               </span>
             </div>
-            <span className="pl-pill shrink-0">Pase Total</span>
+            <span className="pl-pill shrink-0">Pase PitchLab Ultra</span>
           </div>
         )}
       </div>
 
-      <div className="flex items-center justify-between gap-2 pt-1.5 hairline-t relative z-10">
+      <div className="flex flex-wrap items-center justify-between gap-2 pt-1.5 hairline-t relative z-10">
         <a
           href={studioHref}
           onClick={handleOpenStudio}
@@ -502,14 +494,14 @@ export function MatchTicketCard({
         </a>
 
         {!isFinished && mainPick && unlockedMain ? (
-          <div className="flex items-center gap-1.5">
+          <div className="flex flex-wrap items-center gap-1.5">
             <button
               type="button"
               className="pl-btn-glass text-xs min-h-8 px-2.5 inline-flex items-center gap-1"
               onClick={() => addPickToParlay(mainPick)}
             >
               <MaestroIcon name={inParlay ? "check" : "plus"} size={12} />
-              <span>{inParlay ? "En Parlay" : "+ Parlay"}</span>
+              <span>{inParlay ? "En Parlay" : "Parlay"}</span>
             </button>
             <button
               type="button"
@@ -536,4 +528,4 @@ export function MatchTicketCard({
       </div>
     </article>
   );
-}
+});

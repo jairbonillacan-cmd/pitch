@@ -1,4 +1,4 @@
-import { loadAllActiveLeagueSnapshots, PRODUCT_LEAGUES } from "./snapshots.js";
+import { loadAllActiveLeagueSnapshots, PRODUCT_LEAGUES } from "./snapshots";
 
 /** Hora de inicio de un partido según los snapshots del servidor (fuente de verdad). */
 export function findGameKickoff(gameId: string): Date | null {

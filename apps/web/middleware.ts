@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import {
   getBetaCookieName,
   verifyBetaCookieToken,
-} from "./src/server/beta-auth.js";
+} from "./src/server/beta-auth";
 
 export async function middleware(request: NextRequest): Promise<NextResponse> {
   const { pathname } = request.nextUrl;

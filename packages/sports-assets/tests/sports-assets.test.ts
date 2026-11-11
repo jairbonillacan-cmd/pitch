@@ -6,7 +6,7 @@ import {
   getMascotPath,
   getTeamAsset,
   TEAM_ASSETS,
-} from "../src/index.js";
+} from "../src/index";
 
 describe("@pitchlab/sports-assets", () => {
   it("registra los emblemas de Liga MX, Premier League, Bundesliga y NFL", () => {

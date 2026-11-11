@@ -4,8 +4,8 @@ import React, { useEffect, useRef, useState, useCallback } from "react";
 import type { AnalysisPick, MarketPulseSide, MatchAnalysis } from "@pitchlab/contracts";
 import { formatPercent, marketPulseLean } from "@pitchlab/contracts";
 import { getMascotPath } from "@pitchlab/sports-assets";
-import { Icon } from "./icons.js";
-import { BrandLogo, ThemeToggle } from "./primitives.js";
+import { Icon } from "./icons";
+import { BrandLogo, ThemeToggle } from "./primitives";
 import {
   TeamBadge,
   LeagueBadge,
@@ -17,13 +17,13 @@ import {
   WhyList,
   HeadToHead,
   effectiveFeaturedPick,
-} from "./sports.js";
-import { usePinSound } from "./pin-sounds.js";
-import { FooterSocial } from "./footer-social.js";
-import { Button } from "./components/ui/button.js";
-import { Dialog, DialogOverlay, DialogPopup, DialogPortal } from "./components/ui/dialog.js";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/ui/tabs.js";
-import { MarketPulseGuide, MarketPulsePanel } from "./market-pulse.js";
+} from "./sports";
+import { usePinSound } from "./pin-sounds";
+import { FooterSocial } from "./footer-social";
+import { Button } from "./components/ui/button";
+import { Dialog, DialogOverlay, DialogPopup, DialogPortal } from "./components/ui/dialog";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/ui/tabs";
+import { MarketPulseGuide, MarketPulsePanel } from "./market-pulse";
 
 export function FloatingNav({
   links = [

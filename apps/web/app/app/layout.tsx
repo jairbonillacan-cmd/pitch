@@ -1,6 +1,7 @@
 import React from "react";
-import { PlatformClientBridge } from "../../src/client/platform-client-bridge.js";
-import { loadClubPlatformState } from "../../src/server/platform-data.js";
+import { ClubShellBridge } from "../../src/client/club-shell-bridge";
+import { PlatformClientBridge } from "../../src/client/platform-client-bridge";
+import { loadClubPlatformState } from "../../src/server/platform-data";
 
 export const dynamic = "force-dynamic";
 
@@ -19,7 +20,8 @@ export default async function ClubAppLayout({
       accountsEnabled={state.accountsEnabled}
       serverMonth1NoCardMode={state.serverMonth1NoCardMode}
     >
-      {children}
+      {/* Encabezado y barra lateral montados una sola vez; cada página aporta su contenido. */}
+      <ClubShellBridge>{children}</ClubShellBridge>
     </PlatformClientBridge>
   );
 }

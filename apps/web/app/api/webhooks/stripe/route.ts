@@ -5,7 +5,7 @@ import {
   StripeSignatureError,
   stripeFeeFetcher,
   verifyStripeSignature,
-} from "../../../../src/server/billing/stripe-webhook.js";
+} from "../../../../src/server/billing/stripe-webhook";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";

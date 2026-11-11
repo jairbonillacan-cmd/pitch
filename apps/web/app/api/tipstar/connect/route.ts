@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { setConnectAccount, tipstarProfileForUser } from "@pitchlab/db";
-import { createExpressAccount, createOnboardingLink } from "../../../../src/server/billing/connect.js";
-import { requireMember } from "../../../../src/server/session-user.js";
+import { createExpressAccount, createOnboardingLink } from "../../../../src/server/billing/connect";
+import { requireMember } from "../../../../src/server/session-user";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";

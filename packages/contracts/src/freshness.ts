@@ -1,4 +1,4 @@
-import type { LeagueId } from "./ids.js";
+import type { LeagueId } from "./ids";
 
 export const FRESHNESS_SLA_HOURS: Record<string, number> = {
   nfl: 24,

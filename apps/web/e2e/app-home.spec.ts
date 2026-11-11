@@ -2,6 +2,13 @@ import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import path from "node:path";
 
+/** En el club, el tema vive en el menú del perfil. */
+async function toggleClubTheme(page: import("@playwright/test").Page): Promise<void> {
+  await page.locator("[data-profile-menu-trigger]:visible").first().click();
+  await page.locator(".pl-profile-menu:popover-open [data-theme-toggle]").click();
+  await page.keyboard.press("Escape");
+}
+
 test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad VIP, Tipstar y Referidos (+15d)", async ({
   page,
 }, testInfo) => {
@@ -46,13 +53,13 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
     expect(violations).toEqual([]);
 
     if (theme === "dark") {
-      await page.locator("[data-theme-toggle]").click();
+      await toggleClubTheme(page);
       await page.waitForTimeout(150);
     }
   }
 
   // Regresar a oscuro
-  await page.locator("[data-theme-toggle]").click();
+  await toggleClubTheme(page);
 
   // Buscador global (⌘K / botón Buscar)
   await page.getByRole("button", { name: "Buscar" }).click();
@@ -81,7 +88,7 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
   // 2) Player Props Lab interactivo
   await page.goto("/app/props");
   await expect(
-    page.getByRole("heading", { name: /Props de jugadores/i }),
+    page.getByRole("heading", { level: 1, name: /Props de jugadores/i }),
   ).toBeVisible();
   const plusButtons = page.getByRole("button", { name: /Subir línea/i });
   if ((await plusButtons.count()) > 0) {
@@ -95,14 +102,14 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
   ).toBeVisible();
   const socialTextarea = page.locator("textarea").first();
   await socialTextarea.fill("Únanse a mi grupo externo https://t.me/spam_picks");
-  await page.getByRole("button", { name: /Publicar en Comunidad VIP/i }).click();
+  await page.getByRole("button", { name: /^Publicar$/i }).click();
   await expect(page.locator("p[role='alert']")).toContainText(/enlaces externos/i);
 
   // Publicación limpia permitida
   await socialTextarea.fill(
     "Excelente lectura previa de Cortex IA en el cruce estelar; entré con 1.5u.",
   );
-  await page.getByRole("button", { name: /Publicar en Comunidad VIP/i }).click();
+  await page.getByRole("button", { name: /^Publicar$/i }).click();
   await expect(page.locator("body")).toContainText(
     "Excelente lectura previa de Cortex IA",
   );
@@ -112,6 +119,8 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
   await expect(
     page.getByRole("heading", { name: /Portal Tipstar/i }),
   ).toBeVisible();
+  // Esperar a que la página termine de hidratarse antes de pulsar (si no, el clic se pierde).
+  await page.waitForLoadState("networkidle");
   await page
     .getByRole("button", { name: /Generar Boleto 4:5 \/ 9:16 con mi Código/i })
     .click();

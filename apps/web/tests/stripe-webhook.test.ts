@@ -17,7 +17,7 @@ import {
   signStripePayload,
   StripeSignatureError,
   verifyStripeSignature,
-} from "../src/server/billing/stripe-webhook.js";
+} from "../src/server/billing/stripe-webhook";
 
 const SECRET = "whsec_prueba_local";
 const now = new Date("2026-11-11T12:00:00Z");

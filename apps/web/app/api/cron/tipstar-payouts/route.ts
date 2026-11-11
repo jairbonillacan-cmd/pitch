@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createDb, type Db } from "@pitchlab/db";
-import { runTipstarPayouts, stripeTransferCreator } from "../../../../src/server/billing/connect.js";
+import { runTipstarPayouts, stripeTransferCreator } from "../../../../src/server/billing/connect";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";

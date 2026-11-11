@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { listJournal, sealPick } from "../../../../src/server/member-data.js";
-import { requireMember } from "../../../../src/server/session-user.js";
+import { listJournal, sealPick } from "../../../../src/server/member-data";
+import { requireMember } from "../../../../src/server/session-user";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -23,7 +23,7 @@ export async function POST(request: Request): Promise<NextResponse> {
   if (!body || !gameId || !pickId || num("units") === null || num("userDecimal") === null || num("fairDecimal") === null) {
     return NextResponse.json({ error: "Datos del pick incompletos" }, { status: 400 });
   }
-  const { findGameKickoff } = await import("../../../../src/server/game-kickoff.js");
+  const { findGameKickoff } = await import("../../../../src/server/game-kickoff");
   const kickoffAt = findGameKickoff(gameId);
   if (!kickoffAt) return NextResponse.json({ error: "Partido desconocido" }, { status: 404 });
   const result = await sealPick(

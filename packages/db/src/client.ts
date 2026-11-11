@@ -1,6 +1,6 @@
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
-import * as schema from "./schema.js";
+import * as schema from "./schema";
 
 /** Cliente para Neon/Postgres a partir de DATABASE_URL. Una conexión por proceso. */
 export function createDb(url: string) {

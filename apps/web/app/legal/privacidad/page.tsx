@@ -1,5 +1,5 @@
 import React from "react";
-import { LegalShell } from "../../../src/client/legal-shell.js";
+import { LegalShell } from "../../../src/client/legal-shell";
 
 export default function PrivacidadPage(): React.JSX.Element {
   return (

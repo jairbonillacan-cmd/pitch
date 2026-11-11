@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from "react";
 import type { PinSubmission } from "@pitchlab/ui";
-import { useDashboardEntry } from "./dashboard-entry.js";
+import { useDashboardEntry } from "./dashboard-entry";
 
 export function useBetaPin(nextPath?: string) {
   const [pinOpen, setPinOpen] = useState(false);

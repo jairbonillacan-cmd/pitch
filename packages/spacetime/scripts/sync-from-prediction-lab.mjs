@@ -54,6 +54,13 @@ for (const { from, to, ext } of SOURCES) {
       }
       body = body.replace(patch.find, patch.replace);
     }
+    // Imports relativos sin «.js»: Turbopack (next dev) no traduce «./x.js» a «./x.ts».
+    if (name.endsWith(".ts")) {
+      body = body.replace(
+        /((?:from|import)\s*\(?\s*|export\s+\*\s+from\s+|vi\.mock\(\s*)(["'])(\.{1,2}\/[^"']*?)\.js\2/g,
+        "$1$2$3$2",
+      );
+    }
     writeFileSync(join(outDir, name), body);
     files.push(`${to}/${name}`);
   }

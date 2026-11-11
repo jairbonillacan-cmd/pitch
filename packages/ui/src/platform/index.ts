@@ -1,19 +1,20 @@
-export * from "./types.js";
-export * from "./spacetime-catalog.js";
-export * from "./access-guard.js";
-export * from "./match-picks-engine.js";
-export * from "./parlay-engine.js";
-export * from "./platform-provider.js";
+export * from "./types";
+export * from "./spacetime-catalog";
+export * from "./access-guard";
+export * from "./match-picks-engine";
+export * from "./parlay-engine";
+export * from "./platform-provider";
 
-export * from "./components/PlatformOverlays.js";
-export * from "./components/MatchTicketCard.js";
-export * from "./components/ShellChrome.js";
+export * from "./components/PlatformOverlays";
+export * from "./components/MatchTicketCard";
+export * from "./components/ShellChrome";
 
-export * from "./public/LandingSurface.js";
-export * from "./public/TechAndPricingSurfaces.js";
-export * from "./public/AuthAndOnboardingSurfaces.js";
+export * from "./public/LandingSurface";
+export * from "./public/TechAndPricingSurfaces";
+export * from "./public/AuthAndOnboardingSurfaces";
 
-export * from "./club/CoreMatchViews.js";
-export * from "./club/ParlayAndQuantViews.js";
-export * from "./club/SocialAndTipstarViews.js";
-export * from "./club/LedgerAccountAdminViews.js";
+export * from "./club/CoreMatchViews";
+export * from "./club/ParlayAndQuantViews";
+export * from "./club/SocialAndTipstarViews";
+export * from "./club/LedgerAccountAdminViews";
+export * from "./club/ClubLoadingView";

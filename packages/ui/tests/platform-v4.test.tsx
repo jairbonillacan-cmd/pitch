@@ -30,7 +30,7 @@ import {
   SocialVipClubView,
   type RawLeagueInput,
   type SpacetimeSignal,
-} from "../src/index.js";
+} from "../src/index";
 
 const FORBIDDEN_UI_TERMS = [
   "dixon-coles",
@@ -168,7 +168,7 @@ describe("PitchLab Spacetime Suite v3.0 & Liquid Glass Platform v4", () => {
         } else {
           lockedUpcomingPicks += 1;
           expect(pk.isRedacted).toBe(true);
-          expect(pk.label).toBe("Selección reservada Pase Total");
+          expect(pk.label).toBe("Selección reservada Pase PitchLab Ultra");
         }
       }
     }
@@ -282,10 +282,10 @@ describe("PitchLab Spacetime Suite v3.0 & Liquid Glass Platform v4", () => {
       </PlatformProvider>,
     );
 
-    expect(publicHtml).toContain("PitchLab Spacetime Suite v3.0");
+    expect(publicHtml).toContain("Probabilidades claras para cada partido");
     expect(publicHtml).toContain("data-locked-pick");
     expect(clubHtml).toContain("Cortex IA");
-    expect(clubHtml).toContain("+15 días gratis");
+    expect(clubHtml).toContain("gana 15 días");
     // Tipstars y comunidad de demostración siempre van marcados como ejemplo.
     expect(clubHtml).toContain("Contenido de ejemplo");
     expect(clubHtml).toContain("data-example-badge");

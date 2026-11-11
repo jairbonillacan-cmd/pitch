@@ -2,8 +2,8 @@ import { PGlite } from "@electric-sql/pglite";
 import { drizzle } from "drizzle-orm/pglite";
 import { describe, expect, it } from "vitest";
 import { applyMigrations, subscriptions, users, type Db } from "@pitchlab/db";
-import { buildCheckoutParams, createCheckoutSession } from "../src/server/billing/checkout.js";
-import { processStripeEvent } from "../src/server/billing/stripe-webhook.js";
+import { buildCheckoutParams, createCheckoutSession } from "../src/server/billing/checkout";
+import { processStripeEvent } from "../src/server/billing/stripe-webhook";
 
 const now = new Date("2026-11-11T12:00:00Z");
 const base = {

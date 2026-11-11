@@ -3,6 +3,13 @@ import AxeBuilder from "@axe-core/playwright";
 import path from "node:path";
 import fs from "node:fs";
 
+/** En el club, el tema vive en el menú del perfil. */
+async function toggleClubTheme(page: import("@playwright/test").Page): Promise<void> {
+  await page.locator("[data-profile-menu-trigger]:visible").first().click();
+  await page.locator(".pl-profile-menu:popover-open [data-theme-toggle]").click();
+  await page.keyboard.press("Escape");
+}
+
 const FORBIDDEN_FD16_TERMS = [
   "nflverse",
   "openfootball",
@@ -38,7 +45,7 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     expect(elapsed).toBeLessThan(6000);
 
     await expect(page.locator("h1")).toContainText("Probabilidades claras para cada partido");
-    await expect(page.locator("body")).toContainText("PitchLab Spacetime Suite v3.0");
+    await expect(page.locator("body")).toContainText("Validado en");
     await expect(page.locator("body")).toContainText("16,126");
 
     await page.evaluate(() => window.scrollTo(0, 0));
@@ -120,9 +127,7 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     // /metodologia redirige limpiamente a /tecnologia
     await page.goto("/metodologia");
     await expect(page).toHaveURL(/\/tecnologia$/);
-    await expect(page.locator("h1")).toContainText(
-      "modelos validados contra el mercado",
-    );
+    await expect(page.locator("h1")).toContainText("Modelos probados");
     await expect(page.locator("body")).toContainText("PitchLab Tachyon v3.0");
     await expect(page.locator("body")).toContainText("PitchLab Minkowski v3.0");
     const techA11y = await new AxeBuilder({ page })
@@ -141,9 +146,9 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
       .analyze();
     expect(tipstarPublicA11y.violations).toEqual([]);
 
-    // /pricing: único Pase Total ($299 / $2,390) + referidos doble vía (+15 días)
+    // /pricing: único Pase PitchLab Ultra ($299 / $2,390) + referidos doble vía (+15 días)
     await page.goto("/pricing");
-    await expect(page.locator("h1")).toContainText("Un solo Pase Total");
+    await expect(page.locator("h1")).toContainText("Pase PitchLab Ultra");
     await expect(page.locator("body")).toContainText("+15 días gratis");
     const pricingA11y = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa"])
@@ -229,7 +234,7 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     });
 
     // Verificar accesibilidad en modo claro y oscuro dentro del Club
-    await page.locator("[data-theme-toggle]").click();
+    await toggleClubTheme(page);
     await page.waitForTimeout(200);
     await page.screenshot({
       path: path.join(SCREENSHOT_DIR, `panel-pl-${testInfo.project.name}-light.png`),
@@ -239,7 +244,7 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
       .analyze();
     expect(lightPanelA11y.violations).toEqual([]);
 
-    await page.locator("[data-theme-toggle]").click();
+    await toggleClubTheme(page);
     await page.waitForTimeout(200);
 
     // Filtro por día
@@ -259,11 +264,11 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
 
     await expect(page.locator("body")).toContainText("Cortex IA");
     await expect(page.locator("[data-picks]")).toBeVisible();
-    // Socio con Pase Total ve los 5 picks desbloqueados (cero candados)
+    // Socio con Pase PitchLab Ultra ve los 5 picks desbloqueados (cero candados)
     expect(await page.locator("[data-locked-pick]").count()).toBe(0);
 
     await page.locator("[data-section-tab='mercados']").click();
-    await expect(page.locator("body")).toContainText("Geodesic v2.0");
+    await expect(page.locator("body")).toContainText("Mercados del partido");
 
     await page.locator("[data-section-tab='contexto']").click();
     await expect(page.locator("body")).toContainText("Contexto del partido");
@@ -277,6 +282,9 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     });
 
     // Cambiar a Bundesliga y verificar emblema + tabla de posiciones + cero desborde horizontal
+    // En escritorio, el grupo Ligas del sidebar empieza plegado: se abre antes de elegir.
+    const ligasToggle = page.locator('.rail-group-toggle[aria-expanded="false"]');
+    if (await ligasToggle.isVisible()) await ligasToggle.click();
     await page.locator(".league-tab[data-league='bundesliga']:visible").first().click();
     await page.waitForURL("**/app/bundesliga");
     await expect(page.locator("#panel-league-name")).toContainText("Bundesliga");
@@ -296,7 +304,8 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     await expect(page.locator(".standings")).toContainText("Pts");
 
     // Cerrar sesión -> limpia cookie y redirige a /
-    await page.locator("header.panel-header button", { hasText: "Salir" }).click();
+    await page.locator("[data-profile-menu-trigger]:visible").first().click();
+    await page.locator(".pl-profile-menu:popover-open button", { hasText: "Salir" }).click();
     await page.waitForURL("**/");
 
     await page.goto("/app");

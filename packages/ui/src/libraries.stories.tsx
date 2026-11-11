@@ -13,9 +13,9 @@ import { Button as AstryxButton } from "@astryxdesign/core/Button";
 import { Badge as AstryxBadge } from "@astryxdesign/core/Badge";
 import { Card as AstryxCard } from "@astryxdesign/core/Card";
 import { SegmentedControl, SegmentedControlItem } from "@astryxdesign/core/SegmentedControl";
-import { Button } from "./components/ui/button.js";
-import { Tag, Panel } from "./primitives.js";
-import { AstryxScope } from "./astryx.js";
+import { Button } from "./components/ui/button";
+import { Tag, Panel } from "./primitives";
+import { AstryxScope } from "./astryx";
 
 /**
  * Convivencia de librerías: HeroUI v3 (gratis), shadcn/ui y Astryx leen los mismos tokens

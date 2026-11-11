@@ -3,7 +3,7 @@ import type {
   SocialPost,
   SpacetimeEngineSpec,
   TipstarCreator,
-} from "./types.js";
+} from "./types";
 
 /**
  * Cifras públicas de los motores. Cada una sale del reporte A26 de la rama prediction-lab
@@ -97,7 +97,7 @@ export const SPACETIME_ENGINES: readonly SpacetimeEngineSpec[] = [
 export const PRECISION_BUCKETS: readonly PrecisionBucket[] = [
   {
     id: "shield",
-    label: "Confianza Máxima · Escudo",
+    label: "Confianza máxima · más seguro",
     rangeLabel: "Dobles oportunidades y líneas base",
     promisedMeanP: 0.82,
     actualHitRate: null,
@@ -106,8 +106,8 @@ export const PRECISION_BUCKETS: readonly PrecisionBucket[] = [
   },
   {
     id: "core",
-    label: "Confianza Alta · Principal",
-    rangeLabel: "Picks principales de Tachyon, Singularity y Minkowski",
+    label: "Confianza alta · principal",
+    rangeLabel: "Picks principales de cada partido",
     promisedMeanP: 0.62,
     actualHitRate: null,
     auditedPicksCount: null,
@@ -115,7 +115,7 @@ export const PRECISION_BUCKETS: readonly PrecisionBucket[] = [
   },
   {
     id: "balanced",
-    label: "Confianza Media · Balanceado",
+    label: "Confianza media · balanceado",
     rangeLabel: "Totales, ambos anotan y líneas por equipo",
     promisedMeanP: 0.58,
     actualHitRate: null,
@@ -124,8 +124,8 @@ export const PRECISION_BUCKETS: readonly PrecisionBucket[] = [
   },
   {
     id: "value",
-    label: "Alto Valor",
-    rangeLabel: "Momios altos con ventaja de Geodesic contra la casa",
+    label: "Alto valor",
+    rangeLabel: "Momios altos con ventaja contra la casa",
     promisedMeanP: 0.4,
     actualHitRate: null,
     auditedPicksCount: null,
@@ -134,7 +134,7 @@ export const PRECISION_BUCKETS: readonly PrecisionBucket[] = [
 ] as const;
 
 export const MEMBERSHIP_SPEC = {
-  name: "Pase Total PitchLab",
+  name: "Pase PitchLab Ultra",
   monthlyMxn: 299,
   annualMxn: 2390,
   annualMonthlyEquivalentMxn: 199,
@@ -169,13 +169,13 @@ export const TIPSTAR_CREATORS: readonly TipstarCreator[] = [
     weeklyPickSlug: "sofia-sem",
     weeklyPickGameId: "",
     weeklyPickThesis:
-      "PitchLab Minkowski v3.0 proyecta ventaja sostenida en eficiencia por serie y ritmo controlado en segunda mitad; Geodesic v2.0 marca +4.6 pts de ventaja sobre el momio disponible.",
+      "El modelo ve ventaja sostenida en eficiencia por serie y ritmo controlado en la segunda mitad, con +4.6 pts de ventaja sobre el momio disponible.",
   },
   {
     isExample: true,
     handle: "carlos_quant",
     name: "Carlos Vega",
-    specialty: "Premier League & LaLiga · Valor Geodesic",
+    specialty: "Premier League y LaLiga · valor contra la casa",
     avatarInitials: "CV",
     avatarGradVar: "var(--avatar-grad-2)",
     promoCode: "CARLOS5",
@@ -229,10 +229,10 @@ export const INITIAL_SOCIAL_POSTS: readonly SocialPost[] = [
     clvBadge: "CLV +4.2 %",
     leagueLabel: "NFL",
     matchLabel: "Radiografía estelar de la semana",
-    pickBadge: "Pick Principal · 2.0u",
+    pickBadge: "Pick principal · 2.0u",
     originType: "Spacetime Suite",
     createdAt: "Hace 18 min",
-    body: "Mi Pick Abierto de la Semana: Minkowski v3.0 detecta ventaja clara en QB titular y presión en tercer down antes de que cierre la línea. Geodesic v2.0 confirma flujo institucional temprano.",
+    body: "Mi pick abierto de la semana: el modelo ve ventaja clara por el QB titular y la presión en tercer down antes de que cierre la línea. El dinero grande entró temprano del mismo lado.",
     likes: 42,
     comments: [
       {
@@ -303,13 +303,13 @@ export const INITIAL_SOCIAL_POSTS: readonly SocialPost[] = [
     id: "sp-4",
     authorHandle: "socio_pl",
     authorName: "Rodrigo Garza",
-    roleBadge: "Socio Pase Total",
+    roleBadge: "Socio Pase PitchLab Ultra",
     avatarGradVar: "var(--avatar-grad-5)",
     verifiedRecord: "+6.1u · 43 picks",
     clvBadge: "CLV +2.8 %",
     leagueLabel: "LaLiga",
     matchLabel: "Boleto liquidado · Jornada previa",
-    pickBadge: "Pick Principal · 2.0u · CUMPLIDO",
+    pickBadge: "Pick principal · 2.0u · Cumplido",
     originType: "Spacetime Suite",
     createdAt: "Ayer · Liquidado",
     body: "Sellado 2 horas antes del silbatazo inicial siguiendo la alerta de Singularity v3.0. Cero edición post-partido y superando línea de cierre por +3.8 %.",

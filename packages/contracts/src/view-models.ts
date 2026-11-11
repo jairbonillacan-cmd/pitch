@@ -1,12 +1,12 @@
-import type { MarketPulseView } from "./market-pulse.js";
-import { asMarketKey, type LeagueId } from "./ids.js";
+import type { MarketPulseView } from "./market-pulse";
+import { asMarketKey, type LeagueId } from "./ids";
 import type {
   AnalysisConfidence,
   AnalysisMarketGroup,
   AnalysisPick,
   LeagueSnapshot,
   MostLikelyScore,
-} from "./analysis.js";
+} from "./analysis";
 
 export interface HeadToHeadView {
   date: string;
@@ -15,8 +15,8 @@ export interface HeadToHeadView {
   homeGoals: number;
   awayGoals: number;
 }
-import { decimalToAmerican } from "./odds.js";
-import type { GameDTO } from "./sports/index.js";
+import { decimalToAmerican } from "./odds";
+import type { GameDTO } from "./sports/index";
 
 export interface FairOdds {
   decimal: number;

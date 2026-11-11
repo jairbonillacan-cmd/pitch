@@ -13,7 +13,7 @@ import {
   tipstarProfiles,
   users,
   watchlist,
-} from "../src/index.js";
+} from "../src/index";
 
 let client: PGlite;
 let db: ReturnType<typeof drizzle>;

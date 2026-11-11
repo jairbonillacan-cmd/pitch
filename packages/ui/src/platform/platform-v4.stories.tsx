@@ -1,40 +1,40 @@
 import React from "react";
 import { asLeagueId, asMarketKey, type MatchAnalysis } from "@pitchlab/contracts";
-import { redactDatasetForVisitor } from "./access-guard.js";
+import { redactDatasetForVisitor } from "./access-guard";
 import {
   JornadaClubView,
   LeagueHubClubView,
   MatchStudioClubView,
   MultiPicksClubView,
-} from "./club/CoreMatchViews.js";
+} from "./club/CoreMatchViews";
 import {
   AccountReferralsClubView,
   BitacoraClubView,
   FounderAdminClubView,
   HistorialClubView,
-} from "./club/LedgerAccountAdminViews.js";
+} from "./club/LedgerAccountAdminViews";
 import {
   MomiosExplorerClubView,
   ParlayBuilderClubView,
   PropsLabClubView,
-} from "./club/ParlayAndQuantViews.js";
+} from "./club/ParlayAndQuantViews";
 import {
   SocialVipClubView,
   TipstarPortalClubView,
-} from "./club/SocialAndTipstarViews.js";
-import { buildPlatformDataset } from "./match-picks-engine.js";
-import { PlatformProvider } from "./platform-provider.js";
+} from "./club/SocialAndTipstarViews";
+import { buildPlatformDataset } from "./match-picks-engine";
+import { PlatformProvider } from "./platform-provider";
 import {
   AuthSurfaceV4,
   OnboardingSurfaceV4,
-} from "./public/AuthAndOnboardingSurfaces.js";
-import { LandingSurface } from "./public/LandingSurface.js";
+} from "./public/AuthAndOnboardingSurfaces";
+import { LandingSurface } from "./public/LandingSurface";
 import {
   PricingSurface,
   PublicTipstarPickSurface,
   TechPrecisionSurface,
-} from "./public/TechAndPricingSurfaces.js";
-import type { ViewerRole } from "./types.js";
+} from "./public/TechAndPricingSurfaces";
+import type { ViewerRole } from "./types";
 
 function makeStoryMatch(opts: {
   id: string;

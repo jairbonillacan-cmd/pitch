@@ -17,7 +17,7 @@ import {
   assertValidNFLModel,
   predictForSport,
   predictNFL,
-} from "../src/engine.js";
+} from "../src/engine";
 import type {
   ModelArtifact,
   NFLModelArtifact,
@@ -25,7 +25,7 @@ import type {
   NFLSnapshotRow,
   SnapshotFile,
   SnapshotRow,
-} from "../src/types.js";
+} from "../src/types";
 
 const nflModel = nflModelJson as unknown as NFLModelArtifact;
 const nflSnapshot = nflSnapshotJson as unknown as NFLSnapshotFile;

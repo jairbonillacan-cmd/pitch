@@ -5,8 +5,8 @@ import {
   isValidRfc,
   stampInvoice,
   validateCfdiProfile,
-} from "../src/server/billing/cfdi.js";
-import { verifyTurnstile } from "../src/server/turnstile.js";
+} from "../src/server/billing/cfdi";
+import { verifyTurnstile } from "../src/server/turnstile";
 
 describe("CFDI 4.0", () => {
   it("valida RFC de personas físicas y morales", () => {

@@ -22,7 +22,7 @@ import type {
   ModelArtifact,
   SnapshotRow,
   TeamAvailabilityContext,
-} from "./types.js";
+} from "./types";
 
 /** Identificador fijo del motor deportivo puro (PitchLab Tachyon). */
 export const MOTOR_A_MODEL_ID = "motor_a_logistic_v1";

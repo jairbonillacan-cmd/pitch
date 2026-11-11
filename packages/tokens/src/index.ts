@@ -3,4 +3,4 @@ export {
   LIGHT_THEME_TOKENS,
   DERIVED_DARK_TOKENS,
   type BrandTokenKey,
-} from "./tokens.generated.js";
+} from "./tokens.generated";

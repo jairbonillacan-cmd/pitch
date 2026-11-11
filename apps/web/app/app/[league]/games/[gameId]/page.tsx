@@ -1,17 +1,19 @@
 import React from "react";
 import { notFound } from "next/navigation";
 import { asLeagueId } from "@pitchlab/contracts";
-import { MatchStudioClubView } from "@pitchlab/ui";
-import { cortexSummary } from "../../../../../src/server/cortex.js";
+import { MatchStudioClubView, PlatformGamesSupplement } from "@pitchlab/ui";
+import { cortexSummary } from "../../../../../src/server/cortex";
 import {
   buildServerRawPlatformDataset,
   hasAuthenticatedBetaSession,
-} from "../../../../../src/server/platform-data.js";
+  loadGameDetail,
+  loadGameSummary,
+} from "../../../../../src/server/platform-data";
 import {
   loadLeagueSnapshotEnvelope,
   PRODUCT_LEAGUES,
   type ProductLeague,
-} from "../../../../../src/server/snapshots.js";
+} from "../../../../../src/server/snapshots";
 
 function isProductLeague(val: string): val is ProductLeague {
   return (PRODUCT_LEAGUES as readonly string[]).includes(val);
@@ -33,14 +35,24 @@ export default async function ClubMatchStudioPage({
     notFound();
   }
 
-  // Cortex IA con LLM solo para socios con sesión (la inteligencia previa es de Pase Total).
+  // Cortex IA con LLM solo para socios con sesión (la inteligencia previa es de Pase PitchLab Ultra).
   let cortex: string | null = null;
   if (process.env.OPENROUTER_API_KEY && (await hasAuthenticatedBetaSession())) {
     const game = buildServerRawPlatformDataset().games.find((g) => g.id === gameId);
     if (game && game.status !== "FT") cortex = await cortexSummary(game);
   }
 
+  // El layout solo trae partidos por jugar: si este ya terminó, se agrega aquí.
+  const [detail, summary] = await Promise.all([loadGameDetail(gameId), loadGameSummary(gameId)]);
+
   return (
-    <MatchStudioClubView leagueId={asLeagueId(league)} gameId={gameId} cortexSynthesisOverride={cortex} />
+    <PlatformGamesSupplement games={summary ? [summary] : []}>
+      <MatchStudioClubView
+        leagueId={asLeagueId(league)}
+        gameId={gameId}
+        cortexSynthesisOverride={cortex}
+        detail={detail}
+      />
+    </PlatformGamesSupplement>
   );
 }

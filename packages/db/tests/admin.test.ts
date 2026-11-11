@@ -15,7 +15,7 @@ import {
   tipstarAttributions,
   tipstarProfiles,
   users,
-} from "../src/index.js";
+} from "../src/index";
 
 let db: ReturnType<typeof drizzle>;
 const now = new Date("2026-11-11T12:00:00Z");

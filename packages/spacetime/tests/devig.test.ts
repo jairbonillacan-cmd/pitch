@@ -14,15 +14,15 @@ import {
   devigShin,
   impliedProbabilities,
   overround,
-} from "../src/devig.js";
-import { HYBRID_MODEL_ID, predictMatch, predictMatchBatch } from "../src/service.js";
+} from "../src/devig";
+import { HYBRID_MODEL_ID, predictMatch, predictMatchBatch } from "../src/service";
 import type {
   ModelArtifact,
   NFLModelArtifact,
   NFLSnapshotRow,
   SnapshotFile,
   SnapshotRow,
-} from "../src/types.js";
+} from "../src/types";
 
 const footballModel = footballModelJson as unknown as ModelArtifact;
 const footballSnapshot = footballSnapshotJson as unknown as SnapshotFile;

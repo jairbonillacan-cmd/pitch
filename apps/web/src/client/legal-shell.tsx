@@ -2,7 +2,7 @@
 
 import React from "react";
 import { FloatingNav, PublicFooter, PinPad } from "@pitchlab/ui";
-import { useBetaPin } from "./use-beta-pin.js";
+import { useBetaPin } from "./use-beta-pin";
 
 export function LegalShell({
   eyebrow,

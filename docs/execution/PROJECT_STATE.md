@@ -15,7 +15,7 @@
 - **D1 diseño base:** ✅ aprobado (2026-11-08, iteración 4). Contrato en `docs/design/DESIGN_SYSTEM.md`, `INTERACTION_PATTERNS.md` y `RESPONSIVE_RULES.md`. Prototipos en `design/d1/`.
 - **UI-MAESTRO-V4.1 (paridad 1:1 con `Prototipo Maestro PitchLab`):** ✅ implementada en `gemini-reestructura` (2026-11-10) sobre `PitchLab Spacetime Suite v2.1`: física *Smoked Glass* real sobre obsidiana (`--pl-glass-lens`, `--pl-glass-card`, `.glass-ring` de bisel único), orbes radiales internos por club/motor (`<LensGlowOrbs>`), primitivas compartidas (`MaestroPrimitives.tsx` + `<TopLayerModalDialog>` sobre `<dialog>` nativo), 7 superficies públicas con redacción `Cero-Fuga` SSR + 11 vistas del club con barra flotante rápida colapsable, artefacto canónico archivado en `design/prototipo-maestro/prototipo-maestro-pitchlab.html`, ADRs `ADR-023`…`ADR-026`, visión rectora `docs/product/PLATFORM_VISION_GEMINI_REESTRUCTURA.md` + `docs/product/VISION_REESTRUCTURA_CLAUDE_{DS_UX,QUANT,GROWTH}.md` y guías de handoff en `docs/execution/`.
 - **SPACETIME-V3 + datos verificables (ADR-027):** ✅ 2026-11-11 en `gemini-reestructura`: motores Spacetime Suite v3.0 desde `prediction-lab` (`packages/spacetime`), inferencia en servidor con momios reales y vigencia de 72 h, mercados derivados (totales, ambos anotan, hándicaps), cero datos inventados en la UI, contenido de demostración marcado «Ejemplo», herramientas de preview fuera de producción, descarga real de boletos PNG y Liga MX real desde ESPN.
-- **UI-SIMPLE (simplificar y pulir la UI de Gemini):** 🟡 en curso 2026-11-11 (ver bitácora «UI-SIMPLE»).
+- **UI-SIMPLE (simplificar y pulir la UI de Gemini):** ✅ 2026-11-11 (ver bitácora «UI-SIMPLE»). Prioridad del fundador desde hoy: UI/UX y datos/motores gratuitos antes que cuentas y cobro.
 - **Siguiente:** ver «Pendiente (en orden)».
 
 El clon previo de TouchIQ (Vite + `src/domain` con 24 tests dorados) quedó archivado en la rama `archive/touchiq-reconstruction` (ADR-018) y sus motores matemáticos viven ahora en `packages/engines-reference` con adaptadores limpios para snapshots reales.
@@ -862,8 +862,61 @@ _(Cada sesión de agente agrega aquí su entrada con el formato de `AGENT_EXECUT
   - JavaScript inicial: `optimizePackageImports` en `apps/web/next.config.mjs` para `@pitchlab/ui`, HeroUI, Base UI y Astryx: de ~458 kB a 326–369 kB por página.
   - Escáner `avoid-ai-design`: 0 P0 antes y después; P1 de 11 a 8.
 - **Verificado:** typecheck, lint, todas las pruebas unitarias (incluidas 14 de UI) y build en verde. E2E: 6 de 10 pasaban; los 4 fallos eran selectores con textos viejos («Centro de Mando», «Radiografía»), ya actualizados a «Partidos de hoy» y «Ver partido».
-- **Dónde me quedé:**
+- **Cierre (segunda sesión, 2026-11-11):**
+  - Móvil (375 px): la fila de botones de cada tarjeta de partido se desbordaba 16 px (se cortaba «Compartir»); ahora hace salto de línea. «+ + Parlay» (ícono + texto con «+») → «Parlay». En «Mejores picks de la jornada» las selecciones ya no se truncan a 96 px. La ficha del partido no tenía desbordes.
+  - Sin «→» de texto en botones; el emoji 🔒 de la portada es ahora `MaestroIcon` con `role="img"`. «Proyección Suite v2.1» → «Marcador proyectado».
+  - Se quitaron 43 `uppercase`/`tracking-wider` de `packages/ui/src/platform` (quedan solo en campos de código) y el Title Case de «Pick Principal», «Pick Abierto…», «Momio Justo», «Marcador Proyectado». Jerga de motores fuera de los textos de ejemplo y de los rangos de precisión («Escudos», «+EV», «Radar», «Geodesic»…).
+  - `LedgerAccountAdminViews.tsx` (2,471 líneas) partido en un archivo por vista (`ClubTechView`, `HistorialClubView`, `BitacoraClubView`, `AnalystProfileClubView`, `AccountReferralsClubView`, `FounderAdminClubView`); el original queda como barrel. JavaScript inicial: Cuenta 345 kB, Consola 344 kB, Bitácora 347 kB, Historial 319 kB; ninguna página pasa de 348 kB.
+  - Verificado: typecheck y lint en verde; `pnpm e2e` 10/10 (escritorio y móvil, incluye axe y cero scroll horizontal). Pruebas unitarias en verde salvo deuda previa de tiempos (abajo).
+- **Deuda que quedó:**
+  - Pruebas con Postgres en memoria (`packages/db` y `apps/web/tests/auth.test.ts`) tardan 7–14 s cada una y rozan el límite de 5–10 s: fallan con la máquina cargada o corriendo en paralelo con Turbo (`db` pasa sola 15/15). La de rendimiento de `spacetime` (< 1 ms por partido) también falla bajo carga y pasa sola. Subir los `testTimeout`/`hookTimeout` o compartir una sola instancia de PGlite por archivo.
+  - Decidir con el fundador si se ocultan del menú Comunidad y el Portal tipstar mientras solo tengan contenido de ejemplo.
+  - Las vistas de 'Cómo calculamos' conservan a propósito los nombres de los motores.
+- **Dónde se había quedado (resuelto arriba):**
   1. **Correr `pnpm e2e`** con los selectores actualizados (la corrida se interrumpió; no está confirmado que pasen los 10).
   2. Revisar en el navegador «Hoy» y la ficha del partido en móvil (375 px) tras los cambios; la última captura fue de escritorio.
   3. Pendientes de esta misma tarea: quitar los «→» pegados a botones y el emoji usado como ícono en la portada (P1 del escáner), reducir las MAYÚSCULAS espaciadas que quedan en las vistas y partir `LedgerAccountAdminViews.tsx` (2,400 líneas, 6 vistas) para bajar más el JavaScript de Cuenta, Bitácora y Consola.
   4. Decidir con el fundador si se ocultan del menú las secciones que hoy solo tienen contenido de ejemplo (Comunidad, Portal tipstar) hasta tener datos reales.
+
+### UI-PULIDO-2 · Rendimiento, sidebar, comunidad, perfil, referidos y texto claro — 2026-11-11 — Rama `gemini-reestructura`
+- **Rendimiento:** el layout de `/app` manda los partidos sin mercados, enfrentamientos ni factores (`withoutGameDetail`) y la ficha pide su detalle con `loadGameDetail` (misma redacción para visitantes); cada página bajó de 1.6 MB a 0.84–0.97 MB. `buildServerRawPlatformDataset` usa `cache()` de React. Turbopack se probó y fue más lento que Webpack en Next 15.5 (sin caché en disco); queda Webpack. Los imports relativos ya no llevan `.js` (app y paquetes que usa la web; el script de sincronización de `spacetime` los quita al copiar).
+- **Navegación y carga:** animación de entrada al cambiar de página (`.pl-page-enter`, respeta movimiento reducido). `loading.tsx` del club muestra `ClubLoadingView`: encabezado y barra lateral se quedan y el contenido es un esqueleto con barra de progreso.
+- **Barra lateral:** fija a la ventana (nunca se mueve), plegado animado que se recuerda entre páginas, Ligas como grupo desplegable, sin barra de desplazamiento. Barra de desplazamiento de la página en negro (tema oscuro). Pie compacto del club (`ClubFooter`) y sin hueco al final en escritorio.
+- **Encabezado:** el chip de perfil abre un menú (popover nativo) con Ver mi perfil, Mi cuenta, formato de momio, tema y Salir; se quitaron de la barra.
+- **Componentes nuevos:** `UltraTag` (borde de luz arcoíris), `VerifiedBadge`, `TipstarBadge` y `UserBadges` en `MaestroPrimitives`; íconos `message`, `heart`, `link`, `users-plus`. Barras de probabilidad con corte diagonal, favorito en verde y leyenda opcional (`ProbSplit showLabels`). «Lo más probable» en la tarjeta destacada de Hoy.
+- **Pantallas:** Comunidad como timeline tipo feed; perfil con portada, avatar, insignias y récord en lenguaje claro; Cuenta con tarjeta de regalo de referidos, copiar enlace y compartir por WhatsApp/X.
+- **Texto:** la suscripción se llama **Pase PitchLab Ultra** (incluye Stripe Checkout y CFDI). Fuera la jerga y el relleno en portada, acceso, precios, tecnología, Hoy, ficha y comunidad (motores, «Cero Fuga», «$0», Turnstile, CLV, etc.).
+- **Verificado:** typecheck y lint en verde; pruebas de UI 14/14 (se actualizaron expectativas de texto). E2E ajustadas (menú del perfil, botón «Publicar», textos nuevos) pero **no se corrieron**.
+- **Pendiente:** correr `pnpm e2e`; repasar en móvil las pantallas nuevas (feed, perfil, referidos, menú); texto con jerga que queda en `PlatformOverlays` (paleta de búsqueda, alertas) y en Bitácora/Consola/Portal tipstar; pruebas de base de datos que fallan por tiempo bajo carga (ver UI-SIMPLE).
+
+### PERF-1 · Rendimiento en PC y móvil (pintado, dibujo, navegación, datos) — 2026-11-11 — Rama `gemini-reestructura`
+- **Cómo se midió:** build de producción en carpeta aparte (`PITCHLAB_DIST_DIR=.next-prod`, servidor `web-prod` en el 3100) y `apps/web/scripts/perf.mjs` con Playwright (Chromium sin interfaz). PC 1440×900; móvil 390×844 con toque y CPU 4× más lenta. Mide `/app` (HTML, JS, LCP), 150 cuadros desplazándose, el clic en «Parlay» (Event Timing) y la navegación Hoy → Parlay → Bitácora → Cuenta → Hoy. Resultados en `apps/web/perf-results/` (ignorado por git).
+- **Ojo con el ruido:** «Base» y «1» se midieron con el servidor recién arrancado; desde «2» el script calienta el servidor y usa la mediana de 3 corridas (la final, 5 corridas sin el servidor de desarrollo). En esta laptop el clic y la navegación en móvil varían hasta 2–3× entre corridas con el mismo código; los tiempos de cuadro son estables.
+
+| PC | Base | 1 Pintado | 2 Dibujar menos | 3 Navegación | 4 Datos | Final |
+|---|---|---|---|---|---|---|
+| HTML de /app (transferido) | 924 KB (98) | 924 (98) | 924 (98) | 900 (97) | 639 (73) | 639 (73) |
+| JS cargado | 1,108 KB | 1,108 | 1,111 | 1,254* | 1,254* | 1,254* |
+| LCP | 3,756 ms | 1,768 | 1,148 | 720 | 1,416 | 1,404 |
+| Cuadro p95 al desplazar | 283 ms | 16.8 | 16.7 | 16.8 | 16.8 | 16.8 |
+| Cuadros lentos (>20 ms) | 6.7 % | 0 % | 0 % | 0 % | 0 % | 0 % |
+| Clic «Parlay» | 552 ms | 144 | 112 | 104 | 144 | 176 |
+| Navegación (mediana) | 1,268 ms | 337 | 265 | 134 | 158 | 233 |
+
+| Móvil (CPU 4×) | Base | 1 Pintado | 2 Dibujar menos | 3 Navegación | 4 Datos | Final |
+|---|---|---|---|---|---|---|
+| LCP | 7,692 ms | 5,080 | 2,212 | 2,268 | 3,856 | 3,916 |
+| Cuadro p95 al desplazar | 83 ms | 16.7 | 16.7 | 16.7 | 16.8 | 16.8 |
+| Cuadros lentos (>20 ms) | 6 % | 0 % | 1.3 % | 0.7 % | 0.7 % | 1.3 % |
+| CPU al desplazar (150 cuadros) | 1,442 ms | 828 | 616 | 528 | 670 | 773 |
+| Recalcular estilos al desplazar | 551 ms | 0 | 35 | 32 | 0 | 0 |
+| Clic «Parlay» | 744 ms | 528 | 144 | 184 | 544 | 200 |
+| Navegación (mediana) | 3,109 ms | 2,549 | 1,600 | 781 | 995 | 1,188 |
+
+  \* El JS sube porque ahora se precargan los fragmentos de las 4 páginas principales.
+- **1. Pintado:** fuera todos los `backdrop-filter` (38) de `pitchlab-v4.css` y `globals.css`; vidrio falso (fondo un poco más denso con `color-mix`, brillo superior y luz interior; barras fijas casi opacas). Auras y orbes con degradados `closest-side` sin `filter: blur`. Sombras más cortas; sin halo desenfocado en Ultra ni resplandor en la barra favorita. Arcoíris, brillo de carga, entrada de página y barras animadas solo en ≥ 768 px y sin movimiento reducido.
+- **2. Dibujar menos:** `PlatformProvider` ahora también expone contextos pequeños (`usePlatformCore`, `usePlatformActions` con acciones de identidad estable, `useAuraColors`, `useJournalEntries`) y un almacén externo para el parlay (`useIsPickInParlay`). Hoy, `MatchTicketCard` y `MultiPickRow` (con `React.memo`) los usan: agregar al parlay o pasar el cursor ya no redibuja la página. Rejilla progresiva de partidos (12 y 12 más al acercarse al final) con `content-visibility: auto`. Respuestas, pestañas y modales ya se montaban solo al abrirse.
+- **3. Navegación:** `ClubShellBridge` en `apps/web/app/app/layout.tsx` monta escenario, encabezado y barra lateral una sola vez; `AtmosphereStage`/`ClubWorkspaceShell` dentro de las vistas se vuelven transparentes si ya hay uno montado (verificado: mismos nodos del encabezado y la barra antes y después de navegar). Precarga completa de `/app`, `/app/parlays`, `/app/lab` y `/app/account`.
+- **4. Datos:** el layout manda solo los partidos por jugar (`upcomingOnly`); Resultados, la página de cada liga y la ficha de un partido terminado piden los suyos (`loadFinishedGames`, `loadGameSummary`) y los inyectan con `PlatformGamesSupplement`. El dataset se guarda 5 min en memoria del servidor.
+- **Verificado:** typecheck y lint en verde; unitarias: ui 14, web 37, contracts 4, tokens 3, sports-assets 3, spacetime 97, models 41, engines-reference 394, db 15 (db y web con límites de tiempo amplios, por la lentitud ya conocida); `pnpm e2e` 10/10 contra el build de producción. Se ajustaron 4 expectativas de E2E (títulos nuevos, abrir el grupo Ligas plegado, esperar hidratación antes de un clic).
+- **Pendiente / ideas siguientes:** el LCP en móvil sigue en ~2–4 s (JS de ~1.1 MB por página: HeroUI/Astryx/Base UI); el siguiente paso sería cargar en diferido los modales y la paleta de búsqueda. El clic en «Parlay» todavía redibuja el dock del parlay y los overlays que usan `usePlatform()`.

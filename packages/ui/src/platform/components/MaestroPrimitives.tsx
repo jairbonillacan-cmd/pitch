@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-import { usePlatform } from "../platform-provider.js";
-import type { ViewerRole } from "../types.js";
+import { usePlatform } from "../platform-provider";
+import type { ViewerRole } from "../types";
 
 export type MaestroIconName =
   | "sparkles"
@@ -37,7 +37,11 @@ export type MaestroIconName =
   | "ticket"
   | "cpu"
   | "activity"
-  | "crown";
+  | "crown"
+  | "message"
+  | "heart"
+  | "link"
+  | "users-plus";
 
 function renderIconGeometry(name: MaestroIconName): React.ReactNode {
   switch (name) {
@@ -208,6 +212,27 @@ function renderIconGeometry(name: MaestroIconName): React.ReactNode {
         <>
           <path d="M3 18h18l-2-11-5 4-2-6-2 6-5-4-2 11z" />
           <path d="M4 21h16" />
+        </>
+      );
+    case "message":
+      return <path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-5A8 8 0 1 1 21 12z" />;
+    case "heart":
+      return (
+        <path d="M12 20s-7.5-4.6-9.3-9.4C1.6 7.6 3.6 4.5 6.8 4.5c2 0 3.6 1.1 4.4 2.7.8-1.6 2.4-2.7 4.4-2.7 3.2 0 5.2 3.1 4.1 6.1C19.5 15.4 12 20 12 20z" />
+      );
+    case "link":
+      return (
+        <>
+          <path d="M10 14a4.5 4.5 0 0 0 6.4 0l3.2-3.2a4.5 4.5 0 0 0-6.4-6.4L12 5.6" />
+          <path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3.2 3.2a4.5 4.5 0 0 0 6.4 6.4l1.2-1.2" />
+        </>
+      );
+    case "users-plus":
+      return (
+        <>
+          <circle cx="9" cy="8" r="3.5" />
+          <path d="M2.5 20c.6-3.6 3.3-5.5 6.5-5.5s5.9 1.9 6.5 5.5" />
+          <path d="M19 8v6M16 11h6" />
         </>
       );
   }
@@ -601,7 +626,7 @@ export function RoleSwitcherPill({
           ? "Modo Tipstar Oficial (@sofia_nfl) activo."
           : role === "admin"
             ? "Modo Founder Admin activo."
-            : "Modo Suscriptor Pase Total activo.",
+            : "Modo Suscriptor Pase PitchLab Ultra activo.",
       "default",
     );
   };
@@ -669,5 +694,86 @@ export function ExampleNotice({
     >
       {children}
     </NoticeCard>
+  );
+}
+
+/* ---------- Insignias de usuario ---------- */
+
+/** Etiqueta de suscriptor Pase PitchLab Ultra: píldora oscura con borde de luz arcoíris. */
+export function UltraTag({ className }: { className?: string }): React.JSX.Element {
+  return (
+    <span className={`pl-ultra-tag ${className ?? ""}`.trim()} title="Pase PitchLab Ultra">
+      Ultra
+    </span>
+  );
+}
+
+/** Sello de cuenta verificada (récord comprobado por PitchLab). */
+export function VerifiedBadge({
+  size = 16,
+  className,
+}: {
+  size?: number;
+  className?: string;
+}): React.JSX.Element {
+  return (
+    <svg
+      className={`pl-verified ${className ?? ""}`.trim()}
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      role="img"
+      aria-label="Verificado"
+    >
+      <title>Verificado</title>
+      <path
+        className="pl-verified-seal"
+        d="M12 1.5l2.4 1.8 3-.2 1 2.8 2.6 1.6-.6 2.9 1.4 2.6-2 2.2-.1 3-2.9.7-1.6 2.5-2.8-.9L12 22.5l-2.4-1.9-2.8.9-1.6-2.5-2.9-.7-.1-3-2-2.2 1.4-2.6-.6-2.9 2.6-1.6 1-2.8 3 .2z"
+      />
+      <path
+        className="pl-verified-check"
+        d="M7.6 12.3l3 3 5.8-6.2"
+        fill="none"
+        strokeWidth="2.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+/** Insignia de tipstar oficial: corona y nombre del rol. */
+export function TipstarBadge({ className }: { className?: string }): React.JSX.Element {
+  return (
+    <span className={`pl-tipstar-badge ${className ?? ""}`.trim()}>
+      <MaestroIcon name="crown" size={11} />
+      <span>Tipstar</span>
+    </span>
+  );
+}
+
+/**
+ * Traduce el texto de rol que guardan las publicaciones y perfiles («Tipstar Oficial»,
+ * «Socio Pase PitchLab Ultra», «Verificado»…) a las insignias visuales.
+ */
+export function UserBadges({
+  roleLabel,
+  verified,
+  ultra,
+}: {
+  roleLabel?: string;
+  verified?: boolean;
+  ultra?: boolean;
+}): React.JSX.Element {
+  const label = (roleLabel ?? "").toLowerCase();
+  const isTipstar = label.includes("tipstar");
+  const isVerified = verified ?? (isTipstar || label.includes("verificad") || label.includes("analista"));
+  const isUltra = ultra ?? (label.includes("ultra") || label.includes("socio") || label.includes("founder"));
+  return (
+    <span className="inline-flex items-center gap-1.5 align-middle">
+      {isVerified ? <VerifiedBadge /> : null}
+      {isTipstar ? <TipstarBadge /> : null}
+      {isUltra ? <UltraTag /> : null}
+    </span>
   );
 }

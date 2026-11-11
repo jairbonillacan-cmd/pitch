@@ -1,5 +1,5 @@
 /**
- * Stripe Checkout para el Pase Total (VISION_REESTRUCTURA_CLAUDE_GROWTH.md §5.1–5.2).
+ * Stripe Checkout para el Pase PitchLab Ultra (VISION_REESTRUCTURA_CLAUDE_GROWTH.md §5.1–5.2).
  * Los IDs de precio vienen del entorno (STRIPE_PRICE_MONTHLY, STRIPE_PRICE_ANNUAL) para que
  * baste pegarlos cuando el fundador cree el producto en Stripe.
  */

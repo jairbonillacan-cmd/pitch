@@ -8,8 +8,8 @@ import {
   type LeagueId,
   type MarketKey,
   type SeasonId,
-} from "./ids.js";
-import { GameDTOSchema, type GameDTO } from "./sports/index.js";
+} from "./ids";
+import { GameDTOSchema, type GameDTO } from "./sports/index";
 
 export interface MarketProbability {
   market: MarketKey;

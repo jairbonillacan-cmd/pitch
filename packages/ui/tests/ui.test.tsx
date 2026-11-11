@@ -18,7 +18,7 @@ import {
   CalcTrace,
   FactorsList,
   PublicFooter,
-} from "../src/index.js";
+} from "../src/index";
 
 describe("@pitchlab/ui components", () => {
   it("renders primitives cleanly", () => {

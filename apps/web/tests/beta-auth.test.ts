@@ -7,7 +7,7 @@ import {
   resetMemoryRateLimitForTests,
   sanitizeNextPath,
   betaCookieSigningKey,
-} from "../src/server/beta-auth.js";
+} from "../src/server/beta-auth";
 
 describe("beta-auth", () => {
   beforeEach(() => {

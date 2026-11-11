@@ -5,8 +5,11 @@ import React, {
   useCallback,
   useContext,
   useEffect,
+  useLayoutEffect,
   useMemo,
+  useRef,
   useState,
+  useSyncExternalStore,
 } from "react";
 import type { LeagueId } from "@pitchlab/contracts";
 import { getTeamColors } from "@pitchlab/sports-assets";
@@ -14,7 +17,7 @@ import {
   containsExternalLink,
   journalRecord,
   redactDatasetForVisitor,
-} from "./access-guard.js";
+} from "./access-guard";
 
 /** Claves de almacenamiento local (versión en el nombre para poder migrar). */
 const STORAGE_KEYS = {
@@ -155,8 +158,8 @@ import {
   buildSmartAutoParlay,
   checkParlayCompatibility,
   computeParlaySummary,
-} from "./parlay-engine.js";
-import { INITIAL_SOCIAL_POSTS } from "./spacetime-catalog.js";
+} from "./parlay-engine";
+import { INITIAL_SOCIAL_POSTS } from "./spacetime-catalog";
 import type {
   JournalEntry,
   MatchPick,
@@ -168,7 +171,7 @@ import type {
   RiskBand,
   SocialPost,
   ViewerRole,
-} from "./types.js";
+} from "./types";
 
 export interface ShareTicketPayload {
   kind: "pick" | "parlay" | "tipstar";
@@ -291,6 +294,127 @@ export interface PlatformContextValue {
 }
 
 const PlatformContext = createContext<PlatformContextValue | null>(null);
+
+/* ---------- Contextos pequeños ----------
+   Un solo contexto hacía que cualquier cambio (un clic en «Parlay», pasar el cursor sobre una
+   tarjeta) redibujara todas las vistas y tarjetas. Las piezas calientes leen de aquí:
+   - Núcleo: datos y preferencias que casi no cambian.
+   - Acciones: funciones con identidad estable (nunca provocan redibujos).
+   - Aura: colores del fondo (solo los usa el escenario).
+   - Bitácora: picks sellados.
+   - Parlay: un almacén externo; cada tarjeta se suscribe solo a «¿este pick está dentro?». */
+export interface PlatformCoreValue {
+  rawDataset: PlatformDataset;
+  dataset: PlatformDataset;
+  viewerRole: ViewerRole;
+  allowRoleSimulation: boolean;
+  accountsEnabled: boolean;
+  oddsFormat: OddsFormat;
+  favoriteLeagues: LeagueId[];
+  riskPreference: RiskBand;
+  month1NoCardMode: boolean;
+}
+
+type AnyFn = (...args: never[]) => unknown;
+type ActionKey = {
+  [K in keyof PlatformContextValue]: PlatformContextValue[K] extends AnyFn ? K : never;
+}[keyof PlatformContextValue];
+export type PlatformActions = Pick<PlatformContextValue, ActionKey>;
+
+const ACTION_KEYS = [
+  "setViewerRole",
+  "setOddsFormat",
+  "setAuraFromGame",
+  "setAllowSgp",
+  "setParlayStakeUnits",
+  "addPickToParlay",
+  "removePickFromParlay",
+  "clearParlay",
+  "generateAutoParlay",
+  "sealPickToJournal",
+  "sealParlayToJournal",
+  "exportJournalCsv",
+  "publishSocialPost",
+  "addSocialComment",
+  "toggleSocialLike",
+  "toggleWatchlistGame",
+  "setFavoriteLeagues",
+  "setRiskPreference",
+  "simulateFriendFirstPayment",
+  "setMonth1NoCardMode",
+  "setTipstarWeeklyPickOrigin",
+  "setSelectedTipstarPickId",
+  "openComposer",
+  "closeComposer",
+  "openShareTicket",
+  "closeShareTicket",
+  "setAlertsOpen",
+  "setCmdkOpen",
+  "openBetaPin",
+  "closeBetaPin",
+  "submitBetaPin",
+  "logoutSession",
+  "pushToast",
+  "navigateTo",
+] as const satisfies readonly ActionKey[];
+// Si falta alguna acción en la lista, esto no compila.
+type MissingActionKey = Exclude<ActionKey, (typeof ACTION_KEYS)[number]>;
+const ACTION_KEYS_COMPLETE: [MissingActionKey] extends [never] ? true : MissingActionKey = true;
+void ACTION_KEYS_COMPLETE;
+
+const PlatformCoreContext = createContext<PlatformCoreValue | null>(null);
+const PlatformActionsContext = createContext<PlatformActions | null>(null);
+const AuraContext = createContext<readonly [string, string]>([
+  "var(--pl-aura-default-home)",
+  "var(--pl-aura-default-away)",
+]);
+const JournalContext = createContext<JournalEntry[]>([]);
+
+/** Almacén externo con los ids de los picks del parlay. */
+function createParlayIdStore() {
+  let ids = new Set<string>();
+  const listeners = new Set<() => void>();
+  return {
+    set(next: Set<string>) {
+      ids = next;
+      for (const l of listeners) l();
+    },
+    has: (id: string) => ids.has(id),
+    subscribe(listener: () => void) {
+      listeners.add(listener);
+      return () => listeners.delete(listener);
+    },
+  };
+}
+type ParlayIdStore = ReturnType<typeof createParlayIdStore>;
+const ParlayIdStoreContext = createContext<ParlayIdStore | null>(null);
+
+function required<T>(value: T | null, hook: string): T {
+  if (value === null) throw new Error(`${hook} debe usarse dentro de <PlatformProvider>.`);
+  return value;
+}
+
+export function usePlatformCore(): PlatformCoreValue {
+  return required(useContext(PlatformCoreContext), "usePlatformCore");
+}
+export function usePlatformActions(): PlatformActions {
+  return required(useContext(PlatformActionsContext), "usePlatformActions");
+}
+export function useAuraColors(): readonly [string, string] {
+  return useContext(AuraContext);
+}
+export function useJournalEntries(): JournalEntry[] {
+  return useContext(JournalContext);
+}
+/** true si el pick está en el parlay. Solo redibuja este componente cuando eso cambia. */
+export function useIsPickInParlay(pickId: string | undefined): boolean {
+  const store = required(useContext(ParlayIdStoreContext), "useIsPickInParlay");
+  return useSyncExternalStore(
+    store.subscribe,
+    () => (pickId ? store.has(pickId) : false),
+    () => false,
+  );
+}
 
 export function PlatformProvider({
   dataset: rawDataset,
@@ -733,7 +857,7 @@ export function PlatformProvider({
       if (viewerRole === "visitor") {
         return {
           ok: false,
-          error: "La Comunidad VIP es exclusiva para suscriptores con Pase Total activo.",
+          error: "La Comunidad VIP es exclusiva para suscriptores con Pase PitchLab Ultra activo.",
         };
       }
       const trimmed = payload.body.trim();
@@ -754,9 +878,9 @@ export function PlatformProvider({
       const newPost: SocialPost = {
         id: `sp-${Date.now()}`,
         authorHandle: viewerRole === "tipstar" ? "sofia_nfl" : "socio_pl",
-        authorName: viewerRole === "tipstar" ? "Sofía Méndez" : "Socio Pase Total",
+        authorName: viewerRole === "tipstar" ? "Sofía Méndez" : "Socio Pase PitchLab Ultra",
         roleBadge:
-          viewerRole === "tipstar" ? "Tipstar Oficial" : "Socio Pase Total",
+          viewerRole === "tipstar" ? "Tipstar Oficial" : "Socio Pase PitchLab Ultra",
         avatarGradVar:
           viewerRole === "tipstar" ? "var(--avatar-grad-1)" : "var(--avatar-grad-4)",
         verifiedRecord:
@@ -787,7 +911,7 @@ export function PlatformProvider({
   const addSocialComment = useCallback(
     (postId: string, body: string): { ok: boolean; error?: string } => {
       if (viewerRole === "visitor") {
-        return { ok: false, error: "Activa Pase Total para comentar." };
+        return { ok: false, error: "Activa Pase PitchLab Ultra para comentar." };
       }
       const trimmed = body.trim();
       if (!trimmed) {
@@ -809,7 +933,7 @@ export function PlatformProvider({
                     id: `sc-${Date.now()}`,
                     authorHandle: viewerRole === "tipstar" ? "sofia_nfl" : "socio_pl",
                     authorName:
-                      viewerRole === "tipstar" ? "Sofía Méndez" : "Socio Pase Total",
+                      viewerRole === "tipstar" ? "Sofía Méndez" : "Socio Pase PitchLab Ultra",
                     verifiedBadge:
                       viewerRole === "tipstar"
                         ? "Perfil de ejemplo"
@@ -865,7 +989,7 @@ export function PlatformProvider({
       pushToast(
         next === 5
           ? "¡Insignia Embajador desbloqueada! +15 días por tu amigo y +30 días extra acumulados."
-          : "¡Referido verificado! Ambos recibieron +15 días gratis en su Pase Total.",
+          : "¡Referido verificado! Ambos recibieron +15 días gratis en su Pase PitchLab Ultra.",
         "success",
       );
       return next;
@@ -1067,8 +1191,60 @@ export function PlatformProvider({
     ],
   );
 
+  // Acciones estables: cada una llama a la versión más reciente guardada en una ref.
+  const latestRef = useRef(value);
+  latestRef.current = value;
+  const actions = useMemo(() => {
+    const out: Record<string, unknown> = {};
+    for (const key of ACTION_KEYS) {
+      out[key] = (...args: unknown[]) =>
+        (latestRef.current[key] as unknown as (...a: unknown[]) => unknown)(...args);
+    }
+    return out as unknown as PlatformActions;
+  }, []);
+
+  const core = useMemo<PlatformCoreValue>(
+    () => ({
+      rawDataset,
+      dataset,
+      viewerRole,
+      allowRoleSimulation,
+      accountsEnabled,
+      oddsFormat,
+      favoriteLeagues,
+      riskPreference,
+      month1NoCardMode,
+    }),
+    [
+      rawDataset,
+      dataset,
+      viewerRole,
+      allowRoleSimulation,
+      accountsEnabled,
+      oddsFormat,
+      favoriteLeagues,
+      riskPreference,
+      month1NoCardMode,
+    ],
+  );
+
+  const [parlayIdStore] = useState(createParlayIdStore);
+  useLayoutEffect(() => {
+    parlayIdStore.set(new Set(parlayLegs.map((l) => l.pick.id)));
+  }, [parlayIdStore, parlayLegs]);
+
   return (
-    <PlatformContext.Provider value={value}>{children}</PlatformContext.Provider>
+    <PlatformActionsContext.Provider value={actions}>
+      <PlatformCoreContext.Provider value={core}>
+        <ParlayIdStoreContext.Provider value={parlayIdStore}>
+          <JournalContext.Provider value={journal}>
+            <AuraContext.Provider value={auraColors}>
+              <PlatformContext.Provider value={value}>{children}</PlatformContext.Provider>
+            </AuraContext.Provider>
+          </JournalContext.Provider>
+        </ParlayIdStoreContext.Provider>
+      </PlatformCoreContext.Provider>
+    </PlatformActionsContext.Provider>
   );
 }
 
@@ -1078,4 +1254,44 @@ export function usePlatform(): PlatformContextValue {
     throw new Error("usePlatform debe usarse dentro de <PlatformProvider>.");
   }
   return ctx;
+}
+
+/**
+ * Agrega partidos a los datos de una página concreta (p. ej. los terminados en Resultados).
+ * El layout solo manda los partidos por jugar; cada pantalla pide lo que le falta.
+ */
+export function PlatformGamesSupplement({
+  games,
+  children,
+}: {
+  games: readonly PlatformGame[];
+  children: React.ReactNode;
+}): React.JSX.Element {
+  const full = usePlatform();
+  const core = usePlatformCore();
+
+  const merge = useCallback(
+    (base: PlatformDataset): PlatformDataset => {
+      if (games.length === 0) return base;
+      const known = new Set(base.games.map((g) => g.id));
+      const extra = games.filter((g) => !known.has(g.id));
+      return extra.length === 0 ? base : { ...base, games: [...base.games, ...extra] };
+    },
+    [games],
+  );
+
+  const patchedCore = useMemo<PlatformCoreValue>(
+    () => ({ ...core, dataset: merge(core.dataset), rawDataset: merge(core.rawDataset) }),
+    [core, merge],
+  );
+  const patchedFull = useMemo<PlatformContextValue>(
+    () => ({ ...full, dataset: patchedCore.dataset, rawDataset: patchedCore.rawDataset }),
+    [full, patchedCore],
+  );
+
+  return (
+    <PlatformCoreContext.Provider value={patchedCore}>
+      <PlatformContext.Provider value={patchedFull}>{children}</PlatformContext.Provider>
+    </PlatformCoreContext.Provider>
+  );
 }

@@ -33,7 +33,7 @@ import {
   rankAttributeInCohort,
   type GoalmouthShot,
   type TacticalRadarMetrics,
-} from "../src/tactical_skore.js";
+} from "../src/tactical_skore";
 
 describe("1. RankBands Exact Peer-Group Percentile & Quintile Engine", () => {
   it("computes exact percentiles matching Club América sample values with N = 35", () => {

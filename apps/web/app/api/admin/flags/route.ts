@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { FLAG_MONTH1_NO_CARD, setBoolFlag } from "@pitchlab/db";
-import { requireAdmin } from "../../../../src/server/session-user.js";
+import { requireAdmin } from "../../../../src/server/session-user";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";

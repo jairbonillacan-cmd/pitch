@@ -2,9 +2,9 @@
 
 import React from "react";
 import { getLogoPath, getMascotPath } from "@pitchlab/sports-assets";
-import { Icon } from "./icons.js";
-import { Badge } from "./components/ui/badge.js";
-import { Button } from "./components/ui/button.js";
+import { Icon } from "./icons";
+import { Badge } from "./components/ui/badge";
+import { Button } from "./components/ui/button";
 
 export type TagVariant = "default" | "ok" | "info" | "model" | "demo";
 

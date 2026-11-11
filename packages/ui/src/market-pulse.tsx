@@ -10,7 +10,7 @@ import {
   type MarketPulseSide,
   type MarketPulseView,
 } from "@pitchlab/contracts";
-import { Badge } from "./components/ui/badge.js";
+import { Badge } from "./components/ui/badge";
 
 const COMPACT = new Intl.NumberFormat("es-MX", { notation: "compact", maximumFractionDigits: 1 });
 const TIME = new Intl.DateTimeFormat("es-MX", {

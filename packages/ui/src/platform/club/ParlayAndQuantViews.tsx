@@ -4,31 +4,31 @@ import React, { useMemo, useState } from "react";
 import type { LeagueId } from "@pitchlab/contracts";
 import { Switch } from "@heroui/react";
 import { getTeamColors } from "@pitchlab/sports-assets";
-import { LeagueBadge, TeamBadge, parseUserOdds } from "../../sports.js";
+import { LeagueBadge, TeamBadge, parseUserOdds } from "../../sports";
 import {
   decimalToAmericanInt,
   formatEdgePts,
   formatOddsValue,
   isPickUnlocked,
   pickReferenceDecimal,
-} from "../access-guard.js";
+} from "../access-guard";
 import {
   CrestPedestal,
   LensGlowOrbs,
   MaestroIcon,
   NoticeCard,
-} from "../components/MaestroPrimitives.js";
+} from "../components/MaestroPrimitives";
 import {
   AtmosphereStage,
   ClubWorkspaceShell,
-} from "../components/ShellChrome.js";
+} from "../components/ShellChrome";
 import {
   buildPlayerPropsCatalog,
   evaluatePropLineProbability,
-} from "../match-picks-engine.js";
-import { checkParlayCompatibility } from "../parlay-engine.js";
-import { usePlatform } from "../platform-provider.js";
-import type { MatchPick, PlayerPropItem, RiskBand } from "../types.js";
+} from "../match-picks-engine";
+import { checkParlayCompatibility } from "../parlay-engine";
+import { usePlatform } from "../platform-provider";
+import type { MatchPick, PlayerPropItem, RiskBand } from "../types";
 
 function getCompactBlockReason(
   sameGameExists: boolean,
@@ -157,7 +157,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                 {/* Paso 1: Ligas */}
                 <div className="space-y-2">
                   <div className="flex items-center justify-between gap-2">
-                    <span className="text-xs font-extrabold uppercase tracking-wider" style={{ color: "var(--pl-brand)" }}>
+                    <span className="text-xs font-extrabold" style={{ color: "var(--pl-brand)" }}>
                       1. Ligas ({selectedLeagues.length}/{dataset.leagues.length})
                     </span>
                     <button
@@ -197,7 +197,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                   {/* Paso 2: Riesgo */}
                   <div className="space-y-2">
                     <span
-                      className="text-xs font-extrabold uppercase tracking-wider block"
+                      className="text-xs font-extrabold block"
                       style={{ color: "var(--pl-brand)" }}
                     >
                       2. Riesgo
@@ -228,7 +228,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                   {/* Paso 3: Selecciones 2–6 */}
                   <div className="space-y-2">
                     <span
-                      className="text-xs font-extrabold uppercase tracking-wider block"
+                      className="text-xs font-extrabold block"
                       style={{ color: "var(--pl-brand)" }}
                     >
                       3. Selecciones 2–6
@@ -283,7 +283,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                 >
                   <div className="space-y-0.5">
                     <span
-                      className="text-xs font-extrabold uppercase tracking-wider block"
+                      className="text-xs font-extrabold block"
                       style={{ color: "var(--pl-brand)" }}
                     >
                       4. Mismo partido
@@ -387,7 +387,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                               <span className="truncate">{pk.categoryLabel}</span>
                             </span>
                             <span className="pl-pill text-[10px] shrink-0">
-                              Pase Total
+                              Pase PitchLab Ultra
                             </span>
                           </a>
                         );
@@ -476,7 +476,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
               <div className="flex items-center justify-between gap-2">
                 <div>
                   <span
-                    className="text-xs font-extrabold uppercase tracking-wider inline-flex items-center gap-1.5"
+                    className="text-xs font-extrabold inline-flex items-center gap-1.5"
                     style={{ color: "var(--pl-brand)" }}
                   >
                     <MaestroIcon name="ticket" size={13} />
@@ -810,7 +810,7 @@ export function PropsLabClubView(): React.JSX.Element {
             <div className="relative z-10 space-y-3">
               <h2 className="m-0 text-xl font-extrabold inline-flex items-center gap-2">
                 <MaestroIcon name="lock" size={18} style={{ color: "var(--pl-brand)" }} />
-                <span>Props de jugadores para Pase Total</span>
+                <span>Props de jugadores para Pase PitchLab Ultra</span>
               </h2>
               <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
                 Activa tus 7 días gratis para explorar proyecciones individuales de NFL y fútbol.
@@ -1245,7 +1245,7 @@ export function MomiosExplorerClubView(): React.JSX.Element {
             <div className="py-6 space-y-3">
               <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
                 No hay momios verificados con este filtro. Solo aparecen partidos con líneas reales de
-                casa; si estás en vista Visitante, activa Pase Total.
+                casa; si estás en vista Visitante, activa Pase PitchLab Ultra.
               </p>
               {viewerRole === "visitor" ? (
                 <a
@@ -1271,7 +1271,7 @@ export function MomiosExplorerClubView(): React.JSX.Element {
               <table className="w-full text-left border-collapse text-sm">
                 <thead>
                   <tr
-                    className="hairline-b text-xs uppercase"
+                    className="hairline-b text-xs"
                     style={{ color: "var(--pl-text-muted)" }}
                   >
                     <th scope="col" className="py-2 pr-3">
@@ -1374,7 +1374,7 @@ export function MomiosExplorerClubView(): React.JSX.Element {
                                 name={inSlip ? "check" : "plus"}
                                 size={11}
                               />
-                              <span>{inSlip ? "En Parlay" : "+ Parlay"}</span>
+                              <span>{inSlip ? "En Parlay" : "Parlay"}</span>
                             </button>
                             <button
                               type="button"

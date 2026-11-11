@@ -1,5 +1,5 @@
 import type { LeagueId } from "@pitchlab/contracts";
-import { decimalToAmericanInt, isPickUnlocked, pickReferenceDecimal } from "./access-guard.js";
+import { decimalToAmericanInt, isPickUnlocked, pickReferenceDecimal } from "./access-guard";
 import type {
   MatchPick,
   ParlayLeg,
@@ -8,7 +8,7 @@ import type {
   PlatformGame,
   RiskBand,
   ViewerRole,
-} from "./types.js";
+} from "./types";
 
 const OPPOSING_GROUPS: Readonly<Record<PickConflictGroup, readonly PickConflictGroup[]>> = {
   home_side: ["away_side", "draw_side"],
@@ -41,7 +41,7 @@ export function checkParlayCompatibility(
   if (candidate.isRedacted) {
     return {
       allowed: false,
-      reason: "Desbloquea Pase Total para agregar este pick al boleto combinado.",
+      reason: "Desbloquea Pase PitchLab Ultra para agregar este pick al boleto combinado.",
     };
   }
   if (candidate.gameStatus === "FT") {

@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it } from "vitest";
-import { bookLabelWithDate, isMarketFresh, maxOddsAgeHours } from "../src/server/spacetime.js";
+import { bookLabelWithDate, isMarketFresh, maxOddsAgeHours } from "../src/server/spacetime";
 
 describe("vigencia de momios de Spacetime v3.0", () => {
   afterEach(() => {

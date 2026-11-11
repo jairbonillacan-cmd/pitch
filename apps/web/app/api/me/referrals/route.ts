@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { myReferrals } from "@pitchlab/db";
-import { requireMember } from "../../../../src/server/session-user.js";
+import { requireMember } from "../../../../src/server/session-user";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";

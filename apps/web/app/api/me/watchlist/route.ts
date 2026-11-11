@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { listWatchlist, setWatched } from "../../../../src/server/member-data.js";
-import { requireMember } from "../../../../src/server/session-user.js";
+import { listWatchlist, setWatched } from "../../../../src/server/member-data";
+import { requireMember } from "../../../../src/server/session-user";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";

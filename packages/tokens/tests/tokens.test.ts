@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { BRAND_TOKENS, LIGHT_THEME_TOKENS, DERIVED_DARK_TOKENS } from "../src/index.js";
+import { BRAND_TOKENS, LIGHT_THEME_TOKENS, DERIVED_DARK_TOKENS } from "../src/index";
 
 describe("@pitchlab/tokens", () => {
   it("expone los tokens oficiales de pitchlab-brand sin alterarlos", () => {

@@ -2,24 +2,24 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { getLogoPath } from "@pitchlab/sports-assets";
-import { LeagueBadge, TeamBadge } from "../../sports.js";
+import { LeagueBadge, TeamBadge } from "../../sports";
 import {
   canRevealPickOnShare,
   formatEdgePts,
   formatOddsValue,
   getSessionWatermark,
   pickReferenceDecimal,
-} from "../access-guard.js";
-import { usePlatform } from "../platform-provider.js";
-import { downloadTicketPng, type TicketRasterContent } from "./share-ticket-raster.js";
-import { TIPSTAR_CREATORS } from "../spacetime-catalog.js";
-import type { MatchPick, PlatformGame, ViewerRole } from "../types.js";
+} from "../access-guard";
+import { usePlatform } from "../platform-provider";
+import { downloadTicketPng, type TicketRasterContent } from "./share-ticket-raster";
+import { TIPSTAR_CREATORS } from "../spacetime-catalog";
+import type { MatchPick, PlatformGame, ViewerRole } from "../types";
 import {
   ExampleBadge,
   LensGlowOrbs,
   MaestroIcon,
   type MaestroIconName,
-} from "./MaestroPrimitives.js";
+} from "./MaestroPrimitives";
 
 export function TopLayerModalDialog({
   open,
@@ -358,7 +358,7 @@ export function PickComposerModal(): React.JSX.Element | null {
                 className="block text-[11px]"
                 style={{ color: "var(--pl-text-muted)" }}
               >
-                Momio Justo
+                Momio justo
               </span>
               <strong className="num text-base font-extrabold">
                 {formatOddsValue(composerPick.fairDecimal, oddsFormat)}
@@ -727,7 +727,7 @@ export function ShareTicketModal(): React.JSX.Element | null {
                     className="h-5 w-auto object-contain"
                   />
                   <span
-                    className="text-[10px] font-extrabold tracking-widest uppercase"
+                    className="text-[10px] font-extrabold"
                     style={{ color: "var(--share-card-accent)" }}
                   >
                     SUITE v3.0
@@ -865,7 +865,7 @@ export function ShareTicketModal(): React.JSX.Element | null {
               style={{ color: "var(--pl-text-muted)" }}
             >
               {revealSelection
-                ? "Selección visible (Partido cerrado FT o Pick Abierto Semanal de Tipstar)."
+                ? "Selección visible (Partido cerrado FT o Pick abierto semanal de Tipstar)."
                 : "Selección sellada automáticamente porque el encuentro aún no inicia."}
             </span>
             <div className="flex items-center gap-2">
@@ -1234,7 +1234,7 @@ export function CommandPaletteModal(): React.JSX.Element | null {
             {matchingGames.length > 0 ? (
               <div>
                 <p
-                  className="m-0 mb-1.5 text-[11px] font-bold uppercase tracking-wider"
+                  className="m-0 mb-1.5 text-[11px] font-bold"
                   style={{ color: "var(--pl-text-muted)" }}
                 >
                   Partidos y Match Studio
@@ -1280,7 +1280,7 @@ export function CommandPaletteModal(): React.JSX.Element | null {
             {matchingLeagues.length > 0 ? (
               <div>
                 <p
-                  className="m-0 mb-1.5 text-[11px] font-bold uppercase tracking-wider"
+                  className="m-0 mb-1.5 text-[11px] font-bold"
                   style={{ color: "var(--pl-text-muted)" }}
                 >
                   7 Ligas Oficiales
@@ -1320,7 +1320,7 @@ export function CommandPaletteModal(): React.JSX.Element | null {
             {matchingTipstars.length > 0 ? (
               <div>
                 <p
-                  className="m-0 mb-1.5 text-[11px] font-bold uppercase tracking-wider"
+                  className="m-0 mb-1.5 text-[11px] font-bold"
                   style={{ color: "var(--pl-text-muted)" }}
                 >
                   Tipstars Verificados (CLV Auditado)
@@ -1372,7 +1372,7 @@ export function CommandPaletteModal(): React.JSX.Element | null {
             {quickRoutes.length > 0 ? (
               <div>
                 <p
-                  className="m-0 mb-1.5 text-[11px] font-bold uppercase tracking-wider"
+                  className="m-0 mb-1.5 text-[11px] font-bold"
                   style={{ color: "var(--pl-text-muted)" }}
                 >
                   Vistas y Herramientas del Club
@@ -1587,7 +1587,7 @@ export function RoleSimulatorBar(): React.JSX.Element | null {
 
   const roles: Array<{ id: ViewerRole; label: string; short: string }> = [
     { id: "visitor", label: "Visitante (Cero-Fuga)", short: "Visitante" },
-    { id: "member", label: "Socio Pase Total", short: "Socio" },
+    { id: "member", label: "Socio Pase PitchLab Ultra", short: "Socio" },
     { id: "tipstar", label: "Tipstar (@sofia_nfl)", short: "Tipstar" },
     { id: "admin", label: "Admin Founder", short: "Admin" },
   ];

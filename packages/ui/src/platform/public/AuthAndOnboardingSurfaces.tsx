@@ -3,32 +3,32 @@
 import React, { useMemo, useState } from "react";
 import type { LeagueId } from "@pitchlab/contracts";
 import { getTeamColors } from "@pitchlab/sports-assets";
-import { LeagueBadge, TeamBadge } from "../../sports.js";
+import { LeagueBadge, TeamBadge } from "../../sports";
 import {
   formatEdgePts,
   formatOddsValue,
   isDisposableEmailDomain,
   normalizeTrialEmail,
-} from "../access-guard.js";
+} from "../access-guard";
 import {
   CrestPedestal,
   LensGlowOrbs,
   MaestroIcon,
   ExampleBadge,
   NoticeCard,
-} from "../components/MaestroPrimitives.js";
+} from "../components/MaestroPrimitives";
 import {
   AtmosphereStage,
   PublicFooterV4,
   PublicHeaderV4,
-} from "../components/ShellChrome.js";
-import { usePlatform } from "../platform-provider.js";
+} from "../components/ShellChrome";
+import { usePlatform } from "../platform-provider";
 import {
   MEMBERSHIP_SPEC,
   SPACETIME_METRICS_HEADLINE,
   TIPSTAR_CREATORS,
-} from "../spacetime-catalog.js";
-import type { RiskBand, ViewerRole } from "../types.js";
+} from "../spacetime-catalog";
+import type { RiskBand, ViewerRole } from "../types";
 
 function describePromoBenefit(codeRaw: string, month1NoCardMode: boolean): {
   badge: string;
@@ -39,11 +39,11 @@ function describePromoBenefit(codeRaw: string, month1NoCardMode: boolean): {
     return month1NoCardMode
       ? {
           badge: "7 días gratis · Sin tarjeta",
-          detail: "Mes 1 de lanzamiento: activa 7 días de Pase Total sin ingresar tarjeta.",
+          detail: "Prueba Pase PitchLab Ultra 7 días, sin tarjeta.",
         }
       : {
-          badge: "7 días gratis · $0 hoy",
-          detail: "Verificación anti-multicuenta con cargo $0.00 MXN hoy.",
+          badge: "7 días gratis",
+          detail: "Agrega una tarjeta para empezar. No se cobra nada durante la prueba.",
         };
   }
   if (
@@ -54,7 +54,7 @@ function describePromoBenefit(codeRaw: string, month1NoCardMode: boolean): {
   ) {
     return {
       badge: "5 días gratis · Tipstar",
-      detail: `Código oficial ${code} reconocido: 5 días de Pase Total incluidos.`,
+      detail: `Código oficial ${code} reconocido: 5 días de Pase PitchLab Ultra incluidos.`,
     };
   }
   if (
@@ -123,12 +123,12 @@ export function AuthSurfaceV4({
     }
     if (isDisposableEmailDomain(clean)) {
       setFormError(
-        "Por protección anti-abuso no se permiten dominios de correo temporales. Usa Google, Apple o tu correo principal.",
+        "No aceptamos correos temporales. Usa Google, Apple o tu correo personal.",
       );
       return;
     }
     if (!adultConfirmed) {
-      setFormError("Debes confirmar que eres mayor de 18 años (+18).");
+      setFormError("Confirma que eres mayor de 18 años.");
       return;
     }
 
@@ -214,7 +214,7 @@ export function AuthSurfaceV4({
         void logoutSession();
         return;
       }
-      pushToast("Candado Visitante Cero-Fuga activo.", "default");
+      pushToast("Cerraste sesión.", "default");
       navigateTo("/");
       return;
     }
@@ -229,7 +229,7 @@ export function AuthSurfaceV4({
   return (
     <AtmosphereStage>
       <PublicHeaderV4 activePath={mode === "login" ? "/login" : "/signup"} />
-      <main id="main" className="max-w-5xl mx-auto px-4 sm:px-6 pt-8 sm:pt-10">
+      <main id="main" className="pl-page-enter max-w-5xl mx-auto px-4 sm:px-6 pt-8 sm:pt-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           <section className="lg:col-span-7 glass-lens glass-ring glass-ring--featured relative overflow-hidden rounded-2xl p-6 sm:p-7 space-y-5">
             <LensGlowOrbs
@@ -271,22 +271,21 @@ export function AuthSurfaceV4({
                       <MaestroIcon name="sparkles" size={12} />
                       <span>
                         {month1NoCardMode
-                          ? "Promo Mes 1 · $0 hoy y sin pedir tarjeta"
-                          : "Cargo $0 hoy · Verificación anti-multicuenta"}
+                          ? "7 días gratis, sin tarjeta"
+                          : "7 días gratis"}
                       </span>
                     </span>
                     <h1 className="m-0 text-2xl sm:text-3xl font-extrabold tracking-tight">
                       {mode === "signup"
-                        ? "Activa tu Pase Total PitchLab"
+                        ? "Activa tu Pase PitchLab Ultra"
                         : "Entra al Club PitchLab"}
                     </h1>
                     <p
                       className="m-0 text-sm leading-relaxed"
                       style={{ color: "var(--pl-text-secondary)" }}
                     >
-                      Accede a toda la <strong>{SPACETIME_METRICS_HEADLINE.suiteName}</strong>: hasta
-                      5 picks por partido, Armador de Parlays sin contradicciones, Cortex IA y
-                      Comunidad VIP.
+                      Probabilidades y momio justo para cada partido, hasta 5 picks por partido y
+                      un armador de parlays que no mezcla selecciones contradictorias.
                     </p>
                   </div>
 
@@ -373,7 +372,7 @@ export function AuthSurfaceV4({
                       />
                       {normalizedPreview && normalizedPreview !== email.trim().toLowerCase() ? (
                         <p className="m-0 mt-1 text-xs" style={{ color: "var(--pl-info)" }}>
-                          Se registrará como cuenta canónica: <strong>{normalizedPreview}</strong>
+                          Tu cuenta quedará como: <strong>{normalizedPreview}</strong>
                         </p>
                       ) : null}
                     </div>
@@ -403,8 +402,8 @@ export function AuthSurfaceV4({
                         className="cursor-pointer"
                         style={{ color: "var(--pl-text-secondary)" }}
                       >
-                        Confirmo que soy mayor de <strong>18 años (+18)</strong> y entiendo que
-                        PitchLab opera con unidades estadísticas simuladas (0.5u–5.0u).
+                        Confirmo que soy mayor de <strong>18 años</strong> y entiendo que
+                        PitchLab no maneja dinero: las unidades son solo una referencia.
                       </label>
                     </div>
 
@@ -431,36 +430,14 @@ export function AuthSurfaceV4({
                       <span>
                         {mode === "signup"
                           ? month1NoCardMode
-                            ? "Validar correo y activar prueba sin tarjeta"
+                            ? "Empezar prueba gratis"
                             : "Continuar a verificación $0 MXN"
-                          : "Continuar con correo verificado"}
+                          : "Continuar"}
                       </span>
                       <MaestroIcon name="arrowRight" size={14} />
                     </button>
                   </form>
 
-                  {/* Escudo Turnstile $0 */}
-                  <div
-                    className="glass-ring rounded-xl p-3 text-xs flex flex-wrap items-center justify-between gap-2"
-                    style={{
-                      background: "var(--pl-surface)",
-                      color: "var(--pl-text-muted)",
-                    }}
-                  >
-                    <span className="inline-flex items-center gap-1.5">
-                      <MaestroIcon
-                        name="shield"
-                        size={14}
-                        style={{ color: "var(--pl-success)" }}
-                      />
-                      <span>
-                        Turnstile verificado · 0 correos temporales · 1 dispositivo = 1 prueba · 18+
-                      </span>
-                    </span>
-                    <strong className="num" style={{ color: "var(--pl-success)" }}>
-                      Costo $0
-                    </strong>
-                  </div>
                 </div>
               ) : (
                 <div className="space-y-4">
@@ -475,7 +452,7 @@ export function AuthSurfaceV4({
                     <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
                       Marca 4 dígitos para entrar como{" "}
                       <strong style={{ color: "var(--pl-text)" }}>
-                        @socio_pl (Suscriptor Pase Total)
+                        @socio_pl (Suscriptor Pase PitchLab Ultra)
                       </strong>{" "}
                       hacia <code>{nextPath}</code>.
                     </p>
@@ -606,32 +583,31 @@ export function AuthSurfaceV4({
                   className="underline font-semibold"
                   style={{ color: "var(--pl-brand)" }}
                 >
-                  Personalizar ligas +18 →
+                  Elegir mis ligas
                 </a>
               </div>
             </div>
           </section>
 
-          {/* Columna derecha: Pase Total + Acceso PIN Modal + Quick Role Tester */}
+          {/* Columna derecha: Pase PitchLab Ultra + Acceso PIN Modal + Quick Role Tester */}
           <aside className="lg:col-span-5 space-y-4" aria-label="Acceso rápido y prueba de roles">
             <NoticeCard
               icon="cpu"
-              badgeText="Incluido en tu"
-              title="Pase Total PitchLab"
+              badgeText="Incluye"
+              title="Pase PitchLab Ultra"
               tone="brand"
             >
-              hasta 5 picks por partido · Armador de Parlays inteligente · Cortex IA con bajas reportadas
-              antes · Comunidad exclusiva sin spam.
+              Hasta 5 picks por partido, armador de parlays y un resumen previo de cada partido
+              con las bajas confirmadas.
             </NoticeCard>
 
             <div className="glass-ring glass-card rounded-2xl p-5 space-y-3">
               <div className="space-y-1">
                 <h2 className="m-0 text-sm font-extrabold">
-                  ¿Tienes tu PIN de socio de 4 dígitos?
+                  ¿Ya tienes tu código de socio?
                 </h2>
                 <p className="m-0 text-xs" style={{ color: "var(--pl-text-secondary)" }}>
-                  Abre el teclado seguro para desbloquear tu sesión al instante y entrar a{" "}
-                  <code>{nextPath}</code>.
+                  Entra con tus 4 dígitos.
                 </p>
               </div>
               <button
@@ -649,7 +625,7 @@ export function AuthSurfaceV4({
             <div className="glass-ring glass-card rounded-2xl p-5 space-y-3">
               <div className="space-y-0.5">
                 <h2
-                  className="m-0 text-xs font-extrabold uppercase tracking-wider"
+                  className="m-0 text-xs font-extrabold"
                   style={{ color: "var(--pl-text-muted)" }}
                 >
                   Simulador rápido de roles
@@ -762,7 +738,7 @@ export function OnboardingSurfaceV4(): React.JSX.Element {
   return (
     <AtmosphereStage>
       <PublicHeaderV4 activePath="/onboarding" />
-      <main id="main" className="max-w-3xl mx-auto px-4 sm:px-6 pt-8 sm:pt-10">
+      <main id="main" className="pl-page-enter max-w-3xl mx-auto px-4 sm:px-6 pt-8 sm:pt-10">
         <section className="glass-lens glass-ring glass-ring--featured relative overflow-hidden rounded-2xl p-6 sm:p-8 space-y-6">
           <LensGlowOrbs
             primaryColor="var(--pl-orb-violet)"
@@ -786,8 +762,7 @@ export function OnboardingSurfaceV4(): React.JSX.Element {
                 Elige tus ligas y tu estilo
               </h1>
               <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
-                Ordenaremos tu Jornada, alertas de valor y el Armador de Parlays alrededor de
-                tus ligas, perfil de varianza y unidad simulada.
+                Con esto ordenamos tus partidos, alertas y parlays.
               </p>
             </div>
 
@@ -842,18 +817,18 @@ export function OnboardingSurfaceV4(): React.JSX.Element {
                   [
                     {
                       id: "conservador",
-                      title: "Escudo Conservador",
+                      title: "Conservador",
                       desc: "Alta probabilidad (~72–86 %), dobles oportunidades y líneas protegidas.",
                     },
                     {
                       id: "medio",
                       title: "Balanceado Medio",
-                      desc: "Equilibrio entre frecuencia (~56–71 %) y ventaja Geodesic contra el cierre.",
+                      desc: "Picks de 56–71 % con algo de ventaja sobre el momio.",
                     },
                     {
                       id: "arriesgado",
                       title: "Agresivo · Valor",
-                      desc: "Cuotas altas (+105 o mayores) donde Singularity v3.0 detecta valor.",
+                      desc: "Momios altos (+105 o más) donde el modelo ve valor.",
                     },
                   ] as Array<{ id: RiskBand; title: string; desc: string }>
                 ).map((opt) => {
@@ -1000,7 +975,7 @@ export function OnboardingSurfaceV4(): React.JSX.Element {
                 className="pl-btn-primary min-h-11 px-6 text-sm"
                 onClick={handleFinish}
               >
-                <span>Activar Pase Total y entrar al Club</span>
+                <span>Activar Pase PitchLab Ultra y entrar al Club</span>
                 <MaestroIcon name="check" size={15} />
               </button>
             </div>
@@ -1060,7 +1035,7 @@ export function PublicSharedPickSurface({
   return (
     <AtmosphereStage>
       <PublicHeaderV4 activePath="/p/sofia-sem" />
-      <main id="main" className="max-w-3xl mx-auto px-4 sm:px-6 pt-8 sm:pt-10 space-y-6">
+      <main id="main" className="pl-page-enter max-w-3xl mx-auto px-4 sm:px-6 pt-8 sm:pt-10 space-y-6">
         {/* Boleto oscuro auténtico estilo shows.link */}
         <article className="share-ticket-card glass-ring glass-ring--featured p-6 sm:p-8 space-y-5">
           <LensGlowOrbs primaryColor={homeColor} secondaryColor={awayColor} />
@@ -1076,7 +1051,7 @@ export function PublicSharedPickSurface({
                 }}
               >
                 <MaestroIcon name="unlock" size={13} />
-                <span>Pick Abierto de la Semana · Tipstar Oficial</span>
+                <span>Pick abierto de la semana · Tipstar Oficial</span>
               </span>
               <span className="num text-xs font-bold" style={{ color: "var(--share-card-muted)" }}>
                 pitchlab.mx/p/{creator.weeklyPickSlug}
@@ -1104,7 +1079,7 @@ export function PublicSharedPickSurface({
                     className="m-0 mt-0.5 text-xs num font-semibold"
                     style={{ color: "var(--share-card-success)" }}
                   >
-                    Récord auditado: {creator.verifiedUnits} · CLV {creator.clvAvg} ·{" "}
+                    Récord: {creator.verifiedUnits} ·{" "}
                     {creator.settledCount} picks liquidados
                   </p>
                 </div>
@@ -1185,7 +1160,7 @@ export function PublicSharedPickSurface({
                   </div>
 
                   <span
-                    className="text-xs font-bold uppercase"
+                    className="text-xs font-bold"
                     style={{ color: "var(--share-card-muted)" }}
                   >
                     VS
@@ -1233,7 +1208,7 @@ export function PublicSharedPickSurface({
                     </span>
                   </div>
 
-                  <p className="m-0 text-xl sm:text-2xl font-extrabold uppercase tracking-tight">
+                  <p className="m-0 text-xl sm:text-2xl font-extrabold tracking-tight">
                     {unlockedPick.label}
                   </p>
 
@@ -1268,11 +1243,10 @@ export function PublicSharedPickSurface({
                 <div className="space-y-2.5">
                   <div className="flex items-center justify-between gap-2">
                     <h2
-                      className="m-0 text-xs sm:text-sm font-extrabold uppercase tracking-wider"
+                      className="m-0 text-xs sm:text-sm font-extrabold"
                       style={{ color: "var(--share-card-secondary)" }}
                     >
-                      Otros {otherPicks.length} picks de este mismo partido (Cero fuga sin Pase
-                      Total)
+                      Otros {otherPicks.length} picks de este partido
                     </h2>
                     <span className="text-xs num" style={{ color: "var(--share-card-muted)" }}>
                       {viewerRole === "visitor" ? "Protegidos" : "Socio activo"}
@@ -1324,7 +1298,7 @@ export function PublicSharedPickSurface({
                             className="locked-redact font-extrabold"
                             aria-hidden="true"
                           >
-                            RESERVADO PASE TOTAL
+                            RESERVADO PASE PITCHLAB ULTRA
                           </span>
                         </div>
                       );
@@ -1340,12 +1314,12 @@ export function PublicSharedPickSurface({
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
               <div className="text-xs space-y-0.5">
                 <strong className="block text-sm" style={{ color: "var(--share-card-fg)" }}>
-                  CÓDIGO: {creator.promoCode} · {creator.freeDays} días de Pase Total gratis
+                  Código {creator.promoCode} · {creator.freeDays} días gratis de Pase PitchLab Ultra
                 </strong>
                 <span style={{ color: "var(--share-card-secondary)" }}>
                   {month1NoCardMode
-                    ? "Desbloquea todos los picks de cada juego y el Armador de Parlays sin pedir tarjeta."
-                    : "Desbloquea todos los picks de cada juego y el Armador de Parlays hoy."}
+                    ? "Todos los picks de cada partido y el armador de parlays, sin tarjeta."
+                    : "Todos los picks de cada partido y el armador de parlays."}
                 </span>
               </div>
 

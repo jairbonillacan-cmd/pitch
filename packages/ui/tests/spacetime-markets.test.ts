@@ -4,7 +4,7 @@ import {
   buildPointsModel,
   derivedMarketProbability,
   normalCdf,
-} from "../src/platform/spacetime-markets.js";
+} from "../src/platform/spacetime-markets";
 
 describe("mercados derivados de Spacetime v3.0", () => {
   it("fútbol: la matriz de marcadores suma 1 y los mercados son coherentes", () => {

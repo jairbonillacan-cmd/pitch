@@ -2,9 +2,9 @@
 
 import React, { useMemo, useRef, useState } from "react";
 import { getLogoPath, getTeamColors } from "@pitchlab/sports-assets";
-import { LeagueBadge, TeamBadge } from "../../sports.js";
-import { formatOddsValue, getSessionWatermark, pickReferenceDecimal } from "../access-guard.js";
-import { downloadTicketPng } from "../components/share-ticket-raster.js";
+import { LeagueBadge, TeamBadge } from "../../sports";
+import { formatOddsValue, getSessionWatermark, pickReferenceDecimal } from "../access-guard";
+import { downloadTicketPng } from "../components/share-ticket-raster";
 import {
   CrestPedestal,
   GlassActionRow,
@@ -14,15 +14,16 @@ import {
   ExampleNotice,
   NoticeCard,
   StackedAvatars,
-} from "../components/MaestroPrimitives.js";
-import { TopLayerModalDialog } from "../components/PlatformOverlays.js";
+  UserBadges,
+} from "../components/MaestroPrimitives";
+import { TopLayerModalDialog } from "../components/PlatformOverlays";
 import {
   AtmosphereStage,
   ClubWorkspaceShell,
-} from "../components/ShellChrome.js";
-import { usePlatform } from "../platform-provider.js";
-import { TIPSTAR_CREATORS } from "../spacetime-catalog.js";
-import type { MatchPick } from "../types.js";
+} from "../components/ShellChrome";
+import { usePlatform } from "../platform-provider";
+import { TIPSTAR_CREATORS } from "../spacetime-catalog";
+import type { MatchPick } from "../types";
 
 const ACTIVE_MEMBER_AVATARS = [
   { initials: "SM", gradVar: "var(--avatar-grad-1)", label: "Sofía Méndez" },
@@ -62,7 +63,7 @@ const BASE_LEADERBOARD_ROWS: readonly LeaderboardRow[] = [
   {
     handle: "jair_founder",
     name: "Jair R.",
-    roleLabel: "Socio Pase Total",
+    roleLabel: "Socio Pase PitchLab Ultra",
     specialty: "NFL & Liga MX · Valor Geodesic",
     avatarInitials: "JR",
     avatarGradVar: "var(--avatar-grad-4)",
@@ -74,8 +75,8 @@ const BASE_LEADERBOARD_ROWS: readonly LeaderboardRow[] = [
   },
   {
     handle: "socio_pl",
-    name: "Socio Pase Total",
-    roleLabel: "Socio Pase Total",
+    name: "Socio Pase PitchLab Ultra",
+    roleLabel: "Socio Pase PitchLab Ultra",
     specialty: "Multi-Liga · Bitácora Auditada",
     avatarInitials: "SP",
     avatarGradVar: "var(--avatar-grad-5)",
@@ -131,6 +132,9 @@ export function SocialVipClubView(): React.JSX.Element {
   const [composerErr, setComposerErr] = useState<string>("");
   const [replyDrafts, setReplyDrafts] = useState<Record<string, string>>({});
   const [replyErrors, setReplyErrors] = useState<Record<string, string>>({});
+  const [openThreads, setOpenThreads] = useState<string[]>([]);
+  const toggleThread = (id: string) =>
+    setOpenThreads((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
 
   // Controles de Ranking CLV (Temporada / 30 días + CLV Medio / Unidades)
   const [lbWindow, setLbWindow] = useState<"season" | "30d">("season");
@@ -202,7 +206,7 @@ export function SocialVipClubView(): React.JSX.Element {
         ? `${journalEntry!.pickLabel} · ${journalEntry!.units.toFixed(1)}u`
         : selectedMatch?.picks[0]
           ? `${selectedMatch.picks[0].label} · ${selectedMatch.picks[0].suggestedUnits.toFixed(1)}u`
-          : "Pick Principal · 1.5u",
+          : "Pick principal · 1.5u",
       originType: draftOrigin,
       body: draftBody,
     });
@@ -288,8 +292,8 @@ export function SocialVipClubView(): React.JSX.Element {
           <div className="space-y-1.5">
             <div className="flex flex-wrap items-center gap-2.5">
               <span className="pl-pill pl-pill--brand">
-                <MaestroIcon name="shield" size={13} />
-                Solo Suscriptores · Récords Auditados
+                <MaestroIcon name="users" size={13} />
+                Solo socios
               </span>
               <StackedAvatars items={ACTIVE_MEMBER_AVATARS} extraCount={38} />
             </div>
@@ -297,8 +301,7 @@ export function SocialVipClubView(): React.JSX.Element {
               Comunidad
             </h1>
             <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
-              Debate táctico verificado entre miembros con Pase Total y Tipstars Oficiales.
-              Enlaces externos y grupos de reventa bloqueados ({blockedSpamAttempts} interceptados).
+              Picks y opiniones de socios y tipstars. Sin enlaces externos ni spam.
             </p>
           </div>
 
@@ -312,7 +315,7 @@ export function SocialVipClubView(): React.JSX.Element {
               onClick={() => setTab("feed")}
             >
               <MaestroIcon name="users" size={14} />
-              <span>Boletos & Debate ({socialPosts.length})</span>
+              <span>Feed</span>
             </button>
             <button
               id="social-tab-consenso"
@@ -323,7 +326,7 @@ export function SocialVipClubView(): React.JSX.Element {
               onClick={() => setTab("consenso")}
             >
               <MaestroIcon name="flame" size={14} />
-              <span>Consenso vs. Suite</span>
+              <span>Consenso</span>
             </button>
             <button
               id="social-tab-ranking"
@@ -334,7 +337,7 @@ export function SocialVipClubView(): React.JSX.Element {
               onClick={() => setTab("ranking")}
             >
               <MaestroIcon name="trophy" size={14} />
-              <span>Ranking CLV (IC 95 %)</span>
+              <span>Ranking</span>
             </button>
           </div>
         </section>
@@ -345,15 +348,13 @@ export function SocialVipClubView(): React.JSX.Element {
             <div className="relative z-10 space-y-3">
               <span className="pl-pill pl-pill--brand">
                 <MaestroIcon name="lock" size={13} />
-                Acceso Exclusivo Pase Total
+                Pase PitchLab Ultra
               </span>
               <h2 className="m-0 text-xl font-extrabold">
-                Solo suscriptores activos pueden ver boletos pre-partido y opinar
+                La comunidad es solo para socios
               </h2>
               <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
-                Para garantizar cero ruido, cero bots y cero reventa en canales externos, los
-                hilos verificados de la Comunidad VIP están reservados para miembros con Pase
-                Total.
+                Con tu prueba gratis puedes leer y publicar picks con otros socios y tipstars.
               </p>
               <a
                 href="/signup"
@@ -377,333 +378,220 @@ export function SocialVipClubView(): React.JSX.Element {
             aria-labelledby="social-tab-feed"
             className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start"
           >
-            {/* Columna principal (8 cols) */}
-            <div className="lg:col-span-8 space-y-4">
-              {/* Compositor con LensGlowOrbs subtle + selector de partido + origen */}
-              <form
-                onSubmit={handlePublish}
-                className="glass-lens glass-ring relative overflow-hidden rounded-3xl p-5 space-y-3.5"
-              >
-                <LensGlowOrbs subtle />
-                <div className="relative z-10 space-y-3.5">
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <strong className="text-sm flex items-center gap-2">
-                      <MaestroIcon
-                        name="sparkles"
-                        size={15}
-                        style={{ color: "var(--pl-brand)" }}
-                      />
-                      <span>Compartir lectura con tu insignia auditada</span>
-                    </strong>
-                    <div
-                      className="seg-well"
-                      role="group"
-                      aria-label="Origen del pick comentado"
-                    >
-                      {(["Spacetime Suite", "Bitácora Propia"] as const).map((orig) => (
-                        <button
-                          key={orig}
-                          type="button"
-                          className="seg-btn text-xs"
-                          aria-pressed={draftOrigin === orig}
-                          onClick={() => setDraftOrigin(orig)}
-                        >
-                          <MaestroIcon
-                            name={orig === "Spacetime Suite" ? "cpu" : "ticket"}
-                            size={13}
-                          />
-                          <span>{orig}</span>
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-12 gap-2.5 items-center">
-                    <label
-                      htmlFor="social-match-select"
-                      className="sm:col-span-4 text-xs font-bold"
-                      style={{ color: "var(--pl-text-secondary)" }}
-                    >
-                      Partido o boleto vinculado
-                    </label>
-                    <select
-                      id="social-match-select"
-                      value={selectedGameId}
-                      onChange={(e) => setSelectedGameId(e.target.value)}
-                      className="sm:col-span-8 glass-input w-full px-3 py-2 text-xs font-semibold"
-                    >
-                      {(upcomingGames.length > 0 ? upcomingGames : dataset.games)
-                        .slice(0, 12)
-                        .map((g) => (
-                          <option key={g.id} value={g.id}>
-                            {g.leagueLabel} · {g.home.shortName} vs {g.away.shortName} —{" "}
-                            {g.picks[0]?.label ?? "Pick Principal"}
-                          </option>
-                        ))}
-                    </select>
-                  </div>
-
-                  <textarea
-                    rows={3}
-                    aria-label="Escribe tu lectura táctica para la comunidad"
-                    value={draftBody}
-                    onChange={(e) => setDraftBody(e.target.value)}
-                    placeholder="Comparte tu lectura sobre el partido o cómo armaste tu parlay (enlaces externos bloqueados)..."
-                    className="glass-input w-full p-3 text-sm"
-                  />
-
-                  {composerErr ? (
-                    <p
-                      className="m-0 text-xs font-semibold flex items-center gap-1.5"
-                      role="alert"
-                      style={{ color: "var(--pl-danger)" }}
-                    >
-                      <MaestroIcon name="shield" size={14} />
-                      <span>{composerErr}</span>
-                    </p>
-                  ) : null}
-
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <span className="text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                      Filtro anti-links activo · Tu récord verificado acompaña cada comentario
-                    </span>
-                    <button type="submit" className="pl-btn-primary text-xs">
-                      <MaestroIcon name="check" size={14} />
-                      <span>Publicar en Comunidad VIP</span>
-                    </button>
-                  </div>
-                </div>
-              </form>
-
-              {/* Barra de filtro Todos / Siguiendo */}
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <div className="seg-well" role="group" aria-label="Filtrar publicaciones">
+            {/* Timeline (8 cols) */}
+            <div className="lg:col-span-8">
+              <div className="pl-feed glass-card glass-ring rounded-2xl overflow-hidden">
+                {/* Pestañas Para ti / Siguiendo */}
+                <div className="pl-feed-tabs" role="group" aria-label="Filtrar publicaciones">
                   <button
                     type="button"
-                    className="seg-btn text-xs"
                     aria-pressed={feedFilter === "all"}
                     onClick={() => setFeedFilter("all")}
                   >
-                    Todos los socios ({socialPosts.length})
+                    Para ti
                   </button>
                   <button
                     type="button"
-                    className="seg-btn text-xs"
                     aria-pressed={feedFilter === "following"}
                     onClick={() => setFeedFilter("following")}
                   >
-                    Siguiendo ({followedHandles.length})
+                    Siguiendo
                   </button>
                 </div>
 
-                <button
-                  type="button"
-                  className="pl-btn-glass text-xs min-h-8 px-3"
-                  onClick={() => navigateTo("/app/picks")}
-                >
-                  <MaestroIcon name="plus" size={13} />
-                  <span>Sellar nuevo pick</span>
-                </button>
-              </div>
+                {/* Caja para publicar */}
+                <form onSubmit={handlePublish} className="pl-feed-composer">
+                  <span
+                    className="pl-feed-avatar"
+                    style={{ background: "var(--avatar-grad-2)", color: "var(--pl-on-solid)" }}
+                    aria-hidden="true"
+                  >
+                    JR
+                  </span>
+                  <div className="min-w-0 flex-1 space-y-2.5">
+                    <textarea
+                      rows={2}
+                      aria-label="Escribe tu publicación"
+                      value={draftBody}
+                      onChange={(e) => {
+                        setDraftBody(e.target.value);
+                        if (composerErr) setComposerErr("");
+                      }}
+                      placeholder="¿Qué ves en la jornada?"
+                      className="pl-feed-textarea"
+                    />
+                    {composerErr ? (
+                      <p
+                        className="m-0 text-xs font-semibold flex items-center gap-1.5"
+                        role="alert"
+                        style={{ color: "var(--pl-danger)" }}
+                      >
+                        <MaestroIcon name="shield" size={14} />
+                        <span>{composerErr}</span>
+                      </p>
+                    ) : null}
+                    <div className="flex flex-wrap items-center justify-between gap-2 pt-2 hairline-t">
+                      <label className="pl-feed-attach">
+                        <MaestroIcon name="ticket" size={14} />
+                        <span className="sr-only">Partido de tu publicación</span>
+                        <select
+                          id="social-match-select"
+                          value={selectedGameId}
+                          onChange={(e) => setSelectedGameId(e.target.value)}
+                        >
+                          {(upcomingGames.length > 0 ? upcomingGames : dataset.games)
+                            .slice(0, 12)
+                            .map((g) => (
+                              <option key={g.id} value={g.id}>
+                                {g.home.shortName} vs {g.away.shortName}
+                              </option>
+                            ))}
+                        </select>
+                      </label>
+                      <button
+                        type="submit"
+                        className="pl-btn-primary text-xs !min-h-9 !px-4"
+                        disabled={draftBody.trim().length === 0}
+                      >
+                        Publicar
+                      </button>
+                    </div>
+                  </div>
+                </form>
 
-              {/* Hilos verificados */}
-              <div className="space-y-4">
+                {/* Publicaciones */}
                 {visiblePosts.map((post) => {
                   const isFollowing = followedHandles.includes(post.authorHandle);
+                  const isMine = post.authorHandle === "socio_pl";
                   const matchedGame = dataset.games.find(
                     (g) =>
                       g.id === post.gameId ||
-                      post.matchLabel
-                        .toLowerCase()
-                        .includes(g.home.shortName.toLowerCase()),
+                      post.matchLabel.toLowerCase().includes(g.home.shortName.toLowerCase()),
                   );
                   const copies = copiedCounts[post.id] ?? 5;
+                  const threadOpen = openThreads.includes(post.id);
+                  const profileHref = `/app/u/${post.authorHandle}`;
 
                   return (
-                    <article
-                      key={post.id}
-                      className="glass-card glass-ring relative overflow-hidden rounded-2xl p-5 space-y-3.5"
-                    >
-                      <span className="pl-watermark num">{watermark}</span>
+                    <article key={post.id} className="pl-feed-post">
+                      <a
+                        href={profileHref}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          navigateTo(profileHref);
+                        }}
+                        className="pl-feed-avatar no-underline"
+                        style={{ background: post.avatarGradVar, color: "var(--share-card-fg)" }}
+                        aria-label={`Perfil de ${post.authorName}`}
+                      >
+                        {post.authorName.slice(0, 2).toUpperCase()}
+                      </a>
 
-                      {/* Cabecera de autor con insignia auditada */}
-                      <div className="flex flex-wrap items-start justify-between gap-3 relative z-10">
-                        <div className="flex items-center gap-3 min-w-0">
-                          <a
-                            href={`/app/u/${post.authorHandle}`}
-                            onClick={(e) => {
-                              e.preventDefault();
-                              navigateTo(`/app/u/${post.authorHandle}`);
-                            }}
-                            className="w-10 h-10 rounded-full avatar-ring inline-flex items-center justify-center text-xs font-extrabold no-underline shrink-0"
-                            style={{
-                              background: post.avatarGradVar,
-                              color: "var(--share-card-fg)",
-                            }}
-                          >
-                            {post.authorName.slice(0, 2).toUpperCase()}
-                          </a>
-                          <div className="min-w-0">
-                            <div className="flex flex-wrap items-center gap-2">
-                              <a
-                                href={`/app/u/${post.authorHandle}`}
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  navigateTo(`/app/u/${post.authorHandle}`);
-                                }}
-                                className="font-extrabold text-sm no-underline hover:underline truncate"
-                              >
-                                {post.authorName}
-                              </a>
-                              {post.isExample ? <ExampleBadge /> : null}
-                              <span
-                                className={
-                                  post.roleBadge === "Tipstar Oficial"
-                                    ? "pl-pill pl-pill--success"
-                                    : "pl-pill pl-pill--brand"
-                                }
-                              >
-                                {post.roleBadge}
-                              </span>
-                            </div>
-                            <div
-                              className="text-xs num flex flex-wrap items-center gap-1.5 mt-0.5"
-                              style={{ color: "var(--pl-text-muted)" }}
+                      <div className="min-w-0 flex-1 space-y-2">
+                        <div className="flex items-start justify-between gap-2">
+                          <div className="min-w-0 flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-sm">
+                            <a
+                              href={profileHref}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                navigateTo(profileHref);
+                              }}
+                              className="font-extrabold no-underline hover:underline truncate"
                             >
-                              <span>@{post.authorHandle}</span>
-                              <span>·</span>
-                              <span
-                                className="font-semibold"
-                                style={{ color: "var(--pl-success)" }}
-                              >
-                                {post.verifiedRecord}
-                              </span>
-                              <span>·</span>
-                              <span
-                                className="font-semibold"
-                                style={{ color: "var(--pl-brand)" }}
-                              >
-                                {post.clvBadge}
-                              </span>
-                              <span>·</span>
-                              <span>{post.createdAt}</span>
-                            </div>
+                              {post.authorName}
+                            </a>
+                            <UserBadges roleLabel={post.roleBadge} />
+                            <span className="truncate" style={{ color: "var(--pl-text-muted)" }}>
+                              @{post.authorHandle} · {post.createdAt}
+                            </span>
+                            {post.isExample ? <ExampleBadge /> : null}
                           </div>
+                          {!isMine ? (
+                            <button
+                              type="button"
+                              className={`pl-feed-follow ${isFollowing ? "is-following" : ""}`}
+                              onClick={() => toggleFollow(post.authorHandle)}
+                            >
+                              {isFollowing ? "Siguiendo" : "Seguir"}
+                            </button>
+                          ) : null}
                         </div>
 
-                        {post.authorHandle !== "socio_pl" ? (
-                          <button
-                            type="button"
-                            className="pl-btn-glass text-xs min-h-8 px-3"
-                            onClick={() => toggleFollow(post.authorHandle)}
-                          >
-                            {isFollowing ? "Siguiendo" : "+ Seguir"}
-                          </button>
-                        ) : (
-                          <span className="pl-pill pl-pill--brand">Tu boleto</span>
-                        )}
-                      </div>
+                        <p className="m-0 text-[0.95rem] leading-relaxed" style={{ color: "var(--pl-text)" }}>
+                          {post.body}
+                        </p>
 
-                      {/* Tesis táctica */}
-                      <p
-                        className="m-0 text-sm leading-relaxed relative z-10"
-                        style={{ color: "var(--pl-text-secondary)" }}
-                      >
-                        {post.body}
-                      </p>
-
-                      {/* Caja perforada de boleto con + Llevar a mi bitácora */}
-                      <div
-                        className="glass-ring rounded-xl p-3.5 space-y-2.5 relative z-10"
-                        style={{ background: "var(--pl-surface)" }}
-                      >
-                        <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
-                          <span className="flex items-center gap-2 font-semibold">
+                        {/* Pick citado */}
+                        <div className="pl-feed-quote">
+                          <div className="flex items-center gap-2 text-xs" style={{ color: "var(--pl-text-muted)" }}>
                             {matchedGame ? (
                               <>
                                 <TeamBadge
                                   league={matchedGame.league}
                                   slug={matchedGame.home.slug}
                                   name={matchedGame.home.name}
-                                  size={18}
+                                  size={16}
                                 />
-                                <span>{post.matchLabel}</span>
                                 <TeamBadge
                                   league={matchedGame.league}
                                   slug={matchedGame.away.slug}
                                   name={matchedGame.away.name}
-                                  size={18}
+                                  size={16}
                                 />
                               </>
                             ) : (
-                              <>
-                                <MaestroIcon
-                                  name="ticket"
-                                  size={14}
-                                  style={{ color: "var(--pl-brand)" }}
-                                />
-                                <span>{post.matchLabel}</span>
-                              </>
+                              <MaestroIcon name="ticket" size={14} />
                             )}
-                          </span>
-                          <span className="num" style={{ color: "var(--pl-text-muted)" }}>
-                            {post.leagueLabel} · {post.originType}
-                          </span>
-                        </div>
-
-                        <div className="ticket-perf" />
-
-                        <div className="flex flex-wrap items-center justify-between gap-3">
-                          <div>
-                            <div className="font-extrabold text-sm uppercase tracking-wide">
-                              {post.pickBadge}
-                            </div>
-                            <span
-                              className="text-xs num"
-                              style={{ color: "var(--pl-text-muted)" }}
-                            >
-                              {post.originType === "Spacetime Suite"
-                                ? "Calibrado por PitchLab Spacetime Suite v3.0"
-                                : "Tesis propia sellada pre-partido"}
+                            <span className="truncate">
+                              {post.leagueLabel} · {post.matchLabel}
                             </span>
                           </div>
-
-                          <button
-                            type="button"
-                            className="pl-btn-glass text-xs min-h-8 px-3 num"
-                            onClick={() => handleCopyPostToJournal(post)}
-                          >
-                            <MaestroIcon name="plus" size={13} />
-                            <span>Llevar a mi bitácora ({copies})</span>
-                          </button>
+                          <div className="font-extrabold text-sm">{post.pickBadge}</div>
+                          {post.verifiedRecord ? (
+                            <div className="text-xs num font-semibold" style={{ color: "var(--pl-success)" }}>
+                              Récord de @{post.authorHandle}: {post.verifiedRecord}
+                            </div>
+                          ) : null}
                         </div>
-                      </div>
 
-                      {/* Barra de reacciones + compartir */}
-                      <div className="flex flex-wrap items-center justify-between gap-2 pt-0.5 relative z-10">
-                        <div className="flex flex-wrap items-center gap-2">
+                        {/* Acciones */}
+                        <div className="pl-feed-actions">
                           <button
                             type="button"
-                            onClick={() => toggleSocialLike(post.id)}
-                            className="pl-btn-glass text-xs min-h-8 px-3 num"
-                            style={{
-                              color: post.likedByMe
-                                ? "var(--pl-warning)"
-                                : "var(--pl-text-secondary)",
-                            }}
+                            aria-expanded={threadOpen}
+                            onClick={() => toggleThread(post.id)}
+                            aria-label={`Responder (${post.comments.length})`}
                           >
-                            <MaestroIcon name="flame" size={14} />
-                            <span>Útil ({post.likes})</span>
+                            <MaestroIcon name="message" size={16} />
+                            <span className="num">{post.comments.length}</span>
                           </button>
-
                           <button
                             type="button"
-                            className="pl-btn-glass text-xs min-h-8 px-3"
+                            aria-pressed={Boolean(post.likedByMe)}
+                            className={post.likedByMe ? "is-liked" : ""}
+                            onClick={() => toggleSocialLike(post.id)}
+                            aria-label={`Me gusta (${post.likes})`}
+                          >
+                            <MaestroIcon name="heart" size={16} />
+                            <span className="num">{post.likes}</span>
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => handleCopyPostToJournal(post)}
+                            aria-label={`Llevar a mi bitácora (${copies})`}
+                            title="Llevar a mi bitácora"
+                          >
+                            <MaestroIcon name="plus" size={16} />
+                            <span className="num">{copies}</span>
+                          </button>
+                          <button
+                            type="button"
+                            aria-label="Compartir"
                             onClick={() =>
                               openShareTicket({
                                 kind: "pick",
                                 title: post.matchLabel,
-                                subtitle: `Debate Comunidad VIP · @${post.authorHandle}`,
+                                subtitle: `Comunidad · @${post.authorHandle}`,
                                 leagueLabel: post.leagueLabel,
                                 pickLabel: post.pickBadge,
                                 probability: 0.62,
@@ -714,122 +602,77 @@ export function SocialVipClubView(): React.JSX.Element {
                               })
                             }
                           >
-                            <MaestroIcon name="share" size={13} />
-                            <span>Compartir</span>
+                            <MaestroIcon name="share" size={16} />
                           </button>
                         </div>
 
-                        <span className="text-xs num" style={{ color: "var(--pl-text-muted)" }}>
-                          {post.comments.length}{" "}
-                          {post.comments.length === 1 ? "opinión" : "opiniones"}
-                        </span>
-                      </div>
-
-                      {/* Hilo de respuestas en línea */}
-                      <div className="space-y-2 pt-2.5 hairline-t relative z-10">
-                        {post.comments.map((c) => (
-                          <div
-                            key={c.id}
-                            className="rounded-xl px-3 py-2 text-xs flex items-start justify-between gap-2"
-                            style={{ background: "var(--pl-surface)" }}
-                          >
-                            <div className="space-y-0.5">
-                              <div>
-                                <strong style={{ color: "var(--pl-brand)" }}>
-                                  @{c.authorHandle}
-                                </strong>{" "}
-                                <span
-                                  className="num font-semibold"
-                                  style={{ color: "var(--pl-success)" }}
-                                >
-                                  ({c.verifiedBadge})
+                        {/* Respuestas */}
+                        {threadOpen ? (
+                          <div className="pl-feed-thread">
+                            {post.comments.map((c) => (
+                              <div key={c.id} className="text-sm">
+                                <span className="font-bold">@{c.authorHandle}</span>{" "}
+                                <span className="text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                                  · {c.createdAt}
                                 </span>
-                                <span style={{ color: "var(--pl-text-secondary)" }}>
-                                  : {c.body}
-                                </span>
+                                <p className="m-0 mt-0.5" style={{ color: "var(--pl-text-secondary)" }}>
+                                  {c.body}
+                                </p>
                               </div>
+                            ))}
+
+                            <div className="flex items-center gap-2">
+                              <input
+                                type="text"
+                                aria-label={`Responder a ${post.authorName}`}
+                                value={replyDrafts[post.id] ?? ""}
+                                onChange={(e) => {
+                                  setReplyDrafts((prev) => ({ ...prev, [post.id]: e.target.value }));
+                                  if (replyErrors[post.id]) {
+                                    setReplyErrors((prev) => ({ ...prev, [post.id]: "" }));
+                                  }
+                                }}
+                                placeholder="Escribe tu respuesta"
+                                className="glass-input flex-1 px-3 py-2 text-sm min-w-0"
+                              />
+                              <button
+                                type="button"
+                                className="pl-btn-glass text-xs min-h-9 px-3"
+                                onClick={() => {
+                                  const res = addSocialComment(post.id, replyDrafts[post.id] ?? "");
+                                  if (res.ok) {
+                                    setReplyDrafts((prev) => ({ ...prev, [post.id]: "" }));
+                                    setReplyErrors((prev) => ({ ...prev, [post.id]: "" }));
+                                  } else if (res.error) {
+                                    setReplyErrors((prev) => ({ ...prev, [post.id]: res.error ?? "" }));
+                                  }
+                                }}
+                              >
+                                Responder
+                              </button>
                             </div>
-                            <span
-                              className="shrink-0 num"
-                              style={{ color: "var(--pl-text-muted)" }}
-                            >
-                              {c.createdAt}
-                            </span>
+                            {replyErrors[post.id] ? (
+                              <p className="m-0 text-xs font-semibold" style={{ color: "var(--pl-danger)" }}>
+                                {replyErrors[post.id]}
+                              </p>
+                            ) : null}
                           </div>
-                        ))}
-
-                        <div className="flex items-center gap-2 pt-0.5">
-                          <input
-                            type="text"
-                            aria-label={`Responder a ${post.authorName}`}
-                            value={replyDrafts[post.id] ?? ""}
-                            onChange={(e) => {
-                              setReplyDrafts((prev) => ({
-                                ...prev,
-                                [post.id]: e.target.value,
-                              }));
-                              if (replyErrors[post.id]) {
-                                setReplyErrors((prev) => ({ ...prev, [post.id]: "" }));
-                              }
-                            }}
-                            placeholder="Opina como suscriptor verificado (sin links)..."
-                            className="glass-input flex-1 px-3 py-1.5 text-xs min-w-0"
-                          />
-                          <button
-                            type="button"
-                            className="pl-btn-glass text-xs min-h-8 px-3"
-                            onClick={() => {
-                              const res = addSocialComment(
-                                post.id,
-                                replyDrafts[post.id] ?? "",
-                              );
-                              if (res.ok) {
-                                setReplyDrafts((prev) => ({ ...prev, [post.id]: "" }));
-                                setReplyErrors((prev) => ({ ...prev, [post.id]: "" }));
-                              } else if (res.error) {
-                                setReplyErrors((prev) => ({
-                                  ...prev,
-                                  [post.id]: res.error ?? "",
-                                }));
-                              }
-                            }}
-                          >
-                            Responder
-                          </button>
-                        </div>
-
-                        {replyErrors[post.id] ? (
-                          <p
-                            className="m-0 text-xs font-semibold"
-                            style={{ color: "var(--pl-danger)" }}
-                          >
-                            {replyErrors[post.id]}
-                          </p>
                         ) : null}
                       </div>
                     </article>
                   );
                 })}
+
+                {visiblePosts.length === 0 ? (
+                  <p className="m-0 p-8 text-center text-sm" style={{ color: "var(--pl-text-muted)" }}>
+                    Todavía no sigues a nadie. Sigue a un tipstar para ver sus picks aquí.
+                  </p>
+                ) : null}
               </div>
             </div>
 
             {/* Columna derecha sticky (4 cols) */}
             <aside className="lg:col-span-4 lg:sticky lg:top-20 space-y-4">
-              {/* Escudo Anti-Spam Zero-Noise */}
-              <NoticeCard
-                icon="shield"
-                tone="success"
-                badgeText="Escudo Zero-Noise Activo"
-                title="Cero Fuga · Cero Spam"
-              >
-                <span>
-                  Solo socios con Pase Total pueden opinar. Enlaces externos, invitaciones a
-                  grupos y bots son bloqueados al vuelo ({" "}
-                  <strong className="num">{blockedSpamAttempts} links interceptados</strong>
-                  ). Al compartir antes del kickoff, la selección viaja sellada.
-                </span>
-              </NoticeCard>
-
               {/* Tipstars y Socios Top CLV */}
               <div className="glass-card glass-ring rounded-2xl p-4 space-y-3">
                 <div className="flex items-center justify-between gap-2">
@@ -839,7 +682,7 @@ export function SocialVipClubView(): React.JSX.Element {
                       size={15}
                       style={{ color: "var(--pl-brand)" }}
                     />
-                    <span>Tipstars y Socios Top CLV</span>
+                    <span>A quién seguir</span>
                   </h2>
                   <button
                     type="button"
@@ -847,7 +690,7 @@ export function SocialVipClubView(): React.JSX.Element {
                     style={{ color: "var(--pl-brand)" }}
                     onClick={() => setTab("ranking")}
                   >
-                    Ver tabla →
+                    Ver tabla
                   </button>
                 </div>
 
@@ -1158,7 +1001,7 @@ export function SocialVipClubView(): React.JSX.Element {
                 <table className="w-full text-left border-collapse text-sm">
                   <thead>
                     <tr
-                      className="hairline-b text-xs uppercase"
+                      className="hairline-b text-xs"
                       style={{ color: "var(--pl-text-muted)" }}
                     >
                       <th scope="col" className="py-2.5 pr-3">
@@ -1384,8 +1227,8 @@ export function TipstarPortalClubView(): React.JSX.Element {
     : personalJournalEntry?.matchLabel ?? activePick?.matchLabel ?? "Partido Estelar";
 
   const previewSelectionLabel = isSpacetimeOrigin
-    ? activePick?.label ?? "Pick Principal"
-    : personalJournalEntry?.pickLabel ?? activePick?.label ?? "Pick Principal";
+    ? activePick?.label ?? "Pick principal"
+    : personalJournalEntry?.pickLabel ?? activePick?.label ?? "Pick principal";
 
   const previewProb = isSpacetimeOrigin ? activePick?.p ?? 0.62 : 0.61;
   const previewFair = isSpacetimeOrigin
@@ -1444,7 +1287,7 @@ export function TipstarPortalClubView(): React.JSX.Element {
             icon="crown"
             tone="success"
             badgeText="Vista Previa · Programa de Creadores"
-            title="Activa el rol Tipstar para publicar tu Pick Abierto Semanal sin sellado"
+            title="Activa el rol Tipstar para publicar tu Pick abierto semanal sin sellado"
             action={
               <button
                 type="button"
@@ -1459,7 +1302,7 @@ export function TipstarPortalClubView(): React.JSX.Element {
             }
           >
             <span>
-              Como Tipstar Oficial liberas 1 Pick Abierto a la semana con tu código de 5 días
+              Como Tipstar Oficial liberas 1 Pick abierto a la semana con tu código de 5 días
               gratis mientras los otros 4 picks del partido siguen protegidos.
             </span>
           </NoticeCard>
@@ -1494,7 +1337,7 @@ export function TipstarPortalClubView(): React.JSX.Element {
                   </span>
                 </div>
                 <p className="m-0 text-xs sm:text-sm" style={{ color: "var(--pl-text-secondary)" }}>
-                  Libera <strong>1 Pick Abierto a la semana</strong> con branding oficial de
+                  Libera <strong>1 Pick abierto a la semana</strong> con branding oficial de
                   PitchLab y tu código promocional. Los otros 4 picks del partido permanecen
                   blindados bajo suscripción.
                 </p>
@@ -1534,7 +1377,7 @@ export function TipstarPortalClubView(): React.JSX.Element {
                 {sofia.promoCode}
               </strong>
               <span className="block text-xs" style={{ color: "var(--pl-success)" }}>
-                Otorga {sofia.freeDays} días Pase Total gratis
+                Otorga {sofia.freeDays} días Pase PitchLab Ultra gratis
               </span>
             </div>
 
@@ -1583,7 +1426,7 @@ export function TipstarPortalClubView(): React.JSX.Element {
                 ${sofia.monthlyCommissionMxn.toLocaleString("es-MX")} MXN
               </strong>
               <span className="block text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                Recurrente + Pase Total $0
+                Recurrente + Pase PitchLab Ultra $0
               </span>
             </div>
 
@@ -1595,7 +1438,7 @@ export function TipstarPortalClubView(): React.JSX.Element {
                 className="flex items-center justify-between text-xs"
                 style={{ color: "var(--pl-text-muted)" }}
               >
-                <span>Pick Abierto Semanal</span>
+                <span>Pick abierto semanal</span>
                 <MaestroIcon
                   name="unlock"
                   size={15}
@@ -1621,7 +1464,7 @@ export function TipstarPortalClubView(): React.JSX.Element {
             <div className="relative z-10 space-y-4">
               <div className="space-y-2">
                 <h2 className="m-0 text-lg font-extrabold">
-                  1. Origen de tu Pick Abierto de la Semana
+                  1. Origen de tu Pick abierto de la semana
                 </h2>
                 <div
                   className="seg-well w-full"
@@ -1714,7 +1557,7 @@ export function TipstarPortalClubView(): React.JSX.Element {
                               >
                                 {pk.categoryLabel}
                               </span>
-                              <strong className="block text-sm font-extrabold uppercase truncate">
+                              <strong className="block text-sm font-extrabold truncate">
                                 {pk.label}
                               </strong>
                             </div>
@@ -1743,7 +1586,7 @@ export function TipstarPortalClubView(): React.JSX.Element {
                   >
                     Tomado de tu Bitácora verificada pre-partido
                   </span>
-                  <strong className="block text-base font-extrabold uppercase">
+                  <strong className="block text-base font-extrabold">
                     {previewSelectionLabel}
                   </strong>
                   <span
@@ -1797,13 +1640,13 @@ export function TipstarPortalClubView(): React.JSX.Element {
                       promoCode: sofia.promoCode,
                       tipstarHandle: sofia.handle,
                       originBadge: isSpacetimeOrigin
-                        ? "PICK OFICIAL SPACETIME SUITE"
+                        ? "PICK OFICIAL PITCHLAB"
                         : "PICK SELLADO BITÁCORA TIPSTAR",
                     });
                   }}
                 >
                   <MaestroIcon name="share" size={14} />
-                  <span>Generar Boleto 4:5 / 9:16 con mi Código →</span>
+                  <span>Generar boleto 4:5 / 9:16 con mi código</span>
                 </button>
 
                 <button
@@ -1835,7 +1678,7 @@ export function TipstarPortalClubView(): React.JSX.Element {
           <aside className="lg:col-span-5 space-y-3">
             <div className="flex items-center justify-between gap-2">
               <span
-                className="text-xs font-extrabold uppercase tracking-wider"
+                className="text-xs font-extrabold"
                 style={{ color: "var(--pl-text-muted)" }}
               >
                 Boleto Oficial para Redes
@@ -1932,7 +1775,7 @@ export function TipstarPortalClubView(): React.JSX.Element {
                     border: "1px solid var(--share-card-border)",
                   }}
                 >
-                  <div className="text-lg sm:text-xl font-extrabold uppercase tracking-tight">
+                  <div className="text-lg sm:text-xl font-extrabold tracking-tight">
                     {previewSelectionLabel}
                   </div>
                   <div
@@ -2097,9 +1940,9 @@ export function TipstarPortalClubView(): React.JSX.Element {
                   style={{ color: "var(--pl-success)" }}
                 >
                   <MaestroIcon name="unlock" size={13} />
-                  <span>PICK ABIERTO DE LA SEMANA</span>
+                  <span>Pick abierto de la semana</span>
                 </span>
-                <div className="text-xl font-extrabold uppercase">
+                <div className="text-xl font-extrabold">
                   {previewSelectionLabel}
                 </div>
                 <div className="num text-xs" style={{ color: "var(--pl-text-secondary)" }}>
@@ -2117,7 +1960,7 @@ export function TipstarPortalClubView(): React.JSX.Element {
 
               <div className="space-y-2">
                 <div
-                  className="text-xs font-bold uppercase tracking-wide"
+                  className="text-xs font-bold"
                   style={{ color: "var(--pl-text-muted)" }}
                 >
                   Otros {Math.max(4, lockedSiblingPicks.length)} picks de este mismo partido (Cero fuga sin suscripción):
@@ -2144,7 +1987,7 @@ export function TipstarPortalClubView(): React.JSX.Element {
                       <span>{lp.categoryLabel}</span>
                     </span>
                     <span className="locked-redact font-extrabold">
-                      RESERVADO PASE TOTAL
+                      RESERVADO PASE PITCHLAB ULTRA
                     </span>
                   </div>
                 ))}
@@ -2159,7 +2002,7 @@ export function TipstarPortalClubView(): React.JSX.Element {
                 }}
               >
                 <span>
-                  Canjear código {sofia.promoCode} · {sofia.freeDays} días de Pase Total gratis
+                  Canjear código {sofia.promoCode} · {sofia.freeDays} días de Pase PitchLab Ultra gratis
                 </span>
                 <MaestroIcon name="arrowRight" size={14} />
               </button>

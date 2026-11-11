@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import type { LeagueId } from "@pitchlab/contracts";
 import { getTeamColors } from "@pitchlab/sports-assets";
 import {
@@ -9,7 +9,7 @@ import {
   ProbSplit,
   TeamBadge,
   parseUserOdds,
-} from "../../sports.js";
+} from "../../sports";
 import {
   decimalToAmericanInt,
   formatEdgePts,
@@ -18,7 +18,7 @@ import {
   pickReferenceDecimal,
   isPickUnlocked,
   isPreGameIntelUnlocked,
-} from "../access-guard.js";
+} from "../access-guard";
 import {
   CalendarSquare,
   CrestPedestal,
@@ -27,22 +27,30 @@ import {
   ExampleBadge,
   NoticeCard,
   StackedAvatars,
-} from "../components/MaestroPrimitives.js";
+  UserBadges,
+} from "../components/MaestroPrimitives";
 import {
   MatchTicketCard,
   MultiPickRow,
-} from "../components/MatchTicketCard.js";
+} from "../components/MatchTicketCard";
 import {
   AtmosphereStage,
   ClubWorkspaceShell,
-} from "../components/ShellChrome.js";
-import { usePlatform } from "../platform-provider.js";
+} from "../components/ShellChrome";
+import {
+  useIsPickInParlay,
+  usePlatform,
+  usePlatformActions,
+  usePlatformCore,
+} from "../platform-provider";
 import type {
   MatchPick,
+  OddsFormat,
   PlatformGame,
+  PlatformGameDetail,
   PlatformMarketRow,
   RiskBand,
-} from "../types.js";
+} from "../types";
 
 const MONTH_ABBR_ES = [
   "ENE",
@@ -131,19 +139,129 @@ function matchesMarketCategory(
   );
 }
 
+/** «Lo más probable» primero: el resultado con más probabilidad y su momio justo. */
+function MostLikelyLine({
+  game,
+  oddsFormat,
+}: {
+  game: PlatformGame;
+  oddsFormat: OddsFormat;
+}): React.JSX.Element {
+  const isNfl = game.sport === "american-football" || game.league === "nfl";
+  const options = isNfl
+    ? [
+        { label: `Gana ${game.home.shortName}`, p: game.x12[0] },
+        { label: `Gana ${game.away.shortName}`, p: game.x12[2] },
+      ]
+    : [
+        { label: `Gana ${game.home.shortName}`, p: game.x12[0] },
+        { label: "Empate", p: game.x12[1] },
+        { label: `Gana ${game.away.shortName}`, p: game.x12[2] },
+      ];
+  const top = options.reduce((a, b) => (b.p > a.p ? b : a));
+  return (
+    <div
+      className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 rounded-2xl px-4 py-3"
+      style={{ background: "var(--pl-surface)" }}
+    >
+      <span className="text-sm" style={{ color: "var(--pl-text-secondary)" }}>
+        Lo más probable
+      </span>
+      <span className="flex items-baseline gap-3 num">
+        <strong className="text-base font-extrabold">{top.label}</strong>
+        <strong className="text-base font-extrabold" style={{ color: "var(--pl-success)" }}>
+          {(top.p * 100).toFixed(0)} %
+        </strong>
+        <span className="text-xs" style={{ color: "var(--pl-text-muted)" }}>
+          Momio justo {formatOddsValue(1 / Math.max(top.p, 0.0001), oddsFormat)}
+        </span>
+      </span>
+    </div>
+  );
+}
+
+const GRID_PAGE = 12;
+
+/**
+ * Rejilla de partidos que dibuja 12 y agrega 12 más al acercarse al final.
+ * Cada tarjeta usa content-visibility para no pintarse fuera de pantalla.
+ */
+function ProgressiveGameGrid({
+  games,
+  featureFirst = false,
+  resetKey,
+}: {
+  games: readonly PlatformGame[];
+  featureFirst?: boolean;
+  resetKey?: string;
+}): React.JSX.Element {
+  const [count, setCount] = useState<number>(GRID_PAGE);
+  const sentinelRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setCount(GRID_PAGE);
+  }, [resetKey]);
+
+  const hasMore = count < games.length;
+  useEffect(() => {
+    const el = sentinelRef.current;
+    if (!el || !hasMore) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setCount((c) => Math.min(c + GRID_PAGE, games.length));
+        }
+      },
+      { rootMargin: "600px 0px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [hasMore, games.length]);
+
+  return (
+    <>
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+        {games.slice(0, count).map((g, idx) => (
+          <div key={g.id} className="pl-cv-card">
+            <MatchTicketCard game={g} featured={featureFirst && idx === 0} />
+          </div>
+        ))}
+      </div>
+      {hasMore ? (
+        <div ref={sentinelRef} className="flex justify-center py-2">
+          <button
+            type="button"
+            className="pl-btn-glass text-xs"
+            onClick={() => setCount((c) => Math.min(c + GRID_PAGE, games.length))}
+          >
+            Ver más partidos ({games.length - count})
+          </button>
+        </div>
+      ) : null}
+    </>
+  );
+}
+
+/** Botón «Parlay» con su propio estado: solo él se redibuja al agregar o quitar el pick. */
+function ParlayToggleButton({ pick }: { pick: MatchPick }): React.JSX.Element {
+  const { addPickToParlay } = usePlatformActions();
+  const inParlay = useIsPickInParlay(pick.id);
+  return (
+    <button
+      type="button"
+      className="pl-btn-glass text-xs min-h-8 px-2.5 inline-flex items-center gap-1"
+      onClick={() => addPickToParlay(pick)}
+    >
+      <MaestroIcon name={inParlay ? "check" : "plus"} size={12} />
+      <span>{inParlay ? "Listo" : "Parlay"}</span>
+    </button>
+  );
+}
+
 export function JornadaClubView(): React.JSX.Element {
-  const {
-    dataset,
-    viewerRole,
-    oddsFormat,
-    favoriteLeagues,
-    riskPreference,
-    parlayLegs,
-    addPickToParlay,
-    generateAutoParlay,
-    setAuraFromGame,
-    navigateTo,
-  } = usePlatform();
+  // Solo núcleo y acciones estables: agregar al parlay o pasar el cursor no redibuja la vista.
+  const { dataset, viewerRole, oddsFormat, favoriteLeagues, riskPreference } = usePlatformCore();
+  const { generateAutoParlay, setAuraFromGame, navigateTo } = usePlatformActions();
 
   const [leagueFilter, setLeagueFilter] = useState<string>("all");
 
@@ -275,11 +393,11 @@ export function JornadaClubView(): React.JSX.Element {
 
         {/* Sección Spotlight Asimétrica 7 / 5 */}
         {spotlight ? (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+          <div className="grid grid-cols-1 xl:grid-cols-12 gap-5 items-stretch">
             {/* Columna 7: Lente Estelar con Orbes de Club, Pedestales, Proyección y Cortex IA */}
             <section
               aria-label="Partido estelar de la jornada"
-              className="lg:col-span-7 glass-lens glass-ring glass-ring--featured rounded-3xl p-5 sm:p-6 space-y-4 relative overflow-hidden flex flex-col justify-between"
+              className="xl:col-span-7 glass-lens glass-ring glass-ring--featured rounded-3xl p-5 sm:p-6 space-y-4 relative overflow-hidden flex flex-col justify-between"
               onMouseEnter={() => setAuraFromGame(spotlight)}
             >
               <LensGlowOrbs
@@ -314,9 +432,9 @@ export function JornadaClubView(): React.JSX.Element {
                       >
                         {spotlight.round} ·{" "}
                         {spotlight.status === "FT"
-                          ? "Finalizado FT"
+                          ? "Finalizado"
                           : spotlight.kickoffLocal}{" "}
-                        · Conf. {spotlight.confidenceScore}/100
+                        · Confianza {spotlight.confidenceScore}/100
                       </span>
                     </div>
                   </div>
@@ -335,7 +453,7 @@ export function JornadaClubView(): React.JSX.Element {
                   </a>
                 </div>
 
-                {/* Cruce principal con CrestPedestal y Marcador Proyectado */}
+                {/* Cruce principal con CrestPedestal y Marcador proyectado */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center py-1">
                   <div className="flex items-center gap-3 min-w-0">
                     <CrestPedestal size="lg" glowColor={spotHomeColor}>
@@ -367,10 +485,10 @@ export function JornadaClubView(): React.JSX.Element {
                     ) : spotIntelUnlocked ? (
                       <>
                         <span
-                          className="text-[11px] font-bold uppercase tracking-wider block"
+                          className="text-[11px] font-bold block"
                           style={{ color: "var(--pl-text-muted)" }}
                         >
-                          Marcador Proyectado
+                          Marcador proyectado
                         </span>
                         <strong
                           className="num text-xl sm:text-2xl font-extrabold block"
@@ -389,7 +507,7 @@ export function JornadaClubView(): React.JSX.Element {
                     ) : (
                       <span className="pl-pill inline-flex items-center gap-1.5">
                         <MaestroIcon name="lock" size={12} />
-                        <span>Proyección reservada Pase Total</span>
+                        <span>Disponible con Pase PitchLab Ultra</span>
                       </span>
                     )}
                   </div>
@@ -417,6 +535,10 @@ export function JornadaClubView(): React.JSX.Element {
                   </div>
                 </div>
 
+                {spotlight.status !== "FT" ? (
+                  <MostLikelyLine game={spotlight} oddsFormat={oddsFormat} />
+                ) : null}
+
                 <ProbSplit
                   probabilities={
                     spotIsNfl
@@ -428,12 +550,13 @@ export function JornadaClubView(): React.JSX.Element {
                       ? [spotlight.home.shortName, spotlight.away.shortName]
                       : [spotlight.home.shortName, "Empate", spotlight.away.shortName]
                   }
+                  showLabels
                 />
 
                 <NoticeCard
                   tone="cortex"
                   icon="cpu"
-                  badgeText="Cortex IA"
+                  badgeText="Resumen"
                   title="Antes del partido"
                 >
                   {spotlight.preGame.cortexSynthesis}
@@ -453,7 +576,7 @@ export function JornadaClubView(): React.JSX.Element {
             </section>
 
             {/* Columna 5: Auto-Armador Rápido 1-Clic + Top 3 Picks Principales */}
-            <div className="lg:col-span-5 flex flex-col gap-4">
+            <div className="xl:col-span-5 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-1 gap-4 content-start">
               <section className="glass-lens glass-ring rounded-3xl p-5 space-y-3.5 relative overflow-hidden">
                 <LensGlowOrbs subtle />
                 <div className="relative z-10 space-y-3.5">
@@ -495,19 +618,19 @@ export function JornadaClubView(): React.JSX.Element {
                         {
                           risk: "conservador" as RiskBand,
                           title: "Conservador",
-                          sub: "Escudos 72%+",
+                          sub: "Picks de 72 %+",
                           icon: "shield" as const,
                         },
                         {
                           risk: "medio" as RiskBand,
                           title: "Medio",
-                          sub: "Picks 56–70%",
+                          sub: "Picks de 56–70 %",
                           icon: "sparkles" as const,
                         },
                         {
                           risk: "arriesgado" as RiskBand,
                           title: "Arriesgado",
-                          sub: "Valor +EV",
+                          sub: "Con ventaja",
                           icon: "flame" as const,
                         },
                       ] as const
@@ -561,7 +684,7 @@ export function JornadaClubView(): React.JSX.Element {
                       className="text-xs font-bold no-underline hover:underline inline-flex items-center gap-1"
                       style={{ color: "var(--pl-brand)" }}
                     >
-                      <span>Radar</span>
+                      <span>Ver todos</span>
                       <MaestroIcon name="chevronRight" size={12} />
                     </a>
                   </div>
@@ -572,9 +695,6 @@ export function JornadaClubView(): React.JSX.Element {
                         pick,
                         game.status,
                         viewerRole,
-                      );
-                      const inParlay = parlayLegs.some(
-                        (l) => l.pick.id === pick.id,
                       );
                       return (
                         <div
@@ -590,14 +710,14 @@ export function JornadaClubView(): React.JSX.Element {
                             />
                             <div className="min-w-0">
                               <span
-                                className="block text-[11px] truncate"
+                                className="block text-[11px] leading-snug"
                                 style={{ color: "var(--pl-text-muted)" }}
                               >
                                 {game.home.shortName} vs {game.away.shortName} ·{" "}
                                 {game.kickoffLocal}
                               </span>
                               {unlocked ? (
-                                <strong className="block text-xs font-extrabold truncate">
+                                <strong className="block text-xs font-extrabold leading-snug">
                                   {pick.label}
                                 </strong>
                               ) : (
@@ -606,7 +726,7 @@ export function JornadaClubView(): React.JSX.Element {
                                   style={{ color: "var(--pl-brand)" }}
                                 >
                                   <MaestroIcon name="lock" size={11} />
-                                  <span>Pick Principal reservado</span>
+                                  <span>Pick principal reservado</span>
                                 </span>
                               )}
                             </div>
@@ -619,12 +739,16 @@ export function JornadaClubView(): React.JSX.Element {
                                   className="block text-xs font-extrabold"
                                   style={{
                                     color:
-                                      pick.edgePts !== null && pick.edgePts >= 0
-                                        ? "var(--pl-success)"
-                                        : "var(--pl-text-muted)",
+                                      pick.edgePts === null
+                                        ? "var(--pl-brand)"
+                                        : pick.edgePts >= 0
+                                          ? "var(--pl-success)"
+                                          : "var(--pl-text-muted)",
                                   }}
                                 >
-                                  {formatEdgePts(pick.edgePts)}
+                                  {pick.edgePts === null
+                                    ? `${(pick.p * 100).toFixed(0)} %`
+                                    : formatEdgePts(pick.edgePts)}
                                 </strong>
                                 <span
                                   className="text-[11px]"
@@ -634,17 +758,7 @@ export function JornadaClubView(): React.JSX.Element {
                                   {pick.marketDecimal === null ? " justo" : ""}
                                 </span>
                               </div>
-                              <button
-                                type="button"
-                                className="pl-btn-glass text-xs min-h-8 px-2.5 inline-flex items-center gap-1"
-                                onClick={() => addPickToParlay(pick)}
-                              >
-                                <MaestroIcon
-                                  name={inParlay ? "check" : "plus"}
-                                  size={12}
-                                />
-                                <span>{inParlay ? "Listo" : "Parlay"}</span>
-                              </button>
+                              <ParlayToggleButton pick={pick} />
                             </div>
                           ) : (
                             <a
@@ -679,11 +793,7 @@ export function JornadaClubView(): React.JSX.Element {
             </span>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-            {filteredGames.slice(0, 12).map((g, idx) => (
-              <MatchTicketCard key={g.id} game={g} featured={idx === 0} />
-            ))}
-          </div>
+          <ProgressiveGameGrid games={filteredGames} featureFirst resetKey={leagueFilter} />
         </section>
       </ClubWorkspaceShell>
     </AtmosphereStage>
@@ -725,23 +835,18 @@ export function MultiPicksClubView(): React.JSX.Element {
     <AtmosphereStage activePath="/app/picks">
       <ClubWorkspaceShell activePath="/app/picks">
         <section className="space-y-2">
-          <span className="pl-pill pl-pill--brand inline-flex items-center gap-1.5">
-            <MaestroIcon name="sparkles" size={12} />
-            <span>Hasta 5 Picks por Partido · Spacetime Suite v3.0</span>
-          </span>
           <h1 className="m-0 text-2xl sm:text-3xl font-extrabold">
             Picks del día
           </h1>
           <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
-            Cada encuentro ofrece hasta 5 ángulos calibrados: Pick Principal, Escudo Conservador,
-            Línea de Totales, Lectura Táctica y Cuota Alta de Valor. Prueba el momio de tu casa en
-            vivo para medir tu ventaja real.
+            Hasta 5 picks por partido, del más seguro al de más valor. Escribe el momio de tu casa
+            para ver si tiene ventaja.
           </p>
         </section>
 
         {/* Barra Geodesic v2.0 "Probar tu momio" en vivo */}
         <section
-          aria-label="Calculadora en vivo Geodesic v2.0"
+          aria-label="Probar tu momio"
           className="glass-lens glass-ring rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3"
         >
           <div className="flex flex-wrap items-center gap-3">
@@ -754,7 +859,7 @@ export function MultiPicksClubView(): React.JSX.Element {
                 size={14}
                 style={{ color: "var(--pl-brand)" }}
               />
-              <span>Probar tu momio (Geodesic v2.0):</span>
+              <span>Tu momio:</span>
             </label>
             <input
               id="picks-live-odds-input"
@@ -815,7 +920,7 @@ export function MultiPicksClubView(): React.JSX.Element {
             {(
               [
                 { id: "all", label: "Todos los perfiles" },
-                { id: "conservador", label: "Escudo Conservador" },
+                { id: "conservador", label: "Más seguro" },
                 { id: "medio", label: "Balanceado Medio" },
                 { id: "arriesgado", label: "Cuota Alta · Valor" },
               ] as const
@@ -994,7 +1099,7 @@ export function LeagueHubClubView({
             </CrestPedestal>
             <div>
               <span
-                className="text-xs font-bold uppercase tracking-wider"
+                className="text-xs font-bold"
                 style={{ color: "var(--pl-brand)" }}
               >
                 {leagueSummary.season} · {leagueSummary.roundLabel}
@@ -1042,11 +1147,7 @@ export function LeagueHubClubView({
             <h2 className="m-0 text-lg font-extrabold">
               Próximos encuentros ({upcoming.length})
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-              {upcoming.map((g, idx) => (
-                <MatchTicketCard key={g.id} game={g} featured={idx === 0} />
-              ))}
-            </div>
+            <ProgressiveGameGrid games={upcoming} featureFirst />
           </section>
         ) : null}
 
@@ -1055,11 +1156,7 @@ export function LeagueHubClubView({
             <h2 className="m-0 text-lg font-extrabold">
               Resultados cerrados FT ({finished.length})
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-              {finished.map((g) => (
-                <MatchTicketCard key={g.id} game={g} />
-              ))}
-            </div>
+            <ProgressiveGameGrid games={finished} />
           </section>
         ) : null}
 
@@ -1078,7 +1175,7 @@ export function LeagueHubClubView({
               <table className="standings w-full text-left border-collapse text-sm">
                 <thead>
                   <tr
-                    className="hairline-b text-xs uppercase"
+                    className="hairline-b text-xs"
                     style={{ color: "var(--pl-text-muted)" }}
                   >
                     <th scope="col" className="py-2 pr-3">
@@ -1154,11 +1251,14 @@ export function MatchStudioClubView({
   leagueId,
   gameId,
   cortexSynthesisOverride,
+  detail,
 }: {
   leagueId: LeagueId;
   gameId: string;
   /** Resumen de Cortex IA redactado en servidor (LLM validado); si falta, se usa la plantilla. */
   cortexSynthesisOverride?: string | null;
+  /** Mercados, enfrentamientos y factores de este partido (el dataset del layout llega sin ellos). */
+  detail?: PlatformGameDetail | null;
 }): React.JSX.Element {
   const {
     dataset,
@@ -1184,13 +1284,13 @@ export function MatchStudioClubView({
   const [debateBody, setDebateBody] = useState<string>("");
   const [debateError, setDebateError] = useState<string>("");
 
-  const game = useMemo(
-    () =>
+  const game = useMemo(() => {
+    const base =
       dataset.games.find((g) => g.id === gameId) ??
       dataset.games.find((g) => g.league === leagueId) ??
-      dataset.games[0]!,
-    [dataset.games, gameId, leagueId],
-  );
+      dataset.games[0]!;
+    return detail && base.id === gameId ? { ...base, ...detail } : base;
+  }, [dataset.games, gameId, leagueId, detail]);
 
   const isNfl = game.sport === "american-football" || game.league === "nfl";
   const flow = game.preGame.moneyFlow;
@@ -1245,8 +1345,8 @@ export function MatchStudioClubView({
       {
         id: `seed-${game.id}-1`,
         handle: "@sofia_nfl",
-        roleBadge: "Tipstar Oficial",
-        record: "+18.4u · CLV +4.2 %",
+        roleBadge: "Tipstar",
+        record: "+18.4u",
         createdAt: "Hace 18 min",
         isExample: true,
         body: `El modelo favorece el pick principal en ${matchLabelShort}. Sellé 1.5u antes del inicio.`,
@@ -1254,8 +1354,8 @@ export function MatchStudioClubView({
       {
         id: `seed-${game.id}-2`,
         handle: "@carlos_quant",
-        roleBadge: "Analista Verificado",
-        record: "+14.9u · CLV +3.9 %",
+        roleBadge: "Verificado",
+        record: "+14.9u",
         createdAt: "Hace 39 min",
         isExample: true,
         body: `Coincido con el pick más seguro para combinarlo en un parlay de 2 selecciones.`,
@@ -1425,7 +1525,7 @@ export function MatchStudioClubView({
               ) : (
                 <span className="pl-pill inline-flex items-center gap-1.5">
                   <MaestroIcon name="lock" size={12} />
-                  <span>Marcador proyectado Pase Total</span>
+                  <span>Marcador proyectado Pase PitchLab Ultra</span>
                 </span>
               )}
               <span
@@ -1433,8 +1533,8 @@ export function MatchStudioClubView({
                 style={{ color: "var(--pl-text-muted)" }}
               >
                 {intelUnlocked || isFinished
-                  ? `Total esp. ${game.projection.total.toFixed(isNfl ? 1 : 2)} · ${game.picks.length} picks calibrados`
-                  : "Activa 7d gratis para desbloquear proyección exacta"}
+                  ? `${isNfl ? "Puntos" : "Goles"} esperados: ${game.projection.total.toFixed(isNfl ? 1 : 2)}`
+                  : "Disponible con Pase PitchLab Ultra"}
               </span>
             </div>
 
@@ -1466,6 +1566,7 @@ export function MatchStudioClubView({
                   ? [game.home.shortName, game.away.shortName]
                   : [game.home.shortName, "Empate", game.away.shortName]
               }
+              showLabels
             />
           </div>
         </section>
@@ -1548,7 +1649,7 @@ export function MatchStudioClubView({
               </div>
             ) : (
               <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                Bajas reportadas y estado de alineaciones disponibles con Pase Total.
+                Bajas reportadas y estado de alineaciones disponibles con Pase PitchLab Ultra.
               </p>
             )}
           </div>
@@ -1574,11 +1675,10 @@ export function MatchStudioClubView({
               <div className="space-y-1.5 text-xs num">
                 <div className="flex items-center justify-between">
                   <span style={{ color: "var(--pl-text-muted)" }}>
-                    Flujo hacia {game.home.shortName}
+                    {game.home.shortName}: dinero / modelo
                   </span>
                   <strong>
-                    {flow.homeShare} % vs{" "}
-                    {(game.x12[0] * 100).toFixed(0)} % modelo
+                    {flow.homeShare} % / {(game.x12[0] * 100).toFixed(0)} %
                   </strong>
                 </div>
                 <PBar
@@ -1588,11 +1688,10 @@ export function MatchStudioClubView({
 
                 <div className="flex items-center justify-between pt-1">
                   <span style={{ color: "var(--pl-text-muted)" }}>
-                    Flujo hacia {game.away.shortName}
+                    {game.away.shortName}: dinero / modelo
                   </span>
                   <strong>
-                    {flow.awayShare} % vs{" "}
-                    {(game.x12[2] * 100).toFixed(0)} % modelo
+                    {flow.awayShare} % / {(game.x12[2] * 100).toFixed(0)} %
                   </strong>
                 </div>
                 <PBar
@@ -1622,7 +1721,7 @@ export function MatchStudioClubView({
         </section>
 
         {/* Navegación interna del estudio */}
-        <div className="seg-well" role="tablist" aria-label="Secciones de la radiografía">
+        <div className="seg-well" role="tablist" aria-label="Secciones del partido">
           {(
             [
               { id: "picks", label: `Picks (${game.picks.length})` },
@@ -1662,7 +1761,7 @@ export function MatchStudioClubView({
                     style={{ color: "var(--pl-brand)" }}
                   >
                     <MaestroIcon name="crown" size={13} />
-                    <span>Elige cualquiera como tu Pick Abierto Semanal</span>
+                    <span>Elige cualquiera como tu Pick abierto semanal</span>
                   </span>
                 ) : null}
               </div>
@@ -1680,13 +1779,13 @@ export function MatchStudioClubView({
                           onClick={() => {
                             setSelectedTipstarPickId(pk.id);
                             pushToast(
-                              `«${pk.label}» asignado como tu Pick Abierto Semanal en Portal Tipstar.`,
+                              `«${pk.label}» asignado como tu Pick abierto semanal en Portal Tipstar.`,
                               "success",
                             );
                           }}
                         >
                           <MaestroIcon name="crown" size={12} />
-                          <span>Usar como mi Pick Abierto Semanal</span>
+                          <span>Usar como mi Pick abierto semanal</span>
                         </button>
                       </div>
                     ) : null}
@@ -1724,10 +1823,8 @@ export function MatchStudioClubView({
                     <div className="flex flex-wrap items-center justify-between gap-1">
                       <div className="flex items-center gap-1.5">
                         <strong className="font-extrabold">{item.handle}</strong>
+                        <UserBadges roleLabel={item.roleBadge} />
                         {item.isExample ? <ExampleBadge /> : null}
-                        <span className="pl-pill pl-pill--brand text-[10px]">
-                          {item.roleBadge}
-                        </span>
                       </div>
                       <span
                         className="text-[11px] num font-bold"
@@ -1757,14 +1854,14 @@ export function MatchStudioClubView({
                   htmlFor="studio-debate-input"
                   className="text-xs font-bold block"
                 >
-                  Sumar lectura verificada ({matchLabelShort})
+                  Tu opinión sobre {matchLabelShort}
                 </label>
                 <textarea
                   id="studio-debate-input"
                   rows={2}
                   value={debateBody}
                   onChange={(e) => setDebateBody(e.target.value)}
-                  placeholder="Comparte tu ángulo o momio sellado (enlaces externos bloqueados)..."
+                  placeholder="¿Qué ves en este partido?"
                   className="glass-input w-full p-2.5 text-xs resize-none"
                 />
                 {debateError ? (
@@ -1777,13 +1874,7 @@ export function MatchStudioClubView({
                   </p>
                 ) : null}
                 <div className="flex items-center justify-between gap-2">
-                  <span
-                    className="text-[11px] inline-flex items-center gap-1"
-                    style={{ color: "var(--pl-text-muted)" }}
-                  >
-                    <MaestroIcon name="shield" size={12} />
-                    <span>Filtro anti-spam activo</span>
-                  </span>
+                  <span />
                   <button
                     type="submit"
                     className="pl-btn-primary text-xs min-h-8 px-3 inline-flex items-center gap-1.5"
@@ -1803,13 +1894,13 @@ export function MatchStudioClubView({
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
                 <h2 className="m-0 text-lg font-extrabold">
-                  Matriz de Mercados · Momio Justo Sin Vig (Geodesic v2.0)
+                  Mercados del partido
                 </h2>
                 <p
                   className="m-0 text-xs mt-0.5"
                   style={{ color: "var(--pl-text-muted)" }}
                 >
-                  Filtra por familia de mercado, prueba tu cuota en vivo y sella cualquier línea en tu Bitácora.
+                  Probabilidad y momio justo de cada mercado. Escribe el momio de tu casa para ver si tiene ventaja.
                 </p>
               </div>
 
@@ -1869,7 +1960,7 @@ export function MatchStudioClubView({
 
             {game.markets.length === 0 ? (
               <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
-                Activa Pase Total para inspeccionar los ~20 mercados calibrados de este partido.
+                Los mercados de este partido están disponibles con Pase PitchLab Ultra.
               </p>
             ) : filteredMarkets.length === 0 ? (
               <div
@@ -1892,12 +1983,12 @@ export function MatchStudioClubView({
                 className="pl-table-region"
                 tabIndex={0}
                 role="region"
-                aria-label="Matriz completa de mercados y momios justos Geodesic"
+                aria-label="Mercados y momios justos"
               >
                 <table className="w-full text-left border-collapse text-sm">
                   <thead>
                     <tr
-                      className="hairline-b text-xs uppercase"
+                      className="hairline-b text-xs"
                       style={{ color: "var(--pl-text-muted)" }}
                     >
                       <th scope="col" className="py-2 pr-3">
@@ -2060,8 +2151,7 @@ export function MatchStudioClubView({
                 </ul>
               ) : (
                 <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                  Sin enfrentamientos recientes en la ventana actual; los motores ponderan fuerza
-                  relativa de liga.
+                  No hay enfrentamientos recientes entre estos equipos.
                 </p>
               )}
             </div>
@@ -2085,13 +2175,13 @@ export function MatchStudioClubView({
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div>
                 <h2 className="m-0 text-lg font-extrabold">
-                  ¿Dónde está el dinero? · Liquidez y Sentimiento vs. Modelo
+                  ¿Dónde está el dinero?
                 </h2>
                 <p
                   className="m-0 text-xs"
                   style={{ color: "var(--pl-text-muted)" }}
                 >
-                  Comparativa limpia entre participación de volumen y probabilidad justa de Spacetime Suite
+                  Hacia dónde se mueve el dinero de las apuestas, comparado con la probabilidad del modelo.
                 </p>
               </div>
               <span className="pl-pill pl-pill--info">
@@ -2121,7 +2211,7 @@ export function MatchStudioClubView({
                   className="block text-xs font-semibold"
                   style={{ color: "var(--pl-brand)" }}
                 >
-                  Modelo Spacetime: {(game.x12[0] * 100).toFixed(1)} %
+                  Modelo: {(game.x12[0] * 100).toFixed(1)} %
                 </span>
               </div>
 
@@ -2144,7 +2234,7 @@ export function MatchStudioClubView({
                     className="block text-xs font-semibold"
                     style={{ color: "var(--pl-brand)" }}
                   >
-                    Modelo Spacetime: {(game.x12[1] * 100).toFixed(1)} %
+                    Modelo: {(game.x12[1] * 100).toFixed(1)} %
                   </span>
                 </div>
               ) : null}
@@ -2170,7 +2260,7 @@ export function MatchStudioClubView({
                   className="block text-xs font-semibold"
                   style={{ color: "var(--pl-brand)" }}
                 >
-                  Modelo Spacetime: {(game.x12[2] * 100).toFixed(1)} %
+                  Modelo: {(game.x12[2] * 100).toFixed(1)} %
                 </span>
               </div>
             </div>
@@ -2178,8 +2268,8 @@ export function MatchStudioClubView({
             <NoticeCard
               tone="info"
               icon="activity"
-              badgeText="Lectura Geodesic v2.0"
-              title="Señal de Flujo Institucional"
+              badgeText="Lectura"
+              title="Qué significa"
             >
               {flow.sharpNote}
             </NoticeCard>

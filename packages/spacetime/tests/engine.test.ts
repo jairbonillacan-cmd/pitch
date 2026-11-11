@@ -29,13 +29,13 @@ import {
   predictMotorA,
   predictWithFallback,
   softmax3,
-} from "../src/engine.js";
+} from "../src/engine";
 import type {
   ModelArtifact,
   Prediction,
   SnapshotFile,
   SnapshotRow,
-} from "../src/types.js";
+} from "../src/types";
 
 const model = modelJson as unknown as ModelArtifact;
 const snapshot = snapshotJson as unknown as SnapshotFile;

@@ -7,9 +7,9 @@
 import { describe, expect, it } from "vitest";
 import requestsJson from "../data/fixture_requests.json";
 import modelJson from "../data/model_motor_a.json";
-import { predictMotorAWithAvailability } from "../src/engine.js";
-import { predictMatch } from "../src/service.js";
-import type { ModelArtifact } from "../src/types.js";
+import { predictMotorAWithAvailability } from "../src/engine";
+import { predictMatch } from "../src/service";
+import type { ModelArtifact } from "../src/types";
 
 interface FixtureRequest {
   div: string;

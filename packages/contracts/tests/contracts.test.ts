@@ -12,7 +12,7 @@ import {
   formatFairOdds,
   ok,
   isStale,
-} from "../src/index.js";
+} from "../src/index";
 
 describe("@pitchlab/contracts", () => {
   it("valida TeamId canónico <league>.<slug> y rechaza formatos inválidos", () => {

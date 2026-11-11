@@ -32,7 +32,7 @@ import {
   type LigaMxDebiasParams,
   type SingularityTilt2WayInput,
   type SingularityTilt3WayInput,
-} from "../src/devig.js";
+} from "../src/devig";
 import {
   MULTISPORT_CODENAMES,
   predictMLB,
@@ -40,21 +40,21 @@ import {
   type MultiSportLeague,
   type MultiSportMatchupInput,
   type MultiSportModelArtifact,
-} from "../src/multisport.js";
+} from "../src/multisport";
 import {
   applyMinkowskiV3LiveContext,
   computeNflLiveContextDelta,
   type NFLLiveArtifactConfig,
   type NFLLiveContextInput,
-} from "../src/nfl_live.js";
+} from "../src/nfl_live";
 import {
   predictLiveEdgeMatrix,
   predictMatch,
   type LiveMatchupEdgeRecord,
   type LiveMatchupPrediction,
   type TeamMasterFeatureRecord,
-} from "../src/service.js";
-import type { ModelArtifact, NFLModelArtifact } from "../src/types.js";
+} from "../src/service";
+import type { ModelArtifact, NFLModelArtifact } from "../src/types";
 
 const STRICT_PARITY_TOLERANCE = 1e-12;
 const SIMPLEX_TOLERANCE = 1e-12;

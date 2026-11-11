@@ -29,7 +29,7 @@ import {
   type RlmSignalSide,
   type SingularityTilt2WayInput,
   type SingularityTilt3WayInput,
-} from "./devig.js";
+} from "./devig";
 import {
   DEFAULT_HYBRID_ALPHA,
   GEODESIC_MODEL_NAME,
@@ -48,7 +48,7 @@ import {
   predictNFL,
   predictWithFallback,
   type ValueExecutionOptions,
-} from "./engine.js";
+} from "./engine";
 import {
   MULTISPORT_CODENAMES,
   predictMultiSport,
@@ -57,12 +57,12 @@ import {
   type MultiSportMatchupInput,
   type MultiSportModelArtifact,
   type MultiSportPrediction,
-} from "./multisport.js";
+} from "./multisport";
 import {
   applyMinkowskiV3LiveContext,
   type NFLLiveArtifactConfig,
   type NFLLiveContextInput,
-} from "./nfl_live.js";
+} from "./nfl_live";
 import type {
   BaseRates,
   ModelArtifact,
@@ -73,7 +73,7 @@ import type {
   SnapshotRow,
   Sport,
   TeamAvailabilityContext,
-} from "./types.js";
+} from "./types";
 
 // ===========================================================================
 // 1. Peticiones individuales (`predictMatch` / `predictMatchBatch`)

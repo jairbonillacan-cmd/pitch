@@ -7,7 +7,7 @@ import {
   type LeagueFormatConfig,
   type ScheduledFixtureInput,
   type TeamStandingInput,
-} from "../src/montecarlo.js";
+} from "../src/montecarlo";
 
 describe("Monte Carlo Season Projection Engine", () => {
   // Mock 6-team league setup for controlled analytical testing

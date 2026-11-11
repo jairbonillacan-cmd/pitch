@@ -13,7 +13,7 @@ import {
   type SeasonId,
   type SportId,
   type TeamId,
-} from "../ids.js";
+} from "../ids";
 
 export interface League {
   id: LeagueId;

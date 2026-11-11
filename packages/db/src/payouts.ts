@@ -6,8 +6,8 @@
  *   pending_clearance | payable --(reembolso)--> reversed_refund
  */
 import { and, eq, isNull, lte, sql } from "drizzle-orm";
-import type { Db } from "./billing.js";
-import { tipstarCommissionLedger, tipstarProfiles, users } from "./schema.js";
+import type { Db } from "./billing";
+import { tipstarCommissionLedger, tipstarProfiles, users } from "./schema";
 
 /** Pasa a `payable` los asientos cuya ventana anti-contracargo ya terminó. */
 export async function promoteClearedCommissions(db: Db, now: Date): Promise<number> {

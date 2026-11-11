@@ -1,8 +1,8 @@
 import React from "react";
 import { AuthSurfaceV4 } from "@pitchlab/ui";
-import { PlatformClientBridge } from "../../src/client/platform-client-bridge.js";
-import { sanitizeNextPath } from "../../src/server/beta-auth.js";
-import { loadPublicPlatformState } from "../../src/server/platform-data.js";
+import { PlatformClientBridge } from "../../src/client/platform-client-bridge";
+import { sanitizeNextPath } from "../../src/server/beta-auth";
+import { loadPublicPlatformState } from "../../src/server/platform-data";
 
 export const dynamic = "force-dynamic";
 

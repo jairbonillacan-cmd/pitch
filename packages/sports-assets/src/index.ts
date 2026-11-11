@@ -5,7 +5,7 @@ import {
   type MascotEdition,
   type RegisteredLeagueAsset,
   type RegisteredTeamAsset,
-} from "./registry.generated.js";
+} from "./registry.generated";
 
 export {
   LEAGUE_ASSETS,

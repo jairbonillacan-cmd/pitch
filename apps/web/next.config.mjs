@@ -27,6 +27,10 @@ const nextConfig = {
 };
 
 export default function config(phase) {
+  // Build y start de producción en otra carpeta, para medir sin pisar la de `next dev`.
+  if (process.env.PITCHLAB_DIST_DIR) {
+    return { ...nextConfig, distDir: process.env.PITCHLAB_DIST_DIR };
+  }
   if (phase === PHASE_DEVELOPMENT_SERVER && process.env.PITCHLAB_DEV_3232 === "1") {
     return {
       ...nextConfig,

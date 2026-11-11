@@ -27,10 +27,10 @@ import {
   hasLeagueAsset,
   hasTeamAsset,
 } from "@pitchlab/sports-assets";
-import { Icon } from "./icons.js";
-import { Badge } from "./components/ui/badge.js";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/ui/tabs.js";
-import { Tooltip, TooltipContent, TooltipTrigger } from "./components/ui/tooltip.js";
+import { Icon } from "./icons";
+import { Badge } from "./components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/ui/tabs";
+import { Tooltip, TooltipContent, TooltipTrigger } from "./components/ui/tooltip";
 
 /** Iniciales para equipos/ligas sin emblema registrado (ADR-017: fallback neutro). */
 function initialsFromName(name: string | undefined, fallback: string): string {
@@ -186,10 +186,13 @@ export function ProbSplit({
   outcomes,
   probabilities,
   labels,
+  showLabels = false,
 }: {
   outcomes?: readonly OutcomeMarket[];
   probabilities?: readonly number[];
   labels?: readonly string[];
+  /** Muestra debajo de cada segmento su nombre y porcentaje (el favorito en verde). */
+  showLabels?: boolean;
 }): React.JSX.Element {
   const ps =
     probabilities ?? (outcomes ? outcomes.map((o) => o.probability) : [0.5, 0.5]);
@@ -197,7 +200,7 @@ export function ProbSplit({
     labels ?? (outcomes ? outcomes.map((o) => o.label) : ps.map((_, i) => `${i + 1}`));
   const li = leadIndex(ps);
 
-  return (
+  const bar = (
     <div
       className="psplit"
       role="img"
@@ -210,6 +213,26 @@ export function ProbSplit({
           style={{ flex: p }}
         />
       ))}
+    </div>
+  );
+
+  if (!showLabels) return bar;
+
+  return (
+    <div className="psplit-wrap">
+      {bar}
+      <div className="psplit-legend" aria-hidden="true">
+        {ps.map((p, i) => (
+          <span
+            key={`${lbs[i] ?? i}-legend-${i}`}
+            className={i === li ? "lead" : ""}
+            style={{ flex: p }}
+          >
+            <span className="psplit-legend-label">{lbs[i]}</span>
+            <strong className="psplit-legend-value">{formatPercent(p, 0)}</strong>
+          </span>
+        ))}
+      </div>
     </div>
   );
 }

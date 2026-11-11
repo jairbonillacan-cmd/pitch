@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { createDb, type Db } from "@pitchlab/db";
-import { getAuth } from "./auth.js";
-import { profileIdForAuthUser } from "./member-data.js";
+import { getAuth } from "./auth";
+import { profileIdForAuthUser } from "./member-data";
 
 let db: Db | null = null;
 

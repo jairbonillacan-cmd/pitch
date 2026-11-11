@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getBetaCookieName } from "../../../../src/server/beta-auth.js";
+import { getBetaCookieName } from "../../../../src/server/beta-auth";
 
 export async function POST(): Promise<NextResponse> {
   const response = NextResponse.json({ ok: true, redirectTo: "/" });

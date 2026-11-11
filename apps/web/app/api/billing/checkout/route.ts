@@ -5,8 +5,8 @@ import {
   createCheckoutSession,
   priceIdFor,
   type PlanInterval,
-} from "../../../../src/server/billing/checkout.js";
-import { requireMember } from "../../../../src/server/session-user.js";
+} from "../../../../src/server/billing/checkout";
+import { requireMember } from "../../../../src/server/session-user";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -30,7 +30,7 @@ export async function POST(request: Request): Promise<NextResponse> {
   const [profile] = await db.select().from(users).where(eq(users.id, userId));
   const [sub] = await db.select().from(subscriptions).where(eq(subscriptions.userId, userId));
   if (sub && ["active", "trialing_card"].includes(sub.status)) {
-    return NextResponse.json({ error: "Ya tienes Pase Total activo" }, { status: 409 });
+    return NextResponse.json({ error: "Ya tienes Pase PitchLab Ultra activo" }, { status: 409 });
   }
   const now = new Date();
   const params = buildCheckoutParams({

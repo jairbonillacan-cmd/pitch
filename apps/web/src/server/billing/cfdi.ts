@@ -53,7 +53,7 @@ export function validateCfdiProfile(input: CfdiProfileInput): { ok: true; value:
     : { ok: true, value: { ...input, rfc, legalName, taxZipCode: input.taxZipCode.trim(), billingEmail: input.billingEmail.trim().toLowerCase() } };
 }
 
-/** Cuerpo de factura de Facturapi para una mensualidad de Pase Total (IVA 16 % incluido). */
+/** Cuerpo de factura de Facturapi para una mensualidad de Pase PitchLab Ultra (IVA 16 % incluido). */
 export function buildPaseTotalInvoice(input: {
   customer: CfdiProfileInput;
   totalCentavos: number;
@@ -74,7 +74,7 @@ export function buildPaseTotalInvoice(input: {
       {
         quantity: 1,
         product: {
-          description: `Pase Total PitchLab · ${input.planLabel}`,
+          description: `Pase PitchLab Ultra · ${input.planLabel}`,
           product_key: "81112106",
           price: input.totalCentavos / 100,
           tax_included: true,

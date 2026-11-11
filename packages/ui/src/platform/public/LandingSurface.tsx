@@ -3,39 +3,40 @@
 import React, { useMemo, useState } from "react";
 import { asLeagueId, type LeagueId } from "@pitchlab/contracts";
 import { getTeamColors } from "@pitchlab/sports-assets";
-import { LeagueBadge, ProbSplit, TeamBadge } from "../../sports.js";
+import { LeagueBadge, ProbSplit, TeamBadge } from "../../sports";
 import {
   formatOddsValue,
   getSessionWatermark,
   isPickUnlocked,
   isPreGameIntelUnlocked,
   pickReferenceDecimal,
-} from "../access-guard.js";
+} from "../access-guard";
 import {
   CrestPedestal,
   GlassActionRow,
   LensGlowOrbs,
   MaestroIcon,
+  UserBadges,
   ExampleBadge,
   NoticeCard,
   RoleSwitcherPill,
-} from "../components/MaestroPrimitives.js";
+} from "../components/MaestroPrimitives";
 import {
   AtmosphereStage,
   PublicFooterV4,
   PublicHeaderV4,
-} from "../components/ShellChrome.js";
-import { usePlatform } from "../platform-provider.js";
+} from "../components/ShellChrome";
+import { usePlatform } from "../platform-provider";
 import {
   MEMBERSHIP_SPEC,
   SPACETIME_METRICS_HEADLINE,
   TIPSTAR_CREATORS,
-} from "../spacetime-catalog.js";
-import type { MatchPick, PlatformGame } from "../types.js";
+} from "../spacetime-catalog";
+import type { MatchPick, PlatformGame } from "../types";
 import {
   PlansAndReferralsSection,
   TechPrecisionSection,
-} from "./TechAndPricingSurfaces.js";
+} from "./TechAndPricingSurfaces";
 
 const PREFERRED_LEAGUE_ORDER: readonly LeagueId[] = [
   asLeagueId("liga-mx"),
@@ -71,7 +72,7 @@ function riskPillMeta(risk: MatchPick["risk"]): {
   className: string;
 } {
   if (risk === "conservador") {
-    return { label: "Escudo Conservador", className: "pl-pill pl-pill--success" };
+    return { label: "Conservador", className: "pl-pill pl-pill--success" };
   }
   if (risk === "arriesgado") {
     return { label: "Alto Valor", className: "pl-pill pl-pill--warning" };
@@ -282,7 +283,7 @@ export function LandingSurface(): React.JSX.Element {
 
       <main
         id="main"
-        className="max-w-6xl mx-auto px-4 sm:px-6 pt-6 sm:pt-10 space-y-14"
+        className="pl-page-enter max-w-6xl mx-auto px-4 sm:px-6 pt-6 sm:pt-10 space-y-14"
       >
         {/* ==================== TOP LAUNCH & ROLE BAR ==================== */}
         <div className="glass-ring glass-card rounded-xl px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs">
@@ -291,22 +292,9 @@ export function LandingSurface(): React.JSX.Element {
               <MaestroIcon name="sparkles" size={12} />
               <span>
                 {month1NoCardMode
-                  ? "MES 1 LANZAMIENTO · PRUEBA SIN TARJETA"
-                  : "PASE TOTAL PITCHLAB"}
+                  ? "Primer mes gratis, sin tarjeta"
+                  : "Pase PitchLab Ultra"}
               </span>
-            </span>
-            <span style={{ color: "var(--pl-text-secondary)" }}>
-              {viewerRole === "visitor" ? (
-                <>
-                  <strong>Visitante sin pago</strong> — viendo 1 pick promo (cero fuga del
-                  resto de la jornada)
-                </>
-              ) : (
-                <>
-                  <strong>{watermarkText}</strong> — {activeGame?.picks.length ?? 5} picks
-                  desbloqueados
-                </>
-              )}
             </span>
           </div>
 
@@ -364,8 +352,8 @@ export function LandingSurface(): React.JSX.Element {
               >
                 <span>
                   {month1NoCardMode
-                    ? "Probar gratis sin tarjeta"
-                    : `Activar Pase Total · $${MEMBERSHIP_SPEC.monthlyMxn}`}
+                    ? "Probar 7 días gratis"
+                    : `Activar Pase PitchLab Ultra · $${MEMBERSHIP_SPEC.monthlyMxn}`}
                 </span>
                 <MaestroIcon name="arrowRight" size={16} />
               </a>
@@ -379,18 +367,18 @@ export function LandingSurface(): React.JSX.Element {
                 className="pl-btn-glass glass-ring !min-h-[46px] !px-5 text-sm flex-1 sm:flex-initial"
               >
                 <MaestroIcon name="layers" size={16} />
-                <span>Armador de Parlays</span>
+                <span>Armar un parlay</span>
               </a>
             </div>
 
             <NoticeCard
               icon="shield"
-              badgeText="Blindaje"
-              title="Suscripción Cero Fuga"
+              badgeText={`$${MEMBERSHIP_SPEC.monthlyMxn} MXN al mes`}
+              title="Pase PitchLab Ultra"
               tone="brand"
             >
-              Pase Total ${MEMBERSHIP_SPEC.monthlyMxn} MXN/mes · hasta 5 picks/juego · Comunidad
-              exclusiva socios · Referidos doble vía +15d.
+              Todos los picks de cada partido, el armador de parlays y la comunidad de socios.
+              Invita a un amigo y los dos ganan 15 días.
             </NoticeCard>
 
             {activeGame ? (
@@ -406,7 +394,7 @@ export function LandingSurface(): React.JSX.Element {
                     style={{ color: "var(--pl-brand)" }}
                   />
                 }
-                title={`Abrir radiografía completa y los ${activeGame.picks.length} picks de ${activeGame.home.shortName} vs ${activeGame.away.shortName}`}
+                title={`Ver ${activeGame.home.shortName} vs ${activeGame.away.shortName}`}
               />
             ) : null}
           </div>
@@ -507,14 +495,6 @@ export function LandingSurface(): React.JSX.Element {
                       <span className="pl-pill pl-pill--success num">
                         Confianza {activeGame.confidenceScore} %
                       </span>
-                      <span className="pl-pill pl-pill--brand">
-                        <MaestroIcon name="cpu" size={12} />
-                        <span>
-                          {activeGame.sport === "american-football"
-                            ? "Minkowski v3.0"
-                            : "Tachyon v3.0"}
-                        </span>
-                      </span>
                     </div>
 
                     <span
@@ -525,7 +505,7 @@ export function LandingSurface(): React.JSX.Element {
                     </span>
                   </div>
 
-                  {/* Marcador de 3 columnas con CrestPedestal y Proyección Suite v2.1 */}
+                  {/* Marcador de 3 columnas con CrestPedestal y marcador proyectado */}
                   <div className="grid grid-cols-3 items-center gap-3 py-1">
                     <div className="flex flex-col sm:flex-row items-center gap-2.5 text-center sm:text-left">
                       <CrestPedestal glowColor={homeColor} size="md">
@@ -553,13 +533,19 @@ export function LandingSurface(): React.JSX.Element {
                       <div className="num text-2xl sm:text-3xl font-extrabold tracking-tight">
                         {projectionUnlocked
                           ? `${activeGame.projection.home.toFixed(1)} – ${activeGame.projection.away.toFixed(1)}`
-                          : "🔒 – 🔒"}
+                          : (
+                              <span className="inline-flex items-center gap-2" role="img" aria-label="Marcador oculto">
+                                <MaestroIcon name="lock" size={20} />
+                                <span aria-hidden="true">–</span>
+                                <MaestroIcon name="lock" size={20} />
+                              </span>
+                            )}
                       </div>
                       <div
                         className="text-[11px] font-semibold mt-0.5"
                         style={{ color: "var(--pl-text-muted)" }}
                       >
-                        Proyección Suite v2.1
+                        Marcador proyectado
                       </div>
                     </div>
 
@@ -599,32 +585,8 @@ export function LandingSurface(): React.JSX.Element {
                           ? [activeGame.home.shortName, activeGame.away.shortName]
                           : [activeGame.home.shortName, "Empate", activeGame.away.shortName]
                       }
+                      showLabels
                     />
-                    <div
-                      className="flex justify-between text-xs num"
-                      style={{ color: "var(--pl-text-muted)" }}
-                    >
-                      <span>
-                        {activeGame.home.shortName}{" "}
-                        <strong style={{ color: "var(--pl-text)" }}>
-                          {(activeGame.x12[0] * 100).toFixed(1)} %
-                        </strong>
-                      </span>
-                      {activeGame.sport !== "american-football" ? (
-                        <span>
-                          Empate{" "}
-                          <strong style={{ color: "var(--pl-text)" }}>
-                            {(activeGame.x12[1] * 100).toFixed(1)} %
-                          </strong>
-                        </span>
-                      ) : null}
-                      <span>
-                        {activeGame.away.shortName}{" "}
-                        <strong style={{ color: "var(--pl-text)" }}>
-                          {(activeGame.x12[2] * 100).toFixed(1)} %
-                        </strong>
-                      </span>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -635,13 +597,12 @@ export function LandingSurface(): React.JSX.Element {
               <div className="space-y-2.5">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <h2 className="m-0 text-base font-bold tracking-tight num">
-                    Picks detectados en este partido ({unlockedCount}/{activeGame.picks.length}{" "}
-                    visibles)
+                    Picks de este partido
                   </h2>
                   <span className="text-xs" style={{ color: "var(--pl-text-muted)" }}>
                     {viewerRole !== "visitor"
-                      ? "Pase Total activo"
-                      : "1 Pick Abierto · Resto con Pase Total"}
+                      ? "Pase PitchLab Ultra activo"
+                      : `${unlockedCount} de ${activeGame.picks.length} visibles`}
                   </span>
                 </div>
 
@@ -675,13 +636,13 @@ export function LandingSurface(): React.JSX.Element {
                               className="locked-redact font-extrabold text-sm"
                               aria-hidden="true"
                             >
-                              SELECCIÓN RESERVADA PASE TOTAL
+                              Pick reservado
                             </div>
                             <div
                               className="text-xs"
                               style={{ color: "var(--pl-text-muted)" }}
                             >
-                              Ventaja positiva detectada · Desbloquea con Pase Total
+                              Disponible con Pase PitchLab Ultra
                             </div>
                           </div>
 
@@ -737,10 +698,10 @@ export function LandingSurface(): React.JSX.Element {
                           {pk.isDailyOpenPromo ? (
                             <span className="pl-pill pl-pill--success">
                               <MaestroIcon name="sparkles" size={11} />
-                              <span>Pick Abierto del Día</span>
+                              <span>Pick abierto del día</span>
                             </span>
                           ) : null}
-                          <strong className="font-extrabold text-sm uppercase tracking-wide">
+                          <strong className="font-extrabold text-sm">
                             {pk.label}
                           </strong>
                         </span>
@@ -834,10 +795,8 @@ export function LandingSurface(): React.JSX.Element {
                           : "pl-pill pl-pill--warning num"
                       }
                     >
-                      Geodesic v2.0:{" "}
-                      {liveEdgePts >= 0 ? `+${liveEdgePts.toFixed(1)}` : liveEdgePts.toFixed(1)}{" "}
-                      % ({liveEdgePts >= 0 ? `+${liveEdgePts.toFixed(1)}` : liveEdgePts.toFixed(1)}{" "}
-                      pts {isPositiveEdge ? "ventaja real" : "bajo justa"})
+                      {isPositiveEdge ? "Ventaja" : "Sin ventaja"}:{" "}
+                      {liveEdgePts >= 0 ? `+${liveEdgePts.toFixed(1)}` : liveEdgePts.toFixed(1)} pts
                     </span>
                   </div>
                 ) : null}
@@ -886,13 +845,13 @@ export function LandingSurface(): React.JSX.Element {
                     <span>
                       {sofiaCreator.name} (@{sofiaCreator.handle})
                     </span>
-                    <span className="pl-pill pl-pill--brand">Tipstar</span>
+                    <UserBadges roleLabel="Tipstar" />
                   </div>
                   <div
                     className="num text-xs font-semibold"
                     style={{ color: "var(--pl-success)" }}
                   >
-                    {sofiaCreator.verifiedUnits} verificadas · CLV {sofiaCreator.clvAvg}
+                    {sofiaCreator.verifiedUnits} en su récord
                   </div>
                 </div>
               </div>
@@ -910,7 +869,7 @@ export function LandingSurface(): React.JSX.Element {
                       {tipstarWeeklyGame.leagueLabel} · {tipstarWeeklyPick.matchLabel}
                     </span>
                   </div>
-                  <div className="font-extrabold text-base uppercase tracking-wide">
+                  <div className="font-extrabold text-base">
                     {tipstarWeeklyPick.label}
                   </div>
                   <div className="ticket-perf" />
@@ -942,11 +901,10 @@ export function LandingSurface(): React.JSX.Element {
               >
                 <div className="text-xs space-y-0.5">
                   <div className="font-extrabold" style={{ color: "var(--pl-brand)" }}>
-                    CÓDIGO: {sofiaCreator.promoCode} ({sofiaCreator.freeDays} días gratis)
+                    Código {sofiaCreator.promoCode}
                   </div>
                   <div style={{ color: "var(--pl-text-secondary)" }}>
-                    {sofiaCreator.freeDays} días de Pase Total gratis{" "}
-                    {month1NoCardMode ? "sin tarjeta" : ""}
+                    {sofiaCreator.freeDays} días gratis de Pase PitchLab Ultra
                   </div>
                 </div>
                 <a
@@ -971,7 +929,7 @@ export function LandingSurface(): React.JSX.Element {
                     style={{ color: "var(--pl-brand)" }}
                   />
                 }
-                title="Abrir boleto público /p/sofia-sem"
+                title="Ver el boleto de Sofía"
               />
             </div>
           </div>
@@ -981,11 +939,10 @@ export function LandingSurface(): React.JSX.Element {
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div className="space-y-0.5">
                 <h2 className="m-0 text-lg font-bold tracking-tight">
-                  Resultados recientes liquidados (Públicos y auditados)
+                  Resultados recientes
                 </h2>
                 <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                  Mostramos ganados y perdidos reales congelados al silbatazo. Cero fuga de
-                  picks futuros.
+                  Picks ganados y perdidos, tal como quedaron al final de cada partido.
                 </p>
               </div>
 
@@ -1029,7 +986,7 @@ export function LandingSurface(): React.JSX.Element {
                         <span>·</span>
                         <span>{fg.dayLabel}</span>
                       </div>
-                      <div className="font-bold text-sm uppercase truncate">
+                      <div className="font-bold text-sm truncate">
                         {fpk.label}
                       </div>
                     </div>
@@ -1043,7 +1000,7 @@ export function LandingSurface(): React.JSX.Element {
                               : "pl-pill pl-pill--warning"
                           }
                         >
-                          {isHit ? "CUMPLIDO" : "NO CUMPLIDO"}
+                          {isHit ? "Cumplido" : "No cumplido"}
                         </span>
                       </div>
                       <div style={{ color: "var(--pl-text-muted)" }}>
@@ -1058,7 +1015,7 @@ export function LandingSurface(): React.JSX.Element {
           </div>
         </section>
 
-        {/* ==================== PASE TOTAL + REFERIDOS + TIPSTAR PORTAL ==================== */}
+        {/* ==================== PASE PITCHLAB ULTRA + REFERIDOS + TIPSTAR PORTAL ==================== */}
         <PlansAndReferralsSection />
       </main>
 

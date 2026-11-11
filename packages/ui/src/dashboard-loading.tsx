@@ -1,5 +1,5 @@
 import React from "react";
-import { BrandLogo } from "./primitives.js";
+import { BrandLogo } from "./primitives";
 
 export function DashboardLoading({ confirmed = false }: { confirmed?: boolean }): React.JSX.Element {
   return (

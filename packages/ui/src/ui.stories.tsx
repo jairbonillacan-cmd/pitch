@@ -1,6 +1,6 @@
 import React from "react";
 import { asLeagueId, asMarketKey, type MatchAnalysis } from "@pitchlab/contracts";
-import { Button } from "./components/ui/button.js";
+import { Button } from "./components/ui/button";
 import {
   Tag,
   Panel,
@@ -11,7 +11,7 @@ import {
   Skeleton,
   EmptyState,
   ErrorState,
-} from "./primitives.js";
+} from "./primitives";
 import {
   TeamBadge,
   LeagueBadge,
@@ -24,14 +24,14 @@ import {
   OddsCompare,
   CalcTrace,
   FactorsList,
-} from "./sports.js";
+} from "./sports";
 import {
   FloatingNav,
   PublicFooter,
   PinPad,
   AnalysisDialog,
-} from "./shells.js";
-import { DashboardLoading } from "./dashboard-loading.js";
+} from "./shells";
+import { DashboardLoading } from "./dashboard-loading";
 
 export default {
   title: "PitchLab/D1 Design System",

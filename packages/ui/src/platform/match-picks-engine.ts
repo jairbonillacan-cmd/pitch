@@ -6,7 +6,7 @@ import {
   type MatchAnalysis,
   type StandingRow,
 } from "@pitchlab/contracts";
-import { decimalToAmericanInt } from "./access-guard.js";
+import { decimalToAmericanInt } from "./access-guard";
 import type {
   EngineKey,
   LineupAbsenceItem,
@@ -19,8 +19,8 @@ import type {
   PlayerPropItem,
   PreGameIntel,
   SpacetimeSignal,
-} from "./types.js";
-import { buildGoalModel, buildPointsModel, derivedMarketProbability } from "./spacetime-markets.js";
+} from "./types";
+import { buildGoalModel, buildPointsModel, derivedMarketProbability } from "./spacetime-markets";
 
 export interface RawLeagueInput {
   league: LeagueId;

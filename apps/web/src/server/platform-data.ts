@@ -1,19 +1,22 @@
+import { cache } from "react";
 import { cookies } from "next/headers";
 import {
   buildPlatformDataset,
   redactDatasetForVisitor,
   type PlatformDataset,
+  type PlatformGame,
+  type PlatformGameDetail,
   type RawLeagueInput,
   type ViewerRole,
 } from "@pitchlab/ui";
-import { getBetaCookieName, verifyBetaCookieToken } from "./beta-auth.js";
-import { buildSpacetimeSignals } from "./spacetime.js";
+import { getBetaCookieName, verifyBetaCookieToken } from "./beta-auth";
+import { buildSpacetimeSignals } from "./spacetime";
 import { createDb, FLAG_MONTH1_NO_CARD, getBoolFlag, type Db } from "@pitchlab/db";
 import {
   loadAllActiveLeagueSnapshots,
   PRODUCT_LEAGUES,
   type ProductLeague,
-} from "./snapshots.js";
+} from "./snapshots";
 
 export { PRODUCT_LEAGUES, type ProductLeague };
 
@@ -56,7 +59,24 @@ export function previewToolsEnabled(): boolean {
   return process.env.NODE_ENV !== "production" || process.env.PITCHLAB_PREVIEW_TOOLS === "1";
 }
 
-export function buildServerRawPlatformDataset(): PlatformDataset {
+/** Cuánto vive el dataset calculado en memoria del servidor. Los snapshots cambian una vez al día. */
+const DATASET_TTL_MS = 5 * 60 * 1000;
+let datasetMemo: { value: PlatformDataset; at: number } | null = null;
+
+/**
+ * Dataset completo de la jornada. Se guarda 5 minutos en memoria del servidor (calcular las
+ * señales de Spacetime para todos los partidos es lo más caro de cada solicitud) y `cache`
+ * evita repetirlo dentro de una misma solicitud.
+ */
+export const buildServerRawPlatformDataset = cache(function buildServerRawPlatformDatasetCached(): PlatformDataset {
+  const now = Date.now();
+  if (datasetMemo && now - datasetMemo.at < DATASET_TTL_MS) return datasetMemo.value;
+  const value = buildServerRawPlatformDatasetUncached();
+  datasetMemo = { value, at: now };
+  return value;
+});
+
+function buildServerRawPlatformDatasetUncached(): PlatformDataset {
   const envelopes = loadAllActiveLeagueSnapshots();
   const inputs: RawLeagueInput[] = [];
 
@@ -78,6 +98,56 @@ export function buildServerRawPlatformDataset(): PlatformDataset {
   }
 
   return buildPlatformDataset(inputs);
+}
+
+/**
+ * Lo que manda el layout del club: solo los partidos por jugar (con sus picks). Los terminados
+ * los piden Resultados, la página de cada liga y la ficha de un partido ya jugado.
+ * Si no hay partidos por jugar, se mandan los terminados para no dejar la portada vacía.
+ */
+export function upcomingOnly(dataset: PlatformDataset): PlatformDataset {
+  const upcoming = dataset.games.filter((g) => g.status !== "FT");
+  return upcoming.length > 0 ? { ...dataset, games: upcoming } : dataset;
+}
+
+async function redactedForViewer(): Promise<PlatformDataset> {
+  const full = buildServerRawPlatformDataset();
+  return (await hasAuthenticatedBetaSession()) ? full : redactDatasetForVisitor(full);
+}
+
+/** Partidos terminados (sin detalle pesado), opcionalmente de una liga. */
+export async function loadFinishedGames(league?: string): Promise<PlatformGame[]> {
+  const dataset = await redactedForViewer();
+  return withoutGameDetail({
+    ...dataset,
+    games: dataset.games.filter((g) => g.status === "FT" && (!league || g.league === league)),
+  }).games;
+}
+
+/** Un partido sin detalle pesado, para la ficha de un partido que el layout no trae. */
+export async function loadGameSummary(gameId: string): Promise<PlatformGame | null> {
+  const dataset = await redactedForViewer();
+  const game = dataset.games.find((g) => g.id === gameId);
+  return game ? { ...game, markets: [], headToHead: [], factors: [] } : null;
+}
+
+/**
+ * Quita el detalle pesado de cada partido (mercados, enfrentamientos y factores, ~la mitad del
+ * peso). Solo lo usa la ficha del partido, que lo pide con `loadGameDetail`.
+ */
+export function withoutGameDetail(dataset: PlatformDataset): PlatformDataset {
+  return {
+    ...dataset,
+    games: dataset.games.map((g) => ({ ...g, markets: [], headToHead: [], factors: [] })),
+  };
+}
+
+/** Detalle de un partido con la misma redacción Cero-Fuga que el resto del dataset. */
+export async function loadGameDetail(gameId: string): Promise<PlatformGameDetail | null> {
+  const full = buildServerRawPlatformDataset();
+  const dataset = (await hasAuthenticatedBetaSession()) ? full : redactDatasetForVisitor(full);
+  const game = dataset.games.find((g) => g.id === gameId);
+  return game ? { markets: game.markets, headToHead: game.headToHead, factors: game.factors } : null;
 }
 
 export async function hasAuthenticatedBetaSession(): Promise<boolean> {
@@ -103,7 +173,7 @@ export async function loadPublicPlatformState(
 
   if (hasActiveSession) {
     return {
-      dataset: fullDataset,
+      dataset: withoutGameDetail(fullDataset),
       initialRole: "member",
       hasActiveSession: true,
       allowRoleSimulation: previewToolsEnabled(),
@@ -133,7 +203,7 @@ export async function loadPublicPlatformState(
   }
 
   return {
-    dataset: redactDatasetForVisitor(fullDataset, extraUnlocked),
+    dataset: withoutGameDetail(redactDatasetForVisitor(fullDataset, extraUnlocked)),
     initialRole: "visitor",
     hasActiveSession: false,
     allowRoleSimulation: false,
@@ -153,7 +223,7 @@ export async function loadClubPlatformState(
 
   if (!hasActiveSession) {
     return {
-      dataset: redactDatasetForVisitor(fullDataset),
+      dataset: upcomingOnly(withoutGameDetail(redactDatasetForVisitor(fullDataset))),
       initialRole: "visitor",
       hasActiveSession: false,
       allowRoleSimulation: false,
@@ -163,7 +233,7 @@ export async function loadClubPlatformState(
   }
 
   return {
-    dataset: fullDataset,
+    dataset: upcomingOnly(withoutGameDetail(fullDataset)),
     initialRole: preferredRole,
     hasActiveSession: true,
     allowRoleSimulation: previewToolsEnabled(),

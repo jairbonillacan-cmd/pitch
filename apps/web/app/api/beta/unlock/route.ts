@@ -6,7 +6,7 @@ import {
   sanitizeNextPath,
   signBetaCookieToken,
   verifyPinCodeConstantTime,
-} from "../../../../src/server/beta-auth.js";
+} from "../../../../src/server/beta-auth";
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
   const forwarded = request.headers.get("x-forwarded-for");

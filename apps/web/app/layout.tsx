@@ -1,6 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
-import { DashboardEntryProvider } from "../src/client/dashboard-entry.js";
+import { DashboardEntryProvider } from "../src/client/dashboard-entry";
 import "./globals.css";
 
 export const metadata: Metadata = {

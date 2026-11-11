@@ -1,6 +1,8 @@
 node_modules/
 dist/
 .next/
+.next-prod/
+perf-results/
 .turbo/
 out/
 coverage/

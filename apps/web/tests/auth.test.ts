@@ -2,7 +2,7 @@ import { PGlite } from "@electric-sql/pglite";
 import { drizzle } from "drizzle-orm/pglite";
 import { describe, expect, it } from "vitest";
 import { applyMigrations, authSession, users, type Db } from "@pitchlab/db";
-import { createAuth, linkProfile } from "../src/server/auth.js";
+import { createAuth, linkProfile } from "../src/server/auth";
 
 async function freshDb(): Promise<Db> {
   const client = new PGlite();

@@ -1,7 +1,7 @@
 import React from "react";
 import { TechPrecisionSurface } from "@pitchlab/ui";
-import { PlatformClientBridge } from "../../src/client/platform-client-bridge.js";
-import { loadPublicPlatformState } from "../../src/server/platform-data.js";
+import { PlatformClientBridge } from "../../src/client/platform-client-bridge";
+import { loadPublicPlatformState } from "../../src/server/platform-data";
 
 export const dynamic = "force-dynamic";
 
