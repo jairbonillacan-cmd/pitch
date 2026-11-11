@@ -37,11 +37,9 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     const elapsed = Date.now() - start;
     expect(elapsed).toBeLessThan(6000);
 
-    await expect(page.locator("h1")).toContainText(
-      "Radiografía cuantitativa y 4 a 5 picks por partido",
-    );
-    await expect(page.locator("body")).toContainText("PitchLab Spacetime Suite v2.1");
-    await expect(page.locator("body")).toContainText("+358,400");
+    await expect(page.locator("h1")).toContainText("El súper-tipster cuantitativo");
+    await expect(page.locator("body")).toContainText("PitchLab Spacetime Suite v3.0");
+    await expect(page.locator("body")).toContainText("16,126");
 
     await page.evaluate(() => window.scrollTo(0, 0));
     await page.screenshot({
@@ -53,7 +51,7 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     const lockedCount = await page.locator("[data-locked-pick]").count();
     expect(lockedCount).toBeGreaterThanOrEqual(2);
 
-    // Comparador en vivo Geodesic v1.0
+    // Comparador en vivo Geodesic v2.0
     const oddsInput = page.locator("#landing-user-odds");
     await expect(oddsInput).toBeVisible();
     await oddsInput.fill("2.25");
@@ -125,8 +123,8 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     await expect(page.locator("h1")).toContainText(
       "Data Science, Machine Learning e IA",
     );
-    await expect(page.locator("body")).toContainText("PitchLab Tachyon v2.1");
-    await expect(page.locator("body")).toContainText("PitchLab Minkowski v2.1");
+    await expect(page.locator("body")).toContainText("PitchLab Tachyon v3.0");
+    await expect(page.locator("body")).toContainText("PitchLab Minkowski v3.0");
     const techA11y = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa"])
       .analyze();
@@ -264,7 +262,7 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     expect(await page.locator("[data-locked-pick]").count()).toBe(0);
 
     await page.locator("[data-section-tab='mercados']").click();
-    await expect(page.locator("body")).toContainText("Geodesic v1.0");
+    await expect(page.locator("body")).toContainText("Geodesic v2.0");
 
     await page.locator("[data-section-tab='contexto']").click();
     await expect(page.locator("body")).toContainText("Contexto del partido");

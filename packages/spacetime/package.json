@@ -1,0 +1,22 @@
+{
+  "name": "@pitchlab/spacetime",
+  "version": "3.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./index.ts",
+    "./data/*": "./data/*"
+  },
+  "scripts": {
+    "sync": "node scripts/sync-from-prediction-lab.mjs",
+    "build": "tsc --noEmit",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "lint": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.6",
+    "typescript": "5.9.3",
+    "vitest": "5.1.0"
+  }
+}

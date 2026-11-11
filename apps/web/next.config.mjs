@@ -6,6 +6,7 @@ const nextConfig = {
     "@pitchlab/tokens",
     "@pitchlab/contracts",
     "@pitchlab/sports-assets",
+    "@pitchlab/spacetime",
     "@pitchlab/ui",
   ],
   eslint: {

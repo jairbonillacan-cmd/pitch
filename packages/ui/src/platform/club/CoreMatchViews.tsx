@@ -12,8 +12,10 @@ import {
 } from "../../sports.js";
 import {
   decimalToAmericanInt,
+  formatEdgePts,
   formatOddsValue,
   getSessionWatermark,
+  pickReferenceDecimal,
   isPickUnlocked,
   isPreGameIntelUnlocked,
 } from "../access-guard.js";
@@ -22,6 +24,7 @@ import {
   CrestPedestal,
   LensGlowOrbs,
   MaestroIcon,
+  ExampleBadge,
   NoticeCard,
   StackedAvatars,
 } from "../components/MaestroPrimitives.js";
@@ -195,7 +198,7 @@ export function JornadaClubView(): React.JSX.Element {
           <div className="space-y-1">
             <span className="pl-pill pl-pill--brand inline-flex items-center gap-1.5">
               <MaestroIcon name="sparkles" size={12} />
-              <span>PitchLab Spacetime Suite v2.1 · Jornada Activa</span>
+              <span>PitchLab Spacetime Suite v3.0 · Jornada Activa</span>
             </span>
             <h1 className="m-0 text-2xl sm:text-3xl font-extrabold">
               Centro de Mando · Radiografías y Multi-Picks
@@ -461,7 +464,7 @@ export function JornadaClubView(): React.JSX.Element {
                   <div className="flex items-center justify-between gap-2">
                     <span className="pl-pill pl-pill--brand inline-flex items-center gap-1">
                       <MaestroIcon name="layers" size={12} />
-                      <span>Geodesic v1.0 · 1 Clic</span>
+                      <span>Geodesic v2.0 · 1 Clic</span>
                     </span>
                     <a
                       href="/app/parlays"
@@ -618,15 +621,21 @@ export function JornadaClubView(): React.JSX.Element {
                               <div className="text-right">
                                 <strong
                                   className="block text-xs font-extrabold"
-                                  style={{ color: "var(--pl-success)" }}
+                                  style={{
+                                    color:
+                                      pick.edgePts !== null && pick.edgePts >= 0
+                                        ? "var(--pl-success)"
+                                        : "var(--pl-text-muted)",
+                                  }}
                                 >
-                                  +{Math.max(0.8, pick.edgePts).toFixed(1)} pts
+                                  {formatEdgePts(pick.edgePts)}
                                 </strong>
                                 <span
                                   className="text-[11px]"
                                   style={{ color: "var(--pl-text-muted)" }}
                                 >
-                                  {formatOddsValue(pick.marketDecimal, oddsFormat)}
+                                  {formatOddsValue(pickReferenceDecimal(pick), oddsFormat)}
+                                  {pick.marketDecimal === null ? " justo" : ""}
                                 </span>
                               </div>
                               <button
@@ -722,7 +731,7 @@ export function MultiPicksClubView(): React.JSX.Element {
         <section className="space-y-2">
           <span className="pl-pill pl-pill--brand inline-flex items-center gap-1.5">
             <MaestroIcon name="sparkles" size={12} />
-            <span>4 a 5 Picks por Partido · Spacetime Suite v2.1</span>
+            <span>4 a 5 Picks por Partido · Spacetime Suite v3.0</span>
           </span>
           <h1 className="m-0 text-2xl sm:text-3xl font-extrabold">
             Explorador Multi-Picks del Día
@@ -734,9 +743,9 @@ export function MultiPicksClubView(): React.JSX.Element {
           </p>
         </section>
 
-        {/* Barra Geodesic v1.0 "Probar tu momio" en vivo */}
+        {/* Barra Geodesic v2.0 "Probar tu momio" en vivo */}
         <section
-          aria-label="Calculadora en vivo Geodesic v1.0"
+          aria-label="Calculadora en vivo Geodesic v2.0"
           className="glass-lens glass-ring rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3"
         >
           <div className="flex flex-wrap items-center gap-3">
@@ -749,7 +758,7 @@ export function MultiPicksClubView(): React.JSX.Element {
                 size={14}
                 style={{ color: "var(--pl-brand)" }}
               />
-              <span>Probar tu momio (Geodesic v1.0):</span>
+              <span>Probar tu momio (Geodesic v2.0):</span>
             </label>
             <input
               id="picks-live-odds-input"
@@ -1185,6 +1194,7 @@ export function MatchStudioClubView({
   );
 
   const isNfl = game.sport === "american-football" || game.league === "nfl";
+  const flow = game.preGame.moneyFlow;
   const isFinished = game.status === "FT" && game.score !== undefined;
   const intelUnlocked = isPreGameIntelUnlocked(game, viewerRole);
   const watermark = getSessionWatermark(viewerRole);
@@ -1200,7 +1210,7 @@ export function MatchStudioClubView({
   const studioPath = `/app/${game.league}/games/${game.id}`;
   const mainEngineName =
     game.picks[0]?.engineName ??
-    (isNfl ? "PitchLab Minkowski v2.1" : "PitchLab Tachyon v2.1");
+    (isNfl ? "PitchLab Minkowski v3.0" : "PitchLab Tachyon v3.0");
 
   const parsedMarketUserDec = useMemo(
     () => (marketUserOddsRaw.trim() ? parseUserOdds(marketUserOddsRaw) : null),
@@ -1229,6 +1239,7 @@ export function MatchStudioClubView({
         record: `${p.verifiedRecord} · ${p.clvBadge}`,
         createdAt: p.createdAt,
         body: p.body,
+        isExample: Boolean(p.isExample),
       }));
 
     const seeded = [
@@ -1238,6 +1249,7 @@ export function MatchStudioClubView({
         roleBadge: "Tipstar Oficial",
         record: "+18.4u · CLV +4.2 %",
         createdAt: "Hace 18 min",
+        isExample: true,
         body: `La proyección de ${mainEngineName} favorece claramente el ángulo principal en ${matchLabelShort}. Sellé 1.5u antes del corte de alineaciones 60m.`,
       },
       {
@@ -1246,7 +1258,8 @@ export function MatchStudioClubView({
         roleBadge: "Analista Verificado",
         record: "+14.9u · CLV +3.9 %",
         createdAt: "Hace 39 min",
-        body: `Coincido con el Escudo Conservador para combinarlo en Parlay de 2 selecciones; Geodesic v1.0 sigue marcando valor limpio sobre la casa.`,
+        isExample: true,
+        body: `Coincido con el Escudo Conservador para combinarlo en Parlay de 2 selecciones; Geodesic v2.0 sigue marcando valor limpio sobre la casa.`,
       },
     ];
 
@@ -1280,6 +1293,8 @@ export function MatchStudioClubView({
       parsedMarketUserDec && parsedMarketUserDec > 1
         ? parsedMarketUserDec
         : m.currentDecimal;
+    const edgeForSeal =
+      effectiveBookDec === null ? null : Math.round((m.p - 1 / effectiveBookDec) * 1000) / 10;
     const syntheticPick: MatchPick = {
       id: `${game.id}-mkt-${idx}`,
       gameId: game.id,
@@ -1293,18 +1308,18 @@ export function MatchStudioClubView({
       categoryLabel: m.group,
       risk: m.p >= 0.68 ? "conservador" : m.p >= 0.52 ? "medio" : "arriesgado",
       engineKey: "geodesic",
-      engineName: "PitchLab Geodesic v1.0",
+      engineName: "PitchLab Geodesic v2.0",
       marketGroup: m.group,
       selectionKey: m.selection,
       conflictGroup: "independent",
       label: m.label,
-      rationale: `Línea directa de la matriz Geodesic v1.0 (${(m.p * 100).toFixed(1)} % de probabilidad real).`,
+      rationale: `Línea directa de la matriz de mercados (${(m.p * 100).toFixed(1)} % de probabilidad real).`,
       p: m.p,
       fairDecimal: m.fairDecimal,
       fairAmerican: m.fairAmerican,
       marketDecimal: effectiveBookDec,
-      marketAmerican: decimalToAmericanInt(effectiveBookDec),
-      edgePts: (m.p - 1 / effectiveBookDec) * 100,
+      marketAmerican: effectiveBookDec === null ? null : decimalToAmericanInt(effectiveBookDec),
+      edgePts: edgeForSeal,
       confidenceScore: game.confidenceScore,
       suggestedUnits: 1.0,
     };
@@ -1544,12 +1559,20 @@ export function MatchStudioClubView({
           </div>
 
           {/* 3) ¿Dónde está el dinero? Quick Summary */}
+          {!flow ? (
+            <div className="glass-card glass-ring rounded-2xl p-4 space-y-2.5" data-no-market="">
+              <h2 className="m-0 text-sm font-extrabold">¿Dónde está el dinero?</h2>
+              <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                Este partido todavía no tiene momios verificados. Mostramos solo la probabilidad del modelo.
+              </p>
+            </div>
+          ) : (
           <div className="glass-card glass-ring rounded-2xl p-4 space-y-2.5 flex flex-col justify-between">
             <div className="space-y-2.5">
               <div className="flex items-center justify-between gap-2">
                 <h2 className="m-0 text-sm font-extrabold">¿Dónde está el dinero?</h2>
                 <span className="pl-pill pl-pill--brand text-[10px] num">
-                  Vol. {game.preGame.moneyFlow.volumeTier}
+                  {game.spacetime?.market?.bookLabel ?? "Mercado"}
                 </span>
               </div>
 
@@ -1559,13 +1582,13 @@ export function MatchStudioClubView({
                     Flujo hacia {game.home.shortName}
                   </span>
                   <strong>
-                    {game.preGame.moneyFlow.homeShare} % vs{" "}
+                    {flow.homeShare} % vs{" "}
                     {(game.x12[0] * 100).toFixed(0)} % modelo
                   </strong>
                 </div>
                 <PBar
-                  p={game.preGame.moneyFlow.homeShare / 100}
-                  lead={game.preGame.moneyFlow.homeShare >= 50}
+                  p={flow.homeShare / 100}
+                  lead={flow.homeShare >= 50}
                 />
 
                 <div className="flex items-center justify-between pt-1">
@@ -1573,13 +1596,13 @@ export function MatchStudioClubView({
                     Flujo hacia {game.away.shortName}
                   </span>
                   <strong>
-                    {game.preGame.moneyFlow.awayShare} % vs{" "}
+                    {flow.awayShare} % vs{" "}
                     {(game.x12[2] * 100).toFixed(0)} % modelo
                   </strong>
                 </div>
                 <PBar
-                  p={game.preGame.moneyFlow.awayShare / 100}
-                  lead={game.preGame.moneyFlow.awayShare > 50}
+                  p={flow.awayShare / 100}
+                  lead={flow.awayShare > 50}
                 />
               </div>
             </div>
@@ -1589,7 +1612,7 @@ export function MatchStudioClubView({
                 className="truncate"
                 style={{ color: "var(--pl-text-secondary)" }}
               >
-                {game.preGame.moneyFlow.sharpNote}
+                {flow.sharpNote}
               </span>
               <button
                 type="button"
@@ -1600,6 +1623,7 @@ export function MatchStudioClubView({
               </button>
             </div>
           </div>
+          )}
         </section>
 
         {/* Navegación interna del estudio */}
@@ -1713,6 +1737,7 @@ export function MatchStudioClubView({
                     <div className="flex flex-wrap items-center justify-between gap-1">
                       <div className="flex items-center gap-1.5">
                         <strong className="font-extrabold">{item.handle}</strong>
+                        {item.isExample ? <ExampleBadge /> : null}
                         <span className="pl-pill pl-pill--brand text-[10px]">
                           {item.roleBadge}
                         </span>
@@ -1791,7 +1816,7 @@ export function MatchStudioClubView({
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
                 <h2 className="m-0 text-lg font-extrabold">
-                  Matriz de Mercados · Momio Justo Sin Vig (Geodesic v1.0)
+                  Matriz de Mercados · Momio Justo Sin Vig (Geodesic v2.0)
                 </h2>
                 <p
                   className="m-0 text-xs mt-0.5"
@@ -1946,21 +1971,18 @@ export function MatchStudioClubView({
                             {formatOddsValue(m.fairDecimal, oddsFormat)}
                           </td>
                           <td className="py-2.5 px-2 text-right num font-bold">
-                            {formatOddsValue(activeBookDec, oddsFormat)}
+                            {activeBookDec === null ? "—" : formatOddsValue(activeBookDec, oddsFormat)}
                           </td>
                           <td
                             className="py-2.5 px-2 text-right num font-extrabold"
                             style={{
                               color:
-                                activeEdgePts >= 0
+                                activeEdgePts !== null && activeEdgePts >= 0
                                   ? "var(--pl-success)"
                                   : "var(--pl-text-muted)",
                             }}
                           >
-                            {activeEdgePts >= 0
-                              ? `+${activeEdgePts.toFixed(1)}`
-                              : activeEdgePts.toFixed(1)}{" "}
-                            pts
+                            {formatEdgePts(activeEdgePts)}
                           </td>
                           <td className="py-2.5 pl-2 text-right">
                             <button
@@ -2060,7 +2082,15 @@ export function MatchStudioClubView({
         ) : null}
 
         {/* Pestaña 4: ¿Dónde está el dinero? */}
-        {activeTab === "dinero" ? (
+        {activeTab === "dinero" && !flow ? (
+          <section className="glass-card glass-ring rounded-2xl p-5 space-y-2" data-market-pulse="">
+            <h2 className="m-0 text-lg font-extrabold">¿Dónde está el dinero?</h2>
+            <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+              Sin momios verificados para este partido. Cuando la casa publique líneas, aquí verás el reparto del mercado frente al modelo.
+            </p>
+          </section>
+        ) : null}
+        {activeTab === "dinero" && flow ? (
           <section
             className="glass-card glass-ring rounded-2xl p-5 space-y-4"
             data-market-pulse=""
@@ -2078,7 +2108,7 @@ export function MatchStudioClubView({
                 </p>
               </div>
               <span className="pl-pill pl-pill--info">
-                Volumen: {game.preGame.moneyFlow.volumeTier}
+                {game.spacetime?.market?.bookLabel ?? "Mercado"}
               </span>
             </div>
 
@@ -2094,11 +2124,11 @@ export function MatchStudioClubView({
                   Flujo hacia {game.home.shortName}
                 </span>
                 <strong className="text-xl font-extrabold block">
-                  {game.preGame.moneyFlow.homeShare} %
+                  {flow.homeShare} %
                 </strong>
                 <PBar
-                  p={game.preGame.moneyFlow.homeShare / 100}
-                  lead={game.preGame.moneyFlow.homeShare >= 50}
+                  p={flow.homeShare / 100}
+                  lead={flow.homeShare >= 50}
                 />
                 <span
                   className="block text-xs font-semibold"
@@ -2108,7 +2138,7 @@ export function MatchStudioClubView({
                 </span>
               </div>
 
-              {game.preGame.moneyFlow.drawShare !== undefined ? (
+              {flow.drawShare !== undefined ? (
                 <div
                   className="rounded-xl p-3.5 space-y-2"
                   style={{ background: "var(--pl-surface)" }}
@@ -2120,9 +2150,9 @@ export function MatchStudioClubView({
                     Flujo hacia Empate
                   </span>
                   <strong className="text-xl font-extrabold block">
-                    {game.preGame.moneyFlow.drawShare} %
+                    {flow.drawShare} %
                   </strong>
-                  <PBar p={game.preGame.moneyFlow.drawShare / 100} />
+                  <PBar p={flow.drawShare / 100} />
                   <span
                     className="block text-xs font-semibold"
                     style={{ color: "var(--pl-brand)" }}
@@ -2143,11 +2173,11 @@ export function MatchStudioClubView({
                   Flujo hacia {game.away.shortName}
                 </span>
                 <strong className="text-xl font-extrabold block">
-                  {game.preGame.moneyFlow.awayShare} %
+                  {flow.awayShare} %
                 </strong>
                 <PBar
-                  p={game.preGame.moneyFlow.awayShare / 100}
-                  lead={game.preGame.moneyFlow.awayShare > 50}
+                  p={flow.awayShare / 100}
+                  lead={flow.awayShare > 50}
                 />
                 <span
                   className="block text-xs font-semibold"
@@ -2161,10 +2191,10 @@ export function MatchStudioClubView({
             <NoticeCard
               tone="info"
               icon="activity"
-              badgeText="Lectura Geodesic v1.0"
+              badgeText="Lectura Geodesic v2.0"
               title="Señal de Flujo Institucional"
             >
-              {game.preGame.moneyFlow.sharpNote}
+              {flow.sharpNote}
             </NoticeCard>
           </section>
         ) : null}

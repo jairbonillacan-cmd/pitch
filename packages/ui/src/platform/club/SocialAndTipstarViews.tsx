@@ -1,14 +1,17 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import { getLogoPath, getTeamColors } from "@pitchlab/sports-assets";
 import { LeagueBadge, TeamBadge } from "../../sports.js";
-import { formatOddsValue, getSessionWatermark } from "../access-guard.js";
+import { formatOddsValue, getSessionWatermark, pickReferenceDecimal } from "../access-guard.js";
+import { downloadTicketPng } from "../components/share-ticket-raster.js";
 import {
   CrestPedestal,
   GlassActionRow,
   LensGlowOrbs,
   MaestroIcon,
+  ExampleBadge,
+  ExampleNotice,
   NoticeCard,
   StackedAvatars,
 } from "../components/MaestroPrimitives.js";
@@ -243,7 +246,7 @@ export function SocialVipClubView(): React.JSX.Element {
           categoryLabel: "Comunidad VIP",
           risk: "medio",
           engineKey: "tachyon",
-          engineName: "PitchLab Spacetime Suite v2.1",
+          engineName: "PitchLab Spacetime Suite v3.0",
           marketGroup: "Principal",
           selectionKey: "community_copy",
           conflictGroup: "independent",
@@ -262,7 +265,7 @@ export function SocialVipClubView(): React.JSX.Element {
     sealPickToJournal(
       syntheticPick,
       1.0,
-      syntheticPick.marketDecimal,
+      pickReferenceDecimal(syntheticPick),
       `Copiado de @${post.authorHandle} en Comunidad VIP`,
     );
     setCopiedCounts((prev) => ({
@@ -276,6 +279,10 @@ export function SocialVipClubView(): React.JSX.Element {
   return (
     <AtmosphereStage>
       <ClubWorkspaceShell activePath="/app/social">
+        <ExampleNotice>
+          La Comunidad VIP todavía no abre. Los perfiles, publicaciones, récords y el ranking de
+          esta vista son ejemplos para mostrar cómo funcionará; lo que publiques tú sí es tuyo.
+        </ExampleNotice>
         {/* Cabecera estilo Prototipo Maestro */}
         <section className="glass-card glass-ring rounded-2xl p-5 flex flex-wrap items-center justify-between gap-4">
           <div className="space-y-1.5">
@@ -548,6 +555,7 @@ export function SocialVipClubView(): React.JSX.Element {
                               >
                                 {post.authorName}
                               </a>
+                              {post.isExample ? <ExampleBadge /> : null}
                               <span
                                 className={
                                   post.roleBadge === "Tipstar Oficial"
@@ -655,7 +663,7 @@ export function SocialVipClubView(): React.JSX.Element {
                               style={{ color: "var(--pl-text-muted)" }}
                             >
                               {post.originType === "Spacetime Suite"
-                                ? "Calibrado por PitchLab Spacetime Suite v2.1"
+                                ? "Calibrado por PitchLab Spacetime Suite v3.0"
                                 : "Tesis propia sellada pre-partido"}
                             </span>
                           </div>
@@ -926,12 +934,12 @@ export function SocialVipClubView(): React.JSX.Element {
               icon="chart"
               tone="brand"
               badgeText="Radar Contrarian"
-              title="Consenso Socios VIP vs. Spacetime Suite v2.1"
+              title="Consenso Socios VIP vs. Spacetime Suite v3.0"
             >
               <span>
                 Detecta cuándo el sentimiento general sobrepaga a un favorito frente a la
                 probabilidad fría de{" "}
-                <strong>Tachyon v2.1, Singularity v2.1 y Minkowski v2.1</strong>.
+                <strong>Tachyon v3.0, Singularity v3.0 y Minkowski v3.0</strong>.
               </span>
             </NoticeCard>
 
@@ -1017,7 +1025,7 @@ export function SocialVipClubView(): React.JSX.Element {
                       <div className="space-y-1">
                         <div className="flex items-center justify-between">
                           <span style={{ color: "var(--pl-text-secondary)" }}>
-                            Spacetime Suite v2.1
+                            Spacetime Suite v3.0
                           </span>
                           <strong
                             className="font-extrabold"
@@ -1132,7 +1140,7 @@ export function SocialVipClubView(): React.JSX.Element {
               </div>
 
               <span className="text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                Elegibilidad: ≥ 30 picks sellados con cuota observada Geodesic v1.0 · IC 95 %
+                Elegibilidad: ≥ 30 picks sellados con cuota observada Geodesic v2.0 · IC 95 %
               </span>
             </div>
 
@@ -1212,7 +1220,10 @@ export function SocialVipClubView(): React.JSX.Element {
                                 {c.avatarInitials}
                               </span>
                               <span>
-                                <strong className="block font-bold">{c.name}</strong>
+                                <strong className="flex items-center gap-1.5 font-bold">
+                                  {c.name}
+                                  <ExampleBadge />
+                                </strong>
                                 <span
                                   className="block text-xs"
                                   style={{ color: "var(--pl-text-muted)" }}
@@ -1290,6 +1301,7 @@ export function TipstarPortalClubView(): React.JSX.Element {
   const sofia = TIPSTAR_CREATORS[0]!;
   const [thesis, setThesis] = useState<string>(sofia.weeklyPickThesis);
   const [previewRatio, setPreviewRatio] = useState<"4:5" | "9:16">("4:5");
+  const previewCardRef = useRef<HTMLDivElement>(null);
   const [visitorPreviewOpen, setVisitorPreviewOpen] = useState<boolean>(false);
 
   const upcomingGames = useMemo(
@@ -1358,9 +1370,14 @@ export function TipstarPortalClubView(): React.JSX.Element {
   const previewFair = isSpacetimeOrigin
     ? activePick?.fairDecimal ?? 1.62
     : personalJournalEntry?.fairDecimal ?? 1.64;
-  const previewBook = isSpacetimeOrigin
-    ? activePick?.marketDecimal ?? 1.85
-    : personalJournalEntry?.userDecimal ?? 1.88;
+  // Momio real de casa o el que el tipstar selló; null si no existe (no se inventa).
+  const previewBook: number | null = isSpacetimeOrigin
+    ? (activePick?.marketDecimal ?? null)
+    : (personalJournalEntry?.userDecimal ?? null);
+  const previewOddsText =
+    previewBook === null
+      ? `Justa ${formatOddsValue(previewFair, oddsFormat)}`
+      : `Justa ${formatOddsValue(previewFair, oddsFormat)} · Momio ${formatOddsValue(previewBook, oddsFormat)}`;
 
   const handleCopyPublicUrl = () => {
     const url = "https://pitchlab.mx/p/sofia-sem?code=SOFIA5";
@@ -1375,6 +1392,10 @@ export function TipstarPortalClubView(): React.JSX.Element {
   return (
     <AtmosphereStage>
       <ClubWorkspaceShell activePath="/app/tipstar">
+        <ExampleNotice>
+          Así funcionará el Portal Tipstar. @{sofia.handle} es un perfil de ejemplo: sus unidades,
+          CLV y referidos son ficticios. El pick que muestra sí sale de Spacetime Suite v3.0.
+        </ExampleNotice>
         {viewerRole !== "tipstar" && viewerRole !== "admin" ? (
           <NoticeCard
             icon="crown"
@@ -1687,7 +1708,7 @@ export function TipstarPortalClubView(): React.JSX.Element {
                     style={{ color: "var(--pl-text-muted)" }}
                   >
                     {previewMatchTitle} · Cuota sellada{" "}
-                    {formatOddsValue(previewBook, oddsFormat)}
+                    {formatOddsValue(previewBook ?? previewFair, oddsFormat)}
                   </span>
                 </div>
               )}
@@ -1727,7 +1748,7 @@ export function TipstarPortalClubView(): React.JSX.Element {
                       pickLabel: previewSelectionLabel,
                       probability: previewProb,
                       fairDecimal: previewFair,
-                      marketDecimal: previewBook,
+                      marketDecimal: previewBook ?? previewFair,
                       units: activePick.suggestedUnits,
                       gameStatus: "NS",
                       promoCode: sofia.promoCode,
@@ -1801,6 +1822,7 @@ export function TipstarPortalClubView(): React.JSX.Element {
             </div>
 
             <div
+              ref={previewCardRef}
               className={`share-ticket-card glass-ring p-6 flex flex-col justify-between transition-all ${
                 previewRatio === "9:16" ? "min-h-[468px]" : "min-h-[382px]"
               }`}
@@ -1843,13 +1865,14 @@ export function TipstarPortalClubView(): React.JSX.Element {
                   <div className="min-w-0">
                     <div className="text-xs font-extrabold truncate">
                       {sofia.name} · @{sofia.handle}
+                      {sofia.isExample ? " · Ejemplo" : ""}
                     </div>
                     <div
                       className="text-xs truncate"
                       style={{ color: "var(--share-card-accent)" }}
                     >
                       {isSpacetimeOrigin
-                        ? `Respaldado por ${activePick?.engineName ?? "PitchLab Spacetime Suite v2.1"}`
+                        ? `Respaldado por ${activePick?.engineName ?? "PitchLab Spacetime Suite v3.0"}`
                         : "Tesis propia auditada en Bitácora PitchLab"}
                     </div>
                   </div>
@@ -1880,9 +1903,11 @@ export function TipstarPortalClubView(): React.JSX.Element {
                       </strong>{" "}
                       · Justa {formatOddsValue(previewFair, oddsFormat)}
                     </span>
-                    <strong style={{ color: "var(--share-card-accent)" }}>
-                      Momio {formatOddsValue(previewBook, oddsFormat)}
-                    </strong>
+                    {previewBook !== null ? (
+                      <strong style={{ color: "var(--share-card-accent)" }}>
+                        Momio {formatOddsValue(previewBook, oddsFormat)}
+                      </strong>
+                    ) : null}
                   </div>
                 </div>
 
@@ -1935,12 +1960,37 @@ export function TipstarPortalClubView(): React.JSX.Element {
               <button
                 type="button"
                 className="pl-btn-primary text-xs"
-                onClick={() =>
-                  pushToast(
-                    `Boleto PNG (${previewRatio === "9:16" ? "1080×1920" : "1080×1350"}) con código ${sofia.promoCode} listo.`,
-                    "success",
-                  )
-                }
+                onClick={() => {
+                  const card = previewCardRef.current;
+                  if (!card) return;
+                  downloadTicketPng(
+                    {
+                      aspect: previewRatio,
+                      leagueLabel: "PICK GRATIS SEMANAL",
+                      title: `${sofia.name} · @${sofia.handle}`,
+                      subtitle: previewMatchTitle,
+                      badge: isSpacetimeOrigin
+                        ? `Respaldado por ${activePick?.engineName ?? "PitchLab Spacetime Suite v3.0"}`
+                        : "Tesis propia auditada en Bitácora PitchLab",
+                      badgeTone: "success",
+                      units: "",
+                      mainLine: previewSelectionLabel,
+                      detailLine: `Prob. ${(previewProb * 100).toFixed(1)} % · ${previewOddsText}`,
+                      footerLine: `CÓDIGO: ${sofia.promoCode} · ${sofia.freeDays} DÍAS GRATIS`,
+                      footerSub: "Desbloquea los demás picks en pitchlab.mx",
+                      watermark: "18+",
+                    },
+                    card,
+                    `pitchlab-${sofia.handle}-${previewRatio === "9:16" ? "9x16" : "4x5"}.png`,
+                  ).then(
+                    () =>
+                      pushToast(
+                        `Boleto ${previewRatio === "9:16" ? "1080×1920" : "1080×1350"} con código ${sofia.promoCode} descargado.`,
+                        "success",
+                      ),
+                    () => pushToast("No se pudo generar la imagen del boleto.", "danger"),
+                  );
+                }}
               >
                 <MaestroIcon name="download" size={13} />
                 <span>Descargar PNG</span>
@@ -1990,7 +2040,7 @@ export function TipstarPortalClubView(): React.JSX.Element {
                   </h2>
                   <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
                     {previewMatchTitle} ·{" "}
-                    {activePick?.engineName ?? "PitchLab Spacetime Suite v2.1"}
+                    {activePick?.engineName ?? "PitchLab Spacetime Suite v3.0"}
                   </p>
                 </div>
               </div>
@@ -2032,10 +2082,10 @@ export function TipstarPortalClubView(): React.JSX.Element {
                 {(lockedSiblingPicks.length > 0
                   ? lockedSiblingPicks.slice(0, 4)
                   : [
-                      { id: "lk-1", categoryLabel: "Escudo Conservador", engineName: "Tachyon v2.1" },
-                      { id: "lk-2", categoryLabel: "Línea de Totales", engineName: "Singularity v2.1" },
+                      { id: "lk-1", categoryLabel: "Escudo Conservador", engineName: "Tachyon v3.0" },
+                      { id: "lk-2", categoryLabel: "Línea de Totales", engineName: "Singularity v3.0" },
                       { id: "lk-3", categoryLabel: "Ángulo Táctico", engineName: "Cortex IA" },
-                      { id: "lk-4", categoryLabel: "Valor Geodesic", engineName: "Geodesic v1.0" },
+                      { id: "lk-4", categoryLabel: "Valor Geodesic", engineName: "Geodesic v2.0" },
                     ]
                 ).map((lp) => (
                   <div

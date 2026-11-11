@@ -569,8 +569,8 @@ export function RoleSwitcherPill({
 }: {
   compact?: boolean;
   className?: string;
-}): React.JSX.Element {
-  const { viewerRole, setViewerRole, rawDataset, submitBetaPin, pushToast } =
+}): React.JSX.Element | null {
+  const { viewerRole, setViewerRole, rawDataset, openBetaPin, pushToast, allowRoleSimulation } =
     usePlatform();
 
   const handleSelectRole = (role: ViewerRole) => {
@@ -589,16 +589,8 @@ export function RoleSwitcherPill({
         typeof window !== "undefined"
           ? window.location.pathname + window.location.search
           : "/";
-      void submitBetaPin("2026", nextTarget).then((res) => {
-        if (
-          res.ok &&
-          typeof window !== "undefined" &&
-          (res.redirectTo ?? nextTarget) ===
-            window.location.pathname + window.location.search
-        ) {
-          window.location.assign(res.redirectTo ?? nextTarget);
-        }
-      });
+      // Sin sesión: el PIN lo escribe la persona; nunca va en el código del cliente.
+      openBetaPin(nextTarget);
       return;
     }
 
@@ -613,6 +605,9 @@ export function RoleSwitcherPill({
       "default",
     );
   };
+
+  // Herramienta de revisión: solo con sesión y con las herramientas de preview activas.
+  if (!allowRoleSimulation) return null;
 
   return (
     <div
@@ -637,5 +632,42 @@ export function RoleSwitcherPill({
         );
       })}
     </div>
+  );
+}
+
+/**
+ * Etiqueta para contenido de demostración (tipstars y publicaciones ficticias).
+ * Mientras no haya tipstars ni comunidad reales, todo perfil de ejemplo debe llevarla.
+ */
+export function ExampleBadge({ className }: { className?: string }): React.JSX.Element {
+  return (
+    <span
+      className={["pl-pill pl-pill--warning text-[10px] shrink-0", className].filter(Boolean).join(" ")}
+      title="Perfil de ejemplo: PitchLab todavía no tiene tipstars ni comunidad reales."
+      data-example-badge=""
+    >
+      Ejemplo
+    </span>
+  );
+}
+
+/** Aviso de vista con contenido de demostración. */
+export function ExampleNotice({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}): React.JSX.Element {
+  return (
+    <NoticeCard
+      tone="warning"
+      icon="eye"
+      badgeText="Ejemplo"
+      title="Contenido de ejemplo"
+      className={className}
+    >
+      {children}
+    </NoticeCard>
   );
 }

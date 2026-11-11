@@ -5,6 +5,7 @@ import type { LeagueId } from "@pitchlab/contracts";
 import { getTeamColors } from "@pitchlab/sports-assets";
 import { LeagueBadge, TeamBadge } from "../../sports.js";
 import {
+  formatEdgePts,
   formatOddsValue,
   isDisposableEmailDomain,
   normalizeTrialEmail,
@@ -13,6 +14,7 @@ import {
   CrestPedestal,
   LensGlowOrbs,
   MaestroIcon,
+  ExampleBadge,
   NoticeCard,
 } from "../components/MaestroPrimitives.js";
 import {
@@ -89,6 +91,7 @@ export function AuthSurfaceV4({
     logoutSession,
     navigateTo,
     pushToast,
+    allowRoleSimulation,
   } = usePlatform();
 
   const [activeTab, setActiveTab] = useState<"trial" | "pin">("trial");
@@ -200,7 +203,7 @@ export function AuthSurfaceV4({
     }
 
     if (rawDataset.isServerRedactedForVisitor) {
-      void submitBetaPin("2026", targetHref);
+      openBetaPin(targetHref);
       return;
     }
     navigateTo(targetHref);
@@ -264,8 +267,8 @@ export function AuthSurfaceV4({
                       className="m-0 text-sm leading-relaxed"
                       style={{ color: "var(--pl-text-secondary)" }}
                     >
-                      Accede a toda la <strong>{SPACETIME_METRICS_HEADLINE.suiteName}</strong>: 4 a
-                      5 picks por partido, Armador de Parlays sin contradicciones, Cortex IA 60m y
+                      Accede a toda la <strong>{SPACETIME_METRICS_HEADLINE.suiteName}</strong>: hasta
+                      5 picks por partido, Armador de Parlays sin contradicciones, Cortex IA y
                       Comunidad VIP.
                     </p>
                   </div>
@@ -541,13 +544,13 @@ export function AuthSurfaceV4({
 
                   <button
                     type="button"
-                    disabled={inlinePinBusy}
+                    disabled={inlinePinBusy || inlinePinDigits.length !== 4}
                     className="pl-btn-primary w-full min-h-11 text-sm"
                     onClick={() => {
-                      void verifyInlinePin("2026");
+                      void verifyInlinePin(inlinePinDigits);
                     }}
                   >
-                    <span>Entrar directo como @socio_pl (PIN 2026)</span>
+                    <span>Entrar con mi PIN</span>
                     <MaestroIcon name="arrowRight" size={15} />
                   </button>
                 </div>
@@ -600,7 +603,7 @@ export function AuthSurfaceV4({
               title="Pase Total PitchLab"
               tone="brand"
             >
-              4 a 5 picks por partido · Armador de Parlays inteligente · Cortex IA con bajas 60 min
+              hasta 5 picks por partido · Armador de Parlays inteligente · Cortex IA con bajas reportadas
               antes · Comunidad exclusiva sin spam.
             </NoticeCard>
 
@@ -625,6 +628,7 @@ export function AuthSurfaceV4({
               </button>
             </div>
 
+            {allowRoleSimulation ? (
             <div className="glass-ring glass-card rounded-2xl p-5 space-y-3">
               <div className="space-y-0.5">
                 <h2
@@ -672,6 +676,7 @@ export function AuthSurfaceV4({
                 </button>
               </div>
             </div>
+            ) : null}
           </aside>
         </div>
       </main>
@@ -731,7 +736,7 @@ export function OnboardingSurfaceV4(): React.JSX.Element {
       return;
     }
     if (rawDataset.isServerRedactedForVisitor) {
-      void submitBetaPin("2026", "/app");
+      openBetaPin("/app");
       return;
     }
     navigateTo("/app");
@@ -831,7 +836,7 @@ export function OnboardingSurfaceV4(): React.JSX.Element {
                     {
                       id: "arriesgado",
                       title: "Agresivo · Valor",
-                      desc: "Cuotas altas (+105 o mayores) donde Singularity v2.1 detecta valor.",
+                      desc: "Cuotas altas (+105 o mayores) donde Singularity v3.0 detecta valor.",
                     },
                   ] as Array<{ id: RiskBand; title: string; desc: string }>
                 ).map((opt) => {
@@ -1077,6 +1082,7 @@ export function PublicSharedPickSurface({
                   <h1 className="m-0 text-xl sm:text-2xl font-extrabold tracking-tight">
                     {creator.name} (@{creator.handle})
                   </h1>
+                  {creator.isExample ? <ExampleBadge className="mt-1" /> : null}
                   <p
                     className="m-0 mt-0.5 text-xs num font-semibold"
                     style={{ color: "var(--share-card-success)" }}
@@ -1223,10 +1229,12 @@ export function PublicSharedPickSurface({
                       · Cuota justa{" "}
                       <strong>{formatOddsValue(unlockedPick.fairDecimal, oddsFormat)}</strong>
                     </span>
-                    <strong style={{ color: "var(--share-card-success)" }}>
-                      Momio {formatOddsValue(unlockedPick.marketDecimal, oddsFormat)} (+
-                      {Math.max(0.8, unlockedPick.edgePts).toFixed(1)} pts)
-                    </strong>
+                    {unlockedPick.marketDecimal !== null ? (
+                      <strong style={{ color: "var(--share-card-success)" }}>
+                        Momio {formatOddsValue(unlockedPick.marketDecimal, oddsFormat)} (
+                        {formatEdgePts(unlockedPick.edgePts)})
+                      </strong>
+                    ) : null}
                   </div>
 
                   <p

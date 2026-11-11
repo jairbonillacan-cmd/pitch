@@ -29,6 +29,7 @@ import {
   redactDatasetForVisitor,
   SocialVipClubView,
   type RawLeagueInput,
+  type SpacetimeSignal,
 } from "../src/index.js";
 
 const FORBIDDEN_UI_TERMS = [
@@ -68,19 +69,32 @@ function loadRealSnapshotInput(leagueKey: "liga-mx" | "nfl"): RawLeagueInput {
   };
 }
 
-describe("PitchLab Spacetime Suite v2.1 & Liquid Glass Platform v4", () => {
+describe("PitchLab Spacetime Suite v3.0 & Liquid Glass Platform v4", () => {
   const dataset = buildPlatformDataset([
     loadRealSnapshotInput("liga-mx"),
     loadRealSnapshotInput("nfl"),
   ]);
 
-  it("derives 5 structured picks + Cortex IA pre-game intel per match from real snapshots without forbidden leaks", () => {
+  it("derives up to 5 structured picks + Cortex IA pre-game intel per match from real snapshots without forbidden leaks", () => {
     expect(dataset.games.length).toBeGreaterThan(4);
     expect(dataset.dailyPromoPickId).toBeTruthy();
     expect(dataset.tipstarWeeklyPickId).toBeTruthy();
 
     for (const game of dataset.games.slice(0, 8)) {
-      expect(game.picks).toHaveLength(5);
+      expect(game.picks.length).toBeGreaterThanOrEqual(3);
+      expect(game.picks.length).toBeLessThanOrEqual(5);
+      // Sin señal de Spacetime no hay momios de casa: nada de momios, ventajas ni flujo inventados.
+      for (const pk of game.picks) {
+        expect(pk.marketDecimal).toBeNull();
+        expect(pk.edgePts).toBeNull();
+        expect(pk.category).not.toBe("valor");
+      }
+      for (const m of game.markets) {
+        expect(m.currentDecimal).toBeNull();
+        expect(m.openDecimal).toBeNull();
+      }
+      expect(game.preGame.lineupsConfirmed60m).toBe(false);
+      expect(game.preGame.absences).toHaveLength(0);
       expect(game.preGame.cortexSynthesis.length).toBeGreaterThan(30);
       expect(game.markets.length).toBeGreaterThanOrEqual(8);
 
@@ -89,6 +103,51 @@ describe("PitchLab Spacetime Suite v2.1 & Liquid Glass Platform v4", () => {
         expect(serialized).not.toContain(term);
       }
     }
+  });
+
+  it("uses real book odds and Geodesic value from a Spacetime v3.0 signal", () => {
+    const input = loadRealSnapshotInput("liga-mx");
+    const target = input.games.find((g) => g.status !== "FT") ?? input.games[0]!;
+    const signal: SpacetimeSignal = {
+      engineName: "PitchLab Singularity v3.0",
+      sportsEngineName: "PitchLab Tachyon v3.0",
+      probs: { home: 0.5, draw: 0.25, away: 0.25 },
+      market: {
+        bookLabel: "Caliente",
+        asOfUtc: "2026-11-09T18:46:52Z",
+        overround: 0.06,
+        noVig: { home: 0.45, draw: 0.27, away: 0.28 },
+        odds: { home: 2.1, draw: 3.5, away: 3.4 },
+      },
+      value: [
+        { side: "home", prob: 0.5, decimalOdds: 2.1, edge: 0.024, ev: 0.05, stake: 0.012, vetoed: false, institutionalConfirmation: false },
+        { side: "draw", prob: 0.25, decimalOdds: 3.5, edge: -0.036, ev: -0.12, stake: 0, vetoed: false, institutionalConfirmation: false },
+        { side: "away", prob: 0.25, decimalOdds: 3.4, edge: -0.044, ev: -0.15, stake: 0, vetoed: false, institutionalConfirmation: false },
+      ],
+      expectedTotal: 2.6,
+      expectedMargin: 0.3,
+      drivers: [{ label: "Fuerza estructural y xG", impactLogit: 0.2 }],
+      availability: { homeInjured: 2, awayInjured: 0, homeMissingValuePct: 4.5, awayMissingValuePct: 0 },
+      stadium: { name: "Estadio Corregidora", elevationM: 1820 },
+    };
+    const ds = buildPlatformDataset([{ ...input, spacetime: { [target.id]: signal } }]);
+    const game = ds.games.find((g) => g.id === target.id)!;
+
+    expect(game.x12).toEqual([0.5, 0.25, 0.25]);
+    const homeRow = game.markets.find((m) => m.market === "h2h" && m.selection === "home")!;
+    expect(homeRow.p).toBe(0.5);
+    expect(homeRow.currentDecimal).toBe(2.1);
+    expect(homeRow.edgePts).toBeCloseTo((0.5 - 1 / 2.1) * 100, 1);
+    expect(game.markets.find((m) => m.market === "totals")?.currentDecimal ?? null).toBeNull();
+
+    const value = game.picks.find((p) => p.category === "valor");
+    if (value) {
+      expect(value.marketDecimal).toBe(2.1);
+      expect(value.engineName).toBe("PitchLab Geodesic v2.0");
+    }
+    expect(game.preGame.moneyFlow?.homeShare).toBe(45);
+    expect(game.preGame.absences).toHaveLength(1);
+    expect(game.preGame.cortexSynthesis).toContain("Caliente");
   });
 
   it("enforces Zero-Leakage server redaction for visitors while keeping FT games, 1 daily promo, and 1 Tipstar weekly pick open", () => {
@@ -187,7 +246,8 @@ describe("PitchLab Spacetime Suite v2.1 & Liquid Glass Platform v4", () => {
     expect(formatOddsValue(1.91, "decimal")).toBe("1.91");
 
     const props = buildPlayerPropsCatalog(dataset.games);
-    expect(props.length).toBeGreaterThanOrEqual(2);
+    // Sin proyecciones por jugador en v3.0: no se inventan props.
+    expect(props).toHaveLength(0);
     const lowLine = evaluatePropLineProbability(260, 32, 235);
     const highLine = evaluatePropLineProbability(260, 32, 285);
     expect(lowLine.pOver).toBeGreaterThan(highLine.pOver);
@@ -213,10 +273,14 @@ describe("PitchLab Spacetime Suite v2.1 & Liquid Glass Platform v4", () => {
       </PlatformProvider>,
     );
 
-    expect(publicHtml).toContain("PitchLab Spacetime Suite v2.1");
+    expect(publicHtml).toContain("PitchLab Spacetime Suite v3.0");
     expect(publicHtml).toContain("data-locked-pick");
     expect(clubHtml).toContain("PitchLab Cortex IA");
     expect(clubHtml).toContain("+15 días gratis");
+    // Tipstars y comunidad de demostración siempre van marcados como ejemplo.
+    expect(clubHtml).toContain("Contenido de ejemplo");
+    expect(clubHtml).toContain("data-example-badge");
+    expect(clubHtml).not.toContain("Récord Verificado");
 
     const combinedLower = (publicHtml + clubHtml).toLowerCase();
     for (const term of FORBIDDEN_UI_TERMS) {

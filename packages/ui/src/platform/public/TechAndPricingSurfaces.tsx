@@ -68,14 +68,14 @@ export function TechPrecisionSection({
               >
                 Cinco motores propietarios procesan{" "}
                 <strong className="num">
-                  {SPACETIME_METRICS_HEADLINE.historicalMatches} partidos históricos auditados
+                  {SPACETIME_METRICS_HEADLINE.historicalMatches} partidos de prueba fuera de muestra
                 </strong>{" "}
                 y{" "}
                 <strong className="num">
-                  {SPACETIME_METRICS_HEADLINE.telemetryPoints} registros tácticos y de liquidez
+                  {SPACETIME_METRICS_HEADLINE.telemetryPoints} registros de 28 fuentes
                 </strong>
-                , reentrenándose automáticamente al cierre de cada jornada para entregar
-                múltiples picks y parlays por partido.
+                ; cada versión se valida contra el mercado antes de publicarse y entrega
+                varios picks y parlays por partido.
               </p>
             </div>
 
@@ -92,13 +92,13 @@ export function TechPrecisionSection({
                   style={{ background: "var(--pl-success)" }}
                   aria-hidden="true"
                 />
-                <span>Reentrenamiento continuo activo</span>
+                <span>Validación fuera de muestra</span>
               </div>
               <div
                 className="num text-xs"
                 style={{ color: "var(--pl-text-secondary)" }}
               >
-                Última corrida: <strong>hace 2 h 14 min</strong>
+                Temporada de prueba: <strong>2024–25</strong>
               </div>
               <div className="num text-xs" style={{ color: "var(--pl-text-muted)" }}>
                 Integridad SHA-256 · 0 fuga temporal
@@ -122,7 +122,7 @@ export function TechPrecisionSection({
                 className="text-xs font-medium mt-0.5"
                 style={{ color: "var(--pl-text-muted)" }}
               >
-                Partidos históricos entrenados
+                Partidos de prueba 2024–25
               </div>
             </div>
 
@@ -140,7 +140,7 @@ export function TechPrecisionSection({
                 className="text-xs font-medium mt-0.5"
                 style={{ color: "var(--pl-text-muted)" }}
               >
-                Puntos de telemetría táctica y mercado
+                Registros del feature store (28 fuentes)
               </div>
             </div>
 
@@ -158,7 +158,7 @@ export function TechPrecisionSection({
                 className="text-xs font-medium mt-0.5"
                 style={{ color: "var(--pl-text-muted)" }}
               >
-                Picks Singularity que baten el cierre
+                ROI fuera de muestra de Geodesic
               </div>
             </div>
 
@@ -254,7 +254,7 @@ export function TechPrecisionSection({
                       style={{ color: "var(--pl-success)" }}
                     />
                     <span>
-                      <strong>4 a 5 picks por partido</strong> + Armador de Parlays sin choques
+                      <strong>hasta 5 picks por partido</strong> + Armador de Parlays sin choques
                       lógicos.
                     </span>
                   </li>
@@ -316,7 +316,7 @@ export function TechPrecisionSection({
             </p>
           </div>
           <span className="pl-pill pl-pill--success num">
-            Desviación media &lt; 1.2 %
+            Publicación abierta de aciertos
           </span>
         </div>
 
@@ -333,7 +333,9 @@ export function TechPrecisionSection({
                   className="num text-xs font-semibold"
                   style={{ color: "var(--pl-text-muted)" }}
                 >
-                  {b.auditedPicksCount.toLocaleString("es-MX")} auditados
+                  {b.auditedPicksCount === null
+                    ? "Auditoría en curso"
+                    : `${b.auditedPicksCount.toLocaleString("es-MX")} auditados`}
                 </span>
               </div>
 
@@ -343,24 +345,32 @@ export function TechPrecisionSection({
                     Prometido: <strong style={{ color: "var(--pl-text)" }}>{(b.promisedMeanP * 100).toFixed(1)} %</strong>
                   </span>
                   <span style={{ color: "var(--pl-success)" }}>
-                    Real auditado: <strong>{(b.actualHitRate * 100).toFixed(1)} %</strong>
+                    Real auditado:{" "}
+                    <strong>
+                      {b.actualHitRate === null ? "se publica con los primeros picks" : `${(b.actualHitRate * 100).toFixed(1)} %`}
+                    </strong>
                   </span>
                 </div>
                 <PBar p={b.promisedMeanP} lead />
-                <div
-                  className="pbar pos"
-                  style={
-                    {
-                      "--w": `${(b.actualHitRate * 100).toFixed(1)}%`,
-                    } as React.CSSProperties
-                  }
-                >
-                  <span />
-                </div>
+                {b.actualHitRate !== null ? (
+                  <div
+                    className="pbar pos"
+                    style={
+                      {
+                        "--w": `${(b.actualHitRate * 100).toFixed(1)}%`,
+                      } as React.CSSProperties
+                    }
+                  >
+                    <span />
+                  </div>
+                ) : null}
               </div>
 
               <p className="m-0 text-xs" style={{ color: "var(--pl-text-secondary)" }}>
-                {b.rangeLabel} · Supera el cierre en {(b.closingBeatRate * 100).toFixed(1)} %
+                {b.rangeLabel}
+                {b.closingBeatRate !== null
+                  ? ` · Supera el cierre en ${(b.closingBeatRate * 100).toFixed(1)} %`
+                  : ""}
               </p>
             </div>
           ))}
@@ -382,10 +392,10 @@ export function PlansAndReferralsSection({
   const SubHeadingTag = isStandalone ? "h2" : "h3";
 
   const checklistItems = [
-    "4 a 5 picks por partido (Conservador, Medio, Arriesgado y Totales)",
+    "hasta 5 picks por partido (Conservador, Medio, Arriesgado y Totales)",
     "Armador Inteligente de Parlays (2 a 6 patas + modo SGP)",
-    "Spacetime Suite v2.1 completa + Cortex IA y alineaciones 60 min antes",
-    "Player Prop Lab, comparador Geodesic v1.0 y debate exclusivo de pago",
+    "Spacetime Suite v3.0 completa + Cortex IA y alineaciones 60 min antes",
+    "Player Prop Lab, comparador Geodesic v2.0 y debate exclusivo de pago",
   ];
 
   return (

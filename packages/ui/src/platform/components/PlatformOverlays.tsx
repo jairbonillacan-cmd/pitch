@@ -7,11 +7,14 @@ import {
   canRevealPickOnShare,
   formatOddsValue,
   getSessionWatermark,
+  pickReferenceDecimal,
 } from "../access-guard.js";
 import { usePlatform } from "../platform-provider.js";
+import { downloadTicketPng, type TicketRasterContent } from "./share-ticket-raster.js";
 import { TIPSTAR_CREATORS } from "../spacetime-catalog.js";
 import type { ViewerRole } from "../types.js";
 import {
+  ExampleBadge,
   LensGlowOrbs,
   MaestroIcon,
   type MaestroIconName,
@@ -190,8 +193,8 @@ export function ParlayFloatingDock(): React.JSX.Element | null {
                 kind: "parlay",
                 title: `Combinada PitchLab (${parlaySummary.legs.length} picks)`,
                 subtitle: parlaySummary.hasSgpCorrelation
-                  ? "Mismo partido (SGP) calibrado con Geodesic v1.0"
-                  : "Multi-liga calibrada con Spacetime Suite v2.1",
+                  ? "Mismo partido (SGP) calibrado con Geodesic v2.0"
+                  : "Multi-liga calibrada con Spacetime Suite v3.0",
                 leagueLabel: "Parlay Inteligente",
                 pickLabel: parlaySummary.legs
                   .map((l) => l.pick.label)
@@ -241,7 +244,7 @@ export function PickComposerModal(): React.JSX.Element | null {
   useEffect(() => {
     if (composerPick) {
       setUnits(composerPick.suggestedUnits);
-      setUserDec(composerPick.marketDecimal.toFixed(2));
+      setUserDec(pickReferenceDecimal(composerPick).toFixed(2));
       setOddsMode("observed");
       setNote("");
     }
@@ -251,7 +254,7 @@ export function PickComposerModal(): React.JSX.Element | null {
 
   const parsedDec = Math.max(
     1.05,
-    Number(userDec.replace(",", ".")) || composerPick.marketDecimal,
+    Number(userDec.replace(",", ".")) || pickReferenceDecimal(composerPick),
   );
   const clvLivePct =
     Math.round((parsedDec / composerPick.fairDecimal - 1) * 1000) / 10;
@@ -269,7 +272,7 @@ export function PickComposerModal(): React.JSX.Element | null {
     {
       id: "market",
       label: "Mercado",
-      dec: Number(composerPick.marketDecimal.toFixed(2)),
+      dec: Number(pickReferenceDecimal(composerPick).toFixed(2)),
       mode: "observed" as const,
     },
     {
@@ -438,7 +441,7 @@ export function PickComposerModal(): React.JSX.Element | null {
                     aria-pressed={oddsMode === "observed"}
                     onClick={() => {
                       setOddsMode("observed");
-                      setUserDec(composerPick.marketDecimal.toFixed(2));
+                      setUserDec(pickReferenceDecimal(composerPick).toFixed(2));
                     }}
                   >
                     Cuota observada
@@ -577,6 +580,7 @@ export function ShareTicketModal(): React.JSX.Element | null {
   const { shareTicket, closeShareTicket, viewerRole, oddsFormat, pushToast } =
     usePlatform();
   const [aspect, setAspect] = useState<"4:5" | "9:16">("4:5");
+  const ticketRef = useRef<HTMLDivElement>(null);
 
   if (!shareTicket) return null;
 
@@ -602,9 +606,43 @@ export function ShareTicketModal(): React.JSX.Element | null {
   };
 
   const handleDownloadTicket = () => {
-    pushToast(
-      `Boleto ${aspect === "9:16" ? "Stories 9:16" : "Feed 4:5"} preparado con sello criptográfico.`,
-      "success",
+    const card = ticketRef.current;
+    if (!card) return;
+    const units = `${shareTicket.units.toFixed(1)}u`;
+    const footerLine = shareTicket.promoCode
+      ? `CÓDIGO: ${shareTicket.promoCode} · 5 días gratis`
+      : "7 días gratis + 15d ambos al suscribirse";
+    const base = {
+      aspect,
+      leagueLabel: shareTicket.leagueLabel,
+      title: shareTicket.title,
+      subtitle: shareTicket.subtitle,
+      units,
+      footerLine,
+      footerSub: "pitchlab.mx · +18 · Unidades simuladas",
+      watermark,
+    };
+    const content: TicketRasterContent = revealSelection
+      ? {
+          ...base,
+          badge: isTipstarPromo
+            ? (shareTicket.originBadge ?? "PICK ABIERTO DE LA SEMANA")
+            : "RESULTADO AUDITADO FT",
+          badgeTone: "success",
+          mainLine: shareTicket.pickLabel,
+          detailLine: `Prob. ${(shareTicket.probability * 100).toFixed(1)} % · Momio ${formatOddsValue(shareTicket.marketDecimal, oddsFormat)} (Justa ${formatOddsValue(shareTicket.fairDecimal, oddsFormat)})`,
+        }
+      : {
+          ...base,
+          badge: "SELECCIÓN SELLADA HASTA EL INICIO",
+          badgeTone: "warning",
+          mainLine: `Pick registrado en Bitácora PitchLab (${(shareTicket.probability * 100).toFixed(0)} % conf.)`,
+          detailLine: "La selección exacta se revela al inicio del partido.",
+        };
+    const fileName = `pitchlab-boleto-${aspect === "9:16" ? "9x16" : "4x5"}.png`;
+    downloadTicketPng(content, card, fileName).then(
+      () => pushToast(`Boleto ${aspect === "9:16" ? "1080×1920" : "1080×1350"} descargado.`, "success"),
+      () => pushToast("No se pudo generar la imagen del boleto.", "danger"),
     );
   };
 
@@ -674,6 +712,7 @@ export function ShareTicketModal(): React.JSX.Element | null {
             }}
             data-share-ticket=""
             data-share-aspect={aspect}
+            ref={ticketRef}
           >
             <LensGlowOrbs
               primaryColor="var(--pl-aura-default-home)"
@@ -692,7 +731,7 @@ export function ShareTicketModal(): React.JSX.Element | null {
                     className="text-[10px] font-extrabold tracking-widest uppercase"
                     style={{ color: "var(--share-card-accent)" }}
                   >
-                    SUITE v2.1
+                    SUITE v3.0
                   </span>
                 </div>
                 <span
@@ -714,7 +753,7 @@ export function ShareTicketModal(): React.JSX.Element | null {
                   }}
                 >
                   <MaestroIcon name="crown" size={12} />
-                  <span>@{shareTicket.tipstarHandle} · Récord Verificado</span>
+                  <span>@{shareTicket.tipstarHandle} · Perfil de ejemplo</span>
                 </div>
               ) : null}
 
@@ -979,7 +1018,7 @@ export function AlertsDrawer(): React.JSX.Element | null {
                   >
                     {isLineupAlert
                       ? "Convocatoria titular verificada por Cortex IA sin bajas de última hora en el eje ofensivo."
-                      : "Geodesic v1.0 detecta ventaja neta frente al consenso antes del ajuste de línea de cierre."}
+                      : "Geodesic v2.0 detecta ventaja neta frente al consenso antes del ajuste de línea de cierre."}
                   </p>
 
                   <button
@@ -1025,12 +1064,12 @@ const CLUB_COMMAND_VIEWS: ReadonlyArray<{
   },
   {
     label: "Armador Inteligente de Parlays & SGP",
-    subtitle: "Correlación Geodesic v1.0 sin selecciones opuestas",
+    subtitle: "Correlación Geodesic v2.0 sin selecciones opuestas",
     href: "/app/parlays",
     icon: "layers",
   },
   {
-    label: "Explorador de Momios & Geodesic v1.0",
+    label: "Explorador de Momios & Geodesic v2.0",
     subtitle: "Comparativa de probabilidad real vs momio justo",
     href: "/app/momios",
     icon: "sliders",
@@ -1066,7 +1105,7 @@ const CLUB_COMMAND_VIEWS: ReadonlyArray<{
     icon: "chart",
   },
   {
-    label: "Tecnología & Precisión · Spacetime Suite v2.1",
+    label: "Tecnología & Precisión · Spacetime Suite v3.0",
     subtitle: "Arquitectura de los 5 motores propietarios y calibración ECE",
     href: "/app/tech",
     icon: "cpu",
@@ -1304,6 +1343,7 @@ export function CommandPaletteModal(): React.JSX.Element | null {
                           <strong className="font-semibold">
                             {creator.name}
                           </strong>{" "}
+                          {creator.isExample ? <ExampleBadge /> : null}{" "}
                           <span
                             className="text-xs"
                             style={{ color: "var(--pl-text-muted)" }}

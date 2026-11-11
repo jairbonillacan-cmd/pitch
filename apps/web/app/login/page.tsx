@@ -19,7 +19,7 @@ export default async function LoginPage({
     <PlatformClientBridge
       dataset={state.dataset}
       initialRole={state.initialRole}
-      allowRoleSimulation={state.hasActiveSession}
+      allowRoleSimulation={state.allowRoleSimulation}
     >
       <AuthSurfaceV4 mode="login" nextPath={nextPath} />
     </PlatformClientBridge>

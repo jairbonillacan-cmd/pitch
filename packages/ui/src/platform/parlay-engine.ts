@@ -1,5 +1,5 @@
 import type { LeagueId } from "@pitchlab/contracts";
-import { decimalToAmericanInt, isPickUnlocked } from "./access-guard.js";
+import { decimalToAmericanInt, isPickUnlocked, pickReferenceDecimal } from "./access-guard.js";
 import type {
   MatchPick,
   ParlayLeg,
@@ -97,7 +97,7 @@ export function checkParlayCompatibility(
 }
 
 /**
- * Calcula probabilidad conjunta, ajuste SGP de correlación (Geodesic v1.0),
+ * Calcula probabilidad conjunta, ajuste SGP de correlación (Geodesic v2.0),
  * momio justo sin vig, momio combinado de casa y ventaja esperada.
  */
 export function computeParlaySummary(
@@ -128,7 +128,7 @@ export function computeParlaySummary(
 
   for (const { pick } of legs) {
     rawProb *= pick.p;
-    bookDecimal *= pick.marketDecimal;
+    bookDecimal *= pickReferenceDecimal(pick);
     byGameCount.set(pick.gameId, (byGameCount.get(pick.gameId) ?? 0) + 1);
   }
 
@@ -137,7 +137,7 @@ export function computeParlaySummary(
     if (count >= 2) sgpPairsCount += 1;
   }
 
-  // Ajuste conservador de correlación SGP en Geodesic v1.0 (evita sobreestimar bordes correlacionados)
+  // Ajuste conservador de correlación SGP en Geodesic v2.0 (evita sobreestimar bordes correlacionados)
   const sgpFactor = sgpPairsCount > 0 ? Math.pow(0.95, sgpPairsCount) : 1;
   const combinedProbability = Math.min(0.92, Math.max(0.01, rawProb * sgpFactor));
   const fairDecimal = Math.max(1.05, Math.round((1 / combinedProbability) * 100) / 100);
@@ -207,8 +207,8 @@ export function buildSmartAutoParlay(
       options.risk === "conservador"
         ? pick.p * 40
         : options.risk === "medio"
-          ? pick.p * 22 + pick.edgePts * 3.2
-          : (1 - Math.abs(0.46 - pick.p)) * 20 + pick.edgePts * 4.2;
+          ? pick.p * 22 + (pick.edgePts ?? 0) * 3.2
+          : (1 - Math.abs(0.46 - pick.p)) * 20 + (pick.edgePts ?? 0) * 4.2;
     return riskMatchBonus + probWeight + pick.confidenceScore * 0.15;
   };
 

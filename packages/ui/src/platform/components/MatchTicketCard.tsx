@@ -4,9 +4,11 @@ import React from "react";
 import { getTeamColors } from "@pitchlab/sports-assets";
 import { LeagueBadge, ProbSplit, TeamBadge } from "../../sports.js";
 import {
+  formatEdgePts,
   formatOddsValue,
   getSessionWatermark,
   isPickUnlocked,
+  pickReferenceDecimal,
 } from "../access-guard.js";
 import { usePlatform } from "../platform-provider.js";
 import type { MatchPick, PlatformGame } from "../types.js";
@@ -177,11 +179,13 @@ export function MultiPickRow({
           </div>
           <div className="text-right">
             <span className="block text-[11px]" style={{ color: "var(--pl-text-muted)" }}>
-              {hasLiveUserOdds ? "Justa / Tu momio" : "Justa / Casa"}
+              {hasLiveUserOdds ? "Justa / Tu momio" : effectiveMarketDecimal === null ? "Momio justo" : "Justa / Casa"}
             </span>
             <strong className="text-sm font-bold">
-              {formatOddsValue(pick.fairDecimal, oddsFormat)} /{" "}
-              {formatOddsValue(effectiveMarketDecimal, oddsFormat)}
+              {formatOddsValue(pick.fairDecimal, oddsFormat)}
+              {effectiveMarketDecimal === null ? null : (
+                <> / {formatOddsValue(effectiveMarketDecimal, oddsFormat)}</>
+              )}
             </strong>
           </div>
           <div className="text-right">
@@ -192,13 +196,14 @@ export function MultiPickRow({
               className="text-sm font-extrabold"
               style={{
                 color:
-                  effectiveEdgePts >= 0 ? "var(--pl-success)" : "var(--pl-warning)",
+                  effectiveEdgePts === null
+                    ? "var(--pl-text-muted)"
+                    : effectiveEdgePts >= 0
+                      ? "var(--pl-success)"
+                      : "var(--pl-warning)",
               }}
             >
-              {effectiveEdgePts >= 0
-                ? `+${effectiveEdgePts.toFixed(1)}`
-                : effectiveEdgePts.toFixed(1)}{" "}
-              pts
+              {formatEdgePts(effectiveEdgePts)}
             </strong>
           </div>
         </div>
@@ -240,7 +245,7 @@ export function MultiPickRow({
                   pickLabel: pick.label,
                   probability: pick.p,
                   fairDecimal: pick.fairDecimal,
-                  marketDecimal: effectiveMarketDecimal,
+                  marketDecimal: effectiveMarketDecimal ?? pick.fairDecimal,
                   units: pick.suggestedUnits,
                   gameStatus,
                   promoCode: pick.isTipstarWeeklyOpen ? "SOFIA5" : undefined,
@@ -303,8 +308,8 @@ export function MatchTicketCard({
   const shortEngineLabel = mainPick
     ? mainPick.engineName.replace("PitchLab ", "")
     : isNfl
-      ? "Minkowski v2.1"
-      : "Tachyon v2.1";
+      ? "Minkowski v3.0"
+      : "Tachyon v3.0";
 
   const handleOpenStudio = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -465,11 +470,19 @@ export function MatchTicketCard({
               <strong className="block text-sm truncate">{mainPick.label}</strong>
             </div>
             <div className="text-right num shrink-0">
-              <strong className="block text-sm" style={{ color: "var(--pl-success)" }}>
-                +{Math.max(0.8, mainPick.edgePts).toFixed(1)} pts
+              <strong
+                className="block text-sm"
+                style={{
+                  color:
+                    mainPick.edgePts !== null && mainPick.edgePts >= 0
+                      ? "var(--pl-success)"
+                      : "var(--pl-text-muted)",
+                }}
+              >
+                {formatEdgePts(mainPick.edgePts)}
               </strong>
               <span style={{ color: "var(--pl-text-muted)" }}>
-                {formatOddsValue(mainPick.marketDecimal, oddsFormat)}
+                {formatOddsValue(pickReferenceDecimal(mainPick), oddsFormat)}
               </span>
             </div>
           </div>

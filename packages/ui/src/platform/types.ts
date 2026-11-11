@@ -32,9 +32,10 @@ export interface PrecisionBucket {
   label: string;
   rangeLabel: string;
   promisedMeanP: number;
-  actualHitRate: number;
-  auditedPicksCount: number;
-  closingBeatRate: number;
+  /** null hasta tener picks auditados de PitchLab. */
+  actualHitRate: number | null;
+  auditedPicksCount: number | null;
+  closingBeatRate: number | null;
 }
 
 export type PickCategory =
@@ -76,9 +77,11 @@ export interface MatchPick {
   p: number;
   fairDecimal: number;
   fairAmerican: number;
-  marketDecimal: number;
-  marketAmerican: number;
-  edgePts: number;
+  /** Momio real de casa (Spacetime v3.0). `null` cuando no hay mercado verificado. */
+  marketDecimal: number | null;
+  marketAmerican: number | null;
+  /** Ventaja en puntos de probabilidad frente al momio real. `null` sin mercado. */
+  edgePts: number | null;
   confidenceScore: number;
   suggestedUnits: number;
   result?: "hit" | "miss" | null;
@@ -101,14 +104,15 @@ export interface PreGameIntel {
   tacticalKeys: string[];
   lineupStatusLabel: string;
   lineupsConfirmed60m: boolean;
+  /** Solo bajas reportadas por fuentes reales; vacío si no hay reporte. */
   absences: LineupAbsenceItem[];
+  /** Reparto real del mercado; `null` si no hay datos de mercado. */
   moneyFlow: {
     homeShare: number;
     drawShare?: number;
     awayShare: number;
     sharpNote: string;
-    volumeTier: "Alto" | "Medio" | "Moderado";
-  };
+  } | null;
   isRedacted?: boolean;
 }
 
@@ -120,9 +124,49 @@ export interface PlatformMarketRow {
   p: number;
   fairDecimal: number;
   fairAmerican: number;
-  openDecimal: number;
-  currentDecimal: number;
-  edgePts: number;
+  /** Momio de apertura: hoy no hay histórico de líneas, siempre `null`. */
+  openDecimal: number | null;
+  /** Momio real de casa; `null` sin mercado verificado. */
+  currentDecimal: number | null;
+  edgePts: number | null;
+}
+
+/** Salida de PitchLab Spacetime Suite v3.0 para un partido (calculada en servidor). */
+export interface SpacetimeSignal {
+  /** Motor que produjo la probabilidad final (p. ej. "PitchLab Singularity v3.0"). */
+  engineName: string;
+  /** Motor deportivo base (Tachyon v3.0 / Minkowski v3.0). */
+  sportsEngineName: string;
+  probs: { home: number; draw: number; away: number };
+  /** Mercado real (no-vig) y momios de casa; `null` si el partido no tiene líneas. */
+  market: {
+    bookLabel: string;
+    asOfUtc: string | null;
+    overround: number;
+    noVig: { home: number; draw: number; away: number };
+    odds: { home: number; draw: number | null; away: number };
+  } | null;
+  /** Evaluación de valor de Geodesic v2.0 por lado; vacío sin mercado. */
+  value: Array<{
+    side: "home" | "draw" | "away";
+    prob: number;
+    decimalOdds: number;
+    edge: number;
+    ev: number;
+    stake: number;
+    vetoed: boolean;
+    institutionalConfirmation: boolean;
+  }>;
+  expectedTotal: number | null;
+  expectedMargin: number | null;
+  drivers: Array<{ label: string; impactLogit: number }>;
+  availability: {
+    homeInjured: number | null;
+    awayInjured: number | null;
+    homeMissingValuePct: number | null;
+    awayMissingValuePct: number | null;
+  };
+  stadium: { name: string | null; elevationM: number | null };
 }
 
 export interface PlatformGame {
@@ -167,6 +211,7 @@ export interface PlatformGame {
   headToHead: HeadToHeadView[];
   restDays?: { home?: number; away?: number };
   updatedAtLabel: string;
+  spacetime: SpacetimeSignal | null;
 }
 
 export interface PlatformLeagueSummary {
@@ -203,6 +248,8 @@ export interface TipstarCreator {
   weeklyPickSlug: string;
   weeklyPickGameId: string;
   weeklyPickThesis: string;
+  /** Perfil ficticio de demostración: la UI lo marca como «Ejemplo». */
+  isExample?: boolean;
 }
 
 export interface SocialComment {
@@ -232,6 +279,8 @@ export interface SocialPost {
   likes: number;
   likedByMe?: boolean;
   comments: SocialComment[];
+  /** Publicación de demostración: la UI la marca como «Ejemplo». */
+  isExample?: boolean;
 }
 
 export interface PlayerPropItem {

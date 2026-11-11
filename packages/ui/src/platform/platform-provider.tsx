@@ -153,56 +153,6 @@ export interface PlatformContextValue {
 
 const PlatformContext = createContext<PlatformContextValue | null>(null);
 
-function seedInitialJournal(games: readonly PlatformGame[]): JournalEntry[] {
-  const entries: JournalEntry[] = [];
-  const finished = games.filter((g) => g.status === "FT" && g.picks.length > 0).slice(0, 3);
-  const upcoming = games.filter((g) => g.status !== "FT" && g.picks.length > 0).slice(0, 1);
-
-  finished.forEach((g, idx) => {
-    const p = g.picks[0]!;
-    const clv = idx === 0 ? 3.8 : idx === 1 ? 2.4 : 1.9;
-    entries.push({
-      id: `j-seed-ft-${idx}`,
-      pickId: p.id,
-      gameId: g.id,
-      leagueLabel: g.leagueLabel,
-      matchLabel: `${g.home.shortName} vs ${g.away.shortName}`,
-      pickLabel: p.label,
-      origin: "Spacetime Suite",
-      units: p.suggestedUnits,
-      userDecimal: p.marketDecimal,
-      fairDecimal: p.fairDecimal,
-      clvPct: clv,
-      status: p.result === "miss" ? "lost" : "won",
-      sealedAt: "Jornada auditada",
-      note: "Sellado previo al cierre Geodesic v1.0",
-    });
-  });
-
-  if (upcoming[0]?.picks[0]) {
-    const g = upcoming[0];
-    const p = g.picks[0]!;
-    entries.push({
-      id: "j-seed-ns-0",
-      pickId: p.id,
-      gameId: g.id,
-      leagueLabel: g.leagueLabel,
-      matchLabel: `${g.home.shortName} vs ${g.away.shortName}`,
-      pickLabel: p.label,
-      origin: "Spacetime Suite",
-      units: p.suggestedUnits,
-      userDecimal: p.marketDecimal,
-      fairDecimal: p.fairDecimal,
-      clvPct: Math.max(0.8, p.edgePts),
-      status: "pending",
-      sealedAt: "Hoy · Pre-partido",
-      note: "Alineación monitoreada por Cortex IA",
-    });
-  }
-
-  return entries;
-}
-
 export function PlatformProvider({
   dataset: rawDataset,
   initialRole = "visitor",
@@ -225,19 +175,17 @@ export function PlatformProvider({
   const [parlayLegs, setParlayLegs] = useState<ParlayLeg[]>([]);
   const [allowSgp, setAllowSgp] = useState<boolean>(false);
   const [parlayStakeUnits, setParlayStakeUnits] = useState<number>(1.0);
-  const [journal, setJournal] = useState<JournalEntry[]>(() =>
-    seedInitialJournal(rawDataset.games),
-  );
+  const [journal, setJournal] = useState<JournalEntry[]>([]);
   const [socialPosts, setSocialPosts] = useState<SocialPost[]>(() => [
     ...INITIAL_SOCIAL_POSTS,
   ]);
-  const [blockedSpamAttempts, setBlockedSpamAttempts] = useState<number>(14);
+  const [blockedSpamAttempts, setBlockedSpamAttempts] = useState<number>(0);
   const [watchlistGameIds, setWatchlistGameIds] = useState<string[]>([]);
   const [favoriteLeagues, setFavoriteLeaguesState] = useState<LeagueId[]>(() =>
     rawDataset.leagues.slice(0, 3).map((l) => l.league),
   );
   const [riskPreference, setRiskPreferenceState] = useState<RiskBand>("medio");
-  const [referralPaidFriends, setReferralPaidFriends] = useState<number>(2);
+  const [referralPaidFriends, setReferralPaidFriends] = useState<number>(0);
   const [month1NoCardMode, setMonth1NoCardMode] = useState<boolean>(true);
   const [tipstarWeeklyPickOrigin, setTipstarWeeklyPickOrigin] = useState<
     "spacetime" | "bitacora"
@@ -524,7 +472,7 @@ export function PlatformProvider({
         clvPct: parlaySummary.edgePts,
         status: "pending",
         sealedAt: "Sellado ahora",
-        note: note ?? "Armador Inteligente Geodesic v1.0",
+        note: note ?? "Armador Inteligente Geodesic v2.0",
       };
       setJournal((prev) => [entry, ...prev]);
       pushToast(

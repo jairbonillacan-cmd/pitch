@@ -9,12 +9,14 @@ import {
   getSessionWatermark,
   isPickUnlocked,
   isPreGameIntelUnlocked,
+  pickReferenceDecimal,
 } from "../access-guard.js";
 import {
   CrestPedestal,
   GlassActionRow,
   LensGlowOrbs,
   MaestroIcon,
+  ExampleBadge,
   NoticeCard,
   RoleSwitcherPill,
 } from "../components/MaestroPrimitives.js";
@@ -332,7 +334,7 @@ export function LandingSurface(): React.JSX.Element {
               title={
                 <span>
                   <span style={{ color: "var(--pl-text-muted)" }}>
-                    Spacetime Suite v2.1 ·{" "}
+                    Spacetime Suite v3.0 ·{" "}
                   </span>
                   <strong>+358k partidos · DS + ML + IA</strong>
                 </span>
@@ -352,12 +354,12 @@ export function LandingSurface(): React.JSX.Element {
               className="m-0 text-base leading-relaxed"
               style={{ color: "var(--pl-text-secondary)" }}
             >
-              Nuestros motores propietarios (<strong>Tachyon v2.1</strong>,{" "}
-              <strong>Singularity v2.1</strong>, <strong>Minkowski v2.1</strong> y{" "}
-              <strong>Cortex IA</strong>) entrenados sobre{" "}
+              Nuestros motores propietarios (<strong>Tachyon v3.0</strong>,{" "}
+              <strong>Singularity v3.0</strong>, <strong>Minkowski v3.0</strong> y{" "}
+              <strong>Cortex IA</strong>) validados en{" "}
               <strong className="num">{SPACETIME_METRICS_HEADLINE.historicalMatches}</strong>{" "}
               partidos radiografían cada juego, liberan{" "}
-              <strong>4 a 5 picks por encuentro</strong> y arman parlays inteligentes sin
+              <strong>hasta 5 picks por encuentro</strong> y arman parlays inteligentes sin
               contradicciones.
             </p>
 
@@ -519,8 +521,8 @@ export function LandingSurface(): React.JSX.Element {
                         <MaestroIcon name="cpu" size={12} />
                         <span>
                           {activeGame.sport === "american-football"
-                            ? "Minkowski v2.1"
-                            : "Tachyon v2.1"}
+                            ? "Minkowski v3.0"
+                            : "Tachyon v3.0"}
                         </span>
                       </span>
                     </div>
@@ -738,7 +740,7 @@ export function LandingSurface(): React.JSX.Element {
                         aria-pressed={isSelected}
                         onClick={() => {
                           setSelectedPickId(pk.id);
-                          setUserOddsInput(pk.marketDecimal.toFixed(2));
+                          setUserOddsInput(pickReferenceDecimal(pk).toFixed(2));
                         }}
                         className="w-full text-left bg-transparent border-0 p-0 cursor-pointer flex flex-wrap items-center justify-between gap-2"
                         style={{ color: "var(--pl-text)" }}
@@ -809,7 +811,7 @@ export function LandingSurface(): React.JSX.Element {
                   );
                 })}
 
-                {/* Calculadora de momio en vivo Geodesic v1.0 */}
+                {/* Calculadora de momio en vivo Geodesic v2.0 */}
                 {activeUnlockedPick ? (
                   <div
                     className="glass-ring glass-card rounded-xl p-3.5 flex flex-wrap items-center justify-between gap-3"
@@ -845,7 +847,7 @@ export function LandingSurface(): React.JSX.Element {
                           : "pl-pill pl-pill--warning num"
                       }
                     >
-                      Geodesic v1.0:{" "}
+                      Geodesic v2.0:{" "}
                       {liveEdgePts >= 0 ? `+${liveEdgePts.toFixed(1)}` : liveEdgePts.toFixed(1)}{" "}
                       % ({liveEdgePts >= 0 ? `+${liveEdgePts.toFixed(1)}` : liveEdgePts.toFixed(1)}{" "}
                       pts {isPositiveEdge ? "ventaja real" : "bajo justa"})
@@ -876,6 +878,7 @@ export function LandingSurface(): React.JSX.Element {
                   <MaestroIcon name="unlock" size={13} />
                   <span>Pick Gratis de la Semana · Tipstar Oficial</span>
                 </span>
+                {sofiaCreator.isExample ? <ExampleBadge /> : null}
                 <span className="text-xs num" style={{ color: "var(--pl-text-muted)" }}>
                   1 / semana
                 </span>
@@ -940,8 +943,8 @@ export function LandingSurface(): React.JSX.Element {
                       className="font-extrabold"
                       style={{ color: "var(--pl-success)" }}
                     >
-                      Momio{" "}
-                      {formatOddsValue(tipstarWeeklyPick.marketDecimal, oddsFormat)}
+                      {tipstarWeeklyPick.marketDecimal === null ? "Momio justo " : "Momio "}
+                      {formatOddsValue(pickReferenceDecimal(tipstarWeeklyPick), oddsFormat)}
                     </span>
                   </div>
                 </div>

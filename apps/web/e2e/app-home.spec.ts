@@ -120,11 +120,11 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
   await expect(shareDialog).toContainText("SOFIA5");
   await page.getByRole("button", { name: "Cerrar vista de boleto" }).click();
 
-  // 5) Cuenta & Referidos Doble Vía: simular primer pago de amigo (+15 días gratis para ambos)
+  // 5) Cuenta & Referidos Doble Vía: la cuenta empieza sin referidos; simular un primer pago da +15 días
   await page.goto("/app/account");
-  await expect(page.locator("[data-referral-days]:visible")).toContainText("+30 días");
+  await expect(page.locator("[data-referral-days]:visible")).toContainText("+0 días");
   await page.locator("[data-simulate-referral]:visible").click();
-  await expect(page.locator("[data-referral-days]:visible")).toContainText("+45 días");
+  await expect(page.locator("[data-referral-days]:visible")).toContainText("+15 días");
 
   expect(errors).toEqual([]);
 });

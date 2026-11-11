@@ -12,7 +12,7 @@ export default async function OnboardingPage(): Promise<React.JSX.Element> {
     <PlatformClientBridge
       dataset={state.dataset}
       initialRole={state.initialRole}
-      allowRoleSimulation={state.hasActiveSession}
+      allowRoleSimulation={state.allowRoleSimulation}
     >
       <OnboardingSurfaceV4 />
     </PlatformClientBridge>

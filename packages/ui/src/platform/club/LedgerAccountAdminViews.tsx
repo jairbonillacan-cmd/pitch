@@ -6,6 +6,8 @@ import type { LeagueId } from "@pitchlab/contracts";
 import { LeagueBadge, TeamBadge } from "../../sports.js";
 import { formatOddsValue, getSessionWatermark } from "../access-guard.js";
 import {
+  ExampleBadge,
+  ExampleNotice,
   LensGlowOrbs,
   MaestroIcon,
 } from "../components/MaestroPrimitives.js";
@@ -191,7 +193,7 @@ export function HistorialClubView(): React.JSX.Element {
                 {SPACETIME_METRICS_HEADLINE.calibrationError}
               </strong>
               <span className="block text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                Spacetime Suite v2.1 auditada
+                Spacetime Suite v3.0 auditada
               </span>
             </div>
 
@@ -846,6 +848,9 @@ export function AnalystProfileClubView({
       ),
     [profile.handle, socialPosts],
   );
+  const isExampleProfile =
+    TIPSTAR_CREATORS.some((c) => c.isExample && c.handle === profile.handle) ||
+    socialPosts.some((p) => p.isExample && p.authorHandle === profile.handle);
 
   const memberJournalFeed =
     !profile.isTipstar ? journal.slice(0, 4) : [];
@@ -853,6 +858,12 @@ export function AnalystProfileClubView({
   return (
     <AtmosphereStage>
       <ClubWorkspaceShell activePath={`/app/u/${profile.handle}`}>
+        {isExampleProfile ? (
+          <ExampleNotice>
+            @{profile.handle} es un perfil de ejemplo. Su récord, unidades y publicaciones son
+            ficticios y sirven para mostrar cómo se verá un perfil verificado.
+          </ExampleNotice>
+        ) : null}
         <section className="glass-lens glass-ring glass-ring--featured relative overflow-hidden rounded-3xl p-6 space-y-5">
           <LensGlowOrbs />
           <div className="relative z-10 flex flex-wrap items-start justify-between gap-4">
@@ -871,6 +882,7 @@ export function AnalystProfileClubView({
                   <h1 className="m-0 text-2xl sm:text-3xl font-extrabold tracking-tight">
                     {profile.name}
                   </h1>
+                  {isExampleProfile ? <ExampleBadge /> : null}
                   <span
                     className={
                       profile.isTipstar
@@ -1626,8 +1638,8 @@ export function AccountReferralsClubView(): React.JSX.Element {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
                   {[
-                    "4 a 5 picks por partido en las 7 ligas activas",
-                    "Armador Inteligente de Parlays & SGP con Geodesic v1.0",
+                    "hasta 5 picks por partido en las 7 ligas activas",
+                    "Armador Inteligente de Parlays & SGP con Geodesic v2.0",
                     "Player Props Lab interactivo + alertas 60m Cortex IA",
                     "Comunidad VIP verificada + Factura CFDI 4.0 automática",
                   ].map((feat) => (
@@ -2266,15 +2278,15 @@ export function FounderAdminClubView(): React.JSX.Element {
           </div>
         </section>
 
-        {/* Telemetría de los 5 Motores Spacetime Suite v2.1 */}
+        {/* Telemetría de los 5 Motores Spacetime Suite v3.0 */}
         <section className="glass-card glass-ring rounded-2xl p-5 space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
               <h2 className="m-0 text-lg font-extrabold">
-                Telemetría de los 5 Motores · PitchLab Spacetime Suite v2.1
+                Telemetría de los 5 Motores · PitchLab Spacetime Suite v3.0
               </h2>
               <p className="m-0 text-xs num" style={{ color: "var(--pl-text-muted)" }}>
-                Dataset base {SPACETIME_METRICS_HEADLINE.historicalMatches} partidos ·{" "}
+                Prueba fuera de muestra: {SPACETIME_METRICS_HEADLINE.historicalMatches} partidos ·{" "}
                 {lastRetrainLabel}
               </p>
             </div>
@@ -2285,7 +2297,7 @@ export function FounderAdminClubView(): React.JSX.Element {
               onClick={() => {
                 setLastRetrainLabel("Reentrenamiento ejecutado hace unos segundos");
                 pushToast(
-                  "Reentrenamiento walk-forward completado en los 5 motores de Spacetime Suite v2.1.",
+                  "Reentrenamiento walk-forward completado en los 5 motores de Spacetime Suite v3.0.",
                   "success",
                 );
               }}

@@ -226,3 +226,24 @@ export function decimalToAmericanInt(decimalOdds: number): number {
   }
   return Math.round(-100 / (safeDec - 1));
 }
+
+/**
+ * Momio de referencia de un pick: el real de casa si existe; si no, el momio justo del modelo.
+ * Sirve para cálculos (parlays, bitácora); en pantalla se debe distinguir con `hasBookOdds`.
+ */
+export function pickReferenceDecimal(pick: {
+  marketDecimal: number | null;
+  fairDecimal: number;
+}): number {
+  return pick.marketDecimal ?? pick.fairDecimal;
+}
+
+export function hasBookOdds(pick: { marketDecimal: number | null }): boolean {
+  return pick.marketDecimal !== null;
+}
+
+/** Texto de ventaja en puntos o "Sin momio" cuando no hay mercado verificado. */
+export function formatEdgePts(edgePts: number | null): string {
+  if (edgePts === null) return "Sin momio";
+  return `${edgePts >= 0 ? "+" : ""}${edgePts.toFixed(1)} pts`;
+}

@@ -7,8 +7,10 @@ import { getTeamColors } from "@pitchlab/sports-assets";
 import { LeagueBadge, TeamBadge, parseUserOdds } from "../../sports.js";
 import {
   decimalToAmericanInt,
+  formatEdgePts,
   formatOddsValue,
   isPickUnlocked,
+  pickReferenceDecimal,
 } from "../access-guard.js";
 import {
   CrestPedestal,
@@ -125,7 +127,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
         <section className="space-y-2">
           <span className="pl-pill pl-pill--brand inline-flex items-center gap-1.5">
             <MaestroIcon name="layers" size={12} />
-            <span>Geodesic v1.0 · Auto-Armador & Constructor Manual SGP</span>
+            <span>Geodesic v2.0 · Auto-Armador & Constructor Manual SGP</span>
           </span>
           <h1 className="m-0 text-2xl sm:text-3xl font-extrabold">
             Armador Inteligente de Parlays y Combinadas
@@ -287,7 +289,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                       4. SGP (Mismo Partido)
                     </span>
                     <span className="text-xs" style={{ color: "var(--pl-text-secondary)" }}>
-                      Permite hasta 2 selecciones compatibles del mismo encuentro con factor de correlación Geodesic v1.0.
+                      Permite hasta 2 selecciones compatibles del mismo encuentro con factor de correlación Geodesic v2.0.
                     </span>
                   </div>
 
@@ -424,7 +426,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                           <div className="flex items-center justify-between gap-1.5 font-bold">
                             <span className="truncate">{pk.label}</span>
                             <span className="num shrink-0">
-                              {formatOddsValue(pk.marketDecimal, oddsFormat)}
+                              {formatOddsValue(pickReferenceDecimal(pk), oddsFormat)}
                             </span>
                           </div>
                           <div className="flex items-center justify-between gap-1.5 num">
@@ -528,7 +530,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                           style={{ color: "var(--pl-brand)" }}
                         >
                           {(pick.p * 100).toFixed(1)} % ·{" "}
-                          {formatOddsValue(pick.marketDecimal, oddsFormat)}
+                          {formatOddsValue(pickReferenceDecimal(pick), oddsFormat)}
                         </span>
                       </div>
                       <button
@@ -609,7 +611,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                     tone="info"
                     icon="activity"
                     badgeText="Correlación SGP"
-                    title="Ajuste Geodesic v1.0 Activo"
+                    title="Ajuste Geodesic v2.0 Activo"
                   >
                     Probabilidad conjunta ajustada por dependencia estadística entre selecciones del mismo encuentro.
                   </NoticeCard>
@@ -687,7 +689,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                     openShareTicket({
                       kind: "parlay",
                       title: `Parlay PitchLab (${parlaySummary.legs.length} picks)`,
-                      subtitle: "Armador Inteligente · Spacetime Suite v2.1",
+                      subtitle: "Armador Inteligente · Spacetime Suite v3.0",
                       leagueLabel: "Multi-Liga",
                       pickLabel: parlaySummary.legs
                         .map((l) => l.pick.label)
@@ -790,14 +792,14 @@ export function PropsLabClubView(): React.JSX.Element {
         <section className="space-y-2">
           <span className="pl-pill pl-pill--brand inline-flex items-center gap-1.5">
             <MaestroIcon name="sliders" size={12} />
-            <span>Distribuciones Continuas · Minkowski v2.1 & Tachyon v2.1</span>
+            <span>Distribuciones Continuas · Minkowski v3.0 & Tachyon v3.0</span>
           </span>
           <h1 className="m-0 text-2xl sm:text-3xl font-extrabold">
             Player Props Lab Interactivo
           </h1>
           <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
             Mueve la línea alternativa con <code>− / +</code>, regresa a la línea{" "}
-            <strong>Base</strong> en un clic, evalúa el momio de tu casa con Geodesic v1.0 y sella
+            <strong>Base</strong> en un clic, evalúa el momio de tu casa con Geodesic v2.0 y sella
             el prop directo en tu Bitácora.
           </p>
         </section>
@@ -825,6 +827,14 @@ export function PropsLabClubView(): React.JSX.Element {
                 <MaestroIcon name="arrowRight" size={13} />
               </a>
             </div>
+          </div>
+        ) : catalog.length === 0 ? (
+          <div className="glass-lens glass-ring rounded-3xl p-6 space-y-2" data-props-empty="">
+            <h2 className="m-0 text-xl font-extrabold">Props de jugadores: próximamente</h2>
+            <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
+              Spacetime Suite v3.0 todavía no proyecta estadísticas individuales. Cuando el motor
+              de jugadores pase su validación, aquí verás líneas, proyección y ventaja contra tu casa.
+            </p>
           </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
@@ -1169,34 +1179,22 @@ export function MomiosExplorerClubView(): React.JSX.Element {
     const out: Array<{
       game: (typeof dataset.games)[number];
       pick: MatchPick;
-      openDecimal: number;
-      steamEntering: boolean;
+      bookDecimal: number;
+      edgePts: number;
     }> = [];
 
-    let seedIdx = 0;
+    // Solo picks con momio real de casa: sin mercado verificado no hay ventaja que mostrar.
     for (const g of dataset.games) {
       if (g.status === "FT") continue;
       if (leagueFilter !== "all" && g.league !== leagueFilter) continue;
       for (const pk of g.picks) {
-        seedIdx += 1;
         if (!isPickUnlocked(pk, g.status, viewerRole)) continue;
+        if (pk.marketDecimal === null || pk.edgePts === null) continue;
         if (onlyPositiveEdge && pk.edgePts <= 0) continue;
-
-        const matchedMkt = g.markets.find((m) => m.label === pk.label);
-        const fallbackDelta =
-          seedIdx % 2 === 0 ? 0.06 : -0.05;
-        const openDecimal = matchedMkt
-          ? matchedMkt.openDecimal
-          : Math.max(
-              1.08,
-              Math.round((pk.marketDecimal + fallbackDelta) * 100) / 100,
-            );
-        const steamEntering = pk.marketDecimal <= openDecimal;
-
-        out.push({ game: g, pick: pk, openDecimal, steamEntering });
+        out.push({ game: g, pick: pk, bookDecimal: pk.marketDecimal, edgePts: pk.edgePts });
       }
     }
-    return out.sort((a, b) => b.pick.edgePts - a.pick.edgePts).slice(0, 28);
+    return out.sort((a, b) => b.edgePts - a.edgePts).slice(0, 28);
   }, [dataset.games, leagueFilter, onlyPositiveEdge, viewerRole]);
 
   return (
@@ -1206,7 +1204,7 @@ export function MomiosExplorerClubView(): React.JSX.Element {
           <div className="space-y-1">
             <span className="pl-pill pl-pill--brand inline-flex items-center gap-1.5">
               <MaestroIcon name="activity" size={12} />
-              <span>PitchLab Geodesic v1.0 · De-Vigging & Movimiento de Línea</span>
+              <span>PitchLab Geodesic v2.0 · Momios sin margen y ventaja</span>
             </span>
             <h1 className="m-0 text-2xl sm:text-3xl font-extrabold">
               Explorador de Momios Limpios y Ventaja (EV)
@@ -1246,8 +1244,8 @@ export function MomiosExplorerClubView(): React.JSX.Element {
           {rows.length === 0 ? (
             <div className="py-6 space-y-3">
               <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
-                No hay líneas desbloqueadas con este filtro (activa Pase Total si estás en vista
-                Visitante).
+                No hay momios verificados con este filtro. Solo aparecen partidos con líneas reales de
+                casa; si estás en vista Visitante, activa Pase Total.
               </p>
               {viewerRole === "visitor" ? (
                 <a
@@ -1283,9 +1281,6 @@ export function MomiosExplorerClubView(): React.JSX.Element {
                       Selección & Motor
                     </th>
                     <th scope="col" className="py-2 px-2 text-right">
-                      Apertura
-                    </th>
-                    <th scope="col" className="py-2 px-2 text-right">
                       Actual Casa
                     </th>
                     <th scope="col" className="py-2 px-2 text-right">
@@ -1300,7 +1295,7 @@ export function MomiosExplorerClubView(): React.JSX.Element {
                   </tr>
                 </thead>
                 <tbody>
-                  {rows.map(({ game, pick, openDecimal, steamEntering }) => {
+                  {rows.map(({ game, pick, bookDecimal, edgePts }) => {
                     const inSlip = parlayLegs.some(
                       (l) => l.pick.id === pick.id,
                     );
@@ -1339,27 +1334,16 @@ export function MomiosExplorerClubView(): React.JSX.Element {
                             <span>{pick.engineName}</span>
                           </span>
                         </td>
-                        <td
-                          className="py-2.5 px-2 text-right num"
-                          style={{ color: "var(--pl-text-muted)" }}
-                        >
-                          {formatOddsValue(openDecimal, oddsFormat)}
-                        </td>
                         <td className="py-2.5 px-2 text-right num">
-                          <div className="inline-flex flex-col items-end gap-0.5">
-                            <strong className="font-bold">
-                              {formatOddsValue(pick.marketDecimal, oddsFormat)}
-                            </strong>
-                            <span
-                              className={`pl-pill text-[10px] ${
-                                steamEntering
-                                  ? "pl-pill--info"
-                                  : "pl-pill--success"
-                              }`}
-                            >
-                              {steamEntering ? "↓ dinero entra" : "↑ valor"}
-                            </span>
-                          </div>
+                          <strong className="font-bold">
+                            {formatOddsValue(bookDecimal, oddsFormat)}
+                          </strong>
+                          <span
+                            className="block text-[11px]"
+                            style={{ color: "var(--pl-text-muted)" }}
+                          >
+                            {game.spacetime?.market?.bookLabel ?? "Casa"}
+                          </span>
                         </td>
                         <td className="py-2.5 px-2 text-right num">
                           <strong className="block font-semibold">
@@ -1376,15 +1360,12 @@ export function MomiosExplorerClubView(): React.JSX.Element {
                           className="py-2.5 px-2 text-right num font-extrabold"
                           style={{
                             color:
-                              pick.edgePts >= 0
+                              edgePts >= 0
                                 ? "var(--pl-success)"
                                 : "var(--pl-warning)",
                           }}
                         >
-                          {pick.edgePts >= 0
-                            ? `+${pick.edgePts.toFixed(1)}`
-                            : pick.edgePts.toFixed(1)}{" "}
-                          pts
+                          {formatEdgePts(edgePts)}
                         </td>
                         <td className="py-2.5 pl-2 text-right">
                           <div className="inline-flex items-center gap-1.5">

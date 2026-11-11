@@ -18,6 +18,7 @@ import type {
   PlatformMarketRow,
   PlayerPropItem,
   PreGameIntel,
+  SpacetimeSignal,
 } from "./types.js";
 
 export interface RawLeagueInput {
@@ -29,15 +30,8 @@ export interface RawLeagueInput {
   generatedAt: string;
   games: MatchAnalysis[];
   standings?: StandingRow[];
-}
-
-function hashSeed(input: string): number {
-  let h = 2166136261;
-  for (let i = 0; i < input.length; i++) {
-    h ^= input.charCodeAt(i);
-    h = Math.imul(h, 16777619);
-  }
-  return Math.abs(h >>> 0);
+  /** Señales de Spacetime v3.0 por id de partido (calculadas en servidor). */
+  spacetime?: Readonly<Record<string, SpacetimeSignal>>;
 }
 
 function clampProb(p: number): number {
@@ -78,23 +72,6 @@ function classifyConflictGroup(
     return "away_side";
   }
   return "independent";
-}
-
-function buildSimulatedMarketDecimal(
-  fairDecimal: number,
-  seed: number,
-  positiveEdgeBias: boolean,
-): { marketDecimal: number; edgePts: number } {
-  const pFair = 1 / Math.max(1.04, fairDecimal);
-  // Diferencial determinista realista entre -1.2 pts y +5.4 pts de probabilidad implícita
-  const deltaPts = positiveEdgeBias
-    ? 1.6 + (seed % 38) / 10
-    : -1.1 + (seed % 46) / 10;
-  const impliedBook = Math.min(0.94, Math.max(0.09, pFair - deltaPts / 100));
-  const marketDecimal = Math.max(1.08, Math.round((1 / impliedBook) * 100) / 100);
-  const actualImplied = 1 / marketDecimal;
-  const edgePts = Math.round((pFair - actualImplied) * 1000) / 10;
-  return { marketDecimal, edgePts };
 }
 
 function gradePick(
@@ -167,23 +144,74 @@ function flattenMarketRows(
   return out;
 }
 
-function buildFiveMatchPicks(match: MatchAnalysis): MatchPick[] {
+type Side = "home" | "draw" | "away";
+
+const ENGINE_NAMES = {
+  tachyon: "PitchLab Tachyon v3.0",
+  minkowski: "PitchLab Minkowski v3.0",
+  singularity: "PitchLab Singularity v3.0",
+  geodesic: "PitchLab Geodesic v2.0",
+} as const;
+
+/** Lado 1X2 / moneyline de una fila de mercado; `null` si no es mercado de ganador. */
+function moneylineSide(market: string, selection: string): Side | null {
+  const m = market.toLowerCase();
+  if (m !== "h2h" && m !== "1x2" && m !== "moneyline" && m !== "ml") return null;
+  const s = selection.toLowerCase();
+  if (s === "home" || s === "1") return "home";
+  if (s === "draw" || s === "x") return "draw";
+  if (s === "away" || s === "2") return "away";
+  return null;
+}
+
+/** Momio real de casa para un lado; `null` si no hay mercado verificado. */
+function realOdds(signal: SpacetimeSignal | null, side: Side | null): number | null {
+  if (!signal?.market || !side) return null;
+  const odds = signal.market.odds[side];
+  return typeof odds === "number" && odds > 1 ? Math.round(odds * 100) / 100 : null;
+}
+
+function edgeAgainst(p: number, decimal: number | null): number | null {
+  if (decimal === null) return null;
+  return Math.round((p - 1 / decimal) * 1000) / 10;
+}
+
+function fairOf(p: number): number {
+  return Math.round((1 / clampProb(p)) * 100) / 100;
+}
+
+/**
+ * Filas de mercado del partido con 1X2 y doble oportunidad alineados a la probabilidad
+ * final de Spacetime v3.0 cuando existe. Totales, ambos anotan y marcadores quedan del
+ * modelo de goles del snapshot.
+ */
+function rowsWithSpacetime(
+  match: MatchAnalysis,
+  signal: SpacetimeSignal | null,
+): Array<{ group: string; row: AnalysisMarketRow }> {
+  const rows = flattenMarketRows(match);
+  if (!signal) return rows;
+  const { home, draw, away } = signal.probs;
+  const doubleChance: Record<string, number> = { "1x": home + draw, x2: draw + away, "12": home + away };
+  return rows.map(({ group, row }) => {
+    const side = moneylineSide(row.market, row.selection);
+    let p: number | undefined;
+    if (side) p = signal.probs[side];
+    else if (row.market === "double_chance") p = doubleChance[row.selection.toLowerCase()];
+    if (p === undefined) return { group, row };
+    return { group, row: { ...row, p, fairOdds: 1 / clampProb(p) } };
+  });
+}
+
+function buildFiveMatchPicks(match: MatchAnalysis, signal: SpacetimeSignal | null): MatchPick[] {
   const isNfl = match.sport === "american-football" || match.league === "nfl";
-  const seed = hashSeed(match.id);
-  const allRows = flattenMarketRows(match);
+  const allRows = rowsWithSpacetime(match, signal);
   const matchLabel = `${match.home.shortName} vs ${match.away.shortName}`;
-  const confScore = match.confidence?.score ?? (62 + (seed % 24));
-  const proj = match.projection ?? {
-    home: isNfl ? 24 : 1.55,
-    away: isNfl ? 21 : 1.18,
-    total: isNfl ? 45 : 2.73,
-  };
-  const [ph, pd, pa] = match.x12 ?? [0.48, isNfl ? 0 : 0.25, isNfl ? 0.52 : 0.27];
-  const favIsHome = ph >= pa;
-  const favTeam = favIsHome ? match.home.shortName : match.away.shortName;
-  const dogTeam = favIsHome ? match.away.shortName : match.home.shortName;
+  const confScore = match.confidence?.score ?? 60;
+  const proj = match.projection;
   const primaryEngine: EngineKey = isNfl ? "minkowski" : "tachyon";
-  const primaryEngineName = isNfl ? "PitchLab Minkowski v2.1" : "PitchLab Tachyon v2.1";
+  const primaryEngineName = signal?.sportsEngineName ?? ENGINE_NAMES[primaryEngine];
+  const finalEngineName = signal?.engineName ?? primaryEngineName;
 
   const usedLabels = new Set<string>();
   const pickRows: Array<{
@@ -193,199 +221,149 @@ function buildFiveMatchPicks(match: MatchAnalysis): MatchPick[] {
     engineKey: EngineKey;
     engineName: string;
     marketGroup: string;
-    market: string;
-    selection: string;
-    line?: number;
-    label: string;
-    p: number;
-    fairDecimal: number;
+    row: AnalysisMarketRow;
     rationale: string;
     units: number;
-    positiveBias: boolean;
+    marketDecimal?: number | null;
   }> = [];
 
-  // 1) Pick Principal PitchLab (54%–70%, mejor señal estructural)
-  const snapIntermedia = match.picks?.find((p) => p.profile === "intermedia");
-  const candidateMain =
-    snapIntermedia ??
-    allRows.find(({ row }) => row.p >= 0.55 && row.p <= 0.71)?.row;
-  const pMain = clampProb(candidateMain?.p ?? Math.max(ph, pa));
-  const labelMain =
-    candidateMain?.label ??
-    (favIsHome ? `${match.home.shortName} gana` : `${match.away.shortName} gana`);
-  usedLabels.add(labelMain);
-  pickRows.push({
-    category: "principal",
-    categoryLabel: "Pick Principal PitchLab",
-    risk: "medio",
-    engineKey: primaryEngine,
-    engineName: primaryEngineName,
-    marketGroup: isNfl ? "Ganador / Línea Principal" : "Resultado Principal",
-    market: candidateMain?.market ?? "h2h",
-    selection: candidateMain?.selection ?? (favIsHome ? "home" : "away"),
-    line: candidateMain?.line,
-    label: labelMain,
-    p: pMain,
-    fairDecimal: candidateMain?.fairOdds ?? Math.round((1 / pMain) * 100) / 100,
-    rationale: isNfl
-      ? `${primaryEngineName} proyecta ${proj.home.toFixed(1)}–${proj.away.toFixed(1)} pts con diferencial favorable en eficiencia por serie.`
-      : `${primaryEngineName} proyecta ${proj.home.toFixed(2)}–${proj.away.toFixed(2)} goles esperados y control territorial sostenido de ${favTeam}.`,
-    units: 1.5,
-    positiveBias: true,
-  });
+  const take = (
+    predicate: (entry: { group: string; row: AnalysisMarketRow }) => boolean,
+  ): { group: string; row: AnalysisMarketRow } | undefined => {
+    const found = allRows.find((entry) => !usedLabels.has(entry.row.label) && predicate(entry));
+    if (found) usedLabels.add(found.row.label);
+    return found;
+  };
+  const fromSnapshotPick = (profile: string) => {
+    const snap = match.picks?.find((p) => p.profile === profile);
+    if (!snap || usedLabels.has(snap.label)) return undefined;
+    return take(({ row }) => row.market === snap.market && row.selection === snap.selection);
+  };
+  const groupHas = (group: string, ...needles: string[]) =>
+    needles.some((n) => group.toLowerCase().includes(n));
 
-  // 2) Escudo Conservador (72%–88%, ideal para base de Parlay)
-  const snapCons = match.picks?.find((p) => p.profile === "conservadora");
-  const candidateShield =
-    (snapCons && !usedLabels.has(snapCons.label) ? snapCons : undefined) ??
-    allRows.find(({ row }) => !usedLabels.has(row.label) && row.p >= 0.72 && row.p <= 0.89)?.row;
-  const pShield = clampProb(
-    candidateShield?.p ?? (isNfl ? Math.min(0.84, Math.max(ph, pa) + 0.16) : Math.min(0.85, Math.max(ph, pa) + pd)),
-  );
-  const labelShield =
-    candidateShield?.label ??
-    (isNfl ? `${favTeam} +7.5 (Línea alternativa)` : `${favTeam} o Empate (Doble oportunidad)`);
-  usedLabels.add(labelShield);
-  pickRows.push({
-    category: "conservador",
-    categoryLabel: "Escudo Conservador",
-    risk: "conservador",
-    engineKey: isNfl ? "minkowski" : "singularity",
-    engineName: isNfl ? "PitchLab Minkowski v2.1" : "PitchLab Singularity v2.1",
-    marketGroup: isNfl ? "Hándicap Protegido" : "Doble Oportunidad",
-    market: candidateShield?.market ?? (isNfl ? "spread" : "double_chance"),
-    selection: candidateShield?.selection ?? (favIsHome ? "1x" : "x2"),
-    line: candidateShield?.line ?? (isNfl ? 7.5 : undefined),
-    label: labelShield,
-    p: pShield,
-    fairDecimal: candidateShield?.fairOdds ?? Math.round((1 / pShield) * 100) / 100,
-    rationale: `Cobertura de baja varianza diseñada para proteger unidades y anclar parlays conservadores (${Math.round(pShield * 100)} % de frecuencia calibrada).`,
-    units: 2.0,
-    positiveBias: true,
-  });
+  // 1) Pick Principal: la señal estructural más clara entre 54 % y 71 %.
+  const main =
+    fromSnapshotPick("intermedia") ?? take(({ row }) => row.p >= 0.54 && row.p <= 0.71);
+  if (main) {
+    pickRows.push({
+      category: "principal",
+      categoryLabel: "Pick Principal PitchLab",
+      risk: "medio",
+      engineKey: primaryEngine,
+      engineName: finalEngineName,
+      marketGroup: main.group,
+      row: main.row,
+      rationale: proj
+        ? `${primaryEngineName} proyecta ${proj.home.toFixed(isNfl ? 1 : 2)}–${proj.away.toFixed(isNfl ? 1 : 2)} y ${Math.round(main.row.p * 100)} % para esta selección.`
+        : `${primaryEngineName} asigna ${Math.round(main.row.p * 100)} % a esta selección.`,
+      units: 1.5,
+    });
+  }
 
-  // 3) Línea de Totales (Over / Under calibrado por ritmo)
-  const totalCandidate = allRows.find(
+  // 2) Escudo Conservador: frecuencia alta (72 %–89 %), base de parlays.
+  const shield =
+    fromSnapshotPick("conservadora") ?? take(({ row }) => row.p >= 0.72 && row.p <= 0.89);
+  if (shield) {
+    pickRows.push({
+      category: "conservador",
+      categoryLabel: "Escudo Conservador",
+      risk: "conservador",
+      engineKey: isNfl ? "minkowski" : "singularity",
+      engineName: finalEngineName,
+      marketGroup: shield.group,
+      row: shield.row,
+      rationale: `Cobertura de baja varianza: ${Math.round(shield.row.p * 100)} % de probabilidad calibrada.`,
+      units: 2.0,
+    });
+  }
+
+  // 3) Línea de Totales.
+  const totals = take(
     ({ group, row }) =>
-      !usedLabels.has(row.label) &&
-      (group.toLowerCase().includes("total") ||
-        group.toLowerCase().includes("goles") ||
-        row.market.toLowerCase().includes("total") ||
-        row.market.toLowerCase().includes("ou")) &&
+      (groupHas(group, "total", "goles", "puntos") || row.market.toLowerCase().includes("total")) &&
+      row.market !== "team_totals" &&
       row.p >= 0.51 &&
       row.p <= 0.74,
-  )?.row;
-  const defaultLine = isNfl ? Math.round(proj.total - 0.5) + 0.5 : proj.total >= 2.65 ? 2.5 : 1.5;
-  const goOver = isNfl ? proj.total >= defaultLine : proj.total >= 2.45;
-  const pTotals = clampProb(totalCandidate?.p ?? (goOver ? 0.59 : 0.61));
-  const labelTotals =
-    totalCandidate?.label ??
-    `${goOver ? "Más de" : "Menos de"} ${defaultLine} ${isNfl ? "puntos" : "goles"}`;
-  usedLabels.add(labelTotals);
-  pickRows.push({
-    category: "totales",
-    categoryLabel: "Línea de Totales",
-    risk: "medio",
-    engineKey: primaryEngine,
-    engineName: primaryEngineName,
-    marketGroup: isNfl ? "Totales de Puntos" : "Totales de Goles",
-    market: totalCandidate?.market ?? "totals",
-    selection: totalCandidate?.selection ?? (goOver ? "over" : "under"),
-    line: totalCandidate?.line ?? defaultLine,
-    label: labelTotals,
-    p: pTotals,
-    fairDecimal: totalCandidate?.fairOdds ?? Math.round((1 / pTotals) * 100) / 100,
-    rationale: `Proyección acumulada de ${proj.total.toFixed(isNfl ? 1 : 2)} ${isNfl ? "pts" : "goles"} ajustada por ritmo de posesiones y desgaste defensivo.`,
-    units: 1.25,
-    positiveBias: seed % 3 !== 0,
-  });
+  );
+  if (totals) {
+    pickRows.push({
+      category: "totales",
+      categoryLabel: "Línea de Totales",
+      risk: "medio",
+      engineKey: primaryEngine,
+      engineName: primaryEngineName,
+      marketGroup: totals.group,
+      row: totals.row,
+      rationale: proj
+        ? `Total proyectado de ${proj.total.toFixed(isNfl ? 1 : 2)} ${isNfl ? "puntos" : "goles"}.`
+        : `Probabilidad calibrada de ${Math.round(totals.row.p * 100)} %.`,
+      units: 1.25,
+    });
+  }
 
-  // 4) Lectura Táctica (Ambos Anotan / Totales por Equipo / Spread)
-  const tacticalCandidate = allRows.find(
-    ({ group, row }) =>
-      !usedLabels.has(row.label) &&
-      (group.toLowerCase().includes("ambos") ||
-        group.toLowerCase().includes("equipo") ||
-        group.toLowerCase().includes("hándicap") ||
-        group.toLowerCase().includes("spread")) &&
-      row.p >= 0.50 &&
-      row.p <= 0.73,
-  )?.row;
-  const bttsLikely = !isNfl && proj.home >= 1.15 && proj.away >= 1.02;
-  const pTactical = clampProb(tacticalCandidate?.p ?? (isNfl ? 0.56 : bttsLikely ? 0.58 : 0.60));
-  const labelTactical =
-    tacticalCandidate?.label ??
-    (isNfl
-      ? `${favTeam} cubre -2.5 pts`
-      : bttsLikely
-        ? "Ambos equipos anotan: Sí"
-        : "Ambos equipos anotan: No");
-  usedLabels.add(labelTactical);
-  pickRows.push({
-    category: "tactico",
-    categoryLabel: "Lectura Táctica",
-    risk: "medio",
-    engineKey: "singularity",
-    engineName: "PitchLab Singularity v2.1",
-    marketGroup: isNfl ? "Línea de Hándicap" : "Ambos Anotan / Equipo",
-    market: tacticalCandidate?.market ?? (isNfl ? "spread" : "btts"),
-    selection:
-      tacticalCandidate?.selection ??
-      (isNfl ? (favIsHome ? "home" : "away") : bttsLikely ? "btts_yes" : "btts_no"),
-    line: tacticalCandidate?.line ?? (isNfl ? -2.5 : undefined),
-    label: labelTactical,
-    p: pTactical,
-    fairDecimal: tacticalCandidate?.fairOdds ?? Math.round((1 / pTactical) * 100) / 100,
-    rationale: `Singularity v2.1 detecta asimetría táctica en transición y confirma correlación positiva con el guion central de Cortex IA.`,
-    units: 1.0,
-    positiveBias: true,
-  });
+  // 4) Lectura Táctica: ambos anotan, totales por equipo o hándicap.
+  const tactical =
+    fromSnapshotPick("arriesgada") ??
+    take(
+      ({ group, row }) =>
+        (groupHas(group, "ambos", "equipo", "hándicap", "spread") ||
+          row.market === "btts" ||
+          row.market === "team_totals") &&
+        row.p >= 0.5 &&
+        row.p <= 0.73,
+    );
+  if (tactical) {
+    pickRows.push({
+      category: "tactico",
+      categoryLabel: "Lectura Táctica",
+      risk: "medio",
+      engineKey: primaryEngine,
+      engineName: primaryEngineName,
+      marketGroup: tactical.group,
+      row: tactical.row,
+      rationale: `Lectura del guion del partido: ${Math.round(tactical.row.p * 100)} % de probabilidad.`,
+      units: 1.0,
+    });
+  }
 
-  // 5) Cuota Alta · Valor (38%–50%, cuota >= 2.00 con edge Geodesic)
-  const snapRisk = match.picks?.find((p) => p.profile === "arriesgada");
-  const valueCandidate =
-    (snapRisk && !usedLabels.has(snapRisk.label) ? snapRisk : undefined) ??
-    allRows.find(
-      ({ row }) => !usedLabels.has(row.label) && row.p >= 0.36 && row.p <= 0.50 && row.fairOdds >= 2.0,
-    )?.row;
-  const pValue = clampProb(valueCandidate?.p ?? 0.43);
-  const labelValue =
-    valueCandidate?.label ??
-    (isNfl
-      ? `${favTeam} gana y Más de ${(defaultLine - 3).toFixed(1)} pts`
-      : `${dogTeam} o Empate · Valor Geodesic`);
-  usedLabels.add(labelValue);
-  pickRows.push({
-    category: "valor",
-    categoryLabel: "Cuota Alta · Valor",
-    risk: "arriesgado",
-    engineKey: "geodesic",
-    engineName: "PitchLab Geodesic v1.0",
-    marketGroup: "Oportunidad de Cuota Alta",
-    market: valueCandidate?.market ?? "value_special",
-    selection: valueCandidate?.selection ?? (isNfl ? (favIsHome ? "home" : "away") : favIsHome ? "x2" : "1x"),
-    line: valueCandidate?.line,
-    label: labelValue,
-    p: pValue,
-    fairDecimal: valueCandidate?.fairOdds ?? Math.round((1 / pValue) * 100) / 100,
-    rationale: `Geodesic v1.0 identifica sobreprecio en las casas frente al momio limpio del modelo; perfil de 0.75u para capturar valor esperado alto.`,
-    units: 0.75,
-    positiveBias: true,
-  });
+  // 5) Cuota Alta · Valor: solo si Geodesic v2.0 encuentra valor ejecutable contra un momio real.
+  const bestValue = (signal?.value ?? [])
+    .filter((v) => v.stake > 0 && !v.vetoed && v.decimalOdds >= 1.9)
+    .sort((a, b) => b.ev - a.ev)[0];
+  if (bestValue) {
+    const valueRow = allRows.find(
+      ({ row }) => moneylineSide(row.market, row.selection) === bestValue.side,
+    );
+    if (valueRow && !usedLabels.has(valueRow.row.label)) {
+      usedLabels.add(valueRow.row.label);
+      pickRows.push({
+        category: "valor",
+        categoryLabel: "Cuota Alta · Valor",
+        risk: "arriesgado",
+        engineKey: "geodesic",
+        engineName: ENGINE_NAMES.geodesic,
+        marketGroup: valueRow.group,
+        row: { ...valueRow.row, p: bestValue.prob, fairOdds: 1 / clampProb(bestValue.prob) },
+        rationale: `${ENGINE_NAMES.geodesic}: ventaja de ${(bestValue.edge * 100).toFixed(1)} pts contra el momio de ${signal?.market?.bookLabel ?? "la casa"}${bestValue.institutionalConfirmation ? ", confirmada por dinero institucional" : ""}.`,
+        units: 0.75,
+        marketDecimal: Math.round(bestValue.decimalOdds * 100) / 100,
+      });
+    }
+  }
 
   return pickRows.map((item, idx) => {
-    const fairDecimal = Math.max(1.06, Math.round(item.fairDecimal * 100) / 100);
-    const fairAmerican = decimalToAmericanInt(fairDecimal);
-    const { marketDecimal, edgePts } = buildSimulatedMarketDecimal(
-      fairDecimal,
-      seed + idx * 17,
-      item.positiveBias,
-    );
-    const marketAmerican = decimalToAmericanInt(marketDecimal);
-    const conflictGroup = classifyConflictGroup(item.market, item.selection, item.label);
+    const { row } = item;
+    const p = clampProb(row.p);
+    const fairDecimal = Math.max(1.01, Math.round((row.fairOdds ?? 1 / p) * 100) / 100);
+    const marketDecimal =
+      item.marketDecimal !== undefined
+        ? item.marketDecimal
+        : realOdds(signal, moneylineSide(row.market, row.selection));
+    const conflictGroup = classifyConflictGroup(row.market, row.selection, row.label);
     const result =
       match.status === "FT"
-        ? gradePick(item.market, item.selection, item.line, conflictGroup, match.score)
+        ? gradePick(row.market, row.selection, row.line, conflictGroup, match.score)
         : null;
 
     return {
@@ -403,16 +381,16 @@ function buildFiveMatchPicks(match: MatchAnalysis): MatchPick[] {
       engineKey: item.engineKey,
       engineName: item.engineName,
       marketGroup: item.marketGroup,
-      selectionKey: item.selection,
+      selectionKey: row.selection,
       conflictGroup,
-      label: item.label,
+      label: row.label,
       rationale: item.rationale,
-      p: item.p,
+      p,
       fairDecimal,
-      fairAmerican,
+      fairAmerican: decimalToAmericanInt(fairDecimal),
       marketDecimal,
-      marketAmerican,
-      edgePts,
+      marketAmerican: marketDecimal === null ? null : decimalToAmericanInt(marketDecimal),
+      edgePts: edgeAgainst(p, marketDecimal),
       confidenceScore: Math.min(96, Math.max(48, Math.round(confScore - idx * 3))),
       suggestedUnits: item.units,
       result,
@@ -420,125 +398,131 @@ function buildFiveMatchPicks(match: MatchAnalysis): MatchPick[] {
   });
 }
 
-function buildPreGameIntel(match: MatchAnalysis, seed: number): PreGameIntel {
+function buildPreGameIntel(match: MatchAnalysis, signal: SpacetimeSignal | null): PreGameIntel {
   const isNfl = match.sport === "american-football" || match.league === "nfl";
-  const proj = match.projection ?? {
-    home: isNfl ? 24 : 1.55,
-    away: isNfl ? 21 : 1.18,
-    total: isNfl ? 45 : 2.73,
-  };
-  const [ph, pd, pa] = match.x12 ?? [0.48, isNfl ? 0 : 0.25, isNfl ? 0.52 : 0.27];
-  const favName = ph >= pa ? match.home.name : match.away.name;
-  const restHome = match.restDays?.home ?? (5 + (seed % 4));
-  const restAway = match.restDays?.away ?? (4 + ((seed >> 2) % 4));
+  const [ph, pd, pa] = signal
+    ? [signal.probs.home, signal.probs.draw, signal.probs.away]
+    : (match.x12 ?? [0, 0, 0]);
+  const favName = ph >= pa ? match.home.shortName : match.away.shortName;
+  const favP = Math.round(Math.max(ph, pa) * 100);
+  const proj = match.projection;
 
-  const cortexSynthesis = isNfl
-    ? `PitchLab Cortex IA integra la salida de Minkowski v2.1 (${proj.home.toFixed(1)}–${proj.away.toFixed(1)} pts) con ventaja proyectada para ${favName}. El diferencial de preparación (${restHome}d vs ${restAway}d) y la eficiencia en zona roja sostienen valor sobre el cierre estimado por Geodesic v1.0.`
-    : `PitchLab Cortex IA combina Tachyon v2.1 y Singularity v2.1 (${proj.home.toFixed(2)}–${proj.away.toFixed(2)} goles esperados) inclinando el guion hacia ${favName}. Con ${restHome} días de recuperación local frente a ${restAway} del visitante, la presión tras pérdida abre valor en los primeros 65 minutos.`;
+  const topDrivers = (signal?.drivers ?? [])
+    .filter((d) => Math.abs(d.impactLogit) >= 0.01)
+    .sort((a, b) => Math.abs(b.impactLogit) - Math.abs(a.impactLogit))
+    .slice(0, 3);
 
-  const absences: LineupAbsenceItem[] = [
-    {
-      teamSide: "home",
-      player: `Cuadro base ${match.home.shortName}`,
-      role: isNfl ? "Unidad ofensiva titular" : "Once estelar reportado",
-      status: "Confirmado XI",
-      impactNote: "Sin bajas de último minuto en el corte previo de 60 minutos.",
-    },
-    {
-      teamSide: "away",
-      player: `Rotación ${match.away.shortName}`,
-      role: isNfl ? "Secundaria / rotación defensiva" : "Banda defensiva visitante",
-      status: seed % 2 === 0 ? "Duda" : "Baja",
-      impactNote:
-        seed % 2 === 0
-          ? "Minutos dosificados por carga acumulada; ajuste de -0.08 en solidez visitante."
-          : "Ausencia ponderada automáticamente por Cortex IA en la matriz previa.",
-    },
+  const engineLabel = signal?.engineName ?? (isNfl ? ENGINE_NAMES.minkowski : ENGINE_NAMES.tachyon);
+  const synthesisParts = [
+    `${engineLabel} da ${favP} % a ${favName}${!isNfl && pd > 0 ? ` y ${Math.round(pd * 100)} % al empate` : ""}.`,
   ];
+  if (topDrivers.length > 0) {
+    synthesisParts.push(`Factores con más peso: ${topDrivers.map((d) => d.label.toLowerCase()).join(", ")}.`);
+  }
+  if (signal?.market) {
+    const marketFav = signal.market.noVig.home >= signal.market.noVig.away ? "home" : "away";
+    const marketP = Math.round(signal.market.noVig[marketFav] * 100);
+    synthesisParts.push(
+      `El mercado (${signal.market.bookLabel}, sin margen) da ${marketP} % a ${marketFav === "home" ? match.home.shortName : match.away.shortName}.`,
+    );
+  } else {
+    synthesisParts.push("Sin momios verificados para este partido: no se calcula valor.");
+  }
 
-  let homeShare = Math.round(ph * 100);
-  let drawShare = isNfl ? undefined : Math.round(pd * 100);
-  let awayShare = isNfl ? 100 - homeShare : Math.max(4, 100 - homeShare - (drawShare ?? 0));
+  const tacticalKeys: string[] = [];
+  if (match.restDays?.home !== undefined && match.restDays?.away !== undefined) {
+    tacticalKeys.push(
+      `Descanso: ${match.home.shortName} ${match.restDays.home}d vs ${match.away.shortName} ${match.restDays.away}d`,
+    );
+  }
+  if (proj) {
+    const digits = isNfl ? 1 : 2;
+    tacticalKeys.push(
+      `Proyección: ${proj.home.toFixed(digits)} – ${proj.away.toFixed(digits)} (total ${proj.total.toFixed(digits)})`,
+    );
+  }
+  if (signal?.stadium.name && signal.stadium.elevationM !== null && signal.stadium.elevationM >= 1000) {
+    tacticalKeys.push(`${signal.stadium.name} a ${Math.round(signal.stadium.elevationM)} m de altura`);
+  }
 
+  const absences: LineupAbsenceItem[] = [];
+  const avail = signal?.availability;
+  const pushAbsence = (side: "home" | "away", injured: number | null, missingPct: number | null) => {
+    if (injured === null || injured <= 0) return;
+    const team = side === "home" ? match.home.shortName : match.away.shortName;
+    absences.push({
+      teamSide: side,
+      player: `${injured} ${injured === 1 ? "lesionado" : "lesionados"} · ${team}`,
+      role: "Reporte de disponibilidad",
+      status: "Baja",
+      impactNote:
+        missingPct !== null && missingPct > 0
+          ? `Ausencias equivalentes al ${missingPct.toFixed(1)} % del valor de la plantilla.`
+          : "Impacto incluido en la probabilidad del motor.",
+    });
+  };
+  if (avail) {
+    pushAbsence("home", avail.homeInjured, avail.homeMissingValuePct);
+    pushAbsence("away", avail.awayInjured, avail.awayMissingValuePct);
+  }
+
+  let moneyFlow: PreGameIntel["moneyFlow"] = null;
   if (match.marketPulse && match.marketPulse.sides.length >= 2) {
-    const sHome = match.marketPulse.sides.find((s) => s.side === "home")?.share ?? ph;
-    const sDraw = match.marketPulse.sides.find((s) => s.side === "draw")?.share ?? pd;
-    const sAway = match.marketPulse.sides.find((s) => s.side === "away")?.share ?? pa;
-    homeShare = Math.round(sHome * 100);
-    if (isNfl) {
-      awayShare = Math.max(1, 100 - homeShare);
-    } else {
-      drawShare = Math.round(sDraw * 100);
-      awayShare = Math.max(1, Math.round(sAway * 100));
+    const share = (side: "home" | "draw" | "away") =>
+      match.marketPulse?.sides.find((s) => s.side === side)?.share;
+    const sHome = share("home");
+    const sAway = share("away");
+    if (sHome !== undefined && sAway !== undefined) {
+      const sDraw = share("draw");
+      moneyFlow = {
+        homeShare: Math.round(sHome * 100),
+        drawShare: isNfl || sDraw === undefined ? undefined : Math.round(sDraw * 100),
+        awayShare: Math.round(sAway * 100),
+        sharpNote: "Reparto del dinero según el último corte de mercado.",
+      };
     }
+  } else if (signal?.market) {
+    moneyFlow = {
+      homeShare: Math.round(signal.market.noVig.home * 100),
+      drawShare: isNfl ? undefined : Math.round(signal.market.noVig.draw * 100),
+      awayShare: Math.round(signal.market.noVig.away * 100),
+      sharpNote: `Probabilidad implícita del mercado (${signal.market.bookLabel}) sin margen de la casa.`,
+    };
   }
 
   return {
-    cortexSynthesis,
-    tacticalKeys: [
-      `Descanso verificado: ${match.home.shortName} (${restHome}d) vs ${match.away.shortName} (${restAway}d)`,
-      `Proyección Spacetime Suite: ${proj.home.toFixed(isNfl ? 1 : 2)} – ${proj.away.toFixed(isNfl ? 1 : 2)} (Total ${proj.total.toFixed(isNfl ? 1 : 2)})`,
-      `Calibración Geodesic v1.0 activa contra movimiento de apertura`,
-    ],
+    cortexSynthesis: synthesisParts.join(" "),
+    tacticalKeys,
     lineupStatusLabel:
-      match.status === "FT"
-        ? "Alineaciones oficiales cerradas y auditadas"
-        : " Monitoreo Cortex IA · Corte oficial 60 min antes del kickoff",
-    lineupsConfirmed60m: match.status === "FT" || seed % 3 !== 2,
+      match.status === "FT" ? "Partido finalizado" : "Alineaciones oficiales pendientes",
+    lineupsConfirmed60m: false,
     absences,
-    moneyFlow: {
-      homeShare,
-      drawShare,
-      awayShare,
-      sharpNote:
-        homeShare > Math.round(ph * 100) + 4
-          ? `El flujo público carga fuerte a ${match.home.shortName}; Geodesic v1.0 vigila valor contracorriente.`
-          : `Flujo institucional alineado con la probabilidad limpia de Spacetime Suite (${Math.round(Math.max(ph, pa) * 100)} %).`,
-      volumeTier: seed % 3 === 0 ? "Alto" : seed % 3 === 1 ? "Medio" : "Moderado",
-    },
+    moneyFlow,
   };
 }
 
 function buildPlatformMarkets(
   match: MatchAnalysis,
-  seed: number,
+  signal: SpacetimeSignal | null,
 ): PlatformMarketRow[] {
-  const rows = flattenMarketRows(match);
-  if (rows.length === 0) {
-    return match.outcomes.map((o, idx) => {
-      const fairDecimal = o.fairOdds?.decimal ?? Math.round((1 / clampProb(o.probability)) * 100) / 100;
-      const { marketDecimal, edgePts } = buildSimulatedMarketDecimal(
-        fairDecimal,
-        seed + idx * 13,
-        idx === 0,
-      );
-      const openDecimal = Math.max(1.06, Math.round((marketDecimal + (idx % 2 === 0 ? 0.06 : -0.05)) * 100) / 100);
-      return {
-        group: match.sport === "american-football" ? "Ganador" : "Resultado 1X2",
-        market: "h2h",
-        selection: o.key,
-        label: o.label,
-        p: o.probability,
-        fairDecimal,
-        fairAmerican: decimalToAmericanInt(fairDecimal),
-        openDecimal,
-        currentDecimal: marketDecimal,
-        edgePts,
-      };
-    });
-  }
+  const rows = rowsWithSpacetime(match, signal);
+  const source =
+    rows.length > 0
+      ? rows.slice(0, 22)
+      : match.outcomes.map((o) => ({
+          group: match.sport === "american-football" ? "Ganador" : "Resultado 1X2",
+          row: {
+            market: "h2h",
+            selection: o.key,
+            label: o.label,
+            p: o.probability,
+            fairOdds: 1 / clampProb(o.probability),
+          } as AnalysisMarketRow,
+        }));
 
-  return rows.slice(0, 22).map(({ group, row }, idx) => {
-    const fairDecimal = Math.max(1.05, Math.round(row.fairOdds * 100) / 100);
-    const { marketDecimal, edgePts } = buildSimulatedMarketDecimal(
-      fairDecimal,
-      seed + idx * 11,
-      idx % 3 === 0,
-    );
-    const openDecimal = Math.max(
-      1.05,
-      Math.round((marketDecimal + ((seed + idx) % 2 === 0 ? 0.07 : -0.05)) * 100) / 100,
-    );
+  return source.map(({ group, row }) => {
+    const fairDecimal = Math.max(1.01, Math.round(row.fairOdds * 100) / 100);
+    const currentDecimal = realOdds(signal, moneylineSide(row.market, row.selection));
     return {
       group,
       market: row.market,
@@ -547,9 +531,9 @@ function buildPlatformMarkets(
       p: row.p,
       fairDecimal,
       fairAmerican: decimalToAmericanInt(fairDecimal),
-      openDecimal,
-      currentDecimal: marketDecimal,
-      edgePts,
+      openDecimal: null,
+      currentDecimal,
+      edgePts: edgeAgainst(row.p, currentDecimal),
     };
   });
 }
@@ -569,9 +553,11 @@ export function buildPlatformDataset(inputs: readonly RawLeagueInput[]): Platfor
       if (m.status === "FT") finishedCount += 1;
       else upcomingCount += 1;
 
-      const seed = hashSeed(m.id);
+      const signal = leagueInput.spacetime?.[m.id] ?? null;
       const isNfl = m.sport === "american-football" || m.league === "nfl";
-      const x12: [number, number, number] = m.x12 ?? [
+      const x12: [number, number, number] = signal
+        ? [signal.probs.home, signal.probs.draw, signal.probs.away]
+        : m.x12 ?? [
         m.outcomes[0]?.probability ?? 0.48,
         isNfl ? 0 : (m.outcomes[1]?.probability ?? 0.25),
         m.outcomes[isNfl ? 1 : 2]?.probability ?? 0.27,
@@ -581,7 +567,7 @@ export function buildPlatformDataset(inputs: readonly RawLeagueInput[]): Platfor
         away: isNfl ? 21 : 1.18,
         total: isNfl ? 45 : 2.73,
       };
-      const confScore = m.confidence?.score ?? (64 + (seed % 22));
+      const confScore = m.confidence?.score ?? 60;
       const confLevel =
         m.confidence?.level ?? (confScore >= 72 ? "alta" : confScore >= 58 ? "media" : "baja");
 
@@ -620,9 +606,9 @@ export function buildPlatformDataset(inputs: readonly RawLeagueInput[]): Platfor
         },
         confidenceScore: confScore,
         confidenceLevel: confLevel,
-        picks: buildFiveMatchPicks(m),
-        preGame: buildPreGameIntel(m, seed),
-        markets: buildPlatformMarkets(m, seed),
+        picks: buildFiveMatchPicks(m, signal),
+        preGame: buildPreGameIntel(m, signal),
+        markets: buildPlatformMarkets(m, signal),
         factors:
           m.factors.length > 0
             ? m.factors.map((f) => ({
@@ -645,6 +631,7 @@ export function buildPlatformDataset(inputs: readonly RawLeagueInput[]): Platfor
         headToHead: m.headToHead ?? [],
         restDays: m.restDays,
         updatedAtLabel: m.updatedAt ?? "Corte reciente Spacetime Suite",
+        spacetime: signal,
       });
     }
 
@@ -708,135 +695,13 @@ export function buildPlatformDataset(inputs: readonly RawLeagueInput[]): Platfor
 }
 
 /**
- * Construye el catálogo interactivo de Player Props Lab vinculado a los equipos reales del snapshot.
+ * Catálogo de Player Props Lab. Spacetime v3.0 todavía no proyecta estadísticas por jugador,
+ * así que no hay props: la vista muestra un estado "próximamente" en lugar de líneas inventadas.
  */
-export function buildPlayerPropsCatalog(games: readonly PlatformGame[]): PlayerPropItem[] {
-  const upcoming = games.filter((g) => g.status !== "FT");
-  const pool = upcoming.length >= 4 ? upcoming : games;
-  const nflGames = pool.filter((g) => g.league === "nfl");
-  const soccerGames = pool.filter((g) => g.league !== "nfl");
-
-  const gNfl1 = nflGames[0] ?? pool[0];
-  const gNfl2 = nflGames[1] ?? nflGames[0] ?? pool[1] ?? pool[0];
-  const gSoc1 = soccerGames[0] ?? pool[0];
-  const gSoc2 = soccerGames[1] ?? soccerGames[0] ?? pool[0];
-
-  const items: PlayerPropItem[] = [];
-
-  if (gNfl1) {
-    items.push(
-      {
-        id: "prop-qb-pass",
-        league: gNfl1.league,
-        leagueLabel: gNfl1.leagueLabel,
-        gameId: gNfl1.id,
-        matchLabel: `${gNfl1.home.shortName} vs ${gNfl1.away.shortName}`,
-        kickoffLocal: gNfl1.kickoffLocal,
-        player: `QB1 · ${gNfl1.home.shortName}`,
-        teamSlug: gNfl1.home.slug,
-        teamName: gNfl1.home.name,
-        position: "QB",
-        statLabel: "Yardas por pase",
-        baseLine: 248.5,
-        step: 5,
-        minLine: 223.5,
-        maxLine: 278.5,
-        projectionMean: 264.2,
-        projectionSd: 34.0,
-        engineName: "PitchLab Minkowski v2.1",
-        marketOverDecimal: 1.91,
-        marketUnderDecimal: 1.91,
-        last10: [278, 241, 289, 262, 234, 301, 255, 268, 219, 274],
-        contextNote: "Ritmo neutral-alto en primer tiempo y secundaria rival en mitad baja contra pase intermedio.",
-      },
-      {
-        id: "prop-wr-rec",
-        league: gNfl2?.league ?? gNfl1.league,
-        leagueLabel: gNfl2?.leagueLabel ?? gNfl1.leagueLabel,
-        gameId: gNfl2?.id ?? gNfl1.id,
-        matchLabel: gNfl2
-          ? `${gNfl2.home.shortName} vs ${gNfl2.away.shortName}`
-          : `${gNfl1.home.shortName} vs ${gNfl1.away.shortName}`,
-        kickoffLocal: gNfl2?.kickoffLocal ?? gNfl1.kickoffLocal,
-        player: `WR1 · ${(gNfl2 ?? gNfl1).away.shortName}`,
-        teamSlug: (gNfl2 ?? gNfl1).away.slug,
-        teamName: (gNfl2 ?? gNfl1).away.name,
-        position: "WR",
-        statLabel: "Yardas por recepción",
-        baseLine: 72.5,
-        step: 2.5,
-        minLine: 57.5,
-        maxLine: 92.5,
-        projectionMean: 81.4,
-        projectionSd: 19.5,
-        engineName: "PitchLab Minkowski v2.1",
-        marketOverDecimal: 1.87,
-        marketUnderDecimal: 1.95,
-        last10: [88, 64, 95, 79, 102, 58, 84, 76, 91, 74],
-        contextNote: "28.4 % de cuota de targets en tercer down y zona roja durante las últimas 5 semanas.",
-      },
-    );
-  }
-
-  if (gSoc1) {
-    items.push(
-      {
-        id: "prop-fw-sot",
-        league: gSoc1.league,
-        leagueLabel: gSoc1.leagueLabel,
-        gameId: gSoc1.id,
-        matchLabel: `${gSoc1.home.shortName} vs ${gSoc1.away.shortName}`,
-        kickoffLocal: gSoc1.kickoffLocal,
-        player: `9 Titular · ${gSoc1.home.shortName}`,
-        teamSlug: gSoc1.home.slug,
-        teamName: gSoc1.home.name,
-        position: "DEL",
-        statLabel: "Remates a puerta",
-        baseLine: 1.5,
-        step: 0.5,
-        minLine: 0.5,
-        maxLine: 3.5,
-        projectionMean: 1.92,
-        projectionSd: 0.88,
-        engineName: "PitchLab Tachyon v2.1",
-        marketOverDecimal: 1.95,
-        marketUnderDecimal: 1.85,
-        last10: [2, 1, 3, 2, 2, 0, 2, 3, 1, 2],
-        contextNote: "Promedio de 3.8 disparos totales por 90m con localía favorable según Tachyon v2.1.",
-      },
-      {
-        id: "prop-mf-passes",
-        league: (gSoc2 ?? gSoc1).league,
-        leagueLabel: (gSoc2 ?? gSoc1).leagueLabel,
-        gameId: (gSoc2 ?? gSoc1).id,
-        matchLabel: `${(gSoc2 ?? gSoc1).home.shortName} vs ${(gSoc2 ?? gSoc1).away.shortName}`,
-        kickoffLocal: (gSoc2 ?? gSoc1).kickoffLocal,
-        player: `Organizador · ${(gSoc2 ?? gSoc1).home.shortName}`,
-        teamSlug: (gSoc2 ?? gSoc1).home.slug,
-        teamName: (gSoc2 ?? gSoc1).home.name,
-        position: "MED",
-        statLabel: "Pases completados",
-        baseLine: 58.5,
-        step: 2.5,
-        minLine: 48.5,
-        maxLine: 71.0,
-        projectionMean: 64.0,
-        projectionSd: 10.2,
-        engineName: "PitchLab Singularity v2.1",
-        marketOverDecimal: 1.90,
-        marketUnderDecimal: 1.90,
-        last10: [67, 61, 54, 70, 65, 62, 59, 72, 60, 66],
-        contextNote: "Posesión proyectada del 57 % ante bloque medio-bajo visitante.",
-      },
-    );
-  }
-
-  return items;
+export function buildPlayerPropsCatalog(_games: readonly PlatformGame[]): PlayerPropItem[] {
+  return [];
 }
 
-/**
- * Aproximación normal continua suave para calcular P(Over line) al mover el scrubber de línea.
- */
 export function evaluatePropLineProbability(
   mean: number,
   sd: number,

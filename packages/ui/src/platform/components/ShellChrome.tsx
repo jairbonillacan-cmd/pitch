@@ -44,8 +44,8 @@ function FloatingQuickJumpBar({
   activePath,
 }: {
   activePath?: string;
-}): React.JSX.Element {
-  const { rawDataset, submitBetaPin, navigateTo } = usePlatform();
+}): React.JSX.Element | null {
+  const { rawDataset, openBetaPin, navigateTo, allowRoleSimulation } = usePlatform();
   const [collapsed, setCollapsed] = useState<boolean>(false);
   const [clientPath, setClientPath] = useState<string>(activePath ?? "");
 
@@ -89,7 +89,7 @@ function FloatingQuickJumpBar({
   const handleJump = (targetHref: string) => {
     setClientPath(targetHref);
     if (targetHref.startsWith("/app") && rawDataset.isServerRedactedForVisitor) {
-      void submitBetaPin("2026", targetHref);
+      openBetaPin(targetHref);
       return;
     }
     navigateTo(targetHref);
@@ -102,6 +102,8 @@ function FloatingQuickJumpBar({
     }
     return clientPath === href;
   };
+
+  if (!allowRoleSimulation) return null;
 
   return (
     <aside
@@ -353,7 +355,7 @@ export function PublicFooterV4(): React.JSX.Element {
         <div className="space-y-2 max-w-xl">
           <BrandLogo variant="horizontal" width={120} height={24} alt="" />
           <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-            PitchLab Spacetime Suite v2.1 · Inteligencia cuantitativa deportiva para mayores de 18
+            PitchLab Spacetime Suite v3.0 · Inteligencia cuantitativa deportiva para mayores de 18
             años (+18). Todas las métricas operan en unidades simuladas de análisis (0.5u–5.0u); no
             somos casa de apuestas ni garantizamos ganancias.
           </p>

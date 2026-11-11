@@ -7,6 +7,7 @@ import {
   type ViewerRole,
 } from "@pitchlab/ui";
 import { getBetaCookieName, verifyBetaCookieToken } from "./beta-auth.js";
+import { buildSpacetimeSignals } from "./spacetime.js";
 import {
   loadAllActiveLeagueSnapshots,
   PRODUCT_LEAGUES,
@@ -19,6 +20,16 @@ export interface LoadedPlatformState {
   dataset: PlatformDataset;
   initialRole: ViewerRole;
   hasActiveSession: boolean;
+  /** Selector de rol y barra de 11 vistas: solo con sesión y herramientas de preview activas. */
+  allowRoleSimulation: boolean;
+}
+
+/**
+ * Herramientas de revisión (selector de rol, barra rápida). Encendidas en desarrollo;
+ * en producción solo con PITCHLAB_PREVIEW_TOOLS=1.
+ */
+export function previewToolsEnabled(): boolean {
+  return process.env.NODE_ENV !== "production" || process.env.PITCHLAB_PREVIEW_TOOLS === "1";
 }
 
 export function buildServerRawPlatformDataset(): PlatformDataset {
@@ -37,6 +48,7 @@ export function buildServerRawPlatformDataset(): PlatformDataset {
         generatedAt: env.data.generatedAt,
         games: env.data.games,
         standings: env.data.standings,
+        spacetime: buildSpacetimeSignals(env.data.games),
       });
     }
   }
@@ -70,6 +82,7 @@ export async function loadPublicPlatformState(
       dataset: fullDataset,
       initialRole: "member",
       hasActiveSession: true,
+      allowRoleSimulation: previewToolsEnabled(),
     };
   }
 
@@ -97,6 +110,7 @@ export async function loadPublicPlatformState(
     dataset: redactDatasetForVisitor(fullDataset, extraUnlocked),
     initialRole: "visitor",
     hasActiveSession: false,
+    allowRoleSimulation: false,
   };
 }
 
@@ -114,6 +128,7 @@ export async function loadClubPlatformState(
       dataset: redactDatasetForVisitor(fullDataset),
       initialRole: "visitor",
       hasActiveSession: false,
+      allowRoleSimulation: false,
     };
   }
 
@@ -121,5 +136,6 @@ export async function loadClubPlatformState(
     dataset: fullDataset,
     initialRole: preferredRole,
     hasActiveSession: true,
+    allowRoleSimulation: previewToolsEnabled(),
   };
 }

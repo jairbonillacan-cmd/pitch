@@ -30,7 +30,7 @@
 @import "@astryxdesign/theme-neutral/theme.css";
 @import "./astryx-pitchlab.css" layer(astryx-pitchlab);
 
-/* Sistema visual Liquid Glass v4 (shows.link + Spacetime Suite v2.1) */
+/* Sistema visual Liquid Glass v4 (shows.link + Spacetime Suite v3.0) */
 @import "./pitchlab-v4.css" layer(components);
 
 @source "../../../packages/ui/src";
