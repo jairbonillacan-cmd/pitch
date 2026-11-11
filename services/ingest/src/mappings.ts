@@ -233,6 +233,7 @@ export const LIGA_MX_TEAM_MAP: Record<string, string> = {
   Querétaro: "queretaro",
   "Club Queretaro": "queretaro",
   "Santos Laguna": "santos-laguna",
+  Santos: "santos-laguna",
   "Club Santos Laguna": "santos-laguna",
   "Tigres UANL": "tigres-uanl",
   Tigres: "tigres-uanl",

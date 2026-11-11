@@ -25,6 +25,7 @@ import {
   normalizeFootballDataPremierLeague,
 } from "./adapters/football-data.js";
 import { mergeFootballDataIntoSeason } from "./adapters/football-data-merge.js";
+import { fetchEspnLigaMxSeason, normalizeEspnLigaMx } from "./adapters/espn-liga-mx-schedule.js";
 import type { NormalizedOpenFootballSeason } from "./adapters/openfootball.js";
 
 /**
@@ -58,10 +59,6 @@ async function withFootballData(
   }
 }
 import type { GameDTO } from "@pitchlab/contracts";
-import {
-  fetchApiFootballLigaMx,
-  normalizeApiFootballLigaMx,
-} from "./adapters/api-football.js";
 import {
   buildFootballSnapshot,
   buildNflSnapshot,
@@ -257,19 +254,13 @@ async function main() {
     );
   }
 
-  // 5. Liga MX (API-Football Free — solo si existe API_FOOTBALL_KEY)
-  const apiFootballKey = process.env.API_FOOTBALL_KEY?.trim();
-  if (apiFootballKey) {
+  // 5. Liga MX: calendario y resultados de la temporada actual desde ESPN (sin clave).
+  // El plan gratis de API-Football no cubre temporadas posteriores a 2024, así que no se usa
+  // aquí: rellenaba la jornada con partidos de 2024. Si ESPN falla se conserva el snapshot anterior.
+  try {
     const prevMx = loadPreviousSnapshot(SNAPSHOTS_ROOT, "liga-mx");
-    const mxPayload = await fetchApiFootballLigaMx({
-      apiKey: apiFootballKey,
-      season: 2026,
-      cacheFilePath: resolve(CACHE_DIR, "api-football-liga-mx-2026.json"),
-      budgetFilePath: resolve(CACHE_DIR, "api-football-budget.json"),
-    });
-    const normMx = normalizeApiFootballLigaMx(mxPayload, {
-      referenceDate: dateStr,
-    });
+    const espnSeason = await fetchEspnLigaMxSeason({ cacheDir: CACHE_DIR, referenceDate: dateStr });
+    const normMx = normalizeEspnLigaMx(espnSeason, { referenceDate: dateStr });
     const priorMx = loadPriorMatches("liga-mx", dateStr);
     const mxSnapshot = buildFootballSnapshot({
       league: "liga-mx",
@@ -280,7 +271,7 @@ async function main() {
       games: normMx.activeRoundGames,
       teamRateInputs: normMx.teamRateInputs,
       updatedAt,
-      source: "api-football",
+      source: "espn",
       previousSnapshot: prevMx,
       seasonGames: normMx.allGames,
       priorMatches: priorMx,
@@ -291,9 +282,9 @@ async function main() {
     console.log(
       `[snapshot] Liga MX (${normMx.periodLabel}): ${mxSnapshot.games.length} partidos -> ${mxFiles.latestPath}`,
     );
-  } else {
-    console.log(
-      "[snapshot] Liga MX omitida: API_FOOTBALL_KEY no configurada (aparecerá como 'Pronto' en la UI).",
+  } catch (err) {
+    console.warn(
+      `[snapshot] Liga MX: ESPN no disponible (${err instanceof Error ? err.message : String(err)}); se conserva el snapshot anterior.`,
     );
   }
 }

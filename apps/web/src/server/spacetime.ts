@@ -149,10 +149,17 @@ let cache: {
   teamIndex: TeamMasterIndex;
   byLeague: Map<string, LeagueIndex>;
   signals: Map<string, SpacetimeSignal | null>;
+  /** Hora en que se llenó el caché: la vigencia de los momios depende del reloj. */
+  hourBucket: number;
 } | null = null;
 
 function getCache() {
-  if (cache) return cache;
+  const hourBucket = Math.floor(Date.now() / 3_600_000);
+  if (cache && cache.hourBucket !== hourBucket) cache.signals.clear();
+  if (cache) {
+    cache.hourBucket = hourBucket;
+    return cache;
+  }
   const byLeague = new Map<string, LeagueIndex>();
   for (const team of snapshot.team_master_records) {
     const entry = byLeague.get(team.league) ?? { teams: [], records: [] };
@@ -168,6 +175,7 @@ function getCache() {
     teamIndex: buildTeamMasterIndex(snapshot.team_master_records, artifacts.nflModel),
     byLeague,
     signals: new Map(),
+    hourBucket,
   };
   return cache;
 }
@@ -204,6 +212,34 @@ function recordFor(game: MatchAnalysis, v3League: string, index: LeagueIndex): L
   } as LiveMatchupEdgeRecord;
 }
 
+/**
+ * Antigüedad máxima de un momio para mostrarlo como vigente (horas). Pasado ese plazo el
+ * partido se muestra sin momios y con la probabilidad deportiva pura, no la mezclada con
+ * un mercado viejo. Configurable con PITCHLAB_MAX_ODDS_AGE_HOURS.
+ */
+export function maxOddsAgeHours(): number {
+  const raw = Number(process.env.PITCHLAB_MAX_ODDS_AGE_HOURS);
+  return Number.isFinite(raw) && raw > 0 ? raw : 72;
+}
+
+export function isMarketFresh(asOfUtc: string | null | undefined, nowMs: number = Date.now()): boolean {
+  if (!asOfUtc) return false;
+  const t = Date.parse(asOfUtc);
+  return Number.isFinite(t) && nowMs - t <= maxOddsAgeHours() * 3_600_000;
+}
+
+const OD_DATE = new Intl.DateTimeFormat("es-MX", {
+  day: "numeric",
+  month: "short",
+  timeZone: "America/Mexico_City",
+});
+
+/** "Caliente · 9 nov": la casa y el día del corte de momios. */
+export function bookLabelWithDate(book: string, asOfUtc: string | null | undefined): string {
+  if (!asOfUtc || !Number.isFinite(Date.parse(asOfUtc))) return book;
+  return `${book} · ${OD_DATE.format(new Date(asOfUtc)).replace(".", "")}`;
+}
+
 function round(value: number, digits = 4): number {
   const f = 10 ** digits;
   return Math.round(value * f) / f;
@@ -220,7 +256,11 @@ function toSignal(
   const oddsBySide = new Map((gate?.outcomes ?? []).map((o) => [o.side, o.decimalOdds]));
   const homeOdds = oddsBySide.get("home");
   const awayOdds = oddsBySide.get("away");
-  const hasMarket = Boolean(pred.marketProbsAdaptive && source && homeOdds && awayOdds);
+  const hasMarket = Boolean(
+    pred.marketProbsAdaptive && source && homeOdds && awayOdds && isMarketFresh(rec.as_of_utc),
+  );
+  // Sin mercado vigente, la probabilidad es la deportiva (no la mezclada con momios viejos).
+  const probs = hasMarket ? pred.finalProbs : pred.sportsProbs;
 
   const missingPct = (t: TeamMasterFeatureRecord | null) =>
     t?.missing_market_value_ratio === null || t?.missing_market_value_ratio === undefined
@@ -228,17 +268,17 @@ function toSignal(
       : round(t.missing_market_value_ratio * 100, 1);
 
   return {
-    engineName: pred.activeModelName,
+    engineName: hasMarket ? pred.activeModelName : pred.sportsModelName,
     sportsEngineName: pred.sportsModelName,
     probs: {
-      home: pred.finalProbs.pHome,
-      draw: pred.finalProbs.pDraw,
-      away: pred.finalProbs.pAway,
+      home: probs.pHome,
+      draw: probs.pDraw,
+      away: probs.pAway,
     },
     market:
       hasMarket && pred.marketProbsAdaptive && source && homeOdds && awayOdds
         ? {
-            bookLabel: BOOK_LABELS[source]!,
+            bookLabel: bookLabelWithDate(BOOK_LABELS[source]!, rec.as_of_utc),
             asOfUtc: rec.as_of_utc ?? null,
             overround: pred.marketProbsAdaptive.overround,
             noVig: {

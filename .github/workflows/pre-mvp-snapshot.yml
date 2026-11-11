@@ -40,9 +40,22 @@ jobs:
 
       - name: Generar snapshots reales
         env:
-          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
           FOOTBALL_DATA_API_KEY: ${{ secrets.FOOTBALL_DATA_API_KEY }}
         run: pnpm snapshot
+
+      # Motores y matriz de momios de Spacetime v3.0: se mejoran y regeneran en la rama
+      # prediction-lab; aquí solo se copian. Si las pruebas de los motores fallan, se
+      # descarta la copia y se conserva la versión anterior.
+      - name: Sincronizar Spacetime v3.0 desde prediction-lab
+        continue-on-error: true
+        run: |
+          git fetch --depth=1 origin prediction-lab:refs/remotes/origin/prediction-lab
+          pnpm --filter @pitchlab/spacetime sync
+          if ! pnpm --filter @pitchlab/spacetime test; then
+            echo "Las pruebas de Spacetime fallaron con la copia nueva; se descarta."
+            git checkout -- packages/spacetime
+            git clean -fd packages/spacetime
+          fi
 
       # FD-20: volumen por resultado en mercados de predicción (API pública, sin clave).
       # Si falla, los snapshots se publican igual.
@@ -54,11 +67,11 @@ jobs:
         run: |
           git config user.name "pitchlab-bot"
           git config user.email "bot@pitchlab.app"
-          git add data/snapshots
+          git add data/snapshots packages/spacetime
           if git diff --staged --quiet; then
             echo "Sin cambios en snapshots."
           else
-            git commit -m "datos(snapshots): actualizar corte automático pre-MVP"
+            git commit -m "datos(snapshots): actualizar corte automático pre-MVP y Spacetime v3.0"
             git push
           fi
 
