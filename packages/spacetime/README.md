@@ -27,7 +27,7 @@ El script admite otra referencia: `node packages/spacetime/scripts/sync-from-pre
 
 ### Parches
 
-`scripts/sync-from-prediction-lab.mjs` aplica correcciones mínimas mientras no estén en `prediction-lab` (hoy: un error de tipos en `service.ts`). Si un parche deja de aplicar, el sync falla a propósito: significa que ya se corrigió allá y hay que borrarlo de la lista `PATCHES`.
+`scripts/sync-from-prediction-lab.mjs` puede aplicar correcciones mínimas (lista `PATCHES`) mientras no estén en `prediction-lab`. Hoy no hay ninguna: el error de tipos de `service.ts` se corrigió allá (`263857a`). Si un parche deja de aplicar, el sync falla a propósito: significa que ya se corrigió allá y hay que borrarlo de la lista `PATCHES`.
 
 ## Cómo lo usa la app
 

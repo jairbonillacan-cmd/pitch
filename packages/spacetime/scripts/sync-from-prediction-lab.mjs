@@ -26,20 +26,7 @@ function git(...args) {
 
 // Correcciones mínimas a la copia mientras no estén en prediction-lab. Cada una falla
 // en voz alta si el texto ya no existe, para borrarla cuando se corrija allá.
-const PATCHES = [
-  {
-    file: "src/service.ts",
-    reason:
-      "TS no estrecha el tipo con 4 comparaciones; tras la rama NFL todo lo que no es fútbol es multideporte.",
-    find: `  if (
-    request.sport === "nhl" ||
-    request.sport === "mlb" ||
-    request.sport === "nba" ||
-    request.sport === "ncaaf"
-  ) {`,
-    replace: `  if (request.sport !== "football") {`,
-  },
-];
+const PATCHES = [];
 
 const commit = git("rev-parse", ref).trim();
 const files = [];
