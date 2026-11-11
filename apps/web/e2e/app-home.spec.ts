@@ -21,7 +21,7 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
   await page.goto("/app");
   await expect(page).toHaveURL(/\/app$/);
   await expect(
-    page.getByRole("heading", { name: /Centro de Mando/i }),
+    page.getByRole("heading", { name: /Partidos de hoy/i }),
   ).toBeVisible();
 
   // Verificar cero overflow y WCAG AA tanto en tema oscuro como en tema claro
@@ -72,7 +72,7 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
   // 1) Armador Inteligente de Parlays & SGP
   await page.goto("/app/parlays");
   await expect(
-    page.getByRole("heading", { name: /Armador Inteligente de Parlays/i }),
+    page.getByRole("heading", { name: /Armar parlay/i }),
   ).toBeVisible();
   await page.locator("[data-generate-parlay]").click();
   await expect(page.getByRole("button", { name: /Sellar Parlay/i })).toBeEnabled();
@@ -81,7 +81,7 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
   // 2) Player Props Lab interactivo
   await page.goto("/app/props");
   await expect(
-    page.getByRole("heading", { name: /Player Props Lab Interactivo/i }),
+    page.getByRole("heading", { name: /Props de jugadores/i }),
   ).toBeVisible();
   const plusButtons = page.getByRole("button", { name: /Subir línea/i });
   if ((await plusButtons.count()) > 0) {
@@ -91,7 +91,7 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
   // 3) Comunidad VIP exclusiva: bloqueo automático de enlaces externos (Telegram/WhatsApp)
   await page.goto("/app/social");
   await expect(
-    page.getByRole("heading", { name: /Comunidad VIP/i }),
+    page.getByRole("heading", { name: /^Comunidad$/i }),
   ).toBeVisible();
   const socialTextarea = page.locator("textarea").first();
   await socialTextarea.fill("Únanse a mi grupo externo https://t.me/spam_picks");

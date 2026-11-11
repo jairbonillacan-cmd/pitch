@@ -13,6 +13,10 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  // Cada página importa solo lo que usa de estos paquetes (no el barril completo).
+  experimental: {
+    optimizePackageImports: ["@pitchlab/ui", "@heroui/react", "@base-ui/react", "@astryxdesign/core"],
+  },
   webpack: (config) => {
     config.resolve.extensionAlias = {
       ...(config.resolve.extensionAlias || {}),

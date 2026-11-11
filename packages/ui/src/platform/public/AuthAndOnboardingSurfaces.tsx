@@ -783,7 +783,7 @@ export function OnboardingSurfaceV4(): React.JSX.Element {
 
             <div className="space-y-1">
               <h1 className="m-0 text-2xl sm:text-3xl font-extrabold tracking-tight">
-                Personaliza tu radar cuantitativo
+                Elige tus ligas y tu estilo
               </h1>
               <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
                 Ordenaremos tu Jornada, alertas de valor y el Armador de Parlays alrededor de
@@ -1159,7 +1159,7 @@ export function PublicSharedPickSurface({
                       color: "var(--share-card-accent)",
                     }}
                   >
-                    {unlockedPick.engineName}
+                    {unlockedPick.categoryLabel}
                   </span>
                 </div>
 
@@ -1318,9 +1318,7 @@ export function PublicSharedPickSurface({
                             style={{ color: "var(--share-card-accent)" }}
                           >
                             <MaestroIcon name="lock" size={13} />
-                            <span>
-                              {lp.categoryLabel} · {lp.engineName}
-                            </span>
+                            <span>{lp.categoryLabel}</span>
                           </span>
                           <span
                             className="locked-redact font-extrabold"

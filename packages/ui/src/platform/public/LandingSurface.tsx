@@ -333,34 +333,24 @@ export function LandingSurface(): React.JSX.Element {
               }
               title={
                 <span>
-                  <span style={{ color: "var(--pl-text-muted)" }}>
-                    Spacetime Suite v3.0 ·{" "}
-                  </span>
-                  <strong>+358k partidos · DS + ML + IA</strong>
+                  <span style={{ color: "var(--pl-text-muted)" }}>Validado en </span>
+                  <strong>{SPACETIME_METRICS_HEADLINE.historicalMatches} partidos fuera de muestra</strong>
                 </span>
               }
               className="sm:w-auto"
             />
 
             <h1 className="m-0 text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.04]">
-              El súper-tipster cuantitativo.
-              <br />
-              <span style={{ color: "var(--pl-brand)" }}>
-                Multi-picks y parlays con IA.
-              </span>
+              Probabilidades claras para cada partido.
             </h1>
 
             <p
               className="m-0 text-base leading-relaxed"
               style={{ color: "var(--pl-text-secondary)" }}
             >
-              Nuestros motores propietarios (<strong>Tachyon v3.0</strong>,{" "}
-              <strong>Singularity v3.0</strong>, <strong>Minkowski v3.0</strong> y{" "}
-              <strong>Cortex IA</strong>) validados en{" "}
-              <strong className="num">{SPACETIME_METRICS_HEADLINE.historicalMatches}</strong>{" "}
-              partidos radiografían cada juego, liberan{" "}
-              <strong>hasta 5 picks por encuentro</strong> y arman parlays inteligentes sin
-              contradicciones.
+              Liga MX, Europa y NFL: la probabilidad de cada resultado, el momio justo y si la
+              casa paga de más. Hasta 5 picks por partido y parlays sin selecciones que se
+              contradigan.
             </p>
 
             <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
@@ -672,9 +662,7 @@ export function LandingSurface(): React.JSX.Element {
                             style={{ color: "var(--pl-brand)" }}
                           >
                             <MaestroIcon name="lock" size={13} />
-                            <span>
-                              {pk.categoryLabel} · {pk.engineName}
-                            </span>
+                            <span>{pk.categoryLabel}</span>
                           </span>
                           <span className={riskMeta.className}>{riskMeta.label}</span>
                         </div>
@@ -773,8 +761,7 @@ export function LandingSurface(): React.JSX.Element {
                             · Justa{" "}
                             <strong style={{ color: "var(--pl-text)" }}>
                               {formatOddsValue(pk.fairDecimal, oddsFormat)}
-                            </strong>{" "}
-                            · {pk.engineName}
+                            </strong>
                           </span>
                         </div>
 
@@ -922,7 +909,6 @@ export function LandingSurface(): React.JSX.Element {
                     <span>
                       {tipstarWeeklyGame.leagueLabel} · {tipstarWeeklyPick.matchLabel}
                     </span>
-                    <span>{tipstarWeeklyPick.engineName}</span>
                   </div>
                   <div className="font-extrabold text-base uppercase tracking-wide">
                     {tipstarWeeklyPick.label}
@@ -1044,13 +1030,7 @@ export function LandingSurface(): React.JSX.Element {
                         <span>{fg.dayLabel}</span>
                       </div>
                       <div className="font-bold text-sm uppercase truncate">
-                        {fpk.label}{" "}
-                        <span
-                          className="text-xs font-normal normal-case"
-                          style={{ color: "var(--pl-text-muted)" }}
-                        >
-                          · {fpk.engineName}
-                        </span>
+                        {fpk.label}
                       </div>
                     </div>
 

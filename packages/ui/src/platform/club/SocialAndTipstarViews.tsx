@@ -294,7 +294,7 @@ export function SocialVipClubView(): React.JSX.Element {
               <StackedAvatars items={ACTIVE_MEMBER_AVATARS} extraCount={38} />
             </div>
             <h1 className="m-0 text-2xl sm:text-3xl font-extrabold tracking-tight">
-              Comunidad VIP PitchLab
+              Comunidad
             </h1>
             <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
               Debate táctico verificado entre miembros con Pase Total y Tipstars Oficiales.
@@ -1080,7 +1080,7 @@ export function SocialVipClubView(): React.JSX.Element {
                         }}
                         className="pl-btn-glass text-xs min-h-8 px-3 shrink-0"
                       >
-                        <span>Radiografía</span>
+                        <span>Ver partido</span>
                         <MaestroIcon name="chevronRight" size={14} />
                       </a>
                     </div>
@@ -1486,7 +1486,7 @@ export function TipstarPortalClubView(): React.JSX.Element {
               <div className="space-y-0.5">
                 <div className="flex flex-wrap items-center gap-2">
                   <h1 className="m-0 text-xl sm:text-2xl font-extrabold tracking-tight">
-                    Portal Tipstar Oficial (@{sofia.handle})
+                    Portal tipstar (@{sofia.handle})
                   </h1>
                   <span className="pl-pill pl-pill--success">
                     <MaestroIcon name="check" size={12} />
@@ -1712,7 +1712,7 @@ export function TipstarPortalClubView(): React.JSX.Element {
                                 className="block text-xs font-bold"
                                 style={{ color: "var(--pl-brand)" }}
                               >
-                                {pk.categoryLabel} · {pk.engineName}
+                                {pk.categoryLabel}
                               </span>
                               <strong className="block text-sm font-extrabold uppercase truncate">
                                 {pk.label}
@@ -2141,9 +2141,7 @@ export function TipstarPortalClubView(): React.JSX.Element {
                       style={{ color: "var(--pl-brand)" }}
                     >
                       <MaestroIcon name="lock" size={12} />
-                      <span>
-                        {lp.categoryLabel} ({lp.engineName})
-                      </span>
+                      <span>{lp.categoryLabel}</span>
                     </span>
                     <span className="locked-redact font-extrabold">
                       RESERVADO PASE TOTAL

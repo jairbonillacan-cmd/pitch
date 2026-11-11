@@ -54,13 +54,6 @@ export function MultiPickRow({
         <div className="space-y-1 min-w-0">
           <div className="flex flex-wrap items-center gap-2">
             <span className="pl-pill">{pick.categoryLabel}</span>
-            <span
-              className="inline-flex items-center gap-1 text-xs font-semibold"
-              style={{ color: "var(--pl-text-muted)" }}
-            >
-              <MaestroIcon name="cpu" size={12} />
-              <span>{pick.engineName}</span>
-            </span>
           </div>
           <div className="locked-redact text-sm font-bold" aria-hidden="true">
             Selección oculta · Línea calibrada Spacetime
@@ -120,17 +113,17 @@ export function MultiPickRow({
     >
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className={riskBadgeClass}>{pick.categoryLabel}</span>
+          <span className={riskBadgeClass} title={pick.engineName}>{pick.categoryLabel}</span>
           {pick.isDailyOpenPromo ? (
             <span className="pl-pill pl-pill--info inline-flex items-center gap-1">
               <MaestroIcon name="sparkles" size={11} />
-              <span>Pick Abierto del Día</span>
+              <span>Pick gratis del día</span>
             </span>
           ) : null}
           {pick.isTipstarWeeklyOpen ? (
             <span className="pl-pill pl-pill--info inline-flex items-center gap-1">
               <MaestroIcon name="crown" size={11} />
-              <span>Pick Semanal @sofia_nfl</span>
+              <span>Pick semanal (ejemplo)</span>
             </span>
           ) : null}
           {gameStatus === "FT" && pick.result ? (
@@ -146,17 +139,10 @@ export function MultiPickRow({
             </span>
           ) : null}
         </div>
-        <span
-          className="inline-flex items-center gap-1 text-xs font-semibold"
-          style={{ color: "var(--pl-text-muted)" }}
-        >
-          <MaestroIcon name="cpu" size={12} />
-          <span>{pick.engineName}</span>
-        </span>
       </div>
 
       <div className="flex flex-wrap items-baseline justify-between gap-3">
-        <div className="min-w-0 flex-1">
+        <div className={compact ? "min-w-0 basis-full" : "min-w-0 flex-1"}>
           <p className="m-0 text-base font-extrabold">{pick.label}</p>
           {!compact ? (
             <p
@@ -168,7 +154,7 @@ export function MultiPickRow({
           ) : null}
         </div>
 
-        <div className="flex items-center gap-3.5 shrink-0 num">
+        <div className={`flex items-center gap-3.5 num ${compact ? "w-full justify-between" : "shrink-0"}`}>
           <div className="text-right">
             <span className="block text-[11px]" style={{ color: "var(--pl-text-muted)" }}>
               Probabilidad
@@ -511,7 +497,7 @@ export function MatchTicketCard({
           onClick={handleOpenStudio}
           className="pl-btn-glass text-xs min-h-8 px-3 inline-flex items-center gap-1.5"
         >
-          <span>Radiografía ({game.picks.length})</span>
+          <span>Ver partido ({game.picks.length} picks)</span>
           <MaestroIcon name="arrowRight" size={13} />
         </a>
 

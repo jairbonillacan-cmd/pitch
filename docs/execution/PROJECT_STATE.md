@@ -15,6 +15,7 @@
 - **D1 diseño base:** ✅ aprobado (2026-11-08, iteración 4). Contrato en `docs/design/DESIGN_SYSTEM.md`, `INTERACTION_PATTERNS.md` y `RESPONSIVE_RULES.md`. Prototipos en `design/d1/`.
 - **UI-MAESTRO-V4.1 (paridad 1:1 con `Prototipo Maestro PitchLab`):** ✅ implementada en `gemini-reestructura` (2026-11-10) sobre `PitchLab Spacetime Suite v2.1`: física *Smoked Glass* real sobre obsidiana (`--pl-glass-lens`, `--pl-glass-card`, `.glass-ring` de bisel único), orbes radiales internos por club/motor (`<LensGlowOrbs>`), primitivas compartidas (`MaestroPrimitives.tsx` + `<TopLayerModalDialog>` sobre `<dialog>` nativo), 7 superficies públicas con redacción `Cero-Fuga` SSR + 11 vistas del club con barra flotante rápida colapsable, artefacto canónico archivado en `design/prototipo-maestro/prototipo-maestro-pitchlab.html`, ADRs `ADR-023`…`ADR-026`, visión rectora `docs/product/PLATFORM_VISION_GEMINI_REESTRUCTURA.md` + `docs/product/VISION_REESTRUCTURA_CLAUDE_{DS_UX,QUANT,GROWTH}.md` y guías de handoff en `docs/execution/`.
 - **SPACETIME-V3 + datos verificables (ADR-027):** ✅ 2026-11-11 en `gemini-reestructura`: motores Spacetime Suite v3.0 desde `prediction-lab` (`packages/spacetime`), inferencia en servidor con momios reales y vigencia de 72 h, mercados derivados (totales, ambos anotan, hándicaps), cero datos inventados en la UI, contenido de demostración marcado «Ejemplo», herramientas de preview fuera de producción, descarga real de boletos PNG y Liga MX real desde ESPN.
+- **UI-SIMPLE (simplificar y pulir la UI de Gemini):** 🟡 en curso 2026-11-11 (ver bitácora «UI-SIMPLE»).
 - **Siguiente:** ver «Pendiente (en orden)».
 
 El clon previo de TouchIQ (Vite + `src/domain` con 24 tests dorados) quedó archivado en la rama `archive/touchiq-reconstruction` (ADR-018) y sus motores matemáticos viven ahora en `packages/engines-reference` con adaptadores limpios para snapshots reales.
@@ -849,3 +850,20 @@ _(Cada sesión de agente agrega aquí su entrada con el formato de `AGENT_EXECUT
   - Revisión visual contra el prototipo maestro (escritorio, tableta y móvil) con correcciones.
 - **No hecho:** todo lo que requiere cuentas o secretos (ver «Pendiente» 1 y 4); regenerar momios (requiere correr scrapers en `prediction-lab`).
 - **Cómo probarlo:** `pnpm typecheck && pnpm lint && pnpm test && pnpm build && pnpm e2e`.
+
+### UI-SIMPLE · Simplificar y pulir la UI v4.1 de Gemini — 2026-11-11 — Rama `gemini-reestructura`
+- **Por qué:** revisión de UX (pedida por el fundador): la UI v4.1 se ve bien y es accesible, pero tenía jerga en todas partes (Tachyon, Singularity, Geodesic, SGP, CLV…), cinco sistemas de navegación para 14 secciones, pantallas muy densas, títulos en inglés y en Title Case, y ~458 kB de JavaScript inicial por página.
+- **Hecho:**
+  - Navegación: 4 destinos principales (Hoy, Armar parlay, Mi bitácora, Cuenta), luego Ligas y un grupo «Más» (Picks del día, Momios y ventaja, Resultados, Comunidad, Props, Cómo calculamos). El Portal tipstar solo para tipstar/admin y la Consola solo para admin. El dock móvil usa los mismos 4 destinos + «Más». Encabezados del riel sin MAYÚSCULAS espaciadas.
+  - Lenguaje claro: sin nombres de motores en tarjetas de picks, resúmenes ni razones (siguen en «Cómo calculamos» y como `title` de la categoría). Categorías: «Pick principal», «Más seguro», «Goles/Puntos totales», «Lectura del partido», «Valor contra la casa». «Ambos anotan: Sí» en vez de «Sí» suelto. SGP → «mismo partido».
+  - Títulos: «Partidos de hoy», «Picks del día», «Armar parlay», «Momios y ventaja», «Props de jugadores», «Mi bitácora», «Mi cuenta», «Resultados», «Comunidad», «Consola del fundador». Portada: «Probabilidades claras para cada partido.» (sin segunda línea en color) y se quitó un «+358k partidos» que había quedado.
+  - Hoy: sin la píldora «Spacetime Suite v3.0 · Jornada activa»; tarjetas de pick compactas con el nombre en su propia línea (antes se encimaba con las cifras); nombres de equipo a dos líneas en vez de truncados; «Ver partido».
+  - Ficha del partido: sin la píldora del motor; pestañas «Picks / Mercados / Contexto / ¿Dónde está el dinero?»; «Picks de este partido»; «Opiniones de socios»; comentarios de ejemplo sin jerga.
+  - JavaScript inicial: `optimizePackageImports` en `apps/web/next.config.mjs` para `@pitchlab/ui`, HeroUI, Base UI y Astryx: de ~458 kB a 326–369 kB por página.
+  - Escáner `avoid-ai-design`: 0 P0 antes y después; P1 de 11 a 8.
+- **Verificado:** typecheck, lint, todas las pruebas unitarias (incluidas 14 de UI) y build en verde. E2E: 6 de 10 pasaban; los 4 fallos eran selectores con textos viejos («Centro de Mando», «Radiografía»), ya actualizados a «Partidos de hoy» y «Ver partido».
+- **Dónde me quedé:**
+  1. **Correr `pnpm e2e`** con los selectores actualizados (la corrida se interrumpió; no está confirmado que pasen los 10).
+  2. Revisar en el navegador «Hoy» y la ficha del partido en móvil (375 px) tras los cambios; la última captura fue de escritorio.
+  3. Pendientes de esta misma tarea: quitar los «→» pegados a botones y el emoji usado como ícono en la portada (P1 del escáner), reducir las MAYÚSCULAS espaciadas que quedan en las vistas y partir `LedgerAccountAdminViews.tsx` (2,400 líneas, 6 vistas) para bajar más el JavaScript de Cuenta, Bitácora y Consola.
+  4. Decidir con el fundador si se ocultan del menú las secciones que hoy solo tienen contenido de ejemplo (Comunidad, Portal tipstar) hasta tener datos reales.

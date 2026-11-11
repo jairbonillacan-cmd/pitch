@@ -284,7 +284,7 @@ describe("PitchLab Spacetime Suite v3.0 & Liquid Glass Platform v4", () => {
 
     expect(publicHtml).toContain("PitchLab Spacetime Suite v3.0");
     expect(publicHtml).toContain("data-locked-pick");
-    expect(clubHtml).toContain("PitchLab Cortex IA");
+    expect(clubHtml).toContain("Cortex IA");
     expect(clubHtml).toContain("+15 días gratis");
     // Tipstars y comunidad de demostración siempre van marcados como ejemplo.
     expect(clubHtml).toContain("Contenido de ejemplo");

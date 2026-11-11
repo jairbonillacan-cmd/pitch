@@ -146,7 +146,7 @@ export function ParlayFloatingDock(): React.JSX.Element | null {
             {parlaySummary.legs.length === 1 ? "pick" : "picks"}
           </span>
           {parlaySummary.hasSgpCorrelation ? (
-            <span className="pl-pill pl-pill--info">SGP correlacionado</span>
+            <span className="pl-pill pl-pill--info">Mismo partido</span>
           ) : null}
           <div className="min-w-0">
             <p className="m-0 text-sm font-bold truncate">
@@ -194,7 +194,7 @@ export function ParlayFloatingDock(): React.JSX.Element | null {
                 kind: "parlay",
                 title: `Combinada PitchLab (${parlaySummary.legs.length} picks)`,
                 subtitle: parlaySummary.hasSgpCorrelation
-                  ? "Mismo partido (SGP) calibrado con Geodesic v2.0"
+                  ? "Mismo partido, con ajuste por correlación"
                   : "Multi-liga calibrada con Spacetime Suite v3.0",
                 leagueLabel: "Parlay Inteligente",
                 pickLabel: parlaySummary.legs
@@ -306,11 +306,9 @@ export function PickComposerModal(): React.JSX.Element | null {
               <div className="flex flex-wrap items-center gap-2">
                 <span className="pl-pill pl-pill--brand inline-flex items-center gap-1">
                   <MaestroIcon name="shield" size={12} />
-                  Bitácora Inmutable SHA-256
+                  Sellado antes del partido
                 </span>
-                <span className="pl-pill pl-pill--neutral">
-                  {composerPick.engineName}
-                </span>
+                <span className="pl-pill pl-pill--neutral">{composerPick.categoryLabel}</span>
               </div>
               <h2
                 id="composer-modal-title"
@@ -1067,13 +1065,13 @@ const CLUB_COMMAND_VIEWS: ReadonlyArray<{
     icon: "calendar",
   },
   {
-    label: "Multi-Picks del Día (hasta 5 por partido)",
+    label: "Picks del día (hasta 5 por partido)",
     subtitle: "Escudo, Principal, Totales, Táctico y Valor",
     href: "/app/picks",
     icon: "sparkles",
   },
   {
-    label: "Armador Inteligente de Parlays & SGP",
+    label: "Armar parlay",
     subtitle: "Correlación Geodesic v2.0 sin selecciones opuestas",
     href: "/app/parlays",
     icon: "layers",
@@ -1085,7 +1083,7 @@ const CLUB_COMMAND_VIEWS: ReadonlyArray<{
     icon: "sliders",
   },
   {
-    label: "Player Props Lab (NFL y Fútbol)",
+    label: "Props de jugadores (próximamente)",
     subtitle: "Simulador interactivo de líneas individuales",
     href: "/app/props",
     icon: "activity",

@@ -196,12 +196,8 @@ export function JornadaClubView(): React.JSX.Element {
         {/* Encabezado ejecutivo de Jornada */}
         <section className="flex flex-wrap items-end justify-between gap-4">
           <div className="space-y-1">
-            <span className="pl-pill pl-pill--brand inline-flex items-center gap-1.5">
-              <MaestroIcon name="sparkles" size={12} />
-              <span>PitchLab Spacetime Suite v3.0 · Jornada Activa</span>
-            </span>
             <h1 className="m-0 text-2xl sm:text-3xl font-extrabold">
-              Centro de Mando · Radiografías y Multi-Picks
+              Partidos de hoy
             </h1>
           </div>
 
@@ -220,7 +216,7 @@ export function JornadaClubView(): React.JSX.Element {
               }}
             >
               <MaestroIcon name="layers" size={13} />
-              <span>Auto-Armar Parlay ({riskPreference})</span>
+              <span>Armar parlay automático</span>
               <MaestroIcon name="arrowRight" size={13} />
             </button>
             <a
@@ -231,7 +227,7 @@ export function JornadaClubView(): React.JSX.Element {
               }}
               className="pl-btn-glass text-xs inline-flex items-center gap-1.5"
             >
-              <span>Ver todos los picks (hasta 5/juego)</span>
+              <span>Ver todos los picks</span>
               <MaestroIcon name="chevronRight" size={13} />
             </a>
           </div>
@@ -306,10 +302,10 @@ export function JornadaClubView(): React.JSX.Element {
                           size={18}
                         />
                         <span
-                          className="text-xs font-extrabold uppercase tracking-wider truncate"
-                          style={{ color: "var(--pl-brand)" }}
+                          className="text-xs font-semibold truncate"
+                          style={{ color: "var(--pl-text-secondary)" }}
                         >
-                          Estelar · {spotlight.leagueLabel}
+                          Partido destacado · {spotlight.leagueLabel}
                         </span>
                       </div>
                       <span
@@ -334,7 +330,7 @@ export function JornadaClubView(): React.JSX.Element {
                     }}
                     className="pl-btn-primary text-xs min-h-9 px-3.5 inline-flex items-center gap-1.5"
                   >
-                    <span>Estudio Completo ({spotlight.picks.length} picks)</span>
+                    <span>Ver partido ({spotlight.picks.length} picks)</span>
                     <MaestroIcon name="arrowRight" size={13} />
                   </a>
                 </div>
@@ -351,7 +347,7 @@ export function JornadaClubView(): React.JSX.Element {
                       />
                     </CrestPedestal>
                     <div className="min-w-0">
-                      <h2 className="m-0 text-lg sm:text-xl font-extrabold truncate">
+                      <h2 className="m-0 text-base sm:text-lg font-extrabold leading-tight line-clamp-2 break-words">
                         {spotlight.home.name}
                       </h2>
                       <span
@@ -400,7 +396,7 @@ export function JornadaClubView(): React.JSX.Element {
 
                   <div className="flex items-center gap-3 sm:justify-end min-w-0">
                     <div className="sm:text-right min-w-0">
-                      <h2 className="m-0 text-lg sm:text-xl font-extrabold truncate">
+                      <h2 className="m-0 text-base sm:text-lg font-extrabold leading-tight line-clamp-2 break-words">
                         {spotlight.away.name}
                       </h2>
                       <span
@@ -437,8 +433,8 @@ export function JornadaClubView(): React.JSX.Element {
                 <NoticeCard
                   tone="cortex"
                   icon="cpu"
-                  badgeText="PitchLab Cortex IA"
-                  title="Síntesis Ejecutiva Pre-Partido"
+                  badgeText="Cortex IA"
+                  title="Antes del partido"
                 >
                   {spotlight.preGame.cortexSynthesis}
                 </NoticeCard>
@@ -464,7 +460,7 @@ export function JornadaClubView(): React.JSX.Element {
                   <div className="flex items-center justify-between gap-2">
                     <span className="pl-pill pl-pill--brand inline-flex items-center gap-1">
                       <MaestroIcon name="layers" size={12} />
-                      <span>Geodesic v2.0 · 1 Clic</span>
+                      <span>En un clic</span>
                     </span>
                     <a
                       href="/app/parlays"
@@ -475,21 +471,21 @@ export function JornadaClubView(): React.JSX.Element {
                       className="text-xs font-bold no-underline hover:underline inline-flex items-center gap-1"
                       style={{ color: "var(--pl-brand)" }}
                     >
-                      <span>Constructor SGP</span>
+                      <span>Mismo partido</span>
                       <MaestroIcon name="chevronRight" size={12} />
                     </a>
                   </div>
 
                   <div>
                     <h2 className="m-0 text-lg font-extrabold">
-                      Auto-Armador Rápido de Parlay
+                      Parlay rápido
                     </h2>
                     <p
                       className="m-0 mt-0.5 text-xs leading-relaxed"
                       style={{ color: "var(--pl-text-secondary)" }}
                     >
-                      Genera al instante una combinada óptima de 3 selecciones sin
-                      mercados contradictorios según tu perfil:
+                      Tres selecciones de partidos distintos, sin contradicciones, según tu
+                      perfil:
                     </p>
                   </div>
 
@@ -554,7 +550,7 @@ export function JornadaClubView(): React.JSX.Element {
                 <div className="space-y-3">
                   <div className="flex items-center justify-between gap-2">
                     <h2 className="m-0 text-base font-extrabold">
-                      Top 3 Picks Principales de la Jornada
+                      Mejores picks de la jornada
                     </h2>
                     <a
                       href="/app/picks"
@@ -734,7 +730,7 @@ export function MultiPicksClubView(): React.JSX.Element {
             <span>Hasta 5 Picks por Partido · Spacetime Suite v3.0</span>
           </span>
           <h1 className="m-0 text-2xl sm:text-3xl font-extrabold">
-            Explorador Multi-Picks del Día
+            Picks del día
           </h1>
           <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
             Cada encuentro ofrece hasta 5 ángulos calibrados: Pick Principal, Escudo Conservador,
@@ -1253,7 +1249,7 @@ export function MatchStudioClubView({
         record: "+18.4u · CLV +4.2 %",
         createdAt: "Hace 18 min",
         isExample: true,
-        body: `La proyección de ${mainEngineName} favorece claramente el ángulo principal en ${matchLabelShort}. Sellé 1.5u antes del inicio.`,
+        body: `El modelo favorece el pick principal en ${matchLabelShort}. Sellé 1.5u antes del inicio.`,
       },
       {
         id: `seed-${game.id}-2`,
@@ -1262,7 +1258,7 @@ export function MatchStudioClubView({
         record: "+14.9u · CLV +3.9 %",
         createdAt: "Hace 39 min",
         isExample: true,
-        body: `Coincido con el Escudo Conservador para combinarlo en Parlay de 2 selecciones; Geodesic v2.0 sigue marcando valor limpio sobre la casa.`,
+        body: `Coincido con el pick más seguro para combinarlo en un parlay de 2 selecciones.`,
       },
     ];
 
@@ -1375,17 +1371,13 @@ export function MatchStudioClubView({
               <LeagueBadge league={game.league} label={game.leagueLabel} size={22} />
               <span
                 id="modal-league"
-                className="text-xs font-bold uppercase tracking-wider"
+                className="text-xs font-semibold"
               >
                 {game.leagueLabel} · {game.round} · {game.venue}
               </span>
             </div>
 
             <div className="flex flex-wrap items-center gap-1.5">
-              <span className="pl-pill inline-flex items-center gap-1 text-xs">
-                <MaestroIcon name="cpu" size={12} />
-                <span>{mainEngineName}</span>
-              </span>
               <span className="pl-pill pl-pill--success num text-xs">
                 Confianza {game.confidenceScore}/100
               </span>
@@ -1492,7 +1484,7 @@ export function MatchStudioClubView({
                   style={{ color: "var(--engine-cortex)" }}
                 >
                   <MaestroIcon name="cpu" size={14} />
-                  <span>Síntesis Ejecutiva · PitchLab Cortex IA</span>
+                  <span>Antes del partido · Cortex IA</span>
                 </span>
               </div>
               <p
@@ -1633,9 +1625,9 @@ export function MatchStudioClubView({
         <div className="seg-well" role="tablist" aria-label="Secciones de la radiografía">
           {(
             [
-              { id: "picks", label: `Multi-Picks (${game.picks.length})` },
-              { id: "mercados", label: `Mercados & Geodesic (${game.markets.length})` },
-              { id: "contexto", label: "Contexto & H2H" },
+              { id: "picks", label: `Picks (${game.picks.length})` },
+              { id: "mercados", label: `Mercados (${game.markets.length})` },
+              { id: "contexto", label: "Contexto" },
               { id: "dinero", label: "¿Dónde está el dinero?" },
             ] as const
           ).map((t) => (
@@ -1662,7 +1654,7 @@ export function MatchStudioClubView({
             <div className="lg:col-span-7 space-y-3.5">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <h2 className="m-0 text-lg font-extrabold">
-                  {game.picks.length} {game.picks.length === 1 ? "Ángulo Cuantitativo" : "Ángulos Cuantitativos"} de Este Partido
+                  Picks de este partido
                 </h2>
                 {viewerRole === "tipstar" || viewerRole === "admin" ? (
                   <span
@@ -1710,15 +1702,7 @@ export function MatchStudioClubView({
             >
               <div className="flex items-center justify-between gap-2">
                 <div>
-                  <span
-                    className="text-[11px] font-extrabold uppercase tracking-wider block"
-                    style={{ color: "var(--pl-brand)" }}
-                  >
-                    Comunidad Verificada
-                  </span>
-                  <h2 className="m-0 text-lg font-extrabold">
-                    Debate de Suscriptores
-                  </h2>
+                  <h2 className="m-0 text-lg font-extrabold">Opiniones de socios</h2>
                 </div>
                 <StackedAvatars
                   items={[

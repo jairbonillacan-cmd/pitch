@@ -37,7 +37,7 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     const elapsed = Date.now() - start;
     expect(elapsed).toBeLessThan(6000);
 
-    await expect(page.locator("h1")).toContainText("El súper-tipster cuantitativo");
+    await expect(page.locator("h1")).toContainText("Probabilidades claras para cada partido");
     await expect(page.locator("body")).toContainText("PitchLab Spacetime Suite v3.0");
     await expect(page.locator("body")).toContainText("16,126");
 
@@ -121,7 +121,7 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     await page.goto("/metodologia");
     await expect(page).toHaveURL(/\/tecnologia$/);
     await expect(page.locator("h1")).toContainText(
-      "Data Science, Machine Learning e IA",
+      "modelos validados contra el mercado",
     );
     await expect(page.locator("body")).toContainText("PitchLab Tachyon v3.0");
     await expect(page.locator("body")).toContainText("PitchLab Minkowski v3.0");
@@ -249,15 +249,15 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     await expect(dayChips.nth(1)).toHaveAttribute("aria-pressed", "true");
     await dayChips.first().click();
 
-    // Abrir Radiografía del primer partido -> /app/premier-league/games/<gameId>
+    // Abrir la ficha del primer partido -> /app/premier-league/games/<gameId>
     const firstCard = page.locator("[data-game-card]").first();
     const gameId = await firstCard.getAttribute("data-game-card");
     expect(gameId).toBeTruthy();
 
-    await firstCard.locator("a", { hasText: "Radiografía" }).click();
+    await firstCard.locator("a", { hasText: "Ver partido" }).click();
     await page.waitForURL(`**/app/premier-league/games/${gameId}`);
 
-    await expect(page.locator("body")).toContainText("PitchLab Cortex IA");
+    await expect(page.locator("body")).toContainText("Cortex IA");
     await expect(page.locator("[data-picks]")).toBeVisible();
     // Socio con Pase Total ve los 5 picks desbloqueados (cero candados)
     expect(await page.locator("[data-locked-pick]").count()).toBe(0);

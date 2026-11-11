@@ -75,7 +75,7 @@ export function HistorialClubView(): React.JSX.Element {
                 <span>Registro Público Inmutable · Partidos Finalizados FT</span>
               </span>
               <h1 className="m-0 text-2xl sm:text-3xl font-extrabold tracking-tight">
-                Resultados Cerrados y Auditoría ({allFt.length} encuentros)
+                Resultados ({allFt.length} partidos)
               </h1>
               <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
                 Boletos congelados al silbatazo inicial frente al marcador oficial. Públicos y
@@ -299,7 +299,7 @@ export function BitacoraClubView(): React.JSX.Element {
                 <span>Unidades Simuladas Auditadas · CLV Automático</span>
               </span>
               <h1 className="m-0 text-2xl sm:text-3xl font-extrabold tracking-tight">
-                Mi Bitácora Cuantitativa
+                Mi bitácora
               </h1>
               <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
                 Registro en unidades simuladas (0.25u–5.0u) para picks individuales y parlays
@@ -1227,7 +1227,7 @@ export function AccountReferralsClubView(): React.JSX.Element {
                   Membresía Única · Referidos Doble Vía · CFDI 4.0
                 </span>
                 <h1 className="m-0 mt-1 text-2xl sm:text-3xl font-extrabold tracking-tight">
-                  Mi Cuenta, Referidos y Facturación
+                  Mi cuenta
                 </h1>
                 <p className="m-0 text-xs num" style={{ color: "var(--pl-text-muted)" }}>
                   @socio_pl · {MEMBERSHIP_SPEC.name} · Marca anti-fuga {watermark}
@@ -1648,7 +1648,7 @@ export function AccountReferralsClubView(): React.JSX.Element {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
                   {[
                     "hasta 5 picks por partido en las 7 ligas activas",
-                    "Armador Inteligente de Parlays & SGP con Geodesic v2.0",
+                    "Armador de parlays, también del mismo partido",
                     "Alertas de valor de Geodesic en tus partidos",
                     "Comunidad VIP verificada + Factura CFDI 4.0 automática",
                   ].map((feat) => (
@@ -1733,7 +1733,7 @@ export function AccountReferralsClubView(): React.JSX.Element {
               {/* Perfil de riesgo preferido */}
               <div className="space-y-2">
                 <span className="block text-xs font-extrabold uppercase tracking-wider" style={{ color: "var(--pl-text-muted)" }}>
-                  Perfil predeterminado en Multi-Picks y Parlays
+                  Perfil predeterminado en picks y parlays
                 </span>
                 <div className="seg-well" role="group" aria-label="Perfil de riesgo">
                   {(["conservador", "medio", "arriesgado"] as const).map((rb: RiskBand) => (
@@ -2125,7 +2125,7 @@ export function FounderAdminClubView(): React.JSX.Element {
                 <span>Consola Operativa Founder · Configuración de Lanzamiento</span>
               </span>
               <h1 className="m-0 text-2xl sm:text-3xl font-extrabold tracking-tight">
-                Admin Founder · Prueba $0, Anti-Abuso, Tipstars y Motores
+                Consola del fundador
               </h1>
             </div>
 

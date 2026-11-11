@@ -57,9 +57,7 @@ export function TechPrecisionSection({
                   isPrimaryHeading ? "text-3xl sm:text-4xl" : "text-2xl sm:text-3xl"
                 } font-extrabold tracking-tight leading-tight`}
               >
-                No somos corazonadas.
-                <br />
-                Somos Data Science, Machine Learning e IA entrenados cada jornada.
+                No son corazonadas: son modelos validados contra el mercado.
               </PrimaryHeadingTag>
 
               <p
@@ -412,7 +410,7 @@ export function PlansAndReferralsSection({
 
   const checklistItems = [
     "hasta 5 picks por partido (Conservador, Medio, Arriesgado y Totales)",
-    "Armador Inteligente de Parlays (2 a 6 patas + modo SGP)",
+    "Armador de parlays de 2 a 6 selecciones, también del mismo partido",
     "Spacetime Suite v3.0 completa + resumen Cortex IA y bajas reportadas",
     "Player Prop Lab, comparador Geodesic v2.0 y debate exclusivo de pago",
   ];
@@ -630,7 +628,7 @@ export function PricingSurface(): React.JSX.Element {
   const faqs = [
     {
       q: "¿Por qué solo existe un Pase Total PitchLab?",
-      a: "Eliminamos escalones artificiales. Con una sola suscripción ($299 MXN/mes o $2,390 MXN/año) tienes acceso a todos los picks de cada partido (hasta 5), la radiografía de Cortex IA, el Armador de Parlays & SGP y la Comunidad VIP; Player Props Lab llega cuando su motor pase validación.",
+      a: "Eliminamos escalones artificiales. Con una sola suscripción ($299 MXN/mes o $2,390 MXN/año) tienes acceso a todos los picks de cada partido (hasta 5), el resumen de Cortex IA, el armador de parlays y la Comunidad; los props de jugadores llegan cuando su motor pase validación.",
     },
     {
       q: "¿Cómo funciona la prueba gratis del primer mes sin tarjeta?",

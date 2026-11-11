@@ -76,10 +76,10 @@ function FloatingQuickJumpBar({
       { id: "landing", label: "1. Landing", href: "/" },
       { id: "signup", label: "2. Acceso $0", href: "/signup" },
       { id: "jornada", label: "3. Jornada", href: "/app" },
-      { id: "picks", label: "4. Multi-Picks", href: "/app/picks" },
+      { id: "picks", label: "4. Picks del día", href: "/app/picks" },
       { id: "studio", label: "5. Estudio de Partido", href: firstStudioHref },
-      { id: "parlays", label: "6. Parlays SGP", href: "/app/parlays" },
-      { id: "props", label: "7. Props Lab", href: "/app/props" },
+      { id: "parlays", label: "6. Parlays", href: "/app/parlays" },
+      { id: "props", label: "7. Props", href: "/app/props" },
       { id: "social", label: "8. Comunidad VIP", href: "/app/social" },
       { id: "tipstar", label: "9. Portal Tipstar", href: "/app/tipstar" },
       { id: "referrals", label: "10. Referidos", href: "/app/account" },
@@ -438,92 +438,28 @@ export function ClubWorkspaceShell({
   const [mobileMoreOpen, setMobileMoreOpen] = useState<boolean>(false);
   const valueAlertCount = useMemo(() => valueAlertsFrom(dataset.games).length, [dataset.games]);
 
-  const railGroups: RailNavGroup[] = useMemo(
-    () => [
-      {
-        title: "Spacetime Club",
-        items: [
-          {
-            href: "/app",
-            label: "Jornada",
-            icon: "calendar",
-          },
-          {
-            href: "/app/picks",
-            label: "Multi-Picks hoy",
-            icon: "sparkles",
-          },
-          {
-            href: "/app/parlays",
-            label: "Armar Parlays",
-            icon: "layers",
-            badge: `${parlayLegs.length}`,
-            badgeBrand: parlayLegs.length > 0,
-          },
-          {
-            href: "/app/social",
-            label: "Comunidad VIP",
-            icon: "users",
-            liveDot: true,
-          },
-          {
-            href: "/app/lab",
-            label: "Mi bitácora",
-            icon: "ticket",
-            badge: `${journal.length}`,
-          },
-        ],
-      },
-      {
-        title: "Motores & Labs",
-        items: [
-          {
-            href: "/app/tech",
-            label: "Tecnología & Precisión",
-            icon: "cpu",
-          },
-          {
-            href: "/app/props",
-            label: "Player Props Lab",
-            icon: "sliders",
-          },
-          {
-            href: "/app/momios",
-            label: "Momios & Geodesic",
-            icon: "activity",
-          },
-          {
-            href: "/app/historial",
-            label: "Resultados cerrados",
-            icon: "shield",
-          },
-        ],
-      },
-      {
-        title: "Crecimiento",
-        items: [
-          {
-            href: "/app/tipstar",
-            label: "Portal Tipstar",
-            icon: "crown",
-            badge: "1/sem",
-            badgeBrand: true,
-          },
-          {
-            href: "/app/account",
-            label: "Referidos (+15d)",
-            icon: "gift",
-          },
-          {
-            href: "/app/admin",
-            label: "Admin Founder",
-            icon: "chart",
-          },
-        ],
-      },
-    ],
-    [journal.length, parlayLegs.length],
-  );
+  // Navegación: 4 destinos principales, las ligas y un grupo «Más» para lo secundario.
+  // El portal de tipstars y la consola solo aparecen para quien los usa.
+  const railGroups: RailNavGroup[] = useMemo(() => {
+    const more: RailNavItem[] = [
+      { href: "/app/picks", label: "Picks del día", icon: "sparkles" },
+      { href: "/app/momios", label: "Momios y ventaja", icon: "activity" },
+      { href: "/app/historial", label: "Resultados", icon: "shield" },
+      { href: "/app/social", label: "Comunidad", icon: "users" },
+      { href: "/app/props", label: "Props de jugadores", icon: "sliders" },
+      { href: "/app/tech", label: "Cómo calculamos", icon: "cpu" },
+    ];
+    if (viewerRole === "tipstar" || viewerRole === "admin") {
+      more.push({ href: "/app/tipstar", label: "Portal tipstar", icon: "crown" });
+    }
+    if (viewerRole === "admin") {
+      more.push({ href: "/app/admin", label: "Consola", icon: "chart" });
+    }
+    return [
+      { title: "Club", items: primaryNavItems(parlayLegs.length, journal.length) },
+      { title: "Más", items: more },
+    ];
+  }, [journal.length, parlayLegs.length, viewerRole]);
 
   const allClubItems = useMemo(
     () => railGroups.flatMap((g) => g.items),
@@ -685,10 +621,10 @@ export function ClubWorkspaceShell({
         <aside className="app-rail glass-ring" aria-label="Menú del Club PitchLab">
           <div className="flex items-center justify-between px-2 pb-1">
             <span
-              className="rail-hide-collapsed text-[11px] font-extrabold uppercase tracking-wider"
-              style={{ color: "var(--pl-brand)" }}
+              className="rail-hide-collapsed text-xs font-semibold"
+              style={{ color: "var(--pl-text-muted)" }}
             >
-              PitchLab Club
+              Club
             </span>
             <button
               type="button"
@@ -700,15 +636,8 @@ export function ClubWorkspaceShell({
             </button>
           </div>
 
-          {railGroups.map((group, groupIdx) => (
+          {[railGroups[0]!].map((group) => (
             <div key={group.title} className="space-y-1">
-              {groupIdx > 0 ? <div className="ticket-perf my-1.5" /> : null}
-              <span
-                className="rail-hide-collapsed px-2 pt-1 text-[10px] font-extrabold uppercase tracking-wider block"
-                style={{ color: "var(--pl-text-muted)" }}
-              >
-                {group.title}
-              </span>
               <nav aria-label={group.title} className="space-y-0.5">
                 {group.items.map((item) => {
                   const active = activePath === item.href;
@@ -761,12 +690,12 @@ export function ClubWorkspaceShell({
 
           <div className="space-y-1">
             <span
-              className="rail-hide-collapsed px-2 pt-1 text-[10px] font-extrabold uppercase tracking-wider block"
+              className="rail-hide-collapsed px-2 pt-1 text-xs font-semibold block"
               style={{ color: "var(--pl-text-muted)" }}
             >
-              7 Ligas
+              Ligas
             </span>
-            <nav aria-label="7 Ligas" className="space-y-0.5">
+            <nav aria-label="Ligas" className="space-y-0.5">
               {dataset.leagues.map((lg) => {
                 const href = `/app/${lg.league}`;
                 const active = activePath === href || activePath.startsWith(`${href}/`);
@@ -798,41 +727,86 @@ export function ClubWorkspaceShell({
               })}
             </nav>
           </div>
+          <div className="ticket-perf my-1.5" />
+
+          {[railGroups[1]!].map((group) => (
+            <div key={group.title} className="space-y-1">
+              <span
+                className="rail-hide-collapsed px-2 pt-1 text-xs font-semibold block"
+                style={{ color: "var(--pl-text-muted)" }}
+              >
+                {group.title}
+              </span>
+              <nav aria-label={group.title} className="space-y-0.5">
+                {group.items.map((item) => {
+                  const active = activePath === item.href;
+                  return (
+                    <a
+                      key={item.href}
+                      href={item.href}
+                      aria-current={active ? "page" : undefined}
+                      title={collapsed ? item.label : undefined}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        navigateTo(item.href);
+                      }}
+                      className="rail-item justify-between"
+                    >
+                      <span className="flex items-center gap-2.5 min-w-0">
+                        <MaestroIcon
+                          name={item.icon}
+                          size={15}
+                          style={{
+                            color: active ? "var(--pl-brand)" : "var(--pl-text-secondary)",
+                          }}
+                        />
+                        <span className="rail-hide-collapsed truncate">{item.label}</span>
+                      </span>
+
+                      {!collapsed && item.liveDot ? (
+                        <span
+                          className="size-2 rounded-full shrink-0"
+                          style={{ background: "var(--pl-success)" }}
+                          aria-label="Actividad en vivo"
+                        />
+                      ) : null}
+
+                      {!collapsed && item.badge ? (
+                        <span
+                          className={`pl-pill num text-[10px] ${item.badgeBrand ? "pl-pill--brand" : ""}`}
+                        >
+                          {item.badge}
+                        </span>
+                      ) : null}
+                    </a>
+                  );
+                })}
+              </nav>
+            </div>
+          ))}
+
         </aside>
 
         <main id="main" className="min-w-0 space-y-6">
           <div className="xl:hidden flex flex-wrap items-center justify-between gap-2">
             <RoleSwitcherPill compact />
-            <button
-              type="button"
-              className="pl-btn-glass text-xs min-h-8 px-3 lg:hidden inline-flex items-center gap-1.5"
-              aria-expanded={mobileMoreOpen}
-              onClick={() => setMobileMoreOpen(true)}
-            >
-              <MaestroIcon name="layers" size={14} />
-              <span>Todos los módulos</span>
-            </button>
           </div>
           {children}
         </main>
       </div>
 
-      {/* Barra inferior móvil con 5 ítems exactos */}
+      {/* Barra inferior móvil: los 4 destinos principales y «Más» */}
       <nav
         aria-label="Navegación móvil del Club"
         className="mobile-dock glass-pill-bar glass-ring"
       >
         {(
           [
-            { href: "/app", label: "Jornada", icon: "calendar" as MaestroIconName },
-            { href: "/app/picks", label: "Picks", icon: "sparkles" as MaestroIconName },
-            {
-              href: "/app/parlays",
-              label: parlayLegs.length > 0 ? `Parlays (${parlayLegs.length})` : "Parlays",
-              icon: "layers" as MaestroIconName,
-            },
-            { href: "/app/social", label: "VIP", icon: "users" as MaestroIconName },
-            { href: "/app/account", label: "Referidos", icon: "gift" as MaestroIconName },
+            ...primaryNavItems(parlayLegs.length, journal.length).map((i) => ({
+              href: i.href,
+              label: i.shortLabel ?? i.label,
+              icon: i.icon,
+            })),
           ] as const
         ).map((item) => {
           const active = activePath === item.href;
@@ -853,6 +827,15 @@ export function ClubWorkspaceShell({
             </a>
           );
         })}
+        <button
+          type="button"
+          aria-expanded={mobileMoreOpen}
+          onClick={() => setMobileMoreOpen(true)}
+          className="seg-btn flex-col justify-center gap-0.5 text-[11px] px-1 py-1"
+        >
+          <MaestroIcon name="layers" size={15} />
+          <span>Más</span>
+        </button>
       </nav>
 
       <TopLayerModalDialog
@@ -864,7 +847,7 @@ export function ClubWorkspaceShell({
         <div className="glass-lens glass-ring w-full rounded-2xl p-5 space-y-4 max-h-[82vh] overflow-y-auto">
           <div className="flex items-center justify-between">
             <h2 id="mobile-more-dialog-title" className="m-0 text-base font-bold">
-              Todo el Club PitchLab
+              Más del Club
             </h2>
             <button
               type="button"
@@ -925,4 +908,31 @@ export function ClubWorkspaceShell({
       </TopLayerModalDialog>
     </>
   );
+}
+
+interface PrimaryNavItem extends RailNavItem {
+  shortLabel?: string;
+}
+
+/** Los 4 destinos principales, iguales en el riel y en el dock móvil. */
+function primaryNavItems(parlayCount: number, journalCount: number): PrimaryNavItem[] {
+  return [
+    { href: "/app", label: "Hoy", icon: "calendar" },
+    {
+      href: "/app/parlays",
+      label: "Armar parlay",
+      shortLabel: parlayCount > 0 ? `Parlay (${parlayCount})` : "Parlay",
+      icon: "layers",
+      badge: parlayCount > 0 ? `${parlayCount}` : undefined,
+      badgeBrand: parlayCount > 0,
+    },
+    {
+      href: "/app/lab",
+      label: "Mi bitácora",
+      shortLabel: "Bitácora",
+      icon: "ticket",
+      badge: journalCount > 0 ? `${journalCount}` : undefined,
+    },
+    { href: "/app/account", label: "Cuenta", icon: "gift" },
+  ];
 }

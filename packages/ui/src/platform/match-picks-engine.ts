@@ -223,6 +223,14 @@ function projectionFor(
   return match.projection ?? undefined;
 }
 
+/** Etiqueta que se entiende sola: «Sí»/«No» de ambos anotan llevan el mercado delante. */
+function pickLabelOf(group: string, row: AnalysisMarketRow): string {
+  if (row.market === "btts") return `Ambos anotan: ${row.label}`;
+  if (row.market === "correct_score") return `Marcador exacto ${row.label}`;
+  if (/^(sí|si|no|más|menos)$/i.test(row.label.trim())) return `${group}: ${row.label}`;
+  return row.label;
+}
+
 function buildFiveMatchPicks(match: MatchAnalysis, signal: SpacetimeSignal | null): MatchPick[] {
   const isNfl = match.sport === "american-football" || match.league === "nfl";
   const allRows = rowsWithSpacetime(match, signal);
@@ -268,15 +276,15 @@ function buildFiveMatchPicks(match: MatchAnalysis, signal: SpacetimeSignal | nul
   if (main) {
     pickRows.push({
       category: "principal",
-      categoryLabel: "Pick Principal PitchLab",
+      categoryLabel: "Pick principal",
       risk: "medio",
       engineKey: primaryEngine,
       engineName: finalEngineName,
       marketGroup: main.group,
       row: main.row,
       rationale: proj
-        ? `${primaryEngineName} proyecta ${proj.home.toFixed(isNfl ? 1 : 2)}–${proj.away.toFixed(isNfl ? 1 : 2)} y ${Math.round(main.row.p * 100)} % para esta selección.`
-        : `${primaryEngineName} asigna ${Math.round(main.row.p * 100)} % a esta selección.`,
+        ? `El modelo proyecta ${proj.home.toFixed(isNfl ? 1 : 2)}–${proj.away.toFixed(isNfl ? 1 : 2)} y ${Math.round(main.row.p * 100)} % para esta selección.`
+        : `El modelo da ${Math.round(main.row.p * 100)} % a esta selección.`,
       units: 1.5,
     });
   }
@@ -287,13 +295,13 @@ function buildFiveMatchPicks(match: MatchAnalysis, signal: SpacetimeSignal | nul
   if (shield) {
     pickRows.push({
       category: "conservador",
-      categoryLabel: "Escudo Conservador",
+      categoryLabel: "Más seguro",
       risk: "conservador",
       engineKey: isNfl ? "minkowski" : "singularity",
       engineName: finalEngineName,
       marketGroup: shield.group,
       row: shield.row,
-      rationale: `Cobertura de baja varianza: ${Math.round(shield.row.p * 100)} % de probabilidad calibrada.`,
+      rationale: `La opción más probable: ${Math.round(shield.row.p * 100)} %. Buena base para un parlay.`,
       units: 2.0,
     });
   }
@@ -309,7 +317,7 @@ function buildFiveMatchPicks(match: MatchAnalysis, signal: SpacetimeSignal | nul
   if (totals) {
     pickRows.push({
       category: "totales",
-      categoryLabel: "Línea de Totales",
+      categoryLabel: isNfl ? "Puntos totales" : "Goles totales",
       risk: "medio",
       engineKey: primaryEngine,
       engineName: primaryEngineName,
@@ -336,13 +344,13 @@ function buildFiveMatchPicks(match: MatchAnalysis, signal: SpacetimeSignal | nul
   if (tactical) {
     pickRows.push({
       category: "tactico",
-      categoryLabel: "Lectura Táctica",
+      categoryLabel: "Lectura del partido",
       risk: "medio",
       engineKey: primaryEngine,
       engineName: primaryEngineName,
       marketGroup: tactical.group,
       row: tactical.row,
-      rationale: `Lectura del guion del partido: ${Math.round(tactical.row.p * 100)} % de probabilidad.`,
+      rationale: `Cómo se espera que se juegue: ${Math.round(tactical.row.p * 100)} % de probabilidad.`,
       units: 1.0,
     });
   }
@@ -359,7 +367,7 @@ function buildFiveMatchPicks(match: MatchAnalysis, signal: SpacetimeSignal | nul
       usedLabels.add(valueRow.row.label);
       pickRows.push({
         category: "valor",
-        categoryLabel: "Cuota Alta · Valor",
+        categoryLabel: "Valor contra la casa",
         risk: "arriesgado",
         engineKey: "geodesic",
         engineName: ENGINE_NAMES.geodesic,
@@ -403,7 +411,7 @@ function buildFiveMatchPicks(match: MatchAnalysis, signal: SpacetimeSignal | nul
       marketGroup: item.marketGroup,
       selectionKey: row.selection,
       conflictGroup,
-      label: row.label,
+      label: pickLabelOf(item.marketGroup, row),
       rationale: item.rationale,
       p,
       fairDecimal,
@@ -432,9 +440,8 @@ function buildPreGameIntel(match: MatchAnalysis, signal: SpacetimeSignal | null)
     .sort((a, b) => Math.abs(b.impactLogit) - Math.abs(a.impactLogit))
     .slice(0, 3);
 
-  const engineLabel = signal?.engineName ?? (isNfl ? ENGINE_NAMES.minkowski : ENGINE_NAMES.tachyon);
   const synthesisParts = [
-    `${engineLabel} da ${favP} % a ${favName}${!isNfl && pd > 0 ? ` y ${Math.round(pd * 100)} % al empate` : ""}.`,
+    `El modelo da ${favP} % a ${favName}${!isNfl && pd > 0 ? ` y ${Math.round(pd * 100)} % al empate` : ""}.`,
   ];
   if (topDrivers.length > 0) {
     synthesisParts.push(`Factores con más peso: ${topDrivers.map((d) => d.label.toLowerCase()).join(", ")}.`);

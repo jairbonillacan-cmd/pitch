@@ -36,20 +36,20 @@ function getCompactBlockReason(
   rawReason: string | undefined,
 ): string {
   if (sameGameExists && !allowSgp) {
-    return "Mismo partido — activa SGP";
+    return "Mismo partido: actívalo en el paso 4";
   }
   if (!rawReason) {
     return "Mercado contradictorio";
   }
   const lower = rawReason.toLowerCase();
   if (lower.includes("mismo partido") && !allowSgp) {
-    return "Mismo partido — activa SGP";
+    return "Mismo partido: actívalo en el paso 4";
   }
   if (lower.includes("contradic") || lower.includes("opuest")) {
     return "Mercado contradictorio";
   }
   if (lower.includes("máximo 2") || lower.includes("2 selecciones")) {
-    return "Máx. 2 SGP por partido";
+    return "Máx. 2 selecciones por partido";
   }
   return rawReason;
 }
@@ -127,10 +127,10 @@ export function ParlayBuilderClubView(): React.JSX.Element {
         <section className="space-y-2">
           <span className="pl-pill pl-pill--brand inline-flex items-center gap-1.5">
             <MaestroIcon name="layers" size={12} />
-            <span>Geodesic v2.0 · Auto-Armador & Constructor Manual SGP</span>
+            <span>Automático o a mano</span>
           </span>
           <h1 className="m-0 text-2xl sm:text-3xl font-extrabold">
-            Armador Inteligente de Parlays y Combinadas
+            Armar parlay
           </h1>
           <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
             Configura los 4 pasos del motor cuantitativo para construir tu combinada óptima, o
@@ -286,7 +286,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                       className="text-xs font-extrabold uppercase tracking-wider block"
                       style={{ color: "var(--pl-brand)" }}
                     >
-                      4. SGP (Mismo Partido)
+                      4. Mismo partido
                     </span>
                     <span className="text-xs" style={{ color: "var(--pl-text-secondary)" }}>
                       Permite hasta 2 selecciones compatibles del mismo encuentro con factor de correlación Geodesic v2.0.
@@ -299,7 +299,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                     </Switch.Control>
                     <Switch.Content>
                       <span className="text-xs font-bold">
-                        {allowSgp ? "SGP Activo" : "Activar SGP"}
+                        {allowSgp ? "Mismo partido activado" : "Permitir mismo partido"}
                       </span>
                     </Switch.Content>
                   </Switch>
@@ -610,7 +610,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                   <NoticeCard
                     tone="info"
                     icon="activity"
-                    badgeText="Correlación SGP"
+                    badgeText="Mismo partido"
                     title="Ajuste Geodesic v2.0 Activo"
                   >
                     Probabilidad conjunta ajustada por dependencia estadística entre selecciones del mismo encuentro.
@@ -782,7 +782,7 @@ export function PropsLabClubView(): React.JSX.Element {
       syntheticPropPick,
       1.0,
       userDecimal,
-      `Player Props Lab · Media proyectada ${prop.projectionMean.toFixed(1)}`,
+      `Props de jugadores · Media proyectada ${prop.projectionMean.toFixed(1)}`,
     );
   };
 
@@ -795,7 +795,7 @@ export function PropsLabClubView(): React.JSX.Element {
             <span>Distribuciones Continuas · Minkowski v3.0 & Tachyon v3.0</span>
           </span>
           <h1 className="m-0 text-2xl sm:text-3xl font-extrabold">
-            Player Props Lab Interactivo
+            Props de jugadores
           </h1>
           <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
             Mueve la línea alternativa con <code>− / +</code>, regresa a la línea{" "}
@@ -810,7 +810,7 @@ export function PropsLabClubView(): React.JSX.Element {
             <div className="relative z-10 space-y-3">
               <h2 className="m-0 text-xl font-extrabold inline-flex items-center gap-2">
                 <MaestroIcon name="lock" size={18} style={{ color: "var(--pl-brand)" }} />
-                <span>Player Props Lab reservado para Pase Total</span>
+                <span>Props de jugadores para Pase Total</span>
               </h2>
               <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
                 Activa tus 7 días gratis para explorar proyecciones individuales de NFL y fútbol.
@@ -1207,7 +1207,7 @@ export function MomiosExplorerClubView(): React.JSX.Element {
               <span>PitchLab Geodesic v2.0 · Momios sin margen y ventaja</span>
             </span>
             <h1 className="m-0 text-2xl sm:text-3xl font-extrabold">
-              Explorador de Momios Limpios y Ventaja (EV)
+              Momios y ventaja
             </h1>
           </div>
 
@@ -1326,12 +1326,8 @@ export function MomiosExplorerClubView(): React.JSX.Element {
                         </td>
                         <td className="py-2.5 pr-3">
                           <strong className="block text-sm">{pick.label}</strong>
-                          <span
-                            className="inline-flex items-center gap-1 text-xs"
-                            style={{ color: "var(--pl-text-muted)" }}
-                          >
-                            <MaestroIcon name="cpu" size={11} />
-                            <span>{pick.engineName}</span>
+                          <span className="text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                            {pick.categoryLabel}
                           </span>
                         </td>
                         <td className="py-2.5 px-2 text-right num">
