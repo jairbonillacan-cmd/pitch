@@ -11,7 +11,7 @@ Si ya implementaste el perfil con `prompts/antigravity/PROFILE.md`, reutiliza `p
 ## 0. Lee esto antes de escribir código, en este orden
 
 1. `AGENTS.md`, `apps/web/PRODUCT.md`, `docs/design/DESIGN_SYSTEM.md`, `docs/design/UI_LIBRARIES.md`, `docs/design/RESPONSIVE_RULES.md` y `docs/design/INTERACTION_PATTERNS.md`. Carga el skill `dataviz` antes de tocar las barras de consenso.
-2. **El diseño:** `design/canvas/social/README.md`, luego `Main.dc.html` (escritorio, con la pestaña inicial en Tweaks), `Mobile.dc.html` y las notas `decisiones` y `brief` de `canvas.json`. Si una nota del lienzo choca con este prompt, manda este prompt.
+2. **El diseño:** `design/canvas/social/README.md`, luego `Main.dc.html` y `Mobile.dc.html` (Para ti) y una mesa de trabajo por pestaña: `Siguiendo.dc.html`, `Consenso.dc.html` y `Ranking.dc.html`, cada una con su versión `…Mobile.dc.html`. Lee también las notas `decisiones`, `brief`, `nSiguiendo`, `nConsenso` y `nRanking` de `canvas.json`. **Las mesas de cada pestaña mandan sobre la versión simple de esa pestaña que hay en `Main.dc.html`.** Si una nota del lienzo choca con este prompt, manda este prompt.
 3. El código actual:
    - `packages/ui/src/platform/club/SocialAndTipstarViews.tsx`, `SocialVipClubView`:
      - pestañas Feed, Consenso y Ranking, más un filtro aparte Todos/Siguiendo;
@@ -59,7 +59,13 @@ Antes de editar, escribe un plan corto: qué archivos cambias, qué compartes co
   - Ficha del pick, si hay: emblemas, «mercado · unidades», «liga · hora · momio · justo · modelo %» y el estado (círculo vacío «Abierto», punto verde «Cumplido · +Nu», punto rojo «No se cumplió · −Nu»). Momios en el formato elegido (`formatOddsValue`).
   - Acciones: Me gusta (`toggleSocialLike`, corazón SVG que se rellena, `aria-pressed`), Comentarios (abre el hilo), Copiar a mi bitácora (solo con `pick`) y Compartir.
   - Debajo, el primer comentario y «Ver los N comentarios». El hilo completo y el campo para responder se abren en su lugar.
-- **Siguiendo:** las publicaciones de quienes sigues. Vacío: «Aún no sigues a nadie.» + «Ver ranking».
+- **Siguiendo** (mesa `Siguiendo.dc.html`):
+  - arriba, una tira con los avatares de quienes sigues, «Sigues a N · X tipstars, Y socios» y «Administrar»;
+  - filtros Todos · Tipstars · Socios · Con pick abierto;
+  - el feed solo con publicaciones de quienes sigues;
+  - en la columna derecha, «Picks abiertos · próximos» (picks abiertos de quienes sigues, ordenados por la hora del partido y agrupados por pick, con los nombres de quién lo tiene) y «Para seguir» (3 del ranking a quienes no sigues, con Seguir).
+  - En móvil, los avatares van en una fila, los filtros en chips con scroll y los picks abiertos en una tira horizontal antes del feed.
+  - Vacío: «Aún no sigues a nadie.» con las sugerencias.
 - **Columna derecha** (desaparece a 980 px o menos):
   - **Tu {mes}:** puesto, saldo, picks y la distancia al top 10 en unidades (de `rankAnalysts`), con «Ver mi perfil». Si no apareces: «Registra 20 picks para entrar al ranking».
   - **Top de {mes}:** los primeros 5 con avatar, nombre y saldo, y «Ver ranking» que cambia de pestaña.
@@ -73,6 +79,12 @@ Antes de editar, escribe un plan corto: qué archivos cambias, qué compartes co
   - % del modelo = la `p` del dataset para el mismo resultado.
 - Tarjeta: partido con emblemas y «liga · hora · N picks de socios»; dos barras alineadas, Socios en `--pl-brand` y Modelo en `--pl-text-secondary`, con su % a la derecha; y una línea con la diferencia: «Los socios ven a {equipo} {N} pts más probable que el modelo» (o «menos probable»). Si la diferencia es menor a 3 pts: «Socios y modelo coinciden en {equipo}».
 - Ordena por diferencia absoluta, de mayor a menor.
+- **Como en la mesa `Consenso.dc.html`:**
+  - filtros por liga y un selector de orden (Mayor diferencia · Más picks · Próximos);
+  - el partido con mayor diferencia va destacado arriba, con sus resultados (local, empate y visita; en NFL, los dos) en tarjetas con barras Socios vs Modelo;
+  - el resto va en una lista con columnas Partido · Más elegido por socios · Socios · Modelo · Diferencia · Picks;
+  - la diferencia va en una ficha con signo: contorno `--pl-brand` si es de 10 pts o más, texto atenuado si es menor a 3;
+  - nota al pie: «Socios: % de picks publicados por resultado. Modelo: probabilidad del partido. Solo partidos con 10 picks o más.»
 - Sin partidos que lleguen al mínimo: «Todavía no hay partidos con 10 picks de socios.»
 
 ### 2.4 Ranking
@@ -82,7 +94,12 @@ Antes de editar, escribe un plan corto: qué archivos cambias, qué compartes co
 - **Tu fila** se resalta con `--pl-brand` al 8 % y aparece al final con tu puesto real si quedas fuera de los visibles.
 - Nota única debajo: «Mínimo 20 picks cerrados.»
 - Usa `rankAnalysts()` con ventanas reales: filtra por fecha, sin `windowFactor` ni `clvBoost`. Si los perfiles de ejemplo no tienen picks con fecha, deja sus cifras de temporada y en 30 días muéstralos solo si tienen datos.
-- **Móvil:** lista en lugar de tabla (puesto, avatar, nombre, «N % cumplidos · N picks» y saldo).
+- **Como en la mesa `Ranking.dc.html`:**
+  - orden por Saldo, Contra el cierre o Cumplidos;
+  - **podio** de los 3 primeros en tarjetas de vidrio (el 1.º al centro, más alto y con borde destacado): puesto, avatar, nombre + sello (solo si es tipstar), saldo grande, cumplidos, contra el cierre, picks y Seguir;
+  - tabla del 4.º en adelante;
+  - tu fila al final con «Te faltan N u para el top 10».
+- **Móvil:** el podio en fila de 3, la lista del 4.º en adelante (puesto, avatar, nombre, «N % cumplidos · N picks» y saldo) y tu fila fija abajo, sobre la lista.
 
 ### 2.5 Móvil (por debajo de 640 px)
 

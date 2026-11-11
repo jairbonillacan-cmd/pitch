@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<title>Comunidad · Ranking · escritorio</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+html,body{overflow-x:hidden}
+.lp{--bg:#000000;--surf2:rgba(255,255,255,.07);--line:rgba(255,255,255,.08);--line2:rgba(255,255,255,.16);--t1:#FFFFFF;--t2:#D4D4DC;--t3:#A1A1AD;--brand:#C4B5FD;--ok:#6EE7B7;--btn:#FFFFFF;--btnfg:#000000;--glow:rgba(196,181,253,.20);--field:rgba(255,255,255,.035)}
+.lp{--l1:rgba(124,92,246,.34);--l2:rgba(250,204,21,.10);--sheen:rgba(255,255,255,.06);--inner:inset 0 1px 0 rgba(255,255,255,.08);--lens:rgba(18,18,24,.62);--shadow:0 30px 60px -30px rgba(0,0,0,.8),0 10px 20px -14px rgba(0,0,0,.6);--rim-c:rgba(255,255,255,.7);--rim-t:rgba(255,255,255,.28);--rim-m:rgba(255,255,255,.04);--rim-b:rgba(255,255,255,.12)}
+.lp{background:var(--bg);color:var(--t1);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;position:relative;overflow:hidden;min-height:100vh}
+.lp *{box-sizing:border-box}
+.atmo{position:absolute;inset:0;pointer-events:none;background:radial-gradient(40% 26% at 50% 8%,var(--l1),transparent 70%),radial-gradient(24% 16% at 50% 14%,var(--l2),transparent 70%)}
+.glass{position:relative;background:linear-gradient(180deg,var(--sheen),transparent 30%),var(--lens);box-shadow:var(--inner),var(--shadow)}
+.glass::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;z-index:2;background:radial-gradient(70px circle at 0% 0%,var(--rim-c),transparent 100%),radial-gradient(70px circle at 100% 0%,var(--rim-c),transparent 100%),linear-gradient(180deg,var(--rim-t) 0%,var(--rim-m) 22%,var(--rim-m) 72%,var(--rim-b) 100%);-webkit-mask:linear-gradient(#000,#000) content-box,linear-gradient(#000,#000);-webkit-mask-composite:xor;mask:linear-gradient(#000,#000) content-box exclude,linear-gradient(#000,#000)}
+.first::before{padding:1.25px;background:radial-gradient(90px circle at 0% 0%,#fff,transparent 100%),radial-gradient(90px circle at 100% 0%,#fff,transparent 100%),linear-gradient(180deg,rgba(255,255,255,.6) 0%,rgba(196,181,253,.4) 40%,rgba(255,255,255,.2) 100%)}
+.num{font-variant-numeric:tabular-nums lining-nums}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:36px;padding:0 16px;border-radius:999px;font:600 13px/1 Inter,system-ui,sans-serif;border:1px solid transparent;cursor:pointer;white-space:nowrap}
+.btn-primary{background:var(--btn);color:var(--btnfg)}
+.btn-ghost{background:var(--field);color:var(--t1);border-color:var(--line2)}
+.tabs{display:flex;gap:28px;border-bottom:1px solid var(--line)}
+.tab{min-height:48px;display:inline-flex;align-items:center;padding:0 2px;border-bottom:2px solid transparent;margin-bottom:-1px;color:var(--t3);font:600 14px Inter,system-ui,sans-serif;text-decoration:none;white-space:nowrap}
+.tab[aria-selected="true"]{color:var(--t1);border-bottom-color:var(--t1)}
+.seg{display:inline-flex;padding:3px;border-radius:999px;border:1px solid var(--line2)}
+.seg button{min-height:32px;padding:0 14px;border:0;border-radius:999px;background:transparent;color:var(--t3);font:600 12px Inter,system-ui,sans-serif;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--surf2);color:var(--t1)}
+.av{flex:none;border-radius:999px;display:grid;place-items:center;font-weight:700;color:#fff}
+.lb th{font-size:12px;font-weight:500;color:var(--t3);text-align:right;padding:14px 18px;border-bottom:1px solid var(--line)}
+.lb th:nth-child(-n+2){text-align:left}
+.lb td{padding:14px 18px;text-align:right;font-size:14px;border-bottom:1px solid var(--line)}
+.lb td:nth-child(-n+2){text-align:left}
+.lb tr:last-child td{border-bottom:0}
+.lp a:focus-visible,.lp button:focus-visible{outline:2px solid var(--brand);outline-offset:3px}
+@media (max-width:900px){.podium{grid-template-columns:1fr !important}.podium > *{order:0 !important;margin-top:0 !important}}
+</style>
+</helmet>
+<div class="lp" style="width: 100%">
+  <div class="atmo" aria-hidden="true"></div>
+  <main style="position: relative; max-width: 1120px; margin: 0 auto; padding: 32px 24px 64px">
+    <h1 style="margin: 0; font-size: 32px; line-height: 1.1; letter-spacing: -.03em; font-weight: 700">Comunidad</h1>
+    <div class="tabs" role="tablist" aria-label="Vistas de Comunidad" style="margin-top: 24px">
+      <a class="tab" role="tab" aria-selected="false" href="Main.dc.html">Para ti</a>
+      <a class="tab" role="tab" aria-selected="false" href="Siguiendo.dc.html">Siguiendo</a>
+      <a class="tab" role="tab" aria-selected="false" href="Consenso.dc.html">Consenso</a>
+      <a class="tab" role="tab" aria-selected="true" href="Ranking.dc.html">Ranking</a>
+    </div>
+
+    <div style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap">
+      <div class="seg" role="group" aria-label="Periodo">
+        <sc-for list="{{windows}}" as="w" hint-placeholder-count="2"><button type="button" aria-pressed="{{w.on}}" onClick="{{w.pick}}">{{w.label}}</button></sc-for>
+      </div>
+      <div class="seg" role="group" aria-label="Ordenar por">
+        <sc-for list="{{sorts}}" as="s" hint-placeholder-count="3"><button type="button" aria-pressed="{{s.on}}" onClick="{{s.pick}}">{{s.label}}</button></sc-for>
+      </div>
+    </div>
+
+    <!-- Podio -->
+    <ol class="podium" aria-label="Primeros tres lugares" style="list-style: none; margin: 28px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; align-items: end">
+      <sc-for list="{{podium}}" as="p" hint-placeholder-count="3">
+        <li class="glass {{p.cls}}" style="order: {{p.order}}; margin-top: {{p.lift}}px; border-radius: 26px; padding: 26px 22px 22px; text-align: center">
+          <span class="num" style="position: absolute; top: 16px; left: 18px; font-size: 13px; font-weight: 600; color: var(--t3)">#{{p.rank}}</span>
+          <span class="av" aria-hidden="true" style="margin: 0 auto; width: {{p.size}}px; height: {{p.size}}px; font-size: 18px; background: {{p.grad}}; box-shadow: 0 12px 30px -12px rgba(139,92,246,.7)">{{p.ini}}</span>
+          <p style="margin: 14px 0 0; font-size: 16px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px">{{p.name}}<sc-if value="{{p.tip}}" hint-placeholder-val="{{ true }}"><svg width="16" height="16" viewBox="0 0 24 24" role="img" aria-label="Tipstar verificado"><path fill="var(--brand)" d="M12 1.8l2.5 1.9 3.1-.2 1 3 2.6 1.7-1 3 1 3-2.6 1.7-1 3-3.1-.2L12 22.2l-2.5-1.9-3.1.2-1-3-2.6-1.7 1-3-1-3 2.6-1.7 1-3 3.1.2z"></path><path d="M8.2 12.2l2.6 2.6 5-5.2" fill="none" stroke="var(--bg)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></sc-if></p>
+          <p style="margin: 2px 0 0; font-size: 12px; color: var(--t3)">{{p.sub}}</p>
+          <p class="num" style="margin: 16px 0 0; font-size: 32px; font-weight: 700; letter-spacing: -.03em; color: var(--ok)">{{p.units}}</p>
+          <div class="num" style="margin-top: 12px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 12px; color: var(--t3)">
+            <span><strong style="display: block; font-size: 15px; color: var(--t1); font-weight: 600">{{p.hit}}</strong>cumplidos</span>
+            <span><strong style="display: block; font-size: 15px; color: var(--t1); font-weight: 600">{{p.clv}}</strong>vs cierre</span>
+            <span><strong style="display: block; font-size: 15px; color: var(--t1); font-weight: 600">{{p.picks}}</strong>picks</span>
+          </div>
+          <button class="btn btn-ghost" type="button" style="margin-top: 16px; width: 100%">Seguir</button>
+        </li>
+      </sc-for>
+    </ol>
+
+    <!-- Tabla -->
+    <div class="glass" style="margin-top: 16px; border-radius: 24px; overflow-x: auto">
+      <table class="lb num" style="width: 100%; border-collapse: collapse; min-width: 640px">
+        <caption style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Ranking de Comunidad del 4.º lugar en adelante</caption>
+        <thead><tr><th scope="col" style="width: 56px">#</th><th scope="col">Analista</th><th scope="col">Saldo</th><th scope="col">Cumplidos</th><th scope="col">Contra el cierre</th><th scope="col">Picks</th></tr></thead>
+        <tbody>
+          <sc-for list="{{rest}}" as="r" hint-placeholder-count="7">
+            <tr>
+              <td style="color: var(--t3)">{{r.rank}}</td>
+              <td><span style="display: inline-flex; align-items: center; gap: 10px"><span class="av" aria-hidden="true" style="width: 32px; height: 32px; font-size: 11px; background: {{r.grad}}">{{r.ini}}</span><span><span style="display: block; font-weight: 600">{{r.name}}</span><span style="display: block; font-size: 12px; color: var(--t3)">{{r.sub}}</span></span></span></td>
+              <td style="font-weight: 600; color: var(--ok)">{{r.units}}</td>
+              <td>{{r.hit}}</td>
+              <td>{{r.clv}}</td>
+              <td style="color: var(--t3)">{{r.picks}}</td>
+            </tr>
+          </sc-for>
+          <tr style="background: rgba(196,181,253,.08)">
+            <td style="color: var(--t1); font-weight: 600">12</td>
+            <td><span style="display: inline-flex; align-items: center; gap: 10px"><span class="av" aria-hidden="true" style="width: 32px; height: 32px; font-size: 11px; background: linear-gradient(135deg, #34D399, #0EA5E9); color: #04131C">JR</span><span><span style="display: block; font-weight: 600">Tú</span><span style="display: block; font-size: 12px; color: var(--t3)">Te faltan 0.3u para el top 10</span></span></span></td>
+            <td style="font-weight: 600; color: var(--ok)">+3.1u</td>
+            <td>56 %</td>
+            <td>+2.2 %</td>
+            <td style="color: var(--t3)">24</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin: 12px 0 0; font-size: 12px; color: var(--t3)">Mínimo 20 picks cerrados.</p>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1400}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { win: '30d', sort: 'units' };
+  }
+  renderVals() {
+    const s = this.state;
+    const g = { s: 'linear-gradient(135deg, #8B5CF6, #6366F1)', c: 'linear-gradient(135deg, #F59E0B, #EF4444)', d: 'linear-gradient(135deg, #0EA5E9, #2563EB)', j: 'linear-gradient(135deg, #34D399, #0EA5E9)', p: 'linear-gradient(135deg, #10B981, #059669)', m: 'linear-gradient(135deg, #EC4899, #8B5CF6)', a: 'linear-gradient(135deg, #64748B, #334155)', o: 'linear-gradient(135deg, #F97316, #DB2777)', l: 'linear-gradient(135deg, #22D3EE, #6366F1)', f: 'linear-gradient(135deg, #A3E635, #10B981)' };
+    const data = [
+      ['Sofía Méndez', 'Tipstar · NFL y totales', 'SM', g.s, 10.7, 61, 4.5, 82],
+      ['Carlos Vega', 'Tipstar · Premier y LaLiga', 'CV', g.c, 8.6, 57, 4.1, 108],
+      ['Diego Aranda', 'Tipstar · Liga MX', 'DA', g.d, 6.7, 55, 3.3, 71],
+      ['Jair R.', 'Socio · NFL y Liga MX', 'JR', g.j, 5.3, 58, 3.0, 65],
+      ['Mariana T.', 'Socia · Liga MX', 'MT', g.m, 4.9, 56, 2.4, 44],
+      ['Socio PitchLab', 'Socio · varias ligas', 'SP', g.p, 3.7, 54, 2.8, 38],
+      ['Andrés L.', 'Socio · NFL', 'AL', g.a, 3.6, 53, 1.9, 29],
+      ['Paola G.', 'Socia · Premier', 'PG', g.o, 3.5, 55, 2.0, 33],
+      ['Luis M.', 'Socio · Liga MX', 'LM', g.l, 3.4, 52, 1.7, 41],
+      ['Fernanda C.', 'Socia · NFL', 'FC', g.f, 3.3, 54, 2.1, 27]
+    ];
+    const key = s.sort === 'clv' ? 6 : s.sort === 'hit' ? 5 : 4;
+    const sorted = data.slice().sort((a, b) => b[key] - a[key]);
+    const row = (r, i) => ({ rank: String(i + 1), name: r[0], sub: r[1], ini: r[2], grad: r[3], units: '+' + r[4].toFixed(1) + 'u', hit: r[5] + ' %', clv: '+' + r[6].toFixed(1) + ' %', picks: String(r[7]), tip: r[1].indexOf('Tipstar') === 0 });
+    const top = sorted.slice(0, 3).map(row);
+    const podium = [
+      Object.assign({}, top[1], { order: 1, lift: 28, size: 64, cls: '' }),
+      Object.assign({}, top[0], { order: 2, lift: 0, size: 80, cls: 'first' }),
+      Object.assign({}, top[2], { order: 3, lift: 44, size: 64, cls: '' })
+    ];
+    return {
+      windows: [['30d', 'Últimos 30 días'], ['season', 'Temporada']].map((w) => ({ label: w[1], on: s.win === w[0] ? 'true' : 'false', pick: () => this.setState({ win: w[0] }) })),
+      sorts: [['units', 'Saldo'], ['clv', 'Contra el cierre'], ['hit', 'Cumplidos']].map((x) => ({ label: x[1], on: s.sort === x[0] ? 'true' : 'false', pick: () => this.setState({ sort: x[0] }) })),
+      podium: podium,
+      rest: sorted.slice(3).map((r, i) => row(r, i + 3))
+    };
+  }
+}
+</script>
+</body>
+</html>

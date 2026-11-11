@@ -190,8 +190,8 @@ class Component extends DCLogic {
       ['Jair R.', 'Jair', 'JR', g.j, '+5.3u', '58 %', '65'],
       ['Mariana T.', 'Mariana', 'MT', g.m, '+4.9u', '56 %', '44'],
       ['Socio PitchLab', 'Socio PL', 'SP', g.p, '+3.7u', '54 %', '38'],
-      ['Andrés L.', 'Andrés', 'AL', g.a, '+3.2u', '53 %', '29'],
-      ['Tú', 'Tú', 'JR', g.j, '+3.1u', '56 %', '9']
+      ['Andrés L.', 'Andrés', 'AL', g.a, '+3.6u', '53 %', '29'],
+      ['Tú', 'Tú', 'JR', g.j, '+3.1u', '56 %', '24']
     ];
     const ranking = rows.map((r, i) => ({ rank: i === 7 ? '12' : String(i + 1), name: r[0], short: r[1], ini: r[2], grad: r[3], units: r[4], hit: r[5], picks: r[6], rowBg: i === 7 ? 'rgba(196,181,253,.10)' : 'transparent' }));
     return {

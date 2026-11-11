@@ -26,13 +26,112 @@
       "h": 1500,
       "title": "Comunidad · móvil (pestañas interactivas)",
       "is_interactive": true
+    },
+    "Siguiendo.dc.html": {
+      "x": 0,
+      "y": 1920,
+      "w": 1440,
+      "h": 1400,
+      "title": "Siguiendo · escritorio",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "SiguiendoMobile.dc.html": {
+      "x": 1520,
+      "y": 1920,
+      "w": 390,
+      "h": 1400,
+      "title": "Siguiendo · móvil"
+    },
+    "Consenso.dc.html": {
+      "x": 0,
+      "y": 3740,
+      "w": 1440,
+      "h": 1400,
+      "title": "Consenso · escritorio",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "ConsensoMobile.dc.html": {
+      "x": 1520,
+      "y": 3740,
+      "w": 390,
+      "h": 1400,
+      "title": "Consenso · móvil"
+    },
+    "Ranking.dc.html": {
+      "x": 0,
+      "y": 5560,
+      "w": 1440,
+      "h": 1400,
+      "title": "Ranking · escritorio",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "RankingMobile.dc.html": {
+      "x": 1520,
+      "y": 5560,
+      "w": 390,
+      "h": 1400,
+      "title": "Ranking · móvil"
     }
   },
   "order": [
     "Main.dc.html",
-    "Mobile.dc.html"
+    "Mobile.dc.html",
+    "Siguiendo.dc.html",
+    "SiguiendoMobile.dc.html",
+    "Consenso.dc.html",
+    "ConsensoMobile.dc.html",
+    "Ranking.dc.html",
+    "RankingMobile.dc.html"
   ],
   "notes": {
+    "tSiguiendo": {
+      "x": 0,
+      "y": 1620,
+      "text": "Pestaña Siguiendo",
+      "kind": "title1",
+      "maxW": 1910
+    },
+    "tConsenso": {
+      "x": 0,
+      "y": 3440,
+      "text": "Pestaña Consenso",
+      "kind": "title1",
+      "maxW": 1910
+    },
+    "tRanking": {
+      "x": 0,
+      "y": 5260,
+      "text": "Pestaña Ranking",
+      "kind": "title1",
+      "maxW": 1910
+    },
+    "nSiguiendo": {
+      "x": 1990,
+      "y": 1920,
+      "w": 500,
+      "fill": "purple",
+      "size": "s",
+      "text": "SIGUIENDO\n\n• Arriba, a quién sigues (avatares) con «Administrar».\n• Filtros: Todos · Tipstars · Socios · Con pick abierto.\n• Feed solo de quienes sigues.\n• Columna derecha: picks abiertos de quienes sigues, ordenados por hora de inicio (lo que importa hoy), y 3 sugerencias para seguir sacadas del ranking.\n• Vacío: «Aún no sigues a nadie.» + las mismas sugerencias.\n• Móvil: avatares en fila, filtros en chips con scroll y «Picks abiertos hoy» como tira antes del feed."
+    },
+    "nConsenso": {
+      "x": 1990,
+      "y": 3740,
+      "w": 500,
+      "fill": "purple",
+      "size": "s",
+      "text": "CONSENSO\n\n• Filtro por liga y orden (mayor diferencia · más picks · próximos).\n• Destacado: el partido con mayor diferencia, con los 3 resultados (local, empate, visita) y sus barras Socios vs Modelo. Se ve en qué resultado se cargan los socios y cuál ignoran.\n• Lista: un renglón por partido con el resultado más elegido, socios %, modelo %, diferencia en puntos con signo (+ socios más altos, − más bajos; contorno lila si es de 10 pts o más, gris si es menor a 3) y N picks.\n• Solo partidos con 10 o más picks de socios.\n• Una nota al pie con cómo se calcula cada %.\n• Partidos y cifras ilustrativos salvo Querétaro–Monterrey, Giants–Washington y Arsenal–Liverpool (dataset)."
+    },
+    "nRanking": {
+      "x": 1990,
+      "y": 5560,
+      "w": 500,
+      "fill": "purple",
+      "size": "s",
+      "text": "RANKING\n\n• Ventana (30 días · Temporada), orden (Saldo · Contra el cierre · Cumplidos) y liga.\n• Podio de los 3 primeros en tarjetas de vidrio: puesto, avatar, nombre + sello, saldo grande, cumplidos, contra el cierre y Seguir.\n• Del 4 al 10 en tabla; luego «Tú» fijo con tu puesto real y cuánto te falta para el top 10.\n• Mínimo 20 picks cerrados en la ventana.\n• Móvil: podio en fila de 3, lista del 4 en adelante y tu fila fija abajo."
+    },
     "title": {
       "x": 0,
       "y": -300,

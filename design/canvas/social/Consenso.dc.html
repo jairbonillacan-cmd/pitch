@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<title>Comunidad · Consenso · escritorio</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+html,body{overflow-x:hidden}
+.lp{--bg:#000000;--surf2:rgba(255,255,255,.07);--line:rgba(255,255,255,.08);--line2:rgba(255,255,255,.16);--t1:#FFFFFF;--t2:#D4D4DC;--t3:#A1A1AD;--brand:#C4B5FD;--btn:#FFFFFF;--btnfg:#000000;--track:rgba(255,255,255,.10);--field:rgba(255,255,255,.035)}
+.lp{--l1:rgba(124,92,246,.30);--l2:rgba(56,189,248,.14);--sheen:rgba(255,255,255,.06);--inner:inset 0 1px 0 rgba(255,255,255,.08);--lens:rgba(18,18,24,.62);--pane:rgba(255,255,255,.025);--shadow:0 30px 60px -30px rgba(0,0,0,.8),0 10px 20px -14px rgba(0,0,0,.6);--rim-c:rgba(255,255,255,.7);--rim-t:rgba(255,255,255,.28);--rim-m:rgba(255,255,255,.04);--rim-b:rgba(255,255,255,.12)}
+.lp{background:var(--bg);color:var(--t1);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;position:relative;overflow:hidden;min-height:100vh}
+.lp *{box-sizing:border-box}
+.atmo{position:absolute;inset:0;pointer-events:none;background:radial-gradient(36% 24% at 78% 0%,var(--l1),transparent 70%),radial-gradient(30% 22% at 4% 50%,var(--l2),transparent 70%)}
+.glass{position:relative;background:linear-gradient(180deg,var(--sheen),transparent 30%),var(--lens);box-shadow:var(--inner),var(--shadow)}
+.glass::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;z-index:2;background:radial-gradient(70px circle at 0% 0%,var(--rim-c),transparent 100%),radial-gradient(70px circle at 100% 0%,var(--rim-c),transparent 100%),linear-gradient(180deg,var(--rim-t) 0%,var(--rim-m) 22%,var(--rim-m) 72%,var(--rim-b) 100%);-webkit-mask:linear-gradient(#000,#000) content-box,linear-gradient(#000,#000);-webkit-mask-composite:xor;mask:linear-gradient(#000,#000) content-box exclude,linear-gradient(#000,#000)}
+.num{font-variant-numeric:tabular-nums lining-nums}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:0 16px;border-radius:999px;font:600 13px/1 Inter,system-ui,sans-serif;border:1px solid transparent;cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn-ghost{background:var(--field);color:var(--t1);border-color:var(--line2)}
+.tabs{display:flex;gap:28px;border-bottom:1px solid var(--line)}
+.tab{min-height:48px;display:inline-flex;align-items:center;padding:0 2px;border-bottom:2px solid transparent;margin-bottom:-1px;color:var(--t3);font:600 14px Inter,system-ui,sans-serif;text-decoration:none;white-space:nowrap}
+.tab[aria-selected="true"]{color:var(--t1);border-bottom-color:var(--t1)}
+.filter{min-height:36px;padding:0 14px;border-radius:999px;border:1px solid var(--line2);background:transparent;color:var(--t2);font:500 13px Inter,system-ui,sans-serif;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:8px}
+.filter[aria-pressed="true"]{border-color:var(--t1);color:var(--t1);background:var(--surf2)}
+.diff{display:inline-flex;align-items:center;justify-content:center;min-width:72px;height:28px;padding:0 10px;border-radius:999px;font-size:13px;font-weight:600;background:var(--surf2)}
+.big{color:var(--t1);box-shadow:inset 0 0 0 1px var(--brand)}
+.small{color:var(--t3)}
+.row{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1.1fr) 64px 64px 88px 72px;align-items:center;gap:16px;padding:16px 22px}
+.row + .row{border-top:1px solid var(--line)}
+.head{font-size:12px;color:var(--t3);padding-top:14px;padding-bottom:12px}
+.bar{height:8px;border-radius:4px;background:var(--track)}
+.bar > div{height:100%;border-radius:4px}
+.eyebrow{margin:0;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--t3)}
+.lp a:focus-visible,.lp button:focus-visible{outline:2px solid var(--brand);outline-offset:3px}
+@media (max-width:900px){.row{grid-template-columns:minmax(0,1fr) 88px}.hide-md{display:none !important}.out3{grid-template-columns:1fr !important}}
+</style>
+</helmet>
+<div class="lp" style="width: 100%">
+  <div class="atmo" aria-hidden="true"></div>
+  <main style="position: relative; max-width: 1120px; margin: 0 auto; padding: 32px 24px 64px">
+    <h1 style="margin: 0; font-size: 32px; line-height: 1.1; letter-spacing: -.03em; font-weight: 700">Comunidad</h1>
+    <div class="tabs" role="tablist" aria-label="Vistas de Comunidad" style="margin-top: 24px">
+      <a class="tab" role="tab" aria-selected="false" href="Main.dc.html">Para ti</a>
+      <a class="tab" role="tab" aria-selected="false" href="Siguiendo.dc.html">Siguiendo</a>
+      <a class="tab" role="tab" aria-selected="true" href="Consenso.dc.html">Consenso</a>
+      <a class="tab" role="tab" aria-selected="false" href="Ranking.dc.html">Ranking</a>
+    </div>
+
+    <div style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap">
+      <div role="group" aria-label="Liga" style="display: flex; gap: 8px; flex-wrap: wrap">
+        <sc-for list="{{leagues}}" as="l" hint-placeholder-count="4">
+          <button class="filter" type="button" aria-pressed="{{l.on}}" onClick="{{l.pick}}">{{l.label}}</button>
+        </sc-for>
+      </div>
+      <label style="display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--t3)">Ordenar
+        <select style="min-height: 36px; border-radius: 999px; border: 1px solid var(--line2); background: var(--field); color: var(--t1); font: 500 13px Inter, system-ui, sans-serif; padding: 0 12px">
+          <option>Mayor diferencia</option>
+          <option>Más picks</option>
+          <option>Próximos</option>
+        </select>
+      </label>
+    </div>
+
+    <!-- Destacado -->
+    <article class="glass" aria-labelledby="dest" style="margin-top: 20px; border-radius: 26px; padding: 26px 28px">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap">
+        <div>
+          <p class="eyebrow">Mayor diferencia hoy</p>
+          <h2 id="dest" style="margin: 10px 0 0; font-size: 22px; font-weight: 700; letter-spacing: -.02em; display: flex; align-items: center; gap: 10px"><img src="/_blob/2323d62b123b7c63b12afa5bc92fc6e2" alt="" style="width: 32px; height: 32px; object-fit: contain">Querétaro vs Monterrey<img src="/_blob/c0b14d133945253a1b9f6d17c27eb5ea" alt="" style="width: 32px; height: 32px; object-fit: contain"></h2>
+          <p class="num" style="margin: 6px 0 0; font-size: 13px; color: var(--t3)">Liga MX · Jornada 17 · sáb 14 nov, 17:00 · 46 picks de socios</p>
+        </div>
+        <a class="btn btn-ghost" href="#partido">Ver partido</a>
+      </div>
+
+      <div class="out3 num" style="margin-top: 24px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px">
+        <sc-for list="{{outcomes}}" as="o" hint-placeholder-count="3">
+          <div style="border-radius: 18px; padding: 16px 18px; background: rgba(255,255,255,.025); box-shadow: inset 0 0 0 1px var(--line)">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px">
+              <p style="margin: 0; font-size: 15px; font-weight: 600">{{o.label}}</p>
+              <span class="diff {{o.cls}}">{{o.diff}}</span>
+            </div>
+            <div style="margin-top: 16px; display: grid; grid-template-columns: 56px minmax(0, 1fr) 40px; align-items: center; gap: 10px 10px; font-size: 12px">
+              <span style="color: var(--t2)">Socios</span>
+              <div class="bar"><div style="width: {{o.fans}}%; background: var(--brand)"></div></div>
+              <strong style="text-align: right; font-weight: 600">{{o.fans}} %</strong>
+              <span style="color: var(--t2)">Modelo</span>
+              <div class="bar"><div style="width: {{o.model}}%; background: var(--t2)"></div></div>
+              <strong style="text-align: right; font-weight: 600">{{o.model}} %</strong>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <p style="margin: 18px 0 0; font-size: 15px">Los socios ven a Monterrey 17 pts más probable que el modelo y a Querétaro 14 pts menos.</p>
+    </article>
+
+    <!-- Lista -->
+    <section class="glass" aria-labelledby="todos" style="margin-top: 16px; border-radius: 24px">
+      <h2 id="todos" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Todos los partidos</h2>
+      <div class="row head" aria-hidden="true">
+        <span>Partido</span><span class="hide-md">Más elegido por socios</span><span class="hide-md" style="text-align: right">Socios</span><span class="hide-md" style="text-align: right">Modelo</span><span style="text-align: right">Diferencia</span><span class="hide-md" style="text-align: right">Picks</span>
+      </div>
+      <sc-for list="{{rows}}" as="r" hint-placeholder-count="5">
+        <div class="row num">
+          <div style="display: flex; align-items: center; gap: 12px; min-width: 0">
+            <img src="{{r.logo}}" alt="" style="width: 22px; height: 22px; object-fit: contain; flex: none">
+            <div style="min-width: 0"><p style="margin: 0; font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{r.match}}</p><p style="margin: 2px 0 0; font-size: 12px; color: var(--t3)">{{r.when}}</p></div>
+          </div>
+          <span class="hide-md" style="font-size: 14px">{{r.pick}}</span>
+          <span class="hide-md" style="text-align: right; font-size: 14px; font-weight: 600">{{r.fans}} %</span>
+          <span class="hide-md" style="text-align: right; font-size: 14px; color: var(--t2)">{{r.model}} %</span>
+          <span style="text-align: right"><span class="diff {{r.cls}}">{{r.diff}}</span></span>
+          <span class="hide-md" style="text-align: right; font-size: 13px; color: var(--t3)">{{r.picks}}</span>
+        </div>
+      </sc-for>
+    </section>
+    <p style="margin: 12px 0 0; font-size: 12px; color: var(--t3)">Socios: % de picks publicados por resultado. Modelo: probabilidad del partido. Solo partidos con 10 picks o más.</p>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1400}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { league: 'todas' };
+  }
+  renderVals() {
+    const lg = this.state.league;
+    const L = { mx: '/_blob/9f120714d07c39f9f5dba1f0670ea3e5', nfl: '/_blob/1158a9b520397208c4f96763545265f5', epl: '/_blob/d6519d21729681534bb2371c095253ed' };
+    const fmt = (d) => (d > 0 ? '+' : d < 0 ? '−' : '') + Math.abs(d) + ' pts';
+    const cls = (d) => (Math.abs(d) >= 10 ? 'big' : Math.abs(d) < 3 ? 'small' : '');
+    const all = [
+      ['mx', 'Querétaro vs Monterrey', 'Sáb 17:00', 'Monterrey gana', 64, 47, 46],
+      ['nfl', 'NY Giants vs Washington', 'Jue 20:15', 'Giants gana', 58, 69, 31],
+      ['mx', 'América vs Chivas', 'Sáb 19:00', 'América gana', 55, 46, 64],
+      ['epl', 'Chelsea vs Tottenham', 'Dom 8:00', 'Chelsea gana', 49, 47, 18],
+      ['epl', 'Arsenal vs Liverpool', 'Dom 10:30', 'Arsenal gana', 41, 42, 22]
+    ];
+    const rows = all.filter((r) => lg === 'todas' || r[0] === lg).map((r) => ({
+      logo: L[r[0]], match: r[1], when: r[2], pick: r[3], fans: r[4], model: r[5], picks: r[6], diff: fmt(r[4] - r[5]), cls: cls(r[4] - r[5])
+    }));
+    const oc = [['Querétaro', 14, 28], ['Empate', 22, 25], ['Monterrey', 64, 47]];
+    return {
+      leagues: [['todas', 'Todas'], ['mx', 'Liga MX'], ['nfl', 'NFL'], ['epl', 'Premier']].map((l) => ({
+        label: l[1], on: lg === l[0] ? 'true' : 'false', pick: () => this.setState({ league: l[0] })
+      })),
+      outcomes: oc.map((o) => ({ label: o[0], fans: o[1], model: o[2], diff: fmt(o[1] - o[2]), cls: cls(o[1] - o[2]) })),
+      rows: rows
+    };
+  }
+}
+</script>
+</body>
+</html>

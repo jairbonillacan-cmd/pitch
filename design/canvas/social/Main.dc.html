@@ -205,9 +205,9 @@ html,body{overflow-x:hidden}
             <h2 id="tu-mes" class="eyebrow">Tu noviembre</h2>
             <div class="num" style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-top: 12px">
               <p style="margin: 0; font-size: 28px; font-weight: 700; letter-spacing: -.02em">#12</p>
-              <p style="margin: 0; font-size: 14px; color: var(--t3)"><strong style="color: var(--ok); font-weight: 600">+3.1u</strong> · 9 picks</p>
+              <p style="margin: 0; font-size: 14px; color: var(--t3)"><strong style="color: var(--ok); font-weight: 600">+3.1u</strong> · 24 picks</p>
             </div>
-            <p style="margin: 6px 0 0; font-size: 12px; color: var(--t3)">Te faltan 1.4u para el top 10.</p>
+            <p style="margin: 6px 0 0; font-size: 12px; color: var(--t3)">Te faltan 0.3u para el top 10.</p>
             <a class="link" href="#mi-perfil" style="display: inline-block; margin-top: 12px; font-size: 13px; font-weight: 500">Ver mi perfil</a>
           </section>
 
@@ -338,8 +338,8 @@ class Component extends DCLogic {
       ['Jair R.', 'Socio · NFL y Liga MX', 'JR', g.j, '+5.3u', '58 %', '+3.0 %', '65'],
       ['Mariana T.', 'Socia · Liga MX', 'MT', g.m, '+4.9u', '56 %', '+2.4 %', '44'],
       ['Socio PitchLab', 'Socio · varias ligas', 'SP', g.p, '+3.7u', '54 %', '+2.8 %', '38'],
-      ['Andrés L.', 'Socio · NFL', 'AL', g.a, '+3.2u', '53 %', '+1.9 %', '29'],
-      ['Tú', 'Socio · #12 · +3.1u', 'JR', g.j, '+3.1u', '56 %', '+2.2 %', '9']
+      ['Andrés L.', 'Socio · NFL', 'AL', g.a, '+3.6u', '53 %', '+1.9 %', '29'],
+      ['Tú', 'Socio · #12 · +3.1u', 'JR', g.j, '+3.1u', '56 %', '+2.2 %', '24']
     ];
     const ranking = rows.map((r, i) => ({ rank: i === 7 ? '12' : String(i + 1), name: r[0], sub: r[1], ini: r[2], grad: r[3], units: r[4], hit: r[5], clv: r[6], picks: r[7], rowBg: i === 7 ? 'rgba(196,181,253,.08)' : 'transparent' }));
     return {

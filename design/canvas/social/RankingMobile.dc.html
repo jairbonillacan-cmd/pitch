@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<title>Comunidad · Ranking · móvil</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+html,body{overflow-x:hidden}
+.m{--bg:#000000;--surf2:rgba(255,255,255,.07);--line:rgba(255,255,255,.08);--line2:rgba(255,255,255,.16);--t1:#FFFFFF;--t2:#D4D4DC;--t3:#A1A1AD;--brand:#C4B5FD;--ok:#6EE7B7;--l1:rgba(124,92,246,.34);--sheen:rgba(255,255,255,.06);--inner:inset 0 1px 0 rgba(255,255,255,.08);--lens:rgba(18,18,24,.62);--shadow:0 24px 50px -26px rgba(0,0,0,.8);--rim-c:rgba(255,255,255,.7);--rim-t:rgba(255,255,255,.28);--rim-m:rgba(255,255,255,.04);--rim-b:rgba(255,255,255,.12)}
+.m{background:var(--bg);color:var(--t1);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;position:relative;overflow:hidden;min-height:100vh;padding:20px max(20px, calc((100% - 480px) / 2)) 112px}
+.m *{box-sizing:border-box}
+.atmo{position:absolute;inset:0;pointer-events:none;background:radial-gradient(90% 18% at 50% 10%,var(--l1),transparent 70%)}
+.glass{position:relative;background:linear-gradient(180deg,var(--sheen),transparent 30%),var(--lens);box-shadow:var(--inner),var(--shadow)}
+.glass::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;z-index:2;background:radial-gradient(50px circle at 0% 0%,var(--rim-c),transparent 100%),radial-gradient(50px circle at 100% 0%,var(--rim-c),transparent 100%),linear-gradient(180deg,var(--rim-t) 0%,var(--rim-m) 22%,var(--rim-m) 72%,var(--rim-b) 100%);-webkit-mask:linear-gradient(#000,#000) content-box,linear-gradient(#000,#000);-webkit-mask-composite:xor;mask:linear-gradient(#000,#000) content-box exclude,linear-gradient(#000,#000)}
+.num{font-variant-numeric:tabular-nums lining-nums}
+.tabs{display:flex;border-bottom:1px solid var(--line)}
+.tab{flex:1;min-height:46px;display:inline-flex;align-items:center;justify-content:center;border-bottom:2px solid transparent;margin-bottom:-1px;color:var(--t3);font:600 13px Inter,system-ui,sans-serif;text-decoration:none;white-space:nowrap}
+.tab[aria-selected="true"]{color:var(--t1);border-bottom-color:var(--t1)}
+.seg{display:flex;padding:3px;border-radius:999px;border:1px solid var(--line2)}
+.seg button{flex:1;min-height:34px;border:0;border-radius:999px;background:transparent;color:var(--t3);font:600 12px Inter,system-ui,sans-serif}
+.seg button[aria-pressed="true"]{background:var(--surf2);color:var(--t1)}
+.av{flex:none;border-radius:999px;display:grid;place-items:center;font-weight:700;color:#fff}
+.row{display:flex;align-items:center;gap:12px;padding:12px 0}
+.row + .row{border-top:1px solid var(--line)}
+.m a:focus-visible,.m button:focus-visible{outline:2px solid var(--brand);outline-offset:3px}
+</style>
+</helmet>
+<div class="m" style="width: 100%">
+  <div class="atmo" aria-hidden="true"></div>
+  <h1 style="position: relative; margin: 0; font-size: 28px; letter-spacing: -.03em; font-weight: 700">Comunidad</h1>
+  <div class="tabs" role="tablist" aria-label="Vistas de Comunidad" style="position: relative; margin-top: 16px">
+    <a class="tab" role="tab" aria-selected="false" href="Mobile.dc.html">Para ti</a>
+    <a class="tab" role="tab" aria-selected="false" href="SiguiendoMobile.dc.html">Siguiendo</a>
+    <a class="tab" role="tab" aria-selected="false" href="ConsensoMobile.dc.html">Consenso</a>
+    <a class="tab" role="tab" aria-selected="true" href="RankingMobile.dc.html">Ranking</a>
+  </div>
+
+  <div class="seg" role="group" aria-label="Periodo" style="position: relative; margin-top: 14px">
+    <button type="button" aria-pressed="true">30 días</button>
+    <button type="button" aria-pressed="false">Temporada</button>
+  </div>
+
+  <!-- Podio en fila -->
+  <ol aria-label="Primeros tres lugares" style="position: relative; list-style: none; margin: 18px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; align-items: end">
+    <li class="glass" style="border-radius: 20px; padding: 16px 8px 14px; text-align: center; margin-top: 20px">
+      <p class="num" style="margin: 0; font-size: 12px; font-weight: 600; color: var(--t3)">#2</p>
+      <span class="av" aria-hidden="true" style="margin: 8px auto 0; width: 44px; height: 44px; font-size: 14px; background: linear-gradient(135deg, #F59E0B, #EF4444)">CV</span>
+      <p style="margin: 8px 0 0; font-size: 13px; font-weight: 600">Carlos</p>
+      <p class="num" style="margin: 4px 0 0; font-size: 16px; font-weight: 700; color: var(--ok)">+8.6u</p>
+    </li>
+    <li class="glass" style="border-radius: 20px; padding: 16px 8px 14px; text-align: center">
+      <p class="num" style="margin: 0; font-size: 12px; font-weight: 600; color: var(--t3)">#1</p>
+      <span class="av" aria-hidden="true" style="margin: 8px auto 0; width: 56px; height: 56px; font-size: 17px; background: linear-gradient(135deg, #8B5CF6, #6366F1); box-shadow: 0 10px 26px -10px rgba(139,92,246,.8)">SM</span>
+      <p style="margin: 8px 0 0; font-size: 13px; font-weight: 600">Sofía</p>
+      <p class="num" style="margin: 4px 0 0; font-size: 18px; font-weight: 700; color: var(--ok)">+10.7u</p>
+    </li>
+    <li class="glass" style="border-radius: 20px; padding: 16px 8px 14px; text-align: center; margin-top: 32px">
+      <p class="num" style="margin: 0; font-size: 12px; font-weight: 600; color: var(--t3)">#3</p>
+      <span class="av" aria-hidden="true" style="margin: 8px auto 0; width: 44px; height: 44px; font-size: 14px; background: linear-gradient(135deg, #0EA5E9, #2563EB)">DA</span>
+      <p style="margin: 8px 0 0; font-size: 13px; font-weight: 600">Diego</p>
+      <p class="num" style="margin: 4px 0 0; font-size: 16px; font-weight: 700; color: var(--ok)">+6.7u</p>
+    </li>
+  </ol>
+
+  <ol start="4" style="position: relative; list-style: none; margin: 14px 0 0; padding: 0">
+    <sc-for list="{{rest}}" as="r" hint-placeholder-count="7">
+      <li class="row">
+        <span class="num" style="width: 22px; font-size: 13px; color: var(--t3)">{{r.rank}}</span>
+        <span class="av" aria-hidden="true" style="width: 34px; height: 34px; font-size: 12px; background: {{r.grad}}">{{r.ini}}</span>
+        <span style="flex: 1; min-width: 0"><span style="display: block; font-size: 14px; font-weight: 600">{{r.name}}</span><span class="num" style="display: block; font-size: 12px; color: var(--t3)">{{r.hit}} cumplidos · {{r.picks}} picks</span></span>
+        <span class="num" style="font-size: 14px; font-weight: 600; color: var(--ok)">{{r.units}}</span>
+      </li>
+    </sc-for>
+  </ol>
+  <p style="position: relative; margin: 8px 0 0; font-size: 12px; color: var(--t3)">Mínimo 20 picks cerrados.</p>
+
+  <!-- Tu fila fija -->
+  <div class="glass" style="position: absolute; left: 12px; right: 12px; bottom: 16px; border-radius: 20px; padding: 12px 16px; display: flex; align-items: center; gap: 12px">
+    <span class="num" style="width: 22px; font-size: 13px; font-weight: 600">12</span>
+    <span class="av" aria-hidden="true" style="width: 34px; height: 34px; font-size: 12px; background: linear-gradient(135deg, #34D399, #0EA5E9); color: #04131C">JR</span>
+    <span style="flex: 1; min-width: 0"><span style="display: block; font-size: 14px; font-weight: 600">Tú</span><span class="num" style="display: block; font-size: 12px; color: var(--t3)">0.3u para el top 10</span></span>
+    <span class="num" style="font-size: 14px; font-weight: 600; color: var(--ok)">+3.1u</span>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1400}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const rows = [
+      ['Jair R.', 'JR', 'linear-gradient(135deg, #34D399, #0EA5E9)', '+5.3u', '58 %', '65'],
+      ['Mariana T.', 'MT', 'linear-gradient(135deg, #EC4899, #8B5CF6)', '+4.9u', '56 %', '44'],
+      ['Socio PitchLab', 'SP', 'linear-gradient(135deg, #10B981, #059669)', '+3.7u', '54 %', '38'],
+      ['Andrés L.', 'AL', 'linear-gradient(135deg, #64748B, #334155)', '+3.6u', '53 %', '29'],
+      ['Paola G.', 'PG', 'linear-gradient(135deg, #F97316, #DB2777)', '+3.5u', '55 %', '33'],
+      ['Luis M.', 'LM', 'linear-gradient(135deg, #22D3EE, #6366F1)', '+3.4u', '52 %', '41'],
+      ['Fernanda C.', 'FC', 'linear-gradient(135deg, #A3E635, #10B981)', '+3.3u', '54 %', '27']
+    ];
+    return { rest: rows.map((r, i) => ({ rank: String(i + 4), name: r[0], ini: r[1], grad: r[2], units: r[3], hit: r[4], picks: r[5] })) };
+  }
+}
+</script>
+</body>
+</html>
