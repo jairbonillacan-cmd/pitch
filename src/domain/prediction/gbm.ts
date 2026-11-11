@@ -212,6 +212,7 @@ interface CompiledCatFeature {
 interface CompiledLogitCompanion {
   readonly nLogitTotal: number;
   readonly nLogitBase: number;
+  readonly isContiguousIdentity: boolean;
   readonly baseFeatureIndices: Int32Array;
   readonly imputerStats: Float64Array;
   readonly scalerMean: Float64Array;
@@ -235,6 +236,7 @@ interface CompiledGbmModel {
   readonly baseline1: number;
   readonly baseline2: number;
   readonly temperature: number;
+  readonly invTemperature: number;
   readonly blendSpace: GbmBlendSpace;
   readonly wLogit: number;
   readonly wGbm: number;
@@ -260,7 +262,8 @@ interface CompiledGbmModel {
   readonly hasCategoricalFeatures: boolean;
   readonly logitCompanion: CompiledLogitCompanion | null;
   readonly scratchDesign: Float64Array;
-  readonly scratchLogitDesign: Float64Array | null;
+  /** Buffer reutilizable de 12 floats: `[0..2]` logits árbol, `[3..5]` GBM cal, `[6..8]` Logit, `[9..11]` ensamble. */
+  readonly scratchOut: Float64Array;
 }
 
 const COMPILED_CACHE = new WeakMap<GbmArtifact, CompiledGbmModel>();
@@ -402,9 +405,20 @@ function compileLogitCompanion(
     }
   }
 
+  let isContiguousIdentity = nLogitBase === nFeaturesBaseGbm;
+  if (isContiguousIdentity) {
+    for (let i = 0; i < nLogitBase; i += 1) {
+      if (baseIndices[i] !== i) {
+        isContiguousIdentity = false;
+        break;
+      }
+    }
+  }
+
   return {
     nLogitTotal,
     nLogitBase,
+    isContiguousIdentity,
     baseFeatureIndices: baseIndices,
     imputerStats,
     scalerMean,
@@ -773,6 +787,7 @@ function getOrCompileGbm(artifact: GbmArtifact): CompiledGbmModel {
     baseline1,
     baseline2,
     temperature,
+    invTemperature: 1 / temperature,
     blendSpace: cal.blend_space,
     wLogit,
     wGbm,
@@ -793,8 +808,7 @@ function getOrCompileGbm(artifact: GbmArtifact): CompiledGbmModel {
     hasCategoricalFeatures: anyCatSplit,
     logitCompanion: compiledCompanion,
     scratchDesign: new Float64Array(nDesignTotal),
-    scratchLogitDesign:
-      compiledCompanion !== null ? new Float64Array(compiledCompanion.nLogitTotal) : null,
+    scratchOut: new Float64Array(12),
   };
 
   COMPILED_CACHE.set(artifact, compiled);
@@ -826,25 +840,65 @@ function fillDesignBufferFromRow(row: GbmInputRow, compiled: CompiledGbmModel): 
   if (!Array.isArray(dummies)) {
     throw new InvalidFeaturesError("`div_onehot` no es un array");
   }
-  if (dummies.length !== compiled.nDivLevels) {
+  const nDiv = compiled.nDivLevels;
+  if (dummies.length !== nDiv) {
     throw new InvalidFeaturesError(
-      `div_onehot tiene ${dummies.length} valores; se esperaban ${compiled.nDivLevels}`,
-    );
-  }
-
-  const expectedCoreLen = compiled.nFeaturesBase - compiled.nExtraBase;
-  const hasFullBase = base.length === compiled.nFeaturesBase;
-  const hasCorePlusExtra =
-    compiled.nExtraBase > 0 && base.length === expectedCoreLen;
-
-  if (!hasFullBase && !hasCorePlusExtra) {
-    throw new InvalidFeaturesError(
-      `features tiene ${base.length} valores; se esperaban ${compiled.nFeaturesBase}`,
+      `div_onehot tiene ${dummies.length} valores; se esperaban ${nDiv}`,
     );
   }
 
   const buf = compiled.scratchDesign;
-  const copyLen = hasFullBase ? compiled.nFeaturesBase : expectedCoreLen;
+  const nBase = compiled.nFeaturesBase;
+
+  // Camino rápido sin ramas adicionales para el formato estándar numérico de 136 columnas
+  if (compiled.nExtraBase === 0 && !compiled.hasCategoricalFeatures) {
+    if (base.length !== nBase) {
+      throw new InvalidFeaturesError(
+        `features tiene ${base.length} valores; se esperaban ${nBase}`,
+      );
+    }
+    for (let i = 0; i < nBase; i += 1) {
+      const raw = base[i];
+      if (raw === null) {
+        buf[i] = Number.NaN;
+      } else if (typeof raw === "number") {
+        if (raw !== raw) {
+          buf[i] = Number.NaN;
+        } else if (raw === Number.POSITIVE_INFINITY || raw === Number.NEGATIVE_INFINITY) {
+          throw new InvalidFeaturesError(`features[${i}] no es finito (${String(raw)})`);
+        } else {
+          buf[i] = raw;
+        }
+      } else {
+        throw new InvalidFeaturesError(`features[${i}] está ausente`);
+      }
+    }
+    for (let j = 0; j < nDiv; j += 1) {
+      const dVal = dummies[j];
+      if (
+        typeof dVal !== "number" ||
+        dVal !== dVal ||
+        dVal === Number.POSITIVE_INFINITY ||
+        dVal === Number.NEGATIVE_INFINITY
+      ) {
+        throw new InvalidFeaturesError(`div_onehot[${j}] no es un número finito`);
+      }
+      buf[nBase + j] = dVal;
+    }
+    return buf;
+  }
+
+  const expectedCoreLen = nBase - compiled.nExtraBase;
+  const hasFullBase = base.length === nBase;
+  const hasCorePlusExtra = compiled.nExtraBase > 0 && base.length === expectedCoreLen;
+
+  if (!hasFullBase && !hasCorePlusExtra) {
+    throw new InvalidFeaturesError(
+      `features tiene ${base.length} valores; se esperaban ${nBase}`,
+    );
+  }
+
+  const copyLen = hasFullBase ? nBase : expectedCoreLen;
   for (let i = 0; i < copyLen; i += 1) {
     const raw = base[i];
     if (raw === undefined) {
@@ -879,13 +933,12 @@ function fillDesignBufferFromRow(row: GbmInputRow, compiled: CompiledGbmModel): 
     }
   }
 
-  const baseOffset = compiled.nFeaturesBase;
-  for (let j = 0; j < compiled.nDivLevels; j += 1) {
+  for (let j = 0; j < nDiv; j += 1) {
     const dVal = dummies[j];
     if (dVal === undefined || dVal === null || !Number.isFinite(dVal)) {
       throw new InvalidFeaturesError(`div_onehot[${j}] no es un número finito`);
     }
-    buf[baseOffset + j] = dVal;
+    buf[nBase + j] = dVal;
   }
 
   // Codificación opcional de categorías crudas (`raw_categories`) cuando aplica
@@ -916,48 +969,148 @@ function fillDesignBufferCompact(
   divIndex: number,
   compiled: CompiledGbmModel,
 ): Float64Array {
-  if (baseFeatures.length !== compiled.nFeaturesBase) {
+  const nBase = compiled.nFeaturesBase;
+  const nDiv = compiled.nDivLevels;
+  if (baseFeatures.length !== nBase) {
     throw new InvalidFeaturesError(
-      `features_base tiene ${baseFeatures.length} valores; se esperaban ${compiled.nFeaturesBase}`,
+      `features_base tiene ${baseFeatures.length} valores; se esperaban ${nBase}`,
     );
   }
-  if (!Number.isInteger(divIndex) || divIndex < -1 || divIndex >= compiled.nDivLevels) {
-    throw new InvalidFeaturesError(
-      `divIndex (${divIndex}) fuera de [-1, ${compiled.nDivLevels})`,
-    );
+  if (!Number.isInteger(divIndex) || divIndex < -1 || divIndex >= nDiv) {
+    throw new InvalidFeaturesError(`divIndex (${divIndex}) fuera de [-1, ${nDiv})`);
   }
   const buf = compiled.scratchDesign;
-  for (let i = 0; i < compiled.nFeaturesBase; i += 1) {
+  for (let i = 0; i < nBase; i += 1) {
     const raw = baseFeatures[i];
-    if (raw === undefined) {
+    if (raw === null) {
+      buf[i] = Number.NaN;
+    } else if (typeof raw === "number") {
+      if (raw !== raw) {
+        buf[i] = Number.NaN;
+      } else if (raw === Number.POSITIVE_INFINITY || raw === Number.NEGATIVE_INFINITY) {
+        throw new InvalidFeaturesError(`features_base[${i}] no es finito`);
+      } else {
+        buf[i] = raw;
+      }
+    } else {
       throw new InvalidFeaturesError(`features_base[${i}] está ausente`);
     }
-    if (raw === null || Number.isNaN(raw)) {
-      buf[i] = Number.NaN;
-    } else if (!Number.isFinite(raw)) {
-      throw new InvalidFeaturesError(`features_base[${i}] no es finito`);
-    } else {
-      buf[i] = raw;
-    }
   }
-  const baseOffset = compiled.nFeaturesBase;
-  for (let j = 0; j < compiled.nDivLevels; j += 1) {
-    buf[baseOffset + j] = 0;
+  for (let j = 0; j < nDiv; j += 1) {
+    buf[nBase + j] = 0;
   }
   if (divIndex >= 0) {
-    buf[baseOffset + divIndex] = 1;
+    buf[nBase + divIndex] = 1;
   }
   return buf;
 }
 
+/** Escribe `softmax3([z0, z1, z2])` en `out[offset .. offset+2]` sin ninguna asignación en heap. */
+function softmaxFromLogitsInto(
+  z0: number,
+  z1: number,
+  z2: number,
+  out: Float64Array,
+  offset: number,
+): void {
+  const m = z0 > z1 ? (z0 > z2 ? z0 : z2) : z1 > z2 ? z1 : z2;
+  const e0 = Math.exp(z0 - m);
+  const e1 = Math.exp(z1 - m);
+  const e2 = Math.exp(z2 - m);
+  const invSum = 1 / (e0 + e1 + e2);
+  out[offset] = e0 * invSum;
+  out[offset + 1] = e1 * invSum;
+  out[offset + 2] = e2 * invSum;
+}
+
+/**
+ * Calcula directamente `p_cal = softmax(log(max(softmax(z), 1e-15)) / T)` en `out[offset .. offset+2]`
+ * sin crear tuplas efímeras ni invocar `Math.log` cuando `z_k - max(z) >= -33` (`p_raw[k] >= 4.6e-15`).
+ */
+function calibratedProbsFromLogitsInto(
+  z0: number,
+  z1: number,
+  z2: number,
+  compiled: CompiledGbmModel,
+  out: Float64Array,
+  offset: number,
+): void {
+  if (compiled.temperature === 1) {
+    softmaxFromLogitsInto(z0, z1, z2, out, offset);
+    return;
+  }
+  const m = z0 > z1 ? (z0 > z2 ? z0 : z2) : z1 > z2 ? z1 : z2;
+  const d0 = z0 - m;
+  const d1 = z1 - m;
+  const d2 = z2 - m;
+  const invT = compiled.invTemperature;
+  // Si ninguna clase cae cerca del piso `1e-15` (`ln(1e-15) ≈ -34.54`), `softmax((z - m)/T)` es exacto
+  if (d0 >= -33 && d1 >= -33 && d2 >= -33) {
+    softmaxFromLogitsInto(d0 * invT, d1 * invT, d2 * invT, out, offset);
+    return;
+  }
+  softmaxFromLogitsInto(z0, z1, z2, out, offset);
+  const p0 = out[offset]!;
+  const p1 = out[offset + 1]!;
+  const p2 = out[offset + 2]!;
+  softmaxFromLogitsInto(
+    Math.log(p0 > PROB_LOG_FLOOR ? p0 : PROB_LOG_FLOOR) * invT,
+    Math.log(p1 > PROB_LOG_FLOOR ? p1 : PROB_LOG_FLOOR) * invT,
+    Math.log(p2 > PROB_LOG_FLOOR ? p2 : PROB_LOG_FLOOR) * invT,
+    out,
+    offset,
+  );
+}
+
+/** Mezcla en sitio `out[lOff..lOff+2]` y `out[gOff..gOff+2]` dentro de `out[dstOff..dstOff+2]`. */
+function blendScratchInto(
+  out: Float64Array,
+  lOff: number,
+  gOff: number,
+  dstOff: number,
+  compiled: CompiledGbmModel,
+): void {
+  const wl = compiled.wLogit;
+  const wg = compiled.wGbm;
+  const pl0 = out[lOff]!;
+  const pl1 = out[lOff + 1]!;
+  const pl2 = out[lOff + 2]!;
+  const pg0 = out[gOff]!;
+  const pg1 = out[gOff + 1]!;
+  const pg2 = out[gOff + 2]!;
+
+  if (compiled.blendSpace === "logit") {
+    softmaxFromLogitsInto(
+      wl * Math.log(pl0 > PROB_LOG_FLOOR ? pl0 : PROB_LOG_FLOOR) +
+        wg * Math.log(pg0 > PROB_LOG_FLOOR ? pg0 : PROB_LOG_FLOOR),
+      wl * Math.log(pl1 > PROB_LOG_FLOOR ? pl1 : PROB_LOG_FLOOR) +
+        wg * Math.log(pg1 > PROB_LOG_FLOOR ? pg1 : PROB_LOG_FLOOR),
+      wl * Math.log(pl2 > PROB_LOG_FLOOR ? pl2 : PROB_LOG_FLOOR) +
+        wg * Math.log(pg2 > PROB_LOG_FLOOR ? pg2 : PROB_LOG_FLOOR),
+      out,
+      dstOff,
+    );
+    return;
+  }
+  const r0 = wl * pl0 + wg * pg0;
+  const r1 = wl * pl1 + wg * pg1;
+  const r2 = wl * pl2 + wg * pg2;
+  const invS = 1 / (r0 + r1 + r2);
+  out[dstOff] = r0 * invS;
+  out[dstOff + 1] = r1 * invS;
+  out[dstOff + 2] = r2 * invS;
+}
+
 /**
  * Núcleo caliente de recorrido de todos los árboles en arreglos tipados planos.
- * Sin asignaciones en heap durante el bucle (`O(n_trees * depth)`).
+ * Escribe `[logit0, logit1, logit2]` en `out[offset .. offset+2]` con cero asignaciones en heap.
  */
-function traverseForestLogits(
+function traverseForestInto(
   design: Float64Array,
   compiled: CompiledGbmModel,
-): readonly [number, number, number] {
+  out: Float64Array,
+  offset: number,
+): void {
   const {
     nTrees,
     treeOffsets,
@@ -986,37 +1139,49 @@ function traverseForestLogits(
       let n0 = treeOffsets[t]!;
       while (isLeaf[n0] === 0) {
         const x0 = design[designFeatureIdx[n0]!]!;
-        if (Number.isNaN(x0)) {
-          n0 = missingGoToLeft[n0] !== 0 ? leftGlobal[n0]! : rightGlobal[n0]!;
-        } else {
-          n0 = x0 <= numThreshold[n0]! ? leftGlobal[n0]! : rightGlobal[n0]!;
-        }
+        n0 =
+          x0 !== x0
+            ? missingGoToLeft[n0] !== 0
+              ? leftGlobal[n0]!
+              : rightGlobal[n0]!
+            : x0 <= numThreshold[n0]!
+              ? leftGlobal[n0]!
+              : rightGlobal[n0]!;
       }
       logit0 += leafValue[n0]!;
 
       let n1 = treeOffsets[t + 1]!;
       while (isLeaf[n1] === 0) {
         const x1 = design[designFeatureIdx[n1]!]!;
-        if (Number.isNaN(x1)) {
-          n1 = missingGoToLeft[n1] !== 0 ? leftGlobal[n1]! : rightGlobal[n1]!;
-        } else {
-          n1 = x1 <= numThreshold[n1]! ? leftGlobal[n1]! : rightGlobal[n1]!;
-        }
+        n1 =
+          x1 !== x1
+            ? missingGoToLeft[n1] !== 0
+              ? leftGlobal[n1]!
+              : rightGlobal[n1]!
+            : x1 <= numThreshold[n1]!
+              ? leftGlobal[n1]!
+              : rightGlobal[n1]!;
       }
       logit1 += leafValue[n1]!;
 
       let n2 = treeOffsets[t + 2]!;
       while (isLeaf[n2] === 0) {
         const x2 = design[designFeatureIdx[n2]!]!;
-        if (Number.isNaN(x2)) {
-          n2 = missingGoToLeft[n2] !== 0 ? leftGlobal[n2]! : rightGlobal[n2]!;
-        } else {
-          n2 = x2 <= numThreshold[n2]! ? leftGlobal[n2]! : rightGlobal[n2]!;
-        }
+        n2 =
+          x2 !== x2
+            ? missingGoToLeft[n2] !== 0
+              ? leftGlobal[n2]!
+              : rightGlobal[n2]!
+            : x2 <= numThreshold[n2]!
+              ? leftGlobal[n2]!
+              : rightGlobal[n2]!;
       }
       logit2 += leafValue[n2]!;
     }
-    return [logit0, logit1, logit2];
+    out[offset] = logit0;
+    out[offset + 1] = logit1;
+    out[offset + 2] = logit2;
+    return;
   }
 
   // Camino general mixto numérico + categórico (`bitset_idx` de 256 bits)
@@ -1024,7 +1189,7 @@ function traverseForestLogits(
     let node = treeOffsets[t]!;
     while (isLeaf[node] === 0) {
       const x = design[designFeatureIdx[node]!]!;
-      if (Number.isNaN(x)) {
+      if (x !== x) {
         node = missingGoToLeft[node] !== 0 ? leftGlobal[node]! : rightGlobal[node]!;
       } else if (isCategorical[node] === 0) {
         node = x <= numThreshold[node]! ? leftGlobal[node]! : rightGlobal[node]!;
@@ -1056,16 +1221,19 @@ function traverseForestLogits(
       logit2 += lv;
     }
   }
-  return [logit0, logit1, logit2];
+  out[offset] = logit0;
+  out[offset + 1] = logit1;
+  out[offset + 2] = logit2;
 }
 
-function predictCompanionLogitFromDesign(
+function predictCompanionLogitInto(
   gbmDesign: Float64Array,
   compiled: CompiledGbmModel,
-): readonly [number, number, number] {
+  out: Float64Array,
+  offset: number,
+): void {
   const comp = compiled.logitCompanion;
-  const lBuf = compiled.scratchLogitDesign;
-  if (comp === null || lBuf === null) {
+  if (comp === null) {
     throw new GbmArtifactValidationError(
       "el artefacto GBM no incluye `logit_companion` y no se proporcionó `logitModel`/`logitProbs`",
     );
@@ -1074,6 +1242,7 @@ function predictCompanionLogitFromDesign(
   const {
     nLogitBase,
     nLogitTotal,
+    isContiguousIdentity,
     baseFeatureIndices,
     imputerStats,
     scalerMean,
@@ -1083,28 +1252,38 @@ function predictCompanionLogitFromDesign(
     coef2,
   } = comp;
 
-  for (let i = 0; i < nLogitBase; i += 1) {
-    const raw = gbmDesign[baseFeatureIndices[i]!]!;
-    const imputed = Number.isNaN(raw) ? imputerStats[i]! : raw;
-    lBuf[i] = (imputed - scalerMean[i]!) * scalerInvScale[i]!;
-  }
-  const gbmDivStart = compiled.nFeaturesBase;
-  for (let j = 0; j < compiled.nDivLevels; j += 1) {
-    const idx = nLogitBase + j;
-    const rawDiv = gbmDesign[gbmDivStart + j]!;
-    lBuf[idx] = (rawDiv - scalerMean[idx]!) * scalerInvScale[idx]!;
-  }
-
   let z0 = comp.intercept0;
   let z1 = comp.intercept1;
   let z2 = comp.intercept2;
-  for (let i = 0; i < nLogitTotal; i += 1) {
-    const x = lBuf[i]!;
-    z0 += coef0[i]! * x;
-    z1 += coef1[i]! * x;
-    z2 += coef2[i]! * x;
+
+  if (isContiguousIdentity) {
+    for (let i = 0; i < nLogitTotal; i += 1) {
+      const raw = gbmDesign[i]!;
+      const x = ((raw !== raw ? imputerStats[i]! : raw) - scalerMean[i]!) * scalerInvScale[i]!;
+      z0 += coef0[i]! * x;
+      z1 += coef1[i]! * x;
+      z2 += coef2[i]! * x;
+    }
+  } else {
+    for (let i = 0; i < nLogitBase; i += 1) {
+      const raw = gbmDesign[baseFeatureIndices[i]!]!;
+      const x = ((raw !== raw ? imputerStats[i]! : raw) - scalerMean[i]!) * scalerInvScale[i]!;
+      z0 += coef0[i]! * x;
+      z1 += coef1[i]! * x;
+      z2 += coef2[i]! * x;
+    }
+    const gbmDivStart = compiled.nFeaturesBase;
+    for (let j = 0; j < compiled.nDivLevels; j += 1) {
+      const idx = nLogitBase + j;
+      const rawDiv = gbmDesign[gbmDivStart + j]!;
+      const x = (rawDiv - scalerMean[idx]!) * scalerInvScale[idx]!;
+      z0 += coef0[idx]! * x;
+      z1 += coef1[idx]! * x;
+      z2 += coef2[idx]! * x;
+    }
   }
-  return softmax3([z0, z1, z2]);
+
+  softmaxFromLogitsInto(z0, z1, z2, out, offset);
 }
 
 /**
@@ -1174,8 +1353,10 @@ export function predictGbmRawProbs(
 ): readonly [number, number, number] {
   const compiled = getOrCompileGbm(artifact);
   const design = fillDesignBufferFromRow(row, compiled);
-  const rawLogits = traverseForestLogits(design, compiled);
-  return softmax3(rawLogits);
+  const out = compiled.scratchOut;
+  traverseForestInto(design, compiled, out, 0);
+  softmaxFromLogitsInto(out[0]!, out[1]!, out[2]!, out, 3);
+  return [out[3]!, out[4]!, out[5]!];
 }
 
 /**
@@ -1187,15 +1368,16 @@ export function predictGbmCalibratedProbs(
 ): readonly [number, number, number] {
   const compiled = getOrCompileGbm(artifact);
   const design = fillDesignBufferFromRow(row, compiled);
-  const rawLogits = traverseForestLogits(design, compiled);
-  const rawProbs = softmax3(rawLogits);
-  return applyTemperature3(rawProbs, compiled.temperature);
+  const out = compiled.scratchOut;
+  traverseForestInto(design, compiled, out, 0);
+  calibratedProbsFromLogitsInto(out[0]!, out[1]!, out[2]!, compiled, out, 3);
+  return [out[3]!, out[4]!, out[5]!];
 }
 
 /**
  * Evalúa una fila compacta `(features_base, div_index)` sin construir un objeto `SnapshotRow` intermedio,
  * devolviendo simultáneamente `gbmRaw`, `gbmCalibrated`, `logit` y `ensemble`.
- * Útil para validación masiva de paridad y inferencia por lotes de latencia ultrabaja.
+ * Útil para validación masiva de paridad e inferencia por lotes de latencia ultrabaja.
  */
 export function evaluateCompactValidationRow(
   baseFeatures: readonly (number | null)[],
@@ -1209,21 +1391,33 @@ export function evaluateCompactValidationRow(
 } {
   const compiled = getOrCompileGbm(artifact);
   const design = fillDesignBufferCompact(baseFeatures, divIndex, compiled);
-  const rawLogits = traverseForestLogits(design, compiled);
-  const gbmRaw = softmax3(rawLogits);
-  const gbmCalibrated = applyTemperature3(gbmRaw, compiled.temperature);
-  const logit = predictCompanionLogitFromDesign(design, compiled);
-  const ensemble = blendLogitAndGbm(logit, gbmCalibrated, artifact.calibration);
+  const out = compiled.scratchOut;
+  traverseForestInto(design, compiled, out, 0);
+  const z0 = out[0]!;
+  const z1 = out[1]!;
+  const z2 = out[2]!;
+  softmaxFromLogitsInto(z0, z1, z2, out, 0);
+  const gbmRaw: readonly [number, number, number] = [out[0]!, out[1]!, out[2]!];
+  calibratedProbsFromLogitsInto(z0, z1, z2, compiled, out, 3);
+  const gbmCalibrated: readonly [number, number, number] = [out[3]!, out[4]!, out[5]!];
+  predictCompanionLogitInto(design, compiled, out, 6);
+  const logit: readonly [number, number, number] = [out[6]!, out[7]!, out[8]!];
+  blendScratchInto(out, 6, 3, 9, compiled);
+  const ensemble: readonly [number, number, number] = [out[9]!, out[10]!, out[11]!];
   return { gbmRaw, gbmCalibrated, logit, ensemble };
 }
 
-/** Predicción estructurada `Prediction` del GBM calibrado individual. */
+/** Predicción estructurada `Prediction` del GBM calibrado individual (cero asignaciones intermedias). */
 export function predictGbm(row: GbmInputRow, artifact: GbmArtifact): Prediction {
-  const [pHome, pDraw, pAway] = predictGbmCalibratedProbs(row, artifact);
+  const compiled = getOrCompileGbm(artifact);
+  const design = fillDesignBufferFromRow(row, compiled);
+  const out = compiled.scratchOut;
+  traverseForestInto(design, compiled, out, 0);
+  calibratedProbsFromLogitsInto(out[0]!, out[1]!, out[2]!, compiled, out, 3);
   return {
-    pHome,
-    pDraw,
-    pAway,
+    pHome: out[3]!,
+    pDraw: out[4]!,
+    pAway: out[5]!,
     modelId: GBM_MODEL_ID,
     modelName: artifact.codename || TACHYON_GBM_MODEL_NAME,
     modelVersion: artifact.version,
@@ -1234,7 +1428,7 @@ export function predictGbm(row: GbmInputRow, artifact: GbmArtifact): Prediction 
 }
 
 /**
- * Predicción del ensamble `Logit + GBM calibrado`.
+ * Predicción del ensamble `Logit + GBM calibrado` (cero asignaciones intermedias en el camino caliente).
  * Si `options.respectProductionGate === true` y `artifact.production_activated === false`,
  * retorna únicamente las probabilidades `Logit` sin mezclar el GBM.
  */
@@ -1245,42 +1439,63 @@ export function predictLogitGbmEnsemble(
 ): Prediction {
   const compiled = getOrCompileGbm(artifact);
   const design = fillDesignBufferFromRow(row, compiled);
+  const out = compiled.scratchOut;
 
-  let pLogit: readonly [number, number, number];
-  if (options?.logitProbs !== undefined) {
-    assertSimplex3(options.logitProbs, "options.logitProbs");
-    pLogit = options.logitProbs;
-  } else if (options?.logitModel !== undefined) {
-    assertValidModel(options.logitModel);
-    const predL = predictMotorA(row, options.logitModel);
-    pLogit = [predL.pHome, predL.pDraw, predL.pAway];
-  } else {
-    pLogit = predictCompanionLogitFromDesign(design, compiled);
-  }
-
-  if (options?.respectProductionGate === true && !artifact.production_activated) {
+  if (options === undefined) {
+    predictCompanionLogitInto(design, compiled, out, 6);
+    traverseForestInto(design, compiled, out, 0);
+    calibratedProbsFromLogitsInto(out[0]!, out[1]!, out[2]!, compiled, out, 3);
+    blendScratchInto(out, 6, 3, 9, compiled);
     return {
-      pHome: pLogit[0],
-      pDraw: pLogit[1],
-      pAway: pLogit[2],
-      modelId: options?.logitModel ? "motor_a_logistic_v1" : ENSEMBLE_LOGIT_GBM_MODEL_ID,
-      modelName: options?.logitModel?.codename ?? artifact.codename ?? TACHYON_ENSEMBLE_MODEL_NAME,
-      modelVersion: options?.logitModel?.version ?? artifact.version,
-      generatedAt: options?.logitModel?.created_at ?? artifact.created_at,
+      pHome: out[9]!,
+      pDraw: out[10]!,
+      pAway: out[11]!,
+      modelId: ENSEMBLE_LOGIT_GBM_MODEL_ID,
+      modelName: TACHYON_ENSEMBLE_MODEL_NAME,
+      modelVersion: artifact.version,
+      generatedAt: artifact.created_at,
       dataQualityFlag: "ok",
       sport: "football",
     };
   }
 
-  const rawLogits = traverseForestLogits(design, compiled);
-  const gbmRaw = softmax3(rawLogits);
-  const gbmCal = applyTemperature3(gbmRaw, compiled.temperature);
-  const [pHome, pDraw, pAway] = blendLogitAndGbm(pLogit, gbmCal, artifact.calibration);
+  if (options.logitProbs !== undefined) {
+    assertSimplex3(options.logitProbs, "options.logitProbs");
+    out[6] = options.logitProbs[0];
+    out[7] = options.logitProbs[1];
+    out[8] = options.logitProbs[2];
+  } else if (options.logitModel !== undefined) {
+    assertValidModel(options.logitModel);
+    const predL = predictMotorA(row, options.logitModel);
+    out[6] = predL.pHome;
+    out[7] = predL.pDraw;
+    out[8] = predL.pAway;
+  } else {
+    predictCompanionLogitInto(design, compiled, out, 6);
+  }
+
+  if (options.respectProductionGate === true && !artifact.production_activated) {
+    return {
+      pHome: out[6]!,
+      pDraw: out[7]!,
+      pAway: out[8]!,
+      modelId: options.logitModel ? "motor_a_logistic_v1" : ENSEMBLE_LOGIT_GBM_MODEL_ID,
+      modelName: options.logitModel?.codename ?? artifact.codename ?? TACHYON_ENSEMBLE_MODEL_NAME,
+      modelVersion: options.logitModel?.version ?? artifact.version,
+      generatedAt: options.logitModel?.created_at ?? artifact.created_at,
+      dataQualityFlag: "ok",
+      sport: "football",
+    };
+  }
+
+  traverseForestInto(design, compiled, out, 0);
+  calibratedProbsFromLogitsInto(out[0]!, out[1]!, out[2]!, compiled, out, 3);
+  blendScratchInto(out, 6, 3, 9, compiled);
 
   return {
-    pHome,
-    pDraw,
-    pAway,
+    pHome: out[9]!,
+    pDraw: out[10]!,
+    pAway: out[11]!,
     modelId: ENSEMBLE_LOGIT_GBM_MODEL_ID,
     modelName: TACHYON_ENSEMBLE_MODEL_NAME,
     modelVersion: artifact.version,
