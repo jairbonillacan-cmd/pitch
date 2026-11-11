@@ -60,6 +60,93 @@ function isOwnSocialPost(v: unknown): v is SocialPost {
   return !!p && typeof p.id === "string" && typeof p.body === "string" && !p.isExample && Array.isArray(p.comments);
 }
 
+interface ServerJournalRow {
+  id: string;
+  pickId: string;
+  gameId: string;
+  leagueLabel: string;
+  matchLabel: string;
+  pickLabel: string;
+  origin: string;
+  units: string;
+  userDecimal: string;
+  fairDecimal: string;
+  clvPct: string | null;
+  status: string;
+  note: string | null;
+  sealedAt: string;
+}
+
+const SEAL_ERRORS: Record<string, string> = {
+  partido_iniciado: "El partido ya empezó: no se puede sellar.",
+  unidades_invalidas: "Las unidades deben estar entre 0.25u y 5u.",
+  momio_invalido: "Momio inválido.",
+  ya_sellado: "Ese pick ya estaba sellado en tu Bitácora.",
+};
+
+function fromServerRow(row: ServerJournalRow): JournalEntry {
+  const origins: JournalEntry["origin"][] = ["Spacetime Suite", "Parlay Combinado", "Player Prop", "Propio"];
+  return {
+    id: row.id,
+    pickId: row.pickId,
+    gameId: row.gameId,
+    leagueLabel: row.leagueLabel,
+    matchLabel: row.matchLabel,
+    pickLabel: row.pickLabel,
+    origin: origins.includes(row.origin as JournalEntry["origin"]) ? (row.origin as JournalEntry["origin"]) : "Propio",
+    units: Number(row.units),
+    userDecimal: Number(row.userDecimal),
+    fairDecimal: Number(row.fairDecimal),
+    clvPct: row.clvPct === null ? 0 : Number(row.clvPct),
+    status: row.status === "won" || row.status === "lost" ? row.status : "pending",
+    sealedAt: new Date(row.sealedAt).toLocaleString("es-MX", { dateStyle: "short", timeStyle: "short" }),
+    note: row.note ?? undefined,
+  };
+}
+
+async function getJson<T>(url: string): Promise<T | null> {
+  try {
+    const res = await fetch(url, { credentials: "same-origin" });
+    return res.ok ? ((await res.json()) as T) : null;
+  } catch (err) {
+    void err;
+    return null;
+  }
+}
+
+async function postJson(url: string, body: unknown): Promise<Response | null> {
+  try {
+    return await fetch(url, {
+      method: "POST",
+      credentials: "same-origin",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(body),
+    });
+  } catch (err) {
+    void err;
+    return null;
+  }
+}
+
+async function sealOnServer(entry: JournalEntry): Promise<{ ok: boolean; id?: string; reason?: string }> {
+  const res = await postJson("/api/me/journal", {
+    pickId: entry.pickId,
+    gameId: entry.gameId,
+    leagueLabel: entry.leagueLabel,
+    matchLabel: entry.matchLabel,
+    pickLabel: entry.pickLabel,
+    origin: entry.origin,
+    units: entry.units,
+    userDecimal: entry.userDecimal,
+    fairDecimal: entry.fairDecimal,
+    note: entry.note,
+  });
+  if (!res) return { ok: false };
+  if (res.status === 401 || res.status === 503) return { ok: false, reason: "sin_sesion" };
+  const json = (await res.json().catch(() => ({}))) as { ok?: boolean; id?: string; reason?: string };
+  return { ok: Boolean(json.ok), id: json.id, reason: json.reason };
+}
+
 function formatClvBadge(avgClvPct: number | null): string {
   if (avgClvPct === null) return "CLV —";
   return `CLV ${avgClvPct >= 0 ? "+" : ""}${avgClvPct.toFixed(1)} %`;
@@ -335,6 +422,17 @@ export function PlatformProvider({
     }
     setUserDataLoaded(true);
   }, []);
+
+  // Con cuenta y sesión, la base es la fuente de verdad de vigilancia y bitácora.
+  useEffect(() => {
+    if (!accountsEnabled) return;
+    void (async () => {
+      const watch = await getJson<{ gameIds?: string[] }>("/api/me/watchlist");
+      if (watch?.gameIds) setWatchlistGameIds(watch.gameIds);
+      const journalRes = await getJson<{ entries?: ServerJournalRow[] }>("/api/me/journal");
+      if (journalRes?.entries) setJournal(journalRes.entries.map(fromServerRow));
+    })();
+  }, [accountsEnabled]);
   useEffect(() => {
     if (userDataLoaded) writeStored(STORAGE_KEYS.journal, journal.slice(0, 500));
   }, [journal, userDataLoaded]);
@@ -530,8 +628,19 @@ export function PlatformProvider({
       setJournal((prev) => [entry, ...prev]);
       setComposerPick(null);
       pushToast(`Pick sellado en Bitácora (${entry.units}u).`, "success");
+      // Con cuenta: el servidor sella con la hora de inicio oficial y una huella SHA-256.
+      if (accountsEnabled && entry.status === "pending") {
+        void sealOnServer(entry).then((res) => {
+          if (res.ok && res.id) {
+            setJournal((prev) => prev.map((j) => (j.id === entry.id ? { ...j, id: res.id! } : j)));
+          } else if (res.reason && res.reason !== "sin_sesion") {
+            setJournal((prev) => prev.filter((j) => j.id !== entry.id));
+            pushToast(SEAL_ERRORS[res.reason] ?? "No se pudo sellar el pick.", "warning");
+          }
+        });
+      }
     },
-    [pushToast],
+    [pushToast, accountsEnabled],
   );
 
   const sealParlayToJournal = useCallback(
@@ -728,10 +837,11 @@ export function PlatformProvider({
             : "Partido en vigilancia: te avisaremos si aparece valor nuevo.",
           "default",
         );
+        if (accountsEnabled) void postJson("/api/me/watchlist", { gameId, watched: !exists });
         return exists ? prev.filter((id) => id !== gameId) : [...prev, gameId];
       });
     },
-    [pushToast],
+    [pushToast, accountsEnabled],
   );
 
   const simulateFriendFirstPayment = useCallback(() => {
