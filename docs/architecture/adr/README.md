@@ -19,7 +19,7 @@
 | [ADR-013](ADR-013-pitchlab-ai-openrouter-modelo-barato-w5.md) | PitchLab AI vía OpenRouter con un modelo barato y herramientas tipadas (W5) | Aceptada (rev. 2) |
 | [ADR-014](ADR-014-fuentes-de-datos-gratuitas-en-la-fase-inicial.md) | Fuentes de datos gratuitas en la fase inicial | Aceptada |
 | [ADR-015](ADR-015-i18n-con-next-intl-es-mx-por-defecto.md) | i18n con next-intl, es-MX por defecto | Aceptada |
-| [ADR-016](ADR-016-iconografia-iconos-de-marca-lucide-para-los-generi.md) | Iconografía: iconos de marca + Lucide para los genéricos | Propuesta (requiere el visto bueno del fundador) |
+| [ADR-016](ADR-016-iconografia-iconos-de-marca-lucide-para-los-generi.md) | Iconografía: iconos de marca + Lucide para los genéricos | Aceptada con cambio: set propio MaestroIcon (2026-11-11) |
 | [ADR-017](ADR-017-registro-de-emblemas-deportivos-con-fallback.md) | Registro de emblemas deportivos con fallback | Aceptada |
 | [ADR-018](ADR-018-archivar-la-reconstruccion-de-touchiq-y-reutilizar.md) | Archivar la reconstrucción de TouchIQ y reutilizar su dominio como Baseline 0 | Aceptada |
 | [ADR-019](ADR-019-shadcn-ui-mira-base-ui-con-tokens-pitchlab.md) | Primitivas shadcn/ui (Mira, Base UI) con los tokens de PitchLab | Aceptada |

@@ -9,7 +9,7 @@
 - **F1 (spikes y decisiones):** ✅ completa como investigación de escritorio. Las cotizaciones y la confirmación de términos dependen de que el fundador haga los contactos (FD-14).
 - **F2 (product blueprint):** ✅ completa, pendiente de revisión del fundador.
 - **Decisión 2026-11-08:** datos a US$0 por ahora → `docs/architecture/FREE_DATA_STRATEGY.md` (FD-02 decidida).
-- **F3 (arquitectura y ADRs):** ✅ completa: 26 ADRs aceptadas (`ADR-001`…`ADR-015`, `ADR-017`…`ADR-027`), 1 propuesta (`ADR-016`) y 8 documentos base de arquitectura, con revisión cruzada.
+- **F3 (arquitectura y ADRs):** ✅ completa: 27 ADRs aceptadas (`ADR-001`…`ADR-027`; ADR-016 cerrada el 2026-11-11 con `MaestroIcon`) y 8 documentos base de arquitectura, con revisión cruzada.
 - **F3b (preparación de ejecución):** ✅ completa: frontend, contratos, ownership, integración, plan multiagente, quality gates y plantilla de prompts.
 - **Pre-MVP para socios:** ✅ implementado en `feat/pre-mvp` (`docs/product/PRE_MVP.md` y `docs/product/PRE_MVP_DEPLOY.md`).
 - **D1 diseño base:** ✅ aprobado (2026-11-08, iteración 4). Contrato en `docs/design/DESIGN_SYSTEM.md`, `INTERACTION_PATTERNS.md` y `RESPONSIVE_RULES.md`. Prototipos en `design/d1/`.
@@ -102,7 +102,7 @@ El clon previo de TouchIQ (Vite + `src/domain` con 24 tests dorados) quedó arch
 ## Pendiente (en orden)
 
 1. **Acciones del fundador (bloquean F4 y publicar):** crear cuentas y cargar secretos según `docs/architecture/DEPLOYMENT.md` §6: Vercel, Neon (`DATABASE_URL`), proveedores de login (Google, Apple, correo), Stripe MX, Facturapi, Cloudflare Turnstile y DNS de pitchlab.mx. Ningún agente debe crear cuentas ni manejar claves.
-2. **Revisión de decisiones con el fundador:** todo en una sola hoja: [`docs/product/DECISIONES_FUNDADOR_F4.md`](../product/DECISIONES_FUNDADOR_F4.md) (precios, prueba, hosting comercial al cobrar, comisión, fuente de momios con permiso, props, Cortex, legal) con recomendación en cada punto.
+2. **Decisiones del fundador:** ✅ revisadas el 2026-11-11 (ver «Decisiones tomadas» en [`docs/product/DECISIONES_FUNDADOR_F4.md`](../product/DECISIONES_FUNDADOR_F4.md)). Abiertas: persona que factura (con el contador) y umbral para apagar la prueba sin tarjeta (al ver datos). Trabajo que derivó: Stripe Connect para tipstars, integrar una API de momios con licencia, cupón del referido y borradores legales.
 3. **Momios del día:** regenerar `live_matchday_v3_snapshot.json` en `prediction-lab` (scrapers de `web-scraping`) de forma recurrente; el workflow diario de esta rama ya sincroniza lo que se publique allá. Sin eso, a las 72 h la app deja de mostrar momios.
 4. **F4 en código:** ✅ listo y probado sin servicios externos: Better Auth (enlace mágico, Google, Apple), Stripe Checkout + webhook (suscripción, gracia, referidos, embajador, comisiones, reembolsos), CFDI 4.0 con Facturapi, Turnstile, consola del fundador con datos reales (`PITCHLAB_ADMIN_EMAILS`), Bitácora/vigilancia/referidos en la base y Cortex IA con LLM validado. Se enciende con las variables de `.env.example`.
 5. **Publicar en Vercel y llevar `gemini-reestructura` a `main`** con PR (el workflow diario de snapshots solo corre en la rama por defecto).

@@ -4,6 +4,22 @@
 > **Para qué:** revisar en una sola sesión lo que solo el fundador puede decidir. Cada punto trae la recomendación y qué cambia en el código si se elige otra opción.
 > **Contexto:** el código de F4 (cuentas, Stripe, CFDI, Turnstile, consola) ya está hecho y probado; se enciende con las variables de `.env.example`.
 
+## Decisiones tomadas (2026-11-11)
+
+| # | Tema | Decisión | Qué sigue |
+|---|---|---|---|
+| 1.2 | Prueba «Mes 1 sin tarjeta» | **Se decide al ver datos.** Queda encendida y se apaga a mano desde `/app/admin`. | Nada en código. Revisar conversión y cuentas repetidas en la consola. |
+| 1.3 | Hosting al cobrar | **Vercel Pro** desde que haya cobros. | Cambiar de plan antes de pasar Stripe a modo real (primer costo fijo). |
+| 1.4 | Persona que factura | **Pendiente: con el contador.** | Configurar Facturapi cuando se defina. |
+| 2.1 | Base de la comisión | **25 % sobre el neto** (sin IVA ni comisión de Stripe). | Ya implementado en `computeCommission`. |
+| 2.2 | Pago a tipstars | **Stripe Connect desde el inicio** (no SPEI manual). | Programar el alta de creadores en Connect Express y las transferencias automáticas al liquidarse cada comisión. |
+| 2.4 | Descuento del referido | **Solo plan mensual, $90 fijos** (primer mes de $209). | Crear el cupón `amount_off: 9000` MXN, `duration: once`, limitado al precio mensual. |
+| 3.1 | Fuente de momios | **API con licencia antes de cobrar.** | Integrar el proveedor elegido como fuente de la matriz de momios y dejar de usar scraping en producción. |
+| 3.2 | Props de jugadores | **Esperar datos con permiso.** Siguen en «próximamente». | Conseguir registros partido a partido y validar en `prediction-lab`. |
+| 3.3 | Cortex IA con LLM | **Activar al lanzar**, revisando el gasto la primera semana. | Cargar `OPENROUTER_API_KEY` y fijar `OPENROUTER_PROVIDER`. |
+| 3.4 | Iconografía (ADR-016) | **Aprobado MaestroIcon** (set propio, sin Lucide). | ADR-016 aceptada con esa decisión. |
+| 4.x | Legal | **Solo borradores por ahora;** la revisión legal queda para antes de pasar Stripe a modo real. | Preparar borradores de términos, privacidad y juego responsable. |
+
 ## 1. Cobro y producto
 
 | # | Decisión | Recomendación | Si eliges otra cosa |

@@ -60,6 +60,10 @@
 
 En producción: Core Web Vitals en p75 (LCP ≤ 2.5 s, INP ≤ 200 ms, CLS ≤ 0.1) vía Vercel Speed Insights o PostHog web vitals, separados de las métricas de laboratorio.
 
+## Plan de hosting
+
+Decisión del fundador (2026-11-11): el pre-MVP sin cobros puede seguir en Vercel Hobby, pero **antes de activar cobros reales se pasa a Vercel Pro** (Hobby es solo para uso no comercial). Ver `docs/product/DECISIONES_FUNDADOR_F4.md`.
+
 ## 6. Acciones del fundador para F4 (no las puede hacer un agente)
 
 1. Crear las cuentas de servicio (con 2FA): Vercel, Neon, Cloudflare (DNS y R2), Upstash, PostHog, Sentry, Resend y GitHub (repo privado y Actions). Más adelante, The Odds API, API-Football, la pasarela y OpenRouter (W5, con límite de gasto mensual).
