@@ -302,8 +302,12 @@ export function BitacoraClubView(): React.JSX.Element {
                 Mi Bitácora Cuantitativa
               </h1>
               <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
-                Registro inmutable en unidades simuladas (0.25u–5.0u) para picks individuales,
-                player props y parlays combinados.
+                Registro en unidades simuladas (0.25u–5.0u) para picks individuales y parlays
+                combinados.
+              </p>
+              <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }} data-local-storage-note="">
+                Por ahora tu Bitácora se guarda en este navegador. Cuando actives tu cuenta se
+                sincronizará y quedará sellada en el servidor.
               </p>
             </div>
 

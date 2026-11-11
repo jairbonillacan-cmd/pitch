@@ -16,6 +16,50 @@ import {
   redactDatasetForVisitor,
 } from "./access-guard.js";
 
+/** Claves de almacenamiento local (versión en el nombre para poder migrar). */
+const STORAGE_KEYS = {
+  journal: "pl-journal-v1",
+  watchlist: "pl-watchlist-v1",
+  ownPosts: "pl-own-posts-v1",
+} as const;
+
+function readStoredArray<T>(key: string, isItem: (v: unknown) => v is T): T[] {
+  try {
+    const raw = window.localStorage.getItem(key);
+    if (!raw) return [];
+    const parsed: unknown = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed.filter(isItem) : [];
+  } catch (err) {
+    void err;
+    return [];
+  }
+}
+
+function writeStored(key: string, value: unknown): void {
+  try {
+    window.localStorage.setItem(key, JSON.stringify(value));
+  } catch (err) {
+    void err;
+  }
+}
+
+function isJournalEntry(v: unknown): v is JournalEntry {
+  const e = v as Partial<JournalEntry> | null;
+  return (
+    !!e &&
+    typeof e.id === "string" &&
+    typeof e.pickId === "string" &&
+    typeof e.units === "number" &&
+    typeof e.userDecimal === "number" &&
+    (e.status === "pending" || e.status === "won" || e.status === "lost")
+  );
+}
+
+function isOwnSocialPost(v: unknown): v is SocialPost {
+  const p = v as Partial<SocialPost> | null;
+  return !!p && typeof p.id === "string" && typeof p.body === "string" && !p.isExample && Array.isArray(p.comments);
+}
+
 function formatClvBadge(avgClvPct: number | null): string {
   if (avgClvPct === null) return "CLV —";
   return `CLV ${avgClvPct >= 0 ? "+" : ""}${avgClvPct.toFixed(1)} %`;
@@ -273,6 +317,34 @@ export function PlatformProvider({
       void err;
     }
   }, [allowRoleSimulation]);
+
+  // Datos del socio en este navegador (hasta que exista la base de datos de F4).
+  const [userDataLoaded, setUserDataLoaded] = useState<boolean>(false);
+  useEffect(() => {
+    const savedJournal = readStoredArray<JournalEntry>(STORAGE_KEYS.journal, isJournalEntry);
+    if (savedJournal.length > 0) setJournal(savedJournal);
+    const savedWatch = readStoredArray<string>(STORAGE_KEYS.watchlist, (v): v is string => typeof v === "string");
+    if (savedWatch.length > 0) setWatchlistGameIds(savedWatch);
+    const ownPosts = readStoredArray<SocialPost>(STORAGE_KEYS.ownPosts, isOwnSocialPost);
+    if (ownPosts.length > 0) {
+      setSocialPosts((prev) => [...ownPosts, ...prev.filter((p) => !ownPosts.some((o) => o.id === p.id))]);
+    }
+    setUserDataLoaded(true);
+  }, []);
+  useEffect(() => {
+    if (userDataLoaded) writeStored(STORAGE_KEYS.journal, journal.slice(0, 500));
+  }, [journal, userDataLoaded]);
+  useEffect(() => {
+    if (userDataLoaded) writeStored(STORAGE_KEYS.watchlist, watchlistGameIds);
+  }, [watchlistGameIds, userDataLoaded]);
+  useEffect(() => {
+    if (userDataLoaded) {
+      writeStored(
+        STORAGE_KEYS.ownPosts,
+        socialPosts.filter((p) => !p.isExample).slice(0, 100),
+      );
+    }
+  }, [socialPosts, userDataLoaded]);
 
   // Atajo global Cmd+K / Ctrl+K y Escape
   useEffect(() => {

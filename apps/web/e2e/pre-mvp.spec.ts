@@ -130,11 +130,12 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
       .analyze();
     expect(techA11y.violations).toEqual([]);
 
-    // Boleto público de Tipstar (/p/sofia-sem): libera 1 pick semanal y protege los otros 4 del mismo partido
+    // Boleto público de Tipstar (/p/sofia-sem): libera 1 pick semanal y protege los demás del mismo partido
+    // (hasta 5 picks por partido: el de valor solo existe si Geodesic encuentra valor real)
     await page.goto("/p/sofia-sem");
     await expect(page.locator("h1")).toContainText("@sofia_nfl");
     await expect(page.locator("body")).toContainText("SOFIA5");
-    expect(await page.locator("[data-locked-pick]").count()).toBeGreaterThanOrEqual(3);
+    expect(await page.locator("[data-locked-pick]").count()).toBeGreaterThanOrEqual(1);
     const tipstarPublicA11y = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa"])
       .analyze();

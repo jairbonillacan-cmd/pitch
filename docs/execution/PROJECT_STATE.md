@@ -101,10 +101,13 @@ El clon previo de TouchIQ (Vite + `src/domain` con 24 tests dorados) quedó arch
 
 ## Pendiente (en orden)
 
-1. **Auditoría visual 1:1 y cierre UI-MAESTRO-V4.1 en casa con Claude (`docs/execution/CLAUDE_HOME_SESSION_BRIEF.md`):** correr `pnpm e2e` + auditoría visual lado a lado contra `design/prototipo-maestro/prototipo-maestro-pitchlab.html` (`1440×900` y `390×844`, oscuro y claro), pulir micro-detalles visuales/responsive y revisar `ADR-023`…`ADR-025` + `VISION_REESTRUCTURA_CLAUDE_*.md` con el fundador.
-2. **Gate del fundador:** ✅ FD-01 y FD-03…FD-06 confirmadas (2026-11-08). Pendiente: ADR-016 (iconografía) y las acciones de `DEPLOYMENT.md` §6 (cuentas, DNS y secretos), que solo bloquean F4 y el deploy productivo, no el diseño ni la validación local.
-3. **Despliegue y F4:** publicar en Vercel (`docs/product/PRE_MVP_DEPLOY.md`) e iniciar **F4** completo (persistencia Postgres/Drizzle, Auth.js OAuth + Turnstile, Stripe MX, Facturapi CFDI 4.0; `SPORTS_ASSET_COVERAGE.md` se autogenera ahí).
-4. **F5:** prompts (`prompts/INDEX.md`). **F6:** ejecución multiagente (`AGENT_EXECUTION_PLAN.md`).
+1. **Acciones del fundador (bloquean F4 y publicar):** crear cuentas y cargar secretos según `docs/architecture/DEPLOYMENT.md` §6: Vercel, Neon (`DATABASE_URL`), proveedores de login (Google, Apple, correo), Stripe MX, Facturapi, Cloudflare Turnstile y DNS de pitchlab.mx. Ningún agente debe crear cuentas ni manejar claves.
+2. **Revisión de decisiones con el fundador:** ADR-023…ADR-027 y las decisiones abiertas de `VISION_REESTRUCTURA_CLAUDE_GROWTH.md` (prueba Mes 1 sin tarjeta vs Mes 2, comisión de tipstars 25 %, campos CFDI) antes de activar llaves productivas.
+3. **Momios del día:** regenerar `live_matchday_v3_snapshot.json` en `prediction-lab` (scrapers de `web-scraping`) de forma recurrente; el workflow diario de esta rama ya sincroniza lo que se publique allá. Sin eso, a las 72 h la app deja de mostrar momios.
+4. **F4 en código, cuando existan las cuentas:** Better Auth (ADR-010) para tener `user_id`; rutas de API sobre `packages/db` (bitácora, vigilancia, preferencias, comunidad); Stripe MX + webhooks idempotentes; Facturapi CFDI 4.0; Turnstile en el alta. Esquema y migraciones ya listos en `packages/db`.
+5. **Publicar en Vercel y llevar `gemini-reestructura` a `main`** con PR (el workflow diario de snapshots solo corre en la rama por defecto).
+6. **Motores:** props de jugadores (requiere motor por jugador en `prediction-lab`); síntesis Cortex con LLM (ADR-013, hoy plantilla determinista).
+7. **F5:** prompts (`prompts/INDEX.md`). **F6:** ejecución multiagente (`AGENT_EXECUTION_PLAN.md`).
 
 ## Bloqueos
 
@@ -834,3 +837,15 @@ _(Cada sesión de agente agrega aquí su entrada con el formato de `AGENT_EXECUT
   - Desarrollo local: `PREVIEW_ACCESS_CODE=2026 pnpm dev` (abre `http://localhost:3000`; PIN de socio `2026`; códigos demo `SOFIA5`, `CARLOS5`, `DIEGO5`, `JAIR`, `SOCIO-8842`; referencia canónica en `design/prototipo-maestro/prototipo-maestro-pitchlab.html`).
   - Suite E2E completa + auditoría Axe AA: `pnpm build && pnpm e2e`.
 
+### SPACETIME-V3 · Motores v3.0, datos verificables y base de F4 — 2026-11-11 — Rama `gemini-reestructura`
+- **Hecho:**
+  - `packages/spacetime`: motores Spacetime Suite v3.0 copiados de `prediction-lab` con script de sincronización; error de tipos corregido en `prediction-lab` (`263857a`).
+  - `apps/web/src/server/spacetime.ts`: inferencia v3.0 por partido, momios reales con vigencia de 72 h y fecha visible, factores traducidos (FD-16).
+  - `packages/ui/src/platform/spacetime-markets.ts`: totales, ambos anotan, goles por equipo, marcador exacto (Poisson + Dixon-Coles) y hándicaps/totales NFL desde v3.0.
+  - UI sin datos inventados (ADR-027): momios, ventajas, bajas, alineaciones, props, alertas, récords y cifras de marketing; contenido de demostración marcado «Ejemplo».
+  - Herramientas de preview fuera de producción; PIN fuera del cliente. Descarga real de boletos PNG.
+  - Liga MX real desde ESPN (temporada actual); snapshots al 11 nov; workflow diario sincroniza Spacetime.
+  - `packages/db`: esquema Drizzle de 18 tablas con migración y pruebas en Postgres en memoria; bitácora, vigilancia y publicaciones propias persisten en el navegador.
+  - Revisión visual contra el prototipo maestro (escritorio, tableta y móvil) con correcciones.
+- **No hecho:** todo lo que requiere cuentas o secretos (ver «Pendiente» 1 y 4); regenerar momios (requiere correr scrapers en `prediction-lab`).
+- **Cómo probarlo:** `pnpm typecheck && pnpm lint && pnpm test && pnpm build && pnpm e2e`.
