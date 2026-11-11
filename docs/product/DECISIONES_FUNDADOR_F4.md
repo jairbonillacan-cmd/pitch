@@ -14,7 +14,7 @@
 | 2.1 | Base de la comisión | **25 % sobre el neto** (sin IVA ni comisión de Stripe). | Ya implementado en `computeCommission`. |
 | 2.2 | Pago a tipstars | **Stripe Connect desde el inicio** (no SPEI manual). | ✅ Hecho: alta en Connect Express desde el Portal Tipstar, `account.updated` en el webhook y pago diario (`/api/cron/tipstar-payouts`, Vercel Cron) al liberarse cada comisión. Falta: activar Connect en la cuenta de Stripe y cargar `STRIPE_CONNECT_WEBHOOK_SECRET` y `CRON_SECRET`. |
 | 2.4 | Descuento del referido | **Solo plan mensual, $90 fijos** (primer mes de $209). | Crear el cupón `amount_off: 9000` MXN, `duration: once`, limitado al precio mensual. |
-| 3.1 | Fuente de momios | **API con licencia antes de cobrar.** | Integrar el proveedor elegido como fuente de la matriz de momios y dejar de usar scraping en producción. |
+| 3.1 | Fuente de momios | **Solo fuentes gratuitas** (cambio del fundador, 2026-11-11: nada de pago ni con licencia). | Elegir entre fuentes gratis: capas gratuitas de APIs de momios (con su límite mensual) y mercados de predicción públicos (ya usados en «¿Dónde está el dinero?»). El scraping de casas sigue con riesgo de bloqueo y de términos. |
 | 3.2 | Props de jugadores | **Esperar datos con permiso.** Siguen en «próximamente». | Conseguir registros partido a partido y validar en `prediction-lab`. |
 | 3.3 | Cortex IA con LLM | **Activar al lanzar**, revisando el gasto la primera semana. | Cargar `OPENROUTER_API_KEY` y fijar `OPENROUTER_PROVIDER`. |
 | 3.4 | Iconografía (ADR-016) | **Aprobado MaestroIcon** (set propio, sin Lucide). | ADR-016 aceptada con esa decisión. |
