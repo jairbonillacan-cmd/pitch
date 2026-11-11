@@ -1,12 +1,14 @@
-# Lienzo · Login propuesto (2026-11-11)
+# Lienzo · Login y Crear cuenta (2026-11-11)
 
-Fuente del lienzo de diseño «PitchLab · Login». El lienzo es privado; estos archivos bastan para implementarlo.
+Fuente del lienzo de diseño «PitchLab · Login», que tiene dos filas: Login arriba y Crear cuenta abajo. El lienzo es privado; estos archivos bastan para implementarlo.
 
 | Archivo | Qué es |
 |---|---|
 | `Main.dc.html` | `/login` en escritorio, interactivo: contraseña ↔ «sin contraseña» (enlace), «Revisa tu correo» y PIN de socio. El tema claro son las variables de `.lp[data-theme="light"]`. |
 | `Mobile.dc.html` | `/login` en móvil, tema oscuro, fluido (ancho y alto reales del teléfono). |
-| `canvas.json` | Índice. Sus `notes` traen «Qué cambia y por qué» y el brief de implementación. |
+| `Signup.dc.html` | `/signup` en escritorio, interactivo: paso 1 (Google, Apple o correo) → paso 2 (fecha de nacimiento y consentimientos) → «Confirma tu correo». Tweaks: tema e invitación. Los pasos 2 y 3 se ven con Play o leyendo el HTML (`isStep2`, `isSent`). |
+| `SignupMobile.dc.html` | `/signup` en móvil, con el aviso de invitación activo y los mismos tres estados. |
+| `canvas.json` | Índice. Sus `notes` traen «Qué cambia y por qué» y el brief de cada pantalla (`decisiones`/`brief` para login, `signupDecisiones`/`signupBrief` para registro). |
 
 Son HTML de referencia, no código para copiar: el JS de `renderVals()` solo simula estados. En la app todo sale de tokens `--pl-*`, de los componentes de `@pitchlab/ui` y del dataset.
 

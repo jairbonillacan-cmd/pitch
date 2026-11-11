@@ -26,13 +26,55 @@
       "h": 844,
       "title": "Login · móvil",
       "is_interactive": true
+    },
+    "Signup.dc.html": {
+      "x": 0,
+      "y": 1500,
+      "w": 1440,
+      "h": 900,
+      "title": "Crear cuenta · escritorio (tema e invitación en Tweaks)",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "SignupMobile.dc.html": {
+      "x": 1520,
+      "y": 1500,
+      "w": 390,
+      "h": 844,
+      "title": "Crear cuenta · móvil (con invitación)",
+      "is_interactive": true
     }
   },
   "order": [
     "Main.dc.html",
-    "Mobile.dc.html"
+    "Mobile.dc.html",
+    "Signup.dc.html",
+    "SignupMobile.dc.html"
   ],
   "notes": {
+    "titleSignup": {
+      "x": 0,
+      "y": 1200,
+      "text": "Crear cuenta · PitchLab",
+      "kind": "title1",
+      "maxW": 1910
+    },
+    "signupDecisiones": {
+      "x": 1990,
+      "y": 1500,
+      "w": 480,
+      "fill": "purple",
+      "size": "s",
+      "text": "QUÉ CAMBIA Y POR QUÉ\n\n1. Dos pasos cortos en vez de un formulario largo: primero cómo entras (Google, Apple o correo), luego edad y consentimientos. El paso 2 sirve igual para Google y Apple, que tampoco dan la fecha de nacimiento.\n2. Sin contraseña: el backend solo tiene enlace por correo, Google y Apple. El correo se confirma con un enlace y ahí empiezan los 7 días.\n3. Fecha de nacimiento en tres selectores (día, mes, año) con la regla visible: menores de 18 no crean cuenta ni se guardan datos.\n4. Consentimientos separados y marcados: Términos y Aviso de privacidad obligatorio; analítica y novedades opcionales, desmarcados.\n5. «Crear cuenta» se activa solo al aceptar los términos.\n6. Invitación como aviso arriba («Sofía te invitó…»), nunca un campo vacío para escribir códigos.\n7. Panel derecho: «Tu momio» en acción con un partido real (−200 = 66.7 % contra 72.3 % del modelo, +5.6 pts) y lo que incluye la prueba.\n8. Misma hoja de vidrio, luces (espejadas respecto al login) y pie legal que el login, más «Un periodo de prueba por persona»."
+    },
+    "signupBrief": {
+      "x": 1990,
+      "y": 2180,
+      "w": 480,
+      "fill": "blue",
+      "size": "s",
+      "text": "PARA IMPLEMENTAR\n\n• AuthSurfaceV4 mode=\"signup\" (o SignupSurfaceV4 si se separa). Ruta apps/web/app/signup/page.tsx.\n• Paso 1 correo: requestMagicLink(correo, \"/onboarding\") con cuentas; en beta, openBetaPin como hoy.\n• Paso 1 Google/Apple: startSocialSignIn; al volver sin fecha de nacimiento ni consentimientos, mostrar el paso 2 antes de /onboarding.\n• Paso 2: birth_date obligatoria, menor de 18 → rechazo sin guardar (AUTH_BILLING_GROWTH §1). Consentimientos con versión en la tabla consent.\n• Un trial por persona (trial_claim): ante conflicto, mensaje claro y oferta de compra directa, sin trial.\n• Datos del panel: buildHeroLeagueCards; «Tu momio» de ejemplo calculado, no escrito a mano.\n• Mismas reglas que el login: tokens --pl-*, vidrio falso sin backdrop-filter, sin scroll a 375×667."
+    },
     "title": {
       "x": 0,
       "y": -300,
