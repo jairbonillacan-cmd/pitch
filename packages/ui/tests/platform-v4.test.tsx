@@ -194,15 +194,24 @@ describe("PitchLab Spacetime Suite v3.0 & Liquid Glass Platform v4", () => {
   });
 
   it("blocks contradictory legs and enforces SGP 1-vs-2 picks per game with Geodesic correlation factor", () => {
-    const targetGame = dataset.games.find((g) => g.status !== "FT") ?? dataset.games[0]!;
-    const pickA = targetGame.picks[0]!;
-    const pickCompatible =
-      targetGame.picks.find(
-        (p) =>
-          p.id !== pickA.id &&
-          p.conflictGroup !== pickA.conflictGroup &&
-          checkParlayCompatibility([{ pick: pickA }], p, true).allowed,
-      ) ?? targetGame.picks[2]!;
+    // Primer partido próximo que tenga dos picks combinables en un mismo partido (SGP).
+    const pair = dataset.games
+      .filter((g) => g.status !== "FT")
+      .map((g) => {
+        const first = g.picks[0];
+        const second = first
+          ? g.picks.find(
+              (p) =>
+                p.id !== first.id &&
+                p.conflictGroup !== first.conflictGroup &&
+                checkParlayCompatibility([{ pick: first }], p, true).allowed,
+            )
+          : undefined;
+        return first && second ? { pickA: first, pickCompatible: second } : null;
+      })
+      .find((x) => x !== null);
+    expect(pair).toBeTruthy();
+    const { pickA, pickCompatible } = pair!;
 
     // Con SGP apagado: máximo 1 selección por partido
     const withoutSgp = checkParlayCompatibility([{ pick: pickA }], pickCompatible, false);
