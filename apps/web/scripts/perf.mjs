@@ -23,7 +23,7 @@ const PROFILES = [
 const NAV_SEQUENCE = [
   { href: "/app/parlays", h1: /Armar parlay/i },
   { href: "/app/lab", h1: /bitácora/i },
-  { href: "/app/account", h1: /Mi cuenta/i },
+  { href: "/app/social", h1: /^Comunidad$/i },
   { href: "/app", h1: /Partidos de hoy/i },
 ];
 
@@ -168,7 +168,7 @@ const browser = await chromium.launch();
   const unlock = await wp.request.post(`${BASE}/api/beta/unlock`, { data: { code: "2026" } });
   if (!unlock.ok()) throw new Error(`No se pudo entrar: ${unlock.status()}`);
   for (let i = 0; i < 2; i += 1) {
-    for (const href of ["/app", "/app/parlays", "/app/lab", "/app/account"]) {
+    for (const href of ["/app", "/app/parlays", "/app/social", "/app/lab"]) {
       await wp.goto(`${BASE}${href}`, { waitUntil: "load" });
     }
   }

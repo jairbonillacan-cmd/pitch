@@ -9,6 +9,8 @@ export * from "./components/PlatformOverlays";
 export * from "./components/MatchTicketCard";
 export * from "./components/ShellChrome";
 
+export * from "./public/LandingClientIslands";
+export * from "./public/PublicSiteSections";
 export * from "./public/LandingSurface";
 export * from "./public/TechAndPricingSurfaces";
 export * from "./public/AuthAndOnboardingSurfaces";

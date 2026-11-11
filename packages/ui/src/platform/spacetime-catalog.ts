@@ -1,7 +1,9 @@
 import type {
+  LandingFaqItem,
   PrecisionBucket,
   SocialPost,
   SpacetimeEngineSpec,
+  SpacetimeVsTipsterRow,
   TipstarCreator,
 } from "./types";
 
@@ -12,11 +14,17 @@ import type {
  */
 export const SPACETIME_METRICS_HEADLINE = {
   suiteName: "PitchLab Spacetime Suite v3.0",
-  /** Partidos de fútbol de la prueba fuera de muestra 2024–25. */
-  historicalMatches: "16,126",
+  /** Partidos históricos en los motores entrenados: 98,102 fútbol (Tachyon v3.0) + 6,218 NFL (Minkowski v3.0) = 104,320. */
+  historicalMatches: "+100,000",
+  /** Partidos de fútbol de la prueba fuera de muestra 2024–25 (reporte A26). */
+  holdoutTestMatches: "16,126",
+  /** Variables evaluadas por partido en el motor de fútbol. */
+  variablesPerMatch: "136",
+  /** Datos posteriores al partido incluidos al entrenar o evaluar. */
+  postMatchData: "Cero",
   /** Registros normalizados de las 28 fuentes del feature store v2.0. */
   telemetryPoints: "108,167",
-  /** ROI fuera de muestra de Geodesic v2.0 (Kelly 0.25x, 3,670 apuestas). */
+  /** Diferencial fuera de muestra de Geodesic v2.0 sobre 3,670 momios evaluados. */
   closingLineBeatPct: "+1.35 %",
   /** ECE uno-contra-todos de los candidatos finales: todos por debajo de 0.02. */
   calibrationError: "< 0.02 ECE",
@@ -28,64 +36,104 @@ export const SPACETIME_METRICS_HEADLINE = {
 export const SPACETIME_ENGINES: readonly SpacetimeEngineSpec[] = [
   {
     key: "tachyon",
+    mono: "T",
+    shortName: "Tachyon",
     name: "PitchLab Tachyon v3.0",
     version: "v3.0",
     pillar: "Data Science",
     domain: "Fútbol · 23 ligas de entrenamiento · 136 variables",
+    roleLabel: "Fútbol · fuerza de cada equipo",
     colorVar: "var(--engine-tachyon)",
+    readsText:
+      "Fuerza estructural, xG real, presión táctica, altitud del estadio y bajas de la plantilla. No usa momios.",
     summary:
       "Motor deportivo puro: no usa momios. Combina fuerza estructural, xG real, presión táctica, altitud del estadio y disponibilidad de la plantilla.",
     inputsLabel:
       "Liga MX 2024–25: 54.7 % de acierto contra 53.7 % del mercado (676 partidos).",
+    proofFigure: "54.7 %",
+    proofTone: "ok",
+    proofContext: "acierto en Liga MX · mercado 53.7 % · 676 partidos",
     retrainCadence: "Validado fuera de muestra en 16,126 partidos 2024–25.",
   },
   {
     key: "singularity",
+    mono: "S",
+    shortName: "Singularity",
     name: "PitchLab Singularity v3.0",
     version: "v3.0",
     pillar: "Machine Learning",
     domain: "Modelo + mercado · Detección de valor",
+    roleLabel: "Modelo + mercado",
     colorVar: "var(--engine-singularity)",
+    readsText:
+      "Mezcla a Tachyon con el mercado sin el margen de la casa y corrige el sesgo del público en Liga MX.",
     summary:
       "Mezcla la probabilidad de Tachyon con el mercado sin margen de la casa y corrige el sesgo del público en Liga MX.",
     inputsLabel:
       "Mejor log-loss que el momio de cierre en 16,126 partidos 2024–25 (IC 95 % sin cruzar cero).",
+    proofFigure: "16,126",
+    proofTone: "neutral",
+    proofContext: "partidos donde pronosticó mejor que el momio de cierre",
     retrainCadence: "Se recalcula con cada corte de momios.",
   },
   {
     key: "minkowski",
+    mono: "M",
+    shortName: "Minkowski",
     name: "PitchLab Minkowski v3.0",
     version: "v3.0",
     pillar: "Data Science",
     domain: "NFL · 29 variables + capa de contexto en vivo",
+    roleLabel: "NFL",
     colorVar: "var(--engine-minkowski)",
+    readsText:
+      "Eficiencia por jugada, lesiones de QB y titulares, disciplina, clima y altitud de cada juego.",
     summary:
       "Eficiencia por jugada, lesiones de QB y titulares, disciplina, clima y altitud del estadio para cada juego de NFL.",
     inputsLabel: "Prueba 2020–25: 65.8 % de acierto en 1,615 juegos.",
+    proofFigure: "65.8 %",
+    proofTone: "ok",
+    proofContext: "acierto en 1,615 juegos · 2020–25",
     retrainCadence: "Contexto en vivo actualizado antes de cada semana.",
   },
   {
     key: "geodesic",
+    mono: "G",
+    shortName: "Geodesic",
     name: "PitchLab Geodesic v2.0",
     version: "v2.0",
     pillar: "Machine Learning",
-    domain: "Momio justo, ventaja y tamaño de apuesta",
+    domain: "Momio justo, ventaja y confirmación de mercado",
+    roleLabel: "Momio justo y ventaja",
     colorVar: "var(--engine-geodesic)",
+    readsText:
+      "Quita el margen de la casa, calcula la ventaja contra el momio real y solo la marca si el dinero grande no va en contra.",
     summary:
       "Quita el margen de la casa, calcula la ventaja contra el momio real y solo marca valor cuando el dinero institucional no va en contra.",
-    inputsLabel: "ROI fuera de muestra de +1.35 % en 3,670 apuestas (Kelly 0.25x).",
+    inputsLabel: "3,670 momios evaluados fuera de muestra.",
+    proofFigure: "3,670",
+    proofTone: "neutral",
+    proofContext: "momios evaluados fuera de muestra",
     retrainCadence: "Se evalúa con cada momio publicado.",
   },
   {
     key: "cortex",
+    mono: "C",
+    shortName: "Cortex IA",
     name: "PitchLab Cortex IA",
     version: "v3.0",
     pillar: "Inteligencia Artificial",
     domain: "Resumen previo del partido",
+    roleLabel: "Resumen en lenguaje claro",
     colorVar: "var(--engine-cortex)",
+    readsText:
+      "Explica lo que dicen los otros cuatro: probabilidad, factores con más peso, mercado y bajas reportadas.",
     summary:
       "Resume en lenguaje claro lo que dicen los motores: probabilidad, factores con más peso, mercado y bajas reportadas.",
     inputsLabel: "Solo usa números de los motores; si un dato falta, lo dice.",
+    proofFigure: "0",
+    proofTone: "neutral",
+    proofContext: "datos inventados: si falta uno, lo dice",
     retrainCadence: "Se genera con cada corte de datos.",
   },
 ] as const;
@@ -97,7 +145,8 @@ export const SPACETIME_ENGINES: readonly SpacetimeEngineSpec[] = [
 export const PRECISION_BUCKETS: readonly PrecisionBucket[] = [
   {
     id: "shield",
-    label: "Confianza máxima · más seguro",
+    shortLabel: "Muy probable",
+    label: "Confianza máxima · muy probable",
     rangeLabel: "Dobles oportunidades y líneas base",
     promisedMeanP: 0.82,
     actualHitRate: null,
@@ -106,6 +155,7 @@ export const PRECISION_BUCKETS: readonly PrecisionBucket[] = [
   },
   {
     id: "core",
+    shortLabel: "Probable",
     label: "Confianza alta · principal",
     rangeLabel: "Picks principales de cada partido",
     promisedMeanP: 0.62,
@@ -115,6 +165,7 @@ export const PRECISION_BUCKETS: readonly PrecisionBucket[] = [
   },
   {
     id: "balanced",
+    shortLabel: "Parejo",
     label: "Confianza media · balanceado",
     rangeLabel: "Totales, ambos anotan y líneas por equipo",
     promisedMeanP: 0.58,
@@ -124,6 +175,7 @@ export const PRECISION_BUCKETS: readonly PrecisionBucket[] = [
   },
   {
     id: "value",
+    shortLabel: "Momio alto",
     label: "Alto valor",
     rangeLabel: "Momios altos con ventaja contra la casa",
     promisedMeanP: 0.4,
@@ -147,6 +199,66 @@ export const MEMBERSHIP_SPEC = {
   referralAmbassadorBonusDays: 30,
   cfdiNote: "IVA incluido · Factura CFDI 4.0 automática en segundos",
 } as const;
+
+export const SPACETIME_VS_TIPSTER_ROWS: readonly SpacetimeVsTipsterRow[] = [
+  {
+    criterion: "De dónde sale el pick",
+    pitchlab: "5 motores probados fuera de muestra",
+    tipster: "Opinión o corazonada",
+  },
+  {
+    criterion: "Picks por partido",
+    pitchlab: "Hasta 5, con su probabilidad y momio justo",
+    tipster: "Uno, sin probabilidad",
+  },
+  {
+    criterion: "Historial",
+    pitchlab: "Inmutable desde antes del partido, con fallos",
+    tipster: "Difícil de verificar",
+  },
+  {
+    criterion: "Parlays",
+    pitchlab: "Sin selecciones que se contradigan",
+    tipster: "Combinadas a mano",
+  },
+  {
+    criterion: "Precio",
+    pitchlab: `$${MEMBERSHIP_SPEC.monthlyMxn} al mes, todo incluido`,
+    tipster: "Por pick o grupo VIP",
+  },
+] as const;
+
+export const CORTEX_SAMPLE_QUOTE =
+  "«Monterrey llega con mejor ataque (1.7 goles por partido) y Querétaro sin su central titular. Por eso el modelo inclina el partido hacia Monterrey o empate.»";
+
+export const ULTRA_LANDING_FEATURES = [
+  "Lo más probable y el momio justo de cada partido, en todas las ligas",
+  "Todos los mercados: goles, ambos anotan, hándicap y props",
+  "Armador de parlays de 2 a 6 selecciones, sin choques lógicos",
+  "Comunidad de socios y récord verificado de tipstars",
+] as const;
+
+export const LANDING_FAQS: readonly LandingFaqItem[] = [
+  {
+    question: "¿PitchLab me dice a qué apostar?",
+    answer:
+      "No. Te muestra lo más probable según los datos y su momio justo. La decisión y el monto son tuyos.",
+    defaultOpen: true,
+  },
+  {
+    question: "¿PitchLab acepta apuestas?",
+    answer: "No. No somos casa de apuestas ni recibimos depósitos.",
+  },
+  {
+    question: "¿Qué pasa al terminar los 7 días?",
+    answer:
+      "Si no eliges pagar, tu cuenta sigue con el plan gratis y no pierdes tu bitácora.",
+  },
+  {
+    question: "¿Puedo facturar?",
+    answer: "Sí. El precio incluye IVA y puedes pedir tu CFDI desde tu cuenta.",
+  },
+] as const;
 
 export const TIPSTAR_CREATORS: readonly TipstarCreator[] = [
   {
@@ -249,7 +361,7 @@ export const INITIAL_SOCIAL_POSTS: readonly SocialPost[] = [
         authorName: "Diego Aranda",
         verifiedBadge: "+11.6u · CLV +3.1 %",
         createdAt: "Hace 5 min",
-        body: "Ya lo sellé como base en mi bitácora antes de que baje medio punto.",
+        body: "Ya lo registré en mi bitácora como base antes de que baje medio punto.",
       },
     ],
   },
@@ -267,7 +379,7 @@ export const INITIAL_SOCIAL_POSTS: readonly SocialPost[] = [
     pickBadge: "Línea de Totales · 1.5u",
     originType: "Spacetime Suite",
     createdAt: "Hace 42 min",
-    body: "Ojo al reporte 60m de Cortex IA: ambos laterales titulares están confirmados y Tachyon v3.0 sube la proyección combinada de goles a 2.95. Excelente ventana para sellar en bitácora.",
+    body: "Ojo al reporte 60m de Cortex IA: ambos laterales titulares están confirmados y Tachyon v3.0 sube la proyección combinada de goles a 2.95. Buena ventana para registrar en mi bitácora.",
     likes: 27,
     comments: [
       {
@@ -276,7 +388,7 @@ export const INITIAL_SOCIAL_POSTS: readonly SocialPost[] = [
         authorName: "Jair R.",
         verifiedBadge: "+9.2u · CLV +2.8 %",
         createdAt: "Hace 20 min",
-        body: "Sellado en mi bitácora a -112 antes del ajuste de línea en Geodesic v2.0.",
+        body: "Registrado en mi bitácora a −112 antes del ajuste de línea en Geodesic v2.0.",
       },
     ],
   },
@@ -308,11 +420,11 @@ export const INITIAL_SOCIAL_POSTS: readonly SocialPost[] = [
     verifiedRecord: "+6.1u · 43 picks",
     clvBadge: "CLV +2.8 %",
     leagueLabel: "LaLiga",
-    matchLabel: "Boleto liquidado · Jornada previa",
+    matchLabel: "Boleto evaluado · Jornada previa",
     pickBadge: "Pick principal · 2.0u · Cumplido",
     originType: "Spacetime Suite",
-    createdAt: "Ayer · Liquidado",
-    body: "Sellado 2 horas antes del silbatazo inicial siguiendo la alerta de Singularity v3.0. Cero edición post-partido y superando línea de cierre por +3.8 %.",
+    createdAt: "Ayer · Cumplido",
+    body: "Registrado 2 horas antes del silbatazo inicial siguiendo la señal de Singularity v3.0. Cero edición posterior al partido y superando el momio de cierre por +3.8 %.",
     likes: 31,
     comments: [
       {
@@ -321,7 +433,7 @@ export const INITIAL_SOCIAL_POSTS: readonly SocialPost[] = [
         authorName: "Sofía Méndez",
         verifiedBadge: "+18.4u · CLV +4.2 %",
         createdAt: "Ayer",
-        body: "Cobrado limpio y con ventaja matemática verificada en bitácora.",
+        body: "Cumplido y con ventaja frente al momio de cierre verificada en bitácora.",
       },
     ],
   },

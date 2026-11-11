@@ -117,6 +117,10 @@ export function OddsFormatSegment(): React.JSX.Element {
   );
 }
 
+function isClubAppRoute(path: string | undefined): boolean {
+  return Boolean(path && (path === "/app" || path.startsWith("/app/")));
+}
+
 function FloatingQuickJumpBar({
   activePath,
 }: {
@@ -180,7 +184,8 @@ function FloatingQuickJumpBar({
     return clientPath === href;
   };
 
-  if (!allowRoleSimulation) return null;
+  const effectivePath = activePath ?? clientPath;
+  if (!allowRoleSimulation || !isClubAppRoute(effectivePath)) return null;
 
   return (
     <aside
@@ -296,6 +301,21 @@ function AtmosphereStageImpl({
   activePath?: string;
 }): React.JSX.Element {
   const auraColors = useAuraColors();
+  const [clientPath, setClientPath] = useState<string>(activePath ?? "");
+
+  useEffect(() => {
+    if (activePath !== undefined) {
+      setClientPath(activePath);
+      return;
+    }
+    try {
+      setClientPath(window.location.pathname);
+    } catch (err) {
+      void err;
+    }
+  }, [activePath]);
+
+  const inClubApp = isClubAppRoute(activePath ?? clientPath);
 
   return (
     <div
@@ -321,14 +341,18 @@ function AtmosphereStageImpl({
 
       <div className="relative z-10 pb-20 lg:pb-4">{children}</div>
 
-      <FloatingQuickJumpBar activePath={activePath} />
-      <ParlayFloatingDock />
-      <PickComposerModal />
-      <ShareTicketModal />
-      <AlertsDrawer />
-      <CommandPaletteModal />
+      {inClubApp ? (
+        <>
+          <FloatingQuickJumpBar activePath={activePath} />
+          <ParlayFloatingDock />
+          <PickComposerModal />
+          <ShareTicketModal />
+          <AlertsDrawer />
+          <CommandPaletteModal />
+          <RoleSimulatorBar activePath={activePath} />
+        </>
+      ) : null}
       <BetaPinModal />
-      <RoleSimulatorBar />
       <ToastViewport />
     </div>
   );
@@ -339,13 +363,15 @@ export function PublicHeaderV4({
 }: {
   activePath?: string;
 }): React.JSX.Element {
-  const { navigateTo, openBetaPin, viewerRole } = usePlatform();
+  const { navigateTo, viewerRole } = usePlatform();
 
   const navItems = [
-    { href: "/", label: "Inicio" },
-    { href: "/tecnologia", label: "Cómo funciona" },
-    { href: "/p/sofia-sem", label: "Pick gratis" },
-    { href: "/pricing", label: "Precios" },
+    { href: "/como-funciona", label: "Cómo funciona" },
+    { href: "/motores", label: "Motores" },
+    { href: "/resultados", label: "Resultados" },
+    { href: "/parlays", label: "Parlays" },
+    { href: "/comunidad", label: "Comunidad" },
+    { href: "/precio", label: "Precio" },
   ];
 
   return (
@@ -359,12 +385,12 @@ export function PublicHeaderV4({
               navigateTo("/");
             }}
             className="inline-flex items-center gap-2 no-underline"
-            aria-label="PitchLab Inicio"
+            aria-label="PitchLab, inicio"
           >
-            <BrandLogo variant="horizontal" width={128} height={25} alt="" />
+            <BrandLogo variant="horizontal" width={128} height={25} alt="PitchLab" />
           </a>
 
-          <nav aria-label="Navegación principal" className="hidden lg:flex items-center gap-1">
+          <nav aria-label="Principal" className="hidden lg:flex items-center gap-1">
             {navItems.map((item) => {
               const active = activePath === item.href;
               return (
@@ -387,9 +413,6 @@ export function PublicHeaderV4({
         </div>
 
         <div className="flex items-center gap-2">
-          <div className="hidden sm:block">
-            <OddsFormatSegment />
-          </div>
           <ThemeToggle shape="pill" />
 
           {viewerRole !== "visitor" ? (
@@ -399,28 +422,20 @@ export function PublicHeaderV4({
                 e.preventDefault();
                 navigateTo("/app");
               }}
-              className="pl-btn-primary text-xs min-h-9 px-3.5 inline-flex items-center gap-1.5"
+              className="pl-btn-primary text-xs min-h-11 px-4 inline-flex items-center gap-1.5"
             >
               <span>Entrar</span>
               <MaestroIcon name="arrowRight" size={14} />
             </a>
           ) : (
             <>
-              <button
-                type="button"
-                className="pl-btn-glass text-xs min-h-9 px-3 hidden sm:inline-flex items-center gap-1.5"
-                onClick={() => openBetaPin("/app")}
-              >
-                <MaestroIcon name="lock" size={13} />
-                <span>PIN Socio</span>
-              </button>
               <a
                 href="/login"
                 onClick={(e) => {
                   e.preventDefault();
                   navigateTo("/login");
                 }}
-                className="pl-btn-glass text-xs min-h-9 px-3"
+                className="pl-btn-glass text-xs min-h-11 px-3.5"
               >
                 Entrar
               </a>
@@ -430,10 +445,9 @@ export function PublicHeaderV4({
                   e.preventDefault();
                   navigateTo("/signup");
                 }}
-                className="pl-btn-primary text-xs min-h-9 px-3.5 inline-flex items-center gap-1.5"
+                className="pl-btn-primary text-xs min-h-11 px-4 inline-flex items-center gap-1.5"
               >
-                <span>Prueba gratis</span>
-                <MaestroIcon name="arrowRight" size={13} />
+                <span>Probar 7 días</span>
               </a>
             </>
           )}
@@ -477,42 +491,62 @@ export function PublicFooterV4(): React.JSX.Element {
     <footer className="relative z-10 mt-16 hairline-t py-10 px-4 sm:px-6">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div className="space-y-2 max-w-xl">
-          <BrandLogo variant="horizontal" width={120} height={24} alt="" />
+          <BrandLogo variant="horizontal" width={120} height={24} alt="PitchLab" />
           <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-            Probabilidades deportivas para mayores de 18 años. PitchLab no es una casa de apuestas
-            y no garantiza ganancias.
+            Información para decidir, no una garantía. PitchLab no acepta apuestas. Solo mayores de
+            18.
           </p>
         </div>
 
-        <nav aria-label="Enlaces legales" className="flex flex-wrap items-center gap-4 text-xs font-semibold">
+        <nav aria-label="Pie" className="flex flex-wrap items-center gap-4 text-xs font-semibold">
           <a
-            href="/tecnologia"
+            href="/como-funciona"
             onClick={(e) => {
               e.preventDefault();
-              navigateTo("/tecnologia");
+              navigateTo("/como-funciona");
             }}
             className="no-underline hover:underline"
           >
             Cómo funciona
           </a>
           <a
-            href="/pricing"
+            href="/motores"
             onClick={(e) => {
               e.preventDefault();
-              navigateTo("/pricing");
+              navigateTo("/motores");
             }}
             className="no-underline hover:underline"
           >
-            Precios
+            Motores
+          </a>
+          <a
+            href="/precio"
+            onClick={(e) => {
+              e.preventDefault();
+              navigateTo("/precio");
+            }}
+            className="no-underline hover:underline"
+          >
+            Precio
           </a>
           <a href="/legal/terminos" className="no-underline hover:underline">
             Términos
           </a>
           <a href="/legal/privacidad" className="no-underline hover:underline">
-            Privacidad
+            Aviso de privacidad
           </a>
           <a href="/legal/juego-responsable" className="no-underline hover:underline">
             Juego responsable
+          </a>
+          <a
+            href="/comunidad#tipstars"
+            onClick={(e) => {
+              e.preventDefault();
+              navigateTo("/comunidad#tipstars");
+            }}
+            className="no-underline hover:underline"
+          >
+            ¿Eres tipstar?
           </a>
           <a href="/legal/creditos" className="no-underline hover:underline">
             Créditos de datos
@@ -537,9 +571,24 @@ interface RailNavGroup {
   items: RailNavItem[];
 }
 
+/** Evento que avisa a la vista de Cuenta qué pestaña abrir (el menú del perfil la elige). */
+export const ACCOUNT_TAB_EVENT = "pl-account-tab";
+
+interface ProfileMenuItem {
+  href: string;
+  label: string;
+  icon: MaestroIconName;
+  accountTab?: "referrals" | "plan" | "prefs" | "cfdi";
+}
+interface ProfileMenuGroup {
+  label: string;
+  items: ProfileMenuItem[];
+}
+
 const CLUB_FOOTER_LINKS = [
-  { href: "/tecnologia", label: "Cómo funciona" },
-  { href: "/pricing", label: "Precios" },
+  { href: "/como-funciona", label: "Cómo funciona" },
+  { href: "/motores", label: "Motores" },
+  { href: "/precio", label: "Precio" },
   { href: "/legal/terminos", label: "Términos" },
   { href: "/legal/privacidad", label: "Privacidad" },
   { href: "/legal/juego-responsable", label: "Juego responsable" },
@@ -604,6 +653,38 @@ function ClubWorkspaceShellImpl({
     menu.addEventListener("toggle", onToggle);
     return () => menu.removeEventListener("toggle", onToggle);
   }, []);
+  const profileMenuGroups = useMemo(() => {
+    const handle = viewerRole === "tipstar" ? "sofia_nfl" : "jair";
+    const groups: ProfileMenuGroup[] = [
+      {
+        label: "Tu cuenta",
+        items: [
+          { href: `/app/u/${handle}`, label: "Ver mi perfil", icon: "users" },
+          { href: "/app/account?tab=referrals", label: "Invitar amigos", icon: "gift", accountTab: "referrals" },
+          { href: "/app/account?tab=plan", label: "Mi plan Ultra", icon: "crown", accountTab: "plan" },
+          { href: "/app/account?tab=prefs", label: "Preferencias", icon: "sliders", accountTab: "prefs" },
+          { href: "/app/account?tab=cfdi", label: "Facturación", icon: "shield", accountTab: "cfdi" },
+        ],
+      },
+    ];
+    const roleItems: ProfileMenuItem[] = [];
+    if (viewerRole === "tipstar" || viewerRole === "admin") {
+      roleItems.push({ href: "/app/tipstar", label: "Portal tipstar", icon: "crown" });
+    }
+    if (viewerRole === "admin") {
+      roleItems.push({ href: "/app/admin", label: "Consola", icon: "chart" });
+    }
+    if (roleItems.length > 0) groups.push({ label: "Herramientas", items: roleItems });
+    groups.push({
+      label: "Ayuda",
+      items: [
+        { href: "/app/tech", label: "Cómo calculamos", icon: "cpu" },
+        { href: "/legal/juego-responsable", label: "Juego responsable", icon: "shield" },
+      ],
+    });
+    return groups;
+  }, [viewerRole]);
+
   const closeProfileMenu = () => {
     try {
       profileMenuRef.current?.hidePopover();
@@ -617,25 +698,18 @@ function ClubWorkspaceShellImpl({
   // Navegación: 4 destinos principales, las ligas y un grupo «Más» para lo secundario.
   // El portal de tipstars y la consola solo aparecen para quien los usa.
   const railGroups: RailNavGroup[] = useMemo(() => {
-    const more: RailNavItem[] = [
+    // Cuenta, «Cómo calculamos», Portal tipstar y Consola viven en el menú del perfil.
+    const explore: RailNavItem[] = [
       { href: "/app/picks", label: "Picks del día", icon: "sparkles" },
       { href: "/app/momios", label: "Momios y ventaja", icon: "activity" },
-      { href: "/app/historial", label: "Resultados", icon: "shield" },
-      { href: "/app/social", label: "Comunidad", icon: "users" },
       { href: "/app/props", label: "Props de jugadores", icon: "sliders" },
-      { href: "/app/tech", label: "Cómo calculamos", icon: "cpu" },
+      { href: "/app/historial", label: "Resultados", icon: "shield" },
     ];
-    if (viewerRole === "tipstar" || viewerRole === "admin") {
-      more.push({ href: "/app/tipstar", label: "Portal tipstar", icon: "crown" });
-    }
-    if (viewerRole === "admin") {
-      more.push({ href: "/app/admin", label: "Consola", icon: "chart" });
-    }
     return [
       { title: "Club", items: primaryNavItems(parlayLegs.length, journal.length) },
-      { title: "Más", items: more },
+      { title: "Explorar", items: explore },
     ];
-  }, [journal.length, parlayLegs.length, viewerRole]);
+  }, [journal.length, parlayLegs.length]);
 
   const allClubItems = useMemo(
     () => railGroups.flatMap((g) => g.items),
@@ -776,33 +850,33 @@ function ClubWorkspaceShellImpl({
                 </div>
               </div>
 
-              <nav className="pl-profile-menu-group" aria-label="Tu cuenta">
-                <a
-                  href={`/app/u/${profileHandle.replace(/^@/, "")}`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    closeProfileMenu();
-                    navigateTo(`/app/u/${profileHandle.replace(/^@/, "")}`);
-                  }}
-                >
-                  <MaestroIcon name="users" size={15} />
-                  <span>Ver mi perfil</span>
-                </a>
-                <a
-                  href="/app/account"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    closeProfileMenu();
-                    navigateTo("/app/account");
-                  }}
-                >
-                  <MaestroIcon name="gift" size={15} />
-                  <span>Mi cuenta e invitaciones</span>
-                </a>
-              </nav>
+              {profileMenuGroups.map((group) => (
+                <nav key={group.label} className="pl-profile-menu-group" aria-label={group.label}>
+                  {group.items.map((item) => (
+                    <a
+                      key={item.href}
+                      href={item.href}
+                      aria-current={activePath === item.href ? "page" : undefined}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        closeProfileMenu();
+                        if (item.accountTab) {
+                          window.dispatchEvent(
+                            new CustomEvent(ACCOUNT_TAB_EVENT, { detail: item.accountTab }),
+                          );
+                        }
+                        navigateTo(item.href);
+                      }}
+                    >
+                      <MaestroIcon name={item.icon} size={15} />
+                      <span>{item.label}</span>
+                    </a>
+                  ))}
+                </nav>
+              ))}
 
               <div className="pl-profile-menu-group">
-                <div className="pl-profile-menu-row">
+                <div className="pl-profile-menu-row pl-profile-menu-row--stack">
                   <span>Formato de momio</span>
                   <OddsFormatSegment />
                 </div>
@@ -878,6 +952,8 @@ function ClubWorkspaceShellImpl({
             </button>
           </div>
 
+          {/* Solo esta capa se desplaza si no cabe; el marco y su borde quedan fijos. */}
+          <div className="rail-scroll">
           {[railGroups[0]!].map((group) => (
             <div key={group.title} className="space-y-1">
               <nav aria-label={group.title} className="space-y-0.5">
@@ -1042,6 +1118,7 @@ function ClubWorkspaceShellImpl({
             </div>
           ))}
 
+          </div>
         </aside>
 
         <main id="main" className="min-w-0 space-y-6">
@@ -1186,6 +1263,7 @@ function primaryNavItems(parlayCount: number, journalCount: number): PrimaryNavI
       badge: parlayCount > 0 ? `${parlayCount}` : undefined,
       badgeBrand: parlayCount > 0,
     },
+    { href: "/app/social", label: "Comunidad", icon: "users" },
     {
       href: "/app/lab",
       label: "Mi bitácora",
@@ -1193,6 +1271,5 @@ function primaryNavItems(parlayCount: number, journalCount: number): PrimaryNavI
       icon: "ticket",
       badge: journalCount > 0 ? `${journalCount}` : undefined,
     },
-    { href: "/app/account", label: "Cuenta", icon: "gift" },
   ];
 }

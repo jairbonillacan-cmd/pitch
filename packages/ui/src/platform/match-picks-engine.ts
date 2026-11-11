@@ -295,7 +295,7 @@ function buildFiveMatchPicks(match: MatchAnalysis, signal: SpacetimeSignal | nul
   if (shield) {
     pickRows.push({
       category: "conservador",
-      categoryLabel: "Más seguro",
+      categoryLabel: "Muy probable",
       risk: "conservador",
       engineKey: isNfl ? "minkowski" : "singularity",
       engineName: finalEngineName,

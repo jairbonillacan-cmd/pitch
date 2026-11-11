@@ -1580,10 +1580,33 @@ export function BetaPinModal(): React.JSX.Element | null {
   );
 }
 
-export function RoleSimulatorBar(): React.JSX.Element | null {
+function isClubAppRoute(path: string): boolean {
+  return path === "/app" || path.startsWith("/app/");
+}
+
+export function RoleSimulatorBar({
+  activePath,
+}: {
+  activePath?: string;
+} = {}): React.JSX.Element | null {
   const { allowRoleSimulation, viewerRole, setViewerRole } = usePlatform();
   const [expanded, setExpanded] = useState<boolean>(false);
-  if (!allowRoleSimulation) return null;
+  const [clientPath, setClientPath] = useState<string>(activePath ?? "");
+
+  useEffect(() => {
+    if (activePath !== undefined) {
+      setClientPath(activePath);
+      return;
+    }
+    try {
+      setClientPath(window.location.pathname);
+    } catch (err) {
+      void err;
+    }
+  }, [activePath]);
+
+  const effectivePath = activePath ?? clientPath;
+  if (!allowRoleSimulation || !isClubAppRoute(effectivePath)) return null;
 
   const roles: Array<{ id: ViewerRole; label: string; short: string }> = [
     { id: "visitor", label: "Visitante (Cero-Fuga)", short: "Visitante" },

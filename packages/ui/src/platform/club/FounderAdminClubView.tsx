@@ -467,8 +467,8 @@ export function FounderAdminClubView(): React.JSX.Element {
                 Telemetría de los 5 Motores · PitchLab Spacetime Suite v3.0
               </h2>
               <p className="m-0 text-xs num" style={{ color: "var(--pl-text-muted)" }}>
-                Prueba fuera de muestra: {SPACETIME_METRICS_HEADLINE.historicalMatches} partidos ·{" "}
-                {dataCutLabel}
+                Partidos históricos en los motores: {SPACETIME_METRICS_HEADLINE.historicalMatches} · Prueba 2024–25:{" "}
+                {SPACETIME_METRICS_HEADLINE.holdoutTestMatches} · {dataCutLabel}
               </p>
             </div>
 

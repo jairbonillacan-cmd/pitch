@@ -81,7 +81,7 @@
 | `MarketTable` | sports-ui | grupos · fila líder · fila seleccionada | La fila es un botón (Enter/Espacio) que alimenta `OddsCompare` |
 | `OddsCompare` | sports-ui | vacío · cuota válida · inválida | Decimal o americana; no se guarda |
 | `CalcTrace` | sports-ui | pasos (spinner → check), progreso, esqueleto, «Saltar» | Ver `INTERACTION_PATTERNS.md` §2 |
-| `FactorsList` | sports-ui | — | Valor y nota; nunca nombres de algoritmos (FD-16) |
+| `FactorsList` | sports-ui | — | Valor y nota; nunca proveedores de datos ni fórmulas internas crudas (FD-16; los 5 motores propios sí se nombran) |
 | `Freshness` | sports-ui | fresco · stale | Solo la hora, nunca el proveedor |
 | `Mascot` | ui | edición por liga o por contexto | Ver §6 |
 | `Skeleton` / `EmptyState` | ui | — | El vacío lleva a Radar y una acción |
@@ -106,7 +106,7 @@ Cada componente tiene stories de todos sus estados en los dos temas (ADR-004).
 - Directo, concreto y en español de México. Frases cortas.
 - Nunca «pick seguro», «gana», «cobra» ni montos como recomendación.
 - La protección legal se dice en positivo («Información para decidir», «No somos casa de apuestas», «Historial íntegro», «Solo mayores de 18»).
-- **No se nombran proveedores de datos ni algoritmos** (FD-16). El motor es «Modelo PitchLab · en validación», descrito como «modelo estadístico propio».
+- **FD-16 (actualizado 2026-11-11):** los 5 motores propios (`Tachyon`, `Singularity`, `Minkowski`, `Geodesic` y `Cortex IA`) **sí se nombran** en la UI pública y del club como argumento para preferir PitchLab. Los proveedores de datos (`nflverse`, `openfootball`, `api-football`, `Polymarket`, `Kalshi`, `Understat`, `ESPN`) y las fórmulas internas crudas (`Poisson`, `Dixon-Coles`, `LightGBM`, `Platt`, `Pitágoras`, `Log5`) **nunca se nombran** en la UI.
 - En la beta se usa la etiqueta «Beta cerrada».
 
 ## 8. Anti-defaults (prohibidos)

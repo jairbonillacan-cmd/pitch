@@ -116,7 +116,7 @@ export function TechPrecisionSection({
                 className="text-xs font-medium mt-0.5"
                 style={{ color: "var(--pl-text-muted)" }}
               >
-                Partidos de prueba 2024–25
+                Partidos históricos en los motores
               </div>
             </div>
 
@@ -232,7 +232,7 @@ export function TechPrecisionSection({
               style={{ background: "var(--pl-compare-surface)" }}
             >
               <div className="space-y-2">
-                <span className="pl-pill pl-pill--brand">Por qué ganamos</span>
+                <span className="pl-pill pl-pill--brand">Comparativa</span>
                 <SubHeadingTag className="m-0 text-base font-extrabold tracking-tight">
                   PitchLab vs Tipster Tradicional
                 </SubHeadingTag>
@@ -542,11 +542,11 @@ export function PlansAndReferralsSection({
           <div className="space-y-3">
             <span className="pl-pill pl-pill--brand">
               <MaestroIcon name="gift" size={14} />
-              <span>Referidos Doble Vía · Ambos ganan</span>
+              <span>Referidos Doble Vía · Ambos suman</span>
             </span>
 
             <SubHeadingTag className="m-0 text-xl font-extrabold tracking-tight">
-              Invita a un amigo y los dos ganan días
+              Invita a un amigo y los dos suman días
             </SubHeadingTag>
 
             <ul
@@ -565,13 +565,13 @@ export function PlansAndReferralsSection({
                 <strong style={{ color: "var(--pl-brand)" }}>2.</strong>
                 <span>
                   En cuanto paga su primer mes,{" "}
-                  <strong>ambos reciben +15 días gratis</strong> acumulados automáticamente.
+                  <strong>ambos suman +15 días gratis</strong> acumulados automáticamente.
                 </span>
               </li>
               <li className="flex items-start gap-2">
                 <strong style={{ color: "var(--pl-brand)" }}>3.</strong>
                 <span>
-                  Al llegar a 5 amigos activos ganas <strong>+1 mes completo extra</strong> e
+                  Al llegar a 5 amigos activos sumas <strong>+1 mes completo extra</strong> e
                   insignia Embajador.
                 </span>
               </li>
@@ -588,10 +588,10 @@ export function PlansAndReferralsSection({
           </div>
 
           <a
-            href="/app/tipstar"
+            href="/comunidad#tipstars"
             onClick={(e) => {
               e.preventDefault();
-              navigateTo("/app/tipstar");
+              navigateTo("/comunidad#tipstars");
             }}
             className="pl-btn-glass glass-ring w-full !min-h-[40px] !text-xs"
           >
@@ -606,8 +606,8 @@ export function PlansAndReferralsSection({
 
 export function TechPrecisionSurface(): React.JSX.Element {
   return (
-    <AtmosphereStage>
-      <PublicHeaderV4 activePath="/tecnologia" />
+    <AtmosphereStage activePath="/motores">
+      <PublicHeaderV4 activePath="/motores" />
       <main id="main" className="pl-page-enter max-w-6xl mx-auto px-4 sm:px-6 pt-8 sm:pt-10 space-y-12">
         <TechPrecisionSection isStandalone />
         <PlansAndReferralsSection />
@@ -630,7 +630,7 @@ export function PricingSurface(): React.JSX.Element {
       a: "Te registras con Google, Apple o tu correo y tienes 7 días gratis. Durante el lanzamiento no pedimos tarjeta. Hay una prueba por persona.",
     },
     {
-      q: "¿Cómo ganamos días gratis mi amigo y yo con los referidos?",
+      q: "¿Cómo sumamos días gratis mi amigo y yo con los referidos?",
       a: "Tu invitado recibe 7 días gratis + 30 % de descuento en su primer mes ($209 MXN). En cuanto completa el pago de su primer mes, el sistema abona automáticamente +15 días gratis tanto a tu cuenta como a la suya.",
     },
     {
@@ -640,8 +640,8 @@ export function PricingSurface(): React.JSX.Element {
   ];
 
   return (
-    <AtmosphereStage>
-      <PublicHeaderV4 activePath="/pricing" />
+    <AtmosphereStage activePath="/precio">
+      <PublicHeaderV4 activePath="/precio" />
       <main id="main" className="pl-page-enter max-w-6xl mx-auto px-4 sm:px-6 pt-8 sm:pt-10 space-y-12">
         <PlansAndReferralsSection isStandalone />
         <TechPrecisionSection />

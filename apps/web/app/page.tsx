@@ -1,22 +1,17 @@
 import React from "react";
+import type { Metadata } from "next";
 import { LandingSurface } from "@pitchlab/ui";
-import { PlatformClientBridge } from "../src/client/platform-client-bridge";
-import { loadPublicPlatformState } from "../src/server/platform-data";
+import { loadLandingViewProps } from "../src/server/public-site-data";
 
 export const dynamic = "force-dynamic";
 
-export default async function HomePage(): Promise<React.JSX.Element> {
-  const state = await loadPublicPlatformState();
+export const metadata: Metadata = {
+  title: "PitchLab — Lo más probable de cada partido, con su momio justo",
+  description:
+    "Ves qué resultado es más probable según los datos, cuánto debería pagar y si el momio de tu casa paga más o menos que eso. Tú decides.",
+};
 
-  return (
-    <PlatformClientBridge
-      dataset={state.dataset}
-      initialRole={state.initialRole}
-      allowRoleSimulation={state.allowRoleSimulation}
-      accountsEnabled={state.accountsEnabled}
-      serverMonth1NoCardMode={state.serverMonth1NoCardMode}
-    >
-      <LandingSurface />
-    </PlatformClientBridge>
-  );
+export default async function HomePage(): Promise<React.JSX.Element> {
+  const props = await loadLandingViewProps();
+  return <LandingSurface {...props} />;
 }

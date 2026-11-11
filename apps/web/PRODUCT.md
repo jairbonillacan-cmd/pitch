@@ -29,10 +29,10 @@ Se consulta antes de cada jornada: abrir la jornada, ver favoritos, abrir el an�
 
 ## Capabilities and Constraints
 
-- Momento de la landing definitiva: **lanzamiento público** con cuentas, prueba gratis de 7 días y planes Free, Pro y Elite.
-- Precios confirmados (2026-11-09): **Pro $199 MXN/mes y Elite $399 MXN/mes, IVA incluido**, con prueba de 7 días. El contenido exacto de cada plan sigue `docs/product/INFORMATION_ARCHITECTURE.md` §4 (entitlements provisionales).
+- Momento de la landing definitiva: **lanzamiento público** con cuentas, prueba gratis de 7 días sin tarjeta y un solo plan: **Pase PitchLab Ultra**.
+- Precio confirmado (2026-11-11): **Pase PitchLab Ultra $299 MXN/mes o $2,390 MXN/año (ahorras 4 meses), IVA incluido y factura CFDI**, con prueba gratis de 7 días sin tarjeta (`MEMBERSHIP_SPEC`).
 - Solo mayores de 18. Sin depósitos, sin apuestas, sin recomendaciones de monto, sin premios por acertar, sin afiliados en el MVP.
-- La UI nunca nombra proveedores de datos ni algoritmos (FD-16): el motor es «Modelo PitchLab · en validación».
+- **FD-16 (actualizado 2026-11-11):** los 5 motores propios (`Tachyon`, `Singularity`, `Minkowski`, `Geodesic` y `Cortex IA`) sí se nombran en la UI pública y del club; la UI nunca nombra proveedores de datos (`nflverse`, `openfootball`, `api-football`, `Polymarket`, `Kalshi`, `Understat`, `ESPN`) ni fórmulas internas crudas (`Poisson`, `Dixon-Coles`, `LightGBM`, `Platt`, `Pitágoras`, `Log5`).
 - Predicciones públicas completas, backtesting, Replay e IA llegan después del MVP (W5); la landing no las promete como disponibles.
 
 ## Brand Commitments

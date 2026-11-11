@@ -21,8 +21,8 @@ En este orden, y sin saltarte ninguno:
 - **Solo tokens.** Ningún hex fuera de `packages/tokens` (el linter `scripts/lint-codebase.mjs` lo bloquea). Los hex del lienzo se traducen con la tabla del §7.
 - **Dos temas siempre.** Oscuro por defecto; claro con `data-theme="light"` en `<html>`. Los colores salen de los tokens, que ya cambian con ese atributo.
 - **Librerías por pieza** (detalle en `UI_LIBRARIES.md` §2): primero `@pitchlab/ui`; HeroUI v3 (solo gratis) para formularios, botones, tabs y overlays; Astryx para estructura de app (AppShell, SegmentedControl, BottomSheet); shadcn solo para lo que ya existe. Todo componente de Astryx va dentro de `<AstryxScope>`.
-- **FD-16:** la UI nunca nombra proveedores de datos ni algoritmos (nflverse, openfootball, api-football, Poisson, Dixon-Coles, Pitágoras, Log5). El motor es «Modelo PitchLab · en validación».
-- **No se publica la metodología.** No enlaces a `/metodologia` (redirige a `/#como-se-lee`).
+- **FD-16 (actualizado 2026-11-11):** los 5 motores propios (`Tachyon`, `Singularity`, `Minkowski`, `Geodesic` y `Cortex IA`) sí se nombran en la UI pública y del club como argumento para preferir PitchLab. Nunca se nombran proveedores de datos (`nflverse`, `openfootball`, `api-football`, `Polymarket`, `Kalshi`, `Understat`, `ESPN`) ni fórmulas internas crudas (`Poisson`, `Dixon-Coles`, `LightGBM`, `Platt`, `Pitágoras`, `Log5`).
+- **Rutas de motores y precio:** la sección pública de motores vive en `/motores` y la de precio en `/precio`. `/metodologia` y `/tecnologia` redirigen permanentemente (`308`) a `/motores`, y `/pricing` redirige permanentemente (`308`) a `/precio`.
 - **Datos reales o marcados.** Partidos, probabilidades y tablas salen de los snapshots. Lo que aún no existe (picks del usuario, histórico de cuotas) se diseña con datos de ejemplo y se marca como tal, nunca como dato real.
 - **Mascota Radar:** decorativa (`alt=""`), con halo `--glow`, nunca tapa cifras ni controles. Ediciones por contexto (`radar`, `nfl`, `soccer`, liga).
 - **Copy legal en positivo:** «Información para decidir, no una garantía. PitchLab no acepta apuestas. Solo mayores de 18.»

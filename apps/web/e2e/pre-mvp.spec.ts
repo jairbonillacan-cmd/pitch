@@ -10,6 +10,36 @@ async function toggleClubTheme(page: import("@playwright/test").Page): Promise<v
   await page.keyboard.press("Escape");
 }
 
+async function warmLazySectionsAndWaitImages(
+  page: import("@playwright/test").Page,
+): Promise<void> {
+  await page.evaluate(async () => {
+    const step = Math.max(400, window.innerHeight);
+    for (let y = 0; y <= document.documentElement.scrollHeight; y += step) {
+      window.scrollTo(0, y);
+      await new Promise((r) => setTimeout(r, 30));
+    }
+    window.scrollTo(0, 0);
+  });
+  await page.evaluate(async () => {
+    const imgs = Array.from(document.querySelectorAll("img")).filter((img) => {
+      const style = window.getComputedStyle(img);
+      return style.display !== "none" && style.visibility !== "hidden";
+    });
+    await Promise.all(
+      imgs.map((img) =>
+        img.complete
+          ? Promise.resolve()
+          : new Promise<void>((resolve) => {
+              img.addEventListener("load", () => resolve(), { once: true });
+              img.addEventListener("error", () => resolve(), { once: true });
+              setTimeout(resolve, 3000);
+            }),
+      ),
+    );
+  });
+}
+
 const FORBIDDEN_FD16_TERMS = [
   "nflverse",
   "openfootball",
@@ -26,6 +56,24 @@ const FORBIDDEN_FD16_TERMS = [
   "ESPN",
 ];
 
+const FORBIDDEN_PUBLIC_PATTERNS: ReadonlyArray<{ label: string; pattern: RegExp }> = [
+  { label: "Primer mes gratis", pattern: /primer mes gratis/i },
+  { label: "ROI", pattern: /\broi\b/i },
+  { label: "Kelly", pattern: /\bkelly\b/i },
+  { label: "Por qué ganamos", pattern: /por qu[eé] ganamos/i },
+  { label: "más seguro", pattern: /m[aá]s seguro/i },
+  { label: "Sellar", pattern: /\bsellar\b/i },
+];
+
+const PUBLIC_MENU_ROUTES = [
+  "/como-funciona",
+  "/motores",
+  "/resultados",
+  "/parlays",
+  "/comunidad",
+  "/precio",
+] as const;
+
 const SCREENSHOT_DIR = path.resolve(process.cwd(), "../../test-results/screenshots");
 
 test.beforeAll(() => {
@@ -33,20 +81,55 @@ test.beforeAll(() => {
 });
 
 test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
-  test("1. Landing page, Zero-Leakage, live Geodesic comparator, theme persistence & a11y", async ({
+  test("1. Landing page (/), 5 named engines, Tu momio comparator, hero/pricing switches, keyboard focus, theme persistence & a11y", async ({
     page,
   }, testInfo) => {
+    test.setTimeout(90_000);
     const errors: string[] = [];
     page.on("pageerror", (err) => errors.push(err.message));
 
     const start = Date.now();
-    await page.goto("/");
+    const homeRes = await page.goto("/");
     const elapsed = Date.now() - start;
+    expect(homeRes?.status()).toBe(200);
     expect(elapsed).toBeLessThan(6000);
 
-    await expect(page.locator("h1")).toContainText("Probabilidades claras para cada partido");
-    await expect(page.locator("body")).toContainText("Validado en");
-    await expect(page.locator("body")).toContainText("16,126");
+    await expect(page.locator("h1")).toContainText(
+      "Lo más probable de cada partido, con su momio justo.",
+    );
+
+    // Sección de motores: 5 motores propios nombrados + +100,000 partidos históricos + 16,126 de Singularity
+    const motoresSection = page.locator("#motores");
+    await expect(motoresSection).toBeVisible();
+    for (const engineName of [
+      "Tachyon",
+      "Singularity",
+      "Minkowski",
+      "Geodesic",
+      "Cortex IA",
+    ]) {
+      await expect(motoresSection).toContainText(engineName);
+    }
+    await expect(motoresSection).toContainText("+100,000");
+    await expect(motoresSection).toContainText("16,126");
+
+    // Verificación estricta FD-16: cero proveedores ni fórmulas internas en DOM
+    const html = await page.content();
+    for (const term of FORBIDDEN_FD16_TERMS) {
+      expect(html.toLowerCase(), `FD-16 forbidden term: ${term}`).not.toContain(
+        term.toLowerCase(),
+      );
+    }
+
+    // Verificación de copy prohibido y ausencia del simulador de rol en /
+    const landingText = (await page.locator("body").textContent()) ?? "";
+    for (const { label, pattern } of FORBIDDEN_PUBLIC_PATTERNS) {
+      expect(landingText, `Forbidden public copy: ${label}`).not.toMatch(pattern);
+    }
+    await expect(
+      page.locator("[data-quick-jump-bar], .pl-quick-jump-bar, [data-role-switcher]"),
+    ).toHaveCount(0);
+    await expect(page.getByRole("group", { name: /rol|simula/i })).toHaveCount(0);
 
     await page.evaluate(() => window.scrollTo(0, 0));
     await page.screenshot({
@@ -54,31 +137,83 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
       fullPage: false,
     });
 
-    // Cero-Fuga en modo visitante: los picks adicionales del partido están protegidos
-    const lockedCount = await page.locator("[data-locked-pick]").count();
-    expect(lockedCount).toBeGreaterThanOrEqual(2);
-
-    // Comparador en vivo Geodesic v2.0
-    const oddsInput = page.locator("#landing-user-odds");
+    // Comparador interactivo «Tu momio» (#tu-momio)
+    const oddsInput = page.locator("#tu-momio");
     await expect(oddsInput).toBeVisible();
-    await oddsInput.fill("2.25");
-    await expect(page.locator("[data-odds-comparator]")).toContainText("pts");
+    const oddsFeedback = page.locator('#hoy [aria-live="polite"]').first();
 
-    // Cambiar de partido en el selector del hero
-    const heroChips = page.locator("[data-hero-game-chip]");
-    expect(await heroChips.count()).toBeGreaterThanOrEqual(2);
-    await heroChips.nth(1).click();
-    await expect(heroChips.nth(1)).toHaveAttribute("aria-selected", "true");
+    await oddsInput.fill("−200");
+    await expect(oddsFeedback).toContainText("pts");
+    await expect(oddsFeedback).toContainText(/paga (más|menos) que el justo/i);
 
-    // Verificación estricta cero términos matemáticos/proveedores internos
-    const html = await page.content();
-    for (const term of FORBIDDEN_FD16_TERMS) {
-      expect(html.toLowerCase()).not.toContain(term.toLowerCase());
+    await oddsInput.fill("+150");
+    await expect(oddsFeedback).toContainText("pts");
+
+    await oddsInput.fill("1.50");
+    await expect(oddsFeedback).toContainText("pts");
+
+    await oddsInput.fill("");
+    await expect(oddsFeedback).toContainText(/escribe el momio/i);
+
+    await oddsInput.fill("abc");
+    await expect(oddsFeedback).toContainText(/momio válido|no es válido/i);
+
+    await oddsInput.fill("-200");
+    await expect(oddsFeedback).toContainText("pts");
+
+    // Cambio de liga en el hero (aria-pressed="true" cambia)
+    const heroLeagueButtons = page.locator('#hoy [role="group"] button[aria-pressed]');
+    expect(await heroLeagueButtons.count()).toBeGreaterThanOrEqual(2);
+    await expect(heroLeagueButtons.nth(0)).toHaveAttribute("aria-pressed", "true");
+    await heroLeagueButtons.nth(1).click();
+    await expect(heroLeagueButtons.nth(1)).toHaveAttribute("aria-pressed", "true");
+    await expect(heroLeagueButtons.nth(0)).toHaveAttribute("aria-pressed", "false");
+    await heroLeagueButtons.nth(0).click();
+    await expect(heroLeagueButtons.nth(0)).toHaveAttribute("aria-pressed", "true");
+
+    // Conmutador Mensual / Anual en Precio (aria-pressed="true" cambia y actualiza $299 <-> $2,390)
+    const precioSection = page.locator("#precio");
+    const billingButtons = precioSection.locator('[role="group"] button[aria-pressed]');
+    await expect(billingButtons).toHaveCount(2);
+    await expect(billingButtons.nth(0)).toHaveAttribute("aria-pressed", "true");
+    await expect(precioSection).toContainText("299");
+
+    await billingButtons.nth(1).click();
+    await expect(billingButtons.nth(1)).toHaveAttribute("aria-pressed", "true");
+    await expect(billingButtons.nth(0)).toHaveAttribute("aria-pressed", "false");
+    await expect(precioSection).toContainText("2,390");
+
+    await billingButtons.nth(0).click();
+    await expect(billingButtons.nth(0)).toHaveAttribute("aria-pressed", "true");
+    await expect(precioSection).toContainText("299");
+
+    // Navegación por teclado (Tab): foco visible y elementos interactivos alcanzables
+    await page.evaluate(() => {
+      (document.activeElement as HTMLElement | null)?.blur();
+      window.scrollTo(0, 0);
+    });
+    const reachedTags: string[] = [];
+    for (let step = 0; step < 4; step++) {
+      await page.keyboard.press("Tab");
+      const focusState = await page.evaluate(() => {
+        const el = document.activeElement;
+        if (!el || el === document.body) return null;
+        const style = window.getComputedStyle(el);
+        const hasVisibleRing =
+          (style.outlineStyle !== "none" && parseFloat(style.outlineWidth) > 0) ||
+          style.boxShadow !== "none";
+        return { tag: el.tagName, hasVisibleRing };
+      });
+      expect(focusState).not.toBeNull();
+      expect(["A", "BUTTON", "INPUT", "SUMMARY"]).toContain(focusState!.tag);
+      expect(focusState!.hasVisibleRing).toBe(true);
+      reachedTags.push(focusState!.tag);
     }
+    expect(reachedTags.length).toBe(4);
 
     // Cambio a tema claro + persistencia tras recarga + WCAG AA
-    await page.evaluate(() => window.scrollTo(0, 0));
-    await page.locator("[data-theme-toggle]").click();
+    await warmLazySectionsAndWaitImages(page);
+    await page.locator("[data-theme-toggle]:visible").first().click();
     await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
     await page.waitForTimeout(200);
 
@@ -96,11 +231,13 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
 
     // Volver a oscuro
-    await page.locator("[data-theme-toggle]").click();
+    await page.locator("[data-theme-toggle]:visible").first().click();
     await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
     await page.waitForTimeout(200);
 
-    // Verificar imágenes visibles cargadas
+    await warmLazySectionsAndWaitImages(page);
+
+    // Verificar 0 imágenes rotas
     const brokenImages = await page.evaluate(() => {
       const imgs = Array.from(document.querySelectorAll("img"));
       return imgs
@@ -120,23 +257,67 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     expect(errors).toEqual([]);
   });
 
-  test("2. Public Tech/Pricing/Tipstar routes, Auth gate, $0 anti-abuse & 429 rate limit", async ({
+  test("2. 6 menu routes (200 + aria-current + Axe AA), 308 permanent redirects, Tipstar route, Auth gate, $0 anti-abuse & 429 rate limit", async ({
     page,
     request,
   }, testInfo) => {
-    // /metodologia redirige limpiamente a /tecnologia
-    await page.goto("/metodologia");
-    await expect(page).toHaveURL(/\/tecnologia$/);
-    await expect(page.locator("h1")).toContainText("Modelos probados");
-    await expect(page.locator("body")).toContainText("PitchLab Tachyon v3.0");
-    await expect(page.locator("body")).toContainText("PitchLab Minkowski v3.0");
-    const techA11y = await new AxeBuilder({ page })
-      .withTags(["wcag2a", "wcag2aa"])
-      .analyze();
-    expect(techA11y.violations).toEqual([]);
+    test.setTimeout(120_000);
+
+    // Las 6 páginas públicas del menú abren en 200, marcan su enlace activo con aria-current="page" y pasan Axe AA
+    for (const route of PUBLIC_MENU_ROUTES) {
+      const res = await page.goto(route);
+      expect(res?.status(), `Expected 200 on ${route}`).toBe(200);
+
+      const mobileMenuBtn = page.locator('header button[aria-label*="menú" i]:visible');
+      if ((await mobileMenuBtn.count()) > 0) {
+        await mobileMenuBtn.first().click();
+        await expect(
+          page.locator(`header a[href="${route}"][aria-current="page"]:visible`).first(),
+        ).toBeVisible();
+        await page.keyboard.press("Escape");
+      } else {
+        await expect(
+          page.locator(`header a[href="${route}"][aria-current="page"]:visible`).first(),
+        ).toBeVisible();
+      }
+
+      const routeHtml = await page.content();
+      for (const term of FORBIDDEN_FD16_TERMS) {
+        expect(
+          routeHtml.toLowerCase(),
+          `FD-16 forbidden term on ${route}: ${term}`,
+        ).not.toContain(term.toLowerCase());
+      }
+
+      const routeText = (await page.locator("body").textContent()) ?? "";
+      for (const { label, pattern } of FORBIDDEN_PUBLIC_PATTERNS) {
+        expect(routeText, `Forbidden public copy on ${route}: ${label}`).not.toMatch(
+          pattern,
+        );
+      }
+
+      const routeA11y = await new AxeBuilder({ page })
+        .withTags(["wcag2a", "wcag2aa"])
+        .analyze();
+      expect(routeA11y.violations, `Axe violations on ${route}`).toEqual([]);
+    }
+
+    // Redirecciones permanentes 308 + navegación
+    const permanentRedirects: ReadonlyArray<[string, string]> = [
+      ["/metodologia", "/motores"],
+      ["/tecnologia", "/motores"],
+      ["/pricing", "/precio"],
+    ];
+    for (const [fromPath, toPath] of permanentRedirects) {
+      const redirectRes = await request.get(fromPath, { maxRedirects: 0 });
+      expect(redirectRes.status(), `Expected 308 for ${fromPath}`).toBe(308);
+      expect(redirectRes.headers()["location"]).toContain(toPath);
+
+      await page.goto(fromPath);
+      await expect(page).toHaveURL(new RegExp(`${toPath}$`));
+    }
 
     // Boleto público de Tipstar (/p/sofia-sem): libera 1 pick semanal y protege los demás del mismo partido
-    // (hasta 5 picks por partido: el de valor solo existe si Geodesic encuentra valor real)
     await page.goto("/p/sofia-sem");
     await expect(page.locator("h1")).toContainText("@sofia_nfl");
     await expect(page.locator("body")).toContainText("SOFIA5");
@@ -145,15 +326,6 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
       .withTags(["wcag2a", "wcag2aa"])
       .analyze();
     expect(tipstarPublicA11y.violations).toEqual([]);
-
-    // /pricing: único Pase PitchLab Ultra ($299 / $2,390) + referidos doble vía (+15 días)
-    await page.goto("/pricing");
-    await expect(page.locator("h1")).toContainText("Pase PitchLab Ultra");
-    await expect(page.locator("body")).toContainText("+15 días gratis");
-    const pricingA11y = await new AxeBuilder({ page })
-      .withTags(["wcag2a", "wcag2aa"])
-      .analyze();
-    expect(pricingA11y.violations).toEqual([]);
 
     // Visitar /app sin cookie redirige a /login?next=%2Fapp
     await page.goto("/app", { waitUntil: "domcontentloaded" });
@@ -312,17 +484,22 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     await expect(page).toHaveURL(/\/login/);
   });
 
-  test("4. Responsive viewports (zero horizontal scroll), /legal/creditos & /robots.txt", async ({
+  test("4. Responsive viewports (zero horizontal scroll on /, /motores & /precio), /legal/creditos & /robots.txt", async ({
     page,
   }) => {
+    test.setTimeout(90_000);
     const widths = [375, 390, 768, 1024, 1280, 1440];
-    await page.goto("/");
-    for (const width of widths) {
-      await page.setViewportSize({ width, height: 844 });
-      const overflow = await page.evaluate(
-        () => document.documentElement.scrollWidth > window.innerWidth,
-      );
-      expect(overflow, `Horizontal overflow at ${width}px`).toBe(false);
+    const responsiveRoutes = ["/", "/motores", "/precio"] as const;
+
+    for (const route of responsiveRoutes) {
+      await page.goto(route);
+      for (const width of widths) {
+        await page.setViewportSize({ width, height: 844 });
+        const overflow = await page.evaluate(
+          () => document.documentElement.scrollWidth > window.innerWidth,
+        );
+        expect(overflow, `Horizontal overflow on ${route} at ${width}px`).toBe(false);
+      }
     }
 
     await page.goto("/legal/creditos");

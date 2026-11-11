@@ -17,18 +17,26 @@ export type EngineKey =
 
 export interface SpacetimeEngineSpec {
   key: EngineKey;
+  mono: string;
+  shortName: string;
   name: string;
   version: string;
   pillar: "Data Science" | "Machine Learning" | "Inteligencia Artificial";
   domain: string;
+  roleLabel: string;
   colorVar: string;
+  readsText: string;
   summary: string;
   inputsLabel: string;
+  proofFigure: string;
+  proofTone: "ok" | "neutral";
+  proofContext: string;
   retrainCadence: string;
 }
 
 export interface PrecisionBucket {
   id: string;
+  shortLabel: string;
   label: string;
   rangeLabel: string;
   promisedMeanP: number;
@@ -36,6 +44,18 @@ export interface PrecisionBucket {
   actualHitRate: number | null;
   auditedPicksCount: number | null;
   closingBeatRate: number | null;
+}
+
+export interface SpacetimeVsTipsterRow {
+  criterion: string;
+  pitchlab: string;
+  tipster: string;
+}
+
+export interface LandingFaqItem {
+  question: string;
+  answer: string;
+  defaultOpen?: boolean;
 }
 
 export type PickCategory =

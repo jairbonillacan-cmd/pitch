@@ -25,10 +25,9 @@ import {
 import { usePlatform } from "../platform-provider";
 import {
   MEMBERSHIP_SPEC,
-  SPACETIME_METRICS_HEADLINE,
   TIPSTAR_CREATORS,
 } from "../spacetime-catalog";
-import type { RiskBand, ViewerRole } from "../types";
+import type { RiskBand } from "../types";
 
 function describePromoBenefit(codeRaw: string, month1NoCardMode: boolean): {
   badge: string;
@@ -43,7 +42,7 @@ function describePromoBenefit(codeRaw: string, month1NoCardMode: boolean): {
         }
       : {
           badge: "7 días gratis",
-          detail: "Agrega una tarjeta para empezar. No se cobra nada durante la prueba.",
+          detail: "Agrega una tarjeta para empezar. Sin cargos durante la prueba.",
         };
   }
   if (
@@ -83,15 +82,11 @@ export function AuthSurfaceV4({
   initialPromoCode?: string;
 }): React.JSX.Element {
   const {
-    rawDataset,
     month1NoCardMode,
-    setViewerRole,
     openBetaPin,
     submitBetaPin,
-    logoutSession,
     navigateTo,
     pushToast,
-    allowRoleSimulation,
     accountsEnabled,
   } = usePlatform();
 
@@ -199,36 +194,11 @@ export function AuthSurfaceV4({
     }
   };
 
-  const handleQuickRoleTest = (role: ViewerRole, targetHref: string) => {
-    try {
-      if (typeof window !== "undefined") {
-        window.localStorage.setItem("pl-sim-role", role);
-      }
-    } catch (err) {
-      void err;
-    }
-    setViewerRole(role);
-
-    if (role === "visitor") {
-      if (!rawDataset.isServerRedactedForVisitor) {
-        void logoutSession();
-        return;
-      }
-      pushToast("Cerraste sesión.", "default");
-      navigateTo("/");
-      return;
-    }
-
-    if (rawDataset.isServerRedactedForVisitor) {
-      openBetaPin(targetHref);
-      return;
-    }
-    navigateTo(targetHref);
-  };
+  const authPath = mode === "login" ? "/login" : "/signup";
 
   return (
-    <AtmosphereStage>
-      <PublicHeaderV4 activePath={mode === "login" ? "/login" : "/signup"} />
+    <AtmosphereStage activePath={authPath}>
+      <PublicHeaderV4 activePath={authPath} />
       <main id="main" className="pl-page-enter max-w-5xl mx-auto px-4 sm:px-6 pt-8 sm:pt-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           <section className="lg:col-span-7 glass-lens glass-ring glass-ring--featured relative overflow-hidden rounded-2xl p-6 sm:p-7 space-y-5">
@@ -383,7 +353,7 @@ export function AuthSurfaceV4({
                         style={{ background: "var(--pl-surface)" }}
                       >
                         <strong>Modo Mes 2 Activo:</strong> Verificación de tarjeta $0.00 MXN hoy;
-                        se cobra ${MEMBERSHIP_SPEC.monthlyMxn} MXN al finalizar la prueba si no
+                        pasa a ${MEMBERSHIP_SPEC.monthlyMxn} MXN al finalizar la prueba si no
                         cancelas antes en 1 clic.
                       </div>
                     ) : null}
@@ -589,8 +559,8 @@ export function AuthSurfaceV4({
             </div>
           </section>
 
-          {/* Columna derecha: Pase PitchLab Ultra + Acceso PIN Modal + Quick Role Tester */}
-          <aside className="lg:col-span-5 space-y-4" aria-label="Acceso rápido y prueba de roles">
+          {/* Columna derecha: Pase PitchLab Ultra + Acceso PIN Modal */}
+          <aside className="lg:col-span-5 space-y-4" aria-label="Acceso rápido de socio">
             <NoticeCard
               icon="cpu"
               badgeText="Incluye"
@@ -620,56 +590,6 @@ export function AuthSurfaceV4({
                 <MaestroIcon name="arrowRight" size={14} />
               </button>
             </div>
-
-            {allowRoleSimulation ? (
-            <div className="glass-ring glass-card rounded-2xl p-5 space-y-3">
-              <div className="space-y-0.5">
-                <h2
-                  className="m-0 text-xs font-extrabold"
-                  style={{ color: "var(--pl-text-muted)" }}
-                >
-                  Simulador rápido de roles
-                </h2>
-                <p className="m-0 text-xs" style={{ color: "var(--pl-text-secondary)" }}>
-                  Recorre las vistas reales de cada perfil en un clic:
-                </p>
-              </div>
-              <div className="grid grid-cols-2 gap-2">
-                <button
-                  type="button"
-                  className="pl-btn-glass glass-ring !min-h-[38px] !text-xs"
-                  onClick={() => handleQuickRoleTest("member", "/app")}
-                >
-                  <MaestroIcon name="unlock" size={13} />
-                  <span>Suscriptor</span>
-                </button>
-                <button
-                  type="button"
-                  className="pl-btn-glass glass-ring !min-h-[38px] !text-xs"
-                  onClick={() => handleQuickRoleTest("tipstar", "/app/tipstar")}
-                >
-                  <MaestroIcon name="star" size={13} />
-                  <span>Tipstar</span>
-                </button>
-                <button
-                  type="button"
-                  className="pl-btn-glass glass-ring !min-h-[38px] !text-xs"
-                  onClick={() => handleQuickRoleTest("visitor", "/")}
-                >
-                  <MaestroIcon name="lock" size={13} />
-                  <span>Visitante Candado</span>
-                </button>
-                <button
-                  type="button"
-                  className="pl-btn-glass glass-ring !min-h-[38px] !text-xs"
-                  onClick={() => handleQuickRoleTest("admin", "/app/admin")}
-                >
-                  <MaestroIcon name="crown" size={13} />
-                  <span>Admin Founder</span>
-                </button>
-              </div>
-            </div>
-            ) : null}
           </aside>
         </div>
       </main>
@@ -689,7 +609,6 @@ export function OnboardingSurfaceV4(): React.JSX.Element {
     oddsFormat,
     setOddsFormat,
     viewerRole,
-    submitBetaPin,
     openBetaPin,
     navigateTo,
     pushToast,
@@ -736,7 +655,7 @@ export function OnboardingSurfaceV4(): React.JSX.Element {
   };
 
   return (
-    <AtmosphereStage>
+    <AtmosphereStage activePath="/onboarding">
       <PublicHeaderV4 activePath="/onboarding" />
       <main id="main" className="pl-page-enter max-w-3xl mx-auto px-4 sm:px-6 pt-8 sm:pt-10">
         <section className="glass-lens glass-ring glass-ring--featured relative overflow-hidden rounded-2xl p-6 sm:p-8 space-y-6">
@@ -1033,7 +952,7 @@ export function PublicSharedPickSurface({
     : "var(--pl-orb-emerald)";
 
   return (
-    <AtmosphereStage>
+    <AtmosphereStage activePath="/p/sofia-sem">
       <PublicHeaderV4 activePath="/p/sofia-sem" />
       <main id="main" className="pl-page-enter max-w-3xl mx-auto px-4 sm:px-6 pt-8 sm:pt-10 space-y-6">
         {/* Boleto oscuro auténtico estilo shows.link */}

@@ -5,7 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { ClubLayoutShell } from "@pitchlab/ui";
 
 /** Las 4 páginas del menú principal: se precargan para que el clic sea inmediato. */
-const PRIMARY_ROUTES = ["/app", "/app/parlays", "/app/lab", "/app/account"] as const;
+const PRIMARY_ROUTES = ["/app", "/app/parlays", "/app/social", "/app/lab"] as const;
 
 /**
  * Monta el encabezado y la barra lateral una sola vez en el layout de /app.

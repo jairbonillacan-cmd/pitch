@@ -9,12 +9,18 @@ import {
 } from "@pitchlab/contracts";
 import {
   AccountReferralsClubView,
+  buildFinishedResultItems,
+  buildHeroLeagueCards,
+  buildParlayDemoData,
   buildPlatformDataset,
   buildPlayerPropsCatalog,
   buildSmartAutoParlay,
   canRevealPickOnShare,
   checkParlayCompatibility,
+  compareUserOddsInput,
   computeParlaySummary,
+  ComunidadPageSurface,
+  ComoFuncionaPageSurface,
   containsExternalLink,
   evaluatePropLineProbability,
   formatOddsValue,
@@ -22,11 +28,15 @@ import {
   isPickUnlocked,
   LandingSurface,
   MatchStudioClubView,
+  MotoresPageSurface,
   normalizeTrialEmail,
   ParlayBuilderClubView,
+  ParlaysPageSurface,
   PlatformProvider,
+  PrecioPageSurface,
   PublicTipstarPickSurface,
   redactDatasetForVisitor,
+  ResultadosPageSurface,
   SocialVipClubView,
   type RawLeagueInput,
   type SpacetimeSignal,
@@ -262,13 +272,97 @@ describe("PitchLab Spacetime Suite v3.0 & Liquid Glass Platform v4", () => {
     expect(lowLine.pOver).toBeGreaterThan(highLine.pOver);
   });
 
+  it("builds public hero cards (Founder h2h 1/p rule), finished results, parlay demo, and validates Tu momio strictly", () => {
+    const heroCards = buildHeroLeagueCards(dataset.games, dataset.leagues);
+    expect(heroCards.length).toBeGreaterThanOrEqual(2);
+    for (const card of heroCards) {
+      const maxSplitP = Math.max(...card.splitProbabilities);
+      expect(card.mostProbable.p).toBeCloseTo(maxSplitP, 6);
+      expect(card.mostProbable.fairDecimal).toBe((1 / card.mostProbable.p).toFixed(2));
+      expect(card.mostProbable.fairAmerican).toMatch(/^[+\u2212]\d+$/);
+      expect(card.otherMarkets).toHaveLength(3);
+    }
+
+    // Incluso con markets vacío (como en dataset redactado sin detalle), deriva 3 filas reales
+    const redacted = redactDatasetForVisitor(dataset);
+    const strippedGames = redacted.games.map((g) => ({ ...g, markets: [] }));
+    const strippedCards = buildHeroLeagueCards(strippedGames, redacted.leagues);
+    expect(strippedCards.length).toBeGreaterThanOrEqual(2);
+    for (const card of strippedCards) {
+      expect(card.otherMarkets).toHaveLength(3);
+    }
+
+    const finishedItems = buildFinishedResultItems(dataset.games, 4);
+    for (const item of finishedItems) {
+      expect(item.fairAmerican).toMatch(/^[+\u2212]\d+$/);
+      expect(item.scoreLabel).toContain("–");
+    }
+
+    const parlayReal = buildParlayDemoData(dataset.games);
+    expect(parlayReal.isExample).toBe(false);
+    expect(parlayReal.legs).toHaveLength(2);
+    expect(parlayReal.blockedLeg.conflictWithLabel.length).toBeGreaterThan(2);
+
+    const parlayFallback = buildParlayDemoData([]);
+    expect(parlayFallback.isExample).toBe(true);
+    expect(parlayFallback.legs).toHaveLength(2);
+
+    // Validación estricta de «Tu momio»
+    expect(compareUserOddsInput(0.723, "").kind).toBe("empty");
+    expect(compareUserOddsInput(0.723, "").text).toBe(
+      "Escribe el momio de tu casa (americano o decimal) para compararlo.",
+    );
+    for (const bad of ["abc", "-50", "+50", "0.8", "1.0", "+1.50"]) {
+      const res = compareUserOddsInput(0.723, bad);
+      expect(res.kind).toBe("invalid");
+      expect(res.text).toBe("Escribe un momio válido, como \u2212200, +150 o 1.50.");
+    }
+
+    const plusEdge = compareUserOddsInput(0.723, "-200");
+    expect(plusEdge.kind).toBe("valid");
+    expect(plusEdge.tone).toBe("positive");
+    expect(plusEdge.text).toBe(
+      "Probabilidad implícita 66.7 %. Tu momio paga más que el justo: +5.6 pts.",
+    );
+
+    const typographicMinus = compareUserOddsInput(0.723, "\u2212200");
+    expect(typographicMinus.text).toBe(plusEdge.text);
+
+    const minusEdge = compareUserOddsInput(0.55, "-200");
+    expect(minusEdge.kind).toBe("valid");
+    expect(minusEdge.tone).toBe("negative");
+    expect(minusEdge.text).toContain("Tu momio paga menos que el justo: \u2212");
+
+    const positiveAmerican = compareUserOddsInput(0.45, "+150");
+    expect(positiveAmerican.kind).toBe("valid");
+    expect(positiveAmerican.text).toContain("Probabilidad implícita 40.0 %.");
+
+    const decimalComma = compareUserOddsInput(0.723, "1,50");
+    expect(decimalComma.kind).toBe("valid");
+    expect(decimalComma.text).toBe(plusEdge.text);
+  });
+
   it("renders Public & Club surfaces cleanly in SSR without leaking forbidden terms", () => {
     const redacted = redactDatasetForVisitor(dataset);
     const firstGame = dataset.games[0]!;
+    const heroCards = buildHeroLeagueCards(dataset.games, dataset.leagues);
+    const allResults = buildFinishedResultItems(dataset.games);
+    const parlayDemo = buildParlayDemoData(dataset.games);
 
-    const publicHtml = renderToStaticMarkup(
+    const landingAndMenuHtml = renderToStaticMarkup(
+      <>
+        <LandingSurface dataset={redacted} />
+        <ComoFuncionaPageSurface heroCards={heroCards} />
+        <MotoresPageSurface />
+        <ResultadosPageSurface results={allResults} />
+        <ParlaysPageSurface parlayDemo={parlayDemo} />
+        <ComunidadPageSurface />
+        <PrecioPageSurface />
+      </>,
+    );
+
+    const tipstarPickHtml = renderToStaticMarkup(
       <PlatformProvider dataset={redacted} initialRole="visitor">
-        <LandingSurface />
         <PublicTipstarPickSurface pickSlug="sofia-sem" />
       </PlatformProvider>,
     );
@@ -282,8 +376,30 @@ describe("PitchLab Spacetime Suite v3.0 & Liquid Glass Platform v4", () => {
       </PlatformProvider>,
     );
 
-    expect(publicHtml).toContain("Probabilidades claras para cada partido");
-    expect(publicHtml).toContain("data-locked-pick");
+    expect(landingAndMenuHtml).toContain("Lo más probable de cada partido, con su momio justo.");
+    expect(landingAndMenuHtml).toContain("Tachyon");
+    expect(landingAndMenuHtml).toContain("Singularity");
+    expect(landingAndMenuHtml).toContain("Minkowski");
+    expect(landingAndMenuHtml).toContain("Geodesic");
+    expect(landingAndMenuHtml).toContain("Cortex IA");
+    expect(landingAndMenuHtml).toContain("+100,000");
+    expect(landingAndMenuHtml).toContain("Partidos históricos en los motores");
+    expect(landingAndMenuHtml).toContain("16,126");
+    expect(landingAndMenuHtml).toContain("los dos suman 15 días");
+
+    const forbiddenPublicPhrases = [
+      "Primer mes gratis",
+      "ROI",
+      "Kelly",
+      "Por qué ganamos",
+      "más seguro",
+      "Sellar",
+    ];
+    for (const phrase of forbiddenPublicPhrases) {
+      expect(landingAndMenuHtml).not.toContain(phrase);
+    }
+
+    expect(tipstarPickHtml).toContain("data-locked-pick");
     expect(clubHtml).toContain("Cortex IA");
     expect(clubHtml).toContain("gana 15 días");
     // Tipstars y comunidad de demostración siempre van marcados como ejemplo.
@@ -291,7 +407,7 @@ describe("PitchLab Spacetime Suite v3.0 & Liquid Glass Platform v4", () => {
     expect(clubHtml).toContain("data-example-badge");
     expect(clubHtml).not.toContain("Récord Verificado");
 
-    const combinedLower = (publicHtml + clubHtml).toLowerCase();
+    const combinedLower = (landingAndMenuHtml + tipstarPickHtml + clubHtml).toLowerCase();
     for (const term of FORBIDDEN_UI_TERMS) {
       expect(combinedLower).not.toContain(term);
     }

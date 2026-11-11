@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<title>Landing PitchLab · móvil</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+.m{--bg:#000000;--bg2:#09090B;--surf:rgba(255,255,255,.055);--surf2:rgba(255,255,255,.08);--line:rgba(255,255,255,.10);--line2:rgba(255,255,255,.20);--t1:#FFFFFF;--t2:#E4E4E7;--t3:#B0B0BA;--brand:#C4B5FD;--ok:#6EE7B7;--okbg:rgba(110,231,183,.12);--miss:#FDA4AF;--missbg:rgba(253,164,175,.10);--btn:#FFFFFF;--btnfg:#000000;--glow:rgba(196,181,253,.22);--track:rgba(255,255,255,.14);--grid:rgba(255,255,255,.06)}
+.m{background:var(--bg);color:var(--t1);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.m *{box-sizing:border-box}
+.num{font-variant-numeric:tabular-nums lining-nums}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--brand);margin:0}
+.h2{font-size:30px;line-height:1.08;letter-spacing:-.02em;font-weight:800;margin:0}
+.card{border-radius:20px;position:relative;background:linear-gradient(180deg,rgba(255,255,255,.05),transparent 38%),color-mix(in srgb,rgba(255,255,255,.052),#000 18%);box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 4px 14px -8px rgba(0,0,0,.6)}
+.card::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;background:radial-gradient(44px circle at 0% 0%,rgba(255,255,255,.62),transparent 100%),radial-gradient(44px circle at 100% 0%,rgba(255,255,255,.62),transparent 100%),linear-gradient(180deg,rgba(255,255,255,.34) 0%,rgba(255,255,255,.03) 26%,rgba(255,255,255,.03) 68%,rgba(255,255,255,.16) 100%);-webkit-mask:linear-gradient(#000,#000) content-box,linear-gradient(#000,#000);-webkit-mask-composite:xor;mask:linear-gradient(#000,#000) content-box exclude,linear-gradient(#000,#000)}
+.lens{background:linear-gradient(180deg,rgba(255,255,255,.05),transparent 42%),color-mix(in srgb,rgba(255,255,255,.068),#000 22%);box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 10px 24px -14px rgba(0,0,0,.7)}
+.lens::before{padding:1.25px;background:radial-gradient(56px circle at 0% 0%,rgba(255,255,255,.9),transparent 100%),radial-gradient(56px circle at 100% 0%,rgba(255,255,255,.9),transparent 100%),linear-gradient(180deg,rgba(255,255,255,.58) 0%,rgba(196,181,253,.34) 38%,rgba(255,255,255,.26) 100%)}
+.orb{position:absolute;border-radius:999px;filter:blur(70px);opacity:.28;pointer-events:none}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:0 20px;border-radius:999px;font:600 15px/1 Inter,system-ui,sans-serif;text-decoration:none;border:1px solid transparent}
+.btn-primary{background:var(--btn);color:var(--btnfg)}
+.btn-ghost{color:var(--t1);border-color:var(--line2)}
+.tab{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 12px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--t2);font:600 13px/1 Inter,system-ui,sans-serif;white-space:nowrap}
+.tab[aria-pressed="true"]{background:var(--t1);color:var(--bg);border-color:var(--t1)}
+.seg{height:12px;border-radius:3px}
+.fieldgrid{background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:32px 32px;-webkit-mask-image:radial-gradient(ellipse 90% 50% at 50% 20%,#000 20%,transparent 75%);mask-image:radial-gradient(ellipse 90% 50% at 50% 20%,#000 20%,transparent 75%)}
+section{padding:56px 16px;border-top:1px solid var(--line)}
+</style>
+</helmet>
+<div class="m" style="width: 390px; height: 4500px; overflow: hidden; position: relative">
+
+  <header style="display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid var(--line)">
+    <img src="/_blob/0a34c4f2a27ec2774a6c5ae49a554df7" alt="PitchLab" style="height: 22px; width: auto">
+    <div style="display: flex; align-items: center; gap: 4px">
+      <a href="#entrar" style="color: var(--t1); text-decoration: none; font-size: 14px; font-weight: 600; padding: 12px">Entrar</a>
+      <button type="button" aria-label="Abrir menú" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--t1); display: grid; place-items: center">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+      </button>
+    </div>
+  </header>
+
+  <div style="position: relative; padding: 32px 16px 40px; display: flex; flex-direction: column; gap: 18px">
+    <div aria-hidden="true" style="position: absolute; inset: 0; overflow: hidden"><div class="orb" style="width: 320px; height: 320px; right: -120px; top: 40px; background: #8B5CF6"></div><div class="orb" style="width: 260px; height: 260px; left: -100px; top: 300px; background: #10B981"></div></div>
+    <div class="fieldgrid" aria-hidden="true" style="position: absolute; inset: 0"></div>
+    <p class="eyebrow" style="position: relative">Liga MX · NFL · Premier · LaLiga</p>
+    <h1 style="position: relative; margin: 0; font-size: 40px; line-height: 1.02; letter-spacing: -0.03em; font-weight: 800">Lo más probable de cada partido, con su momio justo.</h1>
+    <p style="position: relative; margin: 0; font-size: 16px; line-height: 1.5; color: var(--t2)">Ves qué resultado es más probable, cuánto debería pagar y si tu casa paga más o menos que eso.</p>
+    <a class="btn btn-primary" href="#precio" style="position: relative">Probar 7 días gratis →</a>
+    <p style="position: relative; margin: 0; font-size: 12px; color: var(--t3); text-align: center">Sin tarjeta · cancela cuando quieras · 18+</p>
+  </div>
+
+  <div style="padding: 0 16px 48px">
+    <div class="card lens" style="padding: 18px; display: flex; flex-direction: column; gap: 16px">
+      <div role="group" aria-label="Elegir liga" style="display: flex; gap: 6px; overflow: hidden">
+        <button type="button" class="tab" aria-pressed="true"><img src="/_blob/f7cc8bf4a1ac63cc29c5c75c32722c0d" alt="" style="width: 16px; height: 16px; object-fit: contain">Liga MX</button>
+        <button type="button" class="tab" aria-pressed="false"><img src="/_blob/ab6c8d69def7cbc7df51494d4adb8cc4" alt="" style="width: 16px; height: 16px; object-fit: contain">NFL</button>
+        <button type="button" class="tab" aria-pressed="false"><img src="/_blob/1110dd19e121f15476ea0266e4133d49" alt="" style="width: 16px; height: 16px; object-fit: contain">Premier</button>
+      </div>
+      <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--t3)"><span>Jornada 17</span><span class="num">Sáb 14 nov · 17:00</span></div>
+      <div style="display: flex; align-items: center; justify-content: space-between">
+        <div style="display: flex; align-items: center; gap: 8px"><img src="/_blob/94cf4d84e2472a98e4c4bc1d6de844ee" alt="" style="width: 36px; height: 36px; object-fit: contain"><strong>Querétaro</strong></div>
+        <span style="font-size: 12px; color: var(--t3)">vs</span>
+        <div style="display: flex; align-items: center; gap: 8px"><strong>Monterrey</strong><img src="/_blob/3c564f82e7300b47506ad40bf38f11e2" alt="" style="width: 36px; height: 36px; object-fit: contain"></div>
+      </div>
+      <div style="border-radius: 12px; padding: 16px; background: var(--okbg); border: 1px solid var(--line)">
+        <p style="margin: 0 0 4px; font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ok)">Lo más probable</p>
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 8px">
+          <div><p style="margin: 0; font-size: 19px; font-weight: 700">Monterrey o empate</p><p class="num" style="margin: 4px 0 0; font-size: 13px; color: var(--t2)">Momio justo <strong style="color: var(--t1)">−261</strong> · 1.38</p></div>
+          <p class="num" style="margin: 0; font-size: 40px; line-height: 1; font-weight: 800; color: var(--ok)">72.3 %</p>
+        </div>
+      </div>
+      <div>
+        <div role="img" aria-label="Querétaro 28 %, empate 25 %, Monterrey 47 %" style="display: flex; gap: 3px">
+          <div class="seg" style="flex: 28 1 0; background: var(--track); clip-path: polygon(0 0,100% 0,calc(100% - 6px) 100%,0 100%)"></div>
+          <div class="seg" style="flex: 25 1 0; background: var(--track); clip-path: polygon(6px 0,100% 0,calc(100% - 6px) 100%,0 100%)"></div>
+          <div class="seg" style="flex: 47 1 0; background: var(--ok); clip-path: polygon(6px 0,100% 0,100% 100%,0 100%)"></div>
+        </div>
+        <div class="num" style="display: flex; justify-content: space-between; margin-top: 6px; font-size: 12px; color: var(--t3)"><span>Querétaro 28 %</span><span>Empate 25 %</span><span style="color: var(--ok)">Monterrey 47 %</span></div>
+      </div>
+      <div style="border-top: 1px solid var(--line); padding-top: 14px; display: flex; flex-direction: column; gap: 8px">
+        <label for="m-odds" style="font-size: 13px; color: var(--t2)">Tu momio para Monterrey o empate</label>
+        <input id="m-odds" type="text" inputmode="decimal" value="-200" style="min-height: 44px; border-radius: 10px; border: 1px solid var(--line2); background: var(--bg); color: var(--t1); font: 600 16px Inter, system-ui, sans-serif; padding: 0 12px">
+        <p class="num" style="margin: 0; font-size: 13px; color: var(--ok)">Probabilidad implícita 66.7 %. Tu momio paga más que el justo: +5.6 pts.</p>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <p class="eyebrow">Cómo se lee</p>
+    <h2 class="h2" style="margin-top: 10px">Tres números, en este orden.</h2>
+    <ol style="list-style: none; margin: 24px 0 0; padding: 0; display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 16px">
+      <li style="padding: 20px; display: grid; grid-template-columns: 92px 1fr; gap: 14px; align-items: center; border-bottom: 1px solid var(--line)"><span class="num" style="font-size: 26px; font-weight: 800; color: var(--ok)">72.3 %</span><span><strong>La probabilidad</strong><br><span style="font-size: 14px; color: var(--t2)">Qué tan seguido pasaría.</span></span></li>
+      <li style="padding: 20px; display: grid; grid-template-columns: 92px 1fr; gap: 14px; align-items: center; border-bottom: 1px solid var(--line)"><span class="num" style="font-size: 26px; font-weight: 800">−261</span><span><strong>El momio justo</strong><br><span style="font-size: 14px; color: var(--t2)">Lo que debería pagar, sin margen.</span></span></li>
+      <li style="padding: 20px; display: grid; grid-template-columns: 92px 1fr; gap: 14px; align-items: center"><span class="num" style="font-size: 22px; font-weight: 800; color: var(--ok)">+5.6 pts</span><span><strong>Tu momio contra el justo</strong><br><span style="font-size: 14px; color: var(--t2)">Tú decides con el tuyo.</span></span></li>
+    </ol>
+  </section>
+
+  <section>
+    <p class="eyebrow">Los motores</p>
+    <h2 class="h2" style="margin-top: 10px">Cinco motores, probados con partidos que no vieron.</h2>
+    <div class="card" style="margin-top: 24px; padding: 0 16px">
+      <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 16px 0; border-bottom: 1px solid var(--line);"><div><p style="margin: 0; font-weight: 700">Tachyon <span style="font-size: 11px; color: var(--t3)">v3.0</span></p><p style="margin: 2px 0 0; font-size: 12px; color: var(--brand)">Fútbol</p></div><div style="text-align: right"><p class="num" style="margin: 0; font-size: 20px; font-weight: 800; color: var(--ok)">54.7 %</p><p style="margin: 0; font-size: 11px; color: var(--t3)">Liga MX · mercado 53.7 %</p></div></div>
+      <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 16px 0; border-bottom: 1px solid var(--line);"><div><p style="margin: 0; font-weight: 700">Minkowski <span style="font-size: 11px; color: var(--t3)">v3.0</span></p><p style="margin: 2px 0 0; font-size: 12px; color: var(--brand)">NFL</p></div><div style="text-align: right"><p class="num" style="margin: 0; font-size: 20px; font-weight: 800; color: var(--ok)">65.8 %</p><p style="margin: 0; font-size: 11px; color: var(--t3)">1,615 juegos · 2020–25</p></div></div>
+      <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 16px 0; border-bottom: 1px solid var(--line);"><div><p style="margin: 0; font-weight: 700">Singularity <span style="font-size: 11px; color: var(--t3)">v3.0</span></p><p style="margin: 2px 0 0; font-size: 12px; color: var(--brand)">Modelo + mercado</p></div><div style="text-align: right"><p class="num" style="margin: 0; font-size: 20px; font-weight: 800; color: var(--t1)">16,126</p><p style="margin: 0; font-size: 11px; color: var(--t3)">mejor que el cierre</p></div></div>
+      <p style="margin: 0; padding: 14px 0; font-size: 13px; color: var(--t2)">+ Geodesic (momio justo) y Cortex IA (resumen en claro)</p>
+    </div>
+    <a class="btn btn-ghost" href="#motores" style="margin-top: 16px">Conoce los motores →</a>
+  </section>
+
+  <section>
+    <p class="eyebrow">Historial íntegro</p>
+    <h2 class="h2" style="margin-top: 10px">Lo que falló también se queda.</h2>
+    <div class="card" style="margin-top: 24px; padding: 0 16px">
+      <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--line)">
+        <div><p class="num" style="margin: 0; font-weight: 700; font-size: 15px">Necaxa 1–0 Tijuana</p><p class="num" style="margin: 2px 0 0; font-size: 13px; color: var(--t2)">Necaxa o empate · 58.4 %</p></div>
+        <span style="font-size: 12px; font-weight: 600; padding: 5px 10px; border-radius: 999px; background: var(--okbg); color: var(--ok)">Se cumplió</span>
+      </div>
+      <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--line)">
+        <div><p class="num" style="margin: 0; font-weight: 700; font-size: 15px">Atl. San Luis 0–1 Juárez</p><p class="num" style="margin: 2px 0 0; font-size: 13px; color: var(--t2)">Atl. San Luis o empate · 78.3 %</p></div>
+        <span style="font-size: 12px; font-weight: 600; padding: 5px 10px; border-radius: 999px; background: var(--missbg); color: var(--miss)">No se cumplió</span>
+      </div>
+      <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 0">
+        <div><p class="num" style="margin: 0; font-weight: 700; font-size: 15px">Atlas 1–4 Pachuca</p><p class="num" style="margin: 2px 0 0; font-size: 13px; color: var(--t2)">Atlas o empate · 58.7 %</p></div>
+        <span style="font-size: 12px; font-weight: 600; padding: 5px 10px; border-radius: 999px; background: var(--missbg); color: var(--miss)">No se cumplió</span>
+      </div>
+    </div>
+    <a class="btn btn-ghost" href="#historial" style="margin-top: 16px">Ver historial completo</a>
+  </section>
+
+  <section>
+    <p class="eyebrow">Parlays</p>
+    <h2 class="h2" style="margin-top: 10px">Parlays que tienen sentido.</h2>
+    <div class="card" style="margin-top: 24px; padding: 16px; display: flex; flex-direction: column; gap: 4px">
+      <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--line)"><span style="font-weight: 600">Monterrey o empate</span><span class="num" style="font-weight: 700">72.3 %</span></div>
+      <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--line)"><span style="font-weight: 600">Más de 1.5 goles</span><span class="num" style="font-weight: 700">80.4 %</span></div>
+      <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--line); opacity: .62"><span style="font-weight: 600; text-decoration: line-through">Querétaro gana</span><span style="font-size: 12px; color: var(--t3)">Choca · bloqueada</span></div>
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; padding-top: 12px"><span style="font-size: 13px; color: var(--t3)">Probabilidad combinada</span><span class="num" style="font-size: 26px; font-weight: 800; color: var(--ok)">61.0 %</span></div>
+    </div>
+  </section>
+
+  <section id="precio">
+    <p class="eyebrow">Precio</p>
+    <h2 class="h2" style="margin-top: 10px">Un solo pase. Todo incluido.</h2>
+    <div class="card lens" style="margin-top: 24px; padding: 20px; display: flex; flex-direction: column; gap: 16px">
+      <div role="group" aria-label="Periodo de pago" style="display: flex; padding: 4px; border-radius: 999px; border: 1px solid var(--line); gap: 4px">
+        <button type="button" class="tab" aria-pressed="true" style="flex: 1; justify-content: center; border: 0">Mensual</button>
+        <button type="button" class="tab" aria-pressed="false" style="flex: 1; justify-content: center; border: 0">Anual −4 meses</button>
+      </div>
+      <p style="margin: 0; font-weight: 700">Pase PitchLab Ultra</p>
+      <p class="num" style="margin: 0; display: flex; align-items: flex-start; gap: 4px"><span style="font-size: 20px; font-weight: 700; margin-top: 6px; color: var(--t2)">$</span><span style="font-size: 52px; font-weight: 800; line-height: 1; letter-spacing: -0.03em">299</span></p>
+      <p style="margin: 0; font-size: 13px; color: var(--t3)">MXN al mes · IVA incluido · factura CFDI</p>
+      <a class="btn btn-primary" href="#empezar">Empezar 7 días gratis →</a>
+      <p style="margin: 0; font-size: 12px; color: var(--t3); text-align: center">Sin tarjeta para la prueba</p>
+    </div>
+  </section>
+
+  <section style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 16px">
+    <div aria-hidden="true" style="position: relative; width: 180px; height: 180px; display: grid; place-items: center">
+      <div style="position: absolute; inset: 16px; border-radius: 999px; background: var(--glow); filter: blur(24px)"></div>
+      <img src="/_blob/75fe2646e15e0f39ba989b60b7e9a453" alt="" style="position: relative; width: 168px; height: auto">
+    </div>
+    <h2 class="h2">Lee el juego con datos.</h2>
+    <a class="btn btn-primary" href="#precio" style="align-self: stretch">Probar 7 días gratis →</a>
+    <p style="margin: 8px 0 0; font-size: 12px; color: var(--t3); line-height: 1.6">Información para decidir, no una garantía. PitchLab no acepta apuestas. Solo mayores de 18.</p>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":4500}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

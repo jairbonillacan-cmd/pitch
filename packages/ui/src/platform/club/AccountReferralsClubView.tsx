@@ -1,13 +1,17 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Switch } from "@heroui/react";
 import type { LeagueId } from "@pitchlab/contracts";
 import { LeagueBadge } from "../../sports";
 import { getSessionWatermark } from "../access-guard";
 import { BrandLogo } from "../../primitives";
 import { LensGlowOrbs, MaestroIcon, UltraTag } from "../components/MaestroPrimitives";
-import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
+import {
+  ACCOUNT_TAB_EVENT,
+  AtmosphereStage,
+  ClubWorkspaceShell,
+} from "../components/ShellChrome";
 import { usePlatform } from "../platform-provider";
 import { MEMBERSHIP_SPEC } from "../spacetime-catalog";
 import type { RiskBand } from "../types";
@@ -45,6 +49,23 @@ export function AccountReferralsClubView(): React.JSX.Element {
   const [accountTab, setAccountTab] = useState<
     "referrals" | "plan" | "prefs" | "cfdi"
   >("referrals");
+  // El menú del perfil abre una pestaña concreta: por ?tab= al llegar o por evento si ya estás aquí.
+  useEffect(() => {
+    const isTab = (v: unknown): v is "referrals" | "plan" | "prefs" | "cfdi" =>
+      v === "referrals" || v === "plan" || v === "prefs" || v === "cfdi";
+    try {
+      const fromUrl = new URLSearchParams(window.location.search).get("tab");
+      if (isTab(fromUrl)) setAccountTab(fromUrl);
+    } catch (err) {
+      void err;
+    }
+    const onTab = (e: Event) => {
+      const tab = (e as CustomEvent<unknown>).detail;
+      if (isTab(tab)) setAccountTab(tab);
+    };
+    window.addEventListener(ACCOUNT_TAB_EVENT, onTab);
+    return () => window.removeEventListener(ACCOUNT_TAB_EVENT, onTab);
+  }, []);
   const [billingCycle, setBillingCycle] = useState<"monthly" | "annual">("monthly");
   const [baseUnitMxn, setBaseUnitMxn] = useState<100 | 250 | 500 | 1000>(250);
   const [socialPause, setSocialPause] = useState<boolean>(false);
