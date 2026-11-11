@@ -1,0 +1,2801 @@
+{
+  "schema_version": "production_segments_v3.1.0",
+  "generated_at_utc": "2026-11-11T22:56:30+00:00",
+  "reproduction_command": "research/prediction-lab/.venv/Scripts/python.exe services/models/evaluate_sealed_holdout_v3_1.py",
+  "holdout_cut_ts": "2025-02-02T17:30:00+00:00",
+  "holdout_events_evaluated": 14163,
+  "activation_criterion": "production_enabled = true SI Y SOLO SI en holdout_sealed (Sistema Integrado v3.1: A4 + A5 + A8) el segmento liga × mercado logra n_picks_with_closing >= 15 (mismo piso muestral pre-registrado en picks_engine.py:2235), clv_pct_mean > 0.0 y clv_pct_ci95[0] > 0.0 (IC 95% bootstrap de 1,000 remuestreos que NO cruza 0). Cualquier otro segmento queda explícitamente apagado (production_enabled = false) con disabled_reason.",
+  "multiple_testing_audit": {
+    "n_olas_1_to_3_dev_run_backtest_trials": 24,
+    "n_pre_holdout_dev_run_backtest_trials_total": 25,
+    "n_sealed_holdout_single_pass_runs": 4,
+    "zero_post_holdout_retuning": true
+  },
+  "component_status": {
+    "a4_logit_blend_devig": {
+      "production_activated": true,
+      "n_segments_model_enabled_dev": 12,
+      "n_segments_model_disabled_dev": 48
+    },
+    "a5_pick_policy_shrunk_kelly_caps": {
+      "production_activated": true,
+      "tiers": [
+        "solido",
+        "valor"
+      ],
+      "high_odds_tier_eliminated": true,
+      "caps_u": {
+        "per_pick": 2.0,
+        "per_event": 2.0,
+        "per_league_date": 3.0,
+        "per_global_date": 5.0
+      }
+    },
+    "a6_dixon_coles_2way_pure": {
+      "production_activated": false,
+      "n_segments_enabled": 0,
+      "n_segments_evaluated": 92,
+      "disabled_reason": "0/92 segmentos superan cierre Pinnacle sin margen con DC bivariado puro (Regla #4)"
+    },
+    "a7_gbm_calibrated_1x2": {
+      "production_activated": false,
+      "disabled_reason": "Paradoja de composición: mejora log-loss puro (-0.01105 nats) pero degrada CLV OOF en -1.46 pp"
+    },
+    "a8_stale_lines_double_confirmation": {
+      "production_activated": true,
+      "signal_mode": "double_confirmation",
+      "recommended_cadence_minutes": {
+        "closing_decision_window_t_minus_60m": 3.6858,
+        "matchday_near_kickoff_q00_ws": 8.5676,
+        "matchday_window_q10_ws": 11.6886,
+        "early_week_median_q50_ws": 30.4046
+      }
+    }
+  },
+  "portfolio_vs_segment_verdict": {
+    "portfolio_integrated_v3_1_holdout": {
+      "n_picks": 50,
+      "n_picks_with_closing": 39,
+      "roi_pct": -0.042349849649047644,
+      "roi_pct_ci95": [
+        -0.3285172182414024,
+        0.24268327591896455
+      ],
+      "roi_significance": "no significativa",
+      "clv_pct_mean": -0.022683180506960585,
+      "clv_pct_ci95": [
+        -0.05804018590503065,
+        0.0068168902178551306
+      ],
+      "clv_pct_significance": "no significativa",
+      "clv_prob_mean": -0.009436257492670191,
+      "clv_prob_ci95": [
+        -0.02047196151937047,
+        0.002746074230566565
+      ],
+      "pct_picks_clv_positive": 0.38461538461538464,
+      "max_drawdown_u": 9.877348441892114,
+      "portfolio_clv_ci95_strictly_above_zero": false
+    },
+    "segment_level_summary": {
+      "min_picks_required_for_valid_ci95": 15,
+      "n_segments_total": 60,
+      "n_segments_production_enabled": 0,
+      "n_segments_production_disabled": 60,
+      "enabled_segments": [],
+      "segments_with_raw_bootstrap_ci95_gt_0_n_ge_6": [],
+      "segments_with_raw_bootstrap_ci95_gt_0_n_ge_2": [
+        "E1::ah"
+      ],
+      "disabled_reasons_count": {
+        "disabled_in_dev_and_zero_holdout_stale_picks": 36,
+        "holdout_clv_negative_or_zero": 9,
+        "insufficient_holdout_sample_for_valid_ci95_n_lt_15": 8,
+        "zero_holdout_picks_emitted": 6,
+        "holdout_clv_ci95_crosses_zero": 1
+      }
+    }
+  },
+  "segments": {
+    "ARG::1x2": {
+      "league": "ARG",
+      "market": "1x2",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "disabled_in_dev_and_zero_holdout_stale_picks",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "model_weight_near_zero_w_le_0_05",
+      "best_devig_method": "proportional",
+      "w_effective": 0.05,
+      "ev_thresholds_solido": {
+        "short": 0.03929,
+        "even": 0.06477,
+        "plus": 0.09616,
+        "long": 0.1076
+      },
+      "ev_thresholds_valor": {
+        "short": 0.07173,
+        "even": 0.11655,
+        "plus": 0.16983,
+        "long": 0.18872
+      },
+      "holdout_n_picks": 0,
+      "holdout_n_picks_with_closing": 0,
+      "holdout_roi_pct": 0.0,
+      "holdout_roi_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": null,
+      "holdout_clv_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": null,
+      "holdout_clv_prob_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_pct_picks_clv_positive": null,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "B1::1x2": {
+      "league": "B1",
+      "market": "1x2",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "holdout_clv_negative_or_zero",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "model_weight_near_zero_w_le_0_05",
+      "best_devig_method": "power",
+      "w_effective": 0.0,
+      "ev_thresholds_solido": {
+        "short": 0.03929,
+        "even": 0.05927,
+        "plus": 0.09616,
+        "long": 0.1076
+      },
+      "ev_thresholds_valor": {
+        "short": 0.07173,
+        "even": 0.10654,
+        "plus": 0.16983,
+        "long": 0.18872
+      },
+      "holdout_n_picks": 1,
+      "holdout_n_picks_with_closing": 1,
+      "holdout_roi_pct": -1.0,
+      "holdout_roi_pct_ci95": [
+        -1.0,
+        -1.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": -0.025352580439205963,
+      "holdout_clv_pct_ci95": [
+        -0.025352580439205963,
+        -0.025352580439205963
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": -0.015649741011855567,
+      "holdout_clv_prob_ci95": [
+        -0.015649741011855567,
+        -0.015649741011855567
+      ],
+      "holdout_pct_picks_clv_positive": 0.0,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "B1::ah": {
+      "league": "B1",
+      "market": "ah",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "insufficient_holdout_sample_for_valid_ci95_n_lt_15",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "model_weight_near_zero_w_le_0_05",
+      "best_devig_method": "power",
+      "w_effective": 0.0,
+      "ev_thresholds_solido": {
+        "short": 0.0242,
+        "even": 0.10844,
+        "plus": 0.04318,
+        "long": 0.0715
+      },
+      "ev_thresholds_valor": {
+        "short": 0.0495,
+        "even": 0.18994,
+        "plus": 0.08195,
+        "long": 0.132
+      },
+      "holdout_n_picks": 1,
+      "holdout_n_picks_with_closing": 1,
+      "holdout_roi_pct": -1.0,
+      "holdout_roi_pct_ci95": [
+        -1.0,
+        -1.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": 0.17158312939987264,
+      "holdout_clv_pct_ci95": [
+        0.17158312939987264,
+        0.17158312939987264
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": 0.08601733197546246,
+      "holdout_clv_prob_ci95": [
+        0.08601733197546246,
+        0.08601733197546246
+      ],
+      "holdout_pct_picks_clv_positive": 1.0,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "B1::totals": {
+      "league": "B1",
+      "market": "totals",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "insufficient_holdout_sample_for_valid_ci95_n_lt_15",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "model_weight_near_zero_w_le_0_05",
+      "best_devig_method": "power",
+      "w_effective": 0.0,
+      "ev_thresholds_solido": {
+        "short": 0.0242,
+        "even": 0.03115,
+        "plus": 0.0462,
+        "long": 0.06577
+      },
+      "ev_thresholds_valor": {
+        "short": 0.04831,
+        "even": 0.06087,
+        "plus": 0.088,
+        "long": 0.12123
+      },
+      "holdout_n_picks": 1,
+      "holdout_n_picks_with_closing": 1,
+      "holdout_roi_pct": 0.5165840640487991,
+      "holdout_roi_pct_ci95": [
+        0.5165840640487991,
+        0.5165840640487991
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": 0.10714851686795601,
+      "holdout_clv_pct_ci95": [
+        0.10714851686795601,
+        0.10714851686795601
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": 0.07065122165526605,
+      "holdout_clv_prob_ci95": [
+        0.07065122165526605,
+        0.07065122165526605
+      ],
+      "holdout_pct_picks_clv_positive": 1.0,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "BRA::1x2": {
+      "league": "BRA",
+      "market": "1x2",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "disabled_in_dev_and_zero_holdout_stale_picks",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "model_weight_near_zero_w_le_0_05",
+      "best_devig_method": "power",
+      "w_effective": 0.0,
+      "ev_thresholds_solido": {
+        "short": 0.03929,
+        "even": 0.06477,
+        "plus": 0.09616,
+        "long": 0.1076
+      },
+      "ev_thresholds_valor": {
+        "short": 0.07173,
+        "even": 0.11655,
+        "plus": 0.16983,
+        "long": 0.18872
+      },
+      "holdout_n_picks": 0,
+      "holdout_n_picks_with_closing": 0,
+      "holdout_roi_pct": 0.0,
+      "holdout_roi_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": null,
+      "holdout_clv_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": null,
+      "holdout_clv_prob_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_pct_picks_clv_positive": null,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "D1::1x2": {
+      "league": "D1",
+      "market": "1x2",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "disabled_in_dev_and_zero_holdout_stale_picks",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "model_weight_near_zero_w_le_0_05",
+      "best_devig_method": "proportional",
+      "w_effective": 0.05,
+      "ev_thresholds_solido": {
+        "short": 0.03929,
+        "even": 0.06477,
+        "plus": 0.09616,
+        "long": 0.1076
+      },
+      "ev_thresholds_valor": {
+        "short": 0.07173,
+        "even": 0.11655,
+        "plus": 0.16983,
+        "long": 0.18872
+      },
+      "holdout_n_picks": 0,
+      "holdout_n_picks_with_closing": 0,
+      "holdout_roi_pct": 0.0,
+      "holdout_roi_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": null,
+      "holdout_clv_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": null,
+      "holdout_clv_prob_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_pct_picks_clv_positive": null,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "D1::ah": {
+      "league": "D1",
+      "market": "ah",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "insufficient_holdout_sample_for_valid_ci95_n_lt_15",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "model_weight_near_zero_w_le_0_05",
+      "best_devig_method": "power",
+      "w_effective": 0.0,
+      "ev_thresholds_solido": {
+        "short": 0.0242,
+        "even": 0.10844,
+        "plus": 0.04318,
+        "long": 0.0715
+      },
+      "ev_thresholds_valor": {
+        "short": 0.0495,
+        "even": 0.18994,
+        "plus": 0.08195,
+        "long": 0.132
+      },
+      "holdout_n_picks": 1,
+      "holdout_n_picks_with_closing": 1,
+      "holdout_roi_pct": 0.498719590268886,
+      "holdout_roi_pct_ci95": [
+        0.498719590268886,
+        0.498719590268886
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": 0.04907604259556586,
+      "holdout_clv_pct_ci95": [
+        0.04907604259556586,
+        0.04907604259556586
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": 0.024569480299446833,
+      "holdout_clv_prob_ci95": [
+        0.024569480299446833,
+        0.024569480299446833
+      ],
+      "holdout_pct_picks_clv_positive": 1.0,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "D1::totals": {
+      "league": "D1",
+      "market": "totals",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "disabled_in_dev_and_zero_holdout_stale_picks",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "model_weight_near_zero_w_le_0_05",
+      "best_devig_method": "power",
+      "w_effective": 0.0,
+      "ev_thresholds_solido": {
+        "short": 0.0242,
+        "even": 0.03115,
+        "plus": 0.0462,
+        "long": 0.06577
+      },
+      "ev_thresholds_valor": {
+        "short": 0.04831,
+        "even": 0.06087,
+        "plus": 0.088,
+        "long": 0.12123
+      },
+      "holdout_n_picks": 0,
+      "holdout_n_picks_with_closing": 0,
+      "holdout_roi_pct": 0.0,
+      "holdout_roi_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": null,
+      "holdout_clv_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": null,
+      "holdout_clv_prob_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_pct_picks_clv_positive": null,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "D2::1x2": {
+      "league": "D2",
+      "market": "1x2",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "zero_holdout_picks_emitted",
+      "dev_model_picks_enabled": true,
+      "dev_disabled_reason": null,
+      "best_devig_method": "proportional",
+      "w_effective": 0.35,
+      "ev_thresholds_solido": {
+        "short": 0.03929,
+        "even": 0.04635,
+        "plus": 0.07067,
+        "long": 0.10988
+      },
+      "ev_thresholds_valor": {
+        "short": 0.07173,
+        "even": 0.08252,
+        "plus": 0.12395,
+        "long": 0.19232
+      },
+      "holdout_n_picks": 0,
+      "holdout_n_picks_with_closing": 0,
+      "holdout_roi_pct": 0.0,
+      "holdout_roi_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": null,
+      "holdout_clv_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": null,
+      "holdout_clv_prob_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_pct_picks_clv_positive": null,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "D2::ah": {
+      "league": "D2",
+      "market": "ah",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "zero_holdout_picks_emitted",
+      "dev_model_picks_enabled": true,
+      "dev_disabled_reason": null,
+      "best_devig_method": "power",
+      "w_effective": 0.35,
+      "ev_thresholds_solido": {
+        "short": 0.0242,
+        "even": 0.10987,
+        "plus": 0.04318,
+        "long": 0.0715
+      },
+      "ev_thresholds_valor": {
+        "short": 0.0495,
+        "even": 0.19229,
+        "plus": 0.08195,
+        "long": 0.132
+      },
+      "holdout_n_picks": 0,
+      "holdout_n_picks_with_closing": 0,
+      "holdout_roi_pct": 0.0,
+      "holdout_roi_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": null,
+      "holdout_clv_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": null,
+      "holdout_clv_prob_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_pct_picks_clv_positive": null,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "D2::totals": {
+      "league": "D2",
+      "market": "totals",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "disabled_in_dev_and_zero_holdout_stale_picks",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "model_weight_near_zero_w_le_0_05",
+      "best_devig_method": "power",
+      "w_effective": 0.0,
+      "ev_thresholds_solido": {
+        "short": 0.0242,
+        "even": 0.03115,
+        "plus": 0.0462,
+        "long": 0.06577
+      },
+      "ev_thresholds_valor": {
+        "short": 0.04831,
+        "even": 0.06087,
+        "plus": 0.088,
+        "long": 0.12123
+      },
+      "holdout_n_picks": 0,
+      "holdout_n_picks_with_closing": 0,
+      "holdout_roi_pct": 0.0,
+      "holdout_roi_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": null,
+      "holdout_clv_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": null,
+      "holdout_clv_prob_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_pct_picks_clv_positive": null,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "E0::1x2": {
+      "league": "E0",
+      "market": "1x2",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "disabled_in_dev_and_zero_holdout_stale_picks",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "model_weight_near_zero_w_le_0_05",
+      "best_devig_method": "power",
+      "w_effective": 0.0,
+      "ev_thresholds_solido": {
+        "short": 0.03929,
+        "even": 0.06477,
+        "plus": 0.09616,
+        "long": 0.1076
+      },
+      "ev_thresholds_valor": {
+        "short": 0.07173,
+        "even": 0.11655,
+        "plus": 0.16983,
+        "long": 0.18872
+      },
+      "holdout_n_picks": 0,
+      "holdout_n_picks_with_closing": 0,
+      "holdout_roi_pct": 0.0,
+      "holdout_roi_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": null,
+      "holdout_clv_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": null,
+      "holdout_clv_prob_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_pct_picks_clv_positive": null,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "E0::ah": {
+      "league": "E0",
+      "market": "ah",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "disabled_in_dev_and_zero_holdout_stale_picks",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "walk_forward_causal_blend_does_not_beat_open_market_novig",
+      "best_devig_method": "power",
+      "w_effective": 0.15,
+      "ev_thresholds_solido": {
+        "short": 0.0242,
+        "even": 0.10844,
+        "plus": 0.04318,
+        "long": 0.0715
+      },
+      "ev_thresholds_valor": {
+        "short": 0.0495,
+        "even": 0.18994,
+        "plus": 0.08195,
+        "long": 0.132
+      },
+      "holdout_n_picks": 0,
+      "holdout_n_picks_with_closing": 0,
+      "holdout_roi_pct": 0.0,
+      "holdout_roi_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": null,
+      "holdout_clv_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": null,
+      "holdout_clv_prob_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_pct_picks_clv_positive": null,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "E0::totals": {
+      "league": "E0",
+      "market": "totals",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "disabled_in_dev_and_zero_holdout_stale_picks",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "model_weight_near_zero_w_le_0_05",
+      "best_devig_method": "power",
+      "w_effective": 0.05,
+      "ev_thresholds_solido": {
+        "short": 0.0242,
+        "even": 0.03115,
+        "plus": 0.0462,
+        "long": 0.06577
+      },
+      "ev_thresholds_valor": {
+        "short": 0.04831,
+        "even": 0.06087,
+        "plus": 0.088,
+        "long": 0.12123
+      },
+      "holdout_n_picks": 0,
+      "holdout_n_picks_with_closing": 0,
+      "holdout_roi_pct": 0.0,
+      "holdout_roi_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": null,
+      "holdout_clv_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": null,
+      "holdout_clv_prob_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_pct_picks_clv_positive": null,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "E1::1x2": {
+      "league": "E1",
+      "market": "1x2",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "insufficient_holdout_sample_for_valid_ci95_n_lt_15",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "model_weight_near_zero_w_le_0_05",
+      "best_devig_method": "shin",
+      "w_effective": 0.0,
+      "ev_thresholds_solido": {
+        "short": 0.03929,
+        "even": 0.06477,
+        "plus": 0.09616,
+        "long": 0.1076
+      },
+      "ev_thresholds_valor": {
+        "short": 0.07173,
+        "even": 0.11655,
+        "plus": 0.16983,
+        "long": 0.18872
+      },
+      "holdout_n_picks": 1,
+      "holdout_n_picks_with_closing": 1,
+      "holdout_roi_pct": -1.0,
+      "holdout_roi_pct_ci95": [
+        -1.0,
+        -1.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": 0.07726306363238233,
+      "holdout_clv_pct_ci95": [
+        0.07726306363238233,
+        0.07726306363238233
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": 0.022142055465210864,
+      "holdout_clv_prob_ci95": [
+        0.022142055465210864,
+        0.022142055465210864
+      ],
+      "holdout_pct_picks_clv_positive": 1.0,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "E1::ah": {
+      "league": "E1",
+      "market": "ah",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "insufficient_holdout_sample_for_valid_ci95_n_lt_15",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "walk_forward_causal_blend_does_not_beat_open_market_novig",
+      "best_devig_method": "power",
+      "w_effective": 0.2,
+      "ev_thresholds_solido": {
+        "short": 0.0242,
+        "even": 0.10844,
+        "plus": 0.04318,
+        "long": 0.0715
+      },
+      "ev_thresholds_valor": {
+        "short": 0.0495,
+        "even": 0.18994,
+        "plus": 0.08195,
+        "long": 0.132
+      },
+      "holdout_n_picks": 2,
+      "holdout_n_picks_with_closing": 2,
+      "holdout_roi_pct": 0.9289027130599015,
+      "holdout_roi_pct_ci95": [
+        0.9247411444141689,
+        0.9333834209867269
+      ],
+      "holdout_roi_significance": "significativa_positiva",
+      "holdout_clv_pct_mean": 0.05353444774911975,
+      "holdout_clv_pct_ci95": [
+        0.0419547171094512,
+        0.0651141783887883
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": 0.02773823214007126,
+      "holdout_clv_prob_ci95": [
+        0.021797589369982995,
+        0.03367887491015953
+      ],
+      "holdout_pct_picks_clv_positive": 1.0,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": true,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "E1::totals": {
+      "league": "E1",
+      "market": "totals",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "holdout_clv_negative_or_zero",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "model_weight_near_zero_w_le_0_05",
+      "best_devig_method": "power",
+      "w_effective": 0.0,
+      "ev_thresholds_solido": {
+        "short": 0.0242,
+        "even": 0.03115,
+        "plus": 0.0462,
+        "long": 0.06577
+      },
+      "ev_thresholds_valor": {
+        "short": 0.04831,
+        "even": 0.06087,
+        "plus": 0.088,
+        "long": 0.12123
+      },
+      "holdout_n_picks": 2,
+      "holdout_n_picks_with_closing": 2,
+      "holdout_roi_pct": -0.18616025555079602,
+      "holdout_roi_pct_ci95": [
+        -1.0,
+        0.7963657340640322
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": -0.004675120528311927,
+      "holdout_clv_pct_ci95": [
+        -0.0583462400086564,
+        0.04899599895203255
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": 0.0013297761609091796,
+      "holdout_clv_prob_ci95": [
+        -0.02461551645896143,
+        0.027275068780779788
+      ],
+      "holdout_pct_picks_clv_positive": 0.5,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "F1::1x2": {
+      "league": "F1",
+      "market": "1x2",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "disabled_in_dev_and_zero_holdout_stale_picks",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "model_weight_near_zero_w_le_0_05",
+      "best_devig_method": "shin",
+      "w_effective": 0.0,
+      "ev_thresholds_solido": {
+        "short": 0.03929,
+        "even": 0.06477,
+        "plus": 0.09616,
+        "long": 0.1076
+      },
+      "ev_thresholds_valor": {
+        "short": 0.07173,
+        "even": 0.11655,
+        "plus": 0.16983,
+        "long": 0.18872
+      },
+      "holdout_n_picks": 0,
+      "holdout_n_picks_with_closing": 0,
+      "holdout_roi_pct": 0.0,
+      "holdout_roi_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": null,
+      "holdout_clv_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": null,
+      "holdout_clv_prob_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_pct_picks_clv_positive": null,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "F1::ah": {
+      "league": "F1",
+      "market": "ah",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "disabled_in_dev_and_zero_holdout_stale_picks",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "walk_forward_causal_blend_does_not_beat_open_market_novig",
+      "best_devig_method": "power",
+      "w_effective": 0.15,
+      "ev_thresholds_solido": {
+        "short": 0.0242,
+        "even": 0.10844,
+        "plus": 0.04318,
+        "long": 0.0715
+      },
+      "ev_thresholds_valor": {
+        "short": 0.0495,
+        "even": 0.18994,
+        "plus": 0.08195,
+        "long": 0.132
+      },
+      "holdout_n_picks": 0,
+      "holdout_n_picks_with_closing": 0,
+      "holdout_roi_pct": 0.0,
+      "holdout_roi_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": null,
+      "holdout_clv_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": null,
+      "holdout_clv_prob_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_pct_picks_clv_positive": null,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "F1::totals": {
+      "league": "F1",
+      "market": "totals",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "disabled_in_dev_and_zero_holdout_stale_picks",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "model_weight_near_zero_w_le_0_05",
+      "best_devig_method": "power",
+      "w_effective": 0.0,
+      "ev_thresholds_solido": {
+        "short": 0.0242,
+        "even": 0.03115,
+        "plus": 0.0462,
+        "long": 0.06577
+      },
+      "ev_thresholds_valor": {
+        "short": 0.04831,
+        "even": 0.06087,
+        "plus": 0.088,
+        "long": 0.12123
+      },
+      "holdout_n_picks": 0,
+      "holdout_n_picks_with_closing": 0,
+      "holdout_roi_pct": 0.0,
+      "holdout_roi_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": null,
+      "holdout_clv_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": null,
+      "holdout_clv_prob_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_pct_picks_clv_positive": null,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "F2::1x2": {
+      "league": "F2",
+      "market": "1x2",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "disabled_in_dev_and_zero_holdout_stale_picks",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "walk_forward_causal_blend_does_not_beat_open_market_novig",
+      "best_devig_method": "power",
+      "w_effective": 0.2,
+      "ev_thresholds_solido": {
+        "short": 0.03929,
+        "even": 0.06477,
+        "plus": 0.09616,
+        "long": 0.1076
+      },
+      "ev_thresholds_valor": {
+        "short": 0.07173,
+        "even": 0.11655,
+        "plus": 0.16983,
+        "long": 0.18872
+      },
+      "holdout_n_picks": 0,
+      "holdout_n_picks_with_closing": 0,
+      "holdout_roi_pct": 0.0,
+      "holdout_roi_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": null,
+      "holdout_clv_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": null,
+      "holdout_clv_prob_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_pct_picks_clv_positive": null,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "F2::ah": {
+      "league": "F2",
+      "market": "ah",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "disabled_in_dev_and_zero_holdout_stale_picks",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "model_weight_near_zero_w_le_0_05",
+      "best_devig_method": "proportional",
+      "w_effective": 0.05,
+      "ev_thresholds_solido": {
+        "short": 0.0242,
+        "even": 0.10844,
+        "plus": 0.04318,
+        "long": 0.0715
+      },
+      "ev_thresholds_valor": {
+        "short": 0.0495,
+        "even": 0.18994,
+        "plus": 0.08195,
+        "long": 0.132
+      },
+      "holdout_n_picks": 0,
+      "holdout_n_picks_with_closing": 0,
+      "holdout_roi_pct": 0.0,
+      "holdout_roi_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": null,
+      "holdout_clv_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": null,
+      "holdout_clv_prob_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_pct_picks_clv_positive": null,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "F2::totals": {
+      "league": "F2",
+      "market": "totals",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "disabled_in_dev_and_zero_holdout_stale_picks",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "model_weight_near_zero_w_le_0_05",
+      "best_devig_method": "proportional",
+      "w_effective": 0.0,
+      "ev_thresholds_solido": {
+        "short": 0.0242,
+        "even": 0.03115,
+        "plus": 0.0462,
+        "long": 0.06577
+      },
+      "ev_thresholds_valor": {
+        "short": 0.04831,
+        "even": 0.06087,
+        "plus": 0.088,
+        "long": 0.12123
+      },
+      "holdout_n_picks": 0,
+      "holdout_n_picks_with_closing": 0,
+      "holdout_roi_pct": 0.0,
+      "holdout_roi_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": null,
+      "holdout_clv_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": null,
+      "holdout_clv_prob_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_pct_picks_clv_positive": null,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "G1::1x2": {
+      "league": "G1",
+      "market": "1x2",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "insufficient_holdout_sample_for_valid_ci95_n_lt_15",
+      "dev_model_picks_enabled": true,
+      "dev_disabled_reason": null,
+      "best_devig_method": "power",
+      "w_effective": 0.15,
+      "ev_thresholds_solido": {
+        "short": 0.02942,
+        "even": 0.04925,
+        "plus": 0.05808,
+        "long": 0.10959
+      },
+      "ev_thresholds_valor": {
+        "short": 0.0524,
+        "even": 0.08787,
+        "plus": 0.10244,
+        "long": 0.19185
+      },
+      "holdout_n_picks": 1,
+      "holdout_n_picks_with_closing": 1,
+      "holdout_roi_pct": 5.2229437229437226,
+      "holdout_roi_pct_ci95": [
+        5.2229437229437226,
+        5.2229437229437226
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": 0.07060456787825764,
+      "holdout_clv_pct_ci95": [
+        0.07060456787825764,
+        0.07060456787825764
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": 0.011345847081653926,
+      "holdout_clv_prob_ci95": [
+        0.011345847081653926,
+        0.011345847081653926
+      ],
+      "holdout_pct_picks_clv_positive": 1.0,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "G1::ah": {
+      "league": "G1",
+      "market": "ah",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "zero_holdout_picks_emitted",
+      "dev_model_picks_enabled": true,
+      "dev_disabled_reason": null,
+      "best_devig_method": "power",
+      "w_effective": 0.35,
+      "ev_thresholds_solido": {
+        "short": 0.0242,
+        "even": 0.10978,
+        "plus": 0.04318,
+        "long": 0.0715
+      },
+      "ev_thresholds_valor": {
+        "short": 0.0495,
+        "even": 0.19213,
+        "plus": 0.08195,
+        "long": 0.132
+      },
+      "holdout_n_picks": 0,
+      "holdout_n_picks_with_closing": 0,
+      "holdout_roi_pct": 0.0,
+      "holdout_roi_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": null,
+      "holdout_clv_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": null,
+      "holdout_clv_prob_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_pct_picks_clv_positive": null,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "G1::totals": {
+      "league": "G1",
+      "market": "totals",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "holdout_clv_negative_or_zero",
+      "dev_model_picks_enabled": true,
+      "dev_disabled_reason": null,
+      "best_devig_method": "power",
+      "w_effective": 0.1,
+      "ev_thresholds_solido": {
+        "short": 0.0242,
+        "even": 0.02717,
+        "plus": 0.0462,
+        "long": 0.06577
+      },
+      "ev_thresholds_valor": {
+        "short": 0.04688,
+        "even": 0.05199,
+        "plus": 0.088,
+        "long": 0.12123
+      },
+      "holdout_n_picks": 1,
+      "holdout_n_picks_with_closing": 1,
+      "holdout_roi_pct": 1.0038535645472062,
+      "holdout_roi_pct_ci95": [
+        1.0038535645472062,
+        1.0038535645472062
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": -0.06647129349016256,
+      "holdout_clv_pct_ci95": [
+        -0.06647129349016256,
+        -0.06647129349016256
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": -0.03317173203980228,
+      "holdout_clv_prob_ci95": [
+        -0.03317173203980228,
+        -0.03317173203980228
+      ],
+      "holdout_pct_picks_clv_positive": 0.0,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "I1::1x2": {
+      "league": "I1",
+      "market": "1x2",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "disabled_in_dev_and_zero_holdout_stale_picks",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "model_weight_near_zero_w_le_0_05",
+      "best_devig_method": "power",
+      "w_effective": 0.0,
+      "ev_thresholds_solido": {
+        "short": 0.03929,
+        "even": 0.06477,
+        "plus": 0.09616,
+        "long": 0.1076
+      },
+      "ev_thresholds_valor": {
+        "short": 0.07173,
+        "even": 0.11655,
+        "plus": 0.16983,
+        "long": 0.18872
+      },
+      "holdout_n_picks": 0,
+      "holdout_n_picks_with_closing": 0,
+      "holdout_roi_pct": 0.0,
+      "holdout_roi_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": null,
+      "holdout_clv_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": null,
+      "holdout_clv_prob_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_pct_picks_clv_positive": null,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "I1::ah": {
+      "league": "I1",
+      "market": "ah",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "zero_holdout_picks_emitted",
+      "dev_model_picks_enabled": true,
+      "dev_disabled_reason": null,
+      "best_devig_method": "proportional",
+      "w_effective": 0.2,
+      "ev_thresholds_solido": {
+        "short": 0.0242,
+        "even": 0.06855,
+        "plus": 0.04318,
+        "long": 0.0715
+      },
+      "ev_thresholds_valor": {
+        "short": 0.0495,
+        "even": 0.11998,
+        "plus": 0.08195,
+        "long": 0.132
+      },
+      "holdout_n_picks": 0,
+      "holdout_n_picks_with_closing": 0,
+      "holdout_roi_pct": 0.0,
+      "holdout_roi_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": null,
+      "holdout_clv_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": null,
+      "holdout_clv_prob_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_pct_picks_clv_positive": null,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "I1::totals": {
+      "league": "I1",
+      "market": "totals",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "disabled_in_dev_and_zero_holdout_stale_picks",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "model_weight_near_zero_w_le_0_05",
+      "best_devig_method": "shin",
+      "w_effective": 0.0,
+      "ev_thresholds_solido": {
+        "short": 0.0242,
+        "even": 0.03115,
+        "plus": 0.0462,
+        "long": 0.06577
+      },
+      "ev_thresholds_valor": {
+        "short": 0.04831,
+        "even": 0.06087,
+        "plus": 0.088,
+        "long": 0.12123
+      },
+      "holdout_n_picks": 0,
+      "holdout_n_picks_with_closing": 0,
+      "holdout_roi_pct": 0.0,
+      "holdout_roi_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": null,
+      "holdout_clv_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": null,
+      "holdout_clv_prob_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_pct_picks_clv_positive": null,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "I2::1x2": {
+      "league": "I2",
+      "market": "1x2",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "holdout_clv_negative_or_zero",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "walk_forward_causal_blend_does_not_beat_open_market_novig",
+      "best_devig_method": "power",
+      "w_effective": 0.1,
+      "ev_thresholds_solido": {
+        "short": 0.03929,
+        "even": 0.06477,
+        "plus": 0.09616,
+        "long": 0.1076
+      },
+      "ev_thresholds_valor": {
+        "short": 0.07173,
+        "even": 0.11655,
+        "plus": 0.16983,
+        "long": 0.18872
+      },
+      "holdout_n_picks": 1,
+      "holdout_n_picks_with_closing": 1,
+      "holdout_roi_pct": -1.0,
+      "holdout_roi_pct_ci95": [
+        -1.0,
+        -1.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": -0.14717384647141618,
+      "holdout_clv_pct_ci95": [
+        -0.14717384647141618,
+        -0.14717384647141618
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": -0.04876937265425363,
+      "holdout_clv_prob_ci95": [
+        -0.04876937265425363,
+        -0.04876937265425363
+      ],
+      "holdout_pct_picks_clv_positive": 0.0,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "I2::ah": {
+      "league": "I2",
+      "market": "ah",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "holdout_clv_negative_or_zero",
+      "dev_model_picks_enabled": true,
+      "dev_disabled_reason": null,
+      "best_devig_method": "power",
+      "w_effective": 0.25,
+      "ev_thresholds_solido": {
+        "short": 0.0242,
+        "even": 0.0685,
+        "plus": 0.04318,
+        "long": 0.0715
+      },
+      "ev_thresholds_valor": {
+        "short": 0.0495,
+        "even": 0.11989,
+        "plus": 0.08195,
+        "long": 0.132
+      },
+      "holdout_n_picks": 3,
+      "holdout_n_picks_with_closing": 3,
+      "holdout_roi_pct": -0.2747238643944292,
+      "holdout_roi_pct_ci95": [
+        -1.0,
+        0.28983924599996613
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": -0.08645403642196425,
+      "holdout_clv_pct_ci95": [
+        -0.14206591312739358,
+        -0.03664831205599273
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": -0.04820026708267557,
+      "holdout_clv_prob_ci95": [
+        -0.0793733430366253,
+        -0.018818735138063758
+      ],
+      "holdout_pct_picks_clv_positive": 0.0,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "I2::totals": {
+      "league": "I2",
+      "market": "totals",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "disabled_in_dev_and_zero_holdout_stale_picks",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "model_weight_near_zero_w_le_0_05",
+      "best_devig_method": "proportional",
+      "w_effective": 0.05,
+      "ev_thresholds_solido": {
+        "short": 0.0242,
+        "even": 0.03115,
+        "plus": 0.0462,
+        "long": 0.06577
+      },
+      "ev_thresholds_valor": {
+        "short": 0.04831,
+        "even": 0.06087,
+        "plus": 0.088,
+        "long": 0.12123
+      },
+      "holdout_n_picks": 0,
+      "holdout_n_picks_with_closing": 0,
+      "holdout_roi_pct": 0.0,
+      "holdout_roi_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": null,
+      "holdout_clv_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": null,
+      "holdout_clv_prob_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_pct_picks_clv_positive": null,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "JPN::1x2": {
+      "league": "JPN",
+      "market": "1x2",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "disabled_in_dev_and_zero_holdout_stale_picks",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "model_weight_near_zero_w_le_0_05",
+      "best_devig_method": "shin",
+      "w_effective": 0.05,
+      "ev_thresholds_solido": {
+        "short": 0.03929,
+        "even": 0.06477,
+        "plus": 0.09616,
+        "long": 0.1076
+      },
+      "ev_thresholds_valor": {
+        "short": 0.07173,
+        "even": 0.11655,
+        "plus": 0.16983,
+        "long": 0.18872
+      },
+      "holdout_n_picks": 0,
+      "holdout_n_picks_with_closing": 0,
+      "holdout_roi_pct": 0.0,
+      "holdout_roi_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": null,
+      "holdout_clv_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": null,
+      "holdout_clv_prob_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_pct_picks_clv_positive": null,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "MEX::1x2": {
+      "league": "MEX",
+      "market": "1x2",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "disabled_in_dev_and_zero_holdout_stale_picks",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "walk_forward_causal_blend_does_not_beat_open_market_novig",
+      "best_devig_method": "power",
+      "w_effective": 0.1,
+      "ev_thresholds_solido": {
+        "short": 0.03929,
+        "even": 0.06477,
+        "plus": 0.09616,
+        "long": 0.1076
+      },
+      "ev_thresholds_valor": {
+        "short": 0.07173,
+        "even": 0.11655,
+        "plus": 0.16983,
+        "long": 0.18872
+      },
+      "holdout_n_picks": 0,
+      "holdout_n_picks_with_closing": 0,
+      "holdout_roi_pct": 0.0,
+      "holdout_roi_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": null,
+      "holdout_clv_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": null,
+      "holdout_clv_prob_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_pct_picks_clv_positive": null,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "N1::1x2": {
+      "league": "N1",
+      "market": "1x2",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "disabled_in_dev_and_zero_holdout_stale_picks",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "model_weight_near_zero_w_le_0_05",
+      "best_devig_method": "power",
+      "w_effective": 0.0,
+      "ev_thresholds_solido": {
+        "short": 0.03929,
+        "even": 0.06477,
+        "plus": 0.09616,
+        "long": 0.1076
+      },
+      "ev_thresholds_valor": {
+        "short": 0.07173,
+        "even": 0.11655,
+        "plus": 0.16983,
+        "long": 0.18872
+      },
+      "holdout_n_picks": 0,
+      "holdout_n_picks_with_closing": 0,
+      "holdout_roi_pct": 0.0,
+      "holdout_roi_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": null,
+      "holdout_clv_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": null,
+      "holdout_clv_prob_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_pct_picks_clv_positive": null,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "N1::ah": {
+      "league": "N1",
+      "market": "ah",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "zero_holdout_picks_emitted",
+      "dev_model_picks_enabled": true,
+      "dev_disabled_reason": null,
+      "best_devig_method": "power",
+      "w_effective": 0.15,
+      "ev_thresholds_solido": {
+        "short": 0.0242,
+        "even": 0.05098,
+        "plus": 0.04318,
+        "long": 0.0715
+      },
+      "ev_thresholds_valor": {
+        "short": 0.0495,
+        "even": 0.08924,
+        "plus": 0.08195,
+        "long": 0.132
+      },
+      "holdout_n_picks": 0,
+      "holdout_n_picks_with_closing": 0,
+      "holdout_roi_pct": 0.0,
+      "holdout_roi_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": null,
+      "holdout_clv_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": null,
+      "holdout_clv_prob_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_pct_picks_clv_positive": null,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "N1::totals": {
+      "league": "N1",
+      "market": "totals",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "disabled_in_dev_and_zero_holdout_stale_picks",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "model_weight_near_zero_w_le_0_05",
+      "best_devig_method": "power",
+      "w_effective": 0.0,
+      "ev_thresholds_solido": {
+        "short": 0.0242,
+        "even": 0.03115,
+        "plus": 0.0462,
+        "long": 0.06577
+      },
+      "ev_thresholds_valor": {
+        "short": 0.04831,
+        "even": 0.06087,
+        "plus": 0.088,
+        "long": 0.12123
+      },
+      "holdout_n_picks": 0,
+      "holdout_n_picks_with_closing": 0,
+      "holdout_roi_pct": 0.0,
+      "holdout_roi_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": null,
+      "holdout_clv_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": null,
+      "holdout_clv_prob_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_pct_picks_clv_positive": null,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "NFL::moneyline": {
+      "league": "NFL",
+      "market": "moneyline",
+      "sport": "nfl",
+      "production_enabled": false,
+      "disabled_reason": "disabled_in_dev_and_zero_holdout_stale_picks",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "insufficient_sharp_closing_benchmark",
+      "best_devig_method": "power",
+      "w_effective": 0.05,
+      "ev_thresholds_solido": {
+        "short": 0.0242,
+        "even": 0.033,
+        "plus": 0.0462,
+        "long": 0.0715
+      },
+      "ev_thresholds_valor": {
+        "short": 0.0495,
+        "even": 0.066,
+        "plus": 0.088,
+        "long": 0.132
+      },
+      "holdout_n_picks": 0,
+      "holdout_n_picks_with_closing": 0,
+      "holdout_roi_pct": 0.0,
+      "holdout_roi_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": null,
+      "holdout_clv_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": null,
+      "holdout_clv_prob_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_pct_picks_clv_positive": null,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "NFL::spread": {
+      "league": "NFL",
+      "market": "spread",
+      "sport": "nfl",
+      "production_enabled": false,
+      "disabled_reason": "disabled_in_dev_and_zero_holdout_stale_picks",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "insufficient_sharp_closing_benchmark",
+      "best_devig_method": "proportional",
+      "w_effective": 0.15,
+      "ev_thresholds_solido": {
+        "short": 0.0242,
+        "even": 0.033,
+        "plus": 0.0462,
+        "long": 0.0715
+      },
+      "ev_thresholds_valor": {
+        "short": 0.0495,
+        "even": 0.066,
+        "plus": 0.088,
+        "long": 0.132
+      },
+      "holdout_n_picks": 0,
+      "holdout_n_picks_with_closing": 0,
+      "holdout_roi_pct": 0.0,
+      "holdout_roi_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": null,
+      "holdout_clv_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": null,
+      "holdout_clv_prob_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_pct_picks_clv_positive": null,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "NFL::totals": {
+      "league": "NFL",
+      "market": "totals",
+      "sport": "nfl",
+      "production_enabled": false,
+      "disabled_reason": "disabled_in_dev_and_zero_holdout_stale_picks",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "insufficient_sharp_closing_benchmark",
+      "best_devig_method": "proportional",
+      "w_effective": 0.05,
+      "ev_thresholds_solido": {
+        "short": 0.0242,
+        "even": 0.03115,
+        "plus": 0.0462,
+        "long": 0.06577
+      },
+      "ev_thresholds_valor": {
+        "short": 0.04831,
+        "even": 0.06087,
+        "plus": 0.088,
+        "long": 0.12123
+      },
+      "holdout_n_picks": 0,
+      "holdout_n_picks_with_closing": 0,
+      "holdout_roi_pct": 0.0,
+      "holdout_roi_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": null,
+      "holdout_clv_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": null,
+      "holdout_clv_prob_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_pct_picks_clv_positive": null,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "P1::1x2": {
+      "league": "P1",
+      "market": "1x2",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "disabled_in_dev_and_zero_holdout_stale_picks",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "walk_forward_causal_blend_does_not_beat_open_market_novig",
+      "best_devig_method": "power",
+      "w_effective": 0.15,
+      "ev_thresholds_solido": {
+        "short": 0.03929,
+        "even": 0.06477,
+        "plus": 0.09616,
+        "long": 0.1076
+      },
+      "ev_thresholds_valor": {
+        "short": 0.07173,
+        "even": 0.11655,
+        "plus": 0.16983,
+        "long": 0.18872
+      },
+      "holdout_n_picks": 0,
+      "holdout_n_picks_with_closing": 0,
+      "holdout_roi_pct": 0.0,
+      "holdout_roi_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": null,
+      "holdout_clv_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": null,
+      "holdout_clv_prob_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_pct_picks_clv_positive": null,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "P1::ah": {
+      "league": "P1",
+      "market": "ah",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "zero_holdout_picks_emitted",
+      "dev_model_picks_enabled": true,
+      "dev_disabled_reason": null,
+      "best_devig_method": "power",
+      "w_effective": 0.25,
+      "ev_thresholds_solido": {
+        "short": 0.0242,
+        "even": 0.0872,
+        "plus": 0.04318,
+        "long": 0.0715
+      },
+      "ev_thresholds_valor": {
+        "short": 0.0495,
+        "even": 0.15262,
+        "plus": 0.08195,
+        "long": 0.132
+      },
+      "holdout_n_picks": 0,
+      "holdout_n_picks_with_closing": 0,
+      "holdout_roi_pct": 0.0,
+      "holdout_roi_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": null,
+      "holdout_clv_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": null,
+      "holdout_clv_prob_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_pct_picks_clv_positive": null,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "P1::totals": {
+      "league": "P1",
+      "market": "totals",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "disabled_in_dev_and_zero_holdout_stale_picks",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "model_weight_near_zero_w_le_0_05",
+      "best_devig_method": "proportional",
+      "w_effective": 0.0,
+      "ev_thresholds_solido": {
+        "short": 0.0242,
+        "even": 0.03115,
+        "plus": 0.0462,
+        "long": 0.06577
+      },
+      "ev_thresholds_valor": {
+        "short": 0.04831,
+        "even": 0.06087,
+        "plus": 0.088,
+        "long": 0.12123
+      },
+      "holdout_n_picks": 0,
+      "holdout_n_picks_with_closing": 0,
+      "holdout_roi_pct": 0.0,
+      "holdout_roi_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": null,
+      "holdout_clv_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": null,
+      "holdout_clv_prob_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_pct_picks_clv_positive": null,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "SC0::1x2": {
+      "league": "SC0",
+      "market": "1x2",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "disabled_in_dev_and_zero_holdout_stale_picks",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "model_weight_near_zero_w_le_0_05",
+      "best_devig_method": "power",
+      "w_effective": 0.0,
+      "ev_thresholds_solido": {
+        "short": 0.03929,
+        "even": 0.06477,
+        "plus": 0.09616,
+        "long": 0.1076
+      },
+      "ev_thresholds_valor": {
+        "short": 0.07173,
+        "even": 0.11655,
+        "plus": 0.16983,
+        "long": 0.18872
+      },
+      "holdout_n_picks": 0,
+      "holdout_n_picks_with_closing": 0,
+      "holdout_roi_pct": 0.0,
+      "holdout_roi_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": null,
+      "holdout_clv_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": null,
+      "holdout_clv_prob_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_pct_picks_clv_positive": null,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "SC0::ah": {
+      "league": "SC0",
+      "market": "ah",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "holdout_clv_negative_or_zero",
+      "dev_model_picks_enabled": true,
+      "dev_disabled_reason": null,
+      "best_devig_method": "power",
+      "w_effective": 0.25,
+      "ev_thresholds_solido": {
+        "short": 0.0242,
+        "even": 0.03742,
+        "plus": 0.04318,
+        "long": 0.0715
+      },
+      "ev_thresholds_valor": {
+        "short": 0.0495,
+        "even": 0.06552,
+        "plus": 0.08195,
+        "long": 0.132
+      },
+      "holdout_n_picks": 4,
+      "holdout_n_picks_with_closing": 2,
+      "holdout_roi_pct": 0.244932800778957,
+      "holdout_roi_pct_ci95": [
+        -0.764004924765438,
+        1.08194085894329
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": -0.0074840977588662705,
+      "holdout_clv_pct_ci95": [
+        -0.07022722527463321,
+        0.05525902975690067
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": -0.0030215141176857807,
+      "holdout_clv_prob_ci95": [
+        -0.03337282036045025,
+        0.02732979212507869
+      ],
+      "holdout_pct_picks_clv_positive": 0.5,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "SC0::totals": {
+      "league": "SC0",
+      "market": "totals",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "disabled_in_dev_and_zero_holdout_stale_picks",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "model_weight_near_zero_w_le_0_05",
+      "best_devig_method": "shin",
+      "w_effective": 0.0,
+      "ev_thresholds_solido": {
+        "short": 0.0242,
+        "even": 0.03115,
+        "plus": 0.0462,
+        "long": 0.06577
+      },
+      "ev_thresholds_valor": {
+        "short": 0.04831,
+        "even": 0.06087,
+        "plus": 0.088,
+        "long": 0.12123
+      },
+      "holdout_n_picks": 0,
+      "holdout_n_picks_with_closing": 0,
+      "holdout_roi_pct": 0.0,
+      "holdout_roi_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": null,
+      "holdout_clv_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": null,
+      "holdout_clv_prob_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_pct_picks_clv_positive": null,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "SC1::1x2": {
+      "league": "SC1",
+      "market": "1x2",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "insufficient_holdout_sample_for_valid_ci95_n_lt_15",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "model_weight_near_zero_w_le_0_05",
+      "best_devig_method": "proportional",
+      "w_effective": 0.0,
+      "ev_thresholds_solido": {
+        "short": 0.03929,
+        "even": 0.06477,
+        "plus": 0.09616,
+        "long": 0.1076
+      },
+      "ev_thresholds_valor": {
+        "short": 0.07173,
+        "even": 0.11655,
+        "plus": 0.16983,
+        "long": 0.18872
+      },
+      "holdout_n_picks": 1,
+      "holdout_n_picks_with_closing": 1,
+      "holdout_roi_pct": 2.683748169838947,
+      "holdout_roi_pct_ci95": [
+        2.683748169838947,
+        2.683748169838947
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": 0.06990966932090537,
+      "holdout_clv_pct_ci95": [
+        0.06990966932090537,
+        0.06990966932090537
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": 0.018977863333139222,
+      "holdout_clv_prob_ci95": [
+        0.018977863333139222,
+        0.018977863333139222
+      ],
+      "holdout_pct_picks_clv_positive": 1.0,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "SC1::ah": {
+      "league": "SC1",
+      "market": "ah",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "holdout_clv_negative_or_zero",
+      "dev_model_picks_enabled": true,
+      "dev_disabled_reason": null,
+      "best_devig_method": "proportional",
+      "w_effective": 0.3,
+      "ev_thresholds_solido": {
+        "short": 0.0242,
+        "even": 0.03303,
+        "plus": 0.04318,
+        "long": 0.0715
+      },
+      "ev_thresholds_valor": {
+        "short": 0.0495,
+        "even": 0.05783,
+        "plus": 0.08195,
+        "long": 0.132
+      },
+      "holdout_n_picks": 24,
+      "holdout_n_picks_with_closing": 15,
+      "holdout_roi_pct": -0.22156996017445268,
+      "holdout_roi_pct_ci95": [
+        -0.565014374129858,
+        0.1149024648758101
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": -0.035918254604240966,
+      "holdout_clv_pct_ci95": [
+        -0.04899469677084022,
+        -0.023040241242197498
+      ],
+      "holdout_clv_pct_significance": "significativa_negativa",
+      "holdout_clv_prob_mean": -0.01903169610972676,
+      "holdout_clv_prob_ci95": [
+        -0.025869986213912236,
+        -0.012201413676589465
+      ],
+      "holdout_pct_picks_clv_positive": 0.13333333333333333,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "SC1::totals": {
+      "league": "SC1",
+      "market": "totals",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "disabled_in_dev_and_zero_holdout_stale_picks",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "model_weight_near_zero_w_le_0_05",
+      "best_devig_method": "proportional",
+      "w_effective": 0.0,
+      "ev_thresholds_solido": {
+        "short": 0.0242,
+        "even": 0.03115,
+        "plus": 0.0462,
+        "long": 0.06577
+      },
+      "ev_thresholds_valor": {
+        "short": 0.04831,
+        "even": 0.06087,
+        "plus": 0.088,
+        "long": 0.12123
+      },
+      "holdout_n_picks": 0,
+      "holdout_n_picks_with_closing": 0,
+      "holdout_roi_pct": 0.0,
+      "holdout_roi_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": null,
+      "holdout_clv_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": null,
+      "holdout_clv_prob_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_pct_picks_clv_positive": null,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "SP1::1x2": {
+      "league": "SP1",
+      "market": "1x2",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "disabled_in_dev_and_zero_holdout_stale_picks",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "model_weight_near_zero_w_le_0_05",
+      "best_devig_method": "power",
+      "w_effective": 0.05,
+      "ev_thresholds_solido": {
+        "short": 0.03929,
+        "even": 0.06477,
+        "plus": 0.09616,
+        "long": 0.1076
+      },
+      "ev_thresholds_valor": {
+        "short": 0.07173,
+        "even": 0.11655,
+        "plus": 0.16983,
+        "long": 0.18872
+      },
+      "holdout_n_picks": 0,
+      "holdout_n_picks_with_closing": 0,
+      "holdout_roi_pct": 0.0,
+      "holdout_roi_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": null,
+      "holdout_clv_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": null,
+      "holdout_clv_prob_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_pct_picks_clv_positive": null,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "SP1::ah": {
+      "league": "SP1",
+      "market": "ah",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "disabled_in_dev_and_zero_holdout_stale_picks",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "walk_forward_causal_blend_does_not_beat_open_market_novig",
+      "best_devig_method": "power",
+      "w_effective": 0.15,
+      "ev_thresholds_solido": {
+        "short": 0.0242,
+        "even": 0.10844,
+        "plus": 0.04318,
+        "long": 0.0715
+      },
+      "ev_thresholds_valor": {
+        "short": 0.0495,
+        "even": 0.18994,
+        "plus": 0.08195,
+        "long": 0.132
+      },
+      "holdout_n_picks": 0,
+      "holdout_n_picks_with_closing": 0,
+      "holdout_roi_pct": 0.0,
+      "holdout_roi_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": null,
+      "holdout_clv_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": null,
+      "holdout_clv_prob_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_pct_picks_clv_positive": null,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "SP1::totals": {
+      "league": "SP1",
+      "market": "totals",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "disabled_in_dev_and_zero_holdout_stale_picks",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "model_weight_near_zero_w_le_0_05",
+      "best_devig_method": "power",
+      "w_effective": 0.0,
+      "ev_thresholds_solido": {
+        "short": 0.0242,
+        "even": 0.03115,
+        "plus": 0.0462,
+        "long": 0.06577
+      },
+      "ev_thresholds_valor": {
+        "short": 0.04831,
+        "even": 0.06087,
+        "plus": 0.088,
+        "long": 0.12123
+      },
+      "holdout_n_picks": 0,
+      "holdout_n_picks_with_closing": 0,
+      "holdout_roi_pct": 0.0,
+      "holdout_roi_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": null,
+      "holdout_clv_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": null,
+      "holdout_clv_prob_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_pct_picks_clv_positive": null,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "SP2::1x2": {
+      "league": "SP2",
+      "market": "1x2",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "holdout_clv_negative_or_zero",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "walk_forward_causal_blend_does_not_beat_open_market_novig",
+      "best_devig_method": "proportional",
+      "w_effective": 0.15,
+      "ev_thresholds_solido": {
+        "short": 0.03929,
+        "even": 0.05927,
+        "plus": 0.09348,
+        "long": 0.10808
+      },
+      "ev_thresholds_valor": {
+        "short": 0.07173,
+        "even": 0.10654,
+        "plus": 0.16476,
+        "long": 0.18948
+      },
+      "holdout_n_picks": 2,
+      "holdout_n_picks_with_closing": 2,
+      "holdout_roi_pct": -1.0,
+      "holdout_roi_pct_ci95": [
+        -1.0,
+        -1.0
+      ],
+      "holdout_roi_significance": "significativa_negativa",
+      "holdout_clv_pct_mean": -0.01812174408897982,
+      "holdout_clv_pct_ci95": [
+        -0.048387598574779256,
+        0.012144110396819618
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": -0.005807075303534526,
+      "holdout_clv_prob_ci95": [
+        -0.01510949292034569,
+        0.0034953423132766392
+      ],
+      "holdout_pct_picks_clv_positive": 0.5,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "SP2::ah": {
+      "league": "SP2",
+      "market": "ah",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "holdout_clv_ci95_crosses_zero",
+      "dev_model_picks_enabled": true,
+      "dev_disabled_reason": null,
+      "best_devig_method": "power",
+      "w_effective": 0.3,
+      "ev_thresholds_solido": {
+        "short": 0.0242,
+        "even": 0.08644,
+        "plus": 0.04318,
+        "long": 0.0715
+      },
+      "ev_thresholds_valor": {
+        "short": 0.0495,
+        "even": 0.15128,
+        "plus": 0.08195,
+        "long": 0.132
+      },
+      "holdout_n_picks": 2,
+      "holdout_n_picks_with_closing": 2,
+      "holdout_roi_pct": 0.9621059884740669,
+      "holdout_roi_pct_ci95": [
+        0.8300000000000003,
+        1.0942119769481335
+      ],
+      "holdout_roi_significance": "significativa_positiva",
+      "holdout_clv_pct_mean": 0.0028189472600560483,
+      "holdout_clv_pct_ci95": [
+        -0.022076309381186432,
+        0.02771420390129853
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": 0.0005850788489446535,
+      "holdout_clv_prob_ci95": [
+        -0.01206355703889972,
+        0.013233714736789026
+      ],
+      "holdout_pct_picks_clv_positive": 0.5,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "SP2::totals": {
+      "league": "SP2",
+      "market": "totals",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "insufficient_holdout_sample_for_valid_ci95_n_lt_15",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "model_weight_near_zero_w_le_0_05",
+      "best_devig_method": "shin",
+      "w_effective": 0.0,
+      "ev_thresholds_solido": {
+        "short": 0.0242,
+        "even": 0.03115,
+        "plus": 0.0462,
+        "long": 0.06577
+      },
+      "ev_thresholds_valor": {
+        "short": 0.04831,
+        "even": 0.06087,
+        "plus": 0.088,
+        "long": 0.12123
+      },
+      "holdout_n_picks": 1,
+      "holdout_n_picks_with_closing": 1,
+      "holdout_roi_pct": -1.0,
+      "holdout_roi_pct_ci95": [
+        -1.0,
+        -1.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": 0.0540406948867489,
+      "holdout_clv_pct_ci95": [
+        0.0540406948867489,
+        0.0540406948867489
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": 0.015539812723194157,
+      "holdout_clv_prob_ci95": [
+        0.015539812723194157,
+        0.015539812723194157
+      ],
+      "holdout_pct_picks_clv_positive": 1.0,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "SWE::1x2": {
+      "league": "SWE",
+      "market": "1x2",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "disabled_in_dev_and_zero_holdout_stale_picks",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "model_weight_near_zero_w_le_0_05",
+      "best_devig_method": "power",
+      "w_effective": 0.0,
+      "ev_thresholds_solido": {
+        "short": 0.03929,
+        "even": 0.06477,
+        "plus": 0.09616,
+        "long": 0.1076
+      },
+      "ev_thresholds_valor": {
+        "short": 0.07173,
+        "even": 0.11655,
+        "plus": 0.16983,
+        "long": 0.18872
+      },
+      "holdout_n_picks": 0,
+      "holdout_n_picks_with_closing": 0,
+      "holdout_roi_pct": 0.0,
+      "holdout_roi_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": null,
+      "holdout_clv_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": null,
+      "holdout_clv_prob_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_pct_picks_clv_positive": null,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "T1::1x2": {
+      "league": "T1",
+      "market": "1x2",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "holdout_clv_negative_or_zero",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "model_weight_near_zero_w_le_0_05",
+      "best_devig_method": "power",
+      "w_effective": 0.05,
+      "ev_thresholds_solido": {
+        "short": 0.03929,
+        "even": 0.06477,
+        "plus": 0.09616,
+        "long": 0.1076
+      },
+      "ev_thresholds_valor": {
+        "short": 0.07173,
+        "even": 0.11655,
+        "plus": 0.16983,
+        "long": 0.18872
+      },
+      "holdout_n_picks": 1,
+      "holdout_n_picks_with_closing": 1,
+      "holdout_roi_pct": -1.0,
+      "holdout_roi_pct_ci95": [
+        -1.0,
+        -1.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": -0.4992809408888951,
+      "holdout_clv_pct_ci95": [
+        -0.4992809408888951,
+        -0.4992809408888951
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": -0.131239561605081,
+      "holdout_clv_prob_ci95": [
+        -0.131239561605081,
+        -0.131239561605081
+      ],
+      "holdout_pct_picks_clv_positive": 0.0,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "T1::ah": {
+      "league": "T1",
+      "market": "ah",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "disabled_in_dev_and_zero_holdout_stale_picks",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "walk_forward_causal_blend_does_not_beat_open_market_novig",
+      "best_devig_method": "proportional",
+      "w_effective": 0.15,
+      "ev_thresholds_solido": {
+        "short": 0.0242,
+        "even": 0.10844,
+        "plus": 0.04318,
+        "long": 0.0715
+      },
+      "ev_thresholds_valor": {
+        "short": 0.0495,
+        "even": 0.18994,
+        "plus": 0.08195,
+        "long": 0.132
+      },
+      "holdout_n_picks": 0,
+      "holdout_n_picks_with_closing": 0,
+      "holdout_roi_pct": 0.0,
+      "holdout_roi_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": null,
+      "holdout_clv_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": null,
+      "holdout_clv_prob_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_pct_picks_clv_positive": null,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "T1::totals": {
+      "league": "T1",
+      "market": "totals",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "disabled_in_dev_and_zero_holdout_stale_picks",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "model_weight_near_zero_w_le_0_05",
+      "best_devig_method": "power",
+      "w_effective": 0.0,
+      "ev_thresholds_solido": {
+        "short": 0.0242,
+        "even": 0.03115,
+        "plus": 0.0462,
+        "long": 0.06577
+      },
+      "ev_thresholds_valor": {
+        "short": 0.04831,
+        "even": 0.06087,
+        "plus": 0.088,
+        "long": 0.12123
+      },
+      "holdout_n_picks": 0,
+      "holdout_n_picks_with_closing": 0,
+      "holdout_roi_pct": 0.0,
+      "holdout_roi_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": null,
+      "holdout_clv_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": null,
+      "holdout_clv_prob_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_pct_picks_clv_positive": null,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    },
+    "USA::1x2": {
+      "league": "USA",
+      "market": "1x2",
+      "sport": "football",
+      "production_enabled": false,
+      "disabled_reason": "disabled_in_dev_and_zero_holdout_stale_picks",
+      "dev_model_picks_enabled": false,
+      "dev_disabled_reason": "model_weight_near_zero_w_le_0_05",
+      "best_devig_method": "proportional",
+      "w_effective": 0.0,
+      "ev_thresholds_solido": {
+        "short": 0.03929,
+        "even": 0.06477,
+        "plus": 0.09616,
+        "long": 0.1076
+      },
+      "ev_thresholds_valor": {
+        "short": 0.07173,
+        "even": 0.11655,
+        "plus": 0.16983,
+        "long": 0.18872
+      },
+      "holdout_n_picks": 0,
+      "holdout_n_picks_with_closing": 0,
+      "holdout_roi_pct": 0.0,
+      "holdout_roi_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_roi_significance": "no significativa",
+      "holdout_clv_pct_mean": null,
+      "holdout_clv_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_clv_pct_significance": "no significativa",
+      "holdout_clv_prob_mean": null,
+      "holdout_clv_prob_ci95": [
+        0.0,
+        0.0
+      ],
+      "holdout_pct_picks_clv_positive": null,
+      "raw_bootstrap_ci95_above_zero_n_ge_2": false,
+      "raw_bootstrap_ci95_above_zero_n_ge_6": false
+    }
+  }
+}
