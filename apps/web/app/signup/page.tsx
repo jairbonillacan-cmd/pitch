@@ -19,6 +19,7 @@ export default async function SignupPage({
       initialRole={state.initialRole}
       allowRoleSimulation={state.allowRoleSimulation}
       accountsEnabled={state.accountsEnabled}
+      serverMonth1NoCardMode={state.serverMonth1NoCardMode}
     >
       <AuthSurfaceV4
         mode="signup"

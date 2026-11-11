@@ -17,6 +17,7 @@ export default async function ClubAppLayout({
       initialRole={state.initialRole}
       allowRoleSimulation={state.allowRoleSimulation}
       accountsEnabled={state.accountsEnabled}
+      serverMonth1NoCardMode={state.serverMonth1NoCardMode}
     >
       {children}
     </PlatformClientBridge>

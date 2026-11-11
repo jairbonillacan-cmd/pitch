@@ -162,6 +162,24 @@ export async function processStripeEvent(db: Db, event: StripeEvent, deps: Webho
         return `factura pagada: referido=${res.referralRewarded}, embajador=${res.ambassadorBonus}, comisión=${res.commissionCentavos ?? "—"}`;
       }
 
+      case "checkout.session.completed": {
+        // La suscripción llega con metadata.user_id en customer.subscription.*; aquí solo se
+        // confirma que el pago corresponde a un usuario conocido.
+        const userId = str(obj.client_reference_id);
+        return userId ? "checkout completado" : "checkout sin usuario: ignorado";
+      }
+
+      case "invoice.payment_failed": {
+        const customer = str(obj.customer);
+        if (!customer) return "fallo de pago sin cliente: ignorado";
+        const updated = await db
+          .update(subscriptions)
+          .set({ status: "past_due_grace", graceUntil: new Date(now.getTime() + 72 * 3_600_000), updatedAt: now })
+          .where(eq(subscriptions.providerCustomerId, customer))
+          .returning({ id: subscriptions.id });
+        return updated.length ? "suscripción en gracia de 72 h" : "fallo de pago de cliente desconocido";
+      }
+
       case "charge.refunded": {
         const invoiceId = str(obj.invoice);
         if (!invoiceId) return "reembolso sin factura: ignorado";

@@ -297,6 +297,7 @@ export function PlatformProvider({
   initialRole = "visitor",
   allowRoleSimulation = false,
   accountsEnabled = false,
+  serverMonth1NoCardMode,
   onNavigate,
   onSubmitPinOverride,
   onLogoutOverride,
@@ -306,6 +307,8 @@ export function PlatformProvider({
   initialRole?: ViewerRole;
   allowRoleSimulation?: boolean;
   accountsEnabled?: boolean;
+  /** Valor de la bandera en la base (cuando hay cuentas); manda sobre el navegador. */
+  serverMonth1NoCardMode?: boolean;
   onNavigate?: (href: string) => void;
   onSubmitPinOverride?: (code: string, nextPath: string) => Promise<PinUnlockResult>;
   onLogoutOverride?: () => Promise<void>;
@@ -327,7 +330,7 @@ export function PlatformProvider({
   );
   const [riskPreference, setRiskPreferenceState] = useState<RiskBand>("medio");
   const [referralPaidFriends, setReferralPaidFriends] = useState<number>(0);
-  const [month1NoCardMode, setMonth1NoCardMode] = useState<boolean>(true);
+  const [month1NoCardMode, setMonth1NoCardMode] = useState<boolean>(serverMonth1NoCardMode ?? true);
   const [tipstarWeeklyPickOrigin, setTipstarWeeklyPickOrigin] = useState<
     "spacetime" | "bitacora"
   >("spacetime");
@@ -390,7 +393,7 @@ export function PlatformProvider({
         setRiskPreferenceState(savedRisk);
       }
       const savedNoCard = window.localStorage.getItem("pl-month1-nocard");
-      if (savedNoCard === "0") {
+      if (serverMonth1NoCardMode === undefined && savedNoCard === "0") {
         setMonth1NoCardMode(false);
       }
       if (allowRoleSimulation) {
@@ -431,6 +434,8 @@ export function PlatformProvider({
       if (watch?.gameIds) setWatchlistGameIds(watch.gameIds);
       const journalRes = await getJson<{ entries?: ServerJournalRow[] }>("/api/me/journal");
       if (journalRes?.entries) setJournal(journalRes.entries.map(fromServerRow));
+      const refs = await getJson<{ paidFriends?: number }>("/api/me/referrals");
+      if (typeof refs?.paidFriends === "number") setReferralPaidFriends(refs.paidFriends);
     })();
   }, [accountsEnabled]);
   useEffect(() => {
@@ -519,10 +524,20 @@ export function PlatformProvider({
   const handleSetMonth1NoCard = useCallback(
     (v: boolean) => {
       setMonth1NoCardMode(v);
-      try {
-        window.localStorage.setItem("pl-month1-nocard", v ? "1" : "0");
-      } catch (err) {
-        void err;
+      if (accountsEnabled) {
+        // Con cuentas, la bandera vive en la base y aplica a toda la plataforma (solo fundador).
+        void postJson("/api/admin/flags", { key: "month1_no_card_mode", value: v }).then((res) => {
+          if (!res || !res.ok) {
+            setMonth1NoCardMode(!v);
+            pushToast("Solo el equipo fundador puede cambiar la política de prueba.", "warning");
+          }
+        });
+      } else {
+        try {
+          window.localStorage.setItem("pl-month1-nocard", v ? "1" : "0");
+        } catch (err) {
+          void err;
+        }
       }
       pushToast(
         v
@@ -531,7 +546,7 @@ export function PlatformProvider({
         "success",
       );
     },
-    [pushToast],
+    [pushToast, accountsEnabled],
   );
 
   const dataset = useMemo(() => {

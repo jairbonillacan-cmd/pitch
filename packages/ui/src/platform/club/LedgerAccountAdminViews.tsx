@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Switch } from "@heroui/react";
 import type { LeagueId } from "@pitchlab/contracts";
 import { LeagueBadge, TeamBadge } from "../../sports.js";
@@ -1153,6 +1153,8 @@ export function AccountReferralsClubView(): React.JSX.Element {
     viewerRole,
     referralPaidFriends,
     simulateFriendFirstPayment,
+    accountsEnabled,
+    allowRoleSimulation,
     month1NoCardMode,
     favoriteLeagues,
     setFavoriteLeagues,
@@ -1431,15 +1433,18 @@ export function AccountReferralsClubView(): React.JSX.Element {
                       <span>Copiar mi enlace de referido</span>
                     </button>
 
-                    <button
-                      type="button"
-                      className="pl-btn-glass text-xs"
-                      data-simulate-referral=""
-                      onClick={simulateFriendFirstPayment}
-                    >
-                      <MaestroIcon name="plus" size={14} />
-                      <span>Simular 1er pago de amigo (+15d ambos)</span>
-                    </button>
+                    {/* Con cuentas, el conteo es real; simular queda solo como herramienta de preview. */}
+                    {!accountsEnabled || allowRoleSimulation ? (
+                      <button
+                        type="button"
+                        className="pl-btn-glass text-xs"
+                        data-simulate-referral=""
+                        onClick={simulateFriendFirstPayment}
+                      >
+                        <MaestroIcon name="plus" size={14} />
+                        <span>Simular 1er pago de amigo (+15d ambos)</span>
+                      </button>
+                    ) : null}
                   </div>
                 </div>
 
@@ -1939,6 +1944,43 @@ export function AccountReferralsClubView(): React.JSX.Element {
   );
 }
 
+interface AdminOverviewData {
+  members: number;
+  activeSubscriptions: number;
+  freeTrialsGranted: number;
+  referralsRewarded: number;
+  commissionsPayableCentavos: number;
+  moderationBlocks: number;
+}
+
+interface AdminTipstarRow {
+  code: string;
+  handle: string;
+  name: string;
+  freeDays: number;
+  commissionPct: number;
+  activeReferrals: number;
+  pendingCommissionCentavos: number;
+}
+
+interface AdminOverviewResponse {
+  overview: AdminOverviewData;
+  tipstars: AdminTipstarRow[];
+  month1NoCardMode: boolean;
+}
+
+function toPromoRow(t: AdminTipstarRow): AdminPromoRow {
+  return {
+    code: t.code,
+    handle: t.handle,
+    name: t.name,
+    freeDays: t.freeDays,
+    commissionPct: t.commissionPct,
+    activeReferrals: t.activeReferrals,
+    monthlyMxn: Math.round(t.pendingCommissionCentavos / 100),
+  };
+}
+
 interface AdminPromoRow {
   code: string;
   handle: string;
@@ -1957,15 +1999,22 @@ export function FounderAdminClubView(): React.JSX.Element {
     blockedSpamAttempts,
     referralPaidFriends,
     pushToast,
+    accountsEnabled,
   } = usePlatform();
 
-  const [newCreatorCode, setNewCreatorCode] = useState<string>("ALEX5");
-  const [newCreatorHandle, setNewCreatorHandle] = useState<string>("alex_futbol");
-  const [lastRetrainLabel, setLastRetrainLabel] = useState<string>(
-    "Sincronizado hace 2 h 14 min",
-  );
+  const [newCreatorCode, setNewCreatorCode] = useState<string>("");
+  const [newCreatorHandle, setNewCreatorHandle] = useState<string>("");
+  const [newCreatorEmail, setNewCreatorEmail] = useState<string>("");
+  const [serverOverview, setServerOverview] = useState<AdminOverviewData | null>(null);
+  const dataCutLabel = useMemo(() => {
+    const t = Date.parse(dataset.generatedAt);
+    return Number.isFinite(t)
+      ? `datos al ${new Date(t).toLocaleString("es-MX", { dateStyle: "medium", timeStyle: "short" })}`
+      : "datos del último corte";
+  }, [dataset.generatedAt]);
+  // Sin cuentas, la consola es una demostración con los tipstars de ejemplo.
   const [promoRows, setPromoRows] = useState<AdminPromoRow[]>(() =>
-    TIPSTAR_CREATORS.map((c) => ({
+    accountsEnabled ? [] : TIPSTAR_CREATORS.map((c) => ({
       code: c.promoCode,
       handle: c.handle,
       name: c.name,
@@ -1976,16 +2025,64 @@ export function FounderAdminClubView(): React.JSX.Element {
     })),
   );
 
+  useEffect(() => {
+    if (!accountsEnabled) return;
+    void (async () => {
+      try {
+        const res = await fetch("/api/admin/overview", { credentials: "same-origin" });
+        if (!res.ok) {
+          pushToast(res.status === 403 ? "Tu cuenta no es del equipo fundador." : "No se pudo cargar la consola.", "warning");
+          return;
+        }
+        const json = (await res.json()) as AdminOverviewResponse;
+        setServerOverview(json.overview);
+        setPromoRows(json.tipstars.map(toPromoRow));
+      } catch (err) {
+        void err;
+      }
+    })();
+  }, [accountsEnabled, pushToast]);
+
   const totalActiveReferrals = useMemo(
     () =>
-      promoRows.reduce((acc, r) => acc + r.activeReferrals, 0) + referralPaidFriends,
-    [promoRows, referralPaidFriends],
+      serverOverview
+        ? serverOverview.referralsRewarded + promoRows.reduce((acc, r) => acc + r.activeReferrals, 0)
+        : promoRows.reduce((acc, r) => acc + r.activeReferrals, 0) + referralPaidFriends,
+    [promoRows, referralPaidFriends, serverOverview],
   );
+  const spamBlocked = serverOverview ? serverOverview.moderationBlocks : blockedSpamAttempts;
 
   const handleEmitCode = () => {
     const cleanCode = newCreatorCode.trim().toUpperCase();
     const cleanHandle = newCreatorHandle.trim().replace(/^@/, "").toLowerCase() || "creador_pl";
     if (!cleanCode) return;
+    if (accountsEnabled) {
+      void (async () => {
+        const res = await fetch("/api/admin/tipstars", {
+          method: "POST",
+          credentials: "same-origin",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({
+            email: newCreatorEmail,
+            handle: cleanHandle,
+            displayName: `@${cleanHandle}`,
+            promoCode: cleanCode,
+            specialty: "",
+          }),
+        });
+        const json = (await res.json().catch(() => ({}))) as { tipstars?: AdminTipstarRow[]; error?: string };
+        if (res.ok && json.tipstars) {
+          setPromoRows(json.tipstars.map(toPromoRow));
+          pushToast(`Código ${cleanCode} emitido para @${cleanHandle}.`, "success");
+          setNewCreatorCode("");
+          setNewCreatorHandle("");
+          setNewCreatorEmail("");
+        } else {
+          pushToast(json.error ?? "No se pudo emitir el código.", "warning");
+        }
+      })();
+      return;
+    }
     if (promoRows.some((r) => r.code === cleanCode)) {
       pushToast(`El código ${cleanCode} ya está registrado.`, "warning");
       return;
@@ -2012,6 +2109,12 @@ export function FounderAdminClubView(): React.JSX.Element {
   return (
     <AtmosphereStage>
       <ClubWorkspaceShell activePath="/app/admin">
+        {!accountsEnabled ? (
+          <ExampleNotice>
+            Consola en modo demostración: sin cuentas activas, los códigos, referidos y comisiones
+            son de ejemplo y no se guardan. Con la base de datos conectada muestra cifras reales.
+          </ExampleNotice>
+        ) : null}
         {/* Lente Destacado: Control Mes 1 vs Mes 2 + 4 KPIs de Seguridad y Crecimiento */}
         <section className="glass-lens glass-ring glass-ring--featured relative overflow-hidden rounded-3xl p-5 sm:p-6 space-y-5">
           <LensGlowOrbs />
@@ -2118,7 +2221,7 @@ export function FounderAdminClubView(): React.JSX.Element {
                 className="block text-2xl font-extrabold"
                 style={{ color: "var(--pl-warning)" }}
               >
-                {blockedSpamAttempts}
+                {spamBlocked}
               </strong>
               <span className="block text-xs" style={{ color: "var(--pl-text-muted)" }}>
                 Filtro t.me / wa.me / URLs activo
@@ -2208,6 +2311,16 @@ export function FounderAdminClubView(): React.JSX.Element {
                 onChange={(e) => setNewCreatorHandle(e.target.value)}
                 className="glass-input px-3 py-1.5 text-xs font-semibold w-36"
               />
+              {accountsEnabled ? (
+                <input
+                  type="email"
+                  aria-label="Correo del Tipstar"
+                  placeholder="correo@tipstar.com"
+                  value={newCreatorEmail}
+                  onChange={(e) => setNewCreatorEmail(e.target.value)}
+                  className="glass-input px-3 py-1.5 text-xs font-semibold w-48"
+                />
+              ) : null}
               <button
                 type="button"
                 className="pl-btn-primary text-xs min-h-9 px-3.5"
@@ -2291,24 +2404,14 @@ export function FounderAdminClubView(): React.JSX.Element {
               </h2>
               <p className="m-0 text-xs num" style={{ color: "var(--pl-text-muted)" }}>
                 Prueba fuera de muestra: {SPACETIME_METRICS_HEADLINE.historicalMatches} partidos ·{" "}
-                {lastRetrainLabel}
+                {dataCutLabel}
               </p>
             </div>
 
-            <button
-              type="button"
-              className="pl-btn-glass text-xs"
-              onClick={() => {
-                setLastRetrainLabel("Reentrenamiento ejecutado hace unos segundos");
-                pushToast(
-                  "Reentrenamiento walk-forward completado en los 5 motores de Spacetime Suite v3.0.",
-                  "success",
-                );
-              }}
-            >
-              <MaestroIcon name="cpu" size={14} />
-              <span>Ejecutar reentrenamiento post-jornada</span>
-            </button>
+            <span className="text-xs max-w-xs" style={{ color: "var(--pl-text-muted)" }}>
+              Los motores se reentrenan y validan en la rama prediction-lab; esta app usa la
+              última versión sincronizada.
+            </span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">

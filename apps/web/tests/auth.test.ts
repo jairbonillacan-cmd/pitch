@@ -44,6 +44,7 @@ describe("autenticación (Better Auth)", () => {
     expect(profiles).toHaveLength(1);
     expect(profiles[0]!.email).toBe("socio@example.com");
     expect(profiles[0]!.authUserId).toBe(sessions[0]!.userId);
+    expect(profiles[0]!.referralCode).toMatch(/^SOCIO-[0-9A-F]{6}$/);
   });
 
   it("liga un perfil existente por correo sin duplicarlo", async () => {

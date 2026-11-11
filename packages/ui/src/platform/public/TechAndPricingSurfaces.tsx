@@ -385,8 +385,27 @@ export function PlansAndReferralsSection({
 }: {
   isStandalone?: boolean;
 }): React.JSX.Element {
-  const { month1NoCardMode, navigateTo } = usePlatform();
+  const { month1NoCardMode, navigateTo, accountsEnabled, pushToast } = usePlatform();
   const [billing, setBilling] = useState<"monthly" | "annual">("monthly");
+  const [checkoutBusy, setCheckoutBusy] = useState<boolean>(false);
+
+  // Con cuentas activas y sin la prueba sin tarjeta, el botón abre Stripe Checkout.
+  const handleSubscribe = async () => {
+    if (!accountsEnabled || month1NoCardMode) {
+      navigateTo("/signup");
+      return;
+    }
+    setCheckoutBusy(true);
+    const result = await startCheckout(billing);
+    setCheckoutBusy(false);
+    if (result.url) {
+      window.location.assign(result.url);
+    } else if (result.status === 401) {
+      navigateTo("/signup");
+    } else {
+      pushToast(result.error ?? "No se pudo abrir el pago.", "warning");
+    }
+  };
   const isAnnual = billing === "annual";
   const HeadingTag = isStandalone ? "h1" : "h2";
   const SubHeadingTag = isStandalone ? "h2" : "h3";
@@ -498,9 +517,10 @@ export function PlansAndReferralsSection({
           <div className="relative z-10 flex flex-wrap items-center gap-3">
             <a
               href="/signup"
+              aria-busy={checkoutBusy}
               onClick={(e) => {
                 e.preventDefault();
-                navigateTo("/signup");
+                if (!checkoutBusy) void handleSubscribe();
               }}
               className="pl-btn-primary !min-h-[44px] flex-1 text-sm"
             >
@@ -671,4 +691,23 @@ export function PricingSurface(): React.JSX.Element {
       <PublicFooterV4 />
     </AtmosphereStage>
   );
+}
+
+/** Pide al servidor una sesión de Stripe Checkout para el plan elegido. */
+async function startCheckout(
+  interval: "monthly" | "annual",
+): Promise<{ url?: string; status: number; error?: string }> {
+  try {
+    const res = await fetch("/api/billing/checkout", {
+      method: "POST",
+      credentials: "same-origin",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ interval }),
+    });
+    const json = (await res.json().catch(() => ({}))) as { url?: string; error?: string };
+    return { url: json.url, status: res.status, error: json.error };
+  } catch (err) {
+    void err;
+    return { status: 0, error: "Sin conexión" };
+  }
 }

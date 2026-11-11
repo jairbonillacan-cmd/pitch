@@ -8,6 +8,7 @@ import {
 } from "@pitchlab/ui";
 import { getBetaCookieName, verifyBetaCookieToken } from "./beta-auth.js";
 import { buildSpacetimeSignals } from "./spacetime.js";
+import { createDb, FLAG_MONTH1_NO_CARD, getBoolFlag, type Db } from "@pitchlab/db";
 import {
   loadAllActiveLeagueSnapshots,
   PRODUCT_LEAGUES,
@@ -24,6 +25,23 @@ export interface LoadedPlatformState {
   allowRoleSimulation: boolean;
   /** Cuentas reales activas (DATABASE_URL + BETTER_AUTH_SECRET). */
   accountsEnabled: boolean;
+  /** Política de prueba leída de la base; undefined sin cuentas. */
+  serverMonth1NoCardMode?: boolean;
+}
+
+let flagDb: Db | null = null;
+
+/** Bandera «Mes 1 sin tarjeta» desde la base cuando hay cuentas (si falla, se omite). */
+export async function loadMonth1Flag(): Promise<boolean | undefined> {
+  const url = process.env.DATABASE_URL;
+  if (!accountsEnabled() || !url) return undefined;
+  try {
+    flagDb ??= createDb(url) as unknown as Db;
+    return await getBoolFlag(flagDb, FLAG_MONTH1_NO_CARD, true);
+  } catch (err) {
+    console.warn("[platform] no se pudo leer la bandera de prueba:", err);
+    return undefined;
+  }
 }
 
 export function accountsEnabled(): boolean {
@@ -90,6 +108,7 @@ export async function loadPublicPlatformState(
       hasActiveSession: true,
       allowRoleSimulation: previewToolsEnabled(),
       accountsEnabled: accountsEnabled(),
+      serverMonth1NoCardMode: await loadMonth1Flag(),
     };
   }
 
@@ -119,6 +138,7 @@ export async function loadPublicPlatformState(
     hasActiveSession: false,
     allowRoleSimulation: false,
     accountsEnabled: accountsEnabled(),
+      serverMonth1NoCardMode: await loadMonth1Flag(),
   };
 }
 
@@ -138,6 +158,7 @@ export async function loadClubPlatformState(
       hasActiveSession: false,
       allowRoleSimulation: false,
       accountsEnabled: accountsEnabled(),
+      serverMonth1NoCardMode: await loadMonth1Flag(),
     };
   }
 
@@ -147,5 +168,6 @@ export async function loadClubPlatformState(
     hasActiveSession: true,
     allowRoleSimulation: previewToolsEnabled(),
     accountsEnabled: accountsEnabled(),
+      serverMonth1NoCardMode: await loadMonth1Flag(),
   };
 }

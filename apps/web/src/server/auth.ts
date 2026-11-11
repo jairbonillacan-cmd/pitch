@@ -9,6 +9,7 @@
  * Se activa con DATABASE_URL y BETTER_AUTH_SECRET; sin ellos `getAuth()` devuelve null y la
  * app sigue con el acceso por código de beta.
  */
+import { randomBytes } from "node:crypto";
 import { betterAuth, type BetterAuthOptions } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { magicLink } from "better-auth/plugins/magic-link";
@@ -51,7 +52,19 @@ export async function linkProfile(db: Db, account: { id: string; email: string; 
     }
     return;
   }
-  await db.insert(users).values({ email, authUserId: account.id, displayName: account.name || null });
+  // Código de referido propio (SOCIO-XXXX); se reintenta si choca con uno existente.
+  for (let attempt = 0; attempt < 5; attempt += 1) {
+    const referralCode = `SOCIO-${randomBytes(3).toString("hex").toUpperCase()}`;
+    const inserted = await db
+      .insert(users)
+      .values({ email, authUserId: account.id, displayName: account.name || null, referralCode })
+      .onConflictDoNothing()
+      .returning({ id: users.id });
+    if (inserted.length) return;
+    const [byEmail] = await db.select({ id: users.id }).from(users).where(eq(users.email, email));
+    if (byEmail) return;
+  }
+  throw new Error("No se pudo asignar un código de referido único");
 }
 
 export function createAuth(options: {

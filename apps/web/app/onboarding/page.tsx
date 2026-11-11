@@ -14,6 +14,7 @@ export default async function OnboardingPage(): Promise<React.JSX.Element> {
       initialRole={state.initialRole}
       allowRoleSimulation={state.allowRoleSimulation}
       accountsEnabled={state.accountsEnabled}
+      serverMonth1NoCardMode={state.serverMonth1NoCardMode}
     >
       <OnboardingSurfaceV4 />
     </PlatformClientBridge>

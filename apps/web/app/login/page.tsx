@@ -21,6 +21,7 @@ export default async function LoginPage({
       initialRole={state.initialRole}
       allowRoleSimulation={state.allowRoleSimulation}
       accountsEnabled={state.accountsEnabled}
+      serverMonth1NoCardMode={state.serverMonth1NoCardMode}
     >
       <AuthSurfaceV4 mode="login" nextPath={nextPath} />
     </PlatformClientBridge>
