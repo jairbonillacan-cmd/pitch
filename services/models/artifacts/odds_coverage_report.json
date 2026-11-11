@@ -1,0 +1,1175 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at_utc": "2026-11-11T15:31:10Z",
+  "contract": {
+    "required_11_columns": [
+      "event_id",
+      "sport",
+      "league",
+      "market",
+      "line",
+      "selection",
+      "book",
+      "price_decimal",
+      "ts_captured",
+      "ts_event_start",
+      "source"
+    ],
+    "auxiliary_columns": [
+      "snapshot_stage"
+    ],
+    "parquet_columns": [
+      "event_id",
+      "sport",
+      "league",
+      "market",
+      "line",
+      "selection",
+      "book",
+      "price_decimal",
+      "ts_captured",
+      "ts_event_start",
+      "source",
+      "snapshot_stage"
+    ],
+    "price_decimal_bounds": [
+      1.01,
+      1000.0
+    ],
+    "dedup_natural_key": [
+      "event_id",
+      "market",
+      "line",
+      "selection",
+      "book",
+      "ts_captured",
+      "source"
+    ],
+    "gap_threshold_minutes": 60.0,
+    "devig_method": "power",
+    "strict_closing_policy": {
+      "historical_fd": "ONLY pinnacle snapshot_stage=='close' with ts_captured <= ts_event_start (never open, never betfair_exchange, never recreational/consensus)",
+      "scraped_ws": "Latest pinnacle with ts_captured <= ts_event_start; fallback ONLY to smarkets; else closing_missing=True"
+    }
+  },
+  "outputs": {
+    "odds_snapshots_parquet": "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\prediction-lab\\research\\prediction-lab\\data\\processed\\odds_snapshots.parquet",
+    "odds_coverage_report_json": "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\prediction-lab\\services\\models\\artifacts\\odds_coverage_report.json",
+    "coverage_markdown_report": "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\prediction-lab\\research\\prediction-lab\\reports\\A28_a1_odds_coverage.md"
+  },
+  "totals": {
+    "n_raw_candidate_rows": 5445500,
+    "n_missing_required_discarded": 0,
+    "n_out_of_range_discarded": 0,
+    "n_post_kickoff_discarded": 1077,
+    "n_duplicates_removed": 1434,
+    "n_valid_rows": 5442989,
+    "n_unique_events": 185206,
+    "n_events_historical_fd": 185097,
+    "n_events_scraped_ws": 109,
+    "n_unique_markets": 471824
+  },
+  "validation_by_source": {
+    "historical_fd": {
+      "n_raw": 5431961,
+      "n_missing_required": 0,
+      "n_out_of_range": 0,
+      "n_post_kickoff_discarded": 0,
+      "n_duplicates_removed": 0,
+      "n_valid": 5431961
+    },
+    "scraped_ws": {
+      "n_raw": 13539,
+      "n_missing_required": 0,
+      "n_out_of_range": 0,
+      "n_post_kickoff_discarded": 1077,
+      "n_duplicates_removed": 1434,
+      "n_valid": 11028
+    }
+  },
+  "historical_fd_source_audit": {
+    "matches_path": "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\prediction-lab\\research\\prediction-lab\\data\\processed\\matches.parquet",
+    "soccer_matches_count": 182562,
+    "nfl_games_path": "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\prediction-lab\\research\\prediction-lab\\data\\nfl\\processed\\nfl_games.parquet",
+    "nfl_games_count": 7102,
+    "nfl_raw_csv_joined": true,
+    "raw_extracted_rows": 5431961
+  },
+  "scraped_ws_source_audit": {
+    "market_microstructure_path": "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping\\data\\normalized\\market_microstructure.json",
+    "total_source_records": 22412,
+    "record_audit_counts": {
+      "discarded_unsupported_market_or_period": 7521,
+      "ingested_quote_records": 12306,
+      "non_quote_metadata_records": 1855,
+      "discarded_unlinked_contract_or_dom_sample": 231,
+      "discarded_missing_event_or_kickoff": 499
+    },
+    "candidate_snapshot_rows_emitted": 13539
+  },
+  "closing_coverage_by_source": {
+    "historical_fd": {
+      "n_markets": 470673,
+      "n_with_sharp_closing": 179252,
+      "n_closing_missing": 291421,
+      "pct_with_sharp_closing": 38.0842,
+      "by_closing_book": {
+        "pinnacle": 179252
+      },
+      "missing_reasons": {
+        "missing_pinnacle_close": 291421
+      }
+    },
+    "scraped_ws": {
+      "n_markets": 1151,
+      "n_with_sharp_closing": 351,
+      "n_closing_missing": 800,
+      "pct_with_sharp_closing": 30.4952,
+      "by_closing_book": {
+        "pinnacle": 351
+      },
+      "missing_reasons": {
+        "missing_pinnacle_and_smarkets": 800
+      }
+    }
+  },
+  "gaps_gt_60m": {
+    "threshold_minutes": 60.0,
+    "total_gaps_gt_60m": 557240,
+    "by_source": {
+      "historical_fd": {
+        "n_gaps": 557065,
+        "n_distinct_series_affected": 557065,
+        "min_gap_minutes": 1439.98,
+        "median_gap_minutes": 1439.98,
+        "max_gap_minutes": 1439.98,
+        "by_book": {
+          "pinnacle": 135122,
+          "market_avg": 109014,
+          "market_max": 109012,
+          "bet365": 108739,
+          "bwin": 39248,
+          "william_hill": 31383,
+          "betfair_exchange": 18889,
+          "betfair_sportsbook": 5658
+        }
+      },
+      "scraped_ws": {
+        "n_gaps": 175,
+        "n_distinct_series_affected": 175,
+        "min_gap_minutes": 78.78,
+        "median_gap_minutes": 78.78,
+        "max_gap_minutes": 1222.52,
+        "by_book": {
+          "pinnacle": 163,
+          "polymarket": 12
+        }
+      }
+    }
+  },
+  "coverage_by_league_market": [
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "ARG",
+      "market": "1x2",
+      "n_markets": 6462,
+      "n_with_sharp_closing": 5928,
+      "n_closing_missing": 534,
+      "pct_with_sharp_closing": 91.74
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "B1",
+      "market": "1x2",
+      "n_markets": 7205,
+      "n_with_sharp_closing": 3549,
+      "n_closing_missing": 3656,
+      "pct_with_sharp_closing": 49.26
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "B1",
+      "market": "ah",
+      "n_markets": 6760,
+      "n_with_sharp_closing": 1870,
+      "n_closing_missing": 4890,
+      "pct_with_sharp_closing": 27.66
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "B1",
+      "market": "totals",
+      "n_markets": 6582,
+      "n_with_sharp_closing": 1870,
+      "n_closing_missing": 4712,
+      "pct_with_sharp_closing": 28.41
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "BRA",
+      "market": "1x2",
+      "n_markets": 5658,
+      "n_with_sharp_closing": 5275,
+      "n_closing_missing": 383,
+      "pct_with_sharp_closing": 93.23
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "D1",
+      "market": "1x2",
+      "n_markets": 8024,
+      "n_with_sharp_closing": 4126,
+      "n_closing_missing": 3898,
+      "pct_with_sharp_closing": 51.42
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "D1",
+      "market": "ah",
+      "n_markets": 7373,
+      "n_with_sharp_closing": 1985,
+      "n_closing_missing": 5388,
+      "pct_with_sharp_closing": 26.92
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "D1",
+      "market": "totals",
+      "n_markets": 7413,
+      "n_with_sharp_closing": 1934,
+      "n_closing_missing": 5479,
+      "pct_with_sharp_closing": 26.09
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "D2",
+      "market": "1x2",
+      "n_markets": 8024,
+      "n_with_sharp_closing": 4068,
+      "n_closing_missing": 3956,
+      "pct_with_sharp_closing": 50.7
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "D2",
+      "market": "ah",
+      "n_markets": 7313,
+      "n_with_sharp_closing": 1926,
+      "n_closing_missing": 5387,
+      "pct_with_sharp_closing": 26.34
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "D2",
+      "market": "totals",
+      "n_markets": 7388,
+      "n_with_sharp_closing": 1926,
+      "n_closing_missing": 5462,
+      "pct_with_sharp_closing": 26.07
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "E0",
+      "market": "1x2",
+      "n_markets": 9974,
+      "n_with_sharp_closing": 5150,
+      "n_closing_missing": 4824,
+      "pct_with_sharp_closing": 51.63
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "E0",
+      "market": "ah",
+      "n_markets": 9124,
+      "n_with_sharp_closing": 2490,
+      "n_closing_missing": 6634,
+      "pct_with_sharp_closing": 27.29
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "E0",
+      "market": "totals",
+      "n_markets": 9218,
+      "n_with_sharp_closing": 2479,
+      "n_closing_missing": 6739,
+      "pct_with_sharp_closing": 26.89
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "E1",
+      "market": "1x2",
+      "n_markets": 14521,
+      "n_with_sharp_closing": 7445,
+      "n_closing_missing": 7076,
+      "pct_with_sharp_closing": 51.27
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "E1",
+      "market": "ah",
+      "n_markets": 12991,
+      "n_with_sharp_closing": 3581,
+      "n_closing_missing": 9410,
+      "pct_with_sharp_closing": 27.57
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "E1",
+      "market": "totals",
+      "n_markets": 13395,
+      "n_with_sharp_closing": 3581,
+      "n_closing_missing": 9814,
+      "pct_with_sharp_closing": 26.73
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "F1",
+      "market": "1x2",
+      "n_markets": 9482,
+      "n_with_sharp_closing": 4844,
+      "n_closing_missing": 4638,
+      "pct_with_sharp_closing": 51.09
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "F1",
+      "market": "ah",
+      "n_markets": 8704,
+      "n_with_sharp_closing": 2184,
+      "n_closing_missing": 6520,
+      "pct_with_sharp_closing": 25.09
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "F1",
+      "market": "totals",
+      "n_markets": 8851,
+      "n_with_sharp_closing": 2178,
+      "n_closing_missing": 6673,
+      "pct_with_sharp_closing": 24.61
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "F2",
+      "market": "1x2",
+      "n_markets": 8958,
+      "n_with_sharp_closing": 4864,
+      "n_closing_missing": 4094,
+      "pct_with_sharp_closing": 54.3
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "F2",
+      "market": "ah",
+      "n_markets": 8697,
+      "n_with_sharp_closing": 2204,
+      "n_closing_missing": 6493,
+      "pct_with_sharp_closing": 25.34
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "F2",
+      "market": "totals",
+      "n_markets": 8763,
+      "n_with_sharp_closing": 2204,
+      "n_closing_missing": 6559,
+      "pct_with_sharp_closing": 25.15
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "G1",
+      "market": "1x2",
+      "n_markets": 5573,
+      "n_with_sharp_closing": 3172,
+      "n_closing_missing": 2401,
+      "pct_with_sharp_closing": 56.92
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "G1",
+      "market": "ah",
+      "n_markets": 5955,
+      "n_with_sharp_closing": 1488,
+      "n_closing_missing": 4467,
+      "pct_with_sharp_closing": 24.99
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "G1",
+      "market": "totals",
+      "n_markets": 5763,
+      "n_with_sharp_closing": 1488,
+      "n_closing_missing": 4275,
+      "pct_with_sharp_closing": 25.82
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "I1",
+      "market": "1x2",
+      "n_markets": 9668,
+      "n_with_sharp_closing": 5136,
+      "n_closing_missing": 4532,
+      "pct_with_sharp_closing": 53.12
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "I1",
+      "market": "ah",
+      "n_markets": 9047,
+      "n_with_sharp_closing": 2478,
+      "n_closing_missing": 6569,
+      "pct_with_sharp_closing": 27.39
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "I1",
+      "market": "totals",
+      "n_markets": 9022,
+      "n_with_sharp_closing": 2478,
+      "n_closing_missing": 6544,
+      "pct_with_sharp_closing": 27.47
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "I2",
+      "market": "1x2",
+      "n_markets": 10950,
+      "n_with_sharp_closing": 5452,
+      "n_closing_missing": 5498,
+      "pct_with_sharp_closing": 49.79
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "I2",
+      "market": "ah",
+      "n_markets": 10078,
+      "n_with_sharp_closing": 2363,
+      "n_closing_missing": 7715,
+      "pct_with_sharp_closing": 23.45
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "I2",
+      "market": "totals",
+      "n_markets": 10137,
+      "n_with_sharp_closing": 2363,
+      "n_closing_missing": 7774,
+      "pct_with_sharp_closing": 23.31
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "JPN",
+      "market": "1x2",
+      "n_markets": 4653,
+      "n_with_sharp_closing": 4503,
+      "n_closing_missing": 150,
+      "pct_with_sharp_closing": 96.78
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "MEX",
+      "market": "1x2",
+      "n_markets": 4789,
+      "n_with_sharp_closing": 4437,
+      "n_closing_missing": 352,
+      "pct_with_sharp_closing": 92.65
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "N1",
+      "market": "1x2",
+      "n_markets": 7972,
+      "n_with_sharp_closing": 4039,
+      "n_closing_missing": 3933,
+      "pct_with_sharp_closing": 50.66
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "N1",
+      "market": "ah",
+      "n_markets": 7430,
+      "n_with_sharp_closing": 1902,
+      "n_closing_missing": 5528,
+      "pct_with_sharp_closing": 25.6
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "N1",
+      "market": "totals",
+      "n_markets": 7283,
+      "n_with_sharp_closing": 1901,
+      "n_closing_missing": 5382,
+      "pct_with_sharp_closing": 26.1
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "P1",
+      "market": "1x2",
+      "n_markets": 7495,
+      "n_with_sharp_closing": 3994,
+      "n_closing_missing": 3501,
+      "pct_with_sharp_closing": 53.29
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "P1",
+      "market": "ah",
+      "n_markets": 6910,
+      "n_with_sharp_closing": 1988,
+      "n_closing_missing": 4922,
+      "pct_with_sharp_closing": 28.77
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "P1",
+      "market": "totals",
+      "n_markets": 6841,
+      "n_with_sharp_closing": 1988,
+      "n_closing_missing": 4853,
+      "pct_with_sharp_closing": 29.06
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "SC0",
+      "market": "1x2",
+      "n_markets": 5953,
+      "n_with_sharp_closing": 2968,
+      "n_closing_missing": 2985,
+      "pct_with_sharp_closing": 49.86
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "SC0",
+      "market": "ah",
+      "n_markets": 5474,
+      "n_with_sharp_closing": 1373,
+      "n_closing_missing": 4101,
+      "pct_with_sharp_closing": 25.08
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "SC0",
+      "market": "totals",
+      "n_markets": 5405,
+      "n_with_sharp_closing": 1373,
+      "n_closing_missing": 4032,
+      "pct_with_sharp_closing": 25.4
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "SC1",
+      "market": "1x2",
+      "n_markets": 4648,
+      "n_with_sharp_closing": 2308,
+      "n_closing_missing": 2340,
+      "pct_with_sharp_closing": 49.66
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "SC1",
+      "market": "ah",
+      "n_markets": 4186,
+      "n_with_sharp_closing": 1052,
+      "n_closing_missing": 3134,
+      "pct_with_sharp_closing": 25.13
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "SC1",
+      "market": "totals",
+      "n_markets": 3760,
+      "n_with_sharp_closing": 1052,
+      "n_closing_missing": 2708,
+      "pct_with_sharp_closing": 27.98
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "SP1",
+      "market": "1x2",
+      "n_markets": 9899,
+      "n_with_sharp_closing": 5127,
+      "n_closing_missing": 4772,
+      "pct_with_sharp_closing": 51.79
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "SP1",
+      "market": "ah",
+      "n_markets": 9073,
+      "n_with_sharp_closing": 2469,
+      "n_closing_missing": 6604,
+      "pct_with_sharp_closing": 27.21
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "SP1",
+      "market": "totals",
+      "n_markets": 9203,
+      "n_with_sharp_closing": 2465,
+      "n_closing_missing": 6738,
+      "pct_with_sharp_closing": 26.78
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "SP2",
+      "market": "1x2",
+      "n_markets": 11542,
+      "n_with_sharp_closing": 6171,
+      "n_closing_missing": 5371,
+      "pct_with_sharp_closing": 53.47
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "SP2",
+      "market": "ah",
+      "n_markets": 11020,
+      "n_with_sharp_closing": 2969,
+      "n_closing_missing": 8051,
+      "pct_with_sharp_closing": 26.94
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "SP2",
+      "market": "totals",
+      "n_markets": 10802,
+      "n_with_sharp_closing": 2969,
+      "n_closing_missing": 7833,
+      "pct_with_sharp_closing": 27.49
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "SWE",
+      "market": "1x2",
+      "n_markets": 3600,
+      "n_with_sharp_closing": 3366,
+      "n_closing_missing": 234,
+      "pct_with_sharp_closing": 93.5
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "T1",
+      "market": "1x2",
+      "n_markets": 8268,
+      "n_with_sharp_closing": 4409,
+      "n_closing_missing": 3859,
+      "pct_with_sharp_closing": 53.33
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "T1",
+      "market": "ah",
+      "n_markets": 7883,
+      "n_with_sharp_closing": 2275,
+      "n_closing_missing": 5608,
+      "pct_with_sharp_closing": 28.86
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "T1",
+      "market": "totals",
+      "n_markets": 7602,
+      "n_with_sharp_closing": 2275,
+      "n_closing_missing": 5327,
+      "pct_with_sharp_closing": 29.93
+    },
+    {
+      "source": "historical_fd",
+      "sport": "football",
+      "league": "USA",
+      "market": "1x2",
+      "n_markets": 6311,
+      "n_with_sharp_closing": 5800,
+      "n_closing_missing": 511,
+      "pct_with_sharp_closing": 91.9
+    },
+    {
+      "source": "historical_fd",
+      "sport": "nfl",
+      "league": "NFL",
+      "market": "moneyline",
+      "n_markets": 5200,
+      "n_with_sharp_closing": 0,
+      "n_closing_missing": 5200,
+      "pct_with_sharp_closing": 0.0
+    },
+    {
+      "source": "historical_fd",
+      "sport": "nfl",
+      "league": "NFL",
+      "market": "spread",
+      "n_markets": 5200,
+      "n_with_sharp_closing": 0,
+      "n_closing_missing": 5200,
+      "pct_with_sharp_closing": 0.0
+    },
+    {
+      "source": "historical_fd",
+      "sport": "nfl",
+      "league": "NFL",
+      "market": "totals",
+      "n_markets": 5198,
+      "n_with_sharp_closing": 0,
+      "n_closing_missing": 5198,
+      "pct_with_sharp_closing": 0.0
+    },
+    {
+      "source": "scraped_ws",
+      "sport": "football",
+      "league": "UEFA-NATIONS-LEAGUE-B",
+      "market": "1x2",
+      "n_markets": 1,
+      "n_with_sharp_closing": 0,
+      "n_closing_missing": 1,
+      "pct_with_sharp_closing": 0.0
+    },
+    {
+      "source": "scraped_ws",
+      "sport": "football",
+      "league": "USA",
+      "market": "1x2",
+      "n_markets": 2,
+      "n_with_sharp_closing": 0,
+      "n_closing_missing": 2,
+      "pct_with_sharp_closing": 0.0
+    },
+    {
+      "source": "scraped_ws",
+      "sport": "football",
+      "league": "USA",
+      "market": "moneyline",
+      "n_markets": 2,
+      "n_with_sharp_closing": 0,
+      "n_closing_missing": 2,
+      "pct_with_sharp_closing": 0.0
+    },
+    {
+      "source": "scraped_ws",
+      "sport": "football",
+      "league": "USA",
+      "market": "spread",
+      "n_markets": 7,
+      "n_with_sharp_closing": 0,
+      "n_closing_missing": 7,
+      "pct_with_sharp_closing": 0.0
+    },
+    {
+      "source": "scraped_ws",
+      "sport": "football",
+      "league": "USA",
+      "market": "totals",
+      "n_markets": 8,
+      "n_with_sharp_closing": 0,
+      "n_closing_missing": 8,
+      "pct_with_sharp_closing": 0.0
+    },
+    {
+      "source": "scraped_ws",
+      "sport": "nba",
+      "league": "NBA",
+      "market": "moneyline",
+      "n_markets": 14,
+      "n_with_sharp_closing": 0,
+      "n_closing_missing": 14,
+      "pct_with_sharp_closing": 0.0
+    },
+    {
+      "source": "scraped_ws",
+      "sport": "nba",
+      "league": "NBA",
+      "market": "spread",
+      "n_markets": 33,
+      "n_with_sharp_closing": 0,
+      "n_closing_missing": 33,
+      "pct_with_sharp_closing": 0.0
+    },
+    {
+      "source": "scraped_ws",
+      "sport": "nba",
+      "league": "NBA",
+      "market": "totals",
+      "n_markets": 45,
+      "n_with_sharp_closing": 0,
+      "n_closing_missing": 45,
+      "pct_with_sharp_closing": 0.0
+    },
+    {
+      "source": "scraped_ws",
+      "sport": "ncaaf",
+      "league": "NCAAF",
+      "market": "moneyline",
+      "n_markets": 67,
+      "n_with_sharp_closing": 0,
+      "n_closing_missing": 67,
+      "pct_with_sharp_closing": 0.0
+    },
+    {
+      "source": "scraped_ws",
+      "sport": "ncaaf",
+      "league": "NCAAF",
+      "market": "spread",
+      "n_markets": 296,
+      "n_with_sharp_closing": 0,
+      "n_closing_missing": 296,
+      "pct_with_sharp_closing": 0.0
+    },
+    {
+      "source": "scraped_ws",
+      "sport": "ncaaf",
+      "league": "NCAAF",
+      "market": "totals",
+      "n_markets": 254,
+      "n_with_sharp_closing": 0,
+      "n_closing_missing": 254,
+      "pct_with_sharp_closing": 0.0
+    },
+    {
+      "source": "scraped_ws",
+      "sport": "nfl",
+      "league": "NFL",
+      "market": "moneyline",
+      "n_markets": 15,
+      "n_with_sharp_closing": 13,
+      "n_closing_missing": 2,
+      "pct_with_sharp_closing": 86.67
+    },
+    {
+      "source": "scraped_ws",
+      "sport": "nfl",
+      "league": "NFL",
+      "market": "spread",
+      "n_markets": 181,
+      "n_with_sharp_closing": 169,
+      "n_closing_missing": 12,
+      "pct_with_sharp_closing": 93.37
+    },
+    {
+      "source": "scraped_ws",
+      "sport": "nfl",
+      "league": "NFL",
+      "market": "totals",
+      "n_markets": 188,
+      "n_with_sharp_closing": 169,
+      "n_closing_missing": 19,
+      "pct_with_sharp_closing": 89.89
+    },
+    {
+      "source": "scraped_ws",
+      "sport": "nhl",
+      "league": "NHL",
+      "market": "moneyline",
+      "n_markets": 10,
+      "n_with_sharp_closing": 0,
+      "n_closing_missing": 10,
+      "pct_with_sharp_closing": 0.0
+    },
+    {
+      "source": "scraped_ws",
+      "sport": "nhl",
+      "league": "NHL",
+      "market": "spread",
+      "n_markets": 12,
+      "n_with_sharp_closing": 0,
+      "n_closing_missing": 12,
+      "pct_with_sharp_closing": 0.0
+    },
+    {
+      "source": "scraped_ws",
+      "sport": "nhl",
+      "league": "NHL",
+      "market": "totals",
+      "n_markets": 16,
+      "n_with_sharp_closing": 0,
+      "n_closing_missing": 16,
+      "pct_with_sharp_closing": 0.0
+    }
+  ],
+  "coverage_by_book": [
+    {
+      "source": "historical_fd",
+      "book": "market_avg",
+      "n_rows": 1241771,
+      "n_events": 153821,
+      "n_markets": 414144
+    },
+    {
+      "source": "historical_fd",
+      "book": "market_max",
+      "n_rows": 1241767,
+      "n_events": 153821,
+      "n_markets": 414143
+    },
+    {
+      "source": "historical_fd",
+      "book": "bet365",
+      "n_rows": 911604,
+      "n_events": 142021,
+      "n_markets": 255574
+    },
+    {
+      "source": "historical_fd",
+      "book": "pinnacle",
+      "n_rows": 838850,
+      "n_events": 106149,
+      "n_markets": 193158
+    },
+    {
+      "source": "historical_fd",
+      "book": "william_hill",
+      "n_rows": 500208,
+      "n_events": 135353,
+      "n_markets": 135353
+    },
+    {
+      "source": "historical_fd",
+      "book": "bwin",
+      "n_rows": 495090,
+      "n_events": 125782,
+      "n_markets": 125782
+    },
+    {
+      "source": "historical_fd",
+      "book": "betfair_exchange",
+      "n_rows": 137506,
+      "n_events": 18068,
+      "n_markets": 34543
+    },
+    {
+      "source": "historical_fd",
+      "book": "betfair_sportsbook",
+      "n_rows": 33969,
+      "n_events": 5665,
+      "n_markets": 5665
+    },
+    {
+      "source": "historical_fd",
+      "book": "nflverse",
+      "n_rows": 31196,
+      "n_events": 5200,
+      "n_markets": 15598
+    },
+    {
+      "source": "scraped_ws",
+      "book": "pinnacle",
+      "n_rows": 1028,
+      "n_events": 13,
+      "n_markets": 351
+    },
+    {
+      "source": "scraped_ws",
+      "book": "polymarket",
+      "n_rows": 604,
+      "n_events": 96,
+      "n_markets": 291
+    },
+    {
+      "source": "scraped_ws",
+      "book": "betmgm nj",
+      "n_rows": 564,
+      "n_events": 94,
+      "n_markets": 282
+    },
+    {
+      "source": "scraped_ws",
+      "book": "consensus",
+      "n_rows": 564,
+      "n_events": 94,
+      "n_markets": 282
+    },
+    {
+      "source": "scraped_ws",
+      "book": "dk nj",
+      "n_rows": 564,
+      "n_events": 94,
+      "n_markets": 282
+    },
+    {
+      "source": "scraped_ws",
+      "book": "fanatics nj",
+      "n_rows": 564,
+      "n_events": 94,
+      "n_markets": 282
+    },
+    {
+      "source": "scraped_ws",
+      "book": "fanduel nj",
+      "n_rows": 564,
+      "n_events": 94,
+      "n_markets": 282
+    },
+    {
+      "source": "scraped_ws",
+      "book": "open",
+      "n_rows": 564,
+      "n_events": 94,
+      "n_markets": 282
+    },
+    {
+      "source": "scraped_ws",
+      "book": "betrivers nj",
+      "n_rows": 562,
+      "n_events": 94,
+      "n_markets": 288
+    },
+    {
+      "source": "scraped_ws",
+      "book": "bet365 nj",
+      "n_rows": 558,
+      "n_events": 93,
+      "n_markets": 279
+    },
+    {
+      "source": "scraped_ws",
+      "book": "action_consensus",
+      "n_rows": 508,
+      "n_events": 81,
+      "n_markets": 246
+    },
+    {
+      "source": "scraped_ws",
+      "book": "action_open",
+      "n_rows": 508,
+      "n_events": 81,
+      "n_markets": 245
+    },
+    {
+      "source": "scraped_ws",
+      "book": "fanduel",
+      "n_rows": 496,
+      "n_events": 81,
+      "n_markets": 245
+    },
+    {
+      "source": "scraped_ws",
+      "book": "betmgm",
+      "n_rows": 481,
+      "n_events": 80,
+      "n_markets": 241
+    },
+    {
+      "source": "scraped_ws",
+      "book": "draftkings",
+      "n_rows": 480,
+      "n_events": 79,
+      "n_markets": 237
+    },
+    {
+      "source": "scraped_ws",
+      "book": "bet365",
+      "n_rows": 478,
+      "n_events": 80,
+      "n_markets": 240
+    },
+    {
+      "source": "scraped_ws",
+      "book": "betrivers",
+      "n_rows": 472,
+      "n_events": 79,
+      "n_markets": 239
+    },
+    {
+      "source": "scraped_ws",
+      "book": "fanatics",
+      "n_rows": 468,
+      "n_events": 78,
+      "n_markets": 234
+    },
+    {
+      "source": "scraped_ws",
+      "book": "thescore bet nj",
+      "n_rows": 382,
+      "n_events": 67,
+      "n_markets": 191
+    },
+    {
+      "source": "scraped_ws",
+      "book": "thescore_bet",
+      "n_rows": 372,
+      "n_events": 67,
+      "n_markets": 186
+    },
+    {
+      "source": "scraped_ws",
+      "book": "kalshi",
+      "n_rows": 146,
+      "n_events": 27,
+      "n_markets": 73
+    },
+    {
+      "source": "scraped_ws",
+      "book": "hardrock nj",
+      "n_rows": 88,
+      "n_events": 15,
+      "n_markets": 44
+    },
+    {
+      "source": "scraped_ws",
+      "book": "hardrock",
+      "n_rows": 10,
+      "n_events": 2,
+      "n_markets": 5
+    },
+    {
+      "source": "scraped_ws",
+      "book": "caliente",
+      "n_rows": 3,
+      "n_events": 1,
+      "n_markets": 1
+    }
+  ]
+}
