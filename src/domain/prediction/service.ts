@@ -172,12 +172,9 @@ export function predictMatch(request: MatchPredictionRequest): Prediction & {
     };
   }
 
-  if (
-    request.sport === "nhl" ||
-    request.sport === "mlb" ||
-    request.sport === "nba" ||
-    request.sport === "ncaaf"
-  ) {
+  // Tras la rama NFL, todo lo que no es fútbol es multideporte (TS no estrecha la unión
+  // con cuatro comparaciones encadenadas).
+  if (request.sport !== "football") {
     const ms = predictMultiSport(request.sport, request.matchup, request.model);
     const expectedTotal =
       ms.sport === "nhl"
