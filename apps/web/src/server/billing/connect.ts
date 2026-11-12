@@ -8,6 +8,7 @@ import {
   promoteClearedCommissions,
   type Db,
 } from "@pitchlab/db";
+import { stripeHeaders } from "./stripe-api";
 
 const STRIPE_API = "https://api.stripe.com/v1";
 
@@ -23,10 +24,9 @@ async function stripePost(
   params: URLSearchParams,
   options: { idempotencyKey?: string; fetchImpl?: typeof fetch } = {},
 ): Promise<Record<string, unknown>> {
-  const headers: Record<string, string> = {
-    authorization: `Bearer ${secretKey}`,
+  const headers: Record<string, string> = stripeHeaders(secretKey, {
     "content-type": "application/x-www-form-urlencoded",
-  };
+  });
   if (options.idempotencyKey) headers["idempotency-key"] = options.idempotencyKey;
   const res = await (options.fetchImpl ?? fetch)(`${STRIPE_API}${path}`, {
     method: "POST",

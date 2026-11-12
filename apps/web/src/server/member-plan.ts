@@ -2,6 +2,7 @@ import {
   accessUntil,
   eq,
   hasActivePaseTotal,
+  hasAppliedRewardGrant,
   myReferrals,
   subscriptions,
   users,
@@ -35,7 +36,7 @@ export async function loadMemberPlanSummary(
   now: Date = new Date(),
   stripeConfigured: boolean = Boolean(process.env.STRIPE_SECRET_KEY),
 ): Promise<MemberPlanSummary> {
-  const [active, until, referrals, [sub], [u]] = await Promise.all([
+  const [active, until, referrals, [sub], [u], giftedRenewal] = await Promise.all([
     hasActivePaseTotal(db, userId, now),
     accessUntil(db, userId, now),
     myReferrals(db, userId),
@@ -44,6 +45,7 @@ export async function loadMemberPlanSummary(
       .select({ createdAt: users.createdAt })
       .from(users)
       .where(eq(users.id, userId)),
+    hasAppliedRewardGrant(db, userId),
   ]);
 
   const interval: "monthly" | "annual" =
@@ -64,7 +66,8 @@ export async function loadMemberPlanSummary(
       planState = "sin_renovacion";
     } else if (
       sub.status === "trialing_no_card" ||
-      sub.status === "trialing_card"
+      // Si Stripe está «en prueba» solo porque se recorrió el cobro por días ganados, el socio sigue en su plan.
+      (sub.status === "trialing_card" && !giftedRenewal)
     ) {
       planState = "prueba";
     } else if (sub.planInterval === "annual") {

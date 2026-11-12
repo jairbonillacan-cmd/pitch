@@ -4,6 +4,8 @@ import {
   processStripeEvent,
   StripeSignatureError,
   stripeFeeFetcher,
+  stripeInvoiceForCharge,
+  stripeTrialEndSetter,
   verifyStripeSignature,
 } from "../../../../src/server/billing/stripe-webhook";
 
@@ -49,6 +51,8 @@ export async function POST(request: Request): Promise<NextResponse> {
   try {
     const result = await processStripeEvent(db, JSON.parse(payload), {
       getInvoiceFeeCentavos: stripeFeeFetcher(apiKey),
+      findInvoiceIdForCharge: stripeInvoiceForCharge(apiKey),
+      setSubscriptionTrialEnd: stripeTrialEndSetter(apiKey),
       now: () => new Date(),
     });
     return NextResponse.json({ received: true, result });

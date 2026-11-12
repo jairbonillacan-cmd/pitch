@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
-import { accessUntil, subscriptions, users, eq } from "@pitchlab/db";
+import { accessUntil, referralGrants, subscriptions, users, eq } from "@pitchlab/db";
 import {
   buildCheckoutParams,
   createCheckoutSession,
   priceIdFor,
+  referralCouponFor,
   type PlanInterval,
 } from "../../../../src/server/billing/checkout";
 import { requireMember } from "../../../../src/server/session-user";
@@ -33,6 +34,18 @@ export async function POST(request: Request): Promise<NextResponse> {
     return NextResponse.json({ error: "Ya tienes Pase PitchLab Ultra activo" }, { status: 409 });
   }
   const now = new Date();
+  const [referral] = await db
+    .select({ id: referralGrants.id, status: referralGrants.status })
+    .from(referralGrants)
+    .where(eq(referralGrants.referredUserId, userId));
+  const couponId = referralCouponFor({
+    interval,
+    referralStatus: referral?.status,
+    couponId: process.env.STRIPE_COUPON_REFERRAL,
+  });
+  if (couponId && referral) {
+    await db.update(referralGrants).set({ friendDiscountCouponId: couponId }).where(eq(referralGrants.id, referral.id));
+  }
   const params = buildCheckoutParams({
     userId,
     email: profile!.email,
@@ -41,6 +54,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     baseUrl: process.env.BETTER_AUTH_URL ?? new URL(request.url).origin,
     freeAccessUntil: await accessUntil(db, userId, now),
     now,
+    couponId,
     customerId: sub?.providerCustomerId ?? null,
   });
   try {
