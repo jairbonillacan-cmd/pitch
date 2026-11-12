@@ -2,22 +2,31 @@
   "agent_id": "V",
   "agent_name": "v-verifier",
   "role": "red_team_verifier_readonly",
-  "gate": 1,
-  "wave_audited": 1,
+  "gate": 2,
   "state": "completed",
   "gate_1_verdict": "PASS",
-  "started_at": "2026-11-12T15:30:25Z",
-  "finished_at": "2026-11-12T15:42:30Z",
-  "audited_heads": {
+  "gate_2_verdict": "PASS",
+  "started_at": "2026-11-12T16:15:55Z",
+  "finished_at": "2026-11-12T16:32:00Z",
+  "audited_worktrees": {
     "prediction_lab": {
+      "path": "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\prediction-lab",
       "branch": "prediction-lab",
       "base_commit": "f3564a4266c33441db9c2f36714073b7516d37e6",
-      "audited_head": "1e22b6a902f28a47af83287edb827751839e252f"
+      "gate_1_commit": "e20e8236e7cb153e271753413e857a6594168f48",
+      "audited_head": "adb03138c5da94f6cb2e672ae57440721a52152d",
+      "ola_2_commits": [
+        "70e08dbe8bc36568c7b2f661923038c0a8d566cf",
+        "96a8f4b8229a2430ed45b047baaba3fa5f95c1a9",
+        "adb03138c5da94f6cb2e672ae57440721a52152d"
+      ]
     },
     "web_scraping": {
+      "path": "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping",
       "branch": "web-scraping",
       "base_commit": "3a8b3c0",
-      "audited_head": "4993a9b6b598aa3fa63be1cb5735975cbd56e35f"
+      "audited_head": "4993a9b6b598aa3fa63be1cb5735975cbd56e35f",
+      "ola_2_commits": []
     }
   },
   "files_written": [
@@ -25,50 +34,39 @@
     "research/prediction-lab/coordination/v3_2/status/V.json"
   ],
   "commands_run": [
-    "Set-Location 'C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\prediction-lab'; npx vitest run; git checkout -- evidence/statistical-tests/aztecavet-experiments.json",
-    "Set-Location 'C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\prediction-lab'; .\\research\\prediction-lab\\.venv\\Scripts\\python.exe -m pytest services/models -v",
-    "Set-Location 'C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping'; .\\.venv\\Scripts\\python.exe -m pytest tests -v",
-    "Set-Location 'C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\prediction-lab'; git log f3564a4..HEAD --name-status",
-    "Set-Location 'C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping'; git log 3a8b3c0..HEAD --name-status"
+    "npx vitest run && git checkout -- evidence/statistical-tests/aztecavet-experiments.json",
+    ".\\research\\prediction-lab\\.venv\\Scripts\\python.exe -m pytest services/models -v",
+    ".\\research\\prediction-lab\\.venv\\Scripts\\python.exe services/models/regenerate_live_snapshot.py --timeseries-dir ..\\web-scraping\\data\\odds_timeseries --max-quote-age-hours 72 --out src/data/prediction/live_matchday_v3_snapshot.json --check",
+    "git log e20e823..adb0313 --stat && git diff f3564a4..adb0313 -- packages/ui apps/web packages/spacetime"
   ],
   "metrics": {
-    "epistemic_status": "OBSERVADO",
-    "controls_total": 18,
-    "controls_passed": 18,
-    "controls_failed": 0,
-    "frozen_v3_1_artifacts_intact": true,
-    "production_segments_v3_1_sha256": "0bc03bbff96a5d82a1a7858e1e8623bf7bfdb250c546d2773a71d56ed9ada9bc",
-    "production_enabled_true_count": 0,
-    "production_enabled_false_count": 60,
-    "holdout_sealed_untouched": true,
-    "holdout_registry_lines_1_to_29_intact": true,
-    "holdout_registry_line_30_eval_split": "walk_forward_dev",
-    "holdout_registry_line_30_unlock_holdout": false,
-    "outlook_calibration_mirror_sha256": "090cfaa23d35bdd569ea3a17d0084b6af7b2e99eeb8cdb00b15a8b588654194e",
-    "outlook_calibration_segments_count": 98,
-    "live_snapshot_242_stakes_count": 0,
-    "live_snapshot_242_active_edges_count": 0,
-    "live_snapshot_242_synthetic_prices_count": 0,
-    "web_scraping_simulated_rows_count": 0,
-    "web_scraping_antibot_evasion_active_count": 0,
-    "ts_python_parity_max_abs_delta": 0.0,
-    "vitest_prediction_lab": {
-      "files_passed": 59,
-      "files_skipped": 1,
-      "tests_passed": 1145,
-      "tests_skipped": 1,
-      "failures": 0
-    },
-    "pytest_prediction_lab": {
-      "tests_passed": 92,
-      "failures": 0
-    },
-    "pytest_web_scraping": {
-      "tests_passed": 7,
-      "failures": 0
-    },
-    "forbidden_boundaries_touched_files": 0
+    "controls_checked_gate_2": 16,
+    "controls_passed_gate_2": 16,
+    "controls_failed_gate_2": 0,
+    "frozen_v3_1_sha256_intact": true,
+    "production_segments_enabled_count": 0,
+    "production_segments_total_count": 60,
+    "holdout_trial_registry_lines": 30,
+    "new_holdout_sealed_entries": 0,
+    "b5_real_prospective_picks": 0,
+    "b5_synthetic_fixture_records": 12,
+    "b5_synthetic_head_hash": "eaea0bae54ca3d7fbca0f342f93463ad9b5bc8e821285c53ae24f264496243d6",
+    "b5_ts_python_max_abs_diff": 0.0,
+    "b6_nfl_sharp_closing_rows": 39,
+    "b6_nfl_matched_games": 13,
+    "b6_nfl_settled_games": 0,
+    "b6_nfl_corpus_sufficient_for_eval": false,
+    "b8_live_snapshot_matchups": 242,
+    "b8_live_snapshot_outlooks": 130,
+    "b8_executable_bets_count": 0,
+    "b8_forbidden_public_fields_count": 0,
+    "vitest_files_passed": 61,
+    "vitest_tests_passed": 1153,
+    "pytest_prediction_lab_passed": 111
   },
   "open_issues": [],
-  "next": "Puerta 1 APROBADA (PASS). En espera (swarm_wait) para auditar Puerta 2 (cierre de Ola 2: B5, B6, B7, B8) y Puerta 3 (cierre de Ola 3: B9)."
+  "non_blocking_notes": [
+    "SYNC_NOTES.md:18 menciona entre paréntesis '12 segmentos' al resumir outlook_calibration_v3_2.json, cuyo artefacto real intacto contiene 98 segmentos; nota puramente documental sin impacto funcional."
+  ],
+  "next": "Puerta 2 aprobada (PASS). En espera pasiva (swarm_wait) para auditar Puerta 3 (cierre de Ola 3)."
 }
