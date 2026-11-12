@@ -1,0 +1,68 @@
+{
+  "agent_id": "B8",
+  "wave": 2,
+  "state": "completed",
+  "started_at": "2026-11-12T15:46:56Z",
+  "finished_at": "2026-11-12T16:13:45Z",
+  "files_written": [
+    "services/models/regenerate_live_snapshot.py",
+    "services/models/test_regenerate_live_snapshot.py",
+    "src/data/prediction/live_matchday_v3_snapshot.json",
+    "tests/prediction/live_snapshot_outlooks.test.ts",
+    "research/prediction-lab/coordination/v3_2/SYNC_NOTES.md",
+    "research/prediction-lab/coordination/v3_2/status/B8.json"
+  ],
+  "commands_run": [
+    ".\\research\\prediction-lab\\.venv\\Scripts\\python.exe services/models/regenerate_live_snapshot.py --timeseries-dir ..\\web-scraping\\data\\odds_timeseries --max-quote-age-hours 72 --out src/data/prediction/live_matchday_v3_snapshot.json",
+    ".\\research\\prediction-lab\\.venv\\Scripts\\python.exe services/models/regenerate_live_snapshot.py --timeseries-dir ..\\web-scraping\\data\\odds_timeseries --max-quote-age-hours 72 --out src/data/prediction/live_matchday_v3_snapshot.json --check",
+    ".\\research\\prediction-lab\\.venv\\Scripts\\python.exe -m pytest services/models -v",
+    "npx vitest run",
+    "git checkout -- evidence/statistical-tests/aztecavet-experiments.json"
+  ],
+  "metrics": {
+    "epistemic_status": "OBSERVADO",
+    "snapshot_schema_version": "3.2.0",
+    "outlook_schema_version": "match_outlook_v3.2.0",
+    "snapshot_sha256": "1dace760d68442e73c4b365f85cd16509093716b1bcac72aa1da67b61ec29699",
+    "generated_at_utc": "2026-11-12T16:10:42Z",
+    "max_quote_age_hours": 72,
+    "n_legacy_matchups_preserved": 242,
+    "n_legacy_teams_preserved": 376,
+    "executable_bets_count": 0,
+    "n_outlooks_total": 130,
+    "n_football": 84,
+    "n_nfl": 46,
+    "outlooks_counts_by_league": {
+      "bundesliga": 17,
+      "epl": 24,
+      "laliga": 5,
+      "liga-mx": 10,
+      "ligue-1": 11,
+      "nfl": 46,
+      "serie-a": 17
+    },
+    "b3_capture_status": "prospective_capture_pending",
+    "n_with_fresh_sharp_quotes_lt_72h": 0,
+    "n_with_any_fresh_quotes_lt_72h": 0,
+    "max_simplex_error": 4.440892098500626e-16,
+    "max_ts_parity_delta": 0.0,
+    "forbidden_stake_kelly_ev_fields_count": 0,
+    "synthetic_quotes_injected_count": 0,
+    "pytest_services_models_passed": 111,
+    "pytest_services_models_failed": 0,
+    "pytest_b8_new_tests_passed": 3,
+    "vitest_files_passed": 61,
+    "vitest_files_skipped": 1,
+    "vitest_tests_passed": 1153,
+    "vitest_tests_skipped": 1,
+    "vitest_tests_failed": 0,
+    "vitest_b8_new_tests_passed": 5,
+    "frozen_v3_1_artifacts_untouched": true,
+    "sealed_holdout_untouched": true
+  },
+  "open_issues": [
+    "OBSERVADO: B3 (../web-scraping/data/odds_timeseries/health.json) registra capture_status='prospective_capture_pending' con 0 archivos .jsonl; por Regla #4 y #7, los 130 MatchOutlook publican market=null y pSource='model' sin inventar cuotas ni reutilizar capturas previas bloqueadas o vencidas (>= 72 h).",
+    "OBSERVADO: apps/web, packages/spacetime y packages/contracts no fueron tocados por frontera de swarm (§0.9); los pasos exactos de integración con pnpm --filter @pitchlab/spacetime sync quedaron documentados en research/prediction-lab/coordination/v3_2/SYNC_NOTES.md."
+  ],
+  "next": "Listo para auditoría de Puerta 2 por V (verifier) y sincronización posterior hacia @pitchlab/spacetime y apps/web siguiendo SYNC_NOTES.md."
+}
