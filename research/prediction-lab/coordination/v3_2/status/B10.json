@@ -1,0 +1,118 @@
+{
+  "agent_id": "B10",
+  "agent_name": "b10-docs",
+  "wave": 4,
+  "state": "completed",
+  "started_at": "2026-11-12T18:53:13Z",
+  "finished_at": "2026-11-12T19:09:30Z",
+  "files_written": [
+    "docs/predicciones/19_HOJA_DE_RUTA_MOTORES_Y_PICKS_V4.md",
+    "docs/predicciones/MODEL_CARD.md",
+    "research/prediction-lab/reports/A29_v3_2_maestro.md",
+    "research/prediction-lab/coordination/v3_2/HANDOFF_PROJECT_STATE.md",
+    "research/prediction-lab/coordination/v3_2/status/B10.json"
+  ],
+  "commands_run": [
+    "Set-Location 'C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\prediction-lab'; git log --format=\"%H|%h|%s\" f3564a4~1..HEAD",
+    "Set-Location 'C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping'; git log --format=\"%H|%h|%s\" 3a8b3c0~1..HEAD",
+    "Set-Location 'C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\prediction-lab'; .\\research\\prediction-lab\\.venv\\Scripts\\python.exe services/models/regenerate_live_snapshot.py --timeseries-dir ..\\web-scraping\\data\\odds_timeseries --max-quote-age-hours 72 --out src/data/prediction/live_matchday_v3_snapshot.json --check",
+    "Set-Location 'C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\prediction-lab'; .\\research\\prediction-lab\\.venv\\Scripts\\python.exe -B -m pytest services/models/test_sealed_holdout_v3_1.py -v",
+    "Set-Location 'C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\prediction-lab'; git diff f3564a4..HEAD -- src/data/prediction/production_segments_v3_1.json src/data/prediction/blend_weights_v3_1.json src/data/prediction/pick_policy_v3_1.json src/data/prediction/stale_lines_config.json src/domain/prediction/engine.ts src/data/prediction/model_nfl.json services/models/artifacts/sealed_holdout_v3_1_eval.json docs/execution/PROJECT_STATE.md packages/ui apps/web packages/spacetime"
+  ],
+  "metrics": {
+    "evidence_label": "OBSERVADO",
+    "cycle": "PREDLAB-V3.2",
+    "red_team_gates": {
+      "gate_1": {
+        "commit": "e20e823",
+        "controls_passed": "18/18",
+        "verdict": "PASS"
+      },
+      "gate_2": {
+        "commit": "19453fb",
+        "controls_passed": "16/16",
+        "verdict": "PASS"
+      },
+      "gate_3": {
+        "commit": "14e3e1e",
+        "controls_passed": "16/16",
+        "verdict": "PASS"
+      },
+      "total_controls_passed": "50/50",
+      "master_acceptance_criteria": "8/8"
+    },
+    "governance_invariants": {
+      "v3_1_frozen_artifacts_untouched": true,
+      "holdout_sealed_untouched_in_v3_2": true,
+      "holdout_v3_1_citation_label": "holdout consumido",
+      "prospective_cutoff_utc": "2026-11-08T20:30:00Z",
+      "production_segments_enabled": "0/60",
+      "public_stakes_and_kelly_fields": 0,
+      "synthetic_quotes_emitted": 0,
+      "anti_bot_evasion_tokens": 0,
+      "project_state_edited_directly_by_b10": false
+    },
+    "prospective_and_candidate_gates": {
+      "b3_odds_capture_status": "prospective_capture_pending",
+      "b5_prospective_real_picks": "0/150",
+      "b6_nfl_sharp_settled_games": "0/64",
+      "b7_xi_historical_real_timestamps": "0/52746",
+      "b7_exp_v32_xi_production_activated": false,
+      "b9_model_nfl_v3_2_candidate_production_activated": false,
+      "a7_gbm_trees_v3_1_production_activated": false
+    },
+    "audited_external_sources": {
+      "total_sources_audited": 14,
+      "odds_b3_api_only": [
+        "the_odds_api",
+        "betfair_exchange"
+      ],
+      "odds_b3_blocked_pending_owner_decision": [
+        "pinnacle",
+        "smarkets",
+        "caliente",
+        "codere",
+        "action_network"
+      ],
+      "xi_b7_api_only": [
+        "api_football",
+        "football_data_org"
+      ],
+      "xi_b7_blocked_pending_owner_decision": [
+        "espn_site_api",
+        "sofascore",
+        "fotmob",
+        "flashscore",
+        "rotowire_web"
+      ]
+    },
+    "verified_sha256": {
+      "production_segments_v3_1.json": "0bc03bbff96a5d82a1a7858e1e8623bf7bfdb250c546d2773a71d56ed9ada9bc",
+      "blend_weights_v3_1.json": "b29d7a451f6011126997c122778b42ad3239c78337d17c5fa78d550f5c92739b",
+      "pick_policy_v3_1.json": "2359c8f8822ea394a380202c04e0bcd010d1a3fae7c5c25b8c11ebe810bfb7d1",
+      "stale_lines_config.json": "8bcb9c7be93270cde0cac2d58bc19f0381184dd2e769f358dd28334db2a05eac",
+      "model_motor_a.json": "3c72967eddc79bb71ca7fcae40bf21aae760269dc62b43cf2b2db7eeacfceec9",
+      "model_nfl.json": "e74ae241875739d2dc18564f85133d4e20c1d0cef41d64b6f705852601597225",
+      "engine.ts": "9270125c49e81adf57e90c76db07eb95f53ab35a5051e49265b35b80ed0553bc",
+      "sealed_holdout_v3_1_eval.json": "5c9e550bfd7889e44f674c91cf64cea4c07b4281fc72231b8cadff850309f2dd",
+      "outlook_calibration_v3_2.json": "090cfaa23d35bdd569ea3a17d0084b6af7b2e99eeb8cdb00b15a8b588654194e",
+      "service_constants_v3_2.json": "fcbc8e7dee3b302f57cb9b68f0c5403cc10cdfb308bc6aff9e71e30957fa15b7",
+      "live_matchday_v3_snapshot.json": "1dace760d68442e73c4b365f85cd16509093716b1bcac72aa1da67b61ec29699",
+      "picks_v3_2_prospective.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "picks_v3_2_synthetic_fixture.jsonl": "70b537b3b9beed80d7b6a18e689042271d496c6f15314def049a793a18aa5978",
+      "nfl_sharp_closing.parquet": "178ad93241bd2bf004f77cf576a180afbb547ab65b4b28bbc63ad76f06680cae",
+      "exp_v32_xi_results.json": "c92d51eb5bae01b2e6e8032a521cd34dce87e2ed144145c93d0765a6d0b8a19b",
+      "model_nfl_v3_2_candidate.json": "ebf6c3c3cfe417d57a685f0b574fed212da3f1e58da8568434f82197f5a46158",
+      "holdout_trial_registry.jsonl": "058d5d0d9bcaeb97f0415f871b50a7a3279b34ad59dcdcaacf33ac4b4fe8923e"
+    }
+  },
+  "open_issues": [
+    "Captura prospectiva multi-tick en espera de credenciales oficiales (THE_ODDS_API_KEY / BETFAIR_APP_KEY en B3; API_FOOTBALL_KEY / FOOTBALL_DATA_API_KEY en B7) o decisión formal del propietario sobre las 10 fuentes en blocked_pending_owner_decision.",
+    "Compuertas prospectivas en cero muestras reales: 0/150 picks reales en data/ledger/picks_v3_2_prospective.jsonl (0/60 segmentos habilitados) y 0/64 juegos NFL liquidados con cierre sharp real en nfl_sharp_closing.parquet (candidatos B7 y B9 mantenidos en production_activated=false).",
+    "Sincronización visual de apps/web, packages/ui y packages/spacetime pendiente para una iteración de producto posterior siguiendo SYNC_NOTES.md (intactos por §0 Regla #9)."
+  ],
+  "next": [
+    "Orquestador (O): integrar research/prediction-lab/coordination/v3_2/HANDOFF_PROJECT_STATE.md en docs/execution/PROJECT_STATE.md y cerrar formalmente el ciclo PREDLAB-V3.2.",
+    "Operaciones / Propietario: aprovisionar credenciales API oficiales (THE_ODDS_API_KEY / API_FOOTBALL_KEY) y activar cadence_scheduler.py + paper_trading.py --provenance real para acumular >= 150 picks prospectivos y >= 64 cierres sharp NFL liquidados."
+  ]
+}
