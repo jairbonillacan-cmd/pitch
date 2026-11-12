@@ -1,0 +1,134 @@
+{
+  "schema_version": "xi_collector_health_v3.2.0",
+  "mode": "once",
+  "executed_at_utc": "2026-11-12T17:00:00Z",
+  "status": "idle_no_active_legal_credentials",
+  "production_activated": false,
+  "cadence_t60m": {
+    "stale_lines_config_path": "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\prediction-lab\\src\\data\\prediction\\stale_lines_config.json",
+    "stale_lines_config_sha256": "8bcb9c7be93270cde0cac2d58bc19f0381184dd2e769f358dd28334db2a05eac",
+    "sha256_matches_frozen_v3_1": true,
+    "regime_id": "closing_decision_window_t_minus_60m",
+    "horizon_minutes": 60.0,
+    "recommended_interval_minutes": 3.6858350707113425,
+    "recommended_interval_seconds": 221.15010424268056,
+    "scheduled_interval_seconds": 203.4581,
+    "scheduled_interval_minutes": 3.390968,
+    "active_poll_window_minutes_before_kickoff": [
+      4.0,
+      75.0
+    ]
+  },
+  "anti_leakage_contract": {
+    "inequality": "ts_xi_published <= ts_captured <= ts_decision - 2.0 min < kickoff_utc",
+    "min_ingestion_buffer_minutes": 2.0,
+    "min_execution_delay_minutes": 2.0
+  },
+  "active_legal_sources": [],
+  "blocked_sources": [
+    "espn_site_api",
+    "sofascore",
+    "fotmob",
+    "flashscore",
+    "rotowire_web"
+  ],
+  "fixtures_total_considered": 0,
+  "fixtures_in_t60m_window": 0,
+  "polled_requests": 0,
+  "records_written": 0,
+  "records_deduplicated": 0,
+  "fabricated_records": 0,
+  "snapshots_jsonl_path": "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\prediction-lab\\research\\prediction-lab\\experiments\\EXP_V32_xi\\data\\xi_snapshots.jsonl",
+  "snapshots_jsonl_exists": false,
+  "errors": [],
+  "legal_sources_audit": {
+    "api_football": {
+      "source_id": "api_football",
+      "provider_name": "API-Football (API-Sports REST v3)",
+      "endpoint_template": "https://v3.football.api-sports.io/fixtures/lineups?fixture={fixture_id}",
+      "legal_status": "api_only",
+      "required_env_vars": [
+        "API_FOOTBALL_KEY"
+      ],
+      "supports_explicit_ts_published": false,
+      "http_audit_observed": "HTTP 200 JSON (missing-key message sin bloqueo de red cuando falta credencial)",
+      "robots_and_tos_summary": "API comercial oficial para consumo automatizado con cabecera x-apisports-key.",
+      "coverage_notes": "Cubre Liga MX (262), Top-5 europeas y UCL con startXI oficial (11v11).",
+      "credentials_present": false
+    },
+    "football_data_org": {
+      "source_id": "football_data_org",
+      "provider_name": "football-data.org REST API v4",
+      "endpoint_template": "https://api.football-data.org/v4/matches/{match_id}",
+      "legal_status": "api_only",
+      "required_env_vars": [
+        "FOOTBALL_DATA_API_KEY"
+      ],
+      "supports_explicit_ts_published": false,
+      "http_audit_observed": "HTTP 200 en /v4/competitions; robots.txt permite User-agent: * (solo bloquea dotbot)",
+      "robots_and_tos_summary": "API REST oficial documentada con X-Auth-Token; lineups según nivel de suscripción.",
+      "coverage_notes": "Cubre Premier League, LaLiga, Bundesliga, Serie A, Ligue 1 y Champions League.",
+      "credentials_present": false
+    },
+    "espn_site_api": {
+      "source_id": "espn_site_api",
+      "provider_name": "ESPN Undocumented Site API",
+      "endpoint_template": "https://site.api.espn.com/apis/site/v2/sports/soccer/{league}/summary?event={event_id}",
+      "legal_status": "blocked_pending_owner_decision",
+      "required_env_vars": [],
+      "supports_explicit_ts_published": false,
+      "http_audit_observed": "HTTP 403 Access Denied (AkamaiGHost) ante User-Agent transparente de bot",
+      "robots_and_tos_summary": "Disney Terms of Use (§2.B.x) prohíben acceder o extraer datos mediante robot, spider, script u otros medios automatizados sin licencia escrita.",
+      "coverage_notes": "Bloqueada legal y técnicamente sin suplantación de User-Agent.",
+      "credentials_present": false
+    },
+    "sofascore": {
+      "source_id": "sofascore",
+      "provider_name": "SofaScore Web / Internal API",
+      "endpoint_template": "https://api.sofascore.com/api/v1/event/{event_id}/lineups",
+      "legal_status": "blocked_pending_owner_decision",
+      "required_env_vars": [],
+      "supports_explicit_ts_published": false,
+      "http_audit_observed": "HTTP 403 {\"error\":{\"code\":403,\"reason\":\"Forbidden\"}} (Varnish) en cliente HTTP limpio",
+      "robots_and_tos_summary": "Exige navegador instrumentado y vulnera restricciones de extracción automatizada.",
+      "coverage_notes": "Bloqueada pendiente de licencia B2B oficial.",
+      "credentials_present": false
+    },
+    "fotmob": {
+      "source_id": "fotmob",
+      "provider_name": "FotMob Internal Match API",
+      "endpoint_template": "https://www.fotmob.com/api/matchDetails?matchId={match_id}",
+      "legal_status": "blocked_pending_owner_decision",
+      "required_env_vars": [],
+      "supports_explicit_ts_published": false,
+      "http_audit_observed": "robots.txt HTTP 200 con User-agent: * Disallow: /api/* y firma anti-bot x-mas",
+      "robots_and_tos_summary": "Prohibido explícitamente en robots.txt (/api/*) y protegido por reto anti-bot.",
+      "coverage_notes": "Bloqueada pendiente de acuerdo escrito con FotMob.",
+      "credentials_present": false
+    },
+    "flashscore": {
+      "source_id": "flashscore",
+      "provider_name": "Flashscore Web Feeds",
+      "endpoint_template": "https://www.flashscore.com/match/{match_id}/",
+      "legal_status": "blocked_pending_owner_decision",
+      "required_env_vars": [],
+      "supports_explicit_ts_published": false,
+      "http_audit_observed": "robots.txt HTTP 200 con Disallow: /live/, /scheduled/, /finished/, /draw/",
+      "robots_and_tos_summary": "Prohibido en robots.txt y en los términos de uso de Livesport.",
+      "coverage_notes": "Bloqueada pendiente de feed comercial Livesport.",
+      "credentials_present": false
+    },
+    "rotowire_web": {
+      "source_id": "rotowire_web",
+      "provider_name": "RotoWire Soccer Lineups HTML",
+      "endpoint_template": "https://www.rotowire.com/soccer/lineups.php",
+      "legal_status": "blocked_pending_owner_decision",
+      "required_env_vars": [],
+      "supports_explicit_ts_published": false,
+      "http_audit_observed": "termsandconditions.php HTTP 200 Artículo VI (Automated Access; No Scraping)",
+      "robots_and_tos_summary": "Artículo VI de ToS prohíbe web scraping, bots, crawlers y consumo sin licencia comercial (/partner/); además el HTML no expone ts_xi_published exacto al segundo.",
+      "coverage_notes": "Bloqueada en scraping web; elegible solo bajo contrato comercial RotoWire Partner API.",
+      "credentials_present": false
+    }
+  }
+}

@@ -1,0 +1,810 @@
+{
+  "schema_version": "exp_v32_xi_v1.0.0",
+  "experiment_id": "EXP_V32_xi",
+  "agent_id": "B7",
+  "generated_at_utc": "2026-11-12T17:28:14Z",
+  "reproduction_command": ".\\research\\prediction-lab\\.venv\\Scripts\\python.exe research/prediction-lab/experiments/EXP_V32_xi/run_exp_v32_xi.py",
+  "eval_split": "walk_forward_dev",
+  "holdout_cut_utc": "2025-02-02T17:30:00Z",
+  "holdout_sealed_untouched": true,
+  "unlock_holdout": false,
+  "production_activated": false,
+  "hypothesis_status": "unproven_pending_prospective_capture",
+  "bootstrap_config": {
+    "prng": "mulberry32",
+    "n_resamples": 1000,
+    "seed": 20261111,
+    "ci_level": 0.95
+  },
+  "execution_assumptions": {
+    "execution_delay_minutes": 2.0,
+    "min_xi_ingestion_buffer_minutes": 2.0,
+    "historical_delay_alpha": 0.05,
+    "t60m_max_polling_interval_minutes": 3.685835
+  },
+  "frozen_v3_1_governance": {
+    "all_frozen_sha256_verified": true,
+    "production_segments_total": 60,
+    "production_segments_enabled": 0,
+    "artifacts": {
+      "src/data/prediction/production_segments_v3_1.json": {
+        "sha256": "0bc03bbff96a5d82a1a7858e1e8623bf7bfdb250c546d2773a71d56ed9ada9bc",
+        "verified": true
+      },
+      "src/data/prediction/blend_weights_v3_1.json": {
+        "sha256": "b29d7a451f6011126997c122778b42ad3239c78337d17c5fa78d550f5c92739b",
+        "verified": true
+      },
+      "src/data/prediction/pick_policy_v3_1.json": {
+        "sha256": "2359c8f8822ea394a380202c04e0bcd010d1a3fae7c5c25b8c11ebe810bfb7d1",
+        "verified": true
+      },
+      "src/data/prediction/stale_lines_config.json": {
+        "sha256": "8bcb9c7be93270cde0cac2d58bc19f0381184dd2e769f358dd28334db2a05eac",
+        "verified": true
+      },
+      "src/domain/prediction/engine.ts": {
+        "sha256": "9270125c49e81adf57e90c76db07eb95f53ab35a5051e49265b35b80ed0553bc",
+        "verified": true
+      }
+    }
+  },
+  "local_xi_coverage_audit": {
+    "epistemic_status": "OBSERVADO",
+    "n_football_events_walk_forward_dev": 52746,
+    "n_events_with_real_ts_xi_published_in_dev": 0,
+    "coverage_pct_in_dev": 0.0,
+    "matches_parquet_xi_columns": [],
+    "features_parquet_xi_columns": [],
+    "odds_source_mode_counts_in_dev": {
+      "historical_fd": 52746
+    },
+    "n_multi_tick_ws_events_in_dev": 0,
+    "web_scraping_roster_availability_readonly_audit": {
+      "exists": true,
+      "total_records": 5908,
+      "records_before_holdout_cut": 0,
+      "min_captured_at_utc": "2026-11-09T18:49:13Z",
+      "max_captured_at_utc": "2026-11-10T16:00:15Z"
+    },
+    "causal_t60m_effect_epistemic_status": "DESCONOCIDO",
+    "blocking_reason": "El histórico walk_forward_dev (< 2025-02-02T17:30:00Z) contiene 0/52,746 partidos con XI confirmado y ts_xi_published al segundo, y 0/52,746 eventos con cuotas multi-tick en T-60m (100% historical_fd de 2 puntos open/close; los 5,908 registros de roster_availability fueron capturados el 2026-11-09..2026-11-10). No se fabrican timestamps ni alineaciones retrospectivas."
+  },
+  "mathematical_properties_walk_forward_dev": {
+    "epistemic_status": "OBSERVADO",
+    "n_paired_checked": 52659,
+    "zero_degradation_max_abs_diff": 0.0,
+    "simplex_max_abs_err_at_clip": 3.3306690738754696e-16,
+    "strict_monotonicity_home_and_away": true,
+    "log_odds_ratio_shift_invariance_max_err": 9.992007221626409e-16,
+    "empirical_max_abs_prob_shift_at_clip_0_35": 0.07313345080192923,
+    "analytical_2way_prob_shift_bound_tanh_0_0875": 0.08727737447415772,
+    "within_analytical_bound": true
+  },
+  "observed_evaluation": {
+    "scenario_id": "xi_dev_observed_real_coverage",
+    "provenance": "observed",
+    "epistemic_status": "OBSERVADO",
+    "description": "Evaluación empírica honesta sobre walk_forward_dev usando únicamente capturas reales de XI confirmado con ts_xi_published < 2025-02-02T17:30:00Z (0/52,746 disponibles -> delta = 0.0).",
+    "eval_split": "walk_forward_dev",
+    "unlock_holdout": false,
+    "execution_delay_minutes": 2.0,
+    "historical_delay_alpha": 0.05,
+    "n_events_total_dev": 52746,
+    "n_events_paired_pinnacle_close": 52659,
+    "n_events_nonzero_delta": 0,
+    "delta_summary": {
+      "mean": 0.0,
+      "std": 0.0,
+      "min": 0.0,
+      "max": 0.0,
+      "max_abs_prob_shift": 0.0
+    },
+    "calibration_paired_pinnacle": {
+      "log_loss_base_motor_a": 1.0120118262318893,
+      "log_loss_xi_motor_a": 1.0120118262318893,
+      "log_loss_pinnacle_close_novig": 0.9968039378344743,
+      "delta_ll_xi_vs_base": 0.0,
+      "delta_ll_xi_vs_base_ci95": [
+        0.0,
+        0.0
+      ],
+      "delta_ll_xi_vs_base_significant": false,
+      "delta_ll_xi_vs_base_significance_label": "no significativa",
+      "delta_ll_base_vs_pinnacle_close": 0.015207888397414882,
+      "delta_ll_base_vs_pinnacle_close_ci95": [
+        0.013695587400391823,
+        0.016711370802668348
+      ],
+      "delta_ll_base_vs_pinnacle_close_significance_label": "significativa",
+      "delta_ll_xi_vs_pinnacle_close": 0.015207888397414882,
+      "delta_ll_xi_vs_pinnacle_close_ci95": [
+        0.013595176343554791,
+        0.01670011499268933
+      ],
+      "delta_ll_xi_vs_pinnacle_close_significant": true,
+      "delta_ll_xi_vs_pinnacle_close_significance_label": "significativa",
+      "brier_base_motor_a": 0.6058933332142298,
+      "brier_xi_motor_a": 0.6058933332142298,
+      "brier_pinnacle_close_novig": 0.5956354537761503,
+      "delta_brier_xi_vs_base": 0.0,
+      "delta_brier_xi_vs_base_ci95": [
+        0.0,
+        0.0
+      ],
+      "delta_brier_xi_vs_base_significance_label": "no significativa",
+      "delta_brier_base_vs_pinnacle_close": 0.010257879438079508,
+      "delta_brier_base_vs_pinnacle_close_ci95": [
+        0.009300281482779513,
+        0.011309288572686706
+      ],
+      "delta_brier_base_vs_pinnacle_close_significance_label": "significativa",
+      "delta_brier_xi_vs_pinnacle_close": 0.010257879438079508,
+      "delta_brier_xi_vs_pinnacle_close_ci95": [
+        0.009264231254161278,
+        0.01127973057187352
+      ],
+      "delta_brier_xi_vs_pinnacle_close_significance_label": "significativa"
+    },
+    "economic_v3_1_frozen_segments_1u": {
+      "enabled_leagues_1x2": [
+        "D2",
+        "G1"
+      ],
+      "base": {
+        "n_signals": 0,
+        "clv_pct_mean": null,
+        "clv_pct_ci95": [
+          0.0,
+          0.0
+        ],
+        "clv_pct_significance_label": "no significativa",
+        "clv_prob_mean": null,
+        "clv_prob_ci95": [
+          0.0,
+          0.0
+        ],
+        "clv_prob_significance_label": "no significativa",
+        "pct_clv_positive": null,
+        "unit_roi_pct": 0.0,
+        "unit_roi_pct_ci95": [
+          0.0,
+          0.0
+        ],
+        "unit_roi_significance_label": "no significativa",
+        "unit_max_drawdown": 0.0
+      },
+      "xi": {
+        "n_signals": 0,
+        "clv_pct_mean": null,
+        "clv_pct_ci95": [
+          0.0,
+          0.0
+        ],
+        "clv_pct_significance_label": "no significativa",
+        "clv_prob_mean": null,
+        "clv_prob_ci95": [
+          0.0,
+          0.0
+        ],
+        "clv_prob_significance_label": "no significativa",
+        "pct_clv_positive": null,
+        "unit_roi_pct": 0.0,
+        "unit_roi_pct_ci95": [
+          0.0,
+          0.0
+        ],
+        "unit_roi_significance_label": "no significativa",
+        "unit_max_drawdown": 0.0
+      }
+    },
+    "economic_direct_motor_a_1u": {
+      "base": {
+        "n_signals": 20705,
+        "clv_pct_mean": -0.043128290051798794,
+        "clv_pct_ci95": [
+          -0.044529569515247114,
+          -0.04178294784264138
+        ],
+        "clv_pct_significance_label": "significativa",
+        "clv_prob_mean": -0.012767849870358,
+        "clv_prob_ci95": [
+          -0.013153341547787608,
+          -0.012373862973306369
+        ],
+        "clv_prob_significance_label": "significativa",
+        "pct_clv_positive": 0.2924897367785559,
+        "unit_roi_pct": -5.5906288352405715,
+        "unit_roi_pct_ci95": [
+          -7.622742070652516,
+          -3.4888322693381073
+        ],
+        "unit_roi_significance_label": "significativa",
+        "unit_max_drawdown": 1198.0727500227677
+      },
+      "xi": {
+        "n_signals": 20705,
+        "clv_pct_mean": -0.043128290051798794,
+        "clv_pct_ci95": [
+          -0.044529569515247114,
+          -0.04178294784264138
+        ],
+        "clv_pct_significance_label": "significativa",
+        "clv_prob_mean": -0.012767849870358,
+        "clv_prob_ci95": [
+          -0.013153341547787608,
+          -0.012373862973306369
+        ],
+        "clv_prob_significance_label": "significativa",
+        "pct_clv_positive": 0.2924897367785559,
+        "unit_roi_pct": -5.5906288352405715,
+        "unit_roi_pct_ci95": [
+          -7.622742070652516,
+          -3.4888322693381073
+        ],
+        "unit_roi_significance_label": "significativa",
+        "unit_max_drawdown": 1198.0727500227677
+      }
+    },
+    "trial_registry_entry": {
+      "trial_seq": 1,
+      "timestamp_utc": "2026-11-12T17:17:38Z",
+      "agent_id": "B7",
+      "experiment_id": "EXP_V32_xi",
+      "trial_name": "xi_dev_observed_real_coverage",
+      "provenance": "observed",
+      "eval_split": "walk_forward_dev",
+      "unlock_holdout": false,
+      "holdout_cut_utc": "2025-02-02T17:30:00Z",
+      "execution_delay_minutes": 2.0,
+      "historical_delay_alpha": 0.05,
+      "production_activated": false,
+      "config_hash": "412841a3efa6433d67ca7d5cab5c7ff4aba5c8d64e5beb09096e7109f41712a4"
+    }
+  },
+  "synthetic_sensitivity_studies": [
+    {
+      "scenario_id": "xi_dev_sensitivity_uninformative_noise_sigma_0_12",
+      "provenance": "synthetic_sensitivity",
+      "epistemic_status": "INFERIDO",
+      "description": "Sensibilidad paramétrica (NO empírica): perturbación gaussiana determinista N(0, 0.12^2) truncada en [-0.35, +0.35] simulando bajas estáticas ya descontadas o ruidosas sin señal real en T-60m.",
+      "eval_split": "walk_forward_dev",
+      "unlock_holdout": false,
+      "execution_delay_minutes": 2.0,
+      "historical_delay_alpha": 0.05,
+      "n_events_total_dev": 52746,
+      "n_events_paired_pinnacle_close": 52659,
+      "n_events_nonzero_delta": 52659,
+      "delta_summary": {
+        "mean": -0.0002666908073749686,
+        "std": 0.11946393818610206,
+        "min": -0.35,
+        "max": 0.35,
+        "max_abs_prob_shift": 0.06942099203939789
+      },
+      "calibration_paired_pinnacle": {
+        "log_loss_base_motor_a": 1.0120118262318893,
+        "log_loss_xi_motor_a": 1.0131118126881236,
+        "log_loss_pinnacle_close_novig": 0.9968039378344743,
+        "delta_ll_xi_vs_base": 0.0010999864562343162,
+        "delta_ll_xi_vs_base_ci95": [
+          0.000705205074431348,
+          0.0014939735462079085
+        ],
+        "delta_ll_xi_vs_base_significant": true,
+        "delta_ll_xi_vs_base_significance_label": "significativa",
+        "delta_ll_base_vs_pinnacle_close": 0.015207888397414882,
+        "delta_ll_base_vs_pinnacle_close_ci95": [
+          0.013731368505440733,
+          0.016660452447361963
+        ],
+        "delta_ll_base_vs_pinnacle_close_significance_label": "significativa",
+        "delta_ll_xi_vs_pinnacle_close": 0.0163078748536492,
+        "delta_ll_xi_vs_pinnacle_close_ci95": [
+          0.014812736961050335,
+          0.01802485025593
+        ],
+        "delta_ll_xi_vs_pinnacle_close_significant": true,
+        "delta_ll_xi_vs_pinnacle_close_significance_label": "significativa",
+        "brier_base_motor_a": 0.6058933332142298,
+        "brier_xi_motor_a": 0.6066151793338563,
+        "brier_pinnacle_close_novig": 0.5956354537761503,
+        "delta_brier_xi_vs_base": 0.0007218461196265513,
+        "delta_brier_xi_vs_base_ci95": [
+          0.0004561856705583762,
+          0.0009923280469099967
+        ],
+        "delta_brier_xi_vs_base_significance_label": "significativa",
+        "delta_brier_base_vs_pinnacle_close": 0.010257879438079508,
+        "delta_brier_base_vs_pinnacle_close_ci95": [
+          0.00932994884697672,
+          0.011221151180281606
+        ],
+        "delta_brier_base_vs_pinnacle_close_significance_label": "significativa",
+        "delta_brier_xi_vs_pinnacle_close": 0.01097972555770606,
+        "delta_brier_xi_vs_pinnacle_close_ci95": [
+          0.010038324791569348,
+          0.01198692193504127
+        ],
+        "delta_brier_xi_vs_pinnacle_close_significance_label": "significativa"
+      },
+      "economic_v3_1_frozen_segments_1u": {
+        "enabled_leagues_1x2": [
+          "D2",
+          "G1"
+        ],
+        "base": {
+          "n_signals": 0,
+          "clv_pct_mean": null,
+          "clv_pct_ci95": [
+            0.0,
+            0.0
+          ],
+          "clv_pct_significance_label": "no significativa",
+          "clv_prob_mean": null,
+          "clv_prob_ci95": [
+            0.0,
+            0.0
+          ],
+          "clv_prob_significance_label": "no significativa",
+          "pct_clv_positive": null,
+          "unit_roi_pct": 0.0,
+          "unit_roi_pct_ci95": [
+            0.0,
+            0.0
+          ],
+          "unit_roi_significance_label": "no significativa",
+          "unit_max_drawdown": 0.0
+        },
+        "xi": {
+          "n_signals": 0,
+          "clv_pct_mean": null,
+          "clv_pct_ci95": [
+            0.0,
+            0.0
+          ],
+          "clv_pct_significance_label": "no significativa",
+          "clv_prob_mean": null,
+          "clv_prob_ci95": [
+            0.0,
+            0.0
+          ],
+          "clv_prob_significance_label": "no significativa",
+          "pct_clv_positive": null,
+          "unit_roi_pct": 0.0,
+          "unit_roi_pct_ci95": [
+            0.0,
+            0.0
+          ],
+          "unit_roi_significance_label": "no significativa",
+          "unit_max_drawdown": 0.0
+        }
+      },
+      "economic_direct_motor_a_1u": {
+        "base": {
+          "n_signals": 20705,
+          "clv_pct_mean": -0.043128290051798794,
+          "clv_pct_ci95": [
+            -0.044461690071008766,
+            -0.04170018785568541
+          ],
+          "clv_pct_significance_label": "significativa",
+          "clv_prob_mean": -0.012767849870358,
+          "clv_prob_ci95": [
+            -0.013158371976158328,
+            -0.012369723700798474
+          ],
+          "clv_prob_significance_label": "significativa",
+          "pct_clv_positive": 0.2924897367785559,
+          "unit_roi_pct": -5.5906288352405715,
+          "unit_roi_pct_ci95": [
+            -7.647637675392412,
+            -3.508011992539871
+          ],
+          "unit_roi_significance_label": "significativa",
+          "unit_max_drawdown": 1198.0727500227677
+        },
+        "xi": {
+          "n_signals": 21403,
+          "clv_pct_mean": -0.04448985389630883,
+          "clv_pct_ci95": [
+            -0.045730319933343505,
+            -0.04315635761111591
+          ],
+          "clv_pct_significance_label": "significativa",
+          "clv_prob_mean": -0.013262472862200109,
+          "clv_prob_ci95": [
+            -0.013636333077273412,
+            -0.01288485909464573
+          ],
+          "clv_prob_significance_label": "significativa",
+          "pct_clv_positive": 0.2885109564079802,
+          "unit_roi_pct": -5.566382146119349,
+          "unit_roi_pct_ci95": [
+            -7.7558145707399895,
+            -3.432742136533341
+          ],
+          "unit_roi_significance_label": "significativa",
+          "unit_max_drawdown": 1264.1496215067634
+        }
+      },
+      "trial_registry_entry": {
+        "trial_seq": 2,
+        "timestamp_utc": "2026-11-12T17:19:28Z",
+        "agent_id": "B7",
+        "experiment_id": "EXP_V32_xi",
+        "trial_name": "xi_dev_sensitivity_uninformative_noise_sigma_0_12",
+        "provenance": "synthetic_sensitivity",
+        "eval_split": "walk_forward_dev",
+        "unlock_holdout": false,
+        "holdout_cut_utc": "2025-02-02T17:30:00Z",
+        "execution_delay_minutes": 2.0,
+        "historical_delay_alpha": 0.05,
+        "production_activated": false,
+        "config_hash": "366d3aca9362647fbb0aab295f1bd484f5593871eb661090f7921a3e483b0969"
+      }
+    },
+    {
+      "scenario_id": "xi_dev_sensitivity_adversarial_clip_0_35",
+      "provenance": "synthetic_sensitivity",
+      "epistemic_status": "INFERIDO",
+      "description": "Cota de estrés adversarial (NO empírica): saturación sistemática |delta| = 0.35 en dirección adversa para cuantificar el daño máximo posible acotado por clip_abs = 0.35.",
+      "eval_split": "walk_forward_dev",
+      "unlock_holdout": false,
+      "execution_delay_minutes": 2.0,
+      "historical_delay_alpha": 0.05,
+      "n_events_total_dev": 52746,
+      "n_events_paired_pinnacle_close": 52659,
+      "n_events_nonzero_delta": 52659,
+      "delta_summary": {
+        "mean": -0.16231508384131865,
+        "std": 0.31008678391312594,
+        "min": -0.35,
+        "max": 0.35,
+        "max_abs_prob_shift": 0.07313345080192923
+      },
+      "calibration_paired_pinnacle": {
+        "log_loss_base_motor_a": 1.0120118262318893,
+        "log_loss_xi_motor_a": 1.0183291533331653,
+        "log_loss_pinnacle_close_novig": 0.9968039378344743,
+        "delta_ll_xi_vs_base": 0.006317327101276069,
+        "delta_ll_xi_vs_base_ci95": [
+          0.0051993557088215025,
+          0.007529022507827748
+        ],
+        "delta_ll_xi_vs_base_significant": true,
+        "delta_ll_xi_vs_base_significance_label": "significativa",
+        "delta_ll_base_vs_pinnacle_close": 0.015207888397414882,
+        "delta_ll_base_vs_pinnacle_close_ci95": [
+          0.013741704448615855,
+          0.01662612357026426
+        ],
+        "delta_ll_base_vs_pinnacle_close_significance_label": "significativa",
+        "delta_ll_xi_vs_pinnacle_close": 0.021525215498690957,
+        "delta_ll_xi_vs_pinnacle_close_ci95": [
+          0.01968783651420529,
+          0.023159835674492434
+        ],
+        "delta_ll_xi_vs_pinnacle_close_significant": true,
+        "delta_ll_xi_vs_pinnacle_close_significance_label": "significativa",
+        "brier_base_motor_a": 0.6058933332142298,
+        "brier_xi_motor_a": 0.6103733215772693,
+        "brier_pinnacle_close_novig": 0.5956354537761503,
+        "delta_brier_xi_vs_base": 0.00447998836303941,
+        "delta_brier_xi_vs_base_ci95": [
+          0.0036751158221150397,
+          0.005310492477580091
+        ],
+        "delta_brier_xi_vs_base_significance_label": "significativa",
+        "delta_brier_base_vs_pinnacle_close": 0.010257879438079508,
+        "delta_brier_base_vs_pinnacle_close_ci95": [
+          0.009355161757295206,
+          0.011237386702195042
+        ],
+        "delta_brier_base_vs_pinnacle_close_significance_label": "significativa",
+        "delta_brier_xi_vs_pinnacle_close": 0.01473786780111892,
+        "delta_brier_xi_vs_pinnacle_close_ci95": [
+          0.01352139955332557,
+          0.015975098933985625
+        ],
+        "delta_brier_xi_vs_pinnacle_close_significance_label": "significativa"
+      },
+      "economic_v3_1_frozen_segments_1u": {
+        "enabled_leagues_1x2": [
+          "D2",
+          "G1"
+        ],
+        "base": {
+          "n_signals": 0,
+          "clv_pct_mean": null,
+          "clv_pct_ci95": [
+            0.0,
+            0.0
+          ],
+          "clv_pct_significance_label": "no significativa",
+          "clv_prob_mean": null,
+          "clv_prob_ci95": [
+            0.0,
+            0.0
+          ],
+          "clv_prob_significance_label": "no significativa",
+          "pct_clv_positive": null,
+          "unit_roi_pct": 0.0,
+          "unit_roi_pct_ci95": [
+            0.0,
+            0.0
+          ],
+          "unit_roi_significance_label": "no significativa",
+          "unit_max_drawdown": 0.0
+        },
+        "xi": {
+          "n_signals": 0,
+          "clv_pct_mean": null,
+          "clv_pct_ci95": [
+            0.0,
+            0.0
+          ],
+          "clv_pct_significance_label": "no significativa",
+          "clv_prob_mean": null,
+          "clv_prob_ci95": [
+            0.0,
+            0.0
+          ],
+          "clv_prob_significance_label": "no significativa",
+          "pct_clv_positive": null,
+          "unit_roi_pct": 0.0,
+          "unit_roi_pct_ci95": [
+            0.0,
+            0.0
+          ],
+          "unit_roi_significance_label": "no significativa",
+          "unit_max_drawdown": 0.0
+        }
+      },
+      "economic_direct_motor_a_1u": {
+        "base": {
+          "n_signals": 20705,
+          "clv_pct_mean": -0.043128290051798794,
+          "clv_pct_ci95": [
+            -0.04447547041339378,
+            -0.041859880784327175
+          ],
+          "clv_pct_significance_label": "significativa",
+          "clv_prob_mean": -0.012767849870358,
+          "clv_prob_ci95": [
+            -0.013161196928657118,
+            -0.012371331410559148
+          ],
+          "clv_prob_significance_label": "significativa",
+          "pct_clv_positive": 0.2924897367785559,
+          "unit_roi_pct": -5.5906288352405715,
+          "unit_roi_pct_ci95": [
+            -7.649375655337862,
+            -3.4192128085715594
+          ],
+          "unit_roi_significance_label": "significativa",
+          "unit_max_drawdown": 1198.0727500227677
+        },
+        "xi": {
+          "n_signals": 26653,
+          "clv_pct_mean": -0.06241111675808439,
+          "clv_pct_ci95": [
+            -0.06374291571024963,
+            -0.06104020885014332
+          ],
+          "clv_pct_significance_label": "significativa",
+          "clv_prob_mean": -0.014492427111863361,
+          "clv_prob_ci95": [
+            -0.014829142188326599,
+            -0.014180951466654513
+          ],
+          "clv_prob_significance_label": "significativa",
+          "pct_clv_positive": 0.2566690428844783,
+          "unit_roi_pct": -6.610573727370574,
+          "unit_roi_pct_ci95": [
+            -8.632473127206104,
+            -4.654919179080514
+          ],
+          "unit_roi_significance_label": "significativa",
+          "unit_max_drawdown": 1850.4838427962625
+        }
+      },
+      "trial_registry_entry": {
+        "trial_seq": 3,
+        "timestamp_utc": "2026-11-12T17:23:32Z",
+        "agent_id": "B7",
+        "experiment_id": "EXP_V32_xi",
+        "trial_name": "xi_dev_sensitivity_adversarial_clip_0_35",
+        "provenance": "synthetic_sensitivity",
+        "eval_split": "walk_forward_dev",
+        "unlock_holdout": false,
+        "holdout_cut_utc": "2025-02-02T17:30:00Z",
+        "execution_delay_minutes": 2.0,
+        "historical_delay_alpha": 0.05,
+        "production_activated": false,
+        "config_hash": "d27fd85f112ff5d11c554fdd5d63ba5926e3faa699fe8c1cea22ddc2edfc0512"
+      }
+    },
+    {
+      "scenario_id": "xi_dev_sensitivity_oracle_open_to_close_projection_ceiling",
+      "provenance": "synthetic_sensitivity",
+      "epistemic_status": "INFERIDO",
+      "description": "Techo teórico no-causal (NO alcanzable en vivo): proyecta el 100% del movimiento real open->close de Pinnacle sobre delta in [-0.35, +0.35] para medir el límite superior físico de la familia paramétrica.",
+      "eval_split": "walk_forward_dev",
+      "unlock_holdout": false,
+      "execution_delay_minutes": 2.0,
+      "historical_delay_alpha": 0.05,
+      "n_events_total_dev": 52746,
+      "n_events_paired_pinnacle_close": 52659,
+      "n_events_nonzero_delta": 37449,
+      "delta_summary": {
+        "mean": 0.0016092329594120337,
+        "std": 0.15022717452839227,
+        "min": -0.35,
+        "max": 0.35,
+        "max_abs_prob_shift": 0.07185428510283365
+      },
+      "calibration_paired_pinnacle": {
+        "log_loss_base_motor_a": 1.0120118262318893,
+        "log_loss_xi_motor_a": 1.0107095781531688,
+        "log_loss_pinnacle_close_novig": 0.9968039378344743,
+        "delta_ll_xi_vs_base": -0.001302248078720445,
+        "delta_ll_xi_vs_base_ci95": [
+          -0.0017833367905966517,
+          -0.0007838773040033629
+        ],
+        "delta_ll_xi_vs_base_significant": true,
+        "delta_ll_xi_vs_base_significance_label": "significativa",
+        "delta_ll_base_vs_pinnacle_close": 0.015207888397414882,
+        "delta_ll_base_vs_pinnacle_close_ci95": [
+          0.013585732172936165,
+          0.016593302404641953
+        ],
+        "delta_ll_base_vs_pinnacle_close_significance_label": "significativa",
+        "delta_ll_xi_vs_pinnacle_close": 0.01390564031869444,
+        "delta_ll_xi_vs_pinnacle_close_ci95": [
+          0.012432167835572341,
+          0.015322829220478902
+        ],
+        "delta_ll_xi_vs_pinnacle_close_significant": true,
+        "delta_ll_xi_vs_pinnacle_close_significance_label": "significativa",
+        "brier_base_motor_a": 0.6058933332142298,
+        "brier_xi_motor_a": 0.6050128329655142,
+        "brier_pinnacle_close_novig": 0.5956354537761503,
+        "delta_brier_xi_vs_base": -0.0008805002487155876,
+        "delta_brier_xi_vs_base_ci95": [
+          -0.0012023931184607837,
+          -0.000559964808724856
+        ],
+        "delta_brier_xi_vs_base_significance_label": "significativa",
+        "delta_brier_base_vs_pinnacle_close": 0.010257879438079508,
+        "delta_brier_base_vs_pinnacle_close_ci95": [
+          0.009272080383468597,
+          0.01117623032052508
+        ],
+        "delta_brier_base_vs_pinnacle_close_significance_label": "significativa",
+        "delta_brier_xi_vs_pinnacle_close": 0.00937737918936392,
+        "delta_brier_xi_vs_pinnacle_close_ci95": [
+          0.008402498167273795,
+          0.010376603092333106
+        ],
+        "delta_brier_xi_vs_pinnacle_close_significance_label": "significativa"
+      },
+      "economic_v3_1_frozen_segments_1u": {
+        "enabled_leagues_1x2": [
+          "D2",
+          "G1"
+        ],
+        "base": {
+          "n_signals": 0,
+          "clv_pct_mean": null,
+          "clv_pct_ci95": [
+            0.0,
+            0.0
+          ],
+          "clv_pct_significance_label": "no significativa",
+          "clv_prob_mean": null,
+          "clv_prob_ci95": [
+            0.0,
+            0.0
+          ],
+          "clv_prob_significance_label": "no significativa",
+          "pct_clv_positive": null,
+          "unit_roi_pct": 0.0,
+          "unit_roi_pct_ci95": [
+            0.0,
+            0.0
+          ],
+          "unit_roi_significance_label": "no significativa",
+          "unit_max_drawdown": 0.0
+        },
+        "xi": {
+          "n_signals": 0,
+          "clv_pct_mean": null,
+          "clv_pct_ci95": [
+            0.0,
+            0.0
+          ],
+          "clv_pct_significance_label": "no significativa",
+          "clv_prob_mean": null,
+          "clv_prob_ci95": [
+            0.0,
+            0.0
+          ],
+          "clv_prob_significance_label": "no significativa",
+          "pct_clv_positive": null,
+          "unit_roi_pct": 0.0,
+          "unit_roi_pct_ci95": [
+            0.0,
+            0.0
+          ],
+          "unit_roi_significance_label": "no significativa",
+          "unit_max_drawdown": 0.0
+        }
+      },
+      "economic_direct_motor_a_1u": {
+        "base": {
+          "n_signals": 20705,
+          "clv_pct_mean": -0.043128290051798794,
+          "clv_pct_ci95": [
+            -0.044485391674394026,
+            -0.04178389280008139
+          ],
+          "clv_pct_significance_label": "significativa",
+          "clv_prob_mean": -0.012767849870358,
+          "clv_prob_ci95": [
+            -0.013144633401205563,
+            -0.012369697115036419
+          ],
+          "clv_prob_significance_label": "significativa",
+          "pct_clv_positive": 0.2924897367785559,
+          "unit_roi_pct": -5.5906288352405715,
+          "unit_roi_pct_ci95": [
+            -7.623297125149652,
+            -3.4847537413470864
+          ],
+          "unit_roi_significance_label": "significativa",
+          "unit_max_drawdown": 1198.0727500227677
+        },
+        "xi": {
+          "n_signals": 22839,
+          "clv_pct_mean": -0.008629282613404607,
+          "clv_pct_ci95": [
+            -0.009916235513153418,
+            -0.007476890046598169
+          ],
+          "clv_pct_significance_label": "significativa",
+          "clv_prob_mean": -0.0016423032498866206,
+          "clv_prob_ci95": [
+            -0.0020044510076592417,
+            -0.0013144432908092367
+          ],
+          "clv_prob_significance_label": "significativa",
+          "pct_clv_positive": 0.4356145190244757,
+          "unit_roi_pct": -2.163590222536641,
+          "unit_roi_pct_ci95": [
+            -4.190487658727969,
+            -0.2692122946606489
+          ],
+          "unit_roi_significance_label": "significativa",
+          "unit_max_drawdown": 549.8732377098671
+        }
+      },
+      "trial_registry_entry": {
+        "trial_seq": 4,
+        "timestamp_utc": "2026-11-12T17:25:32Z",
+        "agent_id": "B7",
+        "experiment_id": "EXP_V32_xi",
+        "trial_name": "xi_dev_sensitivity_oracle_open_to_close_projection_ceiling",
+        "provenance": "synthetic_sensitivity",
+        "eval_split": "walk_forward_dev",
+        "unlock_holdout": false,
+        "holdout_cut_utc": "2025-02-02T17:30:00Z",
+        "execution_delay_minutes": 2.0,
+        "historical_delay_alpha": 0.05,
+        "production_activated": false,
+        "config_hash": "07138c0e6c9d75266917492f5997fa3edf6598a0401a9e6157684264f6447541"
+      }
+    }
+  ]
+}

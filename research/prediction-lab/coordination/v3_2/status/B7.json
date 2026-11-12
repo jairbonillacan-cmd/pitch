@@ -1,0 +1,187 @@
+﻿{
+  "agent_id": "B7",
+  "agent_name": "b7-xi",
+  "wave": 3,
+  "state": "completed",
+  "started_at": "2026-11-12T16:37:36Z",
+  "finished_at": "2026-11-12T17:38:30Z",
+  "files_written": [
+    "research/prediction-lab/experiments/EXP_V32_xi/__init__.py",
+    "research/prediction-lab/experiments/EXP_V32_xi/CONTRACT_XI_PUBLISHED.md",
+    "research/prediction-lab/experiments/EXP_V32_xi/xi_collector.py",
+    "research/prediction-lab/experiments/EXP_V32_xi/run_exp_v32_xi.py",
+    "research/prediction-lab/experiments/EXP_V32_xi/ts_parity_bridge.mts",
+    "research/prediction-lab/experiments/EXP_V32_xi/test_exp_v32_xi.py",
+    "research/prediction-lab/experiments/EXP_V32_xi/exp_v32_xi_results.json",
+    "research/prediction-lab/experiments/EXP_V32_xi/trial_registry_xi.jsonl",
+    "research/prediction-lab/experiments/EXP_V32_xi/data/xi_health.json",
+    "research/prediction-lab/reports/A29_xi_confirmado.md",
+    "research/prediction-lab/coordination/v3_2/status/B7.json"
+  ],
+  "commands_run": [
+    "Set-Location \"C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\prediction-lab\"; .\\research\\prediction-lab\\.venv\\Scripts\\python.exe research/prediction-lab/experiments/EXP_V32_xi/xi_collector.py --dry-run",
+    "Set-Location \"C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\prediction-lab\"; .\\research\\prediction-lab\\.venv\\Scripts\\python.exe research/prediction-lab/experiments/EXP_V32_xi/xi_collector.py --once --now-utc \"2026-11-12T17:00:00Z\"",
+    "Set-Location \"C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\prediction-lab\"; .\\research\\prediction-lab\\.venv\\Scripts\\python.exe research/prediction-lab/experiments/EXP_V32_xi/run_exp_v32_xi.py",
+    "Set-Location \"C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\prediction-lab\"; .\\research\\prediction-lab\\.venv\\Scripts\\python.exe -m pytest research/prediction-lab/experiments/EXP_V32_xi services/models -v"
+  ],
+  "metrics": {
+    "evidence_label": "OBSERVADO",
+    "causal_t60m_effect_status": "DESCONOCIDO",
+    "hypothesis_status": "unproven_pending_prospective_capture",
+    "production_activated": false,
+    "production_segments_enabled": "0/60",
+    "eval_split": "walk_forward_dev",
+    "holdout_cut_utc": "2025-02-02T17:30:00Z",
+    "holdout_sealed_untouched": true,
+    "unlock_holdout": false,
+    "shared_holdout_trial_registry_untouched": true,
+    "local_trial_registry_path": "research/prediction-lab/experiments/EXP_V32_xi/trial_registry_xi.jsonl",
+    "local_trial_registry_entries": 4,
+    "frozen_v3_1_sha256_verified": {
+      "production_segments_v3_1.json": "0bc03bbff96a5d82a1a7858e1e8623bf7bfdb250c546d2773a71d56ed9ada9bc",
+      "blend_weights_v3_1.json": "b29d7a451f6011126997c122778b42ad3239c78337d17c5fa78d550f5c92739b",
+      "pick_policy_v3_1.json": "2359c8f8822ea394a380202c04e0bcd010d1a3fae7c5c25b8c11ebe810bfb7d1",
+      "stale_lines_config.json": "8bcb9c7be93270cde0cac2d58bc19f0381184dd2e769f358dd28334db2a05eac",
+      "engine.ts": "9270125c49e81adf57e90c76db07eb95f53ab35a5051e49265b35b80ed0553bc"
+    },
+    "ts_python_parity": {
+      "bridge_command": "npx vite-node research/prediction-lab/experiments/EXP_V32_xi/ts_parity_bridge.mts",
+      "tolerance": 1e-12,
+      "passed": true,
+      "delta_cases_tested": 44,
+      "prob_shift_cases_tested": 26,
+      "real_walk_forward_dev_rows_tested": 25
+    },
+    "legal_sources_audit": {
+      "total_audited": 7,
+      "ok_unauthenticated": 0,
+      "api_only": [
+        "api_football",
+        "football_data_org"
+      ],
+      "blocked_pending_owner_decision": [
+        "espn_site_api",
+        "sofascore",
+        "fotmob",
+        "flashscore",
+        "rotowire_web"
+      ],
+      "anti_bot_evasion_used": false,
+      "collector_status_without_keys": "idle_no_active_legal_credentials",
+      "fabricated_records": 0
+    },
+    "local_xi_coverage_in_walk_forward_dev": {
+      "n_football_events_dev": 52746,
+      "n_events_with_real_ts_xi_published": 0,
+      "coverage_pct": 0.0,
+      "n_multi_tick_ws_events_dev": 0,
+      "web_scraping_roster_availability_total": 5908,
+      "web_scraping_roster_availability_pre_holdout_cut": 0
+    },
+    "mathematical_properties_paired_pinnacle": {
+      "n_paired_checked": 52659,
+      "zero_degradation_max_abs_diff": 0.0,
+      "simplex_max_abs_err_at_clip": 3.3306690738754696e-16,
+      "log_odds_ratio_shift_invariance_max_err": 9.992007221626409e-16,
+      "empirical_max_abs_prob_shift_at_clip_0_35": 0.073133,
+      "analytical_2way_prob_shift_bound": 0.087277
+    },
+    "bootstrap_config": {
+      "prng": "mulberry32",
+      "seed": 20261111,
+      "n_resamples": 1000
+    },
+    "observed_walk_forward_dev": {
+      "provenance": "observed",
+      "epistemic_status": "OBSERVADO",
+      "n_events_total_dev": 52746,
+      "n_events_paired_pinnacle_close": 52659,
+      "n_events_nonzero_delta": 0,
+      "log_loss_base_motor_a": 1.012012,
+      "log_loss_xi_motor_a": 1.012012,
+      "log_loss_pinnacle_close_novig": 0.996804,
+      "delta_ll_xi_vs_base": 0.0,
+      "delta_ll_xi_vs_base_ci95": [
+        0.0,
+        0.0
+      ],
+      "delta_ll_xi_vs_base_significance": "no significativa",
+      "delta_ll_xi_vs_pinnacle_close": 0.015208,
+      "delta_ll_xi_vs_pinnacle_close_ci95": [
+        0.013595,
+        0.0167
+      ],
+      "delta_ll_xi_vs_pinnacle_close_significance": "significativa",
+      "delta_brier_xi_vs_base": 0.0,
+      "delta_brier_xi_vs_base_ci95": [
+        0.0,
+        0.0
+      ],
+      "delta_brier_xi_vs_base_significance": "no significativa",
+      "delta_brier_xi_vs_pinnacle_close": 0.010258,
+      "delta_brier_xi_vs_pinnacle_close_ci95": [
+        0.009264,
+        0.01128
+      ],
+      "gated_v3_1_1x2_signals": 0,
+      "standalone_motor_a_ev5_signals": 20705,
+      "standalone_motor_a_clv_pct": -4.3125,
+      "standalone_motor_a_clv_pct_ci95": [
+        -4.4486,
+        -4.1783
+      ],
+      "standalone_motor_a_roi_1u_pct": -5.5882,
+      "standalone_motor_a_roi_1u_pct_ci95": [
+        -7.6197,
+        -3.4926
+      ]
+    },
+    "synthetic_sensitivity_walk_forward_dev": {
+      "provenance": "synthetic_sensitivity",
+      "epistemic_status": "INFERIDO",
+      "static_uninformative_noise_sigma_0_12": {
+        "delta_ll_xi_vs_base": 0.0011,
+        "delta_ll_xi_vs_base_ci95": [
+          0.000705,
+          0.001494
+        ],
+        "significance": "significativa",
+        "standalone_clv_pct": -4.4517
+      },
+      "adversarial_clip_0_35": {
+        "delta_ll_xi_vs_base": 0.006317,
+        "delta_ll_xi_vs_base_ci95": [
+          0.005199,
+          0.007529
+        ],
+        "significance": "significativa"
+      },
+      "oracle_pinnacle_steam_ceiling_non_causal": {
+        "delta_ll_xi_vs_base": -0.001302,
+        "delta_ll_xi_vs_base_ci95": [
+          -0.001783,
+          -0.000784
+        ],
+        "delta_ll_xi_vs_pinnacle_close": 0.013906,
+        "delta_ll_xi_vs_pinnacle_close_ci95": [
+          0.012432,
+          0.015323
+        ],
+        "standalone_clv_pct": -0.8636
+      }
+    },
+    "pytest_verification": {
+      "command": "pytest research/prediction-lab/experiments/EXP_V32_xi services/models -v",
+      "passed": 115,
+      "failed": 0
+    }
+  },
+  "open_issues": [
+    "Sin credenciales activas API_FOOTBALL_KEY o FOOTBALL_DATA_API_KEY en el entorno actual: xi_collector.py opera en modo seguro sin emisión (status=idle_no_active_legal_credentials, 0 registros inventados).",
+    "El histórico local walk_forward_dev (< 2025-02-02T17:30:00Z) tiene 0/52,746 partidos con ts_xi_published al segundo y 0/52,746 series de cuotas multi-tick en T-60m; el efecto causal real en T-60m permanece DESCONOCIDO hasta acumular captura prospectiva pareada con THE_ODDS_API_KEY / Smarkets (<= 3.69 min)."
+  ],
+  "next": [
+    "Proveer API_FOOTBALL_KEY (prioridad Liga MX + Top-5 + UCL) y/o FOOTBALL_DATA_API_KEY junto con THE_ODDS_API_KEY para activar captura prospectiva conjunta de XI confirmado + cuotas multi-tick en [T-60m, T-0].",
+    "Evaluar hipótesis prospectivamente bajo la compuerta B5 (>= 150 picks prospectivos totales, n_clv >= 15 en segmento y CLV% IC 95% mulberry32 > 0) siempre anclado a precio sharp fresco, nunca como Motor A aislado."
+  ]
+}
