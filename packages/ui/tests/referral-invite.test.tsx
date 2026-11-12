@@ -23,13 +23,37 @@ describe("ReferralInviteSurface & resolveReferralInvite", () => {
 
     const annual = resolveReferralInvite({
       interval: "ANNUAL",
-      code: "SOCIO-8842",
+      code: "JAIR-2611",
       accountsEnabled: false,
     });
     expect(annual.interval).toBe("annual");
     expect(annual.headlineMuted).toContain("$2,390 MXN");
-    expect(annual.senderDisplay).toBe("@socio_pl");
+    expect(annual.senderDisplay).toBe("@jair");
+    expect(annual.senderSuffix).toBe(" te invitó");
     expect(annual.isExampleSender).toBe(true);
+  });
+
+  it("shows @usuario te invitó when code and from (senderHandle) are provided", () => {
+    const resolved = resolveReferralInvite({
+      code: "CARLOS-9012",
+      senderHandle: "carlos_mx",
+      accountsEnabled: true,
+    });
+    expect(resolved.code).toBe("CARLOS-9012");
+    expect(resolved.senderPrefix).toBe("");
+    expect(resolved.senderDisplay).toBe("@carlos_mx");
+    expect(resolved.senderSuffix).toBe(" te invitó");
+    expect(resolved.isExampleSender).toBe(false);
+
+    const html = renderToStaticMarkup(
+      <ReferralInviteSurface
+        code="CARLOS-9012"
+        senderHandle="carlos_mx"
+        accountsEnabled
+      />,
+    );
+    expect(html).toContain("@carlos_mx");
+    expect(html).toContain(" te invitó");
   });
 
   it("resolves Tipstar and expired invite variants cleanly", () => {

@@ -22,6 +22,7 @@ export interface ResolvedReferralInvite {
   cardBottomLeft: string;
   senderPrefix: string;
   senderDisplay: string;
+  senderSuffix: string;
   isExampleSender: boolean;
   headlineLead: string;
   headlineTail: string;
@@ -36,7 +37,7 @@ function sanitizeCode(raw?: string): string {
     .toUpperCase()
     .replace(/[^A-Z0-9-]/g, "")
     .slice(0, 32);
-  return cleaned || "SOCIO-8842";
+  return cleaned || "JAIR-2611";
 }
 
 function sanitizeHandle(raw?: string): string {
@@ -78,6 +79,7 @@ export function resolveReferralInvite(
       cardBottomLeft: explicitHandle || "Pase Ultra",
       senderPrefix: "Código expirado · ",
       senderDisplay: code,
+      senderSuffix: "",
       isExampleSender: false,
       headlineLead: "Prueba PitchLab ",
       headlineTail: " 7 días.",
@@ -96,8 +98,9 @@ export function resolveReferralInvite(
       expired: false,
       cardTier: "ULTRA · TIPSTAR",
       cardBottomLeft: handle || "Tipstar Ultra",
-      senderPrefix: handle ? "Tipstar verificada " : "Invitación tipstar · ",
+      senderPrefix: handle ? "" : "Invitación tipstar · ",
       senderDisplay: handle || MEMBERSHIP_SPEC.name,
+      senderSuffix: handle ? " te invitó" : "",
       isExampleSender: Boolean(
         tipstar?.isExample && !explicitHandle && !input.accountsEnabled,
       ),
@@ -112,19 +115,21 @@ export function resolveReferralInvite(
   let senderDisplay = explicitHandle;
   let isExampleSender = false;
   if (!senderDisplay) {
-    if (code === "SOCIO-8842") {
-      senderDisplay = "@socio_pl";
+    if (code === "JAIR-2611") {
+      senderDisplay = "@jair";
       isExampleSender = !input.accountsEnabled;
     } else if (code === "JAIR") {
       senderDisplay = "@jair_founder";
     }
   }
 
-  const firstMonthDiscountMxn = 209;
+  const firstMonthDiscountMxn = MEMBERSHIP_SPEC.referralFriendFirstMonthMxn;
   const headlineMuted =
     interval === "annual"
       ? ` Plan anual $${MEMBERSHIP_SPEC.annualMxn.toLocaleString("en-US")} MXN y +${MEMBERSHIP_SPEC.referralBothRewardDays} días para ambos.`
       : ` Sin cargo hoy, luego $${firstMonthDiscountMxn} MXN tu primer mes.`;
+
+  const hasHandleSender = Boolean(senderDisplay);
 
   return {
     code,
@@ -132,10 +137,11 @@ export function resolveReferralInvite(
     expired: false,
     cardTier: "ULTRA",
     cardBottomLeft: senderDisplay || "Pase Ultra",
-    senderPrefix: senderDisplay ? "Invitación de " : "Invitación personal · ",
+    senderPrefix: hasHandleSender ? "" : "Invitación personal · ",
     senderDisplay: senderDisplay || MEMBERSHIP_SPEC.name,
+    senderSuffix: hasHandleSender ? " te invitó" : "",
     isExampleSender,
-    headlineLead: "7 días de PitchLab ",
+    headlineLead: `${MEMBERSHIP_SPEC.referralTrialDays} días de PitchLab `,
     headlineTail: ".",
     headlineMuted,
     ctaLabel: "Aceptar invitación",
@@ -232,6 +238,7 @@ export function ReferralInviteSurface({
               >
                 {invite.senderDisplay}
               </span>
+              {invite.senderSuffix ? <span>{invite.senderSuffix}</span> : null}
               {invite.isExampleSender ? (
                 <ExampleBadge className="ml-2 align-middle" />
               ) : null}

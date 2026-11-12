@@ -102,7 +102,7 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
   ).toBeVisible();
   // En móvil el editor se abre desde la fila «Comparte un pick…».
   if ((page.viewportSize()?.width ?? 1280) <= 640) {
-    await page.locator(".pl-com-composer-row").click();
+    await page.locator(".pl-com-composer-row:visible").first().click();
   }
   const socialComposer = page.locator("form.pl-com-composer:visible");
   const socialTextarea = socialComposer.locator("textarea");
@@ -134,11 +134,14 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
   await expect(shareDialog).toContainText("SOFIA5");
   await page.getByRole("button", { name: "Cerrar vista de boleto" }).click();
 
-  // 5) Cuenta & Referidos Doble Vía: la cuenta empieza sin referidos; simular un primer pago da +15 días
+  // 5) Cuenta & Referidos (CUENTA-2): enlace corto, muestra marcada «Ejemplo» sin cuentas y cero simulador en producción
   await page.goto("/app/account");
-  await expect(page.locator("[data-referral-days]:visible")).toContainText("+0 días");
-  await page.locator("[data-simulate-referral]:visible").click();
-  await expect(page.locator("[data-referral-days]:visible")).toContainText("+15 días");
+  await expect(page.locator("[data-referral-days]:visible")).toContainText("+30 días");
+  await expect(page.locator("[data-example-badge]:visible").first()).toBeVisible();
+  await expect(page.locator("#pl-acct-ref-link")).toHaveValue("pitchlab.mx/i/JAIR-2611");
+  await page.locator("[data-copy-short-link]:visible").click();
+  await expect(page.locator("[data-copy-short-link]:visible")).toHaveText("Copiado");
+  await expect(page.locator("[data-simulate-referral]")).toHaveCount(0);
 
   expect(errors).toEqual([]);
 });

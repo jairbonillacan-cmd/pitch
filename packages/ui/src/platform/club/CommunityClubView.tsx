@@ -67,11 +67,25 @@ const KICKOFF_FMT = new Intl.DateTimeFormat("es-MX", {
   hour12: false,
 });
 
-function kickoffLabel(iso?: string): string {
+function kickoffLabel(iso?: string, timeZone?: string): string {
   if (!iso) return "";
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return "";
-  return KICKOFF_FMT.format(d).replace(".", "").replace(",", "");
+  try {
+    const fmt = timeZone
+      ? new Intl.DateTimeFormat("es-MX", {
+          weekday: "short",
+          hour: "2-digit",
+          minute: "2-digit",
+          hourCycle: "h23",
+          timeZone,
+        })
+      : KICKOFF_FMT;
+    return fmt.format(d).replace(".", "").replace(",", "");
+  } catch (err) {
+    void err;
+    return KICKOFF_FMT.format(d).replace(".", "").replace(",", "");
+  }
 }
 
 function capitalize(text: string): string {
@@ -479,6 +493,7 @@ function PickPicker({
   onPick: (pick: MatchPick) => void;
 }): React.JSX.Element {
   const uid = useId();
+  const { userTimezone } = usePlatform();
   const [query, setQuery] = useState("");
   const upcoming = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -526,7 +541,7 @@ function PickPicker({
                 <span>
                   {game.home.shortName || game.home.name} vs {game.away.shortName || game.away.name}
                 </span>
-                <span className="pl-prof-muted num">· {kickoffLabel(game.kickoffUtc)}</span>
+                <span className="pl-prof-muted num">· {kickoffLabel(game.kickoffUtc, userTimezone)}</span>
               </p>
               <ul>
                 {[...game.picks]
@@ -1157,6 +1172,7 @@ function diffClass(diff: number): string {
 }
 
 function ConsensusTab({ items }: { items: readonly ConsensusGame[] }): React.JSX.Element {
+  const { userTimezone } = usePlatform();
   const [league, setLeague] = useState("all");
   const [sort, setSort] = useState<ConsensusSort>("diff");
   const leagues = useMemo(() => [...new Set(items.map((i) => i.game.leagueLabel))], [items]);
@@ -1214,7 +1230,7 @@ function ConsensusTab({ items }: { items: readonly ConsensusGame[] }): React.JSX
             <TeamBadge league={featured.game.league} slug={featured.game.away.slug} name={featured.game.away.name} size={26} decorative />
           </h2>
           <p className="pl-com-card-note num">
-            {featured.game.leagueLabel} · {kickoffLabel(featured.game.kickoffUtc)} · {featured.totalPicks} picks de socios
+            {featured.game.leagueLabel} · {kickoffLabel(featured.game.kickoffUtc, userTimezone)} · {featured.totalPicks} picks de socios
           </p>
           <div className="pl-com-outcomes">
             {featured.outcomes.slice(0, 3).map((o) => (
@@ -1252,7 +1268,7 @@ function ConsensusTab({ items }: { items: readonly ConsensusGame[] }): React.JSX
                   <p className="pl-prof-row-title">
                     {i.game.home.shortName || i.game.home.name} vs {i.game.away.shortName || i.game.away.name}
                   </p>
-                  <p className="pl-prof-row-sub">{kickoffLabel(i.game.kickoffUtc)}</p>
+                  <p className="pl-prof-row-sub">{kickoffLabel(i.game.kickoffUtc, userTimezone)}</p>
                 </div>
               </div>
               <span className="pl-com-hide-md">{i.top.label}</span>

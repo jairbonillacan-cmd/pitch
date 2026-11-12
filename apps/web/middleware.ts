@@ -23,6 +23,14 @@ async function hasValidBetaCookie(request: NextRequest): Promise<boolean> {
  */
 export async function middleware(request: NextRequest): Promise<NextResponse> {
   const { pathname } = request.nextUrl;
+
+  // /i/* son invitaciones personales públicas: nunca piden sesión y siempre llevan noindex.
+  if (pathname.startsWith("/i/")) {
+    const res = NextResponse.next();
+    res.headers.set("X-Robots-Tag", "noindex, nofollow");
+    return res;
+  }
+
   if (pathname === "/app" || pathname.startsWith("/app/")) {
     const accountsOn = Boolean(process.env.DATABASE_URL && process.env.BETTER_AUTH_SECRET);
     const allowed =
@@ -33,16 +41,20 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
       return NextResponse.redirect(loginUrl);
     }
     const profileHandle = /^\/app\/u\/([^/]+)\/?$/.exec(pathname)?.[1];
+    let requestHeaders: Headers | undefined;
     if (profileHandle || request.headers.has(CLUB_PROFILE_HANDLE_HEADER)) {
-      const headers = new Headers(request.headers);
-      headers.delete(CLUB_PROFILE_HANDLE_HEADER);
-      if (profileHandle) headers.set(CLUB_PROFILE_HANDLE_HEADER, profileHandle);
-      return NextResponse.next({ request: { headers } });
+      requestHeaders = new Headers(request.headers);
+      requestHeaders.delete(CLUB_PROFILE_HANDLE_HEADER);
+      if (profileHandle) requestHeaders.set(CLUB_PROFILE_HANDLE_HEADER, profileHandle);
     }
+    const response = NextResponse.next(requestHeaders && { request: { headers: requestHeaders } });
+    response.headers.set("X-Robots-Tag", "noindex, nofollow");
+    return response;
   }
+
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/app", "/app/:path*"],
+  matcher: ["/app", "/app/:path*", "/i/:path*"],
 };

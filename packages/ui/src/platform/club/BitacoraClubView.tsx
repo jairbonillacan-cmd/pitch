@@ -8,12 +8,15 @@ import { LensGlowOrbs, MaestroIcon } from "../components/MaestroPrimitives";
 import { MatchTicketCard } from "../components/MatchTicketCard";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
 import { ownHandleFor, usePlatform } from "../platform-provider";
+import { formatUnitsAsMxn } from "./account/account-helpers";
 
 export function BitacoraClubView(): React.JSX.Element {
   const {
     dataset,
     journal,
     oddsFormat,
+    showMxnBalance,
+    unitMxn,
     watchlistGameIds,
     toggleWatchlistGame,
     exportJournalCsv,
@@ -180,6 +183,15 @@ export function BitacoraClubView(): React.JSX.Element {
                   ? `+${stats.netUnits.toFixed(2)}u`
                   : `${stats.netUnits.toFixed(2)}u`}
               </strong>
+              {showMxnBalance ? (
+                <span
+                  className="block text-xs font-semibold"
+                  style={{ color: "var(--pl-text-secondary)" }}
+                  data-bitacora-mxn-balance=""
+                >
+                  ≈ {formatUnitsAsMxn(stats.netUnits, unitMxn)} (1u = ${unitMxn.toLocaleString("es-MX")})
+                </span>
+              ) : null}
               <span className="block text-xs" style={{ color: "var(--pl-text-muted)" }}>
                 Récord {stats.won}G – {stats.lost}P resueltos
               </span>

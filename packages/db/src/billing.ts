@@ -4,7 +4,7 @@
  * Todo es idempotente: reenviar el mismo evento de la pasarela no duplica días ni comisiones.
  * Funciona con cualquier base Drizzle de Postgres (Neon en producción, PGlite en pruebas).
  */
-import { and, count, eq, gt, isNull, sql } from "drizzle-orm";
+import { and, count, eq, gt, gte, inArray, isNull, lte, ne, sql } from "drizzle-orm";
 import type { PgDatabase, PgQueryResultHKT } from "drizzle-orm/pg-core";
 import {
   entitlementGrants,
@@ -25,6 +25,10 @@ export const AMBASSADOR_BONUS_DAYS = 30;
 export const AMBASSADOR_THRESHOLD = 5;
 export const MIN_QUALIFYING_PAID_CENTAVOS = 15_000;
 export const COMMISSION_CLEARANCE_DAYS = 14;
+/** Un reembolso dentro de este plazo desde el premio revierte los días del referido. */
+export const REFERRAL_CLAWBACK_DAYS = 14;
+/** Concesiones que son premio (no prueba): al recorrer el cobro en Stripe, el socio sigue en su plan. */
+export const REWARD_GRANT_KINDS = ["referral_host_15d", "referral_friend_15d", "ambassador_bonus_30d", "admin_grant"] as const;
 
 /** Comisión de tipstar sobre el neto (bruto − IVA − comisión de pasarela). */
 export function computeCommission(input: {
@@ -245,4 +249,197 @@ export async function handleInvoiceRefunded(db: Db, stripeInvoiceId: string): Pr
     )
     .returning({ id: tipstarCommissionLedger.id });
   return rows.length > 0;
+}
+
+// ---------------------------------------------------------------------------
+// Días concedidos frente a la fecha de cobro de Stripe
+// ---------------------------------------------------------------------------
+
+/** Fin de los días concedidos vigentes, sin contar la suscripción. */
+export async function grantsUntil(db: Db, userId: string): Promise<Date | null> {
+  const [row] = await db
+    .select({ endsAt: sql<Date | null>`max(${entitlementGrants.endsAt})` })
+    .from(entitlementGrants)
+    .where(and(eq(entitlementGrants.userId, userId), isNull(entitlementGrants.revokedAt)));
+  return row?.endsAt ? new Date(row.endsAt) : null;
+}
+
+/** Tiempo de una concesión que aún no se usa (0 si ya se consumió). */
+export function remainingGrantMs(grant: { startsAt: Date; endsAt: Date }, now: Date): number {
+  const start = Math.max(now.getTime(), new Date(grant.startsAt).getTime());
+  return Math.max(0, new Date(grant.endsAt).getTime() - start);
+}
+
+/**
+ * Marca como «ya reflejadas en Stripe» las concesiones que caen dentro del periodo gratis
+ * de la suscripción (`trial_end`). Si luego se revocan, se sabe cuánto recorrer el cobro hacia atrás.
+ */
+export async function markGrantsAppliedToStripe(db: Db, userId: string, stripePeriodEnd: Date, now: Date): Promise<void> {
+  await db
+    .update(entitlementGrants)
+    .set({ appliedToStripeSubAt: now })
+    .where(
+      and(
+        eq(entitlementGrants.userId, userId),
+        isNull(entitlementGrants.revokedAt),
+        isNull(entitlementGrants.appliedToStripeSubAt),
+        gt(entitlementGrants.endsAt, now),
+        lte(entitlementGrants.endsAt, new Date(stripePeriodEnd.getTime() + 60_000)),
+      ),
+    );
+}
+
+/** ¿Tiene premios (no pruebas) ya reflejados en la fecha de cobro de Stripe? */
+export async function hasAppliedRewardGrant(db: Db, userId: string): Promise<boolean> {
+  const [row] = await db
+    .select({ n: count() })
+    .from(entitlementGrants)
+    .where(
+      and(
+        eq(entitlementGrants.userId, userId),
+        isNull(entitlementGrants.revokedAt),
+        sql`${entitlementGrants.appliedToStripeSubAt} IS NOT NULL`,
+        inArray(entitlementGrants.sourceKind, [...REWARD_GRANT_KINDS]),
+      ),
+    );
+  return Number(row?.n ?? 0) > 0;
+}
+
+/**
+ * Revoca una concesión. Las concesiones encadenadas después se recorren hacia atrás lo que
+ * le faltaba por usar, para que el acceso realmente se acorte. La clave de idempotencia se
+ * libera (p. ej. para que el bono de embajador pueda ganarse de nuevo).
+ */
+export async function revokeGrant(
+  db: Db,
+  grantId: string,
+  reason: string,
+  now: Date,
+): Promise<{ userId: string; removedMs: number; appliedToStripe: boolean } | null> {
+  const [g] = await db.select().from(entitlementGrants).where(eq(entitlementGrants.id, grantId));
+  if (!g || g.revokedAt) return null;
+  const removedMs = remainingGrantMs(g, now);
+  await db
+    .update(entitlementGrants)
+    .set({ revokedAt: now, revokeReason: reason, idempotencyKey: `${g.idempotencyKey}:revocada:${g.id}` })
+    .where(eq(entitlementGrants.id, g.id));
+  if (removedMs > 0) {
+    const shift = sql`(${removedMs})::double precision * interval '1 millisecond'`;
+    await db
+      .update(entitlementGrants)
+      .set({
+        startsAt: sql`${entitlementGrants.startsAt} - ${shift}`,
+        endsAt: sql`${entitlementGrants.endsAt} - ${shift}`,
+      })
+      .where(
+        and(
+          eq(entitlementGrants.userId, g.userId),
+          isNull(entitlementGrants.revokedAt),
+          ne(entitlementGrants.id, g.id),
+          gte(entitlementGrants.startsAt, g.endsAt),
+        ),
+      );
+  }
+  return { userId: g.userId, removedMs, appliedToStripe: g.appliedToStripeSubAt !== null };
+}
+
+// ---------------------------------------------------------------------------
+// Reembolso de un referido
+// ---------------------------------------------------------------------------
+
+export interface ReferralClawbackPlan {
+  referralId: string;
+  hostUserId: string;
+  friendUserId: string;
+  /** Concesiones a revocar (anfitrión, amigo y, si aplica, bono de embajador). */
+  grantIds: string[];
+  revokeAmbassador: boolean;
+  /** Por usuario: cuánto hay que recorrer hacia atrás la fecha de cobro ya movida en Stripe. */
+  stripeShiftMs: Record<string, number>;
+}
+
+/**
+ * Decide si un reembolso revierte el premio del referido (solo lectura). Aplica si lo que quedó
+ * pagado baja de $150 MXN y el premio tiene menos de 14 días. Se revierten los días de ambos;
+ * si el anfitrión baja de 5 amigos pagados, también el bono de embajador.
+ */
+export async function planReferralClawback(
+  db: Db,
+  input: { stripeInvoiceId: string; remainingPaidCentavos: number; now: Date },
+): Promise<ReferralClawbackPlan | null> {
+  if (input.remainingPaidCentavos >= MIN_QUALIFYING_PAID_CENTAVOS) return null;
+  const [ref] = await db
+    .select()
+    .from(referralGrants)
+    .where(eq(referralGrants.qualifyingStripeInvoiceId, input.stripeInvoiceId));
+  if (!ref || ref.status !== "rewarded_bilateral") return null;
+  const rewardedAt = ref.rewardedAt ? new Date(ref.rewardedAt).getTime() : input.now.getTime();
+  if (input.now.getTime() - rewardedAt > REFERRAL_CLAWBACK_DAYS * DAY_MS) return null;
+
+  const grantIds = [ref.referrerGrantId, ref.referredGrantId].filter((id): id is string => Boolean(id));
+
+  let revokeAmbassador = false;
+  const [host] = await db.select().from(users).where(eq(users.id, ref.referrerUserId));
+  if (host?.isAmbassador) {
+    const [{ n } = { n: 0 }] = await db
+      .select({ n: count() })
+      .from(referralGrants)
+      .where(
+        and(
+          eq(referralGrants.referrerUserId, ref.referrerUserId),
+          eq(referralGrants.status, "rewarded_bilateral"),
+          ne(referralGrants.id, ref.id),
+        ),
+      );
+    if (Number(n) < AMBASSADOR_THRESHOLD) {
+      revokeAmbassador = true;
+      const bonus = await db
+        .select({ id: entitlementGrants.id })
+        .from(entitlementGrants)
+        .where(
+          and(
+            eq(entitlementGrants.userId, ref.referrerUserId),
+            eq(entitlementGrants.sourceKind, "ambassador_bonus_30d"),
+            isNull(entitlementGrants.revokedAt),
+          ),
+        );
+      grantIds.push(...bonus.map((b) => b.id));
+    }
+  }
+
+  const stripeShiftMs: Record<string, number> = {};
+  if (grantIds.length) {
+    const grants = await db
+      .select()
+      .from(entitlementGrants)
+      .where(and(inArray(entitlementGrants.id, grantIds), isNull(entitlementGrants.revokedAt)));
+    for (const g of grants) {
+      if (!g.appliedToStripeSubAt) continue;
+      stripeShiftMs[g.userId] = (stripeShiftMs[g.userId] ?? 0) + remainingGrantMs(g, input.now);
+    }
+  }
+
+  return {
+    referralId: ref.id,
+    hostUserId: ref.referrerUserId,
+    friendUserId: ref.referredUserId,
+    grantIds,
+    revokeAmbassador,
+    stripeShiftMs,
+  };
+}
+
+/** Aplica la reversión en la base (en una transacción). */
+export async function applyReferralClawback(db: Db, plan: ReferralClawbackPlan, now: Date): Promise<void> {
+  await db.transaction(async (tx) => {
+    const t = tx as unknown as Db;
+    for (const id of plan.grantIds) await revokeGrant(t, id, "reembolso del referido", now);
+    await t
+      .update(referralGrants)
+      .set({ status: "clawed_back", clawedBackAt: now })
+      .where(eq(referralGrants.id, plan.referralId));
+    if (plan.revokeAmbassador) {
+      await t.update(users).set({ isAmbassador: false }).where(eq(users.id, plan.hostUserId));
+    }
+  });
 }
