@@ -390,6 +390,7 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
   test("3. Valid PIN unlock, League Hub, Match Studio (5 picks + Cortex IA + Dinero), Bundesliga & Logout", async ({
     page,
   }, testInfo) => {
+    test.setTimeout(150_000);
     const uniqueIp = `192.0.${Math.floor(Math.random() * 200) + 10}.${Math.floor(Math.random() * 200) + 10}`;
     await page.setExtraHTTPHeaders({ "x-forwarded-for": uniqueIp });
 
@@ -519,6 +520,80 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     await page.waitForTimeout(400); // fin de la entrada suave del panel
     const socialA11y = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze();
     expect(socialA11y.violations).toEqual([]);
+
+    // CUENTA-2: Mi cuenta (/app/account), copiar enlace corto, voltear tarjeta por teclado,
+    // pestañas con flechas, Axe AA en las 4 pestañas en oscuro y claro, y redirección /i/JAIR-2611
+    await page.goto("/app/account");
+    await expect(page.getByRole("heading", { level: 1, name: "Mi cuenta" })).toBeVisible();
+
+    const copyBtn = page.locator("[data-copy-short-link]");
+    await copyBtn.click();
+    await expect(copyBtn).toHaveText("Copiado");
+
+    const flipBackBtn = page.getByRole("button", { name: "Reverso" });
+    await expect(flipBackBtn).toHaveAttribute("aria-pressed", "false");
+    const cardBtn = page.locator("[data-referrals-card]");
+    await cardBtn.focus();
+    await page.keyboard.press("Enter");
+    await expect(flipBackBtn).toHaveAttribute("aria-pressed", "true");
+
+    await page.waitForTimeout(400);
+    const accountReferralsDarkA11y = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa"])
+      .analyze();
+    expect(accountReferralsDarkA11y.violations).toEqual([]);
+
+    // Cambiar a Mi plan y a Preferencias con flechas
+    await page.locator("#pl-acct-tab-referrals").focus();
+    await page.keyboard.press("ArrowRight");
+    await expect(page.locator("#pl-acct-tab-plan")).toHaveAttribute("aria-selected", "true");
+    await expect(page).toHaveURL(/\?tab=plan/);
+    await page.waitForTimeout(400);
+    const accountPlanDarkA11y = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa"])
+      .analyze();
+    expect(accountPlanDarkA11y.violations).toEqual([]);
+
+    await page.locator("#pl-acct-tab-plan").focus();
+    await page.keyboard.press("ArrowRight");
+    await expect(page.locator("#pl-acct-tab-prefs")).toHaveAttribute("aria-selected", "true");
+    await expect(page).toHaveURL(/\?tab=prefs/);
+    await page.waitForTimeout(400);
+    const accountPrefsDarkA11y = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa"])
+      .analyze();
+    expect(accountPrefsDarkA11y.violations).toEqual([]);
+
+    await page.locator("#pl-acct-tab-prefs").focus();
+    await page.keyboard.press("ArrowRight");
+    await expect(page.locator("#pl-acct-tab-cfdi")).toHaveAttribute("aria-selected", "true");
+    await expect(page).toHaveURL(/\?tab=cfdi/);
+    await page.waitForTimeout(400);
+    const accountCfdiDarkA11y = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa"])
+      .analyze();
+    expect(accountCfdiDarkA11y.violations).toEqual([]);
+
+    // Verificar Axe AA en modo claro en las cuatro pestañas
+    await toggleClubTheme(page);
+    await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+    for (const tabKey of ["cfdi", "prefs", "plan", "referrals"] as const) {
+      await page.locator(`#pl-acct-tab-${tabKey}`).click();
+      await page.waitForTimeout(400);
+      const lightTabA11y = await new AxeBuilder({ page })
+        .withTags(["wcag2a", "wcag2aa"])
+        .analyze();
+      expect(lightTabA11y.violations, `Light Axe violations on account tab ${tabKey}`).toEqual([]);
+    }
+    await toggleClubTheme(page);
+    await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+
+    // Enlace corto /i/JAIR-2611 -> /pricing/referral?code=JAIR-2611
+    await page.goto("/i/JAIR-2611");
+    await expect(page).toHaveURL(/\/pricing\/referral\?code=JAIR-2611/);
+
+    // Volver al club para cerrar sesión
+    await page.goto("/app/account");
 
     // Cerrar sesión -> limpia cookie y redirige a /
     await page.locator("[data-profile-menu-trigger]:visible").first().click();

@@ -22,6 +22,14 @@ async function hasValidBetaCookie(request: NextRequest): Promise<boolean> {
  */
 export async function middleware(request: NextRequest): Promise<NextResponse> {
   const { pathname } = request.nextUrl;
+
+  // /i/* son invitaciones personales públicas: nunca piden sesión y siempre llevan noindex.
+  if (pathname.startsWith("/i/")) {
+    const res = NextResponse.next();
+    res.headers.set("X-Robots-Tag", "noindex, nofollow");
+    return res;
+  }
+
   if (pathname === "/app" || pathname.startsWith("/app/")) {
     const accountsOn = Boolean(process.env.DATABASE_URL && process.env.BETTER_AUTH_SECRET);
     const allowed =
@@ -31,10 +39,14 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
       loginUrl.searchParams.set("next", pathname);
       return NextResponse.redirect(loginUrl);
     }
+    const res = NextResponse.next();
+    res.headers.set("X-Robots-Tag", "noindex, nofollow");
+    return res;
   }
+
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/app", "/app/:path*"],
+  matcher: ["/app", "/app/:path*", "/i/:path*"],
 };

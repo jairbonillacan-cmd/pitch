@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { BrandLogo } from "../../primitives";
 import { UltraTag } from "../components/MaestroPrimitives";
+import { MEMBERSHIP_SPEC } from "../spacetime-catalog";
 
 const PL_ISOTYPE_PATH =
   "M8 8H42L56 22V32L44 44H28L40 32H42L44 30V26L38 20H8ZM8 30H32L20 42V56H8Z";
@@ -731,6 +732,9 @@ export interface ReferralCard3DProps {
   bottomLeftLabel?: string;
   expired?: boolean;
   initialFlipped?: boolean;
+  flipped?: boolean;
+  onFlipChange?: (flipped: boolean) => void;
+  asDecorativeChild?: boolean;
   themeOverride?: "dark" | "light";
   className?: string;
   ariaLabel?: string;
@@ -742,13 +746,25 @@ export function ReferralCard3D({
   bottomLeftLabel = "Pase Ultra",
   expired = false,
   initialFlipped = false,
+  flipped,
+  onFlipChange,
+  asDecorativeChild = false,
   themeOverride,
   className,
   ariaLabel,
 }: ReferralCard3DProps): React.JSX.Element {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const flipHandlerRef = useRef<(() => void) | null>(null);
+  const setFlippedFaceRef = useRef<((wantBack: boolean) => void) | null>(null);
+  const onFlipChangeRef = useRef(onFlipChange);
+  onFlipChangeRef.current = onFlipChange;
+  const initialFlippedRef = useRef(flipped ?? initialFlipped);
+  const suppressNextClickRef = useRef(false);
   const [webglUnsupported, setWebglUnsupported] = useState(false);
+  const [internalFlipped, setInternalFlipped] = useState<boolean>(
+    flipped ?? initialFlipped,
+  );
+  const effectiveFlipped = flipped ?? internalFlipped;
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -888,9 +904,12 @@ export function ReferralCard3D({
 
     let disposed = false;
     let inViewport = true;
-    const reducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
+    const motionMql = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let reducedMotion = motionMql.matches;
+    const onMotionChange = (ev: MediaQueryListEvent) => {
+      reducedMotion = ev.matches;
+    };
+    motionMql.addEventListener?.("change", onMotionChange);
 
     const readStageTheme = (): number => {
       const docTheme = document.documentElement.getAttribute("data-theme");
@@ -902,7 +921,7 @@ export function ReferralCard3D({
 
     let lightMode = readStageTheme();
 
-    const startBaseFlip = initialFlipped ? Math.PI : 0;
+    const startBaseFlip = initialFlippedRef.current ? Math.PI : 0;
     const pose = {
       yaw: reducedMotion
         ? startBaseFlip + REST_YAW
@@ -1095,14 +1114,33 @@ export function ReferralCard3D({
 
     flipHandlerRef.current = () => {
       const turns = Math.round(pose.baseFlip / Math.PI);
+      const nextTurns = turns + 1;
+      pose.baseFlip = nextTurns * Math.PI;
+      const isBack = Math.abs(nextTurns) % 2 === 1;
+      setInternalFlipped(isBack);
+      onFlipChangeRef.current?.(isBack);
+      wakeSpring();
+    };
+
+    setFlippedFaceRef.current = (wantBack: boolean) => {
+      const turns = Math.round(pose.baseFlip / Math.PI);
+      const curBack = Math.abs(turns) % 2 === 1;
+      if (curBack === wantBack) return;
       pose.baseFlip = (turns + 1) * Math.PI;
       wakeSpring();
     };
+
+    let downX = 0;
+    let downY = 0;
+    let maxTravel = 0;
 
     const onPointerDown = (e: PointerEvent) => {
       pose.dragging = true;
       pose.lastX = e.clientX;
       pose.lastY = e.clientY;
+      downX = e.clientX;
+      downY = e.clientY;
+      maxTravel = 0;
       try {
         canvas.setPointerCapture(e.pointerId);
       } catch (err) {
@@ -1125,6 +1163,8 @@ export function ReferralCard3D({
       pose.targetPointerY = ny;
 
       if (pose.dragging) {
+        const travel = Math.hypot(e.clientX - downX, e.clientY - downY);
+        if (travel > maxTravel) maxTravel = travel;
         const dx = e.clientX - pose.lastX;
         const dy = e.clientY - pose.lastY;
         pose.lastX = e.clientX;
@@ -1144,9 +1184,16 @@ export function ReferralCard3D({
     };
 
     const releasePointer = () => {
+      const wasDragging = pose.dragging;
       pose.dragging = false;
       const turns = Math.round(pose.baseFlip / Math.PI);
       pose.baseFlip = turns * Math.PI;
+      if (wasDragging && maxTravel > 6) {
+        suppressNextClickRef.current = true;
+        const isBack = Math.abs(turns) % 2 === 1;
+        setInternalFlipped(isBack);
+        onFlipChangeRef.current?.(isBack);
+      }
       pose.targetYaw = REST_YAW;
       pose.targetPitch = REST_PITCH;
       pose.targetRoll = REST_ROLL;
@@ -1160,8 +1207,16 @@ export function ReferralCard3D({
       if (!pose.dragging) releasePointer();
     };
 
-    const onDoubleClick = () => {
-      flipHandlerRef.current?.();
+    const onClick = (e: MouseEvent) => {
+      if (suppressNextClickRef.current) {
+        suppressNextClickRef.current = false;
+        e.stopPropagation();
+        e.preventDefault();
+        return;
+      }
+      if (!asDecorativeChild) {
+        flipHandlerRef.current?.();
+      }
     };
 
     const onResize = () => {
@@ -1181,7 +1236,7 @@ export function ReferralCard3D({
     canvas.addEventListener("pointerup", releasePointer);
     canvas.addEventListener("pointercancel", releasePointer);
     canvas.addEventListener("pointerleave", onPointerLeave);
-    canvas.addEventListener("dblclick", onDoubleClick);
+    canvas.addEventListener("click", onClick);
     window.addEventListener("resize", onResize);
     document.addEventListener("visibilitychange", onVisibility);
 
@@ -1219,6 +1274,8 @@ export function ReferralCard3D({
     return () => {
       disposed = true;
       flipHandlerRef.current = null;
+      setFlippedFaceRef.current = null;
+      motionMql.removeEventListener?.("change", onMotionChange);
       if (pose.rafId) window.cancelAnimationFrame(pose.rafId);
       io?.disconnect();
       mo.disconnect();
@@ -1227,7 +1284,7 @@ export function ReferralCard3D({
       canvas.removeEventListener("pointerup", releasePointer);
       canvas.removeEventListener("pointercancel", releasePointer);
       canvas.removeEventListener("pointerleave", onPointerLeave);
-      canvas.removeEventListener("dblclick", onDoubleClick);
+      canvas.removeEventListener("click", onClick);
       window.removeEventListener("resize", onResize);
       document.removeEventListener("visibilitychange", onVisibility);
       if (frontTex) gl.deleteTexture(frontTex);
@@ -1237,29 +1294,90 @@ export function ReferralCard3D({
       gl.deleteShader(vs);
       gl.deleteShader(fs);
     };
-  }, [code, tierLabel, bottomLeftLabel, expired, initialFlipped, themeOverride]);
+  }, [code, tierLabel, bottomLeftLabel, expired, initialFlipped, themeOverride, asDecorativeChild]);
+
+  useEffect(() => {
+    if (typeof flipped !== "boolean") return;
+    setInternalFlipped(flipped);
+    setFlippedFaceRef.current?.(flipped);
+  }, [flipped]);
 
   const computedAriaLabel =
     ariaLabel ?? `Pase PitchLab Ultra · Código de invitación ${code}`;
 
   if (webglUnsupported) {
+    const fallbackBody = effectiveFlipped ? (
+      <div className="pl-referral-card-fallback-inner pl-referral-card-fallback-inner--back">
+        <div
+          className="h-5 -mx-5 rounded-sm"
+          style={{ background: "rgba(255, 255, 255, 0.16)" }}
+          aria-hidden="true"
+        />
+        <div className="space-y-1">
+          <p className="m-0 text-[11px] opacity-80">
+            Pase PitchLab Ultra · Invitación personal
+          </p>
+          <p className="m-0 font-mono text-sm font-bold tracking-wider num">
+            {code}
+          </p>
+        </div>
+        <div className="flex items-end justify-between gap-3 text-xs opacity-80">
+          <span>pitchlab.mx</span>
+          <span>{tierLabel}</span>
+        </div>
+      </div>
+    ) : (
+      <div className="pl-referral-card-fallback-inner">
+        <div className="flex items-center justify-between gap-3">
+          <BrandLogo variant="horizontal" width={112} height={22} alt="" />
+          <UltraTag />
+        </div>
+        <div className="flex items-end justify-between gap-3 num text-xs">
+          <span>{bottomLeftLabel}</span>
+          <span className="font-mono font-semibold">{code}</span>
+        </div>
+      </div>
+    );
+
+    if (asDecorativeChild) {
+      return (
+        <div
+          className={`pl-referral-card-fallback ${className ?? ""}`.trim()}
+          aria-hidden="true"
+          data-card-fallback="true"
+          data-card-face={effectiveFlipped ? "back" : "front"}
+        >
+          {fallbackBody}
+        </div>
+      );
+    }
+
     return (
       <div
         className={`pl-referral-card-fallback ${className ?? ""}`.trim()}
         role="img"
         aria-label={computedAriaLabel}
+        data-card-fallback="true"
+        data-card-face={effectiveFlipped ? "back" : "front"}
+        onClick={() => {
+          const next = !effectiveFlipped;
+          setInternalFlipped(next);
+          onFlipChangeRef.current?.(next);
+        }}
       >
-        <div className="pl-referral-card-fallback-inner">
-          <div className="flex items-center justify-between gap-3">
-            <BrandLogo variant="horizontal" width={112} height={22} alt="" />
-            <UltraTag />
-          </div>
-          <div className="flex items-end justify-between gap-3 num text-xs">
-            <span>{bottomLeftLabel}</span>
-            <span className="font-mono font-semibold">{code}</span>
-          </div>
-        </div>
+        {fallbackBody}
       </div>
+    );
+  }
+
+  if (asDecorativeChild) {
+    return (
+      <canvas
+        ref={canvasRef}
+        className={`pl-referral-card-canvas ${className ?? ""}`.trim()}
+        aria-hidden="true"
+        data-card-face={effectiveFlipped ? "back" : "front"}
+      />
     );
   }
 
@@ -1270,6 +1388,7 @@ export function ReferralCard3D({
       role="img"
       tabIndex={0}
       aria-label={computedAriaLabel}
+      data-card-face={effectiveFlipped ? "back" : "front"}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
@@ -1278,4 +1397,294 @@ export function ReferralCard3D({
       }}
     />
   );
+}
+
+function drawRoundedRectPath(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  w: number,
+  h: number,
+  r: number,
+): void {
+  const rad = Math.min(r, w / 2, h / 2);
+  ctx.beginPath();
+  ctx.moveTo(x + rad, y);
+  ctx.arcTo(x + w, y, x + w, y + h, rad);
+  ctx.arcTo(x + w, y + h, x, y + h, rad);
+  ctx.arcTo(x, y + h, x, y, rad);
+  ctx.arcTo(x, y, x + w, y, rad);
+  ctx.closePath();
+}
+
+function tryRenderFrontCardWebGL(opts: {
+  code: string;
+  tierLabel: string;
+  bottomLeftLabel: string;
+}): HTMLCanvasElement | null {
+  if (typeof document === "undefined") return null;
+  const glCanvas = document.createElement("canvas");
+  glCanvas.width = 1000;
+  glCanvas.height = 660;
+  const gl = glCanvas.getContext("webgl", {
+    antialias: true,
+    alpha: true,
+    premultipliedAlpha: true,
+    preserveDrawingBuffer: true,
+  });
+  if (!gl) return null;
+
+  const compile = (type: number, src: string): WebGLShader | null => {
+    const sh = gl.createShader(type);
+    if (!sh) return null;
+    gl.shaderSource(sh, src);
+    gl.compileShader(sh);
+    if (!gl.getShaderParameter(sh, gl.COMPILE_STATUS)) {
+      gl.deleteShader(sh);
+      return null;
+    }
+    return sh;
+  };
+
+  const vs = compile(gl.VERTEX_SHADER, VS_SRC);
+  const fs = compile(gl.FRAGMENT_SHADER, FS_SRC);
+  const prog = gl.createProgram();
+  if (!vs || !fs || !prog) return null;
+
+  gl.attachShader(prog, vs);
+  gl.attachShader(prog, fs);
+  gl.linkProgram(prog);
+  if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return null;
+  gl.useProgram(prog);
+  gl.clearColor(0, 0, 0, 0);
+
+  const quadBuf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, quadBuf);
+  gl.bufferData(
+    gl.ARRAY_BUFFER,
+    new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]),
+    gl.STATIC_DRAW,
+  );
+  const aPos = gl.getAttribLocation(prog, "aPos");
+  gl.enableVertexAttribArray(aPos);
+  gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+
+  const upload = (unit: number, side: "front" | "back") => {
+    const tex = gl.createTexture();
+    gl.activeTexture(gl.TEXTURE0 + unit);
+    gl.bindTexture(gl.TEXTURE_2D, tex);
+    gl.texImage2D(
+      gl.TEXTURE_2D,
+      0,
+      gl.RGBA,
+      gl.RGBA,
+      gl.UNSIGNED_BYTE,
+      createCardPOTCanvas(side, 2048, opts),
+    );
+    gl.generateMipmap(gl.TEXTURE_2D);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    return tex;
+  };
+
+  const fTex = upload(0, "front");
+  const bTex = upload(1, "back");
+  gl.uniform1i(gl.getUniformLocation(prog, "uFrontTex"), 0);
+  gl.uniform1i(gl.getUniformLocation(prog, "uBackTex"), 1);
+  gl.viewport(0, 0, glCanvas.width, glCanvas.height);
+  gl.clear(gl.COLOR_BUFFER_BIT);
+  gl.uniform2f(gl.getUniformLocation(prog, "uRes"), glCanvas.width, glCanvas.height);
+  gl.uniformMatrix3fv(
+    gl.getUniformLocation(prog, "uCardRot"),
+    false,
+    buildWorldToLocalMatrix(REST_YAW * 0.55, REST_PITCH * 0.65, REST_ROLL * 0.5),
+  );
+  gl.uniform2f(gl.getUniformLocation(prog, "uPointer"), 0.18, -0.14);
+  gl.uniform1f(gl.getUniformLocation(prog, "uCardLift"), 0.02);
+  gl.uniform1f(gl.getUniformLocation(prog, "uPrismMotion"), 0.62);
+  gl.uniform1f(gl.getUniformLocation(prog, "uIntroSweep"), 2.0);
+  gl.uniform1f(gl.getUniformLocation(prog, "uIntroGlow"), 0.0);
+  gl.uniform1f(gl.getUniformLocation(prog, "uLightMode"), 0.0);
+  gl.uniform1f(gl.getUniformLocation(prog, "uExpired"), 0.0);
+  gl.drawArrays(gl.TRIANGLES, 0, 6);
+  gl.finish();
+
+  const out = document.createElement("canvas");
+  out.width = glCanvas.width;
+  out.height = glCanvas.height;
+  const outCtx = out.getContext("2d");
+  outCtx?.drawImage(glCanvas, 0, 0);
+
+  if (fTex) gl.deleteTexture(fTex);
+  if (bTex) gl.deleteTexture(bTex);
+  if (quadBuf) gl.deleteBuffer(quadBuf);
+  gl.deleteProgram(prog);
+  gl.deleteShader(vs);
+  gl.deleteShader(fs);
+  gl.getExtension("WEBGL_lose_context")?.loseContext();
+  return out;
+}
+
+/** Genera un lienzo PNG de 1080 × 1350 para historias desde la textura frontal (o su respaldo 2D sin WebGL). */
+export function renderReferralStoryCanvas(opts: {
+  code: string;
+  bottomLeftLabel: string;
+  tierLabel?: string;
+}): HTMLCanvasElement {
+  const W = 1080;
+  const H = 1350;
+  const tierLabel = opts.tierLabel ?? "ULTRA";
+  const normalizedCode = opts.code.trim().toUpperCase();
+  const canvas = document.createElement("canvas");
+  canvas.width = W;
+  canvas.height = H;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return canvas;
+
+  const sysFont =
+    'InterVariable, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+  const monoFont = "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace";
+
+  ctx.fillStyle = "rgb(7, 6, 11)";
+  ctx.fillRect(0, 0, W, H);
+
+  const g1 = ctx.createRadialGradient(260, 220, 20, 260, 220, 620);
+  g1.addColorStop(0, "rgba(124, 92, 246, 0.34)");
+  g1.addColorStop(1, "rgba(124, 92, 246, 0)");
+  ctx.fillStyle = g1;
+  ctx.fillRect(0, 0, W, H);
+
+  const g2 = ctx.createRadialGradient(880, 560, 20, 880, 560, 560);
+  g2.addColorStop(0, "rgba(190, 50, 90, 0.22)");
+  g2.addColorStop(1, "rgba(190, 50, 90, 0)");
+  ctx.fillStyle = g2;
+  ctx.fillRect(0, 0, W, H);
+
+  drawPitchLabHorizontal(ctx, 84, 88, 0.92, "rgb(255, 255, 255)");
+
+  ctx.fillStyle = "rgb(196, 181, 253)";
+  ctx.font = `700 26px ${sysFont}`;
+  ctx.textAlign = "left";
+  ctx.textBaseline = "alphabetic";
+  ctx.fillText(`${opts.bottomLeftLabel} te invita a PitchLab`, 84, 214);
+
+  const glCard = tryRenderFrontCardWebGL({
+    code: normalizedCode,
+    tierLabel,
+    bottomLeftLabel: opts.bottomLeftLabel,
+  });
+
+  if (glCard) {
+    ctx.drawImage(glCard, 40, 265, 1000, 660);
+  } else {
+    const cx = 100;
+    const cy = 320;
+    const cw = 880;
+    const ch = 555;
+    drawRoundedRectPath(ctx, cx, cy, cw, ch, 38);
+    const plateGrad = ctx.createLinearGradient(cx, cy, cx + cw, cy + ch);
+    plateGrad.addColorStop(0, "rgb(38, 41, 56)");
+    plateGrad.addColorStop(0.5, "rgb(20, 22, 33)");
+    plateGrad.addColorStop(1, "rgb(12, 14, 22)");
+    ctx.fillStyle = plateGrad;
+    ctx.fill();
+
+    const rimGrad = ctx.createLinearGradient(cx, cy, cx + cw, cy + ch);
+    rimGrad.addColorStop(0, "rgba(180, 154, 255, 0.85)");
+    rimGrad.addColorStop(0.5, "rgba(113, 201, 241, 0.55)");
+    rimGrad.addColorStop(1, "rgba(255, 155, 170, 0.7)");
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = rimGrad;
+    ctx.stroke();
+
+    drawPitchLabHorizontal(ctx, cx + 48, cy + 44, 0.86, "rgb(243, 245, 253)");
+
+    ctx.fillStyle = "rgb(196, 181, 253)";
+    ctx.font = `800 26px ${sysFont}`;
+    ctx.textAlign = "right";
+    ctx.textBaseline = "middle";
+    ctx.fillText(tierLabel, cx + cw - 48, cy + 68);
+
+    ctx.save();
+    ctx.translate(cx + cw / 2 - 84, cy + ch / 2 - 84);
+    ctx.scale(2.6, 2.6);
+    ctx.fillStyle = "rgba(180, 154, 255, 0.16)";
+    ctx.fill(new Path2D(PL_ISOTYPE_PATH));
+    ctx.restore();
+
+    ctx.textAlign = "left";
+    ctx.textBaseline = "alphabetic";
+    ctx.fillStyle = "rgb(243, 245, 253)";
+    ctx.font = `600 30px ${sysFont}`;
+    ctx.fillText(opts.bottomLeftLabel, cx + 48, cy + ch - 48);
+
+    ctx.textAlign = "right";
+    ctx.font = `700 28px ${monoFont}`;
+    ctx.fillText(normalizedCode, cx + cw - 48, cy + ch - 48);
+  }
+
+  ctx.textAlign = "left";
+  ctx.textBaseline = "alphabetic";
+  ctx.fillStyle = "rgb(255, 255, 255)";
+  ctx.font = `800 46px ${sysFont}`;
+  ctx.fillText(
+    `${MEMBERSHIP_SPEC.referralTrialDays} días sin costo · $${MEMBERSHIP_SPEC.referralFriendFirstMonthMxn} MXN tu 1.er mes`,
+    84,
+    1020,
+  );
+
+  ctx.fillStyle = "rgb(212, 212, 220)";
+  ctx.font = `500 28px ${sysFont}`;
+  ctx.fillText(
+    `Cuando pagas tu primer mes, los dos reciben +${MEMBERSHIP_SPEC.referralBothRewardDays} días.`,
+    84,
+    1080,
+  );
+
+  drawRoundedRectPath(ctx, 84, 1146, W - 168, 96, 24);
+  ctx.fillStyle = "rgba(255, 255, 255, 0.08)";
+  ctx.fill();
+  ctx.lineWidth = 1.5;
+  ctx.strokeStyle = "rgba(255, 255, 255, 0.18)";
+  ctx.stroke();
+
+  ctx.fillStyle = "rgb(255, 255, 255)";
+  ctx.font = `700 32px ${monoFont}`;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText(`pitchlab.mx/i/${normalizedCode}`, W / 2, 1194);
+
+  return canvas;
+}
+
+export async function downloadReferralStoryPng(opts: {
+  code: string;
+  bottomLeftLabel: string;
+  tierLabel?: string;
+}): Promise<{ width: number; height: number; filename: string }> {
+  const normalizedCode = opts.code.trim().toUpperCase();
+  const filename = `pitchlab-invitacion-${normalizedCode.toLowerCase()}.png`;
+  const canvas = renderReferralStoryCanvas({ ...opts, code: normalizedCode });
+  const blob = await new Promise<Blob | null>((resolve) => {
+    if (typeof canvas.toBlob === "function") {
+      canvas.toBlob((b) => resolve(b), "image/png");
+    } else {
+      resolve(null);
+    }
+  });
+
+  const href = blob ? URL.createObjectURL(blob) : canvas.toDataURL("image/png");
+  const anchor = document.createElement("a");
+  anchor.href = href;
+  anchor.download = filename;
+  anchor.rel = "noopener";
+  document.body.appendChild(anchor);
+  anchor.click();
+  anchor.remove();
+  if (blob) {
+    window.setTimeout(() => URL.revokeObjectURL(href), 2000);
+  }
+  return { width: canvas.width, height: canvas.height, filename };
 }

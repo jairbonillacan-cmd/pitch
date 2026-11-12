@@ -34,6 +34,7 @@
 @import "./pitchlab-v4.css" layer(components);
 @import "./community-v2.css" layer(components);
 @import "./community-social.css" layer(components);
+@import "./account-v2.css" layer(components);
 
 @source "../../../packages/ui/src";
 @source "../../../packages/ui/node_modules/@heroui/react/dist";

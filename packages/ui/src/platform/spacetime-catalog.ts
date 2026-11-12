@@ -193,12 +193,30 @@ export const MEMBERSHIP_SPEC = {
   annualSavingsPct: 33,
   trialMonth1Label: "7 días gratis sin tarjeta (Mes 1 de lanzamiento)",
   trialMonth2Label: "7 días gratis con verificación $0 MXN",
+  referralTrialDays: 7,
+  referralFriendFirstMonthMxn: 209,
   referralFriendBenefit: "7 días gratis + 30 % de descuento en su primer mes ($209 MXN)",
   referralBothRewardDays: 15,
   referralAmbassadorThreshold: 5,
   referralAmbassadorBonusDays: 30,
   cfdiNote: "IVA incluido · Factura CFDI 4.0 automática en segundos",
 } as const;
+
+/** Días acumulados por invitar amigos que pagaron su primer mes. */
+export function referralEarnedDays(paidFriends: number): number {
+  const count = Math.max(0, Math.floor(Number.isFinite(paidFriends) ? paidFriends : 0));
+  const base = count * MEMBERSHIP_SPEC.referralBothRewardDays;
+  const bonus =
+    count >= MEMBERSHIP_SPEC.referralAmbassadorThreshold
+      ? MEMBERSHIP_SPEC.referralAmbassadorBonusDays
+      : 0;
+  return base + bonus;
+}
+
+/** Ahorro anual en pesos al elegir el ciclo anual frente a 12 meses sueltos. */
+export function annualSavingsMxn(): number {
+  return MEMBERSHIP_SPEC.monthlyMxn * 12 - MEMBERSHIP_SPEC.annualMxn;
+}
 
 export const SPACETIME_VS_TIPSTER_ROWS: readonly SpacetimeVsTipsterRow[] = [
   {
