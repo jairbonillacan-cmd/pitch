@@ -5,7 +5,7 @@
  * reglas que necesitan la base: límite por hora, texto repetido, récord verificado del autor
  * (se calcula de su bitácora sellada, nunca lo manda el navegador) y quién puede borrar qué.
  */
-import { and, asc, desc, eq, gte, inArray, isNotNull, isNull, lt, ne, sql } from "drizzle-orm";
+import { and, asc, desc, eq, gte, inArray, isNotNull, isNull, lt, ne, or, sql } from "drizzle-orm";
 import type { Db } from "./billing";
 import {
   notifications,
@@ -13,7 +13,9 @@ import {
   socialComments,
   socialFollows,
   socialLikes,
+  socialModerationLogs,
   socialPosts,
+  socialReports,
   tipstarProfiles,
   users,
 } from "./schema";
@@ -24,9 +26,24 @@ export const SOCIAL_LIMITS = {
   commentMax: 400,
   postsPerHour: 10,
   commentsPerHour: 60,
+  reportsPerHour: 10,
+  autoHideReportThreshold: 3,
   feedPageMax: 50,
   commentsPerPost: 30,
 } as const;
+
+export const SOCIAL_REPORT_REASONS = [
+  "spam_enlaces",
+  "ofensivo",
+  "apuesta_riesgosa",
+  "otro",
+] as const;
+
+export type SocialReportReason = (typeof SOCIAL_REPORT_REASONS)[number];
+
+export function isSocialReportReason(value: unknown): value is SocialReportReason {
+  return typeof value === "string" && (SOCIAL_REPORT_REASONS as readonly string[]).includes(value);
+}
 
 /** Pick adjunto a una publicación, como lo ve quien la lee. */
 export interface SocialPickSnapshot {
@@ -57,6 +74,7 @@ export interface FeedComment {
   record: string;
   body: string;
   createdAt: string;
+  isMine: boolean;
 }
 
 export interface FeedPost {
@@ -133,7 +151,7 @@ async function isTipstar(db: Db, userId: string): Promise<boolean> {
 
 export type CreatePostResult =
   | { ok: true; id: string }
-  | { ok: false; reason: "limite" | "repetido" | "sin_usuario" };
+  | { ok: false; reason: "limite" | "repetido" | "sin_usuario" | "pausado" };
 
 export async function createSocialPost(
   db: Db,
@@ -141,8 +159,12 @@ export async function createSocialPost(
   input: NewSocialPost,
   now: Date,
 ): Promise<CreatePostResult> {
-  const [author] = await db.select({ handle: users.handle }).from(users).where(eq(users.id, userId));
+  const [author] = await db
+    .select({ handle: users.handle, socialPauseEnabled: users.socialPauseEnabled })
+    .from(users)
+    .where(eq(users.id, userId));
   if (!author?.handle) return { ok: false, reason: "sin_usuario" };
+  if (author.socialPauseEnabled) return { ok: false, reason: "pausado" };
 
   const recent = await db
     .select({ body: socialPosts.body, createdAt: socialPosts.createdAt })
@@ -183,7 +205,7 @@ export async function createSocialPost(
 
 export type AddCommentResult =
   | { ok: true; comment: FeedComment }
-  | { ok: false; reason: "no_existe" | "limite" | "sin_usuario" };
+  | { ok: false; reason: "no_existe" | "limite" | "sin_usuario" | "pausado" };
 
 export async function addSocialComment(
   db: Db,
@@ -193,10 +215,11 @@ export async function addSocialComment(
   now: Date,
 ): Promise<AddCommentResult> {
   const [author] = await db
-    .select({ handle: users.handle, displayName: users.displayName })
+    .select({ handle: users.handle, displayName: users.displayName, socialPauseEnabled: users.socialPauseEnabled })
     .from(users)
     .where(eq(users.id, userId));
   if (!author?.handle) return { ok: false, reason: "sin_usuario" };
+  if (author.socialPauseEnabled) return { ok: false, reason: "pausado" };
   const [post] = await db
     .select({ id: socialPosts.id, authorUserId: socialPosts.authorUserId })
     .from(socialPosts)
@@ -235,6 +258,7 @@ export async function addSocialComment(
       record,
       body: body.trim(),
       createdAt: row!.createdAt.toISOString(),
+      isMine: true,
     },
   };
 }
@@ -346,7 +370,10 @@ export interface FeedQuery {
 
 export async function listSocialFeed(db: Db, viewerUserId: string | null, query: FeedQuery = {}): Promise<FeedPost[]> {
   const limit = Math.min(Math.max(query.limit ?? 30, 1), SOCIAL_LIMITS.feedPageMax);
-  const conditions = [eq(socialPosts.isHiddenByModeration, false), isNotNull(users.handle)];
+  const notPausedForViewer = viewerUserId
+    ? or(eq(users.socialPauseEnabled, false), eq(users.id, viewerUserId))!
+    : eq(users.socialPauseEnabled, false);
+  const conditions = [eq(socialPosts.isHiddenByModeration, false), isNotNull(users.handle), notPausedForViewer];
   if (query.postId) conditions.push(eq(socialPosts.id, query.postId));
   if (query.before) conditions.push(lt(socialPosts.createdAt, query.before));
   if (query.authorHandle) conditions.push(eq(users.handle, query.authorHandle.toLowerCase()));
@@ -403,6 +430,7 @@ export async function listSocialFeed(db: Db, viewerUserId: string | null, query:
       .select({
         id: socialComments.id,
         postId: socialComments.postId,
+        authorUserId: socialComments.authorUserId,
         authorHandle: users.handle,
         authorName: users.displayName,
         record: socialComments.authorRecordSnapshot,
@@ -416,6 +444,7 @@ export async function listSocialFeed(db: Db, viewerUserId: string | null, query:
           inArray(socialComments.postId, ids),
           eq(socialComments.isHiddenByModeration, false),
           isNotNull(users.handle),
+          notPausedForViewer,
         ),
       )
       .orderBy(asc(socialComments.createdAt)),
@@ -432,6 +461,7 @@ export async function listSocialFeed(db: Db, viewerUserId: string | null, query:
         record: c.record,
         body: c.body,
         createdAt: c.createdAt.toISOString(),
+        isMine: viewerUserId !== null && c.authorUserId === viewerUserId,
       });
     }
     byPost.set(c.postId, list);
@@ -633,4 +663,459 @@ export async function followCounts(db: Db, userId: string): Promise<{ followers:
     .from(users)
     .where(eq(users.id, userId));
   return { followers: row?.followers ?? 0, following: row?.following ?? 0 };
+}
+
+export type ReportSocialResult =
+  | { ok: true; id: string; autoHidden: boolean }
+  | {
+      ok: false;
+      reason: "motivo_invalido" | "no_existe" | "propio_reporte" | "ya_reportado" | "limite" | "sin_usuario";
+    };
+
+/**
+ * Reporta una publicación o comentario ajeno. Un socio no puede reportar dos veces lo mismo,
+ * tiene límite por hora y, al llegar a 3 reportes de personas distintas, el contenido se oculta
+ * solo mientras el equipo fundador lo revisa.
+ */
+export async function reportSocialContent(
+  db: Db,
+  reporterUserId: string,
+  input: { postId?: string | null; commentId?: string | null; reason: unknown },
+  now: Date = new Date(),
+): Promise<ReportSocialResult> {
+  if (!isSocialReportReason(input.reason)) {
+    return { ok: false, reason: "motivo_invalido" };
+  }
+  const postId = typeof input.postId === "string" && UUID_PATTERN.test(input.postId.trim()) ? input.postId.trim() : null;
+  const commentId =
+    typeof input.commentId === "string" && UUID_PATTERN.test(input.commentId.trim()) ? input.commentId.trim() : null;
+  if ((postId === null) === (commentId === null)) {
+    return { ok: false, reason: "no_existe" };
+  }
+
+  const [reporter] = await db.select({ handle: users.handle }).from(users).where(eq(users.id, reporterUserId));
+  if (!reporter?.handle) return { ok: false, reason: "sin_usuario" };
+
+  let targetAuthorId: string;
+  let targetAlreadyHidden: boolean;
+  if (postId) {
+    const [post] = await db
+      .select({ authorUserId: socialPosts.authorUserId, hidden: socialPosts.isHiddenByModeration })
+      .from(socialPosts)
+      .where(eq(socialPosts.id, postId));
+    if (!post) return { ok: false, reason: "no_existe" };
+    targetAuthorId = post.authorUserId;
+    targetAlreadyHidden = post.hidden;
+  } else {
+    const [comment] = await db
+      .select({ authorUserId: socialComments.authorUserId, hidden: socialComments.isHiddenByModeration })
+      .from(socialComments)
+      .where(eq(socialComments.id, commentId!));
+    if (!comment) return { ok: false, reason: "no_existe" };
+    targetAuthorId = comment.authorUserId;
+    targetAlreadyHidden = comment.hidden;
+  }
+
+  if (targetAuthorId === reporterUserId) {
+    return { ok: false, reason: "propio_reporte" };
+  }
+
+  const targetMatch = postId ? eq(socialReports.postId, postId) : eq(socialReports.commentId, commentId!);
+  const existing = await db
+    .select({ id: socialReports.id })
+    .from(socialReports)
+    .where(and(eq(socialReports.reporterUserId, reporterUserId), targetMatch))
+    .limit(1);
+  if (existing.length > 0) {
+    return { ok: false, reason: "ya_reportado" };
+  }
+
+  const [{ recentCount }] = await db
+    .select({ recentCount: sql<number>`count(*)::int` })
+    .from(socialReports)
+    .where(and(eq(socialReports.reporterUserId, reporterUserId), gte(socialReports.createdAt, new Date(now.getTime() - HOUR))));
+  if (recentCount >= SOCIAL_LIMITS.reportsPerHour) {
+    return { ok: false, reason: "limite" };
+  }
+
+  const inserted = await db
+    .insert(socialReports)
+    .values({
+      reporterUserId,
+      postId,
+      commentId,
+      reason: input.reason,
+      status: "pending",
+      createdAt: now,
+    })
+    .onConflictDoNothing()
+    .returning({ id: socialReports.id });
+  if (inserted.length === 0) {
+    return { ok: false, reason: "ya_reportado" };
+  }
+
+  const [{ reporterCount }] = await db
+    .select({ reporterCount: sql<number>`count(distinct ${socialReports.reporterUserId})::int` })
+    .from(socialReports)
+    .where(and(eq(socialReports.status, "pending"), targetMatch));
+
+  let autoHidden = false;
+  if (reporterCount >= SOCIAL_LIMITS.autoHideReportThreshold && !targetAlreadyHidden) {
+    if (postId) {
+      await db.update(socialPosts).set({ isHiddenByModeration: true }).where(eq(socialPosts.id, postId));
+    } else {
+      await db.update(socialComments).set({ isHiddenByModeration: true }).where(eq(socialComments.id, commentId!));
+    }
+    await db.insert(socialModerationLogs).values({
+      userId: targetAuthorId,
+      reason: `auto_ocultar:${postId ? `post:${postId}` : `comment:${commentId}`}:${reporterCount}_reportes`,
+      createdAt: now,
+    });
+    autoHidden = true;
+  }
+
+  return { ok: true, id: inserted[0]!.id, autoHidden };
+}
+
+export interface ModerationQueueItem {
+  targetType: "post" | "comment";
+  targetId: string;
+  postId: string;
+  body: string;
+  isHiddenByModeration: boolean;
+  authorUserId: string;
+  authorHandle: string;
+  authorName: string;
+  authorPaused: boolean;
+  reportCount: number;
+  reasons: SocialReportReason[];
+  latestReportAt: string;
+}
+
+export interface ModerationHiddenItem {
+  targetType: "post" | "comment";
+  targetId: string;
+  postId: string;
+  body: string;
+  authorUserId: string;
+  authorHandle: string;
+  authorName: string;
+  authorPaused: boolean;
+  createdAt: string;
+}
+
+export interface PausedSocialMember {
+  userId: string;
+  handle: string | null;
+  displayName: string;
+  email: string;
+}
+
+export interface ModerationPanelData {
+  pendingQueue: ModerationQueueItem[];
+  hiddenItems: ModerationHiddenItem[];
+  pausedMembers: PausedSocialMember[];
+}
+
+/** Cola de reportes pendientes, contenido oculto y socios pausados para `/app/admin`. */
+export async function listModerationPanelData(db: Db): Promise<ModerationPanelData> {
+  const pendingRows = await db
+    .select({
+      postId: socialReports.postId,
+      commentId: socialReports.commentId,
+      reason: socialReports.reason,
+      reporterUserId: socialReports.reporterUserId,
+      createdAt: socialReports.createdAt,
+    })
+    .from(socialReports)
+    .where(eq(socialReports.status, "pending"))
+    .orderBy(desc(socialReports.createdAt))
+    .limit(250);
+
+  type Bucket = {
+    targetType: "post" | "comment";
+    targetId: string;
+    reporters: Set<string>;
+    reasons: Set<SocialReportReason>;
+    latestReportAt: Date;
+  };
+  const buckets = new Map<string, Bucket>();
+  for (const r of pendingRows) {
+    const targetType: "post" | "comment" = r.postId ? "post" : "comment";
+    const targetId = (r.postId ?? r.commentId)!;
+    const key = `${targetType}:${targetId}`;
+    let b = buckets.get(key);
+    if (!b) {
+      b = {
+        targetType,
+        targetId,
+        reporters: new Set(),
+        reasons: new Set(),
+        latestReportAt: r.createdAt,
+      };
+      buckets.set(key, b);
+    }
+    b.reporters.add(r.reporterUserId);
+    if (isSocialReportReason(r.reason)) b.reasons.add(r.reason);
+    if (r.createdAt > b.latestReportAt) b.latestReportAt = r.createdAt;
+  }
+
+  const pendingPostIds = [...buckets.values()].filter((b) => b.targetType === "post").map((b) => b.targetId);
+  const pendingCommentIds = [...buckets.values()].filter((b) => b.targetType === "comment").map((b) => b.targetId);
+
+  const [postTargets, commentTargets, hiddenPosts, hiddenComments, pausedRows] = await Promise.all([
+    pendingPostIds.length > 0
+      ? db
+          .select({
+            id: socialPosts.id,
+            body: socialPosts.body,
+            hidden: socialPosts.isHiddenByModeration,
+            authorUserId: users.id,
+            authorHandle: users.handle,
+            authorName: users.displayName,
+            authorPaused: users.socialPauseEnabled,
+          })
+          .from(socialPosts)
+          .innerJoin(users, eq(users.id, socialPosts.authorUserId))
+          .where(inArray(socialPosts.id, pendingPostIds))
+      : Promise.resolve([]),
+    pendingCommentIds.length > 0
+      ? db
+          .select({
+            id: socialComments.id,
+            postId: socialComments.postId,
+            body: socialComments.body,
+            hidden: socialComments.isHiddenByModeration,
+            authorUserId: users.id,
+            authorHandle: users.handle,
+            authorName: users.displayName,
+            authorPaused: users.socialPauseEnabled,
+          })
+          .from(socialComments)
+          .innerJoin(users, eq(users.id, socialComments.authorUserId))
+          .where(inArray(socialComments.id, pendingCommentIds))
+      : Promise.resolve([]),
+    db
+      .select({
+        id: socialPosts.id,
+        body: socialPosts.body,
+        createdAt: socialPosts.createdAt,
+        authorUserId: users.id,
+        authorHandle: users.handle,
+        authorName: users.displayName,
+        authorPaused: users.socialPauseEnabled,
+      })
+      .from(socialPosts)
+      .innerJoin(users, eq(users.id, socialPosts.authorUserId))
+      .where(eq(socialPosts.isHiddenByModeration, true))
+      .orderBy(desc(socialPosts.createdAt))
+      .limit(20),
+    db
+      .select({
+        id: socialComments.id,
+        postId: socialComments.postId,
+        body: socialComments.body,
+        createdAt: socialComments.createdAt,
+        authorUserId: users.id,
+        authorHandle: users.handle,
+        authorName: users.displayName,
+        authorPaused: users.socialPauseEnabled,
+      })
+      .from(socialComments)
+      .innerJoin(users, eq(users.id, socialComments.authorUserId))
+      .where(eq(socialComments.isHiddenByModeration, true))
+      .orderBy(desc(socialComments.createdAt))
+      .limit(20),
+    db
+      .select({
+        userId: users.id,
+        handle: users.handle,
+        displayName: users.displayName,
+        email: users.email,
+      })
+      .from(users)
+      .where(eq(users.socialPauseEnabled, true))
+      .orderBy(asc(users.email)),
+  ]);
+
+  const postMap = new Map(postTargets.map((p) => [p.id, p]));
+  const commentMap = new Map(commentTargets.map((c) => [c.id, c]));
+
+  const pendingQueue: ModerationQueueItem[] = [];
+  for (const b of buckets.values()) {
+    if (b.targetType === "post") {
+      const p = postMap.get(b.targetId);
+      if (!p) continue;
+      pendingQueue.push({
+        targetType: "post",
+        targetId: p.id,
+        postId: p.id,
+        body: p.body,
+        isHiddenByModeration: p.hidden,
+        authorUserId: p.authorUserId,
+        authorHandle: p.authorHandle ?? "socio",
+        authorName: p.authorName ?? p.authorHandle ?? "Socio",
+        authorPaused: p.authorPaused,
+        reportCount: b.reporters.size,
+        reasons: [...b.reasons],
+        latestReportAt: b.latestReportAt.toISOString(),
+      });
+    } else {
+      const c = commentMap.get(b.targetId);
+      if (!c) continue;
+      pendingQueue.push({
+        targetType: "comment",
+        targetId: c.id,
+        postId: c.postId,
+        body: c.body,
+        isHiddenByModeration: c.hidden,
+        authorUserId: c.authorUserId,
+        authorHandle: c.authorHandle ?? "socio",
+        authorName: c.authorName ?? c.authorHandle ?? "Socio",
+        authorPaused: c.authorPaused,
+        reportCount: b.reporters.size,
+        reasons: [...b.reasons],
+        latestReportAt: b.latestReportAt.toISOString(),
+      });
+    }
+  }
+
+  pendingQueue.sort((a, b) => b.reportCount - a.reportCount || b.latestReportAt.localeCompare(a.latestReportAt));
+
+  const pendingKeys = new Set(pendingQueue.map((item) => `${item.targetType}:${item.targetId}`));
+  const hiddenItems: ModerationHiddenItem[] = [
+    ...hiddenPosts
+      .filter((p) => !pendingKeys.has(`post:${p.id}`))
+      .map((p) => ({
+        targetType: "post" as const,
+        targetId: p.id,
+        postId: p.id,
+        body: p.body,
+        authorUserId: p.authorUserId,
+        authorHandle: p.authorHandle ?? "socio",
+        authorName: p.authorName ?? p.authorHandle ?? "Socio",
+        authorPaused: p.authorPaused,
+        createdAt: p.createdAt.toISOString(),
+      })),
+    ...hiddenComments
+      .filter((c) => !pendingKeys.has(`comment:${c.id}`))
+      .map((c) => ({
+        targetType: "comment" as const,
+        targetId: c.id,
+        postId: c.postId,
+        body: c.body,
+        authorUserId: c.authorUserId,
+        authorHandle: c.authorHandle ?? "socio",
+        authorName: c.authorName ?? c.authorHandle ?? "Socio",
+        authorPaused: c.authorPaused,
+        createdAt: c.createdAt.toISOString(),
+      })),
+  ]
+    .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+    .slice(0, 15);
+
+  const pausedMembers: PausedSocialMember[] = pausedRows.map((u) => ({
+    userId: u.userId,
+    handle: u.handle,
+    displayName: u.displayName ?? (u.handle ? `@${u.handle}` : u.email),
+    email: u.email,
+  }));
+
+  return { pendingQueue, hiddenItems, pausedMembers };
+}
+
+export const MODERATION_ACTIONS = ["hide", "restore", "dismiss", "pause_user", "unpause_user"] as const;
+export type ModerationActionKind = (typeof MODERATION_ACTIONS)[number];
+
+export interface ModerationActionInput {
+  action: ModerationActionKind;
+  targetType?: "post" | "comment";
+  targetId?: string;
+  targetUserId?: string;
+}
+
+export type ModerationActionResult =
+  | { ok: true }
+  | { ok: false; reason: "accion_invalida" | "no_existe" };
+
+/** Ejecuta una acción del panel de moderación y la registra en `social_moderation_logs`. */
+export async function applyModerationAction(
+  db: Db,
+  adminUserId: string,
+  input: ModerationActionInput,
+  now: Date = new Date(),
+): Promise<ModerationActionResult> {
+  if (!(MODERATION_ACTIONS as readonly string[]).includes(input.action)) {
+    return { ok: false, reason: "accion_invalida" };
+  }
+
+  if (input.action === "pause_user" || input.action === "unpause_user") {
+    const targetUserId =
+      typeof input.targetUserId === "string" && UUID_PATTERN.test(input.targetUserId.trim())
+        ? input.targetUserId.trim()
+        : null;
+    if (!targetUserId) return { ok: false, reason: "accion_invalida" };
+    const updated = await db
+      .update(users)
+      .set({ socialPauseEnabled: input.action === "pause_user" })
+      .where(eq(users.id, targetUserId))
+      .returning({ id: users.id });
+    if (updated.length === 0) return { ok: false, reason: "no_existe" };
+    await db.insert(socialModerationLogs).values({
+      userId: targetUserId,
+      reason: `admin:${adminUserId}:${input.action === "pause_user" ? "pausar_socio" : "reactivar_socio"}`,
+      createdAt: now,
+    });
+    return { ok: true };
+  }
+
+  const targetType = input.targetType === "post" || input.targetType === "comment" ? input.targetType : null;
+  const targetId =
+    typeof input.targetId === "string" && UUID_PATTERN.test(input.targetId.trim()) ? input.targetId.trim() : null;
+  if (!targetType || !targetId) {
+    return { ok: false, reason: "accion_invalida" };
+  }
+
+  let authorUserId: string;
+  if (targetType === "post") {
+    const [post] = await db
+      .select({ authorUserId: socialPosts.authorUserId })
+      .from(socialPosts)
+      .where(eq(socialPosts.id, targetId));
+    if (!post) return { ok: false, reason: "no_existe" };
+    authorUserId = post.authorUserId;
+    if (input.action === "hide") {
+      await db.update(socialPosts).set({ isHiddenByModeration: true }).where(eq(socialPosts.id, targetId));
+    } else if (input.action === "restore") {
+      await db.update(socialPosts).set({ isHiddenByModeration: false }).where(eq(socialPosts.id, targetId));
+    }
+  } else {
+    const [comment] = await db
+      .select({ authorUserId: socialComments.authorUserId })
+      .from(socialComments)
+      .where(eq(socialComments.id, targetId));
+    if (!comment) return { ok: false, reason: "no_existe" };
+    authorUserId = comment.authorUserId;
+    if (input.action === "hide") {
+      await db.update(socialComments).set({ isHiddenByModeration: true }).where(eq(socialComments.id, targetId));
+    } else if (input.action === "restore") {
+      await db.update(socialComments).set({ isHiddenByModeration: false }).where(eq(socialComments.id, targetId));
+    }
+  }
+
+  const nextStatus = input.action === "hide" ? "hidden" : input.action === "restore" ? "restored" : "dismissed";
+  const targetFilter = targetType === "post" ? eq(socialReports.postId, targetId) : eq(socialReports.commentId, targetId);
+  await db
+    .update(socialReports)
+    .set({ status: nextStatus, resolvedAt: now, resolvedByUserId: adminUserId })
+    .where(and(eq(socialReports.status, "pending"), targetFilter));
+
+  const verb = input.action === "hide" ? "ocultar" : input.action === "restore" ? "restaurar" : "descartar";
+  await db.insert(socialModerationLogs).values({
+    userId: authorUserId,
+    reason: `admin:${adminUserId}:${verb}:${targetType}:${targetId}`,
+    createdAt: now,
+  });
+
+  return { ok: true };
 }

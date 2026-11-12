@@ -46,7 +46,9 @@ export type MaestroIconName =
   | "user"
   | "receipt"
   | "logout"
-  | "chevronDown";
+  | "chevronDown"
+  | "dots"
+  | "flag";
 
 function renderIconGeometry(name: MaestroIconName): React.ReactNode {
   switch (name) {
@@ -265,6 +267,21 @@ function renderIconGeometry(name: MaestroIconName): React.ReactNode {
       );
     case "chevronDown":
       return <path d="m6 9 6 6 6-6" />;
+    case "dots":
+      return (
+        <>
+          <circle cx="5" cy="12" r="1.4" fill="currentColor" stroke="none" />
+          <circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none" />
+          <circle cx="19" cy="12" r="1.4" fill="currentColor" stroke="none" />
+        </>
+      );
+    case "flag":
+      return (
+        <>
+          <path d="M5 3v18" />
+          <path d="M5 4h11l-2.2 4 2.2 4H5" />
+        </>
+      );
   }
 }
 

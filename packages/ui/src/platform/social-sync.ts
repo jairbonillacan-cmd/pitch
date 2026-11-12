@@ -22,6 +22,7 @@ export interface ServerSocialComment {
   record: string;
   body: string;
   createdAt: string;
+  isMine?: boolean;
 }
 
 export interface ServerSocialPost {
@@ -83,6 +84,8 @@ export function fromServerComment(c: ServerSocialComment, now: Date): SocialComm
     verifiedBadge: c.record,
     createdAt: relativeTimeLabel(c.createdAt, now),
     body: c.body,
+    fromServer: true,
+    isMine: Boolean(c.isMine),
   };
 }
 

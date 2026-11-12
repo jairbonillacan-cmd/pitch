@@ -284,6 +284,8 @@ export interface TipstarCreator {
   isExample?: boolean;
 }
 
+export type SocialReportReason = "spam_enlaces" | "ofensivo" | "apuesta_riesgosa" | "otro";
+
 export interface SocialComment {
   id: string;
   authorHandle: string;
@@ -291,6 +293,10 @@ export interface SocialComment {
   verifiedBadge: string;
   createdAt: string;
   body: string;
+  /** Guardado en el servidor (permite reportarlo si es ajeno). */
+  fromServer?: boolean;
+  /** Lo escribió quien está viendo. */
+  isMine?: boolean;
 }
 
 /** Pick adjunto a una publicación: el mismo que se registra en la bitácora. */

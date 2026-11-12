@@ -1,12 +1,58 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Switch } from "@heroui/react";
 import { LeagueBadge } from "../../sports";
 import { ExampleNotice, LensGlowOrbs, MaestroIcon } from "../components/MaestroPrimitives";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
 import { usePlatform } from "../platform-provider";
 import { SPACETIME_ENGINES, SPACETIME_METRICS_HEADLINE, TIPSTAR_CREATORS } from "../spacetime-catalog";
+import type { SocialReportReason } from "../types";
+import { SOCIAL_REPORT_REASON_OPTIONS } from "./community-ui";
+
+interface ModerationQueueItem {
+  targetType: "post" | "comment";
+  targetId: string;
+  postId: string;
+  body: string;
+  isHiddenByModeration: boolean;
+  authorUserId: string;
+  authorHandle: string;
+  authorName: string;
+  authorPaused: boolean;
+  reportCount: number;
+  reasons: SocialReportReason[];
+  latestReportAt: string;
+}
+
+interface ModerationHiddenItem {
+  targetType: "post" | "comment";
+  targetId: string;
+  postId: string;
+  body: string;
+  authorUserId: string;
+  authorHandle: string;
+  authorName: string;
+  authorPaused: boolean;
+  createdAt: string;
+}
+
+interface PausedSocialMember {
+  userId: string;
+  handle: string | null;
+  displayName: string;
+  email: string;
+}
+
+interface ModerationPanelResponse {
+  pendingQueue: ModerationQueueItem[];
+  hiddenItems: ModerationHiddenItem[];
+  pausedMembers: PausedSocialMember[];
+}
+
+const REASON_LABELS: Record<SocialReportReason, string> = Object.fromEntries(
+  SOCIAL_REPORT_REASON_OPTIONS.map((opt) => [opt.value, opt.label]),
+) as Record<SocialReportReason, string>;
 
 interface AdminOverviewData {
   members: number;
@@ -70,6 +116,93 @@ export function FounderAdminClubView(): React.JSX.Element {
   const [newCreatorHandle, setNewCreatorHandle] = useState<string>("");
   const [newCreatorEmail, setNewCreatorEmail] = useState<string>("");
   const [serverOverview, setServerOverview] = useState<AdminOverviewData | null>(null);
+  const [moderation, setModeration] = useState<ModerationPanelResponse>({
+    pendingQueue: [],
+    hiddenItems: [],
+    pausedMembers: [],
+  });
+  const [moderationLoading, setModerationLoading] = useState<boolean>(accountsEnabled);
+  const [moderationError, setModerationError] = useState<string | null>(null);
+  const [moderationBusyKey, setModerationBusyKey] = useState<string | null>(null);
+
+  const loadModeration = useCallback(async () => {
+    if (!accountsEnabled) {
+      setModerationLoading(false);
+      return;
+    }
+    setModerationLoading(true);
+    setModerationError(null);
+    try {
+      const res = await fetch("/api/admin/moderation", { credentials: "same-origin" });
+      if (!res.ok) {
+        setModerationError(
+          res.status === 403
+            ? "Solo el equipo fundador tiene acceso al panel de moderación."
+            : "No se pudo cargar la cola de moderación.",
+        );
+        return;
+      }
+      const json = (await res.json()) as ModerationPanelResponse;
+      setModeration({
+        pendingQueue: json.pendingQueue ?? [],
+        hiddenItems: json.hiddenItems ?? [],
+        pausedMembers: json.pausedMembers ?? [],
+      });
+    } catch (err) {
+      void err;
+      setModerationError("No se pudo conectar con el servidor de moderación.");
+    } finally {
+      setModerationLoading(false);
+    }
+  }, [accountsEnabled]);
+
+  useEffect(() => {
+    void loadModeration();
+  }, [loadModeration]);
+
+  const runModerationAction = useCallback(
+    async (
+      busyId: string,
+      payload: {
+        action: "hide" | "restore" | "dismiss" | "pause_user" | "unpause_user";
+        targetType?: "post" | "comment";
+        targetId?: string;
+        targetUserId?: string;
+      },
+      successMsg: string,
+    ) => {
+      if (!accountsEnabled || moderationBusyKey) return;
+      setModerationBusyKey(busyId);
+      try {
+        const res = await fetch("/api/admin/moderation", {
+          method: "POST",
+          credentials: "same-origin",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        const json = (await res.json().catch(() => null)) as
+          | (ModerationPanelResponse & { ok?: boolean; error?: string })
+          | null;
+        if (!res.ok || !json?.ok) {
+          pushToast(json?.error ?? "No se pudo aplicar la acción.", "danger");
+          return;
+        }
+        setModeration({
+          pendingQueue: json.pendingQueue ?? [],
+          hiddenItems: json.hiddenItems ?? [],
+          pausedMembers: json.pausedMembers ?? [],
+        });
+        setServerOverview((prev) => (prev ? { ...prev, moderationBlocks: prev.moderationBlocks + 1 } : prev));
+        pushToast(successMsg, "success");
+      } catch (err) {
+        void err;
+        pushToast("No se pudo conectar para aplicar la acción.", "danger");
+      } finally {
+        setModerationBusyKey(null);
+      }
+    },
+    [accountsEnabled, moderationBusyKey, pushToast],
+  );
   const dataCutLabel = useMemo(() => {
     const t = Date.parse(dataset.generatedAt);
     return Number.isFinite(t)
@@ -343,6 +476,252 @@ export function FounderAdminClubView(): React.JSX.Element {
           </div>
         </section>
 
+        {/* Moderación de Comunidad */}
+        <section
+          className="glass-card glass-ring rounded-2xl p-5 space-y-4"
+          aria-labelledby="pl-admin-mod-title"
+        >
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <h2 id="pl-admin-mod-title" className="m-0 text-lg font-extrabold">
+                Moderación
+              </h2>
+              <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                Cola de reportes pendientes en Comunidad. Con 3 reportes distintos el contenido se oculta solo mientras lo revisas.
+              </p>
+            </div>
+            <span className="pl-pill num">
+              <MaestroIcon name="flag" size={13} />
+              <span>
+                {moderation.pendingQueue.length}{" "}
+                {moderation.pendingQueue.length === 1 ? "pendiente" : "pendientes"}
+              </span>
+            </span>
+          </div>
+
+          {moderationLoading ? (
+            <p className="m-0 text-sm" style={{ color: "var(--pl-text-muted)" }}>
+              Cargando cola de moderación…
+            </p>
+          ) : moderationError ? (
+            <div className="pl-admin-mod-state glass-ring rounded-2xl p-4">
+              <p className="m-0 text-sm" style={{ color: "var(--pl-danger)" }} role="alert">
+                {moderationError}
+              </p>
+              <button
+                type="button"
+                className="pl-prof-btn pl-prof-btn--ghost pl-prof-btn--sm"
+                onClick={() => void loadModeration()}
+              >
+                Reintentar
+              </button>
+            </div>
+          ) : moderation.pendingQueue.length === 0 ? (
+            <div className="pl-admin-mod-empty glass-ring rounded-2xl p-4">
+              <p className="m-0 text-sm font-semibold">Sin reportes pendientes</p>
+              <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                {accountsEnabled
+                  ? "Cuando un socio reporte una publicación o comentario aparecerá aquí para tu revisión."
+                  : "Activa las cuentas con base de datos para recibir reportes reales de Comunidad."}
+              </p>
+            </div>
+          ) : (
+            <ul className="pl-admin-mod-list">
+              {moderation.pendingQueue.map((item) => {
+                const key = `${item.targetType}:${item.targetId}`;
+                const busy = moderationBusyKey !== null;
+                return (
+                  <li key={key} className="pl-admin-mod-item glass-ring rounded-2xl p-4 space-y-3">
+                    <div className="pl-admin-mod-head">
+                      <div className="pl-admin-mod-who">
+                        <span className="pl-pill">
+                          {item.targetType === "post" ? "Publicación" : "Comentario"}
+                        </span>
+                        <strong>{item.authorName}</strong>
+                        <span className="num" style={{ color: "var(--pl-text-muted)" }}>
+                          @{item.authorHandle}
+                        </span>
+                        {item.authorPaused ? (
+                          <span className="pl-pill pl-pill--warning">Socio en pausa</span>
+                        ) : null}
+                      </div>
+                      <div className="pl-admin-mod-badges num">
+                        <span className="pl-pill pl-pill--warning">
+                          {item.reportCount} {item.reportCount === 1 ? "reporte" : "reportes"}
+                        </span>
+                        {item.isHiddenByModeration ? (
+                          <span className="pl-pill pl-pill--danger">Oculto en revisión</span>
+                        ) : (
+                          <span className="pl-pill pl-pill--info">Visible</span>
+                        )}
+                      </div>
+                    </div>
+
+                    <blockquote className="pl-admin-mod-quote">{item.body}</blockquote>
+
+                    <div className="pl-admin-mod-reasons" aria-label="Motivos reportados">
+                      <span className="text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                        Motivos:
+                      </span>
+                      {item.reasons.map((r) => (
+                        <span key={r} className="pl-pill">
+                          {REASON_LABELS[r] ?? r}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div className="pl-admin-mod-actions">
+                      <button
+                        type="button"
+                        className="pl-prof-btn pl-prof-btn--ghost pl-prof-btn--sm"
+                        disabled={busy}
+                        aria-label={`Ocultar ${item.targetType === "post" ? "publicación" : "comentario"} de @${item.authorHandle}`}
+                        onClick={() =>
+                          void runModerationAction(
+                            `${key}:hide`,
+                            { action: "hide", targetType: item.targetType, targetId: item.targetId },
+                            "Contenido ocultado de Comunidad.",
+                          )
+                        }
+                      >
+                        Ocultar
+                      </button>
+                      <button
+                        type="button"
+                        className="pl-prof-btn pl-prof-btn--ghost pl-prof-btn--sm"
+                        disabled={busy}
+                        aria-label={`Restaurar ${item.targetType === "post" ? "publicación" : "comentario"} de @${item.authorHandle}`}
+                        onClick={() =>
+                          void runModerationAction(
+                            `${key}:restore`,
+                            { action: "restore", targetType: item.targetType, targetId: item.targetId },
+                            "Contenido restaurado en Comunidad.",
+                          )
+                        }
+                      >
+                        Restaurar
+                      </button>
+                      <button
+                        type="button"
+                        className="pl-prof-btn pl-prof-btn--ghost pl-prof-btn--sm"
+                        disabled={busy}
+                        aria-label={`Descartar reporte sobre @${item.authorHandle}`}
+                        onClick={() =>
+                          void runModerationAction(
+                            `${key}:dismiss`,
+                            { action: "dismiss", targetType: item.targetType, targetId: item.targetId },
+                            "Reporte descartado.",
+                          )
+                        }
+                      >
+                        Descartar
+                      </button>
+                      <button
+                        type="button"
+                        className="pl-prof-btn pl-prof-btn--ghost pl-prof-btn--sm pl-admin-mod-pause"
+                        disabled={busy}
+                        aria-label={
+                          item.authorPaused
+                            ? `Quitar pausa en Comunidad a @${item.authorHandle}`
+                            : `Pausar a @${item.authorHandle} en Comunidad`
+                        }
+                        onClick={() =>
+                          void runModerationAction(
+                            `${key}:pause`,
+                            {
+                              action: item.authorPaused ? "unpause_user" : "pause_user",
+                              targetUserId: item.authorUserId,
+                            },
+                            item.authorPaused
+                              ? `@${item.authorHandle} puede volver a participar en Comunidad.`
+                              : `@${item.authorHandle} quedó en pausa en Comunidad.`,
+                          )
+                        }
+                      >
+                        {item.authorPaused ? "Quitar pausa en Comunidad" : "Pausar a este socio en Comunidad"}
+                      </button>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+
+          {moderation.hiddenItems.length > 0 ? (
+            <div className="pl-admin-mod-sub space-y-2">
+              <h3 className="m-0 text-xs font-extrabold uppercase tracking-wider" style={{ color: "var(--pl-text-muted)" }}>
+                Contenido oculto recientemente
+              </h3>
+              <ul className="pl-admin-mod-compact">
+                {moderation.hiddenItems.map((h) => {
+                  const key = `hidden:${h.targetType}:${h.targetId}`;
+                  return (
+                    <li key={key} className="pl-admin-mod-compact-row">
+                      <div className="pl-admin-mod-compact-copy">
+                        <strong>@{h.authorHandle}</strong>{" "}
+                        <span style={{ color: "var(--pl-text-muted)" }}>
+                          ({h.targetType === "post" ? "publicación" : "comentario"}):
+                        </span>{" "}
+                        <span>{h.body}</span>
+                      </div>
+                      <button
+                        type="button"
+                        className="pl-prof-btn pl-prof-btn--ghost pl-prof-btn--sm"
+                        disabled={moderationBusyKey !== null}
+                        aria-label={`Restaurar ${h.targetType === "post" ? "publicación" : "comentario"} de @${h.authorHandle}`}
+                        onClick={() =>
+                          void runModerationAction(
+                            key,
+                            { action: "restore", targetType: h.targetType, targetId: h.targetId },
+                            "Contenido restaurado en Comunidad.",
+                          )
+                        }
+                      >
+                        Restaurar
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          ) : null}
+
+          {moderation.pausedMembers.length > 0 ? (
+            <div className="pl-admin-mod-sub space-y-2">
+              <h3 className="m-0 text-xs font-extrabold uppercase tracking-wider" style={{ color: "var(--pl-text-muted)" }}>
+                Socios en pausa en Comunidad
+              </h3>
+              <ul className="pl-admin-mod-compact">
+                {moderation.pausedMembers.map((m) => (
+                  <li key={m.userId} className="pl-admin-mod-compact-row">
+                    <div className="pl-admin-mod-compact-copy">
+                      <strong>{m.displayName}</strong>{" "}
+                      <span className="num" style={{ color: "var(--pl-text-muted)" }}>
+                        {m.handle ? `@${m.handle}` : m.email}
+                      </span>
+                    </div>
+                    <button
+                      type="button"
+                      className="pl-prof-btn pl-prof-btn--ghost pl-prof-btn--sm"
+                      disabled={moderationBusyKey !== null}
+                      aria-label={`Quitar pausa en Comunidad a ${m.handle ? `@${m.handle}` : m.displayName}`}
+                      onClick={() =>
+                        void runModerationAction(
+                          `unpause:${m.userId}`,
+                          { action: "unpause_user", targetUserId: m.userId },
+                          `${m.handle ? `@${m.handle}` : m.displayName} puede volver a participar en Comunidad.`,
+                        )
+                      }
+                    >
+                      Quitar pausa
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+        </section>
+
         {/* Emisor de Códigos de Tipstars Oficiales */}
         <section className="glass-card glass-ring rounded-2xl p-5 space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-3">
@@ -403,6 +782,7 @@ export function FounderAdminClubView(): React.JSX.Element {
             aria-label="Tabla de códigos promocionales de Tipstars"
           >
             <table className="w-full text-left border-collapse text-sm num">
+              <caption className="sr-only">Códigos promocionales de Tipstars oficiales y comisiones</caption>
               <thead>
                 <tr
                   className="hairline-b text-xs"

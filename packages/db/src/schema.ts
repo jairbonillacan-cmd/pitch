@@ -546,6 +546,46 @@ export const socialModerationLogs = pgTable("social_moderation_logs", {
   createdAt: createdAt(),
 });
 
+/** Reportes de publicaciones y comentarios en Comunidad. */
+export const socialReports = pgTable(
+  "social_reports",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    reporterUserId: uuid("reporter_user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    postId: uuid("post_id").references(() => socialPosts.id, { onDelete: "cascade" }),
+    commentId: uuid("comment_id").references(() => socialComments.id, { onDelete: "cascade" }),
+    reason: text("reason").notNull(),
+    status: text("status").notNull().default("pending"),
+    resolvedAt: ts("resolved_at"),
+    resolvedByUserId: uuid("resolved_by_user_id").references(() => users.id),
+    createdAt: createdAt(),
+  },
+  (t) => [
+    index("social_reports_status_created_idx").on(t.status, t.createdAt.desc()),
+    index("social_reports_reporter_created_idx").on(t.reporterUserId, t.createdAt.desc()),
+    uniqueIndex("social_reports_reporter_post_uidx")
+      .on(t.reporterUserId, t.postId)
+      .where(sql`${t.postId} IS NOT NULL`),
+    uniqueIndex("social_reports_reporter_comment_uidx")
+      .on(t.reporterUserId, t.commentId)
+      .where(sql`${t.commentId} IS NOT NULL`),
+    check(
+      "social_reports_target_ck",
+      sql`(${t.postId} IS NOT NULL AND ${t.commentId} IS NULL) OR (${t.postId} IS NULL AND ${t.commentId} IS NOT NULL)`,
+    ),
+    check(
+      "social_reports_reason_ck",
+      sql`${t.reason} IN ('spam_enlaces', 'ofensivo', 'apuesta_riesgosa', 'otro')`,
+    ),
+    check(
+      "social_reports_status_ck",
+      sql`${t.status} IN ('pending', 'hidden', 'restored', 'dismissed')`,
+    ),
+  ],
+);
+
 /** Avisos sociales de la campana: comentarios, nuevos seguidores y «me gusta» agrupados. */
 export const notifications = pgTable(
   "notifications",

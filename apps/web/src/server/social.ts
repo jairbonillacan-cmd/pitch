@@ -101,11 +101,15 @@ export function parseNewPost(body: Record<string, unknown> | null): { ok: true; 
 }
 
 export const SOCIAL_REASON_MESSAGES: Record<string, { status: number; error: string }> = {
-  limite: { status: 429, error: "Vas muy rápido. Espera un rato antes de volver a publicar." },
+  limite: { status: 429, error: "Vas muy rápido. Espera un rato antes de volver a intentarlo." },
   repetido: { status: 409, error: "Ya publicaste ese mismo texto." },
   sin_usuario: { status: 403, error: "Elige tu @usuario para participar." },
-  no_existe: { status: 404, error: "Esa publicación ya no existe." },
+  pausado: { status: 403, error: "Tu cuenta está en pausa temporal en Comunidad." },
+  no_existe: { status: 404, error: "Ese contenido ya no existe." },
   propio: { status: 400, error: "No puedes seguirte a ti mismo." },
+  propio_reporte: { status: 400, error: "No puedes reportar tu propio contenido." },
+  ya_reportado: { status: 409, error: "Ya reportaste este contenido." },
+  motivo_invalido: { status: 400, error: "Elige un motivo válido para el reporte." },
 };
 
 export function reasonResponse(reason: string): NextResponse {

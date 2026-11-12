@@ -187,6 +187,7 @@ import type {
   PlatformGame,
   RiskBand,
   SocialPost,
+  SocialReportReason,
   ViewerRole,
 } from "./types";
 
@@ -294,6 +295,12 @@ export interface PlatformContextValue {
   loadSocialPostsByAuthor: (handle: string) => void;
   /** Garantiza que una publicación concreta esté cargada (p. ej. al abrir un aviso). */
   ensureSocialPostLoaded: (postId: string) => void;
+  /** Reporta una publicación o comentario ajeno en Comunidad. */
+  reportSocialContent: (input: {
+    postId?: string;
+    commentId?: string;
+    reason: SocialReportReason;
+  }) => Promise<{ ok: boolean; autoHidden?: boolean; error?: string }>;
   /** true cuando Comunidad viene del servidor (la ven todos los socios). */
   socialOnServer: boolean;
   blockedSpamAttempts: number;
@@ -402,6 +409,7 @@ const ACTION_KEYS = [
   "refreshSocialFeed",
   "loadSocialPostsByAuthor",
   "ensureSocialPostLoaded",
+  "reportSocialContent",
   "toggleWatchlistGame",
   "setFavoriteLeagues",
   "setRiskPreference",
@@ -1344,6 +1352,49 @@ export function PlatformProvider({
     [accountsEnabled, rawDataset.games, socialPosts],
   );
 
+  const reportSocialContent = useCallback(
+    async (input: {
+      postId?: string;
+      commentId?: string;
+      reason: SocialReportReason;
+    }): Promise<{ ok: boolean; autoHidden?: boolean; error?: string }> => {
+      if (viewerRole === "visitor") {
+        return { ok: false, error: "Inicia sesión para reportar contenido." };
+      }
+      if (!socialOnServer) {
+        pushToast("Reporte enviado al equipo de moderación.", "success");
+        return { ok: true, autoHidden: false };
+      }
+      const res = await postJson("/api/social/reports", input);
+      const data = res
+        ? ((await res.json().catch(() => null)) as { ok?: boolean; autoHidden?: boolean; error?: string } | null)
+        : null;
+      if (!res?.ok || !data?.ok) {
+        return { ok: false, error: data?.error ?? "No se pudo enviar el reporte." };
+      }
+      if (data.autoHidden) {
+        if (input.postId) {
+          setSocialPosts((prev) => prev.filter((p) => p.id !== input.postId));
+        } else if (input.commentId) {
+          setSocialPosts((prev) =>
+            prev.map((p) => ({
+              ...p,
+              comments: p.comments.filter((c) => c.id !== input.commentId),
+            })),
+          );
+        }
+      }
+      pushToast(
+        data.autoHidden
+          ? "Reporte recibido. El contenido se ocultó mientras se revisa."
+          : "Reporte enviado al equipo de moderación.",
+        "success",
+      );
+      return { ok: true, autoHidden: Boolean(data.autoHidden) };
+    },
+    [viewerRole, socialOnServer, pushToast],
+  );
+
   // Feed compartido: al entrar y cada vez que la persona vuelve a la pestaña.
   useEffect(() => {
     if (!accountsEnabled) return;
@@ -1506,6 +1557,7 @@ export function PlatformProvider({
       refreshSocialFeed,
       loadSocialPostsByAuthor,
       ensureSocialPostLoaded,
+      reportSocialContent,
       socialOnServer,
       blockedSpamAttempts,
       watchlistGameIds,
@@ -1581,6 +1633,7 @@ export function PlatformProvider({
       refreshSocialFeed,
       loadSocialPostsByAuthor,
       ensureSocialPostLoaded,
+      reportSocialContent,
       socialOnServer,
       blockedSpamAttempts,
       watchlistGameIds,

@@ -37,6 +37,8 @@ import {
   HeartIcon,
   PickStatus,
   ShareIcon,
+  SocialReportDialog,
+  SocialReportMenu,
   TabPanel,
   UnderlineTabs,
   resolveEntryGame,
@@ -45,6 +47,7 @@ import {
   useLeaderboardRows,
   useUrlTab,
   type OwnIdentity,
+  type SocialReportTarget,
   type TabDef,
 } from "./community-ui";
 
@@ -165,6 +168,7 @@ function CommunityContent(): React.JSX.Element {
   } = usePlatform();
   const [tab, setTab] = useUrlTab<CommunityTab>(TAB_KEYS, "para-ti");
   const [highlightedPostId, setHighlightedPostId] = useState<string | null>(null);
+  const [reportTarget, setReportTarget] = useState<SocialReportTarget | null>(null);
   // Al abrir Comunidad se trae lo último que publicaron los demás.
   useEffect(() => {
     refreshSocialFeed();
@@ -271,6 +275,7 @@ function CommunityContent(): React.JSX.Element {
     toggleSocialLike,
     addSocialComment,
     onDelete: deleteSocialPost,
+    onOpenReport: setReportTarget,
     goProfile,
     highlightedPostId,
   };
@@ -334,6 +339,7 @@ function CommunityContent(): React.JSX.Element {
           <RankingTab rows={rows} own={own} today={today} follows={follows} onToggleFollow={onToggleFollow} goProfile={goProfile} />
         ) : null}
       </TabPanel>
+      <SocialReportDialog target={reportTarget} onClose={() => setReportTarget(null)} />
     </div>
   );
 }
@@ -612,6 +618,7 @@ interface FeedSharedProps {
   toggleSocialLike: (postId: string) => void;
   addSocialComment: (postId: string, body: string) => { ok: boolean; error?: string };
   onDelete: (postId: string) => void;
+  onOpenReport: (target: SocialReportTarget) => void;
   goProfile: (handle: string) => (e: React.MouseEvent<HTMLAnchorElement>) => void;
   highlightedPostId?: string | null;
 }
@@ -660,6 +667,7 @@ function PostCard({
   toggleSocialLike,
   addSocialComment,
   onDelete,
+  onOpenReport,
   goProfile,
   highlightedPostId,
 }: FeedSharedProps & { post: SocialPost }): React.JSX.Element {
@@ -678,12 +686,14 @@ function PostCard({
   const canDelete = Boolean(post.fromServer && post.isMine);
   const [reply, setReply] = useState("");
   const [replyError, setReplyError] = useState("");
-  const isMine = own?.handle === post.authorHandle;
+  const isMine = Boolean(post.isMine || own?.handle === post.authorHandle);
+  const canReportPost = !isMine && !post.isExample;
   const following = follows.isFollowing(post.authorHandle);
   const pick = post.pick;
   const meta = pick ? resolveEntryGame(pick.gameId, dataset) : null;
   const units = pick ? (pick.status === "won" ? pick.units * (pick.userDecimal - 1) : pick.status === "lost" ? -pick.units : null) : null;
   const firstComment = post.comments[0];
+  const isFirstCommentMine = firstComment ? Boolean(firstComment.isMine || own?.handle === firstComment.authorHandle) : true;
 
   const pickMeta = pick
     ? pick.status === "open"
@@ -736,6 +746,18 @@ function PostCard({
           >
             {following ? "Siguiendo" : "Seguir"}
           </button>
+        ) : null}
+        {canReportPost ? (
+          <SocialReportMenu
+            triggerLabel={`Más opciones de la publicación de ${author.name}`}
+            onReport={() =>
+              onOpenReport({
+                kind: "post",
+                postId: post.id,
+                authorHandle: post.authorHandle,
+              })
+            }
+          />
         ) : null}
       </header>
 
@@ -828,10 +850,25 @@ function PostCard({
               gradVar={getExampleAnalystSpec(firstComment.authorHandle)?.avatarGradVar ?? "var(--avatar-grad-3)"}
               size={28}
             />
-            <div>
-              <p>
-                <strong>{firstComment.authorName}</strong> {firstComment.body}
-              </p>
+            <div className="pl-com-comment-preview-body">
+              <div className="pl-com-comment-head">
+                <p>
+                  <strong>{firstComment.authorName}</strong> {firstComment.body}
+                </p>
+                {!isFirstCommentMine && !post.isExample ? (
+                  <SocialReportMenu
+                    compact
+                    triggerLabel={`Más opciones del comentario de ${firstComment.authorName}`}
+                    onReport={() =>
+                      onOpenReport({
+                        kind: "comment",
+                        commentId: firstComment.id,
+                        authorHandle: firstComment.authorHandle,
+                      })
+                    }
+                  />
+                ) : null}
+              </div>
               {post.comments.length > 1 ? (
                 <button type="button" className="pl-com-more-comments" onClick={() => setThreadOpen(true)}>
                   Ver los {post.comments.length} comentarios
@@ -844,14 +881,33 @@ function PostCard({
           <div className="pl-com-thread">
             {post.comments.length > 0 ? (
               <ul>
-                {post.comments.map((c) => (
-                  <li key={c.id}>
-                    <p>
-                      <strong>{c.authorName}</strong> <span className="pl-prof-muted">· {c.createdAt.toLowerCase()}</span>
-                    </p>
-                    <p>{c.body}</p>
-                  </li>
-                ))}
+                {post.comments.map((c) => {
+                  const isCommentMine = Boolean(c.isMine || own?.handle === c.authorHandle);
+                  return (
+                    <li key={c.id}>
+                      <div className="pl-com-comment-head">
+                        <p>
+                          <strong>{c.authorName}</strong>{" "}
+                          <span className="pl-prof-muted">· {c.createdAt.toLowerCase()}</span>
+                        </p>
+                        {!isCommentMine && !post.isExample ? (
+                          <SocialReportMenu
+                            compact
+                            triggerLabel={`Más opciones del comentario de ${c.authorName}`}
+                            onReport={() =>
+                              onOpenReport({
+                                kind: "comment",
+                                commentId: c.id,
+                                authorHandle: c.authorHandle,
+                              })
+                            }
+                          />
+                        ) : null}
+                      </div>
+                      <p>{c.body}</p>
+                    </li>
+                  );
+                })}
               </ul>
             ) : null}
             <form

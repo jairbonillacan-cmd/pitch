@@ -40,6 +40,8 @@ import {
   isOwnProfileHandle,
   PickStatus,
   ShareIcon,
+  SocialReportDialog,
+  SocialReportMenu,
   TabPanel,
   UnderlineTabs,
   outcomeOf,
@@ -51,6 +53,7 @@ import {
   useLeaderboardRows,
   useUrlTab,
   type EntryGameMeta,
+  type SocialReportTarget,
   type TabDef,
 } from "./community-ui";
 
@@ -275,6 +278,7 @@ export function AnalystProfileClubView({
           <ProfileContent
             profile={profile}
             isOwn={isOwn}
+            ownHandle={own?.handle ?? null}
             onEdit={isOwn && memberProfile ? saveProfile : undefined}
             xEnabled={xEnabled}
             xLinkError={isOwn && xLinkError}
@@ -316,6 +320,7 @@ export function AnalystProfileClubView({
 function ProfileContent({
   profile,
   isOwn,
+  ownHandle,
   onEdit,
   xEnabled,
   xLinkError,
@@ -331,6 +336,7 @@ function ProfileContent({
 }: {
   profile: ResolvedProfile;
   isOwn: boolean;
+  ownHandle: string | null;
   onEdit?: (profile: EditableProfile) => void;
   xEnabled: boolean;
   xLinkError: boolean;
@@ -626,7 +632,14 @@ function ProfileContent({
 
       <TabPanel tabKey={tab} idPrefix="pl-prof">
         {tab === "publicaciones" ? (
-          <PostsPanel posts={posts} dataset={dataset} oddsFormat={oddsFormat} toggleSocialLike={toggleSocialLike} />
+          <PostsPanel
+            posts={posts}
+            dataset={dataset}
+            oddsFormat={oddsFormat}
+            toggleSocialLike={toggleSocialLike}
+            canReport={!isVisitor}
+            ownHandle={ownHandle}
+          />
         ) : null}
         {tab === "picks" ? (
           <PicksPanel
@@ -653,13 +666,18 @@ function PostsPanel({
   dataset,
   oddsFormat,
   toggleSocialLike,
+  canReport,
+  ownHandle,
 }: {
   posts: readonly SocialPost[];
   dataset: ReturnType<typeof usePlatform>["dataset"];
   oddsFormat: ReturnType<typeof usePlatform>["oddsFormat"];
   toggleSocialLike: (postId: string) => void;
+  canReport: boolean;
+  ownHandle: string | null;
 }): React.JSX.Element {
   const [openComments, setOpenComments] = useState<string[]>([]);
+  const [reportTarget, setReportTarget] = useState<SocialReportTarget | null>(null);
   if (posts.length === 0) {
     return <p className="pl-prof-empty-line">Todavía no hay publicaciones.</p>;
   }
@@ -668,6 +686,8 @@ function PostsPanel({
       {posts.map((post) => {
         const meta = post.pick ? resolveEntryGame(post.pick.gameId, dataset) : null;
         const commentsOpen = openComments.includes(post.id);
+        const isPostMine = Boolean(post.isMine || (ownHandle && post.authorHandle === ownHandle));
+        const showPostReport = canReport && !isPostMine && !post.isExample;
         return (
           <article key={post.id} className="pl-prof-post glass-lens glass-ring">
             <div className="pl-prof-post-meta">
@@ -675,7 +695,22 @@ function PostsPanel({
                 {meta ? <LeagueBadge league={meta.league} size={16} /> : null}
                 {post.leagueLabel}
               </span>
-              <span>{post.createdAt}</span>
+              <span className="pl-com-meta-end">
+                <span>{post.createdAt}</span>
+                {showPostReport ? (
+                  <SocialReportMenu
+                    compact
+                    triggerLabel={`Más opciones de la publicación de @${post.authorHandle}`}
+                    onReport={() =>
+                      setReportTarget({
+                        kind: "post",
+                        postId: post.id,
+                        authorHandle: post.authorHandle,
+                      })
+                    }
+                  />
+                ) : null}
+              </span>
             </div>
             <p className="pl-prof-post-body">{post.body}</p>
             {post.pick ? (
@@ -720,17 +755,39 @@ function PostsPanel({
             </div>
             {commentsOpen && post.comments.length > 0 ? (
               <ul className="pl-prof-comments">
-                {post.comments.map((c) => (
-                  <li key={c.id}>
-                    <strong>{c.authorName}</strong> <span className="pl-prof-muted">· {c.createdAt}</span>
-                    <p>{c.body}</p>
-                  </li>
-                ))}
+                {post.comments.map((c) => {
+                  const isCommentMine = Boolean(c.isMine || (ownHandle && c.authorHandle === ownHandle));
+                  const showCommentReport = canReport && !isCommentMine && !post.isExample;
+                  return (
+                    <li key={c.id}>
+                      <div className="pl-com-comment-head">
+                        <span>
+                          <strong>{c.authorName}</strong> <span className="pl-prof-muted">· {c.createdAt}</span>
+                        </span>
+                        {showCommentReport ? (
+                          <SocialReportMenu
+                            compact
+                            triggerLabel={`Más opciones del comentario de ${c.authorName}`}
+                            onReport={() =>
+                              setReportTarget({
+                                kind: "comment",
+                                commentId: c.id,
+                                authorHandle: c.authorHandle,
+                              })
+                            }
+                          />
+                        ) : null}
+                      </div>
+                      <p>{c.body}</p>
+                    </li>
+                  );
+                })}
               </ul>
             ) : null}
           </article>
         );
       })}
+      <SocialReportDialog target={reportTarget} onClose={() => setReportTarget(null)} />
     </div>
   );
 }

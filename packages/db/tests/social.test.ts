@@ -4,18 +4,22 @@ import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
 import {
   addSocialComment,
   applyMigrations,
+  applyModerationAction,
   createSocialPost,
   deleteSocialPost,
   followCounts,
   getSocialPostById,
   listFollowing,
+  listModerationPanelData,
   listSocialFeed,
   listSocialNotifications,
   markSocialNotificationsRead,
+  reportSocialContent,
   sealedPicks,
   setSocialFollow,
   setSocialLike,
   SOCIAL_LIMITS,
+  socialModerationLogs,
   users,
   type Db,
   type NewSocialPost,
@@ -50,7 +54,7 @@ beforeAll(async () => {
 }, 60_000);
 
 beforeEach(async () => {
-  await client.exec("TRUNCATE TABLE users CASCADE");
+  await client.exec("TRUNCATE TABLE social_moderation_logs, users CASCADE");
 });
 
 afterAll(async () => {
@@ -248,5 +252,160 @@ describe("comunidad compartida", () => {
       readAt: null,
       postId,
     });
+  });
+
+  it("reportes y moderación: sin doble reporte, auto-oculta al 3.º, pausa bloquea y todo queda en logs", async () => {
+    const autor = await member("autor_mx", "Autor Liga");
+    const r1 = await member("rep_uno", "Reportero Uno");
+    const r2 = await member("rep_dos", "Reportero Dos");
+    const r3 = await member("rep_tres", "Reportero Tres");
+    const admin = await member("jair_admin", "Jair Fundador");
+
+    const created = await createSocialPost(db, autor.id, post("Garantizado 100 por ciento seguro hoy."), now);
+    const postId = created.ok ? created.id : "";
+
+    // No puede reportar lo propio ni motivos inválidos.
+    expect(await reportSocialContent(db, autor.id, { postId, reason: "spam_enlaces" }, now)).toEqual({
+      ok: false,
+      reason: "propio_reporte",
+    });
+    expect(await reportSocialContent(db, r1.id, { postId, reason: "inventado" }, now)).toEqual({
+      ok: false,
+      reason: "motivo_invalido",
+    });
+
+    // Primer reporte: sigue visible; el mismo socio no puede reportar dos veces lo mismo.
+    expect(await reportSocialContent(db, r1.id, { postId, reason: "apuesta_riesgosa" }, now)).toMatchObject({
+      ok: true,
+      autoHidden: false,
+    });
+    expect(await reportSocialContent(db, r1.id, { postId, reason: "spam_enlaces" }, new Date(now.getTime() + MIN))).toEqual({
+      ok: false,
+      reason: "ya_reportado",
+    });
+    expect((await listSocialFeed(db, r2.id)).map((p) => p.id)).toEqual([postId]);
+
+    // Segundo reporte distinto: aún visible.
+    expect(
+      await reportSocialContent(db, r2.id, { postId, reason: "spam_enlaces" }, new Date(now.getTime() + 2 * MIN)),
+    ).toMatchObject({
+      ok: true,
+      autoHidden: false,
+    });
+    expect((await listSocialFeed(db, r3.id)).map((p) => p.id)).toEqual([postId]);
+
+    // Tercer reporte distinto: se oculta sola mientras sigue pendiente en la cola del panel.
+    expect(
+      await reportSocialContent(db, r3.id, { postId, reason: "ofensivo" }, new Date(now.getTime() + 3 * MIN)),
+    ).toMatchObject({
+      ok: true,
+      autoHidden: true,
+    });
+    expect(await listSocialFeed(db, r1.id)).toEqual([]);
+
+    const panelBefore = await listModerationPanelData(db);
+    expect(panelBefore.pendingQueue).toHaveLength(1);
+    expect(panelBefore.pendingQueue[0]).toMatchObject({
+      targetType: "post",
+      targetId: postId,
+      authorHandle: "autor_mx",
+      isHiddenByModeration: true,
+      reportCount: 3,
+    });
+    expect(new Set(panelBefore.pendingQueue[0]!.reasons)).toEqual(
+      new Set(["apuesta_riesgosa", "spam_enlaces", "ofensivo"]),
+    );
+
+    // Restaurar desde el panel limpia la cola y vuelve a mostrar la publicación.
+    expect(
+      await applyModerationAction(
+        db,
+        admin.id,
+        { action: "restore", targetType: "post", targetId: postId },
+        new Date(now.getTime() + 4 * MIN),
+      ),
+    ).toEqual({ ok: true });
+    expect((await listSocialFeed(db, r1.id)).map((p) => p.id)).toEqual([postId]);
+    expect((await listModerationPanelData(db)).pendingQueue).toEqual([]);
+
+    // Pausar al socio: sus publicaciones no las ven los demás y no puede publicar ni comentar.
+    expect(
+      await applyModerationAction(
+        db,
+        admin.id,
+        { action: "pause_user", targetUserId: autor.id },
+        new Date(now.getTime() + 5 * MIN),
+      ),
+    ).toEqual({ ok: true });
+
+    expect(await listSocialFeed(db, r1.id)).toEqual([]);
+    expect(await createSocialPost(db, autor.id, post("Intento publicar estando en pausa."), new Date(now.getTime() + 6 * MIN))).toEqual({
+      ok: false,
+      reason: "pausado",
+    });
+
+    const otherPost = await createSocialPost(db, r1.id, post("Publicación normal de otro socio."), new Date(now.getTime() + 7 * MIN));
+    const otherPostId = otherPost.ok ? otherPost.id : "";
+    expect(await addSocialComment(db, autor.id, otherPostId, "Intento comentar.", new Date(now.getTime() + 8 * MIN))).toEqual({
+      ok: false,
+      reason: "pausado",
+    });
+
+    // Límite por hora de reportes.
+    for (let i = 0; i < SOCIAL_LIMITS.reportsPerHour - 1; i++) {
+      const extra = await createSocialPost(
+        db,
+        r2.id,
+        post(`Publicación extra número ${i} para probar tope.`),
+        new Date(now.getTime() + (10 + i) * MIN),
+      );
+      if (extra.ok) {
+        const rep = await reportSocialContent(
+          db,
+          r1.id,
+          { postId: extra.id, reason: "otro" },
+          new Date(now.getTime() + (10 + i) * MIN),
+        );
+        expect(rep.ok).toBe(true);
+      }
+    }
+    expect(
+      await reportSocialContent(
+        db,
+        r1.id,
+        { postId: otherPostId, reason: "otro" },
+        new Date(now.getTime() + 25 * MIN),
+      ),
+    ).toEqual({
+      ok: false,
+      reason: "propio_reporte",
+    });
+    const extraTarget = await createSocialPost(
+      db,
+      r3.id,
+      post("Una publicación más para cruzar el tope por hora."),
+      new Date(now.getTime() + 26 * MIN),
+    );
+    expect(
+      await reportSocialContent(
+        db,
+        r1.id,
+        { postId: extraTarget.ok ? extraTarget.id : "", reason: "otro" },
+        new Date(now.getTime() + 27 * MIN),
+      ),
+    ).toEqual({
+      ok: false,
+      reason: "limite",
+    });
+
+    // Todas las acciones (auto-ocultar, restaurar y pausar) quedaron en social_moderation_logs.
+    const logs = await db.select().from(socialModerationLogs);
+    expect(logs.map((l) => l.reason)).toEqual(
+      expect.arrayContaining([
+        expect.stringContaining("auto_ocultar:post:"),
+        expect.stringContaining(":restaurar:post:"),
+        expect.stringContaining(":pausar_socio"),
+      ]),
+    );
   });
 });
