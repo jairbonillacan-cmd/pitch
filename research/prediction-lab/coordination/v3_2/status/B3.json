@@ -1,0 +1,82 @@
+{
+  "agent_id": "B3",
+  "agent_name": "b3-capture",
+  "wave": 1,
+  "state": "completed",
+  "capture_status": "prospective_capture_pending",
+  "started_at": "2026-11-12T14:49:14Z",
+  "finished_at": "2026-11-12T15:18:30Z",
+  "web_scraping_commit": "4993a9b6b598aa3fa63be1cb5735975cbd56e35f",
+  "files_written": [
+    ".worktrees/web-scraping/docs/LEGAL_FUENTES_CUOTAS.md",
+    ".worktrees/web-scraping/scrapers/cadence_scheduler.py",
+    ".worktrees/web-scraping/scrapers/sources/__init__.py",
+    ".worktrees/web-scraping/scrapers/sources/base.py",
+    ".worktrees/web-scraping/scrapers/sources/team_resolution.py",
+    ".worktrees/web-scraping/scrapers/sources/the_odds_api.py",
+    ".worktrees/web-scraping/scrapers/sources/betfair.py",
+    ".worktrees/web-scraping/scrapers/sources/smarkets.py",
+    ".worktrees/web-scraping/scrapers/sources/codere.py",
+    ".worktrees/web-scraping/scrapers/sources/registry.py",
+    ".worktrees/web-scraping/data/odds_timeseries/health.json",
+    ".worktrees/web-scraping/tests/test_cadence_scheduler_and_sources.py",
+    ".worktrees/prediction-lab/research/prediction-lab/coordination/v3_2/CONTRACT_ODDS_TIMESERIES.md",
+    ".worktrees/prediction-lab/research/prediction-lab/coordination/v3_2/status/B3.json"
+  ],
+  "commands_run": [
+    "Set-Location C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping; .\\.venv\\Scripts\\python.exe scrapers/cadence_scheduler.py --dry-run",
+    "Set-Location C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping; .\\.venv\\Scripts\\python.exe scrapers/cadence_scheduler.py --loop --max-duration-seconds 5 --max-cycles 2",
+    "Set-Location C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping; .\\.venv\\Scripts\\python.exe scrapers/cadence_scheduler.py --once",
+    "Set-Location C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping; .\\.venv\\Scripts\\python.exe -m pytest tests -v"
+  ],
+  "metrics": {
+    "evidence_label": "OBSERVADO",
+    "stale_lines_config_sha256_readonly": "8bcb9c7be93270cde0cac2d58bc19f0381184dd2e769f358dd28334db2a05eac",
+    "sources_audited_total": 7,
+    "sources_api_only": [
+      "the_odds_api (requires THE_ODDS_API_KEY, absent in env)",
+      "betfair_exchange (requires BETFAIR_APP_KEY + BETFAIR_SESSION_TOKEN, absent in env)"
+    ],
+    "sources_blocked_pending_owner_decision": [
+      "pinnacle (ToS prohibit bots/scrapers on web & Arcadia guest API; legacy scraper used solve_cloudflare=True)",
+      "smarkets (HTTP 403 CF-Mitigated: challenge / 'Smarkets - Security Check' on unauthenticated v3 API; official v3 API requires approved Smarkets API account + SMARKETS_SESSION_TOKEN)",
+      "caliente (HTTP 403 CF-Mitigated: challenge on sports.caliente.mx; Caliplay ToS prohibit scraping; no official API)",
+      "codere (apuestas.codere.mx/robots.txt declares Disallow: /; m.codere.mx HTTP 404; structured event/team parser implemented in scrapers/sources/codere.py)",
+      "action_network (actionnetwork.com/terms explicitly prohibits page-scrape, robot, spider; no official API)"
+    ],
+    "active_sources_in_current_env": 0,
+    "calendar_upcoming_events_count": 66,
+    "calendar_events_by_regime": {
+      "T-60m": 0,
+      "T-4.4h": 2,
+      "T-8.5h": 5,
+      "early_week": 59
+    },
+    "events_tracked": 0,
+    "total_rows_written": 0,
+    "ticks_per_event": {
+      "min": 0,
+      "median": 0.0,
+      "max": 0
+    },
+    "median_gap_minutes_by_regime": {
+      "T-60m": null,
+      "T-4.4h": null,
+      "T-8.5h": null,
+      "early_week": null
+    },
+    "sharp_coverage_ratio": 0.0,
+    "pytest_tests_passed": 7,
+    "pytest_tests_failed": 0,
+    "cross_validator_ts_and_python_errors": 0
+  },
+  "open_issues": [
+    "capture_status='prospective_capture_pending' (OBSERVADO): (1) las 5 fuentes web heredadas (pinnacle, smarkets, caliente, codere, action_network) requieren evasión anti-bot o están prohibidas por ToS/robots.txt y quedaron bloqueadas (Regla #7); (2) las 2 APIs oficiales limpias (the_odds_api, betfair_exchange) están listas pero carecen de THE_ODDS_API_KEY / BETFAIR_APP_KEY+BETFAIR_SESSION_TOKEN en el entorno actual; (3) además, al instante 2026-11-12T15:17:54Z había 0 partidos en ventana [T-60m, T-0] (66 futuros en T-4.4h/T-8.5h/early_week). Cero precios simulados o inventados en data/odds_timeseries/ (Regla #4)."
+  ],
+  "next": [
+    "B5 (paper_trading.py): consumir data/odds_timeseries/<sport>/*.jsonl y health.json; al estar vacía la captura real hoy por falta de credenciales API, activar su ruta de respaldo documentada en MASTER.md §3 B5 (fixture marcado provenance: synthetic fuera de odds_timeseries reales) hasta que el propietario configure THE_ODDS_API_KEY.",
+    "B6 (nfl_sharp_closing.py): escanear data/odds_timeseries/nfl/*.jsonl y reportar honestamente cobertura sharp actual (0 < 64 partidos -> NFL sigue apagado).",
+    "B8 (regenerate_live_snapshot.py): leer health.json y data/odds_timeseries/ respetando ausencia de cuotas frescas (< 72h) sin inventar precios ni stakes.",
+    "Propietario: exportar THE_ODDS_API_KEY (o BETFAIR_APP_KEY + BETFAIR_SESSION_TOKEN) para iniciar captura multi-tick real inmediata con scrapers/cadence_scheduler.py --loop."
+  ]
+}
