@@ -8,8 +8,12 @@ import {
   signBetaCookieToken,
   verifyPinCodeConstantTime,
 } from "../../../../src/server/beta-auth";
+import { trustedClientIp, verifySameOriginMutation } from "../../../../src/server/request-security";
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
+  const csrfError = verifySameOriginMutation(request);
+  if (csrfError) return csrfError;
+
   if (!isBetaPinEnabled()) {
     return NextResponse.json(
       {
@@ -20,11 +24,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     );
   }
 
-  const forwarded = request.headers.get("x-forwarded-for");
-  const ip =
-    forwarded?.split(",")[0]?.trim() ||
-    request.headers.get("x-real-ip") ||
-    "127.0.0.1";
+  const ip = trustedClientIp(request.headers) || "127.0.0.1";
 
   const rl = await checkRateLimit(ip);
   if (!rl.allowed) {

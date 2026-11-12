@@ -641,6 +641,8 @@ export function PlatformProvider({
         ) {
           setViewerRoleState(savedRole);
         }
+      } else {
+        window.localStorage.removeItem("pl-sim-role");
       }
     } catch (err) {
       void err;
@@ -746,6 +748,7 @@ export function PlatformProvider({
 
   const setViewerRole = useCallback(
     (role: ViewerRole) => {
+      if (!allowRoleSimulation) return;
       setViewerRoleState(role);
       try {
         window.localStorage.setItem("pl-sim-role", role);
@@ -753,7 +756,7 @@ export function PlatformProvider({
         void err;
       }
     },
-    [],
+    [allowRoleSimulation],
   );
 
   const setOddsFormat = useCallback((fmt: OddsFormat) => {

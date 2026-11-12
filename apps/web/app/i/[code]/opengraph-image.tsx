@@ -9,6 +9,7 @@ import {
 } from "../../../src/server/short-invite";
 
 export const runtime = "nodejs";
+export const revalidate = 3600;
 export const alt = "Invitación personal a PitchLab Ultra";
 export const size = {
   width: 1200,

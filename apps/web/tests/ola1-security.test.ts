@@ -206,7 +206,7 @@ describe("Ola 1 · Autenticación, +18, consentimiento y PIN de beta (SEC-04, SE
     const minorRes = await postSignup(
       new Request("http://localhost:3000/api/me/signup", {
         method: "POST",
-        headers: { "content-type": "application/json", cookie: cookieHeader },
+        headers: { "content-type": "application/json", origin: "http://localhost:3000", cookie: cookieHeader },
         body: JSON.stringify({
           displayName: "Menor Prueba",
           handle: "menor_prueba",
@@ -249,7 +249,7 @@ describe("Ola 1 · Autenticación, +18, consentimiento y PIN de beta (SEC-04, SE
     const journalBlocked = await postJournal(
       new Request("http://localhost:3000/api/me/journal", {
         method: "POST",
-        headers: { "content-type": "application/json", cookie: adult.cookieHeader },
+        headers: { "content-type": "application/json", origin: "http://localhost:3000", cookie: adult.cookieHeader },
         body: JSON.stringify({ gameId: "g1", pickId: "p1", units: 1, userDecimal: 2.0, fairDecimal: 1.9 }),
       }),
     );
@@ -259,7 +259,7 @@ describe("Ola 1 · Autenticación, +18, consentimiento y PIN de beta (SEC-04, SE
     const watchlistBlocked = await postWatchlist(
       new Request("http://localhost:3000/api/me/watchlist", {
         method: "POST",
-        headers: { "content-type": "application/json", cookie: adult.cookieHeader },
+        headers: { "content-type": "application/json", origin: "http://localhost:3000", cookie: adult.cookieHeader },
         body: JSON.stringify({ gameId: "g1", watched: true }),
       }),
     );
@@ -277,7 +277,7 @@ describe("Ola 1 · Autenticación, +18, consentimiento y PIN de beta (SEC-04, SE
     const watchlistOk = await postWatchlist(
       new Request("http://localhost:3000/api/me/watchlist", {
         method: "POST",
-        headers: { "content-type": "application/json", cookie: adult.cookieHeader },
+        headers: { "content-type": "application/json", origin: "http://localhost:3000", cookie: adult.cookieHeader },
         body: JSON.stringify({ gameId: "nfl-game-1", watched: true }),
       }),
     );
@@ -298,7 +298,7 @@ describe("Ola 1 · Autenticación, +18, consentimiento y PIN de beta (SEC-04, SE
     const unlockRes = await postBetaUnlock(
       new NextRequest("https://pitchlab.mx/api/beta/unlock", {
         method: "POST",
-        headers: { "content-type": "application/json" },
+        headers: { "content-type": "application/json", origin: "https://pitchlab.mx" },
         body: JSON.stringify({ code: "2026" }),
       }),
     );

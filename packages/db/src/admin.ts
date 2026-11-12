@@ -4,6 +4,7 @@
 import { and, count, eq, sql } from "drizzle-orm";
 import type { Db } from "./billing";
 import {
+  adminAuditLogs,
   entitlementGrants,
   platformRuntimeFlags,
   referralGrants,
@@ -17,6 +18,35 @@ import {
 
 export const FLAG_MONTH1_NO_CARD = "month1_no_card_mode";
 export const FLAG_TIPSTAR_PAYOUTS = "tipstar_payouts_enabled";
+export const FLAG_AI_ENABLED = "ai.enabled";
+
+export interface AdminAuditInput {
+  actorUserId: string | null;
+  actorEmail: string;
+  action: string;
+  targetKey: string;
+  payloadJson?: Record<string, unknown> | null;
+  ipSubnetHash?: string | null;
+}
+
+export async function recordAdminAudit(db: Db, entry: AdminAuditInput): Promise<void> {
+  await db.insert(adminAuditLogs).values({
+    actorUserId: entry.actorUserId,
+    actorEmail: entry.actorEmail.trim().toLowerCase(),
+    action: entry.action,
+    targetKey: entry.targetKey,
+    payloadJson: entry.payloadJson ?? null,
+    ipSubnetHash: entry.ipSubnetHash ?? null,
+  });
+}
+
+export async function isActiveTipstarUser(db: Db, userId: string): Promise<boolean> {
+  const [row] = await db
+    .select({ userId: tipstarProfiles.userId })
+    .from(tipstarProfiles)
+    .where(and(eq(tipstarProfiles.userId, userId), eq(tipstarProfiles.isActive, true)));
+  return Boolean(row);
+}
 
 export async function getBoolFlag(db: Db, key: string, fallback: boolean): Promise<boolean> {
   const [row] = await db

@@ -4,6 +4,7 @@
  */
 import { createHash } from "node:crypto";
 import { SIGNUP_CONSENT_VERSION } from "@pitchlab/db";
+import { trustedClientIp } from "./request-security";
 
 export interface SignupBody {
   email?: string;
@@ -14,6 +15,7 @@ export interface SignupBody {
   analyticsConsent: boolean;
   marketingConsent: boolean;
   referralCode: string | null;
+  turnstileToken?: string | null;
 }
 
 /** Valida el cuerpo de `POST /api/me/signup`; null si no tiene la forma esperada o versión vigente. */
@@ -27,6 +29,8 @@ export function parseSignupBody(raw: unknown): SignupBody | null {
   const version = consents.version.trim().slice(0, 32);
   if (version !== SIGNUP_CONSENT_VERSION) return null;
   const code = typeof b.referralCode === "string" ? b.referralCode.trim().toUpperCase().slice(0, 24) : "";
+  const turnstileToken =
+    typeof b.turnstileToken === "string" && b.turnstileToken.trim() ? b.turnstileToken.trim().slice(0, 4096) : null;
   return {
     ...(typeof b.email === "string" ? { email: b.email.trim().toLowerCase() } : {}),
     displayName: b.displayName.slice(0, 80),
@@ -36,13 +40,13 @@ export function parseSignupBody(raw: unknown): SignupBody | null {
     analyticsConsent: consents.analytics === true,
     marketingConsent: consents.marketing === true,
     referralCode: code || null,
+    ...(turnstileToken ? { turnstileToken } : {}),
   };
 }
 
-/** Primera IP de `x-forwarded-for` (o `x-real-ip`). */
+/** IP confiable del cliente detrás de Cloudflare / Vercel / proxy reverso. */
 export function clientIp(headers: Headers): string {
-  const fwd = headers.get("x-forwarded-for")?.split(",")[0]?.trim();
-  return fwd || headers.get("x-real-ip")?.trim() || "";
+  return trustedClientIp(headers);
 }
 
 /** Subred de la IP: /24 en IPv4 y /48 en IPv6. */
@@ -56,10 +60,23 @@ const hmac = (salt: string, value: string): string =>
   createHash("sha256").update(`${salt}|${value}`).digest("hex");
 
 /** Huellas con sal (BETTER_AUTH_SECRET) para el escudo de la prueba. */
-export function trialHashes(headers: Headers, salt: string): { deviceFpHash: string; ipSubnetHash: string } {
-  const device = `${headers.get("user-agent") ?? ""}|${headers.get("accept-language") ?? ""}`;
+export function trialHashes(
+  headers: Headers,
+  salt: string,
+): {
+  deviceFpHash: string;
+  ipSubnetHash: string;
+  unknownDevice: boolean;
+  unknownSubnet: boolean;
+} {
+  const ua = headers.get("user-agent")?.trim() ?? "";
+  const lang = headers.get("accept-language")?.trim() ?? "";
+  const device = `${ua}|${lang}`;
+  const subnet = ipSubnet(clientIp(headers));
   return {
     deviceFpHash: hmac(salt, `device:${device}`),
-    ipSubnetHash: hmac(salt, `subnet:${ipSubnet(clientIp(headers))}`),
+    ipSubnetHash: hmac(salt, `subnet:${subnet}`),
+    unknownDevice: ua.length === 0,
+    unknownSubnet: subnet === "desconocida",
   };
 }

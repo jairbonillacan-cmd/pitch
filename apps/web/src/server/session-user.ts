@@ -13,6 +13,7 @@ export interface AuthenticatedMember {
   db: Db;
   userId: string;
   email: string;
+  emailVerified: boolean;
   authUserId: string;
 }
 
@@ -33,7 +34,13 @@ export async function requireStep1Member(
   db ??= createDb(url) as unknown as Db;
   const userId = await profileIdForAuthUser(db, session.user.id);
   if (!userId) return { error: NextResponse.json({ error: "Perfil no encontrado" }, { status: 404 }) };
-  return { db, userId, email: session.user.email, authUserId: session.user.id };
+  return {
+    db,
+    userId,
+    email: session.user.email,
+    emailVerified: Boolean(session.user.emailVerified),
+    authUserId: session.user.id,
+  };
 }
 
 /**
@@ -53,7 +60,7 @@ export async function requireMember(
 }
 
 /**
- * Socio con paso 2 completado y Pase Total vigente (prueba, concesión, suscripción activa o admin).
+ * Socio con paso 2 completado y Pase Total vigente (prueba, concesión, suscripción activa o admin verificado).
  * Se exige en escrituras exclusivas del Club (sellar bitácora y vigilancia).
  */
 export async function requireActivePaseMember(
@@ -61,7 +68,8 @@ export async function requireActivePaseMember(
 ): Promise<AuthenticatedMember | { error: NextResponse }> {
   const member = await requireMember(request);
   if ("error" in member) return member;
-  if (!isAdminEmail(member.email) && !(await hasActivePaseTotal(member.db, member.userId, new Date()))) {
+  const verifiedAdmin = member.emailVerified && isAdminEmail(member.email);
+  if (!verifiedAdmin && !(await hasActivePaseTotal(member.db, member.userId, new Date()))) {
     return { error: NextResponse.json({ error: "pase_requerido" }, { status: 403 }) };
   }
   return member;
@@ -77,16 +85,21 @@ export function isAdminEmail(email: string | null | undefined): boolean {
   return admins.includes(email.trim().toLowerCase());
 }
 
-/** Como requireMember, pero además exige que el correo esté en PITCHLAB_ADMIN_EMAILS. */
+/**
+ * Exige sesión activa, correo verificado (`emailVerified === true`), presencia en
+ * `PITCHLAB_ADMIN_EMAILS` y paso 2 completado.
+ */
 export async function requireAdmin(
   request: Request,
-): Promise<{ db: Db; userId: string } | { error: NextResponse }> {
+): Promise<{ db: Db; userId: string; email: string } | { error: NextResponse }> {
   const auth = getAuth();
   if (!auth) return { error: NextResponse.json({ error: "Cuentas no configuradas" }, { status: 503 }) };
   const session = await auth.api.getSession({ headers: request.headers });
   if (!session) return { error: NextResponse.json({ error: "Inicia sesión" }, { status: 401 }) };
-  if (!isAdminEmail(session.user.email)) {
+  if (!session.user.emailVerified || !isAdminEmail(session.user.email)) {
     return { error: NextResponse.json({ error: "Solo para el equipo fundador" }, { status: 403 }) };
   }
-  return requireMember(request);
+  const member = await requireMember(request);
+  if ("error" in member) return member;
+  return { db: member.db, userId: member.userId, email: member.email };
 }

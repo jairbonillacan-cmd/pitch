@@ -7,19 +7,6 @@ import type {
 } from "./types";
 import { profileRecord } from "./profile-stats";
 
-const DISPOSABLE_DOMAINS = new Set([
-  "mailinator.com",
-  "tempmail.com",
-  "10minutemail.com",
-  "guerrillamail.com",
-  "yopmail.com",
-  "trashmail.com",
-  "sharklasers.com",
-  "throwawaymail.com",
-  "getnada.com",
-  "temp-mail.org",
-]);
-
 /**
  * Regla Cero-Fuga (Q1, Q9, Q12):
  * Un visitante sin suscripción activa solo puede ver:
@@ -260,38 +247,7 @@ export function getSessionWatermark(
   return `@${handle} · PL-8842`;
 }
 
-export { containsExternalLink } from "@pitchlab/contracts";
-
-/**
- * Normalización anti-abuso $0 MXN (Q8 / Q15):
- * - Elimina alias `+tag` y puntos en cuentas Gmail / Googlemail para impedir multicuentas.
- */
-export function normalizeTrialEmail(rawEmail: string): string {
-  const clean = rawEmail.trim().toLowerCase();
-  const atIdx = clean.indexOf("@");
-  if (atIdx <= 0) return clean;
-  let local = clean.slice(0, atIdx);
-  let domain = clean.slice(atIdx + 1);
-  if (domain === "googlemail.com") {
-    domain = "gmail.com";
-  }
-  const plusIdx = local.indexOf("+");
-  if (plusIdx >= 0) {
-    local = local.slice(0, plusIdx);
-  }
-  if (domain === "gmail.com") {
-    local = local.replace(/\./g, "");
-  }
-  return `${local}@${domain}`;
-}
-
-export function isDisposableEmailDomain(rawEmail: string): boolean {
-  const clean = rawEmail.trim().toLowerCase();
-  const atIdx = clean.indexOf("@");
-  if (atIdx <= 0) return false;
-  const domain = clean.slice(atIdx + 1);
-  return DISPOSABLE_DOMAINS.has(domain);
-}
+export { containsExternalLink, isDisposableEmailDomain, normalizeTrialEmail } from "@pitchlab/contracts";
 
 export function formatOddsValue(
   decimalOdds: number,

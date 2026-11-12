@@ -76,10 +76,11 @@ export function accountsEnabled(): boolean {
 
 /**
  * Herramientas de revisión (selector de rol, barra rápida). Encendidas en desarrollo;
- * en producción solo con PITCHLAB_PREVIEW_TOOLS=1.
+ * en producción solo si `PITCHLAB_PREVIEW_TOOLS=1` Y quien mira es administrador verificado.
  */
-export function previewToolsEnabled(): boolean {
-  return process.env.NODE_ENV !== "production" || process.env.PITCHLAB_PREVIEW_TOOLS === "1";
+export function previewToolsEnabled(viewerIsAdmin: boolean = false): boolean {
+  if (process.env.NODE_ENV !== "production") return true;
+  return process.env.PITCHLAB_PREVIEW_TOOLS === "1" && viewerIsAdmin;
 }
 
 /** Cuánto vive el dataset calculado en memoria del servidor. Los snapshots cambian una vez al día. */
@@ -257,7 +258,8 @@ export async function loadPublicPlatformState(
   publicTipstarSlugOrPickId?: string,
 ): Promise<LoadedPlatformState> {
   const fullDataset = buildServerRawPlatformDataset();
-  const hasActiveSession = await hasAuthenticatedBetaSession();
+  const access = await getViewerAccess();
+  const hasActiveSession = access.fullAccess;
   const resolvedWeekly = publicTipstarSlugOrPickId
     ? await resolvePublicWeeklyPick(fullDataset, publicTipstarSlugOrPickId)
     : null;
@@ -267,9 +269,9 @@ export async function loadPublicPlatformState(
     if (publicTipstarSlugOrPickId && !resolvedWeekly) {
       return {
         dataset: { ...withoutGameDetail(redactDatasetForVisitor(fullDataset)), leagues: [], games: [] },
-        initialRole: "member",
+        initialRole: access.isAdmin ? "admin" : access.isTipstar ? "tipstar" : "member",
         hasActiveSession: true,
-        allowRoleSimulation: previewToolsEnabled(),
+        allowRoleSimulation: previewToolsEnabled(access.isAdmin),
         accountsEnabled: accountsEnabled(),
         serverMonth1NoCardMode: await loadMonth1Flag(),
         viewerIdentity: await loadViewerIdentity(),
@@ -295,9 +297,9 @@ export async function loadPublicPlatformState(
       : baseMemberDataset;
     return {
       dataset: memberDataset,
-      initialRole: "member",
+      initialRole: access.isAdmin ? "admin" : access.isTipstar ? "tipstar" : "member",
       hasActiveSession: true,
-      allowRoleSimulation: previewToolsEnabled(),
+      allowRoleSimulation: previewToolsEnabled(access.isAdmin),
       accountsEnabled: accountsEnabled(),
       serverMonth1NoCardMode: await loadMonth1Flag(),
       viewerIdentity: await loadViewerIdentity(),
@@ -353,7 +355,8 @@ export async function loadClubPlatformState(
   preferredRole: ViewerRole = "member",
 ): Promise<LoadedPlatformState> {
   const fullDataset = buildServerRawPlatformDataset();
-  const hasActiveSession = await hasAuthenticatedBetaSession();
+  const access = await getViewerAccess();
+  const hasActiveSession = access.fullAccess;
 
   if (!hasActiveSession) {
     return {
@@ -367,13 +370,21 @@ export async function loadClubPlatformState(
     };
   }
 
+  const resolvedRole: ViewerRole = accountsEnabled()
+    ? access.isAdmin
+      ? "admin"
+      : access.isTipstar
+        ? "tipstar"
+        : "member"
+    : preferredRole;
+
   return {
     dataset: upcomingOnly(withoutGameDetail(fullDataset)),
-    initialRole: preferredRole,
+    initialRole: resolvedRole,
     hasActiveSession: true,
-    allowRoleSimulation: previewToolsEnabled(),
+    allowRoleSimulation: previewToolsEnabled(access.isAdmin),
     accountsEnabled: accountsEnabled(),
-      serverMonth1NoCardMode: await loadMonth1Flag(),
-      viewerIdentity: await loadViewerIdentity(),
+    serverMonth1NoCardMode: await loadMonth1Flag(),
+    viewerIdentity: await loadViewerIdentity(),
   };
 }

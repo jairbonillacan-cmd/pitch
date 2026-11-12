@@ -2,16 +2,17 @@
  * Quién está viendo y qué puede ver, una sola vez por petición.
  *
  * Dos llaves conviven:
- * - El PIN de la beta (cookie `pl_beta`): acceso completo, como hasta ahora.
+ * - El PIN de la beta (cookie `pl_beta`): acceso completo en modo preview.
  * - La cuenta (Better Auth): acceso completo si completó el paso 2 del registro y tiene el
- *   Pase vigente (prueba, días a favor o suscripción). Los correos de PITCHLAB_ADMIN_EMAILS
- *   siempre entran.
+ *   Pase vigente (prueba, días a favor o suscripción). Los correos verificados de
+ *   `PITCHLAB_ADMIN_EMAILS` tienen privilegios de administración.
  */
 import { cache } from "react";
 import { cookies, headers } from "next/headers";
 import {
   createDb,
   hasActivePaseTotal,
+  isActiveTipstarUser,
   signupCompleted,
   suggestHandle,
   viewerProfile,
@@ -27,8 +28,12 @@ export interface ViewerAccess {
   via: "beta" | "account" | "none";
   /** Con cuenta: ya guardó nombre, usuario, fecha de nacimiento y términos. */
   signupComplete: boolean;
-  /** Puede ver todo (PIN, Pase vigente o administrador). */
+  /** Puede ver todo (PIN, Pase vigente o administrador verificado). */
   fullAccess: boolean;
+  /** Cuenta verificada perteneciente a `PITCHLAB_ADMIN_EMAILS` con registro completo. */
+  isAdmin: boolean;
+  /** Cuenta con perfil activo en `tipstar_profiles` y registro completo. */
+  isTipstar: boolean;
   /** Con cuenta: quién es (para la interfaz). Con PIN o sin sesión, null. */
   profile: AccountProfile | null;
 }
@@ -43,7 +48,14 @@ export interface AccountProfile {
   suggestedHandle: string | null;
 }
 
-const NONE: ViewerAccess = { via: "none", signupComplete: false, fullAccess: false, profile: null };
+const NONE: ViewerAccess = {
+  via: "none",
+  signupComplete: false,
+  fullAccess: false,
+  isAdmin: false,
+  isTipstar: false,
+  profile: null,
+};
 
 export function initialsOf(name: string): string {
   const parts = name.trim().split(/\s+/).filter(Boolean);
@@ -75,14 +87,24 @@ export const getViewerAccess = cache(async (): Promise<ViewerAccess> => {
       if (session) {
         db ??= createDb(url) as unknown as Db;
         const userId = await profileIdForAuthUser(db, session.user.id);
-        if (!userId) return { via: "account", signupComplete: false, fullAccess: false, profile: null };
+        if (!userId) {
+          return {
+            via: "account",
+            signupComplete: false,
+            fullAccess: false,
+            isAdmin: false,
+            isTipstar: false,
+            profile: null,
+          };
+        }
         const now = new Date();
-        const [complete, pass, row] = await Promise.all([
+        const [complete, pass, row, tipstar] = await Promise.all([
           signupCompleted(db, userId),
           hasActivePaseTotal(db, userId, now),
           viewerProfile(db, userId),
+          isActiveTipstarUser(db, userId),
         ]);
-        const admin = isAdminEmail(session.user.email);
+        const verifiedAdmin = Boolean(session.user.emailVerified) && isAdminEmail(session.user.email);
         const displayName =
           row?.displayName?.trim() || session.user.name?.trim() || session.user.email.split("@")[0] || "Socio";
         const profile: AccountProfile = {
@@ -92,7 +114,14 @@ export const getViewerAccess = cache(async (): Promise<ViewerAccess> => {
           referralCode: row?.referralCode ?? null,
           suggestedHandle: row?.handle ? null : await suggestHandle(db, displayName),
         };
-        return { via: "account", signupComplete: complete, fullAccess: complete && (pass || admin), profile };
+        return {
+          via: "account",
+          signupComplete: complete,
+          fullAccess: complete && (pass || verifiedAdmin),
+          isAdmin: complete && verifiedAdmin,
+          isTipstar: complete && tipstar,
+          profile,
+        };
       }
     } catch (err) {
       console.warn("[acceso] no se pudo leer la sesión:", err);
@@ -100,7 +129,14 @@ export const getViewerAccess = cache(async (): Promise<ViewerAccess> => {
   }
 
   if (await hasValidBetaCookie()) {
-    return { via: "beta", signupComplete: true, fullAccess: true, profile: null };
+    return {
+      via: "beta",
+      signupComplete: true,
+      fullAccess: true,
+      isAdmin: false,
+      isTipstar: false,
+      profile: null,
+    };
   }
 
   return NONE;

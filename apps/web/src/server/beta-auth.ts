@@ -1,3 +1,5 @@
+import { checkEndpointRateLimit, resetRateLimitsForTests } from "./request-security";
+
 const COOKIE_NAME = "pl_beta";
 const COOKIE_MAX_AGE_SECONDS = 30 * 24 * 60 * 60; // 30 days
 const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000; // 15 minutes
@@ -16,13 +18,6 @@ function isForbiddenProdCookieSecret(secret: string): boolean {
     /^(reemplaz|replace[-_]|changeme|example[-_]|dev-only-)/i.test(secret)
   );
 }
-
-interface RateEntry {
-  count: number;
-  resetAt: number;
-}
-
-const memoryRateStore = new Map<string, RateEntry>();
 
 export function getBetaCookieName(): string {
   return COOKIE_NAME;
@@ -96,8 +91,6 @@ export function betaCookieSigningKey(secret: string, code: string): string {
 function defaultCookieSigningKey(): string {
   return betaCookieSigningKey(getBetaCookieSecret(), getPreviewAccessCode());
 }
-
-let warnedMemoryRateLimit = false;
 
 function toHex(bytes: Uint8Array): string {
   return Array.from(bytes)
@@ -199,79 +192,17 @@ export async function checkRateLimit(
   ip: string,
   nowMs: number = Date.now(),
 ): Promise<{ allowed: boolean; remaining: number; retryAfterSeconds: number }> {
-  const key = `pl:beta:rl:${ip || "unknown"}`;
-  const upstashUrl = process.env.UPSTASH_REDIS_REST_URL;
-  const upstashToken = process.env.UPSTASH_REDIS_REST_TOKEN;
-
-  if (upstashUrl && upstashToken) {
-    try {
-      const incrRes = await fetch(`${upstashUrl}/incr/${encodeURIComponent(key)}`, {
-        method: "POST",
-        headers: { Authorization: `Bearer ${upstashToken}` },
-      });
-      if (incrRes.ok) {
-        const data = (await incrRes.json()) as { result?: number };
-        const count = Number(data.result ?? 1);
-        if (count === 1) {
-          await fetch(
-            `${upstashUrl}/expire/${encodeURIComponent(key)}/${Math.floor(RATE_LIMIT_WINDOW_MS / 1000)}`,
-            {
-              method: "POST",
-              headers: { Authorization: `Bearer ${upstashToken}` },
-            },
-          );
-        }
-        const allowed = count <= RATE_LIMIT_MAX_ATTEMPTS;
-        return {
-          allowed,
-          remaining: Math.max(0, RATE_LIMIT_MAX_ATTEMPTS - count),
-          retryAfterSeconds: allowed ? 0 : Math.floor(RATE_LIMIT_WINDOW_MS / 1000),
-        };
-      }
-    } catch (err) {
-      // Fallback to in-memory rate limiter if Upstash is unreachable
-      void err;
-    }
-  }
-
-  if (process.env.NODE_ENV === "production" && !warnedMemoryRateLimit) {
-    // En serverless cada instancia tiene su propia memoria: el límite real de
-    // intentos se multiplica por el número de instancias. Configura Upstash.
-    warnedMemoryRateLimit = true;
-    console.warn(
-      "[beta-auth] Límite de intentos en memoria: configura UPSTASH_REDIS_REST_URL y UPSTASH_REDIS_REST_TOKEN para que sea global.",
-    );
-  }
-
-  const existing = memoryRateStore.get(key);
-  if (!existing || existing.resetAt <= nowMs) {
-    const entry: RateEntry = {
-      count: 1,
-      resetAt: nowMs + RATE_LIMIT_WINDOW_MS,
-    };
-    memoryRateStore.set(key, entry);
-    return {
-      allowed: true,
-      remaining: RATE_LIMIT_MAX_ATTEMPTS - 1,
-      retryAfterSeconds: 0,
-    };
-  }
-
-  existing.count += 1;
-  const allowed = existing.count <= RATE_LIMIT_MAX_ATTEMPTS;
-  const retryAfterSeconds = allowed
-    ? 0
-    : Math.max(1, Math.ceil((existing.resetAt - nowMs) / 1000));
-
-  return {
-    allowed,
-    remaining: Math.max(0, RATE_LIMIT_MAX_ATTEMPTS - existing.count),
-    retryAfterSeconds,
-  };
+  return checkEndpointRateLimit({
+    bucket: "beta-pin",
+    key: ip || "unknown",
+    limit: RATE_LIMIT_MAX_ATTEMPTS,
+    windowMs: RATE_LIMIT_WINDOW_MS,
+    nowMs,
+  });
 }
 
 export function resetMemoryRateLimitForTests(): void {
-  memoryRateStore.clear();
+  resetRateLimitsForTests();
 }
 
 /**

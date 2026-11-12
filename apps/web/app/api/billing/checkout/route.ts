@@ -7,6 +7,7 @@ import {
   referralCouponFor,
   type PlanInterval,
 } from "../../../../src/server/billing/checkout";
+import { verifySameOriginMutation } from "../../../../src/server/request-security";
 import { requireMember } from "../../../../src/server/session-user";
 
 export const runtime = "nodejs";
@@ -17,6 +18,9 @@ export const dynamic = "force-dynamic";
  * Requiere sesión, STRIPE_SECRET_KEY y el ID de precio del plan.
  */
 export async function POST(request: Request): Promise<NextResponse> {
+  const csrfError = verifySameOriginMutation(request);
+  if (csrfError) return csrfError;
+
   const apiKey = process.env.STRIPE_SECRET_KEY;
   if (!apiKey) return NextResponse.json({ error: "Cobro no configurado" }, { status: 503 });
   const member = await requireMember(request);

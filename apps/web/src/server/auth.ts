@@ -17,6 +17,7 @@ import { APIError, createAuthMiddleware } from "better-auth/api";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { captcha } from "better-auth/plugins/captcha";
 import { magicLink } from "better-auth/plugins/magic-link";
+import { isDisposableEmailDomain } from "@pitchlab/contracts";
 import { eq } from "@pitchlab/db";
 import { renderEmail } from "@pitchlab/emails";
 import {
@@ -140,6 +141,14 @@ export function createAuth(options: {
     },
     hooks: {
       before: createAuthMiddleware(async (ctx) => {
+        if (ctx.path === "/sign-in/magic-link") {
+          const emailCandidate = typeof ctx.body?.email === "string" ? ctx.body.email : "";
+          if (isDisposableEmailDomain(emailCandidate)) {
+            throw new APIError("BAD_REQUEST", {
+              message: "Usa un correo permanente para iniciar sesión.",
+            });
+          }
+        }
         const linkingX = ctx.path === "/link-social" && ctx.body?.provider === "twitter";
         if (linkingX && !options.twitter) throw new APIError("SERVICE_UNAVAILABLE");
         if (
@@ -241,6 +250,19 @@ export function getAuth(): PitchLabAuth | null {
         ? resendSender(resendKey, from)
         : consoleSender;
 
+  const turnstileSecret = process.env.TURNSTILE_SECRET_KEY?.trim();
+  const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim();
+  if (
+    isProd &&
+    !allowLocalSender &&
+    process.env.PITCHLAB_ALLOW_NO_TURNSTILE_IN_PROD !== "1" &&
+    (!turnstileSecret || !turnstileSiteKey)
+  ) {
+    throw new Error(
+      "TURNSTILE_SECRET_KEY y NEXT_PUBLIC_TURNSTILE_SITE_KEY son obligatorias en producción.",
+    );
+  }
+
   const pair = (id?: string, secretValue?: string) =>
     id && secretValue ? { clientId: id, clientSecret: secretValue } : undefined;
   cached = createAuth({
@@ -252,10 +274,7 @@ export function getAuth(): PitchLabAuth | null {
     apple: pair(process.env.APPLE_CLIENT_ID, process.env.APPLE_CLIENT_SECRET),
     twitter: twitterCredentials(),
     // Solo con las dos claves: si falta la pública, el navegador no podría mandar el token.
-    turnstileSecret:
-      process.env.TURNSTILE_SECRET_KEY && process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
-        ? process.env.TURNSTILE_SECRET_KEY
-        : undefined,
+    turnstileSecret: turnstileSecret && turnstileSiteKey ? turnstileSecret : undefined,
   });
   return cached;
 }

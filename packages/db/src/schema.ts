@@ -160,6 +160,24 @@ export const platformRuntimeFlags = pgTable("platform_runtime_flags", {
   updatedAt: ts("updated_at").notNull().defaultNow(),
 });
 
+export const adminAuditLogs = pgTable(
+  "admin_audit_logs",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    actorUserId: uuid("actor_user_id").references(() => users.id, { onDelete: "set null" }),
+    actorEmail: text("actor_email").notNull(),
+    action: text("action").notNull(),
+    targetKey: text("target_key").notNull(),
+    payloadJson: jsonb("payload_json"),
+    ipSubnetHash: char("ip_subnet_hash", { length: 64 }),
+    createdAt: createdAt(),
+  },
+  (t) => [
+    index("admin_audit_logs_created_idx").on(t.createdAt),
+    index("admin_audit_logs_actor_idx").on(t.actorUserId),
+  ],
+);
+
 // ---------------------------------------------------------------------------
 // B. Suscripción y días concedidos
 // ---------------------------------------------------------------------------
