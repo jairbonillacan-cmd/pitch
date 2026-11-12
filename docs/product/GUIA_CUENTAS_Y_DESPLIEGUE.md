@@ -81,6 +81,7 @@ Copia lo que imprime y pégalo directo en Vercel. Usa uno distinto para cada var
    ```
 
    Debe terminar sin errores. Si después hay migraciones nuevas, se corre el mismo comando.
+   Antes del próximo deploy faltan en producción `0005_perfil_y_conexion_x`, `0006_correos_programados` y `0007_comunidad`; el comando aplica solo las que falten. Córrelo **antes** de publicar la versión nueva, porque esa versión ya usa esas tablas.
 
 ## Paso 4 · Encender las cuentas (Better Auth)
 

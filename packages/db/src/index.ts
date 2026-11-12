@@ -9,3 +9,4 @@ export * from "./payouts";
 export * from "./signup";
 export * from "./profiles";
 export * from "./emails";
+export * from "./social";

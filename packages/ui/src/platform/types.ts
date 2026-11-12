@@ -328,6 +328,12 @@ export interface SocialPost {
   isExample?: boolean;
   /** Pick adjunto, si la publicación trae uno. */
   pick?: SocialPostPick;
+  /** Fecha real (ISO) cuando viene del servidor; `createdAt` es la etiqueta («Hace 5 min»). */
+  createdAtIso?: string;
+  /** Guardada en el servidor: la ven todos los socios. */
+  fromServer?: boolean;
+  /** La escribió quien está viendo (puede borrarla). */
+  isMine?: boolean;
 }
 
 export interface PlayerPropItem {

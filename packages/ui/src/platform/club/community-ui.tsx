@@ -2,7 +2,7 @@
 
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { LeagueId } from "@pitchlab/contracts";
-import { exampleLeaderboardRows, getExampleGameMeta } from "../community-examples";
+import { exampleLeaderboardRows, getExampleAnalystSpec, getExampleGameMeta } from "../community-examples";
 import { usePlatform, type ViewerIdentity } from "../platform-provider";
 import type { LeaderboardAnalyst } from "../profile-stats";
 import type { JournalEntry, PlatformDataset, ViewerRole } from "../types";
@@ -395,7 +395,9 @@ export function TabPanel<K extends string>({
 }
 
 /* ---------------------------------------------------------------------------
-   Seguidos (en este navegador hasta que exista el servidor)
+   Seguidos
+   - Socios reales: en el servidor (`/api/social/follows`), los ve en cualquier dispositivo.
+   - Perfiles de ejemplo, o sin cuenta (PIN de beta): en este navegador.
    ------------------------------------------------------------------------- */
 
 const FOLLOWING_KEY = "pitchlab.community.following";
@@ -412,38 +414,100 @@ function readFollowing(): string[] {
   }
 }
 
-/**
- * A quién sigues. TODO(F4): guardar en el servidor; hoy vive en este navegador
- * y se comparte entre Comunidad y Perfil.
- */
+function writeFollowing(next: readonly string[]): void {
+  try {
+    window.localStorage.setItem(FOLLOWING_KEY, JSON.stringify(next));
+  } catch (err) {
+    void err;
+  }
+}
+
+/** Seguidos en el servidor, compartidos entre Comunidad y Perfil. null = sin servidor. */
+let serverFollowing: string[] | null = null;
+let serverFollowingRequest: Promise<void> | null = null;
+/** De quién es el caché: si cambia la cuenta en la misma pestaña, se vuelve a pedir. */
+let serverFollowingOwner: string | null = null;
+
+function loadServerFollowing(owner: string): Promise<void> {
+  if (serverFollowingOwner !== owner) {
+    serverFollowingOwner = owner;
+    serverFollowing = null;
+    serverFollowingRequest = null;
+  }
+  serverFollowingRequest ??= (async () => {
+    try {
+      const res = await fetch("/api/social/follows", { credentials: "same-origin" });
+      const data = res.ok ? ((await res.json()) as { handles?: unknown }) : null;
+      if (Array.isArray(data?.handles)) {
+        serverFollowing = data.handles.filter((h): h is string => typeof h === "string");
+        window.dispatchEvent(new Event(FOLLOWING_EVENT));
+      }
+    } catch (err) {
+      void err;
+    }
+  })();
+  return serverFollowingRequest;
+}
+
+function currentFollowing(): string[] {
+  const local = readFollowing();
+  if (!serverFollowing) return local;
+  // Con servidor, del navegador solo cuentan los perfiles de ejemplo.
+  const examples = local.filter((h) => getExampleAnalystSpec(h));
+  return [...new Set([...serverFollowing, ...examples])];
+}
+
 export function useFollowing(): {
   following: readonly string[];
   isFollowing: (handle: string) => boolean;
   toggle: (handle: string) => boolean;
 } {
+  const { accountsEnabled, viewerIdentity, pushToast } = usePlatform();
+  const owner = viewerIdentity?.handle ?? null;
   const [following, setFollowing] = useState<string[]>([]);
   useEffect(() => {
-    setFollowing(readFollowing());
-    const sync = (): void => setFollowing(readFollowing());
+    const sync = (): void => setFollowing(currentFollowing());
+    sync();
+    if (accountsEnabled && owner) void loadServerFollowing(owner);
     window.addEventListener(FOLLOWING_EVENT, sync);
     window.addEventListener("storage", sync);
     return () => {
       window.removeEventListener(FOLLOWING_EVENT, sync);
       window.removeEventListener("storage", sync);
     };
-  }, []);
-  const toggle = useCallback((handle: string): boolean => {
-    const current = readFollowing();
-    const next = current.includes(handle) ? current.filter((h) => h !== handle) : [...current, handle];
-    try {
-      window.localStorage.setItem(FOLLOWING_KEY, JSON.stringify(next));
-    } catch (err) {
-      void err;
-    }
-    setFollowing(next);
-    window.dispatchEvent(new Event(FOLLOWING_EVENT));
-    return next.includes(handle);
-  }, []);
+  }, [accountsEnabled, owner]);
+  const toggle = useCallback(
+    (handle: string): boolean => {
+      const willFollow = !currentFollowing().includes(handle);
+      if (serverFollowing && !getExampleAnalystSpec(handle)) {
+        const before = serverFollowing;
+        serverFollowing = willFollow ? [...before, handle] : before.filter((h) => h !== handle);
+        window.dispatchEvent(new Event(FOLLOWING_EVENT));
+        void (async () => {
+          try {
+            const res = await fetch("/api/social/follows", {
+              method: "POST",
+              credentials: "same-origin",
+              headers: { "content-type": "application/json" },
+              body: JSON.stringify({ handle, follow: willFollow }),
+            });
+            if (!res.ok) throw new Error(String(res.status));
+          } catch (err) {
+            void err;
+            serverFollowing = before;
+            window.dispatchEvent(new Event(FOLLOWING_EVENT));
+            pushToast("No pudimos guardar a quién sigues. Inténtalo de nuevo.", "danger");
+          }
+        })();
+        return willFollow;
+      }
+      const local = readFollowing();
+      writeFollowing(willFollow ? [...local, handle] : local.filter((h) => h !== handle));
+      window.dispatchEvent(new Event(FOLLOWING_EVENT));
+      return willFollow;
+    },
+    [pushToast],
+  );
   const isFollowing = useCallback((handle: string) => following.includes(handle), [following]);
   return { following, isFollowing, toggle };
 }

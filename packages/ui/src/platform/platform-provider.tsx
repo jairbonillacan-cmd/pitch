@@ -156,6 +156,14 @@ function formatClvBadge(avgClvPct: number | null): string {
   return `CLV ${avgClvPct >= 0 ? "+" : ""}${avgClvPct.toFixed(1)} %`;
 }
 import {
+  fromServerComment,
+  fromServerPost,
+  isPendingPost,
+  mergeSocialPosts,
+  type ServerSocialComment,
+  type ServerSocialPost,
+} from "./social-sync";
+import {
   buildSmartAutoParlay,
   checkParlayCompatibility,
   computeParlaySummary,
@@ -278,6 +286,14 @@ export interface PlatformContextValue {
   }) => { ok: boolean; error?: string };
   addSocialComment: (postId: string, body: string) => { ok: boolean; error?: string };
   toggleSocialLike: (postId: string) => void;
+  /** Borra una publicación propia (solo las guardadas en el servidor). */
+  deleteSocialPost: (postId: string) => void;
+  /** Vuelve a pedir el feed compartido (al abrir Comunidad o volver a la pestaña). */
+  refreshSocialFeed: () => void;
+  /** Trae las publicaciones de un socio para su perfil. */
+  loadSocialPostsByAuthor: (handle: string) => void;
+  /** true cuando Comunidad viene del servidor (la ven todos los socios). */
+  socialOnServer: boolean;
   blockedSpamAttempts: number;
 
   watchlistGameIds: string[];
@@ -380,6 +396,9 @@ const ACTION_KEYS = [
   "publishSocialPost",
   "addSocialComment",
   "toggleSocialLike",
+  "deleteSocialPost",
+  "refreshSocialFeed",
+  "loadSocialPostsByAuthor",
   "toggleWatchlistGame",
   "setFavoriteLeagues",
   "setRiskPreference",
@@ -495,6 +514,8 @@ export function PlatformProvider({
   const [socialPosts, setSocialPosts] = useState<SocialPost[]>(() =>
     attachExamplePostPicks(INITIAL_SOCIAL_POSTS, rawDataset.games),
   );
+  // Con cuentas, Comunidad vive en el servidor; sin ellas (PIN de beta), en este navegador.
+  const [socialOnServer, setSocialOnServer] = useState<boolean>(false);
   const updateViewerIdentity = useCallback((profile: Pick<ViewerIdentity, "displayName" | "handle">) => {
     if (!viewerIdentity) return;
     const words = profile.displayName.trim().split(/\s+/);
@@ -708,13 +729,13 @@ export function PlatformProvider({
     if (userDataLoaded) writeStored(STORAGE_KEYS.watchlist, watchlistGameIds);
   }, [watchlistGameIds, userDataLoaded]);
   useEffect(() => {
-    if (userDataLoaded) {
+    if (userDataLoaded && !socialOnServer) {
       writeStored(
         STORAGE_KEYS.ownPosts,
         socialPosts.filter((p) => !p.isExample).slice(0, 100),
       );
     }
-  }, [socialPosts, userDataLoaded]);
+  }, [socialPosts, userDataLoaded, socialOnServer]);
 
   // Atajo global Cmd+K / Ctrl+K y Escape
   useEffect(() => {
@@ -1102,14 +1123,51 @@ export function PlatformProvider({
             }
           : undefined,
       };
-      setSocialPosts((prev) => [newPost, ...prev]);
+      if (socialOnServer && !newPost.isExample) {
+        // Se ve al instante; el servidor la confirma (o la quita con su motivo).
+        const tempId = `tmp-${Date.now()}`;
+        setSocialPosts((prev) => [{ ...newPost, id: tempId, isMine: true }, ...prev]);
+        void (async () => {
+          const res = await postJson("/api/social/posts", {
+            body: trimmed,
+            leagueLabel: payload.leagueLabel,
+            matchLabel: payload.matchLabel,
+            pickBadge: payload.pickBadge,
+            originType: payload.originType,
+            gameId: payload.pick?.matchPick.gameId,
+            pick: newPost.pick
+              ? {
+                  pickId: newPost.pick.pickId,
+                  gameId: newPost.pick.gameId,
+                  label: newPost.pick.label,
+                  units: newPost.pick.units,
+                  userDecimal: newPost.pick.userDecimal,
+                  fairDecimal: newPost.pick.fairDecimal,
+                  modelProbability: newPost.pick.modelProbability,
+                }
+              : undefined,
+          });
+          const data = res
+            ? ((await res.json().catch(() => null)) as { post?: ServerSocialPost; error?: string } | null)
+            : null;
+          if (res?.ok && data?.post?.authorHandle) {
+            const saved = fromServerPost(data.post, rawDataset.games, new Date());
+            setSocialPosts((prev) => prev.map((p) => (p.id === tempId ? saved : p)));
+          } else {
+            setSocialPosts((prev) => prev.filter((p) => p.id !== tempId));
+            pushToast(data?.error ?? "No pudimos publicar. Revisa tu conexión.", "danger");
+          }
+        })();
+      } else {
+        setSocialPosts((prev) => [newPost, ...prev]);
+      }
       if (payload.pick) {
         sealPickToJournal(payload.pick.matchPick, payload.pick.units, payload.pick.userDecimal);
       }
       pushToast("Publicado en Comunidad.", "success");
       return { ok: true };
     },
-    [viewerRole, viewerIdentity, pushToast, journal, socialPosts, sealPickToJournal],
+    [viewerRole, viewerIdentity, pushToast, journal, socialPosts, sealPickToJournal, socialOnServer, rawDataset.games],
   );
 
   const addSocialComment = useCallback(
@@ -1126,6 +1184,32 @@ export function PlatformProvider({
         pushToast("Enlace externo bloqueado por el filtro anti-spam.", "danger");
         return { ok: false, error: "No se permiten enlaces externos." };
       }
+      const target = socialPosts.find((p) => p.id === postId);
+      if (target && isPendingPost(target)) {
+        return { ok: false, error: "Espera a que termine de publicarse." };
+      }
+      const tempId = `sc-${Date.now()}`;
+      if (socialOnServer && target?.fromServer) {
+        void (async () => {
+          const res = await postJson(`/api/social/posts/${postId}/comments`, { body: trimmed });
+          const data = res
+            ? ((await res.json().catch(() => null)) as { comment?: ServerSocialComment; error?: string } | null)
+            : null;
+          if (res?.ok && data?.comment) {
+            const saved = fromServerComment(data.comment, new Date());
+            setSocialPosts((prev) =>
+              prev.map((p) =>
+                p.id === postId ? { ...p, comments: p.comments.map((c) => (c.id === tempId ? saved : c)) } : p,
+              ),
+            );
+          } else {
+            setSocialPosts((prev) =>
+              prev.map((p) => (p.id === postId ? { ...p, comments: p.comments.filter((c) => c.id !== tempId) } : p)),
+            );
+            pushToast(data?.error ?? "No pudimos guardar tu comentario.", "danger");
+          }
+        })();
+      }
       setSocialPosts((prev) =>
         prev.map((post) =>
           post.id === postId
@@ -1134,7 +1218,7 @@ export function PlatformProvider({
                 comments: [
                   ...post.comments,
                   {
-                    id: `sc-${Date.now()}`,
+                    id: tempId,
                     authorHandle: ownHandleFor(viewerIdentity, viewerRole),
                     authorName:
                       viewerIdentity?.displayName ??
@@ -1154,22 +1238,102 @@ export function PlatformProvider({
       pushToast("Respuesta agregada al hilo.", "success");
       return { ok: true };
     },
-    [viewerRole, viewerIdentity, pushToast, journal],
+    [viewerRole, viewerIdentity, pushToast, journal, socialPosts, socialOnServer],
   );
 
-  const toggleSocialLike = useCallback((postId: string) => {
-    setSocialPosts((prev) =>
-      prev.map((p) =>
-        p.id === postId
-          ? {
-              ...p,
-              likedByMe: !p.likedByMe,
-              likes: p.likedByMe ? Math.max(0, p.likes - 1) : p.likes + 1,
-            }
-          : p,
-      ),
-    );
-  }, []);
+  const toggleSocialLike = useCallback(
+    (postId: string) => {
+      const target = socialPosts.find((p) => p.id === postId);
+      if (!target || isPendingPost(target)) return;
+      const liked = !target.likedByMe;
+      setSocialPosts((prev) =>
+        prev.map((p) =>
+          p.id === postId ? { ...p, likedByMe: liked, likes: liked ? p.likes + 1 : Math.max(0, p.likes - 1) } : p,
+        ),
+      );
+      if (!socialOnServer || !target.fromServer) return;
+      void (async () => {
+        try {
+          const res = await fetch(`/api/social/posts/${postId}/like`, {
+            method: "PUT",
+            credentials: "same-origin",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({ liked }),
+          });
+          const data = (await res.json().catch(() => null)) as { likes?: number } | null;
+          const likes = data?.likes;
+          if (!res.ok || typeof likes !== "number") throw new Error(String(res.status));
+          setSocialPosts((prev) => prev.map((p) => (p.id === postId ? { ...p, likes, likedByMe: liked } : p)));
+        } catch (err) {
+          void err;
+          setSocialPosts((prev) =>
+            prev.map((p) => (p.id === postId ? { ...p, likedByMe: target.likedByMe, likes: target.likes } : p)),
+          );
+        }
+      })();
+    },
+    [socialPosts, socialOnServer],
+  );
+
+  const deleteSocialPost = useCallback(
+    (postId: string) => {
+      const target = socialPosts.find((p) => p.id === postId);
+      if (!target?.fromServer || !target.isMine) return;
+      setSocialPosts((prev) => prev.filter((p) => p.id !== postId));
+      void (async () => {
+        try {
+          const res = await fetch(`/api/social/posts/${postId}`, { method: "DELETE", credentials: "same-origin" });
+          if (!res.ok) throw new Error(String(res.status));
+          pushToast("Publicación borrada.", "default");
+        } catch (err) {
+          void err;
+          setSocialPosts((prev) => mergeSocialPosts(prev, [target], "extra"));
+          pushToast("No pudimos borrarla. Inténtalo de nuevo.", "danger");
+        }
+      })();
+    },
+    [socialPosts, pushToast],
+  );
+
+  const refreshSocialFeed = useCallback(() => {
+    if (!accountsEnabled) return;
+    void (async () => {
+      const data = await getJson<{ posts?: ServerSocialPost[] }>("/api/social/posts?limit=50");
+      if (!data?.posts) return;
+      const now = new Date();
+      const incoming = data.posts.map((p) => fromServerPost(p, rawDataset.games, now));
+      setSocialOnServer(true);
+      setSocialPosts((prev) => mergeSocialPosts(prev, incoming, "feed"));
+    })();
+  }, [accountsEnabled, rawDataset.games]);
+
+  const loadSocialPostsByAuthor = useCallback(
+    (handle: string) => {
+      if (!accountsEnabled || !handle) return;
+      void (async () => {
+        const data = await getJson<{ posts?: ServerSocialPost[] }>(
+          `/api/social/posts?limit=50&author=${encodeURIComponent(handle)}`,
+        );
+        if (!data?.posts) return;
+        const now = new Date();
+        const incoming = data.posts.map((p) => fromServerPost(p, rawDataset.games, now));
+        setSocialOnServer(true);
+        setSocialPosts((prev) => mergeSocialPosts(prev, incoming, "extra"));
+      })();
+    },
+    [accountsEnabled, rawDataset.games],
+  );
+
+  // Feed compartido: al entrar y cada vez que la persona vuelve a la pestaña.
+  useEffect(() => {
+    if (!accountsEnabled) return;
+    refreshSocialFeed();
+    const onVisible = (): void => {
+      if (document.visibilityState === "visible") refreshSocialFeed();
+    };
+    document.addEventListener("visibilitychange", onVisible);
+    return () => document.removeEventListener("visibilitychange", onVisible);
+  }, [accountsEnabled, refreshSocialFeed]);
 
   const toggleWatchlistGame = useCallback(
     (gameId: string) => {
@@ -1318,6 +1482,10 @@ export function PlatformProvider({
       publishSocialPost,
       addSocialComment,
       toggleSocialLike,
+      deleteSocialPost,
+      refreshSocialFeed,
+      loadSocialPostsByAuthor,
+      socialOnServer,
       blockedSpamAttempts,
       watchlistGameIds,
       toggleWatchlistGame,
@@ -1388,6 +1556,10 @@ export function PlatformProvider({
       publishSocialPost,
       addSocialComment,
       toggleSocialLike,
+      deleteSocialPost,
+      refreshSocialFeed,
+      loadSocialPostsByAuthor,
+      socialOnServer,
       blockedSpamAttempts,
       watchlistGameIds,
       toggleWatchlistGame,

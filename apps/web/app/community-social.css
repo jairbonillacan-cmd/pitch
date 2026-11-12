@@ -426,6 +426,23 @@
   margin-left: auto;
 }
 
+/* Borrar una publicación propia: confirma en el mismo renglón. */
+.pl-com-delete-confirm {
+  display: inline-flex;
+  gap: 2px;
+  margin-left: auto;
+}
+
+.pl-com-act--danger {
+  color: var(--pl-danger);
+  font-weight: 600;
+}
+
+.pl-com-act--danger:hover {
+  color: var(--pl-danger);
+  background: color-mix(in srgb, var(--pl-danger) 12%, transparent);
+}
+
 .pl-com-comment-preview {
   margin-top: 8px;
   padding-top: 14px;

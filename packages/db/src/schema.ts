@@ -458,11 +458,14 @@ export const socialPosts = pgTable(
     authorUserId: uuid("author_user_id")
       .notNull()
       .references(() => users.id),
-    gameId: text("game_id").notNull(),
+    /** Partido del pick adjunto; null en una publicación sin pick. */
+    gameId: text("game_id"),
     leagueLabel: text("league_label").notNull(),
     matchLabel: text("match_label").notNull(),
     originType: text("origin_type").notNull(),
     pickBadge: text("pick_badge").notNull(),
+    /** Pick adjunto tal como se publicó (id, cuota, unidades, probabilidad del modelo). */
+    pick: jsonb("pick"),
     sealedJournalEntryId: uuid("sealed_journal_entry_id").references(() => sealedPicks.id),
     authorRoleBadgeSnapshot: text("author_role_badge_snapshot").notNull(),
     authorRecordSnapshot: text("author_record_snapshot").notNull(),
@@ -496,7 +499,44 @@ export const socialComments = pgTable(
     isHiddenByModeration: boolean("is_hidden_by_moderation").notNull().default(false),
     createdAt: createdAt(),
   },
-  (t) => [index("social_comments_post_idx").on(t.postId, t.createdAt)],
+  (t) => [
+    index("social_comments_post_idx").on(t.postId, t.createdAt),
+    index("social_comments_author_idx").on(t.authorUserId, t.createdAt),
+  ],
+);
+
+/** «Me gusta»: uno por socio y publicación. */
+export const socialLikes = pgTable(
+  "social_likes",
+  {
+    postId: uuid("post_id")
+      .notNull()
+      .references(() => socialPosts.id, { onDelete: "cascade" }),
+    userId: uuid("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    createdAt: createdAt(),
+  },
+  (t) => [primaryKey({ columns: [t.postId, t.userId] })],
+);
+
+/** A quién sigue cada socio. */
+export const socialFollows = pgTable(
+  "social_follows",
+  {
+    followerUserId: uuid("follower_user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    followedUserId: uuid("followed_user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    createdAt: createdAt(),
+  },
+  (t) => [
+    primaryKey({ columns: [t.followerUserId, t.followedUserId] }),
+    index("social_follows_followed_idx").on(t.followedUserId),
+    check("social_follows_not_self_ck", sql`${t.followerUserId} <> ${t.followedUserId}`),
+  ],
 );
 
 export const socialModerationLogs = pgTable("social_moderation_logs", {

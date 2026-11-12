@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import type { LeagueId, PublicMemberProfile } from "@pitchlab/contracts";
 import { EditProfileDialog, XBrandMark, type EditableProfile } from "./EditProfileDialog";
 import { LeagueBadge, TeamBadge } from "../../sports";
@@ -161,8 +161,14 @@ export function AnalystProfileClubView({
     navigateTo,
     viewerIdentity,
     updateViewerIdentity,
+    loadSocialPostsByAuthor,
   } = usePlatform();
   const [edited, setEdited] = useState<EditableProfile | null>(null);
+  // Publicaciones del socio guardadas en el servidor (no solo las del feed reciente).
+  const memberHandle = memberProfile?.handle ?? null;
+  useEffect(() => {
+    if (memberHandle) loadSocialPostsByAuthor(memberHandle);
+  }, [memberHandle, loadSocialPostsByAuthor]);
   const { rows, own, today } = useLeaderboardRows();
   const cleanHandle = handle.replace(/^@/, "").trim().toLowerCase();
 
@@ -181,8 +187,12 @@ export function AnalystProfileClubView({
         avatarInitials: ownIdentity?.initials ?? initials,
         avatarGradVar: "var(--avatar-grad-3)",
         joinedAt: memberProfile.joinedAt,
-        followers: null,
-        following: null,
+        // Sin quien mira: la vista suma 1 si lo sigue (así seguir/dejar de seguir se ve al instante).
+        followers:
+          typeof memberProfile.followers === "number"
+            ? Math.max(0, memberProfile.followers - (memberProfile.viewerFollows ? 1 : 0))
+            : null,
+        following: typeof memberProfile.following === "number" ? memberProfile.following : null,
         favoriteLeagues: ownIdentity ? favoriteLeagues : [],
         isExample: false,
         journal: ownIdentity ? journal : [],
@@ -485,7 +495,7 @@ function ProfileContent({
           <div className="pl-prof-meta num">
             {followerCount !== null ? (
               <span>
-                <strong>{followerCount}</strong> seguidores
+                <strong>{followerCount}</strong> {followerCount === 1 ? "seguidor" : "seguidores"}
               </span>
             ) : null}
             {profile.following !== null ? (

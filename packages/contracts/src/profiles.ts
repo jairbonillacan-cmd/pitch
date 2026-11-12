@@ -11,4 +11,9 @@ export interface PublicMemberProfile {
   xUsername: string | null;
   joinedAt: string;
   isTipstar: boolean;
+  /** Seguidores y seguidos en Comunidad (solo en la página del perfil). */
+  followers?: number;
+  following?: number;
+  /** Quien mira ya sigue a este socio (incluido en `followers`). */
+  viewerFollows?: boolean;
 }

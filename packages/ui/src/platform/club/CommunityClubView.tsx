@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useId, useMemo, useState } from "react";
+import React, { useEffect, useId, useMemo, useState } from "react";
 import { LeagueBadge, TeamBadge } from "../../sports";
 import { formatOddsValue } from "../access-guard";
 import { getExampleAnalystSpec } from "../community-examples";
@@ -156,11 +156,17 @@ function CommunityContent(): React.JSX.Element {
     publishSocialPost,
     addSocialComment,
     toggleSocialLike,
+    deleteSocialPost,
+    refreshSocialFeed,
     sealPickToJournal,
     pushToast,
     navigateTo,
   } = usePlatform();
   const [tab, setTab] = useUrlTab<CommunityTab>(TAB_KEYS, "para-ti");
+  // Al abrir Comunidad se trae lo último que publicaron los demás.
+  useEffect(() => {
+    refreshSocialFeed();
+  }, [refreshSocialFeed]);
   const { rows, own, today } = useLeaderboardRows();
   const follows = useFollowing();
   const monthName = monthLongLabel(today.getMonth());
@@ -243,6 +249,7 @@ function CommunityContent(): React.JSX.Element {
     onShare,
     toggleSocialLike,
     addSocialComment,
+    onDelete: deleteSocialPost,
     goProfile,
   };
 
@@ -582,6 +589,7 @@ interface FeedSharedProps {
   onShare: (post: SocialPost) => void;
   toggleSocialLike: (postId: string) => void;
   addSocialComment: (postId: string, body: string) => { ok: boolean; error?: string };
+  onDelete: (postId: string) => void;
   goProfile: (handle: string) => (e: React.MouseEvent<HTMLAnchorElement>) => void;
 }
 
@@ -620,11 +628,14 @@ function PostCard({
   onShare,
   toggleSocialLike,
   addSocialComment,
+  onDelete,
   goProfile,
 }: FeedSharedProps & { post: SocialPost }): React.JSX.Element {
   const uid = useId();
   const author = authorOf(post);
   const [threadOpen, setThreadOpen] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const canDelete = Boolean(post.fromServer && post.isMine);
   const [reply, setReply] = useState("");
   const [replyError, setReplyError] = useState("");
   const isMine = own?.handle === post.authorHandle;
@@ -732,7 +743,33 @@ function PostCard({
             Copiar a mi bitácora
           </button>
         ) : null}
-        <button type="button" className="pl-com-act pl-com-act--end" aria-label="Compartir" onClick={() => onShare(post)}>
+        {canDelete ? (
+          confirmDelete ? (
+            <span className="pl-com-delete-confirm" role="group" aria-label="Confirmar borrado">
+              <button type="button" className="pl-com-act pl-com-act--danger" onClick={() => onDelete(post.id)}>
+                Borrar
+              </button>
+              <button type="button" className="pl-com-act" onClick={() => setConfirmDelete(false)}>
+                Cancelar
+              </button>
+            </span>
+          ) : (
+            <button
+              type="button"
+              className="pl-com-act pl-com-act--end"
+              aria-label="Borrar publicación"
+              onClick={() => setConfirmDelete(true)}
+            >
+              <MaestroIcon name="trash" size={15} />
+            </button>
+          )
+        ) : null}
+        <button
+          type="button"
+          className={`pl-com-act ${canDelete ? "" : "pl-com-act--end"}`}
+          aria-label="Compartir"
+          onClick={() => onShare(post)}
+        >
           <ShareIcon size={16} />
         </button>
       </div>
