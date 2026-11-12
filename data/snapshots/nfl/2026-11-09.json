@@ -1,0 +1,5774 @@
+{
+  "schemaVersion": 1,
+  "league": "nfl",
+  "season": "nfl-2026",
+  "seasonLabel": "2026",
+  "periodLabel": "Semana 9",
+  "updatedAt": "2026-11-09T16:35:26.039Z",
+  "source": "nflverse",
+  "provenance": "derived",
+  "isDemo": false,
+  "teamRates": {
+    "nfl.arizona-cardinals": {
+      "teamId": "nfl.arizona-cardinals",
+      "name": "Arizona Cardinals",
+      "shortName": "Arizona",
+      "code": "ARI",
+      "forPerGame": 21.875,
+      "againstPerGame": 29.75,
+      "gamesPlayed": 8,
+      "adjustedFor": 21.649161143921116,
+      "adjustedAgainst": 25.763349374516313
+    },
+    "nfl.atlanta-falcons": {
+      "teamId": "nfl.atlanta-falcons",
+      "name": "Atlanta Falcons",
+      "shortName": "Atlanta",
+      "code": "ATL",
+      "forPerGame": 21.375,
+      "againstPerGame": 23.625,
+      "gamesPlayed": 8,
+      "adjustedFor": 22.036091722379197,
+      "adjustedAgainst": 23.405833654944598
+    },
+    "nfl.baltimore-ravens": {
+      "teamId": "nfl.baltimore-ravens",
+      "name": "Baltimore Ravens",
+      "shortName": "Baltimore",
+      "code": "BAL",
+      "forPerGame": 22.375,
+      "againstPerGame": 25.375,
+      "gamesPlayed": 8,
+      "adjustedFor": 21.654580005092168,
+      "adjustedAgainst": 24.387908030854785
+    },
+    "nfl.buffalo-bills": {
+      "teamId": "nfl.buffalo-bills",
+      "name": "Buffalo Bills",
+      "shortName": "Buffalo",
+      "code": "BUF",
+      "forPerGame": 33.285714285714285,
+      "againstPerGame": 25.857142857142858,
+      "gamesPlayed": 7,
+      "adjustedFor": 27.451586339944683,
+      "adjustedAgainst": 24.343519709198304
+    },
+    "nfl.carolina-panthers": {
+      "teamId": "nfl.carolina-panthers",
+      "name": "Carolina Panthers",
+      "shortName": "Carolina",
+      "code": "CAR",
+      "forPerGame": 25.428571428571427,
+      "againstPerGame": 27.571428571428573,
+      "gamesPlayed": 7,
+      "adjustedFor": 24.253913291422712,
+      "adjustedAgainst": 25.345553790205372
+    },
+    "nfl.chicago-bears": {
+      "teamId": "nfl.chicago-bears",
+      "name": "Chicago Bears",
+      "shortName": "Chicago",
+      "code": "CHI",
+      "forPerGame": 26.75,
+      "againstPerGame": 20,
+      "gamesPlayed": 8,
+      "adjustedFor": 25.397278809453326,
+      "adjustedAgainst": 22.00161270234829
+    },
+    "nfl.cincinnati-bengals": {
+      "teamId": "nfl.cincinnati-bengals",
+      "name": "Cincinnati Bengals",
+      "shortName": "Cincinnati",
+      "code": "CIN",
+      "forPerGame": 29.428571428571427,
+      "againstPerGame": 22.571428571428573,
+      "gamesPlayed": 7,
+      "adjustedFor": 26.798128178077704,
+      "adjustedAgainst": 22.762873724736508
+    },
+    "nfl.cleveland-browns": {
+      "teamId": "nfl.cleveland-browns",
+      "name": "Cleveland Browns",
+      "shortName": "Cleveland",
+      "code": "CLE",
+      "forPerGame": 17.375,
+      "againstPerGame": 21.625,
+      "gamesPlayed": 8,
+      "adjustedFor": 20.451079947748298,
+      "adjustedAgainst": 22.500239167691504
+    },
+    "nfl.dallas-cowboys": {
+      "teamId": "nfl.dallas-cowboys",
+      "name": "Dallas Cowboys",
+      "shortName": "Dallas",
+      "code": "DAL",
+      "forPerGame": 27.375,
+      "againstPerGame": 26.625,
+      "gamesPlayed": 8,
+      "adjustedFor": 25.00999056412678,
+      "adjustedAgainst": 25.12810261146847
+    },
+    "nfl.denver-broncos": {
+      "teamId": "nfl.denver-broncos",
+      "name": "Denver Broncos",
+      "shortName": "Denver",
+      "code": "DEN",
+      "forPerGame": 21.5,
+      "againstPerGame": 20.625,
+      "gamesPlayed": 8,
+      "adjustedFor": 22.86714880227241,
+      "adjustedAgainst": 21.61948878801227
+    },
+    "nfl.detroit-lions": {
+      "teamId": "nfl.detroit-lions",
+      "name": "Detroit Lions",
+      "shortName": "Detroit",
+      "code": "DET",
+      "forPerGame": 29,
+      "againstPerGame": 25.714285714285715,
+      "gamesPlayed": 7,
+      "adjustedFor": 25.133073206134842,
+      "adjustedAgainst": 23.41405638193372
+    },
+    "nfl.green-bay-packers": {
+      "teamId": "nfl.green-bay-packers",
+      "name": "Green Bay Packers",
+      "shortName": "Green Bay",
+      "code": "GB",
+      "forPerGame": 21.375,
+      "againstPerGame": 20.5,
+      "gamesPlayed": 8,
+      "adjustedFor": 23.65801954457493,
+      "adjustedAgainst": 21.829512475165423
+    },
+    "nfl.houston-texans": {
+      "teamId": "nfl.houston-texans",
+      "name": "Houston Texans",
+      "shortName": "Houston",
+      "code": "HOU",
+      "forPerGame": 23.571428571428573,
+      "againstPerGame": 24.285714285714285,
+      "gamesPlayed": 7,
+      "adjustedFor": 24.30085619672342,
+      "adjustedAgainst": 23.244450403949642
+    },
+    "nfl.indianapolis-colts": {
+      "teamId": "nfl.indianapolis-colts",
+      "name": "Indianapolis Colts",
+      "shortName": "Indianapolis",
+      "code": "IND",
+      "forPerGame": 20.125,
+      "againstPerGame": 27.75,
+      "gamesPlayed": 8,
+      "adjustedFor": 22.04073962555816,
+      "adjustedAgainst": 25.48444069576816
+    },
+    "nfl.jacksonville-jaguars": {
+      "teamId": "nfl.jacksonville-jaguars",
+      "name": "Jacksonville Jaguars",
+      "shortName": "Jacksonville",
+      "code": "JAX",
+      "forPerGame": 28,
+      "againstPerGame": 15.857142857142858,
+      "gamesPlayed": 7,
+      "adjustedFor": 25.69773797024578,
+      "adjustedAgainst": 19.282289111184422
+    },
+    "nfl.kansas-city-chiefs": {
+      "teamId": "nfl.kansas-city-chiefs",
+      "name": "Kansas City Chiefs",
+      "shortName": "Kansas City",
+      "code": "KC",
+      "forPerGame": 23.857142857142858,
+      "againstPerGame": 18.714285714285715,
+      "gamesPlayed": 7,
+      "adjustedFor": 23.906968721387244,
+      "adjustedAgainst": 21.01390163611882
+    },
+    "nfl.las-vegas-raiders": {
+      "teamId": "nfl.las-vegas-raiders",
+      "name": "Las Vegas Raiders",
+      "shortName": "Las Vegas",
+      "code": "LV",
+      "forPerGame": 27.625,
+      "againstPerGame": 28.75,
+      "gamesPlayed": 8,
+      "adjustedFor": 24.75738657594007,
+      "adjustedAgainst": 26.60433726698942
+    },
+    "nfl.los-angeles-chargers": {
+      "teamId": "nfl.los-angeles-chargers",
+      "name": "Los Angeles Chargers",
+      "shortName": "LA Chargers",
+      "code": "LAC",
+      "forPerGame": 14.142857142857142,
+      "againstPerGame": 25,
+      "gamesPlayed": 7,
+      "adjustedFor": 19.058908654881044,
+      "adjustedAgainst": 24.817486837656958
+    },
+    "nfl.los-angeles-rams": {
+      "teamId": "nfl.los-angeles-rams",
+      "name": "Los Angeles Rams",
+      "shortName": "LA Rams",
+      "code": "LAR",
+      "forPerGame": 24.25,
+      "againstPerGame": 21,
+      "gamesPlayed": 8,
+      "adjustedFor": 22.947177205854285,
+      "adjustedAgainst": 21.574708230877402
+    },
+    "nfl.miami-dolphins": {
+      "teamId": "nfl.miami-dolphins",
+      "name": "Miami Dolphins",
+      "shortName": "Miami",
+      "code": "MIA",
+      "forPerGame": 16.714285714285715,
+      "againstPerGame": 25.857142857142858,
+      "gamesPlayed": 7,
+      "adjustedFor": 19.628295952259293,
+      "adjustedAgainst": 23.459175961692555
+    },
+    "nfl.minnesota-vikings": {
+      "teamId": "nfl.minnesota-vikings",
+      "name": "Minnesota Vikings",
+      "shortName": "Minnesota",
+      "code": "MIN",
+      "forPerGame": 20,
+      "againstPerGame": 13.285714285714286,
+      "gamesPlayed": 7,
+      "adjustedFor": 21.536456330142325,
+      "adjustedAgainst": 18.42488836250317
+    },
+    "nfl.new-england-patriots": {
+      "teamId": "nfl.new-england-patriots",
+      "name": "New England Patriots",
+      "shortName": "New England",
+      "code": "NE",
+      "forPerGame": 23,
+      "againstPerGame": 20.25,
+      "gamesPlayed": 8,
+      "adjustedFor": 23.52773501593026,
+      "adjustedAgainst": 22.657233171582444
+    },
+    "nfl.new-orleans-saints": {
+      "teamId": "nfl.new-orleans-saints",
+      "name": "New Orleans Saints",
+      "shortName": "New Orleans",
+      "code": "NO",
+      "forPerGame": 23.142857142857142,
+      "againstPerGame": 27.714285714285715,
+      "gamesPlayed": 7,
+      "adjustedFor": 23.21643904580507,
+      "adjustedAgainst": 25.251246577609738
+    },
+    "nfl.new-york-giants": {
+      "teamId": "nfl.new-york-giants",
+      "name": "New York Giants",
+      "shortName": "NY Giants",
+      "code": "NYG",
+      "forPerGame": 23.285714285714285,
+      "againstPerGame": 23,
+      "gamesPlayed": 7,
+      "adjustedFor": 22.323651062444927,
+      "adjustedAgainst": 22.591175366121348
+    },
+    "nfl.new-york-jets": {
+      "teamId": "nfl.new-york-jets",
+      "name": "New York Jets",
+      "shortName": "NY Jets",
+      "code": "NYJ",
+      "forPerGame": 21.25,
+      "againstPerGame": 23.5,
+      "gamesPlayed": 8,
+      "adjustedFor": 21.518019798445096,
+      "adjustedAgainst": 23.99037600840641
+    },
+    "nfl.philadelphia-eagles": {
+      "teamId": "nfl.philadelphia-eagles",
+      "name": "Philadelphia Eagles",
+      "shortName": "Philadelphia",
+      "code": "PHI",
+      "forPerGame": 17.125,
+      "againstPerGame": 25.25,
+      "gamesPlayed": 8,
+      "adjustedFor": 19.43843708163616,
+      "adjustedAgainst": 23.65781497442946
+    },
+    "nfl.pittsburgh-steelers": {
+      "teamId": "nfl.pittsburgh-steelers",
+      "name": "Pittsburgh Steelers",
+      "shortName": "Pittsburgh",
+      "code": "PIT",
+      "forPerGame": 22.5,
+      "againstPerGame": 18,
+      "gamesPlayed": 8,
+      "adjustedFor": 22.683066540340604,
+      "adjustedAgainst": 20.686793517026477
+    },
+    "nfl.san-francisco-49ers": {
+      "teamId": "nfl.san-francisco-49ers",
+      "name": "San Francisco 49ers",
+      "shortName": "San Francisco",
+      "code": "SF",
+      "forPerGame": 28.142857142857142,
+      "againstPerGame": 19.857142857142858,
+      "gamesPlayed": 7,
+      "adjustedFor": 26.012210344006192,
+      "adjustedAgainst": 21.616391768725443
+    },
+    "nfl.seattle-seahawks": {
+      "teamId": "nfl.seattle-seahawks",
+      "name": "Seattle Seahawks",
+      "shortName": "Seattle",
+      "code": "SEA",
+      "forPerGame": 23.125,
+      "againstPerGame": 19.875,
+      "gamesPlayed": 8,
+      "adjustedFor": 22.57671916795254,
+      "adjustedAgainst": 20.430499668748205
+    },
+    "nfl.tampa-bay-buccaneers": {
+      "teamId": "nfl.tampa-bay-buccaneers",
+      "name": "Tampa Bay Buccaneers",
+      "shortName": "Tampa Bay",
+      "code": "TB",
+      "forPerGame": 22.25,
+      "againstPerGame": 18.875,
+      "gamesPlayed": 8,
+      "adjustedFor": 23.02680380052192,
+      "adjustedAgainst": 21.04562275071839
+    },
+    "nfl.tennessee-titans": {
+      "teamId": "nfl.tennessee-titans",
+      "name": "Tennessee Titans",
+      "shortName": "Tennessee",
+      "code": "TEN",
+      "forPerGame": 18,
+      "againstPerGame": 24.875,
+      "gamesPlayed": 8,
+      "adjustedFor": 20.244844698990043,
+      "adjustedAgainst": 24.313206353754534
+    },
+    "nfl.washington-commanders": {
+      "teamId": "nfl.washington-commanders",
+      "name": "Washington Commanders",
+      "shortName": "Washington",
+      "code": "WAS",
+      "forPerGame": 22.714285714285715,
+      "againstPerGame": 26,
+      "gamesPlayed": 7,
+      "adjustedFor": 22.271081761857157,
+      "adjustedAgainst": 24.42549803113121
+    }
+  },
+  "games": [
+    {
+      "id": "nfl-2026-w9-jacksonville-jaguars-baltimore-ravens",
+      "league": "nfl",
+      "season": "nfl-2026",
+      "week": 9,
+      "round": "Semana 9",
+      "startTime": "2026-11-05T20:15:00",
+      "status": "final",
+      "home": {
+        "id": "nfl.baltimore-ravens",
+        "league": "nfl",
+        "name": "Baltimore Ravens",
+        "shortName": "Baltimore",
+        "code": "BAL"
+      },
+      "away": {
+        "id": "nfl.jacksonville-jaguars",
+        "league": "nfl",
+        "name": "Jacksonville Jaguars",
+        "shortName": "Jacksonville",
+        "code": "JAX"
+      },
+      "venue": "M&T Bank Stadium",
+      "neutralSite": false,
+      "result": {
+        "home": 10,
+        "away": 33,
+        "observedAt": "2026-11-09T12:00:00.000Z",
+        "source": "nflverse"
+      }
+    },
+    {
+      "id": "nfl-2026-w9-cincinnati-bengals-atlanta-falcons",
+      "league": "nfl",
+      "season": "nfl-2026",
+      "week": 9,
+      "round": "Semana 9",
+      "startTime": "2026-11-08T09:30:00",
+      "status": "final",
+      "home": {
+        "id": "nfl.atlanta-falcons",
+        "league": "nfl",
+        "name": "Atlanta Falcons",
+        "shortName": "Atlanta",
+        "code": "ATL"
+      },
+      "away": {
+        "id": "nfl.cincinnati-bengals",
+        "league": "nfl",
+        "name": "Cincinnati Bengals",
+        "shortName": "Cincinnati",
+        "code": "CIN"
+      },
+      "venue": "Bernabeu",
+      "neutralSite": true,
+      "result": {
+        "home": 17,
+        "away": 34,
+        "observedAt": "2026-11-09T12:00:00.000Z",
+        "source": "nflverse"
+      }
+    },
+    {
+      "id": "nfl-2026-w9-denver-broncos-carolina-panthers",
+      "league": "nfl",
+      "season": "nfl-2026",
+      "week": 9,
+      "round": "Semana 9",
+      "startTime": "2026-11-08T13:00:00",
+      "status": "final",
+      "home": {
+        "id": "nfl.carolina-panthers",
+        "league": "nfl",
+        "name": "Carolina Panthers",
+        "shortName": "Carolina",
+        "code": "CAR"
+      },
+      "away": {
+        "id": "nfl.denver-broncos",
+        "league": "nfl",
+        "name": "Denver Broncos",
+        "shortName": "Denver",
+        "code": "DEN"
+      },
+      "venue": "Bank of America Stadium",
+      "neutralSite": false,
+      "result": {
+        "home": 21,
+        "away": 26,
+        "observedAt": "2026-11-09T12:00:00.000Z",
+        "source": "nflverse"
+      }
+    },
+    {
+      "id": "nfl-2026-w9-dallas-cowboys-indianapolis-colts",
+      "league": "nfl",
+      "season": "nfl-2026",
+      "week": 9,
+      "round": "Semana 9",
+      "startTime": "2026-11-08T13:00:00",
+      "status": "final",
+      "home": {
+        "id": "nfl.indianapolis-colts",
+        "league": "nfl",
+        "name": "Indianapolis Colts",
+        "shortName": "Indianapolis",
+        "code": "IND"
+      },
+      "away": {
+        "id": "nfl.dallas-cowboys",
+        "league": "nfl",
+        "name": "Dallas Cowboys",
+        "shortName": "Dallas",
+        "code": "DAL"
+      },
+      "venue": "Lucas Oil Stadium",
+      "neutralSite": false,
+      "result": {
+        "home": 23,
+        "away": 27,
+        "observedAt": "2026-11-09T12:00:00.000Z",
+        "source": "nflverse"
+      }
+    },
+    {
+      "id": "nfl-2026-w9-new-york-jets-kansas-city-chiefs",
+      "league": "nfl",
+      "season": "nfl-2026",
+      "week": 9,
+      "round": "Semana 9",
+      "startTime": "2026-11-08T13:00:00",
+      "status": "final",
+      "home": {
+        "id": "nfl.kansas-city-chiefs",
+        "league": "nfl",
+        "name": "Kansas City Chiefs",
+        "shortName": "Kansas City",
+        "code": "KC"
+      },
+      "away": {
+        "id": "nfl.new-york-jets",
+        "league": "nfl",
+        "name": "New York Jets",
+        "shortName": "NY Jets",
+        "code": "NYJ"
+      },
+      "venue": "GEHA Field at Arrowhead Stadium",
+      "neutralSite": false,
+      "result": {
+        "home": 35,
+        "away": 12,
+        "observedAt": "2026-11-09T12:00:00.000Z",
+        "source": "nflverse"
+      }
+    },
+    {
+      "id": "nfl-2026-w9-detroit-lions-miami-dolphins",
+      "league": "nfl",
+      "season": "nfl-2026",
+      "week": 9,
+      "round": "Semana 9",
+      "startTime": "2026-11-08T13:00:00",
+      "status": "final",
+      "home": {
+        "id": "nfl.miami-dolphins",
+        "league": "nfl",
+        "name": "Miami Dolphins",
+        "shortName": "Miami",
+        "code": "MIA"
+      },
+      "away": {
+        "id": "nfl.detroit-lions",
+        "league": "nfl",
+        "name": "Detroit Lions",
+        "shortName": "Detroit",
+        "code": "DET"
+      },
+      "venue": "Hard Rock Stadium",
+      "neutralSite": false,
+      "result": {
+        "home": 9,
+        "away": 19,
+        "observedAt": "2026-11-09T12:00:00.000Z",
+        "source": "nflverse"
+      }
+    },
+    {
+      "id": "nfl-2026-w9-cleveland-browns-new-orleans-saints",
+      "league": "nfl",
+      "season": "nfl-2026",
+      "week": 9,
+      "round": "Semana 9",
+      "startTime": "2026-11-08T13:00:00",
+      "status": "final",
+      "home": {
+        "id": "nfl.new-orleans-saints",
+        "league": "nfl",
+        "name": "New Orleans Saints",
+        "shortName": "New Orleans",
+        "code": "NO"
+      },
+      "away": {
+        "id": "nfl.cleveland-browns",
+        "league": "nfl",
+        "name": "Cleveland Browns",
+        "shortName": "Cleveland",
+        "code": "CLE"
+      },
+      "venue": "Caesars Superdome",
+      "neutralSite": false,
+      "result": {
+        "home": 23,
+        "away": 22,
+        "observedAt": "2026-11-09T12:00:00.000Z",
+        "source": "nflverse"
+      }
+    },
+    {
+      "id": "nfl-2026-w9-new-york-giants-philadelphia-eagles",
+      "league": "nfl",
+      "season": "nfl-2026",
+      "week": 9,
+      "round": "Semana 9",
+      "startTime": "2026-11-08T13:00:00",
+      "status": "final",
+      "home": {
+        "id": "nfl.philadelphia-eagles",
+        "league": "nfl",
+        "name": "Philadelphia Eagles",
+        "shortName": "Philadelphia",
+        "code": "PHI"
+      },
+      "away": {
+        "id": "nfl.new-york-giants",
+        "league": "nfl",
+        "name": "New York Giants",
+        "shortName": "NY Giants",
+        "code": "NYG"
+      },
+      "venue": "Lincoln Financial Field",
+      "neutralSite": false,
+      "result": {
+        "home": 11,
+        "away": 19,
+        "observedAt": "2026-11-09T12:00:00.000Z",
+        "source": "nflverse"
+      }
+    },
+    {
+      "id": "nfl-2026-w9-los-angeles-rams-washington-commanders",
+      "league": "nfl",
+      "season": "nfl-2026",
+      "week": 9,
+      "round": "Semana 9",
+      "startTime": "2026-11-08T13:00:00",
+      "status": "final",
+      "home": {
+        "id": "nfl.washington-commanders",
+        "league": "nfl",
+        "name": "Washington Commanders",
+        "shortName": "Washington",
+        "code": "WAS"
+      },
+      "away": {
+        "id": "nfl.los-angeles-rams",
+        "league": "nfl",
+        "name": "Los Angeles Rams",
+        "shortName": "LA Rams",
+        "code": "LAR"
+      },
+      "venue": "Northwest Stadium",
+      "neutralSite": false,
+      "result": {
+        "home": 13,
+        "away": 20,
+        "observedAt": "2026-11-09T12:00:00.000Z",
+        "source": "nflverse"
+      }
+    },
+    {
+      "id": "nfl-2026-w9-houston-texans-los-angeles-chargers",
+      "league": "nfl",
+      "season": "nfl-2026",
+      "week": 9,
+      "round": "Semana 9",
+      "startTime": "2026-11-08T16:05:00",
+      "status": "final",
+      "home": {
+        "id": "nfl.los-angeles-chargers",
+        "league": "nfl",
+        "name": "Los Angeles Chargers",
+        "shortName": "LA Chargers",
+        "code": "LAC"
+      },
+      "away": {
+        "id": "nfl.houston-texans",
+        "league": "nfl",
+        "name": "Houston Texans",
+        "shortName": "Houston",
+        "code": "HOU"
+      },
+      "venue": "SoFi Stadium",
+      "neutralSite": false,
+      "result": {
+        "home": 22,
+        "away": 44,
+        "observedAt": "2026-11-09T12:00:00.000Z",
+        "source": "nflverse"
+      }
+    },
+    {
+      "id": "nfl-2026-w9-las-vegas-raiders-san-francisco-49ers",
+      "league": "nfl",
+      "season": "nfl-2026",
+      "week": 9,
+      "round": "Semana 9",
+      "startTime": "2026-11-08T16:05:00",
+      "status": "final",
+      "home": {
+        "id": "nfl.san-francisco-49ers",
+        "league": "nfl",
+        "name": "San Francisco 49ers",
+        "shortName": "San Francisco",
+        "code": "SF"
+      },
+      "away": {
+        "id": "nfl.las-vegas-raiders",
+        "league": "nfl",
+        "name": "Las Vegas Raiders",
+        "shortName": "Las Vegas",
+        "code": "LV"
+      },
+      "venue": "Levi's Stadium",
+      "neutralSite": false,
+      "result": {
+        "home": 38,
+        "away": 17,
+        "observedAt": "2026-11-09T12:00:00.000Z",
+        "source": "nflverse"
+      }
+    },
+    {
+      "id": "nfl-2026-w9-green-bay-packers-new-england-patriots",
+      "league": "nfl",
+      "season": "nfl-2026",
+      "week": 9,
+      "round": "Semana 9",
+      "startTime": "2026-11-08T16:25:00",
+      "status": "final",
+      "home": {
+        "id": "nfl.new-england-patriots",
+        "league": "nfl",
+        "name": "New England Patriots",
+        "shortName": "New England",
+        "code": "NE"
+      },
+      "away": {
+        "id": "nfl.green-bay-packers",
+        "league": "nfl",
+        "name": "Green Bay Packers",
+        "shortName": "Green Bay",
+        "code": "GB"
+      },
+      "venue": "Gillette Stadium",
+      "neutralSite": false,
+      "result": {
+        "home": 27,
+        "away": 45,
+        "observedAt": "2026-11-09T12:00:00.000Z",
+        "source": "nflverse"
+      }
+    },
+    {
+      "id": "nfl-2026-w9-arizona-cardinals-seattle-seahawks",
+      "league": "nfl",
+      "season": "nfl-2026",
+      "week": 9,
+      "round": "Semana 9",
+      "startTime": "2026-11-08T16:25:00",
+      "status": "final",
+      "home": {
+        "id": "nfl.seattle-seahawks",
+        "league": "nfl",
+        "name": "Seattle Seahawks",
+        "shortName": "Seattle",
+        "code": "SEA"
+      },
+      "away": {
+        "id": "nfl.arizona-cardinals",
+        "league": "nfl",
+        "name": "Arizona Cardinals",
+        "shortName": "Arizona",
+        "code": "ARI"
+      },
+      "venue": "Lumen Field",
+      "neutralSite": false,
+      "result": {
+        "home": 17,
+        "away": 3,
+        "observedAt": "2026-11-09T12:00:00.000Z",
+        "source": "nflverse"
+      }
+    },
+    {
+      "id": "nfl-2026-w9-tampa-bay-buccaneers-chicago-bears",
+      "league": "nfl",
+      "season": "nfl-2026",
+      "week": 9,
+      "round": "Semana 9",
+      "startTime": "2026-11-08T20:20:00",
+      "status": "final",
+      "home": {
+        "id": "nfl.chicago-bears",
+        "league": "nfl",
+        "name": "Chicago Bears",
+        "shortName": "Chicago",
+        "code": "CHI"
+      },
+      "away": {
+        "id": "nfl.tampa-bay-buccaneers",
+        "league": "nfl",
+        "name": "Tampa Bay Buccaneers",
+        "shortName": "Tampa Bay",
+        "code": "TB"
+      },
+      "venue": "Soldier Field",
+      "neutralSite": false,
+      "result": {
+        "home": 27,
+        "away": 24,
+        "observedAt": "2026-11-09T12:00:00.000Z",
+        "source": "nflverse"
+      }
+    },
+    {
+      "id": "nfl-2026-w9-buffalo-bills-minnesota-vikings",
+      "league": "nfl",
+      "season": "nfl-2026",
+      "week": 9,
+      "round": "Semana 9",
+      "startTime": "2026-11-09T20:15:00",
+      "status": "scheduled",
+      "home": {
+        "id": "nfl.minnesota-vikings",
+        "league": "nfl",
+        "name": "Minnesota Vikings",
+        "shortName": "Minnesota",
+        "code": "MIN"
+      },
+      "away": {
+        "id": "nfl.buffalo-bills",
+        "league": "nfl",
+        "name": "Buffalo Bills",
+        "shortName": "Buffalo",
+        "code": "BUF"
+      },
+      "venue": "U.S. Bank Stadium",
+      "neutralSite": false
+    }
+  ],
+  "analyses": {
+    "nfl-2026-w9-jacksonville-jaguars-baltimore-ravens": {
+      "game": "nfl-2026-w9-jacksonville-jaguars-baltimore-ravens",
+      "model": {
+        "id": "pitchlab-statistical-nfl",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 17.915371160261415,
+        "away": 27.017533325535098,
+        "total": 44.93290448579651,
+        "margin": -9.102162165273683
+      },
+      "x12": [
+        0.20600052627931695,
+        0,
+        0.793999473720683
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Baltimore gana",
+          "p": 0.20600052627931695,
+          "fairOdds": 4.854356530352238
+        },
+        {
+          "market": "h2h",
+          "selection": "Jacksonville gana",
+          "p": 0.793999473720683,
+          "fairOdds": 1.2594466786155387
+        },
+        {
+          "market": "spreads",
+          "selection": "BAL cubre",
+          "line": 9.5,
+          "p": 0.5143019038185066,
+          "fairOdds": 1.944383235946357
+        },
+        {
+          "market": "spreads",
+          "selection": "JAX cubre",
+          "line": -9.5,
+          "p": 0.4856980961814934,
+          "fairOdds": 2.0588921551513035
+        },
+        {
+          "market": "totals",
+          "selection": "Más",
+          "line": 44.5,
+          "p": 0.5134396494737175,
+          "fairOdds": 1.9476485717941991
+        },
+        {
+          "market": "totals",
+          "selection": "Menos",
+          "line": 44.5,
+          "p": 0.48656035052628255,
+          "fairOdds": 2.0552435045690864
+        },
+        {
+          "market": "spreads",
+          "selection": "BAL +3.5",
+          "line": 3.5,
+          "p": 0.3068066641104374,
+          "fairOdds": 3.259381613823233
+        },
+        {
+          "market": "spreads",
+          "selection": "JAX -3.5",
+          "line": -3.5,
+          "p": 0.6931933358895626,
+          "fairOdds": 1.4425989810140312
+        },
+        {
+          "market": "spreads",
+          "selection": "BAL +7.5",
+          "line": 7.5,
+          "p": 0.44259120303884353,
+          "fairOdds": 2.259421319569779
+        },
+        {
+          "market": "spreads",
+          "selection": "JAX -7.5",
+          "line": -7.5,
+          "p": 0.5574087969611565,
+          "fairOdds": 1.7940154612767725
+        },
+        {
+          "market": "team_totals",
+          "selection": "BAL más de 17.5",
+          "line": 17.5,
+          "p": 0.5182338254605117,
+          "fairOdds": 1.9296308941458664
+        },
+        {
+          "market": "team_totals",
+          "selection": "BAL menos de 17.5",
+          "line": 17.5,
+          "p": 0.48176617453948833,
+          "fairOdds": 2.075695747954663
+        },
+        {
+          "market": "team_totals",
+          "selection": "JAX más de 27.5",
+          "line": 27.5,
+          "p": 0.4788234209837341,
+          "fairOdds": 2.088452561375377
+        },
+        {
+          "market": "team_totals",
+          "selection": "JAX menos de 27.5",
+          "line": 27.5,
+          "p": 0.5211765790162659,
+          "fairOdds": 1.918735492465002
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Ganador",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Baltimore gana",
+              "p": 0.20600052627931695,
+              "fairOdds": 4.854356530352238
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Jacksonville gana",
+              "p": 0.793999473720683,
+              "fairOdds": 1.2594466786155387
+            }
+          ]
+        },
+        {
+          "group": "Spread BAL +9.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home",
+              "label": "BAL cubre",
+              "line": 9.5,
+              "p": 0.5143019038185066,
+              "fairOdds": 1.944383235946357
+            },
+            {
+              "market": "spreads",
+              "selection": "away",
+              "label": "JAX cubre",
+              "line": -9.5,
+              "p": 0.4856980961814934,
+              "fairOdds": 2.0588921551513035
+            }
+          ]
+        },
+        {
+          "group": "Total 44.5",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over",
+              "label": "Más",
+              "line": 44.5,
+              "p": 0.5134396494737175,
+              "fairOdds": 1.9476485717941991
+            },
+            {
+              "market": "totals",
+              "selection": "under",
+              "label": "Menos",
+              "line": 44.5,
+              "p": 0.48656035052628255,
+              "fairOdds": 2.0552435045690864
+            }
+          ]
+        },
+        {
+          "group": "Hándicap alternativo +3.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home_3.5",
+              "label": "BAL +3.5",
+              "line": 3.5,
+              "p": 0.3068066641104374,
+              "fairOdds": 3.259381613823233
+            },
+            {
+              "market": "spreads",
+              "selection": "away_-3.5",
+              "label": "JAX -3.5",
+              "line": -3.5,
+              "p": 0.6931933358895626,
+              "fairOdds": 1.4425989810140312
+            }
+          ]
+        },
+        {
+          "group": "Hándicap alternativo +7.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home_7.5",
+              "label": "BAL +7.5",
+              "line": 7.5,
+              "p": 0.44259120303884353,
+              "fairOdds": 2.259421319569779
+            },
+            {
+              "market": "spreads",
+              "selection": "away_-7.5",
+              "label": "JAX -7.5",
+              "line": -7.5,
+              "p": 0.5574087969611565,
+              "fairOdds": 1.7940154612767725
+            }
+          ]
+        },
+        {
+          "group": "Puntos por equipo",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "BAL más de 17.5",
+              "line": 17.5,
+              "p": 0.5182338254605117,
+              "fairOdds": 1.9296308941458664
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "BAL menos de 17.5",
+              "line": 17.5,
+              "p": 0.48176617453948833,
+              "fairOdds": 2.075695747954663
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "JAX más de 27.5",
+              "line": 27.5,
+              "p": 0.4788234209837341,
+              "fairOdds": 2.088452561375377
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "JAX menos de 27.5",
+              "line": 27.5,
+              "p": 0.5211765790162659,
+              "fairOdds": 1.918735492465002
+            }
+          ]
+        }
+      ],
+      "factors": [
+        {
+          "key": "home_offense",
+          "label": "Ofensiva local",
+          "value": "17.9 pts proyectados",
+          "detail": "8 partidos · ajustado a -1.4 sobre la media"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "19.3 pts permitidos",
+          "detail": "7 partidos · ajustado por rival"
+        },
+        {
+          "key": "away_offense",
+          "label": "Ofensiva visitante",
+          "value": "27.0 pts proyectados",
+          "detail": "7 partidos · ajustado a 2.7 sobre la media"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "24.4 pts permitidos",
+          "detail": "8 partidos · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "+0.0 pts",
+          "detail": "estimada de 134 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Rango 90%",
+          "value": "margen -27.4 a 9.1",
+          "detail": "total 23.8 a 66.1"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "G-G-P-P-P · 2-3",
+          "detail": "87 pts a favor · 125 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-G-G-P-G · 4-1",
+          "detail": "149 pts a favor · 81 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando NFL · corte 5 nov 2026, 19:15",
+        "Ofensiva y defensa ajustadas por rival · BAL 17.9 / 27.0",
+        "Fuerza de calendario incluida (134 partidos)",
+        "Proyección 17.9 – 27.0 · margen -9.1",
+        "Simulando escenarios de margen (σ 11.1) y total (σ 12.8)",
+        "14 mercados listos"
+      ],
+      "inputsAsOf": "2026-11-06T01:15:00.000Z",
+      "publishedAt": "2026-11-06T01:15:00.000Z",
+      "source": "nflverse"
+    },
+    "nfl-2026-w9-cincinnati-bengals-atlanta-falcons": {
+      "game": "nfl-2026-w9-cincinnati-bengals-atlanta-falcons",
+      "model": {
+        "id": "pitchlab-statistical-nfl",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 21.785496337312217,
+        "away": 27.194285680360444,
+        "total": 48.97978201767266,
+        "margin": -5.408789343048227
+      },
+      "x12": [
+        0.3129542478962405,
+        0,
+        0.6870457521037595
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Atlanta gana",
+          "p": 0.3129542478962405,
+          "fairOdds": 3.1953552531153004
+        },
+        {
+          "market": "h2h",
+          "selection": "Cincinnati gana",
+          "p": 0.6870457521037595,
+          "fairOdds": 1.4555071433568478
+        },
+        {
+          "market": "spreads",
+          "selection": "ATL cubre",
+          "line": 5.5,
+          "p": 0.5032796108559752,
+          "fairOdds": 1.9869670426330317
+        },
+        {
+          "market": "spreads",
+          "selection": "CIN cubre",
+          "line": -5.5,
+          "p": 0.49672038914402483,
+          "fairOdds": 2.013205058329201
+        },
+        {
+          "market": "totals",
+          "selection": "Más",
+          "line": 48.5,
+          "p": 0.5148943301336875,
+          "fairOdds": 1.942146070515788
+        },
+        {
+          "market": "totals",
+          "selection": "Menos",
+          "line": 48.5,
+          "p": 0.48510566986631254,
+          "fairOdds": 2.0614065390651573
+        },
+        {
+          "market": "spreads",
+          "selection": "ATL +3.5",
+          "line": 3.5,
+          "p": 0.4317034263285389,
+          "fairOdds": 2.3164050572973003
+        },
+        {
+          "market": "spreads",
+          "selection": "CIN -3.5",
+          "line": -3.5,
+          "p": 0.5682965736714611,
+          "fairOdds": 1.7596446051742547
+        },
+        {
+          "market": "spreads",
+          "selection": "ATL +7.5",
+          "line": 7.5,
+          "p": 0.5747500401691361,
+          "fairOdds": 1.7398867857507627
+        },
+        {
+          "market": "spreads",
+          "selection": "CIN -7.5",
+          "line": -7.5,
+          "p": 0.4252499598308639,
+          "fairOdds": 2.35155812924176
+        },
+        {
+          "market": "team_totals",
+          "selection": "ATL más de 21.5",
+          "line": 21.5,
+          "p": 0.512534936690078,
+          "fairOdds": 1.9510865082835995
+        },
+        {
+          "market": "team_totals",
+          "selection": "ATL menos de 21.5",
+          "line": 21.5,
+          "p": 0.487465063309922,
+          "fairOdds": 2.0514290669569832
+        },
+        {
+          "market": "team_totals",
+          "selection": "CIN más de 27.5",
+          "line": 27.5,
+          "p": 0.48657770287786795,
+          "fairOdds": 2.055170210401117
+        },
+        {
+          "market": "team_totals",
+          "selection": "CIN menos de 27.5",
+          "line": 27.5,
+          "p": 0.513422297122132,
+          "fairOdds": 1.94771439730075
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Ganador",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Atlanta gana",
+              "p": 0.3129542478962405,
+              "fairOdds": 3.1953552531153004
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Cincinnati gana",
+              "p": 0.6870457521037595,
+              "fairOdds": 1.4555071433568478
+            }
+          ]
+        },
+        {
+          "group": "Spread ATL +5.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home",
+              "label": "ATL cubre",
+              "line": 5.5,
+              "p": 0.5032796108559752,
+              "fairOdds": 1.9869670426330317
+            },
+            {
+              "market": "spreads",
+              "selection": "away",
+              "label": "CIN cubre",
+              "line": -5.5,
+              "p": 0.49672038914402483,
+              "fairOdds": 2.013205058329201
+            }
+          ]
+        },
+        {
+          "group": "Total 48.5",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over",
+              "label": "Más",
+              "line": 48.5,
+              "p": 0.5148943301336875,
+              "fairOdds": 1.942146070515788
+            },
+            {
+              "market": "totals",
+              "selection": "under",
+              "label": "Menos",
+              "line": 48.5,
+              "p": 0.48510566986631254,
+              "fairOdds": 2.0614065390651573
+            }
+          ]
+        },
+        {
+          "group": "Hándicap alternativo +3.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home_3.5",
+              "label": "ATL +3.5",
+              "line": 3.5,
+              "p": 0.4317034263285389,
+              "fairOdds": 2.3164050572973003
+            },
+            {
+              "market": "spreads",
+              "selection": "away_-3.5",
+              "label": "CIN -3.5",
+              "line": -3.5,
+              "p": 0.5682965736714611,
+              "fairOdds": 1.7596446051742547
+            }
+          ]
+        },
+        {
+          "group": "Hándicap alternativo +7.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home_7.5",
+              "label": "ATL +7.5",
+              "line": 7.5,
+              "p": 0.5747500401691361,
+              "fairOdds": 1.7398867857507627
+            },
+            {
+              "market": "spreads",
+              "selection": "away_-7.5",
+              "label": "CIN -7.5",
+              "line": -7.5,
+              "p": 0.4252499598308639,
+              "fairOdds": 2.35155812924176
+            }
+          ]
+        },
+        {
+          "group": "Puntos por equipo",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "ATL más de 21.5",
+              "line": 21.5,
+              "p": 0.512534936690078,
+              "fairOdds": 1.9510865082835995
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "ATL menos de 21.5",
+              "line": 21.5,
+              "p": 0.487465063309922,
+              "fairOdds": 2.0514290669569832
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "CIN más de 27.5",
+              "line": 27.5,
+              "p": 0.48657770287786795,
+              "fairOdds": 2.055170210401117
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "CIN menos de 27.5",
+              "line": 27.5,
+              "p": 0.513422297122132,
+              "fairOdds": 1.94771439730075
+            }
+          ]
+        }
+      ],
+      "factors": [
+        {
+          "key": "home_offense",
+          "label": "Ofensiva local",
+          "value": "21.8 pts proyectados",
+          "detail": "8 partidos · ajustado a -1.0 sobre la media"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "22.8 pts permitidos",
+          "detail": "7 partidos · ajustado por rival"
+        },
+        {
+          "key": "away_offense",
+          "label": "Ofensiva visitante",
+          "value": "27.2 pts proyectados",
+          "detail": "7 partidos · ajustado a 3.8 sobre la media"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "23.4 pts permitidos",
+          "detail": "8 partidos · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "Campo neutral",
+          "detail": "estimada de 134 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Rango 90%",
+          "value": "margen -23.7 a 12.8",
+          "detail": "total 27.8 a 70.1"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "G-P-P-G-P · 2-3",
+          "detail": "120 pts a favor · 121 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "P-P-G-G-G · 3-2",
+          "detail": "153 pts a favor · 125 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando NFL · corte 8 nov 2026, 08:30",
+        "Ofensiva y defensa ajustadas por rival · ATL 21.8 / 27.2",
+        "Fuerza de calendario incluida (134 partidos)",
+        "Proyección 21.8 – 27.2 · margen -5.4",
+        "Simulando escenarios de margen (σ 11.1) y total (σ 12.8)",
+        "14 mercados listos"
+      ],
+      "inputsAsOf": "2026-11-08T14:30:00.000Z",
+      "publishedAt": "2026-11-08T14:30:00.000Z",
+      "source": "nflverse"
+    },
+    "nfl-2026-w9-denver-broncos-carolina-panthers": {
+      "game": "nfl-2026-w9-denver-broncos-carolina-panthers",
+      "model": {
+        "id": "pitchlab-statistical-nfl",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 22.875402200033243,
+        "away": 25.166229606956986,
+        "total": 48.041631806990225,
+        "margin": -2.290827406923743
+      },
+      "x12": [
+        0.4182111137991457,
+        0,
+        0.5817888862008542
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Carolina gana",
+          "p": 0.4182111137991457,
+          "fairOdds": 2.391136837363605
+        },
+        {
+          "market": "h2h",
+          "selection": "Denver gana",
+          "p": 0.5817888862008542,
+          "fairOdds": 1.718836546586702
+        },
+        {
+          "market": "spreads",
+          "selection": "CAR cubre",
+          "line": 2.5,
+          "p": 0.5075207357933796,
+          "fairOdds": 1.970362843277239
+        },
+        {
+          "market": "spreads",
+          "selection": "DEN cubre",
+          "line": -2.5,
+          "p": 0.49247926420662036,
+          "fairOdds": 2.0305423449878464
+        },
+        {
+          "market": "totals",
+          "selection": "Más",
+          "line": 48.5,
+          "p": 0.4857701497234297,
+          "fairOdds": 2.058586762832883
+        },
+        {
+          "market": "totals",
+          "selection": "Menos",
+          "line": 48.5,
+          "p": 0.5142298502765703,
+          "fairOdds": 1.9446556816220724
+        },
+        {
+          "market": "spreads",
+          "selection": "CAR +3.5",
+          "line": 3.5,
+          "p": 0.543391915839154,
+          "fairOdds": 1.8402923761861847
+        },
+        {
+          "market": "spreads",
+          "selection": "DEN -3.5",
+          "line": -3.5,
+          "p": 0.456608084160846,
+          "fairOdds": 2.190061969309631
+        },
+        {
+          "market": "spreads",
+          "selection": "CAR +7.5",
+          "line": 7.5,
+          "p": 0.6806446604792824,
+          "fairOdds": 1.4691953938136244
+        },
+        {
+          "market": "spreads",
+          "selection": "DEN -7.5",
+          "line": -7.5,
+          "p": 0.3193553395207176,
+          "fairOdds": 3.131308220807521
+        },
+        {
+          "market": "team_totals",
+          "selection": "CAR más de 22.5",
+          "line": 22.5,
+          "p": 0.5164803366110028,
+          "fairOdds": 1.9361821334026303
+        },
+        {
+          "market": "team_totals",
+          "selection": "CAR menos de 22.5",
+          "line": 22.5,
+          "p": 0.4835196633889972,
+          "fairOdds": 2.06816821676079
+        },
+        {
+          "market": "team_totals",
+          "selection": "DEN más de 25.5",
+          "line": 25.5,
+          "p": 0.4853464426070111,
+          "fairOdds": 2.0603839076857273
+        },
+        {
+          "market": "team_totals",
+          "selection": "DEN menos de 25.5",
+          "line": 25.5,
+          "p": 0.5146535573929889,
+          "fairOdds": 1.9430546736440821
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Ganador",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Carolina gana",
+              "p": 0.4182111137991457,
+              "fairOdds": 2.391136837363605
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Denver gana",
+              "p": 0.5817888862008542,
+              "fairOdds": 1.718836546586702
+            }
+          ]
+        },
+        {
+          "group": "Spread CAR +2.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home",
+              "label": "CAR cubre",
+              "line": 2.5,
+              "p": 0.5075207357933796,
+              "fairOdds": 1.970362843277239
+            },
+            {
+              "market": "spreads",
+              "selection": "away",
+              "label": "DEN cubre",
+              "line": -2.5,
+              "p": 0.49247926420662036,
+              "fairOdds": 2.0305423449878464
+            }
+          ]
+        },
+        {
+          "group": "Total 48.5",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over",
+              "label": "Más",
+              "line": 48.5,
+              "p": 0.4857701497234297,
+              "fairOdds": 2.058586762832883
+            },
+            {
+              "market": "totals",
+              "selection": "under",
+              "label": "Menos",
+              "line": 48.5,
+              "p": 0.5142298502765703,
+              "fairOdds": 1.9446556816220724
+            }
+          ]
+        },
+        {
+          "group": "Hándicap alternativo +3.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home_3.5",
+              "label": "CAR +3.5",
+              "line": 3.5,
+              "p": 0.543391915839154,
+              "fairOdds": 1.8402923761861847
+            },
+            {
+              "market": "spreads",
+              "selection": "away_-3.5",
+              "label": "DEN -3.5",
+              "line": -3.5,
+              "p": 0.456608084160846,
+              "fairOdds": 2.190061969309631
+            }
+          ]
+        },
+        {
+          "group": "Hándicap alternativo +7.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home_7.5",
+              "label": "CAR +7.5",
+              "line": 7.5,
+              "p": 0.6806446604792824,
+              "fairOdds": 1.4691953938136244
+            },
+            {
+              "market": "spreads",
+              "selection": "away_-7.5",
+              "label": "DEN -7.5",
+              "line": -7.5,
+              "p": 0.3193553395207176,
+              "fairOdds": 3.131308220807521
+            }
+          ]
+        },
+        {
+          "group": "Puntos por equipo",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "CAR más de 22.5",
+              "line": 22.5,
+              "p": 0.5164803366110028,
+              "fairOdds": 1.9361821334026303
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "CAR menos de 22.5",
+              "line": 22.5,
+              "p": 0.4835196633889972,
+              "fairOdds": 2.06816821676079
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "DEN más de 25.5",
+              "line": 25.5,
+              "p": 0.4853464426070111,
+              "fairOdds": 2.0603839076857273
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "DEN menos de 25.5",
+              "line": 25.5,
+              "p": 0.5146535573929889,
+              "fairOdds": 1.9430546736440821
+            }
+          ]
+        }
+      ],
+      "factors": [
+        {
+          "key": "home_offense",
+          "label": "Ofensiva local",
+          "value": "22.9 pts proyectados",
+          "detail": "7 partidos · ajustado a 1.2 sobre la media"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "21.6 pts permitidos",
+          "detail": "8 partidos · ajustado por rival"
+        },
+        {
+          "key": "away_offense",
+          "label": "Ofensiva visitante",
+          "value": "25.2 pts proyectados",
+          "detail": "8 partidos · ajustado a -0.2 sobre la media"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "25.4 pts permitidos",
+          "detail": "7 partidos · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "+0.0 pts",
+          "detail": "estimada de 134 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Rango 90%",
+          "value": "margen -20.5 a 16.0",
+          "detail": "total 26.9 a 69.2"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "P-G-G-P-P · 2-3",
+          "detail": "107 pts a favor · 131 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "P-G-G-G-G · 4-1",
+          "detail": "112 pts a favor · 95 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando NFL · corte 8 nov 2026, 12:00",
+        "Ofensiva y defensa ajustadas por rival · CAR 22.9 / 25.2",
+        "Fuerza de calendario incluida (134 partidos)",
+        "Proyección 22.9 – 25.2 · margen -2.3",
+        "Simulando escenarios de margen (σ 11.1) y total (σ 12.8)",
+        "14 mercados listos"
+      ],
+      "inputsAsOf": "2026-11-08T18:00:00.000Z",
+      "publishedAt": "2026-11-08T18:00:00.000Z",
+      "source": "nflverse"
+    },
+    "nfl-2026-w9-dallas-cowboys-indianapolis-colts": {
+      "game": "nfl-2026-w9-dallas-cowboys-indianapolis-colts",
+      "model": {
+        "id": "pitchlab-statistical-nfl",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 24.157955547937153,
+        "away": 27.44078975030538,
+        "total": 51.598745298242534,
+        "margin": -3.282834202368228
+      },
+      "x12": [
+        0.38366032967746955,
+        0,
+        0.6163396703225305
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Indianapolis gana",
+          "p": 0.38366032967746955,
+          "fairOdds": 2.6064722428838727
+        },
+        {
+          "market": "h2h",
+          "selection": "Dallas gana",
+          "p": 0.6163396703225305,
+          "fairOdds": 1.6224819659534493
+        },
+        {
+          "market": "spreads",
+          "selection": "IND cubre",
+          "line": 3.5,
+          "p": 0.5078080925877232,
+          "fairOdds": 1.9692478607501736
+        },
+        {
+          "market": "spreads",
+          "selection": "DAL cubre",
+          "line": -3.5,
+          "p": 0.4921919074122768,
+          "fairOdds": 2.031727838146607
+        },
+        {
+          "market": "totals",
+          "selection": "Más",
+          "line": 51.5,
+          "p": 0.5030661326586832,
+          "fairOdds": 1.987810220328374
+        },
+        {
+          "market": "totals",
+          "selection": "Menos",
+          "line": 51.5,
+          "p": 0.49693386734131684,
+          "fairOdds": 2.012340204039976
+        },
+        {
+          "market": "spreads",
+          "selection": "IND +3.5",
+          "line": 3.5,
+          "p": 0.5078080925877232,
+          "fairOdds": 1.9692478607501736
+        },
+        {
+          "market": "spreads",
+          "selection": "DAL -3.5",
+          "line": -3.5,
+          "p": 0.4921919074122768,
+          "fairOdds": 2.031727838146607
+        },
+        {
+          "market": "spreads",
+          "selection": "IND +7.5",
+          "line": 7.5,
+          "p": 0.6480616784365456,
+          "fairOdds": 1.5430630035284738
+        },
+        {
+          "market": "spreads",
+          "selection": "DAL -7.5",
+          "line": -7.5,
+          "p": 0.3519383215634544,
+          "fairOdds": 2.8414069702827183
+        },
+        {
+          "market": "team_totals",
+          "selection": "IND más de 24.5",
+          "line": 24.5,
+          "p": 0.4849833559925698,
+          "fairOdds": 2.0619264303480973
+        },
+        {
+          "market": "team_totals",
+          "selection": "IND menos de 24.5",
+          "line": 24.5,
+          "p": 0.5150166440074302,
+          "fairOdds": 1.9416848205503294
+        },
+        {
+          "market": "team_totals",
+          "selection": "DAL más de 27.5",
+          "line": 27.5,
+          "p": 0.4973999143441725,
+          "fairOdds": 2.0104547089006064
+        },
+        {
+          "market": "team_totals",
+          "selection": "DAL menos de 27.5",
+          "line": 27.5,
+          "p": 0.5026000856558275,
+          "fairOdds": 1.9896534611511867
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Ganador",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Indianapolis gana",
+              "p": 0.38366032967746955,
+              "fairOdds": 2.6064722428838727
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Dallas gana",
+              "p": 0.6163396703225305,
+              "fairOdds": 1.6224819659534493
+            }
+          ]
+        },
+        {
+          "group": "Spread IND +3.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home",
+              "label": "IND cubre",
+              "line": 3.5,
+              "p": 0.5078080925877232,
+              "fairOdds": 1.9692478607501736
+            },
+            {
+              "market": "spreads",
+              "selection": "away",
+              "label": "DAL cubre",
+              "line": -3.5,
+              "p": 0.4921919074122768,
+              "fairOdds": 2.031727838146607
+            }
+          ]
+        },
+        {
+          "group": "Total 51.5",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over",
+              "label": "Más",
+              "line": 51.5,
+              "p": 0.5030661326586832,
+              "fairOdds": 1.987810220328374
+            },
+            {
+              "market": "totals",
+              "selection": "under",
+              "label": "Menos",
+              "line": 51.5,
+              "p": 0.49693386734131684,
+              "fairOdds": 2.012340204039976
+            }
+          ]
+        },
+        {
+          "group": "Hándicap alternativo +3.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home_3.5",
+              "label": "IND +3.5",
+              "line": 3.5,
+              "p": 0.5078080925877232,
+              "fairOdds": 1.9692478607501736
+            },
+            {
+              "market": "spreads",
+              "selection": "away_-3.5",
+              "label": "DAL -3.5",
+              "line": -3.5,
+              "p": 0.4921919074122768,
+              "fairOdds": 2.031727838146607
+            }
+          ]
+        },
+        {
+          "group": "Hándicap alternativo +7.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home_7.5",
+              "label": "IND +7.5",
+              "line": 7.5,
+              "p": 0.6480616784365456,
+              "fairOdds": 1.5430630035284738
+            },
+            {
+              "market": "spreads",
+              "selection": "away_-7.5",
+              "label": "DAL -7.5",
+              "line": -7.5,
+              "p": 0.3519383215634544,
+              "fairOdds": 2.8414069702827183
+            }
+          ]
+        },
+        {
+          "group": "Puntos por equipo",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "IND más de 24.5",
+              "line": 24.5,
+              "p": 0.4849833559925698,
+              "fairOdds": 2.0619264303480973
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "IND menos de 24.5",
+              "line": 24.5,
+              "p": 0.5150166440074302,
+              "fairOdds": 1.9416848205503294
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "DAL más de 27.5",
+              "line": 27.5,
+              "p": 0.4973999143441725,
+              "fairOdds": 2.0104547089006064
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "DAL menos de 27.5",
+              "line": 27.5,
+              "p": 0.5026000856558275,
+              "fairOdds": 1.9896534611511867
+            }
+          ]
+        }
+      ],
+      "factors": [
+        {
+          "key": "home_offense",
+          "label": "Ofensiva local",
+          "value": "24.2 pts proyectados",
+          "detail": "8 partidos · ajustado a -1.0 sobre la media"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "25.1 pts permitidos",
+          "detail": "8 partidos · ajustado por rival"
+        },
+        {
+          "key": "away_offense",
+          "label": "Ofensiva visitante",
+          "value": "27.4 pts proyectados",
+          "detail": "8 partidos · ajustado a 2.0 sobre la media"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "25.5 pts permitidos",
+          "detail": "8 partidos · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "+0.0 pts",
+          "detail": "estimada de 134 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Rango 90%",
+          "value": "margen -21.5 a 15.0",
+          "detail": "total 30.5 a 72.7"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "G-P-P-P-P · 1-4",
+          "detail": "89 pts a favor · 131 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-P-P-G-P · 2-3",
+          "detail": "131 pts a favor · 131 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando NFL · corte 8 nov 2026, 12:00",
+        "Ofensiva y defensa ajustadas por rival · IND 24.2 / 27.4",
+        "Fuerza de calendario incluida (134 partidos)",
+        "Proyección 24.2 – 27.4 · margen -3.3",
+        "Simulando escenarios de margen (σ 11.1) y total (σ 12.8)",
+        "14 mercados listos"
+      ],
+      "inputsAsOf": "2026-11-08T18:00:00.000Z",
+      "publishedAt": "2026-11-08T18:00:00.000Z",
+      "source": "nflverse"
+    },
+    "nfl-2026-w9-new-york-jets-kansas-city-chiefs": {
+      "game": "nfl-2026-w9-new-york-jets-kansas-city-chiefs",
+      "model": {
+        "id": "pitchlab-statistical-nfl",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 24.8918709743324,
+        "away": 19.473260107625944,
+        "total": 44.36513108195834,
+        "margin": 5.418610866706455
+      },
+      "x12": [
+        0.6873592681152697,
+        0,
+        0.3126407318847303
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Kansas City gana",
+          "p": 0.6873592681152697,
+          "fairOdds": 1.4548432623044236
+        },
+        {
+          "market": "h2h",
+          "selection": "NY Jets gana",
+          "p": 0.3126407318847303,
+          "fairOdds": 3.198559554193652
+        },
+        {
+          "market": "spreads",
+          "selection": "KC cubre",
+          "line": -5.5,
+          "p": 0.4970735292536123,
+          "fairOdds": 2.0117748002022235
+        },
+        {
+          "market": "spreads",
+          "selection": "NYJ cubre",
+          "line": 5.5,
+          "p": 0.5029264707463876,
+          "fairOdds": 1.9883622321885563
+        },
+        {
+          "market": "totals",
+          "selection": "Más",
+          "line": 44.5,
+          "p": 0.4958122322869687,
+          "fairOdds": 2.0168925550453443
+        },
+        {
+          "market": "totals",
+          "selection": "Menos",
+          "line": 44.5,
+          "p": 0.5041877677130313,
+          "fairOdds": 1.9833880630145915
+        },
+        {
+          "market": "spreads",
+          "selection": "KC -3.5",
+          "line": -3.5,
+          "p": 0.5686445076368465,
+          "fairOdds": 1.7585679393190061
+        },
+        {
+          "market": "spreads",
+          "selection": "NYJ +3.5",
+          "line": 3.5,
+          "p": 0.4313554923631535,
+          "fairOdds": 2.318273483714242
+        },
+        {
+          "market": "spreads",
+          "selection": "KC -7.5",
+          "line": -7.5,
+          "p": 0.42559691953238454,
+          "fairOdds": 2.3496410667133785
+        },
+        {
+          "market": "spreads",
+          "selection": "NYJ +7.5",
+          "line": 7.5,
+          "p": 0.5744030804676155,
+          "fairOdds": 1.740937738679797
+        },
+        {
+          "market": "team_totals",
+          "selection": "KC más de 24.5",
+          "line": 24.5,
+          "p": 0.5172028832004559,
+          "fairOdds": 1.933477233947327
+        },
+        {
+          "market": "team_totals",
+          "selection": "KC menos de 24.5",
+          "line": 24.5,
+          "p": 0.48279711679954407,
+          "fairOdds": 2.0712634048624547
+        },
+        {
+          "market": "team_totals",
+          "selection": "NYJ más de 19.5",
+          "line": 19.5,
+          "p": 0.49882577024151553,
+          "fairOdds": 2.0047079755238624
+        },
+        {
+          "market": "team_totals",
+          "selection": "NYJ menos de 19.5",
+          "line": 19.5,
+          "p": 0.5011742297584845,
+          "fairOdds": 1.995314085646222
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Ganador",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Kansas City gana",
+              "p": 0.6873592681152697,
+              "fairOdds": 1.4548432623044236
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "NY Jets gana",
+              "p": 0.3126407318847303,
+              "fairOdds": 3.198559554193652
+            }
+          ]
+        },
+        {
+          "group": "Spread KC -5.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home",
+              "label": "KC cubre",
+              "line": -5.5,
+              "p": 0.4970735292536123,
+              "fairOdds": 2.0117748002022235
+            },
+            {
+              "market": "spreads",
+              "selection": "away",
+              "label": "NYJ cubre",
+              "line": 5.5,
+              "p": 0.5029264707463876,
+              "fairOdds": 1.9883622321885563
+            }
+          ]
+        },
+        {
+          "group": "Total 44.5",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over",
+              "label": "Más",
+              "line": 44.5,
+              "p": 0.4958122322869687,
+              "fairOdds": 2.0168925550453443
+            },
+            {
+              "market": "totals",
+              "selection": "under",
+              "label": "Menos",
+              "line": 44.5,
+              "p": 0.5041877677130313,
+              "fairOdds": 1.9833880630145915
+            }
+          ]
+        },
+        {
+          "group": "Hándicap alternativo -3.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home_-3.5",
+              "label": "KC -3.5",
+              "line": -3.5,
+              "p": 0.5686445076368465,
+              "fairOdds": 1.7585679393190061
+            },
+            {
+              "market": "spreads",
+              "selection": "away_3.5",
+              "label": "NYJ +3.5",
+              "line": 3.5,
+              "p": 0.4313554923631535,
+              "fairOdds": 2.318273483714242
+            }
+          ]
+        },
+        {
+          "group": "Hándicap alternativo -7.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home_-7.5",
+              "label": "KC -7.5",
+              "line": -7.5,
+              "p": 0.42559691953238454,
+              "fairOdds": 2.3496410667133785
+            },
+            {
+              "market": "spreads",
+              "selection": "away_7.5",
+              "label": "NYJ +7.5",
+              "line": 7.5,
+              "p": 0.5744030804676155,
+              "fairOdds": 1.740937738679797
+            }
+          ]
+        },
+        {
+          "group": "Puntos por equipo",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "KC más de 24.5",
+              "line": 24.5,
+              "p": 0.5172028832004559,
+              "fairOdds": 1.933477233947327
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "KC menos de 24.5",
+              "line": 24.5,
+              "p": 0.48279711679954407,
+              "fairOdds": 2.0712634048624547
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "NYJ más de 19.5",
+              "line": 19.5,
+              "p": 0.49882577024151553,
+              "fairOdds": 2.0047079755238624
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "NYJ menos de 19.5",
+              "line": 19.5,
+              "p": 0.5011742297584845,
+              "fairOdds": 1.995314085646222
+            }
+          ]
+        }
+      ],
+      "factors": [
+        {
+          "key": "home_offense",
+          "label": "Ofensiva local",
+          "value": "24.9 pts proyectados",
+          "detail": "7 partidos · ajustado a 0.9 sobre la media"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "24.0 pts permitidos",
+          "detail": "8 partidos · ajustado por rival"
+        },
+        {
+          "key": "away_offense",
+          "label": "Ofensiva visitante",
+          "value": "19.5 pts proyectados",
+          "detail": "8 partidos · ajustado a -1.5 sobre la media"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "21.0 pts permitidos",
+          "detail": "7 partidos · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "+0.0 pts",
+          "detail": "estimada de 134 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Rango 90%",
+          "value": "margen -12.8 a 23.7",
+          "detail": "total 23.2 a 65.5"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "G-G-G-P-P · 3-2",
+          "detail": "103 pts a favor · 91 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "P-G-P-P-P · 1-4",
+          "detail": "106 pts a favor · 127 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando NFL · corte 8 nov 2026, 12:00",
+        "Ofensiva y defensa ajustadas por rival · KC 24.9 / 19.5",
+        "Fuerza de calendario incluida (134 partidos)",
+        "Proyección 24.9 – 19.5 · margen +5.4",
+        "Simulando escenarios de margen (σ 11.1) y total (σ 12.8)",
+        "14 mercados listos"
+      ],
+      "inputsAsOf": "2026-11-08T18:00:00.000Z",
+      "publishedAt": "2026-11-08T18:00:00.000Z",
+      "source": "nflverse"
+    },
+    "nfl-2026-w9-detroit-lions-miami-dolphins": {
+      "game": "nfl-2026-w9-detroit-lions-miami-dolphins",
+      "model": {
+        "id": "pitchlab-statistical-nfl",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 20.01838696676828,
+        "away": 25.520968952374435,
+        "total": 45.539355919142714,
+        "margin": -5.502581985606156
+      },
+      "x12": [
+        0.30996581396866507,
+        0,
+        0.6900341860313349
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Miami gana",
+          "p": 0.30996581396866507,
+          "fairOdds": 3.2261622247835744
+        },
+        {
+          "market": "h2h",
+          "selection": "Detroit gana",
+          "p": 0.6900341860313349,
+          "fairOdds": 1.449203561567585
+        },
+        {
+          "market": "spreads",
+          "selection": "MIA cubre",
+          "line": 5.5,
+          "p": 0.49990715937182584,
+          "fairOdds": 2.0003714314805605
+        },
+        {
+          "market": "spreads",
+          "selection": "DET cubre",
+          "line": -5.5,
+          "p": 0.5000928406281742,
+          "fairOdds": 1.99962870642956
+        },
+        {
+          "market": "totals",
+          "selection": "Más",
+          "line": 45.5,
+          "p": 0.5012220484538654,
+          "fairOdds": 1.995123724274959
+        },
+        {
+          "market": "totals",
+          "selection": "Menos",
+          "line": 45.5,
+          "p": 0.4987779515461346,
+          "fairOdds": 2.004900170306555
+        },
+        {
+          "market": "spreads",
+          "selection": "MIA +3.5",
+          "line": 3.5,
+          "p": 0.42838296114085994,
+          "fairOdds": 2.3343598852223773
+        },
+        {
+          "market": "spreads",
+          "selection": "DET -3.5",
+          "line": -3.5,
+          "p": 0.5716170388591401,
+          "fairOdds": 1.7494230087959706
+        },
+        {
+          "market": "spreads",
+          "selection": "MIA +7.5",
+          "line": 7.5,
+          "p": 0.5714343525420376,
+          "fairOdds": 1.7499822955191253
+        },
+        {
+          "market": "spreads",
+          "selection": "DET -7.5",
+          "line": -7.5,
+          "p": 0.42856564745796244,
+          "fairOdds": 2.3333648087090064
+        },
+        {
+          "market": "team_totals",
+          "selection": "MIA más de 20.5",
+          "line": 20.5,
+          "p": 0.4788608540613627,
+          "fairOdds": 2.0882893047504294
+        },
+        {
+          "market": "team_totals",
+          "selection": "MIA menos de 20.5",
+          "line": 20.5,
+          "p": 0.5211391459386373,
+          "fairOdds": 1.9188733139570122
+        },
+        {
+          "market": "team_totals",
+          "selection": "DET más de 25.5",
+          "line": 25.5,
+          "p": 0.5009208109513468,
+          "fairOdds": 1.9963235268680573
+        },
+        {
+          "market": "team_totals",
+          "selection": "DET menos de 25.5",
+          "line": 25.5,
+          "p": 0.4990791890486532,
+          "fairOdds": 2.003690039462884
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Ganador",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Miami gana",
+              "p": 0.30996581396866507,
+              "fairOdds": 3.2261622247835744
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Detroit gana",
+              "p": 0.6900341860313349,
+              "fairOdds": 1.449203561567585
+            }
+          ]
+        },
+        {
+          "group": "Spread MIA +5.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home",
+              "label": "MIA cubre",
+              "line": 5.5,
+              "p": 0.49990715937182584,
+              "fairOdds": 2.0003714314805605
+            },
+            {
+              "market": "spreads",
+              "selection": "away",
+              "label": "DET cubre",
+              "line": -5.5,
+              "p": 0.5000928406281742,
+              "fairOdds": 1.99962870642956
+            }
+          ]
+        },
+        {
+          "group": "Total 45.5",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over",
+              "label": "Más",
+              "line": 45.5,
+              "p": 0.5012220484538654,
+              "fairOdds": 1.995123724274959
+            },
+            {
+              "market": "totals",
+              "selection": "under",
+              "label": "Menos",
+              "line": 45.5,
+              "p": 0.4987779515461346,
+              "fairOdds": 2.004900170306555
+            }
+          ]
+        },
+        {
+          "group": "Hándicap alternativo +3.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home_3.5",
+              "label": "MIA +3.5",
+              "line": 3.5,
+              "p": 0.42838296114085994,
+              "fairOdds": 2.3343598852223773
+            },
+            {
+              "market": "spreads",
+              "selection": "away_-3.5",
+              "label": "DET -3.5",
+              "line": -3.5,
+              "p": 0.5716170388591401,
+              "fairOdds": 1.7494230087959706
+            }
+          ]
+        },
+        {
+          "group": "Hándicap alternativo +7.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home_7.5",
+              "label": "MIA +7.5",
+              "line": 7.5,
+              "p": 0.5714343525420376,
+              "fairOdds": 1.7499822955191253
+            },
+            {
+              "market": "spreads",
+              "selection": "away_-7.5",
+              "label": "DET -7.5",
+              "line": -7.5,
+              "p": 0.42856564745796244,
+              "fairOdds": 2.3333648087090064
+            }
+          ]
+        },
+        {
+          "group": "Puntos por equipo",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "MIA más de 20.5",
+              "line": 20.5,
+              "p": 0.4788608540613627,
+              "fairOdds": 2.0882893047504294
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "MIA menos de 20.5",
+              "line": 20.5,
+              "p": 0.5211391459386373,
+              "fairOdds": 1.9188733139570122
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "DET más de 25.5",
+              "line": 25.5,
+              "p": 0.5009208109513468,
+              "fairOdds": 1.9963235268680573
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "DET menos de 25.5",
+              "line": 25.5,
+              "p": 0.4990791890486532,
+              "fairOdds": 2.003690039462884
+            }
+          ]
+        }
+      ],
+      "factors": [
+        {
+          "key": "home_offense",
+          "label": "Ofensiva local",
+          "value": "20.0 pts proyectados",
+          "detail": "7 partidos · ajustado a -3.4 sobre la media"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "23.4 pts permitidos",
+          "detail": "7 partidos · ajustado por rival"
+        },
+        {
+          "key": "away_offense",
+          "label": "Ofensiva visitante",
+          "value": "25.5 pts proyectados",
+          "detail": "7 partidos · ajustado a 2.1 sobre la media"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "23.4 pts permitidos",
+          "detail": "7 partidos · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "+0.0 pts",
+          "detail": "estimada de 134 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Rango 90%",
+          "value": "margen -23.8 a 12.7",
+          "detail": "total 24.4 a 66.7"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "P-P-P-G-P · 1-4",
+          "detail": "91 pts a favor · 119 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-P-G-G-G · 4-1",
+          "detail": "141 pts a favor · 109 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando NFL · corte 8 nov 2026, 12:00",
+        "Ofensiva y defensa ajustadas por rival · MIA 20.0 / 25.5",
+        "Fuerza de calendario incluida (134 partidos)",
+        "Proyección 20.0 – 25.5 · margen -5.5",
+        "Simulando escenarios de margen (σ 11.1) y total (σ 12.8)",
+        "14 mercados listos"
+      ],
+      "inputsAsOf": "2026-11-08T18:00:00.000Z",
+      "publishedAt": "2026-11-08T18:00:00.000Z",
+      "source": "nflverse"
+    },
+    "nfl-2026-w9-cleveland-browns-new-orleans-saints": {
+      "game": "nfl-2026-w9-cleveland-browns-new-orleans-saints",
+      "model": {
+        "id": "pitchlab-statistical-nfl",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 22.703988713440886,
+        "away": 22.644598907399352,
+        "total": 45.348587620840235,
+        "margin": 0.05938980604153343
+      },
+      "x12": [
+        0.5021354606882062,
+        0,
+        0.49786453931179375
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "New Orleans gana",
+          "p": 0.5021354606882062,
+          "fairOdds": 1.9914944836388193
+        },
+        {
+          "market": "h2h",
+          "selection": "Cleveland gana",
+          "p": 0.49786453931179375,
+          "fairOdds": 2.0085784807697213
+        },
+        {
+          "market": "spreads",
+          "selection": "NO cubre",
+          "line": -1.5,
+          "p": 0.4483456509089517,
+          "fairOdds": 2.2304219924351987
+        },
+        {
+          "market": "spreads",
+          "selection": "CLE cubre",
+          "line": 1.5,
+          "p": 0.5516543490910484,
+          "fairOdds": 1.8127292962480641
+        },
+        {
+          "market": "totals",
+          "selection": "Más",
+          "line": 45.5,
+          "p": 0.49529857000407396,
+          "fairOdds": 2.0189842260028628
+        },
+        {
+          "market": "totals",
+          "selection": "Menos",
+          "line": 45.5,
+          "p": 0.504701429995926,
+          "fairOdds": 1.9813694603719907
+        },
+        {
+          "market": "spreads",
+          "selection": "NO -3.5",
+          "line": -3.5,
+          "p": 0.3782417987476013,
+          "fairOdds": 2.6438114542366975
+        },
+        {
+          "market": "spreads",
+          "selection": "CLE +3.5",
+          "line": 3.5,
+          "p": 0.6217582012523988,
+          "fairOdds": 1.6083422751573104
+        },
+        {
+          "market": "spreads",
+          "selection": "NO -7.5",
+          "line": -7.5,
+          "p": 0.2512307531367885,
+          "fairOdds": 3.9804044191020136
+        },
+        {
+          "market": "spreads",
+          "selection": "CLE +7.5",
+          "line": 7.5,
+          "p": 0.7487692468632114,
+          "fairOdds": 1.335524935337902
+        },
+        {
+          "market": "team_totals",
+          "selection": "NO más de 22.5",
+          "line": 22.5,
+          "p": 0.5089570080917123,
+          "fairOdds": 1.9648024962843296
+        },
+        {
+          "market": "team_totals",
+          "selection": "NO menos de 22.5",
+          "line": 22.5,
+          "p": 0.4910429919082877,
+          "fairOdds": 2.0364815636891738
+        },
+        {
+          "market": "team_totals",
+          "selection": "CLE más de 22.5",
+          "line": 22.5,
+          "p": 0.5063495096021793,
+          "fairOdds": 1.9749204473124982
+        },
+        {
+          "market": "team_totals",
+          "selection": "CLE menos de 22.5",
+          "line": 22.5,
+          "p": 0.4936504903978207,
+          "fairOdds": 2.0257247170850063
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Ganador",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "New Orleans gana",
+              "p": 0.5021354606882062,
+              "fairOdds": 1.9914944836388193
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Cleveland gana",
+              "p": 0.49786453931179375,
+              "fairOdds": 2.0085784807697213
+            }
+          ]
+        },
+        {
+          "group": "Spread NO -1.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home",
+              "label": "NO cubre",
+              "line": -1.5,
+              "p": 0.4483456509089517,
+              "fairOdds": 2.2304219924351987
+            },
+            {
+              "market": "spreads",
+              "selection": "away",
+              "label": "CLE cubre",
+              "line": 1.5,
+              "p": 0.5516543490910484,
+              "fairOdds": 1.8127292962480641
+            }
+          ]
+        },
+        {
+          "group": "Total 45.5",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over",
+              "label": "Más",
+              "line": 45.5,
+              "p": 0.49529857000407396,
+              "fairOdds": 2.0189842260028628
+            },
+            {
+              "market": "totals",
+              "selection": "under",
+              "label": "Menos",
+              "line": 45.5,
+              "p": 0.504701429995926,
+              "fairOdds": 1.9813694603719907
+            }
+          ]
+        },
+        {
+          "group": "Hándicap alternativo -3.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home_-3.5",
+              "label": "NO -3.5",
+              "line": -3.5,
+              "p": 0.3782417987476013,
+              "fairOdds": 2.6438114542366975
+            },
+            {
+              "market": "spreads",
+              "selection": "away_3.5",
+              "label": "CLE +3.5",
+              "line": 3.5,
+              "p": 0.6217582012523988,
+              "fairOdds": 1.6083422751573104
+            }
+          ]
+        },
+        {
+          "group": "Hándicap alternativo -7.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home_-7.5",
+              "label": "NO -7.5",
+              "line": -7.5,
+              "p": 0.2512307531367885,
+              "fairOdds": 3.9804044191020136
+            },
+            {
+              "market": "spreads",
+              "selection": "away_7.5",
+              "label": "CLE +7.5",
+              "line": 7.5,
+              "p": 0.7487692468632114,
+              "fairOdds": 1.335524935337902
+            }
+          ]
+        },
+        {
+          "group": "Puntos por equipo",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "NO más de 22.5",
+              "line": 22.5,
+              "p": 0.5089570080917123,
+              "fairOdds": 1.9648024962843296
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "NO menos de 22.5",
+              "line": 22.5,
+              "p": 0.4910429919082877,
+              "fairOdds": 2.0364815636891738
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "CLE más de 22.5",
+              "line": 22.5,
+              "p": 0.5063495096021793,
+              "fairOdds": 1.9749204473124982
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "CLE menos de 22.5",
+              "line": 22.5,
+              "p": 0.4936504903978207,
+              "fairOdds": 2.0257247170850063
+            }
+          ]
+        }
+      ],
+      "factors": [
+        {
+          "key": "home_offense",
+          "label": "Ofensiva local",
+          "value": "22.7 pts proyectados",
+          "detail": "7 partidos · ajustado a 0.2 sobre la media"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "22.5 pts permitidos",
+          "detail": "8 partidos · ajustado por rival"
+        },
+        {
+          "key": "away_offense",
+          "label": "Ofensiva visitante",
+          "value": "22.6 pts proyectados",
+          "detail": "8 partidos · ajustado a -2.6 sobre la media"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "25.2 pts permitidos",
+          "detail": "7 partidos · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "+0.0 pts",
+          "detail": "estimada de 134 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Rango 90%",
+          "value": "margen -18.2 a 18.3",
+          "detail": "total 24.2 a 66.5"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "P-P-P-G-P · 1-4",
+          "detail": "108 pts a favor · 146 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-P-G-G-P · 3-2",
+          "detail": "85 pts a favor · 102 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando NFL · corte 8 nov 2026, 12:00",
+        "Ofensiva y defensa ajustadas por rival · NO 22.7 / 22.6",
+        "Fuerza de calendario incluida (134 partidos)",
+        "Proyección 22.7 – 22.6 · margen +0.1",
+        "Simulando escenarios de margen (σ 11.1) y total (σ 12.8)",
+        "14 mercados listos"
+      ],
+      "inputsAsOf": "2026-11-08T18:00:00.000Z",
+      "publishedAt": "2026-11-08T18:00:00.000Z",
+      "source": "nflverse"
+    },
+    "nfl-2026-w9-new-york-giants-philadelphia-eagles": {
+      "game": "nfl-2026-w9-new-york-giants-philadelphia-eagles",
+      "model": {
+        "id": "pitchlab-statistical-nfl",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 19.019378531341058,
+        "away": 22.928490203881672,
+        "total": 41.94786873522273,
+        "margin": -3.9091116725406145
+      },
+      "x12": [
+        0.36229624474658423,
+        0,
+        0.6377037552534157
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Philadelphia gana",
+          "p": 0.36229624474658423,
+          "fairOdds": 2.7601721367536425
+        },
+        {
+          "market": "h2h",
+          "selection": "NY Giants gana",
+          "p": 0.6377037552534157,
+          "fairOdds": 1.5681262526086461
+        },
+        {
+          "market": "spreads",
+          "selection": "PHI cubre",
+          "line": 3.5,
+          "p": 0.4852929940396602,
+          "fairOdds": 2.06061083156349
+        },
+        {
+          "market": "spreads",
+          "selection": "NYG cubre",
+          "line": -3.5,
+          "p": 0.5147070059603398,
+          "fairOdds": 1.9428529015924332
+        },
+        {
+          "market": "totals",
+          "selection": "Más",
+          "line": 41.5,
+          "p": 0.5139040331604011,
+          "fairOdds": 1.9458886007377905
+        },
+        {
+          "market": "totals",
+          "selection": "Menos",
+          "line": 41.5,
+          "p": 0.4860959668395989,
+          "fairOdds": 2.057206947224021
+        },
+        {
+          "market": "spreads",
+          "selection": "PHI +3.5",
+          "line": 3.5,
+          "p": 0.4852929940396602,
+          "fairOdds": 2.06061083156349
+        },
+        {
+          "market": "spreads",
+          "selection": "NYG -3.5",
+          "line": -3.5,
+          "p": 0.5147070059603398,
+          "fairOdds": 1.9428529015924332
+        },
+        {
+          "market": "spreads",
+          "selection": "PHI +7.5",
+          "line": 7.5,
+          "p": 0.6268970787093004,
+          "fairOdds": 1.5951581750211214
+        },
+        {
+          "market": "spreads",
+          "selection": "NYG -7.5",
+          "line": -7.5,
+          "p": 0.37310292129069955,
+          "fairOdds": 2.6802255971104008
+        },
+        {
+          "market": "team_totals",
+          "selection": "PHI más de 19.5",
+          "line": 19.5,
+          "p": 0.4789043354587703,
+          "fairOdds": 2.0880997016701506
+        },
+        {
+          "market": "team_totals",
+          "selection": "PHI menos de 19.5",
+          "line": 19.5,
+          "p": 0.5210956645412297,
+          "fairOdds": 1.9190334290737106
+        },
+        {
+          "market": "team_totals",
+          "selection": "NYG más de 22.5",
+          "line": 22.5,
+          "p": 0.5188092991390452,
+          "fairOdds": 1.927490508862278
+        },
+        {
+          "market": "team_totals",
+          "selection": "NYG menos de 22.5",
+          "line": 22.5,
+          "p": 0.48119070086095483,
+          "fairOdds": 2.078178148935095
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Ganador",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Philadelphia gana",
+              "p": 0.36229624474658423,
+              "fairOdds": 2.7601721367536425
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "NY Giants gana",
+              "p": 0.6377037552534157,
+              "fairOdds": 1.5681262526086461
+            }
+          ]
+        },
+        {
+          "group": "Spread PHI +3.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home",
+              "label": "PHI cubre",
+              "line": 3.5,
+              "p": 0.4852929940396602,
+              "fairOdds": 2.06061083156349
+            },
+            {
+              "market": "spreads",
+              "selection": "away",
+              "label": "NYG cubre",
+              "line": -3.5,
+              "p": 0.5147070059603398,
+              "fairOdds": 1.9428529015924332
+            }
+          ]
+        },
+        {
+          "group": "Total 41.5",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over",
+              "label": "Más",
+              "line": 41.5,
+              "p": 0.5139040331604011,
+              "fairOdds": 1.9458886007377905
+            },
+            {
+              "market": "totals",
+              "selection": "under",
+              "label": "Menos",
+              "line": 41.5,
+              "p": 0.4860959668395989,
+              "fairOdds": 2.057206947224021
+            }
+          ]
+        },
+        {
+          "group": "Hándicap alternativo +3.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home_3.5",
+              "label": "PHI +3.5",
+              "line": 3.5,
+              "p": 0.4852929940396602,
+              "fairOdds": 2.06061083156349
+            },
+            {
+              "market": "spreads",
+              "selection": "away_-3.5",
+              "label": "NYG -3.5",
+              "line": -3.5,
+              "p": 0.5147070059603398,
+              "fairOdds": 1.9428529015924332
+            }
+          ]
+        },
+        {
+          "group": "Hándicap alternativo +7.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home_7.5",
+              "label": "PHI +7.5",
+              "line": 7.5,
+              "p": 0.6268970787093004,
+              "fairOdds": 1.5951581750211214
+            },
+            {
+              "market": "spreads",
+              "selection": "away_-7.5",
+              "label": "NYG -7.5",
+              "line": -7.5,
+              "p": 0.37310292129069955,
+              "fairOdds": 2.6802255971104008
+            }
+          ]
+        },
+        {
+          "group": "Puntos por equipo",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "PHI más de 19.5",
+              "line": 19.5,
+              "p": 0.4789043354587703,
+              "fairOdds": 2.0880997016701506
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "PHI menos de 19.5",
+              "line": 19.5,
+              "p": 0.5210956645412297,
+              "fairOdds": 1.9190334290737106
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "NYG más de 22.5",
+              "line": 22.5,
+              "p": 0.5188092991390452,
+              "fairOdds": 1.927490508862278
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "NYG menos de 22.5",
+              "line": 22.5,
+              "p": 0.48119070086095483,
+              "fairOdds": 2.078178148935095
+            }
+          ]
+        }
+      ],
+      "factors": [
+        {
+          "key": "home_offense",
+          "label": "Ofensiva local",
+          "value": "19.0 pts proyectados",
+          "detail": "8 partidos · ajustado a -3.6 sobre la media"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "22.6 pts permitidos",
+          "detail": "7 partidos · ajustado por rival"
+        },
+        {
+          "key": "away_offense",
+          "label": "Ofensiva visitante",
+          "value": "22.9 pts proyectados",
+          "detail": "7 partidos · ajustado a -0.7 sobre la media"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "23.7 pts permitidos",
+          "detail": "8 partidos · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "+0.0 pts",
+          "detail": "estimada de 134 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Rango 90%",
+          "value": "margen -22.2 a 14.3",
+          "detail": "total 20.8 a 63.1"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "P-P-P-P-P · 0-5",
+          "detail": "82 pts a favor · 133 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-G-P-P-G · 3-2",
+          "detail": "129 pts a favor · 113 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando NFL · corte 8 nov 2026, 12:00",
+        "Ofensiva y defensa ajustadas por rival · PHI 19.0 / 22.9",
+        "Fuerza de calendario incluida (134 partidos)",
+        "Proyección 19.0 – 22.9 · margen -3.9",
+        "Simulando escenarios de margen (σ 11.1) y total (σ 12.8)",
+        "14 mercados listos"
+      ],
+      "inputsAsOf": "2026-11-08T18:00:00.000Z",
+      "publishedAt": "2026-11-08T18:00:00.000Z",
+      "source": "nflverse"
+    },
+    "nfl-2026-w9-los-angeles-rams-washington-commanders": {
+      "game": "nfl-2026-w9-los-angeles-rams-washington-commanders",
+      "model": {
+        "id": "pitchlab-statistical-nfl",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 20.82689830993189,
+        "away": 24.305645330822088,
+        "total": 45.13254364075398,
+        "margin": -3.4787470208901965
+      },
+      "x12": [
+        0.3769355986786675,
+        0,
+        0.6230644013213325
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Washington gana",
+          "p": 0.3769355986786675,
+          "fairOdds": 2.6529730901126336
+        },
+        {
+          "market": "h2h",
+          "selection": "LA Rams gana",
+          "p": 0.6230644013213325,
+          "fairOdds": 1.6049705261274763
+        },
+        {
+          "market": "spreads",
+          "selection": "WAS cubre",
+          "line": 3.5,
+          "p": 0.5007641904334288,
+          "fairOdds": 1.9969479030328932
+        },
+        {
+          "market": "spreads",
+          "selection": "LAR cubre",
+          "line": -3.5,
+          "p": 0.4992358095665712,
+          "fairOdds": 2.0030614407812304
+        },
+        {
+          "market": "totals",
+          "selection": "Más",
+          "line": 45.5,
+          "p": 0.4885916005422889,
+          "fairOdds": 2.0466991223142146
+        },
+        {
+          "market": "totals",
+          "selection": "Menos",
+          "line": 45.5,
+          "p": 0.5114083994577111,
+          "fairOdds": 1.9553843876251997
+        },
+        {
+          "market": "spreads",
+          "selection": "WAS +3.5",
+          "line": 3.5,
+          "p": 0.5007641904334288,
+          "fairOdds": 1.9969479030328932
+        },
+        {
+          "market": "spreads",
+          "selection": "LAR -3.5",
+          "line": -3.5,
+          "p": 0.4992358095665712,
+          "fairOdds": 2.0030614407812304
+        },
+        {
+          "market": "spreads",
+          "selection": "WAS +7.5",
+          "line": 7.5,
+          "p": 0.6414865164176129,
+          "fairOdds": 1.5588792194487715
+        },
+        {
+          "market": "spreads",
+          "selection": "LAR -7.5",
+          "line": -7.5,
+          "p": 0.3585134835823871,
+          "fairOdds": 2.7892953704492904
+        },
+        {
+          "market": "team_totals",
+          "selection": "WAS más de 20.5",
+          "line": 20.5,
+          "p": 0.514351983751988,
+          "fairOdds": 1.9441939208738106
+        },
+        {
+          "market": "team_totals",
+          "selection": "WAS menos de 20.5",
+          "line": 20.5,
+          "p": 0.485648016248012,
+          "fairOdds": 2.0591044677289845
+        },
+        {
+          "market": "team_totals",
+          "selection": "LAR más de 24.5",
+          "line": 24.5,
+          "p": 0.49146594963876733,
+          "fairOdds": 2.034728958811919
+        },
+        {
+          "market": "team_totals",
+          "selection": "LAR menos de 24.5",
+          "line": 24.5,
+          "p": 0.5085340503612327,
+          "fairOdds": 1.9664366610056079
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Ganador",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Washington gana",
+              "p": 0.3769355986786675,
+              "fairOdds": 2.6529730901126336
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "LA Rams gana",
+              "p": 0.6230644013213325,
+              "fairOdds": 1.6049705261274763
+            }
+          ]
+        },
+        {
+          "group": "Spread WAS +3.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home",
+              "label": "WAS cubre",
+              "line": 3.5,
+              "p": 0.5007641904334288,
+              "fairOdds": 1.9969479030328932
+            },
+            {
+              "market": "spreads",
+              "selection": "away",
+              "label": "LAR cubre",
+              "line": -3.5,
+              "p": 0.4992358095665712,
+              "fairOdds": 2.0030614407812304
+            }
+          ]
+        },
+        {
+          "group": "Total 45.5",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over",
+              "label": "Más",
+              "line": 45.5,
+              "p": 0.4885916005422889,
+              "fairOdds": 2.0466991223142146
+            },
+            {
+              "market": "totals",
+              "selection": "under",
+              "label": "Menos",
+              "line": 45.5,
+              "p": 0.5114083994577111,
+              "fairOdds": 1.9553843876251997
+            }
+          ]
+        },
+        {
+          "group": "Hándicap alternativo +3.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home_3.5",
+              "label": "WAS +3.5",
+              "line": 3.5,
+              "p": 0.5007641904334288,
+              "fairOdds": 1.9969479030328932
+            },
+            {
+              "market": "spreads",
+              "selection": "away_-3.5",
+              "label": "LAR -3.5",
+              "line": -3.5,
+              "p": 0.4992358095665712,
+              "fairOdds": 2.0030614407812304
+            }
+          ]
+        },
+        {
+          "group": "Hándicap alternativo +7.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home_7.5",
+              "label": "WAS +7.5",
+              "line": 7.5,
+              "p": 0.6414865164176129,
+              "fairOdds": 1.5588792194487715
+            },
+            {
+              "market": "spreads",
+              "selection": "away_-7.5",
+              "label": "LAR -7.5",
+              "line": -7.5,
+              "p": 0.3585134835823871,
+              "fairOdds": 2.7892953704492904
+            }
+          ]
+        },
+        {
+          "group": "Puntos por equipo",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "WAS más de 20.5",
+              "line": 20.5,
+              "p": 0.514351983751988,
+              "fairOdds": 1.9441939208738106
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "WAS menos de 20.5",
+              "line": 20.5,
+              "p": 0.485648016248012,
+              "fairOdds": 2.0591044677289845
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "LAR más de 24.5",
+              "line": 24.5,
+              "p": 0.49146594963876733,
+              "fairOdds": 2.034728958811919
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "LAR menos de 24.5",
+              "line": 24.5,
+              "p": 0.5085340503612327,
+              "fairOdds": 1.9664366610056079
+            }
+          ]
+        }
+      ],
+      "factors": [
+        {
+          "key": "home_offense",
+          "label": "Ofensiva local",
+          "value": "20.8 pts proyectados",
+          "detail": "7 partidos · ajustado a -0.8 sobre la media"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "21.6 pts permitidos",
+          "detail": "8 partidos · ajustado por rival"
+        },
+        {
+          "key": "away_offense",
+          "label": "Ofensiva visitante",
+          "value": "24.3 pts proyectados",
+          "detail": "8 partidos · ajustado a -0.1 sobre la media"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "24.4 pts permitidos",
+          "detail": "7 partidos · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "+0.0 pts",
+          "detail": "estimada de 134 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Rango 90%",
+          "value": "margen -21.7 a 14.8",
+          "detail": "total 24.0 a 66.3"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "G-P-P-P-G · 2-3",
+          "detail": "117 pts a favor · 121 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-P-P-G-G · 3-2",
+          "detail": "133 pts a favor · 105 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando NFL · corte 8 nov 2026, 12:00",
+        "Ofensiva y defensa ajustadas por rival · WAS 20.8 / 24.3",
+        "Fuerza de calendario incluida (134 partidos)",
+        "Proyección 20.8 – 24.3 · margen -3.5",
+        "Simulando escenarios de margen (σ 11.1) y total (σ 12.8)",
+        "14 mercados listos"
+      ],
+      "inputsAsOf": "2026-11-08T18:00:00.000Z",
+      "publishedAt": "2026-11-08T18:00:00.000Z",
+      "source": "nflverse"
+    },
+    "nfl-2026-w9-houston-texans-los-angeles-chargers": {
+      "game": "nfl-2026-w9-houston-texans-los-angeles-chargers",
+      "model": {
+        "id": "pitchlab-statistical-nfl",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 19.28428852396843,
+        "away": 26.05313185168342,
+        "total": 45.33742037565185,
+        "margin": -6.76884332771499
+      },
+      "x12": [
+        0.2709059192934334,
+        0,
+        0.7290940807065667
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "LA Chargers gana",
+          "p": 0.2709059192934334,
+          "fairOdds": 3.691318383179527
+        },
+        {
+          "market": "h2h",
+          "selection": "Houston gana",
+          "p": 0.7290940807065667,
+          "fairOdds": 1.3715651058789256
+        },
+        {
+          "market": "spreads",
+          "selection": "LAC cubre",
+          "line": 6.5,
+          "p": 0.490334198059289,
+          "fairOdds": 2.0394253632684305
+        },
+        {
+          "market": "spreads",
+          "selection": "HOU cubre",
+          "line": -6.5,
+          "p": 0.509665801940711,
+          "fairOdds": 1.9620700392143031
+        },
+        {
+          "market": "totals",
+          "selection": "Más",
+          "line": 45.5,
+          "p": 0.494951839668482,
+          "fairOdds": 2.0203985920525085
+        },
+        {
+          "market": "totals",
+          "selection": "Menos",
+          "line": 45.5,
+          "p": 0.505048160331518,
+          "fairOdds": 1.9800091922789924
+        },
+        {
+          "market": "spreads",
+          "selection": "LAC +3.5",
+          "line": 3.5,
+          "p": 0.38414193836030625,
+          "fairOdds": 2.6032044412241424
+        },
+        {
+          "market": "spreads",
+          "selection": "HOU -3.5",
+          "line": -3.5,
+          "p": 0.6158580616396938,
+          "fairOdds": 1.6237507670802358
+        },
+        {
+          "market": "spreads",
+          "selection": "LAC +7.5",
+          "line": 7.5,
+          "p": 0.5262709874060811,
+          "fairOdds": 1.9001617492327771
+        },
+        {
+          "market": "spreads",
+          "selection": "HOU -7.5",
+          "line": -7.5,
+          "p": 0.47372901259391886,
+          "fairOdds": 2.1109114565824605
+        },
+        {
+          "market": "team_totals",
+          "selection": "LAC más de 19.5",
+          "line": 19.5,
+          "p": 0.490528348112499,
+          "fairOdds": 2.0386181631457054
+        },
+        {
+          "market": "team_totals",
+          "selection": "LAC menos de 19.5",
+          "line": 19.5,
+          "p": 0.509471651887501,
+          "fairOdds": 1.9628177471605723
+        },
+        {
+          "market": "team_totals",
+          "selection": "HOU más de 26.5",
+          "line": 26.5,
+          "p": 0.4803846090478162,
+          "fairOdds": 2.0816653597252586
+        },
+        {
+          "market": "team_totals",
+          "selection": "HOU menos de 26.5",
+          "line": 26.5,
+          "p": 0.5196153909521838,
+          "fairOdds": 1.9245003466266115
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Ganador",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "LA Chargers gana",
+              "p": 0.2709059192934334,
+              "fairOdds": 3.691318383179527
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Houston gana",
+              "p": 0.7290940807065667,
+              "fairOdds": 1.3715651058789256
+            }
+          ]
+        },
+        {
+          "group": "Spread LAC +6.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home",
+              "label": "LAC cubre",
+              "line": 6.5,
+              "p": 0.490334198059289,
+              "fairOdds": 2.0394253632684305
+            },
+            {
+              "market": "spreads",
+              "selection": "away",
+              "label": "HOU cubre",
+              "line": -6.5,
+              "p": 0.509665801940711,
+              "fairOdds": 1.9620700392143031
+            }
+          ]
+        },
+        {
+          "group": "Total 45.5",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over",
+              "label": "Más",
+              "line": 45.5,
+              "p": 0.494951839668482,
+              "fairOdds": 2.0203985920525085
+            },
+            {
+              "market": "totals",
+              "selection": "under",
+              "label": "Menos",
+              "line": 45.5,
+              "p": 0.505048160331518,
+              "fairOdds": 1.9800091922789924
+            }
+          ]
+        },
+        {
+          "group": "Hándicap alternativo +3.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home_3.5",
+              "label": "LAC +3.5",
+              "line": 3.5,
+              "p": 0.38414193836030625,
+              "fairOdds": 2.6032044412241424
+            },
+            {
+              "market": "spreads",
+              "selection": "away_-3.5",
+              "label": "HOU -3.5",
+              "line": -3.5,
+              "p": 0.6158580616396938,
+              "fairOdds": 1.6237507670802358
+            }
+          ]
+        },
+        {
+          "group": "Hándicap alternativo +7.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home_7.5",
+              "label": "LAC +7.5",
+              "line": 7.5,
+              "p": 0.5262709874060811,
+              "fairOdds": 1.9001617492327771
+            },
+            {
+              "market": "spreads",
+              "selection": "away_-7.5",
+              "label": "HOU -7.5",
+              "line": -7.5,
+              "p": 0.47372901259391886,
+              "fairOdds": 2.1109114565824605
+            }
+          ]
+        },
+        {
+          "group": "Puntos por equipo",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "LAC más de 19.5",
+              "line": 19.5,
+              "p": 0.490528348112499,
+              "fairOdds": 2.0386181631457054
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "LAC menos de 19.5",
+              "line": 19.5,
+              "p": 0.509471651887501,
+              "fairOdds": 1.9628177471605723
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "HOU más de 26.5",
+              "line": 26.5,
+              "p": 0.4803846090478162,
+              "fairOdds": 2.0816653597252586
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "HOU menos de 26.5",
+              "line": 26.5,
+              "p": 0.5196153909521838,
+              "fairOdds": 1.9245003466266115
+            }
+          ]
+        }
+      ],
+      "factors": [
+        {
+          "key": "home_offense",
+          "label": "Ofensiva local",
+          "value": "19.3 pts proyectados",
+          "detail": "7 partidos · ajustado a -4.0 sobre la media"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "23.2 pts permitidos",
+          "detail": "7 partidos · ajustado por rival"
+        },
+        {
+          "key": "away_offense",
+          "label": "Ofensiva visitante",
+          "value": "26.1 pts proyectados",
+          "detail": "7 partidos · ajustado a 1.3 sobre la media"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "24.8 pts permitidos",
+          "detail": "7 partidos · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "+0.0 pts",
+          "detail": "estimada de 134 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Rango 90%",
+          "value": "margen -25.0 a 11.5",
+          "detail": "total 24.2 a 66.5"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "P-P-P-P-P · 0-5",
+          "detail": "71 pts a favor · 123 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "P-P-G-G-P · 2-3",
+          "detail": "128 pts a favor · 114 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando NFL · corte 8 nov 2026, 15:05",
+        "Ofensiva y defensa ajustadas por rival · LAC 19.3 / 26.1",
+        "Fuerza de calendario incluida (134 partidos)",
+        "Proyección 19.3 – 26.1 · margen -6.8",
+        "Simulando escenarios de margen (σ 11.1) y total (σ 12.8)",
+        "14 mercados listos"
+      ],
+      "inputsAsOf": "2026-11-08T21:05:00.000Z",
+      "publishedAt": "2026-11-08T21:05:00.000Z",
+      "source": "nflverse"
+    },
+    "nfl-2026-w9-las-vegas-raiders-san-francisco-49ers": {
+      "game": "nfl-2026-w9-las-vegas-raiders-san-francisco-49ers",
+      "model": {
+        "id": "pitchlab-statistical-nfl",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 29.59897115691884,
+        "away": 23.30646427284299,
+        "total": 52.90543542976183,
+        "margin": 6.2925068840758485
+      },
+      "x12": [
+        0.7146915591538285,
+        0,
+        0.28530844084617146
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "San Francisco gana",
+          "p": 0.7146915591538285,
+          "fairOdds": 1.3992049957662398
+        },
+        {
+          "market": "h2h",
+          "selection": "Las Vegas gana",
+          "p": 0.28530844084617146,
+          "fairOdds": 3.504978671623549
+        },
+        {
+          "market": "spreads",
+          "selection": "SF cubre",
+          "line": -6.5,
+          "p": 0.49253964214361906,
+          "fairOdds": 2.0302934310989147
+        },
+        {
+          "market": "spreads",
+          "selection": "LV cubre",
+          "line": 6.5,
+          "p": 0.507460357856381,
+          "fairOdds": 1.970597278227229
+        },
+        {
+          "market": "totals",
+          "selection": "Más",
+          "line": 52.5,
+          "p": 0.5125871585714246,
+          "fairOdds": 1.9508877334871015
+        },
+        {
+          "market": "totals",
+          "selection": "Menos",
+          "line": 52.5,
+          "p": 0.48741284142857544,
+          "fairOdds": 2.051648859043321
+        },
+        {
+          "market": "spreads",
+          "selection": "SF -3.5",
+          "line": -3.5,
+          "p": 0.5993589875200449,
+          "fairOdds": 1.6684491612241923
+        },
+        {
+          "market": "spreads",
+          "selection": "LV +3.5",
+          "line": 3.5,
+          "p": 0.4006410124799551,
+          "fairOdds": 2.496000081993683
+        },
+        {
+          "market": "spreads",
+          "selection": "SF -7.5",
+          "line": -7.5,
+          "p": 0.4566681153348526,
+          "fairOdds": 2.189774075351743
+        },
+        {
+          "market": "spreads",
+          "selection": "LV +7.5",
+          "line": 7.5,
+          "p": 0.5433318846651474,
+          "fairOdds": 1.840495704786946
+        },
+        {
+          "market": "team_totals",
+          "selection": "SF más de 29.5",
+          "line": 29.5,
+          "p": 0.5043460400841403,
+          "fairOdds": 1.9827656420840927
+        },
+        {
+          "market": "team_totals",
+          "selection": "SF menos de 29.5",
+          "line": 29.5,
+          "p": 0.4956539599158597,
+          "fairOdds": 2.017536589780814
+        },
+        {
+          "market": "team_totals",
+          "selection": "LV más de 23.5",
+          "line": 23.5,
+          "p": 0.49150190361603996,
+          "fairOdds": 2.034580115850777
+        },
+        {
+          "market": "team_totals",
+          "selection": "LV menos de 23.5",
+          "line": 23.5,
+          "p": 0.50849809638396,
+          "fairOdds": 1.9665757003049102
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Ganador",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "San Francisco gana",
+              "p": 0.7146915591538285,
+              "fairOdds": 1.3992049957662398
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Las Vegas gana",
+              "p": 0.28530844084617146,
+              "fairOdds": 3.504978671623549
+            }
+          ]
+        },
+        {
+          "group": "Spread SF -6.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home",
+              "label": "SF cubre",
+              "line": -6.5,
+              "p": 0.49253964214361906,
+              "fairOdds": 2.0302934310989147
+            },
+            {
+              "market": "spreads",
+              "selection": "away",
+              "label": "LV cubre",
+              "line": 6.5,
+              "p": 0.507460357856381,
+              "fairOdds": 1.970597278227229
+            }
+          ]
+        },
+        {
+          "group": "Total 52.5",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over",
+              "label": "Más",
+              "line": 52.5,
+              "p": 0.5125871585714246,
+              "fairOdds": 1.9508877334871015
+            },
+            {
+              "market": "totals",
+              "selection": "under",
+              "label": "Menos",
+              "line": 52.5,
+              "p": 0.48741284142857544,
+              "fairOdds": 2.051648859043321
+            }
+          ]
+        },
+        {
+          "group": "Hándicap alternativo -3.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home_-3.5",
+              "label": "SF -3.5",
+              "line": -3.5,
+              "p": 0.5993589875200449,
+              "fairOdds": 1.6684491612241923
+            },
+            {
+              "market": "spreads",
+              "selection": "away_3.5",
+              "label": "LV +3.5",
+              "line": 3.5,
+              "p": 0.4006410124799551,
+              "fairOdds": 2.496000081993683
+            }
+          ]
+        },
+        {
+          "group": "Hándicap alternativo -7.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home_-7.5",
+              "label": "SF -7.5",
+              "line": -7.5,
+              "p": 0.4566681153348526,
+              "fairOdds": 2.189774075351743
+            },
+            {
+              "market": "spreads",
+              "selection": "away_7.5",
+              "label": "LV +7.5",
+              "line": 7.5,
+              "p": 0.5433318846651474,
+              "fairOdds": 1.840495704786946
+            }
+          ]
+        },
+        {
+          "group": "Puntos por equipo",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "SF más de 29.5",
+              "line": 29.5,
+              "p": 0.5043460400841403,
+              "fairOdds": 1.9827656420840927
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "SF menos de 29.5",
+              "line": 29.5,
+              "p": 0.4956539599158597,
+              "fairOdds": 2.017536589780814
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "LV más de 23.5",
+              "line": 23.5,
+              "p": 0.49150190361603996,
+              "fairOdds": 2.034580115850777
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "LV menos de 23.5",
+              "line": 23.5,
+              "p": 0.50849809638396,
+              "fairOdds": 1.9665757003049102
+            }
+          ]
+        }
+      ],
+      "factors": [
+        {
+          "key": "home_offense",
+          "label": "Ofensiva local",
+          "value": "29.6 pts proyectados",
+          "detail": "7 partidos · ajustado a 3.0 sobre la media"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "26.6 pts permitidos",
+          "detail": "8 partidos · ajustado por rival"
+        },
+        {
+          "key": "away_offense",
+          "label": "Ofensiva visitante",
+          "value": "23.3 pts proyectados",
+          "detail": "8 partidos · ajustado a 1.7 sobre la media"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "21.6 pts permitidos",
+          "detail": "7 partidos · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "+0.0 pts",
+          "detail": "estimada de 134 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Rango 90%",
+          "value": "margen -12.0 a 24.5",
+          "detail": "total 31.8 a 74.0"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "G-G-G-G-P · 4-1",
+          "detail": "135 pts a favor · 119 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "P-P-P-P-G · 1-4",
+          "detail": "133 pts a favor · 176 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando NFL · corte 8 nov 2026, 15:05",
+        "Ofensiva y defensa ajustadas por rival · SF 29.6 / 23.3",
+        "Fuerza de calendario incluida (134 partidos)",
+        "Proyección 29.6 – 23.3 · margen +6.3",
+        "Simulando escenarios de margen (σ 11.1) y total (σ 12.8)",
+        "14 mercados listos"
+      ],
+      "inputsAsOf": "2026-11-08T21:05:00.000Z",
+      "publishedAt": "2026-11-08T21:05:00.000Z",
+      "source": "nflverse"
+    },
+    "nfl-2026-w9-green-bay-packers-new-england-patriots": {
+      "game": "nfl-2026-w9-green-bay-packers-new-england-patriots",
+      "model": {
+        "id": "pitchlab-statistical-nfl",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 22.36280008038406,
+        "away": 23.2790248504613,
+        "total": 45.64182493084536,
+        "margin": -0.9162247700772426
+      },
+      "x12": [
+        0.46709297934102917,
+        0,
+        0.5329070206589708
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "New England gana",
+          "p": 0.46709297934102917,
+          "fairOdds": 2.140901371308966
+        },
+        {
+          "market": "h2h",
+          "selection": "Green Bay gana",
+          "p": 0.5329070206589708,
+          "fairOdds": 1.8764999544638037
+        },
+        {
+          "market": "spreads",
+          "selection": "NE cubre",
+          "line": 1.5,
+          "p": 0.52098097989542,
+          "fairOdds": 1.9194558699642674
+        },
+        {
+          "market": "spreads",
+          "selection": "GB cubre",
+          "line": -1.5,
+          "p": 0.47901902010458,
+          "fairOdds": 2.087599777941341
+        },
+        {
+          "market": "totals",
+          "selection": "Más",
+          "line": 45.5,
+          "p": 0.5044037476927081,
+          "fairOdds": 1.982538798679224
+        },
+        {
+          "market": "totals",
+          "selection": "Menos",
+          "line": 45.5,
+          "p": 0.4955962523072919,
+          "fairOdds": 2.017771513292145
+        },
+        {
+          "market": "spreads",
+          "selection": "NE +3.5",
+          "line": 3.5,
+          "p": 0.5920708911509868,
+          "fairOdds": 1.6889869354259224
+        },
+        {
+          "market": "spreads",
+          "selection": "GB -3.5",
+          "line": -3.5,
+          "p": 0.40792910884901323,
+          "fairOdds": 2.4514063309223904
+        },
+        {
+          "market": "spreads",
+          "selection": "NE +7.5",
+          "line": 7.5,
+          "p": 0.7235416643739724,
+          "fairOdds": 1.3820904161272134
+        },
+        {
+          "market": "spreads",
+          "selection": "GB -7.5",
+          "line": -7.5,
+          "p": 0.2764583356260276,
+          "fairOdds": 3.6171815826625173
+        },
+        {
+          "market": "team_totals",
+          "selection": "NE más de 22.5",
+          "line": 22.5,
+          "p": 0.4939753630185282,
+          "fairOdds": 2.0243924593512403
+        },
+        {
+          "market": "team_totals",
+          "selection": "NE menos de 22.5",
+          "line": 22.5,
+          "p": 0.5060246369814718,
+          "fairOdds": 1.9761883649878793
+        },
+        {
+          "market": "team_totals",
+          "selection": "GB más de 23.5",
+          "line": 23.5,
+          "p": 0.49029727142870927,
+          "fairOdds": 2.0395789621386933
+        },
+        {
+          "market": "team_totals",
+          "selection": "GB menos de 23.5",
+          "line": 23.5,
+          "p": 0.5097027285712907,
+          "fairOdds": 1.9619278923678212
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Ganador",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "New England gana",
+              "p": 0.46709297934102917,
+              "fairOdds": 2.140901371308966
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Green Bay gana",
+              "p": 0.5329070206589708,
+              "fairOdds": 1.8764999544638037
+            }
+          ]
+        },
+        {
+          "group": "Spread NE +1.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home",
+              "label": "NE cubre",
+              "line": 1.5,
+              "p": 0.52098097989542,
+              "fairOdds": 1.9194558699642674
+            },
+            {
+              "market": "spreads",
+              "selection": "away",
+              "label": "GB cubre",
+              "line": -1.5,
+              "p": 0.47901902010458,
+              "fairOdds": 2.087599777941341
+            }
+          ]
+        },
+        {
+          "group": "Total 45.5",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over",
+              "label": "Más",
+              "line": 45.5,
+              "p": 0.5044037476927081,
+              "fairOdds": 1.982538798679224
+            },
+            {
+              "market": "totals",
+              "selection": "under",
+              "label": "Menos",
+              "line": 45.5,
+              "p": 0.4955962523072919,
+              "fairOdds": 2.017771513292145
+            }
+          ]
+        },
+        {
+          "group": "Hándicap alternativo +3.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home_3.5",
+              "label": "NE +3.5",
+              "line": 3.5,
+              "p": 0.5920708911509868,
+              "fairOdds": 1.6889869354259224
+            },
+            {
+              "market": "spreads",
+              "selection": "away_-3.5",
+              "label": "GB -3.5",
+              "line": -3.5,
+              "p": 0.40792910884901323,
+              "fairOdds": 2.4514063309223904
+            }
+          ]
+        },
+        {
+          "group": "Hándicap alternativo +7.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home_7.5",
+              "label": "NE +7.5",
+              "line": 7.5,
+              "p": 0.7235416643739724,
+              "fairOdds": 1.3820904161272134
+            },
+            {
+              "market": "spreads",
+              "selection": "away_-7.5",
+              "label": "GB -7.5",
+              "line": -7.5,
+              "p": 0.2764583356260276,
+              "fairOdds": 3.6171815826625173
+            }
+          ]
+        },
+        {
+          "group": "Puntos por equipo",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "NE más de 22.5",
+              "line": 22.5,
+              "p": 0.4939753630185282,
+              "fairOdds": 2.0243924593512403
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "NE menos de 22.5",
+              "line": 22.5,
+              "p": 0.5060246369814718,
+              "fairOdds": 1.9761883649878793
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "GB más de 23.5",
+              "line": 23.5,
+              "p": 0.49029727142870927,
+              "fairOdds": 2.0395789621386933
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "GB menos de 23.5",
+              "line": 23.5,
+              "p": 0.5097027285712907,
+              "fairOdds": 1.9619278923678212
+            }
+          ]
+        }
+      ],
+      "factors": [
+        {
+          "key": "home_offense",
+          "label": "Ofensiva local",
+          "value": "22.4 pts proyectados",
+          "detail": "8 partidos · ajustado a 0.5 sobre la media"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "21.8 pts permitidos",
+          "detail": "8 partidos · ajustado por rival"
+        },
+        {
+          "key": "away_offense",
+          "label": "Ofensiva visitante",
+          "value": "23.3 pts proyectados",
+          "detail": "8 partidos · ajustado a 0.6 sobre la media"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "22.7 pts permitidos",
+          "detail": "8 partidos · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "+0.0 pts",
+          "detail": "estimada de 134 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Rango 90%",
+          "value": "margen -19.2 a 17.3",
+          "detail": "total 24.5 a 66.8"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "G-G-G-P-G · 4-1",
+          "detail": "148 pts a favor · 111 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-G-G-P-G · 4-1",
+          "detail": "115 pts a favor · 73 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando NFL · corte 8 nov 2026, 15:25",
+        "Ofensiva y defensa ajustadas por rival · NE 22.4 / 23.3",
+        "Fuerza de calendario incluida (134 partidos)",
+        "Proyección 22.4 – 23.3 · margen -0.9",
+        "Simulando escenarios de margen (σ 11.1) y total (σ 12.8)",
+        "14 mercados listos"
+      ],
+      "inputsAsOf": "2026-11-08T21:25:00.000Z",
+      "publishedAt": "2026-11-08T21:25:00.000Z",
+      "source": "nflverse"
+    },
+    "nfl-2026-w9-arizona-cardinals-seattle-seahawks": {
+      "game": "nfl-2026-w9-arizona-cardinals-seattle-seahawks",
+      "model": {
+        "id": "pitchlab-statistical-nfl",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 25.331861255190105,
+        "away": 19.02621880619712,
+        "total": 44.35808006138723,
+        "margin": 6.305642448992984
+      },
+      "x12": [
+        0.7150935690546494,
+        0,
+        0.2849064309453506
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Seattle gana",
+          "p": 0.7150935690546494,
+          "fairOdds": 1.3984183934446448
+        },
+        {
+          "market": "h2h",
+          "selection": "Arizona gana",
+          "p": 0.2849064309453506,
+          "fairOdds": 3.509924281743627
+        },
+        {
+          "market": "spreads",
+          "selection": "SEA cubre",
+          "line": -6.5,
+          "p": 0.49301187726308504,
+          "fairOdds": 2.0283486993283364
+        },
+        {
+          "market": "spreads",
+          "selection": "ARI cubre",
+          "line": 6.5,
+          "p": 0.506988122736915,
+          "fairOdds": 1.972432795075394
+        },
+        {
+          "market": "totals",
+          "selection": "Más",
+          "line": 44.5,
+          "p": 0.49559330238261934,
+          "fairOdds": 2.0177835236924913
+        },
+        {
+          "market": "totals",
+          "selection": "Menos",
+          "line": 44.5,
+          "p": 0.5044066976173807,
+          "fairOdds": 1.9825272041858437
+        },
+        {
+          "market": "spreads",
+          "selection": "SEA -3.5",
+          "line": -3.5,
+          "p": 0.5998165041312473,
+          "fairOdds": 1.6671765333439168
+        },
+        {
+          "market": "spreads",
+          "selection": "ARI +3.5",
+          "line": 3.5,
+          "p": 0.4001834958687527,
+          "fairOdds": 2.4988536766842775
+        },
+        {
+          "market": "spreads",
+          "selection": "SEA -7.5",
+          "line": -7.5,
+          "p": 0.4571376665349084,
+          "fairOdds": 2.187524838152091
+        },
+        {
+          "market": "spreads",
+          "selection": "ARI +7.5",
+          "line": 7.5,
+          "p": 0.5428623334650916,
+          "fairOdds": 1.842087649767479
+        },
+        {
+          "market": "team_totals",
+          "selection": "SEA más de 25.5",
+          "line": 25.5,
+          "p": 0.49261693927493266,
+          "fairOdds": 2.029974855253391
+        },
+        {
+          "market": "team_totals",
+          "selection": "SEA menos de 25.5",
+          "line": 25.5,
+          "p": 0.5073830607250673,
+          "fairOdds": 1.9708974883216768
+        },
+        {
+          "market": "team_totals",
+          "selection": "ARI más de 19.5",
+          "line": 19.5,
+          "p": 0.4792042972380073,
+          "fairOdds": 2.0867926388884785
+        },
+        {
+          "market": "team_totals",
+          "selection": "ARI menos de 19.5",
+          "line": 19.5,
+          "p": 0.5207957027619927,
+          "fairOdds": 1.9201387313616276
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Ganador",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Seattle gana",
+              "p": 0.7150935690546494,
+              "fairOdds": 1.3984183934446448
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Arizona gana",
+              "p": 0.2849064309453506,
+              "fairOdds": 3.509924281743627
+            }
+          ]
+        },
+        {
+          "group": "Spread SEA -6.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home",
+              "label": "SEA cubre",
+              "line": -6.5,
+              "p": 0.49301187726308504,
+              "fairOdds": 2.0283486993283364
+            },
+            {
+              "market": "spreads",
+              "selection": "away",
+              "label": "ARI cubre",
+              "line": 6.5,
+              "p": 0.506988122736915,
+              "fairOdds": 1.972432795075394
+            }
+          ]
+        },
+        {
+          "group": "Total 44.5",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over",
+              "label": "Más",
+              "line": 44.5,
+              "p": 0.49559330238261934,
+              "fairOdds": 2.0177835236924913
+            },
+            {
+              "market": "totals",
+              "selection": "under",
+              "label": "Menos",
+              "line": 44.5,
+              "p": 0.5044066976173807,
+              "fairOdds": 1.9825272041858437
+            }
+          ]
+        },
+        {
+          "group": "Hándicap alternativo -3.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home_-3.5",
+              "label": "SEA -3.5",
+              "line": -3.5,
+              "p": 0.5998165041312473,
+              "fairOdds": 1.6671765333439168
+            },
+            {
+              "market": "spreads",
+              "selection": "away_3.5",
+              "label": "ARI +3.5",
+              "line": 3.5,
+              "p": 0.4001834958687527,
+              "fairOdds": 2.4988536766842775
+            }
+          ]
+        },
+        {
+          "group": "Hándicap alternativo -7.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home_-7.5",
+              "label": "SEA -7.5",
+              "line": -7.5,
+              "p": 0.4571376665349084,
+              "fairOdds": 2.187524838152091
+            },
+            {
+              "market": "spreads",
+              "selection": "away_7.5",
+              "label": "ARI +7.5",
+              "line": 7.5,
+              "p": 0.5428623334650916,
+              "fairOdds": 1.842087649767479
+            }
+          ]
+        },
+        {
+          "group": "Puntos por equipo",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "SEA más de 25.5",
+              "line": 25.5,
+              "p": 0.49261693927493266,
+              "fairOdds": 2.029974855253391
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "SEA menos de 25.5",
+              "line": 25.5,
+              "p": 0.5073830607250673,
+              "fairOdds": 1.9708974883216768
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "ARI más de 19.5",
+              "line": 19.5,
+              "p": 0.4792042972380073,
+              "fairOdds": 2.0867926388884785
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "ARI menos de 19.5",
+              "line": 19.5,
+              "p": 0.5207957027619927,
+              "fairOdds": 1.9201387313616276
+            }
+          ]
+        }
+      ],
+      "factors": [
+        {
+          "key": "home_offense",
+          "label": "Ofensiva local",
+          "value": "25.3 pts proyectados",
+          "detail": "8 partidos · ajustado a -0.4 sobre la media"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "25.7 pts permitidos",
+          "detail": "8 partidos · ajustado por rival"
+        },
+        {
+          "key": "away_offense",
+          "label": "Ofensiva visitante",
+          "value": "19.0 pts proyectados",
+          "detail": "8 partidos · ajustado a -1.4 sobre la media"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "20.4 pts permitidos",
+          "detail": "8 partidos · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "+0.0 pts",
+          "detail": "estimada de 134 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Rango 90%",
+          "value": "margen -11.9 a 24.6",
+          "detail": "total 23.2 a 65.5"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "G-P-P-G-P · 2-3",
+          "detail": "110 pts a favor · 109 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "P-P-G-P-G · 2-3",
+          "detail": "112 pts a favor · 157 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando NFL · corte 8 nov 2026, 15:25",
+        "Ofensiva y defensa ajustadas por rival · SEA 25.3 / 19.0",
+        "Fuerza de calendario incluida (134 partidos)",
+        "Proyección 25.3 – 19.0 · margen +6.3",
+        "Simulando escenarios de margen (σ 11.1) y total (σ 12.8)",
+        "14 mercados listos"
+      ],
+      "inputsAsOf": "2026-11-08T21:25:00.000Z",
+      "publishedAt": "2026-11-08T21:25:00.000Z",
+      "source": "nflverse"
+    },
+    "nfl-2026-w9-tampa-bay-buccaneers-chicago-bears": {
+      "game": "nfl-2026-w9-tampa-bay-buccaneers-chicago-bears",
+      "model": {
+        "id": "pitchlab-statistical-nfl",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 23.43862050037693,
+        "away": 21.965598367559387,
+        "total": 45.40421886793632,
+        "margin": 1.473022132817544
+      },
+      "x12": [
+        0.5530029351600363,
+        0,
+        0.4469970648399637
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Chicago gana",
+          "p": 0.5530029351600363,
+          "fairOdds": 1.8083086660482282
+        },
+        {
+          "market": "h2h",
+          "selection": "Tampa Bay gana",
+          "p": 0.4469970648399637,
+          "fairOdds": 2.237151155249812
+        },
+        {
+          "market": "spreads",
+          "selection": "CHI cubre",
+          "line": -1.5,
+          "p": 0.49902639184950526,
+          "fairOdds": 2.0039020306997646
+        },
+        {
+          "market": "spreads",
+          "selection": "TB cubre",
+          "line": 1.5,
+          "p": 0.5009736081504947,
+          "fairOdds": 1.9961131359630335
+        },
+        {
+          "market": "totals",
+          "selection": "Más",
+          "line": 45.5,
+          "p": 0.49701723907048256,
+          "fairOdds": 2.0120026457637397
+        },
+        {
+          "market": "totals",
+          "selection": "Menos",
+          "line": 45.5,
+          "p": 0.5029827609295174,
+          "fairOdds": 1.9881397091065098
+        },
+        {
+          "market": "spreads",
+          "selection": "CHI -3.5",
+          "line": -3.5,
+          "p": 0.4272563946359996,
+          "fairOdds": 2.3405149988496916
+        },
+        {
+          "market": "spreads",
+          "selection": "TB +3.5",
+          "line": 3.5,
+          "p": 0.5727436053640004,
+          "fairOdds": 1.74598195533665
+        },
+        {
+          "market": "spreads",
+          "selection": "CHI -7.5",
+          "line": -7.5,
+          "p": 0.2928046073847181,
+          "fairOdds": 3.415246805478347
+        },
+        {
+          "market": "spreads",
+          "selection": "TB +7.5",
+          "line": 7.5,
+          "p": 0.7071953926152819,
+          "fairOdds": 1.4140363617216118
+        },
+        {
+          "market": "team_totals",
+          "selection": "CHI más de 23.5",
+          "line": 23.5,
+          "p": 0.4972968037668306,
+          "fairOdds": 2.010871560857394
+        },
+        {
+          "market": "team_totals",
+          "selection": "CHI menos de 23.5",
+          "line": 23.5,
+          "p": 0.5027031962331694,
+          "fairOdds": 1.9892453588780623
+        },
+        {
+          "market": "team_totals",
+          "selection": "TB más de 21.5",
+          "line": 21.5,
+          "p": 0.5204963535921048,
+          "fairOdds": 1.921243046370438
+        },
+        {
+          "market": "team_totals",
+          "selection": "TB menos de 21.5",
+          "line": 21.5,
+          "p": 0.4795036464078952,
+          "fairOdds": 2.0854898758149143
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Ganador",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Chicago gana",
+              "p": 0.5530029351600363,
+              "fairOdds": 1.8083086660482282
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Tampa Bay gana",
+              "p": 0.4469970648399637,
+              "fairOdds": 2.237151155249812
+            }
+          ]
+        },
+        {
+          "group": "Spread CHI -1.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home",
+              "label": "CHI cubre",
+              "line": -1.5,
+              "p": 0.49902639184950526,
+              "fairOdds": 2.0039020306997646
+            },
+            {
+              "market": "spreads",
+              "selection": "away",
+              "label": "TB cubre",
+              "line": 1.5,
+              "p": 0.5009736081504947,
+              "fairOdds": 1.9961131359630335
+            }
+          ]
+        },
+        {
+          "group": "Total 45.5",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over",
+              "label": "Más",
+              "line": 45.5,
+              "p": 0.49701723907048256,
+              "fairOdds": 2.0120026457637397
+            },
+            {
+              "market": "totals",
+              "selection": "under",
+              "label": "Menos",
+              "line": 45.5,
+              "p": 0.5029827609295174,
+              "fairOdds": 1.9881397091065098
+            }
+          ]
+        },
+        {
+          "group": "Hándicap alternativo -3.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home_-3.5",
+              "label": "CHI -3.5",
+              "line": -3.5,
+              "p": 0.4272563946359996,
+              "fairOdds": 2.3405149988496916
+            },
+            {
+              "market": "spreads",
+              "selection": "away_3.5",
+              "label": "TB +3.5",
+              "line": 3.5,
+              "p": 0.5727436053640004,
+              "fairOdds": 1.74598195533665
+            }
+          ]
+        },
+        {
+          "group": "Hándicap alternativo -7.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home_-7.5",
+              "label": "CHI -7.5",
+              "line": -7.5,
+              "p": 0.2928046073847181,
+              "fairOdds": 3.415246805478347
+            },
+            {
+              "market": "spreads",
+              "selection": "away_7.5",
+              "label": "TB +7.5",
+              "line": 7.5,
+              "p": 0.7071953926152819,
+              "fairOdds": 1.4140363617216118
+            }
+          ]
+        },
+        {
+          "group": "Puntos por equipo",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "CHI más de 23.5",
+              "line": 23.5,
+              "p": 0.4972968037668306,
+              "fairOdds": 2.010871560857394
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "CHI menos de 23.5",
+              "line": 23.5,
+              "p": 0.5027031962331694,
+              "fairOdds": 1.9892453588780623
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "TB más de 21.5",
+              "line": 21.5,
+              "p": 0.5204963535921048,
+              "fairOdds": 1.921243046370438
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "TB menos de 21.5",
+              "line": 21.5,
+              "p": 0.4795036464078952,
+              "fairOdds": 2.0854898758149143
+            }
+          ]
+        }
+      ],
+      "factors": [
+        {
+          "key": "home_offense",
+          "label": "Ofensiva local",
+          "value": "23.4 pts proyectados",
+          "detail": "8 partidos · ajustado a 2.4 sobre la media"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "21.0 pts permitidos",
+          "detail": "8 partidos · ajustado por rival"
+        },
+        {
+          "key": "away_offense",
+          "label": "Ofensiva visitante",
+          "value": "22.0 pts proyectados",
+          "detail": "8 partidos · ajustado a -0.0 sobre la media"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "22.0 pts permitidos",
+          "detail": "8 partidos · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "+0.1 pts",
+          "detail": "estimada de 135 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Rango 90%",
+          "value": "margen -16.7 a 19.7",
+          "detail": "total 24.3 a 66.5"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "G-P-G-G-G · 4-1",
+          "detail": "125 pts a favor · 107 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "P-G-P-G-G · 3-2",
+          "detail": "116 pts a favor · 72 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando NFL · corte 8 nov 2026, 19:20",
+        "Ofensiva y defensa ajustadas por rival · CHI 23.4 / 22.0",
+        "Fuerza de calendario incluida (135 partidos)",
+        "Proyección 23.4 – 22.0 · margen +1.5",
+        "Simulando escenarios de margen (σ 11.1) y total (σ 12.8)",
+        "14 mercados listos"
+      ],
+      "inputsAsOf": "2026-11-09T01:20:00.000Z",
+      "publishedAt": "2026-11-09T01:20:00.000Z",
+      "source": "nflverse",
+      "insights": {
+        "why": [
+          "Chicago gana en 55 % de los escenarios, por 1.5 puntos en promedio.",
+          "Se esperan 45.4 puntos: 23.4 de Chicago y 22.0 de Tampa Bay."
+        ],
+        "headToHead": [
+          {
+            "date": "2023-09-17",
+            "homeTeamId": "nfl.tampa-bay-buccaneers",
+            "awayTeamId": "nfl.chicago-bears",
+            "homeGoals": 27,
+            "awayGoals": 17
+          },
+          {
+            "date": "2021-10-24",
+            "homeTeamId": "nfl.tampa-bay-buccaneers",
+            "awayTeamId": "nfl.chicago-bears",
+            "homeGoals": 38,
+            "awayGoals": 3
+          },
+          {
+            "date": "2020-10-08",
+            "homeTeamId": "nfl.chicago-bears",
+            "awayTeamId": "nfl.tampa-bay-buccaneers",
+            "homeGoals": 20,
+            "awayGoals": 19
+          },
+          {
+            "date": "2018-09-30",
+            "homeTeamId": "nfl.chicago-bears",
+            "awayTeamId": "nfl.tampa-bay-buccaneers",
+            "homeGoals": 48,
+            "awayGoals": 10
+          },
+          {
+            "date": "2017-09-17",
+            "homeTeamId": "nfl.tampa-bay-buccaneers",
+            "awayTeamId": "nfl.chicago-bears",
+            "homeGoals": 29,
+            "awayGoals": 7
+          }
+        ],
+        "restDays": {
+          "home": 6,
+          "away": 7
+        }
+      }
+    },
+    "nfl-2026-w9-buffalo-bills-minnesota-vikings": {
+      "game": "nfl-2026-w9-buffalo-bills-minnesota-vikings",
+      "model": {
+        "id": "pitchlab-statistical-nfl",
+        "version": "2.0.0",
+        "status": "candidate",
+        "label": "Modelo PitchLab · en validación"
+      },
+      "projection": {
+        "home": 22.885175061194175,
+        "away": 22.83514301102939,
+        "total": 45.72031807222356,
+        "margin": 0.05003205016478418
+      },
+      "x12": [
+        0.5017989894705028,
+        0,
+        0.49820101052949717
+      ],
+      "probabilities": [
+        {
+          "market": "h2h",
+          "selection": "Minnesota gana",
+          "p": 0.5017989894705028,
+          "fairOdds": 1.9928298402019458
+        },
+        {
+          "market": "h2h",
+          "selection": "Buffalo gana",
+          "p": 0.49820101052949717,
+          "fairOdds": 2.0072219422782416
+        },
+        {
+          "market": "spreads",
+          "selection": "MIN cubre",
+          "line": -1.5,
+          "p": 0.4480120208962725,
+          "fairOdds": 2.2320829650942073
+        },
+        {
+          "market": "spreads",
+          "selection": "BUF cubre",
+          "line": 1.5,
+          "p": 0.5519879791037274,
+          "fairOdds": 1.8116336548192906
+        },
+        {
+          "market": "totals",
+          "selection": "Más",
+          "line": 45.5,
+          "p": 0.5068408066106498,
+          "fairOdds": 1.9730060937421527
+        },
+        {
+          "market": "totals",
+          "selection": "Menos",
+          "line": 45.5,
+          "p": 0.4931591933893502,
+          "fairOdds": 2.0277427926006397
+        },
+        {
+          "market": "spreads",
+          "selection": "MIN -3.5",
+          "line": -3.5,
+          "p": 0.37792116273666726,
+          "fairOdds": 2.646054517716418
+        },
+        {
+          "market": "spreads",
+          "selection": "BUF +3.5",
+          "line": 3.5,
+          "p": 0.6220788372633328,
+          "fairOdds": 1.6075132926868705
+        },
+        {
+          "market": "spreads",
+          "selection": "MIN -7.5",
+          "line": -7.5,
+          "p": 0.25096211372802074,
+          "fairOdds": 3.9846651956547765
+        },
+        {
+          "market": "spreads",
+          "selection": "BUF +7.5",
+          "line": 7.5,
+          "p": 0.7490378862719793,
+          "fairOdds": 1.3350459547207671
+        },
+        {
+          "market": "team_totals",
+          "selection": "MIN más de 22.5",
+          "line": 22.5,
+          "p": 0.5169091151968631,
+          "fairOdds": 1.9345760610531182
+        },
+        {
+          "market": "team_totals",
+          "selection": "MIN menos de 22.5",
+          "line": 22.5,
+          "p": 0.4830908848031369,
+          "fairOdds": 2.0700038677142656
+        },
+        {
+          "market": "team_totals",
+          "selection": "BUF más de 22.5",
+          "line": 22.5,
+          "p": 0.5147137921889176,
+          "fairOdds": 1.9428272861065394
+        },
+        {
+          "market": "team_totals",
+          "selection": "BUF menos de 22.5",
+          "line": 22.5,
+          "p": 0.48528620781108245,
+          "fairOdds": 2.060639647086964
+        }
+      ],
+      "marketGroups": [
+        {
+          "group": "Ganador",
+          "rows": [
+            {
+              "market": "h2h",
+              "selection": "home",
+              "label": "Minnesota gana",
+              "p": 0.5017989894705028,
+              "fairOdds": 1.9928298402019458
+            },
+            {
+              "market": "h2h",
+              "selection": "away",
+              "label": "Buffalo gana",
+              "p": 0.49820101052949717,
+              "fairOdds": 2.0072219422782416
+            }
+          ]
+        },
+        {
+          "group": "Spread MIN -1.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home",
+              "label": "MIN cubre",
+              "line": -1.5,
+              "p": 0.4480120208962725,
+              "fairOdds": 2.2320829650942073
+            },
+            {
+              "market": "spreads",
+              "selection": "away",
+              "label": "BUF cubre",
+              "line": 1.5,
+              "p": 0.5519879791037274,
+              "fairOdds": 1.8116336548192906
+            }
+          ]
+        },
+        {
+          "group": "Total 45.5",
+          "rows": [
+            {
+              "market": "totals",
+              "selection": "over",
+              "label": "Más",
+              "line": 45.5,
+              "p": 0.5068408066106498,
+              "fairOdds": 1.9730060937421527
+            },
+            {
+              "market": "totals",
+              "selection": "under",
+              "label": "Menos",
+              "line": 45.5,
+              "p": 0.4931591933893502,
+              "fairOdds": 2.0277427926006397
+            }
+          ]
+        },
+        {
+          "group": "Hándicap alternativo -3.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home_-3.5",
+              "label": "MIN -3.5",
+              "line": -3.5,
+              "p": 0.37792116273666726,
+              "fairOdds": 2.646054517716418
+            },
+            {
+              "market": "spreads",
+              "selection": "away_3.5",
+              "label": "BUF +3.5",
+              "line": 3.5,
+              "p": 0.6220788372633328,
+              "fairOdds": 1.6075132926868705
+            }
+          ]
+        },
+        {
+          "group": "Hándicap alternativo -7.5",
+          "rows": [
+            {
+              "market": "spreads",
+              "selection": "home_-7.5",
+              "label": "MIN -7.5",
+              "line": -7.5,
+              "p": 0.25096211372802074,
+              "fairOdds": 3.9846651956547765
+            },
+            {
+              "market": "spreads",
+              "selection": "away_7.5",
+              "label": "BUF +7.5",
+              "line": 7.5,
+              "p": 0.7490378862719793,
+              "fairOdds": 1.3350459547207671
+            }
+          ]
+        },
+        {
+          "group": "Puntos por equipo",
+          "rows": [
+            {
+              "market": "team_totals",
+              "selection": "home_over",
+              "label": "MIN más de 22.5",
+              "line": 22.5,
+              "p": 0.5169091151968631,
+              "fairOdds": 1.9345760610531182
+            },
+            {
+              "market": "team_totals",
+              "selection": "home_under",
+              "label": "MIN menos de 22.5",
+              "line": 22.5,
+              "p": 0.4830908848031369,
+              "fairOdds": 2.0700038677142656
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_over",
+              "label": "BUF más de 22.5",
+              "line": 22.5,
+              "p": 0.5147137921889176,
+              "fairOdds": 1.9428272861065394
+            },
+            {
+              "market": "team_totals",
+              "selection": "away_under",
+              "label": "BUF menos de 22.5",
+              "line": 22.5,
+              "p": 0.48528620781108245,
+              "fairOdds": 2.060639647086964
+            }
+          ]
+        }
+      ],
+      "factors": [
+        {
+          "key": "home_offense",
+          "label": "Ofensiva local",
+          "value": "22.9 pts proyectados",
+          "detail": "7 partidos · ajustado a -1.5 sobre la media"
+        },
+        {
+          "key": "away_defense",
+          "label": "Defensa visitante",
+          "value": "24.3 pts permitidos",
+          "detail": "7 partidos · ajustado por rival"
+        },
+        {
+          "key": "away_offense",
+          "label": "Ofensiva visitante",
+          "value": "22.8 pts proyectados",
+          "detail": "7 partidos · ajustado a 4.4 sobre la media"
+        },
+        {
+          "key": "home_defense",
+          "label": "Defensa local",
+          "value": "18.4 pts permitidos",
+          "detail": "7 partidos · ajustado por rival"
+        },
+        {
+          "key": "home_advantage",
+          "label": "Localía",
+          "value": "+0.0 pts",
+          "detail": "estimada de 134 partidos"
+        },
+        {
+          "key": "uncertainty",
+          "label": "Rango 90%",
+          "value": "margen -18.2 a 18.3",
+          "detail": "total 24.6 a 66.9"
+        },
+        {
+          "key": "home_form",
+          "label": "Forma local",
+          "value": "G-G-G-G-P · 4-1",
+          "detail": "92 pts a favor · 68 en contra"
+        },
+        {
+          "key": "away_form",
+          "label": "Forma visitante",
+          "value": "G-P-G-G-G · 4-1",
+          "detail": "156 pts a favor · 119 en contra"
+        }
+      ],
+      "steps": [
+        "Sincronizando NFL · corte 8 nov 2026, 20:28",
+        "Ofensiva y defensa ajustadas por rival · MIN 22.9 / 22.8",
+        "Fuerza de calendario incluida (134 partidos)",
+        "Proyección 22.9 – 22.8 · margen +0.1",
+        "Simulando escenarios de margen (σ 11.1) y total (σ 12.8)",
+        "14 mercados listos"
+      ],
+      "inputsAsOf": "2026-11-09T02:28:37.318Z",
+      "publishedAt": "2026-11-09T02:28:37.318Z",
+      "source": "nflverse",
+      "picks": [
+        {
+          "profile": "conservadora",
+          "market": "spreads",
+          "selection": "away_7.5",
+          "label": "BUF +7.5",
+          "line": 7.5,
+          "p": 0.7490378862719793,
+          "fairOdds": 1.3350459547207671
+        },
+        {
+          "profile": "intermedia",
+          "market": "spreads",
+          "selection": "away_3.5",
+          "label": "BUF +3.5",
+          "line": 3.5,
+          "p": 0.6220788372633328,
+          "fairOdds": 1.6075132926868705
+        },
+        {
+          "profile": "arriesgada",
+          "market": "team_totals",
+          "selection": "home_over",
+          "label": "MIN más de 22.5",
+          "line": 22.5,
+          "p": 0.5169091151968631,
+          "fairOdds": 1.9345760610531182
+        }
+      ],
+      "confidence": {
+        "score": 20,
+        "level": "baja",
+        "reasons": [
+          "Partido parejo"
+        ]
+      },
+      "insights": {
+        "why": [
+          "Minnesota gana en 50 % de los escenarios, por 0.1 puntos en promedio.",
+          "Se esperan 45.7 puntos: 22.9 de Minnesota y 22.8 de Buffalo."
+        ],
+        "headToHead": [
+          {
+            "date": "2022-11-13",
+            "homeTeamId": "nfl.buffalo-bills",
+            "awayTeamId": "nfl.minnesota-vikings",
+            "homeGoals": 30,
+            "awayGoals": 33
+          },
+          {
+            "date": "2018-09-23",
+            "homeTeamId": "nfl.minnesota-vikings",
+            "awayTeamId": "nfl.buffalo-bills",
+            "homeGoals": 6,
+            "awayGoals": 27
+          },
+          {
+            "date": "2014-10-19",
+            "homeTeamId": "nfl.buffalo-bills",
+            "awayTeamId": "nfl.minnesota-vikings",
+            "homeGoals": 17,
+            "awayGoals": 16
+          },
+          {
+            "date": "2010-12-05",
+            "homeTeamId": "nfl.minnesota-vikings",
+            "awayTeamId": "nfl.buffalo-bills",
+            "homeGoals": 38,
+            "awayGoals": 14
+          },
+          {
+            "date": "2006-10-01",
+            "homeTeamId": "nfl.buffalo-bills",
+            "awayTeamId": "nfl.minnesota-vikings",
+            "homeGoals": 17,
+            "awayGoals": 12
+          }
+        ],
+        "restDays": {
+          "home": 8,
+          "away": 8
+        }
+      },
+      "picksAt": "2026-11-09T04:56:36.391Z"
+    }
+  }
+}

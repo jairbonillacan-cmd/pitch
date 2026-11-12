@@ -1,0 +1,88 @@
+name: Pre-MVP Snapshot Pipeline
+
+on:
+  schedule:
+    # Diario a las 05:00 CDMX (11:00 UTC)
+    - cron: "0 11 * * *"
+    # Cada 3 horas en días de jornada (jueves a lunes)
+    - cron: "0 */3 * * 0,1,4,5,6"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: snapshot-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  snapshot:
+    name: Generar snapshots y publicar
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 12.11.2
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "pnpm"
+
+      - name: Instalar dependencias
+        run: pnpm install --frozen-lockfile
+
+      - name: Generar snapshots reales
+        env:
+          FOOTBALL_DATA_API_KEY: ${{ secrets.FOOTBALL_DATA_API_KEY }}
+        run: pnpm snapshot
+
+      # Motores y matriz de momios de Spacetime v3.0: se mejoran y regeneran en la rama
+      # prediction-lab; aquí solo se copian. Si las pruebas de los motores fallan, se
+      # descarta la copia y se conserva la versión anterior.
+      - name: Sincronizar Spacetime v3.0 desde prediction-lab
+        continue-on-error: true
+        run: |
+          git fetch --depth=1 origin prediction-lab:refs/remotes/origin/prediction-lab
+          pnpm --filter @pitchlab/spacetime sync
+          if ! pnpm --filter @pitchlab/spacetime test; then
+            echo "Las pruebas de Spacetime fallaron con la copia nueva; se descarta."
+            git checkout -- packages/spacetime
+            git clean -fd packages/spacetime
+          fi
+
+      # FD-20: volumen por resultado en mercados de predicción (API pública, sin clave).
+      # Si falla, los snapshots se publican igual.
+      - name: Volumen por resultado (mercados de predicción)
+        continue-on-error: true
+        run: pnpm --filter @pitchlab/ingest exec tsx src/market-pulse-cli.ts
+
+      - name: Guardar cambios en data/snapshots
+        run: |
+          git config user.name "pitchlab-bot"
+          git config user.email "bot@pitchlab.app"
+          git add data/snapshots packages/spacetime
+          if git diff --staged --quiet; then
+            echo "Sin cambios en snapshots."
+          else
+            git commit -m "datos(snapshots): actualizar corte automático pre-MVP y Spacetime v3.0"
+            git push
+          fi
+
+      # `secrets` no está disponible en `if`: se evalúa dentro del shell.
+      - name: Disparar deploy hook de Vercel (opcional)
+        env:
+          VERCEL_DEPLOY_HOOK_URL: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
+        run: |
+          if [ -n "$VERCEL_DEPLOY_HOOK_URL" ]; then
+            curl -fsSL -X POST "$VERCEL_DEPLOY_HOOK_URL"
+            echo "Deploy hook disparado."
+          else
+            echo "Sin deploy hook configurado; se omite."
+          fi

@@ -1,18 +1,38 @@
 {
-  "name": "pitch",
+  "name": "pitchlab-monorepo",
   "private": true,
   "version": "0.1.0",
-  "type": "module",
+  "packageManager": "pnpm@12.11.2",
+  "engines": {
+    "node": ">=22.0.0"
+  },
   "scripts": {
-    "dev": "vite",
-    "build": "tsc --noEmit && vite build",
-    "test": "vitest run",
-    "extract": "node scripts/extract-data.mjs"
+    "build": "node scripts/check-no-demo-prod.mjs && pnpm -r build && node scripts/lint-codebase.mjs",
+    "dev": "pnpm --filter @pitchlab/web dev",
+    "test": "pnpm -r test && node scripts/lint-codebase.mjs",
+    "lint": "pnpm -r lint && node scripts/lint-codebase.mjs",
+    "typecheck": "pnpm -r typecheck",
+    "snapshot": "pnpm --filter @pitchlab/ingest snapshot",
+    "history": "pnpm --filter @pitchlab/ingest history",
+    "history:odds": "pnpm --filter @pitchlab/ingest history:odds",
+    "backtest": "pnpm --filter @pitchlab/ingest backtest",
+    "backtest:history": "pnpm --filter @pitchlab/ingest backtest:history",
+    "e2e": "pnpm --filter @pitchlab/web e2e",
+    "storybook": "pnpm --filter @pitchlab/ui storybook",
+    "build-storybook": "pnpm --filter @pitchlab/ui build-storybook",
+    "history:xg": "pnpm --filter @pitchlab/ingest history:xg",
+    "history:native-stats": "pnpm --filter @pitchlab/ingest history:native-stats",
+    "history:api-stats": "pnpm --filter @pitchlab/ingest history:api-stats",
+    "history:espn": "pnpm --filter @pitchlab/ingest history:espn",
+    "data:catalog": "node scripts/data-catalog.mjs",
+    "verify:data": "node scripts/data-catalog.mjs --verify",
+    "ai:simulate": "node services/ai-eval/simulate-usage.mjs"
   },
   "devDependencies": {
-    "playwright": "^1.65.0",
-    "typescript": "^5.6.0",
-    "vite": "^6.0.0",
-    "vitest": "^2.1.0"
+    "@types/node": "26.6.6",
+    "tsx": "4.23.15",
+    "turbo": "2.11.10",
+    "typescript": "5.9.3",
+    "vitest": "5.1.0"
   }
 }

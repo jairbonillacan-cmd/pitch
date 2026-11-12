@@ -1,0 +1,99 @@
+{
+  "get": "fixtures",
+  "parameters": {
+    "league": "262",
+    "season": "2026"
+  },
+  "errors": [],
+  "results": 4,
+  "response": [
+    {
+      "fixture": {
+        "id": 120001,
+        "date": "2026-10-24T21:00:00-06:00",
+        "venue": { "name": "Estadio Ciudad de los Deportes", "city": "Ciudad de México" },
+        "status": { "short": "FT" }
+      },
+      "league": {
+        "id": 262,
+        "name": "Liga MX",
+        "season": 2026,
+        "round": "Apertura - 14"
+      },
+      "teams": {
+        "home": { "id": 2287, "name": "Club America" },
+        "away": { "id": 2283, "name": "Atlas" }
+      },
+      "goals": {
+        "home": 3,
+        "away": 1
+      }
+    },
+    {
+      "fixture": {
+        "id": 120002,
+        "date": "2026-10-25T19:00:00-06:00",
+        "venue": { "name": "Estadio Azul", "city": "Ciudad de México" },
+        "status": { "short": "FT" }
+      },
+      "league": {
+        "id": 262,
+        "name": "Liga MX",
+        "season": 2026,
+        "round": "Apertura - 14"
+      },
+      "teams": {
+        "home": { "id": 2295, "name": "Cruz Azul" },
+        "away": { "id": 2278, "name": "Guadalajara Chivas" }
+      },
+      "goals": {
+        "home": 2,
+        "away": 1
+      }
+    },
+    {
+      "fixture": {
+        "id": 120003,
+        "date": "2026-11-08T18:00:00-06:00",
+        "venue": { "name": "Estadio La Corregidora", "city": "Querétaro" },
+        "status": { "short": "NS" }
+      },
+      "league": {
+        "id": 262,
+        "name": "Liga MX",
+        "season": 2026,
+        "round": "Apertura - 16"
+      },
+      "teams": {
+        "home": { "id": 2290, "name": "Queretaro" },
+        "away": { "id": 2291, "name": "Puebla" }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 120004,
+        "date": "2026-11-08T20:10:00-06:00",
+        "venue": { "name": "Estadio León", "city": "León" },
+        "status": { "short": "NS" }
+      },
+      "league": {
+        "id": 262,
+        "name": "Liga MX",
+        "season": 2026,
+        "round": "Apertura - 16"
+      },
+      "teams": {
+        "home": { "id": 2289, "name": "Leon" },
+        "away": { "id": 2278, "name": "Guadalajara Chivas" }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    }
+  ]
+}

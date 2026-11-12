@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<title>Inicio · PitchLab</title>
+<script src="./support.js"></script>
+<script src="/_blob/26378455f5c59ce8e9f0732afc441093"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+.lp{--bg:#000000;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.16);--t1:#FFFFFF;--t2:#D4D4DC;--t3:#A1A1AD;--brand:#C4B5FD;--brandbg:rgba(196,181,253,.14);--ok:#6EE7B7;--okbg:rgba(110,231,183,.12);--miss:#FDA4AF;--warn:#FCD34D;--hover:rgba(255,255,255,.06);--active:rgba(255,255,255,.10);--seg:rgba(255,255,255,.06);--segon:rgba(255,255,255,.14);--track:rgba(255,255,255,.10);--btn:#FFFFFF;--btnfg:#000000;--field:rgba(255,255,255,.04);--sheen:rgba(255,255,255,.05);--inner:inset 0 1px 0 rgba(255,255,255,.07);--lens:rgba(255,255,255,.045);--card:rgba(255,255,255,.025);--shadow:0 24px 50px -30px rgba(0,0,0,.9);--rim-c:rgba(255,255,255,.5);--rim-t:rgba(255,255,255,.2);--rim-m:rgba(255,255,255,.05);--rim-b:rgba(255,255,255,.1);--l1:rgba(124,92,246,.26);--l2:rgba(16,185,129,.12)}
+.lp[data-theme="light"]{--bg:#F1F2F6;--line:rgba(11,16,32,.09);--line2:rgba(11,16,32,.16);--t1:#0B1020;--t2:#3B4560;--t3:#5A6480;--brand:#5940B2;--brandbg:rgba(89,64,178,.10);--ok:#12704E;--okbg:rgba(18,112,78,.10);--miss:#B4233C;--warn:#8A5A00;--hover:rgba(11,16,32,.05);--active:rgba(11,16,32,.08);--seg:rgba(11,16,32,.05);--segon:#FFFFFF;--track:#E3E5EE;--btn:#0B1020;--btnfg:#FFFFFF;--field:#FFFFFF;--sheen:rgba(255,255,255,.8);--inner:inset 0 1px 0 rgba(255,255,255,.95);--lens:rgba(255,255,255,.98);--card:rgba(255,255,255,.92);--shadow:0 20px 40px -28px rgba(11,16,32,.28),0 4px 12px -8px rgba(11,16,32,.12);--rim-c:#FFFFFF;--rim-t:#FFFFFF;--rim-m:rgba(11,16,32,.06);--rim-b:rgba(11,16,32,.12);--l1:rgba(124,92,246,.12);--l2:rgba(16,185,129,.07)}
+.lp{position:relative;min-height:100%;box-sizing:border-box;padding:24px 28px 40px;background:radial-gradient(40% 22% at 30% 0%,var(--l1),transparent 70%),radial-gradient(30% 24% at 100% 40%,var(--l2),transparent 70%),var(--bg);color:var(--t1);font-family:Inter,system-ui,sans-serif;font-size:14px;-webkit-font-smoothing:antialiased}
+.lp *{box-sizing:border-box}
+.lp button{font:inherit;color:inherit}
+.lp :focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.num{font-variant-numeric:tabular-nums}
+.glass,.ring{position:relative;background:linear-gradient(180deg,var(--sheen),transparent 40%),var(--card);box-shadow:var(--inner),var(--shadow)}
+.glass{background:linear-gradient(180deg,var(--sheen),transparent 30%),var(--lens)}
+.glass::before,.ring::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;-webkit-mask:linear-gradient(#000,#000) content-box,linear-gradient(#000,#000);-webkit-mask-composite:xor;mask:linear-gradient(#000,#000) content-box exclude,linear-gradient(#000,#000);background:radial-gradient(60px circle at 0% 0%,var(--rim-c),transparent 100%),radial-gradient(60px circle at 100% 0%,var(--rim-c),transparent 100%),linear-gradient(180deg,var(--rim-t) 0%,var(--rim-m) 24%,var(--rim-m) 74%,var(--rim-b) 100%)}
+.badge{display:block;object-fit:contain;flex-shrink:0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:0 14px;border-radius:10px;border:0;background:var(--btn);color:var(--btnfg);font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;text-decoration:none}
+.btn.ghost{background:var(--seg);color:var(--t1)}
+.btn.sm{min-height:36px;padding:0 11px;font-size:12.5px;border-radius:9px}
+.btn[aria-pressed="true"]{background:var(--brandbg);color:var(--brand)}
+.date{flex-shrink:0;display:grid;justify-items:center;gap:2px;min-width:66px;padding:8px 10px 9px;border-radius:12px;border:0;background:var(--seg);color:var(--t2);cursor:pointer}
+.date small{font-size:11px;font-weight:600;color:var(--t3)}
+.date em{font-style:normal;font-size:11px;font-weight:600;color:var(--t3)}
+.date em.on{color:var(--ok)}
+.date[aria-pressed="true"]{background:var(--t1);color:var(--bg)}
+.date[aria-pressed="true"] small,.date[aria-pressed="true"] em{color:var(--bg);opacity:.75}
+.date.zero{opacity:.55}
+.date.zero[aria-pressed="true"]{opacity:1}
+.date.today{box-shadow:inset 0 0 0 1.5px var(--brand)}
+.chip{flex-shrink:0;display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 12px;border-radius:999px;border:0;background:var(--seg);color:var(--t2);font-size:12.5px;font-weight:600;cursor:pointer;white-space:nowrap}
+.chip[aria-pressed="true"]{background:var(--active);color:var(--t1);box-shadow:inset 0 0 0 1px var(--line2)}
+.chip:disabled{opacity:.4;cursor:default}
+.scroller{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:2px}
+.seg{display:inline-flex;padding:3px;border-radius:10px;background:var(--seg)}
+.seg button{min-height:32px;padding:0 12px;border:0;border-radius:8px;background:none;color:var(--t3);font-size:12.5px;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.seg button[aria-pressed="true"]{background:var(--segon);color:var(--t1);box-shadow:var(--inner)}
+.tier{display:grid;gap:3px;padding:10px;border-radius:12px;border:0;background:var(--seg);text-align:left;cursor:pointer}
+.tier[aria-pressed="true"]{background:var(--active);box-shadow:inset 0 0 0 1px var(--line2)}
+.ibtn{width:36px;height:36px;border-radius:9px;border:0;background:var(--seg);color:var(--t2);display:grid;place-items:center;cursor:pointer;flex-shrink:0}
+.ibtn[aria-pressed="true"]{background:var(--brandbg);color:var(--brand)}
+.lrow:hover{background:var(--hover)}
+.mine-in{width:88px;min-height:36px;border-radius:8px;border:1px solid var(--line2);background:transparent;color:var(--t1);font:600 13px/1 Inter,system-ui,sans-serif;font-variant-numeric:tabular-nums;padding:0 10px}
+.up{color:var(--ok)}.dn{color:var(--miss)}.even{color:var(--warn)}
+.top-grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:18px;align-items:start}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.picks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.lrow{display:grid;grid-template-columns:52px minmax(0,1.4fr) minmax(0,1fr) 64px 64px 36px;gap:12px;align-items:center;min-height:56px;padding:0 10px;border-radius:12px}
+.hide-phone{display:inline-flex}
+@media (max-width:1100px){.top-grid{grid-template-columns:minmax(0,1fr)}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.lp{padding:16px 14px 32px}.cards{grid-template-columns:minmax(0,1fr)}.picks{grid-template-columns:minmax(0,1fr)}.lrow{grid-template-columns:44px minmax(0,1fr) 52px 36px}.lrow .col-lk,.lrow .col-ff{display:none}.hide-phone{display:none}.feat-teams{gap:8px !important}.feat-team{font-size:15px !important;gap:8px !important}.feat-top{flex-direction:column;align-items:stretch !important}}
+</style>
+</helmet>
+<div class="lp" data-theme="{{theme}}">
+  <div style="max-width: 1240px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px">
+
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 12px 16px">
+      <div>
+        <h1 style="margin: 0; font-size: 32px; line-height: 1.05; font-weight: 800; letter-spacing: -0.03em">Inicio</h1>
+        <p style="margin: 6px 0 0; display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--t3)"><span aria-hidden="true" style="width: 7px; height: 7px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 3px var(--okbg)"></span>Miércoles 11 de noviembre · datos actualizados 09:40</p>
+      </div>
+      <div class="hide-phone" style="gap: 8px">
+        <a class="btn ghost" href="#">Ver todos los picks</a>
+        <a class="btn" href="#"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"></path></svg>Armar parlay automático</a>
+      </div>
+    </div>
+
+    <div class="scroller" role="group" aria-label="Elegir fecha">
+      <sc-for list="{{days}}" as="d" hint-placeholder-count="13">
+        <button type="button" class="date {{d.cls}}" aria-pressed="{{d.pressed}}" aria-label="{{d.aria}}" onClick="{{d.pick}}">
+          <small>{{d.wd}}</small>
+          <b class="num" style="font-size: 18px; font-weight: 700; line-height: 1.1">{{d.dn}}</b>
+          <em class="num {{d.emCls}}">{{d.count}}</em>
+        </button>
+      </sc-for>
+      <button type="button" class="date" aria-label="Elegir otra fecha" style="min-width: 48px; align-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M16 3v4M8 3v4M3 10h18"></path></svg></button>
+    </div>
+
+    <div class="scroller" role="group" aria-label="Filtrar por liga">
+      <sc-for list="{{chips}}" as="c" hint-placeholder-count="8">
+        <button type="button" class="chip" aria-pressed="{{c.pressed}}" disabled="{{c.disabled}}" onClick="{{c.pick}}">
+          <sc-if value="{{c.logo}}" hint-placeholder-val="{{ true }}"><img class="badge" src="{{c.logo}}" width="16" height="16" alt=""></sc-if>
+          {{c.name}} <span class="num" style="font-size: 11px; font-weight: 500; color: var(--t3)">{{c.n}}</span>
+        </button>
+      </sc-for>
+    </div>
+
+    <sc-if value="{{isEmpty}}" hint-placeholder-val="{{ false }}">
+      <section class="glass" style="border-radius: 18px; padding: 22px; display: flex; flex-direction: column; gap: 14px">
+        <h2 style="margin: 0; font-size: 17px; font-weight: 700">{{emptyTitle}}</h2>
+        <p style="margin: 0; font-size: 13.5px; color: var(--t3)">Estos son los próximos. Toca uno para ir a su día.</p>
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <sc-for list="{{upcoming}}" as="u" hint-placeholder-count="3">
+            <button type="button" onClick="{{u.pick}}" style="display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 10px 12px; border-radius: 12px; border: 0; background: var(--seg); text-align: left; cursor: pointer">
+              <img class="badge" src="{{u.logo}}" width="22" height="22" alt="">
+              <span><strong style="font-size: 13.5px">{{u.home}} vs {{u.away}}</strong><span style="display: block; font-size: 12px; color: var(--t3); margin-top: 2px">{{u.meta}}</span></span>
+              <span class="num" style="text-align: right; font-size: 12.5px; color: var(--t3)">{{u.sel}}<b style="display: block; color: var(--brand); font-size: 14px">{{u.p}} %</b></span>
+            </button>
+          </sc-for>
+        </div>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{hasGames}}" hint-placeholder-val="{{ true }}">
+      <div style="display: flex; flex-direction: column; gap: 18px">
+        <div class="top-grid">
+
+          <section class="glass" aria-label="Partido destacado" style="border-radius: 18px; padding: 18px 20px; display: flex; flex-direction: column; gap: 16px">
+            <div class="feat-top" style="display: flex; justify-content: space-between; align-items: center; gap: 12px">
+              <div style="display: flex; align-items: center; gap: 10px; font-size: 12.5px; color: var(--t3)">
+                <span style="display: grid; justify-items: center; width: 44px; padding: 4px 0; border-radius: 9px; background: var(--seg); font-size: 10px; font-weight: 700; text-transform: uppercase"><span>{{feat.wd}}</span><b class="num" style="font-size: 16px; color: var(--t1)">{{feat.dn}}</b></span>
+                <div><span style="display: inline-flex; align-items: center; gap: 6px; color: var(--t1); font-weight: 600"><img class="badge" src="{{feat.logo}}" width="14" height="14" alt="">Partido destacado · {{feat.league}}</span><br>{{feat.round}} · {{feat.time}}</div>
+              </div>
+              <a class="btn ghost sm" href="#">Ver partido ({{feat.nPicks}} picks)<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg></a>
+            </div>
+
+            <div class="feat-teams" style="display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px">
+              <div class="feat-team" style="display: flex; align-items: center; gap: 12px; font-size: 20px; font-weight: 700; letter-spacing: -0.01em"><img class="badge" src="{{feat.hb}}" width="44" height="44" alt="">{{feat.home}}</div>
+              <div style="text-align: center"><span style="display: block; font-size: 11.5px; color: var(--t3)">Marcador proyectado</span><b class="num" style="display: block; font-size: 24px; font-weight: 700; letter-spacing: -0.02em; margin-top: 2px">{{feat.proj}}</b></div>
+              <div class="feat-team" style="display: flex; align-items: center; justify-content: flex-end; gap: 12px; font-size: 20px; font-weight: 700; letter-spacing: -0.01em; text-align: right">{{feat.away}}<img class="badge" src="{{feat.ab}}" width="44" height="44" alt=""></div>
+            </div>
+
+            <div>
+              <div role="img" aria-label="{{feat.splitAria}}" style="display: flex; height: 8px; gap: 2px">
+                <sc-for list="{{feat.segs}}" as="s" hint-placeholder-count="3"><span style="flex: {{s.p}}; border-radius: 3px; background: {{s.bg}}"></span></sc-for>
+              </div>
+              <div class="num" style="display: flex; justify-content: space-between; font-size: 12px; color: var(--t3); margin-top: 6px">
+                <sc-for list="{{feat.segs}}" as="s" hint-placeholder-count="3"><span style="color: {{s.labColor}}; font-weight: {{s.weight}}">{{s.label}} {{s.p}} %</span></sc-for>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 12px; background: var(--field); border: 1px solid var(--line)">
+              <div><span style="font-size: 12.5px; color: var(--t3)">Lo más probable</span><br><strong style="font-size: 16px; font-weight: 700">{{feat.sel}}</strong><sc-if value="{{feat.even}}" hint-placeholder-val="{{ false }}"><span class="even" style="font-size: 12.5px; font-weight: 600"> · casi parejo</span></sc-if></div>
+              <div style="text-align: right"><span class="num" style="font-size: 22px; font-weight: 800; color: var(--brand); letter-spacing: -0.02em">{{feat.p}} %</span><br><span class="num" style="font-size: 12.5px; color: var(--t3)">Momio justo <b style="color: var(--t1)">{{feat.fair}}</b></span></div>
+            </div>
+
+            <div class="picks">
+              <sc-for list="{{feat.picks}}" as="k" hint-placeholder-count="2">
+                <div class="ring" style="border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 10px">
+                  <span style="display: inline-flex; align-items: center; min-height: 22px; padding: 0 9px; border-radius: 999px; background: {{k.tagBg}}; color: {{k.tagColor}}; font-size: 11px; font-weight: 700; align-self: flex-start">{{k.tag}}</span>
+                  <h3 style="margin: 0; font-size: 16px; font-weight: 700">{{k.label}}</h3>
+                  <dl class="num" style="margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px">
+                    <div><dt style="font-size: 11.5px; color: var(--t3)">Probabilidad</dt><dd style="margin: 0; font-size: 18px; font-weight: 700">{{k.p}} %</dd></div>
+                    <div><dt style="font-size: 11.5px; color: var(--t3)">Momio justo</dt><dd style="margin: 0; font-size: 18px; font-weight: 700">{{k.fair}}</dd></div>
+                  </dl>
+                  <div style="display: flex; gap: 6px">
+                    <button type="button" class="btn ghost sm" aria-pressed="{{k.inParlay}}" onClick="{{k.toggle}}">{{k.parlayLabel}}</button>
+                    <button type="button" class="btn ghost sm" aria-pressed="{{k.sealed}}" onClick="{{k.seal}}">{{k.sealLabel}}</button>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; font-size: 12.5px; color: var(--t2)">
+              <label for="tu-momio" style="font-weight: 600; color: var(--t1)">Tu momio para «{{feat.sel}}»</label>
+              <input id="tu-momio" class="mine-in" value="{{mine}}" onChange="{{onMine}}" autocomplete="off">
+              <span aria-live="polite">{{mineA}}<b class="{{mineCls}}">{{mineB}}</b>{{mineC}}</span>
+            </div>
+          </section>
+
+          <aside style="display: flex; flex-direction: column; gap: 18px">
+            <section class="ring" style="border-radius: 16px; padding: 16px">
+              <h2 style="margin: 0 0 4px; display: flex; justify-content: space-between; align-items: baseline; font-size: 15px; font-weight: 700">Parlay rápido <a href="#" style="font-size: 12px; font-weight: 600; color: var(--brand); text-decoration: none">Mismo partido</a></h2>
+              <p style="margin: 0 0 12px; font-size: 12.5px; color: var(--t3); line-height: 1.45">Tres selecciones de partidos distintos {{dayLabel}}, sin contradicciones.</p>
+              <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px" role="group" aria-label="Nivel">
+                <sc-for list="{{tiers}}" as="t" hint-placeholder-count="3">
+                  <button type="button" class="tier" aria-pressed="{{t.pressed}}" onClick="{{t.pick}}">
+                    <b style="font-size: 13px">{{t.name}}</b>
+                    <span style="font-size: 11px; color: var(--t3)">{{t.sub}}</span>
+                    <strong class="num" style="font-size: 15px; margin-top: 4px">{{t.total}}</strong>
+                  </button>
+                </sc-for>
+              </div>
+              <sc-if value="{{tierOk}}" hint-placeholder-val="{{ true }}">
+                <div style="margin-top: 10px">
+                  <sc-for list="{{tierLegs}}" as="l" hint-placeholder-count="3">
+                    <div style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; font-size: 12.5px; padding: 7px 0; border-top: 1px solid var(--line)"><span>{{l.label}}<span style="display: block; color: var(--t3); font-size: 11.5px">{{l.match}}</span></span><span class="num">{{l.p}} %</span></div>
+                  </sc-for>
+                  <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; padding-top: 10px; font-size: 12.5px; color: var(--t3)"><span class="num">Combinada <b style="color: var(--t1); font-size: 15px">{{tierP}} %</b> · justo <b style="color: var(--t1); font-size: 15px">{{tierFair}}</b></span><button type="button" class="btn sm">Agregar</button></div>
+                </div>
+              </sc-if>
+              <sc-if value="{{tierNo}}" hint-placeholder-val="{{ false }}">
+                <p style="margin: 10px 0 0; font-size: 12.5px; color: var(--t3)">No hay suficientes partidos {{dayLabel}} para este nivel.</p>
+              </sc-if>
+            </section>
+
+            <section class="ring" style="border-radius: 16px; padding: 16px">
+              <h2 style="margin: 0 0 4px; display: flex; justify-content: space-between; align-items: baseline; font-size: 15px; font-weight: 700">Mejores picks del día <a href="#" style="font-size: 12px; font-weight: 600; color: var(--brand); text-decoration: none">Ver todos</a></h2>
+              <sc-for list="{{best}}" as="b" hint-placeholder-count="3">
+                <div style="display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 10px; align-items: center; min-height: 58px; border-top: {{b.border}}; font-size: 13px">
+                  <span style="min-width: 0">{{b.label}}<span style="display: block; font-size: 11.5px; color: var(--t3); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{b.match}}</span></span>
+                  <span class="num" style="text-align: right"><b style="display: block; font-size: 14px">{{b.p}} %</b><span style="font-size: 11.5px; color: var(--t3)">{{b.fair}} justo</span></span>
+                  <button type="button" class="ibtn" aria-pressed="{{b.inParlay}}" aria-label="{{b.aria}}" onClick="{{b.toggle}}">{{b.icon}}</button>
+                </div>
+              </sc-for>
+            </section>
+          </aside>
+        </div>
+
+        <section style="display: flex; flex-direction: column; gap: 12px" aria-label="Cartelera">
+          <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap">
+            <h2 style="margin: 0; font-size: 18px; font-weight: 700; letter-spacing: -0.01em">Partidos {{dayLabel}} <span class="num" style="font-size: 13px; font-weight: 500; color: var(--t3); margin-left: 6px">{{listCount}}</span></h2>
+            <div style="display: flex; gap: 8px">
+              <div class="seg" role="group" aria-label="Ordenar">
+                <button type="button" aria-pressed="{{sortTime}}" onClick="{{byTime}}">Por hora</button>
+                <button type="button" aria-pressed="{{sortProb}}" onClick="{{byProb}}">Más probables</button>
+              </div>
+              <div class="seg hide-phone" role="group" aria-label="Vista">
+                <button type="button" aria-pressed="{{viewCards}}" aria-label="Tarjetas" onClick="{{asCards}}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect></svg></button>
+                <button type="button" aria-pressed="{{viewList}}" aria-label="Lista" onClick="{{asList}}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"></path></svg></button>
+              </div>
+            </div>
+          </div>
+
+          <sc-if value="{{showCards}}" hint-placeholder-val="{{ true }}">
+            <div class="cards">
+              <sc-for list="{{cards}}" as="g" hint-placeholder-count="9">
+                <article class="ring" style="border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px">
+                  <div style="display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--t3)"><span style="display: inline-flex; align-items: center; gap: 6px"><img class="badge" src="{{g.logo}}" width="14" height="14" alt="">{{g.league}}</span><b class="num" style="color: var(--t1); font-weight: 600">{{g.time}}</b></div>
+                  <div style="display: flex; flex-direction: column; gap: 8px">
+                    <div style="display: grid; grid-template-columns: 24px minmax(0, 1fr) auto; gap: 10px; align-items: center; font-size: 14px; font-weight: 600"><img class="badge" src="{{g.hb}}" width="24" height="24" alt=""><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{g.home}}</span><b class="num" style="color: {{g.homeColor}}">{{g.homeP}} %</b></div>
+                    <div style="display: grid; grid-template-columns: 24px minmax(0, 1fr) auto; gap: 10px; align-items: center; font-size: 14px; font-weight: 600"><img class="badge" src="{{g.ab}}" width="24" height="24" alt=""><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{g.away}}</span><b class="num" style="color: {{g.awayColor}}">{{g.awayP}} %</b></div>
+                  </div>
+                  <div>
+                    <div style="display: flex; height: 6px; gap: 2px"><sc-for list="{{g.segs}}" as="s" hint-placeholder-count="3"><span style="flex: {{s.p}}; border-radius: 3px; background: {{s.bg}}"></span></sc-for></div>
+                    <sc-if value="{{g.hasDraw}}" hint-placeholder-val="{{ true }}"><div class="num" style="display: flex; justify-content: space-between; font-size: 11px; color: var(--t3); margin-top: 5px"><span>Local</span><span>Empate {{g.drawP}} %</span><span>Visita</span></div></sc-if>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px; padding-top: 10px; border-top: 1px solid var(--line)">
+                    <div><span style="display: block; font-size: 11px; color: {{g.kickerColor}}; font-weight: {{g.kickerWeight}}; margin-bottom: 2px">{{g.kicker}}</span><strong style="font-size: 13.5px; font-weight: 600">{{g.sel}}</strong></div>
+                    <div class="num" style="text-align: right; font-size: 12px; color: var(--t3)"><b style="display: block; font-size: 14px; color: var(--t1)">{{g.p}} %</b>{{g.fair}} justo</div>
+                  </div>
+                  <div style="display: flex; gap: 6px">
+                    <a class="btn ghost sm" href="#" style="flex: 1">Ver partido</a>
+                    <button type="button" class="btn ghost sm" aria-pressed="{{g.inParlay}}" onClick="{{g.toggle}}">{{g.parlayLabel}}</button>
+                  </div>
+                </article>
+              </sc-for>
+            </div>
+            <sc-if value="{{hasMore}}" hint-placeholder-val="{{ true }}">
+              <div style="display: flex; justify-content: center"><button type="button" class="btn ghost" onClick="{{showMore}}">Ver más partidos ({{moreCount}})</button></div>
+            </sc-if>
+          </sc-if>
+
+          <sc-if value="{{showList}}" hint-placeholder-val="{{ false }}">
+            <div class="ring" style="border-radius: 16px; padding: 6px">
+              <sc-for list="{{groups}}" as="gr" hint-placeholder-count="2">
+                <div>
+                  <sc-if value="{{gr.titled}}" hint-placeholder-val="{{ true }}"><div style="padding: 12px 10px 4px; display: flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 700; color: var(--t2)"><img class="badge" src="{{gr.logo}}" width="16" height="16" alt="">{{gr.name}} <span class="num" style="font-weight: 500; color: var(--t3)">{{gr.n}}</span></div></sc-if>
+                  <sc-for list="{{gr.rows}}" as="g" hint-placeholder-count="4">
+                    <div class="lrow">
+                      <span class="num" style="font-weight: 600">{{g.time}}</span>
+                      <span style="display: flex; flex-direction: column; gap: 3px; font-size: 13px; font-weight: 500; min-width: 0"><span style="display: flex; align-items: center; gap: 7px; white-space: nowrap; overflow: hidden"><img class="badge" src="{{g.hb}}" width="16" height="16" alt="">{{g.home}}</span><span style="display: flex; align-items: center; gap: 7px; white-space: nowrap; overflow: hidden"><img class="badge" src="{{g.ab}}" width="16" height="16" alt="">{{g.away}}</span></span>
+                      <span class="col-lk" style="font-size: 13px; font-weight: 600; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{g.sel}}<span style="display: block; font-size: 11.5px; font-weight: {{g.kickerWeight}}; color: {{g.kickerColor}}">{{g.kicker}}</span></span>
+                      <span class="num" style="text-align: right; font-weight: 700">{{g.p}} %</span>
+                      <span class="num col-ff" style="text-align: right; font-size: 13px; color: var(--t2)">{{g.fair}}</span>
+                      <button type="button" class="ibtn" aria-pressed="{{g.inParlay}}" aria-label="{{g.aria}}" onClick="{{g.toggle}}">{{g.icon}}</button>
+                    </div>
+                  </sc-for>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+        </section>
+      </div>
+    </sc-if>
+
+    <p style="margin: 8px 0 0; font-size: 11.5px; color: var(--t3); text-align: center">Información para decidir, no una garantía. PitchLab no acepta apuestas. Solo mayores de 18.</p>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["dark","light"],"default":"dark"},"dia":{"editor":"enum","options":["2026-11-11","2026-11-12","2026-11-14","2026-11-15","2026-11-21","2026-11-22"],"default":"2026-11-21"},"vista":{"editor":"enum","options":["tarjetas","lista"],"default":"tarjetas"},"$preview":{"width":1200,"height":2300}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { day: null, league: 'all', sort: 'time', view: null, legs: [], sealed: [], tier: 'cons', mine: '+120', all: false };
+  }
+  renderVals() {
+    var self = this;
+    var st = this.state;
+    var LOGOS = window.PL_LOGOS || {};
+    var RAW = window.PL_RAW || [];
+    var NAMES = { 'liga-mx': 'Liga MX', 'nfl': 'NFL', 'premier-league': 'Premier League', 'laliga': 'LaLiga', 'bundesliga': 'Bundesliga', 'serie-a': 'Serie A', 'ligue-1': 'Ligue 1' };
+    var ORDER = ['liga-mx', 'nfl', 'premier-league', 'laliga', 'bundesliga', 'serie-a', 'ligue-1'];
+    var TODAY = '2026-11-11';
+    var WD = ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'];
+    var WDL = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+    var theme = this.props.theme || 'dark';
+    var day = st.day || this.props.dia || '2026-11-21';
+    var view = st.view || (this.props.vista === 'lista' ? 'list' : 'cards');
+    var dOf = function (iso) { return new Date(iso + 'T12:00:00'); };
+    var toAm = function (dec) { return dec >= 2 ? '+' + Math.round((dec - 1) * 100) : '−' + Math.round(100 / (dec - 1)); };
+    var toDec = function (am) { var n = parseFloat(String(am).replace('−', '-').replace('+', '')); if (!isFinite(n) || Math.abs(n) < 100) return null; return n > 0 ? 1 + n / 100 : 1 + 100 / Math.abs(n); };
+    var dayLabelOf = function (iso) { return iso === TODAY ? 'de hoy' : 'del ' + WDL[dOf(iso).getDay()] + ' ' + (+iso.slice(8)); };
+
+    var G = RAW.map(function (r, id) {
+      var probs = r[7]; var sorted = probs.slice().sort(function (a, b) { return b - a; });
+      return { id: id, lg: r[0], day: r[1], time: r[2], home: r[3], away: r[4], hb: r[5], ab: r[6], probs: probs, topI: r[8], sel: r[9], fair: r[10], proj: r[11], picks: r[12], round: r[13], p: probs[r[8]], even: sorted[0] - sorted[1] < 3 };
+    });
+    var toggleLeg = function (key) { var legs = st.legs.indexOf(key) >= 0 ? st.legs.filter(function (x) { return x !== key; }) : st.legs.concat([key]); self.setState({ legs: legs }); };
+    var inP = function (key) { return st.legs.indexOf(key) >= 0; };
+
+    var days = [];
+    for (var i = 0; i < 13; i++) {
+      var dt = dOf(TODAY); dt.setDate(dt.getDate() + i);
+      var iso = dt.getFullYear() + '-' + String(dt.getMonth() + 1).padStart(2, '0') + '-' + String(dt.getDate()).padStart(2, '0');
+      var n = G.filter(function (g) { return g.day === iso; }).length;
+      (function (iso, n, dt) {
+        days.push({ wd: iso === TODAY ? 'Hoy' : WD[dt.getDay()], dn: String(dt.getDate()), count: n ? n + ' part.' : '—', emCls: n ? 'on' : '',
+          cls: (n ? '' : 'zero') + (iso === TODAY ? ' today' : ''), pressed: String(day === iso),
+          aria: (iso === TODAY ? 'Hoy, ' : '') + WDL[dt.getDay()] + ' ' + dt.getDate() + ': ' + n + ' partidos',
+          pick: function () { self.setState({ day: iso, all: false, league: 'all' }); } });
+      })(iso, n, dt);
+    }
+
+    var ofDay = G.filter(function (g) { return g.day === day; });
+    var counts = {}; ORDER.forEach(function (l) { counts[l] = ofDay.filter(function (g) { return g.lg === l; }).length; });
+    var league = st.league !== 'all' && !counts[st.league] ? 'all' : st.league;
+    var chips = [{ name: 'Todas', n: String(ofDay.length), logo: '', pressed: String(league === 'all'), disabled: false, pick: function () { self.setState({ league: 'all', all: false }); } }]
+      .concat(ORDER.map(function (l) { return { name: NAMES[l], n: String(counts[l]), logo: LOGOS[l], pressed: String(league === l), disabled: !counts[l], pick: function () { self.setState({ league: l, all: false }); } }; }));
+    var list = ofDay.filter(function (g) { return league === 'all' || g.lg === league; });
+    var dayLabel = dayLabelOf(day);
+    var base = { theme: theme, days: days, chips: chips, dayLabel: dayLabel, isEmpty: ofDay.length === 0, hasGames: ofDay.length > 0 };
+
+    if (!ofDay.length) {
+      var up = G.filter(function (g) { return g.day > day; }).slice(0, 3).map(function (g) {
+        return { home: g.home, away: g.away, logo: LOGOS[g.lg], sel: g.sel, p: g.p, meta: NAMES[g.lg] + ' · ' + WDL[dOf(g.day).getDay()] + ' ' + (+g.day.slice(8)) + ' · ' + g.time, pick: function () { self.setState({ day: g.day, all: false }); } };
+      });
+      return Object.assign(base, { emptyTitle: day === TODAY ? 'Hoy no hay partidos en tus ligas' : 'No hay partidos ' + dayLabel, upcoming: up,
+        feat: { segs: [], picks: [] }, tiers: [], tierLegs: [], best: [], cards: [], groups: [] });
+    }
+
+    var feat = list.slice().sort(function (a, b) { return ORDER.indexOf(a.lg) - ORDER.indexOf(b.lg) || a.time.localeCompare(b.time); })[0];
+    var names = function (g) { return g.probs.length === 3 ? [g.home, 'Empate', g.away] : [g.home, g.away]; };
+    var segsOf = function (g, withLabels) {
+      return g.probs.map(function (p, i) { return { p: p, bg: i === g.topI ? 'var(--brand)' : 'var(--track)', label: names(g)[i], labColor: i === g.topI ? 'var(--t1)' : 'var(--t3)', weight: i === g.topI ? '600' : '400' }; });
+    };
+    var fPicks = feat.picks.map(function (k, i) {
+      var key = feat.id * 10 + i;
+      var sealed = st.sealed.indexOf(key) >= 0;
+      return { label: k[0], p: k[1], fair: k[2], tag: i ? 'Muy probable' : 'Pick principal', tagBg: i ? 'var(--okbg)' : 'var(--brandbg)', tagColor: i ? 'var(--ok)' : 'var(--brand)',
+        inParlay: String(inP(key)), parlayLabel: inP(key) ? '✓ En parlay' : '+ Parlay', toggle: function () { toggleLeg(key); },
+        sealed: String(sealed), sealLabel: sealed ? '✓ Sellado' : 'Sellar', seal: function () { if (!sealed) self.setState({ sealed: st.sealed.concat([key]) }); } };
+    });
+    var dec = toDec(st.mine); var mineA = 'Escribe el momio de tu casa (+120, −150).', mineB = '', mineC = '', mineCls = '';
+    if (dec) { var impl = 100 / dec; var diff = feat.p - impl;
+      mineA = 'Implica ' + impl.toFixed(1) + ' % contra ' + feat.p + ' % del modelo: ';
+      if (Math.abs(diff) < 1) { mineB = 'casi igual que el justo'; mineC = '.'; }
+      else { mineB = diff > 0 ? 'paga más que el justo' : 'paga menos que el justo'; mineC = '.'; mineCls = diff > 0 ? 'up' : 'dn'; } }
+    var featV = { wd: WD[dOf(feat.day).getDay()], dn: String(+feat.day.slice(8)), logo: LOGOS[feat.lg], league: NAMES[feat.lg], round: feat.round, time: feat.time,
+      nPicks: String(feat.picks.length + 3), home: feat.home, away: feat.away, hb: feat.hb, ab: feat.ab, proj: feat.proj[0] + ' – ' + feat.proj[1],
+      segs: segsOf(feat), splitAria: names(feat).map(function (nm, i) { return nm + ' ' + feat.probs[i] + ' %'; }).join(', '),
+      sel: feat.sel, p: feat.p, fair: feat.fair, even: feat.even, picks: fPicks };
+
+    var pool = ofDay.filter(function (g) { return g.picks.length; }).map(function (g) { return { g: g, k: g.picks[0] }; });
+    var TIERS = [['cons', 'Conservador', 'Picks de 72 %+', 72, 101], ['mid', 'Medio', 'Picks de 56–72 %', 56, 72], ['risk', 'Arriesgado', 'Lo más parejo', 0, 56]];
+    var pickTier = function (t) { return pool.filter(function (x) { return x.k[1] >= t[3] && x.k[1] < t[4]; }).sort(function (a, b) { return b.k[1] - a.k[1]; }).slice(0, 3); };
+    var prod = function (xs) { return xs.reduce(function (a, x) { return a * x.k[1] / 100; }, 1); };
+    var tiers = TIERS.map(function (t) { var s = pickTier(t); return { name: t[1], sub: t[2], total: s.length >= 2 ? Math.round(prod(s) * 100) + ' %' : '—', pressed: String(st.tier === t[0]), pick: function () { self.setState({ tier: t[0] }); } }; });
+    var cur = pickTier(TIERS.filter(function (t) { return t[0] === st.tier; })[0]);
+    var cp = prod(cur);
+
+    var best = pool.slice().sort(function (a, b) { return b.k[1] - a.k[1]; }).slice(0, 3).map(function (x, i) {
+      var key = x.g.id * 10; return { label: x.k[0], match: x.g.home + ' vs ' + x.g.away + ' · ' + x.g.time, p: x.k[1], fair: x.k[2], border: i ? '1px solid var(--line)' : '0',
+        inParlay: String(inP(key)), icon: inP(key) ? '✓' : '+', aria: (inP(key) ? 'Quitar del parlay: ' : 'Agregar al parlay: ') + x.k[0], toggle: function () { toggleLeg(key); } };
+    });
+
+    var sorted = st.sort === 'prob' ? list.slice().sort(function (a, b) { return b.p - a.p; }) : list;
+    var rowOf = function (g) {
+      var key = g.id * 10 + 9; var last = g.probs.length - 1;
+      return { time: g.time, home: g.home, away: g.away, hb: g.hb, ab: g.ab, logo: LOGOS[g.lg], league: NAMES[g.lg], sel: g.sel, p: g.p, fair: g.fair,
+        homeP: g.probs[0], awayP: g.probs[last], homeColor: g.topI === 0 ? 'var(--brand)' : 'var(--t1)', awayColor: g.topI === last ? 'var(--brand)' : 'var(--t1)',
+        segs: segsOf(g), hasDraw: g.probs.length === 3, drawP: g.probs.length === 3 ? g.probs[1] : 0,
+        kicker: g.even ? 'Casi parejo' : 'Lo más probable', kickerColor: g.even ? 'var(--warn)' : 'var(--t3)', kickerWeight: g.even ? '600' : '400',
+        inParlay: String(inP(key)), parlayLabel: inP(key) ? '✓ Parlay' : '+ Parlay', icon: inP(key) ? '✓' : '+',
+        aria: (inP(key) ? 'Quitar del parlay: ' : 'Agregar al parlay: ') + g.sel, toggle: function () { toggleLeg(key); } };
+    };
+    var cards = (st.all ? sorted : sorted.slice(0, 9)).map(rowOf);
+    var groups = st.sort === 'prob'
+      ? [{ titled: false, name: '', logo: '', n: '', rows: sorted.map(rowOf) }]
+      : ORDER.map(function (l) { var gs = sorted.filter(function (g) { return g.lg === l; }); return { titled: true, name: NAMES[l], logo: LOGOS[l], n: String(gs.length), rows: gs.map(rowOf) }; }).filter(function (g) { return g.rows.length; });
+
+    return Object.assign(base, {
+      emptyTitle: '', upcoming: [], feat: featV,
+      mine: st.mine, onMine: function (e) { self.setState({ mine: e.target.value }); }, mineA: mineA, mineB: mineB, mineC: mineC, mineCls: mineCls,
+      tiers: tiers, tierOk: cur.length >= 2, tierNo: cur.length < 2,
+      tierLegs: cur.map(function (x) { return { label: x.k[0], match: x.g.home + ' vs ' + x.g.away, p: x.k[1] }; }),
+      tierP: (cp * 100).toFixed(1), tierFair: cur.length ? toAm(1 / cp) : '',
+      best: best, listCount: String(list.length),
+      sortTime: String(st.sort === 'time'), sortProb: String(st.sort === 'prob'),
+      byTime: function () { self.setState({ sort: 'time' }); }, byProb: function () { self.setState({ sort: 'prob' }); },
+      viewCards: String(view === 'cards'), viewList: String(view === 'list'),
+      asCards: function () { self.setState({ view: 'cards' }); }, asList: function () { self.setState({ view: 'list' }); },
+      showCards: view === 'cards', showList: view === 'list', cards: cards, groups: groups,
+      hasMore: view === 'cards' && !st.all && sorted.length > 9, moreCount: String(Math.max(0, sorted.length - 9)), showMore: function () { self.setState({ all: true }); }
+    });
+  }
+}
+</script>
+</body>
+</html>

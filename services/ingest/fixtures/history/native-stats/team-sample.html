@@ -1,0 +1,163 @@
+<!doctype html>
+<html>
+  <body>
+    <nav class="flex mt-2" aria-label="Breadcrumb">
+      <ol role="list">
+        <li><a href="/competition/PL" class="ml-4 text-sm font-medium text-gray-500">PL</a></li>
+        <li><a href="#" class="ml-4 text-sm font-medium text-gray-500" aria-current="page">Arsenal FC</a></li>
+      </ol>
+    </nav>
+    <div class="overflow-hidden rounded-lg bg-slate-700 shadow mt-4">
+      <img class="max-h-10 w-10 inline-block mr-4" src="https://crests.football-data.org/57.png">
+      <h2 class="text-2xl font-bold leading-7 text-gray-300 sm:truncate sm:text-3xl">
+        Arsenal FC
+      </h2>
+    </div>
+
+    <div id="overview" class="tcon space-y-1">
+      <div class="flex flex-wrap">
+        <dl class="sm:divide-y sm:divide-gray-200">
+          <div>
+            <dt class="text-sm font-medium text-gray-200">League table position</dt>
+            <dd class="mt-1 text-sm text-gray-200 sm:col-span-2 sm:mt-0">1. place in domestic league</dd>
+          </div>
+          <div>
+            <dt class="text-sm font-medium text-gray-200">Est squad market value</dt>
+            <dd class="mt-1 text-sm text-gray-200 sm:col-span-2 sm:mt-0">1 240.5 Mio. €</dd>
+          </div>
+          <div>
+            <dt class="text-sm font-medium text-gray-200">Last 10</dt>
+            <dd class="mt-1 text-sm text-gray-200 sm:col-span-2 sm:mt-0">
+              <div>
+                <div class="pl-2 w-6 inline-flex items-center bg-green-100 px-1 py-0.5 text-xs font-medium">W</div>
+                <div class="pl-2 w-6 inline-flex items-center bg-green-100 px-1 py-0.5 text-xs font-medium">W</div>
+                <div class="pl-2 w-6 inline-flex items-center bg-yellow-100 px-1 py-0.5 text-xs font-medium">D</div>
+                <div class="pl-2 w-6 inline-flex items-center bg-green-100 px-1 py-0.5 text-xs font-medium">W</div>
+                <div class="pl-2 w-6 inline-flex items-center bg-red-100 px-1 py-0.5 text-xs font-medium">L</div>
+              </div>
+            </dd>
+          </div>
+          <div>
+            <dt class="text-sm font-medium text-gray-200">Seasonal progress</dt>
+            <dd class="mt-1 text-sm text-gray-200 sm:col-span-2 sm:mt-0"></dd>
+          </div>
+          <div>
+            <dt class="text-sm font-medium text-gray-200">Last win</dt>
+            <dd class="mt-1 text-sm text-gray-200 sm:col-span-2 sm:mt-0">2026/11/08, 15h00</dd>
+          </div>
+          <div>
+            <dt class="text-sm font-medium text-gray-500">Last loss</dt>
+            <dd class="mt-1 text-sm text-gray-200 sm:col-span-2 sm:mt-0">2026/10/25, 17h30</dd>
+          </div>
+          <div>
+            <dt class="text-sm font-medium text-gray-200">Last loss of points</dt>
+            <dd class="mt-1 text-sm text-gray-200 sm:col-span-2 sm:mt-0">2026/10/25, 17h30</dd>
+          </div>
+          <div>
+            <dt class="text-sm font-medium text-gray-200">Last gain of points</dt>
+            <dd class="mt-1 text-sm text-gray-200 sm:col-span-2 sm:mt-0">2026/11/08, 15h00</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+
+    <div id="aggs" class="tcon hidden space-y-1">
+      <table class="min-w-full text-center text-sm font-light">
+        <thead>
+          <tr>
+            <th scope="col" class="px-6 py-2">Category</th>
+            <th scope="col" class="px-6 py-2">Total</th>
+            <th scope="col" class="px-6 py-2">home / away</th>
+            <th scope="col" class="px-6 py-2">League max / min</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-variant: small-caps;" class="whitespace-nowrap px-6 py-2 font-medium">total_matches</td>
+            <td class="whitespace-nowrap px-6 py-2">615</td>
+            <td class="whitespace-nowrap px-6 py-2">307 / 308</td>
+            <td class="whitespace-nowrap px-6 py-2">3180 / 190</td>
+          </tr>
+          <tr>
+            <td style="font-variant: small-caps;" class="whitespace-nowrap px-6 py-2 font-medium">total_points</td>
+            <td class="whitespace-nowrap px-6 py-2">847</td>
+            <td class="whitespace-nowrap px-6 py-2">503 / 344</td>
+            <td class="whitespace-nowrap px-6 py-2">n/a</td>
+          </tr>
+          <tr>
+            <td style="font-variant: small-caps;" class="whitespace-nowrap px-6 py-2 font-medium">total_clean_sheets</td>
+            <td class="whitespace-nowrap px-6 py-2">194</td>
+            <td class="whitespace-nowrap px-6 py-2">112 / 82</td>
+            <td class="whitespace-nowrap px-6 py-2">n/a</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="streaks" class="tcon hidden space-y-1">
+      <table class="min-w-full text-center text-sm font-light">
+        <thead>
+          <tr>
+            <th scope="col" class="px-6 py-2">Category</th>
+            <th scope="col" class="px-6 py-2">Current (t/h/a)</th>
+            <th scope="col" class="px-6 py-2">Record (t/h/a)</th>
+            <th scope="col" class="px-6 py-2">Record in league history (t/h/a)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b dark:border-neutral-500">
+            <td style="font-variant: small-caps;" class="whitespace-nowrap px-6 py-2 font-medium">consecutive_wins</td>
+            <td class="whitespace-nowrap px-6 py-2 font-medium">2 / 1 / 1</td>
+            <td class="whitespace-nowrap px-6 py-2 font-medium">8 / 7 / 5</td>
+            <td class="whitespace-nowrap px-6 py-2">
+              <div class="content flex items-center justify-center">
+                <div class="flex">
+                  <img class="w-4 h-4" src="https://crests.football-data.org/449.png">
+                  <span phx-value-id="14103336" class="mx-1 px-2 py-.5">9</span>
+                </div>
+                <div class="flex">
+                  <img class="w-4 h-4" src="https://crests.football-data.org/458.png">
+                  <span phx-value-id="16881630" class="mx-1 px-2 py-.5">10</span>
+                </div>
+                <div class="flex">
+                  <img class="w-4 h-4" src="https://crests.football-data.org/114.png">
+                  <span phx-value-id="16801086" class="mx-1 px-2 py-.5">8</span>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr class="border-b dark:border-neutral-500">
+            <td style="font-variant: small-caps;" class="whitespace-nowrap px-6 py-2 font-medium">without_loss</td>
+            <td class="whitespace-nowrap px-6 py-2 font-medium">4 / 2 / 2</td>
+            <td class="whitespace-nowrap px-6 py-2 font-medium">16 / 15 / 12</td>
+            <td class="whitespace-nowrap px-6 py-2">
+              <div class="content flex items-center justify-center">
+                <div class="flex">
+                  <img class="w-4 h-4" src="https://crests.football-data.org/11.png">
+                  <span phx-value-id="1" class="mx-1 px-2 py-.5">34</span>
+                </div>
+                <div class="flex">
+                  <img class="w-4 h-4" src="https://crests.football-data.org/12.png">
+                  <span phx-value-id="2" class="mx-1 px-2 py-.5">27</span>
+                </div>
+                <div class="flex">
+                  <img class="w-4 h-4" src="https://crests.football-data.org/13.png">
+                  <span phx-value-id="3" class="mx-1 px-2 py-.5">22</span>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr class="border-b dark:border-neutral-500">
+            <td style="font-variant: small-caps;" class="whitespace-nowrap px-6 py-2 font-medium">no_loss_after_ht_lead</td>
+            <td class="whitespace-nowrap px-6 py-2 font-medium">6 / 3 / 3</td>
+            <td class="whitespace-nowrap px-6 py-2 font-medium">42 / 28 / 17</td>
+            <td class="whitespace-nowrap px-6 py-2"></td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="text-xs text-gray-400">Showing records for PL only.</p>
+    </div>
+
+    <div id="goal_stats" class="tcon hidden space-y-1">Goal Statistics &lt;- here -&gt;</div>
+  </body>
+</html>

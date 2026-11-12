@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PitchLab · Lee el juego con datos</title>
+<meta name="robots" content="noindex">
+<script>(function(){var t;try{t=localStorage.getItem("pl-theme")}catch(e){}document.documentElement.dataset.theme=t||(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark")})();</script>
+<link rel="icon" href="../../pitchlab-brand/app-icons/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..800&display=swap">
+<link rel="stylesheet" href="../../pitchlab-brand/tokens/brand-tokens.css">
+<link rel="stylesheet" href="assets/proto.css?v=13">
+<link rel="stylesheet" href="assets/site.css?v=13">
+<style>
+  /* Hero */
+  .hero { position: relative; overflow: hidden; padding-top: calc(var(--layout-header) + var(--space-12)); }
+  .hero .bg { position: absolute; inset: 0; pointer-events: none; mask-image: radial-gradient(70% 80% at 72% 45%, #000 35%, transparent 75%); -webkit-mask-image: radial-gradient(70% 80% at 72% 45%, #000 35%, transparent 75%); }
+  .hero .traj { position: absolute; right: 4%; top: 14%; width: 52%; height: 78%; color: var(--brand-primary); opacity: .55; }
+  .hero .traj path { stroke-dasharray: 1400; stroke-dashoffset: 1400; animation: draw 2.4s var(--ease-out) .3s forwards; }
+  .hero .wrap { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-8); align-items: center; min-height: calc(100vh - var(--layout-header) - var(--space-12)); max-height: 860px; padding-bottom: var(--space-12); }
+  .hero h1 { margin-top: var(--space-5); animation: rise 640ms var(--ease-out) 60ms both; }
+  .hero h1 .accent { color: var(--brand-primary); }
+  .hero .status { animation: rise 640ms var(--ease-out) both; }
+  .hero .lead { color: var(--text-secondary); font-size: 1.125rem; line-height: 1.75rem; max-width: 30rem; margin: var(--space-5) 0 var(--space-8); animation: rise 640ms var(--ease-out) 120ms both; }
+  .hero .ctas { display: flex; gap: var(--space-3); flex-wrap: wrap; animation: rise 640ms var(--ease-out) 180ms both; }
+  .hero .week { display: flex; align-items: center; gap: var(--space-3); margin-top: var(--space-10); animation: rise 640ms var(--ease-out) 260ms both; }
+  .hero .week .stack { display: flex; }
+  .hero .week .stack .badge { margin-right: -6px; border-radius: 50%; background: var(--surface-default); padding: 3px; border: var(--border-width) solid var(--border-default); }
+  .stage { position: relative; height: min(600px, 70vh); }
+  .stage .mascot { position: absolute; right: 2%; bottom: 0; width: min(500px, 90%); animation: rise 800ms var(--ease-out) 120ms both; }
+  .stage .mascot img { animation: floaty 6s ease-in-out 1s infinite; filter: drop-shadow(0 24px 32px #0b102055); }
+  .float-card { position: absolute; left: 0; bottom: 8%; width: min(370px, 80%); padding: var(--space-4); box-shadow: var(--shadow-overlay); animation: rise 700ms var(--ease-out) 520ms both; }
+  .float-card .row { display: grid; grid-template-columns: 1fr 96px 60px; align-items: center; gap: var(--space-3); padding: 6px 0; font-size: var(--type-small); }
+  .float-card .row b { text-align: right; font-weight: 650; }
+  .float-chip { position: absolute; top: 8%; left: 12%; padding: var(--space-2) var(--space-3); display: flex; align-items: center; gap: var(--space-2); font-size: var(--type-small); box-shadow: var(--shadow-overlay); animation: rise 700ms var(--ease-out) 760ms both; }
+  @media (max-width: 1023px) { .hero .wrap { grid-template-columns: 1fr; min-height: 0; max-height: none; } .stage { height: 440px; } .hero .traj { width: 90%; right: 0; top: 45%; height: 50%; } }
+  @media (max-width: 767px) {
+    .hero { padding-top: calc(var(--layout-header) + var(--space-8)); }
+    .hero .wrap { gap: var(--space-4); padding-bottom: var(--space-8); }
+    .hero .lead { font-size: 1rem; line-height: 1.5rem; margin: var(--space-4) 0 var(--space-6); }
+    .hero .ctas .btn { flex: 1 1 auto; }
+    .hero .week { margin-top: var(--space-6); }
+    .stage { height: auto; display: grid; justify-items: center; padding-top: var(--space-2); }
+    .stage .mascot { position: relative; right: auto; bottom: auto; width: 230px; }
+    .float-card { position: relative; left: auto; bottom: auto; width: 100%; margin-top: -64px; }
+    .float-chip { top: 10%; left: 0; }
+    .hero .traj { top: 52%; height: 40%; }
+  }
+
+  /* Sin / Con */
+  .vs { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: var(--space-6); align-items: stretch; }
+  .vs .label { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-3); }
+  .chat { padding: var(--space-5); display: grid; gap: var(--space-3); align-content: start; }
+  .chat .grp { display: flex; align-items: center; gap: var(--space-2); padding-bottom: var(--space-3); border-bottom: var(--border-width) solid var(--border-default); }
+  .chat .grp .av { width: 32px; height: 32px; border-radius: 50%; background: var(--surface-hover); display: grid; place-items: center; font-size: 12px; font-weight: 700; color: var(--text-muted); }
+  .bubble { max-width: 88%; padding: var(--space-2) var(--space-3); border-radius: 12px 12px 12px 4px; background: var(--surface-hover); font-size: var(--type-small); }
+  .bubble small { display: block; color: var(--text-muted); font-size: 11px; margin-top: 2px; }
+  .bubble.me { justify-self: end; border-radius: 12px 12px 4px 12px; background: color-mix(in srgb, var(--brand-primary) 18%, var(--surface-default)); }
+  .bubble.file { display: flex; gap: var(--space-2); align-items: center; }
+  .chat .q { color: var(--text-muted); font-size: var(--type-caption); text-align: center; margin: var(--space-2) 0 0; }
+  .picks { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-bottom: var(--space-3); }
+  .pick { display: inline-flex; align-items: center; gap: var(--space-2); min-height: 40px; padding: 0 var(--space-3) 0 var(--space-2); border-radius: var(--radius-pill); border: var(--border-width) solid var(--border-default); background: var(--surface-default); cursor: pointer; font-size: var(--type-small); font-weight: 600; transition: border-color var(--time-fast), background-color var(--time-fast); }
+  .pick:hover { border-color: var(--border-strong); }
+  .pick[aria-pressed="true"] { border-color: var(--brand-primary); background: var(--surface-active); }
+  .dcard { padding: var(--space-5); min-height: 420px; }
+  .dmatch { display: grid; grid-template-columns: 1fr auto 1fr; gap: var(--space-4); align-items: center; padding-bottom: var(--space-4); border-bottom: var(--border-width) solid var(--border-default); }
+  .dmatch .t { display: flex; align-items: center; gap: var(--space-3); font-weight: 650; min-width: 0; }
+  .dmatch .t.away { justify-content: flex-end; text-align: right; }
+  .dmatch .s { text-align: center; }
+  .calc-mini { display: grid; gap: var(--space-2); padding: var(--space-5) 0 0; margin: 0; }
+  .calc-mini li { list-style: none; display: flex; gap: var(--space-2); align-items: center; font-size: var(--type-small); color: var(--text-secondary); opacity: 0; animation: rise 300ms var(--ease-out) forwards; }
+  .calc-mini li .icon { color: var(--success); }
+  @media (max-width: 1023px) { .vs { grid-template-columns: 1fr; } }
+  @media (max-width: 767px) {
+    .dmatch .t { flex-direction: column; justify-content: center; text-align: center; gap: var(--space-2); }
+    .dmatch .t.away { flex-direction: column-reverse; justify-content: center; text-align: center; gap: var(--space-2); }
+    .picks { flex-wrap: nowrap; overflow-x: auto; margin: 0 calc(-1 * var(--space-4)) var(--space-3); padding: 0 var(--space-4) 2px; scrollbar-width: none; }
+    .picks::-webkit-scrollbar { display: none; }
+    .pick { flex: none; }
+    .dcard { padding: var(--space-4); min-height: 0; }
+    .chat { padding: var(--space-4); }
+    .vs { gap: var(--space-8); }
+  }
+
+  /* Un sábado cualquiera */
+  .timeline { list-style: none; margin: 0 auto; padding: 0; max-width: 940px; display: grid; gap: var(--space-6); }
+  .tl { display: grid; grid-template-columns: 64px 20px minmax(0, 1fr) minmax(0, 320px); gap: var(--space-4); align-items: start; }
+  .tl time { font-variant-numeric: tabular-nums; font-weight: 700; color: var(--brand-primary); padding-top: 2px; }
+  .tl .rail { position: relative; align-self: stretch; }
+  .tl .rail::before { content: ""; position: absolute; left: 9px; top: 12px; bottom: calc(-1 * var(--space-6) - 4px); width: 2px; background: repeating-linear-gradient(to bottom, var(--border-strong) 0 6px, transparent 6px 12px); }
+  .tl:last-child .rail::before { display: none; }
+  .tl .rail::after { content: ""; position: absolute; left: 4px; top: 6px; width: 12px; height: 12px; border-radius: 3px; transform: rotate(45deg); background: var(--brand-primary); }
+  .tl > div > b { display: block; font-size: 1.0625rem; }
+  .tl p { margin: 2px 0 0; color: var(--text-secondary); font-size: var(--type-small); }
+  .tl .mini { padding: var(--space-3); font-size: var(--type-small); display: grid; gap: var(--space-2); }
+  @media (max-width: 767px) { .timeline { gap: var(--space-5); } .tl { grid-template-columns: 48px 20px minmax(0, 1fr); gap: var(--space-3); } .tl .mini { grid-column: 3; } .tl .rail::before { bottom: calc(-1 * var(--space-5) - 4px); } }
+
+  /* Ligas */
+  .leagues { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, .8fr); gap: var(--space-4); }
+  .ltile { position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; min-height: 300px; padding: var(--space-5); text-decoration: none; color: var(--text-primary); transition: border-color var(--time-base) var(--ease-out), transform var(--time-base) var(--ease-out); }
+  .ltile:hover { border-color: var(--border-strong); transform: translateY(-3px); }
+  .ltile .top-row { display: flex; align-items: center; gap: var(--space-3); position: relative; z-index: 1; }
+  .ltile .name { font-weight: 700; font-size: 1.25rem; letter-spacing: -0.015em; }
+  .ltile .meta { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); }
+  .ltile .go { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: var(--surface-hover); transition: background-color var(--time-fast), color var(--time-fast); }
+  .ltile:hover .go { background: var(--brand-primary); color: var(--on-primary); }
+  .ltile .pic { position: absolute; right: -24px; bottom: -18px; width: 230px; transition: transform 420ms var(--ease-out); }
+  .ltile:hover .pic { transform: translateY(-10px) rotate(-2deg); }
+  .soon { display: grid; gap: var(--space-4); }
+  .soon .panel { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4); color: var(--text-secondary); }
+  .soon .panel .tag { margin-left: auto; }
+  @media (max-width: 1023px) { .leagues { grid-template-columns: 1fr 1fr; } .soon { grid-column: 1 / -1; grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 599px) { .leagues { grid-template-columns: 1fr; } .soon { grid-template-columns: 1fr; } .ltile { min-height: 220px; } .ltile .pic { width: 190px; } }
+
+  /* Modelo */
+  .model { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4); }
+  .model .panel { padding: var(--space-5); }
+  .model .k { font-size: 2.25rem; line-height: 2.5rem; font-weight: 750; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; color: var(--brand-primary); }
+  .model p { margin: var(--space-2) 0 0; color: var(--text-secondary); font-size: var(--type-small); }
+  @media (max-width: 767px) { .model { grid-template-columns: 1fr; gap: var(--space-3); } .model .panel { display: flex; align-items: center; gap: var(--space-4); padding: var(--space-4); } .model .k { min-width: 96px; font-size: 1.75rem; line-height: 2rem; } .model p { margin: 0; } }
+
+  /* Reglas */
+  .rules { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-6); list-style: none; padding: 0; margin: 0; }
+  .rules li { border-top: 2px solid var(--brand-primary); padding-top: var(--space-4); }
+  .rules b { display: block; font-size: 1.0625rem; margin-bottom: var(--space-1); }
+  .rules span { color: var(--text-secondary); font-size: var(--type-small); }
+  @media (max-width: 1023px) { .rules { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 599px) { .rules { grid-template-columns: 1fr; } }
+
+  /* Cierre */
+  .closing { position: relative; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1fr) 240px; align-items: center; gap: var(--space-6); padding: var(--space-10) var(--space-10) 0; }
+  .closing .copy { padding-bottom: var(--space-10); }
+  .closing .mascot { align-self: end; }
+  @media (max-width: 767px) { .closing { grid-template-columns: minmax(0, 1fr) 110px; gap: var(--space-2); padding: var(--space-6) var(--space-4) 0 var(--space-5); } .closing .copy { padding-bottom: var(--space-6); } .closing .mascot { width: 110px; } .closing .h2 { font-size: 1.375rem; line-height: 1.75rem; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Saltar al contenido</a>
+<div data-nav></div>
+
+<main id="main">
+  <section class="hero">
+    <div class="bg fieldgrid" aria-hidden="true"></div>
+    <svg class="traj" viewBox="0 0 600 500" fill="none" aria-hidden="true"><path d="M20 470 C 160 420, 200 300, 300 260 S 470 210, 580 40" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="6 8"/></svg>
+    <div class="wrap">
+      <div>
+        <span class="status tag tag-ok"><span class="dot"></span>Beta cerrada · acceso con código</span>
+        <h1 class="h-display">Lee el juego<br><span class="accent">con datos.</span></h1>
+        <p class="lead">Probabilidades para cada partido de Liga MX, Premier League y NFL, calculadas por nuestro propio modelo y actualizadas cada jornada.</p>
+        <div class="ctas">
+          <a class="btn btn-primary" href="login.html#beta">Entrar a la beta <span data-icon="arrow"></span></a>
+          <a class="btn btn-ghost" href="#como">Cómo funciona</a>
+        </div>
+        <div class="week"><span class="stack" id="stack"></span><span class="small secondary"><b class="num" style="color:var(--text-primary)" id="nGames"></b> partidos analizados esta semana</span></div>
+      </div>
+      <div class="stage" aria-hidden="true">
+        <div class="mascot"><img src="../../pitchlab-brand/mascot/web/radar.webp" alt="" width="500" height="500"></div>
+        <div class="panel float-chip" id="chip"></div>
+        <div class="panel float-card" id="fcard"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="como">
+    <div class="wrap">
+      <div class="shead reveal"><p class="eyebrow">El problema</p><h2 class="h1">Deja de decidir con capturas de grupo.</h2><p>El «pick seguro» de alguien, una cuota sin hora y cinco pestañas abiertas. Así no se lee un partido.</p></div>
+      <div class="vs">
+        <div class="reveal">
+          <p class="eyebrow label">Sin PitchLab</p>
+          <div class="panel chat" aria-label="Ejemplo de chat de grupo">
+            <div class="grp"><span class="av">FC</span><div><b class="small">Grupo · Fut del sábado</b><div class="caption muted">43 mensajes sin leer</div></div></div>
+            <div class="bubble">PICK SEGURO: América gana y más de 3.5 🔒<small>Beto · 9:41</small></div>
+            <div class="bubble file"><span class="tag">IMG</span>captura_cuotas_FINAL2.jpg</div>
+            <div class="bubble me">¿esa cuota de cuándo es?<small>Tú · 9:52</small></div>
+            <div class="bubble">de ayer creo 🤷<small>Beto · 10:07</small></div>
+            <p class="q">Nadie sabe de dónde salió el número.</p>
+          </div>
+        </div>
+        <div class="reveal" style="--d:120ms">
+          <p class="eyebrow label">Con PitchLab <span class="tag tag-model"><span class="dot"></span>Beta cerrada</span></p>
+          <div class="picks" id="picks" role="group" aria-label="Partidos de la jornada"></div>
+          <article class="panel dcard" id="dcard" aria-live="polite"></article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="shead reveal"><p class="eyebrow">Un sábado cualquiera</p><h2 class="h1">Así se usa PitchLab.</h2><p>De la jornada al silbatazo final, con lo que ya está en la beta.</p></div>
+      <ol class="timeline" id="timeline"></ol>
+    </div>
+  </section>
+
+  <section class="block" id="ligas">
+    <div class="wrap">
+      <div class="shead reveal"><p class="eyebrow">Ligas</p><h2 class="h1">Escoge tu liga.</h2><p>Empezamos con tres. Más deportes cuando los números estén a la altura.</p></div>
+      <div class="leagues" id="leagues"></div>
+    </div>
+  </section>
+
+  <section class="block" id="modelo">
+    <div class="wrap">
+      <div class="shead reveal"><p class="eyebrow">El modelo</p><h2 class="h1">Modelo propio. Números revisables.</h2><p>Un modelo estadístico de PitchLab estima cada mercado con el rendimiento reciente de los equipos. Cada análisis se guarda antes del partido para medir qué tan bien le atina.</p></div>
+      <div class="model">
+        <div class="panel reveal"><div class="k">13</div><p>mercados por partido de fútbol</p></div>
+        <div class="panel reveal" style="--d:80ms"><div class="k">0</div><p>análisis editados después del partido</p></div>
+        <div class="panel reveal" style="--d:160ms"><div class="k">Pronto</div><p>calibración pública por liga y temporada</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="reglas">
+    <div class="wrap">
+      <div class="shead reveal"><p class="eyebrow">Nuestro compromiso</p><h2 class="h1">Claros desde el inicio.</h2></div>
+      <ul class="rules">
+        <li class="reveal"><b>Información para decidir</b><span>Te damos probabilidades y contexto. La decisión siempre es tuya.</span></li>
+        <li class="reveal" style="--d:80ms"><b>No somos casa de apuestas</b><span>No recibimos apuestas ni manejamos tu dinero.</span></li>
+        <li class="reveal" style="--d:160ms"><b>Historial íntegro</b><span>Cada análisis se publica antes del partido y queda tal cual.</span></li>
+        <li class="reveal" style="--d:240ms"><b>Solo mayores de 18</b><span>Si apuestas, hazlo con moderación y por diversión.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="panel closing reveal">
+        <div class="copy">
+          <h2 class="h2">La jornada ya está calculada.</h2>
+          <p class="secondary" style="margin:var(--space-2) 0 var(--space-6)">Si tienes código de socio, entra ya.</p>
+          <a class="btn btn-primary" href="login.html#beta">Entrar a la beta <span data-icon="arrow"></span></a>
+        </div>
+        <div class="mascot"><img src="../../pitchlab-brand/mascot/web/soccer.webp" alt="" width="240" height="240" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
+</main>
+<div data-footer></div>
+
+<script src="assets/proto.js?v=13"></script>
+<script src="assets/site.js?v=13"></script>
+<script>
+  const { icon, LEAGUES, G, T, analyze, pct, fair, badge, leagueBadge, mascot, growBars, reveal, reduced, probBar, split, leadIndex, UPDATED } = PL;
+  const live = LEAGUES.filter((l) => l.status !== "soon");
+  document.getElementById("stack").innerHTML = live.map((L) => leagueBadge(L, 28)).join("");
+  document.getElementById("nGames").textContent = live.reduce((s, L) => s + G[L.id].length, 0);
+
+  // Hero
+  (function () {
+    const g = G["premier-league"][2], a = analyze("premier-league", g), H = T["premier-league"][g.h], A = T["premier-league"][g.a], rows = a.markets[0].rows, li = leadIndex(rows.map((r) => r[1]));
+    document.getElementById("fcard").innerHTML = `
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">${badge("premier-league", g.h, 22)}<b class="small">${H[0]} vs ${A[0]}</b><span class="tag tag-model" style="margin-left:auto">Beta cerrada</span></div>
+      ${rows.map(([n, p], i) => `<div class="row"><span>${n}${i === li ? '<span class="fav">Favorito</span>' : ""}</span>${probBar(p, i === li)}<b class="pv ${i === li ? "lead-txt" : ""}" data-count="${p}">0 %</b></div>`).join("")}`;
+    document.getElementById("chip").innerHTML = `${icon("probability")}<span class="secondary">Más de 2.5</span><b class="num">${pct(a.markets[2].rows[1][1])}</b>`;
+    setTimeout(() => growBars(document.getElementById("fcard")), reduced() ? 0 : 900);
+  })();
+
+  // Demo «Con PitchLab»
+  const samples = [["liga-mx", "mx1"], ["premier-league", "pl3"], ["nfl", "nf1"]];
+  const picks = document.getElementById("picks"), card = document.getElementById("dcard");
+  picks.innerHTML = samples.map(([lg, id], i) => { const g = G[lg].find((x) => x.id === id), tm = T[lg]; return `<button class="pick" data-i="${i}" aria-pressed="${i === 0}">${badge(lg, g.h, 24)}${tm[g.h][1]} vs ${tm[g.a][1]}</button>`; }).join("");
+  let timer;
+  function show(i) {
+    clearTimeout(timer);
+    const [lg, id] = samples[i], g = G[lg].find((x) => x.id === id), tm = T[lg], H = tm[g.h], A = tm[g.a], a = analyze(lg, g), nf = lg === "nfl";
+    const head = `<div class="dmatch"><div class="t">${badge(lg, g.h, 40)}<span>${H[0]}</span></div><div class="s"><div class="caption muted">Proyección</div><div class="numeric-hl" style="font-size:1.75rem;line-height:2rem">${a.proj.h.toFixed(nf ? 0 : 1)} – ${a.proj.a.toFixed(nf ? 0 : 1)}</div></div><div class="t away"><span>${A[0]}</span>${badge(lg, g.a, 40)}</div></div>`;
+    card.innerHTML = head + `<ul class="calc-mini">${a.steps.slice(0, 5).map((s, k) => `<li style="animation-delay:${k * 130}ms">${icon("check")}${s}</li>`).join("")}</ul>`;
+    timer = setTimeout(() => {
+      const groups = [a.markets[0], a.markets[2]];
+      card.innerHTML = head + `<table class="mtable" style="margin-top:var(--space-4)"><thead><tr><th>Mercado</th><th><span class="sr-only">Barra</span></th><th class="r">Prob.</th><th class="r">Cuota justa</th></tr></thead>${groups.map((m, gi) => { const li = leadIndex(m.rows.map((r) => r[1])); return `<tbody><tr class="group"><td colspan="4">${m.g}</td></tr>${m.rows.slice(0, 3).map(([n, p], ri) => `<tr><td>${n}${ri === li && gi === 0 ? '<span class="fav">Favorito</span>' : ""}</td><td class="bar">${probBar(p, ri === li)}</td><td class="r num pv ${ri === li ? "lead-txt" : ""}" data-count="${p}">0 %</td><td class="r num secondary">${fair(p)}</td></tr>`).join("")}</tbody>`; }).join("")}</table>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:var(--space-4)"><span class="tag tag-model">Modelo PitchLab · en validación</span><span class="fresh"><span class="dot"></span>Corte ${UPDATED}</span></div>`;
+      growBars(card);
+    }, reduced() ? 0 : 900);
+  }
+  picks.addEventListener("click", (e) => { const b = e.target.closest(".pick"); if (!b) return; picks.querySelectorAll(".pick").forEach((x) => x.setAttribute("aria-pressed", x === b)); show(+b.dataset.i); });
+  new IntersectionObserver((en, io) => { if (en[0].isIntersecting) { show(0); io.disconnect(); } }, { threshold: 0.3 }).observe(card);
+
+  // Un sábado cualquiera
+  (function () {
+    const g1 = G["liga-mx"][0], g2 = G["liga-mx"][1], a1 = analyze("liga-mx", g1), a2 = analyze("liga-mx", g2), tm = T["liga-mx"], p25 = a1.markets[2].rows[1][1], imp = 1 / 2.10;
+    const items = [
+      ["10:00", "Abres la jornada", "Todos los partidos del día, ordenados por hora.", `<div class="panel mini"><span class="caption muted">Liga MX · Jornada 16</span><b>6 partidos · 2 hoy</b></div>`],
+      ["12:30", "Comparas dos partidos", "Quién llega como favorito, sin abrir otra pestaña.", `<div class="panel mini">${[[g1, a1], [g2, a2]].map(([g, a]) => `<div><div class="caption" style="display:flex;justify-content:space-between;margin-bottom:4px"><span>${tm[g.h][1]} vs ${tm[g.a][1]}</span><span class="muted num">${Math.round(a.x12[0] * 100)} · ${Math.round(a.x12[1] * 100)} · ${Math.round(a.x12[2] * 100)}</span></div>${split(a.x12, [tm[g.h][0], "Empate", tm[g.a][0]])}</div>`).join("")}</div>`],
+      ["17:55", "Revisas tu cuota", "Escribes la cuota de tu casa y ves la diferencia contra el modelo.", `<div class="panel mini"><span class="caption muted">Más de 2.5 · tu cuota 2.10</span><span class="num">Implica <b>${pct(imp)}</b> · modelo <b class="lead-txt">${pct(p25)}</b></span></div>`],
+      ["20:10", "Termina el partido", "El análisis sigue como estaba antes del silbatazo. Nada se edita.", `<div class="panel mini"><span class="caption muted">Atlas 1 – 2 Cruz Azul · Final</span><span class="tag tag-info" style="justify-self:start"><span class="dot"></span>Publicado el viernes, 22:00</span></div>`],
+    ];
+    document.getElementById("timeline").innerHTML = items.map(([t, b, p, m], i) => `<li class="tl reveal" style="--d:${i * 90}ms"><time>${t}</time><span class="rail" aria-hidden="true"></span><div><b>${b}</b><p>${p}</p></div>${m}</li>`).join("");
+  })();
+
+  // Ligas
+  document.getElementById("leagues").innerHTML = live.map((L, i) => `
+    <a class="panel ltile reveal" style="--d:${i * 90}ms" href="panel.html#${L.id}">
+      <div class="top-row">${leagueBadge(L, 36)}<div><div class="name">${L.name}</div><div class="caption muted">${L.season} · ${L.period}</div></div></div>
+      <img class="pic" src="${mascot(L.mascot)}" alt="" width="230" height="230" loading="lazy">
+      <div class="meta"><span class="small secondary"><b class="num" style="color:var(--text-primary)">${G[L.id].length}</b> partidos</span><span class="go">${icon("arrow")}</span></div>
+    </a>`).join("") + `<div class="soon reveal" style="--d:270ms">${LEAGUES.filter((l) => l.status === "soon").map((L) => `<div class="panel">${leagueBadge(L, 28)}<span>${L.name}</span><span class="tag">Pronto</span></div>`).join("")}</div>`;
+  reveal();
+</script>
+</body>
+</html>

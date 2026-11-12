@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<title>Perfil de usuario · móvil</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+html,body{overflow-x:hidden}
+.m{--bg:#000000;--surf2:rgba(255,255,255,.07);--line:rgba(255,255,255,.08);--line2:rgba(255,255,255,.16);--t1:#FFFFFF;--t2:#D4D4DC;--t3:#A1A1AD;--brand:#C4B5FD;--ok:#6EE7B7;--miss:#FDA4AF;--btn:#FFFFFF;--btnfg:#000000;--field:rgba(255,255,255,.035)}
+.m{--l1:rgba(124,92,246,.34);--sheen:rgba(255,255,255,.06);--inner:inset 0 1px 0 rgba(255,255,255,.08);--lens:rgba(18,18,24,.62);--shadow:0 24px 50px -26px rgba(0,0,0,.8);--rim-c:rgba(255,255,255,.7);--rim-t:rgba(255,255,255,.28);--rim-m:rgba(255,255,255,.04);--rim-b:rgba(255,255,255,.12)}
+.m{background:var(--bg);color:var(--t1);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;position:relative;overflow:hidden;min-height:100vh;padding:20px max(20px, calc((100% - 480px) / 2)) 48px}
+.m *{box-sizing:border-box}
+.atmo{position:absolute;inset:0;pointer-events:none;background:radial-gradient(90% 26% at 85% 0%,var(--l1),transparent 70%)}
+.glass{position:relative;background:linear-gradient(180deg,var(--sheen),transparent 30%),var(--lens);box-shadow:var(--inner),var(--shadow)}
+.glass::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;z-index:2;background:radial-gradient(60px circle at 0% 0%,var(--rim-c),transparent 100%),radial-gradient(60px circle at 100% 0%,var(--rim-c),transparent 100%),linear-gradient(180deg,var(--rim-t) 0%,var(--rim-m) 22%,var(--rim-m) 72%,var(--rim-b) 100%);-webkit-mask:linear-gradient(#000,#000) content-box,linear-gradient(#000,#000);-webkit-mask-composite:xor;mask:linear-gradient(#000,#000) content-box exclude,linear-gradient(#000,#000)}
+.num{font-variant-numeric:tabular-nums lining-nums}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border-radius:999px;font:600 14px/1 Inter,system-ui,sans-serif;border:1px solid transparent;cursor:pointer}
+.btn-primary{background:var(--btn);color:var(--btnfg)}
+.btn-ghost{background:var(--field);color:var(--t1);border-color:var(--line2)}
+.tabs{display:flex;border-bottom:1px solid var(--line)}
+.tab{flex:1;min-height:46px;padding:0 4px;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;background:transparent;color:var(--t3);font:600 13px Inter,system-ui,sans-serif;cursor:pointer}
+.tab[aria-selected="true"]{color:var(--t1);border-bottom-color:var(--t1)}
+.row{display:flex;align-items:center;gap:14px;padding:16px 0}
+.row + .row{border-top:1px solid var(--line)}
+.vbadge{position:relative;display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 12px 0 9px;border-radius:999px;font-size:12px;font-weight:600;letter-spacing:.01em;color:var(--brand);background:linear-gradient(180deg,rgba(196,181,253,.20),rgba(196,181,253,.08));box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 0 0 1px rgba(196,181,253,.32),0 6px 18px -8px rgba(139,92,246,.7)}
+.eyebrow{margin:0;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--t3)}
+.m a:focus-visible,.m button:focus-visible{outline:2px solid var(--brand);outline-offset:3px}
+</style>
+</helmet>
+<div class="m" style="width: 100%">
+  <div class="atmo" aria-hidden="true"></div>
+
+  <!-- Identidad -->
+  <section aria-labelledby="m-nombre" style="position: relative; text-align: center">
+    <span aria-hidden="true" style="width: 84px; height: 84px; margin: 8px auto 0; border-radius: 999px; display: grid; place-items: center; font-size: 28px; font-weight: 700; color: #fff; background: linear-gradient(135deg, #8B5CF6, #6366F1); box-shadow: 0 0 0 1px rgba(255,255,255,.25), 0 16px 40px -14px rgba(139,92,246,.8)">SM</span>
+    <h1 id="m-nombre" style="margin: 14px 0 0; font-size: 24px; letter-spacing: -.025em; font-weight: 700; display: inline-flex; align-items: center; gap: 6px">Sofía Méndez<svg width="20" height="20" viewBox="0 0 24 24" role="img" aria-label="Verificado"><path fill="var(--brand)" d="M12 1.8l2.5 1.9 3.1-.2 1 3 2.6 1.7-1 3 1 3-2.6 1.7-1 3-3.1-.2L12 22.2l-2.5-1.9-3.1.2-1-3-2.6-1.7 1-3-1-3 2.6-1.7 1-3 3.1.2z"></path><path d="M8.2 12.2l2.6 2.6 5-5.2" fill="none" stroke="var(--bg)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></h1>
+    <div style="margin-top: 8px; display: flex; justify-content: center">
+      <span class="vbadge">
+        <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 1.8l2.5 1.9 3.1-.2 1 3 2.6 1.7-1 3 1 3-2.6 1.7-1 3-3.1-.2L12 22.2l-2.5-1.9-3.1.2-1-3-2.6-1.7 1-3-1-3 2.6-1.7 1-3 3.1.2z"></path><path d="M8.2 12.2l2.6 2.6 5-5.2" fill="none" stroke="var(--bg)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        Tipstar verificado
+      </span>
+    </div>
+    <p style="margin: 10px 0 0; font-size: 13px; color: var(--t3); display: flex; justify-content: center; align-items: center; gap: 6px; flex-wrap: wrap">
+      <span>@sofia_nfl</span>
+      <span aria-hidden="true">·</span>
+      <span style="display: inline-flex; align-items: center; gap: 5px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg>Se unió en marzo 2026</span>
+    </p>
+    <p style="margin: 12px auto 0; max-width: 32ch; font-size: 14px; line-height: 1.5; color: var(--t2)">Busco ventaja en eficiencia por serie y ritmo de la segunda mitad.</p>
+    <p class="num" style="margin: 10px 0 0; font-size: 13px; color: var(--t3)"><strong style="color: var(--t1); font-weight: 600">{{followers}}</strong> seguidores · <strong style="color: var(--t1); font-weight: 600">28</strong> siguiendo</p>
+    <div style="display: flex; justify-content: center; gap: 8px; margin-top: 16px">
+      <button class="btn {{followClass}}" type="button" aria-pressed="{{followingStr}}" onClick="{{toggleFollow}}" style="min-width: 132px">{{followLabel}}</button>
+      <button class="btn btn-ghost" type="button" aria-label="Compartir perfil" style="width: 44px; padding: 0">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M16 6l-4-4-4 4M12 2v13"></path></svg>
+      </button>
+    </div>
+    <p style="margin: 14px 0 0; font-size: 12px; color: var(--t3)">Perfil de ejemplo</p>
+  </section>
+
+  <!-- Récord: una sola tira -->
+  <section class="glass" aria-label="Récord" style="margin-top: 24px; border-radius: 22px; padding: 18px 8px 14px">
+    <dl class="num" style="margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); text-align: center">
+      <div>
+        <dt style="font-size: 11px; color: var(--t3)">Saldo</dt>
+        <dd style="margin: 4px 0 0; font-size: 22px; font-weight: 700; letter-spacing: -.02em; color: var(--ok)">+18.4u</dd>
+      </div>
+      <div style="border-left: 1px solid var(--line); border-right: 1px solid var(--line)">
+        <dt style="font-size: 11px; color: var(--t3)">Cumplidos</dt>
+        <dd style="margin: 4px 0 0; font-size: 22px; font-weight: 700; letter-spacing: -.02em">59 %</dd>
+      </div>
+      <div>
+        <dt style="font-size: 11px; color: var(--t3)">Contra el cierre</dt>
+        <dd style="margin: 4px 0 0; font-size: 22px; font-weight: 700; letter-spacing: -.02em">+4.2 %</dd>
+      </div>
+    </dl>
+    <a href="#leaderboard" style="margin: 14px 10px 0; padding-top: 12px; border-top: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; min-height: 32px; font-size: 13px; color: var(--t2); text-decoration: none">
+      <span class="num"><strong style="color: var(--t1); font-weight: 600">#3</strong> en Comunidad · noviembre · 84 de 142</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--t3)"><path d="M9 18l6-6-6-6"></path></svg>
+    </a>
+  </section>
+
+  <!-- Pick gratis -->
+  <a href="#pick-semana" style="position: relative; margin-top: 12px; display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 52px; padding: 0 4px; color: inherit; text-decoration: none; font-size: 14px">
+    <span><span style="font-weight: 600">Pick gratis de la semana</span> <span style="color: var(--t3)">· código SOFIA5</span></span>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--t3)"><path d="M9 18l6-6-6-6"></path></svg>
+  </a>
+
+  <!-- Pestañas -->
+  <div class="tabs" role="tablist" aria-label="Contenido del perfil" style="position: relative; margin-top: 12px">
+    <sc-for list="{{tabs}}" as="t" hint-placeholder-count="4">
+      <button class="tab" type="button" role="tab" aria-selected="{{t.selected}}" onClick="{{t.pick}}">{{t.label}}</button>
+    </sc-for>
+  </div>
+
+  <!-- Picks -->
+  <sc-if value="{{isPicks}}" hint-placeholder-val="{{ true }}">
+    <div role="tabpanel" style="position: relative">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 20px">
+        <h2 class="eyebrow">Abiertos · 2</h2>
+        <button type="button" style="min-height: 36px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--line2); background: transparent; color: var(--t2); font: 500 12px Inter, system-ui, sans-serif; display: inline-flex; align-items: center; gap: 6px">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"></path></svg>
+          Filtrar
+        </button>
+      </div>
+      <div>
+        <div class="row">
+          <img src="/_blob/1107a721d1c66a28d75fcfb854b7c946" alt="NFL" style="width: 22px; height: 22px; object-fit: contain; flex: none">
+          <div style="flex: 1; min-width: 0">
+            <p style="margin: 0; font-size: 15px; font-weight: 600">Washington +7.5</p>
+            <p class="num" style="margin: 3px 0 0; font-size: 12px; color: var(--t3)">Giants vs Washington · −110 · 2.0u</p>
+          </div>
+          <span style="font-size: 12px; color: var(--t2)">Jue</span>
+        </div>
+        <div class="row">
+          <img src="/_blob/d152abe4a2a30d264a6cf4551eda0b4d" alt="Liga MX" style="width: 22px; height: 22px; object-fit: contain; flex: none">
+          <div style="flex: 1; min-width: 0">
+            <p style="margin: 0; font-size: 15px; font-weight: 600">Más de 1.5 goles</p>
+            <p class="num" style="margin: 3px 0 0; font-size: 12px; color: var(--t3)">Querétaro vs Monterrey · −300 · 1.0u</p>
+          </div>
+          <span style="font-size: 12px; color: var(--t2)">Sáb</span>
+        </div>
+      </div>
+
+      <h2 class="eyebrow" style="margin-top: 24px">Cerrados · 142</h2>
+      <div>
+        <div class="row">
+          <img src="/_blob/c8919a3c678f958274810ebb04259c08" alt="Premier League" style="width: 22px; height: 22px; object-fit: contain; flex: none">
+          <div style="flex: 1; min-width: 0">
+            <p style="margin: 0; font-size: 15px; font-weight: 600">Ambos anotan</p>
+            <p class="num" style="margin: 3px 0 0; font-size: 12px; color: var(--t3)">Arsenal 2–1 Liverpool</p>
+          </div>
+          <span class="num" style="font-size: 14px; font-weight: 600; color: var(--ok)">+1.6u</span>
+        </div>
+        <div class="row">
+          <img src="/_blob/d152abe4a2a30d264a6cf4551eda0b4d" alt="Liga MX" style="width: 22px; height: 22px; object-fit: contain; flex: none">
+          <div style="flex: 1; min-width: 0">
+            <p style="margin: 0; font-size: 15px; font-weight: 600">Monterrey gana</p>
+            <p class="num" style="margin: 3px 0 0; font-size: 12px; color: var(--t3)">Monterrey 1–1 Querétaro</p>
+          </div>
+          <span class="num" style="font-size: 14px; font-weight: 600; color: var(--miss)">−1.0u</span>
+        </div>
+        <div class="row">
+          <img src="/_blob/1107a721d1c66a28d75fcfb854b7c946" alt="NFL" style="width: 22px; height: 22px; object-fit: contain; flex: none">
+          <div style="flex: 1; min-width: 0">
+            <p style="margin: 0; font-size: 15px; font-weight: 600">Menos de 44.5 puntos</p>
+            <p class="num" style="margin: 3px 0 0; font-size: 12px; color: var(--t3)">Washington 20–17 Giants</p>
+          </div>
+          <span class="num" style="font-size: 14px; font-weight: 600; color: var(--ok)">+0.9u</span>
+        </div>
+      </div>
+      <button class="btn btn-ghost" type="button" style="width: 100%; margin-top: 12px">Ver los 142 picks</button>
+    </div>
+  </sc-if>
+
+  <!-- Publicaciones -->
+  <sc-if value="{{isPosts}}" hint-placeholder-val="{{ false }}">
+    <div role="tabpanel" style="position: relative; margin-top: 8px">
+      <article class="row" style="align-items: flex-start; flex-direction: column; gap: 10px">
+        <p style="margin: 0; font-size: 12px; color: var(--t3)">NFL · hace 18 min</p>
+        <p style="margin: 0; font-size: 15px; line-height: 1.55; color: var(--t2)">Mi pick abierto de la semana: el modelo ve ventaja clara por el QB titular y la presión en tercer down antes de que cierre la línea.</p>
+        <p class="num" style="margin: 0; font-size: 13px; font-weight: 600">Washington +7.5 · 2.0u</p>
+        <p class="num" style="margin: 0; font-size: 12px; color: var(--t3)">128 me gusta · 14 comentarios</p>
+      </article>
+      <article class="row" style="align-items: flex-start; flex-direction: column; gap: 10px">
+        <p style="margin: 0; font-size: 12px; color: var(--t3)">Premier · ayer</p>
+        <p style="margin: 0; font-size: 15px; line-height: 1.55; color: var(--t2)">Se cumplió el ambos anotan en Arsenal–Liverpool. Lo tomé a +105 y cerró en −120.</p>
+        <p class="num" style="margin: 0; font-size: 12px; color: var(--t3)">86 me gusta · 9 comentarios</p>
+      </article>
+    </div>
+  </sc-if>
+
+  <!-- Parlays -->
+  <sc-if value="{{isParlays}}" hint-placeholder-val="{{ false }}">
+    <div role="tabpanel" style="position: relative; margin-top: 8px">
+      <div class="row" style="align-items: flex-start">
+        <div style="flex: 1; min-width: 0">
+          <p style="margin: 0; font-size: 15px; font-weight: 600">Parlay de 3 · 1.0u</p>
+          <p style="margin: 4px 0 0; font-size: 12px; line-height: 1.6; color: var(--t3)">Arsenal o empate · Más de 1.5 goles · Menos de 44.5 puntos</p>
+          <p class="num" style="margin: 4px 0 0; font-size: 12px; color: var(--t3)">Probabilidad combinada 41.2 %</p>
+        </div>
+        <span class="num" style="font-size: 14px; font-weight: 600; color: var(--ok)">+2.6u</span>
+      </div>
+      <div class="row" style="align-items: flex-start">
+        <div style="flex: 1; min-width: 0">
+          <p style="margin: 0; font-size: 15px; font-weight: 600">Parlay de 2 · 1.0u</p>
+          <p style="margin: 4px 0 0; font-size: 12px; line-height: 1.6; color: var(--t3)">Monterrey gana · NY Giants gana</p>
+          <p class="num" style="margin: 4px 0 0; font-size: 12px; color: var(--t3)">Probabilidad combinada 38.6 %</p>
+        </div>
+        <span class="num" style="font-size: 14px; font-weight: 600; color: var(--miss)">−1.0u</span>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- Estadísticas -->
+  <sc-if value="{{isStats}}" hint-placeholder-val="{{ false }}">
+    <div role="tabpanel" style="position: relative; margin-top: 20px; display: flex; flex-direction: column; gap: 28px">
+      <section aria-labelledby="m-mes">
+        <h2 id="m-mes" class="eyebrow">Saldo por mes</h2>
+        <div role="img" aria-label="{{monthsAria}}" style="margin-top: 14px; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px">
+          <sc-for list="{{months}}" as="m" hint-placeholder-count="6">
+            <div style="display: flex; flex-direction: column">
+              <div style="height: 92px; display: flex; flex-direction: column; justify-content: flex-end; align-items: center">
+                <span class="num" style="font-size: 10px; font-weight: 600; margin-bottom: 4px">{{m.posLabel}}</span>
+                <div style="width: 70%; height: {{m.posH}}px; border-radius: 4px 4px 0 0; background: var(--ok)"></div>
+              </div>
+              <div style="height: 1px; background: var(--line2)"></div>
+              <div style="height: 34px; display: flex; flex-direction: column; align-items: center">
+                <div style="width: 70%; height: {{m.negH}}px; border-radius: 0 0 4px 4px; background: var(--miss)"></div>
+                <span class="num" style="font-size: 10px; font-weight: 600; margin-top: 4px">{{m.negLabel}}</span>
+              </div>
+              <span style="text-align: center; font-size: 11px; color: var(--t3)">{{m.label}}</span>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+      <section aria-labelledby="m-liga">
+        <h2 id="m-liga" class="eyebrow">Cumplidos por liga</h2>
+        <div style="margin-top: 14px; display: flex; flex-direction: column; gap: 14px">
+          <sc-for list="{{leagues}}" as="l" hint-placeholder-count="3">
+            <div>
+              <div class="num" style="display: flex; justify-content: space-between; font-size: 13px"><span>{{l.name}}</span><span><strong style="font-weight: 600">{{l.pct}} %</strong> <span style="color: var(--t3)">· {{l.hits}}/{{l.total}}</span></span></div>
+              <div style="margin-top: 6px; height: 6px; border-radius: 3px; background: rgba(255,255,255,.08)"><div style="height: 100%; width: {{l.pct}}%; border-radius: 3px; background: var(--brand)"></div></div>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1500}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { following: false, tab: 'picks' };
+  }
+  renderVals() {
+    const f = this.state.following;
+    const tab = this.state.tab;
+    const raw = [['Jun', 2.1], ['Jul', -1.4], ['Ago', 4.8], ['Sep', 3.2], ['Oct', 6.3], ['Nov', 3.4]];
+    const months = raw.map((m) => ({
+      label: m[0],
+      posH: m[1] > 0 ? Math.round(m[1] / 6.3 * 70) : 0,
+      negH: m[1] < 0 ? Math.round(-m[1] / 6.3 * 70) : 0,
+      posLabel: m[1] > 0 ? '+' + m[1].toFixed(1) : '',
+      negLabel: m[1] < 0 ? '−' + (-m[1]).toFixed(1) : '',
+      title: m[0] + ' ' + (m[1] > 0 ? '+' : '−') + Math.abs(m[1]).toFixed(1) + 'u'
+    }));
+    return {
+      followers: f ? '764' : '763',
+      followLabel: f ? 'Siguiendo' : 'Seguir',
+      followClass: f ? 'btn-ghost' : 'btn-primary',
+      followingStr: f ? 'true' : 'false',
+      toggleFollow: () => this.setState({ following: !f }),
+      tabs: [['publicaciones', 'Posts'], ['picks', 'Picks'], ['parlays', 'Parlays'], ['estadisticas', 'Datos']].map((t) => ({
+        label: t[1], selected: tab === t[0] ? 'true' : 'false', pick: () => this.setState({ tab: t[0] })
+      })),
+      isPosts: tab === 'publicaciones',
+      isPicks: tab === 'picks',
+      isParlays: tab === 'parlays',
+      isStats: tab === 'estadisticas',
+      months: months,
+      monthsAria: 'Saldo por mes: ' + months.map((m) => m.title).join(', '),
+      leagues: [
+        { name: 'NFL', pct: 64, hits: 41, total: 64 },
+        { name: 'Premier League', pct: 58, hits: 19, total: 33 },
+        { name: 'Liga MX', pct: 53, hits: 24, total: 45 }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

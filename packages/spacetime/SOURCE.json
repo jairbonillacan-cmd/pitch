@@ -1,0 +1,31 @@
+{
+  "branch": "origin/prediction-lab",
+  "commit": "263857ad985edf8f76e8eff940a7a8753def05b2",
+  "files": [
+    "src/devig.ts",
+    "src/engine.ts",
+    "src/montecarlo.ts",
+    "src/multisport.ts",
+    "src/nfl_live.ts",
+    "src/service.ts",
+    "src/tactical_skore.ts",
+    "src/types.ts",
+    "data/features_snapshot.json",
+    "data/fixture_requests.json",
+    "data/live_matchday_v3_snapshot.json",
+    "data/market_v3_snapshot.json",
+    "data/model_motor_a.json",
+    "data/model_multisport.json",
+    "data/model_nfl.json",
+    "data/multisport_snapshot.json",
+    "data/nfl_snapshot.json",
+    "tests/devig.test.ts",
+    "tests/engine.test.ts",
+    "tests/fixture_requests.test.ts",
+    "tests/montecarlo.test.ts",
+    "tests/multisport_and_v3.test.ts",
+    "tests/nfl.test.ts",
+    "tests/tactical_skore.test.ts"
+  ],
+  "patches": []
+}

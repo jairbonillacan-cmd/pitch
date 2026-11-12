@@ -1,0 +1,702 @@
+{
+  "schemaVersion": 1,
+  "designRevision": 1,
+  "season": "2026/27",
+  "edition": "Emblemas de club",
+  "source": "https://www.nhl.com/info/teams/",
+  "entries": [
+    {
+      "id": "nhl",
+      "code": "NHL",
+      "name": "National Hockey League",
+      "shortName": "NHL",
+      "kind": "competition",
+      "motif": "Palos y disco",
+      "colors": {
+        "tile": "#242D40",
+        "primary": "#F7F3E5",
+        "accent": "#82A6C1"
+      },
+      "contrast": {
+        "primaryOnTile": 12.4026,
+        "accentOnTile": 5.3619
+      },
+      "source": "https://www.nhl.com/info/teams/",
+      "svg": "svg/nhl.svg",
+      "png": "png/nhl.png",
+      "symbolId": "pitchlab-nhl"
+    },
+    {
+      "id": "anaheim-ducks",
+      "code": "ANA",
+      "name": "Anaheim Ducks",
+      "shortName": "Ducks",
+      "kind": "club",
+      "motif": "Pato y pliegue",
+      "colors": {
+        "tile": "#312731",
+        "primary": "#FFE6C4",
+        "accent": "#F38645"
+      },
+      "contrast": {
+        "primaryOnTile": 11.8539,
+        "accentOnTile": 5.6697
+      },
+      "source": "https://www.nhl.com/info/teams/",
+      "svg": "svg/anaheim-ducks.svg",
+      "png": "png/anaheim-ducks.png",
+      "symbolId": "pitchlab-anaheim-ducks"
+    },
+    {
+      "id": "boston-bruins",
+      "code": "BOS",
+      "name": "Boston Bruins",
+      "shortName": "Bruins",
+      "kind": "club",
+      "motif": "Oso y radios",
+      "colors": {
+        "tile": "#25272E",
+        "primary": "#FFCB60",
+        "accent": "#FFF0D4"
+      },
+      "contrast": {
+        "primaryOnTile": 9.9148,
+        "accentOnTile": 13.2546
+      },
+      "source": "https://www.nhl.com/info/teams/",
+      "svg": "svg/boston-bruins.svg",
+      "png": "png/boston-bruins.png",
+      "symbolId": "pitchlab-boston-bruins"
+    },
+    {
+      "id": "buffalo-sabres",
+      "code": "BUF",
+      "name": "Buffalo Sabres",
+      "shortName": "Sabres",
+      "kind": "club",
+      "motif": "Bisonte y sables",
+      "colors": {
+        "tile": "#214580",
+        "primary": "#FFE291",
+        "accent": "#F3F0E5"
+      },
+      "contrast": {
+        "primaryOnTile": 7.4247,
+        "accentOnTile": 8.2628
+      },
+      "source": "https://www.nhl.com/info/teams/",
+      "svg": "svg/buffalo-sabres.svg",
+      "png": "png/buffalo-sabres.png",
+      "symbolId": "pitchlab-buffalo-sabres"
+    },
+    {
+      "id": "calgary-flames",
+      "code": "CGY",
+      "name": "Calgary Flames",
+      "shortName": "Flames",
+      "kind": "club",
+      "motif": "Llama en carrera",
+      "colors": {
+        "tile": "#9C2335",
+        "primary": "#FFE08F",
+        "accent": "#E7713B"
+      },
+      "contrast": {
+        "primaryOnTile": 6.029,
+        "accentOnTile": 2.522
+      },
+      "source": "https://www.nhl.com/info/teams/",
+      "svg": "svg/calgary-flames.svg",
+      "png": "png/calgary-flames.png",
+      "symbolId": "pitchlab-calgary-flames"
+    },
+    {
+      "id": "carolina-hurricanes",
+      "code": "CAR",
+      "name": "Carolina Hurricanes",
+      "shortName": "Hurricanes",
+      "kind": "club",
+      "motif": "Ojo del huracán",
+      "colors": {
+        "tile": "#9D2138",
+        "primary": "#FCF0E3",
+        "accent": "#262935"
+      },
+      "contrast": {
+        "primaryOnTile": 6.9093,
+        "accentOnTile": 1.8665
+      },
+      "source": "https://www.nhl.com/info/teams/",
+      "svg": "svg/carolina-hurricanes.svg",
+      "png": "png/carolina-hurricanes.png",
+      "symbolId": "pitchlab-carolina-hurricanes"
+    },
+    {
+      "id": "chicago-blackhawks",
+      "code": "CHI",
+      "name": "Chicago Blackhawks",
+      "shortName": "Blackhawks",
+      "kind": "club",
+      "motif": "Halcón sobre el hielo",
+      "colors": {
+        "tile": "#9D2339",
+        "primary": "#FDE5BC",
+        "accent": "#639374"
+      },
+      "contrast": {
+        "primaryOnTile": 6.2604,
+        "accentOnTile": 2.1793
+      },
+      "source": "https://www.nhl.com/info/teams/",
+      "svg": "svg/chicago-blackhawks.svg",
+      "png": "png/chicago-blackhawks.png",
+      "symbolId": "pitchlab-chicago-blackhawks"
+    },
+    {
+      "id": "colorado-avalanche",
+      "code": "COL",
+      "name": "Colorado Avalanche",
+      "shortName": "Avalanche",
+      "kind": "club",
+      "motif": "Montaña y alud",
+      "colors": {
+        "tile": "#66283D",
+        "primary": "#F8F1DD",
+        "accent": "#80ACC7"
+      },
+      "contrast": {
+        "primaryOnTile": 9.6172,
+        "accentOnTile": 4.465
+      },
+      "source": "https://www.nhl.com/info/teams/",
+      "svg": "svg/colorado-avalanche.svg",
+      "png": "png/colorado-avalanche.png",
+      "symbolId": "pitchlab-colorado-avalanche"
+    },
+    {
+      "id": "columbus-blue-jackets",
+      "code": "CBJ",
+      "name": "Columbus Blue Jackets",
+      "shortName": "Blue Jackets",
+      "kind": "club",
+      "motif": "Estrella y pendón",
+      "colors": {
+        "tile": "#223654",
+        "primary": "#FCF0DB",
+        "accent": "#CC3B55"
+      },
+      "contrast": {
+        "primaryOnTile": 10.8058,
+        "accentOnTile": 2.5087
+      },
+      "source": "https://www.nhl.com/info/teams/",
+      "svg": "svg/columbus-blue-jackets.svg",
+      "png": "png/columbus-blue-jackets.png",
+      "symbolId": "pitchlab-columbus-blue-jackets"
+    },
+    {
+      "id": "dallas-stars",
+      "code": "DAL",
+      "name": "Dallas Stars",
+      "shortName": "Stars",
+      "kind": "club",
+      "motif": "Estrella y trayectoria",
+      "colors": {
+        "tile": "#18523E",
+        "primary": "#F6F1DF",
+        "accent": "#86AF9C"
+      },
+      "contrast": {
+        "primaryOnTile": 8.0189,
+        "accentOnTile": 3.7255
+      },
+      "source": "https://www.nhl.com/info/teams/",
+      "svg": "svg/dallas-stars.svg",
+      "png": "png/dallas-stars.png",
+      "symbolId": "pitchlab-dallas-stars"
+    },
+    {
+      "id": "detroit-red-wings",
+      "code": "DET",
+      "name": "Detroit Red Wings",
+      "shortName": "Red Wings",
+      "kind": "club",
+      "motif": "Rueda y ala",
+      "colors": {
+        "tile": "#A22035",
+        "primary": "#FFEEDD",
+        "accent": "#E39382"
+      },
+      "contrast": {
+        "primaryOnTile": 6.6299,
+        "accentOnTile": 3.1357
+      },
+      "source": "https://www.nhl.com/info/teams/",
+      "svg": "svg/detroit-red-wings.svg",
+      "png": "png/detroit-red-wings.png",
+      "symbolId": "pitchlab-detroit-red-wings"
+    },
+    {
+      "id": "edmonton-oilers",
+      "code": "EDM",
+      "name": "Edmonton Oilers",
+      "shortName": "Oilers",
+      "kind": "club",
+      "motif": "Gota de petróleo",
+      "colors": {
+        "tile": "#213650",
+        "primary": "#FFEBDD",
+        "accent": "#F48048"
+      },
+      "contrast": {
+        "primaryOnTile": 10.6426,
+        "accentOnTile": 4.6997
+      },
+      "source": "https://www.nhl.com/info/teams/",
+      "svg": "svg/edmonton-oilers.svg",
+      "png": "png/edmonton-oilers.png",
+      "symbolId": "pitchlab-edmonton-oilers"
+    },
+    {
+      "id": "florida-panthers",
+      "code": "FLA",
+      "name": "Florida Panthers",
+      "shortName": "Panthers",
+      "kind": "club",
+      "motif": "Pantera de frente",
+      "colors": {
+        "tile": "#782537",
+        "primary": "#FFE3AE",
+        "accent": "#353E5A"
+      },
+      "contrast": {
+        "primaryOnTile": 7.9545,
+        "accentOnTile": 1.0656
+      },
+      "source": "https://www.nhl.com/info/teams/",
+      "svg": "svg/florida-panthers.svg",
+      "png": "png/florida-panthers.png",
+      "symbolId": "pitchlab-florida-panthers"
+    },
+    {
+      "id": "los-angeles-kings",
+      "code": "LAK",
+      "name": "Los Angeles Kings",
+      "shortName": "Kings",
+      "kind": "club",
+      "motif": "Corona de plata",
+      "colors": {
+        "tile": "#25262D",
+        "primary": "#F3EEE1",
+        "accent": "#8C9BAC"
+      },
+      "contrast": {
+        "primaryOnTile": 13.0062,
+        "accentOnTile": 5.3088
+      },
+      "source": "https://www.nhl.com/info/teams/",
+      "svg": "svg/los-angeles-kings.svg",
+      "png": "png/los-angeles-kings.png",
+      "symbolId": "pitchlab-los-angeles-kings"
+    },
+    {
+      "id": "minnesota-wild",
+      "code": "MIN",
+      "name": "Minnesota Wild",
+      "shortName": "Wild",
+      "kind": "club",
+      "motif": "Bosque y luna",
+      "colors": {
+        "tile": "#214B40",
+        "primary": "#FAE9BE",
+        "accent": "#C9554D"
+      },
+      "contrast": {
+        "primaryOnTile": 8.1412,
+        "accentOnTile": 2.2796
+      },
+      "source": "https://www.nhl.com/info/teams/",
+      "svg": "svg/minnesota-wild.svg",
+      "png": "png/minnesota-wild.png",
+      "symbolId": "pitchlab-minnesota-wild"
+    },
+    {
+      "id": "montreal-canadiens",
+      "code": "MTL",
+      "name": "Montréal Canadiens",
+      "shortName": "Canadiens",
+      "kind": "club",
+      "motif": "C y travesaño",
+      "colors": {
+        "tile": "#8E263C",
+        "primary": "#FFF0D9",
+        "accent": "#5F88B8"
+      },
+      "contrast": {
+        "primaryOnTile": 7.5093,
+        "accentOnTile": 2.2869
+      },
+      "source": "https://www.nhl.com/info/teams/",
+      "svg": "svg/montreal-canadiens.svg",
+      "png": "png/montreal-canadiens.png",
+      "symbolId": "pitchlab-montreal-canadiens"
+    },
+    {
+      "id": "nashville-predators",
+      "code": "NSH",
+      "name": "Nashville Predators",
+      "shortName": "Predators",
+      "kind": "club",
+      "motif": "Colmillos y oro",
+      "colors": {
+        "tile": "#F6CB55",
+        "primary": "#243554",
+        "accent": "#FFF0D2"
+      },
+      "contrast": {
+        "primaryOnTile": 7.9381,
+        "accentOnTile": 1.3719
+      },
+      "source": "https://www.nhl.com/info/teams/",
+      "svg": "svg/nashville-predators.svg",
+      "png": "png/nashville-predators.png",
+      "symbolId": "pitchlab-nashville-predators"
+    },
+    {
+      "id": "new-jersey-devils",
+      "code": "NJD",
+      "name": "New Jersey Devils",
+      "shortName": "Devils",
+      "kind": "club",
+      "motif": "Cuernos y cola",
+      "colors": {
+        "tile": "#A02239",
+        "primary": "#F9EFE0",
+        "accent": "#302931"
+      },
+      "contrast": {
+        "primaryOnTile": 6.6308,
+        "accentOnTile": 1.871
+      },
+      "source": "https://www.nhl.com/info/teams/",
+      "svg": "svg/new-jersey-devils.svg",
+      "png": "png/new-jersey-devils.png",
+      "symbolId": "pitchlab-new-jersey-devils"
+    },
+    {
+      "id": "new-york-islanders",
+      "code": "NYI",
+      "name": "New York Islanders",
+      "shortName": "Islanders",
+      "kind": "club",
+      "motif": "Costa y faro",
+      "colors": {
+        "tile": "#214982",
+        "primary": "#F8F0DA",
+        "accent": "#F5A153"
+      },
+      "contrast": {
+        "primaryOnTile": 7.8921,
+        "accentOnTile": 4.3185
+      },
+      "source": "https://www.nhl.com/info/teams/",
+      "svg": "svg/new-york-islanders.svg",
+      "png": "png/new-york-islanders.png",
+      "symbolId": "pitchlab-new-york-islanders"
+    },
+    {
+      "id": "new-york-rangers",
+      "code": "NYR",
+      "name": "New York Rangers",
+      "shortName": "Rangers",
+      "kind": "club",
+      "motif": "Diagonal y estrella",
+      "colors": {
+        "tile": "#214C88",
+        "primary": "#F9EDDA",
+        "accent": "#C9334D"
+      },
+      "contrast": {
+        "primaryOnTile": 7.3979,
+        "accentOnTile": 1.6562
+      },
+      "source": "https://www.nhl.com/info/teams/",
+      "svg": "svg/new-york-rangers.svg",
+      "png": "png/new-york-rangers.png",
+      "symbolId": "pitchlab-new-york-rangers"
+    },
+    {
+      "id": "ottawa-senators",
+      "code": "OTT",
+      "name": "Ottawa Senators",
+      "shortName": "Senators",
+      "kind": "club",
+      "motif": "Yelmo y penacho",
+      "colors": {
+        "tile": "#8C263A",
+        "primary": "#FFE0A1",
+        "accent": "#CB554D"
+      },
+      "contrast": {
+        "primaryOnTile": 6.6963,
+        "accentOnTile": 2.0159
+      },
+      "source": "https://www.nhl.com/info/teams/",
+      "svg": "svg/ottawa-senators.svg",
+      "png": "png/ottawa-senators.png",
+      "symbolId": "pitchlab-ottawa-senators"
+    },
+    {
+      "id": "philadelphia-flyers",
+      "code": "PHI",
+      "name": "Philadelphia Flyers",
+      "shortName": "Flyers",
+      "kind": "club",
+      "motif": "Disco alado",
+      "colors": {
+        "tile": "#27282D",
+        "primary": "#FFF0DC",
+        "accent": "#EF813F"
+      },
+      "contrast": {
+        "primaryOnTile": 13.1329,
+        "accentOnTile": 5.5209
+      },
+      "source": "https://www.nhl.com/info/teams/",
+      "svg": "svg/philadelphia-flyers.svg",
+      "png": "png/philadelphia-flyers.png",
+      "symbolId": "pitchlab-philadelphia-flyers"
+    },
+    {
+      "id": "pittsburgh-penguins",
+      "code": "PIT",
+      "name": "Pittsburgh Penguins",
+      "shortName": "Penguins",
+      "kind": "club",
+      "motif": "Pingüino y pista",
+      "colors": {
+        "tile": "#25262E",
+        "primary": "#FFE3A3",
+        "accent": "#F9F2E0"
+      },
+      "contrast": {
+        "primaryOnTile": 12.0173,
+        "accentOnTile": 13.4769
+      },
+      "source": "https://www.nhl.com/info/teams/",
+      "svg": "svg/pittsburgh-penguins.svg",
+      "png": "png/pittsburgh-penguins.png",
+      "symbolId": "pitchlab-pittsburgh-penguins"
+    },
+    {
+      "id": "san-jose-sharks",
+      "code": "SJS",
+      "name": "San Jose Sharks",
+      "shortName": "Sharks",
+      "kind": "club",
+      "motif": "Tiburón y aleta",
+      "colors": {
+        "tile": "#154C53",
+        "primary": "#F6F0DC",
+        "accent": "#62C0B4"
+      },
+      "contrast": {
+        "primaryOnTile": 8.407,
+        "accentOnTile": 4.4364
+      },
+      "source": "https://www.nhl.com/info/teams/",
+      "svg": "svg/san-jose-sharks.svg",
+      "png": "png/san-jose-sharks.png",
+      "symbolId": "pitchlab-san-jose-sharks"
+    },
+    {
+      "id": "seattle-kraken",
+      "code": "SEA",
+      "name": "Seattle Kraken",
+      "shortName": "Kraken",
+      "kind": "club",
+      "motif": "Tentáculo y ojo",
+      "colors": {
+        "tile": "#20384E",
+        "primary": "#A1DBDC",
+        "accent": "#DE515F"
+      },
+      "contrast": {
+        "primaryOnTile": 7.8761,
+        "accentOnTile": 3.1363
+      },
+      "source": "https://www.nhl.com/info/teams/",
+      "svg": "svg/seattle-kraken.svg",
+      "png": "png/seattle-kraken.png",
+      "symbolId": "pitchlab-seattle-kraken"
+    },
+    {
+      "id": "st-louis-blues",
+      "code": "STL",
+      "name": "St. Louis Blues",
+      "shortName": "Blues",
+      "kind": "club",
+      "motif": "Nota y ala",
+      "colors": {
+        "tile": "#224782",
+        "primary": "#FCF0D8",
+        "accent": "#F2C757"
+      },
+      "contrast": {
+        "primaryOnTile": 8.1141,
+        "accentOnTile": 5.7087
+      },
+      "source": "https://www.nhl.com/info/teams/",
+      "svg": "svg/st-louis-blues.svg",
+      "png": "png/st-louis-blues.png",
+      "symbolId": "pitchlab-st-louis-blues"
+    },
+    {
+      "id": "tampa-bay-lightning",
+      "code": "TBL",
+      "name": "Tampa Bay Lightning",
+      "shortName": "Lightning",
+      "kind": "club",
+      "motif": "Rayo y arco",
+      "colors": {
+        "tile": "#204B91",
+        "primary": "#F7F3E2",
+        "accent": "#84BCDF"
+      },
+      "contrast": {
+        "primaryOnTile": 7.6203,
+        "accentOnTile": 4.1345
+      },
+      "source": "https://www.nhl.com/info/teams/",
+      "svg": "svg/tampa-bay-lightning.svg",
+      "png": "png/tampa-bay-lightning.png",
+      "symbolId": "pitchlab-tampa-bay-lightning"
+    },
+    {
+      "id": "toronto-maple-leafs",
+      "code": "TOR",
+      "name": "Toronto Maple Leafs",
+      "shortName": "Maple Leafs",
+      "kind": "club",
+      "motif": "Hoja de arce",
+      "colors": {
+        "tile": "#254989",
+        "primary": "#F4F2E2",
+        "accent": "#7EABDA"
+      },
+      "contrast": {
+        "primaryOnTile": 7.7921,
+        "accentOnTile": 3.6461
+      },
+      "source": "https://www.nhl.com/info/teams/",
+      "svg": "svg/toronto-maple-leafs.svg",
+      "png": "png/toronto-maple-leafs.png",
+      "symbolId": "pitchlab-toronto-maple-leafs"
+    },
+    {
+      "id": "utah-mammoth",
+      "code": "UTA",
+      "name": "Utah Mammoth",
+      "shortName": "Mammoth",
+      "kind": "club",
+      "motif": "Mamut de frente",
+      "colors": {
+        "tile": "#243341",
+        "primary": "#EBF1E7",
+        "accent": "#8CC5E2"
+      },
+      "contrast": {
+        "primaryOnTile": 11.243,
+        "accentOnTile": 6.8927
+      },
+      "source": "https://www.nhl.com/info/teams/",
+      "svg": "svg/utah-mammoth.svg",
+      "png": "png/utah-mammoth.png",
+      "symbolId": "pitchlab-utah-mammoth"
+    },
+    {
+      "id": "vancouver-canucks",
+      "code": "VAN",
+      "name": "Vancouver Canucks",
+      "shortName": "Canucks",
+      "kind": "club",
+      "motif": "Orca y ola",
+      "colors": {
+        "tile": "#224C7B",
+        "primary": "#F3F1E2",
+        "accent": "#58B58D"
+      },
+      "contrast": {
+        "primaryOnTile": 7.744,
+        "accentOnTile": 3.5217
+      },
+      "source": "https://www.nhl.com/info/teams/",
+      "svg": "svg/vancouver-canucks.svg",
+      "png": "png/vancouver-canucks.png",
+      "symbolId": "pitchlab-vancouver-canucks"
+    },
+    {
+      "id": "vegas-golden-knights",
+      "code": "VGK",
+      "name": "Vegas Golden Knights",
+      "shortName": "Golden Knights",
+      "kind": "club",
+      "motif": "Yelmo dorado",
+      "colors": {
+        "tile": "#292C35",
+        "primary": "#F5CF7E",
+        "accent": "#C45A48"
+      },
+      "contrast": {
+        "primaryOnTile": 9.3687,
+        "accentOnTile": 3.2558
+      },
+      "source": "https://www.nhl.com/info/teams/",
+      "svg": "svg/vegas-golden-knights.svg",
+      "png": "png/vegas-golden-knights.png",
+      "symbolId": "pitchlab-vegas-golden-knights"
+    },
+    {
+      "id": "washington-capitals",
+      "code": "WSH",
+      "name": "Washington Capitals",
+      "shortName": "Capitals",
+      "kind": "club",
+      "motif": "Cúpula y estrellas",
+      "colors": {
+        "tile": "#283D5C",
+        "primary": "#FAEFE0",
+        "accent": "#D74755"
+      },
+      "contrast": {
+        "primaryOnTile": 9.668,
+        "accentOnTile": 2.5739
+      },
+      "source": "https://www.nhl.com/info/teams/",
+      "svg": "svg/washington-capitals.svg",
+      "png": "png/washington-capitals.png",
+      "symbolId": "pitchlab-washington-capitals"
+    },
+    {
+      "id": "winnipeg-jets",
+      "code": "WPG",
+      "name": "Winnipeg Jets",
+      "shortName": "Jets",
+      "kind": "club",
+      "motif": "Avión y rastro",
+      "colors": {
+        "tile": "#283A59",
+        "primary": "#F3F0E2",
+        "accent": "#CA4458"
+      },
+      "contrast": {
+        "primaryOnTile": 9.987,
+        "accentOnTile": 2.4347
+      },
+      "source": "https://www.nhl.com/info/teams/",
+      "svg": "svg/winnipeg-jets.svg",
+      "png": "png/winnipeg-jets.png",
+      "symbolId": "pitchlab-winnipeg-jets"
+    }
+  ]
+}

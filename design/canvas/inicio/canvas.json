@@ -1,0 +1,53 @@
+{
+  "v": 3,
+  "createdOnFiles": { "v": 1, "at": "2026-11-11T22:30:00Z" },
+  "title": "PitchLab · Inicio",
+  "launch": { "view": "canvas" },
+  "pages": [],
+  "boards": {
+    "Main.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1200,
+      "h": 2300,
+      "title": "Inicio · escritorio (solo el contenido; fecha, liga, orden y vista son interactivos)",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "Mobile.dc.html": {
+      "x": 1280,
+      "y": 0,
+      "w": 390,
+      "h": 3600,
+      "title": "Inicio · móvil",
+      "is_interactive": true
+    }
+  },
+  "order": ["Main.dc.html", "Mobile.dc.html"],
+  "notes": {
+    "title": {
+      "x": 0,
+      "y": -300,
+      "text": "Inicio (/app) · solo la sección",
+      "kind": "title1",
+      "maxW": 1670
+    },
+    "cambios": {
+      "x": 1750,
+      "y": 0,
+      "w": 520,
+      "fill": "purple",
+      "size": "s",
+      "text": "QUÉ CAMBIA Y POR QUÉ\n\nSolo cambia el contenido de Inicio: la barra superior y el sidebar se quedan como están.\n\n1. «Partidos de hoy» pasa a «Inicio», con la fecha y la hora de los datos.\n2. Tira de fechas: Hoy primero (borde de marca) y los días siguientes con su número de partidos; los vacíos se ven atenuados. Al final, calendario para otra fecha. Todo lo de abajo sigue la fecha elegida.\n3. Hoy sin partidos: «Hoy no hay partidos en tus ligas» y los próximos tres para saltar a su día.\n4. Fichas de liga con el conteo del día; las ligas sin partidos ese día, desactivadas.\n5. Partido destacado como hoy pero con jerarquía: «Lo más probable» en su franja, reparto 1·X·2, dos picks con solo «+ Parlay» y «Sellar», y «Tu momio» en una línea.\n6. Parlay rápido muestra las selecciones, la probabilidad combinada y el momio justo antes de agregar.\n7. Mejores picks del día elegido, con «+».\n8. Cartelera más ligera: sin chip de motor, «Conf.» ni «Proy.»; tarjetas o lista por liga; por hora o más probables.\n9. «Armar parlay automático» pasa de morado fuerte a botón normal."
+    },
+    "datos": {
+      "x": 1750,
+      "y": 820,
+      "w": 520,
+      "fill": "blue",
+      "size": "s",
+      "text": "PARA IMPLEMENTAR\n\n• Vista AppHome (@pitchlab/ui/app). Fecha en la URL (?fecha=AAAA-MM-DD); por defecto hoy en America/Mexico_City.\n• Datos: 72 partidos reales de data/snapshots/*/latest.json (11 nov 2026). Lo más probable = mayor p de h2h; marcador = projection.\n• Destacado: primer partido de Liga MX del día; si no hay, NFL, luego Premier.\n• Parlay rápido: misma lógica actual, filtrada a la fecha; total = producto de p.\n• Casi parejo: p1 − p2 < 3 puntos.\n• Colores con tokens --pl-* (mismo mapeo que los lienzos de Perfil y Comunidad)."
+    }
+  },
+  "designSystems": []
+}

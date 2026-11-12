@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<title>Comunidad · Siguiendo · escritorio</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+html,body{overflow-x:hidden}
+.lp{--bg:#000000;--surf2:rgba(255,255,255,.07);--line:rgba(255,255,255,.08);--line2:rgba(255,255,255,.16);--t1:#FFFFFF;--t2:#D4D4DC;--t3:#A1A1AD;--brand:#C4B5FD;--ok:#6EE7B7;--miss:#FDA4AF;--btn:#FFFFFF;--btnfg:#000000;--glow:rgba(196,181,253,.20);--track:rgba(255,255,255,.10);--field:rgba(255,255,255,.035)}
+.lp{--l1:rgba(124,92,246,.30);--l2:rgba(16,185,129,.14);--sheen:rgba(255,255,255,.06);--inner:inset 0 1px 0 rgba(255,255,255,.08);--lens:rgba(18,18,24,.62);--pane:rgba(255,255,255,.025);--shadow:0 30px 60px -30px rgba(0,0,0,.8),0 10px 20px -14px rgba(0,0,0,.6);--rim-c:rgba(255,255,255,.7);--rim-t:rgba(255,255,255,.28);--rim-m:rgba(255,255,255,.04);--rim-b:rgba(255,255,255,.12)}
+.lp{background:var(--bg);color:var(--t1);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;position:relative;overflow:hidden;min-height:100vh}
+.lp *{box-sizing:border-box}
+.atmo{position:absolute;inset:0;pointer-events:none;background:radial-gradient(36% 24% at 78% 0%,var(--l1),transparent 70%),radial-gradient(30% 22% at 4% 40%,var(--l2),transparent 70%)}
+.glass{position:relative;background:linear-gradient(180deg,var(--sheen),transparent 30%),var(--lens);box-shadow:var(--inner),var(--shadow)}
+.glass::before,.chip::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;z-index:2;-webkit-mask:linear-gradient(#000,#000) content-box,linear-gradient(#000,#000);-webkit-mask-composite:xor;mask:linear-gradient(#000,#000) content-box exclude,linear-gradient(#000,#000)}
+.glass::before{background:radial-gradient(70px circle at 0% 0%,var(--rim-c),transparent 100%),radial-gradient(70px circle at 100% 0%,var(--rim-c),transparent 100%),linear-gradient(180deg,var(--rim-t) 0%,var(--rim-m) 22%,var(--rim-m) 72%,var(--rim-b) 100%)}
+.chip{position:relative;background:linear-gradient(180deg,var(--sheen),transparent 50%),var(--pane);box-shadow:var(--inner)}
+.chip::before{background:linear-gradient(180deg,var(--rim-t),var(--rim-m) 40%,var(--rim-b))}
+.num{font-variant-numeric:tabular-nums lining-nums}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:36px;padding:0 14px;border-radius:999px;font:600 13px/1 Inter,system-ui,sans-serif;border:1px solid transparent;cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn-primary{background:var(--btn);color:var(--btnfg)}
+.btn-ghost{background:var(--field);color:var(--t1);border-color:var(--line2)}
+.tabs{display:flex;gap:28px;border-bottom:1px solid var(--line)}
+.tab{min-height:48px;padding:0 2px;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;background:transparent;color:var(--t3);font:600 14px Inter,system-ui,sans-serif;cursor:pointer;white-space:nowrap}
+.tab[aria-selected="true"]{color:var(--t1);border-bottom-color:var(--t1)}
+.filter{min-height:36px;padding:0 14px;border-radius:999px;border:1px solid var(--line2);background:transparent;color:var(--t2);font:500 13px Inter,system-ui,sans-serif;cursor:pointer;white-space:nowrap}
+.filter[aria-pressed="true"]{border-color:var(--t1);color:var(--t1);background:var(--surf2)}
+.act{display:inline-flex;align-items:center;gap:7px;min-height:40px;padding:0 10px;border:0;border-radius:999px;background:transparent;color:var(--t3);font:500 13px Inter,system-ui,sans-serif;cursor:pointer}
+.act:hover{color:var(--t1);background:var(--surf2)}
+.status{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:500;white-space:nowrap}
+.status::before{content:"";width:7px;height:7px;border-radius:999px;background:currentColor}
+.s-ok{color:var(--ok)}.s-miss{color:var(--miss)}.s-open{color:var(--t2)}
+.s-open::before{background:transparent;box-shadow:inset 0 0 0 1.5px currentColor}
+.av{flex:none;border-radius:999px;display:grid;place-items:center;font-weight:700;color:#fff}
+.eyebrow{margin:0;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--t3)}
+.lp a:focus-visible,.lp button:focus-visible{outline:2px solid var(--brand);outline-offset:3px}
+@media (max-width:980px){.cols{grid-template-columns:1fr !important}.aside{display:none !important}}
+</style>
+</helmet>
+<div class="lp" style="width: 100%">
+  <div class="atmo" aria-hidden="true"></div>
+  <main style="position: relative; max-width: 1120px; margin: 0 auto; padding: 32px 24px 64px">
+    <h1 style="margin: 0; font-size: 32px; line-height: 1.1; letter-spacing: -.03em; font-weight: 700">Comunidad</h1>
+    <div class="tabs" role="tablist" aria-label="Vistas de Comunidad" style="margin-top: 24px">
+      <a class="tab" role="tab" aria-selected="false" href="Main.dc.html" style="display: inline-flex; align-items: center; text-decoration: none">Para ti</a>
+      <a class="tab" role="tab" aria-selected="true" href="Siguiendo.dc.html" style="display: inline-flex; align-items: center; text-decoration: none">Siguiendo</a>
+      <a class="tab" role="tab" aria-selected="false" href="Consenso.dc.html" style="display: inline-flex; align-items: center; text-decoration: none">Consenso</a>
+      <a class="tab" role="tab" aria-selected="false" href="Ranking.dc.html" style="display: inline-flex; align-items: center; text-decoration: none">Ranking</a>
+    </div>
+
+    <div class="cols" style="margin-top: 24px; display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 24px; align-items: start">
+      <div style="display: flex; flex-direction: column; gap: 14px; min-width: 0">
+
+        <!-- A quién sigues -->
+        <section class="glass" aria-label="A quién sigues" style="border-radius: 22px; padding: 14px 18px; display: flex; align-items: center; gap: 14px">
+          <div aria-hidden="true" style="display: flex">
+            <span class="av" style="width: 32px; height: 32px; font-size: 11px; background: linear-gradient(135deg, #8B5CF6, #6366F1); box-shadow: 0 0 0 2px #0b0b10">SM</span>
+            <span class="av" style="width: 32px; height: 32px; font-size: 11px; background: linear-gradient(135deg, #F59E0B, #EF4444); margin-left: -8px; box-shadow: 0 0 0 2px #0b0b10">CV</span>
+            <span class="av" style="width: 32px; height: 32px; font-size: 11px; background: linear-gradient(135deg, #0EA5E9, #2563EB); margin-left: -8px; box-shadow: 0 0 0 2px #0b0b10">DA</span>
+            <span class="av" style="width: 32px; height: 32px; font-size: 11px; background: linear-gradient(135deg, #EC4899, #8B5CF6); margin-left: -8px; box-shadow: 0 0 0 2px #0b0b10">MT</span>
+          </div>
+          <p class="num" style="flex: 1; margin: 0; font-size: 14px; color: var(--t2)">Sigues a <strong style="color: var(--t1); font-weight: 600">12</strong> · 3 tipstars, 9 socios</p>
+          <a class="btn btn-ghost" href="#administrar">Administrar</a>
+        </section>
+
+        <div role="group" aria-label="Filtrar" style="display: flex; gap: 8px; flex-wrap: wrap">
+          <sc-for list="{{filters}}" as="f" hint-placeholder-count="4">
+            <button class="filter" type="button" aria-pressed="{{f.on}}" onClick="{{f.pick}}">{{f.label}}</button>
+          </sc-for>
+        </div>
+
+        <!-- Sofía -->
+        <article class="glass" style="border-radius: 24px; padding: 20px 22px">
+          <header style="display: flex; align-items: center; gap: 12px">
+            <span class="av" aria-hidden="true" style="width: 42px; height: 42px; font-size: 14px; background: linear-gradient(135deg, #8B5CF6, #6366F1)">SM</span>
+            <div style="flex: 1; min-width: 0">
+              <p style="margin: 0; font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 6px">Sofía Méndez<svg width="16" height="16" viewBox="0 0 24 24" role="img" aria-label="Tipstar verificado"><path fill="var(--brand)" d="M12 1.8l2.5 1.9 3.1-.2 1 3 2.6 1.7-1 3 1 3-2.6 1.7-1 3-3.1-.2L12 22.2l-2.5-1.9-3.1.2-1-3-2.6-1.7 1-3-1-3 2.6-1.7 1-3 3.1.2z"></path><path d="M8.2 12.2l2.6 2.6 5-5.2" fill="none" stroke="var(--bg)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></p>
+              <p class="num" style="margin: 1px 0 0; font-size: 12px; color: var(--t3)">@sofia_nfl · +18.4u · hace 18 min</p>
+            </div>
+          </header>
+          <p style="margin: 14px 0 0; font-size: 15px; line-height: 1.6; color: var(--t2)">Washington +7.5 a −110. El modelo lo pone en −177; entro antes de que se mueva la línea.</p>
+          <div class="chip" style="margin-top: 14px; border-radius: 16px; padding: 14px 16px; display: flex; align-items: center; gap: 14px">
+            <div style="display: flex; flex: none"><img src="/_blob/9c4128b9ae51575bd0f66dd514b1c1ae" alt="" style="width: 30px; height: 30px; object-fit: contain"><img src="/_blob/082deb7577eb6977257ce08ed6440052" alt="" style="width: 30px; height: 30px; object-fit: contain; margin-left: -6px"></div>
+            <div style="flex: 1; min-width: 0">
+              <p style="margin: 0; font-size: 14px; font-weight: 600">Washington +7.5 · 2.0u</p>
+              <p class="num" style="margin: 2px 0 0; font-size: 12px; color: var(--t3)">NFL · jue 20:15 · −110 · justo −177 · modelo 63.9 %</p>
+            </div>
+            <span class="status s-open">Abierto</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 4px; margin: 10px 0 0 -10px">
+            <button class="act" type="button" aria-label="Me gusta, 128"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21.2l8.8-8.8a5.5 5.5 0 0 0 0-7.8z"></path></svg><span class="num">128</span></button>
+            <button class="act" type="button" aria-label="Comentarios, 14"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path></svg><span class="num">14</span></button>
+            <button class="act" type="button"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="13" height="13" rx="2"></rect><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"></path></svg>Copiar a mi bitácora</button>
+          </div>
+        </article>
+
+        <!-- Diego · cerrado -->
+        <article class="glass" style="border-radius: 24px; padding: 20px 22px">
+          <header style="display: flex; align-items: center; gap: 12px">
+            <span class="av" aria-hidden="true" style="width: 42px; height: 42px; font-size: 14px; background: linear-gradient(135deg, #0EA5E9, #2563EB)">DA</span>
+            <div style="flex: 1; min-width: 0">
+              <p style="margin: 0; font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 6px">Diego Aranda<svg width="16" height="16" viewBox="0 0 24 24" role="img" aria-label="Tipstar verificado"><path fill="var(--brand)" d="M12 1.8l2.5 1.9 3.1-.2 1 3 2.6 1.7-1 3 1 3-2.6 1.7-1 3-3.1-.2L12 22.2l-2.5-1.9-3.1.2-1-3-2.6-1.7 1-3-1-3 2.6-1.7 1-3 3.1.2z"></path><path d="M8.2 12.2l2.6 2.6 5-5.2" fill="none" stroke="var(--bg)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></p>
+              <p class="num" style="margin: 1px 0 0; font-size: 12px; color: var(--t3)">@diego_tactico · +11.6u · hace 3 h</p>
+            </div>
+          </header>
+          <p style="margin: 14px 0 0; font-size: 15px; line-height: 1.6; color: var(--t2)">Monterrey no ganó: 1–1. El modelo le daba 47 %; lo tomé a −150, que implica 60 %. Mal momio de mi parte.</p>
+          <div class="chip" style="margin-top: 14px; border-radius: 16px; padding: 14px 16px; display: flex; align-items: center; gap: 14px">
+            <div style="display: flex; flex: none"><img src="/_blob/c0b14d133945253a1b9f6d17c27eb5ea" alt="" style="width: 30px; height: 30px; object-fit: contain"><img src="/_blob/2323d62b123b7c63b12afa5bc92fc6e2" alt="" style="width: 30px; height: 30px; object-fit: contain; margin-left: -6px"></div>
+            <div style="flex: 1; min-width: 0">
+              <p style="margin: 0; font-size: 14px; font-weight: 600">Monterrey gana · 1.0u</p>
+              <p class="num" style="margin: 2px 0 0; font-size: 12px; color: var(--t3)">Liga MX · Monterrey 1–1 Querétaro · −150</p>
+            </div>
+            <span class="status s-miss">No se cumplió · −1.0u</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 4px; margin: 10px 0 0 -10px">
+            <button class="act" type="button" aria-label="Me gusta, 64"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21.2l8.8-8.8a5.5 5.5 0 0 0 0-7.8z"></path></svg><span class="num">64</span></button>
+            <button class="act" type="button" aria-label="Comentarios, 7"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path></svg><span class="num">7</span></button>
+          </div>
+        </article>
+
+        <!-- Mariana · socia -->
+        <article class="glass" style="border-radius: 24px; padding: 20px 22px">
+          <header style="display: flex; align-items: center; gap: 12px">
+            <span class="av" aria-hidden="true" style="width: 42px; height: 42px; font-size: 14px; background: linear-gradient(135deg, #EC4899, #8B5CF6)">MT</span>
+            <div style="flex: 1; min-width: 0">
+              <p style="margin: 0; font-size: 15px; font-weight: 600">Mariana T.</p>
+              <p class="num" style="margin: 1px 0 0; font-size: 12px; color: var(--t3)">@mariana_t · +4.9u · ayer</p>
+            </div>
+          </header>
+          <p style="margin: 14px 0 0; font-size: 15px; line-height: 1.6; color: var(--t2)">Más de 1.5 goles en Querétaro–Monterrey: modelo 80.4 %, casa −300 (75 %).</p>
+          <div class="chip" style="margin-top: 14px; border-radius: 16px; padding: 14px 16px; display: flex; align-items: center; gap: 14px">
+            <div style="display: flex; flex: none"><img src="/_blob/2323d62b123b7c63b12afa5bc92fc6e2" alt="" style="width: 30px; height: 30px; object-fit: contain"><img src="/_blob/c0b14d133945253a1b9f6d17c27eb5ea" alt="" style="width: 30px; height: 30px; object-fit: contain; margin-left: -6px"></div>
+            <div style="flex: 1; min-width: 0">
+              <p style="margin: 0; font-size: 14px; font-weight: 600">Más de 1.5 goles · 1.0u</p>
+              <p class="num" style="margin: 2px 0 0; font-size: 12px; color: var(--t3)">Liga MX · sáb 17:00 · −300 · justo −410 · modelo 80.4 %</p>
+            </div>
+            <span class="status s-open">Abierto</span>
+          </div>
+        </article>
+      </div>
+
+      <aside class="aside" aria-label="De quienes sigues" style="display: flex; flex-direction: column; gap: 14px">
+        <section class="glass" aria-labelledby="abiertos" style="border-radius: 22px; padding: 18px 20px">
+          <h2 id="abiertos" class="eyebrow">Picks abiertos · próximos</h2>
+          <ol style="list-style: none; margin: 10px 0 0; padding: 0">
+            <li style="padding: 10px 0; border-bottom: 1px solid var(--line)">
+              <p class="num" style="margin: 0; font-size: 12px; color: var(--t3)">Jue 20:15 · NFL</p>
+              <p style="margin: 3px 0 0; font-size: 14px; font-weight: 600">Washington +7.5</p>
+              <p style="margin: 2px 0 0; font-size: 12px; color: var(--t3)">Sofía · Carlos</p>
+            </li>
+            <li style="padding: 10px 0; border-bottom: 1px solid var(--line)">
+              <p class="num" style="margin: 0; font-size: 12px; color: var(--t3)">Sáb 17:00 · Liga MX</p>
+              <p style="margin: 3px 0 0; font-size: 14px; font-weight: 600">Más de 1.5 goles</p>
+              <p style="margin: 2px 0 0; font-size: 12px; color: var(--t3)">Mariana · Diego · 2 más</p>
+            </li>
+            <li style="padding: 10px 0">
+              <p class="num" style="margin: 0; font-size: 12px; color: var(--t3)">Dom 10:30 · Premier</p>
+              <p style="margin: 3px 0 0; font-size: 14px; font-weight: 600">Ambos anotan</p>
+              <p style="margin: 2px 0 0; font-size: 12px; color: var(--t3)">Carlos</p>
+            </li>
+          </ol>
+        </section>
+
+        <section class="glass" aria-labelledby="sugerencias" style="border-radius: 22px; padding: 18px 20px">
+          <h2 id="sugerencias" class="eyebrow">Para seguir</h2>
+          <ul style="list-style: none; margin: 8px 0 0; padding: 0">
+            <sc-for list="{{suggest}}" as="s" hint-placeholder-count="3">
+              <li style="display: flex; align-items: center; gap: 10px; padding: 9px 0">
+                <span class="av" aria-hidden="true" style="width: 32px; height: 32px; font-size: 11px; background: {{s.grad}}">{{s.ini}}</span>
+                <span style="flex: 1; min-width: 0"><span style="display: block; font-size: 14px; font-weight: 600">{{s.name}}</span><span class="num" style="display: block; font-size: 12px; color: var(--t3)">{{s.sub}}</span></span>
+                <button class="btn {{s.cls}}" type="button" aria-pressed="{{s.on}}" onClick="{{s.toggle}}">{{s.label}}</button>
+              </li>
+            </sc-for>
+          </ul>
+        </section>
+      </aside>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1400}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { filter: 'todos', follows: {} };
+  }
+  renderVals() {
+    const s = this.state;
+    const people = [
+      ['jair', 'Jair R.', '#4 · +5.3u · 58 %', 'JR', 'linear-gradient(135deg, #34D399, #0EA5E9)'],
+      ['socio_pl', 'Socio PitchLab', '#6 · +3.7u · 54 %', 'SP', 'linear-gradient(135deg, #10B981, #059669)'],
+      ['andres', 'Andrés L.', '#7 · +3.6u · 53 %', 'AL', 'linear-gradient(135deg, #64748B, #334155)']
+    ];
+    return {
+      filters: [['todos', 'Todos'], ['tipstars', 'Tipstars'], ['socios', 'Socios'], ['abiertos', 'Con pick abierto']].map((f) => ({
+        label: f[1], on: s.filter === f[0] ? 'true' : 'false', pick: () => this.setState({ filter: f[0] })
+      })),
+      suggest: people.map((p) => {
+        const on = !!s.follows[p[0]];
+        return { name: p[1], sub: p[2], ini: p[3], grad: p[4], on: on ? 'true' : 'false', label: on ? 'Siguiendo' : 'Seguir', cls: on ? 'btn-ghost' : 'btn-primary',
+          toggle: () => this.setState({ follows: Object.assign({}, s.follows, { [p[0]]: !on }) }) };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>

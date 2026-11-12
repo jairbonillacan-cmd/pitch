@@ -1,0 +1,506 @@
+{
+  "schemaVersion": 1,
+  "designRevision": 1,
+  "season": "2026/27",
+  "edition": "Emblemas editoriales",
+  "source": "https://www.laliga.com/laliga-easports/clubes",
+  "entries": [
+    {
+      "id": "laliga",
+      "code": "LL",
+      "name": "LaLiga",
+      "shortName": "LaLiga",
+      "kind": "competition",
+      "motif": "Balón en movimiento",
+      "description": "Un balón marfil entre dos arcos coral sobre granate.",
+      "colors": {
+        "tile": "#AD2842",
+        "primary": "#FFF0D8",
+        "accent": "#E26359",
+        "trim": "#F9E5D0"
+      },
+      "contrast": {
+        "primaryOnTile": 5.9219,
+        "accentOnTile": 1.9508
+      },
+      "source": "https://www.laliga.com/laliga-easports/clubes",
+      "svg": "svg/laliga.svg",
+      "png": "png/laliga.png",
+      "symbolId": "pitchlab-laliga"
+    },
+    {
+      "id": "athletic-club",
+      "code": "ATH",
+      "name": "Athletic Club",
+      "shortName": "Athletic Club",
+      "kind": "club",
+      "motif": "Puente rojiblanco",
+      "description": "Puente rojiblanco",
+      "colors": {
+        "tile": "#FFF2DD",
+        "primary": "#263D56",
+        "accent": "#B42D44",
+        "trim": "#A42D42"
+      },
+      "contrast": {
+        "primaryOnTile": 10.0818,
+        "accentOnTile": 5.5882
+      },
+      "source": "https://www.laliga.com/laliga-easports/clubes",
+      "svg": "svg/athletic-club.svg",
+      "png": "png/athletic-club.png",
+      "symbolId": "pitchlab-athletic-club"
+    },
+    {
+      "id": "atletico-madrid",
+      "code": "ATM",
+      "name": "Atlético de Madrid",
+      "shortName": "Atlético de Madrid",
+      "kind": "club",
+      "country": "ESP",
+      "motif": "Oso y madroño",
+      "description": "Oso en pie y árbol en azul, con franjas rojiblancas en segundo plano.",
+      "colors": {
+        "tile": "#FBF5E8",
+        "primary": "#233A64",
+        "accent": "#B9293F",
+        "trim": "#233A64"
+      },
+      "contrast": {
+        "primaryOnTile": 10.3875,
+        "accentOnTile": 5.5994
+      },
+      "source": "https://www.uefa.com/uefachampionsleague/news/02a8-2171a88881a0-c70193b972c6-1000--meet-the-2026-27-champions-league-league-phase-teams/",
+      "svg": "svg/atletico-madrid.svg",
+      "png": "png/atletico-madrid.png",
+      "symbolId": "pitchlab-atletico-madrid",
+      "originCollection": "champions-league-2026-27"
+    },
+    {
+      "id": "osasuna",
+      "code": "OSA",
+      "name": "CA Osasuna",
+      "shortName": "CA Osasuna",
+      "kind": "club",
+      "motif": "Corona navarra",
+      "description": "Corona navarra",
+      "colors": {
+        "tile": "#8E243D",
+        "primary": "#F0C771",
+        "accent": "#203657",
+        "trim": "#ECC884"
+      },
+      "contrast": {
+        "primaryOnTile": 5.3091,
+        "accentOnTile": 1.4304
+      },
+      "source": "https://www.laliga.com/laliga-easports/clubes",
+      "svg": "svg/osasuna.svg",
+      "png": "png/osasuna.png",
+      "symbolId": "pitchlab-osasuna"
+    },
+    {
+      "id": "celta-vigo",
+      "code": "CELV",
+      "name": "Celta de Vigo",
+      "shortName": "Celta de Vigo",
+      "kind": "club",
+      "country": "ESP",
+      "motif": "Cruz de Santiago",
+      "description": "Cruz granate con remates dibujados para esta pieza, sobre celeste.",
+      "colors": {
+        "tile": "#A7D5EA",
+        "primary": "#8B213F",
+        "accent": "#8EBFD8",
+        "trim": "#8B213F"
+      },
+      "contrast": {
+        "primaryOnTile": 5.5921,
+        "accentOnTile": 1.26
+      },
+      "source": "https://www.uefa.com/uefaeuropaleague/news/02a8-217364fd42e6-7e49801d8daf-1000--2026-27-europa-league-meet-the-league-phase-teams/",
+      "svg": "svg/celta-vigo.svg",
+      "png": "png/celta-vigo.png",
+      "symbolId": "pitchlab-celta-vigo",
+      "originCollection": "europa-league-2026-27"
+    },
+    {
+      "id": "alaves",
+      "code": "ALA",
+      "name": "Deportivo Alavés",
+      "shortName": "Deportivo Alavés",
+      "kind": "club",
+      "motif": "Banderín albiazul",
+      "description": "Banderín albiazul",
+      "colors": {
+        "tile": "#235B94",
+        "primary": "#FFF2DD",
+        "accent": "#397DB4",
+        "trim": "#D7E5EA"
+      },
+      "contrast": {
+        "primaryOnTile": 6.3418,
+        "accentOnTile": 1.5912
+      },
+      "source": "https://www.laliga.com/laliga-easports/clubes",
+      "svg": "svg/alaves.svg",
+      "png": "png/alaves.png",
+      "symbolId": "pitchlab-alaves"
+    },
+    {
+      "id": "elche",
+      "code": "ELC",
+      "name": "Elche CF",
+      "shortName": "Elche CF",
+      "kind": "club",
+      "motif": "Palmera y franja verde",
+      "description": "Palmera y franja verde",
+      "colors": {
+        "tile": "#FFF2DD",
+        "primary": "#12694D",
+        "accent": "#228369",
+        "trim": "#95673C"
+      },
+      "contrast": {
+        "primaryOnTile": 6.0241,
+        "accentOnTile": 4.2042
+      },
+      "source": "https://www.laliga.com/laliga-easports/clubes",
+      "svg": "svg/elche.svg",
+      "png": "png/elche.png",
+      "symbolId": "pitchlab-elche"
+    },
+    {
+      "id": "barcelona",
+      "code": "BAR",
+      "name": "FC Barcelona",
+      "shortName": "FC Barcelona",
+      "kind": "club",
+      "country": "ESP",
+      "motif": "Balón, senyera y franjas",
+      "description": "Balón dorado junto a un listón con los colores de la senyera, sobre franjas azulgrana.",
+      "colors": {
+        "tile": "#233F77",
+        "primary": "#F5C767",
+        "accent": "#A32149",
+        "trim": "#E7BC71"
+      },
+      "contrast": {
+        "primaryOnTile": 6.4659,
+        "accentOnTile": 1.4013
+      },
+      "source": "https://www.fcbarcelona.com/en/club/identity/the-crest",
+      "svg": "svg/barcelona.svg",
+      "png": "png/barcelona.png",
+      "symbolId": "pitchlab-barcelona",
+      "originCollection": "champions-league-2026-27"
+    },
+    {
+      "id": "getafe",
+      "code": "GET",
+      "name": "Getafe CF",
+      "shortName": "Getafe CF",
+      "kind": "club",
+      "motif": "Torre sobre azul",
+      "description": "Torre sobre azul",
+      "colors": {
+        "tile": "#1D56A0",
+        "primary": "#FFF2DD",
+        "accent": "#28715A",
+        "trim": "#D0E3EC"
+      },
+      "contrast": {
+        "primaryOnTile": 6.5711,
+        "accentOnTile": 1.2452
+      },
+      "source": "https://www.laliga.com/laliga-easports/clubes",
+      "svg": "svg/getafe.svg",
+      "png": "png/getafe.png",
+      "symbolId": "pitchlab-getafe"
+    },
+    {
+      "id": "levante",
+      "code": "LEV",
+      "name": "Levante UD",
+      "shortName": "Levante UD",
+      "kind": "club",
+      "motif": "Murciélago azulgrana",
+      "description": "Murciélago azulgrana",
+      "colors": {
+        "tile": "#244475",
+        "primary": "#F0CC84",
+        "accent": "#A02444",
+        "trim": "#E4B967"
+      },
+      "contrast": {
+        "primaryOnTile": 6.3349,
+        "accentOnTile": 1.3112
+      },
+      "source": "https://www.laliga.com/laliga-easports/clubes",
+      "svg": "svg/levante.svg",
+      "png": "png/levante.png",
+      "symbolId": "pitchlab-levante"
+    },
+    {
+      "id": "malaga",
+      "code": "MAL",
+      "name": "Málaga CF",
+      "shortName": "Málaga CF",
+      "kind": "club",
+      "motif": "Fortaleza malagueña",
+      "description": "Fortaleza malagueña",
+      "colors": {
+        "tile": "#F5F0DF",
+        "primary": "#184673",
+        "accent": "#68A8D7",
+        "trim": "#2C5276"
+      },
+      "contrast": {
+        "primaryOnTile": 8.5144,
+        "accentOnTile": 2.2534
+      },
+      "source": "https://www.laliga.com/laliga-easports/clubes",
+      "svg": "svg/malaga.svg",
+      "png": "png/malaga.png",
+      "symbolId": "pitchlab-malaga"
+    },
+    {
+      "id": "racing-santander",
+      "code": "RAC",
+      "name": "Racing de Santander",
+      "shortName": "Racing de Santander",
+      "kind": "club",
+      "motif": "Bandera verdiblanca",
+      "description": "Bandera verdiblanca",
+      "colors": {
+        "tile": "#FFF2DD",
+        "primary": "#127451",
+        "accent": "#BFD6BD",
+        "trim": "#28352F"
+      },
+      "contrast": {
+        "primaryOnTile": 5.2151,
+        "accentOnTile": 1.4001
+      },
+      "source": "https://www.laliga.com/laliga-easports/clubes",
+      "svg": "svg/racing-santander.svg",
+      "png": "png/racing-santander.png",
+      "symbolId": "pitchlab-racing-santander"
+    },
+    {
+      "id": "rayo-vallecano",
+      "code": "RAY",
+      "name": "Rayo Vallecano",
+      "shortName": "Rayo Vallecano",
+      "kind": "club",
+      "motif": "Rayo de Vallecas",
+      "description": "Rayo de Vallecas",
+      "colors": {
+        "tile": "#FFF2DD",
+        "primary": "#BD3049",
+        "accent": "#BD3049",
+        "trim": "#303039"
+      },
+      "contrast": {
+        "primaryOnTile": 5.1584,
+        "accentOnTile": 5.1584
+      },
+      "source": "https://www.laliga.com/laliga-easports/clubes",
+      "svg": "svg/rayo-vallecano.svg",
+      "png": "png/rayo-vallecano.png",
+      "symbolId": "pitchlab-rayo-vallecano"
+    },
+    {
+      "id": "deportivo-la-coruna",
+      "code": "DEP",
+      "name": "Deportivo de La Coruña",
+      "shortName": "Deportivo de La Coruña",
+      "kind": "club",
+      "motif": "D y banda violeta",
+      "description": "D y banda violeta",
+      "colors": {
+        "tile": "#FFF2DD",
+        "primary": "#23598E",
+        "accent": "#795B9F",
+        "trim": "#C5A775"
+      },
+      "contrast": {
+        "primaryOnTile": 6.571,
+        "accentOnTile": 4.986
+      },
+      "source": "https://www.laliga.com/laliga-easports/clubes",
+      "svg": "svg/deportivo-la-coruna.svg",
+      "png": "png/deportivo-la-coruna.png",
+      "symbolId": "pitchlab-deportivo-la-coruna"
+    },
+    {
+      "id": "espanyol",
+      "code": "ESP",
+      "name": "RCD Espanyol",
+      "shortName": "RCD Espanyol",
+      "kind": "club",
+      "motif": "Corona y banda azul",
+      "description": "Corona y banda azul",
+      "colors": {
+        "tile": "#235B94",
+        "primary": "#FFF2DD",
+        "accent": "#659FC9",
+        "trim": "#D7B777"
+      },
+      "contrast": {
+        "primaryOnTile": 6.3418,
+        "accentOnTile": 2.4557
+      },
+      "source": "https://www.laliga.com/laliga-easports/clubes",
+      "svg": "svg/espanyol.svg",
+      "png": "png/espanyol.png",
+      "symbolId": "pitchlab-espanyol"
+    },
+    {
+      "id": "real-betis",
+      "code": "BET",
+      "name": "Real Betis",
+      "shortName": "Real Betis",
+      "kind": "club",
+      "country": "ESP",
+      "motif": "Corona y franjas verdes",
+      "description": "Corona dorada sobre franjas blancas y verdes en un escudo en punta.",
+      "colors": {
+        "tile": "#08774F",
+        "primary": "#F8D27C",
+        "accent": "#EDF3DB",
+        "trim": "#0D654A"
+      },
+      "contrast": {
+        "primaryOnTile": 3.8546,
+        "accentOnTile": 4.9028
+      },
+      "source": "https://www.uefa.com/uefachampionsleague/news/02a8-2171a88881a0-c70193b972c6-1000--meet-the-2026-27-champions-league-league-phase-teams/",
+      "svg": "svg/real-betis.svg",
+      "png": "png/real-betis.png",
+      "symbolId": "pitchlab-real-betis",
+      "originCollection": "champions-league-2026-27"
+    },
+    {
+      "id": "real-madrid",
+      "code": "RMA",
+      "name": "Real Madrid",
+      "shortName": "Real Madrid",
+      "kind": "club",
+      "country": "ESP",
+      "motif": "Corona sobre banda violeta",
+      "description": "Corona dorada en medalla marfil con banda violeta en diagonal.",
+      "colors": {
+        "tile": "#FBF5E8",
+        "primary": "#876021",
+        "accent": "#6A528C",
+        "trim": "#B48642"
+      },
+      "contrast": {
+        "primaryOnTile": 5.1883,
+        "accentOnTile": 6.043
+      },
+      "source": "https://www.uefa.com/uefachampionsleague/news/02a8-2171a88881a0-c70193b972c6-1000--meet-the-2026-27-champions-league-league-phase-teams/",
+      "svg": "svg/real-madrid.svg",
+      "png": "png/real-madrid.png",
+      "symbolId": "pitchlab-real-madrid",
+      "originCollection": "champions-league-2026-27"
+    },
+    {
+      "id": "real-sociedad",
+      "code": "RSO",
+      "name": "Real Sociedad",
+      "shortName": "Real Sociedad",
+      "kind": "club",
+      "country": "ESP",
+      "motif": "Bandera txuri-urdin",
+      "description": "Bandera ondeante en azul y blanco sobre una medalla marfil.",
+      "colors": {
+        "tile": "#FBF5E8",
+        "primary": "#225990",
+        "accent": "#EAC782",
+        "trim": "#274F79"
+      },
+      "contrast": {
+        "primaryOnTile": 6.6656,
+        "accentOnTile": 1.4879
+      },
+      "source": "https://www.uefa.com/uefaeuropaleague/news/02a8-217364fd42e6-7e49801d8daf-1000--2026-27-europa-league-meet-the-league-phase-teams/",
+      "svg": "svg/real-sociedad.svg",
+      "png": "png/real-sociedad.png",
+      "symbolId": "pitchlab-real-sociedad",
+      "originCollection": "europa-league-2026-27"
+    },
+    {
+      "id": "sevilla",
+      "code": "SEV",
+      "name": "Sevilla FC",
+      "shortName": "Sevilla FC",
+      "kind": "club",
+      "motif": "Iniciales rojiblancas",
+      "description": "Iniciales rojiblancas",
+      "colors": {
+        "tile": "#FFF2DD",
+        "primary": "#AA2540",
+        "accent": "#C64152",
+        "trim": "#A52A40"
+      },
+      "contrast": {
+        "primaryOnTile": 6.2329,
+        "accentOnTile": 4.4395
+      },
+      "source": "https://www.laliga.com/laliga-easports/clubes",
+      "svg": "svg/sevilla.svg",
+      "png": "png/sevilla.png",
+      "symbolId": "pitchlab-sevilla"
+    },
+    {
+      "id": "valencia",
+      "code": "VAL",
+      "name": "Valencia CF",
+      "shortName": "Valencia CF",
+      "kind": "club",
+      "motif": "Murciélago y senyera",
+      "description": "Murciélago y senyera",
+      "colors": {
+        "tile": "#F3C358",
+        "primary": "#25252B",
+        "accent": "#C54043",
+        "trim": "#201F29"
+      },
+      "contrast": {
+        "primaryOnTile": 9.2571,
+        "accentOnTile": 3.046
+      },
+      "source": "https://www.laliga.com/laliga-easports/clubes",
+      "svg": "svg/valencia.svg",
+      "png": "png/valencia.png",
+      "symbolId": "pitchlab-valencia"
+    },
+    {
+      "id": "villarreal",
+      "code": "VIL",
+      "name": "Villarreal CF",
+      "shortName": "Villarreal CF",
+      "kind": "club",
+      "country": "ESP",
+      "motif": "V del Submarino Amarillo",
+      "description": "V azul sobre rombo amarillo, con acento granate en la parte superior.",
+      "colors": {
+        "tile": "#F8D052",
+        "primary": "#1B4A78",
+        "accent": "#E8B23C",
+        "trim": "#A82A40"
+      },
+      "contrast": {
+        "primaryOnTile": 6.153,
+        "accentOnTile": 1.3011
+      },
+      "source": "https://www.uefa.com/uefachampionsleague/news/02a8-2171a88881a0-c70193b972c6-1000--meet-the-2026-27-champions-league-league-phase-teams/",
+      "svg": "svg/villarreal.svg",
+      "png": "png/villarreal.png",
+      "symbolId": "pitchlab-villarreal",
+      "originCollection": "champions-league-2026-27"
+    }
+  ]
+}

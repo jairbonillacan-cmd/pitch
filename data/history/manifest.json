@@ -1,0 +1,2291 @@
+{
+  "schemaVersion": 1,
+  "datasetId": "35fea620f15ca0aff9f976ef59c2bd1bfde26e9dad1d250823b44d5bd400018d",
+  "generatedAt": "2026-11-09T01:07:19.291Z",
+  "generatedBy": "services/ingest/history",
+  "window": {
+    "soccerSeasons": [
+      "2010-11",
+      "2011-12",
+      "2012-13",
+      "2013-14",
+      "2014-15",
+      "2015-16",
+      "2016-17",
+      "2017-18",
+      "2018-19",
+      "2019-20",
+      "2020-21",
+      "2021-22",
+      "2022-23",
+      "2023-24",
+      "2024-25",
+      "2025-26",
+      "2026-27"
+    ],
+    "nflSeasons": [
+      "1999",
+      "2000",
+      "2001",
+      "2002",
+      "2003",
+      "2004",
+      "2005",
+      "2006",
+      "2007",
+      "2008",
+      "2009",
+      "2010",
+      "2011",
+      "2012",
+      "2013",
+      "2014",
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024",
+      "2025",
+      "2026"
+    ]
+  },
+  "totals": {
+    "rows": 34168,
+    "leagues": 7,
+    "seasons": 108,
+    "teams": 235,
+    "sources": 103
+  },
+  "quality": {
+    "errors": 0,
+    "warnings": 1,
+    "checks": [
+      "identificadores únicos por temporada, torneo y jornada",
+      "un equipo por jornada y temporada",
+      "marcadores dentro de rango",
+      "cobertura por temporada frente a la referencia",
+      "temporadas anómalas respecto de su grupo de equipos",
+      "posibles identidades duplicadas de equipos (sin coincidencia de temporada)",
+      "tasas agregadas de localía y goles"
+    ]
+  },
+  "leagues": [
+    {
+      "id": "bundesliga",
+      "name": "Bundesliga",
+      "sport": "soccer",
+      "productLeague": true,
+      "file": "bundesliga.jsonl",
+      "fileSha256": "72d0399046774236afb279a6faaaec260be3002f78de59261b0f550569c22281",
+      "rows": 4917,
+      "quality": {
+        "league": "bundesliga",
+        "rows": 4917,
+        "seasons": [
+          {
+            "season": "2010-11",
+            "rows": 306,
+            "firstDate": "2010-08-20",
+            "lastDate": "2011-05-14",
+            "status": "complete"
+          },
+          {
+            "season": "2011-12",
+            "rows": 306,
+            "firstDate": "2011-08-05",
+            "lastDate": "2012-05-05",
+            "status": "complete"
+          },
+          {
+            "season": "2012-13",
+            "rows": 306,
+            "firstDate": "2012-08-24",
+            "lastDate": "2013-05-18",
+            "status": "complete"
+          },
+          {
+            "season": "2013-14",
+            "rows": 306,
+            "firstDate": "2013-08-09",
+            "lastDate": "2014-05-10",
+            "status": "complete"
+          },
+          {
+            "season": "2014-15",
+            "rows": 306,
+            "firstDate": "2014-08-22",
+            "lastDate": "2015-05-23",
+            "status": "complete"
+          },
+          {
+            "season": "2015-16",
+            "rows": 306,
+            "firstDate": "2015-08-14",
+            "lastDate": "2016-05-14",
+            "status": "complete"
+          },
+          {
+            "season": "2016-17",
+            "rows": 306,
+            "firstDate": "2016-08-26",
+            "lastDate": "2017-05-20",
+            "status": "complete"
+          },
+          {
+            "season": "2017-18",
+            "rows": 306,
+            "firstDate": "2017-08-18",
+            "lastDate": "2018-05-12",
+            "status": "complete"
+          },
+          {
+            "season": "2018-19",
+            "rows": 306,
+            "firstDate": "2018-08-24",
+            "lastDate": "2019-05-18",
+            "status": "complete"
+          },
+          {
+            "season": "2019-20",
+            "rows": 306,
+            "firstDate": "2019-08-16",
+            "lastDate": "2020-06-27",
+            "status": "complete"
+          },
+          {
+            "season": "2020-21",
+            "rows": 306,
+            "firstDate": "2020-09-18",
+            "lastDate": "2021-05-22",
+            "status": "complete"
+          },
+          {
+            "season": "2021-22",
+            "rows": 306,
+            "firstDate": "2021-08-13",
+            "lastDate": "2022-05-14",
+            "status": "complete"
+          },
+          {
+            "season": "2022-23",
+            "rows": 306,
+            "firstDate": "2022-08-05",
+            "lastDate": "2023-05-27",
+            "status": "complete"
+          },
+          {
+            "season": "2023-24",
+            "rows": 306,
+            "firstDate": "2023-08-18",
+            "lastDate": "2024-05-18",
+            "status": "complete"
+          },
+          {
+            "season": "2024-25",
+            "rows": 306,
+            "firstDate": "2024-08-23",
+            "lastDate": "2025-05-17",
+            "status": "complete"
+          },
+          {
+            "season": "2025-26",
+            "rows": 294,
+            "firstDate": "2025-08-22",
+            "lastDate": "2026-05-16",
+            "status": "partial"
+          },
+          {
+            "season": "2026-27",
+            "rows": 33,
+            "firstDate": "2026-08-28",
+            "lastDate": "2026-09-20",
+            "status": "partial"
+          }
+        ],
+        "teams": 33,
+        "firstDate": "2010-08-20",
+        "lastDate": "2026-09-20",
+        "rates": {
+          "homeWin": 0.44885092536099247,
+          "draw": 0.24181411429733576,
+          "awayWin": 0.30933496034167174,
+          "avgTotalScore": 3.0412853365873502,
+          "avgHomeScore": 1.699003457392719,
+          "avgAwayScore": 1.342281879194631
+        },
+        "issues": [
+          {
+            "severity": "info",
+            "code": "season_partial",
+            "message": "2 temporadas tienen menos partidos que la referencia (306); suele ser la temporada en curso.",
+            "league": "bundesliga",
+            "sample": [
+              "2025-26: 294",
+              "2026-27: 33"
+            ]
+          },
+          {
+            "severity": "info",
+            "code": "season_in_progress",
+            "message": "1 temporadas en curso tienen menos partidos jugados que una temporada cerrada.",
+            "league": "bundesliga",
+            "sample": [
+              "2026-27: 33"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "la-liga",
+      "name": "LaLiga",
+      "sport": "soccer",
+      "productLeague": true,
+      "file": "la-liga.jsonl",
+      "fileSha256": "8481db5fc391e7261ee1e42fab4c929a67b694a698187f92474861c34ae36ee3",
+      "rows": 5359,
+      "quality": {
+        "league": "la-liga",
+        "rows": 5359,
+        "seasons": [
+          {
+            "season": "2012-13",
+            "rows": 380,
+            "firstDate": "2012-08-18",
+            "lastDate": "2013-06-01",
+            "status": "complete"
+          },
+          {
+            "season": "2013-14",
+            "rows": 380,
+            "firstDate": "2013-08-17",
+            "lastDate": "2014-05-18",
+            "status": "complete"
+          },
+          {
+            "season": "2014-15",
+            "rows": 380,
+            "firstDate": "2014-08-23",
+            "lastDate": "2015-05-23",
+            "status": "complete"
+          },
+          {
+            "season": "2015-16",
+            "rows": 380,
+            "firstDate": "2015-08-21",
+            "lastDate": "2016-05-15",
+            "status": "complete"
+          },
+          {
+            "season": "2016-17",
+            "rows": 380,
+            "firstDate": "2016-08-19",
+            "lastDate": "2017-05-21",
+            "status": "complete"
+          },
+          {
+            "season": "2017-18",
+            "rows": 380,
+            "firstDate": "2017-08-18",
+            "lastDate": "2018-05-20",
+            "status": "complete"
+          },
+          {
+            "season": "2018-19",
+            "rows": 380,
+            "firstDate": "2018-08-17",
+            "lastDate": "2019-05-19",
+            "status": "complete"
+          },
+          {
+            "season": "2019-20",
+            "rows": 380,
+            "firstDate": "2019-08-16",
+            "lastDate": "2020-07-19",
+            "status": "complete"
+          },
+          {
+            "season": "2020-21",
+            "rows": 380,
+            "firstDate": "2020-09-12",
+            "lastDate": "2021-05-23",
+            "status": "complete"
+          },
+          {
+            "season": "2021-22",
+            "rows": 380,
+            "firstDate": "2021-08-13",
+            "lastDate": "2022-05-22",
+            "status": "complete"
+          },
+          {
+            "season": "2022-23",
+            "rows": 380,
+            "firstDate": "2022-08-12",
+            "lastDate": "2023-06-04",
+            "status": "complete"
+          },
+          {
+            "season": "2023-24",
+            "rows": 380,
+            "firstDate": "2023-08-11",
+            "lastDate": "2024-05-26",
+            "status": "complete"
+          },
+          {
+            "season": "2024-25",
+            "rows": 370,
+            "firstDate": "2024-08-15",
+            "lastDate": "2025-05-18",
+            "status": "partial"
+          },
+          {
+            "season": "2025-26",
+            "rows": 365,
+            "firstDate": "2025-08-15",
+            "lastDate": "2026-05-24",
+            "status": "partial"
+          },
+          {
+            "season": "2026-27",
+            "rows": 64,
+            "firstDate": "2026-08-15",
+            "lastDate": "2026-09-20",
+            "status": "partial"
+          }
+        ],
+        "teams": 34,
+        "firstDate": "2012-08-18",
+        "lastDate": "2026-09-20",
+        "rates": {
+          "homeWin": 0.46239970143683523,
+          "draw": 0.25060645642843815,
+          "awayWin": 0.2869938421347266,
+          "avgTotalScore": 2.6723269266654226,
+          "avgHomeScore": 1.5318156372457548,
+          "avgAwayScore": 1.1405112894196678
+        },
+        "issues": [
+          {
+            "severity": "info",
+            "code": "season_partial",
+            "message": "3 temporadas tienen menos partidos que la referencia (380); suele ser la temporada en curso.",
+            "league": "la-liga",
+            "sample": [
+              "2024-25: 370",
+              "2025-26: 365",
+              "2026-27: 64"
+            ]
+          },
+          {
+            "severity": "info",
+            "code": "season_in_progress",
+            "message": "1 temporadas en curso tienen menos partidos jugados que una temporada cerrada.",
+            "league": "la-liga",
+            "sample": [
+              "2026-27: 64"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "liga-mx",
+      "name": "Liga MX",
+      "sport": "soccer",
+      "productLeague": true,
+      "file": "liga-mx.jsonl",
+      "fileSha256": "2c5ba79a7a647de4c6709fda989731fe27de728acf420c66d376c967794e8975",
+      "rows": 1189,
+      "quality": {
+        "league": "liga-mx",
+        "rows": 1189,
+        "seasons": [
+          {
+            "season": "2018-19",
+            "rows": 306,
+            "firstDate": "2018-07-20",
+            "lastDate": "2019-05-05",
+            "status": "complete"
+          },
+          {
+            "season": "2019-20",
+            "rows": 261,
+            "firstDate": "2019-07-19",
+            "lastDate": "2020-03-15",
+            "status": "partial"
+          },
+          {
+            "season": "2020-21",
+            "rows": 310,
+            "firstDate": "2020-07-24",
+            "lastDate": "2021-05-02",
+            "status": "complete"
+          },
+          {
+            "season": "2024-25",
+            "rows": 312,
+            "firstDate": "2024-07-05",
+            "lastDate": "2025-05-04",
+            "status": "complete"
+          }
+        ],
+        "teams": 21,
+        "firstDate": "2018-07-20",
+        "lastDate": "2025-05-04",
+        "rates": {
+          "homeWin": 0.46761984861227923,
+          "draw": 0.2447434819175778,
+          "awayWin": 0.287636669470143,
+          "avgTotalScore": 2.700588730025231,
+          "avgHomeScore": 1.5449957947855342,
+          "avgAwayScore": 1.1555929352396972
+        },
+        "issues": [
+          {
+            "severity": "info",
+            "code": "season_partial",
+            "message": "1 temporadas tienen menos partidos que la referencia (306); suele ser la temporada en curso.",
+            "league": "liga-mx",
+            "sample": [
+              "2019-20: 261"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ligue-1",
+      "name": "Ligue 1",
+      "sport": "soccer",
+      "productLeague": true,
+      "file": "ligue-1.jsonl",
+      "fileSha256": "4e1906a03af592a584c14bfc823779a602e20c758eea9abc17f204ab2cbd0136",
+      "rows": 4254,
+      "quality": {
+        "league": "ligue-1",
+        "rows": 4254,
+        "seasons": [
+          {
+            "season": "2014-15",
+            "rows": 380,
+            "firstDate": "2014-08-08",
+            "lastDate": "2015-05-23",
+            "status": "complete"
+          },
+          {
+            "season": "2015-16",
+            "rows": 380,
+            "firstDate": "2015-08-07",
+            "lastDate": "2016-05-14",
+            "status": "complete"
+          },
+          {
+            "season": "2016-17",
+            "rows": 380,
+            "firstDate": "2016-08-12",
+            "lastDate": "2017-05-20",
+            "status": "complete"
+          },
+          {
+            "season": "2017-18",
+            "rows": 380,
+            "firstDate": "2017-08-04",
+            "lastDate": "2018-05-19",
+            "status": "complete"
+          },
+          {
+            "season": "2018-19",
+            "rows": 380,
+            "firstDate": "2018-08-10",
+            "lastDate": "2019-05-24",
+            "status": "complete"
+          },
+          {
+            "season": "2019-20",
+            "rows": 279,
+            "firstDate": "2019-08-09",
+            "lastDate": "2020-03-08",
+            "status": "partial"
+          },
+          {
+            "season": "2020-21",
+            "rows": 380,
+            "firstDate": "2020-08-21",
+            "lastDate": "2021-05-23",
+            "status": "complete"
+          },
+          {
+            "season": "2021-22",
+            "rows": 380,
+            "firstDate": "2021-08-06",
+            "lastDate": "2022-05-21",
+            "status": "complete"
+          },
+          {
+            "season": "2022-23",
+            "rows": 380,
+            "firstDate": "2022-08-05",
+            "lastDate": "2023-06-03",
+            "status": "complete"
+          },
+          {
+            "season": "2023-24",
+            "rows": 306,
+            "firstDate": "2023-08-11",
+            "lastDate": "2024-05-19",
+            "status": "complete"
+          },
+          {
+            "season": "2024-25",
+            "rows": 306,
+            "firstDate": "2024-08-16",
+            "lastDate": "2025-05-17",
+            "status": "complete"
+          },
+          {
+            "season": "2025-26",
+            "rows": 282,
+            "firstDate": "2025-08-15",
+            "lastDate": "2026-05-17",
+            "status": "partial"
+          },
+          {
+            "season": "2026-27",
+            "rows": 41,
+            "firstDate": "2026-08-21",
+            "lastDate": "2026-09-20",
+            "status": "partial"
+          }
+        ],
+        "teams": 35,
+        "firstDate": "2014-08-08",
+        "lastDate": "2026-09-20",
+        "rates": {
+          "homeWin": 0.44358251057827924,
+          "draw": 0.24894217207334274,
+          "awayWin": 0.307475317348378,
+          "avgTotalScore": 2.707569346497414,
+          "avgHomeScore": 1.5077574047954867,
+          "avgAwayScore": 1.1998119417019275
+        },
+        "issues": [
+          {
+            "severity": "info",
+            "code": "season_partial",
+            "message": "3 temporadas tienen menos partidos que la referencia (306); suele ser la temporada en curso.",
+            "league": "ligue-1",
+            "sample": [
+              "2019-20: 279",
+              "2025-26: 282",
+              "2026-27: 41"
+            ]
+          },
+          {
+            "severity": "warning",
+            "code": "season_under_median",
+            "message": "1 temporadas tienen menos del 85 % de la mediana de su grupo (posible cancelación o datos incompletos).",
+            "league": "ligue-1",
+            "sample": [
+              "2019-20: 279 de ~380"
+            ]
+          },
+          {
+            "severity": "info",
+            "code": "season_in_progress",
+            "message": "1 temporadas en curso tienen menos partidos jugados que una temporada cerrada.",
+            "league": "ligue-1",
+            "sample": [
+              "2026-27: 41"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "nfl",
+      "name": "NFL",
+      "sport": "american-football",
+      "productLeague": true,
+      "file": "nfl.jsonl",
+      "fileSha256": "570159b5793e70b385271eaa101c33ba7e437c11173be252850147e605d9db31",
+      "rows": 7407,
+      "quality": {
+        "league": "nfl",
+        "rows": 7407,
+        "seasons": [
+          {
+            "season": "1999",
+            "rows": 259,
+            "firstDate": "1999-09-12",
+            "lastDate": "2000-01-30",
+            "status": "complete"
+          },
+          {
+            "season": "2000",
+            "rows": 259,
+            "firstDate": "2000-09-03",
+            "lastDate": "2001-01-28",
+            "status": "complete"
+          },
+          {
+            "season": "2001",
+            "rows": 259,
+            "firstDate": "2001-09-09",
+            "lastDate": "2002-02-03",
+            "status": "complete"
+          },
+          {
+            "season": "2002",
+            "rows": 267,
+            "firstDate": "2002-09-05",
+            "lastDate": "2003-01-26",
+            "status": "complete"
+          },
+          {
+            "season": "2003",
+            "rows": 267,
+            "firstDate": "2003-09-04",
+            "lastDate": "2004-02-01",
+            "status": "complete"
+          },
+          {
+            "season": "2004",
+            "rows": 267,
+            "firstDate": "2004-09-09",
+            "lastDate": "2005-02-06",
+            "status": "complete"
+          },
+          {
+            "season": "2005",
+            "rows": 267,
+            "firstDate": "2005-09-08",
+            "lastDate": "2006-02-05",
+            "status": "complete"
+          },
+          {
+            "season": "2006",
+            "rows": 267,
+            "firstDate": "2006-09-07",
+            "lastDate": "2007-02-04",
+            "status": "complete"
+          },
+          {
+            "season": "2007",
+            "rows": 267,
+            "firstDate": "2007-09-06",
+            "lastDate": "2008-02-03",
+            "status": "complete"
+          },
+          {
+            "season": "2008",
+            "rows": 267,
+            "firstDate": "2008-09-04",
+            "lastDate": "2009-02-01",
+            "status": "complete"
+          },
+          {
+            "season": "2009",
+            "rows": 267,
+            "firstDate": "2009-09-10",
+            "lastDate": "2010-02-07",
+            "status": "complete"
+          },
+          {
+            "season": "2010",
+            "rows": 267,
+            "firstDate": "2010-09-09",
+            "lastDate": "2011-02-06",
+            "status": "complete"
+          },
+          {
+            "season": "2011",
+            "rows": 267,
+            "firstDate": "2011-09-08",
+            "lastDate": "2012-02-05",
+            "status": "complete"
+          },
+          {
+            "season": "2012",
+            "rows": 267,
+            "firstDate": "2012-09-05",
+            "lastDate": "2013-02-03",
+            "status": "complete"
+          },
+          {
+            "season": "2013",
+            "rows": 267,
+            "firstDate": "2013-09-05",
+            "lastDate": "2014-02-02",
+            "status": "complete"
+          },
+          {
+            "season": "2014",
+            "rows": 267,
+            "firstDate": "2014-09-04",
+            "lastDate": "2015-02-01",
+            "status": "complete"
+          },
+          {
+            "season": "2015",
+            "rows": 267,
+            "firstDate": "2015-09-10",
+            "lastDate": "2016-02-07",
+            "status": "complete"
+          },
+          {
+            "season": "2016",
+            "rows": 267,
+            "firstDate": "2016-09-08",
+            "lastDate": "2017-02-05",
+            "status": "complete"
+          },
+          {
+            "season": "2017",
+            "rows": 267,
+            "firstDate": "2017-09-07",
+            "lastDate": "2018-02-04",
+            "status": "complete"
+          },
+          {
+            "season": "2018",
+            "rows": 267,
+            "firstDate": "2018-09-06",
+            "lastDate": "2019-02-03",
+            "status": "complete"
+          },
+          {
+            "season": "2019",
+            "rows": 267,
+            "firstDate": "2019-09-05",
+            "lastDate": "2020-02-02",
+            "status": "complete"
+          },
+          {
+            "season": "2020",
+            "rows": 269,
+            "firstDate": "2020-09-10",
+            "lastDate": "2021-02-07",
+            "status": "complete"
+          },
+          {
+            "season": "2021",
+            "rows": 285,
+            "firstDate": "2021-09-09",
+            "lastDate": "2022-02-13",
+            "status": "complete"
+          },
+          {
+            "season": "2022",
+            "rows": 284,
+            "firstDate": "2022-09-08",
+            "lastDate": "2023-02-12",
+            "status": "complete"
+          },
+          {
+            "season": "2023",
+            "rows": 285,
+            "firstDate": "2023-09-07",
+            "lastDate": "2024-02-11",
+            "status": "complete"
+          },
+          {
+            "season": "2024",
+            "rows": 285,
+            "firstDate": "2024-09-05",
+            "lastDate": "2025-02-09",
+            "status": "complete"
+          },
+          {
+            "season": "2025",
+            "rows": 285,
+            "firstDate": "2025-09-04",
+            "lastDate": "2026-02-08",
+            "status": "complete"
+          },
+          {
+            "season": "2026",
+            "rows": 131,
+            "firstDate": "2026-09-09",
+            "lastDate": "2026-11-08",
+            "status": "complete"
+          }
+        ],
+        "teams": 32,
+        "firstDate": "1999-09-12",
+        "lastDate": "2026-11-08",
+        "rates": {
+          "homeWin": 0.5619009045497503,
+          "draw": 0.002160118806534359,
+          "awayWin": 0.4359389766437154,
+          "avgTotalScore": 44.28419063048468,
+          "avgHomeScore": 23.296206291346024,
+          "avgAwayScore": 20.987984339138652
+        },
+        "issues": [
+          {
+            "severity": "info",
+            "code": "season_in_progress",
+            "message": "1 temporadas en curso tienen menos partidos jugados que una temporada cerrada.",
+            "league": "nfl",
+            "sample": [
+              "2026: 131"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "premier-league",
+      "name": "Premier League",
+      "sport": "soccer",
+      "productLeague": true,
+      "file": "premier-league.jsonl",
+      "fileSha256": "e0c1c451ca460c8e7c60e40a21532f353ca92fcf44dad453a91157486533a80f",
+      "rows": 6098,
+      "quality": {
+        "league": "premier-league",
+        "rows": 6098,
+        "seasons": [
+          {
+            "season": "2010-11",
+            "rows": 380,
+            "firstDate": "2010-08-14",
+            "lastDate": "2011-05-22",
+            "status": "complete"
+          },
+          {
+            "season": "2011-12",
+            "rows": 380,
+            "firstDate": "2011-08-13",
+            "lastDate": "2012-05-13",
+            "status": "complete"
+          },
+          {
+            "season": "2012-13",
+            "rows": 380,
+            "firstDate": "2012-08-18",
+            "lastDate": "2013-05-19",
+            "status": "complete"
+          },
+          {
+            "season": "2013-14",
+            "rows": 380,
+            "firstDate": "2013-08-17",
+            "lastDate": "2014-05-11",
+            "status": "complete"
+          },
+          {
+            "season": "2014-15",
+            "rows": 380,
+            "firstDate": "2014-08-16",
+            "lastDate": "2015-05-24",
+            "status": "complete"
+          },
+          {
+            "season": "2015-16",
+            "rows": 380,
+            "firstDate": "2015-08-08",
+            "lastDate": "2016-05-17",
+            "status": "complete"
+          },
+          {
+            "season": "2016-17",
+            "rows": 380,
+            "firstDate": "2016-08-13",
+            "lastDate": "2017-05-21",
+            "status": "complete"
+          },
+          {
+            "season": "2017-18",
+            "rows": 380,
+            "firstDate": "2017-08-11",
+            "lastDate": "2018-05-13",
+            "status": "complete"
+          },
+          {
+            "season": "2018-19",
+            "rows": 380,
+            "firstDate": "2018-08-10",
+            "lastDate": "2019-05-12",
+            "status": "complete"
+          },
+          {
+            "season": "2019-20",
+            "rows": 380,
+            "firstDate": "2019-07-01",
+            "lastDate": "2020-06-30",
+            "status": "complete"
+          },
+          {
+            "season": "2020-21",
+            "rows": 380,
+            "firstDate": "2020-09-12",
+            "lastDate": "2021-05-23",
+            "status": "complete"
+          },
+          {
+            "season": "2021-22",
+            "rows": 380,
+            "firstDate": "2021-08-13",
+            "lastDate": "2022-05-22",
+            "status": "complete"
+          },
+          {
+            "season": "2022-23",
+            "rows": 380,
+            "firstDate": "2022-08-05",
+            "lastDate": "2023-05-28",
+            "status": "complete"
+          },
+          {
+            "season": "2023-24",
+            "rows": 380,
+            "firstDate": "2023-08-11",
+            "lastDate": "2024-05-19",
+            "status": "complete"
+          },
+          {
+            "season": "2024-25",
+            "rows": 380,
+            "firstDate": "2024-08-16",
+            "lastDate": "2025-05-25",
+            "status": "complete"
+          },
+          {
+            "season": "2025-26",
+            "rows": 353,
+            "firstDate": "2025-08-15",
+            "lastDate": "2026-05-24",
+            "status": "partial"
+          },
+          {
+            "season": "2026-27",
+            "rows": 45,
+            "firstDate": "2026-08-21",
+            "lastDate": "2026-09-20",
+            "status": "partial"
+          }
+        ],
+        "teams": 42,
+        "firstDate": "2010-08-14",
+        "lastDate": "2026-09-20",
+        "rates": {
+          "homeWin": 0.4489996720236143,
+          "draw": 0.23893079698261724,
+          "awayWin": 0.31206953099376844,
+          "avgTotalScore": 2.81387340111512,
+          "avgHomeScore": 1.5618235487044934,
+          "avgAwayScore": 1.2520498524106265
+        },
+        "issues": [
+          {
+            "severity": "info",
+            "code": "season_partial",
+            "message": "2 temporadas tienen menos partidos que la referencia (380); suele ser la temporada en curso.",
+            "league": "premier-league",
+            "sample": [
+              "2025-26: 353",
+              "2026-27: 45"
+            ]
+          },
+          {
+            "severity": "info",
+            "code": "season_in_progress",
+            "message": "1 temporadas en curso tienen menos partidos jugados que una temporada cerrada.",
+            "league": "premier-league",
+            "sample": [
+              "2026-27: 45"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "serie-a",
+      "name": "Serie A",
+      "sport": "soccer",
+      "productLeague": true,
+      "file": "serie-a.jsonl",
+      "fileSha256": "b8d73e345e98884e8063097b9e679ac3f1be4a11b183823403a010fdbc506b14",
+      "rows": 4944,
+      "quality": {
+        "league": "serie-a",
+        "rows": 4944,
+        "seasons": [
+          {
+            "season": "2013-14",
+            "rows": 380,
+            "firstDate": "2013-08-24",
+            "lastDate": "2014-05-18",
+            "status": "complete"
+          },
+          {
+            "season": "2014-15",
+            "rows": 380,
+            "firstDate": "2014-08-30",
+            "lastDate": "2015-05-31",
+            "status": "complete"
+          },
+          {
+            "season": "2015-16",
+            "rows": 380,
+            "firstDate": "2015-08-22",
+            "lastDate": "2016-05-15",
+            "status": "complete"
+          },
+          {
+            "season": "2016-17",
+            "rows": 380,
+            "firstDate": "2016-08-20",
+            "lastDate": "2017-05-28",
+            "status": "complete"
+          },
+          {
+            "season": "2017-18",
+            "rows": 380,
+            "firstDate": "2017-08-19",
+            "lastDate": "2018-05-20",
+            "status": "complete"
+          },
+          {
+            "season": "2018-19",
+            "rows": 380,
+            "firstDate": "2018-08-18",
+            "lastDate": "2019-05-26",
+            "status": "complete"
+          },
+          {
+            "season": "2019-20",
+            "rows": 380,
+            "firstDate": "2019-08-24",
+            "lastDate": "2020-08-02",
+            "status": "complete"
+          },
+          {
+            "season": "2020-21",
+            "rows": 380,
+            "firstDate": "2020-09-19",
+            "lastDate": "2021-05-23",
+            "status": "complete"
+          },
+          {
+            "season": "2021-22",
+            "rows": 380,
+            "firstDate": "2021-08-21",
+            "lastDate": "2022-05-22",
+            "status": "complete"
+          },
+          {
+            "season": "2022-23",
+            "rows": 380,
+            "firstDate": "2022-08-13",
+            "lastDate": "2023-06-04",
+            "status": "complete"
+          },
+          {
+            "season": "2023-24",
+            "rows": 380,
+            "firstDate": "2023-08-19",
+            "lastDate": "2024-06-02",
+            "status": "complete"
+          },
+          {
+            "season": "2024-25",
+            "rows": 370,
+            "firstDate": "2024-08-17",
+            "lastDate": "2025-05-18",
+            "status": "partial"
+          },
+          {
+            "season": "2025-26",
+            "rows": 344,
+            "firstDate": "2025-08-23",
+            "lastDate": "2026-05-24",
+            "status": "partial"
+          },
+          {
+            "season": "2026-27",
+            "rows": 50,
+            "firstDate": "2026-08-22",
+            "lastDate": "2026-09-20",
+            "status": "partial"
+          }
+        ],
+        "teams": 38,
+        "firstDate": "2013-08-24",
+        "lastDate": "2026-09-20",
+        "rates": {
+          "homeWin": 0.4294093851132686,
+          "draw": 0.25222491909385114,
+          "awayWin": 0.31836569579288027,
+          "avgTotalScore": 2.746359223300971,
+          "avgHomeScore": 1.4981796116504855,
+          "avgAwayScore": 1.2481796116504855
+        },
+        "issues": [
+          {
+            "severity": "info",
+            "code": "season_partial",
+            "message": "3 temporadas tienen menos partidos que la referencia (380); suele ser la temporada en curso.",
+            "league": "serie-a",
+            "sample": [
+              "2024-25: 370",
+              "2025-26: 344",
+              "2026-27: 50"
+            ]
+          },
+          {
+            "severity": "info",
+            "code": "season_in_progress",
+            "message": "1 temporadas en curso tienen menos partidos jugados que una temporada cerrada.",
+            "league": "serie-a",
+            "sample": [
+              "2026-27: 50"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "nflverse-schedules",
+      "provider": "nflverse",
+      "url": "https://github.com/nflverse/nflverse-data/releases/download/schedules/games.csv",
+      "license": "CC-BY-4.0",
+      "attribution": "Datos: nflverse (nflverse-data, CC-BY 4.0)",
+      "sha256": "45aa625dd8181df188205a556c4e4ca6606377a77a8938824d667269801e3d2c",
+      "bytes": 2189016,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-en.1-2010-11",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2010-11/en.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "a94631cc82fd4034d4da5f5594d32cb191942f0b594e3a9cd9dcf29fe7dfa707",
+      "bytes": 114555,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-en.1-2011-12",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2011-12/en.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "94e29260ec3500ba69e1ffe829576b0c6297cb570ecc223ab13a2fdcae81fb98",
+      "bytes": 114481,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-en.1-2012-13",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2012-13/en.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "d41f9131f9dda654bff9067ffd370468b895b5ed4e9691a4b5cad2b2550fbc8b",
+      "bytes": 113425,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-en.1-2013-14",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2013-14/en.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "821ea8a8a078753993ed1cc9f86fb739ec18824ef07aee1df4e83f6915e29782",
+      "bytes": 113569,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-en.1-2014-15",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2014-15/en.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "2f24151bffd3d377810f3d2e85ead0f1b3dfef00153c6ea31f5e9ced63281a4d",
+      "bytes": 113725,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-en.1-2015-16",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2015-16/en.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "4d8ab70f5d2c29231320be7404310bc1b0fbc6e6be0284e5ee667f581406fead",
+      "bytes": 113631,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-en.1-2016-17",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2016-17/en.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "9c8cdb27355678ab81aacbbabc34a08d00b399aacc28ef4b733da4954a344f17",
+      "bytes": 113759,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-en.1-2017-18",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2017-18/en.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "b635f2442a94aa91d85f282fc5e8f7f5dc4f0d04e3e30c4472102f5708d7548c",
+      "bytes": 114087,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-en.1-2018-19",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2018-19/en.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "e2224d86f0605a5a1b5b019c845cdecb13aca1d88035686d4159b875250d4730",
+      "bytes": 114723,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-en.1-2019-20",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2019-20/en.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "9e1695f85ce5553f762e809dea357ec0a95838939be89569060a83c4e98a302d",
+      "bytes": 114817,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-en.1-2020-21",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2020-21/en.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "21ddf26b48469da530c51ccc4857bf1a534bda3aed08766b55185efb142e9a20",
+      "bytes": 115947,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-en.1-2021-22",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2021-22/en.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "fbdfd426fa18fa2f8630b77de87c082734da495ac4668d6d72f29f76b73b9564",
+      "bytes": 115863,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-en.1-2022-23",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2022-23/en.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "8d09f0f9846981626cdfec48903e1f21e7c79aabe6f92535c9e092e8e79b808b",
+      "bytes": 116149,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-en.1-2023-24",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2023-24/en.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "03e13eafbf78dfe00d7e89dd3bf6643986eb6e8fd86c7664aeb8c5bc0bed88d0",
+      "bytes": 116669,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-en.1-2024-25",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2024-25/en.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "c3d18f552d83382cd4b6b21127adbbfe38e7f8618ddc979fb5404f2df07d0a75",
+      "bytes": 110141,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-en.1-2025-26",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2025-26/en.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "d6070bdf731546ccf97767f062e8af4bd26dd309dee69f6092025bf9c78f43c1",
+      "bytes": 108493,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-en.1-2026-27",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2026-27/en.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "bb91f0ab3e8359df163bb9ec98549bfed85e200dd4c32f3bd606b5890d932dd2",
+      "bytes": 55359,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-es.1-2010-11",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2010-11/es.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": null,
+      "bytes": 0,
+      "status": "unavailable",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-es.1-2011-12",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2011-12/es.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": null,
+      "bytes": 0,
+      "status": "unavailable",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-es.1-2012-13",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2012-13/es.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "889a272acfec6927acdb7ab95fc9d27c1264f20987c201210360ee2e10800a50",
+      "bytes": 113155,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-es.1-2013-14",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2013-14/es.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "88016af1229978ce7318f8f4a5a0e40f2fad135cab035f04bc7b8a0b0bb4d10e",
+      "bytes": 112269,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-es.1-2014-15",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2014-15/es.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "f119fad44a4e1452a6725a2195e3ad8e6fc1b4c14c1882761af8ffebee7e5de7",
+      "bytes": 112533,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-es.1-2015-16",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2015-16/es.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "a5ded1e65f1e1a3f8fed6617c3287bac91a0855386b12fb236890ab624dec98e",
+      "bytes": 113118,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-es.1-2016-17",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2016-17/es.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "e53da5e69849dc41fb5b192f882fe7bc0bc9710aa30f647e2b5b5faea24fbd75",
+      "bytes": 112929,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-es.1-2017-18",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2017-18/es.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "6814524c6867e6811f112d8c85e9f01d8ab3b9f26ee01d1c11297a98ff629473",
+      "bytes": 112607,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-es.1-2018-19",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2018-19/es.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "7b10a3922e9ba8a9d85d2828e07438a02d0ea5f675be6a14406921e91f605716",
+      "bytes": 112417,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-es.1-2019-20",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2019-20/es.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "8ade2e46a80a646159af590cb6bcca6a3739a6eebc168a4902aabeb0d1ce6c0d",
+      "bytes": 112137,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-es.1-2020-21",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2020-21/es.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "817a41df564a1790147e97fc417922f6e9354b142b2baf6d376d809da2bd24b6",
+      "bytes": 113635,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-es.1-2021-22",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2021-22/es.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "7beb67dd49d7132bf9f7baea540342439b97ed4a7b21ffb90d3231a402c54d02",
+      "bytes": 113895,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-es.1-2022-23",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2022-23/es.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "0204c66c919c2cd5cc3d1ba26be4f68592e4e173843162a9e6755182ccf83778",
+      "bytes": 114885,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-es.1-2023-24",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2023-24/es.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "e4c1e1a958f224ba3c815c898982ab495b9577315cc58ee7a5e7b532960f738b",
+      "bytes": 114187,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-es.1-2024-25",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2024-25/es.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "da5bfa1b3634e1039d9e71aec50bdc847f8761189e3de235a4e730e0dc64ca38",
+      "bytes": 108296,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-es.1-2025-26",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2025-26/es.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "b40397d8e62c640138548d57a1a9f76150549213d2a07fcbbb90ed0eabc6ccea",
+      "bytes": 108642,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-es.1-2026-27",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2026-27/es.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "4b1a9906e3f2b279a1f25497a38f2f58e21ec19ea726b882fa646da7c07bc0e0",
+      "bytes": 50771,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-de.1-2010-11",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2010-11/de.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "e38a153043a7acfcf49b154b4a102b6b9f6fb25837ae1af4fe08c2f614fdf62b",
+      "bytes": 92871,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-de.1-2011-12",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2011-12/de.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "7524a97a143e8478b4e9719263fd12414b725c4f511e7f241e26ab62aadfddea",
+      "bytes": 92083,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-de.1-2012-13",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2012-13/de.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "ab509fd545f92e8886721516c872e40b4207f38c0e3960a3322f9421e060f04a",
+      "bytes": 92807,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-de.1-2013-14",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2013-14/de.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "55c75564dfae6966eafc62e4ec965d686a7eb19b63a6c75200571243f5aa8984",
+      "bytes": 92927,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-de.1-2014-15",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2014-15/de.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "40754d0d77f251a17c47d27095499d83fc3c00904fb1ee5a8b6e82cb1f85870e",
+      "bytes": 91713,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-de.1-2015-16",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2015-16/de.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "dc8d2581ecbdd0752dfb50695c50ff29290e0442f07bf6b46d0d8ad07ac8e843",
+      "bytes": 92107,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-de.1-2016-17",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2016-17/de.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "56a0d2f20e5050b6eeb0b40f2b32d93f6fe1bda0d52373121b90b6c812a95d4b",
+      "bytes": 92285,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-de.1-2017-18",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2017-18/de.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "bfa1276bef6a5574f504f622a3d41833f65eee00de2c7591dfd375a457dbd311",
+      "bytes": 91935,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-de.1-2018-19",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2018-19/de.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "82cdafdead39129669dbae0368c294ca6372291ed095813157661c263793fac4",
+      "bytes": 92533,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-de.1-2019-20",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2019-20/de.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "76c7f65ef443681515b081e325a38cf0e8b6953b665bbcac20fdf328248e7206",
+      "bytes": 92983,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-de.1-2020-21",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2020-21/de.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "74a709c3f800064f26c4d44ec92af9bcd32c6b94ec00ace7cc5b684e8c3c8e74",
+      "bytes": 93089,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-de.1-2021-22",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2021-22/de.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "f1b9901cffb6b073f389e730213b5f8efe6a9a73b2f86058794f2d0f1dcc54dc",
+      "bytes": 93609,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-de.1-2022-23",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2022-23/de.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "b0c052dc75836dfc6b0d3781d35b828851db7377c9f6ccb39643dbbe1964f3bd",
+      "bytes": 93189,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-de.1-2023-24",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2023-24/de.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "d104edde48a5e254545eac3d3ed379a09801e1ebcef5c6480e28bc36fcfa202d",
+      "bytes": 93743,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-de.1-2024-25",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2024-25/de.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "f473d6595e6c29ebedc08b09177aed6a6b2ff0fa8378b82f51dea469139f44c3",
+      "bytes": 88232,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-de.1-2025-26",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2025-26/de.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "17d0999db6281e6365823acdbce41a4f01dd469eac63e1f897e4e47c02906672",
+      "bytes": 88247,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-de.1-2026-27",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2026-27/de.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "07fab65d4a1de8ce4c8472da9ccf4d1d2b145ecd5abdc5b6d4250a5c119d7681",
+      "bytes": 40409,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-it.1-2010-11",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2010-11/it.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": null,
+      "bytes": 0,
+      "status": "unavailable",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-it.1-2011-12",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2011-12/it.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": null,
+      "bytes": 0,
+      "status": "unavailable",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-it.1-2012-13",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2012-13/it.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": null,
+      "bytes": 0,
+      "status": "unavailable",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-it.1-2013-14",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2013-14/it.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "f1cbb969ffcbba742310b301f118679a96a29663bbf91aaf581a6fb3ceb86b94",
+      "bytes": 111886,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-it.1-2014-15",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2014-15/it.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "3c9a4b2deec8206115e2ba6289705400157c9d47a287eab7ead6f773136f9a87",
+      "bytes": 111266,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-it.1-2015-16",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2015-16/it.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "641ac43494b76fd2f59845cac3f41c279441ced1e167bfec8fa9691b9a275fa7",
+      "bytes": 111286,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-it.1-2016-17",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2016-17/it.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "39eb5e084d421af553b77fd14756fe54bf30c18cdb3ce1c77fd5941344e128c3",
+      "bytes": 112044,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-it.1-2017-18",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2017-18/it.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "195b61ec457e597ca149fca429459cb22f803ff400db1c5d63fffa8cff21695e",
+      "bytes": 112024,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-it.1-2018-19",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2018-19/it.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "b8efba80e794bd3ce5805bf802ac98e0ca9938545e6800b5a8844529b43060d3",
+      "bytes": 111802,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-it.1-2019-20",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2019-20/it.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "cb3a8dfd4152a0d1dfa0638b25623a963fda47a35910ecb114517d2e20c4a8e2",
+      "bytes": 112416,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-it.1-2020-21",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2020-21/it.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "0e00abb3f9d03675c4bdde14b3bde34fed5713727282f82ed095b49e60fbcfea",
+      "bytes": 113906,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-it.1-2021-22",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2021-22/it.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "a3e94b23cac768e4191e99312f4d48471c4000c5c2fe766b0325cee935754061",
+      "bytes": 113576,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-it.1-2022-23",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2022-23/it.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "d775fdd375af6998233fbfcd5b33d176cb9d016a981682626c5ce2f95b0c2f88",
+      "bytes": 113460,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-it.1-2023-24",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2023-24/it.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "47734fc8d2ec34c5529ca814c97d1c86ecddc4a2c8095506d9b12f29cb283308",
+      "bytes": 113014,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-it.1-2024-25",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2024-25/it.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "7d9bb936de3ccaeec54d57371512a58a5eeb21277e7d5f0882911a834d22b659",
+      "bytes": 105098,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-it.1-2025-26",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2025-26/it.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "28f7773dea86345aeb0cbb4aff2f90231033f7ed855219e70fdd1cf45d4d7e7f",
+      "bytes": 105202,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-it.1-2026-27",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2026-27/it.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "721a6c220fecb8208287e41401fa2fce652cd23765ce58a39bf98cdaa3d528ad",
+      "bytes": 47608,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-fr.1-2010-11",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2010-11/fr.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": null,
+      "bytes": 0,
+      "status": "unavailable",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-fr.1-2011-12",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2011-12/fr.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": null,
+      "bytes": 0,
+      "status": "unavailable",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-fr.1-2012-13",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2012-13/fr.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": null,
+      "bytes": 0,
+      "status": "unavailable",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-fr.1-2013-14",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2013-14/fr.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": null,
+      "bytes": 0,
+      "status": "unavailable",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-fr.1-2014-15",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2014-15/fr.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "b591f6135128249d81c950ccdb5f0d6d6662b63f9b9a8161afff328d3888a6d1",
+      "bytes": 112903,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-fr.1-2015-16",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2015-16/fr.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "6b1ffc6d4de265e57b2f6455e4e502e9bef70d7da407c137ba15dc5a49d44de2",
+      "bytes": 113093,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-fr.1-2016-17",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2016-17/fr.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "adc7a228339a57392640851d002b993cd206e3036e771565b9fa90abf5352eda",
+      "bytes": 112889,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-fr.1-2017-18",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2017-18/fr.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "a7fc528ef12098acd01c5bc5b16df78a17806771e7850a0b23bd12f722e0898e",
+      "bytes": 113289,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-fr.1-2018-19",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2018-19/fr.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "5add69e52b80732444cf8243a64dcf831e5ea267ee588d0b6996275a70eedd14",
+      "bytes": 113091,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-fr.1-2019-20",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2019-20/fr.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "0c42a7b9ab70c7bd7003bcc7085f3896c95e19965941be2d04976e7bba440205",
+      "bytes": 103330,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-fr.1-2020-21",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2020-21/fr.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "27eceef1ea5b9b3b601074c3bfbb6a80f7e969d73d513f9dba104b688003c4e2",
+      "bytes": 113541,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-fr.1-2021-22",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2021-22/fr.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "8abb493061d32faaf413c403b440c043723d9743a9e69d6472bf5410e2d4e039",
+      "bytes": 113767,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-fr.1-2022-23",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2022-23/fr.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "6301ac1ba1fa0f5b72345759711beac3b3be3c989725cc1c6ef9307ffef692c7",
+      "bytes": 113237,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-fr.1-2023-24",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2023-24/fr.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "fa328cecf4c12232ac77a5d477059eebe16b68b3712ec87800b89efda8ddfb70",
+      "bytes": 92104,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-fr.1-2024-25",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2024-25/fr.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "90e9974afe6597452622387ad218f6b0011a5f91f1b426f05152f5b9c105e355",
+      "bytes": 87793,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-fr.1-2025-26",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2025-26/fr.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "3e9403445dd96f4bb7f740de22d4ea7e3ea7d640777a12eab621ae4d4dbf3bc7",
+      "bytes": 85845,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-fr.1-2026-27",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2026-27/fr.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "f875275f835e378fc8c4e7d48c7a2f327e7d426237bd057fe652fd47f30b5a4f",
+      "bytes": 39943,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-mx.1-2010-11",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2010-11/mx.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": null,
+      "bytes": 0,
+      "status": "unavailable",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-mx.1-2011-12",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2011-12/mx.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": null,
+      "bytes": 0,
+      "status": "unavailable",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-mx.1-2012-13",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2012-13/mx.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": null,
+      "bytes": 0,
+      "status": "unavailable",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-mx.1-2013-14",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2013-14/mx.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": null,
+      "bytes": 0,
+      "status": "unavailable",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-mx.1-2014-15",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2014-15/mx.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": null,
+      "bytes": 0,
+      "status": "unavailable",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-mx.1-2015-16",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2015-16/mx.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": null,
+      "bytes": 0,
+      "status": "unavailable",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-mx.1-2016-17",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2016-17/mx.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": null,
+      "bytes": 0,
+      "status": "unavailable",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-mx.1-2017-18",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2017-18/mx.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": null,
+      "bytes": 0,
+      "status": "unavailable",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-mx.1-2018-19",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2018-19/mx.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "c2ca525e631c5fef698c3f392857cf55c3c97b1a1fc6fa510010d9179c36e798",
+      "bytes": 103082,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-mx.1-2019-20",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2019-20/mx.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "44a84459294d7c675142079ed762e138e9f7d20c3d74a5f9b9be0fcb6ee0dc86",
+      "bytes": 98550,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-mx.1-2020-21",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2020-21/mx.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "ea450c56605f11966d8e776b77f28b7ab8f24ebb4213cbf4afccd48743667a04",
+      "bytes": 105597,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-mx.1-2021-22",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2021-22/mx.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": null,
+      "bytes": 0,
+      "status": "unavailable",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-mx.1-2022-23",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2022-23/mx.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": null,
+      "bytes": 0,
+      "status": "unavailable",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-mx.1-2023-24",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2023-24/mx.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": null,
+      "bytes": 0,
+      "status": "unavailable",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-mx.1-2024-25",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2024-25/mx.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": "6bcdd945f8cc36cb02f0f8e08c1ada2b9e6dfa5eb7ec4c23916dad438b02afff",
+      "bytes": 99330,
+      "status": "cached",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-mx.1-2025-26",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2025-26/mx.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": null,
+      "bytes": 0,
+      "status": "unavailable",
+      "retrievedAt": null
+    },
+    {
+      "id": "openfootball-mx.1-2026-27",
+      "provider": "openfootball",
+      "url": "https://raw.githubusercontent.com/openfootball/football.json/master/2026-27/mx.1.json",
+      "license": "CC0-1.0",
+      "attribution": "Datos: openfootball/football.json (CC0 1.0)",
+      "sha256": null,
+      "bytes": 0,
+      "status": "unavailable",
+      "retrievedAt": null
+    }
+  ]
+}

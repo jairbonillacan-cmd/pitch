@@ -1,0 +1,471 @@
+{
+  "schemaVersion": 1,
+  "designRevision": 2,
+  "season": "2026/27",
+  "edition": "Emblemas de club",
+  "source": "https://www.premierleague.com/en/news/4365156",
+  "entries": [
+    {
+      "id": "premier-league",
+      "code": "PL",
+      "name": "Premier League",
+      "shortName": "Premier League",
+      "kind": "competition",
+      "motif": "León frontal",
+      "description": "Una melena radial rodea al león visto de frente. La expresión y la medalla de ciruela y marfil son propias de esta interpretación.",
+      "colors": {
+        "tile": "#F5E8CF",
+        "primary": "#50274E",
+        "accent": "#794361"
+      },
+      "contrast": {
+        "primaryOnTile": 9.95,
+        "accentOnTile": 6.2135
+      },
+      "source": "https://www.premierleague.com/en/news/60917",
+      "svg": "svg/premier-league.svg",
+      "png": "png/premier-league.png",
+      "symbolId": "pitchlab-premier-league"
+    },
+    {
+      "id": "afc-bournemouth",
+      "code": "BOU",
+      "name": "AFC Bournemouth",
+      "shortName": "Bournemouth",
+      "kind": "club",
+      "motif": "Cerezas y franjas",
+      "description": "Dos cerezas claras sobre un peto a rayas rojas y negras. El dibujo retoma el apodo Cherries y la camiseta.",
+      "colors": {
+        "tile": "#202026",
+        "primary": "#F8F0E3",
+        "accent": "#D33647"
+      },
+      "contrast": {
+        "primaryOnTile": 14.3244,
+        "accentOnTile": 3.3861
+      },
+      "source": "https://www.premierleague.com/en/news/4726407/all-20-premier-league-clubs-badges-explained",
+      "svg": "svg/afc-bournemouth.svg",
+      "png": "png/afc-bournemouth.png",
+      "symbolId": "pitchlab-afc-bournemouth"
+    },
+    {
+      "id": "arsenal",
+      "code": "ARS",
+      "name": "Arsenal",
+      "shortName": "Arsenal",
+      "kind": "club",
+      "motif": "Cañón de Woolwich",
+      "description": "Cañón dorado inclinado hacia la izquierda, sobre un campo rojo de punta ancha. La rueda maciza tiene un buje rojo.",
+      "colors": {
+        "tile": "#9F1A2D",
+        "primary": "#FFE0A2",
+        "accent": "#C32236"
+      },
+      "contrast": {
+        "primaryOnTile": 6.1793,
+        "accentOnTile": 1.3544
+      },
+      "source": "https://www.premierleague.com/en/news/4726407/all-20-premier-league-clubs-badges-explained",
+      "svg": "svg/arsenal.svg",
+      "png": "png/arsenal.png",
+      "symbolId": "pitchlab-arsenal"
+    },
+    {
+      "id": "aston-villa",
+      "code": "AVL",
+      "name": "Aston Villa",
+      "shortName": "Aston Villa",
+      "kind": "club",
+      "motif": "León en salto",
+      "description": "Un león dorado salta hacia la izquierda sobre un óvalo vino con borde celeste. La cola larga y la postura separan la silueta de la heráldica oficial.",
+      "colors": {
+        "tile": "#641E40",
+        "primary": "#FFD482",
+        "accent": "#9CD3F3"
+      },
+      "contrast": {
+        "primaryOnTile": 8.3213,
+        "accentOnTile": 7.2299
+      },
+      "source": "https://www.premierleague.com/en/news/4726407/all-20-premier-league-clubs-badges-explained",
+      "svg": "svg/aston-villa.svg",
+      "png": "png/aston-villa.png",
+      "symbolId": "pitchlab-aston-villa"
+    },
+    {
+      "id": "brentford",
+      "code": "BRE",
+      "name": "Brentford",
+      "shortName": "Brentford",
+      "kind": "club",
+      "motif": "Abeja de frente",
+      "description": "Una abeja con alas abiertas sobre un peto rojo y crema. El abdomen en franjas da la lectura a tamaño de tabla.",
+      "colors": {
+        "tile": "#AA172C",
+        "primary": "#FFF1D7",
+        "accent": "#F6BE68"
+      },
+      "contrast": {
+        "primaryOnTile": 6.5601,
+        "accentOnTile": 4.3526
+      },
+      "source": "https://www.premierleague.com/en/news/4726407/all-20-premier-league-clubs-badges-explained",
+      "svg": "svg/brentford.svg",
+      "png": "png/brentford.png",
+      "symbolId": "pitchlab-brentford"
+    },
+    {
+      "id": "brighton-hove-albion",
+      "code": "BHA",
+      "name": "Brighton & Hove Albion",
+      "shortName": "Brighton",
+      "kind": "club",
+      "motif": "Gaviota de costa",
+      "description": "La gaviota se abre en una V alta. Un trazo de ola y un campo azul más oscuro rematan el círculo.",
+      "colors": {
+        "tile": "#1763A7",
+        "primary": "#FFFFFF",
+        "accent": "#B9DBF3"
+      },
+      "contrast": {
+        "primaryOnTile": 6.2145,
+        "accentOnTile": 4.2879
+      },
+      "source": "https://www.premierleague.com/en/news/4726407/all-20-premier-league-clubs-badges-explained",
+      "svg": "svg/brighton-hove-albion.svg",
+      "png": "png/brighton-hove-albion.png",
+      "symbolId": "pitchlab-brighton-hove-albion"
+    },
+    {
+      "id": "chelsea",
+      "code": "CHE",
+      "name": "Chelsea",
+      "shortName": "Chelsea",
+      "kind": "club",
+      "motif": "León de perfil",
+      "description": "León blanco de perfil izquierdo con melena azul en capas, inscrito en un círculo cobalto.",
+      "colors": {
+        "tile": "#183F88",
+        "primary": "#F8FAFF",
+        "accent": "#9EC0F6"
+      },
+      "contrast": {
+        "primaryOnTile": 9.5516,
+        "accentOnTile": 5.3789
+      },
+      "source": "https://www.premierleague.com/en/news/4726407/all-20-premier-league-clubs-badges-explained",
+      "svg": "svg/chelsea.svg",
+      "png": "png/chelsea.png",
+      "symbolId": "pitchlab-chelsea"
+    },
+    {
+      "id": "coventry-city",
+      "code": "COV",
+      "name": "Coventry City",
+      "shortName": "Coventry City",
+      "kind": "club",
+      "motif": "Elefante celeste",
+      "description": "Elefante de frente, con orejas amplias y trompa curva sobre un escudo celeste. Evoca la heráldica de Coventry.",
+      "colors": {
+        "tile": "#8AC8EC",
+        "primary": "#173757",
+        "accent": "#F8F6EE"
+      },
+      "contrast": {
+        "primaryOnTile": 6.7151,
+        "accentOnTile": 1.6798
+      },
+      "source": "https://www.premierleague.com/en/news/4726407/all-20-premier-league-clubs-badges-explained",
+      "svg": "svg/coventry-city.svg",
+      "png": "png/coventry-city.png",
+      "symbolId": "pitchlab-coventry-city"
+    },
+    {
+      "id": "crystal-palace",
+      "code": "CRY",
+      "name": "Crystal Palace",
+      "shortName": "Crystal Palace",
+      "kind": "club",
+      "motif": "Águila en descenso",
+      "description": "Un águila blanca de alas altas se posa sobre un campo partido azul y rojo. Sus alas y cola forman una silueta propia.",
+      "colors": {
+        "tile": "#18468F",
+        "primary": "#F8F8F1",
+        "accent": "#C53043"
+      },
+      "contrast": {
+        "primaryOnTile": 8.5175,
+        "accentOnTile": 1.6776
+      },
+      "source": "https://www.premierleague.com/en/news/4726407/all-20-premier-league-clubs-badges-explained",
+      "svg": "svg/crystal-palace.svg",
+      "png": "png/crystal-palace.png",
+      "symbolId": "pitchlab-crystal-palace"
+    },
+    {
+      "id": "everton",
+      "code": "EVE",
+      "name": "Everton",
+      "shortName": "Everton",
+      "kind": "club",
+      "motif": "Torre de Everton Brow",
+      "description": "Torre blanca con cubierta cónica y dos ondas a sus pies, en una medalla de azul real.",
+      "colors": {
+        "tile": "#13468F",
+        "primary": "#F7F8F5",
+        "accent": "#94BBF1"
+      },
+      "contrast": {
+        "primaryOnTile": 8.5639,
+        "accentOnTile": 4.6242
+      },
+      "source": "https://www.premierleague.com/en/news/4726407/all-20-premier-league-clubs-badges-explained",
+      "svg": "svg/everton.svg",
+      "png": "png/everton.png",
+      "symbolId": "pitchlab-everton"
+    },
+    {
+      "id": "fulham",
+      "code": "FUL",
+      "name": "Fulham",
+      "shortName": "Fulham",
+      "kind": "club",
+      "motif": "Letra roja sobre blanco y negro",
+      "description": "Una F roja compacta, dibujada para este emblema, sobre dos bloques negros separados por una banda blanca.",
+      "colors": {
+        "tile": "#F9F7EF",
+        "primary": "#191C22",
+        "accent": "#BB2636"
+      },
+      "contrast": {
+        "primaryOnTile": 15.9107,
+        "accentOnTile": 5.6857
+      },
+      "source": "https://www.premierleague.com/en/news/4726407/all-20-premier-league-clubs-badges-explained",
+      "svg": "svg/fulham.svg",
+      "png": "png/fulham.png",
+      "symbolId": "pitchlab-fulham"
+    },
+    {
+      "id": "hull-city",
+      "code": "HUL",
+      "name": "Hull City",
+      "shortName": "Hull City",
+      "kind": "club",
+      "motif": "Tigre de perfil",
+      "description": "Un tigre negro de perfil con rayas recortadas sobre un medallón ámbar. La mirada y el hocico apuntan a la derecha.",
+      "colors": {
+        "tile": "#F6AF42",
+        "primary": "#222027",
+        "accent": "#74411F"
+      },
+      "contrast": {
+        "primaryOnTile": 8.5352,
+        "accentOnTile": 4.419
+      },
+      "source": "https://www.premierleague.com/en/news/4726407/all-20-premier-league-clubs-badges-explained",
+      "svg": "svg/hull-city.svg",
+      "png": "png/hull-city.png",
+      "symbolId": "pitchlab-hull-city"
+    },
+    {
+      "id": "ipswich-town",
+      "code": "IPS",
+      "name": "Ipswich Town",
+      "shortName": "Ipswich Town",
+      "kind": "club",
+      "motif": "Caballo Suffolk Punch",
+      "description": "El perfil de un caballo de tiro blanco se levanta sobre un escudo azul con base roja. La crin dibuja la diagonal principal.",
+      "colors": {
+        "tile": "#214A8D",
+        "primary": "#FFF7E6",
+        "accent": "#C52D43"
+      },
+      "contrast": {
+        "primaryOnTile": 8.1106,
+        "accentOnTile": 1.5771
+      },
+      "source": "https://www.premierleague.com/en/news/4726407/all-20-premier-league-clubs-badges-explained",
+      "svg": "svg/ipswich-town.svg",
+      "png": "png/ipswich-town.png",
+      "symbolId": "pitchlab-ipswich-town"
+    },
+    {
+      "id": "leeds-united",
+      "code": "LEE",
+      "name": "Leeds United",
+      "shortName": "Leeds United",
+      "kind": "club",
+      "motif": "Rosa blanca de Yorkshire",
+      "description": "Cinco pétalos blancos sobre azul, con centro y filete amarillo. La flor domina la composición.",
+      "colors": {
+        "tile": "#1E4581",
+        "primary": "#FFFDF5",
+        "accent": "#F9D35F"
+      },
+      "contrast": {
+        "primaryOnTile": 9.2742,
+        "accentOnTile": 6.5263
+      },
+      "source": "https://www.premierleague.com/en/news/4726407/all-20-premier-league-clubs-badges-explained",
+      "svg": "svg/leeds-united.svg",
+      "png": "png/leeds-united.png",
+      "symbolId": "pitchlab-leeds-united"
+    },
+    {
+      "id": "liverpool",
+      "code": "LIV",
+      "name": "Liverpool",
+      "shortName": "Liverpool",
+      "kind": "club",
+      "motif": "Ave del Mersey",
+      "description": "Ave de frente con las alas levantadas, un cuello largo y la cabeza girada. Marfil y rojo recuerdan a Liverpool.",
+      "colors": {
+        "tile": "#A31C32",
+        "primary": "#FFF2D8",
+        "accent": "#DF4453"
+      },
+      "contrast": {
+        "primaryOnTile": 6.8405,
+        "accentOnTile": 1.8377
+      },
+      "source": "https://www.premierleague.com/en/news/4726407/all-20-premier-league-clubs-badges-explained",
+      "svg": "svg/liverpool.svg",
+      "png": "png/liverpool.png",
+      "symbolId": "pitchlab-liverpool"
+    },
+    {
+      "id": "manchester-city",
+      "code": "MCI",
+      "name": "Manchester City",
+      "shortName": "Manchester City",
+      "kind": "club",
+      "motif": "Velero del canal",
+      "description": "Dos velas en diagonal, un casco dorado y una ola forman un velero sobre celeste. La medalla lleva un solo borde azul.",
+      "colors": {
+        "tile": "#9DD6F5",
+        "primary": "#173952",
+        "accent": "#F9F7E9"
+      },
+      "contrast": {
+        "primaryOnTile": 7.6688,
+        "accentOnTile": 1.4591
+      },
+      "source": "https://www.premierleague.com/en/news/4726407/all-20-premier-league-clubs-badges-explained",
+      "svg": "svg/manchester-city.svg",
+      "png": "png/manchester-city.png",
+      "symbolId": "pitchlab-manchester-city"
+    },
+    {
+      "id": "manchester-united",
+      "code": "MUN",
+      "name": "Manchester United",
+      "shortName": "Man. United",
+      "kind": "club",
+      "motif": "Tridente de los Red Devils",
+      "description": "Un tridente alto y unos cuernos curvados forman la máscara roja y dorada. La composición deja el centro abierto.",
+      "colors": {
+        "tile": "#A1182B",
+        "primary": "#FFD16E",
+        "accent": "#661625"
+      },
+      "contrast": {
+        "primaryOnTile": 5.4448,
+        "accentOnTile": 1.5711
+      },
+      "source": "https://www.premierleague.com/en/news/4726407/all-20-premier-league-clubs-badges-explained",
+      "svg": "svg/manchester-united.svg",
+      "png": "png/manchester-united.png",
+      "symbolId": "pitchlab-manchester-united"
+    },
+    {
+      "id": "newcastle-united",
+      "code": "NEW",
+      "name": "Newcastle United",
+      "shortName": "Newcastle",
+      "kind": "club",
+      "motif": "Hipocampo y franjas",
+      "description": "Un hipocampo plateado toma la forma central sobre un escudo de franjas verticales negras y blancas.",
+      "colors": {
+        "tile": "#25252A",
+        "primary": "#F8F4E9",
+        "accent": "#B9CBD9"
+      },
+      "contrast": {
+        "primaryOnTile": 13.8795,
+        "accentOnTile": 9.1574
+      },
+      "source": "https://www.premierleague.com/en/news/4726407/all-20-premier-league-clubs-badges-explained",
+      "svg": "svg/newcastle-united.svg",
+      "png": "png/newcastle-united.png",
+      "symbolId": "pitchlab-newcastle-united"
+    },
+    {
+      "id": "nottingham-forest",
+      "code": "NFO",
+      "name": "Nottingham Forest",
+      "shortName": "Nottingham Forest",
+      "kind": "club",
+      "motif": "Roble de Sherwood",
+      "description": "Un roble de copa ancha y ramas abiertas al centro de una medalla roja y blanca.",
+      "colors": {
+        "tile": "#FAEEE1",
+        "primary": "#AA2338",
+        "accent": "#782137"
+      },
+      "contrast": {
+        "primaryOnTile": 6.1136,
+        "accentOnTile": 8.8745
+      },
+      "source": "https://www.premierleague.com/en/news/4726407/all-20-premier-league-clubs-badges-explained",
+      "svg": "svg/nottingham-forest.svg",
+      "png": "png/nottingham-forest.png",
+      "symbolId": "pitchlab-nottingham-forest"
+    },
+    {
+      "id": "sunderland",
+      "code": "SUN",
+      "name": "Sunderland",
+      "shortName": "Sunderland",
+      "kind": "club",
+      "motif": "Gato negro y franjas",
+      "description": "Una cara felina negra sobre las franjas rojas y blancas de Sunderland. El contorno ancho facilita su uso en tablas.",
+      "colors": {
+        "tile": "#FAF4E7",
+        "primary": "#1E2027",
+        "accent": "#C22C43"
+      },
+      "contrast": {
+        "primaryOnTile": 14.8392,
+        "accentOnTile": 5.1293
+      },
+      "source": "https://www.premierleague.com/en/news/4726407/all-20-premier-league-clubs-badges-explained",
+      "svg": "svg/sunderland.svg",
+      "png": "png/sunderland.png",
+      "symbolId": "pitchlab-sunderland"
+    },
+    {
+      "id": "tottenham-hotspur",
+      "code": "TOT",
+      "name": "Tottenham Hotspur",
+      "shortName": "Tottenham",
+      "kind": "club",
+      "motif": "Gallo de North London",
+      "description": "Un gallo azul marino mira a la derecha. La cola alta y las patas asentadas sustituyen la pose sobre el balón.",
+      "colors": {
+        "tile": "#F7F6EE",
+        "primary": "#192F51",
+        "accent": "#8199B7"
+      },
+      "contrast": {
+        "primaryOnTile": 12.3642,
+        "accentOnTile": 2.7004
+      },
+      "source": "https://www.premierleague.com/en/news/4726407/all-20-premier-league-clubs-badges-explained",
+      "svg": "svg/tottenham-hotspur.svg",
+      "png": "png/tottenham-hotspur.png",
+      "symbolId": "pitchlab-tottenham-hotspur"
+    }
+  ]
+}

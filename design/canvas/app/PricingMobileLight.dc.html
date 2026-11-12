@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<title>PitchLab · Planes móvil (claro)</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+.pl-dark{--bg:#0B1020;--nav:#10172A;--elev:#1A2440;--surf:#151E34;--hover:#222D49;--active:#302650;--t1:#F3F5FD;--t2:#B8C1D7;--t3:#98A4BF;--line:#33405D;--line2:#73819F;--brand:#B49AFF;--on:#0B1020;--glow:#B49AFF26}
+.pl-light{--bg:#F3F5FD;--nav:#FFFFFF;--elev:#FFFFFF;--surf:#FFFFFF;--hover:#E9ECF7;--active:#E6E0FF;--t1:#0B1020;--t2:#3B4560;--t3:#5A6480;--line:#D5DAE8;--line2:#7C87A3;--brand:#5940B2;--on:#FFFFFF;--glow:#5940B21F}
+a{color:var(--t2);text-decoration:none}
+.num{font-variant-numeric:tabular-nums lining-nums}
+</style>
+</helmet>
+<div style="width: 390px; min-height: 2900px; font-family: Inter, system-ui, sans-serif">
+  <dc-import name="PricingMobile" theme="light" hint-size="390px,2900px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":2900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<title>Comunidad · escritorio</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+html,body{overflow-x:hidden}
+.lp{--bg:#000000;--surf2:rgba(255,255,255,.07);--line:rgba(255,255,255,.08);--line2:rgba(255,255,255,.16);--t1:#FFFFFF;--t2:#D4D4DC;--t3:#A1A1AD;--brand:#C4B5FD;--ok:#6EE7B7;--miss:#FDA4AF;--warn:#FCD34D;--btn:#FFFFFF;--btnfg:#000000;--glow:rgba(196,181,253,.20);--track:rgba(255,255,255,.10);--field:rgba(255,255,255,.035)}
+.lp[data-theme="light"]{--bg:#F4F4F7;--surf2:rgba(11,16,32,.05);--line:rgba(11,16,32,.08);--line2:rgba(11,16,32,.16);--t1:#0B1020;--t2:#3B4560;--t3:#5A6480;--brand:#5940B2;--ok:#12704E;--miss:#B4233C;--warn:#8A5A00;--btn:#0B1020;--btnfg:#FFFFFF;--glow:rgba(89,64,178,.14);--track:#E3E5EE;--field:rgba(255,255,255,.7)}
+.lp{--l1:rgba(124,92,246,.30);--l2:rgba(16,185,129,.14);--sheen:rgba(255,255,255,.06);--inner:inset 0 1px 0 rgba(255,255,255,.08);--lens:rgba(18,18,24,.62);--pane:rgba(255,255,255,.025);--shadow:0 30px 60px -30px rgba(0,0,0,.8),0 10px 20px -14px rgba(0,0,0,.6);--rim-c:rgba(255,255,255,.7);--rim-t:rgba(255,255,255,.28);--rim-m:rgba(255,255,255,.04);--rim-b:rgba(255,255,255,.12)}
+.lp[data-theme="light"]{--l1:rgba(124,92,246,.14);--l2:rgba(16,185,129,.08);--sheen:rgba(255,255,255,.7);--inner:inset 0 1px 0 rgba(255,255,255,.9);--lens:rgba(255,255,255,.66);--pane:rgba(255,255,255,.5);--shadow:0 30px 60px -34px rgba(11,16,32,.28),0 10px 20px -14px rgba(11,16,32,.10);--rim-c:#fff;--rim-t:#fff;--rim-m:rgba(11,16,32,.05);--rim-b:rgba(11,16,32,.08)}
+.lp{background:var(--bg);color:var(--t1);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;position:relative;overflow:hidden;min-height:100vh}
+.lp *{box-sizing:border-box}
+.atmo{position:absolute;inset:0;pointer-events:none;background:radial-gradient(36% 24% at 78% 0%,var(--l1),transparent 70%),radial-gradient(30% 22% at 4% 40%,var(--l2),transparent 70%)}
+.glass{position:relative;background:linear-gradient(180deg,var(--sheen),transparent 30%),var(--lens);box-shadow:var(--inner),var(--shadow)}
+.glass::before,.chip::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;z-index:2;-webkit-mask:linear-gradient(#000,#000) content-box,linear-gradient(#000,#000);-webkit-mask-composite:xor;mask:linear-gradient(#000,#000) content-box exclude,linear-gradient(#000,#000)}
+.glass::before{background:radial-gradient(70px circle at 0% 0%,var(--rim-c),transparent 100%),radial-gradient(70px circle at 100% 0%,var(--rim-c),transparent 100%),linear-gradient(180deg,var(--rim-t) 0%,var(--rim-m) 22%,var(--rim-m) 72%,var(--rim-b) 100%)}
+.chip{position:relative;background:linear-gradient(180deg,var(--sheen),transparent 50%),var(--pane);box-shadow:var(--inner)}
+.chip::before{background:linear-gradient(180deg,var(--rim-t),var(--rim-m) 40%,var(--rim-b))}
+.num{font-variant-numeric:tabular-nums lining-nums}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 20px;border-radius:999px;font:600 14px/1 Inter,system-ui,sans-serif;border:1px solid transparent;cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn-primary{background:var(--btn);color:var(--btnfg)}
+.btn-primary:hover{box-shadow:0 0 0 6px var(--glow)}
+.btn-ghost{background:var(--field);color:var(--t1);border-color:var(--line2)}
+.btn-sm{min-height:36px;padding:0 14px;font-size:13px}
+.tabs{display:flex;gap:28px;border-bottom:1px solid var(--line)}
+.tab{min-height:48px;padding:0 2px;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;background:transparent;color:var(--t3);font:600 14px Inter,system-ui,sans-serif;cursor:pointer;white-space:nowrap}
+.tab:hover{color:var(--t1)}
+.tab[aria-selected="true"]{color:var(--t1);border-bottom-color:var(--t1)}
+.seg{display:inline-flex;padding:3px;border-radius:999px;border:1px solid var(--line2)}
+.seg button{min-height:32px;padding:0 12px;border:0;border-radius:999px;background:transparent;color:var(--t3);font:600 12px Inter,system-ui,sans-serif;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--surf2);color:var(--t1)}
+.act{display:inline-flex;align-items:center;gap:7px;min-height:40px;padding:0 10px;border:0;border-radius:999px;background:transparent;color:var(--t3);font:500 13px Inter,system-ui,sans-serif;cursor:pointer}
+.act:hover{color:var(--t1);background:var(--surf2)}
+.act-on{color:var(--miss)}
+.status{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:500;white-space:nowrap}
+.status::before{content:"";width:7px;height:7px;border-radius:999px;background:currentColor}
+.s-ok{color:var(--ok)}.s-miss{color:var(--miss)}.s-open{color:var(--t2)}
+.s-open::before{background:transparent;box-shadow:inset 0 0 0 1.5px currentColor}
+.av{flex:none;border-radius:999px;display:grid;place-items:center;font-weight:700;color:#fff}
+.eyebrow{margin:0;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--t3)}
+.link{color:var(--t1);font-weight:600;text-decoration:none;border-bottom:1px solid var(--line2);padding-bottom:1px}
+.lb th{font-size:12px;font-weight:500;color:var(--t3);text-align:right;padding:12px 16px;border-bottom:1px solid var(--line)}
+.lb th:first-child,.lb th:nth-child(2){text-align:left}
+.lb td{padding:14px 16px;text-align:right;font-size:14px;border-bottom:1px solid var(--line)}
+.lb td:first-child,.lb td:nth-child(2){text-align:left}
+.lb tr:last-child td{border-bottom:0}
+.lp a:focus-visible,.lp button:focus-visible,.lp textarea:focus-visible{outline:2px solid var(--brand);outline-offset:3px}
+.fade{animation:fade .3s cubic-bezier(.2,.7,.2,1) both}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.fade{animation:none}}
+@media (max-width:980px){.cols{grid-template-columns:1fr !important}.aside{display:none !important}}
+</style>
+</helmet>
+<div class="lp" data-theme="{{theme}}" style="width: 100%">
+  <div class="atmo" aria-hidden="true"></div>
+
+  <!-- Solo el contenido de /app/social: va dentro de ClubWorkspaceShell (barra y sidebar sin cambios) -->
+  <main style="position: relative; max-width: 1120px; margin: 0 auto; padding: 32px 24px 64px">
+    <h1 style="margin: 0; font-size: 32px; line-height: 1.1; letter-spacing: -.03em; font-weight: 700">Comunidad</h1>
+
+    <div class="tabs" role="tablist" aria-label="Vistas de Comunidad" style="margin-top: 24px">
+      <sc-for list="{{tabs}}" as="t" hint-placeholder-count="4">
+        <button class="tab" type="button" role="tab" aria-selected="{{t.selected}}" onClick="{{t.pick}}">{{t.label}}</button>
+      </sc-for>
+    </div>
+
+    <!-- FEED -->
+    <sc-if value="{{isFeed}}" hint-placeholder-val="{{ true }}">
+      <div class="cols fade" style="margin-top: 24px; display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 24px; align-items: start">
+        <div style="display: flex; flex-direction: column; gap: 14px; min-width: 0">
+
+          <!-- Publicar -->
+          <form class="glass" aria-label="Publicar" style="border-radius: 24px; padding: 18px 20px">
+            <div style="display: flex; gap: 14px">
+              <span class="av" aria-hidden="true" style="width: 40px; height: 40px; font-size: 14px; background: linear-gradient(135deg, #34D399, #0EA5E9); color: #04131C">JR</span>
+              <div style="flex: 1; min-width: 0">
+                <label for="post" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Escribe tu publicación</label>
+                <textarea id="post" rows="2" placeholder="¿Qué pick tienes y por qué?" style="width: 100%; resize: none; border: 0; background: transparent; color: var(--t1); font: 400 16px/1.5 Inter, system-ui, sans-serif; padding: 8px 0"></textarea>
+                <div class="chip" style="margin-top: 6px; border-radius: 14px; padding: 10px 12px; display: flex; align-items: center; gap: 10px">
+                  <img src="/_blob/9f120714d07c39f9f5dba1f0670ea3e5" alt="" style="width: 18px; height: 18px; object-fit: contain">
+                  <span style="flex: 1; min-width: 0; font-size: 13px"><strong style="font-weight: 600">Más de 1.5 goles</strong> <span style="color: var(--t3)">· Querétaro vs Monterrey · 1.0u</span></span>
+                  <button type="button" aria-label="Quitar pick adjunto" style="width: 32px; height: 32px; border: 0; border-radius: 999px; background: transparent; color: var(--t3); display: grid; place-items: center; cursor: pointer">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); flex-wrap: wrap">
+              <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap">
+                <button class="btn btn-ghost btn-sm" type="button">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+                  Adjuntar pick
+                </button>
+                <div class="seg" role="group" aria-label="Origen del pick">
+                  <button type="button" aria-pressed="true">Del modelo</button>
+                  <button type="button" aria-pressed="false">Propio</button>
+                </div>
+              </div>
+              <button class="btn btn-primary btn-sm" type="submit">Publicar</button>
+            </div>
+          </form>
+
+          <!-- Post 1 · Sofía -->
+          <article class="glass" style="border-radius: 24px; padding: 20px 22px">
+            <header style="display: flex; align-items: center; gap: 12px">
+              <span class="av" aria-hidden="true" style="width: 42px; height: 42px; font-size: 14px; background: linear-gradient(135deg, #8B5CF6, #6366F1)">SM</span>
+              <div style="flex: 1; min-width: 0">
+                <p style="margin: 0; font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 6px"><a href="#perfil-sofia" style="color: inherit; text-decoration: none">Sofía Méndez</a><svg width="16" height="16" viewBox="0 0 24 24" role="img" aria-label="Tipstar verificado"><path fill="var(--brand)" d="M12 1.8l2.5 1.9 3.1-.2 1 3 2.6 1.7-1 3 1 3-2.6 1.7-1 3-3.1-.2L12 22.2l-2.5-1.9-3.1.2-1-3-2.6-1.7 1-3-1-3 2.6-1.7 1-3 3.1.2z"></path><path d="M8.2 12.2l2.6 2.6 5-5.2" fill="none" stroke="var(--bg)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></p>
+                <p class="num" style="margin: 1px 0 0; font-size: 12px; color: var(--t3)">@sofia_nfl · +18.4u · hace 18 min</p>
+              </div>
+              <button class="btn btn-sm {{followClass}}" type="button" aria-pressed="{{followingStr}}" onClick="{{toggleFollow}}">{{followLabel}}</button>
+            </header>
+            <p style="margin: 14px 0 0; font-size: 15px; line-height: 1.6; color: var(--t2)">Washington +7.5 a −110. El modelo lo pone en −177; entro antes de que se mueva la línea.</p>
+            <div class="chip" style="margin-top: 14px; border-radius: 16px; padding: 14px 16px; display: flex; align-items: center; gap: 14px">
+              <div style="display: flex; flex: none"><img src="/_blob/9c4128b9ae51575bd0f66dd514b1c1ae" alt="" style="width: 30px; height: 30px; object-fit: contain"><img src="/_blob/082deb7577eb6977257ce08ed6440052" alt="" style="width: 30px; height: 30px; object-fit: contain; margin-left: -6px"></div>
+              <div style="flex: 1; min-width: 0">
+                <p style="margin: 0; font-size: 14px; font-weight: 600">Washington +7.5 · 2.0u</p>
+                <p class="num" style="margin: 2px 0 0; font-size: 12px; color: var(--t3)">NFL · jue 20:15 · −110 · justo −177 · modelo 63.9 %</p>
+              </div>
+              <span class="status s-open">Abierto</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 4px; margin-top: 10px; margin-left: -10px">
+              <button class="act {{likeClass}}" type="button" aria-pressed="{{likedStr}}" onClick="{{toggleLike}}" aria-label="Me gusta">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="{{likeFill}}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21.2l8.8-8.8a5.5 5.5 0 0 0 0-7.8z"></path></svg>
+                <span class="num">{{likes}}</span>
+              </button>
+              <button class="act" type="button" aria-label="Comentarios">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path></svg>
+                <span class="num">14</span>
+              </button>
+              <button class="act" type="button">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="13" height="13" rx="2"></rect><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"></path></svg>
+                Copiar a mi bitácora
+              </button>
+              <button class="act" type="button" aria-label="Compartir" style="margin-left: auto">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M16 6l-4-4-4 4M12 2v13"></path></svg>
+              </button>
+            </div>
+            <div style="margin-top: 8px; padding-top: 14px; border-top: 1px solid var(--line); display: flex; gap: 10px">
+              <span class="av" aria-hidden="true" style="width: 28px; height: 28px; font-size: 11px; background: linear-gradient(135deg, #F59E0B, #EF4444)">CV</span>
+              <div style="min-width: 0">
+                <p style="margin: 0; font-size: 13px; line-height: 1.5; color: var(--t2)"><strong style="color: var(--t1); font-weight: 600">Carlos Vega</strong> Coincido. La línea ya se movió a +6.5 en dos casas.</p>
+                <button type="button" style="margin-top: 4px; padding: 0; min-height: 32px; border: 0; background: none; color: var(--t3); font: 500 12px Inter, system-ui, sans-serif; cursor: pointer">Ver los 14 comentarios</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Post 2 · socio -->
+          <article class="glass" style="border-radius: 24px; padding: 20px 22px">
+            <header style="display: flex; align-items: center; gap: 12px">
+              <span class="av" aria-hidden="true" style="width: 42px; height: 42px; font-size: 14px; background: linear-gradient(135deg, #10B981, #059669)">SP</span>
+              <div style="flex: 1; min-width: 0">
+                <p style="margin: 0; font-size: 15px; font-weight: 600">Socio PitchLab</p>
+                <p class="num" style="margin: 1px 0 0; font-size: 12px; color: var(--t3)">@socio_pl · +6.4u · ayer</p>
+              </div>
+              <button class="btn btn-ghost btn-sm" type="button">Seguir</button>
+            </header>
+            <p style="margin: 14px 0 0; font-size: 15px; line-height: 1.6; color: var(--t2)">Ambos anotan, cumplido. Lo tomé a +105 y cerró en −120.</p>
+            <div class="chip" style="margin-top: 14px; border-radius: 16px; padding: 14px 16px; display: flex; align-items: center; gap: 14px">
+              <div style="display: flex; flex: none"><img src="/_blob/fc30e667434386de97fa2c7be2d8830b" alt="" style="width: 30px; height: 30px; object-fit: contain"><img src="/_blob/218f3696fce6df537a0bfbe0410435b5" alt="" style="width: 30px; height: 30px; object-fit: contain; margin-left: -6px"></div>
+              <div style="flex: 1; min-width: 0">
+                <p style="margin: 0; font-size: 14px; font-weight: 600">Ambos anotan · 1.5u</p>
+                <p class="num" style="margin: 2px 0 0; font-size: 12px; color: var(--t3)">Premier · Arsenal 2–1 Liverpool · +105</p>
+              </div>
+              <span class="status s-ok">Cumplido · +1.6u</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 4px; margin-top: 10px; margin-left: -10px">
+              <button class="act" type="button" aria-label="Me gusta, 86"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21.2l8.8-8.8a5.5 5.5 0 0 0 0-7.8z"></path></svg><span class="num">86</span></button>
+              <button class="act" type="button" aria-label="Comentarios, 9"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path></svg><span class="num">9</span></button>
+              <button class="act" type="button" aria-label="Compartir" style="margin-left: auto"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M16 6l-4-4-4 4M12 2v13"></path></svg></button>
+            </div>
+          </article>
+
+          <!-- Post 3 · Carlos, sin pick -->
+          <article class="glass" style="border-radius: 24px; padding: 20px 22px">
+            <header style="display: flex; align-items: center; gap: 12px">
+              <span class="av" aria-hidden="true" style="width: 42px; height: 42px; font-size: 14px; background: linear-gradient(135deg, #F59E0B, #EF4444)">CV</span>
+              <div style="flex: 1; min-width: 0">
+                <p style="margin: 0; font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 6px">Carlos Vega<svg width="16" height="16" viewBox="0 0 24 24" role="img" aria-label="Tipstar verificado"><path fill="var(--brand)" d="M12 1.8l2.5 1.9 3.1-.2 1 3 2.6 1.7-1 3 1 3-2.6 1.7-1 3-3.1-.2L12 22.2l-2.5-1.9-3.1.2-1-3-2.6-1.7 1-3-1-3 2.6-1.7 1-3 3.1.2z"></path><path d="M8.2 12.2l2.6 2.6 5-5.2" fill="none" stroke="var(--bg)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></p>
+                <p class="num" style="margin: 1px 0 0; font-size: 12px; color: var(--t3)">@carlos_quant · +14.9u · ayer</p>
+              </div>
+              <button class="btn btn-ghost btn-sm" type="button">Siguiendo</button>
+            </header>
+            <p style="margin: 14px 0 0; font-size: 15px; line-height: 1.6; color: var(--t2)">Arsenal–Liverpool: el modelo le da 42 % a Arsenal y la casa paga +140 (41.7 %). Sin diferencia, esta vez no entro.</p>
+            <div style="display: flex; align-items: center; gap: 4px; margin-top: 10px; margin-left: -10px">
+              <button class="act" type="button" aria-label="Me gusta, 212"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21.2l8.8-8.8a5.5 5.5 0 0 0 0-7.8z"></path></svg><span class="num">212</span></button>
+              <button class="act" type="button" aria-label="Comentarios, 31"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path></svg><span class="num">31</span></button>
+              <button class="act" type="button" aria-label="Compartir" style="margin-left: auto"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M16 6l-4-4-4 4M12 2v13"></path></svg></button>
+            </div>
+          </article>
+        </div>
+
+        <!-- Columna derecha -->
+        <aside class="aside" aria-label="Resumen de Comunidad" style="display: flex; flex-direction: column; gap: 14px">
+          <section class="glass" aria-labelledby="tu-mes" style="border-radius: 22px; padding: 18px 20px">
+            <h2 id="tu-mes" class="eyebrow">Tu noviembre</h2>
+            <div class="num" style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-top: 12px">
+              <p style="margin: 0; font-size: 28px; font-weight: 700; letter-spacing: -.02em">#12</p>
+              <p style="margin: 0; font-size: 14px; color: var(--t3)"><strong style="color: var(--ok); font-weight: 600">+3.1u</strong> · 24 picks</p>
+            </div>
+            <p style="margin: 6px 0 0; font-size: 12px; color: var(--t3)">Te faltan 0.3u para el top 10.</p>
+            <a class="link" href="#mi-perfil" style="display: inline-block; margin-top: 12px; font-size: 13px; font-weight: 500">Ver mi perfil</a>
+          </section>
+
+          <section class="glass" aria-labelledby="top" style="border-radius: 22px; padding: 18px 20px">
+            <div style="display: flex; justify-content: space-between; align-items: center">
+              <h2 id="top" class="eyebrow">Top de noviembre</h2>
+              <button type="button" onClick="{{toRanking}}" style="border: 0; background: none; padding: 0; min-height: 32px; color: var(--t2); font: 500 12px Inter, system-ui, sans-serif; cursor: pointer">Ver ranking</button>
+            </div>
+            <ol style="list-style: none; margin: 8px 0 0; padding: 0">
+              <sc-for list="{{top}}" as="r" hint-placeholder-count="5">
+                <li style="display: flex; align-items: center; gap: 10px; padding: 9px 0">
+                  <span class="num" style="width: 16px; font-size: 13px; color: var(--t3)">{{r.rank}}</span>
+                  <span class="av" aria-hidden="true" style="width: 30px; height: 30px; font-size: 11px; background: {{r.grad}}">{{r.ini}}</span>
+                  <span style="flex: 1; min-width: 0; font-size: 14px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{r.name}}</span>
+                  <span class="num" style="font-size: 13px; font-weight: 600; color: var(--ok)">{{r.units}}</span>
+                </li>
+              </sc-for>
+            </ol>
+          </section>
+
+          <section class="glass" aria-labelledby="hot" style="border-radius: 22px; padding: 18px 20px">
+            <h2 id="hot" class="eyebrow">Más comentado hoy</h2>
+            <p style="margin: 10px 0 0; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 8px"><img src="/_blob/2323d62b123b7c63b12afa5bc92fc6e2" alt="" style="width: 22px; height: 22px; object-fit: contain">Querétaro vs Monterrey<img src="/_blob/c0b14d133945253a1b9f6d17c27eb5ea" alt="" style="width: 22px; height: 22px; object-fit: contain"></p>
+            <div class="num" style="margin-top: 14px; display: flex; flex-direction: column; gap: 10px; font-size: 12px">
+              <div>
+                <div style="display: flex; justify-content: space-between"><span style="color: var(--t2)">Socios · Monterrey gana</span><strong style="font-weight: 600">64 %</strong></div>
+                <div style="margin-top: 5px; height: 6px; border-radius: 3px; background: var(--track)"><div style="width: 64%; height: 100%; border-radius: 3px; background: var(--brand)"></div></div>
+              </div>
+              <div>
+                <div style="display: flex; justify-content: space-between"><span style="color: var(--t2)">Modelo · Monterrey gana</span><strong style="font-weight: 600">47 %</strong></div>
+                <div style="margin-top: 5px; height: 6px; border-radius: 3px; background: var(--track)"><div style="width: 47%; height: 100%; border-radius: 3px; background: var(--t2)"></div></div>
+              </div>
+            </div>
+            <button type="button" onClick="{{toConsensus}}" style="margin-top: 12px; border: 0; background: none; padding: 0; min-height: 32px; color: var(--t2); font: 500 12px Inter, system-ui, sans-serif; cursor: pointer">Ver consenso</button>
+          </section>
+
+          <a class="chip" href="#invitar" style="border-radius: 18px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; color: inherit; text-decoration: none">
+            <span style="flex: 1; min-width: 0; font-size: 13px; line-height: 1.45"><strong style="display: block; font-weight: 600">Invita a un amigo</strong><span style="color: var(--t3)">7 días para él, +15 días para ti</span></span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--t3)"><path d="M9 18l6-6-6-6"></path></svg>
+          </a>
+        </aside>
+      </div>
+    </sc-if>
+
+    <!-- CONSENSO -->
+    <sc-if value="{{isConsensus}}" hint-placeholder-val="{{ false }}">
+      <div class="fade" style="margin-top: 24px; max-width: 760px">
+        <div style="display: flex; flex-direction: column; gap: 12px">
+          <sc-for list="{{consensus}}" as="c" hint-placeholder-count="3">
+            <article class="glass" style="border-radius: 22px; padding: 20px 22px">
+              <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap">
+                <p style="margin: 0; font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 8px"><img src="{{c.home}}" alt="" style="width: 24px; height: 24px; object-fit: contain">{{c.match}}<img src="{{c.away}}" alt="" style="width: 24px; height: 24px; object-fit: contain"></p>
+                <span class="num" style="font-size: 12px; color: var(--t3)">{{c.meta}}</span>
+              </div>
+              <div class="num" style="margin-top: 16px; display: grid; grid-template-columns: 90px minmax(0, 1fr) 52px; align-items: center; gap: 8px 12px; font-size: 13px">
+                <span style="color: var(--t2)">Socios</span>
+                <div style="height: 8px; border-radius: 4px; background: var(--track)"><div style="width: {{c.fans}}%; height: 100%; border-radius: 4px; background: var(--brand)"></div></div>
+                <strong style="text-align: right; font-weight: 600">{{c.fans}} %</strong>
+                <span style="color: var(--t2)">Modelo</span>
+                <div style="height: 8px; border-radius: 4px; background: var(--track)"><div style="width: {{c.model}}%; height: 100%; border-radius: 4px; background: var(--t2)"></div></div>
+                <strong style="text-align: right; font-weight: 600">{{c.model}} %</strong>
+              </div>
+              <p style="margin: 14px 0 0; font-size: 14px; color: var(--t1)">{{c.read}}</p>
+            </article>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- RANKING -->
+    <sc-if value="{{isRanking}}" hint-placeholder-val="{{ false }}">
+      <div class="fade" style="margin-top: 24px">
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap">
+          <div class="seg" role="group" aria-label="Ventana del ranking">
+            <button type="button" aria-pressed="true">Últimos 30 días</button>
+            <button type="button" aria-pressed="false">Temporada</button>
+          </div>
+          <div class="seg" role="group" aria-label="Ordenar por">
+            <button type="button" aria-pressed="true">Por saldo</button>
+            <button type="button" aria-pressed="false">Por ventaja contra el cierre</button>
+          </div>
+        </div>
+        <div class="glass" style="margin-top: 16px; border-radius: 22px; overflow-x: auto">
+          <table class="lb num" style="width: 100%; border-collapse: collapse; min-width: 640px">
+            <caption style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Ranking de Comunidad, últimos 30 días, ordenado por saldo</caption>
+            <thead><tr><th scope="col">#</th><th scope="col">Analista</th><th scope="col">Saldo</th><th scope="col">Cumplidos</th><th scope="col">Contra el cierre</th><th scope="col">Picks</th></tr></thead>
+            <tbody>
+              <sc-for list="{{ranking}}" as="r" hint-placeholder-count="8">
+                <tr style="background: {{r.rowBg}}">
+                  <td style="color: var(--t3); width: 48px">{{r.rank}}</td>
+                  <td>
+                    <span style="display: inline-flex; align-items: center; gap: 10px">
+                      <span class="av" aria-hidden="true" style="width: 32px; height: 32px; font-size: 11px; background: {{r.grad}}">{{r.ini}}</span>
+                      <span><span style="display: block; font-weight: 600">{{r.name}}</span><span style="display: block; font-size: 12px; color: var(--t3)">{{r.sub}}</span></span>
+                    </span>
+                  </td>
+                  <td style="font-weight: 600; color: var(--ok)">{{r.units}}</td>
+                  <td>{{r.hit}}</td>
+                  <td>{{r.clv}}</td>
+                  <td style="color: var(--t3)">{{r.picks}}</td>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+        <p style="margin: 12px 0 0; font-size: 12px; color: var(--t3)">Mínimo 20 picks cerrados.</p>
+      </div>
+    </sc-if>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["dark","light"],"default":"dark"},"tab":{"editor":"enum","options":["para-ti","siguiendo","consenso","ranking"],"default":"para-ti"},"$preview":{"width":1440,"height":1500}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { tab: null, following: false, liked: false };
+  }
+  renderVals() {
+    const theme = this.props.theme ?? 'dark';
+    const tab = this.state.tab ?? this.props.tab ?? 'para-ti';
+    const f = this.state.following;
+    const l = this.state.liked;
+    const g = { s: 'linear-gradient(135deg, #8B5CF6, #6366F1)', c: 'linear-gradient(135deg, #F59E0B, #EF4444)', d: 'linear-gradient(135deg, #0EA5E9, #2563EB)', j: 'linear-gradient(135deg, #34D399, #0EA5E9)', p: 'linear-gradient(135deg, #10B981, #059669)', m: 'linear-gradient(135deg, #EC4899, #8B5CF6)', a: 'linear-gradient(135deg, #64748B, #334155)' };
+    const rows = [
+      ['Sofía Méndez', 'Tipstar · NFL y totales', 'SM', g.s, '+10.7u', '61 %', '+4.5 %', '82'],
+      ['Carlos Vega', 'Tipstar · Premier y LaLiga', 'CV', g.c, '+8.6u', '57 %', '+4.1 %', '108'],
+      ['Diego Aranda', 'Tipstar · Liga MX', 'DA', g.d, '+6.7u', '55 %', '+3.3 %', '71'],
+      ['Jair R.', 'Socio · NFL y Liga MX', 'JR', g.j, '+5.3u', '58 %', '+3.0 %', '65'],
+      ['Mariana T.', 'Socia · Liga MX', 'MT', g.m, '+4.9u', '56 %', '+2.4 %', '44'],
+      ['Socio PitchLab', 'Socio · varias ligas', 'SP', g.p, '+3.7u', '54 %', '+2.8 %', '38'],
+      ['Andrés L.', 'Socio · NFL', 'AL', g.a, '+3.6u', '53 %', '+1.9 %', '29'],
+      ['Tú', 'Socio · #12 · +3.1u', 'JR', g.j, '+3.1u', '56 %', '+2.2 %', '24']
+    ];
+    const ranking = rows.map((r, i) => ({ rank: i === 7 ? '12' : String(i + 1), name: r[0], sub: r[1], ini: r[2], grad: r[3], units: r[4], hit: r[5], clv: r[6], picks: r[7], rowBg: i === 7 ? 'rgba(196,181,253,.08)' : 'transparent' }));
+    return {
+      theme: theme,
+      tabs: [['para-ti', 'Para ti'], ['siguiendo', 'Siguiendo'], ['consenso', 'Consenso'], ['ranking', 'Ranking']].map((t) => ({
+        label: t[1], selected: tab === t[0] ? 'true' : 'false', pick: () => this.setState({ tab: t[0] })
+      })),
+      isFeed: tab === 'para-ti' || tab === 'siguiendo',
+      isConsensus: tab === 'consenso',
+      isRanking: tab === 'ranking',
+      toRanking: () => this.setState({ tab: 'ranking' }),
+      toConsensus: () => this.setState({ tab: 'consenso' }),
+      followLabel: f ? 'Siguiendo' : 'Seguir',
+      followClass: f ? 'btn-ghost' : 'btn-primary',
+      followingStr: f ? 'true' : 'false',
+      toggleFollow: () => this.setState({ following: !f }),
+      likes: l ? '129' : '128',
+      likeFill: l ? 'currentColor' : 'none',
+      likeClass: l ? 'act-on' : '',
+      likedStr: l ? 'true' : 'false',
+      toggleLike: () => this.setState({ liked: !l }),
+      top: ranking.slice(0, 5),
+      ranking: ranking,
+      consensus: [
+        { match: 'Querétaro vs Monterrey', home: '/_blob/2323d62b123b7c63b12afa5bc92fc6e2', away: '/_blob/c0b14d133945253a1b9f6d17c27eb5ea', meta: 'Liga MX · sáb 17:00 · 46 picks de socios', fans: 64, model: 47, read: 'Los socios ven a Monterrey 17 pts más probable que el modelo.' },
+        { match: 'NY Giants vs Washington', home: '/_blob/9c4128b9ae51575bd0f66dd514b1c1ae', away: '/_blob/082deb7577eb6977257ce08ed6440052', meta: 'NFL · jue 20:15 · 31 picks de socios', fans: 58, model: 69, read: 'Los socios ven a los Giants 11 pts menos probable que el modelo.' },
+        { match: 'Arsenal vs Liverpool', home: '/_blob/fc30e667434386de97fa2c7be2d8830b', away: '/_blob/218f3696fce6df537a0bfbe0410435b5', meta: 'Premier · dom 10:30 · 22 picks de socios', fans: 41, model: 42, read: 'Socios y modelo coinciden en Arsenal: 1 pt de diferencia.' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -163,6 +163,16 @@ Coloca los activos en public/brand/ para la ruta de ejemplo. Usa el SVG compacto
 
 Las cifras y los planes en los mockups son ejemplos. Existe una coincidencia exacta de nombre con una app de análisis de béisbol. Queda pendiente la validación formal ante el IMPI y organismos de otros mercados. [Revisión preliminar](exploration/RESEARCH_AND_SELECTION.md).
 
+## Identificadores de ligas y clubes
+
+Usa el paquete editorial [Premier League 2026/27](football/premier-league-2026-27/README.md) en tarjetas, tablas y filtros de fútbol. La edición 02 contiene un emblema de liga y 20 de clubes con siluetas y colores propios. Los SVG, PNG y el manifiesto conservan los mismos IDs de integración. Usa los emblemas en su proporción original y reserva los tokens de PitchLab para la interfaz.
+
+Usa el paquete [Liga MX · Apertura 2026](football/liga-mx-apertura-2026/README.md) para la competición mexicana y sus 18 clubes. Lee el manifiesto de esta colección para resolver IDs y rutas. Usa 24 px en tablas y 48 px en tarjetas, con el nombre o código visible.
+
+Usa [Champions League 2026/27](football/champions-league-2026-27/README.md) y [Europa League 2026/27](football/europa-league-2026-27/README.md) para sus fases liga. Cada paquete trae el emblema de competición y los 36 clubes. Los clubes que también están en la Premier League conservan sus IDs y dibujos aprobados. Resuelve rutas con el manifiesto de la colección.
+
+Usa [LaLiga 2026/27](football/laliga-2026-27/README.md) para Primera División, [NFL 2026](american-football/nfl-2026/README.md) para sus 32 franquicias y [NCAA Football · FBS 2026](american-football/ncaa-fbs-2026/README.md) para los 138 programas de esa subdivisión. Para fútbol americano, distingue la colección además del ID. En NCAA el campo `group` indica la afiliación de fútbol de 2026. Sirve los SVG con su proporción y paleta de origen.
+
 ## Inventario de archivos
 
 - [PITCHLAB_BRAND_HANDOFF.md](PITCHLAB_BRAND_HANDOFF.md)

@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<title>PitchLab · Inicio</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+.pl-dark{--bg:#0B1020;--nav:#10172A;--elev:#1A2440;--surf:#151E34;--hover:#222D49;--active:#302650;--t1:#F3F5FD;--t2:#B8C1D7;--t3:#98A4BF;--line:#33405D;--line2:#73819F;--brand:#B49AFF;--ok:#66D9AE;--on:#0B1020;--glow:#B49AFF26}
+.pl-light{--bg:#F3F5FD;--nav:#FFFFFF;--elev:#FFFFFF;--surf:#FFFFFF;--hover:#E9ECF7;--active:#E6E0FF;--t1:#0B1020;--t2:#3B4560;--t3:#5A6480;--line:#D5DAE8;--line2:#7C87A3;--brand:#5940B2;--ok:#12704E;--on:#FFFFFF;--glow:#5940B21F}
+a{color:var(--t2);text-decoration:none}a:hover{color:var(--t1)}
+.num{font-variant-numeric:tabular-nums lining-nums}
+</style>
+</helmet>
+<div class="{{themeClass}}" style="min-height: 1240px; background: var(--bg); color: var(--t1); font-family: Inter, system-ui, sans-serif; display: flex; flex-wrap: wrap; font-size: 14px; line-height: 1.45">
+
+  <!-- AppShell (Astryx) · barra lateral 232 px -->
+  <aside style="flex: 1 1 232px; max-width: 232px; min-width: 200px; background: var(--nav); border-right: 1px solid var(--line); display: flex; flex-direction: column; box-sizing: border-box">
+    <div style="height: 64px; display: flex; align-items: center; padding: 0 20px; border-bottom: 1px solid var(--line)">
+      <sc-if value="{{isDark}}" hint-placeholder-val="{{ true }}"><img src="/_blob/847e53db620413581d6e7b6db224bfbc" alt="PitchLab" style="height: 26px; width: auto; display: block"></sc-if>
+      <sc-if value="{{isLight}}" hint-placeholder-val="{{ false }}"><img src="/_blob/f3a2fcc20026bd91a165f9666a357ce8" alt="PitchLab" style="height: 26px; width: auto; display: block"></sc-if>
+    </div>
+    <nav aria-label="Principal" style="display: flex; flex-direction: column; gap: 20px; padding: 16px 12px; flex-grow: 1">
+      <a href="#" aria-current="page" style="display: flex; align-items: center; gap: 12px; height: 40px; padding: 0 12px; border-radius: 8px; background: var(--active); color: var(--t1); font-weight: 600">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"></path><path d="M5 9.5V21h14V9.5"></path><path d="M10 21v-6h4v6"></path></svg>
+        Inicio
+      </a>
+      <div style="display: flex; flex-direction: column; gap: 2px">
+        <p style="margin: 0 0 6px; padding: 0 12px; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--t3)">Deportes</p>
+        <a href="#" style="display: flex; align-items: center; gap: 12px; height: 36px; padding: 0 12px; border-radius: 8px"><img src="/_blob/0b9337eb7833ed1d91e20d5be82ebdb1" alt="" style="width: 20px; height: 20px">Liga MX</a>
+        <a href="#" style="display: flex; align-items: center; gap: 12px; height: 36px; padding: 0 12px; border-radius: 8px"><img src="/_blob/519d72cd3309d07a5475ef98c364da98" alt="" style="width: 20px; height: 20px">NFL</a>
+        <a href="#" style="display: flex; align-items: center; gap: 12px; height: 36px; padding: 0 12px; border-radius: 8px"><img src="/_blob/351107d3c3db787cabf7d2e55bda4274" alt="" style="width: 20px; height: 20px">Premier League</a>
+        <a href="#" style="display: flex; align-items: center; gap: 12px; height: 36px; padding: 0 12px; border-radius: 8px"><img src="/_blob/d41c9efd8faa0c36b51530f6fa771b81" alt="" style="width: 20px; height: 20px">LaLiga</a>
+        <a href="#" style="display: flex; align-items: center; gap: 12px; height: 36px; padding: 0 12px; border-radius: 8px"><img src="/_blob/4c8eb3fef2ef348e74a37643a231b941" alt="" style="width: 20px; height: 20px">Bundesliga</a>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 2px">
+        <p style="margin: 0 0 6px; padding: 0 12px; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--t3)">Investigar</p>
+        <a href="#" style="display: flex; align-items: center; gap: 12px; height: 36px; padding: 0 12px; border-radius: 8px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"></path></svg>Jugadores</a>
+        <a href="#" style="display: flex; align-items: center; gap: 12px; height: 36px; padding: 0 12px; border-radius: 8px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 4.5 3.4 7.8 8 9 4.6-1.2 8-4.5 8-9V6z"></path></svg>Equipos</a>
+        <a href="#" style="display: flex; align-items: center; gap: 12px; height: 36px; padding: 0 12px; border-radius: 8px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"></path></svg>Prop Lab</a>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 2px">
+        <p style="margin: 0 0 6px; padding: 0 12px; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--t3)">Mercados</p>
+        <a href="#" style="display: flex; align-items: center; gap: 12px; height: 36px; padding: 0 12px; border-radius: 8px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"></path><path d="M15 7h6v6"></path></svg>Cuotas</a>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 2px">
+        <p style="margin: 0 0 6px; padding: 0 12px; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--t3)">Comunidad</p>
+        <a href="#" style="display: flex; align-items: center; gap: 12px; height: 36px; padding: 0 12px; border-radius: 8px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"></path></svg>Leaderboards</a>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 2px">
+        <p style="margin: 0 0 6px; padding: 0 12px; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--t3)">Personal</p>
+        <a href="#" style="display: flex; align-items: center; gap: 12px; height: 36px; padding: 0 12px; border-radius: 8px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.7 3h10.6a2 2 0 0 0 1.7-3l-5-9V3"></path></svg>Mi Lab</a>
+        <a href="#" style="display: flex; align-items: center; gap: 12px; height: 36px; padding: 0 12px; border-radius: 8px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4z"></path></svg>Watchlists</a>
+      </div>
+    </nav>
+    <div style="margin: 12px; padding: 16px; border-radius: 12px; background: var(--surf); border: 1px solid var(--line); display: flex; flex-direction: column; gap: 10px">
+      <p style="margin: 0; font-size: 13px; font-weight: 600">Prueba Pro</p>
+      <p style="margin: 0; font-size: 12px; color: var(--t2)">Te quedan <span class="num" style="color: var(--t1); font-weight: 600">5 días</span>.</p>
+      <div style="height: 4px; border-radius: 999px; background: var(--hover); overflow: hidden"><div style="width: 28%; height: 100%; background: var(--brand)"></div></div>
+      <a href="#" style="font-size: 13px; font-weight: 600; color: var(--brand)">Ver planes</a>
+    </div>
+  </aside>
+
+  <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+
+    <!-- Encabezado: SearchField (HeroUI) · liga activa · cuenta -->
+    <header style="height: 64px; display: flex; align-items: center; gap: 16px; padding: 0 32px; border-bottom: 1px solid var(--line); background: var(--bg); box-sizing: border-box">
+      <label style="flex: 1 1 auto; max-width: 520px; display: flex; align-items: center; gap: 10px; height: 40px; padding: 0 12px; border-radius: 8px; background: var(--surf); border: 1px solid var(--line); color: var(--t3)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+        <input type="search" placeholder="Buscar equipo, jugador o partido" aria-label="Buscar" style="flex: 1 1 auto; min-width: 0; background: transparent; border: 0; outline: none; color: var(--t1); font: inherit">
+        <span style="font-size: 12px; padding: 2px 6px; border-radius: 6px; border: 1px solid var(--line); color: var(--t3)">⌘K</span>
+      </label>
+      <div style="margin-left: auto; display: flex; align-items: center; gap: 12px">
+        <button type="button" style="display: flex; align-items: center; gap: 8px; height: 40px; padding: 0 12px; border-radius: 8px; border: 1px solid var(--line); background: transparent; color: var(--t1); font: inherit; font-weight: 600; cursor: pointer">
+          <img src="/_blob/0b9337eb7833ed1d91e20d5be82ebdb1" alt="" style="width: 20px; height: 20px">Liga MX
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+        </button>
+        <button type="button" aria-label="Cambiar tema" style="width: 40px; height: 40px; display: grid; place-items: center; border-radius: 8px; border: 1px solid var(--line); background: transparent; color: var(--t2); cursor: pointer">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"></path></svg>
+        </button>
+        <button type="button" aria-label="Cuenta de Jair" style="width: 40px; height: 40px; border-radius: 999px; border: 0; background: var(--active); color: var(--t1); font: inherit; font-weight: 700; cursor: pointer">JB</button>
+      </div>
+    </header>
+
+    <main style="width: 100%; max-width: 1120px; margin: 0 auto; padding: 32px 32px 48px; box-sizing: border-box; display: flex; flex-direction: column; gap: 28px">
+
+      <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px">
+        <div style="display: flex; flex-direction: column; gap: 4px">
+          <p style="margin: 0; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--brand)">Lunes 9 de noviembre</p>
+          <h1 style="margin: 0; font-size: 34px; line-height: 1.1; font-weight: 800; letter-spacing: -0.03em">Hoy</h1>
+        </div>
+        <p style="margin: 0; display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--t3)"><span style="width: 8px; height: 8px; border-radius: 999px; background: var(--ok)"></span>Datos actualizados <span class="num" style="color: var(--t2)">10:35</span></p>
+      </div>
+
+      <!-- Lo más probable: el corazón del Inicio -->
+      <section aria-labelledby="likely" style="background: var(--elev); border: 1px solid var(--line); border-radius: 16px; padding: 28px 32px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 28px; align-items: center">
+        <div style="grid-column: span 4; display: flex; flex-direction: column; gap: 14px; min-width: 0">
+          <div style="width: 132px; height: 132px; border-radius: 999px; background: var(--glow); display: grid; place-items: center">
+            <img src="/_blob/a1308dc965b7c2f005bb78b6fa9dafaf" alt="" style="width: 124px; height: 124px">
+          </div>
+          <h2 id="likely" style="margin: 0; font-size: 24px; line-height: 1.15; font-weight: 800; letter-spacing: -0.02em">Lo más probable en tus ligas</h2>
+          <p style="margin: 0; color: var(--t2)">Radar ordenó los próximos partidos por la probabilidad que estima el modelo. Compara la cuota justa con la que ves en tu casa antes de decidir.</p>
+        </div>
+        <ol style="grid-column: span 8; list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; border-radius: 12px; border: 1px solid var(--line); background: var(--surf); overflow: hidden">
+          <li style="display: grid; grid-template-columns: 28px 28px minmax(0, 1fr) 96px 88px; align-items: center; gap: 14px; padding: 14px 18px; border-bottom: 1px solid var(--line); font-size: 12px; color: var(--t3)">
+            <span></span><span></span><span>Resultado más probable</span><span style="text-align: right">Probabilidad</span><span style="text-align: right">Cuota justa</span>
+          </li>
+          <sc-for list="{{likely}}" as="r" hint-placeholder-count="4">
+            <li style="display: grid; grid-template-columns: 28px 28px minmax(0, 1fr) 96px 88px; align-items: center; gap: 14px; padding: 14px 18px; border-bottom: 1px solid var(--line)">
+              <span class="num" style="font-size: 13px; font-weight: 700; color: var(--t3)">{{r.rank}}</span>
+              <img src="{{r.crest}}" alt="" style="width: 28px; height: 28px">
+              <span style="display: flex; flex-direction: column; min-width: 0">
+                <span style="font-size: 15px; font-weight: 700">{{r.outcome}}</span>
+                <span class="num" style="font-size: 12px; color: var(--t3)">{{r.match}}</span>
+              </span>
+              <span style="display: flex; flex-direction: column; align-items: flex-end; gap: 6px">
+                <span class="num" style="font-size: 20px; font-weight: 800; letter-spacing: -0.02em; color: var(--brand)">{{r.p}}</span>
+                <span style="width: 80px; height: 4px; border-radius: 999px; background: var(--hover); overflow: hidden; display: block"><span style="display: block; height: 100%; background: var(--brand); width: {{r.width}}"></span></span>
+              </span>
+              <span class="num" style="text-align: right; font-size: 16px; font-weight: 700">{{r.fair}}</span>
+            </li>
+          </sc-for>
+          <li style="padding: 12px 18px"><a href="#" style="font-size: 13px; font-weight: 600; color: var(--brand)">Ver todos los mercados de la jornada</a></li>
+        </ol>
+      </section>
+
+      <div style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; align-items: start">
+
+        <div style="grid-column: span 7; display: flex; flex-direction: column; gap: 24px; min-width: 0">
+
+          <!-- Esta noche (NFL) -->
+          <section aria-labelledby="tonight" style="position: relative; background: var(--surf); border: 1px solid var(--line); border-radius: 12px; padding: 22px 24px; display: flex; flex-direction: column; gap: 14px; overflow: hidden">
+            <img src="/_blob/29d73fe2d82c44ce70c85aecd3af9386" alt="" style="position: absolute; right: -14px; top: -10px; width: 132px; height: 132px; opacity: 0.95">
+            <p id="tonight" style="margin: 0; display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--t2)"><img src="/_blob/519d72cd3309d07a5475ef98c364da98" alt="" style="width: 18px; height: 18px">Esta noche · NFL · Semana 9 · <span class="num">20:15</span></p>
+            <div style="display: flex; align-items: center; gap: 12px; padding-right: 112px">
+              <img src="/_blob/1fe5922055c18121827a160b61b82e70" alt="Minnesota Vikings" style="width: 40px; height: 40px">
+              <span style="font-size: 20px; font-weight: 800">Minnesota</span>
+              <span style="font-size: 13px; color: var(--t3)">vs</span>
+              <span style="font-size: 20px; font-weight: 800">Buffalo</span>
+              <img src="/_blob/085bf2ac2d528a1b09df47a9f8245b9c" alt="Buffalo Bills" style="width: 40px; height: 40px">
+            </div>
+            <div style="display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap">
+              <span style="font-size: 13px; color: var(--t2)">Lo más probable</span>
+              <span style="font-size: 17px; font-weight: 700">Minnesota gana</span>
+              <span class="num" style="font-size: 28px; font-weight: 800; letter-spacing: -0.03em; color: var(--brand)">50.2 %</span>
+              <span class="num" style="font-size: 13px; color: var(--t3)">cuota justa <span style="color: var(--t1); font-weight: 700">1.99</span></span>
+            </div>
+            <div style="display: flex; gap: 4px; height: 6px" role="img" aria-label="Minnesota 50.2 %, Buffalo 49.8 %">
+              <div style="flex: 50.2 1 0; border-radius: 999px; background: var(--brand)"></div>
+              <div style="flex: 49.8 1 0; border-radius: 999px; background: var(--line2)"></div>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap">
+              <span style="font-size: 13px; color: var(--t2)">Casi parejo: Buffalo <span class="num" style="font-weight: 700; color: var(--t1)">49.8 %</span>. Con tan poca diferencia, la cuota decide.</span>
+              <a href="#" style="display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 18px; border-radius: 8px; background: var(--brand); color: var(--on); font-weight: 700">Abrir Game Center
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+              </a>
+            </div>
+          </section>
+
+          <!-- Próximos · SegmentedControl (Astryx) -->
+          <section aria-labelledby="next" style="display: flex; flex-direction: column; gap: 14px; min-width: 0">
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap">
+              <h2 id="next" style="margin: 0; font-size: 18px; font-weight: 700">Próximos en tus ligas</h2>
+              <div role="tablist" aria-label="Filtrar" style="display: flex; padding: 3px; gap: 2px; border-radius: 10px; background: var(--hover)">
+                <sc-for list="{{filters}}" as="f" hint-placeholder-count="3">
+                  <sc-if value="{{f.on}}" hint-placeholder-val="{{ false }}"><button type="button" role="tab" aria-selected="true" onClick="{{f.pick}}" style="height: 32px; padding: 0 14px; border: 0; border-radius: 8px; font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: var(--elev); color: var(--t1)">{{f.label}}</button></sc-if>
+                  <sc-if value="{{f.off}}" hint-placeholder-val="{{ true }}"><button type="button" role="tab" aria-selected="false" onClick="{{f.pick}}" style="height: 32px; padding: 0 14px; border: 0; border-radius: 8px; font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: transparent; color: var(--t2)">{{f.label}}</button></sc-if>
+                </sc-for>
+              </div>
+            </div>
+            <div style="background: var(--surf); border: 1px solid var(--line); border-radius: 12px; overflow: hidden">
+              <div style="display: grid; grid-template-columns: 84px minmax(0, 1fr) 128px 64px; gap: 14px; padding: 10px 18px; border-bottom: 1px solid var(--line); font-size: 12px; color: var(--t3)">
+                <span>Fecha</span><span>Partido</span><span style="text-align: right">Lo más probable</span><span style="text-align: right">Justa</span>
+              </div>
+              <sc-for list="{{games}}" as="g" hint-placeholder-count="4">
+                <a href="#" style="display: grid; grid-template-columns: 84px minmax(0, 1fr) 128px 64px; align-items: center; gap: 14px; padding: 14px 18px; border-bottom: 1px solid var(--line); color: var(--t1)">
+                  <span style="display: flex; flex-direction: column; font-size: 12px; color: var(--t3)"><span>{{g.day}}</span><span class="num" style="color: var(--t2); font-weight: 600">{{g.time}}</span></span>
+                  <span style="display: flex; flex-direction: column; gap: 6px; min-width: 0">
+                    <span style="display: flex; align-items: center; gap: 8px; font-weight: 600"><img src="{{g.homeCrest}}" alt="" style="width: 20px; height: 20px">{{g.home}}</span>
+                    <span style="display: flex; align-items: center; gap: 8px; font-weight: 600"><img src="{{g.awayCrest}}" alt="" style="width: 20px; height: 20px">{{g.away}}</span>
+                  </span>
+                  <span style="display: flex; flex-direction: column; align-items: flex-end; gap: 2px">
+                    <span class="num" style="font-size: 18px; font-weight: 800; color: var(--brand)">{{g.p}}</span>
+                    <span style="font-size: 12px; color: var(--t2); text-align: right">{{g.fav}}</span>
+                  </span>
+                  <span class="num" style="text-align: right; font-weight: 700">{{g.fair}}</span>
+                </a>
+              </sc-for>
+              <a href="#" style="display: block; padding: 12px 18px; font-size: 13px; font-weight: 600; color: var(--brand)">Ver todos los partidos</a>
+            </div>
+          </section>
+        </div>
+
+        <div style="grid-column: span 5; display: flex; flex-direction: column; gap: 24px; min-width: 0">
+          <section aria-labelledby="picks" style="display: flex; flex-direction: column; gap: 14px">
+            <div style="display: flex; align-items: baseline; justify-content: space-between">
+              <h2 id="picks" style="margin: 0; font-size: 18px; font-weight: 700">Mis picks abiertos</h2>
+              <a href="#" style="font-size: 13px; font-weight: 600; color: var(--brand)">Mi Lab</a>
+            </div>
+            <div style="background: var(--surf); border: 1px solid var(--line); border-radius: 12px; overflow: hidden">
+              <div style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; padding: 14px 18px; border-bottom: 1px solid var(--line)">
+                <span style="font-weight: 600">Buffalo gana · <span class="num">1.87</span></span><span class="num" style="font-size: 13px; color: var(--t2)">modelo 49.8 %</span>
+                <span style="font-size: 12px; color: var(--t3)">Minnesota vs Buffalo · hoy 20:15</span><span style="font-size: 12px; color: var(--t3); text-align: right">Abierto</span>
+              </div>
+              <div style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; padding: 14px 18px; border-bottom: 1px solid var(--line)">
+                <span style="font-weight: 600">Real Madrid gana · <span class="num">1.36</span></span><span class="num" style="font-size: 13px; color: var(--t2)">modelo 75.2 %</span>
+                <span style="font-size: 12px; color: var(--t3)">Real Madrid vs Celta · sáb 21 nov</span><span style="font-size: 12px; color: var(--t3); text-align: right">Abierto</span>
+              </div>
+              <div style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; padding: 14px 18px">
+                <span style="font-weight: 600">Bayern gana · <span class="num">1.14</span></span><span class="num" style="font-size: 13px; color: var(--t2)">modelo 88.7 %</span>
+                <span style="font-size: 12px; color: var(--t3)">Bayern vs Köln · vie 20 nov</span><span style="font-size: 12px; color: var(--t3); text-align: right">Abierto</span>
+              </div>
+            </div>
+          </section>
+
+          <section aria-labelledby="moves" style="display: flex; flex-direction: column; gap: 14px">
+            <div style="display: flex; align-items: baseline; justify-content: space-between">
+              <h2 id="moves" style="margin: 0; font-size: 18px; font-weight: 700">Movimientos de cuota</h2>
+              <a href="#" style="font-size: 13px; font-weight: 600; color: var(--brand)">Cuotas</a>
+            </div>
+            <div style="background: var(--surf); border: 1px solid var(--line); border-radius: 12px; overflow: hidden">
+              <div style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; padding: 14px 18px; border-bottom: 1px solid var(--line)">
+                <span style="font-weight: 600">Buffalo gana</span>
+                <span class="num" style="font-weight: 700"><span style="color: var(--t3); font-weight: 500">1.95</span> → 1.87</span>
+                <span style="font-size: 12px; color: var(--t3)">Mejor cuota · justa <span class="num">2.01</span></span><span class="num" style="font-size: 12px; color: var(--t3); text-align: right">hace 2 h</span>
+              </div>
+              <div style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; padding: 14px 18px">
+                <span style="font-weight: 600">Bayern München gana</span>
+                <span class="num" style="font-weight: 700"><span style="color: var(--t3); font-weight: 500">1.14</span> → 1.12</span>
+                <span style="font-size: 12px; color: var(--t3)">Apertura → ahora · justa <span class="num">1.13</span></span><span class="num" style="font-size: 12px; color: var(--t3); text-align: right">hace 5 h</span>
+              </div>
+            </div>
+          </section>
+
+          <section aria-labelledby="table" style="display: flex; flex-direction: column; gap: 14px">
+            <div style="display: flex; align-items: baseline; justify-content: space-between">
+              <h2 id="table" style="margin: 0; font-size: 18px; font-weight: 700">Liga MX · tabla</h2>
+              <a href="#" style="font-size: 13px; font-weight: 600; color: var(--brand)">Ver tabla</a>
+            </div>
+            <div style="background: var(--surf); border: 1px solid var(--line); border-radius: 12px; overflow: hidden">
+              <div style="display: grid; grid-template-columns: 24px 24px minmax(0, 1fr) 40px 40px; align-items: center; gap: 10px; padding: 12px 18px; border-bottom: 1px solid var(--line)"><span class="num" style="color: var(--t3)">1</span><img src="/_blob/6e78b02e93e48612e6a34aad4b73afe2" alt="" style="width: 20px; height: 20px"><span style="font-weight: 600">Cruz Azul</span><span class="num" style="color: var(--t3); text-align: right">16</span><span class="num" style="font-weight: 800; text-align: right">43</span></div>
+              <div style="display: grid; grid-template-columns: 24px 24px minmax(0, 1fr) 40px 40px; align-items: center; gap: 10px; padding: 12px 18px; border-bottom: 1px solid var(--line)"><span class="num" style="color: var(--t3)">2</span><img src="/_blob/70ac5b7188b6e62bae4f94b7833ff4f6" alt="" style="width: 20px; height: 20px"><span style="font-weight: 600">Toluca</span><span class="num" style="color: var(--t3); text-align: right">16</span><span class="num" style="font-weight: 800; text-align: right">35</span></div>
+              <div style="display: grid; grid-template-columns: 24px 24px minmax(0, 1fr) 40px 40px; align-items: center; gap: 10px; padding: 12px 18px"><span class="num" style="color: var(--t3)">3</span><img src="/_blob/49fcc2e4ef9cd3161deab7948509a912" alt="" style="width: 20px; height: 20px"><span style="font-weight: 600">Tigres</span><span class="num" style="color: var(--t3); text-align: right">16</span><span class="num" style="font-weight: 800; text-align: right">30</span></div>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <p style="margin: 0; font-size: 12px; color: var(--t3)">Probabilidades del Modelo PitchLab · en validación: información para decidir, no una garantía. PitchLab no acepta apuestas. Solo mayores de 18.</p>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["dark","light"],"default":"dark","section":"Tema"},"$preview":{"width":1440,"height":1240}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { filter: 'all' };
+  }
+  renderVals() {
+    const theme = this.props.theme === 'light' ? 'light' : 'dark';
+    const likely = [
+      { rank: '1', crest: '/_blob/16536e39f7860a724f0ff60d43deafc6', outcome: 'Bayern München gana', match: 'vs 1. FC Köln · vie 20 nov 13:30 · Bundesliga', p: '88.7 %', width: '88.7%', fair: '1.13' },
+      { rank: '2', crest: '/_blob/4e78c3fb89c42ae6150d8ed14603a618', outcome: 'Real Madrid gana', match: 'vs Celta de Vigo · sáb 21 nov 14:00 · LaLiga', p: '75.2 %', width: '75.2%', fair: '1.33' },
+      { rank: '3', crest: '/_blob/bc05f175782c905309f4cc70ac48577b', outcome: 'Manchester City gana', match: 'vs Fulham · sáb 21 nov 06:30 · Premier League', p: '70.1 %', width: '70.1%', fair: '1.43' },
+      { rank: '4', crest: '/_blob/419456fe8ba4396b1ce5419647778677', outcome: 'Athletic Club gana', match: 'vs Espanyol · vie 20 nov 14:00 · LaLiga', p: '53.8 %', width: '53.8%', fair: '1.86' }
+    ];
+    const all = [
+      { sport: 'nfl', day: 'hoy', time: '20:15', home: 'Minnesota', away: 'Buffalo', homeCrest: '/_blob/1fe5922055c18121827a160b61b82e70', awayCrest: '/_blob/085bf2ac2d528a1b09df47a9f8245b9c', p: '50.2 %', fav: 'Minnesota gana', fair: '1.99' },
+      { sport: 'futbol', day: 'vie 20 nov', time: '13:30', home: 'Bayern München', away: '1. FC Köln', homeCrest: '/_blob/16536e39f7860a724f0ff60d43deafc6', awayCrest: '/_blob/a138dac926ceab29b1505af964244f8d', p: '88.7 %', fav: 'Bayern gana', fair: '1.13' },
+      { sport: 'futbol', day: 'vie 20 nov', time: '14:00', home: 'Athletic Club', away: 'Espanyol', homeCrest: '/_blob/419456fe8ba4396b1ce5419647778677', awayCrest: '/_blob/98127e4e791576e5f4e68771a209d3dd', p: '53.8 %', fav: 'Athletic gana', fair: '1.86' },
+      { sport: 'futbol', day: 'sáb 21 nov', time: '06:30', home: 'Manchester City', away: 'Fulham', homeCrest: '/_blob/bc05f175782c905309f4cc70ac48577b', awayCrest: '/_blob/b1850f415cfc4871512923c5222ca65e', p: '70.1 %', fav: 'Man City gana', fair: '1.43' },
+      { sport: 'futbol', day: 'sáb 21 nov', time: '14:00', home: 'Real Madrid', away: 'Celta de Vigo', homeCrest: '/_blob/4e78c3fb89c42ae6150d8ed14603a618', awayCrest: '/_blob/f54b2ebb2375bae86423365c57c13a9b', p: '75.2 %', fav: 'Real Madrid gana', fair: '1.33' }
+    ];
+    const f = this.state.filter;
+    const games = f === 'all' ? all : all.filter((g) => g.sport === f);
+    const filters = [
+      { id: 'all', label: 'Todos' },
+      { id: 'futbol', label: 'Fútbol' },
+      { id: 'nfl', label: 'NFL' }
+    ].map((x) => ({ ...x, on: x.id === f, off: x.id !== f, pick: () => this.setState({ filter: x.id }) }));
+    return {
+      themeClass: theme === 'light' ? 'pl-light' : 'pl-dark',
+      isDark: theme === 'dark',
+      isLight: theme === 'light',
+      likely,
+      games,
+      filters
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+  - "services/*"
+
+allowBuilds:
+  esbuild: true
+  # Solo imprime un recordatorio de `astryx init`; no hace falta ejecutarlo.
+  "@astryxdesign/core": false
+  "@astryxdesign/cli": false

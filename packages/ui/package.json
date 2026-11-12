@@ -1,0 +1,54 @@
+{
+  "name": "@pitchlab/ui",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./platform": "./src/platform/index.ts"
+  },
+  "scripts": {
+    "build": "tsc --noEmit",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "lint": "tsc --noEmit",
+    "storybook": "storybook dev -p 6006 --no-open",
+    "build-storybook": "storybook build -o storybook-static",
+    "astryx": "node node_modules/@astryxdesign/cli/clients/cli/bin/astryx.mjs"
+  },
+  "dependencies": {
+    "@astryxdesign/core": "0.7.11",
+    "@astryxdesign/theme-neutral": "0.7.11",
+    "@base-ui/react": "1.9.0",
+    "@heroui/react": "3.2.7",
+    "@heroui/styles": "3.2.7",
+    "@internationalized/date": "3.12.4",
+    "@pitchlab/contracts": "workspace:*",
+    "@pitchlab/sports-assets": "workspace:*",
+    "@pitchlab/tokens": "workspace:*",
+    "@react-aria/ssr": "3.10.1",
+    "@react-aria/utils": "3.34.1",
+    "@stylexjs/stylex": "0.19.1",
+    "class-variance-authority": "0.7.1",
+    "cn": "0.5.2",
+    "react": "19.3.1",
+    "react-aria": "3.53.1",
+    "react-aria-components": "1.22.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@astryxdesign/cli": "0.7.11",
+    "@storybook/addon-a11y": "10.6.6",
+    "@storybook/react-vite": "10.6.6",
+    "@tailwindcss/postcss": "4.3.5",
+    "@types/node": "26.6.6",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.2.1",
+    "storybook": "10.6.6",
+    "tailwindcss": "4.3.5",
+    "typescript": "5.9.3",
+    "vite": "8.3.6",
+    "vitest": "5.1.0"
+  }
+}

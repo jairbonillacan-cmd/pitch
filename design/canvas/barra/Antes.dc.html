@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<title>Barra actual de /app</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 1440px; height: 420px; box-sizing: border-box; padding: 28px 32px; background: #0B0B0E; color: #E4E4EA; font-family: Inter, system-ui, sans-serif; display: grid; grid-template-columns: minmax(0, 1fr) 390px; gap: 32px">
+  <div style="display: flex; flex-direction: column; gap: 18px; min-width: 0">
+    <span style="font-size: 13px; font-weight: 600; color: #A1A1AD">Escritorio, hoy (1440 px)</span>
+    <img src="/_blob/b8852456705b1bf8766b366cdeefd392" alt="Barra actual en escritorio: logo, buscador, simulador de rol con cuatro botones, campana con 8 y chip de @jair" style="display: block; width: 100%; height: auto; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.10)">
+    <ol style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 14px; line-height: 1.5; color: #D4D4DC">
+      <li>El centro lo ocupa el simulador de rol (Visitante · Suscriptor · Tipstar · Admin): una herramienta interna que un socio no necesita, y que además se repite en la ficha flotante «Rol: Socio».</li>
+      <li>El buscador es un botón angosto que abre un modal; no se ve como campo y no muestra nada hasta abrirlo.</li>
+      <li>La campana lleva el número dentro y abre un cajón de pantalla completa con alertas largas («Valor Geodesic», «Abrir Match Studio» en cada una).</li>
+      <li>En móvil, la barra suma una segunda fila de ligas que repite las fichas de liga de Inicio, y el simulador de rol vuelve a aparecer en el contenido.</li>
+    </ol>
+  </div>
+  <div style="display: flex; flex-direction: column; gap: 18px">
+    <span style="font-size: 13px; font-weight: 600; color: #A1A1AD">Móvil, hoy (390 px)</span>
+    <img src="/_blob/4e83f0b294e7523eb96e88a84ef97164" alt="Barra actual en móvil: logo, buscar, campana, avatar y una segunda fila de ligas" style="display: block; width: 390px; height: auto; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.10)">
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":420}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

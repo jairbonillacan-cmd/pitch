@@ -1,0 +1,40 @@
+/* PitchLab · D1 · sitio público: barra flotante, secciones y footer */
+.wrap { max-width: var(--layout-content); margin: 0 auto; padding: 0 var(--space-8); }
+@media (max-width: 1199px) { .wrap { padding: 0 var(--space-6); } }
+@media (max-width: 767px) { .wrap { padding: 0 var(--space-4); } }
+section[id] { scroll-margin-top: calc(var(--layout-header) + var(--space-6)); }
+
+/* Barra flotante */
+.fnav { position: fixed; z-index: 30; top: var(--space-4); left: 50%; width: min(1120px, calc(100% - 32px)); transform: translateX(-50%); animation: navIn 600ms var(--ease-out) both; }
+.fnav .bar { display: flex; align-items: center; gap: var(--space-2); height: 60px; padding: 0 var(--space-2) 0 var(--space-5); border-radius: var(--radius-pill); background: color-mix(in srgb, var(--surface-default) 72%, transparent); backdrop-filter: saturate(160%) blur(14px); -webkit-backdrop-filter: saturate(160%) blur(14px); border: var(--border-width) solid color-mix(in srgb, var(--border-default) 80%, transparent); box-shadow: 0 8px 28px #0b102022; transition: background-color var(--time-base) var(--ease-out), box-shadow var(--time-base) var(--ease-out), height var(--time-base) var(--ease-out); }
+.fnav.scrolled .bar { height: 54px; background: color-mix(in srgb, var(--surface-default) 90%, transparent); box-shadow: 0 10px 32px #0b102040; }
+.fnav .logo img { height: 26px; width: auto; }
+.fnav .links { display: flex; gap: 2px; margin: 0 auto; }
+.fnav .links a { position: relative; text-decoration: none; color: var(--text-secondary); font-size: var(--type-small); font-weight: 500; padding: 0 var(--space-3); min-height: 40px; display: inline-flex; align-items: center; border-radius: var(--radius-pill); transition: color var(--time-fast), background-color var(--time-fast); }
+.fnav .links a:hover { color: var(--text-primary); background: var(--surface-hover); }
+.fnav .links a.active { color: var(--text-primary); }
+.fnav .links a.active::after { content: ""; position: absolute; left: 50%; bottom: 6px; width: 4px; height: 4px; border-radius: 1px; transform: translateX(-50%) rotate(45deg); background: var(--brand-primary); }
+.fnav .right { display: flex; align-items: center; gap: var(--space-1); }
+.fnav .btn { min-height: 44px; border-radius: var(--radius-pill); }
+.fnav .btn-primary { padding: 0 var(--space-5); }
+@keyframes navIn { from { opacity: 0; transform: translate(-50%, -12px); } to { opacity: 1; transform: translate(-50%, 0); } }
+@media (max-width: 899px) { .fnav .links { display: none; } .fnav .right { margin-left: auto; } }
+@media (max-width: 479px) { .fnav .signup { display: none; } .fnav .bar { padding-left: var(--space-4); } }
+
+/* Secciones */
+.block { padding: var(--space-20) 0; }
+@media (max-width: 767px) { .block { padding: var(--space-12) 0; } }
+.shead { text-align: center; max-width: 720px; margin: 0 auto var(--space-10); }
+.shead .eyebrow { color: var(--brand-primary); margin-bottom: var(--space-3); }
+.shead p:not(.eyebrow) { color: var(--text-secondary); margin: var(--space-3) auto 0; max-width: 560px; }
+
+/* Footer */
+.site-foot { padding: var(--space-12) 0 var(--space-16); border-top: var(--border-width) solid var(--border-default); margin-top: var(--space-20); }
+.fgrid { display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr)); gap: var(--space-8); }
+.site-foot h3 { font-size: var(--type-caption); text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin: 0 0 var(--space-3); font-weight: 600; }
+.site-foot ul { list-style: none; margin: 0; padding: 0; }
+.site-foot li a { color: var(--text-secondary); text-decoration: none; font-size: var(--type-small); display: inline-flex; min-height: 32px; align-items: center; }
+.site-foot li a:hover { color: var(--text-primary); text-decoration: underline; }
+.site-foot .legal { margin-top: var(--space-10); padding-top: var(--space-6); border-top: var(--border-width) solid var(--border-default); color: var(--text-muted); font-size: var(--type-caption); line-height: var(--line-caption); }
+@media (max-width: 1023px) { .fgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 767px) { .site-foot { margin-top: var(--space-12); padding-bottom: var(--space-10); } .fgrid { gap: var(--space-6); } .fgrid > div:first-child { grid-column: 1 / -1; } .shead { margin-bottom: var(--space-8); } .shead p:not(.eyebrow) { font-size: var(--type-small); line-height: var(--line-small); } .fnav { top: var(--space-3); width: calc(100% - 24px); } .fnav .bar { height: 54px; } }

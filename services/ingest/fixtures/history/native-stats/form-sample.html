@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+  <body>
+    <form phx-change="set_date">
+      <input id="pick_date" name="date" class="block w-full" value="2026-11-09" autocomplete="off">
+    </form>
+
+    <table class="min-w-full">
+      <thead>
+        <tr class="border-t border-gray-700">
+          <th><abbr title="Match details">Match</abbr></th>
+          <th></th>
+          <th></th>
+          <th><abbr title="Pre-Match Odds">Odds</abbr></th>
+          <th><abbr title="Average points per match">avgP</abbr></th>
+          <th><abbr title="Average goals per match">avgG</abbr></th>
+          <th>
+            <abbr title="combined average goals per match">cG</abbr>
+            <span phx-click="sort" phx-value-attr="combinedAvgGoals" class="cursor-pointer">▿</span>
+          </th>
+          <th><abbr title="Average scored goals per match">avgSG</abbr></th>
+          <th><abbr title="combined average scored goals per match">cSG</abbr></th>
+          <th><abbr title="Average goals conceded per match">avgCG</abbr></th>
+          <th><abbr title="combined First Half Goals">cFHG</abbr></th>
+          <th><abbr title="combined Second Half Goals">cSHG</abbr></th>
+          <th><abbr title="Both teams scored">BTS</abbr></th>
+          <th><abbr title="Failed to score">FTS</abbr></th>
+          <th><abbr title="combined percentile matches &gt; 1.5 goals">c&gt;1,5</abbr></th>
+          <th><abbr title="combined percentile matches &gt; 2.5 goals">c&gt;2,5</abbr></th>
+          <th><abbr title="combined percentile matches &gt; 3.5 goals">c&gt;3,5</abbr></th>
+        </tr>
+      </thead>
+      <tbody id="match-list" class="bg-gray-900">
+        <tr class="border-t border-gray-700 hover:bg-gray-800">
+          <td class="whitespace-nowrap py-1 px-1 text-sm text-gray-300">
+            <div class="flex">
+              <div class="mr-1 hover:cursor-pointer" phx-click="[[&quot;navigate&quot;,{&quot;replace&quot;:false,&quot;href&quot;:&quot;/competition/LMX&quot;}]]">
+                <div><img class="max-h-5 w-5 crest-img inline-block bg-white" src="https://crests.football-data.org/mexico.svg"></div>
+                <div>LMX</div>
+              </div>
+              <div style="min-width: 50px">
+                <div>
+                  <div class="content hover:cursor-pointer flex max-w-2 truncate">
+                    <span phx-click="[[&quot;navigate&quot;,{&quot;replace&quot;:false,&quot;href&quot;:&quot;/team/5797&quot;}]]">
+                      <img class="max-h-5 w-5 crest-img inline-block" src="https://crests.football-data.org/5797.png">
+                      <span class="hidden text-gray-200 align-middle md:inline-block">Querétaro FC</span>
+                      <span class="hidden text-gray-200 align-middle sm:inline-block max-w-4 md:hidden">Querétaro FC</span>
+                      <span class="inline-block sm:hidden text-gray-200 ">QUE</span>
+                    </span>
+                  </div>
+                </div>
+                <div>
+                  <div class="content hover:cursor-pointer flex max-w-2 truncate">
+                    <span phx-click="[[&quot;navigate&quot;,{&quot;replace&quot;:false,&quot;href&quot;:&quot;/team/5786&quot;}]]">
+                      <img class="max-h-5 w-5 crest-img inline-block" src="https://crests.football-data.org/5786.png">
+                      <span class="hidden text-gray-200 align-middle md:inline-block">Club Puebla</span>
+                      <span class="hidden text-gray-200 align-middle sm:inline-block max-w-4 md:hidden">Club Puebla</span>
+                      <span class="inline-block sm:hidden text-gray-200 ">PUE</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="whitespace-nowrap px-1 py-1 text-sm text-gray-400">
+            <span class="hover:cursor-pointer" phx-click="[[&quot;navigate&quot;,{&quot;replace&quot;:false,&quot;href&quot;:&quot;/match/568012&quot;}]]">
+              <div><div class="inline-flex items-baseline rounded-full px-2 py-0.5 text-xs bg-purple-900 text-white">0:2</div></div>
+            </span>
+          </td>
+          <td class="whitespace-nowrap px-1 py-1 text-sm text-gray-400 justify-center hover:cursor-pointer"></td>
+          <td class="whitespace-nowrap px-1 py-1 text-sm text-gray-400"><div></div><div></div></td>
+          <td class="whitespace-nowrap px-1 py-1 text-sm text-gray-400"><div>0.60</div><div>0.40</div></td>
+          <td class="whitespace-nowrap px-1 py-1 text-sm text-gray-400"><div>3.60</div><div>3.40</div></td>
+          <td class="whitespace-nowrap px-1 py-1 text-sm text-gray-400"><div>3.50</div></td>
+          <td class="whitespace-nowrap px-1 py-1 text-sm text-gray-400"><div>1.00</div><div>1.20</div></td>
+          <td class="whitespace-nowrap px-1 py-1 text-sm text-gray-400"><div>1.10</div></td>
+          <td class="whitespace-nowrap px-1 py-1 text-sm text-gray-400"><div>2.60</div><div>2.20</div></td>
+          <td class="whitespace-nowrap px-1 py-1 text-sm text-gray-400"><div>40.00%</div></td>
+          <td class="whitespace-nowrap px-1 py-1 text-sm text-gray-400"><div>60.00%</div></td>
+          <td class="whitespace-nowrap px-1 py-1 text-sm text-gray-400"><div>60.00%</div><div>80.00%</div></td>
+          <td class="whitespace-nowrap px-1 py-1 text-sm text-gray-400"><div>20.00%</div><div>20.00%</div></td>
+          <td class="whitespace-nowrap px-1 py-1 text-sm text-gray-400"><div>100.00%</div><div>80.00%</div></td>
+          <td class="whitespace-nowrap px-1 py-1 text-sm text-gray-400"><div>80.00%</div><div>60.00%</div></td>
+          <td class="whitespace-nowrap px-1 py-1 text-sm text-gray-400"><div>60.00%</div><div>40.00%</div></td>
+        </tr>
+        <tr class="border-t border-gray-700 hover:bg-gray-800">
+          <td class="whitespace-nowrap py-1 px-1 text-sm text-gray-300">
+            <div class="flex">
+              <div class="mr-1 hover:cursor-pointer" phx-click="[[&quot;navigate&quot;,{&quot;replace&quot;:false,&quot;href&quot;:&quot;/competition/PL&quot;}]]">
+                <div><img class="max-h-5 w-5 crest-img inline-block bg-white" src="https://crests.football-data.org/770.svg"></div>
+                <div>PL</div>
+              </div>
+              <div style="min-width: 50px">
+                <div>
+                  <div class="content hover:cursor-pointer flex max-w-2 truncate">
+                    <span phx-click="[[&quot;navigate&quot;,{&quot;replace&quot;:false,&quot;href&quot;:&quot;/team/65&quot;}]]">
+                      <img class="max-h-5 w-5 crest-img inline-block" src="https://crests.football-data.org/65.png">
+                      <span class="hidden text-gray-200 align-middle md:inline-block">Man City</span>
+                      <span class="hidden text-gray-200 align-middle sm:inline-block max-w-4 md:hidden">Man City</span>
+                      <span class="inline-block sm:hidden text-gray-200 ">MCI</span>
+                    </span>
+                  </div>
+                </div>
+                <div>
+                  <div class="content hover:cursor-pointer flex max-w-2 truncate">
+                    <span phx-click="[[&quot;navigate&quot;,{&quot;replace&quot;:false,&quot;href&quot;:&quot;/team/64&quot;}]]">
+                      <img class="max-h-5 w-5 crest-img inline-block" src="https://crests.football-data.org/64.png">
+                      <span class="hidden text-gray-200 align-middle md:inline-block">Liverpool</span>
+                      <span class="hidden text-gray-200 align-middle sm:inline-block max-w-4 md:hidden">Liverpool</span>
+                      <span class="inline-block sm:hidden text-gray-200 ">LIV</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="whitespace-nowrap px-1 py-1 text-sm text-gray-400">
+            <span class="hover:cursor-pointer" phx-click="[[&quot;navigate&quot;,{&quot;replace&quot;:false,&quot;href&quot;:&quot;/match/560002&quot;}]]">
+              <div>2026/11/09, 16h30</div>
+            </span>
+          </td>
+          <td class="whitespace-nowrap px-1 py-1 text-sm text-gray-400 justify-center hover:cursor-pointer"></td>
+          <td class="whitespace-nowrap px-1 py-1 text-sm text-gray-400">
+            <div>2.10</div><div>3.40</div><div>3.60</div>
+          </td>
+          <td class="whitespace-nowrap px-1 py-1 text-sm text-gray-400"><div>2.20</div><div>1.80</div></td>
+          <td class="whitespace-nowrap px-1 py-1 text-sm text-gray-400"><div>2.40</div><div>2.00</div></td>
+          <td class="whitespace-nowrap px-1 py-1 text-sm text-gray-400"><div>2.20</div></td>
+          <td class="whitespace-nowrap px-1 py-1 text-sm text-gray-400"><div>1.60</div><div>1.20</div></td>
+          <td class="whitespace-nowrap px-1 py-1 text-sm text-gray-400"><div>1.40</div></td>
+          <td class="whitespace-nowrap px-1 py-1 text-sm text-gray-400"><div>0.80</div><div>1.00</div></td>
+          <td class="whitespace-nowrap px-1 py-1 text-sm text-gray-400"><div>70.00%</div></td>
+          <td class="whitespace-nowrap px-1 py-1 text-sm text-gray-400"><div>45.00%</div></td>
+          <td class="whitespace-nowrap px-1 py-1 text-sm text-gray-400"><div>65.00%</div><div>50.00%</div></td>
+          <td class="whitespace-nowrap px-1 py-1 text-sm text-gray-400"><div>10.00%</div><div>30.00%</div></td>
+          <td class="whitespace-nowrap px-1 py-1 text-sm text-gray-400"><div>90.00%</div><div>70.00%</div></td>
+          <td class="whitespace-nowrap px-1 py-1 text-sm text-gray-400"><div>70.00%</div><div>60.00%</div></td>
+          <td class="whitespace-nowrap px-1 py-1 text-sm text-gray-400"><div>40.00%</div><div>20.00%</div></td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>

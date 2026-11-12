@@ -1,0 +1,61 @@
+{
+  "v": 3,
+  "createdOnFiles": {
+    "v": 1,
+    "at": "2026-11-11T23:00:00Z"
+  },
+  "title": "PitchLab · Perfil",
+  "launch": {
+    "view": "canvas"
+  },
+  "pages": [],
+  "boards": {
+    "Main.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 1500,
+      "title": "Perfil · escritorio (tema, pestaña y «perfil propio» en Tweaks)",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "Mobile.dc.html": {
+      "x": 1520,
+      "y": 0,
+      "w": 390,
+      "h": 1500,
+      "title": "Perfil · móvil (pestañas interactivas)",
+      "is_interactive": true
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "Mobile.dc.html"
+  ],
+  "notes": {
+    "title": {
+      "x": 0,
+      "y": -300,
+      "text": "Perfil de usuario · PitchLab",
+      "kind": "title1",
+      "maxW": 1910
+    },
+    "decisiones": {
+      "x": 1990,
+      "y": 0,
+      "w": 500,
+      "fill": "purple",
+      "size": "s",
+      "text": "QUÉ CAMBIA Y POR QUÉ\n\n1. El récord dice cuatro cosas claras: Saldo en unidades, Cumplidos (X de Y), Ventaja contra el cierre y Puesto en Comunidad. Fuera «Unidades ganadas», «Rendimiento»/ROI y «sellados».\n2. Saldo en unidades SÍ es público por decisión del fundador (11 nov): alimenta el leaderboard de Comunidad. Se dice «Saldo», nunca «ganó».\n3. Pestañas: Publicaciones · Picks · Parlays · Estadísticas. Antes todo iba mezclado en una lista.\n4. Cada pick muestra cuándo se registró respecto al partido, su momio contra el momio justo, unidades y resultado. Abiertos arriba, cerrados abajo, con filtro por estado y liga.\n5. Estadísticas: saldo por mes (barras de polaridad), cumplidos por liga y «cuando dijo X %, ¿se cumplió?» por rango.\n6. Perfil propio (Tweak): Editar perfil + Privacidad en vez de Seguir; nunca «Siguiendo» a uno mismo.\n7. Tipstar: tarjeta del pick gratis de la semana con su código.\n8. Perfiles de ejemplo siguen marcados «Ejemplo» hasta que existan cuentas reales.\n9. Mismo vidrio falso y luces que login y registro; sin mascota.\n10. Solo cambia el contenido del perfil: la barra superior y el sidebar del club se quedan como están.\n11. Móvil más calmado: récord en una sola tira de 3 cifras, pestañas subrayadas, resultados como texto de color en vez de fichas, y filtros detrás de un solo botón.\n12. Insignia «Tipstar verificado»: sello lila (roseta con palomita) junto al nombre + ficha de vidrio lila con borde y brillo. Solo tipstars verificados; un socio lleva la ficha «Socio» sin sello.\n13. «Se unió en {mes año}» con ícono de calendario, en escritorio y móvil."
+    },
+    "brief": {
+      "x": 1990,
+      "y": 720,
+      "w": 500,
+      "fill": "blue",
+      "size": "s",
+      "text": "PARA IMPLEMENTAR\n\n• Componente: AnalystProfileClubView (packages/ui/src/platform/club/AnalystProfileClubView.tsx), ruta /app/u/[handle], dentro de ClubWorkspaceShell.\n• Récord desde journalRecord() (access-guard.ts): netUnits = Saldo, settled y cumplidos = status won, avgClvPct = Ventaja contra el cierre. Nada de cifras escritas a mano para perfiles reales.\n• Puesto: mismo cálculo que el leaderboard de Comunidad (orden por saldo del mes, mínimo de picks cerrados para aparecer).\n• Picks y parlays: JournalEntry (origin «Parlay Combinado» = pestaña Parlays). Momio en el formato elegido (formatOddsValue).\n• Publicaciones: SocialPost filtrados por authorHandle, con me gusta y comentarios.\n• Visitante: picks abiertos bloqueados («Disponible para socios»); cerrados visibles.\n• Perfil ajeno real necesita API pública (/api/u/[handle]); hasta entonces solo el propio y los de ejemplo.\n• Gráficas: barras con base en cero, verde = saldo positivo, rojo = negativo, etiqueta en cada barra; tabla equivalente para lectores de pantalla."
+    }
+  },
+  "designSystems": []
+}

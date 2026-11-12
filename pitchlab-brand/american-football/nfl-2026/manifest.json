@@ -1,0 +1,800 @@
+{
+  "schemaVersion": 1,
+  "designRevision": 1,
+  "season": "2026",
+  "edition": "Emblemas editoriales",
+  "source": "https://www.nfl.com/teams/",
+  "entries": [
+    {
+      "id": "nfl",
+      "code": "NFL",
+      "name": "NFL",
+      "shortName": "NFL",
+      "kind": "competition",
+      "motif": "Balón y postes",
+      "description": "Postes marfil, balón horizontal y una franja roja sobre azul acero.",
+      "colors": {
+        "tile": "#193957",
+        "primary": "#F7EBDA",
+        "accent": "#B73A50",
+        "trim": "#EDEAE2"
+      },
+      "contrast": {
+        "primaryOnTile": 10.1182,
+        "accentOnTile": 2.1168
+      },
+      "source": "https://www.nfl.com/teams/",
+      "svg": "svg/nfl.svg",
+      "png": "png/nfl.png",
+      "symbolId": "pitchlab-nfl"
+    },
+    {
+      "id": "arizona-cardinals",
+      "code": "ARI",
+      "name": "Arizona Cardinals",
+      "shortName": "Arizona Cardinals",
+      "kind": "club",
+      "group": "NFC Oeste",
+      "motif": "Cardenal carmesí",
+      "description": "Cardenal carmesí",
+      "colors": {
+        "tile": "#8D2139",
+        "primary": "#FFF2DD",
+        "accent": "#B32E44",
+        "trim": "#E6CBC7"
+      },
+      "contrast": {
+        "primaryOnTile": 7.8853,
+        "accentOnTile": 1.4075
+      },
+      "source": "https://www.nfl.com/teams/",
+      "svg": "svg/arizona-cardinals.svg",
+      "png": "png/arizona-cardinals.png",
+      "symbolId": "pitchlab-arizona-cardinals"
+    },
+    {
+      "id": "atlanta-falcons",
+      "code": "ATL",
+      "name": "Atlanta Falcons",
+      "shortName": "Atlanta Falcons",
+      "kind": "club",
+      "group": "NFC Sur",
+      "motif": "Halcón en picada",
+      "description": "Halcón en picada",
+      "colors": {
+        "tile": "#282830",
+        "primary": "#F4E3D9",
+        "accent": "#A3243F",
+        "trim": "#C84455"
+      },
+      "contrast": {
+        "primaryOnTile": 11.7209,
+        "accentOnTile": 2.006
+      },
+      "source": "https://www.nfl.com/teams/",
+      "svg": "svg/atlanta-falcons.svg",
+      "png": "png/atlanta-falcons.png",
+      "symbolId": "pitchlab-atlanta-falcons"
+    },
+    {
+      "id": "baltimore-ravens",
+      "code": "BAL",
+      "name": "Baltimore Ravens",
+      "shortName": "Baltimore Ravens",
+      "kind": "club",
+      "group": "AFC Norte",
+      "motif": "Cuervo violeta",
+      "description": "Cuervo violeta",
+      "colors": {
+        "tile": "#402C73",
+        "primary": "#F6D378",
+        "accent": "#2D2253",
+        "trim": "#D0B271"
+      },
+      "contrast": {
+        "primaryOnTile": 7.9457,
+        "accentOnTile": 1.2461
+      },
+      "source": "https://www.nfl.com/teams/",
+      "svg": "svg/baltimore-ravens.svg",
+      "png": "png/baltimore-ravens.png",
+      "symbolId": "pitchlab-baltimore-ravens"
+    },
+    {
+      "id": "buffalo-bills",
+      "code": "BUF",
+      "name": "Buffalo Bills",
+      "shortName": "Buffalo Bills",
+      "kind": "club",
+      "group": "AFC Este",
+      "motif": "Bisonte al galope",
+      "description": "Bisonte al galope",
+      "colors": {
+        "tile": "#245498",
+        "primary": "#FFF5E9",
+        "accent": "#D53D57",
+        "trim": "#CBDCED"
+      },
+      "contrast": {
+        "primaryOnTile": 6.9692,
+        "accentOnTile": 1.6572
+      },
+      "source": "https://www.nfl.com/teams/",
+      "svg": "svg/buffalo-bills.svg",
+      "png": "png/buffalo-bills.png",
+      "symbolId": "pitchlab-buffalo-bills"
+    },
+    {
+      "id": "carolina-panthers",
+      "code": "CAR",
+      "name": "Carolina Panthers",
+      "shortName": "Carolina Panthers",
+      "kind": "club",
+      "group": "NFC Sur",
+      "motif": "Pantera de perfil",
+      "description": "Pantera de perfil",
+      "colors": {
+        "tile": "#232A36",
+        "primary": "#6ECAF1",
+        "accent": "#2E4766",
+        "trim": "#BCCBDC"
+      },
+      "contrast": {
+        "primaryOnTile": 7.8173,
+        "accentOnTile": 1.5175
+      },
+      "source": "https://www.nfl.com/teams/",
+      "svg": "svg/carolina-panthers.svg",
+      "png": "png/carolina-panthers.png",
+      "symbolId": "pitchlab-carolina-panthers"
+    },
+    {
+      "id": "chicago-bears",
+      "code": "CHI",
+      "name": "Chicago Bears",
+      "shortName": "Chicago Bears",
+      "kind": "club",
+      "group": "NFC Norte",
+      "motif": "Oso naranja",
+      "description": "Oso naranja",
+      "colors": {
+        "tile": "#172E4B",
+        "primary": "#FFAA61",
+        "accent": "#C97246",
+        "trim": "#E0A477"
+      },
+      "contrast": {
+        "primaryOnTile": 7.3092,
+        "accentOnTile": 3.9107
+      },
+      "source": "https://www.nfl.com/teams/",
+      "svg": "svg/chicago-bears.svg",
+      "png": "png/chicago-bears.png",
+      "symbolId": "pitchlab-chicago-bears"
+    },
+    {
+      "id": "cincinnati-bengals",
+      "code": "CIN",
+      "name": "Cincinnati Bengals",
+      "shortName": "Cincinnati Bengals",
+      "kind": "club",
+      "group": "AFC Norte",
+      "motif": "Tigre entre franjas",
+      "description": "Tigre entre franjas",
+      "colors": {
+        "tile": "#F58542",
+        "primary": "#21242C",
+        "accent": "#272A32",
+        "trim": "#23252B"
+      },
+      "contrast": {
+        "primaryOnTile": 6.1447,
+        "accentOnTile": 5.6823
+      },
+      "source": "https://www.nfl.com/teams/",
+      "svg": "svg/cincinnati-bengals.svg",
+      "png": "png/cincinnati-bengals.png",
+      "symbolId": "pitchlab-cincinnati-bengals"
+    },
+    {
+      "id": "cleveland-browns",
+      "code": "CLE",
+      "name": "Cleveland Browns",
+      "shortName": "Cleveland Browns",
+      "kind": "club",
+      "group": "AFC Norte",
+      "motif": "Casco naranja",
+      "description": "Casco naranja",
+      "colors": {
+        "tile": "#442A25",
+        "primary": "#FF984B",
+        "accent": "#F28746",
+        "trim": "#E3B092"
+      },
+      "contrast": {
+        "primaryOnTile": 6.1389,
+        "accentOnTile": 5.1939
+      },
+      "source": "https://www.nfl.com/teams/",
+      "svg": "svg/cleveland-browns.svg",
+      "png": "png/cleveland-browns.png",
+      "symbolId": "pitchlab-cleveland-browns"
+    },
+    {
+      "id": "dallas-cowboys",
+      "code": "DAL",
+      "name": "Dallas Cowboys",
+      "shortName": "Dallas Cowboys",
+      "kind": "club",
+      "group": "NFC Este",
+      "motif": "Estrella de plata",
+      "description": "Estrella de plata",
+      "colors": {
+        "tile": "#213A57",
+        "primary": "#E0E4EA",
+        "accent": "#71859B",
+        "trim": "#BAC6D3"
+      },
+      "contrast": {
+        "primaryOnTile": 9.1036,
+        "accentOnTile": 3.0597
+      },
+      "source": "https://www.nfl.com/teams/",
+      "svg": "svg/dallas-cowboys.svg",
+      "png": "png/dallas-cowboys.png",
+      "symbolId": "pitchlab-dallas-cowboys"
+    },
+    {
+      "id": "denver-broncos",
+      "code": "DEN",
+      "name": "Denver Broncos",
+      "shortName": "Denver Broncos",
+      "kind": "club",
+      "group": "AFC Oeste",
+      "motif": "Bronco y crin naranja",
+      "description": "Bronco y crin naranja",
+      "colors": {
+        "tile": "#1C3859",
+        "primary": "#FFF2DD",
+        "accent": "#D7613F",
+        "trim": "#F58D54"
+      },
+      "contrast": {
+        "primaryOnTile": 10.798,
+        "accentOnTile": 3.2235
+      },
+      "source": "https://www.nfl.com/teams/",
+      "svg": "svg/denver-broncos.svg",
+      "png": "png/denver-broncos.png",
+      "symbolId": "pitchlab-denver-broncos"
+    },
+    {
+      "id": "detroit-lions",
+      "code": "DET",
+      "name": "Detroit Lions",
+      "shortName": "Detroit Lions",
+      "kind": "club",
+      "group": "NFC Norte",
+      "motif": "León de plata",
+      "description": "León de plata",
+      "colors": {
+        "tile": "#17638F",
+        "primary": "#E7EBEB",
+        "accent": "#4189AD",
+        "trim": "#BED0D7"
+      },
+      "contrast": {
+        "primaryOnTile": 5.4325,
+        "accentOnTile": 1.6802
+      },
+      "source": "https://www.nfl.com/teams/",
+      "svg": "svg/detroit-lions.svg",
+      "png": "png/detroit-lions.png",
+      "symbolId": "pitchlab-detroit-lions"
+    },
+    {
+      "id": "green-bay-packers",
+      "code": "GB",
+      "name": "Green Bay Packers",
+      "shortName": "Green Bay Packers",
+      "kind": "club",
+      "group": "NFC Norte",
+      "motif": "G verde y dorada",
+      "description": "G verde y dorada",
+      "colors": {
+        "tile": "#244737",
+        "primary": "#FFF4D8",
+        "accent": "#ECC45E",
+        "trim": "#F1CA66"
+      },
+      "contrast": {
+        "primaryOnTile": 9.4433,
+        "accentOnTile": 6.2143
+      },
+      "source": "https://www.nfl.com/teams/",
+      "svg": "svg/green-bay-packers.svg",
+      "png": "png/green-bay-packers.png",
+      "symbolId": "pitchlab-green-bay-packers"
+    },
+    {
+      "id": "houston-texans",
+      "code": "HOU",
+      "name": "Houston Texans",
+      "shortName": "Houston Texans",
+      "kind": "club",
+      "group": "AFC Sur",
+      "motif": "Toro en dos campos",
+      "description": "Toro en dos campos",
+      "colors": {
+        "tile": "#1A2F4B",
+        "primary": "#FFF2DD",
+        "accent": "#A7253E",
+        "trim": "#D8DDE7"
+      },
+      "contrast": {
+        "primaryOnTile": 12.2393,
+        "accentOnTile": 1.9182
+      },
+      "source": "https://www.nfl.com/teams/",
+      "svg": "svg/houston-texans.svg",
+      "png": "png/houston-texans.png",
+      "symbolId": "pitchlab-houston-texans"
+    },
+    {
+      "id": "indianapolis-colts",
+      "code": "IND",
+      "name": "Indianapolis Colts",
+      "shortName": "Indianapolis Colts",
+      "kind": "club",
+      "group": "AFC Sur",
+      "motif": "Herradura en azul real",
+      "description": "Herradura en azul real",
+      "colors": {
+        "tile": "#244F90",
+        "primary": "#F3F7F2",
+        "accent": "#5079B3",
+        "trim": "#C0D2E9"
+      },
+      "contrast": {
+        "primaryOnTile": 7.4717,
+        "accentOnTile": 1.8208
+      },
+      "source": "https://www.nfl.com/teams/",
+      "svg": "svg/indianapolis-colts.svg",
+      "png": "png/indianapolis-colts.png",
+      "symbolId": "pitchlab-indianapolis-colts"
+    },
+    {
+      "id": "jacksonville-jaguars",
+      "code": "JAX",
+      "name": "Jacksonville Jaguars",
+      "shortName": "Jacksonville Jaguars",
+      "kind": "club",
+      "group": "AFC Sur",
+      "motif": "Jaguar moteado",
+      "description": "Jaguar moteado",
+      "colors": {
+        "tile": "#183D45",
+        "primary": "#F4CE78",
+        "accent": "#286068",
+        "trim": "#E6C276"
+      },
+      "contrast": {
+        "primaryOnTile": 7.7814,
+        "accentOnTile": 1.6534
+      },
+      "source": "https://www.nfl.com/teams/",
+      "svg": "svg/jacksonville-jaguars.svg",
+      "png": "png/jacksonville-jaguars.png",
+      "symbolId": "pitchlab-jacksonville-jaguars"
+    },
+    {
+      "id": "kansas-city-chiefs",
+      "code": "KC",
+      "name": "Kansas City Chiefs",
+      "shortName": "Kansas City Chiefs",
+      "kind": "club",
+      "group": "AFC Oeste",
+      "motif": "Punta de flecha",
+      "description": "Punta de flecha",
+      "colors": {
+        "tile": "#AA2743",
+        "primary": "#FFF2DD",
+        "accent": "#BE3D51",
+        "trim": "#ECC36C"
+      },
+      "contrast": {
+        "primaryOnTile": 6.1669,
+        "accentOnTile": 1.2906
+      },
+      "source": "https://www.nfl.com/teams/",
+      "svg": "svg/kansas-city-chiefs.svg",
+      "png": "png/kansas-city-chiefs.png",
+      "symbolId": "pitchlab-kansas-city-chiefs"
+    },
+    {
+      "id": "las-vegas-raiders",
+      "code": "LV",
+      "name": "Las Vegas Raiders",
+      "shortName": "Las Vegas Raiders",
+      "kind": "club",
+      "group": "AFC Oeste",
+      "motif": "Corsario con parche",
+      "description": "Corsario con parche",
+      "colors": {
+        "tile": "#20242B",
+        "primary": "#DEE2E8",
+        "accent": "#838A94",
+        "trim": "#C4CAD3"
+      },
+      "contrast": {
+        "primaryOnTile": 11.9747,
+        "accentOnTile": 4.4697
+      },
+      "source": "https://www.nfl.com/teams/",
+      "svg": "svg/las-vegas-raiders.svg",
+      "png": "png/las-vegas-raiders.png",
+      "symbolId": "pitchlab-las-vegas-raiders"
+    },
+    {
+      "id": "los-angeles-chargers",
+      "code": "LAC",
+      "name": "Los Angeles Chargers",
+      "shortName": "Los Angeles Chargers",
+      "kind": "club",
+      "group": "AFC Oeste",
+      "motif": "Rayo celeste y oro",
+      "description": "Rayo celeste y oro",
+      "colors": {
+        "tile": "#145A8F",
+        "primary": "#FFD16C",
+        "accent": "#2474A7",
+        "trim": "#B5D9EF"
+      },
+      "contrast": {
+        "primaryOnTile": 5.05,
+        "accentOnTile": 1.43
+      },
+      "source": "https://www.nfl.com/teams/",
+      "svg": "svg/los-angeles-chargers.svg",
+      "png": "png/los-angeles-chargers.png",
+      "symbolId": "pitchlab-los-angeles-chargers"
+    },
+    {
+      "id": "los-angeles-rams",
+      "code": "LAR",
+      "name": "Los Angeles Rams",
+      "shortName": "Los Angeles Rams",
+      "kind": "club",
+      "group": "NFC Oeste",
+      "motif": "Cuerno en espiral",
+      "description": "Cuerno en espiral",
+      "colors": {
+        "tile": "#2054A2",
+        "primary": "#FFCB58",
+        "accent": "#123A72",
+        "trim": "#E3B34E"
+      },
+      "contrast": {
+        "primaryOnTile": 4.8874,
+        "accentOnTile": 1.5216
+      },
+      "source": "https://www.nfl.com/teams/",
+      "svg": "svg/los-angeles-rams.svg",
+      "png": "png/los-angeles-rams.png",
+      "symbolId": "pitchlab-los-angeles-rams"
+    },
+    {
+      "id": "miami-dolphins",
+      "code": "MIA",
+      "name": "Miami Dolphins",
+      "shortName": "Miami Dolphins",
+      "kind": "club",
+      "group": "AFC Este",
+      "motif": "Delfín y sol coral",
+      "description": "Delfín y sol coral",
+      "colors": {
+        "tile": "#176B70",
+        "primary": "#FCF4DE",
+        "accent": "#C94F3B",
+        "trim": "#C0E5DC"
+      },
+      "contrast": {
+        "primaryOnTile": 5.6719,
+        "accentOnTile": 1.3829
+      },
+      "source": "https://www.nfl.com/teams/",
+      "svg": "svg/miami-dolphins.svg",
+      "png": "png/miami-dolphins.png",
+      "symbolId": "pitchlab-miami-dolphins"
+    },
+    {
+      "id": "minnesota-vikings",
+      "code": "MIN",
+      "name": "Minnesota Vikings",
+      "shortName": "Minnesota Vikings",
+      "kind": "club",
+      "group": "NFC Norte",
+      "motif": "Yelmo vikingo",
+      "description": "Yelmo vikingo",
+      "colors": {
+        "tile": "#4A347D",
+        "primary": "#F8CD68",
+        "accent": "#5E478C",
+        "trim": "#E6C778"
+      },
+      "contrast": {
+        "primaryOnTile": 6.6989,
+        "accentOnTile": 1.3259
+      },
+      "source": "https://www.nfl.com/teams/",
+      "svg": "svg/minnesota-vikings.svg",
+      "png": "png/minnesota-vikings.png",
+      "symbolId": "pitchlab-minnesota-vikings"
+    },
+    {
+      "id": "new-england-patriots",
+      "code": "NE",
+      "name": "New England Patriots",
+      "shortName": "New England Patriots",
+      "kind": "club",
+      "group": "AFC Este",
+      "motif": "Patriota y tricornio",
+      "description": "Patriota y tricornio",
+      "colors": {
+        "tile": "#1E3A5C",
+        "primary": "#EDEDEC",
+        "accent": "#B83149",
+        "trim": "#BECADC"
+      },
+      "contrast": {
+        "primaryOnTile": 9.8767,
+        "accentOnTile": 1.969
+      },
+      "source": "https://www.nfl.com/teams/",
+      "svg": "svg/new-england-patriots.svg",
+      "png": "png/new-england-patriots.png",
+      "symbolId": "pitchlab-new-england-patriots"
+    },
+    {
+      "id": "new-orleans-saints",
+      "code": "NO",
+      "name": "New Orleans Saints",
+      "shortName": "New Orleans Saints",
+      "kind": "club",
+      "group": "NFC Sur",
+      "motif": "Flor de lis dorada",
+      "description": "Flor de lis dorada",
+      "colors": {
+        "tile": "#25252D",
+        "primary": "#F0CE85",
+        "accent": "#C99C58",
+        "trim": "#D8B775"
+      },
+      "contrast": {
+        "primaryOnTile": 10.0438,
+        "accentOnTile": 6.0671
+      },
+      "source": "https://www.nfl.com/teams/",
+      "svg": "svg/new-orleans-saints.svg",
+      "png": "png/new-orleans-saints.png",
+      "symbolId": "pitchlab-new-orleans-saints"
+    },
+    {
+      "id": "new-york-giants",
+      "code": "NYG",
+      "name": "New York Giants",
+      "shortName": "New York Giants",
+      "kind": "club",
+      "group": "NFC Este",
+      "motif": "NY en azul y rojo",
+      "description": "NY en azul y rojo",
+      "colors": {
+        "tile": "#244C91",
+        "primary": "#FAF1DF",
+        "accent": "#B42B46",
+        "trim": "#CCD5E3"
+      },
+      "contrast": {
+        "primaryOnTile": 7.4325,
+        "accentOnTile": 1.3404
+      },
+      "source": "https://www.nfl.com/teams/",
+      "svg": "svg/new-york-giants.svg",
+      "png": "png/new-york-giants.png",
+      "symbolId": "pitchlab-new-york-giants"
+    },
+    {
+      "id": "new-york-jets",
+      "code": "NYJ",
+      "name": "New York Jets",
+      "shortName": "New York Jets",
+      "kind": "club",
+      "group": "AFC Este",
+      "motif": "Jet en ascenso",
+      "description": "Jet en ascenso",
+      "colors": {
+        "tile": "#155746",
+        "primary": "#F4F3E3",
+        "accent": "#28816A",
+        "trim": "#C4D5C8"
+      },
+      "contrast": {
+        "primaryOnTile": 7.56,
+        "accentOnTile": 1.7871
+      },
+      "source": "https://www.nfl.com/teams/",
+      "svg": "svg/new-york-jets.svg",
+      "png": "png/new-york-jets.png",
+      "symbolId": "pitchlab-new-york-jets"
+    },
+    {
+      "id": "philadelphia-eagles",
+      "code": "PHI",
+      "name": "Philadelphia Eagles",
+      "shortName": "Philadelphia Eagles",
+      "kind": "club",
+      "group": "NFC Este",
+      "motif": "Águila en vuelo",
+      "description": "Águila en vuelo",
+      "colors": {
+        "tile": "#135152",
+        "primary": "#EDF1EA",
+        "accent": "#417A77",
+        "trim": "#A9CAC4"
+      },
+      "contrast": {
+        "primaryOnTile": 7.8965,
+        "accentOnTile": 1.8375
+      },
+      "source": "https://www.nfl.com/teams/",
+      "svg": "svg/philadelphia-eagles.svg",
+      "png": "png/philadelphia-eagles.png",
+      "symbolId": "pitchlab-philadelphia-eagles"
+    },
+    {
+      "id": "pittsburgh-steelers",
+      "code": "PIT",
+      "name": "Pittsburgh Steelers",
+      "shortName": "Pittsburgh Steelers",
+      "kind": "club",
+      "group": "AFC Norte",
+      "motif": "Destellos de acero",
+      "description": "Destellos de acero",
+      "colors": {
+        "tile": "#242732",
+        "primary": "#F8CB55",
+        "accent": "#E45363",
+        "trim": "#CBCFD4"
+      },
+      "contrast": {
+        "primaryOnTile": 9.6826,
+        "accentOnTile": 4.0504
+      },
+      "source": "https://www.nfl.com/teams/",
+      "svg": "svg/pittsburgh-steelers.svg",
+      "png": "png/pittsburgh-steelers.png",
+      "symbolId": "pitchlab-pittsburgh-steelers"
+    },
+    {
+      "id": "san-francisco-49ers",
+      "code": "SF",
+      "name": "San Francisco 49ers",
+      "shortName": "San Francisco 49ers",
+      "kind": "club",
+      "group": "NFC Oeste",
+      "motif": "Picos de buscador",
+      "description": "Picos de buscador",
+      "colors": {
+        "tile": "#932A42",
+        "primary": "#F1C977",
+        "accent": "#B24A50",
+        "trim": "#DFBD79"
+      },
+      "contrast": {
+        "primaryOnTile": 5.0411,
+        "accentOnTile": 1.5048
+      },
+      "source": "https://www.nfl.com/teams/",
+      "svg": "svg/san-francisco-49ers.svg",
+      "png": "png/san-francisco-49ers.png",
+      "symbolId": "pitchlab-san-francisco-49ers"
+    },
+    {
+      "id": "seattle-seahawks",
+      "code": "SEA",
+      "name": "Seattle Seahawks",
+      "shortName": "Seattle Seahawks",
+      "kind": "club",
+      "group": "NFC Oeste",
+      "motif": "Águila pescadora",
+      "description": "Águila pescadora",
+      "colors": {
+        "tile": "#1C3856",
+        "primary": "#E7E9E4",
+        "accent": "#34556C",
+        "trim": "#C3CFD5"
+      },
+      "contrast": {
+        "primaryOnTile": 9.8168,
+        "accentOnTile": 1.5216
+      },
+      "source": "https://www.nfl.com/teams/",
+      "svg": "svg/seattle-seahawks.svg",
+      "png": "png/seattle-seahawks.png",
+      "symbolId": "pitchlab-seattle-seahawks"
+    },
+    {
+      "id": "tampa-bay-buccaneers",
+      "code": "TB",
+      "name": "Tampa Bay Buccaneers",
+      "shortName": "Tampa Bay Buccaneers",
+      "kind": "club",
+      "group": "NFC Sur",
+      "motif": "Bandera corsaria",
+      "description": "Bandera corsaria",
+      "colors": {
+        "tile": "#702A3A",
+        "primary": "#FFEBD9",
+        "accent": "#A13E41",
+        "trim": "#DB8967"
+      },
+      "contrast": {
+        "primaryOnTile": 8.7147,
+        "accentOnTile": 1.5764
+      },
+      "source": "https://www.nfl.com/teams/",
+      "svg": "svg/tampa-bay-buccaneers.svg",
+      "png": "png/tampa-bay-buccaneers.png",
+      "symbolId": "pitchlab-tampa-bay-buccaneers"
+    },
+    {
+      "id": "tennessee-titans",
+      "code": "TEN",
+      "name": "Tennessee Titans",
+      "shortName": "Tennessee Titans",
+      "kind": "club",
+      "group": "AFC Sur",
+      "motif": "Llama azul y carmesí",
+      "description": "Llama azul y carmesí",
+      "colors": {
+        "tile": "#1D3A5E",
+        "primary": "#BFDDF0",
+        "accent": "#28597E",
+        "trim": "#C2D6E4"
+      },
+      "contrast": {
+        "primaryOnTile": 8.1448,
+        "accentOnTile": 1.5505
+      },
+      "source": "https://www.nfl.com/teams/",
+      "svg": "svg/tennessee-titans.svg",
+      "png": "png/tennessee-titans.png",
+      "symbolId": "pitchlab-tennessee-titans"
+    },
+    {
+      "id": "washington-commanders",
+      "code": "WAS",
+      "name": "Washington Commanders",
+      "shortName": "Washington Commanders",
+      "kind": "club",
+      "group": "NFC Este",
+      "motif": "W en vino y oro",
+      "description": "W en vino y oro",
+      "colors": {
+        "tile": "#69233C",
+        "primary": "#FFD27D",
+        "accent": "#B26455",
+        "trim": "#E3B766"
+      },
+      "contrast": {
+        "primaryOnTile": 7.7462,
+        "accentOnTile": 2.5426
+      },
+      "source": "https://www.nfl.com/teams/",
+      "svg": "svg/washington-commanders.svg",
+      "png": "png/washington-commanders.png",
+      "symbolId": "pitchlab-washington-commanders"
+    }
+  ]
+}

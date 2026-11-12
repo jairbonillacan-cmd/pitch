@@ -1,0 +1,408 @@
+{
+  "schemaVersion": 1,
+  "designRevision": 1,
+  "season": "2026/27",
+  "edition": "Emblemas de club",
+  "source": "https://ligue1.com/fr/articles/l1_article_5293-les-dates-de-reprise-des-clubs-de-l1-2627",
+  "entries": [
+    {
+      "id": "ligue-1",
+      "code": "L1",
+      "name": "Ligue 1",
+      "shortName": "Ligue 1",
+      "kind": "competition",
+      "motif": "Cinta y balón",
+      "colors": {
+        "tile": "#242950",
+        "primary": "#F5F1DD",
+        "accent": "#95D8C1"
+      },
+      "contrast": {
+        "primaryOnTile": 12.2735,
+        "accentOnTile": 8.5345
+      },
+      "source": "https://ligue1.com/fr/articles/l1_article_5293-les-dates-de-reprise-des-clubs-de-l1-2627",
+      "svg": "svg/ligue-1.svg",
+      "png": "png/ligue-1.png",
+      "symbolId": "pitchlab-ligue-1"
+    },
+    {
+      "id": "angers-sco",
+      "code": "SCO",
+      "name": "Angers SCO",
+      "shortName": "Angers",
+      "kind": "club",
+      "motif": "Anjou y bandas",
+      "colors": {
+        "tile": "#27292D",
+        "primary": "#F8F1DE",
+        "accent": "#B69A65"
+      },
+      "contrast": {
+        "primaryOnTile": 12.9243,
+        "accentOnTile": 5.4111
+      },
+      "source": "https://ligue1.com/fr/articles/l1_article_5293-les-dates-de-reprise-des-clubs-de-l1-2627",
+      "svg": "svg/angers-sco.svg",
+      "png": "png/angers-sco.png",
+      "symbolId": "pitchlab-angers-sco"
+    },
+    {
+      "id": "aj-auxerre",
+      "code": "AJA",
+      "name": "AJ Auxerre",
+      "shortName": "Auxerre",
+      "kind": "club",
+      "motif": "Cruz de Borgoña",
+      "colors": {
+        "tile": "#1C4D83",
+        "primary": "#F6F2DC",
+        "accent": "#77BFE5"
+      },
+      "contrast": {
+        "primaryOnTile": 7.6488,
+        "accentOnTile": 4.2516
+      },
+      "source": "https://ligue1.com/fr/articles/l1_article_5293-les-dates-de-reprise-des-clubs-de-l1-2627",
+      "svg": "svg/aj-auxerre.svg",
+      "png": "png/aj-auxerre.png",
+      "symbolId": "pitchlab-aj-auxerre"
+    },
+    {
+      "id": "stade-brestois",
+      "code": "SB29",
+      "name": "Stade Brestois 29",
+      "shortName": "Brest",
+      "kind": "club",
+      "motif": "Faro atlántico",
+      "colors": {
+        "tile": "#AD2943",
+        "primary": "#FCEBDD",
+        "accent": "#E8A271"
+      },
+      "contrast": {
+        "primaryOnTile": 5.6901,
+        "accentOnTile": 3.0984
+      },
+      "source": "https://ligue1.com/fr/articles/l1_article_5293-les-dates-de-reprise-des-clubs-de-l1-2627",
+      "svg": "svg/stade-brestois.svg",
+      "png": "png/stade-brestois.png",
+      "symbolId": "pitchlab-stade-brestois"
+    },
+    {
+      "id": "le-havre",
+      "code": "HAC",
+      "name": "Le Havre AC",
+      "shortName": "Le Havre",
+      "kind": "club",
+      "motif": "Velas celestes",
+      "colors": {
+        "tile": "#18395E",
+        "primary": "#F4F1E2",
+        "accent": "#80C5E5"
+      },
+      "contrast": {
+        "primaryOnTile": 10.3751,
+        "accentOnTile": 6.18
+      },
+      "source": "https://ligue1.com/fr/articles/l1_article_5293-les-dates-de-reprise-des-clubs-de-l1-2627",
+      "svg": "svg/le-havre.svg",
+      "png": "png/le-havre.png",
+      "symbolId": "pitchlab-le-havre"
+    },
+    {
+      "id": "le-mans",
+      "code": "LMFC",
+      "name": "Le Mans FC",
+      "shortName": "Le Mans",
+      "kind": "club",
+      "motif": "Caballo y curva",
+      "colors": {
+        "tile": "#982437",
+        "primary": "#FFE389",
+        "accent": "#E2A150"
+      },
+      "contrast": {
+        "primaryOnTile": 6.282,
+        "accentOnTile": 3.5751
+      },
+      "source": "https://ligue1.com/fr/articles/l1_article_5293-les-dates-de-reprise-des-clubs-de-l1-2627",
+      "svg": "svg/le-mans.svg",
+      "png": "png/le-mans.png",
+      "symbolId": "pitchlab-le-mans"
+    },
+    {
+      "id": "racing-lens",
+      "code": "RCL",
+      "name": "Racing Club de Lens",
+      "shortName": "Lens",
+      "kind": "club",
+      "motif": "Lámpara minera",
+      "colors": {
+        "tile": "#93283A",
+        "primary": "#FFDC6F",
+        "accent": "#EC864F"
+      },
+      "contrast": {
+        "primaryOnTile": 6.0336,
+        "accentOnTile": 3.1051
+      },
+      "source": "https://ligue1.com/fr/articles/l1_article_5293-les-dates-de-reprise-des-clubs-de-l1-2627",
+      "svg": "svg/racing-lens.svg",
+      "png": "png/racing-lens.png",
+      "symbolId": "pitchlab-racing-lens"
+    },
+    {
+      "id": "lorient",
+      "code": "FCL",
+      "name": "FC Lorient",
+      "shortName": "Lorient",
+      "kind": "club",
+      "motif": "Merluza de perfil",
+      "colors": {
+        "tile": "#28242A",
+        "primary": "#F8EEDC",
+        "accent": "#E97635"
+      },
+      "contrast": {
+        "primaryOnTile": 13.2663,
+        "accentOnTile": 5.1653
+      },
+      "source": "https://ligue1.com/fr/articles/l1_article_5293-les-dates-de-reprise-des-clubs-de-l1-2627",
+      "svg": "svg/lorient.svg",
+      "png": "png/lorient.png",
+      "symbolId": "pitchlab-lorient"
+    },
+    {
+      "id": "lille-osc",
+      "code": "LOSC",
+      "name": "Lille OSC",
+      "shortName": "Lille",
+      "kind": "club",
+      "motif": "Dogo de frente",
+      "colors": {
+        "tile": "#233658",
+        "primary": "#F4EDDC",
+        "accent": "#C93950"
+      },
+      "contrast": {
+        "primaryOnTile": 10.341,
+        "accentOnTile": 2.4049
+      },
+      "source": "https://ligue1.com/fr/articles/l1_article_5293-les-dates-de-reprise-des-clubs-de-l1-2627",
+      "svg": "svg/lille-osc.svg",
+      "png": "png/lille-osc.png",
+      "symbolId": "pitchlab-lille-osc"
+    },
+    {
+      "id": "olympique-lyonnais",
+      "code": "OL",
+      "name": "Olympique Lyonnais",
+      "shortName": "Lyon",
+      "kind": "club",
+      "motif": "León del Ródano",
+      "colors": {
+        "tile": "#243B68",
+        "primary": "#FFE2A3",
+        "accent": "#C73A4F"
+      },
+      "contrast": {
+        "primaryOnTile": 8.7658,
+        "accentOnTile": 2.1818
+      },
+      "source": "https://ligue1.com/fr/articles/l1_article_5293-les-dates-de-reprise-des-clubs-de-l1-2627",
+      "svg": "svg/olympique-lyonnais.svg",
+      "png": "png/olympique-lyonnais.png",
+      "symbolId": "pitchlab-olympique-lyonnais"
+    },
+    {
+      "id": "olympique-marseille",
+      "code": "OM",
+      "name": "Olympique de Marseille",
+      "shortName": "Marseille",
+      "kind": "club",
+      "motif": "Estrella y oleaje",
+      "colors": {
+        "tile": "#156487",
+        "primary": "#F6F3DE",
+        "accent": "#82CEE5"
+      },
+      "contrast": {
+        "primaryOnTile": 5.8646,
+        "accentOnTile": 3.7162
+      },
+      "source": "https://ligue1.com/fr/articles/l1_article_5293-les-dates-de-reprise-des-clubs-de-l1-2627",
+      "svg": "svg/olympique-marseille.svg",
+      "png": "png/olympique-marseille.png",
+      "symbolId": "pitchlab-olympique-marseille"
+    },
+    {
+      "id": "monaco",
+      "code": "ASM",
+      "name": "AS Monaco FC",
+      "shortName": "Monaco",
+      "kind": "club",
+      "motif": "Corona y diagonal",
+      "colors": {
+        "tile": "#A2273D",
+        "primary": "#FFEEDC",
+        "accent": "#DCA459"
+      },
+      "contrast": {
+        "primaryOnTile": 6.3981,
+        "accentOnTile": 3.282
+      },
+      "source": "https://ligue1.com/fr/articles/l1_article_5293-les-dates-de-reprise-des-clubs-de-l1-2627",
+      "svg": "svg/monaco.svg",
+      "png": "png/monaco.png",
+      "symbolId": "pitchlab-monaco"
+    },
+    {
+      "id": "ogc-nice",
+      "code": "OGCN",
+      "name": "OGC Nice",
+      "shortName": "Nice",
+      "kind": "club",
+      "motif": "Águila y franjas",
+      "colors": {
+        "tile": "#24252D",
+        "primary": "#F9E4C1",
+        "accent": "#CE3D49"
+      },
+      "contrast": {
+        "primaryOnTile": 12.2649,
+        "accentOnTile": 3.1855
+      },
+      "source": "https://ligue1.com/fr/articles/l1_article_5293-les-dates-de-reprise-des-clubs-de-l1-2627",
+      "svg": "svg/ogc-nice.svg",
+      "png": "png/ogc-nice.png",
+      "symbolId": "pitchlab-ogc-nice"
+    },
+    {
+      "id": "paris",
+      "code": "PFC",
+      "name": "Paris FC",
+      "shortName": "Paris FC",
+      "kind": "club",
+      "motif": "Puente y río",
+      "colors": {
+        "tile": "#263B63",
+        "primary": "#F8F2E3",
+        "accent": "#72B0D7"
+      },
+      "contrast": {
+        "primaryOnTile": 9.9574,
+        "accentOnTile": 4.7172
+      },
+      "source": "https://ligue1.com/fr/articles/l1_article_5293-les-dates-de-reprise-des-clubs-de-l1-2627",
+      "svg": "svg/paris.svg",
+      "png": "png/paris.png",
+      "symbolId": "pitchlab-paris"
+    },
+    {
+      "id": "paris-saint-germain",
+      "code": "PSG",
+      "name": "Paris Saint-Germain FC",
+      "shortName": "Paris SG",
+      "kind": "club",
+      "motif": "Torre de París",
+      "colors": {
+        "tile": "#1E365E",
+        "primary": "#F8EFDD",
+        "accent": "#CC3A53"
+      },
+      "contrast": {
+        "primaryOnTile": 10.5371,
+        "accentOnTile": 2.4635
+      },
+      "source": "https://ligue1.com/fr/articles/l1_article_5293-les-dates-de-reprise-des-clubs-de-l1-2627",
+      "svg": "svg/paris-saint-germain.svg",
+      "png": "png/paris-saint-germain.png",
+      "symbolId": "pitchlab-paris-saint-germain"
+    },
+    {
+      "id": "stade-rennais",
+      "code": "SRFC",
+      "name": "Stade Rennais FC 1901",
+      "shortName": "Rennes",
+      "kind": "club",
+      "motif": "Armiño bretón",
+      "colors": {
+        "tile": "#90253B",
+        "primary": "#FBF0DC",
+        "accent": "#282A32"
+      },
+      "contrast": {
+        "primaryOnTile": 7.3994,
+        "accentOnTile": 1.7129
+      },
+      "source": "https://ligue1.com/fr/articles/l1_article_5293-les-dates-de-reprise-des-clubs-de-l1-2627",
+      "svg": "svg/stade-rennais.svg",
+      "png": "png/stade-rennais.png",
+      "symbolId": "pitchlab-stade-rennais"
+    },
+    {
+      "id": "strasbourg-alsace",
+      "code": "RCSA",
+      "name": "RC Strasbourg Alsace",
+      "shortName": "Strasbourg",
+      "kind": "club",
+      "motif": "Cigüeña y diagonal",
+      "colors": {
+        "tile": "#195288",
+        "primary": "#F9EDDB",
+        "accent": "#D24D5D"
+      },
+      "contrast": {
+        "primaryOnTile": 6.9762,
+        "accentOnTile": 1.9049
+      },
+      "source": "https://ligue1.com/fr/articles/l1_article_5293-les-dates-de-reprise-des-clubs-de-l1-2627",
+      "svg": "svg/strasbourg-alsace.svg",
+      "png": "png/strasbourg-alsace.png",
+      "symbolId": "pitchlab-strasbourg-alsace"
+    },
+    {
+      "id": "toulouse",
+      "code": "TFC",
+      "name": "Toulouse FC",
+      "shortName": "Toulouse",
+      "kind": "club",
+      "motif": "Cruz occitana",
+      "colors": {
+        "tile": "#512D76",
+        "primary": "#FCEAC2",
+        "accent": "#AF80C4"
+      },
+      "contrast": {
+        "primaryOnTile": 8.9023,
+        "accentOnTile": 3.376
+      },
+      "source": "https://ligue1.com/fr/articles/l1_article_5293-les-dates-de-reprise-des-clubs-de-l1-2627",
+      "svg": "svg/toulouse.svg",
+      "png": "png/toulouse.png",
+      "symbolId": "pitchlab-toulouse"
+    },
+    {
+      "id": "es-troyes",
+      "code": "ESTAC",
+      "name": "ES Troyes AC",
+      "shortName": "Troyes",
+      "kind": "club",
+      "motif": "Vidriera de Troyes",
+      "colors": {
+        "tile": "#253F75",
+        "primary": "#F6F0DC",
+        "accent": "#72B4D7"
+      },
+      "contrast": {
+        "primaryOnTile": 8.9986,
+        "accentOnTile": 4.5077
+      },
+      "source": "https://ligue1.com/fr/articles/l1_article_5293-les-dates-de-reprise-des-clubs-de-l1-2627",
+      "svg": "svg/es-troyes.svg",
+      "png": "png/es-troyes.png",
+      "symbolId": "pitchlab-es-troyes"
+    }
+  ]
+}

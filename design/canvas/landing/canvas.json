@@ -1,0 +1,68 @@
+{
+  "v": 3,
+  "createdOnFiles": {
+    "v": 1,
+    "at": "2026-11-11T18:00:00Z"
+  },
+  "title": "PitchLab · Landing propuesta",
+  "launch": {
+    "view": "canvas"
+  },
+  "pages": [],
+  "boards": {
+    "Main.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 7400,
+      "title": "Landing · escritorio (tema en Tweaks)",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "Mobile.dc.html": {
+      "x": 1520,
+      "y": 0,
+      "w": 390,
+      "h": 4500,
+      "title": "Landing · móvil · oscuro"
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "Mobile.dc.html"
+  ],
+  "notes": {
+    "title": {
+      "x": 0,
+      "y": -320,
+      "text": "Propuesta de landing · PitchLab",
+      "kind": "title1",
+      "maxW": 1910
+    },
+    "cambios": {
+      "x": 1990,
+      "y": 0,
+      "w": 520,
+      "fill": "purple",
+      "size": "s",
+      "text": "QUÉ CAMBIA Y POR QUÉ\n\n1. Una sola oferta: «7 días gratis, sin tarjeta». Hoy conviven «Primer mes gratis» y «7 días».\n2. Fuera de la vista pública: el simulador de rol (Visitante/Suscriptor/Tipstar/Admin) y el selector Momio/Decimal de la barra. El formato vive dentro de la tarjeta del partido.\n3. Los motores son el argumento para preferirnos: sección propia con los 5 (Tachyon, Singularity, Minkowski, Geodesic, Cortex IA), qué lee cada uno y su prueba fuera de muestra, más la tabla «PitchLab contra un tipster típico». Fuera queda el «ROI +1.35 % / Kelly»: prometer rendimiento choca con «nunca gana ni cobra».\n4. Copy prohibido fuera: «Por qué ganamos», «más seguro», «Sellar». Voz: dato → contexto → acción.\n5. Un CTA primario por región (blanco). El resto, secundario o enlace.\n6. El hero ES el producto: lo más probable, su momio justo y «Tu momio» para comparar. Nada de tarjeta de precio dentro del hero.\n7. Historial íntegro muestra también los fallos (1 de 4 cumplidos en la muestra real). Es la prueba de honestidad.\n8. Calibración: barras «prometido» con hueco punteado «se publica con los primeros picks auditados», sin inventar cifras.\n9. Parlays y Comunidad en un bloque de 2 paneles con demo real (pierna bloqueada por choque lógico).\n10. Precio: un plan, Mensual/Anual, IVA y CFDI. Referidos en una línea; el detalle va en /app/account.\n11. Vidrio falso del club en barra, tarjetas y precio (brillo superior + luz interior + bisel .glass-ring, sin backdrop-filter) y orbes de atmósfera detrás del hero y de los motores."
+    },
+    "brief": {
+      "x": 1990,
+      "y": 760,
+      "w": 520,
+      "fill": "blue",
+      "size": "s",
+      "text": "PARA ANTIGRAVITY (IMPLEMENTACIÓN)\n\n• Archivo: packages/ui/src/platform/public/LandingSurface.tsx (no reescribir rutas; apps/web/app/page.tsx queda igual).\n• Vidrio: reusar .glass-lens (hero y precio, con .glass-ring--featured), .glass-card + .glass-ring (resto) y .glass-pill-bar (barra). Nada de backdrop-filter.\n• FD-16 cambia por decisión del fundador (11 nov): actualizar DESIGN_SYSTEM.md §7, PRODUCT.md y GUIA_RECREACION_GPT.md §2 para permitir nombrar los motores propios (nunca proveedores de datos).\n• Estilos en apps/web/app/pitchlab-v4.css con tokens --pl-* (cero hex fuera de packages/tokens).\n• Colores del lienzo → tokens: fondo --pl-stage-bg · superficie --pl-surface · borde --pl-border · texto --pl-text / -secondary / -muted · marca --pl-brand · favorito --pl-success · botón primario --pl-btn-primary-bg/-fg.\n• Barra 1X2 con corte a 45° y favorito en verde: reusar ProbSplit/la barra diagonal ya hecha en el club.\n• Datos: Liga MX (Querétaro–Monterrey) y NFL (Giants–Washington) son reales del 11 nov. Premier y LaLiga del lienzo son ilustrativos: en código salen del dataset (lo más probable = mayor p del grupo h2h; momio justo = 1/p).\n• «Tu momio»: americano o decimal; probabilidad implícita y diferencia en puntos. No se guarda.\n• Precio desde MEMBERSHIP_SPEC ($299 / $2,390). Verificar con el fundador: PRODUCT.md aún dice Pro $199 / Elite $399.\n• Confirmar que la cifra «16,126 partidos de prueba» es publicable.\n• Revisar a 375 y 1440 px en ambos temas; movimiento reducido respetado; E2E de la landing actualizadas."
+    },
+    "paginas": {
+      "x": 1990,
+      "y": 1700,
+      "w": 520,
+      "fill": "green",
+      "size": "s",
+      "text": "MAPA DEL SITIO · cada entrada del menú es su propia página\n\n/ — landing: resumen de cada sección + «Ver más →» a su página\n/como-funciona — los 3 números, «Tu momio» interactivo y ejemplos por liga\n/motores — los 5 motores a fondo: qué lee cada uno, cómo se probó, cifras por liga y temporada, comparativa contra tipsters\n/resultados — historial completo filtrable por liga, motor y confianza; calibración cuando haya picks auditados\n/parlays — cómo funciona el armador, choques lógicos y probabilidad combinada\n/comunidad — feed de muestra, tipstars verificados y cómo aplicar como tipstar\n/precio — el pase, mensual/anual, qué incluye, referidos, CFDI y preguntas\n\nTodas comparten barra, pie y el mismo vidrio. El enlace activo de la barra lleva aria-current=\"page\". /metodologia y /tecnologia redirigen a /motores."
+    }
+  },
+  "designSystems": []
+}

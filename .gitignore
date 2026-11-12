@@ -1,5 +1,52 @@
 node_modules/
 dist/
+.next/
+.next-prod/
+perf-results/
+.turbo/
+out/
+coverage/
+storybook-static/
+playwright-report/
+test-results/
 *.log
+*.tsbuildinfo
 .DS_Store
+.env
+.env.local
+.env.*.local
 linemate-analysis/
+services/ingest/.cache/
+data/history/raw/
+data/history/research/
+!data/history/research/liga-mx-enriched.jsonl
+__pycache__/
+*.pyc
+*.pyo
+services/models/.deps/
+services/models/.piptmp/
+services/models/.venv/
+Reportes/modelos/features-asof.jsonl
+Reportes/modelos/nfl-ratings-predictions.jsonl
+pitchlab-champions-europa-league-2026-27.zip
+pitchlab-laliga-nfl-ncaa-2026.zip
+pitchlab-liga-mx-apertura-2026.zip
+pitchlab-premier-league-2026-27.zip
+
+# NFL data collection tooling
+tools/nfl-data/.venv/
+tools/nfl-data/wheels/
+tools/nfl-data/pip-unpack*/
+
+# Python artifacts
+__pycache__/
+*.pyc
+
+# Heavy generated feature files and pipeline intermediates
+data/history/*-situational-features.*
+data/history/normalized/
+data/history/manifests/
+data/history/quality_reports/
+
+# Salida del test de experimentos AztecaVet (se regenera al correr pnpm test)
+packages/engines-reference/evidence/

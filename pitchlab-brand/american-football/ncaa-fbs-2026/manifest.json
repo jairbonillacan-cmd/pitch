@@ -1,0 +1,3483 @@
+{
+  "schemaVersion": 1,
+  "designRevision": 1,
+  "season": "2026",
+  "scope": "NCAA Division I FBS",
+  "edition": "Emblemas editoriales",
+  "source": "https://www.ncaa.com/standings/football/fbs",
+  "entries": [
+    {
+      "id": "ncaa-fbs",
+      "code": "FBS",
+      "name": "NCAA Football · FBS",
+      "shortName": "NCAA Football · FBS",
+      "kind": "competition",
+      "motif": "Banderín universitario",
+      "description": "Balón horizontal sobre un banderín azul y oro con marcas de campo.",
+      "colors": {
+        "tile": "#203D71",
+        "primary": "#F8EED8",
+        "accent": "#EAC888",
+        "trim": "#EAC888"
+      },
+      "contrast": {
+        "primaryOnTile": 9.2574,
+        "accentOnTile": 6.6666
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/ncaa-fbs.svg",
+      "png": "png/ncaa-fbs.png",
+      "symbolId": "pitchlab-ncaa-fbs"
+    },
+    {
+      "id": "boston-college",
+      "code": "BC",
+      "name": "Boston College",
+      "shortName": "Boston College",
+      "kind": "program",
+      "group": "ACC",
+      "nickname": "Eagles",
+      "motif": "Águila en granate y oro",
+      "description": "Águila en granate y oro",
+      "colors": {
+        "tile": "#7D2944",
+        "primary": "#EFC677",
+        "accent": "#66283B",
+        "trim": "#D8B879"
+      },
+      "contrast": {
+        "primaryOnTile": 5.7264,
+        "accentOnTile": 1.1765
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/boston-college.svg",
+      "png": "png/boston-college.png",
+      "symbolId": "pitchlab-boston-college"
+    },
+    {
+      "id": "california",
+      "code": "CAL",
+      "name": "California",
+      "shortName": "California",
+      "kind": "program",
+      "group": "ACC",
+      "nickname": "Golden Bears",
+      "motif": "Oso dorado",
+      "description": "Oso dorado",
+      "colors": {
+        "tile": "#1A3558",
+        "primary": "#FFCC68",
+        "accent": "#365277",
+        "trim": "#DBAB54"
+      },
+      "contrast": {
+        "primaryOnTile": 8.3166,
+        "accentOnTile": 1.5526
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/california.svg",
+      "png": "png/california.png",
+      "symbolId": "pitchlab-california"
+    },
+    {
+      "id": "clemson",
+      "code": "CLEM",
+      "name": "Clemson",
+      "shortName": "Clemson",
+      "kind": "program",
+      "group": "ACC",
+      "nickname": "Tigers",
+      "motif": "Huella del tigre",
+      "description": "Huella del tigre",
+      "colors": {
+        "tile": "#ED7E36",
+        "primary": "#282445",
+        "accent": "#573C78",
+        "trim": "#FFE4B0"
+      },
+      "contrast": {
+        "primaryOnTile": 5.3472,
+        "accentOnTile": 3.2885
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/clemson.svg",
+      "png": "png/clemson.png",
+      "symbolId": "pitchlab-clemson"
+    },
+    {
+      "id": "duke",
+      "code": "DUKE",
+      "name": "Duke",
+      "shortName": "Duke",
+      "kind": "program",
+      "group": "ACC",
+      "nickname": "Blue Devils",
+      "motif": "Yelmo de los Blue Devils",
+      "description": "Yelmo de los Blue Devils",
+      "colors": {
+        "tile": "#1F4C96",
+        "primary": "#EEF3F9",
+        "accent": "#3672BC",
+        "trim": "#BDDBF5"
+      },
+      "contrast": {
+        "primaryOnTile": 7.433,
+        "accentOnTile": 1.694
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/duke.svg",
+      "png": "png/duke.png",
+      "symbolId": "pitchlab-duke"
+    },
+    {
+      "id": "florida-state",
+      "code": "FSU",
+      "name": "Florida State",
+      "shortName": "Florida State",
+      "kind": "program",
+      "group": "ACC",
+      "nickname": "Seminoles",
+      "motif": "Lanza dorada",
+      "description": "Lanza dorada",
+      "colors": {
+        "tile": "#792740",
+        "primary": "#F5D49A",
+        "accent": "#5F2035",
+        "trim": "#E4BC7A"
+      },
+      "contrast": {
+        "primaryOnTile": 6.7822,
+        "accentOnTile": 1.248
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/florida-state.svg",
+      "png": "png/florida-state.png",
+      "symbolId": "pitchlab-florida-state"
+    },
+    {
+      "id": "georgia-tech",
+      "code": "GT",
+      "name": "Georgia Tech",
+      "shortName": "Georgia Tech",
+      "kind": "program",
+      "group": "ACC",
+      "nickname": "Yellow Jackets",
+      "motif": "Avispa amarillo oro",
+      "description": "Avispa amarillo oro",
+      "colors": {
+        "tile": "#253652",
+        "primary": "#E7C885",
+        "accent": "#334769",
+        "trim": "#DABC77"
+      },
+      "contrast": {
+        "primaryOnTile": 7.5214,
+        "accentOnTile": 1.2997
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/georgia-tech.svg",
+      "png": "png/georgia-tech.png",
+      "symbolId": "pitchlab-georgia-tech"
+    },
+    {
+      "id": "louisville",
+      "code": "LOU",
+      "name": "Louisville",
+      "shortName": "Louisville",
+      "kind": "program",
+      "group": "ACC",
+      "nickname": "Cardinals",
+      "motif": "Cardenal en escarlata",
+      "description": "Cardenal en escarlata",
+      "colors": {
+        "tile": "#9E2B41",
+        "primary": "#FFF0D9",
+        "accent": "#292630",
+        "trim": "#D2B2AA"
+      },
+      "contrast": {
+        "primaryOnTile": 6.509,
+        "accentOnTile": 2.0334
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/louisville.svg",
+      "png": "png/louisville.png",
+      "symbolId": "pitchlab-louisville"
+    },
+    {
+      "id": "miami-fl",
+      "code": "MIA",
+      "name": "Miami (FL)",
+      "shortName": "Miami (FL)",
+      "kind": "program",
+      "group": "ACC",
+      "nickname": "Hurricanes",
+      "motif": "U en naranja y verde",
+      "description": "U en naranja y verde",
+      "colors": {
+        "tile": "#263034",
+        "primary": "#FF9D54",
+        "accent": "#64BE92",
+        "trim": "#EFD8B1"
+      },
+      "contrast": {
+        "primaryOnTile": 6.5622,
+        "accentOnTile": 5.9959
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/miami-fl.svg",
+      "png": "png/miami-fl.png",
+      "symbolId": "pitchlab-miami-fl"
+    },
+    {
+      "id": "north-carolina",
+      "code": "UNC",
+      "name": "North Carolina",
+      "shortName": "North Carolina",
+      "kind": "program",
+      "group": "ACC",
+      "nickname": "Tar Heels",
+      "motif": "Carnero en Carolina blue",
+      "description": "Carnero en Carolina blue",
+      "colors": {
+        "tile": "#A1C9E8",
+        "primary": "#1B3D62",
+        "accent": "#85B4D8",
+        "trim": "#EDF6FA"
+      },
+      "contrast": {
+        "primaryOnTile": 6.3663,
+        "accentOnTile": 1.2646
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/north-carolina.svg",
+      "png": "png/north-carolina.png",
+      "symbolId": "pitchlab-north-carolina"
+    },
+    {
+      "id": "nc-state",
+      "code": "NCSU",
+      "name": "NC State",
+      "shortName": "NC State",
+      "kind": "program",
+      "group": "ACC",
+      "nickname": "Wolfpack",
+      "motif": "Lobo rojo",
+      "description": "Lobo rojo",
+      "colors": {
+        "tile": "#A62941",
+        "primary": "#FFF0DB",
+        "accent": "#DB5463",
+        "trim": "#241F2A"
+      },
+      "contrast": {
+        "primaryOnTile": 6.2154,
+        "accentOnTile": 1.8111
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/nc-state.svg",
+      "png": "png/nc-state.png",
+      "symbolId": "pitchlab-nc-state"
+    },
+    {
+      "id": "pittsburgh",
+      "code": "PITT",
+      "name": "Pittsburgh",
+      "shortName": "Pittsburgh",
+      "kind": "program",
+      "group": "ACC",
+      "nickname": "Panthers",
+      "motif": "Pantera en azul y oro",
+      "description": "Pantera en azul y oro",
+      "colors": {
+        "tile": "#214B90",
+        "primary": "#FFCD57",
+        "accent": "#3061A7",
+        "trim": "#E5B959"
+      },
+      "contrast": {
+        "primaryOnTile": 5.7086,
+        "accentOnTile": 1.3718
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/pittsburgh.svg",
+      "png": "png/pittsburgh.png",
+      "symbolId": "pitchlab-pittsburgh"
+    },
+    {
+      "id": "smu",
+      "code": "SMU",
+      "name": "SMU",
+      "shortName": "SMU",
+      "kind": "program",
+      "group": "ACC",
+      "nickname": "Mustangs",
+      "motif": "Mustang con banda roja",
+      "description": "Mustang con banda roja",
+      "colors": {
+        "tile": "#233E84",
+        "primary": "#FFF5E3",
+        "accent": "#B62C4A",
+        "trim": "#B2C8E8"
+      },
+      "contrast": {
+        "primaryOnTile": 9.2765,
+        "accentOnTile": 1.6469
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/smu.svg",
+      "png": "png/smu.png",
+      "symbolId": "pitchlab-smu"
+    },
+    {
+      "id": "stanford",
+      "code": "STAN",
+      "name": "Stanford",
+      "shortName": "Stanford",
+      "kind": "program",
+      "group": "ACC",
+      "nickname": "Cardinal",
+      "motif": "Árbol y granate",
+      "description": "Árbol y granate",
+      "colors": {
+        "tile": "#9D2740",
+        "primary": "#FFF1D9",
+        "accent": "#B64A5B",
+        "trim": "#284A40"
+      },
+      "contrast": {
+        "primaryOnTile": 6.7323,
+        "accentOnTile": 1.4724
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/stanford.svg",
+      "png": "png/stanford.png",
+      "symbolId": "pitchlab-stanford"
+    },
+    {
+      "id": "syracuse",
+      "code": "SYR",
+      "name": "Syracuse",
+      "shortName": "Syracuse",
+      "kind": "program",
+      "group": "ACC",
+      "nickname": "Orange",
+      "motif": "Naranja sobre azul noche",
+      "description": "Naranja sobre azul noche",
+      "colors": {
+        "tile": "#263754",
+        "primary": "#FFA962",
+        "accent": "#2E4468",
+        "trim": "#F6C388"
+      },
+      "contrast": {
+        "primaryOnTile": 6.3199,
+        "accentOnTile": 1.2197
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/syracuse.svg",
+      "png": "png/syracuse.png",
+      "symbolId": "pitchlab-syracuse"
+    },
+    {
+      "id": "virginia",
+      "code": "UVA",
+      "name": "Virginia",
+      "shortName": "Virginia",
+      "kind": "program",
+      "group": "ACC",
+      "nickname": "Cavaliers",
+      "motif": "Sables de los Cavaliers",
+      "description": "Sables de los Cavaliers",
+      "colors": {
+        "tile": "#213751",
+        "primary": "#FFB06C",
+        "accent": "#374D6A",
+        "trim": "#E79D64"
+      },
+      "contrast": {
+        "primaryOnTile": 6.7508,
+        "accentOnTile": 1.4059
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/virginia.svg",
+      "png": "png/virginia.png",
+      "symbolId": "pitchlab-virginia"
+    },
+    {
+      "id": "virginia-tech",
+      "code": "VT",
+      "name": "Virginia Tech",
+      "shortName": "Virginia Tech",
+      "kind": "program",
+      "group": "ACC",
+      "nickname": "Hokies",
+      "motif": "VT con banda naranja",
+      "description": "VT con banda naranja",
+      "colors": {
+        "tile": "#6D2842",
+        "primary": "#F8BB88",
+        "accent": "#BE5B43",
+        "trim": "#EBA474"
+      },
+      "contrast": {
+        "primaryOnTile": 6.1281,
+        "accentOnTile": 2.3454
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/virginia-tech.svg",
+      "png": "png/virginia-tech.png",
+      "symbolId": "pitchlab-virginia-tech"
+    },
+    {
+      "id": "wake-forest",
+      "code": "WAKE",
+      "name": "Wake Forest",
+      "shortName": "Wake Forest",
+      "kind": "program",
+      "group": "ACC",
+      "nickname": "Demon Deacons",
+      "motif": "Sombrero de los Deacons",
+      "description": "Sombrero de los Deacons",
+      "colors": {
+        "tile": "#29262D",
+        "primary": "#E9C58A",
+        "accent": "#554B3F",
+        "trim": "#C5A879"
+      },
+      "contrast": {
+        "primaryOnTile": 9.0947,
+        "accentOnTile": 1.7486
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/wake-forest.svg",
+      "png": "png/wake-forest.png",
+      "symbolId": "pitchlab-wake-forest"
+    },
+    {
+      "id": "arizona",
+      "code": "ARIZ",
+      "name": "Arizona",
+      "shortName": "Arizona",
+      "kind": "program",
+      "group": "Big 12",
+      "nickname": "Wildcats",
+      "motif": "Gato montés en azul y rojo",
+      "description": "Gato montés en azul y rojo",
+      "colors": {
+        "tile": "#233C64",
+        "primary": "#FFF2DC",
+        "accent": "#A52B42",
+        "trim": "#E3C9BA"
+      },
+      "contrast": {
+        "primaryOnTile": 9.9832,
+        "accentOnTile": 1.5901
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/arizona.svg",
+      "png": "png/arizona.png",
+      "symbolId": "pitchlab-arizona"
+    },
+    {
+      "id": "arizona-state",
+      "code": "ASU",
+      "name": "Arizona State",
+      "shortName": "Arizona State",
+      "kind": "program",
+      "group": "Big 12",
+      "nickname": "Sun Devils",
+      "motif": "Tridente granate y oro",
+      "description": "Tridente granate y oro",
+      "colors": {
+        "tile": "#70283D",
+        "primary": "#F9CF67",
+        "accent": "#96394B",
+        "trim": "#E3B55A"
+      },
+      "contrast": {
+        "primaryOnTile": 6.8689,
+        "accentOnTile": 1.4485
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/arizona-state.svg",
+      "png": "png/arizona-state.png",
+      "symbolId": "pitchlab-arizona-state"
+    },
+    {
+      "id": "baylor",
+      "code": "BAY",
+      "name": "Baylor",
+      "shortName": "Baylor",
+      "kind": "program",
+      "group": "Big 12",
+      "nickname": "Bears",
+      "motif": "Oso sobre verde",
+      "description": "Oso sobre verde",
+      "colors": {
+        "tile": "#1C5849",
+        "primary": "#F6C96F",
+        "accent": "#26715A",
+        "trim": "#DDC185"
+      },
+      "contrast": {
+        "primaryOnTile": 5.313,
+        "accentOnTile": 1.4134
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/baylor.svg",
+      "png": "png/baylor.png",
+      "symbolId": "pitchlab-baylor"
+    },
+    {
+      "id": "byu",
+      "code": "BYU",
+      "name": "BYU",
+      "shortName": "BYU",
+      "kind": "program",
+      "group": "Big 12",
+      "nickname": "Cougars",
+      "motif": "Y en azul real",
+      "description": "Y en azul real",
+      "colors": {
+        "tile": "#264D90",
+        "primary": "#F5F3E8",
+        "accent": "#5B7EA8",
+        "trim": "#CAD8E6"
+      },
+      "contrast": {
+        "primaryOnTile": 7.4088,
+        "accentOnTile": 1.9612
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/byu.svg",
+      "png": "png/byu.png",
+      "symbolId": "pitchlab-byu"
+    },
+    {
+      "id": "cincinnati",
+      "code": "CIN",
+      "name": "Cincinnati",
+      "shortName": "Cincinnati",
+      "kind": "program",
+      "group": "Big 12",
+      "nickname": "Bearcats",
+      "motif": "Huella de los Bearcats",
+      "description": "Huella de los Bearcats",
+      "colors": {
+        "tile": "#262932",
+        "primary": "#F4EDE0",
+        "accent": "#A2384D",
+        "trim": "#D7A7AA"
+      },
+      "contrast": {
+        "primaryOnTile": 12.4765,
+        "accentOnTile": 2.2198
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/cincinnati.svg",
+      "png": "png/cincinnati.png",
+      "symbolId": "pitchlab-cincinnati"
+    },
+    {
+      "id": "colorado",
+      "code": "COLO",
+      "name": "Colorado",
+      "shortName": "Colorado",
+      "kind": "program",
+      "group": "Big 12",
+      "nickname": "Buffaloes",
+      "motif": "Bisonte en negro y oro",
+      "description": "Bisonte en negro y oro",
+      "colors": {
+        "tile": "#2B2C31",
+        "primary": "#E1C28A",
+        "accent": "#494746",
+        "trim": "#C9B68F"
+      },
+      "contrast": {
+        "primaryOnTile": 8.1503,
+        "accentOnTile": 1.508
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/colorado.svg",
+      "png": "png/colorado.png",
+      "symbolId": "pitchlab-colorado"
+    },
+    {
+      "id": "houston",
+      "code": "HOU",
+      "name": "Houston",
+      "shortName": "Houston",
+      "kind": "program",
+      "group": "Big 12",
+      "nickname": "Cougars",
+      "motif": "Puma carmesí",
+      "description": "Puma carmesí",
+      "colors": {
+        "tile": "#A62D46",
+        "primary": "#FFF2DD",
+        "accent": "#C95060",
+        "trim": "#D8A6A8"
+      },
+      "contrast": {
+        "primaryOnTile": 6.1575,
+        "accentOnTile": 1.5558
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/houston.svg",
+      "png": "png/houston.png",
+      "symbolId": "pitchlab-houston"
+    },
+    {
+      "id": "iowa-state",
+      "code": "ISU",
+      "name": "Iowa State",
+      "shortName": "Iowa State",
+      "kind": "program",
+      "group": "Big 12",
+      "nickname": "Cyclones",
+      "motif": "Ciclón granate y oro",
+      "description": "Ciclón granate y oro",
+      "colors": {
+        "tile": "#8F2844",
+        "primary": "#F9CE73",
+        "accent": "#B74554",
+        "trim": "#DFB472"
+      },
+      "contrast": {
+        "primaryOnTile": 5.5204,
+        "accentOnTile": 1.5628
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/iowa-state.svg",
+      "png": "png/iowa-state.png",
+      "symbolId": "pitchlab-iowa-state"
+    },
+    {
+      "id": "kansas",
+      "code": "KU",
+      "name": "Kansas",
+      "shortName": "Kansas",
+      "kind": "program",
+      "group": "Big 12",
+      "nickname": "Jayhawks",
+      "motif": "Ave azul con banda roja",
+      "description": "Ave azul con banda roja",
+      "colors": {
+        "tile": "#245395",
+        "primary": "#FFF0C4",
+        "accent": "#AD3251",
+        "trim": "#BED4ED"
+      },
+      "contrast": {
+        "primaryOnTile": 6.7411,
+        "accentOnTile": 1.2205
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/kansas.svg",
+      "png": "png/kansas.png",
+      "symbolId": "pitchlab-kansas"
+    },
+    {
+      "id": "kansas-state",
+      "code": "KSU",
+      "name": "Kansas State",
+      "shortName": "Kansas State",
+      "kind": "program",
+      "group": "Big 12",
+      "nickname": "Wildcats",
+      "motif": "Gato montés violeta",
+      "description": "Gato montés violeta",
+      "colors": {
+        "tile": "#563B82",
+        "primary": "#E6E4EE",
+        "accent": "#6F5594",
+        "trim": "#BEB5D2"
+      },
+      "contrast": {
+        "primaryOnTile": 7.1243,
+        "accentOnTile": 1.452
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/kansas-state.svg",
+      "png": "png/kansas-state.png",
+      "symbolId": "pitchlab-kansas-state"
+    },
+    {
+      "id": "oklahoma-state",
+      "code": "OKST",
+      "name": "Oklahoma State",
+      "shortName": "Oklahoma State",
+      "kind": "program",
+      "group": "Big 12",
+      "nickname": "Cowboys",
+      "motif": "Sombrero de los Cowboys",
+      "description": "Sombrero de los Cowboys",
+      "colors": {
+        "tile": "#D56C32",
+        "primary": "#25252D",
+        "accent": "#E88443",
+        "trim": "#FBCB97"
+      },
+      "contrast": {
+        "primaryOnTile": 4.3588,
+        "accentOnTile": 1.2977
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/oklahoma-state.svg",
+      "png": "png/oklahoma-state.png",
+      "symbolId": "pitchlab-oklahoma-state"
+    },
+    {
+      "id": "tcu",
+      "code": "TCU",
+      "name": "TCU",
+      "shortName": "TCU",
+      "kind": "program",
+      "group": "Big 12",
+      "nickname": "Horned Frogs",
+      "motif": "Lagarto cornudo",
+      "description": "Lagarto cornudo",
+      "colors": {
+        "tile": "#4C3677",
+        "primary": "#EDE5F3",
+        "accent": "#624A8C",
+        "trim": "#BDB0D3"
+      },
+      "contrast": {
+        "primaryOnTile": 8.139,
+        "accentOnTile": 1.3694
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/tcu.svg",
+      "png": "png/tcu.png",
+      "symbolId": "pitchlab-tcu"
+    },
+    {
+      "id": "texas-tech",
+      "code": "TTU",
+      "name": "Texas Tech",
+      "shortName": "Texas Tech",
+      "kind": "program",
+      "group": "Big 12",
+      "nickname": "Red Raiders",
+      "motif": "Doble T roja y negra",
+      "description": "Doble T roja y negra",
+      "colors": {
+        "tile": "#9A2740",
+        "primary": "#FFF0DF",
+        "accent": "#2D2832",
+        "trim": "#E4ABA9"
+      },
+      "contrast": {
+        "primaryOnTile": 6.859,
+        "accentOnTile": 1.874
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/texas-tech.svg",
+      "png": "png/texas-tech.png",
+      "symbolId": "pitchlab-texas-tech"
+    },
+    {
+      "id": "ucf",
+      "code": "UCF",
+      "name": "UCF",
+      "shortName": "UCF",
+      "kind": "program",
+      "group": "Big 12",
+      "nickname": "Knights",
+      "motif": "Caballero dorado",
+      "description": "Caballero dorado",
+      "colors": {
+        "tile": "#292831",
+        "primary": "#EED296",
+        "accent": "#443E41",
+        "trim": "#CFB37D"
+      },
+      "contrast": {
+        "primaryOnTile": 9.9119,
+        "accentOnTile": 1.3946
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/ucf.svg",
+      "png": "png/ucf.png",
+      "symbolId": "pitchlab-ucf"
+    },
+    {
+      "id": "utah",
+      "code": "UTAH",
+      "name": "Utah",
+      "shortName": "Utah",
+      "kind": "program",
+      "group": "Big 12",
+      "nickname": "Utes",
+      "motif": "U escarlata",
+      "description": "U escarlata",
+      "colors": {
+        "tile": "#AC2842",
+        "primary": "#FFF0E1",
+        "accent": "#D15461",
+        "trim": "#D9A9AB"
+      },
+      "contrast": {
+        "primaryOnTile": 5.9953,
+        "accentOnTile": 1.6426
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/utah.svg",
+      "png": "png/utah.png",
+      "symbolId": "pitchlab-utah"
+    },
+    {
+      "id": "west-virginia",
+      "code": "WVU",
+      "name": "West Virginia",
+      "shortName": "West Virginia",
+      "kind": "program",
+      "group": "Big 12",
+      "nickname": "Mountaineers",
+      "motif": "Cumbres de Appalachia",
+      "description": "Cumbres de Appalachia",
+      "colors": {
+        "tile": "#203A60",
+        "primary": "#F4C76A",
+        "accent": "#2C4D74",
+        "trim": "#DABA6C"
+      },
+      "contrast": {
+        "primaryOnTile": 7.2045,
+        "accentOnTile": 1.3189
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/west-virginia.svg",
+      "png": "png/west-virginia.png",
+      "symbolId": "pitchlab-west-virginia"
+    },
+    {
+      "id": "illinois",
+      "code": "ILL",
+      "name": "Illinois",
+      "shortName": "Illinois",
+      "kind": "program",
+      "group": "Big Ten",
+      "nickname": "Fighting Illini",
+      "motif": "I naranja sobre marino",
+      "description": "I naranja sobre marino",
+      "colors": {
+        "tile": "#203657",
+        "primary": "#FFA265",
+        "accent": "#385271",
+        "trim": "#D8A480"
+      },
+      "contrast": {
+        "primaryOnTile": 6.1435,
+        "accentOnTile": 1.5136
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/illinois.svg",
+      "png": "png/illinois.png",
+      "symbolId": "pitchlab-illinois"
+    },
+    {
+      "id": "indiana",
+      "code": "IND",
+      "name": "Indiana",
+      "shortName": "Indiana",
+      "kind": "program",
+      "group": "Big Ten",
+      "nickname": "Hoosiers",
+      "motif": "IU en crema y carmesí",
+      "description": "IU en crema y carmesí",
+      "colors": {
+        "tile": "#942740",
+        "primary": "#FFF0DB",
+        "accent": "#A33D53",
+        "trim": "#DFB7AF"
+      },
+      "contrast": {
+        "primaryOnTile": 7.1429,
+        "accentOnTile": 1.2768
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/indiana.svg",
+      "png": "png/indiana.png",
+      "symbolId": "pitchlab-indiana"
+    },
+    {
+      "id": "iowa",
+      "code": "IOWA",
+      "name": "Iowa",
+      "shortName": "Iowa",
+      "kind": "program",
+      "group": "Big Ten",
+      "nickname": "Hawkeyes",
+      "motif": "Halcón amarillo",
+      "description": "Halcón amarillo",
+      "colors": {
+        "tile": "#272730",
+        "primary": "#F4C55C",
+        "accent": "#544736",
+        "trim": "#CDB16B"
+      },
+      "contrast": {
+        "primaryOnTile": 9.1517,
+        "accentOnTile": 1.6429
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/iowa.svg",
+      "png": "png/iowa.png",
+      "symbolId": "pitchlab-iowa"
+    },
+    {
+      "id": "maryland",
+      "code": "MD",
+      "name": "Maryland",
+      "shortName": "Maryland",
+      "kind": "program",
+      "group": "Big Ten",
+      "nickname": "Terrapins",
+      "motif": "Tortuga en rojo y oro",
+      "description": "Tortuga en rojo y oro",
+      "colors": {
+        "tile": "#A62842",
+        "primary": "#FFD081",
+        "accent": "#28252F",
+        "trim": "#E8B97C"
+      },
+      "contrast": {
+        "primaryOnTile": 4.858,
+        "accentOnTile": 2.1517
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/maryland.svg",
+      "png": "png/maryland.png",
+      "symbolId": "pitchlab-maryland"
+    },
+    {
+      "id": "michigan",
+      "code": "MICH",
+      "name": "Michigan",
+      "shortName": "Michigan",
+      "kind": "program",
+      "group": "Big Ten",
+      "nickname": "Wolverines",
+      "motif": "M en maize y azul",
+      "description": "M en maize y azul",
+      "colors": {
+        "tile": "#1E3658",
+        "primary": "#F7CA57",
+        "accent": "#3C5474",
+        "trim": "#E2BE64"
+      },
+      "contrast": {
+        "primaryOnTile": 7.8552,
+        "accentOnTile": 1.5735
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/michigan.svg",
+      "png": "png/michigan.png",
+      "symbolId": "pitchlab-michigan"
+    },
+    {
+      "id": "michigan-state",
+      "code": "MSU",
+      "name": "Michigan State",
+      "shortName": "Michigan State",
+      "kind": "program",
+      "group": "Big Ten",
+      "nickname": "Spartans",
+      "motif": "Yelmo espartano",
+      "description": "Yelmo espartano",
+      "colors": {
+        "tile": "#214A41",
+        "primary": "#F2F3E8",
+        "accent": "#3D6856",
+        "trim": "#BED0C0"
+      },
+      "contrast": {
+        "primaryOnTile": 8.8474,
+        "accentOnTile": 1.5623
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/michigan-state.svg",
+      "png": "png/michigan-state.png",
+      "symbolId": "pitchlab-michigan-state"
+    },
+    {
+      "id": "minnesota",
+      "code": "MINN",
+      "name": "Minnesota",
+      "shortName": "Minnesota",
+      "kind": "program",
+      "group": "Big Ten",
+      "nickname": "Golden Gophers",
+      "motif": "Gófer dorado",
+      "description": "Gófer dorado",
+      "colors": {
+        "tile": "#692740",
+        "primary": "#F1C069",
+        "accent": "#8A3F50",
+        "trim": "#E3B471"
+      },
+      "contrast": {
+        "primaryOnTile": 6.3535,
+        "accentOnTile": 1.4797
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/minnesota.svg",
+      "png": "png/minnesota.png",
+      "symbolId": "pitchlab-minnesota"
+    },
+    {
+      "id": "nebraska",
+      "code": "NEB",
+      "name": "Nebraska",
+      "shortName": "Nebraska",
+      "kind": "program",
+      "group": "Big Ten",
+      "nickname": "Cornhuskers",
+      "motif": "N escarlata",
+      "description": "N escarlata",
+      "colors": {
+        "tile": "#AB2944",
+        "primary": "#FFF2DD",
+        "accent": "#86283E",
+        "trim": "#E8BDB7"
+      },
+      "contrast": {
+        "primaryOnTile": 6.065,
+        "accentOnTile": 1.3123
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/nebraska.svg",
+      "png": "png/nebraska.png",
+      "symbolId": "pitchlab-nebraska"
+    },
+    {
+      "id": "northwestern",
+      "code": "NW",
+      "name": "Northwestern",
+      "shortName": "Northwestern",
+      "kind": "program",
+      "group": "Big Ten",
+      "nickname": "Wildcats",
+      "motif": "N violeta",
+      "description": "N violeta",
+      "colors": {
+        "tile": "#593C81",
+        "primary": "#EFE9F5",
+        "accent": "#402D5F",
+        "trim": "#B9AAD3"
+      },
+      "contrast": {
+        "primaryOnTile": 7.3884,
+        "accentOnTile": 1.358
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/northwestern.svg",
+      "png": "png/northwestern.png",
+      "symbolId": "pitchlab-northwestern"
+    },
+    {
+      "id": "ohio-state",
+      "code": "OSU",
+      "name": "Ohio State",
+      "shortName": "Ohio State",
+      "kind": "program",
+      "group": "Big Ten",
+      "nickname": "Buckeyes",
+      "motif": "Hoja y fruto de buckeye",
+      "description": "Hoja y fruto de buckeye",
+      "colors": {
+        "tile": "#A82F49",
+        "primary": "#F1E9E0",
+        "accent": "#7D7D86",
+        "trim": "#D8D7D9"
+      },
+      "contrast": {
+        "primaryOnTile": 5.5156,
+        "accentOnTile": 1.6256
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/ohio-state.svg",
+      "png": "png/ohio-state.png",
+      "symbolId": "pitchlab-ohio-state"
+    },
+    {
+      "id": "oregon",
+      "code": "ORE",
+      "name": "Oregon",
+      "shortName": "Oregon",
+      "kind": "program",
+      "group": "Big Ten",
+      "nickname": "Ducks",
+      "motif": "Pato en verde y amarillo",
+      "description": "Pato en verde y amarillo",
+      "colors": {
+        "tile": "#205542",
+        "primary": "#F5CF68",
+        "accent": "#28765C",
+        "trim": "#E0C979"
+      },
+      "contrast": {
+        "primaryOnTile": 5.742,
+        "accentOnTile": 1.5725
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/oregon.svg",
+      "png": "png/oregon.png",
+      "symbolId": "pitchlab-oregon"
+    },
+    {
+      "id": "penn-state",
+      "code": "PSU",
+      "name": "Penn State",
+      "shortName": "Penn State",
+      "kind": "program",
+      "group": "Big Ten",
+      "nickname": "Nittany Lions",
+      "motif": "León de Nittany",
+      "description": "León de Nittany",
+      "colors": {
+        "tile": "#233A5C",
+        "primary": "#EEF1EB",
+        "accent": "#405571",
+        "trim": "#CAD4DE"
+      },
+      "contrast": {
+        "primaryOnTile": 10.0573,
+        "accentOnTile": 1.5049
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/penn-state.svg",
+      "png": "png/penn-state.png",
+      "symbolId": "pitchlab-penn-state"
+    },
+    {
+      "id": "purdue",
+      "code": "PUR",
+      "name": "Purdue",
+      "shortName": "Purdue",
+      "kind": "program",
+      "group": "Big Ten",
+      "nickname": "Boilermakers",
+      "motif": "Locomotora Boilermaker",
+      "description": "Locomotora Boilermaker",
+      "colors": {
+        "tile": "#292830",
+        "primary": "#E5C58B",
+        "accent": "#494139",
+        "trim": "#C5AD7D"
+      },
+      "contrast": {
+        "primaryOnTile": 8.8102,
+        "accentOnTile": 1.4568
+      },
+      "source": "https://purduesports.com/mascots",
+      "svg": "svg/purdue.svg",
+      "png": "png/purdue.png",
+      "symbolId": "pitchlab-purdue"
+    },
+    {
+      "id": "rutgers",
+      "code": "RUT",
+      "name": "Rutgers",
+      "shortName": "Rutgers",
+      "kind": "program",
+      "group": "Big Ten",
+      "nickname": "Scarlet Knights",
+      "motif": "Caballero escarlata",
+      "description": "Caballero escarlata",
+      "colors": {
+        "tile": "#A92C47",
+        "primary": "#FFF3E2",
+        "accent": "#843247",
+        "trim": "#DDB9B0"
+      },
+      "contrast": {
+        "primaryOnTile": 6.1086,
+        "accentOnTile": 1.2412
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/rutgers.svg",
+      "png": "png/rutgers.png",
+      "symbolId": "pitchlab-rutgers"
+    },
+    {
+      "id": "ucla",
+      "code": "UCLA",
+      "name": "UCLA",
+      "shortName": "UCLA",
+      "kind": "program",
+      "group": "Big Ten",
+      "nickname": "Bruins",
+      "motif": "Oso en celeste y oro",
+      "description": "Oso en celeste y oro",
+      "colors": {
+        "tile": "#267AA9",
+        "primary": "#FFDB81",
+        "accent": "#55A0C9",
+        "trim": "#DDC080"
+      },
+      "contrast": {
+        "primaryOnTile": 3.5371,
+        "accentOnTile": 1.635
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/ucla.svg",
+      "png": "png/ucla.png",
+      "symbolId": "pitchlab-ucla"
+    },
+    {
+      "id": "usc",
+      "code": "USC",
+      "name": "USC",
+      "shortName": "USC",
+      "kind": "program",
+      "group": "Big Ten",
+      "nickname": "Trojans",
+      "motif": "Casco troyano",
+      "description": "Casco troyano",
+      "colors": {
+        "tile": "#8A283E",
+        "primary": "#F8C96C",
+        "accent": "#A53D4A",
+        "trim": "#DAB669"
+      },
+      "contrast": {
+        "primaryOnTile": 5.5273,
+        "accentOnTile": 1.3719
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/usc.svg",
+      "png": "png/usc.png",
+      "symbolId": "pitchlab-usc"
+    },
+    {
+      "id": "washington",
+      "code": "WASH",
+      "name": "Washington",
+      "shortName": "Washington",
+      "kind": "program",
+      "group": "Big Ten",
+      "nickname": "Huskies",
+      "motif": "W púrpura y oro",
+      "description": "W púrpura y oro",
+      "colors": {
+        "tile": "#4D3A7E",
+        "primary": "#ECD299",
+        "accent": "#685690",
+        "trim": "#C6B37C"
+      },
+      "contrast": {
+        "primaryOnTile": 6.4108,
+        "accentOnTile": 1.4952
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/washington.svg",
+      "png": "png/washington.png",
+      "symbolId": "pitchlab-washington"
+    },
+    {
+      "id": "wisconsin",
+      "code": "WIS",
+      "name": "Wisconsin",
+      "shortName": "Wisconsin",
+      "kind": "program",
+      "group": "Big Ten",
+      "nickname": "Badgers",
+      "motif": "Tejón carmesí",
+      "description": "Tejón carmesí",
+      "colors": {
+        "tile": "#A72D45",
+        "primary": "#F8EFDC",
+        "accent": "#802F44",
+        "trim": "#E7BEB8"
+      },
+      "contrast": {
+        "primaryOnTile": 5.9179,
+        "accentOnTile": 1.2892
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/wisconsin.svg",
+      "png": "png/wisconsin.png",
+      "symbolId": "pitchlab-wisconsin"
+    },
+    {
+      "id": "alabama",
+      "code": "ALA",
+      "name": "Alabama",
+      "shortName": "Alabama",
+      "kind": "program",
+      "group": "SEC",
+      "nickname": "Crimson Tide",
+      "motif": "Elefante carmesí",
+      "description": "Elefante carmesí",
+      "colors": {
+        "tile": "#8D2842",
+        "primary": "#EEEAE1",
+        "accent": "#AB4556",
+        "trim": "#D1C4C5"
+      },
+      "contrast": {
+        "primaryOnTile": 6.9557,
+        "accentOnTile": 1.4782
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/alabama.svg",
+      "png": "png/alabama.png",
+      "symbolId": "pitchlab-alabama"
+    },
+    {
+      "id": "arkansas",
+      "code": "ARK",
+      "name": "Arkansas",
+      "shortName": "Arkansas",
+      "kind": "program",
+      "group": "SEC",
+      "nickname": "Razorbacks",
+      "motif": "Jabalí de los Razorbacks",
+      "description": "Jabalí de los Razorbacks",
+      "colors": {
+        "tile": "#A32744",
+        "primary": "#FFEED9",
+        "accent": "#B14454",
+        "trim": "#DAB0AC"
+      },
+      "contrast": {
+        "primaryOnTile": 6.3063,
+        "accentOnTile": 1.3048
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/arkansas.svg",
+      "png": "png/arkansas.png",
+      "symbolId": "pitchlab-arkansas"
+    },
+    {
+      "id": "auburn",
+      "code": "AUB",
+      "name": "Auburn",
+      "shortName": "Auburn",
+      "kind": "program",
+      "group": "SEC",
+      "nickname": "Tigers",
+      "motif": "AU en naranja y azul",
+      "description": "AU en naranja y azul",
+      "colors": {
+        "tile": "#223755",
+        "primary": "#FFAC68",
+        "accent": "#324C6B",
+        "trim": "#DA986B"
+      },
+      "contrast": {
+        "primaryOnTile": 6.5035,
+        "accentOnTile": 1.3644
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/auburn.svg",
+      "png": "png/auburn.png",
+      "symbolId": "pitchlab-auburn"
+    },
+    {
+      "id": "florida",
+      "code": "FLA",
+      "name": "Florida",
+      "shortName": "Florida",
+      "kind": "program",
+      "group": "SEC",
+      "nickname": "Gators",
+      "motif": "Caimán y banda naranja",
+      "description": "Caimán y banda naranja",
+      "colors": {
+        "tile": "#214F94",
+        "primary": "#FFE4AF",
+        "accent": "#CD663B",
+        "trim": "#DCC187"
+      },
+      "contrast": {
+        "primaryOnTile": 6.4996,
+        "accentOnTile": 2.1295
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/florida.svg",
+      "png": "png/florida.png",
+      "symbolId": "pitchlab-florida"
+    },
+    {
+      "id": "georgia",
+      "code": "UGA",
+      "name": "Georgia",
+      "shortName": "Georgia",
+      "kind": "program",
+      "group": "SEC",
+      "nickname": "Bulldogs",
+      "motif": "Bulldog de Georgia",
+      "description": "Bulldog de Georgia",
+      "colors": {
+        "tile": "#A32D46",
+        "primary": "#FFF0E1",
+        "accent": "#B64558",
+        "trim": "#E6B9B3"
+      },
+      "contrast": {
+        "primaryOnTile": 6.224,
+        "accentOnTile": 1.3178
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/georgia.svg",
+      "png": "png/georgia.png",
+      "symbolId": "pitchlab-georgia"
+    },
+    {
+      "id": "kentucky",
+      "code": "UK",
+      "name": "Kentucky",
+      "shortName": "Kentucky",
+      "kind": "program",
+      "group": "SEC",
+      "nickname": "Wildcats",
+      "motif": "UK en azul real",
+      "description": "UK en azul real",
+      "colors": {
+        "tile": "#245597",
+        "primary": "#EFF3F2",
+        "accent": "#3369AA",
+        "trim": "#C1D6E6"
+      },
+      "contrast": {
+        "primaryOnTile": 6.6539,
+        "accentOnTile": 1.3263
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/kentucky.svg",
+      "png": "png/kentucky.png",
+      "symbolId": "pitchlab-kentucky"
+    },
+    {
+      "id": "lsu",
+      "code": "LSU",
+      "name": "LSU",
+      "shortName": "LSU",
+      "kind": "program",
+      "group": "SEC",
+      "nickname": "Tigers",
+      "motif": "Tigre púrpura y oro",
+      "description": "Tigre púrpura y oro",
+      "colors": {
+        "tile": "#503878",
+        "primary": "#F8CD60",
+        "accent": "#65488C",
+        "trim": "#D4B069"
+      },
+      "contrast": {
+        "primaryOnTile": 6.3787,
+        "accentOnTile": 1.3127
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/lsu.svg",
+      "png": "png/lsu.png",
+      "symbolId": "pitchlab-lsu"
+    },
+    {
+      "id": "mississippi-state",
+      "code": "MSST",
+      "name": "Mississippi State",
+      "shortName": "Mississippi State",
+      "kind": "program",
+      "group": "SEC",
+      "nickname": "Bulldogs",
+      "motif": "Cencerro de Starkville",
+      "description": "Cencerro de Starkville",
+      "colors": {
+        "tile": "#682B41",
+        "primary": "#FFEBD7",
+        "accent": "#8D4656",
+        "trim": "#D8BAB2"
+      },
+      "contrast": {
+        "primaryOnTile": 9.011,
+        "accentOnTile": 1.5633
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/mississippi-state.svg",
+      "png": "png/mississippi-state.png",
+      "symbolId": "pitchlab-mississippi-state"
+    },
+    {
+      "id": "missouri",
+      "code": "MIZ",
+      "name": "Missouri",
+      "shortName": "Missouri",
+      "kind": "program",
+      "group": "SEC",
+      "nickname": "Tigers",
+      "motif": "Tigre negro y oro",
+      "description": "Tigre negro y oro",
+      "colors": {
+        "tile": "#2B2A30",
+        "primary": "#F8CC68",
+        "accent": "#544437",
+        "trim": "#D8B976"
+      },
+      "contrast": {
+        "primaryOnTile": 9.3651,
+        "accentOnTile": 1.5299
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/missouri.svg",
+      "png": "png/missouri.png",
+      "symbolId": "pitchlab-missouri"
+    },
+    {
+      "id": "oklahoma",
+      "code": "OU",
+      "name": "Oklahoma",
+      "shortName": "Oklahoma",
+      "kind": "program",
+      "group": "SEC",
+      "nickname": "Sooners",
+      "motif": "Carreta de los Sooners",
+      "description": "Carreta de los Sooners",
+      "colors": {
+        "tile": "#8D2A45",
+        "primary": "#F9E5C8",
+        "accent": "#753040",
+        "trim": "#D8B6A4"
+      },
+      "contrast": {
+        "primaryOnTile": 6.6949,
+        "accentOnTile": 1.1316
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/oklahoma.svg",
+      "png": "png/oklahoma.png",
+      "symbolId": "pitchlab-oklahoma"
+    },
+    {
+      "id": "ole-miss",
+      "code": "MISS",
+      "name": "Ole Miss",
+      "shortName": "Ole Miss",
+      "kind": "program",
+      "group": "SEC",
+      "nickname": "Rebels",
+      "motif": "OM en granate y azul",
+      "description": "OM en granate y azul",
+      "colors": {
+        "tile": "#233756",
+        "primary": "#FBEAD6",
+        "accent": "#A82F48",
+        "trim": "#D7B6AC"
+      },
+      "contrast": {
+        "primaryOnTile": 10.1819,
+        "accentOnTile": 1.8063
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/ole-miss.svg",
+      "png": "png/ole-miss.png",
+      "symbolId": "pitchlab-ole-miss"
+    },
+    {
+      "id": "south-carolina",
+      "code": "SC",
+      "name": "South Carolina",
+      "shortName": "South Carolina",
+      "kind": "program",
+      "group": "SEC",
+      "nickname": "Gamecocks",
+      "motif": "Gallo granate",
+      "description": "Gallo granate",
+      "colors": {
+        "tile": "#76293D",
+        "primary": "#FFE7CA",
+        "accent": "#8B4050",
+        "trim": "#DAB7A3"
+      },
+      "contrast": {
+        "primaryOnTile": 8.1375,
+        "accentOnTile": 1.3676
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/south-carolina.svg",
+      "png": "png/south-carolina.png",
+      "symbolId": "pitchlab-south-carolina"
+    },
+    {
+      "id": "tennessee",
+      "code": "TENN",
+      "name": "Tennessee",
+      "shortName": "Tennessee",
+      "kind": "program",
+      "group": "SEC",
+      "nickname": "Volunteers",
+      "motif": "T en naranja de Tennessee",
+      "description": "T en naranja de Tennessee",
+      "colors": {
+        "tile": "#DD7A3D",
+        "primary": "#252733",
+        "accent": "#EE914F",
+        "trim": "#F4CD9B"
+      },
+      "contrast": {
+        "primaryOnTile": 4.8887,
+        "accentOnTile": 1.2704
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/tennessee.svg",
+      "png": "png/tennessee.png",
+      "symbolId": "pitchlab-tennessee"
+    },
+    {
+      "id": "texas",
+      "code": "TEX",
+      "name": "Texas",
+      "shortName": "Texas",
+      "kind": "program",
+      "group": "SEC",
+      "nickname": "Longhorns",
+      "motif": "Cuernos de Bevo",
+      "description": "Cuernos de Bevo",
+      "colors": {
+        "tile": "#963F29",
+        "primary": "#FFF2DC",
+        "accent": "#B75F3F",
+        "trim": "#DFB090"
+      },
+      "contrast": {
+        "primaryOnTile": 6.2459,
+        "accentOnTile": 1.5534
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/texas.svg",
+      "png": "png/texas.png",
+      "symbolId": "pitchlab-texas"
+    },
+    {
+      "id": "texas-am",
+      "code": "TAMU",
+      "name": "Texas A&M",
+      "shortName": "Texas A&M",
+      "kind": "program",
+      "group": "SEC",
+      "nickname": "Aggies",
+      "motif": "AM en maroon y blanco",
+      "description": "AM en maroon y blanco",
+      "colors": {
+        "tile": "#632A42",
+        "primary": "#FFF0DF",
+        "accent": "#78364F",
+        "trim": "#DBB9B8"
+      },
+      "contrast": {
+        "primaryOnTile": 9.6793,
+        "accentOnTile": 1.2571
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/texas-am.svg",
+      "png": "png/texas-am.png",
+      "symbolId": "pitchlab-texas-am"
+    },
+    {
+      "id": "vanderbilt",
+      "code": "VAN",
+      "name": "Vanderbilt",
+      "shortName": "Vanderbilt",
+      "kind": "program",
+      "group": "SEC",
+      "nickname": "Commodores",
+      "motif": "V y estrella dorada",
+      "description": "V y estrella dorada",
+      "colors": {
+        "tile": "#292932",
+        "primary": "#E8C488",
+        "accent": "#524A45",
+        "trim": "#D0B789"
+      },
+      "contrast": {
+        "primaryOnTile": 8.7015,
+        "accentOnTile": 1.6632
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/vanderbilt.svg",
+      "png": "png/vanderbilt.png",
+      "symbolId": "pitchlab-vanderbilt"
+    },
+    {
+      "id": "army",
+      "code": "ARMY",
+      "name": "Army West Point",
+      "shortName": "Army West Point",
+      "kind": "program",
+      "group": "American",
+      "nickname": "Black Knights",
+      "motif": "Caballero de West Point",
+      "description": "Caballero de West Point",
+      "colors": {
+        "tile": "#28292F",
+        "primary": "#EAC68F",
+        "accent": "#514A3E",
+        "trim": "#C9AF7A"
+      },
+      "contrast": {
+        "primaryOnTile": 8.9563,
+        "accentOnTile": 1.6562
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/army.svg",
+      "png": "png/army.png",
+      "symbolId": "pitchlab-army"
+    },
+    {
+      "id": "charlotte",
+      "code": "CLT",
+      "name": "Charlotte",
+      "shortName": "Charlotte",
+      "kind": "program",
+      "group": "American",
+      "nickname": "49ers",
+      "motif": "Pico dorado de los 49ers",
+      "description": "Pico dorado de los 49ers",
+      "colors": {
+        "tile": "#20584B",
+        "primary": "#EBC77F",
+        "accent": "#397663",
+        "trim": "#CAB678"
+      },
+      "contrast": {
+        "primaryOnTile": 5.0835,
+        "accentOnTile": 1.5419
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/charlotte.svg",
+      "png": "png/charlotte.png",
+      "symbolId": "pitchlab-charlotte"
+    },
+    {
+      "id": "east-carolina",
+      "code": "ECU",
+      "name": "East Carolina",
+      "shortName": "East Carolina",
+      "kind": "program",
+      "group": "American",
+      "nickname": "Pirates",
+      "motif": "Corsario púrpura y oro",
+      "description": "Corsario púrpura y oro",
+      "colors": {
+        "tile": "#513982",
+        "primary": "#F1D07E",
+        "accent": "#674D8D",
+        "trim": "#CEB77C"
+      },
+      "contrast": {
+        "primaryOnTile": 6.2299,
+        "accentOnTile": 1.3391
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/east-carolina.svg",
+      "png": "png/east-carolina.png",
+      "symbolId": "pitchlab-east-carolina"
+    },
+    {
+      "id": "florida-atlantic",
+      "code": "FAU",
+      "name": "Florida Atlantic",
+      "shortName": "Florida Atlantic",
+      "kind": "program",
+      "group": "American",
+      "nickname": "Owls",
+      "motif": "Búho con campo rojiazul",
+      "description": "Búho con campo rojiazul",
+      "colors": {
+        "tile": "#253C64",
+        "primary": "#F2EEE3",
+        "accent": "#A42F4B",
+        "trim": "#D3BBBD"
+      },
+      "contrast": {
+        "primaryOnTile": 9.4889,
+        "accentOnTile": 1.6169
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/florida-atlantic.svg",
+      "png": "png/florida-atlantic.png",
+      "symbolId": "pitchlab-florida-atlantic"
+    },
+    {
+      "id": "memphis",
+      "code": "MEM",
+      "name": "Memphis",
+      "shortName": "Memphis",
+      "kind": "program",
+      "group": "American",
+      "nickname": "Tigers",
+      "motif": "Tigre azul y plata",
+      "description": "Tigre azul y plata",
+      "colors": {
+        "tile": "#24579B",
+        "primary": "#E2E9ED",
+        "accent": "#3D72AB",
+        "trim": "#BBD0E1"
+      },
+      "contrast": {
+        "primaryOnTile": 5.8772,
+        "accentOnTile": 1.4402
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/memphis.svg",
+      "png": "png/memphis.png",
+      "symbolId": "pitchlab-memphis"
+    },
+    {
+      "id": "navy",
+      "code": "NAVY",
+      "name": "Navy",
+      "shortName": "Navy",
+      "kind": "program",
+      "group": "American",
+      "nickname": "Midshipmen",
+      "motif": "Ancla naval",
+      "description": "Ancla naval",
+      "colors": {
+        "tile": "#23395B",
+        "primary": "#F0CD7E",
+        "accent": "#3C5271",
+        "trim": "#D2B273"
+      },
+      "contrast": {
+        "primaryOnTile": 7.5998,
+        "accentOnTile": 1.459
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/navy.svg",
+      "png": "png/navy.png",
+      "symbolId": "pitchlab-navy"
+    },
+    {
+      "id": "north-texas",
+      "code": "UNT",
+      "name": "North Texas",
+      "shortName": "North Texas",
+      "kind": "program",
+      "group": "American",
+      "nickname": "Mean Green",
+      "motif": "Águila verde",
+      "description": "Águila verde",
+      "colors": {
+        "tile": "#1C664B",
+        "primary": "#EDF2E4",
+        "accent": "#2B7D5A",
+        "trim": "#BDCEC2"
+      },
+      "contrast": {
+        "primaryOnTile": 6.037,
+        "accentOnTile": 1.3711
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/north-texas.svg",
+      "png": "png/north-texas.png",
+      "symbolId": "pitchlab-north-texas"
+    },
+    {
+      "id": "rice",
+      "code": "RICE",
+      "name": "Rice",
+      "shortName": "Rice",
+      "kind": "program",
+      "group": "American",
+      "nickname": "Owls",
+      "motif": "Búho en marino y gris",
+      "description": "Búho en marino y gris",
+      "colors": {
+        "tile": "#293B59",
+        "primary": "#E0E7ED",
+        "accent": "#445875",
+        "trim": "#BDCAD5"
+      },
+      "contrast": {
+        "primaryOnTile": 9.0245,
+        "accentOnTile": 1.5549
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/rice.svg",
+      "png": "png/rice.png",
+      "symbolId": "pitchlab-rice"
+    },
+    {
+      "id": "temple",
+      "code": "TEM",
+      "name": "Temple",
+      "shortName": "Temple",
+      "kind": "program",
+      "group": "American",
+      "nickname": "Owls",
+      "motif": "Búho cereza",
+      "description": "Búho cereza",
+      "colors": {
+        "tile": "#952842",
+        "primary": "#FFF1DB",
+        "accent": "#AC4057",
+        "trim": "#E9C3BE"
+      },
+      "contrast": {
+        "primaryOnTile": 7.0888,
+        "accentOnTile": 1.3628
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/temple.svg",
+      "png": "png/temple.png",
+      "symbolId": "pitchlab-temple"
+    },
+    {
+      "id": "tulane",
+      "code": "TULN",
+      "name": "Tulane",
+      "shortName": "Tulane",
+      "kind": "program",
+      "group": "American",
+      "nickname": "Green Wave",
+      "motif": "Ola verde",
+      "description": "Ola verde",
+      "colors": {
+        "tile": "#176251",
+        "primary": "#F4EFDD",
+        "accent": "#75BBD4",
+        "trim": "#9DD0C9"
+      },
+      "contrast": {
+        "primaryOnTile": 6.2837,
+        "accentOnTile": 3.3818
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/tulane.svg",
+      "png": "png/tulane.png",
+      "symbolId": "pitchlab-tulane"
+    },
+    {
+      "id": "tulsa",
+      "code": "TLSA",
+      "name": "Tulsa",
+      "shortName": "Tulsa",
+      "kind": "program",
+      "group": "American",
+      "nickname": "Golden Hurricane",
+      "motif": "Huracán dorado",
+      "description": "Huracán dorado",
+      "colors": {
+        "tile": "#244F8D",
+        "primary": "#F3CF74",
+        "accent": "#963C57",
+        "trim": "#DABA74"
+      },
+      "contrast": {
+        "primaryOnTile": 5.426,
+        "accentOnTile": 1.195
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/tulsa.svg",
+      "png": "png/tulsa.png",
+      "symbolId": "pitchlab-tulsa"
+    },
+    {
+      "id": "uab",
+      "code": "UAB",
+      "name": "UAB",
+      "shortName": "UAB",
+      "kind": "program",
+      "group": "American",
+      "nickname": "Blazers",
+      "motif": "Dragón verde y oro",
+      "description": "Dragón verde y oro",
+      "colors": {
+        "tile": "#23594A",
+        "primary": "#EDC675",
+        "accent": "#3A7761",
+        "trim": "#CFBB77"
+      },
+      "contrast": {
+        "primaryOnTile": 4.9765,
+        "accentOnTile": 1.5355
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/uab.svg",
+      "png": "png/uab.png",
+      "symbolId": "pitchlab-uab"
+    },
+    {
+      "id": "usf",
+      "code": "USF",
+      "name": "South Florida",
+      "shortName": "South Florida",
+      "kind": "program",
+      "group": "American",
+      "nickname": "Bulls",
+      "motif": "Toro de South Florida",
+      "description": "Toro de South Florida",
+      "colors": {
+        "tile": "#21554B",
+        "primary": "#E3C581",
+        "accent": "#397463",
+        "trim": "#CCB581"
+      },
+      "contrast": {
+        "primaryOnTile": 5.0979,
+        "accentOnTile": 1.5624
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/usf.svg",
+      "png": "png/usf.png",
+      "symbolId": "pitchlab-usf"
+    },
+    {
+      "id": "utsa",
+      "code": "UTSA",
+      "name": "UTSA",
+      "shortName": "UTSA",
+      "kind": "program",
+      "group": "American",
+      "nickname": "Roadrunners",
+      "motif": "Correcaminos naranja",
+      "description": "Correcaminos naranja",
+      "colors": {
+        "tile": "#233A60",
+        "primary": "#FFA875",
+        "accent": "#3B5275",
+        "trim": "#DDA582"
+      },
+      "contrast": {
+        "primaryOnTile": 6.0197,
+        "accentOnTile": 1.4357
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/utsa.svg",
+      "png": "png/utsa.png",
+      "symbolId": "pitchlab-utsa"
+    },
+    {
+      "id": "delaware",
+      "code": "DEL",
+      "name": "Delaware",
+      "shortName": "Delaware",
+      "kind": "program",
+      "group": "Conference USA",
+      "nickname": "Blue Hens",
+      "motif": "Gallina azul y oro",
+      "description": "Gallina azul y oro",
+      "colors": {
+        "tile": "#255D9E",
+        "primary": "#FFD474",
+        "accent": "#4884B7",
+        "trim": "#E0B767"
+      },
+      "contrast": {
+        "primaryOnTile": 4.7549,
+        "accentOnTile": 1.6761
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/delaware.svg",
+      "png": "png/delaware.png",
+      "symbolId": "pitchlab-delaware"
+    },
+    {
+      "id": "fiu",
+      "code": "FIU",
+      "name": "FIU",
+      "shortName": "FIU",
+      "kind": "program",
+      "group": "Conference USA",
+      "nickname": "Panthers",
+      "motif": "Pantera en azul y oro viejo",
+      "description": "Pantera en azul y oro viejo",
+      "colors": {
+        "tile": "#243857",
+        "primary": "#E9CD93",
+        "accent": "#354A65",
+        "trim": "#D7BB84"
+      },
+      "contrast": {
+        "primaryOnTile": 7.6582,
+        "accentOnTile": 1.3039
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/fiu.svg",
+      "png": "png/fiu.png",
+      "symbolId": "pitchlab-fiu"
+    },
+    {
+      "id": "jacksonville-state",
+      "code": "JVST",
+      "name": "Jacksonville State",
+      "shortName": "Jacksonville State",
+      "kind": "program",
+      "group": "Conference USA",
+      "nickname": "Gamecocks",
+      "motif": "Gallo rojo y negro",
+      "description": "Gallo rojo y negro",
+      "colors": {
+        "tile": "#9A2B44",
+        "primary": "#FFF0DD",
+        "accent": "#2B2831",
+        "trim": "#E5BAB4"
+      },
+      "contrast": {
+        "primaryOnTile": 6.6928,
+        "accentOnTile": 1.9323
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/jacksonville-state.svg",
+      "png": "png/jacksonville-state.png",
+      "symbolId": "pitchlab-jacksonville-state"
+    },
+    {
+      "id": "kennesaw-state",
+      "code": "KENN",
+      "name": "Kennesaw State",
+      "shortName": "Kennesaw State",
+      "kind": "program",
+      "group": "Conference USA",
+      "nickname": "Owls",
+      "motif": "Búho dorado",
+      "description": "Búho dorado",
+      "colors": {
+        "tile": "#27282F",
+        "primary": "#F3CB68",
+        "accent": "#4E4538",
+        "trim": "#DEB76B"
+      },
+      "contrast": {
+        "primaryOnTile": 9.4723,
+        "accentOnTile": 1.5601
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/kennesaw-state.svg",
+      "png": "png/kennesaw-state.png",
+      "symbolId": "pitchlab-kennesaw-state"
+    },
+    {
+      "id": "liberty",
+      "code": "LIB",
+      "name": "Liberty",
+      "shortName": "Liberty",
+      "kind": "program",
+      "group": "Conference USA",
+      "nickname": "Flames",
+      "motif": "Llama en rojo y azul",
+      "description": "Llama en rojo y azul",
+      "colors": {
+        "tile": "#243A60",
+        "primary": "#FFF2E1",
+        "accent": "#A92E48",
+        "trim": "#D9BEC6"
+      },
+      "contrast": {
+        "primaryOnTile": 10.2967,
+        "accentOnTile": 1.7151
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/liberty.svg",
+      "png": "png/liberty.png",
+      "symbolId": "pitchlab-liberty"
+    },
+    {
+      "id": "middle-tennessee",
+      "code": "MTSU",
+      "name": "Middle Tennessee",
+      "shortName": "Middle Tennessee",
+      "kind": "program",
+      "group": "Conference USA",
+      "nickname": "Blue Raiders",
+      "motif": "Relámpago azul",
+      "description": "Relámpago azul",
+      "colors": {
+        "tile": "#22599C",
+        "primary": "#E6EDF0",
+        "accent": "#3877B7",
+        "trim": "#B4CAE0"
+      },
+      "contrast": {
+        "primaryOnTile": 5.9578,
+        "accentOnTile": 1.5084
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/middle-tennessee.svg",
+      "png": "png/middle-tennessee.png",
+      "symbolId": "pitchlab-middle-tennessee"
+    },
+    {
+      "id": "missouri-state",
+      "code": "MOST",
+      "name": "Missouri State",
+      "shortName": "Missouri State",
+      "kind": "program",
+      "group": "Conference USA",
+      "nickname": "Bears",
+      "motif": "Oso granate",
+      "description": "Oso granate",
+      "colors": {
+        "tile": "#722B43",
+        "primary": "#FFF0DC",
+        "accent": "#914059",
+        "trim": "#D8B2AE"
+      },
+      "contrast": {
+        "primaryOnTile": 8.7529,
+        "accentOnTile": 1.4386
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/missouri-state.svg",
+      "png": "png/missouri-state.png",
+      "symbolId": "pitchlab-missouri-state"
+    },
+    {
+      "id": "new-mexico-state",
+      "code": "NMSU",
+      "name": "New Mexico State",
+      "shortName": "New Mexico State",
+      "kind": "program",
+      "group": "Conference USA",
+      "nickname": "Aggies",
+      "motif": "Sombrero de los Aggies",
+      "description": "Sombrero de los Aggies",
+      "colors": {
+        "tile": "#812B44",
+        "primary": "#FFF0DA",
+        "accent": "#40313C",
+        "trim": "#D9B3A7"
+      },
+      "contrast": {
+        "primaryOnTile": 7.9276,
+        "accentOnTile": 1.3715
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/new-mexico-state.svg",
+      "png": "png/new-mexico-state.png",
+      "symbolId": "pitchlab-new-mexico-state"
+    },
+    {
+      "id": "sam-houston",
+      "code": "SHSU",
+      "name": "Sam Houston",
+      "shortName": "Sam Houston",
+      "kind": "program",
+      "group": "Conference USA",
+      "nickname": "Bearkats",
+      "motif": "Bearkat naranja",
+      "description": "Bearkat naranja",
+      "colors": {
+        "tile": "#D66834",
+        "primary": "#272832",
+        "accent": "#EF9153",
+        "trim": "#F2C199"
+      },
+      "contrast": {
+        "primaryOnTile": 4.1014,
+        "accentOnTile": 1.502
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/sam-houston.svg",
+      "png": "png/sam-houston.png",
+      "symbolId": "pitchlab-sam-houston"
+    },
+    {
+      "id": "western-kentucky",
+      "code": "WKU",
+      "name": "Western Kentucky",
+      "shortName": "Western Kentucky",
+      "kind": "program",
+      "group": "Conference USA",
+      "nickname": "Hilltoppers",
+      "motif": "Toalla roja de los Hilltoppers",
+      "description": "Toalla roja de los Hilltoppers",
+      "colors": {
+        "tile": "#AC2943",
+        "primary": "#FDF2DD",
+        "accent": "#C74B5E",
+        "trim": "#E9BAB1"
+      },
+      "contrast": {
+        "primaryOnTile": 6.0023,
+        "accentOnTile": 1.4581
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/western-kentucky.svg",
+      "png": "png/western-kentucky.png",
+      "symbolId": "pitchlab-western-kentucky"
+    },
+    {
+      "id": "akron",
+      "code": "AKR",
+      "name": "Akron",
+      "shortName": "Akron",
+      "kind": "program",
+      "group": "MAC",
+      "nickname": "Zips",
+      "motif": "Canguro azul y oro",
+      "description": "Canguro azul y oro",
+      "colors": {
+        "tile": "#253656",
+        "primary": "#EFC97E",
+        "accent": "#3F5372",
+        "trim": "#C3A876"
+      },
+      "contrast": {
+        "primaryOnTile": 7.6556,
+        "accentOnTile": 1.5463
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/akron.svg",
+      "png": "png/akron.png",
+      "symbolId": "pitchlab-akron"
+    },
+    {
+      "id": "ball-state",
+      "code": "BALL",
+      "name": "Ball State",
+      "shortName": "Ball State",
+      "kind": "program",
+      "group": "MAC",
+      "nickname": "Cardinals",
+      "motif": "Cardenal rojo",
+      "description": "Cardenal rojo",
+      "colors": {
+        "tile": "#962940",
+        "primary": "#FFF2DF",
+        "accent": "#AC3D50",
+        "trim": "#E8BFB8"
+      },
+      "contrast": {
+        "primaryOnTile": 7.0753,
+        "accentOnTile": 1.316
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/ball-state.svg",
+      "png": "png/ball-state.png",
+      "symbolId": "pitchlab-ball-state"
+    },
+    {
+      "id": "bowling-green",
+      "code": "BGSU",
+      "name": "Bowling Green",
+      "shortName": "Bowling Green",
+      "kind": "program",
+      "group": "MAC",
+      "nickname": "Falcons",
+      "motif": "Halcón naranja y café",
+      "description": "Halcón naranja y café",
+      "colors": {
+        "tile": "#532F2C",
+        "primary": "#FFAA67",
+        "accent": "#714237",
+        "trim": "#E1A170"
+      },
+      "contrast": {
+        "primaryOnTile": 6.1839,
+        "accentOnTile": 1.4008
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/bowling-green.svg",
+      "png": "png/bowling-green.png",
+      "symbolId": "pitchlab-bowling-green"
+    },
+    {
+      "id": "buffalo",
+      "code": "BUFF",
+      "name": "Buffalo",
+      "shortName": "Buffalo",
+      "kind": "program",
+      "group": "MAC",
+      "nickname": "Bulls",
+      "motif": "Toro en azul",
+      "description": "Toro en azul",
+      "colors": {
+        "tile": "#245496",
+        "primary": "#EEF1EE",
+        "accent": "#356BAB",
+        "trim": "#B9CFE7"
+      },
+      "contrast": {
+        "primaryOnTile": 6.629,
+        "accentOnTile": 1.3804
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/buffalo.svg",
+      "png": "png/buffalo.png",
+      "symbolId": "pitchlab-buffalo"
+    },
+    {
+      "id": "central-michigan",
+      "code": "CMU",
+      "name": "Central Michigan",
+      "shortName": "Central Michigan",
+      "kind": "program",
+      "group": "MAC",
+      "nickname": "Chippewas",
+      "motif": "C en granate y oro",
+      "description": "C en granate y oro",
+      "colors": {
+        "tile": "#702C44",
+        "primary": "#F4C977",
+        "accent": "#9A4E55",
+        "trim": "#D8B575"
+      },
+      "contrast": {
+        "primaryOnTile": 6.3149,
+        "accentOnTile": 1.6856
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/central-michigan.svg",
+      "png": "png/central-michigan.png",
+      "symbolId": "pitchlab-central-michigan"
+    },
+    {
+      "id": "eastern-michigan",
+      "code": "EMU",
+      "name": "Eastern Michigan",
+      "shortName": "Eastern Michigan",
+      "kind": "program",
+      "group": "MAC",
+      "nickname": "Eagles",
+      "motif": "E en verde y blanco",
+      "description": "E en verde y blanco",
+      "colors": {
+        "tile": "#225D48",
+        "primary": "#F3F0DF",
+        "accent": "#3C7C62",
+        "trim": "#BFD0BA"
+      },
+      "contrast": {
+        "primaryOnTile": 6.7247,
+        "accentOnTile": 1.5589
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/eastern-michigan.svg",
+      "png": "png/eastern-michigan.png",
+      "symbolId": "pitchlab-eastern-michigan"
+    },
+    {
+      "id": "kent-state",
+      "code": "KENT",
+      "name": "Kent State",
+      "shortName": "Kent State",
+      "kind": "program",
+      "group": "MAC",
+      "nickname": "Golden Flashes",
+      "motif": "Destello de oro",
+      "description": "Destello de oro",
+      "colors": {
+        "tile": "#283C63",
+        "primary": "#F4CD74",
+        "accent": "#3C527C",
+        "trim": "#DDBB6D"
+      },
+      "contrast": {
+        "primaryOnTile": 7.2161,
+        "accentOnTile": 1.4035
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/kent-state.svg",
+      "png": "png/kent-state.png",
+      "symbolId": "pitchlab-kent-state"
+    },
+    {
+      "id": "miami-oh",
+      "code": "M-OH",
+      "name": "Miami (OH)",
+      "shortName": "Miami (OH)",
+      "kind": "program",
+      "group": "MAC",
+      "nickname": "RedHawks",
+      "motif": "Halcón escarlata",
+      "description": "Halcón escarlata",
+      "colors": {
+        "tile": "#A62D46",
+        "primary": "#F6EDDD",
+        "accent": "#832B43",
+        "trim": "#DAB7B7"
+      },
+      "contrast": {
+        "primaryOnTile": 5.8591,
+        "accentOnTile": 1.29
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/miami-oh.svg",
+      "png": "png/miami-oh.png",
+      "symbolId": "pitchlab-miami-oh"
+    },
+    {
+      "id": "ohio",
+      "code": "OHIO",
+      "name": "Ohio",
+      "shortName": "Ohio",
+      "kind": "program",
+      "group": "MAC",
+      "nickname": "Bobcats",
+      "motif": "Gato montés verde",
+      "description": "Gato montés verde",
+      "colors": {
+        "tile": "#235749",
+        "primary": "#F4EFDD",
+        "accent": "#3D715F",
+        "trim": "#B8CDBB"
+      },
+      "contrast": {
+        "primaryOnTile": 7.2057,
+        "accentOnTile": 1.4721
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/ohio.svg",
+      "png": "png/ohio.png",
+      "symbolId": "pitchlab-ohio"
+    },
+    {
+      "id": "sacramento-state",
+      "code": "SAC",
+      "name": "Sacramento State",
+      "shortName": "Sacramento State",
+      "kind": "program",
+      "group": "MAC",
+      "nickname": "Hornets",
+      "motif": "Avispón de Sacramento",
+      "description": "Avispón de Sacramento",
+      "colors": {
+        "tile": "#255849",
+        "primary": "#EDC880",
+        "accent": "#3E705E",
+        "trim": "#C7AE74"
+      },
+      "contrast": {
+        "primaryOnTile": 5.1247,
+        "accentOnTile": 1.4331
+      },
+      "source": "https://hornetsports.com/news/2026/10/31/football-football-claims-first-mac-win-with-31-10-victory-over-kent-state.aspx",
+      "svg": "svg/sacramento-state.svg",
+      "png": "png/sacramento-state.png",
+      "symbolId": "pitchlab-sacramento-state"
+    },
+    {
+      "id": "toledo",
+      "code": "TOL",
+      "name": "Toledo",
+      "shortName": "Toledo",
+      "kind": "program",
+      "group": "MAC",
+      "nickname": "Rockets",
+      "motif": "Cohete en azul y oro",
+      "description": "Cohete en azul y oro",
+      "colors": {
+        "tile": "#24395D",
+        "primary": "#F3CD71",
+        "accent": "#3A5378",
+        "trim": "#D3B66A"
+      },
+      "contrast": {
+        "primaryOnTile": 7.5794,
+        "accentOnTile": 1.4785
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/toledo.svg",
+      "png": "png/toledo.png",
+      "symbolId": "pitchlab-toledo"
+    },
+    {
+      "id": "umass",
+      "code": "UMASS",
+      "name": "UMass",
+      "shortName": "UMass",
+      "kind": "program",
+      "group": "MAC",
+      "nickname": "Minutemen",
+      "motif": "Minuteman en granate",
+      "description": "Minuteman en granate",
+      "colors": {
+        "tile": "#762A43",
+        "primary": "#F6EDE0",
+        "accent": "#94384F",
+        "trim": "#D6BAB5"
+      },
+      "contrast": {
+        "primaryOnTile": 8.297,
+        "accentOnTile": 1.346
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/umass.svg",
+      "png": "png/umass.png",
+      "symbolId": "pitchlab-umass"
+    },
+    {
+      "id": "western-michigan",
+      "code": "WMU",
+      "name": "Western Michigan",
+      "shortName": "Western Michigan",
+      "kind": "program",
+      "group": "MAC",
+      "nickname": "Broncos",
+      "motif": "Bronco en café y oro",
+      "description": "Bronco en café y oro",
+      "colors": {
+        "tile": "#523832",
+        "primary": "#E8C087",
+        "accent": "#6F4C38",
+        "trim": "#C4A472"
+      },
+      "contrast": {
+        "primaryOnTile": 6.2527,
+        "accentOnTile": 1.4041
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/western-michigan.svg",
+      "png": "png/western-michigan.png",
+      "symbolId": "pitchlab-western-michigan"
+    },
+    {
+      "id": "air-force",
+      "code": "AFA",
+      "name": "Air Force",
+      "shortName": "Air Force",
+      "kind": "program",
+      "group": "Mountain West",
+      "nickname": "Falcons",
+      "motif": "Halcón en azul de aviación",
+      "description": "Halcón en azul de aviación",
+      "colors": {
+        "tile": "#245B9F",
+        "primary": "#EAF0F4",
+        "accent": "#3479B6",
+        "trim": "#B6CDE5"
+      },
+      "contrast": {
+        "primaryOnTile": 5.9467,
+        "accentOnTile": 1.4832
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/air-force.svg",
+      "png": "png/air-force.png",
+      "symbolId": "pitchlab-air-force"
+    },
+    {
+      "id": "hawaii",
+      "code": "HAW",
+      "name": "Hawaiʻi",
+      "shortName": "Hawaiʻi",
+      "kind": "program",
+      "group": "Mountain West",
+      "nickname": "Rainbow Warriors",
+      "motif": "H verde con arco",
+      "description": "H verde con arco",
+      "colors": {
+        "tile": "#24554B",
+        "primary": "#EDEEE0",
+        "accent": "#578E6D",
+        "trim": "#B7C9B9"
+      },
+      "contrast": {
+        "primaryOnTile": 7.2322,
+        "accentOnTile": 2.2194
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/hawaii.svg",
+      "png": "png/hawaii.png",
+      "symbolId": "pitchlab-hawaii"
+    },
+    {
+      "id": "nevada",
+      "code": "NEV",
+      "name": "Nevada",
+      "shortName": "Nevada",
+      "kind": "program",
+      "group": "Mountain West",
+      "nickname": "Wolf Pack",
+      "motif": "Lobo marino y plata",
+      "description": "Lobo marino y plata",
+      "colors": {
+        "tile": "#253853",
+        "primary": "#E3E8EA",
+        "accent": "#466078",
+        "trim": "#BBC7D2"
+      },
+      "contrast": {
+        "primaryOnTile": 9.6069,
+        "accentOnTile": 1.8114
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/nevada.svg",
+      "png": "png/nevada.png",
+      "symbolId": "pitchlab-nevada"
+    },
+    {
+      "id": "new-mexico",
+      "code": "UNM",
+      "name": "New Mexico",
+      "shortName": "New Mexico",
+      "kind": "program",
+      "group": "Mountain West",
+      "nickname": "Lobos",
+      "motif": "Lobo cereza",
+      "description": "Lobo cereza",
+      "colors": {
+        "tile": "#9F2D44",
+        "primary": "#E7E3DE",
+        "accent": "#B33E51",
+        "trim": "#D2B5B5"
+      },
+      "contrast": {
+        "primaryOnTile": 5.6052,
+        "accentOnTile": 1.2699
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/new-mexico.svg",
+      "png": "png/new-mexico.png",
+      "symbolId": "pitchlab-new-mexico"
+    },
+    {
+      "id": "north-dakota-state",
+      "code": "NDSU",
+      "name": "North Dakota State",
+      "shortName": "North Dakota State",
+      "kind": "program",
+      "group": "Mountain West",
+      "nickname": "Bison",
+      "motif": "Bisonte verde y oro",
+      "description": "Bisonte verde y oro",
+      "colors": {
+        "tile": "#22564A",
+        "primary": "#F1C76A",
+        "accent": "#31735E",
+        "trim": "#CBB371"
+      },
+      "contrast": {
+        "primaryOnTile": 5.2512,
+        "accentOnTile": 1.499
+      },
+      "source": "https://gobison.com/news/2026/3/9/ndsu-announces-2026-football-schedule",
+      "svg": "svg/north-dakota-state.svg",
+      "png": "png/north-dakota-state.png",
+      "symbolId": "pitchlab-north-dakota-state"
+    },
+    {
+      "id": "northern-illinois",
+      "code": "NIU",
+      "name": "Northern Illinois",
+      "shortName": "Northern Illinois",
+      "kind": "program",
+      "group": "Mountain West",
+      "nickname": "Huskies",
+      "motif": "Husky rojo y negro",
+      "description": "Husky rojo y negro",
+      "colors": {
+        "tile": "#2B2A32",
+        "primary": "#F9EFDE",
+        "accent": "#9A3048",
+        "trim": "#C9B0B4"
+      },
+      "contrast": {
+        "primaryOnTile": 12.4526,
+        "accentOnTile": 1.953
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/northern-illinois.svg",
+      "png": "png/northern-illinois.png",
+      "symbolId": "pitchlab-northern-illinois"
+    },
+    {
+      "id": "san-jose-state",
+      "code": "SJSU",
+      "name": "San Jose State",
+      "shortName": "San Jose State",
+      "kind": "program",
+      "group": "Mountain West",
+      "nickname": "Spartans",
+      "motif": "Yelmo azul y oro",
+      "description": "Yelmo azul y oro",
+      "colors": {
+        "tile": "#25579A",
+        "primary": "#F4C86E",
+        "accent": "#376DAB",
+        "trim": "#D6B576"
+      },
+      "contrast": {
+        "primaryOnTile": 4.5842,
+        "accentOnTile": 1.3539
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/san-jose-state.svg",
+      "png": "png/san-jose-state.png",
+      "symbolId": "pitchlab-san-jose-state"
+    },
+    {
+      "id": "unlv",
+      "code": "UNLV",
+      "name": "UNLV",
+      "shortName": "UNLV",
+      "kind": "program",
+      "group": "Mountain West",
+      "nickname": "Rebels",
+      "motif": "Estrella y plata",
+      "description": "Estrella y plata",
+      "colors": {
+        "tile": "#A92F49",
+        "primary": "#E6E5E5",
+        "accent": "#6D6A73",
+        "trim": "#CDBCC0"
+      },
+      "contrast": {
+        "primaryOnTile": 5.2366,
+        "accentOnTile": 1.2413
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/unlv.svg",
+      "png": "png/unlv.png",
+      "symbolId": "pitchlab-unlv"
+    },
+    {
+      "id": "utep",
+      "code": "UTEP",
+      "name": "UTEP",
+      "shortName": "UTEP",
+      "kind": "program",
+      "group": "Mountain West",
+      "nickname": "Miners",
+      "motif": "Pico minero naranja",
+      "description": "Pico minero naranja",
+      "colors": {
+        "tile": "#253A5D",
+        "primary": "#FF9F64",
+        "accent": "#495470",
+        "trim": "#D9A077"
+      },
+      "contrast": {
+        "primaryOnTile": 5.6436,
+        "accentOnTile": 1.5122
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/utep.svg",
+      "png": "png/utep.png",
+      "symbolId": "pitchlab-utep"
+    },
+    {
+      "id": "wyoming",
+      "code": "WYO",
+      "name": "Wyoming",
+      "shortName": "Wyoming",
+      "kind": "program",
+      "group": "Mountain West",
+      "nickname": "Cowboys",
+      "motif": "Caballo en café y oro",
+      "description": "Caballo en café y oro",
+      "colors": {
+        "tile": "#573934",
+        "primary": "#F6CA69",
+        "accent": "#765040",
+        "trim": "#D1A965"
+      },
+      "contrast": {
+        "primaryOnTile": 6.6521,
+        "accentOnTile": 1.4665
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/wyoming.svg",
+      "png": "png/wyoming.png",
+      "symbolId": "pitchlab-wyoming"
+    },
+    {
+      "id": "boise-state",
+      "code": "BSU",
+      "name": "Boise State",
+      "shortName": "Boise State",
+      "kind": "program",
+      "group": "Pac-12",
+      "nickname": "Broncos",
+      "motif": "Bronco en azul y naranja",
+      "description": "Bronco en azul y naranja",
+      "colors": {
+        "tile": "#22549B",
+        "primary": "#F9AC72",
+        "accent": "#BE5D42",
+        "trim": "#D5A986"
+      },
+      "contrast": {
+        "primaryOnTile": 3.9765,
+        "accentOnTile": 1.7206
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/boise-state.svg",
+      "png": "png/boise-state.png",
+      "symbolId": "pitchlab-boise-state"
+    },
+    {
+      "id": "colorado-state",
+      "code": "CSU",
+      "name": "Colorado State",
+      "shortName": "Colorado State",
+      "kind": "program",
+      "group": "Pac-12",
+      "nickname": "Rams",
+      "motif": "Carnero verde y oro",
+      "description": "Carnero verde y oro",
+      "colors": {
+        "tile": "#23594B",
+        "primary": "#EBCA85",
+        "accent": "#3E7860",
+        "trim": "#C8AD74"
+      },
+      "contrast": {
+        "primaryOnTile": 5.1189,
+        "accentOnTile": 1.5605
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/colorado-state.svg",
+      "png": "png/colorado-state.png",
+      "symbolId": "pitchlab-colorado-state"
+    },
+    {
+      "id": "fresno-state",
+      "code": "FRES",
+      "name": "Fresno State",
+      "shortName": "Fresno State",
+      "kind": "program",
+      "group": "Pac-12",
+      "nickname": "Bulldogs",
+      "motif": "Bulldog rojo y azul",
+      "description": "Bulldog rojo y azul",
+      "colors": {
+        "tile": "#9E2C44",
+        "primary": "#FFF0DB",
+        "accent": "#253B62",
+        "trim": "#DAB6B5"
+      },
+      "contrast": {
+        "primaryOnTile": 6.4671,
+        "accentOnTile": 1.5408
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/fresno-state.svg",
+      "png": "png/fresno-state.png",
+      "symbolId": "pitchlab-fresno-state"
+    },
+    {
+      "id": "oregon-state",
+      "code": "ORST",
+      "name": "Oregon State",
+      "shortName": "Oregon State",
+      "kind": "program",
+      "group": "Pac-12",
+      "nickname": "Beavers",
+      "motif": "Castor naranja",
+      "description": "Castor naranja",
+      "colors": {
+        "tile": "#262730",
+        "primary": "#FFA66F",
+        "accent": "#5B4140",
+        "trim": "#E9A67D"
+      },
+      "contrast": {
+        "primaryOnTile": 7.727,
+        "accentOnTile": 1.6074
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/oregon-state.svg",
+      "png": "png/oregon-state.png",
+      "symbolId": "pitchlab-oregon-state"
+    },
+    {
+      "id": "san-diego-state",
+      "code": "SDSU",
+      "name": "San Diego State",
+      "shortName": "San Diego State",
+      "kind": "program",
+      "group": "Pac-12",
+      "nickname": "Aztecs",
+      "motif": "Lanza escarlata y negra",
+      "description": "Lanza escarlata y negra",
+      "colors": {
+        "tile": "#282830",
+        "primary": "#FFF1E0",
+        "accent": "#A22F4A",
+        "trim": "#D8ABAB"
+      },
+      "contrast": {
+        "primaryOnTile": 13.165,
+        "accentOnTile": 2.1176
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/san-diego-state.svg",
+      "png": "png/san-diego-state.png",
+      "symbolId": "pitchlab-san-diego-state"
+    },
+    {
+      "id": "texas-state",
+      "code": "TXST",
+      "name": "Texas State",
+      "shortName": "Texas State",
+      "kind": "program",
+      "group": "Pac-12",
+      "nickname": "Bobcats",
+      "motif": "Gato montés granate",
+      "description": "Gato montés granate",
+      "colors": {
+        "tile": "#682C43",
+        "primary": "#E9C483",
+        "accent": "#894453",
+        "trim": "#CEAB77"
+      },
+      "contrast": {
+        "primaryOnTile": 6.2507,
+        "accentOnTile": 1.4855
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/texas-state.svg",
+      "png": "png/texas-state.png",
+      "symbolId": "pitchlab-texas-state"
+    },
+    {
+      "id": "utah-state",
+      "code": "USU",
+      "name": "Utah State",
+      "shortName": "Utah State",
+      "kind": "program",
+      "group": "Pac-12",
+      "nickname": "Aggies",
+      "motif": "Toro en marino y plata",
+      "description": "Toro en marino y plata",
+      "colors": {
+        "tile": "#223657",
+        "primary": "#E3E8EC",
+        "accent": "#415775",
+        "trim": "#B5C4D2"
+      },
+      "contrast": {
+        "primaryOnTile": 9.8194,
+        "accentOnTile": 1.6413
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/utah-state.svg",
+      "png": "png/utah-state.png",
+      "symbolId": "pitchlab-utah-state"
+    },
+    {
+      "id": "washington-state",
+      "code": "WSU",
+      "name": "Washington State",
+      "shortName": "Washington State",
+      "kind": "program",
+      "group": "Pac-12",
+      "nickname": "Cougars",
+      "motif": "Puma carmesí y gris",
+      "description": "Puma carmesí y gris",
+      "colors": {
+        "tile": "#942B44",
+        "primary": "#E7E1E1",
+        "accent": "#B34759",
+        "trim": "#D3B3B5"
+      },
+      "contrast": {
+        "primaryOnTile": 6.0468,
+        "accentOnTile": 1.474
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/washington-state.svg",
+      "png": "png/washington-state.png",
+      "symbolId": "pitchlab-washington-state"
+    },
+    {
+      "id": "appalachian-state",
+      "code": "APP",
+      "name": "Appalachian State",
+      "shortName": "Appalachian State",
+      "kind": "program",
+      "group": "Sun Belt",
+      "nickname": "Mountaineers",
+      "motif": "Montañas en negro y oro",
+      "description": "Montañas en negro y oro",
+      "colors": {
+        "tile": "#282930",
+        "primary": "#F1CA65",
+        "accent": "#49443E",
+        "trim": "#D6B971"
+      },
+      "contrast": {
+        "primaryOnTile": 9.2245,
+        "accentOnTile": 1.5032
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/appalachian-state.svg",
+      "png": "png/appalachian-state.png",
+      "symbolId": "pitchlab-appalachian-state"
+    },
+    {
+      "id": "arkansas-state",
+      "code": "ARST",
+      "name": "Arkansas State",
+      "shortName": "Arkansas State",
+      "kind": "program",
+      "group": "Sun Belt",
+      "nickname": "Red Wolves",
+      "motif": "Lobo rojo",
+      "description": "Lobo rojo",
+      "colors": {
+        "tile": "#252731",
+        "primary": "#FF9A9C",
+        "accent": "#512E40",
+        "trim": "#C78591"
+      },
+      "contrast": {
+        "primaryOnTile": 7.3267,
+        "accentOnTile": 1.2841
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/arkansas-state.svg",
+      "png": "png/arkansas-state.png",
+      "symbolId": "pitchlab-arkansas-state"
+    },
+    {
+      "id": "coastal-carolina",
+      "code": "CCU",
+      "name": "Coastal Carolina",
+      "shortName": "Coastal Carolina",
+      "kind": "program",
+      "group": "Sun Belt",
+      "nickname": "Chanticleers",
+      "motif": "Gallo verde azulado y bronce",
+      "description": "Gallo verde azulado y bronce",
+      "colors": {
+        "tile": "#1D605D",
+        "primary": "#EDC68B",
+        "accent": "#277873",
+        "trim": "#C4A974"
+      },
+      "contrast": {
+        "primaryOnTile": 4.5263,
+        "accentOnTile": 1.3943
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/coastal-carolina.svg",
+      "png": "png/coastal-carolina.png",
+      "symbolId": "pitchlab-coastal-carolina"
+    },
+    {
+      "id": "georgia-southern",
+      "code": "GASO",
+      "name": "Georgia Southern",
+      "shortName": "Georgia Southern",
+      "kind": "program",
+      "group": "Sun Belt",
+      "nickname": "Eagles",
+      "motif": "Águila en marino",
+      "description": "Águila en marino",
+      "colors": {
+        "tile": "#253C61",
+        "primary": "#EEEFE8",
+        "accent": "#3C5274",
+        "trim": "#B8C7D5"
+      },
+      "contrast": {
+        "primaryOnTile": 9.5632,
+        "accentOnTile": 1.3971
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/georgia-southern.svg",
+      "png": "png/georgia-southern.png",
+      "symbolId": "pitchlab-georgia-southern"
+    },
+    {
+      "id": "georgia-state",
+      "code": "GAST",
+      "name": "Georgia State",
+      "shortName": "Georgia State",
+      "kind": "program",
+      "group": "Sun Belt",
+      "nickname": "Panthers",
+      "motif": "Pantera en azul real",
+      "description": "Pantera en azul real",
+      "colors": {
+        "tile": "#24599A",
+        "primary": "#EBF1F0",
+        "accent": "#3979B4",
+        "trim": "#B7CEE6"
+      },
+      "contrast": {
+        "primaryOnTile": 6.1849,
+        "accentOnTile": 1.5377
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/georgia-state.svg",
+      "png": "png/georgia-state.png",
+      "symbolId": "pitchlab-georgia-state"
+    },
+    {
+      "id": "james-madison",
+      "code": "JMU",
+      "name": "James Madison",
+      "shortName": "James Madison",
+      "kind": "program",
+      "group": "Sun Belt",
+      "nickname": "Dukes",
+      "motif": "Bulldog de los Dukes",
+      "description": "Bulldog de los Dukes",
+      "colors": {
+        "tile": "#533B7D",
+        "primary": "#ECCC8F",
+        "accent": "#735A92",
+        "trim": "#CFB680"
+      },
+      "contrast": {
+        "primaryOnTile": 5.9403,
+        "accentOnTile": 1.5752
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/james-madison.svg",
+      "png": "png/james-madison.png",
+      "symbolId": "pitchlab-james-madison"
+    },
+    {
+      "id": "louisiana",
+      "code": "ULL",
+      "name": "Louisiana",
+      "shortName": "Louisiana",
+      "kind": "program",
+      "group": "Sun Belt",
+      "nickname": "Ragin’ Cajuns",
+      "motif": "Chile de los Ragin’ Cajuns",
+      "description": "Chile de los Ragin’ Cajuns",
+      "colors": {
+        "tile": "#9F3048",
+        "primary": "#FFF0D9",
+        "accent": "#7F3047",
+        "trim": "#DEABA6"
+      },
+      "contrast": {
+        "primaryOnTile": 6.2591,
+        "accentOnTile": 1.2377
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/louisiana.svg",
+      "png": "png/louisiana.png",
+      "symbolId": "pitchlab-louisiana"
+    },
+    {
+      "id": "louisiana-monroe",
+      "code": "ULM",
+      "name": "Louisiana–Monroe",
+      "shortName": "Louisiana–Monroe",
+      "kind": "program",
+      "group": "Sun Belt",
+      "nickname": "Warhawks",
+      "motif": "Halcón en granate y oro",
+      "description": "Halcón en granate y oro",
+      "colors": {
+        "tile": "#6E2C46",
+        "primary": "#F3C77D",
+        "accent": "#87455A",
+        "trim": "#D0AE7B"
+      },
+      "contrast": {
+        "primaryOnTile": 6.2871,
+        "accentOnTile": 1.4344
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/louisiana-monroe.svg",
+      "png": "png/louisiana-monroe.png",
+      "symbolId": "pitchlab-louisiana-monroe"
+    },
+    {
+      "id": "louisiana-tech",
+      "code": "LT",
+      "name": "Louisiana Tech",
+      "shortName": "Louisiana Tech",
+      "kind": "program",
+      "group": "Sun Belt",
+      "nickname": "Bulldogs",
+      "motif": "Bulldog rojo y azul",
+      "description": "Bulldog rojo y azul",
+      "colors": {
+        "tile": "#254D89",
+        "primary": "#FFF1DB",
+        "accent": "#AD324D",
+        "trim": "#C3D2E1"
+      },
+      "contrast": {
+        "primaryOnTile": 7.5385,
+        "accentOnTile": 1.3353
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/louisiana-tech.svg",
+      "png": "png/louisiana-tech.png",
+      "symbolId": "pitchlab-louisiana-tech"
+    },
+    {
+      "id": "marshall",
+      "code": "MRSH",
+      "name": "Marshall",
+      "shortName": "Marshall",
+      "kind": "program",
+      "group": "Sun Belt",
+      "nickname": "Thundering Herd",
+      "motif": "Bisonte verde",
+      "description": "Bisonte verde",
+      "colors": {
+        "tile": "#21674F",
+        "primary": "#F5F0DF",
+        "accent": "#328363",
+        "trim": "#B9CCBB"
+      },
+      "contrast": {
+        "primaryOnTile": 5.9057,
+        "accentOnTile": 1.4634
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/marshall.svg",
+      "png": "png/marshall.png",
+      "symbolId": "pitchlab-marshall"
+    },
+    {
+      "id": "old-dominion",
+      "code": "ODU",
+      "name": "Old Dominion",
+      "shortName": "Old Dominion",
+      "kind": "program",
+      "group": "Sun Belt",
+      "nickname": "Monarchs",
+      "motif": "Corona de los Monarchs",
+      "description": "Corona de los Monarchs",
+      "colors": {
+        "tile": "#263D5B",
+        "primary": "#DCEBEE",
+        "accent": "#466781",
+        "trim": "#B9C9D4"
+      },
+      "contrast": {
+        "primaryOnTile": 9.0275,
+        "accentOnTile": 1.8504
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/old-dominion.svg",
+      "png": "png/old-dominion.png",
+      "symbolId": "pitchlab-old-dominion"
+    },
+    {
+      "id": "south-alabama",
+      "code": "USA",
+      "name": "South Alabama",
+      "shortName": "South Alabama",
+      "kind": "program",
+      "group": "Sun Belt",
+      "nickname": "Jaguars",
+      "motif": "Jaguar rojo y azul",
+      "description": "Jaguar rojo y azul",
+      "colors": {
+        "tile": "#263F63",
+        "primary": "#FFE1A9",
+        "accent": "#A42D49",
+        "trim": "#D7BCC3"
+      },
+      "contrast": {
+        "primaryOnTile": 8.4085,
+        "accentOnTile": 1.5454
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/south-alabama.svg",
+      "png": "png/south-alabama.png",
+      "symbolId": "pitchlab-south-alabama"
+    },
+    {
+      "id": "southern-miss",
+      "code": "USM",
+      "name": "Southern Miss",
+      "shortName": "Southern Miss",
+      "kind": "program",
+      "group": "Sun Belt",
+      "nickname": "Golden Eagles",
+      "motif": "Águila de oro",
+      "description": "Águila de oro",
+      "colors": {
+        "tile": "#282830",
+        "primary": "#F5CD69",
+        "accent": "#504638",
+        "trim": "#D1B469"
+      },
+      "contrast": {
+        "primaryOnTile": 9.6205,
+        "accentOnTile": 1.5833
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/southern-miss.svg",
+      "png": "png/southern-miss.png",
+      "symbolId": "pitchlab-southern-miss"
+    },
+    {
+      "id": "troy",
+      "code": "TROY",
+      "name": "Troy",
+      "shortName": "Troy",
+      "kind": "program",
+      "group": "Sun Belt",
+      "nickname": "Trojans",
+      "motif": "Yelmo troyano y plata",
+      "description": "Yelmo troyano y plata",
+      "colors": {
+        "tile": "#952A46",
+        "primary": "#EAE3E2",
+        "accent": "#6D2F47",
+        "trim": "#D6B8BA"
+      },
+      "contrast": {
+        "primaryOnTile": 6.1479,
+        "accentOnTile": 1.2559
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/troy.svg",
+      "png": "png/troy.png",
+      "symbolId": "pitchlab-troy"
+    },
+    {
+      "id": "notre-dame",
+      "code": "ND",
+      "name": "Notre Dame",
+      "shortName": "Notre Dame",
+      "kind": "program",
+      "group": "Independientes",
+      "nickname": "Fighting Irish",
+      "motif": "Trébol de los Fighting Irish",
+      "description": "Trébol de los Fighting Irish",
+      "colors": {
+        "tile": "#233A5C",
+        "primary": "#E8CA88",
+        "accent": "#44624F",
+        "trim": "#C8B177"
+      },
+      "contrast": {
+        "primaryOnTile": 7.2273,
+        "accentOnTile": 1.696
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/notre-dame.svg",
+      "png": "png/notre-dame.png",
+      "symbolId": "pitchlab-notre-dame"
+    },
+    {
+      "id": "uconn",
+      "code": "UCONN",
+      "name": "UConn",
+      "shortName": "UConn",
+      "kind": "program",
+      "group": "Independientes",
+      "nickname": "Huskies",
+      "motif": "Husky en marino y blanco",
+      "description": "Husky en marino y blanco",
+      "colors": {
+        "tile": "#253A5A",
+        "primary": "#EAF0EE",
+        "accent": "#496383",
+        "trim": "#BAC8D6"
+      },
+      "contrast": {
+        "primaryOnTile": 9.9355,
+        "accentOnTile": 1.8541
+      },
+      "source": "https://www.ncaa.com/standings/football/fbs",
+      "svg": "svg/uconn.svg",
+      "png": "png/uconn.png",
+      "symbolId": "pitchlab-uconn"
+    }
+  ]
+}

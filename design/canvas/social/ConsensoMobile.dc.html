@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<title>Comunidad · Consenso · móvil</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+html,body{overflow-x:hidden}
+.m{--bg:#000000;--surf2:rgba(255,255,255,.07);--line:rgba(255,255,255,.08);--line2:rgba(255,255,255,.16);--t1:#FFFFFF;--t2:#D4D4DC;--t3:#A1A1AD;--brand:#C4B5FD;--track:rgba(255,255,255,.10);--l1:rgba(124,92,246,.30);--sheen:rgba(255,255,255,.06);--inner:inset 0 1px 0 rgba(255,255,255,.08);--lens:rgba(18,18,24,.62);--shadow:0 24px 50px -26px rgba(0,0,0,.8);--rim-c:rgba(255,255,255,.7);--rim-t:rgba(255,255,255,.28);--rim-m:rgba(255,255,255,.04);--rim-b:rgba(255,255,255,.12)}
+.m{background:var(--bg);color:var(--t1);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;position:relative;overflow:hidden;min-height:100vh;padding:20px max(20px, calc((100% - 480px) / 2)) 48px}
+.m *{box-sizing:border-box}
+.atmo{position:absolute;inset:0;pointer-events:none;background:radial-gradient(90% 20% at 85% 0%,var(--l1),transparent 70%)}
+.glass{position:relative;background:linear-gradient(180deg,var(--sheen),transparent 30%),var(--lens);box-shadow:var(--inner),var(--shadow)}
+.glass::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;z-index:2;background:radial-gradient(60px circle at 0% 0%,var(--rim-c),transparent 100%),radial-gradient(60px circle at 100% 0%,var(--rim-c),transparent 100%),linear-gradient(180deg,var(--rim-t) 0%,var(--rim-m) 22%,var(--rim-m) 72%,var(--rim-b) 100%);-webkit-mask:linear-gradient(#000,#000) content-box,linear-gradient(#000,#000);-webkit-mask-composite:xor;mask:linear-gradient(#000,#000) content-box exclude,linear-gradient(#000,#000)}
+.num{font-variant-numeric:tabular-nums lining-nums}
+.tabs{display:flex;border-bottom:1px solid var(--line)}
+.tab{flex:1;min-height:46px;display:inline-flex;align-items:center;justify-content:center;border-bottom:2px solid transparent;margin-bottom:-1px;color:var(--t3);font:600 13px Inter,system-ui,sans-serif;text-decoration:none;white-space:nowrap}
+.tab[aria-selected="true"]{color:var(--t1);border-bottom-color:var(--t1)}
+.filter{flex:none;min-height:36px;padding:0 12px;border-radius:999px;border:1px solid var(--line2);background:transparent;color:var(--t2);font:500 13px Inter,system-ui,sans-serif;white-space:nowrap}
+.filter[aria-pressed="true"]{border-color:var(--t1);color:var(--t1);background:var(--surf2)}
+.diff{display:inline-flex;align-items:center;height:24px;padding:0 9px;border-radius:999px;font-size:12px;font-weight:600;background:var(--surf2)}
+.big{box-shadow:inset 0 0 0 1px var(--brand)}
+.small{color:var(--t3)}
+.bar{height:6px;border-radius:3px;background:var(--track)}
+.bar > div{height:100%;border-radius:3px}
+.row{display:flex;align-items:center;gap:12px;padding:14px 0}
+.row + .row{border-top:1px solid var(--line)}
+.eyebrow{margin:0;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--t3)}
+.m a:focus-visible,.m button:focus-visible{outline:2px solid var(--brand);outline-offset:3px}
+</style>
+</helmet>
+<div class="m" style="width: 100%">
+  <div class="atmo" aria-hidden="true"></div>
+  <h1 style="position: relative; margin: 0; font-size: 28px; letter-spacing: -.03em; font-weight: 700">Comunidad</h1>
+  <div class="tabs" role="tablist" aria-label="Vistas de Comunidad" style="position: relative; margin-top: 16px">
+    <a class="tab" role="tab" aria-selected="false" href="Mobile.dc.html">Para ti</a>
+    <a class="tab" role="tab" aria-selected="false" href="SiguiendoMobile.dc.html">Siguiendo</a>
+    <a class="tab" role="tab" aria-selected="true" href="ConsensoMobile.dc.html">Consenso</a>
+    <a class="tab" role="tab" aria-selected="false" href="RankingMobile.dc.html">Ranking</a>
+  </div>
+
+  <div role="group" aria-label="Liga" style="position: relative; margin: 14px -20px 0; padding: 0 20px; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none">
+    <button class="filter" type="button" aria-pressed="true">Todas</button>
+    <button class="filter" type="button" aria-pressed="false">Liga MX</button>
+    <button class="filter" type="button" aria-pressed="false">NFL</button>
+    <button class="filter" type="button" aria-pressed="false">Premier</button>
+  </div>
+
+  <article class="glass" aria-labelledby="m-dest" style="margin-top: 16px; border-radius: 22px; padding: 18px">
+    <p class="eyebrow">Mayor diferencia hoy</p>
+    <h2 id="m-dest" style="margin: 8px 0 0; font-size: 17px; font-weight: 700; display: flex; align-items: center; gap: 8px"><img src="/_blob/2323d62b123b7c63b12afa5bc92fc6e2" alt="" style="width: 26px; height: 26px; object-fit: contain">Querétaro vs Monterrey<img src="/_blob/c0b14d133945253a1b9f6d17c27eb5ea" alt="" style="width: 26px; height: 26px; object-fit: contain"></h2>
+    <p class="num" style="margin: 4px 0 0; font-size: 12px; color: var(--t3)">Sáb 17:00 · 46 picks de socios</p>
+    <div class="num" style="margin-top: 14px; display: flex; flex-direction: column; gap: 14px">
+      <sc-for list="{{outcomes}}" as="o" hint-placeholder-count="3">
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center"><span style="font-size: 14px; font-weight: 600">{{o.label}}</span><span class="diff {{o.cls}}">{{o.diff}}</span></div>
+          <div style="margin-top: 8px; display: grid; grid-template-columns: 52px minmax(0, 1fr) 36px; align-items: center; gap: 6px 8px; font-size: 11px">
+            <span style="color: var(--t2)">Socios</span><div class="bar"><div style="width: {{o.fans}}%; background: var(--brand)"></div></div><strong style="text-align: right; font-weight: 600">{{o.fans}} %</strong>
+            <span style="color: var(--t2)">Modelo</span><div class="bar"><div style="width: {{o.model}}%; background: var(--t2)"></div></div><strong style="text-align: right; font-weight: 600">{{o.model}} %</strong>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </article>
+
+  <div style="position: relative; margin-top: 12px">
+    <sc-for list="{{rows}}" as="r" hint-placeholder-count="4">
+      <div class="row num">
+        <img src="{{r.logo}}" alt="" style="width: 22px; height: 22px; object-fit: contain; flex: none">
+        <div style="flex: 1; min-width: 0">
+          <p style="margin: 0; font-size: 14px; font-weight: 600">{{r.match}}</p>
+          <p style="margin: 2px 0 0; font-size: 12px; color: var(--t3)">{{r.pick}} · socios {{r.fans}} % · modelo {{r.model}} %</p>
+        </div>
+        <span class="diff {{r.cls}}">{{r.diff}}</span>
+      </div>
+    </sc-for>
+  </div>
+  <p style="position: relative; margin: 12px 0 0; font-size: 12px; color: var(--t3)">Solo partidos con 10 picks o más.</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1400}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const L = { mx: '/_blob/9f120714d07c39f9f5dba1f0670ea3e5', nfl: '/_blob/1158a9b520397208c4f96763545265f5', epl: '/_blob/d6519d21729681534bb2371c095253ed' };
+    const fmt = (d) => (d > 0 ? '+' : d < 0 ? '−' : '') + Math.abs(d) + ' pts';
+    const cls = (d) => (Math.abs(d) >= 10 ? 'big' : Math.abs(d) < 3 ? 'small' : '');
+    const rows = [
+      ['nfl', 'Giants vs Washington', 'Giants', 58, 69],
+      ['mx', 'América vs Chivas', 'América', 55, 46],
+      ['epl', 'Chelsea vs Tottenham', 'Chelsea', 49, 47],
+      ['epl', 'Arsenal vs Liverpool', 'Arsenal', 41, 42]
+    ].map((r) => ({ logo: L[r[0]], match: r[1], pick: r[2], fans: r[3], model: r[4], diff: fmt(r[3] - r[4]), cls: cls(r[3] - r[4]) }));
+    const oc = [['Querétaro', 14, 28], ['Empate', 22, 25], ['Monterrey', 64, 47]];
+    return {
+      outcomes: oc.map((o) => ({ label: o[0], fans: o[1], model: o[2], diff: fmt(o[1] - o[2]), cls: cls(o[1] - o[2]) })),
+      rows: rows
+    };
+  }
+}
+</script>
+</body>
+</html>

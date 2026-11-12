@@ -1,0 +1,295 @@
+import { resolve } from "node:path";
+import {
+  extractNflSeasonRows,
+  fetchNflverseCsv,
+  normalizeNflverseSchedule,
+} from "./adapters/nflverse.js";
+import { loadRootEnvFiles } from "./env.js";
+import { loadLeagueHistory, loadPriorMatches } from "./prior-season.js";
+import {
+  fetchOpenFootballBundesliga,
+  fetchOpenFootballLaliga,
+  fetchOpenFootballLigue1,
+  fetchOpenFootballPl,
+  fetchOpenFootballSerieA,
+  normalizeOpenFootballBundesliga,
+  normalizeOpenFootballLaliga,
+  normalizeOpenFootballLigue1,
+  normalizeOpenFootballPremierLeague,
+  normalizeOpenFootballSerieA,
+} from "./adapters/openfootball.js";
+import {
+  FOOTBALL_DATA_COMPETITIONS,
+  fetchFootballDataCompetition,
+  fetchFootballDataPl,
+  normalizeFootballDataPremierLeague,
+} from "./adapters/football-data.js";
+import { mergeFootballDataIntoSeason } from "./adapters/football-data-merge.js";
+import { fetchEspnLigaMxSeason, normalizeEspnLigaMx } from "./adapters/espn-liga-mx-schedule.js";
+import type { NormalizedOpenFootballSeason } from "./adapters/openfootball.js";
+
+/**
+ * Resultados al día para una liga de openfootball: si hay clave de football-data.org se
+ * completan marcadores, estados y horas reales; si falla, se sigue con openfootball.
+ */
+async function withFootballData(
+  league: keyof typeof FOOTBALL_DATA_COMPETITIONS,
+  season: NormalizedOpenFootballSeason,
+  referenceDate: string,
+  cacheDir: string,
+): Promise<{ season: NormalizedOpenFootballSeason; source: string }> {
+  const apiKey = process.env.FOOTBALL_DATA_API_KEY?.trim();
+  if (!apiKey) return { season, source: "openfootball" };
+  try {
+    const raw = await fetchFootballDataCompetition({
+      apiKey,
+      code: FOOTBALL_DATA_COMPETITIONS[league],
+      cacheFilePath: resolve(cacheDir, `football-data-${FOOTBALL_DATA_COMPETITIONS[league].toLowerCase()}.json`),
+    });
+    const merged = mergeFootballDataIntoSeason(season, raw, { referenceDate });
+    console.log(
+      `[snapshot] ${league}: ${merged.report.matched} partidos emparejados con football-data.org, ${merged.report.unmatched} sin emparejar, ${merged.report.updatedResults} resultados nuevos`,
+    );
+    return { season: merged.season, source: "openfootball+football-data" };
+  } catch (err) {
+    console.warn(
+      `[snapshot] ${league}: football-data.org no disponible (${err instanceof Error ? err.message : String(err)}); se usa solo openfootball.`,
+    );
+    return { season, source: "openfootball" };
+  }
+}
+import type { GameDTO } from "@pitchlab/contracts";
+import {
+  buildFootballSnapshot,
+  buildNflSnapshot,
+  loadPreviousSnapshot,
+  writeSnapshotFiles,
+} from "./pipeline.js";
+
+/**
+ * Si la jornada activa aún no tiene partidos finalizados (p. ej. tras cerrarse la jornada del fin
+ * de semana), incluye los resultados de la jornada inmediata anterior para que la sección
+ * «Resultados» de la liga seleccionada muestre siempre los marcadores más recientes al día de hoy.
+ */
+function withRecentFinishedRound(
+  activeRoundGames: readonly GameDTO[],
+  allGames: readonly GameDTO[],
+): GameDTO[] {
+  if (activeRoundGames.some((g) => g.status === "final")) {
+    return [...activeRoundGames];
+  }
+  const activeWeek = activeRoundGames[0]?.week ?? 0;
+  const finishedWeeks = [
+    ...new Set(
+      allGames
+        .filter((g) => g.status === "final" && (g.week ?? 0) < activeWeek)
+        .map((g) => g.week ?? 0),
+    ),
+  ].sort((a, b) => b - a);
+  const lastFinishedWeek = finishedWeeks[0];
+  if (!lastFinishedWeek) return [...activeRoundGames];
+  const recentFinished = allGames
+    .filter((g) => g.week === lastFinishedWeek && g.status === "final")
+    .sort((a, b) => a.startTime.localeCompare(b.startTime));
+  return [...recentFinished, ...activeRoundGames];
+}
+
+const ROOT_DIR = resolve(import.meta.dirname, "..", "..", "..");
+const SNAPSHOTS_ROOT = resolve(ROOT_DIR, "data", "snapshots");
+const CACHE_DIR = resolve(import.meta.dirname, "..", ".cache");
+
+async function main() {
+  loadRootEnvFiles(ROOT_DIR);
+  const now = new Date();
+  const dateStr = process.env.SNAPSHOT_DATE ?? now.toISOString().slice(0, 10);
+  const updatedAt = process.env.SNAPSHOT_TIMESTAMP ?? now.toISOString();
+  const modelVersion: "v1" | "v2" = process.env.MODEL_VERSION === "v1" ? "v1" : "v2";
+
+  console.log(
+    `[snapshot] Generando snapshots para fecha=${dateStr} (${updatedAt}) · modelo=${modelVersion}...`,
+  );
+
+  // 1. NFL (nflverse CC-BY 4.0)
+  const prevNfl = loadPreviousSnapshot(SNAPSHOTS_ROOT, "nfl");
+  const nflCsv = await fetchNflverseCsv();
+  const normNfl = normalizeNflverseSchedule(nflCsv, {
+    season: 2026,
+    referenceDate: dateStr,
+  });
+  // La temporada anterior en NFL empeoró el backtest (0.6515 vs 0.6468): apagada por defecto.
+  const priorNfl = process.env.MODEL_NFL_PRIOR === "1" ? extractNflSeasonRows(nflCsv, 2025) : [];
+  const nflSnapshot = buildNflSnapshot({
+    seasonId: normNfl.seasonId,
+    seasonLabel: normNfl.seasonLabel,
+    periodLabel: normNfl.periodLabel,
+    games: normNfl.activeWeekGames,
+    teamRateInputs: normNfl.teamRateInputs,
+    updatedAt,
+    previousSnapshot: prevNfl,
+    seasonGames: normNfl.allGames,
+    priorRows: priorNfl,
+    history: loadLeagueHistory("nfl", dateStr),
+    modelVersion,
+  });
+  const nflFiles = writeSnapshotFiles(SNAPSHOTS_ROOT, nflSnapshot, dateStr);
+  console.log(
+    `[snapshot] NFL (${normNfl.periodLabel}): ${nflSnapshot.games.length} partidos -> ${nflFiles.latestPath}`,
+  );
+
+  // 2. Premier League (football-data.org si existe FOOTBALL_DATA_API_KEY, si no openfootball CC0)
+  const prevPl = loadPreviousSnapshot(SNAPSHOTS_ROOT, "premier-league");
+  const footballDataKey = process.env.FOOTBALL_DATA_API_KEY?.trim();
+  const normPl = footballDataKey
+    ? normalizeFootballDataPremierLeague(
+        await fetchFootballDataPl({
+          apiKey: footballDataKey,
+          cacheFilePath: resolve(CACHE_DIR, "football-data-pl.json"),
+        }),
+        { referenceDate: dateStr },
+      )
+    : normalizeOpenFootballPremierLeague(await fetchOpenFootballPl(), {
+        referenceDate: dateStr,
+      });
+  const priorPl = loadPriorMatches("premier-league", dateStr);
+  const plSnapshot = buildFootballSnapshot({
+    league: "premier-league",
+    leagueName: "Premier League",
+    seasonId: normPl.seasonId,
+    seasonLabel: normPl.seasonLabel,
+    periodLabel: normPl.periodLabel,
+    games: withRecentFinishedRound(normPl.activeRoundGames, normPl.allGames),
+    teamRateInputs: normPl.teamRateInputs,
+    updatedAt,
+    source: "openfootball",
+    previousSnapshot: prevPl,
+    seasonGames: normPl.allGames,
+    priorMatches: priorPl,
+    history: loadLeagueHistory("premier-league", dateStr),
+    modelVersion,
+  });
+  const plFiles = writeSnapshotFiles(SNAPSHOTS_ROOT, plSnapshot, dateStr);
+  console.log(
+    `[snapshot] Premier League (${normPl.periodLabel}): ${plSnapshot.games.length} partidos -> ${plFiles.latestPath}`,
+  );
+
+  // 3. LaLiga (openfootball CC0)
+  const prevLl = loadPreviousSnapshot(SNAPSHOTS_ROOT, "laliga");
+  const { season: normLl, source: sourceLl } = await withFootballData(
+    "laliga",
+    normalizeOpenFootballLaliga(await fetchOpenFootballLaliga(), { referenceDate: dateStr }),
+    dateStr,
+    CACHE_DIR,
+  );
+  const priorLl = loadPriorMatches("laliga", dateStr);
+  const llSnapshot = buildFootballSnapshot({
+    league: "laliga",
+    leagueName: "LaLiga",
+    seasonId: normLl.seasonId,
+    seasonLabel: normLl.seasonLabel,
+    periodLabel: normLl.periodLabel,
+    games: withRecentFinishedRound(normLl.activeRoundGames, normLl.allGames),
+    teamRateInputs: normLl.teamRateInputs,
+    updatedAt,
+    source: sourceLl,
+    previousSnapshot: prevLl,
+    seasonGames: normLl.allGames,
+    priorMatches: priorLl,
+    history: loadLeagueHistory("laliga", dateStr),
+    modelVersion,
+  });
+  const llFiles = writeSnapshotFiles(SNAPSHOTS_ROOT, llSnapshot, dateStr);
+  console.log(
+    `[snapshot] LaLiga (${normLl.periodLabel}): ${llSnapshot.games.length} partidos -> ${llFiles.latestPath}`,
+  );
+
+  // 4. Bundesliga, Serie A y Ligue 1 (openfootball CC0)
+  const extraLeagues = [
+    {
+      league: "bundesliga" as const,
+      name: "Bundesliga",
+      fetchSeason: fetchOpenFootballBundesliga,
+      normalize: normalizeOpenFootballBundesliga,
+    },
+    {
+      league: "serie-a" as const,
+      name: "Serie A",
+      fetchSeason: fetchOpenFootballSerieA,
+      normalize: normalizeOpenFootballSerieA,
+    },
+    {
+      league: "ligue-1" as const,
+      name: "Ligue 1",
+      fetchSeason: fetchOpenFootballLigue1,
+      normalize: normalizeOpenFootballLigue1,
+    },
+  ];
+
+  for (const entry of extraLeagues) {
+    const previous = loadPreviousSnapshot(SNAPSHOTS_ROOT, entry.league);
+    const { season: normalized, source: entrySource } = await withFootballData(
+      entry.league,
+      entry.normalize(await entry.fetchSeason(), { referenceDate: dateStr }),
+      dateStr,
+      CACHE_DIR,
+    );
+    const snapshot = buildFootballSnapshot({
+      league: entry.league,
+      leagueName: entry.name,
+      seasonId: normalized.seasonId,
+      seasonLabel: normalized.seasonLabel,
+      periodLabel: normalized.periodLabel,
+      games: withRecentFinishedRound(normalized.activeRoundGames, normalized.allGames),
+      teamRateInputs: normalized.teamRateInputs,
+      updatedAt,
+      source: entrySource,
+      previousSnapshot: previous,
+      seasonGames: normalized.allGames,
+      priorMatches: loadPriorMatches(entry.league, dateStr),
+      history: loadLeagueHistory(entry.league, dateStr),
+      modelVersion,
+    });
+    const files = writeSnapshotFiles(SNAPSHOTS_ROOT, snapshot, dateStr);
+    console.log(
+      `[snapshot] ${entry.name} (${normalized.periodLabel}): ${snapshot.games.length} partidos -> ${files.latestPath}`,
+    );
+  }
+
+  // 5. Liga MX: calendario y resultados de la temporada actual desde ESPN (sin clave).
+  // El plan gratis de API-Football no cubre temporadas posteriores a 2024, así que no se usa
+  // aquí: rellenaba la jornada con partidos de 2024. Si ESPN falla se conserva el snapshot anterior.
+  try {
+    const prevMx = loadPreviousSnapshot(SNAPSHOTS_ROOT, "liga-mx");
+    const espnSeason = await fetchEspnLigaMxSeason({ cacheDir: CACHE_DIR, referenceDate: dateStr });
+    const normMx = normalizeEspnLigaMx(espnSeason, { referenceDate: dateStr });
+    const priorMx = loadPriorMatches("liga-mx", dateStr);
+    const mxSnapshot = buildFootballSnapshot({
+      league: "liga-mx",
+      leagueName: "Liga MX",
+      seasonId: normMx.seasonId,
+      seasonLabel: normMx.seasonLabel,
+      periodLabel: normMx.periodLabel,
+      games: normMx.activeRoundGames,
+      teamRateInputs: normMx.teamRateInputs,
+      updatedAt,
+      source: "espn",
+      previousSnapshot: prevMx,
+      seasonGames: normMx.allGames,
+      priorMatches: priorMx,
+      history: loadLeagueHistory("liga-mx", dateStr),
+      modelVersion,
+    });
+    const mxFiles = writeSnapshotFiles(SNAPSHOTS_ROOT, mxSnapshot, dateStr);
+    console.log(
+      `[snapshot] Liga MX (${normMx.periodLabel}): ${mxSnapshot.games.length} partidos -> ${mxFiles.latestPath}`,
+    );
+  } catch (err) {
+    console.warn(
+      `[snapshot] Liga MX: ESPN no disponible (${err instanceof Error ? err.message : String(err)}); se conserva el snapshot anterior.`,
+    );
+  }
+}
+
+main().catch((err) => {
+  console.error("[snapshot] Error fatal:", err);
+  process.exit(1);
+});

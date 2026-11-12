@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Radar · Mascota e iconos de PitchLab</title>
+  <link rel="icon" href="../app-icons/favicon.svg">
+  <link rel="stylesheet" href="../tokens/brand-tokens.css">
+  <link rel="stylesheet" href="showcase.css">
+  <script src="registry.js" defer></script>
+  <script src="showcase.js" defer></script>
+</head>
+<body>
+  <header class="topbar wrap">
+    <a class="brand" href="../applications/index.html" aria-label="PitchLab · Aplicaciones de marca">
+      <img src="../logos/pitchlab-horizontal-dark.svg" width="158" height="31" alt="">
+    </a>
+    <nav aria-label="En esta página">
+      <a href="#ediciones">Mascota</a>
+      <a href="#iconos">Iconos SVG</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <header class="intro">
+      <p class="eyebrow"><span></span> Identidad de producto</p>
+      <h1>Conoce a <strong>Radar.</strong></h1>
+      <p>El observador de PitchLab. Sus orejas y su capa de alas lo acompañan del vestidor a la cancha.</p>
+    </header>
+
+    <section id="ediciones" class="showcase" aria-label="Ediciones de Radar">
+      <figure class="stage" id="stage">
+        <div class="stage-note"><span></span> <span id="stage-type">Edición base</span></div>
+        <img class="mascot" id="mascot" src="web/radar.webp" alt="Radar con su tableta de análisis" width="768" height="768" fetchpriority="high">
+        <figcaption>
+          <span class="badge" id="badge"><img id="badge-icon" src="../visuals/icons/radar.svg" alt="" width="32" height="32"></span>
+          <div><b id="edition-name">Radar</b><span id="edition-detail">Traje de observador y tableta táctica</span></div>
+        </figcaption>
+      </figure>
+
+      <div class="config">
+        <p class="eyebrow">Selector de edición</p>
+        <h2>Prueba el uniforme</h2>
+        <p class="description">Elige un deporte y una liga. La sección determina el icono que acompaña al personaje.</p>
+        <div class="fields">
+          <label for="sport">Deporte <select id="sport"></select></label>
+          <label for="league">Liga <select id="league"></select></label>
+          <label for="context">Sección <select id="context"></select></label>
+        </div>
+        <div class="context-card" aria-live="polite">
+          <img class="glyph" id="context-icon" src="../visuals/icons/radar.svg" alt="" width="24" height="24">
+          <div><b id="context-name">Inicio</b><p id="context-copy"></p></div>
+        </div>
+        <div class="download">
+          <a class="action" id="download" href="web/radar.webp" download>Descargar WebP <span aria-hidden="true">↓</span></a>
+          <a class="secondary" href="radar-master.png" download>Máster PNG</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="collection" aria-labelledby="collection-title">
+      <p class="eyebrow">Colección</p>
+      <h2 id="collection-title">Radar por liga</h2>
+      <ul class="edition-grid" id="edition-grid"></ul>
+    </section>
+
+    <section id="iconos" class="icon-library">
+      <div>
+        <p class="eyebrow">Biblioteca de interfaz</p>
+        <h2>Iconos SVG</h2>
+        <p>Selecciona un icono para descargarlo. Todos comparten una retícula de 24 px y un trazo de 1.75 px.</p>
+      </div>
+      <ul class="icon-grid" id="icon-grid"></ul>
+    </section>
+  </main>
+  <footer class="wrap"><span>PitchLab · Identidad de producto</span><a href="README.md">Guía de integración</a></footer>
+</body>
+</html>

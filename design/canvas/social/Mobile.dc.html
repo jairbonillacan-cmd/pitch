@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<title>Comunidad · móvil</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+html,body{overflow-x:hidden}
+.m{--bg:#000000;--surf2:rgba(255,255,255,.07);--line:rgba(255,255,255,.08);--line2:rgba(255,255,255,.16);--t1:#FFFFFF;--t2:#D4D4DC;--t3:#A1A1AD;--brand:#C4B5FD;--ok:#6EE7B7;--miss:#FDA4AF;--btn:#FFFFFF;--btnfg:#000000;--track:rgba(255,255,255,.10);--field:rgba(255,255,255,.035)}
+.m{--l1:rgba(124,92,246,.30);--sheen:rgba(255,255,255,.06);--inner:inset 0 1px 0 rgba(255,255,255,.08);--lens:rgba(18,18,24,.62);--pane:rgba(255,255,255,.025);--shadow:0 24px 50px -26px rgba(0,0,0,.8);--rim-c:rgba(255,255,255,.7);--rim-t:rgba(255,255,255,.28);--rim-m:rgba(255,255,255,.04);--rim-b:rgba(255,255,255,.12)}
+.m{background:var(--bg);color:var(--t1);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;position:relative;overflow:hidden;min-height:100vh;padding:20px max(20px, calc((100% - 480px) / 2)) 48px}
+.m *{box-sizing:border-box}
+.atmo{position:absolute;inset:0;pointer-events:none;background:radial-gradient(90% 20% at 85% 0%,var(--l1),transparent 70%)}
+.glass{position:relative;background:linear-gradient(180deg,var(--sheen),transparent 30%),var(--lens);box-shadow:var(--inner),var(--shadow)}
+.glass::before,.chip::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;z-index:2;-webkit-mask:linear-gradient(#000,#000) content-box,linear-gradient(#000,#000);-webkit-mask-composite:xor;mask:linear-gradient(#000,#000) content-box exclude,linear-gradient(#000,#000)}
+.glass::before{background:radial-gradient(60px circle at 0% 0%,var(--rim-c),transparent 100%),radial-gradient(60px circle at 100% 0%,var(--rim-c),transparent 100%),linear-gradient(180deg,var(--rim-t) 0%,var(--rim-m) 22%,var(--rim-m) 72%,var(--rim-b) 100%)}
+.chip{position:relative;background:linear-gradient(180deg,var(--sheen),transparent 50%),var(--pane);box-shadow:var(--inner)}
+.chip::before{background:linear-gradient(180deg,var(--rim-t),var(--rim-m) 40%,var(--rim-b))}
+.num{font-variant-numeric:tabular-nums lining-nums}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:36px;padding:0 14px;border-radius:999px;font:600 13px/1 Inter,system-ui,sans-serif;border:1px solid transparent;cursor:pointer}
+.btn-primary{background:var(--btn);color:var(--btnfg)}
+.btn-ghost{background:var(--field);color:var(--t1);border-color:var(--line2)}
+.tabs{display:flex;border-bottom:1px solid var(--line)}
+.tab{flex:1;min-height:46px;padding:0 2px;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;background:transparent;color:var(--t3);font:600 13px Inter,system-ui,sans-serif;cursor:pointer;white-space:nowrap}
+.tab[aria-selected="true"]{color:var(--t1);border-bottom-color:var(--t1)}
+.act{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 10px;border:0;background:transparent;color:var(--t3);font:500 13px Inter,system-ui,sans-serif;cursor:pointer}
+.av{flex:none;border-radius:999px;display:grid;place-items:center;font-weight:700;color:#fff}
+.status{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;white-space:nowrap}
+.status::before{content:"";width:7px;height:7px;border-radius:999px;background:currentColor}
+.s-ok{color:var(--ok)}.s-open{color:var(--t2)}
+.s-open::before{background:transparent;box-shadow:inset 0 0 0 1.5px currentColor}
+.post{padding:18px 0}
+.post + .post{border-top:1px solid var(--line)}
+.eyebrow{margin:0;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--t3)}
+.m a:focus-visible,.m button:focus-visible{outline:2px solid var(--brand);outline-offset:3px}
+</style>
+</helmet>
+<div class="m" style="width: 100%">
+  <div class="atmo" aria-hidden="true"></div>
+
+  <h1 style="position: relative; margin: 0; font-size: 28px; letter-spacing: -.03em; font-weight: 700">Comunidad</h1>
+
+  <div class="tabs" role="tablist" aria-label="Vistas de Comunidad" style="position: relative; margin-top: 16px">
+    <sc-for list="{{tabs}}" as="t" hint-placeholder-count="4">
+      <button class="tab" type="button" role="tab" aria-selected="{{t.selected}}" onClick="{{t.pick}}">{{t.label}}</button>
+    </sc-for>
+  </div>
+
+  <!-- FEED -->
+  <sc-if value="{{isFeed}}" hint-placeholder-val="{{ true }}">
+    <div style="position: relative">
+      <button class="glass" type="button" style="width: 100%; margin-top: 16px; border: 0; border-radius: 999px; padding: 6px 6px 6px 8px; display: flex; align-items: center; gap: 10px; color: var(--t3); font: 400 15px Inter, system-ui, sans-serif; text-align: left; cursor: pointer">
+        <span class="av" aria-hidden="true" style="width: 34px; height: 34px; font-size: 12px; background: linear-gradient(135deg, #34D399, #0EA5E9); color: #04131C">JR</span>
+        <span style="flex: 1">Comparte un pick…</span>
+        <span class="btn btn-primary" style="min-height: 34px">Publicar</span>
+      </button>
+
+      <!-- A quién seguir: carrusel -->
+      <section aria-labelledby="m-top" style="margin-top: 20px">
+        <div style="display: flex; justify-content: space-between; align-items: center">
+          <h2 id="m-top" class="eyebrow">Top de noviembre</h2>
+          <button type="button" onClick="{{toRanking}}" style="border: 0; background: none; padding: 0 2px; min-height: 32px; color: var(--t2); font: 500 12px Inter, system-ui, sans-serif">Ver ranking</button>
+        </div>
+        <div style="margin: 8px -20px 0; padding: 0 20px 4px; display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none">
+          <sc-for list="{{top}}" as="r" hint-placeholder-count="5">
+            <a class="chip" href="#perfil" style="flex: none; width: 112px; border-radius: 18px; padding: 14px 10px; display: flex; flex-direction: column; align-items: center; gap: 6px; color: inherit; text-decoration: none">
+              <span class="av" aria-hidden="true" style="width: 40px; height: 40px; font-size: 13px; background: {{r.grad}}">{{r.ini}}</span>
+              <span style="font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%">{{r.short}}</span>
+              <span class="num" style="font-size: 12px; font-weight: 600; color: var(--ok)">{{r.units}}</span>
+            </a>
+          </sc-for>
+        </div>
+      </section>
+
+      <div style="margin-top: 8px">
+        <article class="post">
+          <header style="display: flex; align-items: center; gap: 10px">
+            <span class="av" aria-hidden="true" style="width: 38px; height: 38px; font-size: 13px; background: linear-gradient(135deg, #8B5CF6, #6366F1)">SM</span>
+            <div style="flex: 1; min-width: 0">
+              <p style="margin: 0; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 5px">Sofía Méndez<svg width="15" height="15" viewBox="0 0 24 24" role="img" aria-label="Tipstar verificado"><path fill="var(--brand)" d="M12 1.8l2.5 1.9 3.1-.2 1 3 2.6 1.7-1 3 1 3-2.6 1.7-1 3-3.1-.2L12 22.2l-2.5-1.9-3.1.2-1-3-2.6-1.7 1-3-1-3 2.6-1.7 1-3 3.1.2z"></path><path d="M8.2 12.2l2.6 2.6 5-5.2" fill="none" stroke="var(--bg)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></p>
+              <p class="num" style="margin: 1px 0 0; font-size: 12px; color: var(--t3)">+18.4u · hace 18 min</p>
+            </div>
+            <button class="btn {{followClass}}" type="button" aria-pressed="{{followingStr}}" onClick="{{toggleFollow}}">{{followLabel}}</button>
+          </header>
+          <p style="margin: 12px 0 0; font-size: 15px; line-height: 1.55; color: var(--t2)">Washington +7.5 a −110. El modelo lo pone en −177; entro antes de que se mueva la línea.</p>
+          <div class="chip" style="margin-top: 12px; border-radius: 16px; padding: 12px 14px; display: flex; align-items: center; gap: 12px">
+            <img src="/_blob/1158a9b520397208c4f96763545265f5" alt="NFL" style="width: 22px; height: 22px; object-fit: contain; flex: none">
+            <div style="flex: 1; min-width: 0">
+              <p style="margin: 0; font-size: 14px; font-weight: 600">Washington +7.5 · 2.0u</p>
+              <p class="num" style="margin: 2px 0 0; font-size: 12px; color: var(--t3)">−110 · justo −177 · modelo 63.9 %</p>
+            </div>
+            <span class="status s-open">Abierto</span>
+          </div>
+          <div style="display: flex; align-items: center; margin: 6px 0 0 -10px">
+            <button class="act" type="button" aria-label="Me gusta, 128"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21.2l8.8-8.8a5.5 5.5 0 0 0 0-7.8z"></path></svg><span class="num">128</span></button>
+            <button class="act" type="button" aria-label="Comentarios, 14"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path></svg><span class="num">14</span></button>
+            <button class="act" type="button" aria-label="Copiar a mi bitácora"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="13" height="13" rx="2"></rect><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"></path></svg></button>
+            <button class="act" type="button" aria-label="Compartir" style="margin-left: auto"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M16 6l-4-4-4 4M12 2v13"></path></svg></button>
+          </div>
+        </article>
+
+        <article class="post">
+          <header style="display: flex; align-items: center; gap: 10px">
+            <span class="av" aria-hidden="true" style="width: 38px; height: 38px; font-size: 13px; background: linear-gradient(135deg, #10B981, #059669)">SP</span>
+            <div style="flex: 1; min-width: 0">
+              <p style="margin: 0; font-size: 14px; font-weight: 600">Socio PitchLab</p>
+              <p class="num" style="margin: 1px 0 0; font-size: 12px; color: var(--t3)">+6.4u · ayer</p>
+            </div>
+            <button class="btn btn-ghost" type="button">Seguir</button>
+          </header>
+          <p style="margin: 12px 0 0; font-size: 15px; line-height: 1.55; color: var(--t2)">Ambos anotan, cumplido. Lo tomé a +105 y cerró en −120.</p>
+          <div class="chip" style="margin-top: 12px; border-radius: 16px; padding: 12px 14px; display: flex; align-items: center; gap: 12px">
+            <img src="/_blob/d6519d21729681534bb2371c095253ed" alt="Premier League" style="width: 22px; height: 22px; object-fit: contain; flex: none">
+            <div style="flex: 1; min-width: 0">
+              <p style="margin: 0; font-size: 14px; font-weight: 600">Ambos anotan · 1.5u</p>
+              <p class="num" style="margin: 2px 0 0; font-size: 12px; color: var(--t3)">Arsenal 2–1 Liverpool</p>
+            </div>
+            <span class="status s-ok">+1.6u</span>
+          </div>
+          <div style="display: flex; align-items: center; margin: 6px 0 0 -10px">
+            <button class="act" type="button" aria-label="Me gusta, 86"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21.2l8.8-8.8a5.5 5.5 0 0 0 0-7.8z"></path></svg><span class="num">86</span></button>
+            <button class="act" type="button" aria-label="Comentarios, 9"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path></svg><span class="num">9</span></button>
+            <button class="act" type="button" aria-label="Compartir" style="margin-left: auto"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M16 6l-4-4-4 4M12 2v13"></path></svg></button>
+          </div>
+        </article>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- CONSENSO -->
+  <sc-if value="{{isConsensus}}" hint-placeholder-val="{{ false }}">
+    <div style="position: relative; margin-top: 16px">
+      <sc-for list="{{consensus}}" as="c" hint-placeholder-count="3">
+        <article class="post">
+          <p style="margin: 0; font-size: 15px; font-weight: 600">{{c.match}}</p>
+          <p style="margin: 2px 0 0; font-size: 12px; color: var(--t3)">{{c.meta}}</p>
+          <div class="num" style="margin-top: 12px; display: grid; grid-template-columns: 64px minmax(0, 1fr) 44px; align-items: center; gap: 8px 10px; font-size: 12px">
+            <span style="color: var(--t2)">Socios</span>
+            <div style="height: 6px; border-radius: 3px; background: var(--track)"><div style="width: {{c.fans}}%; height: 100%; border-radius: 3px; background: var(--brand)"></div></div>
+            <strong style="text-align: right; font-weight: 600">{{c.fans}} %</strong>
+            <span style="color: var(--t2)">Modelo</span>
+            <div style="height: 6px; border-radius: 3px; background: var(--track)"><div style="width: {{c.model}}%; height: 100%; border-radius: 3px; background: var(--t2)"></div></div>
+            <strong style="text-align: right; font-weight: 600">{{c.model}} %</strong>
+          </div>
+          <p style="margin: 10px 0 0; font-size: 13px">{{c.read}}</p>
+        </article>
+      </sc-for>
+    </div>
+  </sc-if>
+
+  <!-- RANKING -->
+  <sc-if value="{{isRanking}}" hint-placeholder-val="{{ false }}">
+    <div style="position: relative; margin-top: 16px">
+      <p style="margin: 0; font-size: 12px; color: var(--t3)">Últimos 30 días · por saldo</p>
+      <ol style="list-style: none; margin: 6px 0 0; padding: 0">
+        <sc-for list="{{ranking}}" as="r" hint-placeholder-count="8">
+          <li style="display: flex; align-items: center; gap: 12px; padding: 12px 10px; margin: 0 -10px; border-radius: 14px; background: {{r.rowBg}}">
+            <span class="num" style="width: 20px; font-size: 13px; color: var(--t3)">{{r.rank}}</span>
+            <span class="av" aria-hidden="true" style="width: 34px; height: 34px; font-size: 12px; background: {{r.grad}}">{{r.ini}}</span>
+            <span style="flex: 1; min-width: 0"><span style="display: block; font-size: 14px; font-weight: 600">{{r.name}}</span><span class="num" style="display: block; font-size: 12px; color: var(--t3)">{{r.hit}} cumplidos · {{r.picks}} picks</span></span>
+            <span class="num" style="font-size: 14px; font-weight: 600; color: var(--ok)">{{r.units}}</span>
+          </li>
+        </sc-for>
+      </ol>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1500}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { tab: 'para-ti', following: false };
+  }
+  renderVals() {
+    const tab = this.state.tab;
+    const f = this.state.following;
+    const g = { s: 'linear-gradient(135deg, #8B5CF6, #6366F1)', c: 'linear-gradient(135deg, #F59E0B, #EF4444)', d: 'linear-gradient(135deg, #0EA5E9, #2563EB)', j: 'linear-gradient(135deg, #34D399, #0EA5E9)', p: 'linear-gradient(135deg, #10B981, #059669)', m: 'linear-gradient(135deg, #EC4899, #8B5CF6)', a: 'linear-gradient(135deg, #64748B, #334155)' };
+    const rows = [
+      ['Sofía Méndez', 'Sofía', 'SM', g.s, '+10.7u', '61 %', '82'],
+      ['Carlos Vega', 'Carlos', 'CV', g.c, '+8.6u', '57 %', '108'],
+      ['Diego Aranda', 'Diego', 'DA', g.d, '+6.7u', '55 %', '71'],
+      ['Jair R.', 'Jair', 'JR', g.j, '+5.3u', '58 %', '65'],
+      ['Mariana T.', 'Mariana', 'MT', g.m, '+4.9u', '56 %', '44'],
+      ['Socio PitchLab', 'Socio PL', 'SP', g.p, '+3.7u', '54 %', '38'],
+      ['Andrés L.', 'Andrés', 'AL', g.a, '+3.6u', '53 %', '29'],
+      ['Tú', 'Tú', 'JR', g.j, '+3.1u', '56 %', '24']
+    ];
+    const ranking = rows.map((r, i) => ({ rank: i === 7 ? '12' : String(i + 1), name: r[0], short: r[1], ini: r[2], grad: r[3], units: r[4], hit: r[5], picks: r[6], rowBg: i === 7 ? 'rgba(196,181,253,.10)' : 'transparent' }));
+    return {
+      tabs: [['para-ti', 'Para ti'], ['siguiendo', 'Siguiendo'], ['consenso', 'Consenso'], ['ranking', 'Ranking']].map((t) => ({
+        label: t[1], selected: tab === t[0] ? 'true' : 'false', pick: () => this.setState({ tab: t[0] })
+      })),
+      isFeed: tab === 'para-ti' || tab === 'siguiendo',
+      isConsensus: tab === 'consenso',
+      isRanking: tab === 'ranking',
+      toRanking: () => this.setState({ tab: 'ranking' }),
+      followLabel: f ? 'Siguiendo' : 'Seguir',
+      followClass: f ? 'btn-ghost' : 'btn-primary',
+      followingStr: f ? 'true' : 'false',
+      toggleFollow: () => this.setState({ following: !f }),
+      top: ranking.slice(0, 5),
+      ranking: ranking,
+      consensus: [
+        { match: 'Querétaro vs Monterrey', meta: 'Liga MX · 46 picks de socios', fans: 64, model: 47, read: 'Los socios ven a Monterrey 17 pts más probable que el modelo.' },
+        { match: 'NY Giants vs Washington', meta: 'NFL · 31 picks de socios', fans: 58, model: 69, read: 'Los socios ven a los Giants 11 pts menos probable que el modelo.' },
+        { match: 'Arsenal vs Liverpool', meta: 'Premier · 22 picks de socios', fans: 41, model: 42, read: 'Socios y modelo coinciden en Arsenal.' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

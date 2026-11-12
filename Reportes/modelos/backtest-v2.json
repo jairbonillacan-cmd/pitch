@@ -1,0 +1,333 @@
+{
+  "generatedAt": "2026-11-09T02:28:20.396Z",
+  "football": {
+    "seasons": [
+      "2025-26",
+      "2026-27"
+    ],
+    "name": "Premier League",
+    "v2": {
+      "n": 327,
+      "logLoss1x2": 1.0216784697394254,
+      "brier1x2": 0.6130168565658604,
+      "logLossOver": 0.7013063256473865,
+      "logLossBtts": 0.6669393849624433,
+      "accuracy": 0.4923547400611621,
+      "ece": 0.04858623923984039,
+      "reliability": [
+        {
+          "bucket": [
+            0.3,
+            0.4
+          ],
+          "n": 15,
+          "confidence": 0.38714621234468444,
+          "accuracy": 0.4
+        },
+        {
+          "bucket": [
+            0.4,
+            0.5
+          ],
+          "n": 132,
+          "confidence": 0.4479366574917152,
+          "accuracy": 0.4015151515151515
+        },
+        {
+          "bucket": [
+            0.5,
+            0.6
+          ],
+          "n": 101,
+          "confidence": 0.5518480855326338,
+          "accuracy": 0.5445544554455446
+        },
+        {
+          "bucket": [
+            0.6,
+            0.7
+          ],
+          "n": 60,
+          "confidence": 0.6491826239378133,
+          "accuracy": 0.5666666666666667
+        },
+        {
+          "bucket": [
+            0.7,
+            0.8
+          ],
+          "n": 13,
+          "confidence": 0.7603986645877799,
+          "accuracy": 0.5384615384615384
+        },
+        {
+          "bucket": [
+            0.8,
+            0.9
+          ],
+          "n": 6,
+          "confidence": 0.8342570145023801,
+          "accuracy": 1
+        }
+      ]
+    },
+    "baseline": {
+      "n": 327,
+      "logLoss1x2": 1.0239212081634483,
+      "brier1x2": 0.6144505942353163,
+      "logLossOver": 0.6958529458189109,
+      "logLossBtts": 0.6658454500615674,
+      "accuracy": 0.4831804281345566,
+      "ece": 0.029343063278115658,
+      "reliability": [
+        {
+          "bucket": [
+            0.3,
+            0.4
+          ],
+          "n": 60,
+          "confidence": 0.38086419245456304,
+          "accuracy": 0.35
+        },
+        {
+          "bucket": [
+            0.4,
+            0.5
+          ],
+          "n": 154,
+          "confidence": 0.44670798152151403,
+          "accuracy": 0.4805194805194805
+        },
+        {
+          "bucket": [
+            0.5,
+            0.6
+          ],
+          "n": 88,
+          "confidence": 0.5398282600737243,
+          "accuracy": 0.5227272727272727
+        },
+        {
+          "bucket": [
+            0.6,
+            0.7
+          ],
+          "n": 23,
+          "confidence": 0.6330837433681161,
+          "accuracy": 0.6521739130434783
+        },
+        {
+          "bucket": [
+            0.7,
+            0.8
+          ],
+          "n": 2,
+          "confidence": 0.7038007450189359,
+          "accuracy": 1
+        }
+      ]
+    },
+    "naive": {
+      "n": 327,
+      "logLoss1x2": 1.0741425694183135,
+      "brier1x2": 0.6493052444635619,
+      "logLossOver": 0.6780945849124235,
+      "logLossBtts": 0.6830508049919443,
+      "accuracy": 0.44954128440366975,
+      "ece": 0.04806092311056648,
+      "reliability": [
+        {
+          "bucket": [
+            0.3,
+            0.4
+          ],
+          "n": 9,
+          "confidence": 0.358974358974359,
+          "accuracy": 0.5555555555555556
+        },
+        {
+          "bucket": [
+            0.4,
+            0.5
+          ],
+          "n": 186,
+          "confidence": 0.46677067917999576,
+          "accuracy": 0.44086021505376344
+        },
+        {
+          "bucket": [
+            0.5,
+            0.6
+          ],
+          "n": 132,
+          "confidence": 0.5236920057609489,
+          "accuracy": 0.45454545454545453
+        }
+      ]
+    },
+    "betterThanBaseline": true,
+    "deltaLogLoss": -0.0022427384240228943,
+    "bootstrap": {
+      "meanDiff": -0.0022427384240229797,
+      "lower": -0.0190238972614795,
+      "upper": 0.015046010686551432,
+      "wins": 141
+    }
+  },
+  "nfl": {
+    "seasons": [
+      2025,
+      2026
+    ],
+    "name": "NFL",
+    "v2": {
+      "n": 310,
+      "logLoss1x2": 0.6450889309177351,
+      "brier1x2": 0.4553531717788965,
+      "logLossOver": 0.6880718988198401,
+      "accuracy": 0.6451612903225806,
+      "ece": 0.04966069374568155,
+      "reliability": [
+        {
+          "bucket": [
+            0.5,
+            0.6
+          ],
+          "n": 152,
+          "confidence": 0.5464228683099968,
+          "accuracy": 0.6118421052631579
+        },
+        {
+          "bucket": [
+            0.6,
+            0.7
+          ],
+          "n": 91,
+          "confidence": 0.6451952165296747,
+          "accuracy": 0.6043956043956044
+        },
+        {
+          "bucket": [
+            0.7,
+            0.8
+          ],
+          "n": 53,
+          "confidence": 0.7451102612871335,
+          "accuracy": 0.7358490566037735
+        },
+        {
+          "bucket": [
+            0.8,
+            0.9
+          ],
+          "n": 13,
+          "confidence": 0.8345373410211513,
+          "accuracy": 0.9230769230769231
+        },
+        {
+          "bucket": [
+            0.9,
+            1
+          ],
+          "n": 1,
+          "confidence": 0.9035320748627204,
+          "accuracy": 1
+        }
+      ]
+    },
+    "baseline": {
+      "n": 310,
+      "logLoss1x2": 0.6413020772555021,
+      "brier1x2": 0.4513002925944117,
+      "logLossOver": 0.6928199097511292,
+      "accuracy": 0.603225806451613,
+      "ece": 0.03333431184018942,
+      "reliability": [
+        {
+          "bucket": [
+            0.5,
+            0.6
+          ],
+          "n": 178,
+          "confidence": 0.5455914246418355,
+          "accuracy": 0.5168539325842697
+        },
+        {
+          "bucket": [
+            0.6,
+            0.7
+          ],
+          "n": 88,
+          "confidence": 0.6473862684132032,
+          "accuracy": 0.6477272727272727
+        },
+        {
+          "bucket": [
+            0.7,
+            0.8
+          ],
+          "n": 39,
+          "confidence": 0.7360958521173269,
+          "accuracy": 0.8461538461538461
+        },
+        {
+          "bucket": [
+            0.8,
+            0.9
+          ],
+          "n": 5,
+          "confidence": 0.820781412570072,
+          "accuracy": 1
+        }
+      ]
+    },
+    "naive": {
+      "n": 310,
+      "logLoss1x2": 0.6998442407028503,
+      "brier1x2": 0.5066183529664215,
+      "logLossOver": 0.7023875253087276,
+      "accuracy": 0.4838709677419355,
+      "ece": 0.0581725610192676,
+      "reliability": [
+        {
+          "bucket": [
+            0.5,
+            0.6
+          ],
+          "n": 310,
+          "confidence": 0.5420435287612031,
+          "accuracy": 0.4838709677419355
+        }
+      ]
+    },
+    "betterThanBaseline": false,
+    "deltaLogLoss": 0.0037868536622329696,
+    "bootstrap": {
+      "meanDiff": 0.003786853662233064,
+      "lower": -0.007533004631231861,
+      "upper": 0.016324701745539575,
+      "wins": 143
+    }
+  },
+  "calibration": {
+    "football": {
+      "temperature": 1.15,
+      "fittedOn": 196,
+      "holdout": 131,
+      "rawLogLoss": 1.04011815262562,
+      "calibratedLogLoss": 1.03544769336324,
+      "rawEce": 0.07785122127881333,
+      "calibratedEce": 0.11552609670599465
+    },
+    "nfl": {
+      "temperature": 1.05,
+      "fittedOn": 186,
+      "holdout": 124,
+      "rawLogLoss": 0.652706423337384,
+      "calibratedLogLoss": 0.6528540956021106,
+      "rawEce": 0.06474110992774817,
+      "calibratedEce": 0.06663896770307821
+    },
+    "note": "T se ajusta con el 60% inicial y se evalúa en el 40% final. En fútbol mejora log-loss pero empeora ECE; en NFL no mejora. No se aplica en producción."
+  }
+}

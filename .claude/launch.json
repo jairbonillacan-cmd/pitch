@@ -1,0 +1,70 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "design-prototypes",
+      "runtimeExecutable": "python",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "4173",
+        "--bind",
+        "127.0.0.1"
+      ],
+      "port": 4173
+    },
+    {
+      "name": "storybook",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "--filter",
+        "@pitchlab/ui",
+        "storybook"
+      ],
+      "port": 6006
+    },
+    {
+      "name": "web",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "--filter",
+        "@pitchlab/web",
+        "dev"
+      ],
+      "port": 3000
+    },
+    {
+      "name": "web-prod",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "--filter",
+        "@pitchlab/web",
+        "exec",
+        "next",
+        "start",
+        "--port",
+        "3100"
+      ],
+      "port": 3100,
+      "env": {
+        "PREVIEW_ACCESS_CODE": "2026",
+        "BETA_COOKIE_SECRET": "e2e-test-pitchlab-beta-cookie-secret-32chars!",
+        "PITCHLAB_DIST_DIR": ".next-prod"
+      }
+    },
+    {
+      "name": "web-3090",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "--filter",
+        "@pitchlab/web",
+        "exec",
+        "next",
+        "dev",
+        "--port",
+        "3090"
+      ],
+      "port": 3090
+    }
+  ]
+}

@@ -1,0 +1,450 @@
+{
+  "schemaVersion": 1,
+  "designRevision": 1,
+  "season": "2026/27",
+  "edition": "Emblemas de club",
+  "source": "https://www.legaseriea.it/team",
+  "entries": [
+    {
+      "id": "serie-a",
+      "code": "SA",
+      "name": "Serie A",
+      "shortName": "Serie A",
+      "kind": "competition",
+      "motif": "Balón y arco tricolor",
+      "colors": {
+        "tile": "#172E51",
+        "primary": "#FFF2DA",
+        "accent": "#60B38C"
+      },
+      "contrast": {
+        "primaryOnTile": 12.2669,
+        "accentOnTile": 5.3841
+      },
+      "source": "https://www.legaseriea.it/team",
+      "svg": "svg/serie-a.svg",
+      "png": "png/serie-a.png",
+      "symbolId": "pitchlab-serie-a"
+    },
+    {
+      "id": "milan",
+      "code": "MIL",
+      "name": "AC Milan",
+      "shortName": "Milan",
+      "kind": "club",
+      "motif": "Diablo y franjas",
+      "colors": {
+        "tile": "#222228",
+        "primary": "#FFE9CF",
+        "accent": "#C93549"
+      },
+      "contrast": {
+        "primaryOnTile": 13.4154,
+        "accentOnTile": 3.0803
+      },
+      "source": "https://www.legaseriea.it/team",
+      "svg": "svg/milan.svg",
+      "png": "png/milan.png",
+      "symbolId": "pitchlab-milan"
+    },
+    {
+      "id": "monza",
+      "code": "MON",
+      "name": "AC Monza",
+      "shortName": "Monza",
+      "kind": "club",
+      "motif": "Espada y puente",
+      "colors": {
+        "tile": "#A32036",
+        "primary": "#FFEFD7",
+        "accent": "#D9937A"
+      },
+      "contrast": {
+        "primaryOnTile": 6.5952,
+        "accentOnTile": 2.9834
+      },
+      "source": "https://www.legaseriea.it/team",
+      "svg": "svg/monza.svg",
+      "png": "png/monza.png",
+      "symbolId": "pitchlab-monza"
+    },
+    {
+      "id": "fiorentina",
+      "code": "FIO",
+      "name": "ACF Fiorentina",
+      "shortName": "Fiorentina",
+      "kind": "club",
+      "motif": "Flor de lis",
+      "colors": {
+        "tile": "#512C77",
+        "primary": "#F8EADD",
+        "accent": "#C16587"
+      },
+      "contrast": {
+        "primaryOnTile": 9.008,
+        "accentOnTile": 2.772
+      },
+      "source": "https://www.legaseriea.it/team",
+      "svg": "svg/fiorentina.svg",
+      "png": "png/fiorentina.png",
+      "symbolId": "pitchlab-fiorentina"
+    },
+    {
+      "id": "roma",
+      "code": "ROM",
+      "name": "AS Roma",
+      "shortName": "Roma",
+      "kind": "club",
+      "motif": "Loba capitolina",
+      "colors": {
+        "tile": "#7F2536",
+        "primary": "#FFD893",
+        "accent": "#D6533E"
+      },
+      "contrast": {
+        "primaryOnTile": 6.9791,
+        "accentOnTile": 2.3268
+      },
+      "source": "https://www.legaseriea.it/team",
+      "svg": "svg/roma.svg",
+      "png": "png/roma.png",
+      "symbolId": "pitchlab-roma"
+    },
+    {
+      "id": "atalanta-bc",
+      "code": "ATA",
+      "name": "Atalanta BC",
+      "shortName": "Atalanta",
+      "kind": "club",
+      "motif": "Perfil y viento",
+      "colors": {
+        "tile": "#193760",
+        "primary": "#F2EFE6",
+        "accent": "#438DCD"
+      },
+      "contrast": {
+        "primaryOnTile": 10.3971,
+        "accentOnTile": 3.3757
+      },
+      "source": "https://www.legaseriea.it/team",
+      "svg": "svg/atalanta-bc.svg",
+      "png": "png/atalanta-bc.png",
+      "symbolId": "pitchlab-atalanta-bc"
+    },
+    {
+      "id": "bologna",
+      "code": "BOL",
+      "name": "Bologna FC 1909",
+      "shortName": "Bologna",
+      "kind": "club",
+      "motif": "Dos torres",
+      "colors": {
+        "tile": "#242D4D",
+        "primary": "#FCF0DB",
+        "accent": "#BE3A51"
+      },
+      "contrast": {
+        "primaryOnTile": 11.9587,
+        "accentOnTile": 2.5126
+      },
+      "source": "https://www.legaseriea.it/team",
+      "svg": "svg/bologna.svg",
+      "png": "png/bologna.png",
+      "symbolId": "pitchlab-bologna"
+    },
+    {
+      "id": "cagliari",
+      "code": "CAG",
+      "name": "Cagliari Calcio",
+      "shortName": "Cagliari",
+      "kind": "club",
+      "motif": "Cuatro cuarteles",
+      "colors": {
+        "tile": "#20385C",
+        "primary": "#F7EFDE",
+        "accent": "#C33D51"
+      },
+      "contrast": {
+        "primaryOnTile": 10.3031,
+        "accentOnTile": 2.305
+      },
+      "source": "https://www.legaseriea.it/team",
+      "svg": "svg/cagliari.svg",
+      "png": "png/cagliari.png",
+      "symbolId": "pitchlab-cagliari"
+    },
+    {
+      "id": "como",
+      "code": "COM",
+      "name": "Como 1907",
+      "shortName": "Como",
+      "kind": "club",
+      "motif": "Lago y montañas",
+      "colors": {
+        "tile": "#19437E",
+        "primary": "#F4F1DE",
+        "accent": "#77C4DD"
+      },
+      "contrast": {
+        "primaryOnTile": 8.6151,
+        "accentOnTile": 4.9987
+      },
+      "source": "https://www.legaseriea.it/team",
+      "svg": "svg/como.svg",
+      "png": "png/como.png",
+      "symbolId": "pitchlab-como"
+    },
+    {
+      "id": "internazionale-milano",
+      "code": "INT",
+      "name": "FC Internazionale Milano",
+      "shortName": "Inter",
+      "kind": "club",
+      "motif": "Monograma entre franjas",
+      "colors": {
+        "tile": "#152743",
+        "primary": "#F5E8C7",
+        "accent": "#3D88C5"
+      },
+      "contrast": {
+        "primaryOnTile": 12.2937,
+        "accentOnTile": 3.9385
+      },
+      "source": "https://www.legaseriea.it/team",
+      "svg": "svg/internazionale-milano.svg",
+      "png": "png/internazionale-milano.png",
+      "symbolId": "pitchlab-internazionale-milano"
+    },
+    {
+      "id": "frosinone",
+      "code": "FRO",
+      "name": "Frosinone Calcio",
+      "shortName": "Frosinone",
+      "kind": "club",
+      "motif": "León y sol",
+      "colors": {
+        "tile": "#F4C940",
+        "primary": "#1A3768",
+        "accent": "#A76B18"
+      },
+      "contrast": {
+        "primaryOnTile": 7.4152,
+        "accentOnTile": 2.7893
+      },
+      "source": "https://www.legaseriea.it/team",
+      "svg": "svg/frosinone.svg",
+      "png": "png/frosinone.png",
+      "symbolId": "pitchlab-frosinone"
+    },
+    {
+      "id": "genoa-cfc",
+      "code": "GEN",
+      "name": "Genoa CFC",
+      "shortName": "Genoa",
+      "kind": "club",
+      "motif": "Grifo del puerto",
+      "colors": {
+        "tile": "#22345A",
+        "primary": "#FDE7BA",
+        "accent": "#B93247"
+      },
+      "contrast": {
+        "primaryOnTile": 10.145,
+        "accentOnTile": 2.1151
+      },
+      "source": "https://www.legaseriea.it/team",
+      "svg": "svg/genoa-cfc.svg",
+      "png": "png/genoa-cfc.png",
+      "symbolId": "pitchlab-genoa-cfc"
+    },
+    {
+      "id": "juventus",
+      "code": "JUV",
+      "name": "Juventus FC",
+      "shortName": "Juventus",
+      "kind": "club",
+      "motif": "Cebra en carrera",
+      "colors": {
+        "tile": "#25262B",
+        "primary": "#F7F1E1",
+        "accent": "#AD8D4E"
+      },
+      "contrast": {
+        "primaryOnTile": 13.3911,
+        "accentOnTile": 4.8151
+      },
+      "source": "https://www.legaseriea.it/team",
+      "svg": "svg/juventus.svg",
+      "png": "png/juventus.png",
+      "symbolId": "pitchlab-juventus"
+    },
+    {
+      "id": "lazio",
+      "code": "LAZ",
+      "name": "SS Lazio",
+      "shortName": "Lazio",
+      "kind": "club",
+      "motif": "Águila celeste",
+      "colors": {
+        "tile": "#A1D8EA",
+        "primary": "#173A64",
+        "accent": "#F9E7B9"
+      },
+      "contrast": {
+        "primaryOnTile": 7.4087,
+        "accentOnTile": 1.2686
+      },
+      "source": "https://www.legaseriea.it/team",
+      "svg": "svg/lazio.svg",
+      "png": "png/lazio.png",
+      "symbolId": "pitchlab-lazio"
+    },
+    {
+      "id": "lecce",
+      "code": "LEC",
+      "name": "US Lecce",
+      "shortName": "Lecce",
+      "kind": "club",
+      "motif": "Encina del Salento",
+      "colors": {
+        "tile": "#9C263D",
+        "primary": "#FFE38E",
+        "accent": "#416C51"
+      },
+      "contrast": {
+        "primaryOnTile": 6.0293,
+        "accentOnTile": 1.2648
+      },
+      "source": "https://www.legaseriea.it/team",
+      "svg": "svg/lecce.svg",
+      "png": "png/lecce.png",
+      "symbolId": "pitchlab-lecce"
+    },
+    {
+      "id": "napoli",
+      "code": "NAP",
+      "name": "SSC Napoli",
+      "shortName": "Napoli",
+      "kind": "club",
+      "motif": "Ola del golfo",
+      "colors": {
+        "tile": "#12649A",
+        "primary": "#F3F4E8",
+        "accent": "#85CBEC"
+      },
+      "contrast": {
+        "primaryOnTile": 5.706,
+        "accentOnTile": 3.5445
+      },
+      "source": "https://www.legaseriea.it/team",
+      "svg": "svg/napoli.svg",
+      "png": "png/napoli.png",
+      "symbolId": "pitchlab-napoli"
+    },
+    {
+      "id": "parma",
+      "code": "PAR",
+      "name": "Parma Calcio 1913",
+      "shortName": "Parma",
+      "kind": "club",
+      "motif": "Cruz y bandas",
+      "colors": {
+        "tile": "#F5D968",
+        "primary": "#232F47",
+        "accent": "#28579A"
+      },
+      "contrast": {
+        "primaryOnTile": 9.5647,
+        "accentOnTile": 5.1394
+      },
+      "source": "https://www.legaseriea.it/team",
+      "svg": "svg/parma.svg",
+      "png": "png/parma.png",
+      "symbolId": "pitchlab-parma"
+    },
+    {
+      "id": "sassuolo",
+      "code": "SAS",
+      "name": "US Sassuolo Calcio",
+      "shortName": "Sassuolo",
+      "kind": "club",
+      "motif": "Franja y trébol",
+      "colors": {
+        "tile": "#19372F",
+        "primary": "#EAF2D8",
+        "accent": "#4D9871"
+      },
+      "contrast": {
+        "primaryOnTile": 11.1679,
+        "accentOnTile": 3.7114
+      },
+      "source": "https://www.legaseriea.it/team",
+      "svg": "svg/sassuolo.svg",
+      "png": "png/sassuolo.png",
+      "symbolId": "pitchlab-sassuolo"
+    },
+    {
+      "id": "torino",
+      "code": "TOR",
+      "name": "Torino FC",
+      "shortName": "Torino",
+      "kind": "club",
+      "motif": "Toro granata",
+      "colors": {
+        "tile": "#792338",
+        "primary": "#FFECD3",
+        "accent": "#C35C57"
+      },
+      "contrast": {
+        "primaryOnTile": 8.6192,
+        "accentOnTile": 2.3638
+      },
+      "source": "https://www.legaseriea.it/team",
+      "svg": "svg/torino.svg",
+      "png": "png/torino.png",
+      "symbolId": "pitchlab-torino"
+    },
+    {
+      "id": "udinese",
+      "code": "UDI",
+      "name": "Udinese Calcio",
+      "shortName": "Udinese",
+      "kind": "club",
+      "motif": "Bandas y laurel",
+      "colors": {
+        "tile": "#232630",
+        "primary": "#F6EED8",
+        "accent": "#BA9854"
+      },
+      "contrast": {
+        "primaryOnTile": 13.0373,
+        "accentOnTile": 5.5392
+      },
+      "source": "https://www.legaseriea.it/team",
+      "svg": "svg/udinese.svg",
+      "png": "png/udinese.png",
+      "symbolId": "pitchlab-udinese"
+    },
+    {
+      "id": "venezia",
+      "code": "VEN",
+      "name": "Venezia FC",
+      "shortName": "Venezia",
+      "kind": "club",
+      "motif": "León alado y laguna",
+      "colors": {
+        "tile": "#223532",
+        "primary": "#FFE9C4",
+        "accent": "#E69B55"
+      },
+      "contrast": {
+        "primaryOnTile": 10.9065,
+        "accentOnTile": 5.6577
+      },
+      "source": "https://www.legaseriea.it/team",
+      "svg": "svg/venezia.svg",
+      "png": "png/venezia.png",
+      "symbolId": "pitchlab-venezia"
+    }
+  ]
+}

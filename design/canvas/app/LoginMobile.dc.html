@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<title>PitchLab · Entrar (móvil)</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+.pl-dark{--bg:#0B1020;--nav:#10172A;--elev:#1A2440;--surf:#151E34;--hover:#222D49;--active:#302650;--t1:#F3F5FD;--t2:#B8C1D7;--t3:#98A4BF;--line:#33405D;--line2:#73819F;--brand:#B49AFF;--on:#0B1020;--glow:#B49AFF26}
+.pl-light{--bg:#F3F5FD;--nav:#FFFFFF;--elev:#FFFFFF;--surf:#FFFFFF;--hover:#E9ECF7;--active:#E6E0FF;--t1:#0B1020;--t2:#3B4560;--t3:#5A6480;--line:#D5DAE8;--line2:#7C87A3;--brand:#5940B2;--on:#FFFFFF;--glow:#5940B21F}
+a{color:var(--brand);text-decoration:none;font-weight:600}
+.num{font-variant-numeric:tabular-nums lining-nums}
+</style>
+</helmet>
+<div class="{{themeClass}}" style="width: 390px; height: 844px; box-sizing: border-box; background: var(--bg); color: var(--t1); font-family: Inter, system-ui, sans-serif; font-size: 15px; line-height: 1.45; display: flex; flex-direction: column; padding: 20px 20px 24px; gap: 20px; overflow: hidden">
+  <sc-if value="{{isDark}}" hint-placeholder-val="{{ true }}"><img src="/_blob/6663a8cb7ea42ab8a1684d7c68686f02" alt="PitchLab" style="height: 26px; width: auto; display: block; align-self: flex-start"></sc-if>
+  <sc-if value="{{isLight}}" hint-placeholder-val="{{ false }}"><img src="/_blob/0adefa1c96fea6646bc58f3e765be76c" alt="PitchLab" style="height: 26px; width: auto; display: block; align-self: flex-start"></sc-if>
+
+  <div style="display: flex; align-items: center; gap: 14px; padding: 14px; border-radius: 16px; background: var(--elev); border: 1px solid var(--line)">
+    <div style="width: 64px; height: 64px; flex: none; border-radius: 999px; background: var(--glow); display: grid; place-items: center"><img src="/_blob/a1308dc965b7c2f005bb78b6fa9dafaf" alt="" style="width: 58px; height: 58px"></div>
+    <div style="display: flex; flex-direction: column; min-width: 0">
+      <span style="font-size: 12px; color: var(--t3)">Lo más probable · vie 20 nov</span>
+      <span style="font-weight: 700">Bayern München gana</span>
+      <span class="num" style="font-size: 13px; color: var(--t2)"><span style="font-size: 17px; font-weight: 800; color: var(--brand)">88.7 %</span> · cuota justa 1.13</span>
+    </div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 6px">
+    <h1 style="margin: 0; font-size: 26px; line-height: 1.15; font-weight: 800; letter-spacing: -0.02em">Entra a PitchLab</h1>
+    <p style="margin: 0; font-size: 14px; color: var(--t2)">Lo más probable de cada partido, con su cuota justa.</p>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+    <button type="button" style="height: 48px; display: flex; align-items: center; justify-content: center; gap: 8px; border-radius: 8px; border: 1px solid var(--line2); background: var(--surf); color: var(--t1); font: inherit; font-weight: 600; cursor: pointer">
+      <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.6 12.2c0-.7-.1-1.4-.2-2H12v3.8h5.4a4.6 4.6 0 0 1-2 3v2.5h3.2c1.9-1.7 3-4.3 3-7.3z" opacity=".9"></path><path fill="currentColor" d="M12 22c2.7 0 5-.9 6.6-2.4l-3.2-2.5c-.9.6-2 1-3.4 1-2.6 0-4.8-1.8-5.6-4.1H3.1v2.6A10 10 0 0 0 12 22z" opacity=".7"></path><path fill="currentColor" d="M6.4 14a6 6 0 0 1 0-4V7.4H3.1a10 10 0 0 0 0 9.2z" opacity=".5"></path><path fill="currentColor" d="M12 5.9c1.5 0 2.8.5 3.8 1.5l2.9-2.9A10 10 0 0 0 3.1 7.4L6.4 10c.8-2.3 3-4.1 5.6-4.1z" opacity=".8"></path></svg>Google
+    </button>
+    <button type="button" style="height: 48px; display: flex; align-items: center; justify-content: center; gap: 8px; border-radius: 8px; border: 1px solid var(--line2); background: var(--surf); color: var(--t1); font: inherit; font-weight: 600; cursor: pointer">
+      <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.4 12.6c0-2.4 2-3.5 2.1-3.6-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9-.8 0-1.9-.8-3.2-.8A4.7 4.7 0 0 0 4.2 9.6c-1.7 3-.4 7.4 1.2 9.8.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.2-1.2 3-2.4.9-1.4 1.3-2.7 1.3-2.8 0 0-2.6-1-2.7-4zM14 5.4c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1.1.1 2.1-.6 2.8-1.4z"></path></svg>Apple
+    </button>
+  </div>
+
+  <div style="display: flex; align-items: center; gap: 12px; font-size: 13px; color: var(--t3)"><span style="flex: 1 1 auto; height: 1px; background: var(--line)"></span>o con tu correo<span style="flex: 1 1 auto; height: 1px; background: var(--line)"></span></div>
+
+  <div style="display: flex; flex-direction: column; gap: 14px">
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <label for="m-email" style="font-size: 14px; font-weight: 600; color: var(--t2)">Correo</label>
+      <input id="m-email" type="email" autocomplete="email" placeholder="tu@correo.com" style="height: 48px; padding: 0 14px; border-radius: 8px; border: 1px solid var(--line2); background: var(--surf); color: var(--t1); font: inherit; outline: none">
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <div style="display: flex; justify-content: space-between; align-items: baseline"><label for="m-pass" style="font-size: 14px; font-weight: 600; color: var(--t2)">Contraseña</label><a href="#" style="font-size: 13px">¿La olvidaste?</a></div>
+      <input id="m-pass" type="password" autocomplete="current-password" style="height: 48px; padding: 0 14px; border-radius: 8px; border: 1px solid var(--line2); background: var(--surf); color: var(--t1); font: inherit; outline: none">
+    </div>
+    <button type="button" style="height: 48px; border: 0; border-radius: 8px; background: var(--brand); color: var(--on); font: inherit; font-weight: 700; cursor: pointer">Entrar</button>
+    <button type="button" style="height: 44px; border: 0; background: transparent; color: var(--t2); font: inherit; font-size: 14px; font-weight: 600; cursor: pointer">Entrar con un enlace por correo</button>
+  </div>
+
+  <p style="margin: auto 0 0; text-align: center; font-size: 14px; color: var(--t2)">¿No tienes cuenta? <a href="#">Crear cuenta</a></p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["dark","light"],"default":"dark","section":"Tema"},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const light = this.props.theme === 'light';
+    return { themeClass: light ? 'pl-light' : 'pl-dark', isDark: !light, isLight: light };
+  }
+}
+</script>
+</body>
+</html>

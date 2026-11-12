@@ -1,0 +1,261 @@
+{
+  "v": 3,
+  "createdOnFiles": {
+    "v": 1,
+    "at": "2026-11-09T19:40:00Z"
+  },
+  "title": "PitchLab · App (/app)",
+  "launch": {
+    "view": "canvas"
+  },
+  "boards": {
+    "Main.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 1240,
+      "title": "Inicio · escritorio · oscuro",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "Mobile.dc.html": {
+      "x": 1520,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "Inicio · móvil · oscuro",
+      "is_interactive": true
+    },
+    "MobileMore.dc.html": {
+      "x": 1990,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "Menú «Más» · oscuro",
+      "is_interactive": true
+    },
+    "MainLight.dc.html": {
+      "x": 0,
+      "y": 1700,
+      "w": 1440,
+      "h": 1240,
+      "title": "Inicio · escritorio · claro",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "MobileLight.dc.html": {
+      "x": 1520,
+      "y": 1700,
+      "w": 390,
+      "h": 844,
+      "title": "Inicio · móvil · claro",
+      "is_interactive": true
+    },
+    "MobileMoreLight.dc.html": {
+      "x": 1990,
+      "y": 1700,
+      "w": 390,
+      "h": 844,
+      "title": "Menú «Más» · claro",
+      "is_interactive": true
+    },
+    "Login.dc.html": {
+      "x": 0,
+      "y": 3500,
+      "w": 1440,
+      "h": 900,
+      "title": "Login · escritorio · oscuro",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "LoginMobile.dc.html": {
+      "x": 1520,
+      "y": 3500,
+      "w": 390,
+      "h": 844,
+      "title": "Login · móvil · oscuro",
+      "is_interactive": true
+    },
+    "LoginLight.dc.html": {
+      "x": 1990,
+      "y": 3500,
+      "w": 1440,
+      "h": 900,
+      "title": "Login · escritorio · claro",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "LoginMobileLight.dc.html": {
+      "x": 3510,
+      "y": 3500,
+      "w": 390,
+      "h": 844,
+      "title": "Login · móvil · claro",
+      "is_interactive": true
+    },
+    "Signup.dc.html": {
+      "x": 0,
+      "y": 4800,
+      "w": 1440,
+      "h": 1040,
+      "title": "Crear cuenta · escritorio · oscuro",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "SignupMobile.dc.html": {
+      "x": 1520,
+      "y": 4800,
+      "w": 390,
+      "h": 1160,
+      "title": "Crear cuenta · móvil · oscuro",
+      "is_interactive": true
+    },
+    "SignupLight.dc.html": {
+      "x": 1990,
+      "y": 4800,
+      "w": 1440,
+      "h": 1040,
+      "title": "Crear cuenta · escritorio · claro",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "SignupMobileLight.dc.html": {
+      "x": 3510,
+      "y": 4800,
+      "w": 390,
+      "h": 1160,
+      "title": "Crear cuenta · móvil · claro",
+      "is_interactive": true
+    },
+    "Pricing.dc.html": {
+      "x": 0,
+      "y": 6360,
+      "w": 1440,
+      "h": 2240,
+      "title": "Planes · escritorio · oscuro",
+      "expand": "fill"
+    },
+    "PricingMobile.dc.html": {
+      "x": 1520,
+      "y": 6360,
+      "w": 390,
+      "h": 2900,
+      "title": "Planes · móvil · oscuro"
+    },
+    "PricingLight.dc.html": {
+      "x": 1990,
+      "y": 6360,
+      "w": 1440,
+      "h": 2240,
+      "title": "Planes · escritorio · claro",
+      "expand": "fill"
+    },
+    "PricingMobileLight.dc.html": {
+      "x": 3510,
+      "y": 6360,
+      "w": 390,
+      "h": 2900,
+      "title": "Planes · móvil · claro"
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "Mobile.dc.html",
+    "MobileMore.dc.html",
+    "MainLight.dc.html",
+    "MobileLight.dc.html",
+    "MobileMoreLight.dc.html",
+    "Login.dc.html",
+    "LoginMobile.dc.html",
+    "LoginLight.dc.html",
+    "LoginMobileLight.dc.html",
+    "Signup.dc.html",
+    "SignupMobile.dc.html",
+    "SignupLight.dc.html",
+    "SignupMobileLight.dc.html",
+    "Pricing.dc.html",
+    "PricingMobile.dc.html",
+    "PricingLight.dc.html",
+    "PricingMobileLight.dc.html"
+  ],
+  "notes": {
+    "title": {
+      "x": 0,
+      "y": -300,
+      "text": "/app · Inicio · modo oscuro",
+      "kind": "title1",
+      "maxW": 2380
+    },
+    "titleLight": {
+      "x": 0,
+      "y": 1400,
+      "text": "/app · Inicio · modo claro",
+      "kind": "title1",
+      "maxW": 2380
+    },
+    "data": {
+      "x": 1520,
+      "y": 924,
+      "w": 420,
+      "fill": "orange",
+      "text": "Enfoque: decirle al usuario qué es lo más probable según los datos y su cuota justa, para que lo compare con la cuota de su casa antes de decidir. Datos reales: partidos, probabilidades, cuotas justas y tabla de Liga MX (snapshots del 9 nov 2026). De EJEMPLO: «Mis picks» y «Movimientos de cuota» (aún no hay cuentas ni histórico de cuotas)."
+    },
+    "scope": {
+      "x": 1990,
+      "y": 924,
+      "w": 390,
+      "fill": "blue",
+      "text": "Alcance MVP (INFORMATION_ARCHITECTURE §2): Inicio, Deportes, Investigar, Mercados, Comunidad y Personal. Inteligencia, IA y notificaciones llegan después (W5–W6). Radar aparece en «Lo más probable», en la tarjeta NFL (edición NFL) y en el menú «Más»; nunca tapa cifras."
+    },
+    "libs": {
+      "x": 2460,
+      "y": 0,
+      "w": 460,
+      "fill": "purple",
+      "text": "Componentes al construirlo (docs/design/UI_LIBRARIES.md):\n• Shell y barra lateral → Astryx AppShell\n• Filtro Todos/Fútbol/NFL → Astryx SegmentedControl\n• Hoja «Más» → Astryx BottomSheet\n• Buscar → HeroUI SearchField · botones → HeroUI Button\n• Chip «Prueba Pro» → HeroUI Chip\n• Barras 1X2 y probabilidad → @pitchlab/ui ProbSplit / ProbBar\n• Emblemas → @pitchlab/ui TeamBadge · Radar → Mascot\n• Tabla → @pitchlab/ui StandingsTable\nTodo con los tokens de @pitchlab/tokens, en claro y oscuro."
+    },
+    "tLogin": {
+      "x": 0,
+      "y": 3200,
+      "text": "Login · oscuro y claro",
+      "kind": "title1",
+      "maxW": 3900
+    },
+    "tSignup": {
+      "x": 0,
+      "y": 4500,
+      "text": "Crear cuenta · oscuro y claro",
+      "kind": "title1",
+      "maxW": 3900
+    },
+    "tPricing": {
+      "x": 0,
+      "y": 6060,
+      "text": "Planes · oscuro y claro",
+      "kind": "title1",
+      "maxW": 3900
+    },
+    "accLibs": {
+      "x": 3980,
+      "y": 3500,
+      "w": 460,
+      "fill": "purple",
+      "text": "Componentes al construirlo:\n• Campos (correo, contraseña, fecha de nacimiento) → HeroUI TextField / DateField\n• Casillas de consentimiento → HeroUI Checkbox\n• Botones (Google, Apple, enlace por correo, principal) → HeroUI Button\n• Tabla comparativa → HeroUI Table\n• Preguntas → HeroUI Accordion\n• Probabilidades de muestra → @pitchlab/ui ProbBar · Radar → Mascot\nTodo con tokens de @pitchlab/tokens."
+    },
+    "accFacts": {
+      "x": 3980,
+      "y": 4800,
+      "w": 460,
+      "fill": "orange",
+      "text": "Del plan (AUTH_BILLING_GROWTH §1–3): correo y contraseña (mín. 10 caracteres, se revisa contra contraseñas filtradas), Google, Apple y enlace mágico; fecha de nacimiento obligatoria (menores de 18: no se crea cuenta ni se guardan datos); términos y privacidad obligatorios, analítica y novedades opcionales. Un trial por persona. Al terminar la prueba sin plan, la cuenta vuelve a Free sin perder datos.\nPOR CONFIRMAR: precio anual, si la prueba desde Planes pide tarjeta, y CFDI (tras definir la persona moral)."
+    },
+    "accData": {
+      "x": 3980,
+      "y": 6360,
+      "w": 460,
+      "fill": "teal",
+      "text": "Las probabilidades del panel de Login y Crear cuenta son reales (snapshots del 9 nov 2026). La invitación de «Ana» en Crear cuenta es de EJEMPLO: muestra cómo se ve llegar por un enlace de referido."
+    }
+  },
+  "designSystems": []
+}

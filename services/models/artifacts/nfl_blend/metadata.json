@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-11-09T05:24:03.383727+00:00",
+  "features": [
+    "rest_diff",
+    "home_rest",
+    "away_rest",
+    "home_post_bye",
+    "away_post_bye",
+    "div_game",
+    "is_dome",
+    "is_outdoors",
+    "temp",
+    "wind",
+    "is_cold",
+    "is_windy",
+    "rolling4_pts_for_diff",
+    "rolling4_pts_against_diff",
+    "rolling4_net_diff",
+    "home_qb_shrunk_epa_per_att",
+    "away_qb_shrunk_epa_per_att",
+    "qb_shrunk_epa_diff",
+    "week"
+  ],
+  "params": {
+    "objective": "multiclass",
+    "num_class": 3,
+    "learning_rate": 0.03,
+    "num_leaves": 7,
+    "min_data_in_leaf": 200,
+    "feature_fraction": 0.8,
+    "bagging_fraction": 0.8,
+    "bagging_freq": 1,
+    "lambda_l2": 5.0,
+    "verbosity": -1,
+    "num_threads": 2,
+    "seed": 42
+  },
+  "rounds": 100,
+  "seed": 42,
+  "rows": 6630,
+  "maxSeason": 2026,
+  "weightRatings": 0.4,
+  "metrics": {
+    "moneyline": {
+      "ratings_test": 0.6690695850982801,
+      "gbm_test": 0.645215270943585,
+      "blend_test": 0.6432880479884274,
+      "market_test": 0.6091154113963607
+    },
+    "nonTies": {
+      "ratings_test": 0.668192020893498,
+      "gbm_test": 0.6449841690003162,
+      "blend_test": 0.6427688876315293,
+      "market_test": 0.6085079256705146
+    }
+  },
+  "notes": [
+    "Modelo research-only: mezcla con el motor NFL de ratings, no publicado en la app.",
+    "Las features vienen del pipeline situacional (rest, bye, clima, EPA de QB).",
+    "pHomeBinario = pHome / (pHome + pAway); el blend usa weightRatings."
+  ]
+}

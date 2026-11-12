@@ -1,0 +1,147 @@
+{
+  "v": 3,
+  "createdOnFiles": { "v": 1, "at": "2026-11-11T23:00:00Z" },
+  "title": "PitchLab · Mi cuenta",
+  "launch": { "view": "canvas" },
+  "pages": [],
+  "boards": {
+    "Main.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1200,
+      "h": 1500,
+      "title": "Mi cuenta › Invitar amigos · escritorio (solo el contenido)",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "InvitarMobile.dc.html": {
+      "x": 1280,
+      "y": 0,
+      "w": 390,
+      "h": 2300,
+      "title": "Invitar amigos · móvil",
+      "is_interactive": true
+    },
+    "Compartir.dc.html": {
+      "x": 0,
+      "y": 1620,
+      "w": 1200,
+      "h": 630,
+      "title": "Imagen al compartir el enlace (1200 × 630)"
+    },
+    "VistaPrevia.dc.html": {
+      "x": 1280,
+      "y": 2420,
+      "w": 390,
+      "h": 760,
+      "title": "Así llega el enlace en un chat"
+    },
+    "Plan.dc.html": {
+      "x": 2500,
+      "y": 0,
+      "w": 1200,
+      "h": 1700,
+      "title": "Mi cuenta › Mi plan · escritorio (estado: prueba, mensual o anual en Tweaks)",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "PlanMobile.dc.html": {
+      "x": 3780,
+      "y": 0,
+      "w": 390,
+      "h": 2900,
+      "title": "Mi plan · móvil",
+      "is_interactive": true
+    },
+    "Prefs.dc.html": {
+      "x": 5000,
+      "y": 0,
+      "w": 1200,
+      "h": 2200,
+      "title": "Mi cuenta › Preferencias · escritorio (todo funciona: ligas, interruptores, unidad en pesos, descanso)",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "PrefsMobile.dc.html": {
+      "x": 6280,
+      "y": 0,
+      "w": 390,
+      "h": 3300,
+      "title": "Preferencias · móvil",
+      "is_interactive": true
+    }
+  },
+  "order": ["Main.dc.html", "InvitarMobile.dc.html", "Compartir.dc.html", "VistaPrevia.dc.html", "Plan.dc.html", "PlanMobile.dc.html", "Prefs.dc.html", "PrefsMobile.dc.html"],
+  "notes": {
+    "titlePrefs": {
+      "x": 5000,
+      "y": -300,
+      "text": "Mi cuenta · Preferencias",
+      "kind": "title1",
+      "maxW": 1670
+    },
+    "cambiosPrefs": {
+      "x": 6750,
+      "y": 0,
+      "w": 520,
+      "fill": "purple",
+      "size": "s",
+      "text": "QUÉ CAMBIA Y POR QUÉ (PREFERENCIAS)\n\n1. Seis grupos con nombre claro y un índice a la izquierda: Tus ligas, Cómo ves los datos, Picks y parlays, Alertas, Privacidad y Juego responsable.\n2. Se guarda solo, con «Guardado» arriba. Sin botón de guardar.\n3. Tus ligas con su emblema; al menos una activa, con aviso si intentas quitar la última. Dice qué afecta: Inicio, la tira de fechas y alertas.\n4. Formato de momio y tema viven aquí también (además del menú de cuenta); el tema suma «Sistema». Nuevo: zona horaria de los partidos.\n5. Perfil de riesgo como tres opciones con su rango (72 %+, 56–72 %, parejo) en vez de palabras sueltas.\n6. El «Simulador de stake» se va: decía cuánto apostar por unidad, y PitchLab no sugiere montos. Queda opcional «Ver mi saldo también en pesos», solo para ti.\n7. Alertas como interruptores con lo que hace cada una.\n8. «Modo Pausa Social (Autoexclusión…)» se separa en tres ajustes claros: perfil público, aparecer en el ranking y pausar Comunidad.\n9. Juego responsable de verdad: pausar la cuenta 24 h, 7 o 30 días, con enlace a recursos de ayuda.\n10. Abajo: descargar mis datos y eliminar cuenta."
+    },
+    "datosPrefs": {
+      "x": 6750,
+      "y": 900,
+      "w": 520,
+      "fill": "blue",
+      "size": "s",
+      "text": "PARA IMPLEMENTAR (PREFERENCIAS)\n\n• Pestaña prefs de AccountReferralsClubView (/app/account?tab=prefs).\n• Ya existen: favoriteLeagues, riskPreference, oddsFormat y el tema (pl-theme). Con sesión deben guardarse en la base, no solo en el navegador.\n• Nuevos: zona horaria, saldo en pesos + valor de unidad, alertas por tipo, perfil público, ranking, pausa de Comunidad y pausa de cuenta (F4).\n• Pausa de cuenta: decidir con el fundador si congela el cobro del plan (aquí se propone que sí) y si se puede deshacer antes de que termine (aquí: solo en el momento).\n• Descargar datos y eliminar cuenta: requisito del aviso de privacidad (LFPDPPP)."
+    },
+    "titlePlan": {
+      "x": 2500,
+      "y": -300,
+      "text": "Mi cuenta · Mi plan",
+      "kind": "title1",
+      "maxW": 1670
+    },
+    "cambiosPlan": {
+      "x": 4250,
+      "y": 0,
+      "w": 520,
+      "fill": "purple",
+      "size": "s",
+      "text": "QUÉ CAMBIA Y POR QUÉ (MI PLAN)\n\n1. Lo primero que ves es el estado de tu pase: Activo, Prueba (con días restantes) o Sin renovación. Antes solo había un precio y un selector.\n2. Tu pase es la misma tarjeta 3D del Pase Ultra, con tu @usuario.\n3. Cuatro datos que hoy faltan: plan y precio, próximo cobro (o hasta cuándo tienes acceso), tarjeta y días a favor.\n4. Los días a favor de invitaciones recorren tu próximo cobro y se dice con la fecha: «se recorre al 10 ene 2027».\n5. Mensual o anual como dos opciones claras con el ahorro en pesos ($1,198 al año). Cambiar no pierde días: aplica en el siguiente corte.\n6. Cancelar es un enlace discreto con confirmación que dice qué conservas: acceso hasta la fecha, días a favor y bitácora. Después aparece «Reactivar renovación».\n7. Prueba sin tarjeta: dice que al terminar no hay cobro automático y ofrece activar mensual o anual.\n8. Historial de pagos con su factura por cobro (marcado Ejemplo).\n9. Fuera: «Cancelar en 1 clic» con toast falso y el botón «Mantener Mensual»."
+    },
+    "datosPlan": {
+      "x": 4250,
+      "y": 860,
+      "w": 520,
+      "fill": "blue",
+      "size": "s",
+      "text": "PARA IMPLEMENTAR (MI PLAN)\n\n• Pestaña plan de AccountReferralsClubView (/app/account?tab=plan).\n• Estado y fechas: tabla subscriptions (status, interval, currentPeriodEnd, cancelAtPeriodEnd) y accessUntil() para los días a favor.\n• Cambiar tarjeta, cancelar, reactivar y cambiar de ciclo: Stripe Customer Portal (sesión con return_url a esta pestaña) o la API de suscripciones con proration_behavior none.\n• Activar desde la prueba: el POST /api/billing/checkout que ya existe.\n• Historial: invoices de Stripe + el CFDI de Facturapi por cobro.\n• Avisos antes del cobro (3 días mensual, 7 días anual): propuesta; requiere correo programado.\n• Precios desde MEMBERSHIP_SPEC (299, 2,390, 199, ahorro 1,198)."
+    },
+    "title": {
+      "x": 0,
+      "y": -300,
+      "text": "Mi cuenta · Invitar amigos",
+      "kind": "title1",
+      "maxW": 1670
+    },
+    "cambios": {
+      "x": 1750,
+      "y": 0,
+      "w": 520,
+      "fill": "purple",
+      "size": "s",
+      "text": "QUÉ CAMBIA Y POR QUÉ\n\n1. La invitación ES la tarjeta 3D del Pase Ultra (ReferralCard3D): la misma que ve tu amigo al abrir el enlace, con tu @usuario y tu código. Se voltea para ver el reverso.\n2. Enlace corto pitchlab.mx/i/JAIR-2611 en vez de /pricing/referral?sku=…&interval=…&code=…#subscribe. Redirige a la misma página.\n3. Al compartir el enlace, la vista previa (WhatsApp, X, iMessage) muestra la tarjeta: imagen 1200 × 630 generada por código.\n4. Una sola oferta clara: tu amigo 7 días sin costo y $209 su primer mes; cuando paga, +15 días para los dos. Con 5 amigos, +30 días extra.\n5. Compartir en un toque: copiar enlace, WhatsApp, X, copiar mensaje y el menú del sistema. «Descargar tarjeta» para historias.\n6. Avance con 5 lugares (uno por amigo) en vez de una barra con %.\n7. «Tus invitaciones»: quién pagó, quién está en prueba y cuántas veces se abrió tu enlace (anónimo).\n8. Fuera: «Simular pago de un amigo» (solo en el simulador de roles), la tarjeta de regalo plana y «Ver portada pública».\n9. Las cuatro pestañas de Mi cuenta pasan a pestañas subrayadas; las otras tres se rediseñan después."
+    },
+    "datos": {
+      "x": 1750,
+      "y": 860,
+      "w": 520,
+      "fill": "blue",
+      "size": "s",
+      "text": "PARA IMPLEMENTAR\n\n• Vista: AccountReferralsClubView, pestaña referrals (/app/account?tab=referrals).\n• Tarjeta: ReferralCard3D con code, bottomLeftLabel = @usuario y tierLabel ULTRA (o ULTRA · TIPSTAR).\n• Enlace: ruta nueva /i/[code] → redirige a /pricing/referral?code=…&from=… (la ReferralInviteSurface que ya existe).\n• Vista previa: opengraph-image en /i/[code] (ImageResponse 1200 × 630) con la captura de la tarjeta, @usuario y la oferta.\n• Reglas: MEMBERSHIP_SPEC.referralFriendBenefit, referralBothRewardDays (15), referralAmbassadorThreshold (5), referralAmbassadorBonusDays (30).\n• Conteos: referralPaidFriends hoy; «En prueba» y «aperturas» necesitan eventos nuevos en la base (F4). Hasta entonces la lista va marcada Ejemplo.\n• Descargar tarjeta: PNG 1080 × 1350 para historias desde la misma textura."
+    }
+  },
+  "designSystems": []
+}
