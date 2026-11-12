@@ -7,6 +7,7 @@ export * from "./community-stats";
 export * from "./match-picks-engine";
 export * from "./parlay-engine";
 export * from "./platform-provider";
+export * from "./notifications";
 
 export * from "./components/PlatformOverlays";
 export * from "./components/MatchTicketCard";

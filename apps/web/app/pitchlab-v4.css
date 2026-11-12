@@ -2118,6 +2118,238 @@ html[data-theme="light"] .pl-menu-seg button[aria-pressed="true"] {
   }
 }
 
+/* ---------- Notificaciones: hereda posición, animación y hoja móvil de .pl-profile-menu ---------- */
+.pl-notif-menu {
+  width: min(400px, calc(100vw - 16px));
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.pl-notif-menu:not(:popover-open) {
+  display: none;
+}
+.pl-notif-menu > .pl-profile-menu-grab {
+  margin-top: 8px;
+}
+.pl-notif {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  max-height: min(600px, calc(100dvh - 96px));
+}
+.pl-notif-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 14px 16px 10px;
+}
+.pl-notif-title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+.pl-notif-link {
+  padding: 4px 6px;
+  border: 0;
+  border-radius: 6px;
+  background: none;
+  color: var(--pl-brand);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.pl-notif-link:disabled {
+  color: var(--pl-text-muted);
+  cursor: default;
+}
+.pl-notif-chips {
+  display: flex;
+  gap: 6px;
+  padding: 0 16px 10px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.pl-notif-chip {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 28px;
+  padding: 0 11px;
+  border: 1px solid var(--pl-border);
+  border-radius: 999px;
+  background: none;
+  color: var(--pl-text-secondary);
+  font: inherit;
+  font-size: 0.74rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.pl-notif-chip[aria-pressed="true"] {
+  border-color: transparent;
+  background: var(--pl-surface-active);
+  color: var(--pl-text);
+}
+.pl-notif-chip > span {
+  color: var(--pl-brand);
+}
+.pl-notif-list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border-top: 1px solid var(--pl-border);
+}
+.pl-notif-group {
+  padding: 12px 16px 4px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pl-text-muted);
+}
+.pl-notif-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr) auto;
+  gap: 10px;
+  padding: 10px 16px 12px;
+  color: var(--pl-text);
+  text-decoration: none;
+  @media (prefers-reduced-motion: no-preference) {
+    transition: background-color 160ms ease;
+  }
+}
+.pl-notif-row:hover {
+  background: var(--pl-surface-hover);
+}
+.pl-notif-row + .pl-notif-row::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 58px;
+  right: 0;
+  height: 1px;
+  background: var(--pl-border);
+  opacity: 0.6;
+}
+.pl-notif-ico {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--pl-border);
+  border-radius: 10px;
+  background: var(--pl-surface);
+  color: var(--pl-text-secondary);
+}
+.pl-notif-ico[data-urgent] {
+  border-color: color-mix(in srgb, var(--pl-warning) 40%, var(--pl-border));
+  color: var(--pl-warning);
+}
+.pl-notif-body {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+.pl-notif-row-title {
+  font-size: 0.86rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+.pl-notif-row[data-read] .pl-notif-row-title {
+  font-weight: 500;
+  color: var(--pl-text-secondary);
+}
+.pl-notif-ctx {
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--pl-text-secondary);
+}
+.pl-notif-ctx b {
+  font-weight: 700;
+  color: var(--pl-brand);
+}
+.pl-notif-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+  margin-top: 4px;
+  font-size: 0.72rem;
+  color: var(--pl-text-muted);
+}
+.pl-notif-act {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-weight: 600;
+  color: var(--pl-brand);
+}
+.pl-notif-side {
+  display: grid;
+  justify-items: end;
+  align-content: start;
+  gap: 6px;
+  padding-top: 2px;
+}
+.pl-notif-urgent {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--pl-warning);
+}
+.pl-notif-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--pl-brand);
+}
+.pl-notif-row[data-read] .pl-notif-dot {
+  visibility: hidden;
+}
+.pl-notif-empty {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  padding: 32px 24px;
+  text-align: center;
+  color: var(--pl-text-muted);
+}
+.pl-notif-empty strong {
+  font-size: 0.9rem;
+  color: var(--pl-text);
+}
+.pl-notif-empty p {
+  max-width: 32ch;
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+.pl-notif-bottom {
+  padding: 10px 16px;
+  border-top: 1px solid var(--pl-border);
+  font-size: 0.75rem;
+  color: var(--pl-text-muted);
+}
+@media (max-width: 1023px) {
+  .pl-notif-menu {
+    width: 100%;
+    padding: 0 0 env(safe-area-inset-bottom);
+  }
+  .pl-notif {
+    max-height: calc(100dvh - 72px);
+  }
+  .pl-notif-row {
+    padding-block: 12px 14px;
+  }
+}
+
 /* ---------- Pie del club ---------- */
 .pl-club-footer {
   display: flex;

@@ -280,8 +280,6 @@ export interface PlatformContextValue {
   openShareTicket: (payload: ShareTicketPayload) => void;
   closeShareTicket: () => void;
 
-  alertsOpen: boolean;
-  setAlertsOpen: (v: boolean) => void;
   cmdkOpen: boolean;
   setCmdkOpen: (v: boolean) => void;
 
@@ -352,7 +350,6 @@ const ACTION_KEYS = [
   "closeComposer",
   "openShareTicket",
   "closeShareTicket",
-  "setAlertsOpen",
   "setCmdkOpen",
   "openBetaPin",
   "closeBetaPin",
@@ -468,7 +465,6 @@ export function PlatformProvider({
 
   const [composerPick, setComposerPick] = useState<MatchPick | null>(null);
   const [shareTicket, setShareTicket] = useState<ShareTicketPayload | null>(null);
-  const [alertsOpen, setAlertsOpen] = useState<boolean>(false);
   const [cmdkOpen, setCmdkOpen] = useState<boolean>(false);
   const [betaPinOpen, setBetaPinOpen] = useState<boolean>(false);
   const [betaPinNextPath, setBetaPinNextPath] = useState<string>("/app");
@@ -589,7 +585,6 @@ export function PlatformProvider({
         setCmdkOpen((prev) => !prev);
       } else if (event.key === "Escape") {
         setCmdkOpen(false);
-        setAlertsOpen(false);
         setComposerPick(null);
         setShareTicket(null);
         setBetaPinOpen(false);
@@ -1168,8 +1163,6 @@ export function PlatformProvider({
       shareTicket,
       openShareTicket: setShareTicket,
       closeShareTicket: () => setShareTicket(null),
-      alertsOpen,
-      setAlertsOpen,
       cmdkOpen,
       setCmdkOpen,
       betaPinOpen,
@@ -1224,7 +1217,6 @@ export function PlatformProvider({
       selectedTipstarPickId,
       composerPick,
       shareTicket,
-      alertsOpen,
       cmdkOpen,
       betaPinOpen,
       betaPinNextPath,

@@ -22,6 +22,7 @@ import {
   SocialVipClubView,
   TipstarPortalClubView,
 } from "./club/SocialAndTipstarViews";
+import { ClubLayoutShell } from "./components/ShellChrome";
 import { buildPlatformDataset } from "./match-picks-engine";
 import { PlatformProvider } from "./platform-provider";
 import {
@@ -362,6 +363,17 @@ export const ClubJornadaHome = {
   render: () => (
     <StoryShell role="member">
       <JornadaClubView />
+    </StoryShell>
+  ),
+};
+
+/** Jornada dentro del shell completo: encabezado con la campana de notificaciones. */
+export const ClubJornadaConEncabezado = {
+  render: () => (
+    <StoryShell role="member">
+      <ClubLayoutShell activePath="/app">
+        <JornadaClubView />
+      </ClubLayoutShell>
     </StoryShell>
   ),
 };

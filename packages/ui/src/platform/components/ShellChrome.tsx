@@ -24,7 +24,6 @@ import {
   type MaestroIconName,
 } from "./MaestroPrimitives";
 import {
-  AlertsDrawer,
   BetaPinModal,
   CommandPaletteModal,
   ParlayFloatingDock,
@@ -33,8 +32,8 @@ import {
   ShareTicketModal,
   ToastViewport,
   TopLayerModalDialog,
-  valueAlertsFrom,
 } from "./PlatformOverlays";
+import { NotificationBell } from "./NotificationInbox";
 
 const RAIL_STORAGE_KEY = "pl-rail-collapsed";
 /** Sobrevive al cambio de página (cada vista monta su propio shell) sin parpadeo. */
@@ -424,7 +423,6 @@ function AtmosphereStageImpl({
           <ParlayFloatingDock />
           <PickComposerModal />
           <ShareTicketModal />
-          <AlertsDrawer />
           <CommandPaletteModal />
           <RoleSimulatorBar activePath={activePath} />
         </>
@@ -712,7 +710,6 @@ function ClubWorkspaceShellImpl({
     viewerRole,
     parlayLegs,
     journal,
-    setAlertsOpen,
     setCmdkOpen,
     logoutSession,
     navigateTo,
@@ -836,7 +833,6 @@ function ClubWorkspaceShellImpl({
     }
   };
   const [mobileMoreOpen, setMobileMoreOpen] = useState<boolean>(false);
-  const valueAlertCount = useMemo(() => valueAlertsFrom(dataset.games).length, [dataset.games]);
 
   // Navegación: 4 destinos principales, las ligas y un grupo «Más» para lo secundario.
   // El portal de tipstars y la consola solo aparecen para quien los usa.
@@ -919,19 +915,7 @@ function ClubWorkspaceShellImpl({
 
           {/* Derecha: Campana (2), Momio/Decimal, Tema, Chip Perfil @jair/@sofia_nfl, Salir */}
           <div className="flex items-center gap-2 shrink-0">
-            <button
-              type="button"
-              className="pl-btn-glass pl-bell-btn"
-              aria-label={`Abrir alertas de valor (${valueAlertCount})`}
-              onClick={() => setAlertsOpen(true)}
-            >
-              <MaestroIcon name="bell" size={16} />
-              {valueAlertCount > 0 ? (
-                <span className="pl-bell-count num" aria-hidden="true">
-                  {valueAlertCount}
-                </span>
-              ) : null}
-            </button>
+            <NotificationBell />
 
             {/* Chip de perfil: abre el menú de la cuenta (popover en escritorio, hoja en móvil). */}
             <button

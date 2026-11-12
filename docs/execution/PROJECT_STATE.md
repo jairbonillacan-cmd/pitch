@@ -29,6 +29,13 @@
   - Cerrar sesión también cierra la sesión de la cuenta.
   - Pasos del fundador: `docs/product/GUIA_CUENTAS_Y_DESPLIEGUE.md`.
 - **Peso de página:** `/`, `/login` y `/signup` pesan 489 kB de First Load JS (importan desde la raíz de `@pitchlab/ui`). Revisar contra el presupuesto de 326 kB que mencionaba LOGIN-2.
+- **NOTIF-1 (notificaciones, Fase 1 sin backend):** ✅ 2026-11-12. Propuesta completa en el artifact «Notificaciones PitchLab».
+  - `NotificationBell` (`packages/ui/src/platform/components/NotificationInbox.tsx`) reemplaza a `AlertsDrawer` y a `alertsOpen` del provider. Es un popover bajo la campana en escritorio y una hoja en móvil (reusa `.pl-profile-menu`), con filtros por tipo y grupos Ahora / Hoy / Antes.
+  - Avisos derivados en `packages/ui/src/platform/notifications.ts` (con pruebas): inicio en 60 min, resultado final y valor (la casa paga más que la cuota justa), todos solo de partidos vigilados; picks bloqueados o calificados de la bitácora; y cierre de jornada de las ligas favoritas.
+  - El contador cuenta solo las no leídas (sin resúmenes, tope «9+»). Lo leído se guarda en `localStorage` (`pl-notif-read-v1`).
+  - Stories: `Platform v4 / Notificaciones` (oscuro y claro) y `ClubJornadaConEncabezado`.
+  - **Pendiente Fase 2:** tabla `notifications` y `GET/POST /notifications`, ruta `/app/notifications`, ajustes en `/app/account/notifications`, avisos de movimiento de línea (requiere historial de cuotas) y de Cuenta (prueba, pago, referidos).
+  - **Pendiente Fase 3:** correo de resumen y push.
 - **Siguiente:** ver «Pendiente (en orden)».
 
 El clon previo de TouchIQ (Vite + `src/domain` con 24 tests dorados) quedó archivado en la rama `archive/touchiq-reconstruction` (ADR-018) y sus motores matemáticos viven ahora en `packages/engines-reference` con adaptadores limpios para snapshots reales.
