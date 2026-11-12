@@ -499,7 +499,7 @@ export function PublicHeaderV4({
               }}
               className="pl-btn-primary text-xs min-h-11 px-4 inline-flex items-center gap-1.5"
             >
-              <span>Entrar</span>
+              <span>Ir a la app</span>
               <MaestroIcon name="arrowRight" size={14} />
             </a>
           ) : (

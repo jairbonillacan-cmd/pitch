@@ -243,9 +243,12 @@ export function AnalystProfileClubView({
       updateViewerIdentity(updated);
     }
     if (previousHandle && previousHandle !== updated.handle) {
+      // Next.js toma `history.replaceState` como cambio de ruta y vuelve a montar la vista con
+      // los datos viejos del servidor; se carga la dirección nueva para traer el perfil guardado.
+      // `replace` evita que «atrás» lleve al usuario anterior, que ya no existe.
       const url = new URL(window.location.href);
       url.pathname = `/app/u/${updated.handle}`;
-      window.history.replaceState(null, "", url);
+      window.location.replace(url);
     }
   };
 

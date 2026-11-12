@@ -4,7 +4,7 @@ import { DashboardEntryProvider } from "../src/client/dashboard-entry";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "PitchLab — Spacetime Suite v3.0 · Picks y Radiografía Deportiva",
+  title: "PitchLab — Lo más probable de cada partido, con su momio justo",
   description:
     "Radiografía pre-partido con IA, 4 a 5 picks estructurados por encuentro, Armador de Parlays & SGP y Comunidad VIP auditada.",
   robots: {
