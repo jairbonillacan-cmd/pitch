@@ -41,7 +41,11 @@ export type MaestroIconName =
   | "message"
   | "heart"
   | "link"
-  | "users-plus";
+  | "users-plus"
+  | "user"
+  | "receipt"
+  | "logout"
+  | "chevronDown";
 
 function renderIconGeometry(name: MaestroIconName): React.ReactNode {
   switch (name) {
@@ -235,6 +239,29 @@ function renderIconGeometry(name: MaestroIconName): React.ReactNode {
           <path d="M19 8v6M16 11h6" />
         </>
       );
+    case "user":
+      return (
+        <>
+          <circle cx="12" cy="8" r="4" />
+          <path d="M4 21a8 8 0 0 1 16 0" />
+        </>
+      );
+    case "receipt":
+      return (
+        <>
+          <path d="M5 3h14v18l-3-2-2 2-2-2-2 2-2-2-3 2V3z" />
+          <path d="M9 8h6M9 12h6" />
+        </>
+      );
+    case "logout":
+      return (
+        <>
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+          <path d="M16 17l5-5-5-5M21 12H9" />
+        </>
+      );
+    case "chevronDown":
+      return <path d="m6 9 6 6 6-6" />;
   }
 }
 

@@ -5,7 +5,7 @@ import path from "node:path";
 /** En el club, el tema vive en el menú del perfil. */
 async function toggleClubTheme(page: import("@playwright/test").Page): Promise<void> {
   await page.locator("[data-profile-menu-trigger]:visible").first().click();
-  await page.locator(".pl-profile-menu:popover-open [data-theme-toggle]").click();
+  await page.locator(".pl-profile-menu:popover-open [data-theme-option][aria-pressed=\"false\"]").click();
   await page.keyboard.press("Escape");
 }
 

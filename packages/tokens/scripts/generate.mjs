@@ -113,6 +113,7 @@ const derivedAndLightCss = `
   --pl-glass-scrim: rgba(0, 0, 0, 0.72);
   --pl-glass-nav: rgba(4, 4, 7, 0.52);
   --pl-glass-rail: rgba(10, 10, 13, 0.72);
+  --pl-glass-menu: rgba(8, 8, 10, 0.98);
   --pl-glass-lens: rgba(255, 255, 255, 0.068);
   --pl-glass-card: rgba(255, 255, 255, 0.052);
   --pl-glass-pill: rgba(12, 12, 16, 0.82);
@@ -296,6 +297,7 @@ const derivedAndLightCss = `
   --pl-glass-scrim: rgba(241, 242, 246, 0.80);
   --pl-glass-nav: rgba(255, 255, 255, 0.90);
   --pl-glass-rail: rgba(255, 255, 255, 0.94);
+  --pl-glass-menu: rgba(255, 255, 255, 0.98);
   --pl-glass-lens: rgba(255, 255, 255, 0.98);
   --pl-glass-card: rgba(255, 255, 255, 0.92);
   --pl-glass-pill: rgba(255, 255, 255, 0.92);

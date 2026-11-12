@@ -13,13 +13,14 @@ import { SegmentedControl, SegmentedControlItem } from "@astryxdesign/core/Segme
 import { AstryxScope } from "../../astryx";
 import { BrandLogo, ThemeToggle } from "../../primitives";
 import { LeagueBadge } from "../../sports";
-import { journalRecord } from "../access-guard";
+import { formatUnits, profileRecord } from "../profile-stats";
 import { useAuraColors, usePlatform } from "../platform-provider";
 import type { OddsFormat } from "../types";
 import {
   MaestroIcon,
   RoleSwitcherPill,
   UltraTag,
+  VerifiedBadge,
   type MaestroIconName,
 } from "./MaestroPrimitives";
 import {
@@ -114,6 +115,82 @@ export function OddsFormatSegment(): React.JSX.Element {
         <SegmentedControlItem value="decimal" label="Decimal" />
       </SegmentedControl>
     </AstryxScope>
+  );
+}
+
+/** Tema actual del documento (`html[data-theme]`), al día si otro control lo cambia. */
+function useDocumentTheme(): "dark" | "light" {
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
+  useEffect(() => {
+    const root = document.documentElement;
+    const read = () => setTheme(root.dataset.theme === "light" ? "light" : "dark");
+    read();
+    const obs = new MutationObserver(read);
+    obs.observe(root, { attributes: true, attributeFilter: ["data-theme"] });
+    return () => obs.disconnect();
+  }, []);
+  return theme;
+}
+
+/** Mismo cambio que ThemeToggle: sin transiciones durante el cambio y guardado en `pl-theme`. */
+function applyTheme(next: "dark" | "light"): void {
+  const root = document.documentElement;
+  if ((root.dataset.theme === "light" ? "light" : "dark") === next) return;
+  root.dataset.themeSwitching = "true";
+  root.dataset.theme = next;
+  void root.offsetHeight;
+  delete root.dataset.themeSwitching;
+  try {
+    window.localStorage.setItem("pl-theme", next);
+  } catch (err) {
+    void err;
+  }
+}
+
+/** Control segmentado del menú de cuenta (Momio y Tema). ←/→ mueven la selección. */
+function MenuSegment({
+  labelledBy,
+  value,
+  onChange,
+  options,
+  dataAttr,
+}: {
+  labelledBy: string;
+  value: string;
+  onChange: (value: string) => void;
+  options: ReadonlyArray<{ value: string; label: string; hint?: string; icon?: MaestroIconName }>;
+  dataAttr?: string;
+}): React.JSX.Element {
+  return (
+    <div
+      className="pl-menu-seg"
+      role="group"
+      aria-labelledby={labelledBy}
+      onKeyDown={(e) => {
+        if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+        e.preventDefault();
+        const i = options.findIndex((o) => o.value === value);
+        const next = options[(i + (e.key === "ArrowRight" ? 1 : -1) + options.length) % options.length]!;
+        onChange(next.value);
+        const btn = e.currentTarget.querySelector<HTMLButtonElement>(`[data-value="${next.value}"]`);
+        btn?.focus();
+      }}
+    >
+      {options.map((o) => (
+        <button
+          key={o.value}
+          type="button"
+          data-value={o.value}
+          aria-pressed={value === o.value}
+          {...(dataAttr ? { [dataAttr]: o.value } : {})}
+          onClick={() => onChange(o.value)}
+        >
+          {o.icon ? <MaestroIcon name={o.icon} size={14} /> : null}
+          <span>{o.label}</span>
+          {o.hint ? <small className="num">{o.hint}</small> : null}
+        </button>
+      ))}
+    </div>
   );
 }
 
@@ -579,6 +656,8 @@ interface ProfileMenuItem {
   label: string;
   icon: MaestroIconName;
   accountTab?: "referrals" | "plan" | "prefs" | "cfdi";
+  /** Dato a la derecha de la fila (récord, abiertos). */
+  trail?: React.ReactNode;
 }
 interface ProfileMenuGroup {
   label: string;
@@ -637,6 +716,8 @@ function ClubWorkspaceShellImpl({
     setCmdkOpen,
     logoutSession,
     navigateTo,
+    oddsFormat,
+    setOddsFormat,
   } = usePlatform();
 
   const [collapsed, toggleCollapsed] = usePersistentRailCollapsed();
@@ -653,23 +734,62 @@ function ClubWorkspaceShellImpl({
     menu.addEventListener("toggle", onToggle);
     return () => menu.removeEventListener("toggle", onToggle);
   }, []);
+  const ownRecord = useMemo(() => profileRecord(journal), [journal]);
   const profileMenuGroups = useMemo(() => {
+    if (viewerRole === "visitor") {
+      return [
+        {
+          label: "Ayuda",
+          items: [
+            { href: "/app/tech", label: "Cómo calculamos", icon: "cpu" },
+            { href: "/legal/juego-responsable", label: "Juego responsable", icon: "shield" },
+          ],
+        },
+      ] satisfies ProfileMenuGroup[];
+    }
     const handle = viewerRole === "tipstar" ? "sofia_nfl" : "jair";
+    // El récord va junto a la fila que lleva a él. El tipstar simulado es un perfil de ejemplo.
+    const showRecord = viewerRole !== "tipstar" && ownRecord.settled > 0;
+    const profileTrail = showRecord ? (
+      <span className="pl-profile-menu-rec num" title="Saldo y cumplidos">
+        <span className={ownRecord.netUnits >= 0 ? "pl-tone-pos" : "pl-tone-neg"}>
+          {formatUnits(ownRecord.netUnits)}
+        </span>
+        <small>
+          {ownRecord.won} de {ownRecord.settled}
+        </small>
+      </span>
+    ) : undefined;
+    const journalTrail =
+      ownRecord.open > 0 ? (
+        <span className="pl-profile-menu-count num" title="Picks abiertos">
+          <i aria-hidden="true" />
+          {ownRecord.open} {ownRecord.open === 1 ? "abierto" : "abiertos"}
+        </span>
+      ) : journal.length === 0 ? (
+        <span className="pl-profile-menu-hint">Registra tu primer pick</span>
+      ) : undefined;
     const groups: ProfileMenuGroup[] = [
+      {
+        label: "Tus picks",
+        items: [
+          { href: `/app/u/${handle}`, label: "Ver mi perfil", icon: "user", trail: profileTrail },
+          { href: "/app/lab", label: "Mi bitácora", icon: "ticket", trail: journalTrail },
+        ],
+      },
       {
         label: "Tu cuenta",
         items: [
-          { href: `/app/u/${handle}`, label: "Ver mi perfil", icon: "users" },
-          { href: "/app/account?tab=referrals", label: "Invitar amigos", icon: "gift", accountTab: "referrals" },
           { href: "/app/account?tab=plan", label: "Mi plan Ultra", icon: "crown", accountTab: "plan" },
+          { href: "/app/account?tab=referrals", label: "Invitar amigos", icon: "gift", accountTab: "referrals" },
           { href: "/app/account?tab=prefs", label: "Preferencias", icon: "sliders", accountTab: "prefs" },
-          { href: "/app/account?tab=cfdi", label: "Facturación", icon: "shield", accountTab: "cfdi" },
+          { href: "/app/account?tab=cfdi", label: "Facturación", icon: "receipt", accountTab: "cfdi" },
         ],
       },
     ];
     const roleItems: ProfileMenuItem[] = [];
     if (viewerRole === "tipstar" || viewerRole === "admin") {
-      roleItems.push({ href: "/app/tipstar", label: "Portal tipstar", icon: "crown" });
+      roleItems.push({ href: "/app/tipstar", label: "Portal tipstar", icon: "star" });
     }
     if (viewerRole === "admin") {
       roleItems.push({ href: "/app/admin", label: "Consola", icon: "chart" });
@@ -683,7 +803,30 @@ function ClubWorkspaceShellImpl({
       ],
     });
     return groups;
-  }, [viewerRole]);
+  }, [viewerRole, ownRecord, journal.length]);
+
+  const docTheme = useDocumentTheme();
+  // Teclado: flechas, Inicio y Fin recorren los enlaces del menú.
+  const onProfileMenuKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(e.key)) return;
+    const items = Array.from(
+      e.currentTarget.querySelectorAll<HTMLElement>(
+        ".pl-profile-menu-group a, .pl-profile-menu-logout, .pl-profile-menu-cta",
+      ),
+    );
+    if (items.length === 0) return;
+    e.preventDefault();
+    const i = items.indexOf(document.activeElement as HTMLElement);
+    const next =
+      e.key === "Home"
+        ? 0
+        : e.key === "End"
+          ? items.length - 1
+          : i < 0
+            ? 0
+            : (i + (e.key === "ArrowDown" ? 1 : -1) + items.length) % items.length;
+    items[next]?.focus();
+  };
 
   const closeProfileMenu = () => {
     try {
@@ -717,14 +860,12 @@ function ClubWorkspaceShellImpl({
   );
 
   const profileHandle = viewerRole === "tipstar" ? "@sofia_nfl" : "@jair";
-  // Tipstar: perfil de ejemplo. Socio: récord real de su Bitácora.
-  const myRecord = journalRecord(journal);
-  const profileUnits =
+  const profileSubline =
     viewerRole === "tipstar"
-      ? "Ejemplo"
-      : myRecord.settled > 0
-        ? `${myRecord.netUnits >= 0 ? "+" : ""}${myRecord.netUnits.toFixed(1)}u`
-        : "0 picks";
+      ? "Sofía Méndez · Tipstar verificado"
+      : viewerRole === "admin"
+        ? "Admin"
+        : "Socio";
   const profileInitials = viewerRole === "tipstar" ? "SM" : "JR";
   const profileGrad =
     viewerRole === "tipstar" ? "var(--avatar-grad-1)" : "var(--avatar-grad-2)";
@@ -780,47 +921,57 @@ function ClubWorkspaceShellImpl({
           <div className="flex items-center gap-2 shrink-0">
             <button
               type="button"
-              className="pl-btn-glass px-2.5 min-h-9 relative inline-flex items-center gap-1.5"
+              className="pl-btn-glass pl-bell-btn"
               aria-label={`Abrir alertas de valor (${valueAlertCount})`}
               onClick={() => setAlertsOpen(true)}
             >
-              <MaestroIcon name="bell" size={15} />
+              <MaestroIcon name="bell" size={16} />
               {valueAlertCount > 0 ? (
-                <span className="pl-pill pl-pill--brand text-[10px] px-1.5 py-0 num">
+                <span className="pl-bell-count num" aria-hidden="true">
                   {valueAlertCount}
                 </span>
               ) : null}
             </button>
 
-            {/* Chip de perfil: abre el menú con perfil, cuenta, momios, tema y salir. */}
+            {/* Chip de perfil: abre el menú de la cuenta (popover en escritorio, hoja en móvil). */}
             <button
               ref={profileTriggerRef}
               type="button"
               popoverTarget={profileMenuId}
-              className="pl-btn-glass min-h-9 px-2 sm:px-2.5 inline-flex items-center gap-2 text-xs"
+              className="pl-btn-glass pl-profile-chip"
               aria-haspopup="dialog"
               aria-expanded={profileMenuOpen}
-              aria-label={`Menú de ${profileHandle}`}
+              aria-label={viewerRole === "visitor" ? "Menú, entrar o crear cuenta" : `Menú de ${profileHandle}`}
               data-profile-menu-trigger=""
               onClick={() => {
                 // Antes de abrir: colocar el panel bajo el chip, alineado a su borde derecho.
                 const rect = profileTriggerRef.current?.getBoundingClientRect();
                 const menu = profileMenuRef.current;
                 if (rect && menu) {
-                  menu.style.top = `${rect.bottom + 8}px`;
-                  menu.style.right = `${Math.max(8, document.documentElement.clientWidth - rect.right)}px`;
+                  menu.style.setProperty("--menu-top", `${rect.bottom + 8}px`);
+                  menu.style.setProperty(
+                    "--menu-right",
+                    `${Math.max(8, document.documentElement.clientWidth - rect.right)}px`,
+                  );
                 }
               }}
             >
-              <span
-                className="size-6 rounded-full inline-flex items-center justify-center text-[10px] font-extrabold shrink-0"
-                style={{ background: profileGrad, color: "var(--pl-on-solid)" }}
-                aria-hidden="true"
-              >
-                {profileInitials}
-              </span>
-              <span className="hidden sm:inline font-bold truncate max-w-[92px]">{profileHandle}</span>
-              {viewerRole !== "visitor" ? <UltraTag className="hidden lg:inline-flex" /> : null}
+              {viewerRole === "visitor" ? (
+                <span className="pl-profile-chip-label">Entrar</span>
+              ) : (
+                <>
+                  <span
+                    className="pl-acct-avatar size-7 text-[10px]"
+                    style={{ background: profileGrad }}
+                    aria-hidden="true"
+                  >
+                    {profileInitials}
+                  </span>
+                  <span className="hidden sm:inline font-bold truncate max-w-[92px]">{profileHandle}</span>
+                  <UltraTag className="hidden lg:inline-flex" />
+                </>
+              )}
+              <MaestroIcon name="chevronDown" size={14} className="pl-profile-chip-chevron" />
             </button>
 
             <div
@@ -830,25 +981,64 @@ function ClubWorkspaceShellImpl({
               className="pl-profile-menu"
               role="dialog"
               aria-label="Menú de tu cuenta"
+              onKeyDown={onProfileMenuKeyDown}
             >
-              <div className="pl-profile-menu-head">
-                <span
-                  className="size-10 rounded-full inline-flex items-center justify-center text-xs font-extrabold shrink-0"
-                  style={{ background: profileGrad, color: "var(--pl-on-solid)" }}
-                  aria-hidden="true"
-                >
-                  {profileInitials}
-                </span>
-                <div className="min-w-0">
-                  <div className="flex items-center gap-1.5">
-                    <strong className="text-sm truncate">{profileHandle}</strong>
-                    {viewerRole !== "visitor" ? <UltraTag /> : null}
+              <span className="pl-profile-menu-grab" aria-hidden="true" />
+              {viewerRole === "visitor" ? (
+                <div className="pl-profile-menu-head pl-profile-menu-head--visitor">
+                  <div className="flex items-center gap-3">
+                    <span className="pl-acct-avatar pl-acct-avatar--empty size-10" aria-hidden="true">
+                      <MaestroIcon name="sparkles" size={18} />
+                    </span>
+                    <div className="min-w-0">
+                      <strong className="pl-profile-menu-name">Estás de visita</strong>
+                      <span className="pl-profile-menu-sub">Crea tu cuenta para registrar picks y seguir socios.</span>
+                    </div>
                   </div>
-                  <span className="text-xs num" style={{ color: "var(--pl-text-muted)" }}>
-                    {profileUnits}
-                  </span>
+                  <div className="pl-profile-menu-ctas">
+                    <a
+                      href="/signup"
+                      className="pl-profile-menu-cta pl-profile-menu-cta--primary"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        closeProfileMenu();
+                        navigateTo("/signup");
+                      }}
+                    >
+                      Hazte socio
+                    </a>
+                    <a
+                      href="/login"
+                      className="pl-profile-menu-cta"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        closeProfileMenu();
+                        navigateTo("/login");
+                      }}
+                    >
+                      Entrar
+                    </a>
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <div className="pl-profile-menu-head">
+                  <span
+                    className="pl-acct-avatar size-10 text-xs"
+                    style={{ background: profileGrad }}
+                    aria-hidden="true"
+                  >
+                    {profileInitials}
+                  </span>
+                  <div className="min-w-0">
+                    <div className="pl-profile-menu-name">
+                      <span className="truncate">{profileHandle}</span>
+                      {viewerRole === "tipstar" ? <VerifiedBadge size={15} /> : null}
+                      <UltraTag />
+                    </div>
+                    <span className="pl-profile-menu-sub">{profileSubline}</span>
+                  </div>
+                </div>
+              )}
 
               {profileMenuGroups.map((group) => (
                 <nav key={group.label} className="pl-profile-menu-group" aria-label={group.label}>
@@ -868,37 +1058,58 @@ function ClubWorkspaceShellImpl({
                         navigateTo(item.href);
                       }}
                     >
-                      <MaestroIcon name={item.icon} size={15} />
+                      <MaestroIcon name={item.icon} size={17} />
                       <span>{item.label}</span>
+                      {item.trail ?? null}
                     </a>
                   ))}
                 </nav>
               ))}
 
-              <div className="pl-profile-menu-group">
-                <div className="pl-profile-menu-row pl-profile-menu-row--stack">
-                  <span>Formato de momio</span>
-                  <OddsFormatSegment />
+              <div className="pl-profile-menu-group pl-profile-menu-settings">
+                <div className="pl-profile-menu-setting">
+                  <span id={`${profileMenuId}-odds`}>Momio</span>
+                  <MenuSegment
+                    labelledBy={`${profileMenuId}-odds`}
+                    value={oddsFormat}
+                    onChange={(v) => setOddsFormat(v as OddsFormat)}
+                    options={[
+                      { value: "american", label: "Americano", hint: "−150" },
+                      { value: "decimal", label: "Decimal", hint: "1.67" },
+                    ]}
+                  />
                 </div>
-                <div className="pl-profile-menu-row">
-                  <span>Tema claro u oscuro</span>
-                  <ThemeToggle shape="pill" />
+                <div className="pl-profile-menu-setting">
+                  <span id={`${profileMenuId}-theme`}>Tema</span>
+                  <MenuSegment
+                    labelledBy={`${profileMenuId}-theme`}
+                    value={docTheme}
+                    onChange={(v) => applyTheme(v as "dark" | "light")}
+                    dataAttr="data-theme-option"
+                    options={[
+                      { value: "dark", label: "Oscuro", icon: "moon" },
+                      { value: "light", label: "Claro", icon: "sun" },
+                    ]}
+                  />
                 </div>
               </div>
 
-              <div className="pl-profile-menu-group">
-                <button
-                  type="button"
-                  className="pl-profile-menu-logout"
-                  onClick={() => {
-                    closeProfileMenu();
-                    void logoutSession();
-                  }}
-                >
-                  <MaestroIcon name="arrowRight" size={15} />
-                  <span>Salir</span>
-                </button>
-              </div>
+              {viewerRole !== "visitor" ? (
+                <div className="pl-profile-menu-group pl-profile-menu-foot">
+                  <button
+                    type="button"
+                    className="pl-profile-menu-logout"
+                    onClick={() => {
+                      closeProfileMenu();
+                      void logoutSession();
+                    }}
+                  >
+                    <MaestroIcon name="logout" size={17} />
+                    <span>Salir</span>
+                  </button>
+                  <span className="pl-profile-menu-version">Beta</span>
+                </div>
+              ) : null}
             </div>
           </div>
         </div>
