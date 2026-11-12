@@ -95,6 +95,29 @@ export function verifySameOriginMutation(
   return null;
 }
 
+/**
+ * Origen público confiable para URLs de retorno de pasarelas externas (Stripe Checkout / Connect).
+ * En producción exige `BETTER_AUTH_URL` y nunca confía en `request.url` ni en `X-Forwarded-Host`.
+ */
+export function trustedAppBaseUrl(request: Request): string {
+  const configured = process.env.BETTER_AUTH_URL?.trim();
+  if (configured) {
+    const parsed = new URL(configured);
+    if (process.env.NODE_ENV === "production" && parsed.protocol !== "https:") {
+      throw new Error("BETTER_AUTH_URL debe usar https:// en producción.");
+    }
+    return parsed.origin;
+  }
+  if (process.env.NODE_ENV === "production") {
+    throw new Error("BETTER_AUTH_URL es obligatoria en producción para generar URLs de retorno.");
+  }
+  const reqOrigin = new URL(request.url).origin;
+  if (/^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(reqOrigin) || reqOrigin === "https://pitchlab.mx") {
+    return reqOrigin;
+  }
+  throw new Error("Origen de solicitud no autorizado para URLs de retorno sin BETTER_AUTH_URL.");
+}
+
 function pruneMemoryStore(nowMs: number): void {
   if (memoryStore.size < MAX_MEMORY_ENTRIES) return;
   for (const [k, v] of memoryStore) {

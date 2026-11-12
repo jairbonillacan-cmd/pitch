@@ -75,7 +75,7 @@ Este documento cubre Stripe Webhooks, Stripe Connect Express, cron de dispersion
 | **B-02** | Headers HTTP / CSP / WAF Rate-Limit en Cloudflare/Edge y sobrescritura de `X-Forwarded-For` | `middleware.ts`, `next.config.mjs`, `unlock/route.ts`, `signup.ts` | Comprobar cabeceras reales de respuesta y reglas Cloudflare Proxy / Transform Rules. |
 | **B-03** | Alcance de eventos del endpoint Stripe Connect (`account.updated` exclusivamente o eventos con `event.account`) | `apps/web/app/api/webhooks/stripe/route.ts`, `stripe-webhook.ts` | Revisar Stripe Dashboard → Developers → Webhooks (Connect) y filtrar `event.account` en eventos plataforma. |
 | **B-04** | Permisos por defecto de `GITHUB_TOKEN`, visibilidad del repo y protección de `main` y `prediction-lab` | `.github/workflows/ci.yml`, `pre-mvp-snapshot.yml` | Revisar GitHub Repo Settings → Visibility, Actions → General y Branch Protection Rules. |
-| **B-05** | Aislamiento de datos y backups PITR/R2 en Neon proyecto `lively-cloud-08121218` | `scripts/local-9990.ps1:34`, `scripts/migrate-9990.ps1:6`, `SECURITY.md` §5 | Confirmar en consola de Neon que `local-9990` no contiene datos reales y que PITR + export a R2 están activos. |
+| **B-05** | Aislamiento de datos y backups PITR/R2 en Neon proyecto `<NEON_PROJECT_ID>` | `scripts/local-9990.ps1:34`, `scripts/migrate-9990.ps1:6`, `SECURITY.md` §5 | Confirmar en consola de Neon que `local-9990` no contiene datos reales y que PITR + export a R2 están activos. |
 | **B-06** | Verificación SPF/DKIM/DMARC en Resend (`EMAIL_FROM`) y URIs/alcance de Google & Apple OAuth | `.env.example`, `mailer.ts`, `auth.ts:137-139` | Verificar dominio `pitchlab.mx` en Resend y restringir `trustedProviders: ["google", "apple"]` + redirect URIs exactas. |
 
 ---

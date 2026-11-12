@@ -51,14 +51,14 @@ Este documento detalla los hallazgos relacionados con exposición de credenciale
 
 ---
 
-## SEC-14 [Baja] — Clave de terceros, DSN Sentry, código `7779` sin redactar, logs `.local/9990.log` e ID de Neon en Git
+## SEC-14 [Baja] — Clave de terceros, DSN Sentry, código `[REDACTED_PIN]` sin redactar, logs `.local/9990.log` e ID de Neon en Git
 
 - **Ubicaciones:**
   - Clave Firebase/Google (`AIzaSyB2...`) y DSN de Sentry (`o4504614045024256.ingest.us.sentry.io`) de LineMate en [`Reportes/analisis-linemate/app/main.1f0201a8.js`](Reportes/analisis-linemate/app/main.1f0201a8.js#L2), [`Reportes/analisis-linemate/evidence/javascript/main.1f0201a8.js`](Reportes/analisis-linemate/evidence/javascript/main.1f0201a8.js#L2), [`research/linemate/evidence/javascript/main.1f0201a8.js`](research/linemate/evidence/javascript/main.1f0201a8.js#L2) e identificadores Firebase en `extracted_src/firebase.js:24-25`.
-  - Redacción incompleta del código `7779` (AztecaVet / TouchIQ): el commit histórico `9133809` (`9133809:scripts/redact_secrets.mjs`, borrado en `5938687`) solo limpió parte de `research/aztecavet/*.md`, dejando `7779` visible en múltiples reportes y scripts JS (`Reportes/00-REPORTE-COMPLETO.md:21`, `Reportes/analisis-aztecavet/*`, `research/aztecavet/authentication-flow.md:44`, `research/aztecavet/evidence/javascript/*`, `research/touchiq/*`).
-  - Escritura de magic links en texto claro a `.local/9990.log` y proyecto de Neon `lively-cloud-08121218` / `--database-name neondb` fijados en [`scripts/local-9990.ps1`](scripts/local-9990.ps1#L34-L67), [`scripts/migrate-9990.ps1`](scripts/migrate-9990.ps1#L6) y [`apps/web/src/server/auth.ts`](apps/web/src/server/auth.ts#L56-L62) (`local9990Sender` cuando `isLocalBaseURL(baseURL) && new URL(baseURL).port === "9990"`).
+  - Redacción incompleta del código `[REDACTED_PIN]` (AztecaVet / TouchIQ): el commit histórico `9133809` (`9133809:scripts/redact_secrets.mjs`, borrado en `5938687`) solo limpió parte de `research/aztecavet/*.md`, dejando `[REDACTED_PIN]` visible en múltiples reportes y scripts JS (`Reportes/00-REPORTE-COMPLETO.md:21`, `Reportes/analisis-aztecavet/*`, `research/aztecavet/authentication-flow.md:44`, `research/aztecavet/evidence/javascript/*`, `research/touchiq/*`).
+  - Escritura de magic links en texto claro a `.local/9990.log` y proyecto de Neon `<NEON_PROJECT_ID>` / `--database-name neondb` fijados en [`scripts/local-9990.ps1`](scripts/local-9990.ps1#L34-L67), [`scripts/migrate-9990.ps1`](scripts/migrate-9990.ps1#L6) y [`apps/web/src/server/auth.ts`](apps/web/src/server/auth.ts#L56-L62) (`local9990Sender` cuando `isLocalBaseURL(baseURL) && new URL(baseURL).port === "9990"`).
 - **Impacto:** Dispara alertas en escáneres automáticos (`gitleaks`/Push Protection), expone identificadores de infraestructura Neon y deja enlaces de sesión activos en `.local/9990.log` legible por procesos locales.
-- **Remediación defensiva:** Mover `NEON_PROJECT_ID` y `NEON_DATABASE_NAME` a `.env.local`; redactar todas las menciones restantes de `7779`; sacar los bundles capturados de terceros del historial si el repo se compartirá con terceros (`git filter-repo`); acotar permisos de `.local/9990.log` (`0o600` / ACL de propietario).
+- **Remediación defensiva:** Mover `NEON_PROJECT_ID` y `NEON_DATABASE_NAME` a `.env.local`; redactar todas las menciones restantes de `[REDACTED_PIN]`; sacar los bundles capturados de terceros del historial si el repo se compartirá con terceros (`git filter-repo`); acotar permisos de `.local/9990.log` (`0o600` / ACL de propietario).
 
 ---
 
@@ -90,7 +90,7 @@ Este documento detalla los hallazgos relacionados con exposición de credenciale
 ## SEC-18 [Baja] — Código fuente de competidores (`extracted_src/`), rutas locales, `.gitignore` y `turbo.json` incompletos
 
 - **Ubicaciones:**
-  - **Rutas de estación de trabajo y correos personales en `docs/`, `prompts/`, `Reportes/` y Storybook:** `65+` archivos con rutas `/Users/jairbonilla/...`, `C:/Users/jairb/Desktop/Proyectos/Pitch Lab/...`, `C:\Users\T490s\Desktop\Proyectos\PitchLab` y correos `jair@pitchlab.mx` / `j.a.i.r+promo2@gmail.com`. *(Nota: los RFC presentes en código, como `XAXX010101000` y `LOMA850101AB1`, son genéricos/sintéticos de prueba; no hay PII real de clientes.)*
+  - **Rutas de estación de trabajo y correos personales en `docs/`, `prompts/`, `Reportes/` y Storybook:** `65+` archivos con rutas `<USER_HOME>/...`, `<REPO_ROOT>/...`, `<REPO_ROOT>` y correos `jair@pitchlab.mx` / `ejemplo+alias@gmail.com`. *(Nota: los RFC presentes en código, como `XAXX010101000` y `LOMA850101AB1`, son genéricos/sintéticos de prueba; no hay PII real de clientes.)*
   - **Artefactos de competidores (`756` archivos):** copias duplicadas de `extracted_src/` (378 + 378 archivos) y source maps `main.1f0201a8.js.map` (~15 MB) en `research/linemate/` y `Reportes/analisis-linemate/`, `packages/engines-reference/reference/aztecavet/`, y binario redundante `pitchlab-brand.zip` (1.22 MB).
   - **Cobertura incompleta de `.gitignore`:** [`.gitignore`](.gitignore#L18-L20) ignora `.env`, `.env.local` y `.env.*.local`, pero **no** `.env.production`, `.env.staging`, `.env.development` ni `.env.test`.
   - **Falta de declaración `env`/`globalEnv` en `turbo.json`:** [`turbo.json`](turbo.json#L1-L26) no declara variables de entorno para `turbo@^2.11.10`.

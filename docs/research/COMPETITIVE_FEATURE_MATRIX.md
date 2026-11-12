@@ -25,7 +25,7 @@
 | F14 | Bankroll y sizing (5/10 %) | ✅ | ✅ | — | OBSERVADO | 10 % fijo, riesgo de ruina alto | Solo como simulador educativo de riesgo de ruina; sin recomendación | — | B | P2 |
 | F15 | Asistente IA | ◐ regex sobre el DOM | ◐ regex sobre el DOM | ◐ beta | OBSERVADO: `aztecavet/ai-assistant.md` | Sin datos fundamentados | IA con herramientas tipadas, fuentes y hora, y cuota por plan | Toda la API interna | A | P1 |
 | F16 | Parlays / SGP | ◐ independencia | ◐ alerta de correlación | ✅ heurístico | OBSERVADO | Asumen independencia | Pospuesto hasta tener un modelo de correlación validado | Covarianzas | A | P2 |
-| F17 | Auth y suscripción | ◐ PIN 7779 | ◐ PIN | ✅ Firebase, Stripe y trial de 7 días **con tarjeta** | OBSERVADO: `analisis-linemate/auth-and-subscriptions.md` | — | Better Auth, trial de 7 días y referidos (plan §7) | — | M | P0 |
+| F17 | Auth y suscripción | ◐ PIN [REDACTED_PIN] | ◐ PIN | ✅ Firebase, Stripe y trial de 7 días **con tarjeta** | OBSERVADO: `analisis-linemate/auth-and-subscriptions.md` | — | Better Auth, trial de 7 días y referidos (plan §7) | — | M | P0 |
 | F18 | Entitlements en el backend | — | — | ✅ (truncado a 5 filas) | OBSERVADO | — | `can(user, feature)` en el servidor y vistas previas honestas | — | M | P0 |
 | F19 | Prediction markets (Kalshi, Polymarket) | — | — | ✅ (EE. UU.) | OBSERVADO | Fuera del mercado mexicano | No | — | — | ✗ |
 | F20 | Bonos y afiliados de casas | — | — | ✅ `/bonuses` | OBSERVADO | Conflicto de interés | **No** en el MVP (postura «laboratorio») | — | — | ✗ |

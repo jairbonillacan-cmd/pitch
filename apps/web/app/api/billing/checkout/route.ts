@@ -7,7 +7,10 @@ import {
   referralCouponFor,
   type PlanInterval,
 } from "../../../../src/server/billing/checkout";
-import { verifySameOriginMutation } from "../../../../src/server/request-security";
+import {
+  trustedAppBaseUrl,
+  verifySameOriginMutation,
+} from "../../../../src/server/request-security";
 import { requireMember } from "../../../../src/server/session-user";
 
 export const runtime = "nodejs";
@@ -50,12 +53,19 @@ export async function POST(request: Request): Promise<NextResponse> {
   if (couponId && referral) {
     await db.update(referralGrants).set({ friendDiscountCouponId: couponId }).where(eq(referralGrants.id, referral.id));
   }
+  let baseUrl: string;
+  try {
+    baseUrl = trustedAppBaseUrl(request);
+  } catch (err) {
+    console.error("[checkout] baseUrl inválida:", err);
+    return NextResponse.json({ error: "Cobro no configurado" }, { status: 503 });
+  }
   const params = buildCheckoutParams({
     userId,
     email: profile!.email,
     interval,
     priceId,
-    baseUrl: process.env.BETTER_AUTH_URL ?? new URL(request.url).origin,
+    baseUrl,
     freeAccessUntil: await accessUntil(db, userId, now),
     now,
     couponId,

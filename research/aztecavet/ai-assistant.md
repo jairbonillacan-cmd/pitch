@@ -4,11 +4,11 @@
 > **Investigation Focus:** Dual-Mode Architecture, Heuristic Regex Parsing vs. WebMCP Container, Live Query Audits, PitchLab Agentic Design  
 > **Classification:** [OBSERVADO] / [INFERIDO] / [RECONSTRUIDO]  
 > **Supporting Screenshots:**  
-> - AI Inside Liga MX: [`09_ai_inside_ligamx.png`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/screenshots/09_ai_inside_ligamx.png)  
-> - AI Liga MX Response: [`10_ai_inside_ligamx_answer.png`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/screenshots/10_ai_inside_ligamx_answer.png)  
-> - AI Home Screen: [`16_ai_home_open.png`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/screenshots/16_ai_home_open.png)  
-> - AI Home Response: [`17_ai_home_answer.png`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/screenshots/17_ai_home_answer.png)  
-> **Code Artifact:** [`ai_assistant.js`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/javascript/ai_assistant.js)  
+> - AI Inside Liga MX: [`09_ai_inside_ligamx.png`](<REPO_ROOT>/research/aztecavet/evidence/screenshots/09_ai_inside_ligamx.png)  
+> - AI Liga MX Response: [`10_ai_inside_ligamx_answer.png`](<REPO_ROOT>/research/aztecavet/evidence/screenshots/10_ai_inside_ligamx_answer.png)  
+> - AI Home Screen: [`16_ai_home_open.png`](<REPO_ROOT>/research/aztecavet/evidence/screenshots/16_ai_home_open.png)  
+> - AI Home Response: [`17_ai_home_answer.png`](<REPO_ROOT>/research/aztecavet/evidence/screenshots/17_ai_home_answer.png)  
+> **Code Artifact:** [`ai_assistant.js`](<REPO_ROOT>/research/aztecavet/evidence/javascript/ai_assistant.js)  
 
 ---
 
@@ -44,7 +44,7 @@ During live Playwright testing against `https://aztecavet.com/`, the following p
 - **Execution Time:** **$8.2\text{ ms}$** (instantaneous).
 - **Network Transactions:** **0 requests**.
 - **Attribution Label:** `Modo local: responde con los datos de esta pantalla`.
-- **Evidence Screenshot:** [`17_ai_home_answer.png`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/screenshots/17_ai_home_answer.png).
+- **Evidence Screenshot:** [`17_ai_home_answer.png`](<REPO_ROOT>/research/aztecavet/evidence/screenshots/17_ai_home_answer.png).
 
 ### Test Case 2: Query Submitted Inside Liga MX Dashboard
 - **User Prompt:** `¿Cuál es el mejor pick de hoy?`
@@ -56,7 +56,7 @@ During live Playwright testing against `https://aztecavet.com/`, the following p
   > *Ningún partido de este día llega a 55% de probabilidad. Mejor no forzar una apuesta: revisa otro día.*
 - **Execution Time:** **$12.4\text{ ms}$**.
 - **Network Transactions:** **0 requests**.
-- **Evidence Screenshot:** [`10_ai_inside_ligamx_answer.png`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/screenshots/10_ai_inside_ligamx_answer.png).
+- **Evidence Screenshot:** [`10_ai_inside_ligamx_answer.png`](<REPO_ROOT>/research/aztecavet/evidence/screenshots/10_ai_inside_ligamx_answer.png).
 
 ---
 

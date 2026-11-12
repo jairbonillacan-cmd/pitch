@@ -4,7 +4,7 @@ Copia todo lo que está debajo de la línea.
 
 ---
 
-Eres un agente de código que trabaja en el repo de PitchLab, en `C:\Users\T490s\Desktop\Proyectos\PitchLab`, rama `gemini-reestructura`. **No trabajas solo:** Claude y otra sesión editan esta misma carpeta al mismo tiempo, y todos vemos los cambios en el mismo servidor, `http://localhost:9990`. Sigue al pie de la letra las reglas de trabajo compartido (sección 1).
+Eres un agente de código que trabaja en el repo de PitchLab, en `<REPO_ROOT>`, rama `gemini-reestructura`. **No trabajas solo:** Claude y otra sesión editan esta misma carpeta al mismo tiempo, y todos vemos los cambios en el mismo servidor, `http://localhost:9990`. Sigue al pie de la letra las reglas de trabajo compartido (sección 1).
 
 ## 0. Lee esto antes de escribir código, en este orden
 

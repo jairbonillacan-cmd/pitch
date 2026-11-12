@@ -3,7 +3,7 @@
 > **Target:** `https://aztecavet.com/`  
 > **Investigation Focus:** Data Extraction, Integrity Audit, Frozen Timestamps, Commercial Sports API Evaluation  
 > **Classification:** [OBSERVADO] / [INFERIDO] / [RECONSTRUIDO]  
-> **Data Inventory:** [`dataset_inventory.json`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/javascript/dataset_inventory.json)  
+> **Data Inventory:** [`dataset_inventory.json`](<REPO_ROOT>/research/aztecavet/evidence/javascript/dataset_inventory.json)  
 
 ---
 

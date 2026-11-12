@@ -14,7 +14,7 @@ graph TD
     subgraph Browser_Tab[Pestaña del Navegador del Usuario]
         subgraph Shell_Application[Shell Principal (Dark Theme)]
             AudioEngine[Sintetizador Web Audio API]
-            Gatekeeper[Puerta PIN: CODE='7779']
+            Gatekeeper[Puerta PIN: CODE='[REDACTED_PIN]']
             BentoHome[Tablero Home: Bento Grid ROB]
             BoletoDrawer[Cajón: Boleto, Historial, Bankroll]
             AssistantModal[Modal Asistente IA]
@@ -77,8 +77,8 @@ sequenceDiagram
 
 ## 3. Análisis de Seguridad y Vulnerabilidades del Diseño
 
-### A. La Puerta de PIN "7779" (Autenticación Inexistente)
-- **Vulnerabilidad:** `[OBSERVADO]` La constante `const CODE = "7779"` reside en texto plano dentro del archivo público JavaScript.
+### A. La Puerta de PIN "[REDACTED_PIN]" (Autenticación Inexistente)
+- **Vulnerabilidad:** `[OBSERVADO]` La constante `const CODE = "[REDACTED_PIN]"` reside en texto plano dentro del archivo público JavaScript.
 - **Impacto:** Cualquier persona que inspeccione el código fuente o abra las herramientas de desarrollador (F12) puede leer la clave en menos de 5 segundos.
 - **Bypass Directo:** Ni siquiera es necesario ingresar el PIN; basta con escribir en la consola del navegador:
   ```javascript

@@ -175,13 +175,13 @@ export async function releaseCommissionClaim(db: Db, ledgerId: string): Promise<
   return rows.length > 0;
 }
 
-/** Perfil de tipstar del usuario (para el alta en Connect). */
+/** Perfil de tipstar activo del usuario (para el alta en Connect). */
 export async function tipstarProfileForUser(db: Db, userId: string) {
   const [row] = await db
     .select({ profile: tipstarProfiles, email: users.email })
     .from(tipstarProfiles)
     .innerJoin(users, eq(users.id, tipstarProfiles.userId))
-    .where(eq(tipstarProfiles.userId, userId));
+    .where(and(eq(tipstarProfiles.userId, userId), eq(tipstarProfiles.isActive, true)));
   return row ?? null;
 }
 
@@ -189,7 +189,7 @@ export async function setConnectAccount(db: Db, userId: string, accountId: strin
   await db
     .update(tipstarProfiles)
     .set({ stripeConnectAccountId: accountId, payoutMethod: "stripe_connect" })
-    .where(eq(tipstarProfiles.userId, userId));
+    .where(and(eq(tipstarProfiles.userId, userId), eq(tipstarProfiles.isActive, true)));
 }
 
 /** Refleja `account.updated`: si Stripe ya permite pagarle. */

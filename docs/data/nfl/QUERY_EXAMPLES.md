@@ -119,7 +119,7 @@ DuckDB 2.0.0 está instalado en el venv y lee directamente los parquet y el CSV:
 ```python
 import duckdb
 con = duckdb.connect()
-base = r"C:/Users/jairb/Desktop/Proyectos/Pitch Lab/data/history/raw/nflverse"
+base = r"<REPO_ROOT>/data/history/raw/nflverse"
 
 # jugadas por temporada sobre todos los pbp a la vez
 con.execute(f"""
@@ -148,9 +148,9 @@ WHERE season = 2025 AND game_type = 'REG'
 con.execute(f"""
 SELECT g.game_id, g.gameday, g.temp, w.TMAX, w.TMIN, w.PRCP, w.SNOW, w.AWND
 FROM read_csv_auto('{base}/games.csv') g
-JOIN read_csv_auto('C:/Users/jairb/Desktop/Proyectos/Pitch Lab/data/history/manifests/nfl-station-mapping.csv') m
+JOIN read_csv_auto('<REPO_ROOT>/data/history/manifests/nfl-station-mapping.csv') m
   ON substr(g.stadium_id, 1, 3) = m.stadiumId
-JOIN read_csv_auto('C:/Users/jairb/Desktop/Proyectos/Pitch Lab/data/history/raw/noaa-ghcn/stations/*.csv') w
+JOIN read_csv_auto('<REPO_ROOT>/data/history/raw/noaa-ghcn/stations/*.csv') w
   ON m.stationId = w.STATION AND g.gameday = w.DATE
 WHERE g.season = 2023 AND substr(g.stadium_id, 1, 3) = 'GNB'
 """).fetchall()

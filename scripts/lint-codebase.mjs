@@ -33,6 +33,10 @@ const DIRS_TO_CHECK = [
   join(ROOT, "apps", "web", "app"),
   join(ROOT, "apps", "web", "src"),
   join(ROOT, "packages", "contracts", "src"),
+  join(ROOT, "packages", "db", "src"),
+  join(ROOT, "packages", "emails", "src"),
+  join(ROOT, "packages", "models", "src"),
+  join(ROOT, "packages", "spacetime", "src"),
   join(ROOT, "packages", "ui", "src"),
   join(ROOT, "packages", "sports-assets", "src"),
   join(ROOT, "packages", "engines-reference", "src", "adapters"),
@@ -50,8 +54,12 @@ for (const dir of DIRS_TO_CHECK) {
     const rel = relative(ROOT, file).replace(/\\/g, "/");
     const content = readFileSync(file, "utf8");
 
-    // 1. No hex colors outside packages/tokens (ignore generated registry manifest metadata if in sports-assets/src/registry.generated.ts)
-    if (!rel.startsWith("packages/tokens/") && !rel.endsWith("registry.generated.ts")) {
+    // 1. No hex colors outside packages/tokens (ignore HTML email templates in packages/emails/src and generated registry metadata)
+    if (
+      !rel.startsWith("packages/tokens/") &&
+      !rel.startsWith("packages/emails/src/") &&
+      !rel.endsWith("registry.generated.ts")
+    ) {
       const stripped = content
         .replace(/\/\*[\s\S]*?\*\//g, "")
         .replace(/\/\/.*$/gm, "");

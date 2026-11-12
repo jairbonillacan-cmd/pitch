@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createDb, type Db } from "@pitchlab/db";
+import { cancelTrialEmails } from "../../../../src/server/account-emails";
 import {
   processStripeEvent,
   StripeSignatureError,
@@ -8,6 +9,7 @@ import {
   stripeTrialEndSetter,
   verifyStripeSignature,
 } from "../../../../src/server/billing/stripe-webhook";
+import { getMailer } from "../../../../src/server/mailer";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -47,12 +49,13 @@ export async function POST(request: Request): Promise<NextResponse> {
     throw lastError;
   }
 
-  db ??= createDb(url) as unknown as Db;
+  const activeDb = (db ??= createDb(url) as unknown as Db);
   try {
-    const result = await processStripeEvent(db, JSON.parse(payload), {
+    const result = await processStripeEvent(activeDb, JSON.parse(payload), {
       getInvoiceFeeCentavos: stripeFeeFetcher(apiKey),
       findInvoiceIdForCharge: stripeInvoiceForCharge(apiKey),
       setSubscriptionTrialEnd: stripeTrialEndSetter(apiKey),
+      cancelScheduledTrialEmails: (userId) => cancelTrialEmails(activeDb, getMailer(), userId),
       now: () => new Date(),
     });
     return NextResponse.json({ received: true, result });

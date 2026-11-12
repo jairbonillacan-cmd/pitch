@@ -55,7 +55,7 @@ $$\text{Vig Percentage } = (S - 1) \times 100$$
 ## 4. Test Execution Output Log
 
 ```text
- RUN  v2.1.9 C:/Users/jairb/Desktop/Proyectos/Pitch Lab
+ RUN  v2.1.9 <REPO_ROOT>
 
  ✓ tests/linemate_mathematical_validation.test.ts (8 tests) 2ms
 

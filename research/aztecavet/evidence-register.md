@@ -12,7 +12,7 @@
 - **Finding ID:** `F-01`
 - **Área:** Authentication & Security Architecture
 - **Descripción:** The application does not use server authentication, sessions, or tokens. Access is governed by a client-side JavaScript comparison against a hardcoded plaintext constant: `const CODE = "[REDACTED_AUTH_CODE]"`.
-- **Evidencia:** `shell_app.js` (lines 223–270), Screenshots [`02_pad_open.png`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/screenshots/02_pad_open.png), [`03_code_fail.png`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/screenshots/03_code_fail.png), [`04_code_success.png`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/screenshots/04_code_success.png), [`18_after_reload_gate.png`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/screenshots/18_after_reload_gate.png).
+- **Evidencia:** `shell_app.js` (lines 223–270), Screenshots [`02_pad_open.png`](<REPO_ROOT>/research/aztecavet/evidence/screenshots/02_pad_open.png), [`03_code_fail.png`](<REPO_ROOT>/research/aztecavet/evidence/screenshots/03_code_fail.png), [`04_code_success.png`](<REPO_ROOT>/research/aztecavet/evidence/screenshots/04_code_success.png), [`18_after_reload_gate.png`](<REPO_ROOT>/research/aztecavet/evidence/screenshots/18_after_reload_gate.png).
 - **Método:** Static AST deobfuscation, CDP keyboard event replay, browser cookie & storage inspection.
 - **Nivel de confianza:** **`[OBSERVADO]` 100%**.
 - **Limitaciones:** None. Directly observed and re-verified in live runtime.
@@ -24,7 +24,7 @@
 - **Finding ID:** `F-02`
 - **Área:** Infrastructure & Network Architecture
 - **Descripción:** AztecaVet has zero dedicated backend services, databases, or microservices. It is hosted as a static asset on Netlify Edge CDN. During all live interactions, exactly zero network calls are initiated after the initial page load.
-- **Evidencia:** Network log [`comprehensive_network_log.json`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/network-schemas/comprehensive_network_log.json) (4 entries total: initial `GET /`, reload `GET /`, zero other requests).
+- **Evidencia:** Network log [`comprehensive_network_log.json`](<REPO_ROOT>/research/aztecavet/evidence/network-schemas/comprehensive_network_log.json) (4 entries total: initial `GET /`, reload `GET /`, zero other requests).
 - **Método:** Playwright network interception, CDP session monitoring, HTTP response header analysis.
 - **Nivel de confianza:** **`[OBSERVADO]` 100%**.
 - **Limitaciones:** Cannot observe server-side build scripts used prior to Netlify deployment.
@@ -60,7 +60,7 @@
 - **Finding ID:** `F-05`
 - **Área:** Quantitative Modeling (Football)
 - **Descripción:** Football predictions across 5 tournaments utilize Pythagorean win expectation ($E = 1.7$), Log5 odds ratio ($HFA = 0.54$, $SHR = 0.85$), 16-step bisection tilt, and a $14 \times 14$ bivariate Poisson grid corrected with Dixon-Coles tau matrix ($\rho = -0.14$ for Liga MX, $\rho = -0.08$ for European leagues).
-- **Evidencia:** `football_engine.js` (`model0()`, `tilt()`, `pois()`), test results [`test_results.json`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/mathematical-tests/test_results.json).
+- **Evidencia:** `football_engine.js` (`model0()`, `tilt()`, `pois()`), test results [`test_results.json`](<REPO_ROOT>/research/aztecavet/evidence/mathematical-tests/test_results.json).
 - **Método:** Clean-room mathematical reproduction, decompiled code analysis, numerical parity test.
 - **Nivel de confianza:** **`[OBSERVADO]` 100%**.
 - **Limitaciones:** Cannot observe whether the author calibrated $\rho = -0.14$ empirically or borrowed it from academic literature.
@@ -72,7 +72,7 @@
 - **Finding ID:** `F-06`
 - **Área:** Quantitative Modeling (Hockey)
 - **Descripción:** NHL predictions model 32 teams using Pythagorean exponent $E = 2.15$, $HFA = 0.525$, a 30% weighting for the last 5 games (`FORMW = 0.30`), and massive defensive penalties for missing starting goaltenders ($+0.25$ to $+0.40$ goals/game). Enforces an Over consistency guardrail ($OVR \ge 50\%$) before suggesting combos.
-- **Evidencia:** `nhl_engine.js` (`build()`, `eff()`, `OVR()`, `model0()`), screenshot [`11_nhl_dashboard.png`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/screenshots/11_nhl_dashboard.png).
+- **Evidencia:** `nhl_engine.js` (`build()`, `eff()`, `OVR()`, `model0()`), screenshot [`11_nhl_dashboard.png`](<REPO_ROOT>/research/aztecavet/evidence/screenshots/11_nhl_dashboard.png).
 - **Método:** Static code analysis, mathematical unit tests.
 - **Nivel de confianza:** **`[OBSERVADO]` 100%**.
 - **Limitaciones:** None.
@@ -84,7 +84,7 @@
 - **Finding ID:** `F-07`
 - **Área:** Quantitative Modeling (Baseball)
 - **Descripción:** Unlike football and hockey, MLB abandons Poisson in favor of a continuous Gaussian Normal Distribution with $SD = 3\sqrt{2} \approx 4.24264$. Starting pitchers are regressed against team bullpen ERA using an 80-inning Empirical Bayes weight.
-- **Evidencia:** `mlb_engine.js` (`phi()`, `eff()`, `model0()`), test results [`test_results.json`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/mathematical-tests/test_results.json).
+- **Evidencia:** `mlb_engine.js` (`phi()`, `eff()`, `model0()`), test results [`test_results.json`](<REPO_ROOT>/research/aztecavet/evidence/mathematical-tests/test_results.json).
 - **Método:** Decompilation of polynomial CDF approximation, parameter verification.
 - **Nivel de confianza:** **`[OBSERVADO]` 100%**.
 - **Limitaciones:** Scope is restricted to the 8 playoff teams of 2026.
@@ -96,7 +96,7 @@
 - **Finding ID:** `F-08`
 - **Área:** Risk Management & Value Formulation
 - **Descripción:** Wagers are evaluated via $EV = p \cdot d - 1$. A strict $+4\%$ floor ($EV \ge 0.04$) is enforced. Qualifying bets receive binary stakes: 10% of bankroll if $p \ge th$ (default 60%), otherwise 5%.
-- **Evidencia:** `shell_app.js` (`unit()`, `bestOf()`), screenshot [`15_slip_tab_bankroll.png`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/screenshots/15_slip_tab_bankroll.png).
+- **Evidencia:** `shell_app.js` (`unit()`, `bestOf()`), screenshot [`15_slip_tab_bankroll.png`](<REPO_ROOT>/research/aztecavet/evidence/screenshots/15_slip_tab_bankroll.png).
 - **Método:** Unit testing, live UI inspection.
 - **Nivel de confianza:** **`[OBSERVADO]` 100%**.
 - **Limitaciones:** 10% flat unit allocation introduces severe drawdown risk.
@@ -108,7 +108,7 @@
 - **Finding ID:** `F-09`
 - **Área:** AI Systems & Natural Language Processing
 - **Descripción:** In standard web browsers, the AI assistant contacts zero external AI models. It executes synchronous regular expression searches over up to 9,000 characters of text extracted from the active iframe DOM.
-- **Evidencia:** `ai_assistant.js` (`pageText()`, `local()`), Screenshots [`10_ai_inside_ligamx_answer.png`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/screenshots/10_ai_inside_ligamx_answer.png), [`17_ai_home_answer.png`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/screenshots/17_ai_home_answer.png).
+- **Evidencia:** `ai_assistant.js` (`pageText()`, `local()`), Screenshots [`10_ai_inside_ligamx_answer.png`](<REPO_ROOT>/research/aztecavet/evidence/screenshots/10_ai_inside_ligamx_answer.png), [`17_ai_home_answer.png`](<REPO_ROOT>/research/aztecavet/evidence/screenshots/17_ai_home_answer.png).
 - **Método:** Code analysis, live prompt submission during CDP session.
 - **Nivel de confianza:** **`[OBSERVADO]` 100%**.
 - **Limitaciones:** Cannot test `window.claude.use("sample")` in public browser because the container bridge is absent.

@@ -101,7 +101,10 @@ const CACHE_DIR = resolve(import.meta.dirname, "..", ".cache");
 async function main() {
   loadRootEnvFiles(ROOT_DIR);
   const now = new Date();
-  const dateStr = process.env.SNAPSHOT_DATE ?? now.toISOString().slice(0, 10);
+  const dateStr = (process.env.SNAPSHOT_DATE ?? now.toISOString().slice(0, 10)).trim();
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
+    throw new Error(`SNAPSHOT_DATE inválida (${dateStr}); se esperaba formato AAAA-MM-DD.`);
+  }
   const updatedAt = process.env.SNAPSHOT_TIMESTAMP ?? now.toISOString();
   const modelVersion: "v1" | "v2" = process.env.MODEL_VERSION === "v1" ? "v1" : "v2";
 

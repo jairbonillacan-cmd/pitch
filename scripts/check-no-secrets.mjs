@@ -26,6 +26,8 @@ const SECRET_PATTERNS = [
   { name: "Resend live API key", re: /\bre_[0-9a-zA-Z_]{24,}\b/ },
   { name: "PEM private key", re: /-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----/ },
   { name: "GitHub personal access token", re: /\bgh[pousr]_[A-Za-z0-9_]{30,}\b/ },
+  { name: "Google / Firebase API key", re: /\bAIza[0-9A-Za-z_-]{35}\b/ },
+  { name: "Sentry DSN key", re: /https:\/\/[0-9a-f]{32}@[a-z0-9.]+\.ingest\.[a-z.]*sentry\.io\/\d+/i },
 ];
 
 const BINARY_EXTENSIONS = /\.(?:png|jpg|jpeg|webp|gif|ico|woff2?|ttf|otf|pdf|mp4|webm|zip|gz)$/i;

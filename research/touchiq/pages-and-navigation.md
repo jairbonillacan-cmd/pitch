@@ -36,7 +36,7 @@ Toda la navegación y alternancia de pantallas se gestiona mediante:
 - **Comportamiento & Guardas:**
   - Ignora los clics antes de 900 ms de la carga (`Date.now() - T0 > 900`).
   - Un clic en cualquier parte de `#lock` o pulsar cualquier tecla avanza a la Etapa 2.
-- **Evidencia Visual:** [01-desktop-lock-stage1.png](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/touchiq/evidence/screenshots/01-desktop-lock-stage1.png), [16-mobile-lock-stage1.png](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/touchiq/evidence/screenshots/16-mobile-lock-stage1.png).
+- **Evidencia Visual:** [01-desktop-lock-stage1.png](<REPO_ROOT>/research/touchiq/evidence/screenshots/01-desktop-lock-stage1.png), [16-mobile-lock-stage1.png](<REPO_ROOT>/research/touchiq/evidence/screenshots/16-mobile-lock-stage1.png).
 
 ---
 
@@ -50,11 +50,11 @@ Toda la navegación y alternancia de pantallas se gestiona mediante:
   - 4 indicadores circulares (`#dots i`) que se iluminan al ingresar dígitos.
   - Mensaje de estado (`#msg`): "INGRESA CÓDIGO DE ACCESO".
 - **Lógica de Validación:**
-  - Código hardcodeado: `const CODE = "7779"`.
+  - Código hardcodeado: `const CODE = "[REDACTED_PIN]"`.
   - Sonido: Cada dígito dispara una nota pentatónica en el sintetizador WebAudio.
   - Fallo (`buf !== CODE`): Acorde disonante (220 Hz / 233.1 Hz), animación CSS `shake`, mensaje "CÓDIGO INCORRECTO" y reseteo en 650 ms.
   - Éxito (`buf === CODE`): Sonido de apertura arpegiado, animación `warp/flash` de partículas (1,800 ms), `#lock` se oculta con `.hide` y se revela `<main id="app">`.
-- **Evidencia Visual:** [02-desktop-lock-stage2-pad.png](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/touchiq/evidence/screenshots/02-desktop-lock-stage2-pad.png).
+- **Evidencia Visual:** [02-desktop-lock-stage2-pad.png](<REPO_ROOT>/research/touchiq/evidence/screenshots/02-desktop-lock-stage2-pad.png).
 
 ---
 
@@ -62,7 +62,7 @@ Toda la navegación y alternancia de pantallas se gestiona mediante:
 - **Screen ID:** `VIEW-HOME-LV1`
 - **Nombre:** Tablero Principal de Deportes
 - **Selector DOM:** `<section id="s1" class="scr">` dentro de `<main id="app">`
-- **Cómo se accede:** Desbloqueo exitoso con PIN 7779 o botón "Atrás" desde un deporte.
+- **Cómo se accede:** Desbloqueo exitoso con PIN [REDACTED_PIN] o botón "Atrás" desde un deporte.
 - **Componentes Visuales:**
   - Barra superior: Reloj digital (`#clk`, actualiza cada 20s), botón de audio (`#snd` 🔊/🔇).
   - Encabezado Hero: Chip "MODELO ACTIVO · NFL + NCAA · 7 NOV 2026", título "Cada jugada, calculada", botón "Explorar ›".
@@ -71,7 +71,7 @@ Toda la navegación y alternancia de pantallas se gestiona mediante:
     2. **Tarjeta Robot NCAA:** Atributo `data-go="1"`, badge "UNIVERSITARIO", subtítulo "AP TOP 25 · SEMANA 10".
   - Botón flotante lateral del Asistente IA (`#aib`).
   - Botón inferior derecho del Boleto (`#slipb`): Muestra el contador de apuestas activas (`#slipn`).
-- **Evidencia Visual:** [03-desktop-home.png](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/touchiq/evidence/screenshots/03-desktop-home.png), [17-mobile-home.png](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/touchiq/evidence/screenshots/17-mobile-home.png).
+- **Evidencia Visual:** [03-desktop-home.png](<REPO_ROOT>/research/touchiq/evidence/screenshots/03-desktop-home.png), [17-mobile-home.png](<REPO_ROOT>/research/touchiq/evidence/screenshots/17-mobile-home.png).
 
 ---
 
@@ -84,7 +84,7 @@ Toda la navegación y alternancia de pantallas se gestiona mediante:
   - Botón "‹ Deportes" (`#bk2`): Regresa a `LV=1` con animación fade/slide.
   - Encabezado: "FÚTBOL · 4 TORNEOS", "Elige tu liga. Cuatro torneos. Una sola fórmula."
   - Grid de ligas (`#lgrid`): Diseñado para albergar los torneos (Liga MX, La Liga, Premier League, Champions League).
-- **Evidencia Visual:** [10-desktop-futbol-selector.png](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/touchiq/evidence/screenshots/10-desktop-futbol-selector.png).
+- **Evidencia Visual:** [10-desktop-futbol-selector.png](<REPO_ROOT>/research/touchiq/evidence/screenshots/10-desktop-futbol-selector.png).
 
 ---
 
@@ -102,7 +102,7 @@ Toda la navegación y alternancia de pantallas se gestiona mediante:
   6. **Tab `Jugadores` (data-t="j"):** Estadísticas individuales de jugadores y líneas proyectadas de yardas y touchdowns (props).
   7. **Tab `💰 Dinero` (data-t="m"):** Splits de apuestas de DraftKings (porcentaje de boletos vs porcentaje de dinero) con etiquetas de alerta ("Fuerte", "Público", "Alerta IA").
 - **Barra de Salida:** Barra `#hintbar` con botón `#hback` ("Atrás") para cerrar el iframe y volver al Home.
-- **Evidencia Visual:** [04-desktop-nfl-dashboard.png](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/touchiq/evidence/screenshots/04-desktop-nfl-dashboard.png), [05-desktop-nfl-tab-partidos.png](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/touchiq/evidence/screenshots/05-desktop-nfl-tab-partidos.png), [06-desktop-nfl-tab-simulador.png](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/touchiq/evidence/screenshots/06-desktop-nfl-tab-simulador.png), [07-desktop-nfl-tab-lesiones.png](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/touchiq/evidence/screenshots/07-desktop-nfl-tab-lesiones.png), [08-desktop-nfl-tab-dinero.png](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/touchiq/evidence/screenshots/08-desktop-nfl-tab-dinero.png).
+- **Evidencia Visual:** [04-desktop-nfl-dashboard.png](<REPO_ROOT>/research/touchiq/evidence/screenshots/04-desktop-nfl-dashboard.png), [05-desktop-nfl-tab-partidos.png](<REPO_ROOT>/research/touchiq/evidence/screenshots/05-desktop-nfl-tab-partidos.png), [06-desktop-nfl-tab-simulador.png](<REPO_ROOT>/research/touchiq/evidence/screenshots/06-desktop-nfl-tab-simulador.png), [07-desktop-nfl-tab-lesiones.png](<REPO_ROOT>/research/touchiq/evidence/screenshots/07-desktop-nfl-tab-lesiones.png), [08-desktop-nfl-tab-dinero.png](<REPO_ROOT>/research/touchiq/evidence/screenshots/08-desktop-nfl-tab-dinero.png).
 
 ---
 
@@ -116,7 +116,7 @@ Toda la navegación y alternancia de pantallas se gestiona mediante:
   2. **Simulador:** Simulación entre equipos colegiales considerando ajuste de conferencias.
   3. **Bajas:** Módulo de bajas (en este build array `N` se encuentra vacío).
   4. **Equipos:** Tabla con factores de conferencia y promedios por juego.
-- **Evidencia Visual:** [09-desktop-ncaa-dashboard.png](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/touchiq/evidence/screenshots/09-desktop-ncaa-dashboard.png).
+- **Evidencia Visual:** [09-desktop-ncaa-dashboard.png](<REPO_ROOT>/research/touchiq/evidence/screenshots/09-desktop-ncaa-dashboard.png).
 
 ---
 
@@ -129,7 +129,7 @@ Toda la navegación y alternancia de pantallas se gestiona mediante:
   1. **Tab Boleto (`data-st="b"`):** Selecciones activas, cuotas ingresadas, cálculo de parlay combinado, advertencia de correlación si dos apuestas son del mismo juego, cuota justa (sin vig), ganancia potencial estimada y botón de registro.
   2. **Tab Historial (`data-st="h"`):** Lista de apuestas resueltas y pendientes. Filtros por estado, resolución manual de apuestas (Ganada / Perdida / Nula) y desglose de ROI por tipo de apuesta.
   3. **Tab Bankroll (`data-st="c"`):** Capital virtual inicial ($1,000 MXN default), capital actual, gráfica de evolución de balance, métricas de drawdown, tasa de acierto y porcentaje en riesgo.
-- **Evidencia Visual:** [11-desktop-boleto-drawer.png](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/touchiq/evidence/screenshots/11-desktop-boleto-drawer.png), [12-desktop-boleto-historial.png](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/touchiq/evidence/screenshots/12-desktop-boleto-historial.png), [13-desktop-boleto-bankroll.png](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/touchiq/evidence/screenshots/13-desktop-boleto-bankroll.png).
+- **Evidencia Visual:** [11-desktop-boleto-drawer.png](<REPO_ROOT>/research/touchiq/evidence/screenshots/11-desktop-boleto-drawer.png), [12-desktop-boleto-historial.png](<REPO_ROOT>/research/touchiq/evidence/screenshots/12-desktop-boleto-historial.png), [13-desktop-boleto-bankroll.png](<REPO_ROOT>/research/touchiq/evidence/screenshots/13-desktop-boleto-bankroll.png).
 
 ---
 
@@ -144,7 +144,7 @@ Toda la navegación y alternancia de pantallas se gestiona mediante:
   - Área de mensajes (`#aim`): Burbujas de usuario (`.am.u`) y de respuesta (`.am.a`).
   - Formulario de entrada (`#aif`): Input `#aiq` y botón de envío.
   - Indicador de fuente (`#aisrc`): Muestra si la respuesta provino de Claude o de "Modo local".
-- **Evidencia Visual:** [14-desktop-assistant-open.png](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/touchiq/evidence/screenshots/14-desktop-assistant-open.png), [15-desktop-assistant-response.png](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/touchiq/evidence/screenshots/15-desktop-assistant-response.png).
+- **Evidencia Visual:** [14-desktop-assistant-open.png](<REPO_ROOT>/research/touchiq/evidence/screenshots/14-desktop-assistant-open.png), [15-desktop-assistant-response.png](<REPO_ROOT>/research/touchiq/evidence/screenshots/15-desktop-assistant-response.png).
 
 ---
 
@@ -159,9 +159,9 @@ stateDiagram-v2
     state LOCK_STAGE_2 {
         [*] --> Digits_Entry
         Digits_Entry --> Check_PIN : 4to Dígito
-        Check_PIN --> Error_Shake : PIN != "7779"
+        Check_PIN --> Error_Shake : PIN != "[REDACTED_PIN]"
         Error_Shake --> Digits_Entry : Reset (650ms)
-        Check_PIN --> Unlock_Animation : PIN == "7779"
+        Check_PIN --> Unlock_Animation : PIN == "[REDACTED_PIN]"
     }
     
     LOCK_STAGE_2 --> HOME_LV1 : Animación Warp/Flash (1.8s)

@@ -55,12 +55,32 @@ const consoleSender: SendEmail = async (to, subject, html) => {
 };
 
 const local9990Sender: SendEmail = async (to, subject, html) => {
+  if (process.env.VERCEL || (process.env.NODE_ENV === "production" && !isLocalBaseURL(process.env.BETTER_AUTH_URL ?? ""))) {
+    throw new Error("El registro local de enlaces mágicos (.local/9990.log) está prohibido fuera de localhost.");
+  }
   const cwd = process.cwd();
   const root = basename(cwd) === "web" && basename(dirname(cwd)) === "apps" ? resolve(cwd, "../..") : cwd;
   const logDirectory = resolve(root, ".local");
-  await mkdir(logDirectory, { recursive: true });
-  await appendFile(resolve(logDirectory, "9990.log"), localEmailLogLine(to, subject, html) + "\n", "utf8");
+  await mkdir(logDirectory, { recursive: true, mode: 0o700 });
+  await appendFile(resolve(logDirectory, "9990.log"), localEmailLogLine(to, subject, html) + "\n", {
+    encoding: "utf8",
+    mode: 0o600,
+  });
 };
+
+/** Limpia tokens OAuth persistidos en `auth_account`: PitchLab solo usa OAuth para identificar al socio, nunca para APIs offline. */
+export async function scrubOAuthAccountTokens(db: Db, accountRowId: string): Promise<void> {
+  await db
+    .update(authAccount)
+    .set({
+      accessToken: null,
+      refreshToken: null,
+      idToken: null,
+      accessTokenExpiresAt: null,
+      refreshTokenExpiresAt: null,
+    })
+    .where(eq(authAccount.id, accountRowId));
+}
 
 /** Liga la cuenta de Better Auth con el perfil de PitchLab (`users`) por correo. */
 export async function linkProfile(db: Db, account: { id: string; email: string; name: string }): Promise<void> {
@@ -137,6 +157,7 @@ export function createAuth(options: {
     account: {
       accountLinking: {
         enabled: true,
+        trustedProviders: ["google", "apple"],
       },
     },
     hooks: {
@@ -179,6 +200,38 @@ export function createAuth(options: {
           },
         },
       },
+      account: {
+        create: {
+          before: async (account) => ({
+            data: {
+              ...account,
+              accessToken: null,
+              refreshToken: null,
+              idToken: null,
+              accessTokenExpiresAt: null,
+              refreshTokenExpiresAt: null,
+            },
+          }),
+          after: async (account) => {
+            await scrubOAuthAccountTokens(options.db, account.id);
+          },
+        },
+        update: {
+          before: async (account) => ({
+            data: {
+              ...account,
+              accessToken: null,
+              refreshToken: null,
+              idToken: null,
+              accessTokenExpiresAt: null,
+              refreshTokenExpiresAt: null,
+            },
+          }),
+          after: async (account) => {
+            await scrubOAuthAccountTokens(options.db, account.id);
+          },
+        },
+      },
     },
   });
 }
@@ -200,7 +253,7 @@ const FORBIDDEN_AUTH_SECRETS: ReadonlySet<string> = new Set([
 function isForbiddenAuthSecret(secret: string): boolean {
   return (
     FORBIDDEN_AUTH_SECRETS.has(secret) ||
-    /^(reemplaz|replace[-_]|changeme|example[-_]|dev-only-)/i.test(secret)
+    /^(reemplaz|replace[-_]|changeme|example[-_]|dev-only-|local-9990-|e2e-test-)/i.test(secret)
   );
 }
 

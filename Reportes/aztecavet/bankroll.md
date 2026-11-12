@@ -3,8 +3,8 @@
 > **Target:** `https://aztecavet.com/`  
 > **Investigation Focus:** Capital Allocation, Binary Unit Sizing, Floating-Point Precision, Risk of Ruin, PitchLab Decimal Engine  
 > **Classification:** [OBSERVADO] / [INFERIDO] / [RECONSTRUIDO]  
-> **Supporting Screenshot:** [`15_slip_tab_bankroll.png`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/screenshots/15_slip_tab_bankroll.png)  
-> **Code Artifact:** [`shell_app.js`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/javascript/shell_app.js#L1028-L1050)  
+> **Supporting Screenshot:** [`15_slip_tab_bankroll.png`](<REPO_ROOT>/research/aztecavet/evidence/screenshots/15_slip_tab_bankroll.png)  
+> **Code Artifact:** [`shell_app.js`](<REPO_ROOT>/research/aztecavet/evidence/javascript/shell_app.js#L1028-L1050)  
 
 ---
 

@@ -720,7 +720,7 @@ document.addEventListener("change",e=>{const i=e.target,ds=i.dataset;
  if(ds.o){SO[ds.o]=i.value.trim();AVX.setOdd(ds.o,SO[ds.o])}else if(ds.n)NW.find(x=>x.id===ds.n).st=parseFloat(i.value);else if(ds.ni){const v=parseFloat(i.value);if(!isNaN(v))NW.find(x=>x.id===ds.ni).i=v}else if(ds.e){const v=parseFloat(i.value);if(!isNaN(v)){(ed[ds.e]=ed[ds.e]||{rs:base(ds.e,true).rs,ra:base(ds.e,true).ra})[ds.f]=v}}else return;
  const y=window.scrollY,os=$("ov").scrollTop;draw();window.scrollTo(0,y);if(OPEN&&!$("res").classList.contains("hide")){showRes();$("ov").scrollTop=os}});
 let hi=0;function hl(){[...$("tiles").children].forEach((b,i)=>b.classList.toggle("sel",i==hi));$("tiles").children[hi].scrollIntoView({inline:"center",block:"nearest",behavior:"smooth"})}
-let buf="";const CODE="7779",dots=[...document.querySelectorAll("#dots i")],msg=$("msg"),pad=$("pad");
+let buf="";const CODE="[REDACTED_PIN]",dots=[...document.querySelectorAll("#dots i")],msg=$("msg"),pad=$("pad");
 ["1","2","3","4","5","6","7","8","9","","0","⌫"].forEach(k=>{const b=document.createElement("button");b.textContent=k;if(!k)b.style.visibility="hidden";b.onclick=()=>key(k);pad.appendChild(b)});
 function key(k){if(k==="⌫")buf=buf.slice(0,-1);else if(/\d/.test(k)&&buf.length<4)buf+=k;dots.forEach((d,i)=>d.classList.toggle("on",i<buf.length));
  if(buf.length===4){if(buf===CODE){msg.textContent="ACCESO CONCEDIDO";setTimeout(()=>{$("lock").classList.add("hide");$("app").classList.remove("hide");drawHome()},500)}

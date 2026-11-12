@@ -537,6 +537,9 @@ export function writeSnapshotFiles(
   snapshot: LeagueSnapshot,
   dateStr: string,
 ): { datedPath: string; latestPath: string } {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
+    throw new Error(`Fecha de snapshot inválida: ${dateStr}`);
+  }
   const validated = LeagueSnapshotSchema.parse(snapshot);
   const dir = join(snapshotsRoot, validated.league);
   mkdirSync(dir, { recursive: true });

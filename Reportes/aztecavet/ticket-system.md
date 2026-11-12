@@ -3,8 +3,8 @@
 > **Target:** `https://aztecavet.com/`  
 > **Investigation Focus:** Selection State, Inter-Frame Synchronization, Parlay Construction, Return Mathematics  
 > **Classification:** [OBSERVADO] / [INFERIDO] / [RECONSTRUIDO]  
-> **Supporting Screenshot:** [`13_slip_tab_boleto.png`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/screenshots/13_slip_tab_boleto.png)  
-> **Decompiled Code:** [`shell_app.js`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/javascript/shell_app.js#L1018-L1115)  
+> **Supporting Screenshot:** [`13_slip_tab_boleto.png`](<REPO_ROOT>/research/aztecavet/evidence/screenshots/13_slip_tab_boleto.png)  
+> **Decompiled Code:** [`shell_app.js`](<REPO_ROOT>/research/aztecavet/evidence/javascript/shell_app.js#L1018-L1115)  
 
 ---
 

@@ -44,6 +44,7 @@ export const users = pgTable("users", {
   referralCode: text("referral_code").unique(),
   isAmbassador: boolean("is_ambassador").notNull().default(false),
   isAdult: boolean("is_adult").notNull().default(false),
+  publicProfile: boolean("public_profile").notNull().default(true),
   socialPauseEnabled: boolean("social_pause_enabled").notNull().default(false),
   /** Paso 2 del registro: fecha de nacimiento (`AAAA-MM-DD`) y consentimientos con versión. */
   birthDate: date("birth_date"),
@@ -206,6 +207,7 @@ export const subscriptions = pgTable(
   },
   (t) => [
     index("subscriptions_customer_idx").on(t.providerCustomerId),
+    uniqueIndex("subscriptions_provider_customer_uq").on(t.provider, t.providerCustomerId),
     index("subscriptions_period_end_idx").on(t.currentPeriodEnd),
     check("subscriptions_provider_ck", sql`${t.provider} IN ('stripe', 'mercadopago', 'manual')`),
     check("subscriptions_interval_ck", sql`${t.planInterval} IN ('monthly', 'annual')`),
@@ -644,7 +646,10 @@ export const authAccount = pgTable(
     createdAt: ts("created_at").notNull().defaultNow(),
     updatedAt: ts("updated_at").notNull().defaultNow(),
   },
-  (t) => [index("auth_account_user_idx").on(t.userId)],
+  (t) => [
+    index("auth_account_user_idx").on(t.userId),
+    uniqueIndex("auth_account_provider_account_uq").on(t.providerId, t.accountId),
+  ],
 );
 
 export const authVerification = pgTable("auth_verification", {

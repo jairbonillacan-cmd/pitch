@@ -17,9 +17,9 @@
 | Cookies/SW | Ninguno; HSTS activo; service workers bloqueados sin efecto (no hay) | capturas |
 | Móvil | Verificado en 390×844@2x, locale es-MX: gate + desbloqueo + home funcionan idénticos (responsive) | `ev_007e8371…`, captura `ev_007e8_home-settle.png` |
 
-## 2. La puerta (código 7779) — mecánica completa
+## 2. La puerta (código [REDACTED_PIN]) — mecánica completa
 
-- **Constante en texto plano**: `const CODE="7779"` (inline_1 y también dentro de cada página deportiva).
+- **Constante en texto plano**: `const CODE="[REDACTED_PIN]"` (inline_1 y también dentro de cada página deportiva).
 - **Dos etapas**: stage 1 (bienvenida, ignora dígitos) → clic en `#lock` (o **cualquier tecla**, tras 900 ms) → `goStage2()` (sonido "portal", `#stg1`→`#stg2` a los 650 ms) → pad activo (`key()` exige `stage===2`).
 - **Entrada**: pad virtual (12 botones, el hueco es invisible) **y teclado físico** — corrección respecto al pase 1: el handler global acepta dígitos `/^\d$/` y Backspace mientras el lock está visible (inline_1 líneas ~1000-1008). Cada dígito suena (`keySound` con la nota pentatónica index = dígito).
 - **Al 4º dígito**: `buf===CODE ? success() : fail()` — comparación client-side, sin servidor, sin hash.
@@ -109,7 +109,7 @@ Todos los datos tienen fecha al **6 nov 2026** y son estáticos (horneados). El 
 
 ## 10. Observaciones de seguridad (pase 2)
 
-1. El código **7779 sigue siendo cosmético**: está en texto plano ×4 (shell + 3 páginas), sin hash, sin lockout, sin servidor. El teclado físico también lo acepta.
+1. El código **[REDACTED_PIN] sigue siendo cosmético**: está en texto plano ×4 (shell + 3 páginas), sin hash, sin lockout, sin servidor. El teclado físico también lo acepta.
 2. Nada de lo "protegido" está cifrado: los datos están en base64 en el HTML público.
 3. El puente `window.claude` depositaría datos privados del boleto en `data/users/<id>/…` del entorno de hospedaje — en un hosting normal no existe y todo queda local; en uno que lo provea, la segregación depende por completo de ese servicio (la app confía ciegamente en `user.id()`).
 4. Sin CSP, sin SRI, sin integridad de recursos: un compromiso del bundle de Netlify sería indetectable para el usuario.

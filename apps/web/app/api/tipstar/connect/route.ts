@@ -1,7 +1,10 @@
 import { NextResponse } from "next/server";
 import { setConnectAccount, tipstarProfileForUser } from "@pitchlab/db";
 import { createExpressAccount, createOnboardingLink } from "../../../../src/server/billing/connect";
-import { verifySameOriginMutation } from "../../../../src/server/request-security";
+import {
+  trustedAppBaseUrl,
+  verifySameOriginMutation,
+} from "../../../../src/server/request-security";
 import { requireMember } from "../../../../src/server/session-user";
 
 export const runtime = "nodejs";
@@ -22,6 +25,14 @@ export async function POST(request: Request): Promise<NextResponse> {
   const row = await tipstarProfileForUser(member.db, member.userId);
   if (!row) return NextResponse.json({ error: "Tu cuenta no es de tipstar oficial" }, { status: 403 });
 
+  let baseUrl: string;
+  try {
+    baseUrl = trustedAppBaseUrl(request);
+  } catch (err) {
+    console.error("[tipstar-connect] baseUrl inválida:", err);
+    return NextResponse.json({ error: "Cobro no configurado" }, { status: 503 });
+  }
+
   try {
     let accountId = row.profile.stripeConnectAccountId;
     if (!accountId) {
@@ -34,7 +45,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     }
     const url = await createOnboardingLink(apiKey, {
       accountId,
-      baseUrl: process.env.BETTER_AUTH_URL ?? new URL(request.url).origin,
+      baseUrl,
     });
     return NextResponse.json({ url, payoutsEnabled: row.profile.connectPayoutsEnabled });
   } catch (err) {

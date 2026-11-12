@@ -218,6 +218,7 @@ export async function handleInvoicePaid(db: Db, input: InvoicePaidInput): Promis
       .where(
         and(
           eq(tipstarAttributions.referredUserId, input.userId),
+          eq(tipstarProfiles.isActive, true),
           gt(tipstarProfiles.commissionBps, 0),
         ),
       );

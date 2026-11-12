@@ -4,7 +4,7 @@
 > **Investigation Focus:** Graphic Design, Procedural Ray-Tracing, WebAudio Synthesis, Theatrical Staging, Design Opportunities  
 > **Classification:** [OBSERVADO] / [INFERIDO] / [RECONSTRUIDO]  
 > **Visual Evidence:** Screenshots `01_initial_gate.png` through `18_after_reload_gate.png`  
-> **Code Artifact:** [`shell_app.js`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/javascript/shell_app.js#L140-L410)  
+> **Code Artifact:** [`shell_app.js`](<REPO_ROOT>/research/aztecavet/evidence/javascript/shell_app.js#L140-L410)  
 
 ---
 

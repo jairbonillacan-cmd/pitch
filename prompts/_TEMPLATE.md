@@ -25,7 +25,7 @@ PitchLab (https://pitchlab.mx) es un laboratorio de investigación deportiva por
 
 ## C. Marca
 
-Fuente oficial: `C:\Users\jairb\Desktop\Proyectos\Pitch Lab\pitchlab-brand` (en el repo: `pitchlab-brand/`). Usa los tokens de `packages/tokens` (generados de `brand-tokens.css`), los componentes de Storybook y las reglas de `pitchlab-brand/PITCHLAB_BRAND_HANDOFF.md` (sección «Aplicación en producto»). Emblemas solo vía `TeamBadge` y `LeagueBadge`. No crees colores, tipografías ni logos.
+Fuente oficial: `<REPO_ROOT>\pitchlab-brand` (en el repo: `pitchlab-brand/`). Usa los tokens de `packages/tokens` (generados de `brand-tokens.css`), los componentes de Storybook y las reglas de `pitchlab-brand/PITCHLAB_BRAND_HANDOFF.md` (sección «Aplicación en producto»). Emblemas solo vía `TeamBadge` y `LeagueBadge`. No crees colores, tipografías ni logos.
 
 ## D. Objetivo
 

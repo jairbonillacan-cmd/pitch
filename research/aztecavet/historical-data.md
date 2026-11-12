@@ -3,7 +3,7 @@
 > **Target:** `https://aztecavet.com/`  
 > **Investigation Focus:** Retrospective Audits, Data Longevity, Lookahead Bias, Historical Warehouse Design  
 > **Classification:** [OBSERVADO] / [INFERIDO] / [RECONSTRUIDO]  
-> **Related Files:** [`football_engine.js`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/javascript/football_engine.js), [`nhl_engine.js`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/javascript/nhl_engine.js), [`mlb_engine.js`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/javascript/mlb_engine.js)  
+> **Related Files:** [`football_engine.js`](<REPO_ROOT>/research/aztecavet/evidence/javascript/football_engine.js), [`nhl_engine.js`](<REPO_ROOT>/research/aztecavet/evidence/javascript/nhl_engine.js), [`mlb_engine.js`](<REPO_ROOT>/research/aztecavet/evidence/javascript/mlb_engine.js)  
 
 ---
 

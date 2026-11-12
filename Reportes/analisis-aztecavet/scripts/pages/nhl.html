@@ -431,7 +431,7 @@ function openGame(k){OPEN=k;const g=getG(k);TMR.forEach(clearTimeout);TMR=[];$("
  TMR.push(setTimeout(()=>showRes(1),L.length*420+800))}
 function showRes(fr){simStop();TMR.forEach(clearTimeout);TMR=[];if(!OPEN)return;$("stage").classList.add("hide");const r=$("res");r.classList.remove("hide","anim");r.innerHTML=card(getG(OPEN));if(fr===1)AVX.anim(r)}
 function closeGame(){simStop();TMR.forEach(clearTimeout);TMR=[];OPEN=null;$("ov").classList.add("hide");document.body.style.overflow=""}
-let buf="";const CODE="7779",dots=[...document.querySelectorAll("#dots i")],msg=$("msg"),pad=$("pad");
+let buf="";const CODE="[REDACTED_PIN]",dots=[...document.querySelectorAll("#dots i")],msg=$("msg"),pad=$("pad");
 ["1","2","3","4","5","6","7","8","9","","0","⌫"].forEach(k=>{const b=document.createElement("button");b.textContent=k;if(!k)b.style.visibility="hidden";b.onclick=()=>key(k);pad.appendChild(b)});
 function key(k){if(k==="⌫")buf=buf.slice(0,-1);else if(/\d/.test(k)&&buf.length<4)buf+=k;dots.forEach((d,i)=>d.classList.toggle("on",i<buf.length));
  if(buf.length===4){if(buf===CODE){msg.textContent="ACCESO CONCEDIDO";setTimeout(()=>{$("lock").classList.add("hide");$("app").classList.remove("hide");draw()},500)}

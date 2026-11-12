@@ -3,7 +3,7 @@
 > **Target:** `https://aztecavet.com/`  
 > **Investigation Focus:** AST Parsing, Function Signatures, Decompiled Algorithms, State Management  
 > **Classification:** [OBSERVADO] / [INFERIDO] / [RECONSTRUIDO]  
-> **Analyzed Files:** [`shell_app.js`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/javascript/shell_app.js), [`ai_assistant.js`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/javascript/ai_assistant.js)  
+> **Analyzed Files:** [`shell_app.js`](<REPO_ROOT>/research/aztecavet/evidence/javascript/shell_app.js), [`ai_assistant.js`](<REPO_ROOT>/research/aztecavet/evidence/javascript/ai_assistant.js)  
 
 ---
 

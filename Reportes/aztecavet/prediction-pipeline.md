@@ -3,7 +3,7 @@
 > **Target:** `https://aztecavet.com/`  
 > **Investigation Focus:** Mathematical Pipeline Stages, Hypothesis vs Reality, Feature Transformations, PitchLab ML Design  
 > **Classification:** [OBSERVADO] / [INFERIDO] / [RECONSTRUIDO]  
-> **Source Codes:** [`football_engine.js`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/javascript/football_engine.js), [`nhl_engine.js`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/javascript/nhl_engine.js), [`mlb_engine.js`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/javascript/mlb_engine.js)  
+> **Source Codes:** [`football_engine.js`](<REPO_ROOT>/research/aztecavet/evidence/javascript/football_engine.js), [`nhl_engine.js`](<REPO_ROOT>/research/aztecavet/evidence/javascript/nhl_engine.js), [`mlb_engine.js`](<REPO_ROOT>/research/aztecavet/evidence/javascript/mlb_engine.js)  
 
 ---
 

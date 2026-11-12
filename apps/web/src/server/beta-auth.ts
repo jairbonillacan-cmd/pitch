@@ -9,13 +9,14 @@ const FORBIDDEN_PROD_COOKIE_SECRETS: ReadonlySet<string> = new Set([
   "reemplazar-con-secreto-aleatorio-de-32-caracteres-minimo",
   "reemplaza-con-32-caracteres-aleatorios-minimo",
   "dev-only-pitchlab-beta-cookie-secret-32chars",
+  "local-9990-pitchlab-beta-cookie-secret-32chars!",
   "changeme-changeme-changeme-changeme-32",
 ]);
 
 function isForbiddenProdCookieSecret(secret: string): boolean {
   return (
     FORBIDDEN_PROD_COOKIE_SECRETS.has(secret) ||
-    /^(reemplaz|replace[-_]|changeme|example[-_]|dev-only-)/i.test(secret)
+    /^(reemplaz|replace[-_]|changeme|example[-_]|dev-only-|local-9990-|e2e-test-)/i.test(secret)
   );
 }
 

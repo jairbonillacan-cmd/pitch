@@ -15,6 +15,7 @@ import {
   tipstarProfiles,
   users,
 } from "./schema";
+import { checkHandleFormat, isHandleAvailable } from "./signup";
 
 export const FLAG_MONTH1_NO_CARD = "month1_no_card_mode";
 export const FLAG_TIPSTAR_PAYOUTS = "tipstar_payouts_enabled";
@@ -155,11 +156,15 @@ export async function createTipstarCode(
   input: { email: string; handle: string; displayName: string; promoCode: string; specialty: string },
 ): Promise<CreateTipstarResult> {
   const code = input.promoCode.trim().toUpperCase();
-  const handle = input.handle.trim().replace(/^@/, "").toLowerCase();
   if (!/^[A-Z0-9]{3,16}$/.test(code)) return { ok: false, reason: "codigo_invalido" };
-  if (!/^[a-z0-9_]{3,24}$/.test(handle)) return { ok: false, reason: "handle_invalido" };
+  const handleCheck = checkHandleFormat(input.handle);
+  if (!handleCheck.ok) return { ok: false, reason: "handle_invalido" };
+  const handle = handleCheck.handle;
   const email = input.email.trim().toLowerCase();
   let [user] = await db.select().from(users).where(eq(users.email, email));
+  if (!(await isHandleAvailable(db, handle, user?.id))) {
+    return { ok: false, reason: "duplicado" };
+  }
   if (!user) {
     [user] = await db.insert(users).values({ email, handle, displayName: input.displayName }).returning();
   }

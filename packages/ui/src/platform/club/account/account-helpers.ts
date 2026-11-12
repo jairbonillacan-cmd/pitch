@@ -289,57 +289,48 @@ export const DEFAULT_CFDI_DRAFT_V1: StoredCfdiDraftV1 = {
   cpFiscal: "",
 };
 
-const VALID_REGIMEN_CODES = new Set(["612", "626", "605", "601", "616"]);
-const VALID_USO_CFDI_CODES = new Set(["G03", "S01"]);
-
+/**
+ * Por seguridad (SEC-15), los datos fiscales (RFC, razón social, CP) NO se persisten en
+ * `localStorage` en texto plano. Esta lectura purga cualquier rastro heredado de `pl-cfdi-v1`
+ * y devuelve siempre el borrador limpio en memoria.
+ */
 export function readStoredCfdiDraft(): StoredCfdiDraftV1 {
-  if (typeof window === "undefined") return DEFAULT_CFDI_DRAFT_V1;
-  try {
-    const raw = window.localStorage.getItem(CFDI_STORAGE_KEY);
-    if (!raw) return DEFAULT_CFDI_DRAFT_V1;
-    const parsed = JSON.parse(raw) as Partial<StoredCfdiDraftV1> | null;
-    if (!parsed || typeof parsed !== "object") return DEFAULT_CFDI_DRAFT_V1;
-    return {
-      v: 1,
-      rfc: typeof parsed.rfc === "string" ? parsed.rfc.trim().toUpperCase().slice(0, 13) : "",
-      razonSocial:
-        typeof parsed.razonSocial === "string"
-          ? parsed.razonSocial.trim().toUpperCase().slice(0, 160)
-          : "",
-      regimenFiscal:
-        typeof parsed.regimenFiscal === "string" && VALID_REGIMEN_CODES.has(parsed.regimenFiscal)
-          ? parsed.regimenFiscal
-          : DEFAULT_CFDI_DRAFT_V1.regimenFiscal,
-      usoCfdi:
-        typeof parsed.usoCfdi === "string" && VALID_USO_CFDI_CODES.has(parsed.usoCfdi)
-          ? parsed.usoCfdi
-          : DEFAULT_CFDI_DRAFT_V1.usoCfdi,
-      cpFiscal:
-        typeof parsed.cpFiscal === "string"
-          ? parsed.cpFiscal.replace(/\D/g, "").slice(0, 5)
-          : "",
-    };
-  } catch (err) {
-    void err;
-    return DEFAULT_CFDI_DRAFT_V1;
+  if (typeof window !== "undefined") {
+    try {
+      window.localStorage.removeItem(CFDI_STORAGE_KEY);
+    } catch (err) {
+      void err;
+    }
   }
+  return { ...DEFAULT_CFDI_DRAFT_V1 };
 }
 
-export function writeStoredCfdiDraft(next: StoredCfdiDraftV1): void {
-  if (typeof window === "undefined") return;
-  try {
-    window.localStorage.setItem(CFDI_STORAGE_KEY, JSON.stringify(next));
-  } catch (err) {
-    void err;
+export function writeStoredCfdiDraft(_next: StoredCfdiDraftV1): void {
+  void _next;
+  if (typeof window !== "undefined") {
+    try {
+      window.localStorage.removeItem(CFDI_STORAGE_KEY);
+    } catch (err) {
+      void err;
+    }
   }
 }
 
 const RFC_PERSONA_MORAL_REGEX =
-  /^[A-ZÑ&]{3}\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])[A-Z0-9]{3}$/;
+  /^[A-ZÑ&]{3}(\d{2})(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])[A-Z0-9]{3}$/;
 const RFC_PERSONA_FISICA_REGEX =
-  /^[A-ZÑ&]{4}\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])[A-Z0-9]{3}$/;
+  /^[A-ZÑ&]{4}(\d{2})(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])[A-Z0-9]{3}$/;
 
-/** Valida estructura SAT de RFC (12 caracteres persona moral, 13 persona física) y coherencia con régimen. */
+function hasValidRfcCalendarDate(match: RegExpExecArray | null): boolean {
+  if (!match) return false;
+  const fullYear = 2000 + Number(match[1]);
+  const month = Number(match[2]);
+  const day = Number(match[3]);
+  const dt = new Date(Date.UTC(fullYear, month - 1, day));
+  return dt.getUTCFullYear() === fullYear && dt.getUTCMonth() === month - 1 && dt.getUTCDate() === day;
+}
+
+/** Valida estructura SAT de RFC (12 caracteres persona moral, 13 persona física), fecha calendario y coherencia con régimen. */
 export function validateMexicanRfc(
   rawRfc: string,
   regimenFiscal?: string,
@@ -349,7 +340,7 @@ export function validateMexicanRfc(
     return { valid: false, error: "Ingresa tu RFC de 12 o 13 caracteres." };
   }
   if (regimenFiscal === "601") {
-    if (!RFC_PERSONA_MORAL_REGEX.test(cleaned)) {
+    if (!hasValidRfcCalendarDate(RFC_PERSONA_MORAL_REGEX.exec(cleaned))) {
       return {
         valid: false,
         error: "Para régimen 601 (Persona Moral), el RFC debe tener 12 caracteres válidos ante el SAT.",
@@ -358,7 +349,7 @@ export function validateMexicanRfc(
     return { valid: true };
   }
   if (regimenFiscal && regimenFiscal !== "601") {
-    if (!RFC_PERSONA_FISICA_REGEX.test(cleaned)) {
+    if (!hasValidRfcCalendarDate(RFC_PERSONA_FISICA_REGEX.exec(cleaned))) {
       return {
         valid: false,
         error: "Para persona física, el RFC debe tener 13 caracteres válidos (p. ej. ABCD890123XYZ).",
@@ -366,7 +357,10 @@ export function validateMexicanRfc(
     }
     return { valid: true };
   }
-  if (!RFC_PERSONA_FISICA_REGEX.test(cleaned) && !RFC_PERSONA_MORAL_REGEX.test(cleaned)) {
+  if (
+    !hasValidRfcCalendarDate(RFC_PERSONA_FISICA_REGEX.exec(cleaned)) &&
+    !hasValidRfcCalendarDate(RFC_PERSONA_MORAL_REGEX.exec(cleaned))
+  ) {
     return {
       valid: false,
       error: "Revisa el RFC: debe cumplir el formato del SAT de 12 o 13 caracteres.",
@@ -404,6 +398,12 @@ export function formatKickoffByTimezone(
     void err;
     return fallbackLocal;
   }
+}
+
+/** Neutraliza inyección de fórmulas en celdas de texto al exportar CSV para Excel / Sheets (SEC-18). */
+export function sanitizeCsvCell(raw: string): string {
+  const escaped = raw.replace(/"/g, '""');
+  return /^[=+\-@\t\r]/.test(escaped.trimStart()) ? `'${escaped}` : escaped;
 }
 
 /** Convierte un saldo en unidades a referencia privada en MXN. */
