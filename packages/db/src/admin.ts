@@ -16,6 +16,7 @@ import {
 } from "./schema";
 
 export const FLAG_MONTH1_NO_CARD = "month1_no_card_mode";
+export const FLAG_TIPSTAR_PAYOUTS = "tipstar_payouts_enabled";
 
 export async function getBoolFlag(db: Db, key: string, fallback: boolean): Promise<boolean> {
   const [row] = await db
@@ -61,7 +62,7 @@ export async function adminOverview(db: Db): Promise<AdminOverview> {
     db
       .select({ n: sql<number>`coalesce(sum(${tipstarCommissionLedger.commissionCentavosMxn}), 0)` })
       .from(tipstarCommissionLedger)
-      .where(sql`${tipstarCommissionLedger.status} IN ('pending_clearance', 'payable')`),
+      .where(sql`${tipstarCommissionLedger.status} IN ('pending_clearance', 'payable', 'processing_payout')`),
     db.select({ n: count() }).from(socialModerationLogs),
   ]);
   return {
@@ -99,7 +100,7 @@ export async function listTipstarCodes(db: Db): Promise<TipstarCodeRow[]> {
         .where(
           and(
             eq(tipstarCommissionLedger.tipstarUserId, p.userId),
-            sql`${tipstarCommissionLedger.status} IN ('pending_clearance', 'payable')`,
+            sql`${tipstarCommissionLedger.status} IN ('pending_clearance', 'payable', 'processing_payout')`,
           ),
         ),
     ]);

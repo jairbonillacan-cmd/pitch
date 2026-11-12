@@ -3,6 +3,7 @@
  * anónimas del escudo de la prueba (nunca se guarda la IP ni el navegador en claro).
  */
 import { createHash } from "node:crypto";
+import { SIGNUP_CONSENT_VERSION } from "@pitchlab/db";
 
 export interface SignupBody {
   email?: string;
@@ -15,7 +16,7 @@ export interface SignupBody {
   referralCode: string | null;
 }
 
-/** Valida el cuerpo de `POST /api/me/signup`; null si no tiene la forma esperada. */
+/** Valida el cuerpo de `POST /api/me/signup`; null si no tiene la forma esperada o versión vigente. */
 export function parseSignupBody(raw: unknown): SignupBody | null {
   if (!raw || typeof raw !== "object") return null;
   const b = raw as Record<string, unknown>;
@@ -24,7 +25,7 @@ export function parseSignupBody(raw: unknown): SignupBody | null {
   if (typeof b.birthDate !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(b.birthDate)) return null;
   if (!consents || consents.terms !== true || typeof consents.version !== "string") return null;
   const version = consents.version.trim().slice(0, 32);
-  if (!version) return null;
+  if (version !== SIGNUP_CONSENT_VERSION) return null;
   const code = typeof b.referralCode === "string" ? b.referralCode.trim().toUpperCase().slice(0, 24) : "";
   return {
     ...(typeof b.email === "string" ? { email: b.email.trim().toLowerCase() } : {}),

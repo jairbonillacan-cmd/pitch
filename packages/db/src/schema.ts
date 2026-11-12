@@ -391,6 +391,8 @@ export const tipstarCommissionLedger = pgTable(
     commissionCentavosMxn: integer("commission_centavos_mxn").notNull(),
     status: text("status").notNull(),
     clearsAt: ts("clears_at").notNull(),
+    /** Marca de reclamo atómico mientras se ejecuta la transferencia en Stripe Connect. */
+    claimStartedAt: ts("claim_started_at"),
     payoutBatchId: uuid("payout_batch_id"),
     /** Transferencia de Stripe Connect que pagó este asiento. */
     stripeTransferId: text("stripe_transfer_id").unique(),
@@ -402,7 +404,7 @@ export const tipstarCommissionLedger = pgTable(
     index("tipstar_ledger_tipstar_idx").on(t.tipstarUserId),
     check(
       "tipstar_ledger_status_ck",
-      sql`${t.status} IN ('pending_clearance', 'payable', 'paid_out', 'reversed_refund')`,
+      sql`${t.status} IN ('pending_clearance', 'payable', 'processing_payout', 'paid_out', 'reversed_refund')`,
     ),
     check(
       "tipstar_ledger_net_ck",

@@ -171,6 +171,11 @@ describe("PitchLab Spacetime Suite v3.0 & Liquid Glass Platform v4", () => {
     let lockedUpcomingPicks = 0;
 
     for (const g of upcomingGames) {
+      expect(g.spacetime).toBeNull();
+      expect(g.markets).toEqual([]);
+      expect(g.factors).toEqual([]);
+      expect(g.preGame.moneyFlow).toBeNull();
+      expect(g.preGame.absences).toEqual([]);
       for (const pk of g.picks) {
         if (isPickUnlocked(pk, g.status, "visitor")) {
           unlockedUpcomingPicks += 1;
@@ -179,9 +184,23 @@ describe("PitchLab Spacetime Suite v3.0 & Liquid Glass Platform v4", () => {
           lockedUpcomingPicks += 1;
           expect(pk.isRedacted).toBe(true);
           expect(pk.label).toBe("Selección reservada Pase PitchLab Ultra");
+          expect(pk.p).toBe(0);
+          expect(pk.fairDecimal).toBe(0);
+          expect(pk.fairAmerican).toBe(0);
+          expect(pk.marketDecimal).toBeNull();
+          expect(pk.marketAmerican).toBeNull();
+          expect(pk.edgePts).toBeNull();
+          expect(pk.confidenceScore).toBe(0);
+          expect(pk.suggestedUnits).toBe(0);
+          expect(pk.conflictGroup).toBe("independent");
+          expect(pk.marketGroup).toBe("locked");
+          expect(pk.selectionKey).toBe("locked");
         }
       }
     }
+
+    // El parlay de demostración sobre el dataset redactado nunca expone selecciones pagadas en vivo
+    expect(buildParlayDemoData(redacted.games).isExample).toBe(true);
 
     // Exactamente 2 picks abiertos próximos en toda la plataforma: 1 Promo del Día + 1 Semanal de Tipstar
     expect(unlockedUpcomingPicks).toBe(2);

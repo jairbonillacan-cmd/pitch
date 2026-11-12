@@ -4,6 +4,7 @@ import {
   buildFinishedResultItems,
   buildHeroLeagueCards,
   buildParlayDemoData,
+  redactDatasetForVisitor,
   type LandingFeaturedCommunityPick,
   type LandingFinishedResultItem,
   type LandingHeroLeagueCard,
@@ -53,7 +54,7 @@ export async function loadLandingViewProps(): Promise<{
   parlayDemo: LandingParlayDemoData;
   featuredPick: LandingFeaturedCommunityPick;
 }> {
-  const dataset = buildServerRawPlatformDataset();
+  const dataset = redactDatasetForVisitor(buildServerRawPlatformDataset());
   const allHeroCards = buildHeroLeagueCards(dataset.games, dataset.leagues);
   const heroCards = selectHeroMainCards(allHeroCards);
   const finished = await loadFinishedGames();
@@ -75,7 +76,7 @@ export async function loadLandingViewProps(): Promise<{
 export async function loadComoFuncionaViewProps(): Promise<{
   heroCards: LandingHeroLeagueCard[];
 }> {
-  const dataset = buildServerRawPlatformDataset();
+  const dataset = redactDatasetForVisitor(buildServerRawPlatformDataset());
   return {
     heroCards: buildHeroLeagueCards(dataset.games, dataset.leagues),
   };
@@ -93,7 +94,7 @@ export async function loadResultadosViewProps(): Promise<{
 export async function loadParlaysViewProps(): Promise<{
   parlayDemo: LandingParlayDemoData;
 }> {
-  const dataset = buildServerRawPlatformDataset();
+  const dataset = redactDatasetForVisitor(buildServerRawPlatformDataset());
   return {
     parlayDemo: buildParlayDemoData(dataset.games),
   };
@@ -102,7 +103,7 @@ export async function loadParlaysViewProps(): Promise<{
 export async function loadComunidadViewProps(): Promise<{
   featuredPick: LandingFeaturedCommunityPick;
 }> {
-  const dataset = buildServerRawPlatformDataset();
+  const dataset = redactDatasetForVisitor(buildServerRawPlatformDataset());
   return {
     featuredPick: buildFeaturedCommunityPick(
       dataset.games,
@@ -117,7 +118,7 @@ export interface LoginPreviewData {
 }
 
 export async function loadLoginPreviewData(): Promise<LoginPreviewData> {
-  const dataset = buildServerRawPlatformDataset();
+  const dataset = redactDatasetForVisitor(buildServerRawPlatformDataset());
   if (dataset.games.length === 0) {
     return { primaryCard: null, secondaryCard: null };
   }

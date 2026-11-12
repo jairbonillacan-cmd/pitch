@@ -181,33 +181,73 @@ export function isLocalBaseURL(url: string): boolean {
   return /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?(\/|$)/.test(url);
 }
 
+const FORBIDDEN_AUTH_SECRETS: ReadonlySet<string> = new Set([
+  "reemplazar-con-secreto-aleatorio-de-32-caracteres-minimo",
+  "reemplaza-con-32-caracteres-aleatorios-minimo",
+  "dev-only-pitchlab-beta-cookie-secret-32chars",
+  "changeme-changeme-changeme-changeme-32",
+]);
+
+function isForbiddenAuthSecret(secret: string): boolean {
+  return (
+    FORBIDDEN_AUTH_SECRETS.has(secret) ||
+    /^(reemplaz|replace[-_]|changeme|example[-_]|dev-only-)/i.test(secret)
+  );
+}
+
 let cached: PitchLabAuth | null | undefined;
+
+export function resetAuthForTests(instance?: PitchLabAuth | null): void {
+  cached = instance;
+}
 
 /** Instancia según el entorno; null si faltan DATABASE_URL o BETTER_AUTH_SECRET. */
 export function getAuth(): PitchLabAuth | null {
   if (cached !== undefined) return cached;
   const url = process.env.DATABASE_URL;
-  const secret = process.env.BETTER_AUTH_SECRET;
-  if (!url || !secret) {
+  const rawSecret = process.env.BETTER_AUTH_SECRET;
+  if (!url || !rawSecret) {
     cached = null;
     return cached;
   }
-  const resendKey = process.env.RESEND_API_KEY;
+  const secret = rawSecret.trim();
+  if (secret.length < 32 || (process.env.NODE_ENV === "production" && isForbiddenAuthSecret(secret))) {
+    throw new Error("BETTER_AUTH_SECRET debe ser un secreto válido de al menos 32 caracteres.");
+  }
+
+  const isProd = process.env.NODE_ENV === "production";
+  const rawBaseURL = process.env.BETTER_AUTH_URL?.trim();
+  if (isProd && !rawBaseURL) {
+    throw new Error("BETTER_AUTH_URL es obligatoria en producción.");
+  }
+  if (isProd && process.env.VERCEL && rawBaseURL && isLocalBaseURL(rawBaseURL)) {
+    throw new Error("BETTER_AUTH_URL no puede apuntar a localhost en un despliegue remoto.");
+  }
+
+  const baseURL = rawBaseURL || "http://localhost:3000";
+  const resendKey = process.env.RESEND_API_KEY?.trim();
   const from = process.env.AUTH_EMAIL_FROM ?? "PitchLab <acceso@pitchlab.mx>";
-  const baseURL = process.env.BETTER_AUTH_URL ?? "http://localhost:3000";
-  // En tu PC (build de producción en localhost) el enlace sale en la consola del servidor.
-  if (!resendKey && process.env.NODE_ENV === "production" && !isLocalBaseURL(baseURL)) {
+  const allowLocalSender =
+    isLocalBaseURL(baseURL) && !process.env.VERCEL && (!isProd || Boolean(rawBaseURL));
+
+  if (!resendKey && !allowLocalSender) {
     throw new Error("RESEND_API_KEY es obligatoria en producción para enviar enlaces de acceso.");
   }
+
+  const sendEmail: SendEmail =
+    allowLocalSender && new URL(baseURL).port === "9990"
+      ? local9990Sender
+      : resendKey
+        ? resendSender(resendKey, from)
+        : consoleSender;
+
   const pair = (id?: string, secretValue?: string) =>
     id && secretValue ? { clientId: id, clientSecret: secretValue } : undefined;
   cached = createAuth({
     db: createDb(url) as unknown as Db,
     secret,
     baseURL,
-    sendEmail: isLocalBaseURL(baseURL) && new URL(baseURL).port === "9990"
-      ? local9990Sender
-      : resendKey ? resendSender(resendKey, from) : consoleSender,
+    sendEmail,
     google: pair(process.env.GOOGLE_CLIENT_ID, process.env.GOOGLE_CLIENT_SECRET),
     apple: pair(process.env.APPLE_CLIENT_ID, process.env.APPLE_CLIENT_SECRET),
     twitter: twitterCredentials(),

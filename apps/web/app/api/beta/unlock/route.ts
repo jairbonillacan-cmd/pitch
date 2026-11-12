@@ -3,12 +3,23 @@ import {
   checkRateLimit,
   getBetaCookieMaxAge,
   getBetaCookieName,
+  isBetaPinEnabled,
   sanitizeNextPath,
   signBetaCookieToken,
   verifyPinCodeConstantTime,
 } from "../../../../src/server/beta-auth";
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
+  if (!isBetaPinEnabled()) {
+    return NextResponse.json(
+      {
+        ok: false,
+        error: "El acceso por código beta está deshabilitado. Inicia sesión con tu cuenta.",
+      },
+      { status: 403 },
+    );
+  }
+
   const forwarded = request.headers.get("x-forwarded-for");
   const ip =
     forwarded?.split(",")[0]?.trim() ||
@@ -43,7 +54,19 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   }
 
   const code = typeof body.code === "string" ? body.code.trim() : "";
-  const valid = await verifyPinCodeConstantTime(code);
+  let valid = false;
+  try {
+    valid = await verifyPinCodeConstantTime(code);
+  } catch (err) {
+    void err;
+    return NextResponse.json(
+      {
+        ok: false,
+        error: "El acceso por código beta está deshabilitado.",
+      },
+      { status: 403 },
+    );
+  }
   if (!valid) {
     return NextResponse.json(
       {
@@ -54,7 +77,19 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     );
   }
 
-  const token = await signBetaCookieToken();
+  let token: string;
+  try {
+    token = await signBetaCookieToken();
+  } catch (err) {
+    void err;
+    return NextResponse.json(
+      {
+        ok: false,
+        error: "El acceso por código beta está deshabilitado.",
+      },
+      { status: 403 },
+    );
+  }
   const redirectTo = sanitizeNextPath(body.next);
   const response = NextResponse.json({ ok: true, redirectTo });
 

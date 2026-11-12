@@ -11,7 +11,14 @@ import {
 } from "@pitchlab/ui";
 import { getViewerAccess } from "./viewer-access";
 import { buildSpacetimeSignals } from "./spacetime";
-import { createDb, FLAG_MONTH1_NO_CARD, getBoolFlag, type Db } from "@pitchlab/db";
+import {
+  createDb,
+  eq,
+  FLAG_MONTH1_NO_CARD,
+  getBoolFlag,
+  publicWeeklyPicks,
+  type Db,
+} from "@pitchlab/db";
 import {
   loadAllActiveLeagueSnapshots,
   PRODUCT_LEAGUES,
@@ -32,6 +39,8 @@ export interface LoadedPlatformState {
   serverMonth1NoCardMode?: boolean;
   /** Socio con cuenta y usuario elegido; null con PIN o visitante. */
   viewerIdentity: ViewerIdentity | null;
+  /** En `/p/[pickId]`: `true` solo si `pickId` corresponde a un slug semanal público autorizado. */
+  publicPickResolved?: boolean;
 }
 
 /** Identidad para la interfaz: solo con cuenta y con @usuario ya elegido. */
@@ -159,9 +168,14 @@ export function withoutGameDetail(dataset: PlatformDataset): PlatformDataset {
 /** Detalle de un partido con la misma redacción Cero-Fuga que el resto del dataset. */
 export async function loadGameDetail(gameId: string): Promise<PlatformGameDetail | null> {
   const full = buildServerRawPlatformDataset();
-  const dataset = (await hasAuthenticatedBetaSession()) ? full : redactDatasetForVisitor(full);
+  const hasSession = await hasAuthenticatedBetaSession();
+  const dataset = hasSession ? full : redactDatasetForVisitor(full);
   const game = dataset.games.find((g) => g.id === gameId);
-  return game ? { markets: game.markets, headToHead: game.headToHead, factors: game.factors } : null;
+  if (!game) return null;
+  if (!hasSession && game.status !== "FT") {
+    return { markets: [], headToHead: game.headToHead, factors: [] };
+  }
+  return { markets: game.markets, headToHead: game.headToHead, factors: game.factors };
 }
 
 /** Acceso completo: PIN de la beta o cuenta con registro completo y Pase vigente. */
@@ -169,56 +183,166 @@ export async function hasAuthenticatedBetaSession(): Promise<boolean> {
   return (await getViewerAccess()).fullAccess;
 }
 
+async function resolvePublicWeeklyPick(
+  fullDataset: PlatformDataset,
+  rawSlug: string,
+): Promise<{ unlockedPickId: string; gameId: string; slug: string } | null> {
+  const clean = rawSlug.trim().toLowerCase();
+  if (!clean || !/^[a-z0-9-]{3,64}$/.test(clean) || clean.includes("__")) {
+    return null;
+  }
+
+  const url = process.env.DATABASE_URL;
+  if (accountsEnabled() && url) {
+    try {
+      flagDb ??= createDb(url) as unknown as Db;
+      const rows = await flagDb
+        .select({
+          unlockedPickId: publicWeeklyPicks.unlockedPickId,
+          gameId: publicWeeklyPicks.gameId,
+          publishedAt: publicWeeklyPicks.publishedAt,
+        })
+        .from(publicWeeklyPicks)
+        .where(eq(publicWeeklyPicks.publicSlug, clean));
+      if (rows.length > 0) {
+        const latest = rows
+          .slice()
+          .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())[0]!;
+        const exists = fullDataset.games.some(
+          (g) => g.id === latest.gameId && g.picks.some((p) => p.id === latest.unlockedPickId),
+        );
+        if (exists) {
+          return { unlockedPickId: latest.unlockedPickId, gameId: latest.gameId, slug: clean };
+        }
+      }
+    } catch (err) {
+      void err;
+    }
+  }
+
+  const upcomingGames = fullDataset.games.filter((g) => g.status !== "FT");
+  for (const g of upcomingGames) {
+    const openWeekly = g.picks.find(
+      (p) => Boolean(p.isTipstarWeeklyOpen) && p.tipstarSlug?.toLowerCase() === clean,
+    );
+    if (openWeekly) {
+      return { unlockedPickId: openWeekly.id, gameId: g.id, slug: clean };
+    }
+  }
+
+  if (clean === "carlos-sem" && upcomingGames[2]?.picks[0]) {
+    return {
+      unlockedPickId: upcomingGames[2].picks[0].id,
+      gameId: upcomingGames[2].id,
+      slug: clean,
+    };
+  }
+  if (clean === "diego-sem" && upcomingGames[3]?.picks[0]) {
+    return {
+      unlockedPickId: upcomingGames[3].picks[0].id,
+      gameId: upcomingGames[3].id,
+      slug: clean,
+    };
+  }
+
+  return null;
+}
+
 /**
  * Carga estado para superficies públicas aplicando redacción Cero-Fuga en servidor
- * cuando el visitante no tiene sesión activa.
+ * cuando el visitante no tiene sesión activa. En `/p/[pickId]` solo acepta slugs semanales
+ * públicos autorizados (nunca IDs directos de picks pagados).
  */
 export async function loadPublicPlatformState(
   publicTipstarSlugOrPickId?: string,
 ): Promise<LoadedPlatformState> {
   const fullDataset = buildServerRawPlatformDataset();
   const hasActiveSession = await hasAuthenticatedBetaSession();
+  const resolvedWeekly = publicTipstarSlugOrPickId
+    ? await resolvePublicWeeklyPick(fullDataset, publicTipstarSlugOrPickId)
+    : null;
+  const publicPickResolved = publicTipstarSlugOrPickId ? resolvedWeekly !== null : undefined;
 
   if (hasActiveSession) {
+    if (publicTipstarSlugOrPickId && !resolvedWeekly) {
+      return {
+        dataset: { ...withoutGameDetail(redactDatasetForVisitor(fullDataset)), leagues: [], games: [] },
+        initialRole: "member",
+        hasActiveSession: true,
+        allowRoleSimulation: previewToolsEnabled(),
+        accountsEnabled: accountsEnabled(),
+        serverMonth1NoCardMode: await loadMonth1Flag(),
+        viewerIdentity: await loadViewerIdentity(),
+        publicPickResolved: false,
+      };
+    }
+    const baseMemberDataset = withoutGameDetail(fullDataset);
+    const memberDataset = resolvedWeekly
+      ? {
+          ...baseMemberDataset,
+          leagues: [],
+          games: baseMemberDataset.games
+            .filter((g) => g.id === resolvedWeekly.gameId)
+            .map((g) => ({
+              ...g,
+              picks: g.picks.map((p) =>
+                p.id === resolvedWeekly.unlockedPickId
+                  ? { ...p, isTipstarWeeklyOpen: true, tipstarSlug: resolvedWeekly.slug }
+                  : p,
+              ),
+            })),
+        }
+      : baseMemberDataset;
     return {
-      dataset: withoutGameDetail(fullDataset),
+      dataset: memberDataset,
       initialRole: "member",
       hasActiveSession: true,
       allowRoleSimulation: previewToolsEnabled(),
       accountsEnabled: accountsEnabled(),
       serverMonth1NoCardMode: await loadMonth1Flag(),
       viewerIdentity: await loadViewerIdentity(),
+      publicPickResolved,
     };
   }
 
   const extraUnlocked = new Set<string>();
-  if (publicTipstarSlugOrPickId) {
-    const clean = publicTipstarSlugOrPickId.trim();
-    // Si coincide con un pickId directo o un slug de Tipstar secundario, liberar únicamente 1 pick
-    const upcomingGames = fullDataset.games.filter((g) => g.status !== "FT");
-    if (clean === "carlos-sem" && upcomingGames[2]?.picks[0]) {
-      extraUnlocked.add(upcomingGames[2].picks[0].id);
-    } else if (clean === "diego-sem" && upcomingGames[3]?.picks[0]) {
-      extraUnlocked.add(upcomingGames[3].picks[0].id);
-    } else {
-      for (const g of upcomingGames) {
-        const found = g.picks.find((p) => p.id === clean || p.tipstarSlug === clean);
-        if (found) {
-          extraUnlocked.add(found.id);
-          break;
-        }
-      }
-    }
+  const extraSlugs = new Map<string, string>();
+  if (resolvedWeekly) {
+    extraUnlocked.add(resolvedWeekly.unlockedPickId);
+    extraSlugs.set(resolvedWeekly.unlockedPickId, resolvedWeekly.slug);
   }
 
+  const redacted = withoutGameDetail(redactDatasetForVisitor(fullDataset, extraUnlocked, extraSlugs));
+  const scopedDataset = publicTipstarSlugOrPickId
+    ? {
+        ...redacted,
+        leagues: [],
+        games: resolvedWeekly
+          ? redacted.games
+              .filter((g) => g.id === resolvedWeekly.gameId)
+              .map((g) =>
+                g.status === "FT"
+                  ? g
+                  : {
+                      ...g,
+                      x12: [0, 0, 0] as [number, number, number],
+                      projection: { home: 0, away: 0, total: 0 },
+                      confidenceScore: 0,
+                    },
+              )
+          : [],
+      }
+    : redacted;
+
   return {
-    dataset: withoutGameDetail(redactDatasetForVisitor(fullDataset, extraUnlocked)),
+    dataset: scopedDataset,
     initialRole: "visitor",
     hasActiveSession: false,
     allowRoleSimulation: false,
     accountsEnabled: accountsEnabled(),
-      serverMonth1NoCardMode: await loadMonth1Flag(),
-      viewerIdentity: await loadViewerIdentity(),
+    serverMonth1NoCardMode: await loadMonth1Flag(),
+    viewerIdentity: await loadViewerIdentity(),
+    publicPickResolved,
   };
 }
 

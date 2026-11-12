@@ -3,6 +3,20 @@ const COOKIE_MAX_AGE_SECONDS = 30 * 24 * 60 * 60; // 30 days
 const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000; // 15 minutes
 const RATE_LIMIT_MAX_ATTEMPTS = 5;
 
+const FORBIDDEN_PROD_COOKIE_SECRETS: ReadonlySet<string> = new Set([
+  "reemplazar-con-secreto-aleatorio-de-32-caracteres-minimo",
+  "reemplaza-con-32-caracteres-aleatorios-minimo",
+  "dev-only-pitchlab-beta-cookie-secret-32chars",
+  "changeme-changeme-changeme-changeme-32",
+]);
+
+function isForbiddenProdCookieSecret(secret: string): boolean {
+  return (
+    FORBIDDEN_PROD_COOKIE_SECRETS.has(secret) ||
+    /^(reemplaz|replace[-_]|changeme|example[-_]|dev-only-)/i.test(secret)
+  );
+}
+
 interface RateEntry {
   count: number;
   resetAt: number;
@@ -18,7 +32,33 @@ export function getBetaCookieMaxAge(): number {
   return COOKIE_MAX_AGE_SECONDS;
 }
 
+/**
+ * En producción con cuentas reales activas, el acceso compartido por PIN (`pl_beta`) queda
+ * apagado salvo que se autorice explícitamente con `PITCHLAB_ALLOW_BETA_PIN_IN_PROD=1`.
+ */
+export function isBetaPinEnabled(): boolean {
+  const accountsOn = Boolean(process.env.DATABASE_URL && process.env.BETTER_AUTH_SECRET);
+  if (
+    process.env.NODE_ENV === "production" &&
+    accountsOn &&
+    process.env.PITCHLAB_ALLOW_BETA_PIN_IN_PROD !== "1"
+  ) {
+    return false;
+  }
+  if (process.env.NODE_ENV === "production") {
+    const code = (process.env.PITCHLAB_BETA_CODE ?? process.env.PREVIEW_ACCESS_CODE ?? "").trim();
+    const secret = (process.env.PITCHLAB_COOKIE_SECRET ?? process.env.BETA_COOKIE_SECRET ?? "").trim();
+    if (!code || secret.length < 32 || isForbiddenProdCookieSecret(secret)) {
+      return false;
+    }
+  }
+  return true;
+}
+
 function getPreviewAccessCode(): string {
+  if (!isBetaPinEnabled()) {
+    throw new Error("El acceso por PIN beta está deshabilitado en producción.");
+  }
   const envCode = process.env.PITCHLAB_BETA_CODE ?? process.env.PREVIEW_ACCESS_CODE;
   if (envCode && envCode.trim().length > 0) {
     return envCode.trim();
@@ -32,7 +72,11 @@ function getPreviewAccessCode(): string {
 function getBetaCookieSecret(): string {
   const envSecret = process.env.PITCHLAB_COOKIE_SECRET ?? process.env.BETA_COOKIE_SECRET;
   if (envSecret && envSecret.trim().length >= 32) {
-    return envSecret.trim();
+    const trimmed = envSecret.trim();
+    if (process.env.NODE_ENV === "production" && isForbiddenProdCookieSecret(trimmed)) {
+      throw new Error("PITCHLAB_COOKIE_SECRET usa un valor de ejemplo prohibido en producción.");
+    }
+    return trimmed;
   }
   if (process.env.NODE_ENV !== "production") {
     return "dev-only-pitchlab-beta-cookie-secret-32chars";

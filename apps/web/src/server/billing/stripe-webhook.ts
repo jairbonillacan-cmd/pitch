@@ -11,21 +11,25 @@
  */
 import { createHmac, timingSafeEqual } from "node:crypto";
 import {
+  and,
   applyReferralClawback,
+  entitlementGrants,
+  eq,
   grantsUntil,
   handleInvoicePaid,
   handleInvoiceRefunded,
+  inArray,
   markGrantsAppliedToStripe,
   planReferralClawback,
   processedPaymentEvents,
   referralGrants,
   setConnectPayoutsEnabled,
   subscriptions,
+  sql,
   users,
   type Db,
   type ReferralClawbackPlan,
 } from "@pitchlab/db";
-import { eq, sql } from "@pitchlab/db";
 import { stripeRequest } from "./stripe-api";
 
 export const SIGNATURE_TOLERANCE_SECONDS = 300;
@@ -212,10 +216,19 @@ async function shiftStripeForClawback(db: Db, plan: ReferralClawbackPlan, deps: 
       target,
       `trial_end:${sub.providerSubscriptionId}:${target === "now" ? `now:${plan.referralId}` : unix(target)}`,
     );
-    await db
-      .update(subscriptions)
-      .set({ currentPeriodEnd: target === "now" ? now : target, updatedAt: now })
-      .where(eq(subscriptions.id, sub.id));
+    await db.transaction(async (tx) => {
+      const t = tx as unknown as Db;
+      await t
+        .update(subscriptions)
+        .set({ currentPeriodEnd: target === "now" ? now : target, updatedAt: now })
+        .where(eq(subscriptions.id, sub.id));
+      if (plan.grantIds.length > 0) {
+        await t
+          .update(entitlementGrants)
+          .set({ appliedToStripeSubAt: null })
+          .where(and(eq(entitlementGrants.userId, userId), inArray(entitlementGrants.id, plan.grantIds)));
+      }
+    });
   }
 }
 

@@ -9,6 +9,7 @@ import { referralGrants, trialFingerprints, users } from "./schema";
 
 export const TRIAL_M1_DAYS = 7;
 export const MIN_SIGNUP_AGE = 18;
+export const SIGNUP_CONSENT_VERSION = "2026-11-11";
 
 /** Usuario: 3 a 20 caracteres, minúsculas, números y guion bajo; empieza con letra. */
 export const HANDLE_PATTERN = /^[a-z][a-z0-9_]{2,19}$/;
@@ -154,13 +155,14 @@ export async function completeSignup(db: Db, input: CompleteSignupInput): Promis
           referralCode: users.referralCode,
           isAdult: users.isAdult,
           handle: users.handle,
+          termsAcceptedAt: users.termsAcceptedAt,
         })
         .from(users)
         .where(eq(users.id, input.userId))
         .for("update");
       if (!current) return { ok: false, reason: "fecha_invalida" };
 
-      if (current.isAdult && current.handle) {
+      if (current.isAdult && current.handle && current.termsAcceptedAt) {
         const [fingerprint] = input.trial
           ? await tx.select({ userId: trialFingerprints.userId }).from(trialFingerprints)
               .where(eq(trialFingerprints.canonicalEmailSha256, sha256Hex(input.trial.canonicalEmail)))
@@ -260,7 +262,14 @@ export async function signupCompleted(db: Db, userId: string): Promise<boolean> 
   const [row] = await db
     .select({ id: users.id })
     .from(users)
-    .where(and(eq(users.id, userId), eq(users.isAdult, true), isNotNull(users.handle)));
+    .where(
+      and(
+        eq(users.id, userId),
+        eq(users.isAdult, true),
+        isNotNull(users.handle),
+        isNotNull(users.termsAcceptedAt),
+      ),
+    );
   return Boolean(row);
 }
 

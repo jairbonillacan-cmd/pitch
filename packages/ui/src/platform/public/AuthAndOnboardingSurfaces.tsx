@@ -425,18 +425,25 @@ export function PublicSharedPickSurface({
     () =>
       dataset.games.find((g) =>
         g.picks.some(
-          (p) => p.tipstarSlug === pickSlug || p.isTipstarWeeklyOpen || p.id === pickSlug,
+          (p) =>
+            p.tipstarSlug === pickSlug ||
+            (viewerRole !== "visitor" && p.id === pickSlug),
         ),
       ) ??
+      dataset.games.find((g) => g.picks.some((p) => Boolean(p.isTipstarWeeklyOpen))) ??
       dataset.games.find((g) => g.status !== "FT") ??
       dataset.games[0],
-    [dataset.games, pickSlug],
+    [dataset.games, pickSlug, viewerRole],
   );
 
   const unlockedPick =
     targetGame?.picks.find(
-      (p) => p.tipstarSlug === pickSlug || p.isTipstarWeeklyOpen || p.id === pickSlug,
-    ) ?? targetGame?.picks[0];
+      (p) =>
+        p.tipstarSlug === pickSlug ||
+        (viewerRole !== "visitor" && p.id === pickSlug),
+    ) ??
+    targetGame?.picks.find((p) => Boolean(p.isTipstarWeeklyOpen) && !p.isRedacted) ??
+    targetGame?.picks.find((p) => !p.isRedacted);
 
   const otherPicks = useMemo(
     () =>

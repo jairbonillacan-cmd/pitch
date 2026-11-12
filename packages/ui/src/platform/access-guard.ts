@@ -83,59 +83,163 @@ export function canRevealPickOnShare(
   return false;
 }
 
+function pickVisitorHeroShowcaseIds(games: readonly PlatformGame[]): Set<string> {
+  const byLeague = new Map<string, PlatformGame[]>();
+  for (const g of games) {
+    const bucket = byLeague.get(g.league);
+    if (bucket) bucket.push(g);
+    else byLeague.set(g.league, [g]);
+  }
+  const ids = new Set<string>();
+  for (const [league, leagueGames] of byLeague) {
+    const upcoming = leagueGames.filter((g) => g.status !== "FT");
+    const pool = upcoming.length > 0 ? upcoming : leagueGames;
+    let chosen: PlatformGame | undefined;
+    if (league === "liga-mx") {
+      chosen = pool.find(
+        (g) =>
+          (g.home.slug.includes("queretaro") || g.home.name.includes("Querétaro")) &&
+          (g.away.slug.includes("monterrey") || g.away.name.includes("Monterrey")),
+      );
+    } else if (league === "nfl") {
+      chosen = pool.find(
+        (g) =>
+          (g.home.slug.includes("giants") || g.home.name.includes("Giants")) &&
+          (g.away.slug.includes("commanders") ||
+            g.away.slug.includes("washington") ||
+            g.away.name.includes("Washington")),
+      );
+    }
+    chosen ??= pool[0];
+    if (chosen) ids.add(chosen.id);
+  }
+  return ids;
+}
+
 /**
  * Redacta en servidor (o en modo Visitante) todos los picks y radiografías bloqueados
- * para que ningún texto sensible llegue siquiera al DOM o al payload HTML público.
+ * para que ningún dato sensible (probabilidad, momio justo/mercado, ventaja, lado o señal
+ * interna de Spacetime) llegue al DOM ni al payload RSC/HTML público.
  */
 export function redactDatasetForVisitor(
   dataset: PlatformDataset,
   extraUnlockedPickIds: ReadonlySet<string> = new Set(),
+  extraTipstarSlugsByPickId?: ReadonlyMap<string, string>,
 ): PlatformDataset {
+  const heroShowcaseIds = pickVisitorHeroShowcaseIds(dataset.games);
   const games: PlatformGame[] = dataset.games.map((game) => {
     if (game.status === "FT") {
       return game;
     }
-    const hasOpenPick = game.picks.some(
-      (p) => p.isDailyOpenPromo || p.isTipstarWeeklyOpen || extraUnlockedPickIds.has(p.id),
+    const hasPromoOpenPick = game.picks.some(
+      (p) => Boolean(p.isDailyOpenPromo) || Boolean(p.isTipstarWeeklyOpen),
     );
+    const keepHeroProjection = hasPromoOpenPick || heroShowcaseIds.has(game.id);
     return {
-      ...game,
+      id: game.id,
+      league: game.league,
+      leagueLabel: game.leagueLabel,
+      sport: game.sport,
+      round: game.round,
+      dayId: game.dayId,
+      dayLabel: game.dayLabel,
+      kickoffUtc: game.kickoffUtc,
+      kickoffLocal: game.kickoffLocal,
+      venue: game.venue,
+      status: game.status,
+      ...(game.score ? { score: game.score } : {}),
+      home: game.home,
+      away: game.away,
+      x12: game.x12,
+      projection: keepHeroProjection
+        ? game.projection
+        : { home: 0, away: 0, total: 0 },
+      confidenceScore: hasPromoOpenPick ? game.confidenceScore : 0,
+      confidenceLevel: hasPromoOpenPick ? game.confidenceLevel : "media",
       picks: game.picks.map((pick) => {
+        const extraSlug = extraTipstarSlugsByPickId?.get(pick.id);
         const open =
           Boolean(pick.isDailyOpenPromo) ||
           Boolean(pick.isTipstarWeeklyOpen) ||
           extraUnlockedPickIds.has(pick.id);
         if (open) {
-          return pick;
+          return extraSlug
+            ? { ...pick, isTipstarWeeklyOpen: true, tipstarSlug: extraSlug, isRedacted: false }
+            : pick;
         }
         return {
-          ...pick,
+          id: pick.id,
+          gameId: pick.gameId,
+          league: pick.league,
+          leagueLabel: pick.leagueLabel,
+          matchLabel: pick.matchLabel,
+          kickoffLocal: pick.kickoffLocal,
+          gameStatus: pick.gameStatus,
+          slotIndex: pick.slotIndex,
+          category: pick.category,
+          categoryLabel: pick.categoryLabel,
+          risk: "medio",
+          engineKey: "singularity",
+          engineName: "PitchLab Spacetime Suite",
+          marketGroup: "locked",
           selectionKey: "locked",
+          conflictGroup: "independent",
           label: "Selección reservada Pase PitchLab Ultra",
-          rationale: "Activa tu prueba gratis de Pase PitchLab Ultra para desbloquear todos los picks del partido.",
+          rationale:
+            "Activa tu prueba gratis de Pase PitchLab Ultra para desbloquear todos los picks del partido.",
+          p: 0,
+          fairDecimal: 0,
+          fairAmerican: 0,
+          marketDecimal: null,
+          marketAmerican: null,
+          edgePts: null,
+          confidenceScore: 0,
+          suggestedUnits: 0,
+          result: null,
+          isDailyOpenPromo: false,
+          isTipstarWeeklyOpen: false,
           isRedacted: true,
         };
       }),
-      preGame: hasOpenPick
-        ? game.preGame
+      preGame: hasPromoOpenPick
+        ? {
+            cortexSynthesis: game.preGame.cortexSynthesis,
+            tacticalKeys: game.preGame.tacticalKeys,
+            lineupStatusLabel: game.preGame.lineupStatusLabel,
+            lineupsConfirmed60m: false,
+            absences: [],
+            moneyFlow: null,
+            isRedacted: false,
+          }
         : {
-            ...game.preGame,
             cortexSynthesis:
               "Radiografía ejecutiva de PitchLab Cortex IA y reporte de bajas 60m reservados para socios con Pase PitchLab Ultra activo.",
             tacticalKeys: [
               "Síntesis cuantitativa bloqueada en vista visitante",
               "Reporte de convocatoria 60m protegido",
             ],
+            lineupStatusLabel: "Convocatoria 60m reservada",
+            lineupsConfirmed60m: false,
             absences: [],
+            moneyFlow: null,
             isRedacted: true,
           },
-      markets: hasOpenPick ? game.markets.slice(0, 3) : [],
+      markets: [],
+      factors: [],
+      headToHead: game.headToHead,
+      ...(game.restDays ? { restDays: game.restDays } : {}),
+      updatedAtLabel: game.updatedAtLabel,
+      spacetime: null,
     };
   });
 
   return {
-    ...dataset,
+    generatedAt: dataset.generatedAt,
+    leagues: dataset.leagues,
     games,
+    dailyPromoPickId: dataset.dailyPromoPickId,
+    tipstarWeeklyPickId: dataset.tipstarWeeklyPickId,
+    tipstarWeeklySlug: dataset.tipstarWeeklySlug,
     isServerRedactedForVisitor: true,
   };
 }

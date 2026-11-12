@@ -3,10 +3,12 @@ import { getSessionCookie } from "better-auth/cookies";
 import { CLUB_PROFILE_HANDLE_HEADER } from "./src/profile-path";
 import {
   getBetaCookieName,
+  isBetaPinEnabled,
   verifyBetaCookieToken,
 } from "./src/server/beta-auth";
 
 async function hasValidBetaCookie(request: NextRequest): Promise<boolean> {
+  if (!isBetaPinEnabled()) return false;
   try {
     return await verifyBetaCookieToken(request.cookies.get(getBetaCookieName())?.value);
   } catch (err) {

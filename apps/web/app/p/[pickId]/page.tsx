@@ -1,4 +1,5 @@
 import React from "react";
+import { notFound } from "next/navigation";
 import { PublicTipstarPickSurface } from "@pitchlab/ui";
 import { PlatformClientBridge } from "../../../src/client/platform-client-bridge";
 import { loadPublicPlatformState } from "../../../src/server/platform-data";
@@ -12,6 +13,9 @@ export default async function PublicTipstarPickPage({
 }): Promise<React.JSX.Element> {
   const { pickId } = await params;
   const state = await loadPublicPlatformState(pickId);
+  if (!state.publicPickResolved) {
+    notFound();
+  }
 
   return (
     <PlatformClientBridge

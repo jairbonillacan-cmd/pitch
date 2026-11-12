@@ -1,6 +1,7 @@
 import { NextResponse, after } from "next/server";
 import {
   authAccount,
+  authSession,
   completeSignup,
   eq,
   FLAG_MONTH1_NO_CARD,
@@ -10,8 +11,9 @@ import {
 } from "@pitchlab/db";
 import { normalizeTrialEmail } from "@pitchlab/ui";
 import { startAccountEmails } from "../../../../src/server/account-emails";
+import { getAuth } from "../../../../src/server/auth";
 import { getMailer } from "../../../../src/server/mailer";
-import { requireMember } from "../../../../src/server/session-user";
+import { requireStep1Member } from "../../../../src/server/session-user";
 import { parseSignupBody, trialHashes } from "../../../../src/server/signup";
 
 export const runtime = "nodejs";
@@ -19,7 +21,7 @@ export const dynamic = "force-dynamic";
 
 /** ¿Ya completó el paso 2 del registro? */
 export async function GET(request: Request): Promise<NextResponse> {
-  const member = await requireMember(request);
+  const member = await requireStep1Member(request);
   if ("error" in member) return member.error;
   return NextResponse.json({
     completed: await signupCompleted(member.db, member.userId),
@@ -29,7 +31,7 @@ export async function GET(request: Request): Promise<NextResponse> {
 
 /** Guarda fecha de nacimiento y consentimientos; concede la prueba y registra el referido. */
 export async function POST(request: Request): Promise<NextResponse> {
-  const member = await requireMember(request);
+  const member = await requireStep1Member(request);
   if ("error" in member) return member.error;
   const body = parseSignupBody(await request.json().catch(() => null));
   if (!body) return NextResponse.json({ error: "Datos incompletos" }, { status: 400 });
@@ -74,8 +76,34 @@ export async function POST(request: Request): Promise<NextResponse> {
   });
 
   if (!result.ok) {
-    const status =
-      result.reason === "menor_de_edad" ? 403 : result.reason === "usuario_ocupado" ? 409 : 400;
+    if (result.reason === "menor_de_edad") {
+      await db.delete(authSession).where(eq(authSession.userId, member.authUserId));
+      const response = NextResponse.json({ error: result.reason }, { status: 403 });
+      try {
+        const auth = getAuth();
+        if (auth) {
+          const signOutRes = await auth.api.signOut({ headers: request.headers, asResponse: true });
+          for (const setCookie of signOutRes.headers.getSetCookie()) {
+            response.headers.append("set-cookie", setCookie);
+          }
+        }
+      } catch (err) {
+        void err;
+      }
+      for (const cookieName of ["better-auth.session_token", "__Secure-better-auth.session_token"]) {
+        response.cookies.set({
+          name: cookieName,
+          value: "",
+          httpOnly: true,
+          secure: cookieName.startsWith("__Secure-") || process.env.NODE_ENV === "production",
+          sameSite: "lax",
+          path: "/",
+          maxAge: 0,
+        });
+      }
+      return response;
+    }
+    const status = result.reason === "usuario_ocupado" ? 409 : 400;
     return NextResponse.json({ error: result.reason }, { status });
   }
 
