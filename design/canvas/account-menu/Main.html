@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Menú de cuenta · lienzo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Mismos valores que los lienzos de Perfil y Comunidad (ver README → tokens). */
+:root{color-scheme:dark}
+body{margin:0;background:#0A0A0C;color:#E4E4EA;font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+.canvas{padding:56px 48px 96px;display:grid;gap:56px}
+.canvas > header h1{margin:0;font-size:28px;font-weight:700;letter-spacing:-.02em;color:#fff}
+.canvas > header p{margin:8px 0 0;max-width:820px;color:#A1A1AD;font-size:14px;line-height:1.55}
+.row{display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start}
+.board{display:grid;gap:12px}
+.board > figcaption{font-size:13px;font-weight:600;color:#A1A1AD}
+.board > figcaption small{display:block;font-weight:400;color:#71717A;margin-top:2px}
+figure{margin:0}
+.notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px}
+.note{border-radius:14px;padding:18px 20px;font-size:13px;line-height:1.6;color:#D4D4DC}
+.note h2{margin:0 0 8px;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:#fff}
+.note ol,.note ul{margin:0;padding-left:18px}
+.note--purple{background:rgba(124,92,246,.14);border:1px solid rgba(196,181,253,.22)}
+.note--blue{background:rgba(56,189,248,.10);border:1px solid rgba(125,211,252,.20)}
+.note code{font-size:12px;color:#fff}
+
+/* ---------- Escena (un tablero) ---------- */
+.lp{--bg:#000;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.16);--t1:#FFF;--t2:#D4D4DC;--t3:#A1A1AD;--brand:#C4B5FD;--brandbg:rgba(196,181,253,.14);--ok:#6EE7B7;--miss:#FDA4AF;--hover:rgba(255,255,255,.06);--active:rgba(255,255,255,.10);--seg:rgba(255,255,255,.06);--segon:rgba(255,255,255,.14);--focus:#C4B5FD;
+  --l1:rgba(124,92,246,.38);--l2:rgba(16,185,129,.18);--sheen:rgba(255,255,255,.035);--inner:inset 0 1px 0 rgba(255,255,255,.07);--lens:rgba(8,8,10,.98);--pane:rgba(255,255,255,.03);--shadow:0 30px 60px -24px rgba(0,0,0,.85),0 10px 24px -12px rgba(0,0,0,.6);--rim-c:rgba(255,255,255,.6);--rim-t:rgba(255,255,255,.24);--rim-m:rgba(255,255,255,.05);--rim-b:rgba(255,255,255,.12);--nav:rgba(10,10,14,.72);--av1:linear-gradient(135deg,#22D3EE,#0EA5E9);--av2:linear-gradient(135deg,#F472B6,#A855F7)}
+.lp[data-theme="light"]{--bg:#F1F2F6;--line:rgba(11,16,32,.09);--line2:rgba(11,16,32,.16);--t1:#0B1020;--t2:#3B4560;--t3:#5A6480;--brand:#5940B2;--brandbg:rgba(89,64,178,.10);--ok:#12704E;--miss:#B4233C;--hover:rgba(11,16,32,.05);--active:rgba(11,16,32,.08);--seg:rgba(11,16,32,.05);--segon:#FFFFFF;--focus:#5940B2;
+  --l1:rgba(124,92,246,.18);--l2:rgba(16,185,129,.10);--sheen:rgba(255,255,255,.8);--inner:inset 0 1px 0 rgba(255,255,255,.95);--lens:rgba(255,255,255,.98);--pane:rgba(255,255,255,.6);--shadow:0 30px 60px -28px rgba(11,16,32,.30),0 8px 20px -12px rgba(11,16,32,.14);--rim-c:#fff;--rim-t:#fff;--rim-m:rgba(11,16,32,.06);--rim-b:rgba(11,16,32,.10);--nav:rgba(255,255,255,.86)}
+.lp{position:relative;overflow:hidden;background:var(--bg);color:var(--t1);border-radius:18px;border:1px solid rgba(255,255,255,.08)}
+.lp[data-theme="light"]{border-color:rgba(11,16,32,.10)}
+.atmo{position:absolute;inset:0;pointer-events:none;background:radial-gradient(45% 40% at 85% 0%,var(--l1),transparent 70%),radial-gradient(40% 35% at 0% 90%,var(--l2),transparent 70%)}
+.num{font-variant-numeric:tabular-nums}
+
+.glass{position:relative;background:linear-gradient(180deg,var(--sheen),transparent 28%),var(--lens);box-shadow:var(--inner),var(--shadow)}
+.glass::before,.ring::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;-webkit-mask:linear-gradient(#000,#000) content-box,linear-gradient(#000,#000);-webkit-mask-composite:xor;mask:linear-gradient(#000,#000) content-box exclude,linear-gradient(#000,#000);background:radial-gradient(60px circle at 0% 0%,var(--rim-c),transparent 100%),radial-gradient(60px circle at 100% 0%,var(--rim-c),transparent 100%),linear-gradient(180deg,var(--rim-t) 0%,var(--rim-m) 24%,var(--rim-m) 74%,var(--rim-b) 100%)}
+.ring{position:relative;background:linear-gradient(180deg,var(--sheen),transparent 55%),var(--pane);box-shadow:var(--inner)}
+
+/* Barra superior (solo el lado derecho, como en la app) */
+.topbar{position:relative;z-index:1;display:flex;justify-content:flex-end;align-items:center;gap:8px;height:64px;padding:0 20px;background:var(--nav);border-bottom:1px solid var(--line)}
+.topbar .ghost{flex:1;display:flex;gap:10px;align-items:center}
+.topbar .ghost i{display:block;height:10px;border-radius:5px;background:var(--line)}
+.iconbtn{position:relative;display:inline-grid;place-items:center;width:36px;height:36px;border-radius:999px;border:0;color:var(--t2);cursor:pointer;font:inherit}
+.iconbtn .dot{position:absolute;top:-3px;right:-5px;min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:var(--brand);color:var(--bg);font-size:10px;font-weight:700;line-height:16px;text-align:center;box-shadow:0 0 0 2px var(--bg)}
+.chipbtn{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 10px 0 4px;border-radius:999px;border:0;color:var(--t1);font:600 13px/1 Inter,system-ui,sans-serif;cursor:pointer}
+.chipbtn[aria-expanded="true"]{background:linear-gradient(180deg,var(--sheen),transparent 55%),var(--active)}
+.chipbtn svg.chev{color:var(--t3);transition:rotate .24s cubic-bezier(.32,.72,0,1)}
+.chipbtn[aria-expanded="true"] svg.chev{rotate:180deg}
+.av{display:inline-grid;place-items:center;border-radius:999px;color:#fff;font-weight:700;flex-shrink:0}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+
+/* ---------- Menú ---------- */
+.menu{position:absolute;z-index:2;top:72px;right:16px;width:320px;border-radius:18px;padding:6px;transform-origin:top right}
+.menu[hidden]{display:block;opacity:0;scale:.97;translate:0 -4px;pointer-events:none}
+.menu{transition:opacity .16s ease,scale .22s cubic-bezier(.32,.72,0,1),translate .22s cubic-bezier(.32,.72,0,1)}
+
+.who{display:grid;gap:12px;padding:12px 10px 10px;border-radius:13px;color:inherit}
+.who-top{display:flex;align-items:center;gap:12px}
+.who-name{display:flex;align-items:center;gap:6px;font-size:15px;font-weight:600;letter-spacing:-.01em}
+.who-sub{margin-top:2px;font-size:12.5px;color:var(--t3)}
+.who-go{margin-left:auto;color:var(--t3)}
+.seal{color:var(--brand)}
+/* Badge Ultra: copia exacta de .pl-ultra-tag (pitchlab-v4.css), sin cambios. */
+@property --ua{syntax:"<angle>";inherits:false;initial-value:0deg}
+.ultra{display:inline-flex;align-items:center;height:20px;padding:0 9px;border-radius:999px;border:1.5px solid transparent;background:linear-gradient(oklch(0.17 0.01 280),oklch(0.13 0.01 280)) padding-box,conic-gradient(from var(--ua),oklch(0.72 0.21 25),oklch(0.84 0.17 85),oklch(0.8 0.2 150),oklch(0.74 0.15 230),oklch(0.66 0.23 300),oklch(0.72 0.21 25)) border-box;color:#fff;font-size:11px;font-weight:800;letter-spacing:.01em;line-height:1;white-space:nowrap;box-shadow:0 0 8px -3px oklch(0.66 0.23 300);animation:ua 3.2s linear 1}
+.ultra:hover{animation:ua 2.4s linear infinite}
+@keyframes ua{to{--ua:360deg}}
+.pos{color:var(--ok)}.neg{color:var(--miss)}
+/* Récord dentro de la fila que lleva a él: cifras de un vistazo, sin tarjetas. */
+.rec{display:inline-flex;align-items:baseline;gap:6px;margin-left:auto;font-size:12.5px;font-weight:600;color:var(--t1)}
+.rec small{font-size:12px;font-weight:500;color:var(--t3)}
+.count{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--t1)}
+.count i{width:6px;height:6px;border-radius:50%;background:var(--ok)}
+.hint{margin-left:auto;font-size:12px;font-weight:500;color:var(--brand)}
+.cta{display:flex;justify-content:center;align-items:center;height:36px;border-radius:10px;background:var(--t1);color:var(--bg);font-size:13px;font-weight:600;text-decoration:none}
+
+.sep{height:1px;margin:6px 6px;background:var(--line)}
+.item{display:flex;align-items:center;gap:12px;width:100%;min-height:38px;padding:0 10px;border:0;border-radius:10px;background:none;color:var(--t1);font:500 13.5px/1.2 Inter,system-ui,sans-serif;text-align:left;text-decoration:none;cursor:pointer}
+.item:hover,.item.kb{background:var(--hover)}
+.item svg{color:var(--t3);flex-shrink:0}
+.item .trail{margin-left:auto;font-size:12px;font-weight:500;color:var(--t3)}
+.item .trail.brand{color:var(--brand)}
+
+.set{display:grid;gap:8px;padding:8px 10px 10px}
+.set-row{display:grid;grid-template-columns:52px minmax(0,1fr);align-items:center;gap:10px}
+.set-row > span{font-size:12.5px;color:var(--t3)}
+.seg{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;padding:3px;border-radius:10px;background:var(--seg)}
+.seg button{display:inline-flex;justify-content:center;align-items:center;gap:6px;height:28px;border:0;border-radius:8px;background:none;color:var(--t3);font:500 12.5px/1 Inter,system-ui,sans-serif;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--segon);color:var(--t1);box-shadow:0 1px 2px rgba(0,0,0,.18),var(--inner)}
+.seg button small{font-size:11px;font-weight:500;color:var(--t3)}
+
+.foot{display:flex;align-items:center;justify-content:space-between;padding:2px 2px 0}
+.foot .item{width:auto}
+.foot .ver{padding-right:10px;font-size:11px;color:var(--t3)}
+
+/* Hoja móvil */
+.phone{width:390px;height:844px}
+.phone .topbar{height:56px;padding:0 12px}
+.scrim{position:absolute;inset:0;z-index:2;background:rgba(0,0,0,.42)}
+.lp[data-theme="light"] .scrim{background:rgba(11,16,32,.28)}
+.sheet{position:absolute;z-index:3;left:0;right:0;bottom:0;border-radius:24px 24px 0 0;padding:8px 10px 28px}
+.grab{width:36px;height:5px;margin:2px auto 8px;border-radius:3px;background:var(--line2)}
+.sheet .item{min-height:48px;font-size:15px}
+.sheet .seg button{height:34px;font-size:13.5px}
+.sheet .set-row{grid-template-columns:70px 1fr}
+.sheet .set-row > span{font-size:14px}
+.closebtn{position:absolute;top:10px;right:12px;width:30px;height:30px;border-radius:999px;border:0;background:var(--seg);color:var(--t2);display:grid;place-items:center;cursor:pointer}
+
+/* Antes */
+.before{width:330px;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.08)}
+.before img{display:block;width:100%}
+</style>
+</head>
+<body>
+<div class="canvas">
+  <header>
+    <h1>Menú de cuenta · PitchLab</h1>
+    <p>Rediseño de la campana, el chip de perfil y el menú que abre. Todo es interactivo: abre y cierra el menú, cambia Momio y Tema (el tema cambia el tablero), y prueba con el teclado (flechas, Inicio/Fin, Esc). Cada tablero muestra un tipo de cuenta.</p>
+  </header>
+
+  <section class="row" id="desk"></section>
+  <section class="row" id="mob"></section>
+
+  <section class="notes">
+    <div class="note note--purple">
+      <h2>Qué cambia y por qué</h2>
+      <ol>
+        <li><b>Cabecera limpia.</b> @usuario con el badge Ultra de siempre (sin cambios; también sigue en el chip de la barra) y debajo nombre · rol.</li>
+        <li><b>El récord vive en la fila que lleva a él.</b> «Ver mi perfil» muestra el saldo en color y los cumplidos («14 de 23»); «Mi bitácora» muestra los picks abiertos con un punto verde. Nada de casillas de tablero: cada cifra está junto a donde se actúa sobre ella.</li>
+        <li><b>Sin picks.</b> En vez de «0 picks», «Mi bitácora» dice «Registra tu primer pick».</li>
+        <li><b>Un ícono por idea.</b> Antes «Facturación» y «Juego responsable» usaban el mismo escudo. Ahora: plan = corona, facturación = recibo, juego responsable = escudo, perfil = persona, bitácora = libro, salir = puerta.</li>
+        <li><b>Ajustes en dos controles iguales.</b> «Momio» (Americano −150 · Decimal 1.67) y «Tema» (Oscuro · Claro), mismo control segmentado. Antes el tema era un ícono suelto con una etiqueta larga.</li>
+        <li><b>Salir sin alarma.</b> Va abajo, aparte, en texto normal (no rojo): salir no es destructivo. Al lado, la versión de la app.</li>
+        <li><b>Campana más limpia.</b> Botón redondo con el número en una pastilla en la esquina, no dentro del botón.</li>
+        <li><b>Chip con flecha.</b> Avatar + @usuario + badge Ultra + flecha que gira al abrir, para que se lea como menú.</li>
+        <li><b>Menú más negro.</b> En oscuro el fondo pasa a casi negro opaco (<code>#08080A</code> al 98 %) con menos brillo arriba; el claro no cambia.</li>
+        <li><b>Móvil = hoja inferior.</b> Mismo contenido, filas de 48 px, control de cierre y fondo atenuado.</li>
+        <li><b>Visitante.</b> El chip dice «Entrar»; el menú ofrece «Hazte socio» y «Entrar», más Ayuda y ajustes. Sin récord ni plan.</li>
+      </ol>
+    </div>
+    <div class="note note--blue">
+      <h2>Para implementar</h2>
+      <ul>
+        <li>Componente: el menú vive en <code>ShellChrome.tsx</code> (popover <code>.pl-profile-menu</code>); estilos en <code>apps/web/app/pitchlab-v4.css</code> → «pl-profile-menu».</li>
+        <li>Récord: <code>journalRecord(journal)</code> → <code>netUnits</code>, <code>won</code>/<code>settled</code>, <code>open</code>; formato con <code>formatUnits</code>. Tipstar de ejemplo: datos de <code>TIPSTAR_CREATORS</code> con ficha «Ejemplo».</li>
+        <li>Íconos nuevos en <code>MaestroIcon</code>: <code>user</code>, <code>book</code>, <code>receipt</code>, <code>logout</code>, <code>chevronDown</code>.</li>
+        <li>Badge Ultra: <code>UltraTag</code> tal cual, en el chip y en la cabecera.</li>
+        <li>Fondo del menú en oscuro: token nuevo <code>--pl-glass-menu</code> en <code>packages/tokens</code>.</li>
+        <li>Tema: el control segmentado reemplaza a <code>ThemeToggle shape="pill"</code> dentro del menú; la lógica (<code>pl-theme</code>) no cambia.</li>
+        <li>Teclado: los enlaces y Salir son una lista con flechas; los segmentados se mueven con ←/→. Esc cierra y devuelve el foco al chip.</li>
+        <li>Móvil (&lt;1024 px): el mismo contenido en hoja inferior con <code>TopLayerModalDialog</code>.</li>
+        <li>Colores solo con tokens <code>--pl-*</code> (tabla en el README).</li>
+      </ul>
+    </div>
+  </section>
+</div>
+
+<script>
+const I = {
+  bell:'<path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>',
+  chevD:'<path d="m6 9 6 6 6-6"/>',
+  user:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
+  book:'<path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v17H6.5A2.5 2.5 0 0 0 4 21.5z"/><path d="M4 21.5A2.5 2.5 0 0 1 6.5 19H20v3H6.5"/>',
+  chevR:'<path d="m9 18 6-6-6-6"/>',
+  crown:'<path d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5L3 8z"/>',
+  gift:'<rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 0 1 0 5"/>',
+  sliders:'<path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/>',
+  receipt:'<path d="M5 3h14v18l-3-2-2 2-2-2-2 2-2-2-3 2V3z"/><path d="M9 8h6M9 12h6"/>',
+  star:'<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 3z"/>',
+  chart:'<path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/>',
+  cpu:'<rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/>',
+  shield:'<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/>',
+  logout:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/>',
+  sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+  moon:'<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>',
+  spark:'<path d="M12 3l1.9 4.8 4.8 1.9-4.8 1.9L12 16.4l-1.9-4.8-4.8-1.9 4.8-1.9L12 3z"/>',
+  x:'<path d="M18 6 6 18M6 6l12 12"/>',
+  seal:'<path fill="currentColor" stroke="none" d="M12 1.5l2.4 1.8 3-.2.9 2.9 2.5 1.7-1 2.8 1 2.8-2.5 1.7-.9 2.9-3-.2L12 19.5l-2.4-1.8-3 .2-.9-2.9-2.5-1.7 1-2.8-1-2.8 2.5-1.7.9-2.9 3 .2z"/><path d="m8.5 10.5 2.5 2.5 4.5-4.5" stroke="var(--lens)" stroke-width="2"/>'
+};
+const ico = (n, s = 16, cls = '') => `<svg class="${cls}" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${I[n]}</svg>`;
+
+const ACCOUNTS = {
+  nuevo:   { name:'Jair R.', handle:'jair', role:'Socio', initials:'JR', grad:'--av1', plan:'Ultra', record:null },
+  socio:   { name:'Jair R.', handle:'jair', role:'Socio', initials:'JR', grad:'--av1', plan:'Ultra', record:{ net:'+6.4u', pos:true, won:14, settled:23, open:3 } },
+  tipstar: { name:'Sofía Méndez', handle:'sofia_nfl', role:'Tipstar verificado', verified:true, initials:'SM', grad:'--av2', plan:'Ultra', record:{ net:'+18.4u', pos:true, won:84, settled:142, open:5 }, tools:[['star','Portal tipstar']] },
+  admin:   { name:'Admin', handle:'admin', role:'Admin', initials:'AD', grad:'--av2', plan:'Ultra', record:null, tools:[['star','Portal tipstar'],['chart','Consola']] },
+  visitante:{ name:'Visitante', handle:null, role:'Sin cuenta', initials:'?', grad:'--av1', visitor:true }
+};
+
+function menuHTML(a, st, sheet) {
+  const who = a.visitor
+    ? `<div class="who" style="padding-bottom:8px">
+         <div class="who-top"><span class="av" style="width:40px;height:40px;font-size:13px;background:var(--seg);color:var(--t2)">${ico('spark',18)}</span>
+         <div><div class="who-name">Estás de visita</div><div class="who-sub">Crea tu cuenta para registrar picks y seguir socios.</div></div></div>
+         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><a class="cta" href="#" data-nav>Hazte socio</a><a class="cta ring" href="#" data-nav style="background:var(--seg);color:var(--t1)">Entrar</a></div>
+       </div>`
+    : `<div class="who">
+         <div class="who-top">
+           <span class="av" style="width:40px;height:40px;font-size:13px;background:var(${a.grad})">${a.initials}</span>
+           <div style="min-width:0"><div class="who-name">@${a.handle}${a.verified ? `<span class="seal" title="Tipstar verificado">${ico('seal',15)}</span>` : ''}<span class="ultra" title="Pase PitchLab Ultra">Ultra</span></div>
+           <div class="who-sub">${a.name} · ${a.role}</div></div>
+         </div>
+       </div>`;
+  const r = a.record;
+  const mine = a.visitor ? [] : [
+    ['user','Ver mi perfil', r ? `<span class="rec num" title="Saldo y cumplidos"><span class="${r.pos ? 'pos' : 'neg'}">${r.net}</span><small>${r.won} de ${r.settled}</small></span>` : ''],
+    ['book','Mi bitácora', r ? `<span class="count num" title="Picks abiertos"><i aria-hidden="true"></i>${r.open} abiertos</span>` : `<span class="hint">Registra tu primer pick</span>`]
+  ];
+  const links = a.visitor ? [] : [
+    ['crown','Mi plan Ultra', ''],
+    ['gift','Invitar amigos',''],
+    ['sliders','Preferencias',''],
+    ['receipt','Facturación','']
+  ];
+  const tools = a.tools || [];
+  const help = [['cpu','Cómo calculamos',''],['shield','Juego responsable','']];
+  const item = ([i, l, t]) => `<a class="item" href="#" data-nav>${ico(i,17)}<span>${l}</span>${t || ''}</a>`;
+  const seg = (key, opts) => `<div class="seg" role="group" aria-label="${key === 'odds' ? 'Formato de momio' : 'Tema'}">${opts.map(([v, html]) => `<button type="button" data-set="${key}" data-val="${v}" aria-pressed="${st[key] === v}">${html}</button>`).join('')}</div>`;
+  return `
+    ${sheet ? `<div class="grab"></div><button class="closebtn" type="button" data-close aria-label="Cerrar">${ico('x',15)}</button>` : ''}
+    ${who}
+    ${mine.length ? `<nav aria-label="Tus picks">${mine.map(item).join('')}</nav>` : ''}
+    ${links.length ? `<div class="sep"></div><nav aria-label="Tu cuenta">${links.map(item).join('')}</nav>` : ''}
+    ${tools.length ? `<div class="sep"></div><nav aria-label="Herramientas">${tools.map((t) => item([t[0], t[1], ''])).join('')}</nav>` : ''}
+    <div class="sep"></div><nav aria-label="Ayuda">${help.map(item).join('')}</nav>
+    <div class="sep"></div>
+    <div class="set">
+      <div class="set-row"><span>Momio</span>${seg('odds', [['am', 'Americano <small class="num">−150</small>'], ['dec', 'Decimal <small class="num">1.67</small>']])}</div>
+      <div class="set-row"><span>Tema</span>${seg('theme', [['dark', ico('moon',14) + 'Oscuro'], ['light', ico('sun',14) + 'Claro']])}</div>
+    </div>
+    ${a.visitor ? '' : `<div class="sep"></div><div class="foot"><button class="item" type="button" data-nav>${ico('logout',17)}<span>Salir</span></button><span class="ver">v0.9 beta</span></div>`}`;
+}
+
+function board(host, { key, title, sub, theme = 'dark', open = true, mobile = false }) {
+  const a = ACCOUNTS[key];
+  const st = { theme, odds: 'am', open };
+  const fig = document.createElement('figure');
+  fig.className = 'board';
+  host.appendChild(fig);
+  const render = () => {
+    const chip = a.visitor
+      ? `<button class="chipbtn ring" type="button" aria-haspopup="dialog" aria-expanded="${st.open}" data-toggle style="padding-left:12px">Entrar${ico('chevD',14,'chev')}</button>`
+      : `<button class="chipbtn ring" type="button" aria-haspopup="dialog" aria-expanded="${st.open}" data-toggle>
+           <span class="av" style="width:28px;height:28px;font-size:11px;background:var(${a.grad})">${a.initials}</span>
+           ${mobile ? '' : `<span>@${a.handle}</span><span class="ultra" title="Pase PitchLab Ultra">Ultra</span>`}${ico('chevD',14,'chev')}
+         </button>`;
+    fig.innerHTML = `<figcaption>${title}<small>${sub}</small></figcaption>
+      <div class="lp ${mobile ? 'phone' : ''}" data-theme="${st.theme}" style="${mobile ? '' : 'width:560px;height:' + (!st.open ? 220 : a.visitor ? 440 : (a.tools ? 560 : 500)) + 'px'}">
+        <div class="atmo"></div>
+        <div class="topbar">
+          <div class="ghost"><i style="width:${mobile ? 70 : 90}px;background:var(--t3);opacity:.5"></i>${mobile ? '' : '<i style="width:180px"></i>'}</div>
+          <button class="iconbtn ring" type="button" aria-label="Alertas de valor (8)">${ico('bell',17)}<span class="dot num">8</span></button>
+          ${chip}
+        </div>
+        ${!mobile ? `<div class="menu glass" role="dialog" aria-label="Menú de tu cuenta" ${st.open ? '' : 'hidden'}>${menuHTML(a, st, false)}</div>` : ''}
+        ${mobile && st.open ? `<div class="scrim" data-close></div><div class="sheet glass" role="dialog" aria-modal="true" aria-label="Menú de tu cuenta">${menuHTML(a, st, true)}</div>` : ''}
+      </div>`;
+    const root = fig.querySelector('.lp');
+    const pnl = root.querySelector('.menu:not([hidden])');
+    if (!mobile && pnl) root.style.height = (pnl.offsetTop + pnl.offsetHeight + 28) + 'px';
+    root.querySelectorAll('[data-toggle]').forEach((b) => b.onclick = () => { st.open = !st.open; render(); if (st.open) fig.querySelector('.menu a.item, .sheet a.item')?.focus(); });
+    root.querySelectorAll('[data-close]').forEach((b) => b.onclick = () => { st.open = false; render(); });
+    root.querySelectorAll('[data-nav]').forEach((b) => b.onclick = (e) => e.preventDefault());
+    root.querySelectorAll('[data-set]').forEach((b) => b.onclick = () => { st[b.dataset.set] = b.dataset.val; render(); fig.querySelector(`[data-set="${b.dataset.set}"][data-val="${b.dataset.val}"]`).focus(); });
+    const panel = root.querySelector('.menu, .sheet');
+    if (panel) panel.onkeydown = (e) => {
+      const items = [...panel.querySelectorAll('a.item, button.item, .cta')];
+      const i = items.indexOf(document.activeElement);
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); const n = i < 0 ? 0 : (i + (e.key === 'ArrowDown' ? 1 : -1) + items.length) % items.length; items[n].focus(); }
+      if (e.key === 'Home') { e.preventDefault(); items[0].focus(); }
+      if (e.key === 'End') { e.preventDefault(); items[items.length - 1].focus(); }
+      if (e.key === 'Escape') { st.open = false; render(); fig.querySelector('[data-toggle]')?.focus(); }
+      if ((e.key === 'ArrowLeft' || e.key === 'ArrowRight') && document.activeElement.dataset.set) {
+        const sib = [...document.activeElement.parentElement.children]; const j = sib.indexOf(document.activeElement);
+        const n = sib[(j + (e.key === 'ArrowRight' ? 1 : -1) + sib.length) % sib.length]; n.click();
+      }
+    };
+  };
+  render();
+}
+
+const desk = document.getElementById('desk');
+board(desk, { key:'socio', title:'Socio con récord · oscuro', sub:'El caso más común. Saldo y cumplidos van en «Ver mi perfil»; abiertos, en «Mi bitácora».' });
+board(desk, { key:'socio', title:'Socio con récord · claro', sub:'Mismo menú en tema claro.', theme:'light' });
+board(desk, { key:'nuevo', title:'Socio sin picks', sub:'En vez de «0 picks», «Mi bitácora» invita a registrar el primero.' });
+board(desk, { key:'tipstar', title:'Tipstar verificado', sub:'Sello lila junto al nombre y grupo «Portal tipstar».' });
+board(desk, { key:'admin', title:'Admin · claro', sub:'Portal tipstar y Consola en su propio grupo.', theme:'light' });
+board(desk, { key:'visitante', title:'Visitante', sub:'Sin cuenta: el chip dice «Entrar» y el menú invita a hacerse socio.' });
+board(desk, { key:'socio', title:'Cerrado', sub:'Así queda la barra: campana con su número y chip con flecha.', open:false });
+
+const mob = document.getElementById('mob');
+board(mob, { key:'socio', title:'Móvil · oscuro', sub:'Hoja inferior, filas de 48 px.', mobile:true });
+board(mob, { key:'socio', title:'Móvil · claro', sub:'', mobile:true, theme:'light' });
+</script>
+</body>
+</html>

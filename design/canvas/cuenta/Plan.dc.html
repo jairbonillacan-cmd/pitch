@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<title>Mi cuenta · Mi plan</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+.lp{--bg:#000000;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.16);--t1:#FFFFFF;--t2:#D4D4DC;--t3:#A1A1AD;--brand:#C4B5FD;--brandbg:rgba(196,181,253,.14);--ok:#6EE7B7;--okbg:rgba(110,231,183,.12);--warn:#FCD34D;--warnbg:rgba(252,211,77,.14);--miss:#FDA4AF;--missbg:rgba(253,164,175,.12);--hover:rgba(255,255,255,.06);--active:rgba(255,255,255,.10);--seg:rgba(255,255,255,.06);--btn:#FFFFFF;--btnfg:#000000;--field:rgba(255,255,255,.04);--sheen:rgba(255,255,255,.05);--inner:inset 0 1px 0 rgba(255,255,255,.07);--card:rgba(255,255,255,.025);--shadow:0 24px 50px -30px rgba(0,0,0,.9);--rim-c:rgba(255,255,255,.5);--rim-t:rgba(255,255,255,.2);--rim-m:rgba(255,255,255,.05);--rim-b:rgba(255,255,255,.1);--l1:rgba(124,92,246,.24);--l2:rgba(236,72,153,.10)}
+.lp[data-theme="light"]{--bg:#F1F2F6;--line:rgba(11,16,32,.09);--line2:rgba(11,16,32,.16);--t1:#0B1020;--t2:#3B4560;--t3:#5A6480;--brand:#5940B2;--brandbg:rgba(89,64,178,.10);--ok:#12704E;--okbg:rgba(18,112,78,.10);--warn:#8A5A00;--warnbg:rgba(138,90,0,.10);--miss:#B4233C;--missbg:rgba(180,35,60,.08);--hover:rgba(11,16,32,.05);--active:rgba(11,16,32,.08);--seg:rgba(11,16,32,.05);--btn:#0B1020;--btnfg:#FFFFFF;--field:#FFFFFF;--sheen:rgba(255,255,255,.8);--inner:inset 0 1px 0 rgba(255,255,255,.95);--card:rgba(255,255,255,.92);--shadow:0 20px 40px -28px rgba(11,16,32,.28),0 4px 12px -8px rgba(11,16,32,.12);--rim-c:#FFFFFF;--rim-t:#FFFFFF;--rim-m:rgba(11,16,32,.06);--rim-b:rgba(11,16,32,.12);--l1:rgba(124,92,246,.12);--l2:rgba(236,72,153,.05)}
+.lp{position:relative;min-height:100%;box-sizing:border-box;padding:24px 28px 40px;background:radial-gradient(40% 24% at 20% 0%,var(--l1),transparent 70%),radial-gradient(30% 24% at 100% 30%,var(--l2),transparent 70%),var(--bg);color:var(--t1);font-family:Inter,system-ui,sans-serif;font-size:14px;-webkit-font-smoothing:antialiased}
+.lp *{box-sizing:border-box}
+.lp button{font:inherit;color:inherit}
+.lp :focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.num{font-variant-numeric:tabular-nums}
+.ring{position:relative;background:linear-gradient(180deg,var(--sheen),transparent 40%),var(--card);box-shadow:var(--inner),var(--shadow)}
+.ring::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;-webkit-mask:linear-gradient(#000,#000) content-box,linear-gradient(#000,#000);-webkit-mask-composite:xor;mask:linear-gradient(#000,#000) content-box exclude,linear-gradient(#000,#000);background:radial-gradient(60px circle at 0% 0%,var(--rim-c),transparent 100%),radial-gradient(60px circle at 100% 0%,var(--rim-c),transparent 100%),linear-gradient(180deg,var(--rim-t) 0%,var(--rim-m) 24%,var(--rim-m) 74%,var(--rim-b) 100%)}
+.ultra{display:inline-flex;align-items:center;height:20px;padding:0 9px;border-radius:999px;border:1.5px solid transparent;background:linear-gradient(#1D1B24,#141219) padding-box,conic-gradient(#F0626B,#F4C55B,#4FD18B,#4AA8E8,#A35CF0,#F0626B) border-box;color:#FFFFFF;font-size:11px;font-weight:800;letter-spacing:.01em;box-shadow:0 0 8px -3px #A35CF0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 16px;border-radius:12px;border:0;background:var(--btn);color:var(--btnfg);font-size:13.5px;font-weight:600;cursor:pointer;white-space:nowrap;text-decoration:none}
+.btn.ghost{background:var(--seg);color:var(--t1)}
+.btn.danger{background:var(--missbg);color:var(--miss)}
+.btn.link{background:none;color:var(--t2);padding:0 8px}
+.tab{display:inline-flex;align-items:center;min-height:44px;padding:0 4px;border-bottom:2px solid transparent;color:var(--t3);font-size:14px;font-weight:600;white-space:nowrap;text-decoration:none}
+.tab[aria-current="page"]{color:var(--t1);border-bottom-color:var(--t1)}
+.tabs{display:flex;gap:24px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--line)}
+.opt{display:flex;flex-direction:column;gap:6px;padding:18px;border-radius:16px;border:1.5px solid var(--line);background:var(--field);text-align:left;cursor:pointer}
+.opt[aria-pressed="true"]{border-color:var(--t1);background:var(--active)}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:20px;align-items:stretch}
+.grid2b{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start}
+.opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 20px;margin:0}
+@media (max-width:980px){.grid2,.grid2b{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:640px){.lp{padding:16px 14px 32px}.tabs{gap:18px}.hide-phone{display:none !important}.facts{grid-template-columns:minmax(0,1fr)}.h2big{font-size:24px !important}}
+</style>
+</helmet>
+<div class="lp" data-theme="{{theme}}">
+  <div style="max-width: 1180px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px">
+
+    <header style="display: flex; flex-direction: column; gap: 16px">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px">
+        <div style="display: flex; align-items: center; gap: 14px">
+          <span aria-hidden="true" style="display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(135deg, #22D3EE, #0EA5E9); color: #FFFFFF; font-size: 15px; font-weight: 800">JR</span>
+          <div>
+            <h1 style="margin: 0; font-size: 28px; line-height: 1.1; font-weight: 800; letter-spacing: -0.02em">Mi cuenta</h1>
+            <p style="margin: 4px 0 0; display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--t3)">@jair · Pase PitchLab Ultra <span class="ultra">Ultra</span></p>
+          </div>
+        </div>
+        <a class="btn ghost hide-phone" href="#" style="min-height: 38px; font-size: 12.5px">Ver mi perfil</a>
+      </div>
+      <nav class="tabs" aria-label="Secciones de mi cuenta">
+        <a class="tab" href="Main.dc.html">Invitar amigos</a>
+        <a class="tab" href="Plan.dc.html" aria-current="page">Mi plan</a>
+        <a class="tab" href="Prefs.dc.html">Preferencias</a>
+        <a class="tab" href="#">Facturación</a>
+      </nav>
+    </header>
+
+    <sc-if value="{{showBanner}}" hint-placeholder-val="{{ false }}">
+      <div role="status" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 18px; border-radius: 16px; background: {{bannerBg}}; color: {{bannerFg}}">
+        <span style="font-size: 14px; font-weight: 600; line-height: 1.45">{{bannerText}}</span>
+        <sc-if value="{{canReactivate}}" hint-placeholder-val="{{ false }}"><button type="button" class="btn" style="min-height: 38px" onClick="{{reactivate}}">Reactivar renovación</button></sc-if>
+      </div>
+    </sc-if>
+
+    <div class="grid2">
+      <section aria-label="Tu pase" style="position: relative; border-radius: 20px; overflow: hidden; background: radial-gradient(60% 50% at 25% 20%, rgba(124, 92, 246, 0.28), transparent 70%), radial-gradient(50% 45% at 90% 35%, rgba(190, 50, 90, 0.20), transparent 70%), #07060B; border: 1px solid rgba(255, 255, 255, 0.08); padding: 20px; display: flex; flex-direction: column; gap: 12px; color: #FFFFFF">
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px">
+          <span style="font-size: 12.5px; font-weight: 600; color: #D4D4DC">Tu pase</span>
+          <span style="display: inline-flex; align-items: center; gap: 6px; min-height: 26px; padding: 0 10px; border-radius: 999px; background: {{statusBg}}; color: {{statusFg}}; font-size: 12px; font-weight: 700"><span aria-hidden="true" style="width: 7px; height: 7px; border-radius: 50%; background: currentColor"></span>{{statusLabel}}</span>
+        </div>
+        <img src="/_blob/35fd8c918f999e7834f310c068e2effa" alt="Tarjeta Pase PitchLab Ultra de @jair" style="display: block; width: 100%; height: auto; border-radius: 14px; opacity: {{cardOpacity}}">
+        <span style="font-size: 12px; color: #A1A1AD">{{cardNote}}</span>
+      </section>
+
+      <section class="ring" style="border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 20px" aria-labelledby="plan-title">
+        <div>
+          <span style="font-size: 12.5px; font-weight: 600; color: var(--brand)">Mi plan</span>
+          <h2 id="plan-title" class="h2big" style="margin: 6px 0 0; font-size: 28px; line-height: 1.15; font-weight: 800; letter-spacing: -0.02em">{{headline}}</h2>
+          <p style="margin: 8px 0 0; font-size: 14px; line-height: 1.55; color: var(--t2)">{{subline}}</p>
+        </div>
+
+        <dl class="facts num">
+          <sc-for list="{{facts}}" as="f" hint-placeholder-count="4">
+            <div><dt style="font-size: 12px; color: var(--t3)">{{f.label}}</dt><dd style="margin: 4px 0 0; font-size: 15px; font-weight: 600">{{f.value}}</dd><span style="display: block; margin-top: 2px; font-size: 12px; color: {{f.noteColor}}">{{f.note}}</span></div>
+          </sc-for>
+        </dl>
+
+        <sc-if value="{{confirmCancel}}" hint-placeholder-val="{{ false }}">
+          <div role="alertdialog" aria-labelledby="cx-t" style="display: flex; flex-direction: column; gap: 12px; padding: 16px; border-radius: 14px; background: var(--field); border: 1px solid var(--line2)">
+            <b id="cx-t" style="font-size: 15px">¿Cancelar la renovación?</b>
+            <span style="font-size: 13.5px; line-height: 1.5; color: var(--t2)">{{cancelText}}</span>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px">
+              <button type="button" class="btn" onClick="{{keep}}">Mantener mi pase</button>
+              <button type="button" class="btn danger" onClick="{{doCancel}}">Cancelar renovación</button>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{showActions}}" hint-placeholder-val="{{ true }}">
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; padding-top: 16px; border-top: 1px solid var(--line)">
+            <sc-if value="{{primaryLabel}}" hint-placeholder-val="{{ true }}"><button type="button" class="btn" onClick="{{primaryAct}}">{{primaryLabel}}</button></sc-if>
+            <sc-if value="{{hasCard}}" hint-placeholder-val="{{ true }}"><button type="button" class="btn ghost">Cambiar tarjeta</button></sc-if>
+            <sc-if value="{{canCancel}}" hint-placeholder-val="{{ true }}"><button type="button" class="btn link" onClick="{{askCancel}}">Cancelar renovación</button></sc-if>
+          </div>
+        </sc-if>
+      </section>
+    </div>
+
+    <section class="ring" style="border-radius: 20px; padding: 22px; display: flex; flex-direction: column; gap: 14px" aria-labelledby="ciclo">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px">
+        <h3 id="ciclo" style="margin: 0; font-size: 16px; font-weight: 700">Mensual o anual</h3>
+        <span style="font-size: 12.5px; color: var(--t3)">IVA incluido · factura CFDI 4.0 en cada cobro</span>
+      </div>
+      <div class="opts" role="group" aria-label="Ciclo de cobro">
+        <button type="button" class="opt" aria-pressed="{{pickMonthly}}" onClick="{{chooseMonthly}}">
+          <span style="display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 14px; font-weight: 700">Mensual <span style="font-size: 12px; font-weight: 600; color: var(--t3)">{{monthlyTag}}</span></span>
+          <span class="num" style="font-size: 26px; font-weight: 800; letter-spacing: -0.02em">$299 <span style="font-size: 14px; font-weight: 500; color: var(--t3)">MXN al mes</span></span>
+          <span style="font-size: 12.5px; color: var(--t3)">Cancelas cuando quieras.</span>
+        </button>
+        <button type="button" class="opt" aria-pressed="{{pickAnnual}}" onClick="{{chooseAnnual}}">
+          <span style="display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 14px; font-weight: 700">Anual <span style="display: inline-flex; align-items: center; min-height: 22px; padding: 0 8px; border-radius: 999px; background: var(--okbg); color: var(--ok); font-size: 11.5px; font-weight: 700">{{annualTag}}</span></span>
+          <span class="num" style="font-size: 26px; font-weight: 800; letter-spacing: -0.02em">$2,390 <span style="font-size: 14px; font-weight: 500; color: var(--t3)">MXN al año</span></span>
+          <span class="num" style="font-size: 12.5px; color: var(--t3)">$199 al mes · ahorras $1,198 frente al mensual.</span>
+        </button>
+      </div>
+      <sc-if value="{{switchNote}}" hint-placeholder-val="{{ false }}">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; padding-top: 4px">
+          <span style="font-size: 13px; line-height: 1.5; color: var(--t2)">{{switchNote}}</span>
+          <button type="button" class="btn" onClick="{{confirmSwitch}}">{{switchLabel}}</button>
+        </div>
+      </sc-if>
+    </section>
+
+    <div class="grid2b">
+      <section class="ring" style="border-radius: 20px; padding: 22px; display: flex; flex-direction: column; gap: 4px" aria-labelledby="incluye">
+        <h3 id="incluye" style="margin: 0 0 8px; font-size: 16px; font-weight: 700">Lo que incluye tu pase</h3>
+        <sc-for list="{{features}}" as="x" hint-placeholder-count="6">
+          <div style="display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 12px; align-items: start; padding: 10px 0; border-top: {{x.border}}">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--ok); margin-top: 1px"><path d="m5 12 5 5 9-10"></path></svg>
+            <span style="font-size: 14px; line-height: 1.4"><b style="font-weight: 600">{{x.title}}</b><span style="display: block; font-size: 12.5px; color: var(--t3); margin-top: 2px">{{x.detail}}</span></span>
+          </div>
+        </sc-for>
+      </section>
+
+      <section class="ring" style="border-radius: 20px; padding: 22px; display: flex; flex-direction: column; gap: 4px" aria-labelledby="pagos">
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 8px">
+          <h3 id="pagos" style="margin: 0; font-size: 16px; font-weight: 700">Historial de pagos</h3>
+          <span style="display: inline-flex; align-items: center; height: 20px; padding: 0 7px; border-radius: 6px; background: var(--warnbg); color: var(--warn); font-size: 10.5px; font-weight: 700; letter-spacing: 0.02em">EJEMPLO</span>
+        </div>
+        <sc-for list="{{payments}}" as="p" hint-placeholder-count="3">
+          <div style="display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 14px; align-items: center; min-height: 58px; border-top: {{p.border}}">
+            <span style="min-width: 0"><b class="num" style="font-size: 14px; font-weight: 600">{{p.date}}</b><span style="display: block; font-size: 12.5px; color: var(--t3); margin-top: 2px">{{p.what}}</span></span>
+            <b class="num" style="font-size: 14px">{{p.amount}}</b>
+            <sc-if value="{{p.hasInvoice}}" hint-placeholder-val="{{ true }}"><a href="#" class="btn ghost" style="min-height: 34px; padding: 0 10px; font-size: 12px">Factura</a></sc-if>
+            <sc-if value="{{p.noInvoice}}" hint-placeholder-val="{{ false }}"><span style="font-size: 12px; color: var(--t3); min-width: 64px; text-align: right">—</span></sc-if>
+          </div>
+        </sc-for>
+        <a href="#" style="margin-top: 8px; font-size: 13px; font-weight: 600; color: var(--brand); text-decoration: none">Datos de facturación</a>
+      </section>
+    </div>
+
+    <p style="margin: 0; font-size: 12px; line-height: 1.5; color: var(--t3)">El cobro lo procesa Stripe; PitchLab no guarda tu tarjeta. Si cancelas, conservas el acceso hasta el final del periodo pagado y tus días a favor. Solo mayores de 18.</p>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["dark","light"],"default":"dark"},"estado":{"editor":"enum","options":["prueba","mensual","anual"],"default":"mensual"},"$preview":{"width":1200,"height":1700}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { plan: null, choice: null, confirm: false, cancelled: false, switched: false };
+  }
+  renderVals() {
+    var self = this;
+    var st = this.state;
+    var base = this.props.estado ?? 'mensual';
+    var plan = st.plan || base;
+    var trial = plan === 'prueba';
+    var annual = plan === 'anual';
+    var choice = st.choice || (annual ? 'anual' : 'mensual');
+    var cancelled = st.cancelled && !trial;
+
+    var accessEnd = annual ? '10 dic 2027' : '10 ene 2027';
+    var nextCharge = annual ? '11 nov 2027' : '11 dic 2026';
+    var statusLabel = trial ? 'Prueba · quedan 4 días' : cancelled ? 'Sin renovación' : 'Activo';
+    var statusBg = trial ? 'rgba(196, 181, 253, 0.16)' : cancelled ? 'rgba(252, 211, 77, 0.16)' : 'rgba(110, 231, 183, 0.16)';
+    var statusFg = trial ? '#C4B5FD' : cancelled ? '#FCD34D' : '#6EE7B7';
+
+    var facts = trial ? [
+      { label: 'Plan', value: 'Prueba gratis de 7 días', note: 'Sin tarjeta', noteColor: 'var(--t3)' },
+      { label: 'Termina', value: '15 nov 2026', note: 'En 4 días', noteColor: 'var(--warn)' },
+      { label: 'Después', value: 'Sin cobro automático', note: 'Pierdes el acceso si no activas', noteColor: 'var(--t3)' },
+      { label: 'Días a favor', value: '+0', note: 'Gana 15 por cada amigo que pague', noteColor: 'var(--t3)' }
+    ] : [
+      { label: 'Plan', value: annual ? 'Anual · $2,390 MXN' : 'Mensual · $299 MXN', note: 'IVA incluido', noteColor: 'var(--t3)' },
+      { label: cancelled ? 'Acceso hasta' : 'Próximo cobro', value: cancelled ? accessEnd : (annual ? nextCharge : '10 ene 2027'), note: cancelled ? 'No se te cobra de nuevo' : (annual ? '$2,390 MXN' : '$299 MXN · se recorrió 30 días'), noteColor: cancelled ? 'var(--t3)' : (annual ? 'var(--t3)' : 'var(--ok)') },
+      { label: 'Tarjeta', value: 'Visa ···· 4242', note: 'Vence 08/29', noteColor: 'var(--t3)' },
+      { label: 'Días a favor', value: '+30 días', note: 'De 2 amigos que pagaron', noteColor: 'var(--ok)' }
+    ];
+
+    var headline = trial ? 'Te quedan 4 días de prueba' : cancelled ? 'Tu pase sigue activo hasta el ' + accessEnd : annual ? 'Pase PitchLab Ultra anual' : 'Pase PitchLab Ultra mensual';
+    var subline = trial ? 'Activa tu pase para no perder tu bitácora ni tus alertas. Sin cargo hasta que lo actives.'
+      : cancelled ? 'No se te volverá a cobrar. Tus 30 días a favor ya están sumados a esa fecha.'
+      : annual ? 'Pagaste el año completo. Se renueva el ' + nextCharge + ' y te avisamos 7 días antes.'
+      : 'Tu cobro del ' + nextCharge + ' se recorre al 10 ene 2027 por tus 30 días a favor. Te avisamos 3 días antes.';
+
+    var switchNote = '';
+    var switchLabel = '';
+    if (!trial && !cancelled && choice !== (annual ? 'anual' : 'mensual')) {
+      switchNote = choice === 'anual'
+        ? 'Pasas a anual en tu siguiente corte (10 ene 2027): pagas $2,390 y no pierdes días.'
+        : 'Vuelves a mensual al terminar tu año (11 nov 2027).';
+      switchLabel = choice === 'anual' ? 'Cambiar a anual' : 'Cambiar a mensual';
+    }
+    if (trial && st.choice) {
+      switchNote = choice === 'anual' ? 'Activas el año completo: $2,390 MXN hoy, con factura.' : 'Activas el mensual: $299 MXN hoy, con factura.';
+      switchLabel = choice === 'anual' ? 'Activar anual' : 'Activar mensual';
+    }
+    if (st.switched) { switchNote = ''; }
+
+    var payments = trial ? [
+      { date: '8 nov 2026', what: 'Inicio de prueba sin tarjeta', amount: '$0', hasInvoice: false, noInvoice: true }
+    ] : annual ? [
+      { date: '11 nov 2026', what: 'Pase anual', amount: '$2,390', hasInvoice: true, noInvoice: false },
+      { date: '4 oct 2026', what: 'Inicio de prueba', amount: '$0', hasInvoice: false, noInvoice: true }
+    ] : [
+      { date: '11 nov 2026', what: 'Pase mensual', amount: '$299', hasInvoice: true, noInvoice: false },
+      { date: '11 oct 2026', what: 'Primer mes con invitación de @mariana_t', amount: '$209', hasInvoice: true, noInvoice: false },
+      { date: '4 oct 2026', what: 'Inicio de prueba', amount: '$0', hasInvoice: false, noInvoice: true }
+    ];
+    payments = payments.map(function (p, i) { p.border = i ? '1px solid var(--line)' : '0'; return p; });
+
+    var FEATURES = [
+      ['Hasta 5 picks por partido', 'En las 7 ligas, con su probabilidad y momio justo'],
+      ['Armador de parlays', 'También del mismo partido, con probabilidad combinada'],
+      ['Alertas de valor', 'Cuando un momio paga más que el justo en tus partidos'],
+      ['Bitácora con récord', 'Saldo, cumplidos y ventaja contra el cierre'],
+      ['Comunidad y ranking', 'Publica tus picks y sigue a otros socios'],
+      ['Factura CFDI 4.0', 'Automática en cada cobro']
+    ];
+
+    var banner = cancelled || st.switched;
+    return {
+      theme: this.props.theme ?? 'dark',
+      showBanner: banner,
+      bannerText: cancelled ? 'Cancelaste la renovación. Conservas tu pase hasta el ' + accessEnd + '.' : (trial ? 'Tu pase está activo. Bienvenido a Ultra.' : 'Listo. El cambio se aplica en tu siguiente corte.'),
+      bannerBg: cancelled ? 'var(--warnbg)' : 'var(--okbg)', bannerFg: cancelled ? 'var(--warn)' : 'var(--ok)',
+      canReactivate: cancelled,
+      reactivate: function () { self.setState({ cancelled: false }); },
+      statusLabel: statusLabel, statusBg: statusBg, statusFg: statusFg,
+      cardOpacity: cancelled ? '0.55' : '1',
+      cardNote: trial ? 'Tu pase se activa en cuanto eliges mensual o anual.' : cancelled ? 'Tu pase deja de renovarse el ' + accessEnd + '.' : 'Pase PitchLab Ultra de @jair · desde octubre 2026',
+      headline: headline, subline: subline, facts: facts,
+      confirmCancel: st.confirm && !cancelled,
+      cancelText: 'Conservas el acceso hasta el ' + accessEnd + ', incluidos tus 30 días a favor. No se te cobra de nuevo y tu bitácora se queda guardada.',
+      keep: function () { self.setState({ confirm: false }); },
+      doCancel: function () { self.setState({ confirm: false, cancelled: true, switched: false }); },
+      showActions: !st.confirm,
+      primaryLabel: trial ? 'Activar mi pase' : (cancelled ? '' : (annual ? '' : 'Cambiar a anual')),
+      primaryAct: function () { self.setState({ choice: 'anual', switched: false }); },
+      hasCard: !trial, canCancel: !trial && !cancelled,
+      askCancel: function () { self.setState({ confirm: true }); },
+      pickMonthly: String(choice === 'mensual'), pickAnnual: String(choice === 'anual'),
+      chooseMonthly: function () { self.setState({ choice: 'mensual', switched: false }); },
+      chooseAnnual: function () { self.setState({ choice: 'anual', switched: false }); },
+      monthlyTag: !trial && !annual ? 'Tu plan' : '', annualTag: !trial && annual ? 'Tu plan' : 'Ahorras 4 meses',
+      switchNote: switchNote, switchLabel: switchLabel,
+      confirmSwitch: function () { if (trial) { self.setState({ plan: choice, switched: true }); } else { self.setState({ switched: true }); } },
+      features: FEATURES.map(function (f, i) { return { title: f[0], detail: f[1], border: i ? '1px solid var(--line)' : '0' }; }),
+      payments: payments
+    };
+  }
+}
+</script>
+</body>
+</html>

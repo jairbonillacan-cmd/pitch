@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<title>Barra superior · escritorio</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+.lp{--bg:#000000;--nav:rgba(8,8,11,.82);--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.16);--t1:#FFFFFF;--t2:#D4D4DC;--t3:#A1A1AD;--brand:#C4B5FD;--brandbg:rgba(196,181,253,.14);--ok:#6EE7B7;--okbg:rgba(110,231,183,.12);--hover:rgba(255,255,255,.06);--active:rgba(255,255,255,.10);--seg:rgba(255,255,255,.06);--btn:#FFFFFF;--btnfg:#000000;--field:rgba(255,255,255,.06);--menu:#08080A;--ghost:rgba(255,255,255,.035);--l1:rgba(124,92,246,.26);--l2:rgba(190,50,90,.12)}
+.lp[data-theme="light"]{--bg:#F1F2F6;--nav:rgba(255,255,255,.88);--line:rgba(11,16,32,.09);--line2:rgba(11,16,32,.16);--t1:#0B1020;--t2:#3B4560;--t3:#5A6480;--brand:#5940B2;--brandbg:rgba(89,64,178,.10);--ok:#12704E;--okbg:rgba(18,112,78,.10);--hover:rgba(11,16,32,.05);--active:rgba(11,16,32,.08);--seg:rgba(11,16,32,.05);--btn:#0B1020;--btnfg:#FFFFFF;--field:#FFFFFF;--menu:#FFFFFF;--ghost:rgba(11,16,32,.04);--l1:rgba(124,92,246,.10);--l2:rgba(190,50,90,.05)}
+.lp{position:relative;width:1440px;height:720px;overflow:hidden;background:radial-gradient(40% 40% at 25% 0%,var(--l1),transparent 70%),radial-gradient(30% 40% at 90% 10%,var(--l2),transparent 70%),var(--bg);color:var(--t1);font-family:Inter,system-ui,sans-serif;font-size:14px;-webkit-font-smoothing:antialiased}
+.lp *{box-sizing:border-box}
+.lp button,.lp input{font:inherit;color:inherit}
+.lp :focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.num{font-variant-numeric:tabular-nums}
+.ultra{display:inline-flex;align-items:center;height:20px;padding:0 9px;border-radius:999px;border:1.5px solid transparent;background:linear-gradient(#1D1B24,#141219) padding-box,conic-gradient(#F0626B,#F4C55B,#4FD18B,#4AA8E8,#A35CF0,#F0626B) border-box;color:#FFFFFF;font-size:11px;font-weight:800;letter-spacing:.01em;box-shadow:0 0 8px -3px #A35CF0}
+.iconbtn{position:relative;display:grid;place-items:center;width:40px;height:40px;border-radius:999px;border:0;background:var(--seg);color:var(--t2);cursor:pointer}
+.iconbtn[aria-expanded="true"]{background:var(--active);color:var(--t1)}
+.panel{position:absolute;z-index:5;border-radius:18px;background:var(--menu);border:1px solid var(--line);box-shadow:0 30px 60px -24px rgba(0,0,0,.6),0 10px 24px -12px rgba(0,0,0,.4)}
+.res{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:12px;align-items:center;width:100%;min-height:48px;padding:6px 10px;border:0;border-radius:10px;background:none;text-align:left;cursor:pointer}
+.res:hover,.res.first{background:var(--hover)}
+.grp{padding:10px 10px 4px;font-size:11.5px;font-weight:600;color:var(--t3)}
+.alert{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:12px;align-items:start;padding:12px 10px;border-radius:12px;text-decoration:none;color:inherit}
+.alert:hover{background:var(--hover)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:0 14px;border-radius:12px;border:0;background:var(--btn);color:var(--btnfg);font-size:13.5px;font-weight:600;cursor:pointer;white-space:nowrap;text-decoration:none}
+.btn.ghost{background:var(--seg);color:var(--t1)}
+.scrim{position:absolute;inset:64px 0 0 0;z-index:4;border:0;background:transparent;cursor:default}
+</style>
+</helmet>
+<div class="lp" data-theme="{{theme}}">
+
+  <header style="position: relative; z-index: 6; display: flex; align-items: center; gap: 20px; height: 64px; padding: 0 24px; background: {{navBg}}; border-bottom: {{navBorder}}">
+    <a href="#" aria-label="PitchLab, inicio" style="display: inline-flex; flex-shrink: 0"><img src="{{logo}}" width="128" height="25" alt="" style="display: block"></a>
+
+    <div style="position: relative; flex: 0 1 520px; margin-left: 52px">
+      <label for="q" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Buscar</label>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="position: absolute; left: 14px; top: 12px; color: var(--t3)"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+      <input id="q" type="search" value="{{query}}" onFocus="{{openSearch}}" onChange="{{onQuery}}" placeholder="Buscar equipo, partido o @socio" autocomplete="off" aria-expanded="{{searchOpenStr}}" aria-controls="sugs" style="width: 100%; height: 40px; border-radius: 12px; border: 1px solid {{fieldBorder}}; background: var(--field); color: var(--t1); font-size: 14px; padding: 0 56px 0 40px">
+      <kbd aria-hidden="true" class="num" style="position: absolute; right: 10px; top: 9px; padding: 2px 6px; border-radius: 6px; border: 1px solid var(--line2); color: var(--t3); font: 600 11px/18px Inter, system-ui, sans-serif">⌘K</kbd>
+    </div>
+
+    <div style="flex: 1"></div>
+
+    <sc-if value="{{isMember}}" hint-placeholder-val="{{ true }}">
+      <div style="display: flex; align-items: center; gap: 10px">
+        <button type="button" class="iconbtn" aria-label="{{bellAria}}" aria-expanded="{{alertsOpenStr}}" onClick="{{toggleAlerts}}">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>
+          <sc-if value="{{hasUnread}}" hint-placeholder-val="{{ true }}"><span class="num" aria-hidden="true" style="position: absolute; top: -3px; right: -4px; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px; background: var(--brand); color: var(--bg); font-size: 10.5px; font-weight: 800; line-height: 18px; text-align: center; box-shadow: 0 0 0 2px var(--bg)">{{unread}}</span></sc-if>
+        </button>
+        <button type="button" aria-label="Menú de @jair" style="display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 12px 0 5px; border-radius: 999px; border: 0; background: var(--seg); color: var(--t1); font-size: 13px; font-weight: 700; cursor: pointer">
+          <span aria-hidden="true" style="display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg, #22D3EE, #0EA5E9); color: #FFFFFF; font-size: 11px; font-weight: 800">JR</span>
+          @jair <span class="ultra">Ultra</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--t3)"><path d="m6 9 6 6 6-6"></path></svg>
+        </button>
+      </div>
+    </sc-if>
+    <sc-if value="{{isVisitor}}" hint-placeholder-val="{{ false }}">
+      <div style="display: flex; align-items: center; gap: 8px">
+        <a class="btn ghost" href="#">Entrar</a>
+        <a class="btn" href="#">Probar 7 días gratis</a>
+      </div>
+    </sc-if>
+  </header>
+
+  <div aria-hidden="true" style="display: grid; grid-template-columns: 232px minmax(0, 1fr); gap: 24px; padding: 20px 24px">
+    <div style="height: 560px; border-radius: 16px; background: var(--ghost)"></div>
+    <div style="display: flex; flex-direction: column; gap: 16px; max-width: 1180px">
+      <div style="width: 220px; height: 34px; border-radius: 10px; background: var(--ghost)"></div>
+      <div style="height: 64px; border-radius: 14px; background: var(--ghost)"></div>
+      <div style="display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 18px"><div style="height: 420px; border-radius: 18px; background: var(--ghost)"></div><div style="height: 420px; border-radius: 18px; background: var(--ghost)"></div></div>
+    </div>
+  </div>
+
+  <sc-if value="{{anyOpen}}" hint-placeholder-val="{{ false }}"><button type="button" class="scrim" aria-label="Cerrar" onClick="{{closeAll}}"></button></sc-if>
+
+  <sc-if value="{{searchOpen}}" hint-placeholder-val="{{ true }}">
+    <div id="sugs" class="panel" role="listbox" aria-label="Resultados" style="top: 58px; left: 224px; width: 560px; padding: 8px">
+      <sc-if value="{{noResults}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; padding: 18px 12px; font-size: 13.5px; color: var(--t3)">Nada con «{{query}}». Prueba con un equipo, una liga o un @socio.</p></sc-if>
+      <sc-for list="{{groups}}" as="g" hint-placeholder-count="3">
+        <div>
+          <div class="grp">{{g.title}}</div>
+          <sc-for list="{{g.items}}" as="r" hint-placeholder-count="2">
+            <button type="button" role="option" class="res {{r.cls}}" aria-selected="{{r.sel}}">
+              <span style="display: grid; place-items: center; width: 28px; height: 28px; border-radius: 8px; background: {{r.iconBg}}; color: var(--t2); font-size: 11px; font-weight: 800"><sc-if value="{{r.img}}" hint-placeholder-val="{{ true }}"><img src="{{r.img}}" width="22" height="22" alt="" style="display: block; object-fit: contain"></sc-if><sc-if value="{{r.glyph}}" hint-placeholder-val="{{ false }}">{{r.glyph}}</sc-if></span>
+              <span style="min-width: 0"><b style="display: block; font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{r.title}}</b><span style="display: block; font-size: 12.5px; color: var(--t3); margin-top: 1px">{{r.sub}}</span></span>
+              <span class="num" style="text-align: right; font-size: 12.5px; color: var(--t3)"><b style="display: block; font-size: 14px; color: {{r.endColor}}">{{r.end}}</b>{{r.endSub}}</span>
+            </button>
+          </sc-for>
+        </div>
+      </sc-for>
+      <div style="display: flex; justify-content: space-between; gap: 12px; margin-top: 6px; padding: 10px 10px 4px; border-top: 1px solid var(--line); font-size: 12px; color: var(--t3)"><span>↑ ↓ para moverte · Enter para abrir</span><span>Esc para cerrar</span></div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{alertsOpen}}" hint-placeholder-val="{{ false }}">
+    <div class="panel" role="dialog" aria-label="Alertas de valor" style="top: 58px; right: 150px; width: 400px; padding: 8px">
+      <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 10px 10px 6px">
+        <div><b style="font-size: 15px">Alertas de valor</b><span class="num" style="display: block; font-size: 12px; color: var(--t3); margin-top: 2px">{{alertsSub}}</span></div>
+        <button type="button" class="btn ghost" style="min-height: 34px; padding: 0 10px; font-size: 12.5px" onClick="{{markRead}}">Marcar como vistas</button>
+      </div>
+      <div style="max-height: 470px; overflow-y: auto">
+        <sc-for list="{{alerts}}" as="a" hint-placeholder-count="5">
+          <a class="alert" href="#">
+            <img src="{{a.logo}}" width="24" height="24" alt="" style="display: block; object-fit: contain; margin-top: 2px">
+            <span style="min-width: 0"><span style="display: block; font-size: 12px; color: var(--t3)">{{a.league}} · {{a.time}}</span><b style="display: block; font-size: 14px; font-weight: 600; margin-top: 2px">{{a.sel}}</b><span style="display: block; font-size: 12.5px; color: var(--t3); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{a.match}} · contra {{a.book}}</span></span>
+            <span style="display: flex; flex-direction: column; align-items: flex-end; gap: 6px"><span class="num" style="display: inline-flex; align-items: center; min-height: 24px; padding: 0 9px; border-radius: 999px; background: var(--okbg); color: var(--ok); font-size: 12px; font-weight: 800">{{a.edge}}</span><sc-if value="{{a.unread}}" hint-placeholder-val="{{ true }}"><span aria-label="Nueva" style="width: 8px; height: 8px; border-radius: 50%; background: var(--brand)"></span></sc-if></span>
+          </a>
+        </sc-for>
+      </div>
+      <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 10px 10px 4px; border-top: 1px solid var(--line); font-size: 12.5px">
+        <span style="color: var(--t3)">Puntos que el momio de la casa paga sobre el justo.</span>
+        <a href="#" style="color: var(--brand); font-weight: 600; text-decoration: none; white-space: nowrap">Ajustar alertas</a>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["dark","light"],"default":"dark"},"cuenta":{"editor":"enum","options":["socio","visitante"],"default":"socio"},"scroll":{"editor":"enum","options":["arriba","con scroll"],"default":"con scroll"},"abierto":{"editor":"enum","options":["nada","buscador","alertas"],"default":"buscador"},"$preview":{"width":1440,"height":720}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { open: null, query: '', read: false };
+  }
+  renderVals() {
+    var self = this;
+    var st = this.state;
+    var theme = this.props.theme ?? 'dark';
+    var open = st.open === null ? (this.props.abierto === 'alertas' ? 'alerts' : this.props.abierto === 'nada' ? '' : 'search') : st.open;
+    var member = (this.props.cuenta ?? 'socio') === 'socio';
+    if (!member && open === 'alerts') open = '';
+    var scrolled = (this.props.scroll ?? 'con scroll') === 'con scroll';
+    var LG = { mx: '/_blob/c846697c078b64a2d86418800f8f4f35', nfl: '/_blob/884f0324a498b34c6f84c5e4a79caff5', pl: '/_blob/4be0f0670a2c307505d227bd5ef14334', bl: '/_blob/1988c156dc1fbcd02c2820af18109942', sa: '/_blob/411a917f7260f4be9a6657abe2980066', l1: '/_blob/c72a77092d216731ffe23561f5fc213c' };
+    var ALERTS = [
+      ['bl', 'Bundesliga', '08:30', 'SC Freiburg gana', 'Elversberg vs Freiburg', 'Caliente · 9 nov', '+3.5 pts'],
+      ['l1', 'Ligue 1', '13:45', 'Strasbourg gana', 'Strasbourg vs Brest', 'Caliente · 9 nov', '+3.5 pts'],
+      ['nfl', 'NFL', '13:00', 'Tennessee gana', 'Tennessee vs Jacksonville', 'Pinnacle · 10 nov', '+2.5 pts'],
+      ['pl', 'Premier League', '09:00', 'Bournemouth gana', 'Bournemouth vs Nottingham Forest', 'Caliente · 9 nov', '+2.2 pts'],
+      ['l1', 'Ligue 1', '10:15', 'Nice gana', 'Nice vs Paris Saint-Germain', 'Caliente · 9 nov', '+2.2 pts'],
+      ['sa', 'Serie A', '13:45', 'Fiorentina gana', 'Monza vs Fiorentina', 'Caliente · 9 nov', '+2.0 pts'],
+      ['mx', 'Liga MX', '16:50', 'Toluca gana', 'Pachuca vs Toluca', 'Caliente · 9 nov', '+1.0 pts'],
+      ['nfl', 'NFL', '13:00', 'Atlanta gana', 'Atlanta vs Kansas City', 'Pinnacle · 10 nov', '+1.0 pts']
+    ];
+    var unread = st.read ? 0 : 8;
+    var all = [
+      { g: 'Partidos', title: 'Querétaro vs Monterrey', sub: 'Liga MX · sáb 14 · 17:00', img: '/_blob/f37134d83a70e163cd0bfd86b16ec508', end: '43 %', endSub: 'Monterrey gana', endColor: 'var(--brand)', keys: 'queretaro monterrey liga mx rayados' },
+      { g: 'Partidos', title: 'NY Giants vs Washington', sub: 'NFL · jue 12 · 19:15', img: '/_blob/9e6cae0116d84c6f804bd1f503cc6812', end: '57 %', endSub: 'NY Giants gana', endColor: 'var(--brand)', keys: 'giants washington nfl new york' },
+      { g: 'Partidos', title: 'Tigres vs América', sub: 'Liga MX · sáb 21 · 21:00', img: '/_blob/ebbfe450bce93be1f8da97b08c886786', end: '51 %', endSub: 'América gana', endColor: 'var(--brand)', keys: 'tigres america liga mx' },
+      { g: 'Equipos', title: 'Monterrey', sub: 'Liga MX · 2 partidos próximos', img: '/_blob/f37134d83a70e163cd0bfd86b16ec508', end: '', endSub: '', endColor: 'var(--t1)', keys: 'monterrey rayados' },
+      { g: 'Equipos', title: 'Querétaro', sub: 'Liga MX', img: '/_blob/9f56414f1a16346c24654106e4d41ebe', end: '', endSub: '', endColor: 'var(--t1)', keys: 'queretaro gallos' },
+      { g: 'Ligas', title: 'Liga MX', sub: '10 partidos próximos', img: LG.mx, end: '', endSub: '', endColor: 'var(--t1)', keys: 'liga mx mexico futbol' },
+      { g: 'Ligas', title: 'NFL', sub: '14 partidos próximos', img: LG.nfl, end: '', endSub: '', endColor: 'var(--t1)', keys: 'nfl americano' },
+      { g: 'Socios', title: '@sofia_nfl', sub: 'Tipstar verificada · NFL y totales', glyph: 'SM', end: '+18.4u', endSub: 'saldo', endColor: 'var(--ok)', keys: 'sofia nfl tipstar' },
+      { g: 'Socios', title: '@mariana_t', sub: 'Socia · Liga MX', glyph: 'MT', end: '', endSub: '', endColor: 'var(--t1)', keys: 'mariana socia' },
+      { g: 'Ir a', title: 'Armar parlay', sub: 'Combina selecciones de partidos distintos', glyph: '+', end: '', endSub: '', endColor: 'var(--t1)', keys: 'parlay armar combinar' },
+      { g: 'Ir a', title: 'Mi bitácora', sub: 'Tus picks y tu récord', glyph: '≡', end: '', endSub: '', endColor: 'var(--t1)', keys: 'bitacora picks record' }
+    ];
+    var q = st.query.trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+    var groups;
+    if (!q) {
+      groups = [
+        { title: 'Recientes', items: [all[0], all[7]] },
+        { title: 'Próximos partidos', items: [all[1], all[2]] },
+        { title: 'Ir a', items: [all[9], all[10]] }
+      ];
+    } else {
+      var hit = all.filter(function (r) { return (r.title + ' ' + r.keys).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').indexOf(q.replace(/^@/, '')) >= 0; });
+      var order = ['Partidos', 'Equipos', 'Ligas', 'Socios', 'Ir a'];
+      groups = order.map(function (g) { return { title: g, items: hit.filter(function (r) { return r.g === g; }) }; }).filter(function (g) { return g.items.length; });
+    }
+    var first = true;
+    groups = groups.map(function (g) {
+      return { title: g.title, items: g.items.map(function (r) {
+        var cls = first ? 'first' : ''; var sel = String(first); first = false;
+        return { title: r.title, sub: r.sub, img: r.img || '', glyph: r.glyph || '', iconBg: r.img ? 'transparent' : 'var(--seg)', end: r.end, endSub: r.endSub, endColor: r.endColor, cls: cls, sel: sel };
+      }) };
+    });
+    return {
+      theme: theme,
+      logo: theme === 'light' ? '/_blob/410da94955bfbf71ecf92408395c38a7' : '/_blob/36d55138acc4d66a45aec48cbf6dbd92',
+      navBg: scrolled ? 'var(--nav)' : 'transparent', navBorder: scrolled ? '1px solid var(--line)' : '1px solid transparent',
+      isMember: member, isVisitor: !member,
+      query: st.query, onQuery: function (e) { self.setState({ query: e.target.value, open: 'search' }); },
+      openSearch: function () { self.setState({ open: 'search' }); },
+      searchOpen: open === 'search', searchOpenStr: String(open === 'search'),
+      fieldBorder: open === 'search' ? 'var(--brand)' : 'var(--line)',
+      groups: groups, noResults: open === 'search' && groups.length === 0,
+      alertsOpen: open === 'alerts', alertsOpenStr: String(open === 'alerts'),
+      toggleAlerts: function () { self.setState({ open: open === 'alerts' ? '' : 'alerts' }); },
+      anyOpen: open === 'search' || open === 'alerts',
+      closeAll: function () { self.setState({ open: '' }); },
+      hasUnread: unread > 0, unread: String(unread),
+      bellAria: unread ? 'Alertas de valor, ' + unread + ' nuevas' : 'Alertas de valor',
+      alertsSub: unread ? unread + ' nuevas · ordenadas por ventaja' : 'Todas vistas · ordenadas por ventaja',
+      markRead: function () { self.setState({ read: true }); },
+      alerts: ALERTS.map(function (a) { return { logo: LG[a[0]], league: a[1], time: a[2], sel: a[3], match: a[4], book: a[5], edge: a[6], unread: !st.read }; })
+    };
+  }
+}
+</script>
+</body>
+</html>

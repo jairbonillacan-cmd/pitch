@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<title>Mi cuenta · Preferencias</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+.lp{--bg:#000000;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.16);--t1:#FFFFFF;--t2:#D4D4DC;--t3:#A1A1AD;--brand:#C4B5FD;--brandbg:rgba(196,181,253,.14);--ok:#6EE7B7;--okbg:rgba(110,231,183,.12);--warn:#FCD34D;--warnbg:rgba(252,211,77,.14);--hover:rgba(255,255,255,.06);--active:rgba(255,255,255,.10);--seg:rgba(255,255,255,.06);--segon:rgba(255,255,255,.16);--btn:#FFFFFF;--btnfg:#000000;--field:rgba(255,255,255,.04);--sheen:rgba(255,255,255,.05);--inner:inset 0 1px 0 rgba(255,255,255,.07);--card:rgba(255,255,255,.025);--shadow:0 24px 50px -30px rgba(0,0,0,.9);--rim-c:rgba(255,255,255,.5);--rim-t:rgba(255,255,255,.2);--rim-m:rgba(255,255,255,.05);--rim-b:rgba(255,255,255,.1);--l1:rgba(124,92,246,.22);--l2:rgba(16,185,129,.08);--swoff:rgba(255,255,255,.18);--swon:#6EE7B7}
+.lp[data-theme="light"]{--bg:#F1F2F6;--line:rgba(11,16,32,.09);--line2:rgba(11,16,32,.16);--t1:#0B1020;--t2:#3B4560;--t3:#5A6480;--brand:#5940B2;--brandbg:rgba(89,64,178,.10);--ok:#12704E;--okbg:rgba(18,112,78,.10);--warn:#8A5A00;--warnbg:rgba(138,90,0,.10);--hover:rgba(11,16,32,.05);--active:rgba(11,16,32,.08);--seg:rgba(11,16,32,.05);--segon:#FFFFFF;--btn:#0B1020;--btnfg:#FFFFFF;--field:#FFFFFF;--sheen:rgba(255,255,255,.8);--inner:inset 0 1px 0 rgba(255,255,255,.95);--card:rgba(255,255,255,.92);--shadow:0 20px 40px -28px rgba(11,16,32,.28),0 4px 12px -8px rgba(11,16,32,.12);--rim-c:#FFFFFF;--rim-t:#FFFFFF;--rim-m:rgba(11,16,32,.06);--rim-b:rgba(11,16,32,.12);--l1:rgba(124,92,246,.10);--l2:rgba(16,185,129,.05);--swoff:rgba(11,16,32,.18);--swon:#12704E}
+.lp{position:relative;min-height:100%;box-sizing:border-box;padding:24px 28px 40px;background:radial-gradient(40% 24% at 20% 0%,var(--l1),transparent 70%),radial-gradient(30% 24% at 100% 40%,var(--l2),transparent 70%),var(--bg);color:var(--t1);font-family:Inter,system-ui,sans-serif;font-size:14px;-webkit-font-smoothing:antialiased}
+.lp *{box-sizing:border-box}
+.lp button{font:inherit;color:inherit}
+.lp :focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.num{font-variant-numeric:tabular-nums}
+.ring{position:relative;background:linear-gradient(180deg,var(--sheen),transparent 40%),var(--card);box-shadow:var(--inner),var(--shadow)}
+.ring::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;-webkit-mask:linear-gradient(#000,#000) content-box,linear-gradient(#000,#000);-webkit-mask-composite:xor;mask:linear-gradient(#000,#000) content-box exclude,linear-gradient(#000,#000);background:radial-gradient(60px circle at 0% 0%,var(--rim-c),transparent 100%),radial-gradient(60px circle at 100% 0%,var(--rim-c),transparent 100%),linear-gradient(180deg,var(--rim-t) 0%,var(--rim-m) 24%,var(--rim-m) 74%,var(--rim-b) 100%)}
+.ultra{display:inline-flex;align-items:center;height:20px;padding:0 9px;border-radius:999px;border:1.5px solid transparent;background:linear-gradient(#1D1B24,#141219) padding-box,conic-gradient(#F0626B,#F4C55B,#4FD18B,#4AA8E8,#A35CF0,#F0626B) border-box;color:#FFFFFF;font-size:11px;font-weight:800;letter-spacing:.01em;box-shadow:0 0 8px -3px #A35CF0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 16px;border-radius:12px;border:0;background:var(--btn);color:var(--btnfg);font-size:13.5px;font-weight:600;cursor:pointer;white-space:nowrap;text-decoration:none}
+.btn.ghost{background:var(--seg);color:var(--t1)}
+.tab{display:inline-flex;align-items:center;min-height:44px;padding:0 4px;border-bottom:2px solid transparent;color:var(--t3);font-size:14px;font-weight:600;white-space:nowrap;text-decoration:none}
+.tab[aria-current="page"]{color:var(--t1);border-bottom-color:var(--t1)}
+.tabs{display:flex;gap:24px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--line)}
+.side a{display:flex;align-items:center;min-height:38px;padding:0 12px;border-radius:10px;color:var(--t2);font-size:13.5px;font-weight:500;text-decoration:none}
+.side a:hover{background:var(--hover)}
+.row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center;padding:14px 0}
+.row + .row{border-top:1px solid var(--line)}
+.sw{position:relative;width:48px;height:28px;border-radius:999px;border:0;background:var(--swoff);cursor:pointer;flex-shrink:0;transition:background .2s}
+.sw[aria-checked="true"]{background:var(--swon)}
+.sw span{position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#FFFFFF;box-shadow:0 1px 3px rgba(0,0,0,.3);transition:transform .2s cubic-bezier(.32,.72,0,1)}
+.sw[aria-checked="true"] span{transform:translateX(20px)}
+.seg{display:inline-flex;padding:3px;border-radius:10px;background:var(--seg);flex-wrap:wrap}
+.seg button{min-height:34px;padding:0 12px;border:0;border-radius:8px;background:none;color:var(--t3);font-size:13px;font-weight:500;cursor:pointer;white-space:nowrap}
+.seg button[aria-pressed="true"]{background:var(--segon);color:var(--t1);box-shadow:var(--inner)}
+.lg{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 14px 0 10px;border-radius:999px;border:1px solid var(--line2);background:none;color:var(--t2);font-size:13px;font-weight:600;cursor:pointer}
+.lg[aria-pressed="true"]{border-color:transparent;background:var(--active);color:var(--t1);box-shadow:inset 0 0 0 1.5px var(--t1)}
+.risk{display:flex;flex-direction:column;gap:4px;padding:14px;border-radius:14px;border:1.5px solid var(--line);background:var(--field);text-align:left;cursor:pointer}
+.risk[aria-pressed="true"]{border-color:var(--t1);background:var(--active)}
+.layout{display:grid;grid-template-columns:200px minmax(0,1fr);gap:28px;align-items:start}
+.risks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+@media (max-width:900px){.layout{grid-template-columns:minmax(0,1fr)}.side{display:none !important}}
+@media (max-width:640px){.lp{padding:16px 14px 32px}.tabs{gap:18px}.hide-phone{display:none !important}.risks{grid-template-columns:minmax(0,1fr)}.row{grid-template-columns:minmax(0,1fr)}.row .end{justify-self:start}.row .sw{justify-self:end;grid-row:1;grid-column:2}}
+</style>
+</helmet>
+<div class="lp" data-theme="{{theme}}">
+  <div style="max-width: 1180px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px">
+
+    <header style="display: flex; flex-direction: column; gap: 16px">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px">
+        <div style="display: flex; align-items: center; gap: 14px">
+          <span aria-hidden="true" style="display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(135deg, #22D3EE, #0EA5E9); color: #FFFFFF; font-size: 15px; font-weight: 800">JR</span>
+          <div>
+            <h1 style="margin: 0; font-size: 28px; line-height: 1.1; font-weight: 800; letter-spacing: -0.02em">Mi cuenta</h1>
+            <p style="margin: 4px 0 0; display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--t3)">@jair · Pase PitchLab Ultra <span class="ultra">Ultra</span></p>
+          </div>
+        </div>
+        <span role="status" style="display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--t3)"><span aria-hidden="true" style="width: 7px; height: 7px; border-radius: 50%; background: var(--ok)"></span>{{savedLabel}}</span>
+      </div>
+      <nav class="tabs" aria-label="Secciones de mi cuenta">
+        <a class="tab" href="Main.dc.html">Invitar amigos</a>
+        <a class="tab" href="Plan.dc.html">Mi plan</a>
+        <a class="tab" href="Prefs.dc.html" aria-current="page">Preferencias</a>
+        <a class="tab" href="#">Facturación</a>
+      </nav>
+    </header>
+
+    <div class="layout">
+      <nav class="side ring" aria-label="Grupos de preferencias" style="border-radius: 16px; padding: 8px; display: flex; flex-direction: column; gap: 2px">
+        <a href="#ligas">Tus ligas</a>
+        <a href="#datos">Cómo ves los datos</a>
+        <a href="#picks">Picks y parlays</a>
+        <a href="#alertas">Alertas</a>
+        <a href="#privacidad">Privacidad</a>
+        <a href="#descanso">Juego responsable</a>
+      </nav>
+
+      <div style="display: flex; flex-direction: column; gap: 18px; min-width: 0">
+
+        <section id="ligas" class="ring" style="border-radius: 20px; padding: 22px" aria-labelledby="h-ligas">
+          <h2 id="h-ligas" style="margin: 0; font-size: 17px; font-weight: 700">Tus ligas</h2>
+          <p style="margin: 4px 0 16px; font-size: 13px; color: var(--t3)">Inicio, la tira de fechas y tus alertas muestran solo estas ligas. Elige al menos una.</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px" role="group" aria-label="Ligas">
+            <sc-for list="{{leagues}}" as="l" hint-placeholder-count="7">
+              <button type="button" class="lg" aria-pressed="{{l.on}}" onClick="{{l.toggle}}">
+                <img src="{{l.logo}}" width="20" height="20" alt="" style="display: block; object-fit: contain">{{l.name}}
+              </button>
+            </sc-for>
+          </div>
+          <sc-if value="{{leagueWarn}}" hint-placeholder-val="{{ false }}"><p role="alert" style="margin: 12px 0 0; font-size: 12.5px; color: var(--warn)">Deja al menos una liga activa.</p></sc-if>
+        </section>
+
+        <section id="datos" class="ring" style="border-radius: 20px; padding: 8px 22px" aria-labelledby="h-datos">
+          <h2 id="h-datos" style="margin: 14px 0 0; font-size: 17px; font-weight: 700">Cómo ves los datos</h2>
+          <div class="row">
+            <div><b style="font-size: 14px; font-weight: 600">Formato de momio</b><span style="display: block; font-size: 12.5px; color: var(--t3); margin-top: 2px">{{oddsHint}}</span></div>
+            <div class="seg end" role="group" aria-label="Formato de momio">
+              <button type="button" aria-pressed="{{oddsAm}}" onClick="{{setAm}}">Americano</button>
+              <button type="button" aria-pressed="{{oddsDec}}" onClick="{{setDec}}">Decimal</button>
+            </div>
+          </div>
+          <div class="row">
+            <div><b style="font-size: 14px; font-weight: 600">Tema</b><span style="display: block; font-size: 12.5px; color: var(--t3); margin-top: 2px">«Sistema» sigue el ajuste de tu teléfono o computadora.</span></div>
+            <div class="seg end" role="group" aria-label="Tema">
+              <button type="button" aria-pressed="{{thDark}}" onClick="{{setThDark}}">Oscuro</button>
+              <button type="button" aria-pressed="{{thLight}}" onClick="{{setThLight}}">Claro</button>
+              <button type="button" aria-pressed="{{thSys}}" onClick="{{setThSys}}">Sistema</button>
+            </div>
+          </div>
+          <div class="row">
+            <div><label for="tz" style="font-size: 14px; font-weight: 600">Horario de los partidos</label><span style="display: block; font-size: 12.5px; color: var(--t3); margin-top: 2px">Todas las horas de la app usan esta zona.</span></div>
+            <select id="tz" class="end" style="min-height: 40px; border-radius: 10px; border: 1px solid var(--line2); background: var(--field); color: var(--t1); font: 500 13.5px/1 Inter, system-ui, sans-serif; padding: 0 12px">
+              <option>Ciudad de México (UTC−6)</option>
+              <option>Tijuana (UTC−8)</option>
+              <option>Cancún (UTC−5)</option>
+              <option>Hermosillo (UTC−7)</option>
+            </select>
+          </div>
+        </section>
+
+        <section id="picks" class="ring" style="border-radius: 20px; padding: 22px; display: flex; flex-direction: column; gap: 18px" aria-labelledby="h-picks">
+          <div>
+            <h2 id="h-picks" style="margin: 0; font-size: 17px; font-weight: 700">Picks y parlays</h2>
+            <p style="margin: 4px 0 0; font-size: 13px; color: var(--t3)">Qué perfil abre por defecto en Parlay rápido y en Picks del día. Lo puedes cambiar ahí mismo.</p>
+          </div>
+          <div class="risks" role="group" aria-label="Perfil predeterminado">
+            <sc-for list="{{risks}}" as="r" hint-placeholder-count="3">
+              <button type="button" class="risk" aria-pressed="{{r.on}}" onClick="{{r.pick}}">
+                <b style="font-size: 14px; font-weight: 700">{{r.name}}</b>
+                <span class="num" style="font-size: 12.5px; color: var(--t3)">{{r.detail}}</span>
+              </button>
+            </sc-for>
+          </div>
+
+          <div style="border-top: 1px solid var(--line); padding-top: 16px; display: flex; flex-direction: column; gap: 12px">
+            <div class="row" style="padding: 0">
+              <div><b style="font-size: 14px; font-weight: 600">Ver mi saldo también en pesos</b><span style="display: block; font-size: 12.5px; color: var(--t3); margin-top: 2px">Solo para ti. Tu perfil público sigue mostrando unidades.</span></div>
+              <button type="button" class="sw" role="switch" aria-checked="{{pesosOn}}" aria-label="Ver mi saldo también en pesos" onClick="{{togglePesos}}"><span></span></button>
+            </div>
+            <sc-if value="{{pesos}}" hint-placeholder-val="{{ false }}">
+              <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding: 14px; border-radius: 14px; background: var(--field); border: 1px solid var(--line)">
+                <label for="unit" style="font-size: 13.5px; font-weight: 600">Mi unidad vale</label>
+                <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600">$<input id="unit" class="num" value="{{unit}}" onChange="{{onUnit}}" inputmode="numeric" autocomplete="off" style="width: 90px; min-height: 40px; border-radius: 10px; border: 1px solid var(--line2); background: transparent; color: var(--t1); font: 600 14px/1 Inter, system-ui, sans-serif; padding: 0 10px"> MXN</span>
+                <span class="num" style="font-size: 13px; color: var(--t2)">Tu saldo <b style="color: var(--ok)">+6.4u</b> se verá como <b style="color: var(--t1)">+6.4u ≈ {{pesosPreview}}</b></span>
+                <span style="flex-basis: 100%; font-size: 12px; color: var(--t3)">PitchLab no sugiere cuánto apostar. Esta cifra es solo tu referencia.</span>
+              </div>
+            </sc-if>
+          </div>
+        </section>
+
+        <section id="alertas" class="ring" style="border-radius: 20px; padding: 8px 22px" aria-labelledby="h-alertas">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-top: 14px">
+            <h2 id="h-alertas" style="margin: 0; font-size: 17px; font-weight: 700">Alertas</h2>
+            <span style="font-size: 12.5px; color: var(--t3)">En la app y por correo</span>
+          </div>
+          <sc-for list="{{alerts}}" as="a" hint-placeholder-count="4">
+            <div class="row">
+              <div><b style="font-size: 14px; font-weight: 600">{{a.title}}</b><span style="display: block; font-size: 12.5px; color: var(--t3); margin-top: 2px">{{a.detail}}</span></div>
+              <button type="button" class="sw" role="switch" aria-checked="{{a.on}}" aria-label="{{a.title}}" onClick="{{a.toggle}}"><span></span></button>
+            </div>
+          </sc-for>
+        </section>
+
+        <section id="privacidad" class="ring" style="border-radius: 20px; padding: 8px 22px" aria-labelledby="h-priv">
+          <h2 id="h-priv" style="margin: 14px 0 0; font-size: 17px; font-weight: 700">Privacidad</h2>
+          <sc-for list="{{privacy}}" as="p" hint-placeholder-count="3">
+            <div class="row">
+              <div><b style="font-size: 14px; font-weight: 600">{{p.title}}</b><span style="display: block; font-size: 12.5px; color: var(--t3); margin-top: 2px">{{p.detail}}</span></div>
+              <button type="button" class="sw" role="switch" aria-checked="{{p.on}}" aria-label="{{p.title}}" onClick="{{p.toggle}}"><span></span></button>
+            </div>
+          </sc-for>
+        </section>
+
+        <section id="descanso" class="ring" style="border-radius: 20px; padding: 22px; display: flex; flex-direction: column; gap: 14px" aria-labelledby="h-desc">
+          <div>
+            <h2 id="h-desc" style="margin: 0; font-size: 17px; font-weight: 700">Juego responsable</h2>
+            <p style="margin: 4px 0 0; font-size: 13px; line-height: 1.5; color: var(--t3)">Si quieres alejarte un tiempo, pausa tu cuenta. Durante la pausa no ves picks ni recibes alertas, y tu plan no se cobra.</p>
+          </div>
+          <sc-if value="{{notPaused}}" hint-placeholder-val="{{ true }}">
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px">
+              <span style="font-size: 13.5px; font-weight: 600">Tomar un descanso de</span>
+              <div class="seg" role="group" aria-label="Duración del descanso">
+                <sc-for list="{{breaks}}" as="b" hint-placeholder-count="3"><button type="button" aria-pressed="{{b.on}}" onClick="{{b.pick}}">{{b.label}}</button></sc-for>
+              </div>
+              <button type="button" class="btn ghost" onClick="{{startBreak}}">Pausar mi cuenta</button>
+            </div>
+          </sc-if>
+          <sc-if value="{{paused}}" hint-placeholder-val="{{ false }}">
+            <div role="status" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; padding: 14px 16px; border-radius: 14px; background: var(--warnbg); color: var(--warn); font-size: 14px; font-weight: 600">
+              <span>{{pausedText}}</span>
+              <button type="button" class="btn ghost" onClick="{{endBreak}}" style="min-height: 38px">Deshacer</button>
+            </div>
+          </sc-if>
+          <a href="#" style="font-size: 13px; font-weight: 600; color: var(--brand); text-decoration: none">Recursos de ayuda y juego responsable</a>
+        </section>
+
+        <section class="ring" style="border-radius: 20px; padding: 18px 22px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px">
+          <div><b style="font-size: 14px; font-weight: 600">Tu cuenta</b><span style="display: block; font-size: 12.5px; color: var(--t3); margin-top: 2px">jair@… · descarga tus datos o elimina tu cuenta.</span></div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap"><a class="btn ghost" href="#" style="min-height: 38px">Descargar mis datos</a><a class="btn ghost" href="#" style="min-height: 38px; color: var(--t2)">Eliminar cuenta</a></div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["dark","light"],"default":"dark"},"$preview":{"width":1200,"height":2200}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      leagues: { 'liga-mx': true, 'nfl': true, 'premier-league': true, 'laliga': false, 'bundesliga': false, 'serie-a': false, 'ligue-1': false },
+      warn: false, odds: 'am', th: 'dark', risk: 'medio', pesos: false, unit: '250',
+      alerts: [true, true, true, true], privacy: [true, true, false], brk: '7', paused: false, savedAt: ''
+    };
+  }
+  renderVals() {
+    var self = this;
+    var st = this.state;
+    var save = function (patch) { patch.savedAt = 'now'; self.setState(patch); };
+    var L = [
+      ['liga-mx', 'Liga MX', '/_blob/31eb9f1ffc03e4b3fc9f9c1ce418f825'],
+      ['nfl', 'NFL', '/_blob/5793badc87bb8055a13143c0e2ef6c72'],
+      ['premier-league', 'Premier League', '/_blob/bd2163136b66c4176c0d635575ec0f64'],
+      ['laliga', 'LaLiga', '/_blob/6c5a31a5258bcbac8c7b095324e74a77'],
+      ['bundesliga', 'Bundesliga', '/_blob/2bb35fbb154a1b45561eb8cac19f6373'],
+      ['serie-a', 'Serie A', '/_blob/3ccb2fffcf232b58a0dc7869f1ea6737'],
+      ['ligue-1', 'Ligue 1', '/_blob/182840315bc209db5e8731654dace042']
+    ];
+    var activeCount = L.filter(function (l) { return st.leagues[l[0]]; }).length;
+    var ALERTS = [
+      ['Alertas de valor', 'Cuando un momio paga más que el justo en tus ligas.'],
+      ['Antes del partido', '30 minutos antes de los partidos con picks en tu bitácora.'],
+      ['Resultado de tus picks', 'Cuando un pick de tu bitácora se cumple o no.'],
+      ['Aviso antes de cobrar', 'Unos días antes de renovar tu pase.']
+    ];
+    var PRIV = [
+      ['Perfil público', 'Otros socios ven tu perfil, tu saldo en unidades y tus picks cerrados.'],
+      ['Aparecer en el ranking', 'Tu nombre entra al ranking de Comunidad cuando tienes 20 picks cerrados en el mes.'],
+      ['Pausar Comunidad', 'Ocultas tus publicaciones y dejas de recibir avisos de Comunidad. Tu bitácora sigue igual.']
+    ];
+    var unitN = parseFloat(String(st.unit).replace(/[^0-9.]/g, ''));
+    var preview = isFinite(unitN) && unitN > 0 ? '$' + Math.round(6.4 * unitN).toLocaleString('es-MX') + ' MXN' : '—';
+    var BREAKS = [['1', '24 horas'], ['7', '7 días'], ['30', '30 días']];
+    var brLabel = BREAKS.filter(function (b) { return b[0] === st.brk; })[0][1];
+    return {
+      theme: this.props.theme ?? 'dark',
+      savedLabel: st.savedAt ? 'Guardado' : 'Los cambios se guardan solos',
+      leagues: L.map(function (l) {
+        return { name: l[1], logo: l[2], on: String(!!st.leagues[l[0]]), toggle: function () {
+          if (st.leagues[l[0]] && activeCount <= 1) { self.setState({ warn: true }); return; }
+          var next = Object.assign({}, st.leagues); next[l[0]] = !next[l[0]]; save({ leagues: next, warn: false });
+        } };
+      }),
+      leagueWarn: st.warn,
+      oddsAm: String(st.odds === 'am'), oddsDec: String(st.odds === 'dec'),
+      oddsHint: st.odds === 'am' ? 'Así: −130 · +131. Lo común en México.' : 'Así: 1.77 · 2.31.',
+      setAm: function () { save({ odds: 'am' }); }, setDec: function () { save({ odds: 'dec' }); },
+      thDark: String(st.th === 'dark'), thLight: String(st.th === 'light'), thSys: String(st.th === 'sys'),
+      setThDark: function () { save({ th: 'dark' }); }, setThLight: function () { save({ th: 'light' }); }, setThSys: function () { save({ th: 'sys' }); },
+      risks: [['conservador', 'Conservador', 'Picks de 72 % o más'], ['medio', 'Medio', 'Picks de 56 a 72 %'], ['arriesgado', 'Arriesgado', 'Lo más parejo, momios más altos']].map(function (r) {
+        return { name: r[1], detail: r[2], on: String(st.risk === r[0]), pick: function () { save({ risk: r[0] }); } };
+      }),
+      pesos: st.pesos, pesosOn: String(st.pesos), togglePesos: function () { save({ pesos: !st.pesos }); },
+      unit: st.unit, onUnit: function (e) { save({ unit: e.target.value }); }, pesosPreview: preview,
+      alerts: ALERTS.map(function (a, i) { return { title: a[0], detail: a[1], on: String(st.alerts[i]), toggle: function () { var n = st.alerts.slice(); n[i] = !n[i]; save({ alerts: n }); } }; }),
+      privacy: PRIV.map(function (p, i) { return { title: p[0], detail: p[1], on: String(st.privacy[i]), toggle: function () { var n = st.privacy.slice(); n[i] = !n[i]; save({ privacy: n }); } }; }),
+      breaks: BREAKS.map(function (b) { return { label: b[1], on: String(st.brk === b[0]), pick: function () { self.setState({ brk: b[0] }); } }; }),
+      notPaused: !st.paused, paused: st.paused,
+      startBreak: function () { save({ paused: true }); }, endBreak: function () { save({ paused: false }); },
+      pausedText: 'Tu cuenta queda en pausa por ' + brLabel + '. Puedes deshacerlo ahora; después tendrás que esperar a que termine.'
+    };
+  }
+}
+</script>
+</body>
+</html>

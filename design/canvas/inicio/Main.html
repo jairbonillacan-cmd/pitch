@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inicio · lienzo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="./data.js"></script>
+<style>
+:root{color-scheme:dark}
+body{margin:0;background:#0A0A0C;color:#E4E4EA;font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+.canvas{padding:56px 48px 96px;display:grid;gap:48px}
+.canvas > header h1{margin:0;font-size:28px;font-weight:700;letter-spacing:-.02em;color:#fff}
+.canvas > header p{margin:8px 0 0;max-width:920px;color:#A1A1AD;font-size:14px;line-height:1.55}
+.row{display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start}
+figure{margin:0}
+.board{display:grid;gap:12px}
+.board > figcaption{font-size:13px;font-weight:600;color:#A1A1AD}
+.board > figcaption small{display:block;font-weight:400;color:#71717A;margin-top:2px}
+.notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:20px}
+.note{border-radius:14px;padding:18px 20px;font-size:13px;line-height:1.6;color:#D4D4DC}
+.note h2{margin:0 0 8px;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:#fff}
+.note ol,.note ul{margin:0;padding-left:18px}
+.note li + li{margin-top:4px}
+.note--purple{background:rgba(124,92,246,.14);border:1px solid rgba(196,181,253,.22)}
+.note--blue{background:rgba(56,189,248,.10);border:1px solid rgba(125,211,252,.20)}
+.note code{font-size:12px;color:#fff}
+
+/* ---------- Escena ---------- */
+.lp{--bg:#000;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.16);--t1:#FFF;--t2:#D4D4DC;--t3:#A1A1AD;--brand:#C4B5FD;--brandbg:rgba(196,181,253,.14);--ok:#6EE7B7;--okbg:rgba(110,231,183,.12);--miss:#FDA4AF;--warn:#FCD34D;--hover:rgba(255,255,255,.06);--active:rgba(255,255,255,.10);--seg:rgba(255,255,255,.06);--segon:rgba(255,255,255,.14);--track:rgba(255,255,255,.10);--btn:#FFF;--btnfg:#000;--field:rgba(255,255,255,.04);
+  --l1:rgba(124,92,246,.30);--l2:rgba(16,185,129,.14);--sheen:rgba(255,255,255,.05);--inner:inset 0 1px 0 rgba(255,255,255,.07);--lens:rgba(255,255,255,.045);--card:rgba(255,255,255,.025);--rail:rgba(10,10,13,.72);--nav:rgba(4,4,7,.6);--shadow:0 24px 50px -30px rgba(0,0,0,.9);
+  --rim-c:rgba(255,255,255,.5);--rim-t:rgba(255,255,255,.2);--rim-m:rgba(255,255,255,.05);--rim-b:rgba(255,255,255,.1)}
+.lp[data-theme="light"]{--bg:#F1F2F6;--line:rgba(11,16,32,.09);--line2:rgba(11,16,32,.16);--t1:#0B1020;--t2:#3B4560;--t3:#5A6480;--brand:#5940B2;--brandbg:rgba(89,64,178,.10);--ok:#12704E;--okbg:rgba(18,112,78,.10);--miss:#B4233C;--warn:#8A5A00;--hover:rgba(11,16,32,.05);--active:rgba(11,16,32,.08);--seg:rgba(11,16,32,.05);--segon:#fff;--track:#E3E5EE;--btn:#0B1020;--btnfg:#fff;--field:#fff;
+  --l1:rgba(124,92,246,.14);--l2:rgba(16,185,129,.08);--sheen:rgba(255,255,255,.8);--inner:inset 0 1px 0 rgba(255,255,255,.95);--lens:rgba(255,255,255,.98);--card:rgba(255,255,255,.92);--rail:rgba(255,255,255,.94);--nav:rgba(255,255,255,.9);--shadow:0 20px 40px -28px rgba(11,16,32,.28),0 4px 12px -8px rgba(11,16,32,.12);
+  --rim-c:#fff;--rim-t:#fff;--rim-m:rgba(11,16,32,.06);--rim-b:rgba(11,16,32,.12)}
+.lp{position:relative;overflow:hidden;background:var(--bg);color:var(--t1);border-radius:18px;border:1px solid rgba(255,255,255,.08);font-size:14px}
+.lp[data-theme="light"]{border-color:rgba(11,16,32,.10)}
+.atmo{position:absolute;inset:0;pointer-events:none;background:radial-gradient(40% 26% at 30% 0%,var(--l1),transparent 70%),radial-gradient(30% 30% at 100% 50%,var(--l2),transparent 70%)}
+.num{font-variant-numeric:tabular-nums}
+.glass,.ring{position:relative;background:linear-gradient(180deg,var(--sheen),transparent 40%),var(--card);box-shadow:var(--inner),var(--shadow)}
+.glass{background:linear-gradient(180deg,var(--sheen),transparent 30%),var(--lens)}
+.glass::before,.ring::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;-webkit-mask:linear-gradient(#000,#000) content-box,linear-gradient(#000,#000);-webkit-mask-composite:xor;mask:linear-gradient(#000,#000) content-box exclude,linear-gradient(#000,#000);background:radial-gradient(60px circle at 0% 0%,var(--rim-c),transparent 100%),radial-gradient(60px circle at 100% 0%,var(--rim-c),transparent 100%),linear-gradient(180deg,var(--rim-t) 0%,var(--rim-m) 24%,var(--rim-m) 74%,var(--rim-b) 100%)}
+:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+button{font:inherit;color:inherit}
+img.badge{display:block;object-fit:contain;flex-shrink:0}
+
+/* Barra y riel (sin cambios salvo «Hoy» → «Inicio») */
+.topbar{position:relative;z-index:2;display:flex;align-items:center;gap:12px;height:64px;padding:0 24px;background:var(--nav);border-bottom:1px solid var(--line)}
+.topbar .logo{font-weight:800;letter-spacing:-.02em;font-size:17px;display:flex;align-items:center;gap:8px}
+.topbar .logo i{width:18px;height:18px;border-radius:5px;background:linear-gradient(135deg,#A78BFA,#7C3AED)}
+.topbar .search{display:flex;align-items:center;gap:8px;width:280px;height:36px;padding:0 12px;border-radius:10px;background:var(--seg);color:var(--t3);font-size:12.5px}
+.topbar .sp{flex:1}
+.topbar .pill{height:36px;border-radius:999px;background:var(--seg);display:flex;align-items:center;gap:8px;padding:0 10px 0 4px;font-size:12.5px;font-weight:700}
+.topbar .av{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#22D3EE,#0EA5E9);display:grid;place-items:center;color:#fff;font-size:10px;font-weight:800}
+.ultra{display:inline-flex;align-items:center;height:20px;padding:0 9px;border-radius:999px;border:1.5px solid transparent;background:linear-gradient(oklch(0.17 0.01 280),oklch(0.13 0.01 280)) padding-box,conic-gradient(oklch(0.72 0.21 25),oklch(0.84 0.17 85),oklch(0.8 0.2 150),oklch(0.74 0.15 230),oklch(0.66 0.23 300),oklch(0.72 0.21 25)) border-box;color:#fff;font-size:11px;font-weight:800}
+.shell{position:relative;z-index:1;display:grid;grid-template-columns:232px minmax(0,1fr);gap:24px;padding:20px 24px 32px}
+.rail{border-radius:16px;padding:14px 10px;background:var(--rail);display:grid;gap:2px;align-content:start;height:max-content}
+.rail h6{margin:8px 10px 6px;font-size:11px;font-weight:600;color:var(--t3)}
+.rail a{display:flex;align-items:center;gap:10px;height:36px;padding:0 10px;border-radius:9px;color:var(--t2);text-decoration:none;font-size:13px;font-weight:500}
+.rail a[aria-current]{background:var(--active);color:var(--t1);font-weight:600}
+.rail a span.c{margin-left:auto;font-size:11px;color:var(--t3)}
+
+/* ---------- Inicio ---------- */
+.main{min-width:0;max-width:1240px;display:grid;grid-template-columns:minmax(0,1fr);gap:18px}
+.head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.head h1{margin:0;font-size:32px;line-height:1.05;font-weight:800;letter-spacing:-.03em}
+.head p{margin:6px 0 0;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--t3)}
+.head p i{width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 3px var(--okbg)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:36px;padding:0 14px;border-radius:10px;border:0;background:var(--btn);color:var(--btnfg);font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;text-decoration:none}
+.btn.ghost{background:var(--seg);color:var(--t1)}
+.btn.sm{height:32px;padding:0 11px;font-size:12.5px;border-radius:9px}
+.btn[aria-pressed="true"]{background:var(--brandbg);color:var(--brand)}
+.hbtns{display:flex;gap:8px}
+
+/* Tira de fechas */
+.dates{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:2px}
+.date{flex-shrink:0;display:grid;justify-items:center;gap:2px;min-width:66px;padding:8px 10px 9px;border-radius:12px;border:0;background:var(--seg);color:var(--t2);cursor:pointer}
+.date small{font-size:11px;font-weight:600;color:var(--t3);text-transform:capitalize}
+.date b{font-size:18px;font-weight:700;line-height:1.1}
+.date em{font-style:normal;font-size:11px;font-weight:600;color:var(--t3)}
+.date em.on{color:var(--ok)}
+.date[aria-pressed="true"]{background:var(--t1);color:var(--bg)}
+.date[aria-pressed="true"] small,.date[aria-pressed="true"] em{color:var(--bg);opacity:.75}
+.date.zero{opacity:.55}
+.date.zero[aria-pressed="true"]{opacity:1}
+.date.today{box-shadow:inset 0 0 0 1.5px var(--brand)}
+.date.cal{min-width:46px;align-content:center}
+.chips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:2px}
+.chip{flex-shrink:0;display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:999px;border:0;background:var(--seg);color:var(--t2);font-size:12.5px;font-weight:600;cursor:pointer;white-space:nowrap}
+.chip[aria-pressed="true"]{background:var(--active);color:var(--t1);box-shadow:inset 0 0 0 1px var(--line2)}
+.chip small{font-size:11px;font-weight:500;color:var(--t3)}
+.chip[disabled]{opacity:.4;cursor:default}
+
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:18px;align-items:start}
+.side{display:grid;gap:18px}
+
+/* Partido destacado */
+.feat{border-radius:18px;padding:18px 20px;display:grid;gap:16px}
+.feat-top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.feat-top .meta{display:flex;align-items:center;gap:10px;font-size:12.5px;color:var(--t3)}
+.feat-top .meta b{color:var(--t1);font-weight:600}
+.dbox{display:grid;justify-items:center;width:44px;padding:4px 0;border-radius:9px;background:var(--seg);font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase}
+.dbox b{font-size:16px;color:var(--t1)}
+.teams{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px}
+.team{display:flex;align-items:center;gap:12px;font-size:20px;font-weight:700;letter-spacing:-.01em}
+.team.away{justify-content:flex-end;text-align:right}
+.proj{text-align:center}
+.proj small{display:block;font-size:11.5px;color:var(--t3)}
+.proj b{display:block;font-size:24px;font-weight:700;letter-spacing:-.02em;margin:2px 0}
+.likely{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;background:var(--field);border:1px solid var(--line)}
+.likely span{font-size:12.5px;color:var(--t3)}
+.likely strong{font-size:16px;font-weight:700}
+.likely .p{font-size:22px;font-weight:800;color:var(--brand);letter-spacing:-.02em}
+.likely .fair{font-size:12.5px;color:var(--t3)}
+.likely .fair b{color:var(--t1)}
+.split{display:flex;height:8px;gap:2px}
+.split span{border-radius:3px;background:var(--track)}
+.split span.top{background:var(--brand)}
+.split-lab{display:flex;justify-content:space-between;font-size:12px;color:var(--t3);margin-top:6px}
+.split-lab b{color:var(--t1);font-weight:600}
+.picks{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pick{border-radius:14px;padding:14px;display:grid;gap:10px}
+.pick-tag{display:inline-flex;align-items:center;height:22px;padding:0 9px;border-radius:999px;background:var(--brandbg);color:var(--brand);font-size:11px;font-weight:700;width:max-content}
+.pick-tag.alt{background:var(--okbg);color:var(--ok)}
+.pick h4{margin:0;font-size:16px;font-weight:700}
+.pick dl{margin:0;display:grid;grid-template-columns:1fr 1fr;gap:4px}
+.pick dt{font-size:11.5px;color:var(--t3)}
+.pick dd{margin:0;font-size:18px;font-weight:700}
+.pick .acts{display:flex;gap:6px}
+.mine{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;font-size:12.5px;color:var(--t2)}
+.mine label{font-weight:600;color:var(--t1)}
+.mine input{width:84px;height:32px;border-radius:8px;border:1px solid var(--line2);background:transparent;color:var(--t1);font:600 13px/1 Inter,system-ui,sans-serif;font-variant-numeric:tabular-nums;padding:0 10px}
+.mine b{font-weight:600;color:var(--t1)}
+.mine .up{color:var(--ok)}.mine .dn{color:var(--miss)}
+
+/* Columna derecha */
+.panel{border-radius:16px;padding:16px}
+.panel h3{margin:0 0 4px;display:flex;justify-content:space-between;align-items:baseline;font-size:15px;font-weight:700}
+.panel h3 a{font-size:12px;font-weight:600;color:var(--brand);text-decoration:none}
+.panel > p{margin:0 0 12px;font-size:12.5px;color:var(--t3);line-height:1.45}
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tier{display:grid;gap:3px;padding:10px;border-radius:12px;border:0;background:var(--seg);text-align:left;cursor:pointer}
+.tier b{font-size:13px;font-weight:700}
+.tier small{font-size:11px;color:var(--t3)}
+.tier strong{font-size:15px;font-weight:700;margin-top:4px}
+.tier[aria-pressed="true"]{background:var(--active);box-shadow:inset 0 0 0 1px var(--line2)}
+.tier-out{margin-top:10px;display:grid;gap:2px}
+.tier-out div{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;font-size:12.5px;padding:6px 0;border-top:1px solid var(--line)}
+.tier-out div small{color:var(--t3)}
+.tier-out .tot{display:flex;justify-content:space-between;align-items:center;gap:10px;padding-top:10px;font-size:12.5px;color:var(--t3)}
+.tier-out .tot b{color:var(--t1);font-size:15px}
+.best{display:grid}
+.best div{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:10px;align-items:center;min-height:56px;border-top:1px solid var(--line);font-size:13px}
+.best div:first-child{border-top:0}
+.best small{display:block;font-size:11.5px;color:var(--t3);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.best .pr{text-align:right}
+.best .pr b{display:block;font-size:14px}
+.best .pr small{margin:0}
+.ibtn{width:32px;height:32px;border-radius:9px;border:0;background:var(--seg);color:var(--t2);display:grid;place-items:center;cursor:pointer}
+.ibtn[aria-pressed="true"]{background:var(--brandbg);color:var(--brand)}
+
+/* Cartelera */
+.board-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.board-head h2{margin:0;font-size:18px;font-weight:700;letter-spacing:-.01em}
+.board-head h2 small{font-size:13px;font-weight:500;color:var(--t3);margin-left:6px}
+.seg{display:inline-grid;grid-auto-flow:column;padding:3px;border-radius:10px;background:var(--seg)}
+.seg button{height:28px;padding:0 12px;border:0;border-radius:8px;background:none;color:var(--t3);font-size:12.5px;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.seg button[aria-pressed="true"]{background:var(--segon);color:var(--t1);box-shadow:var(--inner)}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.card{border-radius:16px;padding:14px;display:grid;gap:12px;align-content:start}
+.card-top{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--t3)}
+.card-top span{display:inline-flex;align-items:center;gap:6px}
+.card-top b{color:var(--t1);font-weight:600}
+.tm{display:grid;grid-template-columns:24px minmax(0,1fr) auto;gap:10px;align-items:center;font-size:14px;font-weight:600}
+.tm span:nth-child(2){white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tm b{font-size:14px}
+.tm.top b{color:var(--brand)}
+.card .split{height:6px}
+.card-pick{display:flex;justify-content:space-between;align-items:baseline;gap:8px;padding-top:10px;border-top:1px solid var(--line)}
+.card-pick small{display:block;font-size:11px;color:var(--t3);margin-bottom:2px}
+.card-pick strong{font-size:13.5px;font-weight:600}
+.card-pick .r{text-align:right;font-size:12px;color:var(--t3)}
+.card-pick .r b{display:block;font-size:14px;color:var(--t1)}
+.card-acts{display:flex;gap:6px}
+.card-acts .btn.ghost{flex:1}
+.even{color:var(--warn);font-weight:600}
+.list{border-radius:16px;padding:6px}
+.lrow{display:grid;grid-template-columns:52px minmax(0,1.4fr) minmax(0,1fr) 72px 64px 32px;gap:12px;align-items:center;min-height:56px;padding:0 10px;border-radius:12px}
+.lrow:hover{background:var(--hover)}
+.lrow .mt{display:grid;gap:3px;font-size:13px;font-weight:500}
+.lrow .mt span{display:flex;align-items:center;gap:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lrow .lk{font-size:13px;font-weight:600;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lrow .lk small{display:block;font-size:11.5px;font-weight:500;color:var(--t3)}
+.lrow .pp{text-align:right;font-weight:700}
+.lrow .ff{text-align:right;font-size:13px;color:var(--t2)}
+.lgroup{padding:12px 10px 4px;display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;color:var(--t2)}
+.more{display:flex;justify-content:center}
+
+.empty{border-radius:18px;padding:22px;display:grid;gap:14px}
+.empty h3{margin:0;font-size:17px;font-weight:700}
+.empty p{margin:0;font-size:13.5px;color:var(--t3);line-height:1.5}
+.nextlist{display:grid;gap:8px}
+.nextlist button{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 12px;border-radius:12px;border:0;background:var(--seg);text-align:left;cursor:pointer}
+.nextlist strong{font-size:13.5px}
+.nextlist small{display:block;font-size:12px;color:var(--t3);margin-top:2px}
+.legal{font-size:11.5px;color:var(--t3);text-align:center;padding:4px 0}
+
+/* ---------- Móvil ---------- */
+.phone{width:390px}
+.phone .topbar{height:56px;padding:0 14px}
+.phone .shell{display:block;padding:14px 14px 96px}
+.phone .head h1{font-size:28px}
+.phone .hbtns{display:none}
+.phone .grid{grid-template-columns:minmax(0,1fr)}
+.phone .feat{padding:14px}
+.phone .feat-top{flex-direction:column;align-items:stretch}
+.phone .feat-top .btn{justify-content:center}
+.phone .team{font-size:15px;gap:8px}
+.phone .teams{gap:8px}
+.phone .proj b{font-size:18px}
+.phone .picks{grid-template-columns:1fr}
+.phone .cards{grid-template-columns:1fr}
+.phone .tiers{grid-template-columns:repeat(3,1fr)}
+.dock{position:absolute;z-index:3;left:10px;right:10px;bottom:10px;display:grid;grid-template-columns:repeat(4,1fr);height:62px;border-radius:20px;padding:6px}
+.dock a{display:grid;justify-items:center;align-content:center;gap:3px;border-radius:14px;font-size:10.5px;font-weight:600;color:var(--t3);text-decoration:none}
+.dock a[aria-current]{background:var(--active);color:var(--t1)}
+</style>
+</head>
+<body>
+<div class="canvas">
+  <header>
+    <h1>Inicio (/app) · propuesta</h1>
+    <p>Misma estructura que hoy —partido destacado, parlay rápido, mejores picks y cartelera—, más ordenada y con una <b>tira de fechas</b> para ver los partidos de hoy o de cualquier día. Datos reales del snapshot (miércoles 11 de noviembre de 2026, horas de Ciudad de México): hoy no hay partidos, el primero es el jueves 12 y el día más cargado es el sábado 21. Todo es interactivo: fecha, liga, orden, tarjetas o lista, «+ Parlay», «Sellar», niveles de Parlay rápido y «Tu momio».</p>
+  </header>
+
+  <section class="row" id="desk"></section>
+  <section class="row" id="mob"></section>
+
+  <section class="notes">
+    <div class="note note--purple">
+      <h2>Qué cambia y por qué</h2>
+      <ol>
+        <li><b>«Hoy» pasa a «Inicio».</b> En el sidebar, el dock y el título. La página ya no promete «Partidos de hoy» cuando no los hay.</li>
+        <li><b>Tira de fechas.</b> Hoy primero (con borde de marca) y los días siguientes con su número de partidos; los días sin partidos se ven atenuados. Al final, un botón de calendario para saltar a otra fecha. Todo lo de abajo —destacado, parlay rápido, mejores picks y cartelera— sigue la fecha elegida.</li>
+        <li><b>Hoy sin partidos.</b> En vez de una pantalla vacía: «Hoy no hay partidos en tus ligas» y los próximos tres para saltar a su día.</li>
+        <li><b>Ligas con conteo del día.</b> Las fichas de liga muestran cuántos partidos hay en la fecha elegida; las ligas sin partidos ese día quedan desactivadas.</li>
+        <li><b>Partido destacado más limpio.</b> Mismo contenido (equipos, marcador proyectado, lo más probable, reparto 1·X·2 y dos picks), con jerarquía: «Lo más probable» en una franja propia y cada pick con solo «+ Parlay» y «Sellar» (el boleto se comparte desde el pick sellado). «Tu momio» queda en una línea para comparar con tu casa.</li>
+        <li><b>Parlay rápido que muestra el resultado.</b> Al elegir Conservador, Medio o Arriesgado ves las tres selecciones del día, la probabilidad combinada y el momio justo antes de agregarlas.</li>
+        <li><b>Mejores picks del día.</b> Los tres más probables de la fecha elegida, con «+».</li>
+        <li><b>Cartelera más ligera.</b> Tarjetas sin chips de motor ni «Conf.» ni «Proy.»: liga, hora, equipos con su %, barra, lo más probable con momio justo y dos acciones. Se puede cambiar a <b>lista</b> (agrupada por liga) y ordenar por hora o por probabilidad. Fuera la frase «pasa el cursor…».</li>
+        <li><b>Botones de arriba más calmados.</b> «Armar parlay automático» pasa a botón normal (antes morado muy fuerte) junto a «Ver todos los picks».</li>
+      </ol>
+    </div>
+    <div class="note note--blue">
+      <h2>Para implementar</h2>
+      <ul>
+        <li>Vista <code>AppHome</code> (<code>@pitchlab/ui/app</code>); renombrar «Hoy» → «Inicio» en <code>primaryNavItems</code> (riel y dock) con ícono de casa.</li>
+        <li>Fecha: estado en la URL (<code>?fecha=2026-11-21</code>); por defecto hoy en America/Mexico_City. Días = próximos 14 con su conteo; el calendario abre un selector para fechas fuera de la tira.</li>
+        <li>Destacado: primer partido de Liga MX del día; si no hay, el de más interés (NFL, luego Premier). «Lo más probable» = mayor <code>p</code> de <code>h2h</code>; marcador = <code>projection</code>.</li>
+        <li>Picks del destacado: los que ya muestra hoy (<code>picks</code> del análisis); «Sellar» registra en la bitácora; boleto desde el pick sellado.</li>
+        <li>Parlay rápido: misma lógica actual por nivel, filtrada a la fecha; total = producto de <code>p</code>.</li>
+        <li>Cartelera: 9 tarjetas y «Ver más»; la preferencia tarjetas/lista se guarda por usuario. «Casi parejo» si p1 − p2 &lt; 3 puntos.</li>
+        <li>Colores solo con tokens <code>--pl-*</code> (tabla en el README).</li>
+      </ul>
+    </div>
+  </section>
+</div>
+
+<script>
+const B = '../../../apps/web/public/brand/sports/';
+const LEAGUES = {
+  'liga-mx': { name: 'Liga MX', logo: B + 'liga-mx/r1/svg/liga-mx.svg' },
+  'nfl': { name: 'NFL', logo: B + 'nfl/r1/svg/nfl.svg' },
+  'premier-league': { name: 'Premier League', logo: B + 'premier-league/r2/png/premier-league.png' },
+  'laliga': { name: 'LaLiga', logo: B + 'laliga/r1/svg/laliga.svg' },
+  'bundesliga': { name: 'Bundesliga', logo: B + 'bundesliga/r1/svg/bundesliga.svg' },
+  'serie-a': { name: 'Serie A', logo: B + 'serie-a/r1/svg/serie-a.svg' },
+  'ligue-1': { name: 'Ligue 1', logo: B + 'ligue-1/r1/svg/ligue-1.svg' }
+};
+const PRIORITY = ['liga-mx', 'nfl', 'premier-league', 'laliga', 'bundesliga', 'serie-a', 'ligue-1'];
+const GAMES = window.GAMES.map((g, id) => {
+  const s = [...g.probs].sort((a, b) => b - a);
+  return { ...g, id, p: g.probs[g.topI], even: s[0] - s[1] < 3 };
+});
+const TODAY = '2026-11-11';
+const WD = ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'];
+const WDL = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+const dOf = (iso) => new Date(iso + 'T12:00:00');
+const DAYS = Array.from({ length: 13 }, (_, i) => { const d = dOf(TODAY); d.setDate(d.getDate() + i); return d.toISOString().slice(0, 10); });
+const dayLabel = (iso) => iso === TODAY ? 'hoy' : `el ${WDL[dOf(iso).getDay()]} ${+iso.slice(8)}`;
+const toDec = (am) => { const n = parseFloat(String(am).replace('−', '-').replace('+', '')); if (!isFinite(n) || Math.abs(n) < 100) return null; return n > 0 ? 1 + n / 100 : 1 + 100 / Math.abs(n); };
+const toAm = (dec) => dec >= 2 ? '+' + Math.round((dec - 1) * 100) : '−' + Math.round(100 / (dec - 1));
+const I = {
+  plus: '<path d="M12 5v14M5 12h14"/>', check: '<path d="m5 12 5 5 9-10"/>', chev: '<path d="m9 18 6-6-6-6"/>', lock: '<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',
+  search: '<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>', home: '<path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/>', layers: '<path d="m12 3 9 5-9 5-9-5 9-5z"/><path d="m3 13 9 5 9-5"/>',
+  users: '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 19.5a6.5 6.5 0 0 1 13 0"/><circle cx="17" cy="9" r="2.8"/><path d="M15.5 19.5a5 5 0 0 1 6 0"/>', ticket: '<path d="M3 9a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v1.5a2 2 0 0 0 0 3V15a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1.5a2 2 0 0 0 0-3V9z"/>',
+  bell: '<path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/>', chevD: '<path d="m6 9 6 6 6-6"/>', cal: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/>',
+  grid: '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>', list: '<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>', bolt: '<path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/>'
+};
+const ico = (n, s = 16) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${I[n]}</svg>`;
+const img = (path, s) => `<img class="badge" src="${path.startsWith('..') ? path : B + path}" width="${s}" height="${s}" alt="">`;
+const names = (g) => g.probs.length === 3 ? [g.home, 'Empate', g.away] : [g.home, g.away];
+
+function board(host, { title, sub, theme = 'dark', mobile = false, day = TODAY, view = 'cards' }) {
+  const st = { theme, day, league: 'all', sort: 'time', view, legs: [], sealed: [], tier: 'cons', mine: '+120', showAll: false };
+  const fig = document.createElement('figure');
+  fig.className = 'board';
+  host.appendChild(fig);
+  const k = Math.random().toString(36).slice(2, 7);
+
+  const render = (focusSel) => {
+    const ofDay = GAMES.filter((g) => g.day === st.day);
+    const counts = Object.fromEntries(PRIORITY.map((l) => [l, ofDay.filter((g) => g.lg === l).length]));
+    if (st.league !== 'all' && !counts[st.league]) st.league = 'all';
+    const list = ofDay.filter((g) => st.league === 'all' || g.lg === st.league);
+    const feat = [...list].sort((a, b) => PRIORITY.indexOf(a.lg) - PRIORITY.indexOf(b.lg) || a.time.localeCompare(b.time))[0];
+    const inP = (id) => st.legs.includes(id);
+    const legKey = (g, i) => g.id * 10 + i;
+
+    const head = `
+      <div class="head">
+        <div><h1>Inicio</h1><p><i></i>Miércoles 11 de noviembre · datos actualizados 09:40</p></div>
+        <div class="hbtns"><a class="btn ghost" href="#">Ver todos los picks</a><a class="btn" href="#">${ico('bolt', 15)}Armar parlay automático</a></div>
+      </div>`;
+    const dates = `
+      <div class="dates" role="group" aria-label="Elegir fecha">
+        ${DAYS.map((d) => { const n = GAMES.filter((g) => g.day === d).length; const dt = dOf(d);
+          return `<button class="date ${n ? '' : 'zero'} ${d === TODAY ? 'today' : ''}" type="button" data-day="${d}" aria-pressed="${st.day === d}" aria-label="${d === TODAY ? 'Hoy, ' : ''}${WDL[dt.getDay()]} ${dt.getDate()}: ${n} partidos"><small>${d === TODAY ? 'Hoy' : WD[dt.getDay()]}</small><b class="num">${dt.getDate()}</b><em class="num ${n ? 'on' : ''}">${n ? n + ' part.' : '—'}</em></button>`; }).join('')}
+        <button class="date cal" type="button" aria-label="Elegir otra fecha">${ico('cal', 18)}</button>
+      </div>
+      <div class="chips" role="group" aria-label="Filtrar por liga">
+        <button class="chip" type="button" data-lg="all" aria-pressed="${st.league === 'all'}">Todas <small class="num">${ofDay.length}</small></button>
+        ${PRIORITY.map((l) => `<button class="chip" type="button" data-lg="${l}" aria-pressed="${st.league === l}" ${counts[l] ? '' : 'disabled'}>${img(LEAGUES[l].logo, 16)}${LEAGUES[l].name} <small class="num">${counts[l]}</small></button>`).join('')}
+      </div>`;
+
+    if (!ofDay.length) {
+      const upcoming = GAMES.filter((g) => g.day > st.day).slice(0, 3);
+      const body = `
+        <section class="empty glass">
+          <h3>${st.day === TODAY ? 'Hoy no hay partidos en tus ligas' : `No hay partidos ${dayLabel(st.day)}`}</h3>
+          <p>Estos son los próximos. Toca uno para ir a su día.</p>
+          <div class="nextlist">${upcoming.map((g) => `<button type="button" data-day="${g.day}">${img(LEAGUES[g.lg].logo, 22)}<span><strong>${g.home} vs ${g.away}</strong><small>${LEAGUES[g.lg].name} · ${WDL[dOf(g.day).getDay()]} ${+g.day.slice(8)} · ${g.time}</small></span><span class="num" style="text-align:right;font-size:12.5px;color:var(--t3)">${g.sel}<br><b style="color:var(--brand);font-size:14px">${g.p} %</b></span></button>`).join('')}</div>
+        </section>`;
+      return paint(head + dates + body, focusSel);
+    }
+
+    // Partido destacado
+    const dec = toDec(st.mine);
+    let mineOut = 'Escribe el momio de tu casa (+120, −150).';
+    if (dec) { const impl = 100 / dec; const diff = feat.p - impl; mineOut = `Implica <b class="num">${impl.toFixed(1)} %</b> contra <b class="num">${feat.p} %</b> del modelo: ${Math.abs(diff) < 1 ? '<b>casi igual que el justo</b>.' : diff > 0 ? `paga <b class="up">más que el justo</b>.` : `paga <b class="dn">menos que el justo</b>.`}`; }
+    const pickCard = (pk, i) => `
+      <div class="pick ring">
+        <span class="pick-tag ${i ? 'alt' : ''}">${i ? 'Muy probable' : 'Pick principal'}</span>
+        <h4>${pk[0]}</h4>
+        <dl class="num"><div><dt>Probabilidad</dt><dd>${pk[1]} %</dd></div><div><dt>Momio justo</dt><dd>${pk[2]}</dd></div></dl>
+        <div class="acts">
+          <button class="btn ghost sm" type="button" data-pleg="${legKey(feat, i)}" aria-pressed="${inP(legKey(feat, i))}">${ico(inP(legKey(feat, i)) ? 'check' : 'plus', 14)}Parlay</button>
+          <button class="btn ghost sm" type="button" data-seal="${legKey(feat, i)}" aria-pressed="${st.sealed.includes(legKey(feat, i))}">${ico(st.sealed.includes(legKey(feat, i)) ? 'check' : 'lock', 14)}${st.sealed.includes(legKey(feat, i)) ? 'Sellado' : 'Sellar'}</button>
+        </div>
+      </div>`;
+    const featCard = `
+      <section class="feat glass">
+        <div class="feat-top">
+          <div class="meta"><span class="dbox"><span>${WD[dOf(feat.day).getDay()]}</span><b class="num">${+feat.day.slice(8)}</b></span><div>${img(LEAGUES[feat.lg].logo, 14).replace('class="badge"', 'class="badge" style="display:inline;vertical-align:-2px;margin-right:6px"')}<b>Partido destacado · ${LEAGUES[feat.lg].name}</b><br>${feat.round} · ${feat.time}</div></div>
+          <a class="btn ghost sm" href="#">Ver partido (${feat.picks.length + 3} picks) ${ico('chev', 14)}</a>
+        </div>
+        <div class="teams">
+          <div class="team">${img(feat.hb, mobile ? 32 : 48)}${feat.home}</div>
+          <div class="proj"><small>Marcador proyectado</small><b class="num">${feat.proj[0]} – ${feat.proj[1]}</b></div>
+          <div class="team away">${feat.away}${img(feat.ab, mobile ? 32 : 48)}</div>
+        </div>
+        <div>
+          <div class="split">${feat.probs.map((p, i) => `<span class="${i === feat.topI ? 'top' : ''}" style="flex:${p}"></span>`).join('')}</div>
+          <div class="split-lab num">${feat.probs.map((p, i) => `<span>${names(feat)[i]} ${i === feat.topI ? `<b>${p} %</b>` : p + ' %'}</span>`).join('')}</div>
+        </div>
+        <div class="likely">
+          <div><span>Lo más probable</span><br><strong>${feat.sel}</strong>${feat.even ? ' <span class="even">· casi parejo</span>' : ''}</div>
+          <div style="text-align:right"><span class="p num">${feat.p} %</span><br><span class="fair num">Momio justo <b>${feat.fair}</b></span></div>
+        </div>
+        <div class="picks">${feat.picks.map(pickCard).join('')}</div>
+        <div class="mine"><label for="m-${k}">Tu momio para «${feat.sel}»</label><input id="m-${k}" data-mine value="${st.mine}" autocomplete="off"><span aria-live="polite">${mineOut}</span></div>
+      </section>`;
+
+    // Parlay rápido
+    const pool = ofDay.map((g) => ({ g, pk: g.picks[0] })).filter((x) => x.pk);
+    const pickTier = (min, max) => { const seen = new Set(); return pool.filter((x) => x.pk[1] >= min && x.pk[1] < max).sort((a, b) => b.pk[1] - a.pk[1]).filter((x) => !seen.has(x.g.id) && seen.add(x.g.id)).slice(0, 3); };
+    const TIERS = { cons: ['Conservador', 'Picks de 72 %+', 72, 101], mid: ['Medio', 'Picks de 56–72 %', 56, 72], risk: ['Arriesgado', 'Lo más parejo', 0, 56] };
+    const tsel = pickTier(TIERS[st.tier][2], TIERS[st.tier][3]);
+    const tp = tsel.reduce((a, x) => a * x.pk[1] / 100, 1);
+    const quick = `
+      <section class="panel ring">
+        <h3>Parlay rápido <a href="#">Mismo partido</a></h3>
+        <p>Tres selecciones de partidos distintos ${dayLabel(st.day)}, sin contradicciones.</p>
+        <div class="tiers" role="group" aria-label="Nivel">${Object.entries(TIERS).map(([key, t]) => { const s = pickTier(t[2], t[3]); const q = s.reduce((a, x) => a * x.pk[1] / 100, 1); return `<button class="tier" type="button" data-tier="${key}" aria-pressed="${st.tier === key}"><b>${t[0]}</b><small>${t[1]}</small><strong class="num">${s.length >= 2 ? (q * 100).toFixed(0) + ' %' : '—'}</strong></button>`; }).join('')}</div>
+        ${tsel.length >= 2 ? `<div class="tier-out">${tsel.map((x) => `<div><span>${x.pk[0]}<br><small>${x.g.home} vs ${x.g.away}</small></span><span class="num">${x.pk[1]} %</span></div>`).join('')}
+          <div class="tot"><span>Combinada <b class="num">${(tp * 100).toFixed(1)} %</b> · justo <b class="num">${toAm(1 / tp)}</b></span><button class="btn sm" type="button">Agregar</button></div></div>`
+          : `<p style="margin:10px 0 0;font-size:12.5px;color:var(--t3)">No hay suficientes partidos ${dayLabel(st.day)} para este nivel.</p>`}
+      </section>`;
+    const best = [...pool].sort((a, b) => b.pk[1] - a.pk[1]).slice(0, 3);
+    const bestP = `
+      <section class="panel ring">
+        <h3>Mejores picks del día <a href="#">Ver todos</a></h3>
+        <div class="best">${best.map((x) => `<div><span>${x.pk[0]}<small>${x.g.home} vs ${x.g.away} · ${x.g.time}</small></span><span class="pr num"><b>${x.pk[1]} %</b><small>${x.pk[2]} justo</small></span><button class="ibtn" type="button" data-pleg="${legKey(x.g, 0)}" aria-pressed="${inP(legKey(x.g, 0))}" aria-label="Agregar al parlay: ${x.pk[0]}">${ico(inP(legKey(x.g, 0)) ? 'check' : 'plus', 15)}</button></div>`).join('')}</div>
+      </section>`;
+
+    // Cartelera
+    const sorted = st.sort === 'prob' ? [...list].sort((a, b) => b.p - a.p) : list;
+    const shown = st.view === 'cards' && !st.showAll ? sorted.slice(0, mobile ? 4 : 9) : sorted;
+    const card = (g) => `
+      <article class="card ring">
+        <div class="card-top"><span>${img(LEAGUES[g.lg].logo, 14)}${LEAGUES[g.lg].name}</span><b class="num">${g.time}</b></div>
+        <div style="display:grid;gap:8px">
+          <div class="tm ${g.topI === 0 ? 'top' : ''}">${img(g.hb, 24)}<span>${g.home}</span><b class="num">${g.probs[0]} %</b></div>
+          <div class="tm ${g.topI === g.probs.length - 1 ? 'top' : ''}">${img(g.ab, 24)}<span>${g.away}</span><b class="num">${g.probs[g.probs.length - 1]} %</b></div>
+        </div>
+        <div><div class="split">${g.probs.map((p, i) => `<span class="${i === g.topI ? 'top' : ''}" style="flex:${p}"></span>`).join('')}</div>${g.probs.length === 3 ? `<div class="split-lab num" style="font-size:11px"><span>Local</span><span>Empate ${g.probs[1]} %</span><span>Visita</span></div>` : ''}</div>
+        <div class="card-pick"><div><small>${g.even ? '<span class="even">Casi parejo</span>' : 'Lo más probable'}</small><strong>${g.sel}</strong></div><div class="r num"><b>${g.p} %</b>${g.fair} justo</div></div>
+        <div class="card-acts"><a class="btn ghost sm" href="#">Ver partido ${ico('chev', 14)}</a><button class="btn ghost sm" type="button" data-pleg="${legKey(g, 9)}" aria-pressed="${inP(legKey(g, 9))}">${ico(inP(legKey(g, 9)) ? 'check' : 'plus', 14)}Parlay</button></div>
+      </article>`;
+    const lrow = (g) => `
+      <div class="lrow"><span class="num" style="font-weight:600">${g.time}</span>
+        <span class="mt"><span>${img(g.hb, 16)}${g.home}</span><span>${img(g.ab, 16)}${g.away}</span></span>
+        <span class="lk">${g.sel}<small>${g.even ? '<span class="even">Casi parejo</span>' : 'Lo más probable'}</small></span>
+        <span class="pp num">${g.p} %</span><span class="ff num">${g.fair}</span>
+        <button class="ibtn" type="button" data-pleg="${legKey(g, 9)}" aria-pressed="${inP(legKey(g, 9))}" aria-label="Agregar al parlay">${ico(inP(legKey(g, 9)) ? 'check' : 'plus', 14)}</button></div>`;
+    const groupsByLg = PRIORITY.map((l) => [l, sorted.filter((g) => g.lg === l)]).filter(([, gs]) => gs.length);
+    const carte = `
+      <section style="display:grid;gap:12px">
+        <div class="board-head">
+          <h2>Partidos ${dayLabel(st.day)} <small class="num">${list.length}</small></h2>
+          <div style="display:flex;gap:8px">
+            <div class="seg" role="group" aria-label="Ordenar"><button type="button" data-sort="time" aria-pressed="${st.sort === 'time'}">Por hora</button><button type="button" data-sort="prob" aria-pressed="${st.sort === 'prob'}">Más probables</button></div>
+            ${mobile ? '' : `<div class="seg" role="group" aria-label="Vista"><button type="button" data-view="cards" aria-pressed="${st.view === 'cards'}" aria-label="Tarjetas">${ico('grid', 14)}</button><button type="button" data-view="list" aria-pressed="${st.view === 'list'}" aria-label="Lista">${ico('list', 14)}</button></div>`}
+          </div>
+        </div>
+        ${st.view === 'cards' || mobile ? `<div class="cards">${shown.map(card).join('')}</div>${sorted.length > shown.length ? `<div class="more"><button class="btn ghost" type="button" data-more>Ver más partidos (${sorted.length - shown.length})</button></div>` : ''}`
+          : `<div class="list ring">${(st.sort === 'prob' ? [['', sorted]] : groupsByLg).map(([l, gs]) => `${l ? `<div class="lgroup">${img(LEAGUES[l].logo, 16)}${LEAGUES[l].name} <span style="font-weight:500;color:var(--t3)">${gs.length}</span></div>` : ''}${gs.map(lrow).join('')}`).join('')}</div>`}
+      </section>`;
+
+    const legsN = st.legs.length;
+    const body = `<div class="grid">${featCard}<aside class="side">${quick}${bestP}</aside></div>${carte}`;
+    paint(head + dates + body, focusSel, legsN);
+  };
+
+  const paint = (content, focusSel, legsN = st.legs.length) => {
+    const rail = `<nav class="rail" aria-label="Club"><h6>Club</h6>
+      <a href="#" aria-current="page">${ico('home')}Inicio</a><a href="#">${ico('layers')}Armar parlay${legsN ? `<span class="c num">${legsN}</span>` : ''}</a><a href="#">${ico('users')}Comunidad</a><a href="#">${ico('ticket')}Mi bitácora<span class="c num">${1 + st.sealed.length}</span></a>
+      <h6 style="margin-top:14px">Ligas</h6>${PRIORITY.map((l) => `<a href="#">${img(LEAGUES[l].logo, 16)}${LEAGUES[l].name}</a>`).join('')}</nav>`;
+    const legal = '<p class="legal">Información para decidir, no una garantía. PitchLab no acepta apuestas. Solo mayores de 18.</p>';
+    fig.innerHTML = `<figcaption>${title}<small>${sub}</small></figcaption>
+      <div class="lp ${mobile ? 'phone' : ''}" data-theme="${st.theme}" style="${mobile ? '' : 'width:1440px'}">
+        <div class="atmo"></div>
+        <header class="topbar"><span class="logo"><i></i>PitchLab</span>
+          ${mobile ? '<span class="sp"></span>' : `<span class="search">${ico('search', 14)}Buscar partido, liga o @socio…</span><span class="sp"></span>`}
+          <span class="pill" style="padding:0 10px">${ico('bell', 15)}</span>
+          <span class="pill"><span class="av">JR</span>${mobile ? '' : '@jair <span class="ultra">Ultra</span>'}${ico('chevD', 13)}</span></header>
+        ${mobile ? `<div class="shell"><main class="main">${content}${legal}</main></div>
+          <nav class="dock glass" aria-label="Club"><a href="#" aria-current="page">${ico('home', 20)}Inicio</a><a href="#">${ico('layers', 20)}Parlay</a><a href="#">${ico('users', 20)}Comunidad</a><a href="#">${ico('ticket', 20)}Bitácora</a></nav>`
+          : `<div class="shell">${rail}<main class="main">${content}${legal}</main></div>`}
+      </div>`;
+    const root = fig.querySelector('.lp');
+    root.querySelectorAll('[data-day]').forEach((b) => b.onclick = () => { st.day = b.dataset.day; st.showAll = false; render(`.date[data-day="${st.day}"]`); });
+    root.querySelectorAll('[data-lg]').forEach((b) => b.onclick = () => { st.league = b.dataset.lg; render(`[data-lg="${st.league}"]`); });
+    root.querySelectorAll('[data-sort]').forEach((b) => b.onclick = () => { st.sort = b.dataset.sort; render(`[data-sort="${st.sort}"]`); });
+    root.querySelectorAll('[data-view]').forEach((b) => b.onclick = () => { st.view = b.dataset.view; render(`[data-view="${st.view}"]`); });
+    root.querySelectorAll('[data-tier]').forEach((b) => b.onclick = () => { st.tier = b.dataset.tier; render(`[data-tier="${st.tier}"]`); });
+    root.querySelectorAll('[data-more]').forEach((b) => b.onclick = () => { st.showAll = true; render(); });
+    root.querySelectorAll('[data-pleg]').forEach((b) => b.onclick = () => { const id = +b.dataset.pleg; st.legs = st.legs.includes(id) ? st.legs.filter((x) => x !== id) : [...st.legs, id]; render(); });
+    root.querySelectorAll('[data-seal]').forEach((b) => b.onclick = () => { const id = +b.dataset.seal; if (!st.sealed.includes(id)) st.sealed = [...st.sealed, id]; render(); });
+    const inp = root.querySelector('[data-mine]');
+    if (inp) inp.oninput = () => { st.mine = inp.value; render('[data-mine]'); };
+    if (focusSel) { const el = fig.querySelector(focusSel); el?.focus(); if (el && el.setSelectionRange) el.setSelectionRange(el.value.length, el.value.length); }
+    const ds = root.querySelector('.date[aria-pressed="true"]'); if (ds) ds.parentElement.scrollLeft = Math.max(0, ds.offsetLeft - 80);
+  };
+  render();
+}
+
+board(document.getElementById('desk'), { title: 'Escritorio · oscuro · sábado 21', sub: 'El día más cargado (30 partidos). Cartelera en tarjetas.', day: '2026-11-21' });
+board(document.getElementById('desk'), { title: 'Escritorio · claro · hoy', sub: 'Hoy no hay partidos: aviso y los próximos tres. Toca uno o un día de la tira.', theme: 'light' });
+board(document.getElementById('desk'), { title: 'Escritorio · oscuro · domingo 15 en lista', sub: 'Vista de lista agrupada por liga. Prueba Por hora / Más probables.', day: '2026-11-15', view: 'list' });
+board(document.getElementById('mob'), { title: 'Móvil · oscuro · sábado 14', sub: '390 px.', mobile: true, day: '2026-11-14' });
+board(document.getElementById('mob'), { title: 'Móvil · claro · domingo 15', sub: '', mobile: true, theme: 'light', day: '2026-11-15' });
+</script>
+</body>
+</html>

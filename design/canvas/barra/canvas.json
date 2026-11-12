@@ -1,0 +1,59 @@
+{
+  "v": 3,
+  "createdOnFiles": { "v": 1, "at": "2026-11-11T23:30:00Z" },
+  "title": "PitchLab · Barra superior",
+  "launch": { "view": "canvas" },
+  "pages": [],
+  "boards": {
+    "Main.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 720,
+      "title": "Barra · escritorio (toca el buscador o la campana; cuenta y tema en Tweaks)",
+      "is_interactive": true
+    },
+    "Mobile.dc.html": {
+      "x": 1520,
+      "y": 0,
+      "w": 390,
+      "h": 760,
+      "title": "Barra · móvil (buscador a pantalla completa y alertas en hoja)",
+      "is_interactive": true
+    },
+    "Antes.dc.html": {
+      "x": 0,
+      "y": 840,
+      "w": 1440,
+      "h": 420,
+      "title": "Antes: la barra actual de /app"
+    }
+  },
+  "order": ["Main.dc.html", "Mobile.dc.html", "Antes.dc.html"],
+  "notes": {
+    "title": {
+      "x": 0,
+      "y": -300,
+      "text": "Barra superior de /app",
+      "kind": "title1",
+      "maxW": 1910
+    },
+    "cambios": {
+      "x": 1990,
+      "y": 0,
+      "w": 520,
+      "fill": "purple",
+      "size": "s",
+      "text": "QUÉ CAMBIA Y POR QUÉ\n\n1. Tres cosas y nada más: logo, buscador y tu cuenta (campana + chip). La barra deja de competir con el contenido.\n2. Fuera el simulador de rol (Visitante · Suscriptor · Tipstar · Admin): es una herramienta interna y ocupaba el centro. Se queda solo la ficha flotante «Rol» de abajo, y solo con allowRoleSimulation.\n3. El buscador es el protagonista: más ancho, con ⌘K y un panel que aparece al tocarlo. Vacío muestra Recientes y Atajos; al escribir, agrupa Partidos, Equipos, Ligas, Socios e Ir a. Cada partido trae lo más probable con su %.\n4. La campana abre un panel de alertas de valor (antes era un cajón de pantalla completa): liga, partido, hora, la selección y cuántos puntos paga sobre el justo. «Marcar como vistas» y un enlace a Preferencias › Alertas.\n5. El número de la campana va en la esquina y solo cuenta las no vistas.\n6. Visitante: «Entrar» y «Probar 7 días gratis» en lugar de la campana y el chip.\n7. Móvil: una sola fila de 56 px. La tira de ligas sale de la barra porque Inicio ya tiene sus fichas de liga y la tira de fechas. El buscador abre a pantalla completa y las alertas en una hoja inferior.\n8. Al hacer scroll, la barra se vuelve opaca con borde; arriba del todo es transparente."
+    },
+    "datos": {
+      "x": 1990,
+      "y": 840,
+      "w": 520,
+      "fill": "blue",
+      "size": "s",
+      "text": "PARA IMPLEMENTAR\n\n• Componente: el header de ClubWorkspaceShellImpl en ShellChrome.tsx.\n• Quitar <RoleSwitcherPill> del header (queda RoleSimulatorBar flotante) y la tira «Ligas rápidas móvil».\n• Buscador: reemplaza el botón que abre CommandPaletteModal por un campo real con popover (escritorio) y TopLayerModalDialog a pantalla completa (móvil). Fuentes: dataset.games, equipos, ligas y socios de ejemplo; recientes en localStorage.\n• Alertas: valueAlertsFrom(dataset.games) ya da las 8 alertas reales; «vistas» se guarda por id. El conteo de la campana = no vistas.\n• Visitante (viewerRole visitor): botones a /login y /signup.\n• Scroll: data-scrolled en el header para pasar de transparente a --pl-glass-nav."
+    }
+  },
+  "designSystems": []
+}

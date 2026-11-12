@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<title>Inicio · móvil</title>
+<script src="./support.js"></script>
+<script src="/_blob/26378455f5c59ce8e9f0732afc441093"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0;background:#000000}
+</style>
+</helmet>
+<div style="width: 390px; min-height: 3600px; background: #000000">
+  <dc-import name="Main" theme="{{theme}}" dia="2026-11-15" vista="tarjetas" hint-size="390px,3600px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["dark","light"],"default":"dark"},"$preview":{"width":390,"height":3600}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { theme: this.props.theme ?? 'dark' };
+  }
+}
+</script>
+</body>
+</html>
