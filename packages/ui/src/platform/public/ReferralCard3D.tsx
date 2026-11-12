@@ -1330,11 +1330,34 @@ export function ReferralCard3D({
       <div className="pl-referral-card-fallback-inner">
         <div className="flex items-center justify-between gap-3">
           <BrandLogo variant="horizontal" width={112} height={22} alt="" />
-          <UltraTag />
+          {tierLabel && tierLabel !== "ULTRA" ? (
+            <span
+              className="inline-flex items-center rounded-full px-2.5 py-0.5 text-[10px] font-extrabold tracking-wider"
+              style={{
+                background: "rgba(255, 255, 255, 0.12)",
+                border: "1px solid rgba(255, 255, 255, 0.22)",
+              }}
+            >
+              {tierLabel}
+            </span>
+          ) : (
+            <UltraTag />
+          )}
+        </div>
+        <div className="flex items-center justify-center py-1" aria-hidden="true">
+          <svg
+            width="46"
+            height="46"
+            viewBox="0 0 64 64"
+            fill="none"
+            style={{ opacity: 0.28 }}
+          >
+            <path d={PL_ISOTYPE_PATH} fill="currentColor" />
+          </svg>
         </div>
         <div className="flex items-end justify-between gap-3 num text-xs">
-          <span>{bottomLeftLabel}</span>
-          <span className="font-mono font-semibold">{code}</span>
+          <span className="font-medium opacity-90">{bottomLeftLabel}</span>
+          <span className="font-mono font-semibold tracking-wider">{code}</span>
         </div>
       </div>
     );

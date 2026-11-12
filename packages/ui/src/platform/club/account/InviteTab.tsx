@@ -146,7 +146,7 @@ export function InviteTab({
   const isLoading = storyOverride?.loading ?? referralsLoading;
 
   const [flipped, setFlipped] = useState(false);
-  const [copiedTarget, setCopiedTarget] = useState<"input" | "btn" | "msg" | "code" | null>(null);
+  const [copiedTarget, setCopiedTarget] = useState<"input" | "msg" | "code" | null>(null);
   const [liveStatus, setLiveStatus] = useState("");
   const [canNativeShare, setCanNativeShare] = useState(false);
   const [isMobileLayout, setIsMobileLayout] = useState(false);
@@ -219,19 +219,41 @@ export function InviteTab({
   const tierLabel = identity.isTipstar ? "ULTRA · TIPSTAR" : "ULTRA";
 
   const copyText = useCallback(
-    async (text: string, target: "input" | "btn" | "msg" | "code", announceLabel: string) => {
+    async (text: string, target: "input" | "msg" | "code", announceLabel: string) => {
+      let copied = false;
       try {
-        if (navigator.clipboard?.writeText) {
+        if (typeof navigator !== "undefined" && navigator.clipboard?.writeText) {
           await navigator.clipboard.writeText(text);
+          copied = true;
         }
       } catch (err) {
         void err;
       }
+      if (!copied && typeof document !== "undefined") {
+        try {
+          const fallbackEl = document.createElement("textarea");
+          fallbackEl.value = text;
+          fallbackEl.setAttribute("readonly", "");
+          fallbackEl.style.position = "fixed";
+          fallbackEl.style.opacity = "0";
+          document.body.appendChild(fallbackEl);
+          fallbackEl.select();
+          copied = Boolean(document.execCommand?.("copy"));
+          document.body.removeChild(fallbackEl);
+        } catch (err) {
+          void err;
+        }
+      }
       if (copyTimerRef.current !== null) {
         window.clearTimeout(copyTimerRef.current);
       }
-      setCopiedTarget(target);
-      setLiveStatus(announceLabel);
+      if (copied) {
+        setCopiedTarget(target);
+        setLiveStatus(announceLabel);
+      } else {
+        setCopiedTarget(null);
+        setLiveStatus("No se pudo copiar automáticamente; selecciona el enlace para copiarlo.");
+      }
       copyTimerRef.current = window.setTimeout(() => {
         setCopiedTarget(null);
         setLiveStatus("");
@@ -326,7 +348,7 @@ export function InviteTab({
     <button
       key="more"
       type="button"
-      className={`pl-acct-btn pl-acct-btn--ghost pl-acct-share-btn ${isMobileLayout ? "pl-acct-share-btn--span2" : ""}`}
+      className="pl-acct-btn pl-acct-btn--ghost pl-acct-share-btn"
       onClick={handleNativeShare}
     >
       <ShareSheetIcon />
@@ -335,14 +357,6 @@ export function InviteTab({
   ) : null;
 
   const coreShareButtons = [
-    <button
-      key="copy-link"
-      type="button"
-      className="pl-acct-btn pl-acct-btn--ghost pl-acct-share-btn"
-      onClick={() => copyText(shortUrl, "btn", "Copiado")}
-    >
-      <span>{copiedTarget === "btn" ? "Copiado" : "Copiar enlace"}</span>
-    </button>,
     <a
       key="whatsapp"
       href={whatsAppHref}
@@ -476,12 +490,9 @@ export function InviteTab({
           </div>
 
           <div className="pl-acct-link-box">
-            <div className="pl-acct-row-between">
-              <label htmlFor="pl-acct-ref-link" className="pl-acct-field-label">
-                Tu enlace
-              </label>
-              {!accountsEnabled ? <ExampleBadge /> : null}
-            </div>
+            <label htmlFor="pl-acct-ref-link" className="pl-acct-field-label">
+              Tu enlace
+            </label>
             <div className="pl-acct-link-row">
               <input
                 id="pl-acct-ref-link"

@@ -1,35 +1,86 @@
 "use client";
 
-import React, { useState } from "react";
-import { ExampleBadge, ExampleNotice, MaestroIcon } from "../../components/MaestroPrimitives";
+import React, { useEffect, useState } from "react";
+import { ExampleNotice, MaestroIcon } from "../../components/MaestroPrimitives";
 import { usePlatform } from "../../platform-provider";
 import { MEMBERSHIP_SPEC } from "../../spacetime-catalog";
+import {
+  DEFAULT_CFDI_DRAFT_V1,
+  readStoredCfdiDraft,
+  validateMexicanRfc,
+  writeStoredCfdiDraft,
+} from "./account-helpers";
 
-export function BillingTab(): React.JSX.Element {
-  const { pushToast } = usePlatform();
-  const [rfc, setRfc] = useState("");
-  const [razonSocial, setRazonSocial] = useState("");
-  const [regimenFiscal, setRegimenFiscal] = useState("612");
-  const [usoCfdi, setUsoCfdi] = useState("G03");
-  const [cpFiscal, setCpFiscal] = useState("");
+export function BillingTab({
+  accountsEnabledOverride,
+}: {
+  accountsEnabledOverride?: boolean;
+} = {}): React.JSX.Element {
+  const { accountsEnabled: ctxAccountsEnabled } = usePlatform();
+  const accountsEnabled = accountsEnabledOverride ?? ctxAccountsEnabled;
+
+  const [rfc, setRfc] = useState(DEFAULT_CFDI_DRAFT_V1.rfc);
+  const [razonSocial, setRazonSocial] = useState(DEFAULT_CFDI_DRAFT_V1.razonSocial);
+  const [regimenFiscal, setRegimenFiscal] = useState(DEFAULT_CFDI_DRAFT_V1.regimenFiscal);
+  const [usoCfdi, setUsoCfdi] = useState(DEFAULT_CFDI_DRAFT_V1.usoCfdi);
+  const [cpFiscal, setCpFiscal] = useState(DEFAULT_CFDI_DRAFT_V1.cpFiscal);
+  const [errorNotice, setErrorNotice] = useState("");
   const [savedNotice, setSavedNotice] = useState("");
+
+  useEffect(() => {
+    const stored = readStoredCfdiDraft();
+    setRfc(stored.rfc);
+    setRazonSocial(stored.razonSocial);
+    setRegimenFiscal(stored.regimenFiscal);
+    setUsoCfdi(stored.usoCfdi);
+    setCpFiscal(stored.cpFiscal);
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const cleanedRfc = rfc.trim().toUpperCase();
-    if (cleanedRfc.length > 0 && cleanedRfc.length < 12) {
-      pushToast("Revisa el RFC: debe tener 12 o 13 caracteres.", "warning");
+    const cleanedRazon = razonSocial.trim().toUpperCase();
+    const cleanedCp = cpFiscal.replace(/\D/g, "").slice(0, 5);
+
+    const rfcCheck = validateMexicanRfc(cleanedRfc, regimenFiscal);
+    if (!rfcCheck.valid) {
+      setSavedNotice("");
+      setErrorNotice(rfcCheck.error ?? "Revisa el RFC.");
       return;
     }
+    if (cleanedRazon.length < 2) {
+      setSavedNotice("");
+      setErrorNotice("Ingresa tu nombre o razón social tal como aparece en tu constancia.");
+      return;
+    }
+    if (!/^\d{5}$/.test(cleanedCp)) {
+      setSavedNotice("");
+      setErrorNotice("Ingresa un código postal fiscal de 5 dígitos.");
+      return;
+    }
+
+    writeStoredCfdiDraft({
+      v: 1,
+      rfc: cleanedRfc,
+      razonSocial: cleanedRazon,
+      regimenFiscal,
+      usoCfdi,
+      cpFiscal: cleanedCp,
+    });
+    setRfc(cleanedRfc);
+    setRazonSocial(cleanedRazon);
+    setCpFiscal(cleanedCp);
+    setErrorNotice("");
     setSavedNotice("Datos fiscales guardados en este dispositivo.");
-    pushToast("Datos fiscales guardados para tu próxima factura CFDI 4.0.", "success");
   };
 
   return (
     <div className="pl-acct-stack">
-      <ExampleNotice>
-        La emisión automática de facturas CFDI 4.0 se activará junto con el cobro. Puedes guardar tus datos fiscales desde ahora.
-      </ExampleNotice>
+      {!accountsEnabled ? (
+        <ExampleNotice>
+          La emisión automática de facturas CFDI 4.0 se activará junto con el cobro. Puedes guardar tus datos fiscales en este dispositivo desde ahora.
+        </ExampleNotice>
+      ) : null}
 
       <section className="pl-acct-card glass-card glass-ring" aria-labelledby="pl-acct-cfdi-h">
         <div className="pl-acct-row-between">
@@ -39,10 +90,9 @@ export function BillingTab(): React.JSX.Element {
             </h2>
             <p className="pl-acct-subcopy">{MEMBERSHIP_SPEC.cfdiNote}</p>
           </div>
-          <ExampleBadge />
         </div>
 
-        <form onSubmit={handleSubmit} className="pl-acct-cfdi-form">
+        <form onSubmit={handleSubmit} className="pl-acct-cfdi-form" noValidate>
           <div className="pl-acct-cfdi-grid">
             <div className="pl-acct-field">
               <label htmlFor="cfdi-rfc" className="pl-acct-field-label">
@@ -53,7 +103,11 @@ export function BillingTab(): React.JSX.Element {
                 type="text"
                 maxLength={13}
                 value={rfc}
-                onChange={(e) => setRfc(e.target.value.toUpperCase())}
+                onChange={(e) => {
+                  setRfc(e.target.value.toUpperCase());
+                  if (errorNotice) setErrorNotice("");
+                  if (savedNotice) setSavedNotice("");
+                }}
                 placeholder="ABCD890123XYZ"
                 autoComplete="off"
                 className="pl-acct-input pl-acct-mono num"
@@ -68,8 +122,12 @@ export function BillingTab(): React.JSX.Element {
                 id="cfdi-razon"
                 type="text"
                 value={razonSocial}
-                onChange={(e) => setRazonSocial(e.target.value.toUpperCase())}
-                placeholder="NOMBRE O DENOMINACIÓN TAL COMO EN CONSTANCIA"
+                onChange={(e) => {
+                  setRazonSocial(e.target.value.toUpperCase());
+                  if (errorNotice) setErrorNotice("");
+                  if (savedNotice) setSavedNotice("");
+                }}
+                placeholder="TAL COMO APARECE EN TU CONSTANCIA"
                 autoComplete="organization"
                 className="pl-acct-input"
               />
@@ -82,7 +140,11 @@ export function BillingTab(): React.JSX.Element {
               <select
                 id="cfdi-regimen"
                 value={regimenFiscal}
-                onChange={(e) => setRegimenFiscal(e.target.value)}
+                onChange={(e) => {
+                  setRegimenFiscal(e.target.value);
+                  if (errorNotice) setErrorNotice("");
+                  if (savedNotice) setSavedNotice("");
+                }}
                 className="pl-acct-input"
               >
                 <option value="612">612 — Personas Físicas con Actividades Empresariales</option>
@@ -100,7 +162,10 @@ export function BillingTab(): React.JSX.Element {
               <select
                 id="cfdi-uso"
                 value={usoCfdi}
-                onChange={(e) => setUsoCfdi(e.target.value)}
+                onChange={(e) => {
+                  setUsoCfdi(e.target.value);
+                  if (savedNotice) setSavedNotice("");
+                }}
                 className="pl-acct-input"
               >
                 <option value="G03">G03 — Gastos en general</option>
@@ -118,13 +183,23 @@ export function BillingTab(): React.JSX.Element {
                 inputMode="numeric"
                 maxLength={5}
                 value={cpFiscal}
-                onChange={(e) => setCpFiscal(e.target.value.replace(/\D/g, ""))}
+                onChange={(e) => {
+                  setCpFiscal(e.target.value.replace(/\D/g, ""));
+                  if (errorNotice) setErrorNotice("");
+                  if (savedNotice) setSavedNotice("");
+                }}
                 placeholder="06600"
                 autoComplete="postal-code"
                 className="pl-acct-input num"
               />
             </div>
           </div>
+
+          {errorNotice ? (
+            <p role="alert" className="pl-acct-prefs-warn" data-cfdi-error="">
+              {errorNotice}
+            </p>
+          ) : null}
 
           <div className="pl-acct-cfdi-actions">
             <button type="submit" className="pl-acct-btn pl-acct-btn--primary">

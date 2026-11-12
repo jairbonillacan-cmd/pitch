@@ -61,6 +61,7 @@ export default async function InviteOpenGraphImage({
     (
       <div
         style={{
+          position: "relative",
           width: "1200px",
           height: "630px",
           display: "flex",
@@ -69,15 +70,13 @@ export default async function InviteOpenGraphImage({
           justifyContent: "space-between",
           padding: "0 56px 0 24px",
           backgroundColor: "rgb(7, 6, 11)",
-          backgroundImage:
-            "radial-gradient(circle at 22% 30%, rgba(124, 92, 246, 0.30), rgba(7, 6, 11, 0) 68%), radial-gradient(circle at 92% 40%, rgba(190, 50, 90, 0.22), rgba(7, 6, 11, 0) 66%)",
           color: "rgb(255, 255, 255)",
           fontFamily: "Inter, system-ui, sans-serif",
           boxSizing: "border-box",
           overflow: "hidden",
         }}
       >
-        {/* Columna izquierda: captura frontal de la tarjeta (sin WebGL) */}
+        {/* Columna izquierda: captura frontal integrada sin costuras (sin WebGL) */}
         <div
           style={{
             position: "relative",
@@ -87,6 +86,7 @@ export default async function InviteOpenGraphImage({
             alignItems: "center",
             justifyContent: "center",
             flexShrink: 0,
+            overflow: "hidden",
           }}
         >
           {cardDataUri ? (
@@ -107,31 +107,99 @@ export default async function InviteOpenGraphImage({
             <div
               style={{
                 position: "absolute",
-                left: "92px",
-                right: "72px",
-                bottom: "98px",
-                height: "36px",
+                left: "98px",
+                bottom: "103px",
+                width: "432px",
+                height: "44px",
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
                 justifyContent: "space-between",
-                padding: "0 14px",
-                borderRadius: "8px",
-                backgroundColor: "rgb(26, 28, 33)",
-                color: "rgb(228, 228, 234)",
+                padding: "0 8px",
+                backgroundImage:
+                  "linear-gradient(95deg, rgb(36, 38, 43) 0%, rgb(32, 34, 39) 55%, rgb(27, 29, 34) 100%)",
+                color: "rgb(220, 224, 232)",
                 fontSize: "17px",
                 fontWeight: 700,
+                transform: "rotate(3.6deg)",
               }}
             >
-              <span>{handle ? `@${handle}` : "Pase Ultra"}</span>
-              <span style={{ letterSpacing: "0.04em" }}>{code}</span>
+              <span style={{ fontWeight: 600, color: "rgb(206, 211, 221)" }}>
+                {handle ? `@${handle}` : "Pase Ultra"}
+              </span>
+              <span style={{ letterSpacing: "0.05em", fontWeight: 700 }}>{code}</span>
             </div>
           ) : null}
+
+          {/* Difuminado perimetral hacia rgb(7, 6, 11) idéntico al lienzo base */}
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              height: "64px",
+              display: "flex",
+              backgroundImage:
+                "linear-gradient(to bottom, rgb(7, 6, 11) 0%, rgb(7, 6, 11) 18%, rgba(7, 6, 11, 0.78) 54%, rgba(7, 6, 11, 0) 100%)",
+            }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              bottom: 0,
+              left: 0,
+              right: 0,
+              height: "92px",
+              display: "flex",
+              backgroundImage:
+                "linear-gradient(to top, rgb(7, 6, 11) 0%, rgb(7, 6, 11) 28%, rgba(7, 6, 11, 0.80) 62%, rgba(7, 6, 11, 0) 100%)",
+            }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              bottom: 0,
+              left: 0,
+              width: "82px",
+              display: "flex",
+              backgroundImage:
+                "linear-gradient(to right, rgb(7, 6, 11) 0%, rgb(7, 6, 11) 18%, rgba(7, 6, 11, 0.78) 56%, rgba(7, 6, 11, 0) 100%)",
+            }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              bottom: 0,
+              right: 0,
+              width: "68px",
+              display: "flex",
+              backgroundImage:
+                "linear-gradient(to left, rgb(7, 6, 11) 0%, rgb(7, 6, 11) 18%, rgba(7, 6, 11, 0.78) 56%, rgba(7, 6, 11, 0) 100%)",
+            }}
+          />
         </div>
+
+        {/* Luz ambiental unificada sobre todo el lienzo (misma tinta dentro y fuera del recorte) */}
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0,
+            display: "flex",
+            backgroundImage:
+              "radial-gradient(circle at 24% 34%, rgba(108, 80, 224, 0.14), rgba(7, 6, 11, 0) 56%), radial-gradient(circle at 90% 42%, rgba(190, 50, 90, 0.18), rgba(7, 6, 11, 0) 62%)",
+          }}
+        />
 
         {/* Columna derecha: @usuario te invita a PitchLab + la oferta */}
         <div
           style={{
+            position: "relative",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",

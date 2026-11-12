@@ -224,6 +224,9 @@ export function PrefsTab({
     setOddsFormat,
     riskPreference,
     setRiskPreference,
+    setUserTimezone,
+    setShowMxnBalance,
+    setUnitMxn,
     journal,
   } = usePlatform();
 
@@ -380,6 +383,7 @@ export function PrefsTab({
     if (Number.isFinite(cleaned) && cleaned >= 10) {
       const clamped = Math.min(100_000, Math.round(cleaned));
       updatePrefs((prev) => ({ ...prev, unitMxn: clamped }));
+      setUnitMxn(clamped);
     }
   };
 
@@ -556,9 +560,11 @@ export function PrefsTab({
                 id={tzSelectId}
                 className="pl-acct-select"
                 value={prefs.timezone}
-                onChange={(e) =>
-                  updatePrefs((prev) => ({ ...prev, timezone: e.target.value }))
-                }
+                onChange={(e) => {
+                  const nextTz = e.target.value;
+                  updatePrefs((prev) => ({ ...prev, timezone: nextTz }));
+                  setUserTimezone(nextTz);
+                }}
               >
                 {TIMEZONE_OPTIONS.map((tz) => (
                   <option key={tz.value} value={tz.value}>
@@ -618,9 +624,10 @@ export function PrefsTab({
                   aria-labelledby={pesosLabelId}
                   aria-describedby={pesosDescId}
                   isSelected={prefs.showMxnBalance}
-                  onChange={(next) =>
-                    updatePrefs((prev) => ({ ...prev, showMxnBalance: next }))
-                  }
+                  onChange={(next) => {
+                    updatePrefs((prev) => ({ ...prev, showMxnBalance: next }));
+                    setShowMxnBalance(next);
+                  }}
                   className="pl-acct-switch"
                 >
                   <Switch.Control className="pl-acct-switch-control">

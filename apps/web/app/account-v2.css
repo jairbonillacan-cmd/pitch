@@ -86,6 +86,30 @@
   color: var(--pl-text-muted);
 }
 
+.pl-acct-handle-link {
+  color: var(--pl-text-secondary);
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: color 150ms ease;
+}
+
+.pl-acct-handle-link:hover {
+  color: var(--pl-text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.pl-acct-handle-link:focus-visible {
+  outline: 2px solid var(--pl-focus-ring);
+  outline-offset: 3px;
+}
+
+.pl-acct-card-stage .pl-referral-card-fallback {
+  max-width: 344px;
+  margin: 10px auto;
+}
+
 .pl-acct-tabs {
   gap: 24px;
 }
@@ -736,6 +760,7 @@
 /* ---------- Fase C: Mi plan ---------- */
 
 .pl-acct-plan-banner {
+  scroll-margin-top: 88px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -1739,7 +1764,18 @@ html[data-theme="light"] .pl-acct-seg button[aria-pressed="true"] {
   }
 
   .pl-acct-tabs {
-    gap: 18px;
+    gap: 12px;
+  }
+
+  .pl-acct-tabs .pl-utab {
+    font-size: 13.5px;
+    padding-inline: 2px;
+  }
+
+  .pl-acct-handle-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 32px;
   }
 
   .pl-acct-flip-seg button,
@@ -1760,7 +1796,7 @@ html[data-theme="light"] .pl-acct-seg button[aria-pressed="true"] {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .pl-acct-share-btn--span2 {
+  .pl-acct-share-grid > :nth-child(3):last-child {
     grid-column: 1 / -1;
   }
 

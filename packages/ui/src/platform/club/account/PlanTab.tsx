@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect, useId, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import { ExampleBadge, ExampleNotice } from "../../components/MaestroPrimitives";
 import { TopLayerModalDialog } from "../../components/PlatformOverlays";
 import { ACCOUNT_TAB_EVENT } from "../../components/ShellChrome";
@@ -39,6 +39,7 @@ export interface PlanTabStoryOverride {
   planState?: PlanStateOverride;
   paidFriends?: number;
   stripeConfigured?: boolean;
+  referralCode?: string | null;
   serverPlan?: ServerPlanPayload;
 }
 
@@ -86,10 +87,14 @@ function CheckIcon(): React.JSX.Element {
 
 export function PlanTab({
   identity,
+  referralCode,
+  initialServerPlan,
   storyOverride,
   onOpenBilling,
 }: {
   identity: SessionAccountIdentity;
+  referralCode?: string | null;
+  initialServerPlan?: ServerPlanPayload | null;
   storyOverride?: PlanTabStoryOverride;
   onOpenBilling?: () => void;
 }): React.JSX.Element {
@@ -103,10 +108,15 @@ export function PlanTab({
   const [simPlanState, setSimPlanState] = useState<PlanStateOverride | null>(null);
 
   const [serverPlan, setServerPlan] = useState<ServerPlanPayload | null>(
-    storyOverride?.serverPlan ?? null,
+    storyOverride?.serverPlan ?? initialServerPlan ?? null,
   );
   const [loadingPlan, setLoadingPlan] = useState<boolean>(
-    Boolean(accountsEnabled && !storyOverride?.serverPlan && !storyOverride?.planState),
+    Boolean(
+      accountsEnabled &&
+        !storyOverride?.serverPlan &&
+        !initialServerPlan &&
+        !storyOverride?.planState,
+    ),
   );
   const [flipped, setFlipped] = useState(false);
   const [cancelledLocal, setCancelledLocal] = useState<boolean | null>(null);
@@ -115,11 +125,17 @@ export function PlanTab({
   const [activeDialog, setActiveDialog] = useState<PlanDialogKind>(null);
   const [portalNotice, setPortalNotice] = useState<string>("");
   const [checkoutBusy, setCheckoutBusy] = useState(false);
+  const bannerRef = useRef<HTMLDivElement | null>(null);
   const dialogTitleId = useId();
 
   useEffect(() => {
     if (storyOverride?.serverPlan) {
       setServerPlan(storyOverride.serverPlan);
+      setLoadingPlan(false);
+      return;
+    }
+    if (initialServerPlan) {
+      setServerPlan(initialServerPlan);
       setLoadingPlan(false);
       return;
     }
@@ -147,7 +163,7 @@ export function PlanTab({
     return () => {
       cancelled = true;
     };
-  }, [accountsEnabled, storyOverride?.planState, storyOverride?.serverPlan]);
+  }, [accountsEnabled, initialServerPlan, storyOverride?.planState, storyOverride?.serverPlan]);
 
   // Sin cuentas, el estado predeterminado es «prueba» (§4), salvo override de Storybook o simulador.
   const baseState: PlanStateOverride = useMemo(() => {
@@ -237,10 +253,13 @@ export function PlanTab({
   const annualFormatted = annualMxn.toLocaleString("es-MX");
   const savingsFormatted = annualSavings.toLocaleString("es-MX");
 
-  const passCode = useMemo(
-    () => deriveExampleReferralCode(identity.cleanHandle),
-    [identity.cleanHandle],
-  );
+  const passCode = useMemo(() => {
+    if (storyOverride?.referralCode) return storyOverride.referralCode;
+    if (accountsEnabled) {
+      return referralCode ?? "ULTRA";
+    }
+    return deriveExampleReferralCode(identity.cleanHandle);
+  }, [accountsEnabled, identity.cleanHandle, referralCode, storyOverride?.referralCode]);
   const tierLabel = identity.isTipstar ? "ULTRA · TIPSTAR" : "ULTRA";
 
   const statusPill = useMemo(() => {
@@ -302,9 +321,13 @@ export function PlanTab({
 
   const facts = useMemo(() => {
     const daysNote =
-      earnedDays > 0
-        ? `Tu próximo cobro se recorre al ${accessEndDate}`
-        : `Sumas +${bothRewardDays} días por cada amigo que pague`;
+      earnedDays === 0
+        ? `Sumas +${bothRewardDays} días por cada amigo que pague`
+        : isCancelled
+          ? `Sumados a tu acceso hasta el ${accessEndDate}`
+          : isTrial
+            ? "Se suman al activar tu pase"
+            : `Tu próximo cobro se recorre al ${accessEndDate}`;
 
     if (isTrial) {
       return [
@@ -536,12 +559,23 @@ export function PlanTab({
   const confirmCancel = useCallback(() => {
     setCancelledLocal(true);
     setActiveDialog(null);
-    if (!stripeConfigured) {
-      setPortalNotice("Disponible cuando se active el cobro.");
-    } else {
-      setPortalNotice("");
+    setPortalNotice(
+      accountsEnabled && !stripeConfigured
+        ? "Disponible cuando se active el cobro."
+        : "",
+    );
+    if (typeof window !== "undefined") {
+      const reduced = Boolean(
+        window.matchMedia?.("(prefers-reduced-motion: reduce)").matches,
+      );
+      window.requestAnimationFrame(() => {
+        window.scrollTo({
+          top: 0,
+          behavior: reduced ? "auto" : "smooth",
+        });
+      });
     }
-  }, [stripeConfigured]);
+  }, [accountsEnabled, stripeConfigured]);
 
   const confirmReactivate = useCallback(() => {
     setCancelledLocal(false);
@@ -592,6 +626,7 @@ export function PlanTab({
       {/* Aviso superior de cancelación, reactivación o estado del cobro */}
       {isCancelled ? (
         <div
+          ref={bannerRef}
           role="status"
           aria-live="polite"
           className="pl-acct-plan-banner pl-acct-plan-banner--warn"
@@ -703,6 +738,16 @@ export function PlanTab({
                   : selectedCycle === "anual"
                     ? "Activar anual"
                     : "Activar mensual"}
+              </button>
+            ) : null}
+
+            {isCancelled ? (
+              <button
+                type="button"
+                className="pl-acct-btn pl-acct-btn--primary"
+                onClick={() => setActiveDialog("reactivate")}
+              >
+                Reactivar renovación
               </button>
             ) : null}
 
@@ -861,33 +906,39 @@ export function PlanTab({
             <h3 id="pl-acct-pagos-h" className="pl-acct-h3">
               Historial de pagos
             </h3>
-            <ExampleBadge />
+            {!accountsEnabled ? <ExampleBadge /> : null}
           </div>
 
-          <ul className="pl-acct-payments" role="list">
-            {examplePayments.map((payment) => (
-              <li key={payment.id} className="pl-acct-payment-row">
-                <div className="pl-acct-payment-meta">
-                  <b className="num">{payment.date}</b>
-                  <span>{payment.what}</span>
-                </div>
-                <b className="pl-acct-payment-amt num">{payment.amount}</b>
-                {payment.hasInvoice ? (
-                  <button
-                    type="button"
-                    className="pl-acct-btn pl-acct-btn--ghost pl-acct-btn--xs"
-                    onClick={handleGoBilling}
-                  >
-                    Factura
-                  </button>
-                ) : (
-                  <span className="pl-acct-payment-dash" aria-label="Sin factura">
-                    —
-                  </span>
-                )}
-              </li>
-            ))}
-          </ul>
+          {accountsEnabled ? (
+            <p className="pl-acct-empty-line">
+              Aún no tienes cobros registrados.
+            </p>
+          ) : (
+            <ul className="pl-acct-payments" role="list">
+              {examplePayments.map((payment) => (
+                <li key={payment.id} className="pl-acct-payment-row">
+                  <div className="pl-acct-payment-meta">
+                    <b className="num">{payment.date}</b>
+                    <span>{payment.what}</span>
+                  </div>
+                  <b className="pl-acct-payment-amt num">{payment.amount}</b>
+                  {payment.hasInvoice ? (
+                    <button
+                      type="button"
+                      className="pl-acct-btn pl-acct-btn--ghost pl-acct-btn--xs"
+                      onClick={handleGoBilling}
+                    >
+                      Factura
+                    </button>
+                  ) : (
+                    <span className="pl-acct-payment-dash" aria-label="Sin factura">
+                      —
+                    </span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          )}
 
           <button
             type="button"

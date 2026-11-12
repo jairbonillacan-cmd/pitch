@@ -5,6 +5,7 @@ import type { ViewerRole } from "../../types";
 export const SHORT_INVITE_HOST = "pitchlab.mx";
 export const REFERRAL_CODE_REGEX = /^[A-Z0-9-]{4,24}$/i;
 export const PREFS_STORAGE_KEY = "pl-prefs-v1";
+export const CFDI_STORAGE_KEY = "pl-cfdi-v1";
 
 /** Valida y normaliza en mayúsculas un código de invitación; devuelve null si no es válido. */
 export function normalizeReferralCode(raw: string | null | undefined): string | null {
@@ -269,3 +270,148 @@ export function writeStoredPrefs(next: StoredAccountPrefsV1): void {
     void err;
   }
 }
+
+export interface StoredCfdiDraftV1 {
+  v: 1;
+  rfc: string;
+  razonSocial: string;
+  regimenFiscal: string;
+  usoCfdi: string;
+  cpFiscal: string;
+}
+
+export const DEFAULT_CFDI_DRAFT_V1: StoredCfdiDraftV1 = {
+  v: 1,
+  rfc: "",
+  razonSocial: "",
+  regimenFiscal: "612",
+  usoCfdi: "G03",
+  cpFiscal: "",
+};
+
+const VALID_REGIMEN_CODES = new Set(["612", "626", "605", "601", "616"]);
+const VALID_USO_CFDI_CODES = new Set(["G03", "S01"]);
+
+export function readStoredCfdiDraft(): StoredCfdiDraftV1 {
+  if (typeof window === "undefined") return DEFAULT_CFDI_DRAFT_V1;
+  try {
+    const raw = window.localStorage.getItem(CFDI_STORAGE_KEY);
+    if (!raw) return DEFAULT_CFDI_DRAFT_V1;
+    const parsed = JSON.parse(raw) as Partial<StoredCfdiDraftV1> | null;
+    if (!parsed || typeof parsed !== "object") return DEFAULT_CFDI_DRAFT_V1;
+    return {
+      v: 1,
+      rfc: typeof parsed.rfc === "string" ? parsed.rfc.trim().toUpperCase().slice(0, 13) : "",
+      razonSocial:
+        typeof parsed.razonSocial === "string"
+          ? parsed.razonSocial.trim().toUpperCase().slice(0, 160)
+          : "",
+      regimenFiscal:
+        typeof parsed.regimenFiscal === "string" && VALID_REGIMEN_CODES.has(parsed.regimenFiscal)
+          ? parsed.regimenFiscal
+          : DEFAULT_CFDI_DRAFT_V1.regimenFiscal,
+      usoCfdi:
+        typeof parsed.usoCfdi === "string" && VALID_USO_CFDI_CODES.has(parsed.usoCfdi)
+          ? parsed.usoCfdi
+          : DEFAULT_CFDI_DRAFT_V1.usoCfdi,
+      cpFiscal:
+        typeof parsed.cpFiscal === "string"
+          ? parsed.cpFiscal.replace(/\D/g, "").slice(0, 5)
+          : "",
+    };
+  } catch (err) {
+    void err;
+    return DEFAULT_CFDI_DRAFT_V1;
+  }
+}
+
+export function writeStoredCfdiDraft(next: StoredCfdiDraftV1): void {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.setItem(CFDI_STORAGE_KEY, JSON.stringify(next));
+  } catch (err) {
+    void err;
+  }
+}
+
+const RFC_PERSONA_MORAL_REGEX =
+  /^[A-ZÑ&]{3}\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])[A-Z0-9]{3}$/;
+const RFC_PERSONA_FISICA_REGEX =
+  /^[A-ZÑ&]{4}\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])[A-Z0-9]{3}$/;
+
+/** Valida estructura SAT de RFC (12 caracteres persona moral, 13 persona física) y coherencia con régimen. */
+export function validateMexicanRfc(
+  rawRfc: string,
+  regimenFiscal?: string,
+): { valid: boolean; error?: string } {
+  const cleaned = rawRfc.trim().toUpperCase();
+  if (!cleaned) {
+    return { valid: false, error: "Ingresa tu RFC de 12 o 13 caracteres." };
+  }
+  if (regimenFiscal === "601") {
+    if (!RFC_PERSONA_MORAL_REGEX.test(cleaned)) {
+      return {
+        valid: false,
+        error: "Para régimen 601 (Persona Moral), el RFC debe tener 12 caracteres válidos ante el SAT.",
+      };
+    }
+    return { valid: true };
+  }
+  if (regimenFiscal && regimenFiscal !== "601") {
+    if (!RFC_PERSONA_FISICA_REGEX.test(cleaned)) {
+      return {
+        valid: false,
+        error: "Para persona física, el RFC debe tener 13 caracteres válidos (p. ej. ABCD890123XYZ).",
+      };
+    }
+    return { valid: true };
+  }
+  if (!RFC_PERSONA_FISICA_REGEX.test(cleaned) && !RFC_PERSONA_MORAL_REGEX.test(cleaned)) {
+    return {
+      valid: false,
+      error: "Revisa el RFC: debe cumplir el formato del SAT de 12 o 13 caracteres.",
+    };
+  }
+  return { valid: true };
+}
+
+/** Formatea la hora de inicio (HH:MM) en la zona horaria elegida por el socio. */
+export function formatKickoffByTimezone(
+  kickoffUtc: string | null | undefined,
+  fallbackLocal: string,
+  timeZone?: string | null,
+): string {
+  if (!kickoffUtc || !timeZone) return fallbackLocal;
+  try {
+    const trimmed = kickoffUtc.trim();
+    if (!trimmed) return fallbackLocal;
+    const hasExplicitTz = /([Zz]|[+-]\d{2}:\d{2})$/.test(trimmed);
+    const normalized =
+      trimmed.length === 10
+        ? `${trimmed}T15:00:00Z`
+        : hasExplicitTz
+          ? trimmed
+          : `${trimmed}-06:00`;
+    const ms = Date.parse(normalized);
+    if (!Number.isFinite(ms)) return fallbackLocal;
+    return new Intl.DateTimeFormat("es-MX", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hourCycle: "h23",
+      timeZone,
+    }).format(new Date(ms));
+  } catch (err) {
+    void err;
+    return fallbackLocal;
+  }
+}
+
+/** Convierte un saldo en unidades a referencia privada en MXN. */
+export function formatUnitsAsMxn(units: number, unitMxn: number): string {
+  const safeUnit = Number.isFinite(unitMxn) && unitMxn > 0 ? unitMxn : 250;
+  const safeUnits = Number.isFinite(units) ? units : 0;
+  const amount = Math.round(Math.abs(safeUnits) * safeUnit);
+  const sign = safeUnits < 0 ? "−" : safeUnits > 0 ? "+" : "";
+  return `${sign}$${amount.toLocaleString("es-MX")} MXN`;
+}
+

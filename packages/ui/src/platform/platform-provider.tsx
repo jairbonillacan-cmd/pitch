@@ -162,6 +162,13 @@ import {
 } from "./parlay-engine";
 import { INITIAL_SOCIAL_POSTS } from "./spacetime-catalog";
 import { attachExamplePostPicks } from "./community-examples";
+import {
+  DEFAULT_STORED_PREFS_V1,
+  formatKickoffByTimezone,
+  readStoredPrefs,
+  writeStoredPrefs,
+  type ServerProfileSummary,
+} from "./club/account/account-helpers";
 import type {
   JournalEntry,
   MatchPick,
@@ -262,8 +269,20 @@ export interface PlatformContextValue {
   setFavoriteLeagues: (leagues: LeagueId[]) => void;
   riskPreference: RiskBand;
   setRiskPreference: (risk: RiskBand) => void;
+  userTimezone: string;
+  setUserTimezone: (tz: string) => void;
+  showMxnBalance: boolean;
+  setShowMxnBalance: (show: boolean) => void;
+  unitMxn: number;
+  setUnitMxn: (unit: number) => void;
 
   referralPaidFriends: number;
+  memberReferralsSnapshot: (ServerProfileSummary & {
+    referralCode: string | null;
+    paidFriends: number;
+    pendingFriends: number;
+  }) | null;
+  memberReferralsLoaded: boolean;
   simulateFriendFirstPayment: () => void;
   month1NoCardMode: boolean;
   setMonth1NoCardMode: (v: boolean) => void;
@@ -316,6 +335,9 @@ export interface PlatformCoreValue {
   oddsFormat: OddsFormat;
   favoriteLeagues: LeagueId[];
   riskPreference: RiskBand;
+  userTimezone: string;
+  showMxnBalance: boolean;
+  unitMxn: number;
   month1NoCardMode: boolean;
 }
 
@@ -344,6 +366,9 @@ const ACTION_KEYS = [
   "toggleWatchlistGame",
   "setFavoriteLeagues",
   "setRiskPreference",
+  "setUserTimezone",
+  "setShowMxnBalance",
+  "setUnitMxn",
   "simulateFriendFirstPayment",
   "setMonth1NoCardMode",
   "setTipstarWeeklyPickOrigin",
@@ -457,7 +482,27 @@ export function PlatformProvider({
     rawDataset.leagues.slice(0, 3).map((l) => l.league),
   );
   const [riskPreference, setRiskPreferenceState] = useState<RiskBand>("medio");
+  const [userTimezone, setUserTimezoneState] = useState<string>(
+    DEFAULT_STORED_PREFS_V1.timezone,
+  );
+  const [showMxnBalance, setShowMxnBalanceState] = useState<boolean>(
+    DEFAULT_STORED_PREFS_V1.showMxnBalance,
+  );
+  const [unitMxn, setUnitMxnState] = useState<number>(
+    DEFAULT_STORED_PREFS_V1.unitMxn,
+  );
   const [referralPaidFriends, setReferralPaidFriends] = useState<number>(0);
+  const [memberReferralsSnapshot, setMemberReferralsSnapshot] = useState<
+    | (ServerProfileSummary & {
+        referralCode: string | null;
+        paidFriends: number;
+        pendingFriends: number;
+      })
+    | null
+  >(null);
+  const [memberReferralsLoaded, setMemberReferralsLoaded] = useState<boolean>(
+    !accountsEnabled,
+  );
   const [month1NoCardMode, setMonth1NoCardMode] = useState<boolean>(serverMonth1NoCardMode ?? true);
   const [tipstarWeeklyPickOrigin, setTipstarWeeklyPickOrigin] = useState<
     "spacetime" | "bitacora"
@@ -520,6 +565,32 @@ export function PlatformProvider({
       ) {
         setRiskPreferenceState(savedRisk);
       }
+      const rawFavLeagues = window.localStorage.getItem("pl-fav-leagues");
+      if (rawFavLeagues) {
+        const knownLeagueIds = new Set<string>([
+          "liga-mx",
+          "nfl",
+          "premier-league",
+          "laliga",
+          "bundesliga",
+          "serie-a",
+          "ligue-1",
+          ...rawDataset.leagues.map((l) => l.league),
+        ]);
+        const parsedLeagues: unknown = JSON.parse(rawFavLeagues);
+        if (Array.isArray(parsedLeagues)) {
+          const validLeagues = parsedLeagues.filter(
+            (id): id is LeagueId => typeof id === "string" && knownLeagueIds.has(id),
+          );
+          if (validLeagues.length > 0) {
+            setFavoriteLeaguesState(Array.from(new Set(validLeagues)));
+          }
+        }
+      }
+      const storedPrefs = readStoredPrefs();
+      setUserTimezoneState(storedPrefs.timezone);
+      setShowMxnBalanceState(storedPrefs.showMxnBalance);
+      setUnitMxnState(storedPrefs.unitMxn);
       const savedNoCard = window.localStorage.getItem("pl-month1-nocard");
       if (serverMonth1NoCardMode === undefined && savedNoCard === "0") {
         setMonth1NoCardMode(false);
@@ -556,15 +627,43 @@ export function PlatformProvider({
 
   // Con cuenta y sesión, la base es la fuente de verdad de vigilancia y bitácora.
   useEffect(() => {
-    if (!accountsEnabled) return;
+    if (!accountsEnabled) {
+      setMemberReferralsLoaded(true);
+      return;
+    }
+    let active = true;
+    setMemberReferralsLoaded(false);
     void (async () => {
       const watch = await getJson<{ gameIds?: string[] }>("/api/me/watchlist");
-      if (watch?.gameIds) setWatchlistGameIds(watch.gameIds);
+      if (active && watch?.gameIds) setWatchlistGameIds(watch.gameIds);
       const journalRes = await getJson<{ entries?: ServerJournalRow[] }>("/api/me/journal");
-      if (journalRes?.entries) setJournal(journalRes.entries.map(fromServerRow));
-      const refs = await getJson<{ paidFriends?: number }>("/api/me/referrals");
-      if (typeof refs?.paidFriends === "number") setReferralPaidFriends(refs.paidFriends);
+      if (active && journalRes?.entries) setJournal(journalRes.entries.map(fromServerRow));
+      const refs = await getJson<
+        ServerProfileSummary & {
+          referralCode?: string | null;
+          paidFriends?: number;
+          pendingFriends?: number;
+        }
+      >("/api/me/referrals");
+      if (active && refs) {
+        const paid = typeof refs.paidFriends === "number" ? refs.paidFriends : 0;
+        const pending = typeof refs.pendingFriends === "number" ? refs.pendingFriends : 0;
+        setReferralPaidFriends(paid);
+        setMemberReferralsSnapshot({
+          referralCode: refs.referralCode ?? null,
+          paidFriends: paid,
+          pendingFriends: pending,
+          handle: refs.handle ?? null,
+          displayName: refs.displayName ?? null,
+          email: refs.email ?? null,
+          isTipstar: Boolean(refs.isTipstar),
+        });
+      }
+      if (active) setMemberReferralsLoaded(true);
     })();
+    return () => {
+      active = false;
+    };
   }, [accountsEnabled]);
   useEffect(() => {
     if (userDataLoaded) writeStored(STORAGE_KEYS.journal, journal.slice(0, 500));
@@ -649,6 +748,24 @@ export function PlatformProvider({
     }
   }, []);
 
+  const setUserTimezone = useCallback((tz: string) => {
+    const trimmed = tz.trim() || DEFAULT_STORED_PREFS_V1.timezone;
+    setUserTimezoneState(trimmed);
+    writeStoredPrefs({ ...readStoredPrefs(), timezone: trimmed });
+  }, []);
+
+  const setShowMxnBalance = useCallback((show: boolean) => {
+    setShowMxnBalanceState(show);
+    writeStoredPrefs({ ...readStoredPrefs(), showMxnBalance: show });
+  }, []);
+
+  const setUnitMxn = useCallback((unit: number) => {
+    if (!Number.isFinite(unit) || unit < 10) return;
+    const clamped = Math.min(100_000, Math.round(unit));
+    setUnitMxnState(clamped);
+    writeStoredPrefs({ ...readStoredPrefs(), unitMxn: clamped });
+  }, []);
+
   const handleSetMonth1NoCard = useCallback(
     (v: boolean) => {
       setMonth1NoCardMode(v);
@@ -678,13 +795,28 @@ export function PlatformProvider({
   );
 
   const dataset = useMemo(() => {
-    if (viewerRole === "visitor") {
-      return rawDataset.isServerRedactedForVisitor
-        ? rawDataset
-        : redactDatasetForVisitor(rawDataset);
+    const base =
+      viewerRole === "visitor"
+        ? rawDataset.isServerRedactedForVisitor
+          ? rawDataset
+          : redactDatasetForVisitor(rawDataset)
+        : rawDataset;
+    if (!userTimezone || userTimezone === DEFAULT_STORED_PREFS_V1.timezone) {
+      return base;
     }
-    return rawDataset;
-  }, [rawDataset, viewerRole]);
+    return {
+      ...base,
+      games: base.games.map((g) => {
+        const ko = formatKickoffByTimezone(g.kickoffUtc, g.kickoffLocal, userTimezone);
+        if (ko === g.kickoffLocal) return g;
+        return {
+          ...g,
+          kickoffLocal: ko,
+          picks: g.picks.map((p) => ({ ...p, kickoffLocal: ko })),
+        };
+      }),
+    };
+  }, [rawDataset, userTimezone, viewerRole]);
 
   const parlaySummary = useMemo(
     () => computeParlaySummary(parlayLegs, parlayStakeUnits),
@@ -1154,7 +1286,15 @@ export function PlatformProvider({
       setFavoriteLeagues,
       riskPreference,
       setRiskPreference,
+      userTimezone,
+      setUserTimezone,
+      showMxnBalance,
+      setShowMxnBalance,
+      unitMxn,
+      setUnitMxn,
       referralPaidFriends,
+      memberReferralsSnapshot,
+      memberReferralsLoaded,
       simulateFriendFirstPayment,
       month1NoCardMode,
       setMonth1NoCardMode: handleSetMonth1NoCard,
@@ -1216,7 +1356,15 @@ export function PlatformProvider({
       setFavoriteLeagues,
       riskPreference,
       setRiskPreference,
+      userTimezone,
+      setUserTimezone,
+      showMxnBalance,
+      setShowMxnBalance,
+      unitMxn,
+      setUnitMxn,
       referralPaidFriends,
+      memberReferralsSnapshot,
+      memberReferralsLoaded,
       simulateFriendFirstPayment,
       month1NoCardMode,
       handleSetMonth1NoCard,
@@ -1260,6 +1408,9 @@ export function PlatformProvider({
       oddsFormat,
       favoriteLeagues,
       riskPreference,
+      userTimezone,
+      showMxnBalance,
+      unitMxn,
       month1NoCardMode,
     }),
     [
@@ -1271,6 +1422,9 @@ export function PlatformProvider({
       oddsFormat,
       favoriteLeagues,
       riskPreference,
+      userTimezone,
+      showMxnBalance,
+      unitMxn,
       month1NoCardMode,
     ],
   );
@@ -1318,17 +1472,27 @@ export function PlatformGamesSupplement({
   const core = usePlatformCore();
 
   const merge = useCallback(
-    (base: PlatformDataset): PlatformDataset => {
+    (base: PlatformDataset, applyTz: boolean): PlatformDataset => {
       if (games.length === 0) return base;
       const known = new Set(base.games.map((g) => g.id));
-      const extra = games.filter((g) => !known.has(g.id));
-      return extra.length === 0 ? base : { ...base, games: [...base.games, ...extra] };
+      const extraRaw = games.filter((g) => !known.has(g.id));
+      if (extraRaw.length === 0) return base;
+      const extra =
+        applyTz && core.userTimezone && core.userTimezone !== DEFAULT_STORED_PREFS_V1.timezone
+          ? extraRaw.map((g) => {
+              const ko = formatKickoffByTimezone(g.kickoffUtc, g.kickoffLocal, core.userTimezone);
+              return ko === g.kickoffLocal
+                ? g
+                : { ...g, kickoffLocal: ko, picks: g.picks.map((p) => ({ ...p, kickoffLocal: ko })) };
+            })
+          : extraRaw;
+      return { ...base, games: [...base.games, ...extra] };
     },
-    [games],
+    [core.userTimezone, games],
   );
 
   const patchedCore = useMemo<PlatformCoreValue>(
-    () => ({ ...core, dataset: merge(core.dataset), rawDataset: merge(core.rawDataset) }),
+    () => ({ ...core, dataset: merge(core.dataset, true), rawDataset: merge(core.rawDataset, false) }),
     [core, merge],
   );
   const patchedFull = useMemo<PlatformContextValue>(

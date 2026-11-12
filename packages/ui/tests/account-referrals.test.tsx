@@ -16,12 +16,15 @@ import {
   buildWhatsAppShareHref,
   buildXShareHref,
   deriveExampleReferralCode,
+  formatKickoffByTimezone,
   formatShortInviteDisplay,
   formatShortInviteUrl,
+  formatUnitsAsMxn,
   normalizeReferralCode,
   PlatformProvider,
   referralEarnedDays,
   toggleLeagueSelection,
+  validateMexicanRfc,
   type RawLeagueInput,
 } from "../src/index";
 
@@ -121,8 +124,10 @@ describe("Mi cuenta · Fase A (Invitar amigos y helpers)", () => {
     expect(html).toContain("Contenido de ejemplo");
 
     const badgeMatches = html.match(/data-example-badge=""/g) ?? [];
-    expect(badgeMatches.length).toBeGreaterThanOrEqual(4);
+    expect(badgeMatches.length).toBeGreaterThanOrEqual(3);
 
+    expect(html).toContain('data-copy-short-link=""');
+    expect(html).not.toContain("Copiar enlace");
     expect(html).not.toContain("Simular pago de un amigo");
     expect(html).not.toContain("Ver portada pública");
     expect(html).not.toContain("SOCIO-8842");
@@ -245,7 +250,67 @@ describe("Mi cuenta · Fase A (Invitar amigos y helpers)", () => {
     );
     expect(cancelledHtml).toContain("Sin renovación");
     expect(cancelledHtml).toContain("Tienes acceso hasta el");
+    expect(cancelledHtml).toContain("Sumados a tu acceso hasta el");
+    expect(cancelledHtml).not.toContain("próximo cobro");
     expect(cancelledHtml).toContain("Reactivar renovación");
+
+    const realAccountPlanHtml = renderToStaticMarkup(
+      <PlatformProvider dataset={dataset} initialRole="member" accountsEnabled={true}>
+        <AccountReferralsClubView
+          initialTab="plan"
+          initialServerReferrals={{
+            referralCode: "REAL-7788",
+            paidFriends: 1,
+            pendingFriends: 0,
+            handle: "carlos_mx",
+            displayName: "Carlos M.",
+          }}
+          initialServerPlan={{
+            active: true,
+            planState: "mensual",
+            interval: "monthly",
+            hasCard: true,
+            cancelAtPeriodEnd: false,
+            accessUntilIso: "2027-01-15T12:00:00Z",
+            currentPeriodEndIso: "2026-12-31T12:00:00Z",
+            memberSinceIso: "2026-10-01T12:00:00Z",
+            trialDaysRemaining: 0,
+            paidFriends: 1,
+            earnedDays: 15,
+            stripeConfigured: true,
+          }}
+        />
+      </PlatformProvider>,
+    );
+    expect(realAccountPlanHtml).toContain("REAL-7788");
+    expect(realAccountPlanHtml).toContain("Aún no tienes cobros registrados.");
+    expect(realAccountPlanHtml).not.toContain("@mariana_t");
+    expect(realAccountPlanHtml).not.toContain("data-example-badge=\"\"");
+  });
+
+  it("validates Mexican SAT RFC format and formats timezone kickoffs and MXN balance", () => {
+    expect(validateMexicanRfc("ABCD890123XYZ", "612").valid).toBe(true);
+    expect(validateMexicanRfc("ABC890123XYZ", "601").valid).toBe(true);
+    expect(validateMexicanRfc("ABC890123XYZ", "612").valid).toBe(false);
+    expect(validateMexicanRfc("ABCD890123XYZ", "601").valid).toBe(false);
+    expect(validateMexicanRfc("ABCD891399XYZ", "612").valid).toBe(false);
+
+    expect(
+      formatKickoffByTimezone("2026-11-12T01:00:00Z", "19:00", "America/Mexico_City"),
+    ).toBe("19:00");
+    expect(
+      formatKickoffByTimezone("2026-11-12T01:00:00Z", "19:00", "America/Tijuana"),
+    ).toBe("17:00");
+    expect(
+      formatKickoffByTimezone("2026-11-12T01:00:00Z", "19:00", "America/Cancun"),
+    ).toBe("20:00");
+    expect(
+      formatKickoffByTimezone("2026-11-12T01:00:00Z", "19:00", "America/Hermosillo"),
+    ).toBe("18:00");
+
+    expect(formatUnitsAsMxn(6.4, 250)).toBe("+$1,600 MXN");
+    expect(formatUnitsAsMxn(-2, 250)).toBe("−$500 MXN");
+    expect(formatUnitsAsMxn(0, 250)).toBe("$0 MXN");
   });
 
   it("renders Preferencias with all 6 groups, Example badge on sample MXN preview without accounts, and zero forbidden copy", () => {

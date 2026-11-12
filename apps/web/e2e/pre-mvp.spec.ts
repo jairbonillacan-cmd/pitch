@@ -574,6 +574,23 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
       .analyze();
     expect(accountCfdiDarkA11y.violations).toEqual([]);
 
+    // Validación inline SAT y persistencia de CFDI tras recargar ?tab=cfdi (SSR directo en cfdi)
+    await page.locator("#cfdi-rfc").fill("RFCINVALIDO");
+    await page.getByRole("button", { name: "Guardar datos fiscales" }).click();
+    await expect(page.locator("[data-cfdi-error]")).toBeVisible();
+
+    await page.locator("#cfdi-rfc").fill("ABCD890123XYZ");
+    await page.locator("#cfdi-razon").fill("JAIR MARTINEZ");
+    await page.locator("#cfdi-cp").fill("06600");
+    await page.getByRole("button", { name: "Guardar datos fiscales" }).click();
+    await expect(page.locator("[data-cfdi-error]")).toHaveCount(0);
+    await expect(page.getByText("Datos fiscales guardados en este dispositivo.")).toBeVisible();
+
+    await page.goto("/app/account?tab=cfdi");
+    await expect(page.locator("#pl-acct-tab-cfdi")).toHaveAttribute("aria-selected", "true");
+    await expect(page.locator("#cfdi-rfc")).toHaveValue("ABCD890123XYZ");
+    await expect(page.locator("#cfdi-cp")).toHaveValue("06600");
+
     // Verificar Axe AA en modo claro en las cuatro pestañas
     await toggleClubTheme(page);
     await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
