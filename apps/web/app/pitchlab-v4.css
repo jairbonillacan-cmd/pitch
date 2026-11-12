@@ -799,7 +799,10 @@ html[data-theme="light"] .glass-card {
   gap: 20px;
 }
 @media (min-width: 1024px) {
+  /* En escritorio el marco ocupa todo el ancho: el riel va pegado a la izquierda
+     y el contenido se centra en el espacio que queda, con su propio tope. */
   .app-frame {
+    max-width: none;
     padding: 20px 24px 24px;
     grid-template-columns: var(--rail-w, 244px) minmax(0, 1fr);
     align-items: start;
@@ -813,6 +816,9 @@ html[data-theme="light"] .glass-card {
   /* El contenido siempre en la segunda columna; la primera solo reserva el ancho del riel fijo. */
   .app-frame > main {
     grid-column: 2;
+    width: 100%;
+    max-width: 1240px;
+    margin-inline: auto;
   }
 }
 
@@ -824,13 +830,12 @@ html[data-theme="light"] .glass-card {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    /* Fijo a la ventana: nunca se mueve, ni al llegar al final de la página.
-       En «fixed», el 100 % es el ancho de la ventana sin la barra de desplazamiento,
-       así el riel queda alineado con la primera columna de la rejilla. */
+    /* Fijo a la ventana y siempre pegado a la izquierda, en cualquier ancho:
+       coincide con el padding del marco, así queda sobre la primera columna. */
     position: fixed;
     z-index: 20;
     top: 76px;
-    left: calc(max(0px, (100% - 1360px) / 2) + 24px);
+    left: 24px;
     width: var(--rail-w, 244px);
     padding: 14px 10px;
     border-radius: 16px;
