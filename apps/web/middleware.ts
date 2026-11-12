@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { getSessionCookie } from "better-auth/cookies";
+import { CLUB_PROFILE_HANDLE_HEADER } from "./src/profile-path";
 import {
   getBetaCookieName,
   verifyBetaCookieToken,
@@ -30,6 +31,13 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
       const loginUrl = new URL("/login", request.url);
       loginUrl.searchParams.set("next", pathname);
       return NextResponse.redirect(loginUrl);
+    }
+    const profileHandle = /^\/app\/u\/([^/]+)\/?$/.exec(pathname)?.[1];
+    if (profileHandle || request.headers.has(CLUB_PROFILE_HANDLE_HEADER)) {
+      const headers = new Headers(request.headers);
+      headers.delete(CLUB_PROFILE_HANDLE_HEADER);
+      if (profileHandle) headers.set(CLUB_PROFILE_HANDLE_HEADER, profileHandle);
+      return NextResponse.next({ request: { headers } });
     }
   }
   return NextResponse.next();

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useEffectEvent, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
 const CHANNEL_NAME = "pitchlab-auth";
 const CHECK_INTERVAL_MS = 4_000;
@@ -33,8 +33,10 @@ export function useEmailConfirmation(
   onSession: (session: ConfirmedSession) => void,
   onInvalid: () => void,
 ): void {
-  const complete = useEffectEvent(onSession);
-  const invalidate = useEffectEvent(onInvalid);
+  const callbacks = useRef({ onSession, onInvalid });
+  useEffect(() => {
+    callbacks.current = { onSession, onInvalid };
+  }, [onSession, onInvalid]);
 
   useEffect(() => {
     if (!enabled || (step !== "sent" && step !== "confirmed")) return;
@@ -64,7 +66,7 @@ export function useEmailConfirmation(
           signal: controller.signal,
         });
         if (!response.ok) {
-          if (step === "confirmed" && response.status === 401) invalidate();
+          if (step === "confirmed" && response.status === 401) callbacks.current.onInvalid();
           return;
         }
         const session = (await response.json()) as ConfirmedSession;
@@ -72,7 +74,7 @@ export function useEmailConfirmation(
         if (expectedEmail && session.email.toLowerCase() !== expectedEmail.trim().toLowerCase()) return;
         finished = true;
         if (step === "confirmed") channel?.postMessage({ type: "signed-in" });
-        complete(session);
+        callbacks.current.onSession(session);
       } catch {
         // A transient network error can be retried by the next check.
       } finally {

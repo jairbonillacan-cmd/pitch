@@ -1,4 +1,4 @@
-import { containsExternalLink, MAX_PROFILE_BIO_LENGTH, type PublicMemberProfile } from "@pitchlab/contracts";
+import { containsExternalLink, MAX_PROFILE_BIO_LENGTH, profileBioLength, type PublicMemberProfile } from "@pitchlab/contracts";
 import { checkHandleFormat, cleanDisplayName, createDb, publicProfileByHandle, type Db } from "@pitchlab/db";
 
 type ProfileChanges = {
@@ -28,7 +28,7 @@ export function parseProfileChanges(raw: unknown): { changes: ProfileChanges } |
   }
   if ("bio" in body) {
     if (body.bio !== null && typeof body.bio !== "string") return { error: "bio_invalida" };
-    if (typeof body.bio === "string" && (body.bio.length > MAX_PROFILE_BIO_LENGTH || body.bio.includes("\0"))) {
+    if (typeof body.bio === "string" && (profileBioLength(body.bio) > MAX_PROFILE_BIO_LENGTH || body.bio.includes("\0"))) {
       return { error: "bio_invalida" };
     }
     if (typeof body.bio === "string" && containsExternalLink(body.bio)) return { error: "bio_con_enlace" };

@@ -1,7 +1,8 @@
 import React from "react";
 import { notFound } from "next/navigation";
-import { AnalystProfileClubView, getExampleAnalystSpec, OWN_PROFILE_ALIASES } from "@pitchlab/ui";
-import { loadPublicMemberProfile } from "../../../../src/server/profile";
+import { AnalystProfileClubView } from "@pitchlab/ui";
+import { normalizeClubHandle } from "../../../../src/profile-path";
+import { loadClubProfile } from "../../../../src/server/club-profile";
 import { twitterCredentials } from "../../../../src/server/twitter";
 import { getViewerAccess } from "../../../../src/server/viewer-access";
 
@@ -12,19 +13,14 @@ export default async function ClubAnalystProfilePage({
   params: Promise<{ handle: string }>;
   searchParams: Promise<{ x?: string }>;
 }): Promise<React.JSX.Element> {
-  const [{ handle }, query] = await Promise.all([params, searchParams]);
-  const cleanHandle = handle.replace(/^@/, "").trim().toLowerCase();
-  if (getExampleAnalystSpec(cleanHandle)) return <AnalystProfileClubView handle={cleanHandle} />;
-
-  const profile = await loadPublicMemberProfile(cleanHandle);
-  if (!profile) {
-    const access = await getViewerAccess();
-    if (access.via !== "beta" || !(OWN_PROFILE_ALIASES as readonly string[]).includes(cleanHandle)) notFound();
-  }
+  const [{ handle }, query, access] = await Promise.all([params, searchParams, getViewerAccess()]);
+  const cleanHandle = normalizeClubHandle(handle);
+  const result = await loadClubProfile(cleanHandle, access.via === "beta");
+  if (!result) notFound();
   return (
     <AnalystProfileClubView
       handle={cleanHandle}
-      memberProfile={profile}
+      memberProfile={result.profile}
       xEnabled={Boolean(twitterCredentials())}
       xLinkError={query.x === "error"}
     />

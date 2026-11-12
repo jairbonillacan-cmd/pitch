@@ -1,7 +1,7 @@
 import { PGlite } from "@electric-sql/pglite";
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/pglite";
-import { beforeEach, describe, expect, it } from "vitest";
+import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
 import {
   accessUntil,
   ageFromIsoDate,
@@ -19,6 +19,7 @@ import {
   type CompleteSignupInput,
 } from "../src/index";
 
+let client: PGlite;
 let db: ReturnType<typeof drizzle>;
 const now = new Date("2026-11-12T12:00:00Z");
 const DAY = 86_400_000;
@@ -48,10 +49,18 @@ const base = (userId: string, extra: Partial<CompleteSignupInput> = {}): Complet
   ...extra,
 });
 
-beforeEach(async () => {
-  const client = new PGlite();
+beforeAll(async () => {
+  client = new PGlite();
   await applyMigrations((sql) => client.exec(sql));
   db = drizzle(client);
+}, 60_000);
+
+beforeEach(async () => {
+  await client.exec("TRUNCATE TABLE users CASCADE");
+});
+
+afterAll(async () => {
+  await client?.close();
 });
 
 describe("edad", () => {

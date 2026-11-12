@@ -2,7 +2,7 @@
 
 import React, { useId, useState, useSyncExternalStore } from "react";
 import { Button, Drawer, Input, Label, Modal, TextArea, TextField } from "@heroui/react";
-import { containsExternalLink, MAX_PROFILE_BIO_LENGTH } from "@pitchlab/contracts";
+import { containsExternalLink, MAX_PROFILE_BIO_LENGTH, profileBioLength } from "@pitchlab/contracts";
 import { normalizeSignupHandle, useHandleAvailability } from "../public/use-handle-availability";
 
 export interface EditableProfile {
@@ -76,9 +76,11 @@ export function EditProfileDialog({
     reserved: "Ese usuario está reservado.",
     invalid: "Usa de 3 a 20 caracteres y empieza con una letra.",
   }[handleStatus];
-  const bioInvalid = containsExternalLink(bio);
+  const bioLength = profileBioLength(bio);
+  const bioError = bioLength > MAX_PROFILE_BIO_LENGTH ? profileErrors.bio_invalida :
+    containsExternalLink(bio) ? profileErrors.bio_con_enlace : null;
   const ready = !pending && displayName.trim().length >= 2 && Boolean(cleanHandle) &&
-    !handleInvalid && handleStatus !== "checking" && !bioInvalid;
+    !handleInvalid && handleStatus !== "checking" && !bioError;
 
   const openEditor = () => {
     setDisplayName(profile.displayName);
@@ -163,12 +165,12 @@ export function EditProfileDialog({
         />
         <p id={`${id}-handle`} className="pl-profile-editor-hint" aria-live="polite">{handleText}</p>
       </TextField>
-      <TextField className="pl-profile-editor-field" value={bio} onChange={setBio} isInvalid={bioInvalid}>
+      <TextField className="pl-profile-editor-field" value={bio} onChange={setBio} isInvalid={Boolean(bioError)}>
         <Label>Bio</Label>
-        <TextArea rows={3} maxLength={MAX_PROFILE_BIO_LENGTH} aria-describedby={`${id}-bio`} />
+        <TextArea rows={3} maxLength={MAX_PROFILE_BIO_LENGTH * 2} aria-describedby={`${id}-bio`} />
         <div className="pl-profile-editor-bio-hint" id={`${id}-bio`}>
-          <span>{bioInvalid ? "Quita el enlace de tu bio." : "Opcional"}</span>
-          <span className="num">{bio.length}/{MAX_PROFILE_BIO_LENGTH}</span>
+          <span>{bioError ?? "Opcional"}</span>
+          <span className="num">{bioLength}/{MAX_PROFILE_BIO_LENGTH}</span>
         </div>
       </TextField>
 

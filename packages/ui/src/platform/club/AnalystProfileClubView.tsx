@@ -243,13 +243,17 @@ export function AnalystProfileClubView({
       updateViewerIdentity(updated);
     }
     if (previousHandle && previousHandle !== updated.handle) {
-      navigateTo(`/app/u/${updated.handle}`);
+      const url = new URL(window.location.href);
+      url.pathname = `/app/u/${updated.handle}`;
+      window.history.replaceState(null, "", url);
     }
   };
 
   const isOwn =
     profile !== null &&
-    (profile.handle === own?.handle || isOwnProfileHandle(cleanHandle, own, viewerIdentity !== null));
+    (viewerIdentity
+      ? profile.handle === viewerIdentity.handle
+      : profile.handle === own?.handle || isOwnProfileHandle(cleanHandle, own, false));
 
   return (
     <AtmosphereStage>

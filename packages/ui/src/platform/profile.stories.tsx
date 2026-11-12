@@ -1,14 +1,17 @@
 import React from "react";
+import type { Meta } from "@storybook/react-vite";
 import type { PublicMemberProfile } from "@pitchlab/contracts";
 import { AnalystProfileClubView } from "./club/AnalystProfileClubView";
 import { EditProfileDialog } from "./club/EditProfileDialog";
 import { buildPlatformDataset } from "./match-picks-engine";
 import { PlatformProvider } from "./platform-provider";
 
-export default {
+const meta = {
   title: "PitchLab v4 / Perfil de socio",
   parameters: { layout: "fullscreen" },
-};
+} satisfies Meta;
+
+export default meta;
 
 const member: PublicMemberProfile = {
   displayName: "Ana López",

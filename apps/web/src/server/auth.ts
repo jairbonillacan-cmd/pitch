@@ -10,6 +10,8 @@
  * app sigue con el acceso por código de beta.
  */
 import { randomBytes } from "node:crypto";
+import { appendFile, mkdir } from "node:fs/promises";
+import { basename, dirname, resolve } from "node:path";
 import { betterAuth, type BetterAuthOptions } from "better-auth";
 import { APIError, createAuthMiddleware } from "better-auth/api";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
@@ -42,9 +44,21 @@ export function resendSender(apiKey: string, from: string): SendEmail {
   };
 }
 
+function localEmailLogLine(to: string, subject: string, html: string): string {
+  const link = html.match(/href="([^"]+)"/)?.[1]?.replaceAll("&amp;", "&");
+  return `[auth] ${subject} para ${to}: ${link ?? html}`;
+}
+
 const consoleSender: SendEmail = async (to, subject, html) => {
-  const link = html.match(/href="([^"]+)"/)?.[1];
-  console.info(`[auth] ${subject} para ${to}: ${link ?? html}`);
+  console.info(localEmailLogLine(to, subject, html));
+};
+
+const local9990Sender: SendEmail = async (to, subject, html) => {
+  const cwd = process.cwd();
+  const root = basename(cwd) === "web" && basename(dirname(cwd)) === "apps" ? resolve(cwd, "../..") : cwd;
+  const logDirectory = resolve(root, ".local");
+  await mkdir(logDirectory, { recursive: true });
+  await appendFile(resolve(logDirectory, "9990.log"), localEmailLogLine(to, subject, html) + "\n", "utf8");
 };
 
 /** Liga la cuenta de Better Auth con el perfil de PitchLab (`users`) por correo. */
@@ -191,7 +205,9 @@ export function getAuth(): PitchLabAuth | null {
     db: createDb(url) as unknown as Db,
     secret,
     baseURL,
-    sendEmail: resendKey ? resendSender(resendKey, from) : consoleSender,
+    sendEmail: isLocalBaseURL(baseURL) && new URL(baseURL).port === "9990"
+      ? local9990Sender
+      : resendKey ? resendSender(resendKey, from) : consoleSender,
     google: pair(process.env.GOOGLE_CLIENT_ID, process.env.GOOGLE_CLIENT_SECRET),
     apple: pair(process.env.APPLE_CLIENT_ID, process.env.APPLE_CLIENT_SECRET),
     twitter: twitterCredentials(),

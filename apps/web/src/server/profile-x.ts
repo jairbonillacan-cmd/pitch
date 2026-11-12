@@ -17,6 +17,7 @@ export async function finishTwitterLink(request: Request): Promise<Response> {
   const member = await requireMember(request);
   if ("error" in member) return redirectTo(request, "/login");
   const { db, userId, authUserId } = member;
+  const invalidProfile = { error: "x_link_invalid" };
 
   // Keep Better Auth's account write and the public handle in the same transaction.
   return db.transaction(async (tx) => {
@@ -30,20 +31,19 @@ export async function finishTwitterLink(request: Request): Promise<Response> {
       },
       user: {
         validateUserInfo: async ({ user, source }) => {
-          if (source.method !== "oauth" || source.oauth?.providerId !== "twitter") return false;
-          if (source.action !== "link-account" || user.id !== authUserId) return false;
+          if (source.method !== "oauth" || source.oauth?.providerId !== "twitter") return invalidProfile;
+          if (source.action !== "link-account" || user.id !== authUserId) return invalidProfile;
           const profile = parseTwitterProfile(source.oauth.profile);
-          if (!profile) return false;
+          if (!profile) return invalidProfile;
 
           // X account IDs cannot be linked to two members, even when callbacks race.
           await tx.execute(sql`select pg_advisory_xact_lock(hashtextextended(${`pitchlab:x:${profile.id}`}, 0))`);
           const [owner] = await tx.select({ id: users.id }).from(users).where(eq(users.id, userId)).for("update");
-          if (!owner) return false;
+          if (!owner) return invalidProfile;
           const accounts = await tx.select({ accountId: authAccount.accountId }).from(authAccount)
             .where(and(eq(authAccount.providerId, "twitter"), eq(authAccount.userId, authUserId)));
-          if (accounts.some(({ accountId }) => accountId !== profile.id)) return false;
+          if (accounts.some(({ accountId }) => accountId !== profile.id)) return invalidProfile;
           linking.profile = profile;
-          return true;
         },
       },
     };

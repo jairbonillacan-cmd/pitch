@@ -7482,6 +7482,7 @@ html[data-theme="light"] .pl-stage.pl-auth,
 
 .pl-profile-editor-backdrop.modal__backdrop,
 .pl-profile-editor-backdrop.drawer__backdrop {
+  z-index: 1000;
   background: var(--pl-modal-backdrop);
 }
 
@@ -7542,7 +7543,7 @@ html[data-theme="light"] .pl-stage.pl-auth,
   min-height: 44px;
   background: var(--pl-surface);
   color: var(--pl-text);
-  border: 1px solid var(--pl-border-strong);
+  border: 1px solid color-mix(in srgb, var(--pl-text-muted) 72%, var(--pl-stage-elevated));
   border-radius: 0.5rem;
   padding: 0.625rem 0.75rem;
   font-size: 1rem;
@@ -7650,6 +7651,7 @@ html[data-theme="light"] .pl-stage.pl-auth,
   }
 
   .pl-prof-actions .pl-prof-btn {
+    min-width: 44px;
     min-height: 44px;
   }
 }

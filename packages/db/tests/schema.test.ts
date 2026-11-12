@@ -1,12 +1,13 @@
 import { PGlite } from "@electric-sql/pglite";
 import { drizzle } from "drizzle-orm/pglite";
-import { eq } from "drizzle-orm";
+import { eq, getTableName, is, Table } from "drizzle-orm";
 import { beforeEach, describe, expect, it } from "vitest";
 import {
   applyMigrations,
   entitlementGrants,
   publicWeeklyPicks,
   referralGrants,
+  schema,
   sealedPicks,
   tipstarCommissionLedger,
   tipstarAttributions,
@@ -33,10 +34,14 @@ const kickoff = new Date("2026-11-21T20:00:00Z");
 
 describe("esquema PitchLab (Postgres)", () => {
   it("aplica la migración completa", async () => {
-    const res = await client.query<{ n: number }>(
-      "select count(*)::int as n from information_schema.tables where table_schema = 'public'",
+    const res = await client.query<{ table_name: string }>(
+      "select table_name from information_schema.tables where table_schema = 'public'",
     );
-    expect(res.rows[0]!.n).toBe(23);
+    const expected = Object.values(schema)
+      .filter((table) => is(table, Table))
+      .map((table) => getTableName(table))
+      .sort();
+    expect(res.rows.map(({ table_name }) => table_name).sort()).toEqual(expected);
   });
 
   it("bitácora: sella antes del inicio y no repite el mismo pick", async () => {
