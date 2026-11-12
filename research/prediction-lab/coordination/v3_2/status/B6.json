@@ -1,0 +1,93 @@
+{
+  "agent_id": "B6",
+  "agent_name": "b6-nfl-sharp",
+  "wave": 2,
+  "state": "completed",
+  "started_at": "2026-11-12T15:47:21Z",
+  "finished_at": "2026-11-12T16:05:45Z",
+  "files_written": [
+    "services/ingest/nfl_sharp_closing.py",
+    "services/models/test_nfl_sharp_closing.py",
+    "research/prediction-lab/data/processed/nfl_sharp_closing.parquet",
+    "research/prediction-lab/reports/A29_nfl_sharp_corpus.md",
+    "research/prediction-lab/coordination/v3_2/status/B6.json"
+  ],
+  "commands_run": [
+    "Set-Location \"C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\prediction-lab\"; .\\research\\prediction-lab\\.venv\\Scripts\\python.exe services/ingest/nfl_sharp_closing.py",
+    "Set-Location \"C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\prediction-lab\"; .\\research\\prediction-lab\\.venv\\Scripts\\python.exe -m pytest services/models -v"
+  ],
+  "metrics": {
+    "evidence_label": "OBSERVADO",
+    "schema_version": "nfl_sharp_closing_v3.2.0",
+    "parquet_path": "research/prediction-lab/data/processed/nfl_sharp_closing.parquet",
+    "parquet_sha256": "178ad93241bd2bf004f77cf576a180afbb547ab65b4b28bbc63ad76f06680cae",
+    "parquet_columns_count": 26,
+    "parquet_rows_total": 39,
+    "timeseries_capture_status": "prospective_capture_pending",
+    "timeseries_files_count": 0,
+    "timeseries_rows_read": 0,
+    "timeseries_events_sharp_count": 0,
+    "legacy_historical_fd_nflverse_rows_rejected": 31196,
+    "legacy_scraped_ws_nfl_rows_read": 2014,
+    "legacy_scraped_ws_non_sharp_rows_rejected": 986,
+    "legacy_scraped_ws_non_sharp_books_rejected_count": 19,
+    "post_kickoff_rows_discarded": 0,
+    "sharp_valid_prematch_rows": 1028,
+    "sharp_valid_rows_by_book": {
+      "pinnacle": 1028,
+      "smarkets": 0
+    },
+    "legacy_scraped_ws_events_sharp_count": 13,
+    "distinct_sharp_events_total": 13,
+    "matched_nflverse_games_count": 13,
+    "unmatched_future_events_count": 0,
+    "closing_books_in_parquet": {
+      "pinnacle": 39,
+      "smarkets": 0
+    },
+    "ingest_origin_counts": {
+      "odds_timeseries_v3_2": 0,
+      "odds_snapshots_scraped_ws_2026_11_09": 39
+    },
+    "ts_closing_min_utc": "2026-11-09T20:05:00Z",
+    "ts_closing_max_utc": "2026-11-09T20:05:00Z",
+    "sharp_ticks_first_captured_utc": "2026-11-09T18:46:13Z",
+    "sharp_ticks_last_captured_utc": "2026-11-09T20:05:00Z",
+    "closing_overround_mean": 0.032746,
+    "closing_overround_ci95": [
+      0.031426,
+      0.034077
+    ],
+    "lead_time_to_kickoff_minutes_mean": 7791.153846,
+    "lead_time_to_kickoff_minutes_ci95": [
+      6989.615385,
+      8485.128205
+    ],
+    "bootstrap_prng": "mulberry32",
+    "bootstrap_seed": 20261112,
+    "bootstrap_samples": 1000,
+    "min_settled_games_for_eval": 64,
+    "n_settled_games_with_sharp_closing": 0,
+    "settled_games_shortfall_to_64": 64,
+    "corpus_sufficient_for_eval": false,
+    "production_enabled": false,
+    "settled_calibration_status": "muestra insuficiente (n=0 < 64; no significativa)",
+    "frozen_v3_1_artifacts_untouched": true,
+    "production_segments_v3_1_sha256_readonly": "0bc03bbff96a5d82a1a7858e1e8623bf7bfdb250c546d2773a71d56ed9ada9bc",
+    "blend_weights_v3_1_sha256_readonly": "b29d7a451f6011126997c122778b42ad3239c78337d17c5fa78d550f5c92739b",
+    "pick_policy_v3_1_sha256_readonly": "2359c8f8822ea394a380202c04e0bcd010d1a3fae7c5c25b8c11ebe810bfb7d1",
+    "stale_lines_config_sha256_readonly": "8bcb9c7be93270cde0cac2d58bc19f0381184dd2e769f358dd28334db2a05eac",
+    "pytest_tests_passed": 101,
+    "pytest_tests_failed": 0,
+    "new_b6_tests_passed": 9
+  },
+  "open_issues": [
+    "odds_timeseries/nfl permanece en 'prospective_capture_pending' (0 archivos .jsonl hoy) hasta aprovisionar THE_ODDS_API_KEY / BETFAIR_APP_KEY + BETFAIR_SESSION_TOKEN en B3.",
+    "Los 13 partidos NFL con captura sharp de Pinnacle en scraped_ws (2026_09_BUF_MIN + 12 de Semana 10) tienen home_score=NaN, away_score=NaN en el corte local de nflverse (games.csv descargado 2026-11-09T14:36:27Z), por lo que n_settled_games_with_sharp_closing = 0 < 64 (corpus_sufficient_for_eval = false, production_enabled = false).",
+    "De los 13 eventos de Pinnacle consolidados desde scraped_ws, 12 corresponden a apertura temprana de Semana 10 (lead_time 4,630 a 10,390 min antes del kickoff); para CLV% y delta log_loss contra cierre verdadero pre-kickoff se requiere captura multi-tick en [T-60m, T-0]."
+  ],
+  "next": [
+    "B9 (b9-nfl-epa, Ola 3): consumir sin bloqueo el esquema real de research/prediction-lab/data/processed/nfl_sharp_closing.parquet, verificar corpus_sufficient_for_eval == false (0 < 64), reportar cualquier comparación con nflverse en walk_forward_dev con la etiqueta explícita 'sin cierre sharp' (unlock_holdout=False) y mantener model_nfl_v3_2_candidate.json como candidate con production_enabled = false.",
+    "V (v-redteam, Puerta 2): auditar rechazo al 100% de consenso nflverse (31,196 filas) y 19 emisores no-sharp (986 filas), prioridad pinnacle > smarkets via resolve_closing_odds, cruce 13/13 con game_id de nflverse y compuerta < 64 activa."
+  ]
+}
