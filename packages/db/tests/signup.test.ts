@@ -6,7 +6,13 @@ import {
   accessUntil,
   ageFromIsoDate,
   applyMigrations,
+  checkHandleFormat,
   completeSignup,
+  entitlementGrants,
+  memberProfile,
+  publicProfileByHandle,
+  updateMemberProfile,
+  suggestHandle,
   referralGrants,
   signupCompleted,
   users,
@@ -31,6 +37,8 @@ const trial = (canonicalEmail: string): CompleteSignupInput["trial"] => ({
 
 const base = (userId: string, extra: Partial<CompleteSignupInput> = {}): CompleteSignupInput => ({
   userId,
+  displayName: "Ana López",
+  handle: `socio${userId.replace(/[^a-z0-9]/g, "").slice(0, 12)}`,
   birthDate: "1990-05-20",
   termsVersion: "2026-11-11",
   analyticsConsent: true,
@@ -94,6 +102,26 @@ describe("registro paso 2", () => {
     expect(await accessUntil(db, b.id, now)).toBeNull();
   });
 
+
+  it("dos pestañas conservan un solo registro y una prueba de siete días", async () => {
+    const account = await user("dos.pestanas@example.com");
+    const input = base(account.id, { trial: trial(account.email) });
+    const results = await Promise.all([
+      completeSignup(db, input),
+      completeSignup(db, input),
+    ]);
+    expect(results).toEqual([
+      { ok: true, trial: "concedida", referral: "ninguno" },
+      { ok: true, trial: "concedida", referral: "ninguno" },
+    ]);
+    const grants = await db.select().from(entitlementGrants).where(eq(entitlementGrants.userId, account.id));
+    expect(grants).toHaveLength(1);
+    expect(grants[0]?.daysGranted).toBe(7);
+    await updateMemberProfile(db, account.id, { displayName: "Nombre editado" });
+    await completeSignup(db, input);
+    expect((await memberProfile(db, account.id))?.displayName).toBe("Nombre editado");
+  });
+
   it("registra al anfitrión del código, nunca a uno mismo", async () => {
     const host = await user("host@example.com", "SOCIO-AB12CD");
     const friend = await user("friend@example.com", "SOCIO-FF0000");
@@ -108,6 +136,57 @@ describe("registro paso 2", () => {
     expect(rows[0]).toMatchObject({ referrerUserId: host.id, referredUserId: friend.id, status: "trial_started" });
     expect(await completeSignup(db, base(friend.id, { referralCode: "SOCIO-AB12CD" }))).toMatchObject({
       referral: "ninguno",
+    });
+  });
+});
+
+describe("usuario (@handle)", () => {
+  it("valida formato y reservados", () => {
+    expect(checkHandleFormat("@Ana_Lopez")).toEqual({ ok: true, handle: "ana_lopez" });
+    expect(checkHandleFormat("ab")).toEqual({ ok: false, reason: "formato" });
+    expect(checkHandleFormat("1ana")).toEqual({ ok: false, reason: "formato" });
+    expect(checkHandleFormat("ana.lopez")).toEqual({ ok: false, reason: "formato" });
+    expect(checkHandleFormat("sofia_nfl")).toEqual({ ok: false, reason: "reservado" });
+  });
+
+  it("guarda nombre y usuario, y no deja repetirlo", async () => {
+    const a = await user("a@example.com");
+    const b = await user("b@example.com");
+    expect((await completeSignup(db, base(a.id, { handle: "Ana_Lopez", displayName: "  Ana   López " }))).ok).toBe(true);
+    const [row] = await db.select().from(users).where(eq(users.id, a.id));
+    expect(row).toMatchObject({ handle: "ana_lopez", displayName: "Ana López" });
+    expect(await completeSignup(db, base(b.id, { handle: "ana_lopez" }))).toEqual({
+      ok: false,
+      reason: "usuario_ocupado",
+    });
+    expect(await signupCompleted(db, b.id)).toBe(false);
+    // El propio se puede volver a mandar.
+    expect((await completeSignup(db, base(a.id, { handle: "ana_lopez" }))).ok).toBe(true);
+    expect(await completeSignup(db, base(b.id, { displayName: "x" }))).toEqual({ ok: false, reason: "nombre_invalido" });
+  });
+
+  it("sugiere un usuario libre sin acentos", async () => {
+    expect(await suggestHandle(db, "José Pérez")).toBe("jose_perez");
+    const u = await user("c@example.com");
+    await completeSignup(db, base(u.id, { handle: "jose_perez" }));
+    expect(await suggestHandle(db, "José Pérez")).toBe("jose_perez2");
+    expect(await suggestHandle(db, "42@example.com")).toMatch(/^socio/);
+  });
+});
+
+describe("perfiles de socio", () => {
+  it("conserva el propio usuario, rechaza el de otro socio y deja de resolver el anterior", async () => {
+    const [a, b] = await db.insert(users).values([
+      { authUserId: "auth-ana", email: "ana.perfil@example.com", handle: "ana_perfil", displayName: "Ana", isAdult: true },
+      { authUserId: "auth-luis", email: "luis.perfil@example.com", handle: "luis_perfil", displayName: "Luis", isAdult: true },
+    ]).returning();
+    expect(await updateMemberProfile(db, a!.id, { handle: a!.handle!, bio: "Liga MX" })).toMatchObject({ status: "saved" });
+    expect(await updateMemberProfile(db, a!.id, { handle: b!.handle! })).toEqual({ status: "taken" });
+    expect(await updateMemberProfile(db, a!.id, { handle: "ana_analisis" })).toMatchObject({ status: "saved" });
+    expect(await publicProfileByHandle(db, "ana_perfil")).toBeNull();
+    expect(await publicProfileByHandle(db, "ana_analisis")).toEqual({
+      handle: "ana_analisis", displayName: "Ana", bio: "Liga MX", xUsername: null,
+      joinedAt: a!.createdAt, isTipstar: false,
     });
   });
 });

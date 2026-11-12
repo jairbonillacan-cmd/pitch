@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import {
   PlatformProvider,
   type PlatformDataset,
+  type ViewerIdentity,
   type ViewerRole,
 } from "@pitchlab/ui";
 
@@ -14,6 +15,7 @@ export function PlatformClientBridge({
   allowRoleSimulation = false,
   accountsEnabled = false,
   serverMonth1NoCardMode,
+  viewerIdentity = null,
   children,
 }: {
   dataset: PlatformDataset;
@@ -21,6 +23,7 @@ export function PlatformClientBridge({
   allowRoleSimulation?: boolean;
   accountsEnabled?: boolean;
   serverMonth1NoCardMode?: boolean;
+  viewerIdentity?: ViewerIdentity | null;
   children: React.ReactNode;
 }): React.JSX.Element {
   const router = useRouter();
@@ -39,6 +42,7 @@ export function PlatformClientBridge({
       allowRoleSimulation={allowRoleSimulation}
       accountsEnabled={accountsEnabled}
       serverMonth1NoCardMode={serverMonth1NoCardMode}
+      viewerIdentity={viewerIdentity}
       onNavigate={handleNavigate}
     >
       {children}

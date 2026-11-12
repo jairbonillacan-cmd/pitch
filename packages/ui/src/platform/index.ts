@@ -3,11 +3,12 @@ export * from "./spacetime-catalog";
 export * from "./access-guard";
 export * from "./profile-stats";
 export * from "./community-examples";
+export { OWN_PROFILE_ALIASES } from "./club/community-ui";
 export * from "./community-stats";
 export * from "./match-picks-engine";
 export * from "./parlay-engine";
-export * from "./platform-provider";
 export * from "./notifications";
+export * from "./platform-provider";
 
 export * from "./components/PlatformOverlays";
 export * from "./components/MatchTicketCard";

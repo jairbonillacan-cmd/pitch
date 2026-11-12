@@ -1,5 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
+import { hasPublicSessionCookie } from "../src/server/public-session";
 import { LandingSurface } from "@pitchlab/ui";
 import { loadLandingViewProps } from "../src/server/public-site-data";
 
@@ -12,6 +13,6 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage(): Promise<React.JSX.Element> {
-  const props = await loadLandingViewProps();
-  return <LandingSurface {...props} />;
+  const [props, hasSession] = await Promise.all([loadLandingViewProps(), hasPublicSessionCookie()]);
+  return <LandingSurface {...props} hasSession={hasSession} />;
 }

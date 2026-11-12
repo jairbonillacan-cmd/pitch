@@ -65,6 +65,78 @@
         "3090"
       ],
       "port": 3090
+    },
+    {
+      "name": "web-7878",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "--filter",
+        "@pitchlab/web",
+        "exec",
+        "next",
+        "dev",
+        "--port",
+        "7878",
+        "--hostname",
+        "127.0.0.1"
+      ],
+      "port": 7878
+    },
+    {
+      "name": "web-8734",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "--filter",
+        "@pitchlab/web",
+        "exec",
+        "next",
+        "dev",
+        "--port",
+        "8734"
+      ],
+      "port": 8734
+    },
+    {
+      "name": "web-cuentas",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "--filter",
+        "@pitchlab/web",
+        "exec",
+        "next",
+        "dev",
+        "--port",
+        "8740"
+      ],
+      "port": 8740,
+      "env": {
+        "PITCHLAB_DIST_DIR": ".next-cuentas"
+      }
+    },
+    {
+      "name": "web-9990",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "scripts/local-9990.ps1"
+      ],
+      "port": 9990
+    },
+    {
+      "name": "web-9990-prod",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "scripts/local-9990.ps1",
+        "-Prod"
+      ],
+      "port": 9990
     }
   ]
 }

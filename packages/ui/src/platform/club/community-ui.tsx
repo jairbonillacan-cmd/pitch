@@ -3,7 +3,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { LeagueId } from "@pitchlab/contracts";
 import { exampleLeaderboardRows, getExampleGameMeta } from "../community-examples";
-import { usePlatform } from "../platform-provider";
+import { usePlatform, type ViewerIdentity } from "../platform-provider";
 import type { LeaderboardAnalyst } from "../profile-stats";
 import type { JournalEntry, PlatformDataset, ViewerRole } from "../types";
 
@@ -18,9 +18,23 @@ export interface OwnIdentity {
   avatarGradVar: string;
 }
 
-/** Quién eres en Comunidad. Los socios publican como `socio_pl` en la beta. */
-export function ownIdentityFor(role: ViewerRole): OwnIdentity | null {
+/**
+ * Quién eres en Comunidad. Con cuenta, tu nombre y @usuario; con el PIN de la beta,
+ * los socios publican como `socio_pl` y el tipstar simulado como `sofia_nfl`.
+ */
+export function ownIdentityFor(
+  role: ViewerRole,
+  identity: ViewerIdentity | null = null,
+): OwnIdentity | null {
   if (role === "visitor") return null;
+  if (identity) {
+    return {
+      handle: identity.handle,
+      name: identity.displayName,
+      avatarInitials: identity.initials,
+      avatarGradVar: "var(--avatar-grad-4)",
+    };
+  }
   if (role === "tipstar") {
     return {
       handle: "sofia_nfl",
@@ -37,8 +51,15 @@ export function ownIdentityFor(role: ViewerRole): OwnIdentity | null {
   };
 }
 
-/** Alias del menú de cuenta que también apuntan a tu perfil. */
+/** Alias de la beta con PIN que también apuntan a tu perfil (con cuenta no hay alias). */
 export const OWN_PROFILE_ALIASES = ["jair", "jair_founder", "socio_pl"] as const;
+
+/** ¿Este @usuario de la URL es tu perfil? */
+export function isOwnProfileHandle(handle: string, own: OwnIdentity | null, hasAccount: boolean): boolean {
+  if (!own) return false;
+  if (handle === own.handle) return true;
+  return !hasAccount && (OWN_PROFILE_ALIASES as readonly string[]).includes(handle);
+}
 
 /** Filas del leaderboard: perfiles de ejemplo + tu bitácora real. */
 export function useLeaderboardRows(): {
@@ -46,9 +67,9 @@ export function useLeaderboardRows(): {
   own: OwnIdentity | null;
   today: Date;
 } {
-  const { journal, viewerRole } = usePlatform();
+  const { journal, viewerRole, viewerIdentity } = usePlatform();
   const today = useMemo(() => new Date(), []);
-  const own = useMemo(() => ownIdentityFor(viewerRole), [viewerRole]);
+  const own = useMemo(() => ownIdentityFor(viewerRole, viewerIdentity), [viewerRole, viewerIdentity]);
   const rows = useMemo(() => {
     const examples = exampleLeaderboardRows(today);
     if (!own || examples.some((r) => r.handle === own.handle)) return examples;

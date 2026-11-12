@@ -137,8 +137,10 @@ export function compareUserOddsInput(
 
 export function PublicNavBarClient({
   activePath,
+  hasSession = false,
 }: {
   activePath: PublicNavPath;
+  hasSession?: boolean;
 }): React.JSX.Element {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuBtnRef = useRef<HTMLButtonElement | null>(null);
@@ -199,12 +201,12 @@ export function PublicNavBarClient({
 
           <div className="pl-lp-actions">
             <ThemeToggle shape="pill" />
-            <a className="pl-lp-navlink pl-lp-navlink--login" href="/login">
-              Entrar
+            <a className="pl-lp-navlink pl-lp-navlink--login" href={hasSession ? "/app" : "/login"}>
+              {hasSession ? "Ir a la app" : "Entrar"}
             </a>
             <a
               className="pl-lp-btn pl-lp-btn--compact pl-lp-btn-primary pl-lp-bar-cta"
-              href="/signup"
+              href={hasSession ? "/app" : "/signup"}
             >
               Probar 7 días
             </a>
@@ -268,7 +270,7 @@ export function PublicNavBarClient({
             ))}
             <a
               className="pl-lp-btn pl-lp-btn-primary"
-              href="/signup"
+              href={hasSession ? "/app" : "/signup"}
               onClick={() => setMenuOpen(false)}
             >
               Probar 7 días gratis{" "}

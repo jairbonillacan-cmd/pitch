@@ -9,3 +9,5 @@ export * from "./format";
 export * from "./freshness";
 export * from "./brand/social";
 export * from "./view-models";
+export * from "./external-links";
+export * from "./profiles";

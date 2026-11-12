@@ -203,6 +203,20 @@ export interface PinUnlockResult {
   redirectTo?: string;
 }
 
+/** Quién es el socio con cuenta. Con el PIN de la beta no hay identidad (null). */
+export interface ViewerIdentity {
+  handle: string;
+  displayName: string;
+  initials: string;
+  referralCode: string | null;
+}
+
+/** Usuario propio: el de la cuenta o, en la beta con PIN, el de ejemplo según el rol. */
+export function ownHandleFor(identity: ViewerIdentity | null, role: ViewerRole): string {
+  if (identity) return identity.handle;
+  return role === "tipstar" ? "sofia_nfl" : "socio_pl";
+}
+
 export interface PlatformContextValue {
   rawDataset: PlatformDataset;
   dataset: PlatformDataset;
@@ -211,6 +225,9 @@ export interface PlatformContextValue {
   allowRoleSimulation: boolean;
   /** Cuentas reales (Better Auth) activas en el servidor. */
   accountsEnabled: boolean;
+  /** Socio con cuenta (nombre, @usuario, iniciales y código); null con PIN o visitante. */
+  viewerIdentity: ViewerIdentity | null;
+  updateViewerIdentity: (profile: Pick<ViewerIdentity, "displayName" | "handle">) => void;
   oddsFormat: OddsFormat;
   setOddsFormat: (fmt: OddsFormat) => void;
   auraColors: readonly [string, string];
@@ -311,6 +328,7 @@ export interface PlatformCoreValue {
   viewerRole: ViewerRole;
   allowRoleSimulation: boolean;
   accountsEnabled: boolean;
+  viewerIdentity: ViewerIdentity | null;
   oddsFormat: OddsFormat;
   favoriteLeagues: LeagueId[];
   riskPreference: RiskBand;
@@ -325,6 +343,7 @@ export type PlatformActions = Pick<PlatformContextValue, ActionKey>;
 
 const ACTION_KEYS = [
   "setViewerRole",
+  "updateViewerIdentity",
   "setOddsFormat",
   "setAuraFromGame",
   "setAllowSgp",
@@ -422,6 +441,7 @@ export function PlatformProvider({
   initialRole = "visitor",
   allowRoleSimulation = false,
   accountsEnabled = false,
+  viewerIdentity: initialViewerIdentity = null,
   serverMonth1NoCardMode,
   onNavigate,
   onSubmitPinOverride,
@@ -432,6 +452,7 @@ export function PlatformProvider({
   initialRole?: ViewerRole;
   allowRoleSimulation?: boolean;
   accountsEnabled?: boolean;
+  viewerIdentity?: ViewerIdentity | null;
   /** Valor de la bandera en la base (cuando hay cuentas); manda sobre el navegador. */
   serverMonth1NoCardMode?: boolean;
   onNavigate?: (href: string) => void;
@@ -440,6 +461,7 @@ export function PlatformProvider({
   children: React.ReactNode;
 }): React.JSX.Element {
   const [viewerRole, setViewerRoleState] = useState<ViewerRole>(initialRole);
+  const [viewerIdentity, setViewerIdentity] = useState(initialViewerIdentity);
   const [oddsFormat, setOddsFormatState] = useState<OddsFormat>("american");
   const [parlayLegs, setParlayLegs] = useState<ParlayLeg[]>([]);
   const [allowSgp, setAllowSgp] = useState<boolean>(false);
@@ -448,6 +470,24 @@ export function PlatformProvider({
   const [socialPosts, setSocialPosts] = useState<SocialPost[]>(() =>
     attachExamplePostPicks(INITIAL_SOCIAL_POSTS, rawDataset.games),
   );
+  const updateViewerIdentity = useCallback((profile: Pick<ViewerIdentity, "displayName" | "handle">) => {
+    if (!viewerIdentity) return;
+    const words = profile.displayName.trim().split(/\s+/);
+    const first = words[0] ?? "";
+    const last = words.length > 1 ? (words.at(-1)?.[0] ?? "") : (first[1] ?? "");
+    const initials = ((first[0] ?? "") + last).toUpperCase() || "PL";
+    setViewerIdentity({ ...viewerIdentity, ...profile, initials });
+
+    const renameAuthor = <T extends { authorHandle: string; authorName: string }>(item: T): T =>
+      item.authorHandle === viewerIdentity.handle
+        ? { ...item, authorHandle: profile.handle, authorName: profile.displayName }
+        : item;
+    setSocialPosts((posts) => posts.map((post) => post.isExample ? post : {
+      ...renameAuthor(post),
+      comments: post.comments.map(renameAuthor),
+    }));
+  }, [viewerIdentity]);
+
   const [blockedSpamAttempts, setBlockedSpamAttempts] = useState<number>(0);
   const [watchlistGameIds, setWatchlistGameIds] = useState<string[]>([]);
   const [favoriteLeagues, setFavoriteLeaguesState] = useState<LeagueId[]>(() =>
@@ -866,7 +906,7 @@ export function PlatformProvider({
       if (trimmed.length < 8) {
         return { ok: false, error: "Escribe al menos una frase sobre tu pick." };
       }
-      const myHandle = viewerRole === "tipstar" ? "sofia_nfl" : "socio_pl";
+      const myHandle = ownHandleFor(viewerIdentity, viewerRole);
       const repeated = socialPosts
         .filter((p) => p.authorHandle === myHandle)
         .slice(0, 5)
@@ -888,8 +928,9 @@ export function PlatformProvider({
       }
       const newPost: SocialPost = {
         id: `sp-${Date.now()}`,
-        authorHandle: viewerRole === "tipstar" ? "sofia_nfl" : "socio_pl",
-        authorName: viewerRole === "tipstar" ? "Sofía Méndez" : "Socio PitchLab",
+        authorHandle: ownHandleFor(viewerIdentity, viewerRole),
+        authorName:
+          viewerIdentity?.displayName ?? (viewerRole === "tipstar" ? "Sofía Méndez" : "Socio PitchLab"),
         roleBadge:
           viewerRole === "tipstar" ? "Tipstar Oficial" : "Socio Pase PitchLab Ultra",
         avatarGradVar:
@@ -936,7 +977,7 @@ export function PlatformProvider({
       pushToast("Publicado en Comunidad.", "success");
       return { ok: true };
     },
-    [viewerRole, pushToast, journal, socialPosts, sealPickToJournal],
+    [viewerRole, viewerIdentity, pushToast, journal, socialPosts, sealPickToJournal],
   );
 
   const addSocialComment = useCallback(
@@ -962,9 +1003,10 @@ export function PlatformProvider({
                   ...post.comments,
                   {
                     id: `sc-${Date.now()}`,
-                    authorHandle: viewerRole === "tipstar" ? "sofia_nfl" : "socio_pl",
+                    authorHandle: ownHandleFor(viewerIdentity, viewerRole),
                     authorName:
-                      viewerRole === "tipstar" ? "Sofía Méndez" : "Socio Pase PitchLab Ultra",
+                      viewerIdentity?.displayName ??
+                      (viewerRole === "tipstar" ? "Sofía Méndez" : "Socio Pase PitchLab Ultra"),
                     verifiedBadge:
                       viewerRole === "tipstar"
                         ? "Perfil de ejemplo"
@@ -980,7 +1022,7 @@ export function PlatformProvider({
       pushToast("Respuesta agregada al hilo.", "success");
       return { ok: true };
     },
-    [viewerRole, pushToast, journal],
+    [viewerRole, viewerIdentity, pushToast, journal],
   );
 
   const toggleSocialLike = useCallback((postId: string) => {
@@ -1120,6 +1162,8 @@ export function PlatformProvider({
       setViewerRole,
       allowRoleSimulation,
       accountsEnabled,
+      viewerIdentity,
+      updateViewerIdentity,
       oddsFormat,
       setOddsFormat,
       auraColors,
@@ -1182,6 +1226,8 @@ export function PlatformProvider({
       setViewerRole,
       allowRoleSimulation,
       accountsEnabled,
+      viewerIdentity,
+      updateViewerIdentity,
       oddsFormat,
       setOddsFormat,
       auraColors,
@@ -1249,6 +1295,7 @@ export function PlatformProvider({
       viewerRole,
       allowRoleSimulation,
       accountsEnabled,
+      viewerIdentity,
       oddsFormat,
       favoriteLeagues,
       riskPreference,
@@ -1260,6 +1307,7 @@ export function PlatformProvider({
       viewerRole,
       allowRoleSimulation,
       accountsEnabled,
+      viewerIdentity,
       oddsFormat,
       favoriteLeagues,
       riskPreference,

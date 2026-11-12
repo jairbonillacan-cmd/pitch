@@ -21,6 +21,7 @@ import {
 } from "./PublicSiteSections";
 
 export interface LandingSurfaceProps {
+  hasSession?: boolean;
   heroCards?: readonly LandingHeroLeagueCard[];
   recentResults?: readonly LandingFinishedResultItem[];
   parlayDemo?: LandingParlayDemoData;
@@ -29,6 +30,7 @@ export interface LandingSurfaceProps {
 }
 
 export function LandingSurface({
+  hasSession = false,
   heroCards,
   recentResults,
   parlayDemo,
@@ -50,7 +52,7 @@ export function LandingSurface({
       : undefined);
 
   return (
-    <PublicSiteShell activePath="/">
+    <PublicSiteShell activePath="/" hasSession={hasSession}>
       <section id="top" className="pl-lp-hero">
         <div className="pl-lp-atmo" aria-hidden="true">
           <div className="pl-lp-orb pl-lp-orb--1" />
@@ -69,7 +71,7 @@ export function LandingSurface({
               Ves qué resultado es más probable según los datos, cuánto debería pagar y si el momio de tu casa paga más o menos que eso. Tú decides.
             </p>
             <div className="pl-lp-hero-ctas">
-              <a className="pl-lp-btn pl-lp-btn-primary" href="/signup">
+              <a className="pl-lp-btn pl-lp-btn-primary" href={hasSession ? "/app" : "/signup"}>
                 Probar 7 días gratis{" "}
                 <span className="pl-lp-arr" aria-hidden="true">
                   →
@@ -102,7 +104,7 @@ export function LandingSurface({
       />
       <PricingSection variant="teaser" />
       <FaqSection />
-      <ClosingCtaSection />
+      <ClosingCtaSection hasSession={hasSession} />
     </PublicSiteShell>
   );
 }

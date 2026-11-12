@@ -12,13 +12,18 @@ import {
   AtmosphereStage,
   ClubWorkspaceShell,
 } from "../components/ShellChrome";
-import { usePlatform } from "../platform-provider";
+import { ownHandleFor, usePlatform } from "../platform-provider";
 import { MEMBERSHIP_SPEC } from "../spacetime-catalog";
 import type { RiskBand } from "../types";
 
-const REFERRAL_CODE = "SOCIO-8842";
-const REFERRAL_PATH = `/pricing/referral?sku=ultra&interval=MONTHLY&code=${REFERRAL_CODE}#subscribe`;
-const REFERRAL_URL = `https://pitchlab.mx${REFERRAL_PATH}`;
+/** Código de ejemplo para la beta con PIN; con cuenta se usa el código real del socio. */
+const EXAMPLE_REFERRAL_CODE = "SOCIO-8842";
+
+function referralLinks(code: string, fromHandle: string | null): { path: string; url: string } {
+  const from = fromHandle ? `&from=${encodeURIComponent(fromHandle)}` : "";
+  const path = `/pricing/referral?sku=ultra&interval=MONTHLY&code=${encodeURIComponent(code)}${from}#subscribe`;
+  return { path, url: `https://pitchlab.mx${path}` };
+}
 
 const SAT_REGIMENS = [
   "601 · General de Ley Personas Morales",
@@ -42,7 +47,14 @@ export function AccountReferralsClubView(): React.JSX.Element {
     setRiskPreference,
     pushToast,
     navigateTo,
+    viewerIdentity,
   } = usePlatform();
+  const ownHandle = ownHandleFor(viewerIdentity, viewerRole);
+  const REFERRAL_CODE = viewerIdentity?.referralCode ?? EXAMPLE_REFERRAL_CODE;
+  const { path: REFERRAL_PATH, url: REFERRAL_URL } = referralLinks(
+    REFERRAL_CODE,
+    viewerIdentity ? viewerIdentity.handle : null,
+  );
 
   // "referrals" es la pestaña activa por defecto para que [data-referrals-card],
   // [data-referral-friends], [data-referral-days] y [data-simulate-referral] estén montados y visibles de inmediato.
@@ -118,14 +130,14 @@ export function AccountReferralsClubView(): React.JSX.Element {
                   color: "var(--share-card-fg)",
                 }}
               >
-                SP
+                {viewerIdentity?.initials ?? "SP"}
               </span>
               <div>
                 <h1 className="m-0 text-2xl sm:text-3xl font-extrabold tracking-tight flex items-center gap-2.5">
                   Mi cuenta <UltraTag />
                 </h1>
                 <p className="m-0 text-xs num" style={{ color: "var(--pl-text-muted)" }}>
-                  @socio_pl · {MEMBERSHIP_SPEC.name}
+                  @{ownHandle} · {MEMBERSHIP_SPEC.name}
                 </p>
               </div>
             </div>
@@ -335,7 +347,7 @@ export function AccountReferralsClubView(): React.JSX.Element {
                         <span className="block text-[11px]" style={{ color: "var(--pl-text-muted)" }}>
                           De parte de
                         </span>
-                        <strong className="text-sm">@socio_pl</strong>
+                        <strong className="text-sm">@{ownHandle}</strong>
                       </div>
                       <span className="pl-gift-card-code num">{REFERRAL_CODE}</span>
                     </div>

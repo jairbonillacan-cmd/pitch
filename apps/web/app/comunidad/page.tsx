@@ -1,5 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
+import { hasPublicSessionCookie } from "../../src/server/public-session";
 import { ComunidadPageSurface } from "@pitchlab/ui";
 import { loadComunidadViewProps } from "../../src/server/public-site-data";
 
@@ -12,6 +13,6 @@ export const metadata: Metadata = {
 };
 
 export default async function ComunidadPage(): Promise<React.JSX.Element> {
-  const props = await loadComunidadViewProps();
-  return <ComunidadPageSurface {...props} />;
+  const [props, hasSession] = await Promise.all([loadComunidadViewProps(), hasPublicSessionCookie()]);
+  return <ComunidadPageSurface {...props} hasSession={hasSession} />;
 }

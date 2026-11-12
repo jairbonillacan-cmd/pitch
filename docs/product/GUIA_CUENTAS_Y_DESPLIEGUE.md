@@ -95,7 +95,7 @@ Con `DATABASE_URL` y `BETTER_AUTH_SECRET` ya puestas, la app cambia sola a cuent
 ## Paso 5 · Resend (el correo con el enlace para entrar)
 
 1. Entra a <https://resend.com> y crea tu cuenta (plan gratis: 3,000 correos al mes).
-2. Abre **Domains → Add Domain**, escribe `pitchlab.mx` y elige la región **North Virginia (us-east-1)**.
+2. Abre **Domains → Add Domain**, escribe `pitchlab.mx` y elige la región **North Virginia (us-east-1)**. Si el DNS está en Cloudflare, usa **Auto configure** para que Resend cree los registros solo.
 3. Resend muestra 3 o 4 registros (`MX` y `TXT` para `send`, `TXT` para `resend._domainkey` y, opcional, `_dmarc`). Créalos en el mismo DNS del paso 2, copiando nombre y valor tal cual.
 4. Regresa a Resend y da clic en **Verify DNS Records**. Espera a que diga **Verified**.
 5. Abre **API Keys → Create API Key**, con nombre `pitchlab-produccion`, permiso **Sending access** y dominio `pitchlab.mx`. **Cópiala en ese momento**: no se vuelve a mostrar.
@@ -150,6 +150,15 @@ Apple queda para después: pide el Apple Developer Program (US$99 al año) y su 
 4. Revisa en Neon (**Tables → users**) que aparezcan tus registros con `is_adult` en `true` y su `birth_date`.
 
 **Si algo falla:** en Vercel abre **Deployments**, elige el más reciente y luego **Logs**. Ahí aparece el error; cópialo al chat, pero **tapa cualquier clave** antes.
+
+## Conectar X
+
+1. Crea una app en el portal de desarrolladores de X. En su configuración de autenticación, habilita OAuth 2.0, elige **Web App** y selecciona permisos de solo lectura. [Documentación de OAuth 2.0 de X](https://docs.x.com/fundamentals/authentication/oauth-2-0/authorization-code)
+2. Registra estas dos URLs de callback.
+   - `https://pitchlab.mx/api/auth/callback/twitter`
+   - `http://localhost:9990/api/auth/callback/twitter`
+3. Guarda el Client ID y el Client Secret como `TWITTER_CLIENT_ID` y `TWITTER_CLIENT_SECRET` en Vercel y en `.env.9990.local`. El botón muestra «Pronto» hasta que existan ambas variables.
+4. Antes del próximo deploy, aplica la migración `0005_perfil_y_conexion_x` a producción y prueba «Conectar X» en el 9990 con las claves reales. Confirma que el usuario que devuelve X aparece en el perfil público y desaparece al desconectar. El proveedor solo se habilita para vincularlo desde una sesión de PitchLab.
 
 ## Después (cuando decidas cobrar)
 

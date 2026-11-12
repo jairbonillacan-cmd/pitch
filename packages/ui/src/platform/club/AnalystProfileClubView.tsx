@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useMemo, useState } from "react";
-import type { LeagueId } from "@pitchlab/contracts";
+import type { LeagueId, PublicMemberProfile } from "@pitchlab/contracts";
+import { EditProfileDialog, XBrandMark, type EditableProfile } from "./EditProfileDialog";
 import { LeagueBadge, TeamBadge } from "../../sports";
 import { formatOddsValue } from "../access-guard";
 import {
@@ -36,7 +37,7 @@ import {
   CommentIcon,
   GiftIcon,
   HeartIcon,
-  OWN_PROFILE_ALIASES,
+  isOwnProfileHandle,
   PickStatus,
   ShareIcon,
   TabPanel,
@@ -81,7 +82,8 @@ interface ResolvedProfile {
   name: string;
   isTipstar: boolean;
   specialty: string;
-  bio: string;
+  bio: string | null;
+  xUsername?: string | null;
   avatarInitials: string;
   avatarGradVar: string;
   joinedAt: string | null;
@@ -136,7 +138,17 @@ function TeamPair({ meta, size = 30 }: { meta: EntryGameMeta; size?: number }): 
   );
 }
 
-export function AnalystProfileClubView({ handle }: { handle: string }): React.JSX.Element {
+export function AnalystProfileClubView({
+  handle,
+  memberProfile,
+  xEnabled = false,
+  xLinkError = false,
+}: {
+  handle: string;
+  memberProfile?: PublicMemberProfile | null;
+  xEnabled?: boolean;
+  xLinkError?: boolean;
+}): React.JSX.Element {
   const {
     dataset,
     journal,
@@ -147,11 +159,36 @@ export function AnalystProfileClubView({ handle }: { handle: string }): React.JS
     toggleSocialLike,
     pushToast,
     navigateTo,
+    viewerIdentity,
+    updateViewerIdentity,
   } = usePlatform();
+  const [edited, setEdited] = useState<EditableProfile | null>(null);
   const { rows, own, today } = useLeaderboardRows();
   const cleanHandle = handle.replace(/^@/, "").trim().toLowerCase();
 
   const profile = useMemo<ResolvedProfile | null>(() => {
+    if (memberProfile) {
+      const details = edited ?? memberProfile;
+      const ownIdentity = viewerIdentity?.handle === details.handle ? viewerIdentity : null;
+      const initials = details.displayName.split(/\s+/).map((word) => word[0]).join("").slice(0, 2).toUpperCase();
+      return {
+        handle: details.handle,
+        name: details.displayName,
+        isTipstar: memberProfile.isTipstar,
+        specialty: "",
+        bio: details.bio,
+        xUsername: details.xUsername,
+        avatarInitials: ownIdentity?.initials ?? initials,
+        avatarGradVar: "var(--avatar-grad-3)",
+        joinedAt: memberProfile.joinedAt,
+        followers: null,
+        following: null,
+        favoriteLeagues: ownIdentity ? favoriteLeagues : [],
+        isExample: false,
+        journal: ownIdentity ? journal : [],
+        postHandles: [details.handle],
+      };
+    }
     const spec = getExampleAnalystSpec(cleanHandle);
     if (spec) {
       const creator = TIPSTAR_CREATORS.find((c) => c.handle === spec.handle);
@@ -177,9 +214,7 @@ export function AnalystProfileClubView({ handle }: { handle: string }): React.JS
         postHandles: [spec.handle],
       };
     }
-    const isOwnAlias =
-      own !== null &&
-      (cleanHandle === own.handle || (OWN_PROFILE_ALIASES as readonly string[]).includes(cleanHandle));
+    const isOwnAlias = isOwnProfileHandle(cleanHandle, own, viewerIdentity !== null);
     if (own && isOwnAlias) {
       return {
         handle: own.handle,
@@ -195,18 +230,26 @@ export function AnalystProfileClubView({ handle }: { handle: string }): React.JS
         favoriteLeagues,
         isExample: false,
         journal: [...journal],
-        postHandles: [own.handle, "jair_founder"],
+        postHandles: viewerIdentity ? [own.handle] : [own.handle, "jair_founder"],
       };
     }
-    // TODO(F4): perfiles ajenos reales desde /api/u/[handle].
     return null;
-  }, [cleanHandle, dataset.games, favoriteLeagues, journal, own, today]);
+  }, [cleanHandle, dataset.games, edited, favoriteLeagues, journal, memberProfile, own, today, viewerIdentity]);
+
+  const saveProfile = (updated: EditableProfile) => {
+    const previousHandle = viewerIdentity?.handle;
+    setEdited(updated);
+    if (viewerIdentity?.displayName !== updated.displayName || previousHandle !== updated.handle) {
+      updateViewerIdentity(updated);
+    }
+    if (previousHandle && previousHandle !== updated.handle) {
+      navigateTo(`/app/u/${updated.handle}`);
+    }
+  };
 
   const isOwn =
-    own !== null &&
     profile !== null &&
-    (profile.handle === own.handle ||
-      (OWN_PROFILE_ALIASES as readonly string[]).includes(cleanHandle));
+    (profile.handle === own?.handle || isOwnProfileHandle(cleanHandle, own, viewerIdentity !== null));
 
   return (
     <AtmosphereStage>
@@ -215,6 +258,9 @@ export function AnalystProfileClubView({ handle }: { handle: string }): React.JS
           <ProfileContent
             profile={profile}
             isOwn={isOwn}
+            onEdit={isOwn && memberProfile ? saveProfile : undefined}
+            xEnabled={xEnabled}
+            xLinkError={isOwn && xLinkError}
             rows={rows}
             today={today}
             dataset={dataset}
@@ -253,6 +299,9 @@ export function AnalystProfileClubView({ handle }: { handle: string }): React.JS
 function ProfileContent({
   profile,
   isOwn,
+  onEdit,
+  xEnabled,
+  xLinkError,
   rows,
   today,
   dataset,
@@ -265,6 +314,9 @@ function ProfileContent({
 }: {
   profile: ResolvedProfile;
   isOwn: boolean;
+  onEdit?: (profile: EditableProfile) => void;
+  xEnabled: boolean;
+  xLinkError: boolean;
   rows: ReturnType<typeof useLeaderboardRows>["rows"];
   today: Date;
   dataset: ReturnType<typeof usePlatform>["dataset"];
@@ -368,9 +420,17 @@ function ProfileContent({
                     <LockIcon />
                     Perfil público
                   </a>
-                  <a href="/app/account" className="pl-prof-btn pl-prof-btn--primary" onClick={go("/app/account")}>
-                    Editar perfil
-                  </a>
+                  {onEdit ? (
+                    <EditProfileDialog
+                      profile={{ displayName: profile.name, handle: profile.handle, bio: profile.bio, xUsername: profile.xUsername ?? null }}
+                      onChange={onEdit}
+                      xEnabled={xEnabled}
+                    />
+                  ) : (
+                    <a href="/app/account" className="pl-prof-btn pl-prof-btn--primary" onClick={go("/app/account")}>
+                      Editar perfil
+                    </a>
+                  )}
                 </>
               ) : (
                 <button
@@ -399,9 +459,22 @@ function ProfileContent({
             {profile.isTipstar ? <TipstarVerifiedBadge /> : <span className="pl-prof-role">Socio</span>}
           </div>
           <p className="pl-prof-handle">
-            @{profile.handle} · {profile.specialty}
+            @{profile.handle}{profile.specialty ? ` · ${profile.specialty}` : ""}
           </p>
-          <p className="pl-prof-bio">{profile.bio}</p>
+          {profile.bio ? <p className="pl-prof-bio">{profile.bio}</p> : null}
+          {profile.xUsername ? (
+            <a
+              className="pl-profile-x-link"
+              href={`https://x.com/${encodeURIComponent(profile.xUsername)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`@${profile.xUsername} en X, abre en otra pestaña`}
+            >
+              <XBrandMark />
+              @{profile.xUsername}
+            </a>
+          ) : null}
+          {xLinkError ? <p className="pl-profile-editor-error" role="status">No se pudo conectar X. Intenta de nuevo.</p> : null}
           <div className="pl-prof-meta num">
             {followerCount !== null ? (
               <span>

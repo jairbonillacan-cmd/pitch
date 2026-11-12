@@ -20,17 +20,6 @@ const DISPOSABLE_DOMAINS = new Set([
   "temp-mail.org",
 ]);
 
-const EXTERNAL_LINK_PATTERNS: readonly RegExp[] = [
-  /https?:\/\//i,
-  /\bwww\./i,
-  /\bt\.me\b/i,
-  /\bwa\.me\b/i,
-  /\btelegram\b/i,
-  /\bdiscord\.gg\b/i,
-  /\bbit\.ly\b/i,
-  /\bwhatsapp\.com\b/i,
-];
-
 /**
  * Regla Cero-Fuga (Q1, Q9, Q12):
  * Un visitante sin suscripción activa solo puede ver:
@@ -167,11 +156,7 @@ export function getSessionWatermark(
   return `@${handle} · PL-8842`;
 }
 
-export function containsExternalLink(input: string): boolean {
-  const trimmed = input.trim();
-  if (!trimmed) return false;
-  return EXTERNAL_LINK_PATTERNS.some((re) => re.test(trimmed));
-}
+export { containsExternalLink } from "@pitchlab/contracts";
 
 /**
  * Normalización anti-abuso $0 MXN (Q8 / Q15):

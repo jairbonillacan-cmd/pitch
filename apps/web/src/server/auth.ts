@@ -11,6 +11,7 @@
  */
 import { randomBytes } from "node:crypto";
 import { betterAuth, type BetterAuthOptions } from "better-auth";
+import { APIError, createAuthMiddleware } from "better-auth/api";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { captcha } from "better-auth/plugins/captcha";
 import { magicLink } from "better-auth/plugins/magic-link";
@@ -24,6 +25,8 @@ import {
   users,
   type Db,
 } from "@pitchlab/db";
+
+import { twitterCredentials, twitterUserInfo } from "./twitter";
 
 export type SendEmail = (to: string, subject: string, html: string) => Promise<void>;
 
@@ -46,7 +49,8 @@ const consoleSender: SendEmail = async (to, subject, html) => {
 /** Liga la cuenta de Better Auth con el perfil de PitchLab (`users`) por correo. */
 export async function linkProfile(db: Db, account: { id: string; email: string; name: string }): Promise<void> {
   const email = account.email.trim().toLowerCase();
-  const [existing] = await db.select().from(users).where(eq(users.email, email));
+  const [existing] = await db.select({ id: users.id, authUserId: users.authUserId })
+    .from(users).where(eq(users.email, email));
   if (existing) {
     if (!existing.authUserId) {
       await db.update(users).set({ authUserId: account.id }).where(eq(users.id, existing.id));
@@ -68,6 +72,13 @@ export async function linkProfile(db: Db, account: { id: string; email: string; 
   throw new Error("No se pudo asignar un código de referido único");
 }
 
+export function pitchLabAuthAdapter(db: Db) {
+  return drizzleAdapter(db, {
+    provider: "pg",
+    schema: { user: authUser, session: authSession, account: authAccount, verification: authVerification },
+  });
+}
+
 export function createAuth(options: {
   db: Db;
   secret: string;
@@ -75,12 +86,22 @@ export function createAuth(options: {
   sendEmail: SendEmail;
   google?: { clientId: string; clientSecret: string };
   apple?: { clientId: string; clientSecret: string };
+  twitter?: { clientId: string; clientSecret: string };
   /** Clave secreta de Cloudflare Turnstile: exige el token al pedir el enlace mágico. */
   turnstileSecret?: string;
 }) {
   const socialProviders: BetterAuthOptions["socialProviders"] = {};
   if (options.google) socialProviders.google = options.google;
   if (options.apple) socialProviders.apple = options.apple;
+  if (options.twitter) {
+    socialProviders.twitter = {
+      ...options.twitter,
+      disableSignUp: true,
+      disableDefaultScope: true,
+      scope: ["users.read", "tweet.read"],
+      getUserInfo: twitterUserInfo,
+    };
+  }
   const turnstile = options.turnstileSecret
     ? [
         captcha({
@@ -95,11 +116,26 @@ export function createAuth(options: {
   return betterAuth({
     secret: options.secret,
     baseURL: options.baseURL,
-    database: drizzleAdapter(options.db, {
-      provider: "pg",
-      schema: { user: authUser, session: authSession, account: authAccount, verification: authVerification },
-    }),
+    database: pitchLabAuthAdapter(options.db),
     socialProviders,
+    account: {
+      accountLinking: {
+        enabled: true,
+      },
+    },
+    hooks: {
+      before: createAuthMiddleware(async (ctx) => {
+        const linkingX = ctx.path === "/link-social" && ctx.body?.provider === "twitter";
+        if (linkingX && !options.twitter) throw new APIError("SERVICE_UNAVAILABLE");
+        if (
+          (ctx.path === "/sign-in/social" && ctx.body?.provider === "twitter") ||
+          (linkingX && ctx.request) ||
+          (ctx.path === "/unlink-account" && ctx.body?.providerId === "twitter")
+        ) {
+          throw new APIError("FORBIDDEN", { message: "Conecta X desde tu perfil." });
+        }
+      }),
+    },
     session: { expiresIn: 60 * 60 * 24 * 30, updateAge: 60 * 60 * 24 },
     plugins: [
       ...turnstile,
@@ -128,6 +164,11 @@ export function createAuth(options: {
 
 export type PitchLabAuth = ReturnType<typeof createAuth>;
 
+/** ¿La app corre en tu propia PC? (`http://localhost` o `http://127.0.0.1`, nunca https). */
+export function isLocalBaseURL(url: string): boolean {
+  return /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?(\/|$)/.test(url);
+}
+
 let cached: PitchLabAuth | null | undefined;
 
 /** Instancia según el entorno; null si faltan DATABASE_URL o BETTER_AUTH_SECRET. */
@@ -141,7 +182,9 @@ export function getAuth(): PitchLabAuth | null {
   }
   const resendKey = process.env.RESEND_API_KEY;
   const from = process.env.AUTH_EMAIL_FROM ?? "PitchLab <acceso@pitchlab.mx>";
-  if (!resendKey && process.env.NODE_ENV === "production") {
+  const baseURL = process.env.BETTER_AUTH_URL ?? "http://localhost:3000";
+  // En tu PC (build de producción en localhost) el enlace sale en la consola del servidor.
+  if (!resendKey && process.env.NODE_ENV === "production" && !isLocalBaseURL(baseURL)) {
     throw new Error("RESEND_API_KEY es obligatoria en producción para enviar enlaces de acceso.");
   }
   const pair = (id?: string, secretValue?: string) =>
@@ -149,10 +192,11 @@ export function getAuth(): PitchLabAuth | null {
   cached = createAuth({
     db: createDb(url) as unknown as Db,
     secret,
-    baseURL: process.env.BETTER_AUTH_URL ?? "http://localhost:3000",
+    baseURL,
     sendEmail: resendKey ? resendSender(resendKey, from) : consoleSender,
     google: pair(process.env.GOOGLE_CLIENT_ID, process.env.GOOGLE_CLIENT_SECRET),
     apple: pair(process.env.APPLE_CLIENT_ID, process.env.APPLE_CLIENT_SECRET),
+    twitter: twitterCredentials(),
     // Solo con las dos claves: si falta la pública, el navegador no podría mandar el token.
     turnstileSecret:
       process.env.TURNSTILE_SECRET_KEY && process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY

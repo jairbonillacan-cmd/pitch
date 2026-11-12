@@ -7,7 +7,7 @@ import { formatOddsValue } from "../access-guard";
 import { LensGlowOrbs, MaestroIcon } from "../components/MaestroPrimitives";
 import { MatchTicketCard } from "../components/MatchTicketCard";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
-import { usePlatform } from "../platform-provider";
+import { ownHandleFor, usePlatform } from "../platform-provider";
 
 export function BitacoraClubView(): React.JSX.Element {
   const {
@@ -20,6 +20,8 @@ export function BitacoraClubView(): React.JSX.Element {
     openShareTicket,
     pushToast,
     navigateTo,
+    viewerIdentity,
+    viewerRole,
   } = usePlatform();
 
   const [publicRecordVisible, setPublicRecordVisible] = useState<boolean>(true);
@@ -96,7 +98,7 @@ export function BitacoraClubView(): React.JSX.Element {
                   openShareTicket({
                     kind: "pick",
                     title: "Récord Verificado · Bitácora PitchLab",
-                    subtitle: `@socio_pl · ${journal.length} boletos sellados`,
+                    subtitle: `@${ownHandleFor(viewerIdentity, viewerRole)} · ${journal.length} boletos sellados`,
                     leagueLabel: "Récord Auditado",
                     pickLabel: `${stats.won}G-${stats.lost}P · ${
                       stats.netUnits >= 0 ? `+${stats.netUnits.toFixed(2)}` : stats.netUnits.toFixed(2)

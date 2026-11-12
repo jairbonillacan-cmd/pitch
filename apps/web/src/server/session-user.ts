@@ -8,7 +8,7 @@ let db: Db | null = null;
 /** Usuario de PitchLab de la sesión actual, o una respuesta de error lista para devolver. */
 export async function requireMember(
   request: Request,
-): Promise<{ db: Db; userId: string } | { error: NextResponse }> {
+): Promise<{ db: Db; userId: string; email: string; authUserId: string } | { error: NextResponse }> {
   const auth = getAuth();
   const url = process.env.DATABASE_URL;
   if (!auth || !url) {
@@ -19,7 +19,7 @@ export async function requireMember(
   db ??= createDb(url) as unknown as Db;
   const userId = await profileIdForAuthUser(db, session.user.id);
   if (!userId) return { error: NextResponse.json({ error: "Perfil no encontrado" }, { status: 404 }) };
-  return { db, userId };
+  return { db, userId, email: session.user.email, authUserId: session.user.id };
 }
 
 /** Correos con acceso a la consola del fundador (PITCHLAB_ADMIN_EMAILS, separados por coma). */

@@ -6,6 +6,7 @@ import {
   type PlatformGame,
   type PlatformGameDetail,
   type RawLeagueInput,
+  type ViewerIdentity,
   type ViewerRole,
 } from "@pitchlab/ui";
 import { getViewerAccess } from "./viewer-access";
@@ -29,6 +30,20 @@ export interface LoadedPlatformState {
   accountsEnabled: boolean;
   /** Política de prueba leída de la base; undefined sin cuentas. */
   serverMonth1NoCardMode?: boolean;
+  /** Socio con cuenta y usuario elegido; null con PIN o visitante. */
+  viewerIdentity: ViewerIdentity | null;
+}
+
+/** Identidad para la interfaz: solo con cuenta y con @usuario ya elegido. */
+export async function loadViewerIdentity(): Promise<ViewerIdentity | null> {
+  const { profile } = await getViewerAccess();
+  if (!profile?.handle) return null;
+  return {
+    handle: profile.handle,
+    displayName: profile.displayName,
+    initials: profile.initials,
+    referralCode: profile.referralCode,
+  };
 }
 
 let flagDb: Db | null = null;
@@ -172,6 +187,7 @@ export async function loadPublicPlatformState(
       allowRoleSimulation: previewToolsEnabled(),
       accountsEnabled: accountsEnabled(),
       serverMonth1NoCardMode: await loadMonth1Flag(),
+      viewerIdentity: await loadViewerIdentity(),
     };
   }
 
@@ -202,6 +218,7 @@ export async function loadPublicPlatformState(
     allowRoleSimulation: false,
     accountsEnabled: accountsEnabled(),
       serverMonth1NoCardMode: await loadMonth1Flag(),
+      viewerIdentity: await loadViewerIdentity(),
   };
 }
 
@@ -222,6 +239,7 @@ export async function loadClubPlatformState(
       allowRoleSimulation: false,
       accountsEnabled: accountsEnabled(),
       serverMonth1NoCardMode: await loadMonth1Flag(),
+      viewerIdentity: await loadViewerIdentity(),
     };
   }
 
@@ -232,5 +250,6 @@ export async function loadClubPlatformState(
     allowRoleSimulation: previewToolsEnabled(),
     accountsEnabled: accountsEnabled(),
       serverMonth1NoCardMode: await loadMonth1Flag(),
+      viewerIdentity: await loadViewerIdentity(),
   };
 }

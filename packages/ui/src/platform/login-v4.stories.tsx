@@ -5,6 +5,7 @@ import { PlatformProvider } from "./platform-provider";
 import { AuthSurfaceV4 } from "./public/AuthAndOnboardingSurfaces";
 import { LoginPreviewPanel } from "./public/LoginPreviewPanel";
 import { LoginSurfaceV4 } from "./public/LoginSurfaceV4";
+import { SignupSurfaceV4 } from "./public/SignupSurfaceV4";
 import type { LandingHeroLeagueCard } from "./public/PublicSiteSections";
 
 const EMPTY_DATASET = buildPlatformDataset([]);
@@ -153,4 +154,49 @@ export const SinVistaPrevia = {
       <AuthSurfaceV4 mode="login" previewSlot={null} />
     </LoginStoryFrame>
   ),
+};
+
+function ConfirmationStory({
+  theme,
+  mode,
+  step,
+}: {
+  theme: "dark" | "light";
+  mode: "login" | "signup";
+  step: "confirmed" | "expired";
+}) {
+  return (
+    <LoginStoryFrame theme={theme} accountsEnabled={false}>
+      {mode === "login" ? (
+        <LoginSurfaceV4 initialStep={step} previewSlot={PREVIEW_SLOT} />
+      ) : (
+        <SignupSurfaceV4 initialStep={step} />
+      )}
+    </LoginStoryFrame>
+  );
+}
+
+export const CorreoConfirmadoOscuro = {
+  render: () => <ConfirmationStory theme="dark" mode="login" step="confirmed" />,
+};
+export const CorreoConfirmadoClaro = {
+  render: () => <ConfirmationStory theme="light" mode="login" step="confirmed" />,
+};
+export const EnlaceVencidoOscuro = {
+  render: () => <ConfirmationStory theme="dark" mode="login" step="expired" />,
+};
+export const EnlaceVencidoClaro = {
+  render: () => <ConfirmationStory theme="light" mode="login" step="expired" />,
+};
+export const RegistroConfirmadoOscuro = {
+  render: () => <ConfirmationStory theme="dark" mode="signup" step="confirmed" />,
+};
+export const RegistroConfirmadoClaro = {
+  render: () => <ConfirmationStory theme="light" mode="signup" step="confirmed" />,
+};
+export const RegistroVencidoOscuro = {
+  render: () => <ConfirmationStory theme="dark" mode="signup" step="expired" />,
+};
+export const RegistroVencidoClaro = {
+  render: () => <ConfirmationStory theme="light" mode="signup" step="expired" />,
 };

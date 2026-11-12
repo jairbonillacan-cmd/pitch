@@ -12,7 +12,15 @@ import {
   turnstileSiteKey,
 } from "../turnstile-client";
 
-export type LoginStep = "email" | "password" | "sent";
+import {
+  EmailConfirmationStatus,
+  emailConfirmationCallbacks,
+  useContinueAfterConfirmation,
+  useEmailConfirmation,
+  type EmailConfirmationStep,
+} from "./email-confirmation";
+
+export type LoginStep = "email" | "password" | EmailConfirmationStep;
 
 export interface LoginSurfaceV4Props {
   nextPath?: string;
@@ -51,7 +59,7 @@ function isPlainLeftClick(event: React.MouseEvent<HTMLAnchorElement>): boolean {
 /** Pide a Better Auth el enlace mágico de acceso. */
 export async function requestLoginMagicLink(
   email: string,
-  callbackURL: string,
+  callbacks: ReturnType<typeof emailConfirmationCallbacks>,
 ): Promise<boolean> {
   try {
     const headers: Record<string, string> = { "content-type": "application/json" };
@@ -63,7 +71,7 @@ export async function requestLoginMagicLink(
     const res = await fetch("/api/auth/sign-in/magic-link", {
       method: "POST",
       headers,
-      body: JSON.stringify({ email, callbackURL }),
+      body: JSON.stringify({ email, ...callbacks }),
     });
     return res.ok;
   } catch (err) {
@@ -188,11 +196,7 @@ export function LoginSurfaceV4({
   const { accountsEnabled, openBetaPin, navigateTo } = usePlatform();
 
   const resolvedInitialStep: LoginStep =
-    initialStep === "sent"
-      ? "sent"
-      : passwordSignInEnabled && initialStep === "password"
-        ? "password"
-        : "email";
+    initialStep === "password" && !passwordSignInEnabled ? "email" : initialStep;
 
   const [step, setStep] = useState<LoginStep>(resolvedInitialStep);
   const [email, setEmail] = useState<string>(initialEmail);
@@ -207,7 +211,26 @@ export function LoginSurfaceV4({
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [resendSecondsLeft, setResendSecondsLeft] = useState<number>(0);
 
+  const [destination, setDestination] = useState<string | null>(null);
+  const [confirmationAttempt, setConfirmationAttempt] = useState(0);
   const emailInputRef = useRef<HTMLInputElement | null>(null);
+  const sentTitleRef = useRef<HTMLHeadingElement>(null);
+
+  useEmailConfirmation(
+    step === "sent" || (step === "confirmed" && !destination) ? step : null,
+    step === "sent" ? sentEmail : "",
+    accountsEnabled,
+    confirmationAttempt,
+    (session) => {
+      setStep("confirmed");
+      setDestination(session.completed ? nextPath : "/signup?paso=2&via=cuenta");
+    },
+    () => setStep("expired"),
+  );
+  useContinueAfterConfirmation(destination);
+  useEffect(() => {
+    if (step === "sent") sentTitleRef.current?.focus();
+  }, [step]);
   const promoCode = sanitizePromoCode(initialPromoCode);
   const signupHref = promoCode
     ? `/signup?code=${encodeURIComponent(promoCode)}`
@@ -267,7 +290,7 @@ export function LoginSurfaceV4({
     }
 
     setSubmitting(true);
-    const ok = await requestLoginMagicLink(cleanEmail, nextPath);
+    const ok = await requestLoginMagicLink(cleanEmail, emailConfirmationCallbacks("login", nextPath));
     setSubmitting(false);
 
     if (ok) {
@@ -319,11 +342,12 @@ export function LoginSurfaceV4({
     }
 
     setSubmitting(true);
-    const ok = await requestLoginMagicLink(sentEmail, nextPath);
+    const ok = await requestLoginMagicLink(sentEmail, emailConfirmationCallbacks("login", nextPath));
     setSubmitting(false);
 
     if (ok) {
       setResendSecondsLeft(RESEND_COOLDOWN_SECONDS);
+      setConfirmationAttempt((current) => current + 1);
       setResendNotice("Enviamos un nuevo enlace a tu correo.");
     } else {
       setResendNotice(
@@ -419,7 +443,11 @@ export function LoginSurfaceV4({
                 </div>
               ) : null}
 
-              {step !== "sent" ? (
+              {step === "confirmed" || step === "expired" ? (
+                <div className="pl-auth-card">
+                  <EmailConfirmationStatus step={step} onRetry={handleUseAnotherEmail} />
+                </div>
+              ) : step !== "sent" ? (
                 <>
                   <div
                     key={`head-${activeFormMode}`}
@@ -621,6 +649,8 @@ export function LoginSurfaceV4({
                   </div>
                   <h1
                     id="pl-login-title"
+                    ref={sentTitleRef}
+                    tabIndex={-1}
                     className="pl-auth-title pl-auth-title--sent"
                   >
                     Revisa tu correo

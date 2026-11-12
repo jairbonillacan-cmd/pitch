@@ -27,6 +27,7 @@ export default async function ClubAppLayout({
       allowRoleSimulation={state.allowRoleSimulation}
       accountsEnabled={state.accountsEnabled}
       serverMonth1NoCardMode={state.serverMonth1NoCardMode}
+      viewerIdentity={state.viewerIdentity}
     >
       {/* Encabezado y barra lateral montados una sola vez; cada página aporta su contenido. */}
       <ClubShellBridge>{children}</ClubShellBridge>

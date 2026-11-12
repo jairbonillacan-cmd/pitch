@@ -14,7 +14,7 @@ import { AstryxScope } from "../../astryx";
 import { BrandLogo, ThemeToggle } from "../../primitives";
 import { LeagueBadge } from "../../sports";
 import { formatUnits, profileRecord } from "../profile-stats";
-import { useAuraColors, usePlatform } from "../platform-provider";
+import { ownHandleFor, useAuraColors, usePlatform } from "../platform-provider";
 import type { OddsFormat } from "../types";
 import {
   MaestroIcon,
@@ -715,7 +715,10 @@ function ClubWorkspaceShellImpl({
     navigateTo,
     oddsFormat,
     setOddsFormat,
+    viewerIdentity,
   } = usePlatform();
+  // Con cuenta, el usuario real; con el PIN de la beta, el de ejemplo según el rol.
+  const ownHandle = ownHandleFor(viewerIdentity, viewerRole);
 
   const [collapsed, toggleCollapsed] = usePersistentRailCollapsed();
   const [leaguesOpen, toggleLeagues] = usePersistentLeaguesOpen();
@@ -744,7 +747,7 @@ function ClubWorkspaceShellImpl({
         },
       ] satisfies ProfileMenuGroup[];
     }
-    const handle = viewerRole === "tipstar" ? "sofia_nfl" : "jair";
+    const handle = ownHandle;
     // El récord va junto a la fila que lleva a él. El tipstar simulado es un perfil de ejemplo.
     const showRecord = viewerRole !== "tipstar" && ownRecord.settled > 0;
     const profileTrail = showRecord ? (
@@ -800,7 +803,7 @@ function ClubWorkspaceShellImpl({
       ],
     });
     return groups;
-  }, [viewerRole, ownRecord, journal.length]);
+  }, [viewerRole, ownRecord, journal.length, ownHandle]);
 
   const docTheme = useDocumentTheme();
   // Teclado: flechas, Inicio y Fin recorren los enlaces del menú.
@@ -855,14 +858,14 @@ function ClubWorkspaceShellImpl({
     [railGroups],
   );
 
-  const profileHandle = viewerRole === "tipstar" ? "@sofia_nfl" : "@jair";
-  const profileSubline =
-    viewerRole === "tipstar"
+  const profileHandle = `@${ownHandle}`;
+  const roleLabel = viewerRole === "tipstar" ? "Tipstar verificado" : viewerRole === "admin" ? "Admin" : "Socio";
+  const profileSubline = viewerIdentity
+    ? `${viewerIdentity.displayName} · ${roleLabel}`
+    : viewerRole === "tipstar"
       ? "Sofía Méndez · Tipstar verificado"
-      : viewerRole === "admin"
-        ? "Admin"
-        : "Socio";
-  const profileInitials = viewerRole === "tipstar" ? "SM" : "JR";
+      : roleLabel;
+  const profileInitials = viewerIdentity?.initials ?? (viewerRole === "tipstar" ? "SM" : "SP");
   const profileGrad =
     viewerRole === "tipstar" ? "var(--avatar-grad-1)" : "var(--avatar-grad-2)";
 

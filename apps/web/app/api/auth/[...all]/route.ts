@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { toNextJsHandler } from "better-auth/next-js";
 import { getAuth } from "../../../../src/server/auth";
+import { finishTwitterLink } from "../../../../src/server/profile-x";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -10,6 +11,7 @@ const notConfigured = () =>
 
 /** /api/auth/* de Better Auth; 503 mientras no existan DATABASE_URL y BETTER_AUTH_SECRET. */
 export async function GET(request: Request): Promise<Response> {
+  if (new URL(request.url).pathname === "/api/auth/callback/twitter") return finishTwitterLink(request);
   const auth = getAuth();
   return auth ? toNextJsHandler(auth).GET(request) : notConfigured();
 }

@@ -5,6 +5,9 @@
 import { createHash } from "node:crypto";
 
 export interface SignupBody {
+  email?: string;
+  displayName: string;
+  handle: string;
   birthDate: string;
   termsVersion: string;
   analyticsConsent: boolean;
@@ -17,12 +20,16 @@ export function parseSignupBody(raw: unknown): SignupBody | null {
   if (!raw || typeof raw !== "object") return null;
   const b = raw as Record<string, unknown>;
   const consents = b.consents as Record<string, unknown> | undefined;
+  if (typeof b.displayName !== "string" || typeof b.handle !== "string") return null;
   if (typeof b.birthDate !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(b.birthDate)) return null;
   if (!consents || consents.terms !== true || typeof consents.version !== "string") return null;
   const version = consents.version.trim().slice(0, 32);
   if (!version) return null;
   const code = typeof b.referralCode === "string" ? b.referralCode.trim().toUpperCase().slice(0, 24) : "";
   return {
+    ...(typeof b.email === "string" ? { email: b.email.trim().toLowerCase() } : {}),
+    displayName: b.displayName.slice(0, 80),
+    handle: b.handle.slice(0, 40),
     birthDate: b.birthDate,
     termsVersion: version,
     analyticsConsent: consents.analytics === true,

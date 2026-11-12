@@ -19,7 +19,10 @@ export const dynamic = "force-dynamic";
 export async function GET(request: Request): Promise<NextResponse> {
   const member = await requireMember(request);
   if ("error" in member) return member.error;
-  return NextResponse.json({ completed: await signupCompleted(member.db, member.userId) });
+  return NextResponse.json({
+    completed: await signupCompleted(member.db, member.userId),
+    email: member.email,
+  }, { headers: { "Cache-Control": "no-store" } });
 }
 
 /** Guarda fecha de nacimiento y consentimientos; concede la prueba y registra el referido. */
@@ -29,6 +32,9 @@ export async function POST(request: Request): Promise<NextResponse> {
   const body = parseSignupBody(await request.json().catch(() => null));
   if (!body) return NextResponse.json({ error: "Datos incompletos" }, { status: 400 });
 
+  if (body.email && body.email !== member.email.toLowerCase()) {
+    return NextResponse.json({ error: "cuenta_distinta" }, { status: 403 });
+  }
   const { db, userId } = member;
   const [profile] = await db
     .select({ email: users.email, authUserId: users.authUserId })
@@ -48,6 +54,8 @@ export async function POST(request: Request): Promise<NextResponse> {
   const trialOn = await getBoolFlag(db, FLAG_MONTH1_NO_CARD, true);
   const result = await completeSignup(db, {
     userId,
+    displayName: body.displayName,
+    handle: body.handle,
     birthDate: body.birthDate,
     termsVersion: body.termsVersion,
     analyticsConsent: body.analyticsConsent,
@@ -64,7 +72,8 @@ export async function POST(request: Request): Promise<NextResponse> {
   });
 
   if (!result.ok) {
-    const status = result.reason === "menor_de_edad" ? 403 : 400;
+    const status =
+      result.reason === "menor_de_edad" ? 403 : result.reason === "usuario_ocupado" ? 409 : 400;
     return NextResponse.json({ error: result.reason }, { status });
   }
   return NextResponse.json(result);

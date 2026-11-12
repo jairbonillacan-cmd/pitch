@@ -7,3 +7,4 @@ export { and, eq, sql } from "drizzle-orm";
 export * from "./admin";
 export * from "./payouts";
 export * from "./signup";
+export * from "./profiles";

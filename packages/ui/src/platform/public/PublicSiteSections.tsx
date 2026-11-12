@@ -836,8 +836,10 @@ export function buildFeaturedCommunityPick(
 export function PublicSiteShell({
   activePath,
   children,
+  hasSession = false,
 }: {
   activePath: PublicNavPath;
+  hasSession?: boolean;
   children: React.ReactNode;
 }): React.JSX.Element {
   return (
@@ -845,7 +847,7 @@ export function PublicSiteShell({
       <a className="skip-link" href="#main">
         Saltar al contenido principal
       </a>
-      <PublicNavBarClient activePath={activePath} />
+      <PublicNavBarClient activePath={activePath} hasSession={hasSession} />
       <main id="main">{children}</main>
       <footer className="pl-lp-footer">
         <div className="pl-lp-wrap pl-lp-footer-inner">
@@ -1843,7 +1845,7 @@ export function FaqSection(): React.JSX.Element {
   );
 }
 
-export function ClosingCtaSection(): React.JSX.Element {
+export function ClosingCtaSection({ hasSession = false }: { hasSession?: boolean } = {}): React.JSX.Element {
   return (
     <section className="pl-lp-closing">
       <div className="pl-lp-wrap">
@@ -1855,7 +1857,7 @@ export function ClosingCtaSection(): React.JSX.Element {
             </p>
             <a
               className="pl-lp-btn pl-lp-btn-primary"
-              href="/signup"
+              href={hasSession ? "/app" : "/signup"}
               style={{ alignSelf: "flex-start" }}
             >
               Probar 7 días gratis{" "}
@@ -1886,11 +1888,13 @@ export function ClosingCtaSection(): React.JSX.Element {
 
 export function ComoFuncionaPageSurface({
   heroCards,
+  hasSession = false,
 }: {
   heroCards: readonly LandingHeroLeagueCard[];
+  hasSession?: boolean;
 }): React.JSX.Element {
   return (
-    <PublicSiteShell activePath="/como-funciona">
+    <PublicSiteShell activePath="/como-funciona" hasSession={hasSession}>
       <section
         className="pl-lp-section pl-lp-section--top"
         style={{ overflow: "hidden" }}
@@ -1910,7 +1914,7 @@ export function ComoFuncionaPageSurface({
               En cada encuentro ves qué resultado es más probable según los datos, cuál es su momio justo sin margen y cómo se compara con el momio de tu casa.
             </p>
             <div className="pl-lp-hero-ctas" style={{ marginTop: 8 }}>
-              <a className="pl-lp-btn pl-lp-btn-primary" href="/signup">
+              <a className="pl-lp-btn pl-lp-btn-primary" href={hasSession ? "/app" : "/signup"}>
                 Probar 7 días gratis{" "}
                 <span className="pl-lp-arr" aria-hidden="true">
                   →
@@ -2022,14 +2026,14 @@ export function ComoFuncionaPageSurface({
         </section>
       ) : null}
 
-      <ClosingCtaSection />
+      <ClosingCtaSection hasSession={hasSession} />
     </PublicSiteShell>
   );
 }
 
-export function MotoresPageSurface(): React.JSX.Element {
+export function MotoresPageSurface({ hasSession = false }: { hasSession?: boolean } = {}): React.JSX.Element {
   return (
-    <PublicSiteShell activePath="/motores">
+    <PublicSiteShell activePath="/motores" hasSession={hasSession}>
       <section
         className="pl-lp-section pl-lp-section--top"
         style={{ overflow: "hidden" }}
@@ -2049,7 +2053,7 @@ export function MotoresPageSurface(): React.JSX.Element {
               Cada motor cumple una tarea distinta: medir fuerza deportiva pura, cruzarla con el mercado sin margen, filtrar ventaja real y explicarla en claro.
             </p>
             <div className="pl-lp-hero-ctas" style={{ marginTop: 8 }}>
-              <a className="pl-lp-btn pl-lp-btn-primary" href="/signup">
+              <a className="pl-lp-btn pl-lp-btn-primary" href={hasSession ? "/app" : "/signup"}>
                 Probar 7 días gratis{" "}
                 <span className="pl-lp-arr" aria-hidden="true">
                   →
@@ -2082,18 +2086,20 @@ export function MotoresPageSurface(): React.JSX.Element {
         </div>
       </section>
 
-      <ClosingCtaSection />
+      <ClosingCtaSection hasSession={hasSession} />
     </PublicSiteShell>
   );
 }
 
 export function ResultadosPageSurface({
   results,
+  hasSession = false,
 }: {
   results: readonly LandingFinishedResultItem[];
+  hasSession?: boolean;
 }): React.JSX.Element {
   return (
-    <PublicSiteShell activePath="/resultados">
+    <PublicSiteShell activePath="/resultados" hasSession={hasSession}>
       <section
         className="pl-lp-section pl-lp-section--top"
         style={{ overflow: "hidden" }}
@@ -2112,7 +2118,7 @@ export function ResultadosPageSurface({
               Cada pick queda registrado antes del inicio del partido y se califica con el marcador oficial al terminar. Nada se borra ni se edita después.
             </p>
             <div className="pl-lp-hero-ctas" style={{ marginTop: 8 }}>
-              <a className="pl-lp-btn pl-lp-btn-primary" href="/signup">
+              <a className="pl-lp-btn pl-lp-btn-primary" href={hasSession ? "/app" : "/signup"}>
                 Probar 7 días gratis{" "}
                 <span className="pl-lp-arr" aria-hidden="true">
                   →
@@ -2130,7 +2136,7 @@ export function ResultadosPageSurface({
         </div>
       </section>
 
-      <ClosingCtaSection />
+      <ClosingCtaSection hasSession={hasSession} />
     </PublicSiteShell>
   );
 }
@@ -2164,11 +2170,13 @@ const PARLAY_CONFLICT_EXAMPLES: ReadonlyArray<{
 
 export function ParlaysPageSurface({
   parlayDemo,
+  hasSession = false,
 }: {
   parlayDemo: LandingParlayDemoData;
+  hasSession?: boolean;
 }): React.JSX.Element {
   return (
-    <PublicSiteShell activePath="/parlays">
+    <PublicSiteShell activePath="/parlays" hasSession={hasSession}>
       <section
         className="pl-lp-section pl-lp-section--top"
         style={{ overflow: "hidden" }}
@@ -2252,21 +2260,23 @@ export function ParlaysPageSurface({
         </div>
       </section>
 
-      <ClosingCtaSection />
+      <ClosingCtaSection hasSession={hasSession} />
     </PublicSiteShell>
   );
 }
 
 export function ComunidadPageSurface({
   featuredPick,
+  hasSession = false,
 }: {
   featuredPick?: LandingFeaturedCommunityPick;
+  hasSession?: boolean;
 }): React.JSX.Element {
   const commissionPct = TIPSTAR_CREATORS[0]?.commissionPct ?? 25;
   const promoFreeDays = TIPSTAR_CREATORS[0]?.freeDays ?? 5;
 
   return (
-    <PublicSiteShell activePath="/comunidad">
+    <PublicSiteShell activePath="/comunidad" hasSession={hasSession}>
       <section
         className="pl-lp-section pl-lp-section--top"
         style={{ overflow: "hidden" }}
@@ -2285,7 +2295,7 @@ export function ComunidadPageSurface({
               Solo escriben socios con su pase activo. Cada publicación queda registrada antes del partido y no acepta enlaces externos ni grupos de spam.
             </p>
             <div className="pl-lp-hero-ctas" style={{ marginTop: 8 }}>
-              <a className="pl-lp-btn pl-lp-btn-primary" href="/signup">
+              <a className="pl-lp-btn pl-lp-btn-primary" href={hasSession ? "/app" : "/signup"}>
                 Probar 7 días gratis{" "}
                 <span className="pl-lp-arr" aria-hidden="true">
                   →
@@ -2451,14 +2461,14 @@ export function ComunidadPageSurface({
         </div>
       </section>
 
-      <ClosingCtaSection />
+      <ClosingCtaSection hasSession={hasSession} />
     </PublicSiteShell>
   );
 }
 
-export function PrecioPageSurface(): React.JSX.Element {
+export function PrecioPageSurface({ hasSession = false }: { hasSession?: boolean } = {}): React.JSX.Element {
   return (
-    <PublicSiteShell activePath="/precio">
+    <PublicSiteShell activePath="/precio" hasSession={hasSession}>
       <PricingSection variant="page" />
 
       <section id="referidos" className="pl-lp-section">
@@ -2555,7 +2565,7 @@ export function PrecioPageSurface(): React.JSX.Element {
       </section>
 
       <FaqSection />
-      <ClosingCtaSection />
+      <ClosingCtaSection hasSession={hasSession} />
     </PublicSiteShell>
   );
 }

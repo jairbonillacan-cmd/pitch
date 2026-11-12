@@ -27,8 +27,8 @@
   - `POST /api/me/signup` (llamado desde `/onboarding`) guarda la fecha de nacimiento y los consentimientos con versión (migración `0004`), da la prueba de 7 días una vez por correo canónico (`trial_fingerprints`) y registra el referido (`referral_grants`, `trial_started`).
   - Turnstile protege `/sign-in/magic-link` con el plugin `captcha` cuando existen `NEXT_PUBLIC_TURNSTILE_SITE_KEY` y `TURNSTILE_SECRET_KEY`.
   - Cerrar sesión también cierra la sesión de la cuenta.
+  - El paso 2 pide nombre y usuario (@handle, único, con revisión en `GET /api/handles/check`). La app muestra el nombre, el @usuario, las iniciales y el código de referido de la cuenta (`ViewerIdentity` en `PlatformProvider`); con el PIN siguen los de ejemplo. Las cuentas sin usuario regresan al paso 2 para elegirlo.
   - Pasos del fundador: `docs/product/GUIA_CUENTAS_Y_DESPLIEGUE.md`.
-- **Peso de página:** `/`, `/login` y `/signup` pesan 489 kB de First Load JS (importan desde la raíz de `@pitchlab/ui`). Revisar contra el presupuesto de 326 kB que mencionaba LOGIN-2.
 - **NOTIF-1 (notificaciones, Fase 1 sin backend):** ✅ 2026-11-12. Propuesta completa en el artifact «Notificaciones PitchLab».
   - `NotificationBell` (`packages/ui/src/platform/components/NotificationInbox.tsx`) reemplaza a `AlertsDrawer` y a `alertsOpen` del provider. Es un popover bajo la campana en escritorio y una hoja en móvil (reusa `.pl-profile-menu`), con filtros por tipo y grupos Ahora / Hoy / Antes.
   - Avisos derivados en `packages/ui/src/platform/notifications.ts` (con pruebas): inicio en 60 min, resultado final y valor (la casa paga más que la cuota justa), todos solo de partidos vigilados; picks bloqueados o calificados de la bitácora; y cierre de jornada de las ligas favoritas.
@@ -36,6 +36,12 @@
   - Stories: `Platform v4 / Notificaciones` (oscuro y claro) y `ClubJornadaConEncabezado`.
   - **Pendiente Fase 2:** tabla `notifications` y `GET/POST /notifications`, ruta `/app/notifications`, ajustes en `/app/account/notifications`, avisos de movimiento de línea (requiere historial de cuotas) y de Cuenta (prueba, pago, referidos).
   - **Pendiente Fase 3:** correo de resumen y push.
+- **SESION-PERFIL (confirmación por correo, sesión y perfil):** 2026-11-12.
+  - Login y registro confirman el enlace en su propia pantalla y avisan a la pestaña original. El paso 2 guarda perfil, consentimientos y prueba en una transacción que admite reintentos.
+  - Login y el paso inicial de registro redirigen cuando ya hay sesión. La barra pública usa la presencia de cookies para mostrar «Ir a la app».
+  - El editor de perfil actualiza el nombre, el @usuario y la bio en el encabezado, el perfil y Comunidad. La API pública devuelve solo los campos del perfil. El @usuario anterior deja de resolver.
+  - Migración `0005_perfil_y_conexion_x` aplicada en Neon `local-9990`. X queda disponible al configurar ambas claves. Pendiente para el próximo deploy: aplicar `0005` a producción y probar la conexión y desconexión con las claves reales. La foto de perfil sigue pendiente.
+- **Peso de página:** `/`, `/login` y `/signup` pesan 489 kB de First Load JS (importan desde la raíz de `@pitchlab/ui`). Revisar contra el presupuesto de 326 kB que mencionaba LOGIN-2.
 - **Siguiente:** ver «Pendiente (en orden)».
 
 El clon previo de TouchIQ (Vite + `src/domain` con 24 tests dorados) quedó archivado en la rama `archive/touchiq-reconstruction` (ADR-018) y sus motores matemáticos viven ahora en `packages/engines-reference` con adaptadores limpios para snapshots reales.

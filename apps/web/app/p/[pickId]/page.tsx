@@ -20,6 +20,7 @@ export default async function PublicTipstarPickPage({
       allowRoleSimulation={state.allowRoleSimulation}
       accountsEnabled={state.accountsEnabled}
       serverMonth1NoCardMode={state.serverMonth1NoCardMode}
+      viewerIdentity={state.viewerIdentity}
     >
       <PublicTipstarPickSurface pickSlug={pickId} />
     </PlatformClientBridge>

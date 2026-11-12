@@ -19,7 +19,7 @@ import {
 import { usePlatform } from "../platform-provider";
 import { TIPSTAR_CREATORS } from "../spacetime-catalog";
 import type { RiskBand } from "../types";
-import { LoginSurfaceV4 } from "./LoginSurfaceV4";
+import { LoginSurfaceV4, type LoginStep } from "./LoginSurfaceV4";
 import { flushSignupDetails, SignupSurfaceV4 } from "./SignupSurfaceV4";
 
 export function AuthSurfaceV4({
@@ -28,12 +28,14 @@ export function AuthSurfaceV4({
   initialPromoCode = "",
   previewSlot = null,
   passwordSignInEnabled = false,
+  loginStep,
 }: {
   mode: "login" | "signup";
   nextPath?: string;
   initialPromoCode?: string;
   previewSlot?: React.ReactNode;
   passwordSignInEnabled?: boolean;
+  loginStep?: LoginStep;
 }): React.JSX.Element {
   if (mode === "login") {
     return (
@@ -42,6 +44,7 @@ export function AuthSurfaceV4({
         initialPromoCode={initialPromoCode}
         previewSlot={previewSlot}
         passwordSignInEnabled={passwordSignInEnabled}
+        initialStep={loginStep}
       />
     );
   }
@@ -75,12 +78,27 @@ export function OnboardingSurfaceV4(): React.JSX.Element {
   useEffect(() => {
     if (!accountsEnabled) return;
     let cancelled = false;
-    void flushSignupDetails().then((result) => {
+    const finishSignup = async () => {
+      try {
+        const trial = window.sessionStorage.getItem("pitchlab.signup.trial");
+        window.sessionStorage.removeItem("pitchlab.signup.trial");
+        if (trial === "concedida" || trial === "ya_usada" || trial === "apagada") {
+          return { status: "saved", trial } as const;
+        }
+      } catch {
+        // Continue without a message if browser storage is unavailable.
+      }
+      return flushSignupDetails();
+    };
+    void finishSignup().then((result) => {
       if (cancelled) return;
       if (result.status === "saved" && result.trial === "concedida") {
         pushToast("Tu prueba de 7 días ya está activa.", "success");
       } else if (result.status === "saved" && result.trial === "ya_usada") {
         pushToast("Este correo ya usó su prueba gratis.", "warning");
+      } else if (result.status === "handle_taken") {
+        pushToast("Ese usuario lo acaba de tomar alguien más. Elige otro.", "warning");
+        navigateTo("/signup?paso=2&via=cuenta");
       } else if (result.status === "underage") {
         pushToast("PitchLab es solo para mayores de 18.", "warning");
         navigateTo("/");
