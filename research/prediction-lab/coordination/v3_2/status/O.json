@@ -1,0 +1,48 @@
+{
+  "agent_id": "O",
+  "role": "orchestrator",
+  "wave": 0,
+  "state": "completed",
+  "started_at": "2026-11-12T14:39:06Z",
+  "finished_at": "2026-11-12T14:45:00Z",
+  "worktrees": {
+    "prediction_lab": {
+      "path": "C:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/prediction-lab",
+      "branch": "prediction-lab",
+      "base_commit": "f3564a4266c33441db9c2f36714073b7516d37e6"
+    },
+    "web_scraping": {
+      "path": "C:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/web-scraping",
+      "branch": "web-scraping",
+      "base_commit": "3a8b3c0"
+    }
+  },
+  "frozen_artifacts_sha256": {
+    "src/data/prediction/production_segments_v3_1.json": "0bc03bbff96a5d82a1a7858e1e8623bf7bfdb250c546d2773a71d56ed9ada9bc",
+    "src/data/prediction/blend_weights_v3_1.json": "b29d7a451f6011126997c122778b42ad3239c78337d17c5fa78d550f5c92739b",
+    "src/data/prediction/pick_policy_v3_1.json": "2359c8f8822ea394a380202c04e0bcd010d1a3fae7c5c25b8c11ebe810bfb7d1",
+    "src/data/prediction/stale_lines_config.json": "8bcb9c7be93270cde0cac2d58bc19f0381184dd2e769f358dd28334db2a05eac"
+  },
+  "files_written": [
+    "research/prediction-lab/coordination/v3_2/MASTER.md",
+    "research/prediction-lab/coordination/v3_2/CONTRACT_OUTLOOK.md",
+    "research/prediction-lab/coordination/v3_2/CONTRACT_ODDS_TIMESERIES.md",
+    "research/prediction-lab/coordination/v3_2/status/O.json"
+  ],
+  "commands_run": [
+    "npx vitest run",
+    ".\\research\\prediction-lab\\.venv\\Scripts\\python.exe -m pytest services/models -v",
+    "Get-FileHash -Algorithm SHA256 src/data/prediction/production_segments_v3_1.json"
+  ],
+  "metrics": {
+    "vitest_files_passed": 57,
+    "vitest_files_skipped": 1,
+    "vitest_tests_passed": 1126,
+    "vitest_tests_skipped": 1,
+    "pytest_tests_passed": 85,
+    "production_segments_enabled": 0,
+    "production_segments_total": 60
+  },
+  "open_issues": [],
+  "next": "Lanzar Ola 1 en paralelo: b1-outlook, b2-gate, b3-capture, b4-calibration."
+}
