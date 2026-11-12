@@ -80,8 +80,21 @@ Copia lo que imprime y pégalo directo en Vercel. Usa uno distinto para cada var
    $env:DATABASE_URL="postgresql://…"; pnpm --filter @pitchlab/db migrate
    ```
 
-   Debe terminar sin errores. Si después hay migraciones nuevas, se corre el mismo comando.
-   Antes del próximo deploy faltan en producción `0005_perfil_y_conexion_x`, `0006_correos_programados` y `0007_comunidad`; el comando aplica solo las que falten. Córrelo **antes** de publicar la versión nueva, porque esa versión ya usa esas tablas.
+   Debe terminar sin errores. Para los siguientes deploys usa el paso **Antes de cada deploy** de abajo.
+
+### Antes de cada deploy (migrar primero, desplegar después)
+
+Siempre sigue este orden cuando haya cambios de base de datos: **primero migrar producción y después desplegar en Vercel**, porque el código nuevo espera encontrar las columnas y tablas nuevas apenas arranca.
+
+1. En PowerShell, dentro de la carpeta del proyecto (con `neon login` activo), corre:
+
+   ```powershell
+   powershell -ExecutionPolicy Bypass -File scripts/migrate-prod.ps1
+   ```
+
+2. El script consulta la rama `main` de Neon sin mostrar la cadena de conexión y enlista qué archivos de `packages/db/migrations` faltan frente a `drizzle.__drizzle_migrations` (por ejemplo `0005_perfil_y_conexion_x`, `0006_correos_programados`, `0007_comunidad` y las siguientes). Si ya está al día, avisa y termina sin tocar nada.
+3. Revisa la lista, escribe `MIGRAR` (en mayúsculas) para confirmar y espera el mensaje verde `Migraciones aplicadas en produccion (rama main).`.
+4. Recién cuando la migración termine sin errores, haz `git push` o **Deploy / Redeploy** en Vercel.
 
 ## Paso 4 · Encender las cuentas (Better Auth)
 
