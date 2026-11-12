@@ -1,12 +1,58 @@
 import React, { useState } from "react";
 import { NotificationInboxPanel } from "./components/NotificationInbox";
-import type { PlatformNotification } from "./notifications";
+import { fromServerSocialNotification, type PlatformNotification } from "./notifications";
 
 /* Avisos de ejemplo (partidos y momios inventados para la story; no son datos de la jornada). */
 const NOW = new Date("2026-11-14T19:30:00Z");
 const ago = (min: number) => new Date(NOW.getTime() - min * 60_000).toISOString();
 
+const SOCIAL_SAMPLE: PlatformNotification[] = [
+  fromServerSocialNotification(
+    {
+      id: "notif-comment-1",
+      kind: "comment",
+      actorHandle: "ana_mx",
+      actorName: "Ana López",
+      postId: "post-101",
+      postExcerpt: "Cruz Azul +0.5 tiene valor frente al consenso actual",
+      likeCount: 0,
+      createdAt: ago(2),
+      readAt: null,
+    },
+    NOW,
+  ),
+  fromServerSocialNotification(
+    {
+      id: "notif-follow-1",
+      kind: "follow",
+      actorHandle: "beto_nfl",
+      actorName: "Roberto Ruiz",
+      postId: null,
+      postExcerpt: null,
+      likeCount: 0,
+      createdAt: ago(15),
+      readAt: null,
+    },
+    NOW,
+  ),
+  fromServerSocialNotification(
+    {
+      id: "notif-like-1",
+      kind: "like",
+      actorHandle: "lupita_mx",
+      actorName: "Lupita Gómez",
+      postId: "post-101",
+      postExcerpt: "Cruz Azul +0.5 tiene valor frente al consenso actual",
+      likeCount: 4,
+      createdAt: ago(35),
+      readAt: null,
+    },
+    NOW,
+  ),
+];
+
 const SAMPLE: PlatformNotification[] = [
+  ...SOCIAL_SAMPLE,
   {
     id: "value:ame-caz",
     kind: "cuotas",
@@ -130,3 +176,8 @@ export const HojaMovil = {
   parameters: { viewport: { defaultViewport: "mobile1" } },
 };
 export const HojaMovilClaro = { ...HojaMovil, globals: { theme: "light" } };
+
+export const SoloComunidadOscuro = {
+  render: () => <Frame items={SOCIAL_SAMPLE} />,
+};
+export const SoloComunidadClaro = { ...SoloComunidadOscuro, globals: { theme: "light" } };

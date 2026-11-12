@@ -44,7 +44,7 @@ interface PausedSocialMember {
   email: string;
 }
 
-interface ModerationPanelResponse {
+export interface ModerationPanelResponse {
   pendingQueue: ModerationQueueItem[];
   hiddenItems: ModerationHiddenItem[];
   pausedMembers: PausedSocialMember[];
@@ -101,7 +101,11 @@ interface AdminPromoRow {
   monthlyMxn: number;
 }
 
-export function FounderAdminClubView(): React.JSX.Element {
+export function FounderAdminClubView({
+  storyModeration,
+}: {
+  storyModeration?: ModerationPanelResponse;
+} = {}): React.JSX.Element {
   const {
     dataset,
     month1NoCardMode,
@@ -116,17 +120,22 @@ export function FounderAdminClubView(): React.JSX.Element {
   const [newCreatorHandle, setNewCreatorHandle] = useState<string>("");
   const [newCreatorEmail, setNewCreatorEmail] = useState<string>("");
   const [serverOverview, setServerOverview] = useState<AdminOverviewData | null>(null);
-  const [moderation, setModeration] = useState<ModerationPanelResponse>({
-    pendingQueue: [],
-    hiddenItems: [],
-    pausedMembers: [],
-  });
-  const [moderationLoading, setModerationLoading] = useState<boolean>(accountsEnabled);
+  const [moderation, setModeration] = useState<ModerationPanelResponse>(
+    () =>
+      storyModeration ?? {
+        pendingQueue: [],
+        hiddenItems: [],
+        pausedMembers: [],
+      },
+  );
+  const [moderationLoading, setModerationLoading] = useState<boolean>(
+    accountsEnabled && !storyModeration,
+  );
   const [moderationError, setModerationError] = useState<string | null>(null);
   const [moderationBusyKey, setModerationBusyKey] = useState<string | null>(null);
 
   const loadModeration = useCallback(async () => {
-    if (!accountsEnabled) {
+    if (!accountsEnabled || storyModeration) {
       setModerationLoading(false);
       return;
     }
@@ -154,7 +163,7 @@ export function FounderAdminClubView(): React.JSX.Element {
     } finally {
       setModerationLoading(false);
     }
-  }, [accountsEnabled]);
+  }, [accountsEnabled, storyModeration]);
 
   useEffect(() => {
     void loadModeration();

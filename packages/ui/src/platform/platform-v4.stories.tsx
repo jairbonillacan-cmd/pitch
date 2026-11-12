@@ -434,6 +434,11 @@ export const ClubSocialVip = {
   ),
 };
 
+export const ClubSocialVipClaro = {
+  ...ClubSocialVip,
+  globals: { theme: "light" },
+};
+
 export const ClubTipstarCreatorPortal = {
   render: () => (
     <StoryShell role="tipstar">
@@ -472,4 +477,72 @@ export const ClubFounderAdmin = {
       <FounderAdminClubView />
     </StoryShell>
   ),
+};
+
+export const ClubFounderAdminModeracionOscuro = {
+  globals: { theme: "dark" },
+  render: () => (
+    <StoryShell role="admin">
+      <FounderAdminClubView
+        storyModeration={{
+          pendingQueue: [
+            {
+              targetType: "post",
+              targetId: "post-mod-1",
+              postId: "post-mod-1",
+              body: "Entren a mi grupo privado para picks garantizados sin perder jamás.",
+              isHiddenByModeration: true,
+              authorUserId: "u-spam-1",
+              authorHandle: "raul_picks",
+              authorName: "Raúl Vega",
+              authorPaused: false,
+              reportCount: 3,
+              reasons: ["spam_enlaces", "apuesta_riesgosa"],
+              latestReportAt: "2026-11-14T19:20:00Z",
+            },
+            {
+              targetType: "comment",
+              targetId: "comment-mod-2",
+              postId: "post-mod-9",
+              body: "Comentario fuera de tono en el hilo del partido.",
+              isHiddenByModeration: false,
+              authorUserId: "u-mod-2",
+              authorHandle: "carlos_mx",
+              authorName: "Carlos Soto",
+              authorPaused: false,
+              reportCount: 1,
+              reasons: ["ofensivo"],
+              latestReportAt: "2026-11-14T19:10:00Z",
+            },
+          ],
+          hiddenItems: [
+            {
+              targetType: "post",
+              targetId: "post-mod-1",
+              postId: "post-mod-1",
+              body: "Entren a mi grupo privado para picks garantizados sin perder jamás.",
+              authorUserId: "u-spam-1",
+              authorHandle: "raul_picks",
+              authorName: "Raúl Vega",
+              authorPaused: false,
+              createdAt: "2026-11-14T18:55:00Z",
+            },
+          ],
+          pausedMembers: [
+            {
+              userId: "u-paused-1",
+              handle: "diego_spam",
+              displayName: "Diego Morales",
+              email: "diego@example.com",
+            },
+          ],
+        }}
+      />
+    </StoryShell>
+  ),
+};
+
+export const ClubFounderAdminModeracionClaro = {
+  ...ClubFounderAdminModeracionOscuro,
+  globals: { theme: "light" },
 };
