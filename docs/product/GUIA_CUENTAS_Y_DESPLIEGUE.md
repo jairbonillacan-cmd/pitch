@@ -30,6 +30,7 @@
 | `RESEND_API_KEY`, `AUTH_EMAIL_FROM`, `EMAIL_FROM`, `PITCHLAB_SUPPORT_EMAIL` | Resend | 5 |
 | `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` | Google Cloud | 6 |
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY` | Cloudflare | 7 |
+| `BLOB_READ_WRITE_TOKEN` | Vercel (**Storage → Blob**, opcional) | Foto de perfil |
 
 **Cómo generar un secreto:** en una terminal dentro de la carpeta del proyecto, corre:
 
@@ -92,7 +93,7 @@ Siempre sigue este orden cuando haya cambios de base de datos: **primero migrar 
    powershell -ExecutionPolicy Bypass -File scripts/migrate-prod.ps1
    ```
 
-2. El script consulta la rama `main` de Neon sin mostrar la cadena de conexión y enlista qué archivos de `packages/db/migrations` faltan frente a `drizzle.__drizzle_migrations` (por ejemplo `0005_perfil_y_conexion_x`, `0006_correos_programados`, `0007_comunidad` y las siguientes). Si ya está al día, avisa y termina sin tocar nada.
+2. El script consulta la rama `main` de Neon sin mostrar la cadena de conexión y enlista qué archivos de `packages/db/migrations` faltan frente a `drizzle.__drizzle_migrations` (hoy en producción faltan `0005_perfil_y_conexion_x`, `0006_correos_programados`, `0007_comunidad`, `0008_notificaciones`, `0009_moderacion_comunidad` y `0010_avatar_perfil`). Si ya está al día, avisa y termina sin tocar nada.
 3. Revisa la lista, escribe `MIGRAR` (en mayúsculas) para confirmar y espera el mensaje verde `Migraciones aplicadas en produccion (rama main).`.
 4. Recién cuando la migración termine sin errores, haz `git push` o **Deploy / Redeploy** en Vercel.
 
@@ -166,6 +167,16 @@ Apple queda para después: pide el Apple Developer Program (US$99 al año) y su 
 4. Revisa en Neon (**Tables → users**) que aparezcan tus registros con `is_adult` en `true` y su `birth_date`.
 
 **Si algo falla:** en Vercel abre **Deployments**, elige el más reciente y luego **Logs**. Ahí aparece el error; cópialo al chat, pero **tapa cualquier clave** antes.
+
+## Foto de perfil (Vercel Blob)
+
+La foto de perfil de cada socio (`POST /api/me/avatar`) se recorta a un cuadrado de 256 px y se guarda en **Vercel Blob**. Mientras no exista `BLOB_READ_WRITE_TOKEN`, el botón en «Editar perfil» muestra **«Pronto»** y el resto del perfil sigue usando las iniciales.
+
+1. En Vercel, entra al proyecto `pitchlab` y abre la pestaña **Storage** (en algunas vistas está en el menú lateral de tu equipo como **Storage → Create Database / Store**).
+2. Elige **Blob** (*Serverless Object Storage*), ponle nombre `pitchlab-avatars` y selecciona acceso **Public** (las fotos de perfil se muestran en Comunidad y perfiles públicos).
+3. Conecta el store al proyecto `pitchlab` marcando **Production** y **Preview**. Vercel crea y guarda sola la variable `BLOB_READ_WRITE_TOKEN` en **Settings → Environment Variables**.
+4. Asegúrate de haber corrido antes `scripts/migrate-prod.ps1` (incluye `0010_avatar_perfil`, que agrega `users.avatar_url`) y haz **Redeploy** en **Deployments** para que la app tome la variable.
+5. Si quieres probar la subida en tu PC (`9990`), copia el token de desarrollo desde el panel del Blob Store a `.env.9990.local` como `BLOB_READ_WRITE_TOKEN=…` (nunca al repo).
 
 ## Conectar X
 
