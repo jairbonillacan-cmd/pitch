@@ -398,6 +398,13 @@ const tailwindThemeBlock = `
 }
 `;
 
+// Colores del escenario oscuro de la landing (--pl-*), para quien no puede usar variables CSS (correos).
+const darkStageCss = derivedAndLightCss.slice(0, derivedAndLightCss.indexOf("--pl-stage-bg: #F1F2F6"));
+const stageDark = {};
+for (const m of darkStageCss.matchAll(/^\s*(--pl-[a-z0-9-]+):\s*((?:#[0-9A-Fa-f]{3,8}|rgba?\([^)]*\)));/gm)) {
+  stageDark[m[1]] = m[2];
+}
+
 const tokensCss = `${brandCss}\n${derivedAndLightCss}`;
 const themeCss = `@import "tailwindcss";\n${tokensCss}\n${tailwindThemeBlock}`;
 
@@ -436,6 +443,8 @@ export const DERIVED_DARK_TOKENS = {
   "--on-primary": "var(--background-primary)",
   "--glow": "#B49AFF26"
 } as const;
+
+export const STAGE_DARK_TOKENS = ${JSON.stringify(stageDark, null, 2)} as const;
 
 export type BrandTokenKey = keyof typeof BRAND_TOKENS;
 `;

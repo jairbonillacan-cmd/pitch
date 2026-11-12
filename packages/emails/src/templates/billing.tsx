@@ -1,5 +1,5 @@
 import { siteUrl } from "../brand";
-import { Cta, Facts, greeting, Notice, P, Title } from "../components";
+import { Cta, Eyebrow, Facts, greeting, Notice, P, Stat, Title } from "../components";
 import { EmailLayout } from "../layout";
 
 /* 8 · Pago confirmado ------------------------------------------------------------------- */
@@ -13,8 +13,6 @@ export interface PaymentReceiptProps {
   periodLabel: string;
   cardLast4?: string;
   receiptUrl?: string;
-  /** Si el usuario tiene datos fiscales, la factura llega en otro correo. */
-  invoiceComing?: boolean;
 }
 
 export const paymentReceiptSubject = ({ amountLabel }: PaymentReceiptProps) => `Recibimos tu pago de ${amountLabel}`;
@@ -27,22 +25,21 @@ export function PaymentReceiptEmail({
   periodLabel,
   cardLast4,
   receiptUrl,
-  invoiceComing = false,
 }: PaymentReceiptProps) {
   return (
     <EmailLayout preview={`Pago confirmado: ${amountLabel} por ${planName}.`}>
+      <Eyebrow>Cobro</Eyebrow>
       <Title>Pago confirmado</Title>
-      <P>{greeting(name)} Gracias, recibimos tu pago. Aquí está tu resumen:</P>
+      <P>{greeting(name)} Recibimos tu pago.</P>
+      <Stat value={amountLabel} label="Total pagado, IVA incluido" />
       <Facts
         rows={[
           ["Plan", planName],
           ["Periodo", periodLabel],
           ["Fecha de pago", paidOn],
           ...(cardLast4 ? ([["Tarjeta", `•••• ${cardLast4}`]] as const) : []),
-          ["Total (IVA incluido)", amountLabel],
         ]}
       />
-      {invoiceComing ? <Notice tone="success">Tu factura CFDI 4.0 llega en un correo aparte, en unos minutos.</Notice> : null}
       {receiptUrl ? <Cta href={receiptUrl}>Ver recibo</Cta> : null}
     </EmailLayout>
   );
@@ -64,15 +61,16 @@ export const paymentFailedSubject = () => "No pudimos cobrar tu plan de PitchLab
 export function PaymentFailedEmail({ name, planName, amountLabel, graceUntil, updateCardUrl }: PaymentFailedProps) {
   return (
     <EmailLayout preview={`Actualiza tu tarjeta antes del ${graceUntil} para no perder el acceso.`}>
+      <Eyebrow>Cobro</Eyebrow>
       <Title>No pudimos cobrar tu plan</Title>
       <P>
         {greeting(name)} Intentamos cobrar {amountLabel} de tu plan {planName} y el banco no lo aceptó.
       </P>
+      <Stat value={amountLabel} label="No se pudo cobrar" tone="warning" />
       <Notice tone="warning">
         Conservas todo tu acceso hasta el {graceUntil}. Si para entonces no actualizas tu tarjeta, tu cuenta pasa a Free.
       </Notice>
       <Cta href={updateCardUrl}>Actualizar mi tarjeta</Cta>
-      <P muted>Tu bitácora y tu historial no se borran, pase lo que pase.</P>
     </EmailLayout>
   );
 }
@@ -94,6 +92,7 @@ export const cfdiInvoiceSubject = ({ folio }: CfdiInvoiceProps) => `Tu factura C
 export function CfdiInvoiceEmail({ name, folio, amountLabel, issuedOn, legalName, downloadUrl }: CfdiInvoiceProps) {
   return (
     <EmailLayout preview={`Factura ${folio} por ${amountLabel}. PDF y XML adjuntos.`}>
+      <Eyebrow>Facturación</Eyebrow>
       <Title>Tu factura está lista</Title>
       <P>{greeting(name)} Adjuntamos tu factura en PDF y XML (CFDI 4.0).</P>
       <Facts
@@ -129,6 +128,7 @@ export function RefundEmail({ name, kind, amountLabel, happenedOn, arrivalNote }
     <EmailLayout
       preview={kind === "refund" ? `Reembolso de ${amountLabel} procesado.` : `Disputa de ${amountLabel} recibida.`}
     >
+      <Eyebrow>Cobro</Eyebrow>
       <Title>{kind === "refund" ? "Reembolso procesado" : "Recibimos una disputa de tu pago"}</Title>
       <P>
         {greeting(name)}{" "}
@@ -136,11 +136,10 @@ export function RefundEmail({ name, kind, amountLabel, happenedOn, arrivalNote }
           ? "Ya procesamos tu reembolso."
           : "Tu banco nos avisó de una disputa sobre un cargo de PitchLab. Mientras se resuelve, pausamos el acceso de pago de tu cuenta."}
       </P>
-      <Facts
-        rows={[
-          ["Monto", amountLabel],
-          ["Fecha", happenedOn],
-        ]}
+      <Stat
+        value={amountLabel}
+        label={kind === "refund" ? `Reembolsado el ${happenedOn}` : `Disputado el ${happenedOn}`}
+        tone={kind === "refund" ? "success" : "warning"}
       />
       {kind === "refund" ? (
         <P muted>{arrivalNote ?? "Puede tardar de 5 a 10 días hábiles en verse en tu estado de cuenta."}</P>
@@ -172,6 +171,7 @@ export function SubscriptionCanceledEmail({
 }: SubscriptionCanceledProps) {
   return (
     <EmailLayout preview={`Conservas ${planName} hasta el ${accessUntil}.`}>
+      <Eyebrow>Tu plan</Eyebrow>
       <Title>Cancelaste tu plan</Title>
       <P>
         {greeting(name)} Tu plan {planName} no se renovará. Conservas todo el acceso hasta el {accessUntil}; después tu
@@ -183,9 +183,9 @@ export function SubscriptionCanceledEmail({
   );
 }
 
-/* 13 · Pago de comisión Tipstar --------------------------------------------------------- */
+/* 13 · Pago de comisión Tipster --------------------------------------------------------- */
 
-export interface TipstarPayoutProps {
+export interface TipsterPayoutProps {
   name?: string;
   amountLabel: string;
   periodLabel: string;
@@ -193,18 +193,19 @@ export interface TipstarPayoutProps {
   detailUrl: string;
 }
 
-export const tipstarPayoutSubject = ({ amountLabel }: TipstarPayoutProps) => `Tu pago de comisión: ${amountLabel}`;
+export const tipsterPayoutSubject = ({ amountLabel }: TipsterPayoutProps) => `Tu pago de comisión: ${amountLabel}`;
 
-export function TipstarPayoutEmail({ name, amountLabel, periodLabel, paidOn, detailUrl }: TipstarPayoutProps) {
+export function TipsterPayoutEmail({ name, amountLabel, periodLabel, paidOn, detailUrl }: TipsterPayoutProps) {
   return (
     <EmailLayout preview={`Liquidamos ${amountLabel} de tus comisiones de ${periodLabel}.`}>
+      <Eyebrow>Tipster</Eyebrow>
       <Title>Liquidamos tu comisión</Title>
-      <P>{greeting(name)} Ya enviamos el pago de tus comisiones como Tipstar oficial.</P>
+      <P>{greeting(name)} Ya enviamos el pago de tus comisiones como Tipster oficial.</P>
+      <Stat value={amountLabel} label="Comisión liquidada" />
       <Facts
         rows={[
           ["Periodo", periodLabel],
           ["Fecha de pago", paidOn],
-          ["Total", amountLabel],
         ]}
       />
       <Cta href={detailUrl}>Ver el detalle</Cta>

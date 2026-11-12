@@ -8,3 +8,4 @@ export * from "./admin";
 export * from "./payouts";
 export * from "./signup";
 export * from "./profiles";
+export * from "./emails";

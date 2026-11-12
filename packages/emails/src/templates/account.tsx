@@ -1,5 +1,5 @@
 import { siteUrl } from "../brand";
-import { Cta, Facts, FallbackLink, greeting, Notice, P, Steps, TextLink, Title } from "../components";
+import { Cta, Eyebrow, Facts, FallbackLink, greeting, Notice, P, Steps, Title } from "../components";
 import { EmailLayout } from "../layout";
 
 /* 1 · Enlace de acceso ------------------------------------------------------------------ */
@@ -15,6 +15,7 @@ export const magicLinkSubject = () => "Tu acceso a PitchLab";
 export function MagicLinkEmail({ url, minutes = 15 }: MagicLinkProps) {
   return (
     <EmailLayout preview={`Tu enlace para entrar a PitchLab. Vence en ${minutes} minutos.`}>
+      <Eyebrow>Acceso</Eyebrow>
       <Title>Entra a PitchLab</Title>
       <P>
         Da clic en el botón para entrar sin contraseña. El enlace vence en {minutes} minutos y solo funciona una vez.
@@ -30,7 +31,8 @@ export function MagicLinkEmail({ url, minutes = 15 }: MagicLinkProps) {
 
 export interface WelcomeProps {
   name?: string;
-  trialDays?: number;
+  /** Días de prueba. `null` si la persona no recibió prueba (ya la usó antes). */
+  trialDays?: number | null;
   appUrl?: string;
 }
 
@@ -38,19 +40,23 @@ export const welcomeSubject = () => "Bienvenido a PitchLab";
 
 export function WelcomeEmail({ name, trialDays = 7, appUrl = `${siteUrl()}/app` }: WelcomeProps) {
   return (
-    <EmailLayout preview="Lo más probable de cada partido, con su cuota justa. Así empiezas.">
+    <EmailLayout
+      preview={trialDays ? `Tu cuenta está lista. Tienes ${trialDays} días de prueba, sin tarjeta.` : "Tu cuenta está lista."}
+    >
+      <Eyebrow>Bienvenida</Eyebrow>
       <Title>Bienvenido a PitchLab</Title>
-      <P>{greeting(name)} Tu cuenta ya está lista. Lo más probable de cada partido, con su cuota justa.</P>
-      <P>Tienes {trialDays} días de prueba, sin tarjeta. Para sacarles provecho, empieza por aquí:</P>
+      <P>
+        {greeting(name)} Tu cuenta está lista
+        {trialDays ? ` y tienes ${trialDays} días de prueba, sin tarjeta` : ""}. Empieza por aquí:
+      </P>
       <Steps
         items={[
           "Abre un partido y revisa su resultado más probable.",
-          "Compara la cuota justa con la que paga la casa: si la casa paga más, hay valor.",
+          "Compara el momio justo con el de tu casa: si tu casa paga más, hay valor.",
           "Guarda tu pick en la bitácora y mira cómo le fue contra el cierre.",
         ]}
       />
       <Cta href={appUrl}>Ir a mis partidos</Cta>
-      <P muted>La decisión siempre es tuya: PitchLab te da información, no una garantía.</P>
     </EmailLayout>
   );
 }
@@ -83,6 +89,7 @@ export function TrialEndingEmail({
 }: TrialEndingProps) {
   return (
     <EmailLayout preview={`Quedan ${daysLeft} días de tu prueba. Esto es lo que pasa después.`}>
+      <Eyebrow>Tu prueba</Eyebrow>
       <Title>Quedan {daysLeft} días de tu prueba</Title>
       <P>{greeting(name)} Tu prueba de {planName} termina el {endsOn}. Esto es lo que pasa después:</P>
       <Facts
@@ -121,9 +128,10 @@ export const trialEndedSubject = ({ outcome }: TrialEndedProps) =>
 export function TrialEndedEmail({ name, outcome, planName, chargedLabel, nextChargeOn, manageUrl }: TrialEndedProps) {
   if (outcome === "renewed") {
     return (
-      <EmailLayout preview={`Tu plan ${planName} está activo. Gracias por quedarte.`}>
-        <Title>Tu plan está activo</Title>
-        <P>{greeting(name)} Gracias por quedarte. Tu prueba terminó y ya tienes {planName}.</P>
+      <EmailLayout preview={`Tu plan ${planName} está activo.`}>
+        <Eyebrow>Tu plan</Eyebrow>
+      <Title>Tu plan está activo</Title>
+        <P>{greeting(name)} Tu prueba terminó y ya tienes {planName}.</P>
         <Facts
           rows={[
             ["Plan", planName],
@@ -138,9 +146,10 @@ export function TrialEndedEmail({ name, outcome, planName, chargedLabel, nextCha
   }
   return (
     <EmailLayout preview="Tu cuenta pasó a Free. Tu bitácora y tu historial se quedan contigo.">
+      <Eyebrow>Tu prueba</Eyebrow>
       <Title>Tu prueba terminó</Title>
       <P>{greeting(name)} Tu cuenta pasó a Free y no se te cobró nada. Tu bitácora y tu historial se quedan contigo.</P>
-      <P>Cuando quieras volver a ver todo lo más probable de cada partido, puedes elegir un plan.</P>
+      <P>Si quieres volver al acceso completo, elige un plan.</P>
       <Cta href={manageUrl}>Ver planes</Cta>
     </EmailLayout>
   );
@@ -178,6 +187,7 @@ export function SecurityNoticeEmail({ name, kind, provider, device, location, wh
   if (location) rows.push(["Ubicación aproximada", location]);
   return (
     <EmailLayout preview={`${headline}. Si fuiste tú, no tienes que hacer nada.`}>
+      <Eyebrow>Seguridad</Eyebrow>
       <Title>{headline}</Title>
       <P>
         {greeting(name)}{" "}
@@ -190,9 +200,6 @@ export function SecurityNoticeEmail({ name, kind, provider, device, location, wh
         Si fuiste tú, no tienes que hacer nada. Si no reconoces esto, cierra todas tus sesiones desde tu cuenta.
       </Notice>
       <Cta href={secureUrl}>Revisar mi cuenta</Cta>
-      <P muted>
-        ¿Dudas? Escríbenos desde <TextLink href={`${siteUrl()}/legal/privacidad`}>nuestro aviso de privacidad</TextLink>.
-      </P>
     </EmailLayout>
   );
 }

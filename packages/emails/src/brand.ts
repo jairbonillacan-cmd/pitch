@@ -1,24 +1,29 @@
-import { BRAND_TOKENS } from "@pitchlab/tokens";
+import { STAGE_DARK_TOKENS as T } from "@pitchlab/tokens";
 
 /**
- * Marca de los correos. Los colores salen de `@pitchlab/tokens` (tema oscuro): los clientes de
- * correo no entienden variables CSS, así que se resuelven aquí a valores literales.
+ * Marca de los correos: el mismo escenario oscuro de la landing (negro puro, violeta claro, verde).
+ * Los clientes de correo no entienden variables CSS, así que los tokens de `@pitchlab/tokens`
+ * se resuelven aquí a valores literales.
  */
 export const COLORS = {
-  page: BRAND_TOKENS["--background-primary"],
-  card: BRAND_TOKENS["--surface-default"],
-  cardSoft: BRAND_TOKENS["--background-secondary"],
-  border: BRAND_TOKENS["--border-default"],
-  text: BRAND_TOKENS["--text-primary"],
-  textSecondary: BRAND_TOKENS["--text-secondary"],
-  textMuted: BRAND_TOKENS["--text-muted"],
-  primary: BRAND_TOKENS["--brand-primary"],
-  onPrimary: BRAND_TOKENS["--background-primary"],
-  accent: BRAND_TOKENS["--brand-accent"],
-  success: BRAND_TOKENS["--success"],
-  warning: BRAND_TOKENS["--warning"],
-  danger: BRAND_TOKENS["--danger"],
-  info: BRAND_TOKENS["--info"],
+  page: T["--pl-stage-bg"],
+  card: T["--pl-stage-subtle"],
+  well: T["--pl-surface"],
+  border: T["--pl-border"],
+  borderStrong: T["--pl-border-strong"],
+  rule: T["--pl-row-rule"],
+  text: T["--pl-text"],
+  textSecondary: T["--pl-text-secondary"],
+  textMuted: T["--pl-text-muted"],
+  brand: T["--pl-brand"],
+  accent: T["--pl-accent"],
+  success: T["--pl-success"],
+  warning: T["--pl-warning"],
+  danger: T["--pl-danger"],
+  info: T["--pl-info"],
+  glow: T["--pl-glow"],
+  buttonBg: T["--pl-btn-primary-bg"],
+  buttonFg: T["--pl-btn-primary-fg"],
 } as const;
 
 export const FONT_STACK =
@@ -35,7 +40,14 @@ export function supportEmail(): string {
 
 /** PNG generado por `pnpm --filter @pitchlab/emails logos` (Gmail y Outlook no muestran SVG). */
 export function logoUrl(): string {
+  // Para la vista previa local (archivo en disco) o un CDN distinto.
+  if (process.env.EMAIL_LOGO_URL) return process.env.EMAIL_LOGO_URL;
   return `${siteUrl()}/brand/email/pitchlab-horizontal.png`;
+}
+
+/** Fuente de la marca para Apple Mail e iOS; el resto cae a la tipografía del sistema. */
+export function fontUrl(): string {
+  return `${siteUrl()}/fonts/InterVariable.woff2`;
 }
 
 export const LEGAL_LINE =

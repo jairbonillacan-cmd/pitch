@@ -16,6 +16,7 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { captcha } from "better-auth/plugins/captcha";
 import { magicLink } from "better-auth/plugins/magic-link";
 import { eq } from "@pitchlab/db";
+import { renderEmail } from "@pitchlab/emails";
 import {
   authAccount,
   authSession,
@@ -28,14 +29,14 @@ import {
 
 import { twitterCredentials, twitterUserInfo } from "./twitter";
 
-export type SendEmail = (to: string, subject: string, html: string) => Promise<void>;
+export type SendEmail = (to: string, subject: string, html: string, text?: string) => Promise<void>;
 
 export function resendSender(apiKey: string, from: string): SendEmail {
-  return async (to, subject, html) => {
+  return async (to, subject, html, text) => {
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: { authorization: `Bearer ${apiKey}`, "content-type": "application/json" },
-      body: JSON.stringify({ from, to, subject, html }),
+      body: JSON.stringify({ from, to, subject, html, text }),
     });
     if (!res.ok) throw new Error(`Resend respondió ${res.status}`);
   };
@@ -142,11 +143,8 @@ export function createAuth(options: {
       magicLink({
         expiresIn: 15 * 60,
         sendMagicLink: async ({ email, url }) => {
-          await options.sendEmail(
-            email,
-            "Tu acceso a PitchLab",
-            `<p>Entra a PitchLab con este enlace (vence en 15 minutos):</p><p><a href="${url}">Entrar a PitchLab</a></p><p>Si no lo pediste, ignora este correo.</p>`,
-          );
+          const { subject, html, text } = await renderEmail("magic-link", { url, minutes: 15 });
+          await options.sendEmail(email, subject, html, text);
         },
       }),
     ],

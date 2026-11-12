@@ -29,16 +29,49 @@ import {
   refundSubject,
   SubscriptionCanceledEmail,
   subscriptionCanceledSubject,
-  TipstarPayoutEmail,
-  tipstarPayoutSubject,
+  TipsterPayoutEmail,
+  tipsterPayoutSubject,
   type CfdiInvoiceProps,
   type PaymentFailedProps,
   type PaymentReceiptProps,
   type RefundProps,
   type SubscriptionCanceledProps,
-  type TipstarPayoutProps,
+  type TipsterPayoutProps,
 } from "./templates/billing";
+import { ContentRemovedEmail, contentRemovedSubject, type ContentRemovedProps } from "./templates/community";
 import { WeeklyDigestEmail, weeklyDigestSubject, type WeeklyDigestProps } from "./templates/digest";
+import {
+  AccessExpiredEmail,
+  accessExpiredSubject,
+  RenewalReminderEmail,
+  renewalReminderSubject,
+  type AccessExpiredProps,
+  type RenewalReminderProps,
+} from "./templates/plan";
+import {
+  MonthlyRecordEmail,
+  monthlyRecordSubject,
+  PickGradedEmail,
+  pickGradedSubject,
+  type MonthlyRecordProps,
+  type PickGradedProps,
+} from "./templates/product";
+import {
+  ReferralAmbassadorEmail,
+  referralAmbassadorSubject,
+  ReferralReversedEmail,
+  referralReversedSubject,
+  type ReferralAmbassadorProps,
+  type ReferralReversedProps,
+} from "./templates/referral-extras";
+import {
+  TipsterActivatedEmail,
+  tipsterActivatedSubject,
+  TipsterNewSubscriberEmail,
+  tipsterNewSubscriberSubject,
+  type TipsterActivatedProps,
+  type TipsterNewSubscriberProps,
+} from "./templates/tipster";
 import {
   InviteEmail,
   inviteSubject,
@@ -53,8 +86,8 @@ import {
 
 /** Cada correo: componente, asunto y datos de ejemplo (para la vista previa y las pruebas). */
 interface Definition<P> {
-  /** Fase de construcción: A cuentas y prueba · B referidos · C cobro · D producto y seguridad. */
-  phase: "A" | "B" | "C" | "D";
+  /** Fase de construcción: A cuentas y prueba · B referidos · C cobro · D producto y seguridad · E Tipster y comunidad. */
+  phase: "A" | "B" | "C" | "D" | "E";
   label: string;
   Component: (props: P) => ReactElement;
   subject: (props: P) => string;
@@ -148,7 +181,6 @@ export const EMAIL_TEMPLATES = {
       periodLabel: "12 nov – 12 dic 2026",
       cardLast4: "4242",
       receiptUrl: EXAMPLE_URL,
-      invoiceComing: true,
     },
   }),
   "payment-failed": define<PaymentFailedProps>({
@@ -192,17 +224,137 @@ export const EMAIL_TEMPLATES = {
     subject: subscriptionCanceledSubject,
     sample: { name: "Sofía", planName: "Pase PitchLab Ultra", accessUntil: "12 de diciembre", resumeUrl: EXAMPLE_URL },
   }),
-  "tipstar-payout": define<TipstarPayoutProps>({
-    phase: "C",
-    label: "Pago de comisión Tipstar",
-    Component: TipstarPayoutEmail,
-    subject: tipstarPayoutSubject,
+  "tipster-payout": define<TipsterPayoutProps>({
+    phase: "E",
+    label: "Pago de comisión Tipster",
+    Component: TipsterPayoutEmail,
+    subject: tipsterPayoutSubject,
     sample: {
       name: "Sofía",
       amountLabel: "$1,247.50 MXN",
       periodLabel: "octubre 2026",
       paidOn: "14 de noviembre de 2026",
       detailUrl: EXAMPLE_URL,
+    },
+  }),
+  "renewal-reminder": define<RenewalReminderProps>({
+    phase: "C",
+    label: "Tu plan se renueva",
+    Component: RenewalReminderEmail,
+    subject: renewalReminderSubject,
+    sample: {
+      name: "Sofía",
+      planName: "Pase PitchLab Ultra anual",
+      daysLeft: 7,
+      renewsOn: "19 de noviembre de 2027",
+      amountLabel: "$2,390.00 MXN",
+      cardLast4: "4242",
+      manageUrl: EXAMPLE_URL,
+    },
+  }),
+  "access-expired": define<AccessExpiredProps>({
+    phase: "C",
+    label: "Pasó a Free por falta de pago",
+    Component: AccessExpiredEmail,
+    subject: accessExpiredSubject,
+    sample: { name: "Sofía", planName: "Pase PitchLab Ultra", updateCardUrl: EXAMPLE_URL },
+  }),
+  "referral-ambassador": define<ReferralAmbassadorProps>({
+    phase: "B",
+    label: "Ya eres embajador",
+    Component: ReferralAmbassadorEmail,
+    subject: referralAmbassadorSubject,
+    sample: {
+      name: "Sofía",
+      count: 5,
+      bonusDays: 30,
+      planName: "Pase PitchLab Ultra",
+      accessUntil: "12 de enero",
+      referralsUrl: EXAMPLE_URL,
+    },
+  }),
+  "referral-reversed": define<ReferralReversedProps>({
+    phase: "B",
+    label: "Recompensa revertida",
+    Component: ReferralReversedEmail,
+    subject: referralReversedSubject,
+    sample: { name: "Sofía", days: 15, accessUntil: "27 de noviembre", referralsUrl: EXAMPLE_URL },
+  }),
+  "pick-graded": define<PickGradedProps>({
+    phase: "D",
+    label: "Pick calificado",
+    Component: PickGradedEmail,
+    subject: pickGradedSubject,
+    sample: {
+      name: "Sofía",
+      result: "won",
+      matchLabel: "Cruz Azul vs Pumas",
+      leagueLabel: "Liga MX",
+      pickLabel: "Gana Cruz Azul",
+      userOddsLabel: "-130",
+      fairOddsLabel: "-138",
+      clvLabel: "+3.2 pts",
+      journalUrl: EXAMPLE_URL,
+      settingsUrl: EXAMPLE_URL,
+    },
+  }),
+  "monthly-record": define<MonthlyRecordProps>({
+    phase: "D",
+    label: "Tu mes en PitchLab",
+    Component: MonthlyRecordEmail,
+    subject: monthlyRecordSubject,
+    sample: {
+      name: "Sofía",
+      monthLabel: "octubre 2026",
+      balanceLabel: "+4.5 u",
+      balancePositive: true,
+      hitsLabel: "12 de 20",
+      clvLabel: "+1.8 pts",
+      rankLabel: "#41",
+      bestLeague: { name: "Liga MX", record: "7 de 10" },
+      journalUrl: EXAMPLE_URL,
+      settingsUrl: EXAMPLE_URL,
+    },
+  }),
+  "tipster-activated": define<TipsterActivatedProps>({
+    phase: "E",
+    label: "Código Tipster activo",
+    Component: TipsterActivatedEmail,
+    subject: tipsterActivatedSubject,
+    sample: {
+      name: "Sofía",
+      promoCode: "SOFIA5",
+      trialDays: 5,
+      commissionPct: 25,
+      shareUrl: "https://pitchlab.mx/signup?code=SOFIA5",
+      dashboardUrl: EXAMPLE_URL,
+    },
+  }),
+  "tipster-new-subscriber": define<TipsterNewSubscriberProps>({
+    phase: "E",
+    label: "Nueva suscripción con tu código",
+    Component: TipsterNewSubscriberEmail,
+    subject: tipsterNewSubscriberSubject,
+    sample: {
+      name: "Sofía",
+      promoCode: "SOFIA5",
+      planName: "Pase PitchLab Ultra",
+      commissionLabel: "$55.60 MXN",
+      netLabel: "$222.41 MXN",
+      payableOn: "26 de noviembre de 2026",
+      commissionsUrl: EXAMPLE_URL,
+    },
+  }),
+  "content-removed": define<ContentRemovedProps>({
+    phase: "E",
+    label: "Publicación retirada",
+    Component: ContentRemovedEmail,
+    subject: contentRemovedSubject,
+    sample: {
+      name: "Sofía",
+      removedOn: "12 de noviembre de 2026",
+      reason: "Incluía un enlace de afiliado",
+      rulesUrl: EXAMPLE_URL,
     },
   }),
   "weekly-digest": define<WeeklyDigestProps>({
@@ -264,6 +416,8 @@ export interface RenderedEmail {
 export async function renderEmail<K extends EmailTemplateId>(id: K, props: PropsOf<K>): Promise<RenderedEmail> {
   const def = EMAIL_TEMPLATES[id] as unknown as Definition<PropsOf<K>>;
   const element = def.Component(props);
-  const [html, text] = await Promise.all([render(element), render(element, { plainText: true })]);
+  const [rawHtml, text] = await Promise.all([render(element), render(element, { plainText: true })]);
+  // React 19 agrega <link rel="preload"> para las imágenes: en un correo no sirve y estorba.
+  const html = rawHtml.replace(/<link rel="preload"[^>]*\/?>/g, "");
   return { subject: def.subject(props), html, text };
 }

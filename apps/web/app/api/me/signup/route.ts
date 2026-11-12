@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextResponse, after } from "next/server";
 import {
   authAccount,
   completeSignup,
@@ -9,6 +9,8 @@ import {
   users,
 } from "@pitchlab/db";
 import { normalizeTrialEmail } from "@pitchlab/ui";
+import { startAccountEmails } from "../../../../src/server/account-emails";
+import { getMailer } from "../../../../src/server/mailer";
 import { requireMember } from "../../../../src/server/session-user";
 import { parseSignupBody, trialHashes } from "../../../../src/server/signup";
 
@@ -76,5 +78,17 @@ export async function POST(request: Request): Promise<NextResponse> {
       result.reason === "menor_de_edad" ? 403 : result.reason === "usuario_ocupado" ? 409 : 400;
     return NextResponse.json({ error: result.reason }, { status });
   }
+
+  // Bienvenida y avisos de la prueba. Va después de responder: un fallo de correo no rompe el registro.
+  // Es seguro repetirlo: cada correo se reserva una sola vez por persona.
+  after(() =>
+    startAccountEmails(db, getMailer(), {
+      userId,
+      email: profile.email,
+      displayName: body.displayName,
+      trialGranted: result.trial === "concedida",
+      now: new Date(),
+    }).catch((error) => console.error("[correo] registro:", error)),
+  );
   return NextResponse.json(result);
 }

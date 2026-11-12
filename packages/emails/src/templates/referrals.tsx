@@ -1,5 +1,5 @@
 import { siteUrl } from "../brand";
-import { Cta, Facts, FallbackLink, greeting, Notice, P, Title } from "../components";
+import { Cta, Eyebrow, Facts, FallbackLink, greeting, Notice, P, Title } from "../components";
 import { EmailLayout } from "../layout";
 
 /* 5 · Tu amigo se registró -------------------------------------------------------------- */
@@ -22,6 +22,7 @@ export function ReferralSignedUpEmail({
 }: ReferralSignedUpProps) {
   return (
     <EmailLayout preview={`${friendName} entró con tu código.`}>
+      <Eyebrow>Referidos</Eyebrow>
       <Title>{friendName} ya está dentro</Title>
       <P>
         {greeting(name)} {friendName} creó su cuenta con tu invitación
@@ -47,19 +48,20 @@ export interface ReferralRewardedProps {
   referralsUrl?: string;
 }
 
-export const referralRewardedSubject = ({ rewardDays = 30 }: ReferralRewardedProps) =>
+export const referralRewardedSubject = ({ rewardDays = 15 }: ReferralRewardedProps) =>
   `Ganaste ${rewardDays} días de PitchLab`;
 
 export function ReferralRewardedEmail({
   name,
   friendName,
-  rewardDays = 30,
+  rewardDays = 15,
   planName,
   accessUntil,
   referralsUrl = `${siteUrl()}/app/account/referrals`,
 }: ReferralRewardedProps) {
   return (
     <EmailLayout preview={`${friendName} se quedó. Sumamos ${rewardDays} días a tu cuenta.`}>
+      <Eyebrow>Referidos</Eyebrow>
       <Title>Ganaste {rewardDays} días</Title>
       <P>
         {greeting(name)} {friendName} se quedó en PitchLab y ya pasó el periodo de reembolso. Agregamos{" "}
@@ -72,7 +74,6 @@ export function ReferralRewardedEmail({
         ]}
       />
       <Cta href={referralsUrl}>Ver mis invitaciones</Cta>
-      <P muted>Las recompensas dependen solo de que tus invitados se queden, nunca de tus pronósticos.</P>
     </EmailLayout>
   );
 }
@@ -94,8 +95,9 @@ export const inviteSubject = ({ inviterName }: InviteProps) =>
 export function InviteEmail({ inviterName, planName, days, inviteUrl, expiresOn }: InviteProps) {
   return (
     <EmailLayout preview={`${days} días de ${planName}, sin tarjeta.`}>
+      <Eyebrow>Invitación</Eyebrow>
       <Title>{inviterName ? `${inviterName} te invitó a PitchLab` : "Te invitaron a PitchLab"}</Title>
-      <P>Lo más probable de cada partido, con su cuota justa. Con esta invitación tienes:</P>
+      <P>Con esta invitación tienes:</P>
       <Facts
         rows={[
           ["Acceso", `${days} días de ${planName}`],

@@ -53,3 +53,6 @@ data/history/quality_reports/
 
 # Salida del test de experimentos AztecaVet (se regenera al correr pnpm test)
 packages/engines-reference/evidence/
+
+# Vista previa de correos
+packages/emails/.preview/

@@ -1,6 +1,6 @@
 // Vista previa local: genera una galería HTML con los 15 correos en packages/emails/.preview/
 // Uso: pnpm --filter @pitchlab/emails preview   (luego abre .preview/index.html)
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -8,6 +8,11 @@ import { EMAIL_TEMPLATES, renderEmail, type EmailTemplateId } from "../src/regis
 
 // En local el logo vive en el servidor de desarrollo.
 process.env.BETTER_AUTH_URL ??= "http://localhost:3000";
+// El logo se incrusta en la vista previa, para que se vea sin servidor y en cualquier visor.
+const logoPng = await readFile(
+  join(dirname(fileURLToPath(import.meta.url)), "..", "..", "..", "apps", "web", "public", "brand", "email", "pitchlab-horizontal.png"),
+);
+process.env.EMAIL_LOGO_URL ??= `data:image/png;base64,${logoPng.toString("base64")}`;
 
 const out = join(dirname(fileURLToPath(import.meta.url)), "..", ".preview");
 await mkdir(out, { recursive: true });

@@ -27,7 +27,7 @@
 | `BETTER_AUTH_SECRET` | Secreto generado | 4 |
 | `BETTER_AUTH_URL` | `https://pitchlab.mx` | 4 |
 | `PITCHLAB_ADMIN_EMAILS` | Tu correo | 4 |
-| `RESEND_API_KEY`, `AUTH_EMAIL_FROM` | Resend | 5 |
+| `RESEND_API_KEY`, `AUTH_EMAIL_FROM`, `EMAIL_FROM`, `PITCHLAB_SUPPORT_EMAIL` | Resend | 5 |
 | `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` | Google Cloud | 6 |
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY` | Cloudflare | 7 |
 
@@ -102,6 +102,8 @@ Con `DATABASE_URL` y `BETTER_AUTH_SECRET` ya puestas, la app cambia sola a cuent
 6. En Vercel, agrega:
    - `RESEND_API_KEY`: la clave que copiaste.
    - `AUTH_EMAIL_FROM`: `PitchLab <acceso@pitchlab.mx>`
+   - `EMAIL_FROM`: `PitchLab <hola@pitchlab.mx>` (bienvenida y avisos de la prueba)
+   - `PITCHLAB_SUPPORT_EMAIL`: el correo al que responde la gente y que sale en el pie de cada correo.
 7. Ahora sí, haz **Redeploy**.
 
 ## Paso 6 · Entrar con Google

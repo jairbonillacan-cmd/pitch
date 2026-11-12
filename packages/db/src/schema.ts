@@ -112,11 +112,39 @@ export const userPreferences = pgTable(
     favoriteLeagues: text("favorite_leagues").array().notNull().default(sql`'{}'::text[]`),
     unitMxnCentavos: integer("unit_mxn_centavos").notNull().default(10000),
     publicRecordVisible: boolean("public_record_visible").notNull().default(true),
+    /** Correo cuando se califica un pick de la bitácora. Solo con consentimiento: apagado por defecto. */
+    emailPickResults: boolean("email_pick_results").notNull().default(false),
     updatedAt: ts("updated_at").notNull().defaultNow(),
   },
   (t) => [
     check("user_preferences_odds_ck", sql`${t.oddsFormat} IN ('american', 'decimal')`),
     check("user_preferences_risk_ck", sql`${t.riskPreference} IN ('conservador', 'medio', 'arriesgado')`),
+  ],
+);
+
+/**
+ * Correos transaccionales que ya se mandaron o quedaron programados en Resend. Una fila por
+ * persona y tipo: evita duplicados y guarda el id de Resend para poder cancelar el envío
+ * (por ejemplo, el aviso de fin de prueba cuando la persona se suscribe antes).
+ */
+export const scheduledEmails = pgTable(
+  "scheduled_emails",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    userId: uuid("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    /** `welcome`, `trial_ending` o `trial_ended`. */
+    kind: text("kind").notNull(),
+    /** Id del correo en Resend. */
+    providerId: text("provider_id"),
+    sendAt: ts("send_at").notNull(),
+    status: text("status").notNull().default("pending"),
+    createdAt: createdAt(),
+  },
+  (t) => [
+    uniqueIndex("scheduled_emails_user_kind_uq").on(t.userId, t.kind),
+    check("scheduled_emails_status_ck", sql`${t.status} IN ('pending', 'scheduled', 'sent', 'canceled', 'failed')`),
   ],
 );
 
