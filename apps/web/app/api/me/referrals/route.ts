@@ -15,6 +15,7 @@ export async function GET(request: Request): Promise<NextResponse> {
         handle: users.handle,
         displayName: users.displayName,
         email: users.email,
+        avatarUrl: users.avatarUrl,
       })
       .from(users)
       .where(eq(users.id, member.userId)),
@@ -28,6 +29,7 @@ export async function GET(request: Request): Promise<NextResponse> {
     handle: u?.handle ?? null,
     displayName: u?.displayName ?? null,
     email: u?.email ?? null,
+    avatarUrl: u?.avatarUrl ?? null,
     isTipstar: Boolean(tipstar),
   });
 }

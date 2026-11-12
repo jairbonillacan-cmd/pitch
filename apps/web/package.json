@@ -23,11 +23,13 @@
     "@pitchlab/tokens": "workspace:*",
     "@pitchlab/ui": "workspace:*",
     "@stylexjs/stylex": "0.19.1",
+    "@vercel/blob": "2.8.2",
     "better-auth": "1.7.19",
     "drizzle-orm": "0.45.4",
     "next": "^15.1.7",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "sharp": "0.35.5"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.10.1",

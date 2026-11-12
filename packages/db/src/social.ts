@@ -71,6 +71,7 @@ export interface FeedComment {
   id: string;
   authorHandle: string;
   authorName: string;
+  authorAvatarUrl: string | null;
   record: string;
   body: string;
   createdAt: string;
@@ -81,6 +82,7 @@ export interface FeedPost {
   id: string;
   authorHandle: string;
   authorName: string;
+  authorAvatarUrl: string | null;
   authorIsTipstar: boolean;
   roleBadge: string;
   record: string;
@@ -215,7 +217,12 @@ export async function addSocialComment(
   now: Date,
 ): Promise<AddCommentResult> {
   const [author] = await db
-    .select({ handle: users.handle, displayName: users.displayName, socialPauseEnabled: users.socialPauseEnabled })
+    .select({
+      handle: users.handle,
+      displayName: users.displayName,
+      avatarUrl: users.avatarUrl,
+      socialPauseEnabled: users.socialPauseEnabled,
+    })
     .from(users)
     .where(eq(users.id, userId));
   if (!author?.handle) return { ok: false, reason: "sin_usuario" };
@@ -255,6 +262,7 @@ export async function addSocialComment(
       id: row!.id,
       authorHandle: author.handle,
       authorName: author.displayName ?? author.handle,
+      authorAvatarUrl: author.avatarUrl ?? null,
       record,
       body: body.trim(),
       createdAt: row!.createdAt.toISOString(),
@@ -396,6 +404,7 @@ export async function listSocialFeed(db: Db, viewerUserId: string | null, query:
       authorUserId: socialPosts.authorUserId,
       authorHandle: users.handle,
       authorName: users.displayName,
+      authorAvatarUrl: users.avatarUrl,
       authorIsTipstar: sql<boolean>`${tipstarProfiles.userId} is not null`,
       roleBadge: socialPosts.authorRoleBadgeSnapshot,
       record: socialPosts.authorRecordSnapshot,
@@ -433,6 +442,7 @@ export async function listSocialFeed(db: Db, viewerUserId: string | null, query:
         authorUserId: socialComments.authorUserId,
         authorHandle: users.handle,
         authorName: users.displayName,
+        authorAvatarUrl: users.avatarUrl,
         record: socialComments.authorRecordSnapshot,
         body: socialComments.body,
         createdAt: socialComments.createdAt,
@@ -458,6 +468,7 @@ export async function listSocialFeed(db: Db, viewerUserId: string | null, query:
         id: c.id,
         authorHandle: c.authorHandle!,
         authorName: c.authorName ?? c.authorHandle!,
+        authorAvatarUrl: c.authorAvatarUrl ?? null,
         record: c.record,
         body: c.body,
         createdAt: c.createdAt.toISOString(),
@@ -471,6 +482,7 @@ export async function listSocialFeed(db: Db, viewerUserId: string | null, query:
     id: r.id,
     authorHandle: r.authorHandle!,
     authorName: r.authorName ?? r.authorHandle!,
+    authorAvatarUrl: r.authorAvatarUrl ?? null,
     authorIsTipstar: Boolean(r.authorIsTipstar),
     roleBadge: r.roleBadge,
     record: r.record,

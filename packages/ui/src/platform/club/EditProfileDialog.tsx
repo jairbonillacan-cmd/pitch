@@ -1,16 +1,21 @@
 "use client";
 
-import React, { useId, useState, useSyncExternalStore } from "react";
+import React, { useEffect, useId, useRef, useState, useSyncExternalStore } from "react";
 import { Button, Drawer, Input, Label, Modal, TextArea, TextField } from "@heroui/react";
 import { containsExternalLink, MAX_PROFILE_BIO_LENGTH, profileBioLength } from "@pitchlab/contracts";
 import { normalizeSignupHandle, useHandleAvailability } from "../public/use-handle-availability";
+import { Avatar } from "./community-ui";
 
 export interface EditableProfile {
   displayName: string;
   handle: string;
   bio: string | null;
   xUsername: string | null;
+  avatarUrl?: string | null;
 }
+
+const ALLOWED_AVATAR_MIME = new Set(["image/jpeg", "image/png", "image/webp"]);
+const MAX_AVATAR_BYTES = 2 * 1024 * 1024;
 
 const MOBILE_QUERY = "(max-width: 767px)";
 
@@ -29,6 +34,15 @@ const profileErrors: Record<string, string> = {
   bio_con_enlace: "Quita el enlace de tu bio.",
 };
 
+const avatarErrors: Record<string, string> = {
+  almacenamiento_no_disponible: "La foto de perfil estará disponible pronto.",
+  almacenamiento_no_configurado: "La foto de perfil estará disponible pronto.",
+  archivo_muy_grande: "Elige una imagen de hasta 2 MB.",
+  formato_invalido: "Usa una imagen JPG, PNG o WebP.",
+  imagen_invalida: "No pudimos procesar esa imagen. Prueba con otra.",
+  archivo_requerido: "Elige una imagen.",
+};
+
 export function XBrandMark(): React.JSX.Element {
   return (
     <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
@@ -40,12 +54,14 @@ export function XBrandMark(): React.JSX.Element {
 export function EditProfileDialog({
   profile,
   xEnabled,
+  avatarEnabled = false,
   onChange,
   initialOpen = false,
   checkHandle = true,
 }: {
   profile: EditableProfile;
   xEnabled: boolean;
+  avatarEnabled?: boolean;
   onChange: (profile: EditableProfile) => void;
   initialOpen?: boolean;
   checkHandle?: boolean;
@@ -60,9 +76,20 @@ export function EditProfileDialog({
   const [displayName, setDisplayName] = useState(profile.displayName);
   const [handle, setHandle] = useState(profile.handle);
   const [bio, setBio] = useState(profile.bio ?? "");
+  const [savedAvatarUrl, setSavedAvatarUrl] = useState<string | null>(profile.avatarUrl ?? null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [removePhoto, setRemovePhoto] = useState(false);
   const [error, setError] = useState("");
   const [saveIssue, setSaveIssue] = useState("");
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
   const id = useId();
+
+  useEffect(() => {
+    return () => {
+      if (previewUrl) URL.revokeObjectURL(previewUrl);
+    };
+  }, [previewUrl]);
 
   const cleanHandle = normalizeSignupHandle(handle);
   const handleStatus = useHandleAvailability(handle, open && checkHandle, profile.handle);
@@ -82,13 +109,57 @@ export function EditProfileDialog({
   const ready = !pending && displayName.trim().length >= 2 && Boolean(cleanHandle) &&
     !handleInvalid && handleStatus !== "checking" && !bioError;
 
+  const effectiveAvatarUrl = removePhoto ? null : (previewUrl ?? savedAvatarUrl);
+  const avatarInitials =
+    (displayName.trim() || profile.displayName)
+      .split(/\s+/)
+      .filter(Boolean)
+      .map((w) => w[0])
+      .join("")
+      .slice(0, 2)
+      .toUpperCase() || "PL";
+
   const openEditor = () => {
     setDisplayName(profile.displayName);
     setHandle(profile.handle);
     setBio(profile.bio ?? "");
+    setSavedAvatarUrl(profile.avatarUrl ?? null);
+    setSelectedFile(null);
+    setPreviewUrl(null);
+    setRemovePhoto(false);
+    if (fileInputRef.current) fileInputRef.current.value = "";
     setError("");
     setSaveIssue("");
     setOpen(true);
+  };
+
+  const handleSelectAvatar = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    if (!ALLOWED_AVATAR_MIME.has(file.type)) {
+      setError(avatarErrors.formato_invalido!);
+      event.target.value = "";
+      return;
+    }
+    if (file.size > MAX_AVATAR_BYTES) {
+      setError(avatarErrors.archivo_muy_grande!);
+      event.target.value = "";
+      return;
+    }
+    setError("");
+    setSelectedFile(file);
+    setRemovePhoto(false);
+    setPreviewUrl(URL.createObjectURL(file));
+  };
+
+  const handleRemoveAvatar = () => {
+    setError("");
+    setSelectedFile(null);
+    setPreviewUrl(null);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+    if (savedAvatarUrl) {
+      setRemovePhoto(true);
+    }
   };
 
   const save = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -98,13 +169,46 @@ export function EditProfileDialog({
     setError("");
     setSaveIssue("");
     try {
+      let nextAvatarUrl = savedAvatarUrl;
+      if (selectedFile) {
+        const formData = new FormData();
+        formData.append("file", selectedFile);
+        const uploadRes = await fetch("/api/me/avatar", {
+          method: "POST",
+          body: formData,
+        });
+        if (!uploadRes.ok) {
+          const uploadErr = (await uploadRes.json().catch(() => ({}))) as { error?: string };
+          setError(avatarErrors[uploadErr.error ?? ""] ?? "No pudimos subir tu foto. Intenta de nuevo.");
+          return;
+        }
+        const uploaded = (await uploadRes.json()) as { avatarUrl?: string | null };
+        nextAvatarUrl = uploaded.avatarUrl ?? null;
+        setSavedAvatarUrl(nextAvatarUrl);
+        setSelectedFile(null);
+        setPreviewUrl(null);
+      } else if (removePhoto && savedAvatarUrl) {
+        const delRes = await fetch("/api/me/avatar", { method: "DELETE" });
+        if (!delRes.ok) {
+          setError("No pudimos quitar tu foto. Intenta de nuevo.");
+          return;
+        }
+        nextAvatarUrl = null;
+        setSavedAvatarUrl(null);
+        setRemovePhoto(false);
+      }
+
       const response = await fetch("/api/me/profile", {
         method: "PATCH",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ displayName, handle: cleanHandle, bio }),
       });
       if (response.ok) {
-        onChange((await response.json()) as EditableProfile);
+        const patched = (await response.json()) as EditableProfile;
+        onChange({
+          ...patched,
+          avatarUrl: patched.avatarUrl !== undefined ? patched.avatarUrl : nextAvatarUrl,
+        });
         setOpen(false);
         return;
       }
@@ -144,6 +248,55 @@ export function EditProfileDialog({
 
   const fields = (
     <form className="pl-profile-editor-form" onSubmit={save}>
+      <div className="pl-profile-editor-avatar">
+        <Avatar
+          initials={avatarInitials}
+          avatarUrl={effectiveAvatarUrl}
+          gradVar="var(--avatar-grad-3)"
+          size={56}
+        />
+        <div className="pl-profile-editor-avatar-copy">
+          <strong>Foto de perfil</strong>
+          <span>{avatarEnabled ? "JPG, PNG o WebP · máx. 2 MB" : "Pronto"}</span>
+        </div>
+        <div className="pl-profile-editor-avatar-actions">
+          {avatarEnabled ? (
+            <>
+              <input
+                ref={fileInputRef}
+                id={`${id}-avatar`}
+                name="avatar"
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+                className="pl-visually-hidden"
+                disabled={pending}
+                onChange={handleSelectAvatar}
+              />
+              <label
+                htmlFor={`${id}-avatar`}
+                className={`pl-profile-editor-file-btn ${pending ? "is-disabled" : ""}`}
+              >
+                {effectiveAvatarUrl ? "Cambiar" : "Elegir foto"}
+              </label>
+            </>
+          ) : (
+            <Button type="button" variant="secondary" isDisabled>
+              Subir foto
+            </Button>
+          )}
+          {effectiveAvatarUrl ? (
+            <Button
+              type="button"
+              variant="secondary"
+              isDisabled={pending}
+              onPress={handleRemoveAvatar}
+            >
+              Quitar
+            </Button>
+          ) : null}
+        </div>
+      </div>
+
       <TextField className="pl-profile-editor-field" isRequired value={displayName} onChange={setDisplayName}>
         <Label>Nombre</Label>
         <Input autoComplete="nickname" maxLength={40} />

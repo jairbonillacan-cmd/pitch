@@ -70,6 +70,7 @@ export interface SessionAccountIdentity {
   displayName: string;
   isTipstar: boolean;
   avatarGrad: string;
+  avatarUrl?: string | null;
 }
 
 export interface ServerProfileSummary {
@@ -77,6 +78,7 @@ export interface ServerProfileSummary {
   displayName?: string | null;
   email?: string | null;
   isTipstar?: boolean;
+  avatarUrl?: string | null;
 }
 
 function computeInitials(displayName: string | null | undefined, cleanHandle: string): string {
@@ -112,6 +114,7 @@ export function resolveSessionIdentity(
       displayName,
       isTipstar,
       avatarGrad: isTipstar ? "var(--avatar-grad-1)" : "var(--avatar-grad-2)",
+      avatarUrl: serverProfile.avatarUrl ?? null,
     };
   }
 

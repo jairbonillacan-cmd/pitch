@@ -42,6 +42,7 @@ export async function loadViewerIdentity(): Promise<ViewerIdentity | null> {
     handle: profile.handle,
     displayName: profile.displayName,
     initials: profile.initials,
+    avatarUrl: profile.avatarUrl,
     referralCode: profile.referralCode,
   };
 }

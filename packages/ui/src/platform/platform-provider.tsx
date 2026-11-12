@@ -225,6 +225,7 @@ export interface ViewerIdentity {
   displayName: string;
   initials: string;
   referralCode: string | null;
+  avatarUrl?: string | null;
 }
 
 /** Usuario propio: el de la cuenta o, en la beta con PIN, el de ejemplo según el rol. */
@@ -260,7 +261,9 @@ export interface PlatformContextValue {
   accountsEnabled: boolean;
   /** Socio con cuenta (nombre, @usuario, iniciales y código); null con PIN o visitante. */
   viewerIdentity: ViewerIdentity | null;
-  updateViewerIdentity: (profile: Pick<ViewerIdentity, "displayName" | "handle">) => void;
+  updateViewerIdentity: (
+    profile: Pick<ViewerIdentity, "displayName" | "handle"> & { avatarUrl?: string | null },
+  ) => void;
   oddsFormat: OddsFormat;
   setOddsFormat: (fmt: OddsFormat) => void;
   auraColors: readonly [string, string];
@@ -558,23 +561,42 @@ export function PlatformProvider({
     socialFeedPagesRef.current = { ...socialFeedPagesRef.current, [key]: next };
     setSocialFeedPages(socialFeedPagesRef.current);
   }, []);
-  const updateViewerIdentity = useCallback((profile: Pick<ViewerIdentity, "displayName" | "handle">) => {
-    if (!viewerIdentity) return;
-    const words = profile.displayName.trim().split(/\s+/);
-    const first = words[0] ?? "";
-    const last = words.length > 1 ? (words.at(-1)?.[0] ?? "") : (first[1] ?? "");
-    const initials = ((first[0] ?? "") + last).toUpperCase() || "PL";
-    setViewerIdentity({ ...viewerIdentity, ...profile, initials });
+  const updateViewerIdentity = useCallback(
+    (profile: Pick<ViewerIdentity, "displayName" | "handle"> & { avatarUrl?: string | null }) => {
+      if (!viewerIdentity) return;
+      const words = profile.displayName.trim().split(/\s+/);
+      const first = words[0] ?? "";
+      const last = words.length > 1 ? (words.at(-1)?.[0] ?? "") : (first[1] ?? "");
+      const initials = ((first[0] ?? "") + last).toUpperCase() || "PL";
+      const nextAvatarUrl = profile.avatarUrl !== undefined ? profile.avatarUrl : viewerIdentity.avatarUrl;
+      setViewerIdentity({ ...viewerIdentity, ...profile, avatarUrl: nextAvatarUrl, initials });
 
-    const renameAuthor = <T extends { authorHandle: string; authorName: string }>(item: T): T =>
-      item.authorHandle === viewerIdentity.handle
-        ? { ...item, authorHandle: profile.handle, authorName: profile.displayName }
-        : item;
-    setSocialPosts((posts) => posts.map((post) => post.isExample ? post : {
-      ...renameAuthor(post),
-      comments: post.comments.map(renameAuthor),
-    }));
-  }, [viewerIdentity]);
+      const renameAuthor = <
+        T extends { authorHandle: string; authorName: string; authorAvatarUrl?: string | null },
+      >(
+        item: T,
+      ): T =>
+        item.authorHandle === viewerIdentity.handle
+          ? {
+              ...item,
+              authorHandle: profile.handle,
+              authorName: profile.displayName,
+              ...(profile.avatarUrl !== undefined ? { authorAvatarUrl: profile.avatarUrl } : {}),
+            }
+          : item;
+      setSocialPosts((posts) =>
+        posts.map((post) =>
+          post.isExample
+            ? post
+            : {
+                ...renameAuthor(post),
+                comments: post.comments.map(renameAuthor),
+              },
+        ),
+      );
+    },
+    [viewerIdentity],
+  );
 
   const [blockedSpamAttempts, setBlockedSpamAttempts] = useState<number>(0);
   const [watchlistGameIds, setWatchlistGameIds] = useState<string[]>([]);
@@ -1126,6 +1148,7 @@ export function PlatformProvider({
         authorHandle: ownHandleFor(viewerIdentity, viewerRole),
         authorName:
           viewerIdentity?.displayName ?? (viewerRole === "tipstar" ? "Sofía Méndez" : "Socio PitchLab"),
+        authorAvatarUrl: viewerRole === "tipstar" ? null : (viewerIdentity?.avatarUrl ?? null),
         roleBadge:
           viewerRole === "tipstar" ? "Tipstar Oficial" : "Socio Pase PitchLab Ultra",
         avatarGradVar:
@@ -1265,6 +1288,7 @@ export function PlatformProvider({
                     authorName:
                       viewerIdentity?.displayName ??
                       (viewerRole === "tipstar" ? "Sofía Méndez" : "Socio Pase PitchLab Ultra"),
+                    authorAvatarUrl: viewerRole === "tipstar" ? null : (viewerIdentity?.avatarUrl ?? null),
                     verifiedBadge:
                       viewerRole === "tipstar"
                         ? "Perfil de ejemplo"

@@ -39,6 +39,7 @@ export const users = pgTable("users", {
   displayName: text("display_name"),
   handle: text("handle").unique(),
   bio: varchar("bio", { length: 160 }),
+  avatarUrl: text("avatar_url"),
   xUsername: text("x_username"),
   xLinkedAt: ts("x_linked_at"),
   referralCode: text("referral_code").unique(),

@@ -93,4 +93,25 @@ describe("mezcla del feed compartido", () => {
 
     expect(stateAfterLoadMore.map((p) => p.id)).toEqual([...all.map((p) => p.id), "ej-1"]);
   });
+
+  it("conserva la foto de perfil en publicaciones y comentarios del servidor", () => {
+    const post = toPost(
+      server("foto-1", "2026-11-12T10:00:00Z", {
+        authorAvatarUrl: "https://ejemplo.blob.vercel-storage.com/avatars/ana.webp",
+        comments: [
+          {
+            id: "c-1",
+            authorHandle: "beto_nfl",
+            authorName: "Beto",
+            authorAvatarUrl: "https://ejemplo.blob.vercel-storage.com/avatars/beto.webp",
+            record: "+3.0u",
+            body: "Buen análisis",
+            createdAt: "2026-11-12T10:05:00Z",
+          },
+        ],
+      }),
+    );
+    expect(post.authorAvatarUrl).toBe("https://ejemplo.blob.vercel-storage.com/avatars/ana.webp");
+    expect(post.comments[0]?.authorAvatarUrl).toBe("https://ejemplo.blob.vercel-storage.com/avatars/beto.webp");
+  });
 });

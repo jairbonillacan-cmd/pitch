@@ -104,6 +104,7 @@ interface AuthorInfo {
   name: string;
   initials: string;
   gradVar: string;
+  avatarUrl: string | null;
   isTipstar: boolean;
   saldo: string | null;
 }
@@ -212,11 +213,14 @@ function CommunityContent(): React.JSX.Element {
   const authorOf = useMemo(() => {
     const cache = new Map<string, AuthorInfo>();
     return (post: SocialPost): AuthorInfo => {
-      const hit = cache.get(post.authorHandle);
-      if (hit) return hit;
       const spec = getExampleAnalystSpec(post.authorHandle);
-      const ranked = seasonRanked.find((r) => r.handle === post.authorHandle);
       const isOwnPost = own?.handle === post.authorHandle;
+      const nextAvatarUrl = spec
+        ? null
+        : ((isOwnPost ? (own?.avatarUrl ?? post.authorAvatarUrl) : post.authorAvatarUrl) ?? null);
+      const hit = cache.get(post.authorHandle);
+      if (hit && hit.avatarUrl === nextAvatarUrl) return hit;
+      const ranked = seasonRanked.find((r) => r.handle === post.authorHandle);
       const info: AuthorInfo = {
         handle: post.authorHandle,
         name: isOwnPost && !spec ? own!.name : post.authorName,
@@ -224,6 +228,7 @@ function CommunityContent(): React.JSX.Element {
           spec?.avatarInitials ??
           (isOwnPost ? own!.avatarInitials : post.authorName.split(" ").map((w) => w[0]).join("").slice(0, 2)),
         gradVar: spec?.avatarGradVar ?? post.avatarGradVar,
+        avatarUrl: nextAvatarUrl,
         isTipstar: spec?.isTipstar ?? false,
         saldo: ranked && ranked.record.settled > 0 ? formatUnits(ranked.record.netUnits) : null,
       };
@@ -402,7 +407,7 @@ function Composer({
   const form = (inSheet: boolean): React.JSX.Element => (
     <form className={`pl-com-composer ${inSheet ? "" : "glass-lens glass-ring"}`} aria-label="Publicar" onSubmit={submit} noValidate>
       <div className="pl-com-composer-top">
-        {own ? <Avatar initials={own.avatarInitials} gradVar={own.avatarGradVar} size={40} /> : null}
+        {own ? <Avatar initials={own.avatarInitials} avatarUrl={own.avatarUrl} gradVar={own.avatarGradVar} size={40} /> : null}
         <div className="pl-com-composer-field">
           <label htmlFor={`${uid}-${inSheet ? "s" : "d"}-body`} className="sr-only">
             Escribe tu publicación
@@ -473,7 +478,7 @@ function Composer({
         className="pl-com-composer-row glass-lens glass-ring"
         onClick={() => setSheetOpen(true)}
       >
-        {own ? <Avatar initials={own.avatarInitials} gradVar={own.avatarGradVar} size={36} /> : null}
+        {own ? <Avatar initials={own.avatarInitials} avatarUrl={own.avatarUrl} gradVar={own.avatarGradVar} size={36} /> : null}
         <span className="pl-com-composer-row-text">Comparte un pick…</span>
         <span className="pl-prof-btn pl-prof-btn--primary pl-prof-btn--sm" aria-hidden="true">
           Publicar
@@ -758,7 +763,7 @@ function PostCard({
     >
       <header className="pl-com-post-head">
         <a href={`/app/u/${post.authorHandle}`} onClick={goProfile(post.authorHandle)} className="pl-com-post-avatar" tabIndex={-1} aria-hidden="true">
-          <Avatar initials={author.initials} gradVar={author.gradVar} size={42} />
+          <Avatar initials={author.initials} avatarUrl={author.avatarUrl} gradVar={author.gradVar} size={42} loading="lazy" />
         </a>
         <div className="pl-com-post-who">
           <p className="pl-com-post-name">
@@ -884,8 +889,14 @@ function PostCard({
           <div className="pl-com-comment-preview">
             <Avatar
               initials={firstComment.authorName.split(" ").map((w) => w[0]).join("").slice(0, 2)}
+              avatarUrl={
+                own?.handle === firstComment.authorHandle
+                  ? (own.avatarUrl ?? firstComment.authorAvatarUrl)
+                  : firstComment.authorAvatarUrl
+              }
               gradVar={getExampleAnalystSpec(firstComment.authorHandle)?.avatarGradVar ?? "var(--avatar-grad-3)"}
               size={28}
+              loading="lazy"
             />
             <div className="pl-com-comment-preview-body">
               <div className="pl-com-comment-head">
@@ -920,28 +931,39 @@ function PostCard({
               <ul>
                 {post.comments.map((c) => {
                   const isCommentMine = Boolean(c.isMine || own?.handle === c.authorHandle);
+                  const commentAvatarUrl =
+                    own?.handle === c.authorHandle ? (own.avatarUrl ?? c.authorAvatarUrl) : c.authorAvatarUrl;
                   return (
-                    <li key={c.id}>
-                      <div className="pl-com-comment-head">
-                        <p>
-                          <strong>{c.authorName}</strong>{" "}
-                          <span className="pl-prof-muted">· {c.createdAt.toLowerCase()}</span>
-                        </p>
-                        {!isCommentMine && !post.isExample ? (
-                          <SocialReportMenu
-                            compact
-                            triggerLabel={`Más opciones del comentario de ${c.authorName}`}
-                            onReport={() =>
-                              onOpenReport({
-                                kind: "comment",
-                                commentId: c.id,
-                                authorHandle: c.authorHandle,
-                              })
-                            }
-                          />
-                        ) : null}
+                    <li key={c.id} className="pl-com-comment-row">
+                      <Avatar
+                        initials={c.authorName.split(/\s+/).map((w) => w[0]).join("").slice(0, 2).toUpperCase()}
+                        avatarUrl={commentAvatarUrl}
+                        gradVar={getExampleAnalystSpec(c.authorHandle)?.avatarGradVar ?? "var(--avatar-grad-3)"}
+                        size={26}
+                        loading="lazy"
+                      />
+                      <div className="pl-com-comment-body">
+                        <div className="pl-com-comment-head">
+                          <p>
+                            <strong>{c.authorName}</strong>{" "}
+                            <span className="pl-prof-muted">· {c.createdAt.toLowerCase()}</span>
+                          </p>
+                          {!isCommentMine && !post.isExample ? (
+                            <SocialReportMenu
+                              compact
+                              triggerLabel={`Más opciones del comentario de ${c.authorName}`}
+                              onReport={() =>
+                                onOpenReport({
+                                  kind: "comment",
+                                  commentId: c.id,
+                                  authorHandle: c.authorHandle,
+                                })
+                              }
+                            />
+                          ) : null}
+                        </div>
+                        <p>{c.body}</p>
                       </div>
-                      <p>{c.body}</p>
                     </li>
                   );
                 })}
@@ -1177,15 +1199,17 @@ function FollowingTab({
     () =>
       followed.map((handle) => {
         const spec = getExampleAnalystSpec(handle);
+        const matchingPost = spec ? undefined : posts.find((p) => p.authorHandle === handle && p.authorAvatarUrl);
         return {
           handle,
           initials: spec?.avatarInitials ?? handle.slice(0, 2).toUpperCase(),
           gradVar: spec?.avatarGradVar ?? "var(--avatar-grad-4)",
+          avatarUrl: matchingPost?.authorAvatarUrl ?? null,
           isTipstar: spec?.isTipstar ?? false,
           name: spec?.name ?? `@${handle}`,
         };
       }),
-    [followed],
+    [followed, posts],
   );
   const tipstars = followedInfo.filter((f) => f.isTipstar).length;
 
@@ -1266,7 +1290,7 @@ function FollowingTab({
         <section className="pl-com-strip glass-lens glass-ring" aria-label="A quién sigues">
           <span className="pl-com-stack" aria-hidden="true">
             {followedInfo.slice(0, 5).map((f) => (
-              <Avatar key={f.handle} initials={f.initials} gradVar={f.gradVar} size={32} />
+              <Avatar key={f.handle} initials={f.initials} avatarUrl={f.avatarUrl} gradVar={f.gradVar} size={32} loading="lazy" />
             ))}
           </span>
           <p className="pl-com-strip-copy num">

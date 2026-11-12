@@ -269,6 +269,7 @@ export interface ViewerProfile {
   displayName: string | null;
   email: string;
   referralCode: string | null;
+  avatarUrl: string | null;
 }
 
 /** Datos públicos del socio para la interfaz (nunca la fecha de nacimiento). */
@@ -279,6 +280,7 @@ export async function viewerProfile(db: Db, userId: string): Promise<ViewerProfi
       displayName: users.displayName,
       email: users.email,
       referralCode: users.referralCode,
+      avatarUrl: users.avatarUrl,
     })
     .from(users)
     .where(eq(users.id, userId));

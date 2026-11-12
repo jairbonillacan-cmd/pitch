@@ -859,6 +859,9 @@ function ClubWorkspaceShellImpl({
   );
 
   const profileHandle = `@${ownHandle}`;
+  const profileAvatarUrl = viewerIdentity?.avatarUrl ?? null;
+  const [brokenAvatarUrl, setBrokenAvatarUrl] = useState<string | null>(null);
+  const showProfileAvatarImg = Boolean(profileAvatarUrl && brokenAvatarUrl !== profileAvatarUrl);
   const roleLabel = viewerRole === "tipstar" ? "Tipstar verificado" : viewerRole === "admin" ? "Admin" : "Socio";
   const profileSubline = viewerIdentity
     ? `${viewerIdentity.displayName} · ${roleLabel}`
@@ -952,7 +955,19 @@ function ClubWorkspaceShellImpl({
                     style={{ background: profileGrad }}
                     aria-hidden="true"
                   >
-                    {profileInitials}
+                    {showProfileAvatarImg ? (
+                      <img
+                        src={profileAvatarUrl!}
+                        alt=""
+                        width={28}
+                        height={28}
+                        decoding="async"
+                        className="pl-avatar-img"
+                        onError={() => setBrokenAvatarUrl(profileAvatarUrl)}
+                      />
+                    ) : (
+                      profileInitials
+                    )}
                   </span>
                   <span className="hidden sm:inline font-bold truncate max-w-[92px]">{profileHandle}</span>
                   <UltraTag className="hidden lg:inline-flex" />
@@ -1014,7 +1029,20 @@ function ClubWorkspaceShellImpl({
                     style={{ background: profileGrad }}
                     aria-hidden="true"
                   >
-                    {profileInitials}
+                    {showProfileAvatarImg ? (
+                      <img
+                        src={profileAvatarUrl!}
+                        alt=""
+                        width={40}
+                        height={40}
+                        fetchPriority="low"
+                        decoding="async"
+                        className="pl-avatar-img"
+                        onError={() => setBrokenAvatarUrl(profileAvatarUrl)}
+                      />
+                    ) : (
+                      profileInitials
+                    )}
                   </span>
                   <div className="min-w-0">
                     <div className="pl-profile-menu-name">

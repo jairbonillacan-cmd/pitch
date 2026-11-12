@@ -7,6 +7,7 @@ const publicFields = {
   displayName: users.displayName,
   handle: users.handle,
   bio: users.bio,
+  avatarUrl: users.avatarUrl,
   xUsername: users.xUsername,
   joinedAt: users.createdAt,
 };
@@ -56,5 +57,28 @@ export async function disconnectX(db: Db, userId: string): Promise<void> {
       .returning({ authUserId: users.authUserId });
     if (!profile?.authUserId) return;
     await tx.delete(authAccount).where(and(eq(authAccount.userId, profile.authUserId), eq(authAccount.providerId, "twitter")));
+  });
+}
+
+/** Actualiza o quita la foto de perfil (`avatar_url`); devuelve la URL anterior para limpiar el blob. */
+export async function setMemberAvatarUrl(
+  db: Db,
+  userId: string,
+  avatarUrl: string | null,
+): Promise<{ status: "saved"; previousAvatarUrl: string | null; avatarUrl: string | null } | { status: "missing" }> {
+  return db.transaction(async (tx) => {
+    const [prev] = await tx.select({ avatarUrl: users.avatarUrl }).from(users).where(eq(users.id, userId));
+    if (!prev) return { status: "missing" } as const;
+    const [updated] = await tx
+      .update(users)
+      .set({ avatarUrl })
+      .where(eq(users.id, userId))
+      .returning({ avatarUrl: users.avatarUrl });
+    if (!updated) return { status: "missing" } as const;
+    return {
+      status: "saved",
+      previousAvatarUrl: prev.avatarUrl,
+      avatarUrl: updated.avatarUrl,
+    } as const;
   });
 }

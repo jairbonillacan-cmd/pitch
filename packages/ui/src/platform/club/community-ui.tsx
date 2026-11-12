@@ -18,6 +18,7 @@ export interface OwnIdentity {
   name: string;
   avatarInitials: string;
   avatarGradVar: string;
+  avatarUrl?: string | null;
 }
 
 /**
@@ -35,6 +36,7 @@ export function ownIdentityFor(
       name: identity.displayName,
       avatarInitials: identity.initials,
       avatarGradVar: "var(--avatar-grad-4)",
+      avatarUrl: identity.avatarUrl ?? null,
     };
   }
   if (role === "tipstar") {
@@ -166,21 +168,43 @@ export function relativeTime(iso: string | undefined, now: Date = new Date()): s
 export function Avatar({
   initials,
   gradVar,
+  avatarUrl,
   size = 40,
+  loading,
+  fetchPriority,
   className,
 }: {
   initials: string;
   gradVar: string;
+  avatarUrl?: string | null;
   size?: number;
+  loading?: "lazy" | "eager";
+  fetchPriority?: "high" | "low" | "auto";
   className?: string;
 }): React.JSX.Element {
+  const [brokenUrl, setBrokenUrl] = useState<string | null>(null);
+  const showImage = Boolean(avatarUrl && brokenUrl !== avatarUrl);
   return (
     <span
       className={["pl-avatar", className].filter(Boolean).join(" ")}
       style={{ width: size, height: size, background: gradVar, fontSize: Math.round(size * 0.34) }}
       aria-hidden="true"
     >
-      {initials}
+      {showImage ? (
+        <img
+          src={avatarUrl!}
+          alt=""
+          width={size}
+          height={size}
+          loading={loading}
+          fetchPriority={fetchPriority}
+          decoding="async"
+          className="pl-avatar-img"
+          onError={() => setBrokenUrl(avatarUrl ?? null)}
+        />
+      ) : (
+        initials
+      )}
     </span>
   );
 }

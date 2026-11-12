@@ -38,6 +38,7 @@ export interface AccountProfile {
   handle: string | null;
   displayName: string;
   initials: string;
+  avatarUrl: string | null;
   referralCode: string | null;
   /** Sugerencia para el campo «Usuario» del paso 2 cuando aún no eligió uno. */
   suggestedHandle: string | null;
@@ -92,6 +93,7 @@ export const getViewerAccess = cache(async (): Promise<ViewerAccess> => {
       handle: row?.handle ?? null,
       displayName,
       initials: initialsOf(displayName),
+      avatarUrl: row?.avatarUrl ?? null,
       referralCode: row?.referralCode ?? null,
       suggestedHandle: row?.handle ? null : await suggestHandle(db, displayName),
     };

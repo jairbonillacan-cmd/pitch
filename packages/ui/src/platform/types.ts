@@ -290,6 +290,7 @@ export interface SocialComment {
   id: string;
   authorHandle: string;
   authorName: string;
+  authorAvatarUrl?: string | null;
   verifiedBadge: string;
   createdAt: string;
   body: string;
@@ -316,6 +317,7 @@ export interface SocialPost {
   id: string;
   authorHandle: string;
   authorName: string;
+  authorAvatarUrl?: string | null;
   roleBadge: "Tipstar Oficial" | "Analista Verificado" | "Socio Pase PitchLab Ultra";
   avatarGradVar: string;
   verifiedRecord: string;

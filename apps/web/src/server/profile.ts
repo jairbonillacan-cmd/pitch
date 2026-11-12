@@ -49,6 +49,7 @@ export async function loadPublicMemberProfile(handle: string): Promise<PublicMem
     displayName: row.displayName || row.handle,
     handle: row.handle,
     bio: row.bio,
+    avatarUrl: row.avatarUrl ?? null,
     xUsername: row.xUsername,
     joinedAt: row.joinedAt.toISOString(),
     isTipstar: row.isTipstar,

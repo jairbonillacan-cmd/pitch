@@ -87,6 +87,7 @@ interface ResolvedProfile {
   specialty: string;
   bio: string | null;
   xUsername?: string | null;
+  avatarUrl?: string | null;
   avatarInitials: string;
   avatarGradVar: string;
   joinedAt: string | null;
@@ -144,11 +145,13 @@ function TeamPair({ meta, size = 30 }: { meta: EntryGameMeta; size?: number }): 
 export function AnalystProfileClubView({
   handle,
   memberProfile,
+  avatarEnabled = false,
   xEnabled = false,
   xLinkError = false,
 }: {
   handle: string;
   memberProfile?: PublicMemberProfile | null;
+  avatarEnabled?: boolean;
   xEnabled?: boolean;
   xLinkError?: boolean;
 }): React.JSX.Element {
@@ -187,6 +190,10 @@ export function AnalystProfileClubView({
         specialty: "",
         bio: details.bio,
         xUsername: details.xUsername,
+        avatarUrl:
+          details.avatarUrl !== undefined
+            ? details.avatarUrl
+            : (ownIdentity?.avatarUrl ?? memberProfile.avatarUrl ?? null),
         avatarInitials: ownIdentity?.initials ?? initials,
         avatarGradVar: "var(--avatar-grad-3)",
         joinedAt: memberProfile.joinedAt,
@@ -235,6 +242,7 @@ export function AnalystProfileClubView({
         isTipstar: false,
         specialty: "Varias ligas",
         bio: "Socio de PitchLab. Registro mis picks antes de que empiece el partido.",
+        avatarUrl: own.avatarUrl ?? null,
         avatarInitials: own.avatarInitials,
         avatarGradVar: own.avatarGradVar,
         joinedAt: null,
@@ -252,7 +260,13 @@ export function AnalystProfileClubView({
   const saveProfile = (updated: EditableProfile) => {
     const previousHandle = viewerIdentity?.handle;
     setEdited(updated);
-    if (viewerIdentity?.displayName !== updated.displayName || previousHandle !== updated.handle) {
+    const avatarChanged =
+      updated.avatarUrl !== undefined && (viewerIdentity?.avatarUrl ?? null) !== (updated.avatarUrl ?? null);
+    if (
+      viewerIdentity?.displayName !== updated.displayName ||
+      previousHandle !== updated.handle ||
+      avatarChanged
+    ) {
       updateViewerIdentity(updated);
     }
     if (previousHandle && previousHandle !== updated.handle) {
@@ -280,6 +294,7 @@ export function AnalystProfileClubView({
             isOwn={isOwn}
             ownHandle={own?.handle ?? null}
             onEdit={isOwn && memberProfile ? saveProfile : undefined}
+            avatarEnabled={avatarEnabled}
             xEnabled={xEnabled}
             xLinkError={isOwn && xLinkError}
             rows={rows}
@@ -322,6 +337,7 @@ function ProfileContent({
   isOwn,
   ownHandle,
   onEdit,
+  avatarEnabled,
   xEnabled,
   xLinkError,
   rows,
@@ -338,6 +354,7 @@ function ProfileContent({
   isOwn: boolean;
   ownHandle: string | null;
   onEdit?: (profile: EditableProfile) => void;
+  avatarEnabled: boolean;
   xEnabled: boolean;
   xLinkError: boolean;
   rows: ReturnType<typeof useLeaderboardRows>["rows"];
@@ -424,6 +441,7 @@ function ProfileContent({
           <div className="pl-prof-head-top">
             <Avatar
               initials={profile.avatarInitials}
+              avatarUrl={profile.avatarUrl}
               gradVar={profile.avatarGradVar}
               size={96}
               className="pl-prof-avatar"
@@ -445,8 +463,15 @@ function ProfileContent({
                   </a>
                   {onEdit ? (
                     <EditProfileDialog
-                      profile={{ displayName: profile.name, handle: profile.handle, bio: profile.bio, xUsername: profile.xUsername ?? null }}
+                      profile={{
+                        displayName: profile.name,
+                        handle: profile.handle,
+                        bio: profile.bio,
+                        xUsername: profile.xUsername ?? null,
+                        avatarUrl: profile.avatarUrl ?? null,
+                      }}
                       onChange={onEdit}
+                      avatarEnabled={avatarEnabled}
                       xEnabled={xEnabled}
                     />
                   ) : (
@@ -794,26 +819,35 @@ function PostsPanel({
                   const isCommentMine = Boolean(c.isMine || (ownHandle && c.authorHandle === ownHandle));
                   const showCommentReport = canReport && !isCommentMine && !post.isExample;
                   return (
-                    <li key={c.id}>
-                      <div className="pl-com-comment-head">
-                        <span>
-                          <strong>{c.authorName}</strong> <span className="pl-prof-muted">· {c.createdAt}</span>
-                        </span>
-                        {showCommentReport ? (
-                          <SocialReportMenu
-                            compact
-                            triggerLabel={`Más opciones del comentario de ${c.authorName}`}
-                            onReport={() =>
-                              setReportTarget({
-                                kind: "comment",
-                                commentId: c.id,
-                                authorHandle: c.authorHandle,
-                              })
-                            }
-                          />
-                        ) : null}
+                    <li key={c.id} className="pl-com-comment-row">
+                      <Avatar
+                        initials={c.authorName.split(/\s+/).map((w) => w[0]).join("").slice(0, 2).toUpperCase()}
+                        avatarUrl={c.authorAvatarUrl}
+                        gradVar={getExampleAnalystSpec(c.authorHandle)?.avatarGradVar ?? "var(--avatar-grad-3)"}
+                        size={26}
+                        loading="lazy"
+                      />
+                      <div className="pl-com-comment-body">
+                        <div className="pl-com-comment-head">
+                          <span>
+                            <strong>{c.authorName}</strong> <span className="pl-prof-muted">· {c.createdAt}</span>
+                          </span>
+                          {showCommentReport ? (
+                            <SocialReportMenu
+                              compact
+                              triggerLabel={`Más opciones del comentario de ${c.authorName}`}
+                              onReport={() =>
+                                setReportTarget({
+                                  kind: "comment",
+                                  commentId: c.id,
+                                  authorHandle: c.authorHandle,
+                                })
+                              }
+                            />
+                          ) : null}
+                        </div>
+                        <p>{c.body}</p>
                       </div>
-                      <p>{c.body}</p>
                     </li>
                   );
                 })}

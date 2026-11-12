@@ -2,6 +2,7 @@ import React from "react";
 import { notFound } from "next/navigation";
 import { AnalystProfileClubView } from "@pitchlab/ui";
 import { normalizeClubHandle } from "../../../../src/profile-path";
+import { isAvatarStorageEnabled } from "../../../../src/server/avatar-storage";
 import { loadClubProfile } from "../../../../src/server/club-profile";
 import { twitterCredentials } from "../../../../src/server/twitter";
 import { loadFollowInfo } from "../../../../src/server/social";
@@ -24,6 +25,7 @@ export default async function ClubAnalystProfilePage({
       handle={cleanHandle}
       memberProfile={result.profile && follow ? { ...result.profile, ...follow } : result.profile}
       xEnabled={Boolean(twitterCredentials())}
+      avatarEnabled={isAvatarStorageEnabled()}
       xLinkError={query.x === "error"}
     />
   );

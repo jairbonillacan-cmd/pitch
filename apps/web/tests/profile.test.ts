@@ -61,13 +61,14 @@ describe("edición de perfil", () => {
 });
 
 describe("perfil público", () => {
-  it("devuelve solo los seis campos públicos y 404 para un usuario ausente", async () => {
+  it("devuelve solo los campos públicos y 404 para un usuario ausente", async () => {
     vi.stubEnv("DATABASE_URL", "stub");
     mocks.createDb.mockReturnValue({});
     const publicFields = {
       displayName: "Ana",
       handle: "ana_perfil",
       bio: "Liga MX",
+      avatarUrl: null,
       xUsername: "ana_perfil",
       joinedAt: "2026-11-12T12:00:00.000Z",
       isTipstar: false,

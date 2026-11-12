@@ -11,6 +11,7 @@ import {
   entitlementGrants,
   memberProfile,
   publicProfileByHandle,
+  setMemberAvatarUrl,
   updateMemberProfile,
   suggestHandle,
   referralGrants,
@@ -194,8 +195,36 @@ describe("perfiles de socio", () => {
     expect(await updateMemberProfile(db, a!.id, { handle: "ana_analisis" })).toMatchObject({ status: "saved" });
     expect(await publicProfileByHandle(db, "ana_perfil")).toBeNull();
     expect(await publicProfileByHandle(db, "ana_analisis")).toEqual({
-      handle: "ana_analisis", displayName: "Ana", bio: "Liga MX", xUsername: null,
-      joinedAt: a!.createdAt, isTipstar: false,
+      handle: "ana_analisis",
+      displayName: "Ana",
+      bio: "Liga MX",
+      avatarUrl: null,
+      xUsername: null,
+      joinedAt: a!.createdAt,
+      isTipstar: false,
+    });
+
+    expect(
+      await setMemberAvatarUrl(db, a!.id, "https://ejemplo.blob.vercel-storage.com/avatars/ana-1.webp"),
+    ).toEqual({
+      status: "saved",
+      previousAvatarUrl: null,
+      avatarUrl: "https://ejemplo.blob.vercel-storage.com/avatars/ana-1.webp",
+    });
+    expect(
+      await setMemberAvatarUrl(db, a!.id, "https://ejemplo.blob.vercel-storage.com/avatars/ana-2.webp"),
+    ).toEqual({
+      status: "saved",
+      previousAvatarUrl: "https://ejemplo.blob.vercel-storage.com/avatars/ana-1.webp",
+      avatarUrl: "https://ejemplo.blob.vercel-storage.com/avatars/ana-2.webp",
+    });
+    expect((await publicProfileByHandle(db, "ana_analisis"))?.avatarUrl).toBe(
+      "https://ejemplo.blob.vercel-storage.com/avatars/ana-2.webp",
+    );
+    expect(await setMemberAvatarUrl(db, a!.id, null)).toEqual({
+      status: "saved",
+      previousAvatarUrl: "https://ejemplo.blob.vercel-storage.com/avatars/ana-2.webp",
+      avatarUrl: null,
     });
   });
 });

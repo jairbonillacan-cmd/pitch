@@ -19,6 +19,7 @@ export interface ServerSocialComment {
   id: string;
   authorHandle: string;
   authorName: string;
+  authorAvatarUrl?: string | null;
   record: string;
   body: string;
   createdAt: string;
@@ -29,6 +30,7 @@ export interface ServerSocialPost {
   id: string;
   authorHandle: string;
   authorName: string;
+  authorAvatarUrl?: string | null;
   authorIsTipstar: boolean;
   roleBadge: string;
   record: string;
@@ -81,6 +83,7 @@ export function fromServerComment(c: ServerSocialComment, now: Date): SocialComm
     id: c.id,
     authorHandle: c.authorHandle,
     authorName: c.authorName,
+    authorAvatarUrl: c.authorAvatarUrl ?? null,
     verifiedBadge: c.record,
     createdAt: relativeTimeLabel(c.createdAt, now),
     body: c.body,
@@ -97,6 +100,7 @@ export function fromServerPost(p: ServerSocialPost, games: readonly PlatformGame
     id: p.id,
     authorHandle: p.authorHandle,
     authorName: p.authorName,
+    authorAvatarUrl: p.authorAvatarUrl ?? null,
     roleBadge,
     avatarGradVar: p.authorIsTipstar ? "var(--avatar-grad-1)" : "var(--avatar-grad-4)",
     verifiedRecord: p.record,

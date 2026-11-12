@@ -170,6 +170,7 @@ export function AccountReferralsClubView({
               <div className="pl-acct-identity">
                 <Avatar
                   initials={identity.initials}
+                  avatarUrl={identity.avatarUrl}
                   gradVar={identity.avatarGrad}
                   size={52}
                 />
