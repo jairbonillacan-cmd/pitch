@@ -1,0 +1,55 @@
+{
+  "schema_version": "synthetic_results_v3_2.0",
+  "provenance": "synthetic",
+  "description": "Marcadores finales sintéticos post-partido (ts_settled > ts_event_start) para probar resolución de cierre sharp y liquidación encadenada sin mutación en services/models/paper_trading.py.",
+  "results": {
+    "ws:football:B1:20261114:club_brugge:anderlecht": {
+      "provenance": "synthetic",
+      "status": "final",
+      "home_score": 2,
+      "away_score": 1,
+      "ts_event_start": "2026-11-14T19:45:00Z",
+      "ts_settled": "2026-11-14T21:50:00Z"
+    },
+    "ws:football:MEX:20261115:monterrey:tigres": {
+      "provenance": "synthetic",
+      "status": "final",
+      "home_score": 1,
+      "away_score": 1,
+      "ts_event_start": "2026-11-15T01:00:00Z",
+      "ts_settled": "2026-11-15T03:05:00Z"
+    },
+    "ws:football:D2:20261115:hamburger_sv:schalke_04": {
+      "provenance": "synthetic",
+      "status": "final",
+      "home_score": 2,
+      "away_score": 0,
+      "ts_event_start": "2026-11-15T12:30:00Z",
+      "ts_settled": "2026-11-15T14:35:00Z"
+    },
+    "ws:football:E0:20261115:arsenal:brighton": {
+      "provenance": "synthetic",
+      "status": "final",
+      "home_score": 3,
+      "away_score": 1,
+      "ts_event_start": "2026-11-15T15:00:00Z",
+      "ts_settled": "2026-11-15T17:05:00Z"
+    },
+    "ws:football:SP1:20261115:real_sociedad:villarreal": {
+      "provenance": "synthetic",
+      "status": "final",
+      "home_score": 0,
+      "away_score": 1,
+      "ts_event_start": "2026-11-15T18:00:00Z",
+      "ts_settled": "2026-11-15T20:05:00Z"
+    },
+    "ws:football:E0:20261108:chelsea:arsenal_legacy": {
+      "provenance": "synthetic",
+      "status": "final",
+      "home_score": 2,
+      "away_score": 0,
+      "ts_event_start": "2026-11-08T20:00:00Z",
+      "ts_settled": "2026-11-08T22:05:00Z"
+    }
+  }
+}

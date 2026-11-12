@@ -1,0 +1,92 @@
+{
+  "agent_id": "B5",
+  "agent_name": "b5-paper",
+  "wave": 2,
+  "state": "completed",
+  "started_at": "2026-11-12T15:46:55Z",
+  "finished_at": "2026-11-12T16:12:00Z",
+  "files_written": [
+    "services/models/paper_trading.py",
+    "services/models/test_paper_trading.py",
+    "data/ledger/picks_v3_2_prospective.jsonl",
+    "data/ledger/fixtures/synthetic_odds_timeseries_v3_2.jsonl",
+    "data/ledger/fixtures/synthetic_model_probs_v3_2.json",
+    "data/ledger/fixtures/synthetic_results_v3_2.json",
+    "data/ledger/fixtures/picks_v3_2_synthetic_fixture.jsonl",
+    "tests/prediction/ledger_prospective.test.ts",
+    "research/prediction-lab/reports/A29_prospectivo_semana_1.md",
+    "research/prediction-lab/coordination/v3_2/status/B5.json"
+  ],
+  "commands_run": [
+    "Set-Location \"C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\prediction-lab\"; .\\research\\prediction-lab\\.venv\\Scripts\\python.exe services/models/paper_trading.py --timeseries-dir ../web-scraping/data/odds_timeseries --ledger data/ledger/picks_v3_2_prospective.jsonl --provenance real",
+    "Set-Location \"C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\prediction-lab\"; .\\research\\prediction-lab\\.venv\\Scripts\\python.exe services/models/paper_trading.py --write-synthetic-fixture-inputs --timeseries-dir data/ledger/fixtures/synthetic_odds_timeseries_v3_2.jsonl --model-probs data/ledger/fixtures/synthetic_model_probs_v3_2.json --results data/ledger/fixtures/synthetic_results_v3_2.json --ledger data/ledger/fixtures/picks_v3_2_synthetic_fixture.jsonl --provenance synthetic --settle --week 1",
+    "Set-Location \"C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\prediction-lab\"; .\\research\\prediction-lab\\.venv\\Scripts\\python.exe -m pytest services/models -v",
+    "Set-Location \"C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\prediction-lab\"; npx vitest run; git checkout -- evidence/statistical-tests/aztecavet-experiments.json"
+  ],
+  "metrics": {
+    "evidence_label": "OBSERVADO",
+    "schema_version": "paper_trading_v3.2.0",
+    "prospective_cutoff_utc": "2026-11-08T20:30:00Z",
+    "execution_delay_minutes": 2.0,
+    "production_segments_enabled": 0,
+    "production_segments_total": 60,
+    "real_portfolio": {
+      "provenance": "real",
+      "b3_capture_status": "prospective_capture_pending",
+      "b3_calendar_upcoming_events": 66,
+      "jsonl_files_scanned": 0,
+      "ledger_path": "data/ledger/picks_v3_2_prospective.jsonl",
+      "ledger_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ledger_head_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "n_picks": 0,
+      "gate_target_picks": 150,
+      "segments_passing_n_clv_15": 0,
+      "idempotent_rerun_verified": true
+    },
+    "synthetic_fixture_validation": {
+      "provenance": "synthetic",
+      "ledger_path": "data/ledger/fixtures/picks_v3_2_synthetic_fixture.jsonl",
+      "ledger_sha256": "70b537b3b9beed80d7b6a18e689042271d496c6f15314def049a793a18aa5978",
+      "ledger_head_hash": "eaea0bae54ca3d7fbca0f342f93463ad9b5bc8e821285c53ae24f264496243d6",
+      "total_chained_records": 12,
+      "all_records_tagged_provenance_synthetic": true,
+      "n_picks_filled": 4,
+      "n_closings": 4,
+      "n_settlements": 4,
+      "n_unfilled_post_delay": 2,
+      "events_skipped_pre_cutoff": 1,
+      "tiers_emitted": ["solido", "valor"],
+      "closing_books_resolved": ["pinnacle", "smarkets"],
+      "clv_pct_mean": 0.0815027564514772,
+      "clv_pct_ci95": [0.04847082941802006, 0.10514793678189167],
+      "roi_pct": 0.2284457211564405,
+      "roi_pct_ci95": [-0.6666666666666666, 1.070221054217371],
+      "roi_significance_label": "no significativa",
+      "max_drawdown_u": 1.0,
+      "max_drawdown_ci95": [0.0, 4.0],
+      "idempotent_rerun_x2_identical_sha256": true,
+      "ts_python_parity_max_abs_delta_lt_1e_12": true
+    },
+    "test_suites": {
+      "pytest_services_models_passed": 111,
+      "pytest_services_models_failed": 0,
+      "pytest_b5_new_tests": 7,
+      "vitest_files_passed": 61,
+      "vitest_tests_passed": 1153,
+      "vitest_b5_new_tests": 3
+    },
+    "frozen_v3_1_sha256": {
+      "production_segments_v3_1.json": "0bc03bbff96a5d82a1a7858e1e8623bf7bfdb250c546d2773a71d56ed9ada9bc",
+      "blend_weights_v3_1.json": "b29d7a451f6011126997c122778b42ad3239c78337d17c5fa78d550f5c92739b",
+      "pick_policy_v3_1.json": "2359c8f8822ea394a380202c04e0bcd010d1a3fae7c5c25b8c11ebe810bfb7d1",
+      "stale_lines_config.json": "8bcb9c7be93270cde0cac2d58bc19f0381184dd2e769f358dd28334db2a05eac"
+    }
+  },
+  "open_issues": [
+    "B3 permanece en capture_status='prospective_capture_pending' (0 ticks reales) hasta que se provea THE_ODDS_API_KEY o BETFAIR_APP_KEY + BETFAIR_SESSION_TOKEN; la cartera prospectiva real arranca honestamente en 0 / 150 picks y production_enabled permanece en 0 / 60."
+  ],
+  "next": [
+    "Puerta 2 (V): auditar causalidad estricta, delay 2.0 min, separación de provenance, idempotencia x2 y paridad SHA-256/CLV TS↔Python.",
+    "Ola 3 (B10): evaluar activación por segmento solo cuando el ledger real acumule >= 150 picks prospectivos reales con n_clv >= 15 e IC 95% CLV% > 0."
+  ]
+}
