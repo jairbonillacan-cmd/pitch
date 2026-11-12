@@ -13,6 +13,8 @@
  * Todas las funciones son puras, deterministas y no dependen de terceros.
  */
 
+import { clamp } from "./math.js";
+
 /** Error de cuotas inválidas o implausibles. */
 export class InvalidOddsError extends Error {
   readonly code = "invalid_odds" as const;
@@ -101,10 +103,6 @@ export interface AdaptiveDevigOptions {
 }
 
 export type DevigMethod = "proportional" | "power" | "shin" | "adaptive";
-
-function clamp(value: number, lo: number, hi: number): number {
-  return Math.min(hi, Math.max(lo, value));
-}
 
 function smoothstep01(u: number): number {
   const t = clamp(u, 0, 1);

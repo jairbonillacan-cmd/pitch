@@ -26,6 +26,7 @@
  */
 
 import { quantileLinearSorted } from "./clv.js";
+import { clamp, logit, sigmoid } from "./math.js";
 import {
   EXTREME_SOFT_OVERROUND_ANCHOR,
   InvalidOddsError,
@@ -551,12 +552,8 @@ export function selectionOrderForMarket(market: string): readonly string[] {
 // De-vig generalizado (2 y 3 vías) y mezcla logit con paridad `< 1e-12`
 // ---------------------------------------------------------------------------
 
-function clampNumber(val: number, lo: number, hi: number): number {
-  return Math.min(hi, Math.max(lo, val));
-}
-
 function smoothstep01(u: number): number {
-  const t = clampNumber(u, 0, 1);
+  const t = clamp(u, 0, 1);
   return t * t * (3 - 2 * t);
 }
 
@@ -665,15 +662,6 @@ export function devigSharpMarketPrices(
   return blended.map((v) => v / tot);
 }
 
-function logitClipped(p: number): number {
-  const c = clampNumber(p, PROB_CLIP_EPS, 1.0 - PROB_CLIP_EPS);
-  return Math.log(c / (1.0 - c));
-}
-
-function sigmoidScalar(x: number): number {
-  return 1.0 / (1.0 + Math.exp(-x));
-}
-
 /**
  * Mezcla en espacio logit-simplex para vectores completos (`pModelVec` y `pSharpNoVigVec`),
  * idéntica `< 1e-15` a `blend_probs_logit_simplex` en Python.
@@ -686,11 +674,13 @@ export function blendConfirmationProbabilities(
   if (pModelVec.length !== pSharpNoVigVec.length || pModelVec.length < 2) {
     throw new StaleLineConfigValidationError("Vectores incompatibles en blendConfirmationProbabilities.");
   }
-  const w = clampNumber(wModel, 0.0, 1.0);
+  const w = clamp(wModel, 0.0, 1.0);
   const unnorm: number[] = [];
   let sumU = 0.0;
   for (let i = 0; i < pModelVec.length; i += 1) {
-    const u = sigmoidScalar(w * logitClipped(pModelVec[i]!) + (1.0 - w) * logitClipped(pSharpNoVigVec[i]!));
+    const u = sigmoid(
+      w * logit(pModelVec[i]!, PROB_CLIP_EPS) + (1.0 - w) * logit(pSharpNoVigVec[i]!, PROB_CLIP_EPS),
+    );
     unnorm.push(u);
     sumU += u;
   }
@@ -703,8 +693,8 @@ export function blendConfirmationProbabilities(
  * Para mercados 2-vías coincide algebraicamente con `blendConfirmationProbabilities([p, 1-p], ...)`.
  */
 export function blendScalarConfirmationProb(pModelo: number, pSharpNoVig: number, wModel: number): number {
-  const w = clampNumber(wModel, 0.0, 1.0);
-  return sigmoidScalar(w * logitClipped(pModelo) + (1.0 - w) * logitClipped(pSharpNoVig));
+  const w = clamp(wModel, 0.0, 1.0);
+  return sigmoid(w * logit(pModelo, PROB_CLIP_EPS) + (1.0 - w) * logit(pSharpNoVig, PROB_CLIP_EPS));
 }
 
 // ---------------------------------------------------------------------------
@@ -1327,7 +1317,7 @@ export function evaluateStaleLineBatch(
     // 9. Probabilidad efectiva de valuación y Quarter-Kelly contraído por incertidumbre
     let pEffective = pSharpNoVig;
     if (signalMode === "double_confirmation" && pModValid !== null) {
-      const wMod = clampNumber(
+      const wMod = clamp(
         c.w_model ?? segment?.w_model ?? config.default_model_blend_weight,
         0.0,
         1.0,
@@ -1915,8 +1905,8 @@ export function deriveRecommendedScrapingCadence(
     throw new StaleLineConfigValidationError("Se requiere al menos un régimen en deriveRecommendedScrapingCadence.");
   }
 
-  const pMoveClamped = clampNumber(params.sharp_live_move_fraction, 1e-6, 0.999999);
-  const betaClamped = clampNumber(params.recreational_convergence_beta, 1e-6, 0.999999);
+  const pMoveClamped = clamp(params.sharp_live_move_fraction, 1e-6, 0.999999);
+  const betaClamped = clamp(params.recreational_convergence_beta, 1e-6, 0.999999);
   const baseSharpHazard = -Math.log(1.0 - pMoveClamped) / params.sharp_live_gap_median_minutes;
   const baseSharpInterMove = 1.0 / baseSharpHazard;
   const xStar = solveDimensionlessPollingDecayProduct(params.max_polling_decay_fraction);

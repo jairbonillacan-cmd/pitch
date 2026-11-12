@@ -11,6 +11,8 @@
  *  4. Open-Meteo clima horario/7d + física de los 32 estadios (viento `>= 15 mph`, lluvia/nieve exterior y altitud `>= 1500 m`).
  */
 
+import { clamp, sigmoid } from "./math.js";
+
 export const MINKOWSKI_V3_MODEL_ID = "pitchlab-minkowski-v3.0" as const;
 
 export interface NFLLiveContextPriors {
@@ -226,12 +228,6 @@ export interface MinkowskiV3LivePrediction {
   pAway: number;
   expectedTotalPoints: number;
   delta: NFLLiveContextDelta;
-}
-
-function clamp(val: number, lo: number, hi: number): number {
-  if (val < lo) return lo;
-  if (val > hi) return hi;
-  return val;
 }
 
 function num(val: unknown, fallback: number | null = null): number | null {
@@ -579,7 +575,7 @@ export function applyMinkowskiV3LiveContext(
   const closenessShift = clamp(-0.08 * (z1 * z1 - z0 * z0), -0.35, 0.35);
   const pDraw = clamp(pd0 * Math.exp(delta.tieWeatherBoost + closenessShift), 0.0005, 0.035);
   const rem = 1.0 - pDraw;
-  const sigZ1 = 1.0 / (1.0 + Math.exp(-z1));
+  const sigZ1 = sigmoid(z1);
   const pHome = rem * sigZ1;
   const pAway = 1.0 - pHome - pDraw;
   const expectedTotalPoints = clamp(baseTot + delta.totalPointsDelta, 27.0, 66.0);

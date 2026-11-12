@@ -25,8 +25,9 @@ import {
   type ResolvedPickRecord,
   type SettlementOutcome,
 } from "./ledger.js";
+import { clamp, createMulberry32 } from "./math.js";
 
-export { settlePickPnl };
+export { createMulberry32, settlePickPnl };
 
 /** Número mínimo y por defecto de remuestreos bootstrap exigido por contrato A2 (`>= 1000`). */
 export const MIN_BOOTSTRAP_RESAMPLES = 1000;
@@ -184,22 +185,8 @@ export interface ClvBootstrapReport {
 }
 
 // ---------------------------------------------------------------------------
-// PRNG determinista `mulberry32` y cuantiles lineales Type-7
+// Cuantiles lineales Type-7 (`createMulberry32` centralizado en `./math.js`)
 // ---------------------------------------------------------------------------
-
-/**
- * Generador pseudoaleatorio determinista de 32 bits (`mulberry32`) con distribución uniforme en `[0, 1)`.
- * Paridad bit a bit exacta con `_mulberry32_uniforms` en `services/models/clv_report.py`.
- */
-export function createMulberry32(seed: number): () => number {
-  let s = (seed | 0) || 0x12345678;
-  return function next(): number {
-    s = (s + 0x6d2b79f5) | 0;
-    let t = Math.imul(s ^ (s >>> 15), 1 | s);
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-}
 
 /**
  * Cuantil lineal Type-7 sobre arreglo ordenado ascendentemente (`q ∈ [0, 1]`).
@@ -211,7 +198,7 @@ export function quantileLinearSorted(sorted: Float64Array | readonly number[], q
     throw new LedgerValidationError("no se puede calcular cuantil de un arreglo vacío");
   }
   if (n === 1) return sorted[0]!;
-  const clampedQ = Math.min(1, Math.max(0, q));
+  const clampedQ = clamp(q, 0, 1);
   const pos = clampedQ * (n - 1);
   const lo = Math.floor(pos);
   const hi = Math.ceil(pos);

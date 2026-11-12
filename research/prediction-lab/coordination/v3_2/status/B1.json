@@ -1,0 +1,81 @@
+{
+  "agent_id": "B1",
+  "agent_name": "b1-outlook",
+  "wave": 1,
+  "state": "completed",
+  "started_at": "2026-11-12T14:49:01Z",
+  "finished_at": "2026-11-12T15:26:05Z",
+  "files_written": [
+    "src/domain/prediction/math.ts",
+    "src/domain/prediction/outlook.ts",
+    "src/domain/prediction/clv.ts",
+    "src/domain/prediction/montecarlo.ts",
+    "src/domain/prediction/multisport.ts",
+    "src/domain/prediction/nfl_live.ts",
+    "src/domain/prediction/stale_lines.ts",
+    "src/domain/prediction/devig.ts",
+    "tests/prediction/outlook.test.ts",
+    "research/prediction-lab/coordination/v3_2/CONTRACT_OUTLOOK.md",
+    "research/prediction-lab/coordination/v3_2/status/B1.json"
+  ],
+  "commands_run": [
+    "Set-Location \"C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\prediction-lab\"; npx vitest run tests/prediction",
+    "Set-Location \"C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\prediction-lab\"; npx vitest run tests/prediction/outlook.test.ts",
+    "Set-Location \"C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\prediction-lab\"; npx vitest run; git checkout -- evidence/statistical-tests/aztecavet-experiments.json"
+  ],
+  "metrics": {
+    "epistemic_status": "OBSERVADO",
+    "vitest_full_suite": {
+      "test_files_passed": 59,
+      "test_files_skipped": 1,
+      "test_files_total": 60,
+      "tests_passed": 1145,
+      "tests_skipped": 1,
+      "tests_total": 1146,
+      "failures": 0
+    },
+    "outlook_test_suite": {
+      "file": "tests/prediction/outlook.test.ts",
+      "tests_passed": 10,
+      "max_simplex_abs_error": 1e-15,
+      "contracts_fair_odds_parity_points_verified": 210,
+      "ts_python_parity_max_abs_delta": 4.991e-13,
+      "b4_calibration_segments_consumed": 98,
+      "b4_calibration_sha256": "090cfaa23d35bdd569ea3a17d0084b6af7b2e99eeb8cdb00b15a8b588654194e"
+    },
+    "forbidden_public_fields_count": 0,
+    "synthetic_prices_emitted_count": 0,
+    "frozen_v3_1_artifacts_modified": 0,
+    "liga_mx_headline_sample": {
+      "matchId": "MEX:20260906:atlas:atlante",
+      "matchup": "Atlas FC vs CF Atlante",
+      "markets_count": 11,
+      "1x2": { "selection": "home", "p": 0.5263, "fairOdds": { "decimal": 1.90, "american": -111 }, "pSource": "model", "market": null },
+      "double_chance": { "selection": "1X", "p": 0.7704, "fairOdds": { "decimal": 1.30, "american": -333 }, "pSource": "model", "market": null },
+      "totals_1_5": { "selection": "over", "p": 0.7882, "fairOdds": { "decimal": 1.27, "american": -370 }, "pSource": "model", "market": null },
+      "totals_2_5": { "selection": "over", "p": 0.5502, "fairOdds": { "decimal": 1.82, "american": -122 }, "pSource": "model", "market": null },
+      "totals_3_5": { "selection": "under", "p": 0.6734, "fairOdds": { "decimal": 1.49, "american": -204 }, "pSource": "model", "market": null },
+      "btts": { "selection": "yes", "p": 0.5612, "fairOdds": { "decimal": 1.78, "american": -128 }, "pSource": "model", "market": null },
+      "dnb": { "selection": "home", "p": 0.6963, "fairOdds": { "decimal": 1.44, "american": -227 }, "pSource": "model", "market": null },
+      "ah_-1_0": { "selection": "away", "p": 0.6149, "fairOdds": { "decimal": 1.63, "american": -159 }, "pSource": "model", "market": null },
+      "ah_-0_5": { "selection": "home", "p": 0.5263, "fairOdds": { "decimal": 1.90, "american": -111 }, "pSource": "model", "market": null },
+      "ah_0_5": { "selection": "home", "p": 0.7704, "fairOdds": { "decimal": 1.30, "american": -333 }, "pSource": "model", "market": null },
+      "ah_1_0": { "selection": "home", "p": 0.8963, "fairOdds": { "decimal": 1.12, "american": -833 }, "pSource": "model", "market": null },
+      "topScorelines": [
+        { "score": "1-1", "p": 0.1154, "fairOdds": { "decimal": 8.66, "american": 766 } },
+        { "score": "2-1", "p": 0.0978, "fairOdds": { "decimal": 10.23, "american": 923 } },
+        { "score": "1-0", "p": 0.0940, "fairOdds": { "decimal": 10.63, "american": 963 } }
+      ]
+    },
+    "nfl_headline_sample": {
+      "matchId": "2025_14_DAL_DET",
+      "matchup": "Detroit Lions vs Dallas Cowboys",
+      "markets_count": 3,
+      "moneyline": { "selection": "home", "p": 0.6264, "fairOdds": { "decimal": 1.60, "american": -167 }, "pSource": "market_sharp_novig" },
+      "spread": { "line": -3.5, "selection": "away", "p": 0.5026, "fairOdds": { "decimal": 1.99, "american": -101 }, "pSource": "market_sharp_novig" },
+      "totals": { "line": 48.5, "selection": "over", "p": 0.5103, "fairOdds": { "decimal": 1.96, "american": -104 }, "pSource": "market_sharp_novig" }
+    }
+  },
+  "open_issues": [],
+  "next": "Listo para consumo por B8 (regenerate_live_snapshot.py -> outlooks: MatchOutlook[] + SYNC_NOTES.md) en Ola 2 y auditoría Red Team por V."
+}
