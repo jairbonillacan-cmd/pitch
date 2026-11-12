@@ -1,0 +1,71 @@
+import { NextResponse } from "next/server";
+import {
+  authAccount,
+  completeSignup,
+  eq,
+  FLAG_MONTH1_NO_CARD,
+  getBoolFlag,
+  signupCompleted,
+  users,
+} from "@pitchlab/db";
+import { normalizeTrialEmail } from "@pitchlab/ui";
+import { requireMember } from "../../../../src/server/session-user";
+import { parseSignupBody, trialHashes } from "../../../../src/server/signup";
+
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+
+/** ¿Ya completó el paso 2 del registro? */
+export async function GET(request: Request): Promise<NextResponse> {
+  const member = await requireMember(request);
+  if ("error" in member) return member.error;
+  return NextResponse.json({ completed: await signupCompleted(member.db, member.userId) });
+}
+
+/** Guarda fecha de nacimiento y consentimientos; concede la prueba y registra el referido. */
+export async function POST(request: Request): Promise<NextResponse> {
+  const member = await requireMember(request);
+  if ("error" in member) return member.error;
+  const body = parseSignupBody(await request.json().catch(() => null));
+  if (!body) return NextResponse.json({ error: "Datos incompletos" }, { status: 400 });
+
+  const { db, userId } = member;
+  const [profile] = await db
+    .select({ email: users.email, authUserId: users.authUserId })
+    .from(users)
+    .where(eq(users.id, userId));
+  if (!profile) return NextResponse.json({ error: "Perfil no encontrado" }, { status: 404 });
+
+  const accounts = profile.authUserId
+    ? await db.select({ providerId: authAccount.providerId }).from(authAccount).where(eq(authAccount.userId, profile.authUserId))
+    : [];
+  const provider = accounts.some((a) => a.providerId === "google")
+    ? "google"
+    : accounts.some((a) => a.providerId === "apple")
+      ? "apple"
+      : "email";
+
+  const trialOn = await getBoolFlag(db, FLAG_MONTH1_NO_CARD, true);
+  const result = await completeSignup(db, {
+    userId,
+    birthDate: body.birthDate,
+    termsVersion: body.termsVersion,
+    analyticsConsent: body.analyticsConsent,
+    marketingConsent: body.marketingConsent,
+    referralCode: body.referralCode,
+    trial: trialOn
+      ? {
+          canonicalEmail: normalizeTrialEmail(profile.email),
+          provider,
+          ...trialHashes(request.headers, process.env.BETTER_AUTH_SECRET ?? ""),
+        }
+      : null,
+    now: new Date(),
+  });
+
+  if (!result.ok) {
+    const status = result.reason === "menor_de_edad" ? 403 : 400;
+    return NextResponse.json({ error: result.reason }, { status });
+  }
+  return NextResponse.json(result);
+}

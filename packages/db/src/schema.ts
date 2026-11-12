@@ -10,6 +10,7 @@ import {
   boolean,
   char,
   check,
+  date,
   index,
   integer,
   jsonb,
@@ -41,6 +42,12 @@ export const users = pgTable("users", {
   isAmbassador: boolean("is_ambassador").notNull().default(false),
   isAdult: boolean("is_adult").notNull().default(false),
   socialPauseEnabled: boolean("social_pause_enabled").notNull().default(false),
+  /** Paso 2 del registro: fecha de nacimiento (`AAAA-MM-DD`) y consentimientos con versión. */
+  birthDate: date("birth_date"),
+  termsVersion: text("terms_version"),
+  termsAcceptedAt: ts("terms_accepted_at"),
+  analyticsConsent: boolean("analytics_consent").notNull().default(false),
+  marketingConsent: boolean("marketing_consent").notNull().default(false),
   createdAt: createdAt(),
 });
 

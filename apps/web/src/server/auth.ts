@@ -12,6 +12,7 @@
 import { randomBytes } from "node:crypto";
 import { betterAuth, type BetterAuthOptions } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { captcha } from "better-auth/plugins/captcha";
 import { magicLink } from "better-auth/plugins/magic-link";
 import { eq } from "@pitchlab/db";
 import {
@@ -74,10 +75,22 @@ export function createAuth(options: {
   sendEmail: SendEmail;
   google?: { clientId: string; clientSecret: string };
   apple?: { clientId: string; clientSecret: string };
+  /** Clave secreta de Cloudflare Turnstile: exige el token al pedir el enlace mágico. */
+  turnstileSecret?: string;
 }) {
   const socialProviders: BetterAuthOptions["socialProviders"] = {};
   if (options.google) socialProviders.google = options.google;
   if (options.apple) socialProviders.apple = options.apple;
+  const turnstile = options.turnstileSecret
+    ? [
+        captcha({
+          provider: "cloudflare-turnstile",
+          secretKey: options.turnstileSecret,
+          endpoints: ["/sign-in/magic-link"],
+          expectedAction: "magic_link",
+        }),
+      ]
+    : [];
 
   return betterAuth({
     secret: options.secret,
@@ -89,6 +102,7 @@ export function createAuth(options: {
     socialProviders,
     session: { expiresIn: 60 * 60 * 24 * 30, updateAge: 60 * 60 * 24 },
     plugins: [
+      ...turnstile,
       magicLink({
         expiresIn: 15 * 60,
         sendMagicLink: async ({ email, url }) => {
@@ -139,6 +153,11 @@ export function getAuth(): PitchLabAuth | null {
     sendEmail: resendKey ? resendSender(resendKey, from) : consoleSender,
     google: pair(process.env.GOOGLE_CLIENT_ID, process.env.GOOGLE_CLIENT_SECRET),
     apple: pair(process.env.APPLE_CLIENT_ID, process.env.APPLE_CLIENT_SECRET),
+    // Solo con las dos claves: si falta la pública, el navegador no podría mandar el token.
+    turnstileSecret:
+      process.env.TURNSTILE_SECRET_KEY && process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
+        ? process.env.TURNSTILE_SECRET_KEY
+        : undefined,
   });
   return cached;
 }

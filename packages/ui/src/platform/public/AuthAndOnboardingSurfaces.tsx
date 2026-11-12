@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import type { LeagueId } from "@pitchlab/contracts";
 import { getTeamColors } from "@pitchlab/sports-assets";
 import { LeagueBadge, TeamBadge } from "../../sports";
@@ -20,7 +20,7 @@ import { usePlatform } from "../platform-provider";
 import { TIPSTAR_CREATORS } from "../spacetime-catalog";
 import type { RiskBand } from "../types";
 import { LoginSurfaceV4 } from "./LoginSurfaceV4";
-import { SignupSurfaceV4 } from "./SignupSurfaceV4";
+import { flushSignupDetails, SignupSurfaceV4 } from "./SignupSurfaceV4";
 
 export function AuthSurfaceV4({
   mode,
@@ -67,7 +67,31 @@ export function OnboardingSurfaceV4(): React.JSX.Element {
     openBetaPin,
     navigateTo,
     pushToast,
+    accountsEnabled,
   } = usePlatform();
+
+  // Con cuentas, aquí llega el enlace mágico (o la vuelta de Google): se guardan la fecha de
+  // nacimiento y los consentimientos del paso 2, y con eso se activa la prueba.
+  useEffect(() => {
+    if (!accountsEnabled) return;
+    let cancelled = false;
+    void flushSignupDetails().then((result) => {
+      if (cancelled) return;
+      if (result.status === "saved" && result.trial === "concedida") {
+        pushToast("Tu prueba de 7 días ya está activa.", "success");
+      } else if (result.status === "saved" && result.trial === "ya_usada") {
+        pushToast("Este correo ya usó su prueba gratis.", "warning");
+      } else if (result.status === "underage") {
+        pushToast("PitchLab es solo para mayores de 18.", "warning");
+        navigateTo("/");
+      } else if (result.status === "error") {
+        pushToast("No pudimos guardar tus datos. Te los pediremos de nuevo al entrar.", "warning");
+      }
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [accountsEnabled, navigateTo, pushToast]);
 
   const [baseUnitMxn, setBaseUnitMxn] = useState<number>(250);
   const [unitBankrollAck, setUnitBankrollAck] = useState<boolean>(true);
@@ -98,6 +122,11 @@ export function OnboardingSurfaceV4(): React.JSX.Element {
       `Perfil guardado (${favoriteLeagues.length} ligas · 1.0u = $${baseUnitMxn} MXN simulados).`,
       "success",
     );
+    // Con cuentas, el servidor decide el acceso al entrar a /app (sesión, registro y Pase).
+    if (accountsEnabled) {
+      navigateTo("/app");
+      return;
+    }
     if (viewerRole === "visitor" && rawDataset.isServerRedactedForVisitor) {
       openBetaPin("/app");
       return;

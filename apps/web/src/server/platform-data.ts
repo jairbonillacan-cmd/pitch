@@ -1,5 +1,4 @@
 import { cache } from "react";
-import { cookies } from "next/headers";
 import {
   buildPlatformDataset,
   redactDatasetForVisitor,
@@ -9,7 +8,7 @@ import {
   type RawLeagueInput,
   type ViewerRole,
 } from "@pitchlab/ui";
-import { getBetaCookieName, verifyBetaCookieToken } from "./beta-auth";
+import { getViewerAccess } from "./viewer-access";
 import { buildSpacetimeSignals } from "./spacetime";
 import { createDb, FLAG_MONTH1_NO_CARD, getBoolFlag, type Db } from "@pitchlab/db";
 import {
@@ -150,15 +149,9 @@ export async function loadGameDetail(gameId: string): Promise<PlatformGameDetail
   return game ? { markets: game.markets, headToHead: game.headToHead, factors: game.factors } : null;
 }
 
+/** Acceso completo: PIN de la beta o cuenta con registro completo y Pase vigente. */
 export async function hasAuthenticatedBetaSession(): Promise<boolean> {
-  try {
-    const cookieStore = await cookies();
-    const token = cookieStore.get(getBetaCookieName())?.value;
-    return await verifyBetaCookieToken(token);
-  } catch (err) {
-    void err;
-    return false;
-  }
+  return (await getViewerAccess()).fullAccess;
 }
 
 /**

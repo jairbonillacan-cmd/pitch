@@ -57,7 +57,19 @@ export interface SignupDetails {
     marketing: boolean;
     version: string;
   };
+  /** Código de quien invitó (`?code=`), para registrar el referido. */
+  referralCode?: string;
 }
+
+/** Respuesta de `POST /api/me/signup`. */
+export type SignupFlushResult =
+  | { status: "saved"; trial: "concedida" | "ya_usada" | "apagada" }
+  | { status: "none" }
+  | { status: "underage" }
+  | { status: "error" };
+
+/** Los datos del paso 2 esperan al enlace mágico como máximo un día. */
+const SIGNUP_DETAILS_MAX_AGE_MS = 24 * 60 * 60 * 1000;
 
 export interface SignupInvite {
   code: string;
@@ -122,18 +134,60 @@ export function checkBirthDate(
 }
 
 /**
- * Deja los datos del paso 2 listos para /onboarding.
- * TODO(F4): guardar fecha de nacimiento, consentimientos con versión y el
- * trial_claim en el servidor cuando existan las tablas (AUTH_BILLING_GROWTH.md §1).
+ * Deja los datos del paso 2 listos para /onboarding, donde `flushSignupDetails` los guarda en
+ * el servidor. Van en `localStorage` porque el enlace mágico se abre en otra pestaña.
  */
-export function submitSignupDetails(details: SignupDetails): void {
+export function submitSignupDetails(details: SignupDetails, now: number = Date.now()): void {
   try {
-    window.sessionStorage.setItem(
+    window.localStorage.setItem(
       SIGNUP_DETAILS_STORAGE_KEY,
-      JSON.stringify(details),
+      JSON.stringify({ ...details, savedAt: now }),
     );
   } catch (err) {
     void err;
+  }
+}
+
+/** Lee los datos pendientes del paso 2; null si no hay o ya vencieron. */
+export function readPendingSignupDetails(now: number = Date.now()): SignupDetails | null {
+  try {
+    const raw = window.localStorage.getItem(SIGNUP_DETAILS_STORAGE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as SignupDetails & { savedAt?: number };
+    if (typeof parsed.savedAt !== "number" || now - parsed.savedAt > SIGNUP_DETAILS_MAX_AGE_MS) {
+      window.localStorage.removeItem(SIGNUP_DETAILS_STORAGE_KEY);
+      return null;
+    }
+    const { savedAt: _savedAt, ...details } = parsed;
+    void _savedAt;
+    return details;
+  } catch (err) {
+    void err;
+    return null;
+  }
+}
+
+/** Guarda en el servidor los datos pendientes del paso 2 (con sesión de cuenta). */
+export async function flushSignupDetails(): Promise<SignupFlushResult> {
+  const details = readPendingSignupDetails();
+  if (!details) return { status: "none" };
+  try {
+    const res = await fetch("/api/me/signup", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(details),
+    });
+    if (res.status === 403) {
+      window.localStorage.removeItem(SIGNUP_DETAILS_STORAGE_KEY);
+      return { status: "underage" };
+    }
+    if (!res.ok) return { status: "error" };
+    const json = (await res.json()) as { trial?: "concedida" | "ya_usada" | "apagada" };
+    window.localStorage.removeItem(SIGNUP_DETAILS_STORAGE_KEY);
+    return { status: "saved", trial: json.trial ?? "apagada" };
+  } catch (err) {
+    void err;
+    return { status: "error" };
   }
 }
 
@@ -345,7 +399,7 @@ export function SignupSurfaceV4({
       setSubmitting(true);
       const ok = await startLoginSocialSignIn(
         label === "Google" ? "google" : "apple",
-        `/signup?paso=2&via=${label.toLowerCase()}`,
+        `/signup?paso=2&via=${label.toLowerCase()}${invite ? `&code=${encodeURIComponent(invite.code)}` : ""}`,
       );
       setSubmitting(false);
       if (!ok) setEmailError(`El acceso con ${label} todavía no está disponible.`);
@@ -387,6 +441,7 @@ export function SignupSurfaceV4({
         marketing,
         version: SIGNUP_CONSENT_VERSION,
       },
+      ...(invite ? { referralCode: invite.code } : {}),
     };
 
     setSubmitting(true);

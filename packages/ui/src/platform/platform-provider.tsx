@@ -1103,8 +1103,19 @@ export function PlatformProvider({
     } catch (err) {
       void err;
     }
+    if (accountsEnabled) {
+      try {
+        await fetch("/api/auth/sign-out", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: "{}",
+        });
+      } catch (err) {
+        void err;
+      }
+    }
     navigateTo("/");
-  }, [navigateTo, onLogoutOverride]);
+  }, [accountsEnabled, navigateTo, onLogoutOverride]);
 
   const value = useMemo<PlatformContextValue>(
     () => ({

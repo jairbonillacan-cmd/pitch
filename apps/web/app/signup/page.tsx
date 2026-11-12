@@ -42,7 +42,7 @@ export default async function SignupPage({
       <SignupSurfaceV4
         initialPromoCode={initialPromoCode}
         previewSlot={previewSlot}
-        initialStep={paso === "2" && returningProvider ? "details" : "method"}
+        initialStep={paso === "2" && (returningProvider || via === "cuenta") ? "details" : "method"}
         returningProvider={returningProvider}
       />
     </PlatformClientBridge>

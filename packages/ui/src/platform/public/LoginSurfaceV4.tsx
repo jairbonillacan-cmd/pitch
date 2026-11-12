@@ -6,6 +6,11 @@ import { isDisposableEmailDomain } from "../access-guard";
 import { MaestroIcon } from "../components/MaestroPrimitives";
 import { BetaPinModal, ToastViewport } from "../components/PlatformOverlays";
 import { usePlatform } from "../platform-provider";
+import {
+  getTurnstileToken,
+  TURNSTILE_ACTION_MAGIC_LINK,
+  turnstileSiteKey,
+} from "../turnstile-client";
 
 export type LoginStep = "email" | "password" | "sent";
 
@@ -49,9 +54,15 @@ export async function requestLoginMagicLink(
   callbackURL: string,
 ): Promise<boolean> {
   try {
+    const headers: Record<string, string> = { "content-type": "application/json" };
+    if (turnstileSiteKey()) {
+      const token = await getTurnstileToken(TURNSTILE_ACTION_MAGIC_LINK);
+      if (!token) return false;
+      headers["x-captcha-response"] = token;
+    }
     const res = await fetch("/api/auth/sign-in/magic-link", {
       method: "POST",
-      headers: { "content-type": "application/json" },
+      headers,
       body: JSON.stringify({ email, callbackURL }),
     });
     return res.ok;
