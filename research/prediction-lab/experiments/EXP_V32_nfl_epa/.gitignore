@@ -1,0 +1,6 @@
+# Cache crudo temporal de play-by-play nflverse (no versionar binarios > 50 MB)
+raw_cache/
+__pycache__/
+*.pyc
+artifacts/_*.jsonl
+artifacts/ts_parity_cases.json

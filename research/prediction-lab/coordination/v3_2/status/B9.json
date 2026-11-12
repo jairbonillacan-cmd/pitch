@@ -1,0 +1,147 @@
+﻿{
+  "agent_id": "B9",
+  "agent_name": "b9-nfl-epa",
+  "wave": 3,
+  "state": "completed",
+  "started_at": "2026-11-12T16:37:43Z",
+  "finished_at": "2026-11-12T18:30:00Z",
+  "files_written": [
+    "research/prediction-lab/experiments/EXP_V32_nfl_epa/.gitignore",
+    "research/prediction-lab/experiments/EXP_V32_nfl_epa/__init__.py",
+    "research/prediction-lab/experiments/EXP_V32_nfl_epa/pbp_ingest.py",
+    "research/prediction-lab/experiments/EXP_V32_nfl_epa/causal_epa_features.py",
+    "research/prediction-lab/experiments/EXP_V32_nfl_epa/run_experiment.py",
+    "research/prediction-lab/experiments/EXP_V32_nfl_epa/ts_parity_probe.ts",
+    "research/prediction-lab/experiments/EXP_V32_nfl_epa/test_exp_v32_nfl_epa.py",
+    "research/prediction-lab/experiments/EXP_V32_nfl_epa/artifacts/manifest_pbp_dev.json",
+    "research/prediction-lab/experiments/EXP_V32_nfl_epa/artifacts/nfl_pbp_team_game_1999_2024_dev.parquet",
+    "research/prediction-lab/experiments/EXP_V32_nfl_epa/artifacts/nfl_pbp_qb_game_1999_2024_dev.parquet",
+    "research/prediction-lab/experiments/EXP_V32_nfl_epa/artifacts/nfl_dev_causal_41_features.parquet",
+    "research/prediction-lab/experiments/EXP_V32_nfl_epa/artifacts/causal_state_dev.json",
+    "research/prediction-lab/experiments/EXP_V32_nfl_epa/artifacts/oof_selected_c.json",
+    "research/prediction-lab/experiments/EXP_V32_nfl_epa/artifacts/oof_predictions_walk_forward_dev.csv",
+    "research/prediction-lab/experiments/EXP_V32_nfl_epa/artifacts/exp_v32_nfl_epa_results.json",
+    "src/data/prediction/model_nfl_v3_2_candidate.json",
+    "services/models/artifacts/holdout_trial_registry.jsonl",
+    "research/prediction-lab/reports/A29_nfl_epa.md",
+    "research/prediction-lab/coordination/v3_2/status/B9.json"
+  ],
+  "commands_run": [
+    "Set-Location \"C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\prediction-lab\"; .\\research\\prediction-lab\\.venv\\Scripts\\python.exe research/prediction-lab/experiments/EXP_V32_nfl_epa/pbp_ingest.py",
+    "Set-Location \"C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\prediction-lab\"; .\\research\\prediction-lab\\.venv\\Scripts\\python.exe research/prediction-lab/experiments/EXP_V32_nfl_epa/run_experiment.py --record-trial",
+    "Set-Location \"C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\prediction-lab\"; .\\research\\prediction-lab\\.venv\\Scripts\\python.exe -m pytest research/prediction-lab/experiments/EXP_V32_nfl_epa services/models -v"
+  ],
+  "metrics": {
+    "evidence_label": "OBSERVADO",
+    "status": "candidate",
+    "production_activated": false,
+    "production_segments_enabled": "0/60",
+    "eval_split": "walk_forward_dev",
+    "holdout_cut_utc": "2025-02-02T17:30:00Z",
+    "holdout_sealed_untouched": true,
+    "n_holdout_sealed_untouched": 14163,
+    "trial_seq_registered": 31,
+    "trial_config_hash": "d8b88499896da5b5ea89e26c6e081298fb3334517d7d09cde99a034eaaa83d58",
+    "candidate_artifact_sha256": "ebf6c3c3cfe417d57a685f0b574fed212da3f1e58da8568434f82197f5a46158",
+    "live_feature_coverage": {
+      "baseline_v3_0_present": 4,
+      "baseline_v3_0_total": 29,
+      "baseline_v3_0_ratio": 0.137931,
+      "baseline_v3_0_flag": "low_coverage",
+      "candidate_v3_2_live_mean_present": 34.3696,
+      "candidate_v3_2_total": 41,
+      "candidate_v3_2_live_mean_ratio": 0.838282,
+      "candidate_v3_2_live_min_ratio": 0.829268,
+      "candidate_v3_2_live_flag": "ok",
+      "candidate_v3_2_team_only_ratio": 0.66755,
+      "candidate_v3_2_prekickoff_full_ratio": 1.0
+    },
+    "walk_forward_dev_2010_2024": {
+      "n_events_total": 3903,
+      "n_events_non_tie": 3891,
+      "n_events_paired_consensus_sin_cierre_sharp": 3890,
+      "selected_c_on_val_2010_2019": 0.002,
+      "ll_v3_0_live_4_of_29": 0.687931,
+      "ll_v3_0_logit_29": 0.624537,
+      "ll_v3_0_blend_29": 0.624289,
+      "ll_v3_2_live_35_of_41": 0.623014,
+      "ll_v3_2_epa_logit_41": 0.62202,
+      "ll_v3_2_epa_logit_41_ci95": [
+        0.611977,
+        0.632434
+      ],
+      "brier_v3_2_epa_logit_41": 0.433247,
+      "ece_v3_2_epa_logit_41": 0.010454,
+      "ll_v3_2_epa_blend_41": 0.621676,
+      "ll_nflverse_consensus_sin_cierre_sharp": 0.60908,
+      "delta_ll_cand_logit_vs_v3_0_live_4_of_29": {
+        "delta_ll": -0.065911,
+        "ci95": [
+          -0.075109,
+          -0.056734
+        ],
+        "significance": "significativa"
+      },
+      "delta_ll_cand_logit_vs_v3_0_logit_29": {
+        "delta_ll": -0.002516,
+        "ci95": [
+          -0.004585,
+          -0.000523
+        ],
+        "significance": "significativa"
+      },
+      "delta_ll_cand_logit_vs_v3_0_blend_29": {
+        "delta_ll": -0.002269,
+        "ci95": [
+          -0.004096,
+          -0.000345
+        ],
+        "significance": "significativa"
+      },
+      "delta_ll_cand_logit_vs_v3_0_logit_29_oos_2020_2024": {
+        "delta_ll": -0.003153,
+        "ci95": [
+          -0.006492,
+          0.000129
+        ],
+        "significance": "no significativa"
+      },
+      "delta_ll_cand_logit_vs_nflverse_consensus_sin_cierre_sharp": {
+        "delta_ll": 0.01304,
+        "ci95": [
+          0.007707,
+          0.017938
+        ],
+        "significance": "significativa",
+        "benchmark_label": "nflverse_consensus_novig (sin cierre sharp)"
+      }
+    },
+    "sharp_closing_corpus_b6": {
+      "n_rows": 39,
+      "n_prospective_games": 13,
+      "n_settled_games": 0,
+      "min_required": 64,
+      "calibration_status": "DESCONOCIDO"
+    },
+    "ts_python_parity": {
+      "probe_command": "npx vite-node research/prediction-lab/experiments/EXP_V32_nfl_epa/ts_parity_probe.ts",
+      "n_cases_checked": 246,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "pytest_verification": {
+      "command": "pytest research/prediction-lab/experiments/EXP_V32_nfl_epa services/models -v",
+      "passed": 116,
+      "failed": 0
+    }
+  },
+  "open_issues": [
+    "El corpus prospectivo nfl_sharp_closing.parquet (B6) tiene 13 juegos futuros y 0 < 64 juegos liquidados; la calibración del candidato contra cierre sharp real de Pinnacle permanece en DESCONOCIDO.",
+    "En walk_forward_dev el candidato puro deportivo (LL=0.622020) mejora significativamente al baseline v3.0 (LL=0.624537 Logit / 0.624289 Blend), pero pierde frente al consenso nflverse (\"sin cierre sharp\", LL=0.609080, ΔLL=+0.013040), por lo que permanece inactivo (status=\"candidate\", production_activated=false).",
+    "En presión PBP, qb_hit y CPOE no existían en nflverse antes de 2006 (DESCONOCIDO en 1999..2005, 100% OBSERVADO en walk_forward_dev 2010..2024); was_pressure directa de FTN/NGS cubre 2016..2024 (60.71% de dev, r=0.4499 con el proxy)."
+  ],
+  "next": [
+    "Acumular >= 64 partidos NFL liquidados con cierre real de Pinnacle/Smarkets en nfl_sharp_closing.parquet durante la temporada regular 2026 antes de evaluar mezcla sharp + candidato.",
+    "Conectar alimentador semanal pre-kickoff de rest_diff y starting_qb_id confirmado para elevar featureCoverage en vivo de 83.83% (34.37/41) hasta 100% (41/41) sin tocar production_enabled hasta pasar la compuerta prospectiva B5."
+  ]
+}

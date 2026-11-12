@@ -1,0 +1,532 @@
+{
+  "schema_version": "1.0.0",
+  "experiment": "EXP_V32_nfl_epa",
+  "license": "CC BY 4.0 / MIT (github.com/nflverse/nflverse-data static releases)",
+  "holdout_cut_iso": "2025-02-02T17:30:00Z",
+  "holdout_cut_date": "2025-02-02",
+  "holdout_untouched": true,
+  "seasons_included": [
+    1999,
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "max_game_date_observed": "2025-01-26",
+  "team_game_parquet": {
+    "filename": "nfl_pbp_team_game_1999_2024_dev.parquet",
+    "rows": 13974,
+    "bytes": 3604269,
+    "sha256": "279e52b830881c6a4942a07dcb219900eb9384f74b7871b92e049b88a9dc6038"
+  },
+  "qb_game_parquet": {
+    "filename": "nfl_pbp_qb_game_1999_2024_dev.parquet",
+    "rows": 17205,
+    "bytes": 1118489,
+    "sha256": "9e5b85f9838f215bc18ad92fbc208db6d2fa5f2cc8440a719497da851ec3e665"
+  },
+  "epistemic_coverage": {
+    "dropback_epa_and_rush_epa_and_success": {
+      "status": "OBSERVADO",
+      "seasons": "1999..2024 (< 2025-02-02)",
+      "walk_forward_dev_coverage": 1.0
+    },
+    "pressure_proxy_sack_or_qbhit_and_cpoe": {
+      "status_2006_2024": "OBSERVADO",
+      "status_1999_2005": "DESCONOCIDO",
+      "reason_1999_2005": "NFL no registraba qb_hit ni air_yards/cpoe sistematicamente antes de 2006.",
+      "walk_forward_dev_2010_2024_coverage": 1.0
+    },
+    "ngs_ftn_was_pressure_participation": {
+      "status_2016_2024": "OBSERVADO",
+      "status_1999_2015": "DESCONOCIDO",
+      "reason_1999_2015": "nflverse pbp_participation comienza en la temporada 2016.",
+      "walk_forward_dev_2010_2024_coverage": 0.6070640176600441
+    }
+  },
+  "seasons_detail": [
+    {
+      "season": 1999,
+      "pbp": {
+        "url": "https://github.com/nflverse/nflverse-data/releases/download/pbp/play_by_play_1999.parquet",
+        "raw_bytes": 13364401,
+        "raw_sha256": "dcf640fd18e4cdea03dba14c733bbcbd89796f100c509249b6ba5e3cff9e904c",
+        "rows_raw": 46136,
+        "rows_excluded_holdout_ge_2025_02_02": 0,
+        "rows_kept_dev": 46136,
+        "fetched_at_utc": "2026-11-12T16:54:38Z"
+      },
+      "participation": null,
+      "n_team_game_rows": 516,
+      "n_qb_game_rows": 670
+    },
+    {
+      "season": 2000,
+      "pbp": {
+        "url": "https://github.com/nflverse/nflverse-data/releases/download/pbp/play_by_play_2000.parquet",
+        "raw_bytes": 13404971,
+        "raw_sha256": "595c3b0eefeb91afd6f08c629669823b31e63c34304c98faed09adf4fbd54706",
+        "rows_raw": 45491,
+        "rows_excluded_holdout_ge_2025_02_02": 0,
+        "rows_kept_dev": 45491,
+        "fetched_at_utc": "2026-11-12T16:54:42Z"
+      },
+      "participation": null,
+      "n_team_game_rows": 514,
+      "n_qb_game_rows": 665
+    },
+    {
+      "season": 2001,
+      "pbp": {
+        "url": "https://github.com/nflverse/nflverse-data/releases/download/pbp/play_by_play_2001.parquet",
+        "raw_bytes": 14007738,
+        "raw_sha256": "43f0eea9f76de070a09382a5f3438b0ddb509c9ca48ac98dee77639e35724bca",
+        "rows_raw": 44969,
+        "rows_excluded_holdout_ge_2025_02_02": 0,
+        "rows_kept_dev": 44969,
+        "fetched_at_utc": "2026-11-12T16:54:45Z"
+      },
+      "participation": null,
+      "n_team_game_rows": 518,
+      "n_qb_game_rows": 638
+    },
+    {
+      "season": 2002,
+      "pbp": {
+        "url": "https://github.com/nflverse/nflverse-data/releases/download/pbp/play_by_play_2002.parquet",
+        "raw_bytes": 14742308,
+        "raw_sha256": "4930befb7ce6597fa149d53e56565eb1377bad778a04fec1e6c21b0537c4aa17",
+        "rows_raw": 47355,
+        "rows_excluded_holdout_ge_2025_02_02": 0,
+        "rows_kept_dev": 47355,
+        "fetched_at_utc": "2026-11-12T16:54:46Z"
+      },
+      "participation": null,
+      "n_team_game_rows": 534,
+      "n_qb_game_rows": 682
+    },
+    {
+      "season": 2003,
+      "pbp": {
+        "url": "https://github.com/nflverse/nflverse-data/releases/download/pbp/play_by_play_2003.parquet",
+        "raw_bytes": 14620361,
+        "raw_sha256": "a5bc20c69eee0c18364bea7fa1d3c2817941c8d9026058c694ab1ee73a2d279d",
+        "rows_raw": 46811,
+        "rows_excluded_holdout_ge_2025_02_02": 0,
+        "rows_kept_dev": 46811,
+        "fetched_at_utc": "2026-11-12T16:54:45Z"
+      },
+      "participation": null,
+      "n_team_game_rows": 534,
+      "n_qb_game_rows": 692
+    },
+    {
+      "season": 2004,
+      "pbp": {
+        "url": "https://github.com/nflverse/nflverse-data/releases/download/pbp/play_by_play_2004.parquet",
+        "raw_bytes": 14568240,
+        "raw_sha256": "94658bc15788eda63a8cdba0d8f1c8aa9253fb5baa9c0d07b9c2e35e75ae6a03",
+        "rows_raw": 46705,
+        "rows_excluded_holdout_ge_2025_02_02": 0,
+        "rows_kept_dev": 46705,
+        "fetched_at_utc": "2026-11-12T16:55:00Z"
+      },
+      "participation": null,
+      "n_team_game_rows": 534,
+      "n_qb_game_rows": 670
+    },
+    {
+      "season": 2005,
+      "pbp": {
+        "url": "https://github.com/nflverse/nflverse-data/releases/download/pbp/play_by_play_2005.parquet",
+        "raw_bytes": 14612857,
+        "raw_sha256": "1b93d868e286fc556192e642ec09ff76b29880b441674dcb0f3b51fb0064df92",
+        "rows_raw": 46823,
+        "rows_excluded_holdout_ge_2025_02_02": 0,
+        "rows_kept_dev": 46823,
+        "fetched_at_utc": "2026-11-12T16:55:01Z"
+      },
+      "participation": null,
+      "n_team_game_rows": 534,
+      "n_qb_game_rows": 663
+    },
+    {
+      "season": 2006,
+      "pbp": {
+        "url": "https://github.com/nflverse/nflverse-data/releases/download/pbp/play_by_play_2006.parquet",
+        "raw_bytes": 18555685,
+        "raw_sha256": "f3d45c8cf41fa860ec22519490781eb19a00cf04cbf039b28af671bfcb11c2b4",
+        "rows_raw": 46299,
+        "rows_excluded_holdout_ge_2025_02_02": 0,
+        "rows_kept_dev": 46299,
+        "fetched_at_utc": "2026-11-12T16:54:52Z"
+      },
+      "participation": null,
+      "n_team_game_rows": 534,
+      "n_qb_game_rows": 644
+    },
+    {
+      "season": 2007,
+      "pbp": {
+        "url": "https://github.com/nflverse/nflverse-data/releases/download/pbp/play_by_play_2007.parquet",
+        "raw_bytes": 18716524,
+        "raw_sha256": "bcfded2ff41b221617e38e48cbc56fd797f336363436ed5b5da17659caede9a9",
+        "rows_raw": 46266,
+        "rows_excluded_holdout_ge_2025_02_02": 0,
+        "rows_kept_dev": 46266,
+        "fetched_at_utc": "2026-11-12T16:55:01Z"
+      },
+      "participation": null,
+      "n_team_game_rows": 534,
+      "n_qb_game_rows": 667
+    },
+    {
+      "season": 2008,
+      "pbp": {
+        "url": "https://github.com/nflverse/nflverse-data/releases/download/pbp/play_by_play_2008.parquet",
+        "raw_bytes": 18565820,
+        "raw_sha256": "f625e836a0117698feaad1a6e84f4ab341ff03197c1904313836ef7313af0f07",
+        "rows_raw": 45917,
+        "rows_excluded_holdout_ge_2025_02_02": 0,
+        "rows_kept_dev": 45917,
+        "fetched_at_utc": "2026-11-12T16:55:01Z"
+      },
+      "participation": null,
+      "n_team_game_rows": 534,
+      "n_qb_game_rows": 649
+    },
+    {
+      "season": 2009,
+      "pbp": {
+        "url": "https://github.com/nflverse/nflverse-data/releases/download/pbp/play_by_play_2009.parquet",
+        "raw_bytes": 18905386,
+        "raw_sha256": "17ba96f594a7b84c86060a99a3082158ebab206672d6c16036a069829d77dee7",
+        "rows_raw": 46519,
+        "rows_excluded_holdout_ge_2025_02_02": 0,
+        "rows_kept_dev": 46519,
+        "fetched_at_utc": "2026-11-12T16:55:12Z"
+      },
+      "participation": null,
+      "n_team_game_rows": 534,
+      "n_qb_game_rows": 685
+    },
+    {
+      "season": 2010,
+      "pbp": {
+        "url": "https://github.com/nflverse/nflverse-data/releases/download/pbp/play_by_play_2010.parquet",
+        "raw_bytes": 19059048,
+        "raw_sha256": "d2ef9c407319719910ad8de8c4c1b88f0ea945ffb3f78f48ef32fa3ed3a7573b",
+        "rows_raw": 46892,
+        "rows_excluded_holdout_ge_2025_02_02": 0,
+        "rows_kept_dev": 46892,
+        "fetched_at_utc": "2026-11-12T16:55:16Z"
+      },
+      "participation": null,
+      "n_team_game_rows": 534,
+      "n_qb_game_rows": 652
+    },
+    {
+      "season": 2011,
+      "pbp": {
+        "url": "https://github.com/nflverse/nflverse-data/releases/download/pbp/play_by_play_2011.parquet",
+        "raw_bytes": 19117830,
+        "raw_sha256": "c54753b8137b88dab260489b1462cbf1309c3d11741eb8d10e5f1b0a9b8795b1",
+        "rows_raw": 47448,
+        "rows_excluded_holdout_ge_2025_02_02": 0,
+        "rows_kept_dev": 47448,
+        "fetched_at_utc": "2026-11-12T16:55:15Z"
+      },
+      "participation": null,
+      "n_team_game_rows": 534,
+      "n_qb_game_rows": 639
+    },
+    {
+      "season": 2012,
+      "pbp": {
+        "url": "https://github.com/nflverse/nflverse-data/releases/download/pbp/play_by_play_2012.parquet",
+        "raw_bytes": 19322039,
+        "raw_sha256": "447b90789104aac70427ec9d3b51df7247234029d0ecabd269279369b1cc6278",
+        "rows_raw": 47834,
+        "rows_excluded_holdout_ge_2025_02_02": 0,
+        "rows_kept_dev": 47834,
+        "fetched_at_utc": "2026-11-12T16:55:25Z"
+      },
+      "participation": null,
+      "n_team_game_rows": 534,
+      "n_qb_game_rows": 627
+    },
+    {
+      "season": 2013,
+      "pbp": {
+        "url": "https://github.com/nflverse/nflverse-data/releases/download/pbp/play_by_play_2013.parquet",
+        "raw_bytes": 19521610,
+        "raw_sha256": "f454605a1983b3946baf0ffadf3a0b9f5e04735c4b84732e0483f2049a780d00",
+        "rows_raw": 48158,
+        "rows_excluded_holdout_ge_2025_02_02": 0,
+        "rows_kept_dev": 48158,
+        "fetched_at_utc": "2026-11-12T16:55:25Z"
+      },
+      "participation": null,
+      "n_team_game_rows": 534,
+      "n_qb_game_rows": 619
+    },
+    {
+      "season": 2014,
+      "pbp": {
+        "url": "https://github.com/nflverse/nflverse-data/releases/download/pbp/play_by_play_2014.parquet",
+        "raw_bytes": 19360792,
+        "raw_sha256": "54c01408d8f0ff9e013a4ea51428b91d610101f72545d082e932f5710e2fb4f7",
+        "rows_raw": 47629,
+        "rows_excluded_holdout_ge_2025_02_02": 0,
+        "rows_kept_dev": 47629,
+        "fetched_at_utc": "2026-11-12T16:55:28Z"
+      },
+      "participation": null,
+      "n_team_game_rows": 534,
+      "n_qb_game_rows": 638
+    },
+    {
+      "season": 2015,
+      "pbp": {
+        "url": "https://github.com/nflverse/nflverse-data/releases/download/pbp/play_by_play_2015.parquet",
+        "raw_bytes": 19545842,
+        "raw_sha256": "01b5ae7d06633a2e66b418404461a3d4ff055ad2f3a87d453cebcc8d3fda7ed9",
+        "rows_raw": 48122,
+        "rows_excluded_holdout_ge_2025_02_02": 0,
+        "rows_kept_dev": 48122,
+        "fetched_at_utc": "2026-11-12T16:55:33Z"
+      },
+      "participation": null,
+      "n_team_game_rows": 534,
+      "n_qb_game_rows": 617
+    },
+    {
+      "season": 2016,
+      "pbp": {
+        "url": "https://github.com/nflverse/nflverse-data/releases/download/pbp/play_by_play_2016.parquet",
+        "raw_bytes": 19344382,
+        "raw_sha256": "95eba04e2145e3c1c8ca502f2a3a76cfb0a5990680c3fb480f02a74a45f54a3b",
+        "rows_raw": 47651,
+        "rows_excluded_holdout_ge_2025_02_02": 0,
+        "rows_kept_dev": 47651,
+        "fetched_at_utc": "2026-11-12T16:55:35Z"
+      },
+      "participation": {
+        "url": "https://github.com/nflverse/nflverse-data/releases/download/pbp_participation/pbp_participation_2016.parquet",
+        "raw_bytes": 3076917,
+        "raw_sha256": "e876e5c3127497825baa18c5b49ed953cc685f701819a0d555f9e318b9295087",
+        "rows_raw": 48434,
+        "rows_excluded_holdout_ge_2025_02_02": 0,
+        "rows_kept_dev": 48434,
+        "fetched_at_utc": "2026-11-12T16:55:39Z"
+      },
+      "n_team_game_rows": 534,
+      "n_qb_game_rows": 634
+    },
+    {
+      "season": 2017,
+      "pbp": {
+        "url": "https://github.com/nflverse/nflverse-data/releases/download/pbp/play_by_play_2017.parquet",
+        "raw_bytes": 19050401,
+        "raw_sha256": "84eacd963c1fdd45965f6222c62e9329a7f3412f029d92c1ac5e34a1bb4d3710",
+        "rows_raw": 47245,
+        "rows_excluded_holdout_ge_2025_02_02": 0,
+        "rows_kept_dev": 47245,
+        "fetched_at_utc": "2026-11-12T16:55:41Z"
+      },
+      "participation": {
+        "url": "https://github.com/nflverse/nflverse-data/releases/download/pbp_participation/pbp_participation_2017.parquet",
+        "raw_bytes": 2943355,
+        "raw_sha256": "e4b2ce19b0da7a7aa6b9e764b00de831003e622e2719c371665ed32bf2f4f3f8",
+        "rows_raw": 47998,
+        "rows_excluded_holdout_ge_2025_02_02": 0,
+        "rows_kept_dev": 47998,
+        "fetched_at_utc": "2026-11-12T16:55:47Z"
+      },
+      "n_team_game_rows": 534,
+      "n_qb_game_rows": 627
+    },
+    {
+      "season": 2018,
+      "pbp": {
+        "url": "https://github.com/nflverse/nflverse-data/releases/download/pbp/play_by_play_2018.parquet",
+        "raw_bytes": 19072097,
+        "raw_sha256": "2e6f2dce7c7ebd46e985cabe0c17eb72b39a77f98cb4478409294f50b5820150",
+        "rows_raw": 47109,
+        "rows_excluded_holdout_ge_2025_02_02": 0,
+        "rows_kept_dev": 47109,
+        "fetched_at_utc": "2026-11-12T16:55:49Z"
+      },
+      "participation": {
+        "url": "https://github.com/nflverse/nflverse-data/releases/download/pbp_participation/pbp_participation_2018.parquet",
+        "raw_bytes": 2978916,
+        "raw_sha256": "334f03887775e98f818ab7f5b22c7973f050cae7c3594e5d4b6f5c9c9890969d",
+        "rows_raw": 47875,
+        "rows_excluded_holdout_ge_2025_02_02": 0,
+        "rows_kept_dev": 47875,
+        "fetched_at_utc": "2026-11-12T16:55:54Z"
+      },
+      "n_team_game_rows": 534,
+      "n_qb_game_rows": 651
+    },
+    {
+      "season": 2019,
+      "pbp": {
+        "url": "https://github.com/nflverse/nflverse-data/releases/download/pbp/play_by_play_2019.parquet",
+        "raw_bytes": 19119729,
+        "raw_sha256": "60c3067017db2d28a78f66a79b657268be8578d9a5288e6a827efdcd7fe42540",
+        "rows_raw": 47260,
+        "rows_excluded_holdout_ge_2025_02_02": 0,
+        "rows_kept_dev": 47260,
+        "fetched_at_utc": "2026-11-12T16:55:44Z"
+      },
+      "participation": {
+        "url": "https://github.com/nflverse/nflverse-data/releases/download/pbp_participation/pbp_participation_2019.parquet",
+        "raw_bytes": 2992048,
+        "raw_sha256": "5dd6c4ff1610cd4f100ec6b29dfbea521099eda06fd199902477edf61f334bc0",
+        "rows_raw": 48034,
+        "rows_excluded_holdout_ge_2025_02_02": 0,
+        "rows_kept_dev": 48034,
+        "fetched_at_utc": "2026-11-12T16:55:46Z"
+      },
+      "n_team_game_rows": 534,
+      "n_qb_game_rows": 651
+    },
+    {
+      "season": 2020,
+      "pbp": {
+        "url": "https://github.com/nflverse/nflverse-data/releases/download/pbp/play_by_play_2020.parquet",
+        "raw_bytes": 19286459,
+        "raw_sha256": "8889f5d8782b5c5dce3c3644acdc0322b228a7e9cb13fa36cbac250e260e9f60",
+        "rows_raw": 47705,
+        "rows_excluded_holdout_ge_2025_02_02": 0,
+        "rows_kept_dev": 47705,
+        "fetched_at_utc": "2026-11-12T16:55:49Z"
+      },
+      "participation": {
+        "url": "https://github.com/nflverse/nflverse-data/releases/download/pbp_participation/pbp_participation_2020.parquet",
+        "raw_bytes": 2849568,
+        "raw_sha256": "dbabfbef30c7e1657d566cad44dd1a9db434ae6aab1321b38b6a87f0fd963dba",
+        "rows_raw": 48513,
+        "rows_excluded_holdout_ge_2025_02_02": 0,
+        "rows_kept_dev": 48513,
+        "fetched_at_utc": "2026-11-12T16:55:53Z"
+      },
+      "n_team_game_rows": 538,
+      "n_qb_game_rows": 682
+    },
+    {
+      "season": 2021,
+      "pbp": {
+        "url": "https://github.com/nflverse/nflverse-data/releases/download/pbp/play_by_play_2021.parquet",
+        "raw_bytes": 20249925,
+        "raw_sha256": "333ad34378e5339d5172717cc83378e908daf02c8699416ab3e17c2ec10f78d8",
+        "rows_raw": 49922,
+        "rows_excluded_holdout_ge_2025_02_02": 0,
+        "rows_kept_dev": 49922,
+        "fetched_at_utc": "2026-11-12T16:55:54Z"
+      },
+      "participation": {
+        "url": "https://github.com/nflverse/nflverse-data/releases/download/pbp_participation/pbp_participation_2021.parquet",
+        "raw_bytes": 2949474,
+        "raw_sha256": "bc16b14c7043e780f995f914331e2f7ebd6661d024e61a2c892d560af04d9af1",
+        "rows_raw": 50714,
+        "rows_excluded_holdout_ge_2025_02_02": 0,
+        "rows_kept_dev": 50714,
+        "fetched_at_utc": "2026-11-12T16:55:59Z"
+      },
+      "n_team_game_rows": 570,
+      "n_qb_game_rows": 719
+    },
+    {
+      "season": 2022,
+      "pbp": {
+        "url": "https://github.com/nflverse/nflverse-data/releases/download/pbp/play_by_play_2022.parquet",
+        "raw_bytes": 20426548,
+        "raw_sha256": "931121d8897779d7944e2a293e92ed8799c8e5cceef84096ac42339003fedc09",
+        "rows_raw": 49434,
+        "rows_excluded_holdout_ge_2025_02_02": 0,
+        "rows_kept_dev": 49434,
+        "fetched_at_utc": "2026-11-12T16:56:05Z"
+      },
+      "participation": {
+        "url": "https://github.com/nflverse/nflverse-data/releases/download/pbp_participation/pbp_participation_2022.parquet",
+        "raw_bytes": 2941018,
+        "raw_sha256": "5f8d349316bf68de487ee0eb926706e65f5a8e37078c1faa37cb07cda2bf9e5e",
+        "rows_raw": 50150,
+        "rows_excluded_holdout_ge_2025_02_02": 0,
+        "rows_kept_dev": 50150,
+        "fetched_at_utc": "2026-11-12T16:56:08Z"
+      },
+      "n_team_game_rows": 568,
+      "n_qb_game_rows": 698
+    },
+    {
+      "season": 2023,
+      "pbp": {
+        "url": "https://github.com/nflverse/nflverse-data/releases/download/pbp/play_by_play_2023.parquet",
+        "raw_bytes": 20534088,
+        "raw_sha256": "bd3484731408def6b0ec93225bba2bd7b2c65769ca707a2b9444d891abdc6776",
+        "rows_raw": 49665,
+        "rows_excluded_holdout_ge_2025_02_02": 0,
+        "rows_kept_dev": 49665,
+        "fetched_at_utc": "2026-11-12T16:56:13Z"
+      },
+      "participation": {
+        "url": "https://github.com/nflverse/nflverse-data/releases/download/pbp_participation/pbp_participation_2023.parquet",
+        "raw_bytes": 4700238,
+        "raw_sha256": "b157736972248e6f71e0c5ad6c1010b71375a500a63944dc4956c65de263e5a6",
+        "rows_raw": 46168,
+        "rows_excluded_holdout_ge_2025_02_02": 0,
+        "rows_kept_dev": 46168,
+        "fetched_at_utc": "2026-11-12T16:56:15Z"
+      },
+      "n_team_game_rows": 570,
+      "n_qb_game_rows": 719
+    },
+    {
+      "season": 2024,
+      "pbp": {
+        "url": "https://github.com/nflverse/nflverse-data/releases/download/pbp/play_by_play_2024.parquet",
+        "raw_bytes": 20597560,
+        "raw_sha256": "3fd2896bc0b911b615142d2f1fabae54a4bbba5ab7b73b28187b118ef8af6a3b",
+        "rows_raw": 49492,
+        "rows_excluded_holdout_ge_2025_02_02": 176,
+        "rows_kept_dev": 49316,
+        "fetched_at_utc": "2026-11-12T16:56:16Z"
+      },
+      "participation": {
+        "url": "https://github.com/nflverse/nflverse-data/releases/download/pbp_participation/pbp_participation_2024.parquet",
+        "raw_bytes": 4644767,
+        "raw_sha256": "5e8cf1f6a11bb2be573c3db1533c28a5658907302d1ad45ca769a4ca35890d7c",
+        "rows_raw": 45919,
+        "rows_excluded_holdout_ge_2025_02_02": 0,
+        "rows_kept_dev": 45919,
+        "fetched_at_utc": "2026-11-12T16:56:18Z"
+      },
+      "n_team_game_rows": 568,
+      "n_qb_game_rows": 707
+    }
+  ]
+}
