@@ -546,6 +546,34 @@ export const socialModerationLogs = pgTable("social_moderation_logs", {
   createdAt: createdAt(),
 });
 
+/** Avisos sociales de la campana: comentarios, nuevos seguidores y «me gusta» agrupados. */
+export const notifications = pgTable(
+  "notifications",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    userId: uuid("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    kind: text("kind").notNull(),
+    actorUserId: uuid("actor_user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    postId: uuid("post_id").references(() => socialPosts.id, { onDelete: "cascade" }),
+    createdAt: createdAt(),
+    readAt: ts("read_at"),
+  },
+  (t) => [
+    index("notifications_user_created_idx").on(t.userId, t.createdAt.desc()),
+    uniqueIndex("notifications_follow_once_uidx")
+      .on(t.userId, t.actorUserId)
+      .where(sql`${t.kind} = 'follow'`),
+    uniqueIndex("notifications_like_post_uidx")
+      .on(t.userId, t.postId)
+      .where(sql`${t.kind} = 'like'`),
+    check("notifications_kind_ck", sql`${t.kind} IN ('comment', 'follow', 'like')`),
+  ],
+);
+
 // ---------------------------------------------------------------------------
 // H. CFDI 4.0
 // ---------------------------------------------------------------------------

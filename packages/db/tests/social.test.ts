@@ -7,8 +7,11 @@ import {
   createSocialPost,
   deleteSocialPost,
   followCounts,
+  getSocialPostById,
   listFollowing,
   listSocialFeed,
+  listSocialNotifications,
+  markSocialNotificationsRead,
   sealedPicks,
   setSocialFollow,
   setSocialLike,
@@ -187,5 +190,63 @@ describe("comunidad compartida", () => {
     expect(p!.pick).toEqual(pick);
     await client.exec(`UPDATE social_posts SET is_hidden_by_moderation = true WHERE id = '${created.ok ? created.id : ""}'`);
     expect(await listSocialFeed(db, null)).toEqual([]);
+  });
+
+  it("avisos: comentario ajeno (no propio), seguido solo la primera vez y likes agrupados", async () => {
+    const ana = await member("ana_mx", "Ana López");
+    const beto = await member("beto_nfl", "Beto Ruiz");
+    const caro = await member("caro_liga", "Caro Díaz");
+    const dani = await member("dani_premier", "Dani Soto");
+
+    const created = await createSocialPost(db, ana.id, post("Monterrey llega completo y con descanso."), now);
+    const postId = created.ok ? created.id : "";
+    expect((await getSocialPostById(db, null, postId))?.id).toBe(postId);
+
+    // Comentarse a sí misma no genera aviso.
+    await addSocialComment(db, ana.id, postId, "Agrego dato de bajas.", new Date(now.getTime() + MIN));
+    expect(await listSocialNotifications(db, ana.id)).toEqual([]);
+
+    // Comentario ajeno sí avisa con extracto.
+    await addSocialComment(db, beto.id, postId, "Coincido con esa línea.", new Date(now.getTime() + 2 * MIN));
+
+    // Seguir avisa la primera vez; dejar de seguir y volver a seguir no duplica ni reabre.
+    await setSocialFollow(db, beto.id, "ana_mx", true, new Date(now.getTime() + 3 * MIN));
+    let inbox = await listSocialNotifications(db, ana.id);
+    expect(inbox.map((n) => ({ kind: n.kind, actorHandle: n.actorHandle }))).toEqual([
+      { kind: "follow", actorHandle: "beto_nfl" },
+      { kind: "comment", actorHandle: "beto_nfl" },
+    ]);
+    expect(inbox[1]?.postExcerpt).toBe("Monterrey llega completo y con descanso.");
+
+    // Marca leído el aviso de seguimiento.
+    const followNotifId = inbox[0]!.id;
+    expect(await markSocialNotificationsRead(db, ana.id, [followNotifId], new Date(now.getTime() + 4 * MIN))).toBe(1);
+    await setSocialFollow(db, beto.id, "ana_mx", false, new Date(now.getTime() + 5 * MIN));
+    await setSocialFollow(db, beto.id, "ana_mx", true, new Date(now.getTime() + 6 * MIN));
+
+    inbox = await listSocialNotifications(db, ana.id);
+    const followRows = inbox.filter((n) => n.kind === "follow");
+    expect(followRows).toHaveLength(1);
+    expect(followRows[0]?.readAt).not.toBeNull();
+
+    // Likes: el propio no avisa; varios ajenos se agrupan en un solo aviso que se actualiza.
+    await setSocialLike(db, ana.id, postId, true, new Date(now.getTime() + 7 * MIN));
+    expect((await listSocialNotifications(db, ana.id)).filter((n) => n.kind === "like")).toEqual([]);
+
+    await setSocialLike(db, beto.id, postId, true, new Date(now.getTime() + 8 * MIN));
+    await markSocialNotificationsRead(db, ana.id, undefined, new Date(now.getTime() + 9 * MIN));
+    await setSocialLike(db, caro.id, postId, true, new Date(now.getTime() + 10 * MIN));
+    await setSocialLike(db, dani.id, postId, true, new Date(now.getTime() + 11 * MIN));
+
+    inbox = await listSocialNotifications(db, ana.id);
+    const likeRows = inbox.filter((n) => n.kind === "like");
+    expect(likeRows).toHaveLength(1);
+    expect(likeRows[0]).toMatchObject({
+      actorHandle: "dani_premier",
+      actorName: "Dani Soto",
+      likeCount: 3,
+      readAt: null,
+      postId,
+    });
   });
 });

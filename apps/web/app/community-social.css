@@ -1525,3 +1525,8 @@
     padding: 20px;
   }
 }
+
+.pl-com-post[data-highlighted="true"] {
+  outline: 1.5px solid color-mix(in srgb, var(--pl-brand) 65%, transparent);
+  outline-offset: 2px;
+}

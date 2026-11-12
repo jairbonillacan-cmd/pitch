@@ -292,6 +292,8 @@ export interface PlatformContextValue {
   refreshSocialFeed: () => void;
   /** Trae las publicaciones de un socio para su perfil. */
   loadSocialPostsByAuthor: (handle: string) => void;
+  /** Garantiza que una publicación concreta esté cargada (p. ej. al abrir un aviso). */
+  ensureSocialPostLoaded: (postId: string) => void;
   /** true cuando Comunidad viene del servidor (la ven todos los socios). */
   socialOnServer: boolean;
   blockedSpamAttempts: number;
@@ -399,6 +401,7 @@ const ACTION_KEYS = [
   "deleteSocialPost",
   "refreshSocialFeed",
   "loadSocialPostsByAuthor",
+  "ensureSocialPostLoaded",
   "toggleWatchlistGame",
   "setFavoriteLeagues",
   "setRiskPreference",
@@ -1324,6 +1327,23 @@ export function PlatformProvider({
     [accountsEnabled, rawDataset.games],
   );
 
+  const ensureSocialPostLoaded = useCallback(
+    (postId: string) => {
+      if (!accountsEnabled || !postId) return;
+      if (socialPosts.some((p) => p.id === postId)) return;
+      void (async () => {
+        const data = await getJson<{ post?: ServerSocialPost }>(
+          `/api/social/posts/${encodeURIComponent(postId)}`,
+        );
+        if (!data?.post) return;
+        const saved = fromServerPost(data.post, rawDataset.games, new Date());
+        setSocialOnServer(true);
+        setSocialPosts((prev) => mergeSocialPosts(prev, [saved], "extra"));
+      })();
+    },
+    [accountsEnabled, rawDataset.games, socialPosts],
+  );
+
   // Feed compartido: al entrar y cada vez que la persona vuelve a la pestaña.
   useEffect(() => {
     if (!accountsEnabled) return;
@@ -1485,6 +1505,7 @@ export function PlatformProvider({
       deleteSocialPost,
       refreshSocialFeed,
       loadSocialPostsByAuthor,
+      ensureSocialPostLoaded,
       socialOnServer,
       blockedSpamAttempts,
       watchlistGameIds,
@@ -1559,6 +1580,7 @@ export function PlatformProvider({
       deleteSocialPost,
       refreshSocialFeed,
       loadSocialPostsByAuthor,
+      ensureSocialPostLoaded,
       socialOnServer,
       blockedSpamAttempts,
       watchlistGameIds,

@@ -5,9 +5,10 @@
  * reglas que necesitan la base: límite por hora, texto repetido, récord verificado del autor
  * (se calcula de su bitácora sellada, nunca lo manda el navegador) y quién puede borrar qué.
  */
-import { and, asc, desc, eq, gte, inArray, isNotNull, lt, sql } from "drizzle-orm";
+import { and, asc, desc, eq, gte, inArray, isNotNull, isNull, lt, ne, sql } from "drizzle-orm";
 import type { Db } from "./billing";
 import {
+  notifications,
   sealedPicks,
   socialComments,
   socialFollows,
@@ -197,7 +198,7 @@ export async function addSocialComment(
     .where(eq(users.id, userId));
   if (!author?.handle) return { ok: false, reason: "sin_usuario" };
   const [post] = await db
-    .select({ id: socialPosts.id })
+    .select({ id: socialPosts.id, authorUserId: socialPosts.authorUserId })
     .from(socialPosts)
     .where(and(eq(socialPosts.id, postId), eq(socialPosts.isHiddenByModeration, false)));
   if (!post) return { ok: false, reason: "no_existe" };
@@ -214,6 +215,17 @@ export async function addSocialComment(
     .insert(socialComments)
     .values({ postId, authorUserId: userId, body: body.trim(), authorRecordSnapshot: record, createdAt: now })
     .returning({ id: socialComments.id, createdAt: socialComments.createdAt });
+
+  if (post.authorUserId !== userId) {
+    await db.insert(notifications).values({
+      userId: post.authorUserId,
+      kind: "comment",
+      actorUserId: userId,
+      postId,
+      createdAt: now,
+    });
+  }
+
   return {
     ok: true,
     comment: {
@@ -233,16 +245,75 @@ export async function setSocialLike(
   userId: string,
   postId: string,
   liked: boolean,
+  now: Date = new Date(),
 ): Promise<{ ok: true; likes: number } | { ok: false; reason: "no_existe" }> {
   const [post] = await db
-    .select({ id: socialPosts.id })
+    .select({ id: socialPosts.id, authorUserId: socialPosts.authorUserId })
     .from(socialPosts)
     .where(and(eq(socialPosts.id, postId), eq(socialPosts.isHiddenByModeration, false)));
   if (!post) return { ok: false, reason: "no_existe" };
   if (liked) {
-    await db.insert(socialLikes).values({ postId, userId }).onConflictDoNothing();
+    const inserted = await db
+      .insert(socialLikes)
+      .values({ postId, userId, createdAt: now })
+      .onConflictDoNothing()
+      .returning({ postId: socialLikes.postId });
+    if (inserted.length > 0 && post.authorUserId !== userId) {
+      await db
+        .insert(notifications)
+        .values({
+          userId: post.authorUserId,
+          kind: "like",
+          actorUserId: userId,
+          postId,
+          createdAt: now,
+          readAt: null,
+        })
+        .onConflictDoUpdate({
+          target: [notifications.userId, notifications.postId],
+          targetWhere: sql`${notifications.kind} = 'like'`,
+          set: {
+            actorUserId: userId,
+            createdAt: now,
+            readAt: null,
+          },
+        });
+    }
   } else {
-    await db.delete(socialLikes).where(and(eq(socialLikes.postId, postId), eq(socialLikes.userId, userId)));
+    const removed = await db
+      .delete(socialLikes)
+      .where(and(eq(socialLikes.postId, postId), eq(socialLikes.userId, userId)))
+      .returning({ postId: socialLikes.postId });
+    if (removed.length > 0 && post.authorUserId !== userId) {
+      const [latestRemaining] = await db
+        .select({ userId: socialLikes.userId })
+        .from(socialLikes)
+        .where(and(eq(socialLikes.postId, postId), ne(socialLikes.userId, post.authorUserId)))
+        .orderBy(desc(socialLikes.createdAt))
+        .limit(1);
+      if (!latestRemaining) {
+        await db
+          .delete(notifications)
+          .where(
+            and(
+              eq(notifications.userId, post.authorUserId),
+              eq(notifications.postId, postId),
+              eq(notifications.kind, "like"),
+            ),
+          );
+      } else {
+        await db
+          .update(notifications)
+          .set({ actorUserId: latestRemaining.userId })
+          .where(
+            and(
+              eq(notifications.userId, post.authorUserId),
+              eq(notifications.postId, postId),
+              eq(notifications.kind, "like"),
+            ),
+          );
+      }
+    }
   }
   const [{ count }] = await db
     .select({ count: sql<number>`count(*)::int` })
@@ -269,11 +340,14 @@ export interface FeedQuery {
   authorHandle?: string;
   /** Solo de quienes sigue `viewerUserId`. */
   following?: boolean;
+  /** Una sola publicación por id (p. ej. al abrir un aviso de comentario). */
+  postId?: string;
 }
 
 export async function listSocialFeed(db: Db, viewerUserId: string | null, query: FeedQuery = {}): Promise<FeedPost[]> {
   const limit = Math.min(Math.max(query.limit ?? 30, 1), SOCIAL_LIMITS.feedPageMax);
   const conditions = [eq(socialPosts.isHiddenByModeration, false), isNotNull(users.handle)];
+  if (query.postId) conditions.push(eq(socialPosts.id, query.postId));
   if (query.before) conditions.push(lt(socialPosts.createdAt, query.before));
   if (query.authorHandle) conditions.push(eq(users.handle, query.authorHandle.toLowerCase()));
   if (query.following) {
@@ -396,6 +470,7 @@ export async function setSocialFollow(
   followerUserId: string,
   handle: string,
   follow: boolean,
+  now: Date = new Date(),
 ): Promise<FollowResult> {
   const [target] = await db
     .select({ id: users.id })
@@ -404,13 +479,138 @@ export async function setSocialFollow(
   if (!target) return { ok: false, reason: "no_existe" };
   if (target.id === followerUserId) return { ok: false, reason: "propio" };
   if (follow) {
-    await db.insert(socialFollows).values({ followerUserId, followedUserId: target.id }).onConflictDoNothing();
+    const inserted = await db
+      .insert(socialFollows)
+      .values({ followerUserId, followedUserId: target.id, createdAt: now })
+      .onConflictDoNothing()
+      .returning({ followerUserId: socialFollows.followerUserId });
+    if (inserted.length > 0) {
+      await db
+        .insert(notifications)
+        .values({
+          userId: target.id,
+          kind: "follow",
+          actorUserId: followerUserId,
+          createdAt: now,
+        })
+        .onConflictDoNothing({
+          target: [notifications.userId, notifications.actorUserId],
+          where: sql`${notifications.kind} = 'follow'`,
+        });
+    }
   } else {
     await db
       .delete(socialFollows)
       .where(and(eq(socialFollows.followerUserId, followerUserId), eq(socialFollows.followedUserId, target.id)));
   }
   return { ok: true, following: follow };
+}
+
+export async function getSocialPostById(
+  db: Db,
+  viewerUserId: string | null,
+  postId: string,
+): Promise<FeedPost | null> {
+  const [post] = await listSocialFeed(db, viewerUserId, { postId, limit: 1 });
+  return post ?? null;
+}
+
+export type SocialNotificationKind = "comment" | "follow" | "like";
+
+export interface SocialNotificationRow {
+  id: string;
+  kind: SocialNotificationKind;
+  actorHandle: string;
+  actorName: string;
+  postId: string | null;
+  postExcerpt: string | null;
+  /** Cantidad de otros socios a quienes les gustó esa publicación (solo para `kind === "like"`). */
+  likeCount: number;
+  createdAt: string;
+  readAt: string | null;
+}
+
+function excerptOf(body: string | null): string | null {
+  if (!body) return null;
+  const clean = body.replace(/\s+/g, " ").trim();
+  if (!clean) return null;
+  return clean.length > 90 ? `${clean.slice(0, 89).trimEnd()}…` : clean;
+}
+
+const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+/** Últimos avisos sociales del socio (comentarios, seguidos y «me gusta» agrupados). */
+export async function listSocialNotifications(
+  db: Db,
+  userId: string,
+  limit = 50,
+): Promise<SocialNotificationRow[]> {
+  const safeLimit = Math.min(Math.max(limit, 1), 50);
+  const rows = await db
+    .select({
+      id: notifications.id,
+      kind: notifications.kind,
+      actorHandle: users.handle,
+      actorName: users.displayName,
+      postId: notifications.postId,
+      postBody: socialPosts.body,
+      postHidden: socialPosts.isHiddenByModeration,
+      likeCount: sql<number>`case when ${notifications.kind} = 'like' and ${notifications.postId} is not null then (select count(*)::int from ${socialLikes} where ${socialLikes.postId} = ${notifications.postId} and ${socialLikes.userId} <> ${notifications.userId}) else 0 end`,
+      createdAt: notifications.createdAt,
+      readAt: notifications.readAt,
+    })
+    .from(notifications)
+    .innerJoin(users, eq(users.id, notifications.actorUserId))
+    .leftJoin(socialPosts, eq(socialPosts.id, notifications.postId))
+    .where(
+      and(
+        eq(notifications.userId, userId),
+        isNotNull(users.handle),
+        eq(users.socialPauseEnabled, false),
+        sql`(${notifications.postId} is null or (${socialPosts.id} is not null and ${socialPosts.isHiddenByModeration} = false))`,
+      ),
+    )
+    .orderBy(desc(notifications.createdAt))
+    .limit(safeLimit);
+
+  return rows
+    .filter((r) => r.kind !== "like" || r.likeCount > 0)
+    .map((r) => ({
+      id: r.id,
+      kind: r.kind as SocialNotificationKind,
+      actorHandle: r.actorHandle!,
+      actorName: r.actorName ?? r.actorHandle!,
+      postId: r.postId,
+      postExcerpt: excerptOf(r.postBody),
+      likeCount: r.likeCount,
+      createdAt: r.createdAt.toISOString(),
+      readAt: r.readAt ? r.readAt.toISOString() : null,
+    }));
+}
+
+/** Marca como leídos todos los avisos pendientes del socio o solo los `ids` recibidos. */
+export async function markSocialNotificationsRead(
+  db: Db,
+  userId: string,
+  ids?: readonly string[] | null,
+  now: Date = new Date(),
+): Promise<number> {
+  if (ids !== undefined && ids !== null) {
+    const validIds = ids.filter((id) => UUID_PATTERN.test(id));
+    if (validIds.length === 0) return 0;
+    const updated = await db
+      .update(notifications)
+      .set({ readAt: now })
+      .where(and(eq(notifications.userId, userId), isNull(notifications.readAt), inArray(notifications.id, validIds)))
+      .returning({ id: notifications.id });
+    return updated.length;
+  }
+  const updated = await db
+    .update(notifications)
+    .set({ readAt: now })
+    .where(and(eq(notifications.userId, userId), isNull(notifications.readAt)))
+    .returning({ id: notifications.id });
+  return updated.length;
 }
 
 /** @usuarios que sigue el socio. */

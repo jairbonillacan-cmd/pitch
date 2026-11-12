@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useId, useMemo, useState } from "react";
+import React, { useEffect, useId, useMemo, useRef, useState } from "react";
 import { LeagueBadge, TeamBadge } from "../../sports";
 import { formatOddsValue } from "../access-guard";
 import { getExampleAnalystSpec } from "../community-examples";
@@ -158,15 +158,36 @@ function CommunityContent(): React.JSX.Element {
     toggleSocialLike,
     deleteSocialPost,
     refreshSocialFeed,
+    ensureSocialPostLoaded,
     sealPickToJournal,
     pushToast,
     navigateTo,
   } = usePlatform();
   const [tab, setTab] = useUrlTab<CommunityTab>(TAB_KEYS, "para-ti");
+  const [highlightedPostId, setHighlightedPostId] = useState<string | null>(null);
   // Al abrir Comunidad se trae lo último que publicaron los demás.
   useEffect(() => {
     refreshSocialFeed();
   }, [refreshSocialFeed]);
+
+  // Enlace directo a una publicación (`/app/social?post=<id>`, p. ej. desde la campana).
+  useEffect(() => {
+    const syncPostParam = () => {
+      try {
+        const postId = new URLSearchParams(window.location.search).get("post")?.trim() || null;
+        setHighlightedPostId(postId);
+        if (postId) {
+          setTab("para-ti");
+          ensureSocialPostLoaded(postId);
+        }
+      } catch (err) {
+        void err;
+      }
+    };
+    syncPostParam();
+    window.addEventListener("popstate", syncPostParam);
+    return () => window.removeEventListener("popstate", syncPostParam);
+  }, [ensureSocialPostLoaded, setTab]);
   const { rows, own, today } = useLeaderboardRows();
   const follows = useFollowing();
   const monthName = monthLongLabel(today.getMonth());
@@ -251,6 +272,7 @@ function CommunityContent(): React.JSX.Element {
     addSocialComment,
     onDelete: deleteSocialPost,
     goProfile,
+    highlightedPostId,
   };
 
   return (
@@ -591,6 +613,7 @@ interface FeedSharedProps {
   addSocialComment: (postId: string, body: string) => { ok: boolean; error?: string };
   onDelete: (postId: string) => void;
   goProfile: (handle: string) => (e: React.MouseEvent<HTMLAnchorElement>) => void;
+  highlightedPostId?: string | null;
 }
 
 function Feed({
@@ -599,6 +622,14 @@ function Feed({
   ...shared
 }: FeedSharedProps & { posts: readonly SocialPost[]; emptyText?: string }): React.JSX.Element {
   const [limit, setLimit] = useState(FEED_PAGE);
+  const targetIdx = shared.highlightedPostId
+    ? posts.findIndex((p) => p.id === shared.highlightedPostId)
+    : -1;
+  useEffect(() => {
+    if (targetIdx >= limit) {
+      setLimit(targetIdx + FEED_PAGE);
+    }
+  }, [targetIdx, limit]);
   if (posts.length === 0) return <p className="pl-prof-empty-line">{emptyText}</p>;
   return (
     <div className="pl-com-feed">
@@ -630,11 +661,20 @@ function PostCard({
   addSocialComment,
   onDelete,
   goProfile,
+  highlightedPostId,
 }: FeedSharedProps & { post: SocialPost }): React.JSX.Element {
   const uid = useId();
+  const cardRef = useRef<HTMLElement>(null);
+  const isHighlighted = Boolean(highlightedPostId && highlightedPostId === post.id);
   const author = authorOf(post);
-  const [threadOpen, setThreadOpen] = useState(false);
+  const [threadOpen, setThreadOpen] = useState(isHighlighted);
   const [confirmDelete, setConfirmDelete] = useState(false);
+
+  useEffect(() => {
+    if (!isHighlighted) return;
+    setThreadOpen(true);
+    cardRef.current?.scrollIntoView?.({ behavior: "smooth", block: "center" });
+  }, [isHighlighted]);
   const canDelete = Boolean(post.fromServer && post.isMine);
   const [reply, setReply] = useState("");
   const [replyError, setReplyError] = useState("");
@@ -662,7 +702,13 @@ function PostCard({
     : [];
 
   return (
-    <article className="pl-com-post glass-lens glass-ring" aria-labelledby={`${uid}-author`}>
+    <article
+      ref={cardRef}
+      id={`post-${post.id}`}
+      data-highlighted={isHighlighted ? "true" : undefined}
+      className="pl-com-post glass-lens glass-ring"
+      aria-labelledby={`${uid}-author`}
+    >
       <header className="pl-com-post-head">
         <a href={`/app/u/${post.authorHandle}`} onClick={goProfile(post.authorHandle)} className="pl-com-post-avatar" tabIndex={-1} aria-hidden="true">
           <Avatar initials={author.initials} gradVar={author.gradVar} size={42} />

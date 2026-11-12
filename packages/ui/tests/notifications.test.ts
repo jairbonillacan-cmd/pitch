@@ -3,6 +3,8 @@ import {
   buildNotifications,
   formatBadgeCount,
   formatNotificationTime,
+  fromServerSocialNotification,
+  mergePlatformNotifications,
   notificationGroup,
   unreadCount,
   type JournalEntry,
@@ -168,5 +170,82 @@ describe("contador y tiempos", () => {
     expect(notificationGroup("2026-11-13T10:00:00Z", NOW)).toBe("Antes");
     expect(formatNotificationTime("2026-11-14T19:26:00Z", NOW)).toBe("hace 4 min");
     expect(formatNotificationTime("2026-11-14T16:30:00Z", NOW)).toBe("hace 3 h");
+  });
+
+  it("mezcla avisos sociales (comentario, seguidor y likes agrupados) con el contador de no leídos", () => {
+    const comment = fromServerSocialNotification(
+      {
+        id: "n-comment",
+        kind: "comment",
+        actorHandle: "ana_mx",
+        actorName: "Ana López",
+        postId: "post-123",
+        postExcerpt: "Monterrey o empate",
+        likeCount: 0,
+        createdAt: "2026-11-14T19:25:00Z",
+        readAt: null,
+      },
+      NOW,
+    );
+    expect(comment).toMatchObject({
+      id: "social:n-comment",
+      kind: "comunidad",
+      title: "@ana_mx comentó tu publicación",
+      href: "/app/social?post=post-123",
+    });
+
+    const follow = fromServerSocialNotification(
+      {
+        id: "n-follow",
+        kind: "follow",
+        actorHandle: "beto_nfl",
+        actorName: "Beto Ruiz",
+        postId: null,
+        postExcerpt: null,
+        likeCount: 0,
+        createdAt: "2026-11-14T19:20:00Z",
+        readAt: "2026-11-14T19:22:00Z",
+      },
+      NOW,
+    );
+    expect(follow).toMatchObject({
+      id: "social:n-follow",
+      kind: "comunidad",
+      title: "@beto_nfl empezó a seguirte",
+      href: "/app/u/beto_nfl",
+    });
+
+    const merged = mergePlatformNotifications(
+      buildNotifications({ ...base, games: [game({ id: "g1" })], watchlistGameIds: ["g1"] }),
+      [
+        {
+          id: "n-like",
+          kind: "like",
+          actorHandle: "ana_mx",
+          actorName: "Ana López",
+          postId: "post-123",
+          postExcerpt: "Monterrey o empate",
+          likeCount: 4,
+          createdAt: "2026-11-14T19:28:00Z",
+          readAt: null,
+        },
+        {
+          id: "n-follow",
+          kind: "follow",
+          actorHandle: "beto_nfl",
+          actorName: "Beto Ruiz",
+          postId: null,
+          postExcerpt: null,
+          likeCount: 0,
+          createdAt: "2026-11-14T19:20:00Z",
+          readAt: "2026-11-14T19:22:00Z",
+        },
+      ],
+      NOW,
+    );
+
+    expect(merged.items[0]?.title).toBe("A @ana_mx y 3 más les gustó tu publicación");
+    expect(merged.serverReadIds.has("social:n-follow")).toBe(true);
+    expect(unreadCount(merged.items, merged.serverReadIds)).toBe(2); // n-like + kickoff:g1
   });
 });

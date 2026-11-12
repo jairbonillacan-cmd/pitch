@@ -1,25 +1,28 @@
 "use client";
 
 /**
- * Bandeja de notificaciones (Fase 1): campana con contador de no leídas y un popover nativo
- * que en escritorio cuelga bajo la campana y en móvil sube como hoja (mismo patrón que el menú
- * de cuenta). Lo leído se guarda en el navegador hasta que existan cuentas con servidor.
+ * Bandeja de notificaciones: campana con contador de no leídas y un popover nativo que en
+ * escritorio cuelga bajo la campana y en móvil sube como hoja (mismo patrón que el menú de
+ * cuenta). Con cuentas activas mezcla los avisos locales (partidos/bitácora) con los avisos
+ * sociales reales del servidor (`/api/me/notifications`).
  */
 import React, { useEffect, useId, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import {
   buildNotifications,
   formatBadgeCount,
   formatNotificationTime,
+  mergePlatformNotifications,
   notificationGroup,
   unreadCount,
   type NotificationGroup,
   type NotificationKind,
   type PlatformNotification,
+  type ServerSocialNotification,
 } from "../notifications";
 import { usePlatform } from "../platform-provider";
 import { MaestroIcon, type MaestroIconName } from "./MaestroPrimitives";
 
-/* ---------- Leídas: almacén compartido (conviven dos encabezados durante la carga) ---------- */
+/* ---------- Leídas locales: almacén compartido (conviven dos encabezados durante la carga) ---------- */
 
 const READ_KEY = "pl-notif-read-v1";
 const READ_CAP = 300;
@@ -33,7 +36,8 @@ function loadRead(): ReadonlySet<string> {
     const raw = window.localStorage.getItem(READ_KEY);
     const arr: unknown = raw ? JSON.parse(raw) : [];
     readSnapshot = new Set(Array.isArray(arr) ? arr.filter((v): v is string => typeof v === "string") : []);
-  } catch {
+  } catch (err) {
+    void err;
     readSnapshot = new Set();
   }
   return readSnapshot;
@@ -52,8 +56,8 @@ function markRead(ids: readonly string[]): void {
   readSnapshot = next;
   try {
     window.localStorage.setItem(READ_KEY, JSON.stringify([...next].slice(-READ_CAP)));
-  } catch {
-    // Sin almacenamiento: lo leído dura lo que la pestaña.
+  } catch (err) {
+    void err;
   }
   for (const fn of readListeners) fn();
 }
@@ -76,6 +80,91 @@ function useReadIds(): ReadonlySet<string> {
   return useSyncExternalStore(subscribeRead, loadRead, () => EMPTY_SET);
 }
 
+/* ---------- Avisos sociales del servidor: almacén compartido sin sondeo constante ---------- */
+
+const EMPTY_SOCIAL: readonly ServerSocialNotification[] = [];
+let socialSnapshot: readonly ServerSocialNotification[] = EMPTY_SOCIAL;
+let socialFetchPromise: Promise<void> | null = null;
+const socialListeners = new Set<() => void>();
+
+function notifySocialListeners(): void {
+  for (const fn of socialListeners) fn();
+}
+
+function setSocialSnapshot(next: readonly ServerSocialNotification[]): void {
+  socialSnapshot = next;
+  notifySocialListeners();
+}
+
+function fetchSocialNotifications(): void {
+  if (socialFetchPromise || typeof window === "undefined") return;
+  socialFetchPromise = (async () => {
+    try {
+      const res = await fetch("/api/me/notifications", { credentials: "same-origin" });
+      if (!res.ok) return;
+      const data = (await res.json().catch(() => null)) as { notifications?: ServerSocialNotification[] } | null;
+      if (data && Array.isArray(data.notifications)) {
+        setSocialSnapshot(data.notifications);
+      }
+    } catch (err) {
+      void err;
+    } finally {
+      socialFetchPromise = null;
+    }
+  })();
+}
+
+function markSocialServerRead(ids?: readonly string[]): void {
+  const targetSet = ids ? new Set(ids) : null;
+  const unreadIds = socialSnapshot
+    .filter((row) => row.readAt === null && (!targetSet || targetSet.has(row.id)))
+    .map((row) => row.id);
+  if (unreadIds.length === 0) return;
+
+  const nowIso = new Date().toISOString();
+  const unreadSet = new Set(unreadIds);
+  setSocialSnapshot(
+    socialSnapshot.map((row) => (unreadSet.has(row.id) ? { ...row, readAt: nowIso } : row)),
+  );
+
+  void (async () => {
+    try {
+      await fetch("/api/me/notifications/read", {
+        method: "POST",
+        credentials: "same-origin",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(ids ? { ids: unreadIds } : {}),
+      });
+    } catch (err) {
+      void err;
+    }
+  })();
+}
+
+function subscribeSocial(fn: () => void): () => void {
+  socialListeners.add(fn);
+  return () => {
+    socialListeners.delete(fn);
+  };
+}
+
+function useSocialNotifications(enabled: boolean): readonly ServerSocialNotification[] {
+  const rows = useSyncExternalStore(subscribeSocial, () => socialSnapshot, () => EMPTY_SOCIAL);
+  useEffect(() => {
+    if (!enabled) {
+      if (socialSnapshot.length > 0) setSocialSnapshot(EMPTY_SOCIAL);
+      return;
+    }
+    fetchSocialNotifications();
+    const onVisible = (): void => {
+      if (document.visibilityState === "visible") fetchSocialNotifications();
+    };
+    document.addEventListener("visibilitychange", onVisible);
+    return () => document.removeEventListener("visibilitychange", onVisible);
+  }, [enabled]);
+  return enabled ? rows : EMPTY_SOCIAL;
+}
+
 /** Reloj por minuto; `null` en el servidor y antes de montar (evita desajustes de hidratación). */
 function useMinuteClock(): Date | null {
   const [now, setNow] = useState<Date | null>(null);
@@ -93,11 +182,20 @@ const KIND_ICON: Record<NotificationKind, MaestroIconName> = {
   partidos: "calendar",
   cuotas: "activity",
   picks: "ticket",
+  comunidad: "users",
   resumen: "chart",
 };
 
-const FILTERS: ReadonlyArray<{ id: NotificationKind | "todas"; label: string }> = [
+const BASE_FILTERS: ReadonlyArray<{ id: NotificationKind | "todas"; label: string }> = [
   { id: "todas", label: "Todas" },
+  { id: "partidos", label: "Partidos" },
+  { id: "cuotas", label: "Cuotas" },
+  { id: "picks", label: "Tus picks" },
+];
+
+const COMMUNITY_FILTERS: ReadonlyArray<{ id: NotificationKind | "todas"; label: string }> = [
+  { id: "todas", label: "Todas" },
+  { id: "comunidad", label: "Comunidad" },
   { id: "partidos", label: "Partidos" },
   { id: "cuotas", label: "Cuotas" },
   { id: "picks", label: "Tus picks" },
@@ -109,6 +207,8 @@ export interface NotificationInboxPanelProps {
   now: Date;
   /** Hay partidos vigilados: cambia el texto del estado vacío. */
   hasWatchlist: boolean;
+  /** Con cuentas activas muestra también el chip «Comunidad». */
+  showCommunityFilter?: boolean;
   onOpenItem: (item: PlatformNotification) => void;
   onMarkAllRead: () => void;
   onBrowse: () => void;
@@ -120,6 +220,7 @@ export function NotificationInboxPanel({
   readIds,
   now,
   hasWatchlist,
+  showCommunityFilter = false,
   onOpenItem,
   onMarkAllRead,
   onBrowse,
@@ -128,6 +229,8 @@ export function NotificationInboxPanel({
   const [filter, setFilter] = useState<NotificationKind | "todas">("todas");
   const total = unreadCount(items, readIds);
   const allRead = items.every((n) => readIds.has(n.id));
+  const hasSocial = showCommunityFilter || items.some((i) => i.kind === "comunidad");
+  const filters = hasSocial ? COMMUNITY_FILTERS : BASE_FILTERS;
   // El resumen de jornada no tiene filtro propio: solo aparece en «Todas».
   const shown = filter === "todas" ? items : items.filter((n) => n.kind === filter);
   let lastGroup: NotificationGroup | null = null;
@@ -147,7 +250,7 @@ export function NotificationInboxPanel({
 
       {items.length > 0 ? (
         <div className="pl-notif-chips" role="group" aria-label="Filtrar por tipo">
-          {FILTERS.map((f) => {
+          {filters.map((f) => {
             const n = f.id === "todas" ? total : unreadCount(items.filter((i) => i.kind === f.id), readIds);
             return (
               <button
@@ -208,7 +311,7 @@ export function NotificationInboxPanel({
                   }}
                 >
                   <span className="pl-notif-ico" data-urgent={urgent ? "" : undefined} aria-hidden="true">
-                    <MaestroIcon name={KIND_ICON[n.kind]} size={16} />
+                    <MaestroIcon name={n.icon ?? KIND_ICON[n.kind]} size={16} />
                   </span>
                   <span className="pl-notif-body">
                     <span className="pl-notif-row-title num">
@@ -254,9 +357,20 @@ export function NotificationInboxPanel({
 /* ---------- Campana + popover (contenedor) ---------- */
 
 export function NotificationBell(): React.JSX.Element {
-  const { dataset, watchlistGameIds, journal, oddsFormat, favoriteLeagues, navigateTo } = usePlatform();
+  const {
+    dataset,
+    watchlistGameIds,
+    journal,
+    oddsFormat,
+    favoriteLeagues,
+    accountsEnabled,
+    viewerIdentity,
+    navigateTo,
+  } = usePlatform();
+  const socialEnabled = Boolean(accountsEnabled && viewerIdentity);
   const now = useMinuteClock();
-  const readIds = useReadIds();
+  const localReadIds = useReadIds();
+  const socialRows = useSocialNotifications(socialEnabled);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const uid = useId().replace(/:/g, "");
@@ -267,33 +381,54 @@ export function NotificationBell(): React.JSX.Element {
   useEffect(() => {
     const menu = menuRef.current;
     if (!menu) return;
-    const onToggle = (e: Event) => setOpen((e as ToggleEvent).newState === "open");
+    const onToggle = (e: Event) => {
+      const nextOpen = (e as ToggleEvent).newState === "open";
+      setOpen(nextOpen);
+      if (nextOpen && socialEnabled) {
+        markSocialServerRead();
+      }
+    };
     menu.addEventListener("toggle", onToggle);
     return () => menu.removeEventListener("toggle", onToggle);
-  }, []);
+  }, [socialEnabled]);
 
-  const items = useMemo(
-    () =>
-      now
-        ? buildNotifications({
-            games: dataset.games,
-            watchlistGameIds,
-            journal,
-            favoriteLeagues,
-            oddsFormat,
-            now,
-            generatedAtIso: dataset.generatedAt,
-          })
-        : [],
-    [dataset.games, dataset.generatedAt, watchlistGameIds, journal, favoriteLeagues, oddsFormat, now],
-  );
-  const count = unreadCount(items, readIds);
+  const { items, effectiveReadIds } = useMemo(() => {
+    if (!now) return { items: [] as PlatformNotification[], effectiveReadIds: localReadIds };
+    const derived = buildNotifications({
+      games: dataset.games,
+      watchlistGameIds,
+      journal,
+      favoriteLeagues,
+      oddsFormat,
+      now,
+      generatedAtIso: dataset.generatedAt,
+    });
+    if (socialRows.length === 0) {
+      return { items: derived, effectiveReadIds: localReadIds };
+    }
+    const merged = mergePlatformNotifications(derived, socialRows, now, 50);
+    const combinedRead = new Set(localReadIds);
+    for (const id of merged.serverReadIds) combinedRead.add(id);
+    return { items: merged.items, effectiveReadIds: combinedRead };
+  }, [
+    dataset.games,
+    dataset.generatedAt,
+    watchlistGameIds,
+    journal,
+    favoriteLeagues,
+    oddsFormat,
+    now,
+    socialRows,
+    localReadIds,
+  ]);
+
+  const count = unreadCount(items, effectiveReadIds);
 
   const close = () => {
     try {
       menuRef.current?.hidePopover();
-    } catch {
-      // Ya estaba cerrado.
+    } catch (err) {
+      void err;
     }
   };
 
@@ -339,16 +474,21 @@ export function NotificationBell(): React.JSX.Element {
         {open && now ? (
           <NotificationInboxPanel
             items={items}
-            readIds={readIds}
+            readIds={effectiveReadIds}
             now={now}
             hasWatchlist={watchlistGameIds.length > 0}
+            showCommunityFilter={socialEnabled}
             titleId={titleId}
             onOpenItem={(n) => {
               markRead([n.id]);
+              if (n.serverId) markSocialServerRead([n.serverId]);
               close();
               navigateTo(n.href);
             }}
-            onMarkAllRead={() => markRead(items.map((n) => n.id))}
+            onMarkAllRead={() => {
+              markRead(items.map((n) => n.id));
+              if (socialEnabled) markSocialServerRead();
+            }}
             onBrowse={() => {
               close();
               navigateTo("/app");

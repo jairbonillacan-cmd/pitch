@@ -9,9 +9,11 @@ import { formatOddsValue } from "./access-guard";
 import type { LeagueId } from "@pitchlab/contracts";
 import type { JournalEntry, OddsFormat, PlatformGame } from "./types";
 
-export type NotificationKind = "partidos" | "cuotas" | "picks" | "resumen";
+export type NotificationKind = "partidos" | "cuotas" | "picks" | "comunidad" | "resumen";
 /** `urgent` interrumpe (icono ámbar), `normal` suma al contador, `digest` no suma. */
 export type NotificationPriority = "urgent" | "normal" | "digest";
+
+export type SocialNotificationIcon = "message" | "users-plus" | "heart";
 
 export interface PlatformNotification {
   id: string;
@@ -27,6 +29,22 @@ export interface PlatformNotification {
   source?: string;
   actionLabel: string;
   href: string;
+  /** Icono específico dentro de un mismo tipo (p. ej. comentario vs seguidor). */
+  icon?: SocialNotificationIcon;
+  /** Id de la fila en la tabla `notifications` del servidor, si viene de ella. */
+  serverId?: string;
+}
+
+export interface ServerSocialNotification {
+  id: string;
+  kind: "comment" | "follow" | "like";
+  actorHandle: string;
+  actorName: string;
+  postId: string | null;
+  postExcerpt: string | null;
+  likeCount: number;
+  createdAt: string;
+  readAt: string | null;
 }
 
 export interface BuildNotificationsInput {
@@ -276,4 +294,84 @@ export function formatNotificationTime(atIso: string, now: Date): string {
   if (diff < HOUR) return `hace ${Math.floor(diff / MIN)} min`;
   if (diff < 24 * HOUR) return `hace ${Math.floor(diff / HOUR)} h`;
   return SHORT_DATE.format(new Date(atIso)).replace(".", "");
+}
+
+/** Convierte un aviso social del servidor al formato unificado de la bandeja. */
+export function fromServerSocialNotification(
+  row: ServerSocialNotification,
+  now: Date,
+): PlatformNotification {
+  const parsedMs = Date.parse(row.createdAt);
+  const atIso = clampToNow(Number.isNaN(parsedMs) ? now.getTime() : parsedMs, now.getTime());
+  const source = row.actorName && row.actorName !== row.actorHandle ? row.actorName : undefined;
+  const postHref = row.postId ? `/app/social?post=${encodeURIComponent(row.postId)}` : "/app/social";
+
+  if (row.kind === "follow") {
+    return {
+      id: `social:${row.id}`,
+      serverId: row.id,
+      kind: "comunidad",
+      icon: "users-plus",
+      priority: "normal",
+      title: `@${row.actorHandle} empezó a seguirte`,
+      context: { text: `${row.actorName} te sigue en Comunidad.` },
+      atIso,
+      actionLabel: "Ver perfil",
+      href: `/app/u/${encodeURIComponent(row.actorHandle)}`,
+    };
+  }
+
+  if (row.kind === "like") {
+    const others = Math.max(0, (row.likeCount || 1) - 1);
+    const title =
+      others > 0
+        ? `A @${row.actorHandle} y ${others} más les gustó tu publicación`
+        : `A @${row.actorHandle} le gustó tu publicación`;
+    return {
+      id: `social:${row.id}`,
+      serverId: row.id,
+      kind: "comunidad",
+      icon: "heart",
+      priority: "normal",
+      title,
+      context: { text: row.postExcerpt ? `«${row.postExcerpt}»` : "Tu publicación en Comunidad." },
+      source,
+      atIso,
+      actionLabel: "Ver publicación",
+      href: postHref,
+    };
+  }
+
+  return {
+    id: `social:${row.id}`,
+    serverId: row.id,
+    kind: "comunidad",
+    icon: "message",
+    priority: "normal",
+    title: `@${row.actorHandle} comentó tu publicación`,
+    context: { text: row.postExcerpt ? `«${row.postExcerpt}»` : `${row.actorName} dejó un comentario.` },
+    source,
+    atIso,
+    actionLabel: "Ver publicación",
+    href: postHref,
+  };
+}
+
+/** Mezcla avisos locales (partidos/bitácora) con avisos sociales del servidor ordenados por fecha. */
+export function mergePlatformNotifications(
+  derived: readonly PlatformNotification[],
+  social: readonly ServerSocialNotification[],
+  now: Date,
+  limit = 50,
+): { items: PlatformNotification[]; serverReadIds: Set<string> } {
+  const serverReadIds = new Set<string>();
+  const mappedSocial = social.map((row) => {
+    const item = fromServerSocialNotification(row, now);
+    if (row.readAt !== null) serverReadIds.add(item.id);
+    return item;
+  });
+  const items = [...mappedSocial, ...derived]
+    .sort((a, b) => Date.parse(b.atIso) - Date.parse(a.atIso))
+    .slice(0, limit);
+  return { items, serverReadIds };
 }
