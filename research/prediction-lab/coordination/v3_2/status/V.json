@@ -2,71 +2,127 @@
   "agent_id": "V",
   "agent_name": "v-verifier",
   "role": "red_team_verifier_readonly",
-  "gate": 2,
+  "gate": 3,
   "state": "completed",
+  "started_at": "2026-11-12T18:36:10Z",
+  "completed_at": "2026-11-12T18:48:15Z",
   "gate_1_verdict": "PASS",
   "gate_2_verdict": "PASS",
-  "started_at": "2026-11-12T16:15:55Z",
-  "finished_at": "2026-11-12T16:32:00Z",
+  "gate_3_verdict": "PASS",
+  "overall_verdict": "PASS",
   "audited_worktrees": {
-    "prediction_lab": {
-      "path": "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\prediction-lab",
+    "prediction-lab": {
       "branch": "prediction-lab",
       "base_commit": "f3564a4266c33441db9c2f36714073b7516d37e6",
       "gate_1_commit": "e20e8236e7cb153e271753413e857a6594168f48",
-      "audited_head": "adb03138c5da94f6cb2e672ae57440721a52152d",
-      "ola_2_commits": [
-        "70e08dbe8bc36568c7b2f661923038c0a8d566cf",
-        "96a8f4b8229a2430ed45b047baaba3fa5f95c1a9",
-        "adb03138c5da94f6cb2e672ae57440721a52152d"
+      "gate_2_commit": "19453fb257541cf737baaaf651bc3a2c0c3b0fd5",
+      "head_audited": "bbfdbc5d1d284e8b623b5b8837db8c3a9723ac9a",
+      "ola_3_commits_audited": [
+        "53ff8355d954d24681394065453db21762d8cb3d",
+        "bbfdbc5d1d284e8b623b5b8837db8c3a9723ac9a"
+      ],
+      "all_v3_2_agent_commits_audited": [
+        "b04e342",
+        "48854e8",
+        "5f403ae",
+        "a33cdc4",
+        "1e22b6a",
+        "70e08db",
+        "96a8f4b",
+        "adb0313",
+        "53ff835",
+        "bbfdbc5"
       ]
     },
-    "web_scraping": {
-      "path": "C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping",
+    "web-scraping": {
       "branch": "web-scraping",
       "base_commit": "3a8b3c0",
-      "audited_head": "4993a9b6b598aa3fa63be1cb5735975cbd56e35f",
-      "ola_2_commits": []
+      "head_audited": "4993a9b6b598aa3fa63be1cb5735975cbd56e35f",
+      "ola_3_commits_audited": []
     }
   },
-  "files_written": [
+  "controls_summary": {
+    "gate_1": {
+      "total": 18,
+      "passed": 18,
+      "failed": 0
+    },
+    "gate_2": {
+      "total": 16,
+      "passed": 16,
+      "failed": 0
+    },
+    "gate_3": {
+      "total": 16,
+      "passed": 16,
+      "failed": 0
+    },
+    "cumulative_cycle_v3_2": {
+      "total": 50,
+      "passed": 50,
+      "failed": 0,
+      "master_acceptance_criteria_passed": "8/8"
+    }
+  },
+  "frozen_v3_1_sha256_verified": {
+    "src/data/prediction/production_segments_v3_1.json": "0bc03bbff96a5d82a1a7858e1e8623bf7bfdb250c546d2773a71d56ed9ada9bc",
+    "src/data/prediction/blend_weights_v3_1.json": "b29d7a451f6011126997c122778b42ad3239c78337d17c5fa78d550f5c92739b",
+    "src/data/prediction/pick_policy_v3_1.json": "2359c8f8822ea394a380202c04e0bcd010d1a3fae7c5c25b8c11ebe810bfb7d1",
+    "src/data/prediction/stale_lines_config.json": "8bcb9c7be93270cde0cac2d58bc19f0381184dd2e769f358dd28334db2a05eac",
+    "src/domain/prediction/engine.ts": "9270125c49e81adf57e90c76db07eb95f53ab35a5051e49265b35b80ed0553bc",
+    "src/data/prediction/model_nfl.json": "e74ae241875739d2dc18564f85133d4e20c1d0cef41d64b6f705852601597225",
+    "services/models/artifacts/sealed_holdout_v3_1_eval.json": "5c9e550bfd7889e44f674c91cf64cea4c07b4281fc72231b8cadff850309f2dd",
+    "production_segments_enabled_count": 0
+  },
+  "ola_3_artifacts_sha256": {
+    "src/data/prediction/model_nfl_v3_2_candidate.json": "ebf6c3c3cfe417d57a685f0b574fed212da3f1e58da8568434f82197f5a46158",
+    "services/models/artifacts/holdout_trial_registry.jsonl": "058d5d0d9bcaeb97f0415f871b50a7a3279b34ad59dcdcaacf33ac4b4fe8923e",
+    "research/prediction-lab/experiments/EXP_V32_xi/exp_v32_xi_results.json": "c92d51eb5bae01b2e6e8032a521cd34dce87e2ed144145c93d0765a6d0b8a19b",
+    "research/prediction-lab/experiments/EXP_V32_xi/trial_registry_xi.jsonl": "6b3ee829a21d407cc1e6579d159f5706518e242f48d01f1889d2ecefd16f7617",
+    "research/prediction-lab/experiments/EXP_V32_xi/data/xi_health.json": "270007d1f5fda9d1dd23f54a37ae0681e4a628f690d2ae623987837172f90dc8",
+    "research/prediction-lab/experiments/EXP_V32_nfl_epa/artifacts/exp_v32_nfl_epa_results.json": "c342e22d4a551985d464c5b1bb512bdfdbbc7c58bf1e82be27b36646f760bda0",
+    "research/prediction-lab/experiments/EXP_V32_nfl_epa/artifacts/nfl_pbp_team_game_1999_2024_dev.parquet": "279e52b830881c6a4942a07dcb219900eb9384f74b7871b92e049b88a9dc6038",
+    "research/prediction-lab/experiments/EXP_V32_nfl_epa/artifacts/nfl_pbp_qb_game_1999_2024_dev.parquet": "9e5b85f9838f215bc18ad92fbc208db6d2fa5f2cc8440a719497da851ec3e665",
+    "research/prediction-lab/experiments/EXP_V32_nfl_epa/artifacts/nfl_dev_causal_41_features.parquet": "7301b3fbc8fb97723a4c297eb8c843492c6e034cbd28b95aa30a17250415f40f"
+  },
+  "holdout_and_governance_audit": {
+    "holdout_trial_registry_total_lines": 31,
+    "lines_1_to_29_byte_identical_to_f3564a4": true,
+    "new_lines_30_and_31_eval_split": "walk_forward_dev",
+    "new_lines_30_and_31_unlock_holdout": false,
+    "new_holdout_sealed_entries": 0,
+    "b7_production_activated": false,
+    "b9_candidate_status": "candidate",
+    "b9_production_activated": false,
+    "max_git_file_size_mb": 7.96
+  },
+  "test_suites_executed": {
+    "prediction_lab_vitest": {
+      "files_passed": 61,
+      "files_skipped": 1,
+      "tests_passed": 1153,
+      "tests_skipped": 1,
+      "failures": 0
+    },
+    "prediction_lab_pytest": {
+      "targets": [
+        "services/models",
+        "research/prediction-lab/experiments/EXP_V32_xi",
+        "research/prediction-lab/experiments/EXP_V32_nfl_epa"
+      ],
+      "tests_passed": 120,
+      "failures": 0
+    },
+    "web_scraping_pytest": {
+      "tests_passed": 7,
+      "failures": 0,
+      "unchanged_since_gate_1": true
+    }
+  },
+  "deliverables": [
     "research/prediction-lab/reports/A29_verificacion_v3_2.md",
     "research/prediction-lab/coordination/v3_2/status/V.json"
   ],
-  "commands_run": [
-    "npx vitest run && git checkout -- evidence/statistical-tests/aztecavet-experiments.json",
-    ".\\research\\prediction-lab\\.venv\\Scripts\\python.exe -m pytest services/models -v",
-    ".\\research\\prediction-lab\\.venv\\Scripts\\python.exe services/models/regenerate_live_snapshot.py --timeseries-dir ..\\web-scraping\\data\\odds_timeseries --max-quote-age-hours 72 --out src/data/prediction/live_matchday_v3_snapshot.json --check",
-    "git log e20e823..adb0313 --stat && git diff f3564a4..adb0313 -- packages/ui apps/web packages/spacetime"
-  ],
-  "metrics": {
-    "controls_checked_gate_2": 16,
-    "controls_passed_gate_2": 16,
-    "controls_failed_gate_2": 0,
-    "frozen_v3_1_sha256_intact": true,
-    "production_segments_enabled_count": 0,
-    "production_segments_total_count": 60,
-    "holdout_trial_registry_lines": 30,
-    "new_holdout_sealed_entries": 0,
-    "b5_real_prospective_picks": 0,
-    "b5_synthetic_fixture_records": 12,
-    "b5_synthetic_head_hash": "eaea0bae54ca3d7fbca0f342f93463ad9b5bc8e821285c53ae24f264496243d6",
-    "b5_ts_python_max_abs_diff": 0.0,
-    "b6_nfl_sharp_closing_rows": 39,
-    "b6_nfl_matched_games": 13,
-    "b6_nfl_settled_games": 0,
-    "b6_nfl_corpus_sufficient_for_eval": false,
-    "b8_live_snapshot_matchups": 242,
-    "b8_live_snapshot_outlooks": 130,
-    "b8_executable_bets_count": 0,
-    "b8_forbidden_public_fields_count": 0,
-    "vitest_files_passed": 61,
-    "vitest_tests_passed": 1153,
-    "pytest_prediction_lab_passed": 111
-  },
   "open_issues": [],
-  "non_blocking_notes": [
-    "SYNC_NOTES.md:18 menciona entre paréntesis '12 segmentos' al resumir outlook_calibration_v3_2.json, cuyo artefacto real intacto contiene 98 segmentos; nota puramente documental sin impacto funcional."
-  ],
-  "next": "Puerta 2 aprobada (PASS). En espera pasiva (swarm_wait) para auditar Puerta 3 (cierre de Ola 3)."
+  "next": "Puerta 3 y ciclo PREDLAB-V3.2 aprobados (PASS). Listo para consolidacion final del coordinador O."
 }

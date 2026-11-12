@@ -3,11 +3,14 @@
 - **Agente auditor:** `V` (`v-verifier`, Red Team de **solo lectura** de código)
 - **Fecha de auditoría (Puerta 1):** `2026-11-12T15:42:00Z` (`OBSERVADO`)
 - **Fecha de auditoría (Puerta 2):** `2026-11-12T16:32:00Z` (`OBSERVADO`)
+- **Fecha de auditoría (Puerta 3 — Cierre de Ciclo):** `2026-11-12T18:45:00Z` (`OBSERVADO`)
 - **Worktrees auditados:**
-  1. `C:\Users\T490s\Desktop\Proyectos\PitchLab\.worktrees\prediction-lab` — rama `prediction-lab`, base `f3564a4266c33441db9c2f36714073b7516d37e6`, Puerta 1 `e20e8236e7cb153e271753413e857a6594168f48`, `HEAD` auditado Puerta 2 `adb03138c5da94f6cb2e672ae57440721a52152d` (`OBSERVADO`)
-  2. `C:\Users\T490s\Desktop\Proyectos\PitchLab\.worktrees\web-scraping` — rama `web-scraping`, base `3a8b3c0`, `HEAD` auditado `4993a9b6b598aa3fa63be1cb5735975cbd56e35f` (sin cambios en Ola 2, `OBSERVADO`)
+  1. `C:\Users\T490s\Desktop\Proyectos\PitchLab\.worktrees\prediction-lab` — rama `prediction-lab`, base `f3564a4266c33441db9c2f36714073b7516d37e6`, Puerta 1 `e20e8236e7cb153e271753413e857a6594168f48`, Puerta 2 `19453fb257541cf737baaaf651bc3a2c0c3b0fd5`, `HEAD` auditado Puerta 3 `bbfdbc5d1d284e8b623b5b8837db8c3a9723ac9a` (`OBSERVADO`)
+  2. `C:\Users\T490s\Desktop\Proyectos\PitchLab\.worktrees\web-scraping` — rama `web-scraping`, base `3a8b3c0`, `HEAD` auditado `4993a9b6b598aa3fa63be1cb5735975cbd56e35f` (sin cambios en Olas 2 y 3, `OBSERVADO`)
 - **Veredicto Puerta 1 (Cierre de Ola 1 — `O`, `B1`, `B2`, `B3`, `B4`):** **`PASS`** (`0` defectos abiertos; `9/9` reglas rectoras y `18/18` controles en verde)
 - **Veredicto Puerta 2 (Cierre de Ola 2 — `B5`, `B6`, `B8`):** **`PASS`** (`0` defectos abiertos; `9/9` reglas rectoras y `16/16` controles en verde)
+- **Veredicto Puerta 3 (Cierre de Ola 3 — `B7`, `B9`):** **`PASS`** (`0` defectos abiertos; `9/9` reglas rectoras y `16/16` controles en verde)
+- **Veredicto Global Ciclo `PREDLAB-V3.2` (Puertas 1, 2 y 3):** **`PASS`** (`10/10` bloques `O, B1..B9` auditados, `50/50` controles acumulados en verde, `0` defectos abiertos)
 
 ---
 
@@ -287,6 +290,188 @@ git diff f3564a4..adb0313 -- src/data/prediction/production_segments_v3_1.json s
 
 ---
 
-## 3. Puerta 3 — Auditoría de Ola 3 (`B9`, Cierre Integral `v3.2`)
+## 3. Puerta 3 — Auditoría de Ola 3 (`B7`, `B9`)
 
-> Pendiente de ejecución al cierre de Ola 3.
+> Alcance auditado: cierre de la Ola 3 y del ciclo `PREDLAB-V3.2` sobre `prediction-lab` (`19453fb..bbfdbc5`), que comprende `B7` (`b7-xi`, commit `53ff835`, post `#32`) y `B9` (`b9-nfl-epa`, commit `bbfdbc5`, post `#36`). El worktree `web-scraping` permanece intacto en `4993a9b` (`0` cambios en Ola 3).
+
+### 3.1 Tabla Maestra de Controles — Puerta 3 (`PASS` / `FAIL`)
+
+| ID Control | Regla / Bloque | Verificación Independiente Ejecutada | Estado Epistémico | Veredicto |
+| :--- | :--- | :--- | :--- | :--- |
+| **G3-R1** | §0 Regla #1 (`Congelamiento v3.1`) | `SHA-256` bit a bit intacto en `production_segments_v3_1.json` (`0bc03bbff96a5d82a1a7858e1e8623bf7bfdb250c546d2773a71d56ed9ada9bc`), `blend_weights_v3_1.json` (`b29d7a45...`), `pick_policy_v3_1.json` (`2359c8f8...`), `stale_lines_config.json` (`8bcb9c7b...`), `engine.ts` (`9270125c...`), `model_nfl.json` (`e74ae241...`, blob git `7d8fd0bf...` idéntico a `f3564a4`), `sealed_holdout_v3_1_eval.json` (`5c9e550b...`) y espejo `outlook_calibration_v3_2.json` (`090cfaa2...`). | `OBSERVADO` | **`PASS`** |
+| **G3-R2** | §0 Regla #2 (`Holdout sellado`) | Cero lecturas de `holdout_sealed` (`>= 2025-02-02T17:30:00Z`) en `B7` y `B9` (`max_game_date = 2025-01-26` en PBP agregados y `max_gameday = 2025-01-05` en OOF/features NFL). `holdout_trial_registry.jsonl` conserva intactas las líneas `1..29` de `f3564a4`; línea `#30` (`B4`) y línea `#31` (`B9`) llevan `eval_split == "walk_forward_dev"` y `unlock_holdout == false`. `trial_registry_xi.jsonl` (`B7`, `4` líneas) lleva `100%` `walk_forward_dev` y `unlock_holdout == false`. | `OBSERVADO` | **`PASS`** |
+| **G3-R3** | §0 Regla #3 (`0/60 activos`) | `production_segments_v3_1.json` mantiene `0/60` segmentos en `production_enabled: true`; `B7` exporta `production_activated: false` en `exp_v32_xi_results.json` y `xi_health.json`; `B9` exporta `"status": "candidate"`, `"production_activated": false` y `"production_enabled": false` en `model_nfl_v3_2_candidate.json`. | `OBSERVADO` | **`PASS`** |
+| **G3-R4** | §0 Regla #4 (`Cero datos falsos`) | En `B7`, `0/52,746` partidos en `walk_forward_dev` tienen `ts_xi_published` real → `xi_snapshots.jsonl` no se crea (`fabricated_records: 0`), `xi_collector.py --dry-run` retorna `disk_mutated: false`, y `observed_evaluation` usa `delta = 0.0` separado de `synthetic_sensitivity` (`INFERIDO`). En `B9`, las features semanales ausentes en el snapshot vivo quedan honestamente en `null` (`0` inventos). | `OBSERVADO` | **`PASS`** |
+| **G3-R5** | §0 Regla #5 (`Sin stake público`) | Escaneo recursivo sobre `exp_v32_xi_results.json`, `xi_health.json`, `exp_v32_nfl_epa_results.json` y `model_nfl_v3_2_candidate.json`: `0` claves de `stake`, `kelly`, `wager`, `bankroll` y `0` ocurrencias de `"pick seguro"`; `service.ts::predictLiveEdgeMatrix` con el candidato `v3.2` emite `executableBetsCount == 0`. | `OBSERVADO` | **`PASS`** |
+| **G3-R6** | §0 Regla #6 (`Evidencia / IC / Sharp`) | `A29_xi_confirmado.md` y `A29_nfl_epa.md` incluyen comandos reproducibles, commits, IC 95% bootstrap determinista (`mulberry32`, `1,000` réplicas, semilla `20261111`), etiqueta obligatoria `"no significativa"` cuando el IC 95% cruza `0` (`0` omisiones en `B7` ni `B9`, p. ej. `DEV_OOS 2020..2024` `[-0.006492, +0.000129]`), etiqueta explícita `"sin cierre sharp"` en toda comparación contra consenso `nflverse`, y etiquetas `OBSERVADO` / `INFERIDO` / `DESCONOCIDO`. | `OBSERVADO` | **`PASS`** |
+| **G3-R7** | §0 Regla #7 (`Scraping legal`) | Escaneo estático sobre `EXP_V32_xi/**` y `EXP_V32_nfl_epa/**`: `0` tokens anti-bot (`solve_cloudflare`, `StealthyFetcher`, `camoufox`, `undetected_chromedriver`, `cloudscraper`, `puppeteer-extra`, `impersonate=`). En `B7`, las `5` fuentes web sin licencia comercial están bloqueadas (`XISourceBlockedError`) y las `2` `api_only` permanecen inactivas sin credenciales. En `B9`, ingesta estática `nflverse-data` bajo licencia `CC BY 4.0` / `MIT`. | `OBSERVADO` | **`PASS`** |
+| **G3-R8** | §0 Regla #8 (`Paridad + Suites`) | Paridad TS↔Python verificada `< 1e-12`: en `B7`, `max |Δ| = 2.220e-16 < 1e-12` (`ts_parity_bridge.mts` vs `engine.ts`); en `B9`, `max |Δ| = 2.220e-16 < 1e-12` sobre `200` partidos OOF (`ts_parity_probe.ts` vs `engine.ts` + `service.ts`). Suites completas en verde: **`61` archivos / `1,153` tests Vitest** (`0` fallos) y **`120` tests Pytest** (`111` `services/models` + `4` `EXP_V32_xi` + `5` `EXP_V32_nfl_epa`, `0` fallos). | `OBSERVADO` | **`PASS`** |
+| **G3-R9** | §0 Regla #9 (`Fronteras / Git < 50 MB`) | `2` commits limpios en `prediction-lab` (`53ff835` `B7`, `bbfdbc5` `B9`), formato `feat(v3.2-<ID>): …`, propiedad exclusiva al `100%`, `0` archivos tocados en `packages/ui`, `apps/web`, `packages/spacetime`, `model_nfl.json` ni `engine.ts`, y tamaño máximo de archivo en git `= 7.96 MB < 50 MB` (`3.60 MB` máx. en `B9`, cachés crudas en `.gitignore`). | `OBSERVADO` | **`PASS`** |
+| **G3-B7a** | `B7` (`Guardia causal XI + 2.0 min`) | `CONTRACT_XI_PUBLISHED.md` y `validate_xi_anti_leakage` imponen `ts_xi_published <= ts_captured <= ts_decision - 2.0 min < kickoff_utc` y `ts_fill >= ts_decision + 2.0 min <= kickoff_utc` acoplado al régimen `T-60m` (`[T-75m, T-4m]`, cadencia `<= 3.686 min` de `stale_lines_config.json`), rechazando sondeos en frío sin `published_at` o sin sondeo vacío previo `<= 4.19 min` (`XILeakageError`). | `OBSERVADO` | **`PASS`** |
+| **G3-B7b** | `B7` (`Separación observed / synthetic`) | `audit_local_xi_coverage_in_dev` audita `matches.parquet`, `features.parquet` y `web-scraping/data/normalized/roster_availability.json` (`5,908` filas de `2026-11-09..10` → `0` antes de `2025-02-02T17:30:00Z`), evaluando `observed` con `delta = 0.0` (`ΔLL = 0.000000`, `"no significativa"`, efecto real `DESCONOCIDO`) y aislando los `3` estudios paramétricos bajo `provenance = "synthetic_sensitivity"` (`INFERIDO`). | `OBSERVADO` | **`PASS`** |
+| **G3-B9a** | `B9` (`Causalidad estricta w' < w`) | `build_causal_epa_dataset` opera en `2` fases estrictas por `gameday` (Fase 1 emite priors `w' < w` verificando `CausalLeakageError`; Fase 2 actualiza acumuladores tras cerrar la fecha); `test_strict_causality_truncation_invariance_w_lt_w` demuestra invarianza `< 1e-12` en semanas `<= 8` de `2024` al truncar semanas `9..18`. | `OBSERVADO` | **`PASS`** |
+| **G3-B9b** | `B9` (`Cobertura viva 4/29 -> 34.37/41`) | Sobre los `46` partidos NFL de `live_matchday_v3_snapshot.json` evaluados con `service.ts::predictLiveEdgeMatrix`, `featureCoverage` sube de `4/29` (`13.79%`, `46/46` `"low_coverage"`) en `model_nfl.json` a `34.37/41` (`83.83%`, mín. `34/41 = 82.93%`, `0/46` `"low_coverage"`) en `model_nfl_v3_2_candidate.json`, fijando `live_v3.priors = {w_net_epa: 0, w_net_success_pct: 0}` para evitar doble conteo. | `OBSERVADO` | **`PASS`** |
+| **G3-B9c** | `B9` (`Evaluación vs v3.0, consenso y B6`) | En `walk_forward_dev` (`n = 3,891`), `v3_2_epa_logit_41` mejora a `v3.0` vivo `4/29` (`ΔLL = -0.065911`, `"significativa"`) y a `v3.0` histórico `29/29` (`ΔLL = -0.002516`, `"significativa"`), resulta `"no significativa"` en `DEV_OOS 2020..2024` (`ΔLL = -0.003153 [-0.006492, +0.000129]`), pierde ante el consenso `nflverse` (`"sin cierre sharp"`, `ΔLL = +0.013040`), y bloquea evaluación contra cierre sharp de `B6` (`DESCONOCIDO`, `0 < 64` juegos liquidados). | `OBSERVADO` | **`PASS`** |
+| **G3-B9d** | `B9` (`Candidato inactivo aislado`) | `src/data/prediction/model_nfl_v3_2_candidate.json` (`SHA-256 = ebf6c3c3...`) se entrega separado con `"status": "candidate"` y `"production_activated": false`, dejando `src/data/prediction/model_nfl.json` intacto bit a bit (`SHA-256 = e74ae241...`). | `OBSERVADO` | **`PASS`** |
+| **G3-C1** | Cierre Integral `MASTER.md` §5 | Los `8/8` criterios globales de aceptación de `MASTER.md` §5 se cumplen en los `2` worktrees (`prediction-lab` y `web-scraping`) con trazabilidad reproducible completa en Puertas 1, 2 y 3. | `OBSERVADO` | **`PASS`** |
+
+---
+
+### 3.2 Evidencia Reproducible — Artefactos `v3.1` Congelados y Artefactos Nuevos de Ola 3 (`OBSERVADO`)
+
+Comando ejecutado en `C:\Users\T490s\Desktop\Proyectos\PitchLab\.worktrees\prediction-lab` (`HEAD = bbfdbc5`):
+
+```powershell
+Set-Location 'C:\Users\T490s\Desktop\Proyectos\PitchLab\.worktrees\prediction-lab'
+@(
+  'src/data/prediction/production_segments_v3_1.json',
+  'src/data/prediction/blend_weights_v3_1.json',
+  'src/data/prediction/pick_policy_v3_1.json',
+  'src/data/prediction/stale_lines_config.json',
+  'src/domain/prediction/engine.ts',
+  'src/data/prediction/model_nfl.json',
+  'src/data/prediction/model_nfl_v3_2_candidate.json',
+  'services/models/artifacts/sealed_holdout_v3_1_eval.json',
+  'services/models/artifacts/holdout_trial_registry.jsonl',
+  'services/models/artifacts/outlook_calibration_v3_2.json',
+  'src/data/prediction/outlook_calibration_v3_2.json',
+  'research/prediction-lab/experiments/EXP_V32_xi/exp_v32_xi_results.json',
+  'research/prediction-lab/experiments/EXP_V32_xi/trial_registry_xi.jsonl',
+  'research/prediction-lab/experiments/EXP_V32_xi/data/xi_health.json',
+  'research/prediction-lab/experiments/EXP_V32_nfl_epa/artifacts/exp_v32_nfl_epa_results.json',
+  'research/prediction-lab/experiments/EXP_V32_nfl_epa/artifacts/nfl_pbp_team_game_1999_2024_dev.parquet',
+  'research/prediction-lab/experiments/EXP_V32_nfl_epa/artifacts/nfl_pbp_qb_game_1999_2024_dev.parquet',
+  'research/prediction-lab/experiments/EXP_V32_nfl_epa/artifacts/nfl_dev_causal_41_features.parquet'
+) | ForEach-Object { "$( (Get-FileHash -Algorithm SHA256 $_).Hash.ToLower() )  $_" }
+git diff f3564a4..bbfdbc5 -- src/data/prediction/production_segments_v3_1.json src/data/prediction/blend_weights_v3_1.json src/data/prediction/pick_policy_v3_1.json src/data/prediction/stale_lines_config.json src/domain/prediction/engine.ts src/data/prediction/model_nfl.json services/models/artifacts/sealed_holdout_v3_1_eval.json
+```
+
+| Archivo | SHA-256 observado | Verificación | Estado |
+| :--- | :--- | :--- | :--- |
+| `src/data/prediction/production_segments_v3_1.json` | `0bc03bbff96a5d82a1a7858e1e8623bf7bfdb250c546d2773a71d56ed9ada9bc` | Intacto vs `status/O.json` (`0/60` activos) | `OBSERVADO` · **`PASS`** |
+| `src/data/prediction/blend_weights_v3_1.json` | `b29d7a451f6011126997c122778b42ad3239c78337d17c5fa78d550f5c92739b` | Intacto vs `f3564a4` | `OBSERVADO` · **`PASS`** |
+| `src/data/prediction/pick_policy_v3_1.json` | `2359c8f8822ea394a380202c04e0bcd010d1a3fae7c5c25b8c11ebe810bfb7d1` | Intacto vs `f3564a4` | `OBSERVADO` · **`PASS`** |
+| `src/data/prediction/stale_lines_config.json` | `8bcb9c7be93270cde0cac2d58bc19f0381184dd2e769f358dd28334db2a05eac` | Intacto vs `f3564a4` | `OBSERVADO` · **`PASS`** |
+| `src/domain/prediction/engine.ts` | `9270125c49e81adf57e90c76db07eb95f53ab35a5051e49265b35b80ed0553bc` | Intacto vs `f3564a4` | `OBSERVADO` · **`PASS`** |
+| `src/data/prediction/model_nfl.json` | `e74ae241875739d2dc18564f85133d4e20c1d0cef41d64b6f705852601597225` | Intacto vs `f3564a4` (blob git `7d8fd0bf...`) | `OBSERVADO` · **`PASS`** |
+| `src/data/prediction/model_nfl_v3_2_candidate.json` | `ebf6c3c3cfe417d57a685f0b574fed212da3f1e58da8568434f82197f5a46158` | Candidato `B9` (`status="candidate"`, `production_activated=false`) | `OBSERVADO` · **`PASS`** |
+| `services/models/artifacts/sealed_holdout_v3_1_eval.json` | `5c9e550bfd7889e44f674c91cf64cea4c07b4281fc72231b8cadff850309f2dd` | Intacto vs `f3564a4` | `OBSERVADO` · **`PASS`** |
+| `services/models/artifacts/holdout_trial_registry.jsonl` | `058d5d0d9bcaeb97f0415f871b50a7a3279b34ad59dcdcaacf33ac4b4fe8923e` | `31` líneas (`1..29` intactas; `#30` `B4` y `#31` `B9` en `walk_forward_dev`) | `OBSERVADO` · **`PASS`** |
+| `services/models/artifacts/outlook_calibration_v3_2.json` | `090cfaa23d35bdd569ea3a17d0084b6af7b2e99eeb8cdb00b15a8b588654194e` | Espejo Python intacto vs Puerta 1 | `OBSERVADO` · **`PASS`** |
+| `src/data/prediction/outlook_calibration_v3_2.json` | `090cfaa23d35bdd569ea3a17d0084b6af7b2e99eeb8cdb00b15a8b588654194e` | Espejo TS idéntico bit a bit | `OBSERVADO` · **`PASS`** |
+| `research/prediction-lab/experiments/EXP_V32_xi/exp_v32_xi_results.json` | `c92d51eb5bae01b2e6e8032a521cd34dce87e2ed144145c93d0765a6d0b8a19b` | `B7` (`production_activated=false`, `holdout_sealed_untouched=true`) | `OBSERVADO` · **`PASS`** |
+| `research/prediction-lab/experiments/EXP_V32_xi/trial_registry_xi.jsonl` | `6b3ee829a21d407cc1e6579d159f5706518e242f48d01f1889d2ecefd16f7617` | `4` entradas aisladas (`1` `observed`, `3` `synthetic_sensitivity`, `walk_forward_dev`) | `OBSERVADO` · **`PASS`** |
+| `research/prediction-lab/experiments/EXP_V32_xi/data/xi_health.json` | `270007d1f5fda9d1dd23f54a37ae0681e4a628f690d2ae623987837172f90dc8` | `idle_no_active_legal_credentials`, `fabricated_records: 0` | `OBSERVADO` · **`PASS`** |
+| `research/prediction-lab/experiments/EXP_V32_nfl_epa/artifacts/exp_v32_nfl_epa_results.json` | `c342e22d4a551985d464c5b1bb512bdfdbbc7c58bf1e82be27b36646f760bda0` | Evaluación completa `B9` en `walk_forward_dev` (`n=3,891`) | `OBSERVADO` · **`PASS`** |
+| `research/prediction-lab/experiments/EXP_V32_nfl_epa/artifacts/nfl_pbp_team_game_1999_2024_dev.parquet` | `279e52b830881c6a4942a07dcb219900eb9384f74b7871b92e049b88a9dc6038` | `13,974` filas (`3.60 MB < 50 MB`, `max_game_date = 2025-01-26`) | `OBSERVADO` · **`PASS`** |
+| `research/prediction-lab/experiments/EXP_V32_nfl_epa/artifacts/nfl_pbp_qb_game_1999_2024_dev.parquet` | `9e5b85f9838f215bc18ad92fbc208db6d2fa5f2cc8440a719497da851ec3e665` | `17,205` filas (`1.12 MB < 50 MB`, `max_game_date = 2025-01-26`) | `OBSERVADO` · **`PASS`** |
+| `research/prediction-lab/experiments/EXP_V32_nfl_epa/artifacts/nfl_dev_causal_41_features.parquet` | `7301b3fbc8fb97723a4c297eb8c843492c6e034cbd28b95aa30a17250415f40f` | `6,608` juegos elegibles (`2.70 MB < 50 MB`, `max_gameday = 2025-01-05`) | `OBSERVADO` · **`PASS`** |
+
+---
+
+### 3.3 Auditoría Detallada por Bloque (`B7`, `B9`)
+
+#### Bloque `B7` (`b7-xi`, commit `53ff835`)
+- **Contrato y guardia causal anti-fuga (`CONTRACT_XI_PUBLISHED.md`, `xi_collector.py`, `OBSERVADO`):**
+  - Implementa literalmente la especificación autoritativa de `#27` (`@coordinator`):
+    $$\texttt{ts\_xi\_published} \le \texttt{ts\_captured} \le \texttt{ts\_decision} - 2.0\text{ min} < \texttt{kickoff\_utc}, \qquad \texttt{ts\_fill} \ge \texttt{ts\_decision} + 2.0\text{ min} \le \texttt{kickoff\_utc}$$
+    acoplada al régimen `closing_decision_window_t_minus_60m` de `stale_lines_config.json` (`recommended_interval_minutes = 3.685835`, ventana de sondeo `[T-75m, T-4m]`).
+  - *Nota de trazabilidad respecto a la glosa resumida en `#37` (`kickoff - 30 min`):* la guardia implementada en `validate_xi_anti_leakage` es paramétrica respecto a `ts_decision` y estrictamente más fuerte en cualquier decisión pre-partido en `T-60m` (`ts_xi_published <= kickoff - 62 min`) o en `T-30m` (`ts_xi_published <= kickoff - 32 min`), exigiendo además que todo sondeo sin `published_at` explícito tenga un sondeo vacío previo a `<= 4.19 min` para no fabricar jamás `ts_xi_published` en arranque en frío (`XILeakageError`).
+- **Compuerta legal, cero evasión anti-bot y cero datos falsos (`OBSERVADO`):**
+  - Registro legal de `7` fuentes: `2` `api_only` (`api_football`, `football_data_org`, inactivas sin `API_FOOTBALL_KEY` / `FOOTBALL_DATA_API_KEY`) y `5` `blocked_pending_owner_decision` (`espn_site_api`, `sofascore`, `fotmob`, `flashscore`, `rotowire_web`, que lanzan `XISourceBlockedError` incluso en `--dry-run`).
+  - Transporte limpio `urllib.request` con `User-Agent: PitchLab-XI-Collector/1.0 (+legal-api-only)` y aborto inmediato ante `401/403/429/503` o cabecera `cf-mitigated`. Sonda CLI independiente `xi_collector.py --dry-run` verificada: `status = "dry_run_no_active_legal_credentials"`, `disk_mutated = false`, `fabricated_records = 0`, y `data/xi_snapshots.jsonl` inexistente.
+- **Paridad TS↔Python `< 1e-12` y evaluación honesta en `walk_forward_dev` (`OBSERVADO` / `INFERIDO` / `DESCONOCIDO`):**
+  - `test_ts_python_parity_under_1e12` verifica contra `src/domain/prediction/engine.ts` (`ts_parity_bridge.mts`) `max |Δ| = 2.220e-16 < 1e-12` en `computeLineupAvailabilityDelta`, `applyAvailabilityDeltaToProbs`, `predictMotorA` y `predictMotorAWithAvailability` (sin modificar `engine.ts`).
+  - En `walk_forward_dev` (`52,746` partidos fútbol `< 2025-02-02T17:30:00Z`, `52,659` pareados con cierre sharp Pinnacle sin vig):
+    1. **Corrida empírica honesta (`provenance = "observed"`, `OBSERVADO`):** `0/52,746` partidos con `ts_xi_published` real pre-corte (`roster_availability.json` en `web-scraping` contiene `5,908` registros todos de `2026-11-09..10`) → `delta = 0.0`, `ΔLL(XI vs Base) = 0.000000 [0.000000, 0.000000]` (`"no significativa"`), `ΔLL(XI vs Pinnacle_close) = +0.015208 [+0.013595, +0.016700]` (`"significativa"` a favor de Pinnacle). El efecto causal real en `T-60m` se declara `DESCONOCIDO` y `production_activated: false`.
+    2. **Sensibilidad sintética aislada (`provenance = "synthetic_sensitivity"`, `INFERIDO`):** ruido no informativo `σ = 0.12` degrada `ΔLL = +0.001100 [+0.000705, +0.001494]` (`"significativa"`), cota adversarial `|δ| = 0.35` acota el daño máximo a `ΔLL = +0.032993` (`max |Δp| = 0.073133 <= tanh(0.35/4) = 0.087277`), e incluso el oráculo teórico `open -> close` Pinnacle (`ΔLL vs Base = -0.007978`) sigue perdiendo frente al cierre sharp de Pinnacle (`ΔLL vs Pinnacle_close = +0.007230 [+0.005729, +0.008694]`).
+
+#### Bloque `B9` (`b9-nfl-epa`, commit `bbfdbc5`)
+- **Ingesta `nflverse` bajo licencia abierta y causalidad estricta `w' < w` (`pbp_ingest.py`, `causal_epa_features.py`, `OBSERVADO`):**
+  - Agrega jugadas scrimmage `1999..2024` estrictamente `< 2025-02-02` (`13,974` filas `team_game` y `17,205` filas `qb_game`, `max_game_date = 2025-01-26`, `0` lecturas de `2025+`) desde releases estáticos `CC BY 4.0` / `MIT` de `nflverse-data` sin scraping ni evasión anti-bot, documentando cobertura epistémica por era (`1999..2005` `DESCONOCIDO` en `qb_hit`/`CPOE`; `2006..2024` `100% OBSERVADO`; `ngs_was_pressure` `OBSERVADO` en `2016..2024` con `r = 0.4499` vs proxy `(sack | qb_hit)/dropbacks`).
+  - `build_causal_epa_dataset` garantiza causalidad estricta `w' < w` (`gameday' < gameday`) mediante barrido en 2 fases por fecha (Fase 1 emite las `12` features causales pre-kickoff verificando `CausalLeakageError`; Fase 2 actualiza acumuladores EWMA/shrinkage bayesiano solo al terminar todos los partidos del `gameday`). `test_strict_causality_truncation_invariance_w_lt_w` demuestra que truncar las semanas `9..18` de `2024` deja idénticas (`max |Δ| < 1e-12`) las `12` features de las semanas `1..8`.
+- **Cobertura en vivo `featureCoverage` y paridad TS↔Python `< 1e-12` (`model_nfl_v3_2_candidate.json`, `ts_parity_probe.ts`, `OBSERVADO`):**
+  - `src/data/prediction/model_nfl_v3_2_candidate.json` (`SHA-256 = ebf6c3c3...`) se entrega como candidato inactivo (`"status": "candidate"`, `"production_activated": false`), manteniendo `src/data/prediction/model_nfl.json` intacto bit a bit (`SHA-256 = e74ae241...`) y anulando `live_v3.priors = {"w_net_epa": 0.0, "w_net_success_pct": 0.0}` para evitar doble conteo en `nfl_live.ts`.
+  - Ejecución real contra `src/domain/prediction/engine.ts` y `src/domain/prediction/service.ts::predictLiveEdgeMatrix`:
+    - Paridad sobre `200` partidos OOF de `walk_forward_dev`: **`max |Δ| = 2.2204e-16 < 1e-12`** (`OBSERVADO`).
+    - Cobertura sobre los `46` partidos NFL de `live_matchday_v3_snapshot.json`: sube de **`4/29` (`13.79%`, `46/46` `"low_coverage"`)** en `v3.0` a **`34.37/41` (`83.83%`, mín. `34/41 = 82.93%`, `0/46` `"low_coverage"`, `executableBetsCount = 0`)**, dejando honestamente en `null` las `6..7` variables de calendario semanal no presentes en el snapshot vivo.
+- **Evaluación honesta en `walk_forward_dev` (`n = 3,891` no empates, IC 95% bootstrap `mulberry32`, `1,000` réplicas, `OBSERVADO`):**
+
+| Modelo / Comparación (`walk_forward_dev < 2025-02-02T17:30:00Z`) | `n` | Log-Loss / `ΔLL` | IC 95% (`mulberry32`) | ECE / Sub-splits | Significancia / Estado |
+| :--- | ---: | ---: | :--- | :--- | :--- |
+| `v3_0_live_4_of_29` (línea base viva actual `13.8%` cob.) | `3,891` | `0.687931` | `[0.682976, 0.692830]` | `ECE = 0.0229` | Línea base viva `v3.0` (`OBSERVADO`) |
+| `v3_0_logit_29` (línea base histórica `29/29`) | `3,891` | `0.624537` | `[0.614308, 0.634131]` | `ECE = 0.0189` · `OOS = 0.6295` | Línea base histórica `v3.0` (`OBSERVADO`) |
+| `v3_2_live_35_of_41` (candidato en cobertura viva `83.8%`) | `3,891` | `0.623014` | `[0.612142, 0.632917]` | `ECE = 0.0175` · `OOS = 0.6263` | Mejora `-0.064918` vs `v3.0` vivo (`OBSERVADO`) |
+| `v3_2_epa_logit_41` (candidato pre-kickoff `41/41`) | `3,891` | `0.622020` | `[0.611300, 0.631897]` | `ECE = 0.0170` · `OOS = 0.6264` | Candidato `B9` (`status="candidate"`, `OBSERVADO`) |
+| Consenso `nflverse` (**`"sin cierre sharp"`**) | `3,890` | `0.609080` | `[0.597081, 0.620236]` | `ECE = 0.0094` | Benchmark consenso (`"sin cierre sharp"`, `OBSERVADO`) |
+| `ΔLL` (`v3_2_epa_logit_41` − `v3_0_live_4_of_29`, `dev`) | `3,891` | `-0.065911` | `[-0.075109, -0.056734]` | `100.0%` réplicas `< 0` | `"significativa"` a favor de `v3.2` (`OBSERVADO`) |
+| `ΔLL` (`v3_2_epa_logit_41` − `v3_0_logit_29`, `dev`) | `3,891` | `-0.002516` | `[-0.004585, -0.000523]` | `99.4%` réplicas `< 0` | `"significativa"` en `dev` agregado (`OBSERVADO`) |
+| `ΔLL` (`v3_2_epa_logit_41` − `v3_0_logit_29`, `DEV_OOS 2020..2024`) | `1,339` | `-0.003153` | `[-0.006492, +0.000129]` | IC cruza `0` (`97.0%` `< 0`) | **`"no significativa"`** (`OBSERVADO`) |
+| `ΔLL` (`v3_2_epa_logit_41` − consenso `nflverse`, **`"sin cierre sharp"`**) | `3,890` | `+0.013040` | `[+0.007707, +0.017938]` | `0.0%` réplicas `< 0` | `"significativa"` a favor del consenso (`"sin cierre sharp"`) |
+| Calibración vs corpus sharp real `B6` (`nfl_sharp_closing.parquet`) | `0` liq. | `null` | `null` | `13` prospectivos, `0 < 64` liquidados | **`DESCONOCIDO`** (bloqueado hasta `>= 64` liquidados) |
+
+---
+
+### 3.4 Suites de Pruebas Ejecutadas Independientemente y Propiedad de Archivos — Puerta 3 (`OBSERVADO`)
+
+#### Suites completas ejecutadas por `V`:
+1. **`prediction-lab` — Vitest completo:**
+   - Comando: `Set-Location 'C:\Users\T490s\Desktop\Proyectos\PitchLab\.worktrees\prediction-lab'; npx.cmd vitest run; git checkout -- evidence/statistical-tests/aztecavet-experiments.json`
+   - Resultado: **`61 passed | 1 skipped (62)` archivos, `1,153 passed | 1 skipped (1,154)` tests, `0` fallos** (`70.72s`, `OBSERVADO`).
+2. **`prediction-lab` — Pytest completo (`services/models` + `EXP_V32_xi` + `EXP_V32_nfl_epa`):**
+   - Comando: `$env:PYTHONDONTWRITEBYTECODE='1'; Set-Location 'C:\Users\T490s\Desktop\Proyectos\PitchLab\.worktrees\prediction-lab'; .\research\prediction-lab\.venv\Scripts\python.exe -B -m pytest services/models research/prediction-lab/experiments/EXP_V32_xi research/prediction-lab/experiments/EXP_V32_nfl_epa -v`
+   - Resultado: **`120 passed in 106.43s`, `0` fallos** (`111` en `services/models`, `4` en `EXP_V32_xi`, `5` en `EXP_V32_nfl_epa`; `OBSERVADO`).
+3. **`web-scraping` — Estado y suite verificada (`4993a9b`):**
+   - `git rev-parse HEAD` = `4993a9b6b598aa3fa63be1cb5735975cbd56e35f`, `git status --porcelain` vacío (`7 passed`, `0` cambios desde Puerta 1; `OBSERVADO`).
+
+#### Historial de commits y fronteras de propiedad auditadas (`19453fb..bbfdbc5`):
+- **`prediction-lab` (`19453fb..bbfdbc5`):**
+  1. `53ff835` — `feat(v3.2-B7): instrumentar contrato legal de XI confirmado y experimento walk-forward` (`B7`: `research/prediction-lab/experiments/EXP_V32_xi/{CONTRACT_XI_PUBLISHED.md,__init__.py,data/xi_health.json,exp_v32_xi_results.json,run_exp_v32_xi.py,test_exp_v32_xi.py,trial_registry_xi.jsonl,ts_parity_bridge.mts,xi_collector.py}`, `research/prediction-lab/reports/A29_xi_confirmado.md`, `research/prediction-lab/coordination/v3_2/status/B7.json` — `11` archivos exclusivos de `B7`).
+  2. `bbfdbc5` — `feat(v3.2-B9): construir candidato NFL Minkowski v3.2 con agregados EPA causales` (`B9`: `research/prediction-lab/experiments/EXP_V32_nfl_epa/{.gitignore,__init__.py,pbp_ingest.py,causal_epa_features.py,run_experiment.py,ts_parity_probe.ts,test_exp_v32_nfl_epa.py,artifacts/*}`, `src/data/prediction/model_nfl_v3_2_candidate.json`, `services/models/artifacts/holdout_trial_registry.jsonl`, `research/prediction-lab/reports/A29_nfl_epa.md`, `research/prediction-lab/coordination/v3_2/status/B9.json` — `19` archivos exclusivos de `B9`).
+- **Fronteras intocables verificadas (`git diff --name-only f3564a4..bbfdbc5 -- packages/ui apps/web packages/spacetime src/data/prediction/model_nfl.json src/domain/prediction/engine.ts`):** `0` archivos modificados (`OBSERVADO`).
+
+### 3.5 Decisión de Puerta 3
+
+- **Veredicto:** **`PASS`**
+- **Autorización de cierre:** Se aprueba el cierre íntegro de la **Ola 3** (`B7`, `B9`) y se habilita el cierre formal del ciclo **`PREDLAB-V3.2`**.
+
+---
+
+## 4. Resumen Global Consolidado — Ciclo `PREDLAB-V3.2` (Puertas 1, 2 y 3)
+
+### 4.1 Matriz de Aceptación Integral (`MASTER.md` §5.1 — `8/8` Criterios)
+
+| # | Criterio Global `MASTER.md` §5.1 | Evidencia Consolidada (`prediction-lab` + `web-scraping`) | Puerta(s) | Veredicto |
+| :---: | :--- | :--- | :---: | :---: |
+| **1** | **Panorama completo sin stake** (`MatchOutlook` en fútbol `11` mercados + top `3` marcadores y NFL `3` mercados; `market: null` sin cuota real fresca `< 72 h`; `0` campos de stake/kelly) | `src/domain/prediction/outlook.ts` (`B1`) + `live_matchday_v3_snapshot.json.outlooks` (`130` partidos en `B8`, `84` fútbol + `46` NFL, `0` stakes/kelly, `executable_bets_count = 0`). | Puertas 1 y 2 | **`PASS`** |
+| **2** | **Calibración pública honesta** (`outlook_calibration_v3_2.json` con `98` segmentos, ECE/Brier/LL/RPS e IC 95% `mulberry32`; NFL etiquetado `"sin cierre sharp"`) | Espejos Python y TS idénticos bit a bit (`SHA-256 = 090cfaa2...`); `0` omisiones de `"no significativa"` cuando el IC cruza `0`; `NFL::moneyline` y `GLOBAL::nfl::moneyline` marcados `"sin cierre sharp"`. | Puerta 1 | **`PASS`** |
+| **3** | **Compuerta de picks infranqueable** (`0/60` segmentos encendidos → `0` picks y `0` stakes; eliminadas cuotas sintéticas y auto-bucle de mercado; `featureCoverage` expuesto) | `production_segments_v3_1.json` intacto (`SHA-256 = 0bc03bbff96a5d82a1a7858e1e8623bf7bfdb250c546d2773a71d56ed9ada9bc`, `0/60`); eliminadas `reconstructExecutionOdds` y `dixonColesProbs8` en `service.ts`. | Puertas 1, 2 y 3 | **`PASS`** |
+| **4** | **Captura prospectiva legal** (`cadence_scheduler.py` + fuentes legales auditadas, `0` evasión anti-bot, esquema `11 + 1`) | `web-scraping@4993a9b` (`B3`) y `xi_collector.py` (`B7`): `5` fuentes web bloqueadas hasta decisión legal/comercial, adaptadores `api_only` limpios, `0` filas falsas en `data/odds_timeseries/` y `EXP_V32_xi/data/`. | Puertas 1 y 3 | **`PASS`** |
+| **5** | **Paper-trading encadenado SHA-256** (`paper_trading.py` idempotente, `execution_delay >= 2.0 min`, separación `synthetic`/`real`) | `picks_v3_2_prospective.jsonl` vacío (`0/150` reales); fixture sintético de `12` eslabones con paridad `0` bits (`head_hash = eaea0bae...`) y `max |Δ| = 0.0` entre TS y Python. | Puerta 2 | **`PASS`** |
+| **6** | **Deuda técnica limpia** (`math.ts` único, Dixon-Coles único en `markets_2way.ts`, tiers `solido`/`valor`, constantes en `service_constants_v3_2.json`) | Verificado estática y dinámicamente en `src/domain/prediction/*.ts` y `services/models/*.py`. | Puerta 1 | **`PASS`** |
+| **7** | **Frentes científicos `B6`, `B7`, `B9` honestos** (`walk_forward_dev`, sin reabrir `holdout_sealed` y sin encender nada no probado) | `B6`: `39` filas sharp reales (`13` juegos, `0 < 64` liquidados → `DESCONOCIDO`). `B7`: `0/52,746` XI reales en `dev` → `production_activated = false`. `B9`: cobertura viva NFL `13.8% → 83.8%`, `ΔLL = -0.0659` vs `v3.0` vivo, `"no significativa"` en `OOS 2020..2024`, pierde vs consenso (`"sin cierre sharp"`), exportado como `"candidate"` (`production_activated = false`). | Puertas 2 y 3 | **`PASS`** |
+| **8** | **Suites completas en verde y fronteras intactas** | `61` archivos / `1,153` tests Vitest (`0` fallos) + `120` tests Pytest `prediction-lab` (`0` fallos) + `7` tests Pytest `web-scraping` (`0` fallos); `0` cambios en `packages/ui`, `apps/web`, `packages/spacetime` ni artefactos congelados `v3.1`. | Puertas 1, 2 y 3 | **`PASS`** |
+
+### 4.2 Registro Consolidado de Commits Auditados (`PREDLAB-V3.2`)
+
+| Ola / Puerta | Worktree | Commit | Agente | Resumen verificado |
+| :--- | :--- | :--- | :---: | :--- |
+| Ola 1 | `prediction-lab` | `b04e342` | `O` | Contratos maestros (`MASTER.md`, `CONTRACT_OUTLOOK.md`, `CONTRACT_ODDS_TIMESERIES.md`, `20_SWARM_V3_2_GEMINI.md`) y hashes base (`status/O.json`). |
+| Ola 1 | `web-scraping` | `4993a9b` | `B3` | Auditoría legal de `7` fuentes, `cadence_scheduler.py` acoplado a `stale_lines_config.json` y adaptadores limpios sin evasión anti-bot. |
+| Ola 1 | `prediction-lab` | `48854e8` | `B3` | Registro de contrato y estado de captura prospectiva (`prospective_capture_pending`, `0` filas falsas). |
+| Ola 1 | `prediction-lab` | `5f403ae` | `B2` | Compuerta dura `production_segments_v3_1.json` (`0/60`), eliminación de cuotas sintéticas, ancla Smarkets, `featureCoverage`, `service_constants_v3_2.json` y tiers `solido`/`valor`. |
+| Ola 1 | `prediction-lab` | `a33cdc4` | `B1` | Primitivas centralizadas `math.ts` y constructor puro `MatchOutlook` (`11` mercados fútbol + top `3` marcadores y `3` mercados NFL sin stake). |
+| Ola 1 | `prediction-lab` | `1e22b6a` | `B4` | Evaluación walk-forward causal (`56,649` eventos `< 2025-02-02T17:30:00Z`, trial `#30`) y publicación de `outlook_calibration_v3_2.json` (`98` segmentos). |
+| **Puerta 1** | `prediction-lab` | `e20e823` | **`V`** | **Auditoría Red Team de Ola 1 — `PASS` (`18/18` controles).** |
+| Ola 2 | `prediction-lab` | `70e08db` | `B6` | Corpus `nfl_sharp_closing.parquet` (`39` filas `pinnacle`, `13` juegos unidos a `nflverse`) y compuerta `n_settled = 0 < 64` (`DESCONOCIDO`). |
+| Ola 2 | `prediction-lab` | `96a8f4b` | `B8` | Regeneración de `live_matchday_v3_snapshot.json` con `130` `MatchOutlook` (`< 72 h`, `market: null`, `0` stakes) y `SYNC_NOTES.md`. |
+| Ola 2 | `prediction-lab` | `adb0313` | `B5` | Runner idempotente `paper_trading.py` (`delay >= 2.0 min`), ledger prospectivo real vacío (`0/150`) y fixture sintético con paridad SHA-256 TS↔Py. |
+| **Puerta 2** | `prediction-lab` | `19453fb` | **`V`** | **Auditoría Red Team de Ola 2 — `PASS` (`16/16` controles).** |
+| Ola 3 | `prediction-lab` | `53ff835` | `B7` | Contrato `CONTRACT_XI_PUBLISHED.md`, colector legal `xi_collector.py` y experimento `EXP_V32_xi` (`0/52,746` reales en `dev`, `production_activated = false`). |
+| Ola 3 | `prediction-lab` | `bbfdbc5` | `B9` | Pipeline PBP `nflverse` causal `w' < w` (`41` features, trial `#31`), salto de cobertura viva NFL `13.8% → 83.8%` y `model_nfl_v3_2_candidate.json` inactivo. |
+
+### 4.3 Compuertas Prospectivas Pendientes Fuera de Este Ciclo (Estado Honesto al Cierre de `v3.2`)
+
+1. **Activación de captura multi-tick en vivo (`B3` / `B7`):** requiere aprovisionar credenciales oficiales (`THE_ODDS_API_KEY` o `BETFAIR_APP_KEY` + `BETFAIR_SESSION_TOKEN` para cuotas en `web-scraping`; `API_FOOTBALL_KEY` o `FOOTBALL_DATA_API_KEY` para alineaciones confirmadas XI) o autorización legal expresa del propietario sobre fuentes hoy `blocked_pending_owner_decision`.
+2. **Validación prospectiva de valor en fútbol (`B5`):** `production_segments_v3_1.json` permanece en `0/60` activos hasta acumular `>= 150` picks prospectivos reales con `CLV` medio `> 0` cuyo IC 95% bootstrap (`mulberry32`) no cruce `0` (`MASTER.md` §1.1 / Hoja de Ruta V4 §10).
+3. **Evaluación NFL contra cierre sharp real (`B6` / `B9`):** `model_nfl_v3_2_candidate.json` permanece en `"status": "candidate"` (`production_activated: false`) y NFL sigue apagado para picks de valor hasta acumular `>= 64` juegos NFL liquidados con cierre sharp real (`pinnacle` / `smarkets`) en `nfl_sharp_closing.parquet`.
