@@ -414,7 +414,7 @@ export async function listSocialFeed(db: Db, viewerUserId: string | null, query:
     .innerJoin(users, eq(users.id, socialPosts.authorUserId))
     .leftJoin(tipstarProfiles, and(eq(tipstarProfiles.userId, users.id), eq(tipstarProfiles.isActive, true)))
     .where(and(...conditions))
-    .orderBy(desc(socialPosts.createdAt))
+    .orderBy(desc(socialPosts.createdAt), desc(socialPosts.id))
     .limit(limit);
   if (rows.length === 0) return [];
 

@@ -17,7 +17,7 @@ import {
   VerifiedSeal,
 } from "../components/MaestroPrimitives";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
-import { usePlatform } from "../platform-provider";
+import { socialScopeKey, usePlatform } from "../platform-provider";
 import {
   analystRank,
   calibrationBuckets,
@@ -634,6 +634,7 @@ function ProfileContent({
         {tab === "publicaciones" ? (
           <PostsPanel
             posts={posts}
+            authorHandle={profile.isExample ? undefined : profile.handle}
             dataset={dataset}
             oddsFormat={oddsFormat}
             toggleSocialLike={toggleSocialLike}
@@ -661,8 +662,11 @@ function ProfileContent({
    Publicaciones
    ------------------------------------------------------------------------- */
 
+const PROFILE_POSTS_PAGE = 20;
+
 function PostsPanel({
   posts,
+  authorHandle,
   dataset,
   oddsFormat,
   toggleSocialLike,
@@ -670,20 +674,51 @@ function PostsPanel({
   ownHandle,
 }: {
   posts: readonly SocialPost[];
+  authorHandle?: string;
   dataset: ReturnType<typeof usePlatform>["dataset"];
   oddsFormat: ReturnType<typeof usePlatform>["oddsFormat"];
   toggleSocialLike: (postId: string) => void;
   canReport: boolean;
   ownHandle: string | null;
 }): React.JSX.Element {
+  const { socialFeedPages, loadOlderSocialPosts } = usePlatform();
+  const [limit, setLimit] = useState(PROFILE_POSTS_PAGE);
   const [openComments, setOpenComments] = useState<string[]>([]);
   const [reportTarget, setReportTarget] = useState<SocialReportTarget | null>(null);
-  if (posts.length === 0) {
+
+  useEffect(() => {
+    setLimit(PROFILE_POSTS_PAGE);
+  }, [authorHandle]);
+
+  const scope = useMemo(() => (authorHandle ? { author: authorHandle } : undefined), [authorHandle]);
+  const pageState = scope ? socialFeedPages[socialScopeKey(scope)] : undefined;
+  const hasMoreServer = Boolean(pageState?.hasMore);
+  const loadingOlder = Boolean(pageState?.loading);
+
+  const realPosts = useMemo(() => posts.filter((p) => !p.isExample), [posts]);
+  const examplePosts = useMemo(() => posts.filter((p) => p.isExample), [posts]);
+  const displayPool = useMemo(
+    () => (hasMoreServer ? realPosts : [...realPosts, ...examplePosts]),
+    [hasMoreServer, realPosts, examplePosts],
+  );
+
+  if (displayPool.length === 0 && !hasMoreServer && !loadingOlder) {
     return <p className="pl-prof-empty-line">Todavía no hay publicaciones.</p>;
   }
+
+  const canShowMore = displayPool.length > limit || hasMoreServer || loadingOlder;
+  const onShowMore = (): void => {
+    if (loadingOlder) return;
+    const nextLimit = limit + PROFILE_POSTS_PAGE;
+    setLimit(nextLimit);
+    if (scope && hasMoreServer && nextLimit >= realPosts.length) {
+      void loadOlderSocialPosts(scope);
+    }
+  };
+
   return (
     <div className="pl-prof-posts">
-      {posts.map((post) => {
+      {displayPool.slice(0, limit).map((post) => {
         const meta = post.pick ? resolveEntryGame(post.pick.gameId, dataset) : null;
         const commentsOpen = openComments.includes(post.id);
         const isPostMine = Boolean(post.isMine || (ownHandle && post.authorHandle === ownHandle));
@@ -787,6 +822,18 @@ function PostsPanel({
           </article>
         );
       })}
+      {canShowMore ? (
+        <div className="pl-prof-more">
+          <button
+            type="button"
+            className="pl-prof-btn pl-prof-btn--ghost"
+            disabled={loadingOlder}
+            onClick={onShowMore}
+          >
+            {loadingOlder ? "Cargando…" : "Ver más"}
+          </button>
+        </div>
+      ) : null}
       <SocialReportDialog target={reportTarget} onClose={() => setReportTarget(null)} />
     </div>
   );

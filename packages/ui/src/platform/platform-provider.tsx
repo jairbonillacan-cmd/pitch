@@ -233,6 +233,23 @@ export function ownHandleFor(identity: ViewerIdentity | null, role: ViewerRole):
   return role === "tipstar" ? "sofia_nfl" : "socio_pl";
 }
 
+export interface SocialFeedScope {
+  following?: boolean;
+  author?: string;
+}
+
+export interface SocialFeedPageState {
+  cursor: string | null;
+  hasMore: boolean;
+  loading: boolean;
+}
+
+export function socialScopeKey(scope?: SocialFeedScope): string {
+  if (scope?.author) return `author:${scope.author.trim().toLowerCase()}`;
+  if (scope?.following) return "following";
+  return "feed";
+}
+
 export interface PlatformContextValue {
   rawDataset: PlatformDataset;
   dataset: PlatformDataset;
@@ -291,8 +308,14 @@ export interface PlatformContextValue {
   deleteSocialPost: (postId: string) => void;
   /** Vuelve a pedir el feed compartido (al abrir Comunidad o volver a la pestaña). */
   refreshSocialFeed: () => void;
+  /** Trae las publicaciones recientes de quienes sigue el socio. */
+  loadFollowingSocialPosts: () => void;
   /** Trae las publicaciones de un socio para su perfil. */
   loadSocialPostsByAuthor: (handle: string) => void;
+  /** Pide publicaciones más viejas al servidor (`?before=…&limit=30`) para el feed, siguiendo o perfil. */
+  loadOlderSocialPosts: (scope?: SocialFeedScope) => Promise<boolean>;
+  /** Estado de paginación por ámbito (`feed`, `following`, `author:<handle>`). */
+  socialFeedPages: Readonly<Record<string, SocialFeedPageState>>;
   /** Garantiza que una publicación concreta esté cargada (p. ej. al abrir un aviso). */
   ensureSocialPostLoaded: (postId: string) => void;
   /** Reporta una publicación o comentario ajeno en Comunidad. */
@@ -407,7 +430,9 @@ const ACTION_KEYS = [
   "toggleSocialLike",
   "deleteSocialPost",
   "refreshSocialFeed",
+  "loadFollowingSocialPosts",
   "loadSocialPostsByAuthor",
+  "loadOlderSocialPosts",
   "ensureSocialPostLoaded",
   "reportSocialContent",
   "toggleWatchlistGame",
@@ -527,6 +552,12 @@ export function PlatformProvider({
   );
   // Con cuentas, Comunidad vive en el servidor; sin ellas (PIN de beta), en este navegador.
   const [socialOnServer, setSocialOnServer] = useState<boolean>(false);
+  const [socialFeedPages, setSocialFeedPages] = useState<Record<string, SocialFeedPageState>>({});
+  const socialFeedPagesRef = useRef<Record<string, SocialFeedPageState>>({});
+  const updateFeedPage = useCallback((key: string, next: SocialFeedPageState) => {
+    socialFeedPagesRef.current = { ...socialFeedPagesRef.current, [key]: next };
+    setSocialFeedPages(socialFeedPagesRef.current);
+  }, []);
   const updateViewerIdentity = useCallback((profile: Pick<ViewerIdentity, "displayName" | "handle">) => {
     if (!viewerIdentity) return;
     const words = profile.displayName.trim().split(/\s+/);
@@ -1313,26 +1344,112 @@ export function PlatformProvider({
       if (!data?.posts) return;
       const now = new Date();
       const incoming = data.posts.map((p) => fromServerPost(p, rawDataset.games, now));
+      const incomingOldest = data.posts.at(-1)?.createdAt ?? null;
+      const prevPage = socialFeedPagesRef.current.feed;
+      const keepOlderCursor = Boolean(prevPage?.cursor && incomingOldest && prevPage.cursor < incomingOldest);
+      updateFeedPage(
+        "feed",
+        keepOlderCursor
+          ? { cursor: prevPage!.cursor, hasMore: prevPage!.hasMore, loading: false }
+          : { cursor: incomingOldest, hasMore: data.posts.length >= 50, loading: false },
+      );
       setSocialOnServer(true);
       setSocialPosts((prev) => mergeSocialPosts(prev, incoming, "feed"));
     })();
-  }, [accountsEnabled, rawDataset.games]);
+  }, [accountsEnabled, rawDataset.games, updateFeedPage]);
+
+  const loadFollowingSocialPosts = useCallback(() => {
+    if (!accountsEnabled) return;
+    void (async () => {
+      const data = await getJson<{ posts?: ServerSocialPost[] }>("/api/social/posts?following=1&limit=50");
+      if (!data?.posts) return;
+      const now = new Date();
+      const incoming = data.posts.map((p) => fromServerPost(p, rawDataset.games, now));
+      const incomingOldest = data.posts.at(-1)?.createdAt ?? null;
+      const prevPage = socialFeedPagesRef.current.following;
+      const keepOlderCursor = Boolean(prevPage?.cursor && incomingOldest && prevPage.cursor < incomingOldest);
+      updateFeedPage(
+        "following",
+        keepOlderCursor
+          ? { cursor: prevPage!.cursor, hasMore: prevPage!.hasMore, loading: false }
+          : { cursor: incomingOldest, hasMore: data.posts.length >= 50, loading: false },
+      );
+      setSocialOnServer(true);
+      setSocialPosts((prev) => mergeSocialPosts(prev, incoming, "extra"));
+    })();
+  }, [accountsEnabled, rawDataset.games, updateFeedPage]);
 
   const loadSocialPostsByAuthor = useCallback(
     (handle: string) => {
-      if (!accountsEnabled || !handle) return;
+      const clean = handle.trim().toLowerCase();
+      if (!accountsEnabled || !clean) return;
       void (async () => {
         const data = await getJson<{ posts?: ServerSocialPost[] }>(
-          `/api/social/posts?limit=50&author=${encodeURIComponent(handle)}`,
+          `/api/social/posts?limit=50&author=${encodeURIComponent(clean)}`,
         );
         if (!data?.posts) return;
         const now = new Date();
         const incoming = data.posts.map((p) => fromServerPost(p, rawDataset.games, now));
+        const incomingOldest = data.posts.at(-1)?.createdAt ?? null;
+        const key = `author:${clean}`;
+        const prevPage = socialFeedPagesRef.current[key];
+        const keepOlderCursor = Boolean(prevPage?.cursor && incomingOldest && prevPage.cursor < incomingOldest);
+        updateFeedPage(
+          key,
+          keepOlderCursor
+            ? { cursor: prevPage!.cursor, hasMore: prevPage!.hasMore, loading: false }
+            : { cursor: incomingOldest, hasMore: data.posts.length >= 50, loading: false },
+        );
         setSocialOnServer(true);
         setSocialPosts((prev) => mergeSocialPosts(prev, incoming, "extra"));
       })();
     },
-    [accountsEnabled, rawDataset.games],
+    [accountsEnabled, rawDataset.games, updateFeedPage],
+  );
+
+  const loadOlderSocialPosts = useCallback(
+    async (scope?: SocialFeedScope): Promise<boolean> => {
+      if (!accountsEnabled) return false;
+      const key = socialScopeKey(scope);
+      const current = socialFeedPagesRef.current[key];
+      if (current?.loading || current?.hasMore === false) return false;
+
+      let cursor = current?.cursor ?? null;
+      if (!cursor) {
+        const cleanAuthor = scope?.author?.trim().toLowerCase() ?? null;
+        cursor = socialPosts.reduce<string | null>((oldest, p) => {
+          if (!p.fromServer || p.isExample || !p.createdAtIso) return oldest;
+          if (cleanAuthor && p.authorHandle.toLowerCase() !== cleanAuthor) return oldest;
+          return !oldest || p.createdAtIso < oldest ? p.createdAtIso : oldest;
+        }, null);
+      }
+      if (!cursor) {
+        updateFeedPage(key, { cursor: null, hasMore: false, loading: false });
+        return false;
+      }
+
+      updateFeedPage(key, { cursor, hasMore: current?.hasMore ?? true, loading: true });
+      const params = new URLSearchParams({ before: cursor, limit: "30" });
+      if (scope?.following) params.set("following", "1");
+      if (scope?.author) params.set("author", scope.author.trim().toLowerCase());
+
+      const data = await getJson<{ posts?: ServerSocialPost[] }>(`/api/social/posts?${params.toString()}`);
+      if (!data?.posts) {
+        updateFeedPage(key, { cursor, hasMore: current?.hasMore ?? true, loading: false });
+        return false;
+      }
+
+      const incoming = data.posts.map((p) => fromServerPost(p, rawDataset.games, new Date()));
+      const nextCursor = data.posts.at(-1)?.createdAt ?? cursor;
+      const nextHasMore = data.posts.length >= 30;
+      setSocialOnServer(true);
+      if (incoming.length > 0) {
+        setSocialPosts((prev) => mergeSocialPosts(prev, incoming, "extra"));
+      }
+      updateFeedPage(key, { cursor: nextCursor, hasMore: nextHasMore, loading: false });
+      return incoming.length > 0;
+    },
+    [accountsEnabled, rawDataset.games, socialPosts, updateFeedPage],
   );
 
   const ensureSocialPostLoaded = useCallback(
@@ -1555,7 +1672,10 @@ export function PlatformProvider({
       toggleSocialLike,
       deleteSocialPost,
       refreshSocialFeed,
+      loadFollowingSocialPosts,
       loadSocialPostsByAuthor,
+      loadOlderSocialPosts,
+      socialFeedPages,
       ensureSocialPostLoaded,
       reportSocialContent,
       socialOnServer,
@@ -1631,7 +1751,10 @@ export function PlatformProvider({
       toggleSocialLike,
       deleteSocialPost,
       refreshSocialFeed,
+      loadFollowingSocialPosts,
       loadSocialPostsByAuthor,
+      loadOlderSocialPosts,
+      socialFeedPages,
       ensureSocialPostLoaded,
       reportSocialContent,
       socialOnServer,

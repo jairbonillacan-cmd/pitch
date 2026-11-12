@@ -79,4 +79,18 @@ describe("mezcla del feed compartido", () => {
     const a = toPost(server("a", "2026-11-12T10:00:00Z"));
     expect(mergeSocialPosts([local, example], [a], "feed").map((p) => p.id)).toEqual(["a", "ej-1"]);
   });
+
+  it("pagina más de 50 publicaciones con extra sin duplicar ni saltar y deja los ejemplos al final", () => {
+    const all = Array.from({ length: 65 }, (_, i) => {
+      const ts = new Date(now.getTime() - i * 60_000).toISOString();
+      return toPost(server(`p-${i + 1}`, ts));
+    });
+    const first50 = all.slice(0, 50);
+    const next15 = all.slice(50, 65);
+
+    const stateAfterInitial = mergeSocialPosts([example], first50, "feed");
+    const stateAfterLoadMore = mergeSocialPosts(stateAfterInitial, next15, "extra");
+
+    expect(stateAfterLoadMore.map((p) => p.id)).toEqual([...all.map((p) => p.id), "ej-1"]);
+  });
 });

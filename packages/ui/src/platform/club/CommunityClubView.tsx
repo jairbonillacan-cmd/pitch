@@ -15,7 +15,7 @@ import {
 import { ExampleBadge, MaestroIcon, VerifiedSeal } from "../components/MaestroPrimitives";
 import { TopLayerModalDialog } from "../components/PlatformOverlays";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
-import { usePlatform } from "../platform-provider";
+import { socialScopeKey, usePlatform, type SocialFeedScope } from "../platform-provider";
 import {
   LEADERBOARD_MIN_SETTLED,
   entriesInWindow,
@@ -625,28 +625,65 @@ interface FeedSharedProps {
 
 function Feed({
   posts,
+  scope,
   emptyText = "Todavía no hay publicaciones.",
   ...shared
-}: FeedSharedProps & { posts: readonly SocialPost[]; emptyText?: string }): React.JSX.Element {
+}: FeedSharedProps & {
+  posts: readonly SocialPost[];
+  scope?: SocialFeedScope;
+  emptyText?: string;
+}): React.JSX.Element {
+  const { socialFeedPages, loadOlderSocialPosts } = usePlatform();
   const [limit, setLimit] = useState(FEED_PAGE);
+  const pageState = socialFeedPages[socialScopeKey(scope)];
+  const hasMoreServer = Boolean(pageState?.hasMore);
+  const loadingOlder = Boolean(pageState?.loading);
+
+  const realPosts = useMemo(() => posts.filter((p) => !p.isExample), [posts]);
+  const examplePosts = useMemo(() => posts.filter((p) => p.isExample), [posts]);
+  // Mientras sigan quedando publicaciones reales en el servidor, las de ejemplo esperan al final.
+  const displayPool = useMemo(
+    () => (hasMoreServer ? realPosts : [...realPosts, ...examplePosts]),
+    [hasMoreServer, realPosts, examplePosts],
+  );
+
   const targetIdx = shared.highlightedPostId
-    ? posts.findIndex((p) => p.id === shared.highlightedPostId)
+    ? displayPool.findIndex((p) => p.id === shared.highlightedPostId)
     : -1;
   useEffect(() => {
     if (targetIdx >= limit) {
       setLimit(targetIdx + FEED_PAGE);
     }
   }, [targetIdx, limit]);
-  if (posts.length === 0) return <p className="pl-prof-empty-line">{emptyText}</p>;
+
+  if (displayPool.length === 0 && !hasMoreServer && !loadingOlder) {
+    return <p className="pl-prof-empty-line">{emptyText}</p>;
+  }
+
+  const canShowMore = displayPool.length > limit || hasMoreServer || loadingOlder;
+  const onShowMore = (): void => {
+    if (loadingOlder) return;
+    const nextLimit = limit + FEED_PAGE;
+    setLimit(nextLimit);
+    if (hasMoreServer && nextLimit >= realPosts.length) {
+      void loadOlderSocialPosts(scope);
+    }
+  };
+
   return (
     <div className="pl-com-feed">
-      {posts.slice(0, limit).map((post) => (
+      {displayPool.slice(0, limit).map((post) => (
         <PostCard key={post.id} post={post} {...shared} />
       ))}
-      {posts.length > limit ? (
+      {canShowMore ? (
         <div className="pl-prof-more">
-          <button type="button" className="pl-prof-btn pl-prof-btn--ghost" onClick={() => setLimit((n) => n + FEED_PAGE)}>
-            Ver más
+          <button
+            type="button"
+            className="pl-prof-btn pl-prof-btn--ghost"
+            disabled={loadingOlder}
+            onClick={onShowMore}
+          >
+            {loadingOlder ? "Cargando…" : "Ver más"}
           </button>
         </div>
       ) : null}
@@ -1125,9 +1162,16 @@ function FollowingTab({
   seasonRanked,
   ...shared
 }: FeedSharedProps & { posts: readonly SocialPost[]; seasonRanked: readonly RankedAnalyst[] }): React.JSX.Element {
+  const { loadFollowingSocialPosts } = usePlatform();
   const [filter, setFilter] = useState<FollowFilter>("all");
   const { follows, dataset, oddsFormat, onToggleFollow, goProfile } = shared;
   const followed = follows.following;
+
+  useEffect(() => {
+    if (followed.length > 0) {
+      loadFollowingSocialPosts();
+    }
+  }, [followed.length, loadFollowingSocialPosts]);
 
   const followedInfo = useMemo(
     () =>
@@ -1260,7 +1304,12 @@ function FollowingTab({
           </ol>
         ) : null}
 
-        <Feed posts={followedPosts} emptyText="Nadie a quien sigues publicó con este filtro." {...shared} />
+        <Feed
+          posts={followedPosts}
+          scope={{ following: true }}
+          emptyText="Nadie a quien sigues publicó con este filtro."
+          {...shared}
+        />
       </div>
       <aside className="pl-com-aside" aria-label="De quienes sigues">
         <section className="pl-com-card glass-lens glass-ring" aria-labelledby="pl-com-open">
