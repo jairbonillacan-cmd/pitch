@@ -49,13 +49,15 @@ def registry_entries() -> list[dict]:
 
 def test_consolidated_multiple_testing_registry_integrity(registry_entries: list[dict], eval_artifact: dict) -> None:
     """Verifica las 24 corridas de Olas 1-3 + 1 referencia dev integrada = 25 pre-holdout,
-    seguidas únicamente por las 4 evaluaciones congeladas de apertura única del holdout."""
-    assert len(registry_entries) == 29
+    seguidas por las 4 evaluaciones congeladas de apertura única del holdout y únicamente
+    corridas post-v3.1 sobre walk_forward_dev con unlock_holdout=False."""
+    assert len(registry_entries) >= 29
     seqs = [int(e["trial_seq"]) for e in registry_entries]
-    assert seqs == list(range(1, 30))
+    assert seqs == list(range(1, len(registry_entries) + 1))
 
     pre_holdout = registry_entries[:25]
-    holdout_runs = registry_entries[25:]
+    holdout_runs = registry_entries[25:29]
+    post_v3_1_runs = registry_entries[29:]
 
     for entry in pre_holdout:
         assert entry["eval_split"] == "walk_forward_dev"
@@ -85,6 +87,10 @@ def test_consolidated_multiple_testing_registry_integrity(registry_entries: list
         assert entry["eval_split"] == "holdout_sealed"
         assert entry["unlock_holdout"] is True
         assert int(entry["n_configs_tested_before_this_call"]) == 25
+
+    for entry in post_v3_1_runs:
+        assert entry["eval_split"] == "walk_forward_dev"
+        assert entry["unlock_holdout"] is False
 
     mt = eval_artifact["multiple_testing_control"]
     assert mt["n_olas_1_to_3_run_backtest_trials"] == 24
