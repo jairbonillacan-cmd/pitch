@@ -72,13 +72,18 @@ async function loadInitialAccountSnapshots(): Promise<{
 export default async function ClubAccountPage({
   searchParams,
 }: {
-  searchParams?: Promise<{ tab?: string | string[] }>;
+  searchParams?: Promise<{ tab?: string | string[]; pago?: string | string[] }>;
 }): Promise<React.JSX.Element> {
   const resolvedParams = searchParams ? await searchParams : undefined;
   const rawTab = Array.isArray(resolvedParams?.tab)
     ? resolvedParams.tab[0]
     : resolvedParams?.tab;
+  const rawPago = Array.isArray(resolvedParams?.pago)
+    ? resolvedParams.pago[0]
+    : resolvedParams?.pago;
   const initialTab = parseAccountTab(rawTab);
+  const checkoutNotice =
+    rawPago === "ok" ? "success" : rawPago === "cancelado" ? "cancelled" : null;
   const { referrals, plan } = await loadInitialAccountSnapshots();
 
   return (
@@ -86,6 +91,7 @@ export default async function ClubAccountPage({
       initialTab={initialTab}
       initialServerReferrals={referrals}
       initialServerPlan={plan}
+      checkoutNotice={checkoutNotice}
     />
   );
 }

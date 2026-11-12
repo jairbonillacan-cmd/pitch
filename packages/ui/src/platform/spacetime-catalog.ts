@@ -251,7 +251,7 @@ export const CORTEX_SAMPLE_QUOTE =
 
 export const ULTRA_LANDING_FEATURES = [
   "Lo más probable y el momio justo de cada partido, en todas las ligas",
-  "Todos los mercados: goles, ambos anotan, hándicap y props",
+  "Todos los mercados del partido: resultado, totales, ambos anotan y hándicap",
   "Armador de parlays de 2 a 6 selecciones, sin choques lógicos",
   "Comunidad de socios y récord verificado de tipstars",
 ] as const;
@@ -270,7 +270,7 @@ export const LANDING_FAQS: readonly LandingFaqItem[] = [
   {
     question: "¿Qué pasa al terminar los 7 días?",
     answer:
-      "Si no eliges pagar, tu cuenta sigue con el plan gratis y no pierdes tu bitácora.",
+      "No se te hace ningún cargo automático sin tarjeta. Conservas el acceso a tu cuenta y tu bitácora, y puedes activar el Pase PitchLab Ultra cuando quieras.",
   },
   {
     question: "¿Puedo facturar?",

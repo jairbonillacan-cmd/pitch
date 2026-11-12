@@ -139,7 +139,7 @@ export function PublicNavBarClient({
   activePath,
   hasSession = false,
 }: {
-  activePath: PublicNavPath;
+  activePath?: PublicNavPath;
   hasSession?: boolean;
 }): React.JSX.Element {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -488,7 +488,11 @@ export function HeroMatchDemoIsland({
   );
 }
 
-export function PricingCardIsland(): React.JSX.Element {
+export function PricingCardIsland({
+  hasSession = false,
+}: {
+  hasSession?: boolean;
+} = {}): React.JSX.Element {
   const [billing, setBilling] = useState<"monthly" | "annual">("monthly");
   const isAnnual = billing === "annual";
   const amountLabel = isAnnual
@@ -567,9 +571,9 @@ export function PricingCardIsland(): React.JSX.Element {
 
       <a
         className="pl-lp-btn pl-lp-btn--full pl-lp-btn-primary"
-        href="/signup"
+        href={hasSession ? "/app/account?tab=plan" : "/signup"}
       >
-        Empezar 7 días gratis{" "}
+        {hasSession ? "Administrar o activar plan" : "Empezar 7 días gratis"}{" "}
         <span className="pl-lp-arr" aria-hidden="true">
           →
         </span>

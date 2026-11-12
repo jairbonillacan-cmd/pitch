@@ -27,6 +27,8 @@ describe("Stripe Checkout", () => {
     expect(p.get("mode")).toBe("subscription");
     expect(p.get("line_items[0][price]")).toBe("price_mensual");
     expect(p.get("client_reference_id")).toBe("u-1");
+    expect(p.get("success_url")).toBe("https://pitchlab.mx/app/account?tab=plan&pago=ok&session_id={CHECKOUT_SESSION_ID}");
+    expect(p.get("cancel_url")).toBe("https://pitchlab.mx/app/account?tab=plan&pago=cancelado");
     expect(p.get("subscription_data[metadata][user_id]")).toBe("u-1");
     expect(p.get("customer_email")).toBe("s@example.com");
     expect(p.get("allow_promotion_codes")).toBe("true");

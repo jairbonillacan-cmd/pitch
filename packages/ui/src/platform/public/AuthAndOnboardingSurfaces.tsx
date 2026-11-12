@@ -11,16 +11,12 @@ import {
   MaestroIcon,
   ExampleBadge,
 } from "../components/MaestroPrimitives";
-import {
-  AtmosphereStage,
-  PublicFooterV4,
-  PublicHeaderV4,
-} from "../components/ShellChrome";
 import { usePlatform } from "../platform-provider";
 import { TIPSTAR_CREATORS } from "../spacetime-catalog";
 import type { RiskBand } from "../types";
 import { LoginSurfaceV4, type LoginStep } from "./LoginSurfaceV4";
-import { flushSignupDetails, SignupSurfaceV4 } from "./SignupSurfaceV4";
+import { PublicSiteShell } from "./PublicSiteSections";
+import { flushSignupDetails, resolveSignupInvite, SignupSurfaceV4 } from "./SignupSurfaceV4";
 
 export function AuthSurfaceV4({
   mode,
@@ -51,12 +47,17 @@ export function AuthSurfaceV4({
   return (
     <SignupSurfaceV4
       initialPromoCode={initialPromoCode}
+      nextPath={nextPath}
       previewSlot={previewSlot}
     />
   );
 }
 
-export function OnboardingSurfaceV4(): React.JSX.Element {
+export function OnboardingSurfaceV4({
+  hasSession = false,
+}: {
+  hasSession?: boolean;
+} = {}): React.JSX.Element {
   const {
     rawDataset,
     dataset,
@@ -66,6 +67,9 @@ export function OnboardingSurfaceV4(): React.JSX.Element {
     setRiskPreference,
     oddsFormat,
     setOddsFormat,
+    unitMxn,
+    setUnitMxn,
+    hasAccountSession,
     viewerRole,
     openBetaPin,
     navigateTo,
@@ -111,8 +115,8 @@ export function OnboardingSurfaceV4(): React.JSX.Element {
     };
   }, [accountsEnabled, navigateTo, pushToast]);
 
-  const [baseUnitMxn, setBaseUnitMxn] = useState<number>(250);
   const [unitBankrollAck, setUnitBankrollAck] = useState<boolean>(true);
+  const canFinish = hasAccountSession || unitBankrollAck;
 
   const toggleLeague = (lg: LeagueId) => {
     if (favoriteLeagues.includes(lg)) {
@@ -124,20 +128,9 @@ export function OnboardingSurfaceV4(): React.JSX.Element {
     }
   };
 
-  const handleSelectUnitMxn = (val: number) => {
-    setBaseUnitMxn(val);
-    try {
-      if (typeof window !== "undefined") {
-        window.localStorage.setItem("pl-unit-mxn", String(val));
-      }
-    } catch (err) {
-      void err;
-    }
-  };
-
   const handleFinish = () => {
     pushToast(
-      `Perfil guardado (${favoriteLeagues.length} ligas · 1.0u = $${baseUnitMxn} MXN simulados).`,
+      `Perfil guardado (${favoriteLeagues.length} ligas · 1.0u = $${unitMxn} MXN simulados).`,
       "success",
     );
     // Con cuentas, el servidor decide el acceso al entrar a /app (sesión, registro y Pase).
@@ -157,9 +150,8 @@ export function OnboardingSurfaceV4(): React.JSX.Element {
   };
 
   return (
-    <AtmosphereStage activePath="/onboarding">
-      <PublicHeaderV4 activePath="/onboarding" />
-      <main id="main" className="pl-page-enter max-w-3xl mx-auto px-4 sm:px-6 pt-8 sm:pt-10">
+    <PublicSiteShell hasSession={hasSession || hasAccountSession}>
+      <div className="pl-page-enter max-w-3xl mx-auto px-4 sm:px-6 pt-8 sm:pt-10">
         <section className="glass-lens glass-ring glass-ring--featured relative overflow-hidden rounded-2xl p-6 sm:p-8 space-y-6">
           <LensGlowOrbs
             primaryColor="var(--pl-orb-violet)"
@@ -174,7 +166,7 @@ export function OnboardingSurfaceV4(): React.JSX.Element {
                 <span>Onboarding PitchLab · Configuración 18+</span>
               </span>
               <span className="text-xs font-semibold num" style={{ color: "var(--pl-text-muted)" }}>
-                {favoriteLeagues.length} ligas activas · 1.0u = ${baseUnitMxn} MXN
+                {favoriteLeagues.length} ligas activas · 1.0u = ${unitMxn} MXN
               </span>
             </div>
 
@@ -308,8 +300,8 @@ export function OnboardingSurfaceV4(): React.JSX.Element {
                       key={amount}
                       type="button"
                       className="seg-btn flex-1 justify-center num text-xs"
-                      aria-pressed={baseUnitMxn === amount}
-                      onClick={() => handleSelectUnitMxn(amount)}
+                      aria-pressed={unitMxn === amount}
+                      onClick={() => setUnitMxn(amount)}
                     >
                       ${amount.toLocaleString("es-MX")}
                     </button>
@@ -346,7 +338,7 @@ export function OnboardingSurfaceV4(): React.JSX.Element {
               </div>
             </div>
 
-            {/* Confirmación +18 y CTA blanco */}
+            {/* Confirmación +18 (solo si aún no tiene cuenta) y CTA blanco */}
             <div
               className="glass-ring rounded-xl p-4 space-y-2.5 text-xs"
               style={{
@@ -359,23 +351,25 @@ export function OnboardingSurfaceV4(): React.JSX.Element {
                 <strong>unidades simuladas (0.5u–5.0u)</strong>; no aceptamos apuestas ni
                 garantizamos rendimientos futuros.
               </p>
-              <div className="flex items-start gap-2.5 pt-1">
-                <input
-                  id="onboarding-age-check"
-                  type="checkbox"
-                  checked={unitBankrollAck}
-                  onChange={(e) => setUnitBankrollAck(e.target.checked)}
-                  className="mt-0.5 cursor-pointer"
-                />
-                <label
-                  htmlFor="onboarding-age-check"
-                  className="font-bold cursor-pointer"
-                  style={{ color: "var(--pl-text)" }}
-                >
-                  Confirmo que soy mayor de 18 años (+18) y acepto las reglas de integridad de la
-                  comunidad.
-                </label>
-              </div>
+              {!hasAccountSession ? (
+                <div className="flex items-start gap-2.5 pt-1">
+                  <input
+                    id="onboarding-age-check"
+                    type="checkbox"
+                    checked={unitBankrollAck}
+                    onChange={(e) => setUnitBankrollAck(e.target.checked)}
+                    className="mt-0.5 cursor-pointer"
+                  />
+                  <label
+                    htmlFor="onboarding-age-check"
+                    className="font-bold cursor-pointer"
+                    style={{ color: "var(--pl-text)" }}
+                  >
+                    Confirmo que soy mayor de 18 años (+18) y acepto las reglas de integridad de la
+                    comunidad.
+                  </label>
+                </div>
+              ) : null}
             </div>
 
             <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
@@ -392,19 +386,22 @@ export function OnboardingSurfaceV4(): React.JSX.Element {
               </a>
               <button
                 type="button"
-                disabled={!unitBankrollAck}
+                disabled={!canFinish}
                 className="pl-btn-primary min-h-11 px-6 text-sm"
                 onClick={handleFinish}
               >
-                <span>Activar Pase PitchLab Ultra y entrar al Club</span>
+                <span>
+                  {hasAccountSession
+                    ? "Guardar preferencias y entrar al Club"
+                    : "Guardar preferencias y continuar"}
+                </span>
                 <MaestroIcon name="check" size={15} />
               </button>
             </div>
           </div>
         </section>
-      </main>
-      <PublicFooterV4 />
-    </AtmosphereStage>
+      </div>
+    </PublicSiteShell>
   );
 }
 
@@ -412,14 +409,25 @@ export const OnboardingSurface = OnboardingSurfaceV4;
 
 export function PublicSharedPickSurface({
   pickSlug,
+  inviteCode = null,
+  hasSession = false,
 }: {
   pickSlug: string;
+  inviteCode?: string | null;
+  hasSession?: boolean;
 }): React.JSX.Element {
-  const { dataset, viewerRole, oddsFormat, month1NoCardMode, navigateTo, pushToast } =
-    usePlatform();
+  const {
+    dataset,
+    viewerRole,
+    oddsFormat,
+    month1NoCardMode,
+    hasAccountSession,
+    navigateTo,
+    pushToast,
+  } = usePlatform();
 
-  const creator =
-    TIPSTAR_CREATORS.find((c) => c.weeklyPickSlug === pickSlug) ?? TIPSTAR_CREATORS[0]!;
+  const matchedCreator =
+    TIPSTAR_CREATORS.find((c) => c.weeklyPickSlug === pickSlug) ?? null;
 
   const targetGame = useMemo(
     () =>
@@ -453,10 +461,20 @@ export function PublicSharedPickSurface({
     ? (getTeamColors(targetGame.league, targetGame.away.slug)?.[0] ?? "var(--pl-orb-emerald)")
     : "var(--pl-orb-emerald)";
 
+  const effectivePromoCode = inviteCode ?? matchedCreator?.promoCode ?? null;
+  const inviteInfo = effectivePromoCode ? resolveSignupInvite(effectivePromoCode) : null;
+  const freeDays = inviteInfo?.freeDays ?? matchedCreator?.freeDays ?? 7;
+  const signupTarget = effectivePromoCode
+    ? `/signup?code=${encodeURIComponent(effectivePromoCode)}`
+    : "/signup";
+  const canRevealUnlockedPick = Boolean(
+    unlockedPick &&
+      (Boolean(matchedCreator) || !unlockedPick.isRedacted || viewerRole !== "visitor"),
+  );
+
   return (
-    <AtmosphereStage activePath="/p/sofia-sem">
-      <PublicHeaderV4 activePath="/p/sofia-sem" />
-      <main id="main" className="pl-page-enter max-w-3xl mx-auto px-4 sm:px-6 pt-8 sm:pt-10 space-y-6">
+    <PublicSiteShell hasSession={hasSession || hasAccountSession}>
+      <div className="pl-page-enter max-w-3xl mx-auto px-4 sm:px-6 pt-8 sm:pt-10 space-y-6">
         {/* Boleto oscuro auténtico estilo shows.link */}
         <article className="share-ticket-card glass-ring glass-ring--featured p-6 sm:p-8 space-y-5">
           <LensGlowOrbs primaryColor={homeColor} secondaryColor={awayColor} />
@@ -471,66 +489,87 @@ export function PublicSharedPickSurface({
                   color: "var(--share-card-success)",
                 }}
               >
-                <MaestroIcon name="unlock" size={13} />
-                <span>Pick abierto de la semana · Tipstar Oficial</span>
+                <MaestroIcon name={canRevealUnlockedPick ? "unlock" : "lock"} size={13} />
+                <span>
+                  {matchedCreator
+                    ? "Pick abierto de la semana · Tipstar Oficial"
+                    : "Boleto compartido · Club PitchLab"}
+                </span>
               </span>
               <span className="num text-xs font-bold" style={{ color: "var(--share-card-muted)" }}>
-                pitchlab.mx/p/{creator.weeklyPickSlug}
+                pitchlab.mx/p/{matchedCreator?.weeklyPickSlug ?? pickSlug}
               </span>
             </div>
 
-            {/* Identidad verificada de @sofia_nfl */}
             <div className="flex flex-wrap items-center justify-between gap-4">
-              <div className="flex items-center gap-3.5">
-                <span
-                  className="w-12 h-12 rounded-full inline-flex items-center justify-center text-base font-extrabold shrink-0 avatar-ring"
+              {matchedCreator ? (
+                <div className="flex items-center gap-3.5">
+                  <span
+                    className="w-12 h-12 rounded-full inline-flex items-center justify-center text-base font-extrabold shrink-0 avatar-ring"
+                    style={{
+                      background: matchedCreator.avatarGradVar,
+                      color: "var(--share-card-fg)",
+                    }}
+                  >
+                    {matchedCreator.avatarInitials}
+                  </span>
+                  <div>
+                    <h1 className="m-0 text-xl sm:text-2xl font-extrabold tracking-tight">
+                      {matchedCreator.name} (@{matchedCreator.handle})
+                    </h1>
+                    {matchedCreator.isExample ? <ExampleBadge className="mt-1" /> : null}
+                    <p
+                      className="m-0 mt-0.5 text-xs num font-semibold"
+                      style={{ color: "var(--share-card-success)" }}
+                    >
+                      Récord: {matchedCreator.verifiedUnits} ·{" "}
+                      {matchedCreator.settledCount} picks liquidados
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <h1 className="m-0 text-xl sm:text-2xl font-extrabold tracking-tight">
+                    {targetGame
+                      ? `${targetGame.home.name} vs ${targetGame.away.name}`
+                      : "Pick compartido de PitchLab"}
+                  </h1>
+                  <p
+                    className="m-0 mt-0.5 text-xs font-semibold"
+                    style={{ color: "var(--share-card-secondary)" }}
+                  >
+                    Boleto público verificado desde el analizador del club.
+                  </p>
+                </div>
+              )}
+
+              {effectivePromoCode ? (
+                <button
+                  type="button"
+                  onClick={() => {
+                    try {
+                      void navigator.clipboard?.writeText(effectivePromoCode);
+                    } catch (err) {
+                      void err;
+                    }
+                    pushToast(
+                      `Código ${effectivePromoCode} copiado (${freeDays} días gratis).`,
+                      "success",
+                    );
+                  }}
+                  className="inline-flex items-center gap-1.5 rounded-xl px-3.5 py-2 text-xs font-bold cursor-pointer"
                   style={{
-                    background: creator.avatarGradVar,
+                    background: "var(--share-card-surface)",
+                    border: "1px solid var(--share-card-border)",
                     color: "var(--share-card-fg)",
                   }}
                 >
-                  {creator.avatarInitials}
-                </span>
-                <div>
-                  <h1 className="m-0 text-xl sm:text-2xl font-extrabold tracking-tight">
-                    {creator.name} (@{creator.handle})
-                  </h1>
-                  {creator.isExample ? <ExampleBadge className="mt-1" /> : null}
-                  <p
-                    className="m-0 mt-0.5 text-xs num font-semibold"
-                    style={{ color: "var(--share-card-success)" }}
-                  >
-                    Récord: {creator.verifiedUnits} ·{" "}
-                    {creator.settledCount} picks liquidados
-                  </p>
-                </div>
-              </div>
-
-              <button
-                type="button"
-                onClick={() => {
-                  try {
-                    void navigator.clipboard?.writeText(creator.promoCode);
-                  } catch (err) {
-                    void err;
-                  }
-                  pushToast(
-                    `Código ${creator.promoCode} copiado (${creator.freeDays} días gratis).`,
-                    "success",
-                  );
-                }}
-                className="inline-flex items-center gap-1.5 rounded-xl px-3.5 py-2 text-xs font-bold cursor-pointer"
-                style={{
-                  background: "var(--share-card-surface)",
-                  border: "1px solid var(--share-card-border)",
-                  color: "var(--share-card-fg)",
-                }}
-              >
-                <MaestroIcon name="copy" size={13} />
-                <span>
-                  Código {creator.promoCode} ({creator.freeDays}d gratis)
-                </span>
-              </button>
+                  <MaestroIcon name="copy" size={13} />
+                  <span>
+                    Código {effectivePromoCode} ({freeDays}d gratis)
+                  </span>
+                </button>
+              ) : null}
             </div>
 
             <div className="ticket-perf" />
@@ -607,56 +646,82 @@ export function PublicSharedPickSurface({
                   </div>
                 </div>
 
-                {/* Pick semanal desbloqueado */}
-                <div
-                  className="rounded-2xl p-4 sm:p-5 space-y-2.5"
-                  style={{
-                    background: "var(--share-card-surface)",
-                    border: "1px solid var(--share-card-border)",
-                  }}
-                  data-unlocked-pick={unlockedPick.id}
-                >
-                  <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
-                    <span
-                      className="font-extrabold inline-flex items-center gap-1.5"
-                      style={{ color: "var(--share-card-success)" }}
-                    >
-                      <MaestroIcon name="check" size={14} />
-                      <span>PICK ABIERTO DE LA SEMANA</span>
-                    </span>
-                    <span className="num font-bold" style={{ color: "var(--share-card-muted)" }}>
-                      Sugerencia {unlockedPick.suggestedUnits.toFixed(1)}u
-                    </span>
-                  </div>
+                {/* Pick semanal desbloqueado o protegido */}
+                {canRevealUnlockedPick ? (
+                  <div
+                    className="rounded-2xl p-4 sm:p-5 space-y-2.5"
+                    style={{
+                      background: "var(--share-card-surface)",
+                      border: "1px solid var(--share-card-border)",
+                    }}
+                    data-unlocked-pick={unlockedPick.id}
+                  >
+                    <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
+                      <span
+                        className="font-extrabold inline-flex items-center gap-1.5"
+                        style={{ color: "var(--share-card-success)" }}
+                      >
+                        <MaestroIcon name="check" size={14} />
+                        <span>
+                          {matchedCreator ? "PICK ABIERTO DE LA SEMANA" : "PICK COMPARTIDO"}
+                        </span>
+                      </span>
+                      <span className="num font-bold" style={{ color: "var(--share-card-muted)" }}>
+                        Sugerencia {unlockedPick.suggestedUnits.toFixed(1)}u
+                      </span>
+                    </div>
 
-                  <p className="m-0 text-xl sm:text-2xl font-extrabold tracking-tight">
-                    {unlockedPick.label}
-                  </p>
+                    <p className="m-0 text-xl sm:text-2xl font-extrabold tracking-tight">
+                      {unlockedPick.label}
+                    </p>
 
-                  <div className="flex flex-wrap items-center justify-between gap-2 text-xs num">
-                    <span style={{ color: "var(--share-card-secondary)" }}>
-                      Probabilidad Suite:{" "}
-                      <strong style={{ color: "var(--share-card-accent)" }}>
-                        {(unlockedPick.p * 100).toFixed(1)} %
-                      </strong>{" "}
-                      · Cuota justa{" "}
-                      <strong>{formatOddsValue(unlockedPick.fairDecimal, oddsFormat)}</strong>
-                    </span>
-                    {unlockedPick.marketDecimal !== null ? (
-                      <strong style={{ color: "var(--share-card-success)" }}>
-                        Momio {formatOddsValue(unlockedPick.marketDecimal, oddsFormat)} (
-                        {formatEdgePts(unlockedPick.edgePts)})
-                      </strong>
+                    <div className="flex flex-wrap items-center justify-between gap-2 text-xs num">
+                      <span style={{ color: "var(--share-card-secondary)" }}>
+                        Probabilidad Suite:{" "}
+                        <strong style={{ color: "var(--share-card-accent)" }}>
+                          {(unlockedPick.p * 100).toFixed(1)} %
+                        </strong>{" "}
+                        · Cuota justa{" "}
+                        <strong>{formatOddsValue(unlockedPick.fairDecimal, oddsFormat)}</strong>
+                      </span>
+                      {unlockedPick.marketDecimal !== null ? (
+                        <strong style={{ color: "var(--share-card-success)" }}>
+                          Momio {formatOddsValue(unlockedPick.marketDecimal, oddsFormat)} (
+                          {formatEdgePts(unlockedPick.edgePts)})
+                        </strong>
+                      ) : null}
+                    </div>
+
+                    {matchedCreator ? (
+                      <p
+                        className="m-0 pt-1 text-xs leading-relaxed"
+                        style={{ color: "var(--share-card-secondary)" }}
+                      >
+                        “{matchedCreator.weeklyPickThesis}”
+                      </p>
                     ) : null}
                   </div>
-
-                  <p
-                    className="m-0 pt-1 text-xs leading-relaxed"
-                    style={{ color: "var(--share-card-secondary)" }}
+                ) : (
+                  <div
+                    className="rounded-2xl p-4 sm:p-5 flex flex-wrap items-center justify-between gap-3 text-xs"
+                    style={{
+                      background: "var(--share-card-surface)",
+                      border: "1px solid var(--share-card-border)",
+                    }}
+                    data-locked-pick=""
                   >
-                    “{creator.weeklyPickThesis}”
-                  </p>
-                </div>
+                    <span
+                      className="font-bold inline-flex items-center gap-1.5"
+                      style={{ color: "var(--share-card-accent)" }}
+                    >
+                      <MaestroIcon name="lock" size={14} />
+                      <span>{unlockedPick.categoryLabel} · Seleccionado en Pase Ultra</span>
+                    </span>
+                    <span className="locked-redact font-extrabold" aria-hidden="true">
+                      RESERVADO PASE PITCHLAB ULTRA
+                    </span>
+                  </div>
+                )}
 
                 <div className="ticket-perf" />
 
@@ -731,11 +796,13 @@ export function PublicSharedPickSurface({
 
             <div className="ticket-perf" />
 
-            {/* CTA 1-clic para canjear SOFIA5 */}
+            {/* CTA 1-clic para canjear código o activar prueba */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
               <div className="text-xs space-y-0.5">
                 <strong className="block text-sm" style={{ color: "var(--share-card-fg)" }}>
-                  Código {creator.promoCode} · {creator.freeDays} días gratis de Pase PitchLab Ultra
+                  {effectivePromoCode
+                    ? `Código ${effectivePromoCode} · ${freeDays} días gratis de Pase PitchLab Ultra`
+                    : `${freeDays} días gratis de Pase PitchLab Ultra`}
                 </strong>
                 <span style={{ color: "var(--share-card-secondary)" }}>
                   {month1NoCardMode
@@ -745,10 +812,10 @@ export function PublicSharedPickSurface({
               </div>
 
               <a
-                href={`/signup?code=${creator.promoCode}`}
+                href={signupTarget}
                 onClick={(e) => {
                   e.preventDefault();
-                  navigateTo(`/signup?code=${creator.promoCode}`);
+                  navigateTo(signupTarget);
                 }}
                 className="inline-flex items-center justify-center gap-2 rounded-xl px-5 min-h-11 text-xs sm:text-sm font-extrabold no-underline shrink-0"
                 style={{
@@ -757,15 +824,16 @@ export function PublicSharedPickSurface({
                 }}
               >
                 <span>
-                  Canjear {creator.promoCode} · {creator.freeDays}d gratis
+                  {effectivePromoCode
+                    ? `Canjear ${effectivePromoCode} · ${freeDays}d gratis`
+                    : `Probar ${freeDays}d gratis`}
                 </span>
                 <MaestroIcon name="arrowRight" size={15} />
               </a>
             </div>
           </div>
         </article>
-      </main>
-      <PublicFooterV4 />
-    </AtmosphereStage>
+      </div>
+    </PublicSiteShell>
   );
 }

@@ -61,7 +61,7 @@ export async function notifyPickGraded(db: Db, mailer: Mailer, pick: SettledPick
     fairOddsLabel: formatOdds(Number(pick.fairDecimal), format),
     ...(pick.clvPct != null ? { clvLabel: formatPoints(Number(pick.clvPct)) } : {}),
     journalUrl: `${siteUrl()}/app/lab`,
-    settingsUrl: `${siteUrl()}/app/account`,
+    settingsUrl: `${siteUrl()}/app/account?tab=prefs`,
   });
   await mailer.send({
     to: user.email,

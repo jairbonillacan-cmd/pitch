@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { authPageRedirect } from "../../src/server/auth-page";
 import { SignupPreviewPanel, SignupSurfaceV4 } from "@pitchlab/ui";
 import { PlatformClientBridge } from "../../src/client/platform-client-bridge";
+import { sanitizeNextPath } from "../../src/server/beta-auth";
 import { loadPublicPlatformState } from "../../src/server/platform-data";
 import { loadLoginPreviewData } from "../../src/server/public-site-data";
 import { getViewerAccess } from "../../src/server/viewer-access";
@@ -24,6 +25,7 @@ export default async function SignupPage({
   const access = await getViewerAccess();
   const destination = authPageRedirect("signup", paso, next, access);
   if (destination) redirect(destination);
+  const nextPath = sanitizeNextPath(next);
   const initialPromoCode = (code ?? ref ?? "").trim().toUpperCase();
   const returningProvider =
     via === "google" ? "Google" : via === "apple" ? "Apple" : null;
@@ -39,6 +41,10 @@ export default async function SignupPage({
     <SignupPreviewPanel card={previewData.primaryCard} />
   ) : null;
 
+  const allowStep2 = state.accountsEnabled
+    ? access.via === "account"
+    : Boolean(returningProvider || via === "cuenta" || profile);
+
   return (
     <PlatformClientBridge
       dataset={{ ...state.dataset, leagues: [], games: [] }}
@@ -50,11 +56,12 @@ export default async function SignupPage({
     >
       <SignupSurfaceV4
         initialPromoCode={initialPromoCode}
+        nextPath={nextPath}
         previewSlot={previewSlot}
         initialStep={
           paso === "confirmado" ? "confirmed" :
           paso === "vencido" ? "expired" :
-          paso === "2" && (returningProvider || via === "cuenta" || profile) ? "details" : "method"
+          paso === "2" && allowStep2 ? "details" : "method"
         }
         returningProvider={returningProvider}
         initialDisplayName={profile?.displayName ?? ""}

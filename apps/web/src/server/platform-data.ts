@@ -124,6 +124,19 @@ export function upcomingOnly(dataset: PlatformDataset): PlatformDataset {
   return upcoming.length > 0 ? { ...dataset, games: upcoming } : dataset;
 }
 
+export function upcomingPlusRecentFinished(
+  dataset: PlatformDataset,
+  maxFinished = 12,
+): PlatformDataset {
+  const upcoming = dataset.games.filter((g) => g.status !== "FT");
+  if (upcoming.length === 0) return dataset;
+  const recentFinished = dataset.games
+    .filter((g) => g.status === "FT")
+    .sort((a, b) => (b.kickoffUtc || "").localeCompare(a.kickoffUtc || ""))
+    .slice(0, maxFinished);
+  return { ...dataset, games: [...upcoming, ...recentFinished] };
+}
+
 async function redactedForViewer(): Promise<PlatformDataset> {
   const full = buildServerRawPlatformDataset();
   return (await hasAuthenticatedBetaSession()) ? full : redactDatasetForVisitor(full);
@@ -233,7 +246,7 @@ export async function loadClubPlatformState(
 
   if (!hasActiveSession) {
     return {
-      dataset: upcomingOnly(withoutGameDetail(redactDatasetForVisitor(fullDataset))),
+      dataset: upcomingPlusRecentFinished(withoutGameDetail(redactDatasetForVisitor(fullDataset)), 12),
       initialRole: "visitor",
       hasActiveSession: false,
       allowRoleSimulation: false,
@@ -244,7 +257,7 @@ export async function loadClubPlatformState(
   }
 
   return {
-    dataset: upcomingOnly(withoutGameDetail(fullDataset)),
+    dataset: upcomingPlusRecentFinished(withoutGameDetail(fullDataset), 12),
     initialRole: preferredRole,
     hasActiveSession: true,
     allowRoleSimulation: previewToolsEnabled(),

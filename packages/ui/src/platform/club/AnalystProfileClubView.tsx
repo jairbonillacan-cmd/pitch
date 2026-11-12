@@ -741,6 +741,7 @@ function PicksPanel({
   isVisitor: boolean;
   navigateTo: (path: string) => void;
 }): React.JSX.Element {
+  const { hasAccountSession, upgradeHref } = usePlatform();
   const [status, setStatus] = useState<StatusFilter>("all");
   const [league, setLeague] = useState<string>("all");
   const [filtersOpen, setFiltersOpen] = useState(false);
@@ -835,14 +836,14 @@ function PicksPanel({
         </div>
         {locked ? (
           <a
-            href="/signup"
+            href={upgradeHref}
             className="pl-prof-btn pl-prof-btn--primary pl-prof-btn--sm"
             onClick={(e) => {
               e.preventDefault();
-              navigateTo("/signup");
+              navigateTo(upgradeHref);
             }}
           >
-            Desbloquear
+            {hasAccountSession ? "Activar Pase" : "Desbloquear"}
           </a>
         ) : (
           <>

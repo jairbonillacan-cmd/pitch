@@ -40,7 +40,7 @@ export async function startAccountEmails(db: Db, mailer: Mailer, input: AccountE
   const trialEnd = new Date(input.now.getTime() + TRIAL_M1_DAYS * DAY_MS);
   const plan = {
     planName: MEMBERSHIP_SPEC.name,
-    manageUrl: `${siteUrl()}/precio`,
+    manageUrl: `${siteUrl()}/app/account?tab=plan`,
   };
 
   const jobs: Pending[] = [

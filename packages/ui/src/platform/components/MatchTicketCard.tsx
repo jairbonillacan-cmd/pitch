@@ -35,7 +35,7 @@ export const MultiPickRow = React.memo(function MultiPickRow({
   compact?: boolean;
   userDecimalOverride?: number | null;
 }): React.JSX.Element {
-  const { viewerRole, oddsFormat } = usePlatformCore();
+  const { viewerRole, oddsFormat, hasAccountSession, upgradeHref } = usePlatformCore();
   const { addPickToParlay, openComposer, openShareTicket, navigateTo } = usePlatformActions();
   const journal = useJournalEntries();
   const inParlay = useIsPickInParlay(pick.id);
@@ -68,15 +68,15 @@ export const MultiPickRow = React.memo(function MultiPickRow({
         </div>
 
         <a
-          href="/signup"
+          href={upgradeHref}
           onClick={(e) => {
             e.preventDefault();
-            navigateTo("/signup");
+            navigateTo(upgradeHref);
           }}
           className="pl-btn-accent text-xs min-h-8 px-3 inline-flex items-center gap-1.5"
         >
           <MaestroIcon name="unlock" size={13} />
-          <span>Desbloquear 7d gratis</span>
+          <span>{hasAccountSession ? "Activar Pase Ultra" : "Desbloquear 7d gratis"}</span>
         </a>
       </div>
     );
@@ -232,6 +232,7 @@ export const MultiPickRow = React.memo(function MultiPickRow({
                   units: pick.suggestedUnits,
                   gameStatus,
                   promoCode: pick.isTipstarWeeklyOpen ? "SOFIA5" : undefined,
+                  pickSlug: pick.tipstarSlug ?? pick.id,
                 })
               }
             >
@@ -254,7 +255,7 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
   featured?: boolean;
   onSelectGame?: (game: PlatformGame) => void;
 }): React.JSX.Element {
-  const { viewerRole, oddsFormat } = usePlatformCore();
+  const { viewerRole, oddsFormat, hasAccountSession, upgradeHref } = usePlatformCore();
   const { setAuraFromGame, addPickToParlay, openComposer, navigateTo } = usePlatformActions();
 
   const isNfl = game.sport === "american-football" || game.league === "nfl";
@@ -514,15 +515,15 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
           </div>
         ) : !isFinished && !unlockedMain ? (
           <a
-            href="/signup"
+            href={upgradeHref}
             onClick={(e) => {
               e.preventDefault();
-              navigateTo("/signup");
+              navigateTo(upgradeHref);
             }}
             className="pl-btn-accent text-xs min-h-8 px-2.5 inline-flex items-center gap-1"
           >
             <MaestroIcon name="unlock" size={12} />
-            <span>7d gratis</span>
+            <span>{hasAccountSession ? "Activar Pase Ultra" : "7d gratis"}</span>
           </a>
         ) : null}
       </div>

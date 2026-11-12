@@ -114,12 +114,13 @@ export function resolveReferralInvite(
 
   let senderDisplay = explicitHandle;
   let isExampleSender = false;
-  if (!senderDisplay) {
+  if (!senderDisplay && !input.accountsEnabled) {
     if (code === "JAIR-2611") {
       senderDisplay = "@jair";
-      isExampleSender = !input.accountsEnabled;
+      isExampleSender = true;
     } else if (code === "JAIR") {
       senderDisplay = "@jair_founder";
+      isExampleSender = true;
     }
   }
 

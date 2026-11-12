@@ -1,17 +1,56 @@
 import React from "react";
-import { PublicTipstarPickSurface } from "@pitchlab/ui";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { normalizeReferralCode, PublicTipstarPickSurface, TIPSTAR_CREATORS } from "@pitchlab/ui";
 import { PlatformClientBridge } from "../../../src/client/platform-client-bridge";
-import { loadPublicPlatformState } from "../../../src/server/platform-data";
+import { buildServerRawPlatformDataset, loadPublicPlatformState } from "../../../src/server/platform-data";
+import { hasPublicSessionCookie } from "../../../src/server/public-session";
 
 export const dynamic = "force-dynamic";
 
-export default async function PublicTipstarPickPage({
+function isKnownPublicPickSlug(pickId: string): boolean {
+  if (TIPSTAR_CREATORS.some((c) => c.weeklyPickSlug === pickId)) return true;
+  const raw = buildServerRawPlatformDataset();
+  return raw.games.some((g) => g.picks.some((p) => p.id === pickId || p.tipstarSlug === pickId));
+}
+
+export async function generateMetadata({
   params,
 }: {
   params: Promise<{ pickId: string }>;
+}): Promise<Metadata> {
+  const { pickId } = await params;
+  const creator = TIPSTAR_CREATORS.find((c) => c.weeklyPickSlug === pickId);
+  return {
+    title: creator
+      ? `Pick semanal de @${creator.handle} · PitchLab`
+      : "Boleto compartido · PitchLab",
+    description:
+      "Probabilidad estimada y momio justo antes del partido. 7 días gratis sin tarjeta en PitchLab.",
+    robots: { index: false, follow: true },
+  };
+}
+
+export default async function PublicTipstarPickPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ pickId: string }>;
+  searchParams?: Promise<{ code?: string | string[] }>;
 }): Promise<React.JSX.Element> {
   const { pickId } = await params;
-  const state = await loadPublicPlatformState(pickId);
+  if (!isKnownPublicPickSlug(pickId)) {
+    notFound();
+  }
+  const resolvedSearch = searchParams ? await searchParams : undefined;
+  const rawCode = Array.isArray(resolvedSearch?.code)
+    ? resolvedSearch.code[0]
+    : resolvedSearch?.code;
+  const inviteCode = rawCode ? normalizeReferralCode(rawCode) ?? undefined : undefined;
+  const [state, hasSession] = await Promise.all([
+    loadPublicPlatformState(pickId),
+    hasPublicSessionCookie(),
+  ]);
 
   return (
     <PlatformClientBridge
@@ -22,7 +61,11 @@ export default async function PublicTipstarPickPage({
       serverMonth1NoCardMode={state.serverMonth1NoCardMode}
       viewerIdentity={state.viewerIdentity}
     >
-      <PublicTipstarPickSurface pickSlug={pickId} />
+      <PublicTipstarPickSurface
+        pickSlug={pickId}
+        inviteCode={inviteCode}
+        hasSession={hasSession}
+      />
     </PlatformClientBridge>
   );
 }

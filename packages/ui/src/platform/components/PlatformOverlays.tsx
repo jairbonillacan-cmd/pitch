@@ -579,10 +579,22 @@ export function PickComposerModal(): React.JSX.Element | null {
 }
 
 export function ShareTicketModal(): React.JSX.Element | null {
-  const { shareTicket, closeShareTicket, viewerRole, oddsFormat, pushToast } =
-    usePlatform();
+  const {
+    shareTicket,
+    closeShareTicket,
+    viewerRole,
+    oddsFormat,
+    pushToast,
+    viewerIdentity,
+    memberReferralsSnapshot,
+  } = usePlatform();
   const [aspect, setAspect] = useState<"4:5" | "9:16">("4:5");
+  const [copyState, setCopyState] = useState<"idle" | "copied" | "error">("idle");
   const ticketRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setCopyState("idle");
+  }, [shareTicket]);
 
   if (!shareTicket) return null;
 
@@ -593,18 +605,40 @@ export function ShareTicketModal(): React.JSX.Element | null {
     isTipstarPromo,
   );
   const watermark = getSessionWatermark(viewerRole);
+  const slug = shareTicket.pickSlug || (isTipstarPromo ? "sofia-sem" : "");
+  const codeParam =
+    shareTicket.promoCode ||
+    memberReferralsSnapshot?.referralCode ||
+    viewerIdentity?.referralCode ||
+    "";
+  const sharePath = slug
+    ? `/p/${encodeURIComponent(slug)}${codeParam ? `?code=${encodeURIComponent(codeParam)}` : ""}`
+    : codeParam
+      ? `/i/${encodeURIComponent(codeParam)}`
+      : "/precio";
 
-  const handleCopyShareLink = () => {
+  const handleCopyShareLink = async () => {
     const shareUrl =
       typeof window !== "undefined"
-        ? `${window.location.origin}/p/${isTipstarPromo ? "sofia-sem" : "boleto"}`
-        : "https://pitchlab.mx/p/sofia-sem";
+        ? `${window.location.origin}${sharePath}`
+        : `https://pitchlab.mx${sharePath}`;
     try {
-      void navigator.clipboard?.writeText(shareUrl);
+      if (!navigator.clipboard?.writeText) {
+        throw new Error("no_clipboard");
+      }
+      await navigator.clipboard.writeText(shareUrl);
+      setCopyState("copied");
+      pushToast(
+        codeParam
+          ? "Enlace del boleto copiado con tu código."
+          : "Enlace del boleto copiado.",
+        "success",
+      );
     } catch (err) {
       void err;
+      setCopyState("error");
+      pushToast("No se pudo copiar automáticamente. Selecciona y copia el enlace.", "warning");
     }
-    pushToast("Enlace del boleto copiado con tu código de referido.", "success");
   };
 
   const handleDownloadTicket = () => {
@@ -865,11 +899,14 @@ export function ShareTicketModal(): React.JSX.Element | null {
           <div className="flex flex-wrap items-center justify-between gap-2">
             <span
               className="text-xs"
-              style={{ color: "var(--pl-text-muted)" }}
+              style={{ color: copyState === "error" ? "var(--pl-warning)" : "var(--pl-text-muted)" }}
+              role={copyState === "error" ? "status" : undefined}
             >
-              {revealSelection
-                ? "Selección visible (Partido cerrado FT o Pick abierto semanal de Tipstar)."
-                : "Selección sellada automáticamente porque el encuentro aún no inicia."}
+              {copyState === "error"
+                ? `No se pudo acceder al portapapeles. Enlace: pitchlab.mx${sharePath}`
+                : revealSelection
+                  ? "Selección visible (Partido cerrado o Pick abierto semanal de Tipstar)."
+                  : "Selección sellada automáticamente porque el encuentro aún no inicia."}
             </span>
             <div className="flex items-center gap-2">
               <button
@@ -884,10 +921,14 @@ export function ShareTicketModal(): React.JSX.Element | null {
                 type="button"
                 autoFocus
                 className="pl-btn-primary text-xs inline-flex items-center gap-1.5"
-                onClick={handleCopyShareLink}
+                onClick={() => void handleCopyShareLink()}
               >
-                <MaestroIcon name="copy" size={14} />
-                Copiar enlace con código
+                <MaestroIcon name={copyState === "copied" ? "check" : "copy"} size={14} />
+                {copyState === "copied"
+                  ? "Enlace copiado"
+                  : codeParam
+                    ? "Copiar enlace con código"
+                    : "Copiar enlace"}
               </button>
             </div>
           </div>
@@ -917,13 +958,13 @@ const CLUB_COMMAND_VIEWS: ReadonlyArray<{
   },
   {
     label: "Armar parlay",
-    subtitle: "Correlación Geodesic v2.0 sin selecciones opuestas",
+    subtitle: "Combinadas de 2 a 6 selecciones sin selecciones opuestas",
     href: "/app/parlays",
     icon: "layers",
   },
   {
-    label: "Explorador de Momios & Geodesic v2.0",
-    subtitle: "Comparativa de probabilidad real vs momio justo",
+    label: "Explorador de Momios",
+    subtitle: "Comparativa de probabilidad estimada vs momio justo",
     href: "/app/momios",
     icon: "sliders",
   },
@@ -934,32 +975,32 @@ const CLUB_COMMAND_VIEWS: ReadonlyArray<{
     icon: "activity",
   },
   {
-    label: "Comunidad VIP Verificada",
-    subtitle: "Boletos, consenso vs Suite y ranking CLV (IC 95 %)",
+    label: "Comunidad",
+    subtitle: "Boletos compartidos, conversación y tablero de socios",
     href: "/app/social",
     icon: "users",
   },
   {
-    label: "Portal Tipstar Oficial (SOFIA5)",
-    subtitle: "1 pick abierto semanal y comisiones del 25 %",
+    label: "Portal Tipstar Oficial",
+    subtitle: "1 pick abierto semanal y seguimiento de comisiones",
     href: "/app/tipstar",
     icon: "crown",
   },
   {
-    label: "Historial & Auditoría Pública FT",
-    subtitle: "Registro inmutable sin picks editados ni borrados",
+    label: "Historial & Resultados",
+    subtitle: "Marcadores cerrados y registro público sin ediciones",
     href: "/app/historial",
     icon: "shield",
   },
   {
     label: "Mi Bitácora & Vigilancia",
-    subtitle: "Unidades simuladas, CLV promedio y alertas de alineación",
+    subtitle: "Unidades simuladas, ventaja promedio y alertas de partido",
     href: "/app/lab",
     icon: "chart",
   },
   {
-    label: "Tecnología & Precisión · Spacetime Suite v3.0",
-    subtitle: "Arquitectura de los 5 motores propietarios y calibración ECE",
+    label: "Tecnología y precisión",
+    subtitle: "Cómo estimamos probabilidades y calibramos el momio justo",
     href: "/app/tech",
     icon: "cpu",
   },
@@ -978,7 +1019,8 @@ const CLUB_COMMAND_VIEWS: ReadonlyArray<{
 ];
 
 export function CommandPaletteModal(): React.JSX.Element | null {
-  const { cmdkOpen, setCmdkOpen, dataset, navigateTo } = usePlatform();
+  const { cmdkOpen, setCmdkOpen, dataset, navigateTo, viewerRole, allowRoleSimulation } =
+    usePlatform();
   const [query, setQuery] = useState<string>("");
 
   if (!cmdkOpen) return null;
@@ -1018,11 +1060,13 @@ export function CommandPaletteModal(): React.JSX.Element | null {
     );
   });
 
+  const canSeeAdmin = viewerRole === "admin" || allowRoleSimulation;
   const quickRoutes = CLUB_COMMAND_VIEWS.filter(
     (r) =>
-      !q ||
-      r.label.toLowerCase().includes(q) ||
-      r.subtitle.toLowerCase().includes(q),
+      (r.href !== "/app/admin" || canSeeAdmin) &&
+      (!q ||
+        r.label.toLowerCase().includes(q) ||
+        r.subtitle.toLowerCase().includes(q)),
   );
 
   const hasResults =

@@ -58,6 +58,8 @@ export function ParlayBuilderClubView(): React.JSX.Element {
   const {
     dataset,
     viewerRole,
+    hasAccountSession,
+    upgradeHref,
     oddsFormat,
     parlayLegs,
     allowSgp,
@@ -371,10 +373,10 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                         return (
                           <a
                             key={pk.id}
-                            href="/signup"
+                            href={upgradeHref}
                             onClick={(e) => {
                               e.preventDefault();
-                              navigateTo("/signup");
+                              navigateTo(upgradeHref);
                             }}
                             className="rounded-xl p-2.5 text-xs flex items-center justify-between gap-2 no-underline"
                             style={{
@@ -387,7 +389,7 @@ export function ParlayBuilderClubView(): React.JSX.Element {
                               <span className="truncate">{pk.categoryLabel}</span>
                             </span>
                             <span className="pl-pill text-[10px] shrink-0">
-                              Pase PitchLab Ultra
+                              {hasAccountSession ? "Activar Pase Ultra" : "Pase PitchLab Ultra"}
                             </span>
                           </a>
                         );
@@ -727,6 +729,8 @@ export function PropsLabClubView(): React.JSX.Element {
   const {
     dataset,
     viewerRole,
+    hasAccountSession,
+    upgradeHref,
     oddsFormat,
     journal,
     sealPickToJournal,
@@ -798,9 +802,9 @@ export function PropsLabClubView(): React.JSX.Element {
             Props de jugadores
           </h1>
           <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
-            Mueve la línea alternativa con <code>− / +</code>, regresa a la línea{" "}
-            <strong>Base</strong> en un clic, evalúa el momio de tu casa con Geodesic v2.0 y sella
-            el prop directo en tu Bitácora.
+            {catalog.length > 0
+              ? "Mueve la línea alternativa con − / +, regresa a la línea Base en un clic, evalúa el momio de tu casa con Geodesic v2.0 y sella el prop directo en tu Bitácora."
+              : "Proyecciones individuales de jugadores para NFL y fútbol europeo."}
           </p>
         </section>
 
@@ -813,17 +817,19 @@ export function PropsLabClubView(): React.JSX.Element {
                 <span>Props de jugadores para Pase PitchLab Ultra</span>
               </h2>
               <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
-                Activa tus 7 días gratis para explorar proyecciones individuales de NFL y fútbol.
+                {hasAccountSession
+                  ? "Activa tu Pase PitchLab Ultra para explorar proyecciones individuales de NFL y fútbol."
+                  : "Activa tus 7 días gratis para explorar proyecciones individuales de NFL y fútbol."}
               </p>
               <a
-                href="/signup"
+                href={upgradeHref}
                 onClick={(e) => {
                   e.preventDefault();
-                  navigateTo("/signup");
+                  navigateTo(upgradeHref);
                 }}
                 className="pl-btn-primary text-xs inline-flex items-center gap-1.5"
               >
-                <span>Activar prueba gratis</span>
+                <span>{hasAccountSession ? "Activar Pase Ultra" : "Activar prueba gratis"}</span>
                 <MaestroIcon name="arrowRight" size={13} />
               </a>
             </div>
@@ -1166,6 +1172,8 @@ export function MomiosExplorerClubView(): React.JSX.Element {
   const {
     dataset,
     viewerRole,
+    hasAccountSession,
+    upgradeHref,
     oddsFormat,
     parlayLegs,
     openComposer,
@@ -1249,15 +1257,15 @@ export function MomiosExplorerClubView(): React.JSX.Element {
               </p>
               {viewerRole === "visitor" ? (
                 <a
-                  href="/signup"
+                  href={upgradeHref}
                   onClick={(e) => {
                     e.preventDefault();
-                    navigateTo("/signup");
+                    navigateTo(upgradeHref);
                   }}
                   className="pl-btn-primary text-xs inline-flex items-center gap-1.5"
                 >
                   <MaestroIcon name="unlock" size={13} />
-                  <span>Desbloquear 7 días gratis</span>
+                  <span>{hasAccountSession ? "Activar Pase Ultra" : "Desbloquear 7 días gratis"}</span>
                 </a>
               ) : null}
             </div>

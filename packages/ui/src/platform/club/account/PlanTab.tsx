@@ -89,12 +89,14 @@ export function PlanTab({
   identity,
   referralCode,
   initialServerPlan,
+  checkoutNotice = null,
   storyOverride,
   onOpenBilling,
 }: {
   identity: SessionAccountIdentity;
   referralCode?: string | null;
   initialServerPlan?: ServerPlanPayload | null;
+  checkoutNotice?: "success" | "cancelled" | null;
   storyOverride?: PlanTabStoryOverride;
   onOpenBilling?: () => void;
 }): React.JSX.Element {
@@ -653,6 +655,28 @@ export function PlanTab({
           data-plan-portal-notice=""
         >
           <span>{portalNotice}</span>
+        </div>
+      ) : checkoutNotice === "success" ? (
+        <div
+          role="status"
+          aria-live="polite"
+          className="pl-acct-plan-banner pl-acct-plan-banner--info"
+          data-plan-checkout-notice="success"
+        >
+          <span>
+            ¡Pago recibido! Estamos confirmando tu Pase PitchLab Ultra; en unos segundos verás tu suscripción activa.
+          </span>
+        </div>
+      ) : checkoutNotice === "cancelled" ? (
+        <div
+          role="status"
+          aria-live="polite"
+          className="pl-acct-plan-banner pl-acct-plan-banner--warn"
+          data-plan-checkout-notice="cancelled"
+        >
+          <span>
+            No se realizó ningún cargo. Puedes activar tu Pase PitchLab Ultra cuando quieras.
+          </span>
         </div>
       ) : null}
 

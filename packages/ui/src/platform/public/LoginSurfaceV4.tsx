@@ -223,7 +223,13 @@ export function LoginSurfaceV4({
     confirmationAttempt,
     (session) => {
       setStep("confirmed");
-      setDestination(session.completed ? nextPath : "/signup?paso=2&via=cuenta");
+      setDestination(
+        session.completed
+          ? nextPath
+          : nextPath && nextPath !== "/app"
+            ? `/signup?paso=2&via=cuenta&next=${encodeURIComponent(nextPath)}`
+            : "/signup?paso=2&via=cuenta",
+      );
     },
     () => setStep("expired"),
   );
@@ -232,9 +238,11 @@ export function LoginSurfaceV4({
     if (step === "sent") sentTitleRef.current?.focus();
   }, [step]);
   const promoCode = sanitizePromoCode(initialPromoCode);
-  const signupHref = promoCode
-    ? `/signup?code=${encodeURIComponent(promoCode)}`
-    : "/signup";
+  const signupParams = new URLSearchParams();
+  if (promoCode) signupParams.set("code", promoCode);
+  if (nextPath && nextPath !== "/app") signupParams.set("next", nextPath);
+  const signupQuery = signupParams.toString();
+  const signupHref = signupQuery ? `/signup?${signupQuery}` : "/signup";
 
   useEffect(() => {
     if (resendSecondsLeft <= 0) return;

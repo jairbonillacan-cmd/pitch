@@ -111,7 +111,7 @@ interface AuthorInfo {
 
 export function SocialVipClubView(): React.JSX.Element {
   const platform = usePlatform();
-  const { viewerRole, navigateTo } = platform;
+  const { viewerRole, hasAccountSession, upgradeHref, navigateTo } = platform;
 
   if (viewerRole === "visitor") {
     return (
@@ -120,17 +120,21 @@ export function SocialVipClubView(): React.JSX.Element {
           <div className="pl-com">
             <h1 className="pl-com-title">Comunidad</h1>
             <section className="pl-com-gate glass-lens glass-ring" aria-label="Acceso">
-              <p className="pl-com-gate-title">La comunidad es para socios.</p>
+              <p className="pl-com-gate-title">
+                {hasAccountSession
+                  ? "Activa tu Pase PitchLab Ultra para participar en la comunidad."
+                  : "La comunidad es para socios."}
+              </p>
               <a
-                href="/signup"
+                href={upgradeHref}
                 className="pl-prof-btn pl-prof-btn--primary"
                 onClick={(e) => {
                   if (!isPlainClick(e)) return;
                   e.preventDefault();
-                  navigateTo("/signup");
+                  navigateTo(upgradeHref);
                 }}
               >
-                Probar 7 días gratis
+                {hasAccountSession ? "Activar Pase Ultra" : "Probar 7 días gratis"}
               </a>
             </section>
           </div>

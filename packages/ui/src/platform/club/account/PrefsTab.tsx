@@ -228,6 +228,7 @@ export function PrefsTab({
     setShowMxnBalance,
     setUnitMxn,
     journal,
+    pushToast,
   } = usePlatform();
 
   const accountsEnabled = storyOverride?.accountsEnabled ?? ctxAccountsEnabled;
@@ -267,6 +268,33 @@ export function PrefsTab({
       setPendingBreak(stored.pauseChoice);
     }
   }, [storyOverride?.initialPrefs]);
+
+  // Sincroniza el aviso por correo de picks liquidados cuando hay sesión con cuenta.
+  useEffect(() => {
+    if (!accountsEnabled || storyOverride || typeof fetch !== "function") return;
+    let cancelled = false;
+    void fetch("/api/me/email-preferences", { cache: "no-store" })
+      .then(async (res) => (res.ok ? ((await res.json()) as { pickResults?: unknown }) : null))
+      .then((data) => {
+        if (cancelled || typeof data?.pickResults !== "boolean") return;
+        const pickResults = data.pickResults;
+        setPrefs((prev) => {
+          if (prev.alerts.pickSettled === pickResults) return prev;
+          const next = {
+            ...prev,
+            alerts: { ...prev.alerts, pickSettled: pickResults },
+          };
+          writeStoredPrefs(next);
+          return next;
+        });
+      })
+      .catch((err) => {
+        void err;
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [accountsEnabled, storyOverride]);
 
   // Si el modo es «Sistema», escucha cambios del esquema de color del dispositivo.
   useEffect(() => {
@@ -719,12 +747,44 @@ export function PrefsTab({
                     aria-labelledby={titleId}
                     aria-describedby={descId}
                     isSelected={prefs.alerts[item.key]}
-                    onChange={(next) =>
+                    onChange={(next) => {
                       updatePrefs((prev) => ({
                         ...prev,
                         alerts: { ...prev.alerts, [item.key]: next },
-                      }))
-                    }
+                      }));
+                      if (
+                        item.key === "pickSettled" &&
+                        accountsEnabled &&
+                        !storyOverride &&
+                        typeof fetch === "function"
+                      ) {
+                        void fetch("/api/me/email-preferences", {
+                          method: "PUT",
+                          headers: { "Content-Type": "application/json" },
+                          body: JSON.stringify({ pickResults: next }),
+                        })
+                          .then((res) => {
+                            if (!res.ok && res.status !== 401) {
+                              throw new Error(`HTTP ${res.status}`);
+                            }
+                          })
+                          .catch((err) => {
+                            void err;
+                            setPrefs((prev) => {
+                              const reverted = {
+                                ...prev,
+                                alerts: { ...prev.alerts, pickSettled: !next },
+                              };
+                              writeStoredPrefs(reverted);
+                              return reverted;
+                            });
+                            pushToast(
+                              "No se pudo guardar el aviso por correo de picks liquidados.",
+                              "warning",
+                            );
+                          });
+                      }
+                    }}
                     className="pl-acct-switch"
                   >
                     <Switch.Control className="pl-acct-switch-control">

@@ -31,10 +31,17 @@ export async function generateMetadata({
 
 export default async function ShortInviteRedirectPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ code: string }>;
+  searchParams?: Promise<Record<string, string | string[] | undefined>>;
 }): Promise<never> {
-  const { code: rawCode } = await params;
-  const resolved = await resolveShortInviteTarget(rawCode);
+  const [{ code: rawCode }, resolvedParams] = await Promise.all([
+    params,
+    searchParams ? searchParams : Promise.resolve(undefined),
+  ]);
+  const resolved = await resolveShortInviteTarget(rawCode, {
+    extraQuery: resolvedParams,
+  });
   redirect(resolved.redirectTo);
 }

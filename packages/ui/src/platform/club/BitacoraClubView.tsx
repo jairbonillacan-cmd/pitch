@@ -25,6 +25,7 @@ export function BitacoraClubView(): React.JSX.Element {
     navigateTo,
     viewerIdentity,
     viewerRole,
+    accountsEnabled,
   } = usePlatform();
 
   const [publicRecordVisible, setPublicRecordVisible] = useState<boolean>(true);
@@ -88,8 +89,9 @@ export function BitacoraClubView(): React.JSX.Element {
                 combinados.
               </p>
               <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }} data-local-storage-note="">
-                Por ahora tu Bitácora se guarda en este navegador. Cuando actives tu cuenta se
-                sincronizará y quedará sellada en el servidor.
+                {accountsEnabled
+                  ? "Sincronizada y sellada en tu cuenta de socio."
+                  : "Por ahora tu Bitácora se guarda en este navegador. Cuando actives tu cuenta se sincronizará y quedará sellada en el servidor."}
               </p>
             </div>
 
@@ -111,6 +113,7 @@ export function BitacoraClubView(): React.JSX.Element {
                     marketDecimal: 1.91,
                     units: Math.max(1, Math.abs(stats.netUnits)),
                     gameStatus: "FT",
+                    pickSlug: journal[0]?.pickId,
                   })
                 }
               >
@@ -399,6 +402,7 @@ export function BitacoraClubView(): React.JSX.Element {
                             marketDecimal: item.userDecimal,
                             units: item.units,
                             gameStatus: item.status === "pending" ? "NS" : "FT",
+                            pickSlug: item.pickId,
                           })
                         }
                       >

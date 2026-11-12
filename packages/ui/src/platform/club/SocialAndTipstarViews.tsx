@@ -20,11 +20,16 @@ import { TIPSTAR_CREATORS } from "../spacetime-catalog";
 
 export { SocialVipClubView } from "./CommunityClubView";
 
-export function TipstarPortalClubView(): React.JSX.Element {
+export function TipstarPortalClubView({
+  connectNotice = null,
+}: {
+  connectNotice?: "ready" | "retry" | null;
+} = {}): React.JSX.Element {
   const {
     dataset,
     viewerRole,
     setViewerRole,
+    allowRoleSimulation,
     journal,
     oddsFormat,
     tipstarWeeklyPickOrigin,
@@ -155,6 +160,39 @@ export function TipstarPortalClubView(): React.JSX.Element {
           Así funcionará el Portal Tipstar. @{sofia.handle} es un perfil de ejemplo: sus unidades,
           CLV y referidos son ficticios. El pick que muestra sí sale de Spacetime Suite v3.0.
         </ExampleNotice>
+        {connectNotice === "ready" ? (
+          <NoticeCard
+            icon="check"
+            tone="success"
+            badgeText="Pagos"
+            title="Tu cuenta de Stripe Connect quedó conectada"
+          >
+            Tus datos fiscales y bancarios quedaron registrados. Las comisiones liberadas se
+            depositarán en tu cuenta automáticamente.
+          </NoticeCard>
+        ) : connectNotice === "retry" ? (
+          <NoticeCard
+            icon="calendar"
+            tone="warning"
+            badgeText="Pagos pendientes"
+            title="Faltaron datos para completar tu alta de pagos"
+            action={
+              accountsEnabled && (viewerRole === "tipstar" || viewerRole === "admin") ? (
+                <button
+                  type="button"
+                  className="pl-btn-primary text-xs min-h-8 px-3"
+                  disabled={connectBusy}
+                  onClick={() => void handleSetupPayouts()}
+                >
+                  Reintentar alta
+                </button>
+              ) : undefined
+            }
+          >
+            Stripe cerró la sesión antes de completar la verificación. Puedes retomarla en
+            cualquier momento.
+          </NoticeCard>
+        ) : null}
         {accountsEnabled && (viewerRole === "tipstar" || viewerRole === "admin") ? (
           <NoticeCard
             icon="gift"
@@ -177,7 +215,7 @@ export function TipstarPortalClubView(): React.JSX.Element {
             automáticamente en tu cuenta. Stripe te pide tus datos y tu cuenta bancaria una sola vez.
           </NoticeCard>
         ) : null}
-        {viewerRole !== "tipstar" && viewerRole !== "admin" ? (
+        {allowRoleSimulation && viewerRole !== "tipstar" && viewerRole !== "admin" ? (
           <NoticeCard
             icon="crown"
             tone="success"
@@ -534,6 +572,7 @@ export function TipstarPortalClubView(): React.JSX.Element {
                       gameStatus: "NS",
                       promoCode: sofia.promoCode,
                       tipstarHandle: sofia.handle,
+                      pickSlug: sofia.weeklyPickSlug,
                       originBadge: isSpacetimeOrigin
                         ? "PICK OFICIAL PITCHLAB"
                         : "PICK SELLADO BITÁCORA TIPSTAR",

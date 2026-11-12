@@ -18,7 +18,7 @@ export function ReferralSignedUpEmail({
   name,
   friendName,
   status,
-  referralsUrl = `${siteUrl()}/app/account/referrals`,
+  referralsUrl = `${siteUrl()}/app/account?tab=referrals`,
 }: ReferralSignedUpProps) {
   return (
     <EmailLayout preview={`${friendName} entró con tu código.`}>
@@ -57,7 +57,7 @@ export function ReferralRewardedEmail({
   rewardDays = 15,
   planName,
   accessUntil,
-  referralsUrl = `${siteUrl()}/app/account/referrals`,
+  referralsUrl = `${siteUrl()}/app/account?tab=referrals`,
 }: ReferralRewardedProps) {
   return (
     <EmailLayout preview={`${friendName} se quedó. Sumamos ${rewardDays} días a tu cuenta.`}>

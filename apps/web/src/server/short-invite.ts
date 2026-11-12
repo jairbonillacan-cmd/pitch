@@ -34,6 +34,21 @@ export async function lookupReferrerHandleByCode(
   return sanitizeCleanHandle(row?.handle);
 }
 
+/** Envuelve la consulta de invitador con la conexión de solo lectura configurada. */
+export async function lookupReferrerHandleForInvite(
+  normalizedCode: string,
+  dbOverride?: Db | null,
+): Promise<string | null> {
+  const db = dbOverride !== undefined ? dbOverride : getReadOnlyDb();
+  if (!db) return null;
+  try {
+    return await lookupReferrerHandleByCode(db, normalizedCode);
+  } catch (err) {
+    void err;
+    return null;
+  }
+}
+
 export interface ResolvedShortInvite {
   valid: boolean;
   code: string | null;
@@ -46,15 +61,31 @@ export async function resolveShortInviteTarget(
   options?: {
     accountsEnabled?: boolean;
     db?: Db | null;
+    extraQuery?: Record<string, string | string[] | undefined>;
   },
 ): Promise<ResolvedShortInvite> {
+  const extra = new URLSearchParams();
+  if (options?.extraQuery) {
+    for (const [key, raw] of Object.entries(options.extraQuery)) {
+      if (key === "code" || key === "from" || raw === undefined) continue;
+      if (Array.isArray(raw)) {
+        for (const item of raw) {
+          if (item !== undefined) extra.append(key, item);
+        }
+      } else {
+        extra.append(key, raw);
+      }
+    }
+  }
+
   const code = normalizeReferralCode(rawCode);
   if (!code) {
+    const qs = extra.toString();
     return {
       valid: false,
       code: null,
       handle: null,
-      redirectTo: "/pricing",
+      redirectTo: qs ? `/precio?${qs}` : "/precio",
     };
   }
 
@@ -78,6 +109,9 @@ export async function resolveShortInviteTarget(
   if (handle) {
     search.set("from", handle);
   }
+  for (const [key, value] of extra.entries()) {
+    search.append(key, value);
+  }
 
   return {
     valid: true,
@@ -93,10 +127,13 @@ export function resolveOgDisplayHandle(input: {
   explicitFrom?: string | null;
   accountsEnabled: boolean;
 }): string | null {
+  if (input.accountsEnabled) {
+    return sanitizeCleanHandle(input.dbHandle);
+  }
   const explicit = sanitizeCleanHandle(input.explicitFrom);
   if (explicit) return explicit;
-  if (input.dbHandle) return input.dbHandle;
-  if (!input.accountsEnabled && input.code === "JAIR-2611") {
+  if (input.dbHandle) return sanitizeCleanHandle(input.dbHandle);
+  if (input.code === "JAIR-2611") {
     return "jair";
   }
   return null;

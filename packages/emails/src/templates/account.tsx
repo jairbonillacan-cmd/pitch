@@ -103,7 +103,7 @@ export function TrialEndingEmail({
       <P>
         {hasCard
           ? "Si no quieres continuar, cancela antes de esa fecha y no se te cobra nada."
-          : "Si no haces nada, tu cuenta pasa a Free. No se te cobra nada."}
+          : "Si no haces nada, al terminar tu prueba se pausa el acceso completo. No se te cobra nada."}
       </P>
       <Cta href={manageUrl}>{hasCard ? "Administrar mi plan" : "Elegir mi plan"}</Cta>
     </EmailLayout>
@@ -145,12 +145,15 @@ export function TrialEndedEmail({ name, outcome, planName, chargedLabel, nextCha
     );
   }
   return (
-    <EmailLayout preview="Tu cuenta pasó a Free. Tu bitácora y tu historial se quedan contigo.">
+    <EmailLayout preview="Tu periodo de prueba terminó. Tu bitácora y tu historial se quedan contigo.">
       <Eyebrow>Tu prueba</Eyebrow>
       <Title>Tu prueba terminó</Title>
-      <P>{greeting(name)} Tu cuenta pasó a Free y no se te cobró nada. Tu bitácora y tu historial se quedan contigo.</P>
-      <P>Si quieres volver al acceso completo, elige un plan.</P>
-      <Cta href={manageUrl}>Ver planes</Cta>
+      <P>
+        {greeting(name)} Tu periodo de prueba terminó y no se te cobró nada. Tu bitácora y tu historial se quedan
+        contigo.
+      </P>
+      <P>Si quieres recuperar el acceso completo, activa tu plan cuando quieras.</P>
+      <Cta href={manageUrl}>Activar mi plan</Cta>
     </EmailLayout>
   );
 }

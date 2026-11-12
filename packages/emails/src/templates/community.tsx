@@ -18,7 +18,7 @@ export function ContentRemovedEmail({
   name,
   removedOn,
   reason,
-  rulesUrl = `${siteUrl()}/legal/terminos`,
+  rulesUrl = `${siteUrl()}/legal/terminos#comunidad`,
 }: ContentRemovedProps) {
   return (
     <EmailLayout preview="Una publicación tuya no cumplía las reglas de la comunidad.">

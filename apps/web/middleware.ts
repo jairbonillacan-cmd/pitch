@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { getSessionCookie } from "better-auth/cookies";
-import { CLUB_PROFILE_HANDLE_HEADER } from "./src/profile-path";
+import { CLUB_PROFILE_HANDLE_HEADER, CLUB_REQUEST_PATH_HEADER } from "./src/profile-path";
 import {
   getBetaCookieName,
   verifyBetaCookieToken,
@@ -22,7 +22,7 @@ async function hasValidBetaCookie(request: NextRequest): Promise<boolean> {
  * (`app/app/layout.tsx` → `getViewerAccess`).
  */
 export async function middleware(request: NextRequest): Promise<NextResponse> {
-  const { pathname } = request.nextUrl;
+  const { pathname, search } = request.nextUrl;
 
   // /i/* son invitaciones personales públicas: nunca piden sesión y siempre llevan noindex.
   if (pathname.startsWith("/i/")) {
@@ -37,17 +37,21 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
       (await hasValidBetaCookie(request)) || (accountsOn && getSessionCookie(request) !== null);
     if (!allowed) {
       const loginUrl = new URL("/login", request.url);
-      loginUrl.searchParams.set("next", pathname);
+      loginUrl.searchParams.set("next", `${pathname}${search}`);
       return NextResponse.redirect(loginUrl);
     }
+
+    const requestHeaders = new Headers(request.headers);
+    requestHeaders.delete(CLUB_PROFILE_HANDLE_HEADER);
+    requestHeaders.delete(CLUB_REQUEST_PATH_HEADER);
+    requestHeaders.set(CLUB_REQUEST_PATH_HEADER, `${pathname}${search}`);
+
     const profileHandle = /^\/app\/u\/([^/]+)\/?$/.exec(pathname)?.[1];
-    let requestHeaders: Headers | undefined;
-    if (profileHandle || request.headers.has(CLUB_PROFILE_HANDLE_HEADER)) {
-      requestHeaders = new Headers(request.headers);
-      requestHeaders.delete(CLUB_PROFILE_HANDLE_HEADER);
-      if (profileHandle) requestHeaders.set(CLUB_PROFILE_HANDLE_HEADER, profileHandle);
+    if (profileHandle) {
+      requestHeaders.set(CLUB_PROFILE_HANDLE_HEADER, profileHandle);
     }
-    const response = NextResponse.next(requestHeaders && { request: { headers: requestHeaders } });
+
+    const response = NextResponse.next({ request: { headers: requestHeaders } });
     response.headers.set("X-Robots-Tag", "noindex, nofollow");
     return response;
   }
