@@ -1,0 +1,146 @@
+{
+  "generated_at_utc": "2026-11-12T15:17:54Z",
+  "mode": "once",
+  "capture_status": "prospective_capture_pending",
+  "stale_lines_config_sha256": "8bcb9c7be93270cde0cac2d58bc19f0381184dd2e769f358dd28334db2a05eac",
+  "regimes_configured": [
+    {
+      "regime_id": "closing_decision_window_t_minus_60m",
+      "short_label": "T-60m",
+      "horizon_minutes": 60.0,
+      "max_interval_minutes": 3.6858,
+      "max_interval_seconds": 221.1501,
+      "scheduled_interval_seconds": 203.458
+    },
+    {
+      "regime_id": "matchday_near_kickoff_q00_ws",
+      "short_label": "T-4.4h",
+      "horizon_minutes": 262.4166666666667,
+      "max_interval_minutes": 8.5676,
+      "max_interval_seconds": 514.053,
+      "scheduled_interval_seconds": 472.929
+    },
+    {
+      "regime_id": "matchday_window_q10_ws",
+      "short_label": "T-8.5h",
+      "horizon_minutes": 509.9,
+      "max_interval_minutes": 11.6886,
+      "max_interval_seconds": 701.3157,
+      "scheduled_interval_seconds": 645.21
+    },
+    {
+      "regime_id": "early_week_median_q50_ws",
+      "short_label": "early_week",
+      "horizon_minutes": 6269.9,
+      "max_interval_minutes": 30.4046,
+      "max_interval_seconds": 1824.2781,
+      "scheduled_interval_seconds": 1678.336
+    }
+  ],
+  "approved_sources": [
+    {
+      "source": "betfair_exchange",
+      "display_name": "Betfair Exchange API-NG",
+      "kind": "sharp",
+      "status": "api_only",
+      "required_env_vars": [
+        "BETFAIR_APP_KEY",
+        "BETFAIR_SESSION_TOKEN"
+      ],
+      "credentials_present": false,
+      "active_in_scheduler": false
+    },
+    {
+      "source": "the_odds_api",
+      "display_name": "The Odds API (v4 Official REST)",
+      "kind": "aggregator",
+      "status": "api_only",
+      "required_env_vars": [
+        "THE_ODDS_API_KEY"
+      ],
+      "credentials_present": false,
+      "active_in_scheduler": false
+    }
+  ],
+  "active_sources": [],
+  "credential_pending_sources": [
+    {
+      "source": "betfair_exchange",
+      "display_name": "Betfair Exchange API-NG",
+      "kind": "sharp",
+      "status": "api_only",
+      "required_env_vars": [
+        "BETFAIR_APP_KEY",
+        "BETFAIR_SESSION_TOKEN"
+      ],
+      "credentials_present": false,
+      "active_in_scheduler": false
+    },
+    {
+      "source": "the_odds_api",
+      "display_name": "The Odds API (v4 Official REST)",
+      "kind": "aggregator",
+      "status": "api_only",
+      "required_env_vars": [
+        "THE_ODDS_API_KEY"
+      ],
+      "credentials_present": false,
+      "active_in_scheduler": false
+    }
+  ],
+  "blocked_sources": [
+    {
+      "source": "pinnacle",
+      "status": "blocked_pending_owner_decision",
+      "reason": "Los ToS de Pinnacle prohíben expresamente bots/scrapers sobre páginas web o APIs internas (guest.api.arcadia.pinnacle.com), el scraper previo usaba solve_cloudflare=True y no existe contrato/credencial B2B activa (PINNACLE_B2B_API_KEY ausente). Consumible legalmente vía The Odds API."
+    },
+    {
+      "source": "smarkets",
+      "status": "blocked_pending_owner_decision",
+      "reason": "Acceso anónimo a api.smarkets.com/v3/events/ bloqueado por reto anti-bot Cloudflare (HTTP 403, CF-Mitigated: challenge / 'Smarkets - Security Check') y los ToS de Smarkets API exigen aprobación formal de cuenta API (£150) + SMARKETS_SESSION_TOKEN. Prohibido evadir con solve_cloudflare."
+    },
+    {
+      "source": "caliente",
+      "status": "blocked_pending_owner_decision",
+      "reason": "GET limpio sin evasión a https://sports.caliente.mx/es_MX/Futbol devuelve HTTP 403 (CF-Mitigated: challenge / 'Just a moment...'), carece de API oficial pública y los ToS de Caliplay S.A.P.I. de C.V. prohíben extracción automatizada."
+    },
+    {
+      "source": "codere",
+      "status": "blocked_pending_owner_decision",
+      "reason": "https://apuestas.codere.mx/robots.txt declara 'User-agent: * / Disallow: / / Allow: /es_MX$' (HTTP 200 OBSERVADO), m.codere.mx devuelve HTTP 404 y los ToS de Libros Foráneos S.A. de C.V. prohíben extracción automatizada sin autorización."
+    },
+    {
+      "source": "action_network",
+      "status": "blocked_pending_owner_decision",
+      "reason": "Cláusula expresa en https://www.actionnetwork.com/terms (HTTP 200 OBSERVADO) prohíbe 'deep-link', 'page-scrape', 'robot' o 'spider' sin consentimiento escrito previo; carece de API pública."
+    }
+  ],
+  "calendar_upcoming_events_count": 66,
+  "calendar_events_by_regime": {
+    "T-60m": 0,
+    "T-4.4h": 2,
+    "T-8.5h": 5,
+    "early_week": 59
+  },
+  "events_tracked": 0,
+  "total_rows_written": 0,
+  "ticks_per_event": {
+    "min": 0,
+    "median": 0.0,
+    "max": 0,
+    "by_event": {}
+  },
+  "median_gap_minutes_by_regime": {
+    "T-60m": null,
+    "T-4.4h": null,
+    "T-8.5h": null,
+    "early_week": null
+  },
+  "sharp_coverage": {
+    "events_with_sharp": 0,
+    "total_events": 0,
+    "ratio": 0.0,
+    "books": []
+  },
+  "notes": "0 fuentes activas sin evasión en este entorno: las 5 fuentes web heredadas (pinnacle, smarkets, caliente, codere, action_network) están en blocked_pending_owner_decision por prohibición de ToS/robots.txt o reto anti-bot Cloudflare HTTP 403 (Regla #7), y las 2 APIs oficiales aprobadas (the_odds_api, betfair_exchange) están en api_only a la espera de configurar THE_ODDS_API_KEY o BETFAIR_APP_KEY+BETFAIR_SESSION_TOKEN. Sin partidos de football/nfl en ventana [T-60m, T-0] al instante 2026-11-12T15:17:54Z (eventos futuros en calendario: 66, distribución={'T-60m': 0, 'T-4.4h': 2, 'T-8.5h': 5, 'early_week': 59}). Estado marcado honestamente como prospective_capture_pending sin inventar ni simular ticks (Regla #4)."
+}
