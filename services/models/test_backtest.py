@@ -727,7 +727,7 @@ def test_asian_handicap_quarter_lines_and_totals_settlement_and_ledger_compat() 
             "p_final": 0.52,
             "ev": 0.092,
             "stake_u": 0.025,
-            "tier": "baseline_v3_0",
+            "tier": "valor",
             "version_modelo": "spacetime_v3.0+geodesic_v2.0",
             "features_hash": clv_report.compute_features_hash({"event_id": "ev_001"}),
         }

@@ -31,7 +31,9 @@ import numpy as np
 import pandas as pd
 
 GENESIS_HASH: str = "0" * 64
-VALID_PICK_TIERS: tuple[str, ...] = ("solido", "valor", "baseline_v3_0", "especulativo")
+VALID_PICK_TIERS: tuple[str, ...] = ("solido", "valor")
+LEGACY_PICK_TIERS: tuple[str, ...] = ("baseline_v3_0", "especulativo")
+HISTORICAL_PICK_TIERS: tuple[str, ...] = VALID_PICK_TIERS + LEGACY_PICK_TIERS
 ALLOWED_SHARP_CLOSING_BOOKS: tuple[str, ...] = ("pinnacle", "smarkets")
 SETTLEMENT_OUTCOMES: tuple[str, ...] = ("win", "loss", "push", "void", "half_win", "half_loss")
 
@@ -41,6 +43,7 @@ DEFAULT_BOOTSTRAP_SEED: int = 42
 DEFAULT_BOOTSTRAP_CI_LEVEL: float = 0.95
 
 _VALID_TIER_SET = frozenset(VALID_PICK_TIERS)
+_HISTORICAL_TIER_SET = frozenset(HISTORICAL_PICK_TIERS)
 _SHARP_BOOK_SET = frozenset(ALLOWED_SHARP_CLOSING_BOOKS)
 _SETTLEMENT_OUTCOME_SET = frozenset(SETTLEMENT_OUTCOMES)
 
@@ -463,6 +466,10 @@ def verify_ledger_integrity(records: Sequence[Mapping[str, Any] | LedgerRecord])
         rec_type = rec.get("record_type", "pick")
         pick_id = str(rec.get("pick_id", ""))
         if rec_type == "pick":
+            if rec.get("tier") not in _HISTORICAL_TIER_SET:
+                raise LedgerIntegrityError(
+                    f'tier inválido detectado en cadena en posición {idx}: "{rec.get("tier")}"'
+                )
             if pick_id in seen_picks:
                 raise LedgerIntegrityError(f'pick_id duplicado en posición {idx}: "{pick_id}"')
             seen_picks[pick_id] = rec
@@ -520,7 +527,12 @@ class PickLedger:
     def record_count(self) -> int:
         return len(self._records)
 
-    def append_pick(self, data: Mapping[str, Any]) -> PickLedgerEntry:
+    def append_pick(
+        self,
+        data: Mapping[str, Any],
+        *,
+        allow_legacy_tiers: bool = False,
+    ) -> PickLedgerEntry:
         pick_id = _require_non_empty_str(data.get("pick_id"), "pick_id")
         if pick_id in self._picks_by_id:
             raise DuplicatePickError(pick_id)
@@ -571,9 +583,12 @@ class PickLedger:
             raise LedgerValidationError(f"stake_u debe ser finito y > 0; recibido {raw_stake!r}")
 
         tier = _require_non_empty_str(data.get("tier"), "tier")
-        if tier not in _VALID_TIER_SET:
+        allowed_tier_set = _HISTORICAL_TIER_SET if allow_legacy_tiers else _VALID_TIER_SET
+        if tier not in allowed_tier_set:
+            allowed_list = HISTORICAL_PICK_TIERS if allow_legacy_tiers else VALID_PICK_TIERS
             raise LedgerValidationError(
-                f'tier inválido "{tier}"; permitidos: {", ".join(VALID_PICK_TIERS)}'
+                f'tier inválido "{tier}"; permitidos: {", ".join(allowed_list)}',
+                code="invalid_pick_tier",
             )
 
         version_modelo = _require_non_empty_str(data.get("version_modelo"), "version_modelo")
@@ -812,7 +827,7 @@ class PickLedger:
 
             rec_type = parsed.get("record_type", "pick")
             if rec_type == "pick":
-                appended: LedgerRecord = ledger.append_pick(parsed)
+                appended: LedgerRecord = ledger.append_pick(parsed, allow_legacy_tiers=True)
             elif rec_type == "closing":
                 appended = ledger.append_closing(parsed)
             elif rec_type == "settlement":

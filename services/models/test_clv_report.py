@@ -79,7 +79,7 @@ class TestImmutableLedger:
             entry.price_tomado = 3.50  # type: ignore[misc]
 
         # Siguiente registro encadena prev_hash = entry.entry_hash
-        entry2 = ledger.append_pick(_sample_pick(pick_id="pk-mx-002", line=None, market="1x2", tier="baseline_v3_0"))
+        entry2 = ledger.append_pick(_sample_pick(pick_id="pk-mx-002", line=None, market="1x2", tier="valor"))
         assert entry2.prev_hash == entry.entry_hash
         assert entry2.entry_hash != entry.entry_hash
         assert ledger.verify_integrity() is True
@@ -106,9 +106,10 @@ class TestImmutableLedger:
             with pytest.raises(LedgerValidationError):
                 ledger.append_pick(_sample_pick(pick_id=f"st-{bad_stake}", stake_u=bad_stake))
 
-        # tier inválido
-        with pytest.raises(LedgerValidationError):
-            ledger.append_pick(_sample_pick(pick_id="bad-tier", tier="vip_inventado"))
+        # tier inválido o heredado prohibido en registro de picks nuevos (v3.2)
+        for bad_tier in ("vip_inventado", "baseline_v3_0", "especulativo"):
+            with pytest.raises(LedgerValidationError):
+                ledger.append_pick(_sample_pick(pick_id=f"bad-tier-{bad_tier}", tier=bad_tier))
 
     def test_separate_closing_and_settlement_never_mutate_original_pick(self, tmp_path: Path) -> None:
         jsonl_path = tmp_path / "ledger.jsonl"
@@ -546,7 +547,8 @@ class TestGoldenParityWithTypeScript:
                 "tier": "baseline_v3_0",
                 "version_modelo": "3.0.0",
                 "features_hash": fh,
-            }
+            },
+            allow_legacy_tiers=True,
         )
         ledger.append_closing(
             {
@@ -563,6 +565,10 @@ class TestGoldenParityWithTypeScript:
             }
         )
         assert verify_ledger_integrity(ledger.get_records()) is True
+        reloaded_historical = PickLedger.from_jsonl(ledger.to_jsonl())
+        assert reloaded_historical.get_pick("pk-003") is not None
+        assert reloaded_historical.get_pick("pk-003").tier == "baseline_v3_0"  # type: ignore[union-attr]
+        assert reloaded_historical.head_hash == ledger.head_hash
         expected_hashes = [
             "68562c60e8fac11f874b59a81246f0f70e63cb2988adea60cd28b8fc1ecb5fbc",
             "cf12b701bdb26f5adf4c3a1857a02905ba845be945e2f4eeb6d0826ae6f59c8c",

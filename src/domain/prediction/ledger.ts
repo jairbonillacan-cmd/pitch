@@ -17,9 +17,20 @@
 /** Hash génesis de 64 ceros hexadecimales para el primer eslabón de la cadena SHA-256. */
 export const GENESIS_HASH = "0000000000000000000000000000000000000000000000000000000000000000";
 
-/** Niveles de clasificación de pick soportados por el contrato A2 / Geodesic v3.0. */
-export const VALID_PICK_TIERS = ["solido", "valor", "baseline_v3_0", "especulativo"] as const;
+/** Niveles activos de clasificación de pick permitidos al crear nuevos registros en v3.2. */
+export const VALID_PICK_TIERS = ["solido", "valor"] as const;
 export type PickTier = (typeof VALID_PICK_TIERS)[number];
+
+/** Niveles heredados aceptados exclusivamente al deserializar registros históricos (`fromJsonl`). */
+export const LEGACY_PICK_TIERS = ["baseline_v3_0", "especulativo"] as const;
+export type LegacyPickTier = (typeof LEGACY_PICK_TIERS)[number];
+
+/** Unión completa de niveles válidos en lectura histórica de cadenas JSONL existentes. */
+export const HISTORICAL_PICK_TIERS = [
+  ...VALID_PICK_TIERS,
+  ...LEGACY_PICK_TIERS,
+] as const;
+export type HistoricalPickTier = (typeof HISTORICAL_PICK_TIERS)[number];
 
 /** Casas sharp permitidas para fijar cuota de cierre válida (jamás casas recreativas ni Betfair Exchange en histórico). */
 export const ALLOWED_SHARP_CLOSING_BOOKS = ["pinnacle", "smarkets"] as const;
@@ -37,6 +48,7 @@ export const SETTLEMENT_OUTCOMES = [
 export type SettlementOutcome = (typeof SETTLEMENT_OUTCOMES)[number];
 
 const VALID_TIER_SET: ReadonlySet<string> = new Set(VALID_PICK_TIERS);
+const HISTORICAL_TIER_SET: ReadonlySet<string> = new Set(HISTORICAL_PICK_TIERS);
 const SHARP_BOOK_SET: ReadonlySet<string> = new Set(ALLOWED_SHARP_CLOSING_BOOKS);
 const SETTLEMENT_OUTCOME_SET: ReadonlySet<string> = new Set(SETTLEMENT_OUTCOMES);
 
@@ -91,6 +103,17 @@ export interface PickLedgerInput {
   readonly features_hash: string;
 }
 
+/** Opciones internas de lectura histórica al reconstruir un ledger desde JSONL. */
+export interface AppendPickOptions {
+  /** Solo para deserialización de registros históricos (`fromJsonl`). Prohibido al emitir picks nuevos. */
+  readonly allowLegacyTiers?: boolean;
+}
+
+/** Entrada histórica aceptada únicamente cuando `allowLegacyTiers === true`. */
+export interface HistoricalPickLedgerInput extends Omit<PickLedgerInput, "tier"> {
+  readonly tier: HistoricalPickTier;
+}
+
 /** Registro inmutable de emisión de pick almacenado en el ledger. */
 export interface PickLedgerEntry {
   readonly record_type: "pick";
@@ -109,7 +132,7 @@ export interface PickLedgerEntry {
   readonly p_final: number;
   readonly ev: number;
   readonly stake_u: number;
-  readonly tier: PickTier;
+  readonly tier: HistoricalPickTier;
   readonly version_modelo: string;
   readonly features_hash: string;
   readonly prev_hash: string;
@@ -545,6 +568,11 @@ export function verifyLedgerIntegrity(records: readonly LedgerRecord[]): boolean
     }
 
     if (rec.record_type === "pick") {
+      if (!HISTORICAL_TIER_SET.has(rec.tier)) {
+        throw new LedgerIntegrityError(
+          `tier inválido detectado en cadena en posición ${idx}: "${String(rec.tier)}"`,
+        );
+      }
       if (seenPicks.has(rec.pick_id)) {
         throw new LedgerIntegrityError(`pick_id duplicado detectado en cadena en posición ${idx}: "${rec.pick_id}"`);
       }
@@ -622,9 +650,16 @@ export class PickLedger {
 
   /**
    * Añade un nuevo `PickLedgerEntry` inmutable al final del ledger.
-   * Rechaza `pick_id` duplicados y cualquier violación de rangos finitos.
+   * Por defecto en v3.2 acepta ÚNICAMENTE `tier` `"solido"` o `"valor"`; los niveles heredados
+   * (`"baseline_v3_0"`, `"especulativo"`) solo se permiten en deserialización histórica (`fromJsonl`
+   * o `{ allowLegacyTiers: true }`).
    */
-  appendPick(input: PickLedgerInput): PickLedgerEntry {
+  appendPick(input: PickLedgerInput): PickLedgerEntry;
+  appendPick(input: HistoricalPickLedgerInput, options: AppendPickOptions): PickLedgerEntry;
+  appendPick(
+    input: PickLedgerInput | HistoricalPickLedgerInput,
+    options?: AppendPickOptions,
+  ): PickLedgerEntry {
     if (!input || typeof input !== "object") {
       throw new LedgerValidationError("entrada de pick inválida");
     }
@@ -677,12 +712,16 @@ export class PickLedger {
     const stake_u = input.stake_u;
 
     const tierRaw = requireNonEmptyString(input.tier, "tier");
-    if (!VALID_TIER_SET.has(tierRaw)) {
+    const allowLegacy = options?.allowLegacyTiers === true;
+    const allowedTierSet = allowLegacy ? HISTORICAL_TIER_SET : VALID_TIER_SET;
+    if (!allowedTierSet.has(tierRaw)) {
+      const allowedList = allowLegacy ? HISTORICAL_PICK_TIERS : VALID_PICK_TIERS;
       throw new LedgerValidationError(
-        `tier inválido "${tierRaw}"; valores permitidos: ${VALID_PICK_TIERS.join(", ")}`,
+        `tier inválido "${tierRaw}"; valores permitidos: ${allowedList.join(", ")}`,
+        "invalid_pick_tier",
       );
     }
-    const tier = tierRaw as PickTier;
+    const tier = tierRaw as HistoricalPickTier;
 
     const version_modelo = requireNonEmptyString(input.version_modelo, "version_modelo");
     const features_hash = requireNonEmptyString(input.features_hash, "features_hash");
@@ -1001,26 +1040,29 @@ export class PickLedger {
       let appended: LedgerRecord;
 
       if (recType === "pick") {
-        appended = ledger.appendPick({
-          pick_id: parsed.pick_id as string,
-          ts_emitido: parsed.ts_emitido as string,
-          event_id: parsed.event_id as string,
-          sport: parsed.sport as string,
-          league: parsed.league as string,
-          market: parsed.market as string,
-          line: (parsed.line as number | null | undefined) ?? null,
-          selection: parsed.selection as string,
-          book: parsed.book as string,
-          price_tomado: parsed.price_tomado as number,
-          p_modelo: parsed.p_modelo as number,
-          p_mercado: parsed.p_mercado as number,
-          p_final: parsed.p_final as number,
-          ev: parsed.ev as number,
-          stake_u: parsed.stake_u as number,
-          tier: parsed.tier as PickTier,
-          version_modelo: parsed.version_modelo as string,
-          features_hash: parsed.features_hash as string,
-        });
+        appended = ledger.appendPick(
+          {
+            pick_id: parsed.pick_id as string,
+            ts_emitido: parsed.ts_emitido as string,
+            event_id: parsed.event_id as string,
+            sport: parsed.sport as string,
+            league: parsed.league as string,
+            market: parsed.market as string,
+            line: (parsed.line as number | null | undefined) ?? null,
+            selection: parsed.selection as string,
+            book: parsed.book as string,
+            price_tomado: parsed.price_tomado as number,
+            p_modelo: parsed.p_modelo as number,
+            p_mercado: parsed.p_mercado as number,
+            p_final: parsed.p_final as number,
+            ev: parsed.ev as number,
+            stake_u: parsed.stake_u as number,
+            tier: parsed.tier as HistoricalPickTier,
+            version_modelo: parsed.version_modelo as string,
+            features_hash: parsed.features_hash as string,
+          },
+          { allowLegacyTiers: true },
+        );
       } else if (recType === "closing") {
         appended = ledger.appendClosing({
           pick_id: parsed.pick_id as string,

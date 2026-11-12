@@ -1,0 +1,76 @@
+﻿{
+  "agent_id": "B2",
+  "agent_name": "b2-gate",
+  "wave": 1,
+  "state": "completed",
+  "started_at": "2026-11-12T14:49:08Z",
+  "finished_at": "2026-11-12T15:23:30Z",
+  "files_written": [
+    "src/data/prediction/service_constants_v3_2.json",
+    "src/domain/prediction/types.ts",
+    "src/domain/prediction/ledger.ts",
+    "src/domain/prediction/service.ts",
+    "services/models/clv_report.py",
+    "services/models/test_clv_report.py",
+    "services/models/test_backtest.py",
+    "tests/prediction/service_gate.test.ts",
+    "tests/prediction/devig.test.ts",
+    "tests/prediction/multisport_and_v3.test.ts",
+    "tests/prediction/ledger_clv.test.ts",
+    "research/prediction-lab/coordination/v3_2/status/B2.json"
+  ],
+  "commands_run": [
+    "Set-Location \"C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\prediction-lab\"; npx tsc --noEmit | Select-String \"prediction\"",
+    "Set-Location \"C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\prediction-lab\"; (Get-FileHash \"src/data/prediction/production_segments_v3_1.json\" -Algorithm SHA256).Hash.ToLower()",
+    "Set-Location \"C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\prediction-lab\"; npx vitest run",
+    "Set-Location \"C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\prediction-lab\"; git checkout -- evidence/statistical-tests/aztecavet-experiments.json",
+    "Set-Location \"C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\prediction-lab\"; .\\research\\prediction-lab\\.venv\\Scripts\\python.exe -m pytest services/models -v"
+  ],
+  "metrics": {
+    "evidence_label": "OBSERVADO",
+    "production_segments_v3_1_sha256_readonly": "0bc03bbff96a5d82a1a7858e1e8623bf7bfdb250c546d2773a71d56ed9ada9bc",
+    "production_segments_enabled": 0,
+    "production_segments_total": 60,
+    "live_matchday_v3_matchups_total": 242,
+    "live_matchday_v3_leagues_total": 11,
+    "live_matchday_v3_executable_bets_count": 0,
+    "live_matchday_v3_v3_0_synthetic_bets_eliminated": 63,
+    "live_matchday_v3_active_edges": 0,
+    "live_matchday_v3_active_kelly": 0,
+    "live_matchday_v3_active_stakes": 0,
+    "live_matchday_v3_prices_without_origin_or_ts_captured": 0,
+    "live_matchday_v3_with_real_quotes_disabled_segment_active_edges": 0,
+    "live_matchday_v3_with_real_quotes_disabled_segment_active_kelly": 0,
+    "live_matchday_v3_with_real_quotes_disabled_segment_active_stakes": 0,
+    "live_matchday_v3_avg_ms_per_matchup": 0.2707,
+    "live_matchday_v3_parity_max_abs_diff": 1.1102230246251565e-16,
+    "feature_coverage_live_nfl": {
+      "present": 4,
+      "total": 29,
+      "ratio": 0.13793103448275862,
+      "dataQualityFlag": "low_coverage"
+    },
+    "feature_coverage_live_football": {
+      "present": 38,
+      "total": 113,
+      "ratio": 0.336283185840708,
+      "dataQualityFlag": "low_coverage"
+    },
+    "dixon_coles_single_implementation_max_abs_diff": 0.0,
+    "ledger_tier_parity_ts_python_max_abs_diff_lt_1e_12": true,
+    "service_constants_documented_blocks": 13,
+    "tsc_prediction_errors": 0,
+    "vitest_test_files_passed": 59,
+    "vitest_test_files_skipped": 1,
+    "vitest_tests_passed": 1144,
+    "vitest_tests_failed": 0,
+    "pytest_tests_passed": 92,
+    "pytest_tests_failed": 0
+  },
+  "open_issues": [],
+  "next": [
+    "B5 (paper_trading.py): registrar nuevos picks prospectivos usando únicamente tiers 'solido' | 'valor' sobre append_pick_to_jsonl / PickLedger.append_pick.",
+    "B8 (regenerate_live_snapshot.py): invocar predictLiveMatchup / predictLiveEdgeMatrix respetando valueStatus ('no_market' | 'disabled_segment') y featureCoverage sin emitir stakes ni edges con los 60 segmentos apagados.",
+    "V (v-redteam): auditar SHA-256 congelado de production_segments_v3_1.json, ausencia total de cuotas sintéticas y paridad < 1e-12 del ledger TS ↔ Python."
+  ]
+}

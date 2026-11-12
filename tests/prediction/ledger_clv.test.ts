@@ -97,7 +97,7 @@ describe("A2 — Ledger inmutable append-only (PickLedger)", () => {
         pick_id: "pk-mx-002",
         market: "1x2",
         line: null,
-        tier: "baseline_v3_0",
+        tier: "valor",
       }),
     );
     expect(e2.prev_hash).toBe(e1.entry_hash);
@@ -130,14 +130,16 @@ describe("A2 — Ledger inmutable append-only (PickLedger)", () => {
       ).toThrow(LedgerValidationError);
     }
 
-    expect(() =>
-      ledger.appendPick(
-        makeSamplePick({
-          pick_id: "bad-tier",
-          tier: "inventado" as unknown as PickLedgerInput["tier"],
-        }),
-      ),
-    ).toThrow(LedgerValidationError);
+    for (const badTier of ["inventado", "baseline_v3_0", "especulativo"]) {
+      expect(() =>
+        ledger.appendPick(
+          makeSamplePick({
+            pick_id: `bad-tier-${badTier}`,
+            tier: badTier as unknown as PickLedgerInput["tier"],
+          }),
+        ),
+      ).toThrow(LedgerValidationError);
+    }
   });
 
   it("registra cierres y liquidaciones en eslabones separados sin mutar la emisión original y detecta alteración JSONL", () => {
@@ -362,26 +364,29 @@ describe("A2 — Bootstrap (>= 1000 remuestreos) y Paridad Exacta TS <-> Python"
       outcome: "loss",
     });
 
-    ledger.appendPick({
-      pick_id: "pk-003",
-      ts_emitido: "2026-08-17T20:00:00Z",
-      event_id: "ev-nfl-303",
-      sport: "nfl",
-      league: "NFL",
-      market: "spread",
-      line: -3.0,
-      selection: "home",
-      book: "codere_mx",
-      price_tomado: 1.95,
-      p_modelo: 0.55,
-      p_mercado: 0.52,
-      p_final: 0.54,
-      ev: 0.053,
-      stake_u: 1.0,
-      tier: "baseline_v3_0",
-      version_modelo: "3.0.0",
-      features_hash: fh,
-    });
+    ledger.appendPick(
+      {
+        pick_id: "pk-003",
+        ts_emitido: "2026-08-17T20:00:00Z",
+        event_id: "ev-nfl-303",
+        sport: "nfl",
+        league: "NFL",
+        market: "spread",
+        line: -3.0,
+        selection: "home",
+        book: "codere_mx",
+        price_tomado: 1.95,
+        p_modelo: 0.55,
+        p_mercado: 0.52,
+        p_final: 0.54,
+        ev: 0.053,
+        stake_u: 1.0,
+        tier: "baseline_v3_0",
+        version_modelo: "3.0.0",
+        features_hash: fh,
+      },
+      { allowLegacyTiers: true },
+    );
     ledger.appendClosing({
       pick_id: "pk-003",
       ts_recorded: "2026-08-17T23:59:59Z",
@@ -394,6 +399,9 @@ describe("A2 — Bootstrap (>= 1000 remuestreos) y Paridad Exacta TS <-> Python"
     });
 
     expect(verifyLedgerIntegrity(ledger.getRecords())).toBe(true);
+    const deserializedHistorical = PickLedger.fromJsonl(ledger.toJsonl());
+    expect(deserializedHistorical.getPick("pk-003")?.tier).toBe("baseline_v3_0");
+    expect(deserializedHistorical.headHash).toBe(ledger.headHash);
 
     // Los 9 hashes SHA-256 encadenados coinciden carácter por carácter con Python (`clv_report.py`)
     expect(ledger.getRecords().map((r) => r.entry_hash)).toEqual([

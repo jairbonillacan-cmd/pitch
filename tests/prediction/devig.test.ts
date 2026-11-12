@@ -15,7 +15,13 @@ import {
   impliedProbabilities,
   overround,
 } from "../../src/domain/prediction/devig.js";
-import { HYBRID_MODEL_ID, predictMatch, predictMatchBatch } from "../../src/domain/prediction/service.js";
+import {
+  DEFAULT_PRODUCTION_SEGMENTS_V3_1,
+  HYBRID_MODEL_ID,
+  predictMatch,
+  predictMatchBatch,
+  resolveProductionSegmentGate,
+} from "../../src/domain/prediction/service.js";
 import type {
   ModelArtifact,
   NFLModelArtifact,
@@ -106,31 +112,72 @@ describe("A17 — de-vig", () => {
   });
 });
 
-describe("A17 — predictMatch", () => {
-  it("con odds válidas usa el mercado y reporta el método y métricas de valor", () => {
-    const p = predictMatch({ sport: "football", row: footballRow, model: footballModel, odds: ODDS });
-    expect(p.modelId).toBe("market_devig");
-    expect(p.dataQualityFlag).toBe("ok");
-    expect(p.sport).toBe("football");
-    expect(p.marketMethod).toBe("power");
-    expect(Math.abs(p.pHome + p.pDraw + p.pAway - 1)).toBeLessThanOrEqual(1e-9);
-    expect(p.modelMarketDivergence).toHaveLength(3);
-    expect(p.expectedEdge).toHaveLength(3);
-    expect(p.kellyFraction).toHaveLength(3);
-    expect(typeof p.uncertaintyGatePassed).toBe("boolean");
+describe("A17 / v3.2 — predictMatch y compuerta de honestidad de mercado", () => {
+  it("con odds sin origen/tsCaptured o en segmento apagado usa de-vig pero jamás emite edge ni Kelly", () => {
+    const pNoMeta = predictMatch({
+      sport: "football",
+      row: footballRow,
+      model: footballModel,
+      odds: ODDS,
+    });
+    expect(pNoMeta.modelId).toBe("market_devig");
+    expect(pNoMeta.dataQualityFlag).toBe("ok");
+    expect(pNoMeta.sport).toBe("football");
+    expect(pNoMeta.marketMethod).toBe("power");
+    expect(Math.abs(pNoMeta.pHome + pNoMeta.pDraw + pNoMeta.pAway - 1)).toBeLessThanOrEqual(1e-9);
+    expect(pNoMeta.modelMarketDivergence).toHaveLength(3);
+    expect(pNoMeta.valueStatus).toBe("no_market");
+    expect(pNoMeta.market).toBeNull();
+    expect(pNoMeta.expectedEdge).toBeUndefined();
+    expect(pNoMeta.kellyFraction).toBeUndefined();
+
+    const pDisabledSeg = predictMatch({
+      sport: "football",
+      row: footballRow,
+      model: footballModel,
+      odds: ODDS,
+      oddsBook: "pinnacle",
+      tsCaptured: "2026-11-12T12:00:00Z",
+    });
+    expect(pDisabledSeg.valueStatus).toBe("disabled_segment");
+    expect(pDisabledSeg.segmentEnabled).toBe(false);
+    expect(pDisabledSeg.market?.book).toBe("pinnacle");
+    expect(pDisabledSeg.expectedEdge).toBeUndefined();
+    expect(pDisabledSeg.kellyFraction).toBeUndefined();
   });
 
-  it("soporta modo hybrid (Motor C) y Line Shopping con bestOdds", () => {
+  it("soporta modo hybrid (Motor C) y Line Shopping solo cuando el segmento está habilitado", () => {
+    const gateInfo = resolveProductionSegmentGate(footballRow.div ?? "E0", "1x2");
+    const mockEnabledSegments = {
+      ...DEFAULT_PRODUCTION_SEGMENTS_V3_1,
+      segments: {
+        ...DEFAULT_PRODUCTION_SEGMENTS_V3_1.segments,
+        [gateInfo.segmentKey]: {
+          league: gateInfo.segmentKey.split("::")[0]!,
+          market: "1x2",
+          production_enabled: true,
+          disabled_reason: null,
+        },
+      },
+    };
+
     const base = predictMatch({
       sport: "football",
       row: footballRow,
       model: footballModel,
       odds: ODDS,
+      oddsBook: "pinnacle",
+      tsCaptured: "2026-11-12T12:00:00Z",
       mode: "hybrid",
       hybridAlpha: 0.85,
+      productionSegments: mockEnabledSegments,
     });
     expect(base.modelId).toBe(HYBRID_MODEL_ID);
     expect(base.hybridAlpha).toBeCloseTo(0.85, 12);
+    expect(base.valueStatus).toBe("active");
+    expect(base.expectedEdge).toHaveLength(3);
+    expect(base.kellyFraction).toHaveLength(3);
+    expect(typeof base.uncertaintyGatePassed).toBe("boolean");
 
     const shopped = predictMatch({
       sport: "football",
@@ -138,8 +185,11 @@ describe("A17 — predictMatch", () => {
       model: footballModel,
       odds: ODDS,
       bestOdds: [2.15, 3.7, 4.3],
+      oddsBook: "b365",
+      tsCaptured: "2026-11-12T12:00:00Z",
       mode: "hybrid",
       hybridAlpha: 0.85,
+      productionSegments: mockEnabledSegments,
     });
     expect(shopped.expectedEdge![0]).toBeGreaterThan(base.expectedEdge![0]);
   });
