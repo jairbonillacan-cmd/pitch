@@ -1,0 +1,74 @@
+{
+  "agent_id": "V",
+  "agent_name": "v-verifier",
+  "role": "red_team_verifier_readonly",
+  "gate": 1,
+  "wave_audited": 1,
+  "state": "completed",
+  "gate_1_verdict": "PASS",
+  "started_at": "2026-11-12T15:30:25Z",
+  "finished_at": "2026-11-12T15:42:30Z",
+  "audited_heads": {
+    "prediction_lab": {
+      "branch": "prediction-lab",
+      "base_commit": "f3564a4266c33441db9c2f36714073b7516d37e6",
+      "audited_head": "1e22b6a902f28a47af83287edb827751839e252f"
+    },
+    "web_scraping": {
+      "branch": "web-scraping",
+      "base_commit": "3a8b3c0",
+      "audited_head": "4993a9b6b598aa3fa63be1cb5735975cbd56e35f"
+    }
+  },
+  "files_written": [
+    "research/prediction-lab/reports/A29_verificacion_v3_2.md",
+    "research/prediction-lab/coordination/v3_2/status/V.json"
+  ],
+  "commands_run": [
+    "Set-Location 'C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\prediction-lab'; npx vitest run; git checkout -- evidence/statistical-tests/aztecavet-experiments.json",
+    "Set-Location 'C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\prediction-lab'; .\\research\\prediction-lab\\.venv\\Scripts\\python.exe -m pytest services/models -v",
+    "Set-Location 'C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping'; .\\.venv\\Scripts\\python.exe -m pytest tests -v",
+    "Set-Location 'C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\prediction-lab'; git log f3564a4..HEAD --name-status",
+    "Set-Location 'C:\\Users\\T490s\\Desktop\\Proyectos\\PitchLab\\.worktrees\\web-scraping'; git log 3a8b3c0..HEAD --name-status"
+  ],
+  "metrics": {
+    "epistemic_status": "OBSERVADO",
+    "controls_total": 18,
+    "controls_passed": 18,
+    "controls_failed": 0,
+    "frozen_v3_1_artifacts_intact": true,
+    "production_segments_v3_1_sha256": "0bc03bbff96a5d82a1a7858e1e8623bf7bfdb250c546d2773a71d56ed9ada9bc",
+    "production_enabled_true_count": 0,
+    "production_enabled_false_count": 60,
+    "holdout_sealed_untouched": true,
+    "holdout_registry_lines_1_to_29_intact": true,
+    "holdout_registry_line_30_eval_split": "walk_forward_dev",
+    "holdout_registry_line_30_unlock_holdout": false,
+    "outlook_calibration_mirror_sha256": "090cfaa23d35bdd569ea3a17d0084b6af7b2e99eeb8cdb00b15a8b588654194e",
+    "outlook_calibration_segments_count": 98,
+    "live_snapshot_242_stakes_count": 0,
+    "live_snapshot_242_active_edges_count": 0,
+    "live_snapshot_242_synthetic_prices_count": 0,
+    "web_scraping_simulated_rows_count": 0,
+    "web_scraping_antibot_evasion_active_count": 0,
+    "ts_python_parity_max_abs_delta": 0.0,
+    "vitest_prediction_lab": {
+      "files_passed": 59,
+      "files_skipped": 1,
+      "tests_passed": 1145,
+      "tests_skipped": 1,
+      "failures": 0
+    },
+    "pytest_prediction_lab": {
+      "tests_passed": 92,
+      "failures": 0
+    },
+    "pytest_web_scraping": {
+      "tests_passed": 7,
+      "failures": 0
+    },
+    "forbidden_boundaries_touched_files": 0
+  },
+  "open_issues": [],
+  "next": "Puerta 1 APROBADA (PASS). En espera (swarm_wait) para auditar Puerta 2 (cierre de Ola 2: B5, B6, B7, B8) y Puerta 3 (cierre de Ola 3: B9)."
+}
