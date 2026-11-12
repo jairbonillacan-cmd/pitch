@@ -1,10 +1,10 @@
 {
   "agent_id": "O",
   "role": "orchestrator",
-  "wave": 0,
+  "wave": 4,
   "state": "completed",
   "started_at": "2026-11-12T14:39:06Z",
-  "finished_at": "2026-11-12T14:45:00Z",
+  "finished_at": "2026-11-12T19:14:00Z",
   "worktrees": {
     "prediction_lab": {
       "path": "C:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/prediction-lab",
@@ -14,7 +14,8 @@
     "web_scraping": {
       "path": "C:/Users/T490s/Desktop/Proyectos/PitchLab/.worktrees/web-scraping",
       "branch": "web-scraping",
-      "base_commit": "3a8b3c0"
+      "base_commit": "3a8b3c091671ea707e3cf9856757e19047b0e346",
+      "head_commit": "4993a9b6b598aa3fa63be1cb5735975cbd56e35f"
     }
   },
   "frozen_artifacts_sha256": {
@@ -23,26 +24,59 @@
     "src/data/prediction/pick_policy_v3_1.json": "2359c8f8822ea394a380202c04e0bcd010d1a3fae7c5c25b8c11ebe810bfb7d1",
     "src/data/prediction/stale_lines_config.json": "8bcb9c7be93270cde0cac2d58bc19f0381184dd2e769f358dd28334db2a05eac"
   },
+  "gates": {
+    "gate_1": { "verdict": "PASS", "controls": "18/18", "commit": "e20e823" },
+    "gate_2": { "verdict": "PASS", "controls": "16/16", "commit": "19453fb" },
+    "gate_3": { "verdict": "PASS", "controls": "16/16", "commit": "14e3e1e" },
+    "overall": { "verdict": "PASS", "controls": "50/50", "master_criteria": "8/8" }
+  },
+  "commits": {
+    "O_wave0": "b04e342",
+    "B3_web_scraping": "4993a9b",
+    "B3_prediction_lab": "48854e8",
+    "B2": "5f403ae",
+    "B1": "a33cdc4",
+    "B4": "1e22b6a",
+    "V_gate1": "e20e823",
+    "B6": "70e08db",
+    "B8": "96a8f4b",
+    "B5": "adb0313",
+    "V_gate2": "19453fb",
+    "B7": "53ff835",
+    "B9": "bbfdbc5",
+    "V_gate3": "14e3e1e",
+    "B10": "ad5b4af"
+  },
   "files_written": [
+    "docs/predicciones/20_SWARM_V3_2_GEMINI.md",
     "research/prediction-lab/coordination/v3_2/MASTER.md",
     "research/prediction-lab/coordination/v3_2/CONTRACT_OUTLOOK.md",
     "research/prediction-lab/coordination/v3_2/CONTRACT_ODDS_TIMESERIES.md",
-    "research/prediction-lab/coordination/v3_2/status/O.json"
+    "research/prediction-lab/coordination/v3_2/status/O.json",
+    "docs/execution/PROJECT_STATE.md"
   ],
   "commands_run": [
-    "npx vitest run",
-    ".\\research\\prediction-lab\\.venv\\Scripts\\python.exe -m pytest services/models -v",
+    "npx.cmd vitest run",
+    ".\\research\\prediction-lab\\.venv\\Scripts\\python.exe -B -m pytest services/models research/prediction-lab/experiments/EXP_V32_xi research/prediction-lab/experiments/EXP_V32_nfl_epa -v",
     "Get-FileHash -Algorithm SHA256 src/data/prediction/production_segments_v3_1.json"
   ],
   "metrics": {
-    "vitest_files_passed": 57,
+    "vitest_files_passed": 61,
     "vitest_files_skipped": 1,
-    "vitest_tests_passed": 1126,
+    "vitest_tests_passed": 1153,
     "vitest_tests_skipped": 1,
-    "pytest_tests_passed": 85,
+    "pytest_prediction_lab_passed": 120,
+    "pytest_web_scraping_passed": 7,
     "production_segments_enabled": 0,
-    "production_segments_total": 60
+    "production_segments_total": 60,
+    "new_holdout_sealed_trials": 0
   },
-  "open_issues": [],
-  "next": "Lanzar Ola 1 en paralelo: b1-outlook, b2-gate, b3-capture, b4-calibration."
+  "open_issues": [
+    "prospective_capture_pending: faltan credenciales oficiales API (THE_ODDS_API_KEY / BETFAIR_APP_KEY / API_FOOTBALL_KEY / FOOTBALL_DATA_API_KEY) y 10 fuentes web permanecen en blocked_pending_owner_decision.",
+    "picks_v3_2_prospective.jsonl en 0/150 picks reales (requiere captura multi-tick continua).",
+    "nfl_sharp_closing.parquet en 0/64 juegos liquidados con cierre sharp real (13 juegos futuros capturados).",
+    "EXP_V32_xi y model_nfl_v3_2_candidate.json se mantienen en production_activated: false.",
+    "Sincronizacion hacia packages/spacetime y apps/web diferida para sesion de producto siguiendo SYNC_NOTES.md."
+  ],
+  "next": "Aprovisionar credenciales API oficiales, operar captura multi-tick en web-scraping y acumular >=150 picks prospectivos reales en futbol y >=64 juegos NFL liquidados con cierre sharp."
 }
