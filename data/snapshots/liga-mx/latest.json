@@ -4,7 +4,7 @@
   "season": "liga-mx-2026-apertura",
   "seasonLabel": "Apertura 2026",
   "periodLabel": "Jornada 16",
-  "updatedAt": "2026-11-11T02:38:42.517Z",
+  "updatedAt": "2026-11-12T21:47:48.845Z",
   "source": "espn",
   "provenance": "derived",
   "isDemo": false,
@@ -17,8 +17,8 @@
       "forPerGame": 2.375,
       "againstPerGame": 1.4375,
       "gamesPlayed": 16,
-      "adjustedFor": 2.1340750658778123,
-      "adjustedAgainst": 1.3491319917553777
+      "adjustedFor": 2.129063013291254,
+      "adjustedAgainst": 1.3616768545068745
     },
     "liga-mx.atlante": {
       "teamId": "liga-mx.atlante",
@@ -28,8 +28,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.625,
       "gamesPlayed": 16,
-      "adjustedFor": 1.0719608830481553,
-      "adjustedAgainst": 1.528204270723519
+      "adjustedFor": 1.0723300855021396,
+      "adjustedAgainst": 1.5281636941700099
     },
     "liga-mx.atlas": {
       "teamId": "liga-mx.atlas",
@@ -39,8 +39,8 @@
       "forPerGame": 1.6875,
       "againstPerGame": 1.875,
       "gamesPlayed": 16,
-      "adjustedFor": 1.6680493325002508,
-      "adjustedAgainst": 1.7292865673546243
+      "adjustedFor": 1.6684725311435873,
+      "adjustedAgainst": 1.7285271707888687
     },
     "liga-mx.atletico-san-luis": {
       "teamId": "liga-mx.atletico-san-luis",
@@ -50,8 +50,8 @@
       "forPerGame": 1.1875,
       "againstPerGame": 1.5,
       "gamesPlayed": 16,
-      "adjustedFor": 1.1990157219603772,
-      "adjustedAgainst": 1.3940741916751707
+      "adjustedFor": 1.19988236857279,
+      "adjustedAgainst": 1.393963461290591
     },
     "liga-mx.chivas": {
       "teamId": "liga-mx.chivas",
@@ -61,8 +61,8 @@
       "forPerGame": 1.625,
       "againstPerGame": 0.9375,
       "gamesPlayed": 16,
-      "adjustedFor": 1.4920300457801428,
-      "adjustedAgainst": 1.0118903876835177
+      "adjustedFor": 1.4965302486798189,
+      "adjustedAgainst": 1.0197240237824607
     },
     "liga-mx.cruz-azul": {
       "teamId": "liga-mx.cruz-azul",
@@ -72,8 +72,8 @@
       "forPerGame": 2.3125,
       "againstPerGame": 1.625,
       "gamesPlayed": 16,
-      "adjustedFor": 2.0758891096703134,
-      "adjustedAgainst": 1.4997307749785747
+      "adjustedFor": 2.0764226357945117,
+      "adjustedAgainst": 1.4997348282213288
     },
     "liga-mx.fc-juarez": {
       "teamId": "liga-mx.fc-juarez",
@@ -83,8 +83,8 @@
       "forPerGame": 0.8125,
       "againstPerGame": 2.125,
       "gamesPlayed": 16,
-      "adjustedFor": 0.9654380451872275,
-      "adjustedAgainst": 1.8216691762039137
+      "adjustedFor": 0.9583388055947896,
+      "adjustedAgainst": 1.8223738982234157
     },
     "liga-mx.leon": {
       "teamId": "liga-mx.leon",
@@ -94,8 +94,8 @@
       "forPerGame": 1.4375,
       "againstPerGame": 1.3125,
       "gamesPlayed": 16,
-      "adjustedFor": 1.382856049126511,
-      "adjustedAgainst": 1.29579175098424
+      "adjustedFor": 1.379032107008468,
+      "adjustedAgainst": 1.2983728381544128
     },
     "liga-mx.monterrey": {
       "teamId": "liga-mx.monterrey",
@@ -105,8 +105,8 @@
       "forPerGame": 1.7333333333333334,
       "againstPerGame": 1.6666666666666667,
       "gamesPlayed": 15,
-      "adjustedFor": 1.6703745856020435,
-      "adjustedAgainst": 1.5209431132006932
+      "adjustedFor": 1.670904368827301,
+      "adjustedAgainst": 1.5211148738265692
     },
     "liga-mx.necaxa": {
       "teamId": "liga-mx.necaxa",
@@ -116,8 +116,8 @@
       "forPerGame": 1.0625,
       "againstPerGame": 1.75,
       "gamesPlayed": 16,
-      "adjustedFor": 1.1544378809703908,
-      "adjustedAgainst": 1.6086125669467697
+      "adjustedFor": 1.1567564734914906,
+      "adjustedAgainst": 1.6036417900270556
     },
     "liga-mx.pachuca": {
       "teamId": "liga-mx.pachuca",
@@ -127,8 +127,8 @@
       "forPerGame": 1.8125,
       "againstPerGame": 1.25,
       "gamesPlayed": 16,
-      "adjustedFor": 1.7319133254515457,
-      "adjustedAgainst": 1.2843022654915326
+      "adjustedFor": 1.732299323009352,
+      "adjustedAgainst": 1.2768950401287802
     },
     "liga-mx.puebla": {
       "teamId": "liga-mx.puebla",
@@ -138,8 +138,8 @@
       "forPerGame": 1.1875,
       "againstPerGame": 1.4375,
       "gamesPlayed": 16,
-      "adjustedFor": 1.157525481674005,
-      "adjustedAgainst": 1.3861760808698254
+      "adjustedFor": 1.1579039228678065,
+      "adjustedAgainst": 1.386045654825726
     },
     "liga-mx.pumas-unam": {
       "teamId": "liga-mx.pumas-unam",
@@ -149,8 +149,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.625,
       "gamesPlayed": 16,
-      "adjustedFor": 1.4700505200038203,
-      "adjustedAgainst": 1.53113996314641
+      "adjustedFor": 1.4784622705842285,
+      "adjustedAgainst": 1.5358619483320566
     },
     "liga-mx.queretaro": {
       "teamId": "liga-mx.queretaro",
@@ -160,8 +160,8 @@
       "forPerGame": 1.2,
       "againstPerGame": 1.5333333333333334,
       "gamesPlayed": 15,
-      "adjustedFor": 1.2222881313906457,
-      "adjustedAgainst": 1.44758602911161
+      "adjustedFor": 1.2225741352935486,
+      "adjustedAgainst": 1.4477336237965046
     },
     "liga-mx.santos-laguna": {
       "teamId": "liga-mx.santos-laguna",
@@ -171,8 +171,8 @@
       "forPerGame": 1.4375,
       "againstPerGame": 1.25,
       "gamesPlayed": 16,
-      "adjustedFor": 1.4019306311751902,
-      "adjustedAgainst": 1.2949186012469829
+      "adjustedFor": 1.4026862652940832,
+      "adjustedAgainst": 1.2946227845282972
     },
     "liga-mx.tigres-uanl": {
       "teamId": "liga-mx.tigres-uanl",
@@ -182,8 +182,8 @@
       "forPerGame": 1.0625,
       "againstPerGame": 1.5625,
       "gamesPlayed": 16,
-      "adjustedFor": 1.1266953630268612,
-      "adjustedAgainst": 1.4399126058606884
+      "adjustedFor": 1.1220579830062385,
+      "adjustedAgainst": 1.4404860663260375
     },
     "liga-mx.tijuana": {
       "teamId": "liga-mx.tijuana",
@@ -193,8 +193,8 @@
       "forPerGame": 1.5625,
       "againstPerGame": 1.375,
       "gamesPlayed": 16,
-      "adjustedFor": 1.5404118575307364,
-      "adjustedAgainst": 1.3488936515753915
+      "adjustedFor": 1.54316412270305,
+      "adjustedAgainst": 1.3442647371554002
     },
     "liga-mx.toluca": {
       "teamId": "liga-mx.toluca",
@@ -204,104 +204,11 @@
       "forPerGame": 2.1875,
       "againstPerGame": 1.3125,
       "gamesPlayed": 16,
-      "adjustedFor": 2.0050749551835167,
-      "adjustedAgainst": 1.33199262067513
+      "adjustedFor": 2.0175913123673754,
+      "adjustedAgainst": 1.3255381695751813
     }
   },
   "games": [
-    {
-      "id": "mx-2026-j16-atletico-san-luis-fc-juarez-401876910",
-      "league": "liga-mx",
-      "season": "liga-mx-2026-apertura",
-      "week": 16,
-      "round": "Jornada 16",
-      "startTime": "2026-11-07T01:00Z",
-      "status": "final",
-      "home": {
-        "id": "liga-mx.atletico-san-luis",
-        "league": "liga-mx",
-        "name": "Atlético de San Luis",
-        "shortName": "Atl. San Luis",
-        "code": "ASL"
-      },
-      "away": {
-        "id": "liga-mx.fc-juarez",
-        "league": "liga-mx",
-        "name": "FC Juárez",
-        "shortName": "Juárez",
-        "code": "JUA"
-      },
-      "venue": "Estadio Libertad Financiera",
-      "neutralSite": false,
-      "result": {
-        "home": 0,
-        "away": 1,
-        "observedAt": "2026-11-11T12:00:00.000Z",
-        "source": "espn"
-      }
-    },
-    {
-      "id": "mx-2026-j16-necaxa-tijuana-401876909",
-      "league": "liga-mx",
-      "season": "liga-mx-2026-apertura",
-      "week": 16,
-      "round": "Jornada 16",
-      "startTime": "2026-11-07T01:00Z",
-      "status": "final",
-      "home": {
-        "id": "liga-mx.necaxa",
-        "league": "liga-mx",
-        "name": "Necaxa",
-        "shortName": "Necaxa",
-        "code": "NEC"
-      },
-      "away": {
-        "id": "liga-mx.tijuana",
-        "league": "liga-mx",
-        "name": "Xolos de Tijuana",
-        "shortName": "Tijuana",
-        "code": "TIJ"
-      },
-      "venue": "Estadio Victoria",
-      "neutralSite": false,
-      "result": {
-        "home": 1,
-        "away": 0,
-        "observedAt": "2026-11-11T12:00:00.000Z",
-        "source": "espn"
-      }
-    },
-    {
-      "id": "mx-2026-j16-atlante-santos-laguna-401876908",
-      "league": "liga-mx",
-      "season": "liga-mx-2026-apertura",
-      "week": 16,
-      "round": "Jornada 16",
-      "startTime": "2026-11-07T03:00Z",
-      "status": "final",
-      "home": {
-        "id": "liga-mx.atlante",
-        "league": "liga-mx",
-        "name": "Atlante",
-        "shortName": "Atlante",
-        "code": "ATE"
-      },
-      "away": {
-        "id": "liga-mx.santos-laguna",
-        "league": "liga-mx",
-        "name": "Santos Laguna",
-        "shortName": "Santos Laguna",
-        "code": "SAN"
-      },
-      "venue": "Estadio Banorte",
-      "neutralSite": false,
-      "result": {
-        "home": 0,
-        "away": 2,
-        "observedAt": "2026-11-11T12:00:00.000Z",
-        "source": "espn"
-      }
-    },
     {
       "id": "mx-2026-j16-atlas-pachuca-401876907",
       "league": "liga-mx",
@@ -329,7 +236,7 @@
       "result": {
         "home": 1,
         "away": 4,
-        "observedAt": "2026-11-11T12:00:00.000Z",
+        "observedAt": "2026-11-12T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -360,7 +267,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-11T12:00:00.000Z",
+        "observedAt": "2026-11-12T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -391,7 +298,7 @@
       "result": {
         "home": 4,
         "away": 0,
-        "observedAt": "2026-11-11T12:00:00.000Z",
+        "observedAt": "2026-11-12T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -422,7 +329,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-11T12:00:00.000Z",
+        "observedAt": "2026-11-12T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -453,7 +360,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-11T12:00:00.000Z",
+        "observedAt": "2026-11-12T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -484,7 +391,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-11T12:00:00.000Z",
+        "observedAt": "2026-11-12T12:00:00.000Z",
         "source": "espn"
       }
     },
@@ -740,1378 +647,6 @@
     }
   ],
   "analyses": {
-    "mx-2026-j16-atletico-san-luis-fc-juarez-401876910": {
-      "game": "mx-2026-j16-atletico-san-luis-fc-juarez-401876910",
-      "model": {
-        "id": "pitchlab-statistical-liga-mx",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.6980517616536148,
-        "away": 0.9438870144860342,
-        "total": 2.641938776139649,
-        "margin": 0.7541647471675806
-      },
-      "x12": [
-        0.5337392737537825,
-        0.2492013263190987,
-        0.21705939992711876
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Atl. San Luis gana",
-          "p": 0.5337392737537825,
-          "fairOdds": 1.8735739511297547
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.2492013263190987,
-          "fairOdds": 4.012819734031088
-        },
-        {
-          "market": "h2h",
-          "selection": "Juárez gana",
-          "p": 0.21705939992711876,
-          "fairOdds": 4.607033836524778
-        },
-        {
-          "market": "double_chance",
-          "selection": "Atl. San Luis o empate",
-          "p": 0.7829406000728811,
-          "fairOdds": 1.2772361018280487
-        },
-        {
-          "market": "double_chance",
-          "selection": "Juárez o empate",
-          "p": 0.46626072624621745,
-          "fairOdds": 2.144722777856121
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7507986736809013,
-          "fairOdds": 1.3319149794143248
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.7445950178955376,
-          "fairOdds": 1.3430119406738956
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.4916788267504122,
-          "fairOdds": 2.0338480031958417
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.5083211732495878,
-          "fairOdds": 1.9672601745215832
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.2720336791375979,
-          "fairOdds": 3.6760154226866444
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.7279663208624021,
-          "fairOdds": 1.3736899240274287
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.5045417661045408,
-          "fairOdds": 1.9819964712154285
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.4954582338954592,
-          "fairOdds": 2.018333598248361
-        },
-        {
-          "market": "team_totals",
-          "selection": "Atl. San Luis más de 1.5",
-          "line": 1.5,
-          "p": 0.4975456418870762,
-          "fairOdds": 2.0098658611644753
-        },
-        {
-          "market": "team_totals",
-          "selection": "Atl. San Luis menos de 1.5",
-          "line": 1.5,
-          "p": 0.5024543581129238,
-          "fairOdds": 1.9902305231378958
-        },
-        {
-          "market": "team_totals",
-          "selection": "Juárez más de 1.5",
-          "line": 1.5,
-          "p": 0.25170377822016643,
-          "fairOdds": 3.972924073969583
-        },
-        {
-          "market": "team_totals",
-          "selection": "Juárez menos de 1.5",
-          "line": 1.5,
-          "p": 0.7482962217798336,
-          "fairOdds": 1.3363691689121258
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.11871612699543668,
-          "fairOdds": 8.42345539151929
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–0",
-          "p": 0.11318098071564339,
-          "fairOdds": 8.835406741282851
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–0",
-          "p": 0.10035620310705531,
-          "fairOdds": 9.964506119599271
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Atl. San Luis gana",
-              "p": 0.5337392737537825,
-              "fairOdds": 1.8735739511297547
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.2492013263190987,
-              "fairOdds": 4.012819734031088
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Juárez gana",
-              "p": 0.21705939992711876,
-              "fairOdds": 4.607033836524778
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Atl. San Luis o empate",
-              "p": 0.7829406000728811,
-              "fairOdds": 1.2772361018280487
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Juárez o empate",
-              "p": 0.46626072624621745,
-              "fairOdds": 2.144722777856121
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7507986736809013,
-              "fairOdds": 1.3319149794143248
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.7445950178955376,
-              "fairOdds": 1.3430119406738956
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.4916788267504122,
-              "fairOdds": 2.0338480031958417
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.5083211732495878,
-              "fairOdds": 1.9672601745215832
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.2720336791375979,
-              "fairOdds": 3.6760154226866444
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.7279663208624021,
-              "fairOdds": 1.3736899240274287
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.5045417661045408,
-              "fairOdds": 1.9819964712154285
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.4954582338954592,
-              "fairOdds": 2.018333598248361
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Atl. San Luis más de 1.5",
-              "line": 1.5,
-              "p": 0.4975456418870762,
-              "fairOdds": 2.0098658611644753
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Atl. San Luis menos de 1.5",
-              "line": 1.5,
-              "p": 0.5024543581129238,
-              "fairOdds": 1.9902305231378958
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Juárez más de 1.5",
-              "line": 1.5,
-              "p": 0.25170377822016643,
-              "fairOdds": 3.972924073969583
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Juárez menos de 1.5",
-              "line": 1.5,
-              "p": 0.7482962217798336,
-              "fairOdds": 1.3363691689121258
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.11871612699543668,
-              "fairOdds": 8.42345539151929
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-0",
-              "label": "1–0",
-              "p": 0.11318098071564339,
-              "fairOdds": 8.835406741282851
-            },
-            {
-              "market": "correct_score",
-              "selection": "2-0",
-              "label": "2–0",
-              "p": 0.10035620310705531,
-              "fairOdds": 9.964506119599271
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.11871612699543668
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.53 goles/partido",
-          "detail": "16 % menos que la media · 16 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.82 concedidos/partido",
-          "detail": "28 % más que la media · 16 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "0.94 goles/partido",
-          "detail": "32 % menos que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.39 concedidos/partido",
-          "detail": "en la media de la liga · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.11",
-          "detail": "estimada de 214 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 2.0–3.9",
-          "detail": "local 35%–75% · 214 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "14.º · 19 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "18.º · 11 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "P-E-G-G-P · 7 pts",
-          "detail": "5 goles a favor · 5 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "E-P-P-E-G · 5 pts",
-          "detail": "5 goles a favor · 9 en contra"
-        },
-        {
-          "key": "long_memory",
-          "label": "Memoria larga",
-          "value": "coincide con la temporada",
-          "detail": "historia 52% / 25% / 23% · temporada 55% / 25% / 20%"
-        }
-      ],
-      "steps": [
-        "Sincronizando Liga MX · corte 6 nov 2026, 18:00",
-        "Fuerza ajustada por rival · ASL 0.84 / 0.98 · JUA 0.68 / 1.28",
-        "Ponderando 139.4 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.70 – 0.94 · total 2.64",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 1–0"
-      ],
-      "inputsAsOf": "2026-11-07T00:00:00.000Z",
-      "publishedAt": "2026-11-07T00:00:00.000Z",
-      "source": "espn",
-      "projectedScore": {
-        "home": 1,
-        "away": 0,
-        "p": 0.11318098071564339
-      },
-      "insights": {
-        "why": [
-          "Atl. San Luis gana en 53% de los escenarios; el empate, en 25%.",
-          "Juárez anota 32 % menos que la media.",
-          "Juárez concede 28 % más que la media."
-        ],
-        "headToHead": [
-          {
-            "date": "2025-03-07",
-            "homeTeamId": "liga-mx.atletico-san-luis",
-            "awayTeamId": "liga-mx.fc-juarez",
-            "homeGoals": 1,
-            "awayGoals": 0
-          },
-          {
-            "date": "2024-10-27",
-            "homeTeamId": "liga-mx.fc-juarez",
-            "awayTeamId": "liga-mx.atletico-san-luis",
-            "homeGoals": 2,
-            "awayGoals": 4
-          },
-          {
-            "date": "2021-04-09",
-            "homeTeamId": "liga-mx.fc-juarez",
-            "awayTeamId": "liga-mx.atletico-san-luis",
-            "homeGoals": 2,
-            "awayGoals": 1
-          },
-          {
-            "date": "2020-07-27",
-            "homeTeamId": "liga-mx.atletico-san-luis",
-            "awayTeamId": "liga-mx.fc-juarez",
-            "homeGoals": 1,
-            "awayGoals": 1
-          },
-          {
-            "date": "2020-02-28",
-            "homeTeamId": "liga-mx.atletico-san-luis",
-            "awayTeamId": "liga-mx.fc-juarez",
-            "homeGoals": 0,
-            "awayGoals": 3
-          }
-        ],
-        "restDays": {
-          "home": 7,
-          "away": 7
-        }
-      }
-    },
-    "mx-2026-j16-necaxa-tijuana-401876909": {
-      "game": "mx-2026-j16-necaxa-tijuana-401876909",
-      "model": {
-        "id": "pitchlab-statistical-liga-mx",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.210611560356336,
-        "away": 1.7377929266428451,
-        "total": 2.9484044869991815,
-        "margin": -0.527181366286509
-      },
-      "x12": [
-        0.31298303775887654,
-        0.27091029205801875,
-        0.4161066701831048
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Necaxa gana",
-          "p": 0.31298303775887654,
-          "fairOdds": 3.1950613271585797
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.27091029205801875,
-          "fairOdds": 3.6912588015882313
-        },
-        {
-          "market": "h2h",
-          "selection": "Tijuana gana",
-          "p": 0.4161066701831048,
-          "fairOdds": 2.4032299207315204
-        },
-        {
-          "market": "double_chance",
-          "selection": "Necaxa o empate",
-          "p": 0.5838933298168953,
-          "fairOdds": 1.7126415886846877
-        },
-        {
-          "market": "double_chance",
-          "selection": "Tijuana o empate",
-          "p": 0.6870169622411235,
-          "fairOdds": 1.4555681372667888
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7290897079419814,
-          "fairOdds": 1.3715733319329435
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.7940059978993126,
-          "fairOdds": 1.2594363300097002
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.5542764730410271,
-          "fairOdds": 1.8041537908212473
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.4457235269589729,
-          "fairOdds": 2.243543226947601
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.3360630433949878,
-          "fairOdds": 2.975632160852217
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.6639369566050122,
-          "fairOdds": 1.5061670992279432
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.5916019468529409,
-          "fairOdds": 1.6903257423670681
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.4083980531470591,
-          "fairOdds": 2.4485914961987154
-        },
-        {
-          "market": "team_totals",
-          "selection": "Necaxa más de 1.5",
-          "line": 1.5,
-          "p": 0.378610427355321,
-          "fairOdds": 2.6412373451656492
-        },
-        {
-          "market": "team_totals",
-          "selection": "Necaxa menos de 1.5",
-          "line": 1.5,
-          "p": 0.621389572644679,
-          "fairOdds": 1.6092963963716476
-        },
-        {
-          "market": "team_totals",
-          "selection": "Tijuana más de 1.5",
-          "line": 1.5,
-          "p": 0.47037946909796124,
-          "fairOdds": 2.1259431282527768
-        },
-        {
-          "market": "team_totals",
-          "selection": "Tijuana menos de 1.5",
-          "line": 1.5,
-          "p": 0.5296205309020388,
-          "fairOdds": 1.888144325328213
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.1268470420629385,
-          "fairOdds": 7.883510594624852
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–2",
-          "p": 0.08096559847615091,
-          "fairOdds": 12.350924575633913
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–1",
-          "p": 0.07994293660420347,
-          "fairOdds": 12.508922519959308
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Necaxa gana",
-              "p": 0.31298303775887654,
-              "fairOdds": 3.1950613271585797
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.27091029205801875,
-              "fairOdds": 3.6912588015882313
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Tijuana gana",
-              "p": 0.4161066701831048,
-              "fairOdds": 2.4032299207315204
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Necaxa o empate",
-              "p": 0.5838933298168953,
-              "fairOdds": 1.7126415886846877
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Tijuana o empate",
-              "p": 0.6870169622411235,
-              "fairOdds": 1.4555681372667888
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7290897079419814,
-              "fairOdds": 1.3715733319329435
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.7940059978993126,
-              "fairOdds": 1.2594363300097002
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.5542764730410271,
-              "fairOdds": 1.8041537908212473
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.4457235269589729,
-              "fairOdds": 2.243543226947601
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.3360630433949878,
-              "fairOdds": 2.975632160852217
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.6639369566050122,
-              "fairOdds": 1.5061670992279432
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.5916019468529409,
-              "fairOdds": 1.6903257423670681
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.4083980531470591,
-              "fairOdds": 2.4485914961987154
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Necaxa más de 1.5",
-              "line": 1.5,
-              "p": 0.378610427355321,
-              "fairOdds": 2.6412373451656492
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Necaxa menos de 1.5",
-              "line": 1.5,
-              "p": 0.621389572644679,
-              "fairOdds": 1.6092963963716476
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Tijuana más de 1.5",
-              "line": 1.5,
-              "p": 0.47037946909796124,
-              "fairOdds": 2.1259431282527768
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Tijuana menos de 1.5",
-              "line": 1.5,
-              "p": 0.5296205309020388,
-              "fairOdds": 1.888144325328213
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.1268470420629385,
-              "fairOdds": 7.883510594624852
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-2",
-              "label": "1–2",
-              "p": 0.08096559847615091,
-              "fairOdds": 12.350924575633913
-            },
-            {
-              "market": "correct_score",
-              "selection": "2-1",
-              "label": "2–1",
-              "p": 0.07994293660420347,
-              "fairOdds": 12.508922519959308
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.1268470420629385
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "1.09 goles/partido",
-          "detail": "19 % menos que la media · 16 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.35 concedidos/partido",
-          "detail": "5 % menos que la media · 16 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.74 goles/partido",
-          "detail": "8 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.61 concedidos/partido",
-          "detail": "13 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.11",
-          "detail": "estimada de 214 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 2.2–4.0",
-          "detail": "local 19%–51% · 214 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "17.º · 13 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "9.º · 22 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "E-P-P-E-P · 2 pts",
-          "detail": "4 goles a favor · 8 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "E-E-G-E-E · 7 pts",
-          "detail": "10 goles a favor · 7 en contra"
-        },
-        {
-          "key": "long_memory",
-          "label": "Memoria larga",
-          "value": "+5 pts al local",
-          "detail": "historia 36% / 30% / 34% · temporada 26% / 25% / 49%"
-        }
-      ],
-      "steps": [
-        "Sincronizando Liga MX · corte 6 nov 2026, 18:00",
-        "Fuerza ajustada por rival · NEC 0.81 / 1.13 · TIJ 1.08 / 0.95",
-        "Ponderando 139.4 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.21 – 1.74 · total 2.95",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 1–2"
-      ],
-      "inputsAsOf": "2026-11-07T00:00:00.000Z",
-      "publishedAt": "2026-11-07T00:00:00.000Z",
-      "source": "espn",
-      "projectedScore": {
-        "home": 1,
-        "away": 2,
-        "p": 0.08096559847615091
-      },
-      "insights": {
-        "why": [
-          "Tijuana gana en 42% de los escenarios; el empate, en 27%.",
-          "Necaxa anota 19 % menos que la media.",
-          "Necaxa concede 13 % más que la media.",
-          "La historia larga favorece más a Necaxa que esta temporada."
-        ],
-        "headToHead": [
-          {
-            "date": "2025-04-04",
-            "homeTeamId": "liga-mx.tijuana",
-            "awayTeamId": "liga-mx.necaxa",
-            "homeGoals": 1,
-            "awayGoals": 2
-          },
-          {
-            "date": "2024-10-18",
-            "homeTeamId": "liga-mx.necaxa",
-            "awayTeamId": "liga-mx.tijuana",
-            "homeGoals": 1,
-            "awayGoals": 2
-          },
-          {
-            "date": "2021-04-23",
-            "homeTeamId": "liga-mx.tijuana",
-            "awayTeamId": "liga-mx.necaxa",
-            "homeGoals": 1,
-            "awayGoals": 0
-          },
-          {
-            "date": "2020-10-16",
-            "homeTeamId": "liga-mx.necaxa",
-            "awayTeamId": "liga-mx.tijuana",
-            "homeGoals": 2,
-            "awayGoals": 0
-          },
-          {
-            "date": "2019-08-31",
-            "homeTeamId": "liga-mx.necaxa",
-            "awayTeamId": "liga-mx.tijuana",
-            "homeGoals": 3,
-            "awayGoals": 2
-          }
-        ],
-        "restDays": {
-          "home": 6,
-          "away": 6
-        }
-      }
-    },
-    "mx-2026-j16-atlante-santos-laguna-401876908": {
-      "game": "mx-2026-j16-atlante-santos-laguna-401876908",
-      "model": {
-        "id": "pitchlab-statistical-liga-mx",
-        "version": "2.0.0",
-        "status": "candidate",
-        "label": "Modelo PitchLab · en validación"
-      },
-      "projection": {
-        "home": 1.0791403818993286,
-        "away": 1.5025109607922138,
-        "total": 2.5816513426915426,
-        "margin": -0.4233705788928852
-      },
-      "x12": [
-        0.3722228677342067,
-        0.265340180015803,
-        0.36243695224999023
-      ],
-      "probabilities": [
-        {
-          "market": "h2h",
-          "selection": "Atlante gana",
-          "p": 0.3722228677342067,
-          "fairOdds": 2.686562505112046
-        },
-        {
-          "market": "h2h",
-          "selection": "Empate",
-          "p": 0.265340180015803,
-          "fairOdds": 3.7687469720584437
-        },
-        {
-          "market": "h2h",
-          "selection": "Santos Laguna gana",
-          "p": 0.36243695224999023,
-          "fairOdds": 2.7591005657454373
-        },
-        {
-          "market": "double_chance",
-          "selection": "Atlante o empate",
-          "p": 0.6375630477500097,
-          "fairOdds": 1.568472331527129
-        },
-        {
-          "market": "double_chance",
-          "selection": "Santos Laguna o empate",
-          "p": 0.6277771322657932,
-          "fairOdds": 1.592921991903031
-        },
-        {
-          "market": "double_chance",
-          "selection": "Sin empate",
-          "p": 0.7346598199841969,
-          "fairOdds": 1.3611742098833046
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 1.5",
-          "line": 1.5,
-          "p": 0.7292986392213272,
-          "fairOdds": 1.3711804002098522
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 2.5",
-          "line": 2.5,
-          "p": 0.4747349449574969,
-          "fairOdds": 2.106438572979982
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 2.5",
-          "line": 2.5,
-          "p": 0.5252650550425031,
-          "fairOdds": 1.903800739074642
-        },
-        {
-          "market": "totals",
-          "selection": "Más de 3.5",
-          "line": 3.5,
-          "p": 0.25495072666629315,
-          "fairOdds": 3.9223265337419777
-        },
-        {
-          "market": "totals",
-          "selection": "Menos de 3.5",
-          "line": 3.5,
-          "p": 0.7450492733337069,
-          "fairOdds": 1.3421931082833243
-        },
-        {
-          "market": "btts",
-          "selection": "Sí",
-          "p": 0.5206487141128221,
-          "fairOdds": 1.9206808216245872
-        },
-        {
-          "market": "btts",
-          "selection": "No",
-          "p": 0.4793512858871779,
-          "fairOdds": 2.0861527431791727
-        },
-        {
-          "market": "team_totals",
-          "selection": "Atlante más de 1.5",
-          "line": 1.5,
-          "p": 0.35844684298884055,
-          "fairOdds": 2.789813941899142
-        },
-        {
-          "market": "team_totals",
-          "selection": "Atlante menos de 1.5",
-          "line": 1.5,
-          "p": 0.6415531570111594,
-          "fairOdds": 1.558717292669492
-        },
-        {
-          "market": "team_totals",
-          "selection": "Santos Laguna más de 1.5",
-          "line": 1.5,
-          "p": 0.37489686136349554,
-          "fairOdds": 2.667400298746198
-        },
-        {
-          "market": "team_totals",
-          "selection": "Santos Laguna menos de 1.5",
-          "line": 1.5,
-          "p": 0.6251031386365045,
-          "fairOdds": 1.5997360086548804
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–1",
-          "p": 0.12643721461086832,
-          "fairOdds": 7.90906382331869
-        },
-        {
-          "market": "correct_score",
-          "selection": "1–0",
-          "p": 0.10620629026858741,
-          "fairOdds": 9.415638164849542
-        },
-        {
-          "market": "correct_score",
-          "selection": "2–1",
-          "p": 0.09234632651780164,
-          "fairOdds": 10.828801076426462
-        }
-      ],
-      "marketGroups": [
-        {
-          "group": "Resultado",
-          "rows": [
-            {
-              "market": "h2h",
-              "selection": "home",
-              "label": "Atlante gana",
-              "p": 0.3722228677342067,
-              "fairOdds": 2.686562505112046
-            },
-            {
-              "market": "h2h",
-              "selection": "draw",
-              "label": "Empate",
-              "p": 0.265340180015803,
-              "fairOdds": 3.7687469720584437
-            },
-            {
-              "market": "h2h",
-              "selection": "away",
-              "label": "Santos Laguna gana",
-              "p": 0.36243695224999023,
-              "fairOdds": 2.7591005657454373
-            }
-          ]
-        },
-        {
-          "group": "Doble oportunidad",
-          "rows": [
-            {
-              "market": "double_chance",
-              "selection": "1x",
-              "label": "Atlante o empate",
-              "p": 0.6375630477500097,
-              "fairOdds": 1.568472331527129
-            },
-            {
-              "market": "double_chance",
-              "selection": "x2",
-              "label": "Santos Laguna o empate",
-              "p": 0.6277771322657932,
-              "fairOdds": 1.592921991903031
-            },
-            {
-              "market": "double_chance",
-              "selection": "12",
-              "label": "Sin empate",
-              "p": 0.7346598199841969,
-              "fairOdds": 1.3611742098833046
-            }
-          ]
-        },
-        {
-          "group": "Goles totales",
-          "rows": [
-            {
-              "market": "totals",
-              "selection": "over_1.5",
-              "label": "Más de 1.5",
-              "line": 1.5,
-              "p": 0.7292986392213272,
-              "fairOdds": 1.3711804002098522
-            },
-            {
-              "market": "totals",
-              "selection": "over_2.5",
-              "label": "Más de 2.5",
-              "line": 2.5,
-              "p": 0.4747349449574969,
-              "fairOdds": 2.106438572979982
-            },
-            {
-              "market": "totals",
-              "selection": "under_2.5",
-              "label": "Menos de 2.5",
-              "line": 2.5,
-              "p": 0.5252650550425031,
-              "fairOdds": 1.903800739074642
-            },
-            {
-              "market": "totals",
-              "selection": "over_3.5",
-              "label": "Más de 3.5",
-              "line": 3.5,
-              "p": 0.25495072666629315,
-              "fairOdds": 3.9223265337419777
-            },
-            {
-              "market": "totals",
-              "selection": "under_3.5",
-              "label": "Menos de 3.5",
-              "line": 3.5,
-              "p": 0.7450492733337069,
-              "fairOdds": 1.3421931082833243
-            }
-          ]
-        },
-        {
-          "group": "Ambos anotan",
-          "rows": [
-            {
-              "market": "btts",
-              "selection": "yes",
-              "label": "Sí",
-              "p": 0.5206487141128221,
-              "fairOdds": 1.9206808216245872
-            },
-            {
-              "market": "btts",
-              "selection": "no",
-              "label": "No",
-              "p": 0.4793512858871779,
-              "fairOdds": 2.0861527431791727
-            }
-          ]
-        },
-        {
-          "group": "Goles por equipo (1.5)",
-          "rows": [
-            {
-              "market": "team_totals",
-              "selection": "home_over",
-              "label": "Atlante más de 1.5",
-              "line": 1.5,
-              "p": 0.35844684298884055,
-              "fairOdds": 2.789813941899142
-            },
-            {
-              "market": "team_totals",
-              "selection": "home_under",
-              "label": "Atlante menos de 1.5",
-              "line": 1.5,
-              "p": 0.6415531570111594,
-              "fairOdds": 1.558717292669492
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_over",
-              "label": "Santos Laguna más de 1.5",
-              "line": 1.5,
-              "p": 0.37489686136349554,
-              "fairOdds": 2.667400298746198
-            },
-            {
-              "market": "team_totals",
-              "selection": "away_under",
-              "label": "Santos Laguna menos de 1.5",
-              "line": 1.5,
-              "p": 0.6251031386365045,
-              "fairOdds": 1.5997360086548804
-            }
-          ]
-        },
-        {
-          "group": "Marcador exacto (más probables)",
-          "rows": [
-            {
-              "market": "correct_score",
-              "selection": "1-1",
-              "label": "1–1",
-              "p": 0.12643721461086832,
-              "fairOdds": 7.90906382331869
-            },
-            {
-              "market": "correct_score",
-              "selection": "1-0",
-              "label": "1–0",
-              "p": 0.10620629026858741,
-              "fairOdds": 9.415638164849542
-            },
-            {
-              "market": "correct_score",
-              "selection": "2-1",
-              "label": "2–1",
-              "p": 0.09234632651780164,
-              "fairOdds": 10.828801076426462
-            }
-          ]
-        }
-      ],
-      "mostLikelyScore": {
-        "home": 1,
-        "away": 1,
-        "p": 0.12643721461086832
-      },
-      "factors": [
-        {
-          "key": "home_attack",
-          "label": "Ataque local",
-          "value": "0.97 goles/partido",
-          "detail": "25 % menos que la media · 16 partidos"
-        },
-        {
-          "key": "away_defense",
-          "label": "Defensa visitante",
-          "value": "1.29 concedidos/partido",
-          "detail": "9 % menos que la media · 16 partidos"
-        },
-        {
-          "key": "away_attack",
-          "label": "Ataque visitante",
-          "value": "1.50 goles/partido",
-          "detail": "en la media de la liga · ajustado por rival"
-        },
-        {
-          "key": "home_defense",
-          "label": "Defensa local",
-          "value": "1.53 concedidos/partido",
-          "detail": "7 % más que la media · ajustado por rival"
-        },
-        {
-          "key": "home_advantage",
-          "label": "Localía",
-          "value": "×1.11",
-          "detail": "estimada de 214 partidos"
-        },
-        {
-          "key": "uncertainty",
-          "label": "Intervalo 90%",
-          "value": "goles 1.9–3.7",
-          "detail": "local 24%–61% · 214 partidos"
-        },
-        {
-          "key": "home_position",
-          "label": "Posición local",
-          "value": "16.º · 14 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "away_position",
-          "label": "Posición visitante",
-          "value": "6.º · 25 pts",
-          "detail": "de 18 equipos"
-        },
-        {
-          "key": "home_form",
-          "label": "Forma local",
-          "value": "P-P-G-P-P · 3 pts",
-          "detail": "4 goles a favor · 9 en contra"
-        },
-        {
-          "key": "away_form",
-          "label": "Forma visitante",
-          "value": "G-G-G-P-G · 12 pts",
-          "detail": "11 goles a favor · 5 en contra"
-        },
-        {
-          "key": "long_memory",
-          "label": "Memoria larga",
-          "value": "+11 pts al local",
-          "detail": "historia 48% / 26% / 26% · temporada 27% / 27% / 46%"
-        }
-      ],
-      "steps": [
-        "Sincronizando Liga MX · corte 6 nov 2026, 20:00",
-        "Fuerza ajustada por rival · ATE 0.75 / 1.07 · SAN 0.98 / 0.91",
-        "Ponderando 139.4 partidos por antigüedad y calidad del rival",
-        "Proyección de goles 1.08 – 1.50 · total 2.58",
-        "Simulando 121 marcadores con incertidumbre del ajuste",
-        "20 mercados listos · marcador proyectado 1–0"
-      ],
-      "inputsAsOf": "2026-11-07T02:00:00.000Z",
-      "publishedAt": "2026-11-07T02:00:00.000Z",
-      "source": "espn",
-      "projectedScore": {
-        "home": 1,
-        "away": 0,
-        "p": 0.10620629026858741
-      },
-      "insights": {
-        "why": [
-          "Se esperan 2.6 goles: 1.1 de Atlante y 1.5 de Santos Laguna.",
-          "Atlante anota 25 % menos que la media.",
-          "Santos Laguna concede 9 % menos que la media.",
-          "La historia larga favorece más a Atlante que esta temporada."
-        ],
-        "restDays": {
-          "home": 6,
-          "away": 6
-        }
-      }
-    },
     "mx-2026-j16-atlas-pachuca-401876907": {
       "game": "mx-2026-j16-atlas-pachuca-401876907",
       "model": {
