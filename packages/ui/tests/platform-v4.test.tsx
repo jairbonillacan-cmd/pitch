@@ -402,8 +402,8 @@ describe("PitchLab Spacetime Suite v3.0 & Liquid Glass Platform v4", () => {
     expect(tipstarPickHtml).toContain("data-locked-pick");
     expect(clubHtml).toContain("Cortex IA");
     expect(clubHtml).toContain("gana 15 días");
-    // Tipstars y comunidad de demostración siempre van marcados como ejemplo.
-    expect(clubHtml).toContain("Contenido de ejemplo");
+    // Tipstars y comunidad de demostración siempre van marcados como ejemplo
+    // (SOCIAL-2: cada publicación de ejemplo lleva su ficha «Ejemplo»).
     expect(clubHtml).toContain("data-example-badge");
     expect(clubHtml).not.toContain("Récord Verificado");
 

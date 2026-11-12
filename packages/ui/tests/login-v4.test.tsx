@@ -168,15 +168,16 @@ describe("LoginSurfaceV4 & LoginPreviewPanel (LOGIN-2)", () => {
     expect(pwHtml).toContain("Entrar sin contraseña");
   });
 
-  it("mantiene /signup intacto al usar AuthSurfaceV4 con mode=signup", () => {
+  it("AuthSurfaceV4 con mode=signup delega en el registro en dos pasos (SIGNUP-2)", () => {
     const signupHtml = renderToStaticMarkup(
       <PlatformProvider dataset={EMPTY_DATASET} initialRole="visitor">
         <AuthSurfaceV4 mode="signup" initialPromoCode="SOFIA5" />
       </PlatformProvider>,
     );
 
-    expect(signupHtml).toContain("Activa tu Pase PitchLab Ultra");
-    expect(signupHtml).toContain('id="auth-promo"');
+    expect(signupHtml).toContain("Crea tu cuenta");
+    expect(signupHtml).toContain("Paso 1 de 2");
+    expect(signupHtml).not.toContain('id="auth-promo"');
     expect(signupHtml).toContain('id="auth-email"');
   });
 });

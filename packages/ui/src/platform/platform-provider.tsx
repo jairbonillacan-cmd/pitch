@@ -103,6 +103,7 @@ function fromServerRow(row: ServerJournalRow): JournalEntry {
     clvPct: row.clvPct === null ? 0 : Number(row.clvPct),
     status: row.status === "won" || row.status === "lost" ? row.status : "pending",
     sealedAt: new Date(row.sealedAt).toLocaleString("es-MX", { dateStyle: "short", timeStyle: "short" }),
+    sealedAtIso: new Date(row.sealedAt).toISOString(),
     note: row.note ?? undefined,
   };
 }
@@ -160,6 +161,7 @@ import {
   computeParlaySummary,
 } from "./parlay-engine";
 import { INITIAL_SOCIAL_POSTS } from "./spacetime-catalog";
+import { attachExamplePostPicks } from "./community-examples";
 import type {
   JournalEntry,
   MatchPick,
@@ -247,6 +249,8 @@ export interface PlatformContextValue {
     pickBadge: string;
     originType: "Spacetime Suite" | "Bitácora Propia";
     body: string;
+    /** Pick adjunto: se publica con la publicación y se registra en la bitácora. */
+    pick?: { matchPick: MatchPick; units: number; userDecimal: number };
   }) => { ok: boolean; error?: string };
   addSocialComment: (postId: string, body: string) => { ok: boolean; error?: string };
   toggleSocialLike: (postId: string) => void;
@@ -444,9 +448,9 @@ export function PlatformProvider({
   const [allowSgp, setAllowSgp] = useState<boolean>(false);
   const [parlayStakeUnits, setParlayStakeUnits] = useState<number>(1.0);
   const [journal, setJournal] = useState<JournalEntry[]>([]);
-  const [socialPosts, setSocialPosts] = useState<SocialPost[]>(() => [
-    ...INITIAL_SOCIAL_POSTS,
-  ]);
+  const [socialPosts, setSocialPosts] = useState<SocialPost[]>(() =>
+    attachExamplePostPicks(INITIAL_SOCIAL_POSTS, rawDataset.games),
+  );
   const [blockedSpamAttempts, setBlockedSpamAttempts] = useState<number>(0);
   const [watchlistGameIds, setWatchlistGameIds] = useState<string[]>([]);
   const [favoriteLeagues, setFavoriteLeaguesState] = useState<LeagueId[]>(() =>
@@ -762,11 +766,12 @@ export function PlatformProvider({
               : "won"
             : "pending",
         sealedAt: "Sellado ahora",
+        sealedAtIso: new Date().toISOString(),
         note,
       };
       setJournal((prev) => [entry, ...prev]);
       setComposerPick(null);
-      pushToast(`Pick sellado en Bitácora (${entry.units}u).`, "success");
+      pushToast(`Pick registrado en tu bitácora (${entry.units}u).`, "success");
       // Con cuenta: el servidor sella con la hora de inicio oficial y una huella SHA-256.
       if (accountsEnabled && entry.status === "pending") {
         void sealOnServer(entry).then((res) => {
@@ -802,6 +807,7 @@ export function PlatformProvider({
         clvPct: parlaySummary.edgePts,
         status: "pending",
         sealedAt: "Sellado ahora",
+        sealedAtIso: new Date().toISOString(),
         note: note ?? "Armador Inteligente Geodesic v2.0",
       };
       setJournal((prev) => [entry, ...prev]);
@@ -853,16 +859,26 @@ export function PlatformProvider({
       pickBadge: string;
       originType: "Spacetime Suite" | "Bitácora Propia";
       body: string;
+      pick?: { matchPick: MatchPick; units: number; userDecimal: number };
     }): { ok: boolean; error?: string } => {
       if (viewerRole === "visitor") {
         return {
           ok: false,
-          error: "La Comunidad VIP es exclusiva para suscriptores con Pase PitchLab Ultra activo.",
+          error: "La comunidad es para socios.",
         };
       }
       const trimmed = payload.body.trim();
       if (trimmed.length < 8) {
-        return { ok: false, error: "Escribe al menos una breve tesis deportiva." };
+        return { ok: false, error: "Escribe al menos una frase sobre tu pick." };
+      }
+      const myHandle = viewerRole === "tipstar" ? "sofia_nfl" : "socio_pl";
+      const repeated = socialPosts
+        .filter((p) => p.authorHandle === myHandle)
+        .slice(0, 5)
+        .some((p) => p.body.trim().toLowerCase() === trimmed.toLowerCase());
+      if (repeated) {
+        setBlockedSpamAttempts((n) => n + 1);
+        return { ok: false, error: "Ya publicaste ese mismo texto." };
       }
       if (containsExternalLink(trimmed)) {
         setBlockedSpamAttempts((n) => n + 1);
@@ -878,7 +894,7 @@ export function PlatformProvider({
       const newPost: SocialPost = {
         id: `sp-${Date.now()}`,
         authorHandle: viewerRole === "tipstar" ? "sofia_nfl" : "socio_pl",
-        authorName: viewerRole === "tipstar" ? "Sofía Méndez" : "Socio Pase PitchLab Ultra",
+        authorName: viewerRole === "tipstar" ? "Sofía Méndez" : "Socio PitchLab",
         roleBadge:
           viewerRole === "tipstar" ? "Tipstar Oficial" : "Socio Pase PitchLab Ultra",
         avatarGradVar:
@@ -897,15 +913,35 @@ export function PlatformProvider({
         originType: payload.originType,
         createdAt: "Ahora mismo",
         body: trimmed,
-        likes: 1,
-        likedByMe: true,
+        likes: 0,
+        likedByMe: false,
         comments: [],
+        pick: payload.pick
+          ? {
+              pickId: payload.pick.matchPick.id,
+              gameId: payload.pick.matchPick.gameId,
+              label: payload.pick.matchPick.label,
+              units: payload.pick.units,
+              userDecimal: payload.pick.userDecimal,
+              fairDecimal: payload.pick.matchPick.fairDecimal,
+              modelProbability: payload.pick.matchPick.p,
+              status:
+                payload.pick.matchPick.gameStatus === "FT"
+                  ? payload.pick.matchPick.result === "miss"
+                    ? "lost"
+                    : "won"
+                  : "open",
+            }
+          : undefined,
       };
       setSocialPosts((prev) => [newPost, ...prev]);
-      pushToast("Análisis publicado en la Comunidad VIP.", "success");
+      if (payload.pick) {
+        sealPickToJournal(payload.pick.matchPick, payload.pick.units, payload.pick.userDecimal);
+      }
+      pushToast("Publicado en Comunidad.", "success");
       return { ok: true };
     },
-    [viewerRole, pushToast, journal],
+    [viewerRole, pushToast, journal, socialPosts, sealPickToJournal],
   );
 
   const addSocialComment = useCallback(

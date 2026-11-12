@@ -100,16 +100,21 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
   await expect(
     page.getByRole("heading", { name: /^Comunidad$/i }),
   ).toBeVisible();
-  const socialTextarea = page.locator("textarea").first();
+  // En móvil el editor se abre desde la fila «Comparte un pick…».
+  if ((page.viewportSize()?.width ?? 1280) <= 640) {
+    await page.locator(".pl-com-composer-row").click();
+  }
+  const socialComposer = page.locator("form.pl-com-composer:visible");
+  const socialTextarea = socialComposer.locator("textarea");
   await socialTextarea.fill("Únanse a mi grupo externo https://t.me/spam_picks");
-  await page.getByRole("button", { name: /^Publicar$/i }).click();
+  await socialComposer.getByRole("button", { name: /^Publicar$/i }).click();
   await expect(page.locator("p[role='alert']")).toContainText(/enlaces externos/i);
 
   // Publicación limpia permitida
   await socialTextarea.fill(
     "Excelente lectura previa de Cortex IA en el cruce estelar; entré con 1.5u.",
   );
-  await page.getByRole("button", { name: /^Publicar$/i }).click();
+  await socialComposer.getByRole("button", { name: /^Publicar$/i }).click();
   await expect(page.locator("body")).toContainText(
     "Excelente lectura previa de Cortex IA",
   );

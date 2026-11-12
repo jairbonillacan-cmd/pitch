@@ -40,6 +40,7 @@ Se consulta antes de cada jornada: abrir la jornada, ver favoritos, abrir el an�
 - Nombre **PitchLab** (P y L mayúsculas). Eslogan: **Lee el juego con datos.**
 - Identidad oficial en `pitchlab-brand/` (logotipo, isotipo «Campo de corte», paleta Pulso/Iris/Eco/Tinta, Inter). Contrato de UI en `docs/design/DESIGN_SYSTEM.md` y `docs/design/UI_LIBRARIES.md`.
 - Voz: dato primero, luego contexto y luego acción; español de México; frases cortas; nunca «pick seguro», «gana» ni «cobra».
+- **Saldo público** (decisión del fundador, 11 nov 2026): el saldo en unidades de cada perfil es público y alimenta el ranking de Comunidad. Se llama «Saldo», nunca «ganó», «unidades ganadas» ni «ganancia».
 - Mascota **Radar**: detalle discreto (estados, cierre), nunca protagonista del hero en la landing definitiva.
 - Estándar de calidad: diseño curado al nivel de las apps nativas de Apple, con la identidad de PitchLab. Librerías: HeroUI (gratis), Astryx y shadcn sobre los tokens (`docs/design/UI_LIBRARIES.md`).
 

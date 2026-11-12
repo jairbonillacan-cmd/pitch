@@ -362,13 +362,21 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
 
     // /signup: escudo anti-abuso $0 MXN (bloqueo de correo desechable + normalización Gmail)
     await page.goto("/signup?code=SOFIA5");
-    await expect(page.locator("#auth-promo")).toHaveValue("SOFIA5");
+    await expect(page.getByTestId("invite-notice")).toContainText("te invitó");
+    const signupStep1A11y = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa"])
+      .analyze();
+    expect(signupStep1A11y.violations).toEqual([]);
+
     await page.locator("#auth-email").fill("bot@mailinator.com");
     await page.locator("form.auth-form button[type='submit']").click();
     await expect(page.locator("p[role='alert']")).toContainText("temporales");
 
     await page.locator("#auth-email").fill("Juan.Perez+promo@googlemail.com");
+    await page.locator("form.auth-form button[type='submit']").click();
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Unos datos más");
     await expect(page.locator("body")).toContainText("juanperez@gmail.com");
+    await expect(page.getByRole("button", { name: "Crear cuenta" })).toBeDisabled();
 
     await page.screenshot({
       path: path.join(SCREENSHOT_DIR, `signup-${testInfo.project.name}-dark.png`),
@@ -474,6 +482,43 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
 
     await expect(page.locator(".standings-block")).toBeVisible();
     await expect(page.locator(".standings")).toContainText("Pts");
+
+    // PROFILE-2: perfil de tipstar con récord calculado y pestañas por teclado
+    await page.goto("/app/u/sofia_nfl");
+    await expect(page.getByRole("heading", { level: 1, name: /Sofía Méndez/ })).toBeVisible();
+    await expect(page.locator(".pl-vbadge")).toContainText("Tipstar verificado");
+    await expect(page.locator(".pl-prof-record")).toContainText("Saldo");
+    await page.locator("#pl-prof-tab-picks").focus();
+    await page.keyboard.press("End");
+    await expect(page.locator("#pl-prof-tab-estadisticas")).toHaveAttribute("aria-selected", "true");
+    await expect(page.locator("#pl-prof-panel-estadisticas")).toContainText("Saldo por mes");
+    await page.waitForTimeout(400); // fin de la entrada suave del panel
+    const profileA11y = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze();
+    expect(profileA11y.violations).toEqual([]);
+
+    // SOCIAL-2: publicar con pick adjunto, me gusta y Ranking por teclado
+    await page.goto("/app/social");
+    if ((page.viewportSize()?.width ?? 1280) <= 640) {
+      await page.locator(".pl-com-composer-row").click();
+    }
+    const composer = page.locator("form.pl-com-composer:visible");
+    await composer.getByRole("button", { name: "Adjuntar pick" }).click();
+    await page.locator(".pl-com-picker-pick").first().click();
+    await composer.locator("textarea").fill("E2E: pick con ventaja según el modelo.");
+    await composer.getByRole("button", { name: "Publicar" }).click();
+    const firstPost = page.locator(".pl-com-post").first();
+    await expect(firstPost).toContainText("E2E: pick con ventaja");
+    await expect(firstPost.locator(".pl-com-pick")).toBeVisible();
+    const likeButton = firstPost.getByRole("button", { name: /Me gusta/ });
+    await likeButton.click();
+    await expect(likeButton).toHaveAttribute("aria-pressed", "true");
+    await page.locator("#pl-com-tab-para-ti").focus();
+    await page.keyboard.press("End");
+    await expect(page.locator("#pl-com-tab-ranking")).toHaveAttribute("aria-selected", "true");
+    await expect(page.locator("#pl-com-panel-ranking")).toContainText("Mínimo 20 picks cerrados.");
+    await page.waitForTimeout(400); // fin de la entrada suave del panel
+    const socialA11y = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze();
+    expect(socialA11y.violations).toEqual([]);
 
     // Cerrar sesión -> limpia cookie y redirige a /
     await page.locator("[data-profile-menu-trigger]:visible").first().click();

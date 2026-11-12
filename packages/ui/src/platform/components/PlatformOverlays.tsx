@@ -52,6 +52,9 @@ export function TopLayerModalDialog({
     }
 
     const handleClose = () => {
+      // En desarrollo (StrictMode) el efecto se monta dos veces: el «close» del
+      // primer desmontaje llega cuando el diálogo ya se volvió a abrir.
+      if (dialog.open) return;
       dialog.returnValue = "";
       onCloseRef.current();
     };

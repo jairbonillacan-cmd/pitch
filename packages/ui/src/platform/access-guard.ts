@@ -5,6 +5,7 @@ import type {
   PlatformGame,
   ViewerRole,
 } from "./types";
+import { profileRecord } from "./profile-stats";
 
 const DISPOSABLE_DOMAINS = new Set([
   "mailinator.com",
@@ -252,18 +253,12 @@ export function formatEdgePts(edgePts: number | null): string {
 export function journalRecord(
   journal: ReadonlyArray<{ status: "pending" | "won" | "lost"; units: number; userDecimal: number; clvPct: number }>,
 ): { settled: number; netUnits: number; avgClvPct: number | null; label: string } {
-  const settled = journal.filter((j) => j.status !== "pending");
-  const netUnits = settled.reduce(
-    (sum, j) => sum + (j.status === "won" ? j.units * (j.userDecimal - 1) : -j.units),
-    0,
-  );
-  const avgClvPct =
-    journal.length > 0 ? journal.reduce((s, j) => s + j.clvPct, 0) / journal.length : null;
+  const { settled, netUnits, avgClvPct } = profileRecord(journal);
   const units = `${netUnits >= 0 ? "+" : ""}${netUnits.toFixed(1)}u`;
   return {
-    settled: settled.length,
+    settled,
     netUnits,
     avgClvPct,
-    label: settled.length === 0 ? "Sin picks liquidados" : `${units} · ${settled.length} picks`,
+    label: settled === 0 ? "Sin picks liquidados" : `${units} · ${settled} picks`,
   };
 }

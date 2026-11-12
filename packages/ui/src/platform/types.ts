@@ -268,6 +268,12 @@ export interface TipstarCreator {
   clvAvg: string;
   roi95Ci: string;
   settledCount: number;
+  /** Picks cumplidos de `settledCount`. */
+  wonCount: number;
+  /** Fecha ISO en que se unió. */
+  joinedAt: string;
+  /** Bio corta del perfil. */
+  bio?: string;
   activeReferrals: number;
   monthlyCommissionMxn: number;
   weeklyPickOrigin: "spacetime" | "bitacora";
@@ -285,6 +291,19 @@ export interface SocialComment {
   verifiedBadge: string;
   createdAt: string;
   body: string;
+}
+
+/** Pick adjunto a una publicación: el mismo que se registra en la bitácora. */
+export interface SocialPostPick {
+  pickId: string;
+  gameId: string;
+  label: string;
+  units: number;
+  userDecimal: number;
+  fairDecimal: number;
+  /** Probabilidad del modelo, 0–1. */
+  modelProbability: number;
+  status: "open" | "won" | "lost";
 }
 
 export interface SocialPost {
@@ -307,6 +326,8 @@ export interface SocialPost {
   comments: SocialComment[];
   /** Publicación de demostración: la UI la marca como «Ejemplo». */
   isExample?: boolean;
+  /** Pick adjunto, si la publicación trae uno. */
+  pick?: SocialPostPick;
 }
 
 export interface PlayerPropItem {
@@ -348,6 +369,8 @@ export interface JournalEntry {
   clvPct: number;
   status: "pending" | "won" | "lost";
   sealedAt: string;
+  /** Fecha ISO del registro; permite ventanas reales (30 días, por mes). */
+  sealedAtIso?: string;
   note?: string;
 }
 

@@ -752,6 +752,54 @@ export function TipstarBadge({ className }: { className?: string }): React.JSX.E
   );
 }
 
+const SEAL_PATH =
+  "M12 1.8l2.5 1.9 3.1-.2 1 3 2.6 1.7-1 3 1 3-2.6 1.7-1 3-3.1-.2L12 22.2l-2.5-1.9-3.1.2-1-3-2.6-1.7 1-3-1-3 2.6-1.7 1-3 3.1.2z";
+
+/** Sello lila de tipstar verificado (roseta con palomita). Solo tipstars verificados. */
+export function VerifiedSeal({
+  size = 20,
+  decorative = false,
+  className,
+}: {
+  size?: number;
+  /** `true` cuando el texto «Tipstar verificado» ya está junto al sello. */
+  decorative?: boolean;
+  className?: string;
+}): React.JSX.Element {
+  return (
+    <svg
+      className={["pl-seal", className].filter(Boolean).join(" ")}
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      role={decorative ? undefined : "img"}
+      aria-label={decorative ? undefined : "Verificado"}
+      aria-hidden={decorative ? "true" : undefined}
+      focusable="false"
+    >
+      <path className="pl-seal-rosette" d={SEAL_PATH} />
+      <path
+        className="pl-seal-check"
+        d="M8.2 12.2l2.6 2.6 5-5.2"
+        fill="none"
+        strokeWidth="2.3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+/** Ficha de vidrio lila «Tipstar verificado» con el sello pequeño. */
+export function TipstarVerifiedBadge({ className }: { className?: string }): React.JSX.Element {
+  return (
+    <span className={["pl-vbadge", className].filter(Boolean).join(" ")}>
+      <VerifiedSeal size={14} decorative className="pl-vbadge-seal" />
+      Tipstar verificado
+    </span>
+  );
+}
+
 /**
  * Traduce el texto de rol que guardan las publicaciones y perfiles («Tipstar Oficial»,
  * «Socio Pase PitchLab Ultra», «Verificado»…) a las insignias visuales.
