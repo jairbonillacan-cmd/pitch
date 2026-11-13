@@ -23,6 +23,10 @@
  * and optimized typed-array loops ensuring 10,000 iterations run in < 25ms.
  */
 
+import { createMulberry32 } from "./math";
+
+export { createMulberry32 };
+
 export type LeagueFormatType = "standard" | "ligamx";
 
 /** Current standing of a team at the projection snapshot date. */
@@ -125,25 +129,7 @@ export interface SeasonMonteCarloOptions {
 }
 
 // ---------------------------------------------------------------------------
-// PRNG (Mulberry32)
-// ---------------------------------------------------------------------------
-
-/**
- * Fast, high-quality 32-bit deterministic PRNG.
- * Period is 2^32, uniform distribution in [0, 1).
- */
-export function createMulberry32(seed: number): () => number {
-  let s = (seed | 0) || 0x12345678;
-  return function next(): number {
-    s = (s + 0x6d2b79f5) | 0;
-    let t = Math.imul(s ^ (s >>> 15), 1 | s);
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-}
-
-// ---------------------------------------------------------------------------
-// Probability and Rating Helpers
+// Probability and Rating Helpers (`createMulberry32` re-exported from `./math.js`)
 // ---------------------------------------------------------------------------
 
 /**

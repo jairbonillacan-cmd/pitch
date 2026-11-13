@@ -1,0 +1,145 @@
+{
+  "schema_version": "service_constants_v3.2.0",
+  "generated_at_utc": "2026-11-12T15:00:00Z",
+  "description": "Constantes externalizadas de inferencia en vivo y heurísticas de dominio de src/domain/prediction/service.ts (Ciclo v3.2 · Agente B2). Cada entrada explicita su valor, origen en código y estado de validación empírica.",
+  "constants": {
+    "elo_default_rating": {
+      "value": 1550.0,
+      "origin": "src/domain/prediction/service.ts (síntesis ClubElo cuando el equipo no registra club_elo_rating en team_master_features.json)",
+      "validation_status": "heurística no validada"
+    },
+    "elo_home_field_advantage": {
+      "value": 65.0,
+      "origin": "src/domain/prediction/service.ts (ventaja de localía en puntos Elo sumada al club local antes de transformar a probabilidad)",
+      "validation_status": "heurística no validada"
+    },
+    "elo_scale_divisor": {
+      "value": 400.0,
+      "origin": "src/domain/prediction/service.ts (divisor logístico base 10 de la fórmula clásica Elo 1 / (1 + 10^(-Δ/400)))",
+      "validation_status": "heurística no validada"
+    },
+    "elo_closeness_sigma": {
+      "value": 150.0,
+      "origin": "src/domain/prediction/service.ts (escala gaussiana exp(-(elo_diff / 150)^2) para cuantificar paridad pre-partido)",
+      "validation_status": "heurística no validada"
+    },
+    "season_progress_default": {
+      "value": 0.35,
+      "origin": "src/domain/prediction/service.ts (fracción fija de progreso de temporada imputada en synthesizeFootballSnapshotRowFromMaster)",
+      "validation_status": "heurística no validada"
+    },
+    "rlm_sharp_money_divergence_pct": {
+      "value": {
+        "home_min_pct": 12.0,
+        "away_max_pct": -12.0,
+        "abs_threshold_pct": 12.0
+      },
+      "origin": "src/domain/prediction/service.ts (umbral ±12 puntos porcentuales de sharp_money_divergence para activar señal RLM cuando falta reverse_line_movement_side explícito)",
+      "validation_status": "heurística no validada"
+    },
+    "nfl_expected_margin": {
+      "value": {
+        "std_points": 13.5,
+        "logit_scale_factor": 0.42
+      },
+      "origin": "src/domain/prediction/service.ts (conversión aproximada de log-odds 2-way NFL a margen esperado en puntos: 13.5 * logit(p_home) * 0.42)",
+      "validation_status": "heurística no validada"
+    },
+    "nfl_outdoor_wind_threshold_mph": {
+      "value": 12.0,
+      "origin": "src/domain/prediction/service.ts (umbral en mph a partir del cual se computa exceso de viento exterior wind_outdoor en NFL)",
+      "validation_status": "heurística no validada"
+    },
+    "altitude_physics": {
+      "value": {
+        "driver_logit_per_1000m": 0.08,
+        "high_altitude_min_m": 2100.0,
+        "shock_diff_min_m": 1000.0,
+        "default_stadium_elevation_m": 100.0
+      },
+      "origin": "src/domain/prediction/service.ts (impacto logit de 0.08 por cada 1000 m de diferencial de altitud en estadios >= 2100 msnm y bandera de choque hipobárico >= 1000 m)",
+      "validation_status": "heurística no validada"
+    },
+    "dixon_coles_live_synthesis": {
+      "value": {
+        "rho": -0.11,
+        "max_goals": 12,
+        "home_xg_multiplier": 1.1,
+        "away_xg_multiplier": 0.92
+      },
+      "origin": "src/domain/prediction/markets_2way.ts y src/domain/prediction/service.ts (parámetros de matriz Dixon-Coles unificada para síntesis de features 1X2)",
+      "validation_status": "heurística no validada"
+    },
+    "smarkets_anchor_base_alpha": {
+      "value": 0.25,
+      "origin": "src/domain/prediction/service.ts (peso baseMarketAlpha del ancla de exchange Smarkets cuando no hay cuota 1X2 completa)",
+      "validation_status": "heurística no validada"
+    },
+    "feature_coverage_gate": {
+      "value": {
+        "low_coverage_threshold": 0.5
+      },
+      "origin": "research/prediction-lab/coordination/v3_2/MASTER.md §3.B2.5 (umbral mínimo de cobertura de features reales < 0.50 para marcar dataQualityFlag = low_coverage)",
+      "validation_status": "regla operativa contractual v3.2"
+    },
+    "liga_mx_popular_clubs": {
+      "value": {
+        "clubs": [
+          {
+            "canonical_name": "CF América",
+            "tokens": ["america", "aguilas", "club america"],
+            "public_bias_weight": 1.0
+          },
+          {
+            "canonical_name": "CD Guadalajara",
+            "tokens": ["chivas", "guadalajara"],
+            "public_bias_weight": 0.95
+          },
+          {
+            "canonical_name": "CD Cruz Azul",
+            "tokens": ["cruz azul"],
+            "public_bias_weight": 0.8
+          },
+          {
+            "canonical_name": "Pumas UNAM",
+            "tokens": ["pumas", "unam", "universidad nacional"],
+            "public_bias_weight": 0.75
+          },
+          {
+            "canonical_name": "Tigres UANL",
+            "tokens": ["tigres", "uanl"],
+            "public_bias_weight": 0.72
+          },
+          {
+            "canonical_name": "CF Monterrey",
+            "tokens": ["monterrey", "rayados"],
+            "public_bias_weight": 0.72
+          }
+        ],
+        "non_popular_exclusions": [
+          "atlas",
+          "leones negros",
+          "udg",
+          "universidad de guadalajara",
+          "tapatio",
+          "cali",
+          "tijuana",
+          "xolos",
+          "leon",
+          "juarez",
+          "pachuca",
+          "toluca",
+          "santos",
+          "necaxa",
+          "puebla",
+          "queretaro",
+          "san luis",
+          "mazatlan",
+          "atlante"
+        ]
+      },
+      "origin": "src/domain/prediction/devig.ts y src/domain/prediction/service.ts (catálogo de clubes con arrastre público recreativo en Liga MX y lista de exclusión anti-falso-positivo)",
+      "validation_status": "heurística no validada"
+    }
+  }
+}

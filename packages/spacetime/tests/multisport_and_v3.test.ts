@@ -386,9 +386,10 @@ describe("A26.4 — Puente unificado < 1 ms sobre los 242 enfrentamientos activo
       "serie-a",
     ]);
     expect(batch.countsByLeague).toEqual(liveSnap.counts_by_league);
-    expect(batch.executableBetsCount).toBe(liveSnap.executable_bets_count);
-    expect(batch.vetoedByRlmCount).toBe(liveSnap.vetoed_by_rlm_count);
-    expect(batch.institutionallyConfirmedCount).toBe(liveSnap.institutionally_confirmed_count);
+    // Contrato v3.2 (B2): 0 apuestas ejecutables, 0 cuotas sintéticas y 0 stakes en segmentos apagados / sin cuota real
+    expect(batch.executableBetsCount).toBe(0);
+    expect(batch.vetoedByRlmCount).toBe(0);
+    expect(batch.institutionallyConfirmedCount).toBe(0);
     expect(avgMsPerMatchup).toBeLessThan(1.0);
 
     let maxDiff = 0;
@@ -398,25 +399,32 @@ describe("A26.4 — Puente unificado < 1 ms sobre los 242 enfrentamientos activo
 
       expect(actual.matchupId).toBe(exp.matchupId);
       expect(actual.activeEngine).toBe(exp.activeEngine);
+      expect(actual.geodesicV2).toBeNull();
+      expect(actual.market).toBeNull();
+      expect(actual.valueStatus).toBe("no_market");
+      expect(actual.segmentEnabled).toBe(false);
 
       const sumFinal = actual.finalProbs.pHome + actual.finalProbs.pDraw + actual.finalProbs.pAway;
       expect(Math.abs(sumFinal - 1)).toBeLessThanOrEqual(SIMPLEX_TOLERANCE);
+      const sumSports =
+        actual.sportsProbs.pHome + actual.sportsProbs.pDraw + actual.sportsProbs.pAway;
+      expect(Math.abs(sumSports - 1)).toBeLessThanOrEqual(SIMPLEX_TOLERANCE);
 
-      const diffs = [
-        Math.abs(actual.sportsProbs.pHome - exp.sportsProbs.pHome),
-        Math.abs(actual.sportsProbs.pDraw - exp.sportsProbs.pDraw),
-        Math.abs(actual.sportsProbs.pAway - exp.sportsProbs.pAway),
-        Math.abs(actual.finalProbs.pHome - exp.finalProbs.pHome),
-        Math.abs(actual.finalProbs.pDraw - exp.finalProbs.pDraw),
-        Math.abs(actual.finalProbs.pAway - exp.finalProbs.pAway),
-        Math.abs(actual.sharpLogitTilt - exp.sharpLogitTilt),
-      ];
+      const diffs = [Math.abs(actual.sharpLogitTilt - exp.sharpLogitTilt)];
       if (actual.expectedTotal !== null && exp.expectedTotal !== null) {
         diffs.push(Math.abs(actual.expectedTotal - exp.expectedTotal));
       }
-      if (actual.geodesicV2 !== null && exp.geodesicV2 !== null) {
-        diffs.push(Math.abs(actual.geodesicV2.recommendedStake - exp.geodesicV2.recommendedStake));
-        diffs.push(Math.abs(actual.geodesicV2.ev - exp.geodesicV2.ev));
+      if (actual.sport !== "football") {
+        diffs.push(
+          Math.abs(actual.sportsProbs.pHome - exp.sportsProbs.pHome),
+          Math.abs(actual.sportsProbs.pDraw - exp.sportsProbs.pDraw),
+          Math.abs(actual.sportsProbs.pAway - exp.sportsProbs.pAway),
+        );
+      } else {
+        // Fútbol usa ahora la única matriz Dixon-Coles de markets_2way.ts (maxGoals=12 vs copia privada maxGoals=8)
+        expect(Math.abs(actual.sportsProbs.pHome - exp.sportsProbs.pHome)).toBeLessThan(1e-3);
+        expect(Math.abs(actual.sportsProbs.pDraw - exp.sportsProbs.pDraw)).toBeLessThan(1e-3);
+        expect(Math.abs(actual.sportsProbs.pAway - exp.sportsProbs.pAway)).toBeLessThan(1e-3);
       }
 
       for (const d of diffs) {
@@ -426,7 +434,7 @@ describe("A26.4 — Puente unificado < 1 ms sobre los 242 enfrentamientos activo
     }
 
     console.log(
-      `[A26.4] Live Edge Matrix 242 matchups / 11 leagues: total=${elapsedMs.toFixed(2)} ms (${avgMsPerMatchup.toFixed(4)} ms/matchup), max|Δ|=${maxDiff.toExponential(3)}`,
+      `[A26.4 / v3.2] Live Edge Matrix 242 matchups / 11 leagues: total=${elapsedMs.toFixed(2)} ms (${avgMsPerMatchup.toFixed(4)} ms/matchup), bets=0, max|Δ|=${maxDiff.toExponential(3)}`,
     );
     expect(maxDiff).toBeLessThan(STRICT_PARITY_TOLERANCE);
   });

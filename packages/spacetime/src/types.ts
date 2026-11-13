@@ -8,7 +8,25 @@
  */
 
 /** Marca de calidad de una predicción. */
-export type DataQualityFlag = "ok" | "fallback_motor_a" | "invalid_features";
+export type DataQualityFlag = "ok" | "fallback_motor_a" | "invalid_features" | "low_coverage";
+
+/** Estado de la compuerta de valor y cuota real (`v3.2`). */
+export type ValueStatus = "no_market" | "disabled_segment" | "active";
+
+/** Cobertura de features reales (no imputadas) sobre el vector esperado del motor (`v3.2`). */
+export interface FeatureCoverage {
+  readonly present: number;
+  readonly total: number;
+  readonly ratio: number;
+}
+
+/** Metadatos auditables de una cuota real fresca con origen y timestamp de captura (`v3.2`). */
+export interface MarketQuoteSourceMeta {
+  readonly book: string;
+  readonly tsCaptured: string;
+  readonly odds: readonly number[];
+  readonly overround: number;
+}
 
 /** Deporte del contrato (6 deportes / 11 ligas en Spacetime Suite v3.0). */
 export type Sport = "football" | "nfl" | "nhl" | "mlb" | "nba" | "ncaaf";
@@ -41,6 +59,16 @@ export interface Prediction {
   uncertaintyGatePassed?: boolean;
   /** Peso alpha del mercado cuando se usa el modo `hybrid`. */
   hybridAlpha?: number;
+  /** Cobertura de features reales frente a imputación (`v3.2`). */
+  featureCoverage?: FeatureCoverage;
+  /** Estado de honestidad de mercado y compuerta de producción (`v3.2`). */
+  valueStatus?: ValueStatus;
+  /** Cuota real verificada con origen y `tsCaptured`, o `null` cuando no existe mercado válido (`v3.2`). */
+  market?: MarketQuoteSourceMeta | null;
+  /** Clave canónica `"league::market"` evaluada en `production_segments_v3_1.json` (`v3.2`). */
+  segmentKey?: string;
+  /** Si el segmento tiene `production_enabled: true` en `production_segments_v3_1.json` (`v3.2`). */
+  segmentEnabled?: boolean;
 }
 
 /** Metadatos de entrenamiento incluidos en el artefacto. */

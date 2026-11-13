@@ -1,31 +1,91 @@
 {
   "branch": "origin/prediction-lab",
-  "commit": "263857ad985edf8f76e8eff940a7a8753def05b2",
+  "commit": "2960d77a933691f86492bead5dfa90ace4b1efef",
   "files": [
+    "src/blend.ts",
+    "src/clv.ts",
     "src/devig.ts",
     "src/engine.ts",
+    "src/gbm.ts",
+    "src/ledger.ts",
+    "src/markets_2way.ts",
+    "src/math.ts",
     "src/montecarlo.ts",
     "src/multisport.ts",
     "src/nfl_live.ts",
+    "src/odds.ts",
+    "src/outlook.ts",
+    "src/picks.ts",
     "src/service.ts",
+    "src/stale_lines.ts",
     "src/tactical_skore.ts",
     "src/types.ts",
+    "data/blend_weights_v3_1.json",
     "data/features_snapshot.json",
     "data/fixture_requests.json",
+    "data/gbm_trees_v3_1.json",
+    "data/gbm_validation_parity.json",
     "data/live_matchday_v3_snapshot.json",
     "data/market_v3_snapshot.json",
+    "data/markets_2way_config.json",
     "data/model_motor_a.json",
     "data/model_multisport.json",
     "data/model_nfl.json",
+    "data/model_nfl_v3_2_candidate.json",
     "data/multisport_snapshot.json",
     "data/nfl_snapshot.json",
+    "data/outlook_calibration_v3_2.json",
+    "data/pick_policy_v3_1.json",
+    "data/production_segments_v3_1.json",
+    "data/service_constants_v3_2.json",
+    "data/stale_lines_config.json",
+    "tests/blend.test.ts",
     "tests/devig.test.ts",
     "tests/engine.test.ts",
     "tests/fixture_requests.test.ts",
+    "tests/gbm.test.ts",
+    "tests/ledger_clv.test.ts",
+    "tests/ledger_prospective.test.ts",
+    "tests/live_snapshot_outlooks.test.ts",
+    "tests/markets_2way.test.ts",
     "tests/montecarlo.test.ts",
     "tests/multisport_and_v3.test.ts",
     "tests/nfl.test.ts",
+    "tests/odds.test.ts",
+    "tests/outlook.test.ts",
+    "tests/picks.test.ts",
+    "tests/service_gate.test.ts",
+    "tests/stale_lines.test.ts",
     "tests/tactical_skore.test.ts"
   ],
-  "patches": []
+  "patches": [
+    {
+      "file": "tests/ledger_prospective.test.ts",
+      "reason": "solo verificable en prediction-lab (Python, services/models o data/ledger)"
+    },
+    {
+      "file": "tests/blend.test.ts",
+      "reason": "solo verificable en prediction-lab (Python, services/models o data/ledger)"
+    },
+    {
+      "file": "tests/markets_2way.test.ts",
+      "reason": "solo verificable en prediction-lab (Python, services/models o data/ledger)"
+    },
+    {
+      "file": "tests/markets_2way.test.ts",
+      "reason": "solo verificable en prediction-lab (Python, services/models o data/ledger)"
+    },
+    {
+      "file": "tests/picks.test.ts",
+      "reason": "solo verificable en prediction-lab (Python, services/models o data/ledger)"
+    },
+    {
+      "file": "tests/service_gate.test.ts",
+      "reason": "el SHA congelado se calculó sobre la copia CRLF de Windows; el blob de git (LF) es idéntico"
+    },
+    {
+      "file": "tests/service_gate.test.ts",
+      "reason": "solo verificable en prediction-lab (Python, services/models o data/ledger)"
+    }
+  ]
 }
