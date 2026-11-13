@@ -425,6 +425,10 @@
   margin-block-start: 0.6em;
 }
 
+.pl-blog-prose > :first-child {
+  margin-block-start: 0;
+}
+
 .pl-blog-prose strong {
   font-weight: 650;
   color: var(--pl-text);

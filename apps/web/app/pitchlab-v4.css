@@ -5456,16 +5456,13 @@ html[data-theme="light"] .pl-referral-stage:not([data-referral-theme="dark"]),
   max-width: 440px;
   aspect-ratio: 1.586 / 1;
   margin: 18px auto 26px;
-  padding: 1.5px;
+  padding: 1px;
   border-radius: 20px;
-  background: conic-gradient(
-    from 25deg,
-    oklch(0.72 0.21 25),
-    oklch(0.84 0.17 85),
-    oklch(0.8 0.2 150),
-    oklch(0.74 0.15 230),
-    oklch(0.68 0.22 300),
-    oklch(0.72 0.21 25)
+  background: linear-gradient(
+    145deg,
+    rgb(255 255 255 / 0.34) 0%,
+    rgb(255 255 255 / 0.1) 48%,
+    rgb(255 255 255 / 0.22) 100%
   );
   box-shadow: 0 22px 44px -18px rgb(0 0 0 / 0.72);
 }

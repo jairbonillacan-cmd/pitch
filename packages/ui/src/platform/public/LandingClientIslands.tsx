@@ -4,7 +4,13 @@ import React, { useEffect, useId, useRef, useState } from "react";
 import { asLeagueId } from "@pitchlab/contracts";
 import { BrandLogo, ThemeToggle } from "../../primitives";
 import { LeagueBadge, ProbSplit, TeamBadge } from "../../sports";
-import { MEMBERSHIP_SPEC, ULTRA_LANDING_FEATURES } from "../spacetime-catalog";
+import {
+  MEMBERSHIP_SPEC,
+  ULTRA_LANDING_FEATURES,
+} from "../spacetime-catalog";
+import { LensGlowOrbs } from "../components/MaestroPrimitives";
+import { CountUpNumber } from "./CountUpNumber";
+import { ReferralCard3D } from "./ReferralCard3D";
 import type {
   LandingFinishedResultItem,
   LandingHeroLeagueCard,
@@ -488,22 +494,73 @@ export function HeroMatchDemoIsland({
   );
 }
 
+export function UltraPassCardStageIsland(): React.JSX.Element {
+  const [flipped, setFlipped] = useState(false);
+
+  return (
+    <div className="pl-lp-ultra-3d-stage">
+      <div className="pl-referral-glass-horizon" aria-hidden="true" />
+      <button
+        type="button"
+        className="pl-lp-ultra-3d-btn"
+        aria-label={
+          flipped
+            ? "Tarjeta Pase PitchLab Ultra, reverso. Clic para ver el frente"
+            : "Tarjeta Pase PitchLab Ultra. Arrastra para inclinar o haz clic para voltear"
+        }
+        onClick={() => setFlipped((prev) => !prev)}
+      >
+        <ReferralCard3D
+          code="ACCESO TOTAL"
+          tierLabel="ULTRA"
+          bottomLeftLabel="Pase Ultra"
+          backSubtitle="Pase PitchLab Ultra · Sin niveles"
+          flipped={flipped}
+          onFlipChange={setFlipped}
+          asDecorativeChild
+          autoRotate
+        />
+      </button>
+    </div>
+  );
+}
+
 export function PricingCardIsland({
   hasSession = false,
+  animated = false,
 }: {
   hasSession?: boolean;
+  /** En `/precio`: conteo rodante del precio, color de marca y «Ultra» con espectro animado. */
+  animated?: boolean;
 } = {}): React.JSX.Element {
   const [billing, setBilling] = useState<"monthly" | "annual">("monthly");
   const isAnnual = billing === "annual";
-  const amountLabel = isAnnual
-    ? formatMxnAmount(MEMBERSHIP_SPEC.annualMxn)
-    : formatMxnAmount(MEMBERSHIP_SPEC.monthlyMxn);
+  const amount = isAnnual ? MEMBERSHIP_SPEC.annualMxn : MEMBERSHIP_SPEC.monthlyMxn;
+  const amountLabel = formatMxnAmount(amount);
   const noteLabel = isAnnual
     ? `MXN al año · equivale a $${MEMBERSHIP_SPEC.annualMonthlyEquivalentMxn} al mes · IVA incluido`
     : "MXN al mes · IVA incluido · cancela cuando quieras";
 
+  const planTitle =
+    animated && MEMBERSHIP_SPEC.name.endsWith("Ultra") ? (
+      <>
+        {MEMBERSHIP_SPEC.name.slice(0, -"Ultra".length)}
+        <span className="pl-lp-ultra-word">Ultra</span>
+      </>
+    ) : (
+      MEMBERSHIP_SPEC.name
+    );
+
   return (
     <div className="pl-lp-card pl-lp-pricing-card glass-lens glass-ring glass-ring--featured">
+      {animated ? (
+        <LensGlowOrbs
+          primaryColor="var(--pl-brand)"
+          secondaryColor="var(--brand-accent)"
+          subtle
+        />
+      ) : null}
+
       <div
         role="group"
         aria-label="Periodo de pago"
@@ -529,14 +586,27 @@ export function PricingCardIsland({
 
       <div>
         <p style={{ margin: "0 0 8px", fontWeight: 700, fontSize: 18 }}>
-          {MEMBERSHIP_SPEC.name}
+          {planTitle}
         </p>
         <p className="pl-lp-price-figure num">
           <span className="pl-lp-price-currency">$</span>
-          <span className="pl-lp-price-amount">{amountLabel}</span>
+          <span className="pl-lp-price-amount">
+            {animated ? (
+              <CountUpNumber
+                value={amount}
+                decimals={0}
+                delayMs={240}
+                durationMs={700}
+                format={formatMxnAmount}
+              />
+            ) : (
+              amountLabel
+            )}
+          </span>
         </p>
         <p
-          className="num"
+          key={animated ? billing : undefined}
+          className={animated ? "num pl-lp-price-note-live" : "num"}
           style={{ margin: "8px 0 0", fontSize: 14, color: "var(--pl-text-muted)" }}
         >
           {noteLabel}
@@ -562,7 +632,7 @@ export function PricingCardIsland({
               aria-hidden="true"
               style={{ flex: "none", color: "var(--pl-success)", marginTop: 2 }}
             >
-              <path d="M5 12l5 5 9-10" />
+              <path d="M5 12l5 5 9-10" pathLength={1} />
             </svg>
             <span>{feature}</span>
           </li>
@@ -578,14 +648,7 @@ export function PricingCardIsland({
           →
         </span>
       </a>
-      <p
-        style={{
-          margin: 0,
-          fontSize: 12,
-          color: "var(--pl-text-muted)",
-          textAlign: "center",
-        }}
-      >
+      <p className="pl-lp-pricing-foot">
         Sin tarjeta para la prueba · al terminar no se cobra nada si no eliges pagar
       </p>
     </div>
@@ -720,7 +783,7 @@ export function ResultsFilterListIsland({
                       strokeLinejoin="round"
                       aria-hidden="true"
                     >
-                      <path d="M5 12l5 5 9-10" />
+                      <path d="M5 12l5 5 9-10" pathLength={1} />
                     </svg>
                   ) : (
                     <svg

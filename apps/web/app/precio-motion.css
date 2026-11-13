@@ -1,0 +1,326 @@
+/*
+  Superficie y movimiento de /precio (PrecioPageSurface → .pl-lp--precio).
+  - Tarjeta 3D de titanio (ReferralCard3D) como protagonista visual junto a una tarjeta
+    de precio limpia con falso Liquid Glass (.glass-lens + .glass-ring.glass-ring--featured).
+  - Cero insignias extra, cero bordes arcoíris y cero backdrop-filter en la tarjeta de precio.
+  - Todo el movimiento espacial y continuo entra solo con prefers-reduced-motion: no-preference.
+*/
+
+@keyframes pl-precio-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+@keyframes pl-precio-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.985);
+  }
+}
+
+@keyframes pl-precio-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes pl-precio-note {
+  from {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes pl-precio-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+@keyframes pl-lp-ultra-spectrum {
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: 200% 50%;
+  }
+}
+
+.pl-lp--precio {
+  --pl-precio-ease: var(--ease-out, cubic-bezier(0.2, 0.8, 0.2, 1));
+  --pl-referral-horizon-line: color-mix(in oklab, white 18%, transparent);
+  --pl-referral-horizon-glow: color-mix(in oklab, var(--pl-brand) 16%, transparent);
+}
+
+html[data-theme="light"] .pl-lp--precio {
+  --pl-referral-horizon-line: color-mix(in oklab, var(--pl-text) 12%, transparent);
+  --pl-referral-horizon-glow: color-mix(in oklab, var(--pl-brand) 10%, transparent);
+}
+
+/* ---------- Escenario de la tarjeta 3D Pase PitchLab Ultra ---------- */
+
+.pl-lp-ultra-3d-stage {
+  position: relative;
+  width: 100%;
+  max-width: 492px;
+  margin: -6px 0 -14px -10px;
+  display: flex;
+  justify-content: center;
+}
+
+.pl-lp-ultra-3d-stage .pl-referral-glass-horizon {
+  width: min(500px, 100%);
+  height: 92px;
+  bottom: 6%;
+}
+
+.pl-lp-ultra-3d-btn {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: grab;
+}
+
+.pl-lp-ultra-3d-btn:active {
+  cursor: grabbing;
+}
+
+.pl-lp-ultra-3d-btn:focus-visible {
+  outline: 2px solid var(--pl-brand);
+  outline-offset: 4px;
+  border-radius: 18px;
+}
+
+.pl-lp--precio .pl-referral-card-canvas {
+  max-width: 492px;
+  touch-action: pan-y;
+}
+
+/* Si el navegador cae al respaldo 2D sin WebGL, mantener borde metálico neutro (sin arcoíris) */
+.pl-lp--precio .pl-referral-card-fallback {
+  margin: 12px 0;
+  background: var(--pl-border-strong);
+}
+
+@media (max-width: 720px) {
+  .pl-lp-ultra-3d-stage {
+    max-width: 420px;
+    margin: -4px auto -10px;
+  }
+
+  .pl-lp--precio .pl-referral-card-canvas {
+    max-width: 420px;
+  }
+}
+
+/* ---------- Tarjeta de precio: falso Liquid Glass limpio ---------- */
+
+.pl-lp--precio .pl-lp-pricing-card {
+  position: relative;
+}
+
+/* Mantener controles por encima de LensGlowOrbs (0) y .glass-ring::before (2) */
+.pl-lp--precio .pl-lp-pricing-card > :not(.pl-lens-orbs) {
+  position: relative;
+  z-index: 3;
+}
+
+/* ---------- Color atractivo en el precio ---------- */
+
+.pl-lp--precio .pl-lp-price-currency {
+  color: var(--pl-brand);
+}
+
+.pl-lp--precio .pl-lp-price-amount {
+  display: inline-block;
+  color: var(--pl-brand);
+  background-image: linear-gradient(
+    125deg,
+    color-mix(in oklab, var(--pl-text) 56%, var(--pl-brand)) 0%,
+    var(--pl-brand) 50%,
+    var(--brand-accent, var(--pl-brand)) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+html[data-theme="light"] .pl-lp--precio .pl-lp-price-amount {
+  background-image: linear-gradient(
+    125deg,
+    var(--pl-brand) 0%,
+    var(--pl-brand-solid) 54%,
+    var(--brand-accent, var(--pl-brand)) 100%
+  );
+}
+
+/* ---------- «Ultra» con espectro animado (igual que en /i/[code]) ---------- */
+
+.pl-lp-ultra-word {
+  --pl-in-oklab: ;
+  color: var(--pl-brand);
+  background-image: linear-gradient(
+    90deg var(--pl-in-oklab),
+    oklch(0.82 0.16 230) 0%,
+    oklch(0.75 0.19 292) 18%,
+    oklch(0.78 0.19 348) 36%,
+    oklch(0.81 0.17 38) 54%,
+    oklch(0.87 0.15 84) 72%,
+    oklch(0.85 0.15 174) 88%,
+    oklch(0.82 0.16 230) 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+}
+
+@supports (background-image: linear-gradient(90deg in oklab, white, black)) {
+  .pl-lp-ultra-word {
+    --pl-in-oklab: in oklab;
+  }
+}
+
+html[data-theme="light"] .pl-lp-ultra-word {
+  background-image: linear-gradient(
+    90deg var(--pl-in-oklab),
+    oklch(0.54 0.18 234) 0%,
+    oklch(0.5 0.22 294) 18%,
+    oklch(0.55 0.21 350) 36%,
+    oklch(0.58 0.19 36) 54%,
+    oklch(0.62 0.16 80) 72%,
+    oklch(0.57 0.16 174) 88%,
+    oklch(0.54 0.18 234) 100%
+  );
+}
+
+@media (forced-colors: active) {
+  .pl-lp--precio .pl-lp-price-amount,
+  .pl-lp-ultra-word {
+    -webkit-text-fill-color: CanvasText;
+    color: CanvasText;
+  }
+}
+
+/* ---------- Preguntas frecuentes: estado base de acordeón ---------- */
+
+.pl-lp--precio details.pl-lp-faq::details-content {
+  interpolate-size: allow-keywords;
+  overflow: clip;
+  contain: layout;
+}
+
+.pl-lp--precio details.pl-lp-faq:not([open])::details-content {
+  block-size: 0;
+}
+
+.pl-lp--precio details.pl-lp-faq > summary {
+  transition: color 180ms ease;
+}
+
+.pl-lp--precio details.pl-lp-faq > summary:hover {
+  color: var(--pl-brand);
+}
+
+/* ---------- Animaciones activas solo cuando el usuario acepta movimiento ---------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  .pl-lp-ultra-word {
+    animation: pl-lp-ultra-spectrum 2.5s linear infinite;
+  }
+
+  .pl-lp--precio #precio .pl-lp-pricing-copy > :not(.pl-lp-ultra-3d-stage) {
+    animation: pl-precio-rise 560ms var(--pl-precio-ease) backwards;
+  }
+
+  .pl-lp--precio #precio .pl-lp-pricing-copy > :nth-child(2) {
+    animation-delay: 50ms;
+  }
+
+  .pl-lp--precio #precio .pl-lp-pricing-copy > :nth-child(3) {
+    animation-delay: 100ms;
+  }
+
+  .pl-lp--precio .pl-lp-pricing-card {
+    animation: pl-precio-card-in 640ms var(--pl-precio-ease) 90ms backwards;
+  }
+
+  .pl-lp--precio .pl-lp-price-note-live {
+    animation: pl-precio-note 220ms var(--pl-precio-ease) backwards;
+  }
+
+  .pl-lp--precio .pl-lp-features > li {
+    animation: pl-precio-rise 420ms var(--pl-precio-ease) backwards;
+    animation-delay: calc(220ms + var(--pl-precio-i, 0) * 45ms);
+  }
+
+  .pl-lp--precio .pl-lp-features > li svg path {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+    animation: pl-precio-draw 380ms var(--pl-precio-ease) backwards;
+    animation-delay: calc(280ms + var(--pl-precio-i, 0) * 45ms);
+  }
+
+  .pl-lp--precio .pl-lp-features > li:nth-child(2) { --pl-precio-i: 1; }
+  .pl-lp--precio .pl-lp-features > li:nth-child(3) { --pl-precio-i: 2; }
+  .pl-lp--precio .pl-lp-features > li:nth-child(4) { --pl-precio-i: 3; }
+  .pl-lp--precio .pl-lp-features > li:nth-child(5) { --pl-precio-i: 4; }
+  .pl-lp--precio .pl-lp-features > li:nth-child(n + 6) { --pl-precio-i: 5; }
+
+  .pl-lp--precio .pl-lp-btn,
+  .pl-lp--precio .pl-lp-billing-toggle .pl-lp-tab {
+    transition:
+      transform 140ms var(--pl-precio-ease),
+      box-shadow 160ms ease,
+      background-color 150ms ease,
+      color 150ms ease,
+      border-color 150ms ease;
+  }
+
+  .pl-lp--precio .pl-lp-btn:hover {
+    transform: translateY(-1px);
+  }
+
+  .pl-lp--precio .pl-lp-btn:active,
+  .pl-lp--precio .pl-lp-billing-toggle .pl-lp-tab:active {
+    transform: scale(0.98);
+    transition-duration: 75ms;
+  }
+
+  .pl-lp--precio details.pl-lp-faq .pl-lp-chev {
+    transition: transform 240ms var(--pl-precio-ease), color 180ms ease;
+  }
+
+  .pl-lp--precio details.pl-lp-faq::details-content {
+    transition: block-size, content-visibility, display;
+    transition-duration: 280ms;
+    transition-timing-function: var(--pl-precio-ease);
+    transition-behavior: allow-discrete;
+  }
+
+  @supports ((animation-timeline: view()) and (animation-range: entry)) {
+    .pl-lp--precio #referidos .pl-lp-section-head,
+    .pl-lp--precio #referidos .pl-lp-steps > li,
+    .pl-lp--precio details.pl-lp-faq,
+    .pl-lp--precio .pl-lp-h2--faq,
+    .pl-lp--precio .pl-lp-closing-card {
+      animation: pl-precio-reveal auto var(--pl-precio-ease) backwards;
+      animation-timeline: view();
+      animation-range: entry 0% entry 85%;
+    }
+  }
+}

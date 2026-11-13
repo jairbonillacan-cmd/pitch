@@ -1151,6 +1151,7 @@ export function PlanTab({
             <LazyReferralCard3D
               code={passCode}
               bottomLeftLabel={identity.atHandle}
+              backSubtitle="Pase PitchLab Ultra · Membresía personal"
               tierLabel={tierLabel}
               expired={isCancelled}
               flipped={flipped}

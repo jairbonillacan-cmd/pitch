@@ -19,6 +19,7 @@ export * from "./components/ShellChrome";
 export * from "./public/LandingClientIslands";
 export * from "./public/PublicSiteSections";
 export * from "./public/BlogSurfaces";
+export * from "./public/LegalSurfaces";
 export * from "./public/LandingSurface";
 export * from "./public/TechAndPricingSurfaces";
 export * from "./public/LoginPreviewPanel";

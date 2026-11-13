@@ -1,12 +1,11 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { BrandLogo } from "../../primitives";
 import { UltraTag } from "../components/MaestroPrimitives";
 import { MEMBERSHIP_SPEC } from "../spacetime-catalog";
 
 const PL_ISOTYPE_PATH =
-  "M8 8H42L56 22V32L44 44H28L40 32H42L44 30V26L38 20H8ZM8 30H32L20 42V56H8Z";
+  "M8 8H42L56 22V32L44 44H28L44 28V26L38 20H8ZM8 30H32L20 42V56H8Z";
 
 const PL_WORDMARK_GLYPHS: ReadonlyArray<{ x: number; d: string }> = [
   {
@@ -102,33 +101,24 @@ const FS_SRC = `
     return mix(c5, c0, f);
   }
 
-  float sdBox2D(vec2 p, vec2 b) {
-    vec2 d = abs(p) - b;
-    return length(max(d, 0.0)) + min(max(d.x, d.y), 0.0);
-  }
-
-  // SDF vectorial CSG cerrada y sin ramificaciones del isotipo oficial PitchLab (resolución infinita, compilación instantánea en ANGLE D3D11)
+  // SDF vectorial CSG exacta y sin ramificaciones del isotipo PitchLab (cero costuras internas, compilación instantánea en ANGLE D3D11)
   float sdPitchLabIsotype(vec2 q) {
-    float b1 = sdBox2D(q - vec2(25.0, 14.0), vec2(17.0, 6.0));
-    float b2 = max(
-      max(8.0 - q.y, q.y - 26.0),
-      max(q.x - 56.0, max((q.x - q.y - 34.0) * 0.70710678, (18.0 - q.x + q.y) * 0.70710678))
+    const float k = 0.70710678;
+    float outerTop = max(
+      max(max(8.0 - q.x, q.x - 56.0), max(8.0 - q.y, q.y - 44.0)),
+      max((q.x - q.y - 34.0) * k, (q.x + q.y - 88.0) * k)
     );
-    float b3a = sdBox2D(q - vec2(50.0, 28.5), vec2(6.0, 3.5));
-    float b3b = max(
-      max(30.0 - q.y, q.y - 32.5),
-      max(q.x - 56.0, max((74.0 - q.x - q.y) * 0.70710678, (q.x + q.y - 88.0) * 0.70710678))
+    float innerCut = min(
+      min(q.y - 20.0, 44.0 - q.x),
+      min((18.0 - q.x + q.y) * k, (72.0 - q.x - q.y) * k)
     );
-    float b4 = max(
-      max(32.0 - q.y, q.y - 44.0),
-      max((72.0 - q.x - q.y) * 0.70710678, (q.x + q.y - 88.0) * 0.70710678)
-    );
-    float b5 = sdBox2D(q - vec2(14.0, 43.0), vec2(6.0, 13.0));
-    float b6 = max(max(8.0 - q.x, 30.0 - q.y), (q.x + q.y - 62.0) * 0.70710678);
+    float dTop = max(outerTop, innerCut);
 
-    float dTop = min(min(b1, b2), min(min(b3a, b3b), b4));
-    float dBot = min(b5, b6);
-    return min(dTop, dBot) - 0.14;
+    float outerBot = max(max(8.0 - q.x, q.x - 32.0), max(30.0 - q.y, q.y - 56.0));
+    float cutBot = min(q.x - 20.0, (q.x + q.y - 62.0) * k);
+    float dBot = max(outerBot, cutBot);
+
+    return min(dTop, dBot);
   }
 
   float sdRoundRect2D(vec2 p, vec2 b, float r) {
@@ -536,7 +526,7 @@ const FS_SRC = `
       float d2C = tC > 0.0 ? sdRoundRect2D(hitC.xy, vec2(0.86, 0.542), 0.068) : 1.0;
 
       // Interior plano (93% de la tarjeta): intersección exacta + diferenciales analíticos para 4x RGSS en letras e isotipo
-      if (tC > 0.0 && d2C < -0.022) {
+      if (tC > 0.0 && d2C < -0.022 && abs(rdCenterL.z) > 0.08) {
         vec3 flatN = vec3(0.0, 0.0, hitC.z >= 0.0 ? 1.0 : -1.0);
         float safeRzX = abs(rdRightL.z) < 1e-4 ? -1e-4 : rdRightL.z;
         float safeRzY = abs(rdUpL.z)    < 1e-4 ? -1e-4 : rdUpL.z;
@@ -548,12 +538,10 @@ const FS_SRC = `
         return;
       }
 
-      // Franja de silueta exterior y biseles 3D: 8-Rooks Supersampling geométrico (cero dientes de sierra)
-      float safeMidZ = abs(rdCenterL.z) < 1e-4 ? -1e-4 : rdCenterL.z;
-      float tMid = clamp(-roL.z / safeMidZ, 0.0, 6.0);
-      float dMid = sdRoundRect2D((roL + rdCenterL * tMid).xy, vec2(0.86, 0.542), 0.068);
+      // Franja de silueta exterior y biseles 3D (incluidos cantos a 90°): 8-Rooks Supersampling geométrico
+      vec2 nearSlab = intersectOBB(roL, rdCenterL, vec3(0.888, 0.570, 0.032));
 
-      if (tC > 0.0 || dMid < 0.045) {
+      if (tC > 0.0 || nearSlab.x <= nearSlab.y) {
         vec3 hitSum = vec3(0.0);
         vec3 nSum = vec3(0.0);
         float hits = 0.0;
@@ -641,7 +629,12 @@ function drawPitchLabHorizontal(
 function createCardPOTCanvas(
   side: "front" | "back",
   texWidth: number,
-  opts: { tierLabel: string; bottomLeftLabel: string; code: string },
+  opts: {
+    tierLabel: string;
+    bottomLeftLabel: string;
+    code: string;
+    backSubtitle?: string;
+  },
 ): HTMLCanvasElement {
   const width = texWidth;
   const height = Math.max(1024, Math.floor(texWidth / 2));
@@ -704,7 +697,11 @@ function createCardPOTCanvas(
     ctx.textBaseline = "alphabetic";
     ctx.fillStyle = "rgb(0, 0, 255)";
     ctx.font = `500 76px ${sysFont}`;
-    ctx.fillText("Pase PitchLab Ultra · Invitación personal", 158, 980);
+    ctx.fillText(
+      opts.backSubtitle ?? "Pase PitchLab Ultra · Invitación personal",
+      158,
+      980,
+    );
 
     ctx.fillStyle = "rgb(0, 0, 255)";
     ctx.font = `650 116px ${monoFont}`;
@@ -755,11 +752,14 @@ export interface ReferralCard3DProps {
   code: string;
   tierLabel?: string;
   bottomLeftLabel?: string;
+  backSubtitle?: string;
   expired?: boolean;
   initialFlipped?: boolean;
   flipped?: boolean;
   onFlipChange?: (flipped: boolean) => void;
   asDecorativeChild?: boolean;
+  /** Giro continuo y lento en 360° cuando el usuario no está arrastrando la tarjeta. */
+  autoRotate?: boolean;
   themeOverride?: "dark" | "light";
   className?: string;
   ariaLabel?: string;
@@ -769,11 +769,13 @@ export function ReferralCard3D({
   code,
   tierLabel = "ULTRA",
   bottomLeftLabel = "Pase Ultra",
+  backSubtitle = "Pase PitchLab Ultra · Invitación personal",
   expired = false,
   initialFlipped = false,
   flipped,
   onFlipChange,
   asDecorativeChild = false,
+  autoRotate = true,
   themeOverride,
   className,
   ariaLabel,
@@ -910,7 +912,7 @@ export function ReferralCard3D({
     };
 
     const uploadAllTextures = () => {
-      const cardData = { tierLabel, bottomLeftLabel, code };
+      const cardData = { tierLabel, bottomLeftLabel, code, backSubtitle };
       uploadPOTTexture(
         frontTex,
         0,
@@ -947,6 +949,7 @@ export function ReferralCard3D({
     let lightMode = readStageTheme();
 
     const startBaseFlip = initialFlippedRef.current ? Math.PI : 0;
+    const AUTO_SPIN_RAD_PER_SEC = 0.36;
     const pose = {
       yaw: reducedMotion
         ? startBaseFlip + REST_YAW
@@ -959,6 +962,10 @@ export function ReferralCard3D({
       targetRoll: REST_ROLL,
       targetLift: 0,
       baseFlip: startBaseFlip,
+      autoYaw: 0,
+      spinRate: autoRotate && !reducedMotion ? AUTO_SPIN_RAD_PER_SEC : 0,
+      spinHoldUntil: 0,
+      hovering: false,
       velYaw: 0,
       velPitch: 0,
       velRoll: 0,
@@ -1017,16 +1024,11 @@ export function ReferralCard3D({
         return;
       }
 
-      const goalYaw = pose.baseFlip + pose.targetYaw;
-      const goalPitch = pose.targetPitch;
-      const goalRoll = pose.targetRoll;
-      const goalLift = pose.targetLift;
-
       if (reducedMotion && !pose.dragging) {
-        pose.yaw = goalYaw;
-        pose.pitch = goalPitch;
-        pose.roll = goalRoll;
-        pose.lift = goalLift;
+        pose.yaw = pose.baseFlip + pose.targetYaw;
+        pose.pitch = pose.targetPitch;
+        pose.roll = pose.targetRoll;
+        pose.lift = pose.targetLift;
         pose.pointerX = pose.targetPointerX;
         pose.pointerY = pose.targetPointerY;
         pose.prismMotion = 0;
@@ -1053,6 +1055,38 @@ export function ReferralCard3D({
           ? Math.min(0.22, Math.max(0.001, (now - pose.lastStepAt) * 0.001))
           : 1 / 60;
       pose.lastStepAt = now;
+
+      if (autoRotate) {
+        const held = now < pose.spinHoldUntil;
+        const desiredRate =
+          pose.dragging || held
+            ? 0
+            : pose.hovering
+              ? AUTO_SPIN_RAD_PER_SEC * 0.22
+              : AUTO_SPIN_RAD_PER_SEC;
+        pose.spinRate +=
+          (desiredRate - pose.spinRate) * (1 - Math.exp(-dt / 0.26));
+        pose.autoYaw += pose.spinRate * dt;
+        const wrapSpan = Math.PI * 128;
+        if (pose.autoYaw > wrapSpan) {
+          pose.autoYaw -= wrapSpan;
+          pose.yaw -= wrapSpan;
+        }
+      }
+
+      const floatPitch =
+        autoRotate && !pose.dragging && !pose.hovering
+          ? Math.sin(now * 0.00085) * 0.028
+          : 0;
+      const floatLift =
+        autoRotate && !pose.dragging && !pose.hovering
+          ? Math.sin(now * 0.0011) * 0.007
+          : 0;
+
+      const goalYaw = pose.baseFlip + pose.autoYaw + pose.targetYaw;
+      const goalPitch = pose.targetPitch + floatPitch;
+      const goalRoll = pose.targetRoll;
+      const goalLift = pose.targetLift + floatLift;
 
       const ptrAlpha = 1 - Math.exp(-dt / 0.09);
       pose.pointerX += (pose.targetPointerX - pose.pointerX) * ptrAlpha;
@@ -1085,7 +1119,13 @@ export function ReferralCard3D({
       const angularSpeed =
         (Math.abs(pose.velYaw) + Math.abs(pose.velPitch)) * 0.46;
       const pointerTilt = Math.hypot(pose.pointerX, pose.pointerY) * 1.28;
-      const rawPrism = Math.max(tiltFromRest * 4.2, angularSpeed, pointerTilt);
+      const autoShimmer = autoRotate ? 0.64 : 0;
+      const rawPrism = Math.max(
+        tiltFromRest * 4.2,
+        angularSpeed,
+        pointerTilt,
+        autoShimmer,
+      );
       const clampedPrism = Math.min(1.0, rawPrism);
       const targetPrism =
         rawPrism < 0.015 ? 0 : 1 - Math.pow(1 - clampedPrism, 1.55);
@@ -1097,6 +1137,7 @@ export function ReferralCard3D({
       }
 
       const moving =
+        autoRotate ||
         pose.introStart > 0 ||
         Math.abs(goalYaw - pose.yaw) > 0.0008 ||
         Math.abs(goalPitch - pose.pitch) > 0.0008 ||
@@ -1138,20 +1179,31 @@ export function ReferralCard3D({
     };
 
     flipHandlerRef.current = () => {
-      const turns = Math.round(pose.baseFlip / Math.PI);
-      const nextTurns = turns + 1;
-      pose.baseFlip = nextTurns * Math.PI;
-      const isBack = Math.abs(nextTurns) % 2 === 1;
+      const combined = pose.baseFlip + pose.autoYaw;
+      const curHalfTurns = Math.round(combined / Math.PI);
+      const nextHalfTurns = curHalfTurns + 1;
+      pose.baseFlip = nextHalfTurns * Math.PI - pose.autoYaw;
+      pose.spinHoldUntil = performance.now() + 2600;
+      const isBack = ((nextHalfTurns % 2) + 2) % 2 === 1;
       setInternalFlipped(isBack);
       onFlipChangeRef.current?.(isBack);
       wakeSpring();
     };
 
     setFlippedFaceRef.current = (wantBack: boolean) => {
-      const turns = Math.round(pose.baseFlip / Math.PI);
-      const curBack = Math.abs(turns) % 2 === 1;
-      if (curBack === wantBack) return;
-      pose.baseFlip = (turns + 1) * Math.PI;
+      const combined = pose.baseFlip + pose.autoYaw;
+      const curHalfTurns = Math.round(combined / Math.PI);
+      const curBack = ((curHalfTurns % 2) + 2) % 2 === 1;
+      const targetHalfTurns =
+        curBack === wantBack ? curHalfTurns : curHalfTurns + 1;
+      if (
+        curBack === wantBack &&
+        Math.abs(combined - targetHalfTurns * Math.PI) < 0.08
+      ) {
+        return;
+      }
+      pose.baseFlip = targetHalfTurns * Math.PI - pose.autoYaw;
+      pose.spinHoldUntil = performance.now() + 2600;
       wakeSpring();
     };
 
@@ -1176,6 +1228,9 @@ export function ReferralCard3D({
     const onPointerMove = (e: PointerEvent) => {
       const rect = canvas.getBoundingClientRect();
       if (!rect.width || !rect.height) return;
+      if (e.pointerType === "mouse") {
+        pose.hovering = true;
+      }
       const nx = Math.max(
         -1,
         Math.min(1, ((e.clientX - rect.left) / rect.width) * 2 - 1),
@@ -1194,7 +1249,11 @@ export function ReferralCard3D({
         const dy = e.clientY - pose.lastY;
         pose.lastX = e.clientX;
         pose.lastY = e.clientY;
-        pose.baseFlip += dx * 0.0088;
+        if (autoRotate) {
+          pose.autoYaw += dx * 0.0088;
+        } else {
+          pose.baseFlip += dx * 0.0088;
+        }
         pose.targetPitch = Math.max(
           -0.44,
           Math.min(0.44, pose.targetPitch + dy * 0.0055),
@@ -1211,13 +1270,19 @@ export function ReferralCard3D({
     const releasePointer = () => {
       const wasDragging = pose.dragging;
       pose.dragging = false;
-      const turns = Math.round(pose.baseFlip / Math.PI);
-      pose.baseFlip = turns * Math.PI;
-      if (wasDragging && maxTravel > 6) {
-        suppressNextClickRef.current = true;
-        const isBack = Math.abs(turns) % 2 === 1;
-        setInternalFlipped(isBack);
-        onFlipChangeRef.current?.(isBack);
+      if (autoRotate) {
+        if (wasDragging && maxTravel > 6) {
+          suppressNextClickRef.current = true;
+        }
+      } else {
+        const turns = Math.round(pose.baseFlip / Math.PI);
+        pose.baseFlip = turns * Math.PI;
+        if (wasDragging && maxTravel > 6) {
+          suppressNextClickRef.current = true;
+          const isBack = Math.abs(turns) % 2 === 1;
+          setInternalFlipped(isBack);
+          onFlipChangeRef.current?.(isBack);
+        }
       }
       pose.targetYaw = REST_YAW;
       pose.targetPitch = REST_PITCH;
@@ -1229,6 +1294,7 @@ export function ReferralCard3D({
     };
 
     const onPointerLeave = () => {
+      pose.hovering = false;
       if (!pose.dragging) releasePointer();
     };
 
@@ -1319,7 +1385,17 @@ export function ReferralCard3D({
       gl.deleteShader(vs);
       gl.deleteShader(fs);
     };
-  }, [code, tierLabel, bottomLeftLabel, expired, initialFlipped, themeOverride, asDecorativeChild]);
+  }, [
+    code,
+    tierLabel,
+    bottomLeftLabel,
+    backSubtitle,
+    expired,
+    initialFlipped,
+    autoRotate,
+    themeOverride,
+    asDecorativeChild,
+  ]);
 
   useEffect(() => {
     if (typeof flipped !== "boolean") return;
@@ -1340,7 +1416,7 @@ export function ReferralCard3D({
         />
         <div className="space-y-1">
           <p className="m-0 text-[11px] opacity-80">
-            Pase PitchLab Ultra · Invitación personal
+            {backSubtitle}
           </p>
           <p className="m-0 font-mono text-sm font-bold tracking-wider num">
             {code}
@@ -1354,7 +1430,24 @@ export function ReferralCard3D({
     ) : (
       <div className="pl-referral-card-fallback-inner">
         <div className="flex items-center justify-between gap-3">
-          <BrandLogo variant="horizontal" width={112} height={22} alt="" />
+          <svg
+            width="112"
+            height="22"
+            viewBox="0 0 331 64"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path d={PL_ISOTYPE_PATH} fill="currentColor" />
+            <g transform="translate(74 8)" fill="currentColor" fillRule="evenodd">
+              {PL_WORDMARK_GLYPHS.map((glyph) => (
+                <path
+                  key={glyph.x}
+                  transform={`translate(${glyph.x} 0)`}
+                  d={glyph.d}
+                />
+              ))}
+            </g>
+          </svg>
           {tierLabel && tierLabel !== "ULTRA" ? (
             <span
               className="inline-flex items-center rounded-full px-2.5 py-0.5 text-[10px] font-extrabold tracking-wider"

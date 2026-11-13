@@ -30,6 +30,7 @@ import {
   PricingCardIsland,
   PublicNavBarClient,
   ResultsFilterListIsland,
+  UltraPassCardStageIsland,
 } from "./LandingClientIslands";
 
 export type PublicNavPath =
@@ -849,13 +850,16 @@ export function PublicSiteShell({
   activePath,
   children,
   hasSession = false,
+  className,
 }: {
   activePath?: PublicNavPath;
   hasSession?: boolean;
+  /** Clase extra en la raíz, para estilos propios de una página (p. ej. `pl-lp--precio`). */
+  className?: string;
   children: React.ReactNode;
 }): React.JSX.Element {
   return (
-    <div className="pl-stage pl-lp">
+    <div className={className ? `pl-stage pl-lp ${className}` : "pl-stage pl-lp"}>
       <a className="skip-link" href="#main">
         Saltar al contenido principal
       </a>
@@ -1779,14 +1783,27 @@ export function PricingSection({
   variant?: "teaser" | "page";
   hasSession?: boolean;
 }): React.JSX.Element {
+  const isPage = variant === "page";
   return (
     <section
       id="precio"
-      className={
-        variant === "page" ? "pl-lp-section pl-lp-section--top" : "pl-lp-section"
-      }
+      className={isPage ? "pl-lp-section pl-lp-section--top" : "pl-lp-section"}
+      style={isPage ? { position: "relative", overflow: "hidden" } : undefined}
     >
-      <div className="pl-lp-wrap pl-lp-pricing-grid">
+      {isPage ? (
+        <>
+          <div className="pl-lp-atmo" aria-hidden="true">
+            <div className="pl-lp-orb pl-lp-orb--1" />
+            <div className="pl-lp-orb pl-lp-orb--2" />
+            <div className="pl-lp-orb pl-lp-orb--3" />
+          </div>
+          <div className="pl-lp-fieldgrid" aria-hidden="true" />
+        </>
+      ) : null}
+      <div
+        className="pl-lp-wrap pl-lp-pricing-grid"
+        style={isPage ? { position: "relative", zIndex: 1 } : undefined}
+      >
         <div className="pl-lp-pricing-copy">
           <p className="pl-lp-eyebrow">Precio</p>
           {variant === "page" ? (
@@ -1799,31 +1816,35 @@ export function PricingSection({
           <p className="pl-lp-lede">
             Pase PitchLab Ultra: todos los partidos, todos los mercados, parlays y comunidad. IVA incluido y factura CFDI.
           </p>
-          <p
-            style={{
-              margin: "8px 0 0",
-              fontSize: 14,
-              color: "var(--pl-text-secondary)",
-            }}
-          >
-            Invita a un amigo: cuando paga su primer mes, los dos suman{" "}
-            {MEMBERSHIP_SPEC.referralBothRewardDays} días.
-          </p>
-          {variant === "teaser" ? (
-            <a
-              className="pl-lp-more"
-              href="/precio"
-              style={{ alignSelf: "flex-start" }}
-            >
-              Ver todo lo que incluye{" "}
-              <span className="pl-lp-arr" aria-hidden="true">
-                →
-              </span>
-            </a>
-          ) : null}
+          {isPage ? (
+            <UltraPassCardStageIsland />
+          ) : (
+            <>
+              <p
+                style={{
+                  margin: "8px 0 0",
+                  fontSize: 14,
+                  color: "var(--pl-text-secondary)",
+                }}
+              >
+                Invita a un amigo: cuando paga su primer mes, los dos suman{" "}
+                {MEMBERSHIP_SPEC.referralBothRewardDays} días.
+              </p>
+              <a
+                className="pl-lp-more"
+                href="/precio"
+                style={{ alignSelf: "flex-start" }}
+              >
+                Ver todo lo que incluye{" "}
+                <span className="pl-lp-arr" aria-hidden="true">
+                  →
+                </span>
+              </a>
+            </>
+          )}
         </div>
 
-        <PricingCardIsland hasSession={hasSession} />
+        <PricingCardIsland hasSession={hasSession} animated={isPage} />
       </div>
     </section>
   );
@@ -2483,7 +2504,7 @@ export function ComunidadPageSurface({
 
 export function PrecioPageSurface({ hasSession = false }: { hasSession?: boolean } = {}): React.JSX.Element {
   return (
-    <PublicSiteShell activePath="/precio" hasSession={hasSession}>
+    <PublicSiteShell activePath="/precio" hasSession={hasSession} className="pl-lp--precio">
       <PricingSection variant="page" hasSession={hasSession} />
 
       <section id="referidos" className="pl-lp-section">
@@ -2556,26 +2577,6 @@ export function PrecioPageSurface({ hasSession = false }: { hasSession?: boolean
               </div>
             </li>
           </ol>
-        </div>
-      </section>
-
-      <section id="facturacion" className="pl-lp-section">
-        <div className="pl-lp-wrap">
-          <div className="pl-lp-card pl-lp-panel glass-card glass-ring">
-            <p className="pl-lp-eyebrow">Facturación en México</p>
-            <h2 className="pl-lp-h2">Precio transparente con factura CFDI.</h2>
-            <p className="pl-lp-lede">{MEMBERSHIP_SPEC.cfdiNote}.</p>
-            <p
-              style={{
-                margin: 0,
-                fontSize: 15,
-                color: "var(--pl-text-secondary)",
-                lineHeight: 1.55,
-              }}
-            >
-              Prueba actual: {MEMBERSHIP_SPEC.trialMonth1Label}. Puedes cancelar en cualquier momento desde tu perfil antes de que termine el periodo de prueba.
-            </p>
-          </div>
         </div>
       </section>
 
