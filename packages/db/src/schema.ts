@@ -45,6 +45,7 @@ export const users = pgTable("users", {
   referralCode: text("referral_code").unique(),
   isAmbassador: boolean("is_ambassador").notNull().default(false),
   isAdult: boolean("is_adult").notNull().default(false),
+  publicProfile: boolean("public_profile").notNull().default(true),
   socialPauseEnabled: boolean("social_pause_enabled").notNull().default(false),
   /** Paso 2 del registro: fecha de nacimiento (`AAAA-MM-DD`) y consentimientos con versión. */
   birthDate: date("birth_date"),
@@ -161,6 +162,24 @@ export const platformRuntimeFlags = pgTable("platform_runtime_flags", {
   updatedAt: ts("updated_at").notNull().defaultNow(),
 });
 
+export const adminAuditLogs = pgTable(
+  "admin_audit_logs",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    actorUserId: uuid("actor_user_id").references(() => users.id, { onDelete: "set null" }),
+    actorEmail: text("actor_email").notNull(),
+    action: text("action").notNull(),
+    targetKey: text("target_key").notNull(),
+    payloadJson: jsonb("payload_json"),
+    ipSubnetHash: char("ip_subnet_hash", { length: 64 }),
+    createdAt: createdAt(),
+  },
+  (t) => [
+    index("admin_audit_logs_created_idx").on(t.createdAt),
+    index("admin_audit_logs_actor_idx").on(t.actorUserId),
+  ],
+);
+
 // ---------------------------------------------------------------------------
 // B. Suscripción y días concedidos
 // ---------------------------------------------------------------------------
@@ -189,6 +208,7 @@ export const subscriptions = pgTable(
   },
   (t) => [
     index("subscriptions_customer_idx").on(t.providerCustomerId),
+    uniqueIndex("subscriptions_provider_customer_uq").on(t.provider, t.providerCustomerId),
     index("subscriptions_period_end_idx").on(t.currentPeriodEnd),
     check("subscriptions_provider_ck", sql`${t.provider} IN ('stripe', 'mercadopago', 'manual')`),
     check("subscriptions_interval_ck", sql`${t.planInterval} IN ('monthly', 'annual')`),
@@ -392,6 +412,8 @@ export const tipstarCommissionLedger = pgTable(
     commissionCentavosMxn: integer("commission_centavos_mxn").notNull(),
     status: text("status").notNull(),
     clearsAt: ts("clears_at").notNull(),
+    /** Marca de reclamo atómico mientras se ejecuta la transferencia en Stripe Connect. */
+    claimStartedAt: ts("claim_started_at"),
     payoutBatchId: uuid("payout_batch_id"),
     /** Transferencia de Stripe Connect que pagó este asiento. */
     stripeTransferId: text("stripe_transfer_id").unique(),
@@ -403,7 +425,7 @@ export const tipstarCommissionLedger = pgTable(
     index("tipstar_ledger_tipstar_idx").on(t.tipstarUserId),
     check(
       "tipstar_ledger_status_ck",
-      sql`${t.status} IN ('pending_clearance', 'payable', 'paid_out', 'reversed_refund')`,
+      sql`${t.status} IN ('pending_clearance', 'payable', 'processing_payout', 'paid_out', 'reversed_refund')`,
     ),
     check(
       "tipstar_ledger_net_ck",
@@ -733,7 +755,10 @@ export const authAccount = pgTable(
     createdAt: ts("created_at").notNull().defaultNow(),
     updatedAt: ts("updated_at").notNull().defaultNow(),
   },
-  (t) => [index("auth_account_user_idx").on(t.userId)],
+  (t) => [
+    index("auth_account_user_idx").on(t.userId),
+    uniqueIndex("auth_account_provider_account_uq").on(t.providerId, t.accountId),
+  ],
 );
 
 export const authVerification = pgTable("auth_verification", {

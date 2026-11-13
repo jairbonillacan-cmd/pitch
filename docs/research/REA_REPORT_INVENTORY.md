@@ -25,7 +25,7 @@
 | # | Hallazgo | Etiqueta | Evidencia |
 |---|---|---|---|
 | H1 | TouchIQ y AztecaVet son apps 100 % cliente: HTML único en Netlify, **0 requests de red** en runtime y datos transcritos a mano y congelados | OBSERVADO | `Reportes/touchiq/evidence-register.md` (`ev_7d2fef6c`), `Reportes/aztecavet/PITCHLAB_HANDOFF.md` §10 |
-| H2 | TouchIQ y AztecaVet **comparten base de código** (motor de fútbol y PIN 7779 en ambos) | OBSERVADO | `Reportes/touchiq/evidence-register.md` (`ev_44e130e7`) |
+| H2 | TouchIQ y AztecaVet **comparten base de código** (motor de fútbol y PIN [REDACTED_PIN] en ambos) | OBSERVADO | `Reportes/touchiq/evidence-register.md` (`ev_44e130e7`) |
 | H3 | Los motores son Pitágoras → Log5 → HFA odds-ratio → normal (NFL/NCAA/MLB) o Poisson con Dixon-Coles (fútbol/NHL), más EV, noVig y sizing del 5/10 % | OBSERVADO y RECONSTRUIDO (Δ=0) | `Reportes/18-engine-nfl-report.md`, `Reportes/19-engine-ncaa-report.md`, `src/domain` |
 | H4 | Ninguna de las dos tiene histórico real, histórico de cuotas ni actualización automática | OBSERVADO | Handoffs §7–9 de TouchIQ y §9–10 de AztecaVet |
 | H5 | Sus «asistentes IA» son regex sobre el texto del DOM en el navegador público | OBSERVADO | `Reportes/aztecavet/ai-assistant.md`, `Reportes/touchiq/ai-assistant.md` |

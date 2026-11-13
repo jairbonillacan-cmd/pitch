@@ -16,8 +16,9 @@ test-results/
 *.tsbuildinfo
 .DS_Store
 .env
-.env.local
-.env.*.local
+.env.*
+!.env.example
+!apps/web/.env.example
 linemate-analysis/
 services/ingest/.cache/
 data/history/raw/
@@ -31,10 +32,13 @@ services/models/.piptmp/
 services/models/.venv/
 Reportes/modelos/features-asof.jsonl
 Reportes/modelos/nfl-ratings-predictions.jsonl
+pitchlab-brand.zip
 pitchlab-champions-europa-league-2026-27.zip
 pitchlab-laliga-nfl-ncaa-2026.zip
 pitchlab-liga-mx-apertura-2026.zip
 pitchlab-premier-league-2026-27.zip
+**/extracted_src/
+*.js.map
 
 # NFL data collection tooling
 tools/nfl-data/.venv/

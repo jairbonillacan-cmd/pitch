@@ -12,7 +12,7 @@ const publicFields = {
   joinedAt: users.createdAt,
 };
 
-const memberFields = { ...publicFields, xLinkedAt: users.xLinkedAt };
+const memberFields = { ...publicFields, xLinkedAt: users.xLinkedAt, publicProfile: users.publicProfile };
 
 export async function publicProfileByHandle(db: Db, rawHandle: string) {
   const check = checkHandleFormat(rawHandle);
@@ -21,7 +21,14 @@ export async function publicProfileByHandle(db: Db, rawHandle: string) {
     .select({ ...publicFields, isTipstar: sql<boolean>`${tipstarProfiles.userId} is not null` })
     .from(users)
     .leftJoin(tipstarProfiles, and(eq(tipstarProfiles.userId, users.id), eq(tipstarProfiles.isActive, true)))
-    .where(and(eq(users.handle, check.handle), isNotNull(users.authUserId), eq(users.isAdult, true)));
+    .where(
+      and(
+        eq(users.handle, check.handle),
+        isNotNull(users.authUserId),
+        eq(users.isAdult, true),
+        eq(users.publicProfile, true),
+      ),
+    );
   return profile ?? null;
 }
 
@@ -34,6 +41,7 @@ interface ProfileChanges {
   displayName?: string;
   handle?: string;
   bio?: string | null;
+  publicProfile?: boolean;
 }
 
 export async function updateMemberProfile(db: Db, userId: string, changes: ProfileChanges) {

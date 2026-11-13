@@ -7,11 +7,9 @@ import { getViewerAccess } from "../../../src/server/viewer-access";
 export const dynamic = "force-dynamic";
 
 export default async function ClubAdminPage(): Promise<React.JSX.Element> {
-  if (!previewToolsEnabled()) {
-    const access = await getViewerAccess();
-    if (!access.isAdmin) {
-      notFound();
-    }
+  const access = await getViewerAccess();
+  if (!access.isAdmin && !previewToolsEnabled(access.isAdmin)) {
+    notFound();
   }
   return <FounderAdminClubView />;
 }

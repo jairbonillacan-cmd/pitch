@@ -17,6 +17,7 @@ import { APIError, createAuthMiddleware } from "better-auth/api";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { captcha } from "better-auth/plugins/captcha";
 import { magicLink } from "better-auth/plugins/magic-link";
+import { isDisposableEmailDomain } from "@pitchlab/contracts";
 import { eq } from "@pitchlab/db";
 import { renderEmail } from "@pitchlab/emails";
 import {
@@ -54,12 +55,32 @@ const consoleSender: SendEmail = async (to, subject, html) => {
 };
 
 const local9990Sender: SendEmail = async (to, subject, html) => {
+  if (process.env.VERCEL || (process.env.NODE_ENV === "production" && !isLocalBaseURL(process.env.BETTER_AUTH_URL ?? ""))) {
+    throw new Error("El registro local de enlaces mágicos (.local/9990.log) está prohibido fuera de localhost.");
+  }
   const cwd = process.cwd();
   const root = basename(cwd) === "web" && basename(dirname(cwd)) === "apps" ? resolve(cwd, "../..") : cwd;
   const logDirectory = resolve(root, ".local");
-  await mkdir(logDirectory, { recursive: true });
-  await appendFile(resolve(logDirectory, "9990.log"), localEmailLogLine(to, subject, html) + "\n", "utf8");
+  await mkdir(logDirectory, { recursive: true, mode: 0o700 });
+  await appendFile(resolve(logDirectory, "9990.log"), localEmailLogLine(to, subject, html) + "\n", {
+    encoding: "utf8",
+    mode: 0o600,
+  });
 };
+
+/** Limpia tokens OAuth persistidos en `auth_account`: PitchLab solo usa OAuth para identificar al socio, nunca para APIs offline. */
+export async function scrubOAuthAccountTokens(db: Db, accountRowId: string): Promise<void> {
+  await db
+    .update(authAccount)
+    .set({
+      accessToken: null,
+      refreshToken: null,
+      idToken: null,
+      accessTokenExpiresAt: null,
+      refreshTokenExpiresAt: null,
+    })
+    .where(eq(authAccount.id, accountRowId));
+}
 
 /** Liga la cuenta de Better Auth con el perfil de PitchLab (`users`) por correo. */
 export async function linkProfile(db: Db, account: { id: string; email: string; name: string }): Promise<void> {
@@ -136,10 +157,19 @@ export function createAuth(options: {
     account: {
       accountLinking: {
         enabled: true,
+        trustedProviders: ["google", "apple"],
       },
     },
     hooks: {
       before: createAuthMiddleware(async (ctx) => {
+        if (ctx.path === "/sign-in/magic-link") {
+          const emailCandidate = typeof ctx.body?.email === "string" ? ctx.body.email : "";
+          if (isDisposableEmailDomain(emailCandidate)) {
+            throw new APIError("BAD_REQUEST", {
+              message: "Usa un correo permanente para iniciar sesión.",
+            });
+          }
+        }
         const linkingX = ctx.path === "/link-social" && ctx.body?.provider === "twitter";
         if (linkingX && !options.twitter) throw new APIError("SERVICE_UNAVAILABLE");
         if (
@@ -170,6 +200,38 @@ export function createAuth(options: {
           },
         },
       },
+      account: {
+        create: {
+          before: async (account) => ({
+            data: {
+              ...account,
+              accessToken: null,
+              refreshToken: null,
+              idToken: null,
+              accessTokenExpiresAt: null,
+              refreshTokenExpiresAt: null,
+            },
+          }),
+          after: async (account) => {
+            await scrubOAuthAccountTokens(options.db, account.id);
+          },
+        },
+        update: {
+          before: async (account) => ({
+            data: {
+              ...account,
+              accessToken: null,
+              refreshToken: null,
+              idToken: null,
+              accessTokenExpiresAt: null,
+              refreshTokenExpiresAt: null,
+            },
+          }),
+          after: async (account) => {
+            await scrubOAuthAccountTokens(options.db, account.id);
+          },
+        },
+      },
     },
   });
 }
@@ -181,41 +243,91 @@ export function isLocalBaseURL(url: string): boolean {
   return /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?(\/|$)/.test(url);
 }
 
+const FORBIDDEN_AUTH_SECRETS: ReadonlySet<string> = new Set([
+  "reemplazar-con-secreto-aleatorio-de-32-caracteres-minimo",
+  "reemplaza-con-32-caracteres-aleatorios-minimo",
+  "dev-only-pitchlab-beta-cookie-secret-32chars",
+  "changeme-changeme-changeme-changeme-32",
+]);
+
+function isForbiddenAuthSecret(secret: string): boolean {
+  return (
+    FORBIDDEN_AUTH_SECRETS.has(secret) ||
+    /^(reemplaz|replace[-_]|changeme|example[-_]|dev-only-|local-9990-|e2e-test-)/i.test(secret)
+  );
+}
+
 let cached: PitchLabAuth | null | undefined;
+
+export function resetAuthForTests(instance?: PitchLabAuth | null): void {
+  cached = instance;
+}
 
 /** Instancia según el entorno; null si faltan DATABASE_URL o BETTER_AUTH_SECRET. */
 export function getAuth(): PitchLabAuth | null {
   if (cached !== undefined) return cached;
   const url = process.env.DATABASE_URL;
-  const secret = process.env.BETTER_AUTH_SECRET;
-  if (!url || !secret) {
+  const rawSecret = process.env.BETTER_AUTH_SECRET;
+  if (!url || !rawSecret) {
     cached = null;
     return cached;
   }
-  const resendKey = process.env.RESEND_API_KEY;
+  const secret = rawSecret.trim();
+  if (secret.length < 32 || (process.env.NODE_ENV === "production" && isForbiddenAuthSecret(secret))) {
+    throw new Error("BETTER_AUTH_SECRET debe ser un secreto válido de al menos 32 caracteres.");
+  }
+
+  const isProd = process.env.NODE_ENV === "production";
+  const rawBaseURL = process.env.BETTER_AUTH_URL?.trim();
+  if (isProd && !rawBaseURL) {
+    throw new Error("BETTER_AUTH_URL es obligatoria en producción.");
+  }
+  if (isProd && process.env.VERCEL && rawBaseURL && isLocalBaseURL(rawBaseURL)) {
+    throw new Error("BETTER_AUTH_URL no puede apuntar a localhost en un despliegue remoto.");
+  }
+
+  const baseURL = rawBaseURL || "http://localhost:3000";
+  const resendKey = process.env.RESEND_API_KEY?.trim();
   const from = process.env.AUTH_EMAIL_FROM ?? "PitchLab <acceso@pitchlab.mx>";
-  const baseURL = process.env.BETTER_AUTH_URL ?? "http://localhost:3000";
-  // En tu PC (build de producción en localhost) el enlace sale en la consola del servidor.
-  if (!resendKey && process.env.NODE_ENV === "production" && !isLocalBaseURL(baseURL)) {
+  const allowLocalSender =
+    isLocalBaseURL(baseURL) && !process.env.VERCEL && (!isProd || Boolean(rawBaseURL));
+
+  if (!resendKey && !allowLocalSender) {
     throw new Error("RESEND_API_KEY es obligatoria en producción para enviar enlaces de acceso.");
   }
+
+  const sendEmail: SendEmail =
+    allowLocalSender && new URL(baseURL).port === "9990"
+      ? local9990Sender
+      : resendKey
+        ? resendSender(resendKey, from)
+        : consoleSender;
+
+  const turnstileSecret = process.env.TURNSTILE_SECRET_KEY?.trim();
+  const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim();
+  if (
+    isProd &&
+    !allowLocalSender &&
+    process.env.PITCHLAB_ALLOW_NO_TURNSTILE_IN_PROD !== "1" &&
+    (!turnstileSecret || !turnstileSiteKey)
+  ) {
+    throw new Error(
+      "TURNSTILE_SECRET_KEY y NEXT_PUBLIC_TURNSTILE_SITE_KEY son obligatorias en producción.",
+    );
+  }
+
   const pair = (id?: string, secretValue?: string) =>
     id && secretValue ? { clientId: id, clientSecret: secretValue } : undefined;
   cached = createAuth({
     db: createDb(url) as unknown as Db,
     secret,
     baseURL,
-    sendEmail: isLocalBaseURL(baseURL) && new URL(baseURL).port === "9990"
-      ? local9990Sender
-      : resendKey ? resendSender(resendKey, from) : consoleSender,
+    sendEmail,
     google: pair(process.env.GOOGLE_CLIENT_ID, process.env.GOOGLE_CLIENT_SECRET),
     apple: pair(process.env.APPLE_CLIENT_ID, process.env.APPLE_CLIENT_SECRET),
     twitter: twitterCredentials(),
     // Solo con las dos claves: si falta la pública, el navegador no podría mandar el token.
-    turnstileSecret:
-      process.env.TURNSTILE_SECRET_KEY && process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
-        ? process.env.TURNSTILE_SECRET_KEY
-        : undefined,
+    turnstileSecret: turnstileSecret && turnstileSiteKey ? turnstileSecret : undefined,
   });
   return cached;
 }

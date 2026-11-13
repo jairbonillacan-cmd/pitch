@@ -11,21 +11,25 @@
  */
 import { createHmac, timingSafeEqual } from "node:crypto";
 import {
+  and,
   applyReferralClawback,
+  entitlementGrants,
+  eq,
   grantsUntil,
   handleInvoicePaid,
   handleInvoiceRefunded,
+  inArray,
   markGrantsAppliedToStripe,
   planReferralClawback,
   processedPaymentEvents,
   referralGrants,
   setConnectPayoutsEnabled,
   subscriptions,
+  sql,
   users,
   type Db,
   type ReferralClawbackPlan,
 } from "@pitchlab/db";
-import { eq, sql } from "@pitchlab/db";
 import { stripeRequest } from "./stripe-api";
 
 export const SIGNATURE_TOLERANCE_SECONDS = 300;
@@ -82,6 +86,11 @@ export interface WebhookDeps {
    * no se toca Stripe (pruebas o cobro sin configurar).
    */
   setSubscriptionTrialEnd?: (subscriptionId: string, trialEnd: Date | "now", idempotencyKey: string) => Promise<void>;
+  /**
+   * Cancela correos programados de fin de prueba (`trial_ending`, `trial_ended`) cuando el socio
+   * pasa a suscripción de pago antes de que venzan.
+   */
+  cancelScheduledTrialEmails?: (userId: string) => Promise<number | void>;
 }
 
 const STATUS_MAP: Record<string, typeof subscriptions.$inferInsert.status> = {
@@ -123,13 +132,17 @@ async function syncSubscription(
   db: Db,
   sub: Record<string, unknown>,
   now: Date,
-): Promise<{ message: string; userId: string | null }> {
+): Promise<{ message: string; userId: string | null; status: typeof subscriptions.$inferInsert.status | null }> {
   const metadata = obj(sub.metadata);
   const userId = str(metadata.user_id);
   const customer = idOf(sub.customer);
   const status = STATUS_MAP[String(sub.status)];
-  if (!userId || !customer || !status) {
-    return { message: "suscripción sin user_id, cliente o estado conocido: ignorada", userId: null };
+  if (!userId || !UUID_RE.test(userId) || !customer || !status) {
+    return { message: "suscripción sin user_id válido, cliente o estado conocido: ignorada", userId: null, status: null };
+  }
+  const [existingUser] = await db.select({ id: users.id }).from(users).where(eq(users.id, userId));
+  if (!existingUser) {
+    return { message: "suscripción de usuario inexistente: ignorada", userId: null, status: null };
   }
 
   const item = ((sub.items as { data?: Array<Record<string, unknown>> } | undefined)?.data ?? [])[0] ?? {};
@@ -163,7 +176,7 @@ async function syncSubscription(
         graceUntil: sql`CASE WHEN excluded.status = 'past_due_grace' AND ${subscriptions.status} = 'past_due_grace' AND ${subscriptions.graceUntil} IS NOT NULL THEN ${subscriptions.graceUntil} ELSE excluded.grace_until END`,
       },
     });
-  return { message: `suscripción ${values.status}`, userId };
+  return { message: `suscripción ${values.status}`, userId, status: values.status };
 }
 
 /**
@@ -212,10 +225,19 @@ async function shiftStripeForClawback(db: Db, plan: ReferralClawbackPlan, deps: 
       target,
       `trial_end:${sub.providerSubscriptionId}:${target === "now" ? `now:${plan.referralId}` : unix(target)}`,
     );
-    await db
-      .update(subscriptions)
-      .set({ currentPeriodEnd: target === "now" ? now : target, updatedAt: now })
-      .where(eq(subscriptions.id, sub.id));
+    await db.transaction(async (tx) => {
+      const t = tx as unknown as Db;
+      await t
+        .update(subscriptions)
+        .set({ currentPeriodEnd: target === "now" ? now : target, updatedAt: now })
+        .where(eq(subscriptions.id, sub.id));
+      if (plan.grantIds.length > 0) {
+        await t
+          .update(entitlementGrants)
+          .set({ appliedToStripeSubAt: null })
+          .where(and(eq(entitlementGrants.userId, userId), inArray(entitlementGrants.id, plan.grantIds)));
+      }
+    });
   }
 }
 
@@ -266,8 +288,13 @@ export async function processStripeEvent(db: Db, event: StripeEvent, deps: Webho
       case "customer.subscription.created":
       case "customer.subscription.updated":
       case "customer.subscription.deleted": {
-        const { message, userId } = await syncSubscription(db, o, now);
+        const { message, userId, status } = await syncSubscription(db, o, now);
         if (!userId || event.type === "customer.subscription.deleted") return message;
+        if ((status === "active" || status === "trialing_card") && deps.cancelScheduledTrialEmails) {
+          await deps
+            .cancelScheduledTrialEmails(userId)
+            .catch((e) => console.error("[stripe-webhook] no se pudieron cancelar correos de prueba:", e));
+        }
         const moved = await reconcileStripeRenewal(db, userId, deps, now);
         return moved ? `${message} · cobro recorrido al ${moved.toISOString()}` : message;
       }
@@ -294,6 +321,11 @@ export async function processStripeEvent(db: Db, event: StripeEvent, deps: Webho
           gatewayFeeCentavos: await deps.getInvoiceFeeCentavos(o),
           paidAt: seconds(obj(o.status_transitions).paid_at) ?? now,
         });
+        if (deps.cancelScheduledTrialEmails) {
+          await deps
+            .cancelScheduledTrialEmails(userId)
+            .catch((e) => console.error("[stripe-webhook] no se pudieron cancelar correos de prueba:", e));
+        }
         // Recorre el cobro de quien pagó y, si fue invitado, de su anfitrión (idempotente, sirve en reintentos).
         await reconcileStripeRenewal(db, userId, deps, now);
         const [ref] = await db

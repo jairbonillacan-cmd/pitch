@@ -3,7 +3,7 @@
 > **Target:** `https://aztecavet.com/`  
 > **Investigation Focus:** Hockey Sabermetrics, Goaltender Leverage, Form Weighting, Over Consistency, 60-Min Regulation Markets  
 > **Classification:** [OBSERVADO] / [INFERIDO] / [RECONSTRUIDO]  
-> **Source Artifact:** [`nhl_engine.js`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/javascript/nhl_engine.js)  
+> **Source Artifact:** [`nhl_engine.js`](<REPO_ROOT>/research/aztecavet/evidence/javascript/nhl_engine.js)  
 
 ---
 

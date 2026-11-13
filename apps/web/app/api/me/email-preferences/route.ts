@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getEmailPreferences, setEmailPreferences } from "@pitchlab/db";
+import { verifySameOriginMutation } from "../../../../src/server/request-security";
 import { requireMember } from "../../../../src/server/session-user";
 
 export const runtime = "nodejs";
@@ -15,6 +16,9 @@ export async function GET(request: Request): Promise<NextResponse> {
 }
 
 export async function PUT(request: Request): Promise<NextResponse> {
+  const csrfError = verifySameOriginMutation(request);
+  if (csrfError) return csrfError;
+
   const member = await requireMember(request);
   if ("error" in member) return member.error;
   const body = (await request.json().catch(() => null)) as { pickResults?: unknown } | null;

@@ -128,112 +128,136 @@ export interface InvoicePaidResult {
  * 2. Tipstar: asiento de comisión sobre el neto, liquidable a los 14 días.
  */
 export async function handleInvoicePaid(db: Db, input: InvoicePaidInput): Promise<InvoicePaidResult> {
-  const result: InvoicePaidResult = { referralRewarded: false, ambassadorBonus: false, commissionCentavos: null };
+  return db.transaction(async (tx) => {
+    const t = tx as unknown as Db;
+    const result: InvoicePaidResult = { referralRewarded: false, ambassadorBonus: false, commissionCentavos: null };
 
-  const [referral] = await db
-    .select()
-    .from(referralGrants)
-    .where(eq(referralGrants.referredUserId, input.userId));
-  if (
-    referral &&
-    referral.status === "trial_started" &&
-    input.grossCentavos >= MIN_QUALIFYING_PAID_CENTAVOS
-  ) {
-    const hostGrant = await grantDays(db, {
-      userId: referral.referrerUserId,
-      sourceKind: "referral_host_15d",
-      days: REFERRAL_REWARD_DAYS,
-      idempotencyKey: `ref_host_15d:${referral.id}`,
-      now: input.paidAt,
-    });
-    const friendGrant = await grantDays(db, {
-      userId: referral.referredUserId,
-      sourceKind: "referral_friend_15d",
-      days: REFERRAL_REWARD_DAYS,
-      idempotencyKey: `ref_friend_15d:${referral.id}`,
-      now: input.paidAt,
-    });
-    await db
-      .update(referralGrants)
-      .set({
-        status: "rewarded_bilateral",
-        qualifyingStripeInvoiceId: input.stripeInvoiceId,
-        qualifyingPaidCentavosMxn: input.grossCentavos,
-        referrerGrantId: hostGrant,
-        referredGrantId: friendGrant,
-        qualifiedAt: input.paidAt,
-        rewardedAt: input.paidAt,
-      })
-      .where(eq(referralGrants.id, referral.id));
-    result.referralRewarded = true;
-
-    const [{ n } = { n: 0 }] = await db
-      .select({ n: count() })
+    const [referral] = await t
+      .select()
       .from(referralGrants)
-      .where(and(eq(referralGrants.referrerUserId, referral.referrerUserId), eq(referralGrants.status, "rewarded_bilateral")));
-    const [host] = await db.select().from(users).where(eq(users.id, referral.referrerUserId));
-    if (Number(n) >= AMBASSADOR_THRESHOLD && host && !host.isAmbassador) {
-      const bonus = await grantDays(db, {
+      .where(eq(referralGrants.referredUserId, input.userId))
+      .for("update");
+    if (
+      referral &&
+      referral.status === "trial_started" &&
+      input.grossCentavos >= MIN_QUALIFYING_PAID_CENTAVOS
+    ) {
+      const hostGrant = await grantDays(t, {
         userId: referral.referrerUserId,
-        sourceKind: "ambassador_bonus_30d",
-        days: AMBASSADOR_BONUS_DAYS,
-        idempotencyKey: `ambassador_30d:${referral.referrerUserId}`,
+        sourceKind: "referral_host_15d",
+        days: REFERRAL_REWARD_DAYS,
+        idempotencyKey: `ref_host_15d:${referral.id}`,
         now: input.paidAt,
       });
-      await db.update(users).set({ isAmbassador: true }).where(eq(users.id, referral.referrerUserId));
-      await db
+      const friendGrant = await grantDays(t, {
+        userId: referral.referredUserId,
+        sourceKind: "referral_friend_15d",
+        days: REFERRAL_REWARD_DAYS,
+        idempotencyKey: `ref_friend_15d:${referral.id}`,
+        now: input.paidAt,
+      });
+      const transitioned = await t
         .update(referralGrants)
-        .set({ triggeredAmbassadorBonusGrantId: bonus })
-        .where(eq(referralGrants.id, referral.id));
-      result.ambassadorBonus = true;
+        .set({
+          status: "rewarded_bilateral",
+          qualifyingStripeInvoiceId: input.stripeInvoiceId,
+          qualifyingPaidCentavosMxn: input.grossCentavos,
+          referrerGrantId: hostGrant,
+          referredGrantId: friendGrant,
+          qualifiedAt: input.paidAt,
+          rewardedAt: input.paidAt,
+        })
+        .where(and(eq(referralGrants.id, referral.id), eq(referralGrants.status, "trial_started")))
+        .returning({ id: referralGrants.id });
+
+      if (transitioned.length > 0) {
+        result.referralRewarded = true;
+
+        const [host] = await t
+          .select()
+          .from(users)
+          .where(eq(users.id, referral.referrerUserId))
+          .for("update");
+        const [{ n } = { n: 0 }] = await t
+          .select({ n: count() })
+          .from(referralGrants)
+          .where(
+            and(
+              eq(referralGrants.referrerUserId, referral.referrerUserId),
+              eq(referralGrants.status, "rewarded_bilateral"),
+            ),
+          );
+        if (Number(n) >= AMBASSADOR_THRESHOLD && host && !host.isAmbassador) {
+          const promoted = await t
+            .update(users)
+            .set({ isAmbassador: true })
+            .where(and(eq(users.id, referral.referrerUserId), eq(users.isAmbassador, false)))
+            .returning({ id: users.id });
+          if (promoted.length > 0) {
+            const bonus = await grantDays(t, {
+              userId: referral.referrerUserId,
+              sourceKind: "ambassador_bonus_30d",
+              days: AMBASSADOR_BONUS_DAYS,
+              idempotencyKey: `ambassador_30d:${referral.referrerUserId}`,
+              now: input.paidAt,
+            });
+            await t
+              .update(referralGrants)
+              .set({ triggeredAmbassadorBonusGrantId: bonus })
+              .where(eq(referralGrants.id, referral.id));
+            result.ambassadorBonus = true;
+          }
+        }
+      }
     }
-  }
 
-  const [attribution] = await db
-    .select({ attr: tipstarAttributions, bps: tipstarProfiles.commissionBps })
-    .from(tipstarAttributions)
-    .innerJoin(tipstarProfiles, eq(tipstarProfiles.userId, tipstarAttributions.tipstarUserId))
-    .where(
-      and(
-        eq(tipstarAttributions.referredUserId, input.userId),
-        gt(tipstarProfiles.commissionBps, 0),
-      ),
-    );
-  if (attribution && attribution.attr.status !== "fraud_blocked") {
-    const { netCentavos, commissionCentavos } = computeCommission({
-      grossCentavos: input.grossCentavos,
-      vatCentavos: input.vatCentavos,
-      gatewayFeeCentavos: input.gatewayFeeCentavos,
-      commissionBps: attribution.bps,
-    });
-    await db
-      .insert(tipstarCommissionLedger)
-      .values({
-        attributionId: attribution.attr.id,
-        tipstarUserId: attribution.attr.tipstarUserId,
-        stripeInvoiceId: input.stripeInvoiceId,
-        grossPaidCentavosMxn: input.grossCentavos,
-        vatCentavosMxn: input.vatCentavos,
-        gatewayFeeCentavosMxn: input.gatewayFeeCentavos,
-        netCommissionableCentavosMxn: netCentavos,
+    const [attribution] = await t
+      .select({ attr: tipstarAttributions, bps: tipstarProfiles.commissionBps })
+      .from(tipstarAttributions)
+      .innerJoin(tipstarProfiles, eq(tipstarProfiles.userId, tipstarAttributions.tipstarUserId))
+      .where(
+        and(
+          eq(tipstarAttributions.referredUserId, input.userId),
+          eq(tipstarProfiles.isActive, true),
+          gt(tipstarProfiles.commissionBps, 0),
+        ),
+      );
+    if (attribution && attribution.attr.status !== "fraud_blocked") {
+      const { netCentavos, commissionCentavos } = computeCommission({
+        grossCentavos: input.grossCentavos,
+        vatCentavos: input.vatCentavos,
+        gatewayFeeCentavos: input.gatewayFeeCentavos,
         commissionBps: attribution.bps,
-        commissionCentavosMxn: commissionCentavos,
-        status: "pending_clearance",
-        clearsAt: new Date(input.paidAt.getTime() + COMMISSION_CLEARANCE_DAYS * DAY_MS),
-      })
-      .onConflictDoNothing({ target: tipstarCommissionLedger.stripeInvoiceId });
-    await db
-      .update(tipstarAttributions)
-      .set({
-        status: "active_paying",
-        firstPaidAt: attribution.attr.firstPaidAt ?? input.paidAt,
-        lastPaidAt: input.paidAt,
-      })
-      .where(eq(tipstarAttributions.id, attribution.attr.id));
-    result.commissionCentavos = commissionCentavos;
-  }
+      });
+      await t
+        .insert(tipstarCommissionLedger)
+        .values({
+          attributionId: attribution.attr.id,
+          tipstarUserId: attribution.attr.tipstarUserId,
+          stripeInvoiceId: input.stripeInvoiceId,
+          grossPaidCentavosMxn: input.grossCentavos,
+          vatCentavosMxn: input.vatCentavos,
+          gatewayFeeCentavosMxn: input.gatewayFeeCentavos,
+          netCommissionableCentavosMxn: netCentavos,
+          commissionBps: attribution.bps,
+          commissionCentavosMxn: commissionCentavos,
+          status: "pending_clearance",
+          clearsAt: new Date(input.paidAt.getTime() + COMMISSION_CLEARANCE_DAYS * DAY_MS),
+        })
+        .onConflictDoNothing({ target: tipstarCommissionLedger.stripeInvoiceId });
+      await t
+        .update(tipstarAttributions)
+        .set({
+          status: "active_paying",
+          firstPaidAt: attribution.attr.firstPaidAt ?? input.paidAt,
+          lastPaidAt: input.paidAt,
+        })
+        .where(eq(tipstarAttributions.id, attribution.attr.id));
+      result.commissionCentavos = commissionCentavos;
+    }
 
-  return result;
+    return result;
+  });
 }
 
 /** Reembolso: revierte la comisión del cobro (si aún no se pagó al tipstar). */

@@ -887,7 +887,7 @@ function closeGame(){
 document.body.style.overflow=""}
 }
 let buf="";
-const CODE="7779",dots=[...document.querySelectorAll("#dots i")],msg=$("msg"),pad=$("pad");
+const CODE="[REDACTED_PIN]",dots=[...document.querySelectorAll("#dots i")],msg=$("msg"),pad=$("pad");
 ["1","2","3","4","5","6","7","8","9","","0","⌫"].forEach(k=>{
   const b=document.createElement("button");
   b.textContent=k;

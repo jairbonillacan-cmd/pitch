@@ -124,8 +124,12 @@ export async function fetchFootballDataCompetition(options: {
     }
   }
 
-  const url = `${FOOTBALL_DATA_BASE_URL}/competitions/${code}/matches`;
-  const res = await fetch(url, { headers: { "X-Auth-Token": apiKey.trim() } });
+  const url = `${FOOTBALL_DATA_BASE_URL}/competitions/${encodeURIComponent(code)}/matches`;
+  const res = await fetch(url, {
+    headers: { "X-Auth-Token": apiKey.trim() },
+    redirect: "error",
+    signal: AbortSignal.timeout(15_000),
+  });
   if (!res.ok) {
     throw new Error(`Error de football-data.org (${res.status}): ${url}`);
   }

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { listWatchlist, setWatched } from "../../../../src/server/member-data";
-import { requireMember } from "../../../../src/server/session-user";
+import { verifySameOriginMutation } from "../../../../src/server/request-security";
+import { requireActivePaseMember, requireMember } from "../../../../src/server/session-user";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -12,7 +13,10 @@ export async function GET(request: Request): Promise<NextResponse> {
 }
 
 export async function POST(request: Request): Promise<NextResponse> {
-  const member = await requireMember(request);
+  const csrfError = verifySameOriginMutation(request);
+  if (csrfError) return csrfError;
+
+  const member = await requireActivePaseMember(request);
   if ("error" in member) return member.error;
   const body = (await request.json().catch(() => null)) as { gameId?: unknown; watched?: unknown } | null;
   if (!body || typeof body.gameId !== "string" || typeof body.watched !== "boolean") {

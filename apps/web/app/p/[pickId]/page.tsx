@@ -51,6 +51,9 @@ export default async function PublicTipstarPickPage({
     loadPublicPlatformState(pickId),
     hasPublicSessionCookie(),
   ]);
+  if (!state.publicPickResolved) {
+    notFound();
+  }
 
   return (
     <PlatformClientBridge

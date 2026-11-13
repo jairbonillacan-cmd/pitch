@@ -18,6 +18,7 @@ import {
   journalRecord,
   redactDatasetForVisitor,
 } from "./access-guard";
+import { sanitizeCsvCell } from "./club/account/account-helpers";
 
 /** Claves de almacenamiento local (versión en el nombre para poder migrar). */
 const STORAGE_KEYS = {
@@ -733,6 +734,8 @@ export function PlatformProvider({
         ) {
           setViewerRoleState(savedRole);
         }
+      } else {
+        window.localStorage.removeItem("pl-sim-role");
       }
     } catch (err) {
       void err;
@@ -838,6 +841,7 @@ export function PlatformProvider({
 
   const setViewerRole = useCallback(
     (role: ViewerRole) => {
+      if (!allowRoleSimulation) return;
       setViewerRoleState(role);
       try {
         window.localStorage.setItem("pl-sim-role", role);
@@ -845,7 +849,7 @@ export function PlatformProvider({
         void err;
       }
     },
-    [],
+    [allowRoleSimulation],
   );
 
   const setOddsFormat = useCallback((fmt: OddsFormat) => {
@@ -1104,16 +1108,16 @@ export function PlatformProvider({
       "Fecha,Liga,Partido,Seleccion,Origen,Unidades,CuotaUsuario,CuotaJusta,CLV_Pts,Estado";
     const lines = journal.map((j) =>
       [
-        `"${j.sealedAt}"`,
-        `"${j.leagueLabel}"`,
-        `"${j.matchLabel}"`,
-        `"${j.pickLabel.replace(/"/g, '""')}"`,
-        `"${j.origin}"`,
+        `"${sanitizeCsvCell(j.sealedAt)}"`,
+        `"${sanitizeCsvCell(j.leagueLabel)}"`,
+        `"${sanitizeCsvCell(j.matchLabel)}"`,
+        `"${sanitizeCsvCell(j.pickLabel)}"`,
+        `"${sanitizeCsvCell(j.origin)}"`,
         j.units.toFixed(2),
         j.userDecimal.toFixed(2),
         j.fairDecimal.toFixed(2),
         j.clvPct.toFixed(1),
-        j.status,
+        `"${sanitizeCsvCell(j.status)}"`,
       ].join(","),
     );
     const csv = [header, ...lines].join("\n");

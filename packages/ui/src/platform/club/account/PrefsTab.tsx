@@ -296,6 +296,37 @@ export function PrefsTab({
     };
   }, [accountsEnabled, storyOverride]);
 
+  // Con cuentas reales activas, hidrata la visibilidad del perfil público desde PostgreSQL.
+  useEffect(() => {
+    if (
+      !accountsEnabled ||
+      typeof window === "undefined" ||
+      typeof fetch !== "function" ||
+      storyOverride?.initialPrefs?.privacy?.publicProfile !== undefined
+    ) {
+      return;
+    }
+    let cancelled = false;
+    void fetch("/api/me/profile", { credentials: "same-origin", cache: "no-store" })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data: { publicProfile?: unknown } | null) => {
+        if (cancelled || typeof data?.publicProfile !== "boolean") return;
+        const serverPublic = data.publicProfile;
+        setPrefs((prev) => {
+          if (prev.privacy.publicProfile === serverPublic) return prev;
+          const next = { ...prev, privacy: { ...prev.privacy, publicProfile: serverPublic } };
+          writeStoredPrefs(next);
+          return next;
+        });
+      })
+      .catch((err) => {
+        void err;
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [accountsEnabled, storyOverride?.initialPrefs?.privacy?.publicProfile]);
+
   // Si el modo es «Sistema», escucha cambios del esquema de color del dispositivo.
   useEffect(() => {
     if (typeof window === "undefined" || prefs.themeMode !== "system") return;
@@ -826,12 +857,34 @@ export function PrefsTab({
                     aria-labelledby={titleId}
                     aria-describedby={descId}
                     isSelected={prefs.privacy[item.key]}
-                    onChange={(next) =>
+                    onChange={(next) => {
+                      const prevValue = prefs.privacy[item.key];
                       updatePrefs((prev) => ({
                         ...prev,
                         privacy: { ...prev.privacy, [item.key]: next },
-                      }))
-                    }
+                      }));
+                      if (item.key === "publicProfile" && accountsEnabled && typeof fetch === "function") {
+                        void fetch("/api/me/profile", {
+                          method: "PATCH",
+                          credentials: "same-origin",
+                          headers: { "content-type": "application/json" },
+                          body: JSON.stringify({ publicProfile: next }),
+                        })
+                          .then((res) => {
+                            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                          })
+                          .catch(() => {
+                            setPrefs((curr) => {
+                              const reverted = {
+                                ...curr,
+                                privacy: { ...curr.privacy, publicProfile: prevValue },
+                              };
+                              writeStoredPrefs(reverted);
+                              return reverted;
+                            });
+                          });
+                      }
+                    }}
                     className="pl-acct-switch"
                   >
                     <Switch.Control className="pl-acct-switch-control">

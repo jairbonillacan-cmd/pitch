@@ -98,7 +98,7 @@ Para acelerar la tracción inicial sin incurrir en costos variables de SMS/Whats
 
 1. **Modo Lanzamiento Mes 1 (`7 días gratis SIN pedir tarjeta` · costo operativo `$0 MXN`):**
    - Registro en 1 clic obligatorio vía **OAuth (`Google` o `Apple`)**.
-   - **Canonización estricta de correo (`normalizeTrialEmail` en `access-guard.ts`):** convierte `googlemail.com` → `gmail.com`, elimina todos los puntos en la parte local y recorta cualquier sufijo `+alias` (`j.a.i.r+promo2@gmail.com` → `jair@gmail.com`), neutralizando multicuentas con la misma bandeja.
+   - **Canonización estricta de correo (`normalizeTrialEmail` en `access-guard.ts`):** convierte `googlemail.com` → `gmail.com`, elimina todos los puntos en la parte local y recorta cualquier sufijo `+alias` (`ejemplo+alias@gmail.com` → `jair@gmail.com`), neutralizando multicuentas con la misma bandeja.
    - **Bloqueo de correos temporales (`isDisposableEmailDomain`):** rechaza dominios desechables (`mailinator`, `tempmail`, `yopmail`, `10minutemail`, `guerrillamail`, etc.).
    - **Cloudflare Turnstile + Huella de Dispositivo:** validación anti-bot sin fricción y límite de 1 prueba gratuita por identidad/equipo.
 2. **Modo Operación Continua Mes 2+ (`Prueba gratis con verificación bancaria $0.00 MXN`):**

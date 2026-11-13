@@ -11,11 +11,25 @@
  * **research-only** (igual que xG y cuotas).
  */
 import { existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
-import { dirname, join } from "node:path";
+import { dirname, join, resolve, sep } from "node:path";
 import { sha256 } from "./http.js";
 
 export const ESPN_LIGA_MX_BASE = "https://site.api.espn.com/apis/site/v2/sports/soccer/mex.1";
 export const ESPN_LIGA_MX_SEASONS = [2024, 2023, 2022] as const;
+
+const SAFE_ESPN_ID_RE = /^\d{1,20}$/;
+
+function safeRawCacheFile(rawDir: string, relativePath: string): string {
+  if (!relativePath || relativePath.includes("..") || relativePath.includes("\0")) {
+    throw new Error(`Ruta de caché histórica ESPN insegura: ${relativePath}`);
+  }
+  const resolvedRoot = resolve(rawDir);
+  const resolvedFile = resolve(resolvedRoot, relativePath);
+  if (!resolvedFile.startsWith(resolvedRoot + sep)) {
+    throw new Error(`Escape de directorio en caché histórica ESPN bloqueado: ${relativePath}`);
+  }
+  return resolvedFile;
+}
 
 /** ESPN display name → slug del corpus. */
 export const ESPN_TEAM_SLUGS: Readonly<Record<string, string>> = {
@@ -217,7 +231,7 @@ function readScheduleEvents(payload: unknown): EspnEvent[] {
     const competition = event.competitions?.[0];
     const home = competition?.competitors?.find((team) => team.homeAway === "home")?.team?.displayName;
     const away = competition?.competitors?.find((team) => team.homeAway === "away")?.team?.displayName;
-    if (!event.id || !home || !away) continue;
+    if (!event.id || !SAFE_ESPN_ID_RE.test(event.id) || !home || !away) continue;
     events.push({
       id: event.id,
       date: (competition?.date ?? event.date ?? "").slice(0, 10),
@@ -259,14 +273,19 @@ export async function buildEspnLigaMxStats(options: BuildEspnOptions): Promise<{
   const teams = teamsPayload?.sports?.[0]?.leagues?.[0]?.teams ?? [];
   const mappedTeams = teams
     .map((entry) => entry.team)
-    .filter((team): team is { id: string; displayName: string } => Boolean(team && ESPN_TEAM_SLUGS[team.displayName]));
+    .filter((team): team is { id: string; displayName: string } =>
+      Boolean(team && SAFE_ESPN_ID_RE.test(team.id) && ESPN_TEAM_SLUGS[team.displayName]),
+    );
 
   const eventsById = new Map<string, EspnEvent>();
   for (const season of seasons) {
+    if (!Number.isInteger(season) || season < 1990 || season > 2100) {
+      throw new Error(`Temporada histórica ESPN inválida: ${String(season)}`);
+    }
     for (const team of mappedTeams) {
       const payload = await fetchJsonCached(
-        `${ESPN_LIGA_MX_BASE}/teams/${team.id}/schedule?season=${season}`,
-        join(rawDir, `schedule-${team.id}-${season}.json`),
+        `${ESPN_LIGA_MX_BASE}/teams/${encodeURIComponent(team.id)}/schedule?season=${season}`,
+        safeRawCacheFile(rawDir, `schedule-${team.id}-${season}.json`),
         { ...(options.offline ? { offline: true } : {}) },
       );
       if (!payload) continue;
@@ -305,14 +324,15 @@ export async function buildEspnLigaMxStats(options: BuildEspnOptions): Promise<{
   let fetched = 0;
   for (const event of events) {
     if (fetched >= maxSummaries) break;
-    const cachePath = join(rawDir, "summaries", `${event.id}.json`);
+    if (!SAFE_ESPN_ID_RE.test(event.id)) continue;
+    const cachePath = safeRawCacheFile(rawDir, join("summaries", `${event.id}.json`));
     if (existsSync(cachePath)) {
       summaries.set(event.id, readJson(cachePath));
       continue;
     }
     if (options.offline) continue;
     const payload = await fetchJsonCached(
-      `${ESPN_LIGA_MX_BASE}/summary?event=${event.id}`,
+      `${ESPN_LIGA_MX_BASE}/summary?event=${encodeURIComponent(event.id)}`,
       cachePath,
       { retries: 2 },
     );

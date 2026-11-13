@@ -58,6 +58,11 @@ export function BillingTab({
       setErrorNotice("Ingresa un código postal fiscal de 5 dígitos.");
       return;
     }
+    if (regimenFiscal === "616" && usoCfdi !== "S01") {
+      setSavedNotice("");
+      setErrorNotice("Para el régimen 616 (Sin obligaciones fiscales) selecciona uso de CFDI S01.");
+      return;
+    }
 
     writeStoredCfdiDraft({
       v: 1,
@@ -71,14 +76,14 @@ export function BillingTab({
     setRazonSocial(cleanedRazon);
     setCpFiscal(cleanedCp);
     setErrorNotice("");
-    setSavedNotice("Datos fiscales guardados en este dispositivo.");
+    setSavedNotice("Datos fiscales validados para esta sesión.");
   };
 
   return (
     <div className="pl-acct-stack">
       {!accountsEnabled ? (
         <ExampleNotice>
-          La emisión automática de facturas CFDI 4.0 se activará junto con el cobro. Puedes guardar tus datos fiscales en este dispositivo desde ahora.
+          La emisión automática de facturas CFDI 4.0 se activará junto con el cobro. Por privacidad, tus datos fiscales no se guardan en el navegador.
         </ExampleNotice>
       ) : null}
 

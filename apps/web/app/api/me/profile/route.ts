@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { memberProfile, updateMemberProfile } from "@pitchlab/db";
 import { parseProfileChanges } from "../../../../src/server/profile";
+import { verifySameOriginMutation } from "../../../../src/server/request-security";
 import { requireMember } from "../../../../src/server/session-user";
 
 export const runtime = "nodejs";
@@ -17,6 +18,9 @@ export async function GET(request: Request): Promise<NextResponse> {
 }
 
 export async function PATCH(request: Request): Promise<NextResponse> {
+  const csrfError = verifySameOriginMutation(request);
+  if (csrfError) return csrfError;
+
   const member = await requireMember(request);
   if ("error" in member) return member.error;
   const body = parseProfileChanges(await request.json().catch(() => null));

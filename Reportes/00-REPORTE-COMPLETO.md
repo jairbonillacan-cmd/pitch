@@ -2,7 +2,7 @@
 
 **Sitio:** https://touchiq.com.mx/ · **Fecha del análisis:** 2026-11-08 · **Datos de la app congelados al 7 nov 2026**
 **Herramienta principal:** REA — Reverse Engineer Anything (rea-agents@6.8.0 + skill v49)
-**Autorización:** clave de acceso proporcionada por el usuario (7779). Reconstrucción local independiente.
+**Autorización:** clave de acceso proporcionada por el usuario ([REDACTED_PIN]). Reconstrucción local independiente.
 
 ---
 
@@ -18,7 +18,7 @@ El motor fue **extraído, ejecutado offline y comparado contra el original en 46
 
 ## 1. Qué es la aplicación (descubrimiento)
 
-- **Pantallas**: intro synthwave con pad PIN (2 etapas, código "7779") → home con robots → tableros NFL (7 pestañas: PARTIDOS, SIMULADOR, NOTICIAS, LESIONES, EQUIPOS, JUGADORES, 💰 DINERO) y NCAA (4 pestañas) → boleto/historial/bankroll → asistente de IA integrado.
+- **Pantallas**: intro synthwave con pad PIN (2 etapas, código "[REDACTED_PIN]") → home con robots → tableros NFL (7 pestañas: PARTIDOS, SIMULADOR, NOTICIAS, LESIONES, EQUIPOS, JUGADORES, 💰 DINERO) y NCAA (4 pestañas) → boleto/historial/bankroll → asistente de IA integrado.
 - **Arquitectura**: shell + dos documentos HTML completos embebidos en base64 (`PAGES={nfl: 1.34 MB, ncaa: 97 KB}`) abiertos en iframes `srcdoc`, comunicándose por `postMessage` (`ready/cfg/odd/add/home`). Sin frameworks, sin backend, sin tracking.
 - **Puente opcional `window.claude`** (`db`, `user`, `sample`): persistencia por usuario en BD y respuestas LLM del asistente; sin ese host (la web pública), todo cae a `localStorage["azteca_av"]`.
 - **Código muerto detectado**: `window.__START` (inyectado, nunca leído) y las combinadas `cb_` (matemática de convolución presente, UI desactivada).

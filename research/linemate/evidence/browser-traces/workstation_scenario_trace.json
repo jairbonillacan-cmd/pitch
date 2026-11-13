@@ -12,7 +12,7 @@
   "parameters": {
     "browser": {
       "mode": "launch",
-      "executable_path": "C:\\Users\\jairb\\AppData\\Local\\Google\\Chrome\\Application\\chrome.exe",
+      "executable_path": "<LOCAL_CHROME_BIN>",
       "headless": true
     },
     "start_url": {

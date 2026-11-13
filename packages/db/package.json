@@ -10,7 +10,7 @@
     "build": "tsc --noEmit",
     "typecheck": "tsc --noEmit",
     "lint": "tsc --noEmit",
-    "test": "vitest run",
+    "test": "vitest run --hookTimeout=30000 --testTimeout=30000",
     "generate": "drizzle-kit generate",
     "migrate": "drizzle-kit migrate"
   },

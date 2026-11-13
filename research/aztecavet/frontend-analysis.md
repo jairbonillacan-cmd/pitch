@@ -3,7 +3,7 @@
 > **Target:** `https://aztecavet.com/`  
 > **Investigation Focus:** Bundling, Rendering Engines, Canvas Graphics, Procedural Audio, Responsive Design  
 > **Classification:** [OBSERVADO] / [INFERIDO] / [RECONSTRUIDO]  
-> **Code Artifacts:** [`shell_app.js`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/aztecavet/evidence/javascript/shell_app.js), [`inline_2_readable.js`](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/Reportes/analisis-aztecavet/readable/inline_2_readable.js)  
+> **Code Artifacts:** [`shell_app.js`](<REPO_ROOT>/research/aztecavet/evidence/javascript/shell_app.js), [`inline_2_readable.js`](<REPO_ROOT>/Reportes/analisis-aztecavet/readable/inline_2_readable.js)  
 
 ---
 

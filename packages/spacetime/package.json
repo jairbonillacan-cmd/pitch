@@ -9,6 +9,7 @@
   },
   "scripts": {
     "sync": "node scripts/sync-from-prediction-lab.mjs",
+    "sync:data": "node scripts/sync-from-prediction-lab.mjs --data-only",
     "build": "tsc --noEmit",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",

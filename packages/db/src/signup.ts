@@ -3,12 +3,15 @@
  * referido y la prueba de 7 días sin tarjeta (Mes 1), con el escudo de un solo correo por prueba.
  */
 import { createHash } from "node:crypto";
-import { and, eq, isNotNull, ne, sql } from "drizzle-orm";
+import { and, countDistinct, eq, gte, isNotNull, ne, sql } from "drizzle-orm";
 import { grantDays, type Db } from "./billing";
 import { referralGrants, trialFingerprints, users } from "./schema";
 
 export const TRIAL_M1_DAYS = 7;
 export const MIN_SIGNUP_AGE = 18;
+export const SIGNUP_CONSENT_VERSION = "2026-11-11";
+export const MAX_TRIALS_PER_DEVICE = 2;
+export const MAX_TRIALS_PER_SUBNET_24H = 3;
 
 /** Usuario: 3 a 20 caracteres, minúsculas, números y guion bajo; empieza con letra. */
 export const HANDLE_PATTERN = /^[a-z][a-z0-9_]{2,19}$/;
@@ -117,6 +120,9 @@ export interface CompleteSignupInput {
     provider: "google" | "apple" | "email" | null;
     deviceFpHash: string;
     ipSubnetHash: string;
+    unknownDevice?: boolean;
+    unknownSubnet?: boolean;
+    turnstileRayId?: string | null;
   };
   now: Date;
 }
@@ -154,18 +160,25 @@ export async function completeSignup(db: Db, input: CompleteSignupInput): Promis
           referralCode: users.referralCode,
           isAdult: users.isAdult,
           handle: users.handle,
+          termsAcceptedAt: users.termsAcceptedAt,
         })
         .from(users)
         .where(eq(users.id, input.userId))
         .for("update");
       if (!current) return { ok: false, reason: "fecha_invalida" };
 
-      if (current.isAdult && current.handle) {
+      if (current.isAdult && current.handle && current.termsAcceptedAt) {
         const [fingerprint] = input.trial
-          ? await tx.select({ userId: trialFingerprints.userId }).from(trialFingerprints)
+          ? await tx
+              .select({ userId: trialFingerprints.userId, decision: trialFingerprints.decision })
+              .from(trialFingerprints)
               .where(eq(trialFingerprints.canonicalEmailSha256, sha256Hex(input.trial.canonicalEmail)))
           : [];
-        const trial = fingerprint ? (fingerprint.userId === input.userId ? "concedida" : "ya_usada") : "apagada";
+        const trial = fingerprint
+          ? fingerprint.userId === input.userId && fingerprint.decision === "granted"
+            ? "concedida"
+            : "ya_usada"
+          : "apagada";
         return { ok: true, trial, referral: "ninguno" };
       }
 
@@ -203,13 +216,84 @@ async function grantSignupTrial(
   if (!input.trial) return { ok: true, trial: "apagada", referral };
 
   const emailSha = sha256Hex(input.trial.canonicalEmail);
+  await db.execute(sql`SELECT pg_advisory_xact_lock(hashtext(${`trial:${emailSha}`})::bigint)`);
+  if (!input.trial.unknownDevice && input.trial.deviceFpHash) {
+    await db.execute(sql`SELECT pg_advisory_xact_lock(hashtext(${`trial_dev:${input.trial.deviceFpHash}`})::bigint)`);
+  }
+
   const [seen] = await db
-    .select({ userId: trialFingerprints.userId })
+    .select({ userId: trialFingerprints.userId, decision: trialFingerprints.decision })
     .from(trialFingerprints)
     .where(eq(trialFingerprints.canonicalEmailSha256, emailSha));
-  if (seen && seen.userId !== input.userId) return { ok: true, trial: "ya_usada", referral };
+  if (seen) {
+    if (seen.userId !== input.userId || seen.decision !== "granted") {
+      return { ok: true, trial: "ya_usada", referral };
+    }
+  } else {
+    if (!input.trial.unknownDevice && input.trial.deviceFpHash) {
+      const [devRow] = await db
+        .select({ n: countDistinct(trialFingerprints.userId) })
+        .from(trialFingerprints)
+        .where(
+          and(
+            eq(trialFingerprints.deviceFpHash, input.trial.deviceFpHash),
+            eq(trialFingerprints.decision, "granted"),
+            ne(trialFingerprints.userId, input.userId),
+          ),
+        );
+      if (Number(devRow?.n ?? 0) >= MAX_TRIALS_PER_DEVICE) {
+        await db
+          .insert(trialFingerprints)
+          .values({
+            userId: input.userId,
+            canonicalEmail: input.trial.canonicalEmail,
+            canonicalEmailSha256: emailSha,
+            oauthProvider: input.trial.provider,
+            deviceFpHash: input.trial.deviceFpHash,
+            ipSubnetHash: input.trial.ipSubnetHash,
+            turnstileRayId: input.trial.turnstileRayId ?? null,
+            trialPhase: "month1_no_card",
+            decision: "denied_duplicate_device",
+            createdAt: input.now,
+          })
+          .onConflictDoNothing({ target: trialFingerprints.canonicalEmailSha256 });
+        return { ok: true, trial: "ya_usada", referral };
+      }
+    }
 
-  if (!seen) {
+    if (!input.trial.unknownSubnet && input.trial.ipSubnetHash) {
+      const since24h = new Date(input.now.getTime() - 24 * 3_600_000);
+      const [subRow] = await db
+        .select({ n: countDistinct(trialFingerprints.userId) })
+        .from(trialFingerprints)
+        .where(
+          and(
+            eq(trialFingerprints.ipSubnetHash, input.trial.ipSubnetHash),
+            eq(trialFingerprints.decision, "granted"),
+            gte(trialFingerprints.createdAt, since24h),
+            ne(trialFingerprints.userId, input.userId),
+          ),
+        );
+      if (Number(subRow?.n ?? 0) >= MAX_TRIALS_PER_SUBNET_24H) {
+        await db
+          .insert(trialFingerprints)
+          .values({
+            userId: input.userId,
+            canonicalEmail: input.trial.canonicalEmail,
+            canonicalEmailSha256: emailSha,
+            oauthProvider: input.trial.provider,
+            deviceFpHash: input.trial.deviceFpHash,
+            ipSubnetHash: input.trial.ipSubnetHash,
+            turnstileRayId: input.trial.turnstileRayId ?? null,
+            trialPhase: "month1_no_card",
+            decision: "denied_subnet_rate",
+            createdAt: input.now,
+          })
+          .onConflictDoNothing({ target: trialFingerprints.canonicalEmailSha256 });
+        return { ok: true, trial: "ya_usada", referral };
+      }
+    }
+
     const inserted = await db
       .insert(trialFingerprints)
       .values({
@@ -219,8 +303,10 @@ async function grantSignupTrial(
         oauthProvider: input.trial.provider,
         deviceFpHash: input.trial.deviceFpHash,
         ipSubnetHash: input.trial.ipSubnetHash,
+        turnstileRayId: input.trial.turnstileRayId ?? null,
         trialPhase: "month1_no_card",
         decision: "granted",
+        createdAt: input.now,
       })
       .onConflictDoNothing({ target: trialFingerprints.canonicalEmailSha256 })
       .returning({ id: trialFingerprints.id });
@@ -260,7 +346,14 @@ export async function signupCompleted(db: Db, userId: string): Promise<boolean> 
   const [row] = await db
     .select({ id: users.id })
     .from(users)
-    .where(and(eq(users.id, userId), eq(users.isAdult, true), isNotNull(users.handle)));
+    .where(
+      and(
+        eq(users.id, userId),
+        eq(users.isAdult, true),
+        isNotNull(users.handle),
+        isNotNull(users.termsAcceptedAt),
+      ),
+    );
   return Boolean(row);
 }
 

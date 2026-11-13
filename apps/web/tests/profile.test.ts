@@ -20,7 +20,7 @@ vi.mock("@pitchlab/db", async (importOriginal) => ({
 const profileRequest = (body: unknown) => new Request("http://localhost:9990/api/me/profile", {
   method: "PATCH",
   body: JSON.stringify(body),
-  headers: { "content-type": "application/json" },
+  headers: { "content-type": "application/json", origin: "http://localhost:9990" },
 });
 
 afterEach(() => {

@@ -5,12 +5,15 @@ type ProfileChanges = {
   displayName?: string;
   handle?: string;
   bio?: string | null;
+  publicProfile?: boolean;
 };
+
+const ALLOWED_PROFILE_KEYS = new Set(["displayName", "handle", "bio", "publicProfile"]);
 
 export function parseProfileChanges(raw: unknown): { changes: ProfileChanges } | { error: string } {
   if (!raw || typeof raw !== "object" || Array.isArray(raw)) return { error: "datos_invalidos" };
   const body = raw as Record<string, unknown>;
-  if (Object.keys(body).some((key) => key !== "displayName" && key !== "handle" && key !== "bio")) {
+  if (Object.keys(body).some((key) => !ALLOWED_PROFILE_KEYS.has(key))) {
     return { error: "datos_invalidos" };
   }
 
@@ -33,6 +36,10 @@ export function parseProfileChanges(raw: unknown): { changes: ProfileChanges } |
     }
     if (typeof body.bio === "string" && containsExternalLink(body.bio)) return { error: "bio_con_enlace" };
     changes.bio = body.bio?.trim() || null;
+  }
+  if ("publicProfile" in body) {
+    if (typeof body.publicProfile !== "boolean") return { error: "privacidad_invalida" };
+    changes.publicProfile = body.publicProfile;
   }
   return Object.keys(changes).length ? { changes } : { error: "datos_invalidos" };
 }

@@ -69,7 +69,7 @@ const BALLS=[];let PTR={x:0,y:0};addEventListener("pointermove",e=>{PTR.x=e.clie
 (function loop(now){window.ballFrame(now||0);requestAnimationFrame(loop)})();
 startBall($("ballc1"),240,()=>stage===1&&!$("lock").classList.contains("hide"),1);
 /* ---------- intro: sonido, codigo, canvas ---------- */
-const CODE="7779",dots=[...document.querySelectorAll("#dots i")],msg=$("msg"),pad=$("pad");
+const CODE="[REDACTED_PIN]",dots=[...document.querySelectorAll("#dots i")],msg=$("msg"),pad=$("pad");
 let buf="",stage=1,busy=false,snd=true;const T0=Date.now(),intro={warp:0,stop(){cancelAnimationFrame(intro.raf)}};
 /* ---------- motor de audio: caracol, huehuetl, ocarina, campanas y barridos ---------- */
 const AU={ctx:null,master:null,rev:null,started:false,bed:null,chimes:false,drums:false};

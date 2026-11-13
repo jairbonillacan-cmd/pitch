@@ -1,6 +1,6 @@
 # 01 — Discovery
 **Objetivo:** touchiq.com.mx · **Herramienta:** REA (rea-agents@6.8.0 CLI + skill reverse-engineer-anything v49)
-**Autorización:** clave de acceso proporcionada por el usuario (7779).
+**Autorización:** clave de acceso proporcionada por el usuario ([REDACTED_PIN]).
 
 ## Hallazgos estructurales (OBSERVADO)
 - Aplicación de UN SOLO ARCHIVO: index.html de 2.4 MB servido por Netlify (HTTP/2, HSTS).
@@ -12,7 +12,7 @@
 ## Herramientas ejecutadas
 - REA analyze-javascript-application (Evidence ev_2464afc9, 14 fuentes) + inspect-analysis-view summary.
 - REA inspect-web-page vía CDP (Chrome for Testing 156, puerto 9222, perfil aislado /tmp/rea-touchiq-profile).
-- Navegación real con clave 7779 (IAB ZCode): lock→home→NFL(PARTIDOS/DINERO/SIMULADOR)→NCAA→boleto→IA.
+- Navegación real con clave [REDACTED_PIN] (IAB ZCode): lock→home→NFL(PARTIDOS/DINERO/SIMULADOR)→NCAA→boleto→IA.
 - Motor original extraído y ejecutado offline (touchiq-analysis/engine/engine-nfl.js) — verificación 5/5.
 
 ## Limitaciones de herramientas

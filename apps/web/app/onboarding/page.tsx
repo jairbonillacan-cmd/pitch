@@ -22,7 +22,7 @@ export default async function OnboardingPage(): Promise<React.JSX.Element> {
 
   return (
     <PlatformClientBridge
-      dataset={state.dataset}
+      dataset={{ ...state.dataset, leagues: [], games: [] }}
       initialRole={state.initialRole}
       allowRoleSimulation={state.allowRoleSimulation}
       accountsEnabled={state.accountsEnabled}

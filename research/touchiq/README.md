@@ -28,28 +28,28 @@ Toda la documentación técnica se encuentra modularizada en `research/touchiq/`
 
 | Archivo | Área de Investigación | Descripción Clave |
 |---|---|---|
-| [README.md](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/touchiq/README.md) | Índice & Metodología | Guía de lectura, clasificación epistemológica y setup de REA. |
-| [executive-summary.md](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/touchiq/executive-summary.md) | Resumen Ejecutivo | Veredicto técnico, arquitectura general y síntesis para dirección. |
-| [pages-and-navigation.md](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/touchiq/pages-and-navigation.md) | Vistas & Navegación | Inventario de pantallas, estados DOM y grafo de transiciones. |
-| [ux-components.md](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/touchiq/ux-components.md) | Componentes UX/UI | Desglose de interfaz, interactividad, audio sintético y responsive. |
-| [frontend-analysis.md](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/touchiq/frontend-analysis.md) | Arquitectura Frontend | Modelo de renderizado (Vanilla JS + iframes `srcdoc`), CSS y performance. |
-| [javascript-analysis.md](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/touchiq/javascript-analysis.md) | Desensamblado JS | Análisis AST, bundles, funciones estadísticas y variables globales. |
-| [network-and-apis.md](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/touchiq/network-and-apis.md) | Red y APIs Observables | Prueba forense de *Zero-Runtime Network* y protocolo `postMessage`. |
-| [data-provenance.md](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/touchiq/data-provenance.md) | Origen de los Datos | Auditoría de fuentes citadas, recolección manual y proveedores comerciales. |
-| [historical-data.md](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/touchiq/historical-data.md) | Datos Históricos | Alcance de auditorías embebidas y limitación de series temporales. |
-| [update-mechanisms.md](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/touchiq/update-mechanisms.md) | Mecanismos de Actualización | Proceso de compilación estática vs pipeline en tiempo real. |
-| [nfl-engine.md](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/touchiq/nfl-engine.md) | Motor NFL | Fórmulas Pitágoras, Log5, ajuste por lesiones, curvas normales y 80/20. |
-| [ncaa-engine.md](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/touchiq/ncaa-engine.md) | Motor NCAA | Ajuste por conferencias, contracción SHR, SDM=15.5 y pick de 3 ramas. |
-| [soccer-engines.md](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/touchiq/soccer-engines.md) | Motores de Fútbol | 4 torneos, Poisson bivariado con corrección Dixon-Coles y tilt de bisección. |
-| [probability-and-value.md](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/touchiq/probability-and-value.md) | Probabilidades y Valor | Cuotas justas, remoción de vig (noVig), Expected Value y Sizing. |
-| [ticket-history-bankroll.md](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/touchiq/ticket-history-bankroll.md) | Boleto & Bankroll | Gestión de apuestas, cálculo de parlay, persistencia y métricas ROI. |
-| [ai-assistant.md](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/touchiq/ai-assistant.md) | Asistente de IA | Dual-mode: Claude API vs fallback local determinista por scraping DOM. |
-| [architecture-inferences.md](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/touchiq/architecture-inferences.md) | Arquitectura del Sistema | Topología observada, puente `window.claude` y brechas de seguridad. |
-| [functional-tests.md](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/touchiq/functional-tests.md) | Pruebas y Validación | Tests dorados, paridad batch con $\Delta=0.000e+0$ y sensibilidad. |
-| [evidence-register.md](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/touchiq/evidence-register.md) | Registro de Evidencias | Catálogo de capturas, hashes SHA-256, trazas CDP y tests de paridad. |
-| [unknowns-and-limitations.md](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/touchiq/unknowns-and-limitations.md) | Límites e Incertidumbre | Lo no observable, código no servido y advertencias técnicas. |
-| [pitchlab-opportunities.md](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/touchiq/pitchlab-opportunities.md) | Oportunidades PitchLab | Hoja de ruta para superar a TouchIQ técnica y comercialmente. |
-| [PITCHLAB_HANDOFF.md](file:///c:/Users/jairb/Desktop/Proyectos/Pitch%20Lab/research/touchiq/PITCHLAB_HANDOFF.md) | Master Handoff | Cuestionario maestro 1-15, matriz de capacidades y blueprint de desarrollo. |
+| [README.md](<REPO_ROOT>/research/touchiq/README.md) | Índice & Metodología | Guía de lectura, clasificación epistemológica y setup de REA. |
+| [executive-summary.md](<REPO_ROOT>/research/touchiq/executive-summary.md) | Resumen Ejecutivo | Veredicto técnico, arquitectura general y síntesis para dirección. |
+| [pages-and-navigation.md](<REPO_ROOT>/research/touchiq/pages-and-navigation.md) | Vistas & Navegación | Inventario de pantallas, estados DOM y grafo de transiciones. |
+| [ux-components.md](<REPO_ROOT>/research/touchiq/ux-components.md) | Componentes UX/UI | Desglose de interfaz, interactividad, audio sintético y responsive. |
+| [frontend-analysis.md](<REPO_ROOT>/research/touchiq/frontend-analysis.md) | Arquitectura Frontend | Modelo de renderizado (Vanilla JS + iframes `srcdoc`), CSS y performance. |
+| [javascript-analysis.md](<REPO_ROOT>/research/touchiq/javascript-analysis.md) | Desensamblado JS | Análisis AST, bundles, funciones estadísticas y variables globales. |
+| [network-and-apis.md](<REPO_ROOT>/research/touchiq/network-and-apis.md) | Red y APIs Observables | Prueba forense de *Zero-Runtime Network* y protocolo `postMessage`. |
+| [data-provenance.md](<REPO_ROOT>/research/touchiq/data-provenance.md) | Origen de los Datos | Auditoría de fuentes citadas, recolección manual y proveedores comerciales. |
+| [historical-data.md](<REPO_ROOT>/research/touchiq/historical-data.md) | Datos Históricos | Alcance de auditorías embebidas y limitación de series temporales. |
+| [update-mechanisms.md](<REPO_ROOT>/research/touchiq/update-mechanisms.md) | Mecanismos de Actualización | Proceso de compilación estática vs pipeline en tiempo real. |
+| [nfl-engine.md](<REPO_ROOT>/research/touchiq/nfl-engine.md) | Motor NFL | Fórmulas Pitágoras, Log5, ajuste por lesiones, curvas normales y 80/20. |
+| [ncaa-engine.md](<REPO_ROOT>/research/touchiq/ncaa-engine.md) | Motor NCAA | Ajuste por conferencias, contracción SHR, SDM=15.5 y pick de 3 ramas. |
+| [soccer-engines.md](<REPO_ROOT>/research/touchiq/soccer-engines.md) | Motores de Fútbol | 4 torneos, Poisson bivariado con corrección Dixon-Coles y tilt de bisección. |
+| [probability-and-value.md](<REPO_ROOT>/research/touchiq/probability-and-value.md) | Probabilidades y Valor | Cuotas justas, remoción de vig (noVig), Expected Value y Sizing. |
+| [ticket-history-bankroll.md](<REPO_ROOT>/research/touchiq/ticket-history-bankroll.md) | Boleto & Bankroll | Gestión de apuestas, cálculo de parlay, persistencia y métricas ROI. |
+| [ai-assistant.md](<REPO_ROOT>/research/touchiq/ai-assistant.md) | Asistente de IA | Dual-mode: Claude API vs fallback local determinista por scraping DOM. |
+| [architecture-inferences.md](<REPO_ROOT>/research/touchiq/architecture-inferences.md) | Arquitectura del Sistema | Topología observada, puente `window.claude` y brechas de seguridad. |
+| [functional-tests.md](<REPO_ROOT>/research/touchiq/functional-tests.md) | Pruebas y Validación | Tests dorados, paridad batch con $\Delta=0.000e+0$ y sensibilidad. |
+| [evidence-register.md](<REPO_ROOT>/research/touchiq/evidence-register.md) | Registro de Evidencias | Catálogo de capturas, hashes SHA-256, trazas CDP y tests de paridad. |
+| [unknowns-and-limitations.md](<REPO_ROOT>/research/touchiq/unknowns-and-limitations.md) | Límites e Incertidumbre | Lo no observable, código no servido y advertencias técnicas. |
+| [pitchlab-opportunities.md](<REPO_ROOT>/research/touchiq/pitchlab-opportunities.md) | Oportunidades PitchLab | Hoja de ruta para superar a TouchIQ técnica y comercialmente. |
+| [PITCHLAB_HANDOFF.md](<REPO_ROOT>/research/touchiq/PITCHLAB_HANDOFF.md) | Master Handoff | Cuestionario maestro 1-15, matriz de capacidades y blueprint de desarrollo. |
 
 ---
 

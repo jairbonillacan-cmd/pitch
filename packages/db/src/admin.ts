@@ -4,6 +4,7 @@
 import { and, count, eq, sql } from "drizzle-orm";
 import type { Db } from "./billing";
 import {
+  adminAuditLogs,
   entitlementGrants,
   platformRuntimeFlags,
   referralGrants,
@@ -14,8 +15,39 @@ import {
   tipstarProfiles,
   users,
 } from "./schema";
+import { checkHandleFormat, isHandleAvailable } from "./signup";
 
 export const FLAG_MONTH1_NO_CARD = "month1_no_card_mode";
+export const FLAG_TIPSTAR_PAYOUTS = "tipstar_payouts_enabled";
+export const FLAG_AI_ENABLED = "ai.enabled";
+
+export interface AdminAuditInput {
+  actorUserId: string | null;
+  actorEmail: string;
+  action: string;
+  targetKey: string;
+  payloadJson?: Record<string, unknown> | null;
+  ipSubnetHash?: string | null;
+}
+
+export async function recordAdminAudit(db: Db, entry: AdminAuditInput): Promise<void> {
+  await db.insert(adminAuditLogs).values({
+    actorUserId: entry.actorUserId,
+    actorEmail: entry.actorEmail.trim().toLowerCase(),
+    action: entry.action,
+    targetKey: entry.targetKey,
+    payloadJson: entry.payloadJson ?? null,
+    ipSubnetHash: entry.ipSubnetHash ?? null,
+  });
+}
+
+export async function isActiveTipstarUser(db: Db, userId: string): Promise<boolean> {
+  const [row] = await db
+    .select({ userId: tipstarProfiles.userId })
+    .from(tipstarProfiles)
+    .where(and(eq(tipstarProfiles.userId, userId), eq(tipstarProfiles.isActive, true)));
+  return Boolean(row);
+}
 
 export async function getBoolFlag(db: Db, key: string, fallback: boolean): Promise<boolean> {
   const [row] = await db
@@ -61,7 +93,7 @@ export async function adminOverview(db: Db): Promise<AdminOverview> {
     db
       .select({ n: sql<number>`coalesce(sum(${tipstarCommissionLedger.commissionCentavosMxn}), 0)` })
       .from(tipstarCommissionLedger)
-      .where(sql`${tipstarCommissionLedger.status} IN ('pending_clearance', 'payable')`),
+      .where(sql`${tipstarCommissionLedger.status} IN ('pending_clearance', 'payable', 'processing_payout')`),
     db.select({ n: count() }).from(socialModerationLogs),
   ]);
   return {
@@ -99,7 +131,7 @@ export async function listTipstarCodes(db: Db): Promise<TipstarCodeRow[]> {
         .where(
           and(
             eq(tipstarCommissionLedger.tipstarUserId, p.userId),
-            sql`${tipstarCommissionLedger.status} IN ('pending_clearance', 'payable')`,
+            sql`${tipstarCommissionLedger.status} IN ('pending_clearance', 'payable', 'processing_payout')`,
           ),
         ),
     ]);
@@ -124,11 +156,15 @@ export async function createTipstarCode(
   input: { email: string; handle: string; displayName: string; promoCode: string; specialty: string },
 ): Promise<CreateTipstarResult> {
   const code = input.promoCode.trim().toUpperCase();
-  const handle = input.handle.trim().replace(/^@/, "").toLowerCase();
   if (!/^[A-Z0-9]{3,16}$/.test(code)) return { ok: false, reason: "codigo_invalido" };
-  if (!/^[a-z0-9_]{3,24}$/.test(handle)) return { ok: false, reason: "handle_invalido" };
+  const handleCheck = checkHandleFormat(input.handle);
+  if (!handleCheck.ok) return { ok: false, reason: "handle_invalido" };
+  const handle = handleCheck.handle;
   const email = input.email.trim().toLowerCase();
   let [user] = await db.select().from(users).where(eq(users.email, email));
+  if (!(await isHandleAvailable(db, handle, user?.id))) {
+    return { ok: false, reason: "duplicado" };
+  }
   if (!user) {
     [user] = await db.insert(users).values({ email, handle, displayName: input.displayName }).returning();
   }

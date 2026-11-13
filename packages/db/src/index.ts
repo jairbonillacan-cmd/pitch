@@ -3,7 +3,7 @@ export * from "./schema";
 export { applyMigrations, MIGRATIONS_DIR } from "./migrate";
 export * from "./billing";
 export { createDb } from "./client";
-export { and, eq, sql } from "drizzle-orm";
+export { and, eq, inArray, sql } from "drizzle-orm";
 export * from "./admin";
 export * from "./payouts";
 export * from "./signup";
