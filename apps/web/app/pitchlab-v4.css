@@ -1103,7 +1103,7 @@ html[data-theme="light"] .glass-card {
   }
 }
 
-/* Simulador de Rol (Visitante / Suscriptor / Tipstar / Admin) en dev/preview */
+/* Simulador de Rol (Visitante / Suscriptor / Tipster / Admin) en dev/preview */
 .role-sim-pill {
   position: fixed;
   right: 14px;
@@ -1299,7 +1299,7 @@ dialog.pl-native-drawer .glass-lens {
   }
 }
 
-/* ---------- Insignias: Ultra, verificado y tipstar ---------- */
+/* ---------- Insignias: Ultra, verificado y tipster ---------- */
 @property --pl-ultra-angle {
   syntax: "<angle>";
   inherits: false;
@@ -1364,7 +1364,7 @@ dialog.pl-native-drawer .glass-lens {
   stroke: white;
 }
 
-.pl-tipstar-badge {
+.pl-tipster-badge {
   display: inline-flex;
   align-items: center;
   gap: 4px;
@@ -1378,7 +1378,7 @@ dialog.pl-native-drawer .glass-lens {
   background: color-mix(in srgb, oklch(0.8 0.15 80) 14%, transparent);
   border: 1px solid color-mix(in srgb, oklch(0.8 0.15 80) 40%, transparent);
 }
-html[data-theme="light"] .pl-tipstar-badge {
+html[data-theme="light"] .pl-tipster-badge {
   color: oklch(0.5 0.12 70);
 }
 
@@ -4431,7 +4431,7 @@ html[data-theme="light"] .pl-menu-seg button[aria-pressed="true"] {
   gap: 18px;
 }
 
-.pl-lp-tipstar-card {
+.pl-lp-tipster-card {
   padding: 24px;
   display: flex;
   flex-direction: column;
@@ -4744,7 +4744,7 @@ html[data-theme="light"] .pl-menu-seg button[aria-pressed="true"] {
   flex-wrap: wrap;
 }
 
-.pl-lp-tipstar-id {
+.pl-lp-tipster-id {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -4769,7 +4769,7 @@ html[data-theme="light"] .pl-menu-seg button[aria-pressed="true"] {
     gap: 14px;
   }
 
-  .pl-lp-tipstar-card {
+  .pl-lp-tipster-card {
     padding: 18px;
   }
 
@@ -5202,7 +5202,7 @@ details.pl-lp-faq > p {
   text-decoration: underline;
 }
 
-/* Rejillas adaptables para ligas y tipstars en las 6 páginas del menú */
+/* Rejillas adaptables para ligas y tipsters en las 6 páginas del menú */
 .pl-lp-league-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));

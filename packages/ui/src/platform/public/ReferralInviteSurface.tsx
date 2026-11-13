@@ -2,7 +2,7 @@
 
 import React, { useMemo, useState } from "react";
 import { ExampleBadge } from "../components/MaestroPrimitives";
-import { MEMBERSHIP_SPEC, TIPSTAR_CREATORS } from "../spacetime-catalog";
+import { MEMBERSHIP_SPEC, TIPSTER_CREATORS } from "../spacetime-catalog";
 import { ReferralCard3D } from "./ReferralCard3D";
 
 export interface ReferralInviteInput {
@@ -63,12 +63,12 @@ export function resolveReferralInvite(
     code.startsWith("EXPIR");
 
   const explicitHandle = sanitizeHandle(input.senderHandle);
-  const tipstar = TIPSTAR_CREATORS.find(
+  const tipster = TIPSTER_CREATORS.find(
     (creator) => creator.promoCode.toUpperCase() === code,
   );
-  const isTipstarSku =
-    Boolean(tipstar) ||
-    (input.sku ?? "").trim().toLowerCase().includes("tipstar");
+  const isTipsterSku =
+    Boolean(tipster) ||
+    (input.sku ?? "").trim().toLowerCase().includes("tipster");
 
   if (isExpired) {
     return {
@@ -89,20 +89,20 @@ export function resolveReferralInvite(
     };
   }
 
-  if (tipstar || isTipstarSku) {
-    const handle = explicitHandle || (tipstar ? `@${tipstar.handle}` : "");
-    const freeDays = tipstar ? tipstar.freeDays : 5;
+  if (tipster || isTipsterSku) {
+    const handle = explicitHandle || (tipster ? `@${tipster.handle}` : "");
+    const freeDays = tipster ? tipster.freeDays : 5;
     return {
       code,
       interval,
       expired: false,
-      cardTier: "ULTRA · TIPSTAR",
-      cardBottomLeft: handle || "Tipstar Ultra",
-      senderPrefix: handle ? "" : "Invitación tipstar · ",
+      cardTier: "ULTRA · TIPSTER",
+      cardBottomLeft: handle || "Tipster Ultra",
+      senderPrefix: handle ? "" : "Invitación tipster · ",
       senderDisplay: handle || MEMBERSHIP_SPEC.name,
       senderSuffix: handle ? " te invitó" : "",
       isExampleSender: Boolean(
-        tipstar?.isExample && !explicitHandle && !input.accountsEnabled,
+        tipster?.isExample && !explicitHandle && !input.accountsEnabled,
       ),
       headlineLead: `${freeDays} días de PitchLab `,
       headlineTail: ".",

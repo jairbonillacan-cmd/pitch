@@ -31,7 +31,7 @@ export interface ServerSocialPost {
   authorHandle: string;
   authorName: string;
   authorAvatarUrl?: string | null;
-  authorIsTipstar: boolean;
+  authorIsTipster: boolean;
   roleBadge: string;
   record: string;
   clv: string;
@@ -73,7 +73,7 @@ export function pickStatusFor(pick: ServerSocialPick, games: readonly PlatformGa
 }
 
 const ROLE_BADGES: readonly SocialPost["roleBadge"][] = [
-  "Tipstar Oficial",
+  "Tipster Oficial",
   "Analista Verificado",
   "Socio Pase PitchLab Ultra",
 ];
@@ -102,7 +102,7 @@ export function fromServerPost(p: ServerSocialPost, games: readonly PlatformGame
     authorName: p.authorName,
     authorAvatarUrl: p.authorAvatarUrl ?? null,
     roleBadge,
-    avatarGradVar: p.authorIsTipstar ? "var(--avatar-grad-1)" : "var(--avatar-grad-4)",
+    avatarGradVar: p.authorIsTipster ? "var(--avatar-grad-1)" : "var(--avatar-grad-4)",
     verifiedRecord: p.record,
     clvBadge: p.clv,
     leagueLabel: p.leagueLabel,

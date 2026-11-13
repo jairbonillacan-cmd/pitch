@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { createTipstarCode, listTipstarCodes, recordAdminAudit } from "@pitchlab/db";
+import { createTipsterCode, listTipsterCodes, recordAdminAudit } from "@pitchlab/db";
 import { verifySameOriginMutation } from "../../../../src/server/request-security";
 import { requireAdmin } from "../../../../src/server/session-user";
 import { trialHashes } from "../../../../src/server/signup";
@@ -13,7 +13,7 @@ const MESSAGES: Record<string, string> = {
   duplicado: "Ese código o usuario ya existe.",
 };
 
-/** POST { email, handle, displayName, promoCode, specialty } — da de alta un tipstar oficial y registra auditoría. */
+/** POST { email, handle, displayName, promoCode, specialty } — da de alta un tipster oficial y registra auditoría. */
 export async function POST(request: Request): Promise<NextResponse> {
   const csrfError = verifySameOriginMutation(request);
   if (csrfError) return csrfError;
@@ -22,8 +22,8 @@ export async function POST(request: Request): Promise<NextResponse> {
   if ("error" in admin) return admin.error;
   const b = (await request.json().catch(() => null)) as Record<string, unknown> | null;
   const s = (k: string) => (typeof b?.[k] === "string" ? (b[k] as string) : "");
-  if (!s("email").includes("@")) return NextResponse.json({ error: "Correo del tipstar requerido" }, { status: 400 });
-  const res = await createTipstarCode(admin.db, {
+  if (!s("email").includes("@")) return NextResponse.json({ error: "Correo del tipster requerido" }, { status: 400 });
+  const res = await createTipsterCode(admin.db, {
     email: s("email"),
     handle: s("handle"),
     displayName: s("displayName"),
@@ -35,7 +35,7 @@ export async function POST(request: Request): Promise<NextResponse> {
   await recordAdminAudit(admin.db, {
     actorUserId: admin.userId,
     actorEmail: admin.email,
-    action: "tipstar.create",
+    action: "tipster.create",
     targetKey: s("promoCode").trim().toUpperCase(),
     payloadJson: {
       email: s("email").trim().toLowerCase(),
@@ -44,5 +44,5 @@ export async function POST(request: Request): Promise<NextResponse> {
     },
     ipSubnetHash,
   });
-  return NextResponse.json({ tipstars: await listTipstarCodes(admin.db) }, { status: 201 });
+  return NextResponse.json({ tipsters: await listTipsterCodes(admin.db) }, { status: 201 });
 }

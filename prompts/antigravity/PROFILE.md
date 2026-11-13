@@ -14,10 +14,10 @@ Vas a rehacer el **contenido** del perfil de usuario (`/app/u/[handle]`) tal com
    - `packages/ui/src/platform/club/AnalystProfileClubView.tsx`: el perfil de hoy. Perfiles resueltos a mano, seguidores inventados, ROI y un `openShareTicket` con probabilidad fija.
    - `apps/web/app/app/u/[handle]/page.tsx`: la ruta (no cambia su forma).
    - `packages/ui/src/platform/access-guard.ts`: `journalRecord()` y `formatOddsValue()`.
-   - `packages/ui/src/platform/types.ts`: `JournalEntry`, `SocialPost`, `TipstarCreator`.
-   - `packages/ui/src/platform/spacetime-catalog.ts`: `TIPSTAR_CREATORS` (perfiles de ejemplo).
-   - `packages/ui/src/platform/club/SocialAndTipstarViews.tsx`: `BASE_LEADERBOARD_ROWS` y `rankedAnalysts`, el leaderboard de Comunidad.
-   - `packages/ui/src/platform/components/MaestroPrimitives.tsx`: `UserBadges`, `VerifiedBadge`, `TipstarBadge`, `ExampleNotice`.
+   - `packages/ui/src/platform/types.ts`: `JournalEntry`, `SocialPost`, `TipsterCreator`.
+   - `packages/ui/src/platform/spacetime-catalog.ts`: `TIPSTER_CREATORS` (perfiles de ejemplo).
+   - `packages/ui/src/platform/club/SocialAndTipsterViews.tsx`: `BASE_LEADERBOARD_ROWS` y `rankedAnalysts`, el leaderboard de Comunidad.
+   - `packages/ui/src/platform/components/MaestroPrimitives.tsx`: `UserBadges`, `VerifiedBadge`, `TipsterBadge`, `ExampleNotice`.
    - `apps/web/app/pitchlab-v4.css`: `.pl-profile-*` y el vidrio (`.glass-*`).
    - `packages/ui/src/sports.tsx`: `LeagueBadge` y `TeamBadge`.
 
@@ -30,7 +30,7 @@ Antes de editar, escribe un plan corto: qué archivos cambias, qué helpers crea
 - **El récord son 4 cifras:** Saldo, Cumplidos (X de Y y %), Ventaja contra el cierre y Puesto en Comunidad del mes.
 - **Pestañas:** Publicaciones · Picks · Parlays · Estadísticas (en móvil: Posts · Picks · Parlays · Datos).
 - **El perfil propio no se sigue a sí mismo:** en lugar de Seguir lleva «Editar perfil» y «Perfil público».
-- **El sello de verificado es solo para tipstars verificados.** Un socio lleva la ficha «Socio», sin sello.
+- **El sello de verificado es solo para tipsters verificados.** Un socio lleva la ficha «Socio», sin sello.
 - **Los perfiles de ejemplo siguen marcados «Ejemplo»** (`ExampleNotice` en escritorio, línea «Perfil de ejemplo» en móvil).
 - **Sin mascota, vidrio falso refinado** y prohibidos `backdrop-filter` y `filter: blur`.
 
@@ -49,18 +49,18 @@ Crea `packages/ui/src/platform/profile-stats.ts` con funciones puras y sus prueb
 
 **De dónde sale cada perfil:**
 - **Propio:** del `journal` de `usePlatform()`.
-- **Tipstars de ejemplo:** agrega a `TipstarCreator` los campos `wonCount` y `joinedAt` (ISO) y llénalos en `TIPSTAR_CREATORS` de forma coherente con `settledCount` (Sofía: 84 de 142, marzo de 2026). No inventes nada fuera de los perfiles marcados `isExample`.
+- **Tipsters de ejemplo:** agrega a `TipsterCreator` los campos `wonCount` y `joinedAt` (ISO) y llénalos en `TIPSTER_CREATORS` de forma coherente con `settledCount` (Sofía: 84 de 142, marzo de 2026). No inventes nada fuera de los perfiles marcados `isExample`.
 - **Perfil ajeno real:** no hay API. Muestra el estado «Este perfil aún no es público» y deja un `TODO(F4)` para `/api/u/[handle]`. No caigas al perfil de Sofía como hace hoy.
 
 ### 2.2 Encabezado
 
 - Tarjeta `.glass-lens .glass-ring` con portada de luces (degradados radiales violeta, azul y verde, sin imagen) y avatar de 96 px que monta sobre la portada. En móvil va sin portada: avatar de 84 px centrado con resplandor violeta.
-- **Nombre + sello de verificado:** crea `VerifiedSeal` (roseta lila con palomita, SVG, `role="img"` y `aria-label="Verificado"`) y `TipstarVerifiedBadge` (ficha de vidrio lila con el sello pequeño y «Tipstar verificado»: degradado lila, borde de 1 px, brillo interior y resplandor suave). Ponlos en `MaestroPrimitives.tsx` con stories en oscuro y claro. No cambies `VerifiedBadge` en el resto de la app en esta tarea.
+- **Nombre + sello de verificado:** crea `VerifiedSeal` (roseta lila con palomita, SVG, `role="img"` y `aria-label="Verificado"`) y `TipsterVerifiedBadge` (ficha de vidrio lila con el sello pequeño y «Tipster verificado»: degradado lila, borde de 1 px, brillo interior y resplandor suave). Ponlos en `MaestroPrimitives.tsx` con stories en oscuro y claro. No cambies `VerifiedBadge` en el resto de la app en esta tarea.
 - `@handle · especialidad`, bio (en móvil, una línea), seguidores · siguiendo, **«Se unió en {mes año}»** con ícono de calendario (de `joinedAt`; si no se conoce, la línea no aparece) y las ligas favoritas con `LeagueBadge`.
 - **Acciones:**
   - Ajeno: «Seguir» (primario blanco) ↔ «Siguiendo» (secundario), con `aria-pressed`; **empieza en «Seguir»** (hoy empieza en «Siguiendo»).
   - Propio: «Perfil público» y «Editar perfil», ambos a `/app/account` por ahora.
-  - Compartir: botón de 44 px con `aria-label`. Usa `openShareTicket({ kind: "tipstar", … })` con el récord real; si ese tipo no admite los campos, comparte la URL del perfil con `navigator.share` o copia al portapapeles. Nada de probabilidades fijas.
+  - Compartir: botón de 44 px con `aria-label`. Usa `openShareTicket({ kind: "tipster", … })` con el récord real; si ese tipo no admite los campos, comparte la URL del perfil con `navigator.share` o copia al portapapeles. Nada de probabilidades fijas.
 
 ### 2.3 Récord
 
@@ -73,9 +73,9 @@ Crea `packages/ui/src/platform/profile-stats.ts` con funciones puras y sus prueb
 - **Móvil:** tira de 3 cifras (Saldo, Cumplidos %, Contra el cierre) y una fila enlace «#3 en Comunidad · {mes} · 84 de 142 ›».
 - Sin picks cerrados: «Sin picks cerrados todavía» en lugar de las cifras, y en el perfil propio un botón «Registra tu primer pick» a `/app`.
 
-### 2.4 Tipstar: pick gratis de la semana
+### 2.4 Tipster: pick gratis de la semana
 
-Solo si `isTipstar`: tarjeta (en escritorio) o fila (en móvil) con «Pick gratis de la semana», el partido y el código, que enlaza a `/p/{weeklyPickSlug}`.
+Solo si `isTipster`: tarjeta (en escritorio) o fila (en móvil) con «Pick gratis de la semana», el partido y el código, que enlaza a `/p/{weeklyPickSlug}`.
 
 ### 2.5 Pestañas
 
@@ -124,7 +124,7 @@ Solo si `isTipstar`: tarjeta (en escritorio) o fila (en móvil) con «Pick grati
    - el orden del leaderboard igual al de antes.
 2. `pnpm --filter @pitchlab/web build` y `pnpm e2e`, todo en verde. Agrega a la prueba 3, después de entrar con el PIN:
    - visitar `/app/u/sofia_nfl`;
-   - comprobar «Tipstar verificado» y «Saldo»;
+   - comprobar «Tipster verificado» y «Saldo»;
    - cambiar a «Estadísticas» con el teclado;
    - pasar axe (WCAG 2 A y AA) sin violaciones.
 3. **Capturas** de `/app/u/sofia_nfl` (las 4 pestañas) y de tu propio perfil (`/app/u/{tu handle}`, con y sin picks), comparadas con el lienzo: 1440×900 y 1280×720 en escritorio, 375×667 y 390×844 en móvil, en tema oscuro y claro.

@@ -10,15 +10,15 @@ import {
   referralGrants,
   socialModerationLogs,
   subscriptions,
-  tipstarAttributions,
-  tipstarCommissionLedger,
-  tipstarProfiles,
+  tipsterAttributions,
+  tipsterCommissionLedger,
+  tipsterProfiles,
   users,
 } from "./schema";
 import { checkHandleFormat, isHandleAvailable } from "./signup";
 
 export const FLAG_MONTH1_NO_CARD = "month1_no_card_mode";
-export const FLAG_TIPSTAR_PAYOUTS = "tipstar_payouts_enabled";
+export const FLAG_TIPSTER_PAYOUTS = "tipster_payouts_enabled";
 export const FLAG_AI_ENABLED = "ai.enabled";
 
 export interface AdminAuditInput {
@@ -41,11 +41,11 @@ export async function recordAdminAudit(db: Db, entry: AdminAuditInput): Promise<
   });
 }
 
-export async function isActiveTipstarUser(db: Db, userId: string): Promise<boolean> {
+export async function isActiveTipsterUser(db: Db, userId: string): Promise<boolean> {
   const [row] = await db
-    .select({ userId: tipstarProfiles.userId })
-    .from(tipstarProfiles)
-    .where(and(eq(tipstarProfiles.userId, userId), eq(tipstarProfiles.isActive, true)));
+    .select({ userId: tipsterProfiles.userId })
+    .from(tipsterProfiles)
+    .where(and(eq(tipsterProfiles.userId, userId), eq(tipsterProfiles.isActive, true)));
   return Boolean(row);
 }
 
@@ -88,12 +88,12 @@ export async function adminOverview(db: Db): Promise<AdminOverview> {
     db
       .select({ n: count() })
       .from(entitlementGrants)
-      .where(sql`${entitlementGrants.sourceKind} IN ('trial_m1_nocard', 'trial_tipstar_5d')`),
+      .where(sql`${entitlementGrants.sourceKind} IN ('trial_m1_nocard', 'trial_tipster_5d')`),
     db.select({ n: count() }).from(referralGrants).where(eq(referralGrants.status, "rewarded_bilateral")),
     db
-      .select({ n: sql<number>`coalesce(sum(${tipstarCommissionLedger.commissionCentavosMxn}), 0)` })
-      .from(tipstarCommissionLedger)
-      .where(sql`${tipstarCommissionLedger.status} IN ('pending_clearance', 'payable', 'processing_payout')`),
+      .select({ n: sql<number>`coalesce(sum(${tipsterCommissionLedger.commissionCentavosMxn}), 0)` })
+      .from(tipsterCommissionLedger)
+      .where(sql`${tipsterCommissionLedger.status} IN ('pending_clearance', 'payable', 'processing_payout')`),
     db.select({ n: count() }).from(socialModerationLogs),
   ]);
   return {
@@ -106,7 +106,7 @@ export async function adminOverview(db: Db): Promise<AdminOverview> {
   };
 }
 
-export interface TipstarCodeRow {
+export interface TipsterCodeRow {
   code: string;
   handle: string;
   name: string;
@@ -116,22 +116,22 @@ export interface TipstarCodeRow {
   pendingCommissionCentavos: number;
 }
 
-export async function listTipstarCodes(db: Db): Promise<TipstarCodeRow[]> {
-  const profiles = await db.select().from(tipstarProfiles).where(eq(tipstarProfiles.isActive, true));
-  const rows: TipstarCodeRow[] = [];
+export async function listTipsterCodes(db: Db): Promise<TipsterCodeRow[]> {
+  const profiles = await db.select().from(tipsterProfiles).where(eq(tipsterProfiles.isActive, true));
+  const rows: TipsterCodeRow[] = [];
   for (const p of profiles) {
     const [[a], [c]] = await Promise.all([
       db
         .select({ n: count() })
-        .from(tipstarAttributions)
-        .where(and(eq(tipstarAttributions.tipstarUserId, p.userId), eq(tipstarAttributions.status, "active_paying"))),
+        .from(tipsterAttributions)
+        .where(and(eq(tipsterAttributions.tipsterUserId, p.userId), eq(tipsterAttributions.status, "active_paying"))),
       db
-        .select({ n: sql<number>`coalesce(sum(${tipstarCommissionLedger.commissionCentavosMxn}), 0)` })
-        .from(tipstarCommissionLedger)
+        .select({ n: sql<number>`coalesce(sum(${tipsterCommissionLedger.commissionCentavosMxn}), 0)` })
+        .from(tipsterCommissionLedger)
         .where(
           and(
-            eq(tipstarCommissionLedger.tipstarUserId, p.userId),
-            sql`${tipstarCommissionLedger.status} IN ('pending_clearance', 'payable', 'processing_payout')`,
+            eq(tipsterCommissionLedger.tipsterUserId, p.userId),
+            sql`${tipsterCommissionLedger.status} IN ('pending_clearance', 'payable', 'processing_payout')`,
           ),
         ),
     ]);
@@ -148,13 +148,13 @@ export async function listTipstarCodes(db: Db): Promise<TipstarCodeRow[]> {
   return rows;
 }
 
-export type CreateTipstarResult = { ok: true } | { ok: false; reason: "codigo_invalido" | "handle_invalido" | "duplicado" };
+export type CreateTipsterResult = { ok: true } | { ok: false; reason: "codigo_invalido" | "handle_invalido" | "duplicado" };
 
-/** Da de alta a un tipstar: liga (o crea) su usuario por correo y registra su código. */
-export async function createTipstarCode(
+/** Da de alta a un tipster: liga (o crea) su usuario por correo y registra su código. */
+export async function createTipsterCode(
   db: Db,
   input: { email: string; handle: string; displayName: string; promoCode: string; specialty: string },
-): Promise<CreateTipstarResult> {
+): Promise<CreateTipsterResult> {
   const code = input.promoCode.trim().toUpperCase();
   if (!/^[A-Z0-9]{3,16}$/.test(code)) return { ok: false, reason: "codigo_invalido" };
   const handleCheck = checkHandleFormat(input.handle);
@@ -169,7 +169,7 @@ export async function createTipstarCode(
     [user] = await db.insert(users).values({ email, handle, displayName: input.displayName }).returning();
   }
   const inserted = await db
-    .insert(tipstarProfiles)
+    .insert(tipsterProfiles)
     .values({
       userId: user!.id,
       handle,
@@ -179,7 +179,7 @@ export async function createTipstarCode(
       defaultWeeklySlug: `${handle.replace(/_/g, "-")}-sem`,
     })
     .onConflictDoNothing()
-    .returning({ id: tipstarProfiles.userId });
+    .returning({ id: tipsterProfiles.userId });
   return inserted.length ? { ok: true } : { ok: false, reason: "duplicado" };
 }
 

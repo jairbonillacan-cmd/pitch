@@ -12,7 +12,7 @@ import {
   ExampleBadge,
 } from "../components/MaestroPrimitives";
 import { usePlatform } from "../platform-provider";
-import { TIPSTAR_CREATORS } from "../spacetime-catalog";
+import { TIPSTER_CREATORS } from "../spacetime-catalog";
 import type { RiskBand } from "../types";
 import { LoginSurfaceV4, type LoginStep } from "./LoginSurfaceV4";
 import { PublicSiteShell } from "./PublicSiteSections";
@@ -427,18 +427,18 @@ export function PublicSharedPickSurface({
   } = usePlatform();
 
   const matchedCreator =
-    TIPSTAR_CREATORS.find((c) => c.weeklyPickSlug === pickSlug) ?? null;
+    TIPSTER_CREATORS.find((c) => c.weeklyPickSlug === pickSlug) ?? null;
 
   const targetGame = useMemo(
     () =>
       dataset.games.find((g) =>
         g.picks.some(
           (p) =>
-            p.tipstarSlug === pickSlug ||
+            p.tipsterSlug === pickSlug ||
             (viewerRole !== "visitor" && p.id === pickSlug),
         ),
       ) ??
-      dataset.games.find((g) => g.picks.some((p) => Boolean(p.isTipstarWeeklyOpen))) ??
+      dataset.games.find((g) => g.picks.some((p) => Boolean(p.isTipsterWeeklyOpen))) ??
       dataset.games.find((g) => g.status !== "FT") ??
       dataset.games[0],
     [dataset.games, pickSlug, viewerRole],
@@ -447,10 +447,10 @@ export function PublicSharedPickSurface({
   const unlockedPick =
     targetGame?.picks.find(
       (p) =>
-        p.tipstarSlug === pickSlug ||
+        p.tipsterSlug === pickSlug ||
         (viewerRole !== "visitor" && p.id === pickSlug),
     ) ??
-    targetGame?.picks.find((p) => Boolean(p.isTipstarWeeklyOpen) && !p.isRedacted) ??
+    targetGame?.picks.find((p) => Boolean(p.isTipsterWeeklyOpen) && !p.isRedacted) ??
     targetGame?.picks.find((p) => !p.isRedacted);
 
   const otherPicks = useMemo(
@@ -499,7 +499,7 @@ export function PublicSharedPickSurface({
                 <MaestroIcon name={canRevealUnlockedPick ? "unlock" : "lock"} size={13} />
                 <span>
                   {matchedCreator
-                    ? "Pick abierto de la semana · Tipstar Oficial"
+                    ? "Pick abierto de la semana · Tipster Oficial"
                     : "Boleto compartido · Club PitchLab"}
                 </span>
               </span>

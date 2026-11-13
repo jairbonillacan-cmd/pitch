@@ -10,9 +10,9 @@ import {
   entitlementGrants,
   referralGrants,
   subscriptions,
-  tipstarAttributions,
-  tipstarCommissionLedger,
-  tipstarProfiles,
+  tipsterAttributions,
+  tipsterCommissionLedger,
+  tipsterProfiles,
   users,
 } from "./schema";
 
@@ -30,7 +30,7 @@ export const REFERRAL_CLAWBACK_DAYS = 14;
 /** Concesiones que son premio (no prueba): al recorrer el cobro en Stripe, el socio sigue en su plan. */
 export const REWARD_GRANT_KINDS = ["referral_host_15d", "referral_friend_15d", "ambassador_bonus_30d", "admin_grant"] as const;
 
-/** Comisión de tipstar sobre el neto (bruto − IVA − comisión de pasarela). */
+/** Comisión de tipster sobre el neto (bruto − IVA − comisión de pasarela). */
 export function computeCommission(input: {
   grossCentavos: number;
   vatCentavos: number;
@@ -125,7 +125,7 @@ export interface InvoicePaidResult {
  * Efectos de un cobro liquidado (`invoice.paid`):
  * 1. Referido doble vía: el primer cobro ≥ $150 MXN del invitado da +15 días a ambos; el 5.º
  *    amigo pagado del anfitrión le da +30 días extra una sola vez.
- * 2. Tipstar: asiento de comisión sobre el neto, liquidable a los 14 días.
+ * 2. Tipster: asiento de comisión sobre el neto, liquidable a los 14 días.
  */
 export async function handleInvoicePaid(db: Db, input: InvoicePaidInput): Promise<InvoicePaidResult> {
   return db.transaction(async (tx) => {
@@ -212,14 +212,14 @@ export async function handleInvoicePaid(db: Db, input: InvoicePaidInput): Promis
     }
 
     const [attribution] = await t
-      .select({ attr: tipstarAttributions, bps: tipstarProfiles.commissionBps })
-      .from(tipstarAttributions)
-      .innerJoin(tipstarProfiles, eq(tipstarProfiles.userId, tipstarAttributions.tipstarUserId))
+      .select({ attr: tipsterAttributions, bps: tipsterProfiles.commissionBps })
+      .from(tipsterAttributions)
+      .innerJoin(tipsterProfiles, eq(tipsterProfiles.userId, tipsterAttributions.tipsterUserId))
       .where(
         and(
-          eq(tipstarAttributions.referredUserId, input.userId),
-          eq(tipstarProfiles.isActive, true),
-          gt(tipstarProfiles.commissionBps, 0),
+          eq(tipsterAttributions.referredUserId, input.userId),
+          eq(tipsterProfiles.isActive, true),
+          gt(tipsterProfiles.commissionBps, 0),
         ),
       );
     if (attribution && attribution.attr.status !== "fraud_blocked") {
@@ -230,10 +230,10 @@ export async function handleInvoicePaid(db: Db, input: InvoicePaidInput): Promis
         commissionBps: attribution.bps,
       });
       await t
-        .insert(tipstarCommissionLedger)
+        .insert(tipsterCommissionLedger)
         .values({
           attributionId: attribution.attr.id,
-          tipstarUserId: attribution.attr.tipstarUserId,
+          tipsterUserId: attribution.attr.tipsterUserId,
           stripeInvoiceId: input.stripeInvoiceId,
           grossPaidCentavosMxn: input.grossCentavos,
           vatCentavosMxn: input.vatCentavos,
@@ -244,15 +244,15 @@ export async function handleInvoicePaid(db: Db, input: InvoicePaidInput): Promis
           status: "pending_clearance",
           clearsAt: new Date(input.paidAt.getTime() + COMMISSION_CLEARANCE_DAYS * DAY_MS),
         })
-        .onConflictDoNothing({ target: tipstarCommissionLedger.stripeInvoiceId });
+        .onConflictDoNothing({ target: tipsterCommissionLedger.stripeInvoiceId });
       await t
-        .update(tipstarAttributions)
+        .update(tipsterAttributions)
         .set({
           status: "active_paying",
           firstPaidAt: attribution.attr.firstPaidAt ?? input.paidAt,
           lastPaidAt: input.paidAt,
         })
-        .where(eq(tipstarAttributions.id, attribution.attr.id));
+        .where(eq(tipsterAttributions.id, attribution.attr.id));
       result.commissionCentavos = commissionCentavos;
     }
 
@@ -260,18 +260,18 @@ export async function handleInvoicePaid(db: Db, input: InvoicePaidInput): Promis
   });
 }
 
-/** Reembolso: revierte la comisión del cobro (si aún no se pagó al tipstar). */
+/** Reembolso: revierte la comisión del cobro (si aún no se pagó al tipster). */
 export async function handleInvoiceRefunded(db: Db, stripeInvoiceId: string): Promise<boolean> {
   const rows = await db
-    .update(tipstarCommissionLedger)
+    .update(tipsterCommissionLedger)
     .set({ status: "reversed_refund" })
     .where(
       and(
-        eq(tipstarCommissionLedger.stripeInvoiceId, stripeInvoiceId),
-        sql`${tipstarCommissionLedger.status} IN ('pending_clearance', 'payable')`,
+        eq(tipsterCommissionLedger.stripeInvoiceId, stripeInvoiceId),
+        sql`${tipsterCommissionLedger.status} IN ('pending_clearance', 'payable')`,
       ),
     )
-    .returning({ id: tipstarCommissionLedger.id });
+    .returning({ id: tipsterCommissionLedger.id });
   return rows.length > 0;
 }
 

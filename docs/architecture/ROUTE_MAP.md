@@ -31,7 +31,7 @@
 | `/resultados` | Historial público auditado | Marcadores cerrados y lectura previa |
 | `/motores` | Ciencia y validación | Precisión fuera de muestra y motores |
 | `/precio` | Planes y Pase PitchLab Ultra | Precio en MXN con IVA y CFDI |
-| `/comunidad` | Comunidad y tipstars | Ranking de muestra y portal de creadores |
+| `/comunidad` | Comunidad y tipsters | Ranking de muestra y portal de creadores |
 | `/legal/privacidad` | Aviso de privacidad | — |
 | `/legal/terminos` | Términos de uso | Incluye ancla `#comunidad` |
 | `/legal/juego-responsable` | Juego responsable (+18) | Pausas voluntarias y Línea de la Vida |
@@ -68,11 +68,11 @@
 | `/app/tech` | Motores dentro del Club | Validación y comparativa interna |
 | `/app/social` | Comunidad VIP | Feed y ranking de socios |
 | `/app/account` | Cuenta, Preferencias, Plan, CFDI y Referidos | `?tab=prefs|plan|cfdi|referrals`, `?pago=ok|cancelado` |
-| `/app/tipstar` | Portal de Tipstars Oficiales | `?connect=ok|refresh` (Stripe Connect) |
+| `/app/tipster` | Portal de Tipsters Oficiales | `?connect=ok|refresh` (Stripe Connect) |
 | `/app/admin` | Panel del equipo fundador | Solo `isAdmin` (o preview tools habilitado), si no `HTTP 404` |
 | `/app/[league]` | Hub por liga | `?league` validado contra `PRODUCT_LEAGUES`, si no `HTTP 404` |
 | `/app/[league]/games/[gameId]` | Match Studio | Analizador 360°, `?tab=picks|mercados|contexto|dinero` |
-| `/app/u/[handle]` | Perfil de socio o tipstar | `404` si el handle no existe o es privado |
+| `/app/u/[handle]` | Perfil de socio o tipster | `404` si el handle no existe o es privado |
 
 ### Alias legados dentro de `/app/*` (`club-route-guard.ts`)
 
@@ -93,5 +93,5 @@
 
 - Autenticación y onboarding: `/api/auth/[...all]`, `/api/handles/check`, `/api/me/signup`, `/api/beta/unlock`, `/api/beta/logout`.
 - Cuenta, bitácora y preferencias: `/api/me/profile`, `/api/me/profile/x`, `/api/me/journal`, `/api/me/watchlist`, `/api/me/plan`, `/api/me/referrals`, `/api/me/email-preferences`.
-- Perfiles públicos y creator economy: `/api/u/[handle]`, `/api/tipstar/connect`, `/api/billing/checkout`, `/api/webhooks/stripe`, `/api/cron/tipstar-payouts`.
-- Administración interna: `/api/admin/overview`, `/api/admin/flags`, `/api/admin/tipstars`.
+- Perfiles públicos y creator economy: `/api/u/[handle]`, `/api/tipster/connect`, `/api/billing/checkout`, `/api/webhooks/stripe`, `/api/cron/tipster-payouts`.
+- Administración interna: `/api/admin/overview`, `/api/admin/flags`, `/api/admin/tipsters`.

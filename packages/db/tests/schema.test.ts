@@ -9,9 +9,9 @@ import {
   referralGrants,
   schema,
   sealedPicks,
-  tipstarCommissionLedger,
-  tipstarAttributions,
-  tipstarProfiles,
+  tipsterCommissionLedger,
+  tipsterAttributions,
+  tipsterProfiles,
   users,
   watchlist,
 } from "../src/index";
@@ -104,19 +104,19 @@ describe("esquema PitchLab (Postgres)", () => {
     await expect(db.insert(entitlementGrants).values(grant)).rejects.toThrow();
   });
 
-  it("tipstars: un pick abierto por semana y comisión cuadrada con el neto", async () => {
+  it("tipsters: un pick abierto por semana y comisión cuadrada con el neto", async () => {
     const t = await newUser("t@example.com");
     const fan = await newUser("fan@example.com");
-    await db.insert(tipstarProfiles).values({
+    await db.insert(tipsterProfiles).values({
       userId: t.id,
-      handle: "tipstar_real",
-      displayName: "Tipstar",
+      handle: "tipster_real",
+      displayName: "Tipster",
       specialty: "NFL",
       promoCode: "REAL5",
       defaultWeeklySlug: "real-sem",
     });
     const week = {
-      tipstarUserId: t.id,
+      tipsterUserId: t.id,
       isoYearWeek: "2026-W47",
       publicSlug: "real-sem",
       originType: "spacetime",
@@ -130,12 +130,12 @@ describe("esquema PitchLab (Postgres)", () => {
     await expect(db.insert(publicWeeklyPicks).values({ ...week, gameId: "nfl-2" })).rejects.toThrow();
 
     const [attr] = await db
-      .insert(tipstarAttributions)
-      .values({ tipstarUserId: t.id, referredUserId: fan.id, promoCodeUsed: "REAL5", status: "active_paying" })
+      .insert(tipsterAttributions)
+      .values({ tipsterUserId: t.id, referredUserId: fan.id, promoCodeUsed: "REAL5", status: "active_paying" })
       .returning();
     const row = {
       attributionId: attr!.id,
-      tipstarUserId: t.id,
+      tipsterUserId: t.id,
       stripeInvoiceId: "in_1",
       grossPaidCentavosMxn: 29900,
       vatCentavosMxn: 4124,
@@ -146,9 +146,9 @@ describe("esquema PitchLab (Postgres)", () => {
       status: "pending_clearance",
       clearsAt: new Date("2026-12-01T00:00:00Z"),
     };
-    await db.insert(tipstarCommissionLedger).values(row);
+    await db.insert(tipsterCommissionLedger).values(row);
     await expect(
-      db.insert(tipstarCommissionLedger).values({ ...row, stripeInvoiceId: "in_2", netCommissionableCentavosMxn: 99999 }),
+      db.insert(tipsterCommissionLedger).values({ ...row, stripeInvoiceId: "in_2", netCommissionableCentavosMxn: 99999 }),
     ).rejects.toThrow();
   });
 });

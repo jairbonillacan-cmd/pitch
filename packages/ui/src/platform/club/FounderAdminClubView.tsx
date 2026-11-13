@@ -6,7 +6,7 @@ import { LeagueBadge } from "../../sports";
 import { ExampleNotice, LensGlowOrbs, MaestroIcon } from "../components/MaestroPrimitives";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
 import { usePlatform } from "../platform-provider";
-import { SPACETIME_ENGINES, SPACETIME_METRICS_HEADLINE, TIPSTAR_CREATORS } from "../spacetime-catalog";
+import { SPACETIME_ENGINES, SPACETIME_METRICS_HEADLINE, TIPSTER_CREATORS } from "../spacetime-catalog";
 import type { SocialReportReason } from "../types";
 import { SOCIAL_REPORT_REASON_OPTIONS } from "./community-ui";
 
@@ -63,7 +63,7 @@ interface AdminOverviewData {
   moderationBlocks: number;
 }
 
-interface AdminTipstarRow {
+interface AdminTipsterRow {
   code: string;
   handle: string;
   name: string;
@@ -75,11 +75,11 @@ interface AdminTipstarRow {
 
 interface AdminOverviewResponse {
   overview: AdminOverviewData;
-  tipstars: AdminTipstarRow[];
+  tipsters: AdminTipsterRow[];
   month1NoCardMode: boolean;
 }
 
-function toPromoRow(t: AdminTipstarRow): AdminPromoRow {
+function toPromoRow(t: AdminTipsterRow): AdminPromoRow {
   return {
     code: t.code,
     handle: t.handle,
@@ -218,9 +218,9 @@ export function FounderAdminClubView({
       ? `datos al ${new Date(t).toLocaleString("es-MX", { dateStyle: "medium", timeStyle: "short" })}`
       : "datos del último corte";
   }, [dataset.generatedAt]);
-  // Sin cuentas, la consola es una demostración con los tipstars de ejemplo.
+  // Sin cuentas, la consola es una demostración con los tipsters de ejemplo.
   const [promoRows, setPromoRows] = useState<AdminPromoRow[]>(() =>
-    accountsEnabled ? [] : TIPSTAR_CREATORS.map((c) => ({
+    accountsEnabled ? [] : TIPSTER_CREATORS.map((c) => ({
       code: c.promoCode,
       handle: c.handle,
       name: c.name,
@@ -242,7 +242,7 @@ export function FounderAdminClubView({
         }
         const json = (await res.json()) as AdminOverviewResponse;
         setServerOverview(json.overview);
-        setPromoRows(json.tipstars.map(toPromoRow));
+        setPromoRows(json.tipsters.map(toPromoRow));
       } catch (err) {
         void err;
       }
@@ -264,7 +264,7 @@ export function FounderAdminClubView({
     if (!cleanCode) return;
     if (accountsEnabled) {
       void (async () => {
-        const res = await fetch("/api/admin/tipstars", {
+        const res = await fetch("/api/admin/tipsters", {
           method: "POST",
           credentials: "same-origin",
           headers: { "content-type": "application/json" },
@@ -276,9 +276,9 @@ export function FounderAdminClubView({
             specialty: "",
           }),
         });
-        const json = (await res.json().catch(() => ({}))) as { tipstars?: AdminTipstarRow[]; error?: string };
-        if (res.ok && json.tipstars) {
-          setPromoRows(json.tipstars.map(toPromoRow));
+        const json = (await res.json().catch(() => ({}))) as { tipsters?: AdminTipsterRow[]; error?: string };
+        if (res.ok && json.tipsters) {
+          setPromoRows(json.tipsters.map(toPromoRow));
           pushToast(`Código ${cleanCode} emitido para @${cleanHandle}.`, "success");
           setNewCreatorCode("");
           setNewCreatorHandle("");
@@ -456,7 +456,7 @@ export function FounderAdminClubView({
                 {totalActiveReferrals}
               </strong>
               <span className="block text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                Tipstars (25 %) + Doble Vía (+15d)
+                Tipsters (25 %) + Doble Vía (+15d)
               </span>
             </div>
 
@@ -731,12 +731,12 @@ export function FounderAdminClubView({
           ) : null}
         </section>
 
-        {/* Emisor de Códigos de Tipstars Oficiales */}
+        {/* Emisor de Códigos de Tipsters Oficiales */}
         <section className="glass-card glass-ring rounded-2xl p-5 space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
               <h2 className="m-0 text-lg font-extrabold">
-                Códigos de Tipstars Oficiales y Campañas
+                Códigos de Tipsters Oficiales y Campañas
               </h2>
               <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
                 Cada creador recibe Pase PitchLab Ultra bonificado, 1 Pick abierto semanal y 25 % de
@@ -748,7 +748,7 @@ export function FounderAdminClubView({
               <input
                 type="text"
                 maxLength={16}
-                aria-label="Nuevo código promocional de Tipstar"
+                aria-label="Nuevo código promocional de Tipster"
                 placeholder="NUEVO5"
                 value={newCreatorCode}
                 onChange={(e) => setNewCreatorCode(e.target.value.toUpperCase())}
@@ -757,7 +757,7 @@ export function FounderAdminClubView({
               <input
                 type="text"
                 maxLength={24}
-                aria-label="Handle del Tipstar"
+                aria-label="Handle del Tipster"
                 placeholder="@handle"
                 value={newCreatorHandle}
                 onChange={(e) => setNewCreatorHandle(e.target.value)}
@@ -766,8 +766,8 @@ export function FounderAdminClubView({
               {accountsEnabled ? (
                 <input
                   type="email"
-                  aria-label="Correo del Tipstar"
-                  placeholder="correo@tipstar.com"
+                  aria-label="Correo del Tipster"
+                  placeholder="correo@tipster.com"
                   value={newCreatorEmail}
                   onChange={(e) => setNewCreatorEmail(e.target.value)}
                   className="glass-input px-3 py-1.5 text-xs font-semibold w-48"
@@ -788,10 +788,10 @@ export function FounderAdminClubView({
             className="pl-table-region"
             tabIndex={0}
             role="region"
-            aria-label="Tabla de códigos promocionales de Tipstars"
+            aria-label="Tabla de códigos promocionales de Tipsters"
           >
             <table className="w-full text-left border-collapse text-sm num">
-              <caption className="sr-only">Códigos promocionales de Tipstars oficiales y comisiones</caption>
+              <caption className="sr-only">Códigos promocionales de Tipsters oficiales y comisiones</caption>
               <thead>
                 <tr
                   className="hairline-b text-xs"

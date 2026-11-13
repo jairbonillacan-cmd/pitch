@@ -71,7 +71,7 @@ describe("perfil público", () => {
       avatarUrl: null,
       xUsername: "ana_perfil",
       joinedAt: "2026-11-12T12:00:00.000Z",
-      isTipstar: false,
+      isTipster: false,
     };
     mocks.publicProfileByHandle.mockResolvedValueOnce({
       ...publicFields,

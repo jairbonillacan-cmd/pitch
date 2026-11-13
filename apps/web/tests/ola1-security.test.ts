@@ -19,9 +19,9 @@ import {
   setConnectPayoutsEnabled,
   SIGNUP_CONSENT_VERSION,
   subscriptions,
-  tipstarAttributions,
-  tipstarCommissionLedger,
-  tipstarProfiles,
+  tipsterAttributions,
+  tipsterCommissionLedger,
+  tipsterProfiles,
   users,
   type Db,
 } from "@pitchlab/db";
@@ -32,7 +32,7 @@ import { GET as getSignup, POST as postSignup } from "../app/api/me/signup/route
 import { POST as postWatchlist } from "../app/api/me/watchlist/route";
 import { createAuth, getAuth, resetAuthForTests } from "../src/server/auth";
 import { isBetaPinEnabled, resetMemoryRateLimitForTests } from "../src/server/beta-auth";
-import { runTipstarPayouts, stripeTransferFinder } from "../src/server/billing/connect";
+import { runTipsterPayouts, stripeTransferFinder } from "../src/server/billing/connect";
 import { processStripeEvent, type WebhookDeps } from "../src/server/billing/stripe-webhook";
 import {
   buildServerRawPlatformDataset,
@@ -338,9 +338,9 @@ describe("Ola 1 · Autenticación, +18, consentimiento y PIN de beta (SEC-04, SE
 describe("Ola 1 · Atomicidad de pagos Connect y webhooks de Stripe (SEC-06)", () => {
   it("reclama asientos en processing_payout protegiendo contra carreras con charge.refunded y reconcilia >24h sin doble transferencia", async () => {
     const db = await freshDb();
-    const [tip] = await db.insert(users).values({ email: "tipstar@example.com" }).returning();
+    const [tip] = await db.insert(users).values({ email: "tipster@example.com" }).returning();
     const [fan] = await db.insert(users).values({ email: "fan@example.com" }).returning();
-    await db.insert(tipstarProfiles).values({
+    await db.insert(tipsterProfiles).values({
       userId: tip!.id,
       handle: "tip_ola1",
       displayName: "Tip Ola 1",
@@ -353,8 +353,8 @@ describe("Ola 1 · Atomicidad de pagos Connect y webhooks de Stripe (SEC-06)", (
     });
     await setConnectAccount(db, tip!.id, "acct_ola1");
     await setConnectPayoutsEnabled(db, "acct_ola1", true);
-    await db.insert(tipstarAttributions).values({
-      tipstarUserId: tip!.id,
+    await db.insert(tipsterAttributions).values({
+      tipsterUserId: tip!.id,
       referredUserId: fan!.id,
       promoCodeUsed: "TIPOLA1",
       status: "trial_5d",
@@ -369,7 +369,7 @@ describe("Ola 1 · Atomicidad de pagos Connect y webhooks de Stripe (SEC-06)", (
     });
 
     const day15 = new Date(BASE_NOW.getTime() + 15 * DAY_MS);
-    await runTipstarPayouts(db, {
+    await runTipsterPayouts(db, {
       now: day15,
       createTransfer: async () => {
         throw new Error("simular pausa antes de transferir");
@@ -399,7 +399,7 @@ describe("Ola 1 · Atomicidad de pagos Connect y webhooks de Stripe (SEC-06)", (
         { status: 200 },
       )) as unknown as typeof fetch;
 
-    const recovered = await runTipstarPayouts(db, {
+    const recovered = await runTipsterPayouts(db, {
       now: afterCrash,
       findExistingTransfer: stripeTransferFinder("sk_test", fakeFetch),
       createTransfer: async () => {
@@ -409,7 +409,7 @@ describe("Ola 1 · Atomicidad de pagos Connect y webhooks de Stripe (SEC-06)", (
     });
     expect(createCalls).toBe(0);
     expect(recovered.paid).toBe(1);
-    const [finalRow] = await db.select().from(tipstarCommissionLedger).where(eq(tipstarCommissionLedger.id, ledgerId));
+    const [finalRow] = await db.select().from(tipsterCommissionLedger).where(eq(tipsterCommissionLedger.id, ledgerId));
     expect(finalRow!.status).toBe("paid_out");
     expect(finalRow!.stripeTransferId).toBe("tr_existing_99");
     expect(await markCommissionPaid(db, ledgerId, "tr_other", afterCrash)).toBe(false);

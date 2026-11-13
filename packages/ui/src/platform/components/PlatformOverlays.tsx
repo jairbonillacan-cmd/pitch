@@ -12,7 +12,7 @@ import {
 } from "../access-guard";
 import { usePlatform } from "../platform-provider";
 import { downloadTicketPng, type TicketRasterContent } from "./share-ticket-raster";
-import { TIPSTAR_CREATORS } from "../spacetime-catalog";
+import { TIPSTER_CREATORS } from "../spacetime-catalog";
 import type { MatchPick, PlatformGame, ViewerRole } from "../types";
 import {
   ExampleBadge,
@@ -598,14 +598,14 @@ export function ShareTicketModal(): React.JSX.Element | null {
 
   if (!shareTicket) return null;
 
-  const isTipstarPromo = shareTicket.kind === "tipstar";
+  const isTipsterPromo = shareTicket.kind === "tipster";
   const revealSelection = canRevealPickOnShare(
     shareTicket.gameStatus,
     viewerRole,
-    isTipstarPromo,
+    isTipsterPromo,
   );
   const watermark = getSessionWatermark(viewerRole);
-  const slug = shareTicket.pickSlug || (isTipstarPromo ? "sofia-sem" : "");
+  const slug = shareTicket.pickSlug || (isTipsterPromo ? "sofia-sem" : "");
   const codeParam =
     shareTicket.promoCode ||
     memberReferralsSnapshot?.referralCode ||
@@ -661,7 +661,7 @@ export function ShareTicketModal(): React.JSX.Element | null {
     const content: TicketRasterContent = revealSelection
       ? {
           ...base,
-          badge: isTipstarPromo
+          badge: isTipsterPromo
             ? (shareTicket.originBadge ?? "PICK ABIERTO DE LA SEMANA")
             : "RESULTADO AUDITADO FT",
           badgeTone: "success",
@@ -781,7 +781,7 @@ export function ShareTicketModal(): React.JSX.Element | null {
                 </span>
               </div>
 
-              {shareTicket.tipstarHandle ? (
+              {shareTicket.tipsterHandle ? (
                 <div className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-bold"
                   style={{
                     background: "var(--share-card-surface)",
@@ -789,7 +789,7 @@ export function ShareTicketModal(): React.JSX.Element | null {
                   }}
                 >
                   <MaestroIcon name="crown" size={12} />
-                  <span>@{shareTicket.tipstarHandle} · Perfil de ejemplo</span>
+                  <span>@{shareTicket.tipsterHandle} · Perfil de ejemplo</span>
                 </div>
               ) : null}
 
@@ -818,7 +818,7 @@ export function ShareTicketModal(): React.JSX.Element | null {
                       className="font-bold inline-flex items-center gap-1.5"
                     >
                       <MaestroIcon name="shield" size={13} />
-                      {isTipstarPromo
+                      {isTipsterPromo
                         ? shareTicket.originBadge ?? "PICK ABIERTO DE LA SEMANA"
                         : "RESULTADO AUDITADO FT"}
                     </span>
@@ -905,7 +905,7 @@ export function ShareTicketModal(): React.JSX.Element | null {
               {copyState === "error"
                 ? `No se pudo acceder al portapapeles. Enlace: pitchlab.mx${sharePath}`
                 : revealSelection
-                  ? "Selección visible (Partido cerrado o Pick abierto semanal de Tipstar)."
+                  ? "Selección visible (Partido cerrado o Pick abierto semanal de Tipster)."
                   : "Selección sellada automáticamente porque el encuentro aún no inicia."}
             </span>
             <div className="flex items-center gap-2">
@@ -981,9 +981,9 @@ const CLUB_COMMAND_VIEWS: ReadonlyArray<{
     icon: "users",
   },
   {
-    label: "Portal Tipstar Oficial",
+    label: "Portal Tipster Oficial",
     subtitle: "1 pick abierto semanal y seguimiento de comisiones",
-    href: "/app/tipstar",
+    href: "/app/tipster",
     icon: "crown",
   },
   {
@@ -1050,7 +1050,7 @@ export function CommandPaletteModal(): React.JSX.Element | null {
     );
   });
 
-  const matchingTipstars = TIPSTAR_CREATORS.filter((c) => {
+  const matchingTipsters = TIPSTER_CREATORS.filter((c) => {
     if (!q) return true;
     return (
       c.handle.toLowerCase().includes(q) ||
@@ -1072,7 +1072,7 @@ export function CommandPaletteModal(): React.JSX.Element | null {
   const hasResults =
     matchingGames.length > 0 ||
     matchingLeagues.length > 0 ||
-    matchingTipstars.length > 0 ||
+    matchingTipsters.length > 0 ||
     quickRoutes.length > 0;
 
   return (
@@ -1097,7 +1097,7 @@ export function CommandPaletteModal(): React.JSX.Element | null {
               aria-label="Buscar equipo, liga, partido o módulo"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Buscar partido, liga, @tipstar o módulo (⌘K)..."
+              placeholder="Buscar partido, liga, @tipster o módulo (⌘K)..."
               className="glass-input w-full px-3 py-2.5 text-sm"
             />
             <button
@@ -1206,16 +1206,16 @@ export function CommandPaletteModal(): React.JSX.Element | null {
               </div>
             ) : null}
 
-            {matchingTipstars.length > 0 ? (
+            {matchingTipsters.length > 0 ? (
               <div>
                 <p
                   className="m-0 mb-1.5 text-[11px] font-bold"
                   style={{ color: "var(--pl-text-muted)" }}
                 >
-                  Tipstars Verificados (CLV Auditado)
+                  Tipsters Verificados (CLV Auditado)
                 </p>
                 <div className="space-y-1">
-                  {matchingTipstars.map((creator) => (
+                  {matchingTipsters.map((creator) => (
                     <a
                       key={creator.handle}
                       href={`/app/u/${creator.handle}`}
@@ -1500,7 +1500,7 @@ export function RoleSimulatorBar({
   const roles: Array<{ id: ViewerRole; label: string; short: string }> = [
     { id: "visitor", label: "Visitante (Cero-Fuga)", short: "Visitante" },
     { id: "member", label: "Socio Pase PitchLab Ultra", short: "Socio" },
-    { id: "tipstar", label: "Tipstar (@sofia_nfl)", short: "Tipstar" },
+    { id: "tipster", label: "Tipster (@sofia_nfl)", short: "Tipster" },
     { id: "admin", label: "Admin Founder", short: "Admin" },
   ];
 

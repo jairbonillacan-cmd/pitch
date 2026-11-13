@@ -1,8 +1,8 @@
 import { createHash, timingSafeEqual } from "node:crypto";
 import { NextResponse } from "next/server";
-import { createDb, FLAG_TIPSTAR_PAYOUTS, getBoolFlag, type Db } from "@pitchlab/db";
+import { createDb, FLAG_TIPSTER_PAYOUTS, getBoolFlag, type Db } from "@pitchlab/db";
 import {
-  runTipstarPayouts,
+  runTipsterPayouts,
   stripeTransferCreator,
   stripeTransferFinder,
 } from "../../../../src/server/billing/connect";
@@ -22,8 +22,8 @@ function verifyBearerSecret(authorization: string | null, secret: string | undef
 }
 
 /**
- * Corrida diaria de pagos a tipstars (Vercel Cron, ver vercel.json).
- * Exige `Authorization: Bearer ${CRON_SECRET}` y respeta la bandera operativa `tipstar_payouts_enabled`.
+ * Corrida diaria de pagos a tipsters (Vercel Cron, ver vercel.json).
+ * Exige `Authorization: Bearer ${CRON_SECRET}` y respeta la bandera operativa `tipster_payouts_enabled`.
  */
 export async function GET(request: Request): Promise<NextResponse> {
   if (!verifyBearerSecret(request.headers.get("authorization"), process.env.CRON_SECRET)) {
@@ -33,17 +33,17 @@ export async function GET(request: Request): Promise<NextResponse> {
   const url = process.env.DATABASE_URL;
   if (!apiKey || !url) return NextResponse.json({ error: "Cobro no configurado" }, { status: 503 });
   db ??= createDb(url) as unknown as Db;
-  if (!(await getBoolFlag(db, FLAG_TIPSTAR_PAYOUTS, true))) {
+  if (!(await getBoolFlag(db, FLAG_TIPSTER_PAYOUTS, true))) {
     return NextResponse.json({ paused: true, promoted: 0, paid: 0, paidCentavos: 0, failed: [] });
   }
-  const result = await runTipstarPayouts(db, {
+  const result = await runTipsterPayouts(db, {
     createTransfer: stripeTransferCreator(apiKey),
     findExistingTransfer: stripeTransferFinder(apiKey),
     now: new Date(),
   });
   if (result.failed.length) {
     console.warn(
-      "[tipstar-payouts] asientos con fallo:",
+      "[tipster-payouts] asientos con fallo:",
       result.failed.map((item) => item.ledgerId),
     );
   }

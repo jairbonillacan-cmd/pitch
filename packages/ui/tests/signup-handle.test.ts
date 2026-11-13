@@ -24,6 +24,6 @@ describe("usuario en el registro", () => {
     const identity = { handle: "ana_lopez", displayName: "Ana López", initials: "AL", referralCode: "SOCIO-AB12CD" };
     expect(ownHandleFor(identity, "member")).toBe("ana_lopez");
     expect(ownHandleFor(null, "member")).toBe("socio_pl");
-    expect(ownHandleFor(null, "tipstar")).toBe("sofia_nfl");
+    expect(ownHandleFor(null, "tipster")).toBe("sofia_nfl");
   });
 });

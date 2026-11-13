@@ -6,7 +6,7 @@ import { isDisposableEmailDomain, normalizeTrialEmail } from "../access-guard";
 import { MaestroIcon } from "../components/MaestroPrimitives";
 import { BetaPinModal, ToastViewport } from "../components/PlatformOverlays";
 import { usePlatform } from "../platform-provider";
-import { TIPSTAR_CREATORS } from "../spacetime-catalog";
+import { TIPSTER_CREATORS } from "../spacetime-catalog";
 import { requestLoginMagicLink, startLoginSocialSignIn } from "./LoginSurfaceV4";
 
 import {
@@ -122,7 +122,7 @@ export function resolveSignupInvite(rawCode: string): SignupInvite | null {
     .replace(/[^A-Z0-9_-]/g, "")
     .slice(0, 24);
   if (code.length < 3) return null;
-  const creator = TIPSTAR_CREATORS.find(
+  const creator = TIPSTER_CREATORS.find(
     (c) => c.promoCode.toUpperCase() === code,
   );
   const firstName = creator?.name.split(" ")[0] ?? null;

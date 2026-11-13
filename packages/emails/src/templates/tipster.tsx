@@ -22,7 +22,7 @@ export function TipsterActivatedEmail({
   trialDays,
   commissionPct,
   shareUrl,
-  dashboardUrl = `${siteUrl()}/app/tipstar`,
+  dashboardUrl = `${siteUrl()}/app/tipster`,
 }: TipsterActivatedProps) {
   return (
     <EmailLayout preview={`Tu código ${promoCode} ya funciona.`}>
@@ -68,7 +68,7 @@ export function TipsterNewSubscriberEmail({
   commissionLabel,
   netLabel,
   payableOn,
-  commissionsUrl = `${siteUrl()}/app/tipstar`,
+  commissionsUrl = `${siteUrl()}/app/tipster`,
 }: TipsterNewSubscriberProps) {
   return (
     <EmailLayout preview={`Alguien se suscribió con ${promoCode}. Comisión: ${commissionLabel}.`}>

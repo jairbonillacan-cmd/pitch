@@ -18,12 +18,12 @@ export const HANDLE_PATTERN = /^[a-z][a-z0-9_]{2,19}$/;
 
 /**
  * Usuarios que no se pueden tomar: rutas y palabras del sistema, y los perfiles de ejemplo
- * que ya existen en la app (Comunidad, ranking y tipstars).
+ * que ya existen en la app (Comunidad, ranking y tipsters).
  */
 export const RESERVED_HANDLES: ReadonlySet<string> = new Set([
   "admin", "administrador", "api", "app", "ayuda", "cuenta", "entrar", "help", "login",
   "me", "mod", "moderador", "null", "pitchlab", "pitch_lab", "precio", "registro", "root",
-  "signup", "soporte", "staff", "support", "system", "tipstar", "undefined", "yo",
+  "signup", "soporte", "staff", "support", "system", "tipstar", "tipster", "undefined", "yo",
   "andres_l", "carlos_quant", "diego_tactico", "jair_founder", "luis_f", "mariana_t",
   "paola_c", "rodrigo_p", "socio_pl", "sofia_nfl", "valeria_g",
 ]);

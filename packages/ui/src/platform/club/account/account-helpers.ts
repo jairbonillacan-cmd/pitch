@@ -68,7 +68,7 @@ export interface SessionAccountIdentity {
   atHandle: string;
   initials: string;
   displayName: string;
-  isTipstar: boolean;
+  isTipster: boolean;
   avatarGrad: string;
   avatarUrl?: string | null;
 }
@@ -77,7 +77,7 @@ export interface ServerProfileSummary {
   handle?: string | null;
   displayName?: string | null;
   email?: string | null;
-  isTipstar?: boolean;
+  isTipster?: boolean;
   avatarUrl?: string | null;
 }
 
@@ -105,26 +105,26 @@ export function resolveSessionIdentity(
       "socio";
     const cleanHandle =
       rawHandle.replace(/^@/, "").replace(/[^a-zA-Z0-9_.-]/g, "").toLowerCase() || "socio";
-    const isTipstar = Boolean(serverProfile.isTipstar || viewerRole === "tipstar");
+    const isTipster = Boolean(serverProfile.isTipster || viewerRole === "tipster");
     const displayName = serverProfile.displayName?.trim() || `@${cleanHandle}`;
     return {
       cleanHandle,
       atHandle: `@${cleanHandle}`,
       initials: computeInitials(serverProfile.displayName, cleanHandle),
       displayName,
-      isTipstar,
-      avatarGrad: isTipstar ? "var(--avatar-grad-1)" : "var(--avatar-grad-2)",
+      isTipster,
+      avatarGrad: isTipster ? "var(--avatar-grad-1)" : "var(--avatar-grad-2)",
       avatarUrl: serverProfile.avatarUrl ?? null,
     };
   }
 
-  if (viewerRole === "tipstar") {
+  if (viewerRole === "tipster") {
     return {
       cleanHandle: "sofia_nfl",
       atHandle: "@sofia_nfl",
       initials: "SM",
       displayName: "Sofía Méndez",
-      isTipstar: true,
+      isTipster: true,
       avatarGrad: "var(--avatar-grad-1)",
     };
   }
@@ -134,7 +134,7 @@ export function resolveSessionIdentity(
     atHandle: "@jair",
     initials: "JR",
     displayName: "Jair",
-    isTipstar: false,
+    isTipster: false,
     avatarGrad: "var(--avatar-grad-2)",
   };
 }

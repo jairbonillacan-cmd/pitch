@@ -223,7 +223,7 @@ export function InviteTab({
   const earnedDays = useMemo(() => referralEarnedDays(paidCount), [paidCount]);
   const remainingForAmbassador = Math.max(0, threshold - paidCount);
   const isAmbassador = paidCount >= threshold;
-  const tierLabel = identity.isTipstar ? "ULTRA · TIPSTAR" : "ULTRA";
+  const tierLabel = identity.isTipster ? "ULTRA · TIPSTER" : "ULTRA";
 
   const copyText = useCallback(
     async (text: string, target: "input" | "msg" | "code", announceLabel: string) => {

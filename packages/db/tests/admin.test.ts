@@ -4,16 +4,16 @@ import { beforeEach, describe, expect, it } from "vitest";
 import {
   adminOverview,
   applyMigrations,
-  createTipstarCode,
+  createTipsterCode,
   FLAG_MONTH1_NO_CARD,
   getBoolFlag,
   handleInvoicePaid,
-  listTipstarCodes,
+  listTipsterCodes,
   myReferrals,
   referralGrants,
   setBoolFlag,
-  tipstarAttributions,
-  tipstarProfiles,
+  tipsterAttributions,
+  tipsterProfiles,
   users,
 } from "../src/index";
 
@@ -35,26 +35,26 @@ describe("consola del fundador", () => {
     expect(await getBoolFlag(db, FLAG_MONTH1_NO_CARD, false)).toBe(true);
   });
 
-  it("emite códigos de tipstar validados y sin duplicados", async () => {
-    expect(await createTipstarCode(db, { email: "Alex@Example.com", handle: "@alex_futbol", displayName: "Alex", promoCode: "alex5", specialty: "Liga MX" })).toEqual({ ok: true });
-    expect(await createTipstarCode(db, { email: "otro@example.com", handle: "otro", displayName: "Otro", promoCode: "ALEX5", specialty: "" })).toEqual({ ok: false, reason: "duplicado" });
-    expect(await createTipstarCode(db, { email: "x@example.com", handle: "x", displayName: "X", promoCode: "A", specialty: "" })).toEqual({ ok: false, reason: "codigo_invalido" });
-    const [p] = await db.select().from(tipstarProfiles);
+  it("emite códigos de tipster validados y sin duplicados", async () => {
+    expect(await createTipsterCode(db, { email: "Alex@Example.com", handle: "@alex_futbol", displayName: "Alex", promoCode: "alex5", specialty: "Liga MX" })).toEqual({ ok: true });
+    expect(await createTipsterCode(db, { email: "otro@example.com", handle: "otro", displayName: "Otro", promoCode: "ALEX5", specialty: "" })).toEqual({ ok: false, reason: "duplicado" });
+    expect(await createTipsterCode(db, { email: "x@example.com", handle: "x", displayName: "X", promoCode: "A", specialty: "" })).toEqual({ ok: false, reason: "codigo_invalido" });
+    const [p] = await db.select().from(tipsterProfiles);
     expect(p).toMatchObject({ promoCode: "ALEX5", handle: "alex_futbol", defaultWeeklySlug: "alex-futbol-sem" });
   });
 
-  it("resume métricas reales y lista comisiones por tipstar", async () => {
-    await createTipstarCode(db, { email: "t@example.com", handle: "tip", displayName: "Tip", promoCode: "TIP5", specialty: "NFL" });
-    const [tip] = await db.select().from(tipstarProfiles);
+  it("resume métricas reales y lista comisiones por tipster", async () => {
+    await createTipsterCode(db, { email: "t@example.com", handle: "tip", displayName: "Tip", promoCode: "TIP5", specialty: "NFL" });
+    const [tip] = await db.select().from(tipsterProfiles);
     const [fan] = await db.insert(users).values({ email: "fan@example.com" }).returning();
     const [host] = await db.insert(users).values({ email: "host@example.com", referralCode: "SOCIO-1" }).returning();
-    await db.insert(tipstarAttributions).values({ tipstarUserId: tip!.userId, referredUserId: fan!.id, promoCodeUsed: "TIP5", status: "trial_5d" });
+    await db.insert(tipsterAttributions).values({ tipsterUserId: tip!.userId, referredUserId: fan!.id, promoCodeUsed: "TIP5", status: "trial_5d" });
     await db.insert(referralGrants).values({ referrerUserId: host!.id, referredUserId: fan!.id, referralCodeUsed: "SOCIO-1", status: "trial_started" });
     await handleInvoicePaid(db, { userId: fan!.id, stripeInvoiceId: "in_1", grossCentavos: 29900, vatCentavos: 4124, gatewayFeeCentavos: 1500, paidAt: now });
 
     const o = await adminOverview(db);
     expect(o).toMatchObject({ members: 3, referralsRewarded: 1, commissionsPayableCentavos: 6069, activeSubscriptions: 0 });
-    const codes = await listTipstarCodes(db);
+    const codes = await listTipsterCodes(db);
     expect(codes).toEqual([
       { code: "TIP5", handle: "tip", name: "Tip", freeDays: 5, commissionPct: 25, activeReferrals: 1, pendingCommissionCentavos: 6069 },
     ]);

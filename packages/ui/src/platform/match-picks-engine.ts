@@ -680,27 +680,27 @@ export function buildPlatformDataset(inputs: readonly RawLeagueInput[]): Platfor
 
   // Seleccionar determinísticamente:
   // 1) El único Pick Abierto del Día (primer juego próximo de alta confianza)
-  // 2) El único Pick Abierto Semanal de Tipstar (@sofia_nfl -> preferentemente NFL próximo, o segundo juego próximo)
+  // 2) El único Pick Abierto Semanal de Tipster (@sofia_nfl -> preferentemente NFL próximo, o segundo juego próximo)
   const upcomingGames = games.filter((g) => g.status !== "FT" && g.picks.length > 0);
   const promoGame = upcomingGames[0] ?? games[0];
-  const tipstarGame =
+  const tipsterGame =
     upcomingGames.find((g) => g.league === "nfl" && g.id !== promoGame?.id) ??
     upcomingGames[1] ??
     promoGame;
 
   let dailyPromoPickId = "";
-  let tipstarWeeklyPickId = "";
+  let tipsterWeeklyPickId = "";
 
   if (promoGame && promoGame.picks[0]) {
     promoGame.picks[0].isDailyOpenPromo = true;
     dailyPromoPickId = promoGame.picks[0].id;
   }
-  if (tipstarGame) {
-    const targetSlot = tipstarGame.id === promoGame?.id ? tipstarGame.picks[1] : tipstarGame.picks[0];
+  if (tipsterGame) {
+    const targetSlot = tipsterGame.id === promoGame?.id ? tipsterGame.picks[1] : tipsterGame.picks[0];
     if (targetSlot) {
-      targetSlot.isTipstarWeeklyOpen = true;
-      targetSlot.tipstarSlug = "sofia-sem";
-      tipstarWeeklyPickId = targetSlot.id;
+      targetSlot.isTipsterWeeklyOpen = true;
+      targetSlot.tipsterSlug = "sofia-sem";
+      tipsterWeeklyPickId = targetSlot.id;
     }
   }
 
@@ -715,8 +715,8 @@ export function buildPlatformDataset(inputs: readonly RawLeagueInput[]): Platfor
     leagues,
     games,
     dailyPromoPickId,
-    tipstarWeeklyPickId,
-    tipstarWeeklySlug: "sofia-sem",
+    tipsterWeeklyPickId,
+    tipsterWeeklySlug: "sofia-sem",
     isServerRedactedForVisitor: false,
   };
 }

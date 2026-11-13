@@ -4,7 +4,7 @@ import type {
   SocialPost,
   SpacetimeEngineSpec,
   SpacetimeVsTipsterRow,
-  TipstarCreator,
+  TipsterCreator,
 } from "./types";
 
 /**
@@ -253,7 +253,7 @@ export const ULTRA_LANDING_FEATURES = [
   "Lo más probable y el momio justo de cada partido, en todas las ligas",
   "Todos los mercados del partido: resultado, totales, ambos anotan y hándicap",
   "Armador de parlays de 2 a 6 selecciones, sin choques lógicos",
-  "Comunidad de socios y récord verificado de tipstars",
+  "Comunidad de socios y récord verificado de tipsters",
 ] as const;
 
 export const LANDING_FAQS: readonly LandingFaqItem[] = [
@@ -278,7 +278,7 @@ export const LANDING_FAQS: readonly LandingFaqItem[] = [
   },
 ] as const;
 
-export const TIPSTAR_CREATORS: readonly TipstarCreator[] = [
+export const TIPSTER_CREATORS: readonly TipsterCreator[] = [
   {
     isExample: true,
     handle: "sofia_nfl",
@@ -362,7 +362,7 @@ export const INITIAL_SOCIAL_POSTS: readonly SocialPost[] = [
     id: "sp-1",
     authorHandle: "sofia_nfl",
     authorName: "Sofía Méndez",
-    roleBadge: "Tipstar Oficial",
+    roleBadge: "Tipster Oficial",
     avatarGradVar: "var(--avatar-grad-1)",
     verifiedRecord: "+18.4u · 142 picks",
     clvBadge: "CLV +4.2 %",
@@ -424,7 +424,7 @@ export const INITIAL_SOCIAL_POSTS: readonly SocialPost[] = [
     id: "sp-3",
     authorHandle: "diego_tactico",
     authorName: "Diego Aranda",
-    roleBadge: "Tipstar Oficial",
+    roleBadge: "Tipster Oficial",
     avatarGradVar: "var(--avatar-grad-3)",
     verifiedRecord: "+11.6u · 118 picks",
     clvBadge: "CLV +3.1 %",

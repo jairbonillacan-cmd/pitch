@@ -119,7 +119,7 @@ export const MultiPickRow = React.memo(function MultiPickRow({
               <span>Pick gratis del día</span>
             </span>
           ) : null}
-          {pick.isTipstarWeeklyOpen ? (
+          {pick.isTipsterWeeklyOpen ? (
             <span className="pl-pill pl-pill--info inline-flex items-center gap-1">
               <MaestroIcon name="crown" size={11} />
               <span>Pick semanal (ejemplo)</span>
@@ -221,7 +221,7 @@ export const MultiPickRow = React.memo(function MultiPickRow({
               aria-label={`Compartir boleto de ${pick.label}`}
               onClick={() =>
                 openShareTicket({
-                  kind: pick.isTipstarWeeklyOpen ? "tipstar" : "pick",
+                  kind: pick.isTipsterWeeklyOpen ? "tipster" : "pick",
                   title: pick.matchLabel,
                   subtitle: `${pick.leagueLabel} · ${pick.kickoffLocal}`,
                   leagueLabel: pick.leagueLabel,
@@ -231,8 +231,8 @@ export const MultiPickRow = React.memo(function MultiPickRow({
                   marketDecimal: effectiveMarketDecimal ?? pick.fairDecimal,
                   units: pick.suggestedUnits,
                   gameStatus,
-                  promoCode: pick.isTipstarWeeklyOpen ? "SOFIA5" : undefined,
-                  pickSlug: pick.tipstarSlug ?? pick.id,
+                  promoCode: pick.isTipsterWeeklyOpen ? "SOFIA5" : undefined,
+                  pickSlug: pick.tipsterSlug ?? pick.id,
                 })
               }
             >
@@ -438,7 +438,7 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
               >
                 {mainPick.isDailyOpenPromo
                   ? "Pick abierto del día"
-                  : mainPick.isTipstarWeeklyOpen
+                  : mainPick.isTipsterWeeklyOpen
                     ? "Pick Semanal @sofia_nfl"
                     : "Pick principal"}
               </span>

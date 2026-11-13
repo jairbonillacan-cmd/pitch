@@ -24,7 +24,7 @@
    - `apps/web/src/server/viewer-access.ts` y `apps/web/src/server/public-session.ts` priorizan la sesión real de Better Auth sobre el preview/PIN beta.
    - Ruptura del bucle de paywall en prueba expirada dirigiendo a `/app/account?tab=plan` (`upgradeHref` y `hasAccountSession` en `packages/ui/src/platform/platform-provider.tsx`).
    - `apps/web/src/server/auth-page.ts` y `apps/web/app/signup/page.tsx` preservan `?next=` y `?code=`.
-   - `apps/web/src/server/billing/checkout.ts`, `apps/web/app/app/account/page.tsx`, `packages/ui/src/platform/club/account/PlanTab.tsx` y `packages/ui/src/platform/club/SocialAndTipstarViews.tsx` manejan los retornos de Stripe Checkout (`?pago=ok` / `?pago=cancelado`) y Stripe Connect.
+   - `apps/web/src/server/billing/checkout.ts`, `apps/web/app/app/account/page.tsx`, `packages/ui/src/platform/club/account/PlanTab.tsx` y `packages/ui/src/platform/club/SocialAndTipsterViews.tsx` manejan los retornos de Stripe Checkout (`?pago=ok` / `?pago=cancelado`) y Stripe Connect.
 5. **Error boundaries:**
    - Agregados `apps/web/app/error.tsx`, `apps/web/app/app/error.tsx` y `apps/web/app/global-error.tsx`.
 
@@ -43,7 +43,7 @@
    - `upcomingPlusRecentFinished(dataset, 12)` en `apps/web/src/server/platform-data.ts` incluye partidos finalizados recientes (`FT`) para `NotificationBell`.
    - `packages/ui/src/platform/club/account/PrefsTab.tsx` sincroniza `pickSettled` contra `GET` y `PUT /api/me/email-preferences`.
 5. **Guardias de rol y estados vacíos honestos:**
-   - Guardias de servidor en `apps/web/app/app/admin/page.tsx` y `apps/web/app/app/tipstar/page.tsx`.
+   - Guardias de servidor en `apps/web/app/app/admin/page.tsx` y `apps/web/app/app/tipster/page.tsx`.
    - `packages/ui/src/platform/club/CoreMatchViews.tsx` incorpora estados vacíos honestos para `finished`, `standings` y opiniones de socios (sin comentarios ficticios ni `+14` artificial), agrega fecha de corte en `[data-market-pulse]` y reemplaza `"más seguro"` por `"perfil conservador"` / `"Conservador"`.
 
 ### Bloque 3 — Shell unificada en `/legal/*` y `/onboarding`, SEO, copy y documentación

@@ -105,7 +105,7 @@ interface AuthorInfo {
   initials: string;
   gradVar: string;
   avatarUrl: string | null;
-  isTipstar: boolean;
+  isTipster: boolean;
   saldo: string | null;
 }
 
@@ -233,7 +233,7 @@ function CommunityContent(): React.JSX.Element {
           (isOwnPost ? own!.avatarInitials : post.authorName.split(" ").map((w) => w[0]).join("").slice(0, 2)),
         gradVar: spec?.avatarGradVar ?? post.avatarGradVar,
         avatarUrl: nextAvatarUrl,
-        isTipstar: spec?.isTipstar ?? false,
+        isTipster: spec?.isTipster ?? false,
         saldo: ranked && ranked.record.settled > 0 ? formatUnits(ranked.record.netUnits) : null,
       };
       cache.set(post.authorHandle, info);
@@ -774,7 +774,7 @@ function PostCard({
             <a id={`${uid}-author`} href={`/app/u/${post.authorHandle}`} onClick={goProfile(post.authorHandle)}>
               {author.name}
             </a>
-            {author.isTipstar ? <VerifiedSeal size={16} /> : null}
+            {author.isTipster ? <VerifiedSeal size={16} /> : null}
             {post.isExample ? <ExampleBadge className="pl-com-example" /> : null}
           </p>
           <p className="pl-com-post-sub num">
@@ -1181,7 +1181,7 @@ function MobileTop({
    Siguiendo
    ========================================================================= */
 
-type FollowFilter = "all" | "tipstars" | "socios" | "open";
+type FollowFilter = "all" | "tipsters" | "socios" | "open";
 
 function FollowingTab({
   posts,
@@ -1209,19 +1209,19 @@ function FollowingTab({
           initials: spec?.avatarInitials ?? handle.slice(0, 2).toUpperCase(),
           gradVar: spec?.avatarGradVar ?? "var(--avatar-grad-4)",
           avatarUrl: matchingPost?.authorAvatarUrl ?? null,
-          isTipstar: spec?.isTipstar ?? false,
+          isTipster: spec?.isTipster ?? false,
           name: spec?.name ?? `@${handle}`,
         };
       }),
     [followed, posts],
   );
-  const tipstars = followedInfo.filter((f) => f.isTipstar).length;
+  const tipsters = followedInfo.filter((f) => f.isTipster).length;
 
   const followedPosts = useMemo(() => {
     const base = posts.filter((p) => followed.includes(p.authorHandle));
     return base.filter((p) => {
-      const tip = getExampleAnalystSpec(p.authorHandle)?.isTipstar ?? false;
-      if (filter === "tipstars") return tip;
+      const tip = getExampleAnalystSpec(p.authorHandle)?.isTipster ?? false;
+      if (filter === "tipsters") return tip;
       if (filter === "socios") return !tip;
       if (filter === "open") return p.pick?.status === "open";
       return true;
@@ -1260,7 +1260,7 @@ function FollowingTab({
             <a href={`/app/u/${r.handle}`} onClick={goProfile(r.handle)}>
               {r.name}
             </a>
-            {r.isTipstar ? <VerifiedSeal size={14} /> : null}
+            {r.isTipster ? <VerifiedSeal size={14} /> : null}
             <span className="pl-prof-muted num">
               {formatUnits(r.record.netUnits)} · {r.record.settled} picks
             </span>
@@ -1298,8 +1298,8 @@ function FollowingTab({
             ))}
           </span>
           <p className="pl-com-strip-copy num">
-            Sigues a <strong>{followed.length}</strong> · {tipstars} {tipstars === 1 ? "tipstar" : "tipstars"},{" "}
-            {followed.length - tipstars} {followed.length - tipstars === 1 ? "socio" : "socios"}
+            Sigues a <strong>{followed.length}</strong> · {tipsters} {tipsters === 1 ? "tipster" : "tipsters"},{" "}
+            {followed.length - tipsters} {followed.length - tipsters === 1 ? "socio" : "socios"}
           </p>
         </section>
 
@@ -1307,7 +1307,7 @@ function FollowingTab({
           {(
             [
               ["all", "Todos"],
-              ["tipstars", "Tipstars"],
+              ["tipsters", "Tipsters"],
               ["socios", "Socios"],
               ["open", "Con pick abierto"],
             ] as const
@@ -1596,7 +1596,7 @@ function RankingTab({
                     <a href={`/app/u/${r.handle}`} onClick={goProfile(r.handle)}>
                       {r.name}
                     </a>
-                    {r.isTipstar ? <VerifiedSeal size={16} /> : null}
+                    {r.isTipster ? <VerifiedSeal size={16} /> : null}
                   </p>
                   <p className="pl-com-podium-sub">{sub(r)}</p>
                   <p className={`pl-com-podium-units num ${r.record.netUnits >= 0 ? "pl-prof-pos" : "pl-prof-neg"}`}>
@@ -1656,7 +1656,7 @@ function RankingTab({
                             <a href={`/app/u/${r.handle}`} onClick={goProfile(r.handle)}>
                               {r.name}
                             </a>
-                            {r.isTipstar ? <VerifiedSeal size={14} /> : null}
+                            {r.isTipster ? <VerifiedSeal size={14} /> : null}
                           </span>
                           <span className="pl-com-table-sub">{sub(r)}</span>
                         </span>

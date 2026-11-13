@@ -1,7 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { normalizeReferralCode, PublicTipstarPickSurface, TIPSTAR_CREATORS } from "@pitchlab/ui";
+import { normalizeReferralCode, PublicTipsterPickSurface, TIPSTER_CREATORS } from "@pitchlab/ui";
 import { PlatformClientBridge } from "../../../src/client/platform-client-bridge";
 import { buildServerRawPlatformDataset, loadPublicPlatformState } from "../../../src/server/platform-data";
 import { hasPublicSessionCookie } from "../../../src/server/public-session";
@@ -9,9 +9,9 @@ import { hasPublicSessionCookie } from "../../../src/server/public-session";
 export const dynamic = "force-dynamic";
 
 function isKnownPublicPickSlug(pickId: string): boolean {
-  if (TIPSTAR_CREATORS.some((c) => c.weeklyPickSlug === pickId)) return true;
+  if (TIPSTER_CREATORS.some((c) => c.weeklyPickSlug === pickId)) return true;
   const raw = buildServerRawPlatformDataset();
-  return raw.games.some((g) => g.picks.some((p) => p.id === pickId || p.tipstarSlug === pickId));
+  return raw.games.some((g) => g.picks.some((p) => p.id === pickId || p.tipsterSlug === pickId));
 }
 
 export async function generateMetadata({
@@ -20,7 +20,7 @@ export async function generateMetadata({
   params: Promise<{ pickId: string }>;
 }): Promise<Metadata> {
   const { pickId } = await params;
-  const creator = TIPSTAR_CREATORS.find((c) => c.weeklyPickSlug === pickId);
+  const creator = TIPSTER_CREATORS.find((c) => c.weeklyPickSlug === pickId);
   return {
     title: creator
       ? `Pick semanal de @${creator.handle} · PitchLab`
@@ -31,7 +31,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function PublicTipstarPickPage({
+export default async function PublicTipsterPickPage({
   params,
   searchParams,
 }: {
@@ -64,7 +64,7 @@ export default async function PublicTipstarPickPage({
       serverMonth1NoCardMode={state.serverMonth1NoCardMode}
       viewerIdentity={state.viewerIdentity}
     >
-      <PublicTipstarPickSurface
+      <PublicTipsterPickSurface
         pickSlug={pickId}
         inviteCode={inviteCode}
         hasSession={hasSession}

@@ -1,10 +1,10 @@
-# Visión de Producto e Ingeniería (Crecimiento, Monetización Cero-Fuga, Tipstars, Referidos y CFDI 4.0)
+# Visión de Producto e Ingeniería (Crecimiento, Monetización Cero-Fuga, Tipsters, Referidos y CFDI 4.0)
 
 > **Actualización 2026-11-11 (ADR-027):** este documento es de la entrega de Gemini del 10 nov. Desde entonces los motores son **Spacetime Suite v3.0** (`packages/spacetime`), la UI ya no muestra momios, bajas ni cifras sin fuente (`+358,400`, `+12.4M`, `69.6 %`, `0.009 ECE` quedaron retiradas), el contenido de demostración lleva la etiqueta «Ejemplo» y las herramientas de preview no usan el PIN en el cliente. El estado vigente está en [`docs/execution/PROJECT_STATE.md`](../execution/PROJECT_STATE.md) y [ADR-027](../architecture/adr/ADR-027-spacetime-v3-datos-verificables-y-herramientas-de-preview.md).
 
 > **Audiencia:** Fundador (Jair) y Claude (sesión de continuación en casa sobre la rama `gemini-reestructura`).
-> **Documento normativo asociado:** [ADR-025](../architecture/adr/ADR-025-zero-leak-subscription-tipstar-referrals.md), en conjunto con [ADR-010](../architecture/adr/ADR-010-autenticacion-con-better-auth.md), [ADR-011](../architecture/adr/ADR-011-billing-desacoplado-y-entitlements-por-concesiones.md) y [ADR-023](../architecture/adr/ADR-023-paridad-prototipo-maestro-cristal-ahumado-y-primitivas-maestro.md).
-> **Propósito:** Servir como plano ejecutivo y técnico de nivel producción para construir en Fase 4 (F4) el motor de suscripción **Pase Total**, el escudo anti-abuso `$0 MXN` (Mes 1 sin tarjeta → Mes 2 `SetupIntent`), la frontera **Cero-Fuga** conectada a sesiones reales, el programa de **Tipstars Oficiales**, el motor de **Referido Doble Vía**, la moderación de **Comunidad VIP** y la facturación automática **CFDI 4.0** en México.
+> **Documento normativo asociado:** [ADR-025](../architecture/adr/ADR-025-zero-leak-subscription-tipster-referrals.md), en conjunto con [ADR-010](../architecture/adr/ADR-010-autenticacion-con-better-auth.md), [ADR-011](../architecture/adr/ADR-011-billing-desacoplado-y-entitlements-por-concesiones.md) y [ADR-023](../architecture/adr/ADR-023-paridad-prototipo-maestro-cristal-ahumado-y-primitivas-maestro.md).
+> **Propósito:** Servir como plano ejecutivo y técnico de nivel producción para construir en Fase 4 (F4) el motor de suscripción **Pase Total**, el escudo anti-abuso `$0 MXN` (Mes 1 sin tarjeta → Mes 2 `SetupIntent`), la frontera **Cero-Fuga** conectada a sesiones reales, el programa de **Tipsters Oficiales**, el motor de **Referido Doble Vía**, la moderación de **Comunidad VIP** y la facturación automática **CFDI 4.0** en México.
 
 ---
 
@@ -17,7 +17,7 @@ La reestructura `UI-MAESTRO-V4.1` dejó implementadas, tipadas y verificadas tod
 | **Frontera Cero-Fuga SSR** | `redactDatasetForVisitor()`, `isPickUnlocked()`, `isPreGameIntelUnlocked()` y `canRevealPickOnShare()` en [`access-guard.ts`](../../packages/ui/src/platform/access-guard.ts); `loadPublicPlatformState()` y `loadClubPlatformState()` en [`platform-data.ts`](../../apps/web/src/server/platform-data.ts) leen cookie HMAC `pl_beta` ([`beta-auth.ts`](../../apps/web/src/server/beta-auth.ts)). | Sustituir la lectura exclusiva de `pl_beta` por resolución unificada de sesión Better Auth + consulta en servidor a `hasActivePaseTotal(userId)` (`subscriptions` ∪ `entitlement_grants`), conservando `pl_beta` solo detrás de `ENABLE_PREVIEW_PIN=true` en entornos no productivos. |
 | **Membresía `Pase Total`** | Constante canónica `MEMBERSHIP_SPEC` (`$299 MXN/mes`, `$2,390 MXN/año`, `-33 %`, CFDI 4.0) en [`spacetime-catalog.ts`](../../packages/ui/src/platform/spacetime-catalog.ts), `/pricing` y pestaña `Pase Total` en `/app/account`. | Conectar `BillingProvider` (ADR-011) con Stripe MX Billing (`Checkout`, `Customer Portal`, `SetupIntent` `$0.00 MXN` y webhooks idempotentes) + tabla `subscriptions`. |
 | **Escudo Trial `$0` (Mes 1 / Mes 2)** | `normalizeTrialEmail()` y `isDisposableEmailDomain()` en [`access-guard.ts`](../../packages/ui/src/platform/access-guard.ts); validación interactiva en [`AuthSurfaceV4`](../../packages/ui/src/platform/public/AuthAndOnboardingSurfaces.tsx); switch `month1NoCardMode` en [`FounderAdminClubView`](../../packages/ui/src/platform/club/LedgerAccountAdminViews.tsx). | Persistir `month1_no_card_mode` en BD (`platform_runtime_flags`), validar Cloudflare Turnstile en servidor, integrar Google/Apple OAuth en Better Auth y registrar `trial_fingerprints` para bloquear multicuentas. |
-| **Tipstars Oficiales y `/p/[slug]`** | Catálogo `TIPSTAR_CREATORS` (`SOFIA5`, `CARLOS5`, `DIEGO5`), configurador `/app/tipstar` con simulador visitante `<dialog>` en [`SocialAndTipstarViews.tsx`](../../packages/ui/src/platform/club/SocialAndTipstarViews.tsx), ruta pública SSR [`/p/[pickId]`](../../apps/web/app/p/[pickId]/page.tsx) que desbloquea 1 pick y deja 4 con candado. | Persistir `tipstar_profiles`, `public_weekly_picks` (cupo `1/semana`), `tipstar_attributions` y `tipstar_commission_ledger` (`25 %` recurrente); sincronizar alta de códigos desde `/app/admin` con Stripe Promotion Codes. |
+| **Tipsters Oficiales y `/p/[slug]`** | Catálogo `TIPSTER_CREATORS` (`SOFIA5`, `CARLOS5`, `DIEGO5`), configurador `/app/tipster` con simulador visitante `<dialog>` en [`SocialAndTipsterViews.tsx`](../../packages/ui/src/platform/club/SocialAndTipsterViews.tsx), ruta pública SSR [`/p/[pickId]`](../../apps/web/app/p/[pickId]/page.tsx) que desbloquea 1 pick y deja 4 con candado. | Persistir `tipster_profiles`, `public_weekly_picks` (cupo `1/semana`), `tipster_attributions` y `tipster_commission_ledger` (`25 %` recurrente); sincronizar alta de códigos desde `/app/admin` con Stripe Promotion Codes. |
 | **Referido Doble Vía (`+15d` ambos)** | Pestaña predeterminada en `/app/account` (`SOCIO-8842`, barra `Embajador PitchLab` `5/5`, simulador `+15d`) en [`LedgerAccountAdminViews.tsx`](../../packages/ui/src/platform/club/LedgerAccountAdminViews.tsx). | Persistir códigos únicos por socio, tabla `referral_grants`, cupón Stripe `30 % off` Mes 1 (`$209 MXN`) y acreditación bilateral automática (`+15d` ambos + `+30d` al 5.º amigo) disparada exclusivamente por `invoice.paid`. |
 | **Comunidad VIP y Marcas de Agua** | Feed 2 columnas `/app/social`, filtro `containsExternalLink()`, `getSessionWatermark()`, `Ranking CLV (IC 95 %)`, `Consenso vs. Suite` y `Modo Pausa Social`. | Persistir `social_posts`, `social_comments`, reacciones y bitácora de moderación en PostgreSQL; generar marca de agua determinista derivada de `user.public_code` (`PL-XXXX`) real por sesión. |
 | **Facturación CFDI 4.0** | Formulario fiscal SAT (`601`, `612`, `626`, `605`, RFC, Razón Social, CP) en `/app/account` (`CFDI 4.0`). | Persistir `cfdi_profiles` y `cfdi_invoices`; timbrar automáticamente PDF + XML vía Facturapi tras cada `invoice.paid` y emitir Factura Global mensual para cobros sin RFC. |
@@ -35,20 +35,20 @@ La reestructura `UI-MAESTRO-V4.1` dejó implementadas, tipadas y verificadas tod
 
 Todos los precios al público en México incluyen **IVA del 16 %** (`tax_behavior: "inclusive"` en Stripe MX). Asumiendo la tarifa estándar publicada de Stripe México (`3.6 % + $3.00 MXN` más IVA sobre la comisión = `4.176 % + $3.48 MXN`):
 
-| Concepto | Mensual Orgánico (`$299`) | Mensual con `Tipstar` (`SOFIA5`) | 1.er Mes `Referido` (`30 % off`) | Anual Orgánico (`$2,390`) | Anual con `Tipstar` (`25 %`) |
+| Concepto | Mensual Orgánico (`$299`) | Mensual con `Tipster` (`SOFIA5`) | 1.er Mes `Referido` (`30 % off`) | Anual Orgánico (`$2,390`) | Anual con `Tipster` (`25 %`) |
 |---|---:|---:|---:|---:|---:|
 | **Cobro bruto al socio (con IVA)** | `$299.00 MXN` | `$299.00 MXN` | `$209.30 MXN` (`$209` red.) | `$2,390.00 MXN` | `$2,390.00 MXN` |
 | **IVA trasladado (16 %)** | `$41.24 MXN` | `$41.24 MXN` | `$28.83 MXN` | `$329.66 MXN` | `$329.66 MXN` |
 | **Ingreso base ex-IVA** | `$257.76 MXN` | `$257.76 MXN` | `$180.17 MXN` | `$2,060.34 MXN` | `$2,060.34 MXN` |
 | **Comisión Stripe MX est. (con IVA)** | `-$15.97 MXN` | `-$15.97 MXN` | `-$12.21 MXN` | `-$103.29 MXN` | `-$103.29 MXN` |
 | **Recaudación neta ex-IVA y pasarela** | **`$241.79 MXN`** | `$241.79 MXN` | **`$167.96 MXN`** | **`$1,957.05 MXN`** | `$1,957.05 MXN` |
-| **Comisión `Tipstar Oficial` (25 % neto)** | `$0.00 MXN` | `-$60.45 MXN` | `$0.00 MXN` | `$0.00 MXN` | `-$489.26 MXN` |
+| **Comisión `Tipster Oficial` (25 % neto)** | `$0.00 MXN` | `-$60.45 MXN` | `$0.00 MXN` | `$0.00 MXN` | `-$489.26 MXN` |
 | **Costo efectivo en caja de días gratis** | `$0.00 MXN` | `$0.00 MXN` | `$0.00 MXN` *(+15d/+15d en especie)* | `$0.00 MXN` | `$0.00 MXN` |
 | **Contribución bruta PitchLab (antes de infra/IA)** | **`$241.79 MXN`** | **`$181.34 MXN`** | **`$167.96 MXN`** | **`$1,957.05 MXN`** | **`$1,467.79 MXN`** |
 
 **Propiedades clave de este diseño económico:**
-1. **CAC en efectivo `$0 MXN` antes de cobrar:** ni el trial del Mes 1, ni los 5 días del código Tipstar, ni el enlace de Referido Doble Vía generan salidas de efectivo si el usuario no paga su primera factura.
-2. **Alineación de retención con el `Tipstar Oficial`:** como el `25 %` es recurrente mientras el referido permanezca activo (calculado sobre la recaudación neta ex-IVA y ex-comisión de pasarela, ≈ `$60.45 MXN/mes` por socio activo; con 47 socios activos un creador supera `~$2,840 MXN/mes`), el creador tiene incentivo directo en educar sobre gestión en `Unidades Simuladas` y `CLV`, no en vender humo de un fin de semana.
+1. **CAC en efectivo `$0 MXN` antes de cobrar:** ni el trial del Mes 1, ni los 5 días del código Tipster, ni el enlace de Referido Doble Vía generan salidas de efectivo si el usuario no paga su primera factura.
+2. **Alineación de retención con el `Tipster Oficial`:** como el `25 %` es recurrente mientras el referido permanezca activo (calculado sobre la recaudación neta ex-IVA y ex-comisión de pasarela, ≈ `$60.45 MXN/mes` por socio activo; con 47 socios activos un creador supera `~$2,840 MXN/mes`), el creador tiene incentivo directo en educar sobre gestión en `Unidades Simuladas` y `CLV`, no en vender humo de un fin de semana.
 3. **Sostenibilidad del `Referido Doble Vía`:** en el primer cobro del amigo (`$209 MXN`), PitchLab ingresa `~$168 MXN` netos y entrega `+15 días` a cada parte en especie (cuyo costo marginal de infraestructura serverless + OpenRouter es `< $4 MXN`). Incluso al quinto amigo (cuando se dispara el bono único de `+30 días` de `Embajador PitchLab`), los 5 amigos ya generaron `~$840 MXN` netos solo en su primer mes.
 
 ### 2.2 Reglas innegociables de cumplimiento para Stripe MX y regulación mexicana (+18)
@@ -56,7 +56,7 @@ Todos los precios al público en México incluyen **IVA del 16 %** (`tax_behavio
 Para evitar congelamiento de fondos, cierres de cuenta por *restricted business* en Stripe México o contingencias ante SEGOB / PROFECO:
 
 - **Naturaleza estricta del servicio:** PitchLab es una suscripción SaaS de software analítico, visualización estadística y periodismo cuantitativo deportivo para mayores de 18 años (`ClaveProdServ SAT`: `81112105` *Servicios de acceso a aplicaciones de software* o `81162000` *Servicios de entrega de información en línea*). **PitchLab no capta dinero para apostar, no intermedia apuestas, no procesa depósitos de juego ni liquida premios.**
-- **Unidades Simuladas obligatorias:** toda la `Bitácora`, el `Portal Tipstar`, los perfiles `/app/u/[handle]` y la `Comunidad VIP` operan exclusivamente en `Unidades Simuladas` (`0.25u` a `5.0u`). El simulador de equivalencia en `/app/account` (`$100` a `$1,000 MXN`) es una calculadora local privada de gestión de riesgo, jamás un saldo depositado.
+- **Unidades Simuladas obligatorias:** toda la `Bitácora`, el `Portal Tipster`, los perfiles `/app/u/[handle]` y la `Comunidad VIP` operan exclusivamente en `Unidades Simuladas` (`0.25u` a `5.0u`). El simulador de equivalencia en `/app/account` (`$100` a `$1,000 MXN`) es una calculadora local privada de gestión de riesgo, jamás un saldo depositado.
 - **Prohibición total de premios en `Ranking CLV`:** ninguna tabla de posiciones mensual o de temporada puede otorgar dinero, tarjetas de regalo, mercancía física ni condonaciones por ganar un concurso de pronósticos. Las recompensas de tiempo gratis provienen únicamente del programa comercial de referidos (`Referido Doble Vía`).
 - **Cero enlaces externos y cero arbitraje clandestino:** el backend rechaza cualquier post o comentario que dispare `containsExternalLink()` y prohíbe enlaces de afiliado CPA/RevShare hacia casas de apuestas no reguladas.
 
@@ -71,7 +71,7 @@ Siguiendo [ADR-011](../architecture/adr/ADR-011-billing-desacoplado-y-entitlemen
 ```mermaid
 stateDiagram-v2
     [*] --> VisitorRedacted: "Sin sesion o sin concesion activa"
-    VisitorRedacted --> TrialNoCard: "Alta Mes 1 (month1_no_card_mode = true) · 7d o 5d Tipstar"
+    VisitorRedacted --> TrialNoCard: "Alta Mes 1 (month1_no_card_mode = true) · 7d o 5d Tipster"
     VisitorRedacted --> TrialCardVerified: "Alta Mes 2+ (SetupIntent $0.00 MXN aprobado) · 7d o 5d"
     VisitorRedacted --> ActivePaid: "Checkout directo (reincidente sin derecho a trial)"
 
@@ -111,7 +111,7 @@ flowchart TD
     D -- "Correo valido" --> E["4. Consultar trial_fingerprints (canonical_email_hash OR device_fp_hash OR ip_subnet_burst)"]
     E -- "Coincidencia previa detectada" --> F["Marcar trial_eligible = false -> Redirigir a Checkout directo ($299 / $2,390) sin dias gratis"]
     E -- "Sin historial previo" --> G{"Leer flag runtime: month1_no_card_mode"}
-    G -- "TRUE (Mes 1 Lanzamiento)" --> H["Emitir entitlement_grant de prueba (7d organico/referido o 5d Tipstar) SIN pedir tarjeta"]
+    G -- "TRUE (Mes 1 Lanzamiento)" --> H["Emitir entitlement_grant de prueba (7d organico/referido o 5d Tipster) SIN pedir tarjeta"]
     G -- "FALSE (Mes 2+ Operacion)" --> I["Crear Stripe SetupIntent ($0.00 MXN + 3DS si aplica)"]
     I --> J{"card.fingerprint ya usado en trial_fingerprints?"}
     J -- "SI (tarjeta reciclada)" --> F
@@ -151,8 +151,8 @@ Para proteger la economía unitaria (evitando acumular simultáneamente `30 % of
 
 | Escenario de entrada en `/signup` | Canal ganador (`attribution_kind`) | Beneficio para el nuevo socio | Recompensa / Comisión a terceros |
 |---|---|---|---|
-| Código explícito escrito en el input (p. ej. `SOFIA5`) aunque exista cookie previa `?ref=` | `tipstar` (`SOFIA5`) | **5 días gratis** de `Pase Total` (sin tarjeta en Mes 1; con `$0` SetupIntent en Mes 2+) | `25 %` de comisión recurrente al Tipstar sobre cada factura neta pagada. |
-| Enlace `/p/sofia-sem?code=SOFIA5` o cookie `pl_attr=tipstar:SOFIA5` sin otro código manual | `tipstar` (`SOFIA5`) | **5 días gratis** de `Pase Total` | `25 %` de comisión recurrente al Tipstar. |
+| Código explícito escrito en el input (p. ej. `SOFIA5`) aunque exista cookie previa `?ref=` | `tipster` (`SOFIA5`) | **5 días gratis** de `Pase Total` (sin tarjeta en Mes 1; con `$0` SetupIntent en Mes 2+) | `25 %` de comisión recurrente al Tipster sobre cada factura neta pagada. |
+| Enlace `/p/sofia-sem?code=SOFIA5` o cookie `pl_attr=tipster:SOFIA5` sin otro código manual | `tipster` (`SOFIA5`) | **5 días gratis** de `Pase Total` | `25 %` de comisión recurrente al Tipster. |
 | Enlace `/signup?ref=SOCIO-8842` o código manual `SOCIO-8842` / `JAIR` | `member_referral` (`SOCIO-8842`) | **7 días gratis** + **30 % de descuento en el 1.er mes (`$209 MXN`)** + **`+15 días` gratis** al pagar su 1.er mes | **`+15 días` gratis** para el socio anfitrión al liquidarse el 1.er mes (+ bono **`+30 días`** en el 5.º amigo). |
 | Registro directo sin código ni cookie (Mes 1 `month1NoCardMode = true`) | `organic_m1` | **7 días gratis** sin pedir tarjeta | `$0` (100 % margen neto PitchLab). |
 | Registro directo sin código ni cookie (Mes 2+ `month1NoCardMode = false`) | `organic_m2` | **7 días gratis** con verificación bancaria `$0.00 MXN` | `$0` (100 % margen neto PitchLab). |
@@ -170,10 +170,10 @@ erDiagram
     users ||--o{ trial_fingerprints : "registra huella"
     users ||--o{ referral_grants : "invita (referrer)"
     users ||--o| referral_grants : "es invitado (referred)"
-    users ||--o| tipstar_profiles : "opera como creador"
-    tipstar_profiles ||--o{ tipstar_attributions : "atribuye socios"
-    tipstar_attributions ||--o{ tipstar_commission_ledger : "devenga comision"
-    tipstar_profiles ||--o{ public_weekly_picks : "libera 1 pick/sem"
+    users ||--o| tipster_profiles : "opera como creador"
+    tipster_profiles ||--o{ tipster_attributions : "atribuye socios"
+    tipster_attributions ||--o{ tipster_commission_ledger : "devenga comision"
+    tipster_profiles ||--o{ public_weekly_picks : "libera 1 pick/sem"
     users ||--o{ social_posts : "publica en VIP"
     users ||--o| cfdi_profiles : "configura RFC"
     users ||--o{ cfdi_invoices : "timbra facturas"
@@ -208,10 +208,10 @@ Permite que el switch `month1NoCardMode` de `FounderAdminClubView` surta efecto 
 - `grace_until` (`timestamptz`, nullable) — `now() + interval '72 hours'` tras `invoice.payment_failed`.
 - `created_at` / `updated_at` (`timestamptz`, NOT NULL).
 
-`entitlement_grants` materializa todos los días sin costo (Mes 1 sin tarjeta, 5d Tipstar, `+15d` Referido Doble Vía, `+30d` Embajador, cortesía vitalicia de `Tipstar Oficial`):
+`entitlement_grants` materializa todos los días sin costo (Mes 1 sin tarjeta, 5d Tipster, `+15d` Referido Doble Vía, `+30d` Embajador, cortesía vitalicia de `Tipster Oficial`):
 - `id` (`uuid`, PK).
 - `user_id` (`uuid`, NOT NULL, FK → `users.id`, INDEX `(user_id, ends_at)`).
-- `source_kind` (`text`, NOT NULL, CHECK `IN ('trial_m1_nocard', 'trial_tipstar_5d', 'referral_host_15d', 'referral_friend_15d', 'ambassador_bonus_30d', 'tipstar_comp_pass', 'admin_grant')`).
+- `source_kind` (`text`, NOT NULL, CHECK `IN ('trial_m1_nocard', 'trial_tipster_5d', 'referral_host_15d', 'referral_friend_15d', 'ambassador_bonus_30d', 'tipster_comp_pass', 'admin_grant')`).
 - `days_granted` (`integer`, NOT NULL, CHECK `days_granted > 0`).
 - `starts_at` (`timestamptz`, NOT NULL).
 - `ends_at` (`timestamptz`, NOT NULL).
@@ -252,8 +252,8 @@ Nota: además de `users.referral_code` (`UNIQUE`, formato `SOCIO-XXXX` que alime
 - `created_at` (`timestamptz`, NOT NULL).
 - Constraint `CHECK (referrer_user_id <> referred_user_id)`.
 
-#### E. `tipstar_profiles`, `tipstar_attributions` y `tipstar_commission_ledger`
-1. **`tipstar_profiles`** (catálogo administrable desde `/app/admin`):
+#### E. `tipster_profiles`, `tipster_attributions` y `tipster_commission_ledger`
+1. **`tipster_profiles`** (catálogo administrable desde `/app/admin`):
    - `user_id` (`uuid`, PK, FK → `users.id`).
    - `handle` (`text`, NOT NULL, UNIQUE) — p. ej. `'sofia_nfl'`, `'carlos_quant'`, `'diego_tactico'`.
    - `display_name` (`text`, NOT NULL), `specialty` (`text`, NOT NULL).
@@ -267,21 +267,21 @@ Nota: además de `users.referral_code` (`UNIQUE`, formato `SOCIO-XXXX` que alime
    - `is_active` (`boolean`, NOT NULL, default `true`).
    - `created_at` (`timestamptz`, NOT NULL).
 
-2. **`tipstar_attributions`** (vínculo permanente creador → suscriptor referido):
+2. **`tipster_attributions`** (vínculo permanente creador → suscriptor referido):
    - `id` (`uuid`, PK).
-   - `tipstar_user_id` (`uuid`, NOT NULL, FK → `tipstar_profiles.user_id`, INDEX).
+   - `tipster_user_id` (`uuid`, NOT NULL, FK → `tipster_profiles.user_id`, INDEX).
    - `referred_user_id` (`uuid`, NOT NULL, UNIQUE FK → `users.id`).
    - `promo_code_used` (`text`, NOT NULL).
    - `utm_source` / `utm_medium` / `landing_slug` (`text`, nullable) — p. ej. `'instagram'`, `'story_9_16'`, `'sofia-sem'`.
    - `status` (`text`, NOT NULL, CHECK `IN ('trial_5d', 'active_paying', 'churned', 'fraud_blocked')`).
    - `first_paid_at` / `last_paid_at` (`timestamptz`, nullable).
    - `created_at` (`timestamptz`, NOT NULL).
-   - Constraint `CHECK (tipstar_user_id <> referred_user_id)`.
+   - Constraint `CHECK (tipster_user_id <> referred_user_id)`.
 
-3. **`tipstar_commission_ledger`** (libro mayor inmutable de comisiones `25 %` por factura):
+3. **`tipster_commission_ledger`** (libro mayor inmutable de comisiones `25 %` por factura):
    - `id` (`uuid`, PK).
-   - `attribution_id` (`uuid`, NOT NULL, FK → `tipstar_attributions.id`, INDEX).
-   - `tipstar_user_id` (`uuid`, NOT NULL, FK → `tipstar_profiles.user_id`, INDEX).
+   - `attribution_id` (`uuid`, NOT NULL, FK → `tipster_attributions.id`, INDEX).
+   - `tipster_user_id` (`uuid`, NOT NULL, FK → `tipster_profiles.user_id`, INDEX).
    - `stripe_invoice_id` (`text`, NOT NULL, UNIQUE) — idempotencia 1:1 por cobro.
    - `gross_paid_centavos_mxn` (`integer`, NOT NULL) — p. ej. `29900`.
    - `vat_centavos_mxn` (`integer`, NOT NULL) — p. ej. `4124`.
@@ -296,13 +296,13 @@ Nota: además de `users.referral_code` (`UNIQUE`, formato `SOCIO-XXXX` que alime
 
 #### F. `public_weekly_picks` (Cupo semanal auditado de `1 Pick Abierto` en `/p/[slug]`)
 - `id` (`uuid`, PK).
-- `tipstar_user_id` (`uuid`, NOT NULL, FK → `tipstar_profiles.user_id`).
-- `iso_year_week` (`char(8)`, NOT NULL) — formato `'2026-W46'`, con **`UNIQUE (tipstar_user_id, iso_year_week)`** para garantizar en motor relacional el límite estricto de `1 / 1 disp.` por semana.
+- `tipster_user_id` (`uuid`, NOT NULL, FK → `tipster_profiles.user_id`).
+- `iso_year_week` (`char(8)`, NOT NULL) — formato `'2026-W46'`, con **`UNIQUE (tipster_user_id, iso_year_week)`** para garantizar en motor relacional el límite estricto de `1 / 1 disp.` por semana.
 - `public_slug` (`text`, NOT NULL, INDEX) — permite tanto URLs permanentes por creador (`/p/sofia-sem` apuntando a su publicación activa más reciente) como URLs históricas inmutables (`/p/sofia-2026-w46`).
 - `origin_type` (`text`, NOT NULL, CHECK `IN ('spacetime', 'bitacora')`).
 - `game_id` (`text`, NOT NULL, INDEX).
 - `unlocked_pick_id` (`text`, NOT NULL) — el **único** `pick.id` que `loadPublicPlatformState(slug)` agrega a `extraUnlockedPickIds`; los otros 4 picks de `game_id` permanecen redactados en servidor.
-- `sealed_journal_entry_id` (`uuid`, nullable, FK → `sealed_picks.id`) — obligatorio (`CHECK`) cuando `origin_type = 'bitacora'`, asegurando que incluso la tesis propia del Tipstar fue sellada criptográficamente antes del kickoff.
+- `sealed_journal_entry_id` (`uuid`, nullable, FK → `sealed_picks.id`) — obligatorio (`CHECK`) cuando `origin_type = 'bitacora'`, asegurando que incluso la tesis propia del Tipster fue sellada criptográficamente antes del kickoff.
 - `thesis_copy` (`varchar(240)`, NOT NULL).
 - `views_count` (`integer`, NOT NULL, default `0`), `signup_clicks_count` (`integer`, NOT NULL, default `0`).
 - `published_at` (`timestamptz`, NOT NULL) — validado `published_at < game_kickoff_utc`.
@@ -316,7 +316,7 @@ Nota: además de `users.referral_code` (`UNIQUE`, formato `SOCIO-XXXX` que alime
   - `origin_type` (`text`, NOT NULL, CHECK `IN ('Spacetime Suite', 'Bitácora Propia')`).
   - `pick_badge` (`text`, NOT NULL) — etiqueta estructurada del boleto vinculado.
   - `sealed_journal_entry_id` (`uuid`, nullable, FK → `sealed_picks.id`).
-  - `author_role_badge_snapshot` (`text`, NOT NULL) — `'Tipstar Oficial'`, `'Embajador PitchLab'`, `'Analista Verificado'` o `'Socio Pase Total'`.
+  - `author_role_badge_snapshot` (`text`, NOT NULL) — `'Tipster Oficial'`, `'Embajador PitchLab'`, `'Analista Verificado'` o `'Socio Pase Total'`.
   - `author_record_snapshot` (`text`, NOT NULL) y `author_clv_snapshot` (`text`, NOT NULL) — métricas congeladas al instante de publicar (u ocultas si el socio desactivó visibilidad pública en `/app/lab`).
   - `body` (`varchar(600)`, NOT NULL).
   - `likes_count` (`integer`, NOT NULL, default `0`), `copies_to_journal_count` (`integer`, NOT NULL, default `0`).
@@ -364,8 +364,8 @@ Nota: además de `users.referral_code` (`UNIQUE`, formato `SOCIO-XXXX` que alime
 2. **Cupón de `Referido Doble Vía` (`coupon_ref_30_once`):**
    - `percent_off: 30` (o `amount_off: 9000` centavos MXN para fijar exactamente **`$209.00 MXN`** cerrados tal como promete la UI en `MEMBERSHIP_SPEC.referralFriendBenefit` — **recomendado usar `amount_off: 9000` en `MXN` exclusivamente sobre el ciclo mensual** para que el cobro sea `$209.00 MXN` exactos sin decimales).
    - `duration: "once"`.
-3. **Emisión sincronizada de códigos de `Tipstar Oficial` desde `/app/admin`:**
-   - Cuando el fundador pulsa `Emitir código` en `FounderAdminClubView` (p. ej. `ALEX5` para `@alex_futbol`), el endpoint `POST /api/admin/tipstars` crea en una misma transacción el registro en `tipstar_profiles` y el `PromotionCode` correspondiente en Stripe con `metadata: { attribution_kind: "tipstar", tipstar_handle: "alex_futbol", free_days: "5" }`.
+3. **Emisión sincronizada de códigos de `Tipster Oficial` desde `/app/admin`:**
+   - Cuando el fundador pulsa `Emitir código` en `FounderAdminClubView` (p. ej. `ALEX5` para `@alex_futbol`), el endpoint `POST /api/admin/tipsters` crea en una misma transacción el registro en `tipster_profiles` y el `PromotionCode` correspondiente en Stripe con `metadata: { attribution_kind: "tipster", tipster_handle: "alex_futbol", free_days: "5" }`.
 
 ### 5.2 Cómo acreditar `+15 días` y `+30 días` gratis sin desincronizar Stripe
 
@@ -382,17 +382,17 @@ Toda recepción verifica la firma `stripe-signature` contra el cuerpo crudo y re
 
 | Evento Stripe | Acción transaccional en PitchLab |
 |---|---|
-| `setup_intent.succeeded` | *(Mes 2+)* Extrae `payment_method.card.fingerprint`; si es virgen en `trial_fingerprints`, guarda la huella y crea la suscripción con 7d (o 5d Tipstar) de prueba; si está repetida, anula elegibilidad de prueba. |
-| `checkout.session.completed` | Vincula `provider_customer_id` y `provider_subscription_id` con `user_id` (`client_reference_id`) y congela la atribución (`tipstar` o `member_referral`) si aún no estaba fijada. |
-| `invoice.paid` | **Evento central de monetización:** (1) Extiende `subscriptions.current_period_end` y pone `status = 'active'`; (2) si `amount_paid >= 15000` y existe `referral_grants` en `trial_started`, dispara la recompensa bilateral `+15d / +15d` (+ evaluación `5/5` Embajador `+30d`); (3) si existe `tipstar_attributions`, inserta asiento en `tipstar_commission_ledger` (`25 %` neto con `clears_at = now() + 14d`); (4) encola job de timbrado automático CFDI 4.0 si el socio tiene `cfdi_profiles.auto_invoice_enabled = true`. |
+| `setup_intent.succeeded` | *(Mes 2+)* Extrae `payment_method.card.fingerprint`; si es virgen en `trial_fingerprints`, guarda la huella y crea la suscripción con 7d (o 5d Tipster) de prueba; si está repetida, anula elegibilidad de prueba. |
+| `checkout.session.completed` | Vincula `provider_customer_id` y `provider_subscription_id` con `user_id` (`client_reference_id`) y congela la atribución (`tipster` o `member_referral`) si aún no estaba fijada. |
+| `invoice.paid` | **Evento central de monetización:** (1) Extiende `subscriptions.current_period_end` y pone `status = 'active'`; (2) si `amount_paid >= 15000` y existe `referral_grants` en `trial_started`, dispara la recompensa bilateral `+15d / +15d` (+ evaluación `5/5` Embajador `+30d`); (3) si existe `tipster_attributions`, inserta asiento en `tipster_commission_ledger` (`25 %` neto con `clears_at = now() + 14d`); (4) encola job de timbrado automático CFDI 4.0 si el socio tiene `cfdi_profiles.auto_invoice_enabled = true`. |
 | `invoice.payment_failed` | Cambia `subscriptions.status = 'past_due_grace'` con `grace_until = now() + 72h` y envía alerta transaccional por Resend con enlace directo al portal de actualización de tarjeta. |
 | `customer.subscription.updated` / `deleted` | Sincroniza `cancel_at_period_end`, cambio de ciclo `monthly ↔ annual` o paso final a `expired` (reactivando de inmediato `Cero-Fuga` SSR). |
-| `charge.refunded` / `charge.dispute.created` | Revierte asientos de `tipstar_commission_ledger` en `pending_clearance`, ejecuta *clawback* de `referral_grants` si ocurrió dentro de los primeros 14 días, revoca acceso si fue disputa y encola CFDI de Egreso en Facturapi. |
+| `charge.refunded` / `charge.dispute.created` | Revierte asientos de `tipster_commission_ledger` en `pending_clearance`, ejecuta *clawback* de `referral_grants` si ocurrió dentro de los primeros 14 días, revoca acceso si fue disputa y encola CFDI de Egreso en Facturapi. |
 
-### 5.4 Liquidación de comisiones a `Tipstars Oficiales` en México (2 etapas)
+### 5.4 Liquidación de comisiones a `Tipsters Oficiales` en México (2 etapas)
 
-- **Fase 4A (Lanzamiento inmediato — Dispersión mensual SPEI sobre Ledger auditable):** `tipstar_commission_ledger` promueve automáticamente de `pending_clearance` a `payable` los asientos que cumplen 14 días sin reembolso ni contracargo. El día 5 de cada mes, `/app/admin` exporta el corte de saldos `payable` por creador (p. ej. `@sofia_nfl`: `$2,840 MXN`), el creador emite su factura CFDI (normalmente RESICO `626`) o recibo correspondiente y el fundador dispersa por SPEI marcando el lote como `paid_out`. Cero fricción de *onboarding* bancario para los primeros 5 a 15 creadores.
-- **Fase 4B (Escala > 20 creadores — Stripe Connect Express México):** se habilita `stripe_connect_account_id` en `tipstar_profiles` y un job diario ejecuta `stripe.transfers.create()` en `MXN` por cada asiento que pasa a `payable`, depositando automáticamente a la CLABE del creador.
+- **Fase 4A (Lanzamiento inmediato — Dispersión mensual SPEI sobre Ledger auditable):** `tipster_commission_ledger` promueve automáticamente de `pending_clearance` a `payable` los asientos que cumplen 14 días sin reembolso ni contracargo. El día 5 de cada mes, `/app/admin` exporta el corte de saldos `payable` por creador (p. ej. `@sofia_nfl`: `$2,840 MXN`), el creador emite su factura CFDI (normalmente RESICO `626`) o recibo correspondiente y el fundador dispersa por SPEI marcando el lote como `paid_out`. Cero fricción de *onboarding* bancario para los primeros 5 a 15 creadores.
+- **Fase 4B (Escala > 20 creadores — Stripe Connect Express México):** se habilita `stripe_connect_account_id` en `tipster_profiles` y un job diario ejecuta `stripe.transfers.create()` en `MXN` por cada asiento que pasa a `payable`, depositando automáticamente a la CLABE del creador.
 
 ---
 
@@ -419,12 +419,12 @@ En México, ofrecer **factura CFDI 4.0 instantánea** eleva la confianza institu
 ```mermaid
 flowchart LR
     subgraph Redes["Instagram · TikTok · X · WhatsApp"]
-        T1["Boleto Tipstar 4:5 (1080x1350) o Story 9:16 (1080x1920)\n1 Pick Abierto visible + CODIGO SOFIA5"]
+        T1["Boleto Tipster 4:5 (1080x1350) o Story 9:16 (1080x1920)\n1 Pick Abierto visible + CODIGO SOFIA5"]
         T2["Boleto Socio Regular 4:5 o 9:16\nPre-juego: seleccion SELLADA · Post-juego FT: RECORD ABIERTO"]
     end
 
     subgraph Publico["Superficies Publicas SSR Cero-Fuga"]
-        P["/p/sofia-sem?code=SOFIA5\n1 Pick desbloqueado + 4 picks hermanos con candado [data-locked-pick]\nSet cookie httpOnly pl_attr=tipstar:SOFIA5 (30d)"]
+        P["/p/sofia-sem?code=SOFIA5\n1 Pick desbloqueado + 4 picks hermanos con candado [data-locked-pick]\nSet cookie httpOnly pl_attr=tipster:SOFIA5 (30d)"]
         S["/signup?code=SOFIA5 o ?ref=SOCIO-8842\nReconocedor en vivo de beneficio + OAuth Google/Apple + Turnstile"]
     end
 
@@ -443,10 +443,10 @@ flowchart LR
 
 ### 7.2 Rasterización real de boletos `4:5` y `9:16` + OpenGraph dinámico
 
-Para cerrar el último tramo visual pendiente entre `ShareTicketModal` / `TipstarPortalClubView` y las apps nativas de redes sociales:
+Para cerrar el último tramo visual pendiente entre `ShareTicketModal` / `TipsterPortalClubView` y las apps nativas de redes sociales:
 
 1. **Exportación descargable `PNG` / `WebP` de alta densidad (`1080×1350` para Feed `4:5` y `1080×1920` para Stories/TikTok `9:16`):**
-   - Generar la imagen desde una ruta firmada de servidor (`GET /api/share-ticket/render?...` con `next/og` / Satori + Resvg usando los tokens oscuros `--share-card-*` y escudos oficiales SVG/PNG de `@pitchlab/sports-assets`) o renderizador determinista en canvas, invocando siempre `canRevealPickOnShare(gameStatus, viewerRole, isTipstarPromoShare)` en servidor para que ningún socio regular pueda falsificar parámetros y exportar un pick futuro sin sellar.
+   - Generar la imagen desde una ruta firmada de servidor (`GET /api/share-ticket/render?...` con `next/og` / Satori + Resvg usando los tokens oscuros `--share-card-*` y escudos oficiales SVG/PNG de `@pitchlab/sports-assets`) o renderizador determinista en canvas, invocando siempre `canRevealPickOnShare(gameStatus, viewerRole, isTipsterPromoShare)` en servidor para que ningún socio regular pueda falsificar parámetros y exportar un pick futuro sin sellar.
    - En dispositivos móviles iOS/Android, conectar el botón `Descargar / Compartir` a `navigator.share({ files: [pngFile], url })` (Web Share API Nivel 2) con *fallback* a descarga directa del PNG.
 2. **Previsualización social automática en X, WhatsApp, Discord e iMessage (`apps/web/app/p/[pickId]/opengraph-image.tsx`):**
    - Renderizar dinámicamente la tarjeta `1200×630` mostrando el avatar e insignia verificada de `@sofia_nfl` (`+18.4u · CLV +4.2 %`), los escudos del partido, el `Pick Abierto de la Semana` y la franja `4 PICKS ADICIONALES RESERVADOS PASE TOTAL · CÓDIGO SOFIA5 (5 DÍAS GRATIS)`.
@@ -483,8 +483,8 @@ Orden estricto recomendado para implementar este blueprint sin regresiones:
    - Conectar el `<Switch>` de `FounderAdminClubView` a `platform_runtime_flags.month1_no_card_mode`.
 3. **Entrega F4.3 — Motor `Referido Doble Vía` (`+15d / +15d` + `Embajador PitchLab`):**
    - Activar `users.referral_code` (`SOCIO-XXXX`), captura de cookie `httpOnly` `pl_attr` en middleware, cupón de `$90.00 MXN` off en el 1.er mes (`$209.00 MXN`) y acreditación bilateral en `invoice.paid` con extensión de `trial_end` en Stripe.
-4. **Entrega F4.4 — Programa `Tipstar Oficial`, `/p/[slug]` dinámico y exportación PNG `4:5` / `9:16`:**
-   - Conectar `tipstar_profiles`, `public_weekly_picks` (`UNIQUE (tipstar_user_id, iso_year_week)`), `tipstar_attributions` y `tipstar_commission_ledger` (`25 %` neto con *clearing* de 14 días).
+4. **Entrega F4.4 — Programa `Tipster Oficial`, `/p/[slug]` dinámico y exportación PNG `4:5` / `9:16`:**
+   - Conectar `tipster_profiles`, `public_weekly_picks` (`UNIQUE (tipster_user_id, iso_year_week)`), `tipster_attributions` y `tipster_commission_ledger` (`25 %` neto con *clearing* de 14 días).
    - Añadir `/api/share-ticket/render` y `apps/web/app/p/[pickId]/opengraph-image.tsx` respetando `canRevealPickOnShare`.
 5. **Entrega F4.5 — Persistencia de `Comunidad VIP` y Moderación Server-Side:**
    - Conectar `social_posts`, `social_comments`, validación server-side `containsExternalLink` + normalización Unicode, `Modo Pausa Social` y marcas de agua reales `@handle · PL-XXXX`.
@@ -494,7 +494,7 @@ Orden estricto recomendado para implementar este blueprint sin regresiones:
 ### Decisiones puntuales para confirmar con el fundador antes de encender llaves productivas (`live`)
 
 1. **Razón social o RFC emisor en Facturapi:** ¿PitchLab facturará inicialmente bajo Persona Física (p. ej. RESICO `626` / Actividad Empresarial `612` del fundador) o bajo Persona Moral (`601`) ya constituida con CSD vigente?
-2. **Base exacta del `25 %` de los Tipstars en contrato:** confirmar el estándar recomendado en §2.1 (**25 % sobre recaudación neta descontando IVA 16 % y comisión real de Stripe**, ≈ `$60.45 MXN/mes` por referido mensual) frente a calcularlo sobre base ex-IVA bruta (`$64.44 MXN/mes`).
+2. **Base exacta del `25 %` de los Tipsters en contrato:** confirmar el estándar recomendado en §2.1 (**25 % sobre recaudación neta descontando IVA 16 % y comisión real de Stripe**, ≈ `$60.45 MXN/mes` por referido mensual) frente a calcularlo sobre base ex-IVA bruta (`$64.44 MXN/mes`).
 3. **Cupón del 1.er mes de `Referido Doble Vía`:** ¿aplicar el descuento del `30 %` únicamente sobre el plan mensual (`$209.00 MXN` en el 1.er mes) o permitir un equivalente porcentual si el amigo elige pagar de entrada el plan anual (`$2,390 MXN`)? *(Recomendación: aplicarlo exclusivamente al 1.er mes del plan mensual, ya que el anual ya incorpora `33 %` de ahorro).*
 4. **Umbral exacto del Mes 1 sin tarjeta:** fijar el número objetivo de cuentas activas (`250` vs `500`) en el que se apagará `month1NoCardMode` desde `/app/admin`.
-5. **Dispersión inicial a Tipstars:** arrancar con corte mensual SPEI el día 5 de cada mes (Fase 4A) para los primeros 3–10 creadores antes de activar Stripe Connect Express (Fase 4B).
+5. **Dispersión inicial a Tipsters:** arrancar con corte mensual SPEI el día 5 de cada mes (Fase 4A) para los primeros 3–10 creadores antes de activar Stripe Connect Express (Fase 4B).

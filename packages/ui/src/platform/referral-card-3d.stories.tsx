@@ -29,7 +29,7 @@ export const SocioAnual = {
   ),
 };
 
-export const TipstarVerificada = {
+export const TipsterVerificada = {
   render: () => (
     <ReferralInviteSurface
       code="SOFIA5"

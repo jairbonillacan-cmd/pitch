@@ -72,7 +72,7 @@ _Avoid_: Muro de pago cosmético, pronóstico difuminado, filtración pre-partid
 Única selección futura desbloqueada públicamente cada día en la portada para demostrar en vivo la calibración de `Spacetime Suite` sin exponer los demás picks del partido.
 _Avoid_: Prueba ilimitada sin registro
 
-**Tipstar Oficial**:
+**Tipster Oficial**:
 Creador de contenido deportivo afiliado a PitchLab con récord auditado que puede liberar públicamente un **Pick Abierto de la Semana** con boleto oficial y código promocional de 5 días gratis a cambio de comisión recurrente.
 _Avoid_: Tipster externo de Telegram, vendedor de grupos
 

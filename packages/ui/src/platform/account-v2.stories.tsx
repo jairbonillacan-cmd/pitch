@@ -109,7 +109,7 @@ export const InvitarConCuentasClaro = {
             handle: "sofia_nfl",
             displayName: "Sofía Méndez",
             email: "sofia@pitchlab.mx",
-            isTipstar: true,
+            isTipster: true,
           },
           invite: {
             accountsEnabled: true,

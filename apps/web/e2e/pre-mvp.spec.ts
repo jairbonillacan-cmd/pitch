@@ -257,7 +257,7 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     expect(errors).toEqual([]);
   });
 
-  test("2. 6 menu routes (200 + aria-current + Axe AA), 308 permanent redirects, Tipstar route, Auth gate, $0 anti-abuse & 429 rate limit", async ({
+  test("2. 6 menu routes (200 + aria-current + Axe AA), 308 permanent redirects, Tipster route, Auth gate, $0 anti-abuse & 429 rate limit", async ({
     page,
     request,
   }, testInfo) => {
@@ -317,15 +317,15 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
       await expect(page).toHaveURL(new RegExp(`${toPath}$`));
     }
 
-    // Boleto público de Tipstar (/p/sofia-sem): libera 1 pick semanal y protege los demás del mismo partido
+    // Boleto público de Tipster (/p/sofia-sem): libera 1 pick semanal y protege los demás del mismo partido
     await page.goto("/p/sofia-sem");
     await expect(page.locator("h1")).toContainText("@sofia_nfl");
     await expect(page.locator("body")).toContainText("SOFIA5");
     expect(await page.locator("[data-locked-pick]").count()).toBeGreaterThanOrEqual(1);
-    const tipstarPublicA11y = await new AxeBuilder({ page })
+    const tipsterPublicA11y = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa"])
       .analyze();
-    expect(tipstarPublicA11y.violations).toEqual([]);
+    expect(tipsterPublicA11y.violations).toEqual([]);
 
     // Visitar /app sin cookie redirige a /login?next=%2Fapp
     await page.goto("/app", { waitUntil: "domcontentloaded" });
@@ -484,10 +484,10 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     await expect(page.locator(".standings-block")).toBeVisible();
     await expect(page.locator(".standings")).toContainText("Pts");
 
-    // PROFILE-2: perfil de tipstar con récord calculado y pestañas por teclado
+    // PROFILE-2: perfil de tipster con récord calculado y pestañas por teclado
     await page.goto("/app/u/sofia_nfl");
     await expect(page.getByRole("heading", { level: 1, name: /Sofía Méndez/ })).toBeVisible();
-    await expect(page.locator(".pl-vbadge")).toContainText("Tipstar verificado");
+    await expect(page.locator(".pl-vbadge")).toContainText("Tipster verificado");
     await expect(page.locator(".pl-prof-record")).toContainText("Saldo");
     await page.locator("#pl-prof-tab-picks").focus();
     await page.keyboard.press("End");

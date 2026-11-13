@@ -192,11 +192,11 @@ export function calibrationBuckets(entries: ReadonlyArray<JournalEntry>): Calibr
 export interface LeaderboardAnalyst {
   handle: string;
   name: string;
-  roleLabel: "Tipstar" | "Socio";
+  roleLabel: "Tipster" | "Socio";
   specialty: string;
   avatarInitials: string;
   avatarGradVar: string;
-  isTipstar: boolean;
+  isTipster: boolean;
   isVerified: boolean;
   isExample: boolean;
   journal: ReadonlyArray<JournalEntry>;

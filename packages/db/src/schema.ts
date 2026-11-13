@@ -240,7 +240,7 @@ export const entitlementGrants = pgTable(
     index("entitlement_grants_user_ends_idx").on(t.userId, t.endsAt),
     check(
       "entitlement_grants_source_ck",
-      sql`${t.sourceKind} IN ('trial_m1_nocard', 'trial_tipstar_5d', 'referral_host_15d', 'referral_friend_15d', 'ambassador_bonus_30d', 'tipstar_comp_pass', 'admin_grant')`,
+      sql`${t.sourceKind} IN ('trial_m1_nocard', 'trial_tipster_5d', 'referral_host_15d', 'referral_friend_15d', 'ambassador_bonus_30d', 'tipster_comp_pass', 'admin_grant')`,
     ),
     check("entitlement_grants_days_ck", sql`${t.daysGranted} > 0`),
     check("entitlement_grants_range_ck", sql`${t.endsAt} > ${t.startsAt}`),
@@ -331,11 +331,11 @@ export const referralGrants = pgTable(
 );
 
 // ---------------------------------------------------------------------------
-// E. Tipstars oficiales
+// E. Tipsters oficiales
 // ---------------------------------------------------------------------------
 
-export const tipstarProfiles = pgTable(
-  "tipstar_profiles",
+export const tipsterProfiles = pgTable(
+  "tipster_profiles",
   {
     userId: uuid("user_id")
       .primaryKey()
@@ -357,19 +357,19 @@ export const tipstarProfiles = pgTable(
     createdAt: createdAt(),
   },
   (t) => [
-    check("tipstar_profiles_payout_ck", sql`${t.payoutMethod} IN ('spei_manual', 'stripe_connect')`),
-    check("tipstar_profiles_bps_ck", sql`${t.commissionBps} BETWEEN 0 AND 5000`),
-    check("tipstar_profiles_code_upper_ck", sql`${t.promoCode} = upper(${t.promoCode})`),
+    check("tipster_profiles_payout_ck", sql`${t.payoutMethod} IN ('spei_manual', 'stripe_connect')`),
+    check("tipster_profiles_bps_ck", sql`${t.commissionBps} BETWEEN 0 AND 5000`),
+    check("tipster_profiles_code_upper_ck", sql`${t.promoCode} = upper(${t.promoCode})`),
   ],
 );
 
-export const tipstarAttributions = pgTable(
-  "tipstar_attributions",
+export const tipsterAttributions = pgTable(
+  "tipster_attributions",
   {
     id: uuid("id").primaryKey().defaultRandom(),
-    tipstarUserId: uuid("tipstar_user_id")
+    tipsterUserId: uuid("tipster_user_id")
       .notNull()
-      .references(() => tipstarProfiles.userId),
+      .references(() => tipsterProfiles.userId),
     referredUserId: uuid("referred_user_id")
       .notNull()
       .unique()
@@ -384,25 +384,25 @@ export const tipstarAttributions = pgTable(
     createdAt: createdAt(),
   },
   (t) => [
-    index("tipstar_attr_tipstar_idx").on(t.tipstarUserId),
-    check("tipstar_attr_self_ck", sql`${t.tipstarUserId} <> ${t.referredUserId}`),
+    index("tipster_attr_tipster_idx").on(t.tipsterUserId),
+    check("tipster_attr_self_ck", sql`${t.tipsterUserId} <> ${t.referredUserId}`),
     check(
-      "tipstar_attr_status_ck",
+      "tipster_attr_status_ck",
       sql`${t.status} IN ('trial_5d', 'active_paying', 'churned', 'fraud_blocked')`,
     ),
   ],
 );
 
-export const tipstarCommissionLedger = pgTable(
-  "tipstar_commission_ledger",
+export const tipsterCommissionLedger = pgTable(
+  "tipster_commission_ledger",
   {
     id: uuid("id").primaryKey().defaultRandom(),
     attributionId: uuid("attribution_id")
       .notNull()
-      .references(() => tipstarAttributions.id),
-    tipstarUserId: uuid("tipstar_user_id")
+      .references(() => tipsterAttributions.id),
+    tipsterUserId: uuid("tipster_user_id")
       .notNull()
-      .references(() => tipstarProfiles.userId),
+      .references(() => tipsterProfiles.userId),
     stripeInvoiceId: text("stripe_invoice_id").notNull().unique(),
     grossPaidCentavosMxn: integer("gross_paid_centavos_mxn").notNull(),
     vatCentavosMxn: integer("vat_centavos_mxn").notNull(),
@@ -421,14 +421,14 @@ export const tipstarCommissionLedger = pgTable(
     createdAt: createdAt(),
   },
   (t) => [
-    index("tipstar_ledger_attr_idx").on(t.attributionId),
-    index("tipstar_ledger_tipstar_idx").on(t.tipstarUserId),
+    index("tipster_ledger_attr_idx").on(t.attributionId),
+    index("tipster_ledger_tipster_idx").on(t.tipsterUserId),
     check(
-      "tipstar_ledger_status_ck",
+      "tipster_ledger_status_ck",
       sql`${t.status} IN ('pending_clearance', 'payable', 'processing_payout', 'paid_out', 'reversed_refund')`,
     ),
     check(
-      "tipstar_ledger_net_ck",
+      "tipster_ledger_net_ck",
       sql`${t.netCommissionableCentavosMxn} = ${t.grossPaidCentavosMxn} - ${t.vatCentavosMxn} - ${t.gatewayFeeCentavosMxn}`,
     ),
   ],
@@ -442,9 +442,9 @@ export const publicWeeklyPicks = pgTable(
   "public_weekly_picks",
   {
     id: uuid("id").primaryKey().defaultRandom(),
-    tipstarUserId: uuid("tipstar_user_id")
+    tipsterUserId: uuid("tipster_user_id")
       .notNull()
-      .references(() => tipstarProfiles.userId),
+      .references(() => tipsterProfiles.userId),
     isoYearWeek: char("iso_year_week", { length: 8 }).notNull(),
     publicSlug: text("public_slug").notNull(),
     originType: text("origin_type").notNull(),
@@ -458,7 +458,7 @@ export const publicWeeklyPicks = pgTable(
     gameKickoffAt: ts("game_kickoff_at").notNull(),
   },
   (t) => [
-    uniqueIndex("public_weekly_one_per_week_uq").on(t.tipstarUserId, t.isoYearWeek),
+    uniqueIndex("public_weekly_one_per_week_uq").on(t.tipsterUserId, t.isoYearWeek),
     index("public_weekly_slug_idx").on(t.publicSlug),
     index("public_weekly_game_idx").on(t.gameId),
     check("public_weekly_origin_ck", sql`${t.originType} IN ('spacetime', 'bitacora')`),

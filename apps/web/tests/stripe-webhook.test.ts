@@ -6,9 +6,9 @@ import {
   applyMigrations,
   referralGrants,
   subscriptions,
-  tipstarAttributions,
-  tipstarCommissionLedger,
-  tipstarProfiles,
+  tipsterAttributions,
+  tipsterCommissionLedger,
+  tipsterProfiles,
   users,
   type Db,
 } from "@pitchlab/db";
@@ -48,13 +48,13 @@ describe("firma de Stripe", () => {
 });
 
 describe("eventos de Stripe", () => {
-  it("suscripción, cobro con referido y tipstar, evento repetido y reembolso", async () => {
+  it("suscripción, cobro con referido y tipster, evento repetido y reembolso", async () => {
     const [host] = await db.insert(users).values({ email: "host@example.com" }).returning();
     const [friend] = await db.insert(users).values({ email: "friend@example.com" }).returning();
     const [tip] = await db.insert(users).values({ email: "tip@example.com" }).returning();
     await db.insert(referralGrants).values({ referrerUserId: host!.id, referredUserId: friend!.id, referralCodeUsed: "SOCIO-1", status: "trial_started" });
-    await db.insert(tipstarProfiles).values({ userId: tip!.id, handle: "tip", displayName: "Tip", specialty: "NFL", promoCode: "TIP5", defaultWeeklySlug: "tip-sem" });
-    await db.insert(tipstarAttributions).values({ tipstarUserId: tip!.id, referredUserId: friend!.id, promoCodeUsed: "TIP5", status: "trial_5d" });
+    await db.insert(tipsterProfiles).values({ userId: tip!.id, handle: "tip", displayName: "Tip", specialty: "NFL", promoCode: "TIP5", defaultWeeklySlug: "tip-sem" });
+    await db.insert(tipsterAttributions).values({ tipsterUserId: tip!.id, referredUserId: friend!.id, promoCodeUsed: "TIP5", status: "trial_5d" });
 
     const periodEnd = Math.floor(now.getTime() / 1000) + 30 * 86_400;
     const subEvent = {
@@ -84,7 +84,7 @@ describe("eventos de Stripe", () => {
     expect(await processStripeEvent(db, invoiceEvent, deps)).toContain("referido=true");
     expect(await processStripeEvent(db, invoiceEvent, deps)).toBe("evento repetido: sin cambios");
     expect((await accessUntil(db, host!.id, now))!.getTime()).toBe(now.getTime() + 15 * 86_400_000);
-    const ledger = await db.select().from(tipstarCommissionLedger);
+    const ledger = await db.select().from(tipsterCommissionLedger);
     expect(ledger).toHaveLength(1);
     expect(ledger[0]!.commissionCentavosMxn).toBe(6069);
 
@@ -95,8 +95,8 @@ describe("eventos de Stripe", () => {
   it("si falla el cálculo de la comisión, el evento se puede reintentar", async () => {
     const [u] = await db.insert(users).values({ email: "x@example.com" }).returning();
     const [t] = await db.insert(users).values({ email: "t@example.com" }).returning();
-    await db.insert(tipstarProfiles).values({ userId: t!.id, handle: "t", displayName: "T", specialty: "NFL", promoCode: "T5", defaultWeeklySlug: "t-sem" });
-    await db.insert(tipstarAttributions).values({ tipstarUserId: t!.id, referredUserId: u!.id, promoCodeUsed: "T5", status: "trial_5d" });
+    await db.insert(tipsterProfiles).values({ userId: t!.id, handle: "t", displayName: "T", specialty: "NFL", promoCode: "T5", defaultWeeklySlug: "t-sem" });
+    await db.insert(tipsterAttributions).values({ tipsterUserId: t!.id, referredUserId: u!.id, promoCodeUsed: "T5", status: "trial_5d" });
     await db.insert(subscriptions).values({
       userId: u!.id, provider: "stripe", providerCustomerId: "cus_x", planInterval: "monthly", status: "active",
       priceCentavosMxn: 29900, currentPeriodStart: now, currentPeriodEnd: now,

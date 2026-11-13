@@ -5,7 +5,7 @@
  * - Cada evento se procesa una sola vez (`processed_payment_events`); si algo falla se borra la
  *   marca y se responde 500 para que Stripe reintente.
  * - `customer.subscription.*` sincroniza la suscripción y recorre la fecha de cobro si el socio
- *   tiene días ganados; `invoice.paid` aplica referidos y comisiones de tipstar;
+ *   tiene días ganados; `invoice.paid` aplica referidos y comisiones de tipster;
  *   `charge.refunded` revierte la comisión y, si toca, el premio del referido.
  * - Entiende el formato actual de Stripe (sin `invoice.charge` ni `charge.invoice`) y el anterior.
  */
@@ -337,7 +337,7 @@ export async function processStripeEvent(db: Db, event: StripeEvent, deps: Webho
       }
 
       case "account.updated": {
-        // Evento de Connect: la cuenta del tipstar ya puede (o ya no puede) recibir pagos.
+        // Evento de Connect: la cuenta del tipster ya puede (o ya no puede) recibir pagos.
         const accountId = str(o.id);
         if (!accountId) return "cuenta sin id: ignorada";
         const known = await setConnectPayoutsEnabled(db, accountId, o.payouts_enabled === true);

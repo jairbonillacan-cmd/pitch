@@ -23,7 +23,7 @@ export interface OwnIdentity {
 
 /**
  * Quién eres en Comunidad. Con cuenta, tu nombre y @usuario; con el PIN de la beta,
- * los socios publican como `socio_pl` y el tipstar simulado como `sofia_nfl`.
+ * los socios publican como `socio_pl` y el tipster simulado como `sofia_nfl`.
  */
 export function ownIdentityFor(
   role: ViewerRole,
@@ -39,7 +39,7 @@ export function ownIdentityFor(
       avatarUrl: identity.avatarUrl ?? null,
     };
   }
-  if (role === "tipstar") {
+  if (role === "tipster") {
     return {
       handle: "sofia_nfl",
       name: "Sofía Méndez",
@@ -86,7 +86,7 @@ export function useLeaderboardRows(): {
         specialty: "Varias ligas",
         avatarInitials: own.avatarInitials,
         avatarGradVar: own.avatarGradVar,
-        isTipstar: false,
+        isTipster: false,
         isVerified: false,
         isExample: false,
         journal,

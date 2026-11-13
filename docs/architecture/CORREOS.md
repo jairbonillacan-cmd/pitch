@@ -52,10 +52,10 @@ Tres estados:
 | Factura CFDI (`cfdi-invoice`) · Cobro | Después de timbrar la factura (`billing/cfdi.ts`). | Stripe en modo real con sus claves (F4). Facturapi configurado y que el envío admita adjuntos (PDF y XML). |
 | Reembolso o disputa (`refund`) · Cobro | Webhook `charge.refunded` y `charge.dispute.created`. | Stripe en modo real con sus claves (F4). |
 | Suscripción cancelada (`subscription-canceled`) · Cobro | Webhook `customer.subscription.updated` con `cancel_at_period_end`. | Stripe en modo real con sus claves (F4). |
-| Pago de comisión Tipster (`tipster-payout`) · Tipster y comunidad | Al liquidar el pago (`runTipstarPayouts`, tarea diaria). | Stripe en modo real con sus claves (F4). |
+| Pago de comisión Tipster (`tipster-payout`) · Tipster y comunidad | Al liquidar el pago (`runTipsterPayouts`, tarea diaria). | Stripe en modo real con sus claves (F4). |
 | Ya eres embajador (`referral-ambassador`) · Referidos | Al conceder el bono de embajador (`billing.ts`). | Stripe en modo real con sus claves (F4). |
 | Recompensa revertida (`referral-reversed`) · Referidos | Webhook `charge.refunded` cuando el reembolso llega dentro de los 14 días. | Stripe en modo real con sus claves (F4). |
-| Código Tipster activo (`tipster-activated`) · Tipster y comunidad | Al crear el perfil Tipster (`/api/admin/tipstars`). | — |
+| Código Tipster activo (`tipster-activated`) · Tipster y comunidad | Al crear el perfil Tipster (`/api/admin/tipsters`). | — |
 | Nueva suscripción con tu código (`tipster-new-subscriber`) · Tipster y comunidad | Al registrar la comisión de un cobro con su código (`invoice.paid`). | Stripe en modo real con sus claves (F4). |
 
 ### ⛔ Falta construir antes
@@ -76,6 +76,6 @@ Tres estados:
 1. **Calificador de picks** (hoy nada pasa un pick de `pending` a `won` o `lost`): decide el resultado con el marcador final y llama a `settleAndNotify` (`apps/web/src/server/pick-results.ts`, ya hecho y probado). Después, el interruptor «Avisarme cuando se califique un pick» en Mi cuenta (la API `PUT /api/me/email-preferences` ya existe; el aviso está apagado por defecto).
 2. **Referido registrado y Tipster activado:** los eventos ya existen; solo se engancha el correo.
 3. **Al encender Stripe (F4):** conectar los correos de cobro en `stripe-webhook.ts` y llamar a `cancelTrialEmails` cuando alguien se suscribe antes de que acabe la prueba.
-4. **Tareas programadas** (resumen mensual y semanal, renovación anual, plazo de gracia): Vercel Hobby permite un cron diario por ruta (`vercel.json`, como `tipstar-payouts`); el resumen semanal y mensual caben en uno diario que revise qué toca ese día.
+4. **Tareas programadas** (resumen mensual y semanal, renovación anual, plazo de gracia): Vercel Hobby permite un cron diario por ruta (`vercel.json`, como `tipster-payouts`); el resumen semanal y mensual caben en uno diario que revise qué toca ese día.
 5. **Moderación, invitaciones y avisos de seguridad:** primero la pantalla o API que los origina.
 

@@ -9,7 +9,7 @@ async function toggleClubTheme(page: import("@playwright/test").Page): Promise<v
   await page.keyboard.press("Escape");
 }
 
-test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad VIP, Tipstar y Referidos (+15d)", async ({
+test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad VIP, Tipster y Referidos (+15d)", async ({
   page,
 }, testInfo) => {
   const width = testInfo.project.name === "mobile" ? 390 : 1440;
@@ -119,10 +119,10 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
     "Excelente lectura previa de Cortex IA",
   );
 
-  // 4) Portal Tipstar Creadores Oficiales: generar boleto 4:5 / 9:16 con código SOFIA5
-  await page.goto("/app/tipstar");
+  // 4) Portal Tipster Creadores Oficiales: generar boleto 4:5 / 9:16 con código SOFIA5
+  await page.goto("/app/tipster");
   await expect(
-    page.getByRole("heading", { name: /Portal Tipstar/i }),
+    page.getByRole("heading", { name: /Portal Tipster/i }),
   ).toBeVisible();
   // Esperar a que la página termine de hidratarse antes de pulsar (si no, el clic se pierde).
   await page.waitForLoadState("networkidle");

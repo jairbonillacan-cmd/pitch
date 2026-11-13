@@ -193,7 +193,7 @@ import type {
 } from "./types";
 
 export interface ShareTicketPayload {
-  kind: "pick" | "parlay" | "tipstar";
+  kind: "pick" | "parlay" | "tipster";
   title: string;
   subtitle: string;
   leagueLabel: string;
@@ -204,7 +204,7 @@ export interface ShareTicketPayload {
   units: number;
   gameStatus: "NS" | "FT" | "LIVE";
   promoCode?: string;
-  tipstarHandle?: string;
+  tipsterHandle?: string;
   originBadge?: string;
   pickSlug?: string;
 }
@@ -233,7 +233,7 @@ export interface ViewerIdentity {
 /** Usuario propio: el de la cuenta o, en la beta con PIN, el de ejemplo según el rol. */
 export function ownHandleFor(identity: ViewerIdentity | null, role: ViewerRole): string {
   if (identity) return identity.handle;
-  return role === "tipstar" ? "sofia_nfl" : "socio_pl";
+  return role === "tipster" ? "sofia_nfl" : "socio_pl";
 }
 
 export interface SocialFeedScope {
@@ -360,10 +360,10 @@ export interface PlatformContextValue {
   simulateFriendFirstPayment: () => void;
   month1NoCardMode: boolean;
   setMonth1NoCardMode: (v: boolean) => void;
-  tipstarWeeklyPickOrigin: "spacetime" | "bitacora";
-  setTipstarWeeklyPickOrigin: (v: "spacetime" | "bitacora") => void;
-  selectedTipstarPickId: string;
-  setSelectedTipstarPickId: (id: string) => void;
+  tipsterWeeklyPickOrigin: "spacetime" | "bitacora";
+  setTipsterWeeklyPickOrigin: (v: "spacetime" | "bitacora") => void;
+  selectedTipsterPickId: string;
+  setSelectedTipsterPickId: (id: string) => void;
 
   composerPick: MatchPick | null;
   openComposer: (pick: MatchPick) => void;
@@ -454,8 +454,8 @@ const ACTION_KEYS = [
   "setUnitMxn",
   "simulateFriendFirstPayment",
   "setMonth1NoCardMode",
-  "setTipstarWeeklyPickOrigin",
-  "setSelectedTipstarPickId",
+  "setTipsterWeeklyPickOrigin",
+  "setSelectedTipsterPickId",
   "openComposer",
   "closeComposer",
   "openShareTicket",
@@ -634,11 +634,11 @@ export function PlatformProvider({
     !accountsEnabled,
   );
   const [month1NoCardMode, setMonth1NoCardMode] = useState<boolean>(serverMonth1NoCardMode ?? true);
-  const [tipstarWeeklyPickOrigin, setTipstarWeeklyPickOrigin] = useState<
+  const [tipsterWeeklyPickOrigin, setTipsterWeeklyPickOrigin] = useState<
     "spacetime" | "bitacora"
   >("spacetime");
-  const [selectedTipstarPickId, setSelectedTipstarPickId] = useState<string>(
-    rawDataset.tipstarWeeklyPickId || rawDataset.dailyPromoPickId,
+  const [selectedTipsterPickId, setSelectedTipsterPickId] = useState<string>(
+    rawDataset.tipsterWeeklyPickId || rawDataset.dailyPromoPickId,
   );
 
   const [composerPick, setComposerPick] = useState<MatchPick | null>(null);
@@ -729,7 +729,7 @@ export function PlatformProvider({
         if (
           savedRole === "visitor" ||
           savedRole === "member" ||
-          savedRole === "tipstar" ||
+          savedRole === "tipster" ||
           savedRole === "admin"
         ) {
           setViewerRoleState(savedRole);
@@ -787,7 +787,7 @@ export function PlatformProvider({
           handle: refs.handle ?? null,
           displayName: refs.displayName ?? null,
           email: refs.email ?? null,
-          isTipstar: Boolean(refs.isTipstar),
+          isTipster: Boolean(refs.isTipster),
         });
       }
       if (active) setMemberReferralsLoaded(true);
@@ -1179,20 +1179,20 @@ export function PlatformProvider({
         id: `sp-${Date.now()}`,
         authorHandle: ownHandleFor(viewerIdentity, viewerRole),
         authorName:
-          viewerIdentity?.displayName ?? (viewerRole === "tipstar" ? "Sofía Méndez" : "Socio PitchLab"),
-        authorAvatarUrl: viewerRole === "tipstar" ? null : (viewerIdentity?.avatarUrl ?? null),
+          viewerIdentity?.displayName ?? (viewerRole === "tipster" ? "Sofía Méndez" : "Socio PitchLab"),
+        authorAvatarUrl: viewerRole === "tipster" ? null : (viewerIdentity?.avatarUrl ?? null),
         roleBadge:
-          viewerRole === "tipstar" ? "Tipstar Oficial" : "Socio Pase PitchLab Ultra",
+          viewerRole === "tipster" ? "Tipster Oficial" : "Socio Pase PitchLab Ultra",
         avatarGradVar:
-          viewerRole === "tipstar" ? "var(--avatar-grad-1)" : "var(--avatar-grad-4)",
+          viewerRole === "tipster" ? "var(--avatar-grad-1)" : "var(--avatar-grad-4)",
         verifiedRecord:
-          viewerRole === "tipstar" ? "+18.4u · 142 picks" : journalRecord(journal).label,
+          viewerRole === "tipster" ? "+18.4u · 142 picks" : journalRecord(journal).label,
         clvBadge:
-          viewerRole === "tipstar"
+          viewerRole === "tipster"
             ? "CLV +4.2 %"
             : formatClvBadge(journalRecord(journal).avgClvPct),
-        // Publicar como tipstar usa el perfil de ejemplo @sofia_nfl.
-        isExample: viewerRole === "tipstar",
+        // Publicar como tipster usa el perfil de ejemplo @sofia_nfl.
+        isExample: viewerRole === "tipster",
         leagueLabel: payload.leagueLabel,
         matchLabel: payload.matchLabel,
         pickBadge: payload.pickBadge,
@@ -1319,10 +1319,10 @@ export function PlatformProvider({
                     authorHandle: ownHandleFor(viewerIdentity, viewerRole),
                     authorName:
                       viewerIdentity?.displayName ??
-                      (viewerRole === "tipstar" ? "Sofía Méndez" : "Socio Pase PitchLab Ultra"),
-                    authorAvatarUrl: viewerRole === "tipstar" ? null : (viewerIdentity?.avatarUrl ?? null),
+                      (viewerRole === "tipster" ? "Sofía Méndez" : "Socio Pase PitchLab Ultra"),
+                    authorAvatarUrl: viewerRole === "tipster" ? null : (viewerIdentity?.avatarUrl ?? null),
                     verifiedBadge:
-                      viewerRole === "tipstar"
+                      viewerRole === "tipster"
                         ? "Perfil de ejemplo"
                         : journalRecord(journal).label,
                     createdAt: "Ahora",
@@ -1759,10 +1759,10 @@ export function PlatformProvider({
       simulateFriendFirstPayment,
       month1NoCardMode,
       setMonth1NoCardMode: handleSetMonth1NoCard,
-      tipstarWeeklyPickOrigin,
-      setTipstarWeeklyPickOrigin,
-      selectedTipstarPickId,
-      setSelectedTipstarPickId,
+      tipsterWeeklyPickOrigin,
+      setTipsterWeeklyPickOrigin,
+      selectedTipsterPickId,
+      setSelectedTipsterPickId,
       composerPick,
       openComposer: setComposerPick,
       closeComposer: () => setComposerPick(null),
@@ -1840,8 +1840,8 @@ export function PlatformProvider({
       simulateFriendFirstPayment,
       month1NoCardMode,
       handleSetMonth1NoCard,
-      tipstarWeeklyPickOrigin,
-      selectedTipstarPickId,
+      tipsterWeeklyPickOrigin,
+      selectedTipsterPickId,
       composerPick,
       shareTicket,
       cmdkOpen,

@@ -1,6 +1,6 @@
 import { and, eq, isNotNull, sql } from "drizzle-orm";
 import type { Db } from "./billing";
-import { authAccount, tipstarProfiles, users } from "./schema";
+import { authAccount, tipsterProfiles, users } from "./schema";
 import { checkHandleFormat, isHandleAvailable, isHandleConflict } from "./signup";
 
 const publicFields = {
@@ -18,9 +18,9 @@ export async function publicProfileByHandle(db: Db, rawHandle: string) {
   const check = checkHandleFormat(rawHandle);
   if (!check.ok) return null;
   const [profile] = await db
-    .select({ ...publicFields, isTipstar: sql<boolean>`${tipstarProfiles.userId} is not null` })
+    .select({ ...publicFields, isTipster: sql<boolean>`${tipsterProfiles.userId} is not null` })
     .from(users)
-    .leftJoin(tipstarProfiles, and(eq(tipstarProfiles.userId, users.id), eq(tipstarProfiles.isActive, true)))
+    .leftJoin(tipsterProfiles, and(eq(tipsterProfiles.userId, users.id), eq(tipsterProfiles.isActive, true)))
     .where(
       and(
         eq(users.handle, check.handle),

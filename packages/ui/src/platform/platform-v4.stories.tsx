@@ -20,8 +20,8 @@ import {
 } from "./club/ParlayAndQuantViews";
 import {
   SocialVipClubView,
-  TipstarPortalClubView,
-} from "./club/SocialAndTipstarViews";
+  TipsterPortalClubView,
+} from "./club/SocialAndTipsterViews";
 import { ClubLayoutShell } from "./components/ShellChrome";
 import { buildPlatformDataset } from "./match-picks-engine";
 import { PlatformProvider } from "./platform-provider";
@@ -32,7 +32,7 @@ import {
 import { LandingSurface } from "./public/LandingSurface";
 import {
   PricingSurface,
-  PublicTipstarPickSurface,
+  PublicTipsterPickSurface,
   TechPrecisionSurface,
 } from "./public/TechAndPricingSurfaces";
 import type { ViewerRole } from "./types";
@@ -335,10 +335,10 @@ export const PublicPaseTotalPricing = {
   ),
 };
 
-export const PublicTipstarTicket = {
+export const PublicTipsterTicket = {
   render: () => (
     <StoryShell role="visitor" redacted>
-      <PublicTipstarPickSurface pickSlug="sofia-sem" />
+      <PublicTipsterPickSurface pickSlug="sofia-sem" />
     </StoryShell>
   ),
 };
@@ -439,10 +439,10 @@ export const ClubSocialVipClaro = {
   globals: { theme: "light" },
 };
 
-export const ClubTipstarCreatorPortal = {
+export const ClubTipsterCreatorPortal = {
   render: () => (
-    <StoryShell role="tipstar">
-      <TipstarPortalClubView />
+    <StoryShell role="tipster">
+      <TipsterPortalClubView />
     </StoryShell>
   ),
 };

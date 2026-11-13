@@ -13,12 +13,12 @@ Este documento cubre la frontera de suscripción (`Cero-Fuga`), flujos de autent
   - [`packages/ui/src/platform/match-picks-engine.ts`](packages/ui/src/platform/match-picks-engine.ts#L398)
   - [`packages/ui/src/platform/public/AuthAndOnboardingSurfaces.tsx`](packages/ui/src/platform/public/AuthAndOnboardingSurfaces.tsx#L424-L440)
 - **Traza del flujo:**
-  1. La ruta pública sin sesión `PublicTipstarPickPage` pasa el parámetro URL `pickId` directamente a `loadPublicPlatformState(pickId)`.
-  2. `loadPublicPlatformState` (`platform-data.ts:194-215`) recorre los partidos próximos y ejecuta `g.picks.find((p) => p.id === clean || p.tipstarSlug === clean)` — sin validar que `p.isTipstarWeeklyOpen === true`.
+  1. La ruta pública sin sesión `PublicTipsterPickPage` pasa el parámetro URL `pickId` directamente a `loadPublicPlatformState(pickId)`.
+  2. `loadPublicPlatformState` (`platform-data.ts:194-215`) recorre los partidos próximos y ejecuta `g.picks.find((p) => p.id === clean || p.tipsterSlug === clean)` — sin validar que `p.isTipsterWeeklyOpen === true`.
   3. Los identificadores `pick.id` son deterministas (`${match.id}__p1`..`__p5` en `match-picks-engine.ts:398`) y además ya vienen expuestos en el payload RSC público.
   4. Al encontrar coincidencia, `found.id` se añade a `extraUnlocked` y `redactDatasetForVisitor(fullDataset, extraUnlocked)` entrega ese `MatchPick` completamente sin redactar (`selectionKey`, `label`, `rationale`, `p`, `fairDecimal`, `marketDecimal`, `edgePts`, `suggestedUnits`) y activa `hasOpenPick = true`, lo que además deja visible `preGame` (síntesis previa, claves tácticas, bajas y flujo de dinero) y mercados del partido.
 - **Impacto:** Cualquier visitante anónimo puede extraer el 100 % de los picks pagados próximos a jugarse y su análisis previo del `Pase Total` (`$299 MXN/mes`), rompiendo `docs/architecture/SECURITY.md` §1 y ADR-025.
-- **Remediación defensiva:** Restringir `/p/[pickId]` exclusivamente a slugs semanales públicos expresamente autorizados (`p.isTipstarWeeklyOpen === true && p.tipstarSlug === clean` o registro activo en `public_weekly_picks`), nunca aceptar `p.id`, retornar `notFound()` en caso contrario y desacoplar el pick promocional de `preGame`/`markets`.
+- **Remediación defensiva:** Restringir `/p/[pickId]` exclusivamente a slugs semanales públicos expresamente autorizados (`p.isTipsterWeeklyOpen === true && p.tipsterSlug === clean` o registro activo en `public_weekly_picks`), nunca aceptar `p.id`, retornar `notFound()` en caso contrario y desacoplar el pick promocional de `preGame`/`markets`.
 
 ---
 
@@ -107,20 +107,20 @@ Este documento cubre la frontera de suscripción (`Cero-Fuga`), flujos de autent
 
 ---
 
-## SEC-11 [Media] — Escalada de rol en cliente a `"tipstar"`, `/app/admin` y `/app/tipstar` sin guardia SSR y ausencia de `emailVerified`
+## SEC-11 [Media] — Escalada de rol en cliente a `"tipster"`, `/app/admin` y `/app/tipster` sin guardia SSR y ausencia de `emailVerified`
 
 - **Ubicaciones:**
   - [`packages/ui/src/platform/platform-provider.tsx`](packages/ui/src/platform/platform-provider.tsx#L747-L757) (`setViewerRole`)
-  - [`packages/ui/src/platform/club/SocialAndTipstarViews.tsx`](packages/ui/src/platform/club/SocialAndTipstarViews.tsx#L191), [`L522`](packages/ui/src/platform/club/SocialAndTipstarViews.tsx#L522)
-  - [`apps/web/app/app/admin/page.tsx`](apps/web/app/app/admin/page.tsx#L1-L7) y [`apps/web/app/app/tipstar/page.tsx`](apps/web/app/app/tipstar/page.tsx#L1-L6)
+  - [`packages/ui/src/platform/club/SocialAndTipsterViews.tsx`](packages/ui/src/platform/club/SocialAndTipsterViews.tsx#L191), [`L522`](packages/ui/src/platform/club/SocialAndTipsterViews.tsx#L522)
+  - [`apps/web/app/app/admin/page.tsx`](apps/web/app/app/admin/page.tsx#L1-L7) y [`apps/web/app/app/tipster/page.tsx`](apps/web/app/app/tipster/page.tsx#L1-L6)
   - [`apps/web/src/server/viewer-access.ts`](apps/web/src/server/viewer-access.ts#L88) y [`apps/web/src/server/session-user.ts`](apps/web/src/server/session-user.ts#L26-L47) (`requireAdmin`)
   - [`apps/web/src/server/platform-data.ts`](apps/web/src/server/platform-data.ts#L72-L74) (`previewToolsEnabled`)
 - **Traza del flujo:**
-  1. Aunque `allowRoleSimulation` inicia en `false` en producción, `setViewerRole` (`platform-provider.tsx:747-757`) **no comprueba `!allowRoleSimulation`**. Cualquier usuario dentro de `/app` puede navegar a `/app/tipstar` (que carece de verificación SSR de rol tipstar) y pulsar los botones de cambio a rol `"tipstar"`, desbloqueando exportación previa de tarjetas sin sellar y reemplazando la marca de agua del usuario (`@sofia_nfl · TIPSTAR-8842`) por atribuciones falsas, además de abrir vistas protegidas solo en cliente cuando `viewerRole === "visitor"`.
+  1. Aunque `allowRoleSimulation` inicia en `false` en producción, `setViewerRole` (`platform-provider.tsx:747-757`) **no comprueba `!allowRoleSimulation`**. Cualquier usuario dentro de `/app` puede navegar a `/app/tipster` (que carece de verificación SSR de rol tipster) y pulsar los botones de cambio a rol `"tipster"`, desbloqueando exportación previa de tarjetas sin sellar y reemplazando la marca de agua del usuario (`@sofia_nfl · TIPSTER-8842`) por atribuciones falsas, además de abrir vistas protegidas solo en cliente cuando `viewerRole === "visitor"`.
   2. `/app/admin/page.tsx` renderiza `<FounderAdminClubView />` sin comprobar si el usuario es administrador en SSR (las APIs `/api/admin/*` sí bloquean con `403`, salvo en modo sin cuentas donde muestra UI simulada).
   3. Ni `getViewerAccess` (`viewer-access.ts:88`) ni `requireAdmin` (`session-user.ts:43`) comprueban `session.user.emailVerified === true` antes de otorgar privilegios a correos en `PITCHLAB_ADMIN_EMAILS` (algo riesgoso ante proveedores OAuth o autenticación por contraseña futura).
   4. Si `PITCHLAB_PREVIEW_TOOLS=1` queda activo en despliegue público, habilita el simulador de roles para **todos** los visitantes y no solo admins autenticados.
-- **Remediación defensiva:** Proteger `setViewerRole` con `if (!allowRoleSimulation) return;`; añadir validación SSR de rol/admin en `/app/admin/page.tsx` y `/app/tipstar/page.tsx`; exigir `session.user.emailVerified === true` en `isAdmin` / `requireAdmin`; limitar `PITCHLAB_PREVIEW_TOOLS=1` a sesiones admin verificadas; migrar autorización admin a columna `role` en DB + 2FA + `audit_log` conforme a `SECURITY.md`.
+- **Remediación defensiva:** Proteger `setViewerRole` con `if (!allowRoleSimulation) return;`; añadir validación SSR de rol/admin en `/app/admin/page.tsx` y `/app/tipster/page.tsx`; exigir `session.user.emailVerified === true` en `isAdmin` / `requireAdmin`; limitar `PITCHLAB_PREVIEW_TOOLS=1` a sesiones admin verificadas; migrar autorización admin a columna `role` en DB + 2FA + `audit_log` conforme a `SECURITY.md`.
 
 ---
 
@@ -128,7 +128,7 @@ Este documento cubre la frontera de suscripción (`Cero-Fuga`), flujos de autent
 
 - **Ubicaciones:**
   - Cabeceras HTTP: [`apps/web/next.config.mjs`](apps/web/next.config.mjs#L1-L43), [`apps/web/middleware.ts`](apps/web/middleware.ts#L1-L60), [`apps/web/vercel.json`](apps/web/vercel.json#L1-L9).
-  - CSRF `Origin`: presente únicamente en `POST /api/me/profile/x` (`apps/web/app/api/me/profile/x/route.ts:15-17`); **ausente** en `DELETE /api/me/profile/x`, `PATCH /api/me/profile`, `POST /api/me/signup`, `POST /api/me/journal`, `POST /api/me/watchlist`, `PUT /api/me/email-preferences`, `POST /api/billing/checkout`, `POST /api/tipstar/connect`, `POST /api/admin/flags`, `POST /api/admin/tipstars`, `POST /api/beta/unlock` y `POST /api/beta/logout`.
+  - CSRF `Origin`: presente únicamente en `POST /api/me/profile/x` (`apps/web/app/api/me/profile/x/route.ts:15-17`); **ausente** en `DELETE /api/me/profile/x`, `PATCH /api/me/profile`, `POST /api/me/signup`, `POST /api/me/journal`, `POST /api/me/watchlist`, `PUT /api/me/email-preferences`, `POST /api/billing/checkout`, `POST /api/tipster/connect`, `POST /api/admin/flags`, `POST /api/admin/tipsters`, `POST /api/beta/unlock` y `POST /api/beta/logout`.
   - Rate Limit & DoS: [`apps/web/app/i/[code]/opengraph-image.tsx`](apps/web/app/i/%5Bcode%5D/opengraph-image.tsx#L10-L60), [`apps/web/app/api/handles/check/route.ts`](apps/web/app/api/handles/check/route.ts#L16-L32), [`apps/web/app/api/u/[handle]/route.ts`](apps/web/app/api/u/%5Bhandle%5D/route.ts#L5-L11), [`apps/web/app/api/beta/unlock/route.ts`](apps/web/app/api/beta/unlock/route.ts#L14), [`apps/web/src/server/beta-auth.ts`](apps/web/src/server/beta-auth.ts#L154-L191).
 - **Traza del flujo:**
   1. **Sin headers de seguridad:** Ninguna ruta recibe `Content-Security-Policy` (nonce + `frame-ancestors 'none'`), `Strict-Transport-Security`, `X-Content-Type-Options: nosniff`, `Referrer-Policy` ni `Permissions-Policy`.

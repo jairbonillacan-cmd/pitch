@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import {
   FLAG_AI_ENABLED,
   FLAG_MONTH1_NO_CARD,
-  FLAG_TIPSTAR_PAYOUTS,
+  FLAG_TIPSTER_PAYOUTS,
   recordAdminAudit,
   setBoolFlag,
 } from "@pitchlab/db";
@@ -13,7 +13,7 @@ import { trialHashes } from "../../../../src/server/signup";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const EDITABLE_FLAGS = new Set([FLAG_MONTH1_NO_CARD, FLAG_TIPSTAR_PAYOUTS, FLAG_AI_ENABLED]);
+const EDITABLE_FLAGS = new Set([FLAG_MONTH1_NO_CARD, FLAG_TIPSTER_PAYOUTS, FLAG_AI_ENABLED]);
 
 /** POST { key, value } — cambia una bandera operativa para toda la plataforma y deja rastro en auditoría. */
 export async function POST(request: Request): Promise<NextResponse> {

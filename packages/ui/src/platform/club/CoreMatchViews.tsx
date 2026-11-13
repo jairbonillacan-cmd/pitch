@@ -1294,7 +1294,7 @@ export function MatchStudioClubView({
     oddsFormat,
     watchlistGameIds,
     toggleWatchlistGame,
-    setSelectedTipstarPickId,
+    setSelectedTipsterPickId,
     socialPosts,
     publishSocialPost,
     openComposer,
@@ -1760,7 +1760,7 @@ export function MatchStudioClubView({
                 <h2 className="m-0 text-lg font-extrabold">
                   Picks de este partido
                 </h2>
-                {viewerRole === "tipstar" || viewerRole === "admin" ? (
+                {viewerRole === "tipster" || viewerRole === "admin" ? (
                   <span
                     className="text-xs font-semibold inline-flex items-center gap-1"
                     style={{ color: "var(--pl-brand)" }}
@@ -1775,16 +1775,16 @@ export function MatchStudioClubView({
                 {game.picks.map((pk) => (
                   <div key={pk.id} className="space-y-1.5">
                     <MultiPickRow pick={pk} gameStatus={game.status} />
-                    {(viewerRole === "tipstar" || viewerRole === "admin") &&
+                    {(viewerRole === "tipster" || viewerRole === "admin") &&
                     game.status !== "FT" ? (
                       <div className="flex justify-end">
                         <button
                           type="button"
                           className="pl-btn-glass text-xs min-h-7 px-2.5 inline-flex items-center gap-1"
                           onClick={() => {
-                            setSelectedTipstarPickId(pk.id);
+                            setSelectedTipsterPickId(pk.id);
                             pushToast(
-                              `«${pk.label}» asignado como tu Pick abierto semanal en Portal Tipstar.`,
+                              `«${pk.label}» asignado como tu Pick abierto semanal en Portal Tipster.`,
                               "success",
                             );
                           }}

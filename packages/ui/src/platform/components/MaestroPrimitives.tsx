@@ -631,7 +631,7 @@ const ROLE_OPTIONS: ReadonlyArray<{
     compactLabel: "Visitante",
   },
   { role: "member", label: "Suscriptor", compactLabel: "Suscriptor" },
-  { role: "tipstar", label: "Tipstar", compactLabel: "Tipstar" },
+  { role: "tipster", label: "Tipster", compactLabel: "Tipster" },
   { role: "admin", label: "Admin", compactLabel: "Admin" },
 ];
 
@@ -669,8 +669,8 @@ export function RoleSwitcherPill({
     pushToast(
       role === "visitor"
         ? "Modo Visitante activo: candado Cero-Fuga encendido."
-        : role === "tipstar"
-          ? "Modo Tipstar Oficial (@sofia_nfl) activo."
+        : role === "tipster"
+          ? "Modo Tipster Oficial (@sofia_nfl) activo."
           : role === "admin"
             ? "Modo Founder Admin activo."
             : "Modo Suscriptor Pase PitchLab Ultra activo.",
@@ -708,14 +708,14 @@ export function RoleSwitcherPill({
 }
 
 /**
- * Etiqueta para contenido de demostración (tipstars y publicaciones ficticias).
- * Mientras no haya tipstars ni comunidad reales, todo perfil de ejemplo debe llevarla.
+ * Etiqueta para contenido de demostración (tipsters y publicaciones ficticias).
+ * Mientras no haya tipsters ni comunidad reales, todo perfil de ejemplo debe llevarla.
  */
 export function ExampleBadge({ className }: { className?: string }): React.JSX.Element {
   return (
     <span
       className={["pl-pill pl-pill--warning text-[10px] shrink-0", className].filter(Boolean).join(" ")}
-      title="Perfil de ejemplo: PitchLab todavía no tiene tipstars ni comunidad reales."
+      title="Perfil de ejemplo: PitchLab todavía no tiene tipsters ni comunidad reales."
       data-example-badge=""
     >
       Ejemplo
@@ -789,12 +789,12 @@ export function VerifiedBadge({
   );
 }
 
-/** Insignia de tipstar oficial: corona y nombre del rol. */
-export function TipstarBadge({ className }: { className?: string }): React.JSX.Element {
+/** Insignia de tipster oficial: corona y nombre del rol. */
+export function TipsterBadge({ className }: { className?: string }): React.JSX.Element {
   return (
-    <span className={`pl-tipstar-badge ${className ?? ""}`.trim()}>
+    <span className={`pl-tipster-badge ${className ?? ""}`.trim()}>
       <MaestroIcon name="crown" size={11} />
-      <span>Tipstar</span>
+      <span>Tipster</span>
     </span>
   );
 }
@@ -802,14 +802,14 @@ export function TipstarBadge({ className }: { className?: string }): React.JSX.E
 const SEAL_PATH =
   "M12 1.8l2.5 1.9 3.1-.2 1 3 2.6 1.7-1 3 1 3-2.6 1.7-1 3-3.1-.2L12 22.2l-2.5-1.9-3.1.2-1-3-2.6-1.7 1-3-1-3 2.6-1.7 1-3 3.1.2z";
 
-/** Sello lila de tipstar verificado (roseta con palomita). Solo tipstars verificados. */
+/** Sello lila de tipster verificado (roseta con palomita). Solo tipsters verificados. */
 export function VerifiedSeal({
   size = 20,
   decorative = false,
   className,
 }: {
   size?: number;
-  /** `true` cuando el texto «Tipstar verificado» ya está junto al sello. */
+  /** `true` cuando el texto «Tipster verificado» ya está junto al sello. */
   decorative?: boolean;
   className?: string;
 }): React.JSX.Element {
@@ -837,18 +837,18 @@ export function VerifiedSeal({
   );
 }
 
-/** Ficha de vidrio lila «Tipstar verificado» con el sello pequeño. */
-export function TipstarVerifiedBadge({ className }: { className?: string }): React.JSX.Element {
+/** Ficha de vidrio lila «Tipster verificado» con el sello pequeño. */
+export function TipsterVerifiedBadge({ className }: { className?: string }): React.JSX.Element {
   return (
     <span className={["pl-vbadge", className].filter(Boolean).join(" ")}>
       <VerifiedSeal size={14} decorative className="pl-vbadge-seal" />
-      Tipstar verificado
+      Tipster verificado
     </span>
   );
 }
 
 /**
- * Traduce el texto de rol que guardan las publicaciones y perfiles («Tipstar Oficial»,
+ * Traduce el texto de rol que guardan las publicaciones y perfiles («Tipster Oficial»,
  * «Socio Pase PitchLab Ultra», «Verificado»…) a las insignias visuales.
  */
 export function UserBadges({
@@ -861,13 +861,13 @@ export function UserBadges({
   ultra?: boolean;
 }): React.JSX.Element {
   const label = (roleLabel ?? "").toLowerCase();
-  const isTipstar = label.includes("tipstar");
-  const isVerified = verified ?? (isTipstar || label.includes("verificad") || label.includes("analista"));
+  const isTipster = label.includes("tipster");
+  const isVerified = verified ?? (isTipster || label.includes("verificad") || label.includes("analista"));
   const isUltra = ultra ?? (label.includes("ultra") || label.includes("socio") || label.includes("founder"));
   return (
     <span className="inline-flex items-center gap-1.5 align-middle">
       {isVerified ? <VerifiedBadge /> : null}
-      {isTipstar ? <TipstarBadge /> : null}
+      {isTipster ? <TipsterBadge /> : null}
       {isUltra ? <UltraTag /> : null}
     </span>
   );

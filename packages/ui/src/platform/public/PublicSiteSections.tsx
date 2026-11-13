@@ -12,7 +12,7 @@ import {
   SPACETIME_ENGINES,
   SPACETIME_METRICS_HEADLINE,
   SPACETIME_VS_TIPSTER_ROWS,
-  TIPSTAR_CREATORS,
+  TIPSTER_CREATORS,
 } from "../spacetime-catalog";
 import {
   buildGoalModel,
@@ -772,12 +772,12 @@ const DEFAULT_FEATURED_COMMUNITY_PICK: LandingFeaturedCommunityPick = {
  */
 export function buildFeaturedCommunityPick(
   games: readonly PlatformGame[],
-  tipstarWeeklyPickId?: string,
+  tipsterWeeklyPickId?: string,
 ): LandingFeaturedCommunityPick {
-  if (tipstarWeeklyPickId) {
+  if (tipsterWeeklyPickId) {
     for (const game of games) {
       const weekly = game.picks.find(
-        (pk) => pk.id === tipstarWeeklyPickId && !pk.isRedacted,
+        (pk) => pk.id === tipsterWeeklyPickId && !pk.isRedacted,
       );
       if (weekly) {
         const team =
@@ -861,7 +861,7 @@ export function PublicSiteShell({
             <a href="/legal/terminos">Términos</a>
             <a href="/legal/privacidad">Aviso de privacidad</a>
             <a href="/legal/juego-responsable">Juego responsable</a>
-            <a href="/comunidad#tipstars">¿Eres tipstar?</a>
+            <a href="/comunidad#tipsters">¿Eres tipster?</a>
             <a href="/legal/creditos">Créditos</a>
           </nav>
         </div>
@@ -1564,7 +1564,7 @@ function CommunitySampleCard({
   showLink?: boolean;
   id?: string;
 }): React.JSX.Element {
-  const sofia = TIPSTAR_CREATORS[0]!;
+  const sofia = TIPSTER_CREATORS[0]!;
   const isWashingtonSample = featuredPick.matchLabel
     .toLowerCase()
     .includes("washington");
@@ -1602,7 +1602,7 @@ function CommunitySampleCard({
           <p style={{ margin: 0, fontSize: 14 }}>
             <strong>{sofia.name}</strong>{" "}
             <span style={{ color: "var(--pl-text-muted)" }}>
-              @{sofia.handle} · Tipstar verificada
+              @{sofia.handle} · Tipster verificada
             </span>
           </p>
           <p
@@ -1696,7 +1696,7 @@ function CommunitySampleCard({
           >
             <path d="M5 12l5 5 9-10" />
           </svg>
-          <span>Récord de cada tipstar calculado por PitchLab, no por ellos.</span>
+          <span>Récord de cada tipster calculado por PitchLab, no por ellos.</span>
         </p>
         <p className="pl-lp-row" style={{ margin: 0 }}>
           <svg
@@ -2274,8 +2274,8 @@ export function ComunidadPageSurface({
   featuredPick?: LandingFeaturedCommunityPick;
   hasSession?: boolean;
 }): React.JSX.Element {
-  const commissionPct = TIPSTAR_CREATORS[0]?.commissionPct ?? 25;
-  const promoFreeDays = TIPSTAR_CREATORS[0]?.freeDays ?? 5;
+  const commissionPct = TIPSTER_CREATORS[0]?.commissionPct ?? 25;
+  const promoFreeDays = TIPSTER_CREATORS[0]?.freeDays ?? 5;
 
   return (
     <PublicSiteShell activePath="/comunidad" hasSession={hasSession}>
@@ -2303,8 +2303,8 @@ export function ComunidadPageSurface({
                   →
                 </span>
               </a>
-              <a className="pl-lp-btn pl-lp-btn-ghost" href="#tipstars">
-                ¿Eres tipstar?
+              <a className="pl-lp-btn pl-lp-btn-ghost" href="#tipsters">
+                ¿Eres tipster?
               </a>
             </div>
           </div>
@@ -2384,21 +2384,21 @@ export function ComunidadPageSurface({
         </div>
       </section>
 
-      <section id="tipstars" className="pl-lp-section">
+      <section id="tipsters" className="pl-lp-section">
         <div className="pl-lp-wrap pl-lp-stack">
           <div className="pl-lp-section-head">
-            <p className="pl-lp-eyebrow">Programa Tipstar Oficial</p>
+            <p className="pl-lp-eyebrow">Programa Tipster Oficial</p>
             <h2 className="pl-lp-h2">
               ¿Tienes comunidad deportiva? Audita tu récord con nosotros.
             </h2>
             <p className="pl-lp-lede">
-              Los Tipstars Oficiales comparten 1 pick abierto por semana, regalan{" "}
+              Los Tipsters Oficiales comparten 1 pick abierto por semana, regalan{" "}
               {promoFreeDays} días de prueba con su código y reciben {commissionPct} % de comisión recurrente por cada referido con pase activo.
             </p>
           </div>
 
           <div className="pl-lp-grid-3">
-            {TIPSTAR_CREATORS.map((creator) => (
+            {TIPSTER_CREATORS.map((creator) => (
               <article
                 key={creator.handle}
                 className="pl-lp-card pl-lp-panel glass-card glass-ring"
@@ -2454,7 +2454,7 @@ export function ComunidadPageSurface({
 
           <div>
             <a className="pl-lp-btn pl-lp-btn-primary" href="/signup">
-              Crear cuenta y solicitar perfil Tipstar{" "}
+              Crear cuenta y solicitar perfil Tipster{" "}
               <span className="pl-lp-arr" aria-hidden="true">
                 →
               </span>

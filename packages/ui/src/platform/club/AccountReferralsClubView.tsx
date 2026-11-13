@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { TipstarVerifiedBadge, UltraTag } from "../components/MaestroPrimitives";
+import { TipsterVerifiedBadge, UltraTag } from "../components/MaestroPrimitives";
 import {
   ACCOUNT_TAB_EVENT,
   AtmosphereStage,
@@ -180,7 +180,7 @@ export function AccountReferralsClubView({
                   <div className="pl-acct-title-row">
                     <h1 className="pl-acct-h1">Mi cuenta</h1>
                     <UltraTag />
-                    {identity.isTipstar ? <TipstarVerifiedBadge /> : null}
+                    {identity.isTipster ? <TipsterVerifiedBadge /> : null}
                   </div>
                   <p className="pl-acct-subtitle">
                     <a

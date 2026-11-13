@@ -24,7 +24,7 @@ const member: PublicMemberProfile = {
   avatarUrl: null,
   xUsername: "ana_analiza",
   joinedAt: "2026-10-10T12:00:00Z",
-  isTipstar: false,
+  isTipster: false,
 };
 
 const dataset = buildPlatformDataset([]);

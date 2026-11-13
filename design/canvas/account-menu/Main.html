@@ -147,7 +147,7 @@ figure{margin:0}
       <h2>Para implementar</h2>
       <ul>
         <li>Componente: el menú vive en <code>ShellChrome.tsx</code> (popover <code>.pl-profile-menu</code>); estilos en <code>apps/web/app/pitchlab-v4.css</code> → «pl-profile-menu».</li>
-        <li>Récord: <code>journalRecord(journal)</code> → <code>netUnits</code>, <code>won</code>/<code>settled</code>, <code>open</code>; formato con <code>formatUnits</code>. Tipstar de ejemplo: datos de <code>TIPSTAR_CREATORS</code> con ficha «Ejemplo».</li>
+        <li>Récord: <code>journalRecord(journal)</code> → <code>netUnits</code>, <code>won</code>/<code>settled</code>, <code>open</code>; formato con <code>formatUnits</code>. Tipster de ejemplo: datos de <code>TIPSTER_CREATORS</code> con ficha «Ejemplo».</li>
         <li>Íconos nuevos en <code>MaestroIcon</code>: <code>user</code>, <code>book</code>, <code>receipt</code>, <code>logout</code>, <code>chevronDown</code>.</li>
         <li>Badge Ultra: <code>UltraTag</code> tal cual, en el chip y en la cabecera.</li>
         <li>Fondo del menú en oscuro: token nuevo <code>--pl-glass-menu</code> en <code>packages/tokens</code>.</li>
@@ -187,8 +187,8 @@ const ico = (n, s = 16, cls = '') => `<svg class="${cls}" width="${s}" height="$
 const ACCOUNTS = {
   nuevo:   { name:'Jair R.', handle:'jair', role:'Socio', initials:'JR', grad:'--av1', plan:'Ultra', record:null },
   socio:   { name:'Jair R.', handle:'jair', role:'Socio', initials:'JR', grad:'--av1', plan:'Ultra', record:{ net:'+6.4u', pos:true, won:14, settled:23, open:3 } },
-  tipstar: { name:'Sofía Méndez', handle:'sofia_nfl', role:'Tipstar verificado', verified:true, initials:'SM', grad:'--av2', plan:'Ultra', record:{ net:'+18.4u', pos:true, won:84, settled:142, open:5 }, tools:[['star','Portal tipstar']] },
-  admin:   { name:'Admin', handle:'admin', role:'Admin', initials:'AD', grad:'--av2', plan:'Ultra', record:null, tools:[['star','Portal tipstar'],['chart','Consola']] },
+  tipster: { name:'Sofía Méndez', handle:'sofia_nfl', role:'Tipster verificado', verified:true, initials:'SM', grad:'--av2', plan:'Ultra', record:{ net:'+18.4u', pos:true, won:84, settled:142, open:5 }, tools:[['star','Portal tipster']] },
+  admin:   { name:'Admin', handle:'admin', role:'Admin', initials:'AD', grad:'--av2', plan:'Ultra', record:null, tools:[['star','Portal tipster'],['chart','Consola']] },
   visitante:{ name:'Visitante', handle:null, role:'Sin cuenta', initials:'?', grad:'--av1', visitor:true }
 };
 
@@ -202,7 +202,7 @@ function menuHTML(a, st, sheet) {
     : `<div class="who">
          <div class="who-top">
            <span class="av" style="width:40px;height:40px;font-size:13px;background:var(${a.grad})">${a.initials}</span>
-           <div style="min-width:0"><div class="who-name">@${a.handle}${a.verified ? `<span class="seal" title="Tipstar verificado">${ico('seal',15)}</span>` : ''}<span class="ultra" title="Pase PitchLab Ultra">Ultra</span></div>
+           <div style="min-width:0"><div class="who-name">@${a.handle}${a.verified ? `<span class="seal" title="Tipster verificado">${ico('seal',15)}</span>` : ''}<span class="ultra" title="Pase PitchLab Ultra">Ultra</span></div>
            <div class="who-sub">${a.name} · ${a.role}</div></div>
          </div>
        </div>`;
@@ -288,8 +288,8 @@ const desk = document.getElementById('desk');
 board(desk, { key:'socio', title:'Socio con récord · oscuro', sub:'El caso más común. Saldo y cumplidos van en «Ver mi perfil»; abiertos, en «Mi bitácora».' });
 board(desk, { key:'socio', title:'Socio con récord · claro', sub:'Mismo menú en tema claro.', theme:'light' });
 board(desk, { key:'nuevo', title:'Socio sin picks', sub:'En vez de «0 picks», «Mi bitácora» invita a registrar el primero.' });
-board(desk, { key:'tipstar', title:'Tipstar verificado', sub:'Sello lila junto al nombre y grupo «Portal tipstar».' });
-board(desk, { key:'admin', title:'Admin · claro', sub:'Portal tipstar y Consola en su propio grupo.', theme:'light' });
+board(desk, { key:'tipster', title:'Tipster verificado', sub:'Sello lila junto al nombre y grupo «Portal tipster».' });
+board(desk, { key:'admin', title:'Admin · claro', sub:'Portal tipster y Consola en su propio grupo.', theme:'light' });
 board(desk, { key:'visitante', title:'Visitante', sub:'Sin cuenta: el chip dice «Entrar» y el menú invita a hacerse socio.' });
 board(desk, { key:'socio', title:'Cerrado', sub:'Así queda la barra: campana con su número y chip con flecha.', open:false });
 

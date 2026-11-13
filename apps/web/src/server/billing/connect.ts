@@ -1,5 +1,5 @@
 /**
- * Stripe Connect Express para tipstars (MX): alta de la cuenta, enlace de alta y
+ * Stripe Connect Express para tipsters (MX): alta de la cuenta, enlace de alta y
  * transferencias de comisión. Usa la API REST de Stripe (sin SDK).
  */
 import {
@@ -39,10 +39,10 @@ async function stripePost(
   return json;
 }
 
-/** Crea la cuenta Express del tipstar en México, solo con capacidad de recibir transferencias. */
+/** Crea la cuenta Express del tipster en México, solo con capacidad de recibir transferencias. */
 export async function createExpressAccount(
   secretKey: string,
-  input: { email: string; tipstarUserId: string; handle: string },
+  input: { email: string; tipsterUserId: string; handle: string },
   fetchImpl?: typeof fetch,
 ): Promise<string> {
   const p = new URLSearchParams();
@@ -51,10 +51,10 @@ export async function createExpressAccount(
   p.set("email", input.email);
   p.set("capabilities[transfers][requested]", "true");
   p.set("business_type", "individual");
-  p.set("metadata[tipstar_user_id]", input.tipstarUserId);
+  p.set("metadata[tipster_user_id]", input.tipsterUserId);
   p.set("metadata[handle]", input.handle);
   const json = await stripePost(secretKey, "/accounts", p, {
-    idempotencyKey: `connect-account:${input.tipstarUserId}`,
+    idempotencyKey: `connect-account:${input.tipsterUserId}`,
     fetchImpl,
   });
   if (typeof json.id !== "string") throw new StripeApiError("Stripe no devolvió el id de la cuenta", 502);
@@ -70,8 +70,8 @@ export async function createOnboardingLink(
   const p = new URLSearchParams();
   p.set("account", input.accountId);
   p.set("type", "account_onboarding");
-  p.set("refresh_url", `${input.baseUrl}/app/tipstar?connect=reintentar`);
-  p.set("return_url", `${input.baseUrl}/app/tipstar?connect=listo`);
+  p.set("refresh_url", `${input.baseUrl}/app/tipster?connect=reintentar`);
+  p.set("return_url", `${input.baseUrl}/app/tipster?connect=listo`);
   const json = await stripePost(secretKey, "/account_links", p, { fetchImpl });
   if (typeof json.url !== "string") throw new StripeApiError("Stripe no devolvió el enlace de alta", 502);
   return json.url;
@@ -97,7 +97,7 @@ interface StripeTransferList {
   }>;
 }
 
-/** Transferencia en MXN a la cuenta del tipstar; la clave de idempotencia es el asiento. */
+/** Transferencia en MXN a la cuenta del tipster; la clave de idempotencia es el asiento. */
 export function stripeTransferCreator(secretKey: string, fetchImpl?: typeof fetch): CreateTransfer {
   return async ({ ledgerId, destination, amountCentavos, stripeInvoiceId }) => {
     const p = new URLSearchParams();
@@ -105,9 +105,9 @@ export function stripeTransferCreator(secretKey: string, fetchImpl?: typeof fetc
     p.set("currency", "mxn");
     p.set("destination", destination);
     p.set("transfer_group", stripeInvoiceId);
-    p.set("description", "Comisión PitchLab · Tipstar Oficial");
+    p.set("description", "Comisión PitchLab · Tipster Oficial");
     p.set("metadata[ledger_id]", ledgerId);
-    const json = await stripePost(secretKey, "/transfers", p, { idempotencyKey: `tipstar-payout:${ledgerId}`, fetchImpl });
+    const json = await stripePost(secretKey, "/transfers", p, { idempotencyKey: `tipster-payout:${ledgerId}`, fetchImpl });
     if (typeof json.id !== "string") throw new StripeApiError("Stripe no devolvió el id de la transferencia", 502);
     return json.id;
   };
@@ -148,7 +148,7 @@ export interface PayoutRunResult {
  * pagables (`FOR UPDATE SKIP LOCKED`), reconcilia transferencias previas y ejecuta las nuevas.
  * Un error en un asiento libera el reclamo sin detener a los demás.
  */
-export async function runTipstarPayouts(
+export async function runTipsterPayouts(
   db: Db,
   deps: { createTransfer: CreateTransfer; findExistingTransfer?: FindExistingTransfer; now: Date },
 ): Promise<PayoutRunResult> {
@@ -177,7 +177,7 @@ export async function runTipstarPayouts(
       }
     } catch (err) {
       await releaseCommissionClaim(db, t.ledgerId).catch((releaseErr) => {
-        console.error("[tipstar-payouts] no se pudo liberar el asiento reclamado:", t.ledgerId, releaseErr);
+        console.error("[tipster-payouts] no se pudo liberar el asiento reclamado:", t.ledgerId, releaseErr);
       });
       result.failed.push({ ledgerId: t.ledgerId, error: err instanceof Error ? err.message : String(err) });
     }

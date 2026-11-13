@@ -4,7 +4,7 @@ import type {
   StandingRow,
 } from "@pitchlab/contracts";
 
-export type ViewerRole = "visitor" | "member" | "tipstar" | "admin";
+export type ViewerRole = "visitor" | "member" | "tipster" | "admin";
 export type OddsFormat = "american" | "decimal";
 export type RiskBand = "conservador" | "medio" | "arriesgado";
 
@@ -106,8 +106,8 @@ export interface MatchPick {
   suggestedUnits: number;
   result?: "hit" | "miss" | null;
   isDailyOpenPromo?: boolean;
-  isTipstarWeeklyOpen?: boolean;
-  tipstarSlug?: string;
+  isTipsterWeeklyOpen?: boolean;
+  tipsterSlug?: string;
   isRedacted?: boolean;
 }
 
@@ -255,7 +255,7 @@ export interface PlatformLeagueSummary {
   standings: StandingRow[];
 }
 
-export interface TipstarCreator {
+export interface TipsterCreator {
   handle: string;
   name: string;
   specialty: string;
@@ -318,7 +318,7 @@ export interface SocialPost {
   authorHandle: string;
   authorName: string;
   authorAvatarUrl?: string | null;
-  roleBadge: "Tipstar Oficial" | "Analista Verificado" | "Socio Pase PitchLab Ultra";
+  roleBadge: "Tipster Oficial" | "Analista Verificado" | "Socio Pase PitchLab Ultra";
   avatarGradVar: string;
   verifiedRecord: string;
   clvBadge: string;
@@ -412,7 +412,7 @@ export interface PlatformDataset {
   leagues: PlatformLeagueSummary[];
   games: PlatformGame[];
   dailyPromoPickId: string;
-  tipstarWeeklyPickId: string;
-  tipstarWeeklySlug: string;
+  tipsterWeeklyPickId: string;
+  tipsterWeeklySlug: string;
   isServerRedactedForVisitor: boolean;
 }

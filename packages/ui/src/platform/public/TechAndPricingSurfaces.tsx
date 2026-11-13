@@ -19,7 +19,7 @@ import {
   SPACETIME_METRICS_HEADLINE,
 } from "../spacetime-catalog";
 
-export { PublicSharedPickSurface as PublicTipstarPickSurface } from "./AuthAndOnboardingSurfaces";
+export { PublicSharedPickSurface as PublicTipsterPickSurface } from "./AuthAndOnboardingSurfaces";
 
 export function TechPrecisionSection({
   inClub = false,
@@ -548,7 +548,7 @@ export function PlansAndReferralsSection({
           </div>
         </div>
 
-        {/* Columna derecha: Referidos Doble Vía + Portal Tipstar Oficial */}
+        {/* Columna derecha: Referidos Doble Vía + Portal Tipster Oficial */}
         <div className="lg:col-span-5 glass-ring glass-card rounded-2xl p-6 flex flex-col justify-between gap-4">
           <div className="space-y-3">
             <span className="pl-pill pl-pill--brand">
@@ -592,22 +592,22 @@ export function PlansAndReferralsSection({
 
             <p className="m-0 text-xs leading-relaxed" style={{ color: "var(--pl-text-muted)" }}>
               <strong style={{ color: "var(--pl-text)" }}>¿Eres creador o tipster?</strong>{" "}
-              Aplica como <strong>Tipstar Oficial</strong>: obtén Pase PitchLab Ultra incluido, 1 Pick
+              Aplica como <strong>Tipster Oficial</strong>: obtén Pase PitchLab Ultra incluido, 1 Pick
               Gratis semanal con tu boleto brandeado y{" "}
               <strong>25 % de comisión recurrente</strong>.
             </p>
           </div>
 
           <a
-            href="/comunidad#tipstars"
+            href="/comunidad#tipsters"
             onClick={(e) => {
               e.preventDefault();
-              navigateTo("/comunidad#tipstars");
+              navigateTo("/comunidad#tipsters");
             }}
             className="pl-btn-glass glass-ring w-full !min-h-[40px] !text-xs"
           >
             <MaestroIcon name="trophy" size={14} />
-            <span>Ver Portal de Tipstars Oficiales</span>
+            <span>Ver Portal de Tipsters Oficiales</span>
           </a>
         </div>
       </div>

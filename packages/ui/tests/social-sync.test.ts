@@ -14,7 +14,7 @@ function server(id: string, createdAt: string, extra: Partial<ServerSocialPost> 
     id,
     authorHandle: "ana_mx",
     authorName: "Ana López",
-    authorIsTipstar: false,
+    authorIsTipster: false,
     roleBadge: "Socio Pase PitchLab Ultra",
     record: "Sin picks liquidados",
     clv: "CLV —",

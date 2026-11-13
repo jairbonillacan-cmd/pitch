@@ -236,7 +236,7 @@ function FloatingQuickJumpBar({
       { id: "parlays", label: "6. Parlays", href: "/app/parlays" },
       { id: "props", label: "7. Props", href: "/app/props" },
       { id: "social", label: "8. Comunidad VIP", href: "/app/social" },
-      { id: "tipstar", label: "9. Portal Tipstar", href: "/app/tipstar" },
+      { id: "tipster", label: "9. Portal Tipster", href: "/app/tipster" },
       { id: "referrals", label: "10. Referidos", href: "/app/account" },
       { id: "admin", label: "11. Admin", href: "/app/admin" },
     ],
@@ -614,14 +614,14 @@ export function PublicFooterV4(): React.JSX.Element {
             Juego responsable
           </a>
           <a
-            href="/comunidad#tipstars"
+            href="/comunidad#tipsters"
             onClick={(e) => {
               e.preventDefault();
-              navigateTo("/comunidad#tipstars");
+              navigateTo("/comunidad#tipsters");
             }}
             className="no-underline hover:underline"
           >
-            ¿Eres tipstar?
+            ¿Eres tipster?
           </a>
           <a href="/legal/creditos" className="no-underline hover:underline">
             Créditos de datos
@@ -750,8 +750,8 @@ function ClubWorkspaceShellImpl({
       ] satisfies ProfileMenuGroup[];
     }
     const handle = ownHandle;
-    // El récord va junto a la fila que lleva a él. El tipstar simulado es un perfil de ejemplo.
-    const showRecord = viewerRole !== "tipstar" && ownRecord.settled > 0;
+    // El récord va junto a la fila que lleva a él. El tipster simulado es un perfil de ejemplo.
+    const showRecord = viewerRole !== "tipster" && ownRecord.settled > 0;
     const profileTrail = showRecord ? (
       <span className="pl-profile-menu-rec num" title="Saldo y cumplidos">
         <span className={ownRecord.netUnits >= 0 ? "pl-tone-pos" : "pl-tone-neg"}>
@@ -790,8 +790,8 @@ function ClubWorkspaceShellImpl({
       },
     ];
     const roleItems: ProfileMenuItem[] = [];
-    if (viewerRole === "tipstar" || viewerRole === "admin") {
-      roleItems.push({ href: "/app/tipstar", label: "Portal tipstar", icon: "star" });
+    if (viewerRole === "tipster" || viewerRole === "admin") {
+      roleItems.push({ href: "/app/tipster", label: "Portal tipster", icon: "star" });
     }
     if (viewerRole === "admin") {
       roleItems.push({ href: "/app/admin", label: "Consola", icon: "chart" });
@@ -840,9 +840,9 @@ function ClubWorkspaceShellImpl({
   const [mobileMoreOpen, setMobileMoreOpen] = useState<boolean>(false);
 
   // Navegación: 4 destinos principales, las ligas y un grupo «Más» para lo secundario.
-  // El portal de tipstars y la consola solo aparecen para quien los usa.
+  // El portal de tipsters y la consola solo aparecen para quien los usa.
   const railGroups: RailNavGroup[] = useMemo(() => {
-    // Cuenta, «Cómo calculamos», Portal tipstar y Consola viven en el menú del perfil.
+    // Cuenta, «Cómo calculamos», Portal tipster y Consola viven en el menú del perfil.
     const explore: RailNavItem[] = [
       { href: "/app/picks", label: "Picks del día", icon: "sparkles" },
       { href: "/app/momios", label: "Momios y ventaja", icon: "activity" },
@@ -864,15 +864,15 @@ function ClubWorkspaceShellImpl({
   const profileAvatarUrl = viewerIdentity?.avatarUrl ?? null;
   const [brokenAvatarUrl, setBrokenAvatarUrl] = useState<string | null>(null);
   const showProfileAvatarImg = Boolean(profileAvatarUrl && brokenAvatarUrl !== profileAvatarUrl);
-  const roleLabel = viewerRole === "tipstar" ? "Tipstar verificado" : viewerRole === "admin" ? "Admin" : "Socio";
+  const roleLabel = viewerRole === "tipster" ? "Tipster verificado" : viewerRole === "admin" ? "Admin" : "Socio";
   const profileSubline = viewerIdentity
     ? `${viewerIdentity.displayName} · ${roleLabel}`
-    : viewerRole === "tipstar"
-      ? "Sofía Méndez · Tipstar verificado"
+    : viewerRole === "tipster"
+      ? "Sofía Méndez · Tipster verificado"
       : roleLabel;
-  const profileInitials = viewerIdentity?.initials ?? (viewerRole === "tipstar" ? "SM" : "SP");
+  const profileInitials = viewerIdentity?.initials ?? (viewerRole === "tipster" ? "SM" : "SP");
   const profileGrad =
-    viewerRole === "tipstar" ? "var(--avatar-grad-1)" : "var(--avatar-grad-2)";
+    viewerRole === "tipster" ? "var(--avatar-grad-1)" : "var(--avatar-grad-2)";
 
   return (
     <>
@@ -1094,7 +1094,7 @@ function ClubWorkspaceShellImpl({
                   <div className="min-w-0">
                     <div className="pl-profile-menu-name">
                       <span className="truncate">{profileHandle}</span>
-                      {viewerRole === "tipstar" ? <VerifiedBadge size={15} /> : null}
+                      {viewerRole === "tipster" ? <VerifiedBadge size={15} /> : null}
                       <UltraTag />
                     </div>
                     <span className="pl-profile-menu-sub">{profileSubline}</span>

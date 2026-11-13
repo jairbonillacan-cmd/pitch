@@ -4,7 +4,7 @@ Rediseño de la campana, el chip de perfil y el menú que abre (`ShellChrome.tsx
 
 | Archivo | Qué es |
 |---|---|
-| `Main.html` | Lienzo interactivo y autosuficiente: nueve tableros (socio con récord en oscuro y claro, socio sin picks, tipstar verificado, admin, visitante, menú cerrado, y la hoja móvil en oscuro y claro). Al final trae «Qué cambia y por qué» y la guía «Para implementar». |
+| `Main.html` | Lienzo interactivo y autosuficiente: nueve tableros (socio con récord en oscuro y claro, socio sin picks, tipster verificado, admin, visitante, menú cerrado, y la hoja móvil en oscuro y claro). Al final trae «Qué cambia y por qué» y la guía «Para implementar». |
 
 Para verlo, sirve la raíz del repo (configuración `design-prototypes` de `.claude/launch.json`, puerto 4173) y abre `/design/canvas/account-menu/Main.html`.
 

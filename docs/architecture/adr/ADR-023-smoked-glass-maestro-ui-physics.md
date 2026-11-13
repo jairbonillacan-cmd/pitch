@@ -15,7 +15,7 @@ extends:
 - **Estado:** Aceptada (`Status: accepted`)
 - **Fecha:** `2026-11-10`
 - **Rama de origen:** `gemini-reestructura`
-- **Relación con otras ADRs:** Evoluciona [ADR-020](ADR-020-sistema-visual-liquid-glass-v4-y-aislamiento-de-tokens.md), resuelve operativamente [ADR-016](ADR-016-iconografia-iconos-de-marca-lucide-para-los-generi.md) para las superficies v4.1 y complementa [ADR-024](ADR-024-hybrid-snapshot-spacetime-quant-engine.md) y [ADR-025](ADR-025-zero-leak-subscription-tipstar-referrals.md).
+- **Relación con otras ADRs:** Evoluciona [ADR-020](ADR-020-sistema-visual-liquid-glass-v4-y-aislamiento-de-tokens.md), resuelve operativamente [ADR-016](ADR-016-iconografia-iconos-de-marca-lucide-para-los-generi.md) para las superficies v4.1 y complementa [ADR-024](ADR-024-hybrid-snapshot-spacetime-quant-engine.md) y [ADR-025](ADR-025-zero-leak-subscription-tipster-referrals.md).
 - **Referencia visual canónica:** `design/prototipo-maestro/prototipo-maestro-pitchlab.html`
 
 ## Contexto y problema
@@ -75,11 +75,11 @@ Se centralizan en un único módulo tipado y libre de dependencias externas las 
 5. `StackedAvatars`: pila compacta de avatares verificados con solape de `-7px`, corte perimetral `--pl-avatar-ring` y contador `+N` para `Debate de Suscriptores` y `Comunidad VIP`.
 6. `NoticeCard`: tarjeta editorial de aviso y síntesis (`tone`: `brand | cortex | success | warning | info`) respaldada por tokens `--pl-pill-*`.
 7. `GlassActionRow`: fila accionable (`<a>` o `<button>`) con micro-compresión táctil (`scale(0.992)`), truncado seguro (`min-w-0`) y chevron direccional.
-8. `RoleSwitcherPill`: conmutador de 4 roles (`visitor | member | tipstar | admin`) para auditoría y demostración que, cuando `rawDataset.isServerRedactedForVisitor` es verdadero, invoca `submitBetaPin("2026", nextTarget)` para desbloquear la sesión en servidor sin comprometer jamás la frontera `Cero-Fuga` en el SSR inicial de visitantes.
+8. `RoleSwitcherPill`: conmutador de 4 roles (`visitor | member | tipster | admin`) para auditoría y demostración que, cuando `rawDataset.isServerRedactedForVisitor` es verdadero, invoca `submitBetaPin("2026", nextTarget)` para desbloquear la sesión en servidor sin comprometer jamás la frontera `Cero-Fuga` en el SSR inicial de visitantes.
 
 ### 6. Modales nativos en Top Layer (`TopLayerModalDialog`) y aislamiento oscuro de boletos
 
-- Todos los overlays (`PickComposerModal`, `ShareTicketModal`, `AlertsDrawer`, `CommandPaletteModal`, `BetaPinModal` y el simulador de vista visitante en `Portal Tipstar`) se montan sobre `<dialog>` nativo abierto mediante `dialog.showModal()`, `closedby="any"` (con respaldo por geometría `getBoundingClientRect()` en `pointerdown`/`pointerup`), fondo `--pl-glass-modal: rgba(12, 12, 16, 0.90)` y contención de desplazamiento pura en CSS (`overscroll-behavior: contain` en `dialog:modal` y `dialog::backdrop`) sin mutar `overflow` en `<body>`.
+- Todos los overlays (`PickComposerModal`, `ShareTicketModal`, `AlertsDrawer`, `CommandPaletteModal`, `BetaPinModal` y el simulador de vista visitante en `Portal Tipster`) se montan sobre `<dialog>` nativo abierto mediante `dialog.showModal()`, `closedby="any"` (con respaldo por geometría `getBoundingClientRect()` en `pointerdown`/`pointerup`), fondo `--pl-glass-modal: rgba(12, 12, 16, 0.90)` y contención de desplazamiento pura en CSS (`overscroll-behavior: contain` en `dialog:modal` y `dialog::backdrop`) sin mutar `overflow` en `<body>`.
 - Los boletos compartibles 4:5 y 9:16 (`.share-ticket-card`) declaran `color-scheme: only dark` y re-mapean localmente `--pl-*` hacia `--share-card-*`, conservando su estética nocturna de estadio aun cuando el usuario navega en tema claro.
 
 ### 7. Gobernanza estricta Cero-Hex en `@pitchlab/tokens` y piso WCAG 2.1 AA

@@ -12,10 +12,10 @@ import { profileRecord } from "./profile-stats";
  * Un visitante sin suscripción activa solo puede ver:
  * 1) Partidos finalizados auditables (FT)
  * 2) El único Pick Abierto promocional del día (isDailyOpenPromo)
- * 3) El único Pick Abierto Semanal del Tipstar (isTipstarWeeklyOpen)
+ * 3) El único Pick Abierto Semanal del Tipster (isTipsterWeeklyOpen)
  */
 export function isPickUnlocked(
-  pick: Pick<MatchPick, "isDailyOpenPromo" | "isTipstarWeeklyOpen" | "isRedacted">,
+  pick: Pick<MatchPick, "isDailyOpenPromo" | "isTipsterWeeklyOpen" | "isRedacted">,
   gameStatus: "NS" | "FT" | "LIVE",
   viewerRole: ViewerRole,
 ): boolean {
@@ -28,7 +28,7 @@ export function isPickUnlocked(
   if (viewerRole !== "visitor") {
     return true;
   }
-  return Boolean(pick.isDailyOpenPromo || pick.isTipstarWeeklyOpen);
+  return Boolean(pick.isDailyOpenPromo || pick.isTipsterWeeklyOpen);
 }
 
 /**
@@ -47,24 +47,24 @@ export function isPreGameIntelUnlocked(
   if (viewerRole !== "visitor") {
     return true;
   }
-  return game.picks.some((p) => p.isDailyOpenPromo || p.isTipstarWeeklyOpen);
+  return game.picks.some((p) => p.isDailyOpenPromo || p.isTipsterWeeklyOpen);
 }
 
 /**
  * Regla Q12: Sellado de Share Card antes del inicio del partido.
  * - Un suscriptor regular que comparte un pick antes de iniciar (NS / LIVE) genera
  *   un boleto con la selección exacta sellada para evitar reventa en grupos externos.
- * - Un partido finalizado (FT) o el boleto semanal oficial de un Tipstar sí muestra la selección.
+ * - Un partido finalizado (FT) o el boleto semanal oficial de un Tipster sí muestra la selección.
  */
 export function canRevealPickOnShare(
   gameStatus: "NS" | "FT" | "LIVE",
   viewerRole: ViewerRole,
-  isTipstarPromoShare: boolean,
+  isTipsterPromoShare: boolean,
 ): boolean {
   if (gameStatus === "FT") {
     return true;
   }
-  if (isTipstarPromoShare && (viewerRole === "tipstar" || viewerRole === "admin")) {
+  if (isTipsterPromoShare && (viewerRole === "tipster" || viewerRole === "admin")) {
     return true;
   }
   return false;
@@ -111,7 +111,7 @@ function pickVisitorHeroShowcaseIds(games: readonly PlatformGame[]): Set<string>
 export function redactDatasetForVisitor(
   dataset: PlatformDataset,
   extraUnlockedPickIds: ReadonlySet<string> = new Set(),
-  extraTipstarSlugsByPickId?: ReadonlyMap<string, string>,
+  extraTipsterSlugsByPickId?: ReadonlyMap<string, string>,
 ): PlatformDataset {
   const heroShowcaseIds = pickVisitorHeroShowcaseIds(dataset.games);
   const games: PlatformGame[] = dataset.games.map((game) => {
@@ -119,7 +119,7 @@ export function redactDatasetForVisitor(
       return game;
     }
     const hasPromoOpenPick = game.picks.some(
-      (p) => Boolean(p.isDailyOpenPromo) || Boolean(p.isTipstarWeeklyOpen),
+      (p) => Boolean(p.isDailyOpenPromo) || Boolean(p.isTipsterWeeklyOpen),
     );
     const keepHeroProjection = hasPromoOpenPick || heroShowcaseIds.has(game.id);
     return {
@@ -144,14 +144,14 @@ export function redactDatasetForVisitor(
       confidenceScore: hasPromoOpenPick ? game.confidenceScore : 0,
       confidenceLevel: hasPromoOpenPick ? game.confidenceLevel : "media",
       picks: game.picks.map((pick) => {
-        const extraSlug = extraTipstarSlugsByPickId?.get(pick.id);
+        const extraSlug = extraTipsterSlugsByPickId?.get(pick.id);
         const open =
           Boolean(pick.isDailyOpenPromo) ||
-          Boolean(pick.isTipstarWeeklyOpen) ||
+          Boolean(pick.isTipsterWeeklyOpen) ||
           extraUnlockedPickIds.has(pick.id);
         if (open) {
           return extraSlug
-            ? { ...pick, isTipstarWeeklyOpen: true, tipstarSlug: extraSlug, isRedacted: false }
+            ? { ...pick, isTipsterWeeklyOpen: true, tipsterSlug: extraSlug, isRedacted: false }
             : pick;
         }
         return {
@@ -184,7 +184,7 @@ export function redactDatasetForVisitor(
           suggestedUnits: 0,
           result: null,
           isDailyOpenPromo: false,
-          isTipstarWeeklyOpen: false,
+          isTipsterWeeklyOpen: false,
           isRedacted: true,
         };
       }),
@@ -225,8 +225,8 @@ export function redactDatasetForVisitor(
     leagues: dataset.leagues,
     games,
     dailyPromoPickId: dataset.dailyPromoPickId,
-    tipstarWeeklyPickId: dataset.tipstarWeeklyPickId,
-    tipstarWeeklySlug: dataset.tipstarWeeklySlug,
+    tipsterWeeklyPickId: dataset.tipsterWeeklyPickId,
+    tipsterWeeklySlug: dataset.tipsterWeeklySlug,
     isServerRedactedForVisitor: true,
   };
 }
@@ -238,8 +238,8 @@ export function getSessionWatermark(
   if (viewerRole === "visitor") {
     return "PITCHLAB · VISTA PREVIA";
   }
-  if (viewerRole === "tipstar") {
-    return `@sofia_nfl · TIPSTAR-8842`;
+  if (viewerRole === "tipster") {
+    return `@sofia_nfl · TIPSTER-8842`;
   }
   if (viewerRole === "admin") {
     return `@founder · ADMIN-0001`;

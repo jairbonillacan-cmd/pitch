@@ -17,7 +17,7 @@ export interface CheckoutInput {
   /** Fin del acceso gratis vigente (días concedidos): Stripe no cobra antes de esa fecha. */
   freeAccessUntil: Date | null;
   now: Date;
-  /** ID de Promotion Code de Stripe ya validado en servidor (tipstar o referido), si aplica. */
+  /** ID de Promotion Code de Stripe ya validado en servidor (tipster o referido), si aplica. */
   promotionCodeId?: string | null;
   /** Cupón que se aplica solo (descuento del amigo invitado). El Promotion Code tiene prioridad. */
   couponId?: string | null;

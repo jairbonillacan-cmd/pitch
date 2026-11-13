@@ -12,9 +12,9 @@ import {
   handleInvoiceRefunded,
   hasActivePaseTotal,
   referralGrants,
-  tipstarAttributions,
-  tipstarCommissionLedger,
-  tipstarProfiles,
+  tipsterAttributions,
+  tipsterCommissionLedger,
+  tipsterProfiles,
   users,
 } from "../src/index";
 
@@ -93,21 +93,21 @@ describe("cobro y concesiones", () => {
     expect((await accessUntil(db, host.id, now))!.getTime()).toBe(now.getTime() + 105 * DAY);
   });
 
-  it("tipstar: un asiento por factura y se revierte con reembolso", async () => {
+  it("tipster: un asiento por factura y se revierte con reembolso", async () => {
     const t = await user("tip@example.com");
     const fan = await user("fan@example.com");
-    await db.insert(tipstarProfiles).values({ userId: t.id, handle: "tip", displayName: "Tip", specialty: "NFL", promoCode: "TIP5", defaultWeeklySlug: "tip-sem" });
-    await db.insert(tipstarAttributions).values({ tipstarUserId: t.id, referredUserId: fan.id, promoCodeUsed: "TIP5", status: "trial_5d" });
+    await db.insert(tipsterProfiles).values({ userId: t.id, handle: "tip", displayName: "Tip", specialty: "NFL", promoCode: "TIP5", defaultWeeklySlug: "tip-sem" });
+    await db.insert(tipsterAttributions).values({ tipsterUserId: t.id, referredUserId: fan.id, promoCodeUsed: "TIP5", status: "trial_5d" });
     const paid = { userId: fan.id, stripeInvoiceId: "in_t1", grossCentavos: 29900, vatCentavos: 4124, gatewayFeeCentavos: 1500, paidAt: now };
     expect((await handleInvoicePaid(db, paid)).commissionCentavos).toBe(6069);
     await handleInvoicePaid(db, paid);
-    const ledger = await db.select().from(tipstarCommissionLedger);
+    const ledger = await db.select().from(tipsterCommissionLedger);
     expect(ledger).toHaveLength(1);
     expect(ledger[0]!.clearsAt.getTime()).toBe(now.getTime() + 14 * DAY);
-    const [attr] = await db.select().from(tipstarAttributions);
+    const [attr] = await db.select().from(tipsterAttributions);
     expect(attr!.status).toBe("active_paying");
     expect(await handleInvoiceRefunded(db, "in_t1")).toBe(true);
-    const [after] = await db.select().from(tipstarCommissionLedger);
+    const [after] = await db.select().from(tipsterCommissionLedger);
     expect(after!.status).toBe("reversed_refund");
   });
 });

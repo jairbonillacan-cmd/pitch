@@ -201,7 +201,7 @@ describe("perfiles de socio", () => {
       avatarUrl: null,
       xUsername: null,
       joinedAt: a!.createdAt,
-      isTipstar: false,
+      isTipster: false,
     });
 
     expect(

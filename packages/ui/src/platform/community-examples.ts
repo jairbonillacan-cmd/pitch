@@ -8,7 +8,7 @@
  */
 import type { LeagueId } from "@pitchlab/contracts";
 import type { LeaderboardAnalyst } from "./profile-stats";
-import { TIPSTAR_CREATORS } from "./spacetime-catalog";
+import { TIPSTER_CREATORS } from "./spacetime-catalog";
 import { formatOddsValue } from "./access-guard";
 import type { JournalEntry, MatchPick, PlatformGame, SocialPost } from "./types";
 
@@ -124,7 +124,7 @@ const LEAGUES: Record<string, LeagueTemplate> = {
 export interface ExampleAnalystSpec {
   handle: string;
   name: string;
-  isTipstar: boolean;
+  isTipster: boolean;
   specialty: string;
   bio: string;
   avatarInitials: string;
@@ -143,13 +143,13 @@ function parseNum(raw: string): number {
   return Number.parseFloat(raw.replace(/[^0-9.-]/g, "")) || 0;
 }
 
-const TIPSTAR_LEAGUES: Record<string, readonly (keyof typeof LEAGUES)[]> = {
+const TIPSTER_LEAGUES: Record<string, readonly (keyof typeof LEAGUES)[]> = {
   sofia_nfl: ["nfl", "liga-mx", "premier-league"],
   carlos_quant: ["premier-league", "laliga"],
   diego_tactico: ["liga-mx", "nfl"],
 };
 
-const TIPSTAR_FOLLOWERS: Record<string, [number, number]> = {
+const TIPSTER_FOLLOWERS: Record<string, [number, number]> = {
   sofia_nfl: [763, 28],
   carlos_quant: [612, 41],
   diego_tactico: [438, 35],
@@ -159,7 +159,7 @@ const EXAMPLE_SOCIOS: readonly ExampleAnalystSpec[] = [
   {
     handle: "mariana_t",
     name: "Mariana T.",
-    isTipstar: false,
+    isTipster: false,
     specialty: "Liga MX",
     bio: "Liga MX los fines de semana. Registro cada pick antes del silbatazo.",
     avatarInitials: "MT",
@@ -176,7 +176,7 @@ const EXAMPLE_SOCIOS: readonly ExampleAnalystSpec[] = [
   {
     handle: "andres_l",
     name: "Andrés L.",
-    isTipstar: false,
+    isTipster: false,
     specialty: "NFL",
     bio: "Totales y spreads de NFL.",
     avatarInitials: "AL",
@@ -193,7 +193,7 @@ const EXAMPLE_SOCIOS: readonly ExampleAnalystSpec[] = [
   {
     handle: "valeria_g",
     name: "Valeria G.",
-    isTipstar: false,
+    isTipster: false,
     specialty: "Premier League",
     bio: "Premier League y ambos anotan.",
     avatarInitials: "VG",
@@ -210,7 +210,7 @@ const EXAMPLE_SOCIOS: readonly ExampleAnalystSpec[] = [
   {
     handle: "rodrigo_p",
     name: "Rodrigo P.",
-    isTipstar: false,
+    isTipster: false,
     specialty: "LaLiga y Premier",
     bio: "Fútbol europeo entre semana.",
     avatarInitials: "RP",
@@ -227,7 +227,7 @@ const EXAMPLE_SOCIOS: readonly ExampleAnalystSpec[] = [
   {
     handle: "paola_c",
     name: "Paola C.",
-    isTipstar: false,
+    isTipster: false,
     specialty: "NFL y Liga MX",
     bio: "NFL los domingos, Liga MX el sábado.",
     avatarInitials: "PC",
@@ -244,7 +244,7 @@ const EXAMPLE_SOCIOS: readonly ExampleAnalystSpec[] = [
   {
     handle: "luis_f",
     name: "Luis F.",
-    isTipstar: false,
+    isTipster: false,
     specialty: "Liga MX",
     bio: "Pocos picks, bien pensados.",
     avatarInitials: "LF",
@@ -261,10 +261,10 @@ const EXAMPLE_SOCIOS: readonly ExampleAnalystSpec[] = [
 ];
 
 export const EXAMPLE_ANALYST_SPECS: readonly ExampleAnalystSpec[] = [
-  ...TIPSTAR_CREATORS.filter((c) => c.isExample).map<ExampleAnalystSpec>((c) => ({
+  ...TIPSTER_CREATORS.filter((c) => c.isExample).map<ExampleAnalystSpec>((c) => ({
     handle: c.handle,
     name: c.name,
-    isTipstar: true,
+    isTipster: true,
     specialty: c.specialty,
     bio: c.bio ?? c.weeklyPickThesis,
     avatarInitials: c.avatarInitials,
@@ -274,9 +274,9 @@ export const EXAMPLE_ANALYST_SPECS: readonly ExampleAnalystSpec[] = [
     won: c.wonCount,
     netUnits: parseNum(c.verifiedUnits),
     clvAvg: parseNum(c.clvAvg),
-    leagues: TIPSTAR_LEAGUES[c.handle] ?? ["liga-mx"],
-    followers: TIPSTAR_FOLLOWERS[c.handle]?.[0] ?? 120,
-    following: TIPSTAR_FOLLOWERS[c.handle]?.[1] ?? 20,
+    leagues: TIPSTER_LEAGUES[c.handle] ?? ["liga-mx"],
+    followers: TIPSTER_FOLLOWERS[c.handle]?.[0] ?? 120,
+    following: TIPSTER_FOLLOWERS[c.handle]?.[1] ?? 20,
   })),
   ...EXAMPLE_SOCIOS,
 ];
@@ -451,12 +451,12 @@ export function exampleLeaderboardRows(today: Date = new Date()): LeaderboardAna
   return EXAMPLE_ANALYST_SPECS.map((spec) => ({
     handle: spec.handle,
     name: spec.name,
-    roleLabel: spec.isTipstar ? "Tipstar" : "Socio",
+    roleLabel: spec.isTipster ? "Tipster" : "Socio",
     specialty: spec.specialty,
     avatarInitials: spec.avatarInitials,
     avatarGradVar: spec.avatarGradVar,
-    isTipstar: spec.isTipstar,
-    isVerified: spec.isTipstar,
+    isTipster: spec.isTipster,
+    isVerified: spec.isTipster,
     isExample: true,
     journal: generateExampleJournal(spec, today),
   }));

@@ -98,7 +98,7 @@ describe("profile-stats", () => {
       specialty: "",
       avatarInitials: "X",
       avatarGradVar: "",
-      isTipstar: false,
+      isTipster: false,
       isVerified: false,
       isExample: false,
     };

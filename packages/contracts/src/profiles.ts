@@ -11,7 +11,7 @@ export interface PublicMemberProfile {
   avatarUrl?: string | null;
   xUsername: string | null;
   joinedAt: string;
-  isTipstar: boolean;
+  isTipster: boolean;
   /** Seguidores y seguidos en Comunidad (solo en la página del perfil). */
   followers?: number;
   following?: number;

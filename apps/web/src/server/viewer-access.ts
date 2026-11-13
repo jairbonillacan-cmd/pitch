@@ -12,7 +12,7 @@ import { cookies, headers } from "next/headers";
 import {
   createDb,
   hasActivePaseTotal,
-  isActiveTipstarUser,
+  isActiveTipsterUser,
   signupCompleted,
   suggestHandle,
   viewerProfile,
@@ -32,8 +32,8 @@ export interface ViewerAccess {
   fullAccess: boolean;
   /** Cuenta verificada perteneciente a `PITCHLAB_ADMIN_EMAILS` con registro completo. */
   isAdmin: boolean;
-  /** Cuenta con perfil activo en `tipstar_profiles` y registro completo. */
-  isTipstar: boolean;
+  /** Cuenta con perfil activo en `tipster_profiles` y registro completo. */
+  isTipster: boolean;
   /** Con cuenta: quién es (para la interfaz). Con PIN o sin sesión, null. */
   profile: AccountProfile | null;
 }
@@ -54,7 +54,7 @@ const NONE: ViewerAccess = {
   signupComplete: false,
   fullAccess: false,
   isAdmin: false,
-  isTipstar: false,
+  isTipster: false,
   profile: null,
 };
 
@@ -94,16 +94,16 @@ export const getViewerAccess = cache(async (): Promise<ViewerAccess> => {
             signupComplete: false,
             fullAccess: false,
             isAdmin: false,
-            isTipstar: false,
+            isTipster: false,
             profile: null,
           };
         }
         const now = new Date();
-        const [complete, pass, row, tipstar] = await Promise.all([
+        const [complete, pass, row, tipster] = await Promise.all([
           signupCompleted(db, userId),
           hasActivePaseTotal(db, userId, now),
           viewerProfile(db, userId),
-          isActiveTipstarUser(db, userId),
+          isActiveTipsterUser(db, userId),
         ]);
         const verifiedAdmin = Boolean(session.user.emailVerified) && isAdminEmail(session.user.email);
         const displayName =
@@ -121,7 +121,7 @@ export const getViewerAccess = cache(async (): Promise<ViewerAccess> => {
           signupComplete: complete,
           fullAccess: complete && (pass || verifiedAdmin),
           isAdmin: complete && verifiedAdmin,
-          isTipstar: complete && tipstar,
+          isTipster: complete && tipster,
           profile,
         };
       }
@@ -136,7 +136,7 @@ export const getViewerAccess = cache(async (): Promise<ViewerAccess> => {
       signupComplete: true,
       fullAccess: true,
       isAdmin: false,
-      isTipstar: false,
+      isTipster: false,
       profile: null,
     };
   }

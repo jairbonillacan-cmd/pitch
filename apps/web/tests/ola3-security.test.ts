@@ -7,17 +7,17 @@ import {
   authAccount,
   authUser,
   claimEmail,
-  createTipstarCode,
+  createTipsterCode,
   handleInvoicePaid,
   listScheduledEmails,
   markEmail,
   memberProfile,
   publicProfileByHandle,
   subscriptions,
-  tipstarAttributions,
-  tipstarCommissionLedger,
-  tipstarProfileForUser,
-  tipstarProfiles,
+  tipsterAttributions,
+  tipsterCommissionLedger,
+  tipsterProfileForUser,
+  tipsterProfiles,
   updateMemberProfile,
   users,
   type Db,
@@ -193,10 +193,10 @@ describe("Ola 3 Seguridad (SEC-14..SEC-18)", () => {
     });
   });
 
-  it("SEC-17: bloquea tipstars inactivos, reservados en createTipstarCode y minimiza tokens OAuth", async () => {
-    // Handles reservados o inválidos rechazados en createTipstarCode
+  it("SEC-17: bloquea tipsters inactivos, reservados en createTipsterCode y minimiza tokens OAuth", async () => {
+    // Handles reservados o inválidos rechazados en createTipsterCode
     expect(
-      await createTipstarCode(db, {
+      await createTipsterCode(db, {
         email: "admin@example.com",
         handle: "admin",
         displayName: "Admin",
@@ -205,7 +205,7 @@ describe("Ola 3 Seguridad (SEC-14..SEC-18)", () => {
       }),
     ).toEqual({ ok: false, reason: "handle_invalido" });
     expect(
-      await createTipstarCode(db, {
+      await createTipsterCode(db, {
         email: "sofia@example.com",
         handle: "sofia_nfl",
         displayName: "Sofía",
@@ -214,40 +214,40 @@ describe("Ola 3 Seguridad (SEC-14..SEC-18)", () => {
       }),
     ).toEqual({ ok: false, reason: "handle_invalido" });
 
-    // Tipstar desactivado no puede abrir Connect ni devengar nuevas comisiones
-    const [tipstarUser, fanUser] = await db
+    // Tipster desactivado no puede abrir Connect ni devengar nuevas comisiones
+    const [tipsterUser, fanUser] = await db
       .insert(users)
-      .values([{ email: "tipstar@example.com" }, { email: "fan@example.com" }])
+      .values([{ email: "tipster@example.com" }, { email: "fan@example.com" }])
       .returning();
-    await db.insert(tipstarProfiles).values({
-      userId: tipstarUser!.id,
+    await db.insert(tipsterProfiles).values({
+      userId: tipsterUser!.id,
       handle: "tip_inactivo",
-      displayName: "Tipstar Inactivo",
+      displayName: "Tipster Inactivo",
       specialty: "Liga MX",
       promoCode: "INACT5",
       defaultWeeklySlug: "tip-inactivo-sem",
       commissionBps: 2500,
       isActive: false,
     });
-    await db.insert(tipstarAttributions).values({
-      tipstarUserId: tipstarUser!.id,
+    await db.insert(tipsterAttributions).values({
+      tipsterUserId: tipsterUser!.id,
       referredUserId: fanUser!.id,
       promoCodeUsed: "INACT5",
       status: "trial_5d",
     });
 
-    expect(await tipstarProfileForUser(db, tipstarUser!.id)).toBeNull();
+    expect(await tipsterProfileForUser(db, tipsterUser!.id)).toBeNull();
 
     const paidRes = await handleInvoicePaid(db, {
       userId: fanUser!.id,
-      stripeInvoiceId: "in_inactive_tipstar",
+      stripeInvoiceId: "in_inactive_tipster",
       grossCentavos: 29900,
       vatCentavos: 4124,
       gatewayFeeCentavos: 1500,
       paidAt: now,
     });
     expect(paidRes.commissionCentavos).toBeNull();
-    const ledgerRows = await db.select().from(tipstarCommissionLedger);
+    const ledgerRows = await db.select().from(tipsterCommissionLedger);
     expect(ledgerRows).toHaveLength(0);
 
     // auth_account: índice único (provider_id, account_id) + borrado de tokens OAuth

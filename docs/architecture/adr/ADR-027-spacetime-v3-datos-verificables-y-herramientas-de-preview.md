@@ -16,7 +16,7 @@ La rama `gemini-reestructura` presentaba como reales varios datos fabricados:
 - Bajas «Duda/Baja», alineaciones «confirmadas», volumen de mercado y movimiento de línea derivados del mismo hash.
 - Props de jugadores escritos a mano; una ventaja mínima forzada de +0.8 pts en varias tarjetas.
 - Cifras públicas sin fuente: «+358,400 partidos», «+12.4M puntos», «69.6 % le gana al cierre», «0.009 ECE».
-- Tipstars, publicaciones y récords ficticios mostrados como verificados.
+- Tipsters, publicaciones y récords ficticios mostrados como verificados.
 - El selector de rol y la barra de 11 vistas desbloqueaban todo con el PIN `2026` escrito en el código del navegador.
 - Liga MX se rellenaba con partidos de 2024 (el plan gratis de API-Football no cubre temporadas posteriores) y algunos se marcaban como «programados».
 
@@ -34,7 +34,7 @@ Mientras tanto, la rama `prediction-lab` ya tenía **Spacetime Suite v3.0** (Tac
    - Sin mercado verificado: momio justo y «Sin momio»; nunca un momio de casa estimado.
    - Sin reporte de bajas: no se listan bajas.
    - Sin picks auditados de PitchLab: los cubos de precisión dicen «auditoría en curso».
-   - Contenido de demostración (tipstars, comunidad, ranking): etiqueta «Ejemplo» y aviso «Contenido de ejemplo».
+   - Contenido de demostración (tipsters, comunidad, ranking): etiqueta «Ejemplo» y aviso «Contenido de ejemplo».
    - Cifras públicas solo del reporte A26 (`spacetime-catalog.ts` cita la fuente).
 5. **Herramientas de preview:** selector de rol, barra de 11 vistas y simulador de roles solo con sesión válida y `previewToolsEnabled()` (encendido en desarrollo; en producción solo con `PITCHLAB_PREVIEW_TOOLS=1`). El PIN nunca va en el código del cliente.
 6. **Liga MX:** calendario y resultados de la temporada actual desde el scoreboard público de ESPN (sin clave). Si ESPN falla se conserva el snapshot anterior.
@@ -50,10 +50,10 @@ Mientras tanto, la rama `prediction-lab` ya tenía **Spacetime Suite v3.0** (Tac
 
 - **Seguir mostrando momios estimados con una etiqueta:** un momio inventado junto a una «ventaja» induce apuestas; se prefirió no mostrarlo.
 - **Correr los scrapers de momios desde la app:** usan modos de evasión anti-bot sobre sitios de apuestas; la matriz se regenera en `prediction-lab` bajo responsabilidad del equipo de datos.
-- **Quitar del todo a los tipstars de ejemplo:** el programa de creadores es parte del producto; se mantienen como demostración marcada.
+- **Quitar del todo a los tipsters de ejemplo:** el programa de creadores es parte del producto; se mantienen como demostración marcada.
 
 ## Consecuencias
 
 - Los momios dependen de que `prediction-lab` regenere `live_matchday_v3_snapshot.json`; sin eso, a las 72 h la app deja de mostrar momios (correcto, pero sin valor de mercado).
 - Props de jugadores quedan en «próximamente» hasta que exista un motor por jugador.
-- Para publicar tipstars reales basta con quitar `isExample: true` de su entrada en `spacetime-catalog.ts`.
+- Para publicar tipsters reales basta con quitar `isExample: true` de su entrada en `spacetime-catalog.ts`.

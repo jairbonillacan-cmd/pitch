@@ -9,7 +9,7 @@ const STATIC_CLUB_SEGMENTS = new Set([
   "props",
   "social",
   "tech",
-  "tipstar",
+  "tipster",
 ]);
 
 interface AliasTarget {

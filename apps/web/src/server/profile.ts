@@ -59,6 +59,6 @@ export async function loadPublicMemberProfile(handle: string): Promise<PublicMem
     avatarUrl: row.avatarUrl ?? null,
     xUsername: row.xUsername,
     joinedAt: row.joinedAt.toISOString(),
-    isTipstar: row.isTipstar,
+    isTipster: row.isTipster,
   };
 }

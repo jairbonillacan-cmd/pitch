@@ -194,6 +194,6 @@ La foto de perfil de cada socio (`POST /api/me/avatar`) se recorta a un cuadrado
   - precios de $299 al mes y $2,390 al año → `STRIPE_PRICE_MONTHLY` y `STRIPE_PRICE_ANNUAL`;
   - webhook a `https://pitchlab.mx/api/webhooks/stripe` → `STRIPE_WEBHOOK_SECRET`;
   - `STRIPE_SECRET_KEY`.
-- **Connect** para tipstars → `STRIPE_CONNECT_WEBHOOK_SECRET` y `CRON_SECRET`.
+- **Connect** para tipsters → `STRIPE_CONNECT_WEBHOOK_SECRET` y `CRON_SECRET`.
 - **Facturapi** → `FACTURAPI_KEY`, cuando definas con el contador quién factura.
 - **Upstash Redis** (opcional y gratis) → `UPSTASH_REDIS_REST_URL` y `UPSTASH_REDIS_REST_TOKEN`, para que el límite de intentos del PIN funcione en todas las instancias.

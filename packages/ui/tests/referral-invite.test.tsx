@@ -56,15 +56,15 @@ describe("ReferralInviteSurface & resolveReferralInvite", () => {
     expect(html).toContain(" te invitó");
   });
 
-  it("resolves Tipstar and expired invite variants cleanly", () => {
-    const tipstar = resolveReferralInvite({
+  it("resolves Tipster and expired invite variants cleanly", () => {
+    const tipster = resolveReferralInvite({
       code: "SOFIA5",
       accountsEnabled: false,
     });
-    expect(tipstar.headlineLead).toBe("5 días de PitchLab ");
-    expect(tipstar.cardTier).toBe("ULTRA · TIPSTAR");
-    expect(tipstar.senderDisplay).toBe("@sofia_nfl");
-    expect(tipstar.isExampleSender).toBe(true);
+    expect(tipster.headlineLead).toBe("5 días de PitchLab ");
+    expect(tipster.cardTier).toBe("ULTRA · TIPSTER");
+    expect(tipster.senderDisplay).toBe("@sofia_nfl");
+    expect(tipster.isExampleSender).toBe(true);
 
     const expired = resolveReferralInvite({
       code: "VENCIDO-2024",

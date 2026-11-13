@@ -49,7 +49,7 @@ Antes de editar, escribe un plan corto: qué archivos cambias, qué partes divid
 
 ### 2.2 La tarjeta
 
-- La invitación **es** la tarjeta 3D: `ReferralCard3D` con `code` = tu código, `bottomLeftLabel` = `@usuario` y `tierLabel` = `ULTRA` (o `ULTRA · TIPSTAR` si eres tipstar verificado). Se voltea con clic, toque, Enter o Espacio para ver el reverso, igual que en el lienzo. Con `prefers-reduced-motion` se voltea sin animación.
+- La invitación **es** la tarjeta 3D: `ReferralCard3D` con `code` = tu código, `bottomLeftLabel` = `@usuario` y `tierLabel` = `ULTRA` (o `ULTRA · TIPSTER` si eres tipster verificado). Se voltea con clic, toque, Enter o Espacio para ver el reverso, igual que en el lienzo. Con `prefers-reduced-motion` se voltea sin animación.
 - A su lado (debajo en móvil), la oferta en tres líneas con datos: qué recibe tu amigo, qué reciben los dos cuando paga y el bono de embajador.
 - **Tu código:** con cuentas, `users.referralCode` (vía `/api/me/referrals`). Sin cuentas, un código de ejemplo derivado del @usuario (por ejemplo `JAIR-2611`) y marcado «Ejemplo». Si con cuentas el usuario aún no tiene código, «Generando tu código…» y nada más; no inventes uno.
 

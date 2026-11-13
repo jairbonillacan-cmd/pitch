@@ -48,7 +48,7 @@ export function LandingSurface({
   const resolvedFeaturedPick =
     featuredPick ??
     (dataset
-      ? buildFeaturedCommunityPick(dataset.games, dataset.tipstarWeeklyPickId)
+      ? buildFeaturedCommunityPick(dataset.games, dataset.tipsterWeeklyPickId)
       : undefined);
 
   return (

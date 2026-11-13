@@ -262,7 +262,7 @@ export function PlanTab({
     }
     return deriveExampleReferralCode(identity.cleanHandle);
   }, [accountsEnabled, identity.cleanHandle, referralCode, storyOverride?.referralCode]);
-  const tierLabel = identity.isTipstar ? "ULTRA · TIPSTAR" : "ULTRA";
+  const tierLabel = identity.isTipster ? "ULTRA · TIPSTER" : "ULTRA";
 
   const statusPill = useMemo(() => {
     if (isTrial) {

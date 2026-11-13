@@ -5,7 +5,7 @@
 - **Rama base:** `gemini-reestructura`
 - **Audiencia:** Fundador (Jair) y Claude (sesión de arquitectura e implementación F4)
 - **Fecha:** `2026-11-10`
-- **Decisiones rectoras vinculadas:** [ADR-007](../architecture/adr/ADR-007-base-de-datos-postgresql-en-neon-drizzle-historico.md), [ADR-009](../architecture/adr/ADR-009-modelos-en-python-por-lotes-la-tabla-de-prediccion.md), [ADR-013](../architecture/adr/ADR-013-pitchlab-ai-openrouter-modelo-barato-w5.md), [ADR-014](../architecture/adr/ADR-014-fuentes-de-datos-gratuitas-en-la-fase-inicial.md), [ADR-023](../architecture/adr/ADR-023-smoked-glass-maestro-ui-physics.md), [ADR-024](../architecture/adr/ADR-024-hybrid-snapshot-spacetime-quant-engine.md) y [ADR-025](../architecture/adr/ADR-025-zero-leak-subscription-tipstar-referrals.md).
+- **Decisiones rectoras vinculadas:** [ADR-007](../architecture/adr/ADR-007-base-de-datos-postgresql-en-neon-drizzle-historico.md), [ADR-009](../architecture/adr/ADR-009-modelos-en-python-por-lotes-la-tabla-de-prediccion.md), [ADR-013](../architecture/adr/ADR-013-pitchlab-ai-openrouter-modelo-barato-w5.md), [ADR-014](../architecture/adr/ADR-014-fuentes-de-datos-gratuitas-en-la-fase-inicial.md), [ADR-023](../architecture/adr/ADR-023-smoked-glass-maestro-ui-physics.md), [ADR-024](../architecture/adr/ADR-024-hybrid-snapshot-spacetime-quant-engine.md) y [ADR-025](../architecture/adr/ADR-025-zero-leak-subscription-tipster-referrals.md).
 - **Documentos hermanos:** [VISION_REESTRUCTURA_CLAUDE_DS_UX.md](VISION_REESTRUCTURA_CLAUDE_DS_UX.md) y [VISION_REESTRUCTURA_CLAUDE_GROWTH.md](VISION_REESTRUCTURA_CLAUDE_GROWTH.md).
 - **Vocabulario canónico:** [GLOSSARY.md](../../GLOSSARY.md).
 
@@ -61,7 +61,7 @@ flowchart LR
    - **Calibración matemática (`packages/models/src/calibration.ts`):** escalamiento por temperatura `fitTemperature` y cálculo exacto de `expectedCalibrationError` sobre 10 bins.
 3. **Saneamiento FD-16 y Redacción Cero-Fuga en Servidor:**
    - `matchForClient()` en `apps/web/src/server/snapshots.ts` elimina `steps`, `why`, `trace` y `confidence.reasons` internos antes de construir el estado de plataforma.
-   - `loadPublicPlatformState()` en `apps/web/src/server/platform-data.ts` invoca `redactDatasetForVisitor()` (`packages/ui/src/platform/access-guard.ts`) antes del renderizado RSC, sustituyendo etiquetas y síntesis de juegos no finalizados (`status !== "FT"`) por marcadores neutros salvo el único *Pick Abierto del Día* y el *Pick Abierto de la Semana* del Tipstar.
+   - `loadPublicPlatformState()` en `apps/web/src/server/platform-data.ts` invoca `redactDatasetForVisitor()` (`packages/ui/src/platform/access-guard.ts`) antes del renderizado RSC, sustituyendo etiquetas y síntesis de juegos no finalizados (`status !== "FT"`) por marcadores neutros salvo el único *Pick Abierto del Día* y el *Pick Abierto de la Semana* del Tipster.
 4. **Liquidación Post-Partido (`FT`), Bloqueo de Contradicciones y Calculadora de Momio del Usuario:**
    - `gradePick()` califica automáticamente selecciones de partidos `FT` usando `selectionHolds` (`@pitchlab/contracts`).
    - `checkParlayCompatibility()` (`parlay-engine.ts`) aplica el grafo simétrico `OPPOSING_GROUPS` y las reglas de `2–6` patas y `SGP` (`1` selección por juego sin SGP; hasta `2` compatibles con SGP).

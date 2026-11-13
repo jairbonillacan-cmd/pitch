@@ -13,7 +13,7 @@ import {
 import {
   ExampleNotice,
   MaestroIcon,
-  TipstarVerifiedBadge,
+  TipsterVerifiedBadge,
   VerifiedSeal,
 } from "../components/MaestroPrimitives";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
@@ -29,7 +29,7 @@ import {
   pickSettlementUnits,
   profileRecord,
 } from "../profile-stats";
-import { TIPSTAR_CREATORS } from "../spacetime-catalog";
+import { TIPSTER_CREATORS } from "../spacetime-catalog";
 import type { JournalEntry, SocialPost } from "../types";
 import {
   Avatar,
@@ -83,7 +83,7 @@ const LEAGUE_IDS_BY_LABEL: Record<string, LeagueId> = {
 interface ResolvedProfile {
   handle: string;
   name: string;
-  isTipstar: boolean;
+  isTipster: boolean;
   specialty: string;
   bio: string | null;
   xUsername?: string | null;
@@ -186,7 +186,7 @@ export function AnalystProfileClubView({
       return {
         handle: details.handle,
         name: details.displayName,
-        isTipstar: memberProfile.isTipstar,
+        isTipster: memberProfile.isTipster,
         specialty: "",
         bio: details.bio,
         xUsername: details.xUsername,
@@ -211,13 +211,13 @@ export function AnalystProfileClubView({
     }
     const spec = getExampleAnalystSpec(cleanHandle);
     if (spec) {
-      const creator = TIPSTAR_CREATORS.find((c) => c.handle === spec.handle);
+      const creator = TIPSTER_CREATORS.find((c) => c.handle === spec.handle);
       const closed = generateExampleJournal(spec, today);
       const open = exampleOpenEntries(spec, dataset.games, today);
       return {
         handle: spec.handle,
         name: spec.name,
-        isTipstar: spec.isTipstar,
+        isTipster: spec.isTipster,
         specialty: spec.specialty,
         bio: spec.bio,
         avatarInitials: spec.avatarInitials,
@@ -239,7 +239,7 @@ export function AnalystProfileClubView({
       return {
         handle: own.handle,
         name: own.name,
-        isTipstar: false,
+        isTipster: false,
         specialty: "Varias ligas",
         bio: "Socio de PitchLab. Registro mis picks antes de que empiece el partido.",
         avatarUrl: own.avatarUrl ?? null,
@@ -390,13 +390,13 @@ function ProfileContent({
   );
 
   const weeklyPickMatch = useMemo(() => {
-    if (!profile.isTipstar) return null;
-    const pickId = dataset.tipstarWeeklyPickId;
+    if (!profile.isTipster) return null;
+    const pickId = dataset.tipsterWeeklyPickId;
     for (const game of dataset.games) {
       if (game.picks.some((p) => p.id === pickId)) return `${game.home.shortName || game.home.name} vs ${game.away.shortName || game.away.name}`;
     }
     return null;
-  }, [dataset.games, dataset.tipstarWeeklyPickId, profile.isTipstar]);
+  }, [dataset.games, dataset.tipsterWeeklyPickId, profile.isTipster]);
 
   const followerCount =
     profile.followers === null ? null : profile.followers + (following ? 1 : 0);
@@ -426,7 +426,7 @@ function ProfileContent({
         <>
           <ExampleNotice className="pl-prof-example">
             @{profile.handle} es un perfil de ejemplo: su récord y publicaciones muestran cómo se verá un
-            perfil {profile.isTipstar ? "verificado" : "de socio"}.
+            perfil {profile.isTipster ? "verificado" : "de socio"}.
           </ExampleNotice>
           <p className="pl-prof-example-line">
             <span className="pl-pill pl-pill--warning">Ejemplo</span> Perfil de ejemplo
@@ -502,9 +502,9 @@ function ProfileContent({
           <div className="pl-prof-name-row">
             <h1 id="pl-prof-name" className="pl-prof-name">
               {profile.name}
-              {profile.isTipstar ? <VerifiedSeal size={22} className="pl-prof-seal" /> : null}
+              {profile.isTipster ? <VerifiedSeal size={22} className="pl-prof-seal" /> : null}
             </h1>
-            {profile.isTipstar ? <TipstarVerifiedBadge /> : <span className="pl-prof-role">Socio</span>}
+            {profile.isTipster ? <TipsterVerifiedBadge /> : <span className="pl-prof-role">Socio</span>}
           </div>
           <p className="pl-prof-handle">
             @{profile.handle}{profile.specialty ? ` · ${profile.specialty}` : ""}
@@ -624,8 +624,8 @@ function ProfileContent({
         )}
       </section>
 
-      {/* Tipstar: pick gratis de la semana */}
-      {profile.isTipstar && profile.weeklyPickSlug ? (
+      {/* Tipster: pick gratis de la semana */}
+      {profile.isTipster && profile.weeklyPickSlug ? (
         <a
           href={`/p/${profile.weeklyPickSlug}`}
           className="pl-prof-weekly glass-lens glass-ring"

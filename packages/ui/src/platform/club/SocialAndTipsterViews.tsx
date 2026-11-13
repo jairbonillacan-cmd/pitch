@@ -16,11 +16,11 @@ import {
   ClubWorkspaceShell,
 } from "../components/ShellChrome";
 import { usePlatform } from "../platform-provider";
-import { TIPSTAR_CREATORS } from "../spacetime-catalog";
+import { TIPSTER_CREATORS } from "../spacetime-catalog";
 
 export { SocialVipClubView } from "./CommunityClubView";
 
-export function TipstarPortalClubView({
+export function TipsterPortalClubView({
   connectNotice = null,
 }: {
   connectNotice?: "ready" | "retry" | null;
@@ -32,24 +32,24 @@ export function TipstarPortalClubView({
     allowRoleSimulation,
     journal,
     oddsFormat,
-    tipstarWeeklyPickOrigin,
-    setTipstarWeeklyPickOrigin,
-    selectedTipstarPickId,
-    setSelectedTipstarPickId,
+    tipsterWeeklyPickOrigin,
+    setTipsterWeeklyPickOrigin,
+    selectedTipsterPickId,
+    setSelectedTipsterPickId,
     openShareTicket,
     navigateTo,
     pushToast,
     accountsEnabled,
   } = usePlatform();
 
-  const sofia = TIPSTAR_CREATORS[0]!;
+  const sofia = TIPSTER_CREATORS[0]!;
   const [connectBusy, setConnectBusy] = useState<boolean>(false);
 
-  // Alta de pagos con Stripe Connect (solo tipstars oficiales con cuenta real).
+  // Alta de pagos con Stripe Connect (solo tipsters oficiales con cuenta real).
   const handleSetupPayouts = async () => {
     setConnectBusy(true);
     try {
-      const res = await fetch("/api/tipstar/connect", { method: "POST", credentials: "same-origin" });
+      const res = await fetch("/api/tipster/connect", { method: "POST", credentials: "same-origin" });
       const json = (await res.json().catch(() => ({}))) as { url?: string; error?: string };
       if (res.ok && json.url) {
         window.location.assign(json.url);
@@ -91,7 +91,7 @@ export function TipstarPortalClubView({
   );
 
   const activePick = useMemo(() => {
-    const inMatch = matchPicks.find((p) => p.id === selectedTipstarPickId);
+    const inMatch = matchPicks.find((p) => p.id === selectedTipsterPickId);
     if (inMatch) return inMatch;
     if (matchPicks[0]) return matchPicks[0];
     for (const g of upcomingGames) {
@@ -99,7 +99,7 @@ export function TipstarPortalClubView({
       if (firstOpen) return firstOpen;
     }
     return dataset.games[0]?.picks[0];
-  }, [dataset.games, matchPicks, selectedTipstarPickId, upcomingGames]);
+  }, [dataset.games, matchPicks, selectedTipsterPickId, upcomingGames]);
 
   const lockedSiblingPicks = useMemo(() => {
     if (!selectedMatch) return [];
@@ -120,7 +120,7 @@ export function TipstarPortalClubView({
   }, [selectedMatch]);
 
   const personalJournalEntry = journal[0];
-  const isSpacetimeOrigin = tipstarWeeklyPickOrigin === "spacetime";
+  const isSpacetimeOrigin = tipsterWeeklyPickOrigin === "spacetime";
 
   const previewMatchTitle = isSpacetimeOrigin
     ? activePick?.matchLabel ?? "Partido Estelar"
@@ -134,7 +134,7 @@ export function TipstarPortalClubView({
   const previewFair = isSpacetimeOrigin
     ? activePick?.fairDecimal ?? 1.62
     : personalJournalEntry?.fairDecimal ?? 1.64;
-  // Momio real de casa o el que el tipstar selló; null si no existe (no se inventa).
+  // Momio real de casa o el que el tipster selló; null si no existe (no se inventa).
   const previewBook: number | null = isSpacetimeOrigin
     ? (activePick?.marketDecimal ?? null)
     : (personalJournalEntry?.userDecimal ?? null);
@@ -155,9 +155,9 @@ export function TipstarPortalClubView({
 
   return (
     <AtmosphereStage>
-      <ClubWorkspaceShell activePath="/app/tipstar">
+      <ClubWorkspaceShell activePath="/app/tipster">
         <ExampleNotice>
-          Así funcionará el Portal Tipstar. @{sofia.handle} es un perfil de ejemplo: sus unidades,
+          Así funcionará el Portal Tipster. @{sofia.handle} es un perfil de ejemplo: sus unidades,
           CLV y referidos son ficticios. El pick que muestra sí sale de Spacetime Suite v3.0.
         </ExampleNotice>
         {connectNotice === "ready" ? (
@@ -177,7 +177,7 @@ export function TipstarPortalClubView({
             badgeText="Pagos pendientes"
             title="Faltaron datos para completar tu alta de pagos"
             action={
-              accountsEnabled && (viewerRole === "tipstar" || viewerRole === "admin") ? (
+              accountsEnabled && (viewerRole === "tipster" || viewerRole === "admin") ? (
                 <button
                   type="button"
                   className="pl-btn-primary text-xs min-h-8 px-3"
@@ -193,7 +193,7 @@ export function TipstarPortalClubView({
             cualquier momento.
           </NoticeCard>
         ) : null}
-        {accountsEnabled && (viewerRole === "tipstar" || viewerRole === "admin") ? (
+        {accountsEnabled && (viewerRole === "tipster" || viewerRole === "admin") ? (
           <NoticeCard
             icon="gift"
             tone="success"
@@ -215,19 +215,19 @@ export function TipstarPortalClubView({
             automáticamente en tu cuenta. Stripe te pide tus datos y tu cuenta bancaria una sola vez.
           </NoticeCard>
         ) : null}
-        {allowRoleSimulation && viewerRole !== "tipstar" && viewerRole !== "admin" ? (
+        {allowRoleSimulation && viewerRole !== "tipster" && viewerRole !== "admin" ? (
           <NoticeCard
             icon="crown"
             tone="success"
             badgeText="Vista Previa · Programa de Creadores"
-            title="Activa el rol Tipstar para publicar tu Pick abierto semanal sin sellado"
+            title="Activa el rol Tipster para publicar tu Pick abierto semanal sin sellado"
             action={
               <button
                 type="button"
                 className="pl-btn-primary text-xs min-h-8 px-3"
                 onClick={() => {
-                  setViewerRole("tipstar");
-                  pushToast("Modo Tipstar Oficial (@sofia_nfl) activado.", "success");
+                  setViewerRole("tipster");
+                  pushToast("Modo Tipster Oficial (@sofia_nfl) activado.", "success");
                 }}
               >
                 Activar modo @sofia_nfl
@@ -235,7 +235,7 @@ export function TipstarPortalClubView({
             }
           >
             <span>
-              Como Tipstar Oficial liberas 1 Pick abierto a la semana con tu código de 5 días
+              Como Tipster Oficial liberas 1 Pick abierto a la semana con tu código de 5 días
               gratis mientras los otros 4 picks del partido siguen protegidos.
             </span>
           </NoticeCard>
@@ -262,7 +262,7 @@ export function TipstarPortalClubView({
               <div className="space-y-0.5">
                 <div className="flex flex-wrap items-center gap-2">
                   <h1 className="m-0 text-xl sm:text-2xl font-extrabold tracking-tight">
-                    Portal tipstar (@{sofia.handle})
+                    Portal tipster (@{sofia.handle})
                   </h1>
                   <span className="pl-pill pl-pill--success">
                     <MaestroIcon name="check" size={12} />
@@ -408,7 +408,7 @@ export function TipstarPortalClubView({
                     type="button"
                     className="seg-btn flex-1 justify-center text-xs"
                     aria-pressed={isSpacetimeOrigin}
-                    onClick={() => setTipstarWeeklyPickOrigin("spacetime")}
+                    onClick={() => setTipsterWeeklyPickOrigin("spacetime")}
                   >
                     <MaestroIcon name="cpu" size={14} />
                     <span>Pick Oficial Spacetime Suite</span>
@@ -417,7 +417,7 @@ export function TipstarPortalClubView({
                     type="button"
                     className="seg-btn flex-1 justify-center text-xs"
                     aria-pressed={!isSpacetimeOrigin}
-                    onClick={() => setTipstarWeeklyPickOrigin("bitacora")}
+                    onClick={() => setTipsterWeeklyPickOrigin("bitacora")}
                   >
                     <MaestroIcon name="ticket" size={14} />
                     <span>Pick Propio de mi Bitácora ({journal.length})</span>
@@ -429,14 +429,14 @@ export function TipstarPortalClubView({
                 <>
                   <div className="space-y-2">
                     <label
-                      htmlFor="tipstar-match-select"
+                      htmlFor="tipster-match-select"
                       className="block text-xs font-bold"
                       style={{ color: "var(--pl-text-secondary)" }}
                     >
                       2. Selecciona el partido de la jornada
                     </label>
                     <select
-                      id="tipstar-match-select"
+                      id="tipster-match-select"
                       value={selectedMatch?.id ?? ""}
                       onChange={(e) => {
                         const nextGameId = e.target.value;
@@ -444,7 +444,7 @@ export function TipstarPortalClubView({
                         const nextGame = upcomingGames.find((g) => g.id === nextGameId);
                         const firstPk = nextGame?.picks.find((p) => !p.isRedacted);
                         if (firstPk) {
-                          setSelectedTipstarPickId(firstPk.id);
+                          setSelectedTipsterPickId(firstPk.id);
                         }
                       }}
                       className="glass-input w-full px-3.5 py-2.5 text-sm font-semibold"
@@ -474,7 +474,7 @@ export function TipstarPortalClubView({
                             key={pk.id}
                             type="button"
                             aria-pressed={isSelected}
-                            onClick={() => setSelectedTipstarPickId(pk.id)}
+                            onClick={() => setSelectedTipsterPickId(pk.id)}
                             className="w-full glass-ring rounded-xl p-3 text-left flex items-center justify-between gap-3 cursor-pointer border-0"
                             style={{
                               background: isSelected
@@ -534,14 +534,14 @@ export function TipstarPortalClubView({
 
               <div>
                 <label
-                  htmlFor="tipstar-thesis-input"
+                  htmlFor="tipster-thesis-input"
                   className="block text-xs font-bold mb-1.5"
                   style={{ color: "var(--pl-text-secondary)" }}
                 >
                   4. Tu tesis para redes sociales (/p/sofia-sem · Instagram / X / TikTok)
                 </label>
                 <textarea
-                  id="tipstar-thesis-input"
+                  id="tipster-thesis-input"
                   rows={3}
                   maxLength={220}
                   value={thesis}
@@ -557,12 +557,12 @@ export function TipstarPortalClubView({
                   onClick={() => {
                     if (!activePick) return;
                     if (viewerRole === "member") {
-                      setViewerRole("tipstar");
+                      setViewerRole("tipster");
                     }
                     openShareTicket({
-                      kind: "tipstar",
+                      kind: "tipster",
                       title: previewMatchTitle,
-                      subtitle: `Tipstar Oficial @${sofia.handle} · ${activePick.leagueLabel}`,
+                      subtitle: `Tipster Oficial @${sofia.handle} · ${activePick.leagueLabel}`,
                       leagueLabel: activePick.leagueLabel,
                       pickLabel: previewSelectionLabel,
                       probability: previewProb,
@@ -571,11 +571,11 @@ export function TipstarPortalClubView({
                       units: activePick.suggestedUnits,
                       gameStatus: "NS",
                       promoCode: sofia.promoCode,
-                      tipstarHandle: sofia.handle,
+                      tipsterHandle: sofia.handle,
                       pickSlug: sofia.weeklyPickSlug,
                       originBadge: isSpacetimeOrigin
                         ? "PICK OFICIAL PITCHLAB"
-                        : "PICK SELLADO BITÁCORA TIPSTAR",
+                        : "PICK SELLADO BITÁCORA TIPSTER",
                     });
                   }}
                 >
@@ -823,7 +823,7 @@ export function TipstarPortalClubView({
         <TopLayerModalDialog
           open={visitorPreviewOpen}
           onClose={() => setVisitorPreviewOpen(false)}
-          ariaLabelledBy="tipstar-visitor-sim-title"
+          ariaLabelledBy="tipster-visitor-sim-title"
           maxWidth="34rem"
         >
           <div className="glass-lens glass-ring glass-ring--featured relative overflow-hidden w-full rounded-2xl p-6 space-y-4">
@@ -855,7 +855,7 @@ export function TipstarPortalClubView({
                   {sofia.avatarInitials}
                 </span>
                 <div>
-                  <h2 id="tipstar-visitor-sim-title" className="m-0 text-base font-extrabold">
+                  <h2 id="tipster-visitor-sim-title" className="m-0 text-base font-extrabold">
                     @{sofia.handle} liberó 1 Pick Gratis de este partido
                   </h2>
                   <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>

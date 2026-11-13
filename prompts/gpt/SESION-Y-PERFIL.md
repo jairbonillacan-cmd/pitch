@@ -99,7 +99,7 @@ Nada más. La foto de perfil queda para después.
   - Mismas reglas del paso 2: `cleanDisplayName`, `checkHandleFormat` e `isHandleAvailable` (el propio cuenta como libre).
   - Bio de 0 a 160 caracteres. Sin enlaces en la bio: la misma regla de enlaces externos que Comunidad.
   - `409` si el @usuario está ocupado.
-- `GET /api/u/[handle]` (público): solo nombre visible, @usuario, bio, `xUsername`, la fecha en que se unió y si es tipstar. **Nunca** correo, fecha de nacimiento ni consentimientos. `404` si no existe.
+- `GET /api/u/[handle]` (público): solo nombre visible, @usuario, bio, `xUsername`, la fecha en que se unió y si es tipster. **Nunca** correo, fecha de nacimiento ni consentimientos. `404` si no existe.
 - Si alguien cambia de @usuario, `/app/u/<viejo>` responde 404. No hace falta redirigir.
 
 **Conectar X:**

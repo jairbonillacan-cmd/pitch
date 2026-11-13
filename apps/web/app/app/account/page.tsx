@@ -1,6 +1,6 @@
 import React from "react";
 import { headers } from "next/headers";
-import { createDb, eq, myReferrals, tipstarProfiles, users, type Db } from "@pitchlab/db";
+import { createDb, eq, myReferrals, tipsterProfiles, users, type Db } from "@pitchlab/db";
 import {
   AccountReferralsClubView,
   type AccountTabKey,
@@ -37,7 +37,7 @@ async function loadInitialAccountSnapshots(): Promise<{
     if (!userId) {
       return { referrals: null, plan: null };
     }
-    const [referrals, [u], [tipstar], plan] = await Promise.all([
+    const [referrals, [u], [tipster], plan] = await Promise.all([
       myReferrals(cachedDb, userId),
       cachedDb
         .select({
@@ -48,9 +48,9 @@ async function loadInitialAccountSnapshots(): Promise<{
         .from(users)
         .where(eq(users.id, userId)),
       cachedDb
-        .select({ userId: tipstarProfiles.userId })
-        .from(tipstarProfiles)
-        .where(eq(tipstarProfiles.userId, userId)),
+        .select({ userId: tipsterProfiles.userId })
+        .from(tipsterProfiles)
+        .where(eq(tipsterProfiles.userId, userId)),
       loadMemberPlanSummary(cachedDb, userId),
     ]);
     return {
@@ -59,7 +59,7 @@ async function loadInitialAccountSnapshots(): Promise<{
         handle: u?.handle ?? null,
         displayName: u?.displayName ?? null,
         email: u?.email ?? null,
-        isTipstar: Boolean(tipstar),
+        isTipster: Boolean(tipster),
       },
       plan,
     };

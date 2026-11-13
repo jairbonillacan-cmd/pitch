@@ -110,7 +110,7 @@ export const EMAIL_WIRING = {
 
   "tipster-activated": {
     state: "ready",
-    trigger: "Al crear el perfil Tipster (`/api/admin/tipstars`).",
+    trigger: "Al crear el perfil Tipster (`/api/admin/tipsters`).",
   },
   "tipster-new-subscriber": {
     state: "ready",
@@ -119,7 +119,7 @@ export const EMAIL_WIRING = {
   },
   "tipster-payout": {
     state: "ready",
-    trigger: "Al liquidar el pago (`runTipstarPayouts`, tarea diaria).",
+    trigger: "Al liquidar el pago (`runTipsterPayouts`, tarea diaria).",
     needs: STRIPE_REAL,
   },
   "content-removed": {

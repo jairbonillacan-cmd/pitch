@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { eq, myReferrals, tipstarProfiles, users } from "@pitchlab/db";
+import { eq, myReferrals, tipsterProfiles, users } from "@pitchlab/db";
 import { requireMember } from "../../../../src/server/session-user";
 
 export const runtime = "nodejs";
@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 export async function GET(request: Request): Promise<NextResponse> {
   const member = await requireMember(request);
   if ("error" in member) return member.error;
-  const [referrals, [u], [tipstar]] = await Promise.all([
+  const [referrals, [u], [tipster]] = await Promise.all([
     myReferrals(member.db, member.userId),
     member.db
       .select({
@@ -20,9 +20,9 @@ export async function GET(request: Request): Promise<NextResponse> {
       .from(users)
       .where(eq(users.id, member.userId)),
     member.db
-      .select({ userId: tipstarProfiles.userId })
-      .from(tipstarProfiles)
-      .where(eq(tipstarProfiles.userId, member.userId)),
+      .select({ userId: tipsterProfiles.userId })
+      .from(tipsterProfiles)
+      .where(eq(tipsterProfiles.userId, member.userId)),
   ]);
   return NextResponse.json({
     ...referrals,
@@ -30,6 +30,6 @@ export async function GET(request: Request): Promise<NextResponse> {
     displayName: u?.displayName ?? null,
     email: u?.email ?? null,
     avatarUrl: u?.avatarUrl ?? null,
-    isTipstar: Boolean(tipstar),
+    isTipster: Boolean(tipster),
   });
 }

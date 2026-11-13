@@ -30,7 +30,7 @@ Antes de editar, escribe un plan corto: qué archivos cambias, qué componentes 
 
 ### 2.1 Landing (`/`), en este orden (ver `Main.dc.html`)
 
-1. **Barra:** `.glass-pill-bar` + `.glass-ring`, con logo, Cómo funciona · Motores · Resultados · Parlays · Comunidad · Precio, botón de tema, «Entrar» y un CTA primario «Probar 7 días». **Quita** de la vista pública el simulador de rol (Visitante/Suscriptor/Tipstar/Admin) y el selector Momio/Decimal. El simulador puede seguir existiendo para preview, pero nunca visible en `/`.
+1. **Barra:** `.glass-pill-bar` + `.glass-ring`, con logo, Cómo funciona · Motores · Resultados · Parlays · Comunidad · Precio, botón de tema, «Entrar» y un CTA primario «Probar 7 días». **Quita** de la vista pública el simulador de rol (Visitante/Suscriptor/Tipster/Admin) y el selector Momio/Decimal. El simulador puede seguir existiendo para preview, pero nunca visible en `/`.
 2. **Hero:**
    - **Izquierda:** eyebrow de ligas; h1 «Lo más probable de cada partido, con su momio justo.»; lede; CTA primario «Probar 7 días gratis» y secundario «Ver partidos de hoy»; la línea «Sin tarjeta · cancela cuando quieras · solo mayores de 18».
    - **Derecha, tarjeta del partido** (`.glass-lens` + `.glass-ring--featured`):
@@ -55,7 +55,7 @@ Antes de editar, escribe un plan corto: qué archivos cambias, qué componentes 
    - Enlace a `/resultados`.
 6. **Parlays y comunidad:** dos paneles. Al de comunidad dale `id="comunidad"` para el ancla del menú.
    - **Parlay:** dos selecciones, una tercera bloqueada «Choca con …» y la probabilidad combinada con su momio justo. Si el motor de parlays del club ya calcula la correlación, úsalo; si no, rotula el panel «Ejemplo».
-   - **Comunidad:** un post de tipstar de `TIPSTAR_CREATORS` / `INITIAL_SOCIAL_POSTS`, marcado «Ejemplo».
+   - **Comunidad:** un post de tipster de `TIPSTER_CREATORS` / `INITIAL_SOCIAL_POSTS`, marcado «Ejemplo».
    - Enlaces a `/parlays` y `/comunidad`.
 7. **Precio:**
    - Texto a la izquierda y una tarjeta `.glass-lens` + `.glass-ring--featured` a la derecha.
@@ -79,7 +79,7 @@ Convierte cada sección en un componente con dos variantes: `"teaser"` (la de la
 | `/motores` | Los 5 motores completos desde `SPACETIME_ENGINES`, las cifras de cabecera, la comparativa y la calibración. Reemplaza lo que hoy muestra `/tecnologia` |
 | `/resultados` | Todos los terminados de `loadFinishedGames()`, filtrables por liga |
 | `/parlays` | Cómo funciona el armador y los choques lógicos, con CTA a `/app/parlays` |
-| `/comunidad` | Feed de muestra marcado «Ejemplo», tipstars verificados y cómo aplicar como tipstar |
+| `/comunidad` | Feed de muestra marcado «Ejemplo», tipsters verificados y cómo aplicar como tipster |
 | `/precio` | El pase completo, mensual/anual, referidos (`MEMBERSHIP_SPEC`), CFDI y preguntas |
 
 - **Redirecciones permanentes:** `/metodologia` y `/tecnologia` → `/motores`; `/pricing` → `/precio`. Actualiza los enlaces internos que apunten a ellas.

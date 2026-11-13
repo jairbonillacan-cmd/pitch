@@ -16,7 +16,7 @@ import {
   socialModerationLogs,
   socialPosts,
   socialReports,
-  tipstarProfiles,
+  tipsterProfiles,
   users,
 } from "./schema";
 
@@ -83,7 +83,7 @@ export interface FeedPost {
   authorHandle: string;
   authorName: string;
   authorAvatarUrl: string | null;
-  authorIsTipstar: boolean;
+  authorIsTipster: boolean;
   roleBadge: string;
   record: string;
   clv: string;
@@ -143,11 +143,11 @@ export async function authorRecord(db: Db, userId: string): Promise<{ record: st
   };
 }
 
-async function isTipstar(db: Db, userId: string): Promise<boolean> {
+async function isTipster(db: Db, userId: string): Promise<boolean> {
   const [row] = await db
-    .select({ userId: tipstarProfiles.userId })
-    .from(tipstarProfiles)
-    .where(and(eq(tipstarProfiles.userId, userId), eq(tipstarProfiles.isActive, true)));
+    .select({ userId: tipsterProfiles.userId })
+    .from(tipsterProfiles)
+    .where(and(eq(tipsterProfiles.userId, userId), eq(tipsterProfiles.isActive, true)));
   return Boolean(row);
 }
 
@@ -184,7 +184,7 @@ export async function createSocialPost(
   const normalized = input.body.trim().toLowerCase();
   if (lastFive.some((p) => p.body.trim().toLowerCase() === normalized)) return { ok: false, reason: "repetido" };
 
-  const [{ record, clv }, tipstar] = await Promise.all([authorRecord(db, userId), isTipstar(db, userId)]);
+  const [{ record, clv }, tipster] = await Promise.all([authorRecord(db, userId), isTipster(db, userId)]);
   const [row] = await db
     .insert(socialPosts)
     .values({
@@ -195,7 +195,7 @@ export async function createSocialPost(
       originType: input.originType,
       pickBadge: input.pickBadge,
       pick: input.pick ?? null,
-      authorRoleBadgeSnapshot: tipstar ? "Tipstar Oficial" : "Socio Pase PitchLab Ultra",
+      authorRoleBadgeSnapshot: tipster ? "Tipster Oficial" : "Socio Pase PitchLab Ultra",
       authorRecordSnapshot: record,
       authorClvSnapshot: clv,
       body: input.body.trim(),
@@ -405,7 +405,7 @@ export async function listSocialFeed(db: Db, viewerUserId: string | null, query:
       authorHandle: users.handle,
       authorName: users.displayName,
       authorAvatarUrl: users.avatarUrl,
-      authorIsTipstar: sql<boolean>`${tipstarProfiles.userId} is not null`,
+      authorIsTipster: sql<boolean>`${tipsterProfiles.userId} is not null`,
       roleBadge: socialPosts.authorRoleBadgeSnapshot,
       record: socialPosts.authorRecordSnapshot,
       clv: socialPosts.authorClvSnapshot,
@@ -421,7 +421,7 @@ export async function listSocialFeed(db: Db, viewerUserId: string | null, query:
     })
     .from(socialPosts)
     .innerJoin(users, eq(users.id, socialPosts.authorUserId))
-    .leftJoin(tipstarProfiles, and(eq(tipstarProfiles.userId, users.id), eq(tipstarProfiles.isActive, true)))
+    .leftJoin(tipsterProfiles, and(eq(tipsterProfiles.userId, users.id), eq(tipsterProfiles.isActive, true)))
     .where(and(...conditions))
     .orderBy(desc(socialPosts.createdAt), desc(socialPosts.id))
     .limit(limit);
@@ -483,7 +483,7 @@ export async function listSocialFeed(db: Db, viewerUserId: string | null, query:
     authorHandle: r.authorHandle!,
     authorName: r.authorName ?? r.authorHandle!,
     authorAvatarUrl: r.authorAvatarUrl ?? null,
-    authorIsTipstar: Boolean(r.authorIsTipstar),
+    authorIsTipster: Boolean(r.authorIsTipster),
     roleBadge: r.roleBadge,
     record: r.record,
     clv: r.clv,

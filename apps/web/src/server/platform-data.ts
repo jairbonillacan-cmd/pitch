@@ -238,7 +238,7 @@ async function resolvePublicWeeklyPick(
   const upcomingGames = fullDataset.games.filter((g) => g.status !== "FT");
   for (const g of upcomingGames) {
     const openWeekly = g.picks.find(
-      (p) => Boolean(p.isTipstarWeeklyOpen) && p.tipstarSlug?.toLowerCase() === clean,
+      (p) => Boolean(p.isTipsterWeeklyOpen) && p.tipsterSlug?.toLowerCase() === clean,
     );
     if (openWeekly) {
       return { unlockedPickId: openWeekly.id, gameId: g.id, slug: clean };
@@ -269,21 +269,21 @@ async function resolvePublicWeeklyPick(
  * públicos autorizados (nunca IDs directos de picks pagados).
  */
 export async function loadPublicPlatformState(
-  publicTipstarSlugOrPickId?: string,
+  publicTipsterSlugOrPickId?: string,
 ): Promise<LoadedPlatformState> {
   const fullDataset = buildServerRawPlatformDataset();
   const access = await getViewerAccess();
   const hasActiveSession = access.fullAccess;
-  const resolvedWeekly = publicTipstarSlugOrPickId
-    ? await resolvePublicWeeklyPick(fullDataset, publicTipstarSlugOrPickId)
+  const resolvedWeekly = publicTipsterSlugOrPickId
+    ? await resolvePublicWeeklyPick(fullDataset, publicTipsterSlugOrPickId)
     : null;
-  const publicPickResolved = publicTipstarSlugOrPickId ? resolvedWeekly !== null : undefined;
+  const publicPickResolved = publicTipsterSlugOrPickId ? resolvedWeekly !== null : undefined;
 
   if (hasActiveSession) {
-    if (publicTipstarSlugOrPickId && !resolvedWeekly) {
+    if (publicTipsterSlugOrPickId && !resolvedWeekly) {
       return {
         dataset: { ...withoutGameDetail(redactDatasetForVisitor(fullDataset)), leagues: [], games: [] },
-        initialRole: access.isAdmin ? "admin" : access.isTipstar ? "tipstar" : "member",
+        initialRole: access.isAdmin ? "admin" : access.isTipster ? "tipster" : "member",
         hasActiveSession: true,
         allowRoleSimulation: previewToolsEnabled(access.isAdmin),
         accountsEnabled: accountsEnabled(),
@@ -303,7 +303,7 @@ export async function loadPublicPlatformState(
               ...g,
               picks: g.picks.map((p) =>
                 p.id === resolvedWeekly.unlockedPickId
-                  ? { ...p, isTipstarWeeklyOpen: true, tipstarSlug: resolvedWeekly.slug }
+                  ? { ...p, isTipsterWeeklyOpen: true, tipsterSlug: resolvedWeekly.slug }
                   : p,
               ),
             })),
@@ -311,7 +311,7 @@ export async function loadPublicPlatformState(
       : baseMemberDataset;
     return {
       dataset: memberDataset,
-      initialRole: access.isAdmin ? "admin" : access.isTipstar ? "tipstar" : "member",
+      initialRole: access.isAdmin ? "admin" : access.isTipster ? "tipster" : "member",
       hasActiveSession: true,
       allowRoleSimulation: previewToolsEnabled(access.isAdmin),
       accountsEnabled: accountsEnabled(),
@@ -329,7 +329,7 @@ export async function loadPublicPlatformState(
   }
 
   const redacted = withoutGameDetail(redactDatasetForVisitor(fullDataset, extraUnlocked, extraSlugs));
-  const scopedDataset = publicTipstarSlugOrPickId
+  const scopedDataset = publicTipsterSlugOrPickId
     ? {
         ...redacted,
         leagues: [],
@@ -387,8 +387,8 @@ export async function loadClubPlatformState(
   const resolvedRole: ViewerRole = accountsEnabled()
     ? access.isAdmin
       ? "admin"
-      : access.isTipstar
-        ? "tipstar"
+      : access.isTipster
+        ? "tipster"
         : "member"
     : preferredRole;
 

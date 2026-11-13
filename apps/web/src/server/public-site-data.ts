@@ -62,7 +62,7 @@ export async function loadLandingViewProps(): Promise<{
   const parlayDemo = buildParlayDemoData(dataset.games);
   const featuredPick = buildFeaturedCommunityPick(
     dataset.games,
-    dataset.tipstarWeeklyPickId,
+    dataset.tipsterWeeklyPickId,
   );
 
   return {
@@ -107,7 +107,7 @@ export async function loadComunidadViewProps(): Promise<{
   return {
     featuredPick: buildFeaturedCommunityPick(
       dataset.games,
-      dataset.tipstarWeeklyPickId,
+      dataset.tipsterWeeklyPickId,
     ),
   };
 }
