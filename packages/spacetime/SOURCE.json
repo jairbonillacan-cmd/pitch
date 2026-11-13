@@ -86,6 +86,18 @@
     {
       "file": "tests/service_gate.test.ts",
       "reason": "solo verificable en prediction-lab (Python, services/models o data/ledger)"
+    },
+    {
+      "file": "tests/gbm.test.ts",
+      "reason": "límite en milisegundos: depende de la máquina y de la carga; se mide en prediction-lab"
+    },
+    {
+      "file": "tests/montecarlo.test.ts",
+      "reason": "límite en milisegundos: depende de la máquina y de la carga; se mide en prediction-lab"
+    },
+    {
+      "file": "tests/multisport_and_v3.test.ts",
+      "reason": "límite en milisegundos: depende de la máquina y de la carga; se mide en prediction-lab"
     }
   ]
 }

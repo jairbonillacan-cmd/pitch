@@ -49,15 +49,23 @@ jobs:
 
       # SEC-10: En corridas automáticas solo se sincronizan artefactos JSON validados
       # (`--data-only`), nunca código ejecutable `.ts` sin revisión humana en PR.
-      - name: Sincronizar matriz JSON de Spacetime v3.0 desde prediction-lab
-        continue-on-error: true
+      # Si algo falla, se descartan los datos nuevos y queda un aviso visible en el resumen de
+      # Actions (antes `continue-on-error` lo ocultaba: P0-01 de la auditoría 2026-11-13).
+      - name: Sincronizar matriz JSON de Spacetime v3.2 desde prediction-lab
         run: |
-          git fetch --depth=1 origin prediction-lab:refs/remotes/origin/prediction-lab
-          node packages/spacetime/scripts/sync-from-prediction-lab.mjs --data-only
-          if ! pnpm --filter @pitchlab/spacetime test; then
-            echo "Las pruebas de Spacetime fallaron con los datos nuevos; se descartan."
+          discard() {
+            echo "::warning title=Spacetime sin sincronizar::$1 Se conservan los datos anteriores del motor."
             git checkout -- packages/spacetime/data
             git clean -fd packages/spacetime/data
+          }
+          if ! git fetch --depth=1 origin prediction-lab:refs/remotes/origin/prediction-lab; then
+            discard "No se pudo traer prediction-lab."; exit 0
+          fi
+          if ! node packages/spacetime/scripts/sync-from-prediction-lab.mjs --data-only; then
+            discard "El script de sincronización falló."; exit 0
+          fi
+          if ! pnpm --filter @pitchlab/spacetime test; then
+            discard "Las pruebas de Spacetime fallaron con los datos nuevos."; exit 0
           fi
 
       # FD-20: volumen por resultado en mercados de predicción (API pública, sin clave).
@@ -73,7 +81,7 @@ jobs:
           if git diff --staged --quiet; then
             echo "Sin cambios en snapshots."
           else
-            git commit -m "datos(snapshots): actualizar corte automático pre-MVP"
+            git commit -m "datos(snapshots): actualizar corte automático pre-MVP y Spacetime v3.2"
             git push
           fi
 

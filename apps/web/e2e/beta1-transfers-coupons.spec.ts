@@ -1,5 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
-import { expect, test, type Page } from "@playwright/test";
+import type { Page } from "@playwright/test";
+import { expect, test } from "./fixtures";
 
 const FORBIDDEN_BETA1_COPY: ReadonlyArray<{ label: string; pattern: RegExp }> = [
   { label: "tipstar", pattern: /\btipstar\b/i },
@@ -105,6 +106,8 @@ test.describe("Beta 1.0 · /canjear, /precio, Mi cuenta SPEI, cero 401 con PIN y
   test("club con PIN beta: /app, /app/canjear, /app/account (Plan, Prefs, CFDI) y /app/tipster sin 401 ni overflow", async ({
     page,
   }, testInfo) => {
+    // Recorre 4 páginas del Club con Axe en oscuro y claro: 60 s no alcanzan con la página real.
+    test.setTimeout(120_000);
     const width = testInfo.project.name === "mobile" ? 390 : 1440;
     await page.setViewportSize({ width, height: 900 });
 

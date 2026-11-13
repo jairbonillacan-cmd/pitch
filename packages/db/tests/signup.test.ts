@@ -14,6 +14,8 @@ import {
   setMemberAvatarUrl,
   updateMemberProfile,
   suggestHandle,
+  tipsterAttributions,
+  tipsterProfiles,
   referralGrants,
   signupCompleted,
   users,
@@ -130,6 +132,25 @@ describe("registro paso 2", () => {
     await updateMemberProfile(db, account.id, { displayName: "Nombre editado" });
     await completeSignup(db, input);
     expect((await memberProfile(db, account.id))?.displayName).toBe("Nombre editado");
+  });
+
+  it("un código de tipster activo deja la atribución para su comisión (P0-05)", async () => {
+    const tipster = await user("tipster@example.com", "SOCIO-TT0001");
+    await db.insert(tipsterProfiles).values({
+      userId: tipster.id,
+      handle: "sofia_nfl",
+      displayName: "Sofía",
+      specialty: "NFL",
+      promoCode: "SOFIA5",
+      defaultWeeklySlug: "sofia-sem",
+    });
+    const friend = await user("fan@example.com", "SOCIO-FA0001");
+    expect(await completeSignup(db, base(friend.id, { referralCode: "sofia5" }))).toMatchObject({ referral: "registrado" });
+    const rows = await db.select().from(tipsterAttributions);
+    expect(rows).toHaveLength(1);
+    expect(rows[0]).toMatchObject({ tipsterUserId: tipster.id, referredUserId: friend.id, promoCodeUsed: "SOFIA5", status: "trial_5d" });
+    // El tipster no se atribuye a sí mismo.
+    expect(await completeSignup(db, base(tipster.id, { referralCode: "SOFIA5" }))).toMatchObject({ referral: "ninguno" });
   });
 
   it("registra al anfitrión del código, nunca a uno mismo", async () => {

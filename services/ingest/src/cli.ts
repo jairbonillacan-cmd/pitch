@@ -27,6 +27,32 @@ import {
 import { mergeFootballDataIntoSeason } from "./adapters/football-data-merge.js";
 import { fetchEspnLigaMxSeason, normalizeEspnLigaMx } from "./adapters/espn-liga-mx-schedule.js";
 import type { NormalizedOpenFootballSeason } from "./adapters/openfootball.js";
+import { espnEventsToFootballData, fetchEspnSoccerEvents } from "./adapters/espn-soccer-results.js";
+
+/**
+ * Respaldo sin clave: resultados de ESPN fusionados como si vinieran de football-data.org.
+ * Sin esto, la jornada pasada se quedaba «por jugar» hasta que openfootball cargara marcadores.
+ */
+async function withEspnResults(
+  league: keyof typeof FOOTBALL_DATA_COMPETITIONS,
+  season: NormalizedOpenFootballSeason,
+  referenceDate: string,
+  cacheDir: string,
+): Promise<{ season: NormalizedOpenFootballSeason; source: string }> {
+  try {
+    const events = await fetchEspnSoccerEvents({ league, cacheDir, referenceDate });
+    const merged = mergeFootballDataIntoSeason(season, espnEventsToFootballData(events, season), { referenceDate });
+    console.log(
+      `[snapshot] ${league}: ${merged.report.matched} partidos emparejados con ESPN, ${merged.report.updatedResults} resultados nuevos; jornada activa ${merged.season.activeMatchday}`,
+    );
+    return { season: merged.season, source: "openfootball+espn" };
+  } catch (err) {
+    console.warn(
+      `[snapshot] ${league}: ESPN no disponible (${err instanceof Error ? err.message : String(err)}); se usa solo openfootball.`,
+    );
+    return { season, source: "openfootball" };
+  }
+}
 
 /**
  * Resultados al día para una liga de openfootball: si hay clave de football-data.org se
@@ -39,7 +65,7 @@ async function withFootballData(
   cacheDir: string,
 ): Promise<{ season: NormalizedOpenFootballSeason; source: string }> {
   const apiKey = process.env.FOOTBALL_DATA_API_KEY?.trim();
-  if (!apiKey) return { season, source: "openfootball" };
+  if (!apiKey) return withEspnResults(league, season, referenceDate, cacheDir);
   try {
     const raw = await fetchFootballDataCompetition({
       apiKey,
@@ -53,9 +79,9 @@ async function withFootballData(
     return { season: merged.season, source: "openfootball+football-data" };
   } catch (err) {
     console.warn(
-      `[snapshot] ${league}: football-data.org no disponible (${err instanceof Error ? err.message : String(err)}); se usa solo openfootball.`,
+      `[snapshot] ${league}: football-data.org no disponible (${err instanceof Error ? err.message : String(err)}); se intenta ESPN.`,
     );
-    return { season, source: "openfootball" };
+    return withEspnResults(league, season, referenceDate, cacheDir);
   }
 }
 import type { GameDTO } from "@pitchlab/contracts";
@@ -150,9 +176,14 @@ async function main() {
         }),
         { referenceDate: dateStr },
       )
-    : normalizeOpenFootballPremierLeague(await fetchOpenFootballPl(), {
-        referenceDate: dateStr,
-      });
+    : (
+        await withEspnResults(
+          "premier-league",
+          normalizeOpenFootballPremierLeague(await fetchOpenFootballPl(), { referenceDate: dateStr }),
+          dateStr,
+          CACHE_DIR,
+        )
+      ).season;
   const priorPl = loadPriorMatches("premier-league", dateStr);
   const plSnapshot = buildFootballSnapshot({
     league: "premier-league",

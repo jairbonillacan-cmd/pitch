@@ -570,6 +570,11 @@ export function PlatformProvider({
 }): React.JSX.Element {
   const [viewerRole, setViewerRoleState] = useState<ViewerRole>(initialRole);
   const [viewerIdentity, setViewerIdentity] = useState(initialViewerIdentity);
+  // Marca de hidratación: las pruebas de navegador esperan a que React tenga los controles
+  // conectados antes de hacer clic (un clic sobre el HTML del servidor se pierde).
+  useEffect(() => {
+    document.documentElement.dataset.plHydrated = "1";
+  }, []);
   const effectiveViewerVia: ViewerVia = viewerVia ?? (viewerIdentity ? "account" : "none");
   const hasAccountSession = Boolean(viewerIdentity);
   const hasAccountSessionAuth = Boolean(accountsEnabled && effectiveViewerVia === "account");

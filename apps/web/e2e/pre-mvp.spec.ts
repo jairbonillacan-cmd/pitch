@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "./fixtures";
 import AxeBuilder from "@axe-core/playwright";
 import path from "node:path";
 import fs from "node:fs";
@@ -390,7 +390,8 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
   test("3. Valid PIN unlock, League Hub, Match Studio (5 picks + Cortex IA + Dinero), Bundesliga & Logout", async ({
     page,
   }, testInfo) => {
-    test.setTimeout(150_000);
+    // Recorre 9 pantallas del Club; con la máquina cargada el arranque del navegador llega a 2 min.
+    test.setTimeout(300_000);
     const uniqueIp = `192.0.${Math.floor(Math.random() * 200) + 10}.${Math.floor(Math.random() * 200) + 10}`;
     await page.setExtraHTTPHeaders({ "x-forwarded-for": uniqueIp });
 

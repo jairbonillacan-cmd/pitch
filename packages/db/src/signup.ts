@@ -5,7 +5,7 @@
 import { createHash } from "node:crypto";
 import { and, countDistinct, eq, gte, isNotNull, ne, sql } from "drizzle-orm";
 import { grantDays, type Db } from "./billing";
-import { referralGrants, trialFingerprints, users } from "./schema";
+import { referralGrants, tipsterAttributions, tipsterProfiles, trialFingerprints, users } from "./schema";
 
 export const TRIAL_M1_DAYS = 7;
 export const MIN_SIGNUP_AGE = 18;
@@ -332,12 +332,32 @@ async function attributeReferral(
   const code = (rawCode ?? "").trim().toUpperCase();
   if (!/^[A-Z0-9-]{4,24}$/.test(code) || code === ownCode) return "ninguno";
   const [host] = await db.select({ id: users.id }).from(users).where(eq(users.referralCode, code));
-  if (!host || host.id === userId) return "ninguno";
+  if (!host) return attributeTipster(db, userId, code);
+  if (host.id === userId) return "ninguno";
   const inserted = await db
     .insert(referralGrants)
     .values({ referrerUserId: host.id, referredUserId: userId, referralCodeUsed: code, status: "trial_started" })
     .onConflictDoNothing({ target: referralGrants.referredUserId })
     .returning({ id: referralGrants.id });
+  return inserted.length ? "registrado" : "ninguno";
+}
+
+/**
+ * Código promocional de un tipster activo: deja la atribución para que sus pagos generen
+ * comisión (`applyInvoicePaidEffects`). El invitado conserva la prueba normal de 7 días, que
+ * ya cubre los 5 del código. Antes estos códigos se ignoraban (P0-05, auditoría 2026-11-13).
+ */
+async function attributeTipster(db: Db, userId: string, code: string): Promise<"registrado" | "ninguno"> {
+  const [tipster] = await db
+    .select({ userId: tipsterProfiles.userId, isActive: tipsterProfiles.isActive })
+    .from(tipsterProfiles)
+    .where(eq(sql`upper(${tipsterProfiles.promoCode})`, code));
+  if (!tipster || !tipster.isActive || tipster.userId === userId) return "ninguno";
+  const inserted = await db
+    .insert(tipsterAttributions)
+    .values({ tipsterUserId: tipster.userId, referredUserId: userId, promoCodeUsed: code, status: "trial_5d" })
+    .onConflictDoNothing({ target: tipsterAttributions.referredUserId })
+    .returning({ id: tipsterAttributions.id });
   return inserted.length ? "registrado" : "ninguno";
 }
 
