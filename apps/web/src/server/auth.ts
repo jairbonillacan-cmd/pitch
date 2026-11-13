@@ -212,9 +212,6 @@ export function createAuth(options: {
               refreshTokenExpiresAt: null,
             },
           }),
-          after: async (account) => {
-            await scrubOAuthAccountTokens(options.db, account.id);
-          },
         },
         update: {
           before: async (account) => ({
@@ -227,9 +224,6 @@ export function createAuth(options: {
               refreshTokenExpiresAt: null,
             },
           }),
-          after: async (account) => {
-            await scrubOAuthAccountTokens(options.db, account.id);
-          },
         },
       },
     },
