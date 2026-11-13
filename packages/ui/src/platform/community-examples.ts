@@ -612,3 +612,9 @@ export function attachExamplePostPicks(
     };
   });
 }
+
+/**
+ * Alias de la beta con PIN que también apuntan a tu perfil (con cuenta no hay alias). Vive en
+ * este módulo plano (no "use client") para que el servidor lo use sin arrastrar la UI.
+ */
+export const OWN_PROFILE_ALIASES = ["jair", "jair_founder", "socio_pl"] as const;

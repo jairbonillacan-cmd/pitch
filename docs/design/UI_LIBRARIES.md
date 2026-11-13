@@ -22,6 +22,8 @@ Elige en este orden y usa una sola fuente por tipo de componente dentro de una p
 1. **Componente de `@pitchlab/ui`** si ya existe (Tag, Panel, MatchCard, ProbBar, PinPad, Skeleton…): es el contrato aprobado.
 2. **HeroUI v3** para formularios y controles de entrada: TextField, NumberField, Select, ComboBox, DatePicker, Switch, Checkbox, Radio, Slider; y para Tabs, Modal, Drawer, Popover, Tooltip, Toast, Pagination y Accordion.
 3. **Astryx** para la estructura y los patrones de app: AppShell, BottomSheet, CommandPalette, SegmentedControl, Banner, Carousel, HoverCard, tablas y páginas de detalle. Sus «Best Practices» (`pnpm --filter @pitchlab/ui astryx component <Nombre>`) aplican siempre que no contradigan la marca.
+   - **Peso (P0-08, 2026-11-13):** Astryx agrega ~110 kB comprimidos a cada página que lo use. No lo metas en el shell ni en páginas públicas por un control chico: para selectores de 2–5 opciones usa el `seg-well` de la casa (`role="radiogroup"`), como `OddsFormatSegment`. Úsalo donde su patrón ahorre trabajo real y la página ya lo justifique.
+   - **Importaciones:** las páginas importan cada vista por su subruta (`@pitchlab/ui/landing`, `/home`, `/profile`, `/auth`, `/canjear`…), nunca desde la raíz `@pitchlab/ui` ni `@pitchlab/ui/platform` en código de servidor: el barril mete toda la librería en el JavaScript de la página.
 4. **shadcn/ui** para lo ya construido con él (controles públicos de la landing y el login) y para lo que las otras dos no cubren.
 5. **Componente propio** solo cuando ninguna de las anteriores sirve; nace en `packages/ui` con sus stories.
 

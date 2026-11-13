@@ -3,10 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "sideEffects": false,
   "exports": {
     ".": "./src/index.ts",
     "./platform": "./src/platform/index.ts",
-    "./account": "./src/platform/club/AccountReferralsClubView.tsx"
+    "./account": "./src/platform/club/AccountReferralsClubView.tsx",
+    "./landing": "./src/platform/public/LandingSurface.tsx",
+    "./public-sections": "./src/platform/public/PublicSiteSections.tsx",
+    "./auth": "./src/platform/public/AuthAndOnboardingSurfaces.tsx",
+    "./login-preview": "./src/platform/public/LoginPreviewPanel.tsx",
+    "./signup": "./src/platform/public/SignupSurfaceV4.tsx",
+    "./signup-preview": "./src/platform/public/SignupPreviewPanel.tsx",
+    "./home": "./src/platform/club/home/HomeClubView.tsx",
+    "./profile": "./src/platform/club/AnalystProfileClubView.tsx",
+    "./loading": "./src/dashboard-loading.tsx",
+    "./expired-pass": "./src/platform/components/ExpiredPassGate.tsx",
+    "./access-guard": "./src/platform/access-guard.ts",
+    "./community-examples": "./src/platform/community-examples.ts",
+    "./canjear": "./src/platform/components/CanjearCouponView.tsx"
   },
   "scripts": {
     "build": "tsc --noEmit",

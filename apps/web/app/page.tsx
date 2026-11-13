@@ -1,7 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
 import { hasPublicSessionCookie } from "../src/server/public-session";
-import { LandingSurface } from "@pitchlab/ui";
+import { LandingSurface } from "@pitchlab/ui/landing";
 import { loadLandingViewProps } from "../src/server/public-site-data";
 
 export const dynamic = "force-dynamic";

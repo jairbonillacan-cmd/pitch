@@ -6,7 +6,7 @@ import {
   CLUB_PROFILE_HANDLE_HEADER,
   CLUB_REQUEST_PATH_HEADER,
 } from "../../src/profile-path";
-import { ExpiredPassGate } from "@pitchlab/ui";
+import { ExpiredPassGate } from "@pitchlab/ui/expired-pass";
 import { ClubShellBridge } from "../../src/client/club-shell-bridge";
 import { PlatformClientBridge } from "../../src/client/platform-client-bridge";
 import { sanitizeNextPath } from "../../src/server/beta-auth";

@@ -1,15 +1,17 @@
 import { asLeagueId, type LeagueId } from "@pitchlab/contracts";
+// Importación por archivo: el barril `@pitchlab/ui/platform` mete toda la librería (Club,
+// cuenta, tarjeta 3D) en el JavaScript de las páginas públicas.
+import { redactDatasetForVisitor } from "@pitchlab/ui/access-guard";
 import {
   buildFeaturedCommunityPick,
   buildFinishedResultItems,
   buildHeroLeagueCards,
   buildParlayDemoData,
-  redactDatasetForVisitor,
   type LandingFeaturedCommunityPick,
   type LandingFinishedResultItem,
   type LandingHeroLeagueCard,
   type LandingParlayDemoData,
-} from "@pitchlab/ui/platform";
+} from "@pitchlab/ui/public-sections";
 import { buildServerRawPlatformDataset, loadFinishedGames } from "./platform-data";
 
 export type { LandingFeaturedCommunityPick };

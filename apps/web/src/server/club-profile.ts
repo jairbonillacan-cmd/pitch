@@ -1,5 +1,5 @@
 import { cache } from "react";
-import { getExampleAnalystSpec, OWN_PROFILE_ALIASES } from "@pitchlab/ui";
+import { getExampleAnalystSpec, OWN_PROFILE_ALIASES } from "@pitchlab/ui/community-examples";
 import { normalizeClubHandle } from "../profile-path";
 import { loadPublicMemberProfile } from "./profile";
 

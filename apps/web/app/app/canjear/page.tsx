@@ -1,7 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
 import { createDb, normalizeCouponCode, validateCouponPreview, type Db } from "@pitchlab/db";
-import { CanjearCouponView, type CouponPreviewState } from "@pitchlab/ui";
+import { CanjearCouponView, type CouponPreviewState } from "@pitchlab/ui/canjear";
 import { getViewerAccountUserId } from "../../../src/server/viewer-access";
 
 export const dynamic = "force-dynamic";

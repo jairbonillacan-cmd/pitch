@@ -2,7 +2,7 @@ import React from "react";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { createDb, normalizeCouponCode, validateCouponPreview, type Db } from "@pitchlab/db";
-import { CanjearCouponView, type CouponPreviewState } from "@pitchlab/ui";
+import { CanjearCouponView, type CouponPreviewState } from "@pitchlab/ui/canjear";
 import { PlatformClientBridge } from "../../src/client/platform-client-bridge";
 import { loadPublicPlatformState } from "../../src/server/platform-data";
 import { getViewerAccess } from "../../src/server/viewer-access";

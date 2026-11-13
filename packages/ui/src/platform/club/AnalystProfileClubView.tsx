@@ -2,7 +2,24 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import type { LeagueId, PublicMemberProfile } from "@pitchlab/contracts";
-import { EditProfileDialog, XBrandMark, type EditableProfile } from "./EditProfileDialog";
+import type { EditableProfile } from "./EditProfileDialog";
+
+/** Logotipo de X (inline para no cargar el editor de perfil solo por el ícono). */
+function XBrandMark(): React.JSX.Element {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+      <path d="M18.9 1.2h3.7l-8.2 9.3L24 22.8h-7.5l-5.9-7.7-6.7 7.7H.2l8.8-10L0 1.2h7.7l5.3 7 5.9-7Zm-1.3 19.4h2L6.6 3.3H4.4l13.2 17.3Z" />
+    </svg>
+  );
+}
+
+/**
+ * El editor (Modal/Drawer de HeroUI) se carga solo en tu propio perfil: así las visitas a
+ * perfiles ajenos no descargan ese código (P0-08).
+ */
+const EditProfileDialog = React.lazy(() =>
+  import("./EditProfileDialog").then((m) => ({ default: m.EditProfileDialog })),
+);
 import { LeagueBadge, TeamBadge } from "../../sports";
 import { formatOddsValue } from "../access-guard";
 import {
@@ -462,6 +479,13 @@ function ProfileContent({
                     Perfil público
                   </a>
                   {onEdit ? (
+                    <React.Suspense
+                      fallback={
+                        <button type="button" className="pl-prof-btn pl-prof-btn--primary" disabled>
+                          Editar perfil
+                        </button>
+                      }
+                    >
                     <EditProfileDialog
                       profile={{
                         displayName: profile.name,
@@ -474,6 +498,7 @@ function ProfileContent({
                       avatarEnabled={avatarEnabled}
                       xEnabled={xEnabled}
                     />
+                    </React.Suspense>
                   ) : (
                     <a href="/app/account" className="pl-prof-btn pl-prof-btn--primary" onClick={go("/app/account")}>
                       Editar perfil

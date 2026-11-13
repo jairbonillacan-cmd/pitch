@@ -9,8 +9,6 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { SegmentedControl, SegmentedControlItem } from "@astryxdesign/core/SegmentedControl";
-import { AstryxScope } from "../../astryx";
 import { BrandLogo, ThemeToggle } from "../../primitives";
 import { LeagueBadge } from "../../sports";
 import { encodeForensicTag, getSessionWatermark } from "../access-guard";
@@ -102,19 +100,51 @@ function usePersistentRailCollapsed(): [boolean, () => void] {
   return [collapsed, toggle];
 }
 
+const ODDS_FORMAT_OPTIONS: ReadonlyArray<{ value: OddsFormat; label: string }> = [
+  { value: "american", label: "Momio" },
+  { value: "decimal", label: "Decimal" },
+];
+
+/**
+ * Selector «Momio / Decimal» con el `seg-well` de la casa: grupo de radio con flechas.
+ * Antes usaba el SegmentedControl de Astryx, que agregaba ~110 kB a cada página del Club
+ * solo por este control (P0-08 de la auditoría 2026-11-13).
+ */
 export function OddsFormatSegment(): React.JSX.Element {
   const { oddsFormat, setOddsFormat } = usePlatform();
+  const refs = useRef<Array<HTMLButtonElement | null>>([]);
+  const onKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>, idx: number) => {
+    if (e.key !== "ArrowRight" && e.key !== "ArrowLeft" && e.key !== "ArrowDown" && e.key !== "ArrowUp") return;
+    e.preventDefault();
+    const step = e.key === "ArrowRight" || e.key === "ArrowDown" ? 1 : -1;
+    const next = (idx + step + ODDS_FORMAT_OPTIONS.length) % ODDS_FORMAT_OPTIONS.length;
+    setOddsFormat(ODDS_FORMAT_OPTIONS[next]!.value);
+    refs.current[next]?.focus();
+  };
   return (
-    <AstryxScope>
-      <SegmentedControl
-        label="Formato de momio"
-        value={oddsFormat}
-        onChange={(val) => setOddsFormat(val as OddsFormat)}
-      >
-        <SegmentedControlItem value="american" label="Momio" />
-        <SegmentedControlItem value="decimal" label="Decimal" />
-      </SegmentedControl>
-    </AstryxScope>
+    <div className="seg-well" role="radiogroup" aria-label="Formato de momio">
+      {ODDS_FORMAT_OPTIONS.map((o, idx) => {
+        const on = oddsFormat === o.value;
+        return (
+          <button
+            key={o.value}
+            ref={(el) => {
+              refs.current[idx] = el;
+            }}
+            type="button"
+            role="radio"
+            aria-checked={on}
+            data-active={on}
+            tabIndex={on ? 0 : -1}
+            className="seg-btn text-xs"
+            onClick={() => setOddsFormat(o.value)}
+            onKeyDown={(e) => onKeyDown(e, idx)}
+          >
+            {o.label}
+          </button>
+        );
+      })}
+    </div>
   );
 }
 

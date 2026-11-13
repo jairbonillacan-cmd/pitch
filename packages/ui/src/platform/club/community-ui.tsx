@@ -2,7 +2,12 @@
 
 import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import type { LeagueId } from "@pitchlab/contracts";
-import { exampleLeaderboardRows, getExampleAnalystSpec, getExampleGameMeta } from "../community-examples";
+import {
+  exampleLeaderboardRows,
+  getExampleAnalystSpec,
+  getExampleGameMeta,
+  OWN_PROFILE_ALIASES,
+} from "../community-examples";
 import { MaestroIcon } from "../components/MaestroPrimitives";
 import { TopLayerModalDialog } from "../components/PlatformOverlays";
 import { usePlatform, type ViewerIdentity } from "../platform-provider";
@@ -56,7 +61,7 @@ export function ownIdentityFor(
 }
 
 /** Alias de la beta con PIN que también apuntan a tu perfil (con cuenta no hay alias). */
-export const OWN_PROFILE_ALIASES = ["jair", "jair_founder", "socio_pl"] as const;
+export { OWN_PROFILE_ALIASES };
 
 /** ¿Este @usuario de la URL es tu perfil? */
 export function isOwnProfileHandle(handle: string, own: OwnIdentity | null, hasAccount: boolean): boolean {

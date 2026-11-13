@@ -1,6 +1,6 @@
 import React from "react";
 import { notFound } from "next/navigation";
-import { AnalystProfileClubView } from "@pitchlab/ui";
+import { AnalystProfileClubView } from "@pitchlab/ui/profile";
 import { normalizeClubHandle } from "../../../../src/profile-path";
 import { isAvatarStorageEnabled } from "../../../../src/server/avatar-storage";
 import { loadClubProfile } from "../../../../src/server/club-profile";

@@ -12,15 +12,14 @@ export const test = base.extend({
     const goto = page.goto.bind(page);
     page.goto = (async (url: string, options?: Parameters<typeof goto>[1]) => {
       const res = await goto(url, options);
-      await page
-        .waitForFunction(
-          () =>
-            document.documentElement.dataset.plHydrated === "1" ||
-            !document.querySelector("[data-game-card], #main, .pl-stage"),
-          null,
-          { timeout: 30_000 },
-        )
-        .catch(() => undefined);
+      // Solo el Club (`/app…`) monta el PlatformProvider; las páginas públicas no llevan la
+      // marca y no deben esperar (antes cada navegación pública perdía 30 s).
+      const path = new URL(page.url()).pathname;
+      if (path === "/app" || path.startsWith("/app/")) {
+        await page
+          .waitForFunction(() => document.documentElement.dataset.plHydrated === "1", null, { timeout: 30_000 })
+          .catch(() => undefined);
+      }
       return res;
     }) as typeof page.goto;
     await use(page);

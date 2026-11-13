@@ -1,7 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
 import { hasPublicSessionCookie } from "../../src/server/public-session";
-import { ComunidadPageSurface } from "@pitchlab/ui";
+import { ComunidadPageSurface } from "@pitchlab/ui/public-sections";
 import { loadComunidadViewProps } from "../../src/server/public-site-data";
 
 export const dynamic = "force-dynamic";

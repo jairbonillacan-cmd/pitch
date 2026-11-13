@@ -2,7 +2,7 @@
 
 import React, { createContext, useCallback, useContext, useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { DashboardLoading } from "@pitchlab/ui";
+import { DashboardLoading } from "@pitchlab/ui/loading";
 
 const DashboardEntryContext = createContext<((href: string) => void) | null>(null);
 const ENTRY_REVEAL_MS = 680;
