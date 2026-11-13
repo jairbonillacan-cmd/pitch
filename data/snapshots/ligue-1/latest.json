@@ -4,7 +4,7 @@
   "season": "ligue-1-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 10",
-  "updatedAt": "2026-11-12T21:47:48.845Z",
+  "updatedAt": "2026-11-13T05:56:08.668Z",
   "source": "openfootball",
   "provenance": "derived",
   "isDemo": false,
@@ -17,8 +17,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 1.25,
       "gamesPlayed": 4,
-      "adjustedFor": 1.05949567401605,
-      "adjustedAgainst": 1.4018474689261857
+      "adjustedFor": 1.0662440880732797,
+      "adjustedAgainst": 1.3832054377064378
     },
     "ligue-1.aj-auxerre": {
       "teamId": "ligue-1.aj-auxerre",
@@ -28,8 +28,8 @@
       "forPerGame": 1.4,
       "againstPerGame": 2.4,
       "gamesPlayed": 5,
-      "adjustedFor": 1.3283439291564179,
-      "adjustedAgainst": 1.6265283726487523
+      "adjustedFor": 1.3405593230268638,
+      "adjustedAgainst": 1.6365453125470477
     },
     "ligue-1.stade-brestois": {
       "teamId": "ligue-1.stade-brestois",
@@ -39,8 +39,8 @@
       "forPerGame": 1.4,
       "againstPerGame": 1.6,
       "gamesPlayed": 5,
-      "adjustedFor": 1.3692829338233874,
-      "adjustedAgainst": 1.5605468811688947
+      "adjustedFor": 1.3666639033540218,
+      "adjustedAgainst": 1.5623012553436402
     },
     "ligue-1.le-havre": {
       "teamId": "ligue-1.le-havre",
@@ -50,8 +50,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.75,
       "gamesPlayed": 4,
-      "adjustedFor": 1.2201887921770391,
-      "adjustedAgainst": 1.4909848530643508
+      "adjustedFor": 1.2175113043288501,
+      "adjustedAgainst": 1.493101125780966
     },
     "ligue-1.le-mans": {
       "teamId": "ligue-1.le-mans",
@@ -61,8 +61,8 @@
       "forPerGame": 1.8,
       "againstPerGame": 1.8,
       "gamesPlayed": 5,
-      "adjustedFor": 1.5794540362584495,
-      "adjustedAgainst": 1.5433813448994629
+      "adjustedFor": 1.5763897164717526,
+      "adjustedAgainst": 1.545702775809117
     },
     "ligue-1.racing-lens": {
       "teamId": "ligue-1.racing-lens",
@@ -72,8 +72,8 @@
       "forPerGame": 1.8,
       "againstPerGame": 1.8,
       "gamesPlayed": 5,
-      "adjustedFor": 1.7494300912507588,
-      "adjustedAgainst": 1.2574198802123966
+      "adjustedFor": 1.7445182424570673,
+      "adjustedAgainst": 1.2580884373400305
     },
     "ligue-1.lorient": {
       "teamId": "ligue-1.lorient",
@@ -83,8 +83,8 @@
       "forPerGame": 1.25,
       "againstPerGame": 1.5,
       "gamesPlayed": 4,
-      "adjustedFor": 1.3547241107708028,
-      "adjustedAgainst": 1.4016182974371074
+      "adjustedFor": 1.351707554097954,
+      "adjustedAgainst": 1.4043699434039738
     },
     "ligue-1.lille-osc": {
       "teamId": "ligue-1.lille-osc",
@@ -94,8 +94,8 @@
       "forPerGame": 1.6,
       "againstPerGame": 0.8,
       "gamesPlayed": 5,
-      "adjustedFor": 1.4892440716787871,
-      "adjustedAgainst": 1.0542493655544711
+      "adjustedFor": 1.4875719954183748,
+      "adjustedAgainst": 1.055635089238366
     },
     "ligue-1.olympique-lyonnais": {
       "teamId": "ligue-1.olympique-lyonnais",
@@ -105,8 +105,8 @@
       "forPerGame": 2.5,
       "againstPerGame": 0.5,
       "gamesPlayed": 4,
-      "adjustedFor": 1.7962354966382197,
-      "adjustedAgainst": 1.1562857977172045
+      "adjustedFor": 1.7914996995310548,
+      "adjustedAgainst": 1.1596372120886052
     },
     "ligue-1.olympique-marseille": {
       "teamId": "ligue-1.olympique-marseille",
@@ -116,8 +116,8 @@
       "forPerGame": 1.4,
       "againstPerGame": 1.6,
       "gamesPlayed": 5,
-      "adjustedFor": 1.6495691399162002,
-      "adjustedAgainst": 1.3362596337110928
+      "adjustedFor": 1.644688162275085,
+      "adjustedAgainst": 1.3457246107114262
     },
     "ligue-1.monaco": {
       "teamId": "ligue-1.monaco",
@@ -127,8 +127,8 @@
       "forPerGame": 1.6,
       "againstPerGame": 0.6,
       "gamesPlayed": 5,
-      "adjustedFor": 1.6931746364575093,
-      "adjustedAgainst": 1.207766301028696
+      "adjustedFor": 1.688533571621206,
+      "adjustedAgainst": 1.2090899990150925
     },
     "ligue-1.ogc-nice": {
       "teamId": "ligue-1.ogc-nice",
@@ -138,8 +138,8 @@
       "forPerGame": 0.75,
       "againstPerGame": 1.5,
       "gamesPlayed": 4,
-      "adjustedFor": 1.194454173014422,
-      "adjustedAgainst": 1.5676144595371329
+      "adjustedFor": 1.191588328848557,
+      "adjustedAgainst": 1.568349676563454
     },
     "ligue-1.paris": {
       "teamId": "ligue-1.paris",
@@ -149,8 +149,8 @@
       "forPerGame": 2.6666666666666665,
       "againstPerGame": 1,
       "gamesPlayed": 3,
-      "adjustedFor": 1.70902989287397,
-      "adjustedAgainst": 1.3572882448689547
+      "adjustedFor": 1.7033721461618356,
+      "adjustedAgainst": 1.3588887251624375
     },
     "ligue-1.paris-saint-germain": {
       "teamId": "ligue-1.paris-saint-germain",
@@ -160,8 +160,8 @@
       "forPerGame": 1.6,
       "againstPerGame": 1.4,
       "gamesPlayed": 5,
-      "adjustedFor": 1.9187932716742966,
-      "adjustedAgainst": 1.0750921330066578
+      "adjustedFor": 1.9150988669451305,
+      "adjustedAgainst": 1.076681089505693
     },
     "ligue-1.stade-rennais": {
       "teamId": "ligue-1.stade-rennais",
@@ -171,8 +171,8 @@
       "forPerGame": 1.6,
       "againstPerGame": 1.8,
       "gamesPlayed": 5,
-      "adjustedFor": 1.7397555759795678,
-      "adjustedAgainst": 1.5122238268014014
+      "adjustedFor": 1.7194401150740695,
+      "adjustedAgainst": 1.5214863369236251
     },
     "ligue-1.strasbourg-alsace": {
       "teamId": "ligue-1.strasbourg-alsace",
@@ -182,8 +182,8 @@
       "forPerGame": 2,
       "againstPerGame": 2,
       "gamesPlayed": 5,
-      "adjustedFor": 1.8051354451755643,
-      "adjustedAgainst": 1.5073731514329114
+      "adjustedFor": 1.8095581231103082,
+      "adjustedAgainst": 1.520450706881709
     },
     "ligue-1.toulouse": {
       "teamId": "ligue-1.toulouse",
@@ -193,8 +193,8 @@
       "forPerGame": 1.4,
       "againstPerGame": 1.8,
       "gamesPlayed": 5,
-      "adjustedFor": 1.4870136163057297,
-      "adjustedAgainst": 1.4882012854010152
+      "adjustedFor": 1.4625553615720717,
+      "adjustedAgainst": 1.498136700154846
     },
     "ligue-1.es-troyes": {
       "teamId": "ligue-1.es-troyes",
@@ -204,8 +204,8 @@
       "forPerGame": 1,
       "againstPerGame": 2.75,
       "gamesPlayed": 4,
-      "adjustedFor": 1.266457823045647,
-      "adjustedAgainst": 1.9991247154299048
+      "adjustedFor": 1.266258225003903,
+      "adjustedAgainst": 1.99602700558773
     }
   },
   "games": [
@@ -236,7 +236,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-12T12:00:00.000Z",
+        "observedAt": "2026-11-13T12:00:00.000Z",
         "source": "openfootball"
       }
     },
@@ -267,7 +267,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-12T12:00:00.000Z",
+        "observedAt": "2026-11-13T12:00:00.000Z",
         "source": "openfootball"
       }
     },
@@ -298,7 +298,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-12T12:00:00.000Z",
+        "observedAt": "2026-11-13T12:00:00.000Z",
         "source": "openfootball"
       }
     },
@@ -329,7 +329,7 @@
       "result": {
         "home": 3,
         "away": 2,
-        "observedAt": "2026-11-12T12:00:00.000Z",
+        "observedAt": "2026-11-13T12:00:00.000Z",
         "source": "openfootball"
       }
     },
@@ -360,7 +360,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-12T12:00:00.000Z",
+        "observedAt": "2026-11-13T12:00:00.000Z",
         "source": "openfootball"
       }
     },
@@ -391,7 +391,7 @@
       "result": {
         "home": 4,
         "away": 0,
-        "observedAt": "2026-11-12T12:00:00.000Z",
+        "observedAt": "2026-11-13T12:00:00.000Z",
         "source": "openfootball"
       }
     },
@@ -422,7 +422,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-12T12:00:00.000Z",
+        "observedAt": "2026-11-13T12:00:00.000Z",
         "source": "openfootball"
       }
     },
@@ -453,7 +453,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-12T12:00:00.000Z",
+        "observedAt": "2026-11-13T12:00:00.000Z",
         "source": "openfootball"
       }
     },
@@ -484,7 +484,7 @@
       "result": {
         "home": 1,
         "away": 2,
-        "observedAt": "2026-11-12T12:00:00.000Z",
+        "observedAt": "2026-11-13T12:00:00.000Z",
         "source": "openfootball"
       }
     },

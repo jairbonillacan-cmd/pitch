@@ -4,7 +4,7 @@
   "season": "laliga-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 12",
-  "updatedAt": "2026-11-12T21:47:48.845Z",
+  "updatedAt": "2026-11-13T05:56:08.668Z",
   "source": "openfootball",
   "provenance": "derived",
   "isDemo": false,
@@ -17,8 +17,8 @@
       "forPerGame": 1.4,
       "againstPerGame": 1.2,
       "gamesPlayed": 5,
-      "adjustedFor": 1.2199619733610991,
-      "adjustedAgainst": 1.1916826220869605
+      "adjustedFor": 1.2206448417676325,
+      "adjustedAgainst": 1.1920789937808325
     },
     "laliga.atletico-madrid": {
       "teamId": "laliga.atletico-madrid",
@@ -28,8 +28,8 @@
       "forPerGame": 2.2857142857142856,
       "againstPerGame": 1,
       "gamesPlayed": 7,
-      "adjustedFor": 1.7568406658473261,
-      "adjustedAgainst": 1.1148631812610308
+      "adjustedFor": 1.7587355100363684,
+      "adjustedAgainst": 1.1153649153033318
     },
     "laliga.osasuna": {
       "teamId": "laliga.osasuna",
@@ -39,8 +39,8 @@
       "forPerGame": 1,
       "againstPerGame": 2.1666666666666665,
       "gamesPlayed": 6,
-      "adjustedFor": 1.2248884868013656,
-      "adjustedAgainst": 1.510461506638276
+      "adjustedFor": 1.2146180065072016,
+      "adjustedAgainst": 1.4986651624087157
     },
     "laliga.celta-vigo": {
       "teamId": "laliga.celta-vigo",
@@ -50,8 +50,8 @@
       "forPerGame": 1.6,
       "againstPerGame": 1.2,
       "gamesPlayed": 5,
-      "adjustedFor": 1.404136477992983,
-      "adjustedAgainst": 1.2598462052481463
+      "adjustedFor": 1.40549049277247,
+      "adjustedAgainst": 1.2604892503835448
     },
     "laliga.alaves": {
       "teamId": "laliga.alaves",
@@ -61,8 +61,8 @@
       "forPerGame": 1.8333333333333333,
       "againstPerGame": 1,
       "gamesPlayed": 6,
-      "adjustedFor": 1.288366430223323,
-      "adjustedAgainst": 1.2233218129835592
+      "adjustedFor": 1.2911750249686147,
+      "adjustedAgainst": 1.2253660211696291
     },
     "laliga.elche": {
       "teamId": "laliga.elche",
@@ -72,8 +72,8 @@
       "forPerGame": 1.5714285714285714,
       "againstPerGame": 2.4285714285714284,
       "gamesPlayed": 7,
-      "adjustedFor": 1.4247110257645397,
-      "adjustedAgainst": 1.6057545049889497
+      "adjustedFor": 1.4250631613408529,
+      "adjustedAgainst": 1.6054960784743915
     },
     "laliga.barcelona": {
       "teamId": "laliga.barcelona",
@@ -83,8 +83,8 @@
       "forPerGame": 4.428571428571429,
       "againstPerGame": 1,
       "gamesPlayed": 7,
-      "adjustedFor": 2.671576762193999,
-      "adjustedAgainst": 1.0065890014742296
+      "adjustedFor": 2.671881434830231,
+      "adjustedAgainst": 1.0145933572028156
     },
     "laliga.getafe": {
       "teamId": "laliga.getafe",
@@ -94,8 +94,8 @@
       "forPerGame": 0.5714285714285714,
       "againstPerGame": 1,
       "gamesPlayed": 7,
-      "adjustedFor": 0.8365599665693484,
-      "adjustedAgainst": 1.0359606464456612
+      "adjustedFor": 0.842106387603106,
+      "adjustedAgainst": 1.0368558029924713
     },
     "laliga.levante": {
       "teamId": "laliga.levante",
@@ -105,8 +105,8 @@
       "forPerGame": 2,
       "againstPerGame": 3,
       "gamesPlayed": 4,
-      "adjustedFor": 1.4938884581862009,
-      "adjustedAgainst": 1.6692252562948218
+      "adjustedFor": 1.494245291784491,
+      "adjustedAgainst": 1.6695091716416686
     },
     "laliga.malaga": {
       "teamId": "laliga.malaga",
@@ -116,8 +116,8 @@
       "forPerGame": 0.5,
       "againstPerGame": 2,
       "gamesPlayed": 6,
-      "adjustedFor": 0.9157606969554689,
-      "adjustedAgainst": 1.5306708204193382
+      "adjustedFor": 0.9164878084066322,
+      "adjustedAgainst": 1.5301751049594148
     },
     "laliga.racing-santander": {
       "teamId": "laliga.racing-santander",
@@ -127,8 +127,8 @@
       "forPerGame": 1.5714285714285714,
       "againstPerGame": 3,
       "gamesPlayed": 7,
-      "adjustedFor": 1.5120132802380946,
-      "adjustedAgainst": 2.111095167561063
+      "adjustedFor": 1.5113488123412482,
+      "adjustedAgainst": 2.1101132236144515
     },
     "laliga.rayo-vallecano": {
       "teamId": "laliga.rayo-vallecano",
@@ -138,8 +138,8 @@
       "forPerGame": 1.5714285714285714,
       "againstPerGame": 2.2857142857142856,
       "gamesPlayed": 7,
-      "adjustedFor": 1.3056179882938954,
-      "adjustedAgainst": 1.4381857681182841
+      "adjustedFor": 1.3066069873950683,
+      "adjustedAgainst": 1.4388757569447053
     },
     "laliga.deportivo-la-coruna": {
       "teamId": "laliga.deportivo-la-coruna",
@@ -149,8 +149,8 @@
       "forPerGame": 1.4285714285714286,
       "againstPerGame": 1.1428571428571428,
       "gamesPlayed": 7,
-      "adjustedFor": 1.3442206700419048,
-      "adjustedAgainst": 1.2012885105894597
+      "adjustedFor": 1.3459073865199802,
+      "adjustedAgainst": 1.2023885741045408
     },
     "laliga.espanyol": {
       "teamId": "laliga.espanyol",
@@ -160,8 +160,8 @@
       "forPerGame": 1.4285714285714286,
       "againstPerGame": 1.4285714285714286,
       "gamesPlayed": 7,
-      "adjustedFor": 1.2382344894428132,
-      "adjustedAgainst": 1.3527533189609358
+      "adjustedFor": 1.239440069558403,
+      "adjustedAgainst": 1.3532789632293658
     },
     "laliga.real-betis": {
       "teamId": "laliga.real-betis",
@@ -171,8 +171,8 @@
       "forPerGame": 1.2857142857142858,
       "againstPerGame": 1,
       "gamesPlayed": 7,
-      "adjustedFor": 1.4980304432264224,
-      "adjustedAgainst": 1.1544629312435266
+      "adjustedFor": 1.4993181086233627,
+      "adjustedAgainst": 1.154858360377994
     },
     "laliga.real-madrid": {
       "teamId": "laliga.real-madrid",
@@ -182,8 +182,8 @@
       "forPerGame": 2.5714285714285716,
       "againstPerGame": 1.1428571428571428,
       "gamesPlayed": 7,
-      "adjustedFor": 2.0031022269186938,
-      "adjustedAgainst": 1.037211959704047
+      "adjustedFor": 2.003870464578057,
+      "adjustedAgainst": 1.0372528122279192
     },
     "laliga.real-sociedad": {
       "teamId": "laliga.real-sociedad",
@@ -193,8 +193,8 @@
       "forPerGame": 1.5,
       "againstPerGame": 2.1666666666666665,
       "gamesPlayed": 6,
-      "adjustedFor": 1.488163184100727,
-      "adjustedAgainst": 1.5857505424122897
+      "adjustedFor": 1.4961945465961985,
+      "adjustedAgainst": 1.5815805091311557
     },
     "laliga.sevilla": {
       "teamId": "laliga.sevilla",
@@ -204,8 +204,8 @@
       "forPerGame": 1.4285714285714286,
       "againstPerGame": 1.2857142857142858,
       "gamesPlayed": 7,
-      "adjustedFor": 1.2414522764397422,
-      "adjustedAgainst": 1.293502179431661
+      "adjustedFor": 1.2423155229973237,
+      "adjustedAgainst": 1.2942908974273923
     },
     "laliga.valencia": {
       "teamId": "laliga.valencia",
@@ -215,8 +215,8 @@
       "forPerGame": 0.6666666666666666,
       "againstPerGame": 2.1666666666666665,
       "gamesPlayed": 6,
-      "adjustedFor": 1.1495007939127355,
-      "adjustedAgainst": 1.427370428465519
+      "adjustedFor": 1.1369503018714748,
+      "adjustedAgainst": 1.4162924999618303
     },
     "laliga.villarreal": {
       "teamId": "laliga.villarreal",
@@ -226,8 +226,8 @@
       "forPerGame": 1.8571428571428572,
       "againstPerGame": 1.7142857142857142,
       "gamesPlayed": 7,
-      "adjustedFor": 1.7163806516192905,
-      "adjustedAgainst": 1.2984034836829519
+      "adjustedFor": 1.716860796162229,
+      "adjustedAgainst": 1.298472152644683
     }
   },
   "games": [
@@ -258,7 +258,7 @@
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-12T12:00:00.000Z",
+        "observedAt": "2026-11-13T12:00:00.000Z",
         "source": "openfootball"
       }
     },
@@ -289,7 +289,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-12T12:00:00.000Z",
+        "observedAt": "2026-11-13T12:00:00.000Z",
         "source": "openfootball"
       }
     },
@@ -320,7 +320,7 @@
       "result": {
         "home": 5,
         "away": 0,
-        "observedAt": "2026-11-12T12:00:00.000Z",
+        "observedAt": "2026-11-13T12:00:00.000Z",
         "source": "openfootball"
       }
     },
@@ -351,7 +351,7 @@
       "result": {
         "home": 1,
         "away": 3,
-        "observedAt": "2026-11-12T12:00:00.000Z",
+        "observedAt": "2026-11-13T12:00:00.000Z",
         "source": "openfootball"
       }
     },
@@ -382,7 +382,7 @@
       "result": {
         "home": 1,
         "away": 0,
-        "observedAt": "2026-11-12T12:00:00.000Z",
+        "observedAt": "2026-11-13T12:00:00.000Z",
         "source": "openfootball"
       }
     },
@@ -413,7 +413,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-12T12:00:00.000Z",
+        "observedAt": "2026-11-13T12:00:00.000Z",
         "source": "openfootball"
       }
     },
@@ -444,7 +444,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-12T12:00:00.000Z",
+        "observedAt": "2026-11-13T12:00:00.000Z",
         "source": "openfootball"
       }
     },
@@ -475,7 +475,7 @@
       "result": {
         "home": 3,
         "away": 1,
-        "observedAt": "2026-11-12T12:00:00.000Z",
+        "observedAt": "2026-11-13T12:00:00.000Z",
         "source": "openfootball"
       }
     },
@@ -506,7 +506,7 @@
       "result": {
         "home": 2,
         "away": 3,
-        "observedAt": "2026-11-12T12:00:00.000Z",
+        "observedAt": "2026-11-13T12:00:00.000Z",
         "source": "openfootball"
       }
     },
@@ -4957,145 +4957,145 @@
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 1.6225811781048154,
-        "away": 1.803099325785043,
-        "total": 3.4256805038898586,
-        "margin": -0.18051814768022756
+        "home": 1.6217466784986616,
+        "away": 1.8033518328213693,
+        "total": 3.425098511320031,
+        "margin": -0.18160515432270774
       },
       "x12": [
-        0.30394853068106875,
-        0.23661651467029973,
-        0.45943495464863143
+        0.30383280989209727,
+        0.23662070591708675,
+        0.4595464841908159
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Elche CF gana",
-          "p": 0.30394853068106875,
-          "fairOdds": 3.2900307093416865
+          "p": 0.30383280989209727,
+          "fairOdds": 3.2912837831935877
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.23661651467029973,
-          "fairOdds": 4.2262476961652276
+          "p": 0.23662070591708675,
+          "fairOdds": 4.226172836921574
         },
         {
           "market": "h2h",
           "selection": "Real Betis gana",
-          "p": 0.45943495464863143,
-          "fairOdds": 2.176586674309063
+          "p": 0.4595464841908159,
+          "fairOdds": 2.1760584280409234
         },
         {
           "market": "double_chance",
           "selection": "Elche CF o empate",
-          "p": 0.5405650453513685,
-          "fairOdds": 1.8499161360868195
+          "p": 0.540453515809184,
+          "fairOdds": 1.850297890102109
         },
         {
           "market": "double_chance",
           "selection": "Real Betis o empate",
-          "p": 0.6960514693189311,
-          "fairOdds": 1.4366753668065306
+          "p": 0.6961671901079026,
+          "fairOdds": 1.4364365546227549
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.7633834853297001,
-          "fairOdds": 1.3099576021979396
+          "p": 0.7633792940829132,
+          "fairOdds": 1.3099647943704729
         },
         {
           "market": "totals",
           "selection": "Más de 1.5",
           "line": 1.5,
-          "p": 0.8524247455255765,
-          "fairOdds": 1.1731240854386902
+          "p": 0.8523607836668898,
+          "fairOdds": 1.1732121176410304
         },
         {
           "market": "totals",
           "selection": "Más de 2.5",
           "line": 2.5,
-          "p": 0.6597928120278314,
-          "fairOdds": 1.5156273026475742
+          "p": 0.6596836288413337,
+          "fairOdds": 1.5158781517079587
         },
         {
           "market": "totals",
           "selection": "Menos de 2.5",
           "line": 2.5,
-          "p": 0.34020718797216865,
-          "fairOdds": 2.939385278602071
+          "p": 0.3403163711586663,
+          "fairOdds": 2.938442240070103
         },
         {
           "market": "totals",
           "selection": "Más de 3.5",
           "line": 3.5,
-          "p": 0.44821086264425847,
-          "fairOdds": 2.231092736352738
+          "p": 0.4480864864078442,
+          "fairOdds": 2.231712025097336
         },
         {
           "market": "totals",
           "selection": "Menos de 3.5",
           "line": 3.5,
-          "p": 0.5517891373557415,
-          "fairOdds": 1.8122864918873791
+          "p": 0.5519135135921558,
+          "fairOdds": 1.8118780848315374
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.6708630322665061,
-          "fairOdds": 1.4906172376520836
+          "p": 0.670756255658596,
+          "fairOdds": 1.490854526609117
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.3291369677334939,
-          "fairOdds": 3.038248808349331
+          "p": 0.329243744341404,
+          "fairOdds": 3.0372634778538603
         },
         {
           "market": "team_totals",
           "selection": "Elche CF más de 1.5",
           "line": 1.5,
-          "p": 0.4552135551963593,
-          "fairOdds": 2.196771138699162
+          "p": 0.45501802896206645,
+          "fairOdds": 2.197715115335281
         },
         {
           "market": "team_totals",
           "selection": "Elche CF menos de 1.5",
           "line": 1.5,
-          "p": 0.5447864448036407,
-          "fairOdds": 1.835581647704971
+          "p": 0.5449819710379336,
+          "fairOdds": 1.8349230857957957
         },
         {
           "market": "team_totals",
           "selection": "Real Betis más de 1.5",
           "line": 1.5,
-          "p": 0.5622688254016219,
-          "fairOdds": 1.7785087040628864
+          "p": 0.562271292032231,
+          "fairOdds": 1.7785009019145817
         },
         {
           "market": "team_totals",
           "selection": "Real Betis menos de 1.5",
           "line": 1.5,
-          "p": 0.43773117459837807,
-          "fairOdds": 2.2845071542311515
+          "p": 0.43772870796776897,
+          "fairOdds": 2.2845200275820896
         },
         {
           "market": "correct_score",
           "selection": "1–1",
-          "p": 0.09946313076416279,
-          "fairOdds": 10.053976707923079
+          "p": 0.09948166485354348,
+          "fairOdds": 10.052103585843643
         },
         {
           "market": "correct_score",
           "selection": "1–2",
-          "p": 0.09170892779197107,
-          "fairOdds": 10.90406380356295
+          "p": 0.09171548551090519,
+          "fairOdds": 10.903284155663087
         },
         {
           "market": "correct_score",
           "selection": "2–2",
-          "p": 0.07657810471328756,
-          "fairOdds": 13.058562937069969
+          "p": 0.0765637031531445,
+          "fairOdds": 13.061019240406603
         }
       ],
       "marketGroups": [
@@ -5106,22 +5106,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "Elche CF gana",
-              "p": 0.30394853068106875,
-              "fairOdds": 3.2900307093416865
+              "p": 0.30383280989209727,
+              "fairOdds": 3.2912837831935877
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.23661651467029973,
-              "fairOdds": 4.2262476961652276
+              "p": 0.23662070591708675,
+              "fairOdds": 4.226172836921574
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Real Betis gana",
-              "p": 0.45943495464863143,
-              "fairOdds": 2.176586674309063
+              "p": 0.4595464841908159,
+              "fairOdds": 2.1760584280409234
             }
           ]
         },
@@ -5132,22 +5132,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "Elche CF o empate",
-              "p": 0.5405650453513685,
-              "fairOdds": 1.8499161360868195
+              "p": 0.540453515809184,
+              "fairOdds": 1.850297890102109
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Real Betis o empate",
-              "p": 0.6960514693189311,
-              "fairOdds": 1.4366753668065306
+              "p": 0.6961671901079026,
+              "fairOdds": 1.4364365546227549
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.7633834853297001,
-              "fairOdds": 1.3099576021979396
+              "p": 0.7633792940829132,
+              "fairOdds": 1.3099647943704729
             }
           ]
         },
@@ -5159,40 +5159,40 @@
               "selection": "over_1.5",
               "label": "Más de 1.5",
               "line": 1.5,
-              "p": 0.8524247455255765,
-              "fairOdds": 1.1731240854386902
+              "p": 0.8523607836668898,
+              "fairOdds": 1.1732121176410304
             },
             {
               "market": "totals",
               "selection": "over_2.5",
               "label": "Más de 2.5",
               "line": 2.5,
-              "p": 0.6597928120278314,
-              "fairOdds": 1.5156273026475742
+              "p": 0.6596836288413337,
+              "fairOdds": 1.5158781517079587
             },
             {
               "market": "totals",
               "selection": "under_2.5",
               "label": "Menos de 2.5",
               "line": 2.5,
-              "p": 0.34020718797216865,
-              "fairOdds": 2.939385278602071
+              "p": 0.3403163711586663,
+              "fairOdds": 2.938442240070103
             },
             {
               "market": "totals",
               "selection": "over_3.5",
               "label": "Más de 3.5",
               "line": 3.5,
-              "p": 0.44821086264425847,
-              "fairOdds": 2.231092736352738
+              "p": 0.4480864864078442,
+              "fairOdds": 2.231712025097336
             },
             {
               "market": "totals",
               "selection": "under_3.5",
               "label": "Menos de 3.5",
               "line": 3.5,
-              "p": 0.5517891373557415,
-              "fairOdds": 1.8122864918873791
+              "p": 0.5519135135921558,
+              "fairOdds": 1.8118780848315374
             }
           ]
         },
@@ -5203,15 +5203,15 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.6708630322665061,
-              "fairOdds": 1.4906172376520836
+              "p": 0.670756255658596,
+              "fairOdds": 1.490854526609117
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.3291369677334939,
-              "fairOdds": 3.038248808349331
+              "p": 0.329243744341404,
+              "fairOdds": 3.0372634778538603
             }
           ]
         },
@@ -5223,32 +5223,32 @@
               "selection": "home_over",
               "label": "Elche CF más de 1.5",
               "line": 1.5,
-              "p": 0.4552135551963593,
-              "fairOdds": 2.196771138699162
+              "p": 0.45501802896206645,
+              "fairOdds": 2.197715115335281
             },
             {
               "market": "team_totals",
               "selection": "home_under",
               "label": "Elche CF menos de 1.5",
               "line": 1.5,
-              "p": 0.5447864448036407,
-              "fairOdds": 1.835581647704971
+              "p": 0.5449819710379336,
+              "fairOdds": 1.8349230857957957
             },
             {
               "market": "team_totals",
               "selection": "away_over",
               "label": "Real Betis más de 1.5",
               "line": 1.5,
-              "p": 0.5622688254016219,
-              "fairOdds": 1.7785087040628864
+              "p": 0.562271292032231,
+              "fairOdds": 1.7785009019145817
             },
             {
               "market": "team_totals",
               "selection": "away_under",
               "label": "Real Betis menos de 1.5",
               "line": 1.5,
-              "p": 0.43773117459837807,
-              "fairOdds": 2.2845071542311515
+              "p": 0.43772870796776897,
+              "fairOdds": 2.2845200275820896
             }
           ]
         },
@@ -5259,22 +5259,22 @@
               "market": "correct_score",
               "selection": "1-1",
               "label": "1–1",
-              "p": 0.09946313076416279,
-              "fairOdds": 10.053976707923079
+              "p": 0.09948166485354348,
+              "fairOdds": 10.052103585843643
             },
             {
               "market": "correct_score",
               "selection": "1-2",
               "label": "1–2",
-              "p": 0.09170892779197107,
-              "fairOdds": 10.90406380356295
+              "p": 0.09171548551090519,
+              "fairOdds": 10.903284155663087
             },
             {
               "market": "correct_score",
               "selection": "2-2",
               "label": "2–2",
-              "p": 0.07657810471328756,
-              "fairOdds": 13.058562937069969
+              "p": 0.0765637031531445,
+              "fairOdds": 13.061019240406603
             }
           ]
         }
@@ -5282,7 +5282,7 @@
       "mostLikelyScore": {
         "home": 1,
         "away": 1,
-        "p": 0.09946313076416279
+        "p": 0.09948166485354348
       },
       "factors": [
         {
@@ -5313,13 +5313,13 @@
           "key": "home_advantage",
           "label": "Localía",
           "value": "×1.32",
-          "detail": "estimada de 544 partidos"
+          "detail": "estimada de 540 partidos"
         },
         {
           "key": "uncertainty",
           "label": "Intervalo 90%",
-          "value": "goles 2.6–4.5",
-          "detail": "local 11%–51% · 544 partidos"
+          "value": "goles 2.5–4.6",
+          "detail": "local 12%–49% · 540 partidos"
         },
         {
           "key": "home_position",
@@ -5349,24 +5349,24 @@
           "key": "long_memory",
           "label": "Memoria larga",
           "value": "−5 pts al local",
-          "detail": "historia 25% / 26% / 49% · temporada 36% / 22% / 43%"
+          "detail": "historia 25% / 26% / 49% · temporada 35% / 22% / 43%"
         }
       ],
       "steps": [
-        "Sincronizando LaLiga · corte 12 nov 2026, 21:47",
+        "Sincronizando LaLiga · corte 13 nov 2026, 05:56",
         "Fuerza ajustada por rival · ELC 1.07 / 1.20 · BET 1.12 / 0.87",
-        "Ponderando 166.5 partidos por antigüedad y calidad del rival",
+        "Ponderando 165.6 partidos por antigüedad y calidad del rival",
         "Proyección de goles 1.62 – 1.80 · total 3.43",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador proyectado 1–2"
       ],
-      "inputsAsOf": "2026-11-12T21:47:48.845Z",
-      "publishedAt": "2026-11-12T21:47:48.845Z",
+      "inputsAsOf": "2026-11-13T05:56:08.668Z",
+      "publishedAt": "2026-11-13T05:56:08.668Z",
       "source": "openfootball",
       "projectedScore": {
         "home": 1,
         "away": 2,
-        "p": 0.09170892779197107
+        "p": 0.09171548551090519
       },
       "insights": {
         "why": [
@@ -6829,145 +6829,145 @@
         "label": "Modelo PitchLab · en validación"
       },
       "projection": {
-        "home": 2.3121921643993053,
-        "away": 1.4107678914107393,
-        "total": 3.7229600558100446,
-        "margin": 0.901424272988566
+        "home": 2.312261256980572,
+        "away": 1.4110372292444482,
+        "total": 3.72329848622502,
+        "margin": 0.9012240277361236
       },
       "x12": [
-        0.5561653118500015,
-        0.21642540976734198,
-        0.2274092783826567
+        0.5561432389737654,
+        0.21642579909090234,
+        0.22743096193533197
       ],
       "probabilities": [
         {
           "market": "h2h",
           "selection": "Celta de Vigo gana",
-          "p": 0.5561653118500015,
-          "fairOdds": 1.798026555582275
+          "p": 0.5561432389737654,
+          "fairOdds": 1.7980979178048992
         },
         {
           "market": "h2h",
           "selection": "Empate",
-          "p": 0.21642540976734198,
-          "fairOdds": 4.62052954445138
+          "p": 0.21642579909090234,
+          "fairOdds": 4.620521232683465
         },
         {
           "market": "h2h",
           "selection": "Levante UD gana",
-          "p": 0.2274092783826567,
-          "fairOdds": 4.397357957916394
+          "p": 0.22743096193533197,
+          "fairOdds": 4.396938708302792
         },
         {
           "market": "double_chance",
           "selection": "Celta de Vigo o empate",
-          "p": 0.7725907216173435,
-          "fairOdds": 1.2943463751500888
+          "p": 0.7725690380646677,
+          "fairOdds": 1.2943827033310327
         },
         {
           "market": "double_chance",
           "selection": "Levante UD o empate",
-          "p": 0.4438346881499987,
-          "fairOdds": 2.2530911321244886
+          "p": 0.4438567610262343,
+          "fairOdds": 2.252979086514117
         },
         {
           "market": "double_chance",
           "selection": "Sin empate",
-          "p": 0.7835745902326582,
-          "fairOdds": 1.276202690165184
+          "p": 0.7835742009090974,
+          "fairOdds": 1.2762033242541766
         },
         {
           "market": "totals",
           "selection": "Más de 1.5",
           "line": 1.5,
-          "p": 0.8820346363414019,
-          "fairOdds": 1.1337423257525436
+          "p": 0.8820672921425131,
+          "fairOdds": 1.1337003524652094
         },
         {
           "market": "totals",
           "selection": "Más de 2.5",
           "line": 2.5,
-          "p": 0.7103690905224535,
-          "fairOdds": 1.4077189074549012
+          "p": 0.7104282272423881,
+          "fairOdds": 1.4076017275969162
         },
         {
           "market": "totals",
           "selection": "Menos de 2.5",
           "line": 2.5,
-          "p": 0.28963090947754655,
-          "fairOdds": 3.452670164948415
+          "p": 0.2895717727576119,
+          "fairOdds": 3.4533752736909786
         },
         {
           "market": "totals",
           "selection": "Más de 3.5",
           "line": 3.5,
-          "p": 0.5096017089922307,
-          "fairOdds": 1.9623168100781347
+          "p": 0.5096749238144634,
+          "fairOdds": 1.9620349231935712
         },
         {
           "market": "totals",
           "selection": "Menos de 3.5",
           "line": 3.5,
-          "p": 0.4903982910077693,
-          "fairOdds": 2.039158819140659
+          "p": 0.49032507618553656,
+          "fairOdds": 2.0394633041806842
         },
         {
           "market": "btts",
           "selection": "Sí",
-          "p": 0.6849231069995158,
-          "fairOdds": 1.4600179053394193
+          "p": 0.6849860844456509,
+          "fairOdds": 1.4598836716650752
         },
         {
           "market": "btts",
           "selection": "No",
-          "p": 0.31507689300048425,
-          "fairOdds": 3.17382842796556
+          "p": 0.3150139155543491,
+          "fairOdds": 3.1744629383760374
         },
         {
           "market": "team_totals",
           "selection": "Celta de Vigo más de 1.5",
           "line": 1.5,
-          "p": 0.6628981134992135,
-          "fairOdds": 1.5085274488432927
+          "p": 0.6629298707238773,
+          "fairOdds": 1.5084551838161455
         },
         {
           "market": "team_totals",
           "selection": "Celta de Vigo menos de 1.5",
           "line": 1.5,
-          "p": 0.33710188650078654,
-          "fairOdds": 2.96646218856941
+          "p": 0.3370701292761227,
+          "fairOdds": 2.966741675234044
         },
         {
           "market": "team_totals",
           "selection": "Levante UD más de 1.5",
           "line": 1.5,
-          "p": 0.41748343642976216,
-          "fairOdds": 2.395304610290188
+          "p": 0.4175634181012068,
+          "fairOdds": 2.394845804614104
         },
         {
           "market": "team_totals",
           "selection": "Levante UD menos de 1.5",
           "line": 1.5,
-          "p": 0.5825165635702378,
-          "fairOdds": 1.7166893828237442
+          "p": 0.5824365818987932,
+          "fairOdds": 1.7169251229720397
         },
         {
           "market": "correct_score",
           "selection": "2–1",
-          "p": 0.0872528430034994,
-          "fairOdds": 11.46094460165491
+          "p": 0.08724835462407382,
+          "fairOdds": 11.461534195214234
         },
         {
           "market": "correct_score",
           "selection": "1–1",
-          "p": 0.08615280458750524,
-          "fairOdds": 11.607283184661759
+          "p": 0.08614246831338271,
+          "fairOdds": 11.608675947873257
         },
         {
           "market": "correct_score",
           "selection": "2–2",
-          "p": 0.07395462088693522,
-          "fairOdds": 13.52180550731022
+          "p": 0.07396207556970592,
+          "fairOdds": 13.520442636274385
         }
       ],
       "marketGroups": [
@@ -6978,22 +6978,22 @@
               "market": "h2h",
               "selection": "home",
               "label": "Celta de Vigo gana",
-              "p": 0.5561653118500015,
-              "fairOdds": 1.798026555582275
+              "p": 0.5561432389737654,
+              "fairOdds": 1.7980979178048992
             },
             {
               "market": "h2h",
               "selection": "draw",
               "label": "Empate",
-              "p": 0.21642540976734198,
-              "fairOdds": 4.62052954445138
+              "p": 0.21642579909090234,
+              "fairOdds": 4.620521232683465
             },
             {
               "market": "h2h",
               "selection": "away",
               "label": "Levante UD gana",
-              "p": 0.2274092783826567,
-              "fairOdds": 4.397357957916394
+              "p": 0.22743096193533197,
+              "fairOdds": 4.396938708302792
             }
           ]
         },
@@ -7004,22 +7004,22 @@
               "market": "double_chance",
               "selection": "1x",
               "label": "Celta de Vigo o empate",
-              "p": 0.7725907216173435,
-              "fairOdds": 1.2943463751500888
+              "p": 0.7725690380646677,
+              "fairOdds": 1.2943827033310327
             },
             {
               "market": "double_chance",
               "selection": "x2",
               "label": "Levante UD o empate",
-              "p": 0.4438346881499987,
-              "fairOdds": 2.2530911321244886
+              "p": 0.4438567610262343,
+              "fairOdds": 2.252979086514117
             },
             {
               "market": "double_chance",
               "selection": "12",
               "label": "Sin empate",
-              "p": 0.7835745902326582,
-              "fairOdds": 1.276202690165184
+              "p": 0.7835742009090974,
+              "fairOdds": 1.2762033242541766
             }
           ]
         },
@@ -7031,40 +7031,40 @@
               "selection": "over_1.5",
               "label": "Más de 1.5",
               "line": 1.5,
-              "p": 0.8820346363414019,
-              "fairOdds": 1.1337423257525436
+              "p": 0.8820672921425131,
+              "fairOdds": 1.1337003524652094
             },
             {
               "market": "totals",
               "selection": "over_2.5",
               "label": "Más de 2.5",
               "line": 2.5,
-              "p": 0.7103690905224535,
-              "fairOdds": 1.4077189074549012
+              "p": 0.7104282272423881,
+              "fairOdds": 1.4076017275969162
             },
             {
               "market": "totals",
               "selection": "under_2.5",
               "label": "Menos de 2.5",
               "line": 2.5,
-              "p": 0.28963090947754655,
-              "fairOdds": 3.452670164948415
+              "p": 0.2895717727576119,
+              "fairOdds": 3.4533752736909786
             },
             {
               "market": "totals",
               "selection": "over_3.5",
               "label": "Más de 3.5",
               "line": 3.5,
-              "p": 0.5096017089922307,
-              "fairOdds": 1.9623168100781347
+              "p": 0.5096749238144634,
+              "fairOdds": 1.9620349231935712
             },
             {
               "market": "totals",
               "selection": "under_3.5",
               "label": "Menos de 3.5",
               "line": 3.5,
-              "p": 0.4903982910077693,
-              "fairOdds": 2.039158819140659
+              "p": 0.49032507618553656,
+              "fairOdds": 2.0394633041806842
             }
           ]
         },
@@ -7075,15 +7075,15 @@
               "market": "btts",
               "selection": "yes",
               "label": "Sí",
-              "p": 0.6849231069995158,
-              "fairOdds": 1.4600179053394193
+              "p": 0.6849860844456509,
+              "fairOdds": 1.4598836716650752
             },
             {
               "market": "btts",
               "selection": "no",
               "label": "No",
-              "p": 0.31507689300048425,
-              "fairOdds": 3.17382842796556
+              "p": 0.3150139155543491,
+              "fairOdds": 3.1744629383760374
             }
           ]
         },
@@ -7095,32 +7095,32 @@
               "selection": "home_over",
               "label": "Celta de Vigo más de 1.5",
               "line": 1.5,
-              "p": 0.6628981134992135,
-              "fairOdds": 1.5085274488432927
+              "p": 0.6629298707238773,
+              "fairOdds": 1.5084551838161455
             },
             {
               "market": "team_totals",
               "selection": "home_under",
               "label": "Celta de Vigo menos de 1.5",
               "line": 1.5,
-              "p": 0.33710188650078654,
-              "fairOdds": 2.96646218856941
+              "p": 0.3370701292761227,
+              "fairOdds": 2.966741675234044
             },
             {
               "market": "team_totals",
               "selection": "away_over",
               "label": "Levante UD más de 1.5",
               "line": 1.5,
-              "p": 0.41748343642976216,
-              "fairOdds": 2.395304610290188
+              "p": 0.4175634181012068,
+              "fairOdds": 2.394845804614104
             },
             {
               "market": "team_totals",
               "selection": "away_under",
               "label": "Levante UD menos de 1.5",
               "line": 1.5,
-              "p": 0.5825165635702378,
-              "fairOdds": 1.7166893828237442
+              "p": 0.5824365818987932,
+              "fairOdds": 1.7169251229720397
             }
           ]
         },
@@ -7131,22 +7131,22 @@
               "market": "correct_score",
               "selection": "2-1",
               "label": "2–1",
-              "p": 0.0872528430034994,
-              "fairOdds": 11.46094460165491
+              "p": 0.08724835462407382,
+              "fairOdds": 11.461534195214234
             },
             {
               "market": "correct_score",
               "selection": "1-1",
               "label": "1–1",
-              "p": 0.08615280458750524,
-              "fairOdds": 11.607283184661759
+              "p": 0.08614246831338271,
+              "fairOdds": 11.608675947873257
             },
             {
               "market": "correct_score",
               "selection": "2-2",
               "label": "2–2",
-              "p": 0.07395462088693522,
-              "fairOdds": 13.52180550731022
+              "p": 0.07396207556970592,
+              "fairOdds": 13.520442636274385
             }
           ]
         }
@@ -7154,7 +7154,7 @@
       "mostLikelyScore": {
         "home": 2,
         "away": 1,
-        "p": 0.0872528430034994
+        "p": 0.08724835462407382
       },
       "factors": [
         {
@@ -7185,13 +7185,13 @@
           "key": "home_advantage",
           "label": "Localía",
           "value": "×1.32",
-          "detail": "estimada de 544 partidos"
+          "detail": "estimada de 540 partidos"
         },
         {
           "key": "uncertainty",
           "label": "Intervalo 90%",
-          "value": "goles 2.8–5.1",
-          "detail": "local 33%–75% · 544 partidos"
+          "value": "goles 2.7–4.9",
+          "detail": "local 31%–75% · 540 partidos"
         },
         {
           "key": "home_position",
@@ -7225,20 +7225,20 @@
         }
       ],
       "steps": [
-        "Sincronizando LaLiga · corte 12 nov 2026, 21:47",
+        "Sincronizando LaLiga · corte 13 nov 2026, 05:56",
         "Fuerza ajustada por rival · CELV 1.05 / 0.94 · LEV 1.12 / 1.25",
-        "Ponderando 166.5 partidos por antigüedad y calidad del rival",
+        "Ponderando 165.6 partidos por antigüedad y calidad del rival",
         "Proyección de goles 2.31 – 1.41 · total 3.72",
         "Simulando 121 marcadores con incertidumbre del ajuste",
         "20 mercados listos · marcador proyectado 2–1"
       ],
-      "inputsAsOf": "2026-11-12T21:47:48.845Z",
-      "publishedAt": "2026-11-12T21:47:48.845Z",
+      "inputsAsOf": "2026-11-13T05:56:08.668Z",
+      "publishedAt": "2026-11-13T05:56:08.668Z",
       "source": "openfootball",
       "projectedScore": {
         "home": 2,
         "away": 1,
-        "p": 0.0872528430034994
+        "p": 0.08724835462407382
       },
       "insights": {
         "why": [

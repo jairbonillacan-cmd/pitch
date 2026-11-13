@@ -4,7 +4,7 @@
   "season": "serie-a-2026-27",
   "seasonLabel": "2026/27",
   "periodLabel": "Jornada 11",
-  "updatedAt": "2026-11-12T21:47:48.845Z",
+  "updatedAt": "2026-11-13T05:56:08.668Z",
   "source": "openfootball",
   "provenance": "derived",
   "isDemo": false,
@@ -17,8 +17,8 @@
       "forPerGame": 2,
       "againstPerGame": 0.8,
       "gamesPlayed": 5,
-      "adjustedFor": 1.5178048330623937,
-      "adjustedAgainst": 1.0336701961398425
+      "adjustedFor": 1.5189081092292729,
+      "adjustedAgainst": 1.0282090946868787
     },
     "serie-a.monza": {
       "teamId": "serie-a.monza",
@@ -28,8 +28,8 @@
       "forPerGame": 1.6,
       "againstPerGame": 2.4,
       "gamesPlayed": 5,
-      "adjustedFor": 1.2796205496303388,
-      "adjustedAgainst": 1.8100747830804138
+      "adjustedFor": 1.3020371910716328,
+      "adjustedAgainst": 1.8062726289308524
     },
     "serie-a.fiorentina": {
       "teamId": "serie-a.fiorentina",
@@ -39,8 +39,8 @@
       "forPerGame": 1.2,
       "againstPerGame": 2.4,
       "gamesPlayed": 5,
-      "adjustedFor": 1.29513290115938,
-      "adjustedAgainst": 1.5263327787370438
+      "adjustedFor": 1.2943275928942406,
+      "adjustedAgainst": 1.5277147987667048
     },
     "serie-a.roma": {
       "teamId": "serie-a.roma",
@@ -50,8 +50,8 @@
       "forPerGame": 2.8,
       "againstPerGame": 0.6,
       "gamesPlayed": 5,
-      "adjustedFor": 1.7315431887821588,
-      "adjustedAgainst": 0.8089973024600381
+      "adjustedFor": 1.7269260773220834,
+      "adjustedAgainst": 0.8105965673534893
     },
     "serie-a.atalanta-bc": {
       "teamId": "serie-a.atalanta-bc",
@@ -61,8 +61,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.4,
       "gamesPlayed": 5,
-      "adjustedFor": 1.351115380860314,
-      "adjustedAgainst": 1.0879334317681877
+      "adjustedFor": 1.3510497738808147,
+      "adjustedAgainst": 1.0891986916167002
     },
     "serie-a.bologna": {
       "teamId": "serie-a.bologna",
@@ -72,8 +72,8 @@
       "forPerGame": 0.6,
       "againstPerGame": 1.2,
       "gamesPlayed": 5,
-      "adjustedFor": 1.1672137281691304,
-      "adjustedAgainst": 1.1892137340445428
+      "adjustedFor": 1.159789597779898,
+      "adjustedAgainst": 1.190837228394025
     },
     "serie-a.cagliari": {
       "teamId": "serie-a.cagliari",
@@ -83,8 +83,8 @@
       "forPerGame": 1,
       "againstPerGame": 0.4,
       "gamesPlayed": 5,
-      "adjustedFor": 1.12483224789196,
-      "adjustedAgainst": 1.1289582877620206
+      "adjustedFor": 1.1247067276230036,
+      "adjustedAgainst": 1.1226921133267713
     },
     "serie-a.como": {
       "teamId": "serie-a.como",
@@ -94,8 +94,8 @@
       "forPerGame": 1.8,
       "againstPerGame": 1.2,
       "gamesPlayed": 5,
-      "adjustedFor": 1.7542705794894058,
-      "adjustedAgainst": 1.0389243307603995
+      "adjustedFor": 1.754081119673172,
+      "adjustedAgainst": 1.035105405734788
     },
     "serie-a.internazionale-milano": {
       "teamId": "serie-a.internazionale-milano",
@@ -105,8 +105,8 @@
       "forPerGame": 3,
       "againstPerGame": 1.6,
       "gamesPlayed": 5,
-      "adjustedFor": 2.205575505164493,
-      "adjustedAgainst": 1.127821474467771
+      "adjustedFor": 2.205211101856932,
+      "adjustedAgainst": 1.1280399881310106
     },
     "serie-a.frosinone": {
       "teamId": "serie-a.frosinone",
@@ -116,8 +116,8 @@
       "forPerGame": 1.8,
       "againstPerGame": 0.8,
       "gamesPlayed": 5,
-      "adjustedFor": 1.4763378596216599,
-      "adjustedAgainst": 0.9693501557313119
+      "adjustedFor": 1.4761670369752045,
+      "adjustedAgainst": 0.9696977748231362
     },
     "serie-a.genoa-cfc": {
       "teamId": "serie-a.genoa-cfc",
@@ -127,8 +127,8 @@
       "forPerGame": 0.6,
       "againstPerGame": 2,
       "gamesPlayed": 5,
-      "adjustedFor": 1.1274455889455721,
-      "adjustedAgainst": 1.4799918016392555
+      "adjustedFor": 1.1288583390623843,
+      "adjustedAgainst": 1.4840685343339608
     },
     "serie-a.juventus": {
       "teamId": "serie-a.juventus",
@@ -138,8 +138,8 @@
       "forPerGame": 1.6,
       "againstPerGame": 0.8,
       "gamesPlayed": 5,
-      "adjustedFor": 1.541893058474265,
-      "adjustedAgainst": 0.9740972102396624
+      "adjustedFor": 1.5416298351293334,
+      "adjustedAgainst": 0.9748763612890167
     },
     "serie-a.lazio": {
       "teamId": "serie-a.lazio",
@@ -149,8 +149,8 @@
       "forPerGame": 1.6,
       "againstPerGame": 0.6,
       "gamesPlayed": 5,
-      "adjustedFor": 1.3033484923144756,
-      "adjustedAgainst": 1.0551226761387151
+      "adjustedFor": 1.2958428710163512,
+      "adjustedAgainst": 1.0579955386773712
     },
     "serie-a.lecce": {
       "teamId": "serie-a.lecce",
@@ -160,8 +160,8 @@
       "forPerGame": 1,
       "againstPerGame": 2,
       "gamesPlayed": 5,
-      "adjustedFor": 0.9681157744869288,
-      "adjustedAgainst": 1.4696493985549473
+      "adjustedFor": 0.9685862619182902,
+      "adjustedAgainst": 1.469539495442731
     },
     "serie-a.napoli": {
       "teamId": "serie-a.napoli",
@@ -171,8 +171,8 @@
       "forPerGame": 1.4,
       "againstPerGame": 1.2,
       "gamesPlayed": 5,
-      "adjustedFor": 1.4513839421616697,
-      "adjustedAgainst": 1.0202240591791503
+      "adjustedFor": 1.45078300989643,
+      "adjustedAgainst": 1.0211598344287425
     },
     "serie-a.parma": {
       "teamId": "serie-a.parma",
@@ -182,8 +182,8 @@
       "forPerGame": 0.8,
       "againstPerGame": 1.4,
       "gamesPlayed": 5,
-      "adjustedFor": 0.9332674546024936,
-      "adjustedAgainst": 1.2573270287366927
+      "adjustedFor": 0.9334881968247738,
+      "adjustedAgainst": 1.2570640704259355
     },
     "serie-a.sassuolo": {
       "teamId": "serie-a.sassuolo",
@@ -193,8 +193,8 @@
       "forPerGame": 1.8,
       "againstPerGame": 1.8,
       "gamesPlayed": 5,
-      "adjustedFor": 1.3943348831404234,
-      "adjustedAgainst": 1.4124108779881137
+      "adjustedFor": 1.3934212654724405,
+      "adjustedAgainst": 1.4126323756229069
     },
     "serie-a.torino": {
       "teamId": "serie-a.torino",
@@ -204,8 +204,8 @@
       "forPerGame": 1,
       "againstPerGame": 1.6,
       "gamesPlayed": 5,
-      "adjustedFor": 1.2005399801033325,
-      "adjustedAgainst": 1.4881739061710646
+      "adjustedFor": 1.1983341141020944,
+      "adjustedAgainst": 1.5002744942943602
     },
     "serie-a.udinese": {
       "teamId": "serie-a.udinese",
@@ -215,8 +215,8 @@
       "forPerGame": 1.6,
       "againstPerGame": 2.2,
       "gamesPlayed": 5,
-      "adjustedFor": 1.2613108916010798,
-      "adjustedAgainst": 1.3966770405425326
+      "adjustedFor": 1.2615058551398728,
+      "adjustedAgainst": 1.396889112775345
     },
     "serie-a.venezia": {
       "teamId": "serie-a.venezia",
@@ -226,8 +226,8 @@
       "forPerGame": 0.8,
       "againstPerGame": 2.6,
       "gamesPlayed": 5,
-      "adjustedFor": 0.990382679509628,
-      "adjustedAgainst": 1.7956104200933825
+      "adjustedFor": 0.9907483557421983,
+      "adjustedAgainst": 1.7959858519887586
     }
   },
   "games": [
@@ -258,7 +258,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-12T12:00:00.000Z",
+        "observedAt": "2026-11-13T12:00:00.000Z",
         "source": "openfootball"
       }
     },
@@ -289,7 +289,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-12T12:00:00.000Z",
+        "observedAt": "2026-11-13T12:00:00.000Z",
         "source": "openfootball"
       }
     },
@@ -320,7 +320,7 @@
       "result": {
         "home": 0,
         "away": 1,
-        "observedAt": "2026-11-12T12:00:00.000Z",
+        "observedAt": "2026-11-13T12:00:00.000Z",
         "source": "openfootball"
       }
     },
@@ -351,7 +351,7 @@
       "result": {
         "home": 2,
         "away": 2,
-        "observedAt": "2026-11-12T12:00:00.000Z",
+        "observedAt": "2026-11-13T12:00:00.000Z",
         "source": "openfootball"
       }
     },
@@ -382,7 +382,7 @@
       "result": {
         "home": 0,
         "away": 2,
-        "observedAt": "2026-11-12T12:00:00.000Z",
+        "observedAt": "2026-11-13T12:00:00.000Z",
         "source": "openfootball"
       }
     },
@@ -413,7 +413,7 @@
       "result": {
         "home": 1,
         "away": 1,
-        "observedAt": "2026-11-12T12:00:00.000Z",
+        "observedAt": "2026-11-13T12:00:00.000Z",
         "source": "openfootball"
       }
     },
@@ -444,7 +444,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-12T12:00:00.000Z",
+        "observedAt": "2026-11-13T12:00:00.000Z",
         "source": "openfootball"
       }
     },
@@ -475,7 +475,7 @@
       "result": {
         "home": 2,
         "away": 1,
-        "observedAt": "2026-11-12T12:00:00.000Z",
+        "observedAt": "2026-11-13T12:00:00.000Z",
         "source": "openfootball"
       }
     },
@@ -506,7 +506,7 @@
       "result": {
         "home": 2,
         "away": 0,
-        "observedAt": "2026-11-12T12:00:00.000Z",
+        "observedAt": "2026-11-13T12:00:00.000Z",
         "source": "openfootball"
       }
     },
@@ -537,7 +537,7 @@
       "result": {
         "home": 3,
         "away": 0,
-        "observedAt": "2026-11-12T12:00:00.000Z",
+        "observedAt": "2026-11-13T12:00:00.000Z",
         "source": "openfootball"
       }
     },
