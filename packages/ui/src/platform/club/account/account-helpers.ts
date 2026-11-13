@@ -1,4 +1,9 @@
 import type { LeagueId } from "@pitchlab/contracts";
+import {
+  DEFAULT_RECORD_PRIVACY,
+  normalizeRecordPrivacy,
+  type RecordPrivacy,
+} from "../../record-stats";
 import { MEMBERSHIP_SPEC } from "../../spacetime-catalog";
 import type { ViewerRole } from "../../types";
 
@@ -176,6 +181,8 @@ export interface StoredAccountPrefsV1 {
   };
   pauseChoice: PauseChoice;
   pauseChosenAtIso: string | null;
+  recordPrivacy: RecordPrivacy;
+  bankrollStartMxn: number | null;
 }
 
 export const DEFAULT_STORED_PREFS_V1: StoredAccountPrefsV1 = {
@@ -197,6 +204,8 @@ export const DEFAULT_STORED_PREFS_V1: StoredAccountPrefsV1 = {
   },
   pauseChoice: null,
   pauseChosenAtIso: null,
+  recordPrivacy: structuredClone(DEFAULT_RECORD_PRIVACY),
+  bankrollStartMxn: null,
 };
 
 export function readStoredPrefs(): StoredAccountPrefsV1 {
@@ -258,6 +267,14 @@ export function readStoredPrefs(): StoredAccountPrefsV1 {
       pauseChoice,
       pauseChosenAtIso:
         typeof parsed.pauseChosenAtIso === "string" ? parsed.pauseChosenAtIso : null,
+      recordPrivacy: normalizeRecordPrivacy(parsed.recordPrivacy),
+      bankrollStartMxn:
+        typeof parsed.bankrollStartMxn === "number" &&
+        Number.isFinite(parsed.bankrollStartMxn) &&
+        parsed.bankrollStartMxn >= 0 &&
+        parsed.bankrollStartMxn <= 10_000_000
+          ? Math.round(parsed.bankrollStartMxn)
+          : null,
     };
   } catch (err) {
     void err;

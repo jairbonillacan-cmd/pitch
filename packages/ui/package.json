@@ -20,7 +20,9 @@
     "./expired-pass": "./src/platform/components/ExpiredPassGate.tsx",
     "./access-guard": "./src/platform/access-guard.ts",
     "./community-examples": "./src/platform/community-examples.ts",
-    "./canjear": "./src/platform/components/CanjearCouponView.tsx"
+    "./canjear": "./src/platform/components/CanjearCouponView.tsx",
+    "./record-stats": "./src/platform/record-stats.ts",
+    "./record": "./src/platform/club/BitacoraClubView.tsx"
   },
   "scripts": {
     "build": "tsc --noEmit",

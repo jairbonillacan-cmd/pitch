@@ -8,6 +8,7 @@ import { ExampleBadge } from "../../components/MaestroPrimitives";
 import { TopLayerModalDialog } from "../../components/PlatformOverlays";
 import { usePlatform } from "../../platform-provider";
 import { formatUnits, profileRecord } from "../../profile-stats";
+import { normalizeRecordPrivacy } from "../../record-stats";
 import type { OddsFormat, RiskBand } from "../../types";
 import {
   DEFAULT_STORED_PREFS_V1,
@@ -200,6 +201,9 @@ function mergePrefs(
     ...override,
     alerts: { ...base.alerts, ...(override.alerts ?? {}) },
     privacy: { ...base.privacy, ...(override.privacy ?? {}) },
+    recordPrivacy: override.recordPrivacy
+      ? normalizeRecordPrivacy(override.recordPrivacy)
+      : base.recordPrivacy,
   };
 }
 
@@ -313,6 +317,8 @@ export function PrefsTab({
                 pauseCommunity?: boolean;
                 responsiblePauseKind?: Exclude<PauseChoice, null> | null;
                 responsiblePauseUntilIso?: string | null;
+                recordPrivacy?: unknown;
+                bankrollStartMxnCentavos?: number | null;
               };
             } | null)
           : null,
@@ -407,6 +413,17 @@ export function PrefsTab({
                 ? p.responsiblePauseKind
                 : null,
             pauseChosenAtIso: p.responsiblePauseUntilIso ?? null,
+            recordPrivacy:
+              p.recordPrivacy !== undefined
+                ? normalizeRecordPrivacy(p.recordPrivacy)
+                : prev.recordPrivacy,
+            bankrollStartMxn:
+              p.bankrollStartMxnCentavos === null
+                ? null
+                : typeof p.bankrollStartMxnCentavos === "number" &&
+                    Number.isFinite(p.bankrollStartMxnCentavos)
+                  ? Math.round(p.bankrollStartMxnCentavos / 100)
+                  : prev.bankrollStartMxn,
           };
           writeStoredPrefs(next);
           return next;

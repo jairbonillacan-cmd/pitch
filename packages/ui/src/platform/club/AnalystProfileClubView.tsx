@@ -47,7 +47,15 @@ import {
   profileRecord,
 } from "../profile-stats";
 import { TIPSTER_CREATORS } from "../spacetime-catalog";
-import type { JournalEntry, SocialPost } from "../types";
+import type { PublicRecordPayload, PublicRecordView } from "../record-stats";
+import type { JournalEntry, OddsFormat, SocialPost } from "../types";
+import {
+  BalanceCurveFigure,
+  PublicRecordPreviewCard,
+  RateBreakdownList,
+  formatShortIsoDay,
+  formatSignedUnits,
+} from "./record/PublicRecordSections";
 import {
   Avatar,
   ChevronRightIcon,
@@ -162,12 +170,14 @@ function TeamPair({ meta, size = 30 }: { meta: EntryGameMeta; size?: number }): 
 export function AnalystProfileClubView({
   handle,
   memberProfile,
+  publicRecord,
   avatarEnabled = false,
   xEnabled = false,
   xLinkError = false,
 }: {
   handle: string;
   memberProfile?: PublicMemberProfile | null;
+  publicRecord?: PublicRecordPayload | null;
   avatarEnabled?: boolean;
   xEnabled?: boolean;
   xLinkError?: boolean;
@@ -302,6 +312,41 @@ export function AnalystProfileClubView({
       ? profile.handle === viewerIdentity.handle
       : profile.handle === own?.handle || isOwnProfileHandle(cleanHandle, own, false));
 
+  const [fetchedRecord, setFetchedRecord] = useState<PublicRecordPayload | null | undefined>(
+    undefined,
+  );
+  const needsClientRecord = Boolean(
+    profile && !isOwn && !profile.isExample && publicRecord === undefined,
+  );
+
+  useEffect(() => {
+    if (!needsClientRecord || !profile) {
+      setFetchedRecord(undefined);
+      return;
+    }
+    let cancelled = false;
+    void fetch(`/api/u/${encodeURIComponent(profile.handle)}/record`, {
+      credentials: "same-origin",
+      cache: "no-store",
+    })
+      .then(async (res) =>
+        res.ok ? ((await res.json().catch(() => null)) as PublicRecordPayload | null) : null,
+      )
+      .then((data) => {
+        if (!cancelled) setFetchedRecord(data);
+      })
+      .catch((err) => {
+        void err;
+        if (!cancelled) setFetchedRecord(null);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [needsClientRecord, profile]);
+
+  const effectivePublicRecord =
+    publicRecord !== undefined ? publicRecord : fetchedRecord;
+
   return (
     <AtmosphereStage>
       <ClubWorkspaceShell activePath={`/app/u/${profile?.handle ?? cleanHandle}`}>
@@ -310,6 +355,7 @@ export function AnalystProfileClubView({
             profile={profile}
             isOwn={isOwn}
             ownHandle={own?.handle ?? null}
+            publicRecord={effectivePublicRecord}
             onEdit={isOwn && memberProfile ? saveProfile : undefined}
             avatarEnabled={avatarEnabled}
             xEnabled={xEnabled}
@@ -353,6 +399,7 @@ function ProfileContent({
   profile,
   isOwn,
   ownHandle,
+  publicRecord,
   onEdit,
   avatarEnabled,
   xEnabled,
@@ -370,6 +417,7 @@ function ProfileContent({
   profile: ResolvedProfile;
   isOwn: boolean;
   ownHandle: string | null;
+  publicRecord?: PublicRecordPayload | null;
   onEdit?: (profile: EditableProfile) => void;
   avatarEnabled: boolean;
   xEnabled: boolean;
@@ -474,9 +522,13 @@ function ProfileContent({
               </button>
               {isOwn ? (
                 <>
-                  <a href="/app/account" className="pl-prof-btn pl-prof-btn--ghost" onClick={go("/app/account")}>
+                  <a
+                    href="/app/lab?tab=privacidad"
+                    className="pl-prof-btn pl-prof-btn--ghost"
+                    onClick={go("/app/lab?tab=privacidad")}
+                  >
                     <LockIcon />
-                    Perfil público
+                    Privacidad
                   </a>
                   {onEdit ? (
                     <React.Suspense
@@ -579,7 +631,26 @@ function ProfileContent({
 
       {/* Récord */}
       <section aria-label="Récord">
-        {hasSettled ? (
+        {!isOwn && !profile.isExample ? (
+          publicRecord === undefined ? (
+            <div className="pl-prof-empty glass-lens glass-ring">
+              <p className="pl-prof-empty-title">Cargando récord…</p>
+            </div>
+          ) : publicRecord === null ? (
+            <div className="pl-prof-empty glass-lens glass-ring">
+              <p className="pl-prof-empty-title">Sin picks cerrados todavía</p>
+            </div>
+          ) : (
+            <PublicRecordPreviewCard
+              handle={profile.handle}
+              hidden={publicRecord.hidden}
+              settled={publicRecord.hidden ? 0 : publicRecord.settled}
+              view={publicRecord.hidden ? null : publicRecord.view}
+              oddsFormat={oddsFormat}
+              summaryOnly
+            />
+          )
+        ) : hasSettled ? (
           <>
             <dl className="pl-prof-record glass-lens glass-ring num">
               <div className="pl-prof-stat">
@@ -693,16 +764,40 @@ function ProfileContent({
           />
         ) : null}
         {tab === "picks" ? (
-          <PicksPanel
-            entries={singlePicks}
-            dataset={dataset}
-            oddsFormat={oddsFormat}
-            isVisitor={isVisitor}
-            navigateTo={navigateTo}
-          />
+          !isOwn && !profile.isExample ? (
+            <SharedPicksPanel
+              handle={profile.handle}
+              publicRecord={publicRecord}
+              oddsFormat={oddsFormat}
+            />
+          ) : (
+            <PicksPanel
+              entries={singlePicks}
+              dataset={dataset}
+              oddsFormat={oddsFormat}
+              isVisitor={isVisitor}
+              navigateTo={navigateTo}
+            />
+          )
         ) : null}
-        {tab === "parlays" ? <ParlaysPanel entries={parlays} /> : null}
-        {tab === "estadisticas" ? <StatsPanel entries={profile.journal} today={today} /> : null}
+        {tab === "parlays" ? (
+          !isOwn && !profile.isExample ? (
+            <SharedParlaysPanel
+              handle={profile.handle}
+              publicRecord={publicRecord}
+              oddsFormat={oddsFormat}
+            />
+          ) : (
+            <ParlaysPanel entries={parlays} />
+          )
+        ) : null}
+        {tab === "estadisticas" ? (
+          !isOwn && !profile.isExample ? (
+            <SharedStatsPanel handle={profile.handle} publicRecord={publicRecord} />
+          ) : (
+            <StatsPanel entries={profile.journal} today={today} />
+          )
+        ) : null}
       </TabPanel>
     </div>
   );
@@ -1297,6 +1392,240 @@ function StatsPanel({ entries, today }: { entries: readonly JournalEntry[]; toda
           <p className="pl-prof-card-note">La raya marca lo esperado (punto medio del rango).</p>
         </section>
       </div>
+    </div>
+  );
+}
+
+/* ---------------------------------------------------------------------------
+   Récord público compartido de otro socio real (/api/u/[handle]/record)
+   Respeta cada interruptor de Mi récord; nunca expone picks abiertos ni pesos.
+   ------------------------------------------------------------------------- */
+
+function SharedPicksPanel({
+  handle,
+  publicRecord,
+  oddsFormat,
+}: {
+  handle: string;
+  publicRecord: PublicRecordPayload | null | undefined;
+  oddsFormat: OddsFormat;
+}): React.JSX.Element {
+  if (publicRecord === undefined) {
+    return <p className="pl-prof-empty-line">Cargando picks…</p>;
+  }
+  if (!publicRecord || publicRecord.hidden || publicRecord.view.settledPicks === null) {
+    return (
+      <p className="pl-prof-empty-line">
+        @{handle} mantiene su historial de picks en privado.
+      </p>
+    );
+  }
+  const singles = publicRecord.view.settledPicks.filter(
+    (p) => !p.pickLabel.includes(" + "),
+  );
+  if (singles.length === 0) {
+    return <p className="pl-prof-empty-line">Todavía no hay picks cerrados para mostrar.</p>;
+  }
+  return (
+    <ul className="pl-prof-rows glass-lens glass-ring num">
+      {singles.map((p, idx) => {
+        const net = p.status === "won" ? p.units * (p.userDecimal - 1) : -p.units;
+        return (
+          <li key={`${p.pickLabel}-${p.day ?? idx}-${idx}`} className="pl-prof-row">
+            <div className="pl-prof-row-main">
+              <div className="pl-prof-row-copy">
+                <p className="pl-prof-row-title">{p.pickLabel}</p>
+                <p className="pl-prof-row-sub">
+                  {[p.leagueLabel, p.day ? formatShortIsoDay(p.day) : null]
+                    .filter(Boolean)
+                    .join(" · ")}
+                </p>
+              </div>
+            </div>
+            <div className="pl-prof-row-odds num">
+              <p>{formatOddsValue(p.userDecimal, oddsFormat)}</p>
+              <p className={net > 0 ? "pl-prof-pos" : "pl-prof-neg"}>
+                {formatSignedUnits(Math.round(net * 100) / 100)}
+              </p>
+            </div>
+            <PickStatus status={outcomeOf(p.status)} />
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
+function SharedParlaysPanel({
+  handle,
+  publicRecord,
+  oddsFormat,
+}: {
+  handle: string;
+  publicRecord: PublicRecordPayload | null | undefined;
+  oddsFormat: OddsFormat;
+}): React.JSX.Element {
+  if (publicRecord === undefined) {
+    return <p className="pl-prof-empty-line">Cargando parlays…</p>;
+  }
+  if (!publicRecord || publicRecord.hidden || publicRecord.view.settledPicks === null) {
+    return (
+      <p className="pl-prof-empty-line">
+        @{handle} mantiene sus parlays en privado.
+      </p>
+    );
+  }
+  const parlays = publicRecord.view.settledPicks.filter((p) =>
+    p.pickLabel.includes(" + "),
+  );
+  if (parlays.length === 0) {
+    return <p className="pl-prof-empty-line">Todavía no hay parlays cerrados para mostrar.</p>;
+  }
+  return (
+    <div className="pl-prof-parlays">
+      {parlays.map((entry, idx) => {
+        const legs = splitLegs(entry.pickLabel);
+        const outcome = outcomeOf(entry.status);
+        const net =
+          entry.status === "won"
+            ? entry.units * (entry.userDecimal - 1)
+            : -entry.units;
+        return (
+          <article
+            key={`${entry.pickLabel}-${entry.day ?? idx}-${idx}`}
+            className="pl-prof-parlay glass-lens glass-ring"
+          >
+            <div className="pl-prof-parlay-head">
+              <p className="pl-prof-row-title num">
+                Parlay de {legs.length} · {entry.units.toFixed(1)}u
+              </p>
+              <PickStatus status={outcome} />
+            </div>
+            <ol className="pl-prof-legs">
+              {legs.map((leg, i) => (
+                <li key={`${leg.label}-${i}`}>
+                  <span>
+                    {leg.label}
+                    {leg.league ? (
+                      <span className="pl-prof-muted"> · {leg.league}</span>
+                    ) : null}
+                  </span>
+                  {outcome === "won" ? (
+                    <span className="pl-prof-pos" aria-label="Cumplida">
+                      ✓
+                    </span>
+                  ) : null}
+                </li>
+              ))}
+            </ol>
+            <div className="pl-prof-parlay-foot num">
+              <span>
+                Momio {formatOddsValue(entry.userDecimal, oddsFormat)}
+              </span>
+              <strong className={net > 0 ? "pl-prof-pos" : "pl-prof-neg"}>
+                {formatSignedUnits(Math.round(net * 100) / 100)}
+              </strong>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  );
+}
+
+function SharedStatsPanel({
+  handle,
+  publicRecord,
+}: {
+  handle: string;
+  publicRecord: PublicRecordPayload | null | undefined;
+}): React.JSX.Element {
+  if (publicRecord === undefined) {
+    return <p className="pl-prof-empty-line">Cargando estadísticas…</p>;
+  }
+  if (!publicRecord || publicRecord.hidden) {
+    return (
+      <p className="pl-prof-empty-line">
+        @{handle} mantiene sus estadísticas en privado.
+      </p>
+    );
+  }
+  if (publicRecord.settled === 0) {
+    return <p className="pl-prof-empty-line">Todavía no hay picks cerrados para calcular estadísticas.</p>;
+  }
+  const view: PublicRecordView = publicRecord.view;
+  const hasCurve = Boolean(view.curve && view.curve.length > 0);
+  const hasMonths = Boolean(view.months && (view.months.best || view.months.worst));
+  const hasLeagues = Boolean(view.byLeague && view.byLeague.length > 0);
+  const hasMarkets = Boolean(view.byMarket && view.byMarket.length > 0);
+
+  if (!hasCurve && !hasMonths && !hasLeagues && !hasMarkets) {
+    return (
+      <p className="pl-prof-empty-line">
+        @{handle} mantiene oculto el desglose detallado de estadísticas.
+      </p>
+    );
+  }
+
+  return (
+    <div className="pl-rec-stack">
+      {hasCurve && view.curve ? (
+        <section className="pl-rec-card glass-lens glass-ring">
+          <h2 className="pl-rec-card-title">Curva de saldo (unidades)</h2>
+          <BalanceCurveFigure curve={view.curve} />
+        </section>
+      ) : null}
+
+      {hasMonths && view.months ? (
+        <section className="pl-rec-card glass-lens glass-ring num">
+          <h2 className="pl-rec-card-title">Mejor y peor mes</h2>
+          <div className="pl-rec-metric-pair">
+            {view.months.best ? (
+              <div className="pl-rec-pub-stat">
+                <span className="pl-rec-pub-dt">Mejor mes</span>
+                <strong className="pl-rec-pub-dd pl-rec-pos">
+                  {formatSignedUnits(view.months.best.netUnits)}
+                </strong>
+                <span className="pl-rec-pub-sub">{view.months.best.label}</span>
+              </div>
+            ) : null}
+            {view.months.worst ? (
+              <div className="pl-rec-pub-stat">
+                <span className="pl-rec-pub-dt">Peor mes</span>
+                <strong
+                  className={`pl-rec-pub-dd ${view.months.worst.netUnits >= 0 ? "pl-rec-pos" : "pl-rec-neg"}`}
+                >
+                  {formatSignedUnits(view.months.worst.netUnits)}
+                </strong>
+                <span className="pl-rec-pub-sub">{view.months.worst.label}</span>
+              </div>
+            ) : null}
+          </div>
+        </section>
+      ) : null}
+
+      {hasLeagues || hasMarkets ? (
+        <div className="pl-prof-two">
+          {hasLeagues && view.byLeague ? (
+            <section className="pl-rec-card glass-lens glass-ring">
+              <h2 className="pl-rec-card-title">Acierto por liga</h2>
+              <RateBreakdownList
+                rows={view.byLeague}
+                showNetUnits={view.netUnits !== null}
+              />
+            </section>
+          ) : null}
+          {hasMarkets && view.byMarket ? (
+            <section className="pl-rec-card glass-lens glass-ring">
+              <h2 className="pl-rec-card-title">Acierto por mercado</h2>
+              <RateBreakdownList
+                rows={view.byMarket}
+                showNetUnits={view.netUnits !== null}
+              />
+            </section>
+          ) : null}
+        </div>
+      ) : null}
     </div>
   );
 }

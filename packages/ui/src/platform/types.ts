@@ -421,6 +421,8 @@ export interface JournalEntry {
   sealedAt: string;
   /** Fecha ISO del registro; permite ventanas reales (30 días, por mes). */
   sealedAtIso?: string;
+  /** Fecha ISO de liquidación cuando el pick ya cerró. */
+  settledAtIso?: string | null;
   note?: string;
 }
 

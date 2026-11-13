@@ -79,13 +79,14 @@ interface ServerJournalRow {
   status: string;
   note: string | null;
   sealedAt: string;
+  settledAt?: string | null;
 }
 
 const SEAL_ERRORS: Record<string, string> = {
   partido_iniciado: "El partido ya empezó: no se puede sellar.",
   unidades_invalidas: "Las unidades deben estar entre 0.25u y 5u.",
   momio_invalido: "Momio inválido.",
-  ya_sellado: "Ese pick ya estaba sellado en tu Bitácora.",
+  ya_sellado: "Ese pick ya estaba sellado en Mi récord.",
 };
 
 function fromServerRow(row: ServerJournalRow): JournalEntry {
@@ -105,6 +106,7 @@ function fromServerRow(row: ServerJournalRow): JournalEntry {
     status: row.status === "won" || row.status === "lost" ? row.status : "pending",
     sealedAt: new Date(row.sealedAt).toLocaleString("es-MX", { dateStyle: "short", timeStyle: "short" }),
     sealedAtIso: new Date(row.sealedAt).toISOString(),
+    settledAtIso: row.settledAt ? new Date(row.settledAt).toISOString() : null,
     note: row.note ?? undefined,
   };
 }

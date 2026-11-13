@@ -385,7 +385,7 @@ function LabRail(): React.JSX.Element {
   return (
     <section aria-labelledby="home-lab-title" className="pl-home-rail-card glass-card glass-ring">
       <div className="flex items-center justify-between gap-2">
-        <h2 id="home-lab-title" className="m-0 text-base font-extrabold">Mi bitácora</h2>
+        <h2 id="home-lab-title" className="m-0 text-base font-extrabold">Mi récord</h2>
         <a
           href="/app/lab"
           onClick={(e) => {
@@ -559,7 +559,7 @@ export function HomeClubView(): React.JSX.Element {
             ) : null}
           </div>
 
-          <aside aria-label="Tu parlay, valor y bitácora" className="pl-home-rail">
+          <aside aria-label="Tu parlay, valor y récord" className="pl-home-rail">
             <ParlayRail games={visible} />
             <ValueRail items={value} />
             <LabRail />

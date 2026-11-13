@@ -569,7 +569,7 @@ export function PickComposerModal(): React.JSX.Element | null {
               }
             >
               <MaestroIcon name="check" size={15} />
-              Sellar en Bitácora ({units.toFixed(2)}u)
+              Sellar en Mi récord ({units.toFixed(2)}u)
             </button>
           </div>
         </div>
@@ -993,8 +993,8 @@ const CLUB_COMMAND_VIEWS: ReadonlyArray<{
     icon: "shield",
   },
   {
-    label: "Mi Bitácora & Vigilancia",
-    subtitle: "Unidades simuladas, ventaja promedio y alertas de partido",
+    label: "Mi récord y vigilancia",
+    subtitle: "Unidades, estadísticas, privacidad y alertas de partido",
     href: "/app/lab",
     icon: "chart",
   },

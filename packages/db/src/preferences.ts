@@ -28,6 +28,10 @@ export interface UserPreferencesRecord {
   pauseCommunity: boolean;
   responsiblePauseKind: ResponsiblePauseKind | null;
   responsiblePauseUntil: Date | null;
+  /** Privacidad de Mi récord por bloque y dato (la normaliza la app). */
+  recordPrivacy: Record<string, unknown>;
+  /** Banca inicial en pesos (centavos); siempre privada. */
+  bankrollStartMxnCentavos: number | null;
   updatedAt: Date | null;
 }
 
@@ -47,6 +51,8 @@ export interface UserPreferencesPatch {
   showInRanking?: boolean;
   pauseCommunity?: boolean;
   responsiblePauseKind?: ResponsiblePauseKind | null;
+  recordPrivacy?: Record<string, unknown>;
+  bankrollStartMxnCentavos?: number | null;
 }
 
 const PAUSE_DURATIONS_MS: Record<ResponsiblePauseKind, number> = {
@@ -75,6 +81,8 @@ export function defaultUserPreferences(publicProfileFallback = true): UserPrefer
     pauseCommunity: false,
     responsiblePauseKind: null,
     responsiblePauseUntil: null,
+    recordPrivacy: {},
+    bankrollStartMxnCentavos: null,
     updatedAt: null,
   };
 }
@@ -112,6 +120,9 @@ export async function getUserPreferences(db: Db, userId: string): Promise<UserPr
         ? pref.responsiblePauseKind
         : null,
     responsiblePauseUntil: pref.responsiblePauseUntil ?? null,
+    recordPrivacy:
+      pref.recordPrivacy && typeof pref.recordPrivacy === "object" ? (pref.recordPrivacy as Record<string, unknown>) : {},
+    bankrollStartMxnCentavos: pref.bankrollStartMxnCentavos ?? null,
     updatedAt: pref.updatedAt,
   };
 }
@@ -146,6 +157,13 @@ export async function upsertUserPreferences(
     const emailBeforeMatch = patch.emailBeforeMatch ?? current.emailBeforeMatch;
     const emailBillingReminder = patch.emailBillingReminder ?? current.emailBillingReminder;
     const pauseCommunity = patch.pauseCommunity ?? current.pauseCommunity;
+    const recordPrivacy = patch.recordPrivacy ?? current.recordPrivacy;
+    const bankrollStartMxnCentavos =
+      patch.bankrollStartMxnCentavos === undefined
+        ? current.bankrollStartMxnCentavos
+        : patch.bankrollStartMxnCentavos === null
+          ? null
+          : Math.min(1_000_000_000, Math.max(0, Math.round(patch.bankrollStartMxnCentavos)));
 
     let responsiblePauseKind = current.responsiblePauseKind;
     let responsiblePauseUntil = current.responsiblePauseUntil;
@@ -179,6 +197,8 @@ export async function upsertUserPreferences(
         pauseCommunity,
         responsiblePauseKind,
         responsiblePauseUntil,
+        recordPrivacy,
+        bankrollStartMxnCentavos,
         updatedAt: now,
       })
       .onConflictDoUpdate({
@@ -200,6 +220,8 @@ export async function upsertUserPreferences(
           pauseCommunity,
           responsiblePauseKind,
           responsiblePauseUntil,
+          recordPrivacy,
+          bankrollStartMxnCentavos,
           updatedAt: now,
         },
       });

@@ -126,12 +126,20 @@ export const userPreferences = pgTable(
     pauseCommunity: boolean("pause_community").notNull().default(false),
     responsiblePauseKind: text("responsible_pause_kind"),
     responsiblePauseUntil: ts("responsible_pause_until"),
+    /** Privacidad de Mi récord por bloque y dato. */
+    recordPrivacy: jsonb("record_privacy").notNull().default(sql`'{}'::jsonb`),
+    /** Banca inicial en pesos (centavos); nunca pública. */
+    bankrollStartMxnCentavos: integer("bankroll_start_mxn_centavos"),
     updatedAt: ts("updated_at").notNull().defaultNow(),
   },
   (t) => [
     check("user_preferences_odds_ck", sql`${t.oddsFormat} IN ('american', 'decimal')`),
     check("user_preferences_risk_ck", sql`${t.riskPreference} IN ('conservador', 'medio', 'arriesgado')`),
     check("user_preferences_theme_ck", sql`${t.themeMode} IN ('dark', 'light', 'system')`),
+    check(
+      "user_preferences_bankroll_ck",
+      sql`${t.bankrollStartMxnCentavos} IS NULL OR (${t.bankrollStartMxnCentavos} >= 0 AND ${t.bankrollStartMxnCentavos} <= 1000000000)`,
+    ),
     check(
       "user_preferences_pause_ck",
       sql`${t.responsiblePauseKind} IS NULL OR ${t.responsiblePauseKind} IN ('24h', '7d', '30d')`,

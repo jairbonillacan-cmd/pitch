@@ -848,7 +848,7 @@ function ClubWorkspaceShellImpl({
         label: "Tus picks",
         items: [
           { href: `/app/u/${handle}`, label: "Ver mi perfil", icon: "user", trail: profileTrail },
-          { href: "/app/lab", label: "Mi bitácora", icon: "ticket", trail: journalTrail },
+          { href: "/app/lab", label: "Mi récord", icon: "ticket", trail: journalTrail },
         ],
       },
       {
@@ -1617,8 +1617,8 @@ function primaryNavItems(parlayCount: number, journalCount: number): PrimaryNavI
     { href: "/app/social", label: "Comunidad", icon: "users" },
     {
       href: "/app/lab",
-      label: "Mi bitácora",
-      shortLabel: "Bitácora",
+      label: "Mi récord",
+      shortLabel: "Récord",
       icon: "ticket",
       badge: journalCount > 0 ? `${journalCount}` : undefined,
     },

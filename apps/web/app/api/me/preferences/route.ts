@@ -9,6 +9,7 @@ import {
   type UserPreferencesPatch,
   type UserPreferencesRecord,
 } from "@pitchlab/db";
+import { normalizeRecordPrivacy } from "@pitchlab/ui/record-stats";
 import {
   checkEndpointRateLimit,
   rateLimitResponse,
@@ -44,6 +45,8 @@ function serializePreferences(pref: UserPreferencesRecord) {
     pauseCommunity: pref.pauseCommunity,
     responsiblePauseKind: pref.responsiblePauseKind,
     responsiblePauseUntilIso: pref.responsiblePauseUntil ? pref.responsiblePauseUntil.toISOString() : null,
+    recordPrivacy: normalizeRecordPrivacy(pref.recordPrivacy),
+    bankrollStartMxnCentavos: pref.bankrollStartMxnCentavos,
     updatedAtIso: pref.updatedAt ? pref.updatedAt.toISOString() : null,
   };
 }
@@ -141,6 +144,31 @@ function parsePatch(body: Record<string, unknown>): { patch?: UserPreferencesPat
       patch.responsiblePauseKind = body.responsiblePauseKind as ResponsiblePauseKind;
     } else {
       return { error: "Duración de pausa responsable inválida." };
+    }
+  }
+
+  if (body.recordPrivacy !== undefined) {
+    if (!body.recordPrivacy || typeof body.recordPrivacy !== "object" || Array.isArray(body.recordPrivacy)) {
+      return { error: "Privacidad de Mi récord inválida." };
+    }
+    patch.recordPrivacy = normalizeRecordPrivacy(body.recordPrivacy) as unknown as Record<string, unknown>;
+  }
+
+  if (body.bankrollStartMxnCentavos !== undefined || body.bankrollStartMxn !== undefined) {
+    const rawBank =
+      body.bankrollStartMxnCentavos !== undefined
+        ? body.bankrollStartMxnCentavos
+        : body.bankrollStartMxn === null
+          ? null
+          : typeof body.bankrollStartMxn === "number"
+            ? Math.round(body.bankrollStartMxn * 100)
+            : NaN;
+    if (rawBank === null) {
+      patch.bankrollStartMxnCentavos = null;
+    } else if (typeof rawBank !== "number" || !Number.isFinite(rawBank) || rawBank < 0 || rawBank > 1_000_000_000) {
+      return { error: "La banca inicial debe ser un monto entre $0 y $10,000,000 MXN." };
+    } else {
+      patch.bankrollStartMxnCentavos = Math.round(rawBank);
     }
   }
 
