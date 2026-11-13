@@ -1,6 +1,237 @@
 {
   "schemaVersion": 1,
   "league": "liga-mx",
-  "observedAt": "2026-11-09T06:42:06.662Z",
-  "entries": []
+  "observedAt": "2026-11-13T18:22:45.426Z",
+  "entries": [
+    {
+      "gameId": "mx-2026-j16-queretaro-monterrey-401876988",
+      "source": "polymarket",
+      "unit": "usd",
+      "observedAt": "2026-11-13T18:22:45.426Z",
+      "outcomes": [
+        {
+          "side": "home",
+          "volume": 420.35718600000007,
+          "price": 0.27
+        },
+        {
+          "side": "draw",
+          "volume": 404.606278,
+          "price": 0.25
+        },
+        {
+          "side": "away",
+          "volume": 2316.053528,
+          "price": 0.49
+        }
+      ]
+    },
+    {
+      "gameId": "mx-2026-j17-chivas-cruz-azul-401877047",
+      "source": "polymarket",
+      "unit": "usd",
+      "observedAt": "2026-11-13T18:22:45.426Z",
+      "outcomes": [
+        {
+          "side": "home",
+          "volume": 0,
+          "price": 0.415
+        },
+        {
+          "side": "draw",
+          "volume": 0,
+          "price": 0.23
+        },
+        {
+          "side": "away",
+          "volume": 10.344828,
+          "price": 0.365
+        }
+      ]
+    },
+    {
+      "gameId": "mx-2026-j17-fc-juarez-atlas-401877053",
+      "source": "polymarket",
+      "unit": "usd",
+      "observedAt": "2026-11-13T18:22:45.426Z",
+      "outcomes": [
+        {
+          "side": "home",
+          "volume": 12.597646,
+          "price": 0.27
+        },
+        {
+          "side": "draw",
+          "volume": 0,
+          "price": 0.26
+        },
+        {
+          "side": "away",
+          "volume": 299.977779,
+          "price": 0.48
+        }
+      ]
+    },
+    {
+      "gameId": "mx-2026-j17-pachuca-toluca-401877050",
+      "source": "polymarket",
+      "unit": "usd",
+      "observedAt": "2026-11-13T18:22:45.426Z",
+      "outcomes": [
+        {
+          "side": "home",
+          "volume": 0,
+          "price": 0.325
+        },
+        {
+          "side": "draw",
+          "volume": 0,
+          "price": 0.23
+        },
+        {
+          "side": "away",
+          "volume": 21.04,
+          "price": 0.44
+        }
+      ]
+    },
+    {
+      "gameId": "mx-2026-j17-puebla-atletico-san-luis-401877054",
+      "source": "polymarket",
+      "unit": "usd",
+      "observedAt": "2026-11-13T18:22:45.426Z",
+      "outcomes": [
+        {
+          "side": "home",
+          "volume": 5.405406,
+          "price": 0.355
+        },
+        {
+          "side": "draw",
+          "volume": 0,
+          "price": 0.265
+        },
+        {
+          "side": "away",
+          "volume": 0,
+          "price": 0.39
+        }
+      ]
+    },
+    {
+      "gameId": "mx-2026-j17-pumas-unam-monterrey-401877049",
+      "source": "polymarket",
+      "unit": "usd",
+      "observedAt": "2026-11-13T18:22:45.426Z",
+      "outcomes": [
+        {
+          "side": "home",
+          "volume": 16.42,
+          "price": 0.4
+        },
+        {
+          "side": "draw",
+          "volume": 0,
+          "price": 0.28
+        },
+        {
+          "side": "away",
+          "volume": 0,
+          "price": 0.365
+        }
+      ]
+    },
+    {
+      "gameId": "mx-2026-j17-queretaro-necaxa-401877046",
+      "source": "polymarket",
+      "unit": "usd",
+      "observedAt": "2026-11-13T18:22:45.426Z",
+      "outcomes": [
+        {
+          "side": "home",
+          "volume": 30,
+          "price": 0.66
+        },
+        {
+          "side": "draw",
+          "volume": 0,
+          "price": 0.245
+        },
+        {
+          "side": "away",
+          "volume": 0,
+          "price": 0.18
+        }
+      ]
+    },
+    {
+      "gameId": "mx-2026-j17-santos-laguna-leon-401877051",
+      "source": "polymarket",
+      "unit": "usd",
+      "observedAt": "2026-11-13T18:22:45.426Z",
+      "outcomes": [
+        {
+          "side": "home",
+          "volume": 2.5,
+          "price": 0.385
+        },
+        {
+          "side": "draw",
+          "volume": 0,
+          "price": 0.245
+        },
+        {
+          "side": "away",
+          "volume": 0,
+          "price": 0.37
+        }
+      ]
+    },
+    {
+      "gameId": "mx-2026-j17-tigres-uanl-america-401877048",
+      "source": "polymarket",
+      "unit": "usd",
+      "observedAt": "2026-11-13T18:22:45.426Z",
+      "outcomes": [
+        {
+          "side": "home",
+          "volume": 7,
+          "price": 0.27
+        },
+        {
+          "side": "draw",
+          "volume": 0,
+          "price": 0.255
+        },
+        {
+          "side": "away",
+          "volume": 310,
+          "price": 0.475
+        }
+      ]
+    },
+    {
+      "gameId": "mx-2026-j17-tijuana-atlante-401877052",
+      "source": "polymarket",
+      "unit": "usd",
+      "observedAt": "2026-11-13T18:22:45.426Z",
+      "outcomes": [
+        {
+          "side": "home",
+          "volume": 26.655172999999998,
+          "price": 0.585
+        },
+        {
+          "side": "draw",
+          "volume": 4.347827,
+          "price": 0.215
+        },
+        {
+          "side": "away",
+          "volume": 1.265823,
+          "price": 0.19
+        }
+      ]
+    }
+  ]
 }
