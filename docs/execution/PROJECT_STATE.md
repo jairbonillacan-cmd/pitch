@@ -9,7 +9,7 @@
 - **F1 (spikes y decisiones):** ✅ completa como investigación de escritorio. Las cotizaciones y la confirmación de términos dependen de que el fundador haga los contactos (FD-14).
 - **F2 (product blueprint):** ✅ completa, pendiente de revisión del fundador.
 - **Decisión 2026-11-08:** datos a US$0 por ahora → `docs/architecture/FREE_DATA_STRATEGY.md` (FD-02 decidida).
-- **F3 (arquitectura y ADRs):** ✅ completa: 27 ADRs aceptadas (`ADR-001`…`ADR-027`; ADR-016 cerrada el 2026-11-11 con `MaestroIcon`) y 8 documentos base de arquitectura, con revisión cruzada.
+- **F3 (arquitectura y ADRs):** ✅ completa y actualizada al 2026-11-13: **38 ADRs aceptadas** (`ADR-001`…`ADR-038`; `ADR-028`…`ADR-038` cubren coexistencia UI, histórico vs `research-only`, pulso de mercado y momios gratuitos, `@pitchlab/db` + `PGlite`, cuentas en 2 pasos + PIN, Stripe REST + Connect Express + CFDI, `Cortex IA` validado, vidrio falso `0 blur` + shell persistente, flujo *Canvas-First* + `Pase PitchLab Ultra`, reputación por `Saldo` y tarjeta 3D + `/i/[code]`) y 8 documentos base de arquitectura. Auditoría del proyecto: `docs/execution/PROJECT_AUDIT_2026_11_13.md`.
 - **F3b (preparación de ejecución):** ✅ completa: frontend, contratos, ownership, integración, plan multiagente, quality gates y plantilla de prompts.
 - **Pre-MVP para socios:** ✅ implementado originalmente en `feat/pre-mvp` (`docs/product/PRE_MVP.md` y `docs/product/PRE_MVP_DEPLOY.md`). Desde 2026-11-11 ese trabajo vive íntegro en `gemini-reestructura`, la rama que va a producción; `feat/pre-mvp` se eliminó y su PR #1 se cerró como sustituido.
 - **D1 diseño base:** ✅ aprobado (2026-11-08, iteración 4). Contrato en `docs/design/DESIGN_SYSTEM.md`, `INTERACTION_PATTERNS.md` y `RESPONSIVE_RULES.md`. Prototipos en `design/d1/`.
@@ -114,8 +114,8 @@ El clon previo de TouchIQ (Vite + `src/domain` con 24 tests dorados) quedó arch
 | `docs/product/MVP_DEFINITION.md` | F2 | Completo (Lean+ con ecosistema) |
 | `docs/execution/ROADMAP.md` | F2 | Completo (waves W0–W8 con dependencias) |
 | `docs/architecture/FREE_DATA_STRATEGY.md` | F2→F3 | Vigente: nflverse, openfootball, The Odds API Free y API-Football Free |
-| `docs/architecture/adr/` (ADR-001…026) | F3 / UI-V4 / UI-MAESTRO-V4.1 | 25 aceptadas (incluye ADR-020…026), 1 propuesta (ADR-016, cubierta en v4 por `MaestroIcon` según ADR-023/ADR-026) |
-| `GLOSSARY.md` | UI-V4 / UI-MAESTRO-V4.1 | Glosario canónico del dominio de PitchLab (Spacetime Suite, Radiografía Previa, Multi-Picks, Momio Justo, Boleto Combinado, SGP, Props Lab, Bitácora, Pase Total, Cero-Fuga, Tipster Oficial, Referido Doble Vía) |
+| `docs/architecture/adr/` (ADR-001…038) | F3 / UI-V4 / F4 / Canvas-First | 38 ADRs aceptadas (incluye `ADR-027`…`ADR-038`: Spacetime v3.0, librerías UI, histórico vs research, pulso de mercado, `@pitchlab/db`, cuentas 2 pasos, Stripe REST + Connect, `Cortex IA`, vidrio falso `0 blur`, lienzos + `Pase PitchLab Ultra`, `Saldo` y tarjeta 3D WebGL SDF) |
+| `GLOSSARY.md` | Dominio vigente | Glosario canónico alineado a código (`Spacetime Suite`, `Multi-Picks`, `Momio Justo`, `Bitácora`, `Saldo`, `Consenso`, `Pase PitchLab Ultra`, `Cero-Fuga`, `Tipster Verificado`, `Referido Doble Vía`, `Embajador PitchLab`) |
 | `docs/architecture/SYSTEM_ARCHITECTURE.md` | F3 | Módulos, límites, flujo y API `/api/v1` |
 | `docs/architecture/DATA_ARCHITECTURE.md` | F3 | Modelo canónico, ingesta, R2, frescura y as-of (incluye HISTORICAL_STORAGE) |
 | `docs/architecture/PREDICTION_ARCHITECTURE.md` | F3 | Live frente a retro, tablas, gate de publicación |
