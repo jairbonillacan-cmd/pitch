@@ -200,6 +200,8 @@ export function createAuth(options: {
           },
         },
       },
+      // Los tokens se vacían antes de escribir. Un `after` que vuelva a escribir con
+      // `options.db` corre fuera de la transacción de Better Auth y la bloquea.
       account: {
         create: {
           before: async (account) => ({
@@ -212,9 +214,6 @@ export function createAuth(options: {
               refreshTokenExpiresAt: null,
             },
           }),
-          after: async (account) => {
-            await scrubOAuthAccountTokens(options.db, account.id);
-          },
         },
         update: {
           before: async (account) => ({
@@ -227,9 +226,6 @@ export function createAuth(options: {
               refreshTokenExpiresAt: null,
             },
           }),
-          after: async (account) => {
-            await scrubOAuthAccountTokens(options.db, account.id);
-          },
         },
       },
     },
