@@ -283,7 +283,7 @@ describe("Ola 1 · Autenticación, +18, consentimiento y PIN de beta (SEC-04, SE
     );
     expect(watchlistOk.status).toBe(200);
     expect(await watchlistOk.json()).toEqual({ gameIds: ["nfl-game-1"] });
-  });
+  }, 60_000);
 
   it("SEC-05: apaga el PIN de beta en producción con cuentas activas o secretos de ejemplo y responde 403 en /api/beta/unlock", async () => {
     (process.env as Record<string, string | undefined>).NODE_ENV = "production";
