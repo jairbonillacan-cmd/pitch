@@ -75,6 +75,9 @@ function Write-Log {
 }
 
 Set-Location $root
+# Con 'Stop', Windows PowerShell 5.1 convierte cualquier línea de stderr (p. ej. un aviso de
+# webpack) en error fatal y tumba el servidor.
+$ErrorActionPreference = 'Continue'
 if ($Prod) {
   $env:PITCHLAB_DIST_DIR = '.next-9990'
   Write-Host 'PitchLab (build de produccion) en http://localhost:9990 con cuentas de prueba.'
