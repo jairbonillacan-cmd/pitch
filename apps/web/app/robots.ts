@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
+import { getSiteUrl } from "../src/server/site-url";
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = (process.env.BETTER_AUTH_URL ?? "https://pitchlab.mx").replace(/\/$/, "");
+  const baseUrl = getSiteUrl();
   return {
     rules: {
       userAgent: "*",

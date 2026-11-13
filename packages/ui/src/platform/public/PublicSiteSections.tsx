@@ -858,6 +858,7 @@ export function PublicSiteShell({
             </p>
           </div>
           <nav aria-label="Pie" className="pl-lp-footer-nav">
+            <a href="/blog">Blog</a>
             <a href="/legal/terminos">Términos</a>
             <a href="/legal/privacidad">Aviso de privacidad</a>
             <a href="/legal/juego-responsable">Juego responsable</a>

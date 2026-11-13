@@ -64,6 +64,15 @@ const baseConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  // El blog lee `content/blog/*.md` en tiempo de ejecución: estas rutas deben llevar los archivos.
+  outputFileTracingIncludes: {
+    "/blog": ["./content/blog/**/*"],
+    "/blog/[slug]": ["./content/blog/**/*"],
+    "/blog/[slug]/opengraph-image": ["./content/blog/**/*"],
+    "/blog/categoria/[categoria]": ["./content/blog/**/*"],
+    "/blog/rss.xml": ["./content/blog/**/*"],
+    "/sitemap.xml": ["./content/blog/**/*"],
+  },
   // Cada página importa solo lo que usa de estos paquetes (no el barril completo).
   experimental: {
     optimizePackageImports: ["@pitchlab/ui", "@heroui/react", "@base-ui/react", "@astryxdesign/core"],
@@ -82,6 +91,9 @@ export default function config(phase) {
   const securityHeaders = buildSecurityHeaders(isDev);
   const nextConfig = {
     ...baseConfig,
+    // En desarrollo, Next descarta las páginas compiladas tras 60 s sin visitas y las recompila al
+    // volver (la «traba» al navegar). Se conservan 1 h y hasta 50 páginas en memoria.
+    ...(isDev ? { onDemandEntries: { maxInactiveAge: 60 * 60 * 1000, pagesBufferLength: 50 } } : {}),
     async headers() {
       return [
         {

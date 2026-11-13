@@ -1,12 +1,12 @@
 # Mapa de rutas (`pitchlab.mx`)
 
 > **Propósito:** fuente única de verdad de las URLs implementadas en `apps/web/app/`. Todo enlace en UI, correos, SEO (`robots.ts` / `sitemap.ts`) y guardas (`club-route-guard.ts`) sigue este mapa.
-> **Actualizado:** 2026-11-12 · **Arquitectura:** Next.js App Router (`apps/web/app`), un solo origen (`https://pitchlab.mx`).
+> **Actualizado:** 2026-11-13 · **Arquitectura:** Next.js App Router (`apps/web/app`), un solo origen (`https://pitchlab.mx`).
 
 ## 1. Convenciones
 
 - Un solo origen `https://pitchlab.mx`. Las páginas públicas de marketing y legales son indexables (`/sitemap.ts` y `Allow: /` en `/robots.txt`).
-- Rutas privadas, flujos de autenticación, referidos, boletos compartidos, onboarding y área interna llevan `noindex` y/o exclusión en `robots.ts` (`/app/`, `/api/`, `/i/`, `/onboarding`, `/p/`, `/baja`).
+- Rutas privadas, flujos de autenticación, referidos, boletos compartidos, onboarding y área interna llevan `noindex` y/o exclusión en `robots.ts` (`/app/`, `/api/`, `/i/`, `/onboarding`, `/p/`, `/baja`, `/canjear`).
 - **`[league]`** acepta exactamente las ligas activas del producto (`PRODUCT_LEAGUES` en `apps/web/src/server/snapshots.ts`):
 
   | league | Deporte |
@@ -36,6 +36,9 @@
 | `/legal/terminos` | Términos de uso | Incluye ancla `#comunidad` |
 | `/legal/juego-responsable` | Juego responsable (+18) | Pausas voluntarias y Línea de la Vida |
 | `/legal/creditos` | Créditos de datos abiertos | `nflverse`, `openfootball`, `football-data.org` |
+| `/blog` | Índice del blog | Artículo destacado + rejilla; JSON-LD `Blog`; RSS en `/blog/rss.xml`. Guía: `docs/content/BLOG.md` |
+| `/blog/categoria/[categoria]` | Artículos de una categoría | `momios`, `parlays`, `juego-responsable`, `guias` (`BLOG_CATEGORIES`); `404` si no existe; `noindex` y fuera del sitemap si está vacía |
+| `/blog/[slug]` | Artículo | Markdown en `apps/web/content/blog/<slug>.md`; JSON-LD `BlogPosting` + `BreadcrumbList`; imagen OG generada; `404` si no existe o no está publicado |
 
 ## 3. Redirecciones permanentes (`HTTP 308`) y rutas públicas `noindex`
 
