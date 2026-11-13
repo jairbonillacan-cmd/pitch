@@ -84,6 +84,10 @@ export function consoleMailer(log: (line: string) => void = console.info): Maile
 
 let cached: Mailer | null = null;
 
+export function setMailerForTests(mailer: Mailer | null): void {
+  cached = mailer;
+}
+
 /** Resend si hay clave; si no, la consola (solo para desarrollo). */
 export function getMailer(): Mailer {
   if (cached) return cached;

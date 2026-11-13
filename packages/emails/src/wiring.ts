@@ -64,14 +64,12 @@ export const EMAIL_WIRING = {
     trigger: "Al registrar el referido (`attributeReferral` en `packages/db/src/signup.ts`).",
   },
   "referral-rewarded": {
-    state: "ready",
-    trigger: "Al conceder la recompensa bilateral (`billing.ts`, `grantDays` del referente).",
-    needs: STRIPE_REAL,
+    state: "live",
+    trigger: "Al conceder la recompensa bilateral (`billing.ts`, +15 días) tras el primer pago aprobado (SPEI o Stripe).",
   },
   "referral-ambassador": {
-    state: "ready",
-    trigger: "Al conceder el bono de embajador (`billing.ts`).",
-    needs: STRIPE_REAL,
+    state: "live",
+    trigger: "Al alcanzar 5 amigos pagados y conceder el bono de embajador (+30 días) tras un pago aprobado.",
   },
   "referral-reversed": {
     state: "ready",
@@ -84,7 +82,14 @@ export const EMAIL_WIRING = {
     needs: "La tabla de invitaciones (`invite`) y la pantalla para emitirlas; hoy no existen.",
   },
 
-  "payment-receipt": { state: "ready", trigger: "Webhook `invoice.paid`.", needs: STRIPE_REAL },
+  "payment-receipt": {
+    state: "live",
+    trigger: "Al aprobar una transferencia SPEI (`/api/admin/transfers/[id]/approve`) o al liquidar factura de Stripe.",
+  },
+  "transfer-rejected": {
+    state: "live",
+    trigger: "Al rechazar una solicitud SPEI con motivo en `/app/admin` (`/api/admin/transfers/[id]/reject`).",
+  },
   "payment-failed": { state: "ready", trigger: "Webhook `invoice.payment_failed`.", needs: STRIPE_REAL },
   "subscription-canceled": {
     state: "ready",
@@ -98,14 +103,12 @@ export const EMAIL_WIRING = {
     needs: `${STRIPE_REAL} Facturapi configurado y que el envío admita adjuntos (PDF y XML).`,
   },
   "renewal-reminder": {
-    state: "blocked",
-    trigger: "7 días antes de renovar un plan anual.",
-    needs: "Manejar el webhook `invoice.upcoming` de Stripe (hoy no se procesa) o una tarea diaria sobre `subscriptions`.",
+    state: "live",
+    trigger: "Se registra en `scheduled_emails` al aprobar transferencia SPEI (3 días antes del vencimiento) y se envía/programa en el cron diario.",
   },
   "access-expired": {
-    state: "blocked",
-    trigger: "Cuando termina el plazo de gracia de 72 h de un pago fallido.",
-    needs: "Una tarea diaria que pase `past_due_grace` a `expired` (hoy el estado se guarda pero nada lo vence).",
+    state: "live",
+    trigger: "Se registra en `scheduled_emails` al finalizar el periodo aprobado por transferencia SPEI y se envía/programa en el cron diario.",
   },
 
   "tipster-activated": {
@@ -113,14 +116,12 @@ export const EMAIL_WIRING = {
     trigger: "Al crear el perfil Tipster (`/api/admin/tipsters`).",
   },
   "tipster-new-subscriber": {
-    state: "ready",
-    trigger: "Al registrar la comisión de un cobro con su código (`invoice.paid`).",
-    needs: STRIPE_REAL,
+    state: "live",
+    trigger: "Al registrar la comisión de un cobro con su código al aprobar transferencia SPEI o recibir factura de Stripe.",
   },
   "tipster-payout": {
-    state: "ready",
-    trigger: "Al liquidar el pago (`runTipsterPayouts`, tarea diaria).",
-    needs: STRIPE_REAL,
+    state: "live",
+    trigger: "Al registrar el pago manual de comisión en `/app/admin` o al liquidar por Connect (`/api/cron/tipster-payouts`).",
   },
   "content-removed": {
     state: "blocked",

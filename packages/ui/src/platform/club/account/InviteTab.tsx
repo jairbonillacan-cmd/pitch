@@ -136,14 +136,14 @@ export function InviteTab({
   storyOverride?: InviteTabStoryOverride;
 }): React.JSX.Element {
   const {
-    accountsEnabled: ctxAccountsEnabled,
+    hasAccountSessionAuth,
     allowRoleSimulation,
     referralPaidFriends,
     simulateFriendFirstPayment,
     viewerIdentity,
   } = usePlatform();
 
-  const accountsEnabled = storyOverride?.accountsEnabled ?? ctxAccountsEnabled;
+  const accountsEnabled = storyOverride?.accountsEnabled ?? hasAccountSessionAuth;
   const isLoading = storyOverride?.loading ?? referralsLoading;
 
   const [flipped, setFlipped] = useState(false);

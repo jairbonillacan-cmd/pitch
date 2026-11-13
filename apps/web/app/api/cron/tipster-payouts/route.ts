@@ -1,16 +1,22 @@
 import { createHash, timingSafeEqual } from "node:crypto";
 import { NextResponse } from "next/server";
-import { createDb, FLAG_TIPSTER_PAYOUTS, getBoolFlag, type Db } from "@pitchlab/db";
+import {
+  FLAG_TIPSTER_PAYOUTS,
+  getBoolFlag,
+  promoteClearedCommissions,
+} from "@pitchlab/db";
 import {
   runTipsterPayouts,
   stripeTransferCreator,
   stripeTransferFinder,
 } from "../../../../src/server/billing/connect";
+import { paymentMode } from "../../../../src/server/billing/payment-mode";
+import { getMailer } from "../../../../src/server/mailer";
+import { serverDb } from "../../../../src/server/session-user";
+import { dispatchDueScheduledEmails } from "../../../../src/server/transfer-emails";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
-
-let db: Db | null = null;
 
 function verifyBearerSecret(authorization: string | null, secret: string | undefined): boolean {
   const expectedSecret = secret?.trim();
@@ -22,19 +28,46 @@ function verifyBearerSecret(authorization: string | null, secret: string | undef
 }
 
 /**
- * Corrida diaria de pagos a tipsters (Vercel Cron, ver vercel.json).
- * Exige `Authorization: Bearer ${CRON_SECRET}` y respeta la bandera operativa `tipster_payouts_enabled`.
+ * Corrida diaria (Vercel Cron, ver vercel.json).
+ * Exige `Authorization: Bearer ${CRON_SECRET}` y respeta `tipster_payouts_enabled`.
+ * En modo `transfer`, promueve comisiones maduras a `payable` para liquidación manual del
+ * fundador sin requerir llaves de Stripe.
  */
 export async function GET(request: Request): Promise<NextResponse> {
   if (!verifyBearerSecret(request.headers.get("authorization"), process.env.CRON_SECRET)) {
     return NextResponse.json({ error: "No autorizado" }, { status: 401 });
   }
+  const db = serverDb();
+  if (!db) return NextResponse.json({ error: "Base de datos no configurada" }, { status: 503 });
+
+  const mode = paymentMode();
+  const payoutsEnabled = await getBoolFlag(db, FLAG_TIPSTER_PAYOUTS, true);
+
+  if (mode === "transfer") {
+    const promoted = payoutsEnabled ? await promoteClearedCommissions(db, new Date()) : 0;
+    const emailsDispatched = await dispatchDueScheduledEmails(db, getMailer(), new Date());
+    return NextResponse.json({
+      mode: "transfer",
+      paused: !payoutsEnabled,
+      promoted,
+      emailsDispatched,
+      paid: 0,
+      paidCentavos: 0,
+      failed: [],
+    });
+  }
+
   const apiKey = process.env.STRIPE_SECRET_KEY;
-  const url = process.env.DATABASE_URL;
-  if (!apiKey || !url) return NextResponse.json({ error: "Cobro no configurado" }, { status: 503 });
-  db ??= createDb(url) as unknown as Db;
-  if (!(await getBoolFlag(db, FLAG_TIPSTER_PAYOUTS, true))) {
-    return NextResponse.json({ paused: true, promoted: 0, paid: 0, paidCentavos: 0, failed: [] });
+  if (!apiKey) return NextResponse.json({ error: "Cobro no configurado" }, { status: 503 });
+  if (!payoutsEnabled) {
+    return NextResponse.json({
+      mode: "stripe",
+      paused: true,
+      promoted: 0,
+      paid: 0,
+      paidCentavos: 0,
+      failed: [],
+    });
   }
   const result = await runTipsterPayouts(db, {
     createTransfer: stripeTransferCreator(apiKey),
@@ -47,5 +80,5 @@ export async function GET(request: Request): Promise<NextResponse> {
       result.failed.map((item) => item.ledgerId),
     );
   }
-  return NextResponse.json(result);
+  return NextResponse.json({ mode: "stripe", ...result });
 }

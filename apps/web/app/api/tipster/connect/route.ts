@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { setConnectAccount, tipsterProfileForUser } from "@pitchlab/db";
 import { createExpressAccount, createOnboardingLink } from "../../../../src/server/billing/connect";
+import { paymentMode } from "../../../../src/server/billing/payment-mode";
 import {
   trustedAppBaseUrl,
   verifySameOriginMutation,
@@ -12,11 +13,18 @@ export const dynamic = "force-dynamic";
 
 /**
  * POST /api/tipster/connect → { url } del alta en Stripe Connect Express.
- * Crea la cuenta conectada la primera vez; después devuelve el enlace para completar datos.
+ * En modo `transfer` (Beta 1.0) responde 409 porque las comisiones se liquidan manualmente.
  */
 export async function POST(request: Request): Promise<NextResponse> {
   const csrfError = verifySameOriginMutation(request, { requireJson: false });
   if (csrfError) return csrfError;
+
+  if (paymentMode() === "transfer") {
+    return NextResponse.json(
+      { error: "Las comisiones se liquidan manualmente por transferencia durante Beta 1.0." },
+      { status: 409 },
+    );
+  }
 
   const apiKey = process.env.STRIPE_SECRET_KEY;
   if (!apiKey) return NextResponse.json({ error: "Cobro no configurado" }, { status: 503 });

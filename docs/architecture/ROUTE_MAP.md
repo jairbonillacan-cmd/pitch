@@ -48,6 +48,7 @@
 | `/i/[code]` | Redirección `307` -> `/pricing/referral?code=...` | Resuelve `@handle` en DB, preserva UTM y redirige a `/precio` si el código es inválido; `noindex` |
 | `/pricing/referral` | Página personalizada de invitación (`noindex`) | Redirige a `/precio` sin código válido cuando hay DB; consulta `@handle` en DB |
 | `/plans/referral` | Alias de `/pricing/referral` (`noindex`) | Re-exporta página y `generateMetadata` |
+| `/canjear` | Canje público de cupón de acceso (`?codigo=`) | Vista previa de código (`noindex`); dirige a `/signup` o `/app/canjear` |
 | `/p/[pickId]` | Boleto público compartido (`noindex`) | `404` si el slug/ID no existe; acepta `?code=` de invitación |
 | `/login` | Inicio de sesión (Better Auth + PIN beta fallback) | `noindex`; preserva `?next=` |
 | `/signup` | Registro en 2 pasos (cuenta + perfil/edad) | `noindex`; preserva `?next=` y `?code=`; guarda paso 2 sin sesión |
@@ -67,9 +68,10 @@
 | `/app/lab` | Mi Bitácora | Picks y parlays sellados con CLV y CSV |
 | `/app/tech` | Motores dentro del Club | Validación y comparativa interna |
 | `/app/social` | Comunidad VIP | Feed y ranking de socios |
-| `/app/account` | Cuenta, Preferencias, Plan, CFDI y Referidos | `?tab=prefs|plan|cfdi|referrals`, `?pago=ok|cancelado` |
-| `/app/tipster` | Portal de Tipsters Oficiales | `?connect=ok|refresh` (Stripe Connect) |
-| `/app/admin` | Panel del equipo fundador | Solo `isAdmin` (o preview tools habilitado), si no `HTTP 404` |
+| `/app/account` | Cuenta, Preferencias, Plan, CFDI y Referidos | `?tab=prefs|plan|cfdi|referrals`, `?pago=ok|cancelado`; SPEI, preferencias DB, export y solicitud de baja |
+| `/app/canjear` | Canje de cupón dentro del Club (`?codigo=`) | Redime cupones de acceso y extiende días del pase |
+| `/app/tipster` | Portal de Tipsters Oficiales | En Beta 1.0 lee `/api/tipster/me`; `?connect=ok|refresh` en modo Stripe Connect |
+| `/app/admin` | Panel del equipo fundador | Solo `isAdmin` (o preview tools habilitado), si no `HTTP 404`; SPEI, cupones, socios, moderación y comisiones |
 | `/app/[league]` | Hub por liga | `?league` validado contra `PRODUCT_LEAGUES`, si no `HTTP 404` |
 | `/app/[league]/games/[gameId]` | Match Studio | Analizador 360°, `?tab=picks|mercados|contexto|dinero` |
 | `/app/u/[handle]` | Perfil de socio o tipster | `404` si el handle no existe o es privado |
@@ -92,6 +94,6 @@
 ## 5. Endpoints HTTP reales (`apps/web/app/api/*`)
 
 - Autenticación y onboarding: `/api/auth/[...all]`, `/api/handles/check`, `/api/me/signup`, `/api/beta/unlock`, `/api/beta/logout`.
-- Cuenta, bitácora y preferencias: `/api/me/profile`, `/api/me/profile/x`, `/api/me/journal`, `/api/me/watchlist`, `/api/me/plan`, `/api/me/referrals`, `/api/me/email-preferences`.
-- Perfiles públicos y creator economy: `/api/u/[handle]`, `/api/tipster/connect`, `/api/billing/checkout`, `/api/webhooks/stripe`, `/api/cron/tipster-payouts`.
-- Administración interna: `/api/admin/overview`, `/api/admin/flags`, `/api/admin/tipsters`.
+- Cuenta, plan, cupones, preferencias y privacidad: `/api/me/profile`, `/api/me/profile/x`, `/api/me/avatar`, `/api/me/journal`, `/api/me/watchlist`, `/api/me/plan`, `/api/me/transfers`, `/api/me/transfers/[id]`, `/api/me/coupons/preview`, `/api/me/redeem`, `/api/me/referrals`, `/api/me/preferences`, `/api/me/email-preferences`, `/api/me/export`, `/api/me/deletion-request`, `/api/me/notifications`, `/api/me/notifications/read`.
+- Comunidad, perfiles, tipsters, pagos y tareas programadas: `/api/u/[handle]`, `/api/social/posts`, `/api/social/posts/[id]`, `/api/social/posts/[id]/comments`, `/api/social/posts/[id]/like`, `/api/social/follows`, `/api/social/reports`, `/api/tipster/me`, `/api/tipster/connect`, `/api/billing/checkout`, `/api/webhooks/stripe`, `/api/cron/tipster-payouts`.
+- Administración interna: `/api/admin/overview`, `/api/admin/flags`, `/api/admin/moderation`, `/api/admin/tipsters`, `/api/admin/transfers`, `/api/admin/transfers/[id]/approve`, `/api/admin/transfers/[id]/reject`, `/api/admin/coupons`, `/api/admin/coupons/[id]`, `/api/admin/coupons/[id]/redemptions`, `/api/admin/members`, `/api/admin/access/grant`, `/api/admin/access/revoke`, `/api/admin/tipster-payouts`, `/api/admin/tipster-payouts/[id]/mark-paid`.

@@ -9,6 +9,14 @@ export function setSessionDbForTests(instance: Db | null): void {
   db = instance;
 }
 
+/** Devuelve la instancia única de Drizzle/Neon (o la inyectada en pruebas). */
+export function serverDb(url: string | undefined = process.env.DATABASE_URL): Db | null {
+  if (db) return db;
+  if (!url) return null;
+  db = createDb(url) as unknown as Db;
+  return db;
+}
+
 export interface AuthenticatedMember {
   db: Db;
   userId: string;
@@ -41,6 +49,27 @@ export async function requireStep1Member(
     emailVerified: Boolean(session.user.emailVerified),
     authUserId: session.user.id,
   };
+}
+
+/**
+ * Obtiene conexión de solo lectura opcional y, si hay sesión activa, el `userId` interno.
+ * Útil en endpoints públicos que personalizan respuesta si el socio ya inició sesión (p. ej. `/api/me/coupons/preview`).
+ */
+export async function optionalPublicDbSession(
+  request: Request,
+): Promise<{ db: Db; userId: string | null } | null> {
+  const url = process.env.DATABASE_URL;
+  if (!db && !url) return null;
+  db ??= createDb(url!) as unknown as Db;
+  let userId: string | null = null;
+  const auth = getAuth();
+  if (auth) {
+    const session = await auth.api.getSession({ headers: request.headers }).catch(() => null);
+    if (session) {
+      userId = (await profileIdForAuthUser(db, session.user.id)) ?? null;
+    }
+  }
+  return { db, userId };
 }
 
 /**

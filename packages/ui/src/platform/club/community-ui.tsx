@@ -398,14 +398,17 @@ export function UnderlineTabs<K extends string>({
 export function TabPanel<K extends string>({
   tabKey,
   idPrefix,
+  active,
   children,
   className,
 }: {
   tabKey: K;
   idPrefix: string;
+  active?: K;
   children: React.ReactNode;
   className?: string;
-}): React.JSX.Element {
+}): React.JSX.Element | null {
+  if (active !== undefined && active !== tabKey) return null;
   return (
     <div
       key={tabKey}
@@ -488,24 +491,24 @@ export function useFollowing(): {
   isFollowing: (handle: string) => boolean;
   toggle: (handle: string) => boolean;
 } {
-  const { accountsEnabled, viewerIdentity, pushToast } = usePlatform();
+  const { hasAccountSessionAuth, viewerIdentity, pushToast } = usePlatform();
   const owner = viewerIdentity?.handle ?? null;
   const [following, setFollowing] = useState<string[]>([]);
   useEffect(() => {
     const sync = (): void => setFollowing(currentFollowing());
     sync();
-    if (accountsEnabled && owner) void loadServerFollowing(owner);
+    if (hasAccountSessionAuth && owner) void loadServerFollowing(owner);
     window.addEventListener(FOLLOWING_EVENT, sync);
     window.addEventListener("storage", sync);
     return () => {
       window.removeEventListener(FOLLOWING_EVENT, sync);
       window.removeEventListener("storage", sync);
     };
-  }, [accountsEnabled, owner]);
+  }, [hasAccountSessionAuth, owner]);
   const toggle = useCallback(
     (handle: string): boolean => {
       const willFollow = !currentFollowing().includes(handle);
-      if (serverFollowing && !getExampleAnalystSpec(handle)) {
+      if (hasAccountSessionAuth && serverFollowing && !getExampleAnalystSpec(handle)) {
         const before = serverFollowing;
         serverFollowing = willFollow ? [...before, handle] : before.filter((h) => h !== handle);
         window.dispatchEvent(new Event(FOLLOWING_EVENT));
@@ -532,7 +535,7 @@ export function useFollowing(): {
       window.dispatchEvent(new Event(FOLLOWING_EVENT));
       return willFollow;
     },
-    [pushToast],
+    [hasAccountSessionAuth, pushToast],
   );
   const isFollowing = useCallback((handle: string) => following.includes(handle), [following]);
   return { following, isFollowing, toggle };

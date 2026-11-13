@@ -1,6 +1,6 @@
 import { and, eq, isNotNull, sql } from "drizzle-orm";
 import type { Db } from "./billing";
-import { authAccount, tipsterProfiles, users } from "./schema";
+import { authAccount, tipsterProfiles, userPreferences, users } from "./schema";
 import { checkHandleFormat, isHandleAvailable, isHandleConflict } from "./signup";
 
 const publicFields = {
@@ -49,8 +49,29 @@ export async function updateMemberProfile(db: Db, userId: string, changes: Profi
     return { status: "taken" } as const;
   }
   try {
-    const [profile] = await db.update(users).set(changes).where(eq(users.id, userId)).returning(memberFields);
-    return profile ? { status: "saved", profile } as const : { status: "missing" } as const;
+    return await db.transaction(async (tx) => {
+      const [profile] = await tx.update(users).set(changes).where(eq(users.id, userId)).returning(memberFields);
+      if (!profile) return { status: "missing" } as const;
+      if (changes.publicProfile !== undefined) {
+        await tx
+          .insert(userPreferences)
+          .values({
+            userId,
+            showInRanking: changes.publicProfile,
+            publicRecordVisible: changes.publicProfile,
+            updatedAt: new Date(),
+          })
+          .onConflictDoUpdate({
+            target: userPreferences.userId,
+            set: {
+              showInRanking: changes.publicProfile,
+              publicRecordVisible: changes.publicProfile,
+              updatedAt: new Date(),
+            },
+          });
+      }
+      return { status: "saved", profile } as const;
+    });
   } catch (error) {
     if (isHandleConflict(error)) return { status: "taken" } as const;
     throw error;

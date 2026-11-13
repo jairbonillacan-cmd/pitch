@@ -2,13 +2,16 @@ import { cache } from "react";
 import {
   buildPlatformDataset,
   redactDatasetForVisitor,
+  type PaymentMode,
   type PlatformDataset,
   type PlatformGame,
   type PlatformGameDetail,
   type RawLeagueInput,
   type ViewerIdentity,
   type ViewerRole,
+  type ViewerVia,
 } from "@pitchlab/ui";
+import { paymentMode } from "./billing/payment-mode";
 import { getViewerAccess } from "./viewer-access";
 import { buildSpacetimeSignals } from "./spacetime";
 import {
@@ -35,6 +38,10 @@ export interface LoadedPlatformState {
   allowRoleSimulation: boolean;
   /** Cuentas reales activas (DATABASE_URL + BETTER_AUTH_SECRET). */
   accountsEnabled: boolean;
+  /** Vía de acceso autenticada (`account`, `beta` o `none`). */
+  viewerVia: ViewerVia;
+  /** Modo de cobro activo (`transfer` por defecto en Beta 1.0, o `stripe`). */
+  paymentMode: PaymentMode;
   /** Política de prueba leída de la base; undefined sin cuentas. */
   serverMonth1NoCardMode?: boolean;
   /** Socio con cuenta y usuario elegido; null con PIN o visitante. */
@@ -273,6 +280,7 @@ export async function loadPublicPlatformState(
 ): Promise<LoadedPlatformState> {
   const fullDataset = buildServerRawPlatformDataset();
   const access = await getViewerAccess();
+  const currentPaymentMode = paymentMode();
   const hasActiveSession = access.fullAccess;
   const resolvedWeekly = publicTipsterSlugOrPickId
     ? await resolvePublicWeeklyPick(fullDataset, publicTipsterSlugOrPickId)
@@ -287,6 +295,8 @@ export async function loadPublicPlatformState(
         hasActiveSession: true,
         allowRoleSimulation: previewToolsEnabled(access.isAdmin),
         accountsEnabled: accountsEnabled(),
+        viewerVia: access.via,
+        paymentMode: currentPaymentMode,
         serverMonth1NoCardMode: await loadMonth1Flag(),
         viewerIdentity: await loadViewerIdentity(),
         publicPickResolved: false,
@@ -315,6 +325,8 @@ export async function loadPublicPlatformState(
       hasActiveSession: true,
       allowRoleSimulation: previewToolsEnabled(access.isAdmin),
       accountsEnabled: accountsEnabled(),
+      viewerVia: access.via,
+      paymentMode: currentPaymentMode,
       serverMonth1NoCardMode: await loadMonth1Flag(),
       viewerIdentity: await loadViewerIdentity(),
       publicPickResolved,
@@ -356,6 +368,8 @@ export async function loadPublicPlatformState(
     hasActiveSession: false,
     allowRoleSimulation: false,
     accountsEnabled: accountsEnabled(),
+    viewerVia: access.via,
+    paymentMode: currentPaymentMode,
     serverMonth1NoCardMode: await loadMonth1Flag(),
     viewerIdentity: await loadViewerIdentity(),
     publicPickResolved,
@@ -370,6 +384,7 @@ export async function loadClubPlatformState(
 ): Promise<LoadedPlatformState> {
   const fullDataset = buildServerRawPlatformDataset();
   const access = await getViewerAccess();
+  const currentPaymentMode = paymentMode();
   const hasActiveSession = access.fullAccess;
 
   if (!hasActiveSession) {
@@ -379,6 +394,8 @@ export async function loadClubPlatformState(
       hasActiveSession: false,
       allowRoleSimulation: false,
       accountsEnabled: accountsEnabled(),
+      viewerVia: access.via,
+      paymentMode: currentPaymentMode,
       serverMonth1NoCardMode: await loadMonth1Flag(),
       viewerIdentity: await loadViewerIdentity(),
     };
@@ -398,6 +415,8 @@ export async function loadClubPlatformState(
     hasActiveSession: true,
     allowRoleSimulation: previewToolsEnabled(access.isAdmin),
     accountsEnabled: accountsEnabled(),
+    viewerVia: access.via,
+    paymentMode: currentPaymentMode,
     serverMonth1NoCardMode: await loadMonth1Flag(),
     viewerIdentity: await loadViewerIdentity(),
   };

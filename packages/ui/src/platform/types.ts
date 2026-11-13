@@ -5,6 +5,8 @@ import type {
 } from "@pitchlab/contracts";
 
 export type ViewerRole = "visitor" | "member" | "tipster" | "admin";
+export type ViewerVia = "beta" | "account" | "none";
+export type PaymentMode = "transfer" | "stripe";
 export type OddsFormat = "american" | "decimal";
 export type RiskBand = "conservador" | "medio" | "arriesgado";
 

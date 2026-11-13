@@ -13,7 +13,6 @@ export async function GET(request: Request): Promise<NextResponse> {
     member.db,
     member.userId,
     new Date(),
-    Boolean(process.env.STRIPE_SECRET_KEY),
   );
   return NextResponse.json(summary);
 }

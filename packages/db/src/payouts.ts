@@ -5,8 +5,9 @@
  *   pending_clearance --(14 días sin reembolso)--> payable --(reclamo atómico)--> processing_payout --(transferencia)--> paid_out
  *   pending_clearance | payable --(reembolso)--> reversed_refund
  */
-import { and, eq, inArray, isNull, lte, or, sql } from "drizzle-orm";
+import { and, desc, eq, inArray, isNull, lte, or, sql } from "drizzle-orm";
 import type { Db } from "./billing";
+import { recordAdminAudit } from "./admin";
 import { tipsterCommissionLedger, tipsterProfiles, users } from "./schema";
 
 /** Plazo tras el cual un asiento en `processing_payout` sin transferencia puede retomarse tras caída. */
@@ -200,4 +201,161 @@ export async function setConnectPayoutsEnabled(db: Db, accountId: string, enable
     .where(eq(tipsterProfiles.stripeConnectAccountId, accountId))
     .returning({ id: tipsterProfiles.userId });
   return rows.length > 0;
+}
+
+export interface AdminTipsterCommissionRow {
+  id: string;
+  tipsterUserId: string;
+  tipsterHandle: string;
+  tipsterName: string;
+  tipsterEmail: string;
+  stripeInvoiceId: string;
+  grossPaidCentavosMxn: number;
+  vatCentavosMxn: number;
+  netCommissionableCentavosMxn: number;
+  commissionBps: number;
+  commissionCentavosMxn: number;
+  status: string;
+  clearsAt: Date;
+  stripeTransferId: string | null;
+  payoutNote: string | null;
+  paidOutAt: Date | null;
+  createdAt: Date;
+}
+
+export interface AdminTipsterSummaryRow {
+  tipsterUserId: string;
+  handle: string;
+  displayName: string;
+  email: string;
+  pendingClearanceCentavos: number;
+  payableCentavos: number;
+  paidOutCentavos: number;
+  payableCount: number;
+}
+
+/** Lista las comisiones de tipsters y sus saldos acumulados para liquidación manual en `/app/admin`. */
+export async function listTipsterCommissionsForAdmin(
+  db: Db,
+  opts?: { limit?: number },
+): Promise<{ ledger: AdminTipsterCommissionRow[]; totalsByTipster: AdminTipsterSummaryRow[] }> {
+  const rows = await db
+    .select({
+      id: tipsterCommissionLedger.id,
+      tipsterUserId: tipsterCommissionLedger.tipsterUserId,
+      tipsterHandle: tipsterProfiles.handle,
+      tipsterName: tipsterProfiles.displayName,
+      tipsterEmail: users.email,
+      stripeInvoiceId: tipsterCommissionLedger.stripeInvoiceId,
+      grossPaidCentavosMxn: tipsterCommissionLedger.grossPaidCentavosMxn,
+      vatCentavosMxn: tipsterCommissionLedger.vatCentavosMxn,
+      netCommissionableCentavosMxn: tipsterCommissionLedger.netCommissionableCentavosMxn,
+      commissionBps: tipsterCommissionLedger.commissionBps,
+      commissionCentavosMxn: tipsterCommissionLedger.commissionCentavosMxn,
+      status: tipsterCommissionLedger.status,
+      clearsAt: tipsterCommissionLedger.clearsAt,
+      stripeTransferId: tipsterCommissionLedger.stripeTransferId,
+      payoutNote: tipsterCommissionLedger.payoutNote,
+      paidOutAt: tipsterCommissionLedger.paidOutAt,
+      createdAt: tipsterCommissionLedger.createdAt,
+    })
+    .from(tipsterCommissionLedger)
+    .innerJoin(tipsterProfiles, eq(tipsterProfiles.userId, tipsterCommissionLedger.tipsterUserId))
+    .innerJoin(users, eq(users.id, tipsterProfiles.userId))
+    .orderBy(desc(tipsterCommissionLedger.createdAt))
+    .limit(opts?.limit ?? 100);
+
+  const byTipster = new Map<string, AdminTipsterSummaryRow>();
+  for (const r of rows) {
+    let summary = byTipster.get(r.tipsterUserId);
+    if (!summary) {
+      summary = {
+        tipsterUserId: r.tipsterUserId,
+        handle: r.tipsterHandle,
+        displayName: r.tipsterName,
+        email: r.tipsterEmail,
+        pendingClearanceCentavos: 0,
+        payableCentavos: 0,
+        paidOutCentavos: 0,
+        payableCount: 0,
+      };
+      byTipster.set(r.tipsterUserId, summary);
+    }
+    if (r.status === "pending_clearance") {
+      summary.pendingClearanceCentavos += r.commissionCentavosMxn;
+    } else if (r.status === "payable" || r.status === "processing_payout") {
+      summary.payableCentavos += r.commissionCentavosMxn;
+      summary.payableCount += 1;
+    } else if (r.status === "paid_out") {
+      summary.paidOutCentavos += r.commissionCentavosMxn;
+    }
+  }
+
+  return { ledger: rows, totalsByTipster: [...byTipster.values()] };
+}
+
+export type ManualPayoutResult =
+  | { ok: true; ledgerId: string; reference: string; paidOutAt: Date }
+  | { ok: false; reason: "referencia_invalida" | "no_pagable" };
+
+/** Registra el pago manual (SPEI/transferencia fuera de Stripe) de una comisión liberada al tipster. */
+export async function markCommissionPaidManually(
+  db: Db,
+  input: {
+    ledgerId: string;
+    adminUserId: string | null;
+    adminEmail: string;
+    reference: string;
+    note?: string | null;
+    now: Date;
+    ipSubnetHash?: string | null;
+  },
+): Promise<ManualPayoutResult> {
+  const cleanRef = input.reference.trim().replace(/\s+/g, " ").slice(0, 80);
+  if (cleanRef.length < 3) return { ok: false, reason: "referencia_invalida" };
+  const cleanNote = input.note?.trim().slice(0, 200) || null;
+  const transferKey = `manual:${cleanRef}:${input.ledgerId.slice(0, 8)}`;
+
+  return db.transaction(async (tx) => {
+    const t = tx as unknown as Db;
+    const [updated] = await t
+      .update(tipsterCommissionLedger)
+      .set({
+        status: "paid_out",
+        stripeTransferId: transferKey,
+        payoutNote: cleanNote ? `${cleanRef} · ${cleanNote}` : cleanRef,
+        paidOutAt: input.now,
+        claimStartedAt: null,
+      })
+      .where(
+        and(
+          eq(tipsterCommissionLedger.id, input.ledgerId),
+          isNull(tipsterCommissionLedger.stripeTransferId),
+          sql`${tipsterCommissionLedger.status} IN ('payable', 'processing_payout', 'pending_clearance')`,
+        ),
+      )
+      .returning({
+        id: tipsterCommissionLedger.id,
+        tipsterUserId: tipsterCommissionLedger.tipsterUserId,
+        commissionCentavos: tipsterCommissionLedger.commissionCentavosMxn,
+      });
+
+    if (!updated) return { ok: false, reason: "no_pagable" } as const;
+
+    await recordAdminAudit(t, {
+      actorUserId: input.adminUserId,
+      actorEmail: input.adminEmail,
+      action: "tipster_manual_payout",
+      targetKey: updated.id,
+      payloadJson: {
+        tipsterUserId: updated.tipsterUserId,
+        commissionCentavos: updated.commissionCentavos,
+        reference: cleanRef,
+        note: cleanNote,
+      },
+      ipSubnetHash: input.ipSubnetHash ?? null,
+    });
+
+    return { ok: true, ledgerId: updated.id, reference: cleanRef, paidOutAt: input.now } as const;
+  });
 }

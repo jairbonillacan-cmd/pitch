@@ -6,6 +6,7 @@ import {
   CLUB_PROFILE_HANDLE_HEADER,
   CLUB_REQUEST_PATH_HEADER,
 } from "../../src/profile-path";
+import { ExpiredPassGate } from "@pitchlab/ui";
 import { ClubShellBridge } from "../../src/client/club-shell-bridge";
 import { PlatformClientBridge } from "../../src/client/platform-client-bridge";
 import { sanitizeNextPath } from "../../src/server/beta-auth";
@@ -30,6 +31,16 @@ export const metadata: Metadata = {
 
 function isProductLeague(val: string): val is ProductLeague {
   return (PRODUCT_LEAGUES as readonly string[]).includes(val);
+}
+
+function isAllowedRecoveryRoute(rawPath: string): boolean {
+  const pathOnly = (rawPath.split(/[?#]/, 1)[0] ?? "/").replace(/\/+$/, "") || "/";
+  return (
+    pathOnly === "/app/account" ||
+    pathOnly.startsWith("/app/account/") ||
+    pathOnly === "/app/canjear" ||
+    pathOnly.startsWith("/app/canjear/")
+  );
 }
 
 export default async function ClubAppLayout({
@@ -78,6 +89,11 @@ export default async function ClubAppLayout({
   }
 
   const state = await loadClubPlatformState("member");
+  const showExpiredPassGate =
+    access.via === "account" &&
+    !access.fullAccess &&
+    !access.isAdmin &&
+    !isAllowedRecoveryRoute(safeNext);
 
   return (
     <PlatformClientBridge
@@ -85,11 +101,20 @@ export default async function ClubAppLayout({
       initialRole={state.initialRole}
       allowRoleSimulation={state.allowRoleSimulation}
       accountsEnabled={state.accountsEnabled}
+      viewerVia={state.viewerVia}
+      paymentMode={state.paymentMode}
       serverMonth1NoCardMode={state.serverMonth1NoCardMode}
       viewerIdentity={state.viewerIdentity}
     >
       {/* Encabezado y barra lateral montados una sola vez; cada página aporta su contenido. */}
-      <ClubShellBridge>{children}</ClubShellBridge>
+      {showExpiredPassGate ? (
+        <ExpiredPassGate
+          memberHandle={state.viewerIdentity?.handle ?? null}
+          paymentMode={state.paymentMode}
+        />
+      ) : (
+        <ClubShellBridge>{children}</ClubShellBridge>
+      )}
     </PlatformClientBridge>
   );
 }

@@ -4,9 +4,11 @@ import React, { useCallback } from "react";
 import { useRouter } from "next/navigation";
 import {
   PlatformProvider,
+  type PaymentMode,
   type PlatformDataset,
   type ViewerIdentity,
   type ViewerRole,
+  type ViewerVia,
 } from "@pitchlab/ui";
 
 export function PlatformClientBridge({
@@ -14,6 +16,8 @@ export function PlatformClientBridge({
   initialRole,
   allowRoleSimulation = false,
   accountsEnabled = false,
+  viewerVia,
+  paymentMode = "transfer",
   serverMonth1NoCardMode,
   viewerIdentity = null,
   children,
@@ -22,6 +26,8 @@ export function PlatformClientBridge({
   initialRole: ViewerRole;
   allowRoleSimulation?: boolean;
   accountsEnabled?: boolean;
+  viewerVia?: ViewerVia;
+  paymentMode?: PaymentMode;
   serverMonth1NoCardMode?: boolean;
   viewerIdentity?: ViewerIdentity | null;
   children: React.ReactNode;
@@ -41,6 +47,8 @@ export function PlatformClientBridge({
       initialRole={initialRole}
       allowRoleSimulation={allowRoleSimulation}
       accountsEnabled={accountsEnabled}
+      viewerVia={viewerVia}
+      paymentMode={paymentMode}
       serverMonth1NoCardMode={serverMonth1NoCardMode}
       viewerIdentity={viewerIdentity}
       onNavigate={handleNavigate}

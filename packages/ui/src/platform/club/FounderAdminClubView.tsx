@@ -8,6 +8,7 @@ import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
 import { usePlatform } from "../platform-provider";
 import { SPACETIME_ENGINES, SPACETIME_METRICS_HEADLINE, TIPSTER_CREATORS } from "../spacetime-catalog";
 import type { SocialReportReason } from "../types";
+import { AdminPaymentsCouponsSection } from "./AdminPaymentsCouponsSection";
 import { SOCIAL_REPORT_REASON_OPTIONS } from "./community-ui";
 
 interface ModerationQueueItem {
@@ -114,6 +115,7 @@ export function FounderAdminClubView({
     referralPaidFriends,
     pushToast,
     accountsEnabled,
+    hasAccountSessionAuth,
   } = usePlatform();
 
   const [newCreatorCode, setNewCreatorCode] = useState<string>("");
@@ -129,13 +131,13 @@ export function FounderAdminClubView({
       },
   );
   const [moderationLoading, setModerationLoading] = useState<boolean>(
-    accountsEnabled && !storyModeration,
+    hasAccountSessionAuth && !storyModeration,
   );
   const [moderationError, setModerationError] = useState<string | null>(null);
   const [moderationBusyKey, setModerationBusyKey] = useState<string | null>(null);
 
   const loadModeration = useCallback(async () => {
-    if (!accountsEnabled || storyModeration) {
+    if (!hasAccountSessionAuth || storyModeration) {
       setModerationLoading(false);
       return;
     }
@@ -163,7 +165,7 @@ export function FounderAdminClubView({
     } finally {
       setModerationLoading(false);
     }
-  }, [accountsEnabled, storyModeration]);
+  }, [hasAccountSessionAuth, storyModeration]);
 
   useEffect(() => {
     void loadModeration();
@@ -180,7 +182,7 @@ export function FounderAdminClubView({
       },
       successMsg: string,
     ) => {
-      if (!accountsEnabled || moderationBusyKey) return;
+      if (!hasAccountSessionAuth || moderationBusyKey) return;
       setModerationBusyKey(busyId);
       try {
         const res = await fetch("/api/admin/moderation", {
@@ -210,7 +212,7 @@ export function FounderAdminClubView({
         setModerationBusyKey(null);
       }
     },
-    [accountsEnabled, moderationBusyKey, pushToast],
+    [hasAccountSessionAuth, moderationBusyKey, pushToast],
   );
   const dataCutLabel = useMemo(() => {
     const t = Date.parse(dataset.generatedAt);
@@ -232,7 +234,7 @@ export function FounderAdminClubView({
   );
 
   useEffect(() => {
-    if (!accountsEnabled) return;
+    if (!hasAccountSessionAuth) return;
     void (async () => {
       try {
         const res = await fetch("/api/admin/overview", { credentials: "same-origin" });
@@ -247,7 +249,7 @@ export function FounderAdminClubView({
         void err;
       }
     })();
-  }, [accountsEnabled, pushToast]);
+  }, [hasAccountSessionAuth, pushToast]);
 
   const totalActiveReferrals = useMemo(
     () =>
@@ -262,7 +264,7 @@ export function FounderAdminClubView({
     const cleanCode = newCreatorCode.trim().toUpperCase();
     const cleanHandle = newCreatorHandle.trim().replace(/^@/, "").toLowerCase() || "creador_pl";
     if (!cleanCode) return;
-    if (accountsEnabled) {
+    if (hasAccountSessionAuth) {
       void (async () => {
         const res = await fetch("/api/admin/tipsters", {
           method: "POST",
@@ -484,6 +486,8 @@ export function FounderAdminClubView({
             </div>
           </div>
         </section>
+
+        <AdminPaymentsCouponsSection />
 
         {/* Moderación de Comunidad */}
         <section

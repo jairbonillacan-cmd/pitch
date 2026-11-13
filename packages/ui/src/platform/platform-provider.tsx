@@ -184,12 +184,14 @@ import type {
   OddsFormat,
   ParlayLeg,
   ParlaySummary,
+  PaymentMode,
   PlatformDataset,
   PlatformGame,
   RiskBand,
   SocialPost,
   SocialReportReason,
   ViewerRole,
+  ViewerVia,
 } from "./types";
 
 export interface ShareTicketPayload {
@@ -261,10 +263,16 @@ export interface PlatformContextValue {
   allowRoleSimulation: boolean;
   /** Cuentas reales (Better Auth) activas en el servidor. */
   accountsEnabled: boolean;
+  /** Vía de acceso autenticada (`account`, `beta` o `none`). */
+  viewerVia: ViewerVia;
+  /** Modo de cobro activo (`transfer` en Beta 1.0 o `stripe`). */
+  paymentMode: PaymentMode;
   /** Socio con cuenta (nombre, @usuario, iniciales y código); null con PIN o visitante. */
   viewerIdentity: ViewerIdentity | null;
   /** Tiene sesión de cuenta iniciada (aunque su prueba o pase haya vencido). */
   hasAccountSession: boolean;
+  /** Sesión real autenticada con cookie de Better Auth (excluye PIN beta y visitante). */
+  hasAccountSessionAuth: boolean;
   /** Ruta de activación o alta según si ya tiene cuenta iniciada. */
   upgradeHref: string;
   updateViewerIdentity: (
@@ -406,8 +414,11 @@ export interface PlatformCoreValue {
   viewerRole: ViewerRole;
   allowRoleSimulation: boolean;
   accountsEnabled: boolean;
+  viewerVia: ViewerVia;
+  paymentMode: PaymentMode;
   viewerIdentity: ViewerIdentity | null;
   hasAccountSession: boolean;
+  hasAccountSessionAuth: boolean;
   upgradeHref: string;
   oddsFormat: OddsFormat;
   favoriteLeagues: LeagueId[];
@@ -534,6 +545,8 @@ export function PlatformProvider({
   initialRole = "visitor",
   allowRoleSimulation = false,
   accountsEnabled = false,
+  viewerVia,
+  paymentMode = "transfer",
   viewerIdentity: initialViewerIdentity = null,
   serverMonth1NoCardMode,
   onNavigate,
@@ -545,6 +558,8 @@ export function PlatformProvider({
   initialRole?: ViewerRole;
   allowRoleSimulation?: boolean;
   accountsEnabled?: boolean;
+  viewerVia?: ViewerVia;
+  paymentMode?: PaymentMode;
   viewerIdentity?: ViewerIdentity | null;
   /** Valor de la bandera en la base (cuando hay cuentas); manda sobre el navegador. */
   serverMonth1NoCardMode?: boolean;
@@ -555,6 +570,10 @@ export function PlatformProvider({
 }): React.JSX.Element {
   const [viewerRole, setViewerRoleState] = useState<ViewerRole>(initialRole);
   const [viewerIdentity, setViewerIdentity] = useState(initialViewerIdentity);
+  const effectiveViewerVia: ViewerVia = viewerVia ?? (viewerIdentity ? "account" : "none");
+  const hasAccountSession = Boolean(viewerIdentity);
+  const hasAccountSessionAuth = Boolean(accountsEnabled && effectiveViewerVia === "account");
+  const upgradeHref = hasAccountSession ? "/app/account?tab=plan" : "/signup";
   const [oddsFormat, setOddsFormatState] = useState<OddsFormat>("american");
   const [parlayLegs, setParlayLegs] = useState<ParlayLeg[]>([]);
   const [allowSgp, setAllowSgp] = useState<boolean>(false);
@@ -633,7 +652,7 @@ export function PlatformProvider({
     | null
   >(null);
   const [memberReferralsLoaded, setMemberReferralsLoaded] = useState<boolean>(
-    !accountsEnabled,
+    !hasAccountSessionAuth,
   );
   const [month1NoCardMode, setMonth1NoCardMode] = useState<boolean>(serverMonth1NoCardMode ?? true);
   const [tipsterWeeklyPickOrigin, setTipsterWeeklyPickOrigin] = useState<
@@ -760,7 +779,7 @@ export function PlatformProvider({
 
   // Con cuenta y sesión, la base es la fuente de verdad de vigilancia y bitácora.
   useEffect(() => {
-    if (!accountsEnabled) {
+    if (!hasAccountSessionAuth) {
       setMemberReferralsLoaded(true);
       return;
     }
@@ -797,7 +816,7 @@ export function PlatformProvider({
     return () => {
       active = false;
     };
-  }, [accountsEnabled]);
+  }, [hasAccountSessionAuth]);
   useEffect(() => {
     if (userDataLoaded) writeStored(STORAGE_KEYS.journal, journal.slice(0, 500));
   }, [journal, userDataLoaded]);
@@ -902,7 +921,7 @@ export function PlatformProvider({
   const handleSetMonth1NoCard = useCallback(
     (v: boolean) => {
       setMonth1NoCardMode(v);
-      if (accountsEnabled) {
+      if (hasAccountSessionAuth) {
         // Con cuentas, la bandera vive en la base y aplica a toda la plataforma (solo fundador).
         void postJson("/api/admin/flags", { key: "month1_no_card_mode", value: v }).then((res) => {
           if (!res || !res.ok) {
@@ -924,7 +943,7 @@ export function PlatformProvider({
         "success",
       );
     },
-    [pushToast, accountsEnabled],
+    [pushToast, hasAccountSessionAuth],
   );
 
   const dataset = useMemo(() => {
@@ -1040,7 +1059,7 @@ export function PlatformProvider({
       setComposerPick(null);
       pushToast(`Pick registrado en tu bitácora (${entry.units}u).`, "success");
       // Con cuenta: el servidor sella con la hora de inicio oficial y una huella SHA-256.
-      if (accountsEnabled && entry.status === "pending") {
+      if (hasAccountSessionAuth && entry.status === "pending") {
         void sealOnServer(entry).then((res) => {
           if (res.ok && res.id) {
             setJournal((prev) => prev.map((j) => (j.id === entry.id ? { ...j, id: res.id! } : j)));
@@ -1051,7 +1070,7 @@ export function PlatformProvider({
         });
       }
     },
-    [pushToast, accountsEnabled],
+    [pushToast, hasAccountSessionAuth],
   );
 
   const sealParlayToJournal = useCallback(
@@ -1093,7 +1112,7 @@ export function PlatformProvider({
         `Boleto combinado de ${parlaySummary.legs.length} selecciones sellado en Bitácora.`,
         "success",
       );
-      if (accountsEnabled) {
+      if (hasAccountSessionAuth) {
         void sealOnServer(entry).then((res) => {
           if (res.ok && res.id) {
             setJournal((prev) => prev.map((j) => (j.id === entry.id ? { ...j, id: res.id! } : j)));
@@ -1104,7 +1123,7 @@ export function PlatformProvider({
         });
       }
     },
-    [parlaySummary, dataset.games, accountsEnabled, pushToast],
+    [parlaySummary, dataset.games, hasAccountSessionAuth, pushToast],
   );
 
   const exportJournalCsv = useCallback((): string => {
@@ -1398,7 +1417,7 @@ export function PlatformProvider({
   );
 
   const refreshSocialFeed = useCallback(() => {
-    if (!accountsEnabled) return;
+    if (!hasAccountSessionAuth) return;
     void (async () => {
       const data = await getJson<{ posts?: ServerSocialPost[] }>("/api/social/posts?limit=50");
       if (!data?.posts) return;
@@ -1416,10 +1435,10 @@ export function PlatformProvider({
       setSocialOnServer(true);
       setSocialPosts((prev) => mergeSocialPosts(prev, incoming, "feed"));
     })();
-  }, [accountsEnabled, rawDataset.games, updateFeedPage]);
+  }, [hasAccountSessionAuth, rawDataset.games, updateFeedPage]);
 
   const loadFollowingSocialPosts = useCallback(() => {
-    if (!accountsEnabled) return;
+    if (!hasAccountSessionAuth) return;
     void (async () => {
       const data = await getJson<{ posts?: ServerSocialPost[] }>("/api/social/posts?following=1&limit=50");
       if (!data?.posts) return;
@@ -1437,12 +1456,12 @@ export function PlatformProvider({
       setSocialOnServer(true);
       setSocialPosts((prev) => mergeSocialPosts(prev, incoming, "extra"));
     })();
-  }, [accountsEnabled, rawDataset.games, updateFeedPage]);
+  }, [hasAccountSessionAuth, rawDataset.games, updateFeedPage]);
 
   const loadSocialPostsByAuthor = useCallback(
     (handle: string) => {
       const clean = handle.trim().toLowerCase();
-      if (!accountsEnabled || !clean) return;
+      if (!hasAccountSessionAuth || !clean) return;
       void (async () => {
         const data = await getJson<{ posts?: ServerSocialPost[] }>(
           `/api/social/posts?limit=50&author=${encodeURIComponent(clean)}`,
@@ -1464,12 +1483,12 @@ export function PlatformProvider({
         setSocialPosts((prev) => mergeSocialPosts(prev, incoming, "extra"));
       })();
     },
-    [accountsEnabled, rawDataset.games, updateFeedPage],
+    [hasAccountSessionAuth, rawDataset.games, updateFeedPage],
   );
 
   const loadOlderSocialPosts = useCallback(
     async (scope?: SocialFeedScope): Promise<boolean> => {
-      if (!accountsEnabled) return false;
+      if (!hasAccountSessionAuth) return false;
       const key = socialScopeKey(scope);
       const current = socialFeedPagesRef.current[key];
       if (current?.loading || current?.hasMore === false) return false;
@@ -1509,12 +1528,12 @@ export function PlatformProvider({
       updateFeedPage(key, { cursor: nextCursor, hasMore: nextHasMore, loading: false });
       return incoming.length > 0;
     },
-    [accountsEnabled, rawDataset.games, socialPosts, updateFeedPage],
+    [hasAccountSessionAuth, rawDataset.games, socialPosts, updateFeedPage],
   );
 
   const ensureSocialPostLoaded = useCallback(
     (postId: string) => {
-      if (!accountsEnabled || !postId) return;
+      if (!hasAccountSessionAuth || !postId) return;
       if (socialPosts.some((p) => p.id === postId)) return;
       void (async () => {
         const data = await getJson<{ post?: ServerSocialPost }>(
@@ -1526,7 +1545,7 @@ export function PlatformProvider({
         setSocialPosts((prev) => mergeSocialPosts(prev, [saved], "extra"));
       })();
     },
-    [accountsEnabled, rawDataset.games, socialPosts],
+    [hasAccountSessionAuth, rawDataset.games, socialPosts],
   );
 
   const reportSocialContent = useCallback(
@@ -1574,14 +1593,14 @@ export function PlatformProvider({
 
   // Feed compartido: al entrar y cada vez que la persona vuelve a la pestaña.
   useEffect(() => {
-    if (!accountsEnabled) return;
+    if (!hasAccountSessionAuth) return;
     refreshSocialFeed();
     const onVisible = (): void => {
       if (document.visibilityState === "visible") refreshSocialFeed();
     };
     document.addEventListener("visibilitychange", onVisible);
     return () => document.removeEventListener("visibilitychange", onVisible);
-  }, [accountsEnabled, refreshSocialFeed]);
+  }, [hasAccountSessionAuth, refreshSocialFeed]);
 
   const toggleWatchlistGame = useCallback(
     (gameId: string) => {
@@ -1593,11 +1612,11 @@ export function PlatformProvider({
             : "Partido en vigilancia: te avisaremos si aparece valor nuevo.",
           "default",
         );
-        if (accountsEnabled) void postJson("/api/me/watchlist", { gameId, watched: !exists });
+        if (hasAccountSessionAuth) void postJson("/api/me/watchlist", { gameId, watched: !exists });
         return exists ? prev.filter((id) => id !== gameId) : [...prev, gameId];
       });
     },
-    [pushToast, accountsEnabled],
+    [pushToast, hasAccountSessionAuth],
   );
 
   const simulateFriendFirstPayment = useCallback(() => {
@@ -1684,7 +1703,7 @@ export function PlatformProvider({
     } catch (err) {
       void err;
     }
-    if (accountsEnabled) {
+    if (hasAccountSessionAuth) {
       try {
         await fetch("/api/auth/sign-out", {
           method: "POST",
@@ -1696,10 +1715,7 @@ export function PlatformProvider({
       }
     }
     navigateTo("/");
-  }, [accountsEnabled, navigateTo, onLogoutOverride]);
-
-  const hasAccountSession = Boolean(viewerIdentity);
-  const upgradeHref = hasAccountSession ? "/app/account?tab=plan" : "/signup";
+  }, [hasAccountSessionAuth, navigateTo, onLogoutOverride]);
 
   const value = useMemo<PlatformContextValue>(
     () => ({
@@ -1709,8 +1725,11 @@ export function PlatformProvider({
       setViewerRole,
       allowRoleSimulation,
       accountsEnabled,
+      viewerVia: effectiveViewerVia,
+      paymentMode,
       viewerIdentity,
       hasAccountSession,
+      hasAccountSessionAuth,
       upgradeHref,
       updateViewerIdentity,
       oddsFormat,
@@ -1792,8 +1811,11 @@ export function PlatformProvider({
       setViewerRole,
       allowRoleSimulation,
       accountsEnabled,
+      effectiveViewerVia,
+      paymentMode,
       viewerIdentity,
       hasAccountSession,
+      hasAccountSessionAuth,
       upgradeHref,
       updateViewerIdentity,
       oddsFormat,
@@ -1880,8 +1902,11 @@ export function PlatformProvider({
       viewerRole,
       allowRoleSimulation,
       accountsEnabled,
+      viewerVia: effectiveViewerVia,
+      paymentMode,
       viewerIdentity,
       hasAccountSession,
+      hasAccountSessionAuth,
       upgradeHref,
       oddsFormat,
       favoriteLeagues,
@@ -1897,8 +1922,11 @@ export function PlatformProvider({
       viewerRole,
       allowRoleSimulation,
       accountsEnabled,
+      effectiveViewerVia,
+      paymentMode,
       viewerIdentity,
       hasAccountSession,
+      hasAccountSessionAuth,
       upgradeHref,
       oddsFormat,
       favoriteLeagues,

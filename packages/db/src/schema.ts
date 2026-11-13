@@ -110,24 +110,39 @@ export const userPreferences = pgTable(
       .primaryKey()
       .references(() => users.id, { onDelete: "cascade" }),
     oddsFormat: text("odds_format").notNull().default("american"),
+    themeMode: text("theme_mode").notNull().default("dark"),
+    timezone: text("timezone").notNull().default("America/Mexico_City"),
     riskPreference: text("risk_preference").notNull().default("medio"),
     favoriteLeagues: text("favorite_leagues").array().notNull().default(sql`'{}'::text[]`),
     unitMxnCentavos: integer("unit_mxn_centavos").notNull().default(10000),
+    showMxnBalance: boolean("show_mxn_balance").notNull().default(false),
     publicRecordVisible: boolean("public_record_visible").notNull().default(true),
     /** Correo cuando se califica un pick de la bitácora. Solo con consentimiento: apagado por defecto. */
     emailPickResults: boolean("email_pick_results").notNull().default(false),
+    emailValueAlerts: boolean("email_value_alerts").notNull().default(true),
+    emailBeforeMatch: boolean("email_before_match").notNull().default(false),
+    emailBillingReminder: boolean("email_billing_reminder").notNull().default(true),
+    showInRanking: boolean("show_in_ranking").notNull().default(true),
+    pauseCommunity: boolean("pause_community").notNull().default(false),
+    responsiblePauseKind: text("responsible_pause_kind"),
+    responsiblePauseUntil: ts("responsible_pause_until"),
     updatedAt: ts("updated_at").notNull().defaultNow(),
   },
   (t) => [
     check("user_preferences_odds_ck", sql`${t.oddsFormat} IN ('american', 'decimal')`),
     check("user_preferences_risk_ck", sql`${t.riskPreference} IN ('conservador', 'medio', 'arriesgado')`),
+    check("user_preferences_theme_ck", sql`${t.themeMode} IN ('dark', 'light', 'system')`),
+    check(
+      "user_preferences_pause_ck",
+      sql`${t.responsiblePauseKind} IS NULL OR ${t.responsiblePauseKind} IN ('24h', '7d', '30d')`,
+    ),
   ],
 );
 
 /**
- * Correos transaccionales que ya se mandaron o quedaron programados en Resend. Una fila por
- * persona y tipo: evita duplicados y guarda el id de Resend para poder cancelar el envío
- * (por ejemplo, el aviso de fin de prueba cuando la persona se suscribe antes).
+ * Correos transaccionales que ya se mandaron, quedaron programados en Resend o en espera
+ * (>28 días para recordatorios de renovación/expiración). La clave `(user_id, kind, cycle_key)`
+ * evita duplicados dentro de un mismo ciclo y permite ciclos repetidos tras nuevas activaciones.
  */
 export const scheduledEmails = pgTable(
   "scheduled_emails",
@@ -136,8 +151,10 @@ export const scheduledEmails = pgTable(
     userId: uuid("user_id")
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
-    /** `welcome`, `trial_ending` o `trial_ended`. */
+    /** `welcome`, `trial_ending`, `trial_ended`, `payment_receipt`, `renewal_reminder`, `access_expired` o `transfer_rejected`. */
     kind: text("kind").notNull(),
+    /** Permite distinguir ciclos (por ejemplo, `transfer:<id>` o `default`). */
+    cycleKey: text("cycle_key").notNull().default("default"),
     /** Id del correo en Resend. */
     providerId: text("provider_id"),
     sendAt: ts("send_at").notNull(),
@@ -145,7 +162,8 @@ export const scheduledEmails = pgTable(
     createdAt: createdAt(),
   },
   (t) => [
-    uniqueIndex("scheduled_emails_user_kind_uq").on(t.userId, t.kind),
+    uniqueIndex("scheduled_emails_user_kind_cycle_uq").on(t.userId, t.kind, t.cycleKey),
+    index("scheduled_emails_status_send_idx").on(t.status, t.sendAt),
     check("scheduled_emails_status_ck", sql`${t.status} IN ('pending', 'scheduled', 'sent', 'canceled', 'failed')`),
   ],
 );
@@ -234,13 +252,14 @@ export const entitlementGrants = pgTable(
     appliedToStripeSubAt: ts("applied_to_stripe_sub_at"),
     revokedAt: ts("revoked_at"),
     revokeReason: text("revoke_reason"),
+    note: text("note"),
     createdAt: createdAt(),
   },
   (t) => [
     index("entitlement_grants_user_ends_idx").on(t.userId, t.endsAt),
     check(
       "entitlement_grants_source_ck",
-      sql`${t.sourceKind} IN ('trial_m1_nocard', 'trial_tipster_5d', 'referral_host_15d', 'referral_friend_15d', 'ambassador_bonus_30d', 'tipster_comp_pass', 'admin_grant')`,
+      sql`${t.sourceKind} IN ('trial_m1_nocard', 'trial_tipster_5d', 'referral_host_15d', 'referral_friend_15d', 'ambassador_bonus_30d', 'tipster_comp_pass', 'admin_grant', 'transfer_payment', 'coupon')`,
     ),
     check("entitlement_grants_days_ck", sql`${t.daysGranted} > 0`),
     check("entitlement_grants_range_ck", sql`${t.endsAt} > ${t.startsAt}`),
@@ -417,6 +436,8 @@ export const tipsterCommissionLedger = pgTable(
     payoutBatchId: uuid("payout_batch_id"),
     /** Transferencia de Stripe Connect que pagó este asiento. */
     stripeTransferId: text("stripe_transfer_id").unique(),
+    /** Nota o referencia humana para liquidaciones manuales (Beta 1.0). */
+    payoutNote: text("payout_note"),
     paidOutAt: ts("paid_out_at"),
     createdAt: createdAt(),
   },
@@ -769,3 +790,103 @@ export const authVerification = pgTable("auth_verification", {
   createdAt: ts("created_at").notNull().defaultNow(),
   updatedAt: ts("updated_at").notNull().defaultNow(),
 });
+
+// ---------------------------------------------------------------------------
+// Cobro por transferencia SPEI y cupones de acceso (Beta 1.0)
+// ---------------------------------------------------------------------------
+
+export const transferPaymentRequests = pgTable(
+  "transfer_payment_requests",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    userId: uuid("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    planInterval: text("plan_interval").notNull(),
+    amountCentavosMxn: integer("amount_centavos_mxn").notNull(),
+    reportedAmountCentavosMxn: integer("reported_amount_centavos_mxn"),
+    amountMismatch: boolean("amount_mismatch").notNull().default(false),
+    referralDiscountApplied: boolean("referral_discount_applied").notNull().default(false),
+    referenceCode: text("reference_code").notNull().unique(),
+    originBank: text("origin_bank"),
+    receiptReference: text("receipt_reference"),
+    payerName: text("payer_name"),
+    transferDate: text("transfer_date"),
+    userNote: text("user_note"),
+    status: text("status").notNull().default("pending_review"),
+    entitlementGrantId: uuid("entitlement_grant_id").references(() => entitlementGrants.id),
+    reviewedByUserId: uuid("reviewed_by_user_id").references(() => users.id, { onDelete: "set null" }),
+    reviewedAt: ts("reviewed_at"),
+    rejectionReason: text("rejection_reason"),
+    adminNotes: text("admin_notes"),
+    createdAt: createdAt(),
+    updatedAt: ts("updated_at").notNull().defaultNow(),
+  },
+  (t) => [
+    index("transfer_requests_user_created_idx").on(t.userId, t.createdAt),
+    index("transfer_requests_status_created_idx").on(t.status, t.createdAt),
+    uniqueIndex("transfer_requests_one_pending_per_user_uq")
+      .on(t.userId)
+      .where(sql`${t.status} = 'pending_review'`),
+    check("transfer_requests_interval_ck", sql`${t.planInterval} IN ('monthly', 'annual')`),
+    check("transfer_requests_amount_ck", sql`${t.amountCentavosMxn} > 0`),
+    check(
+      "transfer_requests_reported_amount_ck",
+      sql`${t.reportedAmountCentavosMxn} IS NULL OR ${t.reportedAmountCentavosMxn} > 0`,
+    ),
+    check(
+      "transfer_requests_status_ck",
+      sql`${t.status} IN ('pending_review', 'approved', 'rejected', 'canceled')`,
+    ),
+  ],
+);
+
+export const accessCoupons = pgTable(
+  "access_coupons",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    code: text("code").notNull().unique(),
+    days: integer("days").notNull(),
+    maxRedemptions: integer("max_redemptions"),
+    redeemedCount: integer("redeemed_count").notNull().default(0),
+    expiresAt: ts("expires_at"),
+    active: boolean("active").notNull().default(true),
+    note: text("note"),
+    createdBy: uuid("created_by").references(() => users.id, { onDelete: "set null" }),
+    createdAt: createdAt(),
+    updatedAt: ts("updated_at").notNull().defaultNow(),
+  },
+  (t) => [
+    check("access_coupons_code_upper_ck", sql`${t.code} = upper(${t.code})`),
+    check("access_coupons_days_ck", sql`${t.days} BETWEEN 1 AND 365`),
+    check(
+      "access_coupons_max_redemptions_ck",
+      sql`${t.maxRedemptions} IS NULL OR ${t.maxRedemptions} > 0`,
+    ),
+    check("access_coupons_redeemed_count_ck", sql`${t.redeemedCount} >= 0`),
+    check(
+      "access_coupons_quota_ck",
+      sql`${t.maxRedemptions} IS NULL OR ${t.redeemedCount} <= ${t.maxRedemptions}`,
+    ),
+  ],
+);
+
+export const couponRedemptions = pgTable(
+  "coupon_redemptions",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    couponId: uuid("coupon_id")
+      .notNull()
+      .references(() => accessCoupons.id, { onDelete: "cascade" }),
+    userId: uuid("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    entitlementGrantId: uuid("entitlement_grant_id").references(() => entitlementGrants.id),
+    transferRequestId: uuid("transfer_request_id").references(() => transferPaymentRequests.id),
+    createdAt: createdAt(),
+  },
+  (t) => [
+    uniqueIndex("coupon_redemptions_coupon_user_uq").on(t.couponId, t.userId),
+    index("coupon_redemptions_user_created_idx").on(t.userId, t.createdAt),
+  ],
+);

@@ -31,6 +31,9 @@
 | `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` | Google Cloud | 6 |
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY` | Cloudflare | 7 |
 | `BLOB_READ_WRITE_TOKEN` | Vercel (**Storage → Blob**, opcional) | Foto de perfil |
+| `PITCHLAB_PAYMENTS_MODE` | `"transfer"` (SPEI/cupones Beta 1.0) o `"stripe"` | Cobro |
+| `PITCHLAB_TRANSFER_BANK`, `PITCHLAB_TRANSFER_BENEFICIARY`, `PITCHLAB_TRANSFER_CLABE`, `PITCHLAB_TRANSFER_INSTRUCTIONS` | Tu cuenta bancaria SPEI (opcional la nota) | Beta 1.0 |
+| `CRON_SECRET` | Secreto generado (cron `/api/cron/tipster-payouts`) | Diario |
 
 **Cómo generar un secreto:** en una terminal dentro de la carpeta del proyecto, corre:
 
@@ -93,7 +96,7 @@ Siempre sigue este orden cuando haya cambios de base de datos: **primero migrar 
    powershell -ExecutionPolicy Bypass -File scripts/migrate-prod.ps1
    ```
 
-2. El script consulta la rama `main` de Neon sin mostrar la cadena de conexión y enlista qué archivos de `packages/db/migrations` faltan frente a `drizzle.__drizzle_migrations` (hoy en producción faltan `0005_perfil_y_conexion_x`, `0006_correos_programados`, `0007_comunidad`, `0008_notificaciones`, `0009_moderacion_comunidad` y `0010_avatar_perfil`). Si ya está al día, avisa y termina sin tocar nada.
+2. El script consulta la rama `main` de Neon sin mostrar la cadena de conexión y enlista qué archivos de `packages/db/migrations` faltan frente a `drizzle.__drizzle_migrations` (hoy pueden incluir hasta `0015_transferencias_cupones_preferencias`, según cuándo se corrió por última vez). Si ya está al día, avisa y termina sin tocar nada.
 3. Revisa la lista, escribe `MIGRAR` (en mayúsculas) para confirmar y espera el mensaje verde `Migraciones aplicadas en produccion (rama main).`.
 4. Recién cuando la migración termine sin errores, haz `git push` o **Deploy / Redeploy** en Vercel.
 
@@ -187,7 +190,70 @@ La foto de perfil de cada socio (`POST /api/me/avatar`) se recorta a un cuadrado
 3. Guarda el Client ID y el Client Secret como `TWITTER_CLIENT_ID` y `TWITTER_CLIENT_SECRET` en Vercel y en `.env.9990.local`. El botón muestra «Pronto» hasta que existan ambas variables.
 4. Antes del próximo deploy, aplica la migración `0005_perfil_y_conexion_x` a producción y prueba «Conectar X» en el 9990 con las claves reales. Confirma que el usuario que devuelve X aparece en el perfil público y desaparece al desconectar. El proveedor solo se habilita para vincularlo desde una sesión de PitchLab.
 
+## Operación Beta 1.0 (SPEI, cupones y `/app/admin`)
+
+En Beta 1.0 el sistema arranca con `PITCHLAB_PAYMENTS_MODE=transfer` (comportamiento por defecto si omites la variable): Stripe Checkout (`/api/billing/checkout`) responde `503` y Stripe Connect (`/api/tipster/connect`) responde `409`. Todo el acceso pagado se opera por transferencia SPEI, cupones de acceso (`/canjear?codigo=XXXX` o `/app/canjear`) o concesión manual en `/app/admin`.
+
+1. **Variables en Vercel (Production y Preview):**
+   - `PITCHLAB_PAYMENTS_MODE=transfer`
+   - `PITCHLAB_TRANSFER_BANK`, `PITCHLAB_TRANSFER_BENEFICIARY` y `PITCHLAB_TRANSFER_CLABE` (obligatorias para emitir referencias SPEI en `/app/account?tab=plan`; opcional `PITCHLAB_TRANSFER_INSTRUCTIONS`).
+   - `CRON_SECRET` para que Vercel Cron ejecute `/api/cron/tipster-payouts` diariamente (promueve comisiones tras 14 días y despacha correos programados en `scheduled_emails` dentro de la ventana de 28 días).
+2. **Consola de operación (`/app/admin`):** requiere cuenta con correo verificado listado en `PITCHLAB_ADMIN_EMAILS`. Permite aprobar/rechazar transferencias SPEI (con disparo automático de recibo, recompensa bilateral `+15 días` de referidos, récord de renovación/vencimiento y comisión de tipster), crear o desactivar cupones, buscar socios para conceder o revocar pases, moderar comunidad y marcar pagos manuales de comisiones a tipsters.
+
+### Recetas SQL útiles en Neon (emergencia o auditoría)
+
+Siempre que sea posible aprueba transferencias o concede acceso desde `/app/admin` para disparar correos, auditoría y comisiones. Para consulta o respaldo directo en **Neon SQL Editor**:
+
+```sql
+-- 1. Buscar socio por correo o @usuario y su pase activo más lejano
+SELECT u.id, u.email, u.handle, u.display_name, u.referral_code,
+       MAX(eg.ends_at) FILTER (WHERE eg.revoked_at IS NULL AND eg.ends_at > now()) AS pase_vigente_hasta
+FROM users u
+LEFT JOIN entitlement_grants eg ON eg.user_id = u.id
+WHERE lower(u.email) = lower('socio@ejemplo.com')
+   OR lower(u.handle) = lower('usuario_handle')
+GROUP BY u.id;
+
+-- 2. Aprobar una transferencia SPEI pendiente / conceder 30 días sin duplicar (cambia los parámetros)
+BEGIN;
+WITH upd AS (
+  UPDATE transfer_payment_requests
+  SET status = 'approved', reviewed_at = now(), updated_at = now(), admin_notes = 'Aprobado manual SQL'
+  WHERE reference_code = 'PL-REF-0001' AND status = 'pending_review'
+  RETURNING id, user_id, plan_interval, reference_code
+)
+INSERT INTO entitlement_grants (user_id, source_kind, days_granted, starts_at, ends_at, idempotency_key, note)
+SELECT user_id,
+       'transfer_payment',
+       CASE WHEN plan_interval = 'annual' THEN 365 ELSE 30 END,
+       now(),
+       now() + CASE WHEN plan_interval = 'annual' THEN interval '365 days' ELSE interval '30 days' END,
+       'sql:transfer:' || reference_code,
+       'Aprobación SPEI manual (' || reference_code || ')'
+FROM upd
+ON CONFLICT (idempotency_key) DO NOTHING;
+COMMIT;
+
+-- 3. Crear un cupón de acceso (código siempre en MAYÚSCULAS; days entre 1 y 365)
+INSERT INTO access_coupons (code, days, max_redemptions, expires_at, active, note)
+VALUES ('BETA30', 30, 50, now() + interval '60 days', true, 'Lote inicial Beta 1.0');
+
+-- 4. Listar transferencias SPEI pendientes con antigüedad y alerta de monto
+SELECT r.reference_code, r.plan_interval,
+       r.amount_centavos_mxn / 100.0 AS monto_esperado_mxn,
+       r.reported_amount_centavos_mxn / 100.0 AS monto_reportado_mxn,
+       r.amount_mismatch, r.origin_bank, r.receipt_reference,
+       u.email, u.handle,
+       EXTRACT(EPOCH FROM (now() - r.created_at)) / 3600.0 AS horas_en_cola
+FROM transfer_payment_requests r
+JOIN users u ON u.id = r.user_id
+WHERE r.status = 'pending_review'
+ORDER BY r.created_at ASC;
+```
+
 ## Después (cuando decidas cobrar)
+
+- Cambiar `PITCHLAB_PAYMENTS_MODE=stripe` en Vercel cuando Stripe MX quede verificado (en Beta 1.0 mantén `"transfer"`).
 
 - Pasar a **Vercel Pro**: Hobby es solo para uso no comercial.
 - **Stripe MX:**

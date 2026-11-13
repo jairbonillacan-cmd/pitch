@@ -217,7 +217,7 @@ export function PrefsTab({
   storyOverride?: PrefsTabStoryOverride;
 }): React.JSX.Element {
   const {
-    accountsEnabled: ctxAccountsEnabled,
+    hasAccountSessionAuth,
     favoriteLeagues,
     setFavoriteLeagues,
     oddsFormat,
@@ -231,7 +231,10 @@ export function PrefsTab({
     pushToast,
   } = usePlatform();
 
-  const accountsEnabled = storyOverride?.accountsEnabled ?? ctxAccountsEnabled;
+  const accountsEnabled = storyOverride?.accountsEnabled ?? hasAccountSessionAuth;
+  const canPersistServer = Boolean(
+    hasAccountSessionAuth && !storyOverride && typeof fetch === "function",
+  );
   const emailDisplay = storyOverride?.email ?? serverEmail ?? identity.atHandle;
 
   const baseId = useId();
@@ -239,11 +242,13 @@ export function PrefsTab({
   const themeLabelId = `${baseId}-theme`;
   const tzSelectId = `${baseId}-tz`;
   const unitInputId = `${baseId}-unit`;
+  const unitErrorId = `${baseId}-unit-err`;
   const pesosLabelId = `${baseId}-pesos-label`;
   const pesosDescId = `${baseId}-pesos-desc`;
   const pauseDialogTitleId = `${baseId}-pause-dlg`;
   const exportDialogTitleId = `${baseId}-export-dlg`;
   const deleteDialogTitleId = `${baseId}-delete-dlg`;
+  const deleteReasonId = `${baseId}-delete-reason`;
 
   const [prefs, setPrefs] = useState<StoredAccountPrefsV1>(() =>
     mergePrefs(DEFAULT_STORED_PREFS_V1, storyOverride?.initialPrefs),
@@ -251,14 +256,28 @@ export function PrefsTab({
   const [unitDraft, setUnitDraft] = useState<string>(() =>
     String(storyOverride?.initialPrefs?.unitMxn ?? DEFAULT_STORED_PREFS_V1.unitMxn),
   );
+  const [unitError, setUnitError] = useState<string | null>(null);
   const [pendingBreak, setPendingBreak] = useState<Exclude<PauseChoice, null>>("7d");
   const [lastLeagueWarn, setLastLeagueWarn] = useState<boolean>(false);
   const [activeGroup, setActiveGroup] = useState<PrefGroupId>("pl-prefs-ligas");
   const [localSavedTick, setLocalSavedTick] = useState<number>(0);
   const [activeDialog, setActiveDialog] = useState<PrefsDialogKind>(null);
   const [accountActionNote, setAccountActionNote] = useState<string | null>(null);
+  const [exportBusy, setExportBusy] = useState<boolean>(false);
+  const [deleteBusy, setDeleteBusy] = useState<boolean>(false);
+  const [deleteReason, setDeleteReason] = useState<string>("");
+  const [deleteError, setDeleteError] = useState<string | null>(null);
 
   const navRef = useRef<HTMLElement | null>(null);
+  const unitDebounceRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (unitDebounceRef.current !== null && typeof window !== "undefined") {
+        window.clearTimeout(unitDebounceRef.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     const stored = mergePrefs(readStoredPrefs(), storyOverride?.initialPrefs);
@@ -269,20 +288,125 @@ export function PrefsTab({
     }
   }, [storyOverride?.initialPrefs]);
 
-  // Sincroniza el aviso por correo de picks liquidados cuando hay sesión con cuenta.
+  // Con cuenta real autenticada: hidrata todas las preferencias desde PostgreSQL (`/api/me/preferences`).
   useEffect(() => {
-    if (!accountsEnabled || storyOverride || typeof fetch !== "function") return;
+    if (!canPersistServer) return;
     let cancelled = false;
-    void fetch("/api/me/email-preferences", { cache: "no-store" })
-      .then(async (res) => (res.ok ? ((await res.json()) as { pickResults?: unknown }) : null))
+    void fetch("/api/me/preferences", { credentials: "same-origin", cache: "no-store" })
+      .then(async (res) =>
+        res.ok
+          ? ((await res.json().catch(() => null)) as {
+              preferences?: {
+                oddsFormat?: OddsFormat;
+                themeMode?: ThemePreference;
+                timezone?: string;
+                riskPreference?: RiskBand;
+                favoriteLeagues?: string[];
+                unitMxnCentavos?: number;
+                showMxnBalance?: boolean;
+                publicRecordVisible?: boolean;
+                emailPickResults?: boolean;
+                emailValueAlerts?: boolean;
+                emailBeforeMatch?: boolean;
+                emailBillingReminder?: boolean;
+                showInRanking?: boolean;
+                pauseCommunity?: boolean;
+                responsiblePauseKind?: Exclude<PauseChoice, null> | null;
+                responsiblePauseUntilIso?: string | null;
+              };
+            } | null)
+          : null,
+      )
       .then((data) => {
-        if (cancelled || typeof data?.pickResults !== "boolean") return;
-        const pickResults = data.pickResults;
+        if (cancelled || !data?.preferences) return;
+        const p = data.preferences;
+        const allowedLeagueIds = new Set<string>(LEAGUE_OPTIONS.map((l) => l.id));
+        const serverLeagues = Array.isArray(p.favoriteLeagues)
+          ? (p.favoriteLeagues.filter((l): l is LeagueId => allowedLeagueIds.has(l)) as LeagueId[])
+          : [];
+        if (serverLeagues.length > 0) {
+          setFavoriteLeagues(serverLeagues);
+        }
+        if (p.oddsFormat === "american" || p.oddsFormat === "decimal") {
+          setOddsFormat(p.oddsFormat);
+        }
+        if (
+          p.riskPreference === "conservador" ||
+          p.riskPreference === "medio" ||
+          p.riskPreference === "arriesgado"
+        ) {
+          setRiskPreference(p.riskPreference);
+        }
+        if (typeof p.timezone === "string" && p.timezone.trim()) {
+          setUserTimezone(p.timezone);
+        }
+        if (typeof p.showMxnBalance === "boolean") {
+          setShowMxnBalance(p.showMxnBalance);
+        }
+        const unitMxnValue =
+          typeof p.unitMxnCentavos === "number" && Number.isFinite(p.unitMxnCentavos)
+            ? Math.max(10, Math.min(100_000, Math.round(p.unitMxnCentavos / 100)))
+            : DEFAULT_STORED_PREFS_V1.unitMxn;
+        setUnitMxn(unitMxnValue);
+        setUnitDraft(String(unitMxnValue));
+        setUnitError(null);
+
+        if (
+          p.themeMode === "dark" ||
+          p.themeMode === "light" ||
+          p.themeMode === "system"
+        ) {
+          applyDocumentThemeMode(p.themeMode);
+        }
+        if (
+          p.responsiblePauseKind === "24h" ||
+          p.responsiblePauseKind === "7d" ||
+          p.responsiblePauseKind === "30d"
+        ) {
+          setPendingBreak(p.responsiblePauseKind);
+        }
+
         setPrefs((prev) => {
-          if (prev.alerts.pickSettled === pickResults) return prev;
-          const next = {
+          const next: StoredAccountPrefsV1 = {
             ...prev,
-            alerts: { ...prev.alerts, pickSettled: pickResults },
+            v: 1,
+            themeMode:
+              p.themeMode === "dark" || p.themeMode === "light" || p.themeMode === "system"
+                ? p.themeMode
+                : prev.themeMode,
+            timezone: typeof p.timezone === "string" && p.timezone.trim() ? p.timezone : prev.timezone,
+            showMxnBalance:
+              typeof p.showMxnBalance === "boolean" ? p.showMxnBalance : prev.showMxnBalance,
+            unitMxn: unitMxnValue,
+            alerts: {
+              valueAlerts:
+                typeof p.emailValueAlerts === "boolean" ? p.emailValueAlerts : prev.alerts.valueAlerts,
+              beforeMatch:
+                typeof p.emailBeforeMatch === "boolean" ? p.emailBeforeMatch : prev.alerts.beforeMatch,
+              pickSettled:
+                typeof p.emailPickResults === "boolean" ? p.emailPickResults : prev.alerts.pickSettled,
+              billingReminder:
+                typeof p.emailBillingReminder === "boolean"
+                  ? p.emailBillingReminder
+                  : prev.alerts.billingReminder,
+            },
+            privacy: {
+              publicProfile:
+                typeof p.publicRecordVisible === "boolean"
+                  ? p.publicRecordVisible
+                  : prev.privacy.publicProfile,
+              showInRanking:
+                typeof p.showInRanking === "boolean" ? p.showInRanking : prev.privacy.showInRanking,
+              pauseCommunity:
+                typeof p.pauseCommunity === "boolean" ? p.pauseCommunity : prev.privacy.pauseCommunity,
+            },
+            pauseChoice:
+              p.responsiblePauseKind === "24h" ||
+              p.responsiblePauseKind === "7d" ||
+              p.responsiblePauseKind === "30d"
+                ? p.responsiblePauseKind
+                : null,
+            pauseChosenAtIso: p.responsiblePauseUntilIso ?? null,
           };
           writeStoredPrefs(next);
           return next;
@@ -294,38 +418,15 @@ export function PrefsTab({
     return () => {
       cancelled = true;
     };
-  }, [accountsEnabled, storyOverride]);
-
-  // Con cuentas reales activas, hidrata la visibilidad del perfil público desde PostgreSQL.
-  useEffect(() => {
-    if (
-      !accountsEnabled ||
-      typeof window === "undefined" ||
-      typeof fetch !== "function" ||
-      storyOverride?.initialPrefs?.privacy?.publicProfile !== undefined
-    ) {
-      return;
-    }
-    let cancelled = false;
-    void fetch("/api/me/profile", { credentials: "same-origin", cache: "no-store" })
-      .then((res) => (res.ok ? res.json() : null))
-      .then((data: { publicProfile?: unknown } | null) => {
-        if (cancelled || typeof data?.publicProfile !== "boolean") return;
-        const serverPublic = data.publicProfile;
-        setPrefs((prev) => {
-          if (prev.privacy.publicProfile === serverPublic) return prev;
-          const next = { ...prev, privacy: { ...prev.privacy, publicProfile: serverPublic } };
-          writeStoredPrefs(next);
-          return next;
-        });
-      })
-      .catch((err) => {
-        void err;
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [accountsEnabled, storyOverride?.initialPrefs?.privacy?.publicProfile]);
+  }, [
+    canPersistServer,
+    setFavoriteLeagues,
+    setOddsFormat,
+    setRiskPreference,
+    setShowMxnBalance,
+    setUnitMxn,
+    setUserTimezone,
+  ]);
 
   // Si el modo es «Sistema», escucha cambios del esquema de color del dispositivo.
   useEffect(() => {
@@ -402,6 +503,28 @@ export function PrefsTab({
     onSaved?.();
   }, [onSaved]);
 
+  const persistServerPrefs = useCallback(
+    async (patch: Record<string, unknown>, onError?: () => void): Promise<boolean> => {
+      if (!canPersistServer) return true;
+      try {
+        const res = await fetch("/api/me/preferences", {
+          method: "PUT",
+          credentials: "same-origin",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(patch),
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return true;
+      } catch (err) {
+        void err;
+        onError?.();
+        pushToast("No se pudo guardar tu preferencia en el servidor.", "warning");
+        return false;
+      }
+    },
+    [canPersistServer, pushToast],
+  );
+
   const updatePrefs = useCallback(
     (updater: (prev: StoredAccountPrefsV1) => StoredAccountPrefsV1) => {
       setPrefs((prev) => {
@@ -415,7 +538,8 @@ export function PrefsTab({
   );
 
   const handleToggleLeague = (leagueId: LeagueId) => {
-    const result = toggleLeagueSelection(favoriteLeagues, leagueId);
+    const prevLeagues = favoriteLeagues;
+    const result = toggleLeagueSelection(prevLeagues, leagueId);
     if (result.blockedLast) {
       setLastLeagueWarn(true);
       return;
@@ -423,26 +547,60 @@ export function PrefsTab({
     setLastLeagueWarn(false);
     setFavoriteLeagues(result.next);
     notifySaved();
+    void persistServerPrefs({ favoriteLeagues: result.next }, () => {
+      setFavoriteLeagues(prevLeagues);
+    });
   };
 
   const handleOddsChange = (next: OddsFormat) => {
     if (next === oddsFormat) return;
+    const prevFormat = oddsFormat;
     setOddsFormat(next);
     notifySaved();
+    void persistServerPrefs({ oddsFormat: next }, () => {
+      setOddsFormat(prevFormat);
+    });
   };
 
   const handleThemeChange = (next: ThemePreference) => {
+    const prevTheme = prefs.themeMode;
     applyDocumentThemeMode(next);
     updatePrefs((prev) => ({ ...prev, themeMode: next }));
+    void persistServerPrefs({ themeMode: next }, () => {
+      applyDocumentThemeMode(prevTheme);
+      setPrefs((curr) => {
+        const reverted = { ...curr, themeMode: prevTheme };
+        writeStoredPrefs(reverted);
+        return reverted;
+      });
+    });
   };
 
   const handleUnitInputChange = (raw: string) => {
     setUnitDraft(raw);
     const cleaned = Number(raw.replace(/[^0-9.]/g, ""));
     if (Number.isFinite(cleaned) && cleaned >= 10) {
+      setUnitError(null);
       const clamped = Math.min(100_000, Math.round(cleaned));
       updatePrefs((prev) => ({ ...prev, unitMxn: clamped }));
       setUnitMxn(clamped);
+      if (canPersistServer && typeof window !== "undefined") {
+        if (unitDebounceRef.current !== null) {
+          window.clearTimeout(unitDebounceRef.current);
+        }
+        unitDebounceRef.current = window.setTimeout(() => {
+          void persistServerPrefs({ unitMxnCentavos: clamped * 100 });
+        }, 450);
+      }
+    }
+  };
+
+  const handleUnitBlur = () => {
+    const cleaned = Number(unitDraft.replace(/[^0-9.]/g, ""));
+    if (!Number.isFinite(cleaned) || cleaned < 10) {
+      setUnitError("El valor mínimo por unidad es $10 MXN.");
+    } else {
+      setUnitError(null);
     }
   };
 
@@ -620,9 +778,18 @@ export function PrefsTab({
                 className="pl-acct-select"
                 value={prefs.timezone}
                 onChange={(e) => {
+                  const prevTz = prefs.timezone;
                   const nextTz = e.target.value;
                   updatePrefs((prev) => ({ ...prev, timezone: nextTz }));
                   setUserTimezone(nextTz);
+                  void persistServerPrefs({ timezone: nextTz }, () => {
+                    setUserTimezone(prevTz);
+                    setPrefs((curr) => {
+                      const reverted = { ...curr, timezone: prevTz };
+                      writeStoredPrefs(reverted);
+                      return reverted;
+                    });
+                  });
                 }}
               >
                 {TIMEZONE_OPTIONS.map((tz) => (
@@ -659,8 +826,12 @@ export function PrefsTab({
                   aria-pressed={riskPreference === opt.value}
                   onClick={() => {
                     if (riskPreference === opt.value) return;
+                    const prevRisk = riskPreference;
                     setRiskPreference(opt.value);
                     notifySaved();
+                    void persistServerPrefs({ riskPreference: opt.value }, () => {
+                      setRiskPreference(prevRisk);
+                    });
                   }}
                 >
                   <b className="pl-acct-risk-title">{opt.name}</b>
@@ -684,8 +855,17 @@ export function PrefsTab({
                   aria-describedby={pesosDescId}
                   isSelected={prefs.showMxnBalance}
                   onChange={(next) => {
+                    const prevShow = prefs.showMxnBalance;
                     updatePrefs((prev) => ({ ...prev, showMxnBalance: next }));
                     setShowMxnBalance(next);
+                    void persistServerPrefs({ showMxnBalance: next }, () => {
+                      setShowMxnBalance(prevShow);
+                      setPrefs((curr) => {
+                        const reverted = { ...curr, showMxnBalance: prevShow };
+                        writeStoredPrefs(reverted);
+                        return reverted;
+                      });
+                    });
                   }}
                   className="pl-acct-switch"
                 >
@@ -707,11 +887,19 @@ export function PrefsTab({
                       className="pl-acct-unit-input num"
                       value={unitDraft}
                       onChange={(e) => handleUnitInputChange(e.target.value)}
+                      onBlur={handleUnitBlur}
+                      aria-invalid={unitError ? "true" : "false"}
+                      aria-describedby={unitError ? unitErrorId : undefined}
                       inputMode="numeric"
                       autoComplete="off"
                     />
                     <span>MXN</span>
                   </span>
+                  {unitError ? (
+                    <p id={unitErrorId} role="alert" className="pl-acct-prefs-warn">
+                      {unitError}
+                    </p>
+                  ) : null}
 
                   {record.settled > 0 ? (
                     <span className="pl-acct-pesos-preview num">
@@ -761,6 +949,14 @@ export function PrefsTab({
             {ALERT_ITEMS.map((item) => {
               const titleId = `${baseId}-alert-${item.key}`;
               const descId = `${baseId}-alert-desc-${item.key}`;
+              const serverAlertField =
+                item.key === "valueAlerts"
+                  ? "emailValueAlerts"
+                  : item.key === "beforeMatch"
+                    ? "emailBeforeMatch"
+                    : item.key === "pickSettled"
+                      ? "emailPickResults"
+                      : "emailBillingReminder";
               return (
                 <div
                   key={item.key}
@@ -779,42 +975,21 @@ export function PrefsTab({
                     aria-describedby={descId}
                     isSelected={prefs.alerts[item.key]}
                     onChange={(next) => {
+                      const prevValue = prefs.alerts[item.key];
                       updatePrefs((prev) => ({
                         ...prev,
                         alerts: { ...prev.alerts, [item.key]: next },
                       }));
-                      if (
-                        item.key === "pickSettled" &&
-                        accountsEnabled &&
-                        !storyOverride &&
-                        typeof fetch === "function"
-                      ) {
-                        void fetch("/api/me/email-preferences", {
-                          method: "PUT",
-                          headers: { "Content-Type": "application/json" },
-                          body: JSON.stringify({ pickResults: next }),
-                        })
-                          .then((res) => {
-                            if (!res.ok && res.status !== 401) {
-                              throw new Error(`HTTP ${res.status}`);
-                            }
-                          })
-                          .catch((err) => {
-                            void err;
-                            setPrefs((prev) => {
-                              const reverted = {
-                                ...prev,
-                                alerts: { ...prev.alerts, pickSettled: !next },
-                              };
-                              writeStoredPrefs(reverted);
-                              return reverted;
-                            });
-                            pushToast(
-                              "No se pudo guardar el aviso por correo de picks liquidados.",
-                              "warning",
-                            );
-                          });
-                      }
+                      void persistServerPrefs({ [serverAlertField]: next }, () => {
+                        setPrefs((curr) => {
+                          const reverted = {
+                            ...curr,
+                            alerts: { ...curr.alerts, [item.key]: prevValue },
+                          };
+                          writeStoredPrefs(reverted);
+                          return reverted;
+                        });
+                      });
                     }}
                     className="pl-acct-switch"
                   >
@@ -840,6 +1015,12 @@ export function PrefsTab({
             {PRIVACY_ITEMS.map((item) => {
               const titleId = `${baseId}-priv-${item.key}`;
               const descId = `${baseId}-priv-desc-${item.key}`;
+              const serverPrivacyField =
+                item.key === "publicProfile"
+                  ? "publicRecordVisible"
+                  : item.key === "showInRanking"
+                    ? "showInRanking"
+                    : "pauseCommunity";
               return (
                 <div
                   key={item.key}
@@ -863,27 +1044,16 @@ export function PrefsTab({
                         ...prev,
                         privacy: { ...prev.privacy, [item.key]: next },
                       }));
-                      if (item.key === "publicProfile" && accountsEnabled && typeof fetch === "function") {
-                        void fetch("/api/me/profile", {
-                          method: "PATCH",
-                          credentials: "same-origin",
-                          headers: { "content-type": "application/json" },
-                          body: JSON.stringify({ publicProfile: next }),
-                        })
-                          .then((res) => {
-                            if (!res.ok) throw new Error(`HTTP ${res.status}`);
-                          })
-                          .catch(() => {
-                            setPrefs((curr) => {
-                              const reverted = {
-                                ...curr,
-                                privacy: { ...curr.privacy, publicProfile: prevValue },
-                              };
-                              writeStoredPrefs(reverted);
-                              return reverted;
-                            });
-                          });
-                      }
+                      void persistServerPrefs({ [serverPrivacyField]: next }, () => {
+                        setPrefs((curr) => {
+                          const reverted = {
+                            ...curr,
+                            privacy: { ...curr.privacy, [item.key]: prevValue },
+                          };
+                          writeStoredPrefs(reverted);
+                          return reverted;
+                        });
+                      });
                     }}
                     className="pl-acct-switch"
                   >
@@ -932,19 +1102,33 @@ export function PrefsTab({
             ) : (
               <div role="status" className="pl-acct-pause-banner">
                 <span>
-                  Descanso elegido ({selectedBreakLabel}). La pausa se aplicará cuando se active tu
-                  cuenta.
+                  {hasAccountSessionAuth
+                    ? `Descanso activo (${selectedBreakLabel}) guardado en tu cuenta.`
+                    : `Descanso elegido (${selectedBreakLabel}). La pausa se aplicará cuando se active tu cuenta.`}
                 </span>
                 <button
                   type="button"
                   className="pl-acct-btn pl-acct-btn--ghost pl-acct-btn--sm"
-                  onClick={() =>
+                  onClick={() => {
+                    const prevChoice = prefs.pauseChoice;
+                    const prevChosenAt = prefs.pauseChosenAtIso;
                     updatePrefs((prev) => ({
                       ...prev,
                       pauseChoice: null,
                       pauseChosenAtIso: null,
-                    }))
-                  }
+                    }));
+                    void persistServerPrefs({ responsiblePauseKind: null }, () => {
+                      setPrefs((curr) => {
+                        const reverted = {
+                          ...curr,
+                          pauseChoice: prevChoice,
+                          pauseChosenAtIso: prevChosenAt,
+                        };
+                        writeStoredPrefs(reverted);
+                        return reverted;
+                      });
+                    });
+                  }}
                 >
                   Deshacer
                 </button>
@@ -976,7 +1160,7 @@ export function PrefsTab({
               <button
                 type="button"
                 className="pl-acct-btn pl-acct-btn--ghost pl-acct-btn--sm"
-                disabled={!accountsEnabled}
+                disabled={!accountsEnabled || exportBusy}
                 onClick={() => setActiveDialog("export")}
               >
                 Descargar mis datos
@@ -984,8 +1168,11 @@ export function PrefsTab({
               <button
                 type="button"
                 className="pl-acct-btn pl-acct-btn--ghost pl-acct-btn--sm pl-acct-btn--muted-text"
-                disabled={!accountsEnabled}
-                onClick={() => setActiveDialog("delete")}
+                disabled={!accountsEnabled || deleteBusy}
+                onClick={() => {
+                  setDeleteError(null);
+                  setActiveDialog("delete");
+                }}
               >
                 Eliminar cuenta
               </button>
@@ -1011,8 +1198,17 @@ export function PrefsTab({
             ¿Pausar tu cuenta por {selectedBreakLabel}?
           </h3>
           <p className="pl-acct-dialog-copy">
-            Guardaremos tu elección de descanso por <strong>{selectedBreakLabel}</strong>. La pausa
-            se aplicará cuando se active tu cuenta.
+            {hasAccountSessionAuth ? (
+              <>
+                Aplicaremos un descanso de <strong>{selectedBreakLabel}</strong> en tu cuenta para
+                pausar alertas y avisos durante este periodo.
+              </>
+            ) : (
+              <>
+                Guardaremos tu elección de descanso por <strong>{selectedBreakLabel}</strong>. La
+                pausa se aplicará cuando se active tu cuenta.
+              </>
+            )}
           </p>
           <div className="pl-acct-dialog-actions">
             <button
@@ -1027,12 +1223,26 @@ export function PrefsTab({
               type="button"
               className="pl-acct-btn pl-acct-btn--primary"
               onClick={() => {
+                const nextBreak = pendingBreak;
+                const prevChoice = prefs.pauseChoice;
+                const prevChosenAt = prefs.pauseChosenAtIso;
                 updatePrefs((prev) => ({
                   ...prev,
-                  pauseChoice: pendingBreak,
+                  pauseChoice: nextBreak,
                   pauseChosenAtIso: new Date().toISOString(),
                 }));
                 setActiveDialog(null);
+                void persistServerPrefs({ responsiblePauseKind: nextBreak }, () => {
+                  setPrefs((curr) => {
+                    const reverted = {
+                      ...curr,
+                      pauseChoice: prevChoice,
+                      pauseChosenAtIso: prevChosenAt,
+                    };
+                    writeStoredPrefs(reverted);
+                    return reverted;
+                  });
+                });
               }}
             >
               Confirmar descanso
@@ -1044,7 +1254,9 @@ export function PrefsTab({
       {/* Confirmación de descarga de datos */}
       <TopLayerModalDialog
         open={activeDialog === "export"}
-        onClose={() => setActiveDialog(null)}
+        onClose={() => {
+          if (!exportBusy) setActiveDialog(null);
+        }}
         ariaLabelledBy={exportDialogTitleId}
       >
         <div className="pl-acct-dialog-body">
@@ -1052,13 +1264,14 @@ export function PrefsTab({
             Descargar mis datos
           </h3>
           <p className="pl-acct-dialog-copy">
-            Prepararemos un archivo con tu perfil, tu bitácora y tus preferencias registradas en
-            PitchLab.
+            Descargaremos un archivo JSON con tu perfil, preferencias, bitácora, transferencias,
+            cupones y actividad registrada en PitchLab.
           </p>
           <div className="pl-acct-dialog-actions">
             <button
               type="button"
               autoFocus
+              disabled={exportBusy}
               className="pl-acct-btn pl-acct-btn--ghost"
               onClick={() => setActiveDialog(null)}
             >
@@ -1066,13 +1279,51 @@ export function PrefsTab({
             </button>
             <button
               type="button"
+              disabled={exportBusy}
               className="pl-acct-btn pl-acct-btn--primary"
               onClick={() => {
-                setAccountActionNote("Solicitud recibida. Te avisaremos por correo cuando el archivo esté listo.");
-                setActiveDialog(null);
+                if (!canPersistServer) {
+                  setAccountActionNote("Archivo descargado en modo vista previa.");
+                  setActiveDialog(null);
+                  return;
+                }
+                setExportBusy(true);
+                void (async () => {
+                  try {
+                    const res = await fetch("/api/me/export", {
+                      credentials: "same-origin",
+                      cache: "no-store",
+                    });
+                    if (!res.ok) {
+                      const json = (await res.json().catch(() => null)) as { error?: string } | null;
+                      pushToast(json?.error ?? "No se pudo descargar tus datos.", "warning");
+                      return;
+                    }
+                    const blob = await res.blob();
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement("a");
+                    const disp = res.headers.get("Content-Disposition") ?? "";
+                    const match = /filename="([^"]+)"/.exec(disp);
+                    link.href = url;
+                    link.download = match?.[1] ?? `pitchlab-datos-${identity.cleanHandle}.json`;
+                    document.body.appendChild(link);
+                    link.click();
+                    link.remove();
+                    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+                    setAccountActionNote(
+                      "Archivo JSON descargado con tu perfil, bitácora y actividad.",
+                    );
+                    setActiveDialog(null);
+                  } catch (err) {
+                    void err;
+                    pushToast("Error de conexión al preparar tu descarga.", "warning");
+                  } finally {
+                    setExportBusy(false);
+                  }
+                })();
               }}
             >
-              Solicitar archivo
+              {exportBusy ? "Preparando…" : "Descargar JSON"}
             </button>
           </div>
         </div>
@@ -1081,7 +1332,9 @@ export function PrefsTab({
       {/* Confirmación de eliminación de cuenta */}
       <TopLayerModalDialog
         open={activeDialog === "delete"}
-        onClose={() => setActiveDialog(null)}
+        onClose={() => {
+          if (!deleteBusy) setActiveDialog(null);
+        }}
         ariaLabelledBy={deleteDialogTitleId}
       >
         <div className="pl-acct-dialog-body">
@@ -1090,12 +1343,32 @@ export function PrefsTab({
           </h3>
           <p className="pl-acct-dialog-copy">
             Esta solicitud inicia la baja definitiva de tu perfil, tu bitácora y tus publicaciones
-            conforme al aviso de privacidad.
+            conforme al aviso de privacidad. La atendemos en un máximo de 72 horas hábiles.
           </p>
+          <div className="space-y-1.5">
+            <label htmlFor={deleteReasonId} className="pl-acct-field-label">
+              Motivo (opcional)
+            </label>
+            <textarea
+              id={deleteReasonId}
+              rows={3}
+              maxLength={500}
+              value={deleteReason}
+              onChange={(e) => setDeleteReason(e.target.value)}
+              placeholder="Cuéntanos brevemente si deseas ayudarnos a mejorar (opcional)"
+              className="glass-input w-full p-2.5 text-base"
+            />
+          </div>
+          {deleteError ? (
+            <p role="alert" className="pl-acct-prefs-warn">
+              {deleteError}
+            </p>
+          ) : null}
           <div className="pl-acct-dialog-actions">
             <button
               type="button"
               autoFocus
+              disabled={deleteBusy}
               className="pl-acct-btn pl-acct-btn--primary"
               onClick={() => setActiveDialog(null)}
             >
@@ -1103,15 +1376,50 @@ export function PrefsTab({
             </button>
             <button
               type="button"
+              disabled={deleteBusy}
               className="pl-acct-btn pl-acct-btn--danger"
               onClick={() => {
-                setAccountActionNote(
-                  "Solicitud registrada. Revisa tu correo para confirmar la eliminación definitiva.",
-                );
-                setActiveDialog(null);
+                if (!canPersistServer) {
+                  setAccountActionNote("Solicitud registrada en modo vista previa.");
+                  setActiveDialog(null);
+                  return;
+                }
+                setDeleteBusy(true);
+                setDeleteError(null);
+                void (async () => {
+                  try {
+                    const res = await fetch("/api/me/deletion-request", {
+                      method: "POST",
+                      credentials: "same-origin",
+                      headers: { "content-type": "application/json" },
+                      body: JSON.stringify({ reason: deleteReason.trim() }),
+                    });
+                    const json = (await res.json().catch(() => null)) as {
+                      message?: string;
+                      error?: string;
+                    } | null;
+                    if (!res.ok) {
+                      setDeleteError(
+                        json?.error ?? "No pudimos registrar tu solicitud. Intenta de nuevo.",
+                      );
+                      return;
+                    }
+                    setAccountActionNote(
+                      json?.message ??
+                        "Solicitud registrada; procesamos la baja y borrado en un máximo de 72 horas hábiles.",
+                    );
+                    setDeleteReason("");
+                    setActiveDialog(null);
+                  } catch (err) {
+                    void err;
+                    setDeleteError("Error de conexión al enviar la solicitud.");
+                  } finally {
+                    setDeleteBusy(false);
+                  }
+                })();
               }}
             >
-              Solicitar baja
+              {deleteBusy ? "Enviando…" : "Solicitar baja"}
             </button>
           </div>
         </div>

@@ -37,9 +37,11 @@ export default async function TerminosPage(): Promise<React.JSX.Element> {
           </p>
           <h2>3. Pase PitchLab Ultra y cancelación</h2>
           <p>
-            La prueba promocional está sujeta a elegibilidad (una por persona). Cuando contratas una
-            suscripción mensual o anual mediante Stripe, puedes consultar el estado de tu pase y
-            cancelar la renovación automática desde tu cuenta en <code>/app/account?tab=plan</code>.
+            La prueba promocional está sujeta a elegibilidad (una por persona). En Beta 1.0 puedes
+            activar o extender tu pase mensual o anual mediante transferencia SPEI (sin cobros ni
+            renovaciones automáticas), canjear cupones vigentes y consultar tu vigencia en{" "}
+            <code>/app/account?tab=plan</code>. Cuando se active el cobro automático con tarjeta vía
+            Stripe, podrás cancelar la renovación en esa misma sección.
           </p>
           <h2 id="comunidad">4. Reglas de comunidad y creadores</h2>
           <p>

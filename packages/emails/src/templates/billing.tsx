@@ -12,6 +12,8 @@ export interface PaymentReceiptProps {
   paidOn: string;
   periodLabel: string;
   cardLast4?: string;
+  paymentMethodLabel?: string;
+  referenceCode?: string;
   receiptUrl?: string;
 }
 
@@ -24,6 +26,8 @@ export function PaymentReceiptEmail({
   paidOn,
   periodLabel,
   cardLast4,
+  paymentMethodLabel,
+  referenceCode,
   receiptUrl,
 }: PaymentReceiptProps) {
   return (
@@ -38,6 +42,8 @@ export function PaymentReceiptEmail({
           ["Periodo", periodLabel],
           ["Fecha de pago", paidOn],
           ...(cardLast4 ? ([["Tarjeta", `•••• ${cardLast4}`]] as const) : []),
+          ...(paymentMethodLabel ? ([["Método", paymentMethodLabel]] as const) : []),
+          ...(referenceCode ? ([["Referencia", referenceCode]] as const) : []),
         ]}
       />
       {receiptUrl ? <Cta href={receiptUrl}>Ver recibo</Cta> : null}
@@ -190,12 +196,20 @@ export interface TipsterPayoutProps {
   amountLabel: string;
   periodLabel: string;
   paidOn: string;
+  referenceLabel?: string;
   detailUrl: string;
 }
 
 export const tipsterPayoutSubject = ({ amountLabel }: TipsterPayoutProps) => `Tu pago de comisión: ${amountLabel}`;
 
-export function TipsterPayoutEmail({ name, amountLabel, periodLabel, paidOn, detailUrl }: TipsterPayoutProps) {
+export function TipsterPayoutEmail({
+  name,
+  amountLabel,
+  periodLabel,
+  paidOn,
+  referenceLabel,
+  detailUrl,
+}: TipsterPayoutProps) {
   return (
     <EmailLayout preview={`Liquidamos ${amountLabel} de tus comisiones de ${periodLabel}.`}>
       <Eyebrow>Tipster</Eyebrow>
@@ -206,6 +220,7 @@ export function TipsterPayoutEmail({ name, amountLabel, periodLabel, paidOn, det
         rows={[
           ["Periodo", periodLabel],
           ["Fecha de pago", paidOn],
+          ...(referenceLabel ? ([["Referencia", referenceLabel]] as const) : []),
         ]}
       />
       <Cta href={detailUrl}>Ver el detalle</Cta>
@@ -213,6 +228,47 @@ export function TipsterPayoutEmail({ name, amountLabel, periodLabel, paidOn, det
         La comisión es del 25 % sobre el neto de cada cobro, liquidada a 14 días. Los reembolsos se descuentan del
         periodo en que ocurren.
       </P>
+    </EmailLayout>
+  );
+}
+
+/* 13b · Transferencia rechazada --------------------------------------------------------- */
+
+export interface TransferRejectedProps {
+  name?: string;
+  planName: string;
+  amountLabel: string;
+  referenceCode: string;
+  reason: string;
+  retryUrl: string;
+}
+
+export const transferRejectedSubject = () => "No pudimos confirmar tu transferencia en PitchLab";
+
+export function TransferRejectedEmail({
+  name,
+  planName,
+  amountLabel,
+  referenceCode,
+  reason,
+  retryUrl,
+}: TransferRejectedProps) {
+  return (
+    <EmailLayout preview={`No pudimos confirmar tu transferencia ${referenceCode}. Revisa los detalles en tu cuenta.`}>
+      <Eyebrow>Cobro</Eyebrow>
+      <Title>No pudimos confirmar tu transferencia</Title>
+      <P>
+        {greeting(name)} Revisamos el aviso de transferencia para activar tu {planName}, pero no pudimos confirmarlo.
+      </P>
+      <Facts
+        rows={[
+          ["Plan", planName],
+          ["Monto esperado", amountLabel],
+          ["Referencia", referenceCode],
+        ]}
+      />
+      <Notice tone="warning">{reason}</Notice>
+      <Cta href={retryUrl}>Revisar mi plan</Cta>
     </EmailLayout>
   );
 }

@@ -11,6 +11,8 @@ export * from "./notifications";
 export * from "./platform-provider";
 
 export * from "./components/PlatformOverlays";
+export * from "./components/CanjearCouponView";
+export * from "./components/ExpiredPassGate";
 export * from "./components/MatchTicketCard";
 export * from "./components/ShellChrome";
 

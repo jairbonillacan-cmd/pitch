@@ -31,12 +31,15 @@ import {
   subscriptionCanceledSubject,
   TipsterPayoutEmail,
   tipsterPayoutSubject,
+  TransferRejectedEmail,
+  transferRejectedSubject,
   type CfdiInvoiceProps,
   type PaymentFailedProps,
   type PaymentReceiptProps,
   type RefundProps,
   type SubscriptionCanceledProps,
   type TipsterPayoutProps,
+  type TransferRejectedProps,
 } from "./templates/billing";
 import { ContentRemovedEmail, contentRemovedSubject, type ContentRemovedProps } from "./templates/community";
 import { WeeklyDigestEmail, weeklyDigestSubject, type WeeklyDigestProps } from "./templates/digest";
@@ -181,6 +184,20 @@ export const EMAIL_TEMPLATES = {
       periodLabel: "12 nov – 12 dic 2026",
       cardLast4: "4242",
       receiptUrl: EXAMPLE_URL,
+    },
+  }),
+  "transfer-rejected": define<TransferRejectedProps>({
+    phase: "C",
+    label: "Transferencia rechazada",
+    Component: TransferRejectedEmail,
+    subject: transferRejectedSubject,
+    sample: {
+      name: "Sofía",
+      planName: "Pase PitchLab Ultra",
+      amountLabel: "$299.00 MXN",
+      referenceCode: "PL-SOFIA-7K9M",
+      reason: "La clave de rastreo no coincidió en el estado de cuenta.",
+      retryUrl: EXAMPLE_URL,
     },
   }),
   "payment-failed": define<PaymentFailedProps>({

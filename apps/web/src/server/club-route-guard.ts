@@ -1,6 +1,7 @@
 const STATIC_CLUB_SEGMENTS = new Set([
   "account",
   "admin",
+  "canjear",
   "historial",
   "lab",
   "momios",

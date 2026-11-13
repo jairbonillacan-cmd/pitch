@@ -363,11 +363,11 @@ export function NotificationBell(): React.JSX.Element {
     journal,
     oddsFormat,
     favoriteLeagues,
-    accountsEnabled,
+    hasAccountSessionAuth,
     viewerIdentity,
     navigateTo,
   } = usePlatform();
-  const socialEnabled = Boolean(accountsEnabled && viewerIdentity);
+  const socialEnabled = Boolean(hasAccountSessionAuth && viewerIdentity);
   const now = useMinuteClock();
   const localReadIds = useReadIds();
   const socialRows = useSocialNotifications(socialEnabled);

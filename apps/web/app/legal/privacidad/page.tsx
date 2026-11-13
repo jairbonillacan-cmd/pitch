@@ -43,10 +43,12 @@ export default async function PrivacidadPage(): Promise<React.JSX.Element> {
           </p>
           <h2>2. Pagos y correos</h2>
           <p>
-            Los cobros y facturas se procesan mediante Stripe; PitchLab nunca almacena los números
-            completos ni códigos CVV de tus tarjetas. Los correos transaccionales y alertas de picks
-            liquidados se envían mediante Resend y puedes activar o desactivar alertas en cualquier
-            momento desde tu cuenta o en <code>/baja</code>.
+            En Beta 1.0 los pagos del Pase PitchLab Ultra se gestionan por transferencia SPEI sin
+            almacenar tarjetas ni generar cargos automáticos; cuando esté habilitado el cobro con
+            tarjeta, se procesará mediante Stripe sin que PitchLab guarde números completos ni
+            códigos CVV. Los correos transaccionales y alertas de picks liquidados se envían
+            mediante Resend y puedes activar o desactivar alertas en cualquier momento desde tu
+            cuenta o en <code>/baja</code>.
           </p>
           <h2>3. Cookies y terceros</h2>
           <p>

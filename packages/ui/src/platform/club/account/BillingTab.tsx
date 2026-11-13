@@ -16,8 +16,8 @@ export function BillingTab({
 }: {
   accountsEnabledOverride?: boolean;
 } = {}): React.JSX.Element {
-  const { accountsEnabled: ctxAccountsEnabled } = usePlatform();
-  const accountsEnabled = accountsEnabledOverride ?? ctxAccountsEnabled;
+  const { hasAccountSessionAuth, paymentMode, navigateTo } = usePlatform();
+  const accountsEnabled = accountsEnabledOverride ?? hasAccountSessionAuth;
 
   const [rfc, setRfc] = useState(DEFAULT_CFDI_DRAFT_V1.rfc);
   const [razonSocial, setRazonSocial] = useState(DEFAULT_CFDI_DRAFT_V1.razonSocial);
@@ -83,8 +83,37 @@ export function BillingTab({
     <div className="pl-acct-stack">
       {!accountsEnabled ? (
         <ExampleNotice>
-          La emisión automática de facturas CFDI 4.0 se activará junto con el cobro. Por privacidad, tus datos fiscales no se guardan en el navegador.
+          La emisión de facturas CFDI 4.0 se habilita al activar tu Pase PitchLab Ultra. Por
+          privacidad, tus datos fiscales no se guardan en el navegador.
         </ExampleNotice>
+      ) : paymentMode === "transfer" ? (
+        <div
+          className="glass-ring rounded-2xl p-4 space-y-2.5"
+          style={{ background: "var(--pl-surface)" }}
+        >
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <span className="pl-pill pl-pill--accent">Beta 1.0 · Transferencia SPEI</span>
+            <a
+              href="/app/account?tab=plan#transfer"
+              onClick={(e) => {
+                e.preventDefault();
+                navigateTo("/app/account?tab=plan#transfer");
+              }}
+              className="pl-btn-glass text-xs min-h-[44px] inline-flex items-center px-3"
+            >
+              Ver pagos SPEI
+            </a>
+          </div>
+          <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
+            En Beta 1.0 las facturas CFDI 4.0 se emiten bajo solicitud después de aprobar tu
+            transferencia SPEI. Valida aquí tus datos fiscales y envíalos junto con tu referencia{" "}
+            <code>PL-...</code> a{" "}
+            <a href="mailto:soporte@pitchlab.mx" className="font-bold underline">
+              soporte@pitchlab.mx
+            </a>{" "}
+            dentro del mismo mes calendario del pago.
+          </p>
+        </div>
       ) : null}
 
       <section className="pl-acct-card glass-card glass-ring" aria-labelledby="pl-acct-cfdi-h">

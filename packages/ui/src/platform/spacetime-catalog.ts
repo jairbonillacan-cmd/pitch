@@ -199,7 +199,7 @@ export const MEMBERSHIP_SPEC = {
   referralBothRewardDays: 15,
   referralAmbassadorThreshold: 5,
   referralAmbassadorBonusDays: 30,
-  cfdiNote: "IVA incluido · Factura CFDI 4.0 automática en segundos",
+  cfdiNote: "IVA incluido · Factura CFDI 4.0 bajo solicitud por correo",
 } as const;
 
 /** Días acumulados por invitar amigos que pagaron su primer mes. */

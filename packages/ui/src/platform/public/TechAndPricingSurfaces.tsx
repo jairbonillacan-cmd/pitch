@@ -387,14 +387,26 @@ export function PlansAndReferralsSection({
     navigateTo,
     accountsEnabled,
     hasAccountSession,
+    paymentMode,
     upgradeHref,
     pushToast,
   } = usePlatform();
   const [billing, setBilling] = useState<"monthly" | "annual">("monthly");
   const [checkoutBusy, setCheckoutBusy] = useState<boolean>(false);
 
-  // Con cuentas activas y sin la prueba sin tarjeta, el botón abre Stripe Checkout.
+  // En modo `transfer` (Beta 1.0) no se abre Stripe Checkout; se dirige a Mi plan o al registro.
   const handleSubscribe = async () => {
+    const planTarget = `/app/account?tab=plan&plan=${billing}#transfer`;
+    if (paymentMode === "transfer") {
+      if (hasAccountSession) {
+        navigateTo(planTarget);
+      } else if (month1NoCardMode) {
+        navigateTo("/signup");
+      } else {
+        navigateTo(`/signup?next=${encodeURIComponent(planTarget)}`);
+      }
+      return;
+    }
     if (!accountsEnabled || month1NoCardMode) {
       navigateTo(hasAccountSession ? upgradeHref : "/signup");
       return;
@@ -434,7 +446,9 @@ export function PlansAndReferralsSection({
           </HeadingTag>
           <p className="m-0 text-sm" style={{ color: "var(--pl-text-muted)" }}>
             Menos de $10 pesos al día por todos los picks, parlays sin límite y la comunidad.
-            Incluye IVA y factura CFDI.
+            {paymentMode === "transfer"
+              ? " Precios con IVA incluido · activación por transferencia SPEI o cupón en Beta 1.0."
+              : " Incluye IVA y factura CFDI."}
           </p>
         </div>
 
@@ -646,7 +660,7 @@ export function PricingSurface(): React.JSX.Element {
     },
     {
       q: "¿Emiten factura fiscal mexicana CFDI 4.0?",
-      a: "Sí. Todos los precios incluyen IVA y puedes descargar tu factura CFDI 4.0 en PDF y XML desde tu cuenta.",
+      a: "Sí, todos los precios incluyen IVA. Durante Beta 1.0 puedes solicitar tu CFDI 4.0 enviando tus datos fiscales a soporte@pitchlab.mx.",
     },
   ];
 

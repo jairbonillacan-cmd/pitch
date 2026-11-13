@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { getLogoPath, getTeamColors } from "@pitchlab/sports-assets";
 import { formatOddsValue } from "../access-guard";
 import { downloadTicketPng } from "../components/share-ticket-raster";
@@ -19,6 +19,73 @@ import { usePlatform } from "../platform-provider";
 import { TIPSTER_CREATORS } from "../spacetime-catalog";
 
 export { SocialVipClubView } from "./CommunityClubView";
+
+interface TipsterMeLedgerRow {
+  id: string;
+  grossPaidCentavosMxn: number;
+  vatCentavosMxn: number;
+  gatewayFeeCentavosMxn: number;
+  netCommissionableCentavosMxn: number;
+  commissionBps: number;
+  commissionCentavosMxn: number;
+  status: string;
+  clearsAtIso: string;
+  payoutNote: string | null;
+  paidOutAtIso: string | null;
+  createdAtIso: string;
+}
+
+interface TipsterMePayload {
+  isTipster: boolean;
+  profile?: {
+    userId: string;
+    handle: string;
+    displayName: string;
+    specialty: string;
+    promoCode: string;
+    freeTrialDays: number;
+    commissionBps: number;
+    defaultWeeklySlug: string;
+    payoutMethod: string;
+    connectPayoutsEnabled: boolean;
+    isActive: boolean;
+  };
+  counts?: {
+    totalAttributed: number;
+    trial5d: number;
+    activePaying: number;
+    churned: number;
+  };
+  totals?: {
+    pendingClearanceCentavos: number;
+    payableCentavos: number;
+    paidOutCentavos: number;
+  };
+  ledger?: TipsterMeLedgerRow[];
+}
+
+function formatMxnCentavos(centavos: number): string {
+  return `$${(centavos / 100).toLocaleString("es-MX", {
+    minimumFractionDigits: centavos % 100 === 0 ? 0 : 2,
+    maximumFractionDigits: 2,
+  })} MXN`;
+}
+
+function initialsFromText(text: string): string {
+  const parts = text.trim().split(/\s+/).filter(Boolean);
+  if (parts.length >= 2) return `${parts[0]![0] ?? "P"}${parts[1]![0] ?? "L"}`.toUpperCase();
+  const clean = text.replace(/[^a-zA-Z0-9]/g, "").toUpperCase();
+  return (clean.slice(0, 2) || "PL");
+}
+
+function ledgerStatusBadge(status: string): { label: string; pillClass: string } {
+  if (status === "paid_out") return { label: "Pagada", pillClass: "pl-pill pl-pill--success" };
+  if (status === "payable" || status === "processing_payout") {
+    return { label: "Liberada por pagar", pillClass: "pl-pill pl-pill--accent" };
+  }
+  if (status === "voided") return { label: "Anulada", pillClass: "pl-pill pl-pill--danger" };
+  return { label: "En ventana 14 días", pillClass: "pl-pill pl-pill--muted" };
+}
 
 export function TipsterPortalClubView({
   connectNotice = null,
@@ -39,13 +106,69 @@ export function TipsterPortalClubView({
     openShareTicket,
     navigateTo,
     pushToast,
-    accountsEnabled,
+    hasAccountSessionAuth,
+    paymentMode,
   } = usePlatform();
 
   const sofia = TIPSTER_CREATORS[0]!;
   const [connectBusy, setConnectBusy] = useState<boolean>(false);
+  const [tipsterMe, setTipsterMe] = useState<TipsterMePayload | null>(null);
+  const [tipsterMeLoaded, setTipsterMeLoaded] = useState<boolean>(false);
 
-  // Alta de pagos con Stripe Connect (solo tipsters oficiales con cuenta real).
+  useEffect(() => {
+    if (!hasAccountSessionAuth || (viewerRole !== "tipster" && viewerRole !== "admin")) {
+      setTipsterMe(null);
+      setTipsterMeLoaded(false);
+      return;
+    }
+    let cancelled = false;
+    void fetch("/api/tipster/me", { credentials: "same-origin", cache: "no-store" })
+      .then(async (res) => (res.ok ? ((await res.json().catch(() => null)) as TipsterMePayload | null) : null))
+      .then((data) => {
+        if (cancelled) return;
+        setTipsterMe(data);
+        setTipsterMeLoaded(true);
+      })
+      .catch((err) => {
+        void err;
+        if (!cancelled) setTipsterMeLoaded(true);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [hasAccountSessionAuth, viewerRole]);
+
+  const realProfile = tipsterMe?.isTipster ? tipsterMe.profile ?? null : null;
+  const isRealTipster = Boolean(realProfile);
+  const activeTipster = useMemo(
+    () =>
+      realProfile
+        ? {
+            handle: realProfile.handle,
+            name: realProfile.displayName,
+            promoCode: realProfile.promoCode,
+            freeDays: realProfile.freeTrialDays,
+            weeklyPickSlug: realProfile.defaultWeeklySlug || "pick-semanal",
+            avatarGradVar: sofia.avatarGradVar,
+            avatarInitials: initialsFromText(realProfile.displayName || realProfile.handle),
+            commissionPct: Number((realProfile.commissionBps / 100).toFixed(1)),
+            isExample: false,
+          }
+        : {
+            handle: sofia.handle,
+            name: sofia.name,
+            promoCode: sofia.promoCode,
+            freeDays: sofia.freeDays,
+            weeklyPickSlug: sofia.weeklyPickSlug,
+            avatarGradVar: sofia.avatarGradVar,
+            avatarInitials: sofia.avatarInitials,
+            commissionPct: 25,
+            isExample: true,
+          },
+    [realProfile, sofia],
+  );
+
+  // Alta de pagos con Stripe Connect (solo tipsters oficiales cuando Stripe Connect está activo).
   const handleSetupPayouts = async () => {
     setConnectBusy(true);
     try {
@@ -144,23 +267,29 @@ export function TipsterPortalClubView({
       : `Justa ${formatOddsValue(previewFair, oddsFormat)} · Momio ${formatOddsValue(previewBook, oddsFormat)}`;
 
   const handleCopyPublicUrl = () => {
-    const url = "https://pitchlab.mx/p/sofia-sem?code=SOFIA5";
+    const url = `https://pitchlab.mx/p/${activeTipster.weeklyPickSlug}?code=${activeTipster.promoCode}`;
     try {
       void navigator.clipboard?.writeText(url);
     } catch (err) {
       void err;
     }
-    pushToast("Enlace público /p/sofia-sem?code=SOFIA5 copiado.", "success");
+    pushToast(
+      `Enlace público /p/${activeTipster.weeklyPickSlug}?code=${activeTipster.promoCode} copiado.`,
+      "success",
+    );
   };
 
   return (
     <AtmosphereStage>
       <ClubWorkspaceShell activePath="/app/tipster">
-        <ExampleNotice>
-          Así funcionará el Portal Tipster. @{sofia.handle} es un perfil de ejemplo: sus unidades,
-          CLV y referidos son ficticios. El pick que muestra sí sale de Spacetime Suite v3.0.
-        </ExampleNotice>
-        {connectNotice === "ready" ? (
+        {!isRealTipster ? (
+          <ExampleNotice>
+            {hasAccountSessionAuth && tipsterMeLoaded
+              ? "Vista de ejemplo del Portal Tipster. Tu cuenta aún no tiene un perfil de creador activo; para emitir códigos entra a Admin."
+              : `Así funcionará el Portal Tipster. @${sofia.handle} es un perfil de ejemplo: sus unidades, CLV y referidos son ficticios. El pick que muestra sí sale de Spacetime Suite v3.0.`}
+          </ExampleNotice>
+        ) : null}
+        {paymentMode !== "transfer" && connectNotice === "ready" ? (
           <NoticeCard
             icon="check"
             tone="success"
@@ -170,17 +299,17 @@ export function TipsterPortalClubView({
             Tus datos fiscales y bancarios quedaron registrados. Las comisiones liberadas se
             depositarán en tu cuenta automáticamente.
           </NoticeCard>
-        ) : connectNotice === "retry" ? (
+        ) : paymentMode !== "transfer" && connectNotice === "retry" ? (
           <NoticeCard
             icon="calendar"
             tone="warning"
             badgeText="Pagos pendientes"
             title="Faltaron datos para completar tu alta de pagos"
             action={
-              accountsEnabled && (viewerRole === "tipster" || viewerRole === "admin") ? (
+              hasAccountSessionAuth && (viewerRole === "tipster" || viewerRole === "admin") ? (
                 <button
                   type="button"
-                  className="pl-btn-primary text-xs min-h-8 px-3"
+                  className="pl-btn-primary text-xs min-h-[44px] px-3"
                   disabled={connectBusy}
                   onClick={() => void handleSetupPayouts()}
                 >
@@ -193,27 +322,43 @@ export function TipsterPortalClubView({
             cualquier momento.
           </NoticeCard>
         ) : null}
-        {accountsEnabled && (viewerRole === "tipster" || viewerRole === "admin") ? (
-          <NoticeCard
-            icon="gift"
-            tone="success"
-            badgeText="Pagos"
-            title="Recibe tus comisiones con Stripe"
-            action={
-              <button
-                type="button"
-                className="pl-btn-primary text-xs min-h-8 px-3"
-                disabled={connectBusy}
-                onClick={() => void handleSetupPayouts()}
-                data-connect-payouts=""
+        {hasAccountSessionAuth && (viewerRole === "tipster" || viewerRole === "admin") ? (
+          paymentMode === "transfer" ? (
+            isRealTipster ? (
+              <NoticeCard
+                icon="receipt"
+                tone="success"
+                badgeText="Beta 1.0 · Liquidación por SPEI"
+                title="Tus comisiones se liquidan por transferencia SPEI manual"
               >
-                {connectBusy ? "Abriendo…" : "Configurar pagos"}
-              </button>
-            }
-          >
-            Tu 25 % sobre el neto se libera 14 días después de cada cobro y se deposita
-            automáticamente en tu cuenta. Stripe te pide tus datos y tu cuenta bancaria una sola vez.
-          </NoticeCard>
+                Tu {activeTipster.commissionPct} % se calcula sobre el ingreso neto después de
+                IVA (16 %). Cada pago pasa 14 días en ventana de validación y, al liberarse, el
+                equipo administrador registra el depósito SPEI y su referencia directamente en tu
+                historial.
+              </NoticeCard>
+            ) : null
+          ) : (
+            <NoticeCard
+              icon="gift"
+              tone="success"
+              badgeText="Pagos"
+              title="Recibe tus comisiones con Stripe"
+              action={
+                <button
+                  type="button"
+                  className="pl-btn-primary text-xs min-h-[44px] px-3"
+                  disabled={connectBusy}
+                  onClick={() => void handleSetupPayouts()}
+                  data-connect-payouts=""
+                >
+                  {connectBusy ? "Abriendo…" : "Configurar pagos"}
+                </button>
+              }
+            >
+              Tu 25 % sobre el neto se libera 14 días después de cada cobro y se deposita
+              automáticamente en tu cuenta. Stripe te pide tus datos y tu cuenta bancaria una sola vez.
+            </NoticeCard>
+          )
         ) : null}
         {allowRoleSimulation && viewerRole !== "tipster" && viewerRole !== "admin" ? (
           <NoticeCard
@@ -224,7 +369,7 @@ export function TipsterPortalClubView({
             action={
               <button
                 type="button"
-                className="pl-btn-primary text-xs min-h-8 px-3"
+                className="pl-btn-primary text-xs min-h-[44px] px-3"
                 onClick={() => {
                   setViewerRole("tipster");
                   pushToast("Modo Tipster Oficial (@sofia_nfl) activado.", "success");
@@ -253,20 +398,24 @@ export function TipsterPortalClubView({
               <span
                 className="w-12 h-12 rounded-full avatar-ring inline-flex items-center justify-center text-sm font-extrabold shrink-0"
                 style={{
-                  background: sofia.avatarGradVar,
+                  background: activeTipster.avatarGradVar,
                   color: "var(--share-card-fg)",
                 }}
               >
-                {sofia.avatarInitials}
+                {activeTipster.avatarInitials}
               </span>
               <div className="space-y-0.5">
                 <div className="flex flex-wrap items-center gap-2">
                   <h1 className="m-0 text-xl sm:text-2xl font-extrabold tracking-tight">
-                    Portal tipster (@{sofia.handle})
+                    Portal tipster (@{activeTipster.handle})
                   </h1>
                   <span className="pl-pill pl-pill--success">
                     <MaestroIcon name="check" size={12} />
-                    <span>Verificada · {sofia.verifiedUnits}</span>
+                    <span>
+                      {isRealTipster
+                        ? `Oficial · Comisión ${activeTipster.commissionPct} %`
+                        : `Verificada · ${sofia.verifiedUnits}`}
+                    </span>
                   </span>
                 </div>
                 <p className="m-0 text-xs sm:text-sm" style={{ color: "var(--pl-text-secondary)" }}>
@@ -279,11 +428,11 @@ export function TipsterPortalClubView({
 
             <button
               type="button"
-              className="pl-btn-glass text-xs"
+              className="pl-btn-glass text-xs min-h-[44px]"
               onClick={() => setVisitorPreviewOpen(true)}
             >
               <MaestroIcon name="eye" size={14} />
-              <span>Simular vista visitante (/p/sofia-sem)</span>
+              <span>Simular vista visitante (/p/{activeTipster.weeklyPickSlug})</span>
             </button>
           </div>
 
@@ -307,10 +456,10 @@ export function TipsterPortalClubView({
                 className="block text-xl font-extrabold"
                 style={{ color: "var(--pl-brand)" }}
               >
-                {sofia.promoCode}
+                {activeTipster.promoCode}
               </strong>
               <span className="block text-xs" style={{ color: "var(--pl-success)" }}>
-                Otorga {sofia.freeDays} días Pase PitchLab Ultra gratis
+                Otorga {activeTipster.freeDays} días Pase PitchLab Ultra gratis
               </span>
             </div>
 
@@ -322,7 +471,7 @@ export function TipsterPortalClubView({
                 className="flex items-center justify-between text-xs"
                 style={{ color: "var(--pl-text-muted)" }}
               >
-                <span>Referidos Activos</span>
+                <span>{isRealTipster ? "Suscriptores activos" : "Referidos Activos"}</span>
                 <MaestroIcon
                   name="users"
                   size={15}
@@ -330,10 +479,14 @@ export function TipsterPortalClubView({
                 />
               </div>
               <strong className="block text-xl font-extrabold">
-                {sofia.activeReferrals} socios
+                {isRealTipster
+                  ? `${tipsterMe?.counts?.activePaying ?? 0} socios`
+                  : `${sofia.activeReferrals} socios`}
               </strong>
               <span className="block text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                de 64 pruebas iniciadas
+                {isRealTipster
+                  ? `${tipsterMe?.counts?.trial5d ?? 0} en prueba · ${tipsterMe?.counts?.totalAttributed ?? 0} totales`
+                  : "de 64 pruebas iniciadas"}
               </span>
             </div>
 
@@ -345,7 +498,9 @@ export function TipsterPortalClubView({
                 className="flex items-center justify-between text-xs"
                 style={{ color: "var(--pl-text-muted)" }}
               >
-                <span>Comisión 25 %</span>
+                <span>
+                  {isRealTipster ? "Liberado por cobrar" : `Comisión ${activeTipster.commissionPct} %`}
+                </span>
                 <MaestroIcon
                   name="crown"
                   size={15}
@@ -356,10 +511,14 @@ export function TipsterPortalClubView({
                 className="block text-xl font-extrabold"
                 style={{ color: "var(--pl-success)" }}
               >
-                ${sofia.monthlyCommissionMxn.toLocaleString("es-MX")} MXN
+                {isRealTipster
+                  ? formatMxnCentavos(tipsterMe?.totals?.payableCentavos ?? 0)
+                  : `$${sofia.monthlyCommissionMxn.toLocaleString("es-MX")} MXN`}
               </strong>
               <span className="block text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                Recurrente + Pase PitchLab Ultra $0
+                {isRealTipster
+                  ? `14 días: ${formatMxnCentavos(tipsterMe?.totals?.pendingClearanceCentavos ?? 0)} · Pagado: ${formatMxnCentavos(tipsterMe?.totals?.paidOutCentavos ?? 0)}`
+                  : "Recurrente + Pase PitchLab Ultra $0"}
               </span>
             </div>
 
@@ -385,6 +544,78 @@ export function TipsterPortalClubView({
             </div>
           </div>
         </section>
+
+        {isRealTipster ? (
+          <section className="glass-card glass-ring rounded-3xl p-5 sm:p-6 space-y-3">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div>
+                <h2 className="m-0 text-base sm:text-lg font-extrabold">
+                  Historial de comisiones (neto después de IVA 16 %)
+                </h2>
+                <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                  Cada pago atribuido a tu código se libera a los 14 días para liquidación SPEI.
+                </p>
+              </div>
+              <span className="pl-pill pl-pill--success num">
+                Total pagado: {formatMxnCentavos(tipsterMe?.totals?.paidOutCentavos ?? 0)}
+              </span>
+            </div>
+
+            {(tipsterMe?.ledger?.length ?? 0) === 0 ? (
+              <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
+                Aún no hay comisiones registradas en tu cuenta. Cuando un referido active un pase de
+                pago con tu código <strong>{activeTipster.promoCode}</strong>, cada movimiento
+                aparecerá aquí.
+              </p>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full min-w-[620px] text-left border-collapse text-xs num">
+                  <thead>
+                    <tr style={{ color: "var(--pl-text-muted)", borderBottom: "1px solid var(--pl-border)" }}>
+                      <th className="py-2 pr-3 font-bold">Fecha</th>
+                      <th className="py-2 pr-3 font-bold">Pago bruto</th>
+                      <th className="py-2 pr-3 font-bold">Neto post-IVA</th>
+                      <th className="py-2 pr-3 font-bold">Comisión</th>
+                      <th className="py-2 pr-3 font-bold">Estado</th>
+                      <th className="py-2 font-bold">Liberación / Nota SPEI</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {(tipsterMe?.ledger ?? []).map((row) => {
+                      const badge = ledgerStatusBadge(row.status);
+                      return (
+                        <tr
+                          key={row.id}
+                          style={{ borderBottom: "1px solid var(--pl-border)" }}
+                        >
+                          <td className="py-2.5 pr-3">
+                            {new Date(row.createdAtIso).toLocaleDateString("es-MX", {
+                              day: "2-digit",
+                              month: "short",
+                            })}
+                          </td>
+                          <td className="py-2.5 pr-3">{formatMxnCentavos(row.grossPaidCentavosMxn)}</td>
+                          <td className="py-2.5 pr-3">{formatMxnCentavos(row.netCommissionableCentavosMxn)}</td>
+                          <td className="py-2.5 pr-3 font-extrabold" style={{ color: "var(--pl-success)" }}>
+                            {formatMxnCentavos(row.commissionCentavosMxn)}
+                          </td>
+                          <td className="py-2.5 pr-3">
+                            <span className={badge.pillClass}>{badge.label}</span>
+                          </td>
+                          <td className="py-2.5" style={{ color: "var(--pl-text-secondary)" }}>
+                            {row.paidOutAtIso
+                              ? `Pagado ${new Date(row.paidOutAtIso).toLocaleDateString("es-MX")}${row.payoutNote ? ` · ${row.payoutNote}` : ""}`
+                              : `Libera ${new Date(row.clearsAtIso).toLocaleDateString("es-MX")}${row.payoutNote ? ` · ${row.payoutNote}` : ""}`}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </section>
+        ) : null}
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           {/* Izquierda (lg:col-span-7): Configurador con LensGlowOrbs */}
@@ -538,7 +769,7 @@ export function TipsterPortalClubView({
                   className="block text-xs font-bold mb-1.5"
                   style={{ color: "var(--pl-text-secondary)" }}
                 >
-                  4. Tu tesis para redes sociales (/p/sofia-sem · Instagram / X / TikTok)
+                  4. Tu tesis para redes sociales (/p/{activeTipster.weeklyPickSlug} · Instagram / X / TikTok)
                 </label>
                 <textarea
                   id="tipster-thesis-input"
@@ -546,23 +777,23 @@ export function TipsterPortalClubView({
                   maxLength={220}
                   value={thesis}
                   onChange={(e) => setThesis(e.target.value)}
-                  className="glass-input w-full p-3 text-sm"
+                  className="glass-input w-full p-3 text-base sm:text-sm"
                 />
               </div>
 
               <div className="flex flex-wrap items-center gap-2.5 pt-1">
                 <button
                   type="button"
-                  className="pl-btn-primary text-xs"
+                  className="pl-btn-primary text-xs min-h-[44px]"
                   onClick={() => {
                     if (!activePick) return;
-                    if (viewerRole === "member") {
+                    if (!hasAccountSessionAuth && viewerRole === "member") {
                       setViewerRole("tipster");
                     }
                     openShareTicket({
                       kind: "tipster",
                       title: previewMatchTitle,
-                      subtitle: `Tipster Oficial @${sofia.handle} · ${activePick.leagueLabel}`,
+                      subtitle: `Tipster Oficial @${activeTipster.handle} · ${activePick.leagueLabel}`,
                       leagueLabel: activePick.leagueLabel,
                       pickLabel: previewSelectionLabel,
                       probability: previewProb,
@@ -570,9 +801,9 @@ export function TipsterPortalClubView({
                       marketDecimal: previewBook ?? previewFair,
                       units: activePick.suggestedUnits,
                       gameStatus: "NS",
-                      promoCode: sofia.promoCode,
-                      tipsterHandle: sofia.handle,
-                      pickSlug: sofia.weeklyPickSlug,
+                      promoCode: activeTipster.promoCode,
+                      tipsterHandle: activeTipster.handle,
+                      pickSlug: activeTipster.weeklyPickSlug,
                       originBadge: isSpacetimeOrigin
                         ? "PICK OFICIAL PITCHLAB"
                         : "PICK SELLADO BITÁCORA TIPSTER",
@@ -585,23 +816,23 @@ export function TipsterPortalClubView({
 
                 <button
                   type="button"
-                  className="pl-btn-glass text-xs"
+                  className="pl-btn-glass text-xs min-h-[44px]"
                   onClick={() => setVisitorPreviewOpen(true)}
                 >
                   <MaestroIcon name="eye" size={14} />
-                  <span>Simular vista visitante (/p/sofia-sem)</span>
+                  <span>Simular vista visitante (/p/{activeTipster.weeklyPickSlug})</span>
                 </button>
 
                 <a
-                  href="/p/sofia-sem"
+                  href={`/p/${activeTipster.weeklyPickSlug}`}
                   onClick={(e) => {
                     e.preventDefault();
-                    pushToast("Abriendo vista pública /p/sofia-sem...", "default");
-                    navigateTo("/p/sofia-sem");
+                    pushToast(`Abriendo vista pública /p/${activeTipster.weeklyPickSlug}...`, "default");
+                    navigateTo(`/p/${activeTipster.weeklyPickSlug}`);
                   }}
-                  className="pl-btn-glass text-xs"
+                  className="pl-btn-glass text-xs min-h-[44px]"
                 >
-                  <span>Abrir /p/sofia-sem</span>
+                  <span>Abrir /p/{activeTipster.weeklyPickSlug}</span>
                   <MaestroIcon name="arrowRight" size={13} />
                 </a>
               </div>
@@ -676,16 +907,16 @@ export function TipsterPortalClubView({
                   <span
                     className="w-9 h-9 rounded-full inline-flex items-center justify-center text-xs font-extrabold shrink-0"
                     style={{
-                      background: sofia.avatarGradVar,
+                      background: activeTipster.avatarGradVar,
                       color: "var(--share-card-fg)",
                     }}
                   >
-                    {sofia.avatarInitials}
+                    {activeTipster.avatarInitials}
                   </span>
                   <div className="min-w-0">
                     <div className="text-xs font-extrabold truncate">
-                      {sofia.name} · @{sofia.handle}
-                      {sofia.isExample ? " · Ejemplo" : ""}
+                      {activeTipster.name} · @{activeTipster.handle}
+                      {activeTipster.isExample ? " · Ejemplo" : ""}
                     </div>
                     <div
                       className="text-xs truncate"
@@ -750,7 +981,7 @@ export function TipsterPortalClubView({
               >
                 <div className="text-xs">
                   <div className="font-extrabold tracking-wide">
-                    CÓDIGO: {sofia.promoCode} · {sofia.freeDays} DÍAS GRATIS
+                    CÓDIGO: {activeTipster.promoCode} · {activeTipster.freeDays} DÍAS GRATIS
                   </div>
                   <div style={{ color: "var(--share-card-muted)" }}>
                     Desbloquea los otros 4 picks en pitchlab.mx
@@ -771,15 +1002,15 @@ export function TipsterPortalClubView({
             <div className="grid grid-cols-2 gap-2">
               <button
                 type="button"
-                className="pl-btn-glass text-xs"
+                className="pl-btn-glass text-xs min-h-[44px]"
                 onClick={handleCopyPublicUrl}
               >
                 <MaestroIcon name="copy" size={13} />
-                <span>Copiar link /p/sofia-sem</span>
+                <span>Copiar link /p/{activeTipster.weeklyPickSlug}</span>
               </button>
               <button
                 type="button"
-                className="pl-btn-primary text-xs"
+                className="pl-btn-primary text-xs min-h-[44px]"
                 onClick={() => {
                   const card = previewCardRef.current;
                   if (!card) return;
@@ -787,7 +1018,7 @@ export function TipsterPortalClubView({
                     {
                       aspect: previewRatio,
                       leagueLabel: "PICK GRATIS SEMANAL",
-                      title: `${sofia.name} · @${sofia.handle}`,
+                      title: `${activeTipster.name} · @${activeTipster.handle}`,
                       subtitle: previewMatchTitle,
                       badge: isSpacetimeOrigin
                         ? `Respaldado por ${activePick?.engineName ?? "PitchLab Spacetime Suite v3.0"}`
@@ -796,16 +1027,16 @@ export function TipsterPortalClubView({
                       units: "",
                       mainLine: previewSelectionLabel,
                       detailLine: `Prob. ${(previewProb * 100).toFixed(1)} % · ${previewOddsText}`,
-                      footerLine: `CÓDIGO: ${sofia.promoCode} · ${sofia.freeDays} DÍAS GRATIS`,
+                      footerLine: `CÓDIGO: ${activeTipster.promoCode} · ${activeTipster.freeDays} DÍAS GRATIS`,
                       footerSub: "Desbloquea los demás picks en pitchlab.mx",
                       watermark: "18+",
                     },
                     card,
-                    `pitchlab-${sofia.handle}-${previewRatio === "9:16" ? "9x16" : "4x5"}.png`,
+                    `pitchlab-${activeTipster.handle}-${previewRatio === "9:16" ? "9x16" : "4x5"}.png`,
                   ).then(
                     () =>
                       pushToast(
-                        `Boleto ${previewRatio === "9:16" ? "1080×1920" : "1080×1350"} con código ${sofia.promoCode} descargado.`,
+                        `Boleto ${previewRatio === "9:16" ? "1080×1920" : "1080×1350"} con código ${activeTipster.promoCode} descargado.`,
                         "success",
                       ),
                     () => pushToast("No se pudo generar la imagen del boleto.", "danger"),
@@ -819,7 +1050,7 @@ export function TipsterPortalClubView({
           </aside>
         </div>
 
-        {/* Modal inline: Simulación exacta de cómo ve un visitante externo /p/sofia-sem */}
+        {/* Modal inline: Simulación exacta de cómo ve un visitante externo */}
         <TopLayerModalDialog
           open={visitorPreviewOpen}
           onClose={() => setVisitorPreviewOpen(false)}
@@ -832,11 +1063,13 @@ export function TipsterPortalClubView({
               <div className="flex items-center justify-between gap-2">
                 <span className="pl-pill pl-pill--success">
                   <MaestroIcon name="eye" size={13} />
-                  <span>Simulación de visitante externo · pitchlab.mx/p/sofia-sem</span>
+                  <span>
+                    Simulación de visitante externo · pitchlab.mx/p/{activeTipster.weeklyPickSlug}
+                  </span>
                 </span>
                 <button
                   type="button"
-                  className="pl-btn-glass px-2.5 min-h-8"
+                  className="pl-btn-glass px-2.5 min-h-[44px]"
                   aria-label="Cerrar simulación de visitante"
                   onClick={() => setVisitorPreviewOpen(false)}
                 >
@@ -848,15 +1081,15 @@ export function TipsterPortalClubView({
                 <span
                   className="w-11 h-11 rounded-full avatar-ring inline-flex items-center justify-center text-xs font-extrabold shrink-0"
                   style={{
-                    background: sofia.avatarGradVar,
+                    background: activeTipster.avatarGradVar,
                     color: "var(--share-card-fg)",
                   }}
                 >
-                  {sofia.avatarInitials}
+                  {activeTipster.avatarInitials}
                 </span>
                 <div>
                   <h2 id="tipster-visitor-sim-title" className="m-0 text-base font-extrabold">
-                    @{sofia.handle} liberó 1 Pick Gratis de este partido
+                    @{activeTipster.handle} liberó 1 Pick Gratis de este partido
                   </h2>
                   <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
                     {previewMatchTitle} ·{" "}
@@ -929,14 +1162,14 @@ export function TipsterPortalClubView({
 
               <button
                 type="button"
-                className="pl-btn-primary w-full text-xs"
+                className="pl-btn-primary w-full text-xs min-h-[44px]"
                 onClick={() => {
                   setVisitorPreviewOpen(false);
-                  navigateTo(`/signup?code=${sofia.promoCode}`);
+                  navigateTo(`/signup?code=${activeTipster.promoCode}`);
                 }}
               >
                 <span>
-                  Canjear código {sofia.promoCode} · {sofia.freeDays} días de Pase PitchLab Ultra gratis
+                  Canjear código {activeTipster.promoCode} · {activeTipster.freeDays} días de Pase PitchLab Ultra gratis
                 </span>
                 <MaestroIcon name="arrowRight" size={14} />
               </button>

@@ -69,13 +69,13 @@ export function AccountReferralsClubView({
 }: AccountReferralsClubViewProps = {}): React.JSX.Element {
   const {
     viewerRole,
-    accountsEnabled: ctxAccountsEnabled,
+    hasAccountSessionAuth,
     memberReferralsSnapshot,
     memberReferralsLoaded,
     navigateTo,
     viewerIdentity,
   } = usePlatform();
-  const accountsEnabled = storyOverride?.accountsEnabled ?? ctxAccountsEnabled;
+  const accountsEnabled = storyOverride?.accountsEnabled ?? hasAccountSessionAuth;
 
   const [accountTab, setAccountTabState] = useState<AccountTabKey>(
     initialTab ?? "referrals",

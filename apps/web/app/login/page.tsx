@@ -55,6 +55,8 @@ export default async function LoginPage({
       initialRole={state.initialRole}
       allowRoleSimulation={state.allowRoleSimulation}
       accountsEnabled={state.accountsEnabled}
+      viewerVia={state.viewerVia}
+      paymentMode={state.paymentMode}
       serverMonth1NoCardMode={state.serverMonth1NoCardMode}
       viewerIdentity={state.viewerIdentity}
     >

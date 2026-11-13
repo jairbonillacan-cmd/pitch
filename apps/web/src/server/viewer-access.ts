@@ -79,6 +79,21 @@ async function hasValidBetaCookie(): Promise<boolean> {
   }
 }
 
+export const getViewerAccountUserId = cache(async (): Promise<string | null> => {
+  const auth = getAuth();
+  const url = process.env.DATABASE_URL;
+  if (!auth || !url) return null;
+  try {
+    const session = await auth.api.getSession({ headers: await headers() });
+    if (!session) return null;
+    db ??= createDb(url) as unknown as Db;
+    return await profileIdForAuthUser(db, session.user.id);
+  } catch (err) {
+    void err;
+    return null;
+  }
+});
+
 export const getViewerAccess = cache(async (): Promise<ViewerAccess> => {
   const auth = getAuth();
   const url = process.env.DATABASE_URL;

@@ -7,6 +7,7 @@ import {
   referralCouponFor,
   type PlanInterval,
 } from "../../../../src/server/billing/checkout";
+import { paymentMode } from "../../../../src/server/billing/payment-mode";
 import {
   trustedAppBaseUrl,
   verifySameOriginMutation,
@@ -18,11 +19,21 @@ export const dynamic = "force-dynamic";
 
 /**
  * POST /api/billing/checkout { interval: "monthly" | "annual" } → { url } de Stripe Checkout.
- * Requiere sesión, STRIPE_SECRET_KEY y el ID de precio del plan.
+ * En modo `transfer` (Beta 1.0) responde 503 explicando cómo activar vía SPEI o cupón.
  */
 export async function POST(request: Request): Promise<NextResponse> {
   const csrfError = verifySameOriginMutation(request);
   if (csrfError) return csrfError;
+
+  if (paymentMode() === "transfer") {
+    return NextResponse.json(
+      {
+        error:
+          "El pago con tarjeta se activará pronto; en Beta 1.0 activa tu pase por transferencia SPEI o cupón en Mi plan.",
+      },
+      { status: 503 },
+    );
+  }
 
   const apiKey = process.env.STRIPE_SECRET_KEY;
   if (!apiKey) return NextResponse.json({ error: "Cobro no configurado" }, { status: 503 });

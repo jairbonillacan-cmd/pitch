@@ -15,7 +15,9 @@ import {
   buildPlatformDataset,
   buildWhatsAppShareHref,
   buildXShareHref,
+  CanjearCouponView,
   deriveExampleReferralCode,
+  ExpiredPassGate,
   formatKickoffByTimezone,
   formatShortInviteDisplay,
   formatShortInviteUrl,
@@ -222,7 +224,12 @@ describe("Mi cuenta · Fase A (Invitar amigos y helpers)", () => {
     expect(trialHtml.toLowerCase()).not.toContain("gana ");
 
     const monthlyHtml = renderToStaticMarkup(
-      <PlatformProvider dataset={dataset} initialRole="member" accountsEnabled={false}>
+      <PlatformProvider
+        dataset={dataset}
+        initialRole="member"
+        accountsEnabled={false}
+        paymentMode="stripe"
+      >
         <AccountReferralsClubView
           initialTab="plan"
           storyOverride={{
@@ -238,7 +245,12 @@ describe("Mi cuenta · Fase A (Invitar amigos y helpers)", () => {
     expect(monthlyHtml).toContain("Cancelar renovación");
 
     const cancelledHtml = renderToStaticMarkup(
-      <PlatformProvider dataset={dataset} initialRole="member" accountsEnabled={false}>
+      <PlatformProvider
+        dataset={dataset}
+        initialRole="member"
+        accountsEnabled={false}
+        paymentMode="stripe"
+      >
         <AccountReferralsClubView
           initialTab="plan"
           storyOverride={{
@@ -255,7 +267,13 @@ describe("Mi cuenta · Fase A (Invitar amigos y helpers)", () => {
     expect(cancelledHtml).toContain("Reactivar renovación");
 
     const realAccountPlanHtml = renderToStaticMarkup(
-      <PlatformProvider dataset={dataset} initialRole="member" accountsEnabled={true}>
+      <PlatformProvider
+        dataset={dataset}
+        initialRole="member"
+        accountsEnabled={true}
+        viewerVia="account"
+        paymentMode="stripe"
+      >
         <AccountReferralsClubView
           initialTab="plan"
           initialServerReferrals={{
@@ -366,5 +384,117 @@ describe("Mi cuenta · Fase A (Invitar amigos y helpers)", () => {
       "La pausa se aplicará cuando se active tu cuenta.",
     );
     expect(prefsWithAccountsPausedHtml).toContain("carlos@pitchlab.mx");
+  });
+
+  it("renders Beta 1.0 transfer mode, PIN-beta isolation, ExpiredPassGate and CanjearCouponView", () => {
+    const pinBetaHtml = renderToStaticMarkup(
+      <PlatformProvider dataset={dataset} initialRole="member" accountsEnabled={true} viewerVia="beta">
+        <AccountReferralsClubView initialTab="plan" />
+      </PlatformProvider>,
+    );
+    expect(pinBetaHtml).toContain('data-example-badge=""');
+    expect(pinBetaHtml).toContain("Sin cobro automático");
+
+    const speiPlanHtml = renderToStaticMarkup(
+      <PlatformProvider dataset={dataset} initialRole="member" accountsEnabled={true} paymentMode="transfer">
+        <AccountReferralsClubView
+          initialTab="plan"
+          storyOverride={{
+            accountsEnabled: true,
+            plan: {
+              accountsEnabled: true,
+              paymentMode: "transfer",
+              serverPlan: {
+                active: true,
+                planState: "mensual",
+                interval: "monthly",
+                hasCard: false,
+                cancelAtPeriodEnd: false,
+                accessUntilIso: "2027-01-15T12:00:00Z",
+                currentPeriodEndIso: null,
+                memberSinceIso: "2026-10-01T12:00:00Z",
+                trialDaysRemaining: 0,
+                paidFriends: 1,
+                earnedDays: 15,
+                stripeConfigured: false,
+                paymentMode: "transfer",
+                accessSourceKind: "transfer_monthly",
+                eligibleForReferralDiscount: false,
+                quotedMonthlyCentavos: 29_900,
+                quotedAnnualCentavos: 239_000,
+                transferBank: {
+                  configured: true,
+                  bank: "BBVA México",
+                  beneficiary: "PitchLab México",
+                  clabe: "000000000000000001",
+                  clabeMasked: "•••• •••• •••• 0001",
+                  instructions: "Usa tu referencia única.",
+                  supportEmail: "soporte@pitchlab.mx",
+                },
+                transferHistory: [],
+                activePendingTransfer: {
+                  id: "tr-1",
+                  planInterval: "monthly",
+                  amountCentavosMxn: 29_900,
+                  reportedAmountCentavosMxn: null,
+                  amountMismatch: false,
+                  referralDiscountApplied: false,
+                  referenceCode: "PL-BETA1-0482",
+                  originBank: null,
+                  receiptReference: null,
+                  payerName: null,
+                  transferDate: null,
+                  userNote: null,
+                  status: "pending_review",
+                  rejectionReason: null,
+                  reviewedAtIso: null,
+                  createdAtIso: "2026-11-10T18:30:00Z",
+                  updatedAtIso: "2026-11-10T18:30:00Z",
+                },
+              },
+            },
+          }}
+        />
+      </PlatformProvider>,
+    );
+    expect(speiPlanHtml).toContain("Transferencia SPEI");
+    expect(speiPlanHtml).toContain("PL-BETA1-0482");
+    expect(speiPlanHtml).not.toContain("Cancelar renovación");
+
+    const gateHtml = renderToStaticMarkup(
+      <PlatformProvider dataset={dataset} initialRole="member" accountsEnabled={true} paymentMode="transfer">
+        <ExpiredPassGate
+          memberHandle="carlos_mx"
+          accessEndedIso="2026-11-08T06:00:00Z"
+          storyOverride={{
+            memberHandle: "carlos_mx",
+            accessEndedIso: "2026-11-08T06:00:00Z",
+            paymentMode: "transfer",
+            hasAccountSession: true,
+          }}
+        />
+      </PlatformProvider>,
+    );
+    expect(gateHtml).toContain("carlos_mx");
+    expect(gateHtml).toContain("SPEI");
+
+    const canjearPublicHtml = renderToStaticMarkup(
+      <PlatformProvider dataset={dataset} initialRole="visitor" accountsEnabled={true} paymentMode="transfer">
+        <CanjearCouponView
+          mode="public"
+          initialCode="BETAMX30"
+          storyOverride={{
+            accountsEnabled: true,
+            hasAccountSession: false,
+            preview: {
+              valid: true,
+              coupon: { code: "BETAMX30", days: 30, expiresAtIso: "2026-12-31T23:59:59Z" },
+            },
+          }}
+        />
+      </PlatformProvider>,
+    );
+    expect(canjearPublicHtml).toContain("BETAMX30");
+    expect(canjearPublicHtml).toContain("+30 días");
   });
 });

@@ -5,8 +5,8 @@ import { EMAIL_TEMPLATES, EMAIL_WIRING, renderEmail, type EmailTemplateId } from
 const ids = Object.keys(EMAIL_TEMPLATES) as EmailTemplateId[];
 
 describe("correos de PitchLab", () => {
-  it("hay 24 plantillas", () => {
-    expect(ids).toHaveLength(24);
+  it("hay 25 plantillas", () => {
+    expect(ids).toHaveLength(25);
   });
 
   it.each(ids)("%s: genera asunto, HTML con marca y texto plano", async (id) => {
@@ -63,7 +63,34 @@ describe("correos de PitchLab", () => {
       if (w.state === "blocked") expect(w.needs?.length ?? 0).toBeGreaterThan(20);
     }
     const live = ids.filter((id) => EMAIL_WIRING[id].state === "live");
-    expect(live.sort()).toEqual(["magic-link", "trial-ended", "trial-ending", "welcome"]);
+    expect(live.sort()).toEqual([
+      "access-expired",
+      "magic-link",
+      "payment-receipt",
+      "referral-ambassador",
+      "referral-rewarded",
+      "renewal-reminder",
+      "tipster-new-subscriber",
+      "tipster-payout",
+      "transfer-rejected",
+      "trial-ended",
+      "trial-ending",
+      "welcome",
+    ]);
+  });
+
+  it("recordatorio y pausa de acceso en modo transferencia no mencionan cargos automáticos", async () => {
+    const reminder = await renderEmail("renewal-reminder", {
+      ...EMAIL_TEMPLATES["renewal-reminder"].sample,
+      paymentMode: "transfer",
+      cardLast4: undefined,
+    });
+    expect(reminder.text).toContain("No hacemos cobros automáticos");
+    const expired = await renderEmail("access-expired", {
+      ...EMAIL_TEMPLATES["access-expired"].sample,
+      paymentMode: "transfer",
+    });
+    expect(expired.text).toContain("transferencia SPEI");
   });
 
   it("la bienvenida no habla de prueba si la persona no la recibió", async () => {
