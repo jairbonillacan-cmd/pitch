@@ -72,6 +72,17 @@ export function verifySameOriginMutation(
     return NextResponse.json({ error: "origen_invalido" }, { status: 403 });
   }
 
+  // `next start` arma `request.url` con `localhost` aunque el navegador entre por 127.0.0.1;
+  // el `Host` que manda el navegador sí coincide con su `Origin`.
+  const host = request.headers.get("host")?.trim();
+  if (host) {
+    try {
+      allowedOrigins.add(new URL(`${new URL(request.url).protocol}//${host}`).origin);
+    } catch (err) {
+      void err;
+    }
+  }
+
   const configuredBase = process.env.BETTER_AUTH_URL?.trim();
   if (configuredBase) {
     try {

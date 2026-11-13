@@ -20,7 +20,7 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
 
   const uniqueIp = `198.51.${Math.floor(Math.random() * 200) + 10}.${Math.floor(Math.random() * 200) + 10}`;
   const unlock = await page.request.post("/api/beta/unlock", {
-    headers: { "x-forwarded-for": uniqueIp },
+    headers: { "x-forwarded-for": uniqueIp, origin: "http://127.0.0.1:3100" },
     data: { code: "2026", next: "/app" },
   });
   expect(unlock.ok()).toBe(true);

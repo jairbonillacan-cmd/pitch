@@ -30,6 +30,7 @@ const CLUB_ALIASES: Record<string, AliasTarget> = {
   "/app/precio": { pathname: "/app/account", defaultParams: { tab: "plan" } },
   "/app/epl": { pathname: "/app/premier-league" },
   "/app/la-liga": { pathname: "/app/laliga" },
+  "/app/tipstar": { pathname: "/app/tipster" },
 };
 
 export type ClubRouteResolution =

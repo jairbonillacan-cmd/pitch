@@ -475,6 +475,24 @@ describe("Ola 2 · SEC-12 Protección CSRF por Origin, IP confiable y pipeline a
       ),
     ).toBeNull();
 
+    // El Host de la solicitud cuenta como mismo origen (next start reporta localhost en request.url).
+    expect(
+      verifySameOriginMutation(
+        new Request("http://localhost:3100/api/beta/unlock", {
+          method: "POST",
+          headers: { "content-type": "application/json", origin: "http://127.0.0.1:3100", host: "127.0.0.1:3100" },
+        }),
+      ),
+    ).toBeNull();
+    expect(
+      verifySameOriginMutation(
+        new Request("http://localhost:3100/api/beta/unlock", {
+          method: "POST",
+          headers: { "content-type": "application/json", origin: "http://attacker.example", host: "127.0.0.1:3100" },
+        }),
+      )?.status,
+    ).toBe(403);
+
     // 2. IP confiable: ignora X-Forwarded-For falsificado cuando Cloudflare o Vercel inyectan la IP real.
     const spoofedHeaders = new Headers({
       "x-forwarded-for": "1.1.1.1, 2.2.2.2",

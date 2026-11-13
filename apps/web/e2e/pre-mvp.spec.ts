@@ -353,7 +353,7 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     let lastStatus = 0;
     for (let i = 1; i <= 6; i++) {
       const res = await request.post("/api/beta/unlock", {
-        headers: { "x-forwarded-for": rateLimitIp },
+        headers: { "x-forwarded-for": rateLimitIp, origin: "http://127.0.0.1:3100" },
         data: { code: "0000", next: "/app" },
       });
       lastStatus = res.status();
@@ -584,12 +584,13 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
     await page.locator("#cfdi-cp").fill("06600");
     await page.getByRole("button", { name: "Guardar datos fiscales" }).click();
     await expect(page.locator("[data-cfdi-error]")).toHaveCount(0);
-    await expect(page.getByText("Datos fiscales guardados en este dispositivo.")).toBeVisible();
+    await expect(page.getByText("Datos fiscales validados para esta sesión.")).toBeVisible();
 
+    // Por privacidad (SEC), los datos fiscales no se guardan en el navegador: al recargar quedan vacíos.
     await page.goto("/app/account?tab=cfdi");
     await expect(page.locator("#pl-acct-tab-cfdi")).toHaveAttribute("aria-selected", "true");
-    await expect(page.locator("#cfdi-rfc")).toHaveValue("ABCD890123XYZ");
-    await expect(page.locator("#cfdi-cp")).toHaveValue("06600");
+    await expect(page.locator("#cfdi-rfc")).toHaveValue("");
+    await expect(page.locator("#cfdi-cp")).toHaveValue("");
 
     // Verificar Axe AA en modo claro en las cuatro pestañas
     await toggleClubTheme(page);

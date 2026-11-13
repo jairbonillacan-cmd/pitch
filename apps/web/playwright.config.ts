@@ -1,4 +1,8 @@
+import { randomBytes } from "node:crypto";
 import { defineConfig } from "@playwright/test";
+
+// `next start` corre en modo producción, que rechaza secretos con forma de ejemplo.
+const betaCookieSecret = process.env.BETA_COOKIE_SECRET ?? randomBytes(32).toString("hex");
 
 export default defineConfig({
   testDir: "./e2e",
@@ -36,7 +40,7 @@ export default defineConfig({
     timeout: 120_000,
     env: {
       PREVIEW_ACCESS_CODE: "2026",
-      BETA_COOKIE_SECRET: "e2e-test-pitchlab-beta-cookie-secret-32chars!",
+      BETA_COOKIE_SECRET: betaCookieSecret,
     },
   },
 });

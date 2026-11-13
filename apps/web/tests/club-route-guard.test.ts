@@ -16,6 +16,10 @@ describe("resolveClubRoute", () => {
       kind: "redirect",
       to: "/app/account?tab=prefs",
     });
+    expect(resolveClubRoute("/app/tipstar?connect=listo", opts)).toEqual({
+      kind: "redirect",
+      to: "/app/tipster?connect=listo",
+    });
     expect(resolveClubRoute("/app/journal?vista=parlays", opts)).toEqual({
       kind: "redirect",
       to: "/app/lab?vista=parlays",
