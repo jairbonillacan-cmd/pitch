@@ -5,7 +5,7 @@
 
 ## Contexto
 
-Hacen falta email y contraseña, OAuth (Google y Apple), magic link, verificación, 2FA para el staff, roles y sesiones revocables, sin costo por usuario.
+Hacen falta email y contraseña, OAuth (Google; Apple se descartó el 2026-11-12 porque su programa de desarrollador cobra US$99 al año), magic link, verificación, 2FA para el staff, roles y sesiones revocables, sin costo por usuario.
 
 ## Decisión
 

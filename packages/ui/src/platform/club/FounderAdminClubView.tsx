@@ -360,7 +360,7 @@ export function FounderAdminClubView({
                 </span>
               </h2>
               <p className="m-0 text-xs leading-relaxed" style={{ color: "var(--pl-text-secondary)" }}>
-                Escudo anti-abuso de costo <strong>$0 MXN</strong> activo: Google/Apple OAuth,
+                Escudo anti-abuso de costo <strong>$0 MXN</strong> activo: Google OAuth,
                 normalización de alias Gmail, bloqueo de dominios desechables, Cloudflare
                 Turnstile y huella única por dispositivo.
               </p>

@@ -96,11 +96,7 @@ export async function POST(request: Request): Promise<NextResponse> {
         .from(authAccount)
         .where(eq(authAccount.userId, profile.authUserId))
     : [];
-  const provider = accounts.some((a) => a.providerId === "google")
-    ? "google"
-    : accounts.some((a) => a.providerId === "apple")
-      ? "apple"
-      : "email";
+  const provider = accounts.some((a) => a.providerId === "google") ? "google" : "email";
 
   const trialOn = await getBoolFlag(db, FLAG_MONTH1_NO_CARD, true);
   const result = await completeSignup(db, {

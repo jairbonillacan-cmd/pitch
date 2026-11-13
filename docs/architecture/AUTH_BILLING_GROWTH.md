@@ -8,7 +8,7 @@
 
 | Aspecto | Decisión |
 |---|---|
-| Métodos | Email y contraseña (mínimo 10 caracteres y verificación contra contraseñas filtradas), Google, Apple y magic link |
+| Métodos | Email y contraseña (mínimo 10 caracteres y verificación contra contraseñas filtradas), Google y magic link (Apple descartado: su programa de desarrollador cobra) |
 | Verificación | Email verificado obligatorio antes del onboarding |
 | Edad | `birth_date` obligatoria en el registro. Si es menor de 18, se rechaza y no se crea la cuenta (no se guardan datos). |
 | Consentimientos | Términos y aviso de privacidad (obligatorios, con versión), analítica y marketing (opcionales). Tabla `consent`. |

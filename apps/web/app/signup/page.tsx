@@ -28,7 +28,7 @@ export default async function SignupPage({
   const nextPath = sanitizeNextPath(next);
   const initialPromoCode = (code ?? ref ?? "").trim().toUpperCase();
   const returningProvider =
-    via === "google" ? "Google" : via === "apple" ? "Apple" : null;
+    via === "google" ? "Google" : null;
 
   const [state, previewData] = await Promise.all([
     loadPublicPlatformState(),

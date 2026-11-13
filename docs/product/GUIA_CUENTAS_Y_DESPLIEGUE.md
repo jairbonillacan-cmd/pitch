@@ -6,7 +6,7 @@
 
 ## Qué hace ya el código
 
-- **Entrar con cuenta:** correo con enlace mágico y Google; Apple queda listo para después.
+- **Entrar con cuenta:** correo con enlace mágico y Google. Apple no se usa: su programa de desarrollador cobra US$99 al año (decisión del fundador, 2026-11-12).
 - **Registro en dos pasos:** el paso 2 guarda en la base la fecha de nacimiento, la mayoría de edad y los consentimientos con su versión.
 - **Prueba de 7 días sin tarjeta:** se da una sola vez por correo. `ana.lopez+1@gmail.com` cuenta igual que `analopez@gmail.com`.
 - **Referidos:** si llegó con `?code=`, la persona queda ligada a quien la invitó.
@@ -141,7 +141,7 @@ Con `DATABASE_URL` y `BETTER_AUTH_SECRET` ya puestas, la app cambia sola a cuent
 5. En **Audience**, da clic en **Publish app**. Sin esto, solo entran los correos de prueba.
 6. En Vercel, agrega `GOOGLE_CLIENT_ID` y `GOOGLE_CLIENT_SECRET`, y haz **Redeploy**.
 
-Apple queda para después: pide el Apple Developer Program (US$99 al año) y su secreto caduca cada 6 meses. Mientras tanto, el botón de Apple avisa que todavía no está disponible.
+Apple no se usa: su programa de desarrollador cobra US$99 al año (decisión del fundador, 2026-11-12). Por eso no hay botón de Apple ni variables `APPLE_*`.
 
 ## Paso 7 · Cloudflare Turnstile (anti-robots)
 

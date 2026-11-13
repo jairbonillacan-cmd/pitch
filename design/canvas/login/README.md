@@ -6,7 +6,7 @@ Fuente del lienzo de diseño «PitchLab · Login», que tiene dos filas: Login a
 |---|---|
 | `Main.dc.html` | `/login` en escritorio, interactivo: contraseña ↔ «sin contraseña» (enlace), «Revisa tu correo» y PIN de socio. El tema claro son las variables de `.lp[data-theme="light"]`. |
 | `Mobile.dc.html` | `/login` en móvil, tema oscuro, fluido (ancho y alto reales del teléfono). |
-| `Signup.dc.html` | `/signup` en escritorio, interactivo: paso 1 (Google, Apple o correo) → paso 2 (fecha de nacimiento y consentimientos) → «Confirma tu correo». Tweaks: tema e invitación. Los pasos 2 y 3 se ven con Play o leyendo el HTML (`isStep2`, `isSent`). |
+| `Signup.dc.html` | `/signup` en escritorio, interactivo: paso 1 (Google, Apple o correo; **Apple ya no se usa** porque cobra: la app solo muestra Google) → paso 2 (fecha de nacimiento y consentimientos) → «Confirma tu correo». Tweaks: tema e invitación. Los pasos 2 y 3 se ven con Play o leyendo el HTML (`isStep2`, `isSent`). |
 | `SignupMobile.dc.html` | `/signup` en móvil, con el aviso de invitación activo y los mismos tres estados. |
 | `canvas.json` | Índice. Sus `notes` traen «Qué cambia y por qué» y el brief de cada pantalla (`decisiones`/`brief` para login, `signupDecisiones`/`signupBrief` para registro). |
 

@@ -3,7 +3,7 @@
  *
  * - Enlace mágico por correo: Resend si existe RESEND_API_KEY; en desarrollo el enlace se
  *   imprime en la consola del servidor.
- * - Google y Apple: solo si existen sus credenciales.
+ * - Google: solo si existen sus credenciales. Apple no se usa (su programa de desarrollador cobra).
  * - Al crear la cuenta se crea (o se liga por correo) el perfil en `users`.
  *
  * Se activa con DATABASE_URL y BETTER_AUTH_SECRET; sin ellos `getAuth()` devuelve null y la
@@ -121,14 +121,12 @@ export function createAuth(options: {
   baseURL: string;
   sendEmail: SendEmail;
   google?: { clientId: string; clientSecret: string };
-  apple?: { clientId: string; clientSecret: string };
   twitter?: { clientId: string; clientSecret: string };
   /** Clave secreta de Cloudflare Turnstile: exige el token al pedir el enlace mágico. */
   turnstileSecret?: string;
 }) {
   const socialProviders: BetterAuthOptions["socialProviders"] = {};
   if (options.google) socialProviders.google = options.google;
-  if (options.apple) socialProviders.apple = options.apple;
   if (options.twitter) {
     socialProviders.twitter = {
       ...options.twitter,
@@ -157,7 +155,7 @@ export function createAuth(options: {
     account: {
       accountLinking: {
         enabled: true,
-        trustedProviders: ["google", "apple"],
+        trustedProviders: ["google"],
       },
     },
     hooks: {
@@ -320,7 +318,6 @@ export function getAuth(): PitchLabAuth | null {
     baseURL,
     sendEmail,
     google: pair(process.env.GOOGLE_CLIENT_ID, process.env.GOOGLE_CLIENT_SECRET),
-    apple: pair(process.env.APPLE_CLIENT_ID, process.env.APPLE_CLIENT_SECRET),
     twitter: twitterCredentials(),
     // Solo con las dos claves: si falta la pública, el navegador no podría mandar el token.
     turnstileSecret: turnstileSecret && turnstileSiteKey ? turnstileSecret : undefined,

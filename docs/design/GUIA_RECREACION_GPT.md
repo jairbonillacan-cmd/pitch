@@ -97,16 +97,16 @@ Referencia: `design/canvas/app/Login.dc.html`, `LoginMobile.dc.html`, `Signup.dc
 ### 5.1 Login (`/login`)
 
 - **Escritorio:** dos mitades que se apilan en móvil (`flex-wrap`, cada una `flex: 1 1 520px`).
-  - **Izquierda, formulario** (máx. 400 px, centrado): logo; «Entra a PitchLab»; «Lo más probable de cada partido, con su cuota justa.»; botones «Continuar con Google» y «Continuar con Apple» (HeroUI Button, variante secundaria, 48 px); separador «o con tu correo»; Correo; Contraseña con botón de mostrar/ocultar (44 px, `aria-label` que cambia) y enlace «¿La olvidaste?»; botón primario «Entrar». Un botón de texto alterna a **enlace mágico**: la contraseña se cambia por «Te mandamos un enlace para entrar sin contraseña. Vence en 15 minutos.» y el botón «Enviarme el enlace». Pie: «¿No tienes cuenta? Crear cuenta» y «Solo mayores de 18. PitchLab no acepta apuestas.»
+  - **Izquierda, formulario** (máx. 400 px, centrado): logo; «Entra a PitchLab»; «Lo más probable de cada partido, con su cuota justa.»; botón «Continuar con Google» a todo el ancho (HeroUI Button, variante secundaria, 48 px; Apple ya no se usa porque cobra); separador «o con tu correo»; Correo; Contraseña con botón de mostrar/ocultar (44 px, `aria-label` que cambia) y enlace «¿La olvidaste?»; botón primario «Entrar». Un botón de texto alterna a **enlace mágico**: la contraseña se cambia por «Te mandamos un enlace para entrar sin contraseña. Vence en 15 minutos.» y el botón «Enviarme el enlace». Pie: «¿No tienes cuenta? Crear cuenta» y «Solo mayores de 18. PitchLab no acepta apuestas.»
   - **Derecha, muestra de producto** (`--background-secondary` con la retícula `.fieldgrid`): eyebrow «Lee el juego con datos.», título «Lo más probable, con su cuota justa.», Radar de 112 px con halo y una lista de 3 resultados más probables reales (emblema, resultado, partido, cuota justa y probabilidad grande en `--brand-primary`), calculados como en el §4.2.
-- **Móvil:** firma compacta; tarjeta con Radar y el resultado más probable del día; título; Google y Apple en dos columnas; formulario; «Entrar con un enlace por correo»; enlace a Crear cuenta al final.
+- **Móvil:** firma compacta; tarjeta con Radar y el resultado más probable del día; título; «Continuar con Google» a todo el ancho; formulario; «Entrar con un enlace por correo»; enlace a Crear cuenta al final.
 
 ### 5.2 Crear cuenta (`/signup`)
 
 - **Misma estructura de dos mitades.**
   - **Formulario** (máx. 420 px):
     - Si se llega por un enlace de referido o invitación, aviso arriba: «{Nombre} te invitó: al crear tu cuenta tienes 7 días de Pro» (fondo `--surface-active`).
-    - «Crea tu cuenta», Google y Apple, Correo.
+    - «Crea tu cuenta», «Continuar con Google», Correo. (Los lienzos muestran Apple; ya no se usa porque cobra.)
     - **Contraseña** con el requisito en vivo debajo: «Mínimo 10 caracteres» → «Faltan N caracteres» → «Contraseña lista.» en `--success` con ícono.
     - **Fecha de nacimiento** obligatoria (HeroUI DateField o tres selectores Día/Mes/Año) con «Solo mayores de 18. Si no cumples la edad, no creamos la cuenta ni guardamos tus datos.»
     - **Consentimientos** en un grupo con borde: Términos y Aviso de privacidad (obligatorio), analítica (opcional) y novedades por correo (opcional), cada uno marcado como tal (HeroUI Checkbox).

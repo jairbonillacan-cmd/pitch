@@ -27,7 +27,7 @@ export interface LoginSurfaceV4Props {
   initialPromoCode?: string;
   previewSlot?: React.ReactNode;
   /**
-   * Better Auth solo tiene enlace mágico, Google y Apple activos hoy.
+   * Better Auth solo tiene enlace mágico y Google activos hoy.
    * Mientras correo + contraseña no se habilite en el backend, queda en `false`.
    */
   passwordSignInEnabled?: boolean;
@@ -80,9 +80,9 @@ export async function requestLoginMagicLink(
   }
 }
 
-/** Inicia el acceso con Google o Apple y redirige al proveedor. */
+/** Inicia el acceso con Google y redirige al proveedor. */
 export async function startLoginSocialSignIn(
-  provider: "google" | "apple",
+  provider: "google",
   callbackURL: string,
 ): Promise<boolean> {
   try {
@@ -131,20 +131,6 @@ function GoogleMark(): React.JSX.Element {
   );
 }
 
-function AppleMark(): React.JSX.Element {
-  return (
-    <svg
-      width="17"
-      height="17"
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      aria-hidden="true"
-      focusable="false"
-    >
-      <path d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8s2.3-1.3 3.1-2.5c1-1.4 1.4-2.8 1.4-2.9 0 0-2.7-1-2.7-4.1zM13.9 4.9c.7-.9 1.2-2 1-3.2-1 0-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.2.1 2.3-.6 3.1-1.5z" />
-    </svg>
-  );
-}
 
 function MailEnvelopeIcon(): React.JSX.Element {
   return (
@@ -261,7 +247,7 @@ export function LoginSurfaceV4({
       return "Escribe un correo electrónico válido, como tu@correo.com.";
     }
     if (isDisposableEmailDomain(clean)) {
-      return "No aceptamos correos temporales. Usa Google, Apple o tu correo personal.";
+      return "No aceptamos correos temporales. Usa Google o tu correo personal.";
     }
     return null;
   };
@@ -313,7 +299,7 @@ export function LoginSurfaceV4({
   };
 
   const handleSocialClick = async (
-    providerLabel: "Google" | "Apple",
+    providerLabel: "Google",
   ): Promise<void> => {
     if (submitting) return;
     setFormError("");
@@ -322,7 +308,7 @@ export function LoginSurfaceV4({
     if (accountsEnabled) {
       setSubmitting(true);
       const ok = await startLoginSocialSignIn(
-        providerLabel === "Google" ? "google" : "apple",
+        "google",
         nextPath,
       );
       setSubmitting(false);
@@ -481,16 +467,7 @@ export function LoginSurfaceV4({
                         onClick={() => void handleSocialClick("Google")}
                       >
                         <GoogleMark />
-                        <span>Google</span>
-                      </button>
-                      <button
-                        type="button"
-                        className="pl-auth-btn pl-auth-btn-social"
-                        disabled={submitting}
-                        onClick={() => void handleSocialClick("Apple")}
-                      >
-                        <AppleMark />
-                        <span>Apple</span>
+                        <span>Continuar con Google</span>
                       </button>
                     </div>
 

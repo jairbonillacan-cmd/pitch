@@ -55,7 +55,7 @@ export const EMAIL_WIRING = {
   },
   "security-notice": {
     state: "blocked",
-    trigger: "Inicio de sesión desde un dispositivo nuevo; vincular o desvincular Google, Apple o X.",
+    trigger: "Inicio de sesión desde un dispositivo nuevo; vincular o desvincular Google o X.",
     needs: "Comparar el dispositivo de cada sesión con los anteriores y un gancho al vincular o desvincular cuentas.",
   },
 

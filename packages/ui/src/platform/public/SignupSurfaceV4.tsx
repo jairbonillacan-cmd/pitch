@@ -276,13 +276,6 @@ function GoogleMark(): React.JSX.Element {
   );
 }
 
-function AppleMark(): React.JSX.Element {
-  return (
-    <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
-      <path d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8s2.3-1.3 3.1-2.5c1-1.4 1.4-2.8 1.4-2.9 0 0-2.7-1-2.7-4.1zM13.9 4.9c.7-.9 1.2-2 1-3.2-1 0-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.2.1 2.3-.6 3.1-1.5z" />
-    </svg>
-  );
-}
 
 function GiftIcon(): React.JSX.Element {
   return (
@@ -315,8 +308,8 @@ export interface SignupSurfaceV4Props {
   previewSlot?: React.ReactNode;
   initialStep?: SignupStep;
   initialEmail?: string;
-  /** Al volver de Google/Apple sin fecha ni consentimientos. */
-  returningProvider?: "Google" | "Apple" | null;
+  /** Al volver de Google sin fecha ni consentimientos. */
+  returningProvider?: "Google" | null;
   /** Fecha de referencia para la edad (pruebas). */
   today?: Date;
   /** Con cuenta (Google o al volver a /app): nombre y usuario sugerido para prellenar. */
@@ -360,7 +353,7 @@ export function SignupSurfaceV4({
   const [destination, setDestination] = useState<string | null>(null);
   const [confirmationAttempt, setConfirmationAttempt] = useState(0);
   const [email, setEmail] = useState(initialEmail);
-  const [provider, setProvider] = useState<"Google" | "Apple" | null>(
+  const [provider, setProvider] = useState<"Google" | null>(
     returningProvider,
   );
   const [emailError, setEmailError] = useState("");
@@ -508,7 +501,7 @@ export function SignupSurfaceV4({
     } else if (!EMAIL_PATTERN.test(clean)) {
       error = "Escribe un correo electrónico válido, como tu@correo.com.";
     } else if (isDisposableEmailDomain(clean)) {
-      error = "No aceptamos correos temporales. Usa Google, Apple o tu correo personal.";
+      error = "No aceptamos correos temporales. Usa Google o tu correo personal.";
       disposable = true;
     }
     if (error) {
@@ -523,7 +516,7 @@ export function SignupSurfaceV4({
     goToDetails();
   };
 
-  const handleSocial = async (label: "Google" | "Apple"): Promise<void> => {
+  const handleSocial = async (label: "Google"): Promise<void> => {
     if (submitting) return;
     setEmailError("");
     setBetaNotice("");
@@ -536,7 +529,7 @@ export function SignupSurfaceV4({
       if (invite) socialParams.set("code", invite.code);
       if (nextPath && nextPath !== "/app") socialParams.set("next", nextPath);
       const ok = await startLoginSocialSignIn(
-        label === "Google" ? "google" : "apple",
+        "google",
         `/signup?${socialParams.toString()}`,
       );
       setSubmitting(false);
@@ -782,16 +775,7 @@ export function SignupSurfaceV4({
                         onClick={() => void handleSocial("Google")}
                       >
                         <GoogleMark />
-                        <span>Google</span>
-                      </button>
-                      <button
-                        type="button"
-                        className="pl-auth-btn pl-auth-btn-social"
-                        disabled={submitting}
-                        onClick={() => void handleSocial("Apple")}
-                      >
-                        <AppleMark />
-                        <span>Apple</span>
+                        <span>Continuar con Google</span>
                       </button>
                     </div>
 

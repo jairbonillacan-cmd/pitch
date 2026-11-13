@@ -163,7 +163,7 @@ export function TrialEndedEmail({ name, outcome, planName, chargedLabel, nextCha
 export interface SecurityNoticeProps {
   name?: string;
   kind: "new-device" | "account-linked" | "account-unlinked";
-  /** «Google», «Apple» o «X», para los avisos de cuentas vinculadas. */
+  /** «Google» o «X», para los avisos de cuentas vinculadas. */
   provider?: string;
   device?: string;
   location?: string;

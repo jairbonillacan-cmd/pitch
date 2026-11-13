@@ -16,7 +16,7 @@
 | Respaldos | Restauración de Neon + `pg_dump` semanal desde GitHub Actions a R2 | Incluido | Copia propia fuera del proveedor |
 | Histórico y archivos | Cloudflare R2 | 10 GB, sin costo de salida | > 10 GB: centavos por GB |
 | Rate limit y caché | Upstash Redis | ~500 mil comandos/mes | Tráfico alto: pago por uso |
-| Login | Better Auth + Google OAuth | Sin límite de usuarios | Apple Sign-In: US$99/año (opcional) |
+| Login | Better Auth + Google OAuth | Sin límite de usuarios | Apple Sign-In descartado: cobra US$99/año |
 | Correo transaccional | Resend (`send.pitchlab.mx`) | ~3,000 correos/mes | Registro masivo: ~US$20/mes |
 | Correo de contacto | Cloudflare Email Routing → buzón del fundador | Gratis | — |
 | Automatización | GitHub Actions | ~2,000 min/mes (repo privado) | — |

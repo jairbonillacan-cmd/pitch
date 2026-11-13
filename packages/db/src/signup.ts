@@ -117,7 +117,7 @@ export interface CompleteSignupInput {
   /** Prueba sin tarjeta: solo si la bandera «Mes 1 sin tarjeta» está encendida. */
   trial: null | {
     canonicalEmail: string;
-    provider: "google" | "apple" | "email" | null;
+    provider: "google" | "email" | null;
     deviceFpHash: string;
     ipSubnetHash: string;
     unknownDevice?: boolean;

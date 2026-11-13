@@ -638,7 +638,7 @@ export function PricingSurface(): React.JSX.Element {
     },
     {
       q: "¿Cómo funciona la prueba gratis?",
-      a: "Te registras con Google, Apple o tu correo y tienes 7 días gratis. Durante el lanzamiento no pedimos tarjeta. Hay una prueba por persona.",
+      a: "Te registras con Google o tu correo y tienes 7 días gratis. Durante el lanzamiento no pedimos tarjeta. Hay una prueba por persona.",
     },
     {
       q: "¿Cómo sumamos días gratis mi amigo y yo con los referidos?",

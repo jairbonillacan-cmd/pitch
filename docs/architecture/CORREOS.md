@@ -69,7 +69,7 @@ Tres estados:
 | Tu mes en PitchLab (`monthly-record`) · Producto y seguridad | Tarea programada el día 1 de cada mes. | Calcular el récord y el puesto en el servidor (hoy `profile-stats.ts` corre en el navegador), la tarea mensual y el interruptor de recibirlo. |
 | Publicación retirada (`content-removed`) · Tipster y comunidad | Cuando un moderador retira una publicación. | La acción de moderar (hoy solo existe la tabla `social_moderation_logs`, sin pantalla ni API) y las publicaciones en el servidor. |
 | Resumen semanal (`weekly-digest`) · Producto y seguridad | Tarea programada cada semana. | El motor de picks corriendo en el servidor por persona, la tarea semanal y el interruptor de recibirlo. |
-| Aviso de seguridad (`security-notice`) · Producto y seguridad | Inicio de sesión desde un dispositivo nuevo; vincular o desvincular Google, Apple o X. | Comparar el dispositivo de cada sesión con los anteriores y un gancho al vincular o desvincular cuentas. |
+| Aviso de seguridad (`security-notice`) · Producto y seguridad | Inicio de sesión desde un dispositivo nuevo; vincular o desvincular Google o X. | Comparar el dispositivo de cada sesión con los anteriores y un gancho al vincular o desvincular cuentas. |
 
 ## Orden recomendado para conectar los que faltan
 
