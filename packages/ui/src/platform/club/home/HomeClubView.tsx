@@ -245,7 +245,7 @@ function TopPickCard({ game, pick }: { game: PlatformGame; pick: MatchPick }): R
 }
 
 /** Tu parlay siempre a la vista: selecciones, probabilidad combinada, momio justo y armado automático. */
-function ParlayRail({ leagues }: { leagues: readonly LeagueId[] }): React.JSX.Element {
+function ParlayRail({ games }: { games: readonly PlatformGame[] }): React.JSX.Element {
   const { parlaySummary, removePickFromParlay, clearParlay, generateAutoParlay, navigateTo, oddsFormat, riskPreference } =
     usePlatform();
   const [risk, setRisk] = useState<RiskBand>(riskPreference);
@@ -310,14 +310,14 @@ function ParlayRail({ leagues }: { leagues: readonly LeagueId[] }): React.JSX.El
           ))}
         </div>
         <span className="text-xs" style={{ color: "var(--pl-text-muted)" }}>
-          {riskHint} Usa los partidos abiertos de las ligas que estás viendo.
+          {riskHint} Usa los partidos abiertos de los días, el deporte y la liga que estás viendo.
         </span>
       </div>
       <div className="flex flex-wrap gap-2">
         <button
           type="button"
           className="pl-btn-primary text-sm min-h-11 px-4 flex-1 inline-flex items-center justify-center gap-1.5"
-          onClick={() => generateAutoParlay({ leagues, risk, legCount: 3, allowSgp: false })}
+          onClick={() => generateAutoParlay({ leagues: [], risk, legCount: 3, allowSgp: false, games })}
         >
           <MaestroIcon name="layers" size={14} />
           <span>Armar 3 selecciones</span>
@@ -450,7 +450,6 @@ export function HomeClubView(): React.JSX.Element {
   );
   const top = useMemo(() => topPrincipalPicks(visible, 3, isUnlocked), [visible, isUnlocked]);
   const value = useMemo(() => valuePicks(visible, isUnlocked), [visible, isUnlocked]);
-  const visibleLeagues = useMemo(() => leaguesIn(visible), [visible]);
 
   const isUpcoming = day === UPCOMING;
   const isPast = !isUpcoming && day < today;
@@ -561,7 +560,7 @@ export function HomeClubView(): React.JSX.Element {
           </div>
 
           <aside aria-label="Tu parlay, valor y bitácora" className="pl-home-rail">
-            <ParlayRail leagues={visibleLeagues} />
+            <ParlayRail games={visible} />
             <ValueRail items={value} />
             <LabRail />
           </aside>

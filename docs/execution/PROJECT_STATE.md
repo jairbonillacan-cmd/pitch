@@ -79,7 +79,8 @@
   - `HomeMatchCard` (`components/`): hora y confianza con medidor → equipos con escudo, récord y marcador proyectado → barra 1·X·2 (`ProbSplit`) → «Resultado más probable» con su momio justo → «Pick principal del modelo» con `PBar`, momio justo y una alternativa → Parlay y Ver partido. Respeta picks bloqueados, marca de agua y el formato de momio del socio.
   - Columna derecha: «Picks con mayor probabilidad» arriba; a la derecha «Tu parlay» (selecciones, probabilidad combinada, momio justo, armado automático por perfil), «Donde la casa paga más» (solo si hay momio de casa por encima del justo) y «Mi bitácora».
   - Lógica pura en `home-model.ts` con 9 pruebas. Stories en oscuro y claro (`ClubInicioOscuro`, `ClubInicioClaro`, `ClubInicioVisitante`, `TarjetaPartido*`). `pnpm e2e` 10/10 con Axe AA del Inicio en ambos temas.
-  - **Pendiente:** el armado automático usa `generateAutoParlay`, que filtra por liga pero no por día (puede tomar partidos fuera de la ventana de 7 días). Con PIN en un servidor con cuentas, el proveedor pide `/api/social/posts`, `/api/me/journal`, `/api/me/watchlist` y `/api/me/referrals` y recibe `401` repetidos (previo al Inicio).
+  - El armado automático del Inicio pasa a `generateAutoParlay` los partidos visibles (`games`, opcional): respeta día, deporte y liga. Sin `games`, el armador de `/app/parlays` sigue usando toda la jornada.
+  - **Pendiente:** con PIN en un servidor con cuentas, el proveedor pide `/api/social/posts`, `/api/me/journal`, `/api/me/watchlist` y `/api/me/referrals` y recibe `401` repetidos (previo al Inicio).
 - **Peso de página:** `/login`, `/signup`, `/comunidad`, `/parlays` y `/resultados` pesan 586 kB de First Load JS (antes 489 kB; importan desde la raíz de `@pitchlab/ui`). Presupuesto: 326 kB.
 - **Siguiente:** ver «Pendiente (en orden)».
 

@@ -289,6 +289,8 @@ export interface PlatformContextValue {
     risk: RiskBand;
     legCount: number;
     allowSgp: boolean;
+    /** Partidos de donde elegir (p. ej. los días que ve el Inicio); sin él, toda la jornada. */
+    games?: readonly PlatformGame[];
   }) => number;
 
   journal: JournalEntry[];
@@ -982,10 +984,12 @@ export function PlatformProvider({
       risk: RiskBand;
       legCount: number;
       allowSgp: boolean;
+      games?: readonly PlatformGame[];
     }): number => {
       setAllowSgp(opts.allowSgp);
-      const built = buildSmartAutoParlay(dataset.games, {
-        ...opts,
+      const { games, ...rest } = opts;
+      const built = buildSmartAutoParlay(games ?? dataset.games, {
+        ...rest,
         viewerRole,
       });
       setParlayLegs(built);
