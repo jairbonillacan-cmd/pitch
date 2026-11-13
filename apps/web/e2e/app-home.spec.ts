@@ -27,9 +27,26 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
 
   await page.goto("/app");
   await expect(page).toHaveURL(/\/app$/);
-  await expect(
-    page.getByRole("heading", { name: /Partidos de hoy/i }),
-  ).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1 }).first()).toBeVisible();
+  await expect(page.getByRole("navigation", { name: "Elegir día" })).toBeVisible();
+  const sportGroup = page.getByRole("group", { name: "Elegir deporte" });
+  await expect(sportGroup).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Tu parlay" })).toBeVisible();
+
+  // Deporte → liga: elegir un deporte deja solo sus ligas y marca el botón
+  const soccerTile = sportGroup.getByRole("button", { name: /^Fútbol\b/ }).first();
+  if ((await soccerTile.count()) > 0) {
+    await soccerTile.click();
+    await expect(soccerTile).toHaveAttribute("aria-pressed", "true");
+    await sportGroup.getByRole("button", { name: /Todos los deportes/ }).click();
+  }
+
+  // Agregar el pick principal de una tarjeta al parlay
+  const addButton = page.locator("[data-game-card] button[aria-label^='Agregar al parlay']").first();
+  if ((await addButton.count()) > 0) {
+    await addButton.click();
+    await expect(page.locator("[data-game-card] button[aria-label^='Quitar del parlay']").first()).toBeVisible();
+  }
 
   // Verificar cero overflow y WCAG AA tanto en tema oscuro como en tema claro
   for (const theme of ["dark", "light"]) {

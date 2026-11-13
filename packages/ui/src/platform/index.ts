@@ -27,6 +27,8 @@ export * from "./public/ReferralCard3D";
 export * from "./public/ReferralInviteSurface";
 
 export * from "./club/CoreMatchViews";
+export { HomeClubView } from "./club/home/HomeClubView";
+export { HomeMatchCard } from "./components/HomeMatchCard";
 export * from "./club/ParlayAndQuantViews";
 export * from "./club/SocialAndTipsterViews";
 export * from "./club/LedgerAccountAdminViews";

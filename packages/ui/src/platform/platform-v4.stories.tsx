@@ -22,9 +22,11 @@ import {
   SocialVipClubView,
   TipsterPortalClubView,
 } from "./club/SocialAndTipsterViews";
+import { HomeClubView } from "./club/home/HomeClubView";
+import { HomeMatchCard } from "./components/HomeMatchCard";
 import { ClubLayoutShell } from "./components/ShellChrome";
 import { buildPlatformDataset } from "./match-picks-engine";
-import { PlatformProvider } from "./platform-provider";
+import { PlatformProvider, usePlatformCore } from "./platform-provider";
 import {
   AuthSurfaceV4,
   OnboardingSurfaceV4,
@@ -376,6 +378,66 @@ export const ClubJornadaConEncabezado = {
       </ClubLayoutShell>
     </StoryShell>
   ),
+};
+
+/** Inicio: días → deporte → liga, tarjetas de partido y columna con parlay, valor y bitácora. */
+export const ClubInicioOscuro = {
+  render: () => (
+    <StoryShell role="member">
+      <ClubLayoutShell activePath="/app">
+        <HomeClubView />
+      </ClubLayoutShell>
+    </StoryShell>
+  ),
+  globals: { theme: "dark" },
+};
+
+export const ClubInicioClaro = {
+  render: () => (
+    <StoryShell role="member">
+      <ClubLayoutShell activePath="/app">
+        <HomeClubView />
+      </ClubLayoutShell>
+    </StoryShell>
+  ),
+  globals: { theme: "light" },
+};
+
+/** Sin Pase: la tarjeta oculta el pick principal y el marcador proyectado. */
+export const ClubInicioVisitante = {
+  render: () => (
+    <StoryShell role="visitor" redacted>
+      <HomeClubView />
+    </StoryShell>
+  ),
+};
+
+function FirstGameCard(): React.JSX.Element {
+  const { dataset } = usePlatformCore();
+  const game = dataset.games.find((g) => g.status !== "FT") ?? dataset.games[0];
+  return (
+    <div className="pl-stage" style={{ minHeight: "auto" }}>
+      <div style={{ maxWidth: 380, padding: 24 }}>{game ? <HomeMatchCard game={game} /> : null}</div>
+    </div>
+  );
+}
+
+export const TarjetaPartidoOscuro = {
+  render: () => (
+    <StoryShell role="member">
+      <FirstGameCard />
+    </StoryShell>
+  ),
+  globals: { theme: "dark" },
+};
+
+export const TarjetaPartidoClaro = {
+  render: () => (
+    <StoryShell role="member">
+      <FirstGameCard />
+    </StoryShell>
+  ),
+  globals: { theme: "light" },
 };
 
 export const ClubMultiPicks = {
