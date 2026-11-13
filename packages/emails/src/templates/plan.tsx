@@ -47,7 +47,7 @@ export function RenewalReminderEmail({
   );
 }
 
-/* 21 · Tu cuenta pasó a Free por falta de pago ------------------------------------------ */
+/* 21 · Acceso en pausa por falta de pago ----------------------------------------------- */
 
 export interface AccessExpiredProps {
   name?: string;
@@ -55,13 +55,13 @@ export interface AccessExpiredProps {
   updateCardUrl: string;
 }
 
-export const accessExpiredSubject = () => "Tu cuenta de PitchLab pasó a Free";
+export const accessExpiredSubject = () => "Tu acceso completo a PitchLab está en pausa";
 
 export function AccessExpiredEmail({ name, planName, updateCardUrl }: AccessExpiredProps) {
   return (
     <EmailLayout preview={`No pudimos cobrar ${planName}. Reactívalo cuando quieras.`}>
       <Eyebrow>Tu plan</Eyebrow>
-      <Title>Tu cuenta pasó a Free</Title>
+      <Title>Tu acceso está en pausa</Title>
       <P>
         {greeting(name)} No pudimos cobrar tu plan {planName} y terminó el plazo de gracia. Tu bitácora y tu historial
         siguen contigo.

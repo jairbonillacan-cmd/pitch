@@ -67,8 +67,16 @@ describe("SignupSurfaceV4 (SIGNUP-2)", () => {
   });
 
   it("invitación: nombre del creador, código sin nombre o nada", () => {
-    expect(resolveSignupInvite("sofia5")).toEqual({ code: "SOFIA5", inviterName: "Sofía" });
-    expect(resolveSignupInvite("AMIGO10")).toEqual({ code: "AMIGO10", inviterName: null });
+    expect(resolveSignupInvite("sofia5")).toEqual({
+      code: "SOFIA5",
+      inviterName: "Sofía",
+      freeDays: 5,
+    });
+    expect(resolveSignupInvite("AMIGO10")).toEqual({
+      code: "AMIGO10",
+      inviterName: null,
+      freeDays: 7,
+    });
     expect(resolveSignupInvite("  ")).toBeNull();
   });
 

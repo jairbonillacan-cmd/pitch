@@ -28,7 +28,7 @@ export function TechPrecisionSection({
   inClub?: boolean;
   isStandalone?: boolean;
 }): React.JSX.Element {
-  const { viewerRole, navigateTo } = usePlatform();
+  const { viewerRole, upgradeHref, navigateTo } = usePlatform();
   const hasFullAccess = viewerRole !== "visitor";
   const isPrimaryHeading = isStandalone || inClub;
   const PrimaryHeadingTag = isPrimaryHeading ? "h1" : "h2";
@@ -279,15 +279,19 @@ export function TechPrecisionSection({
               </div>
 
               <a
-                href={hasFullAccess ? "/app/parlays" : "/signup"}
+                href={hasFullAccess ? (inClub ? "/app" : "/app/parlays") : upgradeHref}
                 onClick={(e) => {
                   e.preventDefault();
-                  navigateTo(hasFullAccess ? "/app/parlays" : "/signup");
+                  navigateTo(hasFullAccess ? (inClub ? "/app" : "/app/parlays") : upgradeHref);
                 }}
                 className="pl-btn-primary w-full !min-h-[36px] !text-xs"
               >
                 <span>
-                  {hasFullAccess ? "Armar un parlay" : "Activar Pase PitchLab Ultra"}
+                  {hasFullAccess
+                    ? inClub
+                      ? "Volver a partidos de hoy"
+                      : "Armar un parlay"
+                    : "Activar Pase PitchLab Ultra"}
                 </span>
                 <MaestroIcon name="arrowRight" size={13} />
               </a>
@@ -378,14 +382,21 @@ export function PlansAndReferralsSection({
 }: {
   isStandalone?: boolean;
 }): React.JSX.Element {
-  const { month1NoCardMode, navigateTo, accountsEnabled, pushToast } = usePlatform();
+  const {
+    month1NoCardMode,
+    navigateTo,
+    accountsEnabled,
+    hasAccountSession,
+    upgradeHref,
+    pushToast,
+  } = usePlatform();
   const [billing, setBilling] = useState<"monthly" | "annual">("monthly");
   const [checkoutBusy, setCheckoutBusy] = useState<boolean>(false);
 
   // Con cuentas activas y sin la prueba sin tarjeta, el botón abre Stripe Checkout.
   const handleSubscribe = async () => {
     if (!accountsEnabled || month1NoCardMode) {
-      navigateTo("/signup");
+      navigateTo(hasAccountSession ? upgradeHref : "/signup");
       return;
     }
     setCheckoutBusy(true);
@@ -394,7 +405,7 @@ export function PlansAndReferralsSection({
     if (result.url) {
       window.location.assign(result.url);
     } else if (result.status === 401) {
-      navigateTo("/signup");
+      navigateTo("/login?next=%2Fapp%2Faccount%3Ftab%3Dplan");
     } else {
       pushToast(result.error ?? "No se pudo abrir el pago.", "warning");
     }

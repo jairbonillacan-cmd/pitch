@@ -246,7 +246,7 @@ export function sanitizeNextPath(nextParam: string | null | undefined): string {
   ) {
     return "/app";
   }
-  if (trimmed === "/app" || trimmed.startsWith("/app/")) {
+  if (trimmed === "/app" || trimmed.startsWith("/app/") || trimmed.startsWith("/app?")) {
     return trimmed;
   }
   return "/app";

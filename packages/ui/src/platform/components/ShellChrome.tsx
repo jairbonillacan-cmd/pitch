@@ -716,6 +716,8 @@ function ClubWorkspaceShellImpl({
     oddsFormat,
     setOddsFormat,
     viewerIdentity,
+    hasAccountSession,
+    upgradeHref,
   } = usePlatform();
   // Con cuenta, el usuario real; con el PIN de la beta, el de ejemplo según el rol.
   const ownHandle = ownHandleFor(viewerIdentity, viewerRole);
@@ -986,7 +988,52 @@ function ClubWorkspaceShellImpl({
               onKeyDown={onProfileMenuKeyDown}
             >
               <span className="pl-profile-menu-grab" aria-hidden="true" />
-              {viewerRole === "visitor" ? (
+              {viewerRole === "visitor" && hasAccountSession && viewerIdentity ? (
+                <div className="pl-profile-menu-head pl-profile-menu-head--visitor">
+                  <div className="flex items-center gap-3">
+                    <span
+                      className="pl-acct-avatar size-10 text-xs"
+                      style={{ background: profileGrad }}
+                      aria-hidden="true"
+                    >
+                      {viewerIdentity.initials}
+                    </span>
+                    <div className="min-w-0">
+                      <strong className="pl-profile-menu-name">
+                        {viewerIdentity.displayName}
+                      </strong>
+                      <span className="pl-profile-menu-sub">
+                        {viewerIdentity.handle ? `@${viewerIdentity.handle} · ` : ""}
+                        Prueba finalizada · SIN PASE
+                      </span>
+                    </div>
+                  </div>
+                  <div className="pl-profile-menu-ctas">
+                    <a
+                      href={upgradeHref}
+                      className="pl-profile-menu-cta pl-profile-menu-cta--primary"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        closeProfileMenu();
+                        navigateTo(upgradeHref);
+                      }}
+                    >
+                      Activar Pase Ultra
+                    </a>
+                    <a
+                      href="/app/account"
+                      className="pl-profile-menu-cta"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        closeProfileMenu();
+                        navigateTo("/app/account");
+                      }}
+                    >
+                      Mi cuenta
+                    </a>
+                  </div>
+                </div>
+              ) : viewerRole === "visitor" ? (
                 <div className="pl-profile-menu-head pl-profile-menu-head--visitor">
                   <div className="flex items-center gap-3">
                     <span className="pl-acct-avatar pl-acct-avatar--empty size-10" aria-hidden="true">

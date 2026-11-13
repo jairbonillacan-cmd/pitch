@@ -838,7 +838,7 @@ export function PublicSiteShell({
   children,
   hasSession = false,
 }: {
-  activePath: PublicNavPath;
+  activePath?: PublicNavPath;
   hasSession?: boolean;
   children: React.ReactNode;
 }): React.JSX.Element {
@@ -1761,8 +1761,10 @@ export function ParlaysAndCommunitySection({
 
 export function PricingSection({
   variant = "teaser",
+  hasSession = false,
 }: {
   variant?: "teaser" | "page";
+  hasSession?: boolean;
 }): React.JSX.Element {
   return (
     <section
@@ -1808,7 +1810,7 @@ export function PricingSection({
           ) : null}
         </div>
 
-        <PricingCardIsland />
+        <PricingCardIsland hasSession={hasSession} />
       </div>
     </section>
   );
@@ -2469,7 +2471,7 @@ export function ComunidadPageSurface({
 export function PrecioPageSurface({ hasSession = false }: { hasSession?: boolean } = {}): React.JSX.Element {
   return (
     <PublicSiteShell activePath="/precio" hasSession={hasSession}>
-      <PricingSection variant="page" />
+      <PricingSection variant="page" hasSession={hasSession} />
 
       <section id="referidos" className="pl-lp-section">
         <div className="pl-lp-wrap pl-lp-stack">

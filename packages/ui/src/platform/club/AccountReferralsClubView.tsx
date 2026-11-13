@@ -50,6 +50,7 @@ export interface AccountReferralsClubViewProps {
   initialTab?: AccountTabKey;
   initialServerReferrals?: MeReferralsPayload | null;
   initialServerPlan?: ServerPlanPayload | null;
+  checkoutNotice?: "success" | "cancelled" | null;
   storyOverride?: {
     accountsEnabled?: boolean;
     profile?: ServerProfileSummary;
@@ -63,6 +64,7 @@ export function AccountReferralsClubView({
   initialTab,
   initialServerReferrals,
   initialServerPlan,
+  checkoutNotice = null,
   storyOverride,
 }: AccountReferralsClubViewProps = {}): React.JSX.Element {
   const {
@@ -273,6 +275,7 @@ export function AccountReferralsClubView({
                 identity={identity}
                 referralCode={serverPayload?.referralCode ?? viewerIdentity?.referralCode}
                 initialServerPlan={initialServerPlan}
+                checkoutNotice={checkoutNotice}
                 onOpenBilling={() => selectTab("cfdi")}
                 storyOverride={
                   storyOverride?.plan ??

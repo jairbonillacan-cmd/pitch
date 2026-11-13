@@ -1,33 +1,61 @@
 import React from "react";
-import { LegalShell } from "../../../src/client/legal-shell";
+import type { Metadata } from "next";
+import { PublicSiteShell } from "@pitchlab/ui";
+import { hasPublicSessionCookie } from "../../../src/server/public-session";
 
-export default function PrivacidadPage(): React.JSX.Element {
+export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "Aviso de privacidad · PitchLab",
+  description:
+    "Cómo protege y utiliza PitchLab los datos de tu cuenta, pagos y preferencias de correo.",
+};
+
+export default async function PrivacidadPage(): Promise<React.JSX.Element> {
+  const hasSession = await hasPublicSessionCookie();
+
   return (
-    <LegalShell eyebrow="Documento preliminar · Beta" title="Aviso de privacidad">
-      <p>
-        <strong>Nota preliminar:</strong> Este documento es un borrador informativo
-        para la etapa de beta cerrada de PitchLab y no sustituye asesoría legal
-        formal.
-      </p>
-      <h2>1. Datos que recopilamos en la beta</h2>
-      <p>
-        Durante la beta cerrada por invitación, PitchLab no almacena cuentas
-        personales ni procesa pagos. Únicamente utilizamos una cookie técnica
-        firmada (<code>pl_beta</code>) para recordar que desbloqueaste el acceso
-        con tu código de invitación y registros temporales de dirección IP para
-        prevenir intentos automatizados.
-      </p>
-      <h2>2. Uso de la información</h2>
-      <p>
-        No vendemos, alquilamos ni compartimos datos con terceros comercializadores
-        ni con casas de apuestas. La preferencia de tema visual (oscuro o claro)
-        se guarda localmente en tu navegador (<code>localStorage</code>).
-      </p>
-      <h2>3. Contacto</h2>
-      <p>
-        Para cualquier duda sobre privacidad durante la beta cerrada, comunícate
-        directamente con el equipo fundador a través del canal de tu invitación.
-      </p>
-    </LegalShell>
+    <PublicSiteShell hasSession={hasSession}>
+      <div className="pl-page-enter max-w-3xl mx-auto px-4 sm:px-6 pt-8 sm:pt-10">
+        <article className="glass-lens glass-ring rounded-2xl p-6 sm:p-8 legal-doc space-y-4">
+          <div>
+            <p className="eyebrow">Documento legal</p>
+            <h1>Aviso de privacidad</h1>
+          </div>
+          <p>
+            <strong>Alcance:</strong> Este aviso describe el tratamiento de datos personales en
+            PitchLab. Si tienes dudas adicionales sobre privacidad o ejercicio de derechos ARCO,
+            escríbenos a{" "}
+            <a
+              href="mailto:soporte@pitchlab.mx"
+              style={{ color: "var(--pl-brand)", fontWeight: 600 }}
+            >
+              soporte@pitchlab.mx
+            </a>
+            .
+          </p>
+          <h2>1. Datos que tratamos</h2>
+          <p>
+            Cuando creas una cuenta en PitchLab almacenamos tu correo electrónico, nombre visible,
+            handle (<code>@usuario</code>), verificación de mayoría de edad (+18), bitácora de
+            picks simulados y preferencias dentro de la aplicación (ligas, zona horaria, formato de
+            momios y avisos).
+          </p>
+          <h2>2. Pagos y correos</h2>
+          <p>
+            Los cobros y facturas se procesan mediante Stripe; PitchLab nunca almacena los números
+            completos ni códigos CVV de tus tarjetas. Los correos transaccionales y alertas de picks
+            liquidados se envían mediante Resend y puedes activar o desactivar alertas en cualquier
+            momento desde tu cuenta o en <code>/baja</code>.
+          </p>
+          <h2>3. Cookies y terceros</h2>
+          <p>
+            Utilizamos cookies técnicas firmadas para mantener tu sesión y preferencias visuales. No
+            vendemos tus datos a terceros comercializadores ni recibimos comisiones por afiliación
+            con casas de apuestas.
+          </p>
+        </article>
+      </div>
+    </PublicSiteShell>
   );
 }

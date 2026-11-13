@@ -205,6 +205,7 @@ export interface ShareTicketPayload {
   promoCode?: string;
   tipstarHandle?: string;
   originBadge?: string;
+  pickSlug?: string;
 }
 
 export interface ToastMessage {
@@ -261,6 +262,10 @@ export interface PlatformContextValue {
   accountsEnabled: boolean;
   /** Socio con cuenta (nombre, @usuario, iniciales y código); null con PIN o visitante. */
   viewerIdentity: ViewerIdentity | null;
+  /** Tiene sesión de cuenta iniciada (aunque su prueba o pase haya vencido). */
+  hasAccountSession: boolean;
+  /** Ruta de activación o alta según si ya tiene cuenta iniciada. */
+  upgradeHref: string;
   updateViewerIdentity: (
     profile: Pick<ViewerIdentity, "displayName" | "handle"> & { avatarUrl?: string | null },
   ) => void;
@@ -399,6 +404,8 @@ export interface PlatformCoreValue {
   allowRoleSimulation: boolean;
   accountsEnabled: boolean;
   viewerIdentity: ViewerIdentity | null;
+  hasAccountSession: boolean;
+  upgradeHref: string;
   oddsFormat: OddsFormat;
   favoriteLeagues: LeagueId[];
   riskPreference: RiskBand;
@@ -1045,10 +1052,21 @@ export function PlatformProvider({
         pushToast("Agrega al menos 2 selecciones para sellar un Parlay.", "warning");
         return;
       }
+      const gamesById = new Map(dataset.games.map((g) => [g.id, g]));
+      let earliestGameId = parlaySummary.legs[0]!.pick.gameId;
+      let earliestTs = Number.POSITIVE_INFINITY;
+      for (const leg of parlaySummary.legs) {
+        const game = gamesById.get(leg.pick.gameId);
+        const ts = game ? Date.parse(game.kickoffUtc) : Number.NaN;
+        if (Number.isFinite(ts) && ts < earliestTs) {
+          earliestTs = ts;
+          earliestGameId = leg.pick.gameId;
+        }
+      }
       const entry: JournalEntry = {
         id: `j-parlay-${Date.now()}`,
         pickId: parlaySummary.legs.map((l) => l.pick.id).join("+"),
-        gameId: parlaySummary.legs[0]!.pick.gameId,
+        gameId: earliestGameId,
         leagueLabel: "Combinada Multi-Liga",
         matchLabel: `${parlaySummary.legs.length} selecciones${parlaySummary.hasSgpCorrelation ? " · SGP" : ""}`,
         pickLabel: parlaySummary.legs.map((l) => l.pick.label).join(" + "),
@@ -1067,8 +1085,18 @@ export function PlatformProvider({
         `Boleto combinado de ${parlaySummary.legs.length} selecciones sellado en Bitácora.`,
         "success",
       );
+      if (accountsEnabled) {
+        void sealOnServer(entry).then((res) => {
+          if (res.ok && res.id) {
+            setJournal((prev) => prev.map((j) => (j.id === entry.id ? { ...j, id: res.id! } : j)));
+          } else if (res.reason && res.reason !== "sin_sesion") {
+            setJournal((prev) => prev.filter((j) => j.id !== entry.id));
+            pushToast(SEAL_ERRORS[res.reason] ?? "No se pudo sellar el parlay.", "warning");
+          }
+        });
+      }
     },
-    [parlaySummary, pushToast],
+    [parlaySummary, dataset.games, accountsEnabled, pushToast],
   );
 
   const exportJournalCsv = useCallback((): string => {
@@ -1662,6 +1690,9 @@ export function PlatformProvider({
     navigateTo("/");
   }, [accountsEnabled, navigateTo, onLogoutOverride]);
 
+  const hasAccountSession = Boolean(viewerIdentity);
+  const upgradeHref = hasAccountSession ? "/app/account?tab=plan" : "/signup";
+
   const value = useMemo<PlatformContextValue>(
     () => ({
       rawDataset,
@@ -1671,6 +1702,8 @@ export function PlatformProvider({
       allowRoleSimulation,
       accountsEnabled,
       viewerIdentity,
+      hasAccountSession,
+      upgradeHref,
       updateViewerIdentity,
       oddsFormat,
       setOddsFormat,
@@ -1752,6 +1785,8 @@ export function PlatformProvider({
       allowRoleSimulation,
       accountsEnabled,
       viewerIdentity,
+      hasAccountSession,
+      upgradeHref,
       updateViewerIdentity,
       oddsFormat,
       setOddsFormat,
@@ -1838,6 +1873,8 @@ export function PlatformProvider({
       allowRoleSimulation,
       accountsEnabled,
       viewerIdentity,
+      hasAccountSession,
+      upgradeHref,
       oddsFormat,
       favoriteLeagues,
       riskPreference,
@@ -1853,6 +1890,8 @@ export function PlatformProvider({
       allowRoleSimulation,
       accountsEnabled,
       viewerIdentity,
+      hasAccountSession,
+      upgradeHref,
       oddsFormat,
       favoriteLeagues,
       riskPreference,

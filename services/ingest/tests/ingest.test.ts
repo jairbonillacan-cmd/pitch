@@ -187,4 +187,18 @@ describe("@pitchlab/ingest", () => {
     expect(snapAfter.analyses[firstGame.id]).toEqual(originalAnalysis);
     expect(snapAfter.analyses[firstGame.id]!.publishedAt).toBe("2026-11-06T18:00:00Z");
   });
+
+  it("convierte gameday+gametime de nflverse desde America/New_York (EDT y EST) a ISO UTC", () => {
+    const csv = [
+      "game_id,season,game_type,week,gameday,weekday,gametime,away_team,away_score,home_team,home_score,location,stadium",
+      "2026_01_KC_BAL,2026,REG,1,2026-09-10,Thursday,20:20,BAL,,KC,,Home,Arrowhead Stadium",
+      "2026_10_CIN_BAL,2026,REG,10,2026-11-12,Thursday,20:15,CIN,,BAL,,Home,M&T Bank Stadium",
+    ].join("\n");
+
+    const normEdt = normalizeNflverseSchedule(csv, { season: 2026, targetWeek: 1 });
+    expect(normEdt.activeWeekGames[0]?.startTime).toBe("2026-09-11T00:20:00.000Z");
+
+    const normEst = normalizeNflverseSchedule(csv, { season: 2026, targetWeek: 10 });
+    expect(normEst.activeWeekGames[0]?.startTime).toBe("2026-11-13T01:15:00.000Z");
+  });
 });

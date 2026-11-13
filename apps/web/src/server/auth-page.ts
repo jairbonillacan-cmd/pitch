@@ -11,6 +11,9 @@ export function authPageRedirect(
 ): string | null {
   if (step === "confirmado" || step === "vencido" || (mode === "signup" && step === "2")) return null;
   if (access.via === "none") return null;
-  if (access.via === "account" && !access.signupComplete) return SIGNUP_DETAILS_PATH;
+  if (access.via === "account" && !access.signupComplete) {
+    const dest = sanitizeNextPath(next);
+    return dest === "/app" ? SIGNUP_DETAILS_PATH : `${SIGNUP_DETAILS_PATH}&next=${encodeURIComponent(dest)}`;
+  }
   return sanitizeNextPath(next);
 }

@@ -1,8 +1,11 @@
-import { getSessionCookie } from "better-auth/cookies";
-import { cookies, headers } from "next/headers";
-import { getBetaCookieName } from "./beta-auth";
+import { getViewerAccess } from "./viewer-access";
 
 export async function hasPublicSessionCookie(): Promise<boolean> {
-  const [requestHeaders, requestCookies] = await Promise.all([headers(), cookies()]);
-  return Boolean(getSessionCookie(requestHeaders) || requestCookies.has(getBetaCookieName()));
+  try {
+    const access = await getViewerAccess();
+    return access.via !== "none";
+  } catch (err) {
+    void err;
+    return false;
+  }
 }

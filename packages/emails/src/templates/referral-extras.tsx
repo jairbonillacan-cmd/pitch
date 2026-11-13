@@ -22,7 +22,7 @@ export function ReferralAmbassadorEmail({
   bonusDays,
   planName,
   accessUntil,
-  referralsUrl = `${siteUrl()}/app/account/referrals`,
+  referralsUrl = `${siteUrl()}/app/account?tab=referrals`,
 }: ReferralAmbassadorProps) {
   return (
     <EmailLayout preview={`${count} invitados se quedaron. Sumamos ${bonusDays} días a tu cuenta.`}>
@@ -62,7 +62,7 @@ export function ReferralReversedEmail({
   friendName,
   days,
   accessUntil,
-  referralsUrl = `${siteUrl()}/app/account/referrals`,
+  referralsUrl = `${siteUrl()}/app/account?tab=referrals`,
 }: ReferralReversedProps) {
   return (
     <EmailLayout preview={`Quitamos ${days} días por un reembolso de tu invitado.`}>

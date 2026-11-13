@@ -47,7 +47,7 @@ describe("enlace corto /i/[code] y metadatos OG", () => {
     });
   });
 
-  it("redirige códigos inválidos a /pricing sin parámetros", async () => {
+  it("redirige códigos inválidos a /precio sin parámetros de invitación", async () => {
     for (const bad of ["", "abc", "bad!code", "A".repeat(25), "con espacio"]) {
       const res = await resolveShortInviteTarget(bad, {
         accountsEnabled: false,
@@ -56,9 +56,24 @@ describe("enlace corto /i/[code] y metadatos OG", () => {
         valid: false,
         code: null,
         handle: null,
-        redirectTo: "/pricing",
+        redirectTo: "/precio",
       });
     }
+  });
+
+  it("preserva parámetros UTM sin dejar que from externo falsifique al invitador", async () => {
+    const res = await resolveShortInviteTarget("JAIR-2611", {
+      accountsEnabled: false,
+      extraQuery: {
+        utm_source: "instagram",
+        utm_campaign: "apertura",
+        from: "impostor",
+        code: "OTRO-9999",
+      },
+    });
+    expect(res.redirectTo).toBe(
+      "/pricing/referral?code=JAIR-2611&utm_source=instagram&utm_campaign=apertura",
+    );
   });
 
   it("con cuentas resuelve @usuario por users.referralCode sin escribir en la base", async () => {
@@ -172,5 +187,25 @@ describe("enlace corto /i/[code] y metadatos OG", () => {
     expect(annualSummary.interval).toBe("annual");
     expect(annualSummary.hasCard).toBe(true);
     expect(annualSummary.stripeConfigured).toBe(true);
+  });
+
+  it("resolveOgDisplayHandle ignora ?from= falsificado cuando accountsEnabled es true", () => {
+    expect(
+      resolveOgDisplayHandle({
+        code: "JAIR-2611",
+        dbHandle: null,
+        explicitFrom: "impostor",
+        accountsEnabled: true,
+      }),
+    ).toBeNull();
+
+    expect(
+      resolveOgDisplayHandle({
+        code: "CARLOS-9012",
+        dbHandle: "carlos_mx",
+        explicitFrom: "impostor",
+        accountsEnabled: true,
+      }),
+    ).toBe("carlos_mx");
   });
 });

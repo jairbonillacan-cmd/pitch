@@ -67,16 +67,29 @@ const MONTH_ABBR_ES = [
   "DIC",
 ] as const;
 
-function getCalendarTileParts(game: PlatformGame): {
+function getCalendarTileParts(
+  game: PlatformGame,
+  timeZone: string = "America/Mexico_City",
+): {
   monthLabel: string;
   dayNumber: string;
 } {
   const parsed = Date.parse(game.kickoffUtc);
   if (!Number.isNaN(parsed)) {
-    const dt = new Date(parsed);
-    const monthLabel = MONTH_ABBR_ES[dt.getUTCMonth()] ?? "MES";
-    const dayNumber = String(dt.getUTCDate()).padStart(2, "0");
-    return { monthLabel, dayNumber };
+    try {
+      const parts = new Intl.DateTimeFormat("en-US", {
+        timeZone,
+        month: "numeric",
+        day: "2-digit",
+      }).formatToParts(new Date(parsed));
+      const mRaw = Number(parts.find((p) => p.type === "month")?.value ?? "0");
+      const dRaw = parts.find((p) => p.type === "day")?.value;
+      const monthLabel = MONTH_ABBR_ES[mRaw - 1] ?? "MES";
+      const dayNumber = dRaw ? dRaw.padStart(2, "0") : "01";
+      return { monthLabel, dayNumber };
+    } catch (err) {
+      void err;
+    }
   }
   const digits = game.dayLabel.match(/\d{1,2}/);
   return {
@@ -260,7 +273,8 @@ function ParlayToggleButton({ pick }: { pick: MatchPick }): React.JSX.Element {
 
 export function JornadaClubView(): React.JSX.Element {
   // Solo núcleo y acciones estables: agregar al parlay o pasar el cursor no redibuja la vista.
-  const { dataset, viewerRole, oddsFormat, favoriteLeagues, riskPreference } = usePlatformCore();
+  const { dataset, viewerRole, hasAccountSession, upgradeHref, oddsFormat, favoriteLeagues, riskPreference, userTimezone } =
+    usePlatformCore();
   const { generateAutoParlay, setAuraFromGame, navigateTo } = usePlatformActions();
 
   const [leagueFilter, setLeagueFilter] = useState<string>("all");
@@ -305,7 +319,7 @@ export function JornadaClubView(): React.JSX.Element {
       "var(--pl-aura-default-away)")
     : "var(--pl-aura-default-away)";
   const spotCalendar = spotlight
-    ? getCalendarTileParts(spotlight)
+    ? getCalendarTileParts(spotlight, userTimezone || "America/Mexico_City")
     : { monthLabel: "HOY", dayNumber: "01" };
 
   return (
@@ -762,14 +776,14 @@ export function JornadaClubView(): React.JSX.Element {
                             </div>
                           ) : (
                             <a
-                              href="/signup"
+                              href={upgradeHref}
                               onClick={(e) => {
                                 e.preventDefault();
-                                navigateTo("/signup");
+                                navigateTo(upgradeHref);
                               }}
                               className="pl-btn-accent text-xs min-h-7 px-2.5 shrink-0"
                             >
-                              7d gratis
+                              {hasAccountSession ? "Activar Pase Ultra" : "7d gratis"}
                             </a>
                           )}
                         </div>
@@ -839,8 +853,8 @@ export function MultiPicksClubView(): React.JSX.Element {
             Picks del día
           </h1>
           <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
-            Hasta 5 picks por partido, del más seguro al de más valor. Escribe el momio de tu casa
-            para ver si tiene ventaja.
+            Hasta 5 picks por partido, del perfil conservador al de mayor valor. Escribe el momio de
+            tu casa para ver si tiene ventaja.
           </p>
         </section>
 
@@ -920,7 +934,7 @@ export function MultiPicksClubView(): React.JSX.Element {
             {(
               [
                 { id: "all", label: "Todos los perfiles" },
-                { id: "conservador", label: "Más seguro" },
+                { id: "conservador", label: "Conservador" },
                 { id: "medio", label: "Balanceado Medio" },
                 { id: "arriesgado", label: "Cuota Alta · Valor" },
               ] as const
@@ -1158,7 +1172,11 @@ export function LeagueHubClubView({
             </h2>
             <ProgressiveGameGrid games={finished} />
           </section>
-        ) : null}
+        ) : (
+          <section className="glass-card glass-ring rounded-2xl p-4 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+            Aún no hay marcadores cerrados (FT) registrados en este corte de la jornada.
+          </section>
+        )}
 
         {/* Tabla de posiciones real del snapshot */}
         {leagueSummary.standings.length > 0 ? (
@@ -1241,7 +1259,17 @@ export function LeagueHubClubView({
               </table>
             </div>
           </section>
-        ) : null}
+        ) : (
+          <section className="standings-block glass-card glass-ring rounded-2xl p-5 space-y-1.5">
+            <h2 className="m-0 text-lg font-extrabold">
+              Tabla de Posiciones · {leagueSummary.label}
+            </h2>
+            <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
+              La clasificación actualizada aún no está disponible en el corte vigente de esta
+              competición.
+            </p>
+          </section>
+        )}
       </ClubWorkspaceShell>
     </AtmosphereStage>
   );
@@ -1324,7 +1352,7 @@ export function MatchStudioClubView({
   const matchLabelShort = `${game.home.shortName} vs ${game.away.shortName}`;
 
   const matchDebateItems = useMemo(() => {
-    const liveMatching = socialPosts
+    return socialPosts
       .filter(
         (p) =>
           p.gameId === game.id ||
@@ -1340,30 +1368,7 @@ export function MatchStudioClubView({
         body: p.body,
         isExample: Boolean(p.isExample),
       }));
-
-    const seeded = [
-      {
-        id: `seed-${game.id}-1`,
-        handle: "@sofia_nfl",
-        roleBadge: "Tipstar",
-        record: "+18.4u",
-        createdAt: "Hace 18 min",
-        isExample: true,
-        body: `El modelo favorece el pick principal en ${matchLabelShort}. Sellé 1.5u antes del inicio.`,
-      },
-      {
-        id: `seed-${game.id}-2`,
-        handle: "@carlos_quant",
-        roleBadge: "Verificado",
-        record: "+14.9u",
-        createdAt: "Hace 39 min",
-        isExample: true,
-        body: `Coincido con el pick más seguro para combinarlo en un parlay de 2 selecciones.`,
-      },
-    ];
-
-    return [...liveMatching, ...seeded];
-  }, [game.away.shortName, game.home.shortName, game.id, mainEngineName, matchLabelShort, socialPosts]);
+  }, [game.away.shortName, game.home.shortName, game.id, socialPosts]);
 
   const handlePublishDebate = (e: React.FormEvent) => {
     e.preventDefault();
@@ -1803,51 +1808,67 @@ export function MatchStudioClubView({
                 <div>
                   <h2 className="m-0 text-lg font-extrabold">Opiniones de socios</h2>
                 </div>
-                <StackedAvatars
-                  items={[
-                    { initials: "SM", gradVar: "var(--avatar-grad-1)", label: "Sofía Méndez" },
-                    { initials: "CV", gradVar: "var(--avatar-grad-2)", label: "Carlos Vega" },
-                    { initials: "DA", gradVar: "var(--avatar-grad-3)", label: "Diego Aranda" },
-                  ]}
-                  extraCount={14}
-                />
+                {matchDebateItems.length > 0 ? (
+                  <StackedAvatars
+                    items={matchDebateItems.slice(0, 3).map((item, idx) => ({
+                      initials: item.handle.replace(/^@/, "").slice(0, 2).toUpperCase(),
+                      gradVar: `var(--avatar-grad-${(idx % 3) + 1})`,
+                      label: item.handle,
+                    }))}
+                    extraCount={Math.max(0, matchDebateItems.length - 3)}
+                  />
+                ) : (
+                  <span className="text-xs font-semibold" style={{ color: "var(--pl-text-muted)" }}>
+                    0 publicaciones
+                  </span>
+                )}
               </div>
 
-              <div className="space-y-2.5 max-h-[360px] overflow-y-auto pr-1">
-                {matchDebateItems.map((item) => (
-                  <article
-                    key={item.id}
-                    className="rounded-2xl p-3 space-y-1.5 text-xs"
-                    style={{ background: "var(--pl-surface)" }}
-                  >
-                    <div className="flex flex-wrap items-center justify-between gap-1">
-                      <div className="flex items-center gap-1.5">
-                        <strong className="font-extrabold">{item.handle}</strong>
-                        <UserBadges roleLabel={item.roleBadge} />
-                        {item.isExample ? <ExampleBadge /> : null}
+              {matchDebateItems.length > 0 ? (
+                <div className="space-y-2.5 max-h-[360px] overflow-y-auto pr-1">
+                  {matchDebateItems.map((item) => (
+                    <article
+                      key={item.id}
+                      className="rounded-2xl p-3 space-y-1.5 text-xs"
+                      style={{ background: "var(--pl-surface)" }}
+                    >
+                      <div className="flex flex-wrap items-center justify-between gap-1">
+                        <div className="flex items-center gap-1.5">
+                          <strong className="font-extrabold">{item.handle}</strong>
+                          <UserBadges roleLabel={item.roleBadge} />
+                          {item.isExample ? <ExampleBadge /> : null}
+                        </div>
+                        <span
+                          className="text-[11px] num font-bold"
+                          style={{ color: "var(--pl-success)" }}
+                        >
+                          {item.record}
+                        </span>
                       </div>
-                      <span
-                        className="text-[11px] num font-bold"
-                        style={{ color: "var(--pl-success)" }}
+                      <p
+                        className="m-0 leading-relaxed"
+                        style={{ color: "var(--pl-text-secondary)" }}
                       >
-                        {item.record}
+                        {item.body}
+                      </p>
+                      <span
+                        className="block text-[10px]"
+                        style={{ color: "var(--pl-text-muted)" }}
+                      >
+                        {item.createdAt}
                       </span>
-                    </div>
-                    <p
-                      className="m-0 leading-relaxed"
-                      style={{ color: "var(--pl-text-secondary)" }}
-                    >
-                      {item.body}
-                    </p>
-                    <span
-                      className="block text-[10px]"
-                      style={{ color: "var(--pl-text-muted)" }}
-                    >
-                      {item.createdAt}
-                    </span>
-                  </article>
-                ))}
-              </div>
+                    </article>
+                  ))}
+                </div>
+              ) : (
+                <p
+                  className="m-0 rounded-2xl p-3.5 text-xs leading-relaxed"
+                  style={{ background: "var(--pl-surface)", color: "var(--pl-text-muted)" }}
+                >
+                  Aún no hay opiniones publicadas para este partido. Sé el primero en compartir tu
+                  lectura.
+                </p>
+              )}
 
               <form onSubmit={handlePublishDebate} className="space-y-2 pt-2 hairline-t">
                 <label
@@ -2186,6 +2207,15 @@ export function MatchStudioClubView({
               </div>
               <span className="pl-pill pl-pill--info">
                 {game.spacetime?.market?.bookLabel ?? "Mercado"}
+                {Number.isFinite(Date.parse(game.spacetime?.market?.asOfUtc ?? dataset.generatedAt))
+                  ? ` · Corte ${new Date(
+                      game.spacetime?.market?.asOfUtc ?? dataset.generatedAt,
+                    ).toLocaleDateString("es-MX", {
+                      timeZone: "America/Mexico_City",
+                      day: "2-digit",
+                      month: "short",
+                    })}`
+                  : ""}
               </span>
             </div>
 

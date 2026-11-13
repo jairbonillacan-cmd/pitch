@@ -102,7 +102,7 @@ export function LandingSurface({
         parlayDemo={resolvedParlayDemo}
         featuredPick={resolvedFeaturedPick}
       />
-      <PricingSection variant="teaser" />
+      <PricingSection variant="teaser" hasSession={hasSession} />
       <FaqSection />
       <ClosingCtaSection hasSession={hasSession} />
     </PublicSiteShell>

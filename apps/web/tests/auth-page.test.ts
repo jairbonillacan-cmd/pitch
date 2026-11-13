@@ -9,6 +9,7 @@ describe("redirecciones de acceso", () => {
     expect(authPageRedirect(mode, undefined, "/app/social?tab=ranking", complete)).toBe("/app/social?tab=ranking");
     expect(authPageRedirect(mode, undefined, "https://example.com", { via: "beta", signupComplete: true })).toBe("/app");
     expect(authPageRedirect(mode, undefined, undefined, incomplete)).toBe("/signup?paso=2&via=cuenta");
+    expect(authPageRedirect(mode, undefined, "/app/parlays", incomplete)).toBe("/signup?paso=2&via=cuenta&next=%2Fapp%2Fparlays");
     expect(authPageRedirect(mode, undefined, undefined, { via: "none", signupComplete: false })).toBeNull();
   });
 

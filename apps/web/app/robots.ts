@@ -1,10 +1,13 @@
 import type { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
+  const baseUrl = (process.env.BETTER_AUTH_URL ?? "https://pitchlab.mx").replace(/\/$/, "");
   return {
     rules: {
       userAgent: "*",
-      disallow: "/",
+      allow: "/",
+      disallow: ["/app/", "/api/", "/i/", "/onboarding", "/p/", "/baja"],
     },
+    sitemap: `${baseUrl}/sitemap.xml`,
   };
 }

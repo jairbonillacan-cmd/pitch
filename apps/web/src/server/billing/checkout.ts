@@ -50,8 +50,8 @@ export function buildCheckoutParams(input: CheckoutInput): URLSearchParams {
   p.set("line_items[0][price]", input.priceId);
   p.set("line_items[0][quantity]", "1");
   p.set("client_reference_id", input.userId);
-  p.set("success_url", `${input.baseUrl}/app/account?pago=ok&session_id={CHECKOUT_SESSION_ID}`);
-  p.set("cancel_url", `${input.baseUrl}/pricing?pago=cancelado`);
+  p.set("success_url", `${input.baseUrl}/app/account?tab=plan&pago=ok&session_id={CHECKOUT_SESSION_ID}`);
+  p.set("cancel_url", `${input.baseUrl}/app/account?tab=plan&pago=cancelado`);
   p.set("locale", "es-419");
   p.set("currency", "mxn");
   p.set("subscription_data[metadata][user_id]", input.userId);

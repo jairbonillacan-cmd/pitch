@@ -108,6 +108,7 @@ const SIGNUP_DETAILS_MAX_AGE_MS = 24 * 60 * 60 * 1000;
 export interface SignupInvite {
   code: string;
   inviterName: string | null;
+  freeDays: number;
 }
 
 /**
@@ -125,7 +126,7 @@ export function resolveSignupInvite(rawCode: string): SignupInvite | null {
     (c) => c.promoCode.toUpperCase() === code,
   );
   const firstName = creator?.name.split(" ")[0] ?? null;
-  return { code, inviterName: firstName };
+  return { code, inviterName: firstName, freeDays: creator?.freeDays ?? 7 };
 }
 
 /** Edad en años cumplidos a la fecha `today`. */
@@ -321,6 +322,8 @@ export interface SignupSurfaceV4Props {
   /** Con cuenta (Google o al volver a /app): nombre y usuario sugerido para prellenar. */
   initialDisplayName?: string;
   initialHandle?: string;
+  /** Destino al terminar el registro cuando el enlace vino de una ruta protegida. */
+  nextPath?: string;
 }
 
 export function SignupSurfaceV4({
@@ -332,6 +335,7 @@ export function SignupSurfaceV4({
   today,
   initialDisplayName = "",
   initialHandle = "",
+  nextPath = "/app",
 }: SignupSurfaceV4Props): React.JSX.Element {
   const { accountsEnabled, openBetaPin, navigateTo } = usePlatform();
   const narrow = useNarrowViewport();
@@ -405,16 +409,18 @@ export function SignupSurfaceV4({
       if (result.status === "saved") {
         try {
           window.sessionStorage.setItem("pitchlab.signup.trial", result.trial);
-        } catch {
+        } catch (err) {
           // The confirmation can continue if browser storage is unavailable.
+          void err;
         }
       }
       if (result.status === "underage") {
         setDestination("/");
         return;
       }
+      const postSignupDest = nextPath && nextPath !== "/app" ? nextPath : "/onboarding";
       if (result.status === "saved" || confirmedSession.completed) {
-        setDestination("/onboarding");
+        setDestination(postSignupDest);
         return;
       }
       // The other tab may have saved and removed the draft after our initial session check.
@@ -423,7 +429,9 @@ export function SignupSurfaceV4({
         .catch(() => null);
       if (!active) return;
       const completedHere = latest?.completed && latest.email === confirmedSession.email;
-      setDestination(completedHere ? "/onboarding" : "/signup?paso=2&via=cuenta");
+      const step2Params = new URLSearchParams({ paso: "2", via: "cuenta" });
+      if (nextPath && nextPath !== "/app") step2Params.set("next", nextPath);
+      setDestination(completedHere ? postSignupDest : `/signup?${step2Params.toString()}`);
     });
     return () => {
       active = false;
@@ -521,9 +529,15 @@ export function SignupSurfaceV4({
     setBetaNotice("");
     if (accountsEnabled) {
       setSubmitting(true);
+      const socialParams = new URLSearchParams({
+        paso: "2",
+        via: label.toLowerCase(),
+      });
+      if (invite) socialParams.set("code", invite.code);
+      if (nextPath && nextPath !== "/app") socialParams.set("next", nextPath);
       const ok = await startLoginSocialSignIn(
         label === "Google" ? "google" : "apple",
-        `/signup?paso=2&via=${label.toLowerCase()}${invite ? `&code=${encodeURIComponent(invite.code)}` : ""}`,
+        `/signup?${socialParams.toString()}`,
       );
       setSubmitting(false);
       if (!ok) setEmailError(`El acceso con ${label} todavía no está disponible.`);
@@ -589,13 +603,13 @@ export function SignupSurfaceV4({
 
     if (!accountsEnabled) {
       setSubmitting(false);
-      openBetaPin("/onboarding");
+      openBetaPin(nextPath && nextPath !== "/app" ? nextPath : "/onboarding");
       return;
     }
 
     if (provider || !normalizedEmail) {
       setSubmitting(false);
-      navigateTo("/onboarding");
+      navigateTo(nextPath && nextPath !== "/app" ? nextPath : "/onboarding");
       return;
     }
 
@@ -637,7 +651,11 @@ export function SignupSurfaceV4({
     setStep("method");
   };
 
-  const loginHref = "/login";
+  const loginParams = new URLSearchParams();
+  if (invite?.code) loginParams.set("code", invite.code);
+  if (nextPath && nextPath !== "/app") loginParams.set("next", nextPath);
+  const loginQuery = loginParams.toString();
+  const loginHref = loginQuery ? `/login?${loginQuery}` : "/login";
   const onLoginClick = (e: React.MouseEvent<HTMLAnchorElement>): void => {
     if (isPlainLeftClick(e)) {
       e.preventDefault();
@@ -664,7 +682,7 @@ export function SignupSurfaceV4({
             ? `${invite.inviterName} te invitó.`
             : `${invite.code} aplicado.`}
         </strong>{" "}
-        Tus 7 días gratis ya están apartados.
+        Tus {invite.freeDays} días gratis ya están apartados.
       </p>
     </div>
   ) : null;

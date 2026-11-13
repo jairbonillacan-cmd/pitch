@@ -15,13 +15,15 @@ export default function NotFound(): React.JSX.Element {
         </a>
         <p className="pl-notfound-code num">404</p>
         <h1 className="pl-notfound-title">Esta página no existe</h1>
-        <p className="pl-notfound-copy">Revisa el enlace o vuelve a los partidos de hoy.</p>
+        <p className="pl-notfound-copy">
+          Revisa el enlace o vuelve al inicio para explorar los partidos y el producto.
+        </p>
         <div className="pl-notfound-actions">
-          <a href="/app" className="pl-prof-btn pl-prof-btn--primary">
-            Partidos de hoy
+          <a href="/" className="pl-prof-btn pl-prof-btn--primary">
+            Ir al inicio
           </a>
-          <a href="/" className="pl-prof-btn pl-prof-btn--ghost">
-            Inicio
+          <a href="/como-funciona" className="pl-prof-btn pl-prof-btn--ghost">
+            Cómo funciona
           </a>
         </div>
       </div>

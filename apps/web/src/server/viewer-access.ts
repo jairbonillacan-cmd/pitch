@@ -29,6 +29,8 @@ export interface ViewerAccess {
   signupComplete: boolean;
   /** Puede ver todo (PIN, Pase vigente o administrador). */
   fullAccess: boolean;
+  /** Con cuenta: si su correo pertenece a PITCHLAB_ADMIN_EMAILS. */
+  isAdmin?: boolean;
   /** Con cuenta: quién es (para la interfaz). Con PIN o sin sesión, null. */
   profile: AccountProfile | null;
 }
@@ -44,7 +46,7 @@ export interface AccountProfile {
   suggestedHandle: string | null;
 }
 
-const NONE: ViewerAccess = { via: "none", signupComplete: false, fullAccess: false, profile: null };
+const NONE: ViewerAccess = { via: "none", signupComplete: false, fullAccess: false, isAdmin: false, profile: null };
 
 export function initialsOf(name: string): string {
   const parts = name.trim().split(/\s+/).filter(Boolean);
@@ -67,39 +69,50 @@ async function hasValidBetaCookie(): Promise<boolean> {
 }
 
 export const getViewerAccess = cache(async (): Promise<ViewerAccess> => {
-  if (await hasValidBetaCookie()) {
-    return { via: "beta", signupComplete: true, fullAccess: true, profile: null };
-  }
-
   const auth = getAuth();
   const url = process.env.DATABASE_URL;
-  if (!auth || !url) return NONE;
-  try {
-    const session = await auth.api.getSession({ headers: await headers() });
-    if (!session) return NONE;
-    db ??= createDb(url) as unknown as Db;
-    const userId = await profileIdForAuthUser(db, session.user.id);
-    if (!userId) return { via: "account", signupComplete: false, fullAccess: false, profile: null };
-    const now = new Date();
-    const [complete, pass, row] = await Promise.all([
-      signupCompleted(db, userId),
-      hasActivePaseTotal(db, userId, now),
-      viewerProfile(db, userId),
-    ]);
-    const admin = isAdminEmail(session.user.email);
-    const displayName =
-      row?.displayName?.trim() || session.user.name?.trim() || session.user.email.split("@")[0] || "Socio";
-    const profile: AccountProfile = {
-      handle: row?.handle ?? null,
-      displayName,
-      initials: initialsOf(displayName),
-      avatarUrl: row?.avatarUrl ?? null,
-      referralCode: row?.referralCode ?? null,
-      suggestedHandle: row?.handle ? null : await suggestHandle(db, displayName),
-    };
-    return { via: "account", signupComplete: complete, fullAccess: complete && (pass || admin), profile };
-  } catch (err) {
-    console.warn("[acceso] no se pudo leer la sesión:", err);
-    return NONE;
+  if (auth && url) {
+    try {
+      const session = await auth.api.getSession({ headers: await headers() });
+      if (session) {
+        db ??= createDb(url) as unknown as Db;
+        const userId = await profileIdForAuthUser(db, session.user.id);
+        const admin = isAdminEmail(session.user.email);
+        if (!userId) {
+          return { via: "account", signupComplete: false, fullAccess: false, isAdmin: admin, profile: null };
+        }
+        const now = new Date();
+        const [complete, pass, row] = await Promise.all([
+          signupCompleted(db, userId),
+          hasActivePaseTotal(db, userId, now),
+          viewerProfile(db, userId),
+        ]);
+        const displayName =
+          row?.displayName?.trim() || session.user.name?.trim() || session.user.email.split("@")[0] || "Socio";
+        const profile: AccountProfile = {
+          handle: row?.handle ?? null,
+          displayName,
+          initials: initialsOf(displayName),
+          avatarUrl: row?.avatarUrl ?? null,
+          referralCode: row?.referralCode ?? null,
+          suggestedHandle: row?.handle ? null : await suggestHandle(db, displayName),
+        };
+        return {
+          via: "account",
+          signupComplete: complete,
+          fullAccess: complete && (pass || admin),
+          isAdmin: admin,
+          profile,
+        };
+      }
+    } catch (err) {
+      console.warn("[acceso] no se pudo leer la sesión:", err);
+    }
   }
+
+  if (await hasValidBetaCookie()) {
+    return { via: "beta", signupComplete: true, fullAccess: true, isAdmin: false, profile: null };
+  }
+
+  return NONE;
 });

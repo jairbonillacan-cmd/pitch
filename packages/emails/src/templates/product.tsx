@@ -37,7 +37,7 @@ export function PickGradedEmail({
   userOddsLabel,
   fairOddsLabel,
   clvLabel,
-  journalUrl = `${siteUrl()}/app/journal`,
+  journalUrl = `${siteUrl()}/app/lab`,
   settingsUrl,
 }: PickGradedProps) {
   const r = RESULT_TEXT[result];
@@ -98,7 +98,7 @@ export function MonthlyRecordEmail({
   clvLabel,
   rankLabel,
   bestLeague,
-  journalUrl = `${siteUrl()}/app/journal`,
+  journalUrl = `${siteUrl()}/app/lab`,
   settingsUrl,
 }: MonthlyRecordProps) {
   return (
