@@ -36,6 +36,7 @@
 @import "./community-social.css" layer(components);
 @import "./account-v2.css" layer(components);
 @import "./blog.css" layer(components);
+@import "./login-motion.css" layer(components);
 
 @source "../../../packages/ui/src";
 @source "../../../packages/ui/node_modules/@heroui/react/dist";

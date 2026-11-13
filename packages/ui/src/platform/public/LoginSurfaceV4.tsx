@@ -146,9 +146,61 @@ function MailEnvelopeIcon(): React.JSX.Element {
       aria-hidden="true"
       focusable="false"
     >
-      <rect x="3" y="5" width="18" height="14" rx="3" />
-      <path d="M3.5 7l8.5 6 8.5-6" />
+      <rect x="3" y="5" width="18" height="14" rx="3" pathLength={1} />
+      <path d="M3.5 7l8.5 6 8.5-6" pathLength={1} />
     </svg>
+  );
+}
+
+/** Duración de la coreografía de entrada (`.pl-auth--intro` en `login-motion.css`). */
+const INTRO_MS = 1600;
+
+function prefersReducedMotion(): boolean {
+  return typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+/** Onda que nace en el punto del clic dentro de un `.pl-auth-btn`. */
+function spawnRipple(event: React.PointerEvent<HTMLElement>): void {
+  if (event.button !== 0 || prefersReducedMotion()) return;
+  const button = (event.target as HTMLElement).closest<HTMLButtonElement>(".pl-auth-btn");
+  if (!button || button.disabled || typeof button.animate !== "function") return;
+
+  const rect = button.getBoundingClientRect();
+  const size = Math.max(rect.width, rect.height) * 2.2;
+  const ink = document.createElement("span");
+  ink.className = "pl-auth-ripple";
+  ink.setAttribute("aria-hidden", "true");
+  ink.style.width = `${size}px`;
+  ink.style.height = `${size}px`;
+  ink.style.left = `${event.clientX - rect.left - size / 2}px`;
+  ink.style.top = `${event.clientY - rect.top - size / 2}px`;
+  button.appendChild(ink);
+
+  const animation = ink.animate(
+    [
+      { transform: "scale(0)", opacity: 0.22 },
+      { transform: "scale(1)", opacity: 0 },
+    ],
+    { duration: 620, easing: "cubic-bezier(0.16, 1, 0.3, 1)" },
+  );
+  const cleanup = (): void => ink.remove();
+  animation.onfinish = cleanup;
+  animation.oncancel = cleanup;
+}
+
+/** Sacudida corta (420 ms) del campo cuando el correo no es válido o el envío falla. */
+function shakeElement(element: HTMLElement | null): void {
+  if (!element || typeof element.animate !== "function" || prefersReducedMotion()) return;
+  element.animate(
+    [
+      { transform: "translateX(0)" },
+      { transform: "translateX(-8px)" },
+      { transform: "translateX(7px)" },
+      { transform: "translateX(-5px)" },
+      { transform: "translateX(3px)" },
+      { transform: "translateX(0)" },
+    ],
+    { duration: 420, easing: "cubic-bezier(0.36, 0.07, 0.19, 0.97)" },
   );
 }
 
@@ -201,6 +253,12 @@ export function LoginSurfaceV4({
   const [confirmationAttempt, setConfirmationAttempt] = useState(0);
   const emailInputRef = useRef<HTMLInputElement | null>(null);
   const sentTitleRef = useRef<HTMLHeadingElement>(null);
+  const [intro, setIntro] = useState(true);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setIntro(false), INTRO_MS);
+    return () => window.clearTimeout(timer);
+  }, []);
 
   useEmailConfirmation(
     step === "sent" || (step === "confirmed" && !destination) ? step : null,
@@ -264,6 +322,7 @@ export function LoginSurfaceV4({
     if (validationError) {
       setFormError(validationError);
       emailInputRef.current?.focus();
+      shakeElement(emailInputRef.current);
       return;
     }
 
@@ -295,6 +354,7 @@ export function LoginSurfaceV4({
       setFormError(
         "No pudimos enviar el enlace. Intenta de nuevo en un momento.",
       );
+      shakeElement(emailInputRef.current);
     }
   };
 
@@ -371,7 +431,10 @@ export function LoginSurfaceV4({
     .join(" ");
 
   return (
-    <div className="pl-stage pl-auth">
+    <div
+      className={`pl-stage pl-auth pl-auth--login${intro ? " pl-auth--intro" : ""}`}
+      onPointerDown={spawnRipple}
+    >
       <a className="skip-link" href="#main">
         Saltar al contenido principal
       </a>
@@ -580,7 +643,7 @@ export function LoginSurfaceV4({
                         aria-atomic="true"
                       >
                         {formError ? (
-                          <p className="pl-auth-error">{formError}</p>
+                          <p key={formError} className="pl-auth-error">{formError}</p>
                         ) : null}
                       </div>
 
@@ -590,11 +653,14 @@ export function LoginSurfaceV4({
                         disabled={submitting}
                         aria-busy={submitting || undefined}
                       >
-                        {submitting
-                          ? "Enviando…"
-                          : activeFormMode === "email"
-                            ? "Enviarme el enlace"
-                            : "Entrar"}
+                        {submitting ? (
+                          <>
+                            <span className="pl-auth-spinner" aria-hidden="true" />
+                            Enviando…
+                          </>
+                        ) : activeFormMode === "email"
+                          ? "Enviarme el enlace"
+                          : "Entrar"}
                       </button>
                     </form>
 

@@ -1,0 +1,414 @@
+/*
+  Movimiento de /login (LoginSurfaceV4 + LoginPreviewPanel).
+  Todo va acotado a .pl-auth--login: /signup comparte las clases .pl-auth-* y no cambia.
+  Tiempos de docs/design/INTERACTION_PATTERNS.md §1: entrada 640 ms escalonada, barras 700 ms,
+  conteo 650 ms, botón 120 ms. La coreografía de entrada solo corre mientras existe .pl-auth--intro
+  (la quita el componente a los 1.6 s), así los cambios de paso siguen siendo rápidos.
+*/
+
+@keyframes pl-login-rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes pl-login-drop {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes pl-login-sheet {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes pl-login-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pl-login-line {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes pl-login-msg {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes pl-login-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.7) rotate(-8deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes pl-login-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes pl-login-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pl-login-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(0.8);
+  }
+}
+
+@keyframes pl-login-sheen {
+  from {
+    transform: translateX(-120%) skewX(-18deg);
+  }
+  to {
+    transform: translateX(220%) skewX(-18deg);
+  }
+}
+
+.pl-auth--login {
+  --pl-login-ease: var(--ease-out, cubic-bezier(0.2, 0.8, 0.2, 1));
+  --pl-login-enter: 640ms;
+}
+
+/* ---------- Entrada escalonada (solo la primera carga) ---------- */
+
+.pl-auth--intro .pl-auth-header {
+  animation: pl-login-drop 600ms var(--pl-login-ease) both;
+}
+
+.pl-auth--intro .pl-auth-sheet {
+  animation: pl-login-sheet var(--pl-login-enter) var(--pl-login-ease) 60ms both;
+}
+
+.pl-auth--intro .pl-auth-promo,
+.pl-auth--intro .pl-auth-title,
+.pl-auth--intro .pl-auth-subtitle,
+.pl-auth--intro .pl-auth-social-grid,
+.pl-auth--intro .pl-auth-divider,
+.pl-auth--intro .pl-auth-field,
+.pl-auth--intro .pl-auth-hint,
+.pl-auth--intro .pl-auth-btn-primary,
+.pl-auth--intro .pl-auth-signup-note,
+.pl-auth--intro .pl-auth-footer,
+.pl-auth--intro .pl-auth-preview,
+.pl-auth--intro .pl-auth-preview-inner > .pl-auth-eyebrow,
+.pl-auth--intro .pl-auth-preview-title,
+.pl-auth--intro .pl-auth-match-card,
+.pl-auth--intro .pl-auth-secondary-card,
+.pl-auth--intro .pl-auth-preview-foot {
+  animation: pl-login-rise var(--pl-login-enter) var(--pl-login-ease) both;
+  animation-delay: var(--pl-login-delay, 0ms);
+}
+
+.pl-auth--intro .pl-auth-promo { --pl-login-delay: 100ms; }
+.pl-auth--intro .pl-auth-title { --pl-login-delay: 120ms; }
+.pl-auth--intro .pl-auth-subtitle { --pl-login-delay: 180ms; }
+.pl-auth--intro .pl-auth-social-grid { --pl-login-delay: 240ms; }
+.pl-auth--intro .pl-auth-divider { --pl-login-delay: 300ms; }
+.pl-auth--intro .pl-auth-field { --pl-login-delay: 360ms; }
+.pl-auth--intro .pl-auth-hint { --pl-login-delay: 400ms; }
+.pl-auth--intro .pl-auth-btn-primary { --pl-login-delay: 440ms; }
+.pl-auth--intro .pl-auth-signup-note { --pl-login-delay: 520ms; }
+.pl-auth--intro .pl-auth-footer { --pl-login-delay: 600ms; }
+.pl-auth--intro .pl-auth-preview { --pl-login-delay: 180ms; }
+.pl-auth--intro .pl-auth-preview-inner > .pl-auth-eyebrow { --pl-login-delay: 300ms; }
+.pl-auth--intro .pl-auth-preview-title { --pl-login-delay: 340ms; }
+.pl-auth--intro .pl-auth-match-card { --pl-login-delay: 400ms; }
+.pl-auth--intro .pl-auth-secondary-card { --pl-login-delay: 640ms; }
+.pl-auth--intro .pl-auth-preview-foot { --pl-login-delay: 720ms; }
+
+/* Las líneas del divisor se dibujan desde el texto hacia afuera */
+.pl-auth--intro .pl-auth-divider::before,
+.pl-auth--intro .pl-auth-divider::after {
+  animation: pl-login-line 560ms var(--pl-login-ease) 380ms both;
+}
+
+.pl-auth--intro .pl-auth-divider::before {
+  transform-origin: right center;
+}
+
+.pl-auth--intro .pl-auth-divider::after {
+  transform-origin: left center;
+}
+
+/* Momento principal: la tarjeta del partido «calcula» (barras 700 ms, escalonadas 25 ms) */
+@media (prefers-reduced-motion: no-preference) and (min-width: 768px) {
+  .pl-auth--intro .pl-auth-split .psplit > span {
+    animation-duration: 700ms;
+    animation-delay: 620ms;
+  }
+
+  .pl-auth--intro .pl-auth-split .psplit > span:nth-child(2) {
+    animation-delay: 645ms;
+  }
+
+  .pl-auth--intro .pl-auth-split .psplit > span:nth-child(3) {
+    animation-delay: 670ms;
+  }
+}
+
+.pl-auth--intro .pl-auth-split .psplit-legend {
+  animation: pl-login-fade 400ms ease 900ms both;
+}
+
+/* ---------- Botones: hover, presión y onda del clic ---------- */
+
+.pl-auth--login .pl-auth-btn {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    box-shadow 200ms ease,
+    background-color 200ms ease,
+    border-color 200ms ease,
+    transform 160ms var(--pl-login-ease),
+    opacity 200ms ease;
+}
+
+.pl-auth--login .pl-auth-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.pl-auth--login .pl-auth-btn:active:not(:disabled) {
+  transform: translateY(0) scale(0.97);
+  transition-duration: 80ms;
+}
+
+/* Brillo que cruza el botón primario una vez al pasar el cursor */
+.pl-auth--login .pl-auth-btn-primary::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 45%;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--pl-btn-primary-fg) 14%, transparent),
+    transparent
+  );
+  transform: translateX(-120%) skewX(-18deg);
+}
+
+.pl-auth--login .pl-auth-btn-primary:hover:not(:disabled)::before {
+  animation: pl-login-sheen 720ms var(--pl-login-ease);
+}
+
+.pl-auth--login .pl-auth-btn-social svg {
+  transition: transform 200ms var(--pl-login-ease);
+}
+
+.pl-auth--login .pl-auth-btn-social:hover:not(:disabled) svg {
+  transform: scale(1.1) rotate(-6deg);
+}
+
+/* Onda que nace en el punto del clic (la crea LoginSurfaceV4 con Web Animations) */
+.pl-auth-ripple {
+  position: absolute;
+  z-index: -1;
+  border-radius: 50%;
+  pointer-events: none;
+  background: currentColor;
+  opacity: 0;
+}
+
+.pl-auth--login .pl-auth-quiet {
+  transition:
+    color 180ms ease,
+    transform 120ms var(--pl-login-ease);
+}
+
+.pl-auth--login .pl-auth-quiet:active:not(:disabled) {
+  transform: scale(0.96);
+}
+
+/* Spinner del envío */
+.pl-auth-spinner {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 2px solid color-mix(in srgb, currentColor 28%, transparent);
+  border-top-color: currentColor;
+  animation: pl-login-spin 700ms linear infinite;
+}
+
+/* ---------- Campos ---------- */
+
+.pl-auth--login .pl-auth-label {
+  transition: color 180ms ease;
+}
+
+.pl-auth--login .pl-auth-field:focus-within .pl-auth-label {
+  color: var(--pl-text);
+}
+
+.pl-auth--login .pl-auth-input {
+  transition:
+    border-color 200ms ease,
+    box-shadow 240ms var(--pl-login-ease),
+    background-color 200ms ease;
+}
+
+.pl-auth--login .pl-auth-error,
+.pl-auth--login .pl-auth-resend-note,
+.pl-auth--login .pl-auth-beta-notice {
+  animation: pl-login-msg 220ms var(--pl-login-ease) both;
+}
+
+/* ---------- Enlaces y detalles ---------- */
+
+.pl-auth--login .pl-auth-back-link svg {
+  transition: transform 200ms var(--pl-login-ease);
+}
+
+.pl-auth--login .pl-auth-back-link:hover svg {
+  transform: translateX(-3px);
+}
+
+.pl-auth--login .pl-auth-link {
+  transition: text-decoration-color 200ms ease;
+}
+
+.pl-auth--login .pl-auth-promo-dot {
+  animation: pl-login-pulse 2.4s ease-in-out infinite;
+}
+
+/* ---------- «Revisa tu correo» ---------- */
+
+.pl-auth--login .pl-auth-sent-icon {
+  animation: pl-login-pop 480ms var(--pl-login-ease) both;
+}
+
+.pl-auth--login .pl-auth-sent-icon svg rect,
+.pl-auth--login .pl-auth-sent-icon svg path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: pl-login-draw 700ms var(--pl-login-ease) 160ms forwards;
+}
+
+.pl-auth--login .pl-auth-sent-icon svg path {
+  animation-delay: 460ms;
+  animation-duration: 420ms;
+}
+
+.pl-auth--login .pl-auth-sent .pl-auth-title--sent,
+.pl-auth--login .pl-auth-sent .pl-auth-sent-copy,
+.pl-auth--login .pl-auth-sent .pl-auth-sent-actions {
+  animation: pl-login-rise 480ms var(--pl-login-ease) both;
+}
+
+.pl-auth--login .pl-auth-sent .pl-auth-title--sent { animation-delay: 120ms; }
+.pl-auth--login .pl-auth-sent .pl-auth-sent-copy { animation-delay: 180ms; }
+.pl-auth--login .pl-auth-sent .pl-auth-sent-actions { animation-delay: 260ms; }
+
+/* ---------- Movimiento reducido: solo fundidos y color ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .pl-auth--intro .pl-auth-header,
+  .pl-auth--intro .pl-auth-sheet,
+  .pl-auth--intro .pl-auth-promo,
+  .pl-auth--intro .pl-auth-title,
+  .pl-auth--intro .pl-auth-subtitle,
+  .pl-auth--intro .pl-auth-social-grid,
+  .pl-auth--intro .pl-auth-divider,
+  .pl-auth--intro .pl-auth-field,
+  .pl-auth--intro .pl-auth-hint,
+  .pl-auth--intro .pl-auth-btn-primary,
+  .pl-auth--intro .pl-auth-signup-note,
+  .pl-auth--intro .pl-auth-footer,
+  .pl-auth--intro .pl-auth-preview,
+  .pl-auth--intro .pl-auth-preview-inner > .pl-auth-eyebrow,
+  .pl-auth--intro .pl-auth-preview-title,
+  .pl-auth--intro .pl-auth-match-card,
+  .pl-auth--intro .pl-auth-secondary-card,
+  .pl-auth--intro .pl-auth-preview-foot,
+  .pl-auth--login .pl-auth-sent .pl-auth-title--sent,
+  .pl-auth--login .pl-auth-sent .pl-auth-sent-copy,
+  .pl-auth--login .pl-auth-sent .pl-auth-sent-actions,
+  .pl-auth--login .pl-auth-sent-icon,
+  .pl-auth--login .pl-auth-error,
+  .pl-auth--login .pl-auth-resend-note,
+  .pl-auth--login .pl-auth-beta-notice {
+    animation-name: pl-login-fade;
+    animation-duration: 240ms;
+    animation-delay: 0ms;
+  }
+
+  .pl-auth--intro .pl-auth-divider::before,
+  .pl-auth--intro .pl-auth-divider::after,
+  .pl-auth--login .pl-auth-btn-primary:hover:not(:disabled)::before,
+  .pl-auth--login .pl-auth-promo-dot {
+    animation: none;
+  }
+
+  .pl-auth--login .pl-auth-sent-icon svg rect,
+  .pl-auth--login .pl-auth-sent-icon svg path {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+
+  .pl-auth--login .pl-auth-btn:hover:not(:disabled),
+  .pl-auth--login .pl-auth-btn:active:not(:disabled),
+  .pl-auth--login .pl-auth-quiet:active:not(:disabled),
+  .pl-auth--login .pl-auth-btn-social:hover:not(:disabled) svg,
+  .pl-auth--login .pl-auth-back-link:hover svg {
+    transform: none;
+  }
+
+  /* El spinner deja de girar; el texto «Enviando…» sigue informando el estado. */
+  .pl-auth-spinner {
+    animation: pl-login-fade 900ms ease-in-out infinite alternate;
+  }
+}
