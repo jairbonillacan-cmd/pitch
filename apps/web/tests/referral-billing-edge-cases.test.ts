@@ -3,6 +3,7 @@ import { drizzle } from "drizzle-orm/pglite";
 import { beforeEach, describe, expect, it } from "vitest";
 import {
   accessUntil,
+  REFERRAL_REWARD_DAYS,
   applyMigrations,
   entitlementGrants,
   eq,
@@ -100,7 +101,7 @@ describe("1) avisos de Stripe fuera de orden", () => {
       deps(),
     );
     expect(res).toContain("referido=true");
-    expect((await accessUntil(db, host.id, now))!.getTime()).toBe(now.getTime() + 15 * DAY);
+    expect((await accessUntil(db, host.id, now))!.getTime()).toBe(now.getTime() + REFERRAL_REWARD_DAYS * DAY);
   });
 
   it("si la factura no trae el usuario, pide reintentar y el reintento sí premia", async () => {
@@ -121,7 +122,7 @@ describe("1) avisos de Stripe fuera de orden", () => {
 });
 
 describe("2) los días ganados recorren el cobro en Stripe", () => {
-  it("amigo y anfitrión que ya pagan: Stripe cobra 15 días después, sin prorrateo", async () => {
+  it("amigo y anfitrión que ya pagan: Stripe cobra los días del referido después, sin prorrateo", async () => {
     const { host, friend } = await pair();
     const hostEnd = new Date(now.getTime() + 20 * DAY);
     const friendEnd = new Date(now.getTime() + 30 * DAY);
@@ -131,16 +132,16 @@ describe("2) los días ganados recorren el cobro en Stripe", () => {
 
     await processStripeEvent(db, invoiceEvent("e_inv", { invoice: "in_1", customer: "cus_f", amount: 20900, paidAt: now }), deps());
     expect(trialCalls).toEqual([
-      { sub: "sub_f", end: new Date(friendEnd.getTime() + 15 * DAY), key: `trial_end:sub_f:${sec(friendEnd) + 15 * 86_400}` },
-      { sub: "sub_h", end: new Date(hostEnd.getTime() + 15 * DAY), key: `trial_end:sub_h:${sec(hostEnd) + 15 * 86_400}` },
+      { sub: "sub_f", end: new Date(friendEnd.getTime() + REFERRAL_REWARD_DAYS * DAY), key: `trial_end:sub_f:${sec(friendEnd) + REFERRAL_REWARD_DAYS * 86_400}` },
+      { sub: "sub_h", end: new Date(hostEnd.getTime() + REFERRAL_REWARD_DAYS * DAY), key: `trial_end:sub_h:${sec(hostEnd) + REFERRAL_REWARD_DAYS * 86_400}` },
     ]);
 
     // Stripe confirma el cambio (en prueba hasta la nueva fecha): no se vuelve a llamar.
-    await processStripeEvent(db, subEvent("e_f2", { userId: friend.id, customer: "cus_f", subId: "sub_f", start: now, end: new Date(friendEnd.getTime() + 15 * DAY), status: "trialing" }), deps());
+    await processStripeEvent(db, subEvent("e_f2", { userId: friend.id, customer: "cus_f", subId: "sub_f", start: now, end: new Date(friendEnd.getTime() + REFERRAL_REWARD_DAYS * DAY), status: "trialing" }), deps());
     expect(trialCalls).toHaveLength(2);
 
-    // Tras renovar, el acceso real llega 15 días más lejos que sin el premio.
-    expect((await accessUntil(db, friend.id, now))!.getTime()).toBe(friendEnd.getTime() + 15 * DAY);
+    // Tras renovar, el acceso real llega más lejos justo por los días del premio.
+    expect((await accessUntil(db, friend.id, now))!.getTime()).toBe(friendEnd.getTime() + REFERRAL_REWARD_DAYS * DAY);
     // Y en Mi cuenta sigue viéndose su plan mensual, no «prueba».
     const summary = await loadMemberPlanSummary(db, friend.id, now, true);
     expect(summary.planState).toBe("mensual");
@@ -161,7 +162,7 @@ describe("3) reembolso del referido", () => {
     const friendEnd = new Date(now.getTime() + 30 * DAY);
     await processStripeEvent(db, subEvent("e_f", { userId: friend.id, customer: "cus_f", subId: "sub_f", start: now, end: friendEnd }), deps());
     await processStripeEvent(db, invoiceEvent("e_inv", { invoice: "in_1", customer: "cus_f", amount: 20900, paidAt: now }), deps());
-    await processStripeEvent(db, subEvent("e_f2", { userId: friend.id, customer: "cus_f", subId: "sub_f", start: now, end: new Date(friendEnd.getTime() + 15 * DAY), status: "trialing" }), deps());
+    await processStripeEvent(db, subEvent("e_f2", { userId: friend.id, customer: "cus_f", subId: "sub_f", start: now, end: new Date(friendEnd.getTime() + REFERRAL_REWARD_DAYS * DAY), status: "trialing" }), deps());
     return { host, friend, friendEnd };
   }
 
@@ -199,17 +200,17 @@ describe("3) reembolso del referido", () => {
       await processStripeEvent(db, invoiceEvent(`i${i}`, { invoice: `in_${i}`, customer: `cus_${i}`, amount: 20900, paidAt: now }), deps());
     }
     expect((await db.select().from(users).where(eq(users.id, host!.id)))[0]!.isAmbassador).toBe(true);
-    // 5 × 15 + 30 = 105 días.
-    expect((await accessUntil(db, host!.id, now))!.getTime()).toBe(now.getTime() + 105 * DAY);
+    // 5 × días del referido + 30 de embajador.
+    expect((await accessUntil(db, host!.id, now))!.getTime()).toBe(now.getTime() + (5 * REFERRAL_REWARD_DAYS + 30) * DAY);
 
     await processStripeEvent(db, refundEvent("r0", "in_0", 20900, 20900), deps());
     expect((await db.select().from(users).where(eq(users.id, host!.id)))[0]!.isAmbassador).toBe(false);
-    // Quedan 4 × 15 = 60 días: los días encadenados después se recorren, no quedan huecos regalados.
-    expect((await accessUntil(db, host!.id, now))!.getTime()).toBe(now.getTime() + 60 * DAY);
+    // Quedan 4 × días del referido: los días encadenados después se recorren, no quedan huecos regalados.
+    expect((await accessUntil(db, host!.id, now))!.getTime()).toBe(now.getTime() + 4 * REFERRAL_REWARD_DAYS * DAY);
 
     await processStripeEvent(db, invoiceEvent("i5", { invoice: "in_5", customer: "cus_5", amount: 20900, paidAt: now }), deps());
     expect((await db.select().from(users).where(eq(users.id, host!.id)))[0]!.isAmbassador).toBe(true);
-    expect((await accessUntil(db, host!.id, now))!.getTime()).toBe(now.getTime() + 105 * DAY);
+    expect((await accessUntil(db, host!.id, now))!.getTime()).toBe(now.getTime() + (5 * REFERRAL_REWARD_DAYS + 30) * DAY);
   });
 });
 

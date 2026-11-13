@@ -890,3 +890,29 @@ export const couponRedemptions = pgTable(
     index("coupon_redemptions_user_created_idx").on(t.userId, t.createdAt),
   ],
 );
+
+/** Votos de la comunidad por partido: quién gana y si se dará el pick principal. */
+export const matchVotes = pgTable(
+  "match_votes",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    userId: uuid("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    gameId: text("game_id").notNull(),
+    question: text("question").notNull(),
+    choice: text("choice").notNull(),
+    createdAt: createdAt(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    uniqueIndex("match_votes_user_game_question_uidx").on(t.userId, t.gameId, t.question),
+    index("match_votes_game_question_idx").on(t.gameId, t.question),
+    check("match_votes_question_ck", sql`${t.question} IN ('ganador', 'pick')`),
+    check(
+      "match_votes_choice_ck",
+      sql`(${t.question} = 'ganador' AND ${t.choice} IN ('home', 'draw', 'away')) OR (${t.question} = 'pick' AND ${t.choice} IN ('si', 'no'))`,
+    ),
+    check("match_votes_game_id_ck", sql`${t.gameId} ~ '^[a-zA-Z0-9._-]{1,128}$'`),
+  ],
+);

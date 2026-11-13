@@ -6,7 +6,6 @@ import { LeagueBadge, ProbSplit, TeamBadge } from "../../sports";
 import {
   formatEdgePts,
   formatOddsValue,
-  getSessionWatermark,
   isPickUnlocked,
   pickReferenceDecimal,
 } from "../access-guard";
@@ -17,6 +16,7 @@ import {
   usePlatformCore,
 } from "../platform-provider";
 import type { MatchPick, PlatformGame } from "../types";
+import { ConfidenceChip } from "./ConfidenceChip";
 import {
   CrestPedestal,
   LensGlowOrbs,
@@ -193,10 +193,8 @@ export const MultiPickRow = React.memo(function MultiPickRow({
       </div>
 
       {gameStatus !== "FT" ? (
-        <div className="flex flex-wrap items-center justify-between gap-2 pt-1.5 hairline-t">
-          <span className="text-xs num" style={{ color: "var(--pl-text-muted)" }}>
-            Sugerencia calibrada: <strong>{pick.suggestedUnits.toFixed(2)}u</strong>
-          </span>
+        // v3.2: el modelo no sugiere monto (sin stake ni Kelly); la decisión y el monto son del socio.
+        <div className="flex flex-wrap items-center justify-end gap-2 pt-1.5 hairline-t">
           <div className="flex flex-wrap items-center gap-1.5">
             <button
               type="button"
@@ -264,7 +262,6 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
   const unlockedMain = mainPick
     ? isPickUnlocked(mainPick, game.status, viewerRole)
     : false;
-  const watermark = getSessionWatermark(viewerRole);
   const studioHref = `/app/${game.league}/games/${game.id}`;
 
   const homeColors = getTeamColors(game.league, game.home.slug);
@@ -312,10 +309,6 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
         />
       ) : null}
 
-      <span className="pl-watermark num" aria-hidden="true">
-        {watermark}
-      </span>
-
       <div className="space-y-3 relative z-10">
         {/* Meta de liga, motor y nivel de confianza */}
         <div className="flex flex-wrap items-center justify-between gap-1.5 text-xs">
@@ -346,9 +339,7 @@ export const MatchTicketCard = React.memo(function MatchTicketCard({
                 <span>{mainPick.result === "hit" ? "Ganado" : "Perdido"}</span>
               </span>
             ) : (
-              <span className="pl-pill pl-pill--brand num text-[10px]">
-                Conf. {game.confidenceScore}
-              </span>
+              <ConfidenceChip game={game} />
             )}
           </div>
         </div>

@@ -198,7 +198,7 @@ En Beta 1.0 el sistema arranca con `PITCHLAB_PAYMENTS_MODE=transfer` (comportami
    - `PITCHLAB_PAYMENTS_MODE=transfer`
    - `PITCHLAB_TRANSFER_BANK`, `PITCHLAB_TRANSFER_BENEFICIARY` y `PITCHLAB_TRANSFER_CLABE` (obligatorias para emitir referencias SPEI en `/app/account?tab=plan`; opcional `PITCHLAB_TRANSFER_INSTRUCTIONS`).
    - `CRON_SECRET` para que Vercel Cron ejecute `/api/cron/tipster-payouts` diariamente (promueve comisiones tras 14 días y despacha correos programados en `scheduled_emails` dentro de la ventana de 28 días).
-2. **Consola de operación (`/app/admin`):** requiere cuenta con correo verificado listado en `PITCHLAB_ADMIN_EMAILS`. Permite aprobar/rechazar transferencias SPEI (con disparo automático de recibo, recompensa bilateral `+15 días` de referidos, récord de renovación/vencimiento y comisión de tipster), crear o desactivar cupones, buscar socios para conceder o revocar pases, moderar comunidad y marcar pagos manuales de comisiones a tipsters.
+2. **Consola de operación (`/app/admin`):** requiere cuenta con correo verificado listado en `PITCHLAB_ADMIN_EMAILS`. Permite aprobar/rechazar transferencias SPEI (con disparo automático de recibo, recompensa bilateral `+7 días` de referidos, récord de renovación/vencimiento y comisión de tipster), crear o desactivar cupones, buscar socios para conceder o revocar pases, moderar comunidad y marcar pagos manuales de comisiones a tipsters.
 
 ### Recetas SQL útiles en Neon (emergencia o auditoría)
 

@@ -1780,7 +1780,7 @@ export function PlanTab({
                     <span>{payment.what}</span>
                   </div>
                   <b className="pl-acct-payment-amt num">{payment.amount}</b>
-                  {payment.hasInvoice ? (
+                  {payment.hasInvoice && onOpenBilling ? (
                     <button
                       type="button"
                       className="pl-acct-btn pl-acct-btn--ghost pl-acct-btn--xs"
@@ -1798,13 +1798,15 @@ export function PlanTab({
             </ul>
           )}
 
-          <button
-            type="button"
-            className="pl-acct-text-link"
-            onClick={handleGoBilling}
-          >
-            Datos de facturación
-          </button>
+          {onOpenBilling ? (
+            <button
+              type="button"
+              className="pl-acct-text-link"
+              onClick={handleGoBilling}
+            >
+              Datos de facturación
+            </button>
+          ) : null}
         </section>
       </div>
 

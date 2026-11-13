@@ -14,7 +14,6 @@ import {
   decimalToAmericanInt,
   formatEdgePts,
   formatOddsValue,
-  getSessionWatermark,
   isPreGameIntelUnlocked,
 } from "../access-guard";
 import {
@@ -30,6 +29,13 @@ import {
   MatchTicketCard,
   MultiPickRow,
 } from "../components/MatchTicketCard";
+import { ConfidenceChip } from "../components/ConfidenceChip";
+import { CortexAnalysisCard } from "./match/CortexAnalysisCard";
+import { MatchCommunityPoll } from "./match/MatchCommunityPoll";
+import { MatchContextPanel } from "./match/MatchContextPanel";
+import { MatchSimulator } from "./match/MatchSimulator";
+import { PicksFinderClubView } from "./PicksFinderView";
+import { MatchOutlookStrip } from "../components/MatchOutlookStrip";
 import {
   AtmosphereStage,
   ClubWorkspaceShell,
@@ -165,248 +171,9 @@ function ProgressiveGameGrid({
  */
 export { HomeClubView as JornadaClubView } from "./home/HomeClubView";
 
+/** /app/picks: buscador de todas las selecciones (ver PicksFinderView). */
 export function MultiPicksClubView(): React.JSX.Element {
-  const { dataset, navigateTo } = usePlatform();
-  const [riskFilter, setRiskFilter] = useState<"all" | RiskBand>("all");
-  const [leagueFilter, setLeagueFilter] = useState<string>("all");
-  const [onlyHighConf, setOnlyHighConf] = useState<boolean>(false);
-  const [userOddsRaw, setUserOddsRaw] = useState<string>("");
-
-  const parsedUserDec = useMemo(
-    () => (userOddsRaw.trim() ? parseUserOdds(userOddsRaw) : null),
-    [userOddsRaw],
-  );
-
-  const upcomingGames = useMemo(() => {
-    const up = dataset.games.filter((g) => g.status !== "FT");
-    return up.length > 0 ? up : dataset.games;
-  }, [dataset.games]);
-
-  const visibleGames = useMemo(() => {
-    return upcomingGames
-      .filter((g) => leagueFilter === "all" || g.league === leagueFilter)
-      .map((g) => ({
-        game: g,
-        picks: g.picks.filter(
-          (p) =>
-            (riskFilter === "all" || p.risk === riskFilter) &&
-            (!onlyHighConf || p.p >= 0.62),
-        ),
-      }))
-      .filter((entry) => entry.picks.length > 0);
-  }, [upcomingGames, leagueFilter, riskFilter, onlyHighConf]);
-
-  return (
-    <AtmosphereStage activePath="/app/picks">
-      <ClubWorkspaceShell activePath="/app/picks">
-        <section className="space-y-2">
-          <h1 className="m-0 text-2xl sm:text-3xl font-extrabold">
-            Picks del día
-          </h1>
-          <p className="m-0 text-sm" style={{ color: "var(--pl-text-secondary)" }}>
-            Hasta 5 picks por partido, del perfil conservador al de mayor valor. Escribe el momio de
-            tu casa para ver si tiene ventaja.
-          </p>
-        </section>
-
-        {/* Barra Geodesic v2.0 "Probar tu momio" en vivo */}
-        <section
-          aria-label="Probar tu momio"
-          className="glass-lens glass-ring rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3"
-        >
-          <div className="flex flex-wrap items-center gap-3">
-            <label
-              htmlFor="picks-live-odds-input"
-              className="text-xs font-extrabold inline-flex items-center gap-1.5"
-            >
-              <MaestroIcon
-                name="activity"
-                size={14}
-                style={{ color: "var(--pl-brand)" }}
-              />
-              <span>Tu momio:</span>
-            </label>
-            <input
-              id="picks-live-odds-input"
-              type="text"
-              value={userOddsRaw}
-              onChange={(e) => setUserOddsRaw(e.target.value)}
-              placeholder="Ej. -110 o 1.95"
-              className="glass-input px-3 py-1.5 text-xs font-bold num w-36"
-            />
-            <div className="flex items-center gap-1">
-              {["-110", "+105", "1.95"].map((preset) => (
-                <button
-                  key={preset}
-                  type="button"
-                  onClick={() => setUserOddsRaw(preset)}
-                  className="pl-btn-glass text-[11px] min-h-7 px-2 num"
-                >
-                  {preset}
-                </button>
-              ))}
-              {userOddsRaw ? (
-                <button
-                  type="button"
-                  onClick={() => setUserOddsRaw("")}
-                  className="pl-btn-glass text-[11px] min-h-7 px-2 inline-flex items-center gap-1"
-                >
-                  <MaestroIcon name="x" size={11} />
-                  <span>Limpiar</span>
-                </button>
-              ) : null}
-            </div>
-          </div>
-
-          <div className="text-xs num">
-            {parsedUserDec ? (
-              <span className="pl-pill pl-pill--success inline-flex items-center gap-1.5">
-                <MaestroIcon name="check" size={12} />
-                <span>
-                  Decimal {parsedUserDec.toFixed(2)} · Implícita{" "}
-                  {((1 / parsedUserDec) * 100).toFixed(1)} % activa
-                </span>
-              </span>
-            ) : userOddsRaw.trim() ? (
-              <span className="pl-pill pl-pill--warning">
-                Ingresa formato americano (-110, +125) o decimal (1.95)
-              </span>
-            ) : (
-              <span style={{ color: "var(--pl-text-muted)" }}>
-                Escribe tu cuota para recalcular ventaja EV en todos los picks desbloqueados
-              </span>
-            )}
-          </div>
-        </section>
-
-        {/* Controles de perfil, liga y probabilidad */}
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div className="seg-well" role="group" aria-label="Filtrar por perfil de riesgo">
-            {(
-              [
-                { id: "all", label: "Todos los perfiles" },
-                { id: "conservador", label: "Conservador" },
-                { id: "medio", label: "Balanceado Medio" },
-                { id: "arriesgado", label: "Cuota Alta · Valor" },
-              ] as const
-            ).map((opt) => (
-              <button
-                key={opt.id}
-                type="button"
-                className="seg-btn"
-                aria-pressed={riskFilter === opt.id}
-                onClick={() => setRiskFilter(opt.id)}
-              >
-                {opt.label}
-              </button>
-            ))}
-          </div>
-
-          <div className="flex flex-wrap items-center gap-2">
-            <select
-              aria-label="Filtrar por liga"
-              value={leagueFilter}
-              onChange={(e) => setLeagueFilter(e.target.value)}
-              className="glass-input px-3 py-1.5 text-xs font-semibold"
-            >
-              <option value="all">Todas las ligas</option>
-              {dataset.leagues.map((l) => (
-                <option key={l.league} value={l.league}>
-                  {l.label}
-                </option>
-              ))}
-            </select>
-
-            <button
-              type="button"
-              aria-pressed={onlyHighConf}
-              onClick={() => setOnlyHighConf((v) => !v)}
-              className="pl-btn-glass text-xs min-h-8 px-3 inline-flex items-center gap-1.5"
-            >
-              {onlyHighConf ? <MaestroIcon name="check" size={12} /> : null}
-              <span>Prob. ≥ 62 %</span>
-            </button>
-          </div>
-        </div>
-
-        <div className="space-y-5">
-          {visibleGames.slice(0, 10).map(({ game, picks }) => {
-            const homeColor =
-              getTeamColors(game.league, game.home.slug)?.[0] ??
-              "var(--pl-aura-default-home)";
-            const awayColor =
-              getTeamColors(game.league, game.away.slug)?.[0] ??
-              "var(--pl-aura-default-away)";
-
-            return (
-              <section
-                key={game.id}
-                className="glass-card glass-ring rounded-2xl p-5 space-y-3.5"
-              >
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <div className="flex items-center gap-2.5 min-w-0">
-                    <CrestPedestal size="sm" glowColor={homeColor}>
-                      <TeamBadge
-                        league={game.league}
-                        slug={game.home.slug}
-                        name={game.home.name}
-                        size={22}
-                      />
-                    </CrestPedestal>
-                    <CrestPedestal size="sm" glowColor={awayColor}>
-                      <TeamBadge
-                        league={game.league}
-                        slug={game.away.slug}
-                        name={game.away.name}
-                        size={22}
-                      />
-                    </CrestPedestal>
-                    <div className="min-w-0">
-                      <h2 className="m-0 text-base font-extrabold truncate">
-                        {game.home.name} vs {game.away.name}
-                      </h2>
-                      <span
-                        className="text-xs block truncate"
-                        style={{ color: "var(--pl-text-muted)" }}
-                      >
-                        {game.leagueLabel} · {game.round} · {game.kickoffLocal}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <span className="pl-pill num">{picks.length} selecciones</span>
-                    <a
-                      href={`/app/${game.league}/games/${game.id}`}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        navigateTo(`/app/${game.league}/games/${game.id}`);
-                      }}
-                      className="pl-btn-glass text-xs min-h-8 px-3 inline-flex items-center gap-1"
-                    >
-                      <span>Estudio</span>
-                      <MaestroIcon name="arrowRight" size={12} />
-                    </a>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-                  {picks.map((pk) => (
-                    <MultiPickRow
-                      key={pk.id}
-                      pick={pk}
-                      gameStatus={game.status}
-                      userDecimalOverride={parsedUserDec}
-                    />
-                  ))}
-                </div>
-              </section>
-            );
-          })}
-        </div>
-      </ClubWorkspaceShell>
-    </AtmosphereStage>
-  );
+  return <PicksFinderClubView />;
 }
 
 export function LeagueHubClubView({
@@ -654,7 +421,7 @@ export function MatchStudioClubView({
   } = usePlatform();
 
   const [activeTab, setActiveTab] = useState<
-    "picks" | "mercados" | "contexto" | "dinero"
+    "picks" | "mercados" | "contexto" | "comunidad" | "dinero"
   >("picks");
   const [marketGroupFilter, setMarketGroupFilter] = useState<
     "all" | "resultado" | "totales" | "btts_handicap" | "doble"
@@ -675,7 +442,6 @@ export function MatchStudioClubView({
   const flow = game.preGame.moneyFlow;
   const isFinished = game.status === "FT" && game.score !== undefined;
   const intelUnlocked = isPreGameIntelUnlocked(game, viewerRole);
-  const watermark = getSessionWatermark(viewerRole);
   const watched = watchlistGameIds.includes(game.id);
 
   const homePrimary =
@@ -818,10 +584,6 @@ export function MatchStudioClubView({
         >
           <LensGlowOrbs primaryColor={homePrimary} secondaryColor={awayPrimary} />
 
-          <span className="pl-watermark num" aria-hidden="true">
-            {watermark}
-          </span>
-
           <div className="flex flex-wrap items-center justify-between gap-2 relative z-10">
             <div className="flex items-center gap-2">
               <LeagueBadge league={game.league} label={game.leagueLabel} size={22} />
@@ -834,9 +596,7 @@ export function MatchStudioClubView({
             </div>
 
             <div className="flex flex-wrap items-center gap-1.5">
-              <span className="pl-pill pl-pill--success num text-xs">
-                Confianza {game.confidenceScore}/100
-              </span>
+              {isFinished ? null : <ConfidenceChip game={game} size="lg" />}
               <span className="pl-pill pl-pill--brand num text-xs">
                 {isFinished
                   ? "Finalizado FT"
@@ -927,42 +687,14 @@ export function MatchStudioClubView({
           </div>
         </section>
 
-        {/* Fila Pre-Partido de 3 Columnas: Cortex IA · Alineaciones 60m · ¿Dónde está el dinero? */}
-        <section
-          aria-label="Inteligencia pre-partido en 3 ejes"
-          className="grid grid-cols-1 lg:grid-cols-3 gap-4"
-        >
-          {/* 1) Síntesis Ejecutiva · Cortex IA */}
-          <div className="glass-card glass-ring rounded-2xl p-4 space-y-2.5 flex flex-col justify-between">
-            <div className="space-y-2">
-              <div className="flex items-center justify-between gap-2">
-                <span
-                  className="inline-flex items-center gap-1.5 text-xs font-extrabold"
-                  style={{ color: "var(--engine-cortex)" }}
-                >
-                  <MaestroIcon name="cpu" size={14} />
-                  <span>Antes del partido · Cortex IA</span>
-                </span>
-              </div>
-              <p
-                className="m-0 text-xs leading-relaxed"
-                style={{ color: "var(--pl-text-secondary)" }}
-              >
-                {cortexSynthesisOverride ?? game.preGame.cortexSynthesis}
-              </p>
-            </div>
-
-            {intelUnlocked && game.preGame.tacticalKeys.length > 0 ? (
-              <div className="pt-2 hairline-t flex flex-wrap gap-1.5">
-                {game.preGame.tacticalKeys.slice(0, 2).map((k, idx) => (
-                  <span key={idx} className="pl-pill text-[11px]">
-                    {k}
-                  </span>
-                ))}
-              </div>
-            ) : null}
-          </div>
-
+        {/* Análisis de Cortex IA a lo ancho, con alineaciones y dinero al costado */}
+        <section aria-label="Antes del partido" className="pl-studio-main">
+          <CortexAnalysisCard
+            game={game}
+            synthesis={cortexSynthesisOverride ?? game.preGame.cortexSynthesis}
+            unlocked={intelUnlocked}
+          />
+          <div className="pl-studio-side">
           {/* 2) Alineaciones y Bajas 60m */}
           <div className="glass-card glass-ring rounded-2xl p-4 space-y-2.5">
             <div className="flex items-center justify-between gap-2">
@@ -1074,7 +806,15 @@ export function MatchStudioClubView({
             </div>
           </div>
           )}
+          </div>
         </section>
+
+        {isFinished ? null : (
+          <section aria-label="Comunidad y simulación" className="pl-studio-duo">
+            <MatchCommunityPoll game={game} />
+            {intelUnlocked ? <MatchSimulator game={game} /> : null}
+          </section>
+        )}
 
         {/* Navegación interna del estudio */}
         <div className="seg-well" role="tablist" aria-label="Secciones del partido">
@@ -1083,6 +823,7 @@ export function MatchStudioClubView({
               { id: "picks", label: `Picks (${game.picks.length})` },
               { id: "mercados", label: `Mercados (${game.markets.length})` },
               { id: "contexto", label: "Contexto" },
+              { id: "comunidad", label: `Comunidad (${matchDebateItems.length})` },
               { id: "dinero", label: "¿Dónde está el dinero?" },
             ] as const
           ).map((t) => (
@@ -1103,10 +844,10 @@ export function MatchStudioClubView({
         {/* Pestaña 1: 2 Columnas Asimétricas (7: 5 Picks · 5: Debate de Suscriptores) */}
         {activeTab === "picks" ? (
           <section
-            className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start"
+            className="space-y-3.5"
             data-picks=""
           >
-            <div className="lg:col-span-7 space-y-3.5">
+            <div className="space-y-3.5">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <h2 className="m-0 text-lg font-extrabold">
                   Picks de este partido
@@ -1122,7 +863,7 @@ export function MatchStudioClubView({
                 ) : null}
               </div>
 
-              <div className="space-y-3">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
                 {game.picks.map((pk) => (
                   <div key={pk.id} className="space-y-1.5">
                     <MultiPickRow pick={pk} gameStatus={game.status} />
@@ -1150,113 +891,7 @@ export function MatchStudioClubView({
               </div>
             </div>
 
-            {/* Hilo en vivo: Debate de Suscriptores del Partido */}
-            <aside
-              aria-label="Debate de suscriptores del partido"
-              className="lg:col-span-5 glass-lens glass-ring rounded-3xl p-5 space-y-4"
-            >
-              <div className="flex items-center justify-between gap-2">
-                <div>
-                  <h2 className="m-0 text-lg font-extrabold">Opiniones de socios</h2>
-                </div>
-                {matchDebateItems.length > 0 ? (
-                  <StackedAvatars
-                    items={matchDebateItems.slice(0, 3).map((item, idx) => ({
-                      initials: item.handle.replace(/^@/, "").slice(0, 2).toUpperCase(),
-                      gradVar: `var(--avatar-grad-${(idx % 3) + 1})`,
-                      label: item.handle,
-                    }))}
-                    extraCount={Math.max(0, matchDebateItems.length - 3)}
-                  />
-                ) : (
-                  <span className="text-xs font-semibold" style={{ color: "var(--pl-text-muted)" }}>
-                    0 publicaciones
-                  </span>
-                )}
-              </div>
 
-              {matchDebateItems.length > 0 ? (
-                <div className="space-y-2.5 max-h-[360px] overflow-y-auto pr-1">
-                  {matchDebateItems.map((item) => (
-                    <article
-                      key={item.id}
-                      className="rounded-2xl p-3 space-y-1.5 text-xs"
-                      style={{ background: "var(--pl-surface)" }}
-                    >
-                      <div className="flex flex-wrap items-center justify-between gap-1">
-                        <div className="flex items-center gap-1.5">
-                          <strong className="font-extrabold">{item.handle}</strong>
-                          <UserBadges roleLabel={item.roleBadge} />
-                          {item.isExample ? <ExampleBadge /> : null}
-                        </div>
-                        <span
-                          className="text-[11px] num font-bold"
-                          style={{ color: "var(--pl-success)" }}
-                        >
-                          {item.record}
-                        </span>
-                      </div>
-                      <p
-                        className="m-0 leading-relaxed"
-                        style={{ color: "var(--pl-text-secondary)" }}
-                      >
-                        {item.body}
-                      </p>
-                      <span
-                        className="block text-[10px]"
-                        style={{ color: "var(--pl-text-muted)" }}
-                      >
-                        {item.createdAt}
-                      </span>
-                    </article>
-                  ))}
-                </div>
-              ) : (
-                <p
-                  className="m-0 rounded-2xl p-3.5 text-xs leading-relaxed"
-                  style={{ background: "var(--pl-surface)", color: "var(--pl-text-muted)" }}
-                >
-                  Aún no hay opiniones publicadas para este partido. Sé el primero en compartir tu
-                  lectura.
-                </p>
-              )}
-
-              <form onSubmit={handlePublishDebate} className="space-y-2 pt-2 hairline-t">
-                <label
-                  htmlFor="studio-debate-input"
-                  className="text-xs font-bold block"
-                >
-                  Tu opinión sobre {matchLabelShort}
-                </label>
-                <textarea
-                  id="studio-debate-input"
-                  rows={2}
-                  value={debateBody}
-                  onChange={(e) => setDebateBody(e.target.value)}
-                  placeholder="¿Qué ves en este partido?"
-                  className="glass-input w-full p-2.5 text-xs resize-none"
-                />
-                {debateError ? (
-                  <p
-                    role="alert"
-                    className="m-0 text-xs font-semibold"
-                    style={{ color: "var(--pl-danger)" }}
-                  >
-                    {debateError}
-                  </p>
-                ) : null}
-                <div className="flex items-center justify-between gap-2">
-                  <span />
-                  <button
-                    type="submit"
-                    className="pl-btn-primary text-xs min-h-8 px-3 inline-flex items-center gap-1.5"
-                  >
-                    <MaestroIcon name="users" size={12} />
-                    <span>Publicar opinión</span>
-                  </button>
-                </div>
-              </form>
-            </aside>
           </section>
         ) : null}
 
@@ -1302,6 +937,10 @@ export function MatchStudioClubView({
                 ) : null}
               </div>
             </div>
+
+            {detail?.outlook && detail.markets.length > 0 ? (
+              <MatchOutlookStrip outlook={detail.outlook} oddsFormat={oddsFormat} />
+            ) : null}
 
             {/* Píldoras de filtro por grupo de mercado */}
             <div
@@ -1454,79 +1093,118 @@ export function MatchStudioClubView({
           </section>
         ) : null}
 
-        {/* Pestaña 3: Contexto del partido y cruces directos */}
-        {activeTab === "contexto" ? (
-          <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="glass-card glass-ring rounded-2xl p-5 space-y-3">
-              <h2 className="m-0 text-lg font-extrabold">Contexto del partido</h2>
-              <div className="space-y-2">
-                {game.factors.map((f, idx) => (
-                  <div
-                    key={idx}
-                    className="rounded-xl p-3 flex items-center justify-between gap-3"
-                    style={{ background: "var(--pl-surface)" }}
-                  >
-                    <div>
-                      <strong className="block text-sm">{f.label}</strong>
-                      {f.sub ? (
-                        <span
-                          className="text-xs"
-                          style={{ color: "var(--pl-text-muted)" }}
-                        >
-                          {f.sub}
-                        </span>
-                      ) : null}
-                    </div>
-                    <strong className="num text-sm font-extrabold">{f.value}</strong>
-                  </div>
-                ))}
-              </div>
-            </div>
+        {/* Pestaña 3: contexto del partido */}
+        {activeTab === "contexto" ? <MatchContextPanel game={game} /> : null}
 
-            <div className="glass-card glass-ring rounded-2xl p-5 space-y-3">
-              <h2 className="m-0 text-lg font-extrabold">
-                Historial directo y descanso
-              </h2>
-              {game.restDays ? (
-                <div
-                  className="rounded-xl p-3 flex items-center justify-between text-xs num"
-                  style={{ background: "var(--pl-surface)" }}
-                >
-                  <span style={{ color: "var(--pl-text-secondary)" }}>
-                    Días de recuperación previos
-                  </span>
-                  <strong>
-                    {game.home.shortName}: {game.restDays.home ?? "–"}d ·{" "}
-                    {game.away.shortName}: {game.restDays.away ?? "–"}d
-                  </strong>
+        {activeTab === "comunidad" ? (
+          <section className="max-w-3xl">
+            {/* Hilo en vivo: Debate de Suscriptores del Partido */}
+            <aside
+              aria-label="Opiniones de socios sobre el partido"
+              className="glass-lens glass-ring rounded-3xl p-5 space-y-4"
+            >
+              <div className="flex items-center justify-between gap-2">
+                <div>
+                  <h2 className="m-0 text-lg font-extrabold">Opiniones de socios</h2>
                 </div>
-              ) : null}
-              {game.headToHead.length > 0 ? (
-                <ul className="m-0 p-0 list-none space-y-2 text-sm">
-                  {game.headToHead.map((h, i) => (
-                    <li
-                      key={i}
-                      className="rounded-xl p-2.5 flex items-center justify-between"
+                {matchDebateItems.length > 0 ? (
+                  <StackedAvatars
+                    items={matchDebateItems.slice(0, 3).map((item, idx) => ({
+                      initials: item.handle.replace(/^@/, "").slice(0, 2).toUpperCase(),
+                      gradVar: `var(--avatar-grad-${(idx % 3) + 1})`,
+                      label: item.handle,
+                    }))}
+                    extraCount={Math.max(0, matchDebateItems.length - 3)}
+                  />
+                ) : (
+                  <span className="text-xs font-semibold" style={{ color: "var(--pl-text-muted)" }}>
+                    0 publicaciones
+                  </span>
+                )}
+              </div>
+
+              {matchDebateItems.length > 0 ? (
+                <div className="space-y-2.5 max-h-[360px] overflow-y-auto pr-1">
+                  {matchDebateItems.map((item) => (
+                    <article
+                      key={item.id}
+                      className="rounded-2xl p-3 space-y-1.5 text-xs"
                       style={{ background: "var(--pl-surface)" }}
                     >
+                      <div className="flex flex-wrap items-center justify-between gap-1">
+                        <div className="flex items-center gap-1.5">
+                          <strong className="font-extrabold">{item.handle}</strong>
+                          <UserBadges roleLabel={item.roleBadge} />
+                          {item.isExample ? <ExampleBadge /> : null}
+                        </div>
+                        <span
+                          className="text-[11px] num font-bold"
+                          style={{ color: "var(--pl-success)" }}
+                        >
+                          {item.record}
+                        </span>
+                      </div>
+                      <p
+                        className="m-0 leading-relaxed"
+                        style={{ color: "var(--pl-text-secondary)" }}
+                      >
+                        {item.body}
+                      </p>
                       <span
-                        className="text-xs"
+                        className="block text-[10px]"
                         style={{ color: "var(--pl-text-muted)" }}
                       >
-                        {h.date}
+                        {item.createdAt}
                       </span>
-                      <span className="font-semibold num">
-                        {h.home} {h.homeGoals}–{h.awayGoals} {h.away}
-                      </span>
-                    </li>
+                    </article>
                   ))}
-                </ul>
+                </div>
               ) : (
-                <p className="m-0 text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                  No hay enfrentamientos recientes entre estos equipos.
+                <p
+                  className="m-0 rounded-2xl p-3.5 text-xs leading-relaxed"
+                  style={{ background: "var(--pl-surface)", color: "var(--pl-text-muted)" }}
+                >
+                  Aún no hay opiniones publicadas para este partido. Sé el primero en compartir tu
+                  lectura.
                 </p>
               )}
-            </div>
+
+              <form onSubmit={handlePublishDebate} className="space-y-2 pt-2 hairline-t">
+                <label
+                  htmlFor="studio-debate-input"
+                  className="text-xs font-bold block"
+                >
+                  Tu opinión sobre {matchLabelShort}
+                </label>
+                <textarea
+                  id="studio-debate-input"
+                  rows={2}
+                  value={debateBody}
+                  onChange={(e) => setDebateBody(e.target.value)}
+                  placeholder="¿Qué ves en este partido?"
+                  className="glass-input w-full p-2.5 text-xs resize-none"
+                />
+                {debateError ? (
+                  <p
+                    role="alert"
+                    className="m-0 text-xs font-semibold"
+                    style={{ color: "var(--pl-danger)" }}
+                  >
+                    {debateError}
+                  </p>
+                ) : null}
+                <div className="flex items-center justify-between gap-2">
+                  <span />
+                  <button
+                    type="submit"
+                    className="pl-btn-primary text-xs min-h-8 px-3 inline-flex items-center gap-1.5"
+                  >
+                    <MaestroIcon name="users" size={12} />
+                    <span>Publicar opinión</span>
+                  </button>
+                </div>
+              </form>
+            </aside>
           </section>
         ) : null}
 

@@ -206,6 +206,18 @@ function buildTeamNote(
   return `${side === "home" ? "Local" : "Visitante"} · proy. ${projVal.toFixed(1)} goles`;
 }
 
+/** Etiqueta que se entiende sin la tabla: «Ambos anotan: Sí», «Más de 2.5 goles». */
+function readableMarketLabel(row: { group: string; market: string; label: string; selection: string }): string {
+  const label = row.label.trim();
+  if (/^(sí|si|no)$/i.test(label)) return `${row.group}: ${label}`;
+  if (row.market === "totals" && /^(más|menos)( de [\d.]+)?$/i.test(label)) {
+    const line = /[\d.]+/.exec(row.selection)?.[0] ?? /[\d.]+/.exec(row.group)?.[0];
+    const base = /de [\d.]+/.test(label) ? label : `${label} de ${line ?? ""}`.trim();
+    return `${base} ${/punto|total \d/i.test(row.group) ? "puntos" : "goles"}`;
+  }
+  return label;
+}
+
 function deriveOtherMarketsForGame(
   game: PlatformGame,
   mostProbableLabel: string,
@@ -221,21 +233,21 @@ function deriveOtherMarketsForGame(
         row.p >= 0.18 &&
         row.p <= 0.94,
     );
-    const chosen: Array<{ label: string; p: number; fairAmerican: string }> = [];
-    const seenMarkets = new Set<string>();
-
+    // Una fila por mercado (la más probable dentro del rango), en el orden de la ficha, para
+    // que la tarjeta muestre variedad y no tres opciones del mismo mercado.
+    const bestByMarket = new Map<string, (typeof filtered)[number]>();
     for (const row of filtered) {
-      const key = `${row.market}:${row.label}`;
-      if (seenMarkets.has(key)) continue;
-      if (chosen.some((item) => item.label === formatTypographicMinus(row.label))) continue;
-      seenMarkets.add(key);
-      chosen.push({
-        label: formatTypographicMinus(row.label),
+      const current = bestByMarket.get(row.market);
+      if (!current || row.p > current.p) bestByMarket.set(row.market, row);
+    }
+    const chosen = Array.from(bestByMarket.values())
+      .slice(0, 3)
+      .map((row) => ({
+        label: formatTypographicMinus(readableMarketLabel(row)),
         p: row.p,
         fairAmerican: formatFairAmericanFromProb(row.p),
-      });
-      if (chosen.length >= 3) return chosen;
-    }
+      }));
+    if (chosen.length >= 3) return chosen;
   }
 
   const [pHome, pDraw, pAway] = game.x12;

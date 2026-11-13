@@ -590,7 +590,7 @@ export function PlansAndReferralsSection({
                 <strong style={{ color: "var(--pl-brand)" }}>2.</strong>
                 <span>
                   En cuanto paga su primer mes,{" "}
-                  <strong>ambos suman +15 días gratis</strong> acumulados automáticamente.
+                  <strong>ambos suman +7 días gratis</strong> acumulados automáticamente.
                 </span>
               </li>
               <li className="flex items-start gap-2">
@@ -656,7 +656,7 @@ export function PricingSurface(): React.JSX.Element {
     },
     {
       q: "¿Cómo sumamos días gratis mi amigo y yo con los referidos?",
-      a: "Tu invitado recibe 7 días gratis + 30 % de descuento en su primer mes ($209 MXN). En cuanto completa el pago de su primer mes, el sistema abona automáticamente +15 días gratis tanto a tu cuenta como a la suya.",
+      a: "Tu invitado recibe 7 días gratis + 30 % de descuento en su primer mes ($209 MXN). En cuanto completa el pago de su primer mes, el sistema abona automáticamente +7 días gratis tanto a tu cuenta como a la suya.",
     },
     {
       q: "¿Emiten factura fiscal mexicana CFDI 4.0?",

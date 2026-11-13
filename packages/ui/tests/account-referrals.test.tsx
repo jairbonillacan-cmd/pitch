@@ -59,10 +59,10 @@ const dataset = buildPlatformDataset([
 describe("Mi cuenta · Fase A (Invitar amigos y helpers)", () => {
   it("computes referralEarnedDays accurately for 0, 1, 4, 5 and 7 friends", () => {
     expect(referralEarnedDays(0)).toBe(0);
-    expect(referralEarnedDays(1)).toBe(15);
-    expect(referralEarnedDays(4)).toBe(60);
-    expect(referralEarnedDays(5)).toBe(105);
-    expect(referralEarnedDays(7)).toBe(135);
+    expect(referralEarnedDays(1)).toBe(7);
+    expect(referralEarnedDays(4)).toBe(28);
+    expect(referralEarnedDays(5)).toBe(65);
+    expect(referralEarnedDays(7)).toBe(79);
     expect(annualSavingsMxn()).toBe(1198);
   });
 
@@ -81,7 +81,7 @@ describe("Mi cuenta · Fase A (Invitar amigos y helpers)", () => {
     expect(msg).toContain("https://pitchlab.mx/i/JAIR-2611");
     expect(msg).toContain("7 días sin costo");
     expect(msg).toContain("$209 MXN");
-    expect(msg).toContain("+15 días");
+    expect(msg).toContain("+7 días");
     expect(msg).not.toContain("sku=");
     expect(msg).not.toContain("interval=");
     expect(msg).not.toContain("#subscribe");
@@ -196,16 +196,17 @@ describe("Mi cuenta · Fase A (Invitar amigos y helpers)", () => {
     expect(emptyRealHtml).not.toContain("Mariana T.");
   });
 
-  it("renders CFDI tab without dummy RFC or razon social values", () => {
-    const cfdiHtml = renderToStaticMarkup(
+  it("en la beta no muestra Facturación: la pestaña CFDI cae en «Mi plan»", () => {
+    const html = renderToStaticMarkup(
       <PlatformProvider dataset={dataset} initialRole="member" accountsEnabled={false}>
         <AccountReferralsClubView initialTab="cfdi" />
       </PlatformProvider>,
     );
 
-    expect(cfdiHtml).toContain("Facturación CFDI 4.0");
-    expect(cfdiHtml).not.toContain("XAXX010101000");
-    expect(cfdiHtml).not.toContain("SOCIO PITCHLAB SA DE CV");
+    expect(html).not.toContain("Facturación CFDI 4.0");
+    expect(html).not.toContain('id="pl-acct-tab-cfdi"');
+    expect(html).toContain('id="pl-acct-tab-plan"');
+    expect(html).not.toContain("XAXX010101000");
   });
 
   it("renders Mi plan in prueba, mensual, anual and sin_renovacion with MEMBERSHIP_SPEC savings and zero forbidden copy", () => {
@@ -240,7 +241,7 @@ describe("Mi cuenta · Fase A (Invitar amigos y helpers)", () => {
       </PlatformProvider>,
     );
     expect(monthlyHtml).toContain("Pase PitchLab Ultra mensual");
-    expect(monthlyHtml).toContain("+30 días");
+    expect(monthlyHtml).toContain("+14 días");
     expect(monthlyHtml).toContain("Tu próximo cobro se recorre al");
     expect(monthlyHtml).toContain("Cancelar renovación");
 

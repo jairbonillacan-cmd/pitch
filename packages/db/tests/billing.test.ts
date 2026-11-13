@@ -4,6 +4,7 @@ import { drizzle } from "drizzle-orm/pglite";
 import { beforeEach, describe, expect, it } from "vitest";
 import {
   accessUntil,
+  REFERRAL_REWARD_DAYS,
   applyMigrations,
   computeCommission,
   entitlementGrants,
@@ -51,7 +52,7 @@ describe("cobro y concesiones", () => {
     expect(await hasActivePaseTotal(db, u.id, new Date(now.getTime() + 11 * DAY))).toBe(false);
   });
 
-  it("referido doble vía: +15 días a ambos con el primer cobro, una sola vez", async () => {
+  it("referido doble vía: +7 días a ambos con el primer cobro, una sola vez", async () => {
     const host = await user("host@example.com");
     const friend = await user("friend@example.com");
     await db.insert(referralGrants).values({
@@ -65,8 +66,8 @@ describe("cobro y concesiones", () => {
     const again = await handleInvoicePaid(db, paid);
     expect(first.referralRewarded).toBe(true);
     expect(again.referralRewarded).toBe(false);
-    expect((await accessUntil(db, host.id, now))!.getTime()).toBe(now.getTime() + 15 * DAY);
-    expect((await accessUntil(db, friend.id, now))!.getTime()).toBe(now.getTime() + 15 * DAY);
+    expect((await accessUntil(db, host.id, now))!.getTime()).toBe(now.getTime() + REFERRAL_REWARD_DAYS * DAY);
+    expect((await accessUntil(db, friend.id, now))!.getTime()).toBe(now.getTime() + REFERRAL_REWARD_DAYS * DAY);
     const [row] = await db.select().from(referralGrants);
     expect(row!.status).toBe("rewarded_bilateral");
   });
@@ -89,8 +90,8 @@ describe("cobro y concesiones", () => {
     }
     const [h] = await db.select().from(users).where(eq(users.id, host.id));
     expect(h!.isAmbassador).toBe(true);
-    // 5 × 15 días + 30 de embajador, acumulados.
-    expect((await accessUntil(db, host.id, now))!.getTime()).toBe(now.getTime() + 105 * DAY);
+    // 5 × días del referido + 30 de embajador, acumulados.
+    expect((await accessUntil(db, host.id, now))!.getTime()).toBe(now.getTime() + (5 * REFERRAL_REWARD_DAYS + 30) * DAY);
   });
 
   it("tipster: un asiento por factura y se revierte con reembolso", async () => {

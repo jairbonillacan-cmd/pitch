@@ -604,7 +604,7 @@ export function ShareTicketModal(): React.JSX.Element | null {
     viewerRole,
     isTipsterPromo,
   );
-  const watermark = getSessionWatermark(viewerRole);
+  const watermark = getSessionWatermark(viewerRole, viewerIdentity);
   const slug = shareTicket.pickSlug || (isTipsterPromo ? "sofia-sem" : "");
   const codeParam =
     shareTicket.promoCode ||
@@ -951,7 +951,7 @@ const CLUB_COMMAND_VIEWS: ReadonlyArray<{
     icon: "calendar",
   },
   {
-    label: "Picks del día (hasta 5 por partido)",
+    label: "Buscar picks",
     subtitle: "Escudo, Principal, Totales, Táctico y Valor",
     href: "/app/picks",
     icon: "sparkles",
@@ -963,7 +963,7 @@ const CLUB_COMMAND_VIEWS: ReadonlyArray<{
     icon: "layers",
   },
   {
-    label: "Explorador de Momios",
+    label: "Compara tu momio",
     subtitle: "Comparativa de probabilidad estimada vs momio justo",
     href: "/app/momios",
     icon: "sliders",
@@ -987,7 +987,7 @@ const CLUB_COMMAND_VIEWS: ReadonlyArray<{
     icon: "crown",
   },
   {
-    label: "Historial & Resultados",
+    label: "Resultados",
     subtitle: "Marcadores cerrados y registro público sin ediciones",
     href: "/app/historial",
     icon: "shield",
@@ -1005,7 +1005,7 @@ const CLUB_COMMAND_VIEWS: ReadonlyArray<{
     icon: "cpu",
   },
   {
-    label: "Cuenta, Referidos (+15 días) y CFDI 4.0",
+    label: "Cuenta y referidos (+7 días)",
     subtitle: "Embajador 5 amigos, unidad base y facturación SAT",
     href: "/app/account",
     icon: "gift",

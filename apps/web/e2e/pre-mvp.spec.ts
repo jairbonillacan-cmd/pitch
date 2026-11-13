@@ -564,38 +564,15 @@ test.describe("PitchLab v4 Liquid Glass & Spacetime Suite E2E", () => {
       .analyze();
     expect(accountPrefsDarkA11y.violations).toEqual([]);
 
-    await page.locator("#pl-acct-tab-prefs").focus();
-    await page.keyboard.press("ArrowRight");
-    await expect(page.locator("#pl-acct-tab-cfdi")).toHaveAttribute("aria-selected", "true");
-    await expect(page).toHaveURL(/\?tab=cfdi/);
-    await page.waitForTimeout(400);
-    const accountCfdiDarkA11y = await new AxeBuilder({ page })
-      .withTags(["wcag2a", "wcag2aa"])
-      .analyze();
-    expect(accountCfdiDarkA11y.violations).toEqual([]);
-
-    // Validación inline SAT y persistencia de CFDI tras recargar ?tab=cfdi (SSR directo en cfdi)
-    await page.locator("#cfdi-rfc").fill("RFCINVALIDO");
-    await page.getByRole("button", { name: "Guardar datos fiscales" }).click();
-    await expect(page.locator("[data-cfdi-error]")).toBeVisible();
-
-    await page.locator("#cfdi-rfc").fill("ABCD890123XYZ");
-    await page.locator("#cfdi-razon").fill("JAIR MARTINEZ");
-    await page.locator("#cfdi-cp").fill("06600");
-    await page.getByRole("button", { name: "Guardar datos fiscales" }).click();
-    await expect(page.locator("[data-cfdi-error]")).toHaveCount(0);
-    await expect(page.getByText("Datos fiscales validados para esta sesión.")).toBeVisible();
-
-    // Por privacidad (SEC), los datos fiscales no se guardan en el navegador: al recargar quedan vacíos.
+    // Facturación está apagada en la beta: ?tab=cfdi abre «Mi plan» y no hay pestaña de CFDI.
+    await expect(page.locator("#pl-acct-tab-cfdi")).toHaveCount(0);
     await page.goto("/app/account?tab=cfdi");
-    await expect(page.locator("#pl-acct-tab-cfdi")).toHaveAttribute("aria-selected", "true");
-    await expect(page.locator("#cfdi-rfc")).toHaveValue("");
-    await expect(page.locator("#cfdi-cp")).toHaveValue("");
+    await expect(page.locator("#pl-acct-tab-plan")).toHaveAttribute("aria-selected", "true");
 
-    // Verificar Axe AA en modo claro en las cuatro pestañas
+    // Verificar Axe AA en modo claro en las tres pestañas
     await toggleClubTheme(page);
     await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
-    for (const tabKey of ["cfdi", "prefs", "plan", "referrals"] as const) {
+    for (const tabKey of ["prefs", "plan", "referrals"] as const) {
       await page.locator(`#pl-acct-tab-${tabKey}`).click();
       await page.waitForTimeout(400);
       const lightTabA11y = await new AxeBuilder({ page })

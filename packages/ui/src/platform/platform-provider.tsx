@@ -1624,8 +1624,8 @@ export function PlatformProvider({
       const next = prev + 1;
       pushToast(
         next === 5
-          ? "¡Insignia Embajador desbloqueada! +15 días por tu amigo y +30 días extra acumulados."
-          : "¡Referido verificado! Ambos recibieron +15 días gratis en su Pase PitchLab Ultra.",
+          ? "¡Insignia Embajador desbloqueada! +7 días por tu amigo y +30 días extra acumulados."
+          : "¡Referido verificado! Ambos recibieron +7 días gratis en su Pase PitchLab Ultra.",
         "success",
       );
       return next;

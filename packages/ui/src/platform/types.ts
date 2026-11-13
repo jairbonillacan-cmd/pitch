@@ -189,6 +189,11 @@ export interface SpacetimeSignal {
     awayMissingValuePct: number | null;
   };
   stadium: { name: string | null; elevationM: number | null };
+  /**
+   * `true` cuando los mercados del partido ya vienen del panorama v3.2 (`MatchOutlook`):
+   * el armador de picks los usa tal cual, sin recalcularlos con `probs` ni `expectedTotal`.
+   */
+  outlookDriven?: boolean;
 }
 
 export interface PlatformGame {
@@ -202,6 +207,7 @@ export interface PlatformGame {
   kickoffUtc: string;
   kickoffLocal: string;
   venue: string;
+  neutralSite?: boolean;
   status: "NS" | "FT" | "LIVE";
   score?: { home: number; away: number };
   home: {
@@ -226,6 +232,11 @@ export interface PlatformGame {
   };
   confidenceScore: number;
   confidenceLevel: "alta" | "media" | "baja";
+  /** Por qué la confianza es la que es: frases cortas y el desglose por factor. */
+  confidenceDetail?: {
+    reasons: string[];
+    factors: Array<{ key: string; label: string; value: number; weight: number; detail: string }>;
+  };
   picks: MatchPick[];
   preGame: PreGameIntel;
   markets: PlatformMarketRow[];
@@ -240,7 +251,30 @@ export interface PlatformGame {
  * Detalle pesado de un partido (mercados, enfrentamientos previos y factores). Solo lo usa la
  * ficha del partido: el layout manda los partidos sin él y la ficha lo pide para su partido.
  */
-export type PlatformGameDetail = Pick<PlatformGame, "markets" | "headToHead" | "factors">;
+export type PlatformGameDetail = Pick<PlatformGame, "markets" | "headToHead" | "factors"> & {
+  /** Panorama por mercado del motor v3.2; `null` si el partido no está en el snapshot. */
+  outlook?: MatchOutlookSummary | null;
+};
+
+/**
+ * Resumen del panorama v3.2 (`MatchOutlook`) de un partido: lo más probable, los marcadores
+ * más probables y la calidad de los datos. Sin stake, Kelly ni EV: solo probabilidad y
+ * momio justo (1 / p). Las cuotas de casa solo existen con captura real de menos de 72 h.
+ */
+export interface MatchOutlookSummary {
+  generatedAtUtc: string;
+  /** Resultado (1X2 o ganador) más probable con su momio justo. */
+  mostLikely: { label: string; p: number; fairDecimal: number } | null;
+  /** Hasta 3 marcadores más probables (solo fútbol). */
+  scorelines: Array<{ home: number; away: number; p: number; fairDecimal: number }>;
+  quality: {
+    flag: "ok" | "low_coverage" | "fallback_base_rate";
+    /** Porcentaje de datos del modelo disponibles para este partido (0–100). */
+    coveragePct: number;
+  };
+  /** `true` si algún mercado tiene cuota real de casa capturada hace menos de 72 h. */
+  hasRecentQuote: boolean;
+}
 
 export interface PlatformLeagueSummary {
   league: LeagueId;

@@ -28,11 +28,17 @@ import { PrefsTab, type PrefsTabStoryOverride } from "./account/PrefsTab";
 
 export type AccountTabKey = "referrals" | "plan" | "prefs" | "cfdi";
 
+/**
+ * Facturación (CFDI) queda apagada en la beta: sin Facturapi no hay nada que hacer ahí. Para
+ * encenderla basta con cambiar esta bandera; `?tab=cfdi` mientras tanto abre «Mi plan».
+ */
+export const BILLING_TAB_ENABLED = false;
+
 const ACCOUNT_TABS: readonly TabDef<AccountTabKey>[] = [
   { key: "referrals", label: "Invitar amigos" },
   { key: "plan", label: "Mi plan" },
   { key: "prefs", label: "Preferencias" },
-  { key: "cfdi", label: "Facturación" },
+  ...(BILLING_TAB_ENABLED ? [{ key: "cfdi" as const, label: "Facturación" }] : []),
 ];
 
 function isAccountTabKey(value: unknown): value is AccountTabKey {
@@ -40,8 +46,14 @@ function isAccountTabKey(value: unknown): value is AccountTabKey {
     value === "referrals" ||
     value === "plan" ||
     value === "prefs" ||
-    value === "cfdi"
+    (BILLING_TAB_ENABLED && value === "cfdi")
   );
+}
+
+/** Pestaña pedida (URL o prop) → pestaña visible; Facturación apagada cae en «Mi plan». */
+function resolveAccountTab(value: unknown): AccountTabKey | null {
+  if (isAccountTabKey(value)) return value;
+  return value === "cfdi" ? "plan" : null;
 }
 
 export interface MeReferralsPayload extends ServerReferralsData, ServerProfileSummary {}
@@ -78,7 +90,7 @@ export function AccountReferralsClubView({
   const accountsEnabled = storyOverride?.accountsEnabled ?? hasAccountSessionAuth;
 
   const [accountTab, setAccountTabState] = useState<AccountTabKey>(
-    initialTab ?? "referrals",
+    resolveAccountTab(initialTab) ?? "referrals",
   );
   const [prefsSavedTick, setPrefsSavedTick] = useState<number>(0);
 
@@ -113,11 +125,11 @@ export function AccountReferralsClubView({
   useEffect(() => {
     const syncFromUrl = () => {
       try {
-        const param = new URLSearchParams(window.location.search).get("tab");
-        if (isAccountTabKey(param)) {
+        const param = resolveAccountTab(new URLSearchParams(window.location.search).get("tab"));
+        if (param) {
           setAccountTabState(param);
         } else if (initialTab) {
-          setAccountTabState(initialTab);
+          setAccountTabState(resolveAccountTab(initialTab) ?? "referrals");
         } else {
           setAccountTabState("referrals");
         }
@@ -276,7 +288,7 @@ export function AccountReferralsClubView({
                 referralCode={serverPayload?.referralCode ?? viewerIdentity?.referralCode}
                 initialServerPlan={initialServerPlan}
                 checkoutNotice={checkoutNotice}
-                onOpenBilling={() => selectTab("cfdi")}
+                onOpenBilling={BILLING_TAB_ENABLED ? () => selectTab("cfdi") : undefined}
                 storyOverride={
                   storyOverride?.plan ??
                   (storyOverride?.accountsEnabled !== undefined
@@ -303,7 +315,7 @@ export function AccountReferralsClubView({
             </TabPanel>
           ) : null}
 
-          {accountTab === "cfdi" ? (
+          {BILLING_TAB_ENABLED && accountTab === "cfdi" ? (
             <TabPanel tabKey="cfdi" idPrefix="pl-acct">
               <BillingTab accountsEnabledOverride={storyOverride?.accountsEnabled} />
             </TabPanel>

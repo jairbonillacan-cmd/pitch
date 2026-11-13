@@ -65,7 +65,7 @@ export const EMAIL_WIRING = {
   },
   "referral-rewarded": {
     state: "live",
-    trigger: "Al conceder la recompensa bilateral (`billing.ts`, +15 días) tras el primer pago aprobado (SPEI o Stripe).",
+    trigger: "Al conceder la recompensa bilateral (`billing.ts`, +7 días) tras el primer pago aprobado (SPEI o Stripe).",
   },
   "referral-ambassador": {
     state: "live",

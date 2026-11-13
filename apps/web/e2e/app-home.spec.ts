@@ -9,7 +9,7 @@ async function toggleClubTheme(page: import("@playwright/test").Page): Promise<v
   await page.keyboard.press("Escape");
 }
 
-test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad VIP, Tipster y Referidos (+15d)", async ({
+test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad VIP, Tipster y Referidos (+7d)", async ({
   page,
 }, testInfo) => {
   const width = testInfo.project.name === "mobile" ? 390 : 1440;
@@ -153,7 +153,7 @@ test("Club PitchLab v4: Jornada, Buscador, Parlays & SGP, Props Lab, Comunidad V
 
   // 5) Cuenta & Referidos (CUENTA-2): enlace corto, muestra marcada «Ejemplo» sin cuentas y cero simulador en producción
   await page.goto("/app/account");
-  await expect(page.locator("[data-referral-days]:visible")).toContainText("+30 días");
+  await expect(page.locator("[data-referral-days]:visible")).toContainText("+14 días");
   await expect(page.locator("[data-example-badge]:visible").first()).toBeVisible();
   await expect(page.locator("#pl-acct-ref-link")).toHaveValue("pitchlab.mx/i/JAIR-2611");
   await page.locator("[data-copy-short-link]:visible").click();

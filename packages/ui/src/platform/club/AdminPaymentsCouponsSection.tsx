@@ -148,7 +148,7 @@ const SOURCE_LABELS: Record<string, string> = {
   trial: "Prueba gratis",
   transfer_payment: "Transferencia SPEI",
   coupon: "Cupón",
-  referral_bonus: "Referido (+15d)",
+  referral_bonus: "Referido (+7d)",
   ambassador_bonus: "Embajador (+30d)",
   admin_grant: "Cortesía manual",
   tipster_free: "Tipster oficial",

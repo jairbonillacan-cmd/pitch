@@ -5,6 +5,7 @@ import { beforeEach, describe, expect, it } from "vitest";
 import {
   accessCoupons,
   accessUntil,
+  REFERRAL_REWARD_DAYS,
   adminAuditLogs,
   adminFindMembersWithGrants,
   adminGrantAccessDays,
@@ -206,9 +207,9 @@ describe("transferencias SPEI, cupones y preferencias (Beta 1.0)", () => {
     // Neto 20900 / 1.16 = 18017; comisión 25 % = 4504
     expect(res.paidEffects.commissionCentavos).toBe(4504);
 
-    // Friend: 30d transferencia + 15d referido = 45d; Host: 15d referido
-    expect((await accessUntil(db, friend.id, now))!.getTime()).toBe(now.getTime() + 45 * DAY);
-    expect((await accessUntil(db, host.id, now))!.getTime()).toBe(now.getTime() + 15 * DAY);
+    // Amigo: 30 días de la transferencia + los del referido; anfitrión: los del referido
+    expect((await accessUntil(db, friend.id, now))!.getTime()).toBe(now.getTime() + (30 + REFERRAL_REWARD_DAYS) * DAY);
+    expect((await accessUntil(db, host.id, now))!.getTime()).toBe(now.getTime() + REFERRAL_REWARD_DAYS * DAY);
 
     // Al aprobar de nuevo no vuelve a premiar ni duplicar comisión
     await approveTransferRequest(db, {

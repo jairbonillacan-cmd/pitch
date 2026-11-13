@@ -3,23 +3,12 @@
 import React from "react";
 import { getTeamColors } from "@pitchlab/sports-assets";
 import { LeagueBadge, PBar, ProbSplit, TeamBadge } from "../../sports";
-import { formatOddsValue, getSessionWatermark, isPickUnlocked } from "../access-guard";
+import { formatOddsValue, isPickUnlocked } from "../access-guard";
 import { alternativePick, mostLikelyOutcome } from "../club/home/home-model";
 import { useIsPickInParlay, usePlatformActions, usePlatformCore } from "../platform-provider";
 import type { MatchPick, PlatformGame } from "../types";
+import { ConfidenceChip } from "./ConfidenceChip";
 import { CrestPedestal, MaestroIcon } from "./MaestroPrimitives";
-
-function confidenceTone(score: number): string {
-  if (score >= 70) return "var(--pl-success)";
-  if (score >= 50) return "var(--pl-brand)";
-  return "var(--pl-warning)";
-}
-
-function confidenceWord(score: number): string {
-  if (score >= 70) return "alta";
-  if (score >= 50) return "media";
-  return "baja";
-}
 
 /** «+ Parlay» que agrega o quita el pick; solo este botón se redibuja al cambiar. */
 function ParlayButton({ pick, matchLabel }: { pick: MatchPick; matchLabel: string }): React.JSX.Element {
@@ -80,32 +69,13 @@ export const HomeMatchCard = React.memo(function HomeMatchCard({
       data-game-card={game.id}
       onMouseEnter={() => setAuraFromGame(game)}
     >
-      <span className="pl-watermark num" aria-hidden="true">
-        {getSessionWatermark(viewerRole)}
-      </span>
-
       <header className="pl-home-card-head">
         <span className="pl-pill inline-flex items-center gap-1.5 num">
           <LeagueBadge league={game.league} label={game.leagueLabel} size={14} />
           <span>{isFinished ? "Final" : game.kickoffLocal}</span>
         </span>
         <span className="pl-home-card-round">{game.round}</span>
-        {isFinished ? null : (
-          <span
-            className="pl-pill inline-flex items-center gap-1.5 num"
-            title={`Confianza ${confidenceWord(game.confidenceScore)} del modelo en este partido`}
-          >
-            <span className="pl-home-meter" aria-hidden="true">
-              <span
-                style={{
-                  width: `${game.confidenceScore}%`,
-                  background: confidenceTone(game.confidenceScore),
-                }}
-              />
-            </span>
-            <span>Conf. {game.confidenceScore}</span>
-          </span>
-        )}
+        {isFinished ? null : <ConfidenceChip game={game} />}
       </header>
 
       <div className="pl-home-teams">
@@ -121,8 +91,13 @@ export const HomeMatchCard = React.memo(function HomeMatchCard({
                 <p className={`m-0 truncate text-[15px] ${favored ? "font-extrabold" : "font-bold"}`}>
                   {team.name}
                 </p>
-                <span className="block text-xs truncate" style={{ color: "var(--pl-text-muted)" }}>
-                  {team.record}
+                <span className="pl-home-team-meta text-xs" style={{ color: "var(--pl-text-muted)" }}>
+                  {game.neutralSite ? null : (
+                    <span className={`pl-side-tag ${side === "home" ? "is-home" : ""}`.trim()}>
+                      {side === "home" ? "Local" : "Visita"}
+                    </span>
+                  )}
+                  <span className="truncate">{team.record}</span>
                 </span>
               </div>
               <span className="pl-home-team-value num">
@@ -133,6 +108,16 @@ export const HomeMatchCard = React.memo(function HomeMatchCard({
           );
         })}
       </div>
+
+      {game.venue ? (
+        <p className="pl-home-venue">
+          <MaestroIcon name="pin" size={13} />
+          <span className="truncate">
+            {game.venue}
+            {game.neutralSite ? " · sede neutral" : ` · en casa de ${game.home.shortName}`}
+          </span>
+        </p>
+      ) : null}
 
       {isFinished ? null : (
         <>

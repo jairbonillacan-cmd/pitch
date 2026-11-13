@@ -326,7 +326,7 @@ function CommunityContent(): React.JSX.Element {
                 </span>
                 <span className="pl-com-invite-copy">
                   <strong>Invita a un amigo</strong>
-                  <span>7 días para él, +15 días para ti</span>
+                  <span>7 días para él, +7 días para ti</span>
                 </span>
                 <ChevronRightIcon size={16} />
               </a>

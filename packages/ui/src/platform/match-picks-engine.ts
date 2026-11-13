@@ -189,7 +189,8 @@ function rowsWithSpacetime(
   signal: SpacetimeSignal | null,
 ): Array<{ group: string; row: AnalysisMarketRow }> {
   const rows = flattenMarketRows(match);
-  if (!signal) return rows;
+  // Con panorama v3.2 los mercados ya traen la probabilidad publicada: no se recalculan.
+  if (!signal || signal.outlookDriven) return rows;
   const { home, draw, away } = signal.probs;
   const doubleChance: Record<string, number> = { "1x": home + draw, x2: draw + away, "12": home + away };
   const isNfl = match.sport === "american-football" || match.league === "nfl";
@@ -609,6 +610,7 @@ export function buildPlatformDataset(inputs: readonly RawLeagueInput[]): Platfor
         kickoffUtc: m.kickoffUtc,
         kickoffLocal: m.kickoffLocal,
         venue: m.venue,
+        neutralSite: m.neutralSite,
         status: m.status,
         score: m.score,
         home: {
@@ -633,6 +635,10 @@ export function buildPlatformDataset(inputs: readonly RawLeagueInput[]): Platfor
         },
         confidenceScore: confScore,
         confidenceLevel: confLevel,
+        confidenceDetail: {
+          reasons: m.confidence?.reasons ?? [],
+          factors: m.confidence?.factors ?? [],
+        },
         picks: buildFiveMatchPicks(m, signal),
         preGame: buildPreGameIntel(m, signal),
         markets: buildPlatformMarkets(m, signal),

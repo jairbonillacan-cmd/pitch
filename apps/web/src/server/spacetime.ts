@@ -39,7 +39,7 @@ const artifacts = {
 } as unknown as LiveInferenceArtifacts;
 
 /** Liga de la app → liga en la matriz de v3.0. */
-const LEAGUE_TO_V3: Readonly<Record<string, string>> = {
+export const LEAGUE_TO_V3: Readonly<Record<string, string>> = {
   "premier-league": "epl",
 };
 
@@ -118,7 +118,7 @@ function aliasTokens(raw: string): string[] {
  * Parecido entre dos nombres: 0 si las palabras distintivas del más corto no están todas en
  * el otro; si lo están, la fracción del más largo que cubren (1 = mismos nombres).
  */
-function teamScore(a: string, b: string): number {
+export function teamScore(a: string, b: string): number {
   const ta = aliasTokens(a);
   const tb = aliasTokens(b);
   if (ta.length === 0 || tb.length === 0) return 0;

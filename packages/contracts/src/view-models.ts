@@ -54,6 +54,8 @@ export interface MatchAnalysis {
   kickoffUtc: string;
   kickoffLocal: string;
   venue: string;
+  /** Sede neutral: ningún equipo juega en casa. */
+  neutralSite?: boolean;
   status: "NS" | "FT" | "LIVE";
   scheduleStatus?: GameDTO["status"];
   score?: {
@@ -446,6 +448,7 @@ export function snapshotToMatchAnalyses(snapshot: LeagueSnapshot): {
       kickoffUtc: normalizedUtc,
       kickoffLocal,
       venue: g.venue ?? (isNfl ? "Estadio NFL" : "Estadio"),
+      neutralSite: g.neutralSite,
       status: g.status === "final" ? "FT" : g.status === "in_progress" ? "LIVE" : "NS",
       scheduleStatus: g.status,
       score: g.result ? { home: g.result.home, away: g.result.away } : undefined,

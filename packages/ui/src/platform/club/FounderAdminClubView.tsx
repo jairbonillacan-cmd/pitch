@@ -458,7 +458,7 @@ export function FounderAdminClubView({
                 {totalActiveReferrals}
               </strong>
               <span className="block text-xs" style={{ color: "var(--pl-text-muted)" }}>
-                Tipsters (25 %) + Doble Vía (+15d)
+                Tipsters (25 %) + Doble Vía (+7d)
               </span>
             </div>
 

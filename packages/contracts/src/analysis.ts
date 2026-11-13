@@ -57,6 +57,18 @@ export interface AnalysisConfidence {
   score: number;
   level: "alta" | "media" | "baja";
   reasons: string[];
+  /** Desglose del índice (0–1 por factor y su peso) para explicarlo en la app. */
+  factors?: ConfidenceFactor[];
+}
+
+export interface ConfidenceFactor {
+  key: "favorite" | "coverage" | "sample";
+  label: string;
+  /** 0 a 1: qué tanto aporta el factor. */
+  value: number;
+  /** Peso dentro del índice (suman 1). */
+  weight: number;
+  detail: string;
 }
 
 export interface HeadToHeadRow {

@@ -16,6 +16,9 @@ export default defineConfig({
   use: {
     baseURL: "http://127.0.0.1:3100",
     trace: "retain-on-failure",
+    // Sin este permiso, Chromium rechaza a veces navigator.clipboard.writeText cuando la
+    // página no tiene el foco (pasa bajo carga) y las pruebas de «Copiado» fallan al azar.
+    permissions: ["clipboard-read", "clipboard-write"],
   },
   projects: [
     {

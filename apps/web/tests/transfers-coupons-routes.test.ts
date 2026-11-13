@@ -2,6 +2,7 @@ import { PGlite } from "@electric-sql/pglite";
 import { drizzle } from "drizzle-orm/pglite";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from "vitest";
 import {
+  REFERRAL_REWARD_DAYS,
   adminAuditLogs,
   applyMigrations,
   authUser,
@@ -421,13 +422,13 @@ describe("Beta 1.0 · Endpoints SPEI, cupones, preferencias, tipster y cron", ()
     expect(friendPlanJson.active).toBe(true);
     expect(friendPlanJson.planState).toBe("mensual");
     expect(friendPlanJson.accessSourceKind).toBe("referral_friend_15d");
-    expect(friendPlanJson.trialDaysRemaining).toBeGreaterThanOrEqual(44);
+    expect(friendPlanJson.trialDaysRemaining).toBeGreaterThanOrEqual(30 + REFERRAL_REWARD_DAYS - 1);
     expect(friendPlanJson.transferHistory[0]?.status).toBe("approved");
 
     const hostPlan = await getPlan(new Request(`${ORIGIN}/api/me/plan`, { headers: { cookie: host.cookieHeader } }));
     const hostPlanJson = (await hostPlan.json()) as { active: boolean; earnedDays: number };
     expect(hostPlanJson.active).toBe(true);
-    expect(hostPlanJson.earnedDays).toBe(15);
+    expect(hostPlanJson.earnedDays).toBe(REFERRAL_REWARD_DAYS);
   });
 
   it("cupones: admin CRUD, prioridad ya_canjeado > agotado en preview, canje atómico 200/409 y límite 429", async () => {

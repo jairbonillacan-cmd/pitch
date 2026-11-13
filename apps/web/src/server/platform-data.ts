@@ -14,6 +14,7 @@ import {
 import { paymentMode } from "./billing/payment-mode";
 import { getViewerAccess } from "./viewer-access";
 import { buildSpacetimeSignals } from "./spacetime";
+import { applyOutlook, outlookDetailFor } from "./outlook";
 import {
   createDb,
   eq,
@@ -115,6 +116,14 @@ function buildServerRawPlatformDatasetUncached(): PlatformDataset {
   for (const leagueKey of PRODUCT_LEAGUES) {
     const env = envelopes[leagueKey];
     if (env?.data) {
+      // Panorama v3.2: los partidos por jugar que estén en el snapshot del motor toman sus
+      // probabilidades y mercados (Inicio, Picks, parlays y landing leen de aquí).
+      const signals = buildSpacetimeSignals(env.data.games);
+      const games = env.data.games.map((g) => {
+        const applied = applyOutlook(g, signals[g.id] ?? null);
+        if (applied.signal) signals[g.id] = applied.signal;
+        return applied.match;
+      });
       inputs.push({
         league: env.data.league,
         leagueLabel: env.data.leagueLabel,
@@ -122,9 +131,9 @@ function buildServerRawPlatformDatasetUncached(): PlatformDataset {
         season: env.data.season,
         roundLabel: env.data.roundLabel,
         generatedAt: env.data.generatedAt,
-        games: env.data.games,
+        games,
         standings: env.data.standings,
-        spacetime: buildSpacetimeSignals(env.data.games),
+        spacetime: signals,
       });
     }
   }
@@ -197,7 +206,14 @@ export async function loadGameDetail(gameId: string): Promise<PlatformGameDetail
   if (!hasSession && game.status !== "FT") {
     return { markets: [], headToHead: game.headToHead, factors: [] };
   }
-  return { markets: game.markets, headToHead: game.headToHead, factors: game.factors };
+  // Partido por jugar en el panorama v3.2: sus mercados y su resumen reemplazan a los del snapshot.
+  const v32 = game.status !== "FT" ? outlookDetailFor(game) : null;
+  return {
+    markets: v32?.markets ?? game.markets,
+    headToHead: game.headToHead,
+    factors: game.factors,
+    outlook: v32?.outlook ?? null,
+  };
 }
 
 /** Acceso completo: PIN de la beta o cuenta con registro completo y Pase vigente. */

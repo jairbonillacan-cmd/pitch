@@ -1,10 +1,40 @@
 "use client";
 
 import React, { useEffect, useId, useRef, useState, useSyncExternalStore } from "react";
-import { Button, Drawer, Input, Label, Modal, TextArea, TextField } from "@heroui/react";
+import { Button, Drawer, Input, Label, Modal, Switch, TextArea, TextField } from "@heroui/react";
 import { containsExternalLink, MAX_PROFILE_BIO_LENGTH, profileBioLength } from "@pitchlab/contracts";
 import { normalizeSignupHandle, useHandleAvailability } from "../public/use-handle-availability";
+import type { LeagueId } from "@pitchlab/contracts";
+import { LeagueBadge } from "../../sports";
 import { Avatar } from "./community-ui";
+
+/** Ligas que se pueden marcar como favoritas, agrupadas por deporte. */
+const FAVORITE_GROUPS: ReadonlyArray<{ sport: string; leagues: ReadonlyArray<{ id: LeagueId; label: string }> }> = [
+  {
+    sport: "Fútbol",
+    leagues: [
+      { id: "liga-mx" as LeagueId, label: "Liga MX" },
+      { id: "premier-league" as LeagueId, label: "Premier League" },
+      { id: "laliga" as LeagueId, label: "LaLiga" },
+      { id: "bundesliga" as LeagueId, label: "Bundesliga" },
+      { id: "serie-a" as LeagueId, label: "Serie A" },
+      { id: "ligue-1" as LeagueId, label: "Ligue 1" },
+    ],
+  },
+  { sport: "Fútbol americano", leagues: [{ id: "nfl" as LeagueId, label: "NFL" }] },
+];
+
+interface ProfilePrivacy {
+  favoriteLeagues: string[];
+  publicRecordVisible: boolean;
+  showInRanking: boolean;
+}
+
+const DEFAULT_PRIVACY: ProfilePrivacy = {
+  favoriteLeagues: ["liga-mx", "nfl", "premier-league"],
+  publicRecordVisible: true,
+  showInRanking: true,
+};
 
 export interface EditableProfile {
   displayName: string;
@@ -82,6 +112,8 @@ export function EditProfileDialog({
   const [removePhoto, setRemovePhoto] = useState(false);
   const [error, setError] = useState("");
   const [saveIssue, setSaveIssue] = useState("");
+  const [privacy, setPrivacy] = useState<ProfilePrivacy>(DEFAULT_PRIVACY);
+  const [privacyLoaded, setPrivacyLoaded] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const id = useId();
 
@@ -131,6 +163,36 @@ export function EditProfileDialog({
     setError("");
     setSaveIssue("");
     setOpen(true);
+    // Ligas favoritas y privacidad viven en las preferencias del servidor.
+    setPrivacyLoaded(false);
+    fetch("/api/me/preferences", { credentials: "same-origin" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data: ({ preferences?: Partial<ProfilePrivacy> } & Partial<ProfilePrivacy>) | null) => {
+        const p = data?.preferences ?? data;
+        if (p) {
+          setPrivacy({
+            favoriteLeagues:
+              Array.isArray(p.favoriteLeagues) && p.favoriteLeagues.length > 0
+                ? p.favoriteLeagues
+                : DEFAULT_PRIVACY.favoriteLeagues,
+            publicRecordVisible: p.publicRecordVisible ?? true,
+            showInRanking: p.showInRanking ?? true,
+          });
+        }
+      })
+      .catch(() => undefined)
+      .finally(() => setPrivacyLoaded(true));
+  };
+
+  const toggleLeague = (league: string) => {
+    setPrivacy((prev) => {
+      const has = prev.favoriteLeagues.includes(league);
+      if (has && prev.favoriteLeagues.length === 1) return prev;
+      return {
+        ...prev,
+        favoriteLeagues: has ? prev.favoriteLeagues.filter((l) => l !== league) : [...prev.favoriteLeagues, league],
+      };
+    });
   };
 
   const handleSelectAvatar = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -205,6 +267,18 @@ export function EditProfileDialog({
       });
       if (response.ok) {
         const patched = (await response.json()) as EditableProfile;
+        if (privacyLoaded) {
+          const prefRes = await fetch("/api/me/preferences", {
+            method: "PUT",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify(privacy),
+          });
+          if (!prefRes.ok) {
+            setError("Guardamos tu perfil, pero no tus ligas ni tu privacidad. Intenta de nuevo.");
+            onChange({ ...patched, avatarUrl: patched.avatarUrl !== undefined ? patched.avatarUrl : nextAvatarUrl });
+            return;
+          }
+        }
         onChange({
           ...patched,
           avatarUrl: patched.avatarUrl !== undefined ? patched.avatarUrl : nextAvatarUrl,
@@ -326,6 +400,82 @@ export function EditProfileDialog({
           <span className="num">{bioLength}/{MAX_PROFILE_BIO_LENGTH}</span>
         </div>
       </TextField>
+
+      <section className="pl-profile-editor-section" aria-labelledby={`${id}-leagues`}>
+        <h3 id={`${id}-leagues`}>Ligas y deportes favoritos</h3>
+        <p className="pl-profile-editor-hint">Se muestran en tu perfil y ordenan tu Inicio. Elige al menos una.</p>
+        {FAVORITE_GROUPS.map((group) => (
+          <div key={group.sport} className="pl-profile-editor-leagues" role="group" aria-label={group.sport}>
+            <span className="pl-profile-editor-sport">{group.sport}</span>
+            <div className="pl-profile-editor-chips">
+              {group.leagues.map((l) => {
+                const on = privacy.favoriteLeagues.includes(l.id);
+                return (
+                  <button
+                    key={l.id}
+                    type="button"
+                    className={`pl-profile-editor-chip ${on ? "is-on" : ""}`.trim()}
+                    aria-pressed={on}
+                    disabled={pending || !privacyLoaded}
+                    onClick={() => toggleLeague(l.id)}
+                  >
+                    <LeagueBadge league={l.id} label={l.label} size={16} />
+                    <span>{l.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        ))}
+      </section>
+
+      <section className="pl-profile-editor-section" aria-labelledby={`${id}-privacy`}>
+        <h3 id={`${id}-privacy`}>Privacidad</h3>
+        <div className="pl-profile-editor-toggle">
+          <div>
+            <strong id={`${id}-public`}>Perfil público</strong>
+            <span id={`${id}-public-desc`}>
+              {privacy.publicRecordVisible
+                ? "Cualquier socio puede ver tu récord y tus publicaciones."
+                : "Tu récord y tus publicaciones solo los ves tú."}
+            </span>
+          </div>
+          <Switch
+            aria-labelledby={`${id}-public`}
+            aria-describedby={`${id}-public-desc`}
+            isSelected={privacy.publicRecordVisible}
+            isDisabled={pending || !privacyLoaded}
+            onChange={(next) =>
+              setPrivacy((prev) => ({ ...prev, publicRecordVisible: next, showInRanking: next ? prev.showInRanking : false }))
+            }
+          >
+            <Switch.Control className="pl-acct-switch-control">
+              <Switch.Thumb className="pl-acct-switch-thumb" />
+            </Switch.Control>
+          </Switch>
+        </div>
+        <div className="pl-profile-editor-toggle">
+          <div>
+            <strong id={`${id}-ranking`}>Aparecer en los rankings</strong>
+            <span id={`${id}-ranking-desc`}>
+              {privacy.publicRecordVisible
+                ? "Comparte tu récord para entrar a las tablas de la comunidad."
+                : "Necesitas un perfil público para aparecer en los rankings."}
+            </span>
+          </div>
+          <Switch
+            aria-labelledby={`${id}-ranking`}
+            aria-describedby={`${id}-ranking-desc`}
+            isSelected={privacy.showInRanking}
+            isDisabled={pending || !privacyLoaded || !privacy.publicRecordVisible}
+            onChange={(next) => setPrivacy((prev) => ({ ...prev, showInRanking: next }))}
+          >
+            <Switch.Control className="pl-acct-switch-control">
+              <Switch.Thumb className="pl-acct-switch-thumb" />
+            </Switch.Control>
+          </Switch>
+        </div>
+      </section>
 
       <section className="pl-profile-editor-accounts" aria-labelledby={`${id}-accounts`}>
         <h3 id={`${id}-accounts`}>Cuentas conectadas</h3>

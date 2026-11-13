@@ -54,8 +54,11 @@ export async function loadLandingViewProps(): Promise<{
   parlayDemo: LandingParlayDemoData;
   featuredPick: LandingFeaturedCommunityPick;
 }> {
-  const dataset = redactDatasetForVisitor(buildServerRawPlatformDataset());
-  const allHeroCards = buildHeroLeagueCards(dataset.games, dataset.leagues);
+  const raw = buildServerRawPlatformDataset();
+  const dataset = redactDatasetForVisitor(raw);
+  // Las tarjetas del hero publican solo el 1X2 y 3 mercados: se arman con los mercados reales
+  // (panorama v3.2) en vez de aproximarlos desde x12. Lo demás sigue redactado.
+  const allHeroCards = buildHeroLeagueCards(raw.games, raw.leagues);
   const heroCards = selectHeroMainCards(allHeroCards);
   const finished = await loadFinishedGames();
   const recentResults = buildFinishedResultItems(finished, 4).slice(0, 4);
@@ -76,9 +79,9 @@ export async function loadLandingViewProps(): Promise<{
 export async function loadComoFuncionaViewProps(): Promise<{
   heroCards: LandingHeroLeagueCard[];
 }> {
-  const dataset = redactDatasetForVisitor(buildServerRawPlatformDataset());
+  const raw = buildServerRawPlatformDataset();
   return {
-    heroCards: buildHeroLeagueCards(dataset.games, dataset.leagues),
+    heroCards: buildHeroLeagueCards(raw.games, raw.leagues),
   };
 }
 

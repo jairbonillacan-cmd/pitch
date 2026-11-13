@@ -335,6 +335,19 @@ const FS_SRC = `
       roughness = mix(roughness, 0.13, laserEtch);
       specScale = mix(specScale, 0.90, laserEtch);
       anisoWeight = mix(anisoWeight, 0.15, laserEtch);
+
+      // «ULTRA» holográfico (canal R del frente): el tono recorre el arcoíris con la
+      // inclinación de la tarjeta, el puntero y el barrido de entrada.
+      float ultraMask = isFront ? clamp(tex.r, 0.0, 1.0) * faceWeight : 0.0;
+      if (ultraMask > 0.001) {
+        float hue = fract(uvFront.x * 1.4 + uvFront.y * 0.7 + dot(uPointer, vec2(0.45, 0.3)) + uPrismMotion * 0.2 + uIntroSweep * 0.6);
+        vec3 holo = clamp(abs(fract(hue + vec3(0.0, 2.0 / 3.0, 1.0 / 3.0)) * 6.0 - 3.0) - 1.0, 0.0, 1.0);
+        holo = mix(vec3(0.92), holo, 0.82);
+        baseMetal = mix(baseMetal, holo, ultraMask);
+        roughness = mix(roughness, 0.10, ultraMask);
+        specScale = mix(specScale, 1.05, ultraMask);
+        anisoWeight = mix(anisoWeight, 0.10, ultraMask);
+      }
     }
 
     float edgeBevel = 1.0 - smoothstep(0.22, 0.84, abs(nLocal.z));
@@ -654,11 +667,23 @@ function createCardPOTCanvas(
   if (side === "front") {
     drawPitchLabHorizontal(ctx, 158, 134, 2.48, "rgb(0, 0, 255)");
 
-    ctx.fillStyle = "rgb(0, 0, 255)";
     ctx.font = `700 94px ${sysFont}`;
-    ctx.textAlign = "right";
     ctx.textBaseline = "middle";
-    ctx.fillText(opts.tierLabel, VW - 158, 214);
+    if (/^ULTRA/.test(opts.tierLabel)) {
+      // «ULTRA» va en el canal rojo: el shader lo pinta con arcoíris holográfico.
+      const rest = opts.tierLabel.slice(5);
+      const total = ctx.measureText(opts.tierLabel).width;
+      const x0 = VW - 158 - total;
+      ctx.textAlign = "left";
+      ctx.fillStyle = "rgb(255, 0, 0)";
+      ctx.fillText("ULTRA", x0, 214);
+      ctx.fillStyle = "rgb(0, 0, 255)";
+      ctx.fillText(rest, x0 + ctx.measureText("ULTRA").width, 214);
+    } else {
+      ctx.fillStyle = "rgb(0, 0, 255)";
+      ctx.textAlign = "right";
+      ctx.fillText(opts.tierLabel, VW - 158, 214);
+    }
 
     ctx.textAlign = "left";
     ctx.textBaseline = "alphabetic";

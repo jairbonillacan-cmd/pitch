@@ -6,8 +6,10 @@ import { TeamBadge } from "../../sports";
 import { formatOddsValue } from "../access-guard";
 import { LensGlowOrbs, MaestroIcon } from "../components/MaestroPrimitives";
 import { MatchTicketCard } from "../components/MatchTicketCard";
+import { WinningTicketDialog } from "../components/WinningTicketDialog";
 import { AtmosphereStage, ClubWorkspaceShell } from "../components/ShellChrome";
 import { ownHandleFor, usePlatform } from "../platform-provider";
+import type { JournalEntry } from "../types";
 import { formatUnitsAsMxn } from "./account/account-helpers";
 
 export function BitacoraClubView(): React.JSX.Element {
@@ -29,6 +31,7 @@ export function BitacoraClubView(): React.JSX.Element {
   } = usePlatform();
 
   const [publicRecordVisible, setPublicRecordVisible] = useState<boolean>(true);
+  const [winningEntry, setWinningEntry] = useState<JournalEntry | null>(null);
 
   const stats = useMemo(() => {
     let netUnits = 0;
@@ -388,10 +391,10 @@ export function BitacoraClubView(): React.JSX.Element {
                     <td className="py-3 pl-2 text-right">
                       <button
                         type="button"
-                        className="pl-btn-glass px-2.5 min-h-8 text-xs"
+                        className={`${item.status === "won" ? "pl-btn-primary" : "pl-btn-glass"} px-2.5 min-h-8 text-xs inline-flex items-center`}
                         aria-label={`Compartir boleto ${item.pickLabel}`}
                         onClick={() =>
-                          openShareTicket({
+                          item.status === "won" ? setWinningEntry(item) : openShareTicket({
                             kind: "pick",
                             title: item.matchLabel,
                             subtitle: `${item.leagueLabel} · Bitácora PitchLab`,
@@ -407,6 +410,7 @@ export function BitacoraClubView(): React.JSX.Element {
                         }
                       >
                         <MaestroIcon name="share" size={13} />
+                        {item.status === "won" ? <span className="ml-1">Boleto</span> : null}
                       </button>
                     </td>
                   </tr>
@@ -501,6 +505,7 @@ export function BitacoraClubView(): React.JSX.Element {
             </div>
           ) : null}
         </section>
+        <WinningTicketDialog entry={winningEntry} onClose={() => setWinningEntry(null)} />
       </ClubWorkspaceShell>
     </AtmosphereStage>
   );

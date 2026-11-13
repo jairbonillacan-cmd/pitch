@@ -231,20 +231,52 @@ export function redactDatasetForVisitor(
   };
 }
 
+/** Quién ve la pantalla, para la marca contra filtraciones. */
+export interface WatermarkIdentity {
+  handle: string;
+  /** Código único del socio (su código de invitación); sirve de huella. */
+  referralCode?: string | null;
+}
+
+/**
+ * Marca de la sesión: `@usuario · CÓDIGO` con cuenta. Con el PIN de la beta no hay
+ * identidad, así que la marca solo dice que es una vista de socio.
+ */
 export function getSessionWatermark(
   viewerRole: ViewerRole,
-  handle: string = "socio_pl",
+  identity: WatermarkIdentity | null = null,
 ): string {
-  if (viewerRole === "visitor") {
-    return "PITCHLAB · VISTA PREVIA";
+  if (viewerRole === "visitor") return "PITCHLAB · VISTA PREVIA";
+  if (identity) {
+    const code = identity.referralCode?.trim();
+    return code ? `@${identity.handle} · ${code}` : `@${identity.handle}`;
   }
-  if (viewerRole === "tipster") {
-    return `@sofia_nfl · TIPSTER-8842`;
-  }
-  if (viewerRole === "admin") {
-    return `@founder · ADMIN-0001`;
-  }
-  return `@${handle} · PL-8842`;
+  return "PITCHLAB · SOCIO BETA";
+}
+
+const ZW_ZERO = "​";
+const ZW_ONE = "‌";
+const ZW_EDGE = "⁠";
+
+/**
+ * Huella invisible: el texto en binario con caracteres de ancho cero, entre dos separadores.
+ * Viaja con el texto copiado aunque se borre la línea visible de atribución.
+ */
+export function encodeForensicTag(text: string): string {
+  const bits = Array.from(new TextEncoder().encode(text))
+    .map((b) => b.toString(2).padStart(8, "0"))
+    .join("");
+  return ZW_EDGE + bits.replace(/0/g, ZW_ZERO).replace(/1/g, ZW_ONE) + ZW_EDGE;
+}
+
+/** Recupera la huella de un texto copiado (o `null` si no trae). */
+export function decodeForensicTag(text: string): string | null {
+  const m = new RegExp(`${ZW_EDGE}([${ZW_ZERO}${ZW_ONE}]+)${ZW_EDGE}`).exec(text);
+  if (!m || m[1]!.length % 8 !== 0) return null;
+  const bits = m[1]!.replace(new RegExp(ZW_ZERO, "g"), "0").replace(new RegExp(ZW_ONE, "g"), "1");
+  const bytes = new Uint8Array(bits.length / 8);
+  for (let i = 0; i < bytes.length; i++) bytes[i] = parseInt(bits.slice(i * 8, i * 8 + 8), 2);
+  return new TextDecoder().decode(bytes);
 }
 
 export { containsExternalLink, isDisposableEmailDomain, normalizeTrialEmail } from "@pitchlab/contracts";

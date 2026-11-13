@@ -180,9 +180,9 @@ test.describe("Beta 1.0 · /canjear, /precio, Mi cuenta SPEI, cero 401 con PIN y
     await expect(page.locator("#pl-acct-tab-prefs")).toHaveAttribute("aria-selected", "true");
     await assertNoHorizontalOverflow(page, "/app/account?tab=prefs");
 
+    // Facturación apagada en la beta: ?tab=cfdi cae en «Mi plan».
     await page.goto("/app/account?tab=cfdi");
-    await expect(page.locator("#pl-acct-tab-cfdi")).toHaveAttribute("aria-selected", "true");
-    await expect(page.locator("body")).toContainText("Factura CFDI 4.0 bajo solicitud por correo");
+    await expect(page.locator("#pl-acct-tab-plan")).toHaveAttribute("aria-selected", "true");
     await assertNoHorizontalOverflow(page, "/app/account?tab=cfdi");
 
     // /app/tipster sin "tipstar" ni overflow

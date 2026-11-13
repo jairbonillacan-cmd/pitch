@@ -13,6 +13,7 @@ import { SegmentedControl, SegmentedControlItem } from "@astryxdesign/core/Segme
 import { AstryxScope } from "../../astryx";
 import { BrandLogo, ThemeToggle } from "../../primitives";
 import { LeagueBadge } from "../../sports";
+import { encodeForensicTag, getSessionWatermark } from "../access-guard";
 import { formatUnits, profileRecord } from "../profile-stats";
 import { ownHandleFor, useAuraColors, usePlatform } from "../platform-provider";
 import type { OddsFormat } from "../types";
@@ -231,7 +232,7 @@ function FloatingQuickJumpBar({
       { id: "landing", label: "1. Landing", href: "/" },
       { id: "signup", label: "2. Acceso $0", href: "/signup" },
       { id: "jornada", label: "3. Jornada", href: "/app" },
-      { id: "picks", label: "4. Picks del día", href: "/app/picks" },
+      { id: "picks", label: "4. Buscar picks", href: "/app/picks" },
       { id: "studio", label: "5. Estudio de Partido", href: firstStudioHref },
       { id: "parlays", label: "6. Parlays", href: "/app/parlays" },
       { id: "props", label: "7. Props", href: "/app/props" },
@@ -698,6 +699,47 @@ function ClubFooter(): React.JSX.Element {
   );
 }
 
+/**
+ * Protección contra filtraciones del Club, en dos capas:
+ * 1. Trama diagonal muy tenue con `@usuario · CÓDIGO` sobre toda la pantalla: no tapa la
+ *    lectura y no se quita recortando una esquina de la captura.
+ * 2. Al copiar texto, se agrega la atribución y una huella invisible con el mismo código.
+ */
+function ClubWatermarkLayer({ label, handle }: { label: string; handle: string | null }): React.JSX.Element {
+  useEffect(() => {
+    const onCopy = (e: ClipboardEvent) => {
+      const selection = window.getSelection()?.toString() ?? "";
+      if (selection.trim().length < 12 || !e.clipboardData) return;
+      const anchor = window.getSelection()?.anchorNode;
+      const el = anchor instanceof Element ? anchor : anchor?.parentElement;
+      if (!el?.closest("#main") || el.closest("input, textarea, [contenteditable='true']")) return;
+      const credit = handle ? `\n\n— Visto en PitchLab por ${handle}` : "\n\n— Visto en PitchLab";
+      e.clipboardData.setData("text/plain", `${selection}${credit}${encodeForensicTag(label)}`);
+      e.preventDefault();
+    };
+    document.addEventListener("copy", onCopy);
+    return () => document.removeEventListener("copy", onCopy);
+  }, [label, handle]);
+
+  const tile = useMemo(() => {
+    const safe = label.replace(/[<&>"']/g, "");
+    const svg =
+      `<svg xmlns="http://www.w3.org/2000/svg" width="360" height="200">` +
+      `<text x="0" y="110" transform="rotate(-22 180 100)" font-family="Inter, system-ui, sans-serif" ` +
+      `font-size="13" font-weight="700" letter-spacing="1" fill="black">${safe}</text></svg>`;
+    return `url("data:image/svg+xml;utf8,${encodeURIComponent(svg)}")`;
+  }, [label]);
+
+  return (
+    <div
+      className="pl-club-watermark"
+      aria-hidden="true"
+      data-watermark={label}
+      style={{ "--pl-wm-tile": tile } as React.CSSProperties}
+    />
+  );
+}
+
 function ClubWorkspaceShellImpl({
   activePath,
   children,
@@ -844,8 +886,8 @@ function ClubWorkspaceShellImpl({
   const railGroups: RailNavGroup[] = useMemo(() => {
     // Cuenta, «Cómo calculamos», Portal tipster y Consola viven en el menú del perfil.
     const explore: RailNavItem[] = [
-      { href: "/app/picks", label: "Picks del día", icon: "sparkles" },
-      { href: "/app/momios", label: "Momios y ventaja", icon: "activity" },
+      { href: "/app/picks", label: "Buscar picks", icon: "search" },
+      { href: "/app/momios", label: "Compara tu momio", icon: "activity" },
       { href: "/app/props", label: "Props de jugadores", icon: "sliders" },
       { href: "/app/historial", label: "Resultados", icon: "shield" },
     ];
@@ -876,6 +918,12 @@ function ClubWorkspaceShellImpl({
 
   return (
     <>
+      {viewerRole === "visitor" ? null : (
+        <ClubWatermarkLayer
+          label={getSessionWatermark(viewerRole, viewerIdentity)}
+          handle={viewerIdentity ? `@${viewerIdentity.handle}` : null}
+        />
+      )}
       <header className="panel-header sticky top-0 z-30 glass-nav-surface">
         <div className="max-w-[1440px] lg:max-w-none mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-2.5">
           {/* Izquierda: Logo a / + Buscador inline + Selector de Rol */}

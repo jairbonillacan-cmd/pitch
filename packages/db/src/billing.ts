@@ -31,7 +31,7 @@ export type GrantSourceKind =
   | "coupon";
 
 const DAY_MS = 86_400_000;
-export const REFERRAL_REWARD_DAYS = 15;
+export const REFERRAL_REWARD_DAYS = 7;
 export const AMBASSADOR_BONUS_DAYS = 30;
 export const AMBASSADOR_THRESHOLD = 5;
 export const MIN_QUALIFYING_PAID_CENTAVOS = 15_000;
@@ -137,7 +137,7 @@ export interface InvoicePaidResult {
 /**
  * Efectos de un cobro liquidado (`invoice.paid` o transferencia aprobada) usando una
  * transacción existente (`t`), para componer con aprobaciones SPEI o webhooks de Stripe:
- * 1. Referido doble vía: el primer cobro ≥ $150 MXN del invitado da +15 días a ambos; el 5.º
+ * 1. Referido doble vía: el primer cobro ≥ $150 MXN del invitado da +7 días a ambos; el 5.º
  *    amigo pagado del anfitrión le da +30 días extra una sola vez.
  * 2. Tipster: asiento de comisión sobre el neto, liquidable a los 14 días.
  */

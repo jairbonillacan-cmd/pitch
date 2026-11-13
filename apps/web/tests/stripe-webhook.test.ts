@@ -2,6 +2,7 @@ import { PGlite } from "@electric-sql/pglite";
 import { drizzle } from "drizzle-orm/pglite";
 import { beforeEach, describe, expect, it } from "vitest";
 import {
+  REFERRAL_REWARD_DAYS,
   accessUntil,
   applyMigrations,
   referralGrants,
@@ -83,7 +84,7 @@ describe("eventos de Stripe", () => {
     };
     expect(await processStripeEvent(db, invoiceEvent, deps)).toContain("referido=true");
     expect(await processStripeEvent(db, invoiceEvent, deps)).toBe("evento repetido: sin cambios");
-    expect((await accessUntil(db, host!.id, now))!.getTime()).toBe(now.getTime() + 15 * 86_400_000);
+    expect((await accessUntil(db, host!.id, now))!.getTime()).toBe(now.getTime() + REFERRAL_REWARD_DAYS * 86_400_000);
     const ledger = await db.select().from(tipsterCommissionLedger);
     expect(ledger).toHaveLength(1);
     expect(ledger[0]!.commissionCentavosMxn).toBe(6069);

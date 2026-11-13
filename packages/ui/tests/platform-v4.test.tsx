@@ -404,7 +404,7 @@ describe("PitchLab Spacetime Suite v3.0 & Liquid Glass Platform v4", () => {
     expect(landingAndMenuHtml).toContain("+100,000");
     expect(landingAndMenuHtml).toContain("Partidos históricos en los motores");
     expect(landingAndMenuHtml).toContain("16,126");
-    expect(landingAndMenuHtml).toContain("los dos suman 15 días");
+    expect(landingAndMenuHtml).toContain("los dos suman 7 días");
 
     const forbiddenPublicPhrases = [
       "Primer mes gratis",
@@ -420,7 +420,7 @@ describe("PitchLab Spacetime Suite v3.0 & Liquid Glass Platform v4", () => {
 
     expect(tipsterPickHtml).toContain("data-locked-pick");
     expect(clubHtml).toContain("Cortex IA");
-    expect(clubHtml).toContain("los dos reciben +15 días");
+    expect(clubHtml).toContain("los dos reciben +7 días");
     // Tipsters y comunidad de demostración siempre van marcados como ejemplo
     // (SOCIAL-2: cada publicación de ejemplo lleva su ficha «Ejemplo»).
     expect(clubHtml).toContain("data-example-badge");

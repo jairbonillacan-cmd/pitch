@@ -186,6 +186,9 @@ const derivedAndLightCss = `
   --engine-geodesic: #FBBF24;
   --engine-cortex: #F9A8D4;
 
+  /* Colores de marca de redes sociales (solo para sus logotipos) */
+  --social-whatsapp: #25D366;
+
   /* Boleto exportable 4:5 / 9:16 (siempre estética nocturna editorial) */
   --share-card-bg: #07070A;
   --share-card-surface: rgba(255, 255, 255, 0.06);
@@ -363,6 +366,7 @@ const derivedAndLightCss = `
   --engine-minkowski: #065F46;
   --engine-geodesic: #92400E;
   --engine-cortex: #9D174D;
+  --social-whatsapp: #128C3E;
 }
 `;
 

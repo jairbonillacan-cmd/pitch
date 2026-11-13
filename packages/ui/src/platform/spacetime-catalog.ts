@@ -196,7 +196,7 @@ export const MEMBERSHIP_SPEC = {
   referralTrialDays: 7,
   referralFriendFirstMonthMxn: 209,
   referralFriendBenefit: "7 días gratis + 30 % de descuento en su primer mes ($209 MXN)",
-  referralBothRewardDays: 15,
+  referralBothRewardDays: 7,
   referralAmbassadorThreshold: 5,
   referralAmbassadorBonusDays: 30,
   cfdiNote: "IVA incluido · Factura CFDI 4.0 bajo solicitud por correo",

@@ -673,9 +673,6 @@ export function PublicSharedPickSurface({
                           {matchedCreator ? "PICK ABIERTO DE LA SEMANA" : "PICK COMPARTIDO"}
                         </span>
                       </span>
-                      <span className="num font-bold" style={{ color: "var(--share-card-muted)" }}>
-                        Sugerencia {unlockedPick.suggestedUnits.toFixed(1)}u
-                      </span>
                     </div>
 
                     <p className="m-0 text-xl sm:text-2xl font-extrabold tracking-tight">

@@ -180,7 +180,7 @@ async function syncSubscription(
 }
 
 /**
- * Iguala la fecha del siguiente cobro en Stripe con el fin de los días ganados. Así los +15 días
+ * Iguala la fecha del siguiente cobro en Stripe con el fin de los días ganados. Así los +7 días
  * del referido (o el bono de embajador) también le sirven a quien ya paga: Stripe recorre su
  * renovación sin cobrar ni prorratear. Es idempotente: siempre fija la misma fecha.
  */
